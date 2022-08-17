@@ -56,7 +56,8 @@ function InspectAndBuyControllerBar:render()
 	end
 
 	return Roact.createElement(Roact.Portal, {
-		target = CoreGui,
+		-- LUAU FIXME: Need read-write syntax for props to obviate the need for this cast
+		target = CoreGui :: Instance,
 	}, {
 		InspectAndBuyControllerBar = Roact.createElement("ScreenGui", {
 			DisplayOrder = 1,

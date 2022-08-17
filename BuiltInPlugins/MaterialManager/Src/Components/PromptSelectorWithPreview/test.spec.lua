@@ -7,10 +7,10 @@ local PromptSelectorWithPreview = require(script.Parent)
 return function()
 	local hasSelection = false
 	local imageId = ""
+	local isTempId = false
 	local promptSelection = function() end
 	local urlSelection = function(searchUrl: string?) end
 	local borderColorUrlBool = false
-	local borderColorFileBool = false
 	local clearSelection = function() end
 	local onFocusLost = function() end
 
@@ -18,10 +18,10 @@ return function()
 		props = props or {
 			HasSelection = hasSelection,
 			ImageId = imageId,
+			IsTempId = isTempId,
 			PromptSelection = promptSelection,
 			UrlSelection = urlSelection,
 			BorderColorUrlBool = borderColorUrlBool,
-			BorderColorFileBool = borderColorFileBool,
 			ClearSelection = clearSelection,
 			OnFocusLost = onFocusLost,
 		}
@@ -42,10 +42,10 @@ return function()
 		local element = createTestElement({
 			HasSelection = true,
 			ImageId = "rbxasset://textures/MaterialManager/Create_New_Variant.png",
+			IsTempId = true,
 			PromptSelection = promptSelection,
 			UrlSelection = urlSelection,
 			BorderColorUrlBool = true,
-			BorderColorFileBool = true,
 			ClearSelection = clearSelection,
 			OnFocusLost = onFocusLost,
 		})

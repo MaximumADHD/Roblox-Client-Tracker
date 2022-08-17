@@ -1,3 +1,4 @@
+--!nonstrict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
@@ -11,8 +12,6 @@ local Modules = CoreGui.RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
 local Promise = require(CorePackages.Promise)
 local utility = require(RobloxGui.Modules.Settings.Utility)
-
-local isSelectionGroupEnabled = require(ShareGame.isSelectionGroupEnabled)
 
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 local GetFFlagShareInviteLinkContextMenuV1Enabled = require(Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
@@ -87,7 +86,7 @@ if GetFFlagShareInviteLinkContextMenuV1Enabled() then
 					self:setState({ serverType = serverType })
 				end)
 		end
-	end	
+	end
 end
 
 function ShareGamePageFrame:render()
@@ -110,10 +109,7 @@ function ShareGamePageFrame:render()
 		toggleSearchIcon = not isDesktop
 	end
 
-	local isVisible = nil
-	if isSelectionGroupEnabled() then
-		isVisible = self.props.isVisible
-	end
+	local isVisible = self.props.isVisible
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,

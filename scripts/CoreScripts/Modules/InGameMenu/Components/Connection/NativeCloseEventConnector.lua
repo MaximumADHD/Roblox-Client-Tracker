@@ -1,5 +1,5 @@
+--!nonstrict
 local GuiService = game:GetService("GuiService")
-local AppStorageService = game:GetService("AppStorageService")
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local CorePackages = game:GetService("CorePackages")
 
@@ -16,8 +16,6 @@ local UserLocalStore = require(InGameMenu.Utility.UserLocalStore)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
 
-local GetFFlagPlayerSpecificPopupCounter = require(InGameMenu.Flags.GetFFlagPlayerSpecificPopupCounter)
-
 local NativeCloseEventConnector = Roact.PureComponent:extend("NativeCloseEventConnector")
 
 NativeCloseEventConnector.validateProps = t.strictInterface({
@@ -31,10 +29,7 @@ function NativeCloseEventConnector:init()
 		if self.props.isEducationalPopupEnabled then
 			RbxAnalyticsService:ReportCounter("LeaveGame_NativeClose", 1)
 
-			local localStore = AppStorageService
-			if GetFFlagPlayerSpecificPopupCounter() then
-				localStore = UserLocalStore.new()
-			end
+			local localStore = UserLocalStore.new()
 			self.props.openEducationalPopup(GuiService, localStore, self.props.maxDisplayCount)
 		end
 

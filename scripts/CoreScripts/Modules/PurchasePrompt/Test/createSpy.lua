@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	A utility used to create a function spy that can be used to robustly test
 	that functions are invoked the correct number of times and with the correct
@@ -6,7 +7,7 @@
 	This should only be used in tests.
 ]]
 
-local function createSpy(inner)
+local function createSpy(inner: any?)
 	local self = {
 		callCount = 0,
 		values = {},

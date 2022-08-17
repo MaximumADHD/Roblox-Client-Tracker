@@ -3,12 +3,21 @@ local MessageBus = require(CorePackages.UniversalApp.MessageBus)
 local Promise = require(CorePackages.Promise)
 local t = require(CorePackages.Packages.t)
 
+local Types = require(script.Parent.LinkingProtocolTypes)
+
+export type LinkingProtocol = Types.LinkingProtocol
+
+export type LinkingProtocolModule = LinkingProtocol & {
+	new: () -> LinkingProtocol,
+	default: LinkingProtocol,
+}
+
 local NAME = "Linking"
 local urlValidator = t.strictInterface({
 	url = t.string,
 })
 
-local LinkingProtocol = {
+local LinkingProtocol: LinkingProtocolModule = {
 	REGISTER_URL_DESCRIPTOR = {
 		mid = MessageBus.getMessageId(NAME, "registerURL"),
 		validateParams = t.strictInterface({
@@ -47,16 +56,16 @@ local LinkingProtocol = {
 			isRegistered = t.boolean,
 		}),
 	},
-}
+} :: LinkingProtocolModule
 
-LinkingProtocol.__index = LinkingProtocol
+(LinkingProtocol :: any).__index = LinkingProtocol
 
 function LinkingProtocol.new(): LinkingProtocol
 	local self = setmetatable({
 		subscriber = MessageBus.Subscriber.new(),
 		isListeningForURLs = false,
 	}, LinkingProtocol)
-	return self
+	return (self :: any) :: LinkingProtocol
 end
 
 --[[
@@ -91,10 +100,9 @@ end
 ]]--
 function LinkingProtocol:getLastLuaURL(url: string): string?
 	local params = MessageBus.getLast(self.HANDLE_LUA_URL_DESCRIPTOR)
-	if params == nil then
-		return nil
-	end
-	return params.url
+	return if params ~= nil
+		then params.url
+		else nil
 end
 
 --[[
@@ -108,7 +116,7 @@ function LinkingProtocol:listenForLuaURLs(listener: (string) -> (), sticky: bool
 	if self.isListeningForURLs then
 		self:stopListeningForLuaURLs()
 	end
-	self.subscriber:subscribe(self.HANDLE_LUA_URL_DESCRIPTOR, function(params: Table)
+	self.subscriber:subscribe(self.HANDLE_LUA_URL_DESCRIPTOR, function(params: {url: string})
 		listener(params.url)
 	end, sticky)
 	self.isListeningForURLs = true
@@ -140,10 +148,10 @@ end
 	@param url: the url
 	@return promise<boolean>: resolves with true if the URL was opened successfully
 ]]--
-function LinkingProtocol:openURL(url: string): Promise
+function LinkingProtocol:openURL(url: string): MessageBus.Promise<boolean>
 	local promise = Promise.new(function(resolve, _)
 		local desc = self.OPEN_URL_RESPONSE_DESCRIPTOR
-		self.subscriber:subscribe(desc, function(params: Table)
+		self.subscriber:subscribe(desc, function(params: {success: boolean})
 			self.subscriber:unsubscribe(desc)
 			resolve(params.success)
 		end)
@@ -172,10 +180,10 @@ end
 	@param url: the url
 	@return promise<boolean>: resolves with true if the URL is registered by any domain (Lua, Engine, Platform)
 ]]--
-function LinkingProtocol:isURLRegistered(url: string): Promise
+function LinkingProtocol:isURLRegistered(url: string): MessageBus.Promise<boolean>
 	local promise = Promise.new(function(resolve, _)
 		local desc = self.IS_URL_REGISTERED_RESPONSE_DESCRIPTOR
-		self.subscriber:subscribe(desc, function(params: Table)
+		self.subscriber:subscribe(desc, function(params: {isRegistered: boolean})
 			self.subscriber:unsubscribe(desc)
 			resolve(params.isRegistered)
 		end)

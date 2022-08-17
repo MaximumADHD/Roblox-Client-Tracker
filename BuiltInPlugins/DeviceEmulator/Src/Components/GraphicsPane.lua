@@ -107,7 +107,7 @@ function GraphicsPane:render()
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Disabled = state.graphicsQualityAutoMode,
 				Value = state.graphicsQuality,
-				Min = 1,
+				Min = 0,
 				Max = GRAPHICS_QUALITY_LEVELS,
 				OnValueChanged = self.setGraphicsQuality,
 				Size = UDim2.new(0, 200, 0, 20),

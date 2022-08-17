@@ -13,10 +13,10 @@ if getFFlagAssetImportUsePropertyFactories() then
 			Section = "ObjectGeneral",
 			Properties = {
 				{Name = "ImportName", Editable = true},
-				{Name = "DiffuseFilePath", Editable = false, ComponentFactory = PathProperty},
-				{Name = "NormalFilePath", Editable = false, ComponentFactory = PathProperty, ShouldHide = hideIfNotPbr},
-				{Name = "MetalnessFilePath", Editable = false, ComponentFactory = PathProperty, ShouldHide = hideIfNotPbr},
-				{Name = "RoughnessFilePath", Editable = false, ComponentFactory = PathProperty, ShouldHide = hideIfNotPbr},
+				{Name = "DiffuseFilePath", Editable = false, AllowPickFile = true, ComponentFactory = PathProperty},
+				{Name = "NormalFilePath", Editable = false, AllowPickFile = true, ComponentFactory = PathProperty, ShouldHide = hideIfNotPbr},
+				{Name = "MetalnessFilePath", Editable = false, AllowPickFile = true, ComponentFactory = PathProperty, ShouldHide = hideIfNotPbr},
+				{Name = "RoughnessFilePath", Editable = false, AllowPickFile = true, ComponentFactory = PathProperty, ShouldHide = hideIfNotPbr},
 			},
 		},
 	}
@@ -26,10 +26,10 @@ else
 			Section = "ObjectGeneral",
 			Properties = {
 				{Name = "ImportName", Editable = true},
-				{Name = "DiffuseFilePath", Editable = false, ValueType = "path"},
-				{Name = "NormalFilePath", Editable = false, ValueType = "path", ShouldHide = hideIfNotPbr},
-				{Name = "MetalnessFilePath", Editable = false, ValueType = "path", ShouldHide = hideIfNotPbr},
-				{Name = "RoughnessFilePath", Editable = false, ValueType = "path", ShouldHide = hideIfNotPbr},
+				{Name = "DiffuseFilePath", Editable = false, AllowPickFile = true, ValueType = "path"},
+				{Name = "NormalFilePath", Editable = false, AllowPickFile = true, ValueType = "path", ShouldHide = hideIfNotPbr},
+				{Name = "MetalnessFilePath", Editable = false, AllowPickFile = true, ValueType = "path", ShouldHide = hideIfNotPbr},
+				{Name = "RoughnessFilePath", Editable = false, AllowPickFile = true, ValueType = "path", ShouldHide = hideIfNotPbr},
 			},
 		},
 	}

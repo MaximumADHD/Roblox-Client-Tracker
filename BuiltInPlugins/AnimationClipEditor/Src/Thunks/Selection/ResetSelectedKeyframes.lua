@@ -12,8 +12,6 @@ local SelectionUtils = require(Plugin.Src.Util.SelectionUtils)
 
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-
 return function()
 	return function(store)
 		local state = store:getState()
@@ -33,38 +31,22 @@ return function()
 			local dataInstance = newData.Instances[instanceName]
 
 			for trackName, selectionTrack in pairs(instance) do
-				if GetFFlagChannelAnimations() then
-					dataInstance.Tracks[trackName] = deepCopy(dataInstance.Tracks[trackName])
-					local dataTrack = dataInstance.Tracks[trackName]
+				dataInstance.Tracks[trackName] = deepCopy(dataInstance.Tracks[trackName])
+				local dataTrack = dataInstance.Tracks[trackName]
 
-					SelectionUtils.traverse(selectionTrack, dataTrack, function(selectionTrack, dataTrack)
-						if not selectionTrack.Selection or not dataTrack.Data then
-							return
-						end
-						local newValue = TrackUtils.getDefaultValue(dataTrack)
-						for keyframe, _ in pairs(selectionTrack.Selection) do
-							if dataTrack.Data[keyframe] then
-								AnimationData.setKeyframeData(dataTrack, keyframe, {
-									Value = newValue,
-								})
-							end
-						end
-					end)
-				else
-					dataInstance.Tracks[trackName] = deepCopy(dataInstance.Tracks[trackName])
-
-					local keyframes = Cryo.Dictionary.keys(instance[trackName])
-					local track = dataInstance.Tracks[trackName]
-
-					for _, keyframe in ipairs(keyframes) do
-						if track.Data[keyframe] then
-							local newValue = TrackUtils.getDefaultValue(track)
-							AnimationData.setKeyframeData(track, keyframe, {
+				SelectionUtils.traverse(selectionTrack, dataTrack, function(selectionTrack, dataTrack)
+					if not selectionTrack.Selection or not dataTrack.Data then
+						return
+					end
+					local newValue = TrackUtils.getDefaultValue(dataTrack)
+					for keyframe, _ in pairs(selectionTrack.Selection) do
+						if dataTrack.Data[keyframe] then
+							AnimationData.setKeyframeData(dataTrack, keyframe, {
 								Value = newValue,
 							})
 						end
 					end
-				end
+				end)
 			end
 		end
 

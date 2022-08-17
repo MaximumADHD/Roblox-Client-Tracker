@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
@@ -41,7 +42,6 @@ local NetworkStatus = RoduxNetworking.installReducer()
 local FFlagRecordRecording = require(InGameMenu.Flags.FFlagRecordRecording)
 local GetFFlagUseIGMControllerBar = require(InGameMenu.Flags.GetFFlagUseIGMControllerBar)
 local GetFFlagShareInviteLinkContextMenuV3Enabled = require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
-local GetFFlagFixV3InviteReducer = require(InGameMenu.Flags.GetFFlagFixV3InviteReducer)
 local FFlagInspectAndBuyV2Enabled = require(InGameMenu.Flags.FFlagInspectAndBuyV2Enabled)
 
 local Constants = require(InGameMenu.Resources.Constants)
@@ -187,13 +187,13 @@ local function reducer(state, action)
 	state.voiceState = voiceStateReducer(state.voiceState, action)
 	state.gameInfo = gameInfo(state.gameInfo, action)
 	state.friends = friends(state.friends, action)
-	state.inviteFriends = inviteFriends(GetFFlagFixV3InviteReducer() and state.inviteFriends or state.friends, action)
+	state.inviteFriends = inviteFriends(state.inviteFriends, action)
 	state.quickActions = quickActions(state.quickActions, action)
 	state.displayOptions = displayOptions(state.displayOptions, action)
 	state.inspectAndBuy = FFlagInspectAndBuyV2Enabled and inspectAndBuy(state.inspectAndBuy, action) or nil
 	state.nativeClosePrompt = nativeClosePrompt(state.nativeClosePrompt, action)
 	state.shareLinks = ShareLinks(state.shareLinks, action)
-	
+
 	state.NetworkStatus = NetworkStatus(state.NetworkStatus, action)
 	state.FetchingStatus = FetchingStatus(state.FetchingStatus, action)
 

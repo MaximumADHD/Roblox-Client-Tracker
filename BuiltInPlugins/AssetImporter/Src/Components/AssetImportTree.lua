@@ -1,5 +1,3 @@
-local AssetImportService = game:GetService("AssetImportService")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -32,7 +30,6 @@ local UpdatePreviewInstance = require(Plugin.Src.Thunks.UpdatePreviewInstance)
 local StatusLevel = require(Plugin.Src.Utility.StatusLevel)
 local trimFilename = require(Plugin.Src.Utility.trimFilename)
 
-local getFFlagUseAssetImportSession = require(Plugin.Src.Flags.getFFlagUseAssetImportSession)
 local getFFlagAssetImportSessionCleanup = require(Plugin.Src.Flags.getFFlagAssetImportSessionCleanup)
 
 local SEPARATOR_WEIGHT = 1
@@ -194,14 +191,7 @@ function AssetImportTree:init()
 				props.UpdatePreviewInstance(instance)
 			end
 		else
-			local instanceMap
-
-			if getFFlagUseAssetImportSession() then
-				instanceMap = props.AssetImportSession:GetCurrentImportMap()
-			else
-				instanceMap = AssetImportService:GetCurrentImportMap()
-			end
-
+			local instanceMap = props.AssetImportSession:GetCurrentImportMap()
 			props.SetInstanceMap(instanceMap)
 		end
 	end

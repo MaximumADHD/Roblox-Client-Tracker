@@ -1,5 +1,3 @@
-local AssetImportService = game:GetService("AssetImportService")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -26,7 +24,6 @@ local StringProperty = require(Properties.StringProperty)
 local PathProperty = require(Properties.PathProperty)
 local VectorProperty = require(Properties.VectorProperty)
 
-local getFFlagUseAssetImportSession = require(Plugin.Src.Flags.getFFlagUseAssetImportSession)
 local getFFlagAssetImportSessionCleanup = require(Plugin.Src.Flags.getFFlagAssetImportSessionCleanup)
 local getFFlagAssetImportUsePropertyFactories = require(Plugin.Src.Flags.getFFlagAssetImportUsePropertyFactories)
 
@@ -100,12 +97,7 @@ function PropertyView:init()
 		self.props.UpdatePreviewInstance(self.props.AssetImportSession:GetInstance(self.props.Instance.Id))
 	end
 	self.updateInstanceMap = function()
-		local instanceMap
-		if getFFlagUseAssetImportSession() then
-			instanceMap = self.props.AssetImportSession:GetCurrentImportMap()
-		else
-			instanceMap = AssetImportService:GetCurrentImportMap()
-		end
+		local instanceMap = self.props.AssetImportSession:GetCurrentImportMap()
 		self.props.SetInstanceMap(instanceMap)
 	end
 	self.onToggleItem = function()
@@ -180,12 +172,15 @@ function PropertyView:render()
 	local statusMessage = props.StatusMessage
 	local editable = nil
 	local propertyName = nil
+	local allowPickFile = nil
 	if getFFlagAssetImportUsePropertyFactories() then
 		editable = propertyMetadata.Editable
 		propertyName = propertyMetadata.Name
+		allowPickFile = propertyMetadata.AllowPickFile
 	else
 		editable = props.Editable
 		propertyName = props.PropertyName
+		allowPickFile = props.AllowPickFile
 	end
 	local value = instance[propertyName]
 
@@ -256,6 +251,8 @@ function PropertyView:render()
 			Value = value,
 			Localization = localization,
 			PropertyMetadata = propertyMetadata,
+			AllowPickFile = allowPickFile,
+			Instance = instance
 		}),
 	})
 end

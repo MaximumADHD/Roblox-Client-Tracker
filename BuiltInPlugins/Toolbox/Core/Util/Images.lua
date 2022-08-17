@@ -14,6 +14,7 @@ Images.ARROW_DOWN_ICON = "rbxasset://textures/StudioToolbox/ArrowDownIconWhite.p
 Images.SEARCH_ICON = "rbxasset://textures/StudioToolbox/Search.png"
 Images.CLEAR_ICON_HOVER = "rbxasset://textures/StudioToolbox/ClearHover.png"
 Images.CLEAR_ICON = "rbxasset://textures/StudioToolbox/Clear.png"
+Images.WARNING_ICON_SMALL = "rbxasset://textures/StudioToolbox/alert-icon-small.png"
 
 Images.SCROLLBAR_TOP_IMAGE = "rbxasset://textures/StudioToolbox/ScrollBarTop.png"
 Images.SCROLLBAR_MIDDLE_IMAGE = "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png"
@@ -109,6 +110,7 @@ Images.PERMISSIONS_SIDE_TAB = "rbxasset://textures/StudioToolbox/AssetConfig/men
 
 Images.SELECTED_CHECK = "rbxasset://textures/StudioToolbox/AssetConfig/readyforsale@2x.png"
 Images.CLOSE_ICON = "rbxasset://textures/StudioSharedUI/close.png"
+Images.CLOSE_ICON_LARGE = "rbxasset://textures/DeveloperFramework/AssetPreview/close_button.png"
 
 Images.AssetStatus = {
 	[AssetConfigConstants.ASSET_STATUS.ReviewPending] = "rbxasset://textures/StudioToolbox/AssetPreview/Pending.png",

@@ -16,6 +16,8 @@ return function()
 
 	local SelectPreviewTab = require(Plugin.Src.Actions.SelectPreviewTab)
 
+	local FFlagEnablePreviewDockWidget = game:GetFastFlag("EnablePreviewDockWidget")
+
 	local ScrollerPath = TestHelper.getEditScreenContainer()
 	local editSwizzlePath = ScrollerPath:cat(XPath.new("EditSwizzle.Header"))
 	local GridPath = ScrollerPath:cat(XPath.new("PreviewSwizzle.Content.PreviewFrame.Grid"))
@@ -95,7 +97,7 @@ return function()
 			local state = store:getState()
 			local selectedTab = state.previewStatus.selectedTab
 			expect(selectedTab).to.equal(PreviewConstants.TABS_KEYS.Avatars)
-			expect(PreviewConstantsInterface.isTabMultiSelect(selectedTab)).to.equal(false)
+			expect(PreviewConstantsInterface.isTabMultiSelect(selectedTab)).to.equal(FFlagEnablePreviewDockWidget)
 
 			-- get the second grid tile and click it
 			local secondChild = getScrollerChildInstanceAndButtonPath(2)
@@ -109,7 +111,7 @@ return function()
 			TestHelper.clickXPath(thirdChild.buttonPath)
 
 			-- check final state - only a single tile is selected
-			expect(isSelected(secondChild.instance)).to.equal(false)
+			expect(isSelected(secondChild.instance)).to.equal(FFlagEnablePreviewDockWidget)
 			expect(isSelected(thirdChild.instance)).to.equal(true)
 		end)
 	end)

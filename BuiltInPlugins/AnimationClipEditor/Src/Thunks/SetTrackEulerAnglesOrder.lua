@@ -26,7 +26,7 @@ return function(
 		if not GetFFlagFixEulerAnglesMenu() then
 			if
 				not track
-				or not track.Type == Constants.TRACK_TYPES.EulerAngles
+				or (not track.Type) == Constants.TRACK_TYPES.EulerAngles
 				or track.EulerAnglesOrder == eulerAnglesOrder
 			then
 				return nil

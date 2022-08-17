@@ -1,3 +1,4 @@
+--!nonstrict
 local Root = script.Parent.Parent
 
 local Promise = require(Root.Promise)

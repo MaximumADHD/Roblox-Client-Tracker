@@ -39,7 +39,6 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
 local Types = require(Plugin.Src.Types)
 
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFixEulerAnglesMenu = require(Plugin.LuaFlags.GetFFlagFixEulerAnglesMenu)
@@ -59,8 +58,6 @@ export type Props = {
 
 	-- Actions/Thunks
 	AddKeyframe: (string, PathUtils.Path, string, any, any, any) -> (),
-	AddKeyframe_deprecated2: (string, string, string, number, any, any) -> (),
-	AddKeyframe_deprecated: (string, string, number, any, any) -> (),
 	ClearTrack: (string, PathUtils.Path, any) -> (),
 	ConvertTrack: (string, PathUtils.Path, string, any) -> (),
 	DeleteTrack: (string, any) -> (),
@@ -133,7 +130,7 @@ function TrackActions:makeMenuActions(isTopLevel: boolean, showEulerConversion: 
 
 	local actions = {
 		pluginActions:get("AddKeyframe"),
-		pluginActions:get(GetFFlagChannelAnimations() and deleteAction or "DeleteTrack"),
+		pluginActions:get(deleteAction),
 	}
 
 	if GetFFlagCurveEditor() then
@@ -177,12 +174,7 @@ function TrackActions:didMount(): ()
 
 	self:addAction(actions:get("DeleteTrack"), function(): ()
 		local props = self.props
-		local trackName
-		if GetFFlagChannelAnimations() then
-			trackName = props.Path[1]
-		else
-			trackName = props.TrackName
-		end
+		local trackName = props.Path[1]
 		props.DeleteTrack(trackName, props.Analytics)
 	end)
 
@@ -202,53 +194,29 @@ function TrackActions:didMount(): ()
 		local animationData = props.AnimationData
 		local isChannelAnimation = props.IsChannelAnimation
 
-		if GetFFlagChannelAnimations() then
-			local path = props.Path
+		local path = props.Path
 
-			local value
+		local value
 
-			if instanceName and path then
-				if isChannelAnimation then
-					TrackUtils.traverseComponents(trackType, function(componentType, relPath)
-						local componentPath = Cryo.List.join(path, relPath)
-						props.SplitTrack(instanceName, componentPath, componentType, playhead, props.Analytics)
-					end, rotationType)
-				else
-					local track = AnimationData.getTrack(animationData, instanceName, path)
-					if track and track.Keyframes then
-						value = KeyframeUtils.getValue(track, playhead)
-					else
-						value = KeyframeUtils.getDefaultValue(trackType)
-					end
-					local keyframeData = {
-						Value = value,
-						EasingStyle = Enum.PoseEasingStyle.Linear,
-						EasingDirection = Enum.PoseEasingDirection.In
-					}
-					props.AddKeyframe(instanceName, path, trackType, playhead, keyframeData, props.Analytics)
-				end
-			end
-		else
-			local trackName = props.TrackName
-
-			if instanceName and trackName then
-				local instance = animationData.Instances[instanceName]
-				local track = instance.Tracks[trackName]
-				local newValue
+		if instanceName and path then
+			if isChannelAnimation then
+				TrackUtils.traverseComponents(trackType, function(componentType, relPath)
+					local componentPath = Cryo.List.join(path, relPath)
+					props.SplitTrack(instanceName, componentPath, componentType, playhead, props.Analytics)
+				end, rotationType)
+			else
+				local track = AnimationData.getTrack(animationData, instanceName, path)
 				if track and track.Keyframes then
-					newValue = KeyframeUtils.getValue(track, playhead)
+					value = KeyframeUtils.getValue(track, playhead)
 				else
-					if GetFFlagFacialAnimationSupport() then
-						newValue = TrackUtils.getDefaultValueByType(trackType)
-					else
-						newValue = TrackUtils.getDefaultValue(track)
-					end
+					value = KeyframeUtils.getDefaultValue(trackType)
 				end
-				if GetFFlagFacialAnimationSupport() then
-					props.AddKeyframe_deprecated2(instanceName, trackName, trackType, playhead, newValue, props.Analytics)
-				else
-					props.AddKeyframe_deprecated(instanceName, trackName, playhead, newValue, props.Analytics)
-				end
+				local keyframeData = {
+					Value = value,
+					EasingStyle = Enum.PoseEasingStyle.Linear,
+					EasingDirection = Enum.PoseEasingDirection.In
+				}
+				props.AddKeyframe(instanceName, path, trackType, playhead, keyframeData, props.Analytics)
 			end
 		end
 	end)
@@ -293,40 +261,28 @@ function TrackActions:render(): (any?)
 			action.Enabled = false
 		end
 
-		if GetFFlagChannelAnimations() then
-			if path and instanceName then
-				local track = AnimationData.getTrack(animationData, instanceName, path)
-				if not GetFFlagCurveEditor() and track then
-					showEulerConversion = track.Type == Constants.TRACK_TYPES.Quaternion or
-						(track.Type == Constants.TRACK_TYPES.CFrame and TrackUtils.getRotationType(track) == Constants.TRACK_TYPES.Quaternion)
-				end
-				local enabled
-
-				if not isChannelAnimation then
-					enabled = not (track and track.Data and track.Data[playhead])
-				elseif not track then
-					enabled = true
-				else
-					local compInfo = TrackUtils.getComponentsInfo(track, playhead)
-					enabled = not compInfo[playhead] or not compInfo[playhead].Complete
-				end
-
-				pluginActions:get("AddKeyframe").Enabled = enabled
+		if path and instanceName then
+			local track = AnimationData.getTrack(animationData, instanceName, path)
+			if not GetFFlagCurveEditor() and track then
+				showEulerConversion = track.Type == Constants.TRACK_TYPES.Quaternion or
+					(track.Type == Constants.TRACK_TYPES.CFrame and TrackUtils.getRotationType(track) == Constants.TRACK_TYPES.Quaternion)
 			end
-		else
-			if trackName and instanceName then
-				local instance = animationData.Instances[instanceName]
-				local track = instance.Tracks[trackName]
-				if not (track and track.Data and track.Data[playhead]) then
-					pluginActions:get("AddKeyframe").Enabled = true
-				end
+			local enabled
+
+			if not isChannelAnimation then
+				enabled = not (track and track.Data and track.Data[playhead])
+			elseif not track then
+				enabled = true
+			else
+				local compInfo = TrackUtils.getComponentsInfo(track, playhead)
+				enabled = not compInfo[playhead] or not compInfo[playhead].Complete
 			end
+
+			pluginActions:get("AddKeyframe").Enabled = enabled
 		end
 
 		pluginActions:get("DeleteTrack").Enabled = true
-		if GetFFlagChannelAnimations() then
-			pluginActions:get("ClearTrack").Enabled = true
-		end
+		pluginActions:get("ClearTrack").Enabled = true
 		if isChannelAnimation and GetFFlagCurveEditor() then
 			pluginActions:get("ConvertToEulerAngles").Enabled = true
 		end
@@ -418,20 +374,6 @@ local function mapDispatchToProps(dispatch): { [string]: any }
 		AddKeyframe = function(instance, path, trackType, tck, keyframeData, analytics)
 			dispatch(AddWaypoint())
 			dispatch(AddKeyframe(instance, path, trackType, tck, keyframeData, analytics))
-			dispatch(SetRightClickContextInfo({}))
-		end,
-
-		-- Remove when GetFFlagChannelAnimations() is retired
-		AddKeyframe_deprecated2 = function(instance, trackName, trackType, tck, value, analytics)
-			dispatch(AddWaypoint())
-			dispatch(AddKeyframe(instance, trackName, trackType, tck, value, analytics))
-			dispatch(SetRightClickContextInfo({}))
-		end,
-
-		-- Remove when GetFFlagFacialAnimationSupport() is retired
-		AddKeyframe_deprecated = function(instance, trackName, tck, value, analytics)
-			dispatch(AddWaypoint())
-			dispatch(AddKeyframe(instance, trackName, tck, value, analytics)) -- Luau warning is fine since signature changes with flags
 			dispatch(SetRightClickContextInfo({}))
 		end,
 

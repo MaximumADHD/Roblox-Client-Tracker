@@ -1,3 +1,4 @@
+--!nonstrict
 local Root = script.Parent.Parent
 
 local createSignal = require(Root.Misc.createSignal)

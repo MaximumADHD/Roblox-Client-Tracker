@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local CorePackages = game:GetService("CorePackages")
 	local CoreGui = game:GetService("CoreGui")
@@ -23,6 +24,7 @@ return function()
 	local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
 	local SetInputType = require(InGameMenu.Actions.SetInputType)
 	local Constants = require(InGameMenu.Resources.Constants)
+	local FFlagUsePageSearchAnimation = require(InGameMenu.Flags.GetFFlagUsePageSearchAnimation)()
 
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 	local ParticipantAdded = require(RobloxGui.Modules.VoiceChat.Actions.ParticipantAdded)
@@ -130,7 +132,15 @@ return function()
 
 			local renderedHeader = renderedPlayersPage:FindFirstChild("PageHeader", true)
 			jestExpect(renderedHeader).toBeDefined()
-			jestExpect(renderedHeader.ThreeSectionBar.centerFrame.centerContent.Text).toEqual("People")
+
+			local renderedHeaderBar = renderedPlayersPage:FindFirstChild("ThreeSectionBar", true)
+			jestExpect(renderedHeaderBar).toBeDefined()
+
+			if FFlagUsePageSearchAnimation then
+				jestExpect(renderedHeaderBar.centerFrame.centerContent.Title.Text).toEqual("People")
+			else
+				jestExpect(renderedHeaderBar.centerFrame.centerContent.Text).toEqual("People")
+			end
 
 			local renderedPlayerListContent = renderedPlayersPage:FindFirstChild("PlayerListContent", true)
 			jestExpect(renderedPlayerListContent).toBeDefined()

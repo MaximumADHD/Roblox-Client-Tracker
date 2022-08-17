@@ -1,3 +1,4 @@
+--!nonstrict
 local RunService = game:GetService("RunService")
 local CorePackages = game:GetService("CorePackages")
 
@@ -15,12 +16,9 @@ local InGameMenu = script.Parent.Parent.Parent
 local Constants = require(InGameMenu.Resources.Constants)
 local InviteStatus = Constants.InviteStatus
 
-local Assets = require(InGameMenu.Resources.Assets)
 local Images = UIBlox.App.ImageSet.Images
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
-
-local FFlagFixMenuIcons = require(InGameMenu.Flags.FFlagFixMenuIcons)
 
 local SendInviteButton = Roact.PureComponent:extend("SendInviteButton")
 
@@ -196,7 +194,7 @@ function SendInviteButton:renderWithSelectionCursor(getSelectionCursor)
 		}, {
 			SendLabel = Roact.createElement(ImageSetLabel, {
 				BackgroundTransparency = 1,
-				Image = FFlagFixMenuIcons and Images["icons/actions/friends/friendInvite"] or Assets.Images.SendInvite,
+				Image = Images["icons/actions/friends/friendInvite"],
 				Size = UDim2.new(1, 0, 1, 0),
 				ImageColor3 = style.Theme.IconEmphasis.Color,
 
@@ -204,7 +202,7 @@ function SendInviteButton:renderWithSelectionCursor(getSelectionCursor)
 			}),
 			SuccessLabel = Roact.createElement(ImageSetLabel, {
 				BackgroundTransparency = 1,
-				Image = FFlagFixMenuIcons and Images["icons/status/success"] or Assets.Images.InviteSuccess,
+				Image = Images["icons/status/success"],
 				Position = UDim2.new(0.5, 0, 0.5, 0),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				ImageColor3 = style.Theme.IconEmphasis.Color,
@@ -214,7 +212,7 @@ function SendInviteButton:renderWithSelectionCursor(getSelectionCursor)
 			}),
 			FailLabel = Roact.createElement(ImageSetLabel, {
 				BackgroundTransparency = 1,
-				Image = FFlagFixMenuIcons and Images["icons/status/alert"] or Assets.Images.InviteFail,
+				Image = Images["icons/status/alert"],
 				Size = UDim2.new(1, 0, 1, 0),
 				ImageColor3 = style.Theme.IconEmphasis.Color,
 

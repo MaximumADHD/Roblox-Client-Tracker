@@ -23,7 +23,7 @@ local SearchBar = StudioUI.SearchBar
 local Pane = Framework.UI.Pane
 
 local Actions = Plugin.Src.Actions
-local ClearMaterialVariant = require(Actions.ClearMaterialVariant)  -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
+local ClearMaterialVariant = require(Actions.ClearMaterialVariant) -- remove with FFlagMaterialManagerVariantCreatorOverhaul
 local SetMode = require(Actions.SetMode)
 local SetMaterialVariant = require(Actions.SetMaterialVariant)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
@@ -42,20 +42,21 @@ local MaterialVariantEditor = require(Plugin.Src.Components.MaterialBrowser.Mate
 local getFFlagMaterialManagerAnalyticsMaterialAsTool = require(
 	Plugin.Src.Flags.getFFlagMaterialManagerAnalyticsMaterialAsTool
 )
-local getFFlagMaterialManagerVariantCreatorOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
+local getFFlagMaterialManagerVariantCreatorOverhaul = require(
+	Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
 
 local TopBar = Roact.PureComponent:extend("TopBar")
 
 export type Props = {
 	LayoutOrder: number?,
-	OpenPrompt: (type: _Types.MaterialPromptType) -> (),
+	OpenPrompt: (type: _Types.MaterialPromptType) -> (), -- remove with FFlagMaterialManagerVariantCreatorOverhaul
 	Size: UDim2?,
 }
 
 type _Props = Props & {
 	ActiveAsTool: boolean,
 	Analytics: any,
-	dispatchClearMaterialVariant: () -> (),
+	dispatchClearMaterialVariant: () -> (),  -- remove with FFlagMaterialManagerVariantCreatorOverhaul
 	dispatchSetMode: (mode: string) -> (),
 	dispatchSetMaterialVariant: (materialVariant: MaterialVariant) -> (),
 	GeneralServiceController: any,
@@ -98,16 +99,16 @@ function TopBar:init()
 	self.createMaterialVariant = function()
 		local props: _Props = self.props
 
-		props.dispatchSetMode("Create")
 		if getFFlagMaterialManagerVariantCreatorOverhaul() then
 			local materialVariant = props.MaterialServiceController:createMaterialVariant()
 			props.dispatchSetMaterialVariant(materialVariant)
+			props.dispatchSetMode("Create")
 			MaterialVariantEditor = Roact.createElement(MaterialVariantEditor, {
 				LayoutOrder = 1,
-				OpenPrompt = props.OpenPrompt,
 				Size = UDim2.fromScale(1, 1),
 			})
 		else
+			props.dispatchSetMode("Create")
 			props.dispatchClearMaterialVariant()
 			props.OpenPrompt("Create")
 		end
@@ -242,7 +243,7 @@ return RoactRodux.connect(
 	end,
 	function(dispatch)
 		return {
-			dispatchClearMaterialVariant = function()
+			dispatchClearMaterialVariant = function()  -- remove with FFlagMaterialManagerVariantCreatorOverhaul
 				dispatch(ClearMaterialVariant())
 			end,
 			dispatchSetMode = function(mode: string)

@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local InspectAndBuyFolder = script.Parent.Parent
 	local SetAssets = require(InspectAndBuyFolder.Actions.SetAssets)

@@ -17,7 +17,6 @@ local Url = require(Plugin.Libs.Http.Url)
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local getPlaceId = require(Plugin.Core.Util.getPlaceId)
 
-local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FIntCanManageLuaRolloutPercentage = game:DefineFastInt("CanManageLuaRolloutPercentage", 0)
 local FFlagInfiniteScrollerForVersions2 = game:getFastFlag("InfiniteScrollerForVersions2")
 local FFlagToolboxIncludedPlaceIdInConfigRequest = game:GetFastFlag("ToolboxIncludedPlaceIdInConfigRequest")
@@ -115,8 +114,6 @@ local AVATAR_ASSETS_UPLOAD = Url.ITEM_CONFIGURATION_URL .. "v1/avatar-assets/%s/
 local ASSET_TYPE_AGENTS = Url.ITEM_CONFIGURATION_URL .. "v1/asset-types/%s/agents?"
 
 local AUTOCOMPLETE = Url.APIS_URL .. "autocomplete-studio/v2/suggest?"
-
-local AGE_VERIFICATION_URL = Url.APIS_URL .. "age-verification-service/v1/age-verification/verified-age"
 
 local DEFAULT_ASSET_SIZE = 100
 local DEFAULT_SEARCH_ROWS = 3
@@ -614,12 +611,6 @@ function Urls.constructGetHomeConfigurationUrl(assetType: Enum.AssetType, locale
 			locale = locale,
 			placeId = if FFlagToolboxIncludedPlaceIdInConfigRequest then getPlaceId() else nil,
 		})
-end
-
-if FFlagToolboxAudioAssetConfigIdVerification then
-	function Urls.constructUserAgeVerificationUrl()
-		return AGE_VERIFICATION_URL
-	end
 end
 
 function Urls.getCreatorMarketplaceQuotas(

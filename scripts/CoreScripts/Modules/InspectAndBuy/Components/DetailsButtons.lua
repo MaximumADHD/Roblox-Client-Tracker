@@ -45,7 +45,7 @@ local function getBuyText(itemInfo, locale)
 	elseif itemInfo.isForSale then
 		if itemInfo.premiumPricing ~= nil then
 			if FFlagFixInspectAndBuyPremiumPrice then
-				if Players.LocalPlayer.MembershipType == Enum.MembershipType.Premium then
+				if (Players.LocalPlayer :: Player).MembershipType == Enum.MembershipType.Premium then
 					buyText = itemInfo.premiumPricing.premiumPriceInRobux
 				else
 					if itemInfo.price == nil then
@@ -55,7 +55,7 @@ local function getBuyText(itemInfo, locale)
 					end
 				end
 			else
-				if itemInfo.price == nil and Players.LocalPlayer.MembershipType ~= Enum.MembershipType.Premium then
+				if itemInfo.price == nil and (Players.LocalPlayer :: Player).MembershipType ~= Enum.MembershipType.Premium then
 					buyText = RobloxTranslator:FormatByKeyForLocale(PREMIUM_ONLY_KEY, locale)
 				else
 					buyText = itemInfo.premiumPricing.premiumPriceInRobux
@@ -126,7 +126,7 @@ function DetailsButtons:render()
 			itemId = assetInfo.assetId
 			forSale = assetInfo.isForSale and not assetInfo.owned and not isLimited and assetInfo.owned ~= nil
 			if forSale and assetInfo.price == nil and assetInfo.premiumPricing ~= nil then
-				forSale = Players.LocalPlayer.MembershipType == Enum.MembershipType.Premium
+				forSale = (Players.LocalPlayer :: Player).MembershipType == Enum.MembershipType.Premium
 			end
 			buyText = getBuyText(assetInfo, locale)
 			showRobuxIcon = assetInfo.price ~= nil and not assetInfo.owned and forSale

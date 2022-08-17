@@ -76,7 +76,6 @@ local PromoteToCurvesPrompt = require(Plugin.Src.Components.PromoteToCurvesPromp
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
@@ -149,31 +148,17 @@ function EditorController:init()
 		})
 	end
 
-	if GetFFlagChannelAnimations() then
-		self.showMenu = function(instanceName, path, trackType, rotationType)
-			self.props.Pause()
-			self.props.SetRightClickContextInfo({
-				Path = path,
-				TrackType = trackType,
-				RotationType = rotationType,
-				InstanceName = instanceName,
-			})
-			self:setState({
-				showContextMenu = true,
-			})
-		end
-	else
-		self.showMenu = function(track)
-			self.props.Pause()
-			self.props.SetRightClickContextInfo({
-				TrackName = track.Name,
-				TrackType = GetFFlagFacialAnimationSupport() and track.Type or nil,
-				InstanceName = track.Instance,
-			})
-			self:setState({
-				showContextMenu = true,
-			})
-		end
+	self.showMenu = function(instanceName, path, trackType, rotationType)
+		self.props.Pause()
+		self.props.SetRightClickContextInfo({
+			Path = path,
+			TrackType = trackType,
+			RotationType = rotationType,
+			InstanceName = instanceName,
+		})
+		self:setState({
+			showContextMenu = true,
+		})
 	end
 
 	self.hideMenu = function()
@@ -362,10 +347,8 @@ function EditorController:init()
 	self.addTrackWrapper = function(instanceName, trackName, trackType)
 		if GetFFlagCurveEditor() then
 			self.props.AddTrack(instanceName, trackName, trackType, nil, nil, self.props.Analytics)
-		elseif GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
+		else
 			self.props.AddTrack_deprecated2(instanceName, trackName, trackType, self.props.Analytics)
-		elseif self.props.Analytics then
-			self.props.AddTrack_deprecated(instanceName, trackName, self.props.Analytics)
 		end
 	end
 
@@ -388,7 +371,7 @@ function EditorController:init()
 		if GetFFlagFaceControlsEditorFixNonChannelPath() then
 			if trackType ~= Constants.TRACK_TYPES.Facs then return end
 		else
-			if not trackType == Constants.TRACK_TYPES.Facs then return end
+			if (not trackType) == Constants.TRACK_TYPES.Facs then return end
 		end
 
 		local facsName = path[1]
@@ -452,102 +435,22 @@ function EditorController:init()
 		self.props.ValueChanged(instanceName, {groupPartnerName}, trackType, tck, 0, self.props.Analytics)
 	end
 
-	-- Remove deprecated 2 functions when GetFFlagChannelAnimations() is retired
-	self.triggerValueChangedDeprecated2ForFaceControls = function(instanceName, path, trackType, tck, value)
-		self.applyValueToFacsSliderPartners_deprecated2(instanceName, path, trackType, tck, value)
-		self.props.ValueChanged_deprecated2(instanceName, path, trackType, tck, value)
-	end
-
-	self.applyValueToFacsSliderPartners_deprecated2 = function(instanceName, path, trackType, tck, value)
-
-		if not GetFFlagFaceControlsEditorUI() then return end
-		if GetFFlagFaceControlsEditorFixNonChannelPath() then
-			if trackType ~= Constants.TRACK_TYPES.Facs then return end
-		else
-			if not trackType == Constants.TRACK_TYPES.Facs then return end
-		end
-
-		local facsName = path
-		local crossMapping = Constants.FacsCrossMappings[facsName]
-
-		--for eyesdragbox we set the counter direction to 0
-		if value ~= 0 then
-			if facsName == Constants.FacsNames.EyesLookLeft then
-				self.props.ValueChanged_deprecated2(instanceName, Constants.FacsNames.EyesLookRight, trackType, tck, 0, self.props.Analytics)
-			elseif facsName == Constants.FacsNames.EyesLookRight then
-				self.props.ValueChanged_deprecated2(instanceName, Constants.FacsNames.EyesLookLeft, trackType, tck, 0, self.props.Analytics)
-			elseif facsName == Constants.FacsNames.EyesLookUp then
-				self.props.ValueChanged_deprecated2(instanceName, Constants.FacsNames.EyesLookDown, trackType, tck, 0, self.props.Analytics)
-			elseif facsName == Constants.FacsNames.EyesLookDown then
-				self.props.ValueChanged_deprecated2(instanceName, Constants.FacsNames.EyesLookUp, trackType, tck, 0, self.props.Analytics)
-			end
-		end
-		if crossMapping ~= nil or not GetFFlagFaceControlsEditorFixNonChannelPath() then
-			--in the face controls editor some sliders control 2 facs properties,
-			--for those also when the value is increased to one side,
-			--the other side gets set to 0
-			local sliderGroup = crossMapping.sliderGroup
-			if sliderGroup then
-				if value >0 then
-					local groupPartnerName = nil
-					if crossMapping.indexInGroup == 1 then
-						groupPartnerName = sliderGroup[2]
-					else
-						groupPartnerName = sliderGroup[1]
-					end
-
-					self.props.ValueChanged_deprecated2(instanceName, groupPartnerName, trackType, tck, 0, self.props.Analytics)
-				end
-			end
-
-			-- also apply value change to symmetry partner for facs values if symmetry setting is enabled
-			if self.props.SymmetryEnabled then
-				local symmetryPartner = crossMapping.symmetryPartner
-				if symmetryPartner then
-					self.applyValueToSymmetryPartner_deprecated2(instanceName, symmetryPartner, trackType, tck, value)
-				end
-			end
-		end
-	end
-
-	self.applyValueToSymmetryPartner_deprecated2 = function(instanceName, symmetryPartner, trackType, tck, value)
-		self.props.ValueChanged_deprecated2(instanceName, symmetryPartner, trackType, tck, value, self.props.Analytics)
-		--if the symmetry partner controls multiple facs, too,
-		--if value >0 for the symmetry partner set the value of the group partner to 0
-		if value == nil or value <= 0 then return end
-		local crossMappingSymmetryPartner = Constants.FacsCrossMappings[symmetryPartner]
-		local sliderGroup = crossMappingSymmetryPartner.sliderGroup
-		if not sliderGroup then return end
-		local groupPartnerName = nil
-		if crossMappingSymmetryPartner.indexInGroup == 1 then
-			groupPartnerName = sliderGroup[2]
-		else
-			groupPartnerName = sliderGroup[1]
-		end
-
-		self.props.ValueChanged_deprecated2(instanceName, groupPartnerName, trackType, tck, 0, self.props.Analytics)
-	end
-
 	self.onValueChanged = function(instanceName, path, trackType, tck, value)
 		local animationData = self.props.AnimationData
 		if not AnimationData.isChannelAnimation(animationData) then
 			self.props.ValueChanged(instanceName, path, trackType, tck, value, self.props.Analytics)
 		else
-			local rotationType
+			local rotationType = GetFFlagCurveEditor() and self.props.DefaultRotationType or Constants.TRACK_TYPES.EulerAngles
 			local eulerAnglesOrder = self.props.DefaultEulerAnglesOrder
-			if GetFFlagChannelAnimations() then
-				rotationType = GetFFlagCurveEditor() and self.props.DefaultRotationType or Constants.TRACK_TYPES.EulerAngles
-				local trackName = path[1]
-				local track = AnimationData.getTrack(animationData, instanceName, {trackName})
-				if track and track.Components and track.Components[Constants.PROPERTY_KEYS.Rotation] then
-					rotationType = track.Components[Constants.PROPERTY_KEYS.Rotation].Type
-					if GetFFlagCurveEditor() and rotationType == Constants.TRACK_TYPES.EulerAngles then
-						eulerAnglesOrder = track.EulerAnglesOrder
-					end
+			local trackName = path[1]
+			local track = AnimationData.getTrack(animationData, instanceName, {trackName})
+			if track and track.Components and track.Components[Constants.PROPERTY_KEYS.Rotation] then
+				rotationType = track.Components[Constants.PROPERTY_KEYS.Rotation].Type
+				if GetFFlagCurveEditor() and rotationType == Constants.TRACK_TYPES.EulerAngles then
+					eulerAnglesOrder = track.EulerAnglesOrder
 				end
-			else
-				rotationType = Constants.TRACK_TYPES.Rotation
 			end
+
 			-- Change the value of all tracks
 			TrackUtils.traverseValue(trackType, value, function(_trackType, relPath, _value)
 				self.props.ValueChanged(instanceName, Cryo.List.join(path, relPath), _trackType, tck, _value, self.props.Analytics)
@@ -634,7 +537,7 @@ function EditorController:render()
 	local animationImportStatus = props.AnimationImportStatus
 
 	local selectedPaths = {}
-	if not GetFFlagCurveEditor() and GetFFlagChannelAnimations() and selectedTracks then
+	if not GetFFlagCurveEditor() and selectedTracks then
 		for _, track in pairs(selectedTracks) do
 			table.insert(selectedPaths, {track})
 		end
@@ -762,13 +665,9 @@ function EditorController:render()
 
 						OnScroll = self.onScroll,
 						OpenContextMenu = self.showMenu,
-						ToggleTrackExpanded = GetFFlagChannelAnimations() and props.SetTracksExpanded or props.SetTracksExpanded_deprecated,
+						ToggleTrackExpanded = props.SetTracksExpanded,
 						OnTrackAdded = self.addTrackWrapper,
-						OnValueChanged = GetFFlagChannelAnimations() and self.onValueChanged or props.ValueChanged,
-						-- Remove when GetFFlagChannelAnimations() is retired
-						OnValueChangedDeprecated2 = props.ValueChanged_deprecated2,
-						-- Remove when GetFFlagFacialAnimationSupport() is retired
-						OnValueChangedDeprecated = props.ValueChanged_deprecated,
+						OnValueChanged = self.onValueChanged,
 						OnChangeBegan = props.AddWaypoint,
 						OnTrackSelected = self.onTrackSelected,
 					}),
@@ -802,13 +701,9 @@ function EditorController:render()
 
 					OnScroll = self.onScroll,
 					OpenContextMenu = self.showMenu,
-					ToggleTrackExpanded = GetFFlagChannelAnimations() and props.SetTracksExpanded or props.SetTracksExpanded_deprecated,
+					ToggleTrackExpanded = props.SetTracksExpanded,
 					OnTrackAdded = self.addTrackWrapper,
-					OnValueChanged = GetFFlagChannelAnimations() and self.onValueChanged or props.ValueChanged,
-					-- Remove when GetFFlagChannelAnimations() is retired
-					OnValueChangedDeprecated2 = GetFFlagFaceControlsEditorUI() and self.triggerValueChangedDeprecated2ForFaceControls or props.ValueChanged_deprecated2,
-					-- Remove when GetFFlagFacialAnimationSupport() is retired
-					OnValueChangedDeprecated = props.ValueChanged_deprecated,
+					OnValueChanged = self.onValueChanged,
 					OnChangeBegan = props.AddWaypoint,
 					OnTrackSelected = self.onTrackSelected,
 				}) or nil,
@@ -822,18 +717,14 @@ function EditorController:render()
 						elseif Input.isLeft(input.KeyCode) then
 							if GetFFlagCurveEditor() then
 								props.CloseSelectedTracks(selectedTracks)
-							elseif GetFFlagChannelAnimations() then
-								props.CloseSelectedTracks_deprecated(selectedPaths)
 							else
-								props.CloseSelectedTracks_deprecated(selectedTracks)
+								props.CloseSelectedTracks_deprecated(selectedPaths)
 							end
 						elseif Input.isRight(input.KeyCode) then
 							if GetFFlagCurveEditor() then
 								props.ExpandSelectedTracks(selectedTracks)
-							elseif GetFFlagChannelAnimations() then
-								props.ExpandSelectedTracks_deprecated(selectedPaths)
 							else
-								props.ExpandSelectedTracks_deprecated(selectedTracks)
+								props.ExpandSelectedTracks_deprecated(selectedPaths)
 							end
 						elseif Input.isControl(input.KeyCode) then
 							self.controlDown = true
@@ -933,7 +824,7 @@ function EditorController:render()
 		TrackActions = active and showEditor and Roact.createElement(TrackActions, {
 			ShowMenu = state.showContextMenu,
 			OnMenuOpened = self.hideMenu,
-			IsChannelAnimation = GetFFlagChannelAnimations() and isChannelAnimation or nil,
+			IsChannelAnimation = isChannelAnimation,
 		}),
 
 		IgnoreLayout = not GetFFlagCurveEditor() and showEditor and Roact.createElement("Folder", {}, {
@@ -1053,10 +944,6 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetTracksExpanded(paths, expanded, false))
 		end,
 
-		SetTracksExpanded_deprecated = function(tracks, expanded)
-			dispatch(SetTracksExpanded_deprecated(tracks, expanded))
-		end,
-
 		SetSelectedTrackInstances = function(trackInstances)
 			dispatch(SetSelectedTrackInstances(trackInstances))
 		end,
@@ -1090,20 +977,9 @@ local function mapDispatchToProps(dispatch)
 			dispatch(AddTrack(instance, track, trackType, rotationType, EulerAnglesOrder, analytics))
 		end,
 
-		AddTrack_deprecated3 = not GetFFlagCurveEditor() and function(instance, track, trackType, rotationType, analytics)
-			dispatch(AddWaypoint())
-			dispatch(AddTrack(instance, track, trackType, rotationType, analytics))
-		end or nil,
-
 		AddTrack_deprecated2 = not GetFFlagCurveEditor() and function(instance, track, trackType, analytics)
 			dispatch(AddWaypoint())
 			dispatch(AddTrack(instance, track, trackType, analytics))
-		end,
-
-		-- Remove when GetFFlagFacialAnimationSupport() and GetFFlagChannelAnimations() are retired
-		AddTrack_deprecated = function(instance, track, analytics)
-			dispatch(AddWaypoint())
-			dispatch(AddTrack(instance, track, analytics))
 		end,
 
 		SetRightClickContextInfo = function(info)
@@ -1112,16 +988,6 @@ local function mapDispatchToProps(dispatch)
 
 		ValueChanged = function(instanceName, path, trackType, tck, value, analytics)
 			dispatch(ValueChanged(instanceName, path, trackType, tck, value, analytics))
-		end,
-
-		-- Remove when GetFFlagChannelAnimations() is retired
-		ValueChanged_deprecated2 = function(instanceName, trackName, trackType, tck, value, analytics)
-			dispatch(ValueChanged(instanceName, trackName, trackType, tck, value, analytics))
-		end,
-
-		-- Remove when GetFFlagFacialAnimationSupport() is retired
-		ValueChanged_deprecated = function(instanceName, trackName, tck, value, analytics)
-			dispatch(ValueChanged(instanceName, trackName, tck, value, analytics))
 		end,
 
 		AddWaypoint = function()

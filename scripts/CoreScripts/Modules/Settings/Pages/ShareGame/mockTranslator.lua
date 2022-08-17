@@ -1,6 +1,6 @@
 local mockTranslator = {}
 
-function mockTranslator:FormatByKey(key, args)
+function mockTranslator:FormatByKey(key: any?, args: any?)
 	return tostring(key)
 end
 

@@ -1,4 +1,3 @@
---!strict
 local CorePackages = game:GetService("CorePackages")
 local Types = require(CorePackages.UniversalApp.MessageBusTypes)
 

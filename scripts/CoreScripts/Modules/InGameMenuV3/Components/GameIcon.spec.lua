@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
@@ -33,7 +34,7 @@ return function()
 					localization = Localization.new("en-us"),
 				}, {
 					GameIcon = Roact.createElement(GameIcon, {
-						gameId = game.gameId,
+						gameId = game.GameId,
 						iconSize = 100,
 						layoutOrder = 1,
 					}),

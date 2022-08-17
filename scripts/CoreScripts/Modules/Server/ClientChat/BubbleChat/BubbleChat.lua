@@ -1,3 +1,4 @@
+--!nolint DeprecatedApi
 --[[
 	// FileName: BubbleChat.lua
 	// Written by: jeditkacheff, TheGamer101
@@ -371,7 +372,7 @@ end
 local function distanceToBubbleOrigin(origin)
 	if not origin then return 100000 end
 
-	return (origin.Position - game.Workspace.CurrentCamera.CoordinateFrame.Position).magnitude
+	return (origin.Position - (game.Workspace.CurrentCamera :: Camera).CoordinateFrame.Position).magnitude
 end
 
 local function isPartOfLocalPlayer(adornee)

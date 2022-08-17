@@ -1,3 +1,4 @@
+--!nonstrict
 local Root = script.Parent
 local ContentProvider = game:GetService("ContentProvider")
 local ItemType = require(Root.Enums.ItemType)
@@ -13,7 +14,7 @@ local XBOX_DEFAULT_IMAGE = "rbxasset://textures/ui/Shell/Icons/ROBUXIcon@1080.pn
 --[[
 	Depending on the type of item, get the proper preview image, sized correctly
 ]]
-local function getPreviewImageUrl(productInfo, platform)
+local function getPreviewImageUrl(productInfo, platform: any?)
 	local imageId
 
 	-- AssetId will only be populated if ProductInfo was from an asset

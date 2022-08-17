@@ -1,3 +1,4 @@
+--!nonstrict
 local function createMeshPartAccessorySchema(attachmentName)
 	assert(attachmentName, "attachmentName cannot be nil")
 	return {

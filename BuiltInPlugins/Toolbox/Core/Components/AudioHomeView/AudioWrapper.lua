@@ -2,7 +2,6 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
 
 local FFlagToolboxRemoveSFXMonstercatBanner = game:GetFastFlag("ToolboxRemoveSFXMonstercatBanner")
-local FFlagToolboxFurtherTryInStudioFixes = game:GetFastFlag("ToolboxFurtherTryInStudioFixes")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 
 local Packages = Plugin.Packages
@@ -225,21 +224,19 @@ function AudioWrapper:init(props: AudioWrapperProps)
 end
 
 function AudioWrapper:didMount()
-	if FFlagToolboxFurtherTryInStudioFixes then
-		local props: AudioWrapperProps = self.props
-		local assetIdStr = getStartupAssetId()
-		local assetId = tonumber(assetIdStr)
+	local props: AudioWrapperProps = self.props
+	local assetIdStr = getStartupAssetId()
+	local assetId = tonumber(assetIdStr)
 
-		if assetId then
-			local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
-			props.getAssetPreviewDataForStartup(
-				assetId,
-				props.TryInsert,
-				props.Localization,
-				getNetwork(self),
-				onAssetPreviewButtonClicked
-			)
-		end
+	if assetId then
+		local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
+		props.getAssetPreviewDataForStartup(
+			assetId,
+			props.TryInsert,
+			props.Localization,
+			getNetwork(self),
+			onAssetPreviewButtonClicked
+		)
 	end
 
 	if self.sizerRef.current then
@@ -314,13 +311,11 @@ local mapDispatchToProps = function(dispatch)
 			return dispatch(GetPageInfoAnalyticsContextInfo())
 		end,
 
-		getAssetPreviewDataForStartup = if FFlagToolboxFurtherTryInStudioFixes
-			then function(assetId, tryInsert, localization, networkInterface, setAssetPreview)
-				dispatch(
-					GetAssetPreviewDataForStartup(assetId, tryInsert, localization, networkInterface, setAssetPreview)
-				)
-			end
-			else nil,
+		getAssetPreviewDataForStartup = function(assetId, tryInsert, localization, networkInterface, setAssetPreview)
+			dispatch(
+				GetAssetPreviewDataForStartup(assetId, tryInsert, localization, networkInterface, setAssetPreview)
+			)
+		end,
 	}
 end
 

@@ -79,6 +79,13 @@ function ReportMenu:init()
 			filterText = Roact.None,
 		})
 	end
+	-- Press Header Title
+	self.scrollToTop = function()
+		local scrollingFrame = self.scrollingFrameRef:getValue()
+		if scrollingFrame then
+			scrollingFrame:scrollToTop()
+		end
+	end
 end
 
 function ReportMenu:getPlayerList()
@@ -123,6 +130,7 @@ function ReportMenu:renderHeaderBar()
 						onActivated = self.onSearch,
 					})
 				end,
+				onHeaderActivated = self.scrollToTop,
 				title = localized.titleText,
 			})
 		end)

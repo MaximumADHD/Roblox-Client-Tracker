@@ -11,7 +11,6 @@ return function()
 	local Constants = require(Plugin.Src.Util.Constants)
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 	local function makeAnimationData(tracks)
 		return {
@@ -82,28 +81,12 @@ return function()
 			expect(typeof(state)).to.equal("table")
 			expect(state.Instances).to.be.ok()
 		end)
-
-		if not GetFFlagChannelAnimations() then
-			it("should throw if given data with empty tracks", function()
-				local middlewares = {Rodux.thunkMiddleware}
-				local store = Rodux.Store.new(AnimationData, nil, middlewares)
-				expect(function()
-					store:dispatch(SetAnimationData(testBadAnimationData))
-				end).to.throw()
-			end)
-		end
 	end)
 
 	describe("AddKeyframe", function()
 		it("should add a keyframe at the given frame", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(AddKeyframe("Root", {"TestTrack"}, Constants.TRACK_TYPES.CFrame, 4, { Value = CFrame.new() }))
-			elseif GetFFlagFacialAnimationSupport() then
-				store:dispatch(AddKeyframe("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, 4, CFrame.new()))
-			else
-				store:dispatch(AddKeyframe("Root", "TestTrack", 4, CFrame.new()))
-			end
+			store:dispatch(AddKeyframe("Root", {"TestTrack"}, Constants.TRACK_TYPES.CFrame, 4, { Value = CFrame.new() }))
 			local state = store:getState()
 			local track = state.Instances.Root.Tracks.TestTrack
 
@@ -118,13 +101,7 @@ return function()
 
 		it("should add a new track if it does not exist", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(AddKeyframe("Root", {"NewTrack"}, Constants.TRACK_TYPES.CFrame, 1, { Value = CFrame.new() }))
-			elseif GetFFlagFacialAnimationSupport() then
-				store:dispatch(AddKeyframe("Root", "NewTrack", Constants.TRACK_TYPES.CFrame, 1, CFrame.new()))
-			else
-				store:dispatch(AddKeyframe("Root", "NewTrack", 1, CFrame.new()))
-			end
+			store:dispatch(AddKeyframe("Root", {"NewTrack"}, Constants.TRACK_TYPES.CFrame, 1, { Value = CFrame.new() }))
 			local state = store:getState()
 			local track = state.Instances.Root.Tracks.NewTrack
 
@@ -133,13 +110,7 @@ return function()
 
 		it("should preserve the other keyframes", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(AddKeyframe("Root", {"TestTrack"}, Constants.TRACK_TYPES.CFrame, 4, { Value = CFrame.new() }))
-			elseif GetFFlagFacialAnimationSupport() then
-				store:dispatch(AddKeyframe("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, 4, CFrame.new()))
-			else
-				store:dispatch(AddKeyframe("Root", "TestTrack", 4, CFrame.new()))
-			end
+			store:dispatch(AddKeyframe("Root", {"TestTrack"}, Constants.TRACK_TYPES.CFrame, 4, { Value = CFrame.new() }))
 
 			local state = store:getState()
 			local track = state.Instances.Root.Tracks.TestTrack
@@ -158,13 +129,7 @@ return function()
 
 		it("should preserve the other tracks", function()
 			tracksPreservedTest(function(store)
-				if GetFFlagChannelAnimations() then
-					store:dispatch(AddKeyframe("Root", {"TestTrack"}, Constants.TRACK_TYPES.CFrame, 4, { Value = CFrame.new() }))
-				elseif GetFFlagFacialAnimationSupport() then
-					store:dispatch(AddKeyframe("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, 4, CFrame.new()))
-				else
-					store:dispatch(AddKeyframe("Root", "TestTrack", 4, CFrame.new()))
-				end
+				store:dispatch(AddKeyframe("Root", {"TestTrack"}, Constants.TRACK_TYPES.CFrame, 4, { Value = CFrame.new() }))
 			end)
 		end)
 	end)
@@ -172,15 +137,9 @@ return function()
 	describe("SetKeyframeData", function()
 		it("should set a keyframe's EasingDirection", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SetKeyframeData("Root", {"TestTrack"}, 1, {
-					EasingDirection = Enum.PoseEasingDirection.In,
-				}))
-			else
-				store:dispatch(SetKeyframeData("Root", "TestTrack", 1, {
-					EasingDirection = Enum.PoseEasingDirection.In,
-				}))
-			end
+			store:dispatch(SetKeyframeData("Root", {"TestTrack"}, 1, {
+				EasingDirection = Enum.PoseEasingDirection.In,
+			}))
 
 			local state = store:getState()
 			local track = state.Instances.Root.Tracks.TestTrack
@@ -189,15 +148,10 @@ return function()
 
 		it("should set a keyframe's EasingStyle", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SetKeyframeData("Root", {"TestTrack"}, 1, {
-					EasingStyle = Enum.PoseEasingStyle.Linear,
-				}))
-			else
-				store:dispatch(SetKeyframeData("Root", "TestTrack", 1, {
-					EasingStyle = Enum.PoseEasingStyle.Linear,
-				}))
-			end
+			store:dispatch(SetKeyframeData("Root", {"TestTrack"}, 1, {
+				EasingStyle = Enum.PoseEasingStyle.Linear,
+			}))
+
 
 			local state = store:getState()
 			local track = state.Instances.Root.Tracks.TestTrack
@@ -206,148 +160,15 @@ return function()
 
 		it("should set a keyframe's Value", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SetKeyframeData("Root", {"TestTrack"}, 1, {
-					Value = CFrame.new(1, 0, 0)
-				}))
-			else
-				store:dispatch(SetKeyframeData("Root", "TestTrack", 1, {
-					Value = CFrame.new(1, 0, 0)
-				}))
-			end
+			store:dispatch(SetKeyframeData("Root", {"TestTrack"}, 1, {
+				Value = CFrame.new(1, 0, 0)
+			}))
 
 			local state = store:getState()
 			local track = state.Instances.Root.Tracks.TestTrack
 			expect(track.Data[1].Value).to.equal(CFrame.new(1, 0, 0))
 		end)
 	end)
-
-	if not GetFFlagChannelAnimations() then
-		describe("QuantizeKeyframes", function()
-			it("should clobber in-betweens if keyframes exist on both sides", function()
-				local testData = makeAnimationData({
-					["TestTrack"] = {
-						Keyframes = {1, 1.2, 1.5, 2},
-						Data = {
-							[1] = {Value = 1},
-							[1.2] = {Value = 1.2},
-							[1.5] = {Value = 1.5},
-							[2] = {Value = 2},
-						}
-					},
-				})
-				local store = createTestStore(testData)
-				store:dispatch(QuantizeKeyframes())
-
-				local state = store:getState()
-				local track = state.Instances.Root.Tracks.TestTrack
-				expect(#track.Keyframes).to.equal(2)
-				expect(track.Data[1].Value).to.equal(1)
-				expect(track.Data[2].Value).to.equal(2)
-			end)
-
-			it("should move in-betweens to either side if no keyframes exist there", function()
-				local testData = makeAnimationData({
-					["TestTrack"] = {
-						Keyframes = {1.2, 1.5},
-						Data = {
-							[1.2] = {Value = 1.2},
-							[1.5] = {Value = 1.5},
-						}
-					},
-				})
-				local store = createTestStore(testData)
-				store:dispatch(QuantizeKeyframes())
-
-				local state = store:getState()
-				local track = state.Instances.Root.Tracks.TestTrack
-				expect(#track.Keyframes).to.equal(2)
-				expect(track.Data[1].Value).to.equal(1.2)
-				expect(track.Data[2].Value).to.equal(1.5)
-			end)
-
-			it("should remove all extra in-betweens", function()
-				local testData = makeAnimationData({
-					["TestTrack"] = {
-						Keyframes = {1.2, 1.3, 1.4, 1.5},
-						Data = {
-							[1.2] = {Value = 1.2},
-							[1.3] = {Value = 1.3},
-							[1.4] = {Value = 1.4},
-							[1.5] = {Value = 1.5},
-						}
-					},
-				})
-				local store = createTestStore(testData)
-				store:dispatch(QuantizeKeyframes())
-
-				local state = store:getState()
-				local track = state.Instances.Root.Tracks.TestTrack
-				expect(#track.Keyframes).to.equal(2)
-				expect(track.Data[1].Value).to.equal(1.2)
-				expect(track.Data[2].Value).to.equal(1.5)
-			end)
-
-			it("should move single in-betweens left if no keyframe is there", function()
-				local testData = makeAnimationData({
-					["TestTrack"] = {
-						Keyframes = {1.2},
-						Data = {
-							[1.2] = {Value = 1.2},
-						}
-					},
-				})
-				local store = createTestStore(testData)
-				store:dispatch(QuantizeKeyframes())
-
-				local state = store:getState()
-				local track = state.Instances.Root.Tracks.TestTrack
-				expect(#track.Keyframes).to.equal(1)
-				expect(track.Data[1].Value).to.equal(1.2)
-			end)
-
-			it("should move single in-betweens right if a keyframe is there", function()
-				local testData = makeAnimationData({
-					["TestTrack"] = {
-						Keyframes = {1, 1.2},
-						Data = {
-							[1] = {Value = 1},
-							[1.2] = {Value = 1.2},
-						}
-					},
-				})
-				local store = createTestStore(testData)
-				store:dispatch(QuantizeKeyframes())
-
-				local state = store:getState()
-				local track = state.Instances.Root.Tracks.TestTrack
-				expect(#track.Keyframes).to.equal(2)
-				expect(track.Data[1].Value).to.equal(1)
-				expect(track.Data[2].Value).to.equal(1.2)
-			end)
-
-			it("should handle in-betweens which fall on the same frame", function()
-				local testData = makeAnimationData({
-					["TestTrack"] = {
-						Keyframes = {1, 1.8, 2.2},
-						Data = {
-							[1] = {Value = 1},
-							[1.8] = {Value = 1.8},
-							[2.2] = {Value = 2.2},
-						}
-					},
-				})
-				local store = createTestStore(testData)
-				store:dispatch(QuantizeKeyframes())
-
-				local state = store:getState()
-				local track = state.Instances.Root.Tracks.TestTrack
-				expect(#track.Keyframes).to.equal(2)
-				expect(track.Data[1].Value).to.equal(1)
-				expect(track.Data[2].Value).to.equal(2.2)
-			end)
-		end)
-	end
 
 	describe("UpdateMetadata", function()
 		it("should join Metadata with the new values", function()

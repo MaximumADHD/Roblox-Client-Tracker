@@ -6,15 +6,10 @@ local Types = require(script.Parent.Parent.Types)
 local maybeAssert = require(script.Parent.maybeAssert)
 
 local flags = script.Parent.Parent.Parent.Parent.Flags
-local GetFFlagBubbleChatUserSpecificSettings = require(flags.GetFFlagBubbleChatUserSpecificSettings)
 
 -- Build a settings object for the specified message. chatSettings might contain some specific settings for the given
 -- message (in the UserSpecificSettings field)
 local function getSettingsForMessage(chatSettings, message)
-	if not GetFFlagBubbleChatUserSpecificSettings() then
-		return chatSettings
-	end
-
 	maybeAssert(Types.IChatSettings(chatSettings))
 	maybeAssert(t.optional(Types.IMessage)(message))
 

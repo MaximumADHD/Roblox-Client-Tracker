@@ -43,7 +43,6 @@ local RoundFrame = require(UILibraryCompat.RoundFrame)
 
 local TextBox = require(Plugin.Src.Components.TextBox)
 
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 local GetFFlagValidateNumberBox = require(Plugin.LuaFlags.GetFFlagValidateNumberBox)
 
@@ -126,7 +125,7 @@ function NumberBox:render()
 	return Roact.createElement(RoundFrame, {
 		Size = size,
 		Position = position,
-		ZIndex = GetFFlagChannelAnimations() and 2 or nil,
+		ZIndex = 2,
 		AnchorPoint = anchorPoint,
 		BackgroundColor3 = textBoxTheme.backgroundColor,
 		BorderColor3 = borderColor,

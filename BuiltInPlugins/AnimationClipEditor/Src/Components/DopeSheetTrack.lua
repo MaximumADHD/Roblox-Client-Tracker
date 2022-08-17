@@ -40,7 +40,6 @@ local Keyframe = require(Plugin.Src.Components.Timeline.Keyframe)
 local KeyframeCluster = require(Plugin.Src.Components.KeyframeCluster)
 local Tooltip = require(Plugin.Src.Components.Tooltip)
 
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local FFlagFixClusterKeyframes = game:DefineFastFlag("ACEFixClusterKeyframes", false)
 
 local DopeSheetTrack = Roact.PureComponent:extend("DopeSheetTrack")
@@ -50,7 +49,7 @@ function DopeSheetTrack:renderKeyframe(selected, xOffset, track, tck, override, 
 	local path = props.Path or {track.Name}
 
 	local tooltipText
-	if GetFFlagChannelAnimations() and props.IsChannelAnimation then
+	if props.IsChannelAnimation then
 		tooltipText = data and data.InterpolationMode and data.InterpolationMode ~= Enum.KeyInterpolationMode.Linear
 			and data.InterpolationMode.Name or nil
 	else
@@ -68,19 +67,11 @@ function DopeSheetTrack:renderKeyframe(selected, xOffset, track, tck, override, 
 
 		OnActivated = props.OnKeyActivated,
 		OnRightClick = function(_, input)
-			if GetFFlagChannelAnimations() then
-				props.OnKeyRightClick(track.Instance, path, tck, selected)
-			else
-				props.OnKeyRightClick(track.Instance, track.Name, tck, selected)
-			end
+			props.OnKeyRightClick(track.Instance, path, tck, selected)
 		end,
 
 		OnInputBegan = function(_, input)
-			if GetFFlagChannelAnimations() then
-				props.OnKeyInputBegan(track.Instance, path, tck, selected, input)
-			else
-				props.OnKeyInputBegan(track.Instance, track.Name, tck, selected, input)
-			end
+			props.OnKeyInputBegan(track.Instance, path, tck, selected, input)
 		end,
 
 		OnInputEnded = function(_, input)
@@ -103,102 +94,60 @@ function DopeSheetTrack:renderKeyframeCluster(clusterStart, clusterEnd, clusterH
 end
 
 function DopeSheetTrack:renderKeyframes(keys)
-	if GetFFlagChannelAnimations() then
-		local props = self.props
-		local width = props.Width
-		local track = props.Track
-		local startTick = props.StartTick
-		local endTick = props.EndTick
-		local selectedKeyframes = props.SelectedKeyframes
-		local showCluster = props.ShowCluster
-		local isChannelAnimation = props.IsChannelAnimation
-		local path = props.Path or {track.Name}
+	local props = self.props
+	local width = props.Width
+	local track = props.Track
+	local startTick = props.StartTick
+	local endTick = props.EndTick
+	local selectedKeyframes = props.SelectedKeyframes
+	local showCluster = props.ShowCluster
+	local isChannelAnimation = props.IsChannelAnimation
+	local path = props.Path or {track.Name}
 
-		local keyframes = track.Keyframes
-		local trackData = track.Data
-		local instance = track.Instance
+	local keyframes = track.Keyframes
+	local trackData = track.Data
+	local instance = track.Instance
 
-		if showCluster then
-			local startIndex, endIndex = TrackUtils.getKeyframesExtents(keyframes, startTick, endTick)
-			if not FFlagFixClusterKeyframes or (startIndex ~= nil and endIndex ~= nil) then
-				local clusterXPos = TrackUtils.getScaledKeyframePosition(keyframes[startIndex], startTick, endTick, width)
-				local clusterXPosEnd = TrackUtils.getScaledKeyframePosition(keyframes[endIndex], startTick, endTick, width)
-				keys[endIndex] = self:renderKeyframeCluster(clusterXPos, clusterXPosEnd, Constants.MIN_SPACE_BETWEEN_KEYS)
-			end
-		else
-			local componentsInfo = TrackUtils.getComponentsInfo(track, startTick, endTick)
-
-			-- Find Selected track information
-			local selectionTrack = selectedKeyframes[instance]
-			for _, part in ipairs(path) do
-				if not selectionTrack then
-					break
-				end
-				selectionTrack = selectionTrack.Components and selectionTrack.Components[part] or selectionTrack[part]
-			end
-
-			for tck, info in pairs(componentsInfo) do
-				local override
-				local data = trackData and trackData[tck]
-				local complete = not isChannelAnimation or info.Complete
-
-				if componentsInfo[tck].Complete then
-					override = isChannelAnimation and componentsInfo[tck].InterpolationMode or componentsInfo[tck].EasingStyle
-				end
-
-				local xPos = TrackUtils.getScaledKeyframePosition(tck, startTick, endTick, width)
-				local selected = selectionTrack and selectionTrack.Selection and selectionTrack.Selection[tck]
-				table.insert(keys, self:renderKeyframe(selected, xPos, track, tck, override, data, complete))
-			end
-		end
-	else
-		local props = self.props
-		local width = props.Width
-		local track = props.Track
-		local startTick = props.StartTick
-		local endTick = props.EndTick
-		local selectedKeyframes = props.SelectedKeyframes
-		local showCluster = props.ShowCluster
-
-		local keyframes = track.Keyframes
-		local trackData = track.Data
-		local instance = track.Instance
-		local name = track.Name
-
+	if showCluster then
 		local startIndex, endIndex = TrackUtils.getKeyframesExtents(keyframes, startTick, endTick)
-		if FFlagFixClusterKeyframes and (startIndex == nil or endIndex == nil) then
-			return
-		end
-
-		if showCluster then
+		if not FFlagFixClusterKeyframes or (startIndex ~= nil and endIndex ~= nil) then
 			local clusterXPos = TrackUtils.getScaledKeyframePosition(keyframes[startIndex], startTick, endTick, width)
 			local clusterXPosEnd = TrackUtils.getScaledKeyframePosition(keyframes[endIndex], startTick, endTick, width)
 			keys[endIndex] = self:renderKeyframeCluster(clusterXPos, clusterXPosEnd, Constants.MIN_SPACE_BETWEEN_KEYS)
-		elseif FFlagFixClusterKeyframes or (startIndex ~= nil and endIndex ~= nil) then
-			for index = startIndex, endIndex do
-				local tck = keyframes[index]
-				local data = trackData[tck]
-				local override = data.EasingStyle
+		end
+	else
+		local componentsInfo = TrackUtils.getComponentsInfo(track, startTick, endTick)
 
-				local xPos = TrackUtils.getScaledKeyframePosition(tck, startTick, endTick, width)
-				local selected = selectedKeyframes[instance] and selectedKeyframes[instance][name]
-					and selectedKeyframes[instance][name][tck]
-				keys[index] = self:renderKeyframe(selected, xPos, track, tck, override, data)
+		-- Find Selected track information
+		local selectionTrack = selectedKeyframes[instance]
+		for _, part in ipairs(path) do
+			if not selectionTrack then
+				break
 			end
+			selectionTrack = selectionTrack.Components and selectionTrack.Components[part] or selectionTrack[part]
+		end
+
+		for tck, info in pairs(componentsInfo) do
+			local override
+			local data = trackData and trackData[tck]
+			local complete = not isChannelAnimation or info.Complete
+
+			if componentsInfo[tck].Complete then
+				override = isChannelAnimation and componentsInfo[tck].InterpolationMode or componentsInfo[tck].EasingStyle
+			end
+
+			local xPos = TrackUtils.getScaledKeyframePosition(tck, startTick, endTick, width)
+			local selected = selectionTrack and selectionTrack.Selection and selectionTrack.Selection[tck]
+			table.insert(keys, self:renderKeyframe(selected, xPos, track, tck, override, data, complete))
 		end
 	end
 end
 
 function DopeSheetTrack:render()
 	local props = self.props
-	local track = props.Track
-
 	local keys = {}
 
-	if GetFFlagChannelAnimations() or track.Keyframes then
-		self:renderKeyframes(keys)
-	end
-
+	self:renderKeyframes(keys)
 	return Roact.createElement(BaseTrack, props, keys)
 end
 

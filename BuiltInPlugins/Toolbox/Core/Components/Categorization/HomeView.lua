@@ -7,9 +7,9 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local FFlagToolboxUseExpandableTopSearch = game:GetFastFlag("ToolboxUseExpandableTopSearch") -- TODO: Flip when UISYS-1334 is ready
 local FintToolboxHomeViewInitialPageSize = game:GetFastInt("ToolboxHomeViewInitialPageSize")
 local FFlagToolboxFixTryInStudio = game:GetFastFlag("ToolboxFixTryInStudio")
-local FFlagToolboxHomeViewSingleLaneNoTitle = game:GetFastFlag("ToolboxHomeViewSingleLaneNoTitle")
 local FFlagToolboxUseDisplayName = game:GetFastFlag("ToolboxUseDisplayName")
 local FFlagToolboxFixMissingCategories = game:GetFastFlag("ToolboxFixMissingCategories")
+local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 
 local Libs = Plugin.Packages
@@ -103,7 +103,8 @@ type _ExternalProps = {
 
 type _InternalProps = {
 	-- mapStateToProps
-	IncludeOnlyVerifiedCreators: boolean?,
+	IncludeOnlyVerifiedCreators: boolean?, -- TODO: Remove with FFlagToolboxUseVerifiedIdAsDefault
+	IncludeUnverifiedCreators: boolean?,
 	-- mapDispatchToProps
 	getAssetPreviewDataForStartup: any,
 	requestSearchRequest: (networkInterface: any, settings: any, searchText: string, categoryName: string) -> (),
@@ -187,7 +188,14 @@ function HomeView:init()
 		local subcategoryDict = props.SubcategoryDict
 
 		local subcategoryData = subcategoryDict[subcategoryName]
-		onClickSubcategory(subcategoryName, subcategoryData, if FFlagToolboxUseQueryForCategories2 then nil else subcategoryData.searchKeywords, categoryName, sortName, if FFlagToolboxUseQueryForCategories2 then subcategoryData.queryParams else nil)
+		onClickSubcategory(
+			subcategoryName,
+			subcategoryData,
+			if FFlagToolboxUseQueryForCategories2 then nil else subcategoryData.searchKeywords,
+			categoryName,
+			sortName,
+			if FFlagToolboxUseQueryForCategories2 then subcategoryData.queryParams else nil
+		)
 	end
 
 	self.onClickSeeAllSubcategories = function()
@@ -242,7 +250,15 @@ function HomeView:init()
 		local assetSections = props.AssetSections
 		local canInsertAsset = props.CanInsertAsset
 		local categoryName = props.CategoryName
-		local includeOnlyVerifiedCreators = props.IncludeOnlyVerifiedCreators
+
+		local includeOnlyVerifiedCreators
+		local includeUnverifiedCreators
+		if FFlagToolboxUseVerifiedIdAsDefault then
+			includeUnverifiedCreators = props.IncludeUnverifiedCreators
+		else
+			includeOnlyVerifiedCreators = props.IncludeOnlyVerifiedCreators
+		end
+
 		local localization = props.Localization
 		local onClickSeeAllAssets = props.OnClickSeeAllAssets
 		local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
@@ -287,7 +303,8 @@ function HomeView:init()
 			assetSectionsElems["AssetSwimlane_" .. i] = Roact.createElement(AssetSwimlane, {
 				CanInsertAsset = canInsertAsset,
 				CategoryName = categoryName,
-				IncludeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
+				IncludeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else includeOnlyVerifiedCreators,
+				IncludeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then includeUnverifiedCreators else nil,
 				InitialPageSize = SWIMLANE_SIZE,
 				SortName = sortName,
 				SearchTerm = nil,
@@ -417,7 +434,15 @@ function HomeView:render()
 	local props: HomeViewProps = self.props
 
 	local categoryName = props.CategoryName
-	local includeOnlyVerifiedCreators = props.IncludeOnlyVerifiedCreators
+
+	local includeOnlyVerifiedCreators
+	local includeUnverifiedCreators
+	if FFlagToolboxUseVerifiedIdAsDefault then
+		includeUnverifiedCreators = props.IncludeUnverifiedCreators
+	else
+		includeOnlyVerifiedCreators = props.IncludeOnlyVerifiedCreators
+	end
+
 	local layoutOrder = props.LayoutOrder
 	local position = props.Position
 	local sortName = props.SortName
@@ -432,24 +457,20 @@ function HomeView:render()
 	if FFlagToolboxFixMissingCategories then
 		local hasSubcategories = next(subcategoryDict) ~= nil
 
-		if FFlagToolboxHomeViewSingleLaneNoTitle then
-			-- If there is only a single swimlane defined, it has no subcategories, and there are no top keywords, we hide the top content
-			hideTopContent = #assetSections == 1
-				and not hasSubcategories
-				and assetSections[#assetSections]
-				and not assetSections[#assetSections].subcategory
-				and props.TopKeywords
-				and #props.TopKeywords == 0
-		end
+		-- If there is only a single swimlane defined, it has no subcategories, and there are no top keywords, we hide the top content
+		hideTopContent = #assetSections == 1
+			and not hasSubcategories
+			and assetSections[#assetSections]
+			and not assetSections[#assetSections].subcategory
+			and props.TopKeywords
+			and #props.TopKeywords == 0
 	else
-		if FFlagToolboxHomeViewSingleLaneNoTitle then
-			-- If there is only a single swimlane defined, it has no subcategories, and there are no top keywords, we hide the top content
-			hideTopContent = #assetSections == 1
-				and assetSections[#assetSections]
-				and not assetSections[#assetSections].subcategory
-				and props.TopKeywords
-				and #props.TopKeywords == 0
-		end
+		-- If there is only a single swimlane defined, it has no subcategories, and there are no top keywords, we hide the top content
+		hideTopContent = #assetSections == 1
+			and assetSections[#assetSections]
+			and not assetSections[#assetSections].subcategory
+			and props.TopKeywords
+			and #props.TopKeywords == 0
 	end
 
 	-- Props from AssetLogicWrapper
@@ -460,9 +481,7 @@ function HomeView:render()
 
 	-- NOTE: We must call createTopContent here to prevent ResultsFetcher from
 	-- being called multiple times on AssetGrid re-render.
-	local topContentElems = if FFlagToolboxHomeViewSingleLaneNoTitle and hideTopContent
-		then nil
-		else self.createTopContent()
+	local topContentElems = if hideTopContent then nil else self.createTopContent()
 	local renderTopContent = function()
 		return topContentElems
 	end
@@ -481,7 +500,8 @@ function HomeView:render()
 			queryParams = if FFlagToolboxUseQueryForCategories2 then {} else nil,
 			sectionName = sectionName,
 			initialPageSize = INITIAL_PAGE_SIZE,
-			includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
+			includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else includeOnlyVerifiedCreators,
+			includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then includeUnverifiedCreators else nil,
 			render = function(resultsState)
 				if resultsState.loading and #resultsState.assetIds == 0 then
 					return Roact.createElement("Frame", {
@@ -521,7 +541,8 @@ function mapStateToProps(state: any, props)
 	state = state or {}
 	local pageInfo = state.pageInfo or {}
 	return {
-		IncludeOnlyVerifiedCreators = pageInfo.includeOnlyVerifiedCreators,
+		IncludeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else pageInfo.includeOnlyVerifiedCreators,
+		IncludeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then pageInfo.includeUnverifiedCreators else nil,
 	}
 end
 

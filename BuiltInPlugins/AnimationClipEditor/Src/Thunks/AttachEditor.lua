@@ -21,7 +21,6 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 return function(analytics)
@@ -59,10 +58,8 @@ return function(analytics)
 						local rotationType = TrackUtils.getRotationType(track)
 						local eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
 						store:dispatch(AddTrack(instanceName, trackName, track.Type, rotationType, eulerAnglesOrder, analytics))
-					elseif GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
-						store:dispatch(AddTrack(instanceName, trackName, track.Type, analytics))
 					else
-						store:dispatch(AddTrack(instanceName, trackName, analytics))
+						store:dispatch(AddTrack(instanceName, trackName, track.Type, analytics))
 					end
 				end
 			end

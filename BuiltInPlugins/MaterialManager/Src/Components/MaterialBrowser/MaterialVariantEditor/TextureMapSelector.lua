@@ -17,6 +17,7 @@ local MarketplaceService = game:GetService("MarketplaceService")
 
 local Controllers = Plugin.Src.Controllers
 local ImportAssetHandler = require(Controllers.ImportAssetHandler)
+local GeneralServiceController = require(Controllers.GeneralServiceController)
 
 local LabeledElement = require(Plugin.Src.Components.MaterialBrowser.MaterialVariantEditor.LabeledElement)
 local PromptSelectorWithPreview = require(Plugin.Src.Components.PromptSelectorWithPreview)
@@ -39,6 +40,7 @@ export type Props = {
 
 type _Props = Props & {
 	Analytics: any,
+	GeneralServiceController: any,
 	Localization: any,
 	Stylizer: any,
 	ImportAssetHandler: any,
@@ -48,7 +50,6 @@ type _Style = {
 	InfoTextColor: Color3,
 	ItemPaddingHorizontal: UDim,
 	ErrorOrWarningTextSize: number,
-	ErrorOrWarningColor: Color3,
 }
 
 local TextureMapSelector = Roact.PureComponent:extend("TextureMapSelector")
@@ -57,23 +58,29 @@ function TextureMapSelector:init()
 	self.state = {
 		urlAsset = "",
 		importAsset = {},
-		errorMessage = "",
-		uploading = false,
+		errorMessage = nil,
 	}
 
 	self.clearTextureMap = function()
 		local props: _Props = self.props
 
 		local materialVariant = props.MaterialVariant:: any
-		materialVariant[props.MapType] = ""
+		props.GeneralServiceController:setTextureMap(materialVariant, props.MapType, "")
 		if not self._isMounted then
 			return
 		end
 		self:setState({
 			urlAsset = "",
 			importAsset = {}, 
-			errorMessage = "",
-			uploading = false,
+		})
+	end
+
+	self.setErrorMessage = function(error)
+		if not self._isMounted then
+			return
+		end
+		self:setState({
+			errorMessage = error or Roact.None,
 		})
 	end
 
@@ -81,50 +88,36 @@ function TextureMapSelector:init()
 		local props: _Props = self.props
 		local assetHandler = props.ImportAssetHandler
 		
-		local errorMessage = ""
-		local _promise = assetHandler:handleAssetAsync(file, function()
-			self:setState({
-				uploading = true,
-			})
-		end):andThen(function(assetId)
+		local _promise = assetHandler:handleAssetAsync(file):andThen(function(assetId)
 			local materialVariant = props.MaterialVariant:: any
-			materialVariant[props.MapType] = assetId
+			props.GeneralServiceController:setTextureMap(materialVariant, props.MapType, assetId)
+			self.setErrorMessage(nil)
 			if props.Mode == "Create" then
 				props.Analytics:report("uploadTextureMap")
 			end
 		end, function(err)
-			errorMessage = ErrorTypes.FailedToUploadFromFileMap
+			self.setErrorMessage(ErrorTypes.FailedToUploadFromFileMap)
 			self.clearTextureMap()
 			if props.Mode == "Create" then
 				props.Analytics:report("uploadTextureMapError")
 			end
-		end):await()
-
-		if not self._isMounted then
-			return
-		end
-
-		self:setState({
-			uploading = false,
-		})
-		return errorMessage
+		end)
 	end
 
-	self.selectTextureMap = function(file: File?, assetId: number?, errorMessage: string?)
+	self.selectTextureMap = function(file: File?, assetId: string?)
 		local props: _Props = self.props
 		
 		local newImportState
 		local materialVariant = props.MaterialVariant:: any
 		if assetId then
-			materialVariant[props.MapType] = assetId
+			props.GeneralServiceController:setTextureMap(materialVariant, props.MapType, assetId)
 		elseif file then
 			local tempId = file:GetTemporaryId()
-			materialVariant[props.MapType] = tempId
 			newImportState = {
 				file = file,
 				tempId = tempId,
 			}
-			errorMessage = self.uploadTextureMap(file)
+			self.uploadTextureMap(file)
 		end
 
 		if not self._isMounted then
@@ -133,8 +126,7 @@ function TextureMapSelector:init()
 		self:setState(function(state)
 			return {
 				urlAsset = if file then "" else state.urlAsset,
-				importAsset = if file then newImportState else {},
-				errorMessage = errorMessage or "",
+				importAsset = if file and not (state.errorMessage and state.errorMessage ~= "") then newImportState else {},
 			}
 		end)
 	end
@@ -146,6 +138,7 @@ function TextureMapSelector:init()
 	end
 
 	self.promptSelection = function()
+		self.setErrorMessage(nil)
 		local formats = {"png", "jpg", "jpeg"}
 		local file
 
@@ -158,20 +151,23 @@ function TextureMapSelector:init()
 				self.selectTextureMap(file)
 			end
 		else
-			self.selectTextureMap(nil, nil, ErrorTypes.FailedToImportMap)
+			self.setErrorMessage(ErrorTypes.FailedToImportMap)
+			self.clearTextureMap()
 		end
 	end
 
 	self.onFocusLost = function()
+		self.setErrorMessage(nil)
 		local searchUrl = self.state.urlAsset
 		if not searchUrl or searchUrl == "" then
-			self.selectTextureMap(nil, nil, nil)
+			self.clearTextureMap()
 			return
 		end
 
 		local numericId = tonumber(searchUrl:match("://(%d+)")) or tonumber(searchUrl:match("(%d+)"))
 		if not numericId then
-			self.selectTextureMap(nil, nil, ErrorTypes.FailedUrl)
+			self.setErrorMessage(ErrorTypes.FailedUrl)
+			self.clearTextureMap()
 			return
 		end
 
@@ -185,7 +181,8 @@ function TextureMapSelector:init()
 				assetInfo = MarketplaceService:GetProductInfo(numericId)
 			end)
 			if not success then
-				self.selectTextureMap(nil, nil, ErrorTypes.FailedUrl)
+				self.setErrorMessage(ErrorTypes.FailedUrl)
+				self.clearTextureMap()
 				return
 			end
 
@@ -195,7 +192,8 @@ function TextureMapSelector:init()
 
 			-- AssetTypeId = 1 is Image, AssetTypeId = 13 is Decal
 			if not assetInfo or (assetInfo.AssetTypeId ~= 1 and assetInfo.AssetTypeId ~= 13) then	
-				self.selectTextureMap(nil, nil, ErrorTypes.FailedUrl)
+				self.setErrorMessage(ErrorTypes.FailedUrl)
+				self.clearTextureMap()
 				return
 			end
 			self.selectTextureMap(nil, "rbxassetid://" .. numericId)
@@ -213,80 +211,72 @@ end
 
 function TextureMapSelector:render()
 	local props: _Props = self.props
-	local style: _Style = props.Stylizer.TextureMapSelector
 	local state = self.state
 	local localization = props.Localization
 
 	local hasSelection = false
 	local selectionName = ""
 	local imageId = ""
+	local isTempId = true
 	local materialVariant = props.MaterialVariant:: any
-	if materialVariant[props.MapType] ~= "" then
+
+	if state.importAsset and state.importAsset.tempId or materialVariant[props.MapType] ~= "" then
 		hasSelection = true
 		selectionName = if state.importAsset.file then state.importAsset.file.Name else materialVariant[props.MapType]
-		imageId = materialVariant[props.MapType]
+		if state.importAsset and state.importAsset.tempId then 
+			imageId = state.importAsset.tempId 
+			isTempId = true
+		else
+			imageId = materialVariant[props.MapType]
+			isTempId = false
+		end
 	end
 
-	local borderColorUrlBool = false
-	local borderColorFileBool = false
-	local errorText = ""
-	local underlyingColor = style.ErrorOrWarningColor
-	if state.errorMessage == ErrorTypes.FailedUrl then
-		borderColorUrlBool = true
-		errorText = localization:getText("CreateDialog", "ErrorFindUrl")
-		props.Analytics:report("uploadTextureMapError")
-	elseif state.errorMessage == ErrorTypes.FailedToImportMap then
-		borderColorFileBool = true
-		errorText = localization:getText("CreateDialog", "ErrorImportMap")
-		props.Analytics:report("importTextureMapError")
-	elseif state.errorMessage == ErrorTypes.FailedToUploadFromFileMap then
-		borderColorFileBool = true
-		errorText = localization:getText("CreateDialog", "ErrorUploadFromFileMapToLarge")
-		props.Analytics:report("uploadTextureMapFromFileError")
-	end
-
-	local infoText
-	if state.uploading == true then
-		infoText = localization:getText("CreateDialog", "Uploading")
-		underlyingColor = style.InfoTextColor
-	else
-		infoText = ""
+	local status, errorText
+	if state.errorMessage and state.errorMessage ~= "" then
+		status = Enum.PropertyStatus.Error
+		errorText = localization:getText("CreateDialog", state.errorMessage)
+		if props.Mode == "Create" then
+			if state.errorMessage == ErrorTypes.FailedUrl then
+				props.Analytics:report("uploadTextureMapError")
+			elseif state.errorMessage == ErrorTypes.FailedToImportMap then
+				props.Analytics:report("importTextureMapError")
+			elseif state.errorMessage == ErrorTypes.FailedToUploadFromFileMap then 
+				props.Analytics:report("uploadTextureMapFromFileError")
+			end
+		end
 	end
 
 	return Roact.createElement(LabeledElement, {
 		LayoutOrder = props.LayoutOrder,
 		LabelColumnWidth = props.LabelColumnWidth,
 		Text = props.Text,
-		ErrorText = errorText,
-		InfoText = infoText,
-		TextSize = style.ErrorOrWarningTextSize,
-		UnderlyingColor = underlyingColor,
+		StatusText = errorText,
+		Status = status,
 	}, {
 		Roact.createElement(PromptSelectorWithPreview, {
 			SelectionName = selectionName,
 			PreviewTitle = props.PreviewTitle,
 			HasSelection = hasSelection,
+			IsTempId = isTempId,
 			ImageId = imageId,
 			PromptSelection = self.promptSelection,
 			UrlSelection = self.urlSelectTextureMap,
 			SearchUrl = state.urlAsset,
-			BorderColorUrlBool = borderColorUrlBool,
-			BorderColorFileBool = borderColorFileBool,
+			BorderColorUrlBool = if state.errorMessage == ErrorTypes.FailedUrl then true else false,
 			ClearSelection = self.clearTextureMap,
 			OnFocusLost = self.onFocusLost,
 		})
 	})
 end
 
-
 TextureMapSelector = withContext({
 	Analytics = Analytics,
+	GeneralServiceController = GeneralServiceController,
 	Localization = Localization,
 	Stylizer = Stylizer,
 	ImportAssetHandler = ImportAssetHandler,
 })(TextureMapSelector)
-
-
 
 return RoactRodux.connect(
 	function(state: MainReducer.State, props: Props)	

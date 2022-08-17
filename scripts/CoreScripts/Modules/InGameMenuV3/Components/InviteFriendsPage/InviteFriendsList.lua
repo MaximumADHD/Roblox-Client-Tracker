@@ -1,3 +1,4 @@
+--!nonstrict
 local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
 
@@ -29,7 +30,6 @@ local RootedConnection = require(InGameMenu.Components.Connection.RootedConnecti
 local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
 
 local InviteFriendsList = Roact.PureComponent:extend("InviteFriendsList")
-local GetFFlagFixV3InviteReducer = require(InGameMenu.Flags.GetFFlagFixV3InviteReducer)
 
 InviteFriendsList.validateProps = t.strictInterface({
 	friends = t.array(t.strictInterface({
@@ -43,14 +43,9 @@ InviteFriendsList.validateProps = t.strictInterface({
 	canCaptureFocus = t.boolean,
 	playersService = t.union(t.Instance, t.table),
 	isMenuOpen = t.optional(t.boolean),
-	inviteFriends = not GetFFlagFixV3InviteReducer() and t.optional(t.array(t.strictInterface({
-		IsOnline = t.boolean,
-		Id = t.integer,
-		Username = t.string,
-		Displayname = t.string,
-	}))) or nil,
 	isFilteringMode = t.optional(t.boolean),
 	searchText = t.optional(t.string),
+	scrollingFrameRef = t.optional(t.table),
 
 	dispatchInviteUserToPlaceId = t.callback,
 })
@@ -126,7 +121,8 @@ function InviteFriendsList:didUpdate(prevProps, prevState)
 	end
 
 	if self.props.isMenuOpen and not prevProps.isMenuOpen then
-		local scrollingFrame = self.scrollingFrameRef:getValue()
+		local scrollingFrame = self.props.scrollingFrameRef and self.props.scrollingFrameRef:getValue() or nil
+
 		if scrollingFrame and scrollingFrame.CanvasPosition.Y > 0 then
 			scrollingFrame.CanvasPosition = Vector2.new(0, 0)
 		end
@@ -242,7 +238,7 @@ function InviteFriendsList:render()
 					selectedPlayer = Roact.None,
 				})
 			end or nil,
-			scrollingFrameRef = self.scrollingFrameRef,
+			scrollingFrameRef = self.props.scrollingFrameRef,
 		}, listEntries),
 
 		MoreActionsMenu = Roact.createElement(PlayerContextualMenuWrapper, {
@@ -314,21 +310,11 @@ function InviteFriendsList:getPlayerByIndex(index)
 end
 
 return RoactRodux.connect(function(state, props)
-	if GetFFlagFixV3InviteReducer() then
-		return {
-			isMenuOpen = state.isMenuOpen,
-			invitesState = state.invites,
-			shouldForgetPreviousSelection = state.menuPage == Constants.MainPagePageKey or state.currentZone == 0,
-		}
-	else
-		return {
-			isMenuOpen = state.isMenuOpen,
-			invitesState = state.invites,
-			inviteFriends = state.inviteFriends.inviteFriends,
-			shouldForgetPreviousSelection = state.menuPage == Constants.MainPagePageKey or state.currentZone == 0,
-		}
-	end
-
+	return {
+		isMenuOpen = state.isMenuOpen,
+		invitesState = state.invites,
+		shouldForgetPreviousSelection = state.menuPage == Constants.MainPagePageKey or state.currentZone == 0,
+	}
 end, function(dispatch)
 	return {
 		dispatchInviteUserToPlaceId = function(userId, placeId)

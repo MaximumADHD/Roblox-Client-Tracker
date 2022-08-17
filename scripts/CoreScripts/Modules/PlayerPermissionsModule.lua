@@ -5,8 +5,6 @@ local CoreGuiService = game:GetService("CoreGui")
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 
-local isPackInGameJoinDataEnabledClient = require(CoreGuiModules.Flags.isPackInGameJoinDataEnabledClient)
-
 local PlayerInfo = {}
 PlayerInfo.__index = PlayerInfo
 
@@ -87,27 +85,14 @@ spawn(function()
 	local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 	local RemoveEvent_NewPlayerGroupDetails = RobloxReplicatedStorage:WaitForChild("NewPlayerGroupDetails", math.huge)
 
-	if isPackInGameJoinDataEnabledClient() then
-		RemoveEvent_NewPlayerGroupDetails.OnClientEvent:Connect(function(...)
-			local remoteArguments = { ... }
+	RemoveEvent_NewPlayerGroupDetails.OnClientEvent:Connect(function(...)
+		local remoteArguments = { ... }
 
-			if #remoteArguments == 1 then --Only one parameter, so it should be the data dictionary
-				local groupDetailsPacket = remoteArguments[1]
-				local infoMapWasChanged = false
+		if #remoteArguments == 1 then --Only one parameter, so it should be the data dictionary
+			local groupDetailsPacket = remoteArguments[1]
+			local infoMapWasChanged = false
 
-				for userIdStr, groupDetails in pairs(groupDetailsPacket) do
-					local player = PlayersService:GetPlayerByUserId(tonumber(userIdStr))
-					if player then
-						local info = getPlayerInfo(player)
-						if info then
-							info:setGroupData(groupDetails)
-						end
-					end
-				end
-			else --More arguments, server flag isn't enabled yet
-				local userIdStr = remoteArguments[1]
-				local groupDetails = remoteArguments[2]
-
+			for userIdStr, groupDetails in pairs(groupDetailsPacket) do
 				local player = PlayersService:GetPlayerByUserId(tonumber(userIdStr))
 				if player then
 					local info = getPlayerInfo(player)
@@ -116,9 +101,10 @@ spawn(function()
 					end
 				end
 			end
-		end)
-	else
-		RemoveEvent_NewPlayerGroupDetails.OnClientEvent:Connect(function(userIdStr, groupDetails)
+		else --More arguments, server flag isn't enabled yet
+			local userIdStr = remoteArguments[1]
+			local groupDetails = remoteArguments[2]
+
 			local player = PlayersService:GetPlayerByUserId(tonumber(userIdStr))
 			if player then
 				local info = getPlayerInfo(player)
@@ -126,8 +112,8 @@ spawn(function()
 					info:setGroupData(groupDetails)
 				end
 			end
-		end)
-	end
+		end
+	end)
 end)
 
 coroutine.wrap(function()

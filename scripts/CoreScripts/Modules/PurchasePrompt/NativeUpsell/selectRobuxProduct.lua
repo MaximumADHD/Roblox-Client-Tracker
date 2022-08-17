@@ -1,3 +1,4 @@
+--!nonstrict
 local Root = script.Parent.Parent
 local XboxCatalogData = require(script.Parent.XboxCatalogData)
 local NativeProducts = require(script.Parent.NativeProducts)

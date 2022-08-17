@@ -1,5 +1,4 @@
 local Plugin = script.Parent.Parent.Parent
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFaceControlsEditorUIUpdate = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUIUpdate)
 local GetFFlagFaceControlsEditorBugBash2Update = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorBugBash2Update)
@@ -28,7 +27,7 @@ local Constants = {
 
 	MAX_TIME = 1800,
 	TICK_FREQUENCY = 2400,
-	DEFAULT_TICK_FREQUENCY = GetFFlagChannelAnimations() and 2400 or nil,
+	DEFAULT_TICK_FREQUENCY = 2400,
 
 	MAX_DISPLAYED_TIME = 30,
 	MIN_TIMELINE_RANGE = 30,
@@ -53,8 +52,8 @@ local Constants = {
 	SCROLL_BAR_SIZE = 17,
 	SCROLL_BAR_PADDING = 2,
 
-	TRACK_LIST_START_WIDTH = (GetFFlagChannelAnimations() and 440 or 425),
-	TRACK_LIST_MIN_WIDTH = (GetFFlagChannelAnimations() and 440 or 425),
+	TRACK_LIST_START_WIDTH = 440,
+	TRACK_LIST_MIN_WIDTH = 440,
 	TIMELINE_MIN_WIDTH = 200,
 
 	INDENT_PADDING = 8,
@@ -129,11 +128,11 @@ local Constants = {
 		Facs = "Facs",
 		Other = "Other",
 
-		Position = GetFFlagChannelAnimations() and "Position" or nil,
-		Number = GetFFlagChannelAnimations() and "Number" or nil,
-		Angle = GetFFlagChannelAnimations() and "Angle" or nil,
-		Quaternion = GetFFlagChannelAnimations() and "Quaternion" or nil,
-		EulerAngles = GetFFlagChannelAnimations() and "EulerAngles" or nil,
+		Position = "Position",
+		Number = "Number",
+		Angle = "Angle",
+		Quaternion = "Quaternion",
+		EulerAngles = "EulerAngles",
 	},
 
 	INSTANCE_TYPES = {
@@ -146,7 +145,7 @@ local Constants = {
 	PROPERTY_KEYS = {
 		Position = "Position",
 		Rotation = "Rotation",
-		Quaternion = if GetFFlagCurveEditor() then nil else (if GetFFlagChannelAnimations() then "Quaternion" else nil),  -- Unused
+		Quaternion = if GetFFlagCurveEditor() then nil else "Quaternion",  -- Unused
 		X = "X",
 		Y = "Y",
 		Z = "Z",
@@ -215,7 +214,7 @@ local Constants = {
 	CLIPBOARD_TYPE = {
 		Events = "Events",
 		Keyframes = "Keyframes",
-		Channels = GetFFlagChannelAnimations() and "Channels" or nil,
+		Channels = "Channels",
 	},
 
 	MENU_SEPARATOR = "Separator",
@@ -354,29 +353,29 @@ local Constants = {
 		Other = "Other",
 	},
 
-	POSE_EASING_STYLE_TO_KEY_INTERPOLATION = GetFFlagChannelAnimations() and {
+	POSE_EASING_STYLE_TO_KEY_INTERPOLATION = {
 		[Enum.PoseEasingStyle.Constant] = Enum.KeyInterpolationMode.Constant,
 		[Enum.PoseEasingStyle.Linear] = Enum.KeyInterpolationMode.Linear,
 		[Enum.PoseEasingStyle.Cubic] = Enum.KeyInterpolationMode.Cubic,
 		[Enum.PoseEasingStyle.Bounce] = Enum.KeyInterpolationMode.Cubic,
 		[Enum.PoseEasingStyle.Elastic] = Enum.KeyInterpolationMode.Cubic,
-	} or nil,
+	},
 
-	KEY_INTERPOLATION_MODE_ORDER = GetFFlagChannelAnimations() and {
+	KEY_INTERPOLATION_MODE_ORDER = {
 		Enum.KeyInterpolationMode.Linear,
 		Enum.KeyInterpolationMode.Constant,
 		Enum.KeyInterpolationMode.Cubic,
-	} or nil,
+	},
 
-	SLOPES = GetFFlagChannelAnimations() and {
+	SLOPES = {
 		Right = "Right",
 		Left = "Left",
-	} or nil,
+	},
 
-	DRAG_MODE = GetFFlagCurveEditor() and {
+	DRAG_MODE = {
 		Keyframe = "Keyframe",
 		Tangent = "Tangent"
-	} or nil,
+	},
 
 	PLAY_STATE = {
 		Reverse = "Reverse",
@@ -668,48 +667,46 @@ else
 	Constants.faceControlsEditorTogglesContainerHeight = 80
 end
 
-if GetFFlagChannelAnimations() then
-	Constants.COMPONENT_TRACK_TYPES = {
-		[Constants.TRACK_TYPES.CFrame] = {
-			_Order = {Constants.PROPERTY_KEYS.Position, Constants.PROPERTY_KEYS.Rotation},
-			[Constants.PROPERTY_KEYS.Position] = Constants.TRACK_TYPES.Position,
-			[Constants.PROPERTY_KEYS.Rotation] = Constants.TRACK_TYPES.EulerAngles
-		},
-		[Constants.TRACK_TYPES.Position] = {
-			_Order = {Constants.PROPERTY_KEYS.X, Constants.PROPERTY_KEYS.Y, Constants.PROPERTY_KEYS.Z},
-			[Constants.PROPERTY_KEYS.X] = Constants.TRACK_TYPES.Number,
-			[Constants.PROPERTY_KEYS.Y] = Constants.TRACK_TYPES.Number,
-			[Constants.PROPERTY_KEYS.Z] = Constants.TRACK_TYPES.Number,
-		},
-	}
-	Constants.COMPONENT_TRACK_TYPES[Constants.TRACK_TYPES.EulerAngles] = {
+Constants.COMPONENT_TRACK_TYPES = {
+	[Constants.TRACK_TYPES.CFrame] = {
+		_Order = {Constants.PROPERTY_KEYS.Position, Constants.PROPERTY_KEYS.Rotation},
+		[Constants.PROPERTY_KEYS.Position] = Constants.TRACK_TYPES.Position,
+		[Constants.PROPERTY_KEYS.Rotation] = Constants.TRACK_TYPES.EulerAngles
+	},
+	[Constants.TRACK_TYPES.Position] = {
 		_Order = {Constants.PROPERTY_KEYS.X, Constants.PROPERTY_KEYS.Y, Constants.PROPERTY_KEYS.Z},
-		[Constants.PROPERTY_KEYS.X] = Constants.TRACK_TYPES.Angle,
-		[Constants.PROPERTY_KEYS.Y] = Constants.TRACK_TYPES.Angle,
-		[Constants.PROPERTY_KEYS.Z] = Constants.TRACK_TYPES.Angle,
-	}
+		[Constants.PROPERTY_KEYS.X] = Constants.TRACK_TYPES.Number,
+		[Constants.PROPERTY_KEYS.Y] = Constants.TRACK_TYPES.Number,
+		[Constants.PROPERTY_KEYS.Z] = Constants.TRACK_TYPES.Number,
+	},
+}
+Constants.COMPONENT_TRACK_TYPES[Constants.TRACK_TYPES.EulerAngles] = {
+	_Order = {Constants.PROPERTY_KEYS.X, Constants.PROPERTY_KEYS.Y, Constants.PROPERTY_KEYS.Z},
+	[Constants.PROPERTY_KEYS.X] = Constants.TRACK_TYPES.Angle,
+	[Constants.PROPERTY_KEYS.Y] = Constants.TRACK_TYPES.Angle,
+	[Constants.PROPERTY_KEYS.Z] = Constants.TRACK_TYPES.Angle,
+}
 
-	-- These values are used to create a track "offset" when comparing two tracks.
-	-- For instance, Rotation/Z should translate to 0.23 (because Rotation is 2 and Z is 3)
-	-- The values can be reused when they don't clash (for instance, a track will never have
-	-- both a Position component and an X component)
-	-- Note that 0 should not be used, as it would represent the parent track.
-	-- The values should never be larger than 9 (nor should it be needed, as this would mean
-	-- that a track needs more than 9 coordinates). However, if a value larger than 9 is really
-	-- needed, then COMPONENT_PATH_BASE_SCALE needs to be changed to 0.01
-	Constants.COMPONENT_PATH_VALUE = {
-		[Constants.PROPERTY_KEYS.Position] = 1,
-		[Constants.PROPERTY_KEYS.Rotation] = 2,
-		[Constants.PROPERTY_KEYS.X] = 1,
-		[Constants.PROPERTY_KEYS.Y] = 2,
-		[Constants.PROPERTY_KEYS.Z] = 3,
-	}
-	Constants.COMPONENT_PATH_BASE_SCALE = 0.1
+-- These values are used to create a track "offset" when comparing two tracks.
+-- For instance, Rotation/Z should translate to 0.23 (because Rotation is 2 and Z is 3)
+-- The values can be reused when they don't clash (for instance, a track will never have
+-- both a Position component and an X component)
+-- Note that 0 should not be used, as it would represent the parent track.
+-- The values should never be larger than 9 (nor should it be needed, as this would mean
+-- that a track needs more than 9 coordinates). However, if a value larger than 9 is really
+-- needed, then COMPONENT_PATH_BASE_SCALE needs to be changed to 0.01
+Constants.COMPONENT_PATH_VALUE = {
+	[Constants.PROPERTY_KEYS.Position] = 1,
+	[Constants.PROPERTY_KEYS.Rotation] = 2,
+	[Constants.PROPERTY_KEYS.X] = 1,
+	[Constants.PROPERTY_KEYS.Y] = 2,
+	[Constants.PROPERTY_KEYS.Z] = 3,
+}
+Constants.COMPONENT_PATH_BASE_SCALE = 0.1
 
-	-- Add style mapping to new enum
-	Constants.KEYFRAME_STYLE[Enum.KeyInterpolationMode.Constant] = "Constant"
-	Constants.KEYFRAME_STYLE[Enum.KeyInterpolationMode.Cubic] = "Cubic"
-end
+-- Add style mapping to new enum
+Constants.KEYFRAME_STYLE[Enum.KeyInterpolationMode.Constant] = "Constant"
+Constants.KEYFRAME_STYLE[Enum.KeyInterpolationMode.Cubic] = "Cubic"
 
 if GetFFlagCurveEditor() then
 	Constants.TRACK_THEME_MAPPING = {
@@ -735,10 +732,8 @@ end
 
 if GetFFlagCurveEditor() then
 	Constants.DEFAULT_ROTATION_TYPE = Constants.TRACK_TYPES.EulerAngles
-elseif GetFFlagChannelAnimations() then
-	Constants.DEFAULT_ROTATION_TYPE = Constants.TRACK_TYPES.Quaternion
 else
-	Constants.DEFAULT_ROTATION_TYPE = Constants.TRACK_TYPES.Rotation
+	Constants.DEFAULT_ROTATION_TYPE = Constants.TRACK_TYPES.Quaternion
 end
 
 return Constants

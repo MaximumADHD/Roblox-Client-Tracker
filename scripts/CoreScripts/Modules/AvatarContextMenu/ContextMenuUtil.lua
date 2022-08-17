@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName: ContextMenuUtil.lua
 	// Written by: TheGamer101
@@ -30,12 +31,9 @@ local BlockingUtility = require(CoreGuiModules.BlockingUtility)
 
 local LocalPlayer = PlayersService.LocalPlayer
 while not LocalPlayer do
-	PlayersService.PlayerAdded:wait()
+	PlayersService.PlayerAdded:Wait()
 	LocalPlayer = PlayersService.LocalPlayer
 end
-
--- FLAGS
-local isPackInGameJoinDataEnabledClient = require(CoreGuiModules.Flags.isPackInGameJoinDataEnabledClient)
 
 local ContextMenuUtil = {}
 ContextMenuUtil.__index = ContextMenuUtil
@@ -119,27 +117,21 @@ local CanChatWithMap = {}
 coroutine.wrap(function()
 	local RemoteEvent_CanChatWith = RobloxReplicatedStorage:WaitForChild("CanChatWith", math.huge)
 
-	if isPackInGameJoinDataEnabledClient() then
-		RemoteEvent_CanChatWith.OnClientEvent:Connect(function(...)
-			local remoteArguments = {...}
+	RemoteEvent_CanChatWith.OnClientEvent:Connect(function(...)
+		local remoteArguments = {...}
 
-			if #remoteArguments == 1 then --Only one parameter, so it should be the data dictionary
-				local canChatData = remoteArguments[1]
+		if #remoteArguments == 1 then --Only one parameter, so it should be the data dictionary
+			local canChatData = remoteArguments[1]
 
-				for userId, canChat in pairs(canChatData) do
-					CanChatWithMap[userId] = canChat
-				end
-			elseif #remoteArguments == 2 then --More arguments, server flag isn't enabled yet
-				local userId = remoteArguments[1]
-				local canChat = remoteArguments[2]
+			for userId, canChat in pairs(canChatData) do
 				CanChatWithMap[userId] = canChat
 			end
-		end)
-	else
-		RemoteEvent_CanChatWith.OnClientEvent:Connect(function(userId, canChat)
+		elseif #remoteArguments == 2 then --More arguments, server flag isn't enabled yet
+			local userId = remoteArguments[1]
+			local canChat = remoteArguments[2]
 			CanChatWithMap[userId] = canChat
-		end)
-	end
+		end
+	end)
 end)()
 function ContextMenuUtil:GetCanChatWith(otherPlayer)
 	if BlockingUtility:IsPlayerBlockedByUserId(otherPlayer.UserId) then
@@ -242,17 +234,17 @@ end
 
 local function getViewportSize()
 	while not workspace.CurrentCamera do
-		workspace.Changed:wait()
+		workspace.Changed:Wait()
 	end
 
 	-- ViewportSize is initally set to 1, 1 in Camera.cpp constructor.
 	-- Also check against 0, 0 incase this is changed in the future.
-	while workspace.CurrentCamera.ViewportSize == Vector2.new(0,0) or
-		workspace.CurrentCamera.ViewportSize == Vector2.new(1,1) do
-		workspace.CurrentCamera.Changed:wait()
+	while (workspace.CurrentCamera :: Camera).ViewportSize == Vector2.new(0,0) or
+		(workspace.CurrentCamera :: Camera).ViewportSize == Vector2.new(1,1) do
+		(workspace.CurrentCamera :: Camera).Changed:Wait()
 	end
 
-	return workspace.CurrentCamera.ViewportSize
+	return (workspace.CurrentCamera :: Camera).ViewportSize
 end
 
 local function isSmallTouchScreen()

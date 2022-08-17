@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Locks a table from indexing or setting any keys that are not already defined
 

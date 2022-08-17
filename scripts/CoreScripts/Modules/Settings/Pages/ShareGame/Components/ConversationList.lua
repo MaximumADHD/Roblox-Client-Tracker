@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
@@ -13,7 +14,6 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local Modules = CoreGui.RobloxGui.Modules
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 
-local isSelectionGroupEnabled = require(ShareGame.isSelectionGroupEnabled)
 local Constants = require(ShareGame.Constants)
 local ConversationEntry = require(ShareGame.Components.ConversationEntry)
 local FriendsErrorPage = require(ShareGame.Components.FriendsErrorPage)
@@ -58,9 +58,7 @@ if FFlagLuaInviteModalEnabled then
 end
 
 function ConversationList:init()
-	if isSelectionGroupEnabled() then
-		self.scrollingRef = Roact.createRef()
-	end
+	self.scrollingRef = Roact.createRef()
 end
 
 function ConversationList:render()
@@ -151,10 +149,7 @@ function ConversationList:render()
 		end
 	end
 
-	local isSelectable = nil
-	if isSelectionGroupEnabled() then
-		isSelectable = false
-	end
+	local isSelectable = false
 
 	return Roact.createElement("ScrollingFrame", {
 		BackgroundTransparency = 1,
@@ -165,27 +160,24 @@ function ConversationList:render()
 		ScrollBarThickness = 0,
 		ZIndex = zIndex,
 		Selectable = isSelectable,
-		[Roact.Ref] = isSelectionGroupEnabled() and self.scrollingRef or nil,
+		[Roact.Ref] = self.scrollingRef,
 	}, children)
 end
 
 local function handleBinding(self)
-	if isSelectionGroupEnabled() then
-		local conversationList = self.scrollingRef:getValue()
-		if conversationList then
-			if conversationList:FindFirstAncestorOfClass("ScreenGui").Enabled then
-				if GuiService.SelectedCoreObject == nil then
-					GuiService:AddSelectionParent("invitePrompt", conversationList)
-					for _, object in ipairs(conversationList:GetChildren()) do
-						if object:IsA("GuiObject") and object.LayoutOrder == 1 then
-							GuiService.SelectedCoreObject = object
-							break
-						end
+	local conversationList = self.scrollingRef:getValue()
+	if conversationList then
+		if conversationList:FindFirstAncestorOfClass("ScreenGui").Enabled then
+			if GuiService.SelectedCoreObject == nil then
+				GuiService:AddSelectionParent("invitePrompt", conversationList)
+				for _, object in ipairs(conversationList:GetChildren()) do
+					if object:IsA("GuiObject") and object.LayoutOrder == 1 then
+						GuiService.SelectedCoreObject = object
+						break
 					end
 				end
 			end
 		end
-
 	end
 end
 

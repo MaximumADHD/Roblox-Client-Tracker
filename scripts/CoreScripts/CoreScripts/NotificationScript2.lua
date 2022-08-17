@@ -736,7 +736,7 @@ if not isTenFootInterface then
 	--GameSettings.Changed:connect(onGameSettingsChanged)
 
 	if not GetFixGraphicsQuality() then
-		game.GraphicsQualityChangeRequest:connect(function(graphicsIncrease) --graphicsIncrease is a boolean
+		game.GraphicsQualityChangeRequest:Connect(function(graphicsIncrease) --graphicsIncrease is a boolean
 			onGameSettingsChanged("SavedQualityLevel", graphicsIncrease == true and 1 or -1)
 		end)
 	end
@@ -872,7 +872,7 @@ if Platform == Enum.Platform.XBoxOne then
 			controllerStateManager:Initialize()
 
 			if not game:IsLoaded() then
-				game.Loaded:wait()
+				game.Loaded:Wait()
 			end
 
 			-- retro check in case of controller disconnect while loading

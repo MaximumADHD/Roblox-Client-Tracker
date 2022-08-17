@@ -84,7 +84,7 @@ function VRControllerModel:setEnabled(enabled)
 			end)
 			self:setModelType(VRService.VRDeviceName)
 
-			self.onCurrentCameraChangedConn = workspace:GetPropertyChangedSignal("CurrentCamera"):connect(function()
+			self.onCurrentCameraChangedConn = workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
 				self:setModelInWorkspace(VRService:GetUserCFrameEnabled(self.userCFrame))
 			end)
 

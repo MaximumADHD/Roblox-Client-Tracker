@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 
@@ -11,7 +12,6 @@ local ConversationDetails = require(ShareGame.Components.ConversationDetails)
 local ConversationThumbnail = require(ShareGame.Components.ConversationThumbnail)
 local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 local InviteButton = require(ShareGame.Components.InviteButton)
-local isSelectionGroupEnabled = require(ShareGame.isSelectionGroupEnabled)
 
 local Constants = require(ShareGame.Constants)
 local InviteStatus = Constants.InviteStatus
@@ -32,11 +32,9 @@ function ConversationEntry:init()
 	self.eventStream = EventStream.new()
 
 	self.onInvite = function()
-		if isSelectionGroupEnabled() then
-			local inviteStatus = self.props.inviteStatus
-			if inviteStatus and inviteStatus ~= InviteStatus.Failed then
-				return
-			end
+		local inviteStatus = self.props.inviteStatus
+		if inviteStatus and inviteStatus ~= InviteStatus.Failed then
+			return
 		end
 
 		local analytics = self.props.analytics
@@ -83,12 +81,9 @@ function ConversationEntry:render()
 	-- Presence gets passed in if there's only one user
 	local presence = self.props.presence
 
-	local isSelectable = nil
-	if isSelectionGroupEnabled() then
-		isSelectable = true
-	end
+	local isSelectable = true
 
-	return Roact.createElement(isSelectionGroupEnabled() and "ImageButton" or "ImageLabel", {
+	return Roact.createElement("ImageButton", {
 		Visible = visible,
 		Selectable = isSelectable,
 		BackgroundTransparency = 1,
@@ -99,7 +94,7 @@ function ConversationEntry:render()
 		Size = size,
 		LayoutOrder = layoutOrder,
 		ZIndex = zIndex,
-		[Roact.Event.Activated] = isSelectionGroupEnabled() and self.onInvite or nil,
+		[Roact.Event.Activated] = self.onInvite,
 	}, {
 		UIPadding = Roact.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, CONTENTS_PADDING),

@@ -19,6 +19,8 @@ local Cryo = require(Plugin.Packages.Cryo)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
+local FFlagEnablePreviewDockWidget = require(Plugin.Src.Flags.GetFFlagEnablePreviewDockWidget)()
+
 local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
 local PreviewUtil = AccessoryAndBodyToolSharedUtil.PreviewUtil
 local AvatarUtil = AccessoryAndBodyToolSharedUtil.AvatarUtil
@@ -55,8 +57,13 @@ local function onPreviewSelectionChanged(self)
 	local selectedAvatarIds = Cryo.Dictionary.keys(selectedAssets[avatarTabKey] or {})
 	local selectedClothingIds = Cryo.Dictionary.keys(selectedAssets[clothingTabKey] or {})
 
-	local previewAvatars = PreviewUtil.createPreviewAvatars(selectedAvatarIds, userAddedAssets[avatarTabKey], self.folderRef.current, assetService)
-
+	local previewAvatars
+	if FFlagEnablePreviewDockWidget then
+		previewAvatars = PreviewUtil.createPreviewAvatars(selectedAvatarIds, userAddedAssets[avatarTabKey], nil, assetService)
+	else
+		previewAvatars = PreviewUtil.createPreviewAvatars(selectedAvatarIds, userAddedAssets[avatarTabKey], self.folderRef.current, assetService)
+	end
+	
 	-- this will be first layer on the preview avatar
 	local archivable = editingItem.Archivable
 	editingItem.Archivable = true
@@ -68,8 +75,10 @@ local function onPreviewSelectionChanged(self)
 
 	previewContext:setAvatars(previewAvatars)
 
-	for _, previewAvatar in ipairs(previewAvatars) do
-		AvatarUtil:positionAvatarNextTo(previewAvatar.model, editingItem.Parent, true)
+	if not FFlagEnablePreviewDockWidget then
+		for _, previewAvatar in ipairs(previewAvatars) do
+			AvatarUtil:positionAvatarNextTo(previewAvatar.model, editingItem.Parent, true)
+		end
 	end
 end
 
@@ -87,20 +96,39 @@ local function transformOrDeformPreviewLayers(self, selectionChanged)
 	local meshEditingContext = luaMeshEditingModuleContext:getCurrentContext()
 
 	local previewAvatars = previewContext:getAvatars()
+	local layer
+	local editingItem
+	if FFlagEnablePreviewDockWidget then
+		editingItem = props.EditingItemContext:getItem()
+	end
 	for _, avatar in ipairs(previewAvatars) do
+		layer = 1
+		if FFlagEnablePreviewDockWidget then
+			if not avatar.model then
+				continue
+			end
+			local child = avatar.model:FindFirstChild(editingItem.Name, true)
+			if not child then
+				continue
+			end
+			local wrap = child:FindFirstChildWhichIsA("WrapLayer", true)
+			if wrap then
+				layer = wrap.Order
+			end
+		end
 		if editingCage == Constants.EDIT_MODE.Mesh then
-			avatar:transformLayer(1, itemSize, attachmentPoint.AttachmentCFrame, attachmentPoint.ItemCFrame, accessoryTypeInfo.Name)
+			avatar:transformLayer(layer, itemSize, attachmentPoint.AttachmentCFrame, attachmentPoint.ItemCFrame, accessoryTypeInfo.Name)
 		else
 			if game:GetFastFlag("FixDeformerUpdateOnCageEdit") and selectionChanged then
 				if outerCageContext then
-					avatar:deformLayer(1, outerCageContext:getVertexData(), Enum.CageType.Outer)
+					avatar:deformLayer(layer, outerCageContext:getVertexData(), Enum.CageType.Outer)
 				end
 				if innerCageContext then
-					avatar:deformLayer(1, innerCageContext:getVertexData(), Enum.CageType.Inner)
+					avatar:deformLayer(layer, innerCageContext:getVertexData(), Enum.CageType.Inner)
 				end
 			else
 				if meshEditingContext then
-					avatar:deformLayer(1, meshEditingContext:getVertexData(), editingCage)
+					avatar:deformLayer(layer, meshEditingContext:getVertexData(), editingCage)
 				end
 			end
 		end
@@ -123,6 +151,12 @@ local function updatePreviewAssets(self, selectionChanged)
 			transformOrDeformPreviewLayers(self, selectionChanged)
 		else
 			transformOrDeformPreviewLayers(self)
+		end
+
+		if FFlagEnablePreviewDockWidget and selectionChanged then
+			local props = self.props
+			local previewContext = props.PreviewContext
+			previewContext:updatePreviewModel()
 		end
 
 		self.isUpdateInProgress = false

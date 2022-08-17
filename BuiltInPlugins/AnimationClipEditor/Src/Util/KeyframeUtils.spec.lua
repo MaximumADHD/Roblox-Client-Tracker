@@ -4,10 +4,9 @@ return function()
 	local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 	local testTrackData = {
-		Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
+		Type = Constants.TRACK_TYPES.CFrame,
 		Keyframes = {2, 4, 5},
 		Data = {
 			[2] = {
@@ -29,7 +28,7 @@ return function()
 	}
 
 	local testEmptyTrackData = {
-		Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
+		Type = Constants.TRACK_TYPES.CFrame,
 		Keyframes = {},
 		Data = {},
 	}
@@ -59,15 +58,6 @@ return function()
 			local index = KeyframeUtils.findNearestKeyframes(keyframes, 6)
 			expect(index).to.equal(#keyframes)
 		end)
-
-		if not GetFFlagChannelAnimations() then
-			it("should throw if the keyframes array is empty", function()
-				local keyframes = {}
-				expect(function()
-					KeyframeUtils.findNearestKeyframes(keyframes, 1)
-				end).to.throw()
-			end)
-		end
 
 		it("should return the only keyframe if only one exists", function()
 			local keyframes = {1}

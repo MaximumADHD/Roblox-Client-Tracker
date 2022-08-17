@@ -18,7 +18,6 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local ContextButton = Roact.PureComponent:extend("ContextButton")
@@ -64,7 +63,7 @@ function ContextButton:render()
 	local trackTheme = theme.trackTheme
 	local anchorPoint = props.AnchorPoint
 	local position = props.Position
-	local zIndex = GetFFlagChannelAnimations() and props.ZIndex or nil
+	local zIndex = props.ZIndex
 	local trackSelected = props.TrackSelected
 
 	local hovered = state.hovered

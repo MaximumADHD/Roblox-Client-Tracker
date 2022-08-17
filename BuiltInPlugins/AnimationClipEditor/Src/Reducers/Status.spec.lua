@@ -17,7 +17,6 @@ return function()
 	local SetClipboard = require(Plugin.Src.Actions.SetClipboard)
 	local SetPlayhead = require(Plugin.Src.Actions.SetPlayhead)
 	local SetTracks = require(Plugin.Src.Actions.SetTracks)
-	local SetTracksExpanded = require(Plugin.Src.Actions.SetTracksExpanded)
 	local SetEditingLength = require(Plugin.Src.Actions.SetEditingLength)
 	local SetShowAsSeconds = require(Plugin.Src.Actions.SetShowAsSeconds)
 	local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
@@ -203,21 +202,6 @@ return function()
 			store:dispatch(SetTracks({TestKey = "TestValue"}, {OtherKey = "OtherValue"}))
 			local unused = store:getState().UnusedTracks
 			expect(unused.OtherKey).to.equal("OtherValue")
-		end)
-	end)
-
-	describe("SetTracksExpanded", function()
-		it("should set the Expanded state of an existing track", function()
-			local store = createTestStore()
-			store:dispatch(SetTracks({
-				{
-					Name = "TestTrack",
-					Expanded = false,
-				},
-			}))
-			store:dispatch(SetTracksExpanded({"TestTrack"}, true))
-			local tracks = store:getState().Tracks
-			expect(tracks[1].Expanded).to.equal(true)
 		end)
 	end)
 

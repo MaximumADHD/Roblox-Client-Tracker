@@ -13,7 +13,6 @@ local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SnapToNearestFrame = require(Plugin.Src.Thunks.SnapToNearestFrame)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 return function(tck, trackWidth)
@@ -57,29 +56,17 @@ return function(tck, trackWidth)
 
 			local closestKey = range.End + 1
 			for _, track in pairs(tracks) do
-				if GetFFlagChannelAnimations() then
-					TrackUtils.traverseTracks(nil, track, function(t)
-						if t.Keyframes and #t.Keyframes > 0 then
-							local first, second = KeyframeUtil.findNearestKeyframes(t.Keyframes, tck)
-							if math.abs(t.Keyframes[first] - tck) < math.abs(tck - closestKey) then
-								closestKey = t.Keyframes[first]
-							end
-							if second and math.abs(t.Keyframes[second] - tck) < math.abs(tck - closestKey) then
-								closestKey = t.Keyframes[second]
-							end
+				TrackUtils.traverseTracks(nil, track, function(t)
+					if t.Keyframes and #t.Keyframes > 0 then
+						local first, second = KeyframeUtil.findNearestKeyframes(t.Keyframes, tck)
+						if math.abs(t.Keyframes[first] - tck) < math.abs(tck - closestKey) then
+							closestKey = t.Keyframes[first]
 						end
-					end, true)
-				else
-					if track.Keyframes and #track.Keyframes > 0 then
-						local first, second = KeyframeUtil.findNearestKeyframes(track.Keyframes, tck)
-						if math.abs(track.Keyframes[first] - tck) < math.abs(tck - closestKey) then
-							closestKey = track.Keyframes[first]
-						end
-						if second and math.abs(track.Keyframes[second] - tck) < math.abs(tck - closestKey) then
-							closestKey = track.Keyframes[second]
+						if second and math.abs(t.Keyframes[second] - tck) < math.abs(tck - closestKey) then
+							closestKey = t.Keyframes[second]
 						end
 					end
-				end
+				end, true)
 			end
 
 			if closestKey >= range.Start and closestKey <= range.End then

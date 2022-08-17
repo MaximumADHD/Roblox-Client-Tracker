@@ -2,14 +2,6 @@
 	TransparencyController - Manages transparency of player character at close camera-to-subject distances
 	2018 Camera Update - AllYourBlox
 --]]
-
-local FFlagUserTransparencyControllerDeltaTime do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserTransparencyControllerDeltaTime")
-	end)
-	FFlagUserTransparencyControllerDeltaTime = success and result
-end
-
 local MAX_TWEEN_RATE = 2.8 -- per second
 
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
@@ -21,7 +13,6 @@ TransparencyController.__index = TransparencyController
 function TransparencyController.new()
 	local self = setmetatable({}, TransparencyController)
 
-	self.lastUpdate = tick() -- remove with FFlagUserTransparencyControllerDeltaTime
 	self.transparencyDirty = false
 	self.enabled = false
 	self.lastTransparency = nil
@@ -131,9 +122,6 @@ end
 function TransparencyController:Enable(enable: boolean)
 	if self.enabled ~= enable then
 		self.enabled = enable
-		if not FFlagUserTransparencyControllerDeltaTime then
-			self:Update()
-		end
 	end
 end
 
@@ -153,84 +141,36 @@ function TransparencyController:SetSubject(subject)
 end
 
 function TransparencyController:Update(dt)
-	if FFlagUserTransparencyControllerDeltaTime then
-		local currentCamera = workspace.CurrentCamera
+	local currentCamera = workspace.CurrentCamera
 
-		if currentCamera and self.enabled then
-			-- calculate goal transparency based on distance
-			local distance = (currentCamera.Focus.p - currentCamera.CoordinateFrame.p).magnitude
-			local transparency = (distance<2) and (1.0-(distance-0.5)/1.5) or 0 -- (7 - distance) / 5
-			if transparency < 0.5 then -- too far, don't control transparency
-				transparency = 0
-			end
-
-			-- tween transparency if the goal is not fully transparent and the subject was not fully transparent last frame
-			if self.lastTransparency and transparency < 1 and self.lastTransparency < 0.95 then
-				local deltaTransparency = transparency - self.lastTransparency
-				local maxDelta = MAX_TWEEN_RATE * dt
-				deltaTransparency = math.clamp(deltaTransparency, -maxDelta, maxDelta)
-				transparency = self.lastTransparency + deltaTransparency
-			else
-				self.transparencyDirty = true
-			end
-
-			transparency = math.clamp(Util.Round(transparency, 2), 0, 1)
-
-			-- update transparencies 
-			if self.transparencyDirty or self.lastTransparency ~= transparency then
-				for child, _ in pairs(self.cachedParts) do
-					child.LocalTransparencyModifier = transparency
-				end
-				self.transparencyDirty = false
-				self.lastTransparency = transparency
-			end
+	if currentCamera and self.enabled then
+		-- calculate goal transparency based on distance
+		local distance = (currentCamera.Focus.p - currentCamera.CoordinateFrame.p).magnitude
+		local transparency = (distance<2) and (1.0-(distance-0.5)/1.5) or 0 -- (7 - distance) / 5
+		if transparency < 0.5 then -- too far, don't control transparency
+			transparency = 0
 		end
-	else
-		local instant = false
-		local now = tick()
-		local currentCamera = workspace.CurrentCamera
-	
-		if currentCamera then
-			local transparency = 0
-			if not self.enabled then
-				instant = true
-			else
-				local distance = (currentCamera.Focus.p - currentCamera.CoordinateFrame.p).magnitude
-				transparency = (distance<2) and (1.0-(distance-0.5)/1.5) or 0 --(7 - distance) / 5
-				if transparency < 0.5 then
-					transparency = 0
-				end
-	
-				if self.lastTransparency then
-					local deltaTransparency = transparency - self.lastTransparency
-	
-					-- Don't tween transparency if it is instant or your character was fully invisible last frame
-					if not instant and transparency < 1 and self.lastTransparency < 0.95 then
-						local maxDelta
-						if FFlagUserTransparencyControllerDeltaTime then
-							maxDelta = MAX_TWEEN_RATE * dt
-						else
-							maxDelta = MAX_TWEEN_RATE * (now - self.lastUpdate)
-						end
-						deltaTransparency = math.clamp(deltaTransparency, -maxDelta, maxDelta)
-					end
-					transparency = self.lastTransparency + deltaTransparency
-				else
-					self.transparencyDirty = true
-				end
-	
-				transparency = math.clamp(Util.Round(transparency, 2), 0, 1)
-			end
-	
-			if self.transparencyDirty or self.lastTransparency ~= transparency then
-				for child, _ in pairs(self.cachedParts) do
-					child.LocalTransparencyModifier = transparency
-				end
-				self.transparencyDirty = false
-				self.lastTransparency = transparency
-			end
+
+		-- tween transparency if the goal is not fully transparent and the subject was not fully transparent last frame
+		if self.lastTransparency and transparency < 1 and self.lastTransparency < 0.95 then
+			local deltaTransparency = transparency - self.lastTransparency
+			local maxDelta = MAX_TWEEN_RATE * dt
+			deltaTransparency = math.clamp(deltaTransparency, -maxDelta, maxDelta)
+			transparency = self.lastTransparency + deltaTransparency
+		else
+			self.transparencyDirty = true
 		end
-		self.lastUpdate = now
+
+		transparency = math.clamp(Util.Round(transparency, 2), 0, 1)
+
+		-- update transparencies 
+		if self.transparencyDirty or self.lastTransparency ~= transparency then
+			for child, _ in pairs(self.cachedParts) do
+				child.LocalTransparencyModifier = transparency
+			end
+			self.transparencyDirty = false
+			self.lastTransparency = transparency
+		end
 	end
 end
 

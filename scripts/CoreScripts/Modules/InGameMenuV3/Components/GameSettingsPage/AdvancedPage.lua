@@ -1,3 +1,4 @@
+--!nonstrict
 local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
 local CorePackages = game:GetService("CorePackages")
@@ -55,6 +56,14 @@ function AdvancedPage:init()
 
 	self.backButtonRef = Roact.createRef()
 	self.performanceToggleRef = Roact.createRef()
+
+	self.scrollingFrameRef = Roact.createRef()
+	self.pageHeaderActivated = function()
+		local scrollingFrame = self.scrollingFrameRef:getValue()
+		if scrollingFrame then
+			scrollingFrame:scrollToTop()
+		end
+	end
 end
 
 function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
@@ -65,6 +74,7 @@ function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
 			position = self.props.position,
 			buttonRef = self.backButtonRef,
 			NextSelectionDown = self.performanceToggleRef,
+			onHeaderActivated = self.pageHeaderActivated,
 		}, {
 			FocusHandler = Roact.createElement(FocusHandler, {
 				isFocused = self.props.canCaptureFocus,
@@ -79,6 +89,7 @@ function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
 				size = UDim2.new(1, 0, 1, 0),
 				useAutomaticCanvasSize = true,
 				canvasSizeY = UDim.new(0, 0), -- no minmum size
+				scrollingFrameRef = self.scrollingFrameRef,
 			}, {
 				Layout = Roact.createElement("UIListLayout", {
 					SortOrder = Enum.SortOrder.LayoutOrder,

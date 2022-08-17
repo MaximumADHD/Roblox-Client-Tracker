@@ -218,4 +218,5 @@ return{
 	["CoreScripts.InGameMenu.QuickActions.ScreenshotSaved"] = [[Capture d'écran sauvegardée]],
 	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[Partager]],
 	["CoreScripts.InGameMenu.Controls.Scriptable"] = [[Possibilité de script]],
+	["CoreScripts.InGameMenu.QuickActions.Connecting"] = [[Connexion en cours...]],
 }

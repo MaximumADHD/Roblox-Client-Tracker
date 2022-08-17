@@ -172,10 +172,10 @@ function MaterialBrowser:init()
 					Size = if showMaterialGrid then style.MaterialDetailsSize else UDim2.fromScale(1, 1),
 				})
 				else nil,
+
 			MaterialVariantEditor = if showMaterialDetails and getFFlagMaterialManagerVariantCreatorOverhaul() then
 				Roact.createElement(MaterialVariantEditor, {
 					LayoutOrder = 2,
-					OpenPrompt = props.OpenPrompt,
 					Size = if showMaterialGrid then style.MaterialDetailsSize else UDim2.fromScale(1, 1),
 				})
 				else nil,

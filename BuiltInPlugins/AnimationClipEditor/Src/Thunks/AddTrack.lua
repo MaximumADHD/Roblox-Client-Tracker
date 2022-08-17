@@ -16,7 +16,6 @@ local AnimationData = require(Plugin.Src.Util.AnimationData)
 local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local function wrappee(instanceName, trackName, trackType, rotationType, eulerAnglesOrder, analytics)
@@ -38,21 +37,15 @@ local function wrappee(instanceName, trackName, trackType, rotationType, eulerAn
 			end
 		end
 
-		local newTrack = Templates.trackListEntry(GetFFlagChannelAnimations() and (trackType or Constants.TRACK_TYPES.CFrame) or nil)
+		local newTrack = Templates.trackListEntry(trackType or Constants.TRACK_TYPES.CFrame)
 		newTrack.Name = trackName
 		newTrack.Instance = instanceName
 		newTrack.EulerAnglesOrder = eulerAnglesOrder
 
-		if GetFFlagChannelAnimations() then
-			local data = state.AnimationData
+		local data = state.AnimationData
 
-			if AnimationData.isChannelAnimation(data) then
-				TrackUtils.createTrackListEntryComponents(newTrack, instanceName, rotationType, eulerAnglesOrder)
-			end
-		else
-			if GetFFlagFacialAnimationSupport() then
-				newTrack.Type = trackType
-			end
+		if AnimationData.isChannelAnimation(data) then
+			TrackUtils.createTrackListEntryComponents(newTrack, instanceName, rotationType, eulerAnglesOrder)
 		end
 
 		local newTracks = Cryo.List.join(tracks, {newTrack})
@@ -68,12 +61,8 @@ if GetFFlagCurveEditor() then
 	return function(instanceName, trackName, trackType, rotationType, eulerAnglesOrder, analytics)
 		return wrappee(instanceName, trackName, trackType, rotationType, eulerAnglesOrder, analytics)
 	end
-elseif GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
+else
 	return function(instanceName, trackName, trackType, analytics)
 		return wrappee(instanceName, trackName, trackType, nil, nil, analytics)
-	end
-else
-	return function(instanceName, trackName, analytics)
-		return wrappee(instanceName, trackName, nil, nil, nil, analytics)
 	end
 end

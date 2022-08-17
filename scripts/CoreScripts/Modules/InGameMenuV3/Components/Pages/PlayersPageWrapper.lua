@@ -1,3 +1,4 @@
+--!nonstrict
 local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
 
@@ -11,7 +12,6 @@ local InGameMenu = script.Parent.Parent.Parent
 local GetFriends = require(InGameMenu.Thunks.GetFriends)
 
 local PlayersPage = require(script.Parent.PlayersPage)
-local GetFFlagFixV3InviteReducer = require(InGameMenu.Flags.GetFFlagFixV3InviteReducer)
 
 local PlayersPageWrapper = Roact.PureComponent:extend("PlayersPageWrapper")
 
@@ -22,18 +22,10 @@ PlayersPageWrapper.validateProps = t.interface({
 })
 
 function PlayersPageWrapper:init()
-	if GetFFlagFixV3InviteReducer() then
-		self:setState({
-			players = Players:GetPlayers(),
-			incomingFriendRequests = {},
-		})
-	else
-		self:setState({
-			players = Players:GetPlayers(),
-			inviteFriends = {},
-			incomingFriendRequests = {},
-		})
-	end
+	self:setState({
+		players = Players:GetPlayers(),
+		incomingFriendRequests = {},
+	})
 
 	self.incomingFriendRequests = {}
 	self.incomingFriendRequestsMap = {} -- maps by userid for quick lookup
@@ -89,15 +81,7 @@ end
 
 function PlayersPageWrapper:didMount()
 
-	if GetFFlagFixV3InviteReducer() then
-		self.props.getFriends()
-	else
-		self.props.getFriends():andThen(function(friends)
-			self:setState({
-				inviteFriends = friends,
-			})
-		end)
-	end
+	self.props.getFriends()
 
 	self.friendRequestEventConnection = Players.FriendRequestEvent:connect(function(fromPlayer, toPlayer, event)
 		if fromPlayer ~= Players.LocalPlayer and toPlayer ~= Players.LocalPlayer then
@@ -150,17 +134,9 @@ function PlayersPageWrapper:willUnmount()
 end
 
 return RoactRodux.connect(function(state, props)
-	if GetFFlagFixV3InviteReducer() then
-		return {
-			isMenuOpen = state.isMenuOpen,
-		}
-	else
-		return {
-			isMenuOpen = state.isMenuOpen,
-			inviteFriends = state.inviteFriends,
-		}
-	end
-
+	return {
+		isMenuOpen = state.isMenuOpen,
+	}
 end, function(dispatch)
 	return {
 		getFriends = function()

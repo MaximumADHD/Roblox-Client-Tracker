@@ -37,7 +37,7 @@ end
 local UserLocalStore = {}
 UserLocalStore.__index = UserLocalStore
 
-function UserLocalStore.new(userId)
+function UserLocalStore.new(userId: number | string | nil)
 	if not userId then
 		userId = getCurrentUser()
 	end

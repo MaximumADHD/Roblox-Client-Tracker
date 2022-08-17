@@ -1,3 +1,4 @@
+--!nonstrict
 local UserInputService = game:GetService("UserInputService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local InGameMenu = script.Parent.Parent

@@ -1,3 +1,4 @@
+--!nonstrict
 local Root = script.Parent.Parent
 local Players = game:GetService("Players")
 local AnalyticsService = game:GetService("RbxAnalyticsService")

@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 
@@ -12,7 +13,6 @@ local InGameMenu = script.Parent.Parent
 local BlurredModalPortal = require(script.Parent.BlurredModalPortal)
 local Pages = require(script.Parent.Pages)
 
-local FFlagFixMakeFriendsNavCrash = require(InGameMenu.Flags.FFlagFixMakeFriendsNavCrash)
 local FFlagIGMStopRenderingInactivePages = require(InGameMenu.Flags.FFlagIGMStopRenderingInactivePages)
 local GetFFlagUseIGMControllerBar = require(InGameMenu.Flags.GetFFlagUseIGMControllerBar)
 local GetFFlagIGMControllerBarRefactor = require(InGameMenu.Flags.GetFFlagIGMControllerBarRefactor)
@@ -164,7 +164,7 @@ function PageContainer:didUpdate(oldProps, oldState)
 
 			end
 
-		elseif FFlagFixMakeFriendsNavCrash and Pages.pagesByKey[lastPage].navigationDepth == Pages.pagesByKey[currentPage].navigationDepth then
+		elseif Pages.pagesByKey[lastPage].navigationDepth == Pages.pagesByKey[currentPage].navigationDepth then
 
 			if FFlagIGMStopRenderingInactivePages then
 

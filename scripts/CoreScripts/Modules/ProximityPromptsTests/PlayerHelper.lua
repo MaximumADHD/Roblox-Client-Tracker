@@ -58,7 +58,7 @@ function PlayerHelper.CleanUpAfterTest()
 end
 
 function PlayerHelper.SetCameraFOV(angle)
-	workspace.CurrentCamera.FieldOfView = angle
+	(workspace.CurrentCamera :: Camera).FieldOfView = angle
 end
 
 function PlayerHelper.IsPartOnscreen(part)

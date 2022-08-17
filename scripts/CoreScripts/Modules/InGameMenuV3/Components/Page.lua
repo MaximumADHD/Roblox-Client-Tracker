@@ -59,6 +59,7 @@ local function renderWithSelectionCursor(props, getSelectionCursor)
 				end,
 				backgroundTransparency = style.Theme.BackgroundDefault.Transparency,
 				barHeight = TITLE_HEIGHT,
+				onHeaderActivated = props.onHeaderActivated,
 			}),
 			Spacer = Roact.createElement(Spacer, {
 				position = UDim2.new(0, 0, 0, TITLE_HEIGHT),

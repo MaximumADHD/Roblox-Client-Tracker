@@ -35,6 +35,10 @@ return function()
 					voiceEnabled = false,
 					screenshotEnabled = true,
 					transparencies = transparencies,
+					fillDirection = Enum.FillDirection.Horizontal,
+					automaticSize = Enum.AutomaticSize.X,
+					size = UDim2.new(0, 0, 0, 108),
+					isHorizontal = true,
 				}),
 			}),
 		})

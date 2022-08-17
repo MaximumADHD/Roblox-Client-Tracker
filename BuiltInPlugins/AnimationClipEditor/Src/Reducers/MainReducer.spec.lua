@@ -52,7 +52,6 @@ return function()
 	local SkipAnimation = require(Plugin.Src.Thunks.Playback.SkipAnimation)
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 	local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 	-- TODO: Ideally we want to write tests for number values and CFrame values
@@ -85,7 +84,7 @@ return function()
 			Root = {
 				Tracks = {
 					["TestTrack"] = {
-						Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.Facs or nil,
+						Type = Constants.TRACK_TYPES.Facs,
 						Keyframes = {1, 2, 3},
 						Data = {
 							[1] = {
@@ -100,7 +99,7 @@ return function()
 						}
 					},
 					["OtherTrack"] = {
-						Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.Facs or nil,
+						Type = Constants.TRACK_TYPES.Facs,
 						Keyframes = {1, 4, 6, 8},
 						Data = {
 							[1] = {
@@ -198,38 +197,21 @@ return function()
 	describe("DeselectKeyframe", function()
 		it("should deselect a keyframe", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 2, 2, true))
-				store:dispatch(DeselectKeyframe("Root", {"TestTrack"}, 1))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 2, true))
-				store:dispatch(DeselectKeyframe("Root", "TestTrack", 1))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 2, 2, true))
+			store:dispatch(DeselectKeyframe("Root", {"TestTrack"}, 1))
 
 			local status = store:getState().Status
 			local testTrack = status.SelectedKeyframes.Root.TestTrack
-			if GetFFlagChannelAnimations() then
-				expect(testTrack.Selection[2]).to.be.ok()
-				expect(testTrack.Selection[1]).never.to.be.ok()
-			else
-				expect(testTrack[2]).to.be.ok()
-				expect(testTrack[1]).never.to.be.ok()
-			end
+			expect(testTrack.Selection[2]).to.be.ok()
+			expect(testTrack.Selection[1]).never.to.be.ok()
 		end)
 
 		it("should remove a track if no keyframes are selected", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
-				store:dispatch(SelectKeyframeRange("Root", {"OtherTrack"}, 1, 1, true))
-				store:dispatch(DeselectKeyframe("Root", {"TestTrack"}, 1))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-				store:dispatch(SelectKeyframe("Root", "OtherTrack", 1, true))
-				store:dispatch(DeselectKeyframe("Root", "TestTrack", 1))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
+			store:dispatch(SelectKeyframeRange("Root", {"OtherTrack"}, 1, 1, true))
+			store:dispatch(DeselectKeyframe("Root", {"TestTrack"}, 1))
 
 			local status = store:getState().Status
 			local root = status.SelectedKeyframes.Root
@@ -239,13 +221,8 @@ return function()
 
 		it("should remove an instance if no tracks are selected", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
-				store:dispatch(DeselectKeyframe("Root", {"TestTrack"}, 1))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-				store:dispatch(DeselectKeyframe("Root", "TestTrack", 1))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
+			store:dispatch(DeselectKeyframe("Root", {"TestTrack"}, 1))
 
 			local status = store:getState().Status
 			local root = status.SelectedKeyframes.Root
@@ -257,11 +234,7 @@ return function()
 	describe("SetSelectedKeyframeData", function()
 		it("should set all selected keyframes' EasingDirections", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
 			store:dispatch(SetSelectedKeyframeData({
 				EasingDirection = Enum.PoseEasingDirection.In,
 			}))
@@ -273,11 +246,7 @@ return function()
 
 		it("should set all selected keyframes' EasingStyles", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
 			store:dispatch(SetSelectedKeyframeData({
 				EasingStyle = Enum.PoseEasingStyle.Linear,
 			}))
@@ -289,13 +258,9 @@ return function()
 
 		it("should set all selected keyframes' Values", function()
 			local store = createTestStore()
-			local value = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and 5 or CFrame.new(1, 0, 0)
+			local value = 5
 
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
 			store:dispatch(SetSelectedKeyframeData({
 				Value = value
 			}))
@@ -311,11 +276,7 @@ return function()
 			local store = createTestStore()
 
 			local analytics = Analytics.mock()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
 			store:dispatch(CopySelectedKeyframes())
 			store:dispatch(PasteKeyframes(4, analytics))
 
@@ -331,11 +292,7 @@ return function()
 		it("should replace an old keyframe if one existed", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
 			store:dispatch(CopySelectedKeyframes())
 			store:dispatch(PasteKeyframes(3, analytics))
 
@@ -349,14 +306,8 @@ return function()
 		it("should paste all keyframes if multiple were copied", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
-				store:dispatch(SelectKeyframeRange("Root", {"OtherTrack"}, 1, 1, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 2, true))
-				store:dispatch(SelectKeyframe("Root", "OtherTrack", 1, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
+			store:dispatch(SelectKeyframeRange("Root", {"OtherTrack"}, 1, 1, true))
 			store:dispatch(CopySelectedKeyframes())
 			store:dispatch(PasteKeyframes(4, analytics))
 
@@ -399,45 +350,25 @@ return function()
 			store:dispatch(SelectKeyframesAtTick(1))
 			status = store:getState().Status
 			local root = status.SelectedKeyframes.Root
-			if GetFFlagChannelAnimations() then
-				expect(root.TestTrack.Selection[1]).to.be.ok()
-				expect(root.TestTrack.Selection[3]).never.to.be.ok()
-				expect(root.OtherTrack.Selection[1]).to.be.ok()
-			else
-				expect(root.TestTrack[1]).to.be.ok()
-				expect(root.TestTrack[3]).never.to.be.ok()
-				expect(root.OtherTrack[1]).to.be.ok()
-			end
+			expect(root.TestTrack.Selection[1]).to.be.ok()
+			expect(root.TestTrack.Selection[3]).never.to.be.ok()
+			expect(root.OtherTrack.Selection[1]).to.be.ok()
 		end)
 
 		it("should add to current selection if multi-selecting", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 3, 3))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 3))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 3, 3))
 			local status = store:getState().Status
 
 			local testTrack = status.SelectedKeyframes.Root.TestTrack
-			if GetFFlagChannelAnimations() then
-				expect(testTrack.Selection[3]).to.be.ok()
-			else
-				expect(testTrack[3]).to.be.ok()
-			end
+			expect(testTrack.Selection[3]).to.be.ok()
 
 			store:dispatch(SelectKeyframesAtTick(1, true))
 			status = store:getState().Status
 			local root = status.SelectedKeyframes.Root
-			if GetFFlagChannelAnimations() then
-				expect(root.TestTrack.Selection[1]).to.be.ok()
-				expect(root.TestTrack.Selection[3]).to.be.ok()
-				expect(root.OtherTrack.Selection[1]).to.be.ok()
-			else
-				expect(root.TestTrack[1]).to.be.ok()
-				expect(root.TestTrack[3]).to.be.ok()
-				expect(root.OtherTrack[1]).to.be.ok()
-			end
+			expect(root.TestTrack.Selection[1]).to.be.ok()
+			expect(root.TestTrack.Selection[3]).to.be.ok()
+			expect(root.OtherTrack.Selection[1]).to.be.ok()
 		end)
 	end)
 
@@ -475,13 +406,8 @@ return function()
 			expect(root).to.be.ok()
 			expect(root.TestTrack).to.be.ok()
 			expect(root.OtherTrack).to.be.ok()
-			if GetFFlagChannelAnimations() then
-				expect(root.TestTrack.Selection[1]).to.be.ok()
-				expect(root.OtherTrack.Selection[1]).to.be.ok()
-			else
-				expect(root.TestTrack[1]).to.be.ok()
-				expect(root.OtherTrack[1]).to.be.ok()
-			end
+			expect(root.TestTrack.Selection[1]).to.be.ok()
+			expect(root.OtherTrack.Selection[1]).to.be.ok()
 		end)
 	end)
 
@@ -492,73 +418,38 @@ return function()
 
 			local status = store:getState().Status
 			local root = status.SelectedKeyframes.Root
-			if GetFFlagChannelAnimations() then
-				expect(root.TestTrack.Selection[1]).to.be.ok()
-				expect(root.TestTrack.Selection[2]).to.be.ok()
-				expect(root.TestTrack.Selection[3]).to.be.ok()
-				expect(root.OtherTrack.Selection[1]).to.be.ok()
-				expect(root.OtherTrack.Selection[4]).to.be.ok()
-				expect(root.OtherTrack.Selection[6]).to.be.ok()
-				expect(root.OtherTrack.Selection[8]).to.be.ok()
-			else
-				expect(root.TestTrack[1]).to.be.ok()
-				expect(root.TestTrack[2]).to.be.ok()
-				expect(root.TestTrack[3]).to.be.ok()
-				expect(root.OtherTrack[1]).to.be.ok()
-				expect(root.OtherTrack[4]).to.be.ok()
-				expect(root.OtherTrack[6]).to.be.ok()
-				expect(root.OtherTrack[8]).to.be.ok()
-			end
+			expect(root.TestTrack.Selection[1]).to.be.ok()
+			expect(root.TestTrack.Selection[2]).to.be.ok()
+			expect(root.TestTrack.Selection[3]).to.be.ok()
+			expect(root.OtherTrack.Selection[1]).to.be.ok()
+			expect(root.OtherTrack.Selection[4]).to.be.ok()
+			expect(root.OtherTrack.Selection[6]).to.be.ok()
+			expect(root.OtherTrack.Selection[8]).to.be.ok()
 		end)
 	end)
 
 	describe("CopySelectedKeyframes", function()
 		it("should copy the keyframes in the selection to the clipboard", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 2, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
 			store:dispatch(CopySelectedKeyframes())
 
 			local status = store:getState().Status
 
-			if GetFFlagChannelAnimations() then
-				local testTrack = status.Clipboard.Root[1]
-				local data = testTrack.Data
-				expect(testTrack.TopTrackName).to.equal("TestTrack")
-				expect(data).to.be.ok()
-				expect(#Cryo.Dictionary.keys(data)).to.be.equal(2)
-				expect(data[1].Value).to.equal(1)
-				expect(data[2].Value).to.equal(2)
-			else
-				local testTrack = status.Clipboard.Root.TestTrack
-
-				if GetFFlagFacialAnimationSupport() then
-					local data = testTrack.Data
-					expect(data).to.be.ok()
-					expect(#data).to.equal(2)
-					expect(data[1].Value).to.equal(1)
-					expect(data[2].Value).to.equal(2)
-				else
-					expect(#testTrack).to.equal(2)
-					expect(testTrack[1].Value).to.equal(1)
-					expect(testTrack[2].Value).to.equal(2)
-				end
-			end
+			local testTrack = status.Clipboard.Root[1]
+			local data = testTrack.Data
+			expect(testTrack.TopTrackName).to.equal("TestTrack")
+			expect(data).to.be.ok()
+			expect(#Cryo.Dictionary.keys(data)).to.be.equal(2)
+			expect(data[1].Value).to.equal(1)
+			expect(data[2].Value).to.equal(2)
 		end)
 
 		it("should replace the old clipboard", function()
 			local store = createTestStore()
 			store:dispatch(SetClipboard({TestKey = "TestValue"}))
 
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
 			store:dispatch(CopySelectedKeyframes())
 
 			local status = store:getState().Status
@@ -570,13 +461,7 @@ return function()
 		it("should delete all selected keyframes", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 2, true))
-			end
-
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
 			store:dispatch(DeleteSelectedKeyframes(analytics))
 
 			local animationData = store:getState().AnimationData
@@ -592,35 +477,20 @@ return function()
 	describe("ResetSelectedKeyframes", function()
 		it("should reset all selected keyframes to the base pose", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 2, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
 			store:dispatch(ResetSelectedKeyframes())
 
 			local animationData = store:getState().AnimationData
 			local testTrack = animationData.Instances.Root.Tracks.TestTrack
-			if GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
-				expect(testTrack.Data[1].Value).to.equal(0)
-				expect(testTrack.Data[2].Value).to.equal(0)
-			else
-				expect(testTrack.Data[1].Value).to.equal(CFrame.new())
-				expect(testTrack.Data[1].Value).to.equal(CFrame.new())
-			end
+			expect(testTrack.Data[1].Value).to.equal(0)
+			expect(testTrack.Data[2].Value).to.equal(0)
 		end)
 	end)
 
 	describe("MoveSelectedKeyframes", function()
 		it("should move the selected keyframes", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 2, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
 			store:dispatch(MoveSelectedKeyframes(1, 4))
 
 			local animationData = store:getState().AnimationData
@@ -634,12 +504,7 @@ return function()
 
 		it("should move relative to the pivot", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 2, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
 			store:dispatch(MoveSelectedKeyframes(2, 5))
 
 			local animationData = store:getState().AnimationData
@@ -652,13 +517,7 @@ return function()
 
 		it("should not clobber keyframes that are being moved forward", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 3, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 2, true))
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 3, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 3, true))
 			store:dispatch(MoveSelectedKeyframes(1, 2))
 
 			local animationData = store:getState().AnimationData
@@ -671,13 +530,7 @@ return function()
 
 		it("should not clobber keyframes that are being moved backward", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 3, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 2, true))
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 3, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 3, true))
 			store:dispatch(MoveSelectedKeyframes(3, 2))
 
 			local animationData = store:getState().AnimationData
@@ -690,12 +543,7 @@ return function()
 
 		it("should clobber existing keyframes that are overlapped", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 2, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
 			store:dispatch(MoveSelectedKeyframes(1, 2))
 
 			local animationData = store:getState().AnimationData
@@ -709,11 +557,7 @@ return function()
 	describe("ScaleSelectedKeyframes", function()
 		it("should scale the selected keyframes", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 3, 3, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 3, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 3, 3, true))
 			store:dispatch(ScaleSelectedKeyframes(0, 2))
 
 			local animationData = store:getState().AnimationData
@@ -724,13 +568,7 @@ return function()
 
 		it("should scale relative to the pivot", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 3, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 2, true))
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 3, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 3, true))
 			store:dispatch(ScaleSelectedKeyframes(2, 2))
 
 			local animationData = store:getState().AnimationData
@@ -743,13 +581,7 @@ return function()
 
 		it("should not clobber keyframes when scaling up", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 3, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 2, true))
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 3, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 3, true))
 			store:dispatch(ScaleSelectedKeyframes(0, 2))
 
 			local animationData = store:getState().AnimationData
@@ -760,13 +592,7 @@ return function()
 			expect(testTrack.Keyframes[3]).to.equal(6)
 
 			store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 3, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 2, true))
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 3, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 3, true))
 			store:dispatch(ScaleSelectedKeyframes(3, 2))
 
 			animationData = store:getState().AnimationData
@@ -779,13 +605,7 @@ return function()
 
 		it("should not clobber keyframes when scaling down", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"OtherTrack"}, 4, 8, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "OtherTrack", 4, true))
-				store:dispatch(SelectKeyframe("Root", "OtherTrack", 6, true))
-				store:dispatch(SelectKeyframe("Root", "OtherTrack", 8, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"OtherTrack"}, 4, 8, true))
 			store:dispatch(ScaleSelectedKeyframes(8, 0.5))
 
 			local animationData = store:getState().AnimationData
@@ -797,13 +617,7 @@ return function()
 			expect(otherTrack.Keyframes[4]).to.equal(8)
 
 			store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"OtherTrack"}, 4, 8, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "OtherTrack", 4, true))
-				store:dispatch(SelectKeyframe("Root", "OtherTrack", 6, true))
-				store:dispatch(SelectKeyframe("Root", "OtherTrack", 8, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"OtherTrack"}, 4, 8, true))
 			store:dispatch(ScaleSelectedKeyframes(4, 0.5))
 
 			animationData = store:getState().AnimationData
@@ -817,11 +631,7 @@ return function()
 
 		it("should clobber existing keyframes that are overlapped", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
 			store:dispatch(ScaleSelectedKeyframes(0, 2))
 
 			local animationData = store:getState().AnimationData
@@ -833,11 +643,7 @@ return function()
 
 		it("should not place a keyframe between frames", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
 			store:dispatch(ScaleSelectedKeyframes(0, 1.5))
 
 			local animationData = store:getState().AnimationData
@@ -849,13 +655,7 @@ return function()
 
 		it("should do nothing if scale is 1", function()
 			local store = createTestStore()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 3, true))
-			else
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 1, true))
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 2, true))
-				store:dispatch(SelectKeyframe("Root", "TestTrack", 3, true))
-			end
+			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 3, true))
 			store:dispatch(ScaleSelectedKeyframes(0, 1))
 
 			local animationData = store:getState().AnimationData
@@ -1103,12 +903,9 @@ return function()
 			if GetFFlagCurveEditor() then
 				store:dispatch(AddTrack("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, Enum.RotationOrder.XYZ, analytics))
 				store:dispatch(AddTrack("Root", "OtherTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, Enum.RotationOrder.XYZ, analytics))
-			elseif GetFFlagChannelAnimations() or GetFFlagFacialAnimationSupport() then
+			else
 				store:dispatch(AddTrack("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, analytics))
 				store:dispatch(AddTrack("Root", "OtherTrack", Constants.TRACK_TYPES.CFrame, analytics))
-			else
-				store:dispatch(AddTrack("Root", "TestTrack", analytics))
-				store:dispatch(AddTrack("Root", "OtherTrack", analytics))
 			end
 			store:dispatch(SetPlayhead(3))
 			store:dispatch(SetRootInstance({}))
@@ -1117,12 +914,8 @@ return function()
 			store:dispatch(SkipAnimation(false, analytics))
 			expect(store:getState().Status.Playhead).to.equal(1)
 			store:dispatch(SkipAnimation(false, analytics))
-			if GetFFlagChannelAnimations() then
-				-- There is no frame 0, so we stay at 1.
-				expect(store:getState().Status.Playhead).to.equal(1)
-			else
-				expect(store:getState().Status.Playhead).to.equal(0)
-			end
+			-- There is no frame 0, so we stay at 1.
+			expect(store:getState().Status.Playhead).to.equal(1)
 		end)
 
 		it("should skip the playhead to the next summary keyframe", function()
@@ -1131,12 +924,9 @@ return function()
 			if GetFFlagCurveEditor() then
 				store:dispatch(AddTrack("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, analytics))
 				store:dispatch(AddTrack("Root", "OtherTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, analytics))
-			elseif GetFFlagChannelAnimations() or GetFFlagFacialAnimationSupport() then
+			else
 				store:dispatch(AddTrack("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, analytics))
 				store:dispatch(AddTrack("Root", "OtherTrack", Constants.TRACK_TYPES.CFrame, analytics))
-			else
-				store:dispatch(AddTrack("Root", "TestTrack", analytics))
-				store:dispatch(AddTrack("Root", "OtherTrack", analytics))
 			end
 			store:dispatch(SetPlayhead(3))
 			store:dispatch(SetRootInstance({}))

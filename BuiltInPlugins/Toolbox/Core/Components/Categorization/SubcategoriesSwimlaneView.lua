@@ -2,8 +2,9 @@
 --[[
 	A view wrapper displaying a list of swimlanes.
 ]]
-
+local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
+local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
 local Packages = Plugin.Packages
@@ -63,7 +64,8 @@ export type _ExternalProps = {
 
 export type _InternalProps = {
 	-- mapStateToProps
-	IncludeOnlyVerifiedCreators: boolean?,
+	IncludeOnlyVerifiedCreators: boolean?, -- TODO: Remove with FFlagToolboxUseVerifiedIdAsDefault
+	IncludeUnverifiedCreators: boolean?,
 	-- withContext
 	Localization: any,
 	Stylizer: any,
@@ -117,7 +119,14 @@ function SubcategoriesSwimlaneView:init()
 		local sortName = props.SortName or Sort.getDefaultSortNameForCategory(categoryName)
 		local subcategoryDict = props.SubcategoryDict
 		local theme = props.Stylizer
-		local includeOnlyVerifiedCreators = props.IncludeOnlyVerifiedCreators
+
+		local includeOnlyVerifiedCreators
+		local includeUnverifiedCreators
+		if FFlagToolboxUseVerifiedIdAsDefault then
+			includeUnverifiedCreators = props.IncludeUnverifiedCreators
+		else
+			includeOnlyVerifiedCreators = props.IncludeOnlyVerifiedCreators
+		end
 		-- Props from AssetLogicWrapper
 		local canInsertAsset = props.CanInsertAsset
 		local tryInsert = props.TryInsert
@@ -154,8 +163,13 @@ function SubcategoriesSwimlaneView:init()
 				NetworkInterface = getNetwork(self),
 				SortName = sortName,
 				SearchTerm = subcategory.searchKeywords,
+				IncludeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+					then nil
+					else includeOnlyVerifiedCreators,
+				IncludeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+					then includeUnverifiedCreators
+					else nil,
 				QueryParams = if FFlagToolboxUseQueryForCategories2 then subcategory.queryParams else nil,
-				IncludeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
 				InitialPageSize = INITIAL_PAGE_SIZE,
 				LayoutOrder = subcategory.index,
 				OnClickSeeAllAssets = onClickSeeAllAssets,
@@ -166,6 +180,7 @@ function SubcategoriesSwimlaneView:init()
 				TryInsert = tryInsert,
 				TryOpenAssetConfig = tryOpenAssetConfig,
 				ZIndex = assetSectionCount - subcategory.index,
+				searchSource = if FFlagToolboxIncludeSearchSource then Constants.SEARCH_SOURCE.CATEGORY else nil,
 			})
 		end
 		return assetSectionsElems
@@ -235,7 +250,12 @@ function mapStateToProps(state: any, props)
 	state = state or {}
 	local pageInfo = state.pageInfo or {}
 	return {
-		IncludeOnlyVerifiedCreators = pageInfo.includeOnlyVerifiedCreators,
+		IncludeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+			then nil
+			else pageInfo.includeOnlyVerifiedCreators,
+		IncludeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+			then pageInfo.includeUnverifiedCreators
+			else nil,
 	}
 end
 

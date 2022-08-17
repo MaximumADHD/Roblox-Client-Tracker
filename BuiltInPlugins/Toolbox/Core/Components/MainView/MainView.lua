@@ -17,15 +17,11 @@
 
 		boolean isLoading
 
-		boolean showSearchOptions
-
 		callback selectSort()
 		callback requestSearch()
 		callback nextPage()
 		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
-
-local FFlagToolboxSearchResultsBackButton = game:GetFastFlag("ToolboxSearchResultsBackButton")
 
 local GuiService = game:GetService("GuiService")
 
@@ -61,7 +57,6 @@ local LoadingIndicator = Framework.UI.LoadingIndicator
 
 local MainViewHeader = require(Plugin.Core.Components.MainView.MainViewHeader)
 local Toast = require(Plugin.Core.Components.Toast)
-local SearchOptions = require(Plugin.Core.Components.SearchOptions.SearchOptions)
 
 local NextPageRequest = require(Plugin.Core.Networking.Requests.NextPageRequest)
 local UserSearchRequest = require(Plugin.Core.Networking.Requests.UserSearchRequest)
@@ -169,7 +164,7 @@ function MainView:render()
 					suggestions = suggestions,
 					containerWidth = containerWidth,
 					showTags = showTags,
-					onBackToHome = if FFlagToolboxSearchResultsBackButton then props.onBackToHome else nil,
+					onBackToHome = props.onBackToHome,
 				}),
 
 				NoResultsDetail = noResultsDetailProps and Roact.createElement(

@@ -159,7 +159,7 @@ function PropertyTweener(instance, prop, start, final, duration, easingFunc, cbF
 			end
 			instance[prop] = easingFunc(now - this.StartTime, start, final - start, duration)
 			percentComplete = clamp(0, 1, (now - this.StartTime) / duration)
-			RunService.RenderStepped:wait()
+			RunService.RenderStepped:Wait()
 			now = tick()
 		end
 		if this.Cancelled == false and instance then
@@ -234,17 +234,17 @@ local function getViewportSize()
 	end
 
 	while not workspace.CurrentCamera do
-		workspace.Changed:wait()
+		workspace.Changed:Wait()
 	end
 
 	-- ViewportSize is initally set to 1, 1 in Camera.cpp constructor.
 	-- Also check against 0, 0 incase this is changed in the future.
-	while workspace.CurrentCamera.ViewportSize == Vector2.new(0,0) or
-		workspace.CurrentCamera.ViewportSize == Vector2.new(1,1) do
-		workspace.CurrentCamera.Changed:wait()
+	while (workspace.CurrentCamera :: Camera).ViewportSize == Vector2.new(0,0) or
+		(workspace.CurrentCamera :: Camera).ViewportSize == Vector2.new(1,1) do
+		(workspace.CurrentCamera :: Camera).Changed:Wait()
 	end
 
-	return workspace.CurrentCamera.ViewportSize
+	return (workspace.CurrentCamera :: Camera).ViewportSize
 end
 
 local function isSmallTouchScreen()

@@ -217,4 +217,6 @@ return{
 	["CoreScripts.InGameMenu.Actions.BlockFriend"] = [[Заблокировать друга?]],
 	["CoreScripts.InGameMenu.QuickActions.ScreenshotSaved"] = [[Скриншот сохранён]],
 	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[Поделиться]],
+	["CoreScripts.InGameMenu.Controls.Scriptable"] = [[С поддержкой сценариев]],
+	["CoreScripts.InGameMenu.QuickActions.Connecting"] = [[Подключение...]],
 }

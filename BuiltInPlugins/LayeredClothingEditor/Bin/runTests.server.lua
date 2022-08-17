@@ -73,5 +73,8 @@ if SHOULD_RUN_RHODIUM_TESTS then
 	print("----- All " ..script.Parent.Parent.Name.. " Rhodium Tests ------")
 	runRhodiumTests()
 	print("----------------------------------")
+end
+
+if SHOULD_RUN_TESTS or SHOULD_RUN_RHODIUM_TESTS then
 	game:GetService("ProcessService"):ExitAsync(0)
 end

@@ -28,6 +28,7 @@ local TeachingCallout = require(Plugin.Src.Components.TeachingCallout)
 local GetFFlagFaceControlsEditorShowCallout = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorShowCallout)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
+local GetFFlagFaceControlsEditorButtonAutosizing = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorButtonAutosizing)
 
 local FaceControlsEditorController = Roact.PureComponent:extend("FaceControlsEditorController")
 local GetTextSize = Framework.Util.GetTextSize
@@ -118,7 +119,7 @@ function FaceControlsEditorController:render()
 	
 	local buttonUsedWidth = BUTTON_WIDTH
 	
-	if GetFFlagFacialAnimationRecordingInStudio() then
+	if GetFFlagFacialAnimationRecordingInStudio() or GetFFlagFaceControlsEditorButtonAutosizing() then
 		buttonUsedWidth = titleTextSize.X + 2*BUTTON_WIDTH_MARGINS
 	end
 	

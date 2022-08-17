@@ -118,6 +118,7 @@ local function Initialize()
 	local playerNames = {}
 	local sortedUserIds = {}
 	local nameToRbxPlayer = {}
+	local currentSelectedPlayer = nil
 	local nextPlayerToReport = nil
 
 	local voiceChatEnabled = false
@@ -164,6 +165,11 @@ local function Initialize()
 
 	function this:SetNextPlayerToReport(player)
 		nextPlayerToReport = player
+
+		if GetFFlagVoiceAbuseReportsEnabled() then
+			currentSelectedPlayer = player
+			this:SetDefaultMethodOfAbuse(nextPlayerToReport)
+		end
 	end
 
 	function this:updateVoiceLayout()
@@ -180,10 +186,10 @@ local function Initialize()
 			this.AbuseDescriptionFrame.LayoutOrder = 5
 
 			local function methodOfAbuseChanged(newIndex)
-				if not this.WhichPlayerMode.CurrentIndex then
-					this:UpdatePlayerDropDown()
-				end
-
+				--As we're now relying on a reference to the player object instead of the
+				--playerlist index, we can update whenever the method of
+				--abuse (and potentially sorting behavior) changes
+				this:UpdatePlayerDropDown()
 				local selectedMethodOfAbuse
 
 				if this:isVoiceReportMethodActive() and newIndex == 1 then
@@ -206,11 +212,10 @@ local function Initialize()
 
 	function this:updateMethodOfAbuseDropdown()
 		local recentVoicePlayers = VoiceChatServiceManager:getRecentUsersInteractionData()
-		local player = this:GetPlayerFromIndex(this.WhichPlayerMode.CurrentIndex)
 
 		--If you select the user before selecting the type of abuse,
 		--and that user isn't voice enabled/active, we remove Voice Chat as an option
-		if not player or not recentVoicePlayers[tostring(player.UserId)] then
+		if not currentSelectedPlayer or not recentVoicePlayers[tostring(currentSelectedPlayer.UserId)] then
 			this.MethodOfAbuseMode:UpdateDropDownList(Cryo.List.filter(getSortedMethodOfAbuseList(), function(item)
 				return item.index ~= TypeOfAbuseOptions[MethodsOfAbuse.voice].index
 			end))
@@ -224,9 +229,13 @@ local function Initialize()
 	end
 
 	function this:SetDefaultMethodOfAbuse(player)
-		if GetFFlagVoiceAbuseReportsEnabled() and voiceChatEnabled and inEntryExperiment then
-			local AbuseType = ReportAbuseLogic.GetDefaultMethodOfAbuse(player, VoiceChatServiceManager)
-			PageInstance.MethodOfAbuseMode:SetSelectionIndex(TypeOfAbuseOptions[AbuseType].index)
+		if GetFFlagVoiceAbuseReportsEnabled() and voiceChatEnabled then
+			if inEntryExperiment then
+				local AbuseType = ReportAbuseLogic.GetDefaultMethodOfAbuse(player, VoiceChatServiceManager)
+				PageInstance.MethodOfAbuseMode:SetSelectionIndex(TypeOfAbuseOptions[AbuseType].index)
+			else
+				PageInstance.MethodOfAbuseMode:SetSelectionIndex(1)
+			end
 		end
 	end
 
@@ -235,8 +244,6 @@ local function Initialize()
 			return false
 		end
 		local recentVoicePlayers = VoiceChatServiceManager:getRecentUsersInteractionData()
-
-		local currentSelectedPlayer = this:GetPlayerFromIndex(this.WhichPlayerMode.CurrentIndex)
 		local isCurrentSelectedPlayerVoice = if currentSelectedPlayer and recentVoicePlayers[tostring(currentSelectedPlayer.UserId)] then true else false
 
 		return (not currentSelectedPlayer or isCurrentSelectedPlayerVoice)
@@ -311,14 +318,16 @@ local function Initialize()
 					return a:lower() < b:lower()
 				end)
 			end
-
-			sortedUserIds = Cryo.List.map(playerNames, function(playerName)
-				local player = nameToRbxPlayer[playerName]
-				return if player then player.UserId else nil
-			end)
 		else
 			table.sort(playerNames, function(a, b)
 				return a:lower() < b:lower()
+			end)
+		end
+
+		if GetFFlagVoiceAbuseReportsEnabled() then
+			sortedUserIds = Cryo.List.map(playerNames, function(playerName)
+				local player = nameToRbxPlayer[playerName]
+				return if player then player.UserId else nil
 			end)
 		end
 
@@ -347,13 +356,11 @@ local function Initialize()
 			this.TypeOfAbuseMode:SetInteractable(#ABUSE_TYPES_PLAYER > 1)
 		end
 
-		if nextPlayerToReport then
-			local playerNameText = this:GetPlayerNameText(nextPlayerToReport)
-			local playerSelected = this.WhichPlayerMode:SetSelectionByValue(playerNameText)
+		local targetPlayer = nextPlayerToReport or currentSelectedPlayer
 
-			if GetFFlagVoiceAbuseReportsEnabled() then
-				this:SetDefaultMethodOfAbuse(nextPlayerToReport)
-			end
+		if targetPlayer then
+			local playerNameText = this:GetPlayerNameText(targetPlayer)
+			local playerSelected = this.WhichPlayerMode:SetSelectionByValue(playerNameText)
 
 			nextPlayerToReport = nil
 
@@ -607,12 +614,16 @@ local function Initialize()
 									abuserUserId = currentAbusingPlayer.UserId,
 									abuseComment = this.AbuseDescription.Selection.Text,
 									abuseReason = abuseReason,
-									inExpMenuOpenedUnixMilli = this:getReportTimestamp()*1000, --milliseconds conversion
+									inExpMenuOpenedUnixMilli = math.floor(this:getReportTimestamp()*1000), --milliseconds conversion
 									sortedPlayerListUserIds = sortedUserIds,
 								})
 
-								local fullUrl = Url.APIS_URL.."/abuse-reporting/v2/abuse-report"
-								HttpRbxApiService:PostAsyncFullUrl(fullUrl, request)
+								if game:GetEngineFeature("AbuseReportV3") then
+									PlayersService:ReportAbuseV3(PlayersService.LocalPlayer, request)
+								else
+									local fullUrl = Url.APIS_URL.."/abuse-reporting/v2/abuse-report"
+									HttpRbxApiService:PostAsyncFullUrl(fullUrl, request)
+								end
 							end)
 						end)
 
@@ -691,6 +702,7 @@ local function Initialize()
 
 		local function playerSelectionChanged(newIndex)
 			if GetFFlagVoiceAbuseReportsEnabled() then
+				currentSelectedPlayer = this:GetPlayerFromIndex(this.WhichPlayerMode.CurrentIndex)
 				this:updateMethodOfAbuseDropdown()
 
 				this.reportAbuseAnalytics:reportAnalyticsFieldChanged({

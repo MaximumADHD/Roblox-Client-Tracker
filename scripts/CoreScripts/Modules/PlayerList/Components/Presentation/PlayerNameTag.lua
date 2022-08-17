@@ -11,7 +11,6 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
-local FFlagPlayerListFormattingUpdates = require(RobloxGui.Modules.Flags.FFlagPlayerListFormattingUpdates)
 
 local PlayerNameTag = Roact.PureComponent:extend("PlayerNameTag")
 
@@ -109,12 +108,8 @@ function PlayerNameTag:render()
 			})
 		else
 			playerNameChildren["PlayerName"] = Roact.createElement("TextLabel", {
-				Position = FFlagPlayerListFormattingUpdates
-					and UDim2.new(0, 0, 0.28, 0)
-					or UDim2.new(0, 0, 0, 0),
-				Size = FFlagPlayerListFormattingUpdates
-					and UDim2.new(1, 0, 0.44, 0)
-					or UDim2.new(1, 0, 1, 0),
+				Position = UDim2.new(0, 0, 0.28, 0),
+				Size = UDim2.new(1, 0, 0.44, 0),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				Font = playerNameFont,
 				TextSize = textSize,
@@ -125,12 +120,12 @@ function PlayerNameTag:render()
 				BackgroundTransparency = 1,
 				Text = self.props.player.DisplayName,
 				TextTruncate = Enum.TextTruncate.AtEnd,
-				TextScaled = FFlagPlayerListFormattingUpdates or nil,
+				TextScaled = true,
 			}, {
-				SizeConstraint = FFlagPlayerListFormattingUpdates and Roact.createElement("UITextSizeConstraint", {
+				SizeConstraint = Roact.createElement("UITextSizeConstraint", {
 					MaxTextSize = textSize,
 					MinTextSize = minTextSize,
-				}) or nil
+				}),
 			})
 		end
 

@@ -22,12 +22,12 @@ local function PromptPurchase(itemId, itemType)
 		store:dispatch(SetItemBeingPurchased(itemId, itemType))
 
 		if itemType == Constants.ItemType.Bundle then
-			MarketplaceService:PromptBundlePurchase(Players.LocalPlayer, itemId)
+			MarketplaceService:PromptBundlePurchase(Players.LocalPlayer :: Player, itemId)
 		elseif itemType == Constants.ItemType.Asset then
 			if FFlagPromptRobloxPurchase then
 				MarketplaceService:PromptRobloxPurchase(itemId, false)
 			else
-				MarketplaceService:PromptPurchase(Players.LocalPlayer, itemId)
+				MarketplaceService:PromptPurchase(Players.LocalPlayer :: Player, itemId)
 			end
 		end
 

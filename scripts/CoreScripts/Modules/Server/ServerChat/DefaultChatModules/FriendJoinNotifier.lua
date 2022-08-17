@@ -10,8 +10,19 @@ local ReplicatedModules = Chat:WaitForChild("ClientChatModules")
 local ChatSettings = require(ReplicatedModules:WaitForChild("ChatSettings"))
 local ChatConstants = require(ReplicatedModules:WaitForChild("ChatConstants"))
 
+local FFlagUserHandleFriendJoinNotifierOnClient = false
+do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserHandleFriendJoinNotifierOnClient")
+	end)
+	if success then
+		FFlagUserHandleFriendJoinNotifierOnClient = value
+	end
+end
+
 local ChatLocalization = nil
-pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization :: any) end)
+-- ROBLOX FIXME: Can we define ClientChatModules statically in the project config
+pcall(function() ChatLocalization = require((game:GetService("Chat") :: any).ClientChatModules.ChatLocalization :: any) end)
 if ChatLocalization == nil then ChatLocalization = {} end
 if not ChatLocalization.FormatMessageToSend or not ChatLocalization.LocalizeFormattedMessage then
 	function ChatLocalization:FormatMessageToSend(key,default) return default end
@@ -23,8 +34,10 @@ local FriendMessageExtraData = {ChatColor = FriendMessageTextColor}
 local function Run(ChatService)
 
 	local function ShowFriendJoinNotification()
-		if ChatSettings.ShowFriendJoinNotification ~= nil then
-			return ChatSettings.ShowFriendJoinNotification
+		if FFlagUserHandleFriendJoinNotifierOnClient == false then
+			if ChatSettings.ShowFriendJoinNotification ~= nil then
+				return ChatSettings.ShowFriendJoinNotification
+			end
 		end
 		return false
 	end

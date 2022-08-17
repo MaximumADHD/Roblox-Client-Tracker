@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Mocks our analytics interface so we can make sure certain thunks
 	trigger analytics calls without actually calling the real ones.

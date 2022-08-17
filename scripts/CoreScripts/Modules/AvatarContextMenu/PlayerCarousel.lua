@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName: PlayerCarousel.lua
 	// Written by: darthskrill

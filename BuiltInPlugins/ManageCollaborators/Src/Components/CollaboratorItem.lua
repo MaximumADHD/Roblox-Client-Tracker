@@ -1,3 +1,6 @@
+local FFlagManageCollaboratorsExplainFriendPermissions = game:DefineFastFlag("ManageCollaboratorsExplainFriendPermissions", false)
+local FFlagManageCollaboratorsHighlightDelete = game:DefineFastFlag("ManageCollaboratorsHighlightDelete", false) 
+
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
@@ -22,26 +25,53 @@ local LayoutOrderIterator = Util.LayoutOrderIterator
 local PermissionsConstants = require(Plugin.Src.Util.PermissionsConstants)
 local DeleteButton = Roact.PureComponent:extend("DeleteButton")
 
+function DeleteButton:init()
+	if FFlagManageCollaboratorsHighlightDelete then
+		self.state = {
+			isHovered = false,
+		}
+	end
+end
+
 function DeleteButton:render()
 	local props = self.props
 
 	local enabled = props.Enabled
 	local onClicked = props.OnClicked
-	
+
 	local style = props.Stylizer
+
+	local backgroundTransparency = 1
+	
+	if FFlagManageCollaboratorsHighlightDelete then
+		backgroundTransparency = if self.state.isHovered then 0 else 1
+	end
 
 	return Roact.createElement("ImageButton", {
 		Size = UDim2.new(0, style.collaboratorItem.deleteButton.size, 0, style.collaboratorItem.deleteButton.size),
 		Position = UDim2.new(1, style.collaboratorItem.xOffset, .5, 0),
 		AnchorPoint = Vector2.new(1, .5),
 		Image = style.deleteIcon,
-		BackgroundTransparency = 1,
+		BackgroundTransparency = backgroundTransparency,
+		BackgroundColor3 = style.collaboratorItem.deleteButton.hovered,
 
 		[Roact.Event.Activated] = function()
 			if enabled and onClicked then
 				onClicked()
 			end
 		end,
+		[Roact.Event.MouseEnter] = if FFlagManageCollaboratorsHighlightDelete then function()
+			self:setState({
+				isHovered = true,
+			})
+		end 
+			else nil,
+		[Roact.Event.MouseLeave] = if FFlagManageCollaboratorsHighlightDelete then function()
+			self:setState({
+				isHovered = false,
+			})
+		end 
+			else nil,
 	})
 end
 
@@ -144,7 +174,9 @@ function CollaboratorItem:render()
 	local isRolesetCollaborator = props.IsRolesetCollaborator
 	
 	local hideSeparator = props.HideSeparator
-	local hidePermissions = props.HidePermissions
+
+	-- We hide the permissions on roleset collaborators in a group-owned game if a non-group-owner is using the modal. This is because only the group-ownerh as access to role perms.
+	local hidePermissionsForNonGroupOwner = props.HidePermissionsForNonGroupOwner
 
 	local localization = props.Localization
 
@@ -161,6 +193,20 @@ function CollaboratorItem:render()
 		else theme.collaboratorItem.collaboratorName.withoutIcon.xOffset
 	
 	local layoutOrderIterator = LayoutOrderIterator.new()
+	
+	local showPermissionsTooltip
+	local permissionsTooltipText
+	
+	if FFlagManageCollaboratorsExplainFriendPermissions then
+		-- We want to show the tooltip if permissions are not shown, either because we are hiding them due to non-group-owner accessing the modal, or because they are disabled for this collaborator as they are not friends
+		showPermissionsTooltip = hidePermissionsForNonGroupOwner or not permissionsEnabled
+
+		-- Based on the reason that the permissoin is not shown, we show a specific message.
+		permissionsTooltipText = if hidePermissionsForNonGroupOwner then localization:getText("PermissionDescriptions", "CannotViewGroupRoles") else localization:getText("PermissionDescriptions", "FriendToEdit")
+	else
+		showPermissionsTooltip = hidePermissionsForNonGroupOwner
+		permissionsTooltipText = localization:getText("PermissionDescriptions", "CannotViewGroupRoles")
+	end
 		
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(0, frameTheme.width, 0, frameTheme.height),
@@ -213,17 +259,17 @@ function CollaboratorItem:render()
 			}),
 
 			PermissionsDropdown = not loading and Roact.createElement(SelectInput, {
-				Enabled = not hidePermissions and permissionsEnabled,
+				Enabled = not hidePermissionsForNonGroupOwner and permissionsEnabled,
 				Items = availablePermissions,
 				OnItemActivated = self.onItemActivated,
 				OnRenderItem = self.onRenderItem,
-				PlaceholderText = if hidePermissions then "" else self:getCurrentPermissionLabel(),
+				PlaceholderText = if hidePermissionsForNonGroupOwner then "" else self:getCurrentPermissionLabel(),
 				Width = theme.selectInput.width,
 				Style = if permissionsEnabled then "Editable" else "NonEditable"
 			}) or nil,
 			
-			Tooltip = if hidePermissions then Roact.createElement(Tooltip, {
-				Text = localization:getText("PermissionDescriptions", "CannotViewGroupRoles")
+			Tooltip = if showPermissionsTooltip then Roact.createElement(Tooltip, {
+				Text = permissionsTooltipText
 			}) else nil
 		}),
 

@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName: ContextMenuItems.lua
 	// Written by: TheGamer101

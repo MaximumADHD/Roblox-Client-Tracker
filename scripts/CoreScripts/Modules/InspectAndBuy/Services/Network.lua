@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Contains a list of networking functions used to get or send data. These functions
 	are wrapped in a promise and injected into thunks through middleware.

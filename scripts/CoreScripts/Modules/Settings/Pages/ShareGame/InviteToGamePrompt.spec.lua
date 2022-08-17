@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local InviteToGamePrompt = require(script.Parent.InviteToGamePrompt)
 

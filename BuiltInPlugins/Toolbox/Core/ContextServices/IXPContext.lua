@@ -6,8 +6,6 @@ local ContextItem = Framework.ContextServices.ContextItem
 local Signal = Framework.Util.Signal
 local Dash = Framework.Dash
 
-local FFlagStudioRegisterToolboxIxpLayer = game:GetFastFlag("StudioRegisterToolboxIxpLayer")
-
 local IXPContext = ContextItem:extend("IXPContext")
 
 function IXPContext.createMock(variables)
@@ -51,14 +49,11 @@ function IXPContext:getVariables()
 	if not self:isReady() then
 		return {}
 	end
-	if FFlagStudioRegisterToolboxIxpLayer then
-		return Dash.joinDeep(
-			self.IXPService:GetUserLayerVariables("StudioMarketplace"),
-			self.IXPService:GetUserLayerVariables("Studio.Toolbox.Usage")
-		)
-	else
-		return self.IXPService:GetUserLayerVariables("StudioMarketplace")
-	end
+
+	return Dash.joinDeep(
+		self.IXPService:GetUserLayerVariables("StudioMarketplace"),
+		self.IXPService:GetUserLayerVariables("Studio.Toolbox.Usage")
+	)
 end
 
 return IXPContext

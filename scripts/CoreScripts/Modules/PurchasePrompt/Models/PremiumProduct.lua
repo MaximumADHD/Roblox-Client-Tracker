@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Docs: https://premiumfeatures.roblox.com/docs#!/PremiumFeaturesProducts/get_v1_products
 

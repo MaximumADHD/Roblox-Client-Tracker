@@ -1,6 +1,8 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
+local FFlagToolboxEnableAnnouncementsDialog = game:GetFastFlag("ToolboxEnableAnnouncementsDialog")
 local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
-local FFlagToolboxSearchResultsBackButton = game:GetFastFlag("ToolboxSearchResultsBackButton")
+local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault")
+local FFlagToolboxFixBreadcrumbColor = game:GetFastFlag("ToolboxFixBreadcrumbColor")
 
 local Images = require(Plugin.Core.Util.Images)
 
@@ -168,6 +170,15 @@ local makeTheme = function(themeExtension, themeClass)
 		horizontalLineColor = StyleKey.Toolbox_HorizontalLineColor,
 		link = StyleKey.LinkText,
 		redText = Color3.fromRGB(255, 68, 68),
+
+		announcementDialog = if FFlagToolboxEnableAnnouncementsDialog then {
+			backgroundColor = StyleKey.MainBackground,
+			closeIconColor = StyleColors.White,
+			descriptionColor = StyleKey.TextPrimary,
+			headerTextColor = StyleKey.BrightText,
+			overlayColor = StyleColors.Black,
+			overlayTransparency = 0.4,
+		} else nil,
 
 		asset = {
 			assetName = {
@@ -383,11 +394,12 @@ local makeTheme = function(themeExtension, themeClass)
 
 		searchOptions = {
 			background = StyleKey.MainBackground,
+			border = StyleKey.Border,
 			headerTextColor = StyleKey.MainText,
 			imageColor = Colors.GRAY_2,
 			imageHoveredColor = StyleKey.Toolbox_SearchOptionButtonHover,
 			imageSelectedColor = Colors.BLUE_PRIMARY,
-			border = StyleKey.Border,
+			warningIconColor = if FFlagToolboxUseVerifiedIdAsDefault then Color3.fromHex("#FFAA21") else nil,
 
 			audioSearch = {
 				textColor = StyleKey.MainText,
@@ -435,7 +447,7 @@ local makeTheme = function(themeExtension, themeClass)
 		searchTag = {
 			backgroundColor = StyleKey.Toolbox_SearchTagBackgroundColor,
 			borderColor = StyleKey.Border,
-			textColor = if FFlagToolboxSearchResultsBackButton then ColorSystem.Black[0] else StyleKey.MainText,
+			textColor = if FFlagToolboxFixBreadcrumbColor then StyleKey.BrightText else ColorSystem.Black[0],
 			clearAllText = StyleKey.LinkText,
 		},
 

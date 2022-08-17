@@ -2,13 +2,8 @@ local getSettingsForMessage = require(script.Parent.getSettingsForMessage)
 local createMockMessage = require(script.Parent.createMockMessage)
 
 local flags = script.Parent.Parent.Parent.Parent.Flags
-local GetFFlagBubbleChatUserSpecificSettings = require(flags.GetFFlagBubbleChatUserSpecificSettings)
 
 return function()
-	if not GetFFlagBubbleChatUserSpecificSettings() then
-		return
-	end
-
 	it("should return the original chat settings if there are no user specific settings", function()
 		local chatSettings = {
 			Transparency = .5,

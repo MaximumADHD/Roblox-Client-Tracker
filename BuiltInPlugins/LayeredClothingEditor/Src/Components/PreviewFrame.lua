@@ -16,6 +16,8 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
+local FFlagEnablePreviewDockWidget = require(Plugin.Src.Flags.GetFFlagEnablePreviewDockWidget)()
+
 local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
 local PreviewConstantsInterface = AccessoryAndBodyToolSharedUtil.PreviewConstantsInterface
 
@@ -33,11 +35,14 @@ local UI = Framework.UI
 local Pane = UI.Pane
 
 local PreviewTabsRibbon = require(Plugin.Src.Components.Preview.PreviewTabsRibbon)
-local PreviewToStarterCharacterButton = require(Plugin.Src.Components.Preview.PreviewToStarterCharacterButton)
+local PreviewDockWidget = Components.PreviewDockWidget
 local Grid = require(Plugin.Src.Components.Preview.Grid)
 
 local SetSliderPlayhead = require(Plugin.Src.Actions.SetSliderPlayhead)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
+local SetPlayhead = require(Plugin.Src.Actions.SetPlayhead)
+local SetTrackLength = require(Plugin.Src.Actions.SetTrackLength)
+local PreviewingInfo = AccessoryAndBodyToolSharedUtil.PreviewingInfo
 
 local PreviewFrame = Roact.PureComponent:extend("PreviewFrame")
 Typecheck.wrap(PreviewFrame, script)
@@ -114,10 +119,17 @@ function PreviewFrame:render()
 				TrackLength = trackLength,
 			}),
 		}),
-		PreviewButton = if game:GetFastFlag("FFlagDebugSetPreviewToStarterCharacterButton") 
-			then 
-				Roact.createElement(PreviewToStarterCharacterButton, { LayoutOrder = orderIterator:getNextOrder(), }) 
-			else 
+		PreviewDockWidget = if FFlagEnablePreviewDockWidget
+			then
+				Roact.createElement(PreviewDockWidget, {
+					AnimationId = props.AnimationId,
+					IsPlaying = props.IsPlaying,
+					SliderPlayhead = props.SliderPlayhead,
+					SetPlayhead = props.SetPlayhead,
+					SetIsPlaying = props.SetIsPlaying,
+					SetTrackLength = props.SetTrackLength,
+				})
+			else
 				nil,
 	})
 end
@@ -132,9 +144,11 @@ local function mapStateToProps(state, props)
 
 	return {
 		SelectedTab = previewStatus.selectedTab,
+		AnimationId = PreviewingInfo.getPreviewingAnimationId(state),
 		IsPlaying = animation.IsPlaying,
 		Playhead = animation.Playhead,
 		TrackLength = animation.TrackLength,
+		SliderPlayhead = animation.SliderPlayhead,
 	}
 end
 
@@ -145,6 +159,12 @@ local function mapDispatchToProps(dispatch)
 		end,
 		SetSliderPlayhead = function(sliderPlayhead)
 			dispatch(SetSliderPlayhead(sliderPlayhead))
+		end,
+		SetPlayhead = function(playhead)
+			dispatch(SetPlayhead(playhead))
+		end,
+		SetTrackLength = function(track)
+			dispatch(SetTrackLength(track))
 		end,
 	}
 end

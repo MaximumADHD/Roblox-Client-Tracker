@@ -15,121 +15,59 @@ local AnimationData = require(Plugin.Src.Util.AnimationData)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
-if GetFFlagChannelAnimations() then
-	return function(instanceName, path, trackType, tck, value, analytics)
-		return function(store)
-			local state = store:getState()
-			local animationData = state.AnimationData
-			local track = AnimationData.getTrack(animationData, instanceName, path)
+return function(instanceName, path, trackType, tck, value, analytics)
+	return function(store)
+		local state = store:getState()
+		local animationData = state.AnimationData
+		local track = AnimationData.getTrack(animationData, instanceName, path)
 
-			if track == nil then
-				local topTrackName = path[1]
-				if GetFFlagCurveEditor() then
-					local newTrackType = if trackType == Constants.TRACK_TYPES.Facs
-						then Constants.TRACK_TYPES.Facs
-						else Constants.TRACK_TYPES.CFrame
-					store:dispatch(AddTrack(instanceName, topTrackName, newTrackType, nil, nil, analytics))
+		if track == nil then
+			local topTrackName = path[1]
+			if GetFFlagCurveEditor() then
+				local newTrackType = if trackType == Constants.TRACK_TYPES.Facs
+					then Constants.TRACK_TYPES.Facs
+					else Constants.TRACK_TYPES.CFrame
+				store:dispatch(AddTrack(instanceName, topTrackName, newTrackType, nil, nil, analytics))
+			else
+				if trackType == Constants.TRACK_TYPES.Facs then
+					store:dispatch(AddTrack(instanceName, topTrackName, trackType, analytics))
 				else
-					if trackType == Constants.TRACK_TYPES.Facs then
-						store:dispatch(AddTrack(instanceName, topTrackName, trackType, analytics))
-					else
-						store:dispatch(AddTrack(instanceName, topTrackName, Constants.TRACK_TYPES.CFrame, analytics))
-					end
+					store:dispatch(AddTrack(instanceName, topTrackName, Constants.TRACK_TYPES.CFrame, analytics))
 				end
+			end
+			local keyframeData = {
+				Value = value
+			}
+			if AnimationData.isChannelAnimation(animationData) then
+				keyframeData.InterpolationMode = Enum.KeyInterpolationMode.Cubic
+			else
+				keyframeData.EasingStyle = Enum.PoseEasingStyle.Linear
+				keyframeData.EasingDirection = Enum.PoseEasingDirection.In
+			end
+			store:dispatch(AddKeyframe(instanceName, path, trackType, tck, keyframeData, analytics))
+		else
+			local trackData = track.Data
+
+			if trackData and trackData[tck] then
+				store:dispatch(SetKeyframeData(instanceName, path, tck, {
+					Value = value,
+				}))
+			else
 				local keyframeData = {
 					Value = value
 				}
-				if AnimationData.isChannelAnimation(animationData) then
+				if track.IsCurveTrack then
 					keyframeData.InterpolationMode = Enum.KeyInterpolationMode.Cubic
 				else
 					keyframeData.EasingStyle = Enum.PoseEasingStyle.Linear
 					keyframeData.EasingDirection = Enum.PoseEasingDirection.In
 				end
+
 				store:dispatch(AddKeyframe(instanceName, path, trackType, tck, keyframeData, analytics))
-			else
-				local trackData = track.Data
-
-				if trackData and trackData[tck] then
-					store:dispatch(SetKeyframeData(instanceName, path, tck, {
-						Value = value,
-					}))
-				else
-					local keyframeData = {
-						Value = value
-					}
-					if track.IsCurveTrack then
-						keyframeData.InterpolationMode = Enum.KeyInterpolationMode.Cubic
-					else
-						keyframeData.EasingStyle = Enum.PoseEasingStyle.Linear
-						keyframeData.EasingDirection = Enum.PoseEasingDirection.In
-					end
-
-					store:dispatch(AddKeyframe(instanceName, path, trackType, tck, keyframeData, analytics))
-				end
 			end
-			store:dispatch(StepAnimation(tck))
 		end
-	end
-else
-	local function wrappee(instanceName, trackName, trackType, tck, value, analytics)
-		return function(store)
-			local animationData = store:getState().AnimationData
-			if not animationData then
-				return
-			end
-
-			local instance = animationData.Instances[instanceName]
-			if instance == nil then
-				return
-			end
-
-			local tracks = instance.Tracks
-			if tracks == nil then
-				return
-			end
-
-			local track = tracks[trackName]
-			if track == nil then
-				if GetFFlagFacialAnimationSupport() then
-					store:dispatch(AddTrack(instanceName, trackName, trackType, analytics))
-					store:dispatch(AddKeyframe(instanceName, trackName, trackType, tck, value, analytics))
-				else
-					store:dispatch(AddTrack(instanceName, trackName, analytics))
-					store:dispatch(AddKeyframe(instanceName, trackName, tck, value, analytics))
-				end
-
-				store:dispatch(StepAnimation(tck))
-				return
-			end
-
-			local trackData = track.Data
-
-			if trackData and trackData[tck] then
-				store:dispatch(SetKeyframeData(instanceName, trackName, tck, {
-					Value = value,
-				}))
-			else
-				if GetFFlagFacialAnimationSupport() then
-					store:dispatch(AddKeyframe(instanceName, trackName, trackType, tck, value, analytics))
-				else
-					store:dispatch(AddKeyframe(instanceName, trackName, tck, value, analytics))
-				end
-			end
-
-			store:dispatch(StepAnimation(tck))
-		end
-	end
-
-	if GetFFlagFacialAnimationSupport() then
-		return function(instanceName, trackName, trackType, tck, value, analytics)
-			return wrappee(instanceName, trackName, trackType, tck, value, analytics)
-		end
-	else
-		return function(instanceName, trackName, tck, value, analytics)
-			return wrappee(instanceName, trackName, nil, tck, value, analytics)
-		end
+		store:dispatch(StepAnimation(tck))
 	end
 end

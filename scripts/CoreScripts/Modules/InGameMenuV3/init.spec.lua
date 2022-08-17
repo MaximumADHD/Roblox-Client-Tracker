@@ -4,12 +4,14 @@ return function()
 
 	beforeEach(function()
 		GuiService.SelectedCoreObject = nil
-		Players.LocalPlayer.PlayerGui:ClearAllChildren()
+		local localPlayer = Players.LocalPlayer :: Player
+		localPlayer.PlayerGui:ClearAllChildren()
 	end)
 
 	afterEach(function()
 		GuiService.SelectedCoreObject = nil
-		Players.LocalPlayer.PlayerGui:ClearAllChildren()
+		local localPlayer = Players.LocalPlayer :: Player
+		localPlayer.PlayerGui:ClearAllChildren()
 	end)
 
 	it("should require without errors", function()

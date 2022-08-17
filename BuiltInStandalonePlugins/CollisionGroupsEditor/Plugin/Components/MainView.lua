@@ -15,6 +15,10 @@ local GroupListView = require(script.Parent.GroupListView)
 local ListHeader = require(script.Parent.ListHeader)
 local TableHeader = require(script.Parent.TableHeader)
 
+local GroupRenameDialog = require(script.Parent.GroupRenameDialog)
+
+local FFlagCGERenameWarningDialog = game:GetFastFlag("CGERenameWarningDialog")
+
 local MainView = Roact.Component:extend("MainView")
 
 -- a hover is an object which holds a key and remembers which gui
@@ -170,6 +174,12 @@ function MainView:render()
 			}),
 		}),
 	}
+	if FFlagCGERenameWarningDialog then
+		children["GroupRenameDialog"] = Roact.createElement(GroupRenameDialog, {
+			Enabled = props.GroupRenameDialogOpen,
+			OnClose = props.OnGroupRenameDialogClosed,
+		})
+	end
 
 	return Roact.createElement(Pane, {
 		Style = "Box",

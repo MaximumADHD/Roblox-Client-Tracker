@@ -1,3 +1,4 @@
+--!nonstrict
 local function getToolAsset(network, assetId)
 	return network.loadAssetForEquip(assetId)
 		:andThen(function(tool)

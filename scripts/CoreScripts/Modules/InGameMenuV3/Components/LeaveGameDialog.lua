@@ -1,3 +1,4 @@
+--!nonstrict
 local RunService = game:GetService("RunService")
 local CorePackages = game:GetService("CorePackages")
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
@@ -8,19 +9,13 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local t = InGameMenuDependencies.t
 
 local InGameMenu = script.Parent.Parent
-
+local PerfUtils = require(InGameMenu.Utility.PerfUtils)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
-
 local CancelLeavingGame = require(InGameMenu.Actions.CancelLeavingGame)
-
 local GlobalConfig = require(InGameMenu.GlobalConfig)
-
 local ConfirmationDialog = require(script.Parent.ConfirmationDialog)
-
 local Constants = require(InGameMenu.Resources.Constants)
-
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
-
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
 
 local validateProps = t.strictInterface({
@@ -50,6 +45,7 @@ local function LeaveGameDialog(props)
 
 			onCancel = props.onCancel,
 			onConfirm = function()
+				PerfUtils.leavingGame()
 				SendAnalytics(Constants.AnalyticsInGameMenuName, Constants.AnalyticsLeaveGameName,
 								{confirmed = Constants.AnalyticsConfirmedName})
 				RunService.Heartbeat:Wait()

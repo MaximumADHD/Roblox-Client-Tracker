@@ -15,7 +15,8 @@ BlurredModalPortal.validateProps = t.strictInterface({
 
 function BlurredModalPortal:render()
 	return Roact.createElement(Roact.Portal, {
-		target = CoreGui
+		-- LUAU FIXME: Need read-write syntax for props to obviate the need for this cast
+		target = CoreGui :: Instance,
 	}, {
 		InGameMenuModalBlur = Roact.createElement("ScreenGui", {
 			OnTopOfCoreBlur = true,

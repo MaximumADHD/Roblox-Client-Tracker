@@ -1,3 +1,4 @@
+--!nonstrict
 local Root = script.Parent.Parent
 
 local AccountInfoReceived = require(Root.Actions.AccountInfoReceived)

@@ -11,8 +11,6 @@ local t = require(CorePackages.Packages.t)
 local BacktraceReport = require(script.Parent.BacktraceReport)
 local ErrorQueue = require(script.Parent.Parent.ErrorQueue)
 
-local FFlagLuaBacktraceReportFromDetails = game:DefineFastFlag("LuaBacktraceReportFromDetails", false)
-
 local DEVELOPMENT_IN_STUDIO = game:GetService("RunService"):IsStudio()
 
 local DEFAULT_LOG_INTERVAL = 60 -- seconds
@@ -162,7 +160,7 @@ end
 
 function BacktraceReporter:_generateErrorReport(errorMessage, errorStack, details)
 	local report
-	if FFlagLuaBacktraceReportFromDetails and type(details) == "table" then
+	if type(details) == "table" then
 		report = BacktraceReport.fromDetails(details)
 	else
 		report = BacktraceReport.fromMessageAndStack(errorMessage, errorStack)

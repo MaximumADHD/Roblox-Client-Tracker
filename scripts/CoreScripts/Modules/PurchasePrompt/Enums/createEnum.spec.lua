@@ -1,14 +1,15 @@
+--!nonstrict
 return function()
 	local createEnum = require(script.Parent.createEnum)
 
 	describe("validation rules", function()
 		it("should throw errors if given invalid values", function()
 			expect(function()
-				createEnum(1, {})
+				createEnum(1 :: any, {} :: {string})
 			end).to.throw()
 
 			expect(function()
-				createEnum("MyEnum", "not a table")
+				(createEnum :: any)("MyEnum", "not a table")
 			end).to.throw()
 		end)
 
@@ -22,7 +23,7 @@ return function()
 			expect(function()
 				createEnum("MyEnum", {
 					"Test",
-					12,
+					(12::any),
 				})
 			end)
 		end)

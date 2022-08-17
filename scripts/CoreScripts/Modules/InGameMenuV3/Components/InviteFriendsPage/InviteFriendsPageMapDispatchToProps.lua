@@ -1,3 +1,4 @@
+--!nonstrict
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
 local InGameMenu = Modules.InGameMenuV3

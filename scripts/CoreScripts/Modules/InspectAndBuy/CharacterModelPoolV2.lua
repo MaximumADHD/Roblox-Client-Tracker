@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Utility used by the AvatarViewport that holds and manages updates to the character models.
 	To prevent "pop in" when applying layered clothing, we need to have two R15 models, one being updated in the background

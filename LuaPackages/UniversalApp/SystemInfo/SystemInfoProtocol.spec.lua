@@ -1,8 +1,11 @@
+--!nonstrict
 return function()
+	local Types = require(script.Parent.Parent.MessageBusTypes)
+
 	local MockMessageBus = {}
 	MockMessageBus.__index = MockMessageBus
 
-	function MockMessageBus.call(desc: FunctionDescriptor, params: any): any
+	function MockMessageBus.call(desc: Types.FunctionDescriptor, params: any): any
 		assert(desc.validateParams(params))
 		if desc.fid == "SystemInfo.getSystemInfo" then
 			-- Simulate the basic behavior of a call to 
@@ -22,7 +25,7 @@ return function()
 
 	describe("SystemInfoProtocol", function()
 		beforeEach(function(context)
-			context.SystemInfoProtocol = SystemInfoProtocol.new(MockMessageBus)
+			context.SystemInfoProtocol = SystemInfoProtocol.new((MockMessageBus :: any) :: Types.MessageBus)
 		end)
 
 		it("returns an empty table when called with an empty table", function(context)
@@ -32,7 +35,7 @@ return function()
 
 			expect(success).to.equal(true)
 			expect(type(result)).to.equal("table")
-			expect(next(result)).to.equal(nil)
+			expect((next(result))).to.equal(nil)
 		end)
 
 		it("returns a populated table when called with a populated table", function(context)

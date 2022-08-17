@@ -22,6 +22,8 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
+local FFlagEnablePreviewDockWidget = require(Plugin.Src.Flags.GetFFlagEnablePreviewDockWidget)()
+
 local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
 local PreviewContext = AvatarToolsShared.Contexts.PreviewContext
 
@@ -174,7 +176,11 @@ function EditorScreen:render()
 				OnFocused = self.finishSelectingFromExplorer,
 				Text = props.ControlsPanelBlockerMessage,
 			}),
-			AnimationPlaybackWrapper = Roact.createElement(AnimationPlaybackWrapper),
+			AnimationPlaybackWrapper = if not FFlagEnablePreviewDockWidget
+				then
+					Roact.createElement(AnimationPlaybackWrapper)
+				else
+					nil,
 			ExplorerPreviewInstances = Roact.createElement(ExplorerPreviewInstances, {
 				UserAddedAssets = userAddedAssets,
 			}),

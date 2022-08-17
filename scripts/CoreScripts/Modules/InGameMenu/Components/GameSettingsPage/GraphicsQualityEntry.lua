@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Encompasses both the automatic graphics quality toggle _and_ the graphics
 	quality slider.
@@ -143,7 +144,7 @@ function GraphicsQualityEntry:init()
 			it's given is in bounds.  The returned newValue and delta indicate the change that actually takes place
 			We use newValue and delta to determine what notification to show.
 		]]
-		game.GraphicsQualityChangeRequest:connect(
+		game.GraphicsQualityChangeRequest:Connect(
 			function(isIncrease)
 				local current = UserGameSettings.GraphicsQualityLevel
 				if current ~= 0 then

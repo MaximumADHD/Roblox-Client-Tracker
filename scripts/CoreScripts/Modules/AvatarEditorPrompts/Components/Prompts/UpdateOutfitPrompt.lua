@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Prompt displayed when AvatarEditorService:PromptUpdateOutfit is called.
 ]]

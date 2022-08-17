@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	--For tests specific to InviteFriendsList, see InviteFriendsList.spec.lua
 	local CorePackages = game:GetService("CorePackages")

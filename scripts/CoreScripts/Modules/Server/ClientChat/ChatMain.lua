@@ -26,6 +26,16 @@ local FFlagUserHandleChatHotKeyWithContextActionService = false do
 	end
 end
 
+local FFlagUserHandleFriendJoinNotifierOnClient = false
+do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserHandleFriendJoinNotifierOnClient")
+	end)
+	if success then
+		FFlagUserHandleFriendJoinNotifierOnClient = value
+	end
+end
+
 local FILTER_MESSAGE_TIMEOUT = 60
 
 local RunService = game:GetService("RunService")
@@ -43,7 +53,8 @@ local messageCreatorModules = clientChatModules:WaitForChild("MessageCreatorModu
 local MessageCreatorUtil = require(messageCreatorModules:WaitForChild("Util"))
 
 local ChatLocalization = nil
-pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization :: any) end)
+-- ROBLOX FIXME: Can we define ClientChatModules statically in the project config
+pcall(function() ChatLocalization = require((game:GetService("Chat") :: any).ClientChatModules.ChatLocalization :: any) end)
 if ChatLocalization == nil then ChatLocalization = {} function ChatLocalization:Get(key,default) return default end end
 
 local numChildrenRemaining = 10 -- #waitChildren returns 0 because it's a dictionary
@@ -978,6 +989,37 @@ if PlayerBlockedEvent then
 			)
 		end
 	end)
+end
+
+if FFlagUserHandleFriendJoinNotifierOnClient then
+	local function ShowFriendJoinNotification()
+		if ChatSettings.ShowFriendJoinNotification ~= nil then
+			return ChatSettings.ShowFriendJoinNotification
+		end
+		return false
+	end
+
+	if ShowFriendJoinNotification() then
+		Players.PlayerAdded:Connect(function(newPlayer)
+			local success, isFriends = pcall(function()
+				return newPlayer:IsFriendsWith(LocalPlayer.UserId)
+			end)
+
+			if success and isFriends then
+				local joinedFriendName = newPlayer.Name
+				if ChatSettings.PlayerDisplayNamesEnabled then
+					joinedFriendName = newPlayer.DisplayName
+				end
+
+				local msg = ChatLocalization:FormatMessageToSend("GameChat_FriendChatNotifier_JoinMessage",
+					string.format("Your friend %s has joined the game.", joinedFriendName),
+					"RBX_NAME",
+					joinedFriendName)
+
+				SendSystemMessageToSelf(msg)
+			end
+		end)
+	end
 end
 
 if PlayerMutedEvent then

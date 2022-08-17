@@ -1,3 +1,4 @@
+--!nonstrict
 local RunService = game:GetService("RunService")
 local CorePackages = game:GetService("CorePackages")
 
@@ -12,7 +13,7 @@ local LeavePrompt = require(script.Parent.LeavePrompt)
 
 local InGameMenu = script.Parent.Parent.Parent.Parent
 local withLocalization = require(InGameMenu.Localization.withLocalization)
-
+local PerfUtils = require(InGameMenu.Utility.PerfUtils)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
 local NavigateBack = require(InGameMenu.Actions.NavigateBack)
@@ -34,6 +35,7 @@ LeaveToAppPrompt.defaultProps = {
 
 function LeaveToAppPrompt:init()
 	self.goToHomePage = function()
+		PerfUtils.leavingGame()
 		-- Right now it this will only return to the last place in app and not directly to the home page yet
 		-- TODO: deep link into home page
 		-- https://jira.rbx.com/browse/MOBLUAPP-2597

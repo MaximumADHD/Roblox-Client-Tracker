@@ -10,7 +10,6 @@
 		callback OnTextChanged: callback for when the text was changed - OnTextChanged(text: string)
 ]]
 local FIntToolboxAutocompleteDropdownSize = game:GetFastInt("ToolboxAutocompleteDropdownSize")
-local FFlagToolboxLocalizeSearchPlaceholder = game:GetFastFlag("ToolboxLocalizeSearchPlaceholder")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -196,9 +195,7 @@ function SearchBarWithAutocomplete:render()
 		OnInputEnded = self.onInputEnded,
 		OnSearchRequested = self.onSearchRequested,
 		OnTextChanged = self.onSearchTextChanged,
-		PlaceholderText = if FFlagToolboxLocalizeSearchPlaceholder
-			then props.Localization:getText("General", "SearchBarDefaultText")
-			else nil,
+		PlaceholderText = props.Localization:getText("General", "SearchBarDefaultText"),
 		SearchTerm = displayedSearchTerm,
 		Style = "ToolboxSearchBar",
 		Width = props.Width,
@@ -224,11 +221,9 @@ function SearchBarWithAutocomplete:render()
 	})
 end
 
-if FFlagToolboxLocalizeSearchPlaceholder then
-	SearchBarWithAutocomplete = withContext({
-		Localization = ContextServices.Localization,
-	})(SearchBarWithAutocomplete)
-end
+SearchBarWithAutocomplete = withContext({
+	Localization = ContextServices.Localization,
+})(SearchBarWithAutocomplete)
 
 local function mapStateToProps(state, props)
 	state = state or {}

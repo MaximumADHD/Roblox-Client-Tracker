@@ -1,3 +1,4 @@
+--!nonstrict
 local HttpService = game:GetService("HttpService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local ContentProvider = game:GetService("ContentProvider")

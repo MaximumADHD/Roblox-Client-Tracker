@@ -1,6 +1,4 @@
---!nocheck
--- remove !nocheck with FFlagUGCValidateLayeredClothing
-
+--!strict
 game:DefineFastFlag("UGCValidateHandleSize", false)
 game:DefineFastFlag("UGCExtraBannedNames", false)
 game:DefineFastFlag("UGCValidateMeshVertColors", false)

@@ -1,3 +1,4 @@
+--!nonstrict
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local CoreGui = game:GetService("CoreGui")
 

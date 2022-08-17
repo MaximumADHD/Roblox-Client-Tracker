@@ -2,10 +2,8 @@
 -- for more info on how to add values here
 local CorePackages = game:GetService("CorePackages")
 
-local GetFFlagLuaAppUseNewUIBloxRoundedCorners = require(
-	CorePackages.UIBloxFlags.GetFFlagLuaAppUseNewUIBloxRoundedCorners
-)
-local FFlagUIBloxUseTileThumbnailV2 = require(CorePackages.UIBloxFlags.FFlagUIBloxUseTileThumbnailV2)
+local ArgCheck = require(CorePackages.ArgCheck)
+
 local GetFFlagUIBloxFixDropdownMenuListPositionAndSize = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuListPositionAndSize
 )
@@ -15,9 +13,6 @@ local GetFFlagUIBloxUseNewGenericTextLabelProps = require(
 )
 local GetFFlagUIBloxEnableRadioButtonGamepadSupport = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableRadioButtonGamepadSupport
-)
-local GetFFlagUIBloxEnableIconButtonGamepadSupport = require(
-	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableIconButtonGamepadSupport
 )
 local GetFFlagUIBloxEnableActionBarLayoutFix = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableActionBarLayoutFix
@@ -49,12 +44,12 @@ return {
 	enableTileInsets = GetFFlagEnableTileInsets(),
 	enableAdjustableTextUnderTile = GetFFlagAdjustableTextUnderTile(),
 	enableSliderCustomization = FFlagUIBloxSliderCustomization,
-	useNewUICornerRoundedCorners = GetFFlagLuaAppUseNewUIBloxRoundedCorners(),
+	useNewUICornerRoundedCorners = true,
 	genericSliderFilterOldTouchInputs = true,
-	allowSystemBarToAcceptString = game:DefineFastFlag("UIBloxAllowSystemBarToAcceptString", false),
+	allowSystemBarToAcceptString = true,
 	emptyStateControllerSupport = true,
-	useTileThumbnailV2 = FFlagUIBloxUseTileThumbnailV2,
-	useAnimatedXboxCursors = game:DefineFastFlag("GamepadAnimatedCursor", false),
+	useTileThumbnailV2 = true,
+	useAnimatedXboxCursors = true,
 	useUpdatedCheckbox = true,
 	fixDropdownMenuListPositionAndSize = GetFFlagUIBloxFixDropdownMenuListPositionAndSize(),
 	enableSubtitleOnTile = GetFFlagUIBloxEnableSubtitleOnTile(),
@@ -72,9 +67,10 @@ return {
 	enableStandardButtonSizes = GetFFlagUIBloxEnableStandardButtonSizes(),
 
 	sliderUpdateOnDismiss = GetFFlagUIBloxSliderUpdateOnDismiss(),
-	enableIconButtonGamepadSupport = GetFFlagUIBloxEnableIconButtonGamepadSupport(),
 	enableVirtualizedListForCarousel = GetFFlagUIBloxEnableVirtualizedListForCarousel(),
 
 	fixDropdownMenuCellTextSize =  GetFFlagUIBloxFixDropdownMenuCellTextSize(),
 	useDynamicHeadIcon = GetFFlagUIBloxEnableDynamicHeadIcon(),
+
+	devMode = ArgCheck.isEnabled(),
 }

@@ -5,12 +5,8 @@ local mockContext = require(Plugin.Src.Util.mockContext)
 local LabeledElement = require(script.Parent.LabeledElement)
 
 return function()
-	local absoluteSize = Vector2.new(1, 1)
-
 	local function createTestElement(props: LabeledElement.Props?)
-		props = props or {
-			AbsoluteSize = absoluteSize,
-		}
+		props = props or {}
 
 		return mockContext({
 			LabeledElement = Roact.createElement(LabeledElement, props)

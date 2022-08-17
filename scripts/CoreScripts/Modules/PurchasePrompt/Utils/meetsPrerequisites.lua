@@ -33,11 +33,11 @@ local function meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty,
 	end
 
 	if productInfo.MinimumMembershipLevel == Enum.MembershipType.Premium.Value
-			and Players.LocalPlayer.MembershipType ~= Enum.MembershipType.Premium then
+			and (Players.LocalPlayer :: Player).MembershipType ~= Enum.MembershipType.Premium then
 		return false, PurchaseError.PremiumOnly
 	end
 
-	if productInfo.ContentRatingTypeId == CONTENT_RATING_13_PLUS and Players.LocalPlayer:GetUnder13() then
+	if productInfo.ContentRatingTypeId == CONTENT_RATING_13_PLUS and (Players.LocalPlayer :: Player):GetUnder13() then
 		return false, PurchaseError.Under13
 	end
 

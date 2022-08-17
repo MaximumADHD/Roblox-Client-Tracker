@@ -10,7 +10,6 @@
 local RunService = game:GetService("RunService")
 
 local GetFFlagEnableIXPInGame = require(script.Parent.Flags.GetFFlagEnableIXPInGame)
-local GetFFlagEngineFeatureIXPRecordExposureEnabled = require(script.Parent.Flags.GetFFlagEngineFeatureIXPRecordExposureEnabled)
 
 local IXPService = nil
 pcall(function()
@@ -84,7 +83,7 @@ end
 	@param layerName (string) the name of the layer
 --]]
 function ModuleTable:LogUserLayerExposure(layerName)
-	if self:IsEnabled() and GetFFlagEngineFeatureIXPRecordExposureEnabled() then
+	if self:IsEnabled() then
 		pcall(function()
 			IXPService:LogUserLayerExposure(layerName)
 		end)
@@ -97,7 +96,7 @@ end
 	@param layerName (string) the name of the layer
 --]]
 function ModuleTable:LogBrowserTrackerLayerExposure(layerName)
-	if self:IsEnabled() and GetFFlagEngineFeatureIXPRecordExposureEnabled() then
+	if self:IsEnabled() then
 		pcall(function()
 			IXPService:LogBrowserTrackerLayerExposure(layerName)
 		end)

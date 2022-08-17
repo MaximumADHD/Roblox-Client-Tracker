@@ -28,6 +28,8 @@ local SetCurrentThreadAction = require(Actions.Callstack.SetCurrentThread)
 local DebugConnectionListener = require(Src.Util.DebugConnectionListener.DebugConnectionListener)
 local Constants = require(Src.Util.Constants)
 
+local FFlagOnlyLoadOneCallstack = require(Src.Flags.GetFFlagOnlyLoadOneCallstack)
+
 return function(store)
 	local expressionData1 = {
 		expression = "Expression 1",
@@ -117,7 +119,12 @@ return function(store)
 	local testThreadOne = mockThreadState.new(1, scriptRef1, true)
 	local testThreadTwo = mockThreadState.new(2, scriptRef2, true)
 
-	local testPausedState1 = mockPausedState.new(Constants.DebuggerPauseReason.Requested, 1, true)
+	local testPausedState1 = nil
+	if FFlagOnlyLoadOneCallstack() then
+		testPausedState1 = mockPausedState.new(Constants.DebuggerPauseReason.Requested, 2, true)
+	else
+		testPausedState1 = mockPausedState.new(Constants.DebuggerPauseReason.Requested, 1, true)
+	end
 	
 	local currentMockConnection = MockDebuggerConnection.new(1)
 	local mainConnectionManager = MockDebuggerConnectionManager.new()
@@ -142,12 +149,17 @@ return function(store)
 	mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
 
 	currentMockConnection.Paused:Fire(testPausedState1, testPausedState1.Reason)
-
+	
 	local state = store:getState()
 	local common = state.Common
 	local dst = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
 
-	local stepStateBundle1 = StepStateBundle.ctor(dst, 1, 1)
+	local stepStateBundle1 = nil
+	if FFlagOnlyLoadOneCallstack() then
+		stepStateBundle1 = StepStateBundle.ctor(dst, 2, 1)
+	else
+		stepStateBundle1 = StepStateBundle.ctor(dst, 1, 1)
+	end
 
 	store:dispatch(AddExpression("Expression 1"))
 	store:dispatch(ExpressionEvaluated(stepStateBundle1, expressionRow1))
@@ -157,13 +169,13 @@ return function(store)
 		store:dispatch(AddBreakpoint(123, MetaBreakpointModel.mockMetaBreakpoint({ isEnabled = (i >= 6) }, uniqueId)))
 		i = i + 1
 	end
-
 	store:dispatch(AddChildVariables(stepStateBundle1, "1", { variableRow1Child1, variableRow1Child2 }))
 	store:dispatch(AddChildVariables(stepStateBundle1, "1_1", { variableRow1Child11 }))
 	store:dispatch(AddChildVariables(stepStateBundle1, "1_2", { variableRow1Child21 }))
 	store:dispatch(AddChildVariables(stepStateBundle1, "2", { variableRow2Child1 }))
 	store:dispatch(AddChildVariables(stepStateBundle1, "2_1", { variableRow2Child11 }))
-	store:dispatch(SetCurrentThreadAction(1))
-
+	if not FFlagOnlyLoadOneCallstack() then
+		store:dispatch(SetCurrentThreadAction(1))
+	end
 	return store
 end

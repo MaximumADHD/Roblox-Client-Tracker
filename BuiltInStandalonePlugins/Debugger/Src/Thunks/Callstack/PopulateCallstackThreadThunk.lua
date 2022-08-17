@@ -10,10 +10,8 @@ local FFlagUsePopulateCallstackThreadThunk = require(Plugin.Src.Flags.GetFFlagUs
 return function(threadState, debuggerConnection, debuggerStateToken, scriptChangeService, callback)
 	return function(store, contextItems)
 		debuggerConnection:Populate(threadState, function()
-			if
-				debuggerStateToken
-				~= store:getState().Common.debuggerConnectionIdToDST[debuggerStateToken.debuggerConnectionId]
-			then
+			local currentDST = store:getState().Common.debuggerConnectionIdToDST[debuggerStateToken.debuggerConnectionId]
+			if debuggerStateToken ~= currentDST then
 				return
 			end
 			local callstack = threadState:GetChildren()

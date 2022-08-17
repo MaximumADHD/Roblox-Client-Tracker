@@ -4,20 +4,14 @@ game:DefineFastFlag("InfiniteScrollerForVersions2", false)
 -- properly set in Group Configuration.
 game:DefineFastFlag("LimitGroupRoleSetPermissionsInGui", false)
 
-game:DefineFastFlag("ToolboxLocalizeInsertTool", false)
-
-game:DefineFastFlag("ToolboxLocalizeSearchPlaceholder", false)
-
-game:DefineFastFlag("ToolboxHomeViewSingleLaneNoTitle", false)
-
-game:DefineFastFlag("ToolboxFurtherTryInStudioFixes", false)
-
-game:DefineFastFlag("ToolboxFixInstallGroupPlugins", false)
+game:DefineFastFlag("ToolboxLocalizeInsertTool2", false)
 
 game:DefineFastFlag("ToolboxCreatorMarketplaceWebLinks", false)
 
 game:DefineFastFlag("ToolboxTrackHidden", false)
 
 game:DefineFastFlag("ToolboxUseQueryForCategories2", false)
+
+game:DefineFastFlag("ToolboxFixBreadcrumbColor", false)
 
 return nil

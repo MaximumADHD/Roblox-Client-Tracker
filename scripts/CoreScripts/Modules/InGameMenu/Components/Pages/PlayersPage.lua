@@ -1,3 +1,4 @@
+--!nonstrict
 local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
@@ -31,7 +32,6 @@ local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndic
 local PlayerLabel = require(InGameMenu.Components.PlayerLabelV2)
 local PlayerContextualMenu = require(InGameMenu.Components.PlayerContextualMenu)
 
-local FFlagFixMenuIcons = require(InGameMenu.Flags.FFlagFixMenuIcons)
 local FFlagLuaMenuPerfImprovements = require(InGameMenu.Flags.FFlagLuaMenuPerfImprovements)
 
 local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
@@ -238,16 +238,13 @@ function PlayersPage:getMoreActions(localized)
 			end
 
 			local friendActionText = localized.addFriend
-			local friendActionIcon = FFlagFixMenuIcons and Images["icons/actions/friends/friendAdd"]
-				or Assets.Images.AddFriend
+			local friendActionIcon = Images["icons/actions/friends/friendAdd"]
 			if friendStatus == Enum.FriendStatus.Friend then
 				friendActionText = localized.unfriend
-				friendActionIcon = FFlagFixMenuIcons and Images["icons/actions/friends/friendRemove"]
-					or Assets.Images.UnFriend
+				friendActionIcon = Images["icons/actions/friends/friendRemove"]
 			elseif friendStatus == Enum.FriendStatus.FriendRequestSent then
 				friendActionText = localized.cancelFriend
-				friendActionIcon = FFlagFixMenuIcons and Images["icons/actions/friends/friendRemove"]
-					or Assets.Images.CancelFriendRequest
+				friendActionIcon = Images["icons/actions/friends/friendRemove"]
 			elseif friendStatus == Enum.FriendStatus.FriendRequestReceived then
 				friendActionText = localized.acceptFriend
 			end
@@ -290,7 +287,7 @@ function PlayersPage:getMoreActions(localized)
 		if self.state.selectedPlayer ~= Players.LocalPlayer then
 			table.insert(moreActions, {
 				text = localized.reportAbuse,
-				icon = FFlagFixMenuIcons and Images["icons/actions/feedback"] or Assets.Images.ReportIcon,
+				icon = Images["icons/actions/feedback"],
 				onActivated = function()
 					local player = self.state.selectedPlayer
 					self.props.dispatchOpenReportDialog(player.UserId, player.Name)

@@ -28,7 +28,6 @@ local OpenPlayerDropDown = require(PlayerList.Actions.OpenPlayerDropDown)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
-local FFlagPlayerListFormattingUpdates = require(RobloxGui.Modules.Flags.FFlagPlayerListFormattingUpdates)
 local validatePropsWithForwardRef = require(CorePackages.validatePropsWithForwardRef)
 
 local PlayerEntry = Roact.PureComponent:extend("PlayerEntry")
@@ -287,9 +286,7 @@ function PlayerEntry:render()
 						SortOrder = Enum.SortOrder.LayoutOrder,
 						FillDirection = Enum.FillDirection.Horizontal,
 						VerticalAlignment = Enum.VerticalAlignment.Center,
-						Padding = UDim.new(0, FFlagPlayerListFormattingUpdates
-							and layoutValues.PlayerEntryNamePadding
-							or layoutValues.PlayerEntryPadding)
+						Padding = UDim.new(0, layoutValues.PlayerEntryNamePadding)
 					}),
 
 					InitalPadding = Roact.createElement("UIPadding", {

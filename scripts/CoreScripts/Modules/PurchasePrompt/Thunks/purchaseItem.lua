@@ -1,3 +1,4 @@
+--!nonstrict
 local Root = script.Parent.Parent
 local HttpService = game:GetService("HttpService")
 local Workspace = game:GetService("Workspace")

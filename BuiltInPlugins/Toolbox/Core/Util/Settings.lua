@@ -1,3 +1,5 @@
+local FFlagToolboxEnableAnnouncementsDialog = game:GetFastFlag("ToolboxEnableAnnouncementsDialog")
+
 local Plugin = script.Parent.Parent.Parent
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
@@ -17,6 +19,7 @@ local SELECTED_CATEGORY_NAME_KEY = SETTING_PREFIX .. "SelectedCategoryName"
 local SELECTED_SEARCH_TERM_KEY = SETTING_PREFIX .. "SelectedSearchTerm"
 local SELECTED_SORT_INDEX_KEY = SETTING_PREFIX .. "SelectedSortIndex"
 local SHOW_SCRIPT_WARNING_KEY = SETTING_PREFIX .. "ShowScriptWarning"
+local LAST_ANNOUNCEMENT_VIEWED_KEY = SETTING_PREFIX .. "LastAnnouncementViewedKey"
 
 function Settings.new(plugin)
 	local self = {
@@ -98,6 +101,16 @@ end
 
 function Settings:setShowScriptWarning(value)
 	return self:_setSetting(SHOW_SCRIPT_WARNING_KEY, tostring(value))
+end
+
+if FFlagToolboxEnableAnnouncementsDialog then
+	function Settings:getLastAnnouncementViewedKey()
+		return self:_getSetting(LAST_ANNOUNCEMENT_VIEWED_KEY, "")
+	end
+
+	function Settings:setLastAnnouncementViewedKey(value)
+		return self:_setSetting(LAST_ANNOUNCEMENT_VIEWED_KEY, tostring(value))
+	end
 end
 
 function Settings:updateFromPageInfo(pageInfo)

@@ -8,8 +8,6 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-
 return function()
 	return function(store)
 		local state = store:getState()
@@ -25,38 +23,32 @@ return function()
 			for trackName, track in pairs(instance.Tracks) do
 				selectedKeyframes[instanceName][trackName] = {}
 
-				if GetFFlagChannelAnimations() then
-					-- Recursively traverse the components of the dataTrack. On the way back, populate the
-					-- parent track's selection with the union of the track components' selection
-					local function traverse(selectionTrack, dataTrack)
-						local trackType = dataTrack.Type
+				-- Recursively traverse the components of the dataTrack. On the way back, populate the
+				-- parent track's selection with the union of the track components' selection
+				local function traverse(selectionTrack, dataTrack)
+					local trackType = dataTrack.Type
 
-						selectionTrack.Selection = {}
-						if Constants.COMPONENT_TRACK_TYPES[trackType] then
-							selectionTrack.Components = {}
-							for _, componentName in pairs(Constants.COMPONENT_TRACK_TYPES[dataTrack.Type]._Order) do
-								selectionTrack.Components[componentName] = {}
-								selectionTrack.Selection = Cryo.Dictionary.join(selectionTrack.Selection,
-									traverse(selectionTrack.Components[componentName], dataTrack.Components[componentName]))
-							end
+					selectionTrack.Selection = {}
+					if Constants.COMPONENT_TRACK_TYPES[trackType] then
+						selectionTrack.Components = {}
+						for _, componentName in pairs(Constants.COMPONENT_TRACK_TYPES[dataTrack.Type]._Order) do
+							selectionTrack.Components[componentName] = {}
+							selectionTrack.Selection = Cryo.Dictionary.join(selectionTrack.Selection,
+								traverse(selectionTrack.Components[componentName], dataTrack.Components[componentName]))
 						end
-
-						if dataTrack.Data then
-							for tck, _ in pairs(dataTrack.Data) do
-								selectionTrack.Selection[tck] = true
-							end
-						end
-
-						return selectionTrack.Selection
 					end
 
-					local selectionTrack = selectedKeyframes[instanceName][trackName]
-					traverse(selectionTrack, track)
-				else
-					for _, tck in ipairs(track.Keyframes) do
-						selectedKeyframes[instanceName][trackName][tck] = true
+					if dataTrack.Data then
+						for tck, _ in pairs(dataTrack.Data) do
+							selectionTrack.Selection[tck] = true
+						end
 					end
+
+					return selectionTrack.Selection
 				end
+
+				local selectionTrack = selectedKeyframes[instanceName][trackName]
+				traverse(selectionTrack, track)
 			end
 		end
 

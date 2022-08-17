@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
@@ -12,10 +11,7 @@ local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local FFlagPlayerListFormattingUpdates = require(RobloxGui.Modules.Flags.FFlagPlayerListFormattingUpdates)
-
-local TEXT_PADDING = FFlagPlayerListFormattingUpdates and 0 or 5
+local TEXT_PADDING = 0
 
 local TEXT_HEIGHT = 22
 
@@ -41,21 +37,15 @@ function DropDownPlayerHeader:render()
 				Background = Roact.createElement("ImageLabel", {
 					BackgroundTransparency = 1,
 					Image = avatarBackgroundImage,
-					ImageTransparency = FFlagPlayerListFormattingUpdates
-						and 0
-						or layoutValues.DropDownHeaderBackgroundTransparency,
+					ImageTransparency = 0,
 					Size = UDim2.new(1, 0, 0, layoutValues.DropDownHeaderBackgroundSize),
 					Position = UDim2.new(0, 0, 1, 0),
 					AnchorPoint = Vector2.new(0, 1),
 				}, {
 					TextContainerFrame = Roact.createElement("Frame", {
 						BackgroundTransparency = 1,
-						Size = FFlagPlayerListFormattingUpdates
-							and UDim2.new(1, -(112 + 12), 1, 0)
-							or UDim2.new(1, -(112 + 45), 1, 0),
-						Position = FFlagPlayerListFormattingUpdates
-							and UDim2.new(0, 107, 0, 0)
-							or UDim2.new(0, 112, 0, 0),
+						Size =  UDim2.new(1, -(112 + 12), 1, 0),
+						Position = UDim2.new(0, 107, 0, 0),
 					}, {
 						Layout = Roact.createElement("UIListLayout", {
 							SortOrder = Enum.SortOrder.LayoutOrder,
@@ -75,35 +65,31 @@ function DropDownPlayerHeader:render()
 							TextXAlignment = Enum.TextXAlignment.Left,
 							TextTruncate = Enum.TextTruncate.AtEnd,
 							BackgroundTransparency = 1,
-							TextScaled = FFlagPlayerListFormattingUpdates or nil,
+							TextScaled = true,
 						}, {
-							SizeConstraint = FFlagPlayerListFormattingUpdates and Roact.createElement("UITextSizeConstraint", {
+							SizeConstraint = Roact.createElement("UITextSizeConstraint", {
 								MaxTextSize = style.Font.BaseSize * style.Font.Header2.RelativeSize,
 								MinTextSize = style.Font.BaseSize * style.Font.Footer.RelativeSize,
-							}) or nil
+							}),
 						}),
 
 						PlayerName = Roact.createElement("TextLabel", {
 							LayoutOrder = 2,
 							Size = UDim2.new(1, 0, 0, TEXT_HEIGHT),
 							Text ="@" .. self.props.player.Name,
-							Font = FFlagPlayerListFormattingUpdates
-								and style.Font.CaptionHeader.Font
-								or style.Font.SubHeader1.Font,
-							TextSize = FFlagPlayerListFormattingUpdates
-								and style.Font.BaseSize * style.Font.CaptionHeader.RelativeSize
-								or style.Font.BaseSize * style.Font.SubHeader1.RelativeSize,
+							Font = style.Font.CaptionHeader.Font,
+							TextSize = style.Font.BaseSize * style.Font.CaptionHeader.RelativeSize,
 							TextColor3 = style.Theme.TextMuted.Color,
 							TextTransparency = style.Theme.TextMuted.Transparency,
 							TextXAlignment = Enum.TextXAlignment.Left,
 							TextTruncate = Enum.TextTruncate.AtEnd,
 							BackgroundTransparency = 1,
-							TextScaled = FFlagPlayerListFormattingUpdates or nil,
+							TextScaled = true,
 						}, {
-							SizeConstraint = FFlagPlayerListFormattingUpdates and Roact.createElement("UITextSizeConstraint", {
+							SizeConstraint = Roact.createElement("UITextSizeConstraint", {
 								MaxTextSize = style.Font.BaseSize * style.Font.CaptionHeader.RelativeSize,
 								MinTextSize = style.Font.BaseSize * style.Font.Footer.RelativeSize,
-							}) or nil
+							}),
 						}),
 					}),
 				}),

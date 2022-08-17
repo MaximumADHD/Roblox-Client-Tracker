@@ -72,7 +72,6 @@ local Redo = require(Plugin.Src.Thunks.History.Redo)
 local TogglePlay = require(Plugin.Src.Thunks.Playback.TogglePlay)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local TimelineActions = Roact.PureComponent:extend("TimelineActions")
@@ -89,39 +88,24 @@ function TimelineActions:getSharedPropertyValue(key)
 	for instanceName, instance in pairs(selectedKeyframes) do
 		local dataInstance = animationData.Instances[instanceName]
 		for trackName, selectionTrack in pairs(instance) do
-			if GetFFlagChannelAnimations() then
-				local dataTrack = dataInstance.Tracks[trackName]
-				SelectionUtils.traverse(selectionTrack, dataTrack, function(selectionTrack, dataTrack)
-					if not selectionTrack.Selection or not dataTrack.Data or foundMismatch then
-						return
-					end
-					for keyframe, _ in pairs(selectionTrack.Selection) do
-						local pose = dataTrack.Data[keyframe]
-						if pose then
-							if sharedPropertyValue == nil then
-								sharedPropertyValue = pose[key]
-							elseif sharedPropertyValue ~= pose[key] then
-								sharedPropertyValue = nil
-								foundMismatch = true -- Immediately bail out when processing the rest of the traversal
-								break
-							end
-						end
-					end
-				end)
-			else
-				local keyframes = Cryo.Dictionary.keys(instance[trackName])
-				local track = dataInstance.Tracks[trackName]
-				for _, keyframe in ipairs(keyframes) do
-					if track.Data[keyframe] then
+			local dataTrack = dataInstance.Tracks[trackName]
+			SelectionUtils.traverse(selectionTrack, dataTrack, function(selectionTrack, dataTrack)
+				if not selectionTrack.Selection or not dataTrack.Data or foundMismatch then
+					return
+				end
+				for keyframe, _ in pairs(selectionTrack.Selection) do
+					local pose = dataTrack.Data[keyframe]
+					if pose then
 						if sharedPropertyValue == nil then
-							sharedPropertyValue = track.Data[keyframe][key]
-						elseif sharedPropertyValue ~= track.Data[keyframe][key] then
+							sharedPropertyValue = pose[key]
+						elseif sharedPropertyValue ~= pose[key] then
 							sharedPropertyValue = nil
+							foundMismatch = true -- Immediately bail out when processing the rest of the traversal
 							break
 						end
 					end
 				end
-			end
+			end)
 		end
 	end
 	return sharedPropertyValue and sharedPropertyValue.Value
@@ -134,7 +118,7 @@ function TimelineActions:makeSelectionSubMenu(enumKey, dataKey, displayText)
 
 	if enumKey == "PoseEasingStyle" then
 		items = EASING_STYLE_ORDER
-	elseif GetFFlagChannelAnimations() and enumKey == "KeyInterpolationMode" then
+	elseif enumKey == "KeyInterpolationMode" then
 		items = Constants.KEY_INTERPOLATION_MODE_ORDER
 	else
 		items = Enum[enumKey]:GetEnumItems()
@@ -203,7 +187,7 @@ function TimelineActions:makeMenuActions(localization)
 		table.insert(actions, pluginActions:get("ChangeDuration"))
 		-- EasingStyle and EasingDirection customization
 		table.insert(actions, Constants.MENU_SEPARATOR)
-		if GetFFlagChannelAnimations() and isChannelAnimation then
+		if isChannelAnimation then
 			table.insert(actions, self:makeSelectionSubMenu("KeyInterpolationMode", "InterpolationMode",
 				localization:getText("ContextMenu", "InterpolationMode")))
 			if GetFFlagCurveEditor() then
@@ -259,66 +243,33 @@ function TimelineActions:didMount()
 		local animationData = props.AnimationData
 		local isChannelAnimation = props.IsChannelAnimation
 
-		local addKeyframe
-
-		if GetFFlagChannelAnimations() then
-			addKeyframe = function(instanceName, path)
-				-- If the user clicked outside of a track, the trackType is not set
-				trackType = trackType or TrackUtils.getTrackTypeFromName(path[1], tracks)
-				rotationType = rotationType or TrackUtils.getRotationTypeFromName(path[1], tracks)
-				if isChannelAnimation then
-					TrackUtils.traverseComponents(trackType, function(componentType, relPath)
-						local componentPath = Cryo.List.join(path, relPath)
-						props.SplitTrack(instanceName, componentPath, componentType, tck, props.Analytics)
-					end, rotationType)
-				else
-					local track = AnimationData.getTrack(animationData, instanceName, path)
-					local value
-					if track and track.Keyframes then
-						value = KeyframeUtils.getValue(track, tck)
-					else
-						value = KeyframeUtils.getDefaultValue(trackType)
-					end
-					local keyframeData = {
-						Value = value,
-						EasingStyle = Enum.PoseEasingStyle.Linear,
-						EasingDirection = Enum.PoseEasingDirection.In
-					}
-					props.AddKeyframe(instanceName, path, trackType, tck, keyframeData, props.Analytics)
-				end
-			end
-		else
-			addKeyframe = function(instanceName, trackName, track)
-				-- The track type is nil when the user is adding a Pose to an empty track.
-				-- In that case, use the right click info.
-				local trackType = track and track.Type or props.TrackType
-				local newValue
-
+		local function addKeyframe(instanceName, path)
+			-- If the user clicked outside of a track, the trackType is not set
+			trackType = trackType or TrackUtils.getTrackTypeFromName(path[1], tracks)
+			rotationType = rotationType or TrackUtils.getRotationTypeFromName(path[1], tracks)
+			if isChannelAnimation then
+				TrackUtils.traverseComponents(trackType, function(componentType, relPath)
+					local componentPath = Cryo.List.join(path, relPath)
+					props.SplitTrack(instanceName, componentPath, componentType, tck, props.Analytics)
+				end, rotationType)
+			else
+				local track = AnimationData.getTrack(animationData, instanceName, path)
+				local value
 				if track and track.Keyframes then
-					newValue = KeyframeUtils.getValue(track, tck)
+					value = KeyframeUtils.getValue(track, tck)
 				else
-					if GetFFlagFacialAnimationSupport() then
-						-- If the type could not be determined by an existing track or by
-						-- the right click context, then find it in the open tracks
-						trackType = trackType or TrackUtils.getTrackTypeFromName(trackName, tracks)
-						newValue = TrackUtils.getDefaultValueByType(trackType)
-					else
-						newValue = TrackUtils.getDefaultValue(track)
-					end
+					value = KeyframeUtils.getDefaultValue(trackType)
 				end
-				if GetFFlagFacialAnimationSupport() then
-					props.AddKeyframe_deprecated2(instanceName, trackName, trackType, tck, newValue, props.Analytics)
-				else
-					props.AddKeyframe_deprecated(instanceName, trackName, tck, newValue, props.Analytics)
-				end
+				local keyframeData = {
+					Value = value,
+					EasingStyle = Enum.PoseEasingStyle.Linear,
+					EasingDirection = Enum.PoseEasingDirection.In
+				}
+				props.AddKeyframe(instanceName, path, trackType, tck, keyframeData, props.Analytics)
 			end
 		end
 
-		if not GetFFlagChannelAnimations() and instanceName and trackName then
-			local instance = props.AnimationData.Instances[instanceName]
-			local track = instance.Tracks[trackName]
-			addKeyframe(instanceName, trackName, track)
-		elseif GetFFlagChannelAnimations() and instanceName and path then
+		if instanceName and path then
 			addKeyframe(instanceName, path)
 		else
 			-- If the user clicked the summary track, add a keyframe for
@@ -327,12 +278,7 @@ function TimelineActions:didMount()
 			for instanceName, instance in pairs(props.AnimationData.Instances) do
 				for _, openTrack in pairs(tracks) do
 					local trackName = openTrack.Name
-					if GetFFlagChannelAnimations() then
-						addKeyframe(instanceName, {trackName})
-					else
-						local track = instance.Tracks[trackName]
-						addKeyframe(instanceName, trackName, track)
-					end
+					addKeyframe(instanceName, {trackName})
 				end
 			end
 		end
@@ -351,54 +297,33 @@ function TimelineActions:didMount()
 					local track = if GetFFlagCurveEditor()
 						then AnimationData.getTrack(props.AnimationData, instanceName, selectedTrack)
 						else instance.Tracks[selectedTrack]
-					if GetFFlagChannelAnimations() then
-						local trackType = track and track.Type or (if GetFFlagCurveEditor() then TrackUtils.getComponentTypeFromPath(selectedTrack, tracks) else nil)
+					local trackType = track and track.Type or (if GetFFlagCurveEditor() then TrackUtils.getComponentTypeFromPath(selectedTrack, tracks) else nil)
 
-						if isChannelAnimation then
-							local rotationType
-							if GetFFlagCurveEditor() then
-								rotationType = track and TrackUtils.getRotationType(track) or props.DefaultRotationType
-							else
-								local rotationComponent = track.Components and track.Components[Constants.PROPERTY_KEYS.Rotation] or nil
-								rotationType = rotationComponent and rotationComponent.Type or nil
-							end
-							TrackUtils.traverseComponents(if GetFFlagCurveEditor() then trackType else track.Type, function(componentType, relPath)
-								local componentPath = Cryo.List.join(if GetFFlagCurveEditor() then selectedTrack else {selectedTrack}, relPath)
-								props.SplitTrack(instanceName, componentPath, componentType, playhead, props.Analytics)
-							end, rotationType)
+					if isChannelAnimation then
+						local rotationType
+						if GetFFlagCurveEditor() then
+							rotationType = track and TrackUtils.getRotationType(track) or props.DefaultRotationType
 						else
-							local value
-							if track and track.Keyframes then
-								value = KeyframeUtils.getValue(track, playhead)
-							else
-								value = KeyframeUtils.getDefaultValue(if GetFFlagCurveEditor() then trackType else track.Type)
-							end
-							local keyframeData = {
-								Value = value,
-								EasingStyle = Enum.PoseEasingStyle.Linear,
-								EasingDirection = Enum.PoseEasingDirection.In
-							}
-							props.AddKeyframe(instanceName, if GetFFlagCurveEditor() then selectedTrack else {selectedTrack}, if GetFFlagCurveEditor() then trackType else track.Type, playhead, keyframeData, props.Analytics)
+							local rotationComponent = track.Components and track.Components[Constants.PROPERTY_KEYS.Rotation] or nil
+							rotationType = rotationComponent and rotationComponent.Type or nil
 						end
+						TrackUtils.traverseComponents(if GetFFlagCurveEditor() then trackType else track.Type, function(componentType, relPath)
+							local componentPath = Cryo.List.join(if GetFFlagCurveEditor() then selectedTrack else {selectedTrack}, relPath)
+							props.SplitTrack(instanceName, componentPath, componentType, playhead, props.Analytics)
+						end, rotationType)
 					else
-						local newValue
-						local trackType = track and track.Type
-
+						local value
 						if track and track.Keyframes then
-							newValue = KeyframeUtils.getValue(track, playhead)
+							value = KeyframeUtils.getValue(track, playhead)
 						else
-							if GetFFlagFacialAnimationSupport() then
-								trackType = trackType or TrackUtils.getTrackTypeFromName(selectedTrack, tracks)
-								newValue = TrackUtils.getDefaultValueByType(trackType)
-							else
-								newValue = TrackUtils.getDefaultValue(track)
-							end
+							value = KeyframeUtils.getDefaultValue(if GetFFlagCurveEditor() then trackType else track.Type)
 						end
-						if GetFFlagFacialAnimationSupport() then
-							props.AddKeyframe_deprecated2(instanceName, selectedTrack, trackType, playhead, newValue, props.Analytics)
-						else
-							props.AddKeyframe_deprecated(instanceName, selectedTrack, playhead, newValue, props.Analytics)
-						end
+						local keyframeData = {
+							Value = value,
+							EasingStyle = Enum.PoseEasingStyle.Linear,
+							EasingDirection = Enum.PoseEasingDirection.In
+						}
+						props.AddKeyframe(instanceName, if GetFFlagCurveEditor() then selectedTrack else {selectedTrack}, if GetFFlagCurveEditor() then trackType else track.Type, playhead, keyframeData, props.Analytics)
 					end
 				end
 			end
@@ -408,27 +333,12 @@ function TimelineActions:didMount()
 	self:addAction(actions:get("AddResetKeyframe"), function()
 		local props = self.props
 		local tck = props.Tick
-		local trackName = props.TrackName
 		local instanceName = props.InstanceName
 		local tracks = props.Tracks
 		local path = props.Path
 		local isChannelAnimation = props.IsChannelAnimation
 
-		-- trackName is not set if GetFFlagChannelAnimations is ON. We can retire this
-		if not GetFFlagChannelAnimations() and instanceName and trackName then
-			local instance = props.AnimationData.Instances[instanceName]
-			local track = instance.Tracks[trackName]
-			local newValue
-			local trackType = track and track.Type or props.TrackType
-
-			if GetFFlagFacialAnimationSupport() then
-				newValue = TrackUtils.getDefaultValueByType(trackType)
-				props.AddKeyframe_deprecated2(instanceName, trackName, trackType, tck, newValue, props.Analytics)
-			else
-				newValue = TrackUtils.getDefaultValue(track)
-				props.AddKeyframe_deprecated(instanceName, trackName, tck, newValue, props.Analytics)
-			end
-		elseif GetFFlagChannelAnimations() and instanceName and path then
+		if instanceName and path then
 			local value
 			local trackType = props.TrackType
 			local rotationType = props.RotationType
@@ -461,7 +371,7 @@ function TimelineActions:didMount()
 					local newValue
 					local trackType
 					local rotationType
-					if GetFFlagChannelAnimations() and isChannelAnimation then
+					if isChannelAnimation then
 						if track then
 							trackType = track.Type
 							local rotationTrack = track.Components and track.Components[Constants.PROPERTY_KEYS.Rotation]
@@ -480,23 +390,14 @@ function TimelineActions:didMount()
 							props.AddKeyframe(instanceName, path, componentType, tck, keyframeData, props.Analytics)
 						end, rotationType)
 					else
-						if GetFFlagChannelAnimations() then
-							trackType = track and track.Type or TrackUtils.getTrackTypeFromName(trackName, tracks)
-							newValue = KeyframeUtils.getDefaultValue(trackType)
-							local keyframeData = {
-								Value = newValue,
-								EasingStyle = Enum.PoseEasingStyle.Linear,
-								EasingDirection = Enum.PoseEasingDirection.In
-							}
-							props.AddKeyframe(instanceName, {trackName}, trackType, tck, keyframeData, props.Analytics)
-						elseif GetFFlagFacialAnimationSupport() then
-							trackType = track and track.Type or TrackUtils.getTrackTypeFromName(trackName, tracks)
-							newValue = TrackUtils.getDefaultValueByType(trackType)
-							props.AddKeyframe_deprecated2(instanceName, trackName, trackType, tck, newValue, props.Analytics)
-						else
-							newValue = TrackUtils.getDefaultValue(track)
-							props.AddKeyframe_deprecated(instanceName, trackName, tck, newValue, props.Analytics)
-						end
+						trackType = track and track.Type or TrackUtils.getTrackTypeFromName(trackName, tracks)
+						newValue = KeyframeUtils.getDefaultValue(trackType)
+						local keyframeData = {
+							Value = newValue,
+							EasingStyle = Enum.PoseEasingStyle.Linear,
+							EasingDirection = Enum.PoseEasingDirection.In
+						}
+						props.AddKeyframe(instanceName, {trackName}, trackType, tck, keyframeData, props.Analytics)
 					end
 				end
 			end
@@ -559,12 +460,10 @@ function TimelineActions:didMount()
 
 	self:addAction(actions:get("TogglePlay"), togglePlayWrapper)
 	self:addAction(actions:get("ToggleBoneVis"), self.props.ToggleBoneVisibility)
-	if GetFFlagChannelAnimations() then
-		if GetFFlagCurveEditor() then
-			self:addAction(actions:get("ClearBothTangents"), self.props.OnClearTangentsSelected)
-		else
-			self:addAction(actions:get("ClearTangents"), self.props.OnClearTangentsSelected)
-		end
+	if GetFFlagCurveEditor() then
+		self:addAction(actions:get("ClearBothTangents"), self.props.OnClearTangentsSelected)
+	else
+		self:addAction(actions:get("ClearTangents"), self.props.OnClearTangentsSelected)
 	end
 end
 
@@ -587,22 +486,15 @@ function TimelineActions:render()
 			action.Enabled = false
 		end
 
-		if GetFFlagChannelAnimations() then
-			-- TODO: At some point, we will want to support copy/paste between Keyframe and Channel
-			-- animations and vice-versa. However, this requires some additional work:
-			-- Keyframe -> Channel: We need to split each CFrame into components, and potentially convert
-			--     bounce/elastic interpolation to curves, with additional keys
-			-- Channel -> Keyframe: We need to evaluate the value for the channels that are not copied to
-			--     create full CFrames (for instance, if we only copy the Position.X channel)
-			local expectedClipboardType = isChannelAnimation and Constants.CLIPBOARD_TYPE.Channels or Constants.CLIPBOARD_TYPE.Keyframes
-			if clipboard and not isEmpty(clipboard) and clipboardType == expectedClipboardType then
-				pluginActions:get("PasteKeyframes").Enabled = true
-			end
-		else
-			if clipboard and not isEmpty(clipboard)
-				and clipboardType == Constants.CLIPBOARD_TYPE.Keyframes then
-				pluginActions:get("PasteKeyframes").Enabled = true
-			end
+		-- TODO: At some point, we will want to support copy/paste between Keyframe and Channel
+		-- animations and vice-versa. However, this requires some additional work:
+		-- Keyframe -> Channel: We need to split each CFrame into components, and potentially convert
+		--     bounce/elastic interpolation to curves, with additional keys
+		-- Channel -> Keyframe: We need to evaluate the value for the channels that are not copied to
+		--     create full CFrames (for instance, if we only copy the Position.X channel)
+		local expectedClipboardType = isChannelAnimation and Constants.CLIPBOARD_TYPE.Channels or Constants.CLIPBOARD_TYPE.Keyframes
+		if clipboard and not isEmpty(clipboard) and clipboardType == expectedClipboardType then
+			pluginActions:get("PasteKeyframes").Enabled = true
 		end
 
 		if selectedKeyframes and not isEmpty(selectedKeyframes) then
@@ -630,7 +522,7 @@ function TimelineActions:render()
 			pluginActions:get("RenameKeyframe").Enabled = true
 		end
 
-		if GetFFlagChannelAnimations() and isChannelAnimation then
+		if isChannelAnimation then
 			if GetFFlagCurveEditor() then
 				pluginActions:get("ClearBothTangents").Enabled = true
 			else
@@ -748,19 +640,6 @@ local function mapDispatchToProps(dispatch)
 		AddKeyframe = function(instance, path, trackType, tck, keyframeData, analytics)
 			dispatch(AddWaypoint())
 			dispatch(AddKeyframe(instance, path, trackType, tck, keyframeData, analytics))
-			dispatch(SetRightClickContextInfo({}))
-		end,
-
-		AddKeyframe_deprecated2 = function(instance, trackName, trackType, tck, value, analytics)
-			dispatch(AddWaypoint())
-			dispatch(AddKeyframe(instance, trackName, trackType, tck, value, analytics))
-			dispatch(SetRightClickContextInfo({}))
-		end,
-
-		-- Remove when GetFFlagFacialAnimationSupport() and GetFFlagChannelAnimations() are retired
-		AddKeyframe_deprecated = function(instance, trackName, tck, value, analytics)
-			dispatch(AddWaypoint())
-			dispatch(AddKeyframe(instance, trackName, tck, value, analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 

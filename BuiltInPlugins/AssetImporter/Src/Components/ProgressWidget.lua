@@ -9,8 +9,6 @@ local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 local Stylizer = Framework.Style.Stylizer
 
-local AssetImportService = game:GetService("AssetImportService")
-
 local UI = Framework.UI
 local Pane = UI.Pane
 local Container = UI.Container
@@ -25,7 +23,6 @@ local SuccessWidget = require(Plugin.Src.Components.UploadWidgets.SuccessWidget)
 local FailureWidget = require(Plugin.Src.Components.UploadWidgets.FailureWidget)
 local trimFilename = require(Plugin.Src.Utility.trimFilename)
 
-local getFFlagUseAssetImportSession = require(Plugin.Src.Flags.getFFlagUseAssetImportSession)
 local getFFlagAssetImporterFixUnmount = require(Plugin.Src.Flags.getFFlagAssetImporterFixUnmount)
 
 local ProgressWidget = Roact.PureComponent:extend("ProgressWidget")
@@ -105,13 +102,8 @@ function ProgressWidget:didMount()
 		self:setState({ doneUploading = true, uploadSucceeded = succeeded, errorMap = errorMap })
 	end
 
-	if getFFlagUseAssetImportSession() then
-		self._updateImportProgressConnection = self.props.AssetImportSession.UploadProgress:Connect(self._updateImportProgress)
-		self._updateImportSuccessConnection = self.props.AssetImportSession.UploadComplete:Connect(self._updateImportSuccess)
-	else
-		self._updateImportProgressConnection = AssetImportService.ProgressUpdate:Connect(self._updateImportProgress)
-		self._updateImportSuccessConnection = AssetImportService.UploadFinished:Connect(self._updateImportSuccess)
-	end
+	self._updateImportProgressConnection = self.props.AssetImportSession.UploadProgress:Connect(self._updateImportProgress)
+	self._updateImportSuccessConnection = self.props.AssetImportSession.UploadComplete:Connect(self._updateImportSuccess)
 end
 
 if getFFlagAssetImporterFixUnmount() then

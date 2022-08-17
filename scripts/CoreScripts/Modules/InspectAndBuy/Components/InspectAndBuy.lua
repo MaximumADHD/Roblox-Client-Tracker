@@ -1,3 +1,4 @@
+--!nonstrict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
@@ -76,7 +77,7 @@ function InspectAndBuy:configureInputType(lastInputType)
 end
 
 function InspectAndBuy:updateView()
-	local viewportSize = workspace.CurrentCamera.ViewportSize
+	local viewportSize = (workspace.CurrentCamera :: Camera).ViewportSize
 	local view = Constants.View.Wide
 
 	if viewportSize.X < COMPACT_VIEW_MAX_WIDTH then
@@ -149,7 +150,7 @@ function InspectAndBuy:didMount()
 		self:configureInputType(lastInputType)
 	end)
 
-	local viewportSizeListener = workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
+	local viewportSizeListener = (workspace.CurrentCamera :: Camera):GetPropertyChangedSignal("ViewportSize"):Connect(function()
 		self:updateView()
 	end)
 

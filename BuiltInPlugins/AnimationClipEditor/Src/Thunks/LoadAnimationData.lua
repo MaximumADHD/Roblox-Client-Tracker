@@ -25,7 +25,6 @@ local SetInReviewState = require(Plugin.Src.Actions.SetInReviewState)
 local SetLastSelectedPath = require(Plugin.Src.Actions.SetLastSelectedPath)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
@@ -55,14 +54,12 @@ return function(animationData, analytics)
 			end
 		end
 
-		if GetFFlagChannelAnimations() then
-			-- AddTrack needs to know if the animationData is a channel Animation.
-			-- So we either pass that information as a flag to AddTrack, or we
-			-- set the animation data in the store first. Since AddTrack is used
-			-- in multiple places (where the animation data is available in the
-			-- store) the latter is preferred.
-			store:dispatch(UpdateAnimationData(animationData))
-		end
+		-- AddTrack needs to know if the animationData is a channel Animation.
+		-- So we either pass that information as a flag to AddTrack, or we
+		-- set the animation data in the store first. Since AddTrack is used
+		-- in multiple places (where the animation data is available in the
+		-- store) the latter is preferred.
+		store:dispatch(UpdateAnimationData(animationData))
 
 		for instanceName, instance in pairs(animationData.Instances) do
 			for trackName, track in pairs(instance.Tracks) do
@@ -70,17 +67,12 @@ return function(animationData, analytics)
 					local rotationType = TrackUtils.getRotationType(track)
 					local eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
 					store:dispatch(AddTrack(instanceName, trackName, track.Type, rotationType, eulerAnglesOrder, analytics))
-				elseif GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
-					store:dispatch(AddTrack(instanceName, trackName, track.Type, analytics))
 				else
-					store:dispatch(AddTrack(instanceName, trackName, analytics))
+					store:dispatch(AddTrack(instanceName, trackName, track.Type, analytics))
 				end
 			end
 		end
 
-		if not GetFFlagChannelAnimations() then
-			store:dispatch(UpdateAnimationData(animationData))
-		end
 		store:dispatch(StepAnimation(0))
 		store:dispatch(SetIsDirty(true))
 		store:dispatch(UpdateEditingLength(animationData.Metadata.EndTick))

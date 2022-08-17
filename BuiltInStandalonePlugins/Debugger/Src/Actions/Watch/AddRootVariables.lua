@@ -15,9 +15,7 @@ export type Props = {
 	newVarsMapping: { [Path]: VariableRow.VariableRow },
 }
 
-return Action(
-	script.Name,
-	function(stepStateBundle: StepStateBundle.StepStateBundle, newVars: { VariableRow.VariableRow }): Props
+return Action(script.Name, function(stepStateBundle: StepStateBundle.StepStateBundle, newVars: { VariableRow.VariableRow }): Props
 		local tokenizedList = {}
 		local newVarsMapping = {}
 

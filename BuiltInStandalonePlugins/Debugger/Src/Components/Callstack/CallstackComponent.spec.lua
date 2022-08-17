@@ -5,6 +5,7 @@ local Rodux = require(Plugin.Packages.Rodux)
 local Framework = require(Plugin.Packages.Framework)
 local SharedFlags = Framework.SharedFlags
 local FFlagDevFrameworkList = SharedFlags.getFFlagDevFrameworkList()
+local FFlagOnlyLoadOneCallstack = require(Plugin.Src.Flags.GetFFlagOnlyLoadOneCallstack)
 
 local src = Plugin.Src
 local Components = src.Components
@@ -49,22 +50,58 @@ return function()
 		local folderInstance = Roact.mount(mockContext.getChildrenWithMockContext(), folder)
 
 		local tableView = folder:FindFirstChild("TableView", true)
-		local list = if FFlagDevFrameworkList then tableView.Contents.List.Child else tableView.Contents.List.Child.Scroller
-
-		local state = store:getState()
-		local currDST = state.Common.debuggerConnectionIdToDST[state.Common.currentDebuggerConnectionId]
-		expect((if FFlagDevFrameworkList then list["1"] else list["1"].Row)[1].Left.Text.Text).to.equal(
-			state.Callstack.stateTokenToCallstackVars[currDST].threadList[1].displayString
-		)
-
-		expect((if FFlagDevFrameworkList then list["2"] else list["2"].Row)[2].Left.Text.Text).to.equal("1")
-		expect((if FFlagDevFrameworkList then list["2"] else list["2"].Row)[4].Left.Text.Text).to.equal("TestFrame1")
-		expect((if FFlagDevFrameworkList then list["2"] else list["2"].Row)[5].Left.Text.Text).to.equal("10")
-
-		expect((if FFlagDevFrameworkList then list["3"] else list["3"].Row)[2].Left.Text.Text).to.equal("2")
-		expect((if FFlagDevFrameworkList then list["3"] else list["3"].Row)[4].Left.Text.Text).to.equal("TestFrame2")
-		expect((if FFlagDevFrameworkList then list["3"] else list["3"].Row)[5].Left.Text.Text).to.equal("20")
-
+		
+		if FFlagDevFrameworkList then
+			local list = tableView.Contents.List.Child
+			local state = store:getState()
+			local currDST = state.Common.debuggerConnectionIdToDST[state.Common.currentDebuggerConnectionId]
+			expect((list["1"])[1].Left.Text.Text).to.equal(
+				state.Callstack.stateTokenToCallstackVars[currDST].threadList[1].displayString
+			)
+	
+			if FFlagOnlyLoadOneCallstack() then
+				expect((list["3"])[2].Left.Text.Text).to.equal("1")
+				expect((list["3"])[4].Left.Text.Text).to.equal("TestFrame2")
+				expect((list["3"])[5].Left.Text.Text).to.equal("20")
+		
+				expect((list["4"])[2].Left.Text.Text).to.equal("2")
+				expect((list["4"])[4].Left.Text.Text).to.equal("TestFrame1")
+				expect((list["4"])[5].Left.Text.Text).to.equal("10")
+			else
+				expect((list["2"])[2].Left.Text.Text).to.equal("1")
+				expect((list["2"])[4].Left.Text.Text).to.equal("TestFrame1")
+				expect((list["2"])[5].Left.Text.Text).to.equal("10")
+		
+				expect((list["3"])[2].Left.Text.Text).to.equal("2")
+				expect((list["3"])[4].Left.Text.Text).to.equal("TestFrame2")
+				expect((list["3"])[5].Left.Text.Text).to.equal("20")
+			end
+		else
+			local list = tableView.Contents.List.Child.Scroller
+			local state = store:getState()
+			local currDST = state.Common.debuggerConnectionIdToDST[state.Common.currentDebuggerConnectionId]
+			expect((list["1"].Row)[1].Left.Text.Text).to.equal(
+				state.Callstack.stateTokenToCallstackVars[currDST].threadList[1].displayString
+			)
+	
+			if FFlagOnlyLoadOneCallstack() then
+				expect((list["3"].Row)[2].Left.Text.Text).to.equal("1")
+				expect((list["3"].Row)[4].Left.Text.Text).to.equal("TestFrame2")
+				expect((list["3"].Row)[5].Left.Text.Text).to.equal("20")
+		
+				expect((list["4"].Row)[2].Left.Text.Text).to.equal("2")
+				expect((list["4"].Row)[4].Left.Text.Text).to.equal("TestFrame1")
+				expect((list["4"].Row)[5].Left.Text.Text).to.equal("10")
+			else
+				expect((list["2"].Row)[2].Left.Text.Text).to.equal("1")
+				expect((list["2"].Row)[4].Left.Text.Text).to.equal("TestFrame1")
+				expect((list["2"].Row)[5].Left.Text.Text).to.equal("10")
+		
+				expect((list["3"].Row)[2].Left.Text.Text).to.equal("2")
+				expect((list["3"].Row)[4].Left.Text.Text).to.equal("TestFrame2")
+				expect((list["3"].Row)[5].Left.Text.Text).to.equal("20")
+			end
+		end
 		Roact.unmount(folderInstance)
 	end)
 end

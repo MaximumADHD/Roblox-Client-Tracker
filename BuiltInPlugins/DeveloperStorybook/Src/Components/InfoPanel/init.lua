@@ -14,6 +14,9 @@ local Framework = require(Main.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkRemoveFitFrame = SharedFlags.getFFlagDevFrameworkRemoveFitFrame()
+
 local Dash = Framework.Dash
 local assign = Dash.assign
 local forEach = Dash.forEach
@@ -448,10 +451,11 @@ function InfoPanel:render()
 
 	if definitelyStoryProps.storybook.fixedSize then
 		main = Roact.createElement(Pane, {
+			HorizontalAlignment = if FFlagDevFrameworkRemoveFitFrame then Enum.HorizontalAlignment.Left else nil,
 			Layout = Enum.FillDirection.Vertical,
 			Size = UDim2.new(1, 0, 1, -sizes.TopBar),
-			VerticalAlignment = Enum.VerticalAlignment.Top,
 			Spacing = sizes.InnerPadding,
+			VerticalAlignment = Enum.VerticalAlignment.Top,
 			[Roact.Ref] = self.storyRef,
 		}, children)
 	else
@@ -462,8 +466,9 @@ function InfoPanel:render()
 			AutomaticCanvasSize = Enum.AutomaticSize.Y,
 		}, {
 			Content = Roact.createElement(Pane, {
-				Layout = Enum.FillDirection.Vertical,
 				AutomaticSize = Enum.AutomaticSize.Y,
+				HorizontalAlignment = if FFlagDevFrameworkRemoveFitFrame then Enum.HorizontalAlignment.Left else nil,
+				Layout = Enum.FillDirection.Vertical,
 				Spacing = sizes.InnerPadding,
 				[Roact.Ref] = self.storyRef,
 			}, children),

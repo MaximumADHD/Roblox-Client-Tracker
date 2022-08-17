@@ -43,7 +43,7 @@ function FriendStatusConnector:render()
 
 	if self.state.localPlayer then
 		connections.FriendStatusChanged = Roact.createElement(ExternalEventConnection, {
-			event = Players.LocalPlayer.FriendStatusChanged,
+			event = (Players.LocalPlayer :: Player).FriendStatusChanged,
 			callback = function(player, friendStatus)
 				self.props.setFriendStatus(player.UserId, friendStatus)
 			end,

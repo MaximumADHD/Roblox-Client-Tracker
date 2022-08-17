@@ -173,11 +173,20 @@ function CloudTableSection:render()
 					Text = localization:getText("CloudTableSection", "PublishPlaceMessage"),
 				})
 			) else (
-				Roact.createElement("TextLabel", {
-					Position = UDim2.new(0.5, 0, 0.5, 0),
-					Text = localization:getText("CloudTableSection", "PublishPlaceMessage"),
-					TextColor3 = theme.TextColor,
-				})
+				if game:GetFastFlag("LocalizationToolsFixCloudTableTextDot") then (
+					Roact.createElement("TextLabel", {
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+						Text = localization:getText("CloudTableSection", "PublishPlaceMessage"),
+						TextColor3 = theme.TextColor,
+						BorderSizePixel = 0,
+					})
+				) else (
+					Roact.createElement("TextLabel", {
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+						Text = localization:getText("CloudTableSection", "PublishPlaceMessage"),
+						TextColor3 = theme.TextColor,
+					})
+				)
 			)
 		})
 	end

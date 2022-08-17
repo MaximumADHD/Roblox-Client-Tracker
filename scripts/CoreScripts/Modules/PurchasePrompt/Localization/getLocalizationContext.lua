@@ -1,3 +1,4 @@
+--!nonstrict
 local Locales = script.Parent.Locales
 
 local FALLBACK_LOCALE = "en-us"

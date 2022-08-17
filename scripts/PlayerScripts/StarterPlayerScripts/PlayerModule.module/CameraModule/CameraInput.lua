@@ -23,6 +23,14 @@ local ZOOM_SPEED_TOUCH = 0.04 -- (scaled studs/DIP %)
 
 local MIN_TOUCH_SENSITIVITY_FRACTION = 0.25 -- 25% sensitivity at 90°
 
+local FFlagUserResetTouchStateOnMenuOpen
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserResetTouchStateOnMenuOpen")
+	end)
+	FFlagUserResetTouchStateOnMenuOpen = success and result
+end
+
 -- right mouse button up & down events
 local rmbDown, rmbUp do
 	local rmbDownBindable = Instance.new("BindableEvent")
@@ -129,6 +137,10 @@ do
 
 	local function decPanInputCount()
 		panInputCount = math.max(0, panInputCount - 1)
+	end
+
+	local function resetPanInputCount()
+		panInputCount = 0
 	end
 
 	local touchPitchSensitivity = 1
@@ -339,6 +351,9 @@ do
 				touches = {}
 				dynamicThumbstickInput = nil
 				lastPinchDiameter = nil
+				if FFlagUserResetTouchStateOnMenuOpen then
+					resetPanInputCount()
+				end
 			end
 		end
 
@@ -428,6 +443,10 @@ do
 				table.insert(connectionList, UserInputService.InputChanged:Connect(inputChanged))
 				table.insert(connectionList, UserInputService.InputEnded:Connect(inputEnded))
 				table.insert(connectionList, UserInputService.PointerAction:Connect(pointerAction))
+				if FFlagUserResetTouchStateOnMenuOpen then
+					local GuiService = game:GetService("GuiService")
+					table.insert(connectionList, GuiService.MenuOpened:connect(resetTouchState))
+				end
 
 			else -- disable
 				ContextActionService:UnbindAction("RbxCameraThumbstick")

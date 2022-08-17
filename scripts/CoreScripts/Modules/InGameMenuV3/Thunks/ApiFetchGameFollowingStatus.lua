@@ -14,7 +14,7 @@ return function(networkImpl, universeId)
 	end
 
 	return PerformFetch.Single("ApiFetchGameFollowingStatus"..universeId, function(store)
-		local userId = tostring(Players.LocalPlayer.UserId)
+		local userId = tostring((Players.LocalPlayer :: Player).UserId)
 		return FollowingsGetStatus(networkImpl, userId, universeId):andThen(
 			function(result)
 				local data = result.responseBody

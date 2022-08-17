@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local InspectAndBuyFolder = script.Parent.Parent

@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local Action = require(CorePackages.AppTempCommon.Common.Action)
 

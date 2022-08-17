@@ -14,7 +14,7 @@ local Localization = ContextServices.Localization
 
 local UI = Framework.UI
 local Pane = UI.Pane
-local TruncatedTextLabel = UI.TruncatedTextLabel
+local SimpleExpandablePane = UI.SimpleExpandablePane
 
 local TextureMapSelector = require(Plugin.Src.Components.MaterialBrowser.MaterialVariantEditor.TextureMapSelector)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
@@ -35,33 +35,10 @@ type _Props = Props & {
 }
 
 type _Style = {
-	AdditionalLabelSize: UDim2,
-	AdditionalTextSize: UDim2,
-	ButtonPosition: UDim2,
-	ButtonSize: UDim2,
-	ButtonStyle: string,
-	Close: _Types.Image,
-	CreateVariant: _Types.Image,
-	Delete: _Types.Image,
-	DropdownSize: UDim2,
-	Edit: _Types.Image,
-	HeaderBackground: Color3,
-	HeaderFont: Enum.Font,
-	HeaderSize: UDim2,
-	ImagePosition: UDim2,
-	ImageSize: UDim2,
+	ContentPadding: number,
+	CustomExpandablePane: any,
+	ItemSpacing: number,
 	LabelColumnWidth: UDim,
-	NameLabelSizeBuiltIn: UDim2,
-	NameLabelSizeVariant: UDim2,
-	NoTexture: string,
-	LabelRowSize: UDim2,
-	OverrideSize: UDim2,
-	Padding: number,
-	SectionHeaderTextSize: number,
-	TextureLabelSize: UDim2,
-	TextureRowSize: UDim2,
-	TextureSize: UDim2,
-	TitleTextSize: number,
 }
 
 local TextureSettings = Roact.PureComponent:extend("TextureSettings")
@@ -78,20 +55,14 @@ function TextureSettings:render()
 
 	local layoutOrderIterator = LayoutOrderIterator.new()
 
-	return Roact.createElement(Pane, {
+	return Roact.createElement(SimpleExpandablePane, {
 		AutomaticSize = Enum.AutomaticSize.Y,
-		Layout = Enum.FillDirection.Vertical,
 		LayoutOrder = props.LayoutOrder,
-		Padding = style.Padding,
+		ContentPadding = style.ContentPadding,
+		ContentSpacing = style.ItemSpacing,
+		Text = localization:getText("MaterialTextures", "TextureMaps"),
+		Style = style.CustomExpandablePane,
 	}, {
-		Name = Roact.createElement(TruncatedTextLabel, {
-			LayoutOrder = layoutOrderIterator:getNextOrder(),
-			Font = style.HeaderFont,
-			Size = style.LabelRowSize,
-			Text = localization:getText("MaterialTextures", "TextureMaps"),
-			TextSize = style.SectionHeaderTextSize,
-			TextXAlignment = Enum.TextXAlignment.Left,
-		}),
 		ImportColorMap = Roact.createElement(TextureMapSelector, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			LabelColumnWidth = style.LabelColumnWidth,
@@ -127,14 +98,11 @@ function TextureSettings:render()
 	})
 end
 
-
 TextureSettings = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
 	Stylizer = Stylizer,
 })(TextureSettings)
-
-
 
 return RoactRodux.connect(
 	function(state: MainReducer.State, props: Props)

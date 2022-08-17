@@ -19,7 +19,6 @@ local FacsUtils = require(Plugin.Src.Util.FacsUtils)
 local SetTracks = require(Plugin.Src.Actions.SetTracks)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 local function setTrackDepth(track, depth)
 	track.Depth = depth
@@ -48,11 +47,7 @@ local function sortByHierarchy(tracks, hierarchy)
 	depthFirstTraverse(hierarchy, function(node, depth)
 		for _, track in ipairs(tracks) do
 			if track.Name == node then
-				if GetFFlagChannelAnimations() then
-					setTrackDepth(track, depth)
-				else
-					track.Depth = depth
-				end
+				setTrackDepth(track, depth)
 				table.insert(sorted, track)
 				return true
 			end
@@ -68,11 +63,7 @@ local function sortAlphabetically(tracks)
 	end)
 
 	for _, track in ipairs(tracks) do
-		if GetFFlagChannelAnimations() then
-			setTrackDepth(track, 0)
-		else
-			track.Depth = 0
-		end
+		setTrackDepth(track, 0)
 	end
 
 	return tracks

@@ -29,7 +29,7 @@ local SetGridLock = require(main.Src.Actions.SetGridLock)
 
 local Components = main.Src.Components
 local MaterialBrowser = require(Components.MaterialBrowser)
-local MaterialPrompt = require(Components.MaterialPrompt)
+local MaterialPrompt = require(Components.MaterialPrompt) -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 
 local Controllers = main.Src.Controllers
 local GeneralServiceController = require(Controllers.GeneralServiceController)
@@ -60,6 +60,7 @@ function MainPlugin:init(props)
 
 	self.openPrompt = function()
 		self.store:dispatch(SetGridLock(true))
+		-- Remove prompt with FFlagMaterialManagerVariantCreatorOverhaul
 		self:setState({
 			prompt = true,
 		})
@@ -182,6 +183,7 @@ function MainPlugin:render()
 			end,
 		}),
 
+		-- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 		MaterialPrompt = prompt and Roact.createElement(MaterialPrompt, {
 			PromptClosed = self.closePrompt,
 			PromptType = prompt,
@@ -199,7 +201,7 @@ function MainPlugin:render()
 			OnWidgetRestored = self.onRestore,
 		}, {
 			Roact.createElement(MaterialBrowser, {
-				OpenPrompt = self.openPrompt
+				OpenPrompt = self.openPrompt,
 			}),
 		}),
 	})

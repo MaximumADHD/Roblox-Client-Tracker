@@ -32,7 +32,7 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local FFlagShowGitHashInNewExperienceMenu = game:DefineFastFlag("ShowGitHashInNewExperienceMenu", false)
 
-local canGetCoreScriptVersion = game:getEngineFeature("CoreScriptVersionEnabled")
+local canGetCoreScriptVersion = game:GetEngineFeature("CoreScriptVersionEnabled")
 
 local GetFFlagEventIngestDefaultPlayerScripts = require(RobloxGui.Modules.Flags.GetFFlagEventIngestDefaultPlayerScripts)
 local GetFFlagRemoveAssetVersionEndpoint = require(RobloxGui.Modules.Flags.GetFFlagRemoveAssetVersionEndpoint)
@@ -64,7 +64,7 @@ local function inferPlayerScriptStatus(starterPlayerScripts)
 	end
 
 	if GetFFlagEventIngestDefaultPlayerScripts() then
-		AnalyticsService:setRBXEventStream(Constants.AnalyticsTargetName, "player_scripts_status", "player_scripts_status_action", {
+		AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "player_scripts_status", "player_scripts_status_action", {
 			defaultPlayerScripts = playerScriptStatus == Constants.PlayerScriptStatusStrings.Default,
 			placeID = tostring(game.PlaceId),
 		})
@@ -224,7 +224,7 @@ function VersionReporter:didMount()
 	self.mounted = true
 
 	coroutine.wrap(function()
-		local serverVersionRemote = RobloxReplicatedStorage:WaitForChild("GetServerVersion", math.huge)
+		local serverVersionRemote = RobloxReplicatedStorage:WaitForChild("GetServerVersion", math.huge) :: RemoteFunction
 		local version = serverVersionRemote:InvokeServer()
 
 		if self.mounted then

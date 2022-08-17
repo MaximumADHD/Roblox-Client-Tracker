@@ -1,3 +1,4 @@
+--!nonstrict
 --In inspect and buy we use a store ID in the keymapper so that if inspect and buy is closed and re-opened
 --previous inspect and buy requests are not grouped with the current requests. This causes issues because
 --inspect and buy uses a new store when closed and re-opened.

@@ -598,7 +598,7 @@ function LoadingScreen:init()
 	end
 
 	-- auto unmount
-	game.Loaded:connect(function()
+	game.Loaded:Connect(function()
 		while debugMode or not self.fadeinComplete do
 			wait() -- wait until fade in animation finished
 		end

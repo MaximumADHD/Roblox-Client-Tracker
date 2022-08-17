@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local InGameMenu = script.Parent.Parent
 	local NavigateBack = require(InGameMenu.Actions.NavigateBack)

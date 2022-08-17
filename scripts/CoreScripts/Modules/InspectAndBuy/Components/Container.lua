@@ -22,7 +22,7 @@ end
 function Container:didMount()
 	local gamepadEnabled = self.props.gamepadEnabled
 
-	self.selectedCoreObjectChangedSignal = GuiService:GetPropertyChangedSignal('SelectedCoreObject'):connect(function()
+	self.selectedCoreObjectChangedSignal = GuiService:GetPropertyChangedSignal('SelectedCoreObject'):Connect(function()
 		if self.props.visible and GuiService.SelectedCoreObject then
 			self.lastSavedSelectedCoreGui = GuiService.SelectedCoreObject
 		end

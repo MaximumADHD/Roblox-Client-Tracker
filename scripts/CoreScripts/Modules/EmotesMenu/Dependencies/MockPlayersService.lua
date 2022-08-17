@@ -48,7 +48,7 @@ local function mockAnimate()
 	}
 end
 
-function MockPlayersService.new()
+function MockPlayersService.new(): Players
 	local self = {
 		LocalPlayer = {
 			Character = {
@@ -68,7 +68,7 @@ function MockPlayersService.new()
 	setmetatable(self, {
 		__index = MockPlayersService,
 	})
-	return self
+	return (self :: any) :: Players
 end
 
 return MockPlayersService

@@ -5,6 +5,18 @@ local t = require(CorePackages.Packages.t)
 
 local getFFlagLuaGetContactsAccess = require(script.Parent.Flags.getFFlagLuaGetContactsAccess)
 
+local Types = require(script.Parent.ContactsProtocolTypes)
+
+type Promise<T> = MessageBus.Promise<T>
+
+export type ContactsProtocol = Types.ContactsProtocol
+export type GetContactsResponse = Types.GetContactsResponse
+
+export type ContactsProtocolModule = ContactsProtocol & {
+	new: () -> ContactsProtocol,
+	default: ContactsProtocol,
+}
+
 local PROTOCOL_NAME = "ContactsProtocol"
 
 local GET_CONTACTS_METHOD_NAME = "getContacts"
@@ -16,8 +28,7 @@ local paramsValidator = t.strictInterface({
 	phoneNumbers = t.optional(t.table),
 })
 
-local ContactsProtocol = {
-
+local ContactsProtocol: ContactsProtocolModule = {
 	GET_CONTACTS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR = {
 		protocolName = PROTOCOL_NAME,
 		methodName = GET_CONTACTS_METHOD_NAME,
@@ -38,15 +49,15 @@ local ContactsProtocol = {
 		methodName = SUPPORTS_CONTACTS_METHOD_NAME,
 		validateParams = t.table,
 	},
-}
+} :: ContactsProtocolModule
 
-ContactsProtocol.__index = ContactsProtocol
+(ContactsProtocol :: any).__index = ContactsProtocol
 
 function ContactsProtocol.new(): ContactsProtocol
 	local self = setmetatable({
 		subscriber = MessageBus.Subscriber.new(),
 	}, ContactsProtocol)
-	return self
+	return (self :: any) :: ContactsProtocol
 end
 
 --[[
@@ -55,14 +66,14 @@ Gets the list of contacts from the users device
 @return promise<table>: The batch of contacts that the users has
 ]]
 
-function ContactsProtocol:getContacts(): Promise
+function ContactsProtocol:getContacts(): Promise<GetContactsResponse?>
 	if not getFFlagLuaGetContactsAccess() then
 		return Promise.resolve()
 	end
 
 	local promise = Promise.new(function(resolve, _)
 		local desc = self.GET_CONTACTS_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
-		self.subscriber:subscribeProtocolMethodResponse(desc, function(params: Table)
+		self.subscriber:subscribeProtocolMethodResponse(desc, function(params: GetContactsResponse)
 			self.subscriber:unsubscribeToProtocolMethodResponse(desc)
 			resolve(params)
 		end)
@@ -79,13 +90,13 @@ Check if contacts are supported by this device
 supported by the device and false if contacts are not supported
 ]]
 
-function ContactsProtocol:supportsContacts(): Promise
+function ContactsProtocol:supportsContacts(): Promise<boolean?>
 	if not getFFlagLuaGetContactsAccess() then
 		return Promise.resolve()
 	end
 	local promise = Promise.new(function(resolve, _)
 		local desc = self.SUPPORTS_CONTACTS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
-		self.subscriber:subscribeProtocolMethodResponse(desc, function(params: Table)
+		self.subscriber:subscribeProtocolMethodResponse(desc, function(params: {support: boolean})
 			self.subscriber:unsubscribeToProtocolMethodResponse(desc)
 			resolve(params.support)
 		end)

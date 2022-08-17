@@ -1,3 +1,5 @@
+--!nonstrict
+--!nolint DeprecatedApi
 local Root = script.Parent.Parent
 local ContentProvider = game:GetService("ContentProvider")
 local GuiService = game:GetService("GuiService")

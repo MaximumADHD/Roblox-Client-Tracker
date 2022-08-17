@@ -16,15 +16,12 @@ local AttachEditor = require(Plugin.Src.Thunks.AttachEditor)
 local SetRootInstance = require(Plugin.Src.Actions.SetRootInstance)
 local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
 local SetStartingPose = require(Plugin.Src.Actions.SetStartingPose)
-local LoadKeyframeSequence = require(Plugin.Src.Thunks.Exporting.LoadKeyframeSequence)
 local LoadAnimation = require(Plugin.Src.Thunks.Exporting.LoadAnimation)
 
 local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
 local SetPast = require(Plugin.Src.Actions.SetPast)
 local SetFuture = require(Plugin.Src.Actions.SetFuture)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
-
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 return function(rootInstance, analytics)
 	return function(store)
@@ -66,11 +63,7 @@ return function(rootInstance, analytics)
 					return timestamp1 > timestamp2
 				end
 			end)
-			if GetFFlagChannelAnimations() then
-				store:dispatch(LoadAnimation(animSaves[1].Name, analytics))
-			else
-				store:dispatch(LoadKeyframeSequence(animSaves[1].Name, analytics))
-			end
+			store:dispatch(LoadAnimation(animSaves[1].Name, analytics))
 		else
 			store:dispatch(SetPast({}))
 			store:dispatch(SetFuture({}))

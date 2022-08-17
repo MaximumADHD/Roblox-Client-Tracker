@@ -30,7 +30,7 @@ function EmotesAnalytics:onMenuOpened()
 
 	local additionalArgs = {
 		pid = tostring(game.PlaceId),
-		uid = tostring(Players.LocalPlayer.UserId),
+		uid = tostring((Players.LocalPlayer :: Player).UserId),
 		btid = Stats:GetBrowserTrackerId(),
 	}
 
@@ -43,7 +43,7 @@ function EmotesAnalytics:onEmotePlayed(slotNumber, assetId)
 
 	local additionalArgs = {
 		pid = tostring(game.PlaceId),
-		uid = tostring(Players.LocalPlayer.UserId),
+		uid = tostring((Players.LocalPlayer :: Player).UserId),
 		btid = Stats:GetBrowserTrackerId(),
 		slotNumber = slotNumber,
 		assetID = assetId,
@@ -58,7 +58,7 @@ function EmotesAnalytics:onEmoteFailed(slotNumber, assetId, errorType)
 
 	local additionalArgs = {
 		pid = tostring(game.PlaceId),
-		uid = tostring(Players.LocalPlayer.UserId),
+		uid = tostring((Players.LocalPlayer :: Player).UserId),
 		btid = Stats:GetBrowserTrackerId(),
 		slotNumber = slotNumber,
 		assetID = assetId,

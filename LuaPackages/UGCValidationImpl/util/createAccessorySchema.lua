@@ -1,3 +1,4 @@
+--!nonstrict
 local function createAccessorySchema(attachmentName)
 	assert(attachmentName, "attachmentName cannot be nil")
 	return {

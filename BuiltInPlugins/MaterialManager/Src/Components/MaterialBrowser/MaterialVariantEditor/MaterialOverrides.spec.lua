@@ -1,23 +1,18 @@
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Framework = require(Plugin.Packages.Framework)
 local mockContext = require(Plugin.Src.Util.mockContext)
 local _Types = require(Plugin.Src.Types)
-
-local join = Framework.Dash.join
 
 local MaterialOverrides = require(script.Parent.MaterialOverrides)
 
 return function()
 	local TestMaterial
 
-	local function createTestElement(props: {}?)
-		local materialOverridesProps: MaterialOverrides.Props = join({
-			OpenPrompt = function() end,
-		}, props or {})
+	local function createTestElement(props: MaterialOverrides.Props?)
+		props = props or {}
 
 		return mockContext({
-			MaterialOverrides = Roact.createElement(MaterialOverrides, materialOverridesProps)
+			MaterialOverrides = Roact.createElement(MaterialOverrides, props)
 		})
 	end
 

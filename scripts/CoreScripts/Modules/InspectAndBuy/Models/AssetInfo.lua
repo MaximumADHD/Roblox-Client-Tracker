@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Model for an Asset (e.g. Hat).
 	{

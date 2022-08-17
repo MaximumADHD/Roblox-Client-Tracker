@@ -1,4 +1,4 @@
-local FFlagToolboxSearchResultsBackButton = game:GetFastFlag("ToolboxSearchResultsBackButton")
+local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -36,18 +36,26 @@ function MainViewHeader:init()
 		self.props.searchWithOptions(networkInterface, settings, {
 			Creator = "",
 			AudioSearch = Cryo.None,
-			includeOnlyVerifiedCreators = false,
+			includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else false,
+			includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then false else nil,
 		})
 	end
 
 	self.onCreatorCleared = function()
 		local settings = self.props.Settings:get("Plugin")
 
-		local includeOnlyVerifiedCreators = self.props.includeOnlyVerifiedCreators
+		local includeOnlyVerifiedCreators
+		local includeUnverifiedCreators
+		if FFlagToolboxUseVerifiedIdAsDefault then
+			includeUnverifiedCreators = self.props.includeUnverifiedCreators
+		else
+			includeOnlyVerifiedCreators = self.props.includeOnlyVerifiedCreators
+		end
 		self.props.searchWithOptions(networkInterface, settings, {
 			Creator = "",
 			AudioSearch = self.props.audioSearchInfo,
-			includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
+			includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else includeOnlyVerifiedCreators,
+			includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then includeUnverifiedCreators else nil,
 		})
 	end
 
@@ -55,11 +63,18 @@ function MainViewHeader:init()
 		local settings = self.props.Settings:get("Plugin")
 
 		local creator = self.props.creator
-		local includeOnlyVerifiedCreators = self.props.includeOnlyVerifiedCreators
+		local includeOnlyVerifiedCreators
+		local includeUnverifiedCreators
+		if FFlagToolboxUseVerifiedIdAsDefault then
+			includeUnverifiedCreators = self.props.includeUnverifiedCreators
+		else
+			includeOnlyVerifiedCreators = self.props.includeOnlyVerifiedCreators
+		end
 		local options = {
 			Creator = creator and creator.Name or "",
 			AudioSearch = Cryo.None,
-			includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
+			includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else includeOnlyVerifiedCreators,
+			includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then includeUnverifiedCreators else nil,
 		}
 		self.props.searchWithOptions(networkInterface, settings, options)
 	end
@@ -71,7 +86,8 @@ function MainViewHeader:init()
 		local options = {
 			Creator = creator and creator.Name or "",
 			AudioSearch = self.props.audioSearchInfo,
-			includeOnlyVerifiedCreators = false,
+			includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else false,
+			includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then false else nil,
 		}
 		self.props.searchWithOptions(networkInterface, settings, options)
 	end
@@ -83,7 +99,13 @@ function MainViewHeader:render()
 
 		local searchTerm = props.searchTerm or ""
 		local creatorName = props.creatorFilter.Name
-		local includeOnlyVerifiedCreators = props.includeOnlyVerifiedCreators
+		local includeOnlyVerifiedCreators
+		local includeUnverifiedCreators
+		if FFlagToolboxUseVerifiedIdAsDefault then
+			includeUnverifiedCreators = props.includeUnverifiedCreators
+		else
+			includeOnlyVerifiedCreators = props.includeOnlyVerifiedCreators
+		end
 
 		local audioTime
 		local audioSearchInfo = props.audioSearchInfo
@@ -124,19 +146,29 @@ function MainViewHeader:render()
 					onDelete = self.onAudioSearchCleared,
 				})
 			end
-			if includeOnlyVerifiedCreators and (creatorName or audioTime) then
-				table.insert(tagsList, {
-					prefix = idVerifiedPrefix,
-					text = "",
-					onDelete = self.onIsVerifiedCleared,
-				})
+			if FFlagToolboxUseVerifiedIdAsDefault then
+				if includeUnverifiedCreators and (creatorName or audioTime) then
+					table.insert(tagsList, {
+						prefix = idVerifiedPrefix,
+						text = "",
+						onDelete = self.onIsVerifiedCleared,
+					})
+				end
+			else
+				if includeOnlyVerifiedCreators and (creatorName or audioTime) then
+					table.insert(tagsList, {
+						prefix = idVerifiedPrefix,
+						text = "",
+						onDelete = self.onIsVerifiedCleared,
+					})
+				end
 			end
 			headerChildren.SearchTags = Roact.createElement(SearchTags, {
 				Tags = tagsList,
 				onClearTags = self.onTagsCleared,
 				searchTerm = searchTerm,
-				categoryName = if FFlagToolboxSearchResultsBackButton then props.categoryName else nil,
-				onBackToHome = if FFlagToolboxSearchResultsBackButton then props.onBackToHome else nil,
+				categoryName = props.categoryName,
+				onBackToHome = props.onBackToHome,
 			})
 		end
 
@@ -168,8 +200,10 @@ local function mapStateToProps(state, props)
 		creator = pageInfo.creator,
 		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
 
-		searchTerm = pageInfo.searchTerm or "",
-		includeOnlyVerifiedCreators = pageInfo.includeOnlyVerifiedCreators,
+		searchTerm = pageInfo.searchTerm or "",		
+		includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else pageInfo.includeOnlyVerifiedCreators,
+		includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then pageInfo.includeUnverifiedCreators else nil,
+	
 		creatorFilter = pageInfo.creator or {},
 	}
 end

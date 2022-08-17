@@ -10,9 +10,7 @@ local SetInReviewState = require(Plugin.Src.Actions.SetInReviewState)
 local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
 local SetHaveToSetBackToNotLooping = require(Plugin.Src.Actions.SetHaveToSetBackToNotLooping)
 
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local deepCopy = require(Plugin.Src.Util.deepCopy)
-local isEmpty = require(Plugin.Src.Util.isEmpty)
 
 function clearFacsTracksAndHeadTrack(animationData)
 	for instanceName, instance in pairs(animationData.Instances) do
@@ -71,9 +69,6 @@ return function(props, recordedFrames, analytics)
 						else
 							track = AnimationData.addTrack(tracks, trackName, Constants.TRACK_TYPES.Facs,
 								false, Constants.TRACK_TYPES.Quaternion)
-						end
-						if not GetFFlagChannelAnimations() then
-							track = tracks[trackName]
 						end
 					end
 					AnimationData.addKeyframe(track, tck, {

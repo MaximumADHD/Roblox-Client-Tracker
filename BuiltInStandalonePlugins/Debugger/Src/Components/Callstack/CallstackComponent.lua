@@ -40,6 +40,8 @@ local SetCurrentFrameNumber = require(Actions.Callstack.SetCurrentFrameNumber)
 local ColumnFilterChange = require(Actions.Callstack.ColumnFilterChange)
 
 local LoadAllVariablesForThreadAndFrame = require(PluginFolder.Src.Thunks.Watch.LoadAllVariablesForThreadAndFrame)
+local PopulateCallstackThreadThunk = require(PluginFolder.Src.Thunks.Callstack.PopulateCallstackThreadThunk)
+local FFlagOnlyLoadOneCallstack = require(PluginFolder.Src.Flags.GetFFlagOnlyLoadOneCallstack)
 
 local Models = PluginFolder.Src.Models
 local CallstackRow = require(Models.Callstack.CallstackRow)
@@ -100,13 +102,26 @@ local function makeCallstackRootItem(threadInfo, callstackVars, common, scriptIn
 	local displayString = threadInfo.displayString
 	local threadId = threadInfo.threadId
 	local currentFrameNumber = common.currentFrameMap[common.currentDebuggerConnectionId][threadId]
-
 	local frameList = callstackVars.threadIdToFrameList and callstackVars.threadIdToFrameList[threadId]
-	if frameList == nil then
+	if frameList == nil  and not FFlagOnlyLoadOneCallstack() then
 		return nil
 	end
 
-	local frameListCopy = deepCopy(frameList)
+	local frameListCopy = nil
+	if FFlagOnlyLoadOneCallstack then 
+		-- We add a fake child with an invalid LineColumn as a shorthand for "unpopulated"
+		local fakeChild = {
+			[1] = {
+				["frameColumn"] = 1,
+				["functionColumn"] = "",
+				["lineColumn"] = -1,
+				["sourceColumn"] = displayString,
+			}
+		}
+		frameListCopy = if frameList then deepCopy(frameList) else fakeChild
+	else
+		frameListCopy = deepCopy(frameList)
+	end
 	for index, frameData in ipairs(frameListCopy) do
 		setArrowIcon(index, frameData, frameListCopy, currentFrameNumber)
 		convertSourceCol(index, frameData, frameListCopy, scriptInfoReducer)
@@ -344,7 +359,36 @@ function CallstackComponent:init()
 
 	self.onExpansionChange = function(newExpansion)
 		for row, expandedBool in pairs(newExpansion) do
-			self.props.onExpansionClicked(row.threadId, row.children[1], self.props.CurrentDebuggerConnectionId)
+			local currentDebuggerConnectionId = self.props.CurrentDebuggerConnectionId
+			if FFlagOnlyLoadOneCallstack() then
+				local currentDST = self.props.CurrentDST
+				local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
+				local connection = debuggerConnectionManager:GetConnectionById(currentDebuggerConnectionId)
+				local topFrame = row.children[1]
+				local isCallstackPopulated = topFrame.lineColumn ~= -1
+				local threadId = row.threadId
+				if isCallstackPopulated then
+					local debuggerUIService = game:GetService("DebuggerUIService")
+					debuggerUIService:OpenScriptAtLine(topFrame.scriptGUID, currentDebuggerConnectionId, topFrame.lineColumn, false)
+					debuggerUIService:SetScriptLineMarker(
+						topFrame.scriptGUID,
+						currentDebuggerConnectionId,
+						topFrame.lineColumn,
+						true
+					)
+					self.props.onLoadAllVariablesForThreadAndFrame(threadId, connection, 0, debuggerUIService)
+				else
+					local scriptChangeService = game:GetService("CrossDMScriptChangeListener")
+					local threadState = connection:GetThreadById(threadId)
+					self.props.onPopulateCallstackThreadThunk(threadState, connection, currentDST, scriptChangeService, function()
+						if currentDST == self.props.CurrentDST then
+							self.loadThreadData(threadState, currentDebuggerConnectionId, self)
+						end
+					end)
+				end
+			else
+				self.props.onExpansionClicked(row.threadId, row.children[1], currentDebuggerConnectionId)
+			end
 		end
 	end
 
@@ -377,6 +421,21 @@ function CallstackComponent:init()
 		connection:StepOut(thread, function() end)
 
 		self.props.Analytics:report(AnalyticsEventNames.CallstackStepOut, "CallstackComponent")
+	end
+
+	self.loadThreadData = function(threadState, currentDebuggerConnectionId)
+		local debuggerUIService = game:GetService("DebuggerUIService")
+		self.props.setCurrentFrameNumber(threadState.ThreadId, 1)
+		self.props.onCurrentFrameChanged(currentDebuggerConnectionId, threadState.ThreadId, 1)
+		-- Open script at top of callstack
+		local topFrame = threadState:GetFrame(0)
+		debuggerUIService:SetScriptLineMarker(
+			topFrame.Script,
+			currentDebuggerConnectionId,
+			topFrame.Line,
+			true
+		)
+		debuggerUIService:OpenScriptAtLine(topFrame.Script, currentDebuggerConnectionId, topFrame.Line, false)
 	end
 end
 
@@ -575,23 +634,29 @@ CallstackComponent = RoactRodux.connect(function(state, props)
 	if common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId] == nil then
 		return {
 			RootItems = {},
+			ExpansionTable = if FFlagOnlyLoadOneCallstack() then {} else nil,
 			CurrentThreadId = nil,
 			ColumnFilter = callstack.listOfEnabledColumns,
 		}
 	else
 		local currentThreadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
-		local address = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
-		local callstackVars = callstack.stateTokenToCallstackVars[address]
+		local currDST = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
+		local callstackVars = callstack.stateTokenToCallstackVars[currDST]
 		assert(callstackVars)
 		local threadList = callstackVars.threadList
 		local rootList = {}
-		local expansionTable = nil
+		local expansionTable = if FFlagOnlyLoadOneCallstack() then {} else nil
 		for _, threadInfo in ipairs(threadList) do
 			local rootItem = makeCallstackRootItem(threadInfo, callstackVars, common, state.ScriptInfo)
-			if rootItem then
+			if FFlagOnlyLoadOneCallstack() then assert(rootItem ~= nil) end
+			if FFlagOnlyLoadOneCallstack() or rootItem then
 				table.insert(rootList, rootItem)
 				if threadInfo.threadId == currentThreadId then
-					expansionTable = { [rootItem] = true }
+					if FFlagOnlyLoadOneCallstack() then
+						expansionTable[rootItem] = true
+					else
+						expansionTable = { [rootItem] = true }
+					end
 				end
 			else
 				return {
@@ -601,13 +666,13 @@ CallstackComponent = RoactRodux.connect(function(state, props)
 				}
 			end
 		end
-
 		return {
 			RootItems = rootList,
 			CurrentThreadId = currentThreadId,
 			ExpansionTable = expansionTable,
 			ColumnFilter = deepCopy(callstack.listOfEnabledColumns),
 			CurrentDebuggerConnectionId = common.currentDebuggerConnectionId,
+			CurrentDST = if FFlagOnlyLoadOneCallstack() then common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId] else nil,
 		}
 	end
 end, function(dispatch)
@@ -619,9 +684,11 @@ end, function(dispatch)
 			local debuggerUIService = game:GetService("DebuggerUIService")
 			local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
 			local connection = debuggerConnectionManager:GetConnectionById(currentDebuggerConnectionId)
-			return dispatch(LoadAllVariablesForThreadAndFrame(threadId, connection,frameNumber-1,debuggerUIService))
+			return dispatch(LoadAllVariablesForThreadAndFrame(threadId, connection, frameNumber-1, debuggerUIService))
 		end,
 		onExpansionClicked = function(threadId, topFrame, currentDebuggerConnectionId)
+			-- remove with FFlagOnlyLoadOneCallstack
+			assert(not FFlagOnlyLoadOneCallstack())
 			local debuggerUIService = game:GetService("DebuggerUIService")
 			debuggerUIService:OpenScriptAtLine(topFrame.scriptGUID, currentDebuggerConnectionId, topFrame.lineColumn, false)
 			debuggerUIService:SetScriptLineMarker(
@@ -630,10 +697,16 @@ end, function(dispatch)
 				topFrame.lineColumn,
 				true
 			)
-			
+
 			local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
 			local connection = debuggerConnectionManager:GetConnectionById(currentDebuggerConnectionId)
-			return dispatch(LoadAllVariablesForThreadAndFrame(threadId, connection,0,debuggerUIService))
+			return dispatch(LoadAllVariablesForThreadAndFrame(threadId, connection, 0, debuggerUIService))
+		end,
+		onPopulateCallstackThreadThunk = function(threadState, connection, currentDST, scriptChangeService, callBack)
+			return dispatch(PopulateCallstackThreadThunk(threadState, connection, currentDST, scriptChangeService, callBack))
+		end,
+		onLoadAllVariablesForThreadAndFrame = function(threadId, connection, frameNumber, debuggerUIService)
+			return dispatch(LoadAllVariablesForThreadAndFrame(threadId, connection, frameNumber, debuggerUIService))
 		end,
 		onColumnFilterChange = function(enabledColumns)
 		    return dispatch(ColumnFilterChange(enabledColumns))

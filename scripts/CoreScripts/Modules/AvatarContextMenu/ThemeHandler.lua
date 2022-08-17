@@ -1,3 +1,4 @@
+--!nonstrict
 local InsertService = game:GetService("InsertService")
 local StarterGui = game:GetService("StarterGui")
 

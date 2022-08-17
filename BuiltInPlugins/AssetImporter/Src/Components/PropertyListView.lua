@@ -168,6 +168,7 @@ function PropertyListView:render()
 				local propertyName = nil
 				local valueType = nil
 				local propertyMetadataProp = nil
+				local allowPickFile = nil
 				if getFFlagAssetImportUsePropertyFactories() then
 					propertyMetadataProp = propertyMetadata
 				else
@@ -175,6 +176,7 @@ function PropertyListView:render()
 					editable = propertyMetadata.Editable
 					propertyName = propertyMetadata.Name
 					valueType = propertyMetadata.ValueType
+					allowPickFile = propertyMetadata.AllowPickFile
 				end
 
 				table.insert(sectionProperties, Roact.createElement(PropertyView, {
@@ -189,6 +191,7 @@ function PropertyListView:render()
 					StatusMessage = message,
 					ValueType = valueType,
 					PropertyMetadata = propertyMetadataProp,
+					AllowPickFile = allowPickFile,
 				}))
 			end
 		end

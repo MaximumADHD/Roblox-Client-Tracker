@@ -1,5 +1,3 @@
---!strict
-
 local CorePackages = game:GetService("CorePackages")
 local MessageBus = require(CorePackages.UniversalApp.MessageBus)
 local t = require(CorePackages.Packages.t)
@@ -11,7 +9,6 @@ type ExternalContentSharingProtocol = ExternalContentSharingProtocolTypes.Extern
 type ExternalContentSharingProtocolShareTextData =
 	ExternalContentSharingProtocolTypes.ExternalContentSharingProtocolShareTextData
 type ExternalContentSharingProtocolModule = ExternalContentSharingProtocol & {
-	__index: ExternalContentSharingProtocol,
 	new: (messageBus: MessageBus?) -> ExternalContentSharingProtocol | nil,
 	default: ExternalContentSharingProtocol | nil,
 }
@@ -34,7 +31,7 @@ local ExternalContentSharingProtocol: ExternalContentSharingProtocolModule = {
 	},
 } :: ExternalContentSharingProtocolModule
 
-ExternalContentSharingProtocol.__index = ExternalContentSharingProtocol
+(ExternalContentSharingProtocol :: any).__index = ExternalContentSharingProtocol
 
 function ExternalContentSharingProtocol.new(_messageBus: MessageBus?): ExternalContentSharingProtocol | nil
 	if ExternalContentSharingProtocol.isEnabled() then

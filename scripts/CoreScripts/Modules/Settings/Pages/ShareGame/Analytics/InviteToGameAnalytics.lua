@@ -26,7 +26,7 @@ InviteToGameAnalytics.DiagCounters = {
 }
 
 function InviteToGameAnalytics.new()
-	local self = {
+	local self: any = {
 		_eventStreamImpl = nil,
 		_diagImpl = nil,
 		_buttonName = nil,

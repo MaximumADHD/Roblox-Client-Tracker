@@ -1,3 +1,4 @@
+--!nonstrict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
@@ -20,8 +21,6 @@ local StartLeavingGame = require(InGameMenu.Actions.StartLeavingGame)
 
 local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
 local UserLocalStore = require(InGameMenu.Utility.UserLocalStore)
-
-local GetFFlagPlayerSpecificPopupCounter = require(InGameMenu.Flags.GetFFlagPlayerSpecificPopupCounter)
 
 local GetFIntFullscreenTitleBarTriggerDelayMillis = require(InGameMenu.Flags.GetFIntFullscreenTitleBarTriggerDelayMillis)
 local GetFFlagCleanUpFullscreenTitleBarPromiseOnUnmount = require(InGameMenu.Flags.GetFFlagCleanUpFullscreenTitleBarPromiseOnUnmount)
@@ -54,7 +53,7 @@ FullscreenTitleBar.defaultProps = {
 
 function FullscreenTitleBar:init()
 	self.userGameSettings = GetFFlagFullscreenTitleBarInjectGameServices() and self.props.userGameSettings or UserGameSettings
-	self.guiService = GetFFlagFullscreenTitleBarInjectGameServices() and self.props.guiService or GuiService 
+	self.guiService = GetFFlagFullscreenTitleBarInjectGameServices() and self.props.guiService or GuiService
 	self.appStorageService = GetFFlagFullscreenTitleBarInjectGameServices() and self.props.appStorageService or AppStorageService
 
 	self:setState({
@@ -71,7 +70,7 @@ function FullscreenTitleBar:init()
 
 	self.triggerTitleBar = function()
 		local delaySecond = GetFIntFullscreenTitleBarTriggerDelayMillis() / 1000
-		if delaySecond > 0 then 
+		if delaySecond > 0 then
 			self.triggerTitleBarPromise = Promise.delay(delaySecond):andThenCall(function()
 				self.triggerTitleBarPromise = nil
 				if not self.state.isTriggered then
@@ -113,10 +112,7 @@ function FullscreenTitleBar:init()
 		self.hideTitleBar()
 
 		if self.props.isEducationalPopupEnabled then
-			local localStore = self.appStorageService
-			if GetFFlagPlayerSpecificPopupCounter() then
-				localStore = UserLocalStore.new()
-			end
+			local localStore = UserLocalStore.new()
 			self.props.openEducationalPopup(self.guiService, localStore, self.props.maxDisplayCount)
 		else
 			self.props.startLeavingGame()
@@ -125,7 +121,7 @@ function FullscreenTitleBar:init()
 
 	self.onDisappear = function()
 		if self.hideTitleBarPromise then
-			if GetFFlagFixFullscreenTitleBarPromiseCancel() then 
+			if GetFFlagFixFullscreenTitleBarPromiseCancel() then
 				self.hideTitleBarPromise:cancel()
 			else
 				self.hideTitleBarPromise.cancel()
@@ -193,7 +189,7 @@ function FullscreenTitleBar:willUnmount()
 		if self.hideTitleBarPromise then
 			self.hideTitleBarPromise:cancel()
 		end
-	
+
 		if self.triggerTitleBarPromise then
 			self.triggerTitleBarPromise:cancel()
 		end

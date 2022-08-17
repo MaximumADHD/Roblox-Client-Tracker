@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local Root = script.Parent.Parent
 	local Workspace = game:GetService("Workspace")

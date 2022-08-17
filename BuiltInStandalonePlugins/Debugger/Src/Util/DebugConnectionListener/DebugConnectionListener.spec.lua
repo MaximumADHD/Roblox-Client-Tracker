@@ -19,6 +19,8 @@ local MockCrossDMScriptChangeListenerService = require(Mocks.MockCrossDMScriptCh
 
 local Constants = require(Plugin.Src.Util.Constants)
 
+local FFlagOnlyLoadOneCallstack = require(Plugin.Src.Flags.GetFFlagOnlyLoadOneCallstack)
+
 return function()
 	local function setupFakeThread(mockConnection, fakeThreadId)
 		-- setup fake data
@@ -154,12 +156,24 @@ return function()
 		expect(state.Common.currentFrameMap[1][1]).to.be.ok()
 		expect(state.Common.currentFrameMap[1][2]).to.be.ok()
 		expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(2)
-		expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[1][0].Script]).to.equal(
-			true
-		)
-		expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[2][0].Script]).to.equal(
-			true
-		)
+
+		if FFlagOnlyLoadOneCallstack() then
+			-- only one script should be open at start
+			expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[1][0].Script]).to.equal(
+				nil
+			)
+			expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[2][0].Script]).to.equal(
+				true
+			)
+		else
+			expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[1][0].Script]).to.equal(
+				true
+			)
+			expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[2][0].Script]).to.equal(
+				true
+			)
+		end
+
 		expect(debuggerUIService.showingArrow).to.equal(true)
 
 		currentMockConnection.Resumed:Fire(testPausedState2)

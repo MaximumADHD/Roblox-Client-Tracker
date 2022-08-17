@@ -13,14 +13,16 @@ local Stylizer = Framework.Style.Stylizer
 local UI = Framework.UI
 local TextInput = UI.TextInput
 local SelectInput = UI.SelectInput
-local Pane = UI.Pane
+local SimpleExpandablePane = UI.SimpleExpandablePane
 
 local Controllers = Plugin.Src.Controllers
 local MaterialServiceController = require(Controllers.MaterialServiceController)
+local GeneralServiceController = require(Controllers.GeneralServiceController)
 
 local LabeledElement = require(Plugin.Src.Components.MaterialBrowser.MaterialVariantEditor.LabeledElement)
 
 local Constants = Plugin.Src.Resources.Constants
+local getMaterialPath = require(Constants.getMaterialPath)
 local getSupportedMaterials = require(Constants.getSupportedMaterials)
 local getMaterialName = require(Constants.getMaterialName)
 
@@ -31,12 +33,15 @@ export type Props = {
 
 type _Props = Props & {
 	Analytics: any,
+	GeneralServiceController: any,
 	MaterialServiceController: any,
 	Localization: any,
 	Stylizer: any,
 }
 
 type _Style = {
+	ContentPadding: number,
+	CustomExpandablePane: any,
 	CustomSelectInput: any,
 	DialogColumnSize: UDim2,
 	ErrorOrWarningColor: Color3,
@@ -53,36 +58,33 @@ local GeneralSettings = Roact.PureComponent:extend("GeneralSettings")
 function GeneralSettings:init()
 	self.baseMaterials = {}
 
-	self.setNameError = function(error)
+	self.setNameStatus = function(message, status)
 		self:setState({
-			ErrorName = error or Roact.None,
+			nameMessage = message or Roact.None,
+			status = if status then status else Enum.PropertyStatus.Ok,
 		})
 	end
 
 	self.onNameChanged = function(name)
-		local props: _Props = self.props
-		local localization = props.Localization
-
-		if name and name ~= "" then
-			props.MaterialVariant.Name = name
-			local baseMaterial = props.MaterialVariant.BaseMaterial
-			self.setNameError(nil)
-			if props.MaterialServiceController:checkMaterialName(name, baseMaterial) then
-				self.setNameError(localization:getText("CreateDialog", "ErrorNameExists"))
-			end
-		else
-			self.setNameError(localization:getText("CreateDialog", "ErrorNoName"))
-		end
+		self:setState({
+			name = name,
+		})
 	end
 
 	self.onFocusLost = function()
 		local props: _Props = self.props
 		local localization = props.Localization
 
-		local name = props.MaterialVariant.Name
-		local baseMaterial = props.MaterialVariant.BaseMaterial
-		if props.MaterialServiceController:checkMaterialName(name, baseMaterial) then
-			self.setNameError(localization:getText("CreateDialog", "ErrorNameExists"))
+		if self.state.name and self.state.name ~= "" then
+			props.GeneralServiceController:setName(props.MaterialVariant, self.state.name)
+			local baseMaterial = props.MaterialVariant.BaseMaterial
+			if props.MaterialServiceController:checkMaterialName(self.state.name, baseMaterial) then
+				self.setNameStatus(localization:getText("CreateDialog", "ErrorNameExists"), Enum.PropertyStatus.Warning)
+			else
+				self.setNameStatus(nil)
+			end
+		else
+			self.setNameStatus(localization:getText("CreateDialog", "ErrorNoName"), Enum.PropertyStatus.Error)
 		end
 	end
 
@@ -90,13 +92,14 @@ function GeneralSettings:init()
 		local props: _Props = self.props
 		local localization = props.Localization
 
-		props.MaterialVariant.BaseMaterial = materials[index]
+		props.GeneralServiceController:setBaseMaterial(props.MaterialVariant, materials[index])
+		props.MaterialServiceController:setPath(getMaterialPath(props.MaterialVariant.BaseMaterial))
 		local name = props.MaterialVariant.Name
 		local baseMaterial = props.MaterialVariant.BaseMaterial
 		if props.MaterialServiceController:checkMaterialName(name, baseMaterial) then
-			self.setNameError(localization:getText("CreateDialog", "ErrorNameExists"))
+			self.setNameStatus(localization:getText("CreateDialog", "ErrorNameExists"), Enum.PropertyStatus.Warning)
 		else
-			self.setNameError(nil)
+			self.setNameStatus(nil)
 		end
 	end
 end
@@ -129,20 +132,20 @@ function GeneralSettings:render()
 		currentIndex = 1
 	end
 
-	return Roact.createElement(Pane, {
-		AutomaticSize = Enum.AutomaticSize.XY,
-		Layout = Enum.FillDirection.Vertical,
+	return Roact.createElement(SimpleExpandablePane, {
 		LayoutOrder = props.LayoutOrder,
-		Spacing = style.ItemSpacing,
+		HorizontalAlignment = Enum.HorizontalAlignment.Left,
+		ContentPadding = style.ContentPadding,
+		ContentSpacing = style.ItemSpacing,
+		Text = localization:getText("MaterialGeneral", "General"),
+		Style = style.CustomExpandablePane,
 	}, {
 		Name = Roact.createElement(LabeledElement, {
 			LabelColumnWidth = style.LabelColumnWidth,
 			LayoutOrder = 1,
-			Spacing = style.ItemPaddingHorizontal,
 			Text = localization:getText("CreateDialog", "NameVariant"),
-			ErrorText = self.state.ErrorName,
-			TextSize = style.ErrorOrWarningTextSize,
-			TextErrorOrWarningColor = style.ErrorOrWarningColor,
+			StatusText = self.state.nameMessage,
+			Status = self.state.status,
 		}, {
 			Roact.createElement(TextInput, {
 				Style = if self.state.ErrorName then "FilledRoundedRedBorder" else "FilledRoundedBorder",
@@ -155,9 +158,7 @@ function GeneralSettings:render()
 		BaseMaterial = Roact.createElement(LabeledElement, {
 			LabelColumnWidth = style.LabelColumnWidth,
 			LayoutOrder = 2,
-			Spacing = style.ItemPaddingHorizontal,
 			Text = localization:getText("CreateDialog", "BaseMaterialVariant"),
-			TextSize = style.ErrorOrWarningTextSize,
 		}, {
 			Roact.createElement(SelectInput, {
 				Style = style.CustomSelectInput,
@@ -171,12 +172,12 @@ function GeneralSettings:render()
 	})
 end
 
-
 GeneralSettings = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
 	Stylizer = Stylizer,
 	MaterialServiceController = MaterialServiceController,
+	GeneralServiceController = GeneralServiceController,
 })(GeneralSettings)
 
 return GeneralSettings

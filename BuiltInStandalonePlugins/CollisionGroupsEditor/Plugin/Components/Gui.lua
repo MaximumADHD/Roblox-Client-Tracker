@@ -16,6 +16,7 @@ local Gui = Roact.Component:extend("Gui")
 function Gui:init()
 	self.state = {
 		GroupRenaming = "",
+		GroupRenameDialogOpen = false,
 		Theme = "",
 		UISelectedGroupId = "",
 	}
@@ -54,8 +55,8 @@ function Gui:GetGroups()
 			if group.Name == "Default" then
 				return
 			end
-
 			if newName then
+				self:setStateAndRefresh({GroupRenameDialogOpen = true})
 				local renameBlob = {}
 				renameBlob.oldName = group.Name
 				renameBlob.newName = newName
@@ -107,6 +108,11 @@ function Gui:render()
 
 	return Roact.createElement(MainView, {
 		Groups = self.state.Groups,
+		GroupRenameDialogOpen = self.state.GroupRenameDialogOpen,
+
+		OnGroupRenameDialogClosed = function()
+			self:setState({GroupRenameDialogOpen = false})
+		end,
 
 		OnGroupAdded = function(groupName)
 			plugin:Invoke("CreateCollisionGroup", groupName)

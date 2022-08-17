@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Model for a Bundle
 	{

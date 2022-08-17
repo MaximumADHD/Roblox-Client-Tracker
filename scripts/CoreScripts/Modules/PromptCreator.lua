@@ -1,4 +1,5 @@
 --!nonstrict
+--!nolint DeprecatedApi
 
 --[[
 	// Filename: PromptCreator.lua
@@ -26,17 +27,17 @@ local PromptDialogVR = nil
 
 function getViewportSize()
 	while not game.Workspace.CurrentCamera do
-		game.Workspace.Changed:wait()
+		game.Workspace.Changed:Wait()
 	end
 
 	-- ViewportSize is initally set to 1, 1 in Camera.cpp constructor.
 	-- Also check against 0, 0 incase this is changed in the future.
-	while game.Workspace.CurrentCamera.ViewportSize == Vector2.new(0,0) or
-		game.Workspace.CurrentCamera.ViewportSize == Vector2.new(1,1) do
-		game.Workspace.CurrentCamera.Changed:wait()
+	while (game.Workspace.CurrentCamera :: Camera).ViewportSize == Vector2.new(0,0) or
+		(game.Workspace.CurrentCamera :: Camera).ViewportSize == Vector2.new(1,1) do
+		(game.Workspace.CurrentCamera :: Camera).Changed:Wait()
 	end
 
-	return game.Workspace.CurrentCamera.ViewportSize
+	return (game.Workspace.CurrentCamera :: Camera).ViewportSize
 end
 
 local IsTenFootInterface = TenFootInterface:IsEnabled()

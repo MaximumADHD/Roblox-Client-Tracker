@@ -1,3 +1,4 @@
+--!nonstrict
 local function createLayeredClothingSchema(attachmentName)
 	assert(attachmentName, "attachmentName cannot be nil")
 	return {

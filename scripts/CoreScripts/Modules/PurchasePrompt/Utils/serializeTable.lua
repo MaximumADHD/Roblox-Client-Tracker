@@ -1,3 +1,4 @@
+--!nonstrict
 -- Taken from https://stackoverflow.com/questions/6075262/lua-table-tostringtablename-and-table-fromstringstringtable-functions
 local function serializeTable(val, name, skipnewlines, depth)
     skipnewlines = skipnewlines or false

@@ -1,3 +1,4 @@
+--!nonstrict
 local root = script.Parent.Parent
 local valueToString = require(root.util.valueToString)
 local getMeshSize = require(root.util.getMeshSize)

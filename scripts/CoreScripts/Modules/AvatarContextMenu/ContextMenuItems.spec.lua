@@ -1,3 +1,4 @@
+--!nonstrict
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local ContextMenuItems = require(script.Parent.ContextMenuItems)
 

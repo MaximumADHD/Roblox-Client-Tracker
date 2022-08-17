@@ -126,8 +126,6 @@ local function getPluginTheme()
 			ScrollBarThickness = 0,
 		}),
 
-		MainBackground = StyleKey.ForegroundMuted,
-
 		TableEntryBackground = StyleKey.ForegroundMain,
 		TableEntrySelected = StyleKey.ActionFocusBorder,
 		TableEntryHover = StyleKey.ButtonHover,
@@ -218,6 +216,13 @@ local function getPluginTheme()
 				Padding =  0,
 				Spacing = ControlsHeaderRowPadding,
 			},
+		},
+
+		GroupRenameDialog = {
+			DialogMinimumSize = Vector2.new(300, 150),
+			Padding = 10,
+			Spacing = 10,
+			WarningTextSize = UDim2.new(1, 0, 1, -60),
 		},
 	}
 end

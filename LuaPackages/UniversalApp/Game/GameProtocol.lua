@@ -3,6 +3,16 @@ local MessageBus = require(CorePackages.UniversalApp.MessageBus)
 local t = require(CorePackages.Packages.t)
 local Cryo = require(CorePackages.Cryo)
 
+local Types = require(script.Parent.GameProtocolTypes)
+
+type LaunchParams = Types.LaunchParams
+export type GameProtocol = Types.GameProtocol
+
+export type GameProtocolModule = GameProtocol & {
+	new: () -> GameProtocol,
+	default: GameProtocol
+}
+
 local NAME = "Game"
 
 local optionalParams = t.strictInterface({
@@ -18,23 +28,23 @@ local function checkRequiredParams(props)
 	return props.placeId or props.userId
 end 
 
-local GameProtocol = {
+local GameProtocol: GameProtocolModule = {
 	GAME_LAUNCH_DESCRIPTOR = {
 		mid = MessageBus.getMessageId(NAME, "launch"),
 		validateParams = t.intersection(optionalParams, checkRequiredParams)
 	}
-}
+} :: GameProtocolModule
 
-GameProtocol.__index = GameProtocol
+(GameProtocol :: any).__index = GameProtocol
 
 function GameProtocol.new(): GameProtocol
 	local self = setmetatable({
 		subscriber = MessageBus.Subscriber.new(),
 	}, GameProtocol)
-	return self
+	return (self :: any) :: GameProtocol
 end
 
-function GameProtocol:launchGame(params): ()
+function GameProtocol:launchGame(params: LaunchParams): ()
 	if type(params.placeId) == "string" then
 		params.placeId = tonumber(params.placeId)
 	end

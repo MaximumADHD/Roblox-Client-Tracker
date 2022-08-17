@@ -1,8 +1,9 @@
---!strict
 local CorePackages = game:GetService("CorePackages")
 local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
 
 export type Table = { [string]: any }
+
+export type Array<T> = { T }
 
 export type Promise<T> = LuauPolyfill.Promise<T>
 
@@ -41,8 +42,8 @@ export type Subscriber =  {
 	new: () -> Subscriber,
 	getSubscriptionCount: (Subscriber) -> number,
 	subscribe: (Subscriber, MessageDescriptor, (Table) -> (), boolean?) -> (),
-	subscribeProtocolMethodRequest: (Subscriber, ProtocolMethodDescriptor, (Table?) -> (), boolean?) -> (),
-	subscribeProtocolMethodResponse: (Subscriber, ProtocolMethodDescriptor, (Table?) -> (), boolean?) -> (),
+	subscribeProtocolMethodRequest: (Subscriber, ProtocolMethodDescriptor, (Table) -> (), boolean?) -> (),
+	subscribeProtocolMethodResponse: (Subscriber, ProtocolMethodDescriptor, (Table) -> (), boolean?) -> (),
 	unsubscribe: (Subscriber, MessageDescriptor) -> (),
 	unsubscribeToProtocolMethodRequest: (Subscriber, ProtocolMethodDescriptor) -> (),
 	unsubscribeToProtocolMethodResponse: (Subscriber, ProtocolMethodDescriptor) -> (),

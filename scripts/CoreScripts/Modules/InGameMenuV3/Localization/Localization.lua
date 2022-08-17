@@ -1,3 +1,4 @@
+--!nonstrict
 local LocaleTables = script.Parent.Locales
 local LocalizationContext = require(script.Parent.LocalizationContext)
 

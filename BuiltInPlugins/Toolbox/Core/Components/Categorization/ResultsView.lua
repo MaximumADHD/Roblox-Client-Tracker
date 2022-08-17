@@ -1,7 +1,9 @@
 --[[
 	A view wrapper displaying a back button and a grid of assets based on prop filters.
 ]]
+local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
+local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
 local Packages = Plugin.Packages
@@ -42,12 +44,14 @@ export type _ExternalProps = {
 	SectionName: string?,
 	SortName: string?,
 	Size: UDim2?,
+	SearchSource: string?,
 	QueryParams: HomeTypes.SubcategoryQueryParams?,
 }
 
 export type _InternalProps = {
 	-- mapStateToProps
-	IncludeOnlyVerifiedCreators: boolean?,
+	IncludeOnlyVerifiedCreators: boolean?, -- TODO: Remove with FFlagToolboxUseVerifiedIdAsDefault
+	IncludeUnverifiedCreators: boolean?,
 	-- withContext
 	Localization: any,
 	Stylizer: any,
@@ -102,12 +106,21 @@ function ResultsView:render()
 	local queryParams = if FFlagToolboxUseQueryForCategories2 then props.QueryParams else nil
 	local sectionName = props.SectionName
 	local sortName = props.SortName
-	local includeOnlyVerifiedCreators = props.IncludeOnlyVerifiedCreators
+
+	local includeOnlyVerifiedCreators
+	local includeUnverifiedCreators
+	if FFlagToolboxUseVerifiedIdAsDefault then
+		includeUnverifiedCreators = props.IncludeUnverifiedCreators
+	else
+		includeOnlyVerifiedCreators = props.IncludeOnlyVerifiedCreators
+	end
+
 	-- Props from AssetLogicWrapper
 	local canInsertAsset = props.CanInsertAsset
 	local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
 	local tryInsert = props.TryInsert
 	local tryOpenAssetConfig = props.TryOpenAssetConfig
+	local searchSource = if FFlagToolboxIncludeSearchSource then props.SearchSource else nil
 
 	-- NOTE: We must call createTopContent here to prevent ResultsFetcher from
 	-- being called multiple times on AssetGrid re-render.
@@ -124,7 +137,9 @@ function ResultsView:render()
 		searchTerm = searchTerm,
 		queryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil,
 		initialPageSize = INITIAL_PAGE_SIZE,
-		includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
+		includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else includeOnlyVerifiedCreators,
+		includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then includeUnverifiedCreators else nil,
+		searchSource = searchSource,
 		render = function(resultsState)
 			if resultsState.loading and #resultsState.assetIds == 0 then
 				return Roact.createElement("Frame", {
@@ -163,7 +178,12 @@ function mapStateToProps(state: any, props)
 	state = state or {}
 	local pageInfo = state.pageInfo or {}
 	return {
-		IncludeOnlyVerifiedCreators = pageInfo.includeOnlyVerifiedCreators,
+		IncludeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+			then nil
+			else pageInfo.includeOnlyVerifiedCreators,
+		IncludeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+			then pageInfo.includeUnverifiedCreators
+			else nil,
 	}
 end
 

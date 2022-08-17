@@ -2,7 +2,6 @@ return function()
 	local InGameMenu = script.Parent.Parent
 	local SetFriends = require(InGameMenu.Actions.SetFriends)
 	local inviteFriends = require(script.Parent.inviteFriends)
-	local GetFFlagFixV3InviteReducer = require(InGameMenu.Flags.GetFFlagFixV3InviteReducer)
 
 	local function countKeys(t)
 		local count = 0
@@ -15,12 +14,8 @@ return function()
 	it("should be empty by default", function()
 		local defaultState = inviteFriends(nil, {})
 		expect(type(defaultState)).to.equal("table")
-		if GetFFlagFixV3InviteReducer() then
-			expect(countKeys(defaultState)).to.equal(1)
-			expect(countKeys(defaultState.inviteFriends)).to.equal(0)
-		else
-			expect(countKeys(defaultState)).to.equal(0)
-		end
+		expect(countKeys(defaultState)).to.equal(1)
+		expect(countKeys(defaultState.inviteFriends)).to.equal(0)
 	end)
 
 	describe("SetFriends", function()

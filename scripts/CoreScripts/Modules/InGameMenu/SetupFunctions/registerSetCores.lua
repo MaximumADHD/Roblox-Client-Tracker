@@ -1,3 +1,4 @@
+--!nonstrict
 local StarterGui = game:GetService("StarterGui")
 
 local InGameMenu = script.Parent.Parent

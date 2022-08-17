@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local CorePackages = game:GetService("CorePackages")
 	local Rodux = require(CorePackages.Rodux)
@@ -10,7 +11,7 @@ return function()
 
 	it("should get the product info", function()
 		local store = Rodux.Store.new(Reducer)
-		local thunk = GetEconomyProductInfo()
+		local thunk = (GetEconomyProductInfo :: any)()
 
 		Thunk.test(thunk, store, {
 			[Network] = MockNetwork.new(),
@@ -24,7 +25,7 @@ return function()
 
 	it("should catch network errors that happen and still run", function()
 		local store = Rodux.Store.new(Reducer)
-		local thunk = GetEconomyProductInfo()
+		local thunk = (GetEconomyProductInfo :: any)()
 
 		Thunk.test(thunk, store, {
 			[Network] = MockNetwork.new(true),

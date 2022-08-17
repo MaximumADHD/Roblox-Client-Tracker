@@ -6,7 +6,7 @@ local Promise = require(CorePackages.Promise)
 return function()
 	return Promise.new(function(resolve, reject)
 		local success, result = pcall(function()
-			return Players:GetHumanoidDescriptionFromUserId(Players.LocalPlayer.UserId)
+			return Players:GetHumanoidDescriptionFromUserId((Players.LocalPlayer :: Player).UserId)
 		end)
 
 		if success then

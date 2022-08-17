@@ -1,3 +1,5 @@
+--!nonstrict
+--!nolint DeprecatedApi
 --[[
 	// FileName: AvatarContextMenu.lua
 	// Written by: TheGamer101
@@ -104,7 +106,7 @@ function SetSelectedPlayer(player, dontTween)
 	if SelectedPlayer == player then return end
 	SelectedPlayer = player
 	SelectedCharacterIndicator:ChangeSelectedPlayer(SelectedPlayer, ThemeHandler:GetTheme())
-	
+
 	if FFlagAvatarContextMenuItemsChatButtonRefactor then
 		local props = {}
 		local success, canLocalUserChat = pcall(function() return ChatService:CanUserChatAsync(LocalPlayer.UserId) end)
@@ -117,7 +119,7 @@ function SetSelectedPlayer(player, dontTween)
 	else
 		ContextMenuItems:BuildContextMenuItems(SelectedPlayer)
 	end
-	
+
 	ContextMenuGui:SwitchToPlayerEntry(SelectedPlayer, dontTween)
 end
 

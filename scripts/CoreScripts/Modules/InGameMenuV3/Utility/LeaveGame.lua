@@ -1,3 +1,4 @@
+--!nonstrict
 
 local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
@@ -6,11 +7,13 @@ local InGameMenu = script.Parent.Parent
 
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local PerfUtils = require(InGameMenu.Utility.PerfUtils)
 local Constants = require(InGameMenu.Resources.Constants)
 
 local LEAVE_GAME_FRAME_WAITS = 2
 
 return function()
+    PerfUtils.leavingGame()
     SendAnalytics(Constants.AnalyticsInGameMenuName, Constants.AnalyticsLeaveGameName, {
         confirmed = Constants.AnalyticsConfirmedName
     })

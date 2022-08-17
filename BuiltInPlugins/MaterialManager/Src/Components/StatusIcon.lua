@@ -16,10 +16,13 @@ local Image = UI.Decoration.Image
 local Pane = UI.Pane
 local Tooltip = UI.Tooltip
 
+local getFFlagMaterialManagerVariantCreatorOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
+
 export type Props = {
 	LayoutOrder: number?,
 	Position: UDim2?,
 	Size: UDim2?,
+	StatusText: string?,
 	Status: Enum.PropertyStatus,
 	ZIndex: number?,
 }
@@ -46,12 +49,19 @@ function StatusIcon:render()
 
 	local statusImage
 	local statusText = ""
+	if getFFlagMaterialManagerVariantCreatorOverhaul() then
+		statusText = props.StatusText or ""
+	end
 	if status == Enum.PropertyStatus.Error then
 		statusImage = style.Error
-		statusText = localization:getText("MaterialStatus", "MissingMaterial")
+		if not getFFlagMaterialManagerVariantCreatorOverhaul() then
+			statusText = localization:getText("MaterialStatus", "MissingMaterial")
+		end
 	elseif status == Enum.PropertyStatus.Warning then
 		statusImage = style.Warning
-		statusText = localization:getText("MaterialStatus", "DuplicateMaterial")
+		if not getFFlagMaterialManagerVariantCreatorOverhaul() then
+			statusText = localization:getText("MaterialStatus", "DuplicateMaterial")
+		end
 	elseif status == Enum.PropertyStatus.Ok then
 		return Roact.createElement(Pane, {
 			LayoutOrder = props.LayoutOrder,

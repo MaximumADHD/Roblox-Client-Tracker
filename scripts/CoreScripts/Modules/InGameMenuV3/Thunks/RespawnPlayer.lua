@@ -1,3 +1,4 @@
+--!nonstrict
 local Players = game:GetService("Players")
 
 local InGameMenu = script.Parent.Parent

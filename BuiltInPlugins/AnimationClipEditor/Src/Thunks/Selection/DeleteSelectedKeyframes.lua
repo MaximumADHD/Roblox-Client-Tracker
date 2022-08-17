@@ -12,7 +12,6 @@ local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 local SelectionUtils = require(Plugin.Src.Util.SelectionUtils)
 
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 
 return function(analytics)
@@ -37,51 +36,33 @@ return function(analytics)
 			for trackName, selectionTrack in pairs(instance) do
 				dataInstance.Tracks[trackName] = deepCopy(dataInstance.Tracks[trackName])
 
-				if GetFFlagChannelAnimations() then
-					local dataTrack = dataInstance.Tracks[trackName]
-					local trackHasBeenTraversed = false
-					local trackHasKeyframes = false
+				local dataTrack = dataInstance.Tracks[trackName]
+				local trackHasBeenTraversed = false
+				local trackHasKeyframes = false
 
-					SelectionUtils.traverse(selectionTrack, dataTrack, function(selectionTrack, dataTrack)
-						if not selectionTrack.Selection then
-							return
-						end
-						trackHasBeenTraversed = true
-						for keyframe, _ in pairs(selectionTrack.Selection) do
-							if dataTrack.Data and dataTrack.Data[keyframe] then
-								AnimationData.deleteKeyframe(dataTrack, keyframe)
+				SelectionUtils.traverse(selectionTrack, dataTrack, function(selectionTrack, dataTrack)
+					if not selectionTrack.Selection then
+						return
+					end
+					trackHasBeenTraversed = true
+					for keyframe, _ in pairs(selectionTrack.Selection) do
+						if dataTrack.Data and dataTrack.Data[keyframe] then
+							AnimationData.deleteKeyframe(dataTrack, keyframe)
 
-								if GetFFlagCurveAnalytics() then
-									analytics:report("onDeleteKeyframe", trackName, editorMode)
-								end
+							if GetFFlagCurveAnalytics() then
+								analytics:report("onDeleteKeyframe", trackName, editorMode)
 							end
 						end
-						if dataTrack.Data and not isEmpty(dataTrack.Data) then
-							trackHasKeyframes = true
-						end
-					end)
-
-					-- Check if we have actually traversed something, and the resulting track
-					-- did not have any data. If so, remove the track completely.
-					if trackHasBeenTraversed and not trackHasKeyframes then
-						dataInstance.Tracks[trackName] = nil
 					end
-				else
-					local keyframes = Cryo.Dictionary.keys(instance[trackName])
-					table.sort(keyframes)
-					local track = dataInstance.Tracks[trackName]
-
-					for _, keyframe in ipairs(keyframes) do
-						if track.Data[keyframe] then
-							AnimationData.deleteKeyframe(track, keyframe)
-
-							analytics:report("onDeleteKeyframe", trackName, editorMode)
-						end
+					if dataTrack.Data and not isEmpty(dataTrack.Data) then
+						trackHasKeyframes = true
 					end
+				end)
 
-					if isEmpty(track.Data) then
-						dataInstance.Tracks[trackName] = nil
-					end
+				-- Check if we have actually traversed something, and the resulting track
+				-- did not have any data. If so, remove the track completely.
+				if trackHasBeenTraversed and not trackHasKeyframes then
+					dataInstance.Tracks[trackName] = nil
 				end
 			end
 		end

@@ -1,62 +1,28 @@
-export type SystemInfo = {
-	manufacturer: string?,
-	deviceName: string?,
-	maxMemory: string?,
-	maxResolution: string?,
-	baseOs: string?,
-	systemVersion: string?,
-	appVersion: string?,
-	cpuMake: string?,
-	is64bit: string?,
-	cpuLogicalCount: string?,
-	cpuCoreCount: string?,
-	cpuPhysCount: string?,
-	cpuSpeed: string?,
-	GPU: string?,
-	availRAM: string?,
-	networkType: string?,
-}
-
 local CorePackages = game:GetService("CorePackages")
 local MessageBus = require(CorePackages.UniversalApp.MessageBus)
 local t = require(CorePackages.Packages.t)
 
+local Types = require(script.Parent.SystemInfoProtocolTypes)
+
+type MessageBus = MessageBus.MessageBus
+type Array<T> = MessageBus.Array<T>
+
+export type SystemInfo = Types.SystemInfo
+export type SystemInfoProtocol = Types.SystemInfoProtocol
+
+export type SystemInfoProtocolModule = SystemInfoProtocol & {
+	new: (MessageBus?) -> SystemInfoProtocol,
+	default: SystemInfoProtocol,
+}
+
 local NAME = "SystemInfo"
 
-local SystemInfoProtocol = {
+local SystemInfoProtocol: SystemInfoProtocolModule = {
 	GET_SYSTEM_INFO_DESCRIPTOR = {
 		fid = MessageBus.getMessageId(NAME, "getSystemInfo"),
 		validateParams = t.table,
 	},
-}
-
-SystemInfoProtocol.__index = SystemInfoProtocol
-
-function SystemInfoProtocol.new(messageBus): SystemInfoProtocol
-	local self = setmetatable({
-		messageBus = messageBus or MessageBus
-	}, SystemInfoProtocol)
-	return self
-end
-
---[[
-	Takes a list of strings such as:
-
-	{"manufacturer", "deviceName", "maxMemory"}
-
-	Appeals to the engine to populate a table like this:
-
-	{
-		manufacturer = "Apple",
-		deviceName = "Quadra 630",
-		maxMemory = "4MB"
-	}
-]]--
-function SystemInfoProtocol:getSystemInfo(params: string): SystemInfo
-	return self.messageBus.call(self.GET_SYSTEM_INFO_DESCRIPTOR, params)
-end
-
-SystemInfoProtocol.default = SystemInfoProtocol.new()
+} :: SystemInfoProtocolModule
 
 SystemInfoProtocol.InfoNames = {
 	MANUFACTURER = "manufacturer",
@@ -95,5 +61,33 @@ SystemInfoProtocol.ALL_INFO_NAMES = {
 	SystemInfoProtocol.InfoNames.AVAIL_RAM,
 	SystemInfoProtocol.InfoNames.NETWORK_TYPE,
 }
+
+(SystemInfoProtocol :: any).__index = SystemInfoProtocol
+
+function SystemInfoProtocol.new(messageBus): SystemInfoProtocol
+	local self = setmetatable({
+		messageBus = messageBus or MessageBus
+	}, SystemInfoProtocol)
+	return (self :: any) :: SystemInfoProtocol
+end
+
+--[[
+	Takes a list of strings such as:
+
+	{"manufacturer", "deviceName", "maxMemory"}
+
+	Appeals to the engine to populate a table like this:
+
+	{
+		manufacturer = "Apple",
+		deviceName = "Quadra 630",
+		maxMemory = "4MB"
+	}
+]]--
+function SystemInfoProtocol:getSystemInfo(params: Array<string>): SystemInfo
+	return self.messageBus.call(self.GET_SYSTEM_INFO_DESCRIPTOR, params)
+end
+
+SystemInfoProtocol.default = SystemInfoProtocol.new()
 
 return SystemInfoProtocol

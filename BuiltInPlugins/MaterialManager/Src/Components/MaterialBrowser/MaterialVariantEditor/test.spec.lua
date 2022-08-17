@@ -7,9 +7,7 @@ return function()
     local MaterialVariantCreator = require(script.Parent)
 
     local function createTestElement(props: MaterialVariantCreator.Props?)
-        props = props or {
-            OpenPrompt = function(type: _Types.MaterialPromptType) end
-        }
+        props = props or {}
 
         return mockContext({
             MaterialVariantCreator = Roact.createElement(MaterialVariantCreator, props)

@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	This is a simple signal implementation that has a dead-simple API.
 

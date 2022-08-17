@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Mocks some external settings so we can test the purchase prompt's
 	behavior under various external circumstances.
@@ -7,7 +8,6 @@ local Root = script.Parent.Parent
 local CorePackages = game:GetService("CorePackages")
 local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 local Cryo = PurchasePromptDeps.Cryo
-local GetFFlagLuaUseThirdPartyPermissions = require(Root.Flags.GetFFlagLuaUseThirdPartyPermissions)
 
 local DEFAULT_FLAG_STATES = {
 	-- Allow restriction of third-party sales. Was never properly turned on in
@@ -50,11 +50,7 @@ function MockExternalSettings.new(isStudio, isTenFoot, flags, platform)
 	end
 
 	function service.getLuaUseThirdPartyPermissions()
-		return getMockFlag(flags.LuaUseThirdPartyPermissions, GetFFlagLuaUseThirdPartyPermissions())
-	end
-
-	function service.getFlagHideThirdPartyPurchaseFailure()
-		return flags.HideThirdPartyPurchaseFailure
+		return getMockFlag(flags.LuaUseThirdPartyPermissions, true)
 	end
 
 	function service.getFlagBypassThirdPartySettingForRobloxPurchase()

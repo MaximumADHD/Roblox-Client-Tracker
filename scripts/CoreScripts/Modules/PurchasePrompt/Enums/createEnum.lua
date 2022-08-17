@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	An implementation of an enumerated type in Lua. Creates enumerated
 	types with uniquely identifiable values (using symbol)
@@ -16,7 +17,7 @@ local strict = require(Root.strict)
 --[[
 	Returns a new enum type with the given name.
 ]]
-local function createEnum(enumName, values)
+local function createEnum(enumName: string, values: {string})
 	assert(typeof(enumName) == "string", "Bad argument #1, expected string")
 	assert(typeof(values) == "table", "Bad argument #2, expected list of values")
 

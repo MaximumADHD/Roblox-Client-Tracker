@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local GuiService = game:GetService("GuiService")
 	local CorePackages = game:GetService("CorePackages")

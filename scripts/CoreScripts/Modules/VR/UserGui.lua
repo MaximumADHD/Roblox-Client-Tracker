@@ -35,7 +35,8 @@ end
 
 if EngineFeatureEnableVRUpdate2 then
 	-- this matches the core ui rect in ScreenGui
-	local panelSizeX = workspace.Camera.HeadScale * 2.7978
+	-- ROBLOX FIXME: Should this be CurrentCamera?
+	local panelSizeX = (workspace :: any).Camera.HeadScale * 2.7978
 	local panelSizeY = panelSizeX * 0.75
 
 	local userPanelSize = Vector2.new(panelSizeX, panelSizeY)

@@ -11,8 +11,6 @@ local Framework = require(main.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
 
-local AssetImportService = game:GetService("AssetImportService")
-
 local StudioUI = Framework.StudioUI
 local PluginToolbar = StudioUI.PluginToolbar
 local PluginButton = StudioUI.PluginButton
@@ -22,8 +20,6 @@ local ImportPrompt = require(Components.ImportPrompt)
 local MeshImportDialog = require(Components.MeshImportDialog)
 local ProgressWidget = require(Components.ProgressWidget)
 local ErrorWidget = require(Components.ErrorWidget)
-
-local getFFlagUseAssetImportSession = require(main.Src.Flags.getFFlagUseAssetImportSession)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -67,11 +63,7 @@ function MainPlugin:init(props)
 
 	self.onCancel = function(session)
 		self.onClose()
-		if getFFlagUseAssetImportSession() then
-			session:Cancel()
-		else
-			AssetImportService:Cancel()
-		end
+		session:Cancel()
 	end
 
 	self.onImport = function(session)
@@ -79,11 +71,7 @@ function MainPlugin:init(props)
 		self:setState({
 			uploadInProgress = true,
 		})
-		if getFFlagUseAssetImportSession() then
-			session:Upload()
-		else
-			AssetImportService:Upload()
-		end
+		session:Upload()
 	end
 end
 

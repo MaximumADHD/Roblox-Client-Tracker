@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local AppStorageService = game:GetService("AppStorageService")
 	local UserLocalStore = require(script.Parent.UserLocalStore)
@@ -30,7 +31,7 @@ return function()
 	end)
 
 	it("should default to current user", function()
-		local currentUserId = tostring(game.Players.LocalPlayer.UserId)
+		local currentUserId = tostring((game.Players.LocalPlayer :: Player).UserId)
 		local store = UserLocalStore.new()
 		expect(store.userId).to.equal(currentUserId)
 	end)

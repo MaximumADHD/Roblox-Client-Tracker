@@ -18,8 +18,6 @@ local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local SelectionUtils = require(Plugin.Src.Util.SelectionUtils)
 local CurveUtils = require(Plugin.Src.Util.CurveUtils)
 
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-
 return function(easingStyle, easingDirection)
 	return function(store)
 		local state = store:getState()
@@ -37,7 +35,7 @@ return function(easingStyle, easingDirection)
 		local earliest, latest = AnimationData.getSelectionBounds(animationData, selectedKeyframes)
 		local newSelectedKeyframes = deepCopy(selectedKeyframes)
 
-		for instanceName, instance in pairs(GetFFlagChannelAnimations() and newSelectedKeyframes or selectedKeyframes) do
+		for instanceName, instance in pairs(newSelectedKeyframes) do
 			newData.Instances[instanceName] = Cryo.Dictionary.join({}, newData.Instances[instanceName])
 			newData.Instances[instanceName].Tracks = Cryo.Dictionary.join({}, newData.Instances[instanceName].Tracks)
 

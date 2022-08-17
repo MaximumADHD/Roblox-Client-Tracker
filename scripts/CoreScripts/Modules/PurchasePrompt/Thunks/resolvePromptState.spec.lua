@@ -1,7 +1,8 @@
+--!nonstrict
 return function()
 	local Root = script.Parent.Parent
 	local RunService = game:GetService("RunService")
-	
+
 	local CorePackages = game:GetService("CorePackages")
 	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local Rodux = PurchasePromptDeps.Rodux
@@ -87,7 +88,6 @@ return function()
 		testThunk(nil, MockExternalSettings.new(false, false, {
 			LuaUseThirdPartyPermissions = true,
 			PermissionsServiceIsThirdPartyPurchaseAllowed = false,
-			HideThirdPartyPurchaseFailure = true,
 		}), store, productInfo, accountInfo, balanceInfo, false, false)
 
 		local state = store:getState()
@@ -158,7 +158,7 @@ return function()
 			expect(mockAnalytics.spies.signalProductPurchaseUpsellShown.callCount).to.equal(1)
 		end)
 	end)
-	
+
 	it("should resolve state to Error if account is short on Robux and FFlagDisableRobuxUpsell = true", function()
 		local store = Rodux.Store.new(Reducer, {})
 

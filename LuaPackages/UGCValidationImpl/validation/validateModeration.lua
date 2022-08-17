@@ -1,3 +1,4 @@
+--!nonstrict
 local root = script.Parent.Parent
 
 local Constants = require(root.Constants)

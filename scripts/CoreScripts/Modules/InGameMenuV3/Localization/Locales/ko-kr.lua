@@ -218,4 +218,5 @@ return{
 	["CoreScripts.InGameMenu.QuickActions.ScreenshotSaved"] = [[스크린샷 저장 완료]],
 	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[공유]],
 	["CoreScripts.InGameMenu.Controls.Scriptable"] = [[스크립터블]],
+	["CoreScripts.InGameMenu.QuickActions.Connecting"] = [[연결 중...]],
 }

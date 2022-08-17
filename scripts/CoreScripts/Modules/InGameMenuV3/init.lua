@@ -1,3 +1,4 @@
+--!nonstrict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
@@ -38,6 +39,7 @@ local InGameMenuPolicy = require(script.InGameMenuPolicy)
 
 local GlobalConfig = require(script.GlobalConfig)
 local Constants = require(script.Resources.Constants)
+local PerfUtils = require(script.Utility.PerfUtils)
 
 local OpenChangedEvent = Instance.new("BindableEvent")
 local RespawnBehaviourChangedEvent = Instance.new("BindableEvent")
@@ -144,6 +146,7 @@ return {
 	end,
 
 	openInGameMenu = function(pageKey)
+		PerfUtils.menuOpenBegin()
 		menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.TopbarButton, pageKey))
 	end,
 

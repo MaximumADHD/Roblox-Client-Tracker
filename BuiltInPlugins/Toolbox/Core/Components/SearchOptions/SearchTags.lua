@@ -10,8 +10,6 @@
 			function Tags.onDelete(table tag) = A callback when the user wants to delete a tag.
 		function OnClearTags = A callback when the user wants to clear all tags.
 ]]
-local FFlagToolboxSearchResultsBackButton = game:GetFastFlag("ToolboxSearchResultsBackButton")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -73,105 +71,53 @@ function SearchTags:createTags(tags)
 end
 
 function SearchTags:createPrompt(searchTerm, theme, localizedContent)
-	if FFlagToolboxSearchResultsBackButton then
-		local textColor = theme.searchTag.textColor
-		local textSize = Constants.FONT_SIZE_SMALL
+	local textColor = theme.searchTag.textColor
+	local textSize = Constants.FONT_SIZE_SMALL
 
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
+		BackgroundTransparency = 1,
+	}, {
+		UIListLayout = Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			FillDirection = Enum.FillDirection.Horizontal,
+			Padding = TEXT_PADDING,
+		}),
+
+		BackToHome = Roact.createElement(LinkText, {
+			LayoutOrder = 1,
+			OnClick = self.props.onBackToHome,
+			Style = "Unobtrusive",
+			Text = self.props.Localization:getText("General", "SearchResultsBackToHome", {
+				-- NB - there is a custom mapping in the Toolbox localization system for categoryName -> string key which is not implemented in the DevFramework system
+				assetType = localizedContent.Category[self.props.categoryName],
+			}),
+		}),
+
+		Prompt = Roact.createElement("TextLabel", {
+			LayoutOrder = 2,
+			Font = Constants.FONT,
+			Text = if searchTerm == "" or searchTerm == nil
+				then localizedContent.SearchResults.SearchResults
+				else localizedContent.SearchResults.SearchResultsKeyword,
+			TextSize = textSize,
+			TextColor3 = textColor,
+			AutomaticSize = Enum.AutomaticSize.XY,
 			BackgroundTransparency = 1,
-		}, {
-			UIListLayout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Horizontal,
-				Padding = TEXT_PADDING,
-			}),
+		}),
 
-			BackToHome = Roact.createElement(LinkText, {
-				LayoutOrder = 1,
-				OnClick = self.props.onBackToHome,
-				Style = "Unobtrusive",
-				Text = self.props.Localization:getText("General", "SearchResultsBackToHome", {
-					-- NB - there is a custom mapping in the Toolbox localization system for categoryName -> string key which is not implemented in the DevFramework system
-					assetType = localizedContent.Category[self.props.categoryName],
-				}),
-			}),
-
-			Prompt = Roact.createElement("TextLabel", {
-				LayoutOrder = 2,
-				Font = Constants.FONT,
-				Text = if searchTerm == "" or searchTerm == nil
-					then localizedContent.SearchResults.SearchResults
-					else localizedContent.SearchResults.SearchResultsKeyword,
-				TextSize = textSize,
-				TextColor3 = textColor,
-				AutomaticSize = Enum.AutomaticSize.XY,
-				BackgroundTransparency = 1,
-			}),
-
-			SearchTerm = Roact.createElement("TextLabel", {
-				LayoutOrder = 3,
-				Font = Constants.FONT_BOLD,
-				Text = (searchTerm or ""),
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextSize = textSize,
-				TextColor3 = textColor,
-				AutomaticSize = Enum.AutomaticSize.XY,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-				BackgroundTransparency = 1,
-			}),
-		})
-	else
-		if searchTerm == "" or searchTerm == nil then
-			local prompt = localizedContent.SearchResults.SearchResults .. ":"
-			return Roact.createElement("TextLabel", {
-				Font = Constants.FONT,
-				Text = prompt,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextSize = Constants.FONT_SIZE_MEDIUM,
-				TextColor3 = theme.searchTag.textColor,
-				Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
-				BackgroundTransparency = 1,
-			})
-		else
-			local prompt = localizedContent.SearchResults.SearchResultsKeyword
-			local promptWidth = GetTextSize(prompt, nil, Constants.FONT_BOLD, Vector2.new(0, 0)).X
-			local searchTermSize = UDim2.new(1, -promptWidth, 0, ITEM_HEIGHT)
-
-			return Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
-				BackgroundTransparency = 1,
-			}, {
-				UIListLayout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = Enum.FillDirection.Horizontal,
-					Padding = TEXT_PADDING,
-				}),
-
-				Prompt = Roact.createElement("TextLabel", {
-					LayoutOrder = 1,
-					Font = Constants.FONT,
-					Text = prompt,
-					TextSize = Constants.FONT_SIZE_MEDIUM,
-					TextColor3 = theme.searchTag.textColor,
-					Size = UDim2.new(0, promptWidth, 0, ITEM_HEIGHT),
-					BackgroundTransparency = 1,
-				}),
-
-				SearchTerm = Roact.createElement("TextLabel", {
-					LayoutOrder = 2,
-					Font = Constants.FONT_BOLD,
-					Text = searchTerm .. ":",
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextSize = Constants.FONT_SIZE_MEDIUM,
-					TextColor3 = theme.searchTag.textColor,
-					Size = searchTermSize,
-					TextTruncate = Enum.TextTruncate.AtEnd,
-					BackgroundTransparency = 1,
-				}),
-			})
-		end
-	end
+		SearchTerm = Roact.createElement("TextLabel", {
+			LayoutOrder = 3,
+			Font = Constants.FONT_BOLD,
+			Text = (searchTerm or ""),
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextSize = textSize,
+			TextColor3 = textColor,
+			AutomaticSize = Enum.AutomaticSize.XY,
+			TextTruncate = Enum.TextTruncate.AtEnd,
+			BackgroundTransparency = 1,
+		}),
+	})
 end
 
 function SearchTags:render()
@@ -205,7 +151,7 @@ function SearchTags:renderContent(theme, DEPRECATED_localization, localizedConte
 			TextColor3 = theme.searchTag.clearAllText,
 			Size = UDim2.new(0, clearAllWidth, 0, ITEM_HEIGHT),
 			-- Position ClearAll to be inline with the text basis of the tag chips
-			Position = UDim2.new(1, 0, 0, if FFlagToolboxSearchResultsBackButton then 29 else 0),
+			Position = UDim2.new(1, 0, 0, 29),
 			AnchorPoint = Vector2.new(1, 0),
 			BackgroundTransparency = 1,
 			LayoutOrder = #tags + 1,
@@ -218,7 +164,7 @@ function SearchTags:renderContent(theme, DEPRECATED_localization, localizedConte
 end
 
 SearchTags = withContext({
-	Localization = if FFlagToolboxSearchResultsBackButton then ContextServices.Localization else nil,
+	Localization = ContextServices.Localization,
 	Stylizer = ContextServices.Stylizer,
 })(SearchTags)
 

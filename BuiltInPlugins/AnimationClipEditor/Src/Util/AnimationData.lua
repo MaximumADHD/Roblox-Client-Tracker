@@ -18,7 +18,6 @@ local deepCopy = require(Plugin.Src.Util.deepCopy)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Cryo = require(Plugin.Packages.Cryo)
 
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 
@@ -86,18 +85,14 @@ function AnimationData.fromCFrameArray(bones, poses, name, frameRate)
 	for boneIndex, boneName in ipairs(bones) do
 		if #poses[boneIndex] > 0 then
 			rootTracks[boneName] = Templates.track(Constants.TRACK_TYPES.CFrame)
-			if GetFFlagChannelAnimations() then
-				rootTracks[boneName].Keyframes = {}
-				rootTracks[boneName].Data = {}
-			end
+			rootTracks[boneName].Keyframes = {}
+			rootTracks[boneName].Data = {}
 			animationData.Metadata.EndTick = math.max(animationData.Metadata.EndTick, #poses[boneIndex])
 			for tck = 1, #poses[boneIndex] do
 				table.insert(rootTracks[boneName].Keyframes, tck)
 				local newKeyframe = Templates.keyframe()
-				if GetFFlagChannelAnimations() then
-					newKeyframe.EasingStyle = Enum.PoseEasingStyle.Linear
-					newKeyframe.EasingDirection = Enum.PoseEasingDirection.In
-				end
+				newKeyframe.EasingStyle = Enum.PoseEasingStyle.Linear
+				newKeyframe.EasingDirection = Enum.PoseEasingDirection.In
 				newKeyframe.Value = poses[boneIndex][tck]
 				rootTracks[boneName].Data[tck] = newKeyframe
 			end
@@ -181,15 +176,13 @@ end
 -- Adds a new track at trackName to the given track.
 function AnimationData.addTrack(tracks, trackName, trackType, isChannelAnimation, rotationType, eulerAnglesOrder)
 	tracks[trackName] = Templates.track(trackType)
-	if GetFFlagChannelAnimations() then
-		if isChannelAnimation then
-			TrackUtils.splitTrackComponents(tracks[trackName], rotationType, eulerAnglesOrder)
-		else
-			tracks[trackName].Keyframes = {}
-			tracks[trackName].Data = {}
-			if GetFFlagCurveEditor() then
-				tracks[trackName].EulerAnglesOrder = eulerAnglesOrder
-			end
+	if isChannelAnimation then
+		TrackUtils.splitTrackComponents(tracks[trackName], rotationType, eulerAnglesOrder)
+	else
+		tracks[trackName].Keyframes = {}
+		tracks[trackName].Data = {}
+		if GetFFlagCurveEditor() then
+			tracks[trackName].EulerAnglesOrder = eulerAnglesOrder
 		end
 	end
 	return tracks[trackName]
@@ -206,34 +199,17 @@ function AnimationData.addKeyframe(track, tck, keyframeData)
 	track.Data[tck] = Cryo.Dictionary.join(track.Data[tck] or Templates.keyframe(), keyframeData)
 end
 
--- Adds a new keyframe at the given tick with the given value.
--- Deprecated when GetFFlagChannelAnimations() is retired
-function AnimationData.addKeyframe_deprecated(track, tck, value)
-	local trackKeyframes = track.Keyframes
-	local insertIndex = KeyframeUtils.findInsertIndex(trackKeyframes, tck)
-	if insertIndex then
-		table.insert(trackKeyframes, insertIndex, tck)
-		track.Data[tck] = Templates.keyframe()
-		track.Data[tck].Value = value
-	end
-end
-
 function AnimationData.addDefaultKeyframe(track, tck, trackType)
-	if GetFFlagChannelAnimations() then
-		local keyframeData = {
-			Value = KeyframeUtils.getDefaultValue(trackType),
-		}
-		if track.IsCurveTrack then
-			keyframeData.InterpolationMode = Enum.KeyInterpolationMode.Cubic
-		else
-			keyframeData.EasingStyle = Enum.PoseEasingStyle.Linear
-			keyframeData.EasingDirection = Enum.PoseEasingDirection.In
-		end
-		AnimationData.addKeyframe(track, tck, keyframeData)
+	local keyframeData = {
+		Value = KeyframeUtils.getDefaultValue(trackType),
+	}
+	if track.IsCurveTrack then
+		keyframeData.InterpolationMode = Enum.KeyInterpolationMode.Cubic
 	else
-		local value = TrackUtils.getDefaultValueByType(trackType)
-		AnimationData.addKeyframe_deprecated(track, tck, value)
+		keyframeData.EasingStyle = Enum.PoseEasingStyle.Linear
+		keyframeData.EasingDirection = Enum.PoseEasingDirection.In
 	end
+	AnimationData.addKeyframe(track, tck, keyframeData)
 end
 
 -- Finds a named keyframe at oldTick and moves it to newTick if it exists
@@ -331,19 +307,12 @@ function AnimationData.setEndTick(data)
 		for _, instance in pairs(data.Instances) do
 			if instance.Tracks then
 				for _, track in pairs(instance.Tracks) do
-					if GetFFlagChannelAnimations() then
-						TrackUtils.traverseTracks(nil, track, function(track)
-							if track.Keyframes and not isEmpty(track.Keyframes) then
-								local lastKey = track.Keyframes[#track.Keyframes]
-								endTick = math.max(endTick, lastKey)
-							end
-						end)
-					else
-						if track.Keyframes then
+					TrackUtils.traverseTracks(nil, track, function(track)
+						if track.Keyframes and not isEmpty(track.Keyframes) then
 							local lastKey = track.Keyframes[#track.Keyframes]
 							endTick = math.max(endTick, lastKey)
 						end
-					end
+					end)
 				end
 			end
 		end
@@ -385,82 +354,32 @@ end
 function AnimationData.removeExtraKeyframes(data)
 	local removed = false
 
-	if GetFFlagChannelAnimations() then
-		if not data or not data.Metadata then
-			return removed
-		end
+	if not data or not data.Metadata then
+		return removed
+	end
 
-		if data and data.Instances and data.Metadata then
-			-- Remove keyframes and Data. Works for tracks and events.
-			local function removeKeyframesAndData(track)
-				if track and track.Keyframes and track.Data then
-					for index, tck in ipairs(track.Keyframes) do
-						if tck > Constants.MAX_ANIMATION_LENGTH then
-							track.Data[tck] = nil
-							track.Keyframes[index] = nil
-							removed = true
-						end
-					end
-				end
-			end
-
-			for _, instance in pairs(data.Instances or {}) do
-				for _, track in pairs(instance.Tracks) do
-					TrackUtils.traverseTracks(nil, track, removeKeyframesAndData, true)
-				end
-			end
-
-			-- Remove events
-			removeKeyframesAndData(data.Events)
-		end
-	else
-		if data and data.Instances and data.Metadata then
-			-- first pass: remove keyframes
-			local keysToRemove = {}
-
-			-- get range of keyframe indices past max tick limit
-			for instanceName, instance in pairs(data.Instances) do
-				keysToRemove[instanceName] = {}
-				for trackName, track in pairs(instance.Tracks) do
-					local minIndex = KeyframeUtils.findNearestKeyframes(track.Keyframes, Constants.MAX_ANIMATION_LENGTH)
-					keysToRemove[instanceName][trackName] = {
-						Start = minIndex,
-						End = #track.Keyframes,
-					}
-				end
-			end
-
-			-- remove each keyframe in range
-			for instance, tracks in pairs(keysToRemove) do
-				for track, range in pairs(tracks) do
-					for i = range.End, range.Start, -1 do
-						local keyframes = data.Instances[instance].Tracks[track].Keyframes
-						local kfData = data.Instances[instance].Tracks[track].Data
-						local tck = keyframes[i]
-						if tck > Constants.MAX_ANIMATION_LENGTH then
-							removed = true
-							kfData[tck] = nil
-							table.remove(keyframes, i)
-						end
-					end
-				end
-			end
-
-			-- second pass: remove events
-			if data.Events and data.Events.Keyframes then
-				local eventsToRemove = {}
-				for _, tck in ipairs(data.Events.Keyframes) do
+	if data and data.Instances and data.Metadata then
+		-- Remove keyframes and Data. Works for tracks and events.
+		local function removeKeyframesAndData(track)
+			if track and track.Keyframes and track.Data then
+				for index, tck in ipairs(track.Keyframes) do
 					if tck > Constants.MAX_ANIMATION_LENGTH then
+						track.Data[tck] = nil
+						track.Keyframes[index] = nil
 						removed = true
-						table.insert(eventsToRemove, tck)
 					end
-				end
-
-				for _, tck in ipairs(eventsToRemove) do
-					AnimationData.deleteEvents(data.Events, tck)
 				end
 			end
 		end
+
+		for _, instance in pairs(data.Instances or {}) do
+			for _, track in pairs(instance.Tracks) do
+				TrackUtils.traverseTracks(nil, track, removeKeyframesAndData, true)
+			end
+		end
+
+		-- Remove events
+		removeKeyframesAndData(data.Events)
 	end
 
 	return removed
@@ -474,39 +393,23 @@ function AnimationData.getSelectionBounds(data, selectedKeyframes)
 	local earliest = Constants.MAX_ANIMATION_LENGTH
 	local latest = 0
 
-	if GetFFlagChannelAnimations() then
-		local function traverse(track)
-			-- Find the extents of the track selection, if any
-			for tck, _ in pairs(track.Selection or {}) do
-				earliest = math.min(tck, earliest)
-				latest = math.max(tck, latest)
-			end
-			for _, component in pairs(track.Components or {}) do
-				traverse(component)
-			end
+	local function traverse(track)
+		-- Find the extents of the track selection, if any
+		for tck, _ in pairs(track.Selection or {}) do
+			earliest = math.min(tck, earliest)
+			latest = math.max(tck, latest)
 		end
-
-		for _, instance in pairs(selectedKeyframes) do
-			for _, track in pairs(instance) do
-				traverse(track)
-			end
-		end
-	else
-		for _, instance in pairs(selectedKeyframes) do
-			for trackName, _ in pairs(instance) do
-				local keyframes = Cryo.Dictionary.keys(instance[trackName])
-				table.sort(keyframes)
-				if keyframes then
-					if keyframes[1] <= earliest then
-						earliest = keyframes[1]
-					end
-					if keyframes[#keyframes] >= latest then
-						latest = keyframes[#keyframes]
-					end
-				end
-			end
+		for _, component in pairs(track.Components or {}) do
+			traverse(component)
 		end
 	end
+
+	for _, instance in pairs(selectedKeyframes) do
+		for _, track in pairs(instance) do
+			traverse(track)
+		end
+	end
+
 	return earliest, latest
 end
 

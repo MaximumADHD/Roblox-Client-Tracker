@@ -23,7 +23,6 @@ local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackIns
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local DraggerWrapper = Roact.PureComponent:extend("DraggerWrapper")
@@ -61,27 +60,21 @@ local function mapDraggerContextToProps(draggerContext, props)
 		end
 
 		for trackName, value in pairs(values) do
-			if GetFFlagChannelAnimations() then
-				local path = {trackName}
-				if not AnimationData.isChannelAnimation(props.AnimationData) then
-					props.ValueChanged(instanceName, path, Constants.TRACK_TYPES.CFrame, props.Playhead, value, props.Analytics)
-				else
-					local rotationType
-					local eulerAnglesOrder = props.DefaultEulerAnglesOrder
-					rotationType = TrackUtils.getRotationTypeFromName(trackName, props.Tracks) or props.DefaultRotationType
-					if GetFFlagCurveEditor() and rotationType == Constants.TRACK_TYPES.EulerAngles then
-						local track = AnimationData.getTrack(props.AnimationData, "Root", path)
-						eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track) or eulerAnglesOrder
-					end
-					-- Change the value of all tracks
-					TrackUtils.traverseValue(Constants.TRACK_TYPES.CFrame, value, function(_trackType, relPath, _value)
-						props.ValueChanged(instanceName, Cryo.List.join(path, relPath), _trackType, props.Playhead, _value, props.Analytics)
-					end, rotationType, eulerAnglesOrder)
-				end
-			elseif GetFFlagFacialAnimationSupport() then
-				props.ValueChanged_deprecated2(instanceName, trackName, Constants.TRACK_TYPES.CFrame, props.Playhead, value, props.Analytics)
+			local path = {trackName}
+			if not AnimationData.isChannelAnimation(props.AnimationData) then
+				props.ValueChanged(instanceName, path, Constants.TRACK_TYPES.CFrame, props.Playhead, value, props.Analytics)
 			else
-				props.ValueChanged_deprecated(instanceName, trackName, props.Playhead, value, props.Analytics)
+				local rotationType
+				local eulerAnglesOrder = props.DefaultEulerAnglesOrder
+				rotationType = TrackUtils.getRotationTypeFromName(trackName, props.Tracks) or props.DefaultRotationType
+				if GetFFlagCurveEditor() and rotationType == Constants.TRACK_TYPES.EulerAngles then
+					local track = AnimationData.getTrack(props.AnimationData, "Root", path)
+					eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track) or eulerAnglesOrder
+				end
+				-- Change the value of all tracks
+				TrackUtils.traverseValue(Constants.TRACK_TYPES.CFrame, value, function(_trackType, relPath, _value)
+					props.ValueChanged(instanceName, Cryo.List.join(path, relPath), _trackType, props.Playhead, _value, props.Analytics)
+				end, rotationType, eulerAnglesOrder)
 			end
 		end
 	end
@@ -158,15 +151,6 @@ local function mapDispatchToProps(dispatch)
 
 		ValueChanged = function(instanceName, path, trackType, tck, value, analytics)
 			dispatch(ValueChanged(instanceName, path, trackType, tck, value, analytics))
-		end,
-
-		ValueChanged_deprecated2 = function(instanceName, trackName, trackType, tck, value, analytics)
-			dispatch(ValueChanged(instanceName, trackName, trackType, tck, value, analytics))
-		end,
-
-		-- Remove when GetFFlagFacialAnimationSupport() and GetFFlagChannelAnimations() are retired
-		ValueChanged_deprecated = function(instanceName, trackName, tck, value, analytics)
-			dispatch(ValueChanged(instanceName, trackName, tck, value, analytics))
 		end,
 
 		AddWaypoint = function()

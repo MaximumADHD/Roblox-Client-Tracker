@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local JestGlobals = require(CorePackages.JestGlobals)
 local jestExpect = JestGlobals.expect

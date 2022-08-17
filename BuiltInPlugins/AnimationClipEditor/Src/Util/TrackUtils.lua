@@ -15,7 +15,6 @@ local Templates = require(Plugin.Src.Util.Templates)
 local Types = require(Plugin.Src.Types)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
@@ -117,55 +116,31 @@ end
 function TrackUtils.getSummaryKeyframes(tracks, startTick, endTick, selectedKeyframes, previewing)
 	local foundTicks = {}
 	local selectedTicks = {}
+	for trackName, track in pairs(tracks) do
+		local instance = track.Instance
+		-- Sometimes, tracks is passed as an array of tracks without a name
+		local name = track.Name or trackName
 
-	if GetFFlagChannelAnimations() then
-		for trackName, track in pairs(tracks) do
-			local instance = track.Instance
-			-- Sometimes, tracks is passed as an array of tracks without a name
-			local name = track.Name or trackName
-
-			TrackUtils.traverseTracks(name, track, function(track, _, path)
-				local keyframes = track.Keyframes
-
-				local selectedTrack = selectedKeyframes and selectedKeyframes[instance] or nil
-				for _, part in ipairs(path) do
-					selectedTrack = selectedTrack and (selectedTrack.Components and selectedTrack.Components[part] or selectedTrack[part])
-						or nil
-				end
-
-				local selection = selectedTrack and selectedTrack.Selection or {}
-				if keyframes and not isEmpty(keyframes) then
-					TrackUtils.traverseKeyframeRange(keyframes, startTick, endTick, function(tck)
-
-						foundTicks[tck] = true
-						if selection[tck] then
-							selectedTicks[tck] = true
-						end
-					end)
-				end
-			end, true)
-		end
-	else
-		for _, track in pairs(tracks) do
-			local instance = track.Instance
-			local name = track.Name
+		TrackUtils.traverseTracks(name, track, function(track, _, path)
 			local keyframes = track.Keyframes
 
-			if keyframes then
-				TrackUtils.traverseKeyframeRange(keyframes, startTick, endTick, function(tck)
-					local selected = selectedKeyframes and selectedKeyframes[instance]
-						and selectedKeyframes[instance][name]
-						and selectedKeyframes[instance][name][tck]
+			local selectedTrack = selectedKeyframes and selectedKeyframes[instance] or nil
+			for _, part in ipairs(path) do
+				selectedTrack = selectedTrack and (selectedTrack.Components and selectedTrack.Components[part] or selectedTrack[part])
+					or nil
+			end
 
-					if not (selected and previewing) then
-						foundTicks[tck] = true
-						if selected then
-							selectedTicks[tck] = true
-						end
+			local selection = selectedTrack and selectedTrack.Selection or {}
+			if keyframes and not isEmpty(keyframes) then
+				TrackUtils.traverseKeyframeRange(keyframes, startTick, endTick, function(tck)
+
+					foundTicks[tck] = true
+					if selection[tck] then
+						selectedTicks[tck] = true
 					end
 				end)
 			end
-		end
+		end, true)
 	end
 
 	local ticks = Cryo.Dictionary.keys(foundTicks)
@@ -211,7 +186,7 @@ end
 
 -- Returns the expanded size of a track based on its type.
 function TrackUtils.getExpandedSize(track)
-	if GetFFlagChannelAnimations() and track.Components then
+	if track.Components then
 		-- If the track has components, rely on them
 		local function recGetExpandedSize(track)
 			local total = 1
@@ -234,40 +209,9 @@ function TrackUtils.getExpandedSize(track)
 	end
 end
 
-if not GetFFlagChannelAnimations() then
-	-- This is moved to KeyframeUtils
-	-- Returns the default value for a new keyframe based on a track type.
-	function TrackUtils.getDefaultValueByType(trackType)
-		if trackType == Constants.TRACK_TYPES.CFrame then
-			return CFrame.new()
-		elseif trackType == Constants.TRACK_TYPES.Facs then
-			return 0
-		end
-
-		assert(false, "No default value defined for type " .. trackType)
-	end
-end
-
-if GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
-	function TrackUtils.getDefaultValue(track)
-		if track and track.Type then
-			if GetFFlagChannelAnimations() then
-				return KeyframeUtils.getDefaultValue(track.Type)
-			else
-				return TrackUtils.getDefaultValueByType(track.Type)
-			end
-		end
-	end
-else
-	function TrackUtils.getDefaultValue(track)
-		if track and track.Type then
-			local trackType = track.Type
-			if trackType == Constants.TRACK_TYPES.CFrame then
-				return CFrame.new()
-			end
-		else
-			return CFrame.new()
-		end
+function TrackUtils.getDefaultValue(track)
+	if track and track.Type then
+		return KeyframeUtils.getDefaultValue(track.Type)
 	end
 end
 
@@ -514,61 +458,21 @@ function TrackUtils.getItemsForProperty(track, value, name, defaultEAO)
 		else
 			xRot, yRot, zRot = value:ToEulerAnglesXYZ()
 		end
-		if GetFFlagChannelAnimations() then
-			xRot = removeNegativeZero(math.deg(xRot))
-			yRot = removeNegativeZero(math.deg(yRot))
-			zRot = removeNegativeZero(math.deg(zRot))
-		end
+		xRot = removeNegativeZero(math.deg(xRot))
+		yRot = removeNegativeZero(math.deg(yRot))
+		zRot = removeNegativeZero(math.deg(zRot))
 		items = {
-			Position = GetFFlagChannelAnimations() and makeVectorItems(position.X, position.Y, position.Z, Constants.TRACK_TYPES.Number) or {
-				{
-					Name = properties.X,
-					Key = "X",
-					Value = position.X,
-					Type = Constants.TRACK_TYPES.Number,
-				},
-				{
-					Name = properties.Y,
-					Key = "Y",
-					Value = position.Y,
-					Type = Constants.TRACK_TYPES.Number,
-				},
-				{
-					Name = properties.Z,
-					Key = "Z",
-					Value = position.Z,
-					Type = Constants.TRACK_TYPES.Number,
-				},
-			},
-			Rotation = GetFFlagChannelAnimations() and makeVectorItems(xRot, yRot, zRot, Constants.TRACK_TYPES.Angle) or {
-				{
-					Name = properties.X,
-					Key = "X",
-					Value = removeNegativeZero(math.deg(xRot)),
-					Type = Constants.TRACK_TYPES.Angle,
-				},
-				{
-					Name = properties.Y,
-					Key = "Y",
-					Value = removeNegativeZero(math.deg(yRot)),
-					Type = Constants.TRACK_TYPES.Angle,
-				},
-				{
-					Name = properties.Z,
-					Key = "Z",
-					Value = removeNegativeZero(math.deg(zRot)),
-					Type = Constants.TRACK_TYPES.Angle,
-				},
-			},
+			Position = makeVectorItems(position.X, position.Y, position.Z, Constants.TRACK_TYPES.Number),
+			Rotation = makeVectorItems(xRot, yRot, zRot, Constants.TRACK_TYPES.Angle),
 		}
-	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Position then
+	elseif trackType == Constants.TRACK_TYPES.Position then
 		items = makeVectorItems(value.X, value.Y, value.Z, Constants.TRACK_TYPES.Number)
-	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.EulerAngles then
+	elseif trackType == Constants.TRACK_TYPES.EulerAngles then
 		items = makeVectorItems(removeNegativeZero(math.deg(value.X)),
 			removeNegativeZero(math.deg(value.Y)),
 			removeNegativeZero(math.deg(value.Z)),
 			Constants.TRACK_TYPES.Angle)
-	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Quaternion then
+	elseif trackType == Constants.TRACK_TYPES.Quaternion then
 		local xRot, yRot, zRot
 		if GetFFlagCurveEditor() then
 			xRot, yRot, zRot = value:ToEulerAngles(eulerAnglesOrder)
@@ -580,7 +484,7 @@ function TrackUtils.getItemsForProperty(track, value, name, defaultEAO)
 			removeNegativeZero(math.deg(zRot)),
 			Constants.TRACK_TYPES.Angle)
 	elseif trackType == Constants.TRACK_TYPES.Facs then
-		if GetFFlagFacsUiChanges() and GetFFlagChannelAnimations() then
+		if GetFFlagFacsUiChanges() then
 			value = math.clamp(value, 0, 1)
 		end
 		items = {
@@ -591,7 +495,7 @@ function TrackUtils.getItemsForProperty(track, value, name, defaultEAO)
 				Type = Constants.TRACK_TYPES.Facs,
 			},
 		}
-	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Angle then
+	elseif trackType == Constants.TRACK_TYPES.Angle then
 		items = {
 			{
 				Name = name,
@@ -627,22 +531,20 @@ function TrackUtils.getPropertyForItems(track, items, defaultEAO)
 		local zRot = math.rad(rotation[3].Value)
 		value = CFrame.new(position[1].Value, position[2].Value, position[3].Value)
 			* CFrame.fromEulerAngles(xRot, yRot, zRot, eulerAnglesOrder)
-	elseif GetFFlagChannelAnimations() then
-		if trackType == Constants.TRACK_TYPES.Position then
-			value = Vector3.new(items[1].Value, items[2].Value, items[3].Value)
-		elseif trackType == Constants.TRACK_TYPES.EulerAngles then
-			value = Vector3.new(math.rad(items[1].Value), math.rad(items[2].Value), math.rad(items[3].Value))
-		elseif trackType == Constants.TRACK_TYPES.Quaternion then
-			value = CFrame.fromEulerAngles(math.rad(items[1].Value), math.rad(items[2].Value), math.rad(items[3].Value), eulerAnglesOrder)
-		elseif trackType == Constants.TRACK_TYPES.Number then
-			value = items[1].Value
-		elseif trackType == Constants.TRACK_TYPES.Angle then
-			value = math.rad(items[1].Value)
-		elseif trackType == Constants.TRACK_TYPES.Facs then
-			value = items[1].Value
-			if GetFFlagFacsUiChanges() then
-				value = math.clamp(value, 0, 1)
-			end
+	elseif trackType == Constants.TRACK_TYPES.Position then
+		value = Vector3.new(items[1].Value, items[2].Value, items[3].Value)
+	elseif trackType == Constants.TRACK_TYPES.EulerAngles then
+		value = Vector3.new(math.rad(items[1].Value), math.rad(items[2].Value), math.rad(items[3].Value))
+	elseif trackType == Constants.TRACK_TYPES.Quaternion then
+		value = CFrame.fromEulerAngles(math.rad(items[1].Value), math.rad(items[2].Value), math.rad(items[3].Value), eulerAnglesOrder)
+	elseif trackType == Constants.TRACK_TYPES.Number then
+		value = items[1].Value
+	elseif trackType == Constants.TRACK_TYPES.Angle then
+		value = math.rad(items[1].Value)
+	elseif trackType == Constants.TRACK_TYPES.Facs then
+		value = items[1].Value
+		if GetFFlagFacsUiChanges() then
+			value = math.clamp(value, 0, 1)
 		end
 	end
 
@@ -918,7 +820,7 @@ function TrackUtils.traverseComponents(trackType, func, rotationType)
 		if compTypes then
 			for _, compName in ipairs(compTypes._Order) do
 				local compType = compTypes[compName]
-				if GetFFlagChannelAnimations() and compName == Constants.PROPERTY_KEYS.Rotation then
+				if compName == Constants.PROPERTY_KEYS.Rotation then
 					compType = rotationType
 				end
 				recurse(compType, Cryo.List.join(relPath, {compName}))
@@ -956,7 +858,7 @@ function TrackUtils.traverseValue(trackType, value, func, rotationType, eulerAng
 			recurse(Constants.TRACK_TYPES.Number, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.X}), _value.X)
 			recurse(Constants.TRACK_TYPES.Number, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Y}), _value.Y)
 			recurse(Constants.TRACK_TYPES.Number, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Z}), _value.Z)
-		elseif _trackType == (GetFFlagChannelAnimations() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation) then
+		elseif _trackType == Constants.TRACK_TYPES.EulerAngles then
 			recurse(Constants.TRACK_TYPES.Angle, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.X}), _value.X)
 			recurse(Constants.TRACK_TYPES.Angle, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Y}), _value.Y)
 			recurse(Constants.TRACK_TYPES.Angle, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Z}), _value.Z)

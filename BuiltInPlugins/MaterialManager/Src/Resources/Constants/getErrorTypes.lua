@@ -5,7 +5,7 @@ export type ErrorType = string
 
 local ErrorTypes: _Types.Map<string, ErrorType> = {
 	FailedUrl = "FailedUrl",
-	FailedToSelectFile = "FailedToSelectFile",
+	FailedToSelectFile = "FailedToSelectFile", -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 	FailedToImportMap = "FailedToImportMap",
 	FailedToUploadFromFileMap = "FailedToUploadFromFileMap",
 	MissingMaterial = "MissingMaterial",

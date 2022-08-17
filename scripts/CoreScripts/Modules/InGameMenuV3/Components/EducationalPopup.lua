@@ -1,3 +1,4 @@
+--!nonstrict
 local GuiService = game:GetService("GuiService")
 local CorePackages = game:GetService("CorePackages")
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")

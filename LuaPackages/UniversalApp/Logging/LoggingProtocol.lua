@@ -1,16 +1,25 @@
---!strict
 local CorePackages = game:GetService("CorePackages")
 local MessageBus = require(CorePackages.UniversalApp.MessageBus)
 local t = require(CorePackages.Packages.t)
 local ArgCheck = require(CorePackages.ArgCheck)
 local Cryo = require(CorePackages.Cryo)
 
+local Types = require(script.Parent.LoggingProtocolTypes)
+
 local EnableLoggingProtocolTelemetryEngineFeature = game:GetEngineFeature("EnableLoggingProtocolTelemetry")
 
 type MessageBus = MessageBus.MessageBus
 type FunctionDescriptor = MessageBus.FunctionDescriptor
 type Table = MessageBus.Table
-type Array<T> = { [number]: T }
+type Array<T> = MessageBus.Array<T>
+
+export type TelemetryEventConfig = Types.TelemetryEventConfig
+export type LoggingProtocol = Types.LoggingProtocol
+
+export type LoggingProtocolModule = LoggingProtocol & {
+	default: LoggingProtocol,
+	new: (messageBus: MessageBus?) -> LoggingProtocol,
+}
 
 local NAME = "Logging"
 local loggedOnce = {}
@@ -34,15 +43,6 @@ local StandardizedFields = {
 	addSessionId = "addSessionId",
 }
 
-export type TelemetryEventConfig = {
-	eventName: string,
-	backends: Array<string>,
-	throttlingPercentage: number?,
-	lastUpdated: Array<number>?,
-	description: string?,
-	links: string?,
-}
-
 -- Descriptor param validator
 local paramsValidator = t.strictInterface({
 	eventName = t.string,
@@ -63,7 +63,7 @@ local sendTelemetryValidator = t.strictInterface({
 	standardizedFields = t.optional(t.keys(t.valueOf(StandardizedFields))),
 })
 
-local LoggingProtocol = {
+local LoggingProtocol: LoggingProtocolModule = {
 	TelemetryBackends = TelemetryBackends,
 	StandardizedFields = StandardizedFields,
 
@@ -80,39 +80,9 @@ local LoggingProtocol = {
 		fid = MessageBus.getMessageId(NAME, "sendRobloxTelemetry"),
 		validateParams = sendTelemetryValidator,
 	},
-}
+} :: LoggingProtocolModule
 
-LoggingProtocol.__index = LoggingProtocol
-
-export type LoggingProtocol = {
-	-- Static
-	LOG_EVENT_WITH_TIMESTAMP_DESCRIPTOR: FunctionDescriptor,
-	GET_TIMESTAMP_DESCRIPTOR: FunctionDescriptor,
-	SEND_ROBLOX_TELEMETRY_DESCRIPTOR: FunctionDescriptor,
-
-	default: LoggingProtocol,
-	new: (messageBus: MessageBus?) -> LoggingProtocol,
-
-	TelemetryBackends: Table,
-	StandardizedFields: Table,
-
-	-- Public
-	logEventWithTimestamp: (LoggingProtocol, eventName: string, timestamp: number, metadata: Table?) -> (),
-	logEvent: (LoggingProtocol, eventName: string, metadata: Table?) -> (),
-	logEventOnce: (LoggingProtocol, eventName: string, metadata: Table?) -> (),
-	getTimestamp: (LoggingProtocol) -> number,
-	-- For RobloxTelemetry
-	logRobloxTelemetryEvent: (
-		LoggingProtocol,
-		eventConfig: TelemetryEventConfig,
-		standardizedFields: Array<string>?,
-		customFields: Table?) -> (),
-	logEphemeralCounterEvent: (LoggingProtocol, eventConfig: TelemetryEventConfig, incrementValue: number?) -> (),
-	logEphemeralStatEvent: (LoggingProtocol, eventConfig: TelemetryEventConfig, statValue: number) -> (),
-
-	-- Private
-	messageBus: MessageBus,
-}
+(LoggingProtocol :: any).__index = LoggingProtocol
 
 function LoggingProtocol.new(messageBus: MessageBus?): LoggingProtocol
 	local self = {

@@ -1,3 +1,4 @@
+--!nonstrict
 local CoreGui = game:GetService("CoreGui")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")

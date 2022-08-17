@@ -1,21 +1,23 @@
 return function()
+	local CorePackages = game:GetService("CorePackages")
+	local t = require(CorePackages.Packages.t)
+	
 	local TableUtilities = require(script.Parent.TableUtilities)
-	local NotForProductionUse = game:GetService("CoreGui").RobloxGui.Modules.NotForProductionUse
-	local expectedFields = require(NotForProductionUse.UnitTestHelpers.expectedFields)
 
 	describe("alias wrapper", function()
 		it("SHOULD have all required fields", function()
-			expectedFields(TableUtilities,  {
-				"CheckListConsistency",
-				"DeepEqual",
-				"EqualKey",
-				"FieldCount",
-				"ListDifference",
-				"Print",
-				"RecursiveToString",
-				"ShallowEqual",
-				"TableDifference",
+			local interface = t.strictInterface({
+				CheckListConsistency = t.callback,
+				DeepEqual = t.callback,
+				EqualKey = t.callback,
+				FieldCount = t.callback,
+				ListDifference = t.callback,
+				Print = t.callback,
+				RecursiveToString = t.callback,
+				ShallowEqual = t.callback,
+				TableDifference = t.callback,
 			})
+			assert(interface(TableUtilities))
 		end)
 	end)
 

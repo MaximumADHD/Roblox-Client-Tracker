@@ -48,6 +48,7 @@ local MakePluginActions = require(UtilFolder.MakePluginActions)
 local Constants = require(UtilFolder.Constants)
 local ColumnResizeHelperFunctions = require(UtilFolder.ColumnResizeHelperFunctions)
 
+local FFlagOnlyLoadOneCallstack = require(PluginRoot.Src.Flags.GetFFlagOnlyLoadOneCallstack)
 local FFlagDevFrameworkExpandColumnOnDoubleClickDragbar = game:GetFastFlag("DevFrameworkExpandColumnOnDoubleClickDragbar")
 
 local DisplayTable = Roact.PureComponent:extend("DisplayTable")
@@ -491,9 +492,9 @@ DisplayTable = RoactRodux.connect(function(state, props)
 	local watch = state.Watch
 	local tabState = watch.currentTab
 	local isVariablesTab = (tabState == TableTab.Variables)
-
 	local threadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
-	local frameNumber = (threadId and common.currentFrameMap[common.currentDebuggerConnectionId] and common.currentFrameMap[common.currentDebuggerConnectionId][threadId]) or nil
+
+	local frameNumber = (threadId and common.currentFrameMap[common.currentDebuggerConnectionId] and common.currentFrameMap[common.currentDebuggerConnectionId][threadId]) or (if FFlagOnlyLoadOneCallstack() then 1 else nil)
 	local token = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
 	local watchVars = token and watch.stateTokenToRoots[token] or nil
 

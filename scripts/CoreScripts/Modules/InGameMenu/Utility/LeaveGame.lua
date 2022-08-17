@@ -1,3 +1,4 @@
+--!nonstrict
 
 local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")

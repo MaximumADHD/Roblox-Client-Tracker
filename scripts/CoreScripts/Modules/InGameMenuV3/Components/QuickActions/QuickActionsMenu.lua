@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -30,7 +31,6 @@ local QuickActionsMenu = Roact.PureComponent:extend("QuickActionsMenu")
 local QUICK_ACTIONS_BUTTON_PADDING = 12
 local QUICK_ACTIONS_CORNER_RADIUS = 8
 local QUICK_ACTIONS_PADDING = 8
-local QUICK_ACTIONS_WIDTH = 60
 
 QuickActionsMenu.validateProps = t.strictInterface({
 	layoutOrder = t.number,
@@ -39,7 +39,11 @@ QuickActionsMenu.validateProps = t.strictInterface({
 	voiceEnabled = t.boolean,
 	respawnEnabled = t.boolean,
 	screenshotEnabled = t.boolean,
+	size = t.UDim2,
+	automaticSize = t.enum(Enum.AutomaticSize),
 	closeMenu = t.callback,
+	fillDirection = t.enum(Enum.FillDirection),
+	isHorizontal = t.boolean,
 })
 
 function QuickActionsMenu:init()
@@ -90,6 +94,50 @@ function QuickActionsMenu:init()
 	end
 end
 
+local function updateHorizontalTransparency(props)
+	local transparency = {
+		respawn = props.transparencies.button5,
+		screenshot = props.transparencies.button4,
+		report = props.transparencies.button3,
+		muteAll = props.transparencies.button2,
+		muteSelf = props.transparencies.button1,
+	}
+	if props.respawnEnabled then
+		if not props.screenshotEnabled then
+			if props.voiceEnabled then
+				transparency.respawn = props.transparencies.button4
+				transparency.report = props.transparencies.button3
+				transparency.muteAll = props.transparencies.button2
+				transparency.muteSelf = props.transparencies.button1
+			else
+				transparency.respawn = props.transparencies.button2
+				transparency.report = props.transparencies.button1
+			end
+		end
+	else
+		if props.screenshotEnabled then
+			if props.voiceEnabled then
+				transparency.screenshot = props.transparencies.button4
+				transparency.report = props.transparencies.button3
+				transparency.muteAll = props.transparencies.button2
+				transparency.muteSelf = props.transparencies.button1
+			else
+				transparency.screenshot = props.transparencies.button2
+				transparency.report = props.transparencies.button1
+			end
+		else
+			if props.voiceEnabled then
+				transparency.report = props.transparencies.button3
+				transparency.muteAll = props.transparencies.button2
+				transparency.muteSelf = props.transparencies.button1
+			else
+				transparency.report = props.transparencies.button1
+			end
+		end
+	end
+	return transparency
+end
+
 local function updateTransparency(props)
 	local transparency = {
 		respawn = props.transparencies.button1,
@@ -121,11 +169,11 @@ end
 
 function QuickActionsMenu:render()
 	return withStyle(function(style)
-		local transparency = updateTransparency(self.props)
+		local transparency = self.props.isHorizontal and updateHorizontalTransparency(self.props) or updateTransparency(self.props)
 		return Roact.createElement("Frame", {
 			LayoutOrder = self.props.layoutOrder,
-			Size = UDim2.new(0, QUICK_ACTIONS_WIDTH, 0, 0),
-			AutomaticSize = Enum.AutomaticSize.Y,
+			Size = self.props.size,
+			AutomaticSize = self.props.automaticSize,
 			BackgroundColor3 = style.Theme.UIMuted.Color,
 			BackgroundTransparency = self.props.transparencies.frame,
 		}, {
@@ -139,8 +187,9 @@ function QuickActionsMenu:render()
 				CornerRadius = UDim.new(0, QUICK_ACTIONS_CORNER_RADIUS),
 			}),
 			Layout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
+				FillDirection = self.props.fillDirection,
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
 				Padding = UDim.new(0, QUICK_ACTIONS_BUTTON_PADDING),
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),

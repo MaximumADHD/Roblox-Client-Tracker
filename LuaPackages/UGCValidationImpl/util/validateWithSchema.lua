@@ -1,3 +1,4 @@
+--!nonstrict
 local function checkName(nameList, instanceName)
 	if type(nameList) == "table" then
 		for _, name in pairs(nameList) do

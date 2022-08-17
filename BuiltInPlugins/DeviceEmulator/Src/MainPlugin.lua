@@ -26,6 +26,8 @@ local LocalizedStrings = main.Src.Resources.Localization.LocalizedStrings
 
 local GraphicsPane = require(main.Src.Components.GraphicsPane)
 local NetworkPane = require(main.Src.Components.NetworkPane)
+local MultiTouchPane = require(main.Src.Components.MultiTouchPane)
+local MultiTouchController = require(main.Src.Controllers.MultiTouchController)
 
 local UI = Framework.UI
 local Pane = UI.Pane
@@ -34,6 +36,11 @@ local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
 require(main.Bin.defineLuaFlags)
 
+local checkFFlagStudioEnableMultiTouchGestureEmulation = function()
+	return game:GetFastFlag("StudioEnableMultiTouchGestureEmulation")
+		and game:GetFastFlag("StudioViewportStateInPlatform2")
+		and game:GetFastFlag("StudioUnlockMouseWhenEmulating")
+end
 
 export type Props = {
 	OnClick: () -> (),
@@ -66,13 +73,13 @@ function MainPlugin:init(_props)
 
 	self.onRestore = function(enabled)
 		self:setState({
-			enabled = enabled
+			enabled = enabled,
 		})
 	end
 
 	self.onWidgetEnabledChanged = function(widget)
 		self:setState({
-			enabled = widget.Enabled
+			enabled = widget.Enabled,
 		})
 	end
 
@@ -84,6 +91,16 @@ function MainPlugin:init(_props)
 	self.analytics = ContextServices.Analytics.new(function()
 		return {}
 	end, {})
+
+	if checkFFlagStudioEnableMultiTouchGestureEmulation() then
+		self.multiTouchController = MultiTouchController.new()
+	end
+end
+
+function MainPlugin:willUnmount()
+	if self.multiTouchController then
+		self.multiTouchController:destroy()
+	end
 end
 
 function MainPlugin:renderButtons(toolbar)
@@ -110,7 +127,12 @@ function MainPlugin:render()
 	local enabled = state.enabled
 
 	local graphicsPane = Roact.createElement(GraphicsPane, {})
-  local networkPane = Roact.createElement(NetworkPane, {})
+	local networkPane = Roact.createElement(NetworkPane, {})
+
+	local multiTouchPane = nil
+	if checkFFlagStudioEnableMultiTouchGestureEmulation() then
+		multiTouchPane = Roact.createElement(MultiTouchPane, {})
+	end
 
 	return ContextServices.provide({
 		Plugin.new(plugin),
@@ -141,7 +163,7 @@ function MainPlugin:render()
 			MainPane = Roact.createElement(Pane, {
 				Style = "Box",
 				Size = UDim2.fromScale(1, 1),
-				Position = UDim2.fromOffset(0, 0)
+				Position = UDim2.fromOffset(0, 0),
 			}, {
 				ContainerPane = Roact.createElement(Pane, {
 					AutomaticSize = Enum.AutomaticSize.Y,
@@ -152,10 +174,11 @@ function MainPlugin:render()
 					Spacing = 5,
 				}, {
 					GraphicsPane = graphicsPane,
-					NetworkPane = networkPane
-				})
-			})
-		})
+					NetworkPane = networkPane,
+					MultiTouchPane = multiTouchPane,
+				}),
+			}),
+		}),
 	})
 end
 

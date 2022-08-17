@@ -291,6 +291,7 @@ local PluginTheme = {
 		deleteButton = {
 			size = 32,
 			xOffset = 6,
+			hovered = _StyleKey.Dropdown,
 		},
 
 		permissionEditor = {

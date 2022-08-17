@@ -29,7 +29,8 @@ local WhisperModule = require(commandModules:WaitForChild("Whisper"))
 local MessageSender = require(modulesFolder:WaitForChild("MessageSender"))
 
 local ChatLocalization = nil
-pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization :: any) end)
+-- ROBLOX FIXME: Can we define ClientChatModules statically in the project config
+pcall(function() ChatLocalization = require((game:GetService("Chat") :: any).ClientChatModules.ChatLocalization :: any) end)
 if ChatLocalization == nil then ChatLocalization = {} function ChatLocalization:Get(key,default) return default end end
 
 --////////////////////////////// Methods

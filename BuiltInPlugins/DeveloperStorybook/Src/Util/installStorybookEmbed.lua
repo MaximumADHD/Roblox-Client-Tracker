@@ -89,6 +89,7 @@ local function installStorybookEmbed(parent: Instance)
 	createPackageLink("Roact", SrcPackages)
 	createPackageLink("RoactRodux", SrcPackages)
 	createPackageLink("Rodux", SrcPackages)
+	createPackageLink("TestLoader", SrcPackages)
 
 	root.Parent = parent
 	return root

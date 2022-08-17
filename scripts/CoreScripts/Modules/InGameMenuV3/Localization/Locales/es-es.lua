@@ -218,4 +218,5 @@ return{
 	["CoreScripts.InGameMenu.QuickActions.ScreenshotSaved"] = [[Captura guardada]],
 	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[Compartir]],
 	["CoreScripts.InGameMenu.Controls.Scriptable"] = [[Ejecutar scripts]],
+	["CoreScripts.InGameMenu.QuickActions.Connecting"] = [[Conectando...]],
 }

@@ -40,7 +40,6 @@ local StringUtils = require(Plugin.Src.Util.StringUtils)
 local ScaleHandle = require(Plugin.Src.Components.ScaleControls.ScaleHandle)
 local TimeTag = require(Plugin.Src.Components.ScaleControls.TimeTag)
 
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
@@ -115,43 +114,28 @@ function ScaleControls:init()
 	self.calculateScaleHandleExtents = function(selectionData)
 		local props = self.props
 
-		local tracks = props.Tracks
-		local topTrackIndex = props.TopTrackIndex
 		local startTick = props.StartTick
 		local endTick = props.EndTick
 		local trackWidth = props.DopeSheetWidth
 
-		if GetFFlagChannelAnimations() then
-			if GetFFlagCurveEditor() and props.UseFullHeight then
+		if GetFFlagCurveEditor() and props.UseFullHeight then
+			return {
+				left = TrackUtils.getScaledKeyframePosition(selectionData.earliestKeyframe, startTick, endTick, trackWidth),
+				right = TrackUtils.getScaledKeyframePosition(selectionData.latestKeyframe, startTick, endTick, trackWidth),
+			}
+		else
+			local topLine, bottomLine = self.getSelectionChannelExtents(selectionData)
+
+			if topLine and bottomLine then
 				return {
+					top = Constants.SUMMARY_TRACK_HEIGHT + (topLine - 1) * Constants.TRACK_HEIGHT,
+					bottom = Constants.SUMMARY_TRACK_HEIGHT + bottomLine * Constants.TRACK_HEIGHT,
 					left = TrackUtils.getScaledKeyframePosition(selectionData.earliestKeyframe, startTick, endTick, trackWidth),
 					right = TrackUtils.getScaledKeyframePosition(selectionData.latestKeyframe, startTick, endTick, trackWidth),
 				}
 			else
-				local topLine, bottomLine = self.getSelectionChannelExtents(selectionData)
-
-				if topLine and bottomLine then
-					return {
-						top = Constants.SUMMARY_TRACK_HEIGHT + (topLine - 1) * Constants.TRACK_HEIGHT,
-						bottom = Constants.SUMMARY_TRACK_HEIGHT + bottomLine * Constants.TRACK_HEIGHT,
-						left = TrackUtils.getScaledKeyframePosition(selectionData.earliestKeyframe, startTick, endTick, trackWidth),
-						right = TrackUtils.getScaledKeyframePosition(selectionData.latestKeyframe, startTick, endTick, trackWidth),
-					}
-				else
-					return nil
-				end
+				return nil
 			end
-		else
-			table.sort(selectionData.trackIndices)
-			local topSelectedTrackIndex = selectionData.trackIndices[1]
-			local bottomSelectedTrackIndex = selectionData.trackIndices[#selectionData.trackIndices]
-
-			return {
-				top = TrackUtils.getTrackYPosition(tracks, topTrackIndex, topSelectedTrackIndex),
-				bottom =TrackUtils.getTrackYPosition(tracks, topTrackIndex, bottomSelectedTrackIndex) + Constants.TRACK_HEIGHT,
-				left = TrackUtils.getScaledKeyframePosition(selectionData.earliestKeyframe, startTick, endTick, trackWidth),
-				right = TrackUtils.getScaledKeyframePosition(selectionData.latestKeyframe, startTick, endTick, trackWidth),
-			}
 		end
 	end
 
@@ -163,68 +147,54 @@ function ScaleControls:init()
 		local topSelectedChannelIndex = nil
 		local bottomSelectedChannelIndex = nil
 
-		if GetFFlagChannelAnimations() then
-			local function traverse(track, trackIndex, path)
-				if track.Selection then
-					if not GetFFlagCurveEditor() or not self.props.UseFullHeight then
-						-- This component has a selection. Calculate the path value, add it
-						-- to the trackIndex, and check if the result extends the current
-						-- trackRange
+		local function traverse(track, trackIndex, path)
+			if track.Selection then
+				if not GetFFlagCurveEditor() or not self.props.UseFullHeight then
+					-- This component has a selection. Calculate the path value, add it
+					-- to the trackIndex, and check if the result extends the current
+					-- trackRange
 
-						local pathValue = PathUtils.getPathValue(path)
-						local componentIndex = trackIndex + pathValue
-						if topSelectedChannelIndex == nil then
-							topSelectedChannelIndex = componentIndex
-							bottomSelectedChannelIndex = componentIndex
-						else
-							topSelectedChannelIndex = math.min(topSelectedChannelIndex, componentIndex)
-							bottomSelectedChannelIndex = math.max(bottomSelectedChannelIndex, componentIndex)
-						end
-					end
-
-					-- Calculate the extents of the selection
-					for tck, _ in pairs(track.Selection or {}) do
-						earliestKeyframe = math.min(earliestKeyframe, tck)
-						latestKeyframe = math.max(latestKeyframe, tck)
-					end
-				end
-				for componentName, component in pairs(track.Components or {}) do
-					local componentPath = Cryo.List.join(path, {componentName})
-					traverse(component, trackIndex, componentPath)
-				end
-			end
-
-			for _, instance in pairs(selectionData) do
-				for trackName, track in pairs(instance) do
-					if not GetFFlagCurveEditor() or not self.props.UseFullHeight then
-						local trackIndex = TrackUtils.getTrackIndex(self.props.Tracks, trackName)
-						if trackIndex then
-							traverse(track, trackIndex, {})
-						end
+					local pathValue = PathUtils.getPathValue(path)
+					local componentIndex = trackIndex + pathValue
+					if topSelectedChannelIndex == nil then
+						topSelectedChannelIndex = componentIndex
+						bottomSelectedChannelIndex = componentIndex
 					else
-						traverse(track, nil, {})
+						topSelectedChannelIndex = math.min(topSelectedChannelIndex, componentIndex)
+						bottomSelectedChannelIndex = math.max(bottomSelectedChannelIndex, componentIndex)
 					end
 				end
+
+				-- Calculate the extents of the selection
+				for tck, _ in pairs(track.Selection or {}) do
+					earliestKeyframe = math.min(earliestKeyframe, tck)
+					latestKeyframe = math.max(latestKeyframe, tck)
+				end
 			end
-		else
-			for _, instance in pairs(selectionData) do
-				for trackName, keyframes in pairs(instance) do
+			for componentName, component in pairs(track.Components or {}) do
+				local componentPath = Cryo.List.join(path, {componentName})
+				traverse(component, trackIndex, componentPath)
+			end
+		end
+
+		for _, instance in pairs(selectionData) do
+			for trackName, track in pairs(instance) do
+				if not GetFFlagCurveEditor() or not self.props.UseFullHeight then
 					local trackIndex = TrackUtils.getTrackIndex(self.props.Tracks, trackName)
-					table.insert(trackIndices, trackIndex)
-					for key, _ in pairs(keyframes) do
-						earliestKeyframe = math.min(earliestKeyframe, key)
-						latestKeyframe = math.max(latestKeyframe, key)
+					if trackIndex then
+						traverse(track, trackIndex, {})
 					end
+				else
+					traverse(track, nil, {})
 				end
 			end
 		end
 
 		return {
-			trackIndices = not GetFFlagChannelAnimations() and trackIndices or nil,
 			earliestKeyframe = earliestKeyframe,
 			latestKeyframe = latestKeyframe,
-			topSelectedChannelIndex = GetFFlagChannelAnimations() and topSelectedChannelIndex or nil,
-			bottomSelectedChannelIndex = GetFFlagChannelAnimations() and bottomSelectedChannelIndex or nil,
+			topSelectedChannelIndex = topSelectedChannelIndex or nil,
+			bottomSelectedChannelIndex = bottomSelectedChannelIndex or nil,
 		}
 	end
 end
@@ -246,7 +216,7 @@ function ScaleControls:render()
 
 	local selectionData = self.getSelectionData()
 	local extents = self.calculateScaleHandleExtents(selectionData)
-	if GetFFlagChannelAnimations() and not extents then
+	if not extents then
 		return
 	end
 

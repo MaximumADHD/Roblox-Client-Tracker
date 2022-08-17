@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Connects relevant Roblox engine events to the rodux store
 ]]

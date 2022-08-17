@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local UserInputService = game:GetService("UserInputService")
 local ContextActionService = game:GetService("ContextActionService")
@@ -19,8 +20,6 @@ local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnecti
 local FocusHandler = require(script.Parent.Connection.FocusHandler)
 local Slider = require(script.Parent.Slider)
 local AssetImage = require(script.Parent.AssetImage)
-
-local FFlagFixInGameMenuSliderClamping = game:DefineFastFlag("FixInGameMenuSliderClamping", false)
 
 local SliderWithInput = Roact.PureComponent:extend("SliderWithInput")
 SliderWithInput.defaultProps = {
@@ -187,9 +186,7 @@ function SliderWithInput:renderWithSelectionCursor(getSelectionCursor)
 								props.min,
 								props.max)
 
-							if FFlagFixInGameMenuSliderClamping then
-								rbx.Text = tostring(newValue)
-							end
+							rbx.Text = tostring(newValue)
 
 							if newValue ~= props.value then
 								props.valueChanged(newValue)

@@ -44,7 +44,6 @@ local TextEntryPrompt = require(Plugin.Src.Components.TextEntryPrompt)
 local NoticeToast = require(Plugin.Src.Components.Toast.NoticeToast)
 
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
-local SelectKeyframe = require(Plugin.Src.Thunks.Selection.SelectKeyframe)
 local SelectKeyframeRange = require(Plugin.Src.Thunks.Selection.SelectKeyframeRange)
 local DeselectKeyframe = require(Plugin.Src.Thunks.Selection.DeselectKeyframe)
 local SelectKeyframesAtTick = require(Plugin.Src.Thunks.Selection.SelectKeyframesAtTick)
@@ -65,7 +64,6 @@ local Pause = require(Plugin.Src.Actions.Pause)
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFixButtonStyle = require(Plugin.LuaFlags.GetFFlagFixButtonStyle)
 local GetFFlagCurveEditorFreeZoom = require(Plugin.LuaFlags.GetFFlagCurveEditorFreeZoom)
@@ -121,7 +119,7 @@ function DopeSheetController:init()
 		local yPos = position.Y - self.state.AbsolutePosition.Y
 		local isChannelAnimation = self.props.IsChannelAnimation
 
-		if GetFFlagChannelAnimations() and isChannelAnimation then
+		if isChannelAnimation then
 			local trackIndex, path = TrackUtils.getTrackInfoFromPosition(self.tracks, topTrackIndex, yPos)
 			return trackIndex + PathUtils.getPathValue(PathUtils.getRelativePath(path))
 		else
@@ -256,7 +254,7 @@ function DopeSheetController:init()
 		end
 
 		for trackIndex, track in ipairs(self.tracks) do
-			if GetFFlagChannelAnimations() and isChannelAnimation then
+			if isChannelAnimation then
 				local visitedPaths = {}
 
 				-- Find all the tracks (and their components) that are within the selection range
@@ -271,13 +269,7 @@ function DopeSheetController:init()
 				end)
 			else
 				if trackIndex >= minTrack and trackIndex <= maxTrack then
-					if GetFFlagChannelAnimations() then
-						props.SelectKeyframeRange(track.Instance, {track.Name}, minTick, maxTick, true)
-					elseif track.Keyframes then
-						TrackUtils.traverseKeyframeRange(track.Keyframes, minTick, maxTick, function(tck)
-							props.SelectKeyframe(track.Instance, track.Name, tck, true)
-						end)
-					end
+					props.SelectKeyframeRange(track.Instance, {track.Name}, minTick, maxTick, true)
 				end
 			end
 		end
@@ -409,40 +401,30 @@ function DopeSheetController:handleTimelineInputEnded(input)
 		self.mouseDownInTimeline = false
 
 	elseif input.UserInputType == Enum.UserInputType.MouseButton2 then
-		if GetFFlagChannelAnimations() then
-			local path
-			local track, trackIndex, trackType, rotationType
-			local isChannelAnimation = self.props.IsChannelAnimation
+		local path
+		local track, trackIndex, trackType, rotationType
+		local isChannelAnimation = self.props.IsChannelAnimation
 
-			if isChannelAnimation then
-				trackIndex, path, trackType, rotationType = self.getTrackInfoFromPosition(input.Position)
-				track = self.tracks[trackIndex]
-			else
-				trackIndex = self.getTrackFromPosition(input.Position)
-				track = self.tracks[trackIndex]
-				if track then
-					path = {track.Name}
-					trackType = track.Type
-					rotationType = TrackUtils.getRotationType(track)
-				end
-			end
-
-			self.props.SetRightClickContextInfo({
-				Tick = self.getTickFromPosition(input.Position, true),
-				Path = path,
-				TrackType = trackType,
-				RotationType = rotationType,
-				InstanceName = track and track.Instance or nil,
-			})
+		if isChannelAnimation then
+			trackIndex, path, trackType, rotationType = self.getTrackInfoFromPosition(input.Position)
+			track = self.tracks[trackIndex]
 		else
-			local track = self.tracks[self.getTrackFromPosition(input.Position)]
-			self.props.SetRightClickContextInfo({
-				Tick = self.getTickFromPosition(input.Position, true),
-				TrackName = track and track.Name or nil,
-				TrackType = GetFFlagFacialAnimationSupport() and (track and track.Type) or nil,
-				InstanceName = track and track.Instance or nil,
-			})
+			trackIndex = self.getTrackFromPosition(input.Position)
+			track = self.tracks[trackIndex]
+			if track then
+				path = {track.Name}
+				trackType = track.Type
+				rotationType = TrackUtils.getRotationType(track)
+			end
 		end
+
+		self.props.SetRightClickContextInfo({
+			Tick = self.getTickFromPosition(input.Position, true),
+			Path = path,
+			TrackType = trackType,
+			RotationType = rotationType,
+			InstanceName = track and track.Instance or nil,
+		})
 		self.showMenu()
 	end
 end
@@ -457,11 +439,7 @@ function DopeSheetController:handleKeyframeRightClick(instance, path, tck, selec
 			-- User selected a summary keyframe
 			self.props.SelectKeyframesAtTick(tck)
 		else
-			if GetFFlagChannelAnimations() then
-				self.props.SelectKeyframeRange(instance, path, tck, tck, false)
-			else
-				self.props.SelectKeyframe(instance, path, tck, false)
-			end
+			self.props.SelectKeyframeRange(instance, path, tck, tck, false)
 		end
 	end
 	if instance == nil then
@@ -487,11 +465,7 @@ function DopeSheetController:handleKeyframeInputBegan(instance, path, tck, selec
 			end
 		else
 			if instance then
-				if GetFFlagChannelAnimations() then
-					self.props.SelectKeyframeRange(instance, path, tck, tck, self.isMultiSelecting)
-				else
-					self.props.SelectKeyframe(instance, path, tck, self.isMultiSelecting)
-				end
+				self.props.SelectKeyframeRange(instance, path, tck, tck, self.isMultiSelecting)
 			else
 				self.props.SelectKeyframesAtTick(tck, self.isMultiSelecting)
 			end
@@ -540,21 +514,12 @@ function DopeSheetController:makeTracks()
 	end
 
 	for index, trackEntry in ipairs(trackEntries) do
-		if GetFFlagChannelAnimations() then
-			newTrackEntries[index] = deepCopy(trackEntry)
-		else
-			newTrackEntries[index] = Cryo.Dictionary.join(trackEntry)
-		end
+		newTrackEntries[index] = deepCopy(trackEntry)
 		if data then
 			for _, instance in pairs(data.Instances) do
 				for trackName, trackData in pairs(instance.Tracks) do
 					if trackEntry.Name == trackName then
-						if GetFFlagChannelAnimations() then
-							mergeTrackIntoTrackEntry(newTrackEntries[index], trackData)
-						else
-							newTrackEntries[index].Keyframes = trackData.Keyframes
-							newTrackEntries[index].Data = trackData.Data
-						end
+						mergeTrackIntoTrackEntry(newTrackEntries[index], trackData)
 					end
 				end
 			end
@@ -882,11 +847,6 @@ local function mapDispatchToProps(dispatch)
 		SelectKeyframeRange = function(instanceName, componentPath, minTick, maxTick, multiSelect)
 			dispatch(SetSelectedEvents({}))
 			dispatch(SelectKeyframeRange(instanceName, componentPath, minTick, maxTick, multiSelect))
-		end,
-
-		SelectKeyframe = function(instanceName, path, tck, multiSelect)
-			dispatch(SetSelectedEvents({}))
-			dispatch(SelectKeyframe(instanceName, path, tck, multiSelect))
 		end,
 
 		SelectKeyframesAtTick = function(tck, multiSelect)

@@ -15,9 +15,16 @@ return function()
 
 	local wrappedComponent = withInGameMenuV3Providers(InspectAndBuyPage)
 
+	local mockAssets = {
+		{assetId = "111"},
+		{assetId = "222"},
+		{assetId = "333"},
+	}
+
 	local initState = {
 		inspectAndBuy = {
-			DisplayName = "DisplayNameTest"
+			DisplayName = "DisplayNameTest",
+			Assets = mockAssets,
 		}
 	}
 
@@ -46,6 +53,24 @@ return function()
 					local title = Element.new(titlePath)
 					expect(title:waitForRbxInstance(1)).to.be.ok()
 					expect(title:getAttribute("Text")).to.equal("DisplayNameTest")
+				end,
+				wrappedComponent, Reducer, initState, nil)
+			end)
+
+			it("should display the correct number tiles", function()
+				withServices(function(path)
+					path = XPath.new(path)
+					local baseWidget = Element.new(path)
+					expect(baseWidget:waitForRbxInstance(1)).to.be.ok()
+
+					local scrollingFramePath = path:cat(XPath.new("PageContainer.ScrollingFrame"))
+					local scrollingFrame = Element.new(scrollingFramePath)
+					expect(scrollingFrame:waitForRbxInstance(1)).to.be.ok()
+					expect(#scrollingFrame:getRbxInstance():getChildren()).to.equal(5)
+					
+					local asset1Path = scrollingFramePath:cat(XPath.new("111"))
+					local asset1 = Element.new(asset1Path)
+					expect(asset1:waitForRbxInstance(1)).to.be.ok()
 				end,
 				wrappedComponent, Reducer, initState, nil)
 			end)

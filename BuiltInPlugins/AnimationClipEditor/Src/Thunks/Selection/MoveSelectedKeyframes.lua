@@ -22,7 +22,6 @@ local Constants = require(Plugin.Src.Util.Constants)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local SelectionUtils = require(Plugin.Src.Util.SelectionUtils)
 
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagClampFacsCurves = require(Plugin.LuaFlags.GetFFlagClampFacsCurves)
 
@@ -49,7 +48,7 @@ local wrappee = function(pivotTick, newTick, pivotValue, newValue, dragContext)
 		local earliestTick, latestTick = AnimationData.getSelectionBounds(newData, selectedKeyframes)
 		local newSelectedKeyframes = deepCopy(selectedKeyframes)
 
-		for instanceName, instance in pairs(GetFFlagChannelAnimations() and newSelectedKeyframes or selectedKeyframes) do
+		for instanceName, instance in pairs(newSelectedKeyframes) do
 			newData.Instances[instanceName] = Cryo.Dictionary.join({}, newData.Instances[instanceName])
 			newData.Instances[instanceName].Tracks = Cryo.Dictionary.join({}, newData.Instances[instanceName].Tracks)
 
@@ -61,54 +60,13 @@ local wrappee = function(pivotTick, newTick, pivotValue, newValue, dragContext)
 			for trackName, selectionTrack in pairs(instance) do
 				dataInstance.Tracks[trackName] = deepCopy(dataInstance.Tracks[trackName])
 
-				if GetFFlagChannelAnimations() then
-					local dataTrack = dataInstance.Tracks[trackName]
-					SelectionUtils.traverse(selectionTrack, dataTrack, function(selectionTrack, dataTrack)
-						if not selectionTrack.Selection then
-							return
-						end
+				local dataTrack = dataInstance.Tracks[trackName]
+				SelectionUtils.traverse(selectionTrack, dataTrack, function(selectionTrack, dataTrack)
+					if not selectionTrack.Selection then
+						return
+					end
 
-						local keyframes = Cryo.Dictionary.keys(selectionTrack.Selection)
-						table.sort(keyframes)
-
-						local startIndex, endIndex, step
-						if moveLastToFirst then
-							startIndex = #keyframes
-							endIndex = 1
-							step = -1
-						else
-							startIndex = 1
-							endIndex = #keyframes
-							step = 1
-						end
-
-						for index = startIndex, endIndex, step do
-							local oldTick = keyframes[index]
-							local insertTick = newTick + (oldTick - pivotTick)
-							if snapMode ~= Constants.SNAP_MODES.None then
-								insertTick = KeyframeUtils.getNearestFrame(insertTick, frameRate)
-							end
-							insertTick = math.clamp(insertTick, oldTick - earliestTick, Constants.MAX_ANIMATION_LENGTH - (latestTick - oldTick))
-							if dataTrack.Keyframes then
-
-								AnimationData.moveKeyframe(dataTrack, oldTick, insertTick)
-								AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
-								if GetFFlagCurveEditor() and dataTrack.Type ~= Constants.TRACK_TYPES.Quaternion then
-									if dataTrack.Data and dataTrack.Data[insertTick] and pivotValue and newValue then
-										if GetFFlagClampFacsCurves() and dataTrack.Type == Constants.TRACK_TYPES.Facs then
-											newValue = math.clamp(newValue, 0, 1)
-										end
-										AnimationData.setKeyframeData(dataTrack, insertTick, { Value = dataTrack.Data[insertTick].Value - pivotValue + newValue })
-									end
-								end
-							end
-
-							selectionTrack.Selection[oldTick] = nil
-							selectionTrack.Selection[insertTick] = true
-						end
-					end)
-				else
-					local keyframes = Cryo.Dictionary.keys(instance[trackName])
+					local keyframes = Cryo.Dictionary.keys(selectionTrack.Selection)
 					table.sort(keyframes)
 
 					local startIndex, endIndex, step
@@ -122,8 +80,6 @@ local wrappee = function(pivotTick, newTick, pivotValue, newValue, dragContext)
 						step = 1
 					end
 
-					local track = dataInstance.Tracks[trackName]
-
 					for index = startIndex, endIndex, step do
 						local oldTick = keyframes[index]
 						local insertTick = newTick + (oldTick - pivotTick)
@@ -131,13 +87,23 @@ local wrappee = function(pivotTick, newTick, pivotValue, newValue, dragContext)
 							insertTick = KeyframeUtils.getNearestFrame(insertTick, frameRate)
 						end
 						insertTick = math.clamp(insertTick, oldTick - earliestTick, Constants.MAX_ANIMATION_LENGTH - (latestTick - oldTick))
-						AnimationData.moveKeyframe(track, oldTick, insertTick)
-						AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
+						if dataTrack.Keyframes then
+							AnimationData.moveKeyframe(dataTrack, oldTick, insertTick)
+							AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
+							if GetFFlagCurveEditor() and dataTrack.Type ~= Constants.TRACK_TYPES.Quaternion then
+								if dataTrack.Data and dataTrack.Data[insertTick] and pivotValue and newValue then
+									if GetFFlagClampFacsCurves() and dataTrack.Type == Constants.TRACK_TYPES.Facs then
+										newValue = math.clamp(newValue, 0, 1)
+									end
+									AnimationData.setKeyframeData(dataTrack, insertTick, { Value = dataTrack.Data[insertTick].Value - pivotValue + newValue })
+								end
+							end
+						end
 
-						newSelectedKeyframes[instanceName][trackName][oldTick] = nil
-						newSelectedKeyframes[instanceName][trackName][insertTick] = true
+						selectionTrack.Selection[oldTick] = nil
+						selectionTrack.Selection[insertTick] = true
 					end
-				end
+				end)
 			end
 		end
 

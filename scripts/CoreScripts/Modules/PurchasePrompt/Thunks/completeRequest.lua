@@ -1,3 +1,4 @@
+--!nonstrict
 local Root = script.Parent.Parent
 local Players = game:GetService("Players")
 local MarketplaceService = game:GetService("MarketplaceService")
@@ -34,7 +35,7 @@ local function completeRequest()
 		end
 
 		if requestType == RequestType.Product then
-			local playerId = Players.LocalPlayer.UserId
+			local playerId = (Players.LocalPlayer :: Player).UserId
 
 			MarketplaceService:SignalPromptProductPurchaseFinished(playerId, id, didPurchase)
 		elseif requestType == RequestType.GamePass then

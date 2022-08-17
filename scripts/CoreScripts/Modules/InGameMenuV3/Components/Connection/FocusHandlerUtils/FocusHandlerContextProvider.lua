@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	This component needs to be mounted on top of a tree containing FocusHandler components.
     It handles focus hand-offs so that they happen in a consistent order, and it

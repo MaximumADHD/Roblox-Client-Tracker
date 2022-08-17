@@ -33,10 +33,12 @@ local SHARE_INVITE_LINK_BACKGROUND = Color3.fromRGB(79, 84, 95)
 function ShareInviteLink:init()
 	self.showSharesheet = function(linkId, linkType)
 		local url = UrlBuilder.sharelinks.appsflyer(linkId, linkType)
-		ExternalContentSharingProtocol:shareText({
-			text = url,
-			context = "V1Menu"
-		})
+		if ExternalContentSharingProtocol then
+			ExternalContentSharingProtocol:shareText({
+				text = url,
+				context = "V1Menu"
+			})
+		end
 	end
 end
 

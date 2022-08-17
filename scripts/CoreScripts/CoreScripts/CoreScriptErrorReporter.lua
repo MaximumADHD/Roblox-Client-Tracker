@@ -14,7 +14,6 @@ local PiiFilter = require(RobloxGui.Modules.ErrorReporting.PiiFilter)
 
 local BacktraceReporter = require(CorePackages.ErrorReporters.Backtrace.BacktraceReporter)
 
-game:DefineFastFlag("EnableCoreScriptBacktraceReporting", false)
 game:DefineFastString("CoreScriptBacktraceErrorUploadToken", "")
 
 game:DefineFastInt("CoreScriptBacktracePIIFilterEraseTimeoutSeconds", 5 * 60)
@@ -32,7 +31,7 @@ game:DefineFastInt("CoreScriptBacktraceRepeatedErrorRateLimitProcessIntervalTent
 
 -- We don't have a default for this fast string, so if it's the empty string we
 -- know we're at the default and we can't do error reports.
-if game:GetFastFlag("EnableCoreScriptBacktraceReporting") and game:GetFastString("CoreScriptBacktraceErrorUploadToken") ~= "" then
+if game:GetFastString("CoreScriptBacktraceErrorUploadToken") ~= "" then
 	local staticAttributes = {
 		LocalVersion = RunService:GetRobloxVersion(),
 		BaseUrl = ContentProvider.BaseUrl,
@@ -58,7 +57,7 @@ if game:GetFastFlag("EnableCoreScriptBacktraceReporting") and game:GetFastString
 
 	local function processReport(report)
 		report:addAttributes(staticAttributes)
-			
+
 		local playerCount = #Players:GetPlayers()
 		report:addAttributes({
 			PlayerCount = playerCount,
@@ -77,7 +76,7 @@ if game:GetFastFlag("EnableCoreScriptBacktraceReporting") and game:GetFastString
 		if offendingScript ~= nil and (offendingScript:IsDescendantOf(CoreGui) or offendingScript:IsDescendantOf(CorePackages)) then
 			local cleanedMessage = piiFilter:cleanPii(message)
 			local cleanedStack = piiFilter:cleanPii(stack)
-			
+
 			if details ~= nil then
 				details = piiFilter:cleanPii(details)
 			end
@@ -99,7 +98,7 @@ if game:GetFastFlag("EnableCoreScriptBacktraceReporting") and game:GetFastString
 
 	ScriptContext.ErrorDetailed:Connect(function(...)
         local success, message = pcall(handleErrorDetailed, ...)
-        
+
         if not success then
             warn(("CoreScript error reporter failed to handle an error:\n%s"):format(message))
         end

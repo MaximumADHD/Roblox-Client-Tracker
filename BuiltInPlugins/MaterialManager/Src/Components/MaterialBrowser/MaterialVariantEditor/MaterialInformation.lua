@@ -20,7 +20,6 @@ local TruncatedTextLabel = UI.TruncatedTextLabel
 
 local GeneralServiceController = require(Plugin.Src.Controllers.GeneralServiceController)
 local MaterialServiceController = require(Plugin.Src.Controllers.MaterialServiceController)
-local GeneralSettings = require(Plugin.Src.Components.MaterialBrowser.MaterialVariantEditor.GeneralSettings)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local Actions = Plugin.Src.Actions
@@ -223,20 +222,6 @@ function MaterialInformation:render()
 			Text = pathString,
 			TextXAlignment = Enum.TextXAlignment.Left,
 		}),
-		GeneralSettingsTitle = if not isBuiltin then 
-			Roact.createElement(TruncatedTextLabel, {
-				LayoutOrder = 4,
-				Font = style.HeaderFont,
-				Size = style.LabelRowSize,
-				Text = localization:getText("CreateDialog", "General"),
-				TextSize = style.SectionHeaderTextSize,
-				TextXAlignment = Enum.TextXAlignment.Left,
-			}) else nil,
-		MaterialGeneral = if not isBuiltin then 
-			Roact.createElement(GeneralSettings, {
-				LayoutOrder = 5,
-				MaterialVariant = material.MaterialVariant,
-			}) else nil,
 	})
 end
 

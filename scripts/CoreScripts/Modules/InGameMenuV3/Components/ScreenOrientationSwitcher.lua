@@ -1,6 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
-local PlayerGUI = Players.LocalPlayer:WaitForChild("PlayerGui")
+local PlayerGUI = (Players.LocalPlayer :: Player):WaitForChild("PlayerGui")
 local InGameMenu = script.Parent.Parent
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact

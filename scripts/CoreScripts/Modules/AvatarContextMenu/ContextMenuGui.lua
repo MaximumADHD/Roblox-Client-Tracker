@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName: ContextMenuGui.lua
 	// Written by: TheGamer101
@@ -73,7 +74,7 @@ local function listenToViewportChange(functionToFire)
 	local viewportChangedConnection = nil
 
 	local function updateCamera()
-		local newCamera = workspace.CurrentCamera
+		local newCamera = workspace.CurrentCamera :: Camera
 		if viewportChangedConnection then
 			viewportChangedConnection:Disconnect()
 		end
@@ -116,7 +117,7 @@ function ContextMenuGui:CreateMenuFrame(theme)
 		aspectConstraint.Parent = menu
 
 		local function updateAspectRatioForViewport()
-			local viewportSize = workspace.CurrentCamera.ViewportSize
+			local viewportSize = (workspace.CurrentCamera :: Camera).ViewportSize
 			if viewportSize.x < viewportSize.y then
 				aspectConstraint.DominantAxis = Enum.DominantAxis.Width
 			else

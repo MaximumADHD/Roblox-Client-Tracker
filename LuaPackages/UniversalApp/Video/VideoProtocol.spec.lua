@@ -1,8 +1,11 @@
+--!nonstrict
 return function()
+	local Types = require(script.Parent.Parent.MessageBusTypes)
+
 	local MockMessageBus = {}
 	MockMessageBus.__index = MockMessageBus
 
-	function MockMessageBus.call(desc: FunctionDescriptor, params: any): any
+	function MockMessageBus.call(desc: Types.FunctionDescriptor, params: any): any
 		assert(desc.validateParams(params))
 		if desc.fid == "Video.getRecordingDuration" then
 			-- Simulate the basic behavior of a call to the protocol
@@ -19,7 +22,7 @@ return function()
 
 	describe("VideoProtocol", function()
 		beforeEach(function(context)
-			context.VideoProtocol = VideoProtocol.new(MockMessageBus)
+			context.VideoProtocol = VideoProtocol.new((MockMessageBus :: any) :: Types.MessageBus)
 		end)
 
 		it("returns an empty table when called with an empty table", function(context)

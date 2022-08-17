@@ -17,7 +17,6 @@ local fflagDebugEnableErrorStringTesting = game:DefineFastFlag("DebugEnableError
 local fflagShouldMuteUnlocalizedError = game:DefineFastFlag("ShouldMuteUnlocalizedError", false)
 
 -- After 2 hours, disable reconnect after the failure of first try
-local fflagDisableReconnectAfterPotentialTimeout = game:DefineFastFlag("DisableReconnectAfterPotentialTimeout", false)
 local fIntPotentialClientTimeout = game:DefineFastInt("PotentialClientTimeoutSeconds", 7200)
 
 local fflagPredictedOOMExit = game:DefineFastFlag("PredictedOOMExit", false)
@@ -433,14 +432,12 @@ local function stateTransit(errorType, errorCode, oldState)
 
 		if errorType == Enum.ConnectionError.TeleportErrors then
 
-			if fflagDisableReconnectAfterPotentialTimeout then
-				-- disable reconnect at second try after a long period of time since last error pops up.
-				if tick() > lastErrorTimeStamp + fIntPotentialClientTimeout then
-					if errorForReconnect == Enum.ConnectionError.PlacelaunchErrors then
-						return ConnectionPromptState.RECONNECT_DISABLED_PLACELAUNCH
-					else
-						return ConnectionPromptState.RECONNECT_DISABLED_DISCONNECT
-					end
+			-- disable reconnect at second try after a long period of time since last error pops up.
+			if tick() > lastErrorTimeStamp + fIntPotentialClientTimeout then
+				if errorForReconnect == Enum.ConnectionError.PlacelaunchErrors then
+					return ConnectionPromptState.RECONNECT_DISABLED_PLACELAUNCH
+				else
+					return ConnectionPromptState.RECONNECT_DISABLED_DISCONNECT
 				end
 			end
 

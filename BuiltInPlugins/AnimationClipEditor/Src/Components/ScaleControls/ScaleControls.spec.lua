@@ -6,9 +6,7 @@ return function()
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
 	local ScaleControls = require(script.Parent.ScaleControls)
 
-	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-
-	local selectedKeyframes = GetFFlagChannelAnimations() and {
+	local selectedKeyframes = {
 		Root = {
 			TestTrack1 = {
 				Selection = {
@@ -20,16 +18,6 @@ return function()
 				Selection = {
 					[24] = true,
 				},
-			},
-		}
-	} or {
-		["Root"] = {
-			["TestTrack1"] = {
-				[18] = true,
-				[27] = true,
-			},
-			["TestTrack2"] = {
-				[24] = true,
 			},
 		}
 	}

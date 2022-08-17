@@ -8,7 +8,7 @@
 
 local Action = require(script.Parent.Action)
 
--- Deprecated with GetFFlagChannelAnimations
+-- Deprecated with GetFFlagCurveEditor
 return Action(script.Name, function(tracks, expanded)
 	return {
 		tracks = tracks,

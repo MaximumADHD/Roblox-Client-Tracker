@@ -1,3 +1,4 @@
+--!nonstrict
 local Players = game:GetService("Players")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local GuiService = game:GetService("GuiService")
@@ -89,6 +90,14 @@ function BasicPage:init()
 	self.cameraModeButton = Roact.createRef() -- reference to the cameramode button at the top of the page
 	self.volumeButton = Roact.createRef() -- reference to the slider button at the top of the page in vr
 	self.scrollingFrameRef = Roact.createRef()
+
+	self.pageHeaderActivated = function()
+		local scrollingFrame = self.scrollingFrameRef:getValue()
+		if scrollingFrame then
+			scrollingFrame:scrollToTop()
+		end
+	end
+
 end
 
 function BasicPage:didUpdate(prevProps)
@@ -111,6 +120,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 			scrollingDown = scrollingDown,
 			pageTitle = self.props.pageTitle,
 			position = self.props.position,
+			onHeaderActivated = self.pageHeaderActivated,
 		}, {
 			FocusHandler = Roact.createElement(FocusHandler, {
 				isFocused = self.props.canCaptureFocus and self.props.canGamepadCaptureFocus,

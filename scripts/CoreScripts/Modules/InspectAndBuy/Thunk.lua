@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	An upgraded version of Rodux's thunk middleware that describes a table
 	format for thunks. This allows them to be named (via the `type` field)

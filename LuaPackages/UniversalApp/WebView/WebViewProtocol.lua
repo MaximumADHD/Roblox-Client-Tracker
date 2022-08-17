@@ -1,4 +1,3 @@
---!strict
 local CorePackages = game:GetService("CorePackages")
 local MessageBus = require(CorePackages.UniversalApp.MessageBus)
 local t = require(CorePackages.Packages.t)
@@ -9,8 +8,8 @@ type MessageBus = MessageBus.MessageBus
 type Table = MessageBus.Table
 
 export type WebViewProtocol = Types.WebViewProtocol
+
 export type WebViewProtocolModule = WebViewProtocol & {
-	__index: WebViewProtocol,
 	new: (messageBus: MessageBus?) -> WebViewProtocol,
 	default: WebViewProtocol,
 }
@@ -55,7 +54,8 @@ local WebViewProtocol: WebViewProtocolModule = {
 		validateParams = t.table,
 	},
 } :: WebViewProtocolModule
-WebViewProtocol.__index = WebViewProtocol
+
+(WebViewProtocol :: any).__index = WebViewProtocol
 
 function WebViewProtocol.new(_messageBus: MessageBus?): WebViewProtocol
 	local messageBus = (_messageBus or MessageBus) :: MessageBus

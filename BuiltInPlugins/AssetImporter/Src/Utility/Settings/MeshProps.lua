@@ -2,16 +2,9 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local getFFlagDisableAvatarAnchoredSetting = require(Plugin.Src.Flags.getFFlagDisableAvatarAnchoredSetting)
 local getFFlagLCQualityCheckDisplay = require(Plugin.Src.Flags.getFFlagLCQualityCheckDisplay)
-local getFFlagUseAssetImportSession = require(Plugin.Src.Flags.getFFlagUseAssetImportSession)
-
-local AssetImportService = game:GetService("AssetImportService")
 
 local function hideIfAvatar(meshSettings, assetImportSession)
-	if getFFlagUseAssetImportSession() then
-		return assetImportSession:IsAvatar() and getFFlagDisableAvatarAnchoredSetting()
-	else
-		return AssetImportService:IsAvatar() and getFFlagDisableAvatarAnchoredSetting()
-	end
+	return assetImportSession:IsAvatar() and getFFlagDisableAvatarAnchoredSetting()
 end
 
 local function hideIfManifold(meshSettings)
@@ -69,6 +62,15 @@ local function hideIfNoIrrelevantCageModified(meshSettings)
 	return true
 end
 
+local function hideIfNoOuterCageFarExtendedFromMesh(meshSettings)
+	if getFFlagLCQualityCheckDisplay() then
+		if meshSettings.ImportName:match("_OuterCage") then
+			return meshSettings.NoOuterCageFarExtendedFromMesh
+		end
+	end
+	return true
+end
+
 return {
 	{
 		Section = "ObjectGeneral",
@@ -91,6 +93,7 @@ return {
 			{Name = "CageMeshIntersectedPreview", Editable = true, ShouldHide = hideIfCageMeshNotIntersected},
 			{Name = "MeshHoleDetectedPreview", Editable = true, ShouldHide = hideIfMeshNoHoleDetected},
 			{Name = "IrrelevantCageModifiedPreview", Editable = true, ShouldHide = hideIfNoIrrelevantCageModified},
+			{Name = "OuterCageFarExtendedFromMeshPreview", Editable = true, ShouldHide = hideIfNoOuterCageFarExtendedFromMesh},
 		},
 	},
 }

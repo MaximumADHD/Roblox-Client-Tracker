@@ -23,9 +23,11 @@ local SetMode = require(Actions.SetMode)
 local MaterialVariantEditorComponent = Plugin.Src.Components.MaterialBrowser.MaterialVariantEditor
 local MaterialHeader = require(MaterialVariantEditorComponent.MaterialHeader)
 local MaterialInformation = require(MaterialVariantEditorComponent.MaterialInformation)
+local GeneralSettings = require(MaterialVariantEditorComponent.GeneralSettings)
 local TextureSettings = require(MaterialVariantEditorComponent.TextureSettings)
-local AdditionalSettings = require(MaterialVariantEditorComponent.AdditionalSettings)
+local TilingSettings = require(MaterialVariantEditorComponent.TilingSettings)
 local MaterialOverrides = require(MaterialVariantEditorComponent.MaterialOverrides)
+local OverrideSettings = require(MaterialVariantEditorComponent.OverrideSettings)
 
 local getSupportedMaterials = require(Plugin.Src.Resources.Constants.getSupportedMaterials)
 local supportedMaterials = getSupportedMaterials()
@@ -35,7 +37,6 @@ local MaterialVariantEditor = Roact.PureComponent:extend("MaterialVariantEditor"
 export type Props = {
 	LayoutOrder: number?,
 	MaterialMock: _Types.Material?,
-	OpenPrompt: (type: _Types.MaterialPromptType) -> (),
 	Size: UDim2?,
 }
 
@@ -45,6 +46,10 @@ type _Props = Props & {
 	Localization: any,
 	Material: _Types.Material?,
 	Stylizer: any,
+}
+
+type _Style = {
+	CustomExpandablePane: any,
 }
 
 function MaterialVariantEditor:didMount()
@@ -81,28 +86,36 @@ function MaterialVariantEditor:render()
 			Pane = Roact.createElement(Pane, {
 				AutomaticSize = Enum.AutomaticSize.Y,
 				Layout = Enum.FillDirection.Vertical,
-				VerticalAlignment = Enum.VerticalAlignment.Top,
 			}, {
 				MaterialHeader = Roact.createElement(MaterialHeader, {
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
 				}),
 				MaterialInformation = Roact.createElement(MaterialInformation, {
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
-					OpenPrompt = props.OpenPrompt,
 				}),
-				MaterialOverrides = if overrideSupport then
-					Roact.createElement(MaterialOverrides, {
+				GeneralSettings = if materialVariant then 
+					Roact.createElement(GeneralSettings, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),
-						OpenPrompt = props.OpenPrompt
-					})
-					else nil,
+						MaterialVariant = materialVariant,
+					}) else nil,
 				TextureSettings = if materialVariant then
 					Roact.createElement(TextureSettings, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),
 					})
 					else nil,
-				AdditionalSettings = if materialVariant then
-					Roact.createElement(AdditionalSettings, {
+				MaterialOverrides = if overrideSupport and not materialVariant then
+					Roact.createElement(MaterialOverrides, {
+						LayoutOrder = layoutOrderIterator:getNextOrder(),
+					})
+					else nil,
+				OverrideSettings = if overrideSupport and materialVariant then
+					Roact.createElement(OverrideSettings, {
+						LayoutOrder = layoutOrderIterator:getNextOrder(),
+						MaterialVariant = materialVariant,
+					})
+					else nil,
+				TilingSettings = if materialVariant then
+					Roact.createElement(TilingSettings, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),
 						MaterialVariant = materialVariant,
 					})
@@ -112,14 +125,11 @@ function MaterialVariantEditor:render()
 	end
 end
 
-
 MaterialVariantEditor = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
 	Stylizer = Stylizer,
 })(MaterialVariantEditor)
-
-
 
 return RoactRodux.connect(
 	function(state, props)

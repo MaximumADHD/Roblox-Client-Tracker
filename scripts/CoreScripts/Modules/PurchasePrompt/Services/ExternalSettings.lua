@@ -3,9 +3,6 @@ local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 
-local FFlagBypassThirdPartySettingForRobloxPurchase = require(Root.Flags.FFlagBypassThirdPartySettingForRobloxPurchase)
-local GetFFlagLuaUseThirdPartyPermissions = require(Root.Flags.GetFFlagLuaUseThirdPartyPermissions)
-local GetFFlagHideThirdPartyPurchaseFailure = require(Root.Flags.GetFFlagHideThirdPartyPurchaseFailure)
 local GetFFlagDisableRobuxUpsell = require(Root.Flags.GetFFlagDisableRobuxUpsell)
 local GetFFlagEnableRestrictedAssetSaleLocationPurchasePrompt
 	= require(Root.Flags.GetFFlagEnableRestrictedAssetSaleLocationPurchasePrompt)
@@ -41,15 +38,11 @@ function ExternalSettings.new()
 	end
 
 	function service.getLuaUseThirdPartyPermissions()
-		return GetFFlagLuaUseThirdPartyPermissions()
-	end
-
-	function service.getFlagHideThirdPartyPurchaseFailure()
-		return GetFFlagHideThirdPartyPurchaseFailure()
+		return true
 	end
 
 	function service.getFlagBypassThirdPartySettingForRobloxPurchase()
-		return FFlagBypassThirdPartySettingForRobloxPurchase
+		return true
 	end
 
 	-- TODO(DEVTOOLS-4227): Remove this flag

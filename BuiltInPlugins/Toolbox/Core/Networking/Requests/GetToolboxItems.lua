@@ -1,3 +1,6 @@
+local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
+local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Actions = Plugin.Core.Actions
@@ -68,7 +71,13 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 				ownerId = PageInfoHelper.getGroupIdForPageInfo(pageInfo)
 			end
 
-			local includeOnlyVerifiedCreators = pageInfo.includeOnlyVerifiedCreators
+			local includeOnlyVerifiedCreators
+			local includeUnverifiedCreators
+			if FFlagToolboxUseVerifiedIdAsDefault then
+				includeUnverifiedCreators = pageInfo.includeUnverifiedCreators
+			else
+				includeOnlyVerifiedCreators = pageInfo.includeOnlyVerifiedCreators
+			end
 
 			local getRequest = networkInterface:getToolboxItems({
 				categoryName = category,
@@ -81,7 +90,10 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 				creatorTargetId = creatorTargetId,
 				minDuration = audioSearchInfo and audioSearchInfo.minDuration or nil,
 				maxDuration = audioSearchInfo and audioSearchInfo.maxDuration or nil,
-				includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
+				includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+					then not includeUnverifiedCreators
+					else includeOnlyVerifiedCreators,
+				searchSource = if FFlagToolboxIncludeSearchSource then pageInfo.searchSource else nil,
 			})
 
 			return getRequest:andThen(function(result)

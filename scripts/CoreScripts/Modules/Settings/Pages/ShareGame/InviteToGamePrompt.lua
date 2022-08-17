@@ -15,14 +15,13 @@ local SettingsHubDirectory = Modules.Settings
 local ShareGameDirectory = SettingsHubDirectory.Pages.ShareGame
 local FullModalShareGameComponent = require(ShareGameDirectory.Components.FullModalShareGameComponent)
 local AppReducer = require(ShareGameDirectory.AppReducer)
-local isSelectionGroupEnabled = require(ShareGameDirectory.isSelectionGroupEnabled)
 
 local HIDE_INVITE_CONTEXT_BIND = "hideInvitePrompt"
 
-local InviteToGamePrompt = {}
+local InviteToGamePrompt: any = {}
 InviteToGamePrompt.__index = InviteToGamePrompt
 
-function InviteToGamePrompt.new(mountTarget)
+function InviteToGamePrompt.new(mountTarget: any?)
 	local self = {
 		mountTarget = mountTarget,
 		isActive = false,
@@ -68,7 +67,7 @@ function InviteToGamePrompt:show()
 	self.isActive = true
 
 	if not self.instance then
-		self.instance = Roact.mount(self:_createTree(true), self.mountTarget, isSelectionGroupEnabled() and "invitePrompt" or nil)
+		self.instance = Roact.mount(self:_createTree(true), self.mountTarget, "invitePrompt")
 	else
 		self.instance = Roact.update(self.instance, self:_createTree(true))
 	end
@@ -77,13 +76,11 @@ function InviteToGamePrompt:show()
 		self.analytics:inputShareGameEntryPoint()
 	end
 
-	if isSelectionGroupEnabled() then
-		ContextActionService:BindCoreAction(HIDE_INVITE_CONTEXT_BIND, function(_, userInputState, inputObject)
-			if userInputState == Enum.UserInputState.Begin then
-				self:hide()
-			end
-		end, false, Enum.KeyCode.ButtonB, Enum.KeyCode.Backspace)
-	end
+	ContextActionService:BindCoreAction(HIDE_INVITE_CONTEXT_BIND, function(_, userInputState, inputObject)
+		if userInputState == Enum.UserInputState.Begin then
+			self:hide()
+		end
+	end, false, Enum.KeyCode.ButtonB, Enum.KeyCode.Backspace)
 end
 
 function InviteToGamePrompt:hide(sentToUserIds)
@@ -97,11 +94,9 @@ function InviteToGamePrompt:hide(sentToUserIds)
 		self.socialService:InvokeGameInvitePromptClosed(self.localPlayer, {})
 	end
 
-	if isSelectionGroupEnabled() then
-		ContextActionService:UnbindCoreAction(HIDE_INVITE_CONTEXT_BIND)
-		GuiService.SelectedCoreObject = nil
-		GuiService:RemoveSelectionGroup("invitePrompt")
-	end
+	ContextActionService:UnbindCoreAction(HIDE_INVITE_CONTEXT_BIND)
+	GuiService.SelectedCoreObject = nil
+	GuiService:RemoveSelectionGroup("invitePrompt")
 end
 
 function InviteToGamePrompt:destruct()

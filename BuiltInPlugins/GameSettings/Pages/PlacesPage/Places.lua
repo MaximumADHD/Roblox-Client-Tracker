@@ -2,7 +2,7 @@
     Settings page for Places settings:
         - Create place
         - List of places in game
-        - Edit Place
+        - Configure Place
 
 	Settings:
         - Name
@@ -15,6 +15,8 @@
 		description: "TooLong"
 		devices: "NoDevices"
 ]]
+local FFlagGameSettingsChangeEditToConfigure = game:DefineFastFlag("GameSettingsChangeEditToConfigure", false)
+
 local Plugin = script.Parent.Parent.Parent
 
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
@@ -303,6 +305,9 @@ local function displayPlaceListPage(props, localization)
 
 	local places = props.Places and props.Places or {}
 	local placesData = createPlaceTableData(places)
+	local editKeyText = if FFlagGameSettingsChangeEditToConfigure
+		then localization:getText("Places", "ConfigurePlace")
+		else localization:getText("General", "ButtonEdit")
 
 	return
 	{
@@ -328,7 +333,7 @@ local function displayPlaceListPage(props, localization)
 			Headers = placeTableHeaders,
 			Data = placesData,
 			MenuItems = {
-				{ Key = GetEditKeyName(), Text = localization:getText("General", "ButtonEdit") },
+				{ Key = GetEditKeyName(), Text = editKeyText },
 				{ Key = GetVersionHistoryKeyName(), Text = localization:getText("Places", "VersionHistory") },
 			},
 			OnItemClicked = function(key, id)
@@ -425,7 +430,7 @@ local function displayEditPlacePage(props, localization)
 			}),
 
 			Header = Roact.createElement(Header, {
-				Title = localization:getText("Places", "EditPlace"),
+				Title = if FFlagGameSettingsChangeEditToConfigure then localization:getText("Places", "ConfigurePlace") else localization:getText("Places", "EditPlace"),
 				LayoutOrder = 2,
 			}),
 		}),

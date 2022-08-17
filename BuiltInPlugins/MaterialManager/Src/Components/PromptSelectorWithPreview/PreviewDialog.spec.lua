@@ -7,12 +7,14 @@ local PreviewDialog = require(script.Parent.PreviewDialog)
 
 return function()
 	local imageId = ""
+	local isTempId = false
 	local onClose = function() end
 	local metadata = {""}
 
 	local function createTestElement(props: PreviewDialog.Props?)
 		props = props or {
 			ImageId = imageId,
+			IsTempId = isTempId,
 			OnClose = onClose,
 			Metadata = metadata,
 		}
@@ -31,6 +33,7 @@ return function()
 		local container = Instance.new("Folder")
 		local element = createTestElement({
 			ImageId = "rbxasset://textures/MaterialManager/Create_New_Variant.png",
+			IsTempId = true,
 			OnClose = onClose,
 			Metadata = {"SelectedName"},
 		})

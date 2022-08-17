@@ -1,4 +1,3 @@
-
 local CorePackages = game:GetService("CorePackages")
 local RobloxGui = game:GetService("CoreGui").RobloxGui
 local Roact = require(CorePackages.Roact)
@@ -115,7 +114,8 @@ function FullScreenDropDownButton:render()
 		}),
 
 		selectionView = isSelecting and Roact.createElement(Roact.Portal, {
-			target = portalTarget ~= nil and portalTarget or game:GetService("CoreGui").DevConsoleMaster,
+			-- ROBLOX FIXME: Can we express the DevConsoleMaster singleton statically in the project config?
+			target = portalTarget ~= nil and portalTarget or (game:GetService("CoreGui") :: any).DevConsoleMaster,
 		}, {
 			GreyOutFrame = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),

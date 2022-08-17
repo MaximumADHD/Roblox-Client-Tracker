@@ -31,7 +31,8 @@ end
 
 function IGMControllerBar2:render()
 	return Roact.createElement(Roact.Portal, {
-		target = CoreGui
+		-- LUAU FIXME: Need read-write syntax for props to obviate the need for this cast
+		target = CoreGui :: Instance,
 	}, {
 		IGMControllerBar = Roact.createElement("ScreenGui", {
 			DisplayOrder = Constants.DisplayOrder.ControllerBar,

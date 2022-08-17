@@ -1,3 +1,4 @@
+--!nonstrict
 local Root = script.Parent.Parent.Parent
 
 local CorePackages = game:GetService("CorePackages")

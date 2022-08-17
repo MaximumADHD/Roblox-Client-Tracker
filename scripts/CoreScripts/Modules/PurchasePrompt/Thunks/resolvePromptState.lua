@@ -1,3 +1,4 @@
+--!nonstrict
 local Root = script.Parent.Parent
 local UserInputService = game:GetService("UserInputService")
 
@@ -58,15 +59,11 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 
 		local canPurchase, failureReason = meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty, externalSettings)
 		if not canPurchase then
-			if externalSettings.getFlagHideThirdPartyPurchaseFailure() then
-				if not externalSettings.isStudio() and failureReason == PurchaseError.ThirdPartyDisabled then
-					-- Do not annoy player with 3rd party failure notifications.
-					return store:dispatch(CompleteRequest())
-				end
-				return store:dispatch(ErrorOccurred(failureReason))
-			else
-				return store:dispatch(ErrorOccurred(failureReason))
+			if not externalSettings.isStudio() and failureReason == PurchaseError.ThirdPartyDisabled then
+				-- Do not annoy player with 3rd party failure notifications.
+				return store:dispatch(CompleteRequest())
 			end
+			return store:dispatch(ErrorOccurred(failureReason))
 		end
 
 		local robuxBalance = FFlagPPAccountInfoMigration and balanceInfo.robux or accountInfo.RobuxBalance

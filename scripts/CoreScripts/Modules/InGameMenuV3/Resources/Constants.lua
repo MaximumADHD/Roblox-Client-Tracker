@@ -48,6 +48,11 @@ local Constants = {
 		GamepadLeaveGame = "GamepadLeaveGame",
 		GamepadResetCharacter = "GamepadResetCharacter",
 	},
+	AnalyticsPerfMenuOpening = "perf_menu_opening",
+	AnalyticsPerfMenuStarted = "perf_menu_started",
+	AnalyticsPerfMenuEnding = "perf_menu_ending",
+	AnalyticsPerfMenuClosed = "perf_menu_closed",
+
 	AnalyticsMenuCloseName = "menu_close",
 	AnalyticsLeaveGameName = "leave_game",
 	AnalyticsLeaveToHomeName = "leave_to_home",
@@ -101,6 +106,8 @@ local Constants = {
 	ControllerBarHeight = 72,
 	PageWidth = 320,
 	SideNavigationWidth = 64,
+
+	MenuOpenTweenTime = 0.208,
 
 	DisplayOrder = {
 		-- Fullscreen Title Bar should be on top of Topbar (DisplayOrder = 6)

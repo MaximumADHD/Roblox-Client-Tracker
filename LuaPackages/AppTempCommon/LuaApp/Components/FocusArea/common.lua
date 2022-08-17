@@ -9,7 +9,7 @@ local module = {}
     @return true if the input should read as a gamepad
 ]]
 --
-module.isGamepad = function(inputType: Enum.UserInputState)
+module.isGamepad = function(inputType: Enum.UserInputType)
 	return inputType == Enum.UserInputType.Gamepad1
 		or inputType == Enum.UserInputType.Gamepad2
 		or inputType == Enum.UserInputType.Gamepad3

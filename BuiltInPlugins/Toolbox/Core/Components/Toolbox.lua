@@ -45,6 +45,7 @@ local RequestReason = require(Types.RequestReason)
 local getNetwork = ContextGetter.getNetwork
 
 local Components = Plugin.Core.Components
+local AnnouncementDialog = require(Components.AnnouncementDialog)
 local TabSet = require(Components.TabSet)
 local Header = require(Components.Header)
 local MainView = require(Components.MainView.MainView)
@@ -68,7 +69,7 @@ local IXPContext = require(Plugin.Core.ContextServices.IXPContext)
 local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 
 local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
-local FFlagToolboxSearchResultsBackButton = game:GetFastFlag("ToolboxSearchResultsBackButton")
+local FFlagToolboxEnableAnnouncementsDialog = game:GetFastFlag("ToolboxEnableAnnouncementsDialog")
 
 local Background = require(Plugin.Core.Types.Background)
 
@@ -198,15 +199,13 @@ function Toolbox:init(props)
 		Analytics.onCategorySelected(currentCategory, newCategory)
 	end
 
-	if FFlagToolboxSearchResultsBackButton then
-		-- Navigate to the default view for this tab name
-		self.onBackToHome = function()
-			local categoryName = self.props.categoryName
-			local currentTabKey = Category.getTabKeyForCategoryName(categoryName)
-			self.changeMarketplaceTab(currentTabKey, {
-				categoryName = categoryName,
-			})
-		end
+	-- Navigate to the default view for this tab name
+	self.onBackToHome = function()
+		local categoryName = self.props.categoryName
+		local currentTabKey = Category.getTabKeyForCategoryName(categoryName)
+		self.changeMarketplaceTab(currentTabKey, {
+			categoryName = categoryName,
+		})
 	end
 end
 
@@ -313,6 +312,8 @@ function Toolbox:render()
 		[Roact.Change.AbsoluteSize] = onAbsoluteSizeChange,
 		[Roact.Event.MouseEnter] = props.onMouseEnter,
 	}, {
+		AnnouncementDialogContainer = if FFlagToolboxEnableAnnouncementsDialog then Roact.createElement(AnnouncementDialog) else nil,
+
 		Tabs = Roact.createElement(TabSet, {
 			Size = UDim2.new(1, 0, 0, Constants.TAB_WIDGET_HEIGHT),
 			Tabs = getTabs(localizedContent),
@@ -345,7 +346,7 @@ function Toolbox:render()
 				maxWidth = toolboxWidth,
 				suggestions = suggestions,
 				tryOpenAssetConfig = tryOpenAssetConfig,
-				onBackToHome = if FFlagToolboxSearchResultsBackButton then self.onBackToHome else nil,
+				onBackToHome = self.onBackToHome,
 			}),
 
 		SearchOptions = if showSearchOptions

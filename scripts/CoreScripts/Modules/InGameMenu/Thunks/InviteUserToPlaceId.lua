@@ -1,3 +1,4 @@
+--!nonstrict
 local Players = game:GetService("Players")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local RunService = game:GetService("RunService")

@@ -311,26 +311,26 @@ function Panel:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF, dt)
 		--Places the panel in the camera's local space, but doesn't follow the user's head.
 		--Useful if you know what you're doing. localCF can be updated in PreUpdate for animation.
 		local cf = self.localCF - self.localCF.p
-		cf = cf + (self.localCF.p * workspace.CurrentCamera.HeadScale)
+		cf = cf + (self.localCF.p * (workspace.CurrentCamera :: Camera).HeadScale)
 		self:SetPartCFrame(cameraCF * cf)
 	elseif self.panelType == Panel3D.Type.HorizontalFollow then
 		local headLook = userHeadCF.lookVector
 		local headForwardCF = CFrame.new(userHeadCF.p, userHeadCF.p + (headLook * Vector3.new(1, 0, 1)))
 		local localCF = (headForwardCF * self.angleFromForward) * --Rotate about Y (left-right)
 						self.angleFromHorizon * --Rotate about X (up-down)
-			CFrame.new(0, 0, workspace.CurrentCamera.HeadScale * -self.distance)
+			CFrame.new(0, 0, (workspace.CurrentCamera :: Camera).HeadScale * -self.distance)
 		self:SetPartCFrame(cameraCF * localCF)
 	elseif self.panelType == Panel3D.Type.FixedToHead then
 		--Places the panel in the user's head local space. localCF can be updated in PreUpdate for animation.
 		local cf = self.localCF - self.localCF.p
-		cf = cf + (self.localCF.p * workspace.CurrentCamera.HeadScale)
+		cf = cf + (self.localCF.p * (workspace.CurrentCamera :: Camera).HeadScale)
 		self:SetPartCFrame(cameraRenderCF * cf)
 	elseif self.panelType == Panel3D.Type.Standard then
 		if self.needsPositionUpdate or self.alwaysUpdatePosition then
 			self.needsPositionUpdate = false
 			local headLookXZ = Panel3D.GetHeadLookXZ(true)
 			if EngineFeatureEnableVRUpdate2 then
-				local offset = standardOriginCF.Position * workspace.CurrentCamera.HeadScale
+				local offset = standardOriginCF.Position * (workspace.CurrentCamera :: Camera).HeadScale
 				self.originCF = headLookXZ * CFrame.new(offset)
 			else
 				self.originCF = headLookXZ * standardOriginCF
@@ -344,7 +344,7 @@ function Panel:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF, dt)
 			self.needsPositionUpdate = false
 			local userHeadCF = VRService:GetUserCFrame(Enum.UserCFrame.Head)
 			if EngineFeatureEnableVRUpdate2 then
-				local screenOffset = newStandardOriginCF.Position * workspace.CurrentCamera.HeadScale
+				local screenOffset = newStandardOriginCF.Position * (workspace.CurrentCamera :: Camera).HeadScale
 				self.originCF = userHeadCF * CFrame.new(screenOffset)
 			else
 				self.originCF = userHeadCF * newStandardOriginCF
@@ -584,7 +584,7 @@ function Panel:ResizeStuds(width, height, pixelsPerStud)
 	self.pixelScale = pixelsPerStud / defaultPixelsPerStud
 
 	local part = self:GetPart()
-	part.Size = Vector3.new(self.width * workspace.CurrentCamera.HeadScale, self.height * workspace.CurrentCamera.HeadScale, partThickness)
+	part.Size = Vector3.new(self.width * (workspace.CurrentCamera :: Camera).HeadScale, self.height * (workspace.CurrentCamera :: Camera).HeadScale, partThickness)
 	local gui = self:GetGUI()
 	gui.CanvasSize = Vector2.new(pixelsPerStud * self.width, pixelsPerStud * self.height)
 
@@ -993,7 +993,7 @@ local function onRenderStep()
 	currentMaxDist = math.huge
 
 	--figure out some useful stuff
-	local camera = workspace.CurrentCamera
+	local camera = workspace.CurrentCamera :: Camera
 	local cameraCF = camera.CFrame
 	local cameraRenderCF = camera:GetRenderCFrame()
 	local userHeadCF = VRService:GetUserCFrame(Enum.UserCFrame.Head)
@@ -1085,7 +1085,7 @@ local function onCurrentCameraChanged()
 	if headscaleChangedConn then
 		headscaleChangedConn:disconnect()
 	end
-	headscaleChangedConn = workspace.CurrentCamera:GetPropertyChangedSignal("HeadScale"):connect(onHeadScaleChanged)
+	headscaleChangedConn = (workspace.CurrentCamera :: Camera):GetPropertyChangedSignal("HeadScale"):Connect(onHeadScaleChanged)
 
 	if VRService.VREnabled and isCameraReady then
 		putFoldersIn(workspace.CurrentCamera)
@@ -1103,7 +1103,7 @@ local function onVREnabledChanged()
 		if workspace.CurrentCamera then
 			onCurrentCameraChanged()
 		end
-		currentCameraChangedConn = workspace:GetPropertyChangedSignal("CurrentCamera"):connect(onCurrentCameraChanged)
+		currentCameraChangedConn = workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(onCurrentCameraChanged)
 
 		putFoldersIn(workspace.CurrentCamera)
 
@@ -1130,10 +1130,10 @@ spawn(onVREnabledChanged)
 coroutine.wrap(function()
 	while true do
 		if workspace.CurrentCamera then
-			if workspace.CurrentCamera.CameraSubject ~= nil or workspace.CurrentCamera.CameraType == Enum.CameraType.Scriptable then
+			if (workspace.CurrentCamera :: Camera).CameraSubject ~= nil or (workspace.CurrentCamera :: Camera).CameraType == Enum.CameraType.Scriptable then
 				break
 			end
-			workspace.CurrentCamera.Changed:wait()
+			(workspace.CurrentCamera :: Camera).Changed:Wait()
 		else
 			wait()
 		end

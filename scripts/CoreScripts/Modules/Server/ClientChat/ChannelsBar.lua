@@ -4,7 +4,7 @@
 
 local module = {}
 
-local PlayerGui = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
+local PlayerGui = (game:GetService("Players").LocalPlayer :: Player):WaitForChild("PlayerGui")
 
 --////////////////////////////// Include
 --//////////////////////////////////////

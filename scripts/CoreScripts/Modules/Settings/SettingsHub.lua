@@ -670,7 +670,7 @@ local function CreateSettingsHub()
 			Visible = false
 		}
 
-		local canGetCoreScriptVersion = game:getEngineFeature("CoreScriptVersionEnabled")
+		local canGetCoreScriptVersion = game:GetEngineFeature("CoreScriptVersionEnabled")
 
 		if canGetCoreScriptVersion then
 			this.VersionContainer = utility:Create("ScrollingFrame") {
@@ -1212,7 +1212,7 @@ local function CreateSettingsHub()
 			if prop == "CurrentCamera" then
 				cameraViewportChanged()
 				if viewportSizeChangedConn then viewportSizeChangedConn:disconnect() end
-				viewportSizeChangedConn = workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):connect(cameraViewportChanged)
+				viewportSizeChangedConn = (workspace.CurrentCamera :: Camera):GetPropertyChangedSignal("ViewportSize"):Connect(cameraViewportChanged)
 			end
 		end
 		onWorkspaceChanged("CurrentCamera")
@@ -1220,7 +1220,7 @@ local function CreateSettingsHub()
 		if GetFFlagMuteButtonRaceConditionFix() and voiceEnabled then
 			addMuteButtonToBar()
 		end
-		workspace.Changed:connect(onWorkspaceChanged)
+		workspace.Changed:Connect(onWorkspaceChanged)
 	end
 
 	local function onScreenSizeChanged()

@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
@@ -8,6 +9,8 @@ local Cryo = InGameMenuDependencies.Cryo
 
 local InGameMenu = script.Parent.Parent
 local withLocalization = require(InGameMenu.Localization.withLocalization)
+
+local FFlagUsePageSearchAnimation = require(InGameMenu.Flags.GetFFlagUsePageSearchAnimation)()
 
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local getIconSizeUDim2 = UIBlox.App.ImageSet.getIconSizeUDim2
@@ -151,10 +154,10 @@ function CoPlayInviteCell:render()
 			askFriendsToJoinTitle = "CoreScripts.InGameMenu.Actions.AskFriendsToJoin",
 		})(function(localized)
 			return Roact.createElement(Cell, {
-				layoutOrder = self.props.LayoutOrder,
-				size = UDim2.new(1, 0, 0, 56),
-				anchorPoint = Vector2.new(1, 0),
-				position = UDim2.new(1, 0, 1, 0),
+				layoutOrder = if FFlagUsePageSearchAnimation then nil else self.props.LayoutOrder,
+				size = if FFlagUsePageSearchAnimation then UDim2.new(1, 0, 1, 0) else UDim2.new(1, 0, 0, 56),
+				anchorPoint = if FFlagUsePageSearchAnimation then nil else Vector2.new(1, 0),
+				position = if FFlagUsePageSearchAnimation then nil else UDim2.new(1, 0, 1, 0),
 				onActivated = self.props.onActivated,
 				head = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
@@ -208,9 +211,20 @@ function CoPlayInviteCell:render()
 				}, {
 					OnlineFriends = self:renderOnlineFriends(style),
 				}),
+				[Roact.Ref] = if FFlagUsePageSearchAnimation then self.props.forwardRef or Roact.createRef() else nil,
 			})
 		end)
 	end)
 end
 
+if FFlagUsePageSearchAnimation then
+	return Roact.forwardRef(function(props, ref)
+		return Roact.createElement(
+			CoPlayInviteCell,
+			Cryo.Dictionary.join(props, {
+				forwardRef = ref,
+			})
+		)
+	end)
+end
 return CoPlayInviteCell

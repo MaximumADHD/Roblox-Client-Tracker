@@ -56,15 +56,6 @@ local function Initialize()
 		Parent = instance.Page,
 	})
 
-	instance.RootLayout = Utility:Create("UIListLayout")({
-		Name = "RootLayout",
-		FillDirection = Enum.FillDirection.Vertical,
-		VerticalAlignment = Enum.VerticalAlignment.Top,
-		HorizontalAlignment = Enum.HorizontalAlignment.Center,
-		SortOrder = Enum.SortOrder.LayoutOrder,
-		Parent = instance.Root,
-	})
-
 	return instance
 end
 

@@ -7,8 +7,9 @@ StatusPropertyMap = {
     CageOverlappingVerticesPreview = {"CageOverlappingVerticesWarning"},
     CageUVMisMatchedPreview = {"CageUVMisMatchedWarning"},
     CageMeshIntersectedPreview = {"CageMeshIntersectedWarning"},
-	MeshHoleDetectedPreview = {"MeshHoleDetectedWarning"},
-	IrrelevantCageModifiedPreview = {"IrrelevantCageModifiedWarning"},
+    MeshHoleDetectedPreview = {"MeshHoleDetectedWarning"},
+    IrrelevantCageModifiedPreview = {"IrrelevantCageModifiedWarning"},
+    OuterCageFarExtendedFromMeshPreview = {"OuterCageFarExtendedFromMeshWarning"},
     RigType = {"IncorrectR15Warning"},
     DiffuseFilePath = {"CouldNotReadDiffuseError", "DiffuseBadFileFormatError"},
     RoughnessFilePath = {"CouldNotReadRoughnessError", "RoughnessBadFileFormatError"},
@@ -39,6 +40,7 @@ StatusPropertyMap = {
         "UGCExceedUVSpaceWarning",
         "UGCExceedTextureSizeWarning",
         "DeletedCageGeometryWarning",
+        "OuterCageBloatingWarning",
     },
 }
 

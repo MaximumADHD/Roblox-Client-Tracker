@@ -18,7 +18,6 @@ return function()
 	local Constants = require(Plugin.Src.Util.Constants)
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 	local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 	local mockSkeleton = {
@@ -31,7 +30,7 @@ return function()
 	testAnimationData.Metadata.EndTick = 10
 	testAnimationData.Instances.Root.Tracks = {
 		Hips = {
-			Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
+			Type = Constants.TRACK_TYPES.CFrame,
 			Keyframes = {0},
 		},
 	}
@@ -70,10 +69,8 @@ return function()
 			local analytics = Analytics.mock()
 			if GetFFlagCurveEditor() then
 				store:dispatch(AddTrack("Root", "Neck", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, Enum.RotationOrder.XYZ, analytics))
-			elseif GetFFlagChannelAnimations() or GetFFlagFacialAnimationSupport() then
-				store:dispatch(AddTrack("Root", "Neck", Constants.TRACK_TYPES.CFrame, analytics))
 			else
-				store:dispatch(AddTrack("Root", "Neck", analytics))
+				store:dispatch(AddTrack("Root", "Neck", Constants.TRACK_TYPES.CFrame, analytics))
 			end
 
 			local found = false
@@ -93,10 +90,8 @@ return function()
 			local analytics = Analytics.mock()
 			if GetFFlagCurveEditor() then
 				store:dispatch(AddTrack("Root", "Hips", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, Enum.RotationOrder.XYZ, analytics))
-			elseif GetFFlagChannelAnimations() or GetFFlagFacialAnimationSupport() then
-				store:dispatch(AddTrack("Root", "Hips", Constants.TRACK_TYPES.CFrame, analytics))
 			else
-				store:dispatch(AddTrack("Root", "Hips", analytics))
+				store:dispatch(AddTrack("Root", "Hips", Constants.TRACK_TYPES.CFrame, analytics))
 			end
 
 			local found = 0
@@ -232,14 +227,8 @@ return function()
 		it("should add a track if the track does not exist", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			if GetFFlagChannelAnimations() then
-				store:dispatch(AddKeyframe("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, 0, {}, analytics))
-			elseif GetFFlagFacialAnimationSupport() then
-				store:dispatch(AddKeyframe("Root", "Head", Constants.TRACK_TYPES.CFrame, 0, nil, analytics))
-			else
-				store:dispatch(AddKeyframe("Root", "Head", 0, nil, analytics))
-			end
-
+			store:dispatch(AddKeyframe("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, 0, {}, analytics))
+			
 			local found = false
 			local status = store:getState().Status
 			for _, track in ipairs(status.Tracks) do

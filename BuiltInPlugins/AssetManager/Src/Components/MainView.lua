@@ -160,7 +160,7 @@ function MainView:didUpdate()
 	local localization = props.Localization
 	local hasLinkedScripts = props.HasLinkedScripts
 
-	if not initialHasLinkedScriptValue ~= hasLinkedScripts then
+	if initialHasLinkedScriptValue == hasLinkedScripts then
 		for _, screen in pairs(Screens) do
 			if screen.Path ~= Screens.MAIN.Path then
 				-- Only show the scripts folder if this universe has linked scripts because they're deprecated.

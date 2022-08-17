@@ -1,5 +1,3 @@
---!strict
-
 --[[
 MessageBus is a common, global, message-passing service, where any MessageBus.Subscriber instance can listen to any message sent.
 
@@ -24,6 +22,7 @@ local MessageBusService = game:GetService("MessageBusService")
 local Types = require(script.Parent.MessageBusTypes)
 
 export type Table = Types.Table
+export type Array<T> = Types.Array<T>
 export type Promise<T> = Types.Promise<T>
 export type MessageDescriptor = Types.MessageDescriptor
 export type ProtocolMethodDescriptor = Types.ProtocolMethodDescriptor
@@ -51,7 +50,7 @@ function MessageBus.publishProtocolMethodResponse(desc: ProtocolMethodDescriptor
 	if LuaAppFixMessageBusServiceCase then
 		MessageBusService:PublishProtocolMethodResponse(desc.protocolName, desc.methodName, params, responseCode, customTelemetryData)
 	else
-		MessageBusService:publishProtocolMethodResponse(desc.protocolName, desc.methodName, params, responseCode, customTelemetryData)
+		(MessageBusService :: any):publishProtocolMethodResponse(desc.protocolName, desc.methodName, params, responseCode, customTelemetryData)
 	end
 end
 
@@ -60,7 +59,7 @@ function MessageBus.getLast(desc: MessageDescriptor): Table?
 	if LuaAppFixMessageBusServiceCase then
 		params = MessageBusService:GetLast(desc.mid)
 	else
-		params = MessageBusService:getLast(desc.mid)
+		params = (MessageBusService :: any):getLast(desc.mid)
 	end
 	if params == nil then
 		return nil
@@ -106,10 +105,10 @@ function Subscriber:getSubscriptionCount(): number
 	return count
 end
 
-function Subscriber:subscribe(desc: MessageDescriptor, callback: (Table?) -> (), sticky: boolean?, once: boolean?)
+function Subscriber:subscribe(desc: MessageDescriptor, callback: (Table) -> (), sticky: boolean?, once: boolean?)
 	-- subscriptions are sticky by default
-	sticky = sticky == nil or sticky
-	once = once ~= nil and once
+	local sticky = sticky == nil or sticky
+	local once = once ~= nil and once
 	local mid = desc.mid
 	local existingConnection = self.connections[mid]
 	if existingConnection ~= nil then
@@ -120,10 +119,10 @@ function Subscriber:subscribe(desc: MessageDescriptor, callback: (Table?) -> (),
 	
 end
 
-function Subscriber:subscribeProtocolMethodRequest(desc: ProtocolMethodDescriptor, callback: (Table?) -> (), sticky: boolean?, once: boolean?)
+function Subscriber:subscribeProtocolMethodRequest(desc: ProtocolMethodDescriptor, callback: (Table) -> (), sticky: boolean?, once: boolean?)
 	-- subscriptions are sticky by default
-	sticky = sticky == nil or sticky
-	once = once ~= nil and once
+	local sticky = sticky == nil or sticky
+	local once = once ~= nil and once
 	local protocolName = desc.protocolName
 	local methodName = desc.methodName
 	local requestMid = MessageBus.getProtocolMethodRequestMessageId(protocolName, methodName) 
@@ -135,10 +134,10 @@ function Subscriber:subscribeProtocolMethodRequest(desc: ProtocolMethodDescripto
 	self.connections[requestMid] = conn
 end
 
-function Subscriber:subscribeProtocolMethodResponse(desc: ProtocolMethodDescriptor, callback: (Table?) -> (), sticky: boolean?, once: boolean?)
+function Subscriber:subscribeProtocolMethodResponse(desc: ProtocolMethodDescriptor, callback: (Table) -> (), sticky: boolean?, once: boolean?)
 	-- subscriptions are sticky by default
-	sticky = sticky == nil or sticky
-	once = once ~= nil and once
+	local sticky = sticky == nil or sticky
+	local once = once ~= nil and once
 	local protocolName = desc.protocolName
 	local methodName = desc.methodName
 	local responseMid = MessageBus.getProtocolMethodResponseMessageId(protocolName, methodName) 

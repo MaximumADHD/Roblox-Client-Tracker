@@ -1,3 +1,4 @@
+--!nonstrict
 local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
@@ -24,14 +25,17 @@ local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local PlayerSearchPredicate = require(InGameMenu.Utility.PlayerSearchPredicate)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 local GetFFlagInGameMenuV3SortPlayersByDisplayName = require(InGameMenu.Flags.GetFFlagInGameMenuV3SortPlayersByDisplayName)
+local GetFFlagUsePageSearchAnimation = require(InGameMenu.Flags.GetFFlagUsePageSearchAnimation)
 
 local PlayerCell = require(InGameMenu.Components.PlayerCell)
 local PlayerContextualMenuWrapper = require(InGameMenu.Components.PlayerContextualMenuWrapper)
 local CoPlayInviteCell = require(InGameMenu.Components.CoPlayInviteCell)
 
+local UIAnimator = require(InGameMenu.Utility.UIAnimator)
 local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 local Divider = require(InGameMenu.Components.Divider)
 local Page = require(InGameMenu.Components.Page)
+local PageWithSearch = require(InGameMenu.Components.PageWithSearch)
 local PageUtils = require(InGameMenu.Components.Pages.PageUtils)
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local Constants = require(InGameMenu.Resources.Constants)
@@ -48,6 +52,8 @@ local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 local DIVIDER_INDENT = 0
 local DIVIDER_HEIGHT = 1
 local LIST_HEADER_HEIGHT = 24
+local COPLAY_INVITE_CELL_HEIGHT = 56
+local COPLAY_INVITE_ANIMATION_SPEED = 0.3
 
 local ICON_SIZE = getIconSize(UIBlox.App.ImageSet.Enum.IconSize.Medium)
 
@@ -82,6 +88,11 @@ PlayersPage.defaultProps = {
 
 function PlayersPage:init()
 	self.scrollingFrameRef = Roact.createRef()
+	if GetFFlagUsePageSearchAnimation() then
+		self.searchBarRef = Roact.createRef()
+		self.coplayInviteCellCanvasGroupRef = Roact.createRef()
+		self.uiAnimator = UIAnimator:new()
+	end
 
 	self:setState({
 		selectedPlayer = nil,
@@ -90,13 +101,33 @@ function PlayersPage:init()
 		allMuted = false,
 		selectedPlayerRef = nil,
 		firstPlayerRef = nil,
+		isFilteringMode = false,
 		searchText = "",
 	})
+
+	self.pageHeaderActivated = function()
+		local scrollingFrame = self.scrollingFrameRef:getValue()
+		if scrollingFrame then
+			scrollingFrame:scrollToTop()
+		end
+	end
 
 	self.setSelectedPlayerRef = function(rbx)
 		self:setState({
 			selectedPlayerRef = rbx,
 		})
+	end
+
+	if GetFFlagUsePageSearchAnimation() then
+		self.setCoplayInviteCellCanvasGroupRef = function(rbx)
+			self.coplayInviteCellCanvasGroupRef = rbx
+			if rbx then
+				self.uiAnimator:addReversibleTween(rbx, 'fade', UIAnimator.ReversibleTweens.Fade(), TweenInfo.new(COPLAY_INVITE_ANIMATION_SPEED))
+				self.uiAnimator:addReversibleTween(rbx, 'collapse', UIAnimator.ReversibleTweens.VerticalCollapse(rbx, COPLAY_INVITE_CELL_HEIGHT), TweenInfo.new(COPLAY_INVITE_ANIMATION_SPEED))
+			else
+				self.uiAnimator:removeAllTweens(rbx)
+			end
+		end
 	end
 
 	self.setFirstPlayerRef = function(rbx)
@@ -157,10 +188,22 @@ function PlayersPage:init()
 	end
 
 	self.onSearchBarDismissed = function()
+		if GetFFlagUsePageSearchAnimation() then
+			self.uiAnimator:playReversibleTweens(self.coplayInviteCellCanvasGroupRef, {'fade', 'collapse'}, true)
+		end
 		self:setState({
 			isFilteringMode = false,
 			searchText = "",
 		})
+	end
+
+	if GetFFlagUsePageSearchAnimation() then
+		self.onSearchModeEntered = function()
+			self.uiAnimator:playReversibleTweens(self.coplayInviteCellCanvasGroupRef, {'fade', 'collapse'}, false)
+			self:setState({
+				isFilteringMode = true,
+			})
+		end
 	end
 end
 
@@ -230,13 +273,29 @@ function PlayersPage:renderListEntries(style, localized, players)
 	layoutOrder = layoutOrder + 1
 
 	-- co-play invite cell
-	listComponents["coplay_invite_cell"] = Roact.createElement(CoPlayInviteCell, {
-		LayoutOrder = layoutOrder,
-		onActivated = function()
-			self.props.openInviteFriendsPage()
-		end,
-		friends = self.props.inviteFriends,
-	})
+	if GetFFlagUsePageSearchAnimation() then
+		listComponents["coplay_invite_cell_canvas_group"] = Roact.createElement("CanvasGroup", {
+			BorderSizePixel = 0,
+			BackgroundTransparency = style.Theme.BackgroundContrast.Transparency,
+			BackgroundColor3 = style.Theme.BackgroundContrast.Color,
+			Size = UDim2.new(1, 0, 0, COPLAY_INVITE_CELL_HEIGHT),
+			LayoutOrder = layoutOrder,
+			[Roact.Ref] = self.setCoplayInviteCellCanvasGroupRef,
+		}, {
+			InviteCell = Roact.createElement(CoPlayInviteCell, {
+				onActivated = self.props.openInviteFriendsPage,
+				friends = self.props.inviteFriends,
+			})
+		})
+	else
+		listComponents["coplay_invite_cell"] = Roact.createElement(CoPlayInviteCell, {
+			LayoutOrder = layoutOrder,
+			onActivated = function()
+				self.props.openInviteFriendsPage()
+			end,
+			friends = self.props.inviteFriends,
+		})
+	end
 	layoutOrder = layoutOrder + 1
 
 	-- incoming friend request section
@@ -498,30 +557,8 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, get
 		or nil
 
 	local listEntries = self:renderListEntries(style, localized, self.props.players)
-
-	return PageUtils.withScrollDownState(function(onScroll, scrollingDown)
-		return Roact.createElement(Page, {
-			useLeaveButton = true,
-			scrollingDown = scrollingDown,
-			pageTitle = self.props.pageTitle,
-			titleChildren = Roact.createElement(IconButton, {
-				size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
-				icon = Images["icons/common/search"],
-				onActivated = function()
-					self:setState({
-						isFilteringMode = true,
-					})
-				end,
-			}),
-			isFilteringMode = self.state.isFilteringMode,
-			searchBar = Roact.createElement(SearchBar, {
-				size = UDim2.new(1, 0, 0, 36),
-				text = self.state.searchText,
-				autoCaptureFocus = true,
-				onTextChanged = self.onSearchTextChanged,
-				onCancelled = self.onSearchBarDismissed,
-			}),
-		}, {
+	local getChildren = function(onScroll)
+		return {
 			PlayerListContent = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
@@ -560,7 +597,47 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, get
 					})
 				end,
 			}),
-		})
+		}
+	end
+
+	return PageUtils.withScrollDownState(function(onScroll, scrollingDown)
+		if GetFFlagUsePageSearchAnimation() then
+			return Roact.createElement(PageWithSearch, {
+				useLeaveButton = true,
+				scrollingDown = scrollingDown,
+				pageTitle = self.props.pageTitle,
+				hasSearchBar = true,
+				searchText = self.state.searchText,
+				onSearchTextChanged = self.onSearchTextChanged,
+				onSearchModeEntered = self.onSearchModeEntered,
+				onSearchBarDismissed = self.onSearchBarDismissed,
+				onHeaderActivated = self.pageHeaderActivated,
+			}, getChildren(onScroll))
+		end
+
+		return Roact.createElement(Page, {
+			useLeaveButton = true,
+			scrollingDown = scrollingDown,
+			pageTitle = self.props.pageTitle,
+			titleChildren = Roact.createElement(IconButton, {
+				size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
+				icon = Images["icons/common/search"],
+				onActivated = function()
+					self:setState({
+						isFilteringMode = true,
+					})
+				end,
+			}),
+			isFilteringMode = self.state.isFilteringMode,
+			searchBar = Roact.createElement(SearchBar, {
+				size = UDim2.new(1, 0, 0, 36),
+				text = self.state.searchText,
+				autoCaptureFocus = true,
+				onTextChanged = self.onSearchTextChanged,
+				onCancelled = self.onSearchBarDismissed,
+			}),
+			onHeaderActivated = self.pageHeaderActivated,
+		}, getChildren(onScroll))
 	end)
 end
 
@@ -594,8 +671,10 @@ function PlayersPage:didUpdate(prevProps, prevState)
 		end
 	end
 
-	if not self.props.isMenuOpen and prevProps.isMenuOpen then
-		self.onSearchBarDismissed()
+	if not GetFFlagUsePageSearchAnimation() then
+		if not self.props.isMenuOpen and prevProps.isMenuOpen then
+			self.onSearchBarDismissed()
+		end
 	end
 
 	local selectedPlayerRef = self.state.selectedPlayerRef

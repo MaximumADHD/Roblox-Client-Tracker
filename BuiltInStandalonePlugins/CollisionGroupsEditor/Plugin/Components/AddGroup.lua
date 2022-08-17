@@ -75,12 +75,7 @@ function AddGroup:render()
 
 				-- Despite clearing the text in this function, we still end up with a newline insertion after recapturing focus.
 				-- So we should strip a leading newline from the input if one is present
-				local firstchar = string.sub(text, 1, 1)
-				if firstchar == "\r" or firstchar == "\n" then
-					text = string.sub(text, 2)
-				elseif string.sub(text, 1, 2) == "\r\n" then
-					text = string.sub(text, 3)
-				end
+				text = string.gsub(text, "^%s+", "")
 
 				if enterPressed and text ~= "" and
 				 text ~= " " and

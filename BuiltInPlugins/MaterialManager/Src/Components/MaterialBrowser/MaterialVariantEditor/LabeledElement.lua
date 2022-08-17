@@ -6,50 +6,55 @@ local join = Framework.Dash.join
 local UI = Framework.UI
 local TextLabel = UI.Decoration.TextLabel
 local Pane = UI.Pane
+local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
+
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
+local Analytics = ContextServices.Analytics
+local Localization = ContextServices.Localization
+
+local Stylizer = Framework.Style.Stylizer
+
+local StatusIcon = require(Plugin.Src.Components.StatusIcon)
 
 export type Props = {
-	ErrorText: string?,
-	InfoText: string?,
 	LabelColumnWidth: UDim?,
 	LayoutOrder: number?,
-	Spacing: number?,
+	Status: Enum.PropertyStatus?,
+	StatusText: string?,
 	Text: string?,
-	TextSize: number?,
 	TextXAlignment: Enum.TextXAlignment?,
 	TextYAlignment: Enum.TextYAlignment?,
-	UnderlyingColor: Color3?,
-	VerticalSpacing: number?,
-	WarningText: string?,
 	WrapperProps: any?,
+}
+
+type _Props = Props & {
+	Analytics: any,
+	Localization: any,
+	Stylizer: any,
+}
+
+type _Style = {
+	FillDirection: Enum.FillDirection,
+	ImageSize: UDim2,
+	LabelYSize: UDim,
+	TextXAlignment: Enum.TextXAlignment,
+	TextYAlignment: Enum.TextYAlignment,
 }
 
 local LabeledElement = Roact.PureComponent:extend("LabeledElement")
 
-LabeledElement.defaultProps = {
-	LabelColumnWidth = UDim.new(0, 100),
-	LayoutOrder = 1,
-	Spacing = 0,
-	Text = "",
-	TextSize = 16,
-	TextXAlignment = Enum.TextXAlignment.Left,
-	TextYAlignment = Enum.TextYAlignment.Top,
-	VerticalSpacing = 0,
-}
-
 function LabeledElement:render()
-	local props: Props = self.props
+	local props: _Props = self.props
+	local style: _Style = props.Stylizer.LabeledElement
 
-	local fillDirection = Enum.FillDirection.Vertical
+	local layoutOrderIterator = LayoutOrderIterator.new()
+	local fillDirection = style.FillDirection
 	local labelColumnWidth = props.LabelColumnWidth
-	local labelSize = UDim2.new(labelColumnWidth, UDim.new(0, 25))
-	local captionText
-	if props.ErrorText and props.ErrorText ~= "" then
-		captionText = props.ErrorText
-	elseif props.WarningText and props.WarningText ~= "" then
-		captionText = props.WarningText
-	elseif props.InfoText and props.InfoText ~= "" then
-		captionText = props.InfoText
-	end
+	local labelSize = UDim2.new(labelColumnWidth, style.LabelYSize)
+	local imageSize = style.ImageSize
+	local status = props.Status
+	local statusText = props.StatusText
 
 	return Roact.createElement(Pane, {
 		AutomaticSize = Enum.AutomaticSize.Y,
@@ -57,38 +62,34 @@ function LabeledElement:render()
 		VerticalAlignment = Enum.VerticalAlignment.Top,
 		Layout = fillDirection,
 		LayoutOrder = props.LayoutOrder,
+		Padding = if not status or (status and status == Enum.PropertyStatus.Ok) then {
+			Left = imageSize.Width.Offset,
+		} else nil,
 	}, {
+		StatusIcon = if status and status ~= Enum.PropertyStatus.Ok then 
+			Roact.createElement(StatusIcon, {
+				LayoutOrder = layoutOrderIterator:getNextOrder(),
+				Size = imageSize,
+				StatusText = statusText,
+				Status = status,
+			}) else nil,
 		Label = Roact.createElement(TextLabel, {
-			LayoutOrder = 1,
+			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			Size = labelSize,
 			Text = props.Text,
-			TextXAlignment = props.TextXAlignment,
-			TextYAlignment = props.TextYAlignment,
+			TextXAlignment = props.TextXAlignment or style.TextXAlignment,
 		}),
-		Content = Roact.createElement(Pane, {
+		ElementListItem = Roact.createElement(Pane, join({
+			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			AutomaticSize = Enum.AutomaticSize.XY,
-			LayoutOrder = 2,
-			Layout = Enum.FillDirection.Vertical,
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			VerticalAlignment = Enum.VerticalAlignment.Top,
-		}, {
-			ElementListItem = Roact.createElement(Pane, join({
-				LayoutOrder = 3,
-				AutomaticSize = Enum.AutomaticSize.XY,
-			}, props.WrapperProps), (props:: any)[Roact.Children]),
-			Caption = Roact.createElement(Pane, {
-				Size = UDim2.new(1, 0, 0, props.TextSize :: number),
-				LayoutOrder = 4,
-			}, {
-				CaptionText = (captionText and captionText ~= "") and Roact.createElement(TextLabel, {
-					Text = captionText,
-					TextSize = props.TextSize,
-					TextColor = props.UnderlyingColor,
-					AutomaticSize = Enum.AutomaticSize.XY,
-				}) or nil,
-			})
-		})
+		}, props.WrapperProps), (props:: any)[Roact.Children]),
 	})
 end
+
+LabeledElement = withContext({
+	Analytics = Analytics,
+	Localization = Localization,
+	Stylizer = Stylizer,
+})(LabeledElement)
 
 return LabeledElement

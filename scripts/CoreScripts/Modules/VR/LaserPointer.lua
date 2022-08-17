@@ -1,4 +1,6 @@
+--!nolint DeprecatedApi
 --!nonstrict
+--!nolint DeprecatedApi
 
 --LaserPointer.lua
 --Implements the visual part of the VR laser pointer
@@ -696,7 +698,7 @@ end
 function LaserPointer:updateCursor()
 	if VRService.DidPointerHit then
 		local hitCFrame = VRService.PointerHitCFrame
-		local cameraSpace = workspace.CurrentCamera.CFrame
+		local cameraSpace = (workspace.CurrentCamera :: Camera).CFrame
 		local originCFrame = cameraSpace * VRService:GetUserCFrame(self.inputUserCFrame)
 		if self:isHeadMounted() then
 			originCFrame = cameraSpace * VRService:GetUserCFrame(Enum.UserCFrame.Head)
@@ -716,7 +718,7 @@ function LaserPointer:updateCursor()
 			hitCFrame = hitCFrame.Rotation + hitPosition
 		end
 
-		local cursorDistanceToCamera = (workspace.CurrentCamera.CFrame.Position - hitCFrame.Position).magnitude
+		local cursorDistanceToCamera = ((workspace.CurrentCamera :: Camera).CFrame.Position - hitCFrame.Position).magnitude
 
 		local imageSize = 1
 		local cursorSize = cursorDistanceToCamera * 0.01
@@ -748,7 +750,7 @@ function LaserPointer:update(dt)
 		self.plopBall,
 		GuiService.CoreEffectFolder,
 	}
-	local cameraSpace = workspace.CurrentCamera.CFrame
+	local cameraSpace = (workspace.CurrentCamera :: Camera).CFrame
 	local thickness0, thickness1 = LASER.ARC_THICKNESS, TELEPORT.ARC_THICKNESS
 	local gravity0, gravity1 = LASER.G, TELEPORT.G
 	
@@ -767,7 +769,7 @@ function LaserPointer:update(dt)
 		self:checkHeadMountedMode(laserHitPart)
 
 		--we actually want to render the laser from an offset from the head though
-		local offsetPosition = originCFrame:pointToWorldSpace(HEAD_MOUNT_OFFSET * workspace.CurrentCamera.HeadScale)
+		local offsetPosition = originCFrame:pointToWorldSpace(HEAD_MOUNT_OFFSET * (workspace.CurrentCamera :: Camera).HeadScale)
 		self:renderAsLaser(offsetPosition, laserHitPoint)
 
 		if EngineFeatureEnableVRUpdate2 and self.showPlopBallOnPointer then

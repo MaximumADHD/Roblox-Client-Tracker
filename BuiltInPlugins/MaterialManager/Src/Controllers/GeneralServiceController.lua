@@ -10,6 +10,10 @@ local Util = Plugin.Src.Util
 local ApplyToBasePart = require(Util.ApplyToBasePart)
 local ApplyToInstances = require(Util.ApplyToInstances)
 
+local Constants = Plugin.Src.Resources.Constants
+local getMaterialName = require(Constants.getMaterialName)
+local getMaterialPatternName = require(Constants.getMaterialPatternName)
+
 local getFFlagMaterialManagerFixApplyToClicked = require(Plugin.Src.Flags.getFFlagMaterialManagerFixApplyToClicked)
 
 local GeneralServiceController = ContextItem:extend("GeneralServiceController")
@@ -82,6 +86,32 @@ function GeneralServiceController:ApplyToSelection(baseMaterial: Enum.Material, 
 	self._changeHistoryService:asService():SetWaypoint("Applied Material to Selection")
 end
 
+function GeneralServiceController:setName(materialVariant: MaterialVariant, name: string)
+	materialVariant.Name = name
+	self._changeHistoryService:asService():SetWaypoint("Set Name for Material Variant to" .. name)
+end
+
+function GeneralServiceController:setBaseMaterial(materialVariant: MaterialVariant, baseMaterial: Enum.Material)
+	materialVariant.BaseMaterial = baseMaterial
+	self._changeHistoryService:asService():SetWaypoint("Set BaseMaterial for Material Variant to" .. getMaterialName(baseMaterial))
+end
+
+function GeneralServiceController:setTextureMap(materialVariant: any, textureMap: string, assetId: string)
+	materialVariant[textureMap] = assetId
+	self._changeHistoryService:asService():SetWaypoint("Set" .. textureMap .. "for Material Variant to" .. assetId)
+end
+
+function GeneralServiceController:setStudsPerTile(materialVariant: MaterialVariant, studsPerTile: number)
+	materialVariant.StudsPerTile = studsPerTile
+	self._changeHistoryService:asService():SetWaypoint("Set StudsPerTile for Material Variant to" .. studsPerTile)
+end
+
+function GeneralServiceController:setMaterialPattern(materialVariant: MaterialVariant, materialPattern: Enum.MaterialPattern)
+	materialVariant.MaterialPattern = materialPattern
+	self._changeHistoryService:asService():SetWaypoint("Set MaterialPattern for Material Variant to" .. getMaterialPatternName(materialPattern))
+end
+
+-- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 function GeneralServiceController:saveMaterialVariant(instance: Instance)
 	self._changeHistoryService:asService():SetWaypoint("Save Material Variant" .. instance.Name)
 end

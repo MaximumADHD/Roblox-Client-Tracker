@@ -13,14 +13,18 @@ local TextLabel = UI.Decoration.TextLabel
 local StudioUI = Framework.StudioUI
 local Dialog = StudioUI.Dialog
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
+local Image = UI.Decoration.Image
 
 local LoadingImage = require(Plugin.Src.Components.LoadingImage)
+
+local getFFlagMaterialManagerVariantCreatorOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
 
 type Array<T> = { [number]: T }
 
 type _ExternalProps = {
-	PreviewTitle: string?,
 	ImageId: string,
+	IsTempId: boolean,
+	PreviewTitle: string?,
 }
 
 type _InternalProps = {
@@ -71,12 +75,25 @@ function PreviewDialog:render()
 			BackgroundColor3 = style.PreviewBackgroundColor,
 			BorderColor3 = style.PreviewBorderColor,
 		}, {
-			PreviewContent = Roact.createElement(LoadingImage, {
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 1, 0),
-				Image = props.ImageId,
-				ScaleType = Enum.ScaleType.Fit,
-			}),
+			PreviewContent = if getFFlagMaterialManagerVariantCreatorOverhaul() and props.IsTempId == true then 
+				Roact.createElement(LoadingImage, {
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, 0, 1, 0),
+					Image = props.ImageId,
+					ScaleType = Enum.ScaleType.Fit,
+				})
+			elseif getFFlagMaterialManagerVariantCreatorOverhaul() and props.IsTempId == false then 
+				Roact.createElement(Image, {
+					Size = UDim2.new(1, 0, 1, 0),
+					Image = props.ImageId,
+				})
+			else
+				Roact.createElement(LoadingImage, {
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, 0, 1, 0),
+					Image = props.ImageId,
+					ScaleType = Enum.ScaleType.Fit,
+				}),
 		}),
 
 		-- Double the padding between the preview and filename

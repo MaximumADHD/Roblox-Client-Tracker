@@ -35,17 +35,13 @@ local ContextMenu = require(Plugin.Src.Components.ContextMenu)
 
 local Separator = Constants.MENU_SEPARATOR
 
-local SaveKeyframeSequence = require(Plugin.Src.Thunks.Exporting.SaveKeyframeSequence)
 local SaveAnimation = require(Plugin.Src.Thunks.Exporting.SaveAnimation)
-
-local ExportKeyframeSequence = require(Plugin.Src.Thunks.Exporting.ExportKeyframeSequence)
 local ExportAnimation = require(Plugin.Src.Thunks.Exporting.ExportAnimation)
 
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local UpdateMetadata = require(Plugin.Src.Thunks.UpdateMetadata)
 local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
 
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local FFlagAnimationFromVideoCreatorServiceInAnimationEditor = game:DefineFastFlag("AnimationFromVideoCreatorServiceInAnimationEditor", false)
@@ -172,11 +168,7 @@ function AnimationClipMenu:makeMenuActions(localization)
 	table.insert(actions, {
 		Name = localization:getText("Menu", "Save"),
 		ItemSelected = function()
-			if GetFFlagChannelAnimations() then
-				props.SaveAnimation(current, props.Analytics)
-			else
-				props.SaveKeyframeSequence(current, props.Analytics)
-			end
+			props.SaveAnimation(current, props.Analytics)
 		end,
 	})
 	table.insert(actions, self:makeSaveAsMenu(localization, current))
@@ -185,11 +177,7 @@ function AnimationClipMenu:makeMenuActions(localization)
 	table.insert(actions, {
 		Name = localization:getText("Menu", "PublishToRoblox"),
 		ItemSelected = function()
-			if GetFFlagChannelAnimations() then
-				props.ExportAnimation(plugin, props.Analytics)
-			else
-				props.ExportKeyframeSequence(plugin, props.Analytics)
-			end
+			props.ExportAnimation(plugin, props.Analytics)
 		end,
 		Enabled = true,
 	})
@@ -199,7 +187,7 @@ function AnimationClipMenu:makeMenuActions(localization)
 		ItemSelected = onCreateNewRequested,
 	})
 
-	if not GetFFlagCurveEditor() and GetFFlagChannelAnimations() then
+	if not GetFFlagCurveEditor() then
 		table.insert(actions, {
 			Name = localization:getText("Menu", "PromoteToChannels"),
 			ItemSelected = onPromoteRequested,
@@ -241,18 +229,8 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		-- Remove when GetFFlagChannelAnimations is ON
-		SaveKeyframeSequence = function(name, analytics)
-			dispatch(SaveKeyframeSequence(name, analytics))
-		end,
-
 		SaveAnimation = function(name, analytics)
 			dispatch(SaveAnimation(name, analytics))
-		end,
-
-		-- Remove when GetFFlagChannelAnimations is ON
-		ExportKeyframeSequence = function(plugin, analytics)
-			dispatch(ExportKeyframeSequence(plugin, analytics))
 		end,
 
 		ExportAnimation = function(plugin, analytics)

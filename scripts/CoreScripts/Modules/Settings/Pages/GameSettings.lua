@@ -24,7 +24,8 @@ local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 local VideoCaptureService = game:GetService("VideoCaptureService")
 local UserGameSettings = Settings:GetService("UserGameSettings")
-
+local LocalizationService = game:GetService("LocalizationService")
+local Url = require(RobloxGui.Modules.Common.Url)
 local VoiceChatService = nil
 
 -------------- CONSTANTS --------------
@@ -62,7 +63,6 @@ local VOICE_CHAT_DEVICE_TYPE = {
 }
 
 local GetFFlagEnableCameraByDefault = require(RobloxGui.Modules.Flags.GetFFlagEnableCameraByDefault)
-
 local MICROPROFILER_SETTINGS_PRESSED = "MicroprofilerSettingsPressed"
 
 local MOVEMENT_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and "Default (Dynamic Thumbstick)" or "Default (Keyboard)"
@@ -126,7 +126,6 @@ local isDesktopClient = (platform == Enum.Platform.Windows) or (platform == Enum
 local isMobileClient = (platform == Enum.Platform.IOS) or (platform == Enum.Platform.Android)
 local UseMicroProfiler = (isMobileClient or isDesktopClient) and canUseMicroProfiler
 
-local GetFFlagEnableVoiceChatOptionsDualServiceOutputs = require(RobloxGui.Modules.Flags.getFFlagEnableVoiceChatOptionsDualServiceOutputs)
 local GetFFlagEnableVoiceChatDeviceChangeDebounce = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatDeviceChangeDebounce)
 local GetFIntVoiceChatDeviceChangeDebounceDelay = require(RobloxGui.Modules.Flags.GetFIntVoiceChatDeviceChangeDebounceDelay)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
@@ -491,7 +490,7 @@ local function Initialize()
 				the setter returns two values newValue and delta indicating what change actually happened.  We then pass thos two values
 				to notifyForLevelChange to construct the notification.
 			]]
-			game.GraphicsQualityChangeRequest:connect(
+			game.GraphicsQualityChangeRequest:Connect(
 				function(isIncrease)
 					local current = GameSettings.GraphicsQualityLevel
 					if current ~= 0 then
@@ -529,7 +528,7 @@ local function Initialize()
 			)
 
 			-- DEPRECATED Remove with FixGraphicsQuality
-			game.GraphicsQualityChangeRequest:connect(
+			game.GraphicsQualityChangeRequest:Connect(
 				function(isIncrease)
 					--	was using settings().Rendering.Quality level, which was wrongly saying it was automatic.
 					if GameSettings.SavedQualityLevel ~= Enum.SavedQualitySetting.Automatic then
@@ -1260,13 +1259,373 @@ local function Initialize()
 		)
 	end
 
+	local function createTranslationOptions()
+		------------------------------------------------------
+		------------------
+		------------------ Language Selection -----------------
+		local startIndex = 2 -- Default to "translated" index
+		local optionsArray = {"Unavailable", "Unavailable"}
+		this.LanguageSelectorFrame, this.LanguageSelectorLabel, this.LanguageSelectorMode =
+			utility:AddNewRow(this, "Experience Language", "Selector", optionsArray, startIndex)
+		this.LanguageSelectorFrame.LayoutOrder = 4
+
+		this.LanguageSelectorOverrideText =
+			utility:Create "TextLabel" {
+			Name = "LanguageSelectorLabel",
+			Text = "Set by Developer",
+			TextColor3 = Color3.new(1, 1, 1),
+			Font = Enum.Font.SourceSans,
+			FontSize = Enum.FontSize.Size24,
+			BackgroundTransparency = 1,
+			Size = UDim2.new(0, 200, 1, 0),
+			Position = UDim2.new(1, -350, 0, 0),
+			Visible = false,
+			ZIndex = 2,
+			Parent = this.LanguageSelectorLabel
+		}
+
+		-- Only enable the option if initial calls succeed and a starting state
+		-- is determined. Only the POST call is
+		-- used on toggle, others are to check initial state
+		this.LanguageSelectorMode:SetInteractable(false)
+		
+		-- Check experience settings
+		local sourceLanguageCode = nil -- source language code of the game, example: "en"
+		local sourceLanguageName = nil -- source language name of the game, example: "English"
+		local sourceLocaleCode = nil -- corresponding locale code of the game, example: "en_us"
+		local playerLocaleCode = Players.LocalPlayer.LocaleId -- player's locale code is already known: Players.LocalPlayer.LocaleId, save the starting ID into a variable
+		local playerLanguageName = nil -- language name for the player, example: "Spanish"
+		local playerLanguageCode = nil -- language code for the player, example: "es" 
+		local userPrefersTranslated = true -- bool that determines whether the player prefers the source or player's language
+		local initialSettingCompleted = false -- Tracking boolean to be set when initial state has been determined and set
+		local playerLanguageSupported = false -- Tracking boolean that determines whether the player's locale is among the supported ones. If not this remains false and we only use source
+		
+		-- Requests will be sent sequentially, and the final callback will
+		-- perform an evaluation of API results to determine initial state of
+		-- the toggle.
+		-- Request to get the langauage code the user prefers for the game they
+		-- are in
+		local userExperienceLanguageSettingsUrl = Url.GAME_INTERNATIONALIZATION_URL .. string.format("v1/user-localization-settings/universe/%d", game.GameId)
+		local userExperienceLanguageSettingRequest = HttpService:RequestInternal({
+			Url = userExperienceLanguageSettingsUrl,
+			Method = "GET"
+		})
+
+		-- Request to get the source language code of the game the user is in
+		local experienceSourceLanguageUrl = Url.GAME_INTERNATIONALIZATION_URL .. string.format("v1/source-language/games/%d", game.GameId)
+		local experienceSourceLanguageRequest = HttpService:RequestInternal({
+			Url = experienceSourceLanguageUrl,
+			Method = "GET"
+		})
+
+		-- Request to get overall locale information. This provides a mapping of
+		-- locales to language codes, and also the supported translations for
+		-- the language strings
+		local localeCodeToLanguageCodeMappingUrl = Url.LOCALE_URL .. string.format("v1/locales?displayValueLocale=%s", Players.LocalPlayer.LocaleId:gsub('-', '_'))
+		local localeCodeToLanguageCodeMappingRequest = HttpService:RequestInternal({
+			Url = localeCodeToLanguageCodeMappingUrl,
+			Method = "GET"
+		})
+
+		-- Request to get the supported language codes for the experience
+		local experienceSupportedLanguagesUrl = Url.GAME_INTERNATIONALIZATION_URL .. string.format("v1/supported-languages/games/%d", game.GameId)
+		local experienceSupportedLanguagesRequest = HttpService:RequestInternal({
+			Url = experienceSupportedLanguagesUrl,
+			Method = "GET"
+		})
+
+		-- Callback functions
+		local function experienceSupportedLanguagesCallback(previousCallsSuccess, earliestErr)
+			if not previousCallsSuccess then
+				if earliestErr == nil then
+					earliestErr = "Execution path did not set earliest error to non-nil value."
+					-- This should never happen, but keep this as a catch all
+					-- during final evaluation so the log will show it
+				end
+				log:warning("GameSettings language selector initialization failed to get all required information; defaulting to player locale and disabling language selection toggle. Earliest error message: " .. earliestErr)
+				-- The feature should remain unavailable and user remains in
+				-- their locale if required start state info isn't captured
+			else
+				-- All previous calls succeeded and got set values, check state
+				-- and initialize
+				if playerLanguageSupported == false then
+					-- Since the player language is unsupported we use source
+					-- language strings anyway so we should not even provide the
+					--to switch
+					optionsArray = {sourceLanguageName .. " (Original)", sourceLanguageName .. " (Original)"}
+					this.LanguageSelectorMode:UpdateOptions(optionsArray)
+					this.LanguageSelectorMode:SetInteractable(false)
+				else
+					optionsArray = {sourceLanguageName .. " (Original)", playerLanguageName .. " (Translated)"}
+					this.LanguageSelectorMode:UpdateOptions(optionsArray)
+
+					if not userPrefersTranslated then
+						-- We only ever set this if GI API explicitly tells us
+						-- the user prefers untranslated
+						-- Selection index gets set to source index, otherwise
+						-- remains on translated language index
+
+						this.LanguageSelectorMode:SetSelectionIndex(1)
+					end
+
+					initialSettingCompleted = true
+					this.LanguageSelectorMode:SetInteractable(true)
+				end
+			end
+		end
+
+		local function localeCodeToLanguageCodeMappingCallback(previousCallsSuccess, earliestErr)
+			if previousCallsSuccess then
+				experienceSupportedLanguagesRequest:Start(function(reqSuccess, reqResponse)
+					local success = false
+					local err = nil
+					if not reqSuccess then
+						err = "Experience Supported Language Request: Connection error"
+					elseif reqResponse.StatusCode == 401 then
+						err = "Experience Supported Language Request: Unauthorized"
+					elseif reqResponse.StatusCode < 200 or reqResponse.StatusCode >= 400 then
+						err = "Experience Supported Language Request Status code: " .. reqResponse.StatusCode
+					else
+						success, err = pcall(function()
+							local json = HttpService:JSONDecode(reqResponse.Body)
+							for key, obj in pairs(json.data) do
+								if obj.languageCode == playerLanguageCode then
+									playerLanguageSupported = true
+								end
+							end
+						end)
+					end
+
+					if not success then
+						log:warning("GameSettings language selector initialization: Failed to get response from Localization API for " .. experienceSupportedLanguagesUrl .. " with error message: " .. err)
+					end
+
+					if earliestErr == nil then
+						earliestErr = err
+					end
+
+					experienceSupportedLanguagesCallback(success and previousCallsSuccess, earliestErr)
+				end)
+			else
+				experienceSupportedLanguagesCallback(false, earliestErr)
+			end
+		end
+
+		local function experienceSourceLanguageCallback(previousCallsSuccess, earliestErr)
+			if previousCallsSuccess then
+				localeCodeToLanguageCodeMappingRequest:Start(function(reqSuccess, reqResponse)
+					local success = false
+					local err = nil
+					if not reqSuccess then
+						err = "Locale Code to Language Code Mapping Request: Connection error"
+					elseif reqResponse.StatusCode == 401 then
+						err = "Locale Code to Language Code Mapping Request: Unauthorized"
+					elseif reqResponse.StatusCode < 200 or reqResponse.StatusCode >= 400 then
+						err = "Locale Code to Language Code Mapping Request Status code: " .. reqResponse.StatusCode
+					else
+						-- reqSuccess == true and StatusCode >= 200 and StatusCode < 400
+						success, err = pcall(function()
+							local json = HttpService:JSONDecode(reqResponse.Body)
+							for key, obj in pairs(json.data) do
+								if obj.locale.language.languageCode == sourceLanguageCode then
+									-- Found object with the source language code,
+									-- Grab the locale code
+									sourceLocaleCode = obj.locale.locale
+									sourceLanguageName = obj.locale.language.name
+								end
+
+								if obj.locale.locale == playerLocaleCode:gsub('-', '_') then
+									playerLanguageName = obj.locale.language.name
+									playerLanguageCode = obj.locale.language.languageCode
+									-- Name to display to the user
+								end
+							end
+						end)
+					end
+					if not success then
+						log:warning("GameSettings language selector initialization: Failed to get response from Localization API for " .. localeCodeToLanguageCodeMappingUrl .. " with error message: " .. err)
+					end
+
+					-- If we haven't hit an error yet then this is potentially the
+					-- earliest error
+					if earliestErr == nil then
+						earliestErr = err
+					end
+
+					localeCodeToLanguageCodeMappingCallback(success and previousCallsSuccess, earliestErr)
+				end)
+			else
+				localeCodeToLanguageCodeMappingCallback(false, earliestErr)
+			end
+		end
+
+		local function userExperienceLanguageSettingsCallback(previousCallsSuccess, earliestErr)
+			if previousCallsSuccess then
+				experienceSourceLanguageRequest:Start(function(reqSuccess, reqResponse)
+					local success = false
+					local err = nil
+					if not reqSuccess then
+						err = "Experience Source Language Request: Connection error"
+					elseif reqResponse.StatusCode == 401 then
+						err = "Experience Source Language Request: Unauthorized"
+					elseif reqResponse.StatusCode < 200 or reqResponse.StatusCode >= 400 then
+						err = "Experience Source Language Status code: " .. reqResponse.StatusCode
+					else
+						-- reqSuccess == true and StatusCode >= 200 and StatusCode < 400
+						success, err = pcall(function()
+							local json = HttpService:JSONDecode(reqResponse.Body)
+							sourceLanguageCode = json.languageCode
+						end)
+					end
+					if not success then
+						log:warning("GameSettings language selector initialization: Failed to get response from GameInternationalization API for " .. experienceSourceLanguageUrl .. " with error message: " .. err)
+					end
+
+					-- If we haven't hit an error yet then this is potentially the
+					-- earliest error
+					if earliestErr == nil then
+						earliestErr = err
+					end
+
+					experienceSourceLanguageCallback(success and previousCallsSuccess, earliestErr)
+				end)
+			else
+				experienceSourceLanguageCallback(false, earliestErr)
+			end
+		end
+
+		userExperienceLanguageSettingRequest:Start(function(reqSuccess, reqResponse)
+			local success = false
+			local err = nil
+			if not reqSuccess then
+				err = "User Experience Language Setting Request: Connection error"
+			elseif reqResponse.StatusCode == 401 then
+				err = "User Experience Language Setting Request: Unauthorized"
+			elseif reqResponse.StatusCode < 200 or reqResponse.StatusCode >= 400 then
+				err = "User Experience Language Setting Request Status code: " .. reqResponse.StatusCode
+			else
+				-- reqSuccess == true and StatusCode >= 200 and StatusCode < 400
+				success, err = pcall(function()
+					local json = HttpService:JSONDecode(reqResponse.Body)
+					if json.userUniverseLocalizationSettingValue == nil then
+						-- A proper status code without an actual setting value was returned
+						-- indicates no existing preferred setting, but NOT a
+						-- failure. 
+						return
+					end
+					if json.userUniverseLocalizationSettingValue.settingTargetId == 1 then
+						userPrefersTranslated = false
+					end
+				end)
+			end
+			if not success then
+				log:warning("GameSettings language selector initialization: Failed to get response from GameInternationalization API for " .. userExperienceLanguageSettingsUrl .. " with error message: " .. err)
+			end
+			userExperienceLanguageSettingsCallback(success, err)
+		end)
+
+		local function toggleTranslation(newIndex)
+			-- Disable interactability of the setting until API call is
+			-- completed and response processed
+			this.LanguageSelectorMode:SetInteractable(false)
+			
+			-- If the toggle was due to setting up the initial state then skip the POST
+			-- call and directly perform the settings change
+			if initialSettingCompleted == false then
+				if newIndex == 2 then
+					LocalizationService:SetExperienceSettingsLocaleId(playerLocaleCode)
+				elseif newIndex == 1 then
+					LocalizationService:SetExperienceSettingsLocaleId(sourceLocaleCode)
+				end
+			else
+				local payload =
+					{
+						settingValue = {
+    						settingType = "SourceOrTranslation",
+    						settingTargetId = newIndex
+						}
+					}
+
+				local userExperienceLanguageSettingsUpdateUrl = Url.GAME_INTERNATIONALIZATION_URL .. string.format("v1/user-localization-settings/universe/%d", game.GameId)
+				local userExperienceLanguageSettingsUpdateRequest = HttpService:RequestInternal({
+					Url = userExperienceLanguageSettingsUpdateUrl,
+					Method = "POST",
+					Headers = {
+						["Content-Type"] = "application/json",
+					},
+					Body = HttpService:JSONEncode(payload)
+				})
+				
+				-- Callback for API call to make upon completion
+				local function callback(success, errorMsg)
+					if success then
+						-- Status updated succeeded, update the game locale
+						-- to reflect the changes
+
+						if newIndex == 2 then
+							LocalizationService:SetExperienceSettingsLocaleId(playerLocaleCode)
+						elseif newIndex == 1 then
+							LocalizationService:SetExperienceSettingsLocaleId(sourceLocaleCode)
+						end
+						-- Callback should reset interactability to true
+						-- after everything is done. Note that if success is
+						-- false we don't reset interactability and thus the
+						-- toggle is disabled for the rest of the session
+						this.LanguageSelectorMode:SetInteractable(true)
+					else
+						log:warning("Request to update user experience language status failed, keeping language toggle disabled for the remainder of the session. Error: " .. errorMsg)
+						if newIndex == 2 then
+							optionsArray = {sourceLanguageName .. " (Original)", sourceLanguageName .. " (Original)"}
+						else
+							optionsArray = {playerLanguageName .. " (Translated)", playerLanguageName .. " (Translated)"}
+						end
+						this.LanguageSelectorMode:UpdateOptions(optionsArray)
+					end
+				end
+
+				if RunService:IsStudio() then
+					-- Don't bother performing the POST request if running from
+					-- Studio and just flip the toggle
+					-- Feature will thus still be emulated in Studio, but have
+					-- no effect on the setting from the Roblox Player
+					callback(true, nil)
+				else
+					userExperienceLanguageSettingsUpdateRequest:Start(function(reqSuccess, reqResponse)
+						local success = false
+						local err = nil
+						if not reqSuccess then
+							err = "User Experience Language Settings Update Request: Connection error"
+						elseif reqResponse.StatusCode == 401 then
+							err = "User Experience Language Settings Update Request: Unauthorized"
+						elseif reqResponse.StatusCode < 200 or reqResponse.StatusCode >= 400 then
+							err = "User Experience Language Settings Update Request Status Code: " .. reqResponse.StatusCode
+						else
+							-- reqSuccess == true and StatusCode >= 200 and StatusCode < 400
+							log:info("User Experience Language Settings Update Request succeeded with code: " .. reqResponse.StatusCode)
+							success = true
+						end
+						if not success then
+							log:warning("GameSettings language selector toggle: Failed to update user experience language status from GameInternationalization API for " .. userExperienceLanguageSettingsUpdateUrl .. " with error message: " .. err)
+						end
+						callback(success, err)
+					end)
+				end
+			end
+		end
+
+		this.LanguageSelectorMode.IndexChanged:connect(
+			toggleTranslation
+		)
+	end
+
 	local function createVolumeOptions()
 		local startVolumeLevel = math.floor(GameSettings.MasterVolume * 10)
 		this.VolumeFrame, this.VolumeLabel, this.VolumeSlider =
 			utility:AddNewRow(this, "Volume", "Slider", 10, startVolumeLevel)
 		this.VolumeFrame.LayoutOrder = 5
 
-		local volumeSound = Instance.new("Sound", game:GetService("CoreGui").RobloxGui.Sounds)
+		-- ROBLOX FIXME: We should express the "Sounds" folder statically in the project config
+		local volumeSound = Instance.new("Sound", (game:GetService("CoreGui").RobloxGui :: any).Sounds)
 		volumeSound.Name = "VolumeChangeSound"
 		volumeSound.SoundId = "rbxasset://sounds/uuhhh.mp3"
 
@@ -1605,7 +1964,7 @@ local function Initialize()
 					end
 				else
 					local canManageSuccess, canManageResult = pcall(function()
-						local url = string.format("/users/%d/canmanage/%d", game:GetService("Players").LocalPlayer.UserId, game.PlaceId)
+						local url = string.format("/users/%d/canmanage/%d", (game:GetService("Players").LocalPlayer :: Player).UserId, game.PlaceId)
 						return HttpRbxApiService:GetAsync(url, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Default, true)
 					end)
 					if canManageSuccess and type(canManageResult) == "string" then
@@ -1615,7 +1974,7 @@ local function Initialize()
 						local success, result = pcall(function()
 							return HttpService:JSONDecode(canManageResult)
 						end)
-	
+
 						if success and result.CanManage == true then
 							makeDevConsoleOption()
 						end
@@ -1783,12 +2142,7 @@ local function Initialize()
 		end)
 
 		local VCSSuccess, VCSDeviceNames, VCSDeviceGuids, VCSIndex = pcall(function ()
-			if GetFFlagEnableVoiceChatOptionsDualServiceOutputs() then
-				return VoiceChatService:GetSpeakerDevices()
-			else
-				-- We're returning these, but because the flag is off they will never be used outside of the below check
-				return deviceNames, deviceGuids, selectedIndex
-			end
+			return VoiceChatService:GetSpeakerDevices()
 		end)
 
 		if success and VCSSuccess and isValidDeviceList(deviceNames, deviceGuids, selectedIndex)
@@ -1882,12 +2236,7 @@ local function Initialize()
 	local function checkVoiceChatOptions()
 		if VoiceChatServiceManager:VoiceChatAvailable() then
 			this.VoiceChatOptionsEnabled = true
-			if GetFFlagEnableVoiceChatOptionsDualServiceOutputs() then
-				syncSoundOutputs()
-			end
-			if this.PageOpen then
-				updateVoiceChatOptions()
-			end
+			syncSoundOutputs()
 		end
 	end
 
@@ -1919,6 +2268,10 @@ local function Initialize()
 		not isTenFootInterface and
 			(UserInputService.TouchEnabled or UserInputService.MouseEnabled or UserInputService.KeyboardEnabled)
 	)
+
+	if game:GetEngineFeature("EnableSetExperienceSettingsLocaleIdApi") then
+		createTranslationOptions()
+	end
 
 	local checkGamepadOptions = function()
 		if GameSettings.IsUsingGamepadCameraSensitivity then

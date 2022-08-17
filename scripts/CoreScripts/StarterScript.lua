@@ -50,6 +50,8 @@ local GetFFlagStartScreenTimeUsingGuacEnabled
 
 local GetFFlagEnableIXPInGame = require(CoreGuiModules.Common.Flags.GetFFlagEnableIXPInGame)
 
+local GetFFlagShareInviteLinkContextMenuV1ABTestEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1ABTestEnabled)
+local ShareInviteLinkABTestManager = require(RobloxGui.Modules.Settings.ShareInviteLinkABTestManager)
 local IsExperienceMenuABTestEnabled = require(CoreGuiModules.InGameMenuV3.IsExperienceMenuABTestEnabled)
 local ExperienceMenuABTestManager = require(CoreGuiModules.InGameMenuV3.ExperienceMenuABTestManager)
 
@@ -202,10 +204,8 @@ coroutine.wrap(safeRequire)(RobloxGui.Modules.BackpackScript)
 -- Emotes Menu
 coroutine.wrap(safeRequire)(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 
-if game:GetEngineFeature("AvatarEditorService") or game:GetEngineFeature("AvatarEditorServiceButNotForCatalog") then
-	initify(CoreGuiModules.AvatarEditorPrompts)
-	coroutine.wrap(safeRequire)(CoreGuiModules.AvatarEditorPrompts)
-end
+initify(CoreGuiModules.AvatarEditorPrompts)
+coroutine.wrap(safeRequire)(CoreGuiModules.AvatarEditorPrompts)
 
 -- GamepadVirtualCursor
 if FFlagVirtualCursorEnabled then
@@ -255,9 +255,12 @@ if GetFFlagEnableIXPInGame() then
 	coroutine.wrap(function()
 		local IXPServiceWrapper = require(CoreGuiModules.Common.IXPServiceWrapper)
 		IXPServiceWrapper:InitializeAsync(localPlayer.UserId, GetCoreScriptsLayers())
-
 		if IsExperienceMenuABTestEnabled() then
 			ExperienceMenuABTestManager.default:initialize()
+		end
+
+		if GetFFlagShareInviteLinkContextMenuV1ABTestEnabled() then
+			ShareInviteLinkABTestManager.default:initialize()
 		end
 	end)()
 end

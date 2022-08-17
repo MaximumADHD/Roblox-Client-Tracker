@@ -1,13 +1,16 @@
+--!nonstrict
 --[[
 	Mocks ABTest services so we can test the purchase prompt's
 	behavior under various ABTest.
 ]]
 local MockExternalSettings = {}
 
-function MockExternalSettings.new(layerData)
+type LayerData = {[string]: any}
+
+function MockExternalSettings.new(optionalLayerData: LayerData?)
 	local service = {}
 
-	layerData = layerData or {}
+	local layerData: LayerData = optionalLayerData or {}
 
 	function service.getLayerData(layerName)
 		return layerData[layerName]

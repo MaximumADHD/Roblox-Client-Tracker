@@ -1,12 +1,11 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
-local Otter = InGameMenuDependencies.Otter
 local t = InGameMenuDependencies.t
-
 local InGameMenu = script.Parent.Parent
 
 local BlurredModalPortal = require(script.Parent.BlurredModalPortal)
@@ -15,7 +14,14 @@ local Pages = require(script.Parent.Pages)
 local GetFFlagUseIGMControllerBar = require(InGameMenu.Flags.GetFFlagUseIGMControllerBar)
 
 local Constants = require(script.Parent.Parent.Resources.Constants)
-local animateLeftGoal, animateRightGoal = 0, 1.25
+local animateLeftGoal, animateRightGoal = -1.0, 0.5
+local PerfUtils = require(InGameMenu.Utility.PerfUtils)
+
+local TWEEN_TIME = Constants.MenuOpenTweenTime
+local TWEEN_EASE_RAMP = Enum.EasingDirection.InOut
+local TWEEN_EASE_CURVE = Enum.EasingStyle.Sine
+local HIDE_POSITION = -100
+local SIDE_NAV_WIDTH = Constants.SideNavigationWidth
 
 local pageComponents = {}
 for key, pageInfo in pairs(Pages.pagesByKey) do
@@ -32,15 +38,36 @@ PageContainer.validateProps = t.strictInterface({
 	controllerBarCount = t.number,
 })
 
-local POSITION_MOTOR_OPTIONS = {
-    dampingRatio = 1,
-    frequency = 4,
-}
-local HIDE_POSITION = -100
+local function tweenYPosition(rbx, scale, offset, completeCallback)
+	if rbx then
+		rbx:TweenPosition(
+			UDim2.new(scale, offset or 0, 0, 0),
+			TWEEN_EASE_RAMP,
+			TWEEN_EASE_CURVE,
+			TWEEN_TIME,
+			true,
+			completeCallback
+					and function(status)
+						if status == Enum.TweenStatus.Completed then
+							completeCallback()
+						end
+					end
+				or nil
+		)
+	end
+end
 
 function PageContainer:init(props)
-	self.onContainerRendered = function(rbx, key)
+	self.pageContainerRef = Roact.createRef()
+	self.pageRbxComponents = {}
+
+	self.onContainerRenderedForKey = function(rbx, key)
 		if rbx then
+			if self.pageRbxComponents[key] ~= rbx then
+				self.pageRbxComponents[key] = rbx
+				self.pageRbxComponents[key].Position = UDim2.new(-1, 0, 0, 0)
+				self.pageRbxComponents[key].Visible = false
+			end
 			local selectionParentName = self.getSelectionParentNameFromKey(key)
 			GuiService:RemoveSelectionGroup(selectionParentName)
 			GuiService:AddSelectionParent(selectionParentName, rbx)
@@ -51,72 +78,28 @@ function PageContainer:init(props)
 		return key .. "_IGMPageSelectionGroup"
 	end
 
-	local pageBindings, pageBindingUpdaters = {}, {}
-	self.motorDefaults = {}
-	self.pagePositions = {}
-	self.pageVisibilities = {}
+	self.onContainerRendered = {}
 	for key, _ in pairs(Pages.pagesByKey) do
-		local defaultValue = props.currentPage == key and 1 or 0
-		pageBindings[key], pageBindingUpdaters[key] = Roact.createBinding(defaultValue)
-		self.motorDefaults[key] = defaultValue
-
-		self.pagePositions[key] = pageBindings[key]:map(function(value)
-			return UDim2.new(value - 1, 0, 0, 0)
-		end)
-
-		-- check the animation status for each page and toggles visible to false if it
-		-- is finished animating to the right (1.25) or to the left (0)
-		self.pageVisibilities[key] = pageBindings[key]:map(function(value)
-			if (value == animateLeftGoal or value == animateRightGoal) then
-				return false
-			end
-			return true
-		end)
+		self.onContainerRendered[key] = function(rbx)
+			self.onContainerRenderedForKey(rbx, key)
+		end
 	end
-
-	self.pageMotor = Otter.createGroupMotor(self.motorDefaults)
-	self.pageMotor:onStep(function(values)
-		for key, newValue in pairs(values) do
-			pageBindingUpdaters[key](newValue)
-		end
-	end)
-
-	self.positionMotor = Otter.createSingleMotor(HIDE_POSITION)
-	self.containerPosition, self.setContainerPosition = Roact.createBinding(UDim2.new(0, HIDE_POSITION, 0, 0))
-	self.positionMotor:onStep(function(position)
-		self.setContainerPosition(UDim2.new(0, position, 0, 0))
-	end)
-
-	self.pageMotor:onComplete(function(position)
-		if position == HIDE_POSITION then
-			self:setState({
-				frameVisible = false
-			})
-		end
-	end)
 end
 
 function PageContainer:render()
 	local pageElements = {}
 
 	for key, pageInfo in pairs(Pages.pagesByKey) do
-
-		local pageVisible = self.pageVisibilities[key]
-
 		pageElements[key] = withLocalization({
 			title = pageInfo.title,
 		})(function(localized)
 			if not pageInfo.isModal then
 				return Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, 0),
-					Position = self.pagePositions[key],
 					BackgroundTransparency = 1,
 					ZIndex = pageInfo.navigationDepth,
-					Visible = pageVisible,
-					[Roact.Ref] = function(rbx)
-						self.onContainerRendered(rbx, key)
-					end,
-				},{
+					[Roact.Ref] = self.onContainerRendered[key],
+				}, {
 					Page = pageComponents[key] and Roact.createElement(pageComponents[key], {
 						pageTitle = pageInfo.title and localized.title,
 					}),
@@ -133,72 +116,108 @@ function PageContainer:render()
 		end)
 	end
 
-	local  yOffset = (self.props.controllerBarCount > 0) and -1 * Constants.ControllerBarHeight or nil
+	local yOffset = (self.props.controllerBarCount > 0) and -1 * Constants.ControllerBarHeight or nil
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(0, Constants.PageWidth, 1, yOffset),
-		Position = self.containerPosition,
 		BackgroundTransparency = 1,
-		Visible = self.state.frameVisible,
 		ClipsDescendants = true,
+		[Roact.Ref] = self.pageContainerRef,
 	}, pageElements)
 end
 
-function PageContainer:didUpdate(oldProps, oldState)
-	if self.props.visible == true then
-		self:setState({
-			frameVisible = true
-		})
+function PageContainer:didMount()
+	local containerFrame = self.pageContainerRef:getValue()
+	local activePosition = self.props.visible and SIDE_NAV_WIDTH or HIDE_POSITION
+	if containerFrame then
+		containerFrame.Visible = self.props.visible
+		containerFrame.Position = UDim2.new(0, activePosition, 0, 0)
 	end
+end
 
-	self.positionMotor:setGoal(Otter.spring(self.props.visible and 64 or HIDE_POSITION, POSITION_MOTOR_OPTIONS))
+function PageContainer:didUpdate(oldProps, oldState)
+	local visibilityChanged = self.props.visible ~= oldProps.visible
+	if visibilityChanged then
+		local activePosition = self.props.visible and SIDE_NAV_WIDTH or HIDE_POSITION
+		local containerFrame = self.pageContainerRef:getValue()
+		if containerFrame then
+			containerFrame.Visible = true
+			tweenYPosition(containerFrame, 0, activePosition, function()
+				if self.props.visible then
+					PerfUtils.menuOpenComplete()
+				else
+					PerfUtils.menuCloseComplete()
+					containerFrame.Visible = false
+				end
+			end)
+		end
+
+		if not self.props.visible then
+			for _, page in pairs(self.pageRbxComponents) do
+				tweenYPosition(page, animateLeftGoal)
+			end
+		end
+	end
 
 	local lastPage = oldProps.currentPage
 	local currentPage = self.props.currentPage
-
-	if not self.props.visible and self.props.visible ~= oldProps.visible then
-		local instantDefault = {}
-		for key, val in pairs(self.motorDefaults) do
-			instantDefault[key] = Otter.instant(val)
-		end
-		self.pageMotor:setGoal(instantDefault)
-	end
-
 	if lastPage ~= currentPage then
-
 		local currentPageIsModal = Pages.pagesByKey[currentPage].isModal
 		local lastPageWasModal = Pages.pagesByKey[lastPage].isModal
-		if currentPageIsModal or lastPageWasModal then return end
+		if currentPageIsModal or lastPageWasModal then
+			return
+		end
 
-		local sameNavigationDepth = Pages.pagesByKey[lastPage].navigationDepth == Pages.pagesByKey[currentPage].navigationDepth;
+		local sameNavigationDepth = Pages.pagesByKey[lastPage].navigationDepth
+			== Pages.pagesByKey[currentPage].navigationDepth
 		if Pages.pagesByKey[lastPage].navigationDepth < Pages.pagesByKey[currentPage].navigationDepth then
-				-- nav down
-				if not currentPageIsModal then
-					self.pageMotor:setGoal({
-						[lastPage] = Otter.spring(animateRightGoal, {frequency = 2.5}),
-					})
-				end
+			-- nav down
+			if not currentPageIsModal then
+				tweenYPosition(self.pageRbxComponents[lastPage], animateRightGoal, 0, function()
+					if self.props.currentPage ~= lastPage then
+						self.pageRbxComponents[lastPage].Visible = false
+					end
+				end)
+			end
 		elseif sameNavigationDepth then
 			-- this is added temporarily to fix crash that caused by nav from invite friends to players in "Make Friends"
-			self.pageMotor:setGoal({
-				[lastPage] = Otter.instant(animateLeftGoal, {frequency = 2.5}),
-			})
+			if self.pageRbxComponents[lastPage] then
+				self.pageRbxComponents[lastPage].Visible = false
+				self.pageRbxComponents[lastPage].Position = UDim2.new(animateLeftGoal, 0, 0, 0)
+			end
 		else
 			-- nav up/ nav to top
 			-- To accomodate Navigate to Top, containter needs to move all used pages over. Therefore if current page and last page are not
 			-- parent-child pages, it will move all parent pages of lastPage until it reaches currentPage
-			local pagesToSlideRight = {}
 			local pageOnNavPath = lastPage
 			while pageOnNavPath ~= nil and pageOnNavPath ~= currentPage do
-				pagesToSlideRight[pageOnNavPath] = Otter.spring(animateLeftGoal, {frequency = 3.5})
+				local page = pageOnNavPath
+				tweenYPosition(self.pageRbxComponents[page], animateLeftGoal, 0, function()
+					if self.props.currentPage ~= page then
+						self.pageRbxComponents[page].Visible = false
+					end
+				end)
 				pageOnNavPath = Pages.pagesByKey[pageOnNavPath].parentPage
 			end
-			self.pageMotor:setGoal(pagesToSlideRight)
 		end
 
-		self.pageMotor:setGoal({
-			[currentPage] = sameNavigationDepth and Otter.instant(1, {frequency = 2.5}) or Otter.spring(1, {frequency = 2.5})
-		})
+		if self.pageRbxComponents[currentPage] then
+			self.pageRbxComponents[currentPage].Visible = true
+			if not visibilityChanged and sameNavigationDepth then
+				self.pageRbxComponents[currentPage].Position = UDim2.new(0, 0, 0, 0)
+			else
+				if
+					self.props.visible
+					and visibilityChanged
+					and self.pageRbxComponents[currentPage].Position.X.Scale <= animateLeftGoal
+				then
+					-- on first shown, the parent also animates,
+					-- set to an advanced position to avoid unnecessary speed and delay
+					self.pageRbxComponents[currentPage].Position = UDim2.new(-0.8, 0, 0, 0)
+				end
+				tweenYPosition(self.pageRbxComponents[currentPage], 0)
+			end
+		end
 	end
 end
 

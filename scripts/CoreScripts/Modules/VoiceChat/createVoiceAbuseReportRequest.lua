@@ -44,7 +44,7 @@ return function(
 		)
 	end
 
-	local sortedPlayerListUserIds = Cryo.List.map(function(userId)
+	local sortedPlayerListUserIds = Cryo.List.map(reportData.sortedPlayerListUserIds, function(userId)
 		return { data = tostring(userId) }
 	end)
 

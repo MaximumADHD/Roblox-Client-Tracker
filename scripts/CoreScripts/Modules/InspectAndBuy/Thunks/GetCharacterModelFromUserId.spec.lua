@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local CorePackages = game:GetService("CorePackages")
 	local Rodux = require(CorePackages.Rodux)
@@ -10,7 +11,7 @@ return function()
 
 	it("should obtain a character model without errors", function()
 		local store = Rodux.Store.new(Reducer)
-		local thunk = GetCharacterModelFromUserId()
+		local thunk = (GetCharacterModelFromUserId:: any)()
 
 		Thunk.test(thunk, store, {
 			[Network] = MockNetwork.new(),
@@ -19,7 +20,7 @@ return function()
 
 	it("should catch network errors that happen and still run", function()
 		local store = Rodux.Store.new(Reducer)
-		local thunk = GetCharacterModelFromUserId()
+		local thunk = (GetCharacterModelFromUserId:: any)()
 
 		Thunk.test(thunk, store, {
 			[Network] = MockNetwork.new(true),

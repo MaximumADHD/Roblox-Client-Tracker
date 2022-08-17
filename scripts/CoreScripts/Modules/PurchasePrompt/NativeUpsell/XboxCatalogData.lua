@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	CLILUACORE-311: We need to find a proper way to encapsulate this;
 	conditionally depending on PlatformService is bad!

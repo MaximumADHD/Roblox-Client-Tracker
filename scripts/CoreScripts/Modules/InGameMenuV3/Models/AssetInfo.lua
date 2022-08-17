@@ -1,0 +1,88 @@
+--[[
+	Model for an Asset (e.g. Hat).
+	{
+		name = string,
+		assetId = string,
+		assetTypeId = string,
+		creatorId = string,
+		creatorName = string,
+		owned = bool,
+		isForSale = bool,
+		description = string,
+		price = string,
+		productId = string,
+		isLimited = bool,
+		bundlesAssetIsIn = table,
+		numFavorites = int,
+	}
+]]
+local CoreGui = game:GetService("CoreGui")
+local MockId = require(script.Parent.Parent.Mocks.MockAssetId)
+local FFlagEnableRestrictedAssetSaleLocationInspectAndBuy
+	= require(CoreGui.RobloxGui.Modules.Flags.FFlagEnableRestrictedAssetSaleLocationInspectAndBuy)
+
+local AssetInfo = {}
+
+function AssetInfo.new()
+	local self = {}
+
+	return self
+end
+
+function AssetInfo.mock()
+	local self = AssetInfo.new()
+
+	self.name = ""
+	self.assetId = MockId()
+	self.assetTypeId = ""
+	self.creatorId = ""
+	self.creatorName = ""
+	self.owned = false
+	self.isForSale = false
+	self.description = ""
+	self.price = ""
+	self.productId = ""
+	self.isLimited = false
+	self.bundlesAssetIsIn = {}
+	self.numFavorites = 0
+	self.minimumMembershipLevel = 0
+	self.genres = {}
+
+	return self
+end
+
+function AssetInfo.fromGetProductInfo(assetInfo)
+	local newAsset = AssetInfo.new()
+
+	newAsset.name = assetInfo.Name
+	newAsset.description = assetInfo.Description
+	newAsset.price = assetInfo.PriceInRobux
+	newAsset.creatorId = tostring(assetInfo.Creator.Id)
+	newAsset.creatorName = assetInfo.Creator.Name
+	newAsset.assetId = tostring(assetInfo.AssetId)
+	newAsset.assetTypeId = tostring(assetInfo.AssetTypeId)
+	newAsset.productId = tostring(assetInfo.ProductId)
+	if FFlagEnableRestrictedAssetSaleLocationInspectAndBuy then
+		newAsset.isForSale = assetInfo.isForSale and assetInfo.CanBeSoldInThisGame
+	else
+		newAsset.isForSale = assetInfo.IsForSale
+	end
+	newAsset.isLimited = assetInfo.IsLimited or assetInfo.IsLimitedUnique
+
+	return newAsset
+end
+
+--[[
+	When getting assets from the humanoid description in
+	GetAssetsFromHumanoidDescription thunk, create an asset
+	from the model with just the assetId
+]]
+function AssetInfo.fromHumanoidDescription(id)
+	local newAsset = AssetInfo.new()
+
+	newAsset.assetId = tostring(id)
+
+	return newAsset
+end
+
+return AssetInfo

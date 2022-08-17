@@ -1,3 +1,4 @@
+--!nolint DeprecatedApi
 --[[
 	Connects to GuiService's browser close callback to retry purchase after upsell
 ]]

@@ -7,6 +7,7 @@ local getMaxAudioLength = require(Plugin.Core.Util.ToolboxUtilities).getMaxAudio
 local StudioService = game:GetService("StudioService")
 
 local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
+local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
 
 local Category = require(Plugin.Core.Types.Category)
 
@@ -286,6 +287,13 @@ Constants.Dialog = {
 
 Constants.MIN_AUDIO_SEARCH_DURATION = 0
 Constants.MAX_AUDIO_SEARCH_DURATION = 420
+
+if FFlagToolboxIncludeSearchSource then
+	Constants.SEARCH_SOURCE = {
+		KEYWORD = "keyword",
+		CATEGORY = "category",
+	}
+end
 
 if showRobloxCreatedAssets() then
 	Constants.MAX_AUDIO_SEARCH_DURATION = getMaxAudioLength()

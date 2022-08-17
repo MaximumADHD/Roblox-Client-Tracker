@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
@@ -21,6 +22,7 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 local CommonConstants = require(RobloxGui.Modules.Common.Constants)
 
 local Page = require(InGameMenu.Components.Page)
+local PageWithSearch = require(InGameMenu.Components.PageWithSearch)
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
@@ -49,6 +51,7 @@ local Images = UIBlox.App.ImageSet.Images
 local SearchBar = require(script.Parent.SearchBar)
 
 local Flags = InGameMenu.Flags
+local GetFFlagUsePageSearchAnimation = require(Flags.GetFFlagUsePageSearchAnimation)
 local GetFFlagShareInviteLinkContextMenuV3Enabled = require(Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
 local GetFFlagConsolidateGetFriends = require(Flags.GetFFlagConsolidateGetFriends)
 
@@ -77,12 +80,27 @@ function InviteFriendsPage:init()
 		serverType = nil,
 	}
 
+	self.scrollingFrameRef = Roact.createRef()
+
+	self.pageHeaderActivated = function()
+		local scrollingFrame = self.scrollingFrameRef:getValue()
+		if scrollingFrame then
+			scrollingFrame:scrollToTop()
+		end
+	end
+
 	self.onSearchTextChanged = function(searchText)
 		if searchText ~= self.state.searchText and self.state.isFilteringMode then
 			self:setState({
 				searchText = searchText,
 			})
 		end
+	end
+
+	self.onSearchModeEntered = function()
+		self:setState({
+			isFilteringMode = true,
+		})
 	end
 
 	self.onSearchBarDismissed = function()
@@ -107,7 +125,7 @@ function InviteFriendsPage:init()
 			end
 		end
 
-		self.showSharesheet = function(linkId) 
+		self.showSharesheet = function(linkId)
 			local url = UrlBuilder.sharelinks.appsflyer(linkId, RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue())
 			ExternalContentSharingProtocol:shareText({
 				text = url,
@@ -175,6 +193,7 @@ function InviteFriendsPage:renderFriends()
 		canCaptureFocus = self.props.canCaptureFocus,
 		isFilteringMode = self.state.isFilteringMode,
 		searchText = self.state.searchText,
+		scrollingFrameRef = self.scrollingFrameRef,
 	})
 end
 
@@ -205,24 +224,50 @@ function InviteFriendsPage:render()
 				shouldForgetPreviousSelection = self.props.menuPage ~= "InviteFriends",
 				isFocused = self.props.canCaptureFocus and state.loadingFriends and isRooted,
 			}, {
-				Page = Roact.createElement(Page, {
+				Page = if GetFFlagUsePageSearchAnimation() then Roact.createElement(PageWithSearch, {
 					pageTitle = self.props.pageTitle,
 					titleChildren = self:getActions(),
-					isFilteringMode = self.state.isFilteringMode,
-					searchBar = Roact.createElement(SearchBar, {
-						size = UDim2.new(1, 0, 0, 36),
-						text = self.state.searchText,
-						autoCaptureFocus = true,
-						onTextChanged = self.onSearchTextChanged,
-						onCancelled = self.onSearchBarDismissed,
-					}),
-				}, children),
+					hasSearchBar = true,
+					searchText = self.state.searchText,
+					onSearchTextChanged = self.onSearchTextChanged,
+					onSearchModeEntered = self.onSearchModeEntered,
+					onSearchBarDismissed = self.onSearchBarDismissed,
+					onHeaderActivated = self.pageHeaderActivated,
+				}, children)
+				else Roact.createElement(Page, {
+						pageTitle = self.props.pageTitle,
+						titleChildren = self:getActions(),
+						isFilteringMode = self.state.isFilteringMode,
+						searchBar = Roact.createElement(SearchBar, {
+							size = UDim2.new(1, 0, 0, 36),
+							text = self.state.searchText,
+							autoCaptureFocus = true,
+							onTextChanged = self.onSearchTextChanged,
+							onCancelled = self.onSearchBarDismissed,
+						}),
+						onHeaderActivated = self.pageHeaderActivated,
+					}, children),
 			})
 		end,
 	})
 end
 
 function InviteFriendsPage:getActions()
+	if GetFFlagUsePageSearchAnimation() then
+		return {
+			ShareIcon = if self:shouldShowShareInviteLink(self.props.gameInfo) then Roact.createElement(ShareInviteLinkButton, {
+				layoutOrder = 1,
+				onActivated = self.shareInviteLinkButtonOnActivated,
+			}) else nil,
+			SearchIcon = Roact.createElement(IconButton, {
+				layoutOrder = GetFFlagShareInviteLinkContextMenuV3Enabled() and 2 or 1,
+				size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
+				icon = Images["icons/common/search"],
+				onActivated = self.onSearchModeEntered,
+			}),
+		}
+	end
+
 	local width = (
 		GetFFlagShareInviteLinkContextMenuV3Enabled() and (2 * ICON_SIZE) + ACTIONS_ICON_PADDING or ICON_SIZE
 	)
@@ -268,8 +313,10 @@ function InviteFriendsPage:didMount()
 end
 
 function InviteFriendsPage:didUpdate(prevProps, prevState)
-	if not self.props.isMenuOpen and prevProps.isMenuOpen then
-		self.onSearchBarDismissed()
+	if not GetFFlagUsePageSearchAnimation() then
+		if not self.props.isMenuOpen and prevProps.isMenuOpen then
+			self.onSearchBarDismissed()
+		end
 	end
 
 	if prevProps.shareInviteLink == nil and self.props.shareInviteLink ~= nil then
@@ -377,7 +424,7 @@ if GetFFlagShareInviteLinkContextMenuV3Enabled() then
 			and state.displayOptions.inputType == Constants.InputType.Gamepad
 			and not state.respawn.dialogOpen
 			and state.currentZone == 1
-	
+
 		return {
 			canCaptureFocus = canCaptureFocus,
 			menuPage = state.menuPage,
@@ -395,7 +442,7 @@ else
 			and state.displayOptions.inputType == Constants.InputType.Gamepad
 			and not state.respawn.dialogOpen
 			and state.currentZone == 1
-	
+
 		return {
 			canCaptureFocus = canCaptureFocus,
 			menuPage = state.menuPage,

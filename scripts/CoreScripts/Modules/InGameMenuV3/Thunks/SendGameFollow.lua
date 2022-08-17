@@ -17,7 +17,7 @@ local function SendGameFollow(networkImpl, universeId, isFollowed)
 	end
 
 	return PerformFetch.Single("SendGameFollow"..universeId, function(store)
-		local userId = tostring(Players.LocalPlayer.UserId)
+		local userId = tostring((Players.LocalPlayer :: Player).UserId)
 
 		if isFollowed then
 			return FollowingsPostFollowRequest(networkImpl, userId, universeId):andThen(

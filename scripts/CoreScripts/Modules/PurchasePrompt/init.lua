@@ -1,3 +1,4 @@
+--!nonstrict
 local Root = script
 local CorePackages = game:GetService("CorePackages")
 local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)

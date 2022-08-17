@@ -14,7 +14,7 @@ local HttpService = game:GetService("HttpService")
 
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 local FFlagToolboxFixTryInStudio = game:GetFastFlag("ToolboxFixTryInStudio")
-local FFlagToolboxLocalizeInsertTool = game:GetFastFlag("ToolboxLocalizeInsertTool")
+local FFlagToolboxLocalizeInsertTool2 = game:GetFastFlag("ToolboxLocalizeInsertTool2")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -394,8 +394,8 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			ToolMessageBox = isShowingToolMessageBox and Roact.createElement(MessageBox, {
 				Name = string.format("ToolboxToolMessageBox-%s", HttpService:GenerateGUID()),
 
-				Title = if FFlagToolboxLocalizeInsertTool then localization:getText("InsertTool", "DialogTitle") else "Insert Tool",
-				Text = if FFlagToolboxLocalizeInsertTool then localization:getText("InsertTool", "DialogText") else "Put this tool into the starter pack?",
+				Title = if FFlagToolboxLocalizeInsertTool2 then localization:getText("InsertTool", "DialogTitle") else "Insert Tool",
+				Text = if FFlagToolboxLocalizeInsertTool2 then localization:getText("InsertTool", "DialogText") else "Put this tool into the starter pack?",
 				Icon = Images.INFO_ICON,
 
 				onClose = self.onMessageBoxClosed,
@@ -403,11 +403,11 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 
 				buttons = {
 					{
-						Text = "Yes",
+						Text = if FFlagToolboxLocalizeInsertTool2 then localization:getText("Common", "Yes") else "Yes",
 						action = "yes",
 					},
 					{
-						Text = "No",
+						Text = if FFlagToolboxLocalizeInsertTool2 then localization:getText("Common", "No") else "No",
 						action = "no",
 					},
 				},

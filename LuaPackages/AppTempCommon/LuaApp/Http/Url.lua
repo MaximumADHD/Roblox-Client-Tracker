@@ -6,8 +6,6 @@
 ]]--
 local ContentProvider = game:GetService("ContentProvider")
 
-local FFlagLuaFixEconomyCreatorStatsUrl = game:DefineFastFlag("LuaFixEconomyCreatorStatsUrl", false)
-
 -- helper functions
 local function parseBaseUrlInformation()
 	-- get the current base url from the current configuration
@@ -80,9 +78,7 @@ local _baseContactsUrl = string.format("https://contacts.%s", _baseDomain)
 local _baseSearchUrl = string.format("https://search.%s", _baseDomain)
 local _baseStaticUrl = string.format("https://static.%s", _baseDomain)
 local _baseGameSearchUITreatments = string.format("https://gamesearchuitreatments.api.%s", _baseDomain)
-local _baseEconomyCreatorStats = FFlagLuaFixEconomyCreatorStatsUrl
-	and string.format("https://economycreatorstats.%s", _baseDomain)
-	or string.format("https://economycreatorstats.api.%s", _baseDomain)
+local _baseEconomyCreatorStats = string.format("https://economycreatorstats.%s", _baseDomain)
 local _baseUserModerationUrl = string.format("https://usermoderation.%s", _baseDomain)
 local _baseUrlSecure = string.gsub(_baseUrl, "http://", "https://")
 local _baseVoiceUrl = string.format("https://voice.%s", _baseDomain)
@@ -142,7 +138,6 @@ local Url = {
 	VOICE_URL = _baseVoiceUrl,
 	TRANSLATIONS_URL = _baseTranslationsUrl,
 	TWOSTEPVERIFICATION_URL = _baseTwoStepVerification,
-	AGE_EXPERIENCE_GUIDELINES_URL = _baseApisUrl,
 }
 
 function Url:getUserProfileUrl(userId)

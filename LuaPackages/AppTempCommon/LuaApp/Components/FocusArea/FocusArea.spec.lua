@@ -51,7 +51,7 @@ return function()
 	end
 
 	-- TODO: when remove GetFFlagLuaAppAddSignalToFocusArea, change parameter name to focusAreaSignal
-	local function focus(focusAreaRef)
+	local function focus(focusAreaRef: any)
 		if GetFFlagLuaAppAddSignalToFocusArea() then
 			local focusAreaSignal = focusAreaRef
 			focusAreaSignal:fire(true)
@@ -63,7 +63,7 @@ return function()
 	end
 
 	-- TODO: when remove GetFFlagLuaAppAddSignalToFocusArea, change parameter name to focusAreaSignal
-	local function blur(focusAreaRef)
+	local function blur(focusAreaRef: any)
 		if GetFFlagLuaAppAddSignalToFocusArea() then
 			local focusAreaSignal = focusAreaRef
 			focusAreaSignal:fire(false)

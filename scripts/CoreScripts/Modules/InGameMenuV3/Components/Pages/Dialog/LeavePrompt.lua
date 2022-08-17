@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local ContextActionService = game:GetService("ContextActionService")
@@ -169,7 +170,7 @@ function LeavePrompt:render()
 						}),
 						GameThumbnail = Roact.createElement(GameIcon, {
 							Position  = UDim2.new(0, 12, 0, 0),
-							gameId = game.gameId,
+							gameId = game.GameId,
 							cornerRadius = UDim.new(0, 8),
 							iconSize = 100,
 							layoutOrder = 4,

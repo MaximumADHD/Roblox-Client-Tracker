@@ -1,5 +1,6 @@
 --!strict
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
+local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
 
@@ -133,7 +134,14 @@ local navigationRoutes = {
 			Dash.join(getAssetLogicWrapperProps(viewProps), {
 				AssetSections = viewProps.AssetSections,
 				CategoryName = viewProps.CategoryName,
-				OnClickSubcategory = function(subcategoryName, subcategoryDict, searchTerm, categoryName, sortName, queryParams)
+				OnClickSubcategory = function(
+					subcategoryName,
+					subcategoryDict,
+					searchTerm,
+					categoryName,
+					sortName,
+					queryParams
+				)
 					if subcategoryDict.childCount == 0 then
 						viewProps.navigateTo(
 							Constants.NAVIGATION.RESULTS,
@@ -143,7 +151,7 @@ local navigationRoutes = {
 								CategoryName = categoryName,
 								SearchTerm = if FFlagToolboxUseQueryForCategories2 then nil else searchTerm,
 								SortName = sortName,
-								QueryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil
+								QueryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil,
 							})
 						)
 					else
@@ -183,7 +191,7 @@ local navigationRoutes = {
 							SearchTerm = searchTerm,
 							SectionName = sectionName,
 							SortName = sortName,
-							QueryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil
+							QueryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil,
 						})
 					)
 				end,
@@ -232,7 +240,10 @@ local navigationRoutes = {
 							SearchTerm = if FFlagToolboxUseQueryForCategories2 then nil else searchTerm,
 							SectionName = sectionName,
 							SortName = mySortName,
-							QueryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil
+							SearchSource = if FFlagToolboxIncludeSearchSource
+								then Constants.SEARCH_SOURCE.CATEGORY
+								else nil,
+							QueryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil,
 						})
 					)
 				end,
@@ -266,6 +277,9 @@ local navigationRoutes = {
 							CategoryName = myCategoryName,
 							SearchTerm = searchTerm,
 							SortName = mySortName,
+							SearchSource = if FFlagToolboxIncludeSearchSource
+								then Constants.SEARCH_SOURCE.CATEGORY
+								else nil,
 							QueryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil,
 						})
 					)
@@ -283,6 +297,7 @@ local navigationRoutes = {
 		local sectionName = params and params.SectionName
 		local searchTerm = params and params.SearchTerm
 		local sortName = params and params.SortName
+		local searchSource = FFlagToolboxIncludeSearchSource and params and params.SearchSource
 		local queryParams = if FFlagToolboxUseQueryForCategories2 and params then params.QueryParams else nil
 
 		return Roact.createElement(
@@ -296,7 +311,8 @@ local navigationRoutes = {
 				SectionName = sectionName,
 				Size = UDim2.new(1, 0, 1, 0),
 				SortName = sortName,
-				QueryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil
+				SearchSource = searchSource,
+				QueryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil,
 			})
 		)
 	end),

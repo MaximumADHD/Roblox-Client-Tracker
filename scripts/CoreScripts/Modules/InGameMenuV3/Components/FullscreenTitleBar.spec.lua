@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local CorePackages = game:GetService("CorePackages")
 	local CoreGui = game:GetService("CoreGui")
@@ -202,7 +203,7 @@ return function()
 		end)
 
 		it("should cancel triggering title bar when mouse moved out of the trigger area within the delay", function()
-			withInt("FullscreenTitleBarTriggerDelayMillis", "500", function()
+			withInt("FullscreenTitleBarTriggerDelayMillis", 500, function()
 				local element = Roact.createElement(RoactRodux.StoreProvider, {
 					store = Rodux.Store.new(reducer)
 				}, {

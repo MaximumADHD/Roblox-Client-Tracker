@@ -10,7 +10,7 @@ local Rigging = require(CommonModules:FindFirstChild("RagdollRigging"))
 local HumanoidReadyUtil = require(CommonModules:FindFirstChild("HumanoidReadyUtil"))
 
 local function getDefaultDeathType()
-	if not (game:DefineFastFlag("GetDefaultAvatarDeathTypeFromPolicyService", "False") and game:GetEngineFeature("PolicyInfoForServerRobloxOnlyAsyncEnabled")) then
+	if not game:GetEngineFeature("PolicyInfoForServerRobloxOnlyAsyncEnabled") then
 		return game:DefineFastString("DeathTypeValue", "Classic")
 	end
 	

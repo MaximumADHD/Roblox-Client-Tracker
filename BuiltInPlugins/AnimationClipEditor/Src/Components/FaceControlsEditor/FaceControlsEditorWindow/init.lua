@@ -61,7 +61,6 @@ local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local SetSymmetryEnabled = require(Plugin.Src.Actions.SetSymmetryEnabled)
 local SetAutoFocusFaceEnabled = require(Plugin.Src.Actions.SetAutoFocusFaceEnabled)
 
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
@@ -99,14 +98,14 @@ function FaceControlsEditorWindow:init()
 
 	self.onAbsoluteSizeChange = function(rbx)
 		local panelWidth = rbx.AbsoluteSize.X
-		local panelHeight = rbx.AbsoluteSize.Y		
+		local panelHeight = rbx.AbsoluteSize.Y
 		--min and max clamped values are to not allow scaling the diagrams so small that one can't use the
 		--sliders well anymore, nor so big that the diagram images would become pixelated
 		local scaleFactor = math.clamp(panelWidth / Constants.faceControlsEditorOriginalWidth , 0.05, 1.65)
-		local defaultContentHeight = (Constants.faceControlsEditorDiagramPadding) 
-			+ (Constants.faceControlsEditorFaceFrontDiagramHeight + Constants.faceControlsEditorFaceSideDiagramHeight) + Constants.faceControlsEditoSpacingBetweenDiagrams	
+		local defaultContentHeight = (Constants.faceControlsEditorDiagramPadding)
+			+ (Constants.faceControlsEditorFaceFrontDiagramHeight + Constants.faceControlsEditorFaceSideDiagramHeight) + Constants.faceControlsEditoSpacingBetweenDiagrams
 
-		local maxYScaleFactorAllowed = (panelHeight - (Constants.faceControlsEditorTogglesContainerHeight 
+		local maxYScaleFactorAllowed = (panelHeight - (Constants.faceControlsEditorTogglesContainerHeight
 			+ (Constants.faceControlsEditorDiagramPadding * 2) ) ) / defaultContentHeight
 
 		scaleFactor = math.min(scaleFactor, maxYScaleFactorAllowed)
@@ -228,7 +227,7 @@ function FaceControlsEditorWindow:willUnmount()
 			for _, action in ipairs(self.Actions) do
 				action.Enabled = false
 			end
-		end	
+		end
 	end
 	self.hideFaceControlsEditor()
 end
@@ -305,7 +304,7 @@ function getSliderTooltipText(facs, sliderProps)
 			displayValue = formatNumber(math.clamp(1- (sliderProps.currentValue * 2), 0, 1))
 		else
 			sliderNameLabel = sliderGroup[2]
-			displayValue = formatNumber( (sliderProps.currentValue - 0.5) * 2) 
+			displayValue = formatNumber( (sliderProps.currentValue - 0.5) * 2)
 		end
 	end
 
@@ -315,7 +314,7 @@ end
 function handleSliderOnValueChanged(self, facs, value, minValue, maxValue, sliderProps, crossMapping, sliderGroup, symmetryPartner, symmetryPartnerProps)
 	sliderProps.currentValue = value
 	self:setState(
-		{						
+		{
 			Tooltip =  getSliderTooltipText(facs, sliderProps),
 			Value = math.clamp(sliderProps.currentValue, minValue, maxValue)
 		})
@@ -461,21 +460,21 @@ function makeFacsOnFaceDiagramSliderUIItems (self, style, localization)
 										table.insert(list, {groupPartnerName})
 										if symmetryPartner then
 											table.insert(list, {Constants.FacsCrossMappings[groupPartnerName].symmetryPartner})
-										end																		
+										end
 									end
 									self.props.SetSelectedTracks(list)
 								else
 									local list = {facs.Name}
 									if symmetryPartner then
 										table.insert(list, symmetryPartner)
-									end		
+									end
 									if sliderGroup then
 										local groupPartnerName = sliderGroup[2]
 										table.insert(list, groupPartnerName)
 										if symmetryPartner then
 											table.insert(list, Constants.FacsCrossMappings[groupPartnerName].symmetryPartner)
-										end		
-									end								
+										end
+									end
 									self.props.SetSelectedTracks(list)
 								end
 							end
@@ -495,11 +494,7 @@ function makeFacsOnFaceDiagramSliderUIItems (self, style, localization)
 end
 
 function triggerValueChanged(props, trackName, value)
-	if GetFFlagChannelAnimations() then
-		props.ValueChanged(instanceForFacs, {trackName}, Constants.TRACK_TYPES.Facs, props.Playhead, value, props.Analytics)
-	else
-		props.ValueChanged_deprecated2(instanceForFacs, trackName, Constants.TRACK_TYPES.Facs, props.Playhead, value, props.Analytics)
-	end
+	props.ValueChanged(instanceForFacs, {trackName}, Constants.TRACK_TYPES.Facs, props.Playhead, value, props.Analytics)
 end
 
 function makeEyesControlDragBox (self, style, localization)
@@ -540,13 +535,13 @@ function makeEyesControlDragBox (self, style, localization)
 		end,
 		OnChangeBegan = function()
 			local props = self.props
-			props.AddWaypoint()	
+			props.AddWaypoint()
 			if GetFFlagFaceControlsEditorSelectTracks() then
 				if GetFFlagCurveEditor() then
 					self.props.SetSelectedTracks({{Constants.FacsNames.EyesLookLeft}, {Constants.FacsNames.EyesLookRight}, {Constants.FacsNames.EyesLookUp}, {Constants.FacsNames.EyesLookDown}})
 				else
 					self.props.SetSelectedTracks({Constants.FacsNames.EyesLookLeft, Constants.FacsNames.EyesLookRight, Constants.FacsNames.EyesLookUp, Constants.FacsNames.EyesLookDown})
-				end	
+				end
 			end
 		end,
 		OnValueChanged = function(value)
@@ -744,7 +739,7 @@ function FaceControlsEditorWindow:willUpdate(nextProps)
 		if nextProps.ShowFaceControlsEditorPanel == true then
 			if GetFFlagFaceControlsEditorBugBash2Update() then
 				self.ShowFaceControlsEditorPanel = true
-			end	
+			end
 			handleFocusFace(nextProps)
 		end
 	end
@@ -766,7 +761,7 @@ function getFacsKeysWithNonZerovalueCount(animationData, playhead)
 				count = count + 1
 			end
 		end
-	end		
+	end
 	return count
 end
 
@@ -796,12 +791,12 @@ function focusFace(props)
 			width = baseWidth
 			if currentCamera.FieldOfView ~= baseFOV then
 				width = baseWidth / (currentCamera.FieldOfView / baseFOV)
-			end	
+			end
 		end
 		local center = head.Position + head.CFrame.LookVector * (width * 2)
 		currentCamera.CFrame = CFrame.new(center, head.CFrame.Position)
-		currentCamera.Focus = head.CFrame		
-	end	
+		currentCamera.Focus = head.CFrame
+	end
 end
 
 function FaceControlsEditorWindow:render()
@@ -829,7 +824,7 @@ function FaceControlsEditorWindow:render()
 	if GetFFlagFaceAnimationEditorFocusFaceWithF() then
 		local pluginActions = props.PluginActions
 		pluginActions:get("FocusCamera").Enabled = true
-	end	
+	end
 
 	--if animationData ~= nil check is to avoid nil when the user animated one avatar,
 	--then selects another avatar (while ACE open) which had no anim yet
@@ -952,14 +947,14 @@ function FaceControlsEditorWindow:render()
 						self.props.SetAutoFocusFaceEnabled(self.props.AutoFocusFaceEnabled)
 						handleFocusFace(self.props)
 					end,
-				}),		
+				}),
 				ResetAllButton = not GetFFlagFaceControlsEditorUIUpdate() and Roact.createElement(Button, {
 					Text = localization:getText("Title", "ResetAll"),
 					Size = UDim2.new(0, 100, 0, 24),
 					Style = "RoundPrimary",
 					StyleModifier = resetAllButtonStyleModifier,
 					LayoutOrder = 3,
-					OnClick = function() 
+					OnClick = function()
 						props.AddWaypoint()
 						RigUtils.resetAllFacsValuesInFaceControls(props.RootInstance)
 						local instance = animationData.Instances[instanceForFacs]
@@ -971,9 +966,9 @@ function FaceControlsEditorWindow:render()
 									triggerValueChanged(props, facsName, 0)
 								end
 							end
-						end												
+						end
 					end,
-				}),				
+				}),
 			}),
 
 			BottomFrame = GetFFlagFaceControlsEditorUIUpdate() and Roact.createElement("Frame", {
@@ -990,8 +985,8 @@ function FaceControlsEditorWindow:render()
 					IsRound = true,
 					Size = UDim2.new(1, -PADDING, 0, 32),
 					StyleModifier = resetAllButtonStyleModifier,
-					LayoutOrder = 3,					
-					OnClick = function() 
+					LayoutOrder = 3,
+					OnClick = function()
 						props.AddWaypoint()
 						RigUtils.resetAllFacsValuesInFaceControls(props.RootInstance)
 						local instance = animationData.Instances[instanceForFacs]
@@ -1003,10 +998,10 @@ function FaceControlsEditorWindow:render()
 									triggerValueChanged(props, facsName, 0)
 								end
 							end
-						end												
+						end
 					end,
 				})
-			})				
+			})
 		})
 	})
 end
@@ -1035,26 +1030,17 @@ local function mapDispatchToProps(dispatch)
 			dispatch(ValueChanged(instanceName, path, trackType, tck, value, analytics))
 		end,
 
-		ValueChanged_deprecated2 = function(instanceName, trackName, trackType, tck, value, analytics)
-			dispatch(ValueChanged(instanceName, trackName, trackType, tck, value, analytics))
-		end,
-
-		-- Remove when GetFFlagFacialAnimationSupport() and GetFFlagChannelAnimations() are retired
-		ValueChanged_deprecated = function(instanceName, trackName, tck, value, analytics)
-			dispatch(ValueChanged(instanceName, trackName, tck, value, analytics))
-		end,
-
 		AddWaypoint = function()
 			dispatch(AddWaypoint())
 		end,
 
 		SetSymmetryEnabled = function(symmetryEnabled)
 			dispatch(SetSymmetryEnabled(symmetryEnabled))
-		end,			
+		end,
 
 		SetAutoFocusFaceEnabled = function(autoFocusFaceEnabled)
 			dispatch(SetAutoFocusFaceEnabled(autoFocusFaceEnabled))
-		end,		
+		end,
 	}
 end
 

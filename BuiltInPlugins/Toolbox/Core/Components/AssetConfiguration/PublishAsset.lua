@@ -25,6 +25,7 @@
 		displayOwnership, bool, if we want to show ownership.
 		displayGenre, bool, genre.
 		displayCopy, bool, copy.
+		displayPackage, bool, if we want to show convert to Package
 		displayComment, bool, comment.
 		displayAssetType, bool, assetType.
 		displayTags, bool, tags.
@@ -43,7 +44,7 @@
 	Optional Props:
 		LayoutOrder, number, used by the layouter to set the position of the component.
 ]]
-local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
+local FFlagUnifyModelPackagePublish = game:GetFastFlag("UnifyModelPackagePublish")
 local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -76,6 +77,7 @@ local ConfigTextField = require(AssetConfiguration.ConfigTextField)
 local ConfigAccess = require(AssetConfiguration.ConfigAccess)
 local ConfigGenre = require(AssetConfiguration.ConfigGenre)
 local ConfigCopy = require(AssetConfiguration.ConfigCopy)
+local ConfigPackage = require(AssetConfiguration.ConfigPackage)
 local ConfigComment = require(AssetConfiguration.ConfigComment)
 local ConfigSharing = require(AssetConfiguration.ConfigSharing)
 local TagsComponent = require(AssetConfiguration.CatalogTags.TagsComponent)
@@ -91,6 +93,7 @@ local ACCESS_HEIGHT = 70
 local GENRE_HEIGHT = 70
 local COPY_HEIGHT = 80
 local COMMENT_HEIGHT = 80
+local PACKAGE_HEIGHT = 80  --added with FFlagUnifyModelPackagePublish
 local PADDING = 24
 local HEIGHT_FOR_ACCOUNT_SETTING_TEXT = 60
 local DIVIDER_BASE_HEIGHT = 20
@@ -180,6 +183,8 @@ function PublishAsset:renderContent(theme, localizedContent)
 	local copyOn = props.copyOn
 	local allowComment = props.allowComment
 	local commentOn = props.commentOn
+	local allowPackage = if FFlagUnifyModelPackagePublish then props.allowPackage else nil
+	local packageOn = if FFlagUnifyModelPackagePublish then props.packageOn else nil
 	local assetTypeEnum = props.assetTypeEnum
 	local isAssetPublic = props.isAssetPublic
 
@@ -195,10 +200,12 @@ function PublishAsset:renderContent(theme, localizedContent)
 	local onSharingChanged = props.onSharingChanged
 	local toggleCopy = props.toggleCopy
 	local toggleComment = props.toggleComment
+	local togglePackage = if FFlagUnifyModelPackagePublish then props.togglePackage else nil
 
 	local displayOwnership = props.displayOwnership
 	local displayGenre = props.displayGenre
 	local displayCopy = props.displayCopy
+	local displayPackage = if FFlagUnifyModelPackagePublish then props.displayPackage else nil
 	local displayComment = props.displayComment
 	local displayAssetType = if isPlugin then false else props.displayAssetType
 	local displayTags = props.displayTags
@@ -221,17 +228,10 @@ function PublishAsset:renderContent(theme, localizedContent)
 
 	local maximumItemTagsPerItem = props.maximumItemTagsPerItem
 
-	local isVerified
-	local onClickRefreshVerficationStatus
-	if FFlagToolboxAudioAssetConfigIdVerification then
-		isVerified = props.isVerified
-		onClickRefreshVerficationStatus = props.onClickRefreshVerficationStatus
-	end
-
-	local copyWarning
+	local copyWarning -- remove with FFlagUnifyModelPackagePublish
 	local modelPublishWarningText
 	local localization = props.Localization
-	if isAudio and not isAssetPublic and copyOn then
+	if isAudio and not isAssetPublic and copyOn and not FFlagUnifyModelPackagePublish then
 		copyWarning = localization:getText("AssetConfigCopy", "MustShare")
 	end
 
@@ -432,11 +432,8 @@ function PublishAsset:renderContent(theme, localizedContent)
 				AssetType = assetTypeEnum,
 				AllowSelectPrivate = allowSelectPrivate,
 				LayoutOrder = orderIterator:getNextOrder(),
-				IsIdVerificationRequired = if FFlagToolboxAudioAssetConfigIdVerification then isAudio else nil,
-				IsVerified = isVerified,
 				IsAssetPublic = isAssetPublic,
 				OnSelected = onSharingChanged,
-				OnClickRefreshVerficationStatus = onClickRefreshVerficationStatus,
 			})
 			else nil,
 
@@ -446,7 +443,9 @@ function PublishAsset:renderContent(theme, localizedContent)
 
 			CopyEnabled = if isPlugin then canChangeSalesStatus else allowCopy,
 			CopyOn = copyOn,
-			CopyWarning = copyWarning,
+			CopyWarning = if FFlagUnifyModelPackagePublish then nil else copyWarning,
+
+			PackageOn = if FFlagUnifyModelPackagePublish then packageOn else nil,
 
 			ToggleCallback = toggleCopy,
 
@@ -477,6 +476,18 @@ function PublishAsset:renderContent(theme, localizedContent)
 			LayoutOrder = orderIterator:getNextOrder(),
 		}),
 
+		Package = if FFlagUnifyModelPackagePublish and displayPackage then Roact.createElement(ConfigPackage, {
+			Title = publishAssetLocalized.Package,
+
+			TotalHeight = PACKAGE_HEIGHT,
+			PackageEnabled = allowPackage,
+			PackageOn = packageOn,
+
+			ToggleCallback = togglePackage,
+
+			LayoutOrder = orderIterator:getNextOrder(),
+		}) else nil,
+
 		Comment = displayComment and Roact.createElement(ConfigComment, {
 			Title = publishAssetLocalized.Comments,
 
@@ -489,17 +500,6 @@ function PublishAsset:renderContent(theme, localizedContent)
 			LayoutOrder = orderIterator:getNextOrder(),
 		}),
 	})
-end
-
-local mapStateToProps
-if FFlagToolboxAudioAssetConfigIdVerification then
-	mapStateToProps = function(state, props)
-		state = state or {}
-
-		return {
-			isVerified = state.isVerified,
-		}
-	end
 end
 
 local function mapDispatchToProps(dispatch)
@@ -515,4 +515,4 @@ PublishAsset = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(PublishAsset)
 
-return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PublishAsset)
+return RoactRodux.connect(nil, mapDispatchToProps)(PublishAsset)

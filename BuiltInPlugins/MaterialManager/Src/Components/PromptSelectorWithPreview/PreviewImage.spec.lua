@@ -7,6 +7,7 @@ local PreviewImage = require(script.Parent.PreviewImage)
 return function()
 	local hasSelection = false
 	local imageId = ""
+	local isTempId = false
 	local clearSelection = function() end
 	local openExpandedPreview = function() end
 
@@ -14,6 +15,7 @@ return function()
 		props = props or {
 			HasSelection = hasSelection,
 			ImageId = imageId,
+			IsTempId = isTempId,
 			ClearSelection = clearSelection,
 			OpenExpandedPreview = openExpandedPreview,
 		}
@@ -33,6 +35,7 @@ return function()
 		local element = createTestElement({
 			HasSelection = true,
 			ImageId = "rbxasset://textures/MaterialManager/Create_New_Variant.png",
+			IsTempId = true,
 			ClearSelection = clearSelection,
 			OpenExpandedPreview = openExpandedPreview,
 		})

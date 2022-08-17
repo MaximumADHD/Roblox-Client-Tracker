@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Displays a prompt with a viewport frame containing a model created with the given
 	HumanoidDescription.

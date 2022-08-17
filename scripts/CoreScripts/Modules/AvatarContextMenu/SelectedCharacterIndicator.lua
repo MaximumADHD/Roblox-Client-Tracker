@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName: SelectedCharacterIndicator.lua
 	// Written by: TheGamer101

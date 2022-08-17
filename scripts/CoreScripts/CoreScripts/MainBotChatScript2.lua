@@ -1,3 +1,4 @@
+--!nolint DeprecatedApi
 local PURPOSE_DATA = {
 	[Enum.DialogPurpose.Quest] = {
 		"rbxasset://textures/ui/dialog_purpose_quest.png",

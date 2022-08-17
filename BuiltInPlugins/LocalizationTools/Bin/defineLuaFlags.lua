@@ -5,5 +5,6 @@ game:DefineFastFlag("LocalizationToolsPluginInvalidEntryIdentifierMessageEnabled
 game:DefineFastFlag("LocalizationToolsAllowUploadZhCjv", false)
 game:DefineFastFlag("LocalizationToolsFixExampleNotDownloaded", false)
 game:DefineFastFlag("ImageLocalizationFeatureEnabled", false)
+game:DefineFastFlag("LocalizationToolsFixCloudTableTextDot", false)
 
 return nil

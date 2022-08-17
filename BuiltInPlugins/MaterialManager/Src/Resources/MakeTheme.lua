@@ -13,6 +13,7 @@ local Framework = require(Plugin.Packages.Framework)
 local FrameworkStyle = Framework.Style
 local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
 
+local Dash = Framework.Dash
 local join = Framework.Dash.join
 
 local Util = Framework.Util
@@ -25,10 +26,14 @@ local DarkTheme = Style.Themes.DarkTheme
 local LightTheme = Style.Themes.LightTheme
 local StyleKey = Style.StyleKey
 
+local getFFlagMaterialManagerVariantCreatorOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
+
 local devFrameworkRoundBox = getRawComponentStyle("RoundBox")
 local devFrameworkSelectInput = getRawComponentStyle("SelectInput")
+local devFrameworkExpandablePane = getRawComponentStyle("ExpandablePane")
 local roundBox = deepCopy(devFrameworkRoundBox)
 local selectInput = deepCopy(devFrameworkSelectInput)
+local expandablePane = deepCopy(devFrameworkExpandablePane)
 
 local function getPluginTheme()
 	local TopBarHeight = 36
@@ -37,19 +42,22 @@ local function getPluginTheme()
 	local MaterialDetailsRowHeight = 30
 	local MaterialDetailsTextureHeight = 64
 	local MaterialDetaulsLabelWidth = 108
-	local ColumnWidth = 270
-	local LabelColumnWidth = UDim.new(0, 80)
+	local ColumnWidth = if getFFlagMaterialManagerVariantCreatorOverhaul() then 170 else 270
+	local LabelColumnWidth = if getFFlagMaterialManagerVariantCreatorOverhaul() then UDim.new(0, 95) else UDim.new(0, 80)
 	local DialogWidth = 720
 	local DialogHeight = 480
 	local SearchBarMaxWidth = 600
 	local IconSize = UDim2.fromOffset(20, 20)
 	local MaterialTileWidth = 200
 	local TilePadding = 10
-	local LabeledItemSpacing = 5
+	local LabeledItemSpacing = if getFFlagMaterialManagerVariantCreatorOverhaul() then 3 else 5
 	local LabeledVerticalSpacing = 4
 	local LabeledItemPaddingHorizontal = UDim.new(0, 35)
 	local LabeledErrorOrWarningTextSize = 16
-	local LabeledErrorOrWarningColor = Color3.fromRGB(255, 0, 0)
+	local ExpandablePaneFont = Enum.Font.SourceSansBold
+	local ExpandablePaneTextSize = 18
+	local ContentPadding = 5
+	local LabeledErrorOrWarningColor = Color3.fromRGB(255, 0, 0)  -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 
 	return {
 		MaterialBrowser = {
@@ -91,12 +99,14 @@ local function getPluginTheme()
 			VerticalSpacing = LabeledVerticalSpacing, -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 			ItemPaddingHorizontal = LabeledItemPaddingHorizontal,
 			ErrorOrWarningTextSize = LabeledErrorOrWarningTextSize,
-			ErrorOrWarningColor = LabeledErrorOrWarningColor,
+			ErrorOrWarningColor = LabeledErrorOrWarningColor,  -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
+			ContentPadding = ContentPadding,
 		},
 
 		TextureSettings = {
 			LabelColumnWidth = LabelColumnWidth,
 			ItemSpacing = LabeledItemSpacing,
+			ContentPadding = ContentPadding,
 		},
 
 		AdditionalPropertiesSettings = {
@@ -106,7 +116,16 @@ local function getPluginTheme()
 			VerticalSpacing = LabeledVerticalSpacing,
 			ItemPaddingHorizontal = LabeledItemPaddingHorizontal,
 			ErrorOrWarningTextSize = LabeledErrorOrWarningTextSize,
-			ErrorOrWarningColor = LabeledErrorOrWarningColor,
+			ErrorOrWarningColor = LabeledErrorOrWarningColor,  -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
+			ContentPadding = ContentPadding,
+		},
+
+		LabeledElement = {
+			FillDirection = Enum.FillDirection.Horizontal,
+			ImageSize = UDim2.fromOffset(20, 20),
+			LabelYSize = UDim.new(0, 24),
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Top,
 		},
 
 		CustomSelectInput = join(selectInput, {
@@ -124,12 +143,22 @@ local function getPluginTheme()
 			}),
 		}),
 
+		CustomExpandablePane = Dash.joinDeep(expandablePane, {
+			Header = {
+				Text = {
+					Font = ExpandablePaneFont,
+					TextSize = ExpandablePaneTextSize,
+				},
+			},
+		}),
+
 		TextureMapSelector = {
 			VerticalSpacing = LabeledVerticalSpacing, -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 			ItemPaddingHorizontal = LabeledItemPaddingHorizontal,
 			ErrorOrWarningTextSize = LabeledErrorOrWarningTextSize,
-			ErrorOrWarningColor = LabeledErrorOrWarningColor,
+			ErrorOrWarningColor = LabeledErrorOrWarningColor,  -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 			InfoTextColor = StyleKey.ButtonText,
+			ContentPadding = ContentPadding,
 		},
 
 		MaterialGrid = {
@@ -249,8 +278,8 @@ local function getPluginTheme()
 			LabelColumnWidth = LabelColumnWidth,
 			ItemSpacing = LabeledItemSpacing,
 			ErrorOrWarningTextSize = LabeledErrorOrWarningTextSize,
-			ErrorOrWarningColor = LabeledErrorOrWarningColor,
 			DialogColumnSize = UDim2.new(0, ColumnWidth, 0, 25),
+			ContentPadding = ContentPadding,
 		},
 
 		LabeledString = {
@@ -296,10 +325,10 @@ local function getPluginTheme()
 				},
 			},
 			MaterialAsToolMouseIcon = {
-				Image = "rbxasset://textures/FillCursor.png",
+				Image = if getFFlagMaterialManagerVariantCreatorOverhaul() then StyleKey.FillBucket else "rbxasset://textures/FillCursor.png",
 				Color = StyleKey.BrightText,
-				Position = UDim2.fromOffset(-20, -5),
-				Size = UDim2.fromOffset(50, 50),
+				Position = if getFFlagMaterialManagerVariantCreatorOverhaul() then UDim2.fromOffset(3, 3) else UDim2.fromOffset(-20, -5),
+				Size = if getFFlagMaterialManagerVariantCreatorOverhaul() then UDim2.fromOffset(20, 20) else UDim2.fromOffset(50, 50),
 				[StyleModifier.Disabled] = {
 					Transparency = 0.5,
 				},
@@ -337,8 +366,8 @@ local function getPluginTheme()
 			ImportImageBackground = StyleKey.ImportImageBackground,
 			ButtonColor = StyleKey.Button,
 			ButtonHeight = 24,
-			IconImportPaddingLeft = 45,
-			IconImportPaddingRight = 55,
+			IconImportPaddingLeft = if getFFlagMaterialManagerVariantCreatorOverhaul() then 10 else 45,
+			IconImportPaddingRight = if getFFlagMaterialManagerVariantCreatorOverhaul() then 15 else 55,
 
 			ButtonIconColor = StyleKey.Icon,
 			ButtonIconHoveredColor = Color3.fromRGB(255, 255, 255),
@@ -350,10 +379,10 @@ local function getPluginTheme()
 			ToolbarHeight = 32,
 
 			ColumnWidth = ColumnWidth,
-			PreviewSize = 88,
+			PreviewSize = if getFFlagMaterialManagerVariantCreatorOverhaul() then 64 else 88,
 
 			PaddingVertical = 4,
-			PaddingHorizontal = 12,
+			PaddingHorizontal = if getFFlagMaterialManagerVariantCreatorOverhaul() then 8 else 12,
 			TextHeight = 16,
 
 			ExpandedPreviewDefaultSize = Vector2.new(400, 400),
@@ -385,6 +414,7 @@ return function(createMock: boolean?)
 		[StyleKey.ListIcon] = "rbxasset://textures/MaterialManager/List_DT.png",
 		[StyleKey.Gradient] = "rbxasset://textures/MaterialManager/Gradient_DT.png",
 		[StyleKey.GradientHover] = "rbxasset://textures/MaterialManager/Gradient_Hover_DT.png",
+		[StyleKey.FillBucket] = "rbxasset://textures/MaterialManager/Fill.png",
 	})
 	local overridedLightTheme = join(LightTheme, {
 		[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(245, 245, 245),
@@ -395,6 +425,7 @@ return function(createMock: boolean?)
 		[StyleKey.ListIcon] = "rbxasset://textures/MaterialManager/List_LT.png",
 		[StyleKey.Gradient] = "rbxasset://textures/MaterialManager/Gradient_LT.png",
 		[StyleKey.GradientHover] = "rbxasset://textures/MaterialManager/Gradient_Hover_LT.png",
+		[StyleKey.FillBucket] = "rbxasset://textures/MaterialManager/Fill-lighttheme.png",
 	})
 
 	if createMock then

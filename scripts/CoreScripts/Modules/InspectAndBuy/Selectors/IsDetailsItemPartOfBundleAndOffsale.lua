@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Checks if an asset is part of a bundle.
 ]]

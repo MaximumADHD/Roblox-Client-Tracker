@@ -2,8 +2,6 @@
 	Gets the new Stylizer-compatible AssetConfigTheme
 	This should replace AssetConfigTheme once UILibrary and withTheme are completely removed.
 ]]
-local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -81,10 +79,6 @@ return function()
 					defaultImageColor = StyleKey.AssetConfig_SubjectThumbnailDefaultImageColor,
 				},
 			},
-
-			verificationNotice = if FFlagToolboxAudioAssetConfigIdVerification then {
-				backgroundColor = StyleKey.InputFieldBackground,
-			} else nil,
 		},
 
 		detailedDropdown = {
@@ -205,9 +199,6 @@ return function()
 					TextColor = StyleKey.MainTextSelected,
 				}),
 			},
-			["&AssetConfigRoundPrimary"] = if FFlagToolboxAudioAssetConfigIdVerification then Cryo.Dictionary.join(button["&RoundPrimary"], {
-				Font = Enum.Font.SourceSans,
-			}) else nil,
 		}),
 
 		[ui.RoundBox] = Cryo.Dictionary.join(roundBox, {

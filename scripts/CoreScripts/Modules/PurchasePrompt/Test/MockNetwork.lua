@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Mock network implementation that returns values in the expected
 	formats, or returns promise rejections if specified

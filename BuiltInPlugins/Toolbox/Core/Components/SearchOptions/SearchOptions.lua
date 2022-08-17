@@ -15,6 +15,7 @@
 local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag(
 	"ToolboxUseDevFrameworkLoadingBarAndRadioButton"
 )
+local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -23,8 +24,12 @@ local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
 local Framework = require(Packages.Framework)
 
-local ContextGetter = require(Plugin.Core.Util.ContextGetter)
-local ContextHelper = require(Plugin.Core.Util.ContextHelper)
+local Util = Plugin.Core.Util
+local Constants = require(Util.Constants)
+local ContextGetter = require(Util.ContextGetter)
+local ContextHelper = require(Util.ContextHelper)
+local Images = require(Util.Images)
+
 local getModal = ContextGetter.getModal
 local getNetwork = ContextGetter.getNetwork
 local withLocalization = ContextHelper.withLocalization
@@ -32,7 +37,6 @@ local withModal = ContextHelper.withModal
 
 local createFitToContent = require(Plugin.Core.Components.createFitToContent)
 
-local Constants = require(Plugin.Core.Util.Constants)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
@@ -45,10 +49,13 @@ if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
 else
 	RadioButtons = require(Plugin.Core.Components.SearchOptions.RadioButtons)
 end
+local Checkbox = Framework.UI.Checkbox
+local Pane = Framework.UI.Pane
+local Image = Framework.UI.Decoration.Image
 local ShowOnTop = Framework.UI.ShowOnTop
 local ScrollingFrame = Framework.UI.ScrollingFrame
 local TextLabel = Framework.UI.Decoration.TextLabel
-local Checkbox = Framework.UI.Checkbox
+local Tooltip = Framework.UI.Tooltip
 
 local AudioSearch = require(Plugin.Core.Components.SearchOptions.AudioSearch)
 local SearchOptionsEntry = require(Plugin.Core.Components.SearchOptions.SearchOptionsEntry)
@@ -63,6 +70,10 @@ local UserSearchRequest = require(Plugin.Core.Networking.Requests.UserSearchRequ
 local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 
 local Category = require(Plugin.Core.Types.Category)
+
+local ICON_PADDING = 6
+local SEARCH_OPTION_ZINDEX = 10
+local VERIFIED_DESCRIPTION_INDENT = 24
 
 local SearchOptions = Roact.PureComponent:extend("SearchOptions")
 
@@ -79,12 +90,20 @@ function SearchOptions:init(initialProps)
 	self.extraSearchDetails = {}
 
 	local audioSearchInfo = self.props.audioSearchInfo
-	local includeOnlyVerifiedCreators = self.props.includeOnlyVerifiedCreators
+	local includeOnlyVerifiedCreators
+	local includeUnverifiedCreators
+	if FFlagToolboxUseVerifiedIdAsDefault then
+		includeUnverifiedCreators = self.props.includeUnverifiedCreators
+	else
+		includeOnlyVerifiedCreators = self.props.includeOnlyVerifiedCreators
+	end
+
 	self.state = {
 		minDuration = audioSearchInfo and audioSearchInfo.minDuration or Constants.MIN_AUDIO_SEARCH_DURATION,
 		maxDuration = audioSearchInfo and audioSearchInfo.maxDuration or Constants.MAX_AUDIO_SEARCH_DURATION,
 		SortIndex = nil,
-		includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
+		includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else includeOnlyVerifiedCreators,
+		includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then includeUnverifiedCreators else nil,
 	}
 
 	if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
@@ -162,7 +181,11 @@ function SearchOptions:init(initialProps)
 			}
 		end
 
-		options.includeOnlyVerifiedCreators = self.state.includeOnlyVerifiedCreators
+		if FFlagToolboxUseVerifiedIdAsDefault then
+			options.includeUnverifiedCreators = self.state.includeUnverifiedCreators
+		else
+			options.includeOnlyVerifiedCreators = self.state.includeOnlyVerifiedCreators
+		end
 
 		self:setState({
 			SortIndex = Roact.None,
@@ -188,7 +211,8 @@ function SearchOptions:init(initialProps)
 	self.onToggleIdVerified = function()
 		self:setState(function(prevState)
 			return {
-				includeOnlyVerifiedCreators = not prevState.includeOnlyVerifiedCreators,
+				includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else not prevState.includeOnlyVerifiedCreators,
+				includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then not prevState.includeUnverifiedCreators else nil,
 			}
 		end)
 	end
@@ -248,7 +272,17 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 	local minDuration = state.minDuration
 	local maxDuration = state.maxDuration
 
-	local audioSearchTitle = self.props.Localization:getText("General", "SearchOptionAudioLength")
+	local localization = self.props.Localization
+	local audioSearchTitle = localization:getText("General", "SearchOptionAudioLength")
+
+	local unverifiedDescription
+	local unverifiedTitle
+	local unverifiedTooltip
+	if FFlagToolboxUseVerifiedIdAsDefault then
+		unverifiedDescription = localization:getText("General", "SearchOptionsIncludeUnverifiedDescription")
+		unverifiedTitle = localization:getText("General", "SearchOptionsIncludeUnverifiedHeader")
+		unverifiedTooltip = localization:getText("General", "SearchOptionsIncludeUnverifiedTooltip")
+	end
 
 	local categoryName = self.props.categoryName
 	local showAudioSearch = Category.categoryIsAudio(categoryName)
@@ -285,7 +319,6 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 	self:resetLayout()
 
 	local showSortOptions = not getShouldHideNonRelevanceSorts()
-	local showIdVerified = true
 	local showSeparator1 = showCreatorSearch and not showAudioSearch
 
 	local scrollbarThickness = 8
@@ -352,21 +385,78 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 						PaddingBottom = UDim.new(0, 10),
 					}),
 
-					AllViewsLabel = showIdVerified and Roact.createElement(TextLabel, {
+					AllViewsLabel = not FFlagToolboxUseVerifiedIdAsDefault and Roact.createElement(TextLabel, {
 						AutomaticSize = Enum.AutomaticSize.XY,
 						LayoutOrder = self:nextLayout(),
 						Text = localizedContent.SearchOptions.AllViews,
 					}),
 
-					IdVerifiedToggle = showIdVerified and Roact.createElement(Checkbox, {
+					IdVerifiedToggle = not FFlagToolboxUseVerifiedIdAsDefault and Roact.createElement(Checkbox, {
 						LayoutOrder = self:nextLayout(),
 						Text = localizedContent.SearchBarIdVerified,
 						OnClick = self.onToggleIdVerified,
 						Size = UDim2.new(1, 0, 0, 20),
-						Checked = state.includeOnlyVerifiedCreators,
+						Checked = if FFlagToolboxUseVerifiedIdAsDefault then state.includeUnverifiedCreators else state.includeOnlyVerifiedCreators,
 					}),
 
-					Separator = showIdVerified and self:createSeparator(optionsTheme.separator),
+					AllViews = if FFlagToolboxUseVerifiedIdAsDefault then Roact.createElement(SearchOptionsEntry, {
+						Header = localizedContent.SearchOptions.AllViews,
+						LayoutOrder = self:nextLayout(),
+					}, {						
+						CheckboxAndDescriptionContainer = Roact.createElement(Pane, {
+							AutomaticSize = Enum.AutomaticSize.XY,
+							HorizontalAlignment = Enum.HorizontalAlignment.Left,
+							Layout = Enum.FillDirection.Vertical,
+							LayoutOrder = self:nextLayout(),
+							Spacing = 3,
+						}, {
+							IncludeUnverifiedToggle = Roact.createElement(Checkbox, {
+								Checked = if FFlagToolboxUseVerifiedIdAsDefault then state.includeUnverifiedCreators else state.includeOnlyVerifiedCreators,
+								LayoutOrder = self:nextLayout(),
+								OnClick = self.onToggleIdVerified,
+								Size = UDim2.new(1, 0, 0, 20),
+								Text = unverifiedTitle,
+								TextWrapped = true,
+							}),
+
+							VerifiedDescriptionContainer = Roact.createElement(Pane, {
+								AutomaticSize = Enum.AutomaticSize.XY,
+								HorizontalAlignment = Enum.HorizontalAlignment.Left,
+								Layout = Enum.FillDirection.Horizontal,
+								LayoutOrder = self:nextLayout(),
+								Padding = {
+									Left = VERIFIED_DESCRIPTION_INDENT,
+								},
+								Spacing = ICON_PADDING,
+								VerticalAlignment = Enum.VerticalAlignment.Top
+							}, {
+								Image = Roact.createElement(Image, {
+									AnchorPoint = Vector2.new(0, 0.5),
+									Image = Images.WARNING_ICON_SMALL,
+									ImageColor3 = optionsTheme.warningIconColor,
+									LayoutOrder = self:nextLayout(),
+									Size = UDim2.fromOffset(16, 16),
+								}, {
+									Tooltip = Roact.createElement(Tooltip, {
+										Text = unverifiedTooltip,
+										Priority = SEARCH_OPTION_ZINDEX + 1,
+									}),
+								}),
+
+								VerifiedDescription = Roact.createElement(TextLabel, {
+									AutomaticSize = Enum.AutomaticSize.XY,
+									LayoutOrder = self:nextLayout(),
+									Style = "SubText",
+									Text = unverifiedDescription,
+									TextSize = 14,
+									TextWrapped = true,
+									TextXAlignment = Enum.TextXAlignment.Left,
+								}),
+							})
+						}),
+					}) else nil,
+
+					Separator = self:createSeparator(optionsTheme.separator),
 
 					Creator = showCreatorSearch and Roact.createElement(SearchOptionsEntry, {
 						LayoutOrder = self:nextLayout(),
@@ -473,7 +563,7 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 	}, {
 		Portal = Roact.createElement(elem, elemProps, {
 			ClickEventDetectFrame = Roact.createElement("ImageButton", {
-				ZIndex = 10,
+				ZIndex = SEARCH_OPTION_ZINDEX,
 				Position = UDim2.new(0, 0, 0, 0),
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
@@ -506,7 +596,8 @@ local function mapStateToProps(state, props)
 
 	return {
 		audioSearchInfo = pageInfo.audioSearchInfo,
-		includeOnlyVerifiedCreators = pageInfo.includeOnlyVerifiedCreators,
+		includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else pageInfo.includeOnlyVerifiedCreators,
+		includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then pageInfo.includeUnverifiedCreators else nil,
 		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
 		LiveSearchData = liveSearchData,
 		SortIndex = pageInfo.sortIndex or 1,

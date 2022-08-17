@@ -40,8 +40,6 @@ local BaseTrack = require(Plugin.Src.Components.BaseTrack)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-
 local DopeSheet = Roact.PureComponent:extend("DopeSheet")
 
 function DopeSheet:renderSummaryTrack(components, startIndex, endIndex, showClusters)
@@ -156,7 +154,7 @@ function DopeSheet:renderTracks(components, startIndex, endIndex, showClusters)
 	for index, track in ipairs(tracks) do
 		-- only create components for tracks that will actually be visible in frame
 		if index >= startIndex and index <= endIndex then
-			if GetFFlagChannelAnimations() and isChannelAnimation then
+			if isChannelAnimation then
 				trackCount = self:renderTrackHierarchy(components, track, showClusters, trackCount)
 			else
 				components["Track_" .. track.Name] = Roact.createElement(DopeSheetTrack, {

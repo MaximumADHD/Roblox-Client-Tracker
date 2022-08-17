@@ -71,7 +71,6 @@ local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 local FFlagToolboxAssetPreviewProtectAgainstNilAssetData = game:GetFastFlag(
 	"ToolboxAssetPreviewProtectAgainstNilAssetData"
 )
-local FFlagToolboxFixInstallGroupPlugins = game:GetFastFlag("ToolboxFixInstallGroupPlugins")
 
 local disableRatings = require(Plugin.Core.Util.ToolboxUtilities).disableRatings
 
@@ -355,35 +354,19 @@ function AssetPreviewWrapper:init(props)
 		local categoryName = self.props.categoryName
 
 		local owned = self.props.Owned
-		if FFlagToolboxFixInstallGroupPlugins then
-			-- Group plugins will not be owned by the user, but they should have permission to install them if they can see the group creations tab
-			if not owned and categoryName ~= Category.CREATIONS_GROUP_PLUGIN.name then
-				-- Prompt user to purchase plugin
-				local showInstallationBar = false
-				self:setState({
-					showPurchaseFlow = true,
-					showInstallationBar = showInstallationBar,
-				})
-				return false
-			else
-				self:setState({
-					showPurchaseFlow = false,
-				})
-			end
+		-- Group plugins will not be owned by the user, but they should have permission to install them if they can see the group creations tab
+		if not owned and categoryName ~= Category.CREATIONS_GROUP_PLUGIN.name then
+			-- Prompt user to purchase plugin
+			local showInstallationBar = false
+			self:setState({
+				showPurchaseFlow = true,
+				showInstallationBar = showInstallationBar,
+			})
+			return false
 		else
-			if not owned then
-				-- Prompt user to purchase plugin
-				local showInstallationBar = false
-				self:setState({
-					showPurchaseFlow = true,
-					showInstallationBar = showInstallationBar,
-				})
-				return false
-			else
-				self:setState({
-					showPurchaseFlow = false,
-				})
-			end
+			self:setState({
+				showPurchaseFlow = false,
+			})
 		end
 
 		local currentCategoryName = categoryName

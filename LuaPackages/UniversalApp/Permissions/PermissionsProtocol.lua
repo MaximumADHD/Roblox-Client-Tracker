@@ -5,6 +5,19 @@ local t = require(CorePackages.Packages.t)
 
 local getFFlagLuaPermissionContactAccess = require(script.Parent.Flags.getFFlagLuaPermissionContactAccess)
 
+local Types = require(script.Parent.PermissionsProtocolTypes)
+
+type Table = MessageBus.Table
+type Array<T> = MessageBus.Array<T>
+type Promise<T> = MessageBus.Promise<T>
+
+export type PermissionsProtocol = Types.PermissionsProtocol
+
+export type PermissionsProtocolModule = PermissionsProtocol & {
+	new: () -> PermissionsProtocol,
+	default: PermissionsProtocol,
+}
+
 local PROTOCOL_NAME = "PermissionsProtocol"
 
 local PERMISSIONS_REQUEST_METHOD_NAME = "PermissionsRequest"
@@ -14,24 +27,24 @@ local SUPPORTS_PERMISSIONS_METHOD_NAME = "SupportsPermissions"
 game:DefineFastFlag("DebugRomarkAudioPermissionsBypass", false)
 
 local permissions = {
-	CAMERA_ACCESS = "CAMERA_ACCESS",
-	MICROPHONE_ACCESS = "MICROPHONE_ACCESS",
-	LOCAL_NETWORK = "LOCAL_NETWORK",
-	CONTACTS_ACCESS = "CONTACTS_ACCESS",
-	WRITE_MEDIA_STORAGE = "WRITE_MEDIA_STORAGE",
+	CAMERA_ACCESS = "CAMERA_ACCESS" :: "CAMERA_ACCESS",
+	MICROPHONE_ACCESS = "MICROPHONE_ACCESS" :: "MICROPHONE_ACCESS",
+	LOCAL_NETWORK = "LOCAL_NETWORK" :: "LOCAL_NETWORK",
+	CONTACTS_ACCESS = "CONTACTS_ACCESS" :: "CONTACTS_ACCESS",
+	WRITE_MEDIA_STORAGE = "WRITE_MEDIA_STORAGE" :: "WRITE_MEDIA_STORAGE",
 }
 
 local status = {
-	AUTHORIZED = "AUTHORIZED",
-	DENIED = "DENIED",
-	RESTRICTED = "RESTRICTED",
-	UNSUPPORTED = "UNSUPPORTED",
+	AUTHORIZED = "AUTHORIZED" :: "AUTHORIZED",
+	DENIED = "DENIED" :: "DENIED",
+	RESTRICTED = "RESTRICTED" :: "RESTRICTED",
+	UNSUPPORTED = "UNSUPPORTED" :: "UNSUPPORTED",
 }
 
 local validatePermissionsList = t.array(t.valueOf(permissions))
 local validateStatusList = t.valueOf(status)
 
-local PermissionsProtocol = {
+local PermissionsProtocol: PermissionsProtocolModule = {
 	Permissions = permissions,
 	Status = status,
 
@@ -79,11 +92,11 @@ local PermissionsProtocol = {
 			permissions = validatePermissionsList,
 		}),
 	},
-}
+} :: PermissionsProtocolModule
 
-PermissionsProtocol.__index = PermissionsProtocol
+(PermissionsProtocol :: any).__index = PermissionsProtocol
 
-local function getPermissionRequestTelemetryData(permissions: Table): Table
+local function getPermissionRequestTelemetryData(permissions: Array<string>): Table
 	local permissionsTelemetryTable = {}
 	for key, value in pairs(permissions) do
 		if value == PermissionsProtocol.Permissions.CAMERA_ACCESS then
@@ -106,7 +119,7 @@ function PermissionsProtocol.new(): PermissionsProtocol
 	local self = setmetatable({
 		subscriber = MessageBus.Subscriber.new(),
 	}, PermissionsProtocol)
-	return self
+	return (self :: any) :: PermissionsProtocol
 end
 
 --[[
@@ -119,7 +132,7 @@ authorized or denied and missingPermissions (table) indicates any permissions
 not granted
 ]]
 
-function PermissionsProtocol:hasPermissions(permissions: Table): Promise
+function PermissionsProtocol:hasPermissions(permissions: Array<string>): Promise<Table>
 	local promise = Promise.new(function(resolve, _)
 		local desc = self.HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
 		self.subscriber:subscribeProtocolMethodResponse(desc, function(params: Table)
@@ -144,7 +157,7 @@ authorized or denied and missingPermissions (table) indicates any permissions
 not granted
 ]]
 
-function PermissionsProtocol:requestPermissions(permissions: Table): Promise
+function PermissionsProtocol:requestPermissions(permissions: Array<string>): Promise<Table>
 	-- Override permissions request in Romark, don't need to ask for them
 	if game:GetFastFlag("DebugRomarkAudioPermissionsBypass") then
 		local params = {}
@@ -175,7 +188,7 @@ Gets a list of permissions that are supported by this device
 device supports
 ]]
 
-function PermissionsProtocol:getSupportedPermissionsList(): Promise
+function PermissionsProtocol:getSupportedPermissionsList(): Promise<Table>
 	local promise = Promise.new(function(resolve, _)
 		local desc = self.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
 		self.subscriber:subscribeProtocolMethodResponse(desc, function(params: Table)
@@ -198,9 +211,9 @@ Check if specific permissions are supported by this device
 supported by the device and false if any of the specified permissions are not supported
 ]]
 
-function PermissionsProtocol:supportsPermissions(permissions: Table): Promise
+function PermissionsProtocol:supportsPermissions(permissions: Array<string>): Promise<boolean>
 	assert(validatePermissionsList(permissions))
-	return self:getSupportedPermissionsList():andThen(function(params)
+	return (self:getSupportedPermissionsList():andThen(function(params)
 		local supports = params and params.permissions
 		if supports then
 			for _, needed in pairs(permissions) do
@@ -219,7 +232,7 @@ function PermissionsProtocol:supportsPermissions(permissions: Table): Promise
 		else
 			return Promise.reject()
 		end
-	end)
+	end) :: any) :: Promise<boolean> -- FIXME LUAU: Remove any cast with https://github.com/Roblox/luau/pull/86
 end
 
 --[[
@@ -238,7 +251,7 @@ Otherwise, return false
  and false otherwise
 ]]
 
-function PermissionsProtocol:checkOrRequestPermissions(permissions: Table): Promise
+function PermissionsProtocol:checkOrRequestPermissions(permissions: Array<string>): Promise<boolean>
 	assert(validatePermissionsList(permissions))
 
 	return self:supportsPermissions(permissions):andThen(
@@ -248,7 +261,7 @@ function PermissionsProtocol:checkOrRequestPermissions(permissions: Table): Prom
 			end
 			
 			-- Permissions supported, request if necessary
-			return self:hasPermissions(permissions):andThen(
+			return (self:hasPermissions(permissions):andThen(
 				function(result)
 					-- Permissions already granted before
 					if result.status == PermissionsProtocol.Status.AUTHORIZED then
@@ -262,7 +275,7 @@ function PermissionsProtocol:checkOrRequestPermissions(permissions: Table): Prom
 						)
 					end
 				end
-			)
+			) :: any) :: Promise<boolean> -- FIXME LUAU: Remove any cast with https://github.com/Roblox/luau/pull/86
 		end,
 		function(err)
 			-- Permissions not supported

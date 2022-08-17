@@ -18,7 +18,6 @@ local Types = require(Plugin.Src.Types)
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 
@@ -38,7 +37,7 @@ return function(tck: number, analytics: any): (any) -> ()
 		local lowestFrame
 		for _, instance in pairs(clipboard) do
 			for _, track in pairs(instance) do
-				for keyframe, _ in pairs((GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and track.Data or track) do
+				for keyframe, _ in pairs(track.Data) do
 					lowestFrame = lowestFrame and math.min(lowestFrame, keyframe) or keyframe
 				end
 			end
@@ -46,72 +45,54 @@ return function(tck: number, analytics: any): (any) -> ()
 
 		for instanceName, instance in pairs(clipboard) do
 			local dataInstance = newData.Instances[instanceName]
-			if GetFFlagChannelAnimations() then
-				for _, track in ipairs(instance) do
-					local path = Cryo.List.join({track.TopTrackName}, track.RelPath)
-					if not GetFFlagCurveEditor() then
-						local dataTrack = AnimationData.getTrack(newData, instanceName, path)
-
-						-- Create the track if necessary
-						if dataTrack == nil then
-							-- TODO: Use Clipboard quaternion info (Part of AVBURST-6647)
-							AnimationData.addTrack(dataInstance.Tracks, track.TopTrackName, track.TopTrackType, isChannelAnimation)
-							store:dispatch(AddTrack(instanceName, track.TopTrackName, track.TopTrackType, analytics))
-							dataTrack = AnimationData.getTrack(newData, instanceName, path)
+			for _, track in ipairs(instance) do
+				local path = Cryo.List.join({track.TopTrackName}, track.RelPath)
+				local dataTrack
+				if not GetFFlagCurveEditor() then
+					dataTrack = AnimationData.getTrack(newData, instanceName, path)
+					-- Create the track if necessary
+					if dataTrack == nil then
+						-- TODO: Use Clipboard quaternion info (Part of AVBURST-6647)
+						AnimationData.addTrack(dataInstance.Tracks, track.TopTrackName, track.TopTrackType, isChannelAnimation)
+						store:dispatch(AddTrack(instanceName, track.TopTrackName, track.TopTrackType, analytics))
+						dataTrack = AnimationData.getTrack(newData, instanceName, path)
+					end
+					-- dataTrack is missing if we try to paste an Euler Angle track
+					-- into a quaternion track.
+					if dataTrack then
+						for keyframe, data in pairs(track.Data) do
+							local insertFrame = tck + (keyframe - lowestFrame)
+							AnimationData.addKeyframe(dataTrack, insertFrame, data)
+							if GetFFlagCurveAnalytics() then
+								analytics:report("onAddKeyframe", track.TopTrackName, editorMode)
+							end
 						end
 					else
-						local dataTrack
-						-- Try to find the top track. If it's not there, we need to create it,
-						-- as well as all the required components
-						local topTrack = AnimationData.getTrack(newData, instanceName, {track.TopTrackName})
-						if topTrack == nil then
-							AnimationData.addTrack(dataInstance.Tracks, track.TopTrackName, track.TopTrackType,
-								isChannelAnimation, track.RotationType, track.EulerAnglesOrder)
-							store:dispatch(AddTrack(instanceName, track.TopTrackName, track.TopTrackType,
-								track.RotationType, track.EulerAnglesOrder, analytics))
-						end
-						dataTrack = AnimationData.getTrack(newData, instanceName, path)
-						-- dataTrack is missing if we try to paste an Euler Angle track
-						-- into a quaternion track.
-						if dataTrack and dataTrack.Type == track.Type then
-							for keyframe, data in pairs(track.Data) do
-								local insertFrame = tck + (keyframe - lowestFrame)
-								AnimationData.addKeyframe(dataTrack, insertFrame, data)
-								if GetFFlagCurveAnalytics() then
-									analytics:report("onAddKeyframe", track.TopTrackName, editorMode)
-								end
+						store:dispatch(SetNotification("CannotPasteError", true))
+					end
+				else
+					-- Try to find the top track. If it's not there, we need to create it,
+					-- as well as all the required components
+					local topTrack = AnimationData.getTrack(newData, instanceName, {track.TopTrackName})
+					if topTrack == nil then
+						AnimationData.addTrack(dataInstance.Tracks, track.TopTrackName, track.TopTrackType,
+							isChannelAnimation, track.RotationType, track.EulerAnglesOrder)
+						store:dispatch(AddTrack(instanceName, track.TopTrackName, track.TopTrackType,
+							track.RotationType, track.EulerAnglesOrder, analytics))
+					end
+					dataTrack = AnimationData.getTrack(newData, instanceName, path)
+					-- dataTrack is missing if we try to paste an Euler Angle track
+					-- into a quaternion track.
+					if dataTrack and dataTrack.Type == track.Type then
+						for keyframe, data in pairs(track.Data) do
+							local insertFrame = tck + (keyframe - lowestFrame)
+							AnimationData.addKeyframe(dataTrack, insertFrame, data)
+							if GetFFlagCurveAnalytics() then
+								analytics:report("onAddKeyframe", track.TopTrackName, editorMode)
 							end
-						else
-							store:dispatch(SetNotification("CannotPasteError", true))
 						end
-					end
-				end
-			else
-				for trackName, track in pairs(instance) do
-					local dataTrack = dataInstance.Tracks[trackName]
-					if dataTrack == nil then
-						local trackType = track.Type
-						if GetFFlagFacialAnimationSupport() then
-							AnimationData.addTrack(dataInstance.Tracks, trackName, trackType)
-						else
-							AnimationData.addTrack(dataInstance.Tracks, trackName)
-						end
-						dataTrack = dataInstance.Tracks[trackName]
-
-						if GetFFlagFacialAnimationSupport() then
-							store:dispatch(AddTrack(instanceName, trackName, trackType, analytics))
-						else
-							store:dispatch(AddTrack(instanceName, trackName, analytics))
-						end
-					end
-
-					for keyframe, data in pairs(GetFFlagFacialAnimationSupport() and track.Data or track) do
-						local insertFrame = tck + (keyframe - lowestFrame)
-						-- AddKeyframe will only add a keyframe if it needs to
-						AnimationData.addKeyframe_deprecated(dataTrack, insertFrame, data.Value)
-						AnimationData.setKeyframeData(dataTrack, insertFrame, data)
-
-						analytics:report("onAddKeyframe", trackName, editorMode)
+					else
+						store:dispatch(SetNotification("CannotPasteError", true))
 					end
 				end
 			end

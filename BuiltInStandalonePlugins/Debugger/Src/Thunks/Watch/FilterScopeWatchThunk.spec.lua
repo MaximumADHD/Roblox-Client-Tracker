@@ -18,17 +18,18 @@ return function()
 		store = TestStore(store)
 		local state = store:getState()
 		local dst = state.Common.debuggerConnectionIdToDST[1]
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["1"].scopeFilteredOut).to.be.equal(false)
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["2"].scopeFilteredOut).to.be.equal(false)
+		local currThreadId = state.Common.debuggerConnectionIdToCurrentThreadId[1]
+		expect(state.Watch.stateTokenToFlattenedTree[dst][currThreadId][1].Variables["1"].scopeFilteredOut).to.be.equal(false)
+		expect(state.Watch.stateTokenToFlattenedTree[dst][currThreadId][1].Variables["2"].scopeFilteredOut).to.be.equal(false)
 
 		store:dispatch(FilterScopeWatchThunk(enabledScopes))
 		state = store:getState()
 
 		expect(state.Watch.stateTokenToFlattenedTree).to.be.ok()
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1]).to.be.ok()
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["1"].scopeFilteredOut).to.be.equal(true)
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["2"].scopeFilteredOut).to.be.equal(true)
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["1_2_1"].scopeFilteredOut).to.be.equal(false)
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["1_2_1"].scopeFilteredOut).to.be.equal(false)
+		expect(state.Watch.stateTokenToFlattenedTree[dst][currThreadId][1]).to.be.ok()
+		expect(state.Watch.stateTokenToFlattenedTree[dst][currThreadId][1].Variables["1"].scopeFilteredOut).to.be.equal(true)
+		expect(state.Watch.stateTokenToFlattenedTree[dst][currThreadId][1].Variables["2"].scopeFilteredOut).to.be.equal(true)
+		expect(state.Watch.stateTokenToFlattenedTree[dst][currThreadId][1].Variables["1_2_1"].scopeFilteredOut).to.be.equal(false)
+		expect(state.Watch.stateTokenToFlattenedTree[dst][currThreadId][1].Variables["1_2_1"].scopeFilteredOut).to.be.equal(false)
 	end)
 end

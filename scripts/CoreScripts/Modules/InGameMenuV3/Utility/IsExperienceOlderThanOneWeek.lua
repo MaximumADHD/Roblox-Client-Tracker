@@ -1,3 +1,4 @@
+--!nonstrict
 local Workspace = game:GetService("Workspace")
 
 local MILLISECONDS_PER_SECOND = 1000

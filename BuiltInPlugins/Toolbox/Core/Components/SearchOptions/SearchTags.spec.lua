@@ -1,6 +1,4 @@
 return function()
-	local FFlagToolboxSearchResultsBackButton = game:GetFastFlag("ToolboxSearchResultsBackButton")
-
 	local Plugin = script.Parent.Parent.Parent.Parent
 
 	local Packages = Plugin.Packages
@@ -14,7 +12,8 @@ return function()
 		local element = Roact.createElement(MockWrapper, {}, {
 			SearchTags = Roact.createElement(SearchTags, {
 				Tags = { "Tag" },
-				categoryName = if FFlagToolboxSearchResultsBackButton then Category.FREE_MODELS.name else nil,
+				categoryName = Category.FREE_MODELS.name,
+				onBackToHome = function() end,
 			}),
 		})
 		local instance = Roact.mount(element)
@@ -26,7 +25,8 @@ return function()
 			SearchTags = Roact.createElement(SearchTags, {
 				Tags = { "Tag" },
 				searchTerm = "Term",
-				categoryName = if FFlagToolboxSearchResultsBackButton then Category.FREE_MODELS.name else nil,
+				categoryName = Category.FREE_MODELS.name,
+				onBackToHome = function() end,
 			}),
 		})
 		local container = Instance.new("Folder")

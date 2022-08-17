@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Container for both the Share Game Page contents and header
 ]]

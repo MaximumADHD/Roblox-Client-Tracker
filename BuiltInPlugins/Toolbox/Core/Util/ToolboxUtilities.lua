@@ -1,10 +1,10 @@
 local Plugin = script.Parent.Parent.Parent
 local isCli = require(script.Parent.isCli)
 
+local FFlagToolboxEnableAnnouncementsDialog = game:GetFastFlag("ToolboxEnableAnnouncementsDialog")
 local FFlagToolboxCreatorMarketplaceWebLinks = game:GetFastFlag("ToolboxCreatorMarketplaceWebLinks")
 
 local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
-
 local ToolboxPolicy
 if isCli() then
 	-- PluginPolicyService is not available in roblox-cli. So we set a mock policy (which is the current Global Toolbox policy)
@@ -17,7 +17,17 @@ if isCli() then
 		MarketplaceShouldUsePluginCreatorWhitelist = true,
 		DisableAutocomplete = false,
 		Enabled = true,
+		AnnouncementConfiguration = {
+			ButtonKey = "Button_Default",
+			Date = "2022-08-08T19:45:23.0346658-05:00",
+			DescriptionKey = "Description_08092022",
+			HeaderKey = "Header_Default",
+			Image = "rbxasset://textures/StudioToolbox/announcementConstruction.png",
+			LinkKey = "LinkText_Default",
+			LinkLocation = "https://roblox.com",
+		}
 	}
+	
 else
 	ToolboxPolicy = game:GetService("PluginPolicyService"):getPluginPolicy("Toolbox")
 end
@@ -113,6 +123,28 @@ function ToolboxUtilities.getAssetConfigDistributionQuotas(): AssetQuotaTypes.As
 		end
 	end
 	return results
+end
+
+if FFlagToolboxEnableAnnouncementsDialog then
+	export type AnnouncementInfo = {
+		Date: string?,
+		Header: string?,
+		Description: string?,
+		Image: string?,
+	}
+	function ToolboxUtilities.getAnnouncementConfiguration(): AnnouncementInfo
+		local policyName = "AnnouncementConfiguration"
+		local policyValue = ToolboxPolicy[policyName]
+
+		if policyValue == nil then
+			return {}
+		end
+		if type(policyValue) ~= "table" then
+			warn(policyName .. " is expected to be a table if defined")
+			return {}
+		end
+		return policyValue
+	end
 end
 
 return ToolboxUtilities

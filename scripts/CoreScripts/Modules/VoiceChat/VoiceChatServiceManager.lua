@@ -11,9 +11,7 @@ local SoundService = game:GetService("SoundService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
-local GetFFlagEnableVoiceChatOptionsDualServiceOutputs = require(RobloxGui.Modules.Flags.getFFlagEnableVoiceChatOptionsDualServiceOutputs)
 local GetFFlagEnableVoiceChatRejoinOnBlock = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatRejoinOnBlock)
-local GetFFlagEnableVoiceChatMuteOnBlock = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatMuteOnBlock)
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagVoiceCheckLocalNetworkSet = require(RobloxGui.Modules.Flags.GetFFlagVoiceCheckLocalNetworkSet)
 local GetFIntEnableVoiceChatRejoinOnBlockDelay = require(RobloxGui.Modules.Flags.GetFIntEnableVoiceChatRejoinOnBlockDelay)
@@ -834,9 +832,7 @@ function VoiceChatServiceManager:SwitchDevice(deviceType, deviceName, deviceGuid
 	else
 		SoundService:SetOutputDevice(deviceName, deviceGuid)
 		log:info("[OutputDeviceSelection] Setting SS Speaker Device To {} {}", deviceName, deviceGuid)
-		if GetFFlagEnableVoiceChatOptionsDualServiceOutputs() then
-			setVCSOutput(deviceName)
-		end
+		setVCSOutput(deviceName)
 	end
 end
 
@@ -852,12 +848,7 @@ function VoiceChatServiceManager:GetDevices(deviceType)
 	-- The following is to add an additional check to ensure that VCS:GetSpeakerDevices() and SoundService:GetOutputDevices() are returning the same results.
 	-- Otherwise we throw an error.
 	local VCSSuccess, VCSDeviceNames, VCSDeviceGuids, VCSIndex = pcall(function ()
-		if GetFFlagEnableVoiceChatOptionsDualServiceOutputs() then
-			return self.service:GetSpeakerDevices()
-		else
-			-- We're returning these, but because the flag is off they will never be used outside of the below check
-			return deviceNames, deviceGuids, selectedIndex
-		end
+		return self.service:GetSpeakerDevices()
 	end)
 
 	local deviceOutputsAreConsistent = soundServiceSuccess and VCSSuccess and isValidDeviceList(deviceNames, deviceGuids, selectedIndex)

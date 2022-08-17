@@ -56,7 +56,7 @@ type LogLevel = "info" | "warning" | "error"
 
 function Analytics.new(impl: AnalyticsService?)
 	if not impl then
-		impl = RbxAnalyticsService
+		impl = (RbxAnalyticsService :: any) :: AnalyticsService
 	end
 	assert(impl, "Analytics impl must not be nil.")
 

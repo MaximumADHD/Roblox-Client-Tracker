@@ -1,7 +1,6 @@
 --[[
 	Asset config's allow sharing field.
 ]]
-local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -46,18 +45,6 @@ function ConfigSharing:init()
 			GuiService:OpenBrowserWindow(url)
 		end
 	end
-
-	self.onClickVerify = function()
-		GuiService:OpenBrowserWindow(AssetConfigConstants.ACCOUNT_SETTING_URL)
-	end
-
-	self.onClickRefreshVerficationStatus = function()
-		local props = self.props
-		local onClickRefreshVerficationStatus = props.OnClickRefreshVerficationStatus
-		if onClickRefreshVerficationStatus then
-			onClickRefreshVerficationStatus()
-		end
-	end
 end
 
 function ConfigSharing:render()
@@ -78,27 +65,10 @@ function ConfigSharing:render()
 	local subTitleText = localization:getText("AssetConfigSharing", "SubTitle")
 	local termsOfUseText = localization:getText("General", "TermsOfUse")
 
-	local isIdVerificationRequired
-	local isVerified
-	local privateInformationText
-	local showVerificationNotice
-	local verificationActionButtonText
-	local verificationNoticeText
-	local verificationRefreshText
-	if FFlagToolboxAudioAssetConfigIdVerification then
-		isIdVerificationRequired = props.IsIdVerificationRequired
-		isVerified = props.IsVerified
-
-		verificationActionButtonText = localization:getText("AssetConfigSharing", "VerificationAction")
-		verificationNoticeText = localization:getText("AssetConfigSharing", "VerificationNotice")
-		verificationRefreshText = localization:getText("AssetConfigSharing", "CheckStatus")
-
-		showVerificationNotice = isIdVerificationRequired and not isVerified
-	end
-
 	local privateText = localization:getText("AssetConfigSharing", "PrivateSpecificExperiences")
 	local publicText = localization:getText("AssetConfigSharing", "PublicAllExperiences")
 	local title = localization:getText("AssetConfigSharing", "ExperiencesWithAccess")
+	local privateInformationText
 	if allowSelectPrivate then
 		privateInformationText = localization:getText("AssetConfigSharing", "PrivateInformation")
 	else
@@ -136,11 +106,7 @@ function ConfigSharing:render()
 			end
 		end
 	else
-		-- NOTE We /MIGHT/ want to keep this else code for audio too and instead enable FFlagToolboxAudioAssetConfigIdVerification in the future? TODO: Product decision needed.
 		informationText = localization:getText("AssetConfigSharing", "PublicInformation")
-		if FFlagToolboxAudioAssetConfigIdVerification and isIdVerificationRequired then
-			allowSelectPublic = isVerified
-		end
 	end
 
 	local orderIterator = LayoutOrderIterator.new()
@@ -179,7 +145,7 @@ function ConfigSharing:render()
 			Layout = Enum.FillDirection.Vertical,
 			LayoutOrder = 2,
 			Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, 0),
-			Spacing = if showVerificationNotice then SPACING else TIPS_SPACING,
+			Spacing = TIPS_SPACING,
 		}, {
 			ContentContainer = Roact.createElement(Pane, {
 				AutomaticSize = Enum.AutomaticSize.Y,
@@ -213,16 +179,8 @@ function ConfigSharing:render()
 						{
 							Key = AssetConfigConstants.SHARING_KEYS.Public,
 							Text = publicText,
-							Description = if (
-										not FFlagToolboxAudioAssetConfigIdVerification or not showVerificationNotice
-									)
-								then informationText
-								else nil,
-							LinkProps = if (
-										not FFlagToolboxAudioAssetConfigIdVerification or not showVerificationNotice
-									)
-								then publicInformationLinkProps
-								else nil,
+							Description = informationText,
+							LinkProps = publicInformationLinkProps,
 							Disabled = not allowSelectPublic,
 						},
 					},
@@ -237,54 +195,6 @@ function ConfigSharing:render()
 					VerticalAlignment = Enum.VerticalAlignment.Top,
 				}),
 			}),
-
-			VerificationNotice = if FFlagToolboxAudioAssetConfigIdVerification and showVerificationNotice
-				then Roact.createElement(Pane, {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					BackgroundColor = assetConfigTheme.verificationNotice.backgroundColor,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					Layout = Enum.FillDirection.Vertical,
-					LayoutOrder = orderIterator:getNextOrder(),
-					Padding = VERFICATION_NOTICE_PADDING,
-					Spacing = VERFICATION_NOTICE_SPACING,
-					Size = UDim2.new(1, 0, 0, 0),
-				}, {
-					TipsLabel = Roact.createElement(TextLabel, {
-						AutomaticSize = Enum.AutomaticSize.Y,
-						Size = UDim2.new(1, 0, 0, 0),
-						Text = verificationNoticeText,
-						TextColor = publishAssetTheme.tipsTextColor,
-						TextSize = Constants.FONT_SIZE_LARGE,
-						TextWrapped = true,
-						TextXAlignment = Enum.TextXAlignment.Left,
-					}),
-
-					ButtonContainer = Roact.createElement(Pane, {
-						AutomaticSize = Enum.AutomaticSize.Y,
-						HorizontalAlignment = Enum.HorizontalAlignment.Left,
-						Layout = Enum.FillDirection.Horizontal,
-						LayoutOrder = orderIterator:getNextOrder(),
-						Spacing = VERFICATION_BUTTON_SPACING,
-						Size = UDim2.new(1, 0, 0, 0),
-					}, {
-						VerifyButton = Roact.createElement(Button, {
-							LayoutOrder = orderIterator:getNextOrder(),
-							OnClick = self.onClickVerify,
-							Style = "AssetConfigRoundPrimary",
-							Size = BUTTON_SIZE,
-							Text = verificationActionButtonText,
-						}),
-
-						RefreshButton = Roact.createElement(Button, {
-							LayoutOrder = orderIterator:getNextOrder(),
-							OnClick = self.onClickRefreshVerficationStatus,
-							Style = "Round",
-							Size = BUTTON_SIZE,
-							Text = verificationRefreshText,
-						}),
-					}),
-				})
-				else nil,
 		}),
 	})
 end

@@ -1,3 +1,4 @@
+--!nonstrict
 local Root = script.Parent.Parent.Parent
 local GuiService = game:GetService("GuiService")
 local ContextActionService = game:GetService("ContextActionService")

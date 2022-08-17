@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	A somewhat generic button that provides support for hover/press states drawn
 	from the current theme. Requires providing a text or image label as a child;

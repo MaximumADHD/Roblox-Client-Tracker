@@ -5,7 +5,6 @@
 local FFlagPlacePublishManagementUI2 = game:GetFastFlag("PlacePublishManagementUI2")
 local FFlagEnablePlacePublishManagementInTeamCreate = game:GetFastFlag("EnablePlacePublishManagementInTeamCreate")
 local FFlagRemoveUILibrarySeparator = game:GetFastFlag("RemoveUILibrarySeparator")
-local FFlagCOLLAB1610SelectedGameNilCheckInPublishCallback = game:GetFastFlag("COLLAB1610SelectedGameNilCheckInPublishCallback")
 
 local StudioPublishService = game:GetService("StudioPublishService")
 
@@ -90,7 +89,7 @@ end
 function ScreenChoosePlace:didMount()
 	self.finishedConnection = StudioPublishService.GamePublishFinished:connect(function(success)
 
-		if FFlagCOLLAB1610SelectedGameNilCheckInPublishCallback and self.state.selectedPlace == nil then
+		if self.state.selectedPlace == nil then
 			return
 		end
 

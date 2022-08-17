@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local VRService = game:GetService("VRService")
 
@@ -8,11 +9,6 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local Images = UIBlox.App.ImageSet.Images
 
 local Constants = require(InGameMenu.Resources.Constants)
-
---todo: can remove assets when FFlagInGameMenuSinglePaneDesign and FFlagFixMenuIcons are on and removed
-local Assets = require(InGameMenu.Resources.Assets)
-
-local FFlagFixMenuIcons = require(InGameMenu.Flags.FFlagFixMenuIcons)
 
 local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 
@@ -33,7 +29,7 @@ local pages = {
 	{
 		key = "Players",
 		title = "CoreScripts.InGameMenu.PageTitle.Players",
-		icon = FFlagFixMenuIcons and Images["icons/controls/players"] or Assets.Images.PlayersMenu,
+		icon = Images["icons/controls/players"],
 		component = script.PlayersPage,
 		navigationDepth = 2,
 		parentPage = Constants.MainPagePageKey,
@@ -41,7 +37,7 @@ local pages = {
 	{
 		key = "InviteFriends",
 		title = "CoreScripts.InGameMenu.PageTitle.InviteFriends",
-		icon = FFlagFixMenuIcons and Images["icons/actions/friends/friendInvite"] or Assets.Images.InviteMenu,
+		icon = Images["icons/actions/friends/friendInvite"],
 		component = script.Parent.InviteFriendsPage,
 		navigationDepth = 2,
 		parentPage = Constants.MainPagePageKey,
@@ -49,7 +45,7 @@ local pages = {
 	{
 		key = "GameSettings",
 		title = "CoreScripts.InGameMenu.PageTitle.GameSettings",
-		icon = FFlagFixMenuIcons and Images["icons/common/settings"] or Assets.Images.GameSettings,
+		icon = Images["icons/common/settings"],
 		component = script.Parent.GameSettingsPage.BasicPage,
 		navigationDepth = 2,
 		parentPage = Constants.MainPagePageKey,
@@ -57,7 +53,7 @@ local pages = {
 	{
 		key = "Report",
 		title = "CoreScripts.InGameMenu.PageTitle.Report",
-		icon = FFlagFixMenuIcons and Images["icons/actions/feedback"] or Assets.Images.ReportIcon,
+		icon = Images["icons/actions/feedback"],
 		component = script.Parent.ReportPage,
 		navigationDepth = 2,
 		parentPage = Constants.MainPagePageKey,
@@ -65,7 +61,7 @@ local pages = {
 	{
 		key = "Controls",
 		title = "CoreScripts.InGameMenu.PageTitle.Controls",
-		icon = FFlagFixMenuIcons and Images["icons/controls/controls"] or Assets.Images.ControlsMenu,
+		icon = Images["icons/controls/controls"],
 		component = script.Parent.ControlsPage,
 		isModal = not (EngineFeatureEnableVRUpdate2 and VRService.VREnabled),
 		navigationDepth = 2,
@@ -74,7 +70,7 @@ local pages = {
 	{
 		key = "AdvancedGameSettings",
 		title = "CoreScripts.InGameMenu.PageTitle.GameSettings",
-		icon = FFlagFixMenuIcons and Images["icons/menu/settings_large"] or Assets.Images.GameSettings,
+		icon = Images["icons/menu/settings_large"],
 		component = script.Parent.GameSettingsPage.AdvancedPage,
 		isSecondaryPage = true,
 		navigationDepth = 3,

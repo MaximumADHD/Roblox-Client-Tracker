@@ -2,6 +2,8 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local ArgCheck = require(CorePackages.ArgCheck)
+
 local GetFFlagUIBloxFixDropdownMenuListPositionAndSize = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuListPositionAndSize
 )
@@ -13,9 +15,6 @@ local GetFFlagUIBloxUseNewGenericTextLabelProps = require(
 )
 local GetFFlagUIBloxEnableRadioButtonGamepadSupport = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableRadioButtonGamepadSupport
-)
-local GetFFlagUIBloxEnableIconButtonGamepadSupport = require(
-	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableIconButtonGamepadSupport
 )
 local GetFFlagUIBloxSliderUpdateOnDismiss = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxSliderUpdateOnDismiss
@@ -31,7 +30,7 @@ return {
 	fixDropdownMenuListPositionAndSize = GetFFlagUIBloxFixDropdownMenuListPositionAndSize(),
 	fixDropdownMenuCellTextSize = GetFFlagUIBloxFixDropdownMenuCellTextSize(),
 	useNewGenericTextLabelProps = GetFFlagUIBloxUseNewGenericTextLabelProps(),
-	useAnimatedXboxCursors = game:DefineFastFlag("GamepadAnimatedCursor", false),
+	useAnimatedXboxCursors = true,
 	genericButtonInputChanges = GetFFlagUIBloxGenericButtonInputChangesInGame(),
 	enableGamepadKeyCodeSupportForKeyLabel = true,
 	enableAnimatedCursorForNonRoactGamepadComponent = game:DefineFastFlag(
@@ -44,5 +43,6 @@ return {
 	enableRightSideGadgetView = EnableInGameMenuV3(),
 
 	sliderUpdateOnDismiss = GetFFlagUIBloxSliderUpdateOnDismiss(),
-	enableIconButtonGamepadSupport = GetFFlagUIBloxEnableIconButtonGamepadSupport(),
+
+	devMode = ArgCheck.isEnabled(),
 }

@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local ContextActionService = game:GetService("ContextActionService")
@@ -66,7 +67,7 @@ function LeavePrompt:render()
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 			GameThumbnail = Roact.createElement(GameIcon, {
-				gameId = game.gameId,
+				gameId = game.GameId,
 				iconSize = 100,
 				layoutOrder = 1,
 			}),

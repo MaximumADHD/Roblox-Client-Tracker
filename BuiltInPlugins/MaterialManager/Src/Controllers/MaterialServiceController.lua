@@ -335,6 +335,8 @@ function MaterialServiceController:createMaterialVariant(baseMaterial: Enum.Mate
 	local generativeName = "MaterialVariant"
 	materialVariant.Name = generativeName .. GenerateMaterialName(category, generativeName)
 	materialVariant.BaseMaterial = baseMaterial or Enum.Material.Plastic
+	materialVariant.StudsPerTile = 10
+	self:setPath(getMaterialPath(materialVariant.BaseMaterial))
 	materialVariant.Parent = game:GetService("MaterialService")
 	return materialVariant
 end

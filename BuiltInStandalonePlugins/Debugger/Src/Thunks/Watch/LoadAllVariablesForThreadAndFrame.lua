@@ -21,8 +21,9 @@ return function(threadId: number, debuggerConnection, frameNumber : number, debu
 		local dst = common.debuggerConnectionIdToDST[debuggerConnection.Id]
 		
 		local threadState = debuggerConnection:GetThreadById(threadId)
-		local callstack = threadState:GetChildren()				
+		local callstack = threadState:GetChildren()
 		local stepStateBundle = StepStateBundle.ctor(dst, threadId, frameNumber+1)
+		
 		store:dispatch(LoadStackFrameVariables(debuggerConnection, callstack[frameNumber+1], stepStateBundle))
 
 		local listOfExpressions = store:getState().Watch.listOfExpressions

@@ -1,15 +1,18 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local t = InGameMenuDependencies.t
 local UIBlox = InGameMenuDependencies.UIBlox
+local Cryo = InGameMenuDependencies.Cryo
 
 local withStyle = UIBlox.Core.Style.withStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local Images = UIBlox.App.ImageSet.Images
 
 local InGameMenu = script.Parent.Parent
+local FFlagUsePageSearchAnimation = require(InGameMenu.Flags.GetFFlagUsePageSearchAnimation)()
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local SEARCH_CONTAINER_PADDING = 9
@@ -30,11 +33,14 @@ SearchBar.validateProps = t.interface({
 	onCancelled = t.optional(t.callback),
 	onFocusLost = t.optional(t.callback),
 	autoCaptureFocus = t.optional(t.boolean),
+	zIndex = t.optional(t.number),
+	visible = t.optional(t.boolean),
 })
 
 SearchBar.defaultProps = {
 	size = UDim2.fromScale(1, 1),
 	autoCaptureFocus = false,
+	visible = true,
 }
 
 function SearchBar:init()
@@ -92,8 +98,28 @@ function SearchBar:init()
 	end
 end
 
+if FFlagUsePageSearchAnimation then
+	function SearchBar:willUpdate(nextProps)
+		if self.props.autoCaptureFocus and self.props.visible == false and nextProps.visible then
+			self:focus()
+		end
+	end
+end
+
 function SearchBar:didMount()
-	if self.props.autoCaptureFocus and self.textboxRef then
+	if FFlagUsePageSearchAnimation then
+		if self.props.autoCaptureFocus and self.props.visible then
+			self:focus()
+		end
+	else
+		if self.props.autoCaptureFocus and self.textboxRef then
+			self.textboxRef.current:CaptureFocus()
+		end
+	end
+end
+
+function SearchBar:focus()
+	if self.textboxRef then
 		self.textboxRef.current:CaptureFocus()
 	end
 end
@@ -109,10 +135,22 @@ function SearchBar:render()
 			local inputFontStyle = style.Font.Body
 			local inputTextSize = style.Font.BaseSize * inputFontStyle.RelativeSize
 
-			return Roact.createElement("Frame", {
+			local rootElementName = if FFlagUsePageSearchAnimation then "CanvasGroup" else "Frame"
+			local rootElementProps = if FFlagUsePageSearchAnimation
+			 then {
+				BackgroundTransparency = 1,
+				GroupTransparency = 0.5,
+				Size = self.props.size,
+				ZIndex = self.props.zIndex,
+				Visible = self.props.visible,
+				[Roact.Ref] = self.props.forwardRef or Roact.createRef(),
+			 }
+			else {
 				BackgroundTransparency = 1,
 				Size = self.props.size,
-			}, {
+			}
+
+			return Roact.createElement(rootElementName, rootElementProps, {
 				SearchPanelLayout = Roact.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalAlignment = Enum.HorizontalAlignment.Left,
@@ -121,7 +159,12 @@ function SearchBar:render()
 					Padding = UDim.new(0, SEARCH_CONTAINER_PADDING),
 				}),
 				SearchBorder = Roact.createElement("Frame", {
-					Size = UDim2.new(1, -SEARCH_CONTAINER_PADDING - SEARCH_CANCEL_WIDTH, 1, 0),
+					Size = UDim2.new(
+						1,
+						-SEARCH_CONTAINER_PADDING - SEARCH_CANCEL_WIDTH,
+						if FFlagUsePageSearchAnimation then 0 else 1,
+						if FFlagUsePageSearchAnimation then SEARCH_TEXTBOX_HEIGHT + 2 * SEARCH_CONTAINER_PADDING else 0
+					),
 					BackgroundColor3 = Color3.new(136, 136, 136),
 					BackgroundTransparency = 0.8,
 					[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChanged,
@@ -196,4 +239,14 @@ function SearchBar:render()
 	end)
 end
 
+if FFlagUsePageSearchAnimation then
+	return Roact.forwardRef(function(props, ref)
+		return Roact.createElement(
+			SearchBar,
+			Cryo.Dictionary.join(props, {
+				forwardRef = ref,
+			})
+		)
+	end)
+end
 return SearchBar

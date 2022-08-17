@@ -22,7 +22,6 @@ return function()
 	local Templates = require(Plugin.Src.Util.Templates)
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 	local emptyData = Templates.animationData()
 	local testAnimationData = Templates.animationData()
@@ -31,7 +30,7 @@ return function()
 		Root = {
 			Tracks = {
 				Head = {
-					Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
+					Type = Constants.TRACK_TYPES.CFrame,
 					Keyframes = {0, 160},
 					Data = {
 						[0] = {
@@ -43,7 +42,7 @@ return function()
 					},
 				},
 				UpperTorso = {
-					Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
+					Type = Constants.TRACK_TYPES.CFrame,
 					Keyframes = {0, 160},
 					Data = {
 						[0] = {
@@ -65,11 +64,7 @@ return function()
 			local analytics = Analytics.mock()
 
 			TestHelpers.loadAnimation(store, emptyData)
-			if GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
-				store:dispatch(ValueChanged("Root", "Head", Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
-			else
-				store:dispatch(ValueChanged("Root", "Head", 0, CFrame.new(), analytics))
-			end
+			store:dispatch(ValueChanged("Root", "Head", Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
 			TestHelpers.delay()
 
 			local testTrack = TestPaths.getTrack(container, "Track_Head")
@@ -88,16 +83,8 @@ return function()
 			local container = test:getContainer()
 			local analytics = Analytics.mock()
 			TestHelpers.loadAnimation(store, emptyData)
-			if GetFFlagChannelAnimations() then
-				store:dispatch(ValueChanged("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
-				store:dispatch(ValueChanged("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, 160, CFrame.new(), analytics))
-			elseif GetFFlagFacialAnimationSupport() then
-				store:dispatch(ValueChanged("Root", "Head", Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
-				store:dispatch(ValueChanged("Root", "Head", Constants.TRACK_TYPES.CFrame, 160, CFrame.new(), analytics))
-			else
-				store:dispatch(ValueChanged("Root", "Head", 0, CFrame.new(), analytics))
-				store:dispatch(ValueChanged("Root", "Head", 160, CFrame.new(), analytics))
-			end
+			store:dispatch(ValueChanged("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
+			store:dispatch(ValueChanged("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, 160, CFrame.new(), analytics))
 			TestHelpers.delay()
 
 			local testTrack = TestPaths.getTrack(container, "Track_Head")
@@ -114,16 +101,8 @@ return function()
 			local analytics = Analytics.mock()
 
 			TestHelpers.loadAnimation(store, emptyData)
-			if GetFFlagChannelAnimations() then
-				store:dispatch(ValueChanged("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
-				store:dispatch(ValueChanged("Root", {"UpperTorso"}, Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
-			elseif GetFFlagFacialAnimationSupport() then
-				store:dispatch(ValueChanged("Root", "Head", Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
-				store:dispatch(ValueChanged("Root", "UpperTorso", Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
-			else
-				store:dispatch(ValueChanged("Root", "Head", 0, CFrame.new(), analytics))
-				store:dispatch(ValueChanged("Root", "UpperTorso", 0, CFrame.new(), analytics))
-			end
+			store:dispatch(ValueChanged("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
+			store:dispatch(ValueChanged("Root", {"UpperTorso"}, Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
 			TestHelpers.delay()
 
 			local testTrack = TestPaths.getTrack(container, "Track_Head")
@@ -255,13 +234,8 @@ return function()
 			local endTick = animationData.Metadata.EndTick
 			expect(selectedKeyframes.Root).to.be.ok()
 			expect(selectedKeyframes.Root.Head).to.be.ok()
-			if GetFFlagChannelAnimations() then
-				expect(selectedKeyframes.Root.Head.Selection[1]).never.to.be.ok()
-				expect(selectedKeyframes.Root.Head.Selection[endTick]).to.be.ok()
-			else
-				expect(selectedKeyframes.Root.Head[1]).never.to.be.ok()
-				expect(selectedKeyframes.Root.Head[endTick]).to.be.ok()
-			end
+			expect(selectedKeyframes.Root.Head.Selection[1]).never.to.be.ok()
+			expect(selectedKeyframes.Root.Head.Selection[endTick]).to.be.ok()
 		end)
 	end)
 
@@ -299,21 +273,12 @@ return function()
 			expect(selectedKeyframes.Root.Head).to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso).to.be.ok()
 
-			if GetFFlagChannelAnimations() then
-				expect(selectedKeyframes.Root.Head.Selection[0]).never.to.be.ok()
-				expect(selectedKeyframes.Root.Head.Selection[endTick]).to.be.ok()
-				expect(selectedKeyframes.Root.Head.Selection[endTick - 160]).to.be.ok()
-				expect(selectedKeyframes.Root.UpperTorso.Selection[0]).never.to.be.ok()
-				expect(selectedKeyframes.Root.UpperTorso.Selection[endTick]).to.be.ok()
-				expect(selectedKeyframes.Root.UpperTorso.Selection[endTick - 160]).to.be.ok()
-			else
-				expect(selectedKeyframes.Root.Head[0]).never.to.be.ok()
-				expect(selectedKeyframes.Root.Head[endTick]).to.be.ok()
-				expect(selectedKeyframes.Root.Head[endTick - 160]).to.be.ok()
-				expect(selectedKeyframes.Root.UpperTorso[0]).never.to.be.ok()
-				expect(selectedKeyframes.Root.UpperTorso[endTick]).to.be.ok()
-				expect(selectedKeyframes.Root.UpperTorso[endTick - 160]).to.be.ok()
-			end
+			expect(selectedKeyframes.Root.Head.Selection[0]).never.to.be.ok()
+			expect(selectedKeyframes.Root.Head.Selection[endTick]).to.be.ok()
+			expect(selectedKeyframes.Root.Head.Selection[endTick - 160]).to.be.ok()
+			expect(selectedKeyframes.Root.UpperTorso.Selection[0]).never.to.be.ok()
+			expect(selectedKeyframes.Root.UpperTorso.Selection[endTick]).to.be.ok()
+			expect(selectedKeyframes.Root.UpperTorso.Selection[endTick - 160]).to.be.ok()
 		end)
 	end)
 

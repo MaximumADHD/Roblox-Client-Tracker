@@ -67,7 +67,20 @@ local PublishStatus = {
 	Success = 4,
 	Skipped = 5,
 }
-
+local ProgressBarSizeX = {
+	[PublishStatus.Updating] = 0.3,
+	[PublishStatus.Pending] = 0.7,
+	[PublishStatus.Failed] = 0.7,
+	[PublishStatus.Success] = 1,
+	[PublishStatus.Skipped] = 1,
+}
+local ProgressBarColor = {
+	[PublishStatus.Updating] = Color3.fromRGB(145, 50, 235),
+	[PublishStatus.Pending] = Color3.fromRGB(255, 185, 0),
+	[PublishStatus.Failed] = Color3.fromRGB(225, 50, 25),
+	[PublishStatus.Success] = Color3.fromRGB(25, 225, 40),
+	[PublishStatus.Skipped] = Color3.fromRGB(44, 101, 29),
+}
 
 local function getPackageLink(instance)
 	if not instance then
@@ -221,6 +234,7 @@ local function scanForRelatedPackages(selectedInstance, root)
 			Depth = depth,
 			Changed = isSelectedInstance,
 			IsSelected = isSelectedInstance,
+			LatestVersionNumber = packageInfo.LatestVersionNumber,
 			PackageAssetName = packageInfo.PackageAssetName,
 			HasEditPermission = (packageInfo.PermissionLevel.Value >= Enum.PackagePermission.Edit.Value),
 		}
@@ -271,7 +285,11 @@ function ExampleComponent:promiseToPublishPackage(next, changeList)
 			if self.state.isCancelling then
 				return reject()
 			end
-			
+
+			self:setState({
+				canCancel = false,
+			})
+
 			if not next.IsSelected then
 				self:runScopedMassUpdate(next, changeList)
 			end
@@ -283,11 +301,6 @@ function ExampleComponent:promiseToPublishPackage(next, changeList)
 				return resolve()
 			end
 
-			next.PublishStatus = PublishStatus.Pending
-			self:setState({
-				canCancel = false,
-			})
-
 			-- TODO: Once PackageOverhaulPhaseOne is released, mod check is being removed so we don't need to wait for Status property to update here
 			local statusUpdateClone = next.LatestVersion:Clone()
 			statusUpdateClone.Archivable = false
@@ -298,7 +311,9 @@ function ExampleComponent:promiseToPublishPackage(next, changeList)
 				thisPackageLink:GetPropertyChangedSignal("Status"):Wait()
 			end
 
-			local oldVersionId = thisPackageLink.VersionNumber
+			next.PublishStatus = PublishStatus.Pending
+			self:setState({})
+
 			local numRetryAttempts = 0
 			local success, error
 			repeat
@@ -311,18 +326,19 @@ function ExampleComponent:promiseToPublishPackage(next, changeList)
 				end)
 				if success then
 					warn(string.format(LOG_MESSAGES.PackagePublishSuccess, next.PackageAssetName, next.PackageId))
-					next.PublishStatus = PublishStatus.Success
-					self:setState({})
-					
+
 					if not string.find(clonePackageLink.Status, LOG_MESSAGES.NewVersionString) then
 						-- Version Number needs some time to update on C++ end
 						clonePackageLink:GetPropertyChangedSignal("Status"):Wait()
 					end
 					local newVersionId = getPackageLink(next.LatestVersion).VersionNumber
 					changeList[next.PackageId] = {
-						oldVersionId = oldVersionId,
+						oldVersionId = next.LatestVersionNumber,
 						newVersionId = newVersionId,
 					}
+
+					next.PublishStatus = PublishStatus.Success
+					self:setState({})
 				else
 					warn(error)
 					next.PublishStatus = PublishStatus.Failed
@@ -515,6 +531,39 @@ function ExampleComponent:didUpdate(previousProps)
 	end
 end
 
+local ProgressBar = Roact.PureComponent:extend("ProgressBar")
+function ProgressBar:render()
+	local props = self.props
+	local publishStatus = props.publishStatus
+	
+	local sizeX = ProgressBarSizeX[publishStatus]
+	local color = ProgressBarColor[publishStatus]
+
+	return sizeX and Roact.createElement("Frame", {
+		AnchorPoint = Vector2.new(0.5, 1),
+		BackgroundColor3 = Color3.new(0, 0, 0),
+		Size = UDim2.new(0.9, 0, 0.1, 0),
+		Position = UDim2.new(0.5, 0, 1, -3),
+	}, {
+		uiCorner = Roact.createElement("UICorner", {
+			CornerRadius = UDim.new(0.5, 0.5),
+		}),
+		uiStroke = Roact.createElement("UIStroke", {
+			Thickness = 2,
+		}),
+		progressBar = Roact.createElement("Frame", {
+			AnchorPoint = Vector2.new(0, 0.5),
+			BackgroundColor3 = color,
+			Size = UDim2.new(sizeX, 0, 1, 0),
+			Position = UDim2.new(0, 0, 0.5, 0),
+		}, {
+			uiCorner = Roact.createElement("UICorner", {
+				CornerRadius = UDim.new(0.5, 0.5),
+			}),
+		}),
+	})
+end
+
 local PackageBoxItem = Roact.PureComponent:extend("PackageBoxItem")
 function PackageBoxItem:render()
 	local props = self.props
@@ -522,13 +571,7 @@ function PackageBoxItem:render()
 	local publishStatus = props.publishStatus
 	local hasEditPermission = props.hasEditPermission
 
-	local color = (not hasEditPermission and Color3.fromRGB(120, 120, 120))
-		or (publishStatus == PublishStatus.Ready and Color3.fromRGB(200, 200, 200))
-		or (publishStatus == PublishStatus.Pending and Color3.fromRGB(255, 185, 0))
-		or (publishStatus == PublishStatus.Updating and Color3.fromRGB(145, 50, 235))
-		or (publishStatus == PublishStatus.Failed and Color3.fromRGB(225, 50, 25))
-		or (publishStatus == PublishStatus.Success and Color3.fromRGB(25, 225, 40))
-		or (publishStatus == PublishStatus.Skipped and Color3.fromRGB(150, 150, 150))
+	local color = if hasEditPermission then Color3.fromRGB(200, 200, 200) else Color3.fromRGB(100, 100, 100)
 
 	return Roact.createElement("Frame", {
 		BackgroundColor3 = color,
@@ -544,6 +587,9 @@ function PackageBoxItem:render()
 			Size = UDim2.new(1, 0, 1, 0),
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 		}),
+		progressBar = Roact.createElement(ProgressBar, {
+			publishStatus = publishStatus,
+		})
 	})
 end
 
@@ -601,7 +647,7 @@ function ExampleComponent:render()
 				ScrollingDirection = Enum.ScrollingDirection.XY,
 				BackgroundTransparency = 1,
 				AnchorPoint = Vector2.new(0.5, 0.5),
-				Size = UDim2.new(1, -8, 0.8, -8),
+				Size = UDim2.new(1, -8, 1, -8),
 				Position = UDim2.new(0.5, 0, 0.5, 0),
 				CanvasSize = UDim2.new(0, BOX_SIZE*maxRows + BOX_PADDING*math.max(0, maxRows-1), 0, BOX_SIZE*maxColumns + BOX_PADDING*math.max(0, maxColumns-1)),
 			}, packageUIBoxes),
@@ -614,9 +660,9 @@ function ExampleComponent:render()
 		}, {
 			cancelButton = canCancel and Roact.createElement(Button, {
 				Text = localization:getText("Action", "Cancel"),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Size = UDim2.new(0.3, 0, 0.9, 0),
-				Position = UDim2.new(1/6, 0, 0.5, 0),
+				AnchorPoint = Vector2.new(0, 0.5),
+				Size = UDim2.new(0.3, 0, 1, -8),
+				Position = UDim2.new(0, 4, 0.5, 0),
 				OnClick = function()
 					self:setState({
 						canCancel = false,
@@ -626,9 +672,9 @@ function ExampleComponent:render()
 			}),
 			publishHierarchyButton = canPublish and Roact.createElement(Button, {
 				Text = localization:getText("Action", "Publish"),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Size = UDim2.new(0.3, 0, 0.9, 0),
-				Position = UDim2.new(5/6, 0, 0.5, 0),
+				AnchorPoint = Vector2.new(1, 0.5),
+				Size = UDim2.new(0.3, 0, 1, -8),
+				Position = UDim2.new(1, -4, 0.5, 0),
 				OnClick = function()
 					self:publishSelectedPackageHierarchy()
 				end,

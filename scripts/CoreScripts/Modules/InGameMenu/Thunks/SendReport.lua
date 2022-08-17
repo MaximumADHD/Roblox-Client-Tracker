@@ -30,7 +30,8 @@ return function(abuseReason, abuseDescription, userId)
 				)
 				coroutine.wrap(function()
 					if not RunService:IsStudio() then
-						Players:ReportAbuse(nil, abuseReason, formattedText)
+						-- ROBLOX FIXME: Players:ReportAbuse() should accept an optional Player
+						Players:ReportAbuse((nil :: any) :: Player, abuseReason, formattedText)
 					end
 					store:dispatch(OpenReportSentDialog())
 				end)()

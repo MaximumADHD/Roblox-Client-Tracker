@@ -216,6 +216,7 @@ return{
 	["CoreScripts.InGameMenu.Prompt.ReturnHomeBodyText"] = [[ここからホーム画面に戻って新しい体験を見つけてください。]],
 	["CoreScripts.InGameMenu.Actions.BlockFriend"] = [[友達をブロックしますか？]],
 	["CoreScripts.InGameMenu.QuickActions.ScreenshotSaved"] = [[スクリーンショットを保存しました]],
-	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[シェア]],
+	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[シェアする]],
 	["CoreScripts.InGameMenu.Controls.Scriptable"] = [[スクリプト可能]],
+	["CoreScripts.InGameMenu.QuickActions.Connecting"] = [[接続中...]],
 }

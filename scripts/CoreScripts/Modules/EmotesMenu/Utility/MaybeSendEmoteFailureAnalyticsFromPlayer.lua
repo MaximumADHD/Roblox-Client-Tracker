@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	When attempting to play an emote, the emote may fail playing
 	due to a number of issues in the character hierarchy

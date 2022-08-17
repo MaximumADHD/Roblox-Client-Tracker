@@ -1,10 +1,13 @@
+--!nonstrict
 return function()
+	local Types = require(script.Parent.Parent.MessageBusTypes)
+
 	local MockMessageBus = {}
 	MockMessageBus.__index = MockMessageBus
 
 	local MockMessageBusSpy = {}
 
-	function MockMessageBus.call(desc: FunctionDescriptor, params: any): any
+	function MockMessageBus.call(desc: Types.FunctionDescriptor, params: any): any
 		assert(desc.validateParams(params))
 		-- Simulate the basic behavior of a call to the protocol
 		if desc.fid == "Logging.getTimestamp" then
@@ -31,7 +34,7 @@ return function()
 
 	describe("LoggingProtocol", function()
 		beforeEach(function(context)
-			context.LoggingProtocol = LoggingProtocol.new(MockMessageBus)
+			context.LoggingProtocol = LoggingProtocol.new((MockMessageBus :: any) :: Types.MessageBus)
 		end)
 
 		afterEach(function()

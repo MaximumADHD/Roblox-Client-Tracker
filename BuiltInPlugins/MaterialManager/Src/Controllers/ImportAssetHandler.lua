@@ -35,9 +35,8 @@ function ImportAssetHandler.mock(imageUploader, userId)
 	return ImportAssetHandler.new(imageUploader, userId)
 end
 
-function ImportAssetHandler:handleAssetAsync(assetFile: File, assetUploading: () -> ())
+function ImportAssetHandler:handleAssetAsync(assetFile: File)
 	assert(assetFile, "ImportAssetHandler:handleAsset() requires an assetFile")
-	assetUploading()
 
 	local tempId = assetFile:GetTemporaryId()
 	local assetFileContents
@@ -60,6 +59,7 @@ function ImportAssetHandler:handleAssetAsync(assetFile: File, assetUploading: ()
 	end)
 end
 
+-- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 function ImportAssetHandler:handleAsset(assetFile: File, onAssetUpload: (string) -> ())
 	assert(assetFile, "ImportAssetHandler:handleAsset() requires an assetFile")
 

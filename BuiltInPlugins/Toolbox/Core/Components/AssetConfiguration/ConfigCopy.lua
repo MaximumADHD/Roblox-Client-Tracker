@@ -12,6 +12,8 @@ local FStringToolboxAssetConfigEnabledAudioSharingLearnMoreLink = game:GetFastSt
 	"ToolboxAssetConfigEnabledAudioSharingLearnMoreLink"
 )
 
+local FFlagUnifyModelPackagePublish = game:GetFastFlag("UnifyModelPackagePublish")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -122,19 +124,21 @@ function ConfigCopy:init(props)
 end
 
 function ConfigCopy:didMount(prevProps, prevState)
-	local timeSignal = game:GetService("RunService").Heartbeat
-	self.connection = timeSignal:connect(function(dt)
-		self:setState(function(state)
-			if self.copyWarning ~= Cryo.None then
-				self.warningCountdown -= dt
-				if self.warningCountdown <= 0 then
-					return {
-						copyWarning = Cryo.None,
-					}
+	if FFlagUnifyModelPackagePublish and self.props.AssetType == Enum.AssetType.Audio then
+		local timeSignal = game:GetService("RunService").Heartbeat
+		self.connection = timeSignal:connect(function(dt)
+			self:setState(function(state)
+				if self.copyWarning ~= Cryo.None then
+					self.warningCountdown -= dt
+					if self.warningCountdown <= 0 then
+						return {
+							copyWarning = Cryo.None,
+						}
+					end
 				end
-			end
+			end)
 		end)
-	end)
+	end
 
 	self:updateDistributionQuotas()
 end
@@ -151,6 +155,7 @@ function ConfigCopy:didUpdate(prevProps, prevState)
 	local localization = props.Localization
 
 	local warningText = localization:getText("AssetConfigCopy", "MustShare")
+	local packageWarningText = localization:getText("AssetConfigCopy", "PackageCantShare")
 
 	if assetType == Enum.AssetType.Audio then
 		self:setState(function(state)
@@ -161,6 +166,20 @@ function ConfigCopy:didUpdate(prevProps, prevState)
 					copyWarning = warningText,
 				}
 			elseif prevState.copyWarning ~= Cryo.None and props.IsAssetPublic then
+				return {
+					copyWarning = Cryo.None,
+				}
+			else
+				return nil
+			end
+		end)
+	elseif props.AssetType == Enum.AssetType.Model and FFlagUnifyModelPackagePublish then
+		self:setState(function(state)
+			if state.copyWarning ~= packageWarningText and props.PackageOn and not prevProps.PackageOn then
+				return {
+					copyWarning = packageWarningText,
+				}
+			elseif state.copyWarning ~= Cryo.None and not props.PackageOn and prevProps.PackageOn then
 				return {
 					copyWarning = Cryo.None,
 				}
@@ -297,7 +316,8 @@ function ConfigCopy:render()
 
 	local quotaMessageText
 	local quotaLinkText
-	if assetType and CopyEnabled then
+
+	if assetType and (CopyEnabled or FFlagUnifyModelPackagePublish) then
 		local publishingEnabled
 		publishingEnabled, quotaMessageText, quotaLinkText = self:getDistributionQuotaStatus()
 

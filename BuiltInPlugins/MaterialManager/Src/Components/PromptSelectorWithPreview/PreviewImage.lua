@@ -10,14 +10,18 @@ local Stylizer = Framework.Style.Stylizer
 
 local UI = Framework.UI
 local TextLabel = UI.Decoration.TextLabel
+local Image = UI.Decoration.Image
 
 local Components = Plugin.Src.Components
 local PreviewToolbarButton = require(Components.PromptSelectorWithPreview.PreviewToolbarButton)
 local LoadingImage = require(Plugin.Src.Components.LoadingImage)
 
+local getFFlagMaterialManagerVariantCreatorOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
+
 export type Props = {
 	HasSelection: boolean,
 	ImageId: string,
+	IsTempId: boolean,
 	ClearSelection: () -> (),
 	OpenExpandedPreview: () -> (),
 }
@@ -102,12 +106,25 @@ function PreviewImage:render()
 			ZIndex = 2,
 			Size = UDim2.new(1, 0, 1, 0),
 		}, {
-			PreviewContent = Roact.createElement(LoadingImage, {
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 1, 0),
-				Image = props.ImageId,
-				ScaleType = Enum.ScaleType.Fit,
-			}),
+			PreviewContent = if getFFlagMaterialManagerVariantCreatorOverhaul() and props.IsTempId == true then 
+				Roact.createElement(LoadingImage, {
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, 0, 1, 0),
+					Image = props.ImageId,
+					ScaleType = Enum.ScaleType.Fit,
+				})
+			elseif getFFlagMaterialManagerVariantCreatorOverhaul() and props.IsTempId == false then 
+				Roact.createElement(Image, {
+					Size = UDim2.new(1, 0, 1, 0),
+					Image = props.ImageId,
+				})
+			else
+				Roact.createElement(LoadingImage, {
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, 0, 1, 0),
+					Image = props.ImageId,
+					ScaleType = Enum.ScaleType.Fit,
+				}),
 		}),
 
 		Toolbar = Roact.createElement("Frame", {

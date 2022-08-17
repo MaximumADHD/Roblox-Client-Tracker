@@ -1,3 +1,4 @@
+--!nonstrict
 local Root = script.Parent.Parent
 
 local ItemType = require(Root.Enums.ItemType)

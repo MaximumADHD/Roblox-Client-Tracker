@@ -11,8 +11,6 @@ local ConversationList = require(ShareGame.Components.ConversationList)
 local ToasterComponent = require(ShareGame.Components.ErrorToaster)
 local BackButton = require(ShareGame.Components.BackButton)
 
-local isSelectionGroupEnabled = require(ShareGame.isSelectionGroupEnabled)
-
 local HEADER_HEIGHT = 60
 local USER_LIST_PADDING = 10
 local CONTENT_PADDING = 15
@@ -56,10 +54,7 @@ function ModalShareGamePageFrame:render()
 	local searchAreaActive = self.props.searchAreaActive
 	local searchText = self.props.searchText
 
-	local isVisible = nil
-	if isSelectionGroupEnabled() then
-		isVisible = self.props.isVisible
-	end
+	local isVisible = self.props.isVisible
 
 	return Roact.createElement("ImageButton", {
 		AnchorPoint = Vector2.new(0.5, 0.5),

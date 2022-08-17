@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	A prompt with a text field for text entry. On mobile, the prompt moves so that the text box is still visible even
 	when the on screen keyboard is up.

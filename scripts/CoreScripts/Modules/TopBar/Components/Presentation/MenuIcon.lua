@@ -98,6 +98,8 @@ function MenuIcon:init()
 end
 
 function MenuIcon:render()
+
+	local v3Menu = isNewInGameMenuEnabled() and EnableInGameMenuV3()
 	local visible = not TenFootInterface:IsEnabled()
 	if FFlagEnableNewVrSystem then
 		visible = (not VRService.VREnabled or self.state.vrShowMenuIcon)
@@ -108,6 +110,12 @@ function MenuIcon:render()
 		Size = UDim2.new(0, BACKGROUND_SIZE, 1, 0),
 		LayoutOrder = self.props.layoutOrder
 	}, {
+		ExtendedHitArea = v3Menu and Roact.createElement("ImageButton", {
+			Size = UDim2.new(1, 20, 1, 8),
+			Position = UDim2.new(0, -16, 0, -4),
+			BackgroundTransparency = 1,
+			[Roact.Event.Activated] = self.menuIconActivated,
+		}) or nil,
 		Background = Roact.createElement(IconButton, {
 			icon = "rbxasset://textures/ui/TopBar/coloredlogo.png",
 			iconSize = ICON_SIZE,

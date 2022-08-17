@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local AvatarEditorService = game:GetService("AvatarEditorService")
 

@@ -1,10 +1,9 @@
 local FFlagToolboxFixTryInStudio = game:GetFastFlag("ToolboxFixTryInStudio")
-local FFlagToolboxFurtherTryInStudioFixes = game:GetFastFlag("ToolboxFurtherTryInStudioFixes")
 
 local Plugin = script.Parent.Parent.Parent
 
 local Actions = Plugin.Core.Actions
-local MarkTryInStudioDone = if FFlagToolboxFurtherTryInStudioFixes then require(Actions.MarkTryInStudioDone) else nil
+local MarkTryInStudioDone = require(Actions.MarkTryInStudioDone)
 
 local GetAssets
 local SetAssetPreview
@@ -18,7 +17,7 @@ local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 return function(assetId, tryInsert, localization, networkInterface, setAssetPreview)
 	return function(store)
 		local ok, result = pcall(function()
-			if FFlagToolboxFurtherTryInStudioFixes and store:getState().tryInStudio.triedInStudio[assetId] then
+			if store:getState().tryInStudio.triedInStudio[assetId] then
 				-- Every time the tab or category is remounted, this thunk is being called again, but we only want to try the asset
 				-- once per-session to avoid it being reinserted and opening the preview every time you change category or tab
 				-- If the user actually clicks "Try in Studio" again on the website, it will open a new session.
@@ -77,9 +76,7 @@ return function(assetId, tryInsert, localization, networkInterface, setAssetPrev
 
 				Analytics.onTryAsset(assetId)
 
-				if FFlagToolboxFurtherTryInStudioFixes then
-					store:dispatch(MarkTryInStudioDone(assetId))
-				end
+				store:dispatch(MarkTryInStudioDone(assetId))
 			end, function(err)
 				-- TODO STM-135: Replace these warnings with Lumberyak logs
 				warn("Could not load asset information for", tostring(assetId), err)

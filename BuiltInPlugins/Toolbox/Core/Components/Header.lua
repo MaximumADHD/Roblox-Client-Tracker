@@ -15,6 +15,8 @@
 		callback onGroupSelected()
 		callback onSearchOptionsToggled()
 ]]
+local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -325,7 +327,11 @@ Header = withContext({
 function isSearchFiltered(pageInfo)
 	-- FUTURE: We may add other filters in the future whose status we will
 	-- report in this way through the SearchOptionsButton selected color.
-	return pageInfo.includeOnlyVerifiedCreators
+	if FFlagToolboxUseVerifiedIdAsDefault then
+		return pageInfo.includeUnverifiedCreators
+	else
+		return pageInfo.includeOnlyVerifiedCreators
+	end
 end
 
 local function mapStateToProps(state, props)

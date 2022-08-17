@@ -1,3 +1,4 @@
+--!nonstrict
 local Root = script.Parent.Parent
 local UserInputService = game:GetService("UserInputService")
 

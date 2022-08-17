@@ -4,7 +4,11 @@ local Packages = Plugin.Packages
 
 local FFlagToolboxFixAssetFetcherOnUpdate = game:GetFastFlag("ToolboxFixAssetFetcherOnUpdate")
 local FFlagToolboxFixAssetsNoVoteData2 = game:GetFastFlag("ToolboxFixAssetsNoVoteData2")
+local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
+
+local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
+
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
 local Framework = require(Packages.Framework)
@@ -55,8 +59,10 @@ export type ResultsFetcherProps = {
 	searchTerm: string?,
 	initialPageSize: number,
 	tags: { string }?,
-	includeOnlyVerifiedCreators: boolean?,
+	includeOnlyVerifiedCreators: boolean?, -- TODO: Remove with FFlagToolboxUseVerifiedIdAsDefault
+	includeUnverifiedCreators: boolean?,
 	queryParams: HomeTypes.SubcategoryQueryParams?,
+	searchSource: string?,
 }
 
 function ResultsFetcher:init(props: ResultsFetcherProps)
@@ -125,7 +131,13 @@ function ResultsFetcher:fetchResults(args: { pageSize: number?, initialPage: boo
 	end)
 
 	local innerFetch = function()
-		local includeOnlyVerifiedCreators = self.props.includeOnlyVerifiedCreators
+		local includeOnlyVerifiedCreators
+		local includeUnverifiedCreators
+		if FFlagToolboxUseVerifiedIdAsDefault then
+			includeUnverifiedCreators = self.props.includeUnverifiedCreators
+		else
+			includeOnlyVerifiedCreators = self.props.includeOnlyVerifiedCreators
+		end
 
 		local promiseError
 		local assetIdsResponse = networkInterface
@@ -137,8 +149,11 @@ function ResultsFetcher:fetchResults(args: { pageSize: number?, initialPage: boo
 				tags = props.tags,
 				cursor = nextPageCursor,
 				limit = pageSize,
-				includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
+				includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+					then not includeUnverifiedCreators
+					else includeOnlyVerifiedCreators,
 				queryParams = if FFlagToolboxUseQueryForCategories2 then props.queryParams else nil,
+				searchSource = if FFlagToolboxIncludeSearchSource then props.searchSource else nil,
 			})
 			:catch(function(error: HttpResponse.HttpResponse)
 				promiseError = true
@@ -291,5 +306,9 @@ else
 		return Roact.createElement(ResultsFetcher, props, children)
 	end
 
-	return { Component = ResultsFetcher, Generator = TypedResultsFetcher, NoRoduxGenerator = NoRoduxTypedResultsFetcher }
+	return {
+		Component = ResultsFetcher,
+		Generator = TypedResultsFetcher,
+		NoRoduxGenerator = NoRoduxTypedResultsFetcher,
+	}
 end

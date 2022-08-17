@@ -23,7 +23,6 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local DEFAULT_WIDTH = 10
@@ -64,7 +63,7 @@ function Keyframe:render()
 
 		BorderSizePixel = borderSize,
 		BorderColor3 = keyframeTheme.borderColor,
-		BackgroundColor3 = GetFFlagChannelAnimations() and backgroundColor or keyframeTheme.backgroundColor,
+		BackgroundColor3 = backgroundColor,
 
 		[Roact.Event.Activated] = onActivated,
 		[Roact.Event.MouseButton2Click] = onRightClick,

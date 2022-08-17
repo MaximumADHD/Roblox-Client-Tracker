@@ -4,6 +4,7 @@ export type PropDescriptor = {
 	ShouldHide: (Instance, Instance) -> boolean,
 	Dependencies: {string}?,
 	ValueType: string,
+	AllowPickFile: boolean,
 }
 
 export type Section = {

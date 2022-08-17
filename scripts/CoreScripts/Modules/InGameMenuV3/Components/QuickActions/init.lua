@@ -1,6 +1,8 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local RunService = game:GetService("RunService")
 local CoreGui = game:GetService("CoreGui")
+local UserInputService = game:GetService("UserInputService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
@@ -22,6 +24,7 @@ local QuickActions = Roact.PureComponent:extend("QuickActions")
 local RobloxGuiDisplayOrderDefault = 0 -- default as 0
 
 local CONTROL_WIDTH = 60
+local HORIZONTAL_CONTROL_HEIGHT = 108
 local NOTCH_OFFSET = 44
 local NO_NOTCH_OFFSET = 24
 local TOOLTIP_HEIGHT = 36
@@ -44,6 +47,7 @@ end
 
 local buttonCount = 1 -- default: Report
 local frameFinalTransparency = 0.2 -- default: style.Theme.UIMuted
+local platform
 
 local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 	if reverse then
@@ -164,6 +168,7 @@ function QuickActions:init()
 	if self.props.voiceEnabled then
 		buttonCount = buttonCount + 2
 	end
+	platform = UserInputService:GetPlatform()
 end
 
 function QuickActions:render()
@@ -183,48 +188,95 @@ function QuickActions:render()
 			button4 = self.button4Transparency,
 			button5 = self.button5Transparency,
 		}
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(0, gradientWidth, 1, 0),
-			Position = UDim2.new(1, 0, 0, 0),
-			AnchorPoint = Vector2.new(1, 0),
-			BackgroundTransparency = self.gradientTransparency,
-			Visible = self.state.frameVisible,
-		}, {
-			UIGradient = Roact.createElement("UIGradient", {
-				Rotation = 180,
-				Color = ColorSequence.new({
-					ColorSequenceKeypoint.new(0, Color3.new(0, 0, 0)),
-					ColorSequenceKeypoint.new(1, Color3.new(0, 0, 0))
-				}),
-				Transparency = NumberSequence.new({
-					NumberSequenceKeypoint.new(0.0, 0.5),
-					NumberSequenceKeypoint.new(1.0, 1.0),
-				})
-			}),
-			QuickActionFrame = Roact.createElement("Frame", {
-				Size = UDim2.new(0, CONTROL_WIDTH, 1, 0),
-				Position = UDim2.new(0.5, 0, 0, -TOOLTIP_HEIGHT/2),
-				AnchorPoint = Vector2.new(0.5, 0),
-				BackgroundTransparency = 1,
+		local isMobilePlatform = platform == Enum.Platform.IOS or platform == Enum.Platform.Android
+		if isMobilePlatform then
+			return Roact.createElement("Frame", {
+				Size = UDim2.new(0, gradientWidth, 1, 0),
+				Position = UDim2.new(1, 0, 0, 0),
+				AnchorPoint = Vector2.new(1, 0),
+				BackgroundTransparency = self.gradientTransparency,
+				Visible = self.state.frameVisible,
 			}, {
-				Layout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Vertical,
-					HorizontalAlignment = Enum.HorizontalAlignment.Right,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-					SortOrder = Enum.SortOrder.LayoutOrder,
+				UIGradient = Roact.createElement("UIGradient", {
+					Rotation = 180,
+					Color = ColorSequence.new({
+						ColorSequenceKeypoint.new(0, Color3.new(0, 0, 0)),
+						ColorSequenceKeypoint.new(1, Color3.new(0, 0, 0))
+					}),
+					Transparency = NumberSequence.new({
+						NumberSequenceKeypoint.new(0.0, 0.5),
+						NumberSequenceKeypoint.new(1.0, 1.0),
+					})
 				}),
-				Tooltip = Roact.createElement(QuickActionsTooltip, {
-					layoutOrder = 1,
+				QuickActionFrame = Roact.createElement("Frame", {
+					Size = UDim2.new(0, CONTROL_WIDTH, 1, 0),
+					Position = UDim2.new(0.5, 0, 0, -TOOLTIP_HEIGHT/2),
+					AnchorPoint = Vector2.new(0.5, 0),
+					BackgroundTransparency = 1,
+				}, {
+					Layout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Vertical,
+						HorizontalAlignment = Enum.HorizontalAlignment.Right,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+					}),
+					Tooltip = Roact.createElement(QuickActionsTooltip, {
+						layoutOrder = 1,
+					}),
+					Menu = Roact.createElement(QuickActionsMenu, {
+						layoutOrder = 2,
+						voiceEnabled = self.props.voiceEnabled,
+						respawnEnabled = self.props.respawnEnabled,
+						screenshotEnabled = FFlagEnableInGameMenuQAScreenshot,
+						transparencies = transparencies,
+						fillDirection = Enum.FillDirection.Vertical,
+						automaticSize = Enum.AutomaticSize.Y,
+						size = UDim2.new(0, CONTROL_WIDTH, 0, 0),
+						isHorizontal = false,
+					}),
+				})
+			})	
+		else
+			return Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, HORIZONTAL_CONTROL_HEIGHT),
+				BackgroundTransparency = self.gradientTransparency,
+				Visible = self.state.frameVisible,
+			}, {
+				UIGradient = Roact.createElement("UIGradient", {
+					Rotation = 90,
+					Color = ColorSequence.new({
+						ColorSequenceKeypoint.new(0, Color3.new(0, 0, 0)),
+						ColorSequenceKeypoint.new(1, Color3.new(0, 0, 0))
+					}),
+					Transparency = NumberSequence.new({
+						NumberSequenceKeypoint.new(0.0, 0.5),
+						NumberSequenceKeypoint.new(1.0, 1.0),
+					})
 				}),
-				Menu = Roact.createElement(QuickActionsMenu, {
-					layoutOrder = 2,
-					voiceEnabled = self.props.voiceEnabled,
-					respawnEnabled = self.props.respawnEnabled,
-					screenshotEnabled = FFlagEnableInGameMenuQAScreenshot,
-					transparencies = transparencies,
-				}),
+				QuickActionFrame = Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 1, 0),
+					BackgroundTransparency = 1,
+				}, {
+					Layout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Vertical,
+						HorizontalAlignment = Enum.HorizontalAlignment.Center,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+					}),
+					Menu = Roact.createElement(QuickActionsMenu, {
+						layoutOrder = 1,
+						voiceEnabled = self.props.voiceEnabled,
+						respawnEnabled = self.props.respawnEnabled,
+						screenshotEnabled = FFlagEnableInGameMenuQAScreenshot,
+						transparencies = transparencies,
+						fillDirection = Enum.FillDirection.Horizontal,
+						automaticSize = Enum.AutomaticSize.X,
+						size = UDim2.new(0, 0, 0, CONTROL_WIDTH),
+						isHorizontal = true,
+					}),
+				})
 			})
-		})
+		end
 	end)
 end
 

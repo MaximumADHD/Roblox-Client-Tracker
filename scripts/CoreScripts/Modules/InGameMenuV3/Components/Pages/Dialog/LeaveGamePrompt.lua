@@ -1,3 +1,4 @@
+--!nonstrict
 local RunService = game:GetService("RunService")
 local CorePackages = game:GetService("CorePackages")
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
@@ -10,15 +11,12 @@ local t = InGameMenuDependencies.t
 local LeavePrompt = require(script.Parent.LeavePrompt)
 
 local InGameMenu = script.Parent.Parent.Parent.Parent
+local PerfUtils = require(InGameMenu.Utility.PerfUtils)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
-
 local Constants = require(InGameMenu.Resources.Constants)
 local NavigateBack = require(InGameMenu.Actions.NavigateBack)
-
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
-
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
-
 local LeaveGamePrompt = Roact.PureComponent:extend("LeaveGamePrompt")
 
 LeaveGamePrompt.validateProps = t.strictInterface({
@@ -31,6 +29,7 @@ LeaveGamePrompt.validateProps = t.strictInterface({
 
 function LeaveGamePrompt:init()
 	self.leaveGameConfirm = function()
+		PerfUtils.leavingGame()
 		SendAnalytics(Constants.AnalyticsInGameMenuName, Constants.AnalyticsLeaveGameName,
 						{confirmed = Constants.AnalyticsConfirmedName})
 		RunService.Heartbeat:Wait()

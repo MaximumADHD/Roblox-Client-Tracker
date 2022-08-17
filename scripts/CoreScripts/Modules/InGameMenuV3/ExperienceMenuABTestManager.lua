@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Handles A/B testing of experience menu with IXP service
 	on the Experience.Menu layer

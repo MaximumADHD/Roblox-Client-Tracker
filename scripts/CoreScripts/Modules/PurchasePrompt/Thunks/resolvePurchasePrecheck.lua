@@ -1,3 +1,4 @@
+--!nonstrict
 local Root = script.Parent.Parent
 
 local SetPromptState = require(Root.Actions.SetPromptState)

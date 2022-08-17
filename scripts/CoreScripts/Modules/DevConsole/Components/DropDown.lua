@@ -123,7 +123,8 @@ function DropDown:render()
 		}),
 
 		DropDown = showDropDown and Roact.createElement(Roact.Portal, {
-			target = dropDownTargetParent ~= nil and dropDownTargetParent or game:GetService("CoreGui").DevConsoleMaster,
+			-- ROBLOX FIXME: Can we express the DevConsoleMaster singleton statically in the project config?
+			target = dropDownTargetParent ~= nil and dropDownTargetParent or (game:GetService("CoreGui") :: any).DevConsoleMaster,
 		}, {
 			InputCatcher = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),

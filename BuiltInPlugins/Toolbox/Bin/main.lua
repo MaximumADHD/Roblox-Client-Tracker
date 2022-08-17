@@ -7,8 +7,10 @@ return function(plugin, pluginLoaderContext)
 
 	local Plugin = script.Parent.Parent
 	local Util = Plugin.Core.Util
+	
 	local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
 	local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
+	local FFlagUnifyModelPackagePublish = game:GetFastFlag("UnifyModelPackagePublish")
 	local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
 
 	local isCli = require(Util.isCli)
@@ -165,7 +167,10 @@ return function(plugin, pluginLoaderContext)
 	-- assetTypeEnum Enum.AssetType, some asset like places, need to use the parameter to
 	--				set the assetType of the Asset, and skip the assetTypeSelection.
 	--				default to nil
-	local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
+	-- sourceInstances instances, Will be used during package publishing, this reference 
+	--              will be used to swap out with the published package. This is to remove
+	--              any changes that might've been added during publish. default to nil
+	local function createAssetConfig(assetId, flowType, clonedInstances, assetTypeEnum, sourceInstances)
 		if assetConfigHandle then
 			return
 		end
@@ -208,7 +213,8 @@ return function(plugin, pluginLoaderContext)
 			assetId = assetId,
 			screenFlowType = flowType,
 			currentScreen = startScreen,
-			instances = instances,
+			instances = clonedInstances,
+			sourceInstances = FFlagUnifyModelPackagePublish and sourceInstances or nil,
 			allowedAssetTypesForRelease = assetTypesForRelease,
 			allowedAssetTypesForUpload = assetTypesForUpload,
 			allowedAssetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then assetTypesForFree else nil,
@@ -357,7 +363,7 @@ return function(plugin, pluginLoaderContext)
 						Enum.AssetType.Animation
 					)
 				else
-					createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances)
+					createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances, nil, instances)
 				end
 			end
 			if FFlagDebugToolboxGetRolesRequest then

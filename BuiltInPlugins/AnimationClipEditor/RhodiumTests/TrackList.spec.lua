@@ -9,7 +9,6 @@ return function()
 	local runTest = TestHelpers.runTest
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 	local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 	local GetFFlagFixSelectionRightArrow = require(Plugin.LuaFlags.GetFFlagFixSelectionRightArrow)
 
@@ -20,7 +19,7 @@ return function()
 		Root = {
 			Tracks = {
 				Head = {
-					Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
+					Type = Constants.TRACK_TYPES.CFrame,
 					Keyframes = {0},
 					Data = {
 						[0] = {
@@ -29,7 +28,7 @@ return function()
 					},
 				},
 				UpperTorso = {
-					Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
+					Type = Constants.TRACK_TYPES.CFrame,
 					Keyframes = {0},
 					Data = {
 						[0] = {
@@ -140,26 +139,28 @@ return function()
 		end)
 	end)
 
-	it("should toggle the selected track expanded state with the arrow keys", function()
-		runTest(function(test)
-			local store = test:getStore()
-			local container = test:getContainer()
-			TestHelpers.loadAnimation(store, testAnimationData)
-			local trackList = TestPaths.getTrackList(container)
-			TestHelpers.delay()
+	if GetFFlagCurveEditor() then
+		it("should toggle the selected track expanded state with the arrow keys", function()
+			runTest(function(test)
+				local store = test:getStore()
+				local container = test:getContainer()
+				TestHelpers.loadAnimation(store, testAnimationData)
+				local trackList = TestPaths.getTrackList(container)
+				TestHelpers.delay()
 
-			TestHelpers.clickInstance(trackList:WaitForChild("Track_Head"))
-			VirtualInput.hitKey(Enum.KeyCode.Right)
-			TestHelpers.delay()
-			expect(trackList:FindFirstChild("Head_Position")).to.be.ok()
-			expect(trackList:FindFirstChild("Head_Rotation")).to.be.ok()
+				TestHelpers.clickInstance(trackList:WaitForChild("Track_Head"))
+				VirtualInput.hitKey(Enum.KeyCode.Right)
+				TestHelpers.delay()
+				expect(trackList:FindFirstChild("Head_Position")).to.be.ok()
+				expect(trackList:FindFirstChild("Head_Rotation")).to.be.ok()
 
-			VirtualInput.hitKey(Enum.KeyCode.Left)
-			TestHelpers.delay()
-			expect(trackList:FindFirstChild("Head_Position")).never.to.be.ok()
-			expect(trackList:FindFirstChild("Head_Rotation")).never.to.be.ok()
+				VirtualInput.hitKey(Enum.KeyCode.Left)
+				TestHelpers.delay()
+				expect(trackList:FindFirstChild("Head_Position")).never.to.be.ok()
+				expect(trackList:FindFirstChild("Head_Rotation")).never.to.be.ok()
+			end)
 		end)
-	end)
+	end
 
 	it("should add a keyframe if the keyframe components are changed", function()
 		runTest(function(test)

@@ -22,10 +22,7 @@ ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerInGameMenu", script.Pa
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerSocialScript", script.Parent)
 
 -- Leaderstat server child-order tracker
-local FFlagAnOrderOfLeaderstats = game:DefineFastFlag("AnOrderOfLeaderstats", false)
-if FFlagAnOrderOfLeaderstats then
-	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerLeaderstats", script.Parent)
-end
+ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerLeaderstats", script.Parent)
 
 -- Default Alternate Death Ragdoll (China only for now)
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/PlayerRagdollRigCreator", script.Parent)
@@ -93,7 +90,8 @@ require(game:GetService("CoreGui").RobloxGui.Modules.Server.ServerSound.SoundDis
 local FFlagEnableExperienceChat = require(RobloxGui.Modules.Common.Flags.FFlagEnableExperienceChat)
 if FFlagEnableExperienceChat then
 	local TextChatService = game:GetService("TextChatService")
-	if TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+	local chatVersion = TextChatService.ChatVersion
+	if chatVersion == Enum.ChatVersion.TextChatService then
 		local CorePackages = game:GetService("CorePackages")
 
 		-- initialize UIBlox here since requiring ExperienceChat will otherwise trigger a UIBlox config error...
@@ -102,5 +100,18 @@ if FFlagEnableExperienceChat then
 
 		local ExperienceChat = require(CorePackages.ExperienceChat)
 		ExperienceChat.mountServerApp({})
+	end
+
+	if game:DefineFastFlag("ExperienceChatOnLoadedCounters", false) then
+		if runService:IsStudio() == false then
+			local AnalyticsService = game:GetService("RbxAnalyticsService")
+
+			local counterName = if chatVersion == Enum.ChatVersion.TextChatService then
+				"textChatServiceChatVersionTextChatService"
+				else
+				"textChatServiceChatVersionLegacy"
+
+			AnalyticsService:ReportCounter(counterName, 1)
+		end
 	end
 end

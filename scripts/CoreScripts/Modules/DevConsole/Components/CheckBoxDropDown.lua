@@ -22,7 +22,8 @@ function CheckBoxDropDown:render()
 
 	return Roact.createElement(Roact.Portal, {
 		-- render the portal into the same ScreenGui as the DevConsole
-		target = dropdownTargetGui ~= nil and dropdownTargetGui or game:GetService("CoreGui").DevConsoleMaster,
+		-- ROBLOX FIXME: Can we express the DevConsoleMaster singleton statically in the project config?
+		target = dropdownTargetGui ~= nil and dropdownTargetGui or (game:GetService("CoreGui") :: any).DevConsoleMaster,
 	}, {
 		InputCatcher = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 1, 0),

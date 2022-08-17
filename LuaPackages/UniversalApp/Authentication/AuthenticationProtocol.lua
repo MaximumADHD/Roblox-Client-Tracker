@@ -3,10 +3,23 @@ local MessageBus = require(CorePackages.UniversalApp.MessageBus)
 local Promise = require(CorePackages.Promise)
 local t = require(CorePackages.Packages.t)
 
+local Types = require(script.Parent.AuthenticationProtocolTypes)
+
+type Table = MessageBus.Table
+type Promise<T> = MessageBus.Promise<T>
+
+export type AuthenticationProtocol = Types.AuthenticationProtocol
+export type AuthResponse = Types.AuthResponse
+
+export type AuthenticationProtocolModule = AuthenticationProtocol & {
+	new: () -> AuthenticationProtocol,
+	default: AuthenticationProtocol,
+}
+
 local NAME = "Authentication"
 
 local authProviders = {
-	MSDK = "MSDK",
+	MSDK = "MSDK" :: "MSDK",
 }
 
 local authPlatforms = {
@@ -17,9 +30,9 @@ local authPlatforms = {
 }
 
 local authMethods = {
-	WECHAT = "WeChat",
-	QQ = "QQ",
-	NONE = "None",
+	WECHAT = "WeChat" :: "WeChat",
+	QQ = "QQ" :: "QQ",
+	NONE = "None" :: "None",
 }
 
 --[[
@@ -77,7 +90,7 @@ local validateAuthProviderList = t.valueOf(authProviders)
 local validatePlatformList = t.valueOf(authPlatforms)
 local validateAuthMethodList = t.valueOf(authMethods)
 
-local AuthenticationProtocol = {
+local AuthenticationProtocol: AuthenticationProtocolModule = {
 	AuthProviders = authProviders,
 	AuthMethods = authMethods,
 
@@ -106,15 +119,15 @@ local AuthenticationProtocol = {
 			}),
 		},
 	},
-}
+} :: AuthenticationProtocolModule
 
-AuthenticationProtocol.__index = AuthenticationProtocol
+(AuthenticationProtocol :: any).__index = AuthenticationProtocol
 
 function AuthenticationProtocol.new(): AuthenticationProtocol
 	local self = setmetatable({
 		subscriber = MessageBus.Subscriber.new(),
 	}, AuthenticationProtocol)
-	return self
+	return (self :: any) :: AuthenticationProtocol
 end
 
 --[[
@@ -124,7 +137,7 @@ end
 	@param authMethod: the auth method for given auth provider
 	@return promise<table>: flag (enum) indicates the success or failure
 ]]
-function AuthenticationProtocol:requestAuth(authProvider: string, authMethod: string): Promise
+function AuthenticationProtocol:requestAuth(authProvider: string, authMethod: string): Promise<AuthResponse?>
 	local promise = Promise.new(function(resolve, _)
 		local authResponseDesc = self.AUTH_RESPONSE_DESCRIPTORS[authProvider]
 
@@ -157,7 +170,7 @@ end
 	@param authProvider: MSDK for Luobu; TBD for global
 	@return promise<table>: flag (enum) indicates the success or failure
 ]]
-function AuthenticationProtocol:listenWebAuthResponset(authProvider: string): Promise
+function AuthenticationProtocol:listenWebAuthResponset(authProvider: string): Promise<AuthResponse?>
 	local promise = Promise.new(function(resolve, _)
 		local authResponseDesc = self.AUTH_RESPONSE_DESCRIPTORS[authProvider]
 

@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Connects Rodux store to external MarketplaceService events
 ]]

@@ -10,8 +10,6 @@ return function()
 
 	local Templates = require(Plugin.Src.Util.Templates)
 
-	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-
 	local testAnimationData = Templates.animationData()
 	testAnimationData.Instances = {
 		Root = {
@@ -110,11 +108,7 @@ return function()
 			local selectedKeyframes = store:getState().Status.SelectedKeyframes
 			expect(selectedKeyframes.Root).to.be.ok()
 			expect(selectedKeyframes.Root.Head).to.be.ok()
-			if GetFFlagChannelAnimations() then
-				expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.Head.Selection)).to.equal(2)
-			else
-				expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.Head)).to.equal(2)
-			end
+			expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.Head.Selection)).to.equal(2)
 		end)
 	end)
 
@@ -135,13 +129,8 @@ return function()
 			expect(selectedKeyframes.Root.Head).to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso).to.be.ok()
 
-			if GetFFlagChannelAnimations() then
-				expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.Head.Selection)).to.equal(2)
-				expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.UpperTorso.Selection)).to.equal(2)
-			else
-				expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.Head)).to.equal(2)
-				expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.UpperTorso)).to.equal(2)
-			end
+			expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.Head.Selection)).to.equal(2)
+			expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.UpperTorso.Selection)).to.equal(2)
 		end)
 	end)
 
@@ -189,13 +178,8 @@ return function()
 			expect(selectedKeyframes.Root).to.be.ok()
 			expect(selectedKeyframes.Root.Head).to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso).to.be.ok()
-			if GetFFlagChannelAnimations() then
-				expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.Head.Selection)).to.equal(2)
-				expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.UpperTorso.Selection)).to.equal(3)
-			else
-				expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.Head)).to.equal(2)
-				expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.UpperTorso)).to.equal(3)
-			end
+			expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.Head.Selection)).to.equal(2)
+			expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.UpperTorso.Selection)).to.equal(3)
 		end)
 	end)
 

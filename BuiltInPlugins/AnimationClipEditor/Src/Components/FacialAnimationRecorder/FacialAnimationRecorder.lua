@@ -19,6 +19,7 @@ local WarningDialog = require(Plugin.Src.Components.FacialAnimationRecorder.Warn
 local WarningOverlay = require(Plugin.Src.Components.FacialAnimationRecorder.WarningOverlay)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
+local GetFFlagFacialAnimationRecordingResetPoseDuringRecording = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingResetPoseDuringRecording)
 local RunService = game:GetService("RunService")
 local VideoCaptureService = game:GetService("VideoCaptureService")
 local FacialAnimationRecorder = Roact.PureComponent:extend("FacialAnimationRecorder")
@@ -269,7 +270,12 @@ function FacialAnimationRecorder:InitializeRecordingMode()
 	self.RecordedFrames = {}
 	self.HeartbeatCount = 0
 
+	if GetFFlagFacialAnimationRecordingResetPoseDuringRecording() then
+		local targetInstance = self.props.Status.RootInstance
+		RigUtils.clearPose(targetInstance)
+	end
 	RigUtils.focusCameraOnFace(self.props.RootInstance)
+
 	self:updateAvatarData()
 
 	self.animation = Instance.new("TrackerStreamAnimation")

@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -14,7 +15,6 @@ local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local KeyLabel = UIBlox.App.Menu.KeyLabel
 local withStyle = UIBlox.Core.Style.withStyle
-local withAnimation = UIBlox.Core.Animation.withAnimation
 
 local LeaveButton = Roact.PureComponent:extend("LeaveButton")
 
@@ -26,10 +26,9 @@ local LEAVE_GAME_KEY_CODE_LABEL = {
 	[Constants.InputType.Gamepad] = Enum.KeyCode.ButtonX,
 }
 
-local SPRING_OPTIONS = {
-	frequency = 3,
-	dampingRatio = 1,
-}
+local TWEEN_TIME = 0.208
+local TWEEN_EASE_RAMP = Enum.EasingDirection.InOut
+local TWEEN_EASE_CURVE = Enum.EasingStyle.Sine
 
 LeaveButton.validateProps = t.strictInterface({
 	hidden = t.optional(t.boolean),
@@ -41,16 +40,54 @@ LeaveButton.validateProps = t.strictInterface({
 	startLeavingGame = t.optional(t.callback),
 })
 
-function LeaveButton:renderWithProviders(style, localized, aniValues)
+function LeaveButton:init()
+	self.containerRef = Roact.createRef()
+end
+
+function LeaveButton:didMount()
+	local containerFrame = self.containerRef:getValue()
+	local hidden = self.props.hidden
+	if containerFrame then
+		containerFrame.Visible = not hidden
+		local pos = hidden and HIDDEN_Y_OFFSET or 0
+		containerFrame.Position = UDim2.new(0, 0, 1, pos)
+	end
+end
+
+function LeaveButton:didUpdate(priorProps, _)
+	local hidden = self.props.hidden
+	local visibilityChanged = hidden ~= priorProps.hidden
+	if visibilityChanged then
+		local pos = hidden and HIDDEN_Y_OFFSET or 0
+		local containerFrame = self.containerRef:getValue()
+		if containerFrame then
+			containerFrame.Visible = true
+			containerFrame:TweenPosition(
+				UDim2.new(0, 0, 1, pos),
+				TWEEN_EASE_RAMP,
+				TWEEN_EASE_CURVE,
+				TWEEN_TIME,
+				true,
+				function(status)
+					if self.props.hidden and status == Enum.TweenStatus.Completed then
+						containerFrame.Visible = false
+					end
+				end
+			)
+		end
+	end
+end
+
+function LeaveButton:renderWithProviders(style, localized)
 	local inputType = self.props.inputType
 	local leaveGameKeyCode = LEAVE_GAME_KEY_CODE_LABEL[inputType]
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, 84),
-		Position = UDim2.new(0, 0, 1, aniValues.offsetY),
 		AnchorPoint = Vector2.new(0, 1),
 		BackgroundTransparency = 1,
 		ZIndex = self.props.ZIndex or 1,
+		[Roact.Ref] = self.containerRef,
 	}, {
 		Gradient = Roact.createElement("ImageLabel", {
 			Size = UDim2.new(1, 0, 0, GRADIENT_HEIGHT),
@@ -92,11 +129,7 @@ function LeaveButton:render()
 		return withLocalization({
 			leaveGame = "CoreScripts.InGameMenu.LeaveGame",
 		})(function(localized)
-			return withAnimation({
-				offsetY = self.props.hidden and HIDDEN_Y_OFFSET or 0,
-			}, function(aniValues)
-				return self:renderWithProviders(style, localized, aniValues)
-			end, SPRING_OPTIONS)
+			return self:renderWithProviders(style, localized)
 		end)
 	end)
 end

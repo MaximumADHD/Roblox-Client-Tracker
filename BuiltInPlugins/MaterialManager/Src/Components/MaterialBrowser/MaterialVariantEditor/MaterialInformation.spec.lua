@@ -1,23 +1,18 @@
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local _Types = require(Plugin.Src.Types)
 local Roact = require(Plugin.Packages.Roact)
-local Framework = require(Plugin.Packages.Framework)
 local mockContext = require(Plugin.Src.Util.mockContext)
-
-local join = Framework.Dash.join
 
 local MaterialInformation = require(script.Parent.MaterialInformation)
 
 return function()
 	local TestMaterial
 
-	local function createTestElement(props: {}?)
-		local materialInformationProps: MaterialInformation.Props = join({
-			OpenPrompt = function(type: _Types.MaterialPromptType) end
-		}, props or {})
+	local function createTestElement(props: MaterialInformation.Props?)
+		props = props or {}
 
 		return mockContext({
-			MaterialInformation = Roact.createElement(MaterialInformation, materialInformationProps)
+			MaterialInformation = Roact.createElement(MaterialInformation, props)
 		})
 	end
 
