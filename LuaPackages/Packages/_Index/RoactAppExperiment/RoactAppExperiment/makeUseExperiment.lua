@@ -4,6 +4,8 @@
 	useBrowserTrackerExperiment hooks.
 ]]
 
+local IXPService = game:GetService("IXPService")
+
 local Packages = script:FindFirstAncestor("Packages")
 local React = require(Packages.React)
 
@@ -29,6 +31,15 @@ local function getLayerNamesKey(layerNames)
 	return key
 end
 
+local function useIXPService()
+	local ixpService = React.useContext(ExperimentContext)
+	if ixpService then
+		return ixpService
+	else
+		return IXPService
+	end
+end
+
 -- Takes in the actual names of the functions to be called on the IXPService.
 -- Since browser-tracker layers and user layers have very similar functionality,
 -- we can just pass the service call names as input and have the same logic work with both.
@@ -48,7 +59,7 @@ local function makeUseExperiment(
 				recordExposureOnMount = true
 			end
 
-			local ixpService = React.useContext(ExperimentContext)
+			local ixpService = useIXPService()
 
 			assert(type(layerNames) == "table", "useExperiment expects layerNames to be a list of layers")
 			assert(type(mapLayers) == "function", "useExperiment expects mapLayers to be a function")

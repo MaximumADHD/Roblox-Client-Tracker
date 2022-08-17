@@ -8,6 +8,7 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
+local devOnly = require(UIBlox.Utility.devOnly)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local Images = require(UIBlox.App.ImageSet.Images)
@@ -22,13 +23,13 @@ local TEXT_PADDING = Vector2.new(10, 6)
 local PADDING_LEFT = 12
 local PADDING_TOP = 12
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	-- The text to display in the status component
 	statusText = t.string,
 
 	-- Enum specifying the style for the status component
 	statusStyle = enumerateValidator(ItemTileEnums.StatusStyle),
-})
+}))
 
 local function getStyle(theme, statusStyle)
 	if statusStyle == ItemTileEnums.StatusStyle.Info then

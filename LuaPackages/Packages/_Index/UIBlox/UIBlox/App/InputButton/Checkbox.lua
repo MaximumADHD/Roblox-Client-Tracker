@@ -9,12 +9,13 @@ local InputButton = require(Packages.UIBlox.Core.InputButton.InputButton)
 local CursorKind = require(Packages.UIBlox.App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(Packages.UIBlox.App.SelectionImage.withSelectionCursorProvider)
 local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
+local devOnly = require(Packages.UIBlox.Utility.devOnly)
 
 --TODO: This code is considered Control.Checkbox by design, consider moving this out of InputButton for consistency.
 
 local Checkbox = Roact.PureComponent:extend("Checkbox")
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	text = t.string,
 	isSelected = t.optional(t.boolean),
 	isDisabled = t.optional(t.boolean),
@@ -26,7 +27,7 @@ local validateProps = t.strictInterface({
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionLeft = t.optional(t.table),
 	NextSelectionRight = t.optional(t.table),
-})
+}))
 
 Checkbox.defaultProps = {
 	text = "Checkbox Text",

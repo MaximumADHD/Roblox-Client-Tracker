@@ -8,6 +8,7 @@ local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
+local devOnly = require(UIBlox.Utility.devOnly)
 
 local Images = require(UIBlox.App.ImageSet.Images)
 local ImageTextLabel = require(UIBlox.Core.Text.ImageTextLabel.ImageTextLabel)
@@ -18,7 +19,7 @@ local LINE_PADDING = 4
 
 local ItemTileName = Roact.PureComponent:extend("ItemTileName")
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	LayoutOrder = t.optional(t.integer),
 
 	maxHeight = t.intersection(t.integer, t.numberMin(0)),
@@ -38,7 +39,7 @@ local validateProps = t.strictInterface({
 	-- Font style for header (Header2, Body, etc)
 	-- Defaults to Header2.
 	titleFontStyle = UIBloxConfig.enableAdjustableTextUnderTile and t.optional(t.table) or nil,
-})
+}))
 
 function ItemTileName:render()
 	assert(validateProps(self.props))

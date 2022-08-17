@@ -156,9 +156,8 @@ local function EmojiWrapper(props: Props)
 			Children = React.createElement(React.Fragment, nil, joinedProps.children),
 		}),
 
-		Emoji = shouldRenderEmoji and React.createElement("TextButton", {
+		Emoji = shouldRenderEmoji and React.createElement("TextLabel", {
 			LayoutOrder = 2,
-			AutoButtonColor = false,
 			Text = joinedProps.emoji,
 			Font = joinedProps.font,
 			TextColor3 = joinedProps.color,
@@ -167,7 +166,12 @@ local function EmojiWrapper(props: Props)
 			TextYAlignment = Enum.TextYAlignment.Center,
 			TextXAlignment = Enum.TextXAlignment.Center,
 			Size = UDim2.fromOffset(emojiSize, emojiSize),
-			[ReactRoblox.Event.Activated] = props.onActivated,
+		}, {
+			Button = props.onActivated and React.createElement("ImageButton", {
+				Size = UDim2.fromScale(1, 1),
+				BackgroundTransparency = 1,
+				[ReactRoblox.Event.Activated] = props.onActivated,
+			}),
 		}),
 	})
 end

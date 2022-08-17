@@ -18,6 +18,7 @@ local ContentProviderContext = require(UIBlox.App.Context.ContentProvider)
 
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local enablePlayerTilePaddingFix = UIBloxConfig.enablePlayerTilePaddingFix
+local devOnly = require(UIBlox.Utility.devOnly)
 
 local LOAD_FAILED_RETRY_COUNT = 3
 local RETRY_TIME_MULTIPLIER = 1.5
@@ -38,7 +39,7 @@ end
 
 local LoadableImage = Roact.PureComponent:extend("LoadableImage")
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	-- The anchor point of the final and loading image
 	AnchorPoint = t.optional(t.Vector2),
 	-- The background color of the final image. Defaults to placeholder background color.
@@ -96,7 +97,7 @@ local validateProps = t.strictInterface({
 
 	[DebugProps.forceLoading] = t.optional(t.boolean),
 	[DebugProps.forceFailed] = t.optional(t.boolean),
-})
+}))
 
 LoadableImage.defaultProps = {
 	BackgroundTransparency = 0,

@@ -6,6 +6,6 @@ source = "git+https://github.com/roblox/iapexperience#master"
 dependencies = [
     "Roact <patched> RoactCompat 17.0.1-rc.13 url+https://github.com/roblox/roact-alignment",
     "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
-    "UIBlox UIBlox 0da96dad git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 20ba1089 git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]

@@ -12,6 +12,8 @@ export type ExposureEvent = {
 	assetId: string?, -- assetId of the asset if seen on item details page
 }
 
+type Table = { [string]: any }
+
 return function(exposureEvent: ExposureEvent)
 	local target = "client"
 	local eventCtx = "VerifiedBadges_V1"
@@ -21,7 +23,7 @@ return function(exposureEvent: ExposureEvent)
 		local success, result = pcall(function()
 			return IXPService:GetUserLayerVariables(getFStringVerifiedBadgeLayer())
 		end)
-		local layer = success and result or {}
+		local layer: Table = success and result or {}
 		local variant = layer.verifiedBadgeEnabled
 
 		AnalyticsService:SendEventDeferred(target, eventCtx, eventName, {

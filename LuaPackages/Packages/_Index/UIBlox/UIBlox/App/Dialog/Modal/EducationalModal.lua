@@ -123,6 +123,7 @@ function EducationalModal:render()
 	local elements = {}
 	for index, content in ipairs(props.bodyContents) do
 		local current = Roact.createElement(ContentItem, {
+			key = tostring(index),
 			icon = content.icon,
 			text = content.text,
 			layoutOrder = index,

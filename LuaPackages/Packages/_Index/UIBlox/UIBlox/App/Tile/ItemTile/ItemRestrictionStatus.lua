@@ -12,6 +12,7 @@ local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
+local devOnly = require(UIBlox.Utility.devOnly)
 
 local ItemTileEnums = require(Tile.Enum.ItemTileEnums)
 
@@ -24,13 +25,13 @@ local PADDING_LEFT = 12
 local PADDING_BOTTOM = 12
 local TEXT_PADDING = 10
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	-- Enum specifying the restriction type
 	restrictionTypes = t.map(enumerateValidator(ItemTileEnums.Restriction), t.boolean),
 
 	-- Optional information about the restriction
 	restrictionInfo = t.optional(t.table),
-})
+}))
 
 local function getAdditionalText(restrictionTypes, restrictionInfo)
 	local additionalText = ""

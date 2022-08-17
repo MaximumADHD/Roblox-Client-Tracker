@@ -10,11 +10,12 @@ local t = require(Packages.t)
 
 local Images = require(UIBlox.App.ImageSet.Images)
 local Tile = require(TileRoot.BaseTile.Tile)
+local devOnly = require(UIBlox.Utility.devOnly)
 
 local SaveTile = Roact.PureComponent:extend("SaveTile")
 
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	-- Optional boolean indicating whether to create an overlay to round the corners of the image
 	hasRoundedCorners = t.optional(t.boolean),
 
@@ -39,7 +40,7 @@ local validateProps = t.strictInterface({
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	thumbnailRef = t.optional(t.table),
-})
+}))
 
 SaveTile.defaultProps = {
 	hasRoundedCorners = true,

@@ -16,6 +16,7 @@ local ImageSetComponent = require(Packages.UIBlox.Core.ImageSet.ImageSetComponen
 
 local divideTransparency = require(Packages.UIBlox.Utility.divideTransparency)
 local lerp = require(Packages.UIBlox.Utility.lerp)
+local devOnly = require(Packages.UIBlox.Utility.devOnly)
 
 local SPRING_PARAMETERS = {
 	frequency = 4,
@@ -33,7 +34,7 @@ local TRACK_FILL_SLICE_CENTER = Rect.new(18, 18, 18, 18)
 local KNOB_IMAGE_ID = "component_assets/circle_28_padding_10"
 local KNOB_SHADOW_IMAGE_ID = "component_assets/dropshadow_28"
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	isSelected = t.optional(t.boolean),
 	isDisabled = t.optional(t.boolean),
 	onActivated = t.callback,
@@ -41,7 +42,7 @@ local validateProps = t.strictInterface({
 	layoutOrder = t.optional(t.integer),
 	anchorPoint = t.optional(t.Vector2),
 	position = t.optional(t.UDim2),
-})
+}))
 
 local InnerToggle = Roact.PureComponent:extend("Toggle")
 

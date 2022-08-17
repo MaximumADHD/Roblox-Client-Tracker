@@ -5,6 +5,7 @@ local t = require(Packages.t)
 local withStyle = require(Packages.UIBlox.Core.Style.withStyle)
 local ImageSetComponent = require(Packages.UIBlox.Core.ImageSet.ImageSetComponent)
 local Images = require(Packages.UIBlox.App.ImageSet.Images)
+local devOnly = require(Packages.UIBlox.Utility.devOnly)
 
 local ModalBottomSheetButton = Roact.PureComponent:extend("ModalBottomSheetButton")
 local imageSize = Images["component_assets/circle_17"].ImageRectSize
@@ -20,7 +21,7 @@ local WIDTH_MARGIN = 16
 local WIDTH_INNER_MARGIN = 24
 local WIDTH_INNER_MARGIN_ICON = 12
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	icon = t.optional(t.union(t.table, t.string)),
 	text = t.optional(t.string),
 	onActivated = t.optional(t.callback),
@@ -34,7 +35,7 @@ local validateProps = t.strictInterface({
 	hasRoundTop = t.boolean,
 	LayoutOrder = t.integer,
 	stayOnActivated = t.optional(t.boolean),
-})
+}))
 
 ModalBottomSheetButton.defaultProps = {
 	icon = {},

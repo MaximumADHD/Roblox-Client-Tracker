@@ -8,6 +8,7 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
 local ButtonStack = require(AppRoot.Button.ButtonStack)
+local devOnly = require(UIBlox.Utility.devOnly)
 
 local FitFrame = require(Packages.FitFrame)
 local FitFrameVertical = FitFrame.FitFrameVertical
@@ -19,7 +20,7 @@ local PartialPageModal = Roact.PureComponent:extend("PartialPageModal")
 
 local MARGIN = 24
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	screenSize = t.Vector2,
 	[Roact.Children] = t.table,
 
@@ -41,7 +42,7 @@ local validateProps = t.strictInterface({
 	onCloseClicked = t.optional(t.callback),
 
 	contentPadding = t.optional(t.UDim),
-})
+}))
 
 PartialPageModal.defaultProps = {
 	marginSize = MARGIN

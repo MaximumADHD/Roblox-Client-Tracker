@@ -7,6 +7,7 @@ local t = require(UIBlox.Parent.t)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local SlidingDirection = require(AnimationRoot.Enum.SlidingDirection)
 local SpringAnimatedItem = require(UIBlox.Utility.SpringAnimatedItem)
+local devOnly = require(UIBlox.Utility.devOnly)
 
 local ANIMATION_SPRING_SETTINGS = {
 	dampingRatio = 1,
@@ -30,14 +31,14 @@ local InitialPosition = {
 	[SlidingDirection.Right] = UDim2.new(-1, 0, 0, 0),
 }
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	layoutOrder = t.optional(t.integer),
 	onComplete = t.optional(t.callback),
 	show = t.optional(t.boolean),
 	slidingDirection = enumerateValidator(SlidingDirection),
 	springOptions = t.optional(t.table),
 	[Roact.Children] = t.optional(t.table),
-})
+}))
 
 SlidingContainer.defaultProps = {
 	springOptions = ANIMATION_SPRING_SETTINGS,

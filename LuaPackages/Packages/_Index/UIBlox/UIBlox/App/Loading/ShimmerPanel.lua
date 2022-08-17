@@ -8,8 +8,9 @@ local t = require(Packages.t)
 
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local TextureScroller = require(script.Parent.TextureScroller)
+local devOnly = require(UIBlox.Utility.devOnly)
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	AnchorPoint = t.optional(t.Vector2),
 	LayoutOrder = t.optional(t.integer),
 	Position = t.optional(t.UDim2),
@@ -29,7 +30,7 @@ local validateProps = t.strictInterface({
 
 	-- The speed of the moving image
 	shimmerSpeed = t.optional(t.number),
-})
+}))
 
 local ShimmerPanel = Roact.PureComponent:extend("ShimmerPanel")
 

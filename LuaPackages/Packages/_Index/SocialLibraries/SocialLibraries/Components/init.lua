@@ -26,4 +26,5 @@ return {
 	},
 
 	TestStyle = require(script.Style.TestStyle),
+	CarouselUserTile = require(script.CarouselUserTile),
 }

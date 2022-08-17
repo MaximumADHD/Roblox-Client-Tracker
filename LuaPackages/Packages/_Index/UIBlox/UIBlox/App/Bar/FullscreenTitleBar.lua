@@ -144,11 +144,11 @@ function FullscreenTitleBar:render()
 		local function renderMirrorButtons()
 			local iconSize = getIconSize(IconSize.Medium)
 			return Roact.createFragment({
-				Roact.createElement("ImageLabel", {
+				First = Roact.createElement("ImageLabel", {
 					BackgroundTransparency = 1,
 					Size = UDim2.fromOffset(iconSize, iconSize),
 				}),
-				Roact.createElement("ImageLabel", {
+				Second = Roact.createElement("ImageLabel", {
 					BackgroundTransparency = 1,
 					Size = UDim2.fromOffset(iconSize, iconSize),
 				}),

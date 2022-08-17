@@ -8,10 +8,11 @@ local Images = require(Packages.UIBlox.App.ImageSet.Images)
 local InputButton = require(Packages.UIBlox.Core.InputButton.InputButton)
 local RoactGamepad = require(Packages.RoactGamepad)
 local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
+local devOnly = require(Packages.UIBlox.Utility.devOnly)
 
 local RadioButton = Roact.PureComponent:extend("RadioButton")
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	text = t.string,
 	isSelected = t.optional(t.boolean),
 	isDisabled = t.optional(t.boolean),
@@ -27,7 +28,7 @@ local validateProps = t.strictInterface({
 	NextSelectionDown = t.optional(t.table),
 	SelectionImageObject = t.optional(t.table),
 	forwardRef = t.optional(t.table),
-})
+}))
 
 RadioButton.defaultProps = {
 	text = "RadioButton Text",

@@ -10,6 +10,7 @@ local t = require(Packages.t)
 
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
+local devOnly = require(UIBlox.Utility.devOnly)
 local Images = require(UIBlox.App.ImageSet.Images)
 local ItemRestrictionStatus = require(ItemTileRoot.ItemRestrictionStatus)
 local ItemTileStatus = require(ItemTileRoot.ItemTileStatus)
@@ -106,7 +107,7 @@ local function tileBannerUseValidator(props)
 	return true
 end
 
-local validateProps = t.intersection(itemTileInterface, tileBannerUseValidator)
+local validateProps = devOnly(t.intersection(itemTileInterface, tileBannerUseValidator))
 
 ItemTile.defaultProps = {
 	titleTextLineCount = 2,

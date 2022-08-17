@@ -10,14 +10,15 @@ local Images = require(UIBloxRoot.App.ImageSet.Images)
 local AnimatedGradient = require(script.Parent.AnimatedGradient)
 
 local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
+local devOnly = require(UIBloxRoot.Utility.devOnly)
 
 local INSET_ADJUSTMENT = 2
 local ASSET_NAME = "component_assets/bulletDown_17_stroke_3"
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	cursorRef = t.table,
 	isVisible = t.boolean
-})
+}))
 
 return function(props)
 	if UIBloxConfig.useAnimatedXboxCursors then

@@ -26,7 +26,7 @@ local withAnimation = require(UIBlox.Core.Animation.withAnimation)
 local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
 local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 local StandardButtonSize = require(Button.Enum.StandardButtonSize)
-
+local devOnly = require(UIBlox.Utility.devOnly)
 
 local validateImage = require(Core.ImageSet.Validator.validateImage)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
@@ -63,7 +63,7 @@ local colorStateMap = t.interface({
 	[ControlState.Default] = t.string,
 })
 
-local validateProps = t.interface({
+local validateProps = devOnly(t.interface({
 	--The icon of the button
 	icon = t.optional(validateImage),
 
@@ -142,7 +142,7 @@ local validateProps = t.interface({
 	forwardedRef = t.optional(t.table),
 
 	-- Note that this component can accept all valid properties of the Roblox ImageButton instance
-})
+}))
 
 GenericButton.defaultProps = {
 	fontStyle = "Header2",

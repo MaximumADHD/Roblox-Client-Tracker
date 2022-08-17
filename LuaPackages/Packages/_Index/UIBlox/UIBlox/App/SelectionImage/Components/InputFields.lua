@@ -10,14 +10,15 @@ local Images = require(UIBloxRoot.App.ImageSet.Images)
 local AnimatedGradient = require(script.Parent.AnimatedGradient)
 
 local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
+local devOnly = require(UIBloxRoot.Utility.devOnly)
 
 local ASSET_NAME = "component_assets/circle_22_stroke_3"
 local PADDING = 14
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	cursorRef = t.table,
 	isVisible = t.boolean
-})
+}))
 
 return function(props)
 	if UIBloxConfig.useAnimatedXboxCursors then

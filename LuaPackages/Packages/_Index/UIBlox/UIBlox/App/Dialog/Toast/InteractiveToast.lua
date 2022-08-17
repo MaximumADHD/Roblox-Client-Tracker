@@ -11,6 +11,7 @@ local ImageSetComponent = require(UIBloxRoot.Core.ImageSet.ImageSetComponent)
 local Images = require(UIBloxRoot.App.ImageSet.Images)
 local withStyle = require(UIBloxRoot.Core.Style.withStyle)
 local SpringAnimatedItem = require(UIBloxRoot.Utility.SpringAnimatedItem)
+local devOnly = require(UIBloxRoot.Utility.devOnly)
 
 local ToastFrame = require(ToastRoot.ToastFrame)
 local validateToastIcon = require(ToastRoot.Validator.validateToastIcon)
@@ -27,7 +28,7 @@ local TOAST_SLICE_CENTER = Rect.new(10, 10, 11, 11)
 
 local InteractiveToast = Roact.PureComponent:extend("InteractiveToast")
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
 	iconProps = t.optional(validateToastIcon),
 	iconChildren = t.optional(t.table),
@@ -40,7 +41,7 @@ local validateProps = t.strictInterface({
 	subtitleTextProps = t.optional(validateToastText),
 	textFrameSize = t.optional(t.UDim2),
 	titleTextProps = validateToastText,
-})
+}))
 
 InteractiveToast.defaultProps = {
 	anchorPoint = Vector2.new(0.5, 0.5),

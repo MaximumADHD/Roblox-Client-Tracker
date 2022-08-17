@@ -12,6 +12,7 @@ local FitFrameVertical = FitFrame.FitFrameVertical
 local Images = require(AppRoot.ImageSet.Images)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
+local devOnly = require(UIBlox.Utility.devOnly)
 
 local SLICE_CENTER = Rect.new(8, 8, 9, 9)
 
@@ -22,14 +23,14 @@ local ModalWindow = Roact.PureComponent:extend("ModalWindow")
 
 local MAX_WIDTH = 540
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	isFullHeight = t.boolean,
 	screenSize = t.Vector2,
 	[Roact.Children] = t.table,
 	position = t.optional(t.UDim2),
 	anchorPoint = t.optional(t.Vector2),
 	distanceFromTop = t.optional(t.number),
-})
+}))
 
 ModalWindow.defaultProps = {
 	distanceFromTop = 0,

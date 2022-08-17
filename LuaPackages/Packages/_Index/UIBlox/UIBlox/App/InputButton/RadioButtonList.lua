@@ -10,6 +10,7 @@ local Cryo = require(Packages.Cryo)
 local withSelectionCursorProvider = require(UIBlox.App.SelectionImage.withSelectionCursorProvider)
 local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
 local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
+local devOnly = require(Packages.UIBlox.Utility.devOnly)
 
 local RadioButtonList = Roact.PureComponent:extend("RadioButtonList")
 
@@ -18,7 +19,7 @@ local validateButton = t.strictInterface({
 	isDisabled = t.optional(t.boolean),
 })
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	radioButtons = t.array(t.union(t.string, validateButton)),
 	onActivated = t.callback,
 	elementSize = t.UDim2,
@@ -32,7 +33,7 @@ local validateProps = t.strictInterface({
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	forwardRef = t.optional(t.table),
-})
+}))
 
 function RadioButtonList:init()
 	self.state = {

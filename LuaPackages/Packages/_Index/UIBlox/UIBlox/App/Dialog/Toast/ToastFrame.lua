@@ -8,6 +8,8 @@ local Cryo = require(Packages.Cryo)
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
+local devOnly = require(UIBloxRoot.Utility.devOnly)
+
 local ToastIcon = require(ToastRoot.ToastIcon)
 local ToastText = require(ToastRoot.ToastText)
 local validateToastIcon = require(ToastRoot.Validator.validateToastIcon)
@@ -15,7 +17,7 @@ local validateToastText = require(ToastRoot.Validator.validateToastText)
 
 local ToastFrame = Roact.PureComponent:extend("ToastFrame")
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
 	iconProps = t.optional(validateToastIcon),
 	iconChildren = t.optional(t.table),
@@ -26,7 +28,7 @@ local validateProps = t.strictInterface({
 	subtitleTextProps = t.optional(validateToastText),
 	textFrameSize = t.UDim2,
 	titleTextProps = validateToastText,
-})
+}))
 
 ToastFrame.defaultProps = {
 	padding = 0,

@@ -12,12 +12,13 @@ local FitFrameOnAxis = FitFrame.FitFrameOnAxis
 
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local withStyle = require(UIBlox.Core.Style.withStyle)
+local devOnly = require(UIBlox.Utility.devOnly)
 
 local MARGIN = 24
 
 local AlertTitle = Roact.PureComponent:extend("AlertTitle")
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	layoutOrder = t.optional(t.number),
 	margin = t.optional(t.table),
 	maxWidth = t.optional(t.number),
@@ -26,7 +27,7 @@ local validateProps = t.strictInterface({
 	title = t.string,
 	titlePadding = t.optional(t.number),
 	titleContent = t.optional(t.callback),
-})
+}))
 
 AlertTitle.defaultProps = {
 	margin = {

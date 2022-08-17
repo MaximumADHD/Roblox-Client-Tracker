@@ -2,6 +2,7 @@ local Packages = script.Parent.Parent
 local UserInputService = game:GetService("UserInputService")
 local UIBlox = require(Packages.UIBlox)
 local RoduxPresence = require(Packages.RoduxPresence)
+local RoduxFriends = require(Packages.RoduxFriends)
 
 return {
 	Roact = require(Packages.Roact),
@@ -24,7 +25,7 @@ return {
 	RoduxPresence = RoduxPresence.config({
 		keyPath = "SocialLibraries.Presence",
 	}),
-	RoduxFriends = RoduxPresence.config({
+	RoduxFriends = RoduxFriends.config({
 		keyPath = "SocialLibraries.Friends",
 	}),
 	enumerate = require(Packages.enumerate),

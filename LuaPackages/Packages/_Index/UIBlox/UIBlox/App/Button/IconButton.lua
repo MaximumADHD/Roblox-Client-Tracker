@@ -36,8 +36,6 @@ IconButton.debugProps = enumerate("debugProps", {
 	"controlState",
 })
 
-local useGamepad = UIBloxConfig.enableIconButtonGamepadSupport
-
 IconButton.validateProps = t.strictInterface({
 	-- The state change callback for the button
 	onStateChanged = t.optional(isCallable),
@@ -80,12 +78,12 @@ IconButton.validateProps = t.strictInterface({
 	[IconButton.debugProps.controlState] = t.optional(enumerateValidator(ControlState)),
 
 	-- optional parameters for RoactGamepad
-	NextSelectionLeft = if useGamepad then t.optional(t.table) else nil,
-	NextSelectionRight = if useGamepad then t.optional(t.table) else nil,
-	NextSelectionUp = if useGamepad then t.optional(t.table) else nil,
-	NextSelectionDown = if useGamepad then t.optional(t.table) else nil,
-	inputBindings = if useGamepad then t.optional(t.table) else nil,
-	buttonRef = if useGamepad then t.optional(t.table) else nil,
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
+	inputBindings = t.optional(t.table),
+	buttonRef = t.optional(t.table),
 })
 
 IconButton.defaultProps = {
@@ -144,17 +142,11 @@ function IconButton:init()
 end
 
 function IconButton:render()
-	if useGamepad then
-		return withStyle(function(style)
-			return withSelectionCursorProvider(function(getSelectionCursor)
-				return self:renderWithProviders(style, getSelectionCursor)
-			end)
+	return withStyle(function(style)
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			return self:renderWithProviders(style, getSelectionCursor)
 		end)
-	else
-		return withStyle(function(style)
-			return self:renderWithProviders(style, nil)
-		end)
-	end
+	end)
 end
 
 function IconButton:renderWithProviders(style, getSelectionCursor)
@@ -176,7 +168,7 @@ function IconButton:renderWithProviders(style, getSelectionCursor)
 		backgroundColor = self.props.backgroundColor
 	end
 
-	return Roact.createElement(if useGamepad then Focusable[Interactable] else Interactable, {
+	return Roact.createElement(Focusable[Interactable], {
 		AnchorPoint = self.props.anchorPoint,
 		LayoutOrder = self.props.layoutOrder,
 		Position = self.props.position,
@@ -191,13 +183,13 @@ function IconButton:renderWithProviders(style, getSelectionCursor)
 		[Roact.Change.AbsolutePosition] = self.props.onAbsolutePositionChanged,
 		[Roact.Event.Activated] = self.props.onActivated,
 
-		[Roact.Ref] = if useGamepad then self.props.buttonRef else nil,
-		NextSelectionLeft = if useGamepad then self.props.NextSelectionLeft else nil,
-		NextSelectionRight = if useGamepad then self.props.NextSelectionRight else nil,
-		NextSelectionUp = if useGamepad then self.props.NextSelectionUp else nil,
-		NextSelectionDown = if useGamepad then self.props.NextSelectionDown else nil,
-		inputBindings = if useGamepad then self.props.inputBindings else nil,
-		SelectionImageObject = if useGamepad then getSelectionCursor(CursorKind.RoundedRectNoInset) else nil,
+		[Roact.Ref] = self.props.buttonRef,
+		NextSelectionLeft = self.props.NextSelectionLeft,
+		NextSelectionRight = self.props.NextSelectionRight,
+		NextSelectionUp = self.props.NextSelectionUp,
+		NextSelectionDown = self.props.NextSelectionDown,
+		inputBindings = self.props.inputBindings,
+		SelectionImageObject = getSelectionCursor(CursorKind.RoundedRectNoInset),
 	}, {
 		sizeConstraint = Roact.createElement("UISizeConstraint", {
 			MinSize = Vector2.new(iconSizeMeasurement, iconSizeMeasurement),

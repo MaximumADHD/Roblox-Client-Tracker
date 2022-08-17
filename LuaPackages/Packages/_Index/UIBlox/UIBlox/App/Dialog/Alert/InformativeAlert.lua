@@ -22,10 +22,11 @@ local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLa
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local GetTextHeight = require(UIBlox.Core.Text.GetTextHeight)
 local withStyle = require(UIBlox.Core.Style.withStyle)
+local devOnly = require(UIBlox.Utility.devOnly)
 
 local InformativeAlert = Roact.PureComponent:extend("InformativeAlert")
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
 	position = t.optional(t.UDim2),
 	screenSize = t.Vector2,
@@ -35,7 +36,7 @@ local validateProps = t.strictInterface({
 	title = t.string,
 	titleIcon = t.optional(t.union(t.table, t.string)),
 	bodyText = t.optional(t.string),
-})
+}))
 
 function InformativeAlert:render()
 	assert(validateProps(self.props))

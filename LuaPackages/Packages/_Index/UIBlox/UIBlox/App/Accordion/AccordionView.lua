@@ -6,6 +6,7 @@ local Packages = UIBloxRoot.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local SpringAnimatedItem = require(UIBloxRoot.Utility.SpringAnimatedItem)
+local devOnly = require(UIBloxRoot.Utility.devOnly)
 
 local ITEM_PADDING = 10
 local ITEM_WIDTH_SHRINK_STEP = 20 -- How much each item shrinks below card above it
@@ -23,7 +24,7 @@ AccordionView.defaultProps = {
 	maxItemsInCompactView = 3,
 }
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	items = t.table,
 	itemWidth = t.number,
 	itemHeight = t.number,
@@ -37,7 +38,7 @@ local validateProps = t.strictInterface({
 
 	LayoutOrder = t.optional(t.integer),
 	maxItemsInCompactView = t.numberPositive,
-})
+}))
 
 function AccordionView:init()
 	self.state = {
@@ -268,6 +269,7 @@ function AccordionView:render()
 				[Roact.Children] = {
 					Item = renderItem(items[index], layout.itemTransparency, ANIMATION_SPRING_SETTINGS),
 					Placeholder = Roact.createElement(SpringAnimatedItem.AnimatedFrame, {
+						key = "Placeholder",
 						springOptions = ANIMATION_SPRING_SETTINGS,
 						animatedValues = {
 							transparency = layout.placeholderTransparency,

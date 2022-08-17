@@ -4,6 +4,7 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
 local Checkbox = require(script.Parent.Checkbox)
+local devOnly = require(Packages.UIBlox.Utility.devOnly)
 
 local CheckboxList = Roact.PureComponent:extend("CheckboxList")
 
@@ -13,13 +14,13 @@ local validateButton = t.strictInterface({
 	isDisabled = t.optional(t.boolean),
 })
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	checkboxes = t.array(t.union(t.string, validateButton)),
 	onActivated = t.callback,
 	elementSize = t.UDim2,
 	atMost = t.optional(t.number),
 	layoutOrder = t.optional(t.number)
-})
+}))
 
 local function numTrue(truthTable)
 	local num = 0

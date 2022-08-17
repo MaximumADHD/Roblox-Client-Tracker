@@ -11,6 +11,7 @@ local withStyle = require(Packages.UIBlox.Core.Style.withStyle)
 local ImageSetComponent = require(Packages.UIBlox.Core.ImageSet.ImageSetComponent)
 local Controllable = require(Packages.UIBlox.Core.Control.Controllable)
 local ControlState = require(Packages.UIBlox.Core.Control.Enum.ControlState)
+local devOnly = require(Packages.UIBlox.Utility.devOnly)
 
 local FitTextLabel = require(Packages.FitFrame).FitTextLabel
 local FitFrameHorizontal = require(Packages.FitFrame).FitFrameHorizontal
@@ -26,7 +27,7 @@ end
 
 local InputButton = Roact.PureComponent:extend("InputButton")
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	text = t.string,
 	size = t.optional(t.UDim2),
 	image = t.table,
@@ -47,7 +48,7 @@ local validateProps = t.strictInterface({
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	SelectionImageObject = t.optional(t.table),
-})
+}))
 
 InputButton.defaultProps = {
 	layoutOrder = 0,

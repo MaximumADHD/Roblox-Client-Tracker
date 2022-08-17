@@ -20,6 +20,7 @@ local IconSize = require(UIBlox.App.ImageSet.Enum.IconSize)
 local getIconSize = require(UIBlox.App.ImageSet.getIconSize)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
+local devOnly = require(UIBlox.Utility.devOnly)
 
 local validateImage = require(Core.ImageSet.Validator.validateImage)
 
@@ -47,7 +48,7 @@ local colorStateMap = t.interface({
 	[ControlState.Default] = t.string,
 })
 
-local validateProps = t.interface({
+local validateProps = devOnly(t.interface({
 	--The icon of the button
 	icon = t.optional(validateImage),
 
@@ -80,7 +81,7 @@ local validateProps = t.interface({
 	isSelectedStyle = t.optional(t.boolean),
 
 	-- Note that this component can accept all valid properties of the Roblox ImageButton instance
-})
+}))
 
 SegmentedControlTabName.defaultProps = {
 	isDisabled = false,

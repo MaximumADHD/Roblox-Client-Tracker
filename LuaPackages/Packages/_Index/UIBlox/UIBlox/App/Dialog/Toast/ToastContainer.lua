@@ -11,6 +11,7 @@ local GetTextSize = require(UIBloxRoot.Core.Text.GetTextSize)
 local Images = require(UIBloxRoot.App.ImageSet.Images)
 local withStyle = require(UIBloxRoot.Core.Style.withStyle)
 local validateColorInfo = require(UIBloxRoot.Core.Style.Validator.validateColorInfo)
+local devOnly = require(UIBloxRoot.Utility.devOnly)
 
 local DEFAULT_PADDING = 12
 local DEFAULT_ICON_SIZE = Vector2.new(36, 36)
@@ -29,7 +30,7 @@ end
 
 local ToastContainer = Roact.PureComponent:extend("ToastContainer")
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
 	fitHeight = t.optional(t.boolean),
 	iconColorStyle = t.optional(validateColorInfo),
@@ -48,7 +49,7 @@ local validateProps = t.strictInterface({
 	sizeConstraint = t.optional(t.table),
 	toastSubtitle = t.optional(t.string),
 	toastTitle = t.string,
-})
+}))
 
 ToastContainer.defaultProps = {
 	anchorPoint = Vector2.new(0, 0),

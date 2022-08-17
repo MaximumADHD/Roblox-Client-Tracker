@@ -7,15 +7,16 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
+local devOnly = require(UIBlox.Utility.devOnly)
 
 local TileBanner = Roact.PureComponent:extend("TileBanner")
 
 local TEXT_PADDING = 6
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	-- The text to display in the banner
 	bannerText = t.string,
-})
+}))
 
 function TileBanner:render()
 	assert(validateProps(self.props))

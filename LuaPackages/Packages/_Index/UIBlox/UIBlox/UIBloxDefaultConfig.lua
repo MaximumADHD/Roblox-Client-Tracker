@@ -94,9 +94,6 @@ return {
 	-- otherwise it will only update when <enter> is pressed
 	sliderUpdateOnDismiss = false,
 
-	-- Adds roact-gamepad navigation support to IconButton
-	enableIconButtonGamepadSupport = false,
-
 	-- if true, you can customize Item Tiles with variable sized text underneath, instead of
 	-- always using Header2.
 	enableAdjustableTextUnderTile = false,

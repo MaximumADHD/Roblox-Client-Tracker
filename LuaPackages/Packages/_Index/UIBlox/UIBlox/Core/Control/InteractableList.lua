@@ -58,7 +58,7 @@ InteractableList.defaultProps = {
 	renderList = function(items, renderItem, extraProps)
 		local children = {}
 		for key in pairs(items) do
-			children[key] = renderItem(key)
+			children[tostring(key)] = renderItem(key)
 		end
 		return Roact.createElement("Frame", {
 			Size = extraProps.size,

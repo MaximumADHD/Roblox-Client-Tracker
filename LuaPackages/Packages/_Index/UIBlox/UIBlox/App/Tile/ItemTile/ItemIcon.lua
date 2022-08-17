@@ -9,6 +9,7 @@ local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
+local devOnly = require(UIBlox.Utility.devOnly)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
@@ -36,10 +37,10 @@ local function isValidItemIconType(value)
 	return false, "Unknown ItemType " .. value
 end
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	-- Enum specifying the item type
 	itemIconType = t.intersection(enumerateValidator(ItemTileEnums.ItemIconType), isValidItemIconType),
-})
+}))
 
 function ItemIcon:render()
 	assert(validateProps(self.props))

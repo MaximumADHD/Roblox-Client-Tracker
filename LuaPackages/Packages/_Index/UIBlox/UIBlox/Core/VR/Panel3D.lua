@@ -44,7 +44,7 @@ local function Panel3D(providedProps: Props)
 		Archivable = false,
 	}, {
 		WorkspacePortal = React.createElement(Roact.Portal, {
-			target = workspace,
+			target = workspace :: Instance, -- LUAU FIXME: Need read-write syntax for props (https://github.com/Roblox/luau/pull/284)
 		}, {
 			GUIPart = React.createElement("Part", {
 				Name = props.panelName .. "_Part",

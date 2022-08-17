@@ -14,6 +14,7 @@ local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local Images = require(UIBlox.App.ImageSet.Images)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local ExpandableTextUtils = require(UIBlox.Core.Text.ExpandableText.ExpandableTextUtils)
+local devOnly = require(UIBlox.Utility.devOnly)
 
 local CursorKind = require(App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
@@ -47,7 +48,7 @@ ExpandableTextArea.defaultProps = {
 	Text = "",
 }
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	Text = t.optional(t.string),
 	Position = t.optional(t.UDim2),
 	compactNumberOfLines = t.optional(t.number),
@@ -61,7 +62,7 @@ local validateProps = t.strictInterface({
 	NextSelectionLeft = t.optional(t.table),
 	NextSelectionRight = t.optional(t.table),
 	frameRef = t.optional(t.table),
-})
+}))
 
 function ExpandableTextArea:init()
 	self.state = {

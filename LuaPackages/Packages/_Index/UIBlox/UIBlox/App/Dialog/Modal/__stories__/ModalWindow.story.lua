@@ -68,7 +68,7 @@ function PortraitModal:render()
 			BackgroundTransparency = 1,
 			LayoutOrder = 2,
 		}, {
-			Roact.createElement(StoryItem, {
+			Story = Roact.createElement(StoryItem, {
 				size = UDim2.new(1, 0, 1, 0),
 				title = "ModalWindowContainer",
 				subTitle = "Expand and shrink the width of the window to see how the modal behaves on different widths",

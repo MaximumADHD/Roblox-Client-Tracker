@@ -31,7 +31,7 @@ return Rodux.createReducer(DEFAULT_STATE, {
 		end
 
 		local creatorId = tostring(action.assetData.creatorTargetId)
-		local creatorHasVerifiedBadge = action.assetData.hasVerifiedBadge
+		local creatorHasVerifiedBadge = action.assetData.creatorHasVerifiedBadge
 		return Cryo.Dictionary.join(state, {
 			[creatorId] = if creatorHasVerifiedBadge then true else Cryo.None,
 		})

@@ -22,8 +22,11 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 	end, {})
 
 	local renderSteppedCallback = React.useCallback(function(deltaSeconds)
+		local currentCamera = workspace.CurrentCamera :: Camera
+
 		local finalPosition
-		local cameraCF = workspace.CurrentCamera.CFrame
+		local cameraCF = currentCamera.CFrame
+		local cameraHeadScale = currentCamera.HeadScale
 		local userNonPrimaryHand = nil
 
 		if props.anchoring == Constants.AnchoringTypes.Head then
@@ -49,7 +52,7 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 			end
 
 			finalPosition = userHeadCameraCF.Position
-				+ lastLookCFrame.current.LookVector * workspace.CurrentCamera.HeadScale * 2
+				+ lastLookCFrame.current.LookVector * cameraHeadScale * 2
 			finalPosition = Vector3.new(finalPosition.X, userHeadCameraCF.Position.Y, finalPosition.Z)
 		elseif props.anchoring == Constants.AnchoringTypes.Wrist then
 			-- Always try to use non-primary hand for anchoring the menu, defaults to LeftHand when using head tracking.
@@ -65,7 +68,7 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 				userNonPrimaryHand = VRService:GetUserCFrame(Enum.UserCFrame.Head) -- fallback
 			end
 
-			local scaledPosition = userNonPrimaryHand.Position * workspace.CurrentCamera.HeadScale
+			local scaledPosition = userNonPrimaryHand.Position * cameraHeadScale
 			local wristCF = cameraCF * CFrame.new(scaledPosition)
 			finalPosition = wristCF.Position
 		else -- Constants.AnchoringTypes.World
@@ -83,12 +86,12 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 			if props.faceCamera then
 				local vrCameraCF = cameraCF * VRService:GetUserCFrame(Enum.UserCFrame.Head)
 				panelCFrame = CFrame.new(
-					finalPosition + lastOffset.current.Position * workspace.CurrentCamera.HeadScale,
+					finalPosition + lastOffset.current.Position * cameraHeadScale,
 					vrCameraCF.Position
 				)
 			else
 				local rotX, rotY, rotZ = userNonPrimaryHand:ToOrientation()
-				local scaledlastOffset = CFrame.new(lastOffset.current.Position * workspace.CurrentCamera.HeadScale)
+				local scaledlastOffset = CFrame.new(lastOffset.current.Position * cameraHeadScale)
 				panelCFrame = CFrame.new(finalPosition) * CFrame.Angles(-rotX, rotY, -rotZ) * scaledlastOffset
 			end
 		end
@@ -96,7 +99,7 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 		if basePart.current ~= nil then
 			basePart.current.CFrame = panelCFrame
 			basePart.current.Size = Vector3.new(props.partSize.X, props.partSize.Y, 0)
-				* workspace.CurrentCamera.HeadScale
+				* cameraHeadScale
 		end
 	end, { props.anchoring, props.faceCamera, props.lerp, props.offset, props.partSize } :: { any })
 

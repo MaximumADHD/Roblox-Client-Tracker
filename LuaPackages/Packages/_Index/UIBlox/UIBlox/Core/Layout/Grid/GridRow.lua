@@ -167,8 +167,9 @@ function GridRow:renderChildren(context)
 			return sum + child.colspan
 		end, 0) / context.columns
 	end
-	return Array.map(children, function(child)
+	return Array.map(children, function(child, index)
 		return Roact.createElement(GridCell, {
+			key = tostring(index),
 			colspan = child.colspan,
 			rowspan = child.rowspan,
 			order = child.order,

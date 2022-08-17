@@ -4,6 +4,7 @@ local UIBloxRoot = AppRoot.Parent
 local Packages = UIBloxRoot.Parent
 local RoactGamepad = require(Packages.RoactGamepad)
 local isCallable = require(UIBloxRoot.Utility.isCallable)
+local devOnly = require(UIBloxRoot.Utility.devOnly)
 
 local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
@@ -11,7 +12,7 @@ local t = require(Packages.t)
 
 local positiveVector2 = require(UIBloxRoot.Utility.isPositiveVector2)
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	-- A function that, given an item, returns a Roact element representing that
 	-- item. The item should expect to fill its parent. Setting LayoutOrder is
 	-- not necessary.
@@ -48,7 +49,7 @@ local validateProps = t.strictInterface({
 
 	-- which selection will initally be selected (if using roact-gamepad)
 	defaultChildIndex = t.optional(t.numberMin(1)),
-})
+}))
 
 local GridView = Roact.PureComponent:extend("GridView")
 

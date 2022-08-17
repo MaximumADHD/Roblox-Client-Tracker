@@ -9,12 +9,13 @@ local t = require(Packages.t)
 
 local ExternalEventConnection = require(UIBlox.Utility.ExternalEventConnection)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
+local devOnly = require(UIBlox.Utility.devOnly)
 
 local function floorVector2(vector2)
 	return Vector2.new(math.floor(vector2.X), math.floor(vector2.Y))
 end
 
-local validateProps = t.strictInterface({
+local validateProps = devOnly(t.strictInterface({
 	-- The anchor point of the panel
 	anchorPoint = t.optional(t.Vector2),
 	-- The layout order of the panel
@@ -44,7 +45,7 @@ local validateProps = t.strictInterface({
 	imageRectSize = t.Vector2,
 	-- The size point of the panel
 	size = t.optional(t.UDim2),
-})
+}))
 
 local TextureScroller = Roact.PureComponent:extend("TextureScroller")
 

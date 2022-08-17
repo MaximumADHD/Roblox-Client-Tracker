@@ -13,6 +13,7 @@ local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local GetWrappedTextWithIcon = require(UIBlox.Core.Text.GetWrappedTextWithIcon)
+local devOnly = require(UIBlox.Utility.devOnly)
 
 local CursorKind = require(App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
@@ -115,7 +116,7 @@ local function tileBannerUseValidator(props)
 	return true
 end
 
-local validateProps = t.intersection(tileInterface, tileBannerUseValidator)
+local validateProps = devOnly(t.intersection(tileInterface, tileBannerUseValidator))
 
 Tile.defaultProps = {
 	titleTextLineCount = 2,

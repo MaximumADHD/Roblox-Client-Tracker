@@ -49,6 +49,9 @@ HeaderBar.validateProps = t.strictInterface({
 
 	-- Background transparency
 	backgroundTransparency = t.optional(t.number),
+
+	-- Add an invisible button to the bar to capture click event
+	onHeaderActivated = t.optional(t.callback),
 })
 
 -- default values are taken from Abstract
@@ -129,6 +132,15 @@ function HeaderBar:render()
 			Size = UDim2.new(1, 0, 0, self.props.barHeight),
 			[Roact.Change.AbsoluteSize] = self.onResize,
 		}, {
+			HeaderClickArea = self.props.onHeaderActivated and Roact.createElement("TextButton", {
+				AutoButtonColor = false,
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				Size = UDim2.new(1, 0, 1, 0),
+				Selectable = false,
+				[Roact.Event.Activated] = self.props.onHeaderActivated,
+				ZIndex = 0,
+			}) or nil,
 			ThreeSectionBar = Roact.createElement(ThreeSectionBar, {
 				BackgroundTransparency = self.props.backgroundTransparency or theme.BackgroundDefault.Transparency,
 				BackgroundColor3 = theme.BackgroundDefault.Color,
