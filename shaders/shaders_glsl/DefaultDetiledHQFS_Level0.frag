@@ -62,7 +62,7 @@ void main()
     vec2 f26 = f25.xy * f1;
     float f27 = f26.x;
     vec4 f28 = mix(texture2DGradARB(SpecularMapTexture, f8, f6, f7), texture2DGradARB(SpecularMapTexture, f9, f6, f7), f10);
-    vec4 f29 = vec4((mix(vec3(1.0), VARYING2.xyz, vec3(mix(1.0, f11.w, CB2[3].w))) * f11.xyz) * (1.0 + (f27 * CB2[0].z)), VARYING2.w);
+    vec4 f29 = vec4((mix(vec3(1.0), VARYING2.xyz, vec3(mix(1.0, f11.w, CB2[3].w))) * f11.xyz) * (1.0 + (f27 * 0.20000000298023223876953125)), VARYING2.w);
     float f30 = gl_FrontFacing ? 1.0 : (-1.0);
     vec3 f31 = VARYING6.xyz * f30;
     vec3 f32 = VARYING5.xyz * f30;

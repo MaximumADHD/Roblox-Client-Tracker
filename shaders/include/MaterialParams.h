@@ -2,7 +2,7 @@ struct MaterialParams
 {
     float textureTiling;
     float plasticRoughness;
-    float normalShadowScale;
+    float unused;
     float normalDetailTiling;
     float normalDetailScale;
     float farTilingDiffuse;

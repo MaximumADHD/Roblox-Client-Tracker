@@ -76,10 +76,10 @@ void main()
     float f45 = max(f33.w - (f44 * f44), f40.y);
     float f46 = f38 - f44;
     vec3 f47 = normalize(f14);
-    float f48 = f5.y;
+    float f48 = 0.08900000154972076416015625 + (f5.y * 0.9110000133514404296875);
     float f49 = CB0[26].w * f15;
     vec3 f50 = reflect(-f47, f16);
-    vec3 f51 = normalize(f17 + f47);
+    vec3 f51 = normalize(f47 - CB0[11].xyz);
     float f52 = clamp((f18 * CB0[9].w) * (((f18 * CB0[47].x) > 0.0) ? mix(min((f37 <= f41) ? 1.0 : clamp(((f42 / (f42 + (f43 * f43))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f38 <= f44) ? 1.0 : clamp(((f45 / (f45 + (f46 * f46))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f28, clamp((length(f19 - CB0[7].xyz) * CB0[46].y) - (CB0[46].x * CB0[46].y), 0.0, 1.0)) : f28), 0.0, 1.0);
     float f53 = f48 * f48;
     float f54 = max(0.001000000047497451305389404296875, dot(f16, f51));

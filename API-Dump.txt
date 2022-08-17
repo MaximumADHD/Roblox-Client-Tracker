@@ -126,10 +126,13 @@ Class AnimationTrack : Instance [NotCreatable]
 Class Animator : Instance
 	Function void Animator:ApplyJointVelocities(Variant motors)
 	Function Array Animator:GetPlayingAnimationTracks()
+	Function Array Animator:GetPlayingAnimationTracksCoreScript() {RobloxScriptSecurity}
 	Function AnimationTrack Animator:LoadAnimation(Animation animation)
+	Function AnimationTrack Animator:LoadAnimationCoreScript(Animation animation) {RobloxScriptSecurity}
 	Function AnimationStreamTrack Animator:LoadStreamAnimation(TrackerStreamAnimation animation) {RobloxScriptSecurity}
 	Function void Animator:StepAnimations(float deltaTime) {PluginSecurity}
 	Event Animator.AnimationPlayed(AnimationTrack animationTrack)
+	Event Animator.AnimationPlayedCoreScript(AnimationTrack animationTrack) {RobloxScriptSecurity}
 Class AppUpdateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AppUpdateService:CheckForUpdate(Function handler = nil) {RobloxScriptSecurity}
 	Function void AppUpdateService:DisableDUAR() {RobloxScriptSecurity}
@@ -138,16 +141,8 @@ Class AppUpdateService : Instance [NotCreatable] [Service] [NotReplicated]
 Class AssetCounterService : Instance [NotCreatable] [Service] [NotReplicated]
 Class AssetDeliveryProxy : Instance [NotCreatable] [Service] [NotReplicated]
 Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function void AssetImportService:Cancel() {RobloxScriptSecurity}
-	Function Dictionary AssetImportService:GetCurrentImportMap() {RobloxScriptSecurity}
-	Function Tuple AssetImportService:ImportMesh(string fileName) {RobloxScriptSecurity}
-	Function Tuple AssetImportService:ImportMeshWithPrompt() {RobloxScriptSecurity} [Yields]
-	Function bool AssetImportService:IsAvatar() {RobloxScriptSecurity}
 	Function string AssetImportService:PickFileWithPrompt() {RobloxScriptSecurity} [Yields]
 	Function AssetImportSession AssetImportService:StartSessionWithPrompt() {RobloxScriptSecurity} [Yields]
-	Function void AssetImportService:Upload() {RobloxScriptSecurity}
-	Event AssetImportService.ProgressUpdate(float progressRatio)
-	Event AssetImportService.UploadFinished(bool succeeded, Dictionary errorMap)
 Class AssetImportSession : Instance [NotCreatable] [NotReplicated]
 	Function void AssetImportSession:Cancel() {RobloxScriptSecurity}
 	Function Dictionary AssetImportSession:GetCurrentImportMap() {RobloxScriptSecurity}
@@ -1163,6 +1158,7 @@ Class FaceAnimatorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool FaceAnimatorService.AudioAnimationEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool FaceAnimatorService.FlipHeadOrientation {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool FaceAnimatorService.VideoAnimationEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Event FaceAnimatorService.TrackerError(Enum.TrackerError error) {RobloxScriptSecurity}
 Class FaceControls : Instance
 	Property float FaceControls.Corrugator {PluginSecurity} [NotReplicated]
 	Property float FaceControls.LeftBrowLowerer {PluginSecurity} [NotReplicated]
@@ -1569,6 +1565,7 @@ Class VideoFrame : GuiObject
 	Event VideoFrame.Played(string video)
 Class ViewportFrame : GuiObject
 	Property Color3 ViewportFrame.Ambient
+	Property bool ViewportFrame.IsMirrored {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Color3 ViewportFrame.LightColor
 	Property Vector3 ViewportFrame.LightDirection
 	Property Camera ViewportFrame.CurrentCamera [<📁> LoadOnly] [NotReplicated]
@@ -1618,14 +1615,17 @@ Class ScreenGui : LayerCollector
 	Property int ScreenGui.DisplayOrder
 	Property bool ScreenGui.IgnoreGuiInset
 Class GuiMain : ScreenGui [Deprecated]
-Class SurfaceGui : LayerCollector
+Class SurfaceGuiBase : LayerCollector [NotCreatable]
+	Property bool SurfaceGuiBase.Active
+	Property Instance SurfaceGuiBase.Adornee
+	Property Enum.NormalId SurfaceGuiBase.Face
+Class AdGui : SurfaceGuiBase [NotCreatable]
+	Property Enum.AdShape AdGui.AdShape
+Class SurfaceGui : SurfaceGuiBase
 	Property float SurfaceGui.ZOffset
 	Property bool SurfaceGui.ClipsDescendants
-	Property bool SurfaceGui.Active
-	Property Instance SurfaceGui.Adornee
 	Property bool SurfaceGui.AlwaysOnTop
 	Property float SurfaceGui.Brightness
-	Property Enum.NormalId SurfaceGui.Face
 	Property float SurfaceGui.LightInfluence
 	Property float SurfaceGui.ToolPunchThroughDistance
 	Property Vector2 SurfaceGui.CanvasSize
@@ -2026,11 +2026,11 @@ Class ImporterGroupSettings : ImporterBaseSettings [NotCreatable] [NotReplicated
 	Property bool ImporterGroupSettings.InsertInWorkspace
 Class ImporterJointSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 Class ImporterMaterialSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
-	Property string ImporterMaterialSettings.DiffuseFilePath [ReadOnly]
+	Property string ImporterMaterialSettings.DiffuseFilePath
 	Property bool ImporterMaterialSettings.IsPbr [ReadOnly]
-	Property string ImporterMaterialSettings.MetalnessFilePath [ReadOnly]
-	Property string ImporterMaterialSettings.NormalFilePath [ReadOnly]
-	Property string ImporterMaterialSettings.RoughnessFilePath [ReadOnly]
+	Property string ImporterMaterialSettings.MetalnessFilePath
+	Property string ImporterMaterialSettings.NormalFilePath
+	Property string ImporterMaterialSettings.RoughnessFilePath
 Class ImporterMeshSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property bool ImporterMeshSettings.Anchored
 	Property bool ImporterMeshSettings.CageManifold [ReadOnly]
@@ -2048,6 +2048,8 @@ Class ImporterMeshSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property bool ImporterMeshSettings.MeshHoleDetectedPreview
 	Property bool ImporterMeshSettings.MeshNoHoleDetected [ReadOnly]
 	Property bool ImporterMeshSettings.NoIrrelevantCageModified [ReadOnly]
+	Property bool ImporterMeshSettings.NoOuterCageFarExtendedFromMesh [ReadOnly]
+	Property bool ImporterMeshSettings.OuterCageFarExtendedFromMeshPreview
 	Property float ImporterMeshSettings.PolygonCount [ReadOnly]
 	Property bool ImporterMeshSettings.UseImportedPivot
 Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
@@ -3064,12 +3066,12 @@ Class Player : Instance
 	Event Player.Idled(double time)
 	Event Player.OnTeleport(Enum.TeleportState teleportState, int64 placeId, string spawnName)
 	Event Player.SimulationRadiusChanged(float radius) {LocalUserSecurity}
-Class PlayerEmulatorService : Instance [NotCreatable] [Service]
-	Property bool PlayerEmulatorService.CustomPoliciesEnabled {RobloxScriptSecurity} [Hidden]
-	Property string PlayerEmulatorService.EmulatedCountryCode {RobloxScriptSecurity} [Hidden]
-	Property string PlayerEmulatorService.EmulatedGameLocale {RobloxScriptSecurity} [Hidden]
-	Property bool PlayerEmulatorService.PlayerEmulationEnabled {RobloxScriptSecurity} [Hidden]
-	Property BinaryString PlayerEmulatorService.SerializedEmulatedPolicyInfo {RobloxSecurity} [Hidden]
+Class PlayerEmulatorService : Instance [NotCreatable] [Service] [NotReplicated]
+	Property bool PlayerEmulatorService.CustomPoliciesEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property string PlayerEmulatorService.EmulatedCountryCode {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property string PlayerEmulatorService.EmulatedGameLocale {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property bool PlayerEmulatorService.PlayerEmulationEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property BinaryString PlayerEmulatorService.SerializedEmulatedPolicyInfo {RobloxSecurity} [Hidden] [NotReplicated]
 	Function Dictionary PlayerEmulatorService:GetEmulatedPolicyInfo() {RobloxScriptSecurity}
 	Function bool PlayerEmulatorService:RegionCodeWillHaveAutomaticNonCustomPolicies(string regionCode) {RobloxScriptSecurity}
 	Function void PlayerEmulatorService:SetEmulatedPolicyInfo(Dictionary emulatedPolicyInfo) {RobloxScriptSecurity}
@@ -3117,6 +3119,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Function int64 Players:GetUserIdFromNameAsync(string userName) [Yields]
 	Function Tuple Players:GetUserThumbnailAsync(int64 userId, Enum.ThumbnailType thumbnailType, Enum.ThumbnailSize thumbnailSize) [Yields]
 	Function void Players:ReportAbuse(Player player, string reason, string optionalMessage) {LocalUserSecurity}
+	Function void Players:ReportAbuseV3(Player player, string jsonTags) {RobloxScriptSecurity}
 	Function void Players:SetChatStyle(Enum.ChatStyle style = "Classic") {PluginSecurity}
 	Function void Players:SetLocalPlayerInfo(int64 userId, string userName, string displayName, Enum.MembershipType membershipType, bool isUnder13) {RobloxScriptSecurity}
 	Function void Players:TeamChat(string message) {PluginSecurity}
@@ -3501,6 +3504,7 @@ Class ScriptDebugger : Instance [NotCreatable]
 	Event ScriptDebugger.WatchRemoved(Instance watch)
 Class ScriptDocument : Instance [NotCreatable] [NotReplicated]
 	Function Tuple ScriptDocument:EditTextAsync(string newText, int startLine, int startCharacter, int endLine, int endCharacter) {PluginSecurity} [Yields]
+	Function Tuple ScriptDocument:ForceSetSelectionAsync(int cursorLine, int cursorCharacter, int? anchorLine = nil, int? anchorCharacter = nil) {PluginSecurity} [Yields]
 	Function string ScriptDocument:GetInternalUri() {RobloxScriptSecurity}
 	Function string ScriptDocument:GetLine(int? lineIndex = nil) {PluginSecurity}
 	Function int ScriptDocument:GetLineCount() {PluginSecurity}
@@ -3512,6 +3516,7 @@ Class ScriptDocument : Instance [NotCreatable] [NotReplicated]
 	Function string ScriptDocument:GetText(int? startLine = nil, int? startCharacter = nil, int? endLine = nil, int? endCharacter = nil) {PluginSecurity}
 	Function bool ScriptDocument:HasSelectedText() {PluginSecurity}
 	Function bool ScriptDocument:IsCommandBar() {PluginSecurity}
+	Function Tuple ScriptDocument:RequestSetSelectionAsync(int cursorLine, int cursorCharacter, int? anchorLine = nil, int? anchorCharacter = nil) {PluginSecurity} [Yields]
 	Event ScriptDocument.SelectionChanged(int64 positionLine, int64 positionCharacter, int64 anchorLine, int64 anchorCharacter) {PluginSecurity}
 Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ScriptDocument ScriptEditorService:FindScriptDocument(LuaSourceContainer script) {PluginSecurity}
@@ -3782,6 +3787,7 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property bool StarterPlayer.AllowCustomAnimations {✏️RobloxScriptSecurity} [Hidden]
 	Property float StarterPlayer.CharacterMaxSlopeAngle
 	Property float StarterPlayer.CharacterWalkSpeed
+	Property Enum.LoadDynamicHeads StarterPlayer.EnableDynamicHeads [NotScriptable]
 	Property int64 StarterPlayer.GameSettingsAssetIDFace {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property int64 StarterPlayer.GameSettingsAssetIDHead {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property int64 StarterPlayer.GameSettingsAssetIDLeftArm {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -3980,7 +3986,9 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Array Studio:GetAvailableThemes() {PluginSecurity}
 	Event Studio.ThemeChanged() {PluginSecurity}
 Class StudioAssetService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void StudioAssetService:ConvertToPackageUpload(string uploadUrl, Objects cloneInstances, Objects originalInstances) {RobloxScriptSecurity}
 	Function string StudioAssetService:SerializeInstances(Objects instances) {RobloxScriptSecurity} [Yields]
+	Event StudioAssetService.OnConvertToPackageResult(bool isSuccessful, string errorMessage) {RobloxScriptSecurity}
 Class StudioData : Instance [NotCreatable] [Service]
 	Property bool StudioData.EnableScriptCollabByDefaultOnLoad {RobloxScriptSecurity} [Hidden]
 	Property int64 StudioData.SrcPlaceId {RobloxSecurity} [Hidden] [NotReplicated]
@@ -3994,12 +4002,14 @@ Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplic
 	Function string StudioDeviceEmulatorService:GetCurrentDeviceId() {RobloxScriptSecurity} [Yields]
 	Function Enum.ScreenOrientation StudioDeviceEmulatorService:GetCurrentOrientation() {RobloxScriptSecurity} [Yields]
 	Function int StudioDeviceEmulatorService:GetMaxNumTouches() {RobloxScriptSecurity}
+	Function bool StudioDeviceEmulatorService:GetTouchInBounds(int index) {RobloxScriptSecurity}
 	Function Vector2 StudioDeviceEmulatorService:GetTouchPosition(int index) {RobloxScriptSecurity}
 	Function bool StudioDeviceEmulatorService:HasDeviceWithId(string deviceId) {RobloxScriptSecurity} [Yields]
 	Function void StudioDeviceEmulatorService:SetCurrentDeviceId(string deviceId) {RobloxScriptSecurity} [Yields]
 	Function void StudioDeviceEmulatorService:SetCurrentOrientation(Enum.ScreenOrientation orientation) {RobloxScriptSecurity} [Yields]
 	Event StudioDeviceEmulatorService.CurrentDeviceIdChanged() {RobloxScriptSecurity}
 	Event StudioDeviceEmulatorService.OrientationChanged() {RobloxScriptSecurity}
+	Event StudioDeviceEmulatorService.TouchInBoundsChanged() {RobloxScriptSecurity}
 	Event StudioDeviceEmulatorService.TouchPositionsChanged() {RobloxScriptSecurity}
 Class StudioHighDpiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool StudioHighDpiService:IsNotHighDPIAwareBuild() {RobloxScriptSecurity}
@@ -4175,9 +4185,17 @@ Class TextChatCommand : Instance
 Class TextChatConfigurations : Instance [NotCreatable] [NotReplicated]
 Class ChatInputBarConfiguration : TextChatConfigurations [NotCreatable]
 	Property bool ChatInputBarConfiguration.Enabled
+	Property Vector2 ChatInputBarConfiguration.AbsolutePosition [ReadOnly] {🧬Unsafe}
+	Property Vector2 ChatInputBarConfiguration.AbsolutePositionWrite {RobloxScriptSecurity} [Hidden]
+	Property Vector2 ChatInputBarConfiguration.AbsoluteSize [ReadOnly] {🧬Unsafe}
+	Property Vector2 ChatInputBarConfiguration.AbsoluteSizeWrite {RobloxScriptSecurity} [Hidden]
 	Property TextChannel ChatInputBarConfiguration.TargetTextChannel
 Class ChatWindowConfiguration : TextChatConfigurations [NotCreatable]
 	Property bool ChatWindowConfiguration.Enabled
+	Property Vector2 ChatWindowConfiguration.AbsolutePosition [ReadOnly] {🧬Unsafe}
+	Property Vector2 ChatWindowConfiguration.AbsolutePositionWrite {RobloxScriptSecurity} [Hidden]
+	Property Vector2 ChatWindowConfiguration.AbsoluteSize [ReadOnly] {🧬Unsafe}
+	Property Vector2 ChatWindowConfiguration.AbsoluteSizeWrite {RobloxScriptSecurity} [Hidden]
 Class TextChatMessage : Instance [NotCreatable]
 	Property string TextChatMessage.MessageId
 	Property string TextChatMessage.Metadata
@@ -4570,6 +4588,10 @@ Class VideoCaptureService : Instance [NotCreatable] [Service]
 	Property bool VideoCaptureService.Active {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property string VideoCaptureService.CameraID {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function Map VideoCaptureService:GetCameraDevices() {RobloxScriptSecurity}
+	Event VideoCaptureService.DevicesChanged() {RobloxScriptSecurity}
+	Event VideoCaptureService.Error(string cameraid, string errorcode) {RobloxScriptSecurity}
+	Event VideoCaptureService.Started(string cameraid) {RobloxScriptSecurity}
+	Event VideoCaptureService.Stopped(string cameraid) {RobloxScriptSecurity}
 Class VirtualInputManager : Instance [Service]
 	Property string VirtualInputManager.AdditionalLuaState {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function void VirtualInputManager:Dump() {RobloxScriptSecurity}
@@ -5886,16 +5908,16 @@ Enum LSPMethodType
 	EnumItem LSPMethodType.Completion : 15
 	EnumItem LSPMethodType.Declaration : 16
 	EnumItem LSPMethodType.DocumentSymbols : 17
-	EnumItem LSPMethodType.TextDocument_publishDiagnostics : 19
-	EnumItem LSPMethodType.Window_showMessage : 20
-	EnumItem LSPMethodType.Window_showMessageRequest : 21
-	EnumItem LSPMethodType.Roblox_registerSyntaxCategories : 22
-	EnumItem LSPMethodType.Roblox_signalQuiescence : 23
-	EnumItem LSPMethodType.Roblox_syntaxHighlight : 24
-	EnumItem LSPMethodType.Roblox_suggestExtraSelections : 25
-	EnumItem LSPMethodType.Roblox_findExecutablePosition : 26
-	EnumItem LSPMethodType.Roblox_findColor3 : 27
-	EnumItem LSPMethodType.Roblox_patchSnippetData : 28
+	EnumItem LSPMethodType.TextDocument_publishDiagnostics : 20
+	EnumItem LSPMethodType.Window_showMessage : 21
+	EnumItem LSPMethodType.Window_showMessageRequest : 22
+	EnumItem LSPMethodType.Roblox_registerSyntaxCategories : 23
+	EnumItem LSPMethodType.Roblox_signalQuiescence : 24
+	EnumItem LSPMethodType.Roblox_syntaxHighlight : 25
+	EnumItem LSPMethodType.Roblox_suggestExtraSelections : 26
+	EnumItem LSPMethodType.Roblox_findExecutablePosition : 27
+	EnumItem LSPMethodType.Roblox_findColor3 : 28
+	EnumItem LSPMethodType.Roblox_patchSnippetData : 29
 Enum Language
 	EnumItem Language.Default : 0
 Enum LeftRight
@@ -5930,6 +5952,10 @@ Enum LoadCharacterLayeredClothing
 	EnumItem LoadCharacterLayeredClothing.Default : 0
 	EnumItem LoadCharacterLayeredClothing.Disabled : 1
 	EnumItem LoadCharacterLayeredClothing.Enabled : 2
+Enum LoadDynamicHeads
+	EnumItem LoadDynamicHeads.Default : 0
+	EnumItem LoadDynamicHeads.Disabled : 1
+	EnumItem LoadDynamicHeads.Enabled : 2
 Enum Material
 	EnumItem Material.Plastic : 256
 	EnumItem Material.SmoothPlastic : 272
@@ -6765,6 +6791,16 @@ Enum TouchMovementMode
 	EnumItem TouchMovementMode.Thumbpad : 3
 	EnumItem TouchMovementMode.ClickToMove : 4
 	EnumItem TouchMovementMode.DynamicThumbstick : 5
+Enum TrackerError
+	EnumItem TrackerError.Ok : 0
+	EnumItem TrackerError.NoService : 1
+	EnumItem TrackerError.InitFailed : 2
+	EnumItem TrackerError.NoVideo : 3
+	EnumItem TrackerError.VideoError : 4
+	EnumItem TrackerError.CameraPermission : 5
+	EnumItem TrackerError.NoAudio : 6
+	EnumItem TrackerError.AudioError : 7
+	EnumItem TrackerError.MicPermission : 8
 Enum TriStateBoolean
 	EnumItem TriStateBoolean.Unknown : 0
 	EnumItem TriStateBoolean.True : 1

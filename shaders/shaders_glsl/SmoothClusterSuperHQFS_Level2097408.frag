@@ -5,7 +5,7 @@
 #include <Globals.h>
 uniform vec4 CB0[53];
 uniform vec4 CB3[1];
-uniform vec4 CB4[36];
+uniform vec4 CB4[63];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
@@ -22,7 +22,7 @@ varying vec4 VARYING5;
 varying vec3 VARYING6;
 varying vec3 VARYING7;
 varying vec3 VARYING8;
-varying vec4 VARYING9;
+varying vec3 VARYING9;
 
 void main()
 {
@@ -97,10 +97,10 @@ void main()
     vec4 f53 = mix(texture3D(LightGridSkylightTexture, f50), vec4(1.0), f51);
     vec4 f54 = texture2D(ShadowMapTexture, f48.xy);
     float f55 = f48.z;
-    float f56 = f8.y;
+    float f56 = 0.08900000154972076416015625 + (f8.y * 0.9110000133514404296875);
     vec3 f57 = -CB0[11].xyz;
     float f58 = (dot(f47, f57) * CB0[9].w) * ((1.0 - ((step(f54.x, f55) * clamp(CB0[24].z + (CB0[24].w * abs(f55 - 0.5)), 0.0, 1.0)) * f54.y)) * f53.y);
-    vec3 f59 = normalize(f57 + normalize(VARYING8));
+    vec3 f59 = normalize(normalize(VARYING8) - CB0[11].xyz);
     float f60 = clamp(f58, 0.0, 1.0);
     float f61 = f56 * f56;
     float f62 = max(0.001000000047497451305389404296875, dot(f47, f59));

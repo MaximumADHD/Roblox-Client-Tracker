@@ -5,7 +5,7 @@
 #include <LightShadowGPUTransform.h>
 uniform vec4 CB0[53];
 uniform vec4 CB8[24];
-uniform vec4 CB5[74];
+uniform vec4 CB5[63];
 uniform sampler2D ShadowAtlasTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
@@ -121,10 +121,10 @@ void main()
     float f75 = max(f63.w - (f74 * f74), f70.y);
     float f76 = f68 - f74;
     vec3 f77 = normalize(f37);
-    float f78 = f28.y;
+    float f78 = 0.08900000154972076416015625 + (f28.y * 0.9110000133514404296875);
     float f79 = CB0[26].w * f38;
     vec3 f80 = reflect(-f77, f46);
-    vec3 f81 = normalize(f47 + f77);
+    vec3 f81 = normalize(f77 - CB0[11].xyz);
     float f82 = clamp((f48 * CB0[9].w) * (((f48 * CB0[47].x) > 0.0) ? mix(min((f67 <= f71) ? 1.0 : clamp(((f72 / (f72 + (f73 * f73))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f68 <= f74) ? 1.0 : clamp(((f75 / (f75 + (f76 * f76))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f58, clamp((length(f49 - CB0[7].xyz) * CB0[46].y) - (CB0[46].x * CB0[46].y), 0.0, 1.0)) : f58), 0.0, 1.0);
     float f83 = f78 * f78;
     float f84 = max(0.001000000047497451305389404296875, dot(f46, f81));

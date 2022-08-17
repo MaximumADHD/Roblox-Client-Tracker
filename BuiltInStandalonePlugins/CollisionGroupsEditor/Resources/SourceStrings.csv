@@ -15,3 +15,7 @@ Studio.CGE.Info.SelectAGroup,Select a group from the left side., ,Select a group
 Studio.CGE.Info.Groups,Groups,Labeling a counter for number of groups,Groups
 Studio.CGE.Info.CanCollideWith,"{1}" can collide with:, ,"{1}" can collide with:
 Studio.CGE.Info.NewGroupName,New Group Name,The placeholder text letting the user know they need to type a group name,New Group Name
+Studio.CGE.RenameWarningDialog.WarningMessage,Rename only works for BaseParts in datamodel. It will not change the collision group name for the BasePart instance in asset manager or toolbox.,A warning message informing users about new behavior when renaming collision groups,Rename only works for BaseParts in datamodel. It will not change the collision group name for the BasePart instance in asset manager or toolbox.
+Studio.CGE.RenameWarningDialog.DontShowThisWarningAgain,Don't show this warning again, ,Don't show this warning again
+Studio.CGE.RenameWarningDialog.DialogWindowTitle,Renaming Groups Has Changed, ,Renaming Groups Has Changed
+Studio.CGE.RenameWarningDialog.Ok,Ok, ,Ok

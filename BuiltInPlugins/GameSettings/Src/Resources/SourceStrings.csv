@@ -85,6 +85,7 @@ Studio.GameSettings.General.TitleDescription,Description, ,Description
 Studio.GameSettings.General.ClothingTShirt,T-Shirt ID, ,T-Shirt ID
 Studio.GameSettings.General.TitlePlayability,Playability, ,Playability
 Studio.GameSettings.General.TitleThumbnails,Screenshots & Videos, ,Screenshots & Videos
+Studio.GameSettings.Places.ConfigurePlace,Configure Place, ,Configure Place
 Studio.GameSettings.General.CategoryLocalization,Localization, ,Localization
 Studio.GameSettings.General.TitleGenre,Genre, ,Genre
 Studio.GameSettings.General.TitleHttp,Allow HTTP Requests, ,Allow HTTP Requests

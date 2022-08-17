@@ -51,7 +51,7 @@ void main()
     vec4 f16 = texture(SpecularMapTexture, f3 * CB2[1].w);
     vec4 f17 = texture(SpecularMapTexture, f3);
     vec4 f18 = mix(f16, f17, vec4(clamp((f2 * CB2[3].z) - (CB2[2].z * CB2[3].z), 0.0, 1.0)));
-    vec4 f19 = vec4((mix(vec3(1.0), VARYING2.xyz, vec3(mix(1.0, f4.w, CB2[3].w))) * f4.xyz) * (1.0 + (f15 * CB2[0].z)), VARYING2.w);
+    vec4 f19 = vec4((mix(vec3(1.0), VARYING2.xyz, vec3(mix(1.0, f4.w, CB2[3].w))) * f4.xyz) * (1.0 + (f15 * 0.20000000298023223876953125)), VARYING2.w);
     float f20 = gl_FrontFacing ? 1.0 : (-1.0);
     vec3 f21 = VARYING6.xyz * f20;
     vec3 f22 = VARYING5.xyz * f20;

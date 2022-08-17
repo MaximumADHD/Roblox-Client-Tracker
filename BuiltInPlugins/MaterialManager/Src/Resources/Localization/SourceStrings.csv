@@ -37,6 +37,9 @@ Studio.MaterialManager.CreateDialog.ErrorSelectMap,Failed to select Texture Map
 Studio.MaterialManager.CreateDialog.ErrorStudsPerTile,Studs Per Tile should be positive
 Studio.MaterialManager.CreateDialog.ErrorUploadFromFileMap,Failed to upload Texture Map
 Studio.MaterialManager.CreateDialog.ErrorUploadFromFileMapToLarge,Failed to upload: file is too large
+Studio.MaterialManager.CreateDialog.FailedToImportMap,Failed to import Texture Map
+Studio.MaterialManager.CreateDialog.FailedToUploadFromFileMap,Failed to upload: file is too large
+Studio.MaterialManager.CreateDialog.FailedUrl,Failed to find URL
 Studio.MaterialManager.CreateDialog.General,General
 Studio.MaterialManager.CreateDialog.Import,Import
 Studio.MaterialManager.CreateDialog.ImportColorMap,Color
@@ -44,6 +47,7 @@ Studio.MaterialManager.CreateDialog.ImportMetalnessMap,Metalness
 Studio.MaterialManager.CreateDialog.ImportNormalMap,Normal
 Studio.MaterialManager.CreateDialog.ImportRoughnessMap,Roughness
 Studio.MaterialManager.CreateDialog.InsertAssetURL,URL
+Studio.MaterialManager.CreateDialog.Location,Location
 Studio.MaterialManager.CreateDialog.MaterialPatternVariant,Material Pattern
 Studio.MaterialManager.CreateDialog.NameVariant,Name
 Studio.MaterialManager.CreateDialog.NoImageSelected,No Image Selected
@@ -59,6 +63,7 @@ Studio.MaterialManager.Import.RoughnessMapPreview,Roughness Map Preview
 Studio.MaterialManager.MaterialAdditional.Additional,Additional
 Studio.MaterialManager.MaterialAdditional.MaterialPattern,Material Pattern
 Studio.MaterialManager.MaterialAdditional.StudsPerTile,Studs Per Tile
+Studio.MaterialManager.MaterialGeneral.General,General
 Studio.MaterialManager.MaterialInformation.ClearOverride,Clear Override
 Studio.MaterialManager.MaterialInformation.ClearPartOverride,Clear Part Override
 Studio.MaterialManager.MaterialInformation.ClearTerrainOverride,Clear Terrain Override
@@ -74,8 +79,9 @@ Studio.MaterialManager.MaterialInformation.SetTerrainOverride,Set Terrain Overri
 Studio.MaterialManager.MaterialOverrides.MaterialOverride,Material Override
 Studio.MaterialManager.MaterialOverrides.MaterialOverrides,Material Overrides
 Studio.MaterialManager.MaterialOverrides.None,None
+Studio.MaterialManager.MaterialOverrides.Overrides,Overrides
 Studio.MaterialManager.MaterialOverrides.PartOverride,Part Override
-Studio.MaterialManager.MaterialOverrides.SetOverride,Set Override
+Studio.MaterialManager.MaterialOverrides.SetOverride,Set as Override
 Studio.MaterialManager.MaterialOverrides.TerrainOverride,Terrain Override
 Studio.MaterialManager.MaterialPatterns.Organic,Organic
 Studio.MaterialManager.MaterialPatterns.Regular,Regular
@@ -92,6 +98,9 @@ Studio.MaterialManager.MaterialTile.PartMaterial,Part Material
 Studio.MaterialManager.MaterialTile.PartVariant,Part Variant
 Studio.MaterialManager.MaterialTile.TerrainMaterial,Terrain Material
 Studio.MaterialManager.MaterialTile.TerrainVariant,Terrain Variant
+Studio.MaterialManager.MaterialTiling.Pattern,Pattern
+Studio.MaterialManager.MaterialTiling.StudsPerTile,Studs Per Tile
+Studio.MaterialManager.MaterialTiling.Tiling,Tiling
 Studio.MaterialManager.Materials.Air,Air
 Studio.MaterialManager.Materials.AirMaterial,Air Material
 Studio.MaterialManager.Materials.AirVariant,Air Variant

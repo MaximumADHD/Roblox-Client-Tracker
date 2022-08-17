@@ -62,6 +62,7 @@ Studio.AssetImporter.Properties.MeshHoleDetectedPreview,Not watertight
 Studio.AssetImporter.Properties.MetalnessFilePath,Metalness File Path
 Studio.AssetImporter.Properties.NoFilePath,No file provided
 Studio.AssetImporter.Properties.NormalFilePath,Normal File Path
+Studio.AssetImporter.Properties.OuterCageFarExtendedFromMeshPreview,Outer cage extends too far
 Studio.AssetImporter.Properties.PolygonCount,Polygon Count
 Studio.AssetImporter.Properties.RigType,Rig Type
 Studio.AssetImporter.Properties.RoughnessFilePath,Roughness File Path
@@ -90,6 +91,7 @@ Studio.AssetImporter.PropertiesTooltip.MergeMeshes,Combine sub meshes into one m
 Studio.AssetImporter.PropertiesTooltip.MeshHoleDetectedPreview,"The clothing mesh is not watertight, meaning there are holes in it. This could lead to issues with Hidden Surface Removal."
 Studio.AssetImporter.PropertiesTooltip.MetalnessFilePath,The file path of the metalness map. The metalness map is a grayscale image used to determine how metallic a surface should look
 Studio.AssetImporter.PropertiesTooltip.NormalFilePath,The file path of the normal map. The normal map is an RGB image used to enhance surface details for lighting
+Studio.AssetImporter.PropertiesTooltip.OuterCageFarExtendedFromMeshWarning,There are outer cage vertex(s) that are too far away from the clothing mesh. This will lead to issues when other clothing is layered on top.
 Studio.AssetImporter.PropertiesTooltip.PolygonCount,The total count of polygons in this object
 Studio.AssetImporter.PropertiesTooltip.RigType,The type of Rig to import
 Studio.AssetImporter.PropertiesTooltip.RoughnessFilePath,The file path of the roughness map. The roughness map is a grayscale image used to determine how light should be reflected off a surface
@@ -128,6 +130,8 @@ Studio.AssetImporter.Statuses.MeshScaleWarning,One of the objects dimensions are
 Studio.AssetImporter.Statuses.MeshSizeWarning,The number of triangles is greater than is supported. Object will be simplified.
 Studio.AssetImporter.Statuses.MetalnessBadFileFormatError,Unsupported metalness texture file format.
 Studio.AssetImporter.Statuses.NormalBadFileFormatError,Unsupported normal texture file format.
+Studio.AssetImporter.Statuses.OuterCageBloatingWarning,The average distance between the clothing and outer cage is too large. This will lead to bloating issues when other clothing is layered on top.
+Studio.AssetImporter.Statuses.OuterCageFarExtendedFromMeshWarning,There are outer cage vertex(s) that are too far away from the clothing mesh. This will lead to issues when other clothing is layered on top.
 Studio.AssetImporter.Statuses.RoughnessBadFileFormatError,Unsupported roughness texture file format.
 Studio.AssetImporter.Statuses.TextureBadFileFormatError,Unsupported texture file format.
 Studio.AssetImporter.Statuses.UGCExceedTextureSizeWarning,Textures exceeds the max texture size limit for UGC upload requirements.

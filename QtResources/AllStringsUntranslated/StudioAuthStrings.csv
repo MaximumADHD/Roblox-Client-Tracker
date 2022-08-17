@@ -9,3 +9,4 @@ Studio.Auth.AuthDialog.LoginError,Error message is shown when Studio fails to lo
 Studio.Auth.AuthDialog.RetryExternalBrowser,The text of the button for retrying the external login,Retry Browser Login,Retry Browser Login
 Studio.Auth.External.Login,The text for the external login button,Login via Browser,Login via Browser
 Studio.Auth.Try.Again,The text for retrying launching Studio login,Try Again,Try Again
+Studio.Auth.Original.Studio.Not.Found,Error message is shown when the original instance of Studio cannot be found during the external login flow,An error occurred while logging into Studio. Please do not close Studio during login.,An error occurred while logging into Studio. Please do not close Studio during login.

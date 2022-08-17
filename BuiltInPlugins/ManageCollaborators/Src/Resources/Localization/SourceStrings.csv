@@ -25,6 +25,7 @@ Studio.ManageCollaborators.PermissionLabels.Owner,Owner,Owner
 Studio.ManageCollaborators.Description.DiscardChanges,Would you like to discard all changes?,Would you like to discard all changes?
 Studio.ManageCollaborators.PermissionLabels.Multiple,(Multiple),(Multiple)
 Studio.ManageCollaborators.PermissionDescriptions.Edit,Can play and edit this game,Can play and edit this game
+Studio.ManageCollaborators.PermissionDescriptions.FriendToEdit,User must be a friend to edit,User must be a friend to edit
 Studio.ManageCollaborators.PermissionDescriptions.NoEditMustBeFriend,User must be a friend to edit,User must be a friend to edit
 Studio.ManageCollaborators.PermissionDescriptions.NoUserEditGroupGame,Must be in owner group to edit,Must be in owner group to edit
 Studio.ManageCollaborators.PermissionDescriptions.Admin,"Can play, edit, and manage this game","Can play, edit, and manage this game"

@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Params.h>
 uniform vec4 CB1[8];
-uniform vec4 CB6[32];
+uniform vec4 CB6[64];
 uniform sampler2D Texture0Texture;
 
 in vec2 VARYING0;
@@ -21,11 +21,16 @@ void main()
     float f7 = f6.x;
     vec4 f8 = texture(Texture0Texture, VARYING0 + vec2(0.0, -CB1[0].w));
     float f9 = f8.x;
-    int f10 = int(floor(((f1 > 0.0) ? f1 : max(max(f3, f5), max(f7, f9))) * 255.5));
-    vec4 f11 = CB6[f10 * 1 + 0];
-    f11.w = CB6[f10 * 1 + 0].w * CB6[f10 * 1 + 0].w;
-    int f12 = f10 + 32;
-    _entryPointOutput = mix(f11, vec4(CB6[f12 * 1 + 0].xyz, 1.0), vec4(clamp(255.0 * max(abs(f3 - f5), abs(f7 - f9)), 0.0, 1.0) * CB6[f12 * 1 + 0].w));
+    int f10 = int(floor(f1 * 255.5));
+    int f11 = int(floor(((f1 > 0.0) ? f1 : max(max(f3, f5), max(f7, f9))) * 255.5)) + 32;
+    vec3 f12 = CB6[f10 * 1 + 0].xyz * CB6[f10 * 1 + 0].w;
+    vec4 f13 = CB6[f10 * 1 + 0];
+    f13.x = f12.x;
+    vec4 f14 = f13;
+    f14.y = f12.y;
+    vec4 f15 = f14;
+    f15.z = f12.z;
+    _entryPointOutput = mix(f15, vec4(CB6[f11 * 1 + 0].xyz, 1.0), vec4(clamp(255.0 * max(abs(f3 - f5), abs(f7 - f9)), 0.0, 1.0) * CB6[f11 * 1 + 0].w));
 }
 
 //$$Texture0Texture=s0

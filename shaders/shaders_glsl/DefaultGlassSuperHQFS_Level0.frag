@@ -40,7 +40,7 @@ void main()
     f9.y = f7.y;
     vec2 f10 = f9.xy * f0;
     float f11 = f10.x;
-    vec3 f12 = (VARYING2.xyz * f2.xyz) * (1.0 + (f11 * CB2[0].z));
+    vec3 f12 = (VARYING2.xyz * f2.xyz) * (1.0 + (f11 * 0.20000000298023223876953125));
     float f13 = VARYING2.w * 2.0;
     float f14 = clamp((f13 - 1.0) + f2.w, 0.0, 1.0);
     float f15 = clamp(f13, 0.0, 1.0);

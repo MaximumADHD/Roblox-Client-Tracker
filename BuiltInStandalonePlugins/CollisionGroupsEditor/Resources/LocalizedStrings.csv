@@ -15,3 +15,7 @@ Studio.CGE.Info.SelectAGroup,Select a group from the left side.,Select a group f
 Studio.CGE.Info.Groups,Groups,Groups,Grupos,Groupes,Gruppi,グループ,그룹,Grupos, ,群组,群组,群組
 Studio.CGE.Info.CanCollideWith,"{1}" can collide with:,"{1}" can collide with:,"{1}" puede colisionar con:,"{1}" peut entrer en collision avec :,"{1}" può scontrarsi con:,「{1}」 は以下と衝突が可能:,'{1}'은(는) 다음과 충돌할 수 있음:,"{1}" pode colidir com:, ,“{1}”可以与下列项目碰撞：,“{1}”可以与下列项目碰撞：,「{1}」能與下列項目碰撞：
 Studio.CGE.Info.NewGroupName,New Group Name,New Group Name,Nombre del grupo,Nouveau nom de groupe,Nuovo Nome Gruppo,新規グループ名,새 그룹 이름,Novo nome do grupo, ,新群组名称,新群组名称,新群組名稱
+Studio.CGE.RenameWarningDialog.WarningMessage,Rename only works for BaseParts in datamodel. It will not change the collision group name for the BasePart instance in asset manager or toolbox.,Rename only works for BaseParts in datamodel. It will not change the collision group name for the BasePart instance in asset manager or toolbox., , , , , , , , , , 
+Studio.CGE.RenameWarningDialog.DontShowThisWarningAgain,Don't show this warning again,Don't show this warning again, , , , , , , , , , 
+Studio.CGE.RenameWarningDialog.DialogWindowTitle,Renaming Groups Has Changed,Renaming Groups Has Changed, , , , , , , , , , 
+Studio.CGE.RenameWarningDialog.Ok,Ok,Ok, , , , , , , , , , 

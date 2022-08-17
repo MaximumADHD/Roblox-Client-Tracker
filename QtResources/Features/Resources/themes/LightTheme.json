@@ -980,6 +980,16 @@
             "AlertIcon": {
                 "Default": ":/images/alert_icon_56px.png"
             }
+        },
+        {
+            "NotificationIcon": {
+                "Default": ":images/notification_light.png"
+            }
+        },
+        {
+            "NewNotificationAvailableIcon": {
+                "Default": ":images/newNotificationAvailable_light.png"
+            }
         }
     ],
     "Package": {

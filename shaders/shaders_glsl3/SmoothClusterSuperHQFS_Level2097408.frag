@@ -3,8 +3,8 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 uniform vec4 CB0[53];
-uniform vec4 CB4[36];
-uniform vec4 CB5[74];
+uniform vec4 CB4[63];
+uniform vec4 CB5[63];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
@@ -26,7 +26,7 @@ in vec3 VARYING6;
 in vec3 VARYING7;
 in vec4 VARYING8;
 in vec3 VARYING9;
-in vec4 VARYING10;
+in vec3 VARYING10;
 out vec4 _entryPointOutput;
 
 void main()
@@ -141,12 +141,12 @@ void main()
     vec4 f81 = texture(ShadowMapTexture, f72.xy);
     float f82 = f72.z;
     vec3 f83 = normalize(VARYING9);
-    float f84 = f28.y;
+    float f84 = 0.08900000154972076416015625 + (f28.y * 0.9110000133514404296875);
     float f85 = CB0[26].w * f63;
     vec3 f86 = reflect(-f83, f71);
     vec3 f87 = -CB0[11].xyz;
     float f88 = (dot(f71, f87) * CB0[9].w) * ((1.0 - ((step(f81.x, f82) * clamp(CB0[24].z + (CB0[24].w * abs(f82 - 0.5)), 0.0, 1.0)) * f81.y)) * f79.y);
-    vec3 f89 = normalize(f87 + f83);
+    vec3 f89 = normalize(f83 - CB0[11].xyz);
     float f90 = clamp(f88, 0.0, 1.0);
     float f91 = f84 * f84;
     float f92 = max(0.001000000047497451305389404296875, dot(f71, f89));

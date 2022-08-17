@@ -8,3 +8,5 @@ Studio.DeviceEmulator.GraphicsQuality.AutoGraphicsQualityLabel,Automatic Graphic
 Studio.DeviceEmulator.NetworkSettings.NetworkReplicationLagLabel,Network Replication Lag (seconds),Network Replication Lag (seconds)
 Studio.DeviceEmulator.NetworkSettings.NetworkReplicationLagNotNumberError,Must be a number,Must be a number
 Studio.DeviceEmulator.NetworkSettings.NetworkReplicationLagPlaceholder,0.5,0.5
+Studio.DeviceEmulator.MultiTouchPane.MultiTouchPaneLabel,Multi-Touch Emulation,Multi-Touch Emulation
+Studio.DeviceEmulator.MultiTouchPane.MultiTouchPaneCheckboxLabel,Enable,Enable

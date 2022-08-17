@@ -570,6 +570,7 @@ Studio.App.LoginManager.GetUserAgreementsFailure,,Failed to get user agreements.
 Studio.App.LoginManager.UserAgreementsAcceptanceFailure,,Failed to accept user agreements. Please try to login again or contact support if problem persists.,Failed to accept user agreements. Please try to login again or contact support if problem persists.
 Studio.App.LoginManager.UserAgreementsAcceptanceCancel,,Are you sure you want to cancel? This will log you out and close all other running instances of Studio.,Are you sure you want to cancel? This will log you out and close all other running instances of Studio.
 Studio.App.LoginManager.FailToFetchModerationInfo,,Fail to get moderation status. Please try to login again or contact support if problem persists.,Fail to get moderation status. Please try to login again or contact support if problem persists.
+Studio.App.TeamCreate.FailedToCreatePlace,,Failed to create new place,Failed to create new place
 Studio.App.TeamCreate.LoadingGame,,Loading game,Loading game
 Studio.App.TeamCreate.LoadingPlaceWithMissingName,,Loading place,Loading place
 Studio.App.TeamCreate.LoadingPlace1,,Loading place: %1,Loading place: %1
@@ -1142,6 +1143,7 @@ Studio.App.RBXMainWindow.HideOrientationIndicator,,Hide Orientation Indicator,Hi
 Studio.App.RBXMainWindow.ShowOrientationIndicatorTooltip,,Display surface direction information for objects,Display surface direction information for objects
 Studio.App.RBXMainWindow.GoToReferenceObject,,Go To Reference Object,Go To Reference Object
 Studio.App.RBXMainWindow.ChooseReferenceObject,,Choose Reference Object,Choose Reference Object
+Studio.App.RBXMainWindow.Baseplate,,Baseplate,Baseplate
 Studio.App.RobloxRibbonMainWindow.0Player,,0 Player,0 Player
 Studio.App.RobloxRibbonMainWindow.16Studs,,16 Studs,16 Studs
 Studio.App.RobloxRibbonMainWindow.1Player,,1 Player,1 Player
@@ -1642,6 +1644,9 @@ Studio.App.PackageService.PackageAPIError.UploadPrepFailed,,Failed to prepare in
 Studio.App.PackageService.PackageAPIError.LatestVersionFail,,Can't get selected package link latestVersionNum: data not available,Can't get selected package link latestVersionNum: data not available
 Studio.App.PackageService.PackageAPIError.VersionLowerBound,,VersionNumber cannot be less than 1,VersionNumber cannot be less than 1
 Studio.App.PackageService.PackageAPIError.VersionUpperBound.1,%1 is a number. e.g. VersionNumber cannot be greater than 45,VersionNumber cannot be greater than %1,VersionNumber cannot be greater than %1
+Studio.App.StudioPackageManager.PackageUnlinkOneConfirmation,,Making edits to this package will disable the ability to update it until those edits have been published or reverted.,Making edits to this package will disable the ability to update it until those edits have been published or reverted.
+Studio.App.StudioPackageManager.PackageUnlinkManyConfirmation1,%1 is a small number typically 2 or 3.,Making edits to %1 packages. You will not be able to update those packages until the edits are published or reverted.,Making edits to %1 packages. You will not be able to update those packages until the edits are published or reverted.
+Studio.App.StudioPackageManager.PackageUnlinkRevertButton,"The user modified a package, and we told them that this will have consequences. We're offering them a chance to avoid this by clicking a button and reverting the changes.",Revert Changes,Revert Changes
 Studio.App.PackageMassUpdate.MassUpdate,A function that enables developer to update package across places.,Mass Update,Mass Update
 Studio.App.PackageMassUpdate.UpdateDescription1,<b>%1</b> should not be translated. %1 is name of the package to be updated.,Update all <b>%1</b> copies in the following places of this game to,Update all <b>%1</b> copies in the following places of this game to
 Studio.App.PackageMassUpdate.Version,Version of a package,Version,Version

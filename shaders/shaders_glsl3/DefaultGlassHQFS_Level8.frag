@@ -45,7 +45,7 @@ void main()
     f10.y = f8.y;
     vec2 f11 = f10.xy * f0;
     float f12 = f11.x;
-    vec3 f13 = (VARYING2.xyz * f2.xyz) * (1.0 + (f12 * CB2[0].z));
+    vec3 f13 = (VARYING2.xyz * f2.xyz) * (1.0 + (f12 * 0.20000000298023223876953125));
     vec4 f14 = texture(SpecularMapTexture, f1 * CB2[1].w);
     vec4 f15 = texture(SpecularMapTexture, f1);
     float f16 = VARYING2.w * 2.0;

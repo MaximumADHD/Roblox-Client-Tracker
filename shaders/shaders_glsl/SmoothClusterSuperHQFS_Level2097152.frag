@@ -51,10 +51,10 @@ void main()
     vec4 f24 = mix(texture3D(LightGridSkylightTexture, f21), vec4(1.0), f22);
     vec4 f25 = texture2D(ShadowMapTexture, f19.xy);
     float f26 = f19.z;
-    float f27 = f8.y;
+    float f27 = 0.08900000154972076416015625 + (f8.y * 0.9110000133514404296875);
     vec3 f28 = -CB0[11].xyz;
     float f29 = (dot(f18, f28) * CB0[9].w) * ((1.0 - ((step(f25.x, f26) * clamp(CB0[24].z + (CB0[24].w * abs(f26 - 0.5)), 0.0, 1.0)) * f25.y)) * f24.y);
-    vec3 f30 = normalize(f28 + normalize(VARYING8));
+    vec3 f30 = normalize(normalize(VARYING8) - CB0[11].xyz);
     float f31 = clamp(f29, 0.0, 1.0);
     float f32 = f27 * f27;
     float f33 = max(0.001000000047497451305389404296875, dot(f18, f30));

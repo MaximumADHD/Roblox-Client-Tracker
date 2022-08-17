@@ -1,6 +1,8 @@
 Key,en-us
 Studio.DeviceEmulator.GraphicsQuality.AutoGraphicsQualityLabel,Automatic Graphics Quality
 Studio.DeviceEmulator.GraphicsQuality.GraphicsQualityLabel,Graphics Quality
+Studio.DeviceEmulator.MultiTouchPane.MultiTouchPaneCheckboxLabel,Enable
+Studio.DeviceEmulator.MultiTouchPane.MultiTouchPaneLabel,Multi-Touch Emulation
 Studio.DeviceEmulator.NetworkSettings.NetworkReplicationLagLabel,Network Replication Lag (seconds)
 Studio.DeviceEmulator.NetworkSettings.NetworkReplicationLagNotNumberError,Must be a number
 Studio.DeviceEmulator.NetworkSettings.NetworkReplicationLagPlaceholder,0.5

@@ -53,12 +53,12 @@ void main()
     vec4 f25 = texture(ShadowMapTexture, f16.xy);
     float f26 = f16.z;
     vec3 f27 = normalize(VARYING8);
-    float f28 = f5.y;
+    float f28 = 0.08900000154972076416015625 + (f5.y * 0.9110000133514404296875);
     float f29 = CB0[26].w * f14;
     vec3 f30 = reflect(-f27, f15);
     vec3 f31 = -CB0[11].xyz;
     float f32 = (dot(f15, f31) * CB0[9].w) * ((1.0 - ((step(f25.x, f26) * clamp(CB0[24].z + (CB0[24].w * abs(f26 - 0.5)), 0.0, 1.0)) * f25.y)) * f23.y);
-    vec3 f33 = normalize(f31 + f27);
+    vec3 f33 = normalize(f27 - CB0[11].xyz);
     float f34 = clamp(f32, 0.0, 1.0);
     float f35 = f28 * f28;
     float f36 = max(0.001000000047497451305389404296875, dot(f15, f33));
