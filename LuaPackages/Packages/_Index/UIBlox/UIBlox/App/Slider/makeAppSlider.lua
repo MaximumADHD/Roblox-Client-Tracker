@@ -211,6 +211,9 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 			NextSelectionDown = props.NextSelectionDown,
 			focusController = props.focusController,
 			customTrack = UIBloxConfig.enableSliderCustomization and props.customTrack or nil,
+			customKnobHeight = UIBloxConfig.enableSliderCustomization and props.customKnobHeight or nil,
+			customKnobBorderSize = UIBloxConfig.enableSliderCustomization and props.customKnobBorderSize or nil,
+			customKnobBorderColor = UIBloxConfig.enableSliderCustomization and props.customKnobBorderColor or nil,
 		}
 
 		if isTwoKnobs then

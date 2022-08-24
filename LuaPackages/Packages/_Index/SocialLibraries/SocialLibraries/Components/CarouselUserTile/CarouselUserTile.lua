@@ -10,12 +10,9 @@ local Interactable = UIBlox.Core.Control.Interactable
 local getUserAvatarImage = require(SocialLibraries.User.getUserAvatarImage)
 local PlayerName = require(script.Parent.PlayerName)
 local StyleTypes = require(script.Parent.StyleTypes)
-
+local Constants = require(script.Parent.Constants)
 
 local noOpt = function()end
-local TILE_SIZE: number = 100
-local PADDING_1: number = 8
-local PADDING_2: number = 2
 
 export type Buttons = {
 	icon: StyleTypes.Icon?,
@@ -27,7 +24,7 @@ export type Buttons = {
 export type Props = {
 	userId: string?,
 	userName: string?,
-	tileSize: number?,
+	tileSize: number,
 	layoutOrder: number?,
 
 	onActivatedTile: (() -> ())?,
@@ -43,9 +40,9 @@ export type Props = {
 }
 
 local defaultProps = {
-	tileSize = TILE_SIZE,
-	nameTopPadding = PADDING_1,
-	contextualTopPadding = PADDING_2,
+	tileSize = Constants.TILE_SIZE,
+	nameTopPadding = Constants.NAME_TOP_PADDING,
+	contextualTopPadding = Constants.CONTEXTUAL_TOP_PADDING,
 }
 
 local CarouselUserTile = function(passedProps: Props)
@@ -78,10 +75,10 @@ local CarouselUserTile = function(passedProps: Props)
 	local renderPlayerName = function()
 		return if props.renderPlayerName
 			then props.renderPlayerName()
-			else Roact.createElement(PlayerName, {
+			else props.userName and Roact.createElement(PlayerName, {
 				name = props.userName,
 				width = props.tileSize,
-			})
+			}) or nil
 	end
 
 	return Roact.createElement("Frame", {

@@ -13,6 +13,7 @@ export type UpdateUserSettingsQueryArgs = {
 export type RequestThunks = {
 	GetUserSettings: any,
 	UpdateUserSettings: any,
+	GetUserSettingsMetadata: any,
 }
 
 return {}

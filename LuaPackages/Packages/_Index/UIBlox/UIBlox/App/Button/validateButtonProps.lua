@@ -4,6 +4,7 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 local Core = UIBlox.Core
 
+local React = require(Packages.React)
 local t = require(Packages.t)
 
 local validateImage = require(Core.ImageSet.Validator.validateImage)
@@ -12,18 +13,19 @@ local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local StandardButtonSize = require(Core.Button.Enum.StandardButtonSize)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
+local isReactTagProp = require(UIBlox.Utility.isReactTagProp)
 
 -- standardSize and maxWidth are only allowed if UIBloxConfig.enableStandardButtonSizes is on
 -- These special functions let us flag the prop validation in way that dynamically checks the flag's value,
 -- which is good for tests which dynamically modify flags, instead of just checking the flag once on init.
-local standardSizeValidator = function(value)
+local function standardSizeValidator(value)
 	if UIBloxConfig.enableStandardButtonSizes then
 		return t.optional(enumerateValidator(StandardButtonSize))(value)
 	else
 		return value == nil
 	end
 end
-local maxWidthValidator = function(value)
+local function maxWidthValidator(value)
 	if UIBloxConfig.enableStandardButtonSizes then
 		return t.optional(t.numberPositive)(value)
 	else
@@ -32,6 +34,8 @@ local maxWidthValidator = function(value)
 end
 
 return t.strictInterface({
+	[React.Tag] = isReactTagProp,
+
 	-- The automatic size of the button
 	automaticSize = t.optional(t.EnumItem),
 

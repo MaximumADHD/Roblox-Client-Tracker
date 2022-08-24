@@ -52,6 +52,9 @@ local function makeAppOneKnobSlider(trackFillThemeKey)
 		customTrack = UIBloxConfig.enableSliderCustomization and t.optional(t.table) or nil,
 		customKnobColorLower = UIBloxConfig.enableSliderCustomization and t.optional(t.Color3) or nil,
 		customPressedKnobShadowTransparencyLower = UIBloxConfig.enableSliderCustomization and t.optional(t.number) or nil,
+		customKnobHeight = UIBloxConfig.enableSliderCustomization and t.optional(t.number) or nil,
+		customKnobBorderSize = UIBloxConfig.enableSliderCustomization and t.optional(t.number) or nil,
+		customKnobBorderColor = UIBloxConfig.enableSliderCustomization and t.optional(t.Color3) or nil,
 		--Internal Only - Don't Pass In
 		style = validateStyle
 	})
@@ -79,6 +82,9 @@ local function makeAppOneKnobSlider(trackFillThemeKey)
 			NextSelectionUp = props.NextSelectionUp,
 			NextSelectionDown = props.NextSelectionDown,
 			customTrack = UIBloxConfig.enableSliderCustomization and props.customTrack or nil,
+			customKnobHeight = UIBloxConfig.enableSliderCustomization and props.customKnobHeight or nil,
+			customKnobBorderColor = UIBloxConfig.enableSliderCustomization and props.customKnobBorderColor or nil,
+			customKnobBorderSize = UIBloxConfig.enableSliderCustomization and props.customKnobBorderSize or nil,
 			customKnobColorLower = UIBloxConfig.enableSliderCustomization and props.customKnobColorLower or nil,
 			customPressedKnobShadowTransparencyLower = UIBloxConfig.enableSliderCustomization and props.customPressedKnobShadowTransparencyLower or nil,
 		}

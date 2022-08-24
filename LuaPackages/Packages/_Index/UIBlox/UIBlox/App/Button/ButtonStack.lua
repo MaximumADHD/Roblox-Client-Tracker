@@ -87,6 +87,7 @@ function ButtonStack:render()
 		local buttonTable = {}
 		for colIndex, button in ipairs(buttons) do
 			local newProps = {
+				key = tostring(colIndex),
 				layoutOrder = isButtonStacked and (#buttons - colIndex) or colIndex,
 				size = buttonSize,
 			}
