@@ -301,6 +301,7 @@ DownSampleGlowTemporalLinear8x8FS,Fragment
 EnvGlassFS,Fragment
 FastConvDownsamplePS,Fragment
 FastConvolutionPS,Fragment
+FastConvolutionPSNew,Fragment
 FixUpCoCFS,Fragment
 FXCompositingFS,Fragment
 FXCompositingLinearFS,Fragment

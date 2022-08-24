@@ -37,6 +37,7 @@ Studio.AssetImporter.Properties.Anchored,Anchored,Anchored
 Studio.AssetImporter.Sections.FileGeometry,File Geometry,File Geometry
 Studio.AssetImporter.Properties.InsertInWorkspace,Insert In Workspace,Insert In Workspace
 Studio.AssetImporter.Properties.ImportName,Name,Name
+Studio.AssetImporter.Statuses.CageNameHasTypoWarning,"Cage name contains a typo, try renaming to {name}.","Cage name contains a typo, try renaming to {name}."
 Studio.AssetImporter.Sections.ObjectGeneral,Object General,Object General
 Studio.AssetImporter.Statuses.CouldNotReadTextureError,Could not read the texture file associated with this object.,Could not read the texture file associated with this object.
 Studio.AssetImporter.Sections.ObjectGeometry,Object Geometry,Object Geometry
@@ -104,6 +105,7 @@ Studio.AssetImporter.PropertiesTooltip.CageNonManifoldPreview,"This cage has non
 Studio.AssetImporter.HttpError.422,Name was moderated. Please rename and try again.,Name was moderated. Please rename and try again.
 Studio.AssetImporter.PropertiesTooltip.MetalnessFilePath,The file path of the metalness map. The metalness map is a grayscale image used to determine how metallic a surface should look,The file path of the metalness map. The metalness map is a grayscale image used to determine how metallic a surface should look
 Studio.AssetImporter.HttpError.429,Upload failed. Endpoint has too many requests - please try again later.,Upload failed. Endpoint has too many requests - please try again later.
+Studio.AssetImporter.Statuses.UnsupportedPreviewTextureType,".tga and .gif may not be visible in previews, they'll appear once uploaded. You may convert them to a different file type such as .png or .jpg to view them in the preview window.",".tga and .gif may not be visible in previews, they'll appear once uploaded. You may convert them to a different file type such as .png or .jpg to view them in the preview window."
 Studio.AssetImporter.HttpError.UnknownStatusCode,Upload failed. Status Code:,Upload failed. Status Code:
 Studio.AssetImporter.HttpError.UploadResultBadIdParse,Could not upload. Asset name may have been rejected by moderation.,Could not upload. Asset name may have been rejected by moderation.
 Studio.AssetImporter.Statuses.IncorrectR15Warning,This rig does not follow the guidelines of chosen rig type.,This rig does not follow the guidelines of chosen rig type.
@@ -155,3 +157,11 @@ Studio.AssetImporter.Statuses.UGCMaxMeshTrianglesWarning,Mesh exceeds the max tr
 Studio.AssetImporter.Statuses.UGCExceedTextureSizeWarning,Textures exceeds the max texture size limit for UGC upload requirements.,Textures exceeds the max texture size limit for UGC upload requirements.
 Studio.AssetImporter.Statuses.DeletedCageGeometryWarning,Some cage geometry has been removed. This will result in layering issues.,Some cage geometry has been removed. This will result in layering issues.
 Studio.AssetImporter.Statuses.CageNoGeoParentError,"Couldn't find geometry for cage, check your mesh names and spelling.","Couldn't find geometry for cage, check your mesh names and spelling."
+Studio.AssetImporter.PropertiesTooltip.OuterCageFarExtendedFromMeshWarning,There are outer cage vertex(s) that are too far away from the clothing mesh. This will lead to issues when other clothing is layered on top.,There are outer cage vertex(s) that are too far away from the clothing mesh. This will lead to issues when other clothing is layered on top.
+Studio.AssetImporter.Statuses.OuterCageFarExtendedFromMeshWarning,There are outer cage vertex(s) that are too far away from the clothing mesh. This will lead to issues when other clothing is layered on top.,There are outer cage vertex(s) that are too far away from the clothing mesh. This will lead to issues when other clothing is layered on top.
+Studio.AssetImporter.Statuses.OuterCageBloatingWarning,The average distance between the clothing and outer cage is too large. This will lead to bloating issues when other clothing is layered on top.,The average distance between the clothing and outer cage is too large. This will lead to bloating issues when other clothing is layered on top.
+Studio.AssetImporter.Properties.OuterCageFarExtendedFromMeshPreview,Outer cage extends too far,Outer cage extends too far
+Studio.AssetImporter.Statuses.AvatarCagesMissingWarning,Corresponding cage mesh is missing for this mesh. All R15 Body Parts must have a cage.,Corresponding cage mesh is missing for this mesh. All R15 Body Parts must have a cage.
+Studio.AssetImporter.Statuses.NoRefMeshForCageWarning,Could not find corresponding Geo Mesh for Cage Mesh.,Could not find corresponding Geo Mesh for Cage Mesh.
+Studio.AssetImporter.Statuses.NoRefMeshForCageWarningWithSuggestion,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {name}.,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {name}.
+Studio.AssetImporter.Statuses.InnerButNoOuterCageWarning,Inner Cage has no corresponding Outer Cage.,Inner Cage has no corresponding Outer Cage.

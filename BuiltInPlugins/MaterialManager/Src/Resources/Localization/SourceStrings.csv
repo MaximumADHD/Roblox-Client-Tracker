@@ -79,9 +79,8 @@ Studio.MaterialManager.MaterialInformation.SetTerrainOverride,Set Terrain Overri
 Studio.MaterialManager.MaterialOverrides.MaterialOverride,Material Override
 Studio.MaterialManager.MaterialOverrides.MaterialOverrides,Material Overrides
 Studio.MaterialManager.MaterialOverrides.None,None
-Studio.MaterialManager.MaterialOverrides.Overrides,Overrides
 Studio.MaterialManager.MaterialOverrides.PartOverride,Part Override
-Studio.MaterialManager.MaterialOverrides.SetOverride,Set as Override
+Studio.MaterialManager.MaterialOverrides.SetOverride,Set Override
 Studio.MaterialManager.MaterialOverrides.TerrainOverride,Terrain Override
 Studio.MaterialManager.MaterialPatterns.Organic,Organic
 Studio.MaterialManager.MaterialPatterns.Regular,Regular
@@ -212,6 +211,8 @@ Studio.MaterialManager.Materials.WoodPlanks,Wood Planks
 Studio.MaterialManager.Materials.WoodPlanksMaterial,Wood Planks Material
 Studio.MaterialManager.Materials.WoodPlanksVariant,Wood Planks Variant
 Studio.MaterialManager.Materials.WoodVariant,Wood Variant
+Studio.MaterialManager.OverrideSettings.Overrides,Overrides
+Studio.MaterialManager.OverrideSettings.SetOverride,Set as Override
 Studio.MaterialManager.Plugin.Button,Material Manager
 Studio.MaterialManager.Plugin.Name,Material Manager
 Studio.MaterialManager.TopBar.Apply,Apply to Selected Parts

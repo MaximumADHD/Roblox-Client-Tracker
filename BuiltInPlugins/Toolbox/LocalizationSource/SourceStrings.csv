@@ -155,10 +155,10 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.CategoryRecentVideos,Recent 
  ,Assets from unverified sources add more risk of malicious behavior or damage,Studio.Toolbox.AssetConfigPreview.Preview,Preview
  ,Preview,Studio.Toolbox.General.SearchOptionsIncludeUnverifiedTooltip,Unverified creators have not confirmed their real life identity via an ID or phone
  ,Unverified creators have not confirmed their real life identity via an ID or phone,Studio.Toolbox.General.SearchTagCreator,by:
- ,by:,Studio.Toolbox.General.TabMarketplace,Marketplace
- ,Marketplace,Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaRemaining2,{remaining} Marketplace shares left through {date}.
- ,{remaining} Marketplace shares left through {date}.,Studio.Toolbox.General.RightClickMenuCopyTextureID,Copy Texture ID
- ,Copy Texture ID,Studio.Toolbox.General.TabInventory,Inventory
+ ,by:,Studio.Toolbox.General.SearchTagIdUnverified,Show ID Unverified assets
+ ,Show ID Unverified assets,Studio.Toolbox.General.RightClickMenuCopyTextureID,Copy Texture ID
+ ,Copy Texture ID,Studio.Toolbox.General.TabMarketplace,Marketplace
+ ,Marketplace,Studio.Toolbox.General.TabInventory,Inventory
  ,Inventory,Studio.Toolbox.Audio.SoundEffect.Category.voices,Voices
  ,Voices,Studio.Toolbox.General.GoBack,Go Back
  ,Go Back,Studio.Toolbox.General.TabRecent,Recent
@@ -253,6 +253,7 @@ Studio.Toolbox.Audio.SoundEffect.Category.radio-fx,Radio FX, ,Radio FX
 Studio.Toolbox.General.StatusReviewPending,In Review, ,In Review
 Studio.Toolbox.ThumbnailStatus.InReview,In Review, ,In Review
 Studio.Toolbox.AssetUploadResult.Back,Back, ,Back
+Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaRemaining2,{remaining} shares left through {date}., ,{remaining} shares left through {date}.
 Studio.Toolbox.Audio.SoundEffect.Category.crowds,Crowds, ,Crowds
 Studio.Toolbox.Audio.SoundEffect.Category.marine,Marine, ,Marine
 Studio.Toolbox.General.StatusModerated,Rejected, ,Rejected
@@ -278,6 +279,7 @@ Studio.Toolbox.General.AssetTypeBackAccessory,Back Accessory, ,Back Accessory
 Studio.Toolbox.General.AssetTypeShirtAccessory,Shirt Accessory, ,Shirt Accessory
 Studio.Toolbox.General.AssetTypePantsAccessory,Pants Accessory, ,Pants Accessory
 Studio.Toolbox.General.AssetTypeJacketAccessory,Jacket Accessory, ,Jacket Accessory
+Studio.Toolbox.AssetConfigSharing.VerifyCurrentLimit,Current limit: {quotaText}, ,Current limit: {quotaText}
 Studio.Toolbox.General.AssetTypeSweaterAccessory,Sweater Accessory, ,Sweater Accessory
 Studio.Toolbox.General.AssetTypeLeftShoeAccessory,Left Shoe Accessory, ,Left Shoe Accessory
 Studio.Toolbox.Audio.SoundEffect.Category.sea-animals,Sea Animals, ,Sea Animals
@@ -313,6 +315,7 @@ Studio.Toolbox.Audio.SoundEffect.Category.insects,Insects, ,Insects
 Studio.Toolbox.General.SalesPriceRange,Price range: {minPrice} - {maxPrice}, ,Price range: {minPrice} - {maxPrice}
 Studio.Toolbox.ScriptWarning.DontShowAgain,Don't show this again., ,Don't show this again.
 Studio.Toolbox.General.SalesEarning,You earn: {earning}, ,You earn: {earning}
+Studio.Toolbox.General.SalesMaxPrice,The maximum price for this item type is {maxPrice}, ,The maximum price for this item type is {maxPrice}
 Studio.Toolbox.AssetConfigFooter.Override,Overwrite an existing asset..., ,Overwrite an existing asset...
 Studio.Toolbox.General.SideTabVersions,Versions, ,Versions
 Studio.Toolbox.General.SideTabGeneral,General, ,General
@@ -342,19 +345,18 @@ Studio.Toolbox.AssetConfigSharing.PublicDisabledInformation,Audio files cannot b
 Studio.Toolbox.AssetConfigSharing.PublicInformation,I certify that I am the creator of this asset. I agree that the asset may be shared and used by others on Roblox. This cannot be undone., ,I certify that I am the creator of this asset. I agree that the asset may be shared and used by others on Roblox. This cannot be undone.
 Studio.Toolbox.Audio.SoundEffect.Category.breaking,Breaking, ,Breaking
 Studio.Toolbox.AssetConfigSharing.PublicAllExperiences,Public - All Experiences, ,Public - All Experiences
-Studio.Toolbox.Audio.SoundEffect.Category.pops,Pops, ,Pops
-Studio.Toolbox.Audio.SoundEffect.Category.paper,Paper, ,Paper
 Studio.Toolbox.AssetConfigSharing.AllExperiences,All Experiences, ,All Experiences
 Studio.Toolbox.Audio.SoundEffect.Category.rockets,Rockets, ,Rockets
 Studio.Toolbox.AssetConfigSharing.AnyoneOnRoblox,Anyone on Roblox, ,Anyone on Roblox
 Studio.Toolbox.AssetConfigSharing.CheckStatus,Check Status, ,Check Status
+Studio.Toolbox.AssetConfigSharing.VerifyReason1,Maximize discoverability, ,Maximize discoverability
 Studio.Toolbox.Audio.SoundEffect.Category.spaceships,Spaceships, ,Spaceships
 Studio.Toolbox.AssetConfigSharing.ExperiencesWithAccess,Experiences with access, ,Experiences with access
 Studio.Toolbox.AssetConfigSharing.PrivateInformationVersionTwo,You can grant permissions to specific experiences on web asset configuration., ,You can grant permissions to specific experiences on web asset configuration.
 Studio.Toolbox.AssetConfigSharing.PrivateInformationLinkText,Manage permissions, ,Manage permissions
 Studio.Toolbox.Audio.SoundEffect.Category.technical,Technical, ,Technical
-Studio.Toolbox.AssetConfigSharing.PublicConfirmationTitle,Are you sure?, ,Are you sure?
 Studio.Toolbox.Audio.SoundEffect.Category.p-a-,P.A., ,P.A.
+Studio.Toolbox.AssetConfigSharing.PublicConfirmationTitle,Are you sure?, ,Are you sure?
 Studio.Toolbox.AssetConfigSharing.PublicConfirmationMessage,"Once shared with Anyone on Roblox, you cannot set it back to private.", ,"Once shared with Anyone on Roblox, you cannot set it back to private."
 Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaUnavailable,Marketplace sharing has been temporarily disabled., ,Marketplace sharing has been temporarily disabled.
 Studio.Toolbox.AudioView.AlbumArtist,Album/Artist, ,Album/Artist
@@ -364,14 +366,16 @@ Studio.Toolbox.AudioView.UploadedBy,Uploaded By, ,Uploaded By
 Studio.Toolbox.General.CategoryGroupPlugins,Group Plugins, ,Group Plugins
 Studio.Toolbox.Audio.SoundEffect.Category.fans-air-conditioning,Fans & Air Conditioning, ,Fans & Air Conditioning
 Studio.Toolbox.AssetConfigSharing.PrivateSpecificExperiences,Private - Specific Experiences, ,Private - Specific Experiences
-Studio.Toolbox.AssetConfigSharing.SpecificExperiences,Specific Experiences, ,Specific Experiences
 Studio.Toolbox.Audio.SoundEffect.Category.movement,Movement, ,Movement
+Studio.Toolbox.AssetConfigSharing.SpecificExperiences,Specific Experiences, ,Specific Experiences
 Studio.Toolbox.AssetConfigSharing.VerificationNotice,"To make audio assets public, you must first verify your identity. Use the Refresh button to update your Verification status.", ,"To make audio assets public, you must first verify your identity. Use the Refresh button to update your Verification status."
 Studio.Toolbox.General.CategoryVideos,Videos, ,Videos
 Studio.Toolbox.AssetConfigSharing.VerificationAction,ID Verify your account, ,ID Verify your account
 Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaUnused2,Share up to {capacity} assets per {days} days., ,Share up to {capacity} assets per {days} days.
 Studio.Toolbox.General.NoPluginsFound.TextLine2,"For more plugins, try searching in the {link} on our website.", ,"For more plugins, try searching in the {link} on our website."
 Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaExhausted1,Sharing limit exceeded. Try again on {dateTime}., ,Sharing limit exceeded. Try again on {dateTime}.
+Studio.Toolbox.AssetConfigSharing.VerifyYourAccount,Verify your account, ,Verify your account
+Studio.Toolbox.AssetConfigSharing.VerifyReason2,Increase Marketplace publishing limit, ,Increase Marketplace publishing limit
 Studio.Toolbox.AssetConfigVersions.Current,Current published version, ,Current published version
 Studio.Toolbox.AssetConfigVersions.Restore,Restore previous version, ,Restore previous version
 Studio.Toolbox.Audio.SoundEffect.Category.electric,Electric, ,Electric
@@ -542,9 +546,6 @@ Studio.Toolbox.Audio.SoundEffect.Category.doors,Doors, ,Doors
 Studio.Toolbox.Audio.SoundEffect.Category.drips,Drips, ,Drips
 Studio.Toolbox.Audio.SoundEffect.Category.earthquakes,Earthquakes, ,Earthquakes
 Studio.Toolbox.Audio.SoundEffect.Category.eating,Eating, ,Eating
-Studio.Toolbox.Audio.SoundEffect.Category.warps,Warps, ,Warps
-Studio.Toolbox.Audio.SoundEffect.Category.vehicles,Vehicles, ,Vehicles
-Studio.Toolbox.Audio.SoundEffect.Category.phonographs,Phonographs, ,Phonographs
 Studio.Toolbox.Audio.SoundEffect.Category.efforts,Efforts, ,Efforts
 Studio.Toolbox.Audio.SoundEffect.Category.energy,Energy, ,Energy
 Studio.Toolbox.Audio.SoundEffect.Category.rubber,Rubber, ,Rubber
@@ -575,6 +576,11 @@ Studio.Toolbox.Audio.SoundEffect.Category.liquid-fx,Liquid FX, ,Liquid FX
 Studio.Toolbox.Audio.SoundEffect.Category.military,Military, ,Military
 Studio.Toolbox.Audio.SoundEffect.Category.musical,Musical, ,Musical
 Studio.Toolbox.Audio.SoundEffect.Category.nautical,Nautical, ,Nautical
+Studio.Toolbox.Audio.SoundEffect.Category.pops,Pops, ,Pops
+Studio.Toolbox.Audio.SoundEffect.Category.paper,Paper, ,Paper
+Studio.Toolbox.Audio.SoundEffect.Category.warps,Warps, ,Warps
+Studio.Toolbox.Audio.SoundEffect.Category.vehicles,Vehicles, ,Vehicles
+Studio.Toolbox.Audio.SoundEffect.Category.phonographs,Phonographs, ,Phonographs
 Studio.Toolbox.Audio.SoundEffect.Category.pistols,Pistols, ,Pistols
 Studio.Toolbox.Audio.SoundEffect.Category.pottery,Pottery, ,Pottery
 Studio.Toolbox.Audio.SoundEffect.Category.pouring,Pouring, ,Pouring

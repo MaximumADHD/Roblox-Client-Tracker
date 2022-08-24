@@ -1501,6 +1501,7 @@ Studio.App.InsertObjectWidget.ExpandTooltip,,Toggle expanded view,Toggle expande
 Studio.App.InsertObjectCategory.FavoritesCategory,,Frequently Used,Frequently Used
 Studio.App.InsertObjectCategory.3DInterfaces,,3D Interfaces,3D Interfaces
 Studio.App.InsertObjectCategory.Adornments,,Adornments,Adornments
+Studio.App.InsertObjectCategory.Ads,,Ads,Ads
 Studio.App.InsertObjectCategory.Animations,,Animations,Animations
 Studio.App.InsertObjectCategory.Avatar,,Avatar,Avatar
 Studio.App.InsertObjectCategory.Constraints,,Constraints,Constraints
@@ -1644,8 +1645,7 @@ Studio.App.PackageService.PackageAPIError.UploadPrepFailed,,Failed to prepare in
 Studio.App.PackageService.PackageAPIError.LatestVersionFail,,Can't get selected package link latestVersionNum: data not available,Can't get selected package link latestVersionNum: data not available
 Studio.App.PackageService.PackageAPIError.VersionLowerBound,,VersionNumber cannot be less than 1,VersionNumber cannot be less than 1
 Studio.App.PackageService.PackageAPIError.VersionUpperBound.1,%1 is a number. e.g. VersionNumber cannot be greater than 45,VersionNumber cannot be greater than %1,VersionNumber cannot be greater than %1
-Studio.App.StudioPackageManager.PackageUnlinkOneConfirmation,,Making edits to this package will disable the ability to update it until those edits have been published or reverted.,Making edits to this package will disable the ability to update it until those edits have been published or reverted.
-Studio.App.StudioPackageManager.PackageUnlinkManyConfirmation1,%1 is a small number typically 2 or 3.,Making edits to %1 packages. You will not be able to update those packages until the edits are published or reverted.,Making edits to %1 packages. You will not be able to update those packages until the edits are published or reverted.
+Studio.App.StudioPackageManager.PackageUnlinkConfirmation,,Modifying packages will prevent you from updating them until you publish or revert the changes,Modifying packages will prevent you from updating them until you publish or revert the changes
 Studio.App.StudioPackageManager.PackageUnlinkRevertButton,"The user modified a package, and we told them that this will have consequences. We're offering them a chance to avoid this by clicking a button and reverting the changes.",Revert Changes,Revert Changes
 Studio.App.PackageMassUpdate.MassUpdate,A function that enables developer to update package across places.,Mass Update,Mass Update
 Studio.App.PackageMassUpdate.UpdateDescription1,<b>%1</b> should not be translated. %1 is name of the package to be updated.,Update all <b>%1</b> copies in the following places of this game to,Update all <b>%1</b> copies in the following places of this game to

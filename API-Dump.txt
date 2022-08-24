@@ -473,14 +473,6 @@ Class Breakpoint : Instance [NotReplicated]
 	Property bool Breakpoint.Enabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool Breakpoint.Valid {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool Breakpoint.Verified {RobloxScriptSecurity} [Hidden] [ReadOnly]
-Class BreakpointManager : Instance [NotCreatable] [Service] [NotReplicated]
-	Function Instance BreakpointManager:AddBreakpoint(Instance script, int line, Instance condition) {RobloxScriptSecurity}
-	Function MetaBreakpoint BreakpointManager:GetBreakpointById(int metaBreakpointId) {RobloxScriptSecurity}
-	Function void BreakpointManager:RemoveBreakpointById(int metaBreakpointId) {RobloxScriptSecurity}
-	Event BreakpointManager.MetaBreakpointAdded(MetaBreakpoint breakpoint) {RobloxScriptSecurity}
-	Event BreakpointManager.MetaBreakpointChanged(MetaBreakpoint breakpoint) {RobloxScriptSecurity}
-	Event BreakpointManager.MetaBreakpointRemoved(MetaBreakpoint breakpoint) {RobloxScriptSecurity}
-	Event BreakpointManager.MetaBreakpointSetChanged(MetaBreakpoint breakpoint, Dictionary detail) {RobloxScriptSecurity}
 Class BrowserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void BrowserService:CloseBrowserWindow() {RobloxScriptSecurity}
 	Function void BrowserService:CopyAuthCookieFromBrowserToEngine() {RobloxScriptSecurity}
@@ -1619,7 +1611,7 @@ Class SurfaceGuiBase : LayerCollector [NotCreatable]
 	Property bool SurfaceGuiBase.Active
 	Property Instance SurfaceGuiBase.Adornee
 	Property Enum.NormalId SurfaceGuiBase.Face
-Class AdGui : SurfaceGuiBase [NotCreatable]
+Class AdGui : SurfaceGuiBase [NotCreatable] [NotBrowsable]
 	Property Enum.AdShape AdGui.AdShape
 Class SurfaceGui : SurfaceGuiBase
 	Property float SurfaceGui.ZOffset
@@ -1929,7 +1921,7 @@ Class Humanoid : Instance
 	Event Humanoid.CustomStatusAdded(string status) [Deprecated]
 	Event Humanoid.CustomStatusRemoved(string status) [Deprecated]
 	Event Humanoid.Died()
-	Event Humanoid.EmoteTriggered(Tuple successAndTrackTuple) {RobloxScriptSecurity}
+	Event Humanoid.EmoteTriggered(bool success, AnimationTrack animationTrack) {RobloxScriptSecurity}
 	Event Humanoid.FallingDown(bool active)
 	Event Humanoid.FreeFalling(bool active)
 	Event Humanoid.GettingUp(bool active)
@@ -2383,7 +2375,6 @@ Class MaterialService : Instance [NotCreatable] [Service]
 	Property string MaterialService.WoodName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.WoodPlanksName {RobloxSecurity} [NotScriptable]
 	Property bool MaterialService.Use2022Materials {RobloxScriptSecurity} [NotReplicated]
-	Property bool MaterialService.hasPropertyWarningInStudio {RobloxSecurity} [Hidden] [ReadOnly]
 	Function string MaterialService:GetBaseMaterialOverride(Enum.Material material)
 	Function RBXScriptSignal MaterialService:GetMaterialOverrideChanged(Enum.Material material) {RobloxScriptSecurity}
 	Function MaterialVariant MaterialService:GetMaterialVariant(Enum.Material material, string name)
@@ -2461,6 +2452,14 @@ Class MetaBreakpoint : Instance [NotCreatable] [NotReplicated]
 	Function void MetaBreakpoint:SetEnabled(bool enabled) {RobloxScriptSecurity}
 	Function int MetaBreakpoint:SetLine(int line, Function status) {RobloxScriptSecurity}
 Class MetaBreakpointContext : Instance [NotCreatable] [NotReplicated]
+Class MetaBreakpointManager : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Instance MetaBreakpointManager:AddBreakpoint(Instance script, int line, Instance condition) {RobloxScriptSecurity}
+	Function MetaBreakpoint MetaBreakpointManager:GetBreakpointById(int metaBreakpointId) {RobloxScriptSecurity}
+	Function void MetaBreakpointManager:RemoveBreakpointById(int metaBreakpointId) {RobloxScriptSecurity}
+	Event MetaBreakpointManager.MetaBreakpointAdded(MetaBreakpoint breakpoint) {RobloxScriptSecurity}
+	Event MetaBreakpointManager.MetaBreakpointChanged(MetaBreakpoint breakpoint) {RobloxScriptSecurity}
+	Event MetaBreakpointManager.MetaBreakpointRemoved(MetaBreakpoint breakpoint) {RobloxScriptSecurity}
+	Event MetaBreakpointManager.MetaBreakpointSetChanged(MetaBreakpoint breakpoint, Dictionary detail) {RobloxScriptSecurity}
 Class Mouse : Instance [NotCreatable]
 	Property CFrame Mouse.Hit [ReadOnly]
 	Property Content Mouse.Icon
@@ -2637,6 +2636,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Event BasePart.StoppedTouching(BasePart otherPart) [Deprecated]
 	Event BasePart.TouchEnded(BasePart otherPart)
 	Event BasePart.Touched(BasePart otherPart)
+Class AdPortal : BasePart [NotCreatable]
 Class CornerWedgePart : BasePart
 Class FormFactorPart : BasePart [NotCreatable] [Deprecated]
 	Property Enum.FormFactor FormFactorPart.FormFactor [<📁> LoadOnly] [NotReplicated] [Deprecated]
@@ -2799,6 +2799,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property double Workspace.DistributedGameTime [NotReplicated]
 	Property Enum.StreamOutBehavior Workspace.StreamOutBehavior [NotScriptable]
 	Property bool Workspace.StreamingEnabled {✏️PluginSecurity}
+	Property Enum.StreamingIntegrityMode Workspace.StreamingIntegrityMode [NotScriptable]
 	Property int Workspace.StreamingMinRadius [NotScriptable]
 	Property Enum.StreamingPauseMode Workspace.StreamingPauseMode [NotScriptable]
 	Property int Workspace.StreamingTargetRadius [NotScriptable]
@@ -3514,10 +3515,12 @@ Class ScriptDocument : Instance [NotCreatable] [NotReplicated]
 	Function Tuple ScriptDocument:GetSelectionEnd() {PluginSecurity}
 	Function Tuple ScriptDocument:GetSelectionStart() {PluginSecurity}
 	Function string ScriptDocument:GetText(int? startLine = nil, int? startCharacter = nil, int? endLine = nil, int? endCharacter = nil) {PluginSecurity}
+	Function Tuple ScriptDocument:GetViewport() {PluginSecurity}
 	Function bool ScriptDocument:HasSelectedText() {PluginSecurity}
 	Function bool ScriptDocument:IsCommandBar() {PluginSecurity}
 	Function Tuple ScriptDocument:RequestSetSelectionAsync(int cursorLine, int cursorCharacter, int? anchorLine = nil, int? anchorCharacter = nil) {PluginSecurity} [Yields]
 	Event ScriptDocument.SelectionChanged(int64 positionLine, int64 positionCharacter, int64 anchorLine, int64 anchorCharacter) {PluginSecurity}
+	Event ScriptDocument.ViewportChanged(int64 startLine, int64 endLine) {PluginSecurity}
 Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ScriptDocument ScriptEditorService:FindScriptDocument(LuaSourceContainer script) {PluginSecurity}
 	Function Objects ScriptEditorService:GetScriptDocuments() {PluginSecurity}
@@ -3989,6 +3992,7 @@ Class StudioAssetService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioAssetService:ConvertToPackageUpload(string uploadUrl, Objects cloneInstances, Objects originalInstances) {RobloxScriptSecurity}
 	Function string StudioAssetService:SerializeInstances(Objects instances) {RobloxScriptSecurity} [Yields]
 	Event StudioAssetService.OnConvertToPackageResult(bool isSuccessful, string errorMessage) {RobloxScriptSecurity}
+	Event StudioAssetService.OnSaveToRoblox(Objects instances) {RobloxScriptSecurity}
 Class StudioData : Instance [NotCreatable] [Service]
 	Property bool StudioData.EnableScriptCollabByDefaultOnLoad {RobloxScriptSecurity} [Hidden]
 	Property int64 StudioData.SrcPlaceId {RobloxSecurity} [Hidden] [NotReplicated]
@@ -4641,6 +4645,7 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property Enum.VoiceChatState VoiceChatInternal.VoiceChatState [Hidden] [ReadOnly] [Deprecated]
 	Function string VoiceChatInternal:GetAndClearCallFailureMessage() {RobloxScriptSecurity} [Deprecated]
 	Function Tuple VoiceChatInternal:GetAudioProcessingSettings() [Deprecated]
+	Function string VoiceChatInternal:GetChannelId() {RobloxScriptSecurity}
 	Function string VoiceChatInternal:GetGroupId() {RobloxScriptSecurity}
 	Function Tuple VoiceChatInternal:GetMicDevices() [Deprecated]
 	Function Array VoiceChatInternal:GetParticipants() [Deprecated]
@@ -4712,8 +4717,6 @@ Enum ActuatorType
 	EnumItem ActuatorType.None : 0
 	EnumItem ActuatorType.Motor : 1
 	EnumItem ActuatorType.Servo : 2
-Enum AdFormat
-	EnumItem AdFormat.Image : 1
 Enum AdShape
 	EnumItem AdShape.HorizontalRectangle : 1
 Enum AdornCullingMode
@@ -4847,6 +4850,7 @@ Enum AssetType
 	EnumItem AssetType.EyebrowAccessory : 76
 	EnumItem AssetType.EyelashAccessory : 77
 	EnumItem AssetType.MoodAnimation : 78
+	EnumItem AssetType.DynamicHead : 79
 Enum AssetTypeVerification
 	EnumItem AssetTypeVerification.Default : 1
 	EnumItem AssetTypeVerification.ClientOnly : 2
@@ -4900,6 +4904,7 @@ Enum AvatarAssetType
 	EnumItem AvatarAssetType.EyebrowAccessory : 76
 	EnumItem AvatarAssetType.EyelashAccessory : 77
 	EnumItem AvatarAssetType.MoodAnimation : 78
+	EnumItem AvatarAssetType.DynamicHead : 79
 Enum AvatarContextMenuOption
 	EnumItem AvatarContextMenuOption.Friend : 0
 	EnumItem AvatarContextMenuOption.Chat : 1
@@ -6437,6 +6442,10 @@ Enum StreamOutBehavior
 	EnumItem StreamOutBehavior.Default : 0
 	EnumItem StreamOutBehavior.LowMemory : 1
 	EnumItem StreamOutBehavior.Opportunistic : 2
+Enum StreamingIntegrityMode
+	EnumItem StreamingIntegrityMode.Default : 0
+	EnumItem StreamingIntegrityMode.Disabled : 1
+	EnumItem StreamingIntegrityMode.MinimumRadiusPause : 2
 Enum StreamingPauseMode
 	EnumItem StreamingPauseMode.Default : 0
 	EnumItem StreamingPauseMode.Disabled : 1
@@ -6797,10 +6806,10 @@ Enum TrackerError
 	EnumItem TrackerError.InitFailed : 2
 	EnumItem TrackerError.NoVideo : 3
 	EnumItem TrackerError.VideoError : 4
-	EnumItem TrackerError.CameraPermission : 5
+	EnumItem TrackerError.VideoNoPermission : 5
 	EnumItem TrackerError.NoAudio : 6
 	EnumItem TrackerError.AudioError : 7
-	EnumItem TrackerError.MicPermission : 8
+	EnumItem TrackerError.AudioNoPermission : 8
 Enum TriStateBoolean
 	EnumItem TriStateBoolean.Unknown : 0
 	EnumItem TriStateBoolean.True : 1
