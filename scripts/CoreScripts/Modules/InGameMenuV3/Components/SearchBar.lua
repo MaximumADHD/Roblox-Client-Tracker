@@ -13,6 +13,7 @@ local Images = UIBlox.App.ImageSet.Images
 
 local InGameMenu = script.Parent.Parent
 local FFlagUsePageSearchAnimation = require(InGameMenu.Flags.GetFFlagUsePageSearchAnimation)()
+local FFlagSearchBarHidesSuggestions = require(InGameMenu.Flags.GetFFlagSearchBarHidesSuggestions)()
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local SEARCH_CONTAINER_PADDING = 9
@@ -209,6 +210,7 @@ function SearchBar:render()
 							),
 							Font = inputFontStyle.Font,
 							Text = self.props.text or "",
+							TextInputType = if FFlagSearchBarHidesSuggestions then Enum.TextInputType.NoSuggestions else Enum.TextInputType.Default,
 							TextSize = inputTextSize,
 							TextColor3 = style.Theme.TextEmphasis.Color,
 							TextXAlignment = Enum.TextXAlignment.Left,

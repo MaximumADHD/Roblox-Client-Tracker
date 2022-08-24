@@ -20,7 +20,7 @@ local isNewFriendsEndpointsEnabled = require(CorePackages.AppTempCommon.LuaChat.
 return function(requestImpl)
 
 	local url = string.format("%s/user/get-friendship-count?%s",
-		Url.API_URL, tostring(Players.LocalPlayer.UserId)
+		Url.API_URL, tostring((Players.LocalPlayer :: Player).UserId)
 	)
 
 	if isNewFriendsEndpointsEnabled() then

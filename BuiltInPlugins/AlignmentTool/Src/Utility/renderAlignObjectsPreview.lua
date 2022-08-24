@@ -1,7 +1,6 @@
 local Workspace = game:GetService("Workspace")
 
 local Plugin = script.Parent.Parent.Parent
-local plugin = Plugin.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 
@@ -123,10 +122,9 @@ local function renderAlignToAxis(displayElements, boundingBoxCenter, boundingBox
 	local worldDirection = boundingBoxCenter:VectorToWorldSpace(direction)
 	local halfSegment = 0.5 * segmentLength * worldDirection
 	local offsetOfPoint = boundingBoxCenter:PointToObjectSpace(point):Dot(direction)
-	
+
 	point = point - offsetOfPoint * worldDirection
 	local pointA = point - halfSegment
-	local pointB = point + halfSegment
 
 	local lineCFrame = CFrame.lookAt(point, pointA)
 
@@ -267,15 +265,15 @@ return function(objects, space, axes, mode, target)
 	local displayElements = {}
 
 	if axisCount == 3 then
-		renderAlignToPoint(displayElements, 
+		renderAlignToPoint(displayElements,
 			boundingBoxCenter, boundingBoxSize,
 			alignTargetPoint, getModifiedSize(getSmallestObjectSize(objectBoundingBoxes)))
 	elseif axisCount == 2 then
-		renderAlignToAxis(displayElements, 
+		renderAlignToAxis(displayElements,
 			boundingBoxCenter, boundingBoxSize,
 			alignTargetPoint, getDirection(axes), getModifiedSize(getSmallestObjectSize(objectBoundingBoxes)))
 	elseif axisCount == 1 then
-		renderAlignToPlane(displayElements, 
+		renderAlignToPlane(displayElements,
 			boundingBoxCenter, boundingBoxSize,
 			alignTargetPoint, getNormal(axes))
 	end

@@ -5,8 +5,6 @@ local Constants = require(PluginFolder.Src.Util.Constants)
 
 local module = {}
 
-local FFlagStudioDebuggerEnableAllContextsTogglingInEdit = game:GetFastFlag("StudioDebuggerEnableAllContextsTogglingInEdit")
-
 module.setBreakpointRowEnabled = function(bp, row, analytics, actionSource, connectionId)
 	local isEnabled = not row.item.isEnabled
 
@@ -26,7 +24,7 @@ module.setBreakpointRowEnabled = function(bp, row, analytics, actionSource, conn
 
 		local uiService = game:GetService("DebuggerUIService")
 		local editDM = false
-		if FFlagStudioDebuggerEnableAllContextsTogglingInEdit and connectionId and connectionId ~= Constants.kInvalidDebuggerConnectionId then
+		if connectionId and connectionId ~= Constants.kInvalidDebuggerConnectionId then
 			editDM = not uiService:IsConnectionForPlayDataModel(connectionId)
 		end
 

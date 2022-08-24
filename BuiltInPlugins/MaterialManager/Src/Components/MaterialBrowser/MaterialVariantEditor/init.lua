@@ -101,6 +101,7 @@ function MaterialVariantEditor:render()
 				TextureSettings = if materialVariant then
 					Roact.createElement(TextureSettings, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),
+						MaterialVariant = materialVariant,
 					})
 					else nil,
 				MaterialOverrides = if overrideSupport and not materialVariant then

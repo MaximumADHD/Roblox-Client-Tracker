@@ -42,7 +42,8 @@ Images.ENDORSED_BADGE_ICON = "rbxasset://textures/StudioToolbox/EndorsedBadge.pn
 Images.VERIFIED_CREATOR_BADGE_ICON = "rbxasset://textures/StudioToolbox/verified-badge-2x.png"
 Images.VERIFIED_CREATOR_BADGE_ICON_SMALL = "rbxasset://textures/StudioToolbox/verified-badge-sm-2x.png"
 
-Images.TOOLBOX_ICON = "rbxasset://textures/StudioToolbox/ToolboxIcon.png"
+Images.DEPRECATED_TOOLBOX_ICON = "rbxasset://textures/StudioToolbox/ToolboxIcon.png"
+Images.TOOLBOX_ICON = "rbxlocaltheme://Toolbox"
 
 Images.INFO_ICON = "rbxasset://textures/DevConsole/Info.png"
 

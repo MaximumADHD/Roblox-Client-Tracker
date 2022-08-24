@@ -25,6 +25,8 @@ return function()
 
 	local ISO_DATE_STRING = "2020-09-09T13:00:00Z"
 
+	local FFlagToolboxAllowDisablingCopyingAtQuota = game:GetFastFlag("ToolboxAllowDisablingCopyingAtQuota")
+
 	beforeAll(function()
 		oldGetAssetConfigDistributionQuotas = ToolboxUtilities.getAssetConfigDistributionQuotas
 		ToolboxUtilities.getAssetConfigDistributionQuotas = function()
@@ -54,14 +56,14 @@ return function()
 		ToolboxUtilities.getAssetConfigDistributionQuotas = oldGetAssetConfigDistributionQuotas
 	end)
 
-	local function renderTestInstance(assetType)
+	local function renderTestInstance(assetType, copyOff)
 		local element = Roact.createElement(MockWrapper, {
 			networkInterface = NetworkInterfaceMock.new(),
 			theme = AssetConfigTheme.createDummyThemeManager(),
 		}, {
 			ConfigCopy = Roact.createElement(ConfigCopy, {
 				AssetType = assetType or Enum.AssetType.Model,
-				CopyOn = true,
+				CopyOn = not copyOff,
 				CopyEnabled = true,
 				IsAssetPublic = true,
 			}),
@@ -134,15 +136,41 @@ return function()
 		assertToggleEnabled(container, true)
 	end)
 
-	it("should disable the toggle if out of quota", function()
-		fakeQuota = {
-			capacity = 10,
-			usage = 11,
-			expirationTime = ISO_DATE_STRING,
-			duration = "Month",
-		}
-		local instance, container = renderTestInstance()
+	if FFlagToolboxAllowDisablingCopyingAtQuota then
+		it("should disable the toggle if out of quota and not public already", function()
+			fakeQuota = {
+				capacity = 10,
+				usage = 11,
+				expirationTime = ISO_DATE_STRING,
+				duration = "Month",
+			}
+			local instance, container = renderTestInstance(nil, true)
+	
+			assertToggleEnabled(container, false)
+		end)
 
-		assertToggleEnabled(container, false)
-	end)
+		it("should enable the toggle if out of quota and public already", function()
+			fakeQuota = {
+				capacity = 10,
+				usage = 11,
+				expirationTime = ISO_DATE_STRING,
+				duration = "Month",
+			}
+			local instance, container = renderTestInstance()
+	
+			assertToggleEnabled(container, true)
+		end)
+	else
+		it("should disable the toggle if out of quota", function()
+			fakeQuota = {
+				capacity = 10,
+				usage = 11,
+				expirationTime = ISO_DATE_STRING,
+				duration = "Month",
+			}
+			local instance, container = renderTestInstance()
+	
+			assertToggleEnabled(container, false)
+		end)
+	end
 end

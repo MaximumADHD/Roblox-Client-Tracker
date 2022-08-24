@@ -1,3 +1,4 @@
+--!nonstrict
 local Root = script.Parent.Parent
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")

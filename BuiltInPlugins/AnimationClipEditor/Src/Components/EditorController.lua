@@ -80,8 +80,6 @@ local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
 local GetFFlagFaceControlsEditorFixNonChannelPath = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorFixNonChannelPath)
-local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
-local GetFFlagCreateAnimationFromVideoAnalytics2 = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAnalytics2)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 local GetFFlagFixSelectionRightArrow = require(Plugin.LuaFlags.GetFFlagFixSelectionRightArrow)
 local GetFFlagFixTrackListSelection = require(Plugin.LuaFlags.GetFFlagFixTrackListSelection)
@@ -188,9 +186,7 @@ function EditorController:init()
 	end
 
 	self.cancelCreateFromVideo = function()
-		if GetFFlagCreateAnimationFromVideoAnalytics2() then
-			self.props.Analytics:report("onAnimationEditorImportVideoUploadCancel")
-		end
+		self.props.Analytics:report("onAnimationEditorImportVideoUploadCancel")
 		self.hideAnimationImportProgress()
 	end
 
@@ -465,11 +461,7 @@ function EditorController:init()
 
 	self.promoteKeyframeSequence = function()
 		self.props.PromoteKeyframeSequence(self.props.Analytics)
-		if GetFFlagCurveAnalytics() then
-			self.props.SwitchEditorMode(Constants.EDITOR_MODE.CurveCanvas, self.props.Analytics)
-		else
-			self.props.SetEditorMode(Constants.EDITOR_MODE.CurveCanvas)
-		end
+		self.props.SwitchEditorMode(Constants.EDITOR_MODE.CurveCanvas, self.props.Analytics)
 	end
 end
 
@@ -813,7 +805,7 @@ function EditorController:render()
 
 		Playback = active and showEditor and Roact.createElement(Playback),
 		-- TODO: Maybe we can just put all of the screens in the FacialAnimationRecorder and present them through Portals
-		FacialAnimationRecorder = active and GetFFlagFacialAnimationRecordingInStudio() and (isInRecordMode or inReviewState) and Roact.createElement(FacialAnimationRecorder),	
+		FacialAnimationRecorder = active and GetFFlagFacialAnimationRecordingInStudio() and (isInRecordMode or inReviewState) and Roact.createElement(FacialAnimationRecorder),
 		RecordingModeCover = active and GetFFlagFacialAnimationRecordingInStudio() and isInRecordMode and Roact.createElement(RecordingModeCover),
 		InstanceSelector = active and Roact.createElement(InstanceSelector),
 
@@ -874,9 +866,7 @@ function EditorController:didMount()
 	local timelineUnit = props.ShowAsSeconds and "Seconds" or "Frames"
 	props.AttachEditor(props.Analytics)
 	props.Analytics:report("onEditorOpened", timelineUnit, false, snapMode)
-	if GetFFlagCurveAnalytics() then
-		self.props.SetEditorMode(Constants.EDITOR_MODE.DopeSheet)
-	end
+	self.props.SetEditorMode(Constants.EDITOR_MODE.DopeSheet)
 	self.openedTimestamp = os.time()
 end
 
@@ -886,9 +876,7 @@ function EditorController:willUnmount()
 		RigUtils.resetAllFacsValuesInFaceControls(props.RootInstance)
 	end
 	props.ReleaseEditor(props.Analytics)
-	if GetFFlagCurveAnalytics() then
-		props.Analytics:report("onEditorModeSwitch", props.EditorMode, nil, os.time() - props.EditorModeSwitchTime)
-	end
+	props.Analytics:report("onEditorModeSwitch", props.EditorMode, nil, os.time() - props.EditorModeSwitchTime)
 	props.Analytics:report("onEditorClosed", os.time() - self.openedTimestamp)
 end
 

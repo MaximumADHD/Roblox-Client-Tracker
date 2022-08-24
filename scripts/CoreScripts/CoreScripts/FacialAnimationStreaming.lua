@@ -12,6 +12,8 @@ if not FaceAnimatorService or not FacialAnimationStreamingService then
 end
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local TrackerMenu = require(RobloxGui.Modules.Tracker.TrackerMenu)
+local TrackerPromptType = require(RobloxGui.Modules.Tracker.TrackerPromptType)
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
 local playerAnimations = {}
@@ -21,6 +23,8 @@ local playerCharacterDescendantAddedConnections = {}
 local playerCharacterDescendantRemovingConnections = {}
 local playerJoinedChat = {}
 local playerJoinedGame = {}
+
+local trackerErrorConnection = nil
 
 local facialAnimationStreamingInited = false
 
@@ -237,6 +241,18 @@ function InitializeFacialAnimationStreaming()
 	facialAnimationStreamingInited = true
 	FaceAnimatorService.FlipHeadOrientation = true
 
+	-- Handle TrackerErrors
+	trackerErrorConnection = FaceAnimatorService.TrackerError:Connect(function(error)
+		playerTrace(string.format("TrackerError: %s", tostring(error)), nil)
+		if error == (Enum::any).TrackerError.VideoNoPermission then
+			TrackerMenu:showPrompt(TrackerPromptType.VideoNoPermission)
+		else
+			TrackerMenu:showPrompt(TrackerPromptType.NotAvailable)
+		end
+
+		-- TODO: what should happen after error? Disable facial streaming?
+	end)
+
 	InitializeVoiceChatServices()
 end
 
@@ -248,6 +264,11 @@ function CleanupFacialAnimationStreaming()
 	for _, player in ipairs(Players:GetPlayers()) do
 		playerJoinedGame[player.UserId] = nil
 		playerUpdate(player)
+	end
+
+	if trackerErrorConnection then
+		trackerErrorConnection:Disconnect()
+		trackerErrorConnection = nil
 	end
 
 	facialAnimationStreamingInited = false

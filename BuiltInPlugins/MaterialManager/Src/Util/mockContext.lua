@@ -25,6 +25,8 @@ local MaterialController = require(Controllers.MaterialController) -- Remove wit
 local MaterialServiceController = require(Controllers.MaterialServiceController)
 local PluginController = require(Controllers.PluginController)
 
+local getFFlagDeprecateMaterialController = require(Plugin.Src.Flags.getFFlagDeprecateMaterialController)
+
 -- New Plugin Setup: Populate contextItemsList with mocks
 
 local store = ContextServices.Store.new(Rodux.Store.new(MainReducer, nil, {
@@ -43,11 +45,14 @@ local contextItemsList = {
 	GeneralServiceController.mock(),
 	ImportAssetHandler.mock(imageUploader),
 	ImageLoader.mock(),
-	materialController,
 	MaterialServiceController.mock(store.store),
 	PluginController.mock(),
 	MakeTheme(true),
 }
+
+if not getFFlagDeprecateMaterialController() then
+	table.insert(contextItemsList, materialController)
+end
 
 return function (story)
 	assert(type(story) == "table", "Expected story to be a table")

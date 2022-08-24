@@ -120,11 +120,8 @@ return function(store)
 	local testThreadTwo = mockThreadState.new(2, scriptRef2, true)
 
 	local testPausedState1 = nil
-	if FFlagOnlyLoadOneCallstack() then
-		testPausedState1 = mockPausedState.new(Constants.DebuggerPauseReason.Requested, 2, true)
-	else
-		testPausedState1 = mockPausedState.new(Constants.DebuggerPauseReason.Requested, 1, true)
-	end
+
+	testPausedState1 = mockPausedState.new(Constants.DebuggerPauseReason.Requested, 1, true)
 	
 	local currentMockConnection = MockDebuggerConnection.new(1)
 	local mainConnectionManager = MockDebuggerConnectionManager.new()
@@ -154,12 +151,7 @@ return function(store)
 	local common = state.Common
 	local dst = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
 
-	local stepStateBundle1 = nil
-	if FFlagOnlyLoadOneCallstack() then
-		stepStateBundle1 = StepStateBundle.ctor(dst, 2, 1)
-	else
-		stepStateBundle1 = StepStateBundle.ctor(dst, 1, 1)
-	end
+	local stepStateBundle1 = StepStateBundle.ctor(dst, 1, 1)
 
 	store:dispatch(AddExpression("Expression 1"))
 	store:dispatch(ExpressionEvaluated(stepStateBundle1, expressionRow1))

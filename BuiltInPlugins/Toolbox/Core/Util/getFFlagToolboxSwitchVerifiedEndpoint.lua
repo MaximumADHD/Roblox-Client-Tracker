@@ -1,0 +1,5 @@
+local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
+local FFlagToolboxSwitchVerifiedEndpoint = game:GetFastFlag("ToolboxSwitchVerifiedEndpoint")
+
+-- NOTE FFlagToolboxSwitchVerifiedEndpoint is dependent on changes in FFlagToolboxEnableAssetConfigPhoneVerification
+return FFlagToolboxSwitchVerifiedEndpoint and FFlagToolboxEnableAssetConfigPhoneVerification

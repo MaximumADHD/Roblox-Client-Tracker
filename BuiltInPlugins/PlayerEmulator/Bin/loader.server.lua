@@ -5,9 +5,13 @@ if DebugFlags.RunningUnderCLI() then
 	return
 end
 
+local Framework = require(Plugin.Packages.Framework)
+local isHighDpiEnabled = Framework.Util.isHighDpiEnabled
+local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and isHighDpiEnabled()
+
 local RunService = game:GetService("RunService")
 
-local TOOLBAR_ICON_PATH = "rbxasset://textures/StudioPlayerEmulator/player_emulator_32.png"
+local TOOLBAR_ICON_PATH = if FFlagHighDpiIcons then "rbxlocaltheme://Player" else "rbxasset://textures/StudioPlayerEmulator/player_emulator_32.png"
 
 require(script.Parent.defineLuaFlags)
 local Constants = require(Plugin.Src.Util.Constants)

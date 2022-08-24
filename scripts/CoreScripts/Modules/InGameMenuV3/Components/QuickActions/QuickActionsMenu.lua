@@ -9,9 +9,12 @@ local IconButton = UIBlox.App.Button.IconButton
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local withStyle = UIBlox.Core.Style.withStyle
 
+local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
 local RunService = game:GetService("RunService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local Settings = UserSettings()
+local GameSettings = Settings.GameSettings
 
 local TrustAndSafety = require(RobloxGui.Modules.TrustAndSafety)
 
@@ -38,6 +41,7 @@ QuickActionsMenu.validateProps = t.strictInterface({
 	transparencies = t.table,
 	voiceEnabled = t.boolean,
 	respawnEnabled = t.boolean,
+	fullscreenEnabled = t.boolean,
 	screenshotEnabled = t.boolean,
 	size = t.UDim2,
 	automaticSize = t.enum(Enum.AutomaticSize),
@@ -92,26 +96,66 @@ function QuickActionsMenu:init()
 			ExperienceMenuABTestManager.default:setCSATQualification()
 		end
 	end
+
+	self:setState({
+		isFullScreen = GameSettings:InFullScreen()
+	})
+
+	GameSettings.FullscreenChanged:connect(function(isFullScreen)
+		self:setState({
+			isFullScreen = isFullScreen,
+		})
+	end)
+
+	self.toggleFullscreen = function()
+		GuiService:ToggleFullscreen()
+
+		SendAnalytics(
+			Constants.AnalyticsMenuActionName,
+			Constants.AnalyticsFullscreen,
+			{ source = Constants.AnalyticsQuickActionsMenuSource }
+		)
+		if IsMenuCsatEnabled() then
+			ExperienceMenuABTestManager.default:setCSATQualification()
+		end
+	end
 end
 
 local function updateHorizontalTransparency(props)
 	local transparency = {
-		respawn = props.transparencies.button5,
+		respawn = props.transparencies.button6,
+		fullscreen = props.transparencies.button5,
 		screenshot = props.transparencies.button4,
 		report = props.transparencies.button3,
 		muteAll = props.transparencies.button2,
 		muteSelf = props.transparencies.button1,
 	}
 	if props.respawnEnabled then
-		if not props.screenshotEnabled then
-			if props.voiceEnabled then
-				transparency.respawn = props.transparencies.button4
-				transparency.report = props.transparencies.button3
-				transparency.muteAll = props.transparencies.button2
-				transparency.muteSelf = props.transparencies.button1
-			else
-				transparency.respawn = props.transparencies.button2
-				transparency.report = props.transparencies.button1
+		if props.fullscreenEnabled then
+			if not props.screenshotEnabled then
+				if props.voiceEnabled then
+					transparency.respawn = props.transparencies.button5
+					transparency.fullscreen = props.transparencies.button4
+					transparency.report = props.transparencies.button3
+					transparency.muteAll = props.transparencies.button2
+					transparency.muteSelf = props.transparencies.button1
+				else
+					transparency.respawn = props.transparencies.button3
+					transparency.fullscreen = props.transparencies.button2
+					transparency.report = props.transparencies.button1
+				end
+			end
+		else
+			if not props.screenshotEnabled then
+				if props.voiceEnabled then
+					transparency.respawn = props.transparencies.button4
+					transparency.report = props.transparencies.button3
+					transparency.muteAll = props.transparencies.button2
+					transparency.muteSelf = props.transparencies.button1
+				else
+					transparency.respawn = props.transparencies.button2
+					transparency.report = props.transparencies.button1
+				end
 			end
 		end
 	else
@@ -227,12 +271,22 @@ function QuickActionsMenu:render()
 				onActivated = self.screenshot,
 				icon = Assets.Images.ScreenshotIcon,
 			}) or nil,
+			FullscreenButton = self.props.fullscreenEnabled and Roact.createElement(IconButton, {
+				iconTransparency = transparency.fullscreen,
+				backgroundTransparency = transparency.fullscreen,
+				backgroundColor = style.Theme.BackgroundUIDefault,
+				showBackground = true,
+				layoutOrder = 5,
+				onActivated = self.toggleFullscreen,
+				iconSize = IconSize.Medium,
+				icon = self.state.isFullScreen and Assets.Images.PreviewShrinkIcon or Assets.Images.PreviewExpandIcon,
+			}) or nil,
 			RespawnButton = self.props.respawnEnabled and Roact.createElement(IconButton, {
 				iconTransparency = transparency.respawn,
 				backgroundTransparency = transparency.respawn,
 				backgroundColor = style.Theme.BackgroundUIDefault,
 				showBackground = true,
-				layoutOrder = 5,
+				layoutOrder = 6,
 				onActivated = self.startRespawning,
 				iconSize = IconSize.Medium,
 				icon = Assets.Images.RespawnIcon,

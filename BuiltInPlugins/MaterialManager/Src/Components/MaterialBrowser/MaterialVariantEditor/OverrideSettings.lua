@@ -74,12 +74,13 @@ function OverrideSettings:render()
 		LayoutOrder = props.LayoutOrder,
 		ContentPadding = style.ContentPadding,
 		ContentSpacing = style.ItemSpacing,
-		Text = localization:getText("MaterialOverrides", "Overrides"),
+		Text = localization:getText("OverrideSettings", "Overrides"),
 		Style = style.CustomExpandablePane,
+		Expanded = true,
 	}, {
 		OverridesNew = Roact.createElement(LabeledElement, {
 			LabelColumnWidth = style.LabelColumnWidth,
-			Text = localization:getText("MaterialOverrides", "SetOverride"),
+			Text = localization:getText("OverrideSettings", "SetOverride"),
 		}, {
 			Button = Roact.createElement(Pane, {
 				AutomaticSize = Enum.AutomaticSize.XY,

@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Used to query ABTest data to run IXP experiments
 

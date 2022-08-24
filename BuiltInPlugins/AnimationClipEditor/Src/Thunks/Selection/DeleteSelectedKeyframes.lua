@@ -12,8 +12,6 @@ local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 local SelectionUtils = require(Plugin.Src.Util.SelectionUtils)
 
-local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
-
 return function(analytics)
 	return function(store)
 		local state = store:getState()
@@ -49,9 +47,7 @@ return function(analytics)
 						if dataTrack.Data and dataTrack.Data[keyframe] then
 							AnimationData.deleteKeyframe(dataTrack, keyframe)
 
-							if GetFFlagCurveAnalytics() then
-								analytics:report("onDeleteKeyframe", trackName, editorMode)
-							end
+							analytics:report("onDeleteKeyframe", trackName, editorMode)
 						end
 					end
 					if dataTrack.Data and not isEmpty(dataTrack.Data) then

@@ -1,7 +1,7 @@
 --!strict
 
-game:DefineFastFlag("UpgradeLuaProfileDepsToV300", false)
+game:DefineFastFlag("UpgradeLuaProfileDepsToV310", false)
 
 return function()
-	return game:GetFastFlag("UpgradeLuaProfileDepsToV300")
+	return game:GetFastFlag("UpgradeLuaProfileDepsToV310")
 end

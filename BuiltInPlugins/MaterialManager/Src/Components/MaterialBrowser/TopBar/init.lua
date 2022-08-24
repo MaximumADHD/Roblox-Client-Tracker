@@ -39,9 +39,6 @@ local ViewTypeSelector = require(TopBarComponents.ViewTypeSelector)
 
 local MaterialVariantEditor = require(Plugin.Src.Components.MaterialBrowser.MaterialVariantEditor)
 
-local getFFlagMaterialManagerAnalyticsMaterialAsTool = require(
-	Plugin.Src.Flags.getFFlagMaterialManagerAnalyticsMaterialAsTool
-)
 local getFFlagMaterialManagerVariantCreatorOverhaul = require(
 	Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
 
@@ -134,9 +131,7 @@ function TopBar:init()
 			props.PluginController:untoggleMaterialAsTool()
 		end
 
-		if getFFlagMaterialManagerAnalyticsMaterialAsTool() then
-			props.Analytics:report("materialAsTool")
-		end
+		props.Analytics:report("materialAsTool")
 	end
 
 	self.setSearch = function(search)

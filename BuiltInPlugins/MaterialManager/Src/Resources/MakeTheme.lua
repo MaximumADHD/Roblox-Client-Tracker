@@ -83,6 +83,14 @@ local function getPluginTheme()
 			DialogHeight = DialogHeight,
 		},
 
+		MaterialPreview = {
+			Ambient = Color3.new(0.274, 0.274, 0.274),
+			BackgroundColor = StyleKey.Button,
+			BackgroundColorHover = StyleKey.ButtonHover,
+			LightColor = Color3.new(1, 1, 1),
+			LightDirection = Vector3.new(-10, -10, 5),
+		},
+
 		MaterialVariantCreator = {
 			Background = StyleKey.ScrollingFrameBackgroundColor,
 			ListItemPadding = UDim.new(0, 12),

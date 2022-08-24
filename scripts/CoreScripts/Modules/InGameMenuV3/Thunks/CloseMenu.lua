@@ -1,5 +1,8 @@
 --!nonstrict
 local GuiService = game:GetService("GuiService")
+local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
+
+local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 
 local InGameMenu = script.Parent.Parent
 local SocialDependencies = require(InGameMenu.SocialDependencies)
@@ -9,7 +12,6 @@ local Constants = require(InGameMenu.Resources.Constants)
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local RoduxShareLinks = SocialDependencies.RoduxShareLinks
 local ClearShareInviteLink = RoduxShareLinks.Actions.ClearShareInviteLink
-local PerfUtils = require(InGameMenu.Utility.PerfUtils)
 
 local GetFFlagShareInviteLinkContextMenuV3Enabled = require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
 return function(store)

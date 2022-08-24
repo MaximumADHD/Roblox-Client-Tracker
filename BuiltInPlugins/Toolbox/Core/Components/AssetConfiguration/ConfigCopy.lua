@@ -4,7 +4,7 @@
 	Props:
 	ToggleCallback, function, will return current selected statue if toggled.
 ]]
-
+local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
 local FStringToolboxAssetConfigDisabledAudioSharingLearnMoreLink = game:GetFastString(
 	"ToolboxAssetConfigDisabledAudioSharingLearnMoreLink"
 )
@@ -13,13 +13,15 @@ local FStringToolboxAssetConfigEnabledAudioSharingLearnMoreLink = game:GetFastSt
 )
 
 local FFlagUnifyModelPackagePublish = game:GetFastFlag("UnifyModelPackagePublish")
+local FFlagToolboxAllowDisablingCopyingAtQuota = game:GetFastFlag("ToolboxAllowDisablingCopyingAtQuota")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
+local Cryo = require(Packages.Cryo)
 local Framework = require(Packages.Framework)
 local Roact = require(Packages.Roact)
-local Cryo = require(Packages.Cryo)
+local RoactRodux = require(Packages.RoactRodux)
 
 local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
 
@@ -36,10 +38,13 @@ local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local ContextGetter = require(Util.ContextGetter)
 local getNetwork = ContextGetter.getNetwork
+local Urls = require(Util.Urls)
+local sanitizeRichText = require(Util.sanitizeRichText)
 
 local Dash = Framework.Dash
 local TextLabel = Framework.UI.Decoration.TextLabel
 local LinkText = Framework.UI.LinkText
+local List = Framework.UI.List
 local Pane = Framework.UI.Pane
 local ToggleButton = Framework.UI.ToggleButton
 local StyleModifier = Framework.Util.StyleModifier
@@ -60,6 +65,9 @@ local ERROR_TEXT_SPACING = 10
 local TIPS_SPACING = 10
 
 local WARNING_TIME_IN_SECONDS = 5
+local VERIFY_BULLET_INDENTATION = 10
+local VERIFY_BULLET_SPACING = 10
+local CURRENT_LIMIT_INDENTATION = 15
 
 function ConfigCopy:init(props)
 	self.warningCountdown = 0
@@ -68,10 +76,18 @@ function ConfigCopy:init(props)
 	}
 
 	self.onLearnMoreActivated = function(rbx, inputObject)
-		if self.props.CopyEnabled then
-			GuiService:OpenBrowserWindow(FStringToolboxAssetConfigEnabledAudioSharingLearnMoreLink)
+		if FFlagToolboxEnableAssetConfigPhoneVerification then
+			if self.props.CopyEnabled then
+				GuiService:OpenBrowserWindow(ToolboxUtilities.getSafetyLearnMoreUrl())
+			else
+				GuiService:OpenBrowserWindow(ToolboxUtilities.getAudioPrivacyLearnMoreUrl())
+			end
 		else
-			GuiService:OpenBrowserWindow(FStringToolboxAssetConfigDisabledAudioSharingLearnMoreLink)
+			if self.props.CopyEnabled then
+				GuiService:OpenBrowserWindow(FStringToolboxAssetConfigEnabledAudioSharingLearnMoreLink)
+			else
+				GuiService:OpenBrowserWindow(FStringToolboxAssetConfigDisabledAudioSharingLearnMoreLink)
+			end
 		end
 	end
 
@@ -121,6 +137,45 @@ function ConfigCopy:init(props)
 
 		GuiService:OpenBrowserWindow(quotaPolicyForAssetType.link)
 	end
+	
+	if FFlagToolboxEnableAssetConfigPhoneVerification then
+		self.onClickVerifyLink = function()
+			GuiService:OpenBrowserWindow(ToolboxUtilities.getVerificationDocumentationUrl())
+		end
+
+		-- TODO: Replace with DF List when it's available
+		self.getListBullets = function(textList)
+			local theme = self.props.Stylizer
+			local publishAssetTheme = theme.publishAsset
+
+			local list = {}
+			for i,text in ipairs(textList) do
+				list[text] = Roact.createElement(Pane, {
+					AutomaticSize = Enum.AutomaticSize.XY,
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
+					Layout = Enum.FillDirection.Horizontal,
+					LayoutOrder = i,
+					Spacing = VERIFY_BULLET_SPACING,
+				}, {
+					Bullet = Roact.createElement(TextLabel, {
+						AutomaticSize = Enum.AutomaticSize.XY,
+						Text = "•",
+						TextColor = publishAssetTheme.verifyTextColor,
+						TextSize = Constants.FONT_SIZE_LARGE,
+					}),
+
+					Text = Roact.createElement(TextLabel, {
+						AutomaticSize = Enum.AutomaticSize.XY,
+						Text = text,
+						TextColor = publishAssetTheme.verifyTextColor,
+						TextSize = Constants.FONT_SIZE_LARGE,
+					}),
+				})
+			end
+
+			return list
+		end
+	end
 end
 
 function ConfigCopy:didMount(prevProps, prevState)
@@ -128,7 +183,8 @@ function ConfigCopy:didMount(prevProps, prevState)
 		local timeSignal = game:GetService("RunService").Heartbeat
 		self.connection = timeSignal:connect(function(dt)
 			self:setState(function(state)
-				if self.copyWarning ~= Cryo.None then
+				local copyWarning = if FFlagToolboxEnableAssetConfigPhoneVerification then state.copyWarning else self.copyWarning
+				if copyWarning ~= Cryo.None then
 					self.warningCountdown -= dt
 					if self.warningCountdown <= 0 then
 						return {
@@ -241,12 +297,12 @@ function ConfigCopy:updateDistributionQuotas()
 		end)
 end
 
-function ConfigCopy:getDistributionQuotaStatus()
+function ConfigCopy:getDistributionQuotaStatus(showVerifiedText)
 	local props = self.props
 	local state = self.state
 	local publishingEnabled: boolean = true
 	local quotaMessageText: string
-	local quotaLinkText: string
+	local quotaLinkText: string -- TODO Remove with FFlagToolboxEnableAssetConfigPhoneVerification
 	local assetType = props.AssetType
 
 	local quotaPolicyForAssetType = assetType and self.distributionQuotaPolicy[assetType.Name]
@@ -260,6 +316,9 @@ function ConfigCopy:getDistributionQuotaStatus()
 		if capacity < 1 then
 			publishingEnabled = false
 			quotaMessageText = props.Localization:getText("AssetConfigSharing", "DistributeMarketplaceQuotaUnavailable")
+			if FFlagToolboxEnableAssetConfigPhoneVerification then
+				showVerifiedText = false
+			end
 		elseif usage == 0 then
 			quotaMessageText = props.Localization:getText("AssetConfigSharing", "DistributeMarketplaceQuotaUnused2", {
 				capacity = string.format("%d", capacity),
@@ -288,13 +347,12 @@ function ConfigCopy:getDistributionQuotaStatus()
 					}
 				)
 		end
-
-		if quotaPolicyForAssetType.link then
+		if not FFlagToolboxEnableAssetConfigPhoneVerification and quotaPolicyForAssetType.link then
 			quotaLinkText = props.Localization:getText("AssetConfigSharing", "DistributeMarketplaceQuotaInfoShortLink")
 		end
 	end
 
-	return publishingEnabled, quotaMessageText, quotaLinkText
+	return publishingEnabled, quotaMessageText, quotaLinkText, showVerifiedText
 end
 
 function ConfigCopy:render()
@@ -309,21 +367,55 @@ function ConfigCopy:render()
 	local CopyOn = props.CopyOn
 	local CopyEnabled = props.CopyEnabled
 	local isAssetPublic = props.IsAssetPublic
+	local isVerified = props.isVerified
+	local verificationSupportedTypes = props.verificationSupportedTypes
 
 	local copyWarning = state.copyWarning
 
 	local publishAssetTheme = theme.publishAsset
 
+	local showVerifiedText
+	if FFlagToolboxEnableAssetConfigPhoneVerification then
+		showVerifiedText = not isVerified and #verificationSupportedTypes > 0
+	end
 	local quotaMessageText
-	local quotaLinkText
+	local quotaLinkText -- TODO Remove with FFlagToolboxEnableAssetConfigPhoneVerification
 
 	if assetType and (CopyEnabled or FFlagUnifyModelPackagePublish) then
 		local publishingEnabled
-		publishingEnabled, quotaMessageText, quotaLinkText = self:getDistributionQuotaStatus()
+		publishingEnabled, quotaMessageText, quotaLinkText, showVerifiedText = self:getDistributionQuotaStatus(showVerifiedText)
 
 		if not publishingEnabled then
-			CopyEnabled = false
+			-- Allow un-publishing, but not publishing
+			CopyEnabled = if FFlagToolboxAllowDisablingCopyingAtQuota then CopyOn else false
 		end
+	end
+
+	local showSharesLeftAlone = if FFlagToolboxEnableAssetConfigPhoneVerification then quotaMessageText and quotaMessageText ~= "" else nil
+	local verifyHeaderText
+	local verifyReasonList
+	local currentLimitText
+	if FFlagToolboxEnableAssetConfigPhoneVerification then
+		if not isVerified then
+			showSharesLeftAlone = false
+		end
+		verifyHeaderText = props.Localization:getText("AssetConfigSharing", "VerifyYourAccount")
+
+		local verifyQuotaTextWithColor
+		if quotaMessageText then
+			verifyQuotaTextWithColor = '<font color="#'
+				.. sanitizeRichText(publishAssetTheme.quotaTextColor:ToHex())
+				.. '">'
+				.. sanitizeRichText(quotaMessageText)
+				.. "</font>"
+			currentLimitText = props.Localization:getText("AssetConfigSharing", "VerifyCurrentLimit", {
+				quotaText = verifyQuotaTextWithColor or "",
+			})
+		end
+
+		local verifyReason1 = props.Localization:getText("AssetConfigSharing", "VerifyReason1")
+		local verifyReason2 = props.Localization:getText("AssetConfigSharing", "VerifyReason2")
+		verifyReasonList = self.getListBullets({ verifyReason1, verifyReason2 })
 	end
 
 	local localization = props.Localization
@@ -337,6 +429,7 @@ function ConfigCopy:render()
 			informationText = localization:getText("AssetConfigCopy", "DistributeAgreement")
 		else
 			informationText = localization:getText("AssetConfigCopy", "TemporarilyDisabledMessage")
+			showVerifiedText = if FFlagToolboxEnableAssetConfigPhoneVerification then false else nil
 		end
 	end
 
@@ -344,11 +437,9 @@ function ConfigCopy:render()
 
 	return Roact.createElement("Frame", {
 		AutomaticSize = Enum.AutomaticSize.Y,
-		Size = UDim2.new(1, 0, 0, TOGGLE_BUTTON_HEIGHT + LINK_BUTTON_HEIGHT + 10),
-
 		BackgroundTransparency = 1,
-		BorderSizePixel = 0,
-
+		BorderSizePixel = if FFlagToolboxEnableAssetConfigPhoneVerification then nil else 0,
+		Size = UDim2.new(1, 0, 0, TOGGLE_BUTTON_HEIGHT + LINK_BUTTON_HEIGHT + 10),
 		LayoutOrder = LayoutOrder,
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
@@ -361,11 +452,9 @@ function ConfigCopy:render()
 
 		Title = Roact.createElement("TextLabel", {
 			AutomaticSize = Enum.AutomaticSize.Y,
-			Size = UDim2.new(0, AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, TITLE_HEIGHT),
-
 			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-
+			BorderSizePixel = if FFlagToolboxEnableAssetConfigPhoneVerification then nil else 0,
+			Size = UDim2.new(0, AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, TITLE_HEIGHT),
 			Text = Title,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Top,
@@ -379,11 +468,9 @@ function ConfigCopy:render()
 
 		RightFrame = Roact.createElement("Frame", {
 			AutomaticSize = Enum.AutomaticSize.Y,
-			Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, 0),
-
 			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-
+			BorderSizePixel = if FFlagToolboxEnableAssetConfigPhoneVerification then nil else 0,
+			Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, 0),
 			LayoutOrder = 2,
 		}, {
 			UIPadding = Roact.createElement("UIPadding", {
@@ -439,7 +526,53 @@ function ConfigCopy:render()
 					else nil,
 			}),
 
-			QuotaInfo = if quotaMessageText or quotaLinkText
+			VerifyNotice = if FFlagToolboxEnableAssetConfigPhoneVerification and showVerifiedText then
+				Roact.createElement(Pane, {
+					AutomaticSize = Enum.AutomaticSize.XY,
+						HorizontalAlignment = Enum.HorizontalAlignment.Left,
+						Layout = Enum.FillDirection.Vertical,
+						LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
+						Padding = {
+							Top = 5,
+							Bottom = 5,
+						},
+				}, {
+					VerifyNoticeHeader = Roact.createElement(LinkText, {
+						Text = verifyHeaderText,
+						OnClick = self.onClickVerifyLink,
+						LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
+					}),
+
+					-- TODO: Replace with DF List when it's available
+					VerifyReasonList = Roact.createElement(Pane, {
+						AutomaticSize = Enum.AutomaticSize.XY,
+						HorizontalAlignment = Enum.HorizontalAlignment.Left,
+						Layout = Enum.FillDirection.Vertical,
+						LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
+						Padding = {
+							Left = VERIFY_BULLET_INDENTATION,
+						},
+					}, verifyReasonList),
+
+					CurrentLimitText = if quotaMessageText then Roact.createElement(Pane, {
+						AutomaticSize = Enum.AutomaticSize.XY,
+						LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
+						Padding = {
+							Left = CURRENT_LIMIT_INDENTATION,
+						},
+					}, {
+						Text = Roact.createElement(TextLabel, {
+							AutomaticSize = Enum.AutomaticSize.XY,
+							RichText = true,
+							Text = currentLimitText,
+							TextColor = publishAssetTheme.verifyTextColor,
+							TextSize = Constants.FONT_SIZE_LARGE,
+						}),
+					}) else nil,
+				})
+			else nil,
+
+				QuotaInfo = if quotaMessageText or quotaLinkText
 				then Roact.createElement(Pane, {
 					AutomaticSize = Enum.AutomaticSize.XY,
 					Layout = Enum.FillDirection.Vertical,
@@ -450,7 +583,7 @@ function ConfigCopy:render()
 						Bottom = 5,
 					},
 				}, {
-					QuotaMessage = if quotaMessageText
+					QuotaMessage = if showSharesLeftAlone
 						then Roact.createElement("TextLabel", {
 							AutomaticSize = Enum.AutomaticSize.XY,
 							BackgroundTransparency = 1,
@@ -462,7 +595,7 @@ function ConfigCopy:render()
 							LayoutOrder = 1,
 						})
 						else nil,
-					QuotaLink = if quotaLinkText
+					QuotaLink = if not FFlagToolboxEnableAssetConfigPhoneVerification and quotaLinkText
 						then Roact.createElement(LinkText, {
 							Text = quotaLinkText,
 							OnClick = self.onQuotaLinkActivated,
@@ -501,4 +634,22 @@ ConfigCopy = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(ConfigCopy)
 
-return ConfigCopy
+local mapStateToProps
+if FFlagToolboxEnableAssetConfigPhoneVerification then
+	mapStateToProps = function(state, props)
+		state = state or {}
+		local publishingRequirements = state.publishingRequirements or {}
+		local verification = publishingRequirements.verification or {}
+
+		return {
+			isVerified = if verification then verification.isVerified else false,
+			verificationSupportedTypes = if verification then verification.supportedTypes or {} else {},
+		}
+	end
+end
+
+if FFlagToolboxEnableAssetConfigPhoneVerification then
+	return RoactRodux.connect(mapStateToProps, nil)(ConfigCopy)
+else
+	return ConfigCopy
+end

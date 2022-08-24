@@ -65,13 +65,8 @@ end
 
 RemoteFunction_GetServerVersion.OnServerInvoke = getServerVersion
 
-local FFlagEnableExperienceChat = require(RobloxGui.Modules.Common.Flags.FFlagEnableExperienceChat)
 local function shouldLoadLuaChat()
-	if FFlagEnableExperienceChat then
-		return game:GetService("Chat").LoadDefaultChat and game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.LegacyChatService
-	else
-		return game:GetService("Chat").LoadDefaultChat
-	end
+	return game:GetService("Chat").LoadDefaultChat and game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.LegacyChatService
 end
 
 if shouldLoadLuaChat() then
@@ -87,31 +82,29 @@ end
 
 require(game:GetService("CoreGui").RobloxGui.Modules.Server.ServerSound.SoundDispatcherInstaller)()
 
-local FFlagEnableExperienceChat = require(RobloxGui.Modules.Common.Flags.FFlagEnableExperienceChat)
-if FFlagEnableExperienceChat then
-	local TextChatService = game:GetService("TextChatService")
-	local chatVersion = TextChatService.ChatVersion
-	if chatVersion == Enum.ChatVersion.TextChatService then
-		local CorePackages = game:GetService("CorePackages")
 
-		-- initialize UIBlox here since requiring ExperienceChat will otherwise trigger a UIBlox config error...
-		local UIBlox = require(CorePackages.UIBlox)
-		UIBlox.init()
+local TextChatService = game:GetService("TextChatService")
+local chatVersion = TextChatService.ChatVersion
+if chatVersion == Enum.ChatVersion.TextChatService then
+	local CorePackages = game:GetService("CorePackages")
 
-		local ExperienceChat = require(CorePackages.ExperienceChat)
-		ExperienceChat.mountServerApp({})
-	end
+	-- initialize UIBlox here since requiring ExperienceChat will otherwise trigger a UIBlox config error...
+	local UIBlox = require(CorePackages.UIBlox)
+	UIBlox.init()
 
-	if game:DefineFastFlag("ExperienceChatOnLoadedCounters", false) then
-		if runService:IsStudio() == false then
-			local AnalyticsService = game:GetService("RbxAnalyticsService")
+	local ExperienceChat = require(CorePackages.ExperienceChat)
+	ExperienceChat.mountServerApp({})
+end
 
-			local counterName = if chatVersion == Enum.ChatVersion.TextChatService then
-				"textChatServiceChatVersionTextChatService"
-				else
-				"textChatServiceChatVersionLegacy"
+if game:DefineFastFlag("ExperienceChatOnLoadedCounters", false) then
+	if runService:IsStudio() == false then
+		local AnalyticsService = game:GetService("RbxAnalyticsService")
 
-			AnalyticsService:ReportCounter(counterName, 1)
-		end
+		local counterName = if chatVersion == Enum.ChatVersion.TextChatService then
+			"textChatServiceChatVersionTextChatService"
+			else
+			"textChatServiceChatVersionLegacy"
+
+		AnalyticsService:ReportCounter(counterName, 1)
 	end
 end

@@ -40,7 +40,6 @@ local Cubic = require(Plugin.Src.Components.Curves.Cubic)
 local Keyframe = require(Plugin.Src.Components.Curves.Keyframe)
 local TangentControl = require(Plugin.Src.Components.Curves.TangentControl)
 
-local GetFFlagClampFacsCurves = require(Plugin.LuaFlags.GetFFlagClampFacsCurves)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local CurveCanvas = Roact.PureComponent:extend("CurveCanvas")
@@ -151,7 +150,7 @@ function CurveCanvas:renderCurve(track): ()
 	-- Display a small dot on the scrubber
 	local playhead = self.props.Playhead
 	local value = KeyframeUtils.getValue(track, playhead)::number
-	if GetFFlagClampFacsCurves() and track.Type == Constants.TRACK_TYPES.Facs then
+	if track.Type == Constants.TRACK_TYPES.Facs then
 		value = math.clamp(value, 0, 1)
 	end
 
@@ -182,7 +181,7 @@ function CurveCanvas:renderCurve(track): ()
 	end
 
 	local minClamp, maxClamp
-	if GetFFlagClampFacsCurves() and track.Type == Constants.TRACK_TYPES.Facs then
+	if track.Type == Constants.TRACK_TYPES.Facs then
 		-- The clamp values will be used in screen space, so "min" corresponds
 		-- to 1.0, and "max" corresponds to 0.0
 		minClamp = self:toCanvasSpace(Vector2.new(0, 1)).Y
@@ -250,7 +249,6 @@ function CurveCanvas:renderCurve(track): ()
 			if track.Type ~= Constants.TRACK_TYPES.Quaternion or keyframeIndex > 1 then
 				self.children[keyframeName] = Roact.createElement(Keyframe, {
 					Position = cur,
-					TrackName = trackName,  -- Obsolete with FFlagACECurveEditorNewTooltips
 					Path = track.Path,
 					InterpolationMode = curKeyframe.InterpolationMode,
 					PrevInterpolationMode = if prevKeyframe then prevKeyframe.InterpolationMode else nil,
@@ -277,7 +275,6 @@ function CurveCanvas:renderCurve(track): ()
 			if keyframeIndex < #track.Keyframes and track.Type == Constants.TRACK_TYPES.Quaternion then
 				self.children[keyframeName .. "b"] = Roact.createElement(Keyframe, {
 					Position = curB,
-					TrackName = trackName,  -- Obsolete with FFlagACECurveEditorNewTooltips
 					Path = track.Path,
 					InterpolationMode = curKeyframe.InterpolationMode,
 					PrevInterpolationMode = if prevKeyframe then prevKeyframe.InterpolationMode else nil,

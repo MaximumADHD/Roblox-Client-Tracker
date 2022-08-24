@@ -7,14 +7,22 @@ if isCli() then
 	return
 end
 
+local Packages = Plugin.Packages
+local Framework = require(Packages.Framework)
+local isHighDpiEnabled = Framework.Util.isHighDpiEnabled
+local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and isHighDpiEnabled()
+
 local PluginLoaderBuilder = require(Plugin.PluginLoader.PluginLoaderBuilder)
 local Constants = require(Plugin.Core.Util.Constants)
 local Images = require(Plugin.Core.Util.Images)
 local SharedPluginConstants = require(Plugin.SharedPluginConstants)
 local StudioService = game:GetService("StudioService")
+local StudioAssetService = game:GetService("StudioAssetService")
 local MemStorageService = game:GetService("MemStorageService")
 
 local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
+
+local FFlagUnifyModelPackagePublish = game:GetFastFlag("UnifyModelPackagePublish")
 
 local args: PluginLoaderBuilder.Args = {
 	plugin = plugin,
@@ -33,7 +41,7 @@ local args: PluginLoaderBuilder.Args = {
 		getDescription = function()
 			return "Insert items from the toolbox"
 		end,
-		icon = Images.TOOLBOX_ICON,
+		icon = if FFlagHighDpiIcons then Images.TOOLBOX_ICON else Images.DEPRECATED_TOOLBOX_ICON,
 		text = nil,
 		clickableWhenViewportHidden = true,
 	},
@@ -54,6 +62,9 @@ local args: PluginLoaderBuilder.Args = {
 		zIndexBehavior = Enum.ZIndexBehavior.Sibling,
 	},
 	extraTriggers = {
+		["StudioAssetService.OnSaveToRoblox"] = if FFlagUnifyModelPackagePublish then function()
+			return StudioAssetService.OnSaveToRoblox
+		end else nil,
 		["StudioService.OnSaveToRoblox"] = function()
 			return StudioService.OnSaveToRoblox
 		end,

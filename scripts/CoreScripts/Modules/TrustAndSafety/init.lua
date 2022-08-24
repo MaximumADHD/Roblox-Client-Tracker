@@ -5,6 +5,7 @@ local LocalizationService = game:GetService("LocalizationService")
 local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
 local RoactRodux = require(CorePackages.RoactRodux)
+local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 
 local Dependencies = require(script.Dependencies)
@@ -58,7 +59,7 @@ function TrustAndSafety:initialize()
 			LocalizationProvider = Roact.createElement(LocalizationProvider, {
 				localization = self.localization,
 			}, {
-				App = Roact.createElement(TrustAndSafetyApp),
+				TrustAndSafety = Roact.createElement(TrustAndSafetyApp),
 			}),
 		})
 	})
@@ -99,7 +100,7 @@ end
 
 return {
 	openReportDialogForPlayer = function(targetPlayer)
-		assert(playerInterface(targetPlayer))
+		assert(playerInterface(targetPlayer) and t.instanceIsA("Player")(targetPlayer))
 		TrustAndSafety:getInstance():openReportDialog(Constants.ReportType.Player, targetPlayer)
 	end,
 	openReportDialogForPlace = function()

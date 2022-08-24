@@ -17,12 +17,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
-local FFlagTerrainToolsUse2022Materials = game:GetFastFlag("TerrainToolsUse2022Materials")
-
-local MaterialService = nil
-if FFlagTerrainToolsUse2022Materials then
-	MaterialService = game:GetService("MaterialService")
-end
+local MaterialService = game:GetService("MaterialService")
 local TextService = game:GetService("TextService")
 
 local TexturePath = "rbxasset://textures/TerrainTools/"
@@ -188,16 +183,14 @@ function MaterialSelector:init(props)
 	end
 end
 
-if FFlagTerrainToolsUse2022Materials then
-	function MaterialSelector:didMount()
-		self.connection = MaterialService:GetPropertyChangedSignal("Use2022Materials"):Connect(function()
-			self:setState({})
-		end)
-	end
+function MaterialSelector:didMount()
+	self.connection = MaterialService:GetPropertyChangedSignal("Use2022Materials"):Connect(function()
+		self:setState({})
+	end)
+end
 
-	function MaterialSelector:willUnmount()
-		self.connection:Disconnect()
-	end
+function MaterialSelector:willUnmount()
+	self.connection:Disconnect()
 end
 
 function MaterialSelector:render()
@@ -235,7 +228,7 @@ function MaterialSelector:render()
 			OnMouseEnter = self.onMouseEnterMaterial,
 			OnMouseLeave = self.onMouseLeaveMaterial,
 			SelectMaterial = self.selectMaterial,
-			Use2022Materials = FFlagTerrainToolsUse2022Materials and MaterialService.Use2022Materials
+			Use2022Materials = MaterialService.Use2022Materials
 		})
 	end
 

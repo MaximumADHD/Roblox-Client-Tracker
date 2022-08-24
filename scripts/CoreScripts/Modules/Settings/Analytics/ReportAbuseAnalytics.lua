@@ -21,6 +21,9 @@ ReportAbuseAnalytics.DiagCounters = {
 	AbandonedSubmissionTime = game:DefineFastString(
 		"ReportAnalyticsAbandonedSubmissionTimeStat",
 		"AbandonedSubmissionTime"),
+	SubmittedMethodOfAbuse = game:DefineFastString(
+		"ReportAnalyticsSubmittedMethodOfAbuseStat",
+		"SubmittedMethodOfAbuse"),
 }
 
 ReportAbuseAnalytics.ActionNames = {
@@ -51,14 +54,18 @@ function ReportAbuseAnalytics.new(config, context)
 	return self
 end
 
-function ReportAbuseAnalytics:reportFormSubmitted(timeToComplete, additionalArgs)
-	local category = self._context.."_"..ReportAbuseAnalytics.DiagCounters.SuccessfulSubmissionTime
+function ReportAbuseAnalytics:reportFormSubmitted(timeToComplete, methodOfAbuse, additionalArgs)
+	local submissionTimeCategory = self._context.."_"..ReportAbuseAnalytics.DiagCounters.SuccessfulSubmissionTime
+	local submittedMethodOfAbuseCategory = self._context.."_"..ReportAbuseAnalytics.DiagCounters.SubmittedMethodOfAbuse.."_"..methodOfAbuse
 
 	additionalArgs = Cryo.Dictionary.join(additionalArgs or {}, {
 		timeToComplete = timeToComplete,
+		methodOfAbuse = methodOfAbuse,
 	})
 
-	self._diagImpl:reportStats(category, timeToComplete)
+	self._diagImpl:reportStats(submissionTimeCategory, timeToComplete)
+	self._diagImpl:reportCounter(submittedMethodOfAbuseCategory, 1)
+
 	self._eventStreamImpl:sendEventDeferred(
 		self._context,
 		ReportAbuseAnalytics.ActionNames.FormSubmitted,

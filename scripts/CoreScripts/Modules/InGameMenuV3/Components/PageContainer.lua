@@ -1,6 +1,9 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
+local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
+
+local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -15,7 +18,6 @@ local GetFFlagUseIGMControllerBar = require(InGameMenu.Flags.GetFFlagUseIGMContr
 
 local Constants = require(script.Parent.Parent.Resources.Constants)
 local animateLeftGoal, animateRightGoal = -1.0, 0.5
-local PerfUtils = require(InGameMenu.Utility.PerfUtils)
 
 local TWEEN_TIME = Constants.MenuOpenTweenTime
 local TWEEN_EASE_RAMP = Enum.EasingDirection.InOut

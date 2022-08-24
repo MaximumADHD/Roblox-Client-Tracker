@@ -13,7 +13,6 @@ local CoreGuiService = game:GetService('CoreGui')
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 --[[ Modules ]]--
-local GoogleAnalyticsUtils = require(CoreGuiService.RobloxGui.Modules.GoogleAnalyticsUtils)
 local StatsAggregatorManagerClass = require(CoreGuiService.RobloxGui.Modules.Stats.StatsAggregatorManager)
 local StatsButtonClass = require(CoreGuiService.RobloxGui.Modules.Stats.StatsButton)
 local StatsUtils = require(CoreGuiService.RobloxGui.Modules.Stats.StatsUtils)

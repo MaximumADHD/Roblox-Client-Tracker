@@ -19,7 +19,6 @@ local Util = Framework.Util
 local deepCopy = Util.deepCopy
 
 local DebuggerStateToken = require(Plugin.Src.Models.DebuggerStateToken)
-local FFlagOnlyLoadOneCallstack = require(Plugin.Src.Flags.GetFFlagOnlyLoadOneCallstack)
 
 type ThreadId = number
 type FrameNumber = number
@@ -151,14 +150,8 @@ return Rodux.createReducer(productionStartStore, {
 		newState.debuggerConnectionIdToCurrentThreadId = deepCopy(state.debuggerConnectionIdToCurrentThreadId)
 		assert(newState.debuggerConnectionIdToCurrentThreadId[state.currentDebuggerConnectionId] ~= action.threadId)
 
-		if FFlagOnlyLoadOneCallstack() then
-			-- The last added threadID is the same as the pauseState.threadId
+		if newState.debuggerConnectionIdToCurrentThreadId[state.currentDebuggerConnectionId] == nil then
 			newState.debuggerConnectionIdToCurrentThreadId[state.currentDebuggerConnectionId] = action.threadId
-		else
-			-- only overwrite the curent threadId if there is none
-			if newState.debuggerConnectionIdToCurrentThreadId[state.currentDebuggerConnectionId] == nil then
-				newState.debuggerConnectionIdToCurrentThreadId[state.currentDebuggerConnectionId] = action.threadId
-			end
 		end
 
 		newState.currentFrameMap = deepCopy(state.currentFrameMap)

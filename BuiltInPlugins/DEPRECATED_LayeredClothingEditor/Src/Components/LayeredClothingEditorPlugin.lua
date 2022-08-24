@@ -46,11 +46,19 @@ local FinishSelectingFromExplorer = require(Plugin.Src.Thunks.FinishSelectingFro
 
 local LayeredClothingEditorPlugin = Roact.PureComponent:extend("LayeredClothingEditorPlugin")
 
+local FFlagPreventPluginEnabledWhilePlaySolo = game:DefineFastFlag("PreventPluginEnabledWhilePlaySolo", false)
+
 local PLUGIN_NAME = "LayeredClothingEditor"
 local TOOLBAR_NAME = "LayeredClothing"
 local TOOLBAR_BUTTON_NAME = "LayeredClothingEditorButton"
 
 local WINDOW_MIN_SIZE = Vector2.new(380, 550)
+
+function LayeredClothingEditorPlugin:showEditorInPlayModeError()
+	ShowDialog(self.plugin, self.localization, ConfirmDialog,{
+		Text = self.localization:getText("EditorErrors", "OpenedWhileRunning"),
+	})
+end
 
 function LayeredClothingEditorPlugin:init()
 	local plugin = self.props.plugin
@@ -89,10 +97,12 @@ function LayeredClothingEditorPlugin:init()
 	end
 
 	self.onToggleWidget = function()
-		if RunService:IsRunning() then
+		if not FFlagPreventPluginEnabledWhilePlaySolo and RunService:IsRunning() then
 			ShowDialog(self.plugin, self.localization, ConfirmDialog,{
 				Text = self.localization:getText("EditorErrors", "OpenedWhileRunning"),
 			})
+		elseif FFlagPreventPluginEnabledWhilePlaySolo and not RunService:IsEdit() then
+			self:showEditorInPlayModeError()
 		else
 			if not self.state.enabled then
 				plugin:Activate(true)
@@ -128,6 +138,21 @@ function LayeredClothingEditorPlugin:init()
 			self.signals:get(Constants.SIGNAL_KEYS.PluginWindowFocused):Fire()
 		end)
 	end
+
+	self.onWidgetEnabledChanged = function(widget)
+		if widget.Enabled then
+			if not RunService:IsEdit() then
+				self:setState({
+					enabled = false,
+				})
+				self:showEditorInPlayModeError()
+				return
+			end
+		end
+		self:setState({
+			enabled = widget.Enabled,
+		})
+	end
 end
 
 function LayeredClothingEditorPlugin:render()
@@ -160,6 +185,7 @@ function LayeredClothingEditorPlugin:render()
 			OnClose = self.onClose,
 			OnWidgetRestored = function() end,
 			OnWidgetFocused = self.onFocus,
+			[Roact.Change.Enabled] = if FFlagPreventPluginEnabledWhilePlaySolo then self.onWidgetEnabledChanged else nil,
 		}, {
 			LayeredClothingEditor = self.state.enabled and Roact.createElement(LayeredClothingEditor),
 		})

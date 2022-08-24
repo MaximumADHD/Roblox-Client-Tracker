@@ -18,7 +18,7 @@ local cursorOverrideStack: {CursorOverrideEntry} = {}
 local function update()
 	local activeOverride = cursorOverrideStack[#cursorOverrideStack]
 	if activeOverride then
-		UserInputService.OverrideMouseIconBehavior = activeOverride[2]
+		UserInputService.OverrideMouseIconBehavior = activeOverride[2] :: Enum.OverrideMouseIconBehavior
 	else
 		UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.None
 	end

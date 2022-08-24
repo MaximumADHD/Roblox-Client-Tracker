@@ -25,8 +25,6 @@ local TreeTableCell = UI.TreeTableCell
 
 local BreakpointsTreeTableCell = Roact.PureComponent:extend("BreakpointsTreeTableCell")
 
-local FFlagDevFrameworkExpandColumnOnDoubleClickDragbar = game:GetFastFlag("DevFrameworkExpandColumnOnDoubleClickDragbar")
-
 function BreakpointsTreeTableCell:init()
 	self.onToggle = function()
 		local cellProps = self.props.CellProps
@@ -35,7 +33,7 @@ function BreakpointsTreeTableCell:init()
 
 	self.onCheckboxClicked = function()
 		local row = self.props.Row
-		local bpManager = game:GetService("BreakpointManager")
+		local bpManager = game:GetService("MetaBreakpointManager")
 		local bp = bpManager:GetBreakpointById(row.item.id)
 		bp:SetContinueExecution(not row.item.continueExecution)
 
@@ -44,7 +42,7 @@ function BreakpointsTreeTableCell:init()
 
 	self.onBreakpointIconClicked = function()
 		local row = self.props.Row
-		local bpManager = game:GetService("BreakpointManager")
+		local bpManager = game:GetService("MetaBreakpointManager")
 		local bp = bpManager:GetBreakpointById(row.item.id)
 		BreakpointHelperFunctions.setBreakpointRowEnabled(
 			bp,
@@ -185,7 +183,7 @@ function BreakpointsTreeTableCell:render()
 		RowIndex = props.RowIndex,
 		HighlightCell = props.HighlightCell,
 		OnRightClick = props.OnRightClick,
-		SetCellContentsWidth = if FFlagDevFrameworkExpandColumnOnDoubleClickDragbar then props.SetCellContentsWidth else nil,
+		SetCellContentsWidth = props.SetCellContentsWidth,
 	})
 end
 

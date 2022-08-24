@@ -14,4 +14,12 @@ game:DefineFastFlag("ToolboxUseQueryForCategories2", false)
 
 game:DefineFastFlag("ToolboxFixBreadcrumbColor", false)
 
+game:DefineFastFlag("ToolboxEnableAssetConfigPhoneVerification", false)
+
+game:DefineFastFlag("ToolboxSwitchVerifiedEndpoint", false)
+
+game:DefineFastFlag("ToolboxAllowDisablingCopyingAtQuota", false)
+
+game:DefineFastFlag("ToolboxAssetConfigurationMaxPrice", false)
+
 return nil
