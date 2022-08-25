@@ -148,8 +148,8 @@ return function()
 			-- Check that first selection is as expected
 			expect(common.getSelection()).to.be.ok()
 			-- No children so Screen should be selected on screen1
-			expect(common.getSelection().Name).to.equal("Scene")
-			expect(common.getSelection():FindFirstChild("Button1", true)).to.be.ok()
+			expect((common.getSelection() :: GuiObject).Name).to.equal("Scene")
+			expect((common.getSelection() :: GuiObject):FindFirstChild("Button1", true)).to.be.ok()
 
 			-- Navigate to next screen
 			local ref = mountResult.appContainerRef
@@ -159,8 +159,8 @@ return function()
 			-- Check that selection on second screen is as expected
 			expect(common.getSelection()).to.be.ok()
 			-- No children so Screen should be selected on screen2
-			expect(common.getSelection().Name).to.equal("Scene")
-			expect(common.getSelection():FindFirstChild("Button2", true)).to.be.ok()
+			expect((common.getSelection() :: GuiObject).Name).to.equal("Scene")
+			expect((common.getSelection() :: GuiObject):FindFirstChild("Button2", true)).to.be.ok()
 
 			-- Destroy instances
 			mountResult.cleanup(mountResult.instance)

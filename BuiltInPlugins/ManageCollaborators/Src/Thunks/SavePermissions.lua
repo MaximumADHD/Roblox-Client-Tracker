@@ -1,4 +1,5 @@
 local FFlagManageCollaboratorsTelemetryEnabled = game:GetFastFlag("ManageCollaboratorsTelemetryEnabled")
+local FFlagManageCollaboratorsDebugLogging = game:GetFastFlag("ManageCollaboratorsDebugLogging")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -31,6 +32,10 @@ end
 
 return function(isGroupGame)
 	return function(store, contextItems)
+		if FFlagManageCollaboratorsDebugLogging then
+			Analytics.reportDebuggingCheckpoint("B")
+		end
+
 		local permissionsJobs
 		
 		if FFlagManageCollaboratorsTelemetryEnabled then
@@ -45,9 +50,17 @@ return function(isGroupGame)
 		local numSaved = 0
 		local saveFailed = false
 
+		if FFlagManageCollaboratorsDebugLogging then
+			Analytics.reportDebuggingCheckpoint("C")
+		end
+
 		for _, callback in ipairs(permissionsJobs) do
 			-- Use coroutine here so we can run the api calls in parallel
 			local job = coroutine.wrap(function()
+				if FFlagManageCollaboratorsDebugLogging then
+					Analytics.reportDebuggingCheckpoint("D")
+				end
+
 				local success,result = pcall(callback)
 				if (not success) and (not saveFailed) then
 					warn("Failed", result)
@@ -64,6 +77,10 @@ return function(isGroupGame)
 			end)
 
 			job()
+
+			if FFlagManageCollaboratorsDebugLogging then
+				Analytics.reportDebuggingCheckpoint("E")
+			end
 		end
 	end
 end

@@ -49,7 +49,6 @@ local Constants = require(UtilFolder.Constants)
 local ColumnResizeHelperFunctions = require(UtilFolder.ColumnResizeHelperFunctions)
 
 local FFlagOnlyLoadOneCallstack = require(PluginRoot.Src.Flags.GetFFlagOnlyLoadOneCallstack)
-local FFlagDevFrameworkExpandColumnOnDoubleClickDragbar = game:GetFastFlag("DevFrameworkExpandColumnOnDoubleClickDragbar")
 
 local DisplayTable = Roact.PureComponent:extend("DisplayTable")
 
@@ -475,7 +474,7 @@ function DisplayTable:render()
 		ClampSize = true,
 		ColumnHeaderHeight = Constants.COLUMN_HEADER_HEIGHT,
 		RowHeight = Constants.ROW_HEIGHT,
-		ExpandOnDoubleClick = if FFlagDevFrameworkExpandColumnOnDoubleClickDragbar then true else nil,
+		ExpandOnDoubleClick = true,
 	})
 end
 

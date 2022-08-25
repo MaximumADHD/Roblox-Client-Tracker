@@ -1,14 +1,27 @@
 --!nonstrict
 return function()
+	local CorePackages = game:GetService("CorePackages")
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local jestExpect = JestGlobals.expect
+	local jest = JestGlobals.jest
+
+	local LoggingProtocol = require(CorePackages.UniversalApp.Logging.LoggingProtocol)
+
+	local EnableLoggingProtocolTelemetryEngineFeature = game:GetEngineFeature("EnableLoggingProtocolTelemetry2")
+	local EnableLoggingProtocolEphemeralEventsEngineFeature =
+		game:GetEngineFeature("EnableLoggingProtocolEphemeralEvents")
+
 	local Types = require(script.Parent.Parent.MessageBusTypes)
 
 	local MockMessageBus = {}
 	MockMessageBus.__index = MockMessageBus
 
 	local MockMessageBusSpy = {}
+	local mockLogEventFn = jest.fn()
 
 	function MockMessageBus.call(desc: Types.FunctionDescriptor, params: any): any
 		assert(desc.validateParams(params))
+		mockLogEventFn = jest.fn()
 		-- Simulate the basic behavior of a call to the protocol
 		if desc.fid == "Logging.getTimestamp" then
 			return 5e+20
@@ -17,20 +30,15 @@ return function()
 				MockMessageBusSpy[key] = value
 			end
 			return {}
-		elseif desc.fid == "Logging.sendRobloxTelemetry" then
-			for key, value in pairs(params) do
-				MockMessageBusSpy[key] = value
-			end
-			return {}
-		else
-			return {}
 		end
+
+		for key, value in pairs(params) do
+			MockMessageBusSpy[key] = value
+		end
+
+		mockLogEventFn.mockReturnValue({})
+		return mockLogEventFn(params)
 	end
-
-	local CorePackages = game:GetService("CorePackages")
-	local LoggingProtocol = require(CorePackages.UniversalApp.Logging.LoggingProtocol)
-
-	local EnableLoggingProtocolTelemetryEngineFeature = game:GetEngineFeature("EnableLoggingProtocolTelemetry")
 
 	describe("LoggingProtocol", function()
 		beforeEach(function(context)
@@ -148,9 +156,10 @@ return function()
 					return context.LoggingProtocol:logRobloxTelemetryEvent(minimalConfig)
 				end)
 
-				expect(success).to.equal(true)
-				expect(MockMessageBusSpy.eventType).to.equal("RobloxTelemetry")
-				expect(MockMessageBusSpy.eventName).to.equal("TestEventPointsOnly")
+				jestExpect(success).toBe(true)
+				jestExpect(mockLogEventFn).toHaveBeenCalledTimes(1)
+				jestExpect(MockMessageBusSpy.eventType).toBe("RobloxTelemetry")
+				jestExpect(MockMessageBusSpy.config.eventName).toBe("TestEventPointsOnly")
 			end)
 
 			it("should send Telemetry event with all valid parameters", function(context)
@@ -165,11 +174,85 @@ return function()
 					return context.LoggingProtocol:logRobloxTelemetryEvent(fullConfig, standardizedFields, customFields)
 				end)
 
-				expect(success).to.equal(true)
-				expect(MockMessageBusSpy.eventType).to.equal("RobloxTelemetry")
-				expect(MockMessageBusSpy.eventName).to.equal("TestEventFullConfig")
-				expect(MockMessageBusSpy.standardizedFields.addSessionId).to.equal(true)
-				expect(MockMessageBusSpy.customFields).to.equal(customFields)
+				jestExpect(success).toBe(true)
+				jestExpect(mockLogEventFn).toHaveBeenCalledTimes(1)
+				jestExpect(MockMessageBusSpy.eventType).toBe("RobloxTelemetry")
+				jestExpect(MockMessageBusSpy.config.eventName).toBe("TestEventFullConfig")
+				jestExpect(MockMessageBusSpy.data.standardizedFields).toContain("addSessionId")
+				jestExpect(MockMessageBusSpy.data.customFields).toEqual({
+					key1 = "Hello",
+					key2 = true,
+					key3 = 0,
+				})
+			end)
+		end)
+
+		describe("logEphemeralCounterEvent", function()
+			if not EnableLoggingProtocolEphemeralEventsEngineFeature then
+				return
+			end
+
+			local minimalConfig = {
+				eventName = "TestEventEphemeralCounter",
+				backends = { "EphemeralCounter" },
+			}
+
+			local fullConfig = {
+				eventName = "TestEventFullConfig",
+				backends = { "EphemeralCounter" },
+				lastUpdated = { 22, 8, 4 },
+				description = [[EphemeralCounter unit test event]],
+				links = "doc_link",
+			}
+
+			it("should send Telemetry event with minimal parameters", function(context)
+				context.LoggingProtocol:logEphemeralCounterEvent(minimalConfig)
+
+				jestExpect(mockLogEventFn).toHaveBeenCalledTimes(1)
+				jestExpect(mockLogEventFn).toHaveBeenCalledWith({
+					eventType = "EphemeralCounter",
+					config = minimalConfig,
+				})
+			end)
+
+			it("should send Telemetry event with all valid parameters", function(context)
+				context.LoggingProtocol:logEphemeralCounterEvent(fullConfig, 10)
+
+				jestExpect(mockLogEventFn).toHaveBeenCalledTimes(1)
+				jestExpect(mockLogEventFn).toHaveBeenCalledWith({
+					eventType = "EphemeralCounter",
+					config = fullConfig,
+					data = {
+						incrementValue = 10,
+					}
+				})
+			end)
+		end)
+
+		describe("logEphemeralStatEvent", function()
+			if not EnableLoggingProtocolEphemeralEventsEngineFeature then
+				return
+			end
+
+			local config = {
+				eventName = "TestEventEphemeralStat",
+				backends = { "EphemeralStat" },
+				lastUpdated = { 22, 8, 4 },
+				description = [[EphemeralStat unit test event]],
+				links = "doc_link",
+			}
+
+			it("should send Telemetry event with all valid parameters", function(context)
+				context.LoggingProtocol:logEphemeralStatEvent(config, 1.0)
+
+				jestExpect(mockLogEventFn).toHaveBeenCalledTimes(1)
+				jestExpect(mockLogEventFn).toHaveBeenCalledWith({
+					eventType = "EphemeralStat",
+					config = config,
+					data = {
+						statValue = 1.0,
+					},
+				})
 			end)
 		end)
 	end)

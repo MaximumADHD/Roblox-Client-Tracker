@@ -39,7 +39,13 @@ StatusPropertyMap = {
         "UGCMaxMeshTrianglesWarning",
         "UGCExceedUVSpaceWarning",
         "UGCExceedTextureSizeWarning",
+        "InnerButNoOuterCageWarning",
+        "NoRefMeshForCageWarning",
+        "NoRefMeshForCageWarningWithSuggestion",
+        "AvatarCagesMissingWarning",
+        "CageNameHasTypoWarning",
         "DeletedCageGeometryWarning",
+        "UnsupportedPreviewTextureType",
         "OuterCageBloatingWarning",
     },
 }

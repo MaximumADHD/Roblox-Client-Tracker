@@ -145,7 +145,7 @@ return function()
 			RobuxBalance = 0,
 			MembershipType = 0,
 		}
-		local accountInfo = getTestAccountInfoDetails()
+
 		local balanceInfo = getTestBalanceDetails()
 		balanceInfo.robux = 0
 		local thunk = resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo, balanceInfo)

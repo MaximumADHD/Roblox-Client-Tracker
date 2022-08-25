@@ -8,8 +8,6 @@ local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 local Line = require(Plugin.Src.Components.Curves.Line)
 
-local GetFFlagClampFacsCurves = require(Plugin.LuaFlags.GetFFlagClampFacsCurves)
-
 local Cubic = Roact.PureComponent:extend("Cubic")
 
 export type Props = {
@@ -49,7 +47,7 @@ function Cubic:render(): (any)
 			+ h01 * b.Y
 			+ h11 * (b.X - a.X) * props.BSlope
 
-		if GetFFlagClampFacsCurves() and self.props.MinClamp and self.props.MaxClamp then
+		if self.props.MinClamp and self.props.MaxClamp then
 			curY = math.clamp(curY, self.props.MinClamp, self.props.MaxClamp)
 		end
 

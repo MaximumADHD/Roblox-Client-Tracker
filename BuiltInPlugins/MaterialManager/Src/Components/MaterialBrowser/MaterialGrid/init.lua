@@ -22,9 +22,6 @@ local SetMenuHover = require(Plugin.Src.Actions.SetMenuHover)
 local Components = Plugin.Src.Components
 local MaterialItem = require(Components.MaterialBrowser.MaterialGrid.MaterialItem)
 
-local Flags = Plugin.Src.Flags
-local getFFlagMaterialManagerSideBarSplitPaneUpdate = require(Flags.getFFlagMaterialManagerSideBarSplitPaneUpdate)
-
 local MaterialGrid = Roact.PureComponent:extend("MaterialGrid")
 
 export type Props = {
@@ -119,7 +116,7 @@ function MaterialGrid:render()
 			Padding = style.Padding,
 			RenderItem = self.renderItem,
 			Size = UDim2.fromScale(1, 1),
-			ZIndex = if getFFlagMaterialManagerSideBarSplitPaneUpdate() then 1 else nil,
+			ZIndex = 1,
 		}),
 		SidebarButton = if not props.SideBarVisible then Roact.createElement(IconButton, {
 			Size = style.IconSize,
@@ -130,7 +127,6 @@ function MaterialGrid:render()
 			OnMouseLeave = self.onMouseLeave,
 			AnchorPoint = Vector2.new(0, 1),
 			Position = UDim2.new(0, 5, 1, -5),
-			LayoutOrder = if not getFFlagMaterialManagerSideBarSplitPaneUpdate() then 2 else nil,
 			ZIndex = 2,
 		}) else nil,
 	})

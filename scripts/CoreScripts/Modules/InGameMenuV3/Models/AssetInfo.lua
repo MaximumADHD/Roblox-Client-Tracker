@@ -21,15 +21,20 @@ local MockId = require(script.Parent.Parent.Mocks.MockAssetId)
 local FFlagEnableRestrictedAssetSaleLocationInspectAndBuy
 	= require(CoreGui.RobloxGui.Modules.Flags.FFlagEnableRestrictedAssetSaleLocationInspectAndBuy)
 
+export type AssetInfo = {
+	-- FIXME: refine type
+	[string]: any,
+}
+
 local AssetInfo = {}
 
-function AssetInfo.new()
+function AssetInfo.new(): AssetInfo
 	local self = {}
 
 	return self
 end
 
-function AssetInfo.mock()
+function AssetInfo.mock(): AssetInfo
 	local self = AssetInfo.new()
 
 	self.name = ""
@@ -82,6 +87,29 @@ function AssetInfo.fromHumanoidDescription(id)
 
 	newAsset.assetId = tostring(id)
 
+	return newAsset
+end
+
+function AssetInfo.fromGetItemDetails(asset, isOwned, price, isForSale, premiumPricing)
+	local newAsset = AssetInfo.new()
+
+	newAsset.assetId = tostring(asset.Id)
+	newAsset.owned = isOwned
+	if price then
+		newAsset.price = price
+	end
+	newAsset.isForSale = isForSale
+	newAsset.premiumPricing = premiumPricing
+	newAsset.numFavorites = asset.FavoriteCount
+	newAsset.genres = asset.Genres
+
+	return newAsset
+end
+
+function AssetInfo.fromGetAssetBundles(assetId, bundleIds)
+	local newAsset = AssetInfo.new()
+	newAsset.assetId = tostring(assetId)
+	newAsset.bundlesAssetIsIn = bundleIds
 	return newAsset
 end
 

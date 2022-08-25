@@ -34,9 +34,9 @@ return function()
 	end
 
 	local localPlayer = Players.LocalPlayer
-
-	if localPlayer == nil then
-		return false
+	while not localPlayer do
+		Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
+		localPlayer = Players.LocalPlayer
 	end
 
 	local forcedUserIds = game:GetFastString("NewInGameMenuForcedUserIds")

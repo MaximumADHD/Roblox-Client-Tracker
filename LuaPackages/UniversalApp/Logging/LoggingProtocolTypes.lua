@@ -1,9 +1,23 @@
 local CorePackages = game:GetService("CorePackages")
 local Types = require(CorePackages.UniversalApp.MessageBusTypes)
 
+export type TelemetryBackend =
+	"UNSPECIFIED"
+	| "EventIngest"
+	| "Points"
+	| "EphemeralCounter"
+	| "EphemeralStat"
+
+export type StandardizedField =
+	"addPlaceId"
+	| "addUniverseId"
+	| "addPlacenstanceId"
+	| "addSessionId"
+
+
 export type TelemetryEventConfig = {
 	eventName: string,
-	backends: Types.Array<string>,
+	backends: Types.Array<TelemetryBackend>,
 	throttlingPercentage: number?,
 	lastUpdated: Types.Array<number>?,
 	description: string?,
@@ -14,7 +28,7 @@ export type LoggingProtocol = {
 	-- Static
 	LOG_EVENT_WITH_TIMESTAMP_DESCRIPTOR: Types.FunctionDescriptor,
 	GET_TIMESTAMP_DESCRIPTOR: Types.FunctionDescriptor,
-	SEND_ROBLOX_TELEMETRY_DESCRIPTOR: Types.FunctionDescriptor,
+	LOG_EVENT_FROM_LUA_DESCRIPTOR: Types.FunctionDescriptor,
 
 	TelemetryBackends: Types.Table,
 	StandardizedFields: Types.Table,
@@ -28,7 +42,7 @@ export type LoggingProtocol = {
 	logRobloxTelemetryEvent: (
 		LoggingProtocol,
 		eventConfig: TelemetryEventConfig,
-		standardizedFields: Types.Array<string>?,
+		standardizedFields: Types.Array<StandardizedField>?,
 		customFields: Types.Table?) -> (),
 	logEphemeralCounterEvent: (LoggingProtocol, eventConfig: TelemetryEventConfig, incrementValue: number?) -> (),
 	logEphemeralStatEvent: (LoggingProtocol, eventConfig: TelemetryEventConfig, statValue: number) -> (),

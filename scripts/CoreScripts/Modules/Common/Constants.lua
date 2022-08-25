@@ -1,4 +1,6 @@
 -- universal design constants for in-game ui style
+local FFlagEnableInGameMenuDurationLogger = require(script.Parent.Flags.GetFFlagEnableInGameMenuDurationLogger)()
+
 local Constants = {
 	COLORS = {
 		SLATE = Color3.fromRGB(35, 37, 39),
@@ -38,6 +40,21 @@ local Constants = {
 	VIP_SERVER = "VIPServer",
 	RESERVED_SERVER = "ReservedServer",
 	STANDARD_SERVER = "StandardServer",
+
+	-- Analytics
+	AnalyticsInGameMenuName = "ingame_menu",
+
+	AnalyticsPerfMenuOpening = "perf_menu_opening",
+	AnalyticsPerfMenuStarted = "perf_menu_started",
+	AnalyticsPerfMenuEnding = "perf_menu_ending",
+	AnalyticsPerfMenuClosed = "perf_menu_closed",
+
+	AnalyticsGameMenuFlowStart = "gamemenu_flow_start",
+	AnalyticsGameMenuOpenStart = "gamemenu_open_start",
+	AnalyticsGameMenuOpenEnd = "gamemenu_open_end",
+	AnalyticsGameMenuCloseStart = "gamemenu_close_start",
+	AnalyticsGameMenuCloseEnd = "gamemenu_close_end",
+	AnalyticsGameMenuFlowEnd = "gamemenu_flow_end",
 }
 
 return Constants

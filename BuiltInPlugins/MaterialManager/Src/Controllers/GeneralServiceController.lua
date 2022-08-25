@@ -14,8 +14,6 @@ local Constants = Plugin.Src.Resources.Constants
 local getMaterialName = require(Constants.getMaterialName)
 local getMaterialPatternName = require(Constants.getMaterialPatternName)
 
-local getFFlagMaterialManagerFixApplyToClicked = require(Plugin.Src.Flags.getFFlagMaterialManagerFixApplyToClicked)
-
 local GeneralServiceController = ContextItem:extend("GeneralServiceController")
 
 function GeneralServiceController.new(mock: boolean?)
@@ -41,9 +39,6 @@ function GeneralServiceController:destroy()
 end
 
 function GeneralServiceController:destroyWithUndo(instance: Instance)
-	if not getFFlagMaterialManagerFixApplyToClicked() then
-		self._changeHistoryService:asService():SetWaypoint("Will Delete " .. instance.Name)
-	end
 	instance.Parent = nil
 	self._changeHistoryService:asService():SetWaypoint("Deleted " .. instance.Name)
 end
@@ -79,9 +74,6 @@ end
 
 function GeneralServiceController:ApplyToSelection(baseMaterial: Enum.Material, materialVariant: string?)
 	local instances = self._selection:asService():Get()
-	if not getFFlagMaterialManagerFixApplyToClicked() then
-		self._changeHistoryService:asService():SetWaypoint("Apply Material to Selection")
-	end
 	ApplyToInstances(instances, baseMaterial, materialVariant)
 	self._changeHistoryService:asService():SetWaypoint("Applied Material to Selection")
 end

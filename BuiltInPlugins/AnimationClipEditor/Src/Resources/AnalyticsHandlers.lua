@@ -5,7 +5,6 @@ local TARGET = "studio"
 local CONTEXT = "animationEditor"
 
 local GetFFlagFacsAnimationExportAnalytics = require(Plugin.LuaFlags.GetFFlagFacsAnimationExportAnalytics)
-local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 
 return function(analyticsService)
 	local function sendEvent(eventName, additionalArgs)
@@ -75,18 +74,10 @@ return function(analyticsService)
         end,
 
         onExportAnimation = function(_, hasFacs, animationType)
-            if GetFFlagCurveAnalytics() then
-                sendEvent("exportAnimation", {
-                    animationType = animationType,
-                    hasFacs = if GetFFlagFacsAnimationExportAnalytics() then hasFacs else nil,
-                })
-            elseif GetFFlagFacsAnimationExportAnalytics() then
-                sendEvent("exportAnimation", {
-                    hasFacs = hasFacs,
-                })
-            else
-                sendEvent("exportAnimation", {})
-            end
+            sendEvent("exportAnimation", {
+                animationType = animationType,
+                hasFacs = if GetFFlagFacsAnimationExportAnalytics() then hasFacs else nil,
+            })
         end,
 
         onLoadAnimation = function(_, name, numKeyframes, numPoses, numEvents, animationType)

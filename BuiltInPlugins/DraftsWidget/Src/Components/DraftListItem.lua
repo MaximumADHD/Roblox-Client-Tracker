@@ -18,7 +18,9 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local DraftStatusIndicator = require(Plugin.Src.Components.DraftStatusIndicator)
-local Tooltip = UILibrary.Component.Tooltip
+
+local FFlagDevFrameworkMigrateTooltip = Framework.SharedFlags.getFFlagDevFrameworkMigrateTooltip()
+local Tooltip = if FFlagDevFrameworkMigrateTooltip then Framework.UI.Tooltip else UILibrary.Component.Tooltip
 
 local DraftState = require(Plugin.Src.Symbols.DraftState)
 local CommitState = require(Plugin.Src.Symbols.CommitState)

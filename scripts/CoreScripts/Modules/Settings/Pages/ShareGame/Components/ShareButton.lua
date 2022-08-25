@@ -1,11 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-
-local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
-local getTranslator = require(ShareGame.getTranslator)
-local RobloxTranslator = getTranslator()
 
 local SHARE_TEXT_FONT = Enum.Font.SourceSansSemibold
 local SHARE_TEXT_SIZE = 19
@@ -25,11 +19,12 @@ function ShareButton:render()
 	local layoutOrder = self.props.layoutOrder
 	local onShare = self.props.onShare
 	local isEnabled = self.props.isEnabled
+	local text = self.props.text
 
 	return Roact.createElement("TextButton", {
 		LayoutOrder = layoutOrder,
 		Size = size,
-		Text = RobloxTranslator:FormatByKey("Feature.SocialShare.Action.Share"),
+		Text = text,
 		TextSize = SHARE_TEXT_SIZE,
 		Font = SHARE_TEXT_FONT,
 		AutoButtonColor = false,

@@ -27,7 +27,6 @@ local SideBar = require(Components.MaterialBrowser.SideBar)
 local TopBar = require(Components.MaterialBrowser.TopBar)
 
 local Flags = Plugin.Src.Flags
-local getFFlagMaterialManagerSideBarSplitPaneUpdate = require(Flags.getFFlagMaterialManagerSideBarSplitPaneUpdate)
 local getFFlagMaterialManagerVariantCreatorOverhaul = require(Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
 
 export type Props = {
@@ -111,13 +110,13 @@ function MaterialBrowser:init()
 		local state = self.state
 
 		return Roact.createElement(Pane, {
-			LayoutOrder = if getFFlagMaterialManagerSideBarSplitPaneUpdate() then layoutOrder else 1,
+			LayoutOrder = layoutOrder,
 			Size = UDim2.fromScale(1, 1),
 		}, {
 			SideBar = if state.sideBarVisible
 				then Roact.createElement(SideBar, {
 					Size = UDim2.fromScale(1, 1),
-					ZIndex = if getFFlagMaterialManagerSideBarSplitPaneUpdate() then 1 else nil,
+					ZIndex = 1,
 				})
 				else nil,
 			HideButton = if state.sideBarVisible
@@ -129,7 +128,7 @@ function MaterialBrowser:init()
 					OnClick = self.onHideButtonClicked,
 					AnchorPoint = Vector2.new(1, 1),
 					Position = UDim2.new(1, -5, 1, -5),
-					ZIndex = if getFFlagMaterialManagerSideBarSplitPaneUpdate() then 2 else nil,
+					ZIndex = 2,
 				})
 				else nil,
 		})
@@ -155,7 +154,7 @@ function MaterialBrowser:init()
 		return Roact.createElement(Pane, {
 			Size = UDim2.fromScale(1, 1),
 			Layout = Enum.FillDirection.Horizontal,
-			LayoutOrder = if getFFlagMaterialManagerSideBarSplitPaneUpdate() then layoutOrder else 2,
+			LayoutOrder = layoutOrder,
 		}, {
 			MaterialGrid = if showMaterialGrid then
 				Roact.createElement(MaterialGrid, {
@@ -301,7 +300,7 @@ function MaterialBrowser:render()
 			Size = style.TopBarSize,
 		}),
 
-		Pane = if not getFFlagMaterialManagerSideBarSplitPaneUpdate() or self.state.sideBarVisible then Roact.createElement(SplitPane, {
+		Pane = if self.state.sideBarVisible then Roact.createElement(SplitPane, {
 			ClampSize = true,
 			Sizes = sizes,
 			Layout = Enum.FillDirection.Horizontal,

@@ -39,8 +39,10 @@ local GetFFlagUIBloxEnableVirtualizedListForCarousel = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableVirtualizedListForCarousel
 )
 local GetFFlagUIBloxEnableDynamicHeadIcon = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableDynamicHeadIcon)
+local FFlagSelectedSliderOverridesNextSelectionRightLeft = require(CorePackages.UIBloxFlags.FFlagSelectedSliderOverridesNextSelectionRightLeft)
 
 return {
+	selectedSliderOverridesNextSelectionRightLeft = FFlagSelectedSliderOverridesNextSelectionRightLeft,
 	enableTileInsets = GetFFlagEnableTileInsets(),
 	enableAdjustableTextUnderTile = GetFFlagAdjustableTextUnderTile(),
 	enableSliderCustomization = FFlagUIBloxSliderCustomization,

@@ -37,7 +37,7 @@ function ExperienceMenuABTestManager.getCachedVersion()
 		return cachedVersion
 	end
 
-	return DEFAULT_MENU_VERSION
+	return nil
 end
 
 function ExperienceMenuABTestManager:getCSATQualification()
@@ -93,7 +93,13 @@ function ExperienceMenuABTestManager:getVersion()
 
 	-- if menu version isn't set, we'll fetch it from local storage
 	if not self._currentMenuVersion then
-		return self.getCachedVersion()
+		local cachedVersion = self.getCachedVersion()
+
+		if cachedVersion ~= nil and cachedVersion ~= "" then
+			return cachedVersion
+		end
+
+		return DEFAULT_MENU_VERSION
 	end
 
 	return self._currentMenuVersion

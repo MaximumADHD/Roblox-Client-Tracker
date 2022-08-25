@@ -26,6 +26,7 @@ local Constants = {
 	PlayersPageKey = "Players",
 	GameSettingsPageKey = "GameSettings",
 	InspectAndBuyPageKey = "InspectAndBuy",
+	InspectAndBuyAssetDetailsPageKey = "InspectAndBuyAssetDetails",
 
 	AnalyticsTargetName = "client",
 	AnalyticsInGameMenuName = "ingame_menu",
@@ -48,11 +49,6 @@ local Constants = {
 		GamepadLeaveGame = "GamepadLeaveGame",
 		GamepadResetCharacter = "GamepadResetCharacter",
 	},
-	AnalyticsPerfMenuOpening = "perf_menu_opening",
-	AnalyticsPerfMenuStarted = "perf_menu_started",
-	AnalyticsPerfMenuEnding = "perf_menu_ending",
-	AnalyticsPerfMenuClosed = "perf_menu_closed",
-
 	AnalyticsMenuCloseName = "menu_close",
 	AnalyticsLeaveGameName = "leave_game",
 	AnalyticsLeaveToHomeName = "leave_to_home",
@@ -75,6 +71,7 @@ local Constants = {
 	AnalyticsBlockPlayer = "block_player",
 	AnalyticsInvitePlayerToPlaceId = "invite_player_to_place_id",
 	AnalyticsScreenshot = "screenshot",
+	AnalyticsFullscreen = "fullscreen",
 	AnalyticsFollowExperience = "follow_experience",
 	AnalyticsUnfollowExperience = "unfollow_experience",
 	AnalyticsFavoritingExperience = "favoriting_experience",

@@ -41,18 +41,13 @@ local initVoiceChatStore = require(RobloxGui.Modules.VoiceChat.initVoiceChatStor
 local GetFFlagEnableVoiceChatVoiceUISync = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatVoiceUISync)
 local GetFFlagBubbleChatDuplicateMessagesFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatDuplicateMessagesFix)
 local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
-local FFlagEnableExperienceChat = require(RobloxGui.Modules.Common.Flags.FFlagEnableExperienceChat)
-local FFlagExperienceChatFixBubbleChat = game:DefineFastFlag("ExperienceChatFixBubbleChat", false)
 local GetFFlagUpgradeExpChatV2_0_0 = require(CorePackages.Flags.GetFFlagUpgradeExpChatV2_0_0)
 local FFlagExperienceChatBubbleUseSending = game:DefineFastFlag("ExperienceChatBubbleUseSending", false)
 
-local ExperienceChat
+local ExperienceChat = require(CorePackages.ExperienceChat)
 local MessageReceivedBindableEvent
-if FFlagEnableExperienceChat then
-	ExperienceChat = require(CorePackages.ExperienceChat)
-	if not GetFFlagUpgradeExpChatV2_0_0() then
-		MessageReceivedBindableEvent = ExperienceChat.MessageReceivedBindableEvent
-	end
+if not GetFFlagUpgradeExpChatV2_0_0() then
+	MessageReceivedBindableEvent = ExperienceChat.MessageReceivedBindableEvent
 end
 
 local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
@@ -196,13 +191,7 @@ local function initBubbleChat()
 		addMessageWithId(partOrModel, message, messageId)
 	end
 
-	if FFlagEnableExperienceChat then
-		chattedConn = Chat.Chatted:Connect(addMessage)
-	else
-		chattedConn = Chat.Chatted:Connect(function(partOrModel, message)
-			addMessage(partOrModel, message)
-		end)
-	end
+	chattedConn = Chat.Chatted:Connect(addMessage)
 
 	if GetFFlagUpgradeExpChatV2_0_0() then
 		local TextChatService = game:GetService("TextChatService")
@@ -230,23 +219,19 @@ local function initBubbleChat()
 				if player then
 					local character = player.Character
 					if character and character.PrimaryPart then
-						if FFlagExperienceChatFixBubbleChat then
-							if FFlagExperienceChatBubbleUseSending then
-								if textChatMessage.Status == Enum.TextChatMessageStatus.Success then
-									local id = "chatted_" .. textChatMessage.MessageId
-									if chatStore:getState().messages[id] then
-										chatStore:dispatch(SetMessageText(id, textChatMessage.Text))
-									else
-										addMessageWithId(character, textChatMessage.Text, textChatMessage.MessageId)
-									end
-								end
-							else
-								if textChatMessage.Status == Enum.TextChatMessageStatus.Success then
-									addMessage(character, textChatMessage.Text)
+						if FFlagExperienceChatBubbleUseSending then
+							if textChatMessage.Status == Enum.TextChatMessageStatus.Success then
+								local id = "chatted_" .. textChatMessage.MessageId
+								if chatStore:getState().messages[id] then
+									chatStore:dispatch(SetMessageText(id, textChatMessage.Text))
+								else
+									addMessageWithId(character, textChatMessage.Text, textChatMessage.MessageId)
 								end
 							end
 						else
-							addMessage(character, textChatMessage.Text)
+							if textChatMessage.Status == Enum.TextChatMessageStatus.Success then
+								addMessage(character, textChatMessage.Text)
+							end
 						end
 					end
 				end
@@ -261,11 +246,7 @@ local function initBubbleChat()
 					if player then
 						local character = player.Character
 						if character and character.PrimaryPart then
-							if FFlagExperienceChatFixBubbleChat then
-								if textChatMessage.Status == Enum.TextChatMessageStatus.Success then
-									addMessage(character, textChatMessage.Text)
-								end
-							else
+							if textChatMessage.Status == Enum.TextChatMessageStatus.Success then
 								addMessage(character, textChatMessage.Text)
 							end
 						end

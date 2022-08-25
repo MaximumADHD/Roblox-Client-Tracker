@@ -6,6 +6,10 @@ if DebugFlags.RunningUnderCLI() then
 	return
 end
 
+local Framework = require(Plugin.Packages.Framework)
+local isHighDpiEnabled = Framework.Util.isHighDpiEnabled
+local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and isHighDpiEnabled()
+
 local PluginLoaderBuilder = require(Plugin.PluginLoader.PluginLoaderBuilder)
 local Constants = require(Plugin.Src.Util.Constants)
 local SourceStrings = Plugin.Src.Resources.SourceStrings
@@ -28,7 +32,7 @@ local args : PluginLoaderBuilder.Args = {
 		getDescription = function(getLocalizedText, namespace, pluginName)
 			return getLocalizedText(namespace, pluginName, "Main", "PluginButtonEditorTooltip")
 		end,
-		icon = "rbxasset://textures/TerrainTools/icon_terrain_big.png",
+		icon = if FFlagHighDpiIcons then "rbxlocaltheme://TerrainEditor" else "rbxasset://textures/TerrainTools/icon_terrain_big.png",
 		text = nil,
 		clickableWhenViewportHidden = true
 	},

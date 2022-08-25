@@ -20,6 +20,7 @@ local ShimmerPanel = UIBlox.Loading.ShimmerPanel
 local InGameMenu = script.Parent.Parent.Parent
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 local Page = require(InGameMenu.Components.Page)
+local InspectAndBuyItemCard = require(InGameMenu.Components.InspectAndBuyPage.InspectAndBuyItemCard)
 
 local GetCharacterModelFromUserId = require(InGameMenu.Thunks.GetCharacterModelFromUserId)
 local GetAssetsFromHumanoidDescription = require(InGameMenu.Thunks.GetAssetsFromHumanoidDescription)
@@ -62,7 +63,7 @@ function InspectAndBuyPage:getAvatarHeadshot(style)
 	if self.props.inspectedUserId and self.props.inspectedUserId ~= "" then
 		headshotUrl ="rbxthumb://type=AvatarHeadShot&id=" .. self.props.inspectedUserId
 			.. "&w=" .. AVATAR_HEADSHOT_SIZE .. "&h=" .. AVATAR_HEADSHOT_SIZE
-	else 
+	else
 		return nil
 	end
 
@@ -84,12 +85,12 @@ function InspectAndBuyPage:getAvatarHeadshot(style)
 end
 
 function InspectAndBuyPage:renderWithProviders(style, localized, getSelectionCursor)
-	local assetCards = {}
+	local assetCards: {[string]: any} = {}
 	assetCards["UIGridLayout"] = Roact.createElement("UIGridLayout", {
 		CellPadding = UDim2.new(0, CELL_PADDING_X, 0, CELL_PADDING_Y),
 		CellSize = UDim2.new(0, CELL_WIDTH, 0, CELL_HEIGHT),
 		SortOrder = Enum.SortOrder.LayoutOrder,
-		HorizontalAlignment = Enum.HorizontalAlignment.Left,
+		HorizontalAlignment = Enum.HorizontalAlignment.Center,
 		VerticalAlignment = Enum.VerticalAlignment.Top,
 		FillDirectionMaxCells = 2,
 	})
@@ -100,10 +101,8 @@ function InspectAndBuyPage:renderWithProviders(style, localized, getSelectionCur
 	local numAssets = 0
 	for _, asset in pairs(self.props.assets) do
 		numAssets += 1
-		-- TODO: AVBURST-8596 Create New Item Tile
-		assetCards[asset.assetId] = Roact.createElement("Frame", {
-			Size = UDim2.fromOffset(CELL_WIDTH, CELL_HEIGHT),
-			BackgroundTransparency = 0,
+		assetCards[asset.assetId] = Roact.createElement(InspectAndBuyItemCard, {
+			asset = asset
 		})
 	end
 	if numAssets == 0 then
@@ -180,7 +179,7 @@ return RoactRodux.connect(function(state, props)
 		inspectedUserId = state.inspectAndBuy.UserId,
 		assets = state.inspectAndBuy.Assets,
 	}
-end, function(dispatch)
+end, function(dispatch: (any) -> any)
 	return {
 		getCharacterModelFromUserId = function(userId, isLocalPlayer, callback)
 			dispatch(GetCharacterModelFromUserId(userId, isLocalPlayer, callback))

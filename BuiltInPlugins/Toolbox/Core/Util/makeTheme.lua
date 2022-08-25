@@ -1,7 +1,8 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
 local FFlagToolboxEnableAnnouncementsDialog = game:GetFastFlag("ToolboxEnableAnnouncementsDialog")
 local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
-local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault")
+local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
+local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
 local FFlagToolboxFixBreadcrumbColor = game:GetFastFlag("ToolboxFixBreadcrumbColor")
 
 local Images = require(Plugin.Core.Util.Images)
@@ -352,10 +353,12 @@ local makeTheme = function(themeExtension, themeClass)
 
 		publishAsset = {
 			backgroundColor = StyleKey.Toolbox_PublishAssetBackground,
+			distributionQuotaTextColor = StyleKey.AssetConfig_DistributionQuotaTextColor,
 			titleTextColor = StyleKey.SubText,
 			textColor = StyleKey.MainText,
+			quotaTextColor = if FFlagToolboxEnableAssetConfigPhoneVerification then StyleKey.BrightText else nil,
+			verifyTextColor = if FFlagToolboxEnableAssetConfigPhoneVerification then StyleKey.TextSecondary else nil,
 			warningIconColor = Color3.fromHex("#FFAA21"),
-			distributionQuotaTextColor = StyleKey.AssetConfig_DistributionQuotaTextColor,
 		},
 
 		searchBar = {

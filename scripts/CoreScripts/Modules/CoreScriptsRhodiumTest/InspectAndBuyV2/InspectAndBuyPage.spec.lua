@@ -1,6 +1,5 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
-	local UserInputService = game:GetService("UserInputService")
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
 	local Rhodium = require(CorePackages.Rhodium)

@@ -63,6 +63,7 @@ local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 			updateBindings.button3(elapsed)
 			updateBindings.button4(elapsed)
 			updateBindings.button5(elapsed)
+			updateBindings.button6(elapsed)
 		else
 			local finalTransparency = 1
 			updateBindings.gradient(finalTransparency)
@@ -108,7 +109,11 @@ local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 		local scaledElapsed = 1 - elapsed
 		updateBindings.button5(scaledElapsed)
 	end
-
+	if isBetweenFrames(timeElapsed, 19.5, 21.5) then
+		local elapsed = linearTween(timeElapsed, 19.5, 21.5)
+		local scaledElapsed = 1 - elapsed
+		updateBindings.button6(scaledElapsed)
+	end
 	local totalFrame = buttonCount * 2 + 9.5
 	if isBetweenFrames(timeElapsed, 0, 9.5) then
 		updateBindings.gradient(1)
@@ -128,12 +133,12 @@ local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 		updateBindings.button3(0)
 		updateBindings.button4(0)
 		updateBindings.button5(0)
+		updateBindings.button6(0)
 		stopCallback()
 	end
 end
 
 function QuickActions:init()
-	-- self.backgroundTransparency, self.updateBackgroundTransparency = Roact.createBinding(1)
 	self.gradientTransparency, self.updateGradient = Roact.createBinding(1)
 	self.frameTransparency, self.updateFrame = Roact.createBinding(1)
 	self.button1Transparency, self.updateButton1 = Roact.createBinding(1)
@@ -141,6 +146,7 @@ function QuickActions:init()
 	self.button3Transparency, self.updateButton3 = Roact.createBinding(1)
 	self.button4Transparency, self.updateButton4 = Roact.createBinding(1)
 	self.button5Transparency, self.updateButton5 = Roact.createBinding(1)
+	self.button6Transparency, self.updateButton6 = Roact.createBinding(1)
 
 	self.updateBindings = {
 		gradient = self.updateGradient,
@@ -150,6 +156,7 @@ function QuickActions:init()
 		button3 = self.updateButton3,
 		button4 = self.updateButton4,
 		button5 = self.updateButton5,
+		button6 = self.updateButton6,
 	}
 	self.animationStartTime = nil
 	self.animationFunction = nil
@@ -169,6 +176,10 @@ function QuickActions:init()
 		buttonCount = buttonCount + 2
 	end
 	platform = UserInputService:GetPlatform()
+	local isDesktopClient = platform == Enum.Platform.OSX or platform == Enum.Platform.Windows
+	if isDesktopClient then
+		buttonCount = buttonCount + 1
+	end
 end
 
 function QuickActions:render()
@@ -187,6 +198,7 @@ function QuickActions:render()
 			button3 = self.button3Transparency,
 			button4 = self.button4Transparency,
 			button5 = self.button5Transparency,
+			button6 = self.button6Transparency,
 		}
 		local isMobilePlatform = platform == Enum.Platform.IOS or platform == Enum.Platform.Android
 		if isMobilePlatform then
@@ -227,6 +239,7 @@ function QuickActions:render()
 						layoutOrder = 2,
 						voiceEnabled = self.props.voiceEnabled,
 						respawnEnabled = self.props.respawnEnabled,
+						fullscreenEnabled = false,
 						screenshotEnabled = FFlagEnableInGameMenuQAScreenshot,
 						transparencies = transparencies,
 						fillDirection = Enum.FillDirection.Vertical,
@@ -235,8 +248,9 @@ function QuickActions:render()
 						isHorizontal = false,
 					}),
 				})
-			})	
+			})
 		else
+			local isDesktopClient = platform == Enum.Platform.OSX or platform == Enum.Platform.Windows
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, HORIZONTAL_CONTROL_HEIGHT),
 				BackgroundTransparency = self.gradientTransparency,
@@ -267,6 +281,7 @@ function QuickActions:render()
 						layoutOrder = 1,
 						voiceEnabled = self.props.voiceEnabled,
 						respawnEnabled = self.props.respawnEnabled,
+						fullscreenEnabled = isDesktopClient,
 						screenshotEnabled = FFlagEnableInGameMenuQAScreenshot,
 						transparencies = transparencies,
 						fillDirection = Enum.FillDirection.Horizontal,

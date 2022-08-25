@@ -1,4 +1,5 @@
 local FFlagManageCollaboratorsTelemetryEnabled = game:GetFastFlag("ManageCollaboratorsTelemetryEnabled")
+local FFlagManageCollaboratorsDebugLogging = game:GetFastFlag("ManageCollaboratorsDebugLogging")
 
 local Plugin = script.Parent.Parent.Parent
 local IsTeamCreateEnabled = require(Plugin.Src.Util.IsTeamCreateEnabled)
@@ -20,6 +21,17 @@ function getCommonArgs()
 end
 
 local Analytics = {}
+
+function Analytics.reportDebuggingCheckpoint(checkpoint)
+	assert(FFlagManageCollaboratorsDebugLogging)
+
+	local eventName = "DebugCheckpoint"
+
+	local args = getCommonArgs()
+	args.checkpoint = checkpoint
+
+	RbxAnalyticsService:SendEventDeferred(TARGET_STUDIO, CONTEXT_MANAGECOLLABORATORS, eventName, args)
+end
 
 function Analytics.reportCollaborateButtonPressed()
 	assert(FFlagManageCollaboratorsTelemetryEnabled)

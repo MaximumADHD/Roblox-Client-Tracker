@@ -18,7 +18,7 @@ local appStyle = {
 	Font = AppFont,
 }
 
-return function (component)
+return function (component, props)
 	local wrappedComponent = function()
 		return Roact.createElement(UIBlox.Style.Provider, {
 			style = appStyle,
@@ -26,7 +26,7 @@ return function (component)
 			LocalizationProvider = Roact.createElement(LocalizationProvider, {
 				localization = Localization.new("en-us"),
 			}, {
-				TestComponent = Roact.createElement(component)
+				TestComponent = Roact.createElement(component, props)
 			})
 		})
 	end

@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["roblox_otter"]["otter"])
+local Package = require(PackageIndex["Otter"]["Otter"])
 
 return Package

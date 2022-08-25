@@ -12,7 +12,6 @@ local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
 
 return function()
 	describe("lifecycle", function()
-
 		beforeEach(function()
 			if IsExperienceMenuABTestEnabled() then
 				AppStorageService:SetItem(LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION, "")
@@ -35,11 +34,11 @@ return function()
 			end
 		end)
 
-		it("returns default menu version v1 when nothing is cached initially", function()
+		it("returns default menu version v2 when nothing is cached initially", function()
 			if IsExperienceMenuABTestEnabled() then
 				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
 				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
-				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new( {returnValue = { menuVersion = "v2"} })
+				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({ returnValue = { menuVersion = "v2" } })
 
 				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
 				expect(manager).to.be.ok()
@@ -52,8 +51,8 @@ return function()
 				manager:initialize()
 
 				-- version should still be v1 even though recently fetched version is v2
-				expect(manager:getVersion()).to.equal("v1")
-				expect(manager:isV2MenuEnabled()).to.equal(false)
+				expect(manager:getVersion()).to.equal("v2")
+				expect(manager:isV2MenuEnabled()).to.equal(true)
 			end
 		end)
 
@@ -61,7 +60,7 @@ return function()
 			if IsExperienceMenuABTestEnabled() then
 				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
 				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
-				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new( {returnValue = { menuVersion = "v2"} })
+				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({ returnValue = { menuVersion = "v2" } })
 
 				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
 				expect(manager).to.be.ok()
@@ -73,8 +72,8 @@ return function()
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
-				-- version should still be v1 even though recently fetched version is v2
-				expect(manager:getVersion()).to.equal("v1")
+				-- version should now be version is v2
+				expect(manager:getVersion()).to.equal("v2")
 
 				-- beginning of second session
 				manager:initialize()
@@ -89,7 +88,7 @@ return function()
 			if IsExperienceMenuABTestEnabled() then
 				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
 				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
-				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new( {returnValue = { menuVersion = nil } })
+				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({ returnValue = { menuVersion = nil } })
 
 				-- pre-set cache to v2
 				AppStorageService:SetItem(LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION, "v2")
@@ -121,7 +120,7 @@ return function()
 			if IsExperienceMenuABTestEnabled() then
 				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
 				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
-				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new( {returnValue = { menuVersion = "v3" } })
+				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({ returnValue = { menuVersion = "v3" } })
 
 				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
 				expect(manager).to.be.ok()
@@ -133,8 +132,8 @@ return function()
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
-				-- version should still be v2
-				expect(manager:getVersion()).to.equal("v1")
+				-- version should be v3
+				expect(manager:getVersion()).to.equal("v3")
 
 				-- beginning of second session
 				manager:initialize()

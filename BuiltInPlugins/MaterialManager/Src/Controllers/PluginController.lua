@@ -10,15 +10,12 @@ local SetViewType = require(Actions.SetViewType)
 local GeneralServiceController = require(Plugin.Src.Controllers.GeneralServiceController)
 
 local Util = Plugin.Src.Util
-local ApplyToBasePart = require(Util.ApplyToBasePart) -- Remove with FFlagMaterialManagerFixApplyToClicked
 local SetHighlight = require(Util.SetHighlight)
 
 local ContextItem = Framework.ContextServices.ContextItem
 
 local DEFAULT_CURSOR = "rbxasset://SystemCursors/Arrow"
 local PAINT_CURSOR = "rbxasset://textures/FillCursor.png"
-
-local getFFlagMaterialManagerFixApplyToClicked = require(Plugin.Src.Flags.getFFlagMaterialManagerFixApplyToClicked)
 
 local PluginController = ContextItem:extend("PluginController")
 
@@ -98,19 +95,11 @@ function PluginController:toggleMaterialAsTool()
 		local material = self._store:getState().MaterialBrowserReducer.Material
 		if material then
 			self._mouse.Icon = PAINT_CURSOR
-			if getFFlagMaterialManagerFixApplyToClicked() then
-				self._generalServiceController:ApplyToBasePart(
-					self._mouse.Target,
-					material.Material,
-					if material.MaterialVariant then material.MaterialVariant.Name else nil
-				)
-			else
-				ApplyToBasePart(
-					self._mouse.Target,
-					material.Material,
-					if material.MaterialVariant then material.MaterialVariant.Name else nil
-				)
-			end
+			self._generalServiceController:ApplyToBasePart(
+				self._mouse.Target,
+				material.Material,
+				if material.MaterialVariant then material.MaterialVariant.Name else nil
+			)
 		end
 	end)
 

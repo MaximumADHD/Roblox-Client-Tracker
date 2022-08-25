@@ -9,6 +9,10 @@ if DebugFlags.RunningUnderCLI() then
 	return
 end
 
+local Framework = require(Plugin.Packages.Framework)
+local isHighDpiEnabled = Framework.Util.isHighDpiEnabled
+local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and isHighDpiEnabled()
+
 local RunService = game:GetService("RunService")
 
 local PluginLoaderBuilder = require(Plugin.PluginLoader.PluginLoaderBuilder)
@@ -33,7 +37,7 @@ local args : PluginLoaderBuilder.Args = {
 		getDescription = function(getLocalizedText, namespace, pluginName)
 			return getLocalizedText(namespace, pluginName, "General", "PluginDescription")
 		end,
-		icon = "rbxasset://textures/GameSettings/ToolbarIcon.png",
+		icon = if FFlagHighDpiIcons then "rbxlocaltheme://GameSettings" else "rbxasset://textures/GameSettings/ToolbarIcon.png",
 		text = nil,
 		clickableWhenViewportHidden = true,
 		enabled = RunService:IsEdit()

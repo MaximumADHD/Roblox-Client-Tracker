@@ -42,6 +42,7 @@ return function()
 			beforeAll(function(c)
 				c.actionName = ReportAbuseAnalytics.ActionNames.FormSubmitted
 				c.timeToComplete = 1
+				c.methodOfAbuse = "Voice"
 
 				c.predicates.isCategory = function(x)
 					return type(x) == "string"
@@ -57,7 +58,7 @@ return function()
 					return x == c.timeToComplete
 				end
 
-				c.reportAbuseAnalytics:reportFormSubmitted(c.timeToComplete)
+				c.reportAbuseAnalytics:reportFormSubmitted(c.timeToComplete, c.methodOfAbuse)
 
 				assert(
 					c.Mock.AnyCallMatches.predicates(
@@ -67,6 +68,17 @@ return function()
 						isTimeToComplete
 					)
 				)
+
+				assert(
+					c.Mock.AnyCallMatches.predicates(
+						c.analytics.Diag.reportCounter,
+						c.predicates.isDiag,
+						c.predicates.isCategory,
+						function(x)
+							return x == 1
+						end
+					)
+				)
 			end)
 
 			it("SHOULD fire with the correct additional args", function(c)
@@ -74,10 +86,10 @@ return function()
 					MyArg = "TestArg",
 				}
 
-				c.reportAbuseAnalytics:reportFormSubmitted(c.timeToComplete, additionalArgs)
+				c.reportAbuseAnalytics:reportFormSubmitted(c.timeToComplete, c.methodOfAbuse, additionalArgs)
 
 				local function isAdditionalArgs(x)
-					return type(x) == "table" and x.timeToComplete == c.timeToComplete
+					return type(x) == "table" and x.timeToComplete == c.timeToComplete and x.methodOfAbuse == c.methodOfAbuse
 				end
 
 				assert(

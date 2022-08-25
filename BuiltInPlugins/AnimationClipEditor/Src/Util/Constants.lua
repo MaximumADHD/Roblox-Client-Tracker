@@ -2,12 +2,11 @@ local Plugin = script.Parent.Parent.Parent
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFaceControlsEditorUIUpdate = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUIUpdate)
 local GetFFlagFaceControlsEditorBugBash2Update = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorBugBash2Update)
-local GetFFlagCreateAnimationFromVideoMultiplePeopleStatusCode = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoMultiplePeopleStatusCode)
 
 local Constants = {
 	PLUGIN_NAME = "AnimationClipEditor",
-
-	PLUGIN_BUTTON_IMAGE = "rbxasset://textures/AnimationEditor/animation_editor_blue.png",
+	PLUGIN_ICON = "rbxlocaltheme://AnimationEditor",
+	DEPRECATED_PLUGIN_BUTTON_IMAGE = "rbxasset://textures/AnimationEditor/animation_editor_blue.png",
 	CHECK_IMAGE = "rbxasset://textures/ui/LuaChat/icons/ic-check@2x.png",
 
 	SETTINGS = {
@@ -428,7 +427,7 @@ local Constants = {
 		InputUnstable = 9,
 		TimedOut = 10,
 		Cancelled = 11,
-		MultiplePeopleInFrame = GetFFlagCreateAnimationFromVideoMultiplePeopleStatusCode() and 12 or nil
+		MultiplePeopleInFrame = 12
 	},
 
 	ANIMATION_TYPE = {

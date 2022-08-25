@@ -1,6 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local UserInputService = game:GetService("UserInputService")
 
 local ExternalContentSharingProtocol
 	= require(CorePackages.UniversalApp.ExternalContentSharing.ExternalContentSharingProtocol).default
@@ -29,8 +30,17 @@ local CONTENTS_LEFT_RIGHT_PADDING = 12
 local CONTENTS_TOP_BOTTOM_PADDING = 8
 local SHARE_BUTTON_WIDTH = 69
 local SHARE_INVITE_LINK_BACKGROUND = Color3.fromRGB(79, 84, 95)
+local SHARE_INVITE_LINK_TEXT = RobloxTranslator:FormatByKey("Feature.SocialShare.Action.Share")
+local COPIED_INVITE_LINK_TEXT = RobloxTranslator:FormatByKey("Feature.SocialShare.Label.Copied")
+
+local platform = UserInputService:GetPlatform()
+local isDesktopClient = (platform == Enum.Platform.Windows) or (platform == Enum.Platform.OSX) or (platform == Enum.Platform.UWP)
 
 function ShareInviteLink:init()
+	self.state = {
+		show_copied_text = false,
+	}
+
 	self.showSharesheet = function(linkId, linkType)
 		local url = UrlBuilder.sharelinks.appsflyer(linkId, linkType)
 		if ExternalContentSharingProtocol then
@@ -38,6 +48,14 @@ function ShareInviteLink:init()
 				text = url,
 				context = "V1Menu"
 			})
+
+			if isDesktopClient then
+				self:setState({ show_copied_text = true })
+
+				delay(1, function ()
+					self:setState({ show_copied_text = false })
+				end)
+			end
 		end
 	end
 end
@@ -105,7 +123,8 @@ function ShareInviteLink:render()
 			size = UDim2.new(0, SHARE_BUTTON_WIDTH, 1, 0),
 			layoutOrder = 1,
 			onShare = onShare,
-			isEnabled = self.props.fetchShareInviteLinkNetworkStatus ~= NetworkStatus.Fetching
+			text = if self.state.show_copied_text then COPIED_INVITE_LINK_TEXT else SHARE_INVITE_LINK_TEXT,
+			isEnabled = self.props.fetchShareInviteLinkNetworkStatus ~= NetworkStatus.Fetching and not self.state.show_copied_text
 		}),
 	})
 end

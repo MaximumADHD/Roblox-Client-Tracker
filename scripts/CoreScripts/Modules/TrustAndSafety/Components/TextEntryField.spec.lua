@@ -67,16 +67,16 @@ return function()
 		expect(textChangedWasCalled).to.equal(true)
 	end)
 
-	it("should trim the text when it exceeds max text", function()
-		local textChangedTo = ""
+	it("should keep old text when new text exceeds max length", function()
+		local text = "Hello"
 		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
 		}, {
 			TextEntryField = Roact.createElement(TextEntryField, {
 				enabled = true,
-				text = "",
+				text = text,
 				textChanged = function(newText)
-					textChangedTo = newText
+					text = newText
 				end,
 				maxTextLength = 5,
 				autoFocusOnEnabled = false,
@@ -87,26 +87,26 @@ return function()
 		})
 
 		local folder = Instance.new("Folder")
-
 		local instance = Roact.mount(element, folder)
-
 		local textBox = folder:FindFirstChildWhichIsA("TextBox", true)
-		textBox.Text = "Hello world!"
-		Roact.unmount(instance)
 
-		expect(textChangedTo).to.equal("Hello")
+		textBox.Text = "Hello world!"
+		expect(textBox.Text).to.equal("Hello")
+		expect(text).to.equal("Hello")
+
+		Roact.unmount(instance)
 	end)
 
-	it("should trim multi-byte utf8 characters correctly when it exceeds max length limit", function()
-		local textChangedTo = ""
+	it("should keep old multi-byte text when new text exceeds max length", function()
+		local text = "罗布乐思"
 		local element = Roact.createElement(UIBlox.Style.Provider, {
 			style = appStyle,
 		}, {
 			TextEntryField = Roact.createElement(TextEntryField, {
 				enabled = true,
-				text = "",
+				text = text,
 				textChanged = function(newText)
-					textChangedTo = newText
+					text = newText
 				end,
 				maxTextLength = 4,
 				autoFocusOnEnabled = false,
@@ -117,13 +117,13 @@ return function()
 		})
 
 		local folder = Instance.new("Folder")
-
 		local instance = Roact.mount(element, folder)
-
 		local textBox = folder:FindFirstChildWhichIsA("TextBox", true)
-		textBox.Text = "罗布乐思是世界最大的多人在线游戏"
-		Roact.unmount(instance)
 
-		expect(textChangedTo).to.equal("罗布乐思")
+		textBox.Text = "罗布乐思是世界最大的多人在线游戏"
+		expect(textBox.Text).to.equal("罗布乐思")
+		expect(text).to.equal("罗布乐思")
+
+		Roact.unmount(instance)
 	end)
 end

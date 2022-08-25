@@ -3,6 +3,7 @@ local isCli = require(script.Parent.isCli)
 
 local FFlagToolboxEnableAnnouncementsDialog = game:GetFastFlag("ToolboxEnableAnnouncementsDialog")
 local FFlagToolboxCreatorMarketplaceWebLinks = game:GetFastFlag("ToolboxCreatorMarketplaceWebLinks")
+local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
 
 local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
 local ToolboxPolicy
@@ -17,6 +18,9 @@ if isCli() then
 		MarketplaceShouldUsePluginCreatorWhitelist = true,
 		DisableAutocomplete = false,
 		Enabled = true,
+		VerificationDocumentationUrl = "https://create.roblox.com/docs/production/publishing/creator-marketplace#verifying-your-account",
+		AudioPrivacyLearnMoreUrl = "https://devforum.roblox.com/t/action-needed-upcoming-changes-to-asset-privacy-for-audio/1701697",
+		SafetyLearnMoreUrl = "https://en.help.roblox.com/hc/en-us/articles/115004647846-Roblox-Terms-of-Use",
 		AnnouncementConfiguration = {
 			ButtonKey = "Button_Default",
 			Date = "2022-08-08T19:45:23.0346658-05:00",
@@ -144,6 +148,20 @@ if FFlagToolboxEnableAnnouncementsDialog then
 			return {}
 		end
 		return policyValue
+	end
+end
+
+if FFlagToolboxEnableAssetConfigPhoneVerification then
+	function ToolboxUtilities.getVerificationDocumentationUrl(): string?
+		return ToolboxPolicy["VerificationDocumentationUrl"]
+	end
+
+	function ToolboxUtilities.getAudioPrivacyLearnMoreUrl(): string?
+		return ToolboxPolicy["AudioPrivacyLearnMoreUrl"]
+	end
+
+	function ToolboxUtilities.getSafetyLearnMoreUrl(): string?
+		return ToolboxPolicy["SafetyLearnMoreUrl"]
 	end
 end
 

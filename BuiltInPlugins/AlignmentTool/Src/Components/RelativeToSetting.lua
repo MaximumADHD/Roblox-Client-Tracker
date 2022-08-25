@@ -27,16 +27,11 @@ local Image = UI.Decoration.Image
 local RadioButton = UI.RadioButton
 local Tooltip = UI.Tooltip
 
-local Util = Framework.Util
-local LayoutOrderIterator = Util.LayoutOrderIterator
-local StyleModifier = Util.StyleModifier
-
 local RelativeTo = require(Plugin.Src.Utility.RelativeTo)
 
 local RelativeToSetting = Roact.PureComponent:extend("RelativeToSetting")
 
 RelativeToSetting.defaultProps = {
-	LayoutOrder = 1,
 	Value = RelativeTo.Selection,
 	OnValueChanged = function() end,
 }
@@ -49,11 +44,8 @@ end
 function RelativeToSetting:render()
 	local props = self.props
 
-	local layoutOrder = props.LayoutOrder
 	local localization = props.Localization
 	local theme = props.Stylizer
-
-	local layoutOrderIterator = LayoutOrderIterator.new()
 
 	local function renderRadioButton(target, layoutOrder)
 		local disabled = false

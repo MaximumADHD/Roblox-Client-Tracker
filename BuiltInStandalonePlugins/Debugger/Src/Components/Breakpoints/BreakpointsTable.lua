@@ -29,7 +29,6 @@ local Constants = require(PluginFolder.Src.Util.Constants)
 local BreakpointsTreeTableCell = require(PluginFolder.Src.Components.Breakpoints.BreakpointsTreeTableCell)
 
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
-local FFlagDevFrameworkExpandColumnOnDoubleClickDragbar = game:GetFastFlag("DevFrameworkExpandColumnOnDoubleClickDragbar")
 
 local UtilFolder = PluginFolder.Src.Util
 local MakePluginActions = require(UtilFolder.MakePluginActions)
@@ -127,8 +126,8 @@ function BreakpointsTable:init()
 			actionId == Constants.BreakpointActions.DeleteBreakpoint
 			or actionId == Constants.LogpointActions.DeleteLogpoint
 		then
-			local BreakpointManager = game:GetService("BreakpointManager")
-			BreakpointManager:RemoveBreakpointById(row.item.id)
+			local MetaBreakpointManager = game:GetService("MetaBreakpointManager")
+			MetaBreakpointManager:RemoveBreakpointById(row.item.id)
 
 			self.props.Analytics:report(AnalyticsEventNames.RemoveMetaBreakpoint, "LuaBreakpointsTable.ContextMenu")
 		elseif
@@ -143,7 +142,7 @@ function BreakpointsTable:init()
 			or actionId == Constants.BreakpointActions.DisableBreakpoint
 			or actionId == Constants.LogpointActions.DisableLogpoint
 		then
-			local bpManager = game:GetService("BreakpointManager")
+			local bpManager = game:GetService("MetaBreakpointManager")
 			local bp = bpManager:GetBreakpointById(row.item.id)
 			BreakpointHelperFunctions.setBreakpointRowEnabled(
 				bp,
@@ -196,19 +195,19 @@ function BreakpointsTable:init()
 	end
 
 	self.deleteAllBreakpoints = function()
-		local BreakpointManager = game:GetService("BreakpointManager")
+		local MetaBreakpointManager = game:GetService("MetaBreakpointManager")
 		for _, breakpoint in ipairs(self.props.Breakpoints) do
-			BreakpointManager:RemoveBreakpointById(breakpoint.id)
+			MetaBreakpointManager:RemoveBreakpointById(breakpoint.id)
 		end
 
 		self.props.Analytics:report(AnalyticsEventNames.RemoveAllMetaBreakpoints, "LuaBreakpointsTable")
 	end
 
 	self.toggleEnabledAll = function()
-		local BreakpointManager = game:GetService("BreakpointManager")
+		local MetaBreakpointManager = game:GetService("MetaBreakpointManager")
 		local enable = self.props.hasDisabledBreakpoints
 
-		self.props.onToggleEnabledAll(BreakpointManager, enable)
+		self.props.onToggleEnabledAll(MetaBreakpointManager, enable)
 
 		if enable then
 			self.props.Analytics:report(AnalyticsEventNames.EnableAllMetaBreakpoints, "LuaBreakpointsTable")
@@ -251,10 +250,10 @@ function BreakpointsTable:init()
 	end
 
 	self.OnFocusLost = function(enterPress, inputObj, row, col)
-		local breakpointManager = game:GetService("BreakpointManager")
+		local metaBreakpointManager = game:GetService("MetaBreakpointManager")
 		local bpModified = row.item
 		local bpId = bpModified.id
-		local metaBP = breakpointManager:GetBreakpointById(bpId)
+		local metaBP = metaBreakpointManager:GetBreakpointById(bpId)
 
 		if self.props.CurrentKeys[col] == "condition" then
 			local newCondition = inputObj.Text
@@ -563,7 +562,7 @@ function BreakpointsTable:render()
 				ClampSize = true,
 				ColumnHeaderHeight = Constants.COLUMN_HEADER_HEIGHT,
 				RowHeight = Constants.ROW_HEIGHT,
-				ExpandOnDoubleClick = if FFlagDevFrameworkExpandColumnOnDoubleClickDragbar then true else nil,
+				ExpandOnDoubleClick = true,
 			}),
 		}),
 		DeleteAllDialog = Roact.createElement(DeleteAllBreakpointsDialog, {
@@ -663,8 +662,8 @@ BreakpointsTable = RoactRodux.connect(function(state, props)
 	}
 end, function(dispatch)
 	return {
-		onToggleEnabledAll = function(breakpointManager, stateToSet)
-			return dispatch(ToggleAllBreakpoints(breakpointManager, stateToSet))
+		onToggleEnabledAll = function(metaBreakpointManager, stateToSet)
+			return dispatch(ToggleAllBreakpoints(metaBreakpointManager, stateToSet))
 		end,
 		onSetBreakpointSortState = function(sortDirection, columnIndex)
 			return dispatch(SetBreakpointSortState(sortDirection, columnIndex))

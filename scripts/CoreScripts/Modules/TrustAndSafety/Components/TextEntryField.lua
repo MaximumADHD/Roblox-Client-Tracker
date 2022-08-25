@@ -145,9 +145,12 @@ function TextEntryField:renderWithSelectionCursor(getSelectionCursor)
 					[Roact.Ref] = self.textBoxRef,
 
 					[Roact.Change.Text] = function(rbx)
-						if utf8.len(utf8.nfcnormalize(rbx.Text)) > self.props.maxTextLength then
-							local byteOffset = utf8.offset(rbx.Text, self.props.maxTextLength + 1) - 1
-							rbx.Text = string.sub(rbx.Text, 1, byteOffset)
+						local success, normLen = pcall(function()
+							return utf8.len(utf8.nfcnormalize(rbx.Text))
+						end)
+						if (not success) or (normLen > self.props.maxTextLength) then
+							-- just rollback to props.text
+							rbx.Text = self.props.text
 							return
 						end
 						self.props.textChanged(rbx.Text)

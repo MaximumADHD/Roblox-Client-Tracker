@@ -15,6 +15,10 @@ return function()
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jest = JestGlobals.jest
 
+	local function localPlayer()
+		return Players.LocalPlayer :: Player
+	end
+
 	local TestApp = Roact.PureComponent:extend("TestApp")
 
 	function TestApp:init()
@@ -63,10 +67,10 @@ return function()
 						isFocused = true,
 					}),
 				})
-				expect(Players.LocalPlayer.PlayerGui).to.be.ok()
+				expect(localPlayer().PlayerGui).to.be.ok()
 
 				expect(GuiService.SelectedCoreObject).to.equal(nil)
-				local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+				local instance = Roact.mount(element, localPlayer().PlayerGui)
 
 				expect(tostring(GuiService.SelectedCoreObject)).to.equal("button1")
 
@@ -79,9 +83,9 @@ return function()
 						isFocused = false,
 					}),
 				})
-				expect(Players.LocalPlayer.PlayerGui).to.be.ok()
+				expect(localPlayer().PlayerGui).to.be.ok()
 
-				local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+				local instance = Roact.mount(element, localPlayer().PlayerGui)
 				expect(GuiService.SelectedCoreObject).to.equal(nil)
 				act(function()
 					Roact.update(
@@ -118,11 +122,11 @@ return function()
 					})
 				end
 				local element = getTree(true, false)
-				expect(Players.LocalPlayer.PlayerGui).to.be.ok()
+				expect(localPlayer().PlayerGui).to.be.ok()
 
 				expect(GuiService.SelectedCoreObject).to.equal(nil)
 				expect(#outerDidBlurSpy.mock.calls).to.equal(0)
-				local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+				local instance = Roact.mount(element, localPlayer().PlayerGui)
 				expect(tostring(GuiService.SelectedCoreObject)).to.equal("outerButton")
 
 				act(function()
@@ -161,12 +165,12 @@ return function()
 				end
 				local element = getTree(true, false)
 
-				expect(Players.LocalPlayer.PlayerGui).to.be.ok()
+				expect(localPlayer().PlayerGui).to.be.ok()
 
 				expect(GuiService.SelectedCoreObject).to.equal(nil)
 				expect(#didBlurSpyA.mock.calls).to.equal(0)
 				expect(#didBlurSpyB.mock.calls).to.equal(0)
-				local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+				local instance = Roact.mount(element, localPlayer().PlayerGui)
 				expect(tostring(GuiService.SelectedCoreObject)).to.equal("buttonA")
 
 				act(function()
@@ -202,10 +206,10 @@ return function()
 
 				local element = getTree(true, false)
 
-				expect(Players.LocalPlayer.PlayerGui).to.be.ok()
+				expect(localPlayer().PlayerGui).to.be.ok()
 
 				expect(GuiService.SelectedCoreObject).to.equal(nil)
-				local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+				local instance = Roact.mount(element, localPlayer().PlayerGui)
 				expect(tostring(GuiService.SelectedCoreObject)).to.equal("buttonA")
 				-- Select the second button before capturing focus elsewhere
 				GuiService.SelectedCoreObject = frameRef.current:FindFirstChild("buttonToBeRememberedA", true)
@@ -258,10 +262,10 @@ return function()
 
 			local element = getTree({ focusA = true, focusB = false, shouldForgetA = true })
 
-			expect(Players.LocalPlayer.PlayerGui).to.be.ok()
+			expect(localPlayer().PlayerGui).to.be.ok()
 
 			expect(GuiService.SelectedCoreObject).to.equal(nil)
-			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+			local instance = Roact.mount(element, localPlayer().PlayerGui)
 
 			expect(tostring(GuiService.SelectedCoreObject)).to.equal("buttonA")
 			-- Select the second button before capturing focus elsewhere
@@ -304,10 +308,10 @@ return function()
 
 			local element = getTree({ focusA = true, focusB = false })
 
-			expect(Players.LocalPlayer.PlayerGui).to.be.ok()
+			expect(localPlayer().PlayerGui).to.be.ok()
 
 			expect(GuiService.SelectedCoreObject).to.equal(nil)
-			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+			local instance = Roact.mount(element, localPlayer().PlayerGui)
 
 			expect(tostring(GuiService.SelectedCoreObject)).to.equal("buttonA")
 			-- Select the second button before capturing focus elsewhere

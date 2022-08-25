@@ -1,6 +1,6 @@
 --!strict
-game:DefineFastFlag("LuaAppUseVerifiedBadge_Dev", false)
+game:DefineFastFlag("LuaAppUseVerifiedBadgeV1", false)
 
 return function()
-	return game:GetFastFlag("LuaAppUseVerifiedBadge_Dev")
+	return game:GetFastFlag("LuaAppUseVerifiedBadgeV1")
 end

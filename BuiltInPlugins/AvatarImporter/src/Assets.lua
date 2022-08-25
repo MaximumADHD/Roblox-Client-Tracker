@@ -7,7 +7,7 @@ local assets = {
 	ERROR_ICON = "icon_error.png",
 	BACKGROUND_IMAGE = "img_window_BG.png",
 	HEADER_IMAGE = "img_window_header.png",
-	BUTTON_ICON = "icon_AvatarImporter.png",
+	DEPRECATED_BUTTON_ICON = "icon_AvatarImporter.png",
 	BUTTON_CLOSE = "button_close.png",
 
 	RTHRO = {

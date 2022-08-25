@@ -9,10 +9,12 @@ return function()
 	local metalnessMap = "rbxassetid://6505037219"
 	local normalMap = "rbxassetid://6505043762"
 	local roughnessMap = "rbxassetid://6505049142"
-	local TestMaterial
+	local TestMaterialVariant
 
 	local function createTestElement(props: TextureSettings.Props?)
-		props = props or {}
+		props = props or {
+			MaterialVariant = TestMaterialVariant,
+		}
 
 		return mockContext({
 			TextureSettings = Roact.createElement(TextureSettings, props)
@@ -20,20 +22,14 @@ return function()
 	end
 
 	beforeEach(function()
-		TestMaterial = {
-			IsBuiltin = true,
-			Material = Enum.Material.Plastic,
-			MaterialPath = { "Plastic" },
-			MaterialType = "Base",
-			MaterialVariant = Instance.new("MaterialVariant")
-		}
+		TestMaterialVariant = Instance.new("MaterialVariant")
 	end)
 
 	afterEach(function()
-		if TestMaterial.MaterialVariant then
-			TestMaterial.MaterialVariant:Destroy()
+		if TestMaterialVariant then
+			TestMaterialVariant:Destroy()
 		end
-		TestMaterial = nil
+		TestMaterialVariant = nil
 	end)
 
 
@@ -44,11 +40,12 @@ return function()
 	end)
 
 	it("should render material with color map correctly", function()
-		TestMaterial.MaterialVariant.ColorMap = colorMap
+		TestMaterialVariant.ColorMap = colorMap
 
 		local container = Instance.new("Folder")
 		local element = createTestElement({
-			MockMaterial = TestMaterial
+			LayoutOrder = 1,
+			MaterialVariant = TestMaterialVariant,
 		})
 		local instance = Roact.mount(element, container)
 
@@ -58,14 +55,15 @@ return function()
 	end)
 
 	it("should render material with all maps correctly", function()
-		TestMaterial.MaterialVariant.ColorMap = colorMap
-		TestMaterial.MaterialVariant.MetalnessMap = metalnessMap
-		TestMaterial.MaterialVariant.NormalMap = normalMap
-		TestMaterial.MaterialVariant.RoughnessMap = roughnessMap
+		TestMaterialVariant.ColorMap = colorMap
+		TestMaterialVariant.MetalnessMap = metalnessMap
+		TestMaterialVariant.NormalMap = normalMap
+		TestMaterialVariant.RoughnessMap = roughnessMap
 
 		local container = Instance.new("Folder")
 		local element = createTestElement({
-			MockMaterial = TestMaterial
+			LayoutOrder = 1,
+			MaterialVariant = TestMaterialVariant,
 		})
 		local instance = Roact.mount(element, container)
 

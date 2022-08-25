@@ -72,6 +72,9 @@ local Constants = {
 		ControllerBar = 9
 	},
 
+	ShieldOpenAnimationTweenTime = 0.5,
+	ShieldCloseAnimationTweenTime = 0.4,
+
 	Zone = {
 		PortalSize = 1,
 		ContentOffset = 2, -- PortalSize + 1

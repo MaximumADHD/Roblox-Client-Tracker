@@ -12,8 +12,6 @@ local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 local SetFrameRate = require(Plugin.Src.Actions.SetFrameRate)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 
-local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
-
 return function(name, analytics)
 	return function(store)
 		local state = store:getState()
@@ -47,14 +45,10 @@ return function(name, analytics)
 		store:dispatch(SetIsDirty(false))
 		store:dispatch(SetFrameRate(frameRate))
 
-		if GetFFlagCurveAnalytics() then
-			local animationType = if AnimationData.isChannelAnimation(newData)
-				then Constants.ANIMATION_TYPE.CurveAnimation
-				else Constants.ANIMATION_TYPE.KeyframeSequence
+		local animationType = if AnimationData.isChannelAnimation(newData)
+			then Constants.ANIMATION_TYPE.CurveAnimation
+			else Constants.ANIMATION_TYPE.KeyframeSequence
 
-			analytics:report("onLoadAnimation", name, numKeyframes, numPoses, numEvents, animationType)
-		elseif not AnimationData.isChannelAnimation(newData) then
-			analytics:report("onLoadAnimation", name, numKeyframes, numPoses, numEvents)
-		end
+		analytics:report("onLoadAnimation", name, numKeyframes, numPoses, numEvents, animationType)
 	end
 end

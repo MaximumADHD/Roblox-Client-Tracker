@@ -3,6 +3,8 @@ local RunService = game:GetService("RunService")
 local CorePackages = game:GetService("CorePackages")
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
+local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
+
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
@@ -11,7 +13,6 @@ local t = InGameMenuDependencies.t
 local LeavePrompt = require(script.Parent.LeavePrompt)
 
 local InGameMenu = script.Parent.Parent.Parent.Parent
-local PerfUtils = require(InGameMenu.Utility.PerfUtils)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 local Constants = require(InGameMenu.Resources.Constants)
 local NavigateBack = require(InGameMenu.Actions.NavigateBack)

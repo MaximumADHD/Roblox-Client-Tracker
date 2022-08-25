@@ -22,6 +22,7 @@ local UI = Framework.UI
 local LoadingIndicator = UI.LoadingIndicator
 
 local ImageLoader = require(Plugin.Src.Controllers.ImageLoader)
+local getFFlagMaterialManagerVariantCreatorOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
 
 export type Props = {
 	BackgroundTransparency: number?,
@@ -108,10 +109,11 @@ function LoadingImage:render()
 		-- As we wrap the image in a container, disable all position/size related props
 		-- But pass through the image-related props (e.g. ScaleType, ImageColor3 etc.)
 		Size = UDim2.new(1, 0, 1, 0),
-		LayoutOrder = Dash.None,
+		LayoutOrder = if getFFlagMaterialManagerVariantCreatorOverhaul() then 2 else Dash.None,
 		AnchorPoint = Dash.None,
 		Position = Dash.None,
 		ZIndex = Dash.None,
+		ImageTransparency = if getFFlagMaterialManagerVariantCreatorOverhaul() then 0.5 else nil,
 
 		-- Don't pass our context items on either
 		ImageLoader = Dash.None,
@@ -128,11 +130,12 @@ function LoadingImage:render()
 	}, {
 		Image = loaded and Roact.createElement("ImageLabel", imageProps),
 
-		LoadingSpinner = not loaded and Roact.createElement(LoadingIndicator, {
+		LoadingSpinner = if getFFlagMaterialManagerVariantCreatorOverhaul() or not loaded then Roact.createElement(LoadingIndicator, {
+			LayoutOrder = if getFFlagMaterialManagerVariantCreatorOverhaul() then 1 else nil,
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			Size = UDim2.fromScale(0.5, 0.5),
-		}),
+		}) else nil,
 	})
 end
 
