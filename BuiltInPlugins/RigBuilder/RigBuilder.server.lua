@@ -8,10 +8,6 @@ local Localization = ContextServices.Localization
 local SourceStrings = Plugin.Localization.SourceStrings
 local LocalizedStrings = Plugin.Localization.LocalizedStrings
 
-local Framework = require(Plugin.Packages.Framework)
-local isHighDpiEnabled = Framework.Util.isHighDpiEnabled
-local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and isHighDpiEnabled()
-
 local localization = Localization.new({
 	pluginName = "RigBuilder",
 	stringResourceTable = SourceStrings,
@@ -24,7 +20,7 @@ local toolbar = plugin:CreateToolbar(localization:getText("Plugin", "Toolbar"))
 local button = toolbar:CreateButton(
 	localization:getText("Plugin", "Button"), -- The text next to the icon. Leave this blank if the icon is sufficient.
 	localization:getText("Plugin", "Description"), -- hover text
-	if FFlagHighDpiIcons then "rbxlocaltheme://BuildRig" else "rbxasset://textures/AnimationEditor/rigbuilder_blue.png"
+	"rbxasset://textures/AnimationEditor/rigbuilder_blue.png"
 )
 
 --Environment

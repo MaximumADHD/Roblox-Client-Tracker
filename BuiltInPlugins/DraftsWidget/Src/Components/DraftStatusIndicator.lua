@@ -8,10 +8,8 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local UILibrary = require(Plugin.Packages.UILibrary)
-local Framework = require(Plugin.Packages.Framework)
 
-local FFlagDevFrameworkMigrateTooltip = Framework.SharedFlags.getFFlagDevFrameworkMigrateTooltip()
-local Tooltip = if FFlagDevFrameworkMigrateTooltip then Framework.UI.Tooltip else UILibrary.Component.Tooltip
+local Tooltip = UILibrary.Component.Tooltip
 
 local DraftStatusIndicator = Roact.PureComponent:extend("DraftStatusIndicator")
 

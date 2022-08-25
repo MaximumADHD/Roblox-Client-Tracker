@@ -155,19 +155,17 @@ return function()
 		expect(state.Common.currentBreakpointId).to.equal(30)
 		expect(state.Common.currentFrameMap[1][1]).to.be.ok()
 		expect(state.Common.currentFrameMap[1][2]).to.be.ok()
+		expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(2)
 
 		if FFlagOnlyLoadOneCallstack() then
-			expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(1)
-
 			-- only one script should be open at start
 			expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[1][0].Script]).to.equal(
-				true
-			)
-			expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[2][0].Script]).to.equal(
 				nil
 			)
+			expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[2][0].Script]).to.equal(
+				true
+			)
 		else
-			expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(2)
 			expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[1][0].Script]).to.equal(
 				true
 			)
@@ -190,11 +188,7 @@ return function()
 		expect(state.Common.isPaused).to.equal(true)
 		expect(state.Common.currentFrameMap[1][1]).to.be.ok()
 		expect(state.Common.currentFrameMap[1][2]).to.be.ok()
-		if FFlagOnlyLoadOneCallstack() then
-			expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(1)
-		else
-			expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(2)
-		end
+		expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(2)
 
 		currentMockConnection.Resumed:Fire(testPausedState2)
 		state = mainStore:getState()

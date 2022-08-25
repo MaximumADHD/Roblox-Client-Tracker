@@ -12,6 +12,11 @@ local ok, hasInternalPermission = pcall(function()
 	return game:GetService("StudioService"):HasInternalPermission()
 end)
 
+local getFFlagEnableMaterialManager = require(main.Src.Flags.getFFlagEnableMaterialManager)
+if not getFFlagEnableMaterialManager() then
+	return
+end
+
 local commonInit = require(script.Parent.commonInit)
 commonInit()
 

@@ -29,14 +29,18 @@ local BubbleChatEnabled = PlayersService.BubbleChat
 local Util = require(RobloxGui.Modules.ChatUtil)
 
 local CorePackages = game:GetService("CorePackages")
+local FFlagEnableExperienceChat = require(RobloxGui.Modules.Common.Flags.FFlagEnableExperienceChat)
 local GetFFlagUpgradeExpChatV2_0_0 = require(CorePackages.Flags.GetFFlagUpgradeExpChatV2_0_0)
 local FFlagExperienceChatShowChatOnFocusKeybind = game:DefineFastFlag("ExperienceChatShowChatOnFocusKeybind", false)
 local FFlagExperienceChatTopBarVisibilityFix = game:DefineFastFlag("ExperienceChatTopBarVisibilityFix", false)
 
-local ExperienceChat = require(CorePackages.ExperienceChat)
+local ExperienceChat
 local ChatTopBarButtonActivated
-if not GetFFlagUpgradeExpChatV2_0_0() then
-	ChatTopBarButtonActivated = ExperienceChat.ChatVisibility.Actions.ChatTopBarButtonActivated
+if FFlagEnableExperienceChat then
+	ExperienceChat = require(CorePackages.ExperienceChat)
+	if not GetFFlagUpgradeExpChatV2_0_0() then
+		ChatTopBarButtonActivated = ExperienceChat.ChatVisibility.Actions.ChatTopBarButtonActivated
+	end
 end
 
 local moduleApiTable = {}
@@ -97,19 +101,23 @@ do
 				moduleApiTable.VisibilityStateChanged:fire(ChatWindowState.Visible)
 			end
 
-			if GetFFlagUpgradeExpChatV2_0_0() then
-				ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
-			else
-				ExperienceChat.DispatchBindableEvent:Fire(ChatTopBarButtonActivated(ChatWindowState.Visible))
+			if FFlagEnableExperienceChat then
+				if GetFFlagUpgradeExpChatV2_0_0() then
+					ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
+				else
+					ExperienceChat.DispatchBindableEvent:Fire(ChatTopBarButtonActivated(ChatWindowState.Visible))
+				end
 			end
 		end
 
 		function moduleApiTable:SetVisible(visible)
 			ChatWindowState.Visible = visible
 
-			if GetFFlagUpgradeExpChatV2_0_0() then
-				if FFlagExperienceChatTopBarVisibilityFix then
-					ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
+			if FFlagEnableExperienceChat then
+				if GetFFlagUpgradeExpChatV2_0_0() then
+					if FFlagExperienceChatTopBarVisibilityFix then
+						ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
+					end
 				end
 			end
 
@@ -339,12 +347,14 @@ do
 			end
 		end
 
-		if FFlagExperienceChatShowChatOnFocusKeybind then
-			ExperienceChat.listenToDispatch(function(action)
-				if action.type == "FocusChatHotKeyActivated" then
-					moduleApiTable:SetVisible(true)
-				end
-			end)
+		if FFlagEnableExperienceChat then
+			if FFlagExperienceChatShowChatOnFocusKeybind then
+				ExperienceChat.listenToDispatch(function(action)
+					if action.type == "FocusChatHotKeyActivated" then
+						moduleApiTable:SetVisible(true)
+					end
+				end)
+			end
 		end
 
 		StarterGui:RegisterSetCore("CoreGuiChatConnections", RegisterCoreGuiConnections)

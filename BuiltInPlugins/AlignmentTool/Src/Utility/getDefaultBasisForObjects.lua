@@ -1,5 +1,7 @@
 local Workspace = game:GetService("Workspace")
 
+local Plugin = script.Parent.Parent.Parent
+
 return function(objects)
 	local terrain = Workspace.Terrain
 
@@ -12,6 +14,4 @@ return function(objects)
 			return cframe
 		end
 	end
-
-	return nil
 end

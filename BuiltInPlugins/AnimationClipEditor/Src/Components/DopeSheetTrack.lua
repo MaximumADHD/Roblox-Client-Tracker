@@ -40,6 +40,8 @@ local Keyframe = require(Plugin.Src.Components.Timeline.Keyframe)
 local KeyframeCluster = require(Plugin.Src.Components.KeyframeCluster)
 local Tooltip = require(Plugin.Src.Components.Tooltip)
 
+local FFlagFixClusterKeyframes = game:DefineFastFlag("ACEFixClusterKeyframes", false)
+
 local DopeSheetTrack = Roact.PureComponent:extend("DopeSheetTrack")
 
 function DopeSheetTrack:renderKeyframe(selected, xOffset, track, tck, override, data, filled)
@@ -108,7 +110,7 @@ function DopeSheetTrack:renderKeyframes(keys)
 
 	if showCluster then
 		local startIndex, endIndex = TrackUtils.getKeyframesExtents(keyframes, startTick, endTick)
-		if startIndex ~= nil and endIndex ~= nil then
+		if not FFlagFixClusterKeyframes or (startIndex ~= nil and endIndex ~= nil) then
 			local clusterXPos = TrackUtils.getScaledKeyframePosition(keyframes[startIndex], startTick, endTick, width)
 			local clusterXPosEnd = TrackUtils.getScaledKeyframePosition(keyframes[endIndex], startTick, endTick, width)
 			keys[endIndex] = self:renderKeyframeCluster(clusterXPos, clusterXPosEnd, Constants.MIN_SPACE_BETWEEN_KEYS)

@@ -4,8 +4,9 @@
 	// Written by: jcampos and jlem
 	// Description: Avatar's mood controller.
 ]]--
+local moodAnimationsEnabled = game:GetEngineFeature("NewMoodAnimationTypeApiEnabled")
 local userPlayEmoteByIdAnimTrackReturn = game:GetEngineFeature("PlayEmoteAndGetAnimTrackByIdApiEnabled")
-game:DefineFastFlag("EmoteTriggeredSignalEnabledLua2", false)
+game:DefineFastFlag("EmoteTriggeredSignalEnabledLua", false)
 
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
@@ -16,7 +17,6 @@ local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
 local playerAddedConnection = nil
 local playerRemovingConnection = nil
-local emoteChattedConnection = nil
 
 local defaultMoodId = "rbxassetid://7715106138"
 local defaultMoodAnimation = Instance.new("Animation")
@@ -24,24 +24,16 @@ defaultMoodAnimation.AnimationId = defaultMoodId
 
 local currentMoodAnimationInstance = nil
 local currentMoodTrack = nil
+local localEmoteConnection = nil
 local currentEmoteTrack = nil
 local moodCoreScriptEnabled = true
 
-type connectionMap = {[string]: RBXScriptConnection}
-local connections : connectionMap = {}
+local animateScriptMoodAddedConnection = nil
+local animateScriptMoodRemovedConnection = nil
+local animationInstanceChangedConnection = nil
+local currentEmoteTrackStoppedConnection = nil
 
-local Connection = {
-	EmoteStopped = "currentEmoteTrackStopped",
-	AnimationInstanceChanged = "animationInstanceChanged",
-	EmoteTriggered = "localEmote",
-	AnimateScriptAdded = "animateScriptAdded",
-	AnimateScriptMoodAdded = "animateScriptMoodAdded",
-	AnimateScriptMoodRemoved = "animateScriptMoodRemoved",
-	MoodChildAdded = "moodChildAdded",
-	HeadChildAdded = "headChildAdded",
-	CharacterChildAdded = "characterChildAdded",
-	CharacterChildRemoved = "characterChildRemoved",
-}
+local emoteChattedConnection = nil
 
 local EMOTE_LOOP_TRANSITION_TIME = 0.3
 
@@ -55,25 +47,19 @@ local LegacyDefaultEmotes = {
 	cheer = true,
 }
 
-local function disconnectAndRemoveConnection(key)
-	if connections[key] ~= nil then
-		connections[key]:Disconnect()
-		connections[key] = nil
-	end
-end
-
-local function onEmoteTriggered(emoteSuccess, emoteTrack)
-	if not moodCoreScriptEnabled or currentMoodTrack == nil then 
+local function onEmoteTriggered(emoteSuccess, emoteTrack, humanoid)
+	if not moodCoreScriptEnabled then 
 		return
 	end
 
-	if emoteSuccess and emoteTrack then	
+	if emoteSuccess and humanoid and emoteTrack then	
 		currentMoodTrack:Stop()
 		currentEmoteTrack = emoteTrack
-		connections[Connection.EmoteStopped] = currentEmoteTrack.Stopped:Connect(function()
+		currentEmoteTrackStoppedConnection = currentEmoteTrack.Stopped:Connect(function()
 			currentEmoteTrack = nil
 			currentMoodTrack:Play()
-			disconnectAndRemoveConnection(Connection.EmoteStopped)
+			currentEmoteTrackStoppedConnection:disconnect()
+			currentEmoteTrackStoppedConnection = nil
 		end)
 	end
 end
@@ -82,22 +68,24 @@ local function checkEmotePlaying(humanoid)
 	local AnimationTracks = humanoid:GetPlayingAnimationTracks()
 	local emoteIsPlaying = false
 
-	-- check all animation tracks to see if one of them is a default chat emote
+	-- Check all animation tracks to see if one of them is a default chat emote
 	for i, track in pairs (AnimationTracks) do
 		if track.Animation.Parent then
 			local emoteName = track.Animation.Parent.Name
 			if LegacyDefaultEmotes[emoteName] then
-				if connections[Connection.EmoteStopped] then
-					disconnectAndRemoveConnection(Connection.EmoteStopped)
+				if currentEmoteTrackStoppedConnection then
+					currentEmoteTrackStoppedConnection:disconnect()
+					currentEmoteTrackStoppedConnection = nil
 				end
 				currentEmoteTrack = track
 				currentMoodTrack:Stop()
 
-				connections[Connection.EmoteStopped] = currentEmoteTrack.Stopped:Connect(function()
+				currentEmoteTrackStoppedConnection = currentEmoteTrack.Stopped:Connect(function()
 					--Add a delay to account for fade time of animations
 					wait(EMOTE_LOOP_TRANSITION_TIME)
 					if not checkEmotePlaying(humanoid) then
-						disconnectAndRemoveConnection(Connection.EmoteStopped)
+						currentEmoteTrackStoppedConnection:disconnect()
+						currentEmoteTrackStoppedConnection = nil
 						currentEmoteTrack = nil
 						currentMoodTrack:Play()
 					end
@@ -110,7 +98,7 @@ local function checkEmotePlaying(humanoid)
 end
 
 emoteChattedConnection = LocalPlayer.Chatted:connect(function(msg)
-	if not moodCoreScriptEnabled or currentMoodTrack == nil then 
+	if not moodAnimationsEnabled or not moodCoreScriptEnabled then 
 		return
 	end
 
@@ -144,8 +132,9 @@ local function updateCharacterMood(character, moodAnimation)
 		return
 	end
 
-	if connections[Connection.AnimationInstanceChanged] then
-		disconnectAndRemoveConnection(Connection.AnimationInstanceChanged)
+	if animationInstanceChangedConnection then
+		animationInstanceChangedConnection:disconnect()
+		animationInstanceChangedConnection = nil
 	end
 	
 	local humanoid = character:WaitForChild("Humanoid")
@@ -153,7 +142,7 @@ local function updateCharacterMood(character, moodAnimation)
 	stopAndDestroyCurrentMoodTrack()
 	
 	currentMoodAnimationInstance = moodAnimation
-	connections[Connection.AnimationInstanceChanged] = currentMoodAnimationInstance.Changed:connect(function(property) 
+	animationInstanceChangedConnection = currentMoodAnimationInstance.Changed:connect(function(property) 
 		updateCharacterMood(character, moodAnimation) 
 	end)
 
@@ -167,20 +156,37 @@ local function updateCharacterMood(character, moodAnimation)
 
 	if userPlayEmoteByIdAnimTrackReturn then
 		-- listen for emotes
-		disconnectAndRemoveConnection(Connection.EmoteTriggered)
+		if localEmoteConnection then
+			localEmoteConnection:disconnect()
+			localEmoteConnection = nil
+		end
 		
-		if game:GetFastFlag("EmoteTriggeredSignalEnabledLua2") then
-			connections[Connection.EmoteTriggered] = humanoid.EmoteTriggered:Connect(onEmoteTriggered)
+		if game:GetFastFlag("EmoteTriggeredSignalEnabledLua") then
+			localEmoteConnection = humanoid.EmoteTriggered:Connect(onEmoteTriggered)
 		end
 	end
 end
 
-function initAvatarMood(animateScript)
+function InitAvatarMood()
 	-- wait for character to be ready
+	local animateScript = LocalPlayer.Character:WaitForChild("Animate")
 	local animateScriptHasMoods = animateScript:FindFirstChild("MoodsEnabled")
 
-	disconnectAndRemoveConnection(Connection.AnimateScriptMoodAdded)
-	disconnectAndRemoveConnection(Connection.AnimateScriptMoodRemoved)
+	if animateScriptMoodAddedConnection then
+		animateScriptMoodAddedConnection:disconnect()
+		animateScriptMoodAddedConnection = nil
+	end
+
+	if animateScriptMoodRemovedConnection then
+		animateScriptMoodRemovedConnection:disconnect()
+		animateScriptMoodRemovedConnection = nil
+	end
+
+	animateScript.ChildAdded:Connect(function(child)
+		if child.Name == "MoodsEnabled" then
+			moodCoreScriptEnabled = false
+		end
+	end)
 
 	if animateScriptHasMoods then
 		moodCoreScriptEnabled = false
@@ -195,35 +201,29 @@ function initAvatarMood(animateScript)
 			updateCharacterMood(LocalPlayer.Character, moodAnimation)
 		end
 
-		disconnectAndRemoveConnection(Connection.MoodChildAdded)
-
 		-- need to use ChildAdded to get moodAnimation as descendants may not have replicated yet
-		connections[Connection.MoodChildAdded] = moodChild.ChildAdded:Connect(function(moodAnimation)
+		moodChild.ChildAdded:Connect(function(moodAnimation)
 			updateCharacterMood(LocalPlayer.Character, moodAnimation)
 		end)
 	else
 		updateCharacterMood(LocalPlayer.Character, defaultMoodAnimation)
 	end
 
-	connections[Connection.AnimateScriptMoodAdded] = animateScript.ChildAdded:Connect(function(child)
+	animateScriptMoodAddedConnection = animateScript.ChildAdded:Connect(function(child)
 		if child.Name == "mood" then
 			if #child:GetChildren() > 0 then
 				local moodAnimation = child:GetChildren()[1]
 				updateCharacterMood(LocalPlayer.Character, moodAnimation)
 			end
 
-			disconnectAndRemoveConnection(Connection.MoodChildAdded)
-
 			-- need to use ChildAdded to get moodAnimation as descendants may not have replicated yet
-			connections[Connection.MoodChildAdded] = child.ChildAdded:Connect(function(moodAnimation)
+			child.ChildAdded:Connect(function(moodAnimation)
 				updateCharacterMood(LocalPlayer.Character, moodAnimation)
 			end)
-		elseif child.Name == "MoodsEnabled" then
-			moodCoreScriptEnabled = false
 		end
 	end)
 
-	connections[Connection.AnimateScriptMoodRemoved] = animateScript.ChildRemoved:Connect(function(child)
+	animateScriptMoodRemovedConnection = animateScript.ChildRemoved:Connect(function(child)
 		if child.Name == "mood" then
 			local otherMood = animateScript:FindFirstChild("mood")
 			if otherMood then
@@ -235,49 +235,33 @@ function initAvatarMood(animateScript)
 	end)
 end
 
-local function waitForAnimateScript()
-	local animScript = LocalPlayer.Character:FindFirstChild("Animate")
-	if animScript then
-		initAvatarMood(animScript)
-	end
-	
-	disconnectAndRemoveConnection(Connection.AnimateScriptAdded)
-	connections[Connection.AnimateScriptAdded] = LocalPlayer.Character.ChildAdded:Connect(function(child)
-		if child.Name == "Animate" then
-			initAvatarMood(child)
-		end
-	end)
-end
-
--- Only play moods if character has a dynamic head.
+-- Only play moods if character has a dynamic head
 local function onHeadAdded(head)
 	if head:FindFirstChildWhichIsA("FaceControls") then
-		waitForAnimateScript()
+		InitAvatarMood()
 	end
 
-	disconnectAndRemoveConnection(Connection.HeadChildAdded)
-	
-	connections[Connection.HeadChildAdded] = head.ChildAdded:Connect(function(child)
+	head.ChildAdded:Connect(function(child)
 		if child:IsA("FaceControls") then
-			waitForAnimateScript()
+			InitAvatarMood()
 		end
 	end)
 end
 
 -- Update mood whenever character head is changed
 local function onCharacterAdded(character)
-	local head = character:FindFirstChild("Head")
+    local head = character:FindFirstChild("Head")
 	if head then
 		onHeadAdded(head)
 	end
 
-	connections[Connection.CharacterChildAdded] = character.ChildAdded:Connect(function(child)
+	character.ChildAdded:Connect(function(child)
 		if child.Name == "Head" then
 			onHeadAdded(child)
 		end
 	end)
 
-	connections[Connection.CharacterChildRemoved] = character.ChildRemoved:Connect(function(child)
+	character.ChildRemoved:Connect(function(child)
 		if child.Name == "Head" then
 			stopAndDestroyCurrentMoodTrack()
 		end
@@ -286,17 +270,13 @@ end
 
 local function onCharacterRemoving(character)
 	stopAndDestroyCurrentMoodTrack()
-	for _, connection in pairs(connections) do
-		if connection then
-			connection:Disconnect()
-		end
+end
+
+if moodAnimationsEnabled then
+	if LocalPlayer.Character then
+		onCharacterAdded(LocalPlayer.Character)
 	end
-	table.clear(connections)
-end
 
-if LocalPlayer.Character then
-	onCharacterAdded(LocalPlayer.Character)
+	LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
+	LocalPlayer.CharacterRemoving:Connect(onCharacterRemoving)
 end
-
-LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
-LocalPlayer.CharacterRemoving:Connect(onCharacterRemoving)

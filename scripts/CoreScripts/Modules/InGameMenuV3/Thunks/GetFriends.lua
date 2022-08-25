@@ -1,6 +1,7 @@
 local InGameMenu = script.Parent.Parent
 local Promise = require(InGameMenu.Utility.Promise)
 local SetFriends = require(InGameMenu.Actions.SetFriends)
+local GetFFlagConsolidateGetFriends = require(InGameMenu.Flags.GetFFlagConsolidateGetFriends)
 
 return function(playersService)
 	return function(store)
@@ -29,7 +30,9 @@ return function(playersService)
 						end)
 						if not success then
 							reject("Error loading online friends")
-							return
+							if GetFFlagConsolidateGetFriends() then
+								return
+							end
 						end
 					else
 						break

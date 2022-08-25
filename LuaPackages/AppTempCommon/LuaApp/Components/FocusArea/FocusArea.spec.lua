@@ -1,4 +1,3 @@
---!nonstrict
 return function()
 	local FocusArea = require(script.Parent.FocusArea)
 	local CorePackages = game:GetService("CorePackages")
@@ -121,7 +120,7 @@ return function()
 		if not GetFFlagLuaAppAddSignalToFocusArea() then
 			expect(focusAreaRef.current).to.be.ok()
 		end
-		expect((common.getSelection() :: GuiObject).Name).to.equal("TestFocusArea1")
+		expect(common.getSelection().Name).to.equal("TestFocusArea1")
 
 		Roact.unmount(instance)
 		screenGui:Destroy()
@@ -156,11 +155,11 @@ return function()
 		if not GetFFlagLuaAppAddSignalToFocusArea() then
 			expect(focusAreaRef.current).to.be.ok()
 		end
-		expect((common.getSelection() :: GuiObject).Name).to.equal("TestFocusArea2")
+		expect(common.getSelection().Name).to.equal("TestFocusArea2")
 
 		-- Change the selection
 		GuiService.SelectedCoreObject = screenGui:FindFirstChild("SiblingFrame", true)
-		expect((common.getSelection() :: GuiObject).Name).to.equal("SiblingFrame")
+		expect(common.getSelection().Name).to.equal("SiblingFrame")
 
 		-- Blur the focus area
 		if GetFFlagLuaAppAddSignalToFocusArea() then
@@ -178,7 +177,7 @@ return function()
 			focus(focusAreaRef)
 			expect(focusAreaRef.current).to.be.ok()
 		end
-		expect((common.getSelection() :: GuiObject).Name).to.equal("SiblingFrame")
+		expect(common.getSelection().Name).to.equal("SiblingFrame")
 
 		Roact.unmount(instance)
 		screenGui:Destroy()
@@ -215,7 +214,7 @@ return function()
 			expect(focusAreaRef.current).to.be.ok()
 			focus(focusAreaRef)
 		end
-		expect((common.getSelection() :: GuiObject).Name).to.equal("TestFocusArea3")
+		expect(common.getSelection().Name).to.equal("TestFocusArea3")
 
 		Roact.unmount(instance)
 		screenGui:Destroy()

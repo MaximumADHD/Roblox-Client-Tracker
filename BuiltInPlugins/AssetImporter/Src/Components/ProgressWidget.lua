@@ -23,6 +23,8 @@ local SuccessWidget = require(Plugin.Src.Components.UploadWidgets.SuccessWidget)
 local FailureWidget = require(Plugin.Src.Components.UploadWidgets.FailureWidget)
 local trimFilename = require(Plugin.Src.Utility.trimFilename)
 
+local getFFlagAssetImporterFixUnmount = require(Plugin.Src.Flags.getFFlagAssetImporterFixUnmount)
+
 local ProgressWidget = Roact.PureComponent:extend("ProgressWidget")
 
 function ProgressWidget:init()
@@ -104,9 +106,11 @@ function ProgressWidget:didMount()
 	self._updateImportSuccessConnection = self.props.AssetImportSession.UploadComplete:Connect(self._updateImportSuccess)
 end
 
-function ProgressWidget:willUnmount()
-		self._updateImportProgressConnection:Disconnect()
-		self._updateImportSuccessConnection:Disconnect()
+if getFFlagAssetImporterFixUnmount() then
+	function ProgressWidget:willUnmount()
+			self._updateImportProgressConnection:Disconnect()
+			self._updateImportSuccessConnection:Disconnect()
+	end
 end
 
 function ProgressWidget:render()

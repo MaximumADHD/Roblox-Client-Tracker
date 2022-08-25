@@ -47,6 +47,7 @@ local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SwitchEditorMode = require(Plugin.Src.Thunks.SwitchEditorMode)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 local GetFFlagCurveEditorFreeZoom = require(Plugin.LuaFlags.GetFFlagCurveEditorFreeZoom)
 
 local TrackEditor = Roact.PureComponent:extend("TrackEditor")
@@ -161,9 +162,17 @@ function TrackEditor:init()
 	self.toggleEditorClicked = function()
 		if self.props.IsChannelAnimation then
 			if self.props.EditorMode == Constants.EDITOR_MODE.CurveCanvas then
-				self.props.SwitchEditorMode(Constants.EDITOR_MODE.DopeSheet, self.props.Analytics)
+				if GetFFlagCurveAnalytics() then
+					self.props.SwitchEditorMode(Constants.EDITOR_MODE.DopeSheet, self.props.Analytics)
+				else
+					self.props.SetEditorMode(Constants.EDITOR_MODE.DopeSheet)
+				end
 			else
-				self.props.SwitchEditorMode(Constants.EDITOR_MODE.CurveCanvas, self.props.Analytics)
+				if GetFFlagCurveAnalytics() then
+					self.props.SwitchEditorMode(Constants.EDITOR_MODE.CurveCanvas, self.props.Analytics)
+				else
+					self.props.SetEditorMode(Constants.EDITOR_MODE.CurveCanvas)
+				end
 			end
 		else
 			self.props.OnPromoteRequested()

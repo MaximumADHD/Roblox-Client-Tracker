@@ -98,11 +98,7 @@ return function(
 
 			VOICE_CHANNEL_ID = {
 				valueList = {
-					{ data = tostring(
-						if game:GetEngineFeature("VoiceChatServiceExposesChannelId")
-						then VoiceChatServiceManager.service:GetChannelId()
-						else VoiceChatServiceManager.service:GetGroupId()
-					)},
+					{ data = tostring(VoiceChatServiceManager.service:GetGroupId()) },
 				}
 			},
 

@@ -29,7 +29,6 @@ local StatusPropertyMap = require(Plugin.Src.Utility.StatusPropertyMap)
 local GetLocalizedString = require(Plugin.Src.Utility.GetLocalizedString)
 
 local getFFlagAssetImportUsePropertyFactories = require(Plugin.Src.Flags.getFFlagAssetImportUsePropertyFactories)
-local FFlagLCQualityCageNamingChecks = game:GetFastFlag("LCQualityCageNamingChecks")
 local getFFlagAssetImportGlobalStatusFix = require(Plugin.Src.Flags.getFFlagAssetImportGlobalStatusFix)
 
 local statusBucketToType = {
@@ -73,13 +72,8 @@ local function getHighestSeverityStatus(instance, propertyName)
 	return level, message
 end
 
-local function getLocalizedStatusMessage(localization, statusType, level, suggestedName)
-	local message
-	if FFlagLCQualityCageNamingChecks and suggestedName then
-		message = localization:getText("Statuses", statusType, {name = suggestedName});
-	else
-		message = GetLocalizedString(localization, "Statuses", statusType)
-	end
+local function getLocalizedStatusMessage(localization, statusType, level)
+	local message = GetLocalizedString(localization, "Statuses", statusType)
 	if not message then
 		message = localization:getText("Statuses", string.format("Default%s", level), {type = statusType});
 	end
@@ -139,9 +133,7 @@ function PropertyListView:render()
 						LayoutOrder = #sectionStatuses,
 						Size = UDim2.fromOffset(statusMaxWidth, 0),
 						Style = statusStyle,
-						Text = if FFlagLCQualityCageNamingChecks 
-							then getLocalizedStatusMessage(localization, status.StatusType, statusBucketType, status.SuggestedName)
-							else getLocalizedStatusMessage(localization, status.StatusType, statusBucketType),
+						Text = getLocalizedStatusMessage(localization, status.StatusType, statusBucketType),
 						TextWrapped = true,
 						TextXAlignment = Enum.TextXAlignment.Left,
 					}))
@@ -153,9 +145,7 @@ function PropertyListView:render()
 						AutomaticSize = if FFlagDevFrameworkRemoveFitFrame then Enum.AutomaticSize.XY else nil,
 						LayoutOrder = #sectionStatuses,
 						Style = statusStyle,
-						Text = if FFlagLCQualityCageNamingChecks 
-							then getLocalizedStatusMessage(localization, status.StatusType, statusBucketType, status.SuggestedName)
-							else getLocalizedStatusMessage(localization, status.StatusType, statusBucketType),
+						Text = getLocalizedStatusMessage(localization, status.StatusType, statusBucketType),
 						TextSize = 18,
 						TextXAlignment = Enum.TextXAlignment.Left,
 					}))

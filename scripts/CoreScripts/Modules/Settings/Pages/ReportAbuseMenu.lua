@@ -245,6 +245,7 @@ local function Initialize()
 		end
 		local recentVoicePlayers = VoiceChatServiceManager:getRecentUsersInteractionData()
 		local isCurrentSelectedPlayerVoice = if currentSelectedPlayer and recentVoicePlayers[tostring(currentSelectedPlayer.UserId)] then true else false
+
 		return (not currentSelectedPlayer or isCurrentSelectedPlayerVoice)
 	end
 
@@ -605,31 +606,6 @@ local function Initialize()
 					local dialogVariant = layerData.thankYouDialog
 					isReportSentEnabled = self.HubRef.ReportSentPage and GetFFlagAbuseReportEnableReportSentPage() and dialogVariant == "variant" -- "Report Sent" is only enabled for reporting players
 
-					if GetFFlagVoiceAbuseReportsEnabled() then
-						local currentIndex = this.MethodOfAbuseMode.CurrentIndex
-						local methodOfAbuse
-
-						if not this:isVoiceReportMethodActive() then
-							currentIndex += 1
-						end
-
-						if currentIndex == 1 then
-							methodOfAbuse = "Voice"
-						elseif currentIndex == 2 then
-							methodOfAbuse = "Text"
-						else
-							methodOfAbuse = "Other"
-						end
-
-						local timeToComplete = DateTime.now().UnixTimestampMillis - timeEntered.UnixTimestampMillis
-
-						this.reportAbuseAnalytics:reportFormSubmitted(timeToComplete, methodOfAbuse, {
-							typeOfAbuse = abuseReason,
-						})
-
-						reportAnalytics("user", currentAbusingPlayer.UserId)
-					end
-
 					if GetFFlagVoiceAbuseReportsEnabled() and this:isVoiceReportSelected() then
 						pcall(function()
 							task.spawn(function()
@@ -650,6 +626,15 @@ local function Initialize()
 								end
 							end)
 						end)
+
+						local timeToComplete = DateTime.now().UnixTimestampMillis - timeEntered.UnixTimestampMillis
+
+						this.reportAbuseAnalytics:reportFormSubmitted(timeToComplete, {
+							methodOfAbuse = "Voice",
+							typeOfAbuse = abuseReason,
+						})
+
+						reportAnalytics("user", currentAbusingPlayer.UserId)
 					else
 						spawn(function()
 							PlayersService:ReportAbuse(currentAbusingPlayer, abuseReason, this.AbuseDescription.Selection.Text)

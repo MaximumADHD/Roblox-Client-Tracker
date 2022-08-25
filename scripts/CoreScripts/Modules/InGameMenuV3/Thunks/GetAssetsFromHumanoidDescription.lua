@@ -8,9 +8,8 @@ local GetProductInfo = require(InGameMenu.Thunks.GetProductInfo)
 local AssetInfo = require(InGameMenu.Models.AssetInfo)
 local SetAssets = require(InGameMenu.Actions.InspectAndBuy.SetAssets)
 local Constants = require(InGameMenu.InspectAndBuyConstants)
-local InspectAndBuyThunk = require(InGameMenu.InspectAndBuyThunk)
 
-local function getAssetIds(humanoidDescription: HumanoidDescription)
+local function getAssetIds(humanoidDescription)
 	local assets = {}
 
 	for assetTypeId, name in pairs(Constants.HumanoidDescriptionIdToName) do
@@ -18,7 +17,7 @@ local function getAssetIds(humanoidDescription: HumanoidDescription)
 		-- table through the GetAccessories function. Avoid adding them here by indexing into
 		-- the humanoid description
 		if Constants.AssetTypeIdToAccessoryTypeEnum[assetTypeId] == nil then
-			local assetIds = (humanoidDescription :: any)[name] or ""
+			local assetIds = humanoidDescription[name] or ""
 			for _, id in pairs(string.split(assetIds)) do
 				if tonumber(id) and id ~= "0" then
 					table.insert(assets, AssetInfo.fromHumanoidDescription(id))
@@ -44,7 +43,7 @@ local function getAssetIds(humanoidDescription: HumanoidDescription)
 end
 
 local function GetAssetsFromHumanoidDescription(humanoidDescription)
-	return InspectAndBuyThunk.new(script.Name, function(store, services)
+	return function(store)
 		local assets = getAssetIds(humanoidDescription)
 		for _, asset in ipairs(assets) do
 			task.spawn(function()
@@ -52,7 +51,7 @@ local function GetAssetsFromHumanoidDescription(humanoidDescription)
 			end)
 		end
 		store:dispatch(SetAssets(assets))
-	end)
+	end
 end
 
 return GetAssetsFromHumanoidDescription

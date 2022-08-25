@@ -101,7 +101,6 @@ function MaterialTileItem:render()
 		}, {
 			MaterialPreview = Roact.createElement(MaterialPreview, {
 				Clone = false,
-				Hover = hover,
 				LayoutOrder = 1,
 				Material = materialType,
 				MaterialVariant = materialVariant,

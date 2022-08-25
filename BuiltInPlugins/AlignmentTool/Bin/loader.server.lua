@@ -6,6 +6,8 @@ local PluginLoaderBuilder = require(Plugin.PluginLoader.PluginLoaderBuilder)
 local SourceStrings = Plugin.Src.Resources.Localization.SourceStrings
 local LocalizedStrings = Plugin.Src.Resources.Localization.LocalizedStrings
 
+local FFlagDebugRbxQtitanRibbonAndDockingEnabled = game:GetFastFlag("DebugRbxQtitanRibbonAndDockingEnabled")
+
 local args : PluginLoaderBuilder.Args = {
 	plugin = plugin,
 	pluginName = "AlignmentTool",

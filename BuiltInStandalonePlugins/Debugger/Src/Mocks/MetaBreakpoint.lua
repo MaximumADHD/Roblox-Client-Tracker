@@ -30,20 +30,20 @@ MetaBreakpoint.__index = MetaBreakpoint
 
 function MetaBreakpoint:SetEnabled(enabled)
 	self.Enabled = enabled
-	if self.mockMetaBreakpointManager then
-		self.mockMetaBreakpointManager.MetaBreakpointChanged:Fire(self)
+	if self.mockBreakpointManager then
+		self.mockBreakpointManager.MetaBreakpointChanged:Fire(self)
 	end
 end
 
 function MetaBreakpoint:SetContinueExecution(continueExecution)
 	self.ContinueExecution = continueExecution
-	if self.mockMetaBreakpointManager then
-		self.mockMetaBreakpointManager.MetaBreakpointChanged:Fire(self)
+	if self.mockBreakpointManager then
+		self.mockBreakpointManager.MetaBreakpointChanged:Fire(self)
 	end
 end
 
-function MetaBreakpoint:SetMockMetaBreakpointManager(mockMetaBreakpointManager)
-	self.mockMetaBreakpointManager = mockMetaBreakpointManager
+function MetaBreakpoint:SetMockBreakpointManager(mockBreakpointManager)
+	self.mockBreakpointManager = mockBreakpointManager
 end
 
 function MetaBreakpoint:GetContextBreakpoints()

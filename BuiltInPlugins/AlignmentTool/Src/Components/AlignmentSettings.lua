@@ -23,6 +23,7 @@ local AlignmentSettings = Roact.PureComponent:extend("AlignmentSettings")
 
 function AlignmentSettings:render()
 	local props = self.props
+	local state = self.state
 
 	local localization = props.Localization
 	local theme = props.Stylizer

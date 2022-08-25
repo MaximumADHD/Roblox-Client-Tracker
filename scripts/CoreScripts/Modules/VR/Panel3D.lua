@@ -13,6 +13,9 @@ local Players = game:GetService("Players")
 local Utility = require(RobloxGui.Modules.Settings.Utility)
 local GamepadService = game:GetService("GamepadService")
 
+local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
+local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
+
 --Panel3D State variables
 local renderStepName = "Panel3DRenderStep-" .. game:GetService("HttpService"):GenerateGUID()
 local defaultPixelsPerStud = 64
@@ -20,12 +23,12 @@ local pointUpCF = CFrame.Angles(math.rad(-90), math.rad(180), 0)
 local zeroVector = Vector3.new(0, 0, 0)
 local zeroVector2 = Vector2.new(0, 0)
 local fullyOpaqueAtPixelsFromEdge = 10
-local fullyTransparentAtPixelsFromEdge = 20
+local fullyTransparentAtPixelsFromEdge = EngineFeatureEnableVRUpdate2 and 20 or 80
 local partThickness = 0.2
 
 --The default origin CFrame offset for new panels
 local standardOriginCF = CFrame.new(0, -0.5, -5.5)
-local newStandardOriginCF = CFrame.new(0, 0, -3)
+local newStandardOriginCF = EngineFeatureEnableVRUpdate2 and CFrame.new(0, 0, -3) or CFrame.new(0, 0, -4.1)
 
 --Compensates for the thickness of the panel part and rotates it so that
 --the front face is pointing back at the camera
@@ -33,7 +36,7 @@ local panelAdjustCF = CFrame.new(0, 0, -0.5 * partThickness) * CFrame.Angles(0, 
 
 local cursorHidden = false
 local cursorHideTime = 2.5
-local cursorSize = 3
+local cursorSize = EngineFeatureEnableVRUpdate2 and 3 or 8
 
 local currentModal = nil
 local lastModal = nil
@@ -44,12 +47,18 @@ local currentCursorPos = zeroVector2
 local lastClosest = nil
 local panels = {}
 local floorRotation = CFrame.new()
-local cursor = Utility:Create "ImageLabel" {
+local cursor = EngineFeatureEnableVRUpdate2 and Utility:Create "ImageLabel" {
 	Image = "rbxasset://textures/Cursors/Gamepad/Pointer.png",
 	ImageColor3 = Color3.new(0, 1, 0),
 	BackgroundTransparency = 1,
 	ZIndex = 1e9
+} or Utility:Create "ImageLabel" {
+	Image = "rbxasset://textures/Cursors/Gamepad/Pointer.png",
+	Size = UDim2.new(0, 8, 0, 8),
+	BackgroundTransparency = 1,
+	ZIndex = 1e9
 }
+
 local partFolder = Utility:Create "Folder" {
 	Name = "VRCorePanelParts",
 	Archivable = false
@@ -192,7 +201,11 @@ function Panel.new(name)
 	self.linkedTo = false
 	self.subpanels = {}
 	
-	self.transparency = 0
+	if EngineFeatureEnableVRUpdate2 then
+		self.transparency = 0
+	else
+		self.transparency = 1
+	end
 	
 	self.forceShowUntilLookedAt = false
 	self.forceShowUntilTick = 0
@@ -245,7 +258,7 @@ function Panel:GetGUI()
 			Adornee = part,
 			Active = true,
 			ToolPunchThroughDistance = 1000,
-			CanvasSize = self.CanvasSize or Vector2.new(1000, 1000),
+			CanvasSize = self.CanvasSize or (EngineFeatureEnableVRUpdate2 and Vector2.new(1000, 1000) or Vector2.new(0, 0)),
 			Enabled = self.isEnabled,
 			AlwaysOnTop = true,
 		})
@@ -316,8 +329,13 @@ function Panel:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF, dt)
 		if self.needsPositionUpdate or self.alwaysUpdatePosition then
 			self.needsPositionUpdate = false
 			local headLookXZ = Panel3D.GetHeadLookXZ(true)
-			local offset = standardOriginCF.Position * (workspace.CurrentCamera :: Camera).HeadScale
-			self.originCF = headLookXZ * CFrame.new(offset)
+			if EngineFeatureEnableVRUpdate2 then
+				local offset = standardOriginCF.Position * (workspace.CurrentCamera :: Camera).HeadScale
+				self.originCF = headLookXZ * CFrame.new(offset)
+			else
+				self.originCF = headLookXZ * standardOriginCF
+			end
+
 		end
 
 		self:SetPartCFrame(cameraCF * self.originCF * self.localCF)
@@ -325,8 +343,12 @@ function Panel:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF, dt)
 		if self.needsPositionUpdate or self.alwaysUpdatePosition then
 			self.needsPositionUpdate = false
 			local userHeadCF = VRService:GetUserCFrame(Enum.UserCFrame.Head)
-			local screenOffset = newStandardOriginCF.Position * (workspace.CurrentCamera :: Camera).HeadScale
-			self.originCF = userHeadCF * CFrame.new(screenOffset)
+			if EngineFeatureEnableVRUpdate2 then
+				local screenOffset = newStandardOriginCF.Position * (workspace.CurrentCamera :: Camera).HeadScale
+				self.originCF = userHeadCF * CFrame.new(screenOffset)
+			else
+				self.originCF = userHeadCF * newStandardOriginCF
+			end
 		end
 		
 		self:SetPartCFrame(cameraCF * self.originCF * self.localCF)
@@ -419,13 +441,27 @@ function Panel:EvaluateGaze(cameraCF, cameraRenderCF, userHeadCF, lookRay, point
 				currentCursorPos = self.cursorPos
 			end
 		end
+		
+		if not EngineFeatureEnableVRUpdate2 then
+			if VRService.VREnabled and FFlagEnableNewVrSystem then
+				local virtualCursorPos = Vector2.new(currentCursorPos.X * 1.4, currentCursorPos.Y * 1.4)
+				GamepadService:SetGamepadCursorPosition(virtualCursorPos)
+			end
+		end
 	else
 		self.isOffscreen = true
 
 		--Not looking at the plane at all, so fire off mouseleave if necessary.
-		if self.lookedAt then
-			self.lookedAt = false
-			self:OnMouseLeave(self.lookAtPixel.X, self.lookAtPixel.Y)
+		if EngineFeatureEnableVRUpdate2 then
+			if self.lookedAt then
+				self.lookedAt = false
+				self:OnMouseLeave(self.lookAtPixel.X, self.lookAtPixel.Y)
+			end
+		else
+			if self.isLookedAt then
+				self.isLookedAt = false
+				self:OnMouseLeave(self.lookAtPixel.X, self.lookAtPixel.Y)
+			end
 		end
 	end
 end
@@ -1018,11 +1054,20 @@ local function onRenderStep()
 		v:OnUpdate(dt)
 	end
 
-	cursor.Parent = nil
+	if currentClosest and not EngineFeatureEnableVRUpdate2 then
+		cursor.Parent = currentCursorParent
+
+		local x, y = currentCursorPos.X, currentCursorPos.Y
+		local pixelScale = currentClosest:GetPixelScale()
+		cursor.Size = UDim2.new(0, cursorSize * pixelScale, 0, cursorSize * pixelScale)
+		cursor.Position = UDim2.new(0, x - cursor.AbsoluteSize.x * 0.5, 0, y - cursor.AbsoluteSize.y * 0.5)
+	else
+		cursor.Parent = nil
+	end
 	lastClosest = currentClosest
 end
 
-local isCameraReady = true
+local isCameraReady = EngineFeatureEnableVRUpdate2
 local function putFoldersIn(parent)
 	partFolder.Parent = parent
 	effectFolder.Parent = parent

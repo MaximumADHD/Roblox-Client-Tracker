@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["VirtualizedListProxy"]["VirtualizedListProxy"])
+local Package = require(PackageIndex["VirtualizedList"]["VirtualizedList"])
 
 return Package

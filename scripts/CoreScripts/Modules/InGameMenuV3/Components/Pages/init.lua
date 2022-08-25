@@ -99,7 +99,7 @@ local pages = {
 	},
 	{
 		key = "ReportExperience",
-		title = "CoreScripts.InGameMenu.Report.ReportTitle",
+		title = "CoreScripts.InGameMenu.Report.ReportExperience",
 		icon = Images["icons/actions/feedback"],
 		navigationDepth = 2,
 		parentPage = Constants.MainPagePageKey,
@@ -152,14 +152,6 @@ if FFlagInspectAndBuyV2Enabled then
 		component = script.Parent.InspectAndBuyPage.InspectAndBuyPage,
 		navigationDepth = 3,
 		parentPage = Constants.PlayersPageKey,
-	})
-
-	table.insert(pages, {
-		key = Constants.InspectAndBuyAssetDetailsPageKey,
-		icon = nil,
-		component = script.Parent.InspectAndBuyPage.AssetDetailsPage,
-		navigationDepth = 4,
-		parentPage = Constants.InspectAndBuyPageKey,
 	})
 end
 

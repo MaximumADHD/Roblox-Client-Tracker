@@ -1,5 +1,5 @@
-game:DefineFastFlag("OnlyLoadOneCallstack2", false)
+game:DefineFastFlag("OnlyLoadOneCallstack", false)
 
 return function()
-	return game:GetFastFlag("OnlyLoadOneCallstack2")
+	return game:GetFastFlag("OnlyLoadOneCallstack")
 end

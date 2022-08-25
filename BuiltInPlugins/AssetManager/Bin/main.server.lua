@@ -26,9 +26,6 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
 local InsertAsset = require(Plugin.Packages.InsertAsset)
 
-local isHighDpiEnabled = Framework.Util.isHighDpiEnabled
-local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and isHighDpiEnabled()
-
 -- context services
 local ContextServices = Framework.ContextServices
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
@@ -257,7 +254,7 @@ local function main()
 	local toolbarButton = toolbar:CreateButton(
 		TOOLBAR_BUTTON_NAME,
 		localization:getText("Main", "Tooltip"),
-		if FFlagHighDpiIcons then "rbxlocaltheme://AssetManager" else "rbxasset://textures/AssetManager/explorer.png",
+		"rbxasset://textures/AssetManager/explorer.png",
 		localization:getText("Main", "ToolbarButton")
 	)
 

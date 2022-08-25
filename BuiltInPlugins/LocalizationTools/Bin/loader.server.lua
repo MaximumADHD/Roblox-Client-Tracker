@@ -7,13 +7,9 @@ if DebugFlags.RunningUnderCLI() then
 	return
 end
 
-local Framework = require(Plugin.Packages.Framework)
-local isHighDpiEnabled = Framework.Util.isHighDpiEnabled
-local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and isHighDpiEnabled()
-
 local RunService = game:GetService("RunService")
 
-local PLUGIN_ICON = if FFlagHighDpiIcons then "rbxlocaltheme://LocalizationTools" else "rbxasset://textures/localizationTestingIcon.png"
+local PLUGIN_ICON = "rbxasset://textures/localizationTestingIcon.png"
 
 local PluginLoaderBuilder = require(Plugin.PluginLoader.PluginLoaderBuilder)
 local SourceStrings = Plugin.Src.Resources.Localization.SourceStrings

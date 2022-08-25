@@ -24,7 +24,6 @@ local createStore = require(script.createStore)
 local App = require(script.Components.App)
 local FocusHandlerContextProvider = require(script.Components.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 local initVoiceChatStore = require(RobloxGui.Modules.VoiceChat.initVoiceChatStore)
-local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local TrustAndSafety = require(RobloxGui.Modules.TrustAndSafety)
 
 local Localization = require(script.Localization.Localization)
@@ -40,6 +39,7 @@ local InGameMenuPolicy = require(script.InGameMenuPolicy)
 
 local GlobalConfig = require(script.GlobalConfig)
 local Constants = require(script.Resources.Constants)
+local PerfUtils = require(script.Utility.PerfUtils)
 
 local OpenChangedEvent = Instance.new("BindableEvent")
 local RespawnBehaviourChangedEvent = Instance.new("BindableEvent")

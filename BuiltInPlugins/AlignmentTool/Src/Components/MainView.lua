@@ -63,6 +63,7 @@ end
 
 function MainView:render()
 	local props = self.props
+	local state = self.state
 
 	local enabled = props.alignEnabled
 	local updateAlignment = props.updateAlignment

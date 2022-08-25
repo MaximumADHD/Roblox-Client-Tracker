@@ -33,7 +33,6 @@ local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFla
 local GetFFlagClearUserFromRecentVoiceDataOnLeave = require(RobloxGui.Modules.Flags.GetFFlagClearUserFromRecentVoiceDataOnLeave)
 local GetFIntVoiceUsersInteractionExpiryTimeSeconds = require(RobloxGui.Modules.Flags.GetFIntVoiceUsersInteractionExpiryTimeSeconds)
 local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
-local GetFFlagOnlyAskForCameraPermissionsWhenRequestingCamera = require(RobloxGui.Modules.Flags.GetFFlagOnlyAskForCameraPermissionsWhenRequestingCamera)
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
@@ -339,21 +338,13 @@ function VoiceChatServiceManager:requestMicPermission()
 	end):andThen(function()
 		-- Check volume settings. Show prompt if volume is 0
 		if GetFFlagEnableUniveralVoiceToasts() then
-			if GetFFlagOnlyAskForCameraPermissionsWhenRequestingCamera() then
-				return self:CheckAndShowNotAudiblePrompt()
-			else
-				self:CheckAndShowNotAudiblePrompt()
-			end
+			self:CheckAndShowNotAudiblePrompt()
 		end
 		return Promise.resolve()
 	end):catch(function()
 		-- Check mic permission settings. Show prompt if no permission
 		if GetFFlagEnableUniveralVoiceToasts() then
-			if GetFFlagOnlyAskForCameraPermissionsWhenRequestingCamera() then
-				return self:CheckAndShowPermissionPrompt():finallyReturn(Promise.reject())
-			else
-				self:CheckAndShowPermissionPrompt()
-			end
+			self:CheckAndShowPermissionPrompt()
 		end
 		return Promise.reject()
 	end)
@@ -476,70 +467,34 @@ function VoiceChatServiceManager:CheckAndShowPermissionPrompt()
 	local function showPrompt()
 		local userEligible = GetFFlagEnableVoiceMicPromptToastFix() and self.userEligible
 		if self.voiceEnabled or userEligible then
-			if GetFFlagOnlyAskForCameraPermissionsWhenRequestingCamera() then
-				return self.PermissionsService:hasPermissions({
-					PermissionsProtocol.Permissions.MICROPHONE_ACCESS
-				}):andThen(function (permissionResponse)
-					if permissionResponse and
-						permissionResponse.status == PermissionsProtocol.Status.DENIED then
-						self:showPrompt(VoiceChatPromptType.Permission)
-					end
-				end)
-			else
-				self.PermissionsService:hasPermissions({
-					PermissionsProtocol.Permissions.MICROPHONE_ACCESS
-				}):andThen(function (permissionResponse)
-					if permissionResponse and
-						permissionResponse.status == PermissionsProtocol.Status.DENIED then
-						self:showPrompt(VoiceChatPromptType.Permission)
-					end
-				end)
-			end
-		end
-		if GetFFlagOnlyAskForCameraPermissionsWhenRequestingCamera() then
-			return Promise.resolve()
+			self.PermissionsService:hasPermissions({
+				PermissionsProtocol.Permissions.MICROPHONE_ACCESS
+			}):andThen(function (permissionResponse)
+				if permissionResponse and
+					permissionResponse.status == PermissionsProtocol.Status.DENIED then
+					self:showPrompt(VoiceChatPromptType.Permission)
+				end
+			end)
 		end
 	end
 	if GetFFlagEnableUniveralVoiceToasts() then
 		-- We can't call asyncInit here because in this flow it will be called by asyncInit
-		if GetFFlagOnlyAskForCameraPermissionsWhenRequestingCamera() then
-			return showPrompt()
-		else
-			showPrompt()
-		end
+		showPrompt()
 	else
-		if GetFFlagOnlyAskForCameraPermissionsWhenRequestingCamera() then
-			return self:asyncInit():andThen(function() end):catch(function()
-				return showPrompt()
-			end)
-		else
-			self:asyncInit():andThen(function() end):catch(function()
-				showPrompt()
-			end)
-		end
+		self:asyncInit():andThen(function() end):catch(function()
+			showPrompt()
+		end)
 	end
 end
 
 function VoiceChatServiceManager:CheckAndShowNotAudiblePrompt()
 	if game:GetEngineFeature("VoiceChatSupported") then
-		if GetFFlagOnlyAskForCameraPermissionsWhenRequestingCamera() then
-			return self:asyncInit():andThen(function()
-				-- Check volume settings. Show prompt if volume is 0
-				if UserSettings().GameSettings.MasterVolume == 0 then
-					self:showPrompt(VoiceChatPromptType.NotAudible)
-				end
-			end):catch(function() end)
-		else
-			self:asyncInit():andThen(function()
-				-- Check volume settings. Show prompt if volume is 0
-				if UserSettings().GameSettings.MasterVolume == 0 then
-					self:showPrompt(VoiceChatPromptType.NotAudible)
-				end
-			end):catch(function() end)
-		end
-	end
-	if GetFFlagOnlyAskForCameraPermissionsWhenRequestingCamera() then
-		return Promise.resolve()
+		self:asyncInit():andThen(function()
+			-- Check volume settings. Show prompt if volume is 0
+			if UserSettings().GameSettings.MasterVolume == 0 then
+				self:showPrompt(VoiceChatPromptType.NotAudible)
+			end
+		end):catch(function() end)
 	end
 end
 

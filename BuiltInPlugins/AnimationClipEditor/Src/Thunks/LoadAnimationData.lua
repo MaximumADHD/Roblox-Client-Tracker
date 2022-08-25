@@ -24,7 +24,9 @@ local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContext
 local SetInReviewState = require(Plugin.Src.Actions.SetInReviewState)
 local SetLastSelectedPath = require(Plugin.Src.Actions.SetLastSelectedPath)
 
+local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
 local GetFFlagFixTrackListSelection = require(Plugin.LuaFlags.GetFFlagFixTrackListSelection)
 
@@ -45,7 +47,11 @@ return function(animationData, analytics)
 
 		-- Switch back to DopeSheet mode
 		if GetFFlagCurveEditor() then
-			store:dispatch(SwitchEditorMode(Constants.EDITOR_MODE.DopeSheet, analytics))
+			if GetFFlagCurveAnalytics() then
+				store:dispatch(SwitchEditorMode(Constants.EDITOR_MODE.DopeSheet, analytics))
+			else
+				store:dispatch(SetEditorMode(Constants.EDITOR_MODE.DopeSheet))
+			end
 		end
 
 		-- AddTrack needs to know if the animationData is a channel Animation.

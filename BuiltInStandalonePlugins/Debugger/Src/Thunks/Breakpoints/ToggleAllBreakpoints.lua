@@ -1,6 +1,6 @@
-return function(metaBreakpointManager, stateToSet)
+return function(breakpointManager, stateToSet)
 	return function(store, contextItems)
-		if metaBreakpointManager == nil then
+		if breakpointManager == nil then
 			assert(false)
 			return
 		end
@@ -8,7 +8,7 @@ return function(metaBreakpointManager, stateToSet)
 		-- default to enabled all. If all are already enabled, disable
 		local state = store:getState()
 		for id, info in pairs(state.Breakpoint.MetaBreakpoints) do
-			local bp = metaBreakpointManager:GetBreakpointById(id)
+			local bp = breakpointManager:GetBreakpointById(id)
 			bp:SetEnabled(stateToSet)
 		end
 	end

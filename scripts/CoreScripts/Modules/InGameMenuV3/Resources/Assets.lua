@@ -12,8 +12,6 @@ return {
 		RobloxLogo = Images["LuaApp/graphic/ic_logo"],
 		CloseButton = "rbxasset://textures/ui/TopBar/close.png",
 		RespawnIcon = UIBloxImages["icons/actions/respawn"],
-		PreviewExpandIcon = UIBloxImages["icons/actions/previewExpand"],
-		PreviewShrinkIcon = UIBloxImages["icons/actions/previewShrink"],
 		ReportIcon = UIBloxImages["icons/actions/feedback"],
 		ScreenshotIcon = UIBloxImages["icons/controls/screenshot"],
 		SuccessXLarge = UIBloxImages["icons/graphic/success_xlarge"],

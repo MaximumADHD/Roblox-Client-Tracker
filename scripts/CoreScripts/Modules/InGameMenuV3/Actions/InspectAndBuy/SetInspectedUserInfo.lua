@@ -7,9 +7,9 @@
 ]]
 
 local CorePackages = game:GetService("CorePackages")
-local Rodux = require(CorePackages.Rodux)
+local Action = require(CorePackages.AppTempCommon.Common.Action)
 
-return Rodux.makeActionCreator(script.Name, function(userId, displayName)
+return Action(script.Name, function(userId, displayName)
 	return {
 		userId = userId,
 		displayName = displayName

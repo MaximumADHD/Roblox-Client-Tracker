@@ -43,6 +43,7 @@ local DraggerWrapper = require(Plugin.Src.Components.Draggers.DraggerWrapper)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFaceControlsEditorShowCallout = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorShowCallout)
+local GetFFlagCurveEditorCallout = require(Plugin.LuaFlags.GetFFlagCurveEditorCallout)
 
 -- analytics
 local AnalyticsHandlers = require(Plugin.Src.Resources.AnalyticsHandlers)
@@ -93,35 +94,42 @@ function AnimationClipEditorPlugin:init(initialProps)
 		translationResourceTable = LocalizedStrings,
 	})
 
-	self.calloutController = CalloutController.new()
-	if GetFFlagFaceControlsEditorShowCallout() then
-		local definitionId = "FaceControlsEditorCallout"
+	if GetFFlagFaceControlsEditorShowCallout() or GetFFlagCurveEditorCallout() or GetFFlagFacialAnimationRecordingInStudio() then
+		self.calloutController = CalloutController.new()
+		do
+			if GetFFlagFaceControlsEditorShowCallout() then
+				local definitionId = "FaceControlsEditorCallout"
 
-		local title = self.localization:getText("FaceControlsEditorButtonCallout", "Title")
-		local description = self.localization:getText("FaceControlsEditorButtonCallout", "Description")
-		local learnMoreUrl = "https://create.roblox.com/docs/avatar/dynamic-heads/animating-dynamic-heads"
-		if GetFFlagFaceControlsEditorBugBash3Update() then
-			learnMoreUrl = FStringFaceControlsEditorLink
+				local title = self.localization:getText("FaceControlsEditorButtonCallout", "Title")
+				local description = self.localization:getText("FaceControlsEditorButtonCallout", "Description")
+				local learnMoreUrl = "https://create.roblox.com/docs/avatar/dynamic-heads/animating-dynamic-heads"
+				if GetFFlagFaceControlsEditorBugBash3Update() then
+					learnMoreUrl = FStringFaceControlsEditorLink
+				end
+
+				self.calloutController:defineCallout(definitionId, title, description, learnMoreUrl)
+			end
+
+			if GetFFlagCurveEditorCallout() then
+				self.calloutController:defineCallout(
+					"CurveEditorCallout",
+					self.localization:getText("CurveEditorCallout", "Title"),
+					self.localization:getText("CurveEditorCallout", "Description"),
+					FStringCurveEditorLink
+				)
+			end
+			
+			--Teaching Callout for Face Capture button:
+			if GetFFlagFacialAnimationRecordingInStudio() then
+				self.calloutController:defineCallout(
+					"FaceRecorderCallout",
+					self.localization:getText("FaceCapture", "TeachingCalloutTitle"),
+					self.localization:getText("FaceCapture", "TeachingCalloutDescription"),
+					FStringFaceRecorderLink
+				)
+			end
+			
 		end
-
-		self.calloutController:defineCallout(definitionId, title, description, learnMoreUrl)
-	end
-
-	self.calloutController:defineCallout(
-		"CurveEditorCallout",
-		self.localization:getText("CurveEditorCallout", "Title"),
-		self.localization:getText("CurveEditorCallout", "Description"),
-		FStringCurveEditorLink
-	)
-
-	--Teaching Callout for Face Capture button:
-	if GetFFlagFacialAnimationRecordingInStudio() then
-		self.calloutController:defineCallout(
-			"FaceRecorderCallout",
-			self.localization:getText("FaceCapture", "TeachingCalloutTitle"),
-			self.localization:getText("FaceCapture", "TeachingCalloutDescription"),
-			FStringFaceRecorderLink
-		)
 	end
 
 	self.actions = ContextServices.PluginActions.new(initialProps.plugin, MakePluginActions(initialProps.plugin, self.localization))

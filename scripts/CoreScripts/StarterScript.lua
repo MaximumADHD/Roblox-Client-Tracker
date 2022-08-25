@@ -35,6 +35,8 @@ local FFlagVirtualCursorEnabled = game:GetEngineFeature("VirtualCursorEnabled")
 local FFlagUseRoactGlobalConfigInCoreScripts = require(RobloxGui.Modules.Flags.FFlagUseRoactGlobalConfigInCoreScripts)
 local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
 
+local FFlagEnableExperienceChat = require(CoreGuiModules.Common.Flags.FFlagEnableExperienceChat)
+
 local GetFFlagScreenTime = require(CorePackages.Regulations.ScreenTime.GetFFlagScreenTime)
 
 local GetFFlagEnableCaptureMode = require(RobloxGui.Modules.Flags.GetFFlagEnableCaptureMode)
@@ -66,10 +68,6 @@ local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
 initify(CoreGuiModules.InGameMenu)
 initify(CoreGuiModules.InGameMenuV3)
 initify(CoreGuiModules.TrustAndSafety)
-
-local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
-local FFlagRoactGamepadFixDelayedRefFocusLost = require(CorePackages.AppTempCommon.Flags.FFlagRoactGamepadFixDelayedRefFocusLost)
-RoactGamepad.Config.TempFixDelayedRefFocusLost = FFlagRoactGamepadFixDelayedRefFocusLost
 
 local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CoreGuiModules.UIBloxInGameConfig)
@@ -267,7 +265,9 @@ if GetFFlagEnableIXPInGame() then
 	end)()
 end
 
-ScriptContext:AddCoreScriptLocal("CoreScripts/ExperienceChatMain", RobloxGui)
+if FFlagEnableExperienceChat then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/ExperienceChatMain", RobloxGui)
+end
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/ChatEmoteUsage", script.Parent)
 

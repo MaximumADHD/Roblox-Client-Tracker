@@ -35,7 +35,6 @@ local MaterialServiceController = require(Controllers.MaterialServiceController)
 local MaterialVariantCreator = require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator)
 
 local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
-local getFFlagMaterialManagerTextureMapUploadFix = require(Plugin.Src.Flags.getFFlagMaterialManagerTextureMapUploadFix)
 
 export type Props = {
 	PromptClosed: () -> (),
@@ -189,32 +188,6 @@ function MaterialPrompt:init()
 					task.spawn(function()
 						assetHandler:handleAsset(map.file, function(assetId)
 							(materialVariant:: any)[mapType] = assetId
-						end, function()
-							(materialVariant:: any)[mapType] = ""
-						end)
-					end)
-					if props.Mode == "Create" then
-						props.Analytics:report("importTextureMap")
-					end
-				-- Use already uploaded assetId
-				elseif map.assetId then
-					(materialVariant:: any)[mapType] = map.assetId
-					if props.Mode == "Create" then
-						props.Analytics:report("uploadAssetIdTextureMap")
-					end
-				else
-					(materialVariant:: any)[mapType] = ""
-				end
-			end
-		end
-
-		local function deprecatedHandleMaps(maps: { [string]: _Types.TextureMap }, materialVariant: MaterialVariant)
-			for mapType, map in pairs(maps) do
-				-- Upload maps if a new asset
-				if map.file then
-					task.spawn(function()
-						assetHandler:deprecatedHandleAsset(map.file, function(assetId)
-							(materialVariant:: any)[mapType] = assetId
 						end)
 					end)
 					if props.Mode == "Create" then
@@ -236,9 +209,6 @@ function MaterialPrompt:init()
 			return
 		end
 
-		if getFFlagMaterialManagerTextureMapUploadFix() then
-			props.PromptClosed()
-		end
 		self.materialVariant.Name = props.Name
 		self.materialVariant.BaseMaterial = props.BaseMaterial
 		-- Set texture maps
@@ -248,11 +218,7 @@ function MaterialPrompt:init()
 			NormalMap = props.NormalMap or "",
 			RoughnessMap = props.RoughnessMap or ""
 		}
-		if getFFlagMaterialManagerTextureMapUploadFix() then
-			handleMaps(maps, self.materialVariant)
-		else
-			deprecatedHandleMaps(maps, self.materialVariant)
-		end
+		handleMaps(maps, self.materialVariant)
 		props.GeneralServiceController:saveMaterialVariant(self.materialVariant)
 		props.dispatchSetMaterialVariant(self.materialVariant)
 
@@ -262,9 +228,7 @@ function MaterialPrompt:init()
 		if props.Mode == "Edit" then
 			self.clearMaterialVariantOriginal()
 		end
-		if not getFFlagMaterialManagerTextureMapUploadFix() then
-			props.PromptClosed()
-		end
+		props.PromptClosed()
 		props.dispatchClearMaterialVariant()
 	end
 

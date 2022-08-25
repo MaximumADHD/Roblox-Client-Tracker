@@ -58,6 +58,8 @@ local Redo = require(Plugin.Src.Thunks.History.Redo)
 
 local TogglePlay = require(Plugin.Src.Thunks.Playback.TogglePlay)
 
+local FFlagCurveEditorEvents = game:DefineFastFlag("ACECurveEditorEvents", false)
+
 local KeyframeActions = Roact.PureComponent:extend("KeyframeActions")
 
 export type Props = {
@@ -207,8 +209,10 @@ function KeyframeActions:makeMenuActions(localization: any): any
 		end
 	end
 
-	table.insert(actions, Constants.MENU_SEPARATOR)
-	table.insert(actions, pluginActions:get("AddEvent"))
+	if FFlagCurveEditorEvents then
+		table.insert(actions, Constants.MENU_SEPARATOR)
+		table.insert(actions, pluginActions:get("AddEvent"))
+	end
 
 	return actions
 end
@@ -283,16 +287,18 @@ function KeyframeActions:didMount(): ()
 		return self.props.Undo(self.props.Signals)
 	end
 
-	-- Note: AddEvent is used both by KeyframeActions and TimelineActions,
-	-- but we cannot add the action in both places as it would register
-	-- two callbacks with a single event. The DopeSheet chose to register
-	-- the callback in TimelineActions, so the CurveEditor will do the same.
-	-- It's probably better, however, to create another component shared at
-	-- a higher level (EditorController?) that registers the callback for
-	-- everyone.
-	self:addAction(actions:get("AddEvent"), function()
-		self.props.OnEditEvents(self.props.Tick)
-	end)
+	if FFlagCurveEditorEvents then
+		-- Note: AddEvent is used both by KeyframeActions and TimelineActions,
+		-- but we cannot add the action in both places as it would register
+		-- two callbacks with a single event. The DopeSheet chose to register
+		-- the callback in TimelineActions, so the CurveEditor will do the same.
+		-- It's probably better, however, to create another component shared at
+		-- a higher level (EditorController?) that registers the callback for
+		-- everyone.
+		self:addAction(actions:get("AddEvent"), function()
+			self.props.OnEditEvents(self.props.Tick)
+		end)
+	end
 
 	self:addAction(actions:get("CopySelected"), self.props.CopySelectedKeyframes)
 	self:addAction(actions:get("DeleteSelected"), deleteSelectedKeyframesWrapper)

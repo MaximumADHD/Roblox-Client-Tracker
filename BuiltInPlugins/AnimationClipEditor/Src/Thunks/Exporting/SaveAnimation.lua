@@ -15,6 +15,8 @@ local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 
+local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
+
 return function(name, analytics)
 	return function(store)
 		local state = store:getState()
@@ -58,10 +60,14 @@ return function(name, analytics)
 		store:dispatch(SetIsDirty(false))
 		store:dispatch(SetNotification("Saved", name))
 
-		local animationType = if AnimationData.isChannelAnimation(newData)
-			then Constants.ANIMATION_TYPE.CurveAnimation
-			else Constants.ANIMATION_TYPE.KeyframeSequence
+		if GetFFlagCurveAnalytics() then
+			local animationType = if AnimationData.isChannelAnimation(newData)
+				then Constants.ANIMATION_TYPE.CurveAnimation
+				else Constants.ANIMATION_TYPE.KeyframeSequence
 
-		analytics:report("onSaveAnimation", name, numKeyframes, numPoses, numEvents, animationType)
+			analytics:report("onSaveAnimation", name, numKeyframes, numPoses, numEvents, animationType)
+		elseif not AnimationData.isChannelAnimation(newData) then
+			analytics:report("onSaveAnimation", name, numKeyframes, numPoses, numEvents)
+		end
 	end
 end

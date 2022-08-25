@@ -18,6 +18,8 @@ local Signals = require(Plugin.Src.Context.Signals)
 local Constants = require(Plugin.Src.Util.Constants)
 local CalloutController = require(Plugin.Src.Util.CalloutController)
 
+local GetFFlagCurveEditorCallout = require(Plugin.LuaFlags.GetFFlagCurveEditorCallout)
+
 local MockWrapper = Roact.Component:extend("MockWrapper")
 
 -- props : (table, optional)

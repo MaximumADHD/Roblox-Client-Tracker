@@ -8,7 +8,7 @@ local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local Cryo = require(CorePackages.Cryo)
 local Colors = require(InspectAndBuyFolder.Colors)
-local CharacterModelPool = require(InspectAndBuyFolder.CharacterModelPool)
+local CharacterModelPoolV2 = require(InspectAndBuyFolder.CharacterModelPoolV2)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 
 local CHARACTER_ROTATION_SPEED = .0065
@@ -46,7 +46,7 @@ function AvatarViewport:didMount()
 
 		local rigType = self.model.Humanoid.RigType
 		self.characterModelPool =
-			CharacterModelPool.new(self.worldModelRef, self.initialHrpPosition, rigType)
+			CharacterModelPoolV2.new(self.worldModelRef, self.initialHrpPosition, rigType)
 	end
 
 	self.isMounted = true

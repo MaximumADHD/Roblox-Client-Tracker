@@ -41,6 +41,8 @@ local DevConsoleAnalytics = require(MiddleWare.DevConsoleAnalytics)
 local IsDeveloperConsoleEnabled = require(DevConsole.IsDeveloperConsoleEnabled)
 local PlayerPermissionsModule = require(CoreGui.RobloxGui.Modules.PlayerPermissionsModule)
 
+game:DefineFastFlag("SafelyDisconnectStatsReceived", false)
+
 local DEV_TAB_LIST = {
 	Log = {
 		tab = Log,
@@ -205,8 +207,10 @@ function DevConsoleMaster:Start()
 
 		if clientReplicator then
 			self._statsConnector = clientReplicator.StatsReceived:connect(function(stats)
-				if not self._statsConnector then
-					return
+				if game:GetFastFlag("SafelyDisconnectStatsReceived") then
+					if not self._statsConnector then
+						return
+					end
 				end
 				self._statsConnector:Disconnect()
 				self._statsConnector = nil

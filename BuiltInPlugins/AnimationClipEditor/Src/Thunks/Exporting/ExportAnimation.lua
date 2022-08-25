@@ -12,6 +12,7 @@ local AnimationData = require(Plugin.Src.Util.AnimationData)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local GetFFlagFacsAnimationExportAnalytics = require(Plugin.LuaFlags.GetFFlagFacsAnimationExportAnalytics)
+local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 
 return function(plugin, analytics)
 	return function(store)
@@ -42,9 +43,11 @@ return function(plugin, analytics)
 				hasFacs = AnimationData.hasFacsData(animationData)
 			end
 
-			animationType = if AnimationData.isChannelAnimation(animationData)
-				then Constants.ANIMATION_TYPE.CurveAnimation
-				else Constants.ANIMATION_TYPE.KeyframeSequence
+			if GetFFlagCurveAnalytics() then
+				animationType = if AnimationData.isChannelAnimation(animationData)
+					then Constants.ANIMATION_TYPE.CurveAnimation
+					else Constants.ANIMATION_TYPE.KeyframeSequence
+			end
 
 			analytics:report("onExportAnimation", hasFacs, animationType)
 		end

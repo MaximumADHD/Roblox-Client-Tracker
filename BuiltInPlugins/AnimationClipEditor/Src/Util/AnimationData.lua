@@ -19,6 +19,7 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 
 export type AnimationData = any
 
@@ -456,13 +457,15 @@ function AnimationData.promoteToChannels(data, rotationType, eulerAnglesOrder): 
 	data.Metadata.Name = data.Metadata.Name .. " [CHANNELS]"
 
 	local numTracks, numKeyframes = 0, 0
-	for _, instance in pairs(data.Instances) do
-		for _, track in pairs(instance.Tracks) do
-			numTracks += 1
-			numKeyframes += TrackUtils.countKeyframes(track)
+	if GetFFlagCurveAnalytics() then
+		for _, instance in pairs(data.Instances) do
+			for _, track in pairs(instance.Tracks) do
+				numTracks += 1
+				numKeyframes += TrackUtils.countKeyframes(track)
+			end
 		end
 	end
-	
+
 	return numTracks, numKeyframes
 end
 

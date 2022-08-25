@@ -28,6 +28,7 @@ local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControl
 local GetFFlagFixRigInfoForFacs = require(Plugin.LuaFlags.GetFFlagFixRigInfoForFacs)
 local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 
 local FFlagCheckPart0OfMotor6DExists = game:DefineFastFlag("CheckPart0OfMotor6DExists", false)
 local FFlagCheckIsRunning = game:DefineFastFlag("ACECheckIsRunning", false)
@@ -1498,8 +1499,10 @@ function RigUtils.fromCurveAnimation(curveAnimation: CurveAnimation)
 				end
 				local track = AnimationData.addTrack(tracks, folder.Name, Constants.TRACK_TYPES.CFrame, true, rotationType)
 				lastTick = RigUtils.readCurve(track, folder, Constants.TRACK_TYPES.CFrame)
-				numTracks += 1
-				numKeyframes += TrackUtils.countKeyframes(track)
+				if GetFFlagCurveAnalytics() then
+					numTracks += 1
+					numKeyframes += TrackUtils.countKeyframes(track)
+				end
 			end
 		end
 

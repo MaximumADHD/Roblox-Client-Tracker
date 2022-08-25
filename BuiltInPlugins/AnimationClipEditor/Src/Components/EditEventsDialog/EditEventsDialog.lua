@@ -46,6 +46,7 @@ local EventNameEntry = require(Plugin.Src.Components.EditEventsDialog.EventNameE
 local AddEventEntry = require(Plugin.Src.Components.EditEventsDialog.AddEventEntry)
 local FocusedPrompt = require(Plugin.Src.Components.EditEventsDialog.FocusedPrompt)
 
+local GetFFlagFixButtonStyle = require(Plugin.LuaFlags.GetFFlagFixButtonStyle)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local EditEventsDialog = Roact.PureComponent:extend("EditEventsDialog")
@@ -330,8 +331,8 @@ function EditEventsDialog:renderDeleteAllPrompt(theme, localization)
 
 	return Roact.createElement(FocusedPrompt, {
 		Buttons = {
-			{Key = false, Text = localization:getText("Dialog", "No"), Style = "Round"},
-			{Key = true, Text = localization:getText("Dialog", "Yes"), Style = "RoundPrimary"},
+			{Key = false, Text = localization:getText("Dialog", "No"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
+			{Key = true, Text = localization:getText("Dialog", "Yes"), Style = if GetFFlagFixButtonStyle() then "RoundPrimary" else style.Primary},
 		},
 		PromptText = localization:getText("Dialog", "DeleteAllPrompt_Migrated", {name = name}),
 		OnButtonClicked = function(doDeleteAll)
@@ -351,8 +352,8 @@ function EditEventsDialog:renderRenameAllPrompt(theme, localization)
 
 	return Roact.createElement(FocusedPrompt, {
 		Buttons = {
-			{Key = false, Text = localization:getText("Dialog", "ChangeThis"), Style = "Round"},
-			{Key = true, Text = localization:getText("Dialog", "ChangeAll"), Style = "Round"},
+			{Key = false, Text = localization:getText("Dialog", "ChangeThis"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
+			{Key = true, Text = localization:getText("Dialog", "ChangeAll"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
 		},
 		PromptText = localization:getText("Dialog", "RenameAllPrompt_Migrated",	{name = name, newName = newName}),
 		OnButtonClicked = function(doRenameAll)
@@ -379,8 +380,8 @@ function EditEventsDialog:render()
 	local showRenameAllPrompt = state.renameAllNames ~= nil
 
 	local buttons = {
-		{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round"},
-		{Key = true, Text = localization:getText("Dialog", "Save"), Style = "RoundPrimary"},
+		{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
+		{Key = true, Text = localization:getText("Dialog", "Save"), Style = if GetFFlagFixButtonStyle() then "RoundPrimary" else style.Primary},
 	}
 
 	local contents = {

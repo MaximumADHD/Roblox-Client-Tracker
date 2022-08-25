@@ -1,6 +1,5 @@
 local FFlagManageCollaboratorsGhostEditorsMessage = game:GetFastFlag("ManageCollaboratorsGhostEditorsMessage")
 local FFlagManageCollaboratorsTelemetryEnabled = game:GetFastFlag("ManageCollaboratorsTelemetryEnabled")
-local FFlagManageCollaboratorsDebugLogging = game:GetFastFlag("ManageCollaboratorsDebugLogging")
 
 local StudioPublishService = game:GetService("StudioPublishService")
 
@@ -83,10 +82,6 @@ function PermissionsView:init()
 end
 
 function PermissionsView:onSavePressed()
-	if FFlagManageCollaboratorsDebugLogging then
-		Analytics.reportDebuggingCheckpoint("A")
-	end
-
 	local props = self.props
 	local savePermissionsFunction = props.SavePermissions
 
@@ -95,17 +90,9 @@ function PermissionsView:onSavePressed()
 	else
 		savePermissionsFunction()
 	end
-	
-	if FFlagManageCollaboratorsDebugLogging then
-		Analytics.reportDebuggingCheckpoint("F")
-	end
 
 	if not IsTeamCreateEnabled() then
 		StudioPublishService:PublishThenTurnOnTeamCreate()
-	end
-	
-	if FFlagManageCollaboratorsDebugLogging then
-		Analytics.reportDebuggingCheckpoint("G")
 	end
 end
 

@@ -145,7 +145,6 @@ function ConversationList:render()
 				TextSize = NO_RESULTS_TEXTSIZE,
 				TextTransparency = NO_RESULTS_TRANSPRENCY,
 				ZIndex = zIndex,
-				Position = if GetFFlagShareInviteLinkContextMenuV1Enabled() then UDim2.new(0, 0, 0, topPadding) else nil,
 			})
 		end
 	end

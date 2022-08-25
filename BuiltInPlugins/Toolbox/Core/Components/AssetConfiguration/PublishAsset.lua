@@ -70,11 +70,6 @@ local AssetConfigUtil = require(Util.AssetConfigUtil)
 local Constants = require(Util.Constants)
 local Images = require(Plugin.Core.Util.Images)
 
-local AssetSubType = require(Plugin.Core.Types.AssetSubType)
-
-local ContextGetter = require(Util.ContextGetter)
-local getNetwork = ContextGetter.getNetwork
-
 local withLocalization = ContextHelper.withLocalization
 
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
@@ -88,9 +83,7 @@ local ConfigSharing = require(AssetConfiguration.ConfigSharing)
 local TagsComponent = require(AssetConfiguration.CatalogTags.TagsComponent)
 local Header = require(AssetConfiguration.Header)
 local PriceComponent = require(AssetConfiguration.PriceComponent)
-
 local SetFieldError = require(Plugin.Core.Actions.SetFieldError)
-local GetPublishingRequirementsRequest = require(Plugin.Core.Networking.Requests.GetPublishingRequirementsRequest)
 
 local PublishAsset = Roact.PureComponent:extend("PublishAsset")
 

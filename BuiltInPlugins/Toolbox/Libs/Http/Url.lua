@@ -7,7 +7,6 @@
 local HttpService = game:GetService("HttpService")
 local ContentProvider = game:GetService("ContentProvider")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
-local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
 
 -- helper functions
 local function parseBaseUrlInformation()
@@ -41,9 +40,6 @@ local _baseApiUrl = string.format("https://api.%s", _baseDomain)
 local _baseApisUrl = string.format("https://apis.%s", _baseDomain)
 local _baseAuthUrl = string.format("https://auth.%s", _baseDomain)
 local _baseChatUrl = string.format("https://chat.%sv2", _baseDomain)
-local _baseCreateUrl = if FFlagToolboxEnableAssetConfigPhoneVerification then
-	string.format("https://create.%s", _baseDomain)
-else nil
 local _baseGameAssetUrl = string.format("https://assetgame.%s", _baseDomain)
 local _baseGamesUrl = string.format("https://games.%s", _baseDomain)
 local _baseNotificationUrl = string.format("https://notifications.%s", _baseDomain)
@@ -67,7 +63,6 @@ local Url = {
 	API_URL = _baseApiUrl,
 	APIS_URL = _baseApisUrl,
 	AUTH_URL = _baseAuthUrl,
-	CREATE_URL = _baseCreateUrl,
 	GAME_URL = _baseGamesUrl,
 	GAME_ASSET_URL = _baseGameAssetUrl,
 	CHAT_URL = _baseChatUrl,

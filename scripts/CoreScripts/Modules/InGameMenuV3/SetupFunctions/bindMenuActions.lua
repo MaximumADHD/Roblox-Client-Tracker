@@ -2,9 +2,6 @@
 local CoreGui = game:GetService("CoreGui")
 local ContextActionService = game:GetService("ContextActionService")
 local UserInputService = game:GetService("UserInputService")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-
-local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
@@ -18,6 +15,7 @@ local SetRespawning = require(InGameMenu.Actions.SetRespawning)
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local NavigateBack = require(InGameMenu.Actions.NavigateBack)
 local SetCurrentZone = require(InGameMenu.Actions.SetCurrentZone)
+local PerfUtils = require(InGameMenu.Utility.PerfUtils)
 local Pages = require(InGameMenu.Components.Pages)
 local Constants = require(InGameMenu.Resources.Constants)
 

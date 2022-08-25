@@ -20,9 +20,10 @@ local IconButton = require(script.Parent.IconButton)
 local GameSettings = UserSettings().GameSettings
 
 local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
+local FFlagEnableExperienceChat = require(RobloxGui.Modules.Common.Flags.FFlagEnableExperienceChat)
 
 local function shouldShowEmptyBadge()
-	return game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService
+	return FFlagEnableExperienceChat and game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService
 end
 
 local ChatIcon = Roact.PureComponent:extend("ChatIcon")

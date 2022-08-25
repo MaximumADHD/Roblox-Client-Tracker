@@ -33,6 +33,7 @@ local ExperienceChat = require(CorePackages.ExperienceChat)
 -- FLAGS
 local FFlagAvatarContextMenuItemsChatButtonRefactor
 	= require(CoreGuiModules.Flags.FFlagAvatarContextMenuItemsChatButtonRefactor)
+local FFlagEnableExperienceChat = require(CoreGuiModules.Common.Flags.FFlagEnableExperienceChat)
 local FFlagWaveEmoteOnAvatarContextMenuWithExpChat = require(CoreGuiModules.Common.Flags.FFlagWaveEmoteOnAvatarContextMenuWithExpChat)
 local FFlagWhisperEmoteOnAvatarContextMenuWithExpChat = require(CoreGuiModules.Common.Flags.FFlagWhisperEmoteOnAvatarContextMenuWithExpChat)
 local GetFFlagUpgradeExpChatV2_0_0 = require(CorePackages.Flags.GetFFlagUpgradeExpChatV2_0_0)
@@ -308,7 +309,7 @@ local function isExperienceChatOn(textChatService: TextChatService): boolean
 		local _ = Enum.ChatVersion.LegacyChatService
 	end)
 	if chatVersionValid then
-		if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+		if FFlagEnableExperienceChat and textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
 			return true
 		end
 	end

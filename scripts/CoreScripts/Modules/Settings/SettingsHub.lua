@@ -21,7 +21,6 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
-local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
 local IsDeveloperConsoleEnabled = require(RobloxGui.Modules.DevConsole.IsDeveloperConsoleEnabled)
 local isSubjectToDesktopPolicies = require(RobloxGui.Modules.InGameMenu.isSubjectToDesktopPolicies)
@@ -46,7 +45,6 @@ local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
 
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
 local FFlagShowInGameReportingLuobu = require(RobloxGui.Modules.Flags.FFlagShowInGameReportingLuobu)
-local FFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)()
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
@@ -1755,10 +1753,6 @@ local function CreateSettingsHub()
 		local visibilityChanged = visible ~= this.Visible
 		this.Visible = visible
 
-		if FFlagEnableInGameMenuDurationLogger and visibilityChanged and not visible then
-			PerfUtils.menuClose()
-		end
-
 		if this.ResizedConnection then
 			this.ResizedConnection:disconnect()
 			this.ResizedConnection = nil
@@ -1792,13 +1786,8 @@ local function CreateSettingsHub()
 					UDim2.new(0, 0, 0, 0),
 					Enum.EasingDirection.InOut,
 					Enum.EasingStyle.Quart,
-					if Constants then Constants.ShieldOpenAnimationTweenTime else 0.5,
-					true,
-					function ()
-						if FFlagEnableInGameMenuDurationLogger then
-							PerfUtils.menuOpenBegin()
-						end
-					end
+					0.5,
+					true
 				)
 			end
 
@@ -1855,27 +1844,14 @@ local function CreateSettingsHub()
 				this.Shield.Visible = this.Visible
 				this.SettingsShowSignal:fire(this.Visible)
 				GuiService:SetMenuIsOpen(false, SETTINGS_HUB_MENU_KEY)
-				if FFlagEnableInGameMenuDurationLogger then
-					PerfUtils.menuCloseComplete()
-				end
 			else
-				this.Shield:TweenPosition(
-					SETTINGS_SHIELD_INACTIVE_POSITION,
-					Enum.EasingDirection.In,
-					Enum.EasingStyle.Quad,
-					if Constants then Constants.ShieldCloseAnimationTweenTime else 0.4,
-					true,
-					function()
-						this.Shield.Visible = this.Visible
-						this.SettingsShowSignal:fire(this.Visible)
-						if not this.Visible then
-							GuiService:SetMenuIsOpen(false, SETTINGS_HUB_MENU_KEY)
-						end
-						if FFlagEnableInGameMenuDurationLogger then
-							PerfUtils.menuCloseComplete()
-						end
+				this.Shield:TweenPosition(SETTINGS_SHIELD_INACTIVE_POSITION, Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.4, true, function()
+					this.Shield.Visible = this.Visible
+					this.SettingsShowSignal:fire(this.Visible)
+					if not this.Visible then
+						GuiService:SetMenuIsOpen(false, SETTINGS_HUB_MENU_KEY)
 					end
-				)
+				end)
 			end
 
 			if lastInputChangedCon then
@@ -2234,9 +2210,6 @@ local function CreateSettingsHub()
 		end
 		local function handleNativeExit()
 			if this:GetVisibility() and this.Pages.CurrentPage == this.ExitModalPage then
-				if FFlagEnableInGameMenuDurationLogger then
-					PerfUtils.leavingGame()
-				end
 				this.ExitModalPage.LeaveAppFunc(true)
 			else
 				showExitModal()

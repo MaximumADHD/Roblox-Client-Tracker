@@ -5,10 +5,6 @@ if DebugFlags.RunTests() or DebugFlags.RunRhodiumTests() then
 	return
 end
 
-local Framework = require(Plugin.Packages.Framework)
-local isHighDpiEnabled = Framework.Util.isHighDpiEnabled
-local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and isHighDpiEnabled()
-
 local Constants = require(Plugin.Src.Util.Constants)
 local SourceStrings = Plugin.Src.Resources.SourceStrings
 local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
@@ -31,7 +27,7 @@ local args : PluginLoaderBuilder.Args = {
 		getDescription = function(getLocalizedText, namespace, pluginName)
 			return getLocalizedText(namespace, pluginName, "Plugin", "Description")
 		end,
-		icon =  if FFlagHighDpiIcons then Constants.PLUGIN_ICON else Constants.DEPRECATED_PLUGIN_BUTTON_IMAGE,
+		icon =  Constants.PLUGIN_BUTTON_IMAGE,
 		text = nil
 	},
 	dockWidgetInfo = {

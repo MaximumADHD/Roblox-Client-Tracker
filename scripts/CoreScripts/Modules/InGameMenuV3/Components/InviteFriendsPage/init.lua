@@ -17,6 +17,7 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local InGameMenu = script.Parent.Parent
 
 local Constants = require(InGameMenu.Resources.Constants)
+local Promise = require(InGameMenu.Utility.Promise)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 local CommonConstants = require(RobloxGui.Modules.Common.Constants)
 
@@ -52,6 +53,7 @@ local SearchBar = require(script.Parent.SearchBar)
 local Flags = InGameMenu.Flags
 local GetFFlagUsePageSearchAnimation = require(Flags.GetFFlagUsePageSearchAnimation)
 local GetFFlagShareInviteLinkContextMenuV3Enabled = require(Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
+local GetFFlagConsolidateGetFriends = require(Flags.GetFFlagConsolidateGetFriends)
 
 local ACTIONS_ICON_PADDING = 10
 
@@ -330,9 +332,70 @@ function InviteFriendsPage:didUpdate(prevProps, prevState)
 end
 
 function InviteFriendsPage:loadFriends()
-	self.props.getFriends(self.props.PlayersService)
-		:andThen(function(friends)
+	if GetFFlagConsolidateGetFriends() then
+		self.props.getFriends(self.props.PlayersService)
+			:andThen(function(friends)
+				friends = Cryo.List.sort(friends, sortFriends)
+				if self.mounted then
+					self:setState({
+						loadingFriends = false,
+						friends = friends,
+					})
+				end
+			end)
+			:catch(function()
+				if self.mounted then
+					self:setState({
+						loadingFriends = false,
+						loadingFriendsError = true,
+					})
+				end
+			end)
+		return
+	end
+	Promise.new(function(resolve, reject)
+		coroutine.wrap(function()
+			local localPlayer = self.props.PlayersService.LocalPlayer
+			local success, friendsPages = pcall(function()
+				return self.props.PlayersService:GetFriendsAsync(localPlayer.UserId)
+			end)
+
+			if not success then
+				reject("Error loading friends")
+				return
+			end
+
+			local friends = {}
+
+			while true do
+				for _, item in ipairs(friendsPages:GetCurrentPage()) do
+					friends[#friends + 1] = {
+						IsOnline = item.IsOnline,
+						Id = item.Id,
+						Username = item.Username,
+						DisplayName = item.DisplayName,
+						itemRef = nil,
+					}
+				end
+
+				if not friendsPages.IsFinished then
+					success = pcall(function()
+						friendsPages:AdvanceToNextPageAsync()
+					end)
+					if not success then
+						reject("Error loading friends")
+						return
+					end
+				else
+					break
+				end
+			end
+
 			friends = Cryo.List.sort(friends, sortFriends)
+			resolve(friends)
+		end)()
+	end)
+		:andThen(function(friends)
 			if self.mounted then
 				self:setState({
 					loadingFriends = false,
@@ -385,11 +448,11 @@ else
 			menuPage = state.menuPage,
 			isMenuOpen = state.isMenuOpen,
 		}
-	end, function(dispatch)
+	end, if GetFFlagConsolidateGetFriends() then function(dispatch)
 		return {
 			getFriends = function(playersService)
 				return dispatch(GetFriends(playersService))
 			end,
 		}
-	end)(InviteFriendsPage)
+	end else nil)(InviteFriendsPage)
 end

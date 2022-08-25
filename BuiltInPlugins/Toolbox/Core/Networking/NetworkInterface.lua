@@ -18,14 +18,12 @@ local Urls = require(Plugin.Core.Util.Urls)
 local Constants = require(Plugin.Core.Util.Constants)
 
 local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
-local AssetSubType = require(Plugin.Core.Types.AssetSubType)
 local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 local Category = require(Plugin.Core.Types.Category)
 
+
 local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
 
-local FFlagToolboxSwitchVerifiedEndpoint = require(Plugin.Core.Util.getFFlagToolboxSwitchVerifiedEndpoint)
-local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
 local FIntToolboxGrantUniverseAudioPermissionsTimeoutInMS = game:GetFastInt(
 	"ToolboxGrantUniverseAudioPermissionsTimeoutInMS"
 )
@@ -672,15 +670,12 @@ function NetworkInterface:postOverrideAnimation(assetid, instanceData)
 	end)
 end
 
-if not FFlagToolboxSwitchVerifiedEndpoint then
-	-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
-	function NetworkInterface:getIsVerifiedCreator()
+-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
+function NetworkInterface:getIsVerifiedCreator()
+	local targetUrl = Urls.constructIsVerifiedCreatorUrl()
 
-		local targetUrl = Urls.constructIsVerifiedCreatorUrl()
-
-		printUrl("getIsVerifiedCreator", "GET", targetUrl)
-		return self._networkImp:httpGetJson(targetUrl)
-	end
+	printUrl("getIsVerifiedCreator", "GET", targetUrl)
+	return self._networkImp:httpGetJson(targetUrl)
 end
 
 -- Extend this function if using an array.
@@ -902,19 +897,6 @@ function NetworkInterface:getCreatorMarketplaceQuotas(
 	local targetUrl = Urls.getCreatorMarketplaceQuotas(assetType, resourceType)
 	printUrl("getCreatorMarketplaceQuotas", "GET", targetUrl)
 	return self._networkImp:httpGetJson(targetUrl)
-end
-
-if FFlagToolboxEnableAssetConfigPhoneVerification then
-	function NetworkInterface:getPublishingRequirements(
-		assetId: number,
-		assetType: Enum.AssetType?,
-		assetSubType: AssetSubType.AssetSubType?
-	)
-		local marketplaceType = "Creator"
-		local targetUrl = Urls.constructPublishingRequirementsUrl(assetId, assetType, assetSubType, marketplaceType)
-		printUrl("getPublishingRequirements", "GET", targetUrl)
-		return self._networkImp:httpGetJson(targetUrl)
-	end
 end
 
 export type NetworkInterface = typeof(NetworkInterface)

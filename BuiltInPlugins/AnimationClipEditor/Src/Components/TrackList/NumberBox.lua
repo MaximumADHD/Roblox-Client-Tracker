@@ -44,6 +44,7 @@ local RoundFrame = require(UILibraryCompat.RoundFrame)
 local TextBox = require(Plugin.Src.Components.TextBox)
 
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local GetFFlagValidateNumberBox = require(Plugin.LuaFlags.GetFFlagValidateNumberBox)
 
 local NumberBox = Roact.PureComponent:extend("NumberBox")
 
@@ -69,7 +70,7 @@ function NumberBox:init()
 				local number = tonumber(text)
 				if number and self.props.SetNumber then
 					local validatedNumber = self.props.SetNumber(number)
-					if validatedNumber then
+					if GetFFlagValidateNumberBox() and validatedNumber then
 						rbx.Text = self:formatNumber(validatedNumber)
 					end
 				else

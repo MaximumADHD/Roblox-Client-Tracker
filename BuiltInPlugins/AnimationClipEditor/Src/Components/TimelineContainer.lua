@@ -30,6 +30,7 @@ local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTh
 local TeachingCallout = require(Plugin.Src.Components.TeachingCallout)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagCurveEditorCallout = require(Plugin.LuaFlags.GetFFlagCurveEditorCallout)
 
 local TimelineContainer = Roact.PureComponent:extend("TimelineContainer")
 
@@ -175,11 +176,11 @@ function TimelineContainer:render()
 				Tooltip = Roact.createElement(Tooltip, {
 					TextKey = if isCurveCanvas then "GoToDopesheetEditor" else "GoToCurveEditor",
 				}),
-				TeachingCallout = Roact.createElement(TeachingCallout, {
+				TeachingCallout = if GetFFlagCurveEditorCallout() then Roact.createElement(TeachingCallout, {
 					Offset = Vector2.new(0, 6),
 					DefinitionId = "CurveEditorCallout",
 					LocationId = "ToggleEditorButton"
-				}),
+				}) else nil,
 		}) else nil,
 		KeyboardListener = Roact.createElement(KeyboardListener, {
 			OnKeyPressed = function(input)

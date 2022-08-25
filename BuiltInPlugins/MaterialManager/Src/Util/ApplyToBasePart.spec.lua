@@ -2,27 +2,33 @@ local Plugin = script.Parent.Parent.Parent
 
 local ApplyToBasePart = require(Plugin.Src.Util.ApplyToBasePart)
 
-return function()
-	it("apply material", function()
-		local part1 = Instance.new("MeshPart")
+local getFFlagMaterialManagerFixApplyToClicked = require(Plugin.Src.Flags.getFFlagMaterialManagerFixApplyToClicked)
 
-		ApplyToBasePart(part1, Enum.Material.Brick)
+if getFFlagMaterialManagerFixApplyToClicked() then
+	return function()
+		it("apply material", function()
+			local part1 = Instance.new("MeshPart")
 
-		expect(part1.Material).to.equal(Enum.Material.Brick)
-	end)
+			ApplyToBasePart(part1, Enum.Material.Brick)
 
-	it("apply material variant", function()
-		local part1 = Instance.new("MeshPart")
+			expect(part1.Material).to.equal(Enum.Material.Brick)
+		end)
 
-		ApplyToBasePart(part1, Enum.Material.Brick, "BrickVariant")
+		it("apply material variant", function()
+			local part1 = Instance.new("MeshPart")
 
-		expect(part1.Material).to.equal(Enum.Material.Brick)
-		expect(part1.MaterialVariant).to.equal("BrickVariant")
-	end)
+			ApplyToBasePart(part1, Enum.Material.Brick, "BrickVariant")
 
-	it("dont apply to non-baseparts", function()
-		local part1 = Instance.new("Model")
+			expect(part1.Material).to.equal(Enum.Material.Brick)
+			expect(part1.MaterialVariant).to.equal("BrickVariant")
+		end)
 
-		ApplyToBasePart(part1, Enum.Material.Brick, "BrickVariant")
-	end)
+		it("dont apply to non-baseparts", function()
+			local part1 = Instance.new("Model")
+
+			ApplyToBasePart(part1, Enum.Material.Brick, "BrickVariant")
+		end)
+	end
+else
+	return function() end
 end

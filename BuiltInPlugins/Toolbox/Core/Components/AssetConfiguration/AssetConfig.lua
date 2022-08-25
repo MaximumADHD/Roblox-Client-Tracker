@@ -5,16 +5,12 @@
 	Necessary props:
 	assetId, number, will be used to request assetData on didMount.
 ]]
-local Plugin = script.Parent.Parent.Parent.Parent
-
-local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
 local FFlagUnifyModelPackagePublish = game:GetFastFlag("UnifyModelPackagePublish")
 local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
-local FFlagToolboxAssetConfigDiable = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
-
-local FFlagToolboxSwitchVerifiedEndpoint = require(Plugin.Core.Util.getFFlagToolboxSwitchVerifiedEndpoint)
 
 local StudioService = game:GetService("StudioService")
+
+local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
@@ -47,8 +43,6 @@ local TagsUtil = require(Util.TagsUtil)
 
 local getNetwork = ContextGetter.getNetwork
 
-local AssetSubType = require(Plugin.Core.Types.AssetSubType)
-
 local MakeChangeRequest = require(Plugin.Core.Networking.Requests.MakeChangeRequest)
 
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
@@ -64,9 +58,7 @@ local PostUploadAssetRequest = require(Requests.PostUploadAssetRequest)
 local PostOverrideAssetRequest = require(Requests.PostOverrideAssetRequest)
 local PostUploadAnimationRequest = require(Requests.PostUploadAnimationRequest)
 local PostOverrideAnimationRequest = require(Requests.PostOverrideAnimationRequest)
-local GetIsVerifiedCreatorRequest = if not FFlagToolboxSwitchVerifiedEndpoint
-	then require(Requests.GetIsVerifiedCreatorRequest)
-	else nil
+local GetIsVerifiedCreatorRequest = require(Requests.GetIsVerifiedCreatorRequest)
 local PostPackageMetadataRequest = require(Requests.PostPackageMetadataRequest)
 local GetPackageCollaboratorsRequest = require(Requests.GetPackageCollaboratorsRequest)
 local PutPackagePermissionsRequest = require(Requests.PutPackagePermissionsRequest)
@@ -76,9 +68,6 @@ local AvatarAssetsGetUploadFeeRequest = require(Requests.AvatarAssetsGetUploadFe
 local AvatarAssetsUploadRequest = require(Requests.AvatarAssetsUploadRequest)
 local PatchMakeAssetPublicRequest = require(Requests.PatchMakeAssetPublicRequest)
 local GetAssetPermissionsRequest = require(Requests.GetAssetPermissionsRequest)
-local GetPublishingRequirementsRequest = if FFlagToolboxEnableAssetConfigPhoneVerification
-	then require(Plugin.Core.Networking.Requests.GetPublishingRequirementsRequest)
-	else nil
 
 local ClearChange = require(Plugin.Core.Actions.ClearChange)
 local SetAssetConfigTab = require(Plugin.Core.Actions.SetAssetConfigTab)
@@ -616,23 +605,6 @@ function AssetConfig:init(props)
 			self.toggleCopy(false, hasCopyValueChanged)
 		end
 	end
-	
-	if FFlagToolboxEnableAssetConfigPhoneVerification then
-		self.getPublishingRequirements = function()
-			local props = self.props
-			local networkInterface = getNetwork(self)
-			local assetId = props.assetId
-			local assetTypeEnum = props.assetTypeEnum
-			local isPackageAsset = props.isPackageAsset
-
-			local assetSubtype
-			if isPackageAsset then
-				assetSubtype = AssetSubType.Package
-			end
-
-			props.getPublishingRequirements(networkInterface, assetId, assetTypeEnum, assetSubtype)
-		end
-	end
 end
 
 function AssetConfig:attachXButtonCallback()
@@ -726,10 +698,6 @@ end
 function AssetConfig:didMount()
 	self:attachXButtonCallback()
 
-	if FFlagToolboxEnableAssetConfigPhoneVerification then
-		self.getPublishingRequirements()
-	end
-
 	-- From here, we can reqeust assetConfig data if we have assetId.
 	if AssetConfigConstants.FLOW_TYPE.EDIT_FLOW == self.props.screenFlowType then
 		if self.props.assetId then
@@ -767,9 +735,7 @@ function AssetConfig:didMount()
 			})
 		end
 
-		if not FFlagToolboxSwitchVerifiedEndpoint then
-			self.props.getIsVerifiedCreator(getNetwork(self))
-		end
+		self.props.getIsVerifiedCreator(getNetwork(self))
 
 		if AssetConfigUtil.isCatalogAsset(self.props.assetTypeEnum) then
 			self.props.getCatalogItemUploadFee(getNetwork(self), self.props.assetTypeEnum, self.props.instances)
@@ -1268,10 +1234,6 @@ local function mapStateToProps(state, props)
 
 	local assetConfigData = state.assetConfigData or {}
 	local changed = state.changed
-	local publishingRequirements = state.publishingRequirements or {}
-	local verification = publishingRequirements.verification or {}
-
-	local isVerifiedCreator = if FFlagToolboxSwitchVerifiedEndpoint then verification.isVerified or false else state.isVerifiedCreator
 
 	return {
 		assetConfigData = assetConfigData,
@@ -1285,7 +1247,7 @@ local function mapStateToProps(state, props)
 		allowedAssetTypesForUpload = state.allowedAssetTypesForUpload,
 		allowedAssetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then state.allowedAssetTypesForFree else nil,
 		currentTab = state.currentTab,
-		isVerifiedCreator = isVerifiedCreator,
+		isVerifiedCreator = state.isVerifiedCreator,
 		networkError = state.networkError,
 		networkErrorAction = state.networkErrorAction or {},
 		isPackageAsset = state.isPackageAsset,
@@ -1388,9 +1350,9 @@ local function mapDispatchToProps(dispatch)
 			dispatch(PostOverrideAssetRequest(networkInterface, assetid, type, instances))
 		end,
 
-		getIsVerifiedCreator = if not FFlagToolboxSwitchVerifiedEndpoint then function(networkInterface)
+		getIsVerifiedCreator = function(networkInterface)
 			dispatch(GetIsVerifiedCreatorRequest(networkInterface))
-		end else nil,
+		end,
 
 		getCatalogItemUploadFee = function(networkInterface, assetTypeEnum, instances)
 			dispatch(AvatarAssetsGetUploadFeeRequest(networkInterface, assetTypeEnum, instances))
@@ -1463,12 +1425,6 @@ local function mapDispatchToProps(dispatch)
 		dispatchSetDescendantPermissions = function(descendantPermissions)
 			dispatch(SetDescendantPermissions(descendantPermissions))
 		end,
-
-		getPublishingRequirements = if FFlagToolboxEnableAssetConfigPhoneVerification then
-			function(networkInterface, assetId, assetType, assetSubType)
-				dispatch(GetPublishingRequirementsRequest(networkInterface, assetId, assetType, assetSubType))
-			end
-		else nil,
 	}
 
 	dispatchToProps["uploadAnimationAsset"] = function(requestInfo)

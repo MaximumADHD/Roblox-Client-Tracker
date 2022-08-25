@@ -11,6 +11,7 @@ local SetServerType = require(InGameMenu.Actions.SetServerType)
 local NetworkingShareLinks = SocialDependencies.NetworkingShareLinks
 local RoduxShareLinks = SocialDependencies.RoduxShareLinks
 local GetFFlagShareInviteLinkContextMenuV3Enabled = require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
+local GetFFlagConsolidateGetFriends = require(InGameMenu.Flags.GetFFlagConsolidateGetFriends)
 
 return function(dispatch)
 	return {
@@ -35,8 +36,10 @@ return function(dispatch)
 			end
 		else nil,
 
-		getFriends = function(playersService)
-			return dispatch(GetFriends(playersService))
-		end,
+		getFriends = if GetFFlagConsolidateGetFriends() then
+			function(playersService)
+				return dispatch(GetFriends(playersService))
+			end
+		else nil,
 	}
 end

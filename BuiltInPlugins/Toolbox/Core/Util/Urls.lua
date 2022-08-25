@@ -10,7 +10,6 @@ local Object = LuauPolyfill.Object
 local Array = LuauPolyfill.Array
 
 local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
-local AssetSubType = require(Plugin.Core.Types.AssetSubType)
 local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 local Category = require(Plugin.Core.Types.Category)
 local Url = require(Plugin.Libs.Http.Url)
@@ -18,14 +17,12 @@ local Url = require(Plugin.Libs.Http.Url)
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local getPlaceId = require(Plugin.Core.Util.getPlaceId)
 
-local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
 local FIntCanManageLuaRolloutPercentage = game:DefineFastInt("CanManageLuaRolloutPercentage", 0)
 local FFlagInfiniteScrollerForVersions2 = game:getFastFlag("InfiniteScrollerForVersions2")
 local FFlagToolboxIncludedPlaceIdInConfigRequest = game:GetFastFlag("ToolboxIncludedPlaceIdInConfigRequest")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
 local FFlagStudioPluginsUseBedev2Endpoint = game:GetFastFlag("StudioPluginsUseBedev2Endpoint")
-local FFlagToolboxSwitchVerifiedEndpoint = require(Plugin.Core.Util.getFFlagToolboxSwitchVerifiedEndpoint)
 
 local Urls = {}
 
@@ -117,8 +114,6 @@ local AVATAR_ASSETS_UPLOAD = Url.ITEM_CONFIGURATION_URL .. "v1/avatar-assets/%s/
 local ASSET_TYPE_AGENTS = Url.ITEM_CONFIGURATION_URL .. "v1/asset-types/%s/agents?"
 
 local AUTOCOMPLETE = Url.APIS_URL .. "autocomplete-studio/v2/suggest?"
-
-local PUBLISHING_REQUIREMENTS_URL = Url.APIS_URL .. "marketplace-publishing-requirements-api/v1/requirements?"
 
 local DEFAULT_ASSET_SIZE = 100
 local DEFAULT_SEARCH_ROWS = 3
@@ -501,10 +496,8 @@ function Urls.constructGetMyGroupUrl(userId)
 	return (GET_MY_GROUPS):format(tostring(userId))
 end
 
-if not FFlagToolboxSwitchVerifiedEndpoint then
-	function Urls.constructIsVerifiedCreatorUrl()
-		return GET_IS_VERIFIED_CREATOR
-	end
+function Urls.constructIsVerifiedCreatorUrl()
+	return GET_IS_VERIFIED_CREATOR
 end
 
 function Urls.constructGetUserFriendsUrl(userId)
@@ -618,23 +611,6 @@ function Urls.constructGetHomeConfigurationUrl(assetType: Enum.AssetType, locale
 			locale = locale,
 			placeId = if FFlagToolboxIncludedPlaceIdInConfigRequest then getPlaceId() else nil,
 		})
-end
-
-if FFlagToolboxEnableAssetConfigPhoneVerification then
-	function Urls.constructPublishingRequirementsUrl(
-		assetId: number,
-		assetType: Enum.AssetType?,
-		assetSubType: AssetSubType.AssetSubType?,
-		marketplaceType: string?
-	)
-		return PUBLISHING_REQUIREMENTS_URL
-			.. Url.makeQueryString({
-				assetId = assetId,
-				assetType = if assetType then assetType.Name else nil,
-				assetSubType = assetSubType,
-				marketplaceType = marketplaceType,
-			})
-	end
 end
 
 function Urls.getCreatorMarketplaceQuotas(

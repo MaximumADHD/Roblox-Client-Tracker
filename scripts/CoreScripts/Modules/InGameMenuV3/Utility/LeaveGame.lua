@@ -3,12 +3,11 @@
 local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
-
-local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local InGameMenu = script.Parent.Parent
 
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local PerfUtils = require(InGameMenu.Utility.PerfUtils)
 local Constants = require(InGameMenu.Resources.Constants)
 
 local LEAVE_GAME_FRAME_WAITS = 2

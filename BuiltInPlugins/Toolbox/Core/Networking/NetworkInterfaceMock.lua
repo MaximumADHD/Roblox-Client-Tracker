@@ -4,7 +4,6 @@
 	Provide dummy data for testing
 ]]
 --
-local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
 
 local Plugin = script.Parent.Parent.Parent
 local Packages = Plugin.Packages
@@ -400,12 +399,6 @@ function NetworkInterfaceMock:getCreatorMarketplaceQuotas(
 	resourceType: AssetQuotaTypes.AssetQuotaResourceType
 )
 	return Promise.resolve({})
-end
-
-if FFlagToolboxEnableAssetConfigPhoneVerification then
-	function NetworkInterfaceMock:getPublishingRequirements()
-		return Promise.resolve({})
-	end
 end
 
 return NetworkInterfaceMock

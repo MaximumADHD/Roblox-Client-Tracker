@@ -2,11 +2,11 @@ local CorePackages = game:GetService("CorePackages")
 local MessageBus = require(CorePackages.UniversalApp.MessageBus)
 local t = require(CorePackages.Packages.t)
 local ArgCheck = require(CorePackages.ArgCheck)
+local Cryo = require(CorePackages.Cryo)
 
 local Types = require(script.Parent.LoggingProtocolTypes)
 
-local EnableLoggingProtocolTelemetryEngineFeature = game:GetEngineFeature("EnableLoggingProtocolTelemetry2")
-local EnableLoggingProtocolEphemeralEventsEngineFeature = game:GetEngineFeature("EnableLoggingProtocolEphemeralEvents")
+local EnableLoggingProtocolTelemetryEngineFeature = game:GetEngineFeature("EnableLoggingProtocolTelemetry")
 
 type MessageBus = MessageBus.MessageBus
 type FunctionDescriptor = MessageBus.FunctionDescriptor
@@ -20,30 +20,6 @@ export type LoggingProtocolModule = LoggingProtocol & {
 	default: LoggingProtocol,
 	new: (messageBus: MessageBus?) -> LoggingProtocol,
 }
-
-type RobloxTelemetryParam = {
-	eventType: "RobloxTelemetry",
-	config: TelemetryEventConfig,
-	data: {
-		standardizedFields: Array<Types.StandardizedField>?,
-		customFields: Table?,
-	},
-}
-type EphemeralCounterParam = {
-	eventType: "EphemeralCounter",
-	config: TelemetryEventConfig,
-	data: {
-		incrementValue: number,
-	}?
-}
-type EphemeralStatParam = {
-	eventType: "EphemeralStat",
-	config: TelemetryEventConfig,
-	data: {
-		statValue: number,
-	},
-}
-type TelemetryEventParam = RobloxTelemetryParam | EphemeralCounterParam | EphemeralStatParam
 
 local NAME = "Logging"
 local loggedOnce = {}
@@ -74,6 +50,19 @@ local paramsValidator = t.strictInterface({
 	metadata = t.optional(t.keys(t.string)),
 })
 
+-- TODO: NFDN-2824 update param table format to use table reference and avoid duplication
+local sendTelemetryValidator = t.strictInterface({
+	eventType = t.string,
+	eventName = t.string,
+	backends = t.array(t.valueOf(TelemetryBackends)),
+	throttlingPercentage = t.optional(t.number),
+	lastUpdated = t.optional(t.array(t.integer)),
+	description = t.optional(t.string),
+	links = t.optional(t.string),
+	customFields = t.optional(t.keys(t.string)),
+	standardizedFields = t.optional(t.keys(t.valueOf(StandardizedFields))),
+})
+
 local LoggingProtocol: LoggingProtocolModule = {
 	TelemetryBackends = TelemetryBackends,
 	StandardizedFields = StandardizedFields,
@@ -86,20 +75,10 @@ local LoggingProtocol: LoggingProtocolModule = {
 		fid = MessageBus.getMessageId(NAME, "getTimestamp"),
 		validateParams = t.table,
 	},
-	LOG_EVENT_FROM_LUA_DESCRIPTOR = {
-		fid = MessageBus.getMessageId(NAME, "logEventFromLua"),
-		validateParams = t.interface({
-			eventType = t.string,
-			config = t.optional(t.strictInterface({
-				eventName = t.string,
-				backends = t.array(t.valueOf(TelemetryBackends)),
-				throttlingPercentage = t.optional(t.number),
-				lastUpdated = t.optional(t.array(t.integer)),
-				description = t.optional(t.string),
-				links = t.optional(t.string),
-			})),
-			data = t.optional(t.table),
-		}),
+	-- // TODO: NFDN-2918 rename to match api function names
+	SEND_ROBLOX_TELEMETRY_DESCRIPTOR = {
+		fid = MessageBus.getMessageId(NAME, "sendRobloxTelemetry"),
+		validateParams = sendTelemetryValidator,
 	},
 } :: LoggingProtocolModule
 
@@ -144,57 +123,42 @@ end
 
 function LoggingProtocol:logRobloxTelemetryEvent(
 	eventConfig: TelemetryEventConfig,
-	standardizedFields: Array<Types.StandardizedField>?,
+	standardizedFields: Array<string>?,
 	customFields: Table?
 )
 	if not EnableLoggingProtocolTelemetryEngineFeature then
 		print("RobloxTelemetry event not enabled")
 		return
 	end
-
-	local params: TelemetryEventParam = {
+	-- TODO: NFDN-2824 update param table format to use table reference and avoid duplication
+	local eventParams = Cryo.Dictionary.join(eventConfig, {
 		eventType = "RobloxTelemetry",
-		config = eventConfig,
-		data = {
-			standardizedFields = standardizedFields,
-			customFields = customFields,
-		}
-	}
-	self.messageBus.call(self.LOG_EVENT_FROM_LUA_DESCRIPTOR, params)
+		customFields = customFields,
+	})
+	if standardizedFields and #standardizedFields > 0 then
+		eventParams.standardizedFields = {}
+		for _, field in ipairs(standardizedFields) do
+			eventParams.standardizedFields[field] = true
+		end
+	end
+
+	self.messageBus.call(self.SEND_ROBLOX_TELEMETRY_DESCRIPTOR, eventParams)
 end
 
 function LoggingProtocol:logEphemeralCounterEvent(eventConfig: TelemetryEventConfig, incrementValue: number?)
-	if not EnableLoggingProtocolEphemeralEventsEngineFeature then
-		print("logEphemeralCounterEvent not enabled")
+	if not EnableLoggingProtocolTelemetryEngineFeature then
+		print("EphemeralCounterEvent not enabled")
 		return
 	end
-
-	local params: TelemetryEventParam = {
-		eventType = "EphemeralCounter",
-		config = eventConfig,
-		data = if incrementValue then {
-			incrementValue = incrementValue,
-		} else nil
-	}
-
-	self.messageBus.call(self.LOG_EVENT_FROM_LUA_DESCRIPTOR, params)
+	-- NFDN-2919
 end
 
 function LoggingProtocol:logEphemeralStatEvent(eventConfig: TelemetryEventConfig, statValue: number)
-	if not EnableLoggingProtocolEphemeralEventsEngineFeature then
-		print("logEphemeralStatEvent not enabled")
+	if not EnableLoggingProtocolTelemetryEngineFeature then
+		print("EphemeralStatEvent not enabled")
 		return
 	end
-
-	local params: TelemetryEventParam = {
-		eventType = "EphemeralStat",
-		config = eventConfig,
-		data = {
-			statValue = statValue,
-		}
-	}
-
-	self.messageBus.call(self.LOG_EVENT_FROM_LUA_DESCRIPTOR, params)
+	-- NFDN-2919
 end
 
 LoggingProtocol.default = LoggingProtocol.new()

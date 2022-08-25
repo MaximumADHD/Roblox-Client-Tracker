@@ -56,9 +56,6 @@ local materials = getSupportedMaterials(true)
 local GeneralSettings = Roact.PureComponent:extend("GeneralSettings")
 
 function GeneralSettings:init()
-	self.state = {
-		name = self.props.MaterialVariant.Name,
-	}
 	self.baseMaterials = {}
 
 	self.setNameStatus = function(message, status)
@@ -87,10 +84,7 @@ function GeneralSettings:init()
 				self.setNameStatus(nil)
 			end
 		else
-			self.setNameStatus(localization:getText("CreateDialog", "ErrorNoName"), Enum.PropertyStatus.Warning)
-			self:setState({
-				name = props.MaterialVariant.Name,
-			})
+			self.setNameStatus(localization:getText("CreateDialog", "ErrorNoName"), Enum.PropertyStatus.Error)
 		end
 	end
 
@@ -112,39 +106,17 @@ end
 
 function GeneralSettings:didMount()
 	local props: _Props = self.props
-	local localization = props.Localization
-
-	self.connectionName = props.MaterialVariant:GetPropertyChangedSignal("Name"):Connect(function()
-		self:setState({
-			name = props.MaterialVariant.Name,
-		})
-		self.setNameStatus(nil)
-	end)
 
 	for index, material in ipairs(materials) do
-		table.insert(self.baseMaterials, localization:getText("Materials", getMaterialName(material)))
+		table.insert(self.baseMaterials, props.Localization:getText("Materials", getMaterialName(material)))
 	end
 	self:setState({})   -- Force a rerender of the baseMaterials list
 end
 
-function GeneralSettings:willUnmount()
-	if self.connectionName then
-		self.connectionName:Disconnect()
-	end
-end
-
-function GeneralSettings:didUpdate(prevProps)
-	if prevProps.MaterialVariant ~= self.props.MaterialVariant then
-		self:setState({
-			name = self.props.MaterialVariant.Name,
-		})
-	end
-end
-
 function GeneralSettings:render()
 	local props: _Props = self.props
-	local style: _Style = props.Stylizer.GeneralSettings
 	local localization = props.Localization
+	local style: _Style = props.Stylizer.GeneralSettings
 
 	local currentIndex = -1
 	for index, material in ipairs(materials) do
@@ -167,7 +139,6 @@ function GeneralSettings:render()
 		ContentSpacing = style.ItemSpacing,
 		Text = localization:getText("MaterialGeneral", "General"),
 		Style = style.CustomExpandablePane,
-		Expanded = true,
 	}, {
 		Name = Roact.createElement(LabeledElement, {
 			LabelColumnWidth = style.LabelColumnWidth,
@@ -177,9 +148,9 @@ function GeneralSettings:render()
 			Status = self.state.status,
 		}, {
 			Roact.createElement(TextInput, {
-				Style = "FilledRoundedBorder",
+				Style = if self.state.ErrorName then "FilledRoundedRedBorder" else "FilledRoundedBorder",
 				Size = style.DialogColumnSize,
-				Text = self.state.name,
+				Text = if props.MaterialVariant then props.MaterialVariant.Name else "",
 				OnTextChanged = self.onNameChanged,
 				OnFocusLost = self.onFocusLost,
 			})

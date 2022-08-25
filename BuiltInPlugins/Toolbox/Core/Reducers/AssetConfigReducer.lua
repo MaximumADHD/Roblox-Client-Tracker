@@ -45,11 +45,8 @@ local SetFieldError = require(Actions.SetFieldError)
 local SetUploadFee = require(Actions.SetUploadFee)
 local SetAssetConfigAssetTypeAgents = require(Actions.SetAssetConfigAssetTypeAgents)
 local SetDescendantPermissions = require(Actions.SetDescendantPermissions)
-local SetPublishingRequirements = require(Actions.SetPublishingRequirements)
 
 local FFlagInfiniteScrollerForVersions2 = game:getFastFlag("InfiniteScrollerForVersions2")
-local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
-local FFlagToolboxSwitchVerifiedEndpoint = require(Plugin.Core.Util.getFFlagToolboxSwitchVerifiedEndpoint)
 
 return Rodux.createReducer({
 	-- Empty table means publish new asset
@@ -124,8 +121,6 @@ return Rodux.createReducer({
 	tagSuggestions = {},
 	latestTagSuggestionTime = 0,
 	latestTagSearchQuery = "",
-
-	publishingRequirements = if FFlagToolboxEnableAssetConfigPhoneVerification then {} else nil,
 }, {
 
 	[UpdateAssetConfigStore.name] = function(state, action)
@@ -267,11 +262,11 @@ return Rodux.createReducer({
 		})
 	end,
 
-	[SetIsVerifiedCreator.name] = if not FFlagToolboxSwitchVerifiedEndpoint then function(state, action)
+	[SetIsVerifiedCreator.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			isVerifiedCreator = action.isVerifiedCreator,
 		})
-	end else nil,
+	end,
 
 	[SetLoadingPage.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
@@ -465,10 +460,4 @@ return Rodux.createReducer({
 			descendantPermissions = action.permission,
 		})
 	end,
-
-	[SetPublishingRequirements.name] = if FFlagToolboxEnableAssetConfigPhoneVerification then function(state, action)
-		return Cryo.Dictionary.join(state, {
-			publishingRequirements = action.publishingRequirements,
-		})
-	end else nil,
 })

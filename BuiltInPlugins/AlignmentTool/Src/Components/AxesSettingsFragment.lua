@@ -20,7 +20,9 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local UI = Framework.UI
 local Checkbox = UI.Checkbox
+local Container = UI.Container
 local RadioButton = UI.RadioButton
+local TextLabel = UI.Decoration.TextLabel
 
 local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator

@@ -69,6 +69,7 @@ local SelectKeyframeRange = require(Plugin.Src.Thunks.Selection.SelectKeyframeRa
 local SetKeyframeTangent = require(Plugin.Src.Thunks.SetKeyframeTangent)
 local SetSelectedKeyframeData = require(Plugin.Src.Thunks.Selection.SetSelectedKeyframeData)
 
+local GetFFlagFixButtonStyle = require(Plugin.LuaFlags.GetFFlagFixButtonStyle)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 local GetFFlagCurveEditorFreeZoom = require(Plugin.LuaFlags.GetFFlagCurveEditorFreeZoom)
 
@@ -1031,8 +1032,8 @@ function CurveEditorController:render(): (any)
 				NoticeText = localization:getText("Title", "CurrentDuration_Migrated", {currentDuration = currentDuration}),
 				Text = currentDuration,
 				Buttons = {
-					{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round"},
-					{Key = true, Text = localization:getText("Dialog", "Save"), Style = "RoundPrimary"},
+					{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
+					{Key = true, Text = localization:getText("Dialog", "Save"), Style = if GetFFlagFixButtonStyle() then "RoundPrimary" else "Primary"},
 				},
 				OnTextSubmitted = self.setSelectedKeyframeDuration,
 				OnClose = self.setChangingDuration,

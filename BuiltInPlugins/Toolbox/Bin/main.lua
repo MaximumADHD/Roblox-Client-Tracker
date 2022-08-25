@@ -162,7 +162,7 @@ return function(plugin, pluginLoaderContext)
 	--				default to nil, then will not request anything.
 	-- flowType AssetConfigConstants.FLOW_TYPE, will be used to determine what screens are
 	--				going to be shown on AssetConfig start up and what's next screen.
-	-- clonedInstances instances, Will be used in publishing new assets. Instances are userdata,
+	-- instances instances, Will be used in publishing new assets. Instances are userdata,
 	--				we can't check the assetType using that, using AssetType instead.
 	-- assetTypeEnum Enum.AssetType, some asset like places, need to use the parameter to
 	--				set the assetType of the Asset, and skip the assetTypeSelection.
@@ -352,49 +352,26 @@ return function(plugin, pluginLoaderContext)
 		end
 
 		-- Create publish new asset page.
-		if FFlagUnifyModelPackagePublish then
-			pluginLoaderContext.signals["StudioAssetService.OnSaveToRoblox"]:Connect(function(instances)
-				local function proceedToUpload()
-					local clonedInstances = AssetConfigUtil.getClonedInstances(instances)
-					if #clonedInstances == 1 and clonedInstances[1]:IsA("AnimationClip") then
-						createAssetConfig(
-							nil,
-							AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW,
-							clonedInstances,
-							Enum.AssetType.Animation
-						)
-					else
-						createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances, nil, instances)
-					end
-				end
-				if FFlagDebugToolboxGetRolesRequest then
-					toolboxStore:dispatch(GetRolesDebugRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
+		pluginLoaderContext.signals["StudioService.OnSaveToRoblox"]:Connect(function(instances)
+			local function proceedToUpload()
+				local clonedInstances = AssetConfigUtil.getClonedInstances(instances)
+				if #clonedInstances == 1 and clonedInstances[1]:IsA("AnimationClip") then
+					createAssetConfig(
+						nil,
+						AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW,
+						clonedInstances,
+						Enum.AssetType.Animation
+					)
 				else
-					toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
+					createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances, nil, instances)
 				end
-			end)
-		else
-			pluginLoaderContext.signals["StudioService.OnSaveToRoblox"]:Connect(function(instances)
-				local function proceedToUpload()
-					local clonedInstances = AssetConfigUtil.getClonedInstances(instances)
-					if #clonedInstances == 1 and clonedInstances[1]:IsA("AnimationClip") then
-						createAssetConfig(
-							nil,
-							AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW,
-							clonedInstances,
-							Enum.AssetType.Animation
-						)
-					else
-						createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances, nil, instances)
-					end
-				end
-				if FFlagDebugToolboxGetRolesRequest then
-					toolboxStore:dispatch(GetRolesDebugRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
-				else
-					toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
-				end
-			end)
-		end
+			end
+			if FFlagDebugToolboxGetRolesRequest then
+				toolboxStore:dispatch(GetRolesDebugRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
+			else
+				toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
+			end
+		end)
 
 		pluginLoaderContext.signals["StudioService.OnImportFromRoblox"]:Connect(function(callback)
 			createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW, nil, Enum.AssetType.Animation)

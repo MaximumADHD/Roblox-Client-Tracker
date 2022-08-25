@@ -3,9 +3,9 @@
 	Specifically these are the inspected assets within the menu
 ]]
 local CorePackages = game:GetService("CorePackages")
-local Rodux = require(CorePackages.Rodux)
+local Action = require(CorePackages.AppTempCommon.Common.Action)
 
-return Rodux.makeActionCreator(script.Name, function(assets)
+return Action(script.Name, function(assets)
 	return {
 		assets = assets,
 	}

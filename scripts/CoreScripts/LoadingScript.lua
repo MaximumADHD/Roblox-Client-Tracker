@@ -13,6 +13,8 @@ local ContentProvider = game:GetService("ContentProvider")
 local CoreGui = game:GetService("CoreGui")
 local ReplicatedFirst = game:GetService("ReplicatedFirst")
 local ScriptContext = game:GetService("ScriptContext")
+local LocalizationService = game:GetService("LocalizationService")
+local AppStorageService = game:GetService("AppStorageService")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Modules = RobloxGui:WaitForChild("Modules")
@@ -21,6 +23,8 @@ local create = require(RobloxGui:WaitForChild("Modules"):WaitForChild("Common"):
 local PolicyService = require(RobloxGui.Modules.Common:WaitForChild("PolicyService"))
 local LoadingScreen = require(Modules.LoadingScreen.LoadingScreen)
 local LoadingScreenReducer = require(Modules.LoadingScreen.Reducers.LoadingScreenReducer)
+local LocalizationProvider = require(Modules.InGameMenuV3.Localization.LocalizationProvider)
+local Localization = require(Modules.InGameMenuV3.Localization.Localization)
 
 --FFlags
 local FFlagLoadingScreenShowBlankUntilPolicyServiceReturns = game:DefineFastFlag("LoadingScreenShowBlankUntilPolicyServiceReturns", false)

@@ -46,26 +46,24 @@ type _Style = {
 	DialogColumnSize: UDim2,
 	ItemSpacing: number,
 	LabelColumnWidth: UDim,
+	Padding: number,
 }
 
 local TilingSettings = Roact.PureComponent:extend("TilingSettings")
 
 function TilingSettings:init()
-	self.state = {
-		studsPerTile = tostring(self.props.MaterialVariant.StudsPerTile),
-	}
 	self.materialPatterns = {}
 
-	self.setStudsPerTileStatus = function(message)
+	self.setStudsPerTileError = function(error)
 		self:setState({
-			studsPerTileMessage = message or Roact.None,
-			status = if message then Enum.PropertyStatus.Warning else Enum.PropertyStatus.Ok,
+			errorStudsPerTile = error or Roact.None,
+			status = if error then Enum.PropertyStatus.Error else Enum.PropertyStatus.Ok,
 		})
 	end
 
 	self.onStudsPerTileChanged = function(text)
 		self:setState({
-			studsPerTile = text,
+			studsPerTile = text
 		})
 	end
 
@@ -76,12 +74,9 @@ function TilingSettings:init()
 		local numberFromText = getNumberFromText(self.state.studsPerTile)
 		if numberFromText then
 			props.GeneralServiceController:setStudsPerTile(props.MaterialVariant, numberFromText)
-			self.setStudsPerTileStatus(nil)
+			self.setStudsPerTileError(nil)
 		else
-			self.setStudsPerTileStatus(localization:getText("CreateDialog", "ErrorStudsPerTile"))
-			self:setState({
-				studsPerTile = tostring(props.MaterialVariant.StudsPerTile),
-			})
+			self.setStudsPerTileError(localization:getText("CreateDialog", "ErrorStudsPerTile"))
 		end
 	end
 
@@ -98,31 +93,10 @@ function TilingSettings:didMount()
 	local props: _Props = self.props
 	local localization = props.Localization
 
-	self.connectionStudsPerTile = props.MaterialVariant:GetPropertyChangedSignal("StudsPerTile"):Connect(function()
-		self:setState({
-			studsPerTile = tostring(props.MaterialVariant.StudsPerTile),
-		})
-		self.setStudsPerTileStatus(nil)
-	end)
-
 	for index, materialPattern in ipairs(materialPatterns) do
 		table.insert(self.materialPatterns, localization:getText("MaterialPatterns", getMaterialPatternName(materialPattern)))
 	end
 	self:setState({})  -- Force a rerender of the patterns list
-end
-
-function TilingSettings:willUnmount()
-	if self.connectionStudsPerTile then
-		self.connectionStudsPerTile:Disconnect()
-	end
-end
-
-function TilingSettings:didUpdate(prevProps)
-	if prevProps.MaterialVariant ~= self.props.MaterialVariant then
-		self:setState({
-			studsPerTile = self.props.MaterialVariant.StudsPerTile,
-		})
-	end
 end
 
 function TilingSettings:render()
@@ -145,19 +119,18 @@ function TilingSettings:render()
 		ContentSpacing = style.ItemSpacing,
 		Text = localization:getText("MaterialTiling", "Tiling"),
 		Style = style.CustomExpandablePane,
-		Expanded = true,
 	}, {
 		StudsPerTile = Roact.createElement(LabeledElement, {
 			LabelColumnWidth = style.LabelColumnWidth,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			Text = localization:getText("MaterialTiling", "StudsPerTile"),
-			StatusText = self.state.studsPerTileMessage,
+			StatusText = self.state.errorStudsPerTile,
 			Status = self.state.status,
 		}, {
 			Roact.createElement(TextInput, {
-				Style = "FilledRoundedBorder",
+				Style = if self.state.errorStudsPerTile then "FilledRoundedRedBorder" else "FilledRoundedBorder",
 				Size = style.DialogColumnSize,
-				Text = self.state.studsPerTile,
+				Text = if self.state.studsPerTile then self.state.studsPerTile else props.MaterialVariant.StudsPerTile,
 				OnTextChanged = self.onStudsPerTileChanged,
 				OnFocusLost = self.onFocusLost,
 			})

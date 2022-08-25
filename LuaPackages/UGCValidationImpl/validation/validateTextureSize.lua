@@ -18,7 +18,7 @@ local function validateTextureSize(textureId: string, allowNoTexture: boolean?):
 	end)
 
 	if not success then
-		return false, { "Failed to load texture data", imageSize } :: {any}
+		return false, { "Failed to load texture data", imageSize }
 	elseif imageSize.X > Constants.MAX_TEXTURE_SIZE or imageSize.Y > Constants.MAX_TEXTURE_SIZE then
 		return false, {
 			string.format(

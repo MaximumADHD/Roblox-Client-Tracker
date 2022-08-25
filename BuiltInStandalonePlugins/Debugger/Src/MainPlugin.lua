@@ -51,7 +51,7 @@ local Middleware = require(Src.Middleware.MainMiddleware)
 
 local TestStore = require(Src.Util.TestStore)
 local DebugConnectionListener = require(Src.Util.DebugConnectionListener.DebugConnectionListener)
-local MetaBreakpointManagerListener = require(Src.Util.MetaBreakpointManagerListener.MetaBreakpointManagerListener)
+local BreakpointManagerListener = require(Src.Util.BreakpointManagerListener.BreakpointManagerListener)
 local CrossDMScriptChangeListener = require(Src.Util.CrossDMScriptChangeListener.CrossDMScriptChangeListener)
 
 local FFlagStudioDebuggerOverhaul_Dev = game:GetFastFlag("StudioDebuggerOverhaul_Dev")
@@ -146,7 +146,7 @@ function MainPlugin:init(props)
 	end
 
 	self.debugConnectionListener = FFlagStudioDebuggerOverhaul_Dev and DebugConnectionListener.new(self.store)
-	self.metaBreakpointManagerListener = FFlagStudioDebuggerOverhaul_Dev and MetaBreakpointManagerListener.new(self.store)
+	self.breakpointManagerListener = FFlagStudioDebuggerOverhaul_Dev and BreakpointManagerListener.new(self.store)
 	self.scriptChangeServiceListener = FFlagStudioDebuggerOverhaul_Dev and CrossDMScriptChangeListener.new(self.store)
 
 	self.localization = ContextServices.Localization.new({
@@ -299,9 +299,9 @@ function MainPlugin:willUnmount()
 		self.debugConnectionListener = nil
 	end
 
-	if FFlagStudioDebuggerOverhaul_Dev and self.metaBreakpointManagerListener then
-		self.metaBreakpointManagerListener:destroy()
-		self.metaBreakpointManagerListener = nil
+	if FFlagStudioDebuggerOverhaul_Dev and self.breakpointManagerListener then
+		self.breakpointManagerListener:destroy()
+		self.breakpointManagerListener = nil
 	end
 
 	if FFlagStudioDebuggerOverhaul_Dev and self.scriptChangeServiceListener then

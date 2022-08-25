@@ -15,7 +15,7 @@
 	`-- bar (ModuleScript)
 ]]
 
-local function initify(rbx: Instance)
+local function initify(rbx)
 	local init = rbx:FindFirstChild("init")
 
 	if init then

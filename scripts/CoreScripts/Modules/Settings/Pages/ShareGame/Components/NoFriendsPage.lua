@@ -22,7 +22,6 @@ local NoFriendsPage = Roact.PureComponent:extend("NoFriendsPage")
 function NoFriendsPage:render()
 	local layoutOrder = self.props.LayoutOrder
 	local zIndex = self.props.ZIndex
-	local position = self.props.Position
 
 	local incrementingLayoutOrder = 0
 	local function incrementLayoutOrder()
@@ -35,7 +34,6 @@ function NoFriendsPage:render()
 		Size = UDim2.new(1, 0, 1, 0),
 		LayoutOrder = layoutOrder,
 		ZIndex = zIndex,
-		Position = position,
 	}, {
 		listLayout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,

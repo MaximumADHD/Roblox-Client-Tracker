@@ -45,8 +45,6 @@ local Selection = game:GetService("Selection")
 
 local LATEST_VERSION = 0
 local CAN_CANCEL_AFTER_RETRIES = 3
-local PARALLEL_PACKET_SIZE = 5
-local PUBLISH_THROTTLE_REFRESH_TIME = 2
 local BOX_SIZE = 80
 local BOX_PADDING = 4
 local BOTTOM_BAR_SIZE = 100
@@ -204,21 +202,16 @@ local function scanForRelatedPackages(selectedInstance, root)
 	assert(root)
 	local selectedPackageLink = getPackageLink(selectedInstance)
 	assert(selectedPackageLink)
-
+	
 	local allRelationships = getAllPackageRelationships(root)
-
+	
 	local scannedIds = {}
 	local packageLists = {} -- { [1] = {DATA}, [2] = {DATA2}, ... }
 
-	local function recurse(packageId, depth, hasSeen)
+	local function recurse(packageId, depth)
 		local relationshipData = allRelationships[packageId]
-		if hasSeen[relationshipData] then
-			return
-		end
-		hasSeen[relationshipData] = true
-
 		for nextId, data in pairs(relationshipData.parents) do
-			recurse(nextId, depth + 1, table.clone(hasSeen))
+			recurse(nextId, depth + 1)
 		end
 
 		if scannedIds[packageId] then
@@ -248,13 +241,13 @@ local function scanForRelatedPackages(selectedInstance, root)
 		scannedIds[packageId] = PACKAGE_DATA
 		table.insert(packageLists, PACKAGE_DATA)
 	end
-	recurse(selectedPackageLink.PackageId, 0, {})
+	recurse(selectedPackageLink.PackageId, 0)
 
 	return packageLists
 end
 
-function ExampleComponent:runScopedMassUpdate(next, latestVersion, changeList)
-	local packagesToUpdate = getChangedPackageInstances(latestVersion, changeList)
+function ExampleComponent:runScopedMassUpdate(next, changeList)
+	local packagesToUpdate = getChangedPackageInstances(next.LatestVersion, changeList)
 	if #packagesToUpdate > 0 then
 		next.PublishStatus = PublishStatus.Updating
 		self:setState({})
@@ -280,46 +273,10 @@ function ExampleComponent:runScopedMassUpdate(next, latestVersion, changeList)
 				task.wait(0.5)
 			end
 		end
+
+		next.PublishStatus = PublishStatus.Ready
+		self:setState({})
 	end
-end
-
-function ExampleComponent:getLatestVersionClone(next)
-	local latestVersion = next.FoundInstance
-	if not latestVersion then
-		warn(LOG_MESSAGES.LatestVersionFailure)
-		return
-	end
-	latestVersion = latestVersion:Clone()
-	latestVersion.Parent = self.state.tempContainer
-
-	if next.IsSelected then
-		return latestVersion
-	end
-
-	local numRetryAttempts = 0
-	local response
-	repeat
-		if self.state.isCancelling then
-			return
-		end
-
-		response = setPackageToVersion(latestVersion, next.LatestVersionNumber)
-
-		if not response then
-			local toSetCancel = (numRetryAttempts >= CAN_CANCEL_AFTER_RETRIES)
-			if self.state.canCancel ~= toSetCancel then
-				self:setState({
-					canCancel = toSetCancel,
-				})
-			end
-
-			warn(string.format(LOG_MESSAGES.PackagePublishFailure, next.PackageAssetName, next.PackageId))
-			task.wait( 2^(math.min(numRetryAttempts, 2)) )
-			numRetryAttempts += 1
-		end
-	until response
-
-	return response
 end
 
 function ExampleComponent:promiseToPublishPackage(next, changeList)
@@ -333,13 +290,8 @@ function ExampleComponent:promiseToPublishPackage(next, changeList)
 				canCancel = false,
 			})
 
-			local latestVersion = self:getLatestVersionClone(next)
-			if not latestVersion then
-				return reject()
-			end
-
 			if not next.IsSelected then
-				self:runScopedMassUpdate(next, latestVersion, changeList)
+				self:runScopedMassUpdate(next, changeList)
 			end
 
 			if not next.Changed then
@@ -350,11 +302,11 @@ function ExampleComponent:promiseToPublishPackage(next, changeList)
 			end
 
 			-- TODO: Once PackageOverhaulPhaseOne is released, mod check is being removed so we don't need to wait for Status property to update here
-			local statusUpdateClone = latestVersion:Clone()
+			local statusUpdateClone = next.LatestVersion:Clone()
 			statusUpdateClone.Archivable = false
-			statusUpdateClone.Parent = latestVersion.Parent
+			statusUpdateClone.Parent = next.LatestVersion.Parent
 			local clonePackageLink = getPackageLink(statusUpdateClone)
-			local thisPackageLink = getPackageLink(latestVersion)
+			local thisPackageLink = getPackageLink(next.LatestVersion)
 			if thisPackageLink.Status == LOG_MESSAGES.UpToDateString then
 				thisPackageLink:GetPropertyChangedSignal("Status"):Wait()
 			end
@@ -370,7 +322,7 @@ function ExampleComponent:promiseToPublishPackage(next, changeList)
 				end
 
 				success, error = pcall(function()
-					PackageUIService:PublishPackage(latestVersion)
+					PackageUIService:PublishPackage(next.LatestVersion)
 				end)
 				if success then
 					warn(string.format(LOG_MESSAGES.PackagePublishSuccess, next.PackageAssetName, next.PackageId))
@@ -379,7 +331,7 @@ function ExampleComponent:promiseToPublishPackage(next, changeList)
 						-- Version Number needs some time to update on C++ end
 						clonePackageLink:GetPropertyChangedSignal("Status"):Wait()
 					end
-					local newVersionId = getPackageLink(latestVersion).VersionNumber
+					local newVersionId = getPackageLink(next.LatestVersion).VersionNumber
 					changeList[next.PackageId] = {
 						oldVersionId = next.LatestVersionNumber,
 						newVersionId = newVersionId,
@@ -403,77 +355,61 @@ function ExampleComponent:promiseToPublishPackage(next, changeList)
 				end
 			until success
 
-			latestVersion:Destroy()
-			statusUpdateClone:Destroy()
-
 			return resolve()
 		end)
 	end)
 end
 
-function ExampleComponent:waitForPromises(promiseList, changeList)
+local function waitForPromises(promiseList)
 	if not promiseList or #promiseList == 0 then
 		return true, nil
 	end
-
-	local onPromiseUpdated = Instance.new("BindableEvent")
-	local numActivePromises = 0
-	for i, next in promiseList do
-		if numActivePromises >= PARALLEL_PACKET_SIZE then
-			local response = onPromiseUpdated.Event:Wait()
-			if not response then
-				return
-			end
-		end
-
-		local lastPromiseTime = (self.PublishStartTime + self.NumPromised * PUBLISH_THROTTLE_REFRESH_TIME)
-		local timeSinceLastPromise = os.clock() - lastPromiseTime
-		if timeSinceLastPromise < PUBLISH_THROTTLE_REFRESH_TIME then
-			task.wait(PUBLISH_THROTTLE_REFRESH_TIME - timeSinceLastPromise)
-		end
-		self.NumPromised += 1
-
-		numActivePromises += 1
-		self:promiseToPublishPackage(next, changeList):andThen(function()
-			numActivePromises -= 1
-			onPromiseUpdated:Fire(true)
-		end):catch(function()
-			onPromiseUpdated:Fire(false)
-		end)
-	end
-
-	while numActivePromises > 0 do
-		local response = onPromiseUpdated.Event:Wait()
-		if not response then
-			return
-		end
-	end
-
-	onPromiseUpdated:Destroy()
-
-	return true
+	return pcall(function()
+		return Promise.all(promiseList):await()
+	end)
 end
 
 function ExampleComponent:doPackagePublishing(packageLists)
 	local changeList = {}
 	local lastDepth
 	local promiseList
-
-	self.PublishStartTime = os.clock()
-	self.NumPromised = 0
-
 	for i = 1, #packageLists do
 		local next = packageLists[i]
 		if lastDepth ~= next.Depth then
-			if not self:waitForPromises(promiseList, changeList) then
+			if not waitForPromises(promiseList) then
 				return
 			end
 			lastDepth = next.Depth
 			promiseList = {}
 		end
-		table.insert(promiseList, next)
+		table.insert(promiseList, self:promiseToPublishPackage(next, changeList))
 	end
-	self:waitForPromises(promiseList, changeList)
+	waitForPromises(promiseList)
+end
+
+local function getLatestVersionClones(packageLists)
+	local tempContainer = Instance.new("Folder")
+	tempContainer.Name = LOG_MESSAGES.TempContainerName
+	tempContainer.Archivable = false
+	tempContainer.Parent = game:GetService("ServerStorage")
+
+	for _, next in ipairs(packageLists) do
+		local latestVersion = next.FoundInstance
+		if not latestVersion then
+			error(LOG_MESSAGES.LatestVersionFailure)
+		end
+		latestVersion = latestVersion:Clone()
+		latestVersion.Parent = tempContainer
+		if not next.IsSelected then
+			latestVersion = setPackageToVersion(latestVersion, LATEST_VERSION)
+		end
+		if not latestVersion then
+			error(LOG_MESSAGES.LatestVersionFailure)
+		end
+		next.LatestVersion = latestVersion
+	end
+
+	return tempContainer
 end
 
 function ExampleComponent:publishSelectedPackageHierarchy()
@@ -481,20 +417,28 @@ function ExampleComponent:publishSelectedPackageHierarchy()
 		return
 	end
 
-	local tempContainer = Instance.new("Folder")
-	tempContainer.Archivable = false
-	tempContainer.Name = LOG_MESSAGES.TempContainerName
-	tempContainer.Parent = game:GetService("ServerStorage")
-
 	self:setState({
 		isPublishing = true,
 		canPublish = false,
 		isCancelling = false,
 		canCancel = false,
-		tempContainer = tempContainer,
 	})
 
-	self:doPackagePublishing(self.state.packageLists)
+	local packageLists = self.state.packageLists
+
+	local success, tempContainer = pcall(getLatestVersionClones, packageLists)
+	if not success then
+		warn(tempContainer)
+		self:setState({
+			isPublishing = false,
+			isCancelling = false,
+			canCancel = false,
+		})
+		self:onChangeSelection()
+		return
+	end
+
+	self:doPackagePublishing(packageLists)
 
 	if not self.state.isCancelling then
 		local manualUpdateInstance = self.state.selectedInstance
@@ -518,14 +462,13 @@ function ExampleComponent:publishSelectedPackageHierarchy()
 	else
 		warn(LOG_MESSAGES.OperationCancelled)
 	end
-
+	
 	tempContainer:Destroy()
 
 	self:setState({
 		isPublishing = false,
 		isCancelling = false,
 		canCancel = false,
-		tempContainer = Roact.None,
 	})
 	self:onChangeSelection()
 end
@@ -548,7 +491,7 @@ function ExampleComponent:onChangeSelection()
 		})
 		return
 	end
-
+	
 	local selectedInstance = selected[1]
 	local packageLink = getPackageLink(selectedInstance)
 	if (not packageLink) or packageLink.Status == LOG_MESSAGES.UpToDateString then
@@ -559,15 +502,15 @@ function ExampleComponent:onChangeSelection()
 		})
 		return
 	end
-
+	
 	local packageLists = scanForRelatedPackages(selectedInstance, game)
-
+	
 	table.sort(packageLists, sortByPackageDepth)
 
 	for _, next in ipairs(packageLists) do
 		next.PublishStatus = PublishStatus.Ready
 	end
-
+	
 	self:setState({
 		selectedInstance = selectedInstance,
 		packageLists = packageLists,
@@ -592,7 +535,7 @@ local ProgressBar = Roact.PureComponent:extend("ProgressBar")
 function ProgressBar:render()
 	local props = self.props
 	local publishStatus = props.publishStatus
-
+	
 	local sizeX = ProgressBarSizeX[publishStatus]
 	local color = ProgressBarColor[publishStatus]
 

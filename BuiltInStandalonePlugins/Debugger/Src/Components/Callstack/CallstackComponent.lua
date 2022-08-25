@@ -52,6 +52,8 @@ local Constants = require(PluginFolder.Src.Util.Constants)
 
 local StudioService = game:GetService("StudioService")
 
+local FFlagDevFrameworkExpandColumnOnDoubleClickDragbar = game:GetFastFlag("DevFrameworkExpandColumnOnDoubleClickDragbar")
+
 local defaultColumnKey = {
 	[1] = "arrowColumn",
 }
@@ -611,7 +613,7 @@ function CallstackComponent:render()
 				Padding = TABLE_PADDING,
 				ColumnHeaderHeight = Constants.COLUMN_HEADER_HEIGHT,
 				RowHeight = Constants.ROW_HEIGHT,
-				ExpandOnDoubleClick = true,
+				ExpandOnDoubleClick = if FFlagDevFrameworkExpandColumnOnDoubleClickDragbar then true else nil,
 			}),
 		}),
 	})

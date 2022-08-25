@@ -17,6 +17,8 @@ local withContext = ContextServices.withContext
 local Constants = require(Plugin.Src.Util.Constants)
 local TextEntryPrompt = require(Plugin.Src.Components.TextEntryPrompt)
 
+local GetFFlagFixButtonStyle = require(Plugin.LuaFlags.GetFFlagFixButtonStyle)
+
 local ChangeFPSPrompt = Roact.PureComponent:extend("ChangeFPSPrompt")
 
 function ChangeFPSPrompt:init()
@@ -78,8 +80,8 @@ function ChangeFPSPrompt:render()
 		HasError = hasNoticeText,
 		Text = frameRate,
 		Buttons = {
-			{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round"},
-			{Key = true, Text = localization:getText("Dialog", "Confirm"), Style = "RoundPrimary"},
+			{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
+			{Key = true, Text = localization:getText("Dialog", "Confirm"), Style = if GetFFlagFixButtonStyle() then "RoundPrimary" else "Primary"},
 		},
 		OnTextSubmitted = function(text)
 			return self.setFrameRate(text, localization)

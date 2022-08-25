@@ -30,7 +30,6 @@ local Thunk = require(Root.Thunk)
 local GetFFlagPPUpsellEndpoint = require(Root.Flags.GetFFlagPPUpsellEndpoint)
 local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
 local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
-local GetFFlagEnableInsufficientRobuxForBundleUpsellFix = require(Root.Flags.GetFFlagEnableInsufficientRobuxForBundleUpsellFix)
 
 local function getPurchasableStatus(productPurchasableDetails)
 	local reason = productPurchasableDetails.reason
@@ -73,7 +72,7 @@ local function resolveBundlePromptState(productPurchasableDetails, bundleDetails
 
 		if not canPurchase then
 			if failureReason == PurchaseError.NotEnoughRobux then
-				if not GetFFlagEnableInsufficientRobuxForBundleUpsellFix() and upsellFlow == UpsellFlow.Web then
+				if upsellFlow == UpsellFlow.Web then
 					return store:dispatch(SetPromptState(PromptState.RobuxUpsell))
 				else
 					local neededRobux = price - accountInfo.RobuxBalance

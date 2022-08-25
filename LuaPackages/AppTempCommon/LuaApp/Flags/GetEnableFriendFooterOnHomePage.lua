@@ -9,7 +9,7 @@ local FIntEnableFriendFooterOnHomePage = settings():GetFVariable("EnableFriendFo
 -- Reason: The LocalPlayer wouldn't be ready if we called it globally.
 return function()
 	local throttleNumber = tonumber(FIntEnableFriendFooterOnHomePage)
-	local userId = (Players.LocalPlayer :: Player).UserId
+	local userId = Players.LocalPlayer.UserId
 
 	return ThrottleUserId(throttleNumber, userId)
 end

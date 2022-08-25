@@ -20,7 +20,6 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CorePackages = game:GetService("CorePackages")
 
 ----------- UTILITIES --------------
-local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local LinkingProtocol = require(CorePackages.UniversalApp.Linking.LinkingProtocol)
@@ -31,7 +30,6 @@ RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
-local GetFFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)
 local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
 
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
@@ -48,9 +46,6 @@ local function Initialize()
 	local this = settingsPageFactory:CreateNewPage()
 
 	this.LeaveFunc = function()
-		if GetFFlagEnableInGameMenuDurationLogger() then
-			PerfUtils.leavingGame()
-		end
 		GuiService.SelectedCoreObject = nil -- deselects the button and prevents spamming the popup to save in studio when using gamepad
 
 		if FFlagCollectAnalyticsForSystemMenu then

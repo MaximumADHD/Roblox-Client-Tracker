@@ -26,11 +26,14 @@ local MaterialController = require(Controllers.MaterialController) -- Remove wit
 local MaterialServiceController = require(Controllers.MaterialServiceController)
 
 local Flags = Plugin.Src.Flags
+local getFFlagMaterialManagerSideBarSplitPaneUpdate = require(Flags.getFFlagMaterialManagerSideBarSplitPaneUpdate)
 local getFFlagDeprecateMaterialController = require(Flags.getFFlagDeprecateMaterialController)
 
 local SideBar = Roact.PureComponent:extend("SideBar")
 
 export type Props = {
+	-- Remove LayoutOrder prop with FFlagMaterialManagerSideBarSplitPaneUpdate
+	LayoutOrder: number?,
 	ZIndex: number?,
 	Size: UDim2?,
 }
@@ -170,11 +173,13 @@ function SideBar:render()
 	local state: _state = self.state
 
 	local size = props.Size
+	local layoutOrder = props.LayoutOrder
 	local zIndex = props.ZIndex
 
 	return Roact.createElement(TreeView, {
 		Size = size,
-		ZIndex = zIndex,
+		LayoutOrder = if not getFFlagMaterialManagerSideBarSplitPaneUpdate() then layoutOrder else nil, -- Remove LayoutOrder prop with FFlagMaterialManagerSideBarSplitPaneUpdate
+		ZIndex = if getFFlagMaterialManagerSideBarSplitPaneUpdate() then zIndex else nil,
 		Expansion = state.Expansion,
 		Selection = state.Selection,
 		RootItems = self.categories or {},
@@ -186,7 +191,7 @@ end
 SideBar = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
-	MaterialController = if not getFFlagDeprecateMaterialController() then MaterialController else nil,
+	MaterialController = MaterialController, -- Remove with FFlagDeprecateMaterialController
 	MaterialServiceController = MaterialServiceController,
 })(SideBar)
 

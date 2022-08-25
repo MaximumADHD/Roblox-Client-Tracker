@@ -19,7 +19,6 @@
 ]]
 local FIntToolboxPriceTextBoxMaxCount = game:GetFastInt("ToolboxPriceTextBoxMaxCount")
 local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
-local FFlagToolboxAssetConfigurationMaxPrice = game:GetFastFlag("ToolboxAssetConfigurationMaxPrice")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -30,7 +29,6 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local TextInput = Framework.UI.TextInput
-local TextLabel = if FFlagToolboxAssetConfigurationMaxPrice then Framework.UI.TextLabel else nil
 local TitledFrame = Framework.StudioUI.TitledFrame
 local GetTextSize = Framework.Util.GetTextSize
 
@@ -62,16 +60,15 @@ function PriceComponent:init(props)
 end
 
 function PriceComponent:render()
-	return withLocalization(function(DEPRECATED_localization, DEPRECATED_localizedContent)
-		return self:renderContent(nil, DEPRECATED_localization, DEPRECATED_localizedContent)
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContent(nil, localization, localizedContent)
 	end)
 end
 
--- remove DEPRECATED_localization and DEPRECATED_localizedContent with FFlagToolboxAssetConfigurationMinPriceFloor2 and FFlagToolboxAssetConfigurationMaxPrice
-function PriceComponent:renderContent(theme, DEPRECATED_localization, DEPRECATED_localizedContent)
+function PriceComponent:renderContent(theme, localization, localizedContent)
+	theme = self.props.Stylizer
+
 	local props = self.props
-	theme = props.Stylizer
-	local localization = if FFlagToolboxAssetConfigurationMaxPrice then props.Localization else nil
 
 	local assetTypeEnum = props.AssetTypeEnum
 	local allowedAssetTypesForRelease = props.AllowedAssetTypesForRelease
@@ -111,8 +108,6 @@ function PriceComponent:renderContent(theme, DEPRECATED_localization, DEPRECATED
 	local canBeSetAsFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 and allowedAssetTypesForFree then Dash.find(allowedAssetTypesForFree, function(assetType)
 		return assetType == assetTypeEnum.Name
 	end) else nil
-	local numberPrice = if FFlagToolboxAssetConfigurationMaxPrice then tonumber(price) else nil
-	local isOverMaxPrice = if FFlagToolboxAssetConfigurationMaxPrice and numberPrice then numberPrice > maxPrice else nil
 
 	local UntypedVector2 = Vector2
 	local inputBoxSize = FFlagPriceComponentTextSize and Vector2.new(INPUT_BOX_WIDTH, ROW_HEIGHT) or UntypedVector2.new(0, INPUT_BOX_WIDTH, 0, ROW_HEIGHT)
@@ -124,13 +119,8 @@ function PriceComponent:renderContent(theme, DEPRECATED_localization, DEPRECATED
 	local textLength = utf8.len(textboxText)
 	local textOverMaxCount = textLength > FIntToolboxPriceTextBoxMaxCount
 
-	local subTextColor
-	if FFlagToolboxAssetConfigurationMaxPrice then
-		subTextColor = if isPriceValid then assetConfigTheme.labelTextColor else assetConfigTheme.errorColor
-	end
-
 	return Roact.createElement(TitledFrame, {
-		Title = if FFlagToolboxAssetConfigurationMaxPrice then localization:getText("General", "SalesPrice") else DEPRECATED_localizedContent.Sales.Price,
+		Title = localizedContent.Sales.Price,
 		LayoutOrder = order
 	}, {
 		InputRow = Roact.createElement("Frame", {
@@ -165,7 +155,7 @@ function PriceComponent:renderContent(theme, DEPRECATED_localization, DEPRECATED
 					Size = Constants.Dialog.ROBUX_SIZE,
 
 					Image = Images.ROBUX_SMALL,
-					ImageColor3 = if FFlagToolboxAssetConfigurationMaxPrice then assetConfigTheme.textColor else Color3.fromRGB(255, 255, 255),
+					ImageColor3 = Color3.fromRGB(255, 255, 255),
 					BackgroundTransparency = 1,
 				}),
 
@@ -199,75 +189,52 @@ function PriceComponent:renderContent(theme, DEPRECATED_localization, DEPRECATED
 					Padding = UDim.new(0, 0),
 				}) else nil,
 
-				MinimumPriceLabel = if canBeSetAsFree and not isOverMaxPrice then Roact.createElement(if FFlagToolboxAssetConfigurationMaxPrice then TextLabel else "TextLabel", {
+				MinimumPriceLabel = if canBeSetAsFree then Roact.createElement("TextLabel", {
 					AutomaticSize = Enum.AutomaticSize.Y,
-					BackgroundTransparency = if FFlagToolboxAssetConfigurationMaxPrice then nil else 1,
-					BorderSizePixel = if FFlagToolboxAssetConfigurationMaxPrice then nil else 0,
-					Font = if FFlagToolboxAssetConfigurationMaxPrice then nil else Constants.FONT,
-					LayoutOrder = 1,
-					LineHeight = 1.5,
 					Size = UDim2.new(1, 0, 0, 0),
 
-					Text = if FFlagToolboxAssetConfigurationMaxPrice then localization:getText("General", "SalesMinimumPrice", {
-						minPrice = tostring(minPrice),
-					}) else DEPRECATED_localization:getLocalizedMinimumPrice(minPrice),
-					TextColor = subTextColor, -- inline subTextColor with FFlagToolboxAssetConfigurationMaxPrice is removed
-					TextColor3 = if FFlagToolboxAssetConfigurationMaxPrice then nil else isPriceValid and assetConfigTheme.labelTextColor or assetConfigTheme.errorColor,
+					BorderSizePixel = 0,
+					BackgroundTransparency = 1,
+
+					Font = Constants.FONT,
+					LineHeight = 1.5,
+					Text = localization:getLocalizedMinimumPrice(minPrice),
+					TextColor3 = isPriceValid and assetConfigTheme.labelTextColor or assetConfigTheme.errorColor,
 					TextSize = Constants.FONT_SIZE_SMALL,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Center,
+
+					LayoutOrder = 1,
 				}) else nil,
 
-				FreePriceLabel = if canBeSetAsFree and not isOverMaxPrice then Roact.createElement(if FFlagToolboxAssetConfigurationMaxPrice then TextLabel else "TextLabel", {
-					AutomaticSize = if FFlagToolboxAssetConfigurationMaxPrice then Enum.AutomaticSize.Y else nil,
-					BackgroundTransparency = if FFlagToolboxAssetConfigurationMaxPrice then nil else 1,
-					BorderSizePixel = if FFlagToolboxAssetConfigurationMaxPrice then nil else 0,
-					Font = if FFlagToolboxAssetConfigurationMaxPrice then nil else Constants.FONT,
+				FreePriceLabel = if canBeSetAsFree then Roact.createElement("TextLabel", {
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+
+					Font = Constants.FONT,
+					Text = localizedContent.Sales.FreePrice,
+					TextSize = Constants.FONT_SIZE_SMALL,
+					TextColor3 = isPriceValid and assetConfigTheme.labelTextColor or assetConfigTheme.errorColor,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextYAlignment = Enum.TextYAlignment.Center,
+
 					LayoutOrder = 2,
-					LineHeight = if FFlagToolboxAssetConfigurationMaxPrice then 1.5 else nil,
-					Size = if FFlagToolboxAssetConfigurationMaxPrice then UDim2.new(1, 0, 0, 0) else nil,
-
-					Text = if FFlagToolboxAssetConfigurationMaxPrice then localization:getText("General", "SalesFreePrice") else DEPRECATED_localizedContent.Sales.FreePrice,
-					TextColor = subTextColor, -- inline subTextColor with FFlagToolboxAssetConfigurationMaxPrice is removed
-					TextColor3 = if FFlagToolboxAssetConfigurationMaxPrice then nil else isPriceValid and assetConfigTheme.labelTextColor or assetConfigTheme.errorColor,
-					TextSize = Constants.FONT_SIZE_SMALL,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Center,
-
 				}) else nil,
 
-				MaxPriceLabel = if canBeSetAsFree and isOverMaxPrice then Roact.createElement(TextLabel, {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					LayoutOrder = 1,
-					LineHeight = 1.5,
-					Size = UDim2.new(1, 0, 0, 0),
-
-					Text = localization:getText("General", "SalesMaxPrice", {
-						maxPrice = tostring(maxPrice),
-					}),
-					TextColor = subTextColor, -- inline subTextColor with FFlagToolboxAssetConfigurationMaxPrice is removed
-					TextSize = Constants.FONT_SIZE_SMALL,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Center,
-
-				}) else nil,
-
-				PriceRangeLabel = if not canBeSetAsFree then Roact.createElement(if FFlagToolboxAssetConfigurationMaxPrice then TextLabel else "TextLabel", {
-					BackgroundTransparency = if FFlagToolboxAssetConfigurationMaxPrice then nil else 1,
-					BorderSizePixel = if FFlagToolboxAssetConfigurationMaxPrice then nil else 0,
-					Font = if FFlagToolboxAssetConfigurationMaxPrice then nil else Constants.FONT,
-					LayoutOrder = 1,
+				PriceRangeLabel = if not canBeSetAsFree then Roact.createElement("TextLabel", {
 					Size = UDim2.new(1, INPUT_BOX_WIDTH, 0, 0),
-
-					Text = if FFlagToolboxAssetConfigurationMaxPrice then localization:getText("General", "SalesPriceRange", {
-						minPrice = tostring(minPrice),
-						maxPrice = tostring(maxPrice),
-					}) else DEPRECATED_localization:getLocalizedPriceRangeText(minPrice, maxPrice),
-					TextColor = subTextColor, -- inline subTextColor with FFlagToolboxAssetConfigurationMaxPrice is removed
-					TextColor3 = if FFlagToolboxAssetConfigurationMaxPrice then nil else isPriceValid and assetConfigTheme.labelTextColor or assetConfigTheme.errorColor,
+	
+					BackgroundTransparency = 1,
+					TextColor3 = isPriceValid and assetConfigTheme.labelTextColor or assetConfigTheme.errorColor,
+					BorderSizePixel = 0,
+	
+					Font = Constants.FONT,
 					TextSize = Constants.FONT_SIZE_SMALL,
+	
+					Text = localization:getLocalizedPriceRangeText(minPrice, maxPrice),
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Center,
+					LayoutOrder = 1,
 				}) else nil,
 			}) else nil,
 
@@ -281,7 +248,7 @@ function PriceComponent:renderContent(theme, DEPRECATED_localization, DEPRECATED
 				Font = Constants.FONT,
 				TextSize = Constants.FONT_SIZE_SMALL,
 
-				Text = DEPRECATED_localization:getLocalizedPriceRangeText(minPrice, maxPrice),
+				Text = localization:getLocalizedPriceRangeText(minPrice, maxPrice),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Center,
 				LayoutOrder = 2,
@@ -300,20 +267,19 @@ function PriceComponent:renderContent(theme, DEPRECATED_localization, DEPRECATED
 				PaddingLeft = UDim.new(0, 26),
 			}),
 
-			EarningsLabel = Roact.createElement(if FFlagToolboxAssetConfigurationMaxPrice then TextLabel else "TextLabel", {
-				BackgroundTransparency = if FFlagToolboxAssetConfigurationMaxPrice then nil else 1,
-				BorderSizePixel = if FFlagToolboxAssetConfigurationMaxPrice then nil else 0,
-				Font = if FFlagToolboxAssetConfigurationMaxPrice then nil else Constants.FONT,
-				LayoutOrder = 1,
+			EarningsLabel = Roact.createElement("TextLabel", {
 				Size = UDim2.new(1, 0, 1, 0),
 
-				Text = if FFlagToolboxAssetConfigurationMaxPrice then localization:getText("General", "SalesCreatorEarnings", {
-					earningsPercent = tostring(creatorEarningsPercent)
-				}) else DEPRECATED_localization:getLocalizedCreatorEarnings(creatorEarningsPercent),
-				TextColor = if FFlagToolboxAssetConfigurationMaxPrice then assetConfigTheme.textColor else nil,
-				TextColor3 = if FFlagToolboxAssetConfigurationMaxPrice then nil else assetConfigTheme.textColor,
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+
+				Text = localization:getLocalizedCreatorEarnings(creatorEarningsPercent),
+				TextColor3 = assetConfigTheme.textColor,
+				Font = Constants.FONT,
 				TextSize = Constants.FONT_SIZE_MEDIUM,
 				TextXAlignment = Enum.TextXAlignment.Left,
+
+				LayoutOrder = 1,
 			}),
 
 			BaseFrame = Roact.createElement("Frame", {
@@ -342,18 +308,19 @@ function PriceComponent:renderContent(theme, DEPRECATED_localization, DEPRECATED
 					LayoutOrder = 1,
 				}),
 
-				Earnings = Roact.createElement(if FFlagToolboxAssetConfigurationMaxPrice then TextLabel else "TextLabel", {
-					BackgroundTransparency = if FFlagToolboxAssetConfigurationMaxPrice then nil else 1,
-					BorderSizePixel = if FFlagToolboxAssetConfigurationMaxPrice then nil else 0,
-					Font = if FFlagToolboxAssetConfigurationMaxPrice then nil else Constants.FONT,
-					LayoutOrder = 2,
+				Earnings = Roact.createElement("TextLabel", {
 					Size = UDim2.new(0, earnVector.X, 1, 0),
 
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+
 					Text = finalPriceString,
-					TextColor = if FFlagToolboxAssetConfigurationMaxPrice then assetConfigTheme.textColor else nil,
-					TextColor3 = if FFlagToolboxAssetConfigurationMaxPrice then nil else assetConfigTheme.textColor,
+					TextColor3 = assetConfigTheme.textColor,
+					Font = Constants.FONT,
 					TextSize = Constants.FONT_SIZE_LARGE,
 					TextXAlignment = Enum.TextXAlignment.Right,
+
+					LayoutOrder = 2,
 				}),
 			})
 		}) else nil,
@@ -372,7 +339,7 @@ function PriceComponent:renderContent(theme, DEPRECATED_localization, DEPRECATED
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 
-				Text = DEPRECATED_localization:getLocalizedFee(tostring(feeRate)),
+				Text = localization:getLocalizedFee(tostring(feeRate)),
 				TextColor3 = assetConfigTheme.textColor,
 				Font = Constants.FONT,
 				TextSize = Constants.FONT_SIZE_MEDIUM,
@@ -446,7 +413,7 @@ function PriceComponent:renderContent(theme, DEPRECATED_localization, DEPRECATED
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 
-				Text = DEPRECATED_localizedContent.Sales.Earn,
+				Text = localizedContent.Sales.Earn,
 				TextColor3 = assetConfigTheme.textColor,
 				Font = Constants.FONT,
 				TextSize = Constants.FONT_SIZE_MEDIUM,
@@ -500,7 +467,6 @@ end
 
 PriceComponent = withContext({
 	Stylizer = ContextServices.Stylizer,
-	Localization = ContextServices.Localization,
 })(PriceComponent)
 
 

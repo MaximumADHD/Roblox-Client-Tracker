@@ -1,4 +1,4 @@
-local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
+local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -129,11 +129,7 @@ function MainViewHeader:render()
 
 			local byPrefix = self.props.Localization:getText("General", "SearchTagCreator")
 			local lengthPrefix = self.props.Localization:getText("General", "SearchTagLength")
-
-			-- TODO: Remove SearchTagIdVerified from SourceStrings with FFlagToolboxUseVerifiedIdAsDefault
-			local idVerifiedPrefix = if FFlagToolboxUseVerifiedIdAsDefault
-				then self.props.Localization:getText("General", "SearchTagIdUnverified")
-				else self.props.Localization:getText("General", "SearchTagIdVerified")
+			local idVerifiedPrefix = self.props.Localization:getText("General", "SearchTagIdVerified")
 
 			local tagsList = {}
 			if creatorName then

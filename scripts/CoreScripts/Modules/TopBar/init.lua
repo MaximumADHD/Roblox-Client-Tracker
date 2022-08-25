@@ -34,12 +34,16 @@ local registerSetCores = require(script.registerSetCores)
 local GlobalConfig = require(script.GlobalConfig)
 
 local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
+local FFlagEnableExperienceChat = require(RobloxGui.Modules.Common.Flags.FFlagEnableExperienceChat)
 local GetFFlagUpgradeExpChatV2_0_0 = require(CorePackages.Flags.GetFFlagUpgradeExpChatV2_0_0)
 
-local ExperienceChat = require(CorePackages.ExperienceChat)
+local ExperienceChat
 local MessageReceivedBindableEvent
-if not GetFFlagUpgradeExpChatV2_0_0() then
-	MessageReceivedBindableEvent = ExperienceChat.MessageReceivedBindableEvent
+if FFlagEnableExperienceChat then
+	ExperienceChat = require(CorePackages.ExperienceChat)
+	if not GetFFlagUpgradeExpChatV2_0_0() then
+		MessageReceivedBindableEvent = ExperienceChat.MessageReceivedBindableEvent
+	end
 end
 
 local TopBar = {}
@@ -118,15 +122,17 @@ function TopBar.new()
 	self.element = Roact.mount(self.root, CoreGui, "TopBar")
 
 	-- add binding
-	if GetFFlagUpgradeExpChatV2_0_0() then
-		local TextChatService = game:GetService("TextChatService")
-		TextChatService.MessageReceived:Connect(function()
-			self.store:dispatch(UpdateUnreadMessagesBadge(1))
-		end)
-	else
-		MessageReceivedBindableEvent.Event:Connect(function()
-			self.store:dispatch(UpdateUnreadMessagesBadge(1))
-		end)
+	if FFlagEnableExperienceChat then
+		if GetFFlagUpgradeExpChatV2_0_0() then
+			local TextChatService = game:GetService("TextChatService")
+			TextChatService.MessageReceived:Connect(function()
+				self.store:dispatch(UpdateUnreadMessagesBadge(1))
+			end)
+		else
+			MessageReceivedBindableEvent.Event:Connect(function()
+				self.store:dispatch(UpdateUnreadMessagesBadge(1))
+			end)
+		end
 	end
 
 	return self

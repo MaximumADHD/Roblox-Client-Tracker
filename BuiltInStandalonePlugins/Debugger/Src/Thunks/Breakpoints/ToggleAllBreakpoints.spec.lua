@@ -7,12 +7,12 @@ local MainMiddleware = require(Plugin.Src.Middleware.MainMiddleware)
 
 local Util = Plugin.Src.Util
 
-local MetaBreakpointManagerListener = require(Util.MetaBreakpointManagerListener.MetaBreakpointManagerListener)
+local BreakpointManagerListener = require(Util.BreakpointManagerListener.BreakpointManagerListener)
 local DebugConnectionListener = require(Util.DebugConnectionListener.DebugConnectionListener)
 
 local Mocks = Plugin.Src.Mocks
 
-local MockMetaBreakpointManager = require(Mocks.MockMetaBreakpointManager)
+local MockBreakpointManager = require(Mocks.MockBreakpointManager)
 local MockDebuggerConnection = require(Mocks.MockDebuggerConnection)
 local MockDebuggerConnectionManager = require(Mocks.MockDebuggerConnectionManager)
 local MockMetaBreakpoint = require(Mocks.MetaBreakpoint)
@@ -34,7 +34,7 @@ local function fakeDebuggerConnect(store)
 	mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
 end
 
-local function createMockMetaBreakpoint(id, scriptString, metaBreakpointManager)
+local function createMockMetaBreakpoint(id, scriptString, breakpointManager)
 	local mockMetaBreakpoint = MockMetaBreakpoint.new({
 		Script = scriptString,
 		Line = 123,
@@ -46,7 +46,7 @@ local function createMockMetaBreakpoint(id, scriptString, metaBreakpointManager)
 		ContinueExecution = true,
 		IsLogpoint = true,
 	})
-	mockMetaBreakpoint:SetMockMetaBreakpointManager(metaBreakpointManager)
+	mockMetaBreakpoint:SetMockBreakpointManager(breakpointManager)
 	return mockMetaBreakpoint
 end
 
@@ -55,19 +55,19 @@ return function()
 		local store = Rodux.Store.new(MainReducer, nil, MainMiddleware)
 		fakeDebuggerConnect(store)
 
-		local mockMetaBreakpointManager = MockMetaBreakpointManager.new()
+		local mockBreakpointManager = MockBreakpointManager.new()
 		local mockCrossDMScriptChangeListenerService = MockCrossDMScriptChangeListenerService.new()
-		local _mainBreakpointListener = MetaBreakpointManagerListener.new(
+		local _mainBreakpointListener = BreakpointManagerListener.new(
 			store,
-			mockMetaBreakpointManager,
+			mockBreakpointManager,
 			mockCrossDMScriptChangeListenerService
 		)
 
 		-- add breakpoints to the store
-		local metaBreakpoint1 = createMockMetaBreakpoint(1, "scriptString1", mockMetaBreakpointManager)
-		local metaBreakpoint2 = createMockMetaBreakpoint(2, "scriptString2", mockMetaBreakpointManager)
-		mockMetaBreakpointManager.MetaBreakpointAdded:Fire(metaBreakpoint1)
-		mockMetaBreakpointManager.MetaBreakpointAdded:Fire(metaBreakpoint2)
+		local metaBreakpoint1 = createMockMetaBreakpoint(1, "scriptString1", mockBreakpointManager)
+		local metaBreakpoint2 = createMockMetaBreakpoint(2, "scriptString2", mockBreakpointManager)
+		mockBreakpointManager.MetaBreakpointAdded:Fire(metaBreakpoint1)
+		mockBreakpointManager.MetaBreakpointAdded:Fire(metaBreakpoint2)
 
 		-- before toggling all breakpoints, all should be enabled
 		local state = store:getState()
@@ -75,7 +75,7 @@ return function()
 			expect(info.isEnabled).to.equal(true)
 		end
 
-		store:dispatch(ToggleAllBreakpoints(mockMetaBreakpointManager, false))
+		store:dispatch(ToggleAllBreakpoints(mockBreakpointManager, false))
 
 		state = store:getState()
 		-- after toggling all breakpoints, all should be disabled

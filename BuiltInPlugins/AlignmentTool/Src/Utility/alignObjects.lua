@@ -1,3 +1,5 @@
+local Workspace = game:GetService("Workspace")
+
 local Plugin = script.Parent.Parent.Parent
 local plugin = Plugin.Parent
 

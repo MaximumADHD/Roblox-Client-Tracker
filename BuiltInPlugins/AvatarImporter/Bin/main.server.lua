@@ -11,10 +11,6 @@ local Globals = require(root.src.Globals)
 Globals.plugin = plugin
 Globals.toolbar = Globals.plugin:CreateToolbar(Constants.TOOLBAR_NAME)
 
-local Framework = require(root.Packages.Framework)
-local isHighDpiEnabled = Framework.Util.isHighDpiEnabled
-local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and isHighDpiEnabled()
-
 -- imports
 local Roact = require(root.Packages.Roact)
 local Rodux = require(root.Packages.Rodux)
@@ -56,7 +52,7 @@ end
 
 local handle = Roact.mount(createHandle(), pluginGui)
 
-local importAvatarButton = Globals.toolbar:CreateButton(Constants.BUTTON_NAME, Constants.BUTTON_TOOLTIP, if FFlagHighDpiIcons then "rbxlocaltheme://AvatarImporter" else Assets.DEPRECATED_BUTTON_ICON)
+local importAvatarButton = Globals.toolbar:CreateButton(Constants.BUTTON_NAME, Constants.BUTTON_TOOLTIP, Assets.BUTTON_ICON)
 
 importAvatarButton.Click:Connect(function()
 	store:dispatch(TogglePlugin())

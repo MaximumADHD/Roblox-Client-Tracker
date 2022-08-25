@@ -32,8 +32,7 @@ local DropdownMenu = UI.DropdownMenu
 local FrameworkUtil = Framework.Util
 local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
 
-local FFlagDevFrameworkMigrateTooltip = Framework.SharedFlags.getFFlagDevFrameworkMigrateTooltip()
-local Tooltip = if FFlagDevFrameworkMigrateTooltip then UI.Tooltip else UILibrary.Component.Tooltip
+local Tooltip = UILibrary.Component.Tooltip
 
 local TextService = game:GetService("TextService")
 

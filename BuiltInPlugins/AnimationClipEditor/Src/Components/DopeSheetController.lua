@@ -63,7 +63,9 @@ local Pause = require(Plugin.Src.Actions.Pause)
 
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 
+local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagFixButtonStyle = require(Plugin.LuaFlags.GetFFlagFixButtonStyle)
 local GetFFlagCurveEditorFreeZoom = require(Plugin.LuaFlags.GetFFlagCurveEditorFreeZoom)
 
 local DopeSheetController = Roact.Component:extend("DopeSheetController")
@@ -724,9 +726,9 @@ function DopeSheetController:render()
 					InputText = localization:getText("Menu", "RenameKeyframePrompt"),
 					Text = namedKeyframes[renamingKeyframe] or Constants.DEFAULT_KEYFRAME_NAME,
 					Buttons = {
-						{Key = "Delete", Text = localization:getText("Dialog", "Delete"), Style = "Round"},
-						{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round"},
-						{Key = true, Text = localization:getText("Dialog", "Save"), Style = "RoundPrimary"},
+						{Key = "Delete", Text = localization:getText("Dialog", "Delete"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
+						{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
+						{Key = true, Text = localization:getText("Dialog", "Save"), Style = if GetFFlagFixButtonStyle() then "RoundPrimary" else "Primary"},
 					},
 					OnButtonClicked = function(key)
 						if key == "Delete" then
@@ -747,8 +749,8 @@ function DopeSheetController:render()
 					NoticeText = localization:getText("Title", "CurrentDuration_Migrated", {currentDuration = currentDuration}),
 					Text = currentDuration,
 					Buttons = {
-						{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round"},
-						{Key = true, Text = localization:getText("Dialog", "Save"), Style = "RoundPrimary"},
+						{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
+						{Key = true, Text = localization:getText("Dialog", "Save"), Style = if GetFFlagFixButtonStyle() then "RoundPrimary" else "Primary"},
 					},
 					OnTextSubmitted = self.setSelectedKeyframeDuration,
 					OnClose = self.setChangingDuration,

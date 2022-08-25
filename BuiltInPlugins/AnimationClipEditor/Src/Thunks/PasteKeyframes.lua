@@ -17,7 +17,9 @@ local AddTrack = require(Plugin.Src.Thunks.AddTrack)
 local Types = require(Plugin.Src.Types)
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 
+local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 
 return function(tck: number, analytics: any): (any) -> ()
 	return function(store: Types.Store)
@@ -61,7 +63,9 @@ return function(tck: number, analytics: any): (any) -> ()
 						for keyframe, data in pairs(track.Data) do
 							local insertFrame = tck + (keyframe - lowestFrame)
 							AnimationData.addKeyframe(dataTrack, insertFrame, data)
-							analytics:report("onAddKeyframe", track.TopTrackName, editorMode)
+							if GetFFlagCurveAnalytics() then
+								analytics:report("onAddKeyframe", track.TopTrackName, editorMode)
+							end
 						end
 					else
 						store:dispatch(SetNotification("CannotPasteError", true))
@@ -83,7 +87,9 @@ return function(tck: number, analytics: any): (any) -> ()
 						for keyframe, data in pairs(track.Data) do
 							local insertFrame = tck + (keyframe - lowestFrame)
 							AnimationData.addKeyframe(dataTrack, insertFrame, data)
-							analytics:report("onAddKeyframe", track.TopTrackName, editorMode)
+							if GetFFlagCurveAnalytics() then
+								analytics:report("onAddKeyframe", track.TopTrackName, editorMode)
+							end
 						end
 					else
 						store:dispatch(SetNotification("CannotPasteError", true))

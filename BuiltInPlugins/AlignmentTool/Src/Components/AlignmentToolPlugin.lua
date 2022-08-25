@@ -1,7 +1,7 @@
 --[[
 	The main plugin component.
 
-	Consists of the DockWidget, HoverPreviewEnabler, and MainView.
+	Consists of the PluginToolbar, DockWidget, and MainView.
 ]]
 local Plugin = script.Parent.Parent.Parent
 
@@ -14,6 +14,8 @@ local withContext = ContextServices.withContext
 
 local StudioUI = Framework.StudioUI
 local DockWidget = StudioUI.DockWidget
+local PluginButton = StudioUI.PluginButton
+local PluginToolbar = StudioUI.PluginToolbar
 
 local SetToolEnabled = require(Plugin.Src.Actions.SetToolEnabled)
 local UpdateActiveInstanceHighlight = require(Plugin.Src.Thunks.UpdateActiveInstanceHighlight)
@@ -23,6 +25,9 @@ local HoverPreviewEnabler = require(Plugin.Src.Components.HoverPreviewEnabler)
 
 local INITIAL_WINDOW_SIZE = Vector2.new(300, 250)
 local MINIMUM_WINDOW_SIZE = Vector2.new(175, 250)
+
+local STUDIO_RELAY_PLUGIN_TOOLBAR = "Alignment"
+local STUDIO_RELAY_PLUGIN_BUTTON = "AlignTool"
 
 local AlignmentToolPlugin = Roact.PureComponent:extend("AlignmentToolPlugin")
 
@@ -50,7 +55,7 @@ function AlignmentToolPlugin:init()
 	end
 
 	self.onDockWidgetEnabledChanged = function(widget)
-		local initiatedByUser = true
+		local initiatedByUser = true 
 		self.setToolEnabled(widget.Enabled, initiatedByUser)
 	end
 

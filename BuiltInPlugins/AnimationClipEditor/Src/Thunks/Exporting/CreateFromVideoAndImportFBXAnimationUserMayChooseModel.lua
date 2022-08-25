@@ -12,6 +12,9 @@ local SetAnimationImportProgress = require(Plugin.Src.Actions.SetAnimationImport
 local SetAnimationImportStatus = require(Plugin.Src.Actions.SetAnimationImportStatus)
 local SetCreatingAnimationFromVideo = require(Plugin.Src.Actions.SetCreatingAnimationFromVideo)
 
+local GetFFlagCreateAnimationFromVideoErrorCodes = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoErrorCodes)
+local GetFFlagCreateAnimationFromVideoAnalytics2 = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAnalytics2)
+
 -- this function is is a variation of : ImportFBXAnimationUserMayChooseModel function (but is provided with a fbxFilePath parameter)
 local function _ImportFBXAnimationFromFilePathUserMayChooseModel(store, fbxFilePath, plugin, animationClipDropdown, analytics)
 	local state = store:getState()
@@ -81,17 +84,21 @@ return function(plugin, animationClipDropdown, analytics)
 		if not success then
 			-- Close the progress dialog if the status is still initializing (the user cancelled picking a file).
 			-- Otherwise the dialog is used to show errors.
-			if store:getState().Status.AnimationImportStatus == Constants.ANIMATION_FROM_VIDEO_STATUS.Initializing then
+			if not GetFFlagCreateAnimationFromVideoErrorCodes() or store:getState().Status.AnimationImportStatus == Constants.ANIMATION_FROM_VIDEO_STATUS.Initializing then
 				animationClipDropdown:hideAnimationImportProgress()
 			end
-			analytics:report("onAnimationEditorImportVideoError", result)
+			if GetFFlagCreateAnimationFromVideoAnalytics2() then
+				analytics:report("onAnimationEditorImportVideoError", result)
+			end
 			warn(result)
 			return
 		end
 
 		local fbxFilePath = result
 
-		analytics:report("onAnimationEditorImportVideoUploadSucceed")
+		if GetFFlagCreateAnimationFromVideoAnalytics2() then
+			analytics:report("onAnimationEditorImportVideoUploadSucceed")
+		end
 
 		-- Stop if canceled between downloading the FBX and importing the animation
 		if fbxFilePath == nil or not store:getState().Status.CreatingAnimationFromVideo then
