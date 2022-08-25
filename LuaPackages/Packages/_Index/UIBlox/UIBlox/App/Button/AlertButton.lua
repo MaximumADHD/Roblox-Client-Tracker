@@ -3,7 +3,7 @@ local App = Button.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
-local Roact = require(Packages.Roact)
+local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
 local RoactGamepad = require(Packages.RoactGamepad)
 
@@ -16,7 +16,7 @@ local GenericButton = require(UIBlox.Core.Button.GenericButton)
 local ControlState = require(UIBlox.Core.Control.Enum.ControlState)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
-local AlertButton = Roact.PureComponent:extend("AlertButton")
+local AlertButton = React.PureComponent:extend("AlertButton")
 
 local BUTTON_STATE_COLOR = {
 	[ControlState.Default] = "Alert",
@@ -35,7 +35,8 @@ function AlertButton:render()
 	assert(validateButtonProps(self.props))
 	local image = Images["component_assets/circle_17_stroke_1"]
 	return withSelectionCursorProvider(function(getSelectionCursor)
-		return Roact.createElement(RoactGamepad.Focusable[GenericButton], {
+		return React.createElement(RoactGamepad.Focusable[GenericButton], {
+			[React.Tag] = if UIBloxConfig.enableReactTag then self.props[React.Tag] else nil,
 			Size = self.props.size,
 			standardSize = if UIBloxConfig.enableStandardButtonSizes then self.props.standardSize else nil,
 			maxWidth = if UIBloxConfig.enableStandardButtonSizes then self.props.maxWidth else nil,
@@ -61,13 +62,16 @@ function AlertButton:render()
 			NextSelectionDown = self.props.NextSelectionDown,
 			NextSelectionLeft = self.props.NextSelectionLeft,
 			NextSelectionRight = self.props.NextSelectionRight,
-			[Roact.Ref] = self.props.buttonRef,
+			ref = self.props.buttonRef,
 		})
 	end)
 end
 
-return Roact.forwardRef(function(props, ref)
-	return Roact.createElement(AlertButton, Cryo.Dictionary.join(props, {
-		buttonRef = ref
-	}))
+return React.forwardRef(function(props, ref)
+	return React.createElement(
+		AlertButton,
+		Cryo.Dictionary.join(props, {
+			buttonRef = ref,
+		})
+	)
 end)

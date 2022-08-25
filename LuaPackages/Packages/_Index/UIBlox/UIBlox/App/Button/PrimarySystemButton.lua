@@ -3,7 +3,7 @@ local App = Button.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
-local Roact = require(Packages.Roact)
+local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
 local RoactGamepad = require(Packages.RoactGamepad)
 
@@ -15,7 +15,7 @@ local GenericButton = require(UIBlox.Core.Button.GenericButton)
 local ControlState = require(UIBlox.Core.Control.Enum.ControlState)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
-local PrimarySystemButton = Roact.PureComponent:extend("PrimarySystemButton")
+local PrimarySystemButton = React.PureComponent:extend("PrimarySystemButton")
 
 local BUTTON_STATE_COLOR = {
 	[ControlState.Default] = "SystemPrimaryDefault",
@@ -34,9 +34,10 @@ PrimarySystemButton.defaultProps = {
 function PrimarySystemButton:render()
 	assert(validateButtonProps(self.props))
 	local image = Images["component_assets/circle_17"]
-	local delayedInputImage = Images['component_assets/bulletRight_17']
+	local delayedInputImage = Images["component_assets/bulletRight_17"]
 	return withSelectionCursorProvider(function(getSelectionCursor)
-		return Roact.createElement(RoactGamepad.Focusable[GenericButton], {
+		return React.createElement(RoactGamepad.Focusable[GenericButton], {
+			[React.Tag] = if UIBloxConfig.enableReactTag then self.props[React.Tag] else nil,
 			AutomaticSize = self.props.automaticSize,
 			Size = self.props.size,
 			standardSize = if UIBloxConfig.enableStandardButtonSizes then self.props.standardSize else nil,
@@ -67,14 +68,11 @@ function PrimarySystemButton:render()
 			NextSelectionDown = self.props.NextSelectionDown,
 			NextSelectionLeft = self.props.NextSelectionLeft,
 			NextSelectionRight = self.props.NextSelectionRight,
-			[Roact.Ref] = self.props.buttonRef,
+			ref = self.props.buttonRef,
 		})
 	end)
 end
 
-return Roact.forwardRef(function (props, ref)
-	return Roact.createElement(PrimarySystemButton, Cryo.Dictionary.join(
-		props,
-		{buttonRef = ref})
-	)
+return React.forwardRef(function(props, ref)
+	return React.createElement(PrimarySystemButton, Cryo.Dictionary.join(props, { buttonRef = ref }))
 end)

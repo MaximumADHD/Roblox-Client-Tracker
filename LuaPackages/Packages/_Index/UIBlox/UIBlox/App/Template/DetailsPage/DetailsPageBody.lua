@@ -40,6 +40,7 @@ DetailsPageBody.validateProps = t.strictInterface({
 })
 
 function DetailsPageBody:init()
+	self.state = { containerWidth = nil }
 	self.containerFrameRef = Roact.createRef()
 	self.onContainerSizeChange = function(rbx)
 		self:setState(function(prevState, props)

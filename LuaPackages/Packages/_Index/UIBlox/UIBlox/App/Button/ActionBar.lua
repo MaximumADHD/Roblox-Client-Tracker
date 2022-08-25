@@ -146,6 +146,7 @@ function ActionBar:renderWithLayoutFix()
 				local iconButtonProps = Cryo.Dictionary.join(newProps, iconButton.props)
 
 				local gamepadFrameProps = {
+					key = "Button" .. tostring(iconButtonIndex),
 					Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
 					BackgroundTransparency = 1,
 					[Roact.Ref] = self.buttonRefs[iconButtonIndex],
@@ -164,7 +165,7 @@ function ActionBar:renderWithLayoutFix()
 				table.insert(
 					buttonTable,
 					Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
-						Roact.createElement(IconButton, iconButtonProps),
+						Icon = Roact.createElement(IconButton, iconButtonProps),
 					})
 				)
 			end
@@ -181,6 +182,7 @@ function ActionBar:renderWithLayoutFix()
 			local buttonProps = Cryo.Dictionary.join(newProps, self.props.button.props)
 
 			local gamepadFrameProps = {
+				key = "Button" .. buttonIndex,
 				Size = buttonSize,
 				BackgroundTransparency = 1,
 				[Roact.Ref] = self.buttonRefs[buttonIndex],
@@ -196,7 +198,7 @@ function ActionBar:renderWithLayoutFix()
 				buttonTable,
 				isButtonAtStart and 1 or buttonRefNumber,
 				Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
-					Roact.createElement(
+					Icon = Roact.createElement(
 						iconNumber == 0 and PrimarySystemButton or PrimaryContextualButton,
 						buttonProps
 					),
@@ -251,6 +253,7 @@ function ActionBar:renderLegacy()
 				local iconButtonProps = Cryo.Dictionary.join(newProps, iconButton.props)
 
 				local gamepadFrameProps = {
+					key = "Button" .. tostring(iconButtonIndex),
 					Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
 					BackgroundTransparency = 1,
 					[Roact.Ref] = self.buttonRefs[iconButtonIndex],
@@ -269,7 +272,7 @@ function ActionBar:renderLegacy()
 				table.insert(
 					buttonTable,
 					Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
-						Roact.createElement(IconButton, iconButtonProps),
+						Icon = Roact.createElement(IconButton, iconButtonProps),
 					})
 				)
 			end
@@ -287,6 +290,7 @@ function ActionBar:renderLegacy()
 			local buttonProps = Cryo.Dictionary.join(newProps, button.props)
 
 			local gamepadFrameProps = {
+				key = "Button" .. tostring(iconNumber + 1),
 				Size = buttonSize,
 				BackgroundTransparency = 1,
 				[Roact.Ref] = self.buttonRefs[iconNumber + 1],
@@ -302,7 +306,7 @@ function ActionBar:renderLegacy()
 			table.insert(
 				buttonTable,
 				Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
-					Roact.createElement(
+					Icon = Roact.createElement(
 						iconNumber == 0 and PrimarySystemButton or PrimaryContextualButton,
 						buttonProps
 					),

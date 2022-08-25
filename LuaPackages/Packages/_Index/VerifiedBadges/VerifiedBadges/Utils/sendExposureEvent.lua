@@ -4,6 +4,7 @@ local Stats = game:GetService("Stats")
 local VerifiedBadges = script:FindFirstAncestor("VerifiedBadges")
 local getFStringVerifiedBadgeLayer = require(VerifiedBadges.Flags.getFStringVerifiedBadgeLayer)
 local getFFlagOverrideVerifiedBadgeExperiment = require(VerifiedBadges.Flags.getFFlagOverrideVerifiedBadgeExperiment)
+local types = require(VerifiedBadges.types)
 
 export type ExposureEvent = {
 	surface: string, -- the place in-app where the badge was
@@ -14,24 +15,24 @@ export type ExposureEvent = {
 
 type Table = { [string]: any }
 
-return function(exposureEvent: ExposureEvent)
+return function(exposureEvent: ExposureEvent?)
 	local target = "client"
 	local eventCtx = "VerifiedBadges_V1"
-	local eventName = "test_VerifiedBadgesExposedToBadge_2"
+	local eventName = "VerifiedBadgesExposedToBadge_V1"
 
-	if not getFFlagOverrideVerifiedBadgeExperiment() then
+	if not getFFlagOverrideVerifiedBadgeExperiment() and exposureEvent then
 		local success, result = pcall(function()
 			return IXPService:GetUserLayerVariables(getFStringVerifiedBadgeLayer())
 		end)
-		local layer: Table = success and result or {}
-		local variant = layer.verifiedBadgeEnabled
+		local layer: Table = if success then result else {}
+		local variant: types.VerifiedBadgeLayer = layer.verifiedBadgesEnabled
 
 		AnalyticsService:SendEventDeferred(target, eventCtx, eventName, {
-			verifiedBadgeEnabledVariant = variant, -- todo test to see if this works with nil
+			verifiedBadgeEnabledVariant = if variant == nil then "na" else tostring(variant),
 			surface = exposureEvent.surface,
 			creatorId = exposureEvent.creatorId,
-			universeId = exposureEvent.universeId or nil,
-			assetId = exposureEvent.assetId or nil,
+			universeId = if exposureEvent.universeId then exposureEvent.universeId else "na",
+			assetId = if exposureEvent.assetId then exposureEvent.assetId else "na",
 			btid = Stats:GetBrowserTrackerId(),
 		})
 	end

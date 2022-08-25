@@ -113,7 +113,7 @@ function FocusControllerInternal:deregisterNode(parentNode, refKey)
 	end
 end
 
-function FocusControllerInternal:descendantRemovedRefocus()
+function FocusControllerInternal:needsDescendantRemovedRefocus()
 	-- If focusedLeaf is nil, then we've lost focus altogether, which likely
 	-- means that focus belongs to a different focusable tree. Since that's out
 	-- of our control, we can stop here.
@@ -123,7 +123,11 @@ function FocusControllerInternal:descendantRemovedRefocus()
 
 	-- If the currently focused leaf has a nil ref, then its associated host
 	-- component has unmounted and we need to refocus.
-	if self.focusedLeaf.ref:getValue() == nil then
+	return self.focusedLeaf.ref:getValue() == nil
+end
+
+function FocusControllerInternal:descendantRemovedRefocus()
+	if self:needsDescendantRemovedRefocus() then
 		debugPrint("[FOCUS] Focused node was removed; refocusing from nearest existing ancestor")
 
 		-- Climb up the focusedLeaf's ancestry until we find a node that still
@@ -139,17 +143,21 @@ function FocusControllerInternal:descendantRemovedRefocus()
 	end
 end
 
-function FocusControllerInternal:descendantAddedRefocus()
+function FocusControllerInternal:needsDescendantAddedRefocus()
 	-- If focusedLeaf is nil, then we've lost focus altogether, which likely
 	-- means that focus belongs to a different focusable tree. Since that's out
 	-- of our control, we can stop here.
 	if self.focusedLeaf == nil then
-		return
+		return nil
 	end
 
 	-- If the current focusedLeaf has children, then descendants must have been
 	-- added to it, and we should re-run its focus logic.
-	if not Cryo.isEmpty(self:getChildren(self.focusedLeaf)) then
+	return not Cryo.isEmpty(self:getChildren(self.focusedLeaf))
+end
+
+function FocusControllerInternal:descendantAddedRefocus()
+	if self:needsDescendantAddedRefocus() then
 		-- A new descendant was introduced, which means that we need to refocus
 		-- the current leaf
 		debugPrint("[FOCUS] Currently-focused node is no longer a leaf; refocusing", self.focusedLeaf.ref)
@@ -182,6 +190,10 @@ function FocusControllerInternal:isNodeFocused(node)
 	end
 
 	return false
+end
+
+function FocusControllerInternal:setFocusedLeaf(node)
+	self.focusedLeaf = node
 end
 
 -- Prints a human-readable version of the node tree.

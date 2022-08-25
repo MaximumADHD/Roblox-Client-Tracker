@@ -12,6 +12,7 @@ local UIBloxIconSize = UIBlox.App.Constant.IconSize
 
 local getTextHeight = require(script.Parent.getTextHeight)
 local StyleTypes = require(script.Parent.StyleTypes)
+local Constants = require(script.Parent.Constants)
 
 export type Icon = {
 	path: string,
@@ -21,7 +22,7 @@ export type Icon = {
 }
 
 export type Label = {
-	text: string,
+	text: string?,
 	font: StyleTypes.FontType?,
 	colorStyle: StyleTypes.ThemeType?,
 }
@@ -34,13 +35,11 @@ export type Props = {
 	layoutOrder: number?,
 }
 
-local LINES_MAX: number = 2
 local PADDING: number = 2
-local LINE_WIDTH: number = 100
 
 local defaultProps = {
-	maxNumberOfLines = LINES_MAX,
-	lineWidth = LINE_WIDTH,
+	maxNumberOfLines = Constants.LINES_MAX,
+	lineWidth = Constants.TILE_SIZE,
 }
 
 local CarouselUserContextualInfo = function(passedProps: Props)
