@@ -90,12 +90,6 @@
                 ".robloxrc": {
                     "$path": ".robloxrc"
                 }
-            },
-            "PerfUtils": {
-                "$path": "PerfUtils.lua",
-                ".robloxrc": {
-                    "$path": ".robloxrc"
-                }
             }
         }
     }

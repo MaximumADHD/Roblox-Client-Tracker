@@ -9295,6 +9295,156 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "AddBreakpoint",
+                    "Parameters": [
+                        {
+                            "Name": "script",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "line",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "condition",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetBreakpointById",
+                    "Parameters": [
+                        {
+                            "Name": "metaBreakpointId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "MetaBreakpoint"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RemoveBreakpointById",
+                    "Parameters": [
+                        {
+                            "Name": "metaBreakpointId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "MetaBreakpointAdded",
+                    "Parameters": [
+                        {
+                            "Name": "breakpoint",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "MetaBreakpoint"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "MetaBreakpointChanged",
+                    "Parameters": [
+                        {
+                            "Name": "breakpoint",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "MetaBreakpoint"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "MetaBreakpointRemoved",
+                    "Parameters": [
+                        {
+                            "Name": "breakpoint",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "MetaBreakpoint"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "MetaBreakpointSetChanged",
+                    "Parameters": [
+                        {
+                            "Name": "breakpoint",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "MetaBreakpoint"
+                            }
+                        },
+                        {
+                            "Name": "detail",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "BreakpointManager",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
                     "Name": "CloseBrowserWindow",
                     "Parameters": [
                     ],
@@ -30338,8 +30488,7 @@
             "Name": "AdGui",
             "Superclass": "SurfaceGuiBase",
             "Tags": [
-                "NotCreatable",
-                "NotBrowsable"
+                "NotCreatable"
             ]
         },
         {
@@ -36008,17 +36157,10 @@
                     "Name": "EmoteTriggered",
                     "Parameters": [
                         {
-                            "Name": "success",
+                            "Name": "successAndTrackTuple",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        },
-                        {
-                            "Name": "animationTrack",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "AnimationTrack"
+                                "Category": "Group",
+                                "Name": "Tuple"
                             }
                         }
                     ],
@@ -44614,6 +44756,29 @@
                     }
                 },
                 {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "hasPropertyWarningInStudio",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "MemberType": "Function",
                     "Name": "GetBaseMaterialOverride",
                     "Parameters": [
@@ -46352,156 +46517,6 @@
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
-                "NotReplicated"
-            ]
-        },
-        {
-            "Members": [
-                {
-                    "MemberType": "Function",
-                    "Name": "AddBreakpoint",
-                    "Parameters": [
-                        {
-                            "Name": "script",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        },
-                        {
-                            "Name": "line",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
-                            }
-                        },
-                        {
-                            "Name": "condition",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Class",
-                        "Name": "Instance"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "GetBreakpointById",
-                    "Parameters": [
-                        {
-                            "Name": "metaBreakpointId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Class",
-                        "Name": "MetaBreakpoint"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "RemoveBreakpointById",
-                    "Parameters": [
-                        {
-                            "Name": "metaBreakpointId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "MetaBreakpointAdded",
-                    "Parameters": [
-                        {
-                            "Name": "breakpoint",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "MetaBreakpoint"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "MetaBreakpointChanged",
-                    "Parameters": [
-                        {
-                            "Name": "breakpoint",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "MetaBreakpoint"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "MetaBreakpointRemoved",
-                    "Parameters": [
-                        {
-                            "Name": "breakpoint",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "MetaBreakpoint"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "MetaBreakpointSetChanged",
-                    "Parameters": [
-                        {
-                            "Name": "breakpoint",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "MetaBreakpoint"
-                            }
-                        },
-                        {
-                            "Name": "detail",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Dictionary"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "MetaBreakpointManager",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable",
-                "Service",
                 "NotReplicated"
             ]
         },
@@ -49921,16 +49936,6 @@
             "Tags": [
                 "NotCreatable",
                 "NotBrowsable"
-            ]
-        },
-        {
-            "Members": [
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "AdPortal",
-            "Superclass": "BasePart",
-            "Tags": [
-                "NotCreatable"
             ]
         },
         {
@@ -53483,27 +53488,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Streaming",
-                    "MemberType": "Property",
-                    "Name": "StreamingIntegrityMode",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "NotScriptable"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "StreamingIntegrityMode"
                     }
                 },
                 {
@@ -66914,18 +66898,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "GetViewport",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Tuple"
-                    },
-                    "Security": "PluginSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "HasSelectedText",
                     "Parameters": [
                     ],
@@ -67115,28 +67087,6 @@
                         },
                         {
                             "Name": "anchorCharacter",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        }
-                    ],
-                    "Security": "PluginSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "ViewportChanged",
-                    "Parameters": [
-                        {
-                            "Name": "startLine",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        },
-                        {
-                            "Name": "endLine",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "int64"
@@ -75846,21 +75796,6 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "OnSaveToRoblox",
-                    "Parameters": [
-                        {
-                            "Name": "instances",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Objects"
                             }
                         }
                     ],
@@ -88219,18 +88154,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "GetChannelId",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "GetGroupId",
                     "Parameters": [
                     ],
@@ -89105,6 +89028,15 @@
         {
             "Items": [
                 {
+                    "Name": "Image",
+                    "Value": 1
+                }
+            ],
+            "Name": "AdFormat"
+        },
+        {
+            "Items": [
+                {
                     "Name": "HorizontalRectangle",
                     "Value": 1
                 }
@@ -89652,10 +89584,6 @@
                 {
                     "Name": "EyelashAccessory",
                     "Value": 77
-                },
-                {
-                    "Name": "DynamicHead",
-                    "Value": 79
                 }
             ],
             "Name": "AssetType"
@@ -89875,10 +89803,6 @@
                 {
                     "Name": "EyelashAccessory",
                     "Value": 77
-                },
-                {
-                    "Name": "DynamicHead",
-                    "Value": 79
                 }
             ],
             "Name": "AvatarAssetType"
@@ -96469,23 +96393,6 @@
                     "Value": 1
                 },
                 {
-                    "Name": "MinimumRadiusPause",
-                    "Value": 2
-                }
-            ],
-            "Name": "StreamingIntegrityMode"
-        },
-        {
-            "Items": [
-                {
-                    "Name": "Default",
-                    "Value": 0
-                },
-                {
-                    "Name": "Disabled",
-                    "Value": 1
-                },
-                {
                     "Name": "ClientPhysicsPause",
                     "Value": 2
                 }
@@ -97972,7 +97879,7 @@
                     "Value": 4
                 },
                 {
-                    "Name": "VideoNoPermission",
+                    "Name": "CameraPermission",
                     "Value": 5
                 },
                 {
@@ -97984,7 +97891,7 @@
                     "Value": 7
                 },
                 {
-                    "Name": "AudioNoPermission",
+                    "Name": "MicPermission",
                     "Value": 8
                 }
             ],

@@ -19,7 +19,6 @@ Studio.MaterialManager.MaterialTextures.TextureMaps,Texture Maps,Texture Maps
 Studio.MaterialManager.Materials.GroundVariant,Ground Variant,Ground Variant
 Studio.MaterialManager.Materials.Glass,Glass,Glass
 Studio.MaterialManager.CreateDialog.General,General,General
-Studio.MaterialManager.MaterialGeneral.General,General,General
 Studio.MaterialManager.CreateDialog.CancelVariant,Cancel,Cancel
 Studio.MaterialManager.CreateDialog.NameVariant,Name,Name
 Studio.MaterialManager.CreateDialog.BaseMaterialVariant,Base Material,Base Material
@@ -145,14 +144,12 @@ Studio.MaterialManager.CreateDialog.ErrorBaseMaterialNotSelected,No Base Materia
 Studio.MaterialManager.CreateDialog.ErrorNameExists,Name already exists,Name already exists
 Studio.MaterialManager.CreateDialog.NoImageSelected,No Image Selected,No Image Selected
 Studio.MaterialManager.CreateDialog.ErrorImportMap,Failed to import Texture Map,Failed to import Texture Map
-Studio.MaterialManager.CreateDialog.FailedToImportMap,Failed to import Texture Map,Failed to import Texture Map
 Studio.MaterialManager.CreateDialog.MaterialPatternVariant,Material Pattern,Material Pattern
 Studio.MaterialManager.MaterialAdditional.MaterialPattern,Material Pattern,Material Pattern
 Studio.MaterialManager.Materials.PlasticVariant,Plastic Variant,Plastic Variant
 Studio.MaterialManager.CreateDialog.ErrorSelectMap,Failed to select Texture Map,Failed to select Texture Map
 Studio.MaterialManager.Materials.AsphaltMaterial,Asphalt Material,Asphalt Material
 Studio.MaterialManager.CreateDialog.ErrorFindUrl,Failed to find URL,Failed to find URL
-Studio.MaterialManager.CreateDialog.FailedUrl,Failed to find URL,Failed to find URL
 Studio.MaterialManager.CreateDialog.ErrorStudsPerTile,Studs Per Tile should be positive,Studs Per Tile should be positive
 Studio.MaterialManager.CreateDialog.Import,Import,Import
 Studio.MaterialManager.Materials.AirVariant,Air Variant,Air Variant
@@ -177,7 +174,6 @@ Studio.MaterialManager.Materials.MarbleVariant,Marble Variant,Marble Variant
 Studio.MaterialManager.Materials.MetalVariant,Metal Variant,Metal Variant
 Studio.MaterialManager.Materials.MudVariant,Mud Variant,Mud Variant
 Studio.MaterialManager.Materials.NeonVariant,Neon Variant,Neon Variant
-Studio.MaterialManager.CreateDialog.Location,Location,Location
 Studio.MaterialManager.Categories.Organic,Organic,Organic
 Studio.MaterialManager.MaterialPatterns.Organic,Organic,Organic
 Studio.MaterialManager.Materials.NeonMaterial,Neon Material,Neon Material
@@ -208,7 +204,6 @@ Studio.MaterialManager.Materials.GrassMaterial,Grass Material,Grass Material
 Studio.MaterialManager.Materials.GroundMaterial,Ground Material,Ground Material
 Studio.MaterialManager.CreateDialog.StudsPerTileVariant,Studs Per Tile,Studs Per Tile
 Studio.MaterialManager.MaterialAdditional.StudsPerTile,Studs Per Tile,Studs Per Tile
-Studio.MaterialManager.MaterialTiling.StudsPerTile,Studs Per Tile,Studs Per Tile
 Studio.MaterialManager.Materials.IceMaterial,Ice Material,Ice Material
 Studio.MaterialManager.Materials.LeafyGrassMaterial,Leafy Grass Material,Leafy Grass Material
 Studio.MaterialManager.Materials.MetalMaterial,Metal Material,Metal Material
@@ -237,10 +232,4 @@ Studio.MaterialManager.Categories.Special,Special,Special
 Studio.MaterialManager.ViewType.List,List,List
 Studio.MaterialManager.MaterialInformation.Delete,Delete,Delete
 Studio.MaterialManager.CreateDialog.ErrorUploadFromFileMapToLarge,Failed to upload: file is too large,Failed to upload: file is too large
-Studio.MaterialManager.CreateDialog.FailedToUploadFromFileMap,Failed to upload: file is too large,Failed to upload: file is too large
 Studio.MaterialManager.CreateDialog.Uploading,Uploading Texture Map...,Uploading Texture Map...
-Studio.MaterialManager.MaterialTiling.Tiling,Tiling,Tiling
-Studio.MaterialManager.MaterialTiling.Pattern,Pattern,Pattern
-Studio.MaterialManager.MaterialOverrides.Overrides,Overrides,Overrides
-Studio.MaterialManager.OverrideSettings.Overrides,Overrides,Overrides
-Studio.MaterialManager.OverrideSettings.SetOverride,Set as Override,Set as Override

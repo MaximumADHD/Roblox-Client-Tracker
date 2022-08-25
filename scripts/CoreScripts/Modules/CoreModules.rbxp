@@ -73,9 +73,6 @@
             "Stats": {
                 "$path": "Stats"
             },
-            "Tracker": {
-                "$path": "Tracker"
-            },
             "TestHelpers": {
                 "$path": "TestHelpers"
             },
@@ -195,6 +192,12 @@
             },
             "GameTranslator": {
                 "$path": "GameTranslator.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "GoogleAnalyticsUtils": {
+                "$path": "GoogleAnalyticsUtils.lua",
                 ".robloxrc": {
                     "$path": "../.robloxrc"
                 }
