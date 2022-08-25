@@ -1,11 +1,8 @@
---!strict
-local Font = require(script.Parent)
-
 local baseSize = 16
 -- Nominal size conversion
 -- https://confluence.rbx.com/display/PX/Font+Metrics
 local nominalSizeFactor = 1.2
-local font: Font.FontPallette = {
+local font = {
 	BaseSize = baseSize * nominalSizeFactor,
 	Title = {
 		Font = Enum.Font.GothamBlack,

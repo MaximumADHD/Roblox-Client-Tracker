@@ -415,10 +415,7 @@ exports.getInternalReactConstants = function(
 				-- PR #12501 changed it to "_context" for 16.3.1+
 				-- NOTE Keep in sync with inspectElementRaw()
 				resolvedContext = fiber.type._context or fiber.type.context
-				return string.format(
-					"%s.Provider",
-					resolvedContext.displayName or "Context"
-				)
+				return ("%s.Provider"):format(resolvedContext.displayName or "Context")
 			elseif
 				typeSymbol == CONTEXT_NUMBER or typeSymbol == CONTEXT_SYMBOL_STRING
 			then
@@ -429,10 +426,7 @@ exports.getInternalReactConstants = function(
 
 				-- NOTE: TraceUpdatesBackendManager depends on the name ending in '.Consumer'
 				-- If you change the name, figure out a more resilient way to detect it.
-				return string.format(
-					"%s.Consumer",
-					resolvedContext.displayName or "Context"
-				)
+				return ("%s.Consumer"):format(resolvedContext.displayName or "Context")
 			elseif
 				typeSymbol == STRICT_MODE_NUMBER
 				or typeSymbol == STRICT_MODE_SYMBOL_STRING
@@ -441,7 +435,7 @@ exports.getInternalReactConstants = function(
 			elseif
 				typeSymbol == PROFILER_NUMBER or typeSymbol == PROFILER_SYMBOL_STRING
 			then
-				return string.format("Profiler(%s)", fiber.memoizedProps.id)
+				return ("Profiler(%s)"):format(fiber.memoizedProps.id)
 			elseif typeSymbol == SCOPE_NUMBER or typeSymbol == SCOPE_SYMBOL_STRING then
 				return "Scope"
 			else
@@ -599,14 +593,12 @@ exports.attach = function(
 			-- TODO: better debugging story for this.
 			-- ROBLOX deviation: avoid incompatible log formatting
 			console.log(
-				string.format(
-					"[renderer] %s %s (%d) %s",
+				("[renderer] %s %s (%d) %s"):format(
 					name,
 					displayName,
 					id,
 					parentFiber
-							and string.format(
-								"%s (%s)",
+							and ("%s (%s)"):format(
 								tostring(parentDisplayName),
 								tostring(parentID)
 							)
@@ -694,10 +686,7 @@ exports.attach = function(
 				hideElementsWithDisplayNames:add("%(")
 			else
 				console.warn(
-					string.format(
-						'Invalid component filter type "%d"',
-						componentFilter.type
-					)
+					('Invalid component filter type "%d"'):format(componentFilter.type)
 				)
 			end
 		end
@@ -800,7 +789,7 @@ exports.attach = function(
 				-- eslint-disable-next-line no-for-of-loops/no-for-of-loops
 				for _, displayNameRegExp in hideElementsWithDisplayNames do
 					-- ROBLOX deviation: these are patterns not RegExps
-					if string.match(displayName :: string, displayNameRegExp) then
+					if (displayName :: string):match(displayNameRegExp) then
 						return true
 					end
 				end
@@ -812,7 +801,7 @@ exports.attach = function(
 			-- eslint-disable-next-line no-for-of-loops/no-for-of-loops
 			for _, pathRegExp in hideElementsWithPaths do
 				-- ROBLOX deviation: these are patterns not RegExps
-				if string.match(fileName, pathRegExp) then
+				if fileName:match(pathRegExp) then
 					return true
 				end
 			end
@@ -1226,12 +1215,12 @@ exports.attach = function(
 
 		for key, value in pendingStringTable do
 			-- ROBLOX deviation: Don't encode strings
-			-- operations[POSTFIX_INCREMENT()] = #key
+			-- operations[POSTFIX_INCREMENT()] = key:len()
 			-- local encodedKey = utfEncodeString(key)
 			-- for j = 1, #encodedKey do
 			-- 	operations[i + j] = encodedKey[j]
 			-- end
-			-- i = i + #key
+			-- i = i + key:len()
 			operations[stringTableStartIndex + value] = key
 
 			-- ROBLOX deviation: ensure increment is still called
@@ -1317,7 +1306,7 @@ exports.attach = function(
 		-- both for the string length, and for the array item
 		-- that contains the length itself. Hence + 1.
 		-- ROBLOX deviation: Don't encode strings, so just count one for the single string entry
-		-- pendingStringTableLength = pendingStringTableLength + (#str + 1)
+		-- pendingStringTableLength = pendingStringTableLength + (str:len() + 1)
 		pendingStringTableLength += 1
 		return stringID
 	end
@@ -2296,7 +2285,7 @@ exports.attach = function(
 		local fiber: Fiber? = idToFiberMap[id]
 
 		if fiber == nil then
-			console.warn(string.format('Could not find Fiber with id "%s"', tostring(id)))
+			console.warn(('Could not find Fiber with id "%s"'):format(tostring(id)))
 			return nil
 		end
 
@@ -2452,7 +2441,7 @@ exports.attach = function(
 		local fiber: Fiber? = idToFiberMap[id]
 
 		if fiber == nil then
-			console.warn(string.format('Could not find Fiber with id "%s"', tostring(id)))
+			console.warn(('Could not find Fiber with id "%s"'):format(tostring(id)))
 			return
 		end
 
@@ -2812,7 +2801,7 @@ exports.attach = function(
 		local fiber: Fiber? = idToFiberMap[id]
 
 		if fiber == nil then
-			console.warn(string.format('Could not find Fiber with id "%s"', tostring(id)))
+			console.warn(('Could not find Fiber with id "%s"'):format(tostring(id)))
 
 			return
 		end
@@ -2862,7 +2851,7 @@ exports.attach = function(
 
 		if isCurrent then
 			local value = getInObject(mostRecentlyInspectedElement :: any, path)
-			local key = string.format("$reactTemp%s", tostring(count))
+			local key = ("$reactTemp%s"):format(tostring(count))
 
 			window[key] = value
 
@@ -2985,7 +2974,7 @@ exports.attach = function(
 		end)()
 
 		if result == nil then
-			console.warn(string.format('Could not find Fiber with id "%s"', tostring(id)))
+			console.warn(('Could not find Fiber with id "%s"'):format(tostring(id)))
 			return
 		end
 
@@ -2993,7 +2982,7 @@ exports.attach = function(
 		-- local supportsGroup = typeof(console.groupCollapsed) == 'function'
 
 		-- if supportsGroup then
-		--     console.groupCollapsed(string.format('[Click to expand] %c<%s />', result.displayName or 'Component'), 'color: var(--dom-tag-name-color); font-weight: normal;')
+		--     console.groupCollapsed(('[Click to expand] %c<%s />'):format(result.displayName or 'Component'), 'color: var(--dom-tag-name-color); font-weight: normal;')
 		-- end
 		if (result :: InspectedElement).props ~= nil then
 			console.log("Props:", (result :: InspectedElement).props)
@@ -3464,7 +3453,7 @@ exports.attach = function(
 		local name = getDisplayNameForRoot(fiber)
 		local counter = rootDisplayNameCounter[name] or 0
 		rootDisplayNameCounter[name] = counter + 1
-		local pseudoKey = string.format("%s:%d", name, counter)
+		local pseudoKey = ("%s:%d"):format(name, counter)
 		rootPseudoKeys[id] = pseudoKey
 	end
 	removeRootPseudoKey = function(id: number)
@@ -3475,8 +3464,8 @@ exports.attach = function(
 		end
 
 		-- ROBLOX deviation: No existing lastIndexOf implementation
-		-- local name = string.sub(pseudoKey, 1, String.lastIndexOf(pseudoKey, ':'))
-		local name = string.gsub(pseudoKey :: string, "%%:[0-9]$", "")
+		-- local name = pseudoKey:sub(1, String.lastIndexOf(pseudoKey, ':'))
+		local name = (pseudoKey :: string):gsub("%:[0-9]$", "")
 		local counter = rootDisplayNameCounter[name]
 
 		if counter == nil then

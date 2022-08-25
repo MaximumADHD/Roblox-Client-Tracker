@@ -3,7 +3,7 @@ local App = Button.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
-local React = require(Packages.React)
+local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
 local RoactGamepad = require(Packages.RoactGamepad)
 
@@ -15,7 +15,7 @@ local GenericButton = require(UIBlox.Core.Button.GenericButton)
 local ControlState = require(UIBlox.Core.Control.Enum.ControlState)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
-local PrimaryContextualButton = React.PureComponent:extend("PrimaryContextualButton")
+local PrimaryContextualButton = Roact.PureComponent:extend("PrimaryContextualButton")
 
 local BUTTON_STATE_COLOR = {
 	[ControlState.Default] = "ContextualPrimaryDefault",
@@ -34,10 +34,9 @@ PrimaryContextualButton.defaultProps = {
 function PrimaryContextualButton:render()
 	assert(validateButtonProps(self.props))
 	local image = Images["component_assets/circle_17"]
-	local delayedInputImage = Images["component_assets/bulletRight_17"]
+	local delayedInputImage = Images['component_assets/bulletRight_17']
 	return withSelectionCursorProvider(function(getSelectionCursor)
-		return React.createElement(RoactGamepad.Focusable[GenericButton], {
-			[React.Tag] = if UIBloxConfig.enableReactTag then self.props[React.Tag] else nil,
+		return Roact.createElement(RoactGamepad.Focusable[GenericButton], {
 			Size = self.props.size,
 			standardSize = if UIBloxConfig.enableStandardButtonSizes then self.props.standardSize else nil,
 			maxWidth = if UIBloxConfig.enableStandardButtonSizes then self.props.maxWidth else nil,
@@ -68,11 +67,14 @@ function PrimaryContextualButton:render()
 			NextSelectionDown = self.props.NextSelectionDown,
 			NextSelectionLeft = self.props.NextSelectionLeft,
 			NextSelectionRight = self.props.NextSelectionRight,
-			ref = self.props.buttonRef,
+			[Roact.Ref] = self.props.buttonRef,
 		})
 	end)
 end
 
-return React.forwardRef(function(props, ref)
-	return React.createElement(PrimaryContextualButton, Cryo.Dictionary.join(props, { buttonRef = ref }))
+return Roact.forwardRef(function (props, ref)
+	return Roact.createElement(PrimaryContextualButton, Cryo.Dictionary.join(
+		props,
+		{buttonRef = ref}
+	))
 end)

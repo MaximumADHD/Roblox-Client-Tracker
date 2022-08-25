@@ -17,7 +17,7 @@ local Change = {}
 
 local changeMetatable = {
 	__tostring = function(self)
-		return string.format("RoactHostChangeEvent(%s)", self.name)
+		return ("RoactHostChangeEvent(%s)"):format(self.name)
 	end,
 }
 

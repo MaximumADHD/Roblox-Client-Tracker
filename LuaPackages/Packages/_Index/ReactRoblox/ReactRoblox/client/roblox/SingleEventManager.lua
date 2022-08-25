@@ -67,7 +67,7 @@ function SingleEventManager:connectPropertyChange(key, listener)
 	local success, event = pcall(self._instance.GetPropertyChangedSignal, self._instance, key)
 
 	if not success then
-		error(string.format("Cannot get changed signal on property %q: %s",
+		error(("Cannot get changed signal on property %q: %s"):format(
 			tostring(key),
 			event
 		), 0)

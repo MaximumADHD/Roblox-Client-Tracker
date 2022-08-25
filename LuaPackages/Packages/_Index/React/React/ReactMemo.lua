@@ -68,7 +68,7 @@ exports.memo = function<Props, T>(
 				and typeof(type_) == "table"
 				and (type_)["$$typeof"] == REACT_ELEMENT_TYPE
 			then
-				typeString = string.format("<%s />",
+				typeString = ("<%s />"):format(
 					getComponentName((type_).type) or "UNKNOWN"
 				)
 				info =

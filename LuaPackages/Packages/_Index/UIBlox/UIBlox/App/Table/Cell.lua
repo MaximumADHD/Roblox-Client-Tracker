@@ -8,7 +8,6 @@ local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 local Roact = require(Packages.Roact)
 local enumerate = require(Packages.enumerate)
-local bindingValidator = require(Core.Utility.bindingValidator)
 
 local withStyle = require(Core.Style.withStyle)
 local Interactable = require(Core.Control.Interactable)
@@ -25,7 +24,7 @@ Cell.debugProps = enumerate("debugProps", {
 })
 
 Cell.validateProps = t.strictInterface({
-	layoutOrder = t.optional(t.union(t.integer, bindingValidator(t.number))),
+	layoutOrder = t.optional(t.integer),
 	size = t.optional(t.UDim2),
 	anchorPoint = t.optional(t.Vector2),
 	position = t.optional(t.UDim2),

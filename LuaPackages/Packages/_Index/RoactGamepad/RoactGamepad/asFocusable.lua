@@ -10,8 +10,6 @@ local FocusContext = require(script.Parent.FocusContext)
 local FocusNode = require(script.Parent.FocusNode)
 local getEngineInterface = require(script.Parent.getEngineInterface)
 
-local Config = require(script.Parent.Config)
-
 local InternalApi = require(script.Parent.FocusControllerInternalApi)
 
 local nonHostProps = {
@@ -88,9 +86,7 @@ local function asFocusable(innerComponent)
 				NextSelectionRight = self.props.NextSelectionRight or parentNeighbors.NextSelectionRight,
 				NextSelectionUp = self.props.NextSelectionUp or parentNeighbors.NextSelectionUp,
 				NextSelectionDown = self.props.NextSelectionDown or parentNeighbors.NextSelectionDown,
-			},
-			needsDescendantAddedRefocusCounter = 0,
-			needsDescendantRemovedRefocusCounter = 0,
+			}
 		})
 
 		self.updateFocusedState = function(newFocusedState)
@@ -127,17 +123,7 @@ local function asFocusable(innerComponent)
 			end
 
 			self.refreshFocusOnDescendantAdded = function(descendant)
-				if Config.TempFixDelayedRefFocusLost then
-					if self:getFocusControllerInternal():needsDescendantAddedRefocus() then
-						self:setState(function(state)
-							return {
-								needsDescendantAddedRefocusCounter = state.needsDescendantAddedRefocusCounter + 1
-							}
-						end)
-					end
-				else
-					self:getFocusControllerInternal():descendantAddedRefocus()
-				end
+				self:getFocusControllerInternal():descendantAddedRefocus()
 
 				local existingCallback = self.props[Roact.Event.DescendantAdded]
 				if existingCallback ~= nil then
@@ -146,17 +132,7 @@ local function asFocusable(innerComponent)
 			end
 
 			self.refreshFocusOnDescendantRemoved = function(descendant)
-				if Config.TempFixDelayedRefFocusLost then
-					if self:getFocusControllerInternal():needsDescendantRemovedRefocus() then
-						self:setState(function(state)
-							return {
-								needsDescendantRemovedRefocusCounter = state.needsDescendantRemovedRefocusCounter + 1
-							}
-						end)
-					end
-				else
-					self:getFocusControllerInternal():descendantRemovedRefocus()
-				end
+				self:getFocusControllerInternal():descendantRemovedRefocus()
 
 				local existingCallback = self.props[Roact.Event.DescendantRemoving]
 				if existingCallback ~= nil then
@@ -292,7 +268,7 @@ local function asFocusable(innerComponent)
 		end
 	end
 
-	function Focusable:didUpdate(_prevProps, prevState)
+	function Focusable:didUpdate()
 		-- Apply the changes from the gamepad props themselves. These only
 		-- affect navigation behavior for this node's ref and do not need to
 		-- cascade to other parts of the tree
@@ -303,16 +279,6 @@ local function asFocusable(innerComponent)
 		local nextRef = self.props.innerRef or self.defaultRef
 		if self.state.focusNode.ref ~= nextRef then
 			error("Cannot change the ref passed to a Focusable component", 0)
-		end
-
-		if Config.TempFixDelayedRefFocusLost then
-			if self.state.needsDescendantAddedRefocusCounter ~= prevState.needsDescendantAddedRefocusCounter then
-				self:getFocusControllerInternal():descendantAddedRefocus()
-			end
-
-			if self.state.needsDescendantRemovedRefocusCounter ~= prevState.needsDescendantRemovedRefocusCounter then
-				self:getFocusControllerInternal():descendantRemovedRefocus()
-			end
 		end
 	end
 

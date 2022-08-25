@@ -141,10 +141,9 @@ function ControllerBar:render()
 
 		local hintSizes, hintTextSize = self:calculateHintSize(self.state.controllerBarWidth, style.Font)
 
-		local function makeHint(hint, keySuffix)
+		local function makeHint(hint)
 			-- Set font size for  hint
 			local hintProps =  Cryo.Dictionary.join(hint, {
-				key = "Hint" .. tostring(keySuffix),
 				hintTextSize = hintTextSize,
 				maxWidth = hintSizes and hintSizes[hint.text] or nil
 			})
@@ -186,9 +185,7 @@ function ControllerBar:render()
 				BackgroundTransparency = 1,
 				Size = UDim2.fromScale(0.5, 1),
 			}, {
-				Roact.createElement("UIListLayout", {
-					-- selene: allow(roblox_incorrect_roact_usage)
-					key = "Layout",
+				Layout = Roact.createElement("UIListLayout", {
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalAlignment = Enum.HorizontalAlignment.Left,
@@ -196,7 +193,7 @@ function ControllerBar:render()
 					Padding = UDim.new(0, PADDING),
 				}),
 
-				makeHint(self.props.leftHint, "Left"),
+				LeftHint = makeHint(self.props.leftHint),
 			}),
 
 			RightFrame = Roact.createElement("Frame", {

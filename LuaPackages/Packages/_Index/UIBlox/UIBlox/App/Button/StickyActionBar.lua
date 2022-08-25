@@ -225,29 +225,28 @@ function StickyActionBar:render()
 end
 
 function StickyActionBar:renderHorizontalLayout(extraProps, children)
+	table.insert(children, Roact.createElement("UIListLayout", {
+		FillDirection = Enum.FillDirection.Horizontal,
+		HorizontalAlignment = extraProps.horizontalAlignment,
+		VerticalAlignment = Enum.VerticalAlignment.Center,
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		Padding = UDim.new(0, extraProps.internalSpacing or 0),
+	}))
+	if extraProps.padding then
+		table.insert(children, Roact.createElement("UIPadding", {
+			PaddingLeft = UDim.new(0, extraProps.padding.left or 0),
+			PaddingRight = UDim.new(0, extraProps.padding.right or 0),
+			PaddingTop = UDim.new(0, extraProps.padding.top or 0),
+			PaddingBottom = UDim.new(0, extraProps.padding.bottom or 0),
+		}))
+	end
 	return Roact.createElement("Frame", {
 		Size = extraProps.size and extraProps.size or UDim2.new(0, extraProps.width, 0, 0),
 		AutomaticSize = Enum.AutomaticSize.Y,
 		BackgroundTransparency = 1,
 		LayoutOrder = extraProps.layoutOrder,
 		[Roact.Change.AbsoluteSize] = extraProps.onContainerSizeChange,
-	}, {
-		Layout = Roact.createElement("UIListLayout", {
-			FillDirection = Enum.FillDirection.Horizontal,
-			HorizontalAlignment = extraProps.horizontalAlignment,
-			VerticalAlignment = Enum.VerticalAlignment.Center,
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			Padding = UDim.new(0, extraProps.internalSpacing or 0),
-		}),
-		Padding = if extraProps.padding
-			then Roact.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, extraProps.padding.left or 0),
-				PaddingRight = UDim.new(0, extraProps.padding.right or 0),
-				PaddingTop = UDim.new(0, extraProps.padding.top or 0),
-				PaddingBottom = UDim.new(0, extraProps.padding.bottom or 0),
-			})
-			else nil,
-		Elements = Roact.createFragment(children),
+		[Roact.Children] = children
 	})
 end
 

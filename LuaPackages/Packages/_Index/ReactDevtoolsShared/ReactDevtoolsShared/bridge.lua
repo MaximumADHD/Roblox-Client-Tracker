@@ -235,8 +235,7 @@ function Bridge:send(event: EventName, ...: ElementType<any, EventName>)
 	local payload = { ... }
 	if self._isShutdown then
 		console.warn(
-			string.format(
-				'Cannot send message "%s" through a Bridge that has been shutdown.',
+			('Cannot send message "%s" through a Bridge that has been shutdown.'):format(
 				event
 			)
 		)

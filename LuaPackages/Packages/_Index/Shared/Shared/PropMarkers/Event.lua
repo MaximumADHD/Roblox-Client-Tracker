@@ -19,7 +19,7 @@ local Event = {}
 
 local eventMetatable = {
 	__tostring = function(self)
-		return string.format("RoactHostEvent(%s)", self.name)
+		return ("RoactHostEvent(%s)"):format(self.name)
 	end,
 }
 

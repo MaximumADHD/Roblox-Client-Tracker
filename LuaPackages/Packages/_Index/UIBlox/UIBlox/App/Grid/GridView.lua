@@ -189,7 +189,7 @@ function GridView:render()
 			if itemIndex == defaultChildIndex then
 				defaultChildRendered = true
 			end
-			local renderKey = tostring(itemIndex)
+			local renderKey = itemIndex
 			gridChildren[renderKey] = renderItem(itemIndex)
 
 			x = math.floor(x + itemSize.X + itemPadding.X)
@@ -214,7 +214,7 @@ function GridView:render()
 			-- So we need to make sure the defaultChild is rendered.
 			x = ((defaultChildIndex - 1) % itemsPerRow) * (itemSize.X + itemPadding.X)
 			y = math.floor((defaultChildIndex - 1) / itemsPerRow) * (itemPadding.Y + itemSize.Y)
-			gridChildren[tostring(defaultChildIndex)] = renderItem(defaultChildIndex)
+			gridChildren[defaultChildIndex] = renderItem(defaultChildIndex)
 		end
 	end
 

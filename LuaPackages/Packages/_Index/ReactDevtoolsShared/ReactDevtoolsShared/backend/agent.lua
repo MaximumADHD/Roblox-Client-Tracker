@@ -304,9 +304,7 @@ function Agent:copyElementPath(copyElementParams: CopyElementParams): ()
 	local renderer: RendererInterface? = self._rendererInterfaces[rendererID]
 
 	if renderer == nil then
-		console.warn(
-			string.format('Invalid renderer id "%d" for element "%d"', rendererID, id)
-		)
+		console.warn(('Invalid renderer id "%d" for element "%d"'):format(rendererID, id))
 	else
 		(renderer :: RendererInterface).copyElementPath(id, path)
 	end
@@ -321,9 +319,7 @@ function Agent:deletePath(deletePathParams: DeletePathParams): ()
 	local renderer: RendererInterface? = self._rendererInterfaces[rendererID]
 
 	if renderer == nil then
-		console.warn(
-			string.format('Invalid renderer id "%d" for element "%d"', rendererID, id)
-		)
+		console.warn(('Invalid renderer id "%d" for element "%d"'):format(rendererID, id))
 	else
 		(renderer :: RendererInterface).deletePath(type_, id, hookID, path)
 	end
@@ -335,7 +331,7 @@ function Agent:getInstanceAndStyle(
 	local renderer: RendererInterface? = self._rendererInterfaces[rendererID]
 
 	if renderer == nil then
-		console.warn(string.format('Invalid renderer id "%d"', rendererID))
+		console.warn(('Invalid renderer id "%d"'):format(rendererID))
 		return nil
 	end
 
@@ -362,7 +358,7 @@ function Agent:getProfilingData(rendererIdObject: { rendererID: RendererID }): (
 	local renderer: RendererInterface? = self._rendererInterfaces[rendererID]
 
 	if renderer == nil then
-		console.warn(string.format('Invalid renderer id "%d"', rendererID))
+		console.warn(('Invalid renderer id "%d"'):format(rendererID))
 	end
 
 	self._bridge:send("profilingData", (renderer :: RendererInterface).getProfilingData())
@@ -375,9 +371,7 @@ function Agent:getOwnersList(elementAndRendererID: ElementAndRendererID)
 	local renderer: RendererInterface? = self._rendererInterfaces[rendererID]
 
 	if renderer == nil then
-		console.warn(
-			string.format('Invalid renderer id "%d" for element "%d"', rendererID, id)
-		)
+		console.warn(('Invalid renderer id "%d" for element "%d"'):format(rendererID, id))
 	else
 		local owners = (renderer :: RendererInterface).getOwnersList(id)
 
@@ -395,9 +389,7 @@ function Agent:inspectElement(inspectElementParams: InspectElementParams)
 	local renderer: RendererInterface? = self._rendererInterfaces[rendererID]
 
 	if renderer == nil then
-		console.warn(
-			string.format('Invalid renderer id "%d" for element "%d"', rendererID, id)
-		)
+		console.warn(('Invalid renderer id "%d" for element "%d"'):format(rendererID, id))
 	else
 		self._bridge:send(
 			"inspectedElement",
@@ -429,9 +421,7 @@ function Agent:logElementToConsole(elementAndRendererID: ElementAndRendererID)
 	local renderer: RendererInterface? = self._rendererInterfaces[rendererID]
 
 	if renderer == nil then
-		console.warn(
-			string.format('Invalid renderer id "%d" for element "%d"', rendererID, id)
-		)
+		console.warn(('Invalid renderer id "%d" for element "%d"'):format(rendererID, id))
 	else
 		(renderer :: RendererInterface).logElementToConsole(id)
 	end
@@ -444,9 +434,7 @@ function Agent:overrideSuspense(overrideSuspenseParams: OverrideSuspenseParams)
 	local renderer: RendererInterface? = self._rendererInterfaces[rendererID]
 
 	if renderer == nil then
-		console.warn(
-			string.format('Invalid renderer id "%d" for element "%d"', rendererID, id)
-		)
+		console.warn(('Invalid renderer id "%d" for element "%d"'):format(rendererID, id))
 	else
 		(renderer :: RendererInterface).overrideSuspense(id, forceFallback)
 	end
@@ -462,9 +450,7 @@ function Agent:overrideValueAtPath(overrideValueAtPathParams: OverrideValueAtPat
 	local renderer: RendererInterface? = self._rendererInterfaces[rendererID]
 
 	if renderer == nil then
-		console.warn(
-			string.format('Invalid renderer id "%d" for element "%d"', rendererID, id)
-		)
+		console.warn(('Invalid renderer id "%d" for element "%d"'):format(rendererID, id))
 	else
 		(renderer :: RendererInterface).overrideValueAtPath(
 			type_,
@@ -597,9 +583,7 @@ function Agent:renamePath(renamePathParams: RenamePathParams)
 	local renderer: RendererInterface? = self._rendererInterfaces[rendererID]
 
 	if renderer == nil then
-		console.warn(
-			string.format('Invalid renderer id "%d" for element "%d"', rendererID, id)
-		)
+		console.warn(('Invalid renderer id "%d" for element "%d"'):format(rendererID, id))
 	else
 		(renderer :: RendererInterface).renamePath(type_, id, hookID, oldPath, newPath)
 	end
@@ -687,9 +671,7 @@ function Agent:storeAsGlobal(storeAsGlobalParams: StoreAsGlobalParams)
 	local renderer: RendererInterface? = self._rendererInterfaces[rendererID]
 
 	if renderer == nil then
-		console.warn(
-			string.format('Invalid renderer id "%d" for element "%d"', rendererID, id)
-		)
+		console.warn(('Invalid renderer id "%d" for element "%d"'):format(rendererID, id))
 	else
 		(renderer :: RendererInterface).storeAsGlobal(id, path, count)
 	end
@@ -728,9 +710,7 @@ function Agent:viewAttributeSource(copyElementParams: CopyElementParams)
 	local renderer: RendererInterface? = self._rendererInterfaces[rendererID]
 
 	if renderer == nil then
-		console.warn(
-			string.format('Invalid renderer id "%d" for element "%d"', rendererID, id)
-		)
+		console.warn(('Invalid renderer id "%d" for element "%d"'):format(rendererID, id))
 	else
 		(renderer :: RendererInterface).prepareViewAttributeSource(id, path)
 	end
@@ -740,9 +720,7 @@ function Agent:viewElementSource(elementAndRendererID: ElementAndRendererID)
 	local renderer: RendererInterface? = self._rendererInterfaces[rendererID]
 
 	if renderer == nil then
-		console.warn(
-			string.format('Invalid renderer id "%d" for element "%d"', rendererID, id)
-		)
+		console.warn(('Invalid renderer id "%d" for element "%d"'):format(rendererID, id))
 	else
 		(renderer :: RendererInterface).prepareViewElementSource(id)
 	end
@@ -784,7 +762,7 @@ function Agent:onHookOperations(operations: Array<number>)
 			local renderer: RendererInterface? = self._rendererInterfaces[rendererID]
 
 			if renderer == nil then
-				console.warn(string.format('Invalid renderer id "%d"', rendererID))
+				console.warn(('Invalid renderer id "%d"'):format(rendererID))
 			else
 				local prevMatch = self._persistedSelectionMatch
 				local nextMatch =

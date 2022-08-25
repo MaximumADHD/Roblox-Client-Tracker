@@ -5,8 +5,8 @@ commit = "e76992f7efa8876482da05faef773e63426c6226"
 source = "url+https://github.com/roblox/roact-app-experiment"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
-    "React React 17.0.1-rc.14 url+https://github.com/roblox/roact-alignment",
-    "ReactRoblox ReactRoblox 17.0.1-rc.14 url+https://github.com/roblox/roact-alignment",
-    "Roact RoactCompat 17.0.1-rc.14 url+https://github.com/roblox/roact-alignment",
+    "React React 17.0.1-rc.13 url+https://github.com/roblox/roact-alignment",
+    "ReactRoblox ReactRoblox 17.0.1-rc.13 url+https://github.com/roblox/roact-alignment",
+    "Roact RoactCompat 17.0.1-rc.13 url+https://github.com/roblox/roact-alignment",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]

@@ -9,7 +9,6 @@ local Style = UIBlox.Style
 
 local getTextHeight = require(script.Parent.getTextHeight)
 local StyleTypes = require(script.Parent.StyleTypes)
-local Constants = require(script.Parent.Constants)
 
 export type Props = {
 	name: string,
@@ -17,8 +16,10 @@ export type Props = {
 	layoutOrder: number?,
 }
 
+local WIDTH: number = 100
+
 local defaultProps = {
-	width = Constants.TILE_SIZE,
+	width = WIDTH,
 }
 
 local PlayerName = function(passedProps: Props)

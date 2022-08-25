@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["RoduxAliases"]["RoduxAliases"])
+local Package = require(PackageIndex["RoduxAliases-e325aa54-67068fd0"]["RoduxAliases"])
 
 return Package

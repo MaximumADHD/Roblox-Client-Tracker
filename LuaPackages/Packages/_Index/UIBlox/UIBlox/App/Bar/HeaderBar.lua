@@ -52,9 +52,6 @@ HeaderBar.validateProps = t.strictInterface({
 
 	-- Add an invisible button to the bar to capture click event
 	onHeaderActivated = t.optional(t.callback),
-
-	-- An optional cache key, used when wrapping HeaderBar with React.memo
-	memoKey = t.optional(t.number),
 })
 
 -- default values are taken from Abstract

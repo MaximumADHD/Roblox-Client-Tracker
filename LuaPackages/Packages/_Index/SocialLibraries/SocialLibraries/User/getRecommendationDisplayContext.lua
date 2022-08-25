@@ -38,34 +38,22 @@ type Icon = {
 }
 
 type Recommendation = {
-	contextType: {
-		rawValue: () -> string,
-	}?,
-	mutualFriendsList: { [number]: any }?,
-	mutualFriendsCount: number?,
 	[string]: any,
+	contextType: Enum?,
+	mutualFriendsList: { [number]: any }?,
 }
 
-local getMutualFriendsCount = function(recommendation: Recommendation): number
-	return if recommendation.mutualFriendsCount
-	then recommendation.mutualFriendsCount
-	else recommendation.mutualFriendsList and #recommendation.mutualFriendsList or 0
-end
-
-return function(recommendation: Recommendation): ({ icon: Icon?, label: Label })
+return function(recommendation: Recommendation): (Icon?, Label)
 	local icon = nil
 	local textKey = nil
 	local contextText = nil
 	local formatter = nil
 
-	local contextType = recommendation.contextType and recommendation.contextType.rawValue() or nil
-	local mutualFriendsCount = getMutualFriendsCount(recommendation)
+	local mutualFriendsCount = recommendation.mutualFriendsList and #recommendation.mutualFriendsList or 0
 
-	if contextType == RecommendationContextType.MutualFriends.rawValue() and mutualFriendsCount > 0 then
+	if recommendation.contextType == RecommendationContextType.MutualFriends and mutualFriendsCount > 0 then
 		formatter = function(text)
-			return if text
-				then tostring(mutualFriendsCount) .. " " .. string.lower(text)
-				else nil
+			return tostring(mutualFriendsCount) .. " " .. text
 		end
 
 		textKey = if mutualFriendsCount == 1 then TextKeys.SingularMutualFriend else TextKeys.MutualFriends
@@ -73,7 +61,7 @@ return function(recommendation: Recommendation): ({ icon: Icon?, label: Label })
 		icon = {
 			path = MUTUAL_FRIENDS_ICON_PATH,
 		}
-	elseif contextType == RecommendationContextType.Frequents.rawValue() then
+	elseif recommendation.contextType == RecommendationContextType.Frequents then
 		textKey = TextKeys.PlayedTogether
 	end
 

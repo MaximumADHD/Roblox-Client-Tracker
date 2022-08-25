@@ -5,10 +5,8 @@ local Packages = UIBlox.Parent
 
 local t = require(Packages.t)
 local Roact = require(Packages.Roact)
-local React = require(Packages.React)
 local enumerate = require(Packages.enumerate)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Interactable = require(Core.Control.Interactable)
 
 local ControlState = require(Core.Control.Enum.ControlState)
@@ -16,7 +14,6 @@ local getContentStyle = require(Core.Button.getContentStyle)
 local GetTextSize = require(Core.Text.GetTextSize)
 local cleanRichTextTags = require(Core.Text.CleanRichTextTags)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
-local isReactTagProp = require(UIBlox.Utility.isReactTagProp)
 
 local withStyle = require(Core.Style.withStyle)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
@@ -32,8 +29,6 @@ TextButton.debugProps = enumerate("debugProps", {
 })
 
 TextButton.validateProps = t.strictInterface({
-	[React.Tag] = isReactTagProp,
-
 	-- The state change callback for the button
 	onStateChanged = t.optional(t.callback),
 
@@ -54,7 +49,7 @@ TextButton.validateProps = t.strictInterface({
 
 	anchorPoint = t.optional(t.Vector2),
 	layoutOrder = t.optional(t.number),
-	position = t.optional(t.UDim2),
+	position= t.optional(t.UDim2),
 	size = t.optional(t.UDim2),
 	text = t.optional(t.string),
 
@@ -87,7 +82,7 @@ TextButton.defaultProps = {
 
 function TextButton:init()
 	self:setState({
-		controlState = ControlState.Initialize,
+		controlState = ControlState.Initialize
 	})
 
 	self.onStateChanged = function(oldState, newState)
@@ -119,7 +114,6 @@ function TextButton:render()
 		local textWidth = getTextSize(manipulatedText, fontSize, fontStyle.Font, Vector2.new(10000, 0)).X
 
 		return Roact.createElement(Interactable, {
-			[React.Tag] = if UIBloxConfig.enableReactTag then self.props[React.Tag] else nil,
 			AnchorPoint = self.props.anchorPoint,
 			LayoutOrder = self.props.layoutOrder,
 			Position = self.props.position,
@@ -134,7 +128,7 @@ function TextButton:render()
 			[Roact.Event.Activated] = self.props.onActivated,
 		}, {
 			sizeConstraint = Roact.createElement("UISizeConstraint", {
-				MinSize = Vector2.new(textWidth + VERTICAL_PADDING * 2, fontSize + HORIZONTAL_PADDING * 2),
+				MinSize = Vector2.new(textWidth + VERTICAL_PADDING*2, fontSize + HORIZONTAL_PADDING*2),
 			}),
 			textLabel = Roact.createElement(GenericTextLabel, {
 				AnchorPoint = Vector2.new(0.5, 0.5),
@@ -145,9 +139,8 @@ function TextButton:render()
 				colorStyle = textStyle,
 				RichText = self.props.richText,
 			}),
-			background = self.props.hoverBackgroundEnabled
-				and currentState == ControlState.Hover
-				and Roact.createElement(HoverButtonBackground),
+			background = self.props.hoverBackgroundEnabled and currentState == ControlState.Hover
+				and Roact.createElement(HoverButtonBackground)
 		})
 	end)
 end

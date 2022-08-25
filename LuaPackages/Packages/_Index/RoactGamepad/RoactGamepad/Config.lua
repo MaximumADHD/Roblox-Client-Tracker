@@ -1,4 +1,0 @@
-
-return {
-	TempFixDelayedRefFocusLost = true,
-}

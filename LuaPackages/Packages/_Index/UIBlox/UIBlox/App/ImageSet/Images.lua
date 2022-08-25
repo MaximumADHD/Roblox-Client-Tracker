@@ -1,4 +1,3 @@
---!strict
 -- This file just provides a convenient interface to query for images
 local GetImageSetData = require(script.Parent.GetImageSetData)
 local FALLBACK_IMAGES = require(script.Parent.FallbackImages)
@@ -14,7 +13,7 @@ end
 
 local sourceData = GetImageSetData(scale)
 
-local function getPackagePath(): string?
+local function getPackagePath()
 	local packageRoot = script.Parent
 
 	if CorePackages == nil then
@@ -23,7 +22,7 @@ local function getPackagePath(): string?
 	end
 
 	local path = {}
-	local current: Instance? = packageRoot
+	local current = packageRoot
 	while current ~= nil and current ~= CorePackages do
 		table.insert(path, 1, current.Name)
 		current = current.Parent
@@ -32,7 +31,7 @@ local function getPackagePath(): string?
 	return "LuaPackages/" .. table.concat(path, "/")
 end
 
-local function getImagePath(packagePath: string?, imageName: string): string
+local function getImagePath(packagePath, imageName)
 	if packagePath == nil then
 		-- fallback to an uploaded image
 		return FALLBACK_IMAGES[imageName]
@@ -46,17 +45,6 @@ local Images = {
 	ImagesResolutionScale = scale,
 }
 
-export type ImageSetImage = {
-	ImageRectOffset: Vector2,
-	ImageRectSize: Vector2,
-	Image: string
-}
-
-export type Images = {
-	ImagesResolutionScale: number,
-	[string]: ImageSetImage,
-}
-
 for key, value in pairs(sourceData) do
 	assert(typeof(value) == "table", "invalid sourceData from GetImageSetData for scale " .. tostring(scale))
 	local imageProps = {}
@@ -67,7 +55,7 @@ for key, value in pairs(sourceData) do
 			imageProps[imageKey] = imageValue
 		end
 	end
-	Images[key] = imageProps :: ImageSetImage
+	Images[key] = imageProps
 end
 
 -- Attach a metamethod to guard against typos

@@ -36,11 +36,9 @@ export type Props = {
 
 	-- Analytics
 	analytics: sendExposureEvent.ExposureEvent?,
-	analyticsBelowTheFoldTrigger: ((emoji: TextLabel) -> (number))?,
 
 	-- Mocks
 	mockIsEnrolled: boolean?,
-	mockAnalyticExposureEvent: ((exposureEvent: sendExposureEvent.ExposureEvent?) -> ())?,
 }
 
 --[=[
@@ -101,19 +99,11 @@ local function EmojiWrapper(props: Props)
 	local joinedProps: DefaultProps & Props = Cryo.Dictionary.join(defaultProps, props)
 	local prevAnalytics = usePrevious(props.analytics)
 
-	local sendAnalyticsExposureEvent = React.useCallback(function(exposureEvent: sendExposureEvent.ExposureEvent?)
-		if props.mockAnalyticExposureEvent then
-			props.mockAnalyticExposureEvent(exposureEvent)
-		else
-			sendExposureEvent(exposureEvent)
-		end
-	end, { props.mockAnalyticExposureEvent })
-
 	local isEnrolled = RoactAppExperiment.useUserExperiment({
 		getFStringVerifiedBadgeLayer(),
-	}, getExperimentValue) or props.mockIsEnrolled
+	}, getExperimentValue)
 
-	local shouldRenderEmoji = isEnrolled or props.emoji ~= constants.VERIFIED_EMOJI
+	local shouldRenderEmoji = props.mockIsEnrolled or isEnrolled or props.emoji ~= constants.VERIFIED_EMOJI
 
 	if joinedProps.children then
 		assert(React.Children.count(joinedProps.children) <= 1, "EmojiWrapper can only contain one child")
@@ -126,57 +116,24 @@ local function EmojiWrapper(props: Props)
 		setEmojiSize(newEmojiSize)
 	end, {})
 
-	-- Analytics state values, functions and useEffect hook
-	local ref = React.useRef(nil)
-	local firstRenderFinished, setFirstRenderFinished = React.useState(false)
-	local belowTheFoldAnalyticFired, setBelowTheFoldAnalyticFired = React.useState(false)
-	local fireAnalyticIfEmojiAboveTheFold = React.useCallback(function(rbx: TextLabel)
-		if belowTheFoldAnalyticFired then
-			return
-		end
-		local bottomTrigger = if props.analyticsBelowTheFoldTrigger
-			then props.analyticsBelowTheFoldTrigger(rbx)
-			else if rbx:FindFirstAncestorOfClass("ScreenGui")
-				then (rbx:FindFirstAncestorOfClass("ScreenGui") :: ScreenGui).AbsoluteSize.Y
-				else 0
-
-		if rbx.AbsolutePosition.Y < bottomTrigger then
-			sendAnalyticsExposureEvent(props.analytics)
-			setBelowTheFoldAnalyticFired(true)
-		end
-	end, { props.analyticsBelowTheFoldTrigger, belowTheFoldAnalyticFired } :: { any })
-
-	local onAbsolutePositionChanged = React.useCallback(function(rbx: TextLabel)
-		if firstRenderFinished then
-			fireAnalyticIfEmojiAboveTheFold(rbx)
-		end
-	end, { props.analyticsBelowTheFoldTrigger, belowTheFoldAnalyticFired, firstRenderFinished } :: { any })
-
 	-- analytics for tracking exposure of users to VerifiedBadges experiment if creator had a verified badge
 	React.useEffect(function()
 		if props.analytics then
 			local prevCreatorId = if prevAnalytics then prevAnalytics.creatorId else nil
 			local currentCreatorId = props.analytics.creatorId
-			if currentCreatorId ~= nil and currentCreatorId ~= prevCreatorId then
-				if props.analyticsBelowTheFoldTrigger and ref.current then
-					fireAnalyticIfEmojiAboveTheFold(ref.current)
-					setFirstRenderFinished(true)
-				else
-					sendAnalyticsExposureEvent(props.analytics)
-				end
+			if isEnrolled and currentCreatorId ~= nil and currentCreatorId ~= prevCreatorId then
+				sendExposureEvent(props.analytics)
 			end
 		end
 	end, { props.analytics })
 
 	return React.createElement("Frame", {
-		ref = ref,
 		LayoutOrder = joinedProps.layoutOrder,
 		AnchorPoint = joinedProps.anchorPoint,
 		Position = joinedProps.position,
 		Size = joinedProps.size,
 		AutomaticSize = joinedProps.automaticSize,
 		BackgroundTransparency = 1,
-		[React.Change.AbsolutePosition] = if props.analyticsBelowTheFoldTrigger then onAbsolutePositionChanged else nil,
 	}, {
 		Layout = React.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,

@@ -1,6 +1,5 @@
 --!strict
 -- upstream: https://github.com/facebook/react/blob/8e5adfbd7e605bda9c5e96c10e015b3dc0df688e/packages/react-dom/src/client/ReactDOMComponentTree.js
--- upstream: https://github.com/facebook/react/blob/efd8f6442d1aa7c4566fe812cba03e7e83aaccc3/packages/react-native-renderer/src/ReactNativeComponentTree.js
 --[[*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -55,10 +54,10 @@ local instanceToFiber: { [HostInstance | SuspenseInstance | ReactScopeInstance]:
 	{}
 local instanceToProps: { [HostInstance | SuspenseInstance]: Props } = {}
 
-local randomKey = string.sub(tostring(math.random()), 3)
+local randomKey = tostring(math.random()):sub(3)
 local internalInstanceKey = "__reactFiber$" .. randomKey
+local internalPropsKey = "__reactProps$" .. randomKey
 local internalContainerInstanceKey = "__reactContainer$" .. randomKey
--- local internalPropsKey = "__reactProps$" .. randomKey
 -- local internalEventHandlersKey = '__reactEvents$' + randomKey
 -- local internalEventHandlerListenersKey = '__reactListeners$' + randomKey
 -- local internalEventHandlesSetKey = '__reactHandles$' + randomKey
@@ -66,12 +65,6 @@ local internalContainerInstanceKey = "__reactContainer$" .. randomKey
 exports.precacheFiberNode =
 	function(hostInst: Fiber, node: HostInstance | SuspenseInstance | ReactScopeInstance)
 		instanceToFiber[node] = hostInst
-	end
-
-exports.uncacheFiberNode =
-	function(node: HostInstance | SuspenseInstance | ReactScopeInstance)
-		instanceToFiber[node] = nil
-		instanceToProps[node] = nil
 	end
 
 exports.markContainerAsRoot = function(hostRoot: Fiber, node: Container)
@@ -236,7 +229,7 @@ end
 
 exports.getFiberCurrentPropsFromNode =
 	function(node: Instance | TextInstance | SuspenseInstance): Props
-		return instanceToProps[node]
+		return (node :: any)[internalPropsKey] or nil
 	end
 
 exports.updateFiberProps = function(node: Instance | SuspenseInstance, props: Props)

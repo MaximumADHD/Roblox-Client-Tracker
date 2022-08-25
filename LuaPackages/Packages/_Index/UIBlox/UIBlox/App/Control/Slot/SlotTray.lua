@@ -174,7 +174,6 @@ local function SlotTray(props: Props)
 
 	local slots = Cryo.List.map(props.slots, function(slot, index)
 		return React.createElement(Focusable.Frame, {
-			key = "Slot" .. tostring(index),
 			LayoutOrder = index,
 			Size = UDim2.fromOffset(DEFAULT_SLOT_SIZE, DEFAULT_SLOT_SIZE),
 			BackgroundTransparency = 1,
@@ -200,7 +199,6 @@ local function SlotTray(props: Props)
 	end)
 
 	local UIListLayout = React.createElement("UIListLayout", {
-		key = "Layout",
 		VerticalAlignment = Enum.VerticalAlignment.Center,
 		FillDirection = Enum.FillDirection.Horizontal,
 		HorizontalAlignment = Enum.HorizontalAlignment.Center,
