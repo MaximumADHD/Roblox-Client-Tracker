@@ -23,6 +23,7 @@ Studio.ManageCollaborators.Description.DiscardChanges,Would you like to discard 
 Studio.ManageCollaborators.PermissionLabels.Multiple,(Multiple),(Multiple)
 Studio.ManageCollaborators.FailureMessage.SaveFailure,Failed to save Permissions. Please try again.,Failed to save Permissions. Please try again.
 Studio.ManageCollaborators.PermissionDescriptions.Play,Can play this game,Can play this game
+Studio.ManageCollaborators.PermissionDescriptions.FriendToEdit,User must be a friend to edit,User must be a friend to edit
 Studio.ManageCollaborators.PermissionDescriptions.NoEditMustBeFriend,User must be a friend to edit,User must be a friend to edit
 Studio.ManageCollaborators.PermissionDescriptions.NoUserEditGroupGame,Must be in owner group to edit,Must be in owner group to edit
 Studio.ManageCollaborators.PermissionDescriptions.Admin,"Can play, edit, and manage this game","Can play, edit, and manage this game"

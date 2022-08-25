@@ -1,0 +1,7 @@
+Key,Context,Source,en-us
+Studio.WindowManagement.DockPanelAction.Close,QtitanDocking: Dock panel is closed on execution of this action,Close,Close
+Studio.WindowManagement.DockPanelAction.Expand,QtitanDocking: Dock panel is expanded on execution of this action,Expand,Expand
+Studio.WindowManagement.DockPanelAction.Collapse,QtitanDocking: Dock panel is collapsed on execution of this action,Collapse,Collapse
+Studio.WindowManagement.DockPanelAction.WindowPosition,QtitanDocking: Button to show drop down related to different options to manage a dock panel,Window Position,Window Position
+Studio.WindowManagement.DockPanelAction.Float,QtitanDocking: Dock panel is undocked and becomes floating on execution of this action,Float,Float
+Studio.WindowManagement.DockPanelAction.Dock,QtitanDocking: Dock panel is docked on execution of this action,Dock,Dock
