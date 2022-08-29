@@ -3,7 +3,6 @@ _com_error
 `anonymous namespace'::BasicIceControllerFactory
 `anonymous namespace'::codecvt_error_cat
 `anonymous namespace'::DefaultFileLogSink
-`anonymous namespace'::DockPanelFilter
 `anonymous namespace'::FileSink
 `anonymous namespace'::OnDemandFolderInstance
 `anonymous namespace'::ScrollAreaWithMargins
@@ -332,6 +331,7 @@ boost::_bi::bind_t<void,class boost::_mfi::mf0<void,class RBX::Studio::RecordTog
 boost::_bi::bind_t<void,class boost::_mfi::mf0<void,class RBX::TestService>,class boost::_bi::list1<class boost::_bi::value<class RBX::TestService * __ptr64> > >
 boost::_bi::bind_t<void,class boost::_mfi::mf0<void,class RobloxIDEDoc>,class boost::_bi::list1<class boost::_bi::value<class RobloxIDEDoc * __ptr64> > >
 boost::_bi::bind_t<void,class boost::_mfi::mf0<void,class RobloxViewStudio>,class boost::_bi::list1<class boost::_bi::value<class RobloxViewStudio * __ptr64> > >
+boost::_bi::bind_t<void,class boost::_mfi::mf0<void,class ScriptRecoveryWidget>,class boost::_bi::list1<class boost::_bi::value<class ScriptRecoveryWidget * __ptr64> > >
 boost::_bi::bind_t<void,class boost::_mfi::mf1<void,class PlaceSessionPluginWidgetsView,enum RBX::StudioGameStateType>,class boost::_bi::list2<class boost::_bi::value<class PlaceSessionPluginWidgetsView * __ptr64>,class boost::_bi::value<enum RBX::StudioGameStateType> > >
 boost::_bi::bind_t<void,class boost::_mfi::mf1<void,class PluginLoader,enum RBX::StudioGameStateType>,class boost::_bi::list2<class boost::_bi::value<class PluginLoader * __ptr64>,class boost::_bi::value<enum RBX::StudioGameStateType> > >
 boost::_bi::bind_t<void,class boost::_mfi::mf1<void,class RBX::Studio::SeparateSelectionVerb,class RBX::IDataState * __ptr64>,class boost::_bi::list2<class boost::_bi::value<class RBX::Studio::SeparateSelectionVerb * __ptr64>,class boost::_bi::value<class RBX::IDataState * __ptr64> > >
@@ -885,7 +885,8 @@ DiffTreeViewItemDelegate
 DisableToopTip
 DisplayPackageDetailsVerb
 DocDockManager
-DocumentPanelManager
+DocDockWidget
+DocTabManager
 DoubleSpinBoxWidget
 DraftsServiceHost
 dtAlwaysPassFilter
@@ -1629,7 +1630,7 @@ PlayersDataManager
 PluginActionRelay
 PluginChangeWatcher
 PluginCmdHost
-PluginDockWidgetPanel
+PluginDockWidgetCustom
 PluginDockWidgetRelay
 PluginDragSource
 PluginElementHost
@@ -1787,6 +1788,7 @@ QLocalServer
 QLocalSocket
 QMainWindow
 QMenu
+QMenuBar
 QMessageBox
 QMimeData
 QMouseEvent
@@ -1833,6 +1835,7 @@ QStatusTipEvent
 QStyle
 QStyledItemDelegate
 QSurface
+QTabBar
 QTableView
 QTableWidget
 QTableWidgetItem
@@ -1847,17 +1850,14 @@ QTextDocument
 QTextEdit
 QTimer
 Qtitan::CommonStyle
-Qtitan::DockDocumentPanel
-Qtitan::DockPanelBase
-Qtitan::DockPanelManager
-Qtitan::DockWidgetPanel
-Qtitan::IStyleThemeHelper
-Qtitan::Office2016Style
 Qtitan::OfficeStyle
+Qtitan::RibbonBar
 Qtitan::RibbonGalleryItem
 Qtitan::RibbonGroup
 Qtitan::RibbonMainWindow
 Qtitan::RibbonPage
+Qtitan::RibbonStyle
+Qtitan::ThemeHelper
 QToolBar
 QToolButton
 QTranslator
@@ -10436,7 +10436,6 @@ RBX::Studio::ToggleLocalSpaceVerb
 RBX::Studio::TogglePivotSnapVerb
 RBX::Studio::ToggleScriptsDisabledVerb
 RBX::Studio::ToggleUITabVerb
-RBX::Studio::ToggleUIVisibilityVerb
 RBX::Studio::ToggleWireframeRenderingVerb
 RBX::Studio::ToolTipDelegate
 RBX::Studio::TooltipForElidedDelegate
@@ -10706,7 +10705,6 @@ RbxQt::StyledObject<class RbxQt::LoadingAnimation,class QLabel>
 RbxQt::StyledObject<class RbxQt::PopupMessageBox,class QDialog>
 RbxQt::StyledObject<class RbxQt::ToggleSwitch,class QPushButton>
 RbxQt::StyledObject<class SnippetWidget,class QWidget>
-RbxQt::StyledObject<class StudioScriptingAnalysisWidget,class ScriptingAnalysisWidget>
 RbxQt::StyledObject<class StyledFindReplaceModel,class FindReplaceModel>
 RbxQt::StyledObject<class StyledFindReplaceOptionsView,class FindReplaceOptionsView>
 RbxQt::StyledObject<class TeamCreateDisconnectPopupMessageBox,class RbxQt::PopupMessageBox>
@@ -10749,6 +10747,7 @@ RESTRICTED_StudioServiceHost
 RESTRICTED_StudioUtilities::eFailedWithMessage
 ResultEmitter
 RibbonChannelBar
+RibbonThemeHelper
 RibbonUpdatesBar
 Roblox
 RobloxApplication
@@ -10872,8 +10871,8 @@ rtc::RefCountedObject<class webrtc::`anonymous namespace'::CreateSessionDescript
 rtc::RefCountedObject<class webrtc::`anonymous namespace'::IdWithDirection>
 rtc::RefCountedObject<class webrtc::`anonymous namespace'::TypedId>
 rtc::RefCountedObject<class webrtc::`anonymous namespace'::TypedIntId>
-rtc::RefCountedObject<class webrtc::audio_decoder_factory_template_impl::AudioDecoderFactoryT<struct webrtc::AudioDecoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioDecoderMultiChannelOpus>,struct webrtc::AudioDecoderIsacFix,struct webrtc::AudioDecoderG722,struct webrtc::AudioDecoderIlbc,struct webrtc::AudioDecoderG711,struct webrtc::A0xcdfd666d::NotAdvertised<struct webrtc::AudioDecoderL16> > >
-rtc::RefCountedObject<class webrtc::audio_encoder_factory_template_impl::AudioEncoderFactoryT<struct webrtc::AudioEncoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioEncoderMultiChannelOpus>,struct webrtc::AudioEncoderIsacFix,struct webrtc::AudioEncoderG722,struct webrtc::AudioEncoderIlbc,struct webrtc::AudioEncoderG711,struct webrtc::A0xe7c8955b::NotAdvertised<struct webrtc::AudioEncoderL16> > >
+rtc::RefCountedObject<class webrtc::audio_decoder_factory_template_impl::AudioDecoderFactoryT<struct webrtc::AudioDecoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioDecoderMultiChannelOpus>,struct webrtc::AudioDecoderIsacFix,struct webrtc::AudioDecoderG722,struct webrtc::AudioDecoderIlbc,struct webrtc::AudioDecoderG711,struct webrtc::A0x0b799faa::NotAdvertised<struct webrtc::AudioDecoderL16> > >
+rtc::RefCountedObject<class webrtc::audio_encoder_factory_template_impl::AudioEncoderFactoryT<struct webrtc::AudioEncoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioEncoderMultiChannelOpus>,struct webrtc::AudioEncoderIsacFix,struct webrtc::AudioEncoderG722,struct webrtc::AudioEncoderIlbc,struct webrtc::AudioEncoderG711,struct webrtc::A0x214c6c9c::NotAdvertised<struct webrtc::AudioEncoderL16> > >
 rtc::RefCountedObject<class webrtc::AudioDeviceModuleImpl>
 rtc::RefCountedObject<class webrtc::AudioMixerImpl>
 rtc::RefCountedObject<class webrtc::AudioProcessingImpl>
@@ -11061,7 +11060,6 @@ StackDetailsItem
 StandalonePluginController
 StandalonePluginModel
 StartPageController
-StartPageDocumentPanel
 StartPageTabController
 StateFullLSTM
 std::_Associated_state<class std::shared_ptr<class RBX::Instance> >
@@ -11218,7 +11216,6 @@ std::_Binder<struct std::_Unforced,void (__cdecl RobloxIDEDoc::*)(unsigned long,
 std::_Binder<struct std::_Unforced,void (__cdecl RobloxInput::*)(class std::string const & __ptr64,class std::weak_ptr<class RBX::DataModel>) __ptr64,class RobloxInput * __ptr64,class std::string const & __ptr64,class std::weak_ptr<class RBX::DataModel> >
 std::_Binder<struct std::_Unforced,void (__cdecl RobloxInput::*)(class std::string const & __ptr64,class std::weak_ptr<class RBX::DataModel>,bool) __ptr64,class RobloxInput * __ptr64,class std::string const & __ptr64,class std::weak_ptr<class RBX::DataModel>,bool>
 std::_Binder<struct std::_Unforced,void (__cdecl RobloxInput::*)(class std::weak_ptr<class RBX::DataModel>,enum RobloxInput::MouseLockType) __ptr64,class RobloxInput * __ptr64,class std::weak_ptr<class RBX::DataModel>,enum RobloxInput::MouseLockType & __ptr64>
-std::_Binder<struct std::_Unforced,void (__cdecl ScriptRecoveryWidget::*)(void) __ptr64,class ScriptRecoveryWidget * __ptr64>
 std::_Binder<struct std::_Unforced,void (__cdecl&)(class RBX::Lua::WeakObjectRef,class std::shared_ptr<struct RBX::Reflection::Tuple const >,class std::function<void __cdecl(class std::shared_ptr<struct RBX::Reflection::Tuple const >)>,class std::function<void __cdecl(class std::string)>,class boost::intrusive_ptr<class RBX::Lua::WeakThreadRef>),class RBX::Lua::WeakObjectRef & __ptr64,struct std::_Ph<1> const & __ptr64,struct std::_Ph<2> const & __ptr64,struct std::_Ph<3> const & __ptr64,class boost::intrusive_ptr<class RBX::Lua::WeakThreadRef> & __ptr64>
 std::_Binder<struct std::_Unforced,void (__cdecl&)(class std::function<void __cdecl(class std::shared_ptr<struct RBX::Reflection::Tuple const >)>,struct lua_State * __ptr64),class std::function<void __cdecl(class std::shared_ptr<struct RBX::Reflection::Tuple const >)> & __ptr64,struct std::_Ph<1> const & __ptr64>
 std::_Binder<struct std::_Unforced,void (__cdecl&)(class std::function<void __cdecl(class std::string)>,struct lua_State * __ptr64),class std::function<void __cdecl(class std::string)> & __ptr64,struct std::_Ph<1> const & __ptr64>
@@ -11834,6 +11831,7 @@ std::_Func_impl_no_alloc<class boost::_bi::bind_t<void,class boost::_mfi::mf0<vo
 std::_Func_impl_no_alloc<class boost::_bi::bind_t<void,class boost::_mfi::mf0<void,class RBX::TestService>,class boost::_bi::list1<class boost::_bi::value<class RBX::TestService * __ptr64> > >,void,class RBX::DataModel * __ptr64>
 std::_Func_impl_no_alloc<class boost::_bi::bind_t<void,class boost::_mfi::mf0<void,class RobloxIDEDoc>,class boost::_bi::list1<class boost::_bi::value<class RobloxIDEDoc * __ptr64> > >,void,class RBX::VerbContainer * __ptr64>
 std::_Func_impl_no_alloc<class boost::_bi::bind_t<void,class boost::_mfi::mf0<void,class RobloxViewStudio>,class boost::_bi::list1<class boost::_bi::value<class RobloxViewStudio * __ptr64> > >,void>
+std::_Func_impl_no_alloc<class boost::_bi::bind_t<void,class boost::_mfi::mf0<void,class ScriptRecoveryWidget>,class boost::_bi::list1<class boost::_bi::value<class ScriptRecoveryWidget * __ptr64> > >,void>
 std::_Func_impl_no_alloc<class boost::_bi::bind_t<void,class boost::_mfi::mf1<void,class PlaceSessionPluginWidgetsView,enum RBX::StudioGameStateType>,class boost::_bi::list2<class boost::_bi::value<class PlaceSessionPluginWidgetsView * __ptr64>,class boost::_bi::value<enum RBX::StudioGameStateType> > >,void>
 std::_Func_impl_no_alloc<class boost::_bi::bind_t<void,class boost::_mfi::mf1<void,class PluginLoader,enum RBX::StudioGameStateType>,class boost::_bi::list2<class boost::_bi::value<class PluginLoader * __ptr64>,class boost::_bi::value<enum RBX::StudioGameStateType> > >,void,class RBX::DataModel * __ptr64>
 std::_Func_impl_no_alloc<class boost::_bi::bind_t<void,class boost::_mfi::mf1<void,class RBX::Studio::SeparateSelectionVerb,class RBX::IDataState * __ptr64>,class boost::_bi::list2<class boost::_bi::value<class RBX::Studio::SeparateSelectionVerb * __ptr64>,class boost::_bi::value<class RBX::IDataState * __ptr64> > >,void>
@@ -12040,7 +12038,6 @@ std::_Func_impl_no_alloc<class std::_Binder<struct std::_Unforced,void (__cdecl 
 std::_Func_impl_no_alloc<class std::_Binder<struct std::_Unforced,void (__cdecl RobloxInput::*)(class std::string const & __ptr64,class std::weak_ptr<class RBX::DataModel>) __ptr64,class RobloxInput * __ptr64,class std::string const & __ptr64,class std::weak_ptr<class RBX::DataModel> >,void,class RBX::DataModel * __ptr64>
 std::_Func_impl_no_alloc<class std::_Binder<struct std::_Unforced,void (__cdecl RobloxInput::*)(class std::string const & __ptr64,class std::weak_ptr<class RBX::DataModel>,bool) __ptr64,class RobloxInput * __ptr64,class std::string const & __ptr64,class std::weak_ptr<class RBX::DataModel>,bool>,void,class RBX::DataModel * __ptr64>
 std::_Func_impl_no_alloc<class std::_Binder<struct std::_Unforced,void (__cdecl RobloxInput::*)(class std::weak_ptr<class RBX::DataModel>,enum RobloxInput::MouseLockType) __ptr64,class RobloxInput * __ptr64,class std::weak_ptr<class RBX::DataModel>,enum RobloxInput::MouseLockType & __ptr64>,void,class RBX::DataModel * __ptr64>
-std::_Func_impl_no_alloc<class std::_Binder<struct std::_Unforced,void (__cdecl ScriptRecoveryWidget::*)(void) __ptr64,class ScriptRecoveryWidget * __ptr64>,void>
 std::_Func_impl_no_alloc<class std::_Binder<struct std::_Unforced,void (__cdecl&)(class RBX::Lua::WeakObjectRef,class std::shared_ptr<struct RBX::Reflection::Tuple const >,class std::function<void __cdecl(class std::shared_ptr<struct RBX::Reflection::Tuple const >)>,class std::function<void __cdecl(class std::string)>,class boost::intrusive_ptr<class RBX::Lua::WeakThreadRef>),class RBX::Lua::WeakObjectRef & __ptr64,struct std::_Ph<1> const & __ptr64,struct std::_Ph<2> const & __ptr64,struct std::_Ph<3> const & __ptr64,class boost::intrusive_ptr<class RBX::Lua::WeakThreadRef> & __ptr64>,void,class std::shared_ptr<struct RBX::Reflection::Tuple const >,class std::function<void __cdecl(class std::shared_ptr<struct RBX::Reflection::Tuple const >)>,class std::function<void __cdecl(class std::string)> >
 std::_Func_impl_no_alloc<class std::_Binder<struct std::_Unforced,void (__cdecl&)(class std::function<void __cdecl(class std::shared_ptr<struct RBX::Reflection::Tuple const >)>,struct lua_State * __ptr64),class std::function<void __cdecl(class std::shared_ptr<struct RBX::Reflection::Tuple const >)> & __ptr64,struct std::_Ph<1> const & __ptr64>,void,struct lua_State * __ptr64>
 std::_Func_impl_no_alloc<class std::_Binder<struct std::_Unforced,void (__cdecl&)(class std::function<void __cdecl(class std::string)>,struct lua_State * __ptr64),class std::function<void __cdecl(class std::string)> & __ptr64,struct std::_Ph<1> const & __ptr64>,void,struct lua_State * __ptr64>
@@ -13799,7 +13796,6 @@ std::_Ref_count<class StudioProfiler>
 std::_Ref_count<class StudioRPCHandler>
 std::_Ref_count<class StudioRPCHandlerPrivate>
 std::_Ref_count<class StudioSettingsWrapper>
-std::_Ref_count<class StyleThemeHelper>
 std::_Ref_count<class ToolTipItem>
 std::_Ref_count<class TreeWidgetDelegate>
 std::_Ref_count<class Universe>
@@ -13934,7 +13930,6 @@ std::enable_shared_from_this<class RobloxChatWidget>
 std::enable_shared_from_this<class RobloxDisabledChatWidget>
 std::enable_shared_from_this<class SearchContextHandler>
 std::enable_shared_from_this<class StudioDataModelCmdBase>
-std::enable_shared_from_this<class StyleThemeHelper>
 std::error_category
 std::exception
 std::function<bool __cdecl(class GamesPageModelItem const & __ptr64,class GamesPageModelItem const & __ptr64)>
@@ -13986,7 +13981,6 @@ StudioCrashDetails
 StudioDataModelCmdBase
 StudioDataModelCommands
 StudioDeviceEmulator
-StudioDockPanelManager
 StudioFlagEditorDialog
 StudioGeneralCommands
 StudioHttpRequestAbstraction
@@ -14005,7 +13999,6 @@ StudioTranslator
 StudioUserPreferences
 StyledFindReplaceModel
 StyledFindReplaceOptionsView
-StyleThemeHelper
 SurfaceOrientationAdornable
 SystemOutputController
 SystemOutputLogView
@@ -14218,8 +14211,8 @@ webrtc::AcknowledgedBitrateEstimatorInterface
 webrtc::AdaptiveModeLevelEstimatorAgc
 webrtc::Agc
 webrtc::AsyncResolverFactory
-webrtc::audio_decoder_factory_template_impl::AudioDecoderFactoryT<struct webrtc::AudioDecoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioDecoderMultiChannelOpus>,struct webrtc::AudioDecoderIsacFix,struct webrtc::AudioDecoderG722,struct webrtc::AudioDecoderIlbc,struct webrtc::AudioDecoderG711,struct webrtc::A0xcdfd666d::NotAdvertised<struct webrtc::AudioDecoderL16> >
-webrtc::audio_encoder_factory_template_impl::AudioEncoderFactoryT<struct webrtc::AudioEncoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioEncoderMultiChannelOpus>,struct webrtc::AudioEncoderIsacFix,struct webrtc::AudioEncoderG722,struct webrtc::AudioEncoderIlbc,struct webrtc::AudioEncoderG711,struct webrtc::A0xe7c8955b::NotAdvertised<struct webrtc::AudioEncoderL16> >
+webrtc::audio_decoder_factory_template_impl::AudioDecoderFactoryT<struct webrtc::AudioDecoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioDecoderMultiChannelOpus>,struct webrtc::AudioDecoderIsacFix,struct webrtc::AudioDecoderG722,struct webrtc::AudioDecoderIlbc,struct webrtc::AudioDecoderG711,struct webrtc::A0x0b799faa::NotAdvertised<struct webrtc::AudioDecoderL16> >
+webrtc::audio_encoder_factory_template_impl::AudioEncoderFactoryT<struct webrtc::AudioEncoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioEncoderMultiChannelOpus>,struct webrtc::AudioEncoderIsacFix,struct webrtc::AudioEncoderG722,struct webrtc::AudioEncoderIlbc,struct webrtc::AudioEncoderG711,struct webrtc::A0x214c6c9c::NotAdvertised<struct webrtc::AudioEncoderL16> >
 webrtc::AudioBuffer
 webrtc::AudioCodingModule
 webrtc::AudioConverter
