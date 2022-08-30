@@ -381,7 +381,7 @@ function BaseCamera:StepZoom()
 	return ZoomController.GetZoomRadius()
 end
 
-function BaseCamera:GetSubjectPosition(): Vector3
+function BaseCamera:GetSubjectPosition(): Vector3?
 	local result = self.lastSubjectPosition
 	local camera = game.Workspace.CurrentCamera
 	local cameraSubject = camera and camera.CameraSubject
@@ -442,7 +442,7 @@ function BaseCamera:GetSubjectPosition(): Vector3
 		-- Note: Previous RootCamera did not have this else case and let self.lastSubject and self.lastSubjectPosition
 		-- both get set to nil in the case of cameraSubject being nil. This function now exits here to preserve the
 		-- last set valid values for these, as nil values are not handled cases
-		return
+		return nil
 	end
 
 	self.lastSubject = cameraSubject
@@ -732,31 +732,31 @@ function BaseCamera:GetMeasuredDistanceToFocus(): number?
 end
 
 function BaseCamera:GetCameraLookVector(): Vector3
-	return game.Workspace.CurrentCamera and game.Workspace.CurrentCamera.CFrame.lookVector or UNIT_Z
+	return game.Workspace.CurrentCamera and game.Workspace.CurrentCamera.CFrame.LookVector or UNIT_Z
 end
 
 function BaseCamera:CalculateNewLookCFrameFromArg(suppliedLookVector: Vector3?, rotateInput: Vector2): CFrame
 	local currLookVector: Vector3 = suppliedLookVector or self:GetCameraLookVector()
-	local currPitchAngle = math.asin(currLookVector.y)
-	local yTheta = math.clamp(rotateInput.y, -MAX_Y + currPitchAngle, -MIN_Y + currPitchAngle)
-	local constrainedRotateInput = Vector2.new(rotateInput.x, yTheta)
+	local currPitchAngle = math.asin(currLookVector.Y)
+	local yTheta = math.clamp(rotateInput.Y, -MAX_Y + currPitchAngle, -MIN_Y + currPitchAngle)
+	local constrainedRotateInput = Vector2.new(rotateInput.X, yTheta)
 	local startCFrame = CFrame.new(ZERO_VECTOR3, currLookVector)
-	local newLookCFrame = CFrame.Angles(0, -constrainedRotateInput.x, 0) * startCFrame * CFrame.Angles(-constrainedRotateInput.y,0,0)
+	local newLookCFrame = CFrame.Angles(0, -constrainedRotateInput.X, 0) * startCFrame * CFrame.Angles(-constrainedRotateInput.Y,0,0)
 	return newLookCFrame
 end
 
 function BaseCamera:CalculateNewLookVectorFromArg(suppliedLookVector: Vector3?, rotateInput: Vector2): Vector3
 	local newLookCFrame = self:CalculateNewLookCFrameFromArg(suppliedLookVector, rotateInput)
-	return newLookCFrame.lookVector
+	return newLookCFrame.LookVector
 end
 
 function BaseCamera:CalculateNewLookVectorVRFromArg(rotateInput: Vector2): Vector3
 	local subjectPosition: Vector3 = self:GetSubjectPosition()
-	local vecToSubject: Vector3 = (subjectPosition - game.Workspace.CurrentCamera.CFrame.p)
+	local vecToSubject: Vector3 = (subjectPosition - (game.Workspace.CurrentCamera :: Camera).CFrame.p)
 	local currLookVector: Vector3 = (vecToSubject * X1_Y0_Z1).unit
-	local vrRotateInput: Vector2 = Vector2.new(rotateInput.x, 0)
+	local vrRotateInput: Vector2 = Vector2.new(rotateInput.X, 0)
 	local startCFrame: CFrame = CFrame.new(ZERO_VECTOR3, currLookVector)
-	local yawRotatedVector: Vector3 = (CFrame.Angles(0, -vrRotateInput.x, 0) * startCFrame * CFrame.Angles(-vrRotateInput.y,0,0)).lookVector
+	local yawRotatedVector: Vector3 = (CFrame.Angles(0, -vrRotateInput.X, 0) * startCFrame * CFrame.Angles(-vrRotateInput.Y,0,0)).LookVector
 	return (yawRotatedVector * X1_Y0_Z1).unit
 end
 

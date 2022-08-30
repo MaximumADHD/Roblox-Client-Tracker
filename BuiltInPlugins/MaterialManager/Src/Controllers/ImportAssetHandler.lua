@@ -11,6 +11,7 @@ local ContextItem = Framework.ContextServices.ContextItem
 local Promise = Framework.Util.Promise
 
 local getFFlagMaterialManagerVariantCreatorOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
+local getFFlagMaterialManagerTextureMapDiverseErrors = require(Plugin.Src.Flags.getFFlagMaterialManagerTextureMapDiverseErrors)
 
 -- Pull the numeric part out of a content id (of form rbxasset://xyz or rbxtemp://xyz etc.)
 local function numericIdFromContentId(id)
@@ -45,10 +46,12 @@ function ImportAssetHandler:handleAssetAsync(assetFile: File, onAssetUploading: 
 
 	local tempId = assetFile:GetTemporaryId()
 	local assetFileContents
-	local success, _ = pcall(function()
+	local success, response = pcall(function()
 		assetFileContents = assetFile:GetBinaryContents()
 	end)
-	if not success then
+	if getFFlagMaterialManagerTextureMapDiverseErrors() and not success then
+		return Promise.reject(response)
+	elseif not success then
 		return Promise.reject()
 	end
 	return self._imageUploader:upload(tempId, assetFile.Name, --[[description=]]"", assetFileContents):andThen(function(assetId)

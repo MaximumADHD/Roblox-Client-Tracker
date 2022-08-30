@@ -221,6 +221,17 @@ local Constants = {
 		ButtonTextSize = 20,
 	},
 
+	DebugVisualizationsFormatting = {
+		ChartHeaderNames = {"Name", "Toggle", "Draw Type", "Tags"},
+		ChartCellWidths = {60, 80}, -- width of cells 2-4; cell 1 fills remainder
+		CellPadding = 16,
+		ExpandArrowPadding = 12,
+		HeaderFrameHeight = 20,
+		EntryFrameHeight = 30,
+		MinFrameWidth = 654,
+		LearnMoreWidth = 80,
+	},
+
 	Graph = {
 		PointWidth = 4,
 		PointOffset = 2, -- should be 1/2 pointwidth

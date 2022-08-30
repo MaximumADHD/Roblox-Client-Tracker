@@ -3,8 +3,6 @@ return function()
 	local Constants = require(Plugin.Src.Util.Constants)
 	local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
-	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-
 	local testTrackData = {
 		Type = Constants.TRACK_TYPES.CFrame,
 		Keyframes = {2, 4, 5},

@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local _Types = require(Plugin.Src.Types)
 local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
@@ -13,12 +14,20 @@ local Localization = ContextServices.Localization
 
 local UI = Framework.UI
 local Pane = UI.Pane
-local SimpleExpandablePane = UI.SimpleExpandablePane
+local ExpandablePane = UI.ExpandablePane
+
+local Actions = Plugin.Src.Actions
+local SetExpandedPane = require(Actions.SetExpandedPane)
+local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local TextureMapSelector = require(Plugin.Src.Components.MaterialBrowser.MaterialVariantEditor.TextureMapSelector)
-local getTextureMapNames = require(Plugin.Src.Resources.Constants.getTextureMapNames)
+
+local Constants = Plugin.Src.Resources.Constants
+local getSettingsNames = require(Constants.getSettingsNames)
+local getTextureMapNames = require(Constants.getTextureMapNames)
 
 local TextureMaps = getTextureMapNames()
+local settingsNames = getSettingsNames()
 
 export type Props = {
 	LayoutOrder: number?,
@@ -27,6 +36,8 @@ export type Props = {
 
 type _Props = Props & { 
 	Analytics: any,
+	dispatchSetExpandedPane: (paneName: string, expandedPaneState: boolean) -> (),
+	ExpandedPane: boolean,
 	Localization: any,
 	Material: _Types.Material?,
 	Stylizer: any,
@@ -41,6 +52,14 @@ type _Style = {
 
 local TextureSettings = Roact.PureComponent:extend("TextureSettings")
 
+function TextureSettings:init()
+	self.onExpandedChanged = function()
+		local props: _Props = self.props
+		
+		props.dispatchSetExpandedPane(settingsNames.TextureSettings, not props.ExpandedPane)
+	end
+end
+
 function TextureSettings:render()
 	local props: _Props = self.props
 	local style: _Style = props.Stylizer.MaterialDetails
@@ -52,14 +71,15 @@ function TextureSettings:render()
 
 	local layoutOrderIterator = LayoutOrderIterator.new()
 
-	return Roact.createElement(SimpleExpandablePane, {
+	return Roact.createElement(ExpandablePane, {
 		AutomaticSize = Enum.AutomaticSize.Y,
 		LayoutOrder = props.LayoutOrder,
 		ContentPadding = style.ContentPadding,
 		ContentSpacing = style.ItemSpacing,
 		Text = localization:getText("MaterialTextures", "TextureMaps"),
 		Style = style.CustomExpandablePane,
-		Expanded = true,
+		Expanded = props.ExpandedPane,
+		OnExpandedChanged = self.onExpandedChanged,
 	}, {
 		ImportColorMap = Roact.createElement(TextureMapSelector, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
@@ -102,4 +122,17 @@ TextureSettings = withContext({
 	Stylizer = Stylizer,
 })(TextureSettings)
 
-return TextureSettings
+return RoactRodux.connect(
+	function(state: MainReducer.State)
+		return {
+			ExpandedPane = state.MaterialBrowserReducer.ExpandedPane[settingsNames.TextureSettings],
+		}
+	end,
+	function(dispatch)
+		return {
+			dispatchSetExpandedPane = function(paneName: string, expandedPaneState: boolean)
+				dispatch(SetExpandedPane(paneName, expandedPaneState))
+			end,
+		}
+	end
+)(TextureSettings)

@@ -18,7 +18,6 @@ local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
 local TrackSelectionUtils = require(Plugin.Src.Util.TrackSelectionUtils)
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFixRedoDeleteSelection = require(Plugin.LuaFlags.GetFFlagFixRedoDeleteSelection)
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
 
@@ -56,12 +55,10 @@ return function(signals)
 
 			-- Prune selected tracks, as some tracks might have disappeared
 			-- (Undoing a conversion from Quaternions to Euler's angles, for instance)
-			if GetFFlagCurveEditor() then
-				local newSelectedTracks, changed = TrackSelectionUtils.PruneSelectedTracks(
-					if GetFFlagFixRedoDeleteSelection() then newState.AnimationData else animationData, selectedTracks)
-				if changed then
-					store:dispatch(SetSelectedTracks(newSelectedTracks))
-				end
+			local newSelectedTracks, changed = TrackSelectionUtils.PruneSelectedTracks(
+				if GetFFlagFixRedoDeleteSelection() then newState.AnimationData else animationData, selectedTracks)
+			if changed then
+				store:dispatch(SetSelectedTracks(newSelectedTracks))
 			end
 
 			store:dispatch(SetPast(Cryo.List.removeIndex(past, 1)))

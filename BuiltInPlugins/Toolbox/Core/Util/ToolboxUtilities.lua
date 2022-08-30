@@ -23,7 +23,7 @@ if isCli() then
 		SafetyLearnMoreUrl = "https://en.help.roblox.com/hc/en-us/articles/115004647846-Roblox-Terms-of-Use",
 		AnnouncementConfiguration = {
 			ButtonKey = "Button_Default",
-			Date = "2022-08-08T19:45:23.0346658-05:00",
+			Date = "2022-08-08 19:45:23",
 			DescriptionKey = "Description_08092022",
 			HeaderKey = "Header_Default",
 			Image = "rbxasset://textures/StudioToolbox/announcementConstruction.png",
@@ -131,10 +131,14 @@ end
 
 if FFlagToolboxEnableAnnouncementsDialog then
 	export type AnnouncementInfo = {
+		ButtonKey: string?,
 		Date: string?,
-		Header: string?,
-		Description: string?,
+		DescriptionKey: string?,
+		HeaderKey: string?,
 		Image: string?,
+		LatestUserId: string?,
+		LinkKey: string?,
+		LinkLocation: string?,
 	}
 	function ToolboxUtilities.getAnnouncementConfiguration(): AnnouncementInfo
 		local policyName = "AnnouncementConfiguration"

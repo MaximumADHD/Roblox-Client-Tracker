@@ -31,6 +31,7 @@ local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 
 local LayeredClothingEditor = require(Plugin.Src.Components.LayeredClothingEditor)
 local ConfirmDialog = require(Plugin.Src.Components.ConfirmDialog)
+local ClothesHelper = require(Plugin.Src.Components.ClothesHelper)
 
 local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
 
@@ -47,6 +48,7 @@ local FinishSelectingFromExplorer = require(Plugin.Src.Thunks.FinishSelectingFro
 local LayeredClothingEditorPlugin = Roact.PureComponent:extend("LayeredClothingEditorPlugin")
 
 local FFlagPreventPluginEnabledWhilePlaySolo = game:DefineFastFlag("PreventPluginEnabledWhilePlaySolo", false)
+local FFlagIncludeClothesHelperPlugin = game:DefineFastFlag("IncludeClothesHelperPlugin", false)
 
 local PLUGIN_NAME = "LayeredClothingEditor"
 local TOOLBAR_NAME = "LayeredClothing"
@@ -87,6 +89,10 @@ function LayeredClothingEditorPlugin:init()
 		"rbxasset://textures/LayeredClothingEditor/LayeredClothingEditorIcon.png",
 		self.localization:getText("Main", "ToolbarButton")
 	)
+
+	if FFlagIncludeClothesHelperPlugin then
+		ClothesHelper:init(toolbar, self.localization)
+	end
 
 	self.onClose = function()
 		self:setState({

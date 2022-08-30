@@ -79,11 +79,11 @@ function NetworkPane:render()
 					end
 					return isValid, errorText
 				end,
-				Text = state.networkReplicationLag or 0,
+				Text = state.incomingReplicationLag or 0,
 				OnTextChanged = function(text: string)
           NetworkSettings.IncomingReplicationLag = tonumber(text)
 					self:setState({
-						networkReplicationLag = text
+						incomingReplicationLag = text
 					})
 				end
 			})

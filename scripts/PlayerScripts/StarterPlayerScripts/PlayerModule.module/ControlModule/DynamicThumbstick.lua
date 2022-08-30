@@ -42,7 +42,7 @@ local DynamicThumbstick = setmetatable({}, BaseCharacterController)
 DynamicThumbstick.__index = DynamicThumbstick
 
 function DynamicThumbstick.new()
-	local self = setmetatable(BaseCharacterController.new(), DynamicThumbstick)
+	local self = setmetatable(BaseCharacterController.new() :: any, DynamicThumbstick)
 
 	self.moveTouchObject = nil
 	self.moveTouchLockedIn = false
@@ -82,7 +82,7 @@ function DynamicThumbstick:GetIsJumping()
 	return wasJumping
 end
 
-function DynamicThumbstick:Enable(enable: boolean?, uiParentFrame): boolean
+function DynamicThumbstick:Enable(enable: boolean?, uiParentFrame): boolean?
 	if enable == nil then return false end			-- If nil, return false (invalid argument)
 	enable = enable and true or false				-- Force anything non-nil to boolean before comparison
 	if self.enabled == enable then return true end	-- If no state change, return true indicating already in requested state
@@ -102,6 +102,7 @@ function DynamicThumbstick:Enable(enable: boolean?, uiParentFrame): boolean
 
 	self.enabled = enable
 	self.thumbstickFrame.Visible = enable
+	return nil
 end
 
 -- Was called OnMoveTouchEnded in previous version
@@ -199,14 +200,14 @@ function DynamicThumbstick:DoMove(direction: Vector3)
 	local currentMoveVector: Vector3 = direction
 
 	-- Scaled Radial Dead Zone
-	local inputAxisMagnitude: number = currentMoveVector.magnitude
+	local inputAxisMagnitude: number = currentMoveVector.Magnitude
 	if inputAxisMagnitude < self.radiusOfDeadZone then
 		currentMoveVector = ZERO_VECTOR3
 	else
-		currentMoveVector = currentMoveVector.unit*(
-			1 - math.max(0, (self.radiusOfMaxSpeed - currentMoveVector.magnitude)/self.radiusOfMaxSpeed)
+		currentMoveVector = currentMoveVector.Unit*(
+			1 - math.max(0, (self.radiusOfMaxSpeed - currentMoveVector.Magnitude)/self.radiusOfMaxSpeed)
 		)
-		currentMoveVector = Vector3.new(currentMoveVector.x, 0, currentMoveVector.y)
+		currentMoveVector = Vector3.new(currentMoveVector.X, 0, currentMoveVector.Y)
 	end
 
 	self.moveVector = currentMoveVector
@@ -216,8 +217,8 @@ end
 function DynamicThumbstick:LayoutMiddleImages(startPos: Vector3, endPos: Vector3)
 	local startDist = (self.thumbstickSize / 2) + self.middleSize
 	local vector = endPos - startPos
-	local distAvailable = vector.magnitude - (self.thumbstickRingSize / 2) - self.middleSize
-	local direction = vector.unit
+	local distAvailable = vector.Magnitude - (self.thumbstickRingSize / 2) - self.middleSize
+	local direction = vector.Unit
 
 	local distNeeded = self.middleSpacing * NUM_MIDDLE_IMAGES
 	local spacing = self.middleSpacing
@@ -306,10 +307,10 @@ function DynamicThumbstick:BindContextActions()
 			self.moveTouchLockedIn = true
 
 			local direction = Vector2.new(
-				inputObject.Position.x - self.moveTouchStartPosition.x,
-				inputObject.Position.y - self.moveTouchStartPosition.y
+				inputObject.Position.X - self.moveTouchStartPosition.X,
+				inputObject.Position.Y - self.moveTouchStartPosition.Y
 			)
-			if math.abs(direction.x) > 0 or math.abs(direction.y) > 0 then
+			if math.abs(direction.X) > 0 or math.abs(direction.Y) > 0 then
 				self:DoMove(direction)
 				self:MoveStick(inputObject.Position)
 			end
@@ -366,7 +367,7 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 	self.radiusOfMaxSpeed = 20
 
 	local screenSize = parentFrame.AbsoluteSize
-	local isBigScreen = math.min(screenSize.x, screenSize.y) > 500
+	local isBigScreen = math.min(screenSize.X, screenSize.Y) > 500
 	if isBigScreen then
 		self.thumbstickSize = self.thumbstickSize * 2
 		self.thumbstickRingSize = self.thumbstickRingSize * 2

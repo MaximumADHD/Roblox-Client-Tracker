@@ -1,6 +1,6 @@
 --[[
 	Invisicam - Occlusion module that makes objects occluding character view semi-transparent
-	2018 Camera Update - AllYourBlox		
+	2018 Camera Update - AllYourBlox
 --]]
 
 --[[ Top Level Roblox Services ]]--
@@ -67,7 +67,7 @@ local function AssertTypes(param, ...)
 end
 
 -- Helper function for Determinant of 3x3, not in CameraUtils for performance reasons
-local function Det3x3(a: number,b: number,c: number,d: number,e: number,f: number,g: number,h: number,i: number): nemubr
+local function Det3x3(a: number,b: number,c: number,d: number,e: number,f: number,g: number,h: number,i: number): number
 	return (a*(e*i-f*h)-b*(d*i-f*g)+c*(d*h-e*g))
 end
 
@@ -77,23 +77,23 @@ end
 -- two skew lines come nearest to each other, which is more forgiving.
 local function RayIntersection(p0: Vector3, v0: Vector3, p1: Vector3, v1: Vector3): Vector3
 	local v2 = v0:Cross(v1)
-	local d1 = p1.x - p0.x
-	local d2 = p1.y - p0.y
-	local d3 = p1.z - p0.z
-	local denom = Det3x3(v0.x,-v1.x,v2.x,v0.y,-v1.y,v2.y,v0.z,-v1.z,v2.z)
+	local d1 = p1.X - p0.X
+	local d2 = p1.Y - p0.Y
+	local d3 = p1.Z - p0.Z
+	local denom = Det3x3(v0.X,-v1.X,v2.X,v0.Y,-v1.Y,v2.Y,v0.Z,-v1.Z,v2.Z)
 
 	if (denom == 0) then
 		return ZERO_VECTOR3 -- No solution (rays are parallel)
 	end
 
-	local t0 = Det3x3(d1,-v1.x,v2.x,d2,-v1.y,v2.y,d3,-v1.z,v2.z) / denom
-	local t1 = Det3x3(v0.x,d1,v2.x,v0.y,d2,v2.y,v0.z,d3,v2.z) / denom
+	local t0 = Det3x3(d1,-v1.X,v2.X,d2,-v1.Y,v2.Y,d3,-v1.Z,v2.Z) / denom
+	local t1 = Det3x3(v0.X,d1,v2.X,v0.Y,d2,v2.Y,v0.Z,d3,v2.Z) / denom
 	local s0 = p0 + t0 * v0
 	local s1 = p1 + t1 * v1
 	local s = s0 + 0.5 * ( s1 - s0 )
 
 	-- 0.25 studs is a threshold for deciding if the rays are
-	-- close enough to be considered intersecting, found through testing 
+	-- close enough to be considered intersecting, found through testing
 	if (s1-s0).Magnitude < 0.25 then
 		return s
 	else
@@ -227,10 +227,10 @@ function Invisicam:CharacterOutlineBehavior(castPoints)
 		local angle = (2 * math.pi * i / CHAR_OUTLINE_CASTS)
 		local offset = cframe * (3 * Vector3.new(math.cos(angle), math.sin(angle), 0))
 
-		offset = Vector3.new(offset.X, math.max(offset.Y, -2.25), offset.Z)	
+		offset = Vector3.new(offset.X, math.max(offset.Y, -2.25), offset.Z)
 
 		local ray = Ray.new(centerPoint + offset, -3 * offset)
-		local hit, hitPoint = game.Workspace:FindPartOnRayWithWhitelist(ray, partsWhitelist, false, false)
+		local hit, hitPoint = game.Workspace:FindPartOnRayWithWhitelist(ray, partsWhitelist, false)
 
 		if hit then
 			-- Use hit point as the cast point, but nudge it slightly inside the character so that bumping up against
@@ -434,7 +434,7 @@ function Invisicam:Update(dt: number, desiredCameraCFrame: CFrame, desiredCamera
 		-- TODO: Replace this with something more sensible
 		local ancestryChangedConn
 		ancestryChangedConn = self.humanoidRootPart.AncestryChanged:Connect(function(child, parent)
-			if child == self.humanoidRootPart and not parent then 
+			if child == self.humanoidRootPart and not parent then
 				self.humanoidRootPart = nil
 				if ancestryChangedConn and ancestryChangedConn.Connected then
 					ancestryChangedConn:Disconnect()

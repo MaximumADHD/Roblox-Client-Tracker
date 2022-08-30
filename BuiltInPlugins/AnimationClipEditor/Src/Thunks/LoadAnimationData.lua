@@ -24,7 +24,6 @@ local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContext
 local SetInReviewState = require(Plugin.Src.Actions.SetInReviewState)
 local SetLastSelectedPath = require(Plugin.Src.Actions.SetLastSelectedPath)
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
 local GetFFlagFixTrackListSelection = require(Plugin.LuaFlags.GetFFlagFixTrackListSelection)
 
@@ -44,9 +43,7 @@ return function(animationData, analytics)
 		store:dispatch(SortAndSetTracks({}))
 
 		-- Switch back to DopeSheet mode
-		if GetFFlagCurveEditor() then
-			store:dispatch(SwitchEditorMode(Constants.EDITOR_MODE.DopeSheet, analytics))
-		end
+		store:dispatch(SwitchEditorMode(Constants.EDITOR_MODE.DopeSheet, analytics))
 
 		-- AddTrack needs to know if the animationData is a channel Animation.
 		-- So we either pass that information as a flag to AddTrack, or we
@@ -57,13 +54,9 @@ return function(animationData, analytics)
 
 		for instanceName, instance in pairs(animationData.Instances) do
 			for trackName, track in pairs(instance.Tracks) do
-				if GetFFlagCurveEditor() then
-					local rotationType = TrackUtils.getRotationType(track)
-					local eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
-					store:dispatch(AddTrack(instanceName, trackName, track.Type, rotationType, eulerAnglesOrder, analytics))
-				else
-					store:dispatch(AddTrack(instanceName, trackName, track.Type, analytics))
-				end
+				local rotationType = TrackUtils.getRotationType(track)
+				local eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
+				store:dispatch(AddTrack(instanceName, trackName, track.Type, rotationType, eulerAnglesOrder, analytics))
 			end
 		end
 
@@ -71,11 +64,11 @@ return function(animationData, analytics)
 		store:dispatch(SetIsDirty(true))
 		store:dispatch(UpdateEditingLength(animationData.Metadata.EndTick))
 		store:dispatch(SetShowEvents(not isEmpty(animationData.Events.Keyframes)))
-		
+
 		--in case the user was in review state of face capture and switched animation (like by create new animation) then
 		--we exit out of review state
 		if GetFFlagFacialAnimationRecordingInStudio() then
 			store:dispatch(SetInReviewState(false))
-		end		
+		end
 	end
 end

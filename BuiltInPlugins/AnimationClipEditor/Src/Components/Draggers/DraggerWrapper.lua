@@ -22,9 +22,6 @@ local DraggerSchema = require(Plugin.Src.Util.DraggerSchema.DraggerSchema)
 local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackInstances)
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 
-local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
 local DraggerWrapper = Roact.PureComponent:extend("DraggerWrapper")
 
 function DraggerWrapper:init()
@@ -67,7 +64,7 @@ local function mapDraggerContextToProps(draggerContext, props)
 				local rotationType
 				local eulerAnglesOrder = props.DefaultEulerAnglesOrder
 				rotationType = TrackUtils.getRotationTypeFromName(trackName, props.Tracks) or props.DefaultRotationType
-				if GetFFlagCurveEditor() and rotationType == Constants.TRACK_TYPES.EulerAngles then
+				if rotationType == Constants.TRACK_TYPES.EulerAngles then
 					local track = AnimationData.getTrack(props.AnimationData, "Root", path)
 					eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track) or eulerAnglesOrder
 				end

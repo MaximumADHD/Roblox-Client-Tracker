@@ -17,6 +17,7 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local FFlagEnableRichTextForBubbleChat = require(RobloxGui.Modules.Flags.FFlagEnableRichTextForBubbleChat)
 local FFlagFixMockSizingLabelMemoryLeak = game:DefineFastFlag("FixMockSizingLabelMemoryLeak", false)
+local FFlagFixMockSizingLabelMemoryLeak2 = game:DefineFastFlag("FixMockSizingLabelMemoryLeak2", false)
 
 local ChatBubble = Roact.PureComponent:extend("ChatBubble")
 
@@ -95,7 +96,13 @@ function ChatBubble:getBoundsFromSizingLabel(Text, TextSize, Font, Size)
 		mockSizingLabel.Size = UDim2.fromOffset(Size.X, Size.Y)
 
 		local textBounds = mockSizingLabel.TextBounds
-		mockSizingLabel:Destroy()
+
+		if FFlagFixMockSizingLabelMemoryLeak2 then
+			mockSizingLabel.Parent:Destroy()
+		else
+			mockSizingLabel:Destroy()
+		end
+
 		return textBounds
 	else
 		self.mockSizingLabel.Text = Text

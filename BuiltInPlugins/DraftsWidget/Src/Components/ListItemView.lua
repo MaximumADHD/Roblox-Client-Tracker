@@ -22,7 +22,6 @@
 	RenderItem(id, buttonTheme, hovered)
 		Callback to create an element for a single item. Not directly used by ListItemView. See AbstractItemView
 
-	TODO (awarwick) 7/28/2019 This should live in MyFeaturesListItem
 	ButtonStyle
 		UILibrary style the item buttons should be rendered in.
 
@@ -90,7 +89,7 @@ function ListItemView:render()
 		RenderItem = renderItem,
 		RenderContents = function(buttonInfo)
 			local children = {}
-			for id,info in pairs(buttonInfo) do
+			for id, info in pairs(buttonInfo) do
 				children[id] = Roact.createElement("Frame", {
 					LayoutOrder = info.Index,
 					BackgroundTransparency = 1,

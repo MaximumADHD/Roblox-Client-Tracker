@@ -29,7 +29,6 @@ local FFlagDevFrameworkList = SharedFlags.getFFlagDevFrameworkList()
 
 local UI = Framework.UI
 local Button = UI.Button
-local Pane = UI.Pane
 local TreeView = UI.TreeView
 
 local ContextServices = Framework.ContextServices
@@ -38,7 +37,6 @@ local withContext = ContextServices.withContext
 local HierarchyLines = require(Plugin.Src.Components.IK.HierarchyLines)
 local LayoutOrderIterator = require(Plugin.Src.Util.LayoutOrderIterator)
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local IKTreeRow = if FFlagDevFrameworkList then require(Plugin.Src.Components.IK.IKTreeRow) else nil
@@ -76,11 +74,7 @@ function IKTreeView:init()
 
 	self.onInputBegan = function(input, element)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			if GetFFlagCurveEditor() then
-				self.props.SetSelectedTracks({{element}})
-			else
-				self.props.SetSelectedTracks({element})
-			end
+			self.props.SetSelectedTracks({{element}})
 		end
 	end
 
@@ -163,7 +157,7 @@ function IKTreeView:init()
 				Position = position,
 				RootInstance = props.RootInstance,
 				IKMode = props.IKMode,
-				IsSelected = if GetFFlagCurveEditor() then (selectedTrack and selectedTrack[1] == item) else selectedTrack == item,
+				IsSelected = selectedTrack and selectedTrack[1] == item,
 				Size = size,
 				TogglePinnedPart = props.TogglePinnedPart,
 			}
@@ -294,9 +288,7 @@ function IKTreeView:render()
 					return nil
 				end
 
-				local isSelected = if GetFFlagCurveEditor()
-					then (selectedTrack and selectedTrack[1] == elementProps.item)
-					else selectedTrack == elementProps.item
+				local isSelected = (selectedTrack and selectedTrack[1] == elementProps.item)
 
 				return Roact.createElement("ImageButton", {
 					Size = UDim2.new(1, -8, 0, Constants.TRACK_HEIGHT),

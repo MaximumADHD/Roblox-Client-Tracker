@@ -31,12 +31,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 
-local Input = require(Plugin.Src.Util.Input)
-
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
 local GetFFlagFaceControlsEditorUXImprovements = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUXImprovements)
-
 local GetFFlagFaceAnimationEditorFocusFaceWithF = require(Plugin.LuaFlags.GetFFlagFaceAnimationEditorFocusFaceWithF)
 
 local FaceControlsEditorWindow = Roact.PureComponent:extend("FaceControlsEditorWindow")
@@ -169,26 +164,15 @@ function FaceControlsEditorWindow:init()
 
 		local currentIndex = 0
 		for index, node in ipairs(treeArray) do
-			if GetFFlagCurveEditor() then
-				if selectedTrack and selectedTrack[1] == node then
-					currentIndex = index
-					break
-				end
-			else
-				if selectedTrack == node then
-					currentIndex = index
-					break
-				end
+			if selectedTrack and selectedTrack[1] == node then
+				currentIndex = index
+				break
 			end
 		end
 
 		local newIndex = math.clamp(currentIndex + increment, 1, #treeArray)
-		if GetFFlagCurveEditor() then
-			local path = {treeArray[newIndex]}
-			SetSelectedTracks({path})
-		else
-			SetSelectedTracks({treeArray[newIndex]})
-		end
+		local path = {treeArray[newIndex]}
+		SetSelectedTracks({path})
 	end
 end
 
@@ -450,33 +434,18 @@ function makeFacsOnFaceDiagramSliderUIItems (self, style, localization)
 							props.AddWaypoint()
 
 							if GetFFlagFaceControlsEditorSelectTracks() then
-								if GetFFlagCurveEditor() then
-									local list = {{facs.Name}}
-									if symmetryPartner then
-										table.insert(list, {symmetryPartner})
-									end
-									if sliderGroup then
-										local groupPartnerName = sliderGroup[2]
-										table.insert(list, {groupPartnerName})
-										if symmetryPartner then
-											table.insert(list, {Constants.FacsCrossMappings[groupPartnerName].symmetryPartner})
-										end
-									end
-									self.props.SetSelectedTracks(list)
-								else
-									local list = {facs.Name}
-									if symmetryPartner then
-										table.insert(list, symmetryPartner)
-									end
-									if sliderGroup then
-										local groupPartnerName = sliderGroup[2]
-										table.insert(list, groupPartnerName)
-										if symmetryPartner then
-											table.insert(list, Constants.FacsCrossMappings[groupPartnerName].symmetryPartner)
-										end
-									end
-									self.props.SetSelectedTracks(list)
+								local list = {{facs.Name}}
+								if symmetryPartner then
+									table.insert(list, {symmetryPartner})
 								end
+								if sliderGroup then
+									local groupPartnerName = sliderGroup[2]
+									table.insert(list, {groupPartnerName})
+									if symmetryPartner then
+										table.insert(list, {Constants.FacsCrossMappings[groupPartnerName].symmetryPartner})
+									end
+								end
+								self.props.SetSelectedTracks(list)
 							end
 						end,
 						OnValueChanged = function(value)
@@ -537,11 +506,7 @@ function makeEyesControlDragBox (self, style, localization)
 			local props = self.props
 			props.AddWaypoint()
 			if GetFFlagFaceControlsEditorSelectTracks() then
-				if GetFFlagCurveEditor() then
-					self.props.SetSelectedTracks({{Constants.FacsNames.EyesLookLeft}, {Constants.FacsNames.EyesLookRight}, {Constants.FacsNames.EyesLookUp}, {Constants.FacsNames.EyesLookDown}})
-				else
-					self.props.SetSelectedTracks({Constants.FacsNames.EyesLookLeft, Constants.FacsNames.EyesLookRight, Constants.FacsNames.EyesLookUp, Constants.FacsNames.EyesLookDown})
-				end
+				self.props.SetSelectedTracks({{Constants.FacsNames.EyesLookLeft}, {Constants.FacsNames.EyesLookRight}, {Constants.FacsNames.EyesLookUp}, {Constants.FacsNames.EyesLookDown}})
 			end
 		end,
 		OnValueChanged = function(value)

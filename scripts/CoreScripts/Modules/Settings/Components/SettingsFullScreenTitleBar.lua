@@ -9,6 +9,7 @@ local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
 local Promise = InGameMenuDependencies.Promise
+local Dash = require(CorePackages.Packages.Dash)
 local t = InGameMenuDependencies.t
 
 local InGameMenu = RobloxGui.Modules.InGameMenu
@@ -144,7 +145,7 @@ function SettingsFullScreenTitleBar:willUnmount()
 end
 
 return {
-	mount = function(props, parent, key)
+	mount = function(props: Dash.Table?, parent: Instance?, key: string?)
 		return Roact.mount(Roact.createElement(SettingsFullScreenTitleBar, props or {}), parent, key)
 	end,
 	update = function(tree, props)

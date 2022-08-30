@@ -18,8 +18,6 @@ local deepCopy = require(Plugin.Src.Util.deepCopy)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Cryo = require(Plugin.Packages.Cryo)
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
 export type AnimationData = any
 
 local AnimationData = {}
@@ -180,9 +178,7 @@ function AnimationData.addTrack(tracks, trackName, trackType, isChannelAnimation
 	else
 		tracks[trackName].Keyframes = {}
 		tracks[trackName].Data = {}
-		if GetFFlagCurveEditor() then
-			tracks[trackName].EulerAnglesOrder = eulerAnglesOrder
-		end
+		tracks[trackName].EulerAnglesOrder = eulerAnglesOrder
 	end
 	return tracks[trackName]
 end
@@ -433,21 +429,13 @@ function AnimationData.promoteToChannels(data, rotationType, eulerAnglesOrder): 
 		return 0, 0
 	end
 
-	if GetFFlagCurveEditor() then
-		-- When promoting a KFS animation, we always promote to Quaternions,
-		-- and only when that's done we promote to Euler Angles if necessary
-		for _, instance in pairs(data.Instances) do
-			for _, track in pairs(instance.Tracks) do
-				TrackUtils.splitTrackComponents(track, Constants.TRACK_TYPES.Quaternion)
-				if track.Type == Constants.TRACK_TYPES.CFrame and rotationType == Constants.TRACK_TYPES.EulerAngles then
-					TrackUtils.convertTrackToEulerAngles(track.Components[Constants.PROPERTY_KEYS.Rotation], eulerAnglesOrder)
-				end
-			end
-		end
-	else
-		for _, instance in pairs(data.Instances) do
-			for _, track in pairs(instance.Tracks) do
-				TrackUtils.splitTrackComponents(track, rotationType, eulerAnglesOrder)
+	-- When promoting a KFS animation, we always promote to Quaternions,
+	-- and only when that's done we promote to Euler Angles if necessary
+	for _, instance in pairs(data.Instances) do
+		for _, track in pairs(instance.Tracks) do
+			TrackUtils.splitTrackComponents(track, Constants.TRACK_TYPES.Quaternion)
+			if track.Type == Constants.TRACK_TYPES.CFrame and rotationType == Constants.TRACK_TYPES.EulerAngles then
+				TrackUtils.convertTrackToEulerAngles(track.Components[Constants.PROPERTY_KEYS.Rotation], eulerAnglesOrder)
 			end
 		end
 	end
@@ -462,7 +450,7 @@ function AnimationData.promoteToChannels(data, rotationType, eulerAnglesOrder): 
 			numKeyframes += TrackUtils.countKeyframes(track)
 		end
 	end
-	
+
 	return numTracks, numKeyframes
 end
 
@@ -471,44 +459,22 @@ function AnimationData.isChannelAnimation(data)
 end
 
 function AnimationData.getTrack(data: AnimationData, instanceName: string, path: PathUtils.Path): (any?)
-	if not GetFFlagCurveEditor() then
-		if not data or not data.Instances[instanceName] then
-			return nil
-		end
+	if not data or not data.Instances[instanceName] or not path or isEmpty(path) then
+		return nil
+	end
 
-		local tracks = data.Instances[instanceName].Tracks
-		local track
-		for i, pathPart in ipairs(path) do
-			if i == 1 then
-				track = tracks[pathPart]
-			else
-				track = track.Components[pathPart]
-			end
-
-			if not track then
+	local tracks = data.Instances[instanceName].Tracks
+	local track = tracks[path[1]]
+	for i, pathPart in ipairs(path) do
+		if i > 1 then
+			if not track or track.Components == nil then
 				return nil
 			end
+			track = track.Components[pathPart]
 		end
-
-		return track
-	else
-		if not data or not data.Instances[instanceName] or not path or isEmpty(path) then
-			return nil
-		end
-
-		local tracks = data.Instances[instanceName].Tracks
-		local track = tracks[path[1]]
-		for i, pathPart in ipairs(path) do
-			if i > 1 then
-				if not track or track.Components == nil then
-					return nil
-				end
-				track = track.Components[pathPart]
-			end
-		end
-
-		return track
 	end
+
+	return track
 end
 
 function AnimationData.hasFacsData(data)

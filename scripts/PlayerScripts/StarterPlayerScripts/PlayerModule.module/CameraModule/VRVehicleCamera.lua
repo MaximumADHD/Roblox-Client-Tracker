@@ -17,8 +17,8 @@ local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
 local CameraUtils = require(script.Parent:WaitForChild("CameraUtils"))
 local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
 local VehicleCamera = require(script.Parent:WaitForChild("VehicleCamera"))
-local VehicleCameraCore =  require(script.Parent.VehicleCamera:FindFirstChild("VehicleCameraCore"))
-local VehicleCameraConfig = require(script.Parent.VehicleCamera:FindFirstChild("VehicleCameraConfig"))
+local VehicleCameraCore =  require(script.Parent.VehicleCamera:FindFirstChild("VehicleCameraCore")) :: any
+local VehicleCameraConfig = require(script.Parent.VehicleCamera:FindFirstChild("VehicleCameraConfig")) :: any
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local VRService = game:GetService("VRService")
@@ -47,12 +47,12 @@ VRVehicleCamera.__index = VRVehicleCamera
 function VRVehicleCamera.new()
 	local self = setmetatable(VRBaseCamera.new(), VRVehicleCamera)
 	self:Reset()
-	
+
 	-- track physics solver time delta separately from the render loop to correctly synchronize time delta
 	RunService.Stepped:Connect(function(_, _worldDt)
 		worldDt = _worldDt
 	end)
-	
+
 	return self
 end
 
@@ -158,7 +158,7 @@ function VRVehicleCamera:Update()
 		if not self.lastCameraFocus then
 			self.lastCameraFocus = focus
 			self.needsReset = true
-		end 
+		end
 
 		local curCameraDir = focus.Position - camera.CFrame.Position
 		local curCameraDist = curCameraDir.magnitude
@@ -184,7 +184,7 @@ function VRVehicleCamera:Update()
 		end
 
 		self:UpdateEdgeBlur(localPlayer, dt)
-	else 
+	else
 		-- first person in vehicle : lock orientation for stable camera
 		local dir = Vector3.new(processedRotation.LookVector.X, 0, processedRotation.LookVector.Z).Unit
 		local planarRotation = CFrame.new(processedRotation.Position, dir)

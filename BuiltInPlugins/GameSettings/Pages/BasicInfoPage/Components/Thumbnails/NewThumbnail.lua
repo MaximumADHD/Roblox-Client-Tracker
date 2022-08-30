@@ -5,12 +5,17 @@
 		int LayoutOrder = The order in which this widget will appear in the set.
 		function OnClick = A callback for when this button is clicked.
 ]]
+local FFlagGameSettingsEnableThumbnailAltText = game:GetFastFlag("GameSettingsEnableThumbnailAltText")
 
 local BORDER = "rbxasset://textures/GameSettings/DottedBorder.png"
 local PLUS = "rbxasset://textures/GameSettings/CenterPlus.png"
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+
+local UI = Framework.UI
+local Pane = UI.Pane
 
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
@@ -42,9 +47,10 @@ function NewThumbnail:render()
 	local props = self.props
 	local theme = props.Stylizer
 
-	return Roact.createElement("ImageButton", {
+	local thumbnailButton = Roact.createElement("ImageButton", {
 		BorderSizePixel = 0,
 		BackgroundColor3 = theme.newThumbnail.background,
+		Size = if FFlagGameSettingsEnableThumbnailAltText then UDim2.new(1, 0, 0.5, 0) else UDim2.new(1, 0, 1, 0),
 		ImageColor3 = theme.newThumbnail.border,
 		LayoutOrder = self.props.LayoutOrder or 1,
 		Image = BORDER,
@@ -60,9 +66,20 @@ function NewThumbnail:render()
 			ImageTransparency = 0.4,
 			Size = UDim2.new(1, 0, 1, 0),
 			Image = PLUS,
+			ScaleType = Enum.ScaleType.Stretch,
 			ZIndex = 2,
 		})
 	})
+
+	if FFlagGameSettingsEnableThumbnailAltText then
+		return Roact.createElement(Pane, {
+			LayoutOrder = self.props.LayoutOrder or 1,
+		}, {
+			thumbnailButton
+		})
+	else
+		return thumbnailButton
+	end
 end
 
 NewThumbnail = withContext({

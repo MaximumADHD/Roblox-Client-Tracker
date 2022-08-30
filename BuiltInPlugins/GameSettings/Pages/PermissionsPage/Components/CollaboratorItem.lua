@@ -1,4 +1,5 @@
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
+local FFlagCOLLAB2168FixPermissionsDropdownContrastIssue = game:DefineFastFlag("COLLAB2168FixPermissionsDropdownContrastIssue", false)
 
 local ITEM_HEIGHT = 60
 local PADDING_Y = 20
@@ -18,6 +19,7 @@ local withContext = ContextServices.withContext
 
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryLoadingIndicator = SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
+local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
 
 local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
@@ -43,36 +45,44 @@ function DeleteButton:render()
 
 	local theme = props.Stylizer
 
-	return Roact.createElement(UILibraryButton, {
-		Size = UDim2.new(0, CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
-		Position = UDim2.new(1, 0, 0, 0),
-		AnchorPoint = Vector2.new(1, 0),
+	if FFlagRemoveUILibraryButton then
+		return Roact.createElement(Button, {
+			Style = "Close",
+			StyleModifier = if enabled then nil else StyleModifier.Disabled,
+			OnClick = onClicked,
+		})
+	else
+		return Roact.createElement(UILibraryButton, {
+			Size = UDim2.new(0, CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
+			Position = UDim2.new(1, 0, 0, 0),
+			AnchorPoint = Vector2.new(1, 0),
 
-		BorderSizePixel = 0,
-		Style = "LargeHitboxButton",
+			BorderSizePixel = 0,
+			Style = "LargeHitboxButton",
 
-		RenderContents = function(buttonTheme, hovered)
-			return {
-				Icon = Roact.createElement("ImageLabel", {
-					Size = UDim2.new(0, 16, 0, 16),
-					Position = UDim2.new(0.5, 0, 0.5, 0),
-					AnchorPoint = Vector2.new(0.5, 0.5),
+			RenderContents = function(buttonTheme, hovered)
+				return {
+					Icon = Roact.createElement("ImageLabel", {
+						Size = UDim2.new(0, 16, 0, 16),
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+						AnchorPoint = Vector2.new(0.5, 0.5),
 
-					Image = "rbxasset://textures/StudioSharedUI/close.png",
-					ImageColor3 = theme.collaboratorItem.deleteButton,
-					ImageTransparency = enabled and 0 or 0.4,
+						Image = "rbxasset://textures/StudioSharedUI/close.png",
+						ImageColor3 = theme.collaboratorItem.deleteButton,
+						ImageTransparency = enabled and 0 or 0.4,
 
-					BackgroundTransparency = 1,
-				})
-			}
-		end,
+						BackgroundTransparency = 1,
+					})
+				}
+			end,
 
-		OnClick = function()
-			if enabled and onClicked then
-				onClicked()
-			end
-		end,
-	})
+			OnClick = function()
+				if enabled and onClicked then
+					onClicked()
+				end
+			end,
+		})
+	end
 end
 
 DeleteButton = withContext({
@@ -86,7 +96,7 @@ CollaboratorItem.defaultProps = {
 	Loading = false,
 }
 
-function CollaboratorItem:getCurrentPermissionLabel()
+function CollaboratorItem:DEPRECATED_getCurrentPermissionLabel()
 	local props = self.props
 
 	local currentPermission = props.CurrentPermission
@@ -126,36 +136,71 @@ function CollaboratorItem:createTextLabel(text, style, height, padding, layoutOr
 end
 
 function CollaboratorItem:init()
-	self.onItemActivated = function(permission)
-		if self.props.Writable and permission.Key ~= self.props.CurrentPermission then
-			self.props.OnPermissionChanged(permission.Key)
+	if FFlagCOLLAB2168FixPermissionsDropdownContrastIssue then
+		local permissionMetadata = self.props.AvailablePermissions
+
+		self.onItemActivated = function(_, index)
+			local selectedPermission = permissionMetadata[index]
+			if self.props.Writable and selectedPermission.Key ~= self.props.CurrentPermission then
+				self.props.OnPermissionChanged(selectedPermission.Key)
+			end
 		end
-	end
 
-	self.onRenderItem = function(item, index, activated)
-		local theme = self.props.Stylizer
-		local mainText = item.Display
-		local description = item.Description
+		self.onRenderItem = function(_, index, activated)
+			local selectedPermission = permissionMetadata[index]
+			local theme = self.props.Stylizer
+			local mainText = selectedPermission.Display
+			local description = selectedPermission.Description
+			local isEnabled = selectedPermission.IsEnabled == nil or selectedPermission.IsEnabled
 
-		local isEnabled = item.IsEnabled == nil or item.IsEnabled
+			return Roact.createElement(Button, {
+				Size = UDim2.new(1, 0, 0, theme.selectInput.button.height),
+				LayoutOrder = index,
+				StyleModifier = not isEnabled and StyleModifier.Disabled or nil,
+				OnClick = activated,
+			}, {
+				UILayout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					Padding = UDim.new(0, 0),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					VerticalAlignment = Enum.VerticalAlignment.Top,
+				}),
+				MainTextLabel = self:createTextLabel(mainText, "Normal", theme.fontStyle.Normal.TextSize, theme.selectInput.padding, 0, isEnabled),
+				DescriptionTextLabel = self:createTextLabel(description, "SubText", theme.fontStyle.Subtext.TextSize, theme.selectInput.padding, 1, isEnabled),
+			})
+		end
+	else
+		self.onItemActivated = function(permission)
+			if self.props.Writable and permission.Key ~= self.props.CurrentPermission then
+				self.props.OnPermissionChanged(permission.Key)
+			end
+		end
 
-		return Roact.createElement(Button, {
-			Size = UDim2.new(1, 0, 0, theme.selectInput.button.height),
-			LayoutOrder = index,
-			StyleModifier = not isEnabled and StyleModifier.Disabled or nil,
-			OnClick = activated,
-		}, {
-			UILayout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				Padding = UDim.new(0, 0),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				VerticalAlignment = Enum.VerticalAlignment.Top,
-			}),
+		self.onRenderItem = function(item, index, activated)
+			local theme = self.props.Stylizer
+			local mainText = item.Display
+			local description = item.Description
 
-			MainTextLabel = self:createTextLabel(mainText, "Normal", theme.fontStyle.Normal.TextSize, theme.selectInput.padding, 0, isEnabled),
+			local isEnabled = item.IsEnabled == nil or item.IsEnabled
 
-			DescriptionTextLabel = self:createTextLabel(description, "SubText", theme.fontStyle.Subtext.TextSize, theme.selectInput.padding, 1, isEnabled),
-		})
+			return Roact.createElement(Button, {
+				Size = UDim2.new(1, 0, 0, theme.selectInput.button.height),
+				LayoutOrder = index,
+				StyleModifier = not isEnabled and StyleModifier.Disabled or nil,
+				OnClick = activated,
+			}, {
+				UILayout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					Padding = UDim.new(0, 0),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					VerticalAlignment = Enum.VerticalAlignment.Top,
+				}),
+
+				MainTextLabel = self:createTextLabel(mainText, "Normal", theme.fontStyle.Normal.TextSize, theme.selectInput.padding, 0, isEnabled),
+
+				DescriptionTextLabel = self:createTextLabel(description, "SubText", theme.fontStyle.Subtext.TextSize, theme.selectInput.padding, 1, isEnabled),
+			})
+		end
 	end
 end
 
@@ -177,7 +222,21 @@ function CollaboratorItem:render()
 		return
 	end
 
-	local availablePermissions = props.AvailablePermissions
+	-- remove DEPRECATED variables with FFlagCOLLAB2168FixPermissionsDropdownContrastIssue
+	local DEPRECATED_availablePermissions = props.AvailablePermissions
+
+	local permissionMetadata = props.AvailablePermissions
+	local selectedPermissionIndex = 1
+	local permissionItems = {}
+	
+	if FFlagCOLLAB2168FixPermissionsDropdownContrastIssue then
+		for index, permission in ipairs(permissionMetadata) do
+			table.insert(permissionItems, permission.Display)
+			if permission.Key == currentPermission then
+				selectedPermissionIndex = index
+			end
+		end
+	end
 
 	local theme = props.Stylizer
 
@@ -226,12 +285,19 @@ function CollaboratorItem:render()
 				Size = UDim2.fromScale(1, 1),
 			}),
 
-			PermissionsDropdown = not loading and Roact.createElement(SelectInput, {
-				Enabled = writable and #availablePermissions > 1,
-				Items = availablePermissions,
+			PermissionsDropdown = not loading and Roact.createElement(SelectInput, if FFlagCOLLAB2168FixPermissionsDropdownContrastIssue then {
+				Enabled = writable and #permissionItems > 1,
+				Items = permissionItems,
+				SelectedIndex = selectedPermissionIndex,
 				OnItemActivated = self.onItemActivated,
 				OnRenderItem = self.onRenderItem,
-				PlaceholderText = self:getCurrentPermissionLabel(),
+				Width = theme.selectInput.width,
+			} else {
+				Enabled = writable and #DEPRECATED_availablePermissions > 1,
+				Items = DEPRECATED_availablePermissions,
+				OnItemActivated = self.onItemActivated,
+				OnRenderItem = self.onRenderItem,
+				PlaceholderText = self:DEPRECATED_getCurrentPermissionLabel(),
 				Width = theme.selectInput.width,
 			}) or nil,
 		}),

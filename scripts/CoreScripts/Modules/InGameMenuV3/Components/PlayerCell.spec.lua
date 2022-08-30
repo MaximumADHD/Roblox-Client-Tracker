@@ -122,7 +122,7 @@ return function()
 				LayoutOrder = 1,
 				Visible = true,
 
-				[Roact.Ref] = ref,
+				forwardRef = ref,
 
 				onActivated = function()
 					print("clicked")

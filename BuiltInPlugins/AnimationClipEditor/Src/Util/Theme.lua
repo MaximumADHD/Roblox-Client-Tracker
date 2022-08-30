@@ -14,7 +14,6 @@ local DarkTheme = Style.Themes.DarkTheme
 local getRawComponentStyle = Style.getRawComponentStyle
 local ui = Style.ComponentSymbols
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 local GetFFlagFaceControlsEditorUXImprovements = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUXImprovements)
 
@@ -619,9 +618,7 @@ local curveTheme = {
 	rotationZ = StyleKey.CurveRotationZ,
 	selected = StyleKey.DialogMainButton,
 	xAxis = StyleKey.BrightText,
-	curveEditorButton = if GetFFlagCurveEditor()
-		then StyleKey.CurveEditorButton
-		else "rbxasset://textures/AnimationEditor/button_curve_editor.png",
+	curveEditorButton = StyleKey.CurveEditorButton,
 	dopesheetButton = StyleKey.DopeSheetButton,
 	tangentControlColor = StyleKey.BrightText,
 	tangentAutoButton = "rbxasset://textures/AnimationEditor/TangentHandle_Automatic_9x9.png",

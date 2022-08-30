@@ -12,7 +12,7 @@ local FStringToolboxAssetConfigEnabledAudioSharingLearnMoreLink = game:GetFastSt
 	"ToolboxAssetConfigEnabledAudioSharingLearnMoreLink"
 )
 
-local FFlagUnifyModelPackagePublish = game:GetFastFlag("UnifyModelPackagePublish")
+local FFlagUnifyModelPackagePublish2 = game:GetFastFlag("UnifyModelPackagePublish2")
 local FFlagToolboxAllowDisablingCopyingAtQuota = game:GetFastFlag("ToolboxAllowDisablingCopyingAtQuota")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -24,6 +24,7 @@ local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
 
 local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
+local AssetSubTypes = require(Plugin.Core.Types.AssetSubTypes)
 
 local formatLocalDateTime = Framework.Util.formatLocalDateTime
 local ContextServices = require(Packages.Framework).ContextServices
@@ -179,7 +180,7 @@ function ConfigCopy:init(props)
 end
 
 function ConfigCopy:didMount(prevProps, prevState)
-	if FFlagUnifyModelPackagePublish and self.props.AssetType == Enum.AssetType.Audio then
+	if FFlagUnifyModelPackagePublish2 and self.props.AssetType == Enum.AssetType.Audio then
 		local timeSignal = game:GetService("RunService").Heartbeat
 		self.connection = timeSignal:connect(function(dt)
 			self:setState(function(state)
@@ -229,7 +230,8 @@ function ConfigCopy:didUpdate(prevProps, prevState)
 				return nil
 			end
 		end)
-	elseif props.AssetType == Enum.AssetType.Model and FFlagUnifyModelPackagePublish then
+	elseif props.AssetType == Enum.AssetType.Model and FFlagUnifyModelPackagePublish2 and not props.isPackageAsset and not props.isPackageMarketplacePublishAllowed then
+		-- We only need to show warning if we're trying to publish a new instance as a package to marketplace, but we don't have permission to do so
 		self:setState(function(state)
 			if state.copyWarning ~= packageWarningText and props.PackageOn and not prevProps.PackageOn then
 				return {
@@ -381,7 +383,7 @@ function ConfigCopy:render()
 	local quotaMessageText
 	local quotaLinkText -- TODO Remove with FFlagToolboxEnableAssetConfigPhoneVerification
 
-	if assetType and (CopyEnabled or FFlagUnifyModelPackagePublish) then
+	if assetType and CopyEnabled then
 		local publishingEnabled
 		publishingEnabled, quotaMessageText, quotaLinkText, showVerifiedText = self:getDistributionQuotaStatus(showVerifiedText)
 
@@ -583,7 +585,7 @@ function ConfigCopy:render()
 						Bottom = 5,
 					},
 				}, {
-					QuotaMessage = if showSharesLeftAlone
+					QuotaMessage = if not FFlagToolboxEnableAssetConfigPhoneVerification or showSharesLeftAlone
 						then Roact.createElement("TextLabel", {
 							AutomaticSize = Enum.AutomaticSize.XY,
 							BackgroundTransparency = 1,
@@ -641,9 +643,14 @@ if FFlagToolboxEnableAssetConfigPhoneVerification then
 		local publishingRequirements = state.publishingRequirements or {}
 		local verification = publishingRequirements.verification or {}
 
+		local publishing = publishingRequirements.publishing or {}
+		local allowedSubTypesForPublish = if FFlagUnifyModelPackagePublish2 then publishing.allowedSubTypes or {} else {}
+		local isPackageMarketplacePublishAllowed = AssetSubTypes.contains(allowedSubTypesForPublish, AssetSubTypes.Package)
+		
 		return {
 			isVerified = if verification then verification.isVerified else false,
 			verificationSupportedTypes = if verification then verification.supportedTypes or {} else {},
+			isPackageMarketplacePublishAllowed = isPackageMarketplacePublishAllowed,
 		}
 	end
 end

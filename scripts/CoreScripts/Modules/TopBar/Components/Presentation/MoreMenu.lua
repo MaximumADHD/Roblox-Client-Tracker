@@ -40,7 +40,6 @@ local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local FFlagMobilePlayerList = require(RobloxGui.Modules.Flags.FFlagMobilePlayerList)
 local GetFFlagNewEmotesInGame = require(RobloxGui.Modules.Flags.GetFFlagNewEmotesInGame)
-local GetFFlagEnableCaptureMode = require(RobloxGui.Modules.Flags.GetFFlagEnableCaptureMode)
 
 local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEventConnection)
 
@@ -181,20 +180,6 @@ function MoreMenu:render()
 			onActivated = function()
 				BackpackModule:OpenClose()
 				self.props.setMoreMenuOpen(false)
-			end,
-		})
-		hasOptions = true
-	end
-
-	local shouldShowCapture = GetFFlagEnableCaptureMode() and not PolicyService:IsSubjectToChinaPolicies()
-	if shouldShowCapture then
-		table.insert(menuOptions, {
-			icon = Images["icons/controls/screenshot"],
-			text = RobloxTranslator:FormatByKey("CoreScripts.TopBar.Screenshot"),
-			keyCodeLabel = nil,
-			onActivated = function()
-				self.props.setMoreMenuOpen(false)
-				CaptureMaster:Capture()
 			end,
 		})
 		hasOptions = true

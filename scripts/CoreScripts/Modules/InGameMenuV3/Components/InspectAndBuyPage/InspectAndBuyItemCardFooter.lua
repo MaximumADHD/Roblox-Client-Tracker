@@ -19,6 +19,7 @@ local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local InGameMenu = script.Parent.Parent.Parent
 local withLocalization = require(InGameMenu.Localization.withLocalization)
+local getPurchaseInfo = require(InGameMenu.Selectors.getPurchaseInfo)
 local GetItemDetails = require(InGameMenu.Thunks.GetItemDetails)
 local GetAssetBundles = require(InGameMenu.Thunks.GetAssetBundles)
 
@@ -30,13 +31,11 @@ local InspectAndBuyItemCardFooter = Roact.PureComponent:extend("InspectAndBuyIte
 
 InspectAndBuyItemCardFooter.validateProps = t.strictInterface({
 	price = t.optional(t.number),
-	isPriceLoaded = t.boolean,
 	productId = t.optional(t.number),
 	asset = t.optional(t.table),
 
 	-- from mapStateToProps
-	bundles = t.table,
-	assets = t.table,
+	purchaseInfo = t.optional(t.table),
 
 	-- from mapDispatchToProps
 	fetchItemDetails = t.callback,
@@ -68,38 +67,31 @@ function InspectAndBuyItemCardFooter:didMount()
 end
 
 function InspectAndBuyItemCardFooter:renderWithProviders(stylePalette, localized)
-	local robuxPrice = self.props.price
-	local isPriceLoaded = self.props.isPriceLoaded
-	local asset = self.props.asset
-	local owned = if asset then asset.owned else nil
-
 	local font = stylePalette.Font.SubHeader1.Font
 	local fontSize = stylePalette.Font.BaseSize * stylePalette.Font.SubHeader1.RelativeSize
 	local theme = stylePalette.Theme
 
 	local icon, text
 	local iconSize = Vector2.new(fontSize, fontSize)
-
-	local partOfBundle = asset and asset.bundlesAssetIsIn and #asset.bundlesAssetIsIn == 1
-	local partOfBundleAndOffsale = partOfBundle and not asset.isForSale
-	if partOfBundleAndOffsale then
-		local bundleId = asset.bundlesAssetIsIn[1]
-		local bundleInfo = self.props.bundles[bundleId]
-		if bundleInfo then
-			owned = bundleInfo.owned
-			robuxPrice = bundleInfo.price
-		end
+	local owned, robuxPrice, isLoading
+	local purchaseInfo = self.props.purchaseInfo
+	if purchaseInfo then
+		owned = purchaseInfo.owned
+		robuxPrice = purchaseInfo.robuxPrice
+		isLoading = purchaseInfo.isLoading
 	end
 
 	if owned then
 		icon = OWNED_ICON
 		text = ""
 	elseif robuxPrice == 0 then
+		icon = nil
 		text = "Free"
 	elseif robuxPrice then
 		icon = ROBUX_ICON
 		text = string.format("%.0f", robuxPrice)
-	elseif isPriceLoaded then
+	elseif isLoading then
+		icon = nil
 		text = "Offsale"
 	end
 
@@ -107,7 +99,7 @@ function InspectAndBuyItemCardFooter:renderWithProviders(stylePalette, localized
 	if icon then
 		iconPadding = iconSize.X + ICON_PADDING
 	end
-	local shouldShimmer = not isPriceLoaded or owned == nil
+	local shouldShimmer = isLoading or owned == nil
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.fromScale(1, 1),
@@ -162,8 +154,7 @@ end
 
 local function mapStateToProps(state, props)
 	return {
-		assets = state.inspectAndBuy.Assets,
-		bundles = state.inspectAndBuy.Bundles,
+		purchaseInfo = getPurchaseInfo(state, props.asset)
 	}
 end
 

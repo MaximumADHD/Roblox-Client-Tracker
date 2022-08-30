@@ -11,8 +11,6 @@ local AnimationData = require(Plugin.Src.Util.AnimationData)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local AddKeyframe = require(Plugin.Src.Thunks.AddKeyframe)
 
-local FFlagUseLastKeyframeValue = game:DefineFastFlag("ACEUseLastKeyframeValue", false)
-
 return function(instanceName, path, trackType, tck, analytics)
 	return function(store)
 		local state = store:getState()
@@ -33,32 +31,25 @@ return function(instanceName, path, trackType, tck, analytics)
 			end
 		end
 
-		if not FFlagUseLastKeyframeValue then
-			if not track or not previousIndex or not nextIndex then
-				-- There is no track, or we don't have two neighbors. We cannot split anything.
-				-- We add a default keyframe.
-				local value = KeyframeUtils.getDefaultValue(trackType)
-				local keyframeData = {
-					Value = value,
-					InterpolationMode = Enum.KeyInterpolationMode.Cubic
-				}
-				store:dispatch(AddKeyframe(instanceName, path, trackType, tck, keyframeData, analytics))
-				return
-			end
+		local keyframeData
 
-			-- We have a track, we have two neighbors
+		if not track or not previousIndex then
+			-- There is no track, or we don't have a previous key.
+			-- We add a default keyframe.
+			local value = KeyframeUtils.getDefaultValue(trackType)
+			keyframeData = {
+				Value = value,
+				InterpolationMode = Enum.KeyInterpolationMode.Cubic
+			}
+		else
 			local value = KeyframeUtils.getValue(track, tck)
 			local prevKeyframe = track.Data[track.Keyframes[previousIndex]]
-			local nextKeyframe = track.Data[track.Keyframes[nextIndex]]
 			local interpolationMode = prevKeyframe.InterpolationMode
-			local keyframeData
+
 			local leftSlope, rightSlope
 
 			if interpolationMode == Enum.KeyInterpolationMode.Cubic then
 				leftSlope, rightSlope = KeyframeUtils.getSlopes(track, tck)
-
-				-- TODO (TBD): For Cubic Quaternion tracks, we have to adjust the right slope of
-				-- the previous keyframe, and the left slope of the next keyframe
 			end
 
 			keyframeData = {
@@ -67,39 +58,8 @@ return function(instanceName, path, trackType, tck, analytics)
 				LeftSlope = leftSlope,
 				RightSlope = rightSlope
 			}
-
-			store:dispatch(AddKeyframe(instanceName, path, trackType, tck, keyframeData, analytics))
-		else
-			local keyframeData
-
-			if not track or not previousIndex then
-				-- There is no track, or we don't have a previous key.
-				-- We add a default keyframe.
-				local value = KeyframeUtils.getDefaultValue(trackType)
-				keyframeData = {
-					Value = value,
-					InterpolationMode = Enum.KeyInterpolationMode.Cubic
-				}
-			else
-				local value = KeyframeUtils.getValue(track, tck)
-				local prevKeyframe = track.Data[track.Keyframes[previousIndex]]
-				local interpolationMode = prevKeyframe.InterpolationMode
-
-				local leftSlope, rightSlope
-
-				if interpolationMode == Enum.KeyInterpolationMode.Cubic then
-					leftSlope, rightSlope = KeyframeUtils.getSlopes(track, tck)
-				end
-
-				keyframeData = {
-					Value = value,
-					InterpolationMode = interpolationMode,
-					LeftSlope = leftSlope,
-					RightSlope = rightSlope
-				}
-			end
-
-			store:dispatch(AddKeyframe(instanceName, path, trackType, tck, keyframeData, analytics))
 		end
+
+		store:dispatch(AddKeyframe(instanceName, path, trackType, tck, keyframeData, analytics))
 	end
 end

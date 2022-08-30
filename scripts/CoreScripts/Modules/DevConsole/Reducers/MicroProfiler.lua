@@ -2,7 +2,12 @@ local Immutable = require(script.Parent.Parent.Immutable)
 
 local SetRCCProfilerState = require(script.Parent.Parent.Actions.SetRCCProfilerState)
 
-return function(state, action)
+export type State = {
+	waitingForRecording: boolean,
+	lastFileOutputLocation: string,
+}
+
+return function(state: State?, action: {[string]: any}): State
 	local microProfilerState = state or {
 		waitingForRecording = false,
 		lastFileOutputLocation = "",
@@ -13,7 +18,7 @@ return function(state, action)
 			waitingForRecording = action.waitingForRecording,
 			lastFileOutputLocation = action.lastFileOutputLocation,
 		}
-		return Immutable.JoinDictionaries(microProfilerState, update)
+		return Immutable.JoinDictionaries(microProfilerState, update) :: any
 	end
 
 	return microProfilerState

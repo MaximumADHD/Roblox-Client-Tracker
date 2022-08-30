@@ -42,8 +42,6 @@ local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local UpdateMetadata = require(Plugin.Src.Thunks.UpdateMetadata)
 local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
 local FFlagAnimationFromVideoCreatorServiceInAnimationEditor = game:DefineFastFlag("AnimationFromVideoCreatorServiceInAnimationEditor", false)
 
 local AnimationClipMenu = Roact.PureComponent:extend("AnimationClipMenu")
@@ -186,14 +184,6 @@ function AnimationClipMenu:makeMenuActions(localization)
 		Name = localization:getText("Menu", "CreateNew"),
 		ItemSelected = onCreateNewRequested,
 	})
-
-	if not GetFFlagCurveEditor() then
-		table.insert(actions, {
-			Name = localization:getText("Menu", "PromoteToChannels"),
-			ItemSelected = onPromoteRequested,
-			Enabled = enablePromote,
-		})
-	end
 
 	table.insert(actions, Separator)
 	table.insert(actions, self:makePrioritySubMenu(localization, currentPriority))

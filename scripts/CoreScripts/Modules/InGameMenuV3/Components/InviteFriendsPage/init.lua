@@ -61,7 +61,7 @@ InviteFriendsPage.validateProps = t.strictInterface({
 	pageTitle = t.string,
 	canCaptureFocus = t.optional(t.boolean),
 	PlayersService = t.union(t.Instance, t.table),
-	menuPage = t.string,
+	shouldForgetPreviousSelection = t.optional(t.boolean),
 })
 
 InviteFriendsPage.defaultProps = {
@@ -96,16 +96,35 @@ function InviteFriendsPage:init()
 	end
 
 	self.onSearchModeEntered = function()
-		self:setState({
-			isFilteringMode = true,
-		})
+		if not self.state.isFilteringMode then
+			self:setState({
+				isFilteringMode = true,
+			})
+		end
 	end
 
 	self.onSearchBarDismissed = function()
-		self:setState({
-			isFilteringMode = false,
-			searchText = "",
-		})
+		if self.state.isFilteringMode then
+			self:setState({
+				isFilteringMode = false,
+				searchText = "",
+			})
+		end
+	end
+
+	self.onMenuOpenChanged = function(menuOpen, wasOpen)
+		if not GetFFlagUsePageSearchAnimation() then
+			if not menuOpen and wasOpen then
+				self.onSearchBarDismissed()
+			end
+		end
+
+		if not menuOpen and wasOpen then
+			local scrollingFrame = self.scrollingFrameRef:getValue()
+			if scrollingFrame and scrollingFrame.CanvasPosition.Y > 0 then
+				scrollingFrame.CanvasPosition = Vector2.new(0, 0)
+			end
+		end
 	end
 
 	if GetFFlagShareInviteLinkContextMenuV3Enabled() then
@@ -199,10 +218,11 @@ function InviteFriendsPage:render()
 	local state = self.state
 	local children = {
 		Watcher = Roact.createElement(PageNavigationWatcher, {
-			desiredPage = "InviteFriends",
+			desiredPage = Constants.InviteFriendsPageKey,
 			onNavigateTo = function()
 				self:loadFriends()
 			end,
+			onNavigate = self.onMenuOpenChanged,
 		}),
 	}
 
@@ -219,7 +239,7 @@ function InviteFriendsPage:render()
 	return Roact.createElement(RootedConnection, {
 		render = function(isRooted)
 			return Roact.createElement(FocusHandler, {
-				shouldForgetPreviousSelection = self.props.menuPage ~= "InviteFriends",
+				shouldForgetPreviousSelection = self.props.shouldForgetPreviousSelection,
 				isFocused = self.props.canCaptureFocus and state.loadingFriends and isRooted,
 			}, {
 				Page = if GetFFlagUsePageSearchAnimation() then Roact.createElement(PageWithSearch, {
@@ -311,12 +331,6 @@ function InviteFriendsPage:didMount()
 end
 
 function InviteFriendsPage:didUpdate(prevProps, prevState)
-	if not GetFFlagUsePageSearchAnimation() then
-		if not self.props.isMenuOpen and prevProps.isMenuOpen then
-			self.onSearchBarDismissed()
-		end
-	end
-
 	if prevProps.shareInviteLink == nil and self.props.shareInviteLink ~= nil then
 		local linkId = self.props.shareInviteLink.linkId
 		SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsLinkGeneratedName, {
@@ -356,7 +370,7 @@ end
 
 if GetFFlagShareInviteLinkContextMenuV3Enabled() then
 	return RoactRodux.connect(function(state, props)
-		local canCaptureFocus = state.menuPage == "InviteFriends"
+		local canCaptureFocus = state.menuPage == Constants.InviteFriendsPageKey
 			and state.isMenuOpen
 			and state.displayOptions.inputType == Constants.InputType.Gamepad
 			and not state.respawn.dialogOpen
@@ -364,8 +378,7 @@ if GetFFlagShareInviteLinkContextMenuV3Enabled() then
 
 		return {
 			canCaptureFocus = canCaptureFocus,
-			menuPage = state.menuPage,
-			isMenuOpen = state.isMenuOpen,
+			shouldForgetPreviousSelection = state.menuPage ~= Constants.InviteFriendsPageKey,
 			shareInviteLink = state.shareLinks.Invites.ShareInviteLink,
 			fetchShareInviteLinkNetworkStatus = NetworkingShareLinks.GenerateLink.getStatus(state, RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue()),
 			gameInfo = state.gameInfo,
@@ -374,7 +387,7 @@ if GetFFlagShareInviteLinkContextMenuV3Enabled() then
 	end, mapDispatchToProps)(InviteFriendsPage)
 else
 	return RoactRodux.connect(function(state, props)
-		local canCaptureFocus = state.menuPage == "InviteFriends"
+		local canCaptureFocus = state.menuPage == Constants.InviteFriendsPageKey
 			and state.isMenuOpen
 			and state.displayOptions.inputType == Constants.InputType.Gamepad
 			and not state.respawn.dialogOpen
@@ -382,8 +395,7 @@ else
 
 		return {
 			canCaptureFocus = canCaptureFocus,
-			menuPage = state.menuPage,
-			isMenuOpen = state.isMenuOpen,
+			shouldForgetPreviousSelection = state.menuPage ~= Constants.InviteFriendsPageKey,
 		}
 	end, function(dispatch)
 		return {

@@ -228,4 +228,34 @@ function AssetConfigUtil.getResultThumbnail(assetId, iconFile)
 	return thumbnail
 end
 
+-- don't allow Package publish if it is already a package and/or it's archivable and/or if user is trying to publish a group of assets at once
+function AssetConfigUtil.isPackagePublishAllowed(instances)
+	local allowPublish = true
+
+	if #instances > 1 then
+		allowPublish = false
+	end
+
+	local rootInstance = instances[1]
+
+	if rootInstance.Archivable == false then
+		allowPublish = false
+	end
+
+	if AssetConfigUtil.isPackage(rootInstance) then
+		allowPublish = false
+	end
+
+	return allowPublish
+end
+
+function AssetConfigUtil.isPackage(instance)
+	local packageLink = instance:FindFirstChildOfClass("PackageLink")
+	if packageLink ~= nil then
+		return true
+	else
+		return false
+	end
+end
+
 return AssetConfigUtil

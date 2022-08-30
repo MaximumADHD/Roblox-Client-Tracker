@@ -14,9 +14,6 @@ local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
 return function(instanceName, path, trackType, tck, value, analytics)
 	return function(store)
 		local state = store:getState()
@@ -25,18 +22,10 @@ return function(instanceName, path, trackType, tck, value, analytics)
 
 		if track == nil then
 			local topTrackName = path[1]
-			if GetFFlagCurveEditor() then
-				local newTrackType = if trackType == Constants.TRACK_TYPES.Facs
-					then Constants.TRACK_TYPES.Facs
-					else Constants.TRACK_TYPES.CFrame
-				store:dispatch(AddTrack(instanceName, topTrackName, newTrackType, nil, nil, analytics))
-			else
-				if trackType == Constants.TRACK_TYPES.Facs then
-					store:dispatch(AddTrack(instanceName, topTrackName, trackType, analytics))
-				else
-					store:dispatch(AddTrack(instanceName, topTrackName, Constants.TRACK_TYPES.CFrame, analytics))
-				end
-			end
+			local newTrackType = if trackType == Constants.TRACK_TYPES.Facs
+				then Constants.TRACK_TYPES.Facs
+				else Constants.TRACK_TYPES.CFrame
+			store:dispatch(AddTrack(instanceName, topTrackName, newTrackType, nil, nil, analytics))
 			local keyframeData = {
 				Value = value
 			}

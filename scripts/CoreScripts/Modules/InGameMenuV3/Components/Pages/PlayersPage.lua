@@ -4,11 +4,11 @@ local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
-local Cryo = InGameMenuDependencies.Cryo
 local Roact = InGameMenuDependencies.Roact
+local useSelector = require(CorePackages.AppTempCommon.Hooks.RoactRodux.useSelector)
+
 local UIBlox = InGameMenuDependencies.UIBlox
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local t = InGameMenuDependencies.t
@@ -24,7 +24,6 @@ local InGameMenu = script.Parent.Parent.Parent
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local PlayerSearchPredicate = require(InGameMenu.Utility.PlayerSearchPredicate)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
-local GetFFlagInGameMenuV3SortPlayersByDisplayName = require(InGameMenu.Flags.GetFFlagInGameMenuV3SortPlayersByDisplayName)
 local GetFFlagUsePageSearchAnimation = require(InGameMenu.Flags.GetFFlagUsePageSearchAnimation)
 
 local PlayerCell = require(InGameMenu.Components.PlayerCell)
@@ -41,6 +40,7 @@ local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local Constants = require(InGameMenu.Resources.Constants)
 local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
 local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
+local FriendRequestStatus = require(InGameMenu.Utility.FriendRequestStatus)
 
 local FocusHandler = require(script.Parent.Parent.Connection.FocusHandler)
 local SearchBar = require(script.Parent.Parent.SearchBar)
@@ -61,7 +61,6 @@ local PlayersPage = Roact.PureComponent:extend("PlayersPage")
 
 PlayersPage.validateProps = t.strictInterface({
 	players = t.array(playerInterface),
-	isMenuOpen = t.boolean,
 	voiceEnabled = t.optional(t.boolean),
 	inviteFriends = t.array(t.strictInterface({
 		IsOnline = t.boolean,
@@ -92,6 +91,27 @@ function PlayersPage:init()
 		self.searchBarRef = Roact.createRef()
 		self.coplayInviteCellCanvasGroupRef = Roact.createRef()
 		self.uiAnimator = UIAnimator:new()
+	end
+
+	self.layoutBindings = {}
+	self.getLayoutBinding = function(id, layoutOrder)
+		local layoutBinding = self.layoutBindings[id]
+		if not layoutBinding then
+			local valueBinding, setLayout = Roact.createBinding(layoutOrder)
+			layoutBinding = {
+				valueBinding = valueBinding,
+				setValue = setLayout,
+				value = layoutOrder,
+			}
+			self.layoutBindings[id] = layoutBinding
+		end
+
+		if layoutBinding.value ~= layoutOrder then
+			layoutBinding.value = layoutOrder
+			layoutBinding.setValue(layoutOrder)
+		end
+
+		return layoutBinding.valueBinding
 	end
 
 	self:setState({
@@ -197,6 +217,39 @@ function PlayersPage:init()
 		})
 	end
 
+	self.menuOpenChange = function(menuOpen, wasOpen)
+		if menuOpen and not wasOpen then
+			if self.state.selectedPlayer then
+				self:setState({
+					selectedPlayer = Roact.None,
+				})
+			end
+			local scrollingFrame = self.scrollingFrameRef:getValue()
+			if scrollingFrame and scrollingFrame.CanvasPosition.Y > 0 then
+				scrollingFrame.CanvasPosition = Vector2.new(0, 0)
+			end
+		end
+
+		if not GetFFlagUsePageSearchAnimation() then
+			if not menuOpen and wasOpen then
+				self.onSearchBarDismissed()
+			end
+		end
+
+		if menuOpen and not self.friendStatusConnection then
+			FriendRequestStatus.reset()
+			self.friendStatusConnection = FriendRequestStatus.connect(function()
+				self:setState({
+					FriendRequestStatus = {},
+				})
+			end)
+		elseif not menuOpen and self.friendStatusConnection then
+			self.friendStatusConnection:disconnect()
+			self.friendStatusConnection = nil
+		end
+		FriendRequestStatus.menuOpenStatusChange(menuOpen)
+	end
+
 	if GetFFlagUsePageSearchAnimation() then
 		self.onSearchModeEntered = function()
 			self.uiAnimator:playReversibleTweens(self.coplayInviteCellCanvasGroupRef, {'fade', 'collapse'}, false)
@@ -241,16 +294,8 @@ function PlayersPage:isPlayerUserIdMuted(userId)
 	return isMuted
 end
 
-local function sortPlayers(p1, p2)
-	return p1.DisplayName:lower() < p2.DisplayName:lower()
-end
-
 function PlayersPage:renderListEntries(style, localized, players)
 	local sortedPlayers = players
-	if GetFFlagInGameMenuV3SortPlayersByDisplayName() then
-		sortedPlayers = Cryo.List.sort(players, sortPlayers)
-	end
-
 	local layoutOrder = 0
 	local listComponents = {}
 	local visibleEntryCount = 0
@@ -285,19 +330,17 @@ function PlayersPage:renderListEntries(style, localized, players)
 			InviteCell = Roact.createElement(CoPlayInviteCell, {
 				onActivated = self.props.openInviteFriendsPage,
 				friends = self.props.inviteFriends,
-			})
+			}),
 		})
 	else
 		listComponents["coplay_invite_cell"] = Roact.createElement(CoPlayInviteCell, {
 			LayoutOrder = layoutOrder,
-			onActivated = function()
-				self.props.openInviteFriendsPage()
-			end,
+			onActivated = self.props.openInviteFriendsPage,
 			friends = self.props.inviteFriends,
 		})
 	end
 	layoutOrder = layoutOrder + 1
-
+	local playerRequestFriendship = {}
 	-- incoming friend request section
 	if #self.props.incomingFriendRequests > 0 then
 		visibleHeadersCount = visibleHeadersCount + 1
@@ -328,6 +371,12 @@ function PlayersPage:renderListEntries(style, localized, players)
 		for _, player in pairs(self.props.incomingFriendRequests) do
 			local id = player.UserId
 			local isEntryVisible = PlayerSearchPredicate(self.state.searchText, player.Name, player.DisplayName)
+			playerRequestFriendship[id] = true
+
+			local RoactRef
+			if self.state.selectedPlayer == player then
+				RoactRef = self.setSelectedPlayerRef
+			end
 
 			if isEntryVisible then
 				visibleEntryCount = visibleEntryCount + 1
@@ -337,11 +386,11 @@ function PlayersPage:renderListEntries(style, localized, players)
 					userId = player.UserId,
 					isOnline = true,
 					isSelected = self.state.selectedPlayer == player,
-					LayoutOrder = layoutOrder,
+					LayoutOrder = self.getLayoutBinding("incoming" .. id, layoutOrder),
 					onActivated = self.toggleMoreActionsForIncomingFriendRequests,
 					[Roact.Change.AbsolutePosition] = self.state.selectedPlayer == player and self.positionChanged
 						or nil,
-					[Roact.Ref] = self.setSelectedPlayerRef,
+					forwardRef = RoactRef,
 				}, {
 					VoiceIndicator = self.props.voiceEnabled and Roact.createElement(VoiceIndicator, {
 						userId = tostring(player.UserId),
@@ -400,6 +449,11 @@ function PlayersPage:renderListEntries(style, localized, players)
 
 	for index, player in pairs(sortedPlayers) do
 		local id = player.UserId
+
+		if playerRequestFriendship[id] then
+			continue
+		end
+
 		local RoactRef
 		if index == 1 and not self.state.selectedPlayer then
 			RoactRef = self.setFirstPlayerRef
@@ -412,7 +466,6 @@ function PlayersPage:renderListEntries(style, localized, players)
 
 			local notLocalPlayer = player and player ~= self.props.playersService.LocalPlayer
 			local iconStyle = notLocalPlayer and "SpeakerLight" or "MicLight"
-
 			local friendStatus = notLocalPlayer
 					and player.Parent == Players
 					and self.props.playersService.LocalPlayer:GetFriendStatus(player)
@@ -421,6 +474,30 @@ function PlayersPage:renderListEntries(style, localized, players)
 					and (friendStatus == Enum.FriendStatus.Unknown or friendStatus == Enum.FriendStatus.NotFriend)
 				or nil
 			local pendingFriend = friendStatus and friendStatus == Enum.FriendStatus.FriendRequestSent or nil
+			local requestingStatus, acceptedRequest = FriendRequestStatus.requestingStatus(player)
+			if requestingStatus then
+				if requestingStatus == FriendRequestStatus.Enum.REQUEST_FRIEND then
+					pendingFriend = true
+					notFriend = true
+				elseif requestingStatus > FriendRequestStatus.Enum.REVOKE_ACTION then
+					pendingFriend = false
+					notFriend = true
+				end
+			end
+
+			local memoKey = 0
+			if notFriend then
+				memoKey += 1
+			end
+			if pendingFriend then
+				memoKey += 2
+			end
+			if acceptedRequest then
+				memoKey += 4
+			end
+			if self.props.voiceEnabled then
+				memoKey += 8
+			end
 
 			listComponents["player_" .. id] = Roact.createElement(PlayerCell, {
 				username = player.Name,
@@ -428,12 +505,12 @@ function PlayersPage:renderListEntries(style, localized, players)
 				userId = player.UserId,
 				isOnline = true,
 				isSelected = self.state.selectedPlayer == player,
-				LayoutOrder = layoutOrder,
-
+				LayoutOrder = self.getLayoutBinding(id, layoutOrder),
+				memoKey = memoKey,
 				onActivated = self.toggleMoreActions,
 
 				[Roact.Change.AbsolutePosition] = self.state.selectedPlayer == player and self.positionChanged or nil,
-				[Roact.Ref] = RoactRef,
+				forwardRef = RoactRef,
 			}, {
 				VoiceIndicator = self.props.voiceEnabled and Roact.createElement(VoiceIndicator, {
 					userId = tostring(player.UserId),
@@ -461,27 +538,22 @@ function PlayersPage:renderListEntries(style, localized, players)
 						end
 					end,
 				}) or nil,
+				SuccessIcon = acceptedRequest and Roact.createElement(IconButton, {
+					size = UDim2.fromOffset(0, 0),
+					icon = Images["icons/status/success"],
+					anchorPoint = Vector2.new(1, 0.5),
+					layoutOrder = 3,
+					onActivated = function(_) end,
+				}) or nil,
 				AddFriend = notFriend and not pendingFriend and Roact.createElement(IconButton, {
 					size = UDim2.fromOffset(0, 0),
 					icon = Images["icons/actions/friends/friendAdd"],
 					anchorPoint = Vector2.new(1, 0.5),
 					layoutOrder = 3,
 					onActivated = function(_)
-						local success = pcall(function()
-							self.props.playersService.LocalPlayer:RequestFriendship(player)
-						end)
-
-						if success then
-							AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
-							SendAnalytics(
-								Constants.AnalyticsMenuActionName,
-								Constants.AnalyticsRequestFriendName,
-								{ source = Constants.AnalyticsPlayerCellSource }
-							)
-
-							if IsMenuCsatEnabled() then
-								ExperienceMenuABTestManager.default:setCSATQualification()
-							end
+						FriendRequestStatus.issueFriendRequest(player, Constants.AnalyticsPlayerCellSource)
+						if IsMenuCsatEnabled() then
+							ExperienceMenuABTestManager.default:setCSATQualification()
 						end
 					end,
 				}) or nil,
@@ -491,14 +563,7 @@ function PlayersPage:renderListEntries(style, localized, players)
 					anchorPoint = Vector2.new(1, 0.5),
 					layoutOrder = 3,
 					onActivated = function(_)
-						pcall(function()
-							self.props.playersService.LocalPlayer:RevokeFriendship(player)
-							SendAnalytics(
-								Constants.AnalyticsMenuActionName,
-								Constants.AnalyticsRevokeFriendshipName,
-								{ source = Constants.AnalyticsPlayerCellSource }
-							)
-						end)
+						FriendRequestStatus.cancelFriendRequest(player, Constants.AnalyticsPlayerCellSource)
 					end,
 				}) or nil,
 			})
@@ -520,15 +585,34 @@ function PlayersPage:renderListEntries(style, localized, players)
 	return listComponents, visibleEntryCount, visibleHeadersCount
 end
 
-function PlayersPage:renderFocusHandler(canCaptureFocus)
+function canCaptureFocusSelector(state)
+	return state.displayOptions.inputType == Constants.InputType.Gamepad
+		and not state.respawn.dialogOpen
+		and state.currentZone == 1
+		and state.menuPage == Constants.PlayersPageKey
+		and state.isMenuOpen
+end
+
+function shouldForgetPreviousSelectionSelector(state)
+	return state.menuPage ~= Constants.PlayersPageKey or state.currentZone ~= 1
+end
+
+function FocusHandlerWrapper(props)
+	local canCaptureFocus = useSelector(canCaptureFocusSelector)
+	local isFocused = not props.hasSelectedPlayer and props.hasSelectionRef
+	local shouldForgetPreviousSelection = useSelector(shouldForgetPreviousSelectionSelector)
+
 	return Roact.createElement(FocusHandler, {
-		isFocused = canCaptureFocus
-			and self.props.currentPage == "Players"
-			and self.props.isMenuOpen
-			and not self.state.selectedPlayer
-			and (self.state.selectedPlayerRef or self.state.firstPlayerRef) ~= nil,
-		shouldForgetPreviousSelection = self.props.currentPage == Constants.MainPagePageKey
-			or not self.props.isCurrentZoneActive,
+		isFocused = canCaptureFocus and isFocused,
+		shouldForgetPreviousSelection = shouldForgetPreviousSelection,
+		didFocus = props.didFocus,
+	})
+end
+
+function PlayersPage:renderFocusHandler()
+	return Roact.createElement(FocusHandlerWrapper, {
+		hasSelectedPlayer = self.state.selectedPlayer ~= nil,
+		hasSelectionRef = (self.state.selectedPlayerRef or self.state.firstPlayerRef) ~= nil,
 		didFocus = function(previousSelection)
 			-- Focus first player when landing on the page
 			GuiService.SelectedCoreObject = previousSelection or self.state.firstPlayerRef
@@ -537,10 +621,6 @@ function PlayersPage:renderFocusHandler(canCaptureFocus)
 end
 
 function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, getSelectionCursor)
-	local canCaptureFocus = self.props.isGamepadLastInput
-		and not self.props.isRespawnDialogOpen
-		and self.props.isCurrentZoneActive
-
 	local moreActionsMenuPanel = self.state.selectedPlayer
 			and Roact.createElement(PlayerContextualMenuWrapper, {
 				xOffset = Constants.PageWidth,
@@ -582,19 +662,16 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, get
 
 				MoreActionsMenu = moreActionsMenuPanel,
 			}),
-			FocusHandler = self:renderFocusHandler(canCaptureFocus),
+			FocusHandler = self:renderFocusHandler(),
 			Watcher = Roact.createElement(PageNavigationWatcher, {
-				desiredPage = "Players",
-				onNavigateTo = function()
-					self:setState({
-						players = Players:GetPlayers(),
-					})
-				end,
+				onNavigate = self.menuOpenChange,
+				desiredPage = Constants.PlayersPageKey,
 				onNavigateAway = function()
-					self:setState({
-						selectedPlayer = Roact.None,
-						pendingIncomingPlayerInvite = Roact.None,
-					})
+					if self.state.selectedPlayer then
+						self:setState({
+							selectedPlayer = Roact.None,
+						})
+					end
 				end,
 			}),
 		}
@@ -661,22 +738,6 @@ function PlayersPage:render()
 end
 
 function PlayersPage:didUpdate(prevProps, prevState)
-	if self.props.isMenuOpen and not prevProps.isMenuOpen then
-		self:setState({
-			selectedPlayer = Roact.None,
-		})
-		local scrollingFrame = self.scrollingFrameRef:getValue()
-		if scrollingFrame and scrollingFrame.CanvasPosition.Y > 0 then
-			scrollingFrame.CanvasPosition = Vector2.new(0, 0)
-		end
-	end
-
-	if not GetFFlagUsePageSearchAnimation() then
-		if not self.props.isMenuOpen and prevProps.isMenuOpen then
-			self.onSearchBarDismissed()
-		end
-	end
-
 	local selectedPlayerRef = self.state.selectedPlayerRef
 	if selectedPlayerRef then
 		if self.state.selectedPlayerPosition ~= selectedPlayerRef.AbsolutePosition then
@@ -689,13 +750,8 @@ end
 
 return RoactRodux.connect(function(state, props)
 	return {
-		isMenuOpen = state.isMenuOpen,
-		inviteFriends = state.inviteFriends.inviteFriends,
+		inviteFriends = state.inviteFriends,
 		voiceEnabled = state.voiceState.voiceEnabled,
-		currentPage = state.menuPage,
-		isRespawnDialogOpen = state.respawn.dialogOpen,
-		isGamepadLastInput = state.displayOptions.inputType == Constants.InputType.Gamepad,
-		isCurrentZoneActive = state.currentZone == 1,
 	}
 end, function(dispatch)
 	return {

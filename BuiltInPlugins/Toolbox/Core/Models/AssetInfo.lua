@@ -1,5 +1,7 @@
 --!strict
-local Plugin = script:FindFirstAncestor("Toolbox")
+local FFlagToolboxPackagesInAssetTile = game:GetFastFlag("ToolboxPackagesInAssetTile")
+
+local Plugin = if FFlagToolboxPackagesInAssetTile then nil else script:FindFirstAncestor("Toolbox") -- unused variable, remove with FFlagToolboxPackagesInAssetTile
 local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
 
 export type AudioDetails = {
@@ -16,6 +18,7 @@ export type AssetInfoDetails = {
 	Name: string, -- the asset name
 	TypeId: number, -- the assetType id
 	AssetGenres: any, -- a list of genres the asset belongs to
+	AssetSubTypes: { number }, -- a list of asset subTypes the asset is categorized under | added with FFlagToolboxPackagesInAssetTile
 	IsEndorsed: boolean, -- whether or not the asset is endorsed
 	Description: string, -- the asset description
 	Duration: string?, -- the duration of an audio asset. Only audio assets have this field.
@@ -72,6 +75,7 @@ export type AssetInfoVoting = {
 }
 
 export type AssetInfo = {
+	-- TODO STM-151: Apparently this union is to make fromCreationsDetails work, it doesn't get the full asset details. To remove this we'd need to refactor fromCreationsDetails usage
 	Asset: (AssetInfoDetails | NewAssetInfoDetails)?,
 	Context: AssetInfoContext?,
 	Creator: AssetInfoCreator?,
@@ -95,6 +99,7 @@ function AssetInfo.fromItemDetailsRequest(data): AssetInfo
 			Name = data.asset.name,
 			TypeId = data.asset.typeId,
 			AssetGenres = data.asset.assetGenres,
+			AssetSubTypes = if FFlagToolboxPackagesInAssetTile then data.asset.assetSubTypes else nil,
 			IsEndorsed = data.asset.isEndorsed,
 			Description = data.asset.description,
 			Duration = data.asset.duration,

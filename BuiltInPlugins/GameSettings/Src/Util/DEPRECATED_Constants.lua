@@ -2,6 +2,9 @@
 	Constant values that are used across multiple files within this project.
 ]]
 
+THUMBNAIL_WIDTH = 267
+THUMBNAIL_HEIGHT = 150
+
 local DEPRECATED_Constants = {
 
 MENU_BAR_WIDTH = 192,
@@ -45,7 +48,8 @@ WARNING_IMAGE = "rbxasset://textures/GameSettings/Warning.png",
 
 MAX_THUMBNAILS = 10,
 VIDEO_PLACEHOLDER = "rbxasset://textures/GameSettings/placeholder.png",
-THUMBNAIL_SIZE = UDim2.new(0, 267, 0, 150),
+THUMBNAIL_CONTAINER_SIZE = UDim2.new(0, THUMBNAIL_WIDTH, 0, THUMBNAIL_HEIGHT*2),
+THUMBNAIL_SIZE = UDim2.new(0, THUMBNAIL_WIDTH, 0, THUMBNAIL_HEIGHT),
 
 BAD_REQUEST = 400,
 

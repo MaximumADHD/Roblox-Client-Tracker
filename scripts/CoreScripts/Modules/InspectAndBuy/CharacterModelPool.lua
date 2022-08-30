@@ -8,8 +8,11 @@
 local Players = game:GetService("Players")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local CorePackages = game:GetService("CorePackages")
+local InspectAndBuyFolder = script.Parent
 
 local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
+
+local FFlagInspectAndBuyFixR15Parent = require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyFixR15Parent)
 
 local OFFSCREEN_CHARACTER_CFRAME = CFrame.new(Vector3.new(0, 150, 0))
 
@@ -154,6 +157,9 @@ end
 
 function CharacterModelPool:_doSimpleUpdateR15(newHumanoidDescription)
 	return Promise.new(function(resolve, reject)
+		if FFlagInspectAndBuyFixR15Parent then
+			self.r15current.Parent = self.worldModelRef:getValue()
+		end
 		if self.mockApplyDescription then
 			self.mockApplyDescription(self.r15current, newHumanoidDescription)
 		else

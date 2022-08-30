@@ -71,6 +71,8 @@ local SUCCESS_HEIGHT = 24
 
 local AssetUploadResult = Roact.PureComponent:extend("AssetUploadResult")
 
+local FFlagUnifyModelPackagePublish2 = game:GetFastFlag("UnifyModelPackagePublish2")
+
 function AssetUploadResult:init(props)
 	self.state = {
 		isLoading = true,
@@ -142,6 +144,8 @@ function AssetUploadResult:renderContent(theme, localizedContent)
 	local showSuccess = props.uploadSucceeded
 	local showFail = not showSuccess
 	local showReasons = false
+
+	local isPackageAsset = if FFlagUnifyModelPackagePublish2 then props.isPackageAsset else nil
 
 	local footerHeight = BASE_FOOTER_HEIGHT + FOOTER_PADDING + Constants.FONT_SIZE_MEDIUM
 
@@ -309,11 +313,11 @@ function AssetUploadResult:renderContent(theme, localizedContent)
 				Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
 			}),
 
-			LinkText = Roact.createElement(LinkText, {
+			LinkText = if not isPackageAsset then Roact.createElement(LinkText, {
 				LayoutOrder = 1,
 				OnClick = self.clickBackLink,
 				Text = localizedContent.AssetConfig.UploadResult.Back,
-			}),
+			}) else nil,
 		}),
 	})
 end
@@ -338,7 +342,8 @@ local function mapStateToProps(state, props)
 		assetTypeEnum = state.assetTypeEnum,
 		thumbnailStatus = state.thumbnailStatus,
 		networkTable = state.networkTable or {},
-		iconFile = state.iconFile
+		iconFile = state.iconFile,
+		isPackageAsset = if FFlagUnifyModelPackagePublish2 then state.isPackageAsset else nil,
 	}
 
 	return stateToProps

@@ -6,7 +6,16 @@ local FONT = Constants.Font.MainWindowHeader
 local TEXT_SIZE = Constants.DefaultFontSize.MainWindowHeader
 local TEXT_COLOR = Constants.Color.Text
 
-local function HeaderButton(props)
+type SortFunction = (text: string) -> ()
+
+export type Props = {
+	text: string,
+	size: number,
+	pos: UDim2,
+	sortfunction: SortFunction?,
+}
+
+local function HeaderButton(props: Props)
 	local text = props.text
 	local size = props.size
 	local pos = props.pos

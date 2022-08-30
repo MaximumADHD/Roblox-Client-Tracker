@@ -4,6 +4,7 @@ local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
+local React = require(CorePackages.Packages.React)
 
 local withStyle = UIBlox.Core.Style.withStyle
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
@@ -20,11 +21,22 @@ local Direction = require(InGameMenu.Enums.Direction)
 
 local HeaderBar = UIBlox.App.Bar.HeaderBar
 
+local HeaderBarMemo = React.memo(HeaderBar, function(newProps, oldProps)
+	return newProps.memoKey == oldProps.memoKey and newProps.title == oldProps.title
+end)
+
 local TITLE_HEIGHT = 48
 local SPACER_HEIGHT = 4
 local TOTAL_HEADER_HEIGHT = TITLE_HEIGHT + SPACER_HEIGHT
 
 local function renderWithSelectionCursor(props, getSelectionCursor)
+	local memoKey = 0;
+	if props.isFilteringMode then
+		memoKey += 1
+	end
+	if props.enableBackButton then
+		memoKey += 2
+	end
 	return withStyle(function(style)
 		return Roact.createElement("TextButton", {
 			AutoButtonColor = false,
@@ -38,8 +50,9 @@ local function renderWithSelectionCursor(props, getSelectionCursor)
 			ZIndex = props.zIndex,
 			Selectable = false,
 		}, {
-			PageHeader = Roact.createElement(HeaderBar, {
+			PageHeader = Roact.createElement(HeaderBarMemo, {
 				title = props.pageTitle,
+				memoKey = memoKey,
 				renderLeft = props.isFilteringMode and function()
 					return nil
 				end or props.enableBackButton and HeaderBar.renderLeft.backButton(function()

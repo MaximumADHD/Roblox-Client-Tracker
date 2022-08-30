@@ -93,6 +93,36 @@ function InviteFriendsList:init()
 			})
 		end
 	end
+
+	self.layoutBindings = {}
+	self.getLayoutBinding = function(id, layoutOrder)
+		local layoutBinding = self.layoutBindings[id]
+		if not layoutBinding then
+			local valueBinding, setLayout = Roact.createBinding(layoutOrder)
+			layoutBinding = {
+				valueBinding = valueBinding,
+				setValue = setLayout,
+				value = layoutOrder,
+			}
+			self.layoutBindings[id] =  layoutBinding
+		end
+
+		if layoutBinding.value ~= layoutOrder then
+			layoutBinding.value = layoutOrder
+			layoutBinding.setValue(layoutOrder)
+		end
+
+		return layoutBinding.valueBinding
+	end
+
+	self.menuOpenChanged = function(menuOpen, wasOpen)
+		if menuOpen and not wasOpen then
+			local scrollingFrame = self.props.scrollingFrameRef and self.props.scrollingFrameRef:getValue() or nil
+			if scrollingFrame and scrollingFrame.CanvasPosition.Y > 0 then
+				scrollingFrame.CanvasPosition = Vector2.new(0, 0)
+			end
+		end
+	end
 end
 
 function InviteFriendsList:didUpdate(prevProps, prevState)
@@ -119,14 +149,6 @@ function InviteFriendsList:didUpdate(prevProps, prevState)
 			})
 		end
 	end
-
-	if self.props.isMenuOpen and not prevProps.isMenuOpen then
-		local scrollingFrame = self.props.scrollingFrameRef and self.props.scrollingFrameRef:getValue() or nil
-
-		if scrollingFrame and scrollingFrame.CanvasPosition.Y > 0 then
-			scrollingFrame.CanvasPosition = Vector2.new(0, 0)
-		end
-	end
 end
 
 function InviteFriendsList:renderListEntries()
@@ -149,16 +171,18 @@ function InviteFriendsList:renderListEntries()
 
 		if isEntryVisibleForPlayer then
 			local userInvited = self.props.invitesState[tostring(playerInfo.Id)]
+			local key = 0
+			if userInvited then key = key + 1 end
 
 			visibleEntryIndex = visibleEntryIndex + 1
-			friendList["friend_" .. index] = Roact.createElement(PlayerCell, {
+			friendList["friend_" .. playerInfo.Id] = Roact.createElement(PlayerCell, {
 				username = playerInfo.Username,
 				displayName = playerInfo.DisplayName,
 				userId = playerInfo.Id,
 				isOnline = playerInfo.IsOnline,
-				isSelected = self.state.selectedPlayer and self.state.selectedPlayer.UserId == playerInfo.Id,
-				LayoutOrder = layoutOrder,
-				[Roact.Ref] = self.state.selectedPlayer
+				isSelected = self.state.selectedPlayer and self.state.selectedPlayer.UserId == playerInfo.Id or nil,
+				LayoutOrder = self.getLayoutBinding(playerInfo.Id, layoutOrder),
+				forwardRef = self.state.selectedPlayer
 						and self.state.selectedPlayer.UserId == playerInfo.Id
 						and self.setSelectedPlayerRef
 					or nil,
@@ -169,6 +193,7 @@ function InviteFriendsList:renderListEntries()
 				onActivated = function(_)
 					self.toggleMoreActions(self:getPlayerByIndex(index))
 				end,
+				memoKey = key,
 			}, {
 				InviteFriend = Roact.createElement(IconButton, {
 					size = UDim2.fromOffset(0, 0),
@@ -254,7 +279,8 @@ function InviteFriendsList:render()
 			end,
 		}),
 		Watcher = Roact.createElement(PageNavigationWatcher, {
-			desiredPage = "InviteFriends",
+			desiredPage = Constants.InviteFriendsPageKey,
+			onNavigate = self.menuOpenChanged,
 			onNavigateAway = function()
 				self:setState({
 					selectedPlayer = Roact.None,
@@ -311,9 +337,8 @@ end
 
 return RoactRodux.connect(function(state, props)
 	return {
-		isMenuOpen = state.isMenuOpen,
 		invitesState = state.invites,
-		shouldForgetPreviousSelection = state.menuPage == Constants.MainPagePageKey or state.currentZone == 0,
+		shouldForgetPreviousSelection = state.menuPage ~= Constants.InviteFriendsPageKey or state.currentZone == 0,
 	}
 end, function(dispatch)
 	return {

@@ -23,7 +23,6 @@ local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 
 local EmotesMenuMaster = require(Modules.EmotesMenu.EmotesMenuMaster)
 
-local GetFFlagEnableCaptureMode = require(Modules.Flags.GetFFlagEnableCaptureMode)
 local GetFFlagEnableInGameMenuV3 = require(Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 
 local TopBar = Modules.TopBar
@@ -83,10 +82,6 @@ return function()
 				RobloxTranslator:FormatByKey("CoreScripts.TopBar.Emotes"),
 				RobloxTranslator:FormatByKey("CoreScripts.TopBar.Inventory")
 			}
-
-			if GetFFlagEnableCaptureMode() then
-				table.insert(expectedDefaultChildren, RobloxTranslator:FormatByKey("CoreScripts.TopBar.Screenshot"))
-			end
 
 			for index, childText in ipairs(expectedDefaultChildren) do
 				local childPath = childContainerPath:cat(XPath.new("cell " ..index.. ".Cell"))

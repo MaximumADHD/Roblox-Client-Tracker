@@ -230,9 +230,12 @@ local function Initialize()
 
 	function this:SetDefaultMethodOfAbuse(player)
 		if GetFFlagVoiceAbuseReportsEnabled() and voiceChatEnabled then
+			-- We need to force this here so we set the correct index
+			this:updateMethodOfAbuseDropdown()
 			if inEntryExperiment then
 				local AbuseType = ReportAbuseLogic.GetDefaultMethodOfAbuse(player, VoiceChatServiceManager)
-				PageInstance.MethodOfAbuseMode:SetSelectionIndex(TypeOfAbuseOptions[AbuseType].index)
+				-- We need to use getSortedMethodOfAbuseList because TypeOfAbuseOptions doesn't have the translated title
+				PageInstance.MethodOfAbuseMode:SetSelectionByValue(getSortedMethodOfAbuseList()[TypeOfAbuseOptions[AbuseType].index].title)
 			else
 				PageInstance.MethodOfAbuseMode:SetSelectionIndex(1)
 			end
@@ -465,16 +468,19 @@ local function Initialize()
 
 		if GetFFlagVoiceAbuseReportsEnabled() then
 			VoiceChatServiceManager:asyncInit():andThen(function()
-				voiceChatEnabled = true
-				this:updateVoiceLayout()
-				updateMethodOfAbuseVisibility()
 				IXPServiceWrapper:InitializeAsync(PlayersService.LocalPlayer.UserId, "Social.VoiceAbuseReport.ReportAbuseMenu.V1")
 				local layerData = IXPServiceWrapper:IsEnabled() and IXPServiceWrapper:GetLayerData("Social.VoiceAbuseReport.ReportAbuseMenu.V1")
 				if layerData then
 					inSortingExperiment = layerData.VoiceAbuseReportProximitySort
 					inEntryExperiment = layerData.VoiceAbuseReportSmartEntry
+					voiceChatEnabled = not layerData.VoiceAbuseReportDisabled -- Using a negative here so it can be turned ON by default if IXP ever goes down
+				else
+					-- We default to showing the method of abuse if IXP is down and everything else is working
+					voiceChatEnabled = true
 				end
-				log:debug("In Sorting Experiment {}, In Entry Experiment {}", inSortingExperiment, inEntryExperiment)
+				log:debug("Voice Chat {}. In Sorting Experiment {}, In Entry Experiment {}.", voiceChatEnabled, inSortingExperiment, inEntryExperiment)
+				this:updateVoiceLayout()
+				updateMethodOfAbuseVisibility()
 			end):catch(function()
 				voiceChatEnabled = false
 				log:warning("ReportAbuseMenu: Failed to init VoiceChatServiceManager")

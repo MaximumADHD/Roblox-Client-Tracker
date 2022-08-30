@@ -14,6 +14,7 @@ local SystemBar = UIBlox.App.Navigation.SystemBar
 local Placement = UIBlox.App.Navigation.Enum.Placement
 
 local InGameMenu = script.Parent.Parent
+local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local Constants = require(InGameMenu.Resources.Constants)
@@ -30,10 +31,8 @@ local TWEEN_EASE_RAMP = Enum.EasingDirection.InOut
 local TWEEN_EASE_CURVE = Enum.EasingStyle.Sine
 
 SideNavigation.validateProps = t.strictInterface({
-	open = t.boolean,
 	closeMenu = t.callback,
 	navigateTo = t.callback,
-	currentPage = t.string,
 })
 
 function SideNavigation:init()
@@ -48,6 +47,37 @@ function SideNavigation:init()
 			self.props.navigateTo(navigationBarItem.page)
 		end
 	end
+
+	self.menuUpdate = function(menuOpen, wasOpen, currentPage, lastPage)
+		if menuOpen ~= wasOpen then
+			local containerFrame = self.containerRef:getValue()
+			if containerFrame then
+				containerFrame.Visible = true
+				containerFrame:TweenPosition(
+					UDim2.new(0, menuOpen and 0 or HIDE_POSITION, 0, 0),
+					TWEEN_EASE_RAMP,
+					TWEEN_EASE_CURVE,
+					TWEEN_TIME,
+					true,
+					function(status)
+						if not menuOpen and status == Enum.TweenStatus.Completed then
+							containerFrame.Visible = false
+						end
+					end
+				)
+			end
+		end
+
+		if menuOpen and self.state.currentPage ~= currentPage then
+			self:setState({
+				currentPage = currentPage
+			})
+		end
+	end
+
+	self:setState({
+		currentPage = Constants.PlayersPageKey
+	})
 end
 
 function SideNavigation:didMount()
@@ -58,26 +88,6 @@ function SideNavigation:didMount()
 	end
 end
 
-function SideNavigation:didUpdate(priorProps, _)
-	if self.props.open ~= priorProps.open then
-		local containerFrame = self.containerRef:getValue()
-		if containerFrame then
-			containerFrame.Visible = true
-			containerFrame:TweenPosition(
-				UDim2.new(0, self.props.open and 0 or HIDE_POSITION, 0, 0),
-				TWEEN_EASE_RAMP,
-				TWEEN_EASE_CURVE,
-				TWEEN_TIME,
-				true,
-				function(status)
-					if not self.props.open and status == Enum.TweenStatus.Completed then
-						containerFrame.Visible = false
-					end
-				end
-			)
-		end
-	end
-end
 
 function SideNavigation:render()
 	local navItems = Cryo.List.map(Pages.navigationBarByIndex, function(navigationBarItem)
@@ -97,7 +107,7 @@ function SideNavigation:render()
 		}, {
 			SystemBar = Roact.createElement(SystemBar, {
 				itemList = navItems,
-				selection = Pages.navigationBarSelectedIndexForPage(self.props.currentPage),
+				selection = Pages.navigationBarSelectedIndexForPage(self.state.currentPage),
 				placement = Placement.Left,
 				hidden = false,
 				size = UDim2.new(1, 0, 1, 0),
@@ -106,16 +116,15 @@ function SideNavigation:render()
 				layoutPaddingOffset = UDim.new(0, -8),
 				firstItemPaddingOffset = UDim.new(0, -7),
 			}),
+			Watcher = Roact.createElement(PageNavigationWatcher, {
+				desiredPage = "",
+				onNavigate = self.menuUpdate,
+			}),
 		})
 	end)
 end
 
-return RoactRodux.UNSTABLE_connect2(function(state, props)
-	return {
-		currentPage = state.menuPage,
-		open = state.isMenuOpen,
-	}
-end, function(dispatch)
+return RoactRodux.UNSTABLE_connect2(nil, function(dispatch)
 	return {
 		closeMenu = function()
 			dispatch(CloseMenu)

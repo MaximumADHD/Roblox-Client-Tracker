@@ -4,7 +4,6 @@ local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
@@ -36,6 +35,7 @@ local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManag
 local SetFriendBlockConfirmation = require(InGameMenu.Actions.SetFriendBlockConfirmation)
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local SetInspectedUserInfo = require(InGameMenu.Actions.InspectAndBuy.SetInspectedUserInfo)
+local FriendRequestStatus = require(InGameMenu.Utility.FriendRequestStatus)
 
 local InviteStatus = Constants.InviteStatus
 local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
@@ -54,10 +54,8 @@ PlayerContextualMenuWrapper.validateProps = t.strictInterface({
 	invitesState = t.table,
 	voiceEnabled = t.optional(t.boolean),
 	voiceState = t.optional(t.string),
+	canCaptureFocus = t.optional(t.boolean),
 	screenSize = t.Vector2,
-	isRespawnDialogOpen = t.optional(t.boolean),
-	isGamepadLastInput = t.optional(t.boolean),
-	isCurrentZoneActive = t.optional(t.boolean),
 	dispatchInviteUserToPlaceId = t.callback,
 	blockPlayer = t.callback,
 	unblockPlayer = t.callback,
@@ -90,6 +88,10 @@ function PlayerContextualMenuWrapper:init()
 	self:setState({
 		isBlocked = false,
 	})
+
+	FriendRequestStatus.connect(function()
+		self:setState({FriendRequestStatus = {}})
+	end)
 end
 
 function PlayerContextualMenuWrapper.getDerivedStateFromProps(nextProps, lastState)
@@ -142,7 +144,18 @@ function PlayerContextualMenuWrapper:renderWithLocalized(localized)
 	local isFriendsWithPlayer = false
 	if self.props.selectedPlayer ~= nil then
 		local player = self.props.selectedPlayer
-		isFriendsWithPlayer = self.props.playersService.LocalPlayer:IsFriendsWith(player.UserId)
+		pcall(function()
+			isFriendsWithPlayer = self.props.playersService.LocalPlayer:IsFriendsWith(player.UserId)
+		end)
+		local friendRequesting = FriendRequestStatus.requestingStatus(player)
+		if friendRequesting then
+			if friendRequesting >= FriendRequestStatus.Enum.REVOKE_ACTION then
+				isFriendsWithPlayer = false
+			elseif friendRequesting == FriendRequestStatus.Enum.ACCEPT_FRIEND then
+				isFriendsWithPlayer = true
+			end
+		end
+
 		moreActions = self:getMoreActions(localized, player, isFriendsWithPlayer)
 		local actionMenuHeight = (math.min(7.5, #moreActions) * ACTION_HEIGHT) + CONTEXT_MENU_HEADER_HEIGHT
 		local screenWidth = self.props.screenSize.X
@@ -175,10 +188,6 @@ function PlayerContextualMenuWrapper:renderWithLocalized(localized)
 		end
 	end
 
-	local canCaptureFocus = self.props.isGamepadLastInput
-		and not self.props.isRespawnDialogOpen
-		and self.props.isCurrentZoneActive
-
 	local moreActionsMenuPanel = self.props.selectedPlayer
 			and Roact.createElement(PlayerContextualMenu, {
 				moreActions = moreActions,
@@ -187,7 +196,7 @@ function PlayerContextualMenuWrapper:renderWithLocalized(localized)
 				anchorFromBottom = anchorFromBottom,
 				xOffset = moreMenuPositionXOffset,
 				yOffset = moreMenuPositionYOffset,
-				canCaptureFocus = canCaptureFocus,
+				canCaptureFocus = self.props.canCaptureFocus,
 				player = self.props.selectedPlayer,
 				isFriend = isFriendsWithPlayer,
 				onClose = function()
@@ -314,18 +323,23 @@ function PlayerContextualMenuWrapper:getFriendAction(localized, player)
 
 	-- if we're not friends yet, we can either send a friend request
 	local friendStatus = self.props.playersService.LocalPlayer:GetFriendStatus(player)
+	local requestingStatus = FriendRequestStatus.requestingStatus(player)
+	if requestingStatus == FriendRequestStatus.Enum.REQUEST_FRIEND then
+		friendStatus = Enum.FriendStatus.FriendRequestSent
+	elseif requestingStatus == FriendRequestStatus.Enum.ACCEPT_FRIEND then
+		friendStatus = Enum.FriendStatus.Friend
+	elseif requestingStatus == FriendRequestStatus.Enum.REJECT_FRIEND then
+		friendStatus = Enum.FriendStatus.NotFriend
+	elseif requestingStatus == FriendRequestStatus.Enum.UNFRIEND then
+		friendStatus = Enum.FriendStatus.NotFriend
+	end
+
 	if friendStatus == Enum.FriendStatus.Unknown or friendStatus == Enum.FriendStatus.NotFriend then
 		return {
 			text = localized.addFriend,
 			icon = Images["icons/actions/friends/friendAdd"],
 			onActivated = function()
-				self.props.playersService.LocalPlayer:RequestFriendship(player)
-
-				AnalyticsService:ReportCounter(Constants.AnalyticsCounterRequestFriendship)
-				SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsRequestFriendName, {
-					source = Constants.AnalyticsPlayerContextMenuSource,
-				})
-
+				FriendRequestStatus.issueFriendRequest(player, Constants.AnalyticsPlayerContextMenuSource)
 				if IsMenuCsatEnabled() then
 					ExperienceMenuABTestManager.default:setCSATQualification()
 				end
@@ -337,11 +351,7 @@ function PlayerContextualMenuWrapper:getFriendAction(localized, player)
 			icon = Images["icons/actions/friends/friendpending"],
 			onActivated = function()
 				-- cancel request if there's a pending friend request
-				self.props.playersService.LocalPlayer:RevokeFriendship(player)
-
-				SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsRevokeFriendshipName, {
-					source = Constants.AnalyticsPlayerContextMenuSource,
-				})
+				FriendRequestStatus.cancelFriendRequest(player, Constants.AnalyticsPlayerContextMenuSource)
 			end,
 		}
 	elseif friendStatus == Enum.FriendStatus.FriendRequestReceived then
@@ -362,16 +372,10 @@ function PlayerContextualMenuWrapper:getFriendAction(localized, player)
 										CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT
 									),
 									onActivated = function()
-										self.props.playersService.LocalPlayer:RevokeFriendship(player)
+										FriendRequestStatus.rejectFriendRequest(player)
 										self:setState({
 											selectedPlayer = Roact.None,
 										})
-
-										SendAnalytics(
-											Constants.AnalyticsMenuActionName,
-											Constants.AnalyticsRejectFriendshipRequest,
-											{}
-										)
 									end,
 									layoutOrder = 1,
 								},
@@ -385,17 +389,10 @@ function PlayerContextualMenuWrapper:getFriendAction(localized, player)
 										CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT
 									),
 									onActivated = function()
-										self.props.playersService.LocalPlayer:RequestFriendship(player)
+										FriendRequestStatus.acceptFriendRequest(player)
 										self:setState({
 											selectedPlayer = Roact.None,
 										})
-
-										SendAnalytics(
-											Constants.AnalyticsMenuActionName,
-											Constants.AnalyticsAcceptFriendshipRequest,
-											{}
-										)
-
 										if IsMenuCsatEnabled() then
 											ExperienceMenuABTestManager.default:setCSATQualification()
 										end
@@ -567,28 +564,32 @@ function PlayerContextualMenuWrapper:getUnfriendAction(localized, player, isFrie
 		text = localized.unfriend,
 		icon = Images["icons/actions/friends/friendRemove"],
 		onActivated = function()
-			-- todo: use non - players service API
-			self.props.playersService.LocalPlayer:RevokeFriendship(player)
-
-			SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsUnfriendPlayer, {})
+			FriendRequestStatus.requestUnfriend(player)
+			if self.props.setFriendStatus then
+				self.props.setFriendStatus(player.UserId, nil)
+			end
 		end,
 	}
 end
 
 return RoactRodux.connect(function(state, props)
 	local voiceState = ""
+	local userId = 0
 	if props.selectedPlayer and props.selectedPlayer.UserId then
-		voiceState = state.voiceState[tostring(props.selectedPlayer.UserId)]
+		userId = props.selectedPlayer.UserId
+		voiceState = state.voiceState[tostring(userId)]
 	end
+
+	local canCaptureFocus = state.displayOptions.inputType == Constants.InputType.Gamepad
+		and not state.respawn.dialogOpen
+		and state.currentZone == 1
 
 	return {
 		invitesState = state.invites,
 		voiceEnabled = state.voiceState.voiceEnabled,
 		voiceState = voiceState,
 		screenSize = state.screenSize,
-		isRespawnDialogOpen = state.respawn.dialogOpen,
-		isGamepadLastInput = state.displayOptions.inputType == Constants.InputType.Gamepad,
-		isCurrentZoneActive = state.currentZone == 1,
+		canCaptureFocus = canCaptureFocus,
 	}
 end, function(dispatch)
 	return {

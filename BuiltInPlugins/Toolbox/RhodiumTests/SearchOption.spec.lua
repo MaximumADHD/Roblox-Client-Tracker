@@ -10,10 +10,6 @@ return function()
 	local Element = Rhodium.Element
 	local TestHelpers = require(script.Parent.Util.TestHelpers)
 
-	local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag(
-		"ToolboxUseDevFrameworkLoadingBarAndRadioButton"
-	)
-
 	local MOCK_THUMBNAIL_URL = "rbxasset://textures/StudioToolbox/Tabs/Recent.png"
 	local CREATOR_HEADER_TEXT = "TEST_Studio.Toolbox.General.SearchOptionCreator"
 	local CREATOR_SEARCH_TEXTBOX_PLACEHOLDER_TEXT = "TEST_Studio.Toolbox.General.SearchBarCreatorText"
@@ -136,15 +132,7 @@ return function()
 			TestHelpers.clickInstanceWithXPath(ApplyButtonPath)
 			TestHelpers.clickInstanceWithXPath(ApplyButtonPath)
 
-			local mainViewSearchTag
-			--TODO: Update tests when remove the flag FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton
-			if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
-				mainViewSearchTag =
-					game.CoreGui.ScreenGui.ToolboxComponent.Toolbox.MainView.ScrollingFrame.Header.SearchTags.Tags
-			else
-				mainViewSearchTag =
-					game.CoreGui.ScreenGui.ToolboxComponent.Toolbox.MainView.ScrollingFrame.ScrollingFrame.Header.SearchTags.Tags
-			end
+			local mainViewSearchTag = game.CoreGui.ScreenGui.ToolboxComponent.Toolbox.MainView.ScrollingFrame.Header.SearchTags.Tags
 
 			local searchTag = mainViewSearchTag:GetChildren()[2].Border.NameLabel
 			expect(searchTag.Text).to.equal(TEST_CREATOR_NAME)

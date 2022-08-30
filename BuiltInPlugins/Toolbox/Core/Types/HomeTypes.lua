@@ -1,14 +1,14 @@
 --!strict
-local Plugin = script:FindFirstAncestor("Toolbox")
+local FFlagToolboxPackagesInAssetTile = game:GetFastFlag("ToolboxPackagesInAssetTile")
 
-local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
+local Plugin = if FFlagToolboxPackagesInAssetTile then nil else script:FindFirstAncestor("Toolbox") -- unused variable, remove with FFlagToolboxPackagesInAssetTile
 
 export type SubcategoryThumbnail = {
 	assetId: number,
 	backgroundColor: string,
 }
 
--- Use an unsealed table since the backend may send any number of params for this field (e.g. keyword, assetSubtypes, or future fields) and we don't want to have to update Studio for each additional param
+-- Use an unsealed table since the backend may send any number of params for this field (e.g. keyword, assetSubTypes, or future fields) and we don't want to have to update Studio for each additional param
 export type SubcategoryQueryParams = {}
 
 export type Subcategory = {

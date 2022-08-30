@@ -2,6 +2,7 @@
 local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
+local FFlagToolboxFixVerifyAndAnnouncementBugs = game:GetFastFlag("ToolboxFixVerifyAndAnnouncementBugs")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
@@ -21,6 +22,7 @@ local Constants = require(Util.Constants)
 local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 local Category = require(Plugin.Core.Types.Category)
 
+local getModal = ContextGetter.getModal
 local getNetwork = ContextGetter.getNetwork
 
 type HoverState = {
@@ -122,11 +124,20 @@ function AssetSwimlane:render()
 
 	local onRenderItem = function(index, assetData)
 		local assetId = assetData.Asset.Id
+
+		local isHovered
+		if FFlagToolboxFixVerifyAndAnnouncementBugs then
+			local modal = getModal(self)			
+			isHovered = state.hoveredAssetId == assetId and modal.canHoverAsset()
+		else
+			isHovered = state.hoveredAssetId == assetId
+		end
+
 		return Roact.createElement(Asset, {
 			assetId = assetId,
 			assetData = assetData,
 			canInsertAsset = canInsertAsset,
-			isHovered = state.hoveredAssetId == assetId,
+			isHovered = isHovered,
 			onAssetHovered = onAssetHovered,
 			onAssetHoverEnded = onAssetHoverEnded,
 			onAssetPreviewButtonClicked = onAssetPreviewButtonClicked,

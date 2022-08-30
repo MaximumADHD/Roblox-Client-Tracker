@@ -4,6 +4,8 @@ local Promise = require(CorePackages.Promise)
 local t = require(CorePackages.Packages.t)
 
 local getFFlagLuaGetContactsAccess = require(script.Parent.Flags.getFFlagLuaGetContactsAccess)
+game:DefineFastFlag("UpdateContactParams", false)
+local FFlagUpdateContactParams = game:GetFastFlag("UpdateContactParams")
 
 local Types = require(script.Parent.ContactsProtocolTypes)
 
@@ -49,8 +51,7 @@ local ContactsProtocol: ContactsProtocolModule = {
 		methodName = SUPPORTS_CONTACTS_METHOD_NAME,
 		validateParams = t.table,
 	},
-} :: ContactsProtocolModule
-
+} :: ContactsProtocolModule;
 (ContactsProtocol :: any).__index = ContactsProtocol
 
 function ContactsProtocol.new(): ContactsProtocol
@@ -78,7 +79,19 @@ function ContactsProtocol:getContacts(): Promise<GetContactsResponse?>
 			resolve(params)
 		end)
 	end)
-	MessageBus.publishProtocolMethodRequest(self.GET_CONTACTS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {}, {})
+
+	if FFlagUpdateContactParams then
+		-- TODO FSYS-61: Investigate why {} turns into [] on Android
+		MessageBus.publishProtocolMethodRequest(
+			self.GET_CONTACTS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR,
+			-- need to pass in a dummy variable otherwise Android will not work
+			-- because it converts `{}` into `[]` which fails inside of MessageBus.java
+			{ includeVariable = false },
+			{}
+		)
+	else
+		MessageBus.publishProtocolMethodRequest(self.GET_CONTACTS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {}, {})
+	end
 
 	return promise
 end
@@ -96,13 +109,23 @@ function ContactsProtocol:supportsContacts(): Promise<boolean?>
 	end
 	local promise = Promise.new(function(resolve, _)
 		local desc = self.SUPPORTS_CONTACTS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
-		self.subscriber:subscribeProtocolMethodResponse(desc, function(params: {support: boolean})
+		self.subscriber:subscribeProtocolMethodResponse(desc, function(params: { support: boolean })
 			self.subscriber:unsubscribeToProtocolMethodResponse(desc)
 			resolve(params.support)
 		end)
 	end)
-	MessageBus.publishProtocolMethodRequest(self.SUPPORTS_CONTACTS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {}, {})
-
+	if FFlagUpdateContactParams then
+		-- TODO FSYS-61: Investigate why {} turns into [] on Android
+		MessageBus.publishProtocolMethodRequest(
+			self.SUPPORTS_CONTACTS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR,
+			-- need to pass in a dummy variable otherwise Android will not work
+			-- because it converts `{}` into `[]` which fails inside of MessageBus.java
+			{ includeStatus = false },
+			{}
+		)
+	else
+		MessageBus.publishProtocolMethodRequest(self.SUPPORTS_CONTACTS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {}, {})
+	end
 	return promise
 end
 

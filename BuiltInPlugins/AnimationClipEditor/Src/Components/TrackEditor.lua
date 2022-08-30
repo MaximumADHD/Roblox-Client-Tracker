@@ -31,7 +31,6 @@ local Input = require(Plugin.Src.Util.Input)
 local DopeSheetController = require(Plugin.Src.Components.DopeSheetController)
 local CurveEditorController = require(Plugin.Src.Components.Curves.CurveEditorController)
 local TimelineContainer = require(Plugin.Src.Components.TimelineContainer)
-local ZoomBar_deprecated = require(Plugin.Src.Components.ZoomBar_deprecated)
 local ZoomBar = require(Plugin.Src.Components.ZoomBar)
 local Scrubber = require(Plugin.Src.Components.Timeline.Scrubber)
 local NoticeToast = require(Plugin.Src.Components.Toast.NoticeToast)
@@ -39,14 +38,12 @@ local NoticeToast = require(Plugin.Src.Components.Toast.NoticeToast)
 local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
 local SetHorizontalScrollZoom = require(Plugin.Src.Actions.SetHorizontalScrollZoom)
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
-local SetScrollZoom = require(Plugin.Src.Actions.SetScrollZoom)
 local SetVerticalScrollZoom = require(Plugin.Src.Actions.SetVerticalScrollZoom)
 local SnapToNearestFrame = require(Plugin.Src.Thunks.SnapToNearestFrame)
 local SnapToNearestKeyframe = require(Plugin.Src.Thunks.SnapToNearestKeyframe)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SwitchEditorMode = require(Plugin.Src.Thunks.SwitchEditorMode)
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagCurveEditorFreeZoom = require(Plugin.LuaFlags.GetFFlagCurveEditorFreeZoom)
 
 local TrackEditor = Roact.PureComponent:extend("TrackEditor")
@@ -64,8 +61,8 @@ function TrackEditor:init()
 
 	self.inputChanged = function(rbx, input)
 		local props = self.props
-		local zoom = GetFFlagCurveEditor() and props.HorizontalZoom or props.Zoom
-		local scroll = GetFFlagCurveEditor() and props.HorizontalScroll or props.Scroll
+		local zoom = props.HorizontalZoom
+		local scroll = props.HorizontalScroll
 		local trackWidth = self.state.AbsoluteSize.X
 		local trackLeft = self.state.AbsolutePosition.X
 
@@ -76,17 +73,9 @@ function TrackEditor:init()
 
 			if self.ctrlHeld then
 				if input.Position.Z > 0 then
-					if GetFFlagCurveEditor() then
-						props.SetHorizontalScrollZoom(newScroll, math.clamp(zoom + Constants.ZOOM_INCREMENT, 0, 1))
-					else
-						props.SetScrollZoom(newScroll, math.clamp(zoom + Constants.ZOOM_INCREMENT, 0, 1))
-					end
+					props.SetHorizontalScrollZoom(newScroll, math.clamp(zoom + Constants.ZOOM_INCREMENT, 0, 1))
 				elseif input.Position.Z < 0 then
-					if GetFFlagCurveEditor() then
-						props.SetHorizontalScrollZoom(newScroll, math.clamp(zoom - Constants.ZOOM_INCREMENT, 0, 1))
-					else
-						props.SetScrollZoom(newScroll, math.clamp(zoom - Constants.ZOOM_INCREMENT, 0, 1))
-					end
+					props.SetHorizontalScrollZoom(newScroll, math.clamp(zoom - Constants.ZOOM_INCREMENT, 0, 1))
 				end
 			else
 				props.OnScroll(input.Position.Z)
@@ -95,11 +84,7 @@ function TrackEditor:init()
 			local xDelta = (-input.Delta.X) / trackWidth
 			local newScroll = xDelta * (1 / math.max(0.01, zoom))
 			newScroll = math.clamp(scroll + newScroll, 0, 1)
-			if GetFFlagCurveEditor() then
-				props.SetHorizontalScrollZoom(newScroll, zoom)
-			else
-				props.SetScrollZoom(newScroll, zoom)
-			end
+			props.SetHorizontalScrollZoom(newScroll, zoom)
 		end
 	end
 
@@ -180,8 +165,6 @@ function TrackEditor:render()
 	local snapMode = props.SnapMode
 	local frameRate = props.FrameRate
 	local showAsSeconds = props.ShowAsSeconds
-	local scroll = not GetFFlagCurveEditor() and props.Scroll or nil
-	local zoom = not GetFFlagCurveEditor() and props.Zoom or nil
 	local horizontalScroll = props.HorizontalScroll
 	local horizontalZoom = props.HorizontalZoom
 	local verticalScroll = props.VerticalScroll
@@ -190,7 +173,6 @@ function TrackEditor:render()
 	local zIndex = props.ZIndex
 	local size = props.Size
 	local topTrackIndex = props.TopTrackIndex
-	local tracks = if GetFFlagCurveEditor() then nil else props.Tracks or {}
 	local showEvents = props.ShowEvents
 	local playhead = props.Playhead
 	local isChannelAnimation = props.IsChannelAnimation
@@ -245,27 +227,26 @@ function TrackEditor:render()
 			SnapToNearestFrame = snapToNearestFrame,
 			AnimationData = props.AnimationData,
 			Playhead = playhead,
-			ZIndex = GetFFlagCurveEditor() and 2 or nil,
-			EditorMode = GetFFlagCurveEditor() and props.EditorMode or nil,
-			OnToggleEditorClicked = GetFFlagCurveEditor() and self.toggleEditorClicked or nil,
+			ZIndex = 2,
+			EditorMode = props.EditorMode,
+			OnToggleEditorClicked = self.toggleEditorClicked,
 		}),
 
-		DopeSheetController = (not GetFFlagCurveEditor() or showDopeSheet) and Roact.createElement(DopeSheetController, {
+		DopeSheetController = showDopeSheet and Roact.createElement(DopeSheetController, {
 			ShowEvents = showEvents,
 			StartTick = startTick,
 			EndTick = endTick,
 			TrackPadding = trackPadding,
 			TopTrackIndex = topTrackIndex,
-			Tracks = if GetFFlagCurveEditor() then nil else tracks,
 			Size = UDim2.new(1, 0, 1, -Constants.TIMELINE_HEIGHT - Constants.SCROLL_BAR_SIZE),
 			ShowAsSeconds = showAsSeconds,
 			IsChannelAnimation = isChannelAnimation,
-			ColorsPosition = GetFFlagCurveEditor() and colorsPosition or nil,
-			ZIndex = GetFFlagCurveEditor() and 1 or nil,
+			ColorsPosition = colorsPosition,
+			ZIndex = 1,
 			OnInputChanged = if GetFFlagCurveEditorFreeZoom() then self.inputChanged else nil,
 		}) or nil,
 
-		CurveEditorController = (GetFFlagCurveEditor() and showCurveCanvas) and Roact.createElement(CurveEditorController, {
+		CurveEditorController = showCurveCanvas and Roact.createElement(CurveEditorController, {
 			ShowEvents = showEvents,
 			StartTick = startTick,
 			EndTick = endTick,
@@ -275,22 +256,11 @@ function TrackEditor:render()
 			VerticalZoom = if not GetFFlagCurveEditorFreeZoom() then verticalZoom else nil,
 			ShowAsSeconds = showAsSeconds,
 			Playhead = playhead,
-			ZIndex = GetFFlagCurveEditor() and 1 or nil,
+			ZIndex = 1,
 			OnInputChanged = if GetFFlagCurveEditorFreeZoom() then self.inputChanged else nil,
 		}) or nil,
 
-		ZoomBar = not GetFFlagCurveEditor() and Roact.createElement(ZoomBar_deprecated, {
-			Size = UDim2.new(0, absoluteSize.X - Constants.SCROLL_BAR_PADDING, 0, Constants.SCROLL_BAR_SIZE),
-			ZIndex = 4,
-			LayoutOrder = 2,
-			ContainerSize = absoluteSize,
-			AdjustScrollZoom = props.SetScrollZoom,
-			Scroll = scroll,
-			Zoom = zoom,
-			LeftX = absolutePosition.X,
-		}),
-
-		CannotPasteToast = GetFFlagCurveEditor() and showCannotPasteError and Roact.createElement(NoticeToast, {
+		CannotPasteToast = showCannotPasteError and Roact.createElement(NoticeToast, {
 			Text = localization:getText("Toast", "CannotPasteError"),
 			OnClose = props.CloseCannotPasteToast,
 		}) or nil,
@@ -314,7 +284,7 @@ function TrackEditor:render()
 				Thickness = 1,
 			}),
 
-			HorizontalZoomBar = GetFFlagCurveEditor() and Roact.createElement(ZoomBar, {
+			HorizontalZoomBar = Roact.createElement(ZoomBar, {
 				Size = UDim2.new(0, absoluteSize.X - Constants.SCROLL_BAR_PADDING + 1, 0, Constants.SCROLL_BAR_SIZE),
 				Position = UDim2.new(0, 0, 1, -Constants.SCROLL_BAR_SIZE),
 				Direction = ZoomBar.HORIZONTAL,
@@ -325,9 +295,9 @@ function TrackEditor:render()
 				Scroll = horizontalScroll,
 				Zoom = horizontalZoom,
 				Min = absolutePosition.X + 1,
-			}) or nil,
+			}),
 
-			VerticalZoomBar = GetFFlagCurveEditor() and showCurveCanvas and Roact.createElement(ZoomBar, {
+			VerticalZoomBar = showCurveCanvas and Roact.createElement(ZoomBar, {
 				Size = UDim2.new(0, Constants.SCROLL_BAR_SIZE,
 					0, absoluteSize.Y - Constants.SCROLL_BAR_SIZE - Constants.SCROLL_BAR_PADDING - Constants.TIMELINE_HEIGHT + 1),
 				Position = UDim2.new(1, 0, 0, Constants.TIMELINE_HEIGHT),
@@ -339,7 +309,7 @@ function TrackEditor:render()
 				Scroll = verticalScroll,
 				Zoom = verticalZoom,
 				Min = absolutePosition.Y + Constants.TIMELINE_HEIGHT + 1,
-			}) or nil,
+			}),
 
 			KeyboardListener = Roact.createElement(KeyboardListener, {
 				OnKeyPressed = function(input)
@@ -373,10 +343,6 @@ local function mapDispatchToProps(dispatch)
 		CloseCannotPasteToast = function()
 			dispatch(SetNotification("CannotPasteError", false))
 		end,
-
-		SetScrollZoom = not GetFFlagCurveEditor() and function(scroll, zoom)
-			dispatch(SetScrollZoom(scroll, zoom))
-		end or nil,
 
 		SetHorizontalScrollZoom = function(scroll, zoom)
 			dispatch(SetHorizontalScrollZoom(scroll, zoom))

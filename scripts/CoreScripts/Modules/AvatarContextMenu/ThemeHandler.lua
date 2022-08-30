@@ -1,4 +1,3 @@
---!nonstrict
 local InsertService = game:GetService("InsertService")
 local StarterGui = game:GetService("StarterGui")
 
@@ -49,6 +48,8 @@ local DEFAULT_THEME = {
 	OffScreenPosition = UDim2.new(0.5, 0, 1, 300),
 }
 
+export type Theme = typeof(DEFAULT_THEME)
+
 local ThemeHandler = {}
 ThemeHandler.__index = ThemeHandler
 
@@ -89,12 +90,12 @@ end
 
 -- PUBLIC METHODS
 
-function ThemeHandler:GetTheme()
+function ThemeHandler:GetTheme(): Theme
 	return self.Theme
 end
 
 function ThemeHandler.new()
-	local obj = setmetatable({}, ThemeHandler)
+	local obj: any = setmetatable({}, ThemeHandler)
 
 	obj.Theme = DEFAULT_THEME
 

@@ -7,7 +7,16 @@ local ChangeDevConsoleSize = require(script.Parent.Parent.Actions.ChangeDevConso
 local SetDevConsolePosition = require(script.Parent.Parent.Actions.SetDevConsolePosition)
 local SetActiveTab = require(script.Parent.Parent.Actions.SetActiveTab)
 
-return function(DisplayOptions, action)
+export type DisplayOptions = {
+	formFactor: number,
+	isVisible: boolean,
+	isMinimized: boolean,
+	position: UDim2,
+	size: UDim2,
+	visibleStartTime: number,
+}
+
+return function(DisplayOptions: DisplayOptions?, action: {[string]: any}): DisplayOptions
 	local displayOptions = DisplayOptions or {
 		formFactor = Constants.FormFactor.Large, -- masterrace
 		isVisible = false,
@@ -29,18 +38,18 @@ return function(DisplayOptions, action)
 		return Immutable.JoinDictionaries(displayOptions, update)
 
 	elseif action.type == SetDevConsolePosition.name then
-		return Immutable.Set(displayOptions, "position", action.position)
+		return Immutable.Set(displayOptions, "position", action.position) :: any
 
 	elseif action.type == SetDevConsoleMinimized.name then
-		return Immutable.Set(displayOptions, "isMinimized", action.isMinimized)
+		return Immutable.Set(displayOptions, "isMinimized", action.isMinimized) :: any
 
 	elseif action.type == ChangeDevConsoleSize.name then
 		-- Desktop should be the only one that can changes the devconsole Size
 		if displayOptions.formFactor == Constants.FormFactor.Large then
-			return Immutable.Set(displayOptions, "size", action.newSize)
+			return Immutable.Set(displayOptions, "size", action.newSize) :: any
 		end
 	elseif action.type == SetActiveTab.name then
-		return Immutable.Set(displayOptions, "isMinimized", false)
+		return Immutable.Set(displayOptions, "isMinimized", false) :: any
 	end
 
 	return displayOptions

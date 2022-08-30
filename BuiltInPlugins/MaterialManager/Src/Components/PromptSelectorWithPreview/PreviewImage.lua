@@ -19,7 +19,7 @@ local LoadingImage = require(Plugin.Src.Components.LoadingImage)
 local getFFlagMaterialManagerVariantCreatorOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
 
 export type Props = {
-	HasSelection: boolean,
+	HasSelection: boolean?, -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 	ImageId: string,
 	IsTempId: boolean,
 	ClearSelection: () -> (),
@@ -74,23 +74,24 @@ function PreviewImage:render()
 	local localization = props.Localization
 	local state = self.state
 
-	local hasSelection = props.HasSelection
+	local hasSelection = if getFFlagMaterialManagerVariantCreatorOverhaul() then props.ImageId and props.ImageId ~= "" else props.HasSelection
 	local shouldShowToolbar = (hasSelection and state.promptSelectionHovered) and true or false
 
 	return Roact.createElement("ImageLabel", {
 		ZIndex = 1,
 		Size = UDim2.new(0, style.PreviewSize, 0, style.PreviewSize),
 		Image = "",
-		BorderSizePixel = 1,
-		BorderColor3 = style.PreviewBorderColor,
-		BackgroundColor3 = style.ImportImageBackground,
+		BorderSizePixel = if getFFlagMaterialManagerVariantCreatorOverhaul() then nil else 1,
+		BorderColor3 = if getFFlagMaterialManagerVariantCreatorOverhaul() then nil else style.PreviewBorderColor,
+		BackgroundColor3 = if getFFlagMaterialManagerVariantCreatorOverhaul() then nil else style.ImportImageBackground,
 		[Roact.Event.MouseEnter] = self.onPromptSelectionHover,
 		[Roact.Event.MouseLeave] = self.onPromptSelectionHoverEnd,
 	}, {
 		PreviewNoImageSign = not hasSelection and Roact.createElement("Frame", {
 			ZIndex = 2,
 			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundTransparency = 1,
+			BackgroundColor3 = if getFFlagMaterialManagerVariantCreatorOverhaul() then style.ImportImageBackground else nil,
+			BackgroundTransparency = if getFFlagMaterialManagerVariantCreatorOverhaul() then nil else 1,
 		}, {
 			NoImageText = Roact.createElement(TextLabel, {
 				Size = UDim2.new(1, 0, 1, 0),
@@ -127,7 +128,7 @@ function PreviewImage:render()
 				}),
 		}),
 
-		Toolbar = Roact.createElement("Frame", {
+		Toolbar = if getFFlagMaterialManagerVariantCreatorOverhaul() and props.IsTempId == false or not getFFlagMaterialManagerVariantCreatorOverhaul() then Roact.createElement("Frame", {
 			ZIndex = 3,
 			AnchorPoint = Vector2.new(0, 1),
 			Position = UDim2.new(0, 0, 1, 0),
@@ -148,10 +149,9 @@ function PreviewImage:render()
 				Icon = style.ClearIcon,
 				[Roact.Event.Activated] = props.ClearSelection,
 			}),
-		}),
+		}) else nil,
 	})
 end
-
 
 PreviewImage = withContext({
 	Stylizer = Stylizer,

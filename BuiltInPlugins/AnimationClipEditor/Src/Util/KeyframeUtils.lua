@@ -11,7 +11,6 @@ local Types = require(Plugin.Src.Types)
 
 local TweenService = game:GetService("TweenService")
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
 
 local KeyframeUtils = {}
@@ -487,11 +486,7 @@ function KeyframeUtils.getValue(
 
 		if ((not GetFFlagFacialAnimationRecordingInStudio()) or rotationTrack) and rotationTrack.Type == Constants.TRACK_TYPES.EulerAngles then
 			local rotation = rotationTrack and KeyframeUtils.getValue(rotationTrack, tck, defaultEulerAnglesOrder)::Vector3? or Vector3.new()
-			if GetFFlagCurveEditor() then
-				return CFrame.new(position) * CFrame.fromEulerAngles(rotation.X, rotation.Y, rotation.Z, rotationTrack.EulerAnglesOrder or defaultEulerAnglesOrder)
-			else
-				return CFrame.new(position) * CFrame.fromEulerAnglesXYZ(rotation.X, rotation.Y, rotation.Z)
-			end
+			return CFrame.new(position) * CFrame.fromEulerAngles(rotation.X, rotation.Y, rotation.Z, rotationTrack.EulerAnglesOrder or defaultEulerAnglesOrder)
 		else
 			local rotation = rotationTrack and KeyframeUtils.getValue(rotationTrack, tck, defaultEulerAnglesOrder)::CFrame? or CFrame.new()
 			return CFrame.new(position) * rotation

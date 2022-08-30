@@ -1,5 +1,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
+local _Types = require(Plugin.Src.Types)
 local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 
@@ -13,7 +15,11 @@ local Stylizer = Framework.Style.Stylizer
 local UI = Framework.UI
 local TextInput = UI.TextInput
 local SelectInput = UI.SelectInput
-local SimpleExpandablePane = UI.SimpleExpandablePane
+local ExpandablePane = UI.ExpandablePane
+
+local Actions = Plugin.Src.Actions
+local SetExpandedPane = require(Actions.SetExpandedPane)
+local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local Controllers = Plugin.Src.Controllers
 local MaterialServiceController = require(Controllers.MaterialServiceController)
@@ -25,6 +31,9 @@ local Constants = Plugin.Src.Resources.Constants
 local getMaterialPath = require(Constants.getMaterialPath)
 local getSupportedMaterials = require(Constants.getSupportedMaterials)
 local getMaterialName = require(Constants.getMaterialName)
+local getSettingsNames = require(Constants.getSettingsNames)
+
+local settingsNames = getSettingsNames()
 
 export type Props = {
 	LayoutOrder: number?,
@@ -33,6 +42,8 @@ export type Props = {
 
 type _Props = Props & {
 	Analytics: any,
+	dispatchSetExpandedPane: (paneName: string, expandedPaneState: boolean) -> (),
+	ExpandedPane: boolean,
 	GeneralServiceController: any,
 	MaterialServiceController: any,
 	Localization: any,
@@ -108,6 +119,12 @@ function GeneralSettings:init()
 			self.setNameStatus(nil)
 		end
 	end
+
+	self.onExpandedChanged = function()
+		local props: _Props = self.props
+		
+		props.dispatchSetExpandedPane(settingsNames.GeneralSettings, not props.ExpandedPane)
+	end
 end
 
 function GeneralSettings:didMount()
@@ -137,6 +154,8 @@ function GeneralSettings:didUpdate(prevProps)
 	if prevProps.MaterialVariant ~= self.props.MaterialVariant then
 		self:setState({
 			name = self.props.MaterialVariant.Name,
+			nameMessage = Roact.None,
+			status = Enum.PropertyStatus.Ok,
 		})
 	end
 end
@@ -160,14 +179,15 @@ function GeneralSettings:render()
 		currentIndex = 1
 	end
 
-	return Roact.createElement(SimpleExpandablePane, {
+	return Roact.createElement(ExpandablePane, {
 		LayoutOrder = props.LayoutOrder,
 		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		ContentPadding = style.ContentPadding,
 		ContentSpacing = style.ItemSpacing,
 		Text = localization:getText("MaterialGeneral", "General"),
 		Style = style.CustomExpandablePane,
-		Expanded = true,
+		Expanded = props.ExpandedPane,
+		OnExpandedChanged = self.onExpandedChanged,
 	}, {
 		Name = Roact.createElement(LabeledElement, {
 			LabelColumnWidth = style.LabelColumnWidth,
@@ -209,4 +229,17 @@ GeneralSettings = withContext({
 	GeneralServiceController = GeneralServiceController,
 })(GeneralSettings)
 
-return GeneralSettings
+return RoactRodux.connect(
+	function(state: MainReducer.State)
+		return {
+			ExpandedPane = state.MaterialBrowserReducer.ExpandedPane[settingsNames.GeneralSettings],
+		}
+	end,
+	function(dispatch)
+		return {
+			dispatchSetExpandedPane = function(paneName: string, expandedPaneState: boolean)
+				dispatch(SetExpandedPane(paneName, expandedPaneState))
+			end,
+		}
+	end
+)(GeneralSettings)

@@ -15,8 +15,6 @@ local serializeTable = require(Root.Utils.serializeTable)
 
 local EngineFeatureEnablePlayerOwnsBundleApi = game:GetEngineFeature("EnablePlayerOwnsBundleApi")
 
-local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
-
 -- This is the approximate strategy for URL building that we use elsewhere
 local BASE_URL = string.gsub(ContentProvider.BaseUrl:lower(), "/m.", "/www.")
 BASE_URL = string.gsub(BASE_URL, "http:", "https:")
@@ -136,21 +134,12 @@ local function loadAssetForEquip(assetId)
 end
 
 local function getAccountInfo()
-	if FFlagPPAccountInfoMigration then
-		return Promise.new(function(resolve, reject)
-			request({
-				Url = USERS_URL .. "v1/users/authenticated/app-launch-info",
-				Method = "GET",
-			}, resolve, reject)
-		end)
-	else
-		return Promise.new(function(resolve, reject)
-			request({
-				Url = API_URL .. "users/account-info",
-				Method = "GET",
-			}, resolve, reject)
-		end)
-	end
+	return Promise.new(function(resolve, reject)
+		request({
+			Url = USERS_URL .. "v1/users/authenticated/app-launch-info",
+			Method = "GET",
+		}, resolve, reject)
+	end)
 end
 
 local function getBalanceInfo()

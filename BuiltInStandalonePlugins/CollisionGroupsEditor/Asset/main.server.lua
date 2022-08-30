@@ -87,7 +87,11 @@ local function bindToPluginEvents()
 
 	table.insert(PluginEventConnections, plugin:OnInvoke("DeleteCollisionGroup", function(groupName) 
 		ChangeHistoryService:SetWaypoint("Deleting collision group")
-		PhysicsService:RemoveCollisionGroup(groupName)
+		if game:GetFastFlag("CollisionGroupNameStage3") then
+			PhysicsService:UnregisterCollisionGroup(groupName)
+		else
+			PhysicsService:RemoveCollisionGroup(groupName)
+		end
 		ChangeHistoryService:SetWaypoint("Deleted collision group")
 		SetStateAndRefresh({})
 	end))
@@ -102,7 +106,11 @@ local function bindToPluginEvents()
 	table.insert(PluginEventConnections, plugin:OnInvoke("AddSelectedPartsToCollisionGroup", function(groupName)
 		ChangeHistoryService:SetWaypoint("Setting part membership to collision group")
 		for _, part in pairs(getSelectedParts()) do
-			PhysicsService:SetPartCollisionGroup(part, groupName)
+			if game:GetFastFlag("CollisionGroupNameStage3") then
+				part.CollisionGroup = groupName
+			else
+				PhysicsService:SetPartCollisionGroup(part, groupName)
+			end
 		end
 		ChangeHistoryService:SetWaypoint("Set part membership to collision group")
 		SetStateAndRefresh({})
@@ -119,7 +127,11 @@ local function bindToPluginEvents()
 
 	table.insert(PluginEventConnections, plugin:OnInvoke("CreateCollisionGroup", function(groupName) 
 		ChangeHistoryService:SetWaypoint("Creating collision group")
-		PhysicsService:CreateCollisionGroup(groupName)
+		if game:GetFastFlag("CollisionGroupNameStage3") then
+			PhysicsService:RegisterCollisionGroup(groupName)
+		else
+			PhysicsService:CreateCollisionGroup(groupName)
+		end
 		ChangeHistoryService:SetWaypoint("Created collision group")
 		SetStateAndRefresh({})
 	end))

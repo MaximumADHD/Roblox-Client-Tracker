@@ -10,78 +10,118 @@ local t = InGameMenuDependencies.t
 
 local InGameMenu = script.Parent.Parent.Parent
 local GetFriends = require(InGameMenu.Thunks.GetFriends)
+local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
+local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnectionMemo)
+local FriendRequestStatus = require(InGameMenu.Utility.FriendRequestStatus)
 
 local PlayersPage = require(script.Parent.PlayersPage)
 
 local PlayersPageWrapper = Roact.PureComponent:extend("PlayersPageWrapper")
 
 PlayersPageWrapper.validateProps = t.interface({
-	isMenuOpen = t.boolean,
 	pageTitle = t.string,
 	inviteFriends = t.optional(t.array),
 })
 
-function PlayersPageWrapper:init()
-	self:setState({
-		players = Players:GetPlayers(),
-		incomingFriendRequests = {},
-	})
-
-	self.incomingFriendRequests = {}
-	self.incomingFriendRequestsMap = {} -- maps by userid for quick lookup
+local function sortPlayers(p1, p2)
+	return p1.DisplayName:lower() < p2.DisplayName:lower()
 end
 
-local function sortPlayers(p1, p2)
-	return p1.Name:lower() < p2.Name:lower()
+function PlayersPageWrapper:init()
+	self.playerListDirty = false
+	self.menuOpen = false
+	self.setPlayerListDirty = function()
+		self.playerListDirty = true
+	end
+
+	self.loadPlayers = function()
+		local players = Players:GetPlayers()
+		self:setState({
+			players = Cryo.List.sort(players, sortPlayers),
+		})
+	end
+
+	self.deferLoadPlayers = function()
+		task.defer(self.loadPlayers)
+	end
+
+	self.onMenuOpenChange = function(menuOpen, priorMenuOpen)
+		self.menuOpen = menuOpen
+		if self.playerListDirty and menuOpen and not priorMenuOpen then
+			self.playerListDirty = false
+			self:deferLoadPlayers()
+		end
+	end
+
+	self.onPlayerAdded = function(player)
+		self:setPlayerListDirty()
+	end
+
+	self.onPlayerRemoved = function(player)
+		self:setPlayerListDirty()
+		if self.menuOpen then
+			self:setState({
+				lastRemovedPlayerId = player.UserId
+			})
+		end
+	end
+
+	self:deferLoadPlayers()
+	self:setState({
+		incomingFriendRequests = {},
+	})
 end
 
 function PlayersPageWrapper:render()
-	local sortedPlayers = Cryo.List.sort(self.state.players, sortPlayers)
-
-	-- filter out players who are part of incoming friend requests
-	if self.incomingFriendRequests and #self.incomingFriendRequests > 0 then
-		sortedPlayers = Cryo.List.filter(sortedPlayers, function(player)
-			return self.incomingFriendRequestsMap[player.UserId] == nil
-		end)
-	end
-
-	return Roact.createElement(PlayersPage, {
-		players = sortedPlayers,
-		pageTitle = self.props.pageTitle,
-		incomingFriendRequests = self.state.incomingFriendRequests,
-		pendingIncomingPlayerInvite = self.state.pendingIncomingPlayerInvite,
+	return Roact.createFragment({
+		Watcher = Roact.createElement(PageNavigationWatcher, {
+			desiredPage = "",
+			onNavigate = self.onMenuOpenChange,
+		}),
+		PlayerAdded = Roact.createElement(ExternalEventConnection, {
+			event = Players.PlayerAdded,
+			callback = self.onPlayerAdded,
+		}),
+		PlayerRemoving = Roact.createElement(ExternalEventConnection, {
+			event = Players.PlayerRemoving,
+			callback = self.onPlayerRemoved,
+		}),
+		PlayersPageWrapper = Roact.createElement(PlayersPage, {
+			players = self.state.players,
+			pageTitle = self.props.pageTitle,
+			incomingFriendRequests = self.state.incomingFriendRequests,
+			lastRemovedPlayerId = self.state.lastRemovedPlayerId,
+		})
 	})
 end
 
 function PlayersPageWrapper:addIncomingFriendRequestPlayer(player)
-	self.incomingFriendRequestsMap[player.UserId] = player
-
-	local index = table.find(self.incomingFriendRequests, player)
+	local index = Cryo.List.find(self.state.incomingFriendRequests, player)
 	if not index then
-		table.insert(self.incomingFriendRequests, player)
+		self:setState({
+			incomingFriendRequests = Cryo.List.join({player}, self.state.incomingFriendRequests)
+		})
+		self.loadPlayers()
 	end
 end
 
 function PlayersPageWrapper:removeIncomingFriendRequestPlayer(player)
-	self.incomingFriendRequestsMap[player.UserId] = nil
-
-	local index = table.find(self.incomingFriendRequests, player)
+	local index = Cryo.List.find(self.state.incomingFriendRequests, player)
 	if index then
-		table.remove(self.incomingFriendRequests, index)
-	end
-end
-
-function PlayersPageWrapper:didUpdate(prevProps, prevState)
-	if self.props.isMenuOpen and not prevProps.isMenuOpen then
 		self:setState({
-			players = Players:GetPlayers(),
+			incomingFriendRequests = Cryo.List.removeIndex(self.state.incomingFriendRequests, index)
 		})
+		self.loadPlayers()
 	end
 end
 
 function PlayersPageWrapper:didMount()
 
 	self.props.getFriends()
+
+	self.friendStatusConnection = FriendRequestStatus.connectLocalFriendRequestResponce(function(player)
+		self:removeIncomingFriendRequestPlayer(player)
+	end)
 
 	self.friendRequestEventConnection = Players.FriendRequestEvent:connect(function(fromPlayer, toPlayer, event)
 		if fromPlayer ~= Players.LocalPlayer and toPlayer ~= Players.LocalPlayer then
@@ -103,22 +143,11 @@ function PlayersPageWrapper:didMount()
 			end
 		end
 
-		self:setState({
-			incomingFriendRequests = self.incomingFriendRequests,
-			pendingIncomingPlayerInvite = Roact.None,
-		})
 	end)
 
-	-- when a player leaves, remove them from list
-	self.playerRemovingEventConnection = Players.PlayerRemoving:Connect(function(player)
-		self:removeIncomingFriendRequestPlayer(player)
-
-		if self.state.pendingIncomingPlayerInvite == player then
-			self:setState({
-				pendingIncomingPlayerInvite = Roact.None,
-			})
-		end
-	end)
+	self:setState({
+		incomingFriendRequests = {},
+	})
 end
 
 function PlayersPageWrapper:willUnmount()
@@ -126,18 +155,13 @@ function PlayersPageWrapper:willUnmount()
 		self.friendRequestEventConnection:Disconnect()
 		self.friendRequestEventConnection = nil
 	end
-
-	if self.playerRemovingEventConnection then
-		self.playerRemovingEventConnection:Disconnect()
-		self.playerRemovingEventConnection = nil
+	if self.friendStatusConnection then
+		self.friendStatusConnection:Disconnect()
+		self.friendStatusConnection = nil
 	end
 end
 
-return RoactRodux.connect(function(state, props)
-	return {
-		isMenuOpen = state.isMenuOpen,
-	}
-end, function(dispatch)
+return RoactRodux.connect(nil, function(dispatch)
 	return {
 		getFriends = function()
 			return dispatch(GetFriends(Players))

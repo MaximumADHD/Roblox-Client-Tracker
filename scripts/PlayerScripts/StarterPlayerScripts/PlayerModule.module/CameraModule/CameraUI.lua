@@ -45,14 +45,14 @@ end
 
 local initialized = false
 
-local uiRoot: ScreenGui
+local uiRoot: any
 local toast
 local toastIcon
 local toastUpperText
 local toastLowerText
 
 local function initializeUI()
-	assert(not initialized)
+	assert(not initialized, "initializeUI called when already initialized")
 
 	uiRoot = create("ScreenGui"){
 		Name = "RbxCameraUI",
@@ -150,7 +150,7 @@ local function initializeUI()
 	initialized = true
 end
 
-local CameraUI = {}
+local CameraUI: any = {}
 
 do
 	-- Instantaneously disable the toast or enable for opening later on. Used when switching camera modes.

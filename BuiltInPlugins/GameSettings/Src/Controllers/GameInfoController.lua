@@ -14,6 +14,7 @@ GameInfoController.__index = GameInfoController
 GameInfoController.NameModerated = Symbol.named("NameModerated")
 -- TODO this is unused because the endpoint returns the name was moderated whenever the description is blocked
 GameInfoController.DescriptionModerated = Symbol.named("DescriptionModerated")
+GameInfoController.AltTextModerated = Symbol.named("AltTextModerated")
 
 function GameInfoController.new(networking)
 	local self = {}
@@ -80,6 +81,14 @@ function GameInfoController:thumbnailOrderV1POST(gameId, thumbnailsOrder)
 		Body = {
 			thumbnailIds = thumbnailsOrder,
 		},
+	})
+end
+
+function GameInfoController:thumbnailAltTextV1POST(gameId, mediaItem)
+	local networking = self.__networking
+
+	return networking:post("develop", "/v1/universes/"..gameId.."/thumbnails/alt-text", {
+		Body = mediaItem,
 	})
 end
 
@@ -165,6 +174,29 @@ function GameInfoController:removeThumbnails(gameId, thumbnailIds)
 	end
 
 	Promise.all(deleteRequests):await()
+end
+
+function GameInfoController:updateThumbnailAltText(gameId, thumbnailMediaItem)
+	local responseObject
+	local returnError
+	self:thumbnailAltTextV1POST(gameId, thumbnailMediaItem):andThen(function(response)
+		responseObject = response.responseBody
+	end):catch(function(response)
+		if response.responseCode == 400 then
+			for _,err in ipairs(response.responseBody.errors) do
+				if err.code == 19 then
+					returnError = GameInfoController.AltTextModerated
+				end
+			end
+		end
+	end):await()
+
+	if returnError then
+		error(returnError)
+	elseif responseObject ~= nil then
+		-- Return the response object in case the alt text was partially filtered
+		return responseObject
+	end	
 end
 
 function GameInfoController:setThumbnailsOrder(gameId, thumbnailsOrder)

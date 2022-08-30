@@ -11,7 +11,7 @@ local MasterVolumeChanged = UserGameSettings:GetPropertyChangedSignal("MasterVol
 
 local InGameMenu = script.Parent.Parent.Parent
 
-local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
+local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnectionMemo)
 local SliderEntry = require(script.Parent.SliderEntry)
 
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
@@ -32,7 +32,6 @@ local VolumeEntry = Roact.PureComponent:extend("VolumeEntry")
 VolumeEntry.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
 	canCaptureFocus = t.optional(t.boolean),
-	isMenuOpen = t.optional(t.boolean),
 	buttonRef = t.optional(t.table),
 })
 
@@ -61,7 +60,6 @@ function VolumeEntry:render()
 				SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 			end,
 			canCaptureFocus = self.props.canCaptureFocus,
-			isMenuOpen = self.props.isMenuOpen,
 			buttonRef = self.props.buttonRef
 		}),
 		VolumeListener = Roact.createElement(ExternalEventConnection, {

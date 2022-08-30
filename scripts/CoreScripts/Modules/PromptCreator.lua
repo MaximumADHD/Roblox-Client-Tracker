@@ -29,6 +29,7 @@ function getViewportSize()
 	while not game.Workspace.CurrentCamera do
 		game.Workspace.Changed:Wait()
 	end
+	assert(game.Workspace.CurrentCamera, "")
 
 	-- ViewportSize is initally set to 1, 1 in Camera.cpp constructor.
 	-- Also check against 0, 0 incase this is changed in the future.
@@ -211,7 +212,7 @@ local function createImageLabel(name, size, position, image, fetchImageFunction)
 	if fetchImageFunction then
 		fetchImageFunction(imageLabel)
 	end
-	
+
 	return imageLabel
 end
 

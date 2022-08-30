@@ -8,6 +8,7 @@ local ErrorTypes: _Types.Map<string, ErrorType> = {
 	FailedToSelectFile = "FailedToSelectFile", -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 	FailedToImportMap = "FailedToImportMap",
 	FailedToUploadFromFileMap = "FailedToUploadFromFileMap",
+	FailedToUploadTooLarge = "FailedToUploadTooLarge",
 	MissingMaterial = "MissingMaterial",
 	None = "None",
 }

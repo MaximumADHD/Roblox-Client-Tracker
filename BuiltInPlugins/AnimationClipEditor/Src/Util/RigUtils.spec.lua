@@ -7,8 +7,6 @@ return function()
 	local deepCopy = require(script.Parent.deepCopy)
 
 	local GetFFlagACESaveRigWithAnimation = require(Plugin.LuaFlags.GetFFlagACESaveRigWithAnimation)
-	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-
 
 	local testRigAnimationData = {
 		Metadata = {
@@ -245,7 +243,7 @@ return function()
 							},
 						},
 					},
-					["FACS"] = GetFFlagFacialAnimationSupport() and {
+					["FACS"] = {
 						Type = Constants.TRACK_TYPES.Facs,
 						Keyframes = {0, 1200},
 						Data = {
@@ -257,7 +255,7 @@ return function()
 								Value = 75,
 							},
 						},
-					} or nil,
+					},
 				},
 			},
 		},
@@ -614,27 +612,25 @@ return function()
 
 			expect(animationData.Instances.Root.Tracks.Head).to.be.ok()
 
-			if GetFFlagFacialAnimationSupport() then
-				local c = animationData.Instances.Root.Tracks.Corrugator
-				expect(c).to.be.ok()
-				expect(c.IsCurveTrack).to.equal(true)
-				expect(c.Type).to.equal(Constants.TRACK_TYPES.Facs)
-				expect(c.Keyframes).to.be.ok()
-				expect(#c.Keyframes).to.equal(3)
-				expect(c.Keyframes[1]).to.equal(0)
-				expect(c.Keyframes[2]).to.equal(2400)
-				expect(c.Keyframes[3]).to.equal(4800)
-				expect(c.Data).to.be.ok()
-				expect(c.Data[0]).to.be.ok()
-				expect(math.round(c.Data[0].Value * 1000)).to.equal(123)
-				expect(math.round(c.Data[2400].Value * 1000)).to.equal(456)
-				expect(c.Data[4800].InterpolationMode).to.equal(Enum.KeyInterpolationMode.Cubic)
-				-- TODO: Waiting for auto-tangents to be enabled in the API
-				--[[
-				expect(c.Data[4800].LeftSlope).never.to.be.ok()
-				expect(c.Data[4800].RightSlope).never.to.be.ok()
-				]]
-			end
+			local c = animationData.Instances.Root.Tracks.Corrugator
+			expect(c).to.be.ok()
+			expect(c.IsCurveTrack).to.equal(true)
+			expect(c.Type).to.equal(Constants.TRACK_TYPES.Facs)
+			expect(c.Keyframes).to.be.ok()
+			expect(#c.Keyframes).to.equal(3)
+			expect(c.Keyframes[1]).to.equal(0)
+			expect(c.Keyframes[2]).to.equal(2400)
+			expect(c.Keyframes[3]).to.equal(4800)
+			expect(c.Data).to.be.ok()
+			expect(c.Data[0]).to.be.ok()
+			expect(math.round(c.Data[0].Value * 1000)).to.equal(123)
+			expect(math.round(c.Data[2400].Value * 1000)).to.equal(456)
+			expect(c.Data[4800].InterpolationMode).to.equal(Enum.KeyInterpolationMode.Cubic)
+			-- TODO: Waiting for auto-tangents to be enabled in the API
+			--[[
+			expect(c.Data[4800].LeftSlope).never.to.be.ok()
+			expect(c.Data[4800].RightSlope).never.to.be.ok()
+			]]
 		end)
 
 		it("should read the events", function()

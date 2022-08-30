@@ -1,3 +1,5 @@
+--!nonstrict
+
 local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
 

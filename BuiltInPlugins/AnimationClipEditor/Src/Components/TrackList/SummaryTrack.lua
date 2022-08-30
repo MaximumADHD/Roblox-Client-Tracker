@@ -29,7 +29,6 @@ local Constants = require(Plugin.Src.Util.Constants)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 
-local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
@@ -66,13 +65,13 @@ function SummaryTrack:render()
 	local tracks = props.UnusedTracks
 	local facs = props.UnusedFacs
 
-	local trackTheme = theme.trackTheme	
-	local truncatedAtMiddleName = ""	
+	local trackTheme = theme.trackTheme
+	local truncatedAtMiddleName = ""
 	local textWidth = StringUtils.getTextWidth(name, trackTheme.textSize, theme.font)
 	if GetFFlagFacialAnimationRecordingInStudio() then
 		truncatedAtMiddleName = truncateAtMiddle( name, 16)
 		textWidth = StringUtils.getTextWidth(truncatedAtMiddleName , trackTheme.textSize, theme.font)
-	end	
+	end
 	local showTrackButton = (tracks and not isEmpty(tracks)) or (facs and not isEmpty(facs))
 
 	return Roact.createElement(TrackListEntry, {
@@ -111,22 +110,22 @@ function SummaryTrack:render()
 			FaceControlsEditorController = Roact.createElement(FaceControlsEditorController, {
 			}),
 			-- TODO: replace with integration with FaceControlsEditorController button with popup menu
-			RecordingModeButton = GetFFlagFacialAnimationRecordingInStudio() and Roact.createElement(RecordingModeButton, {			
+			RecordingModeButton = GetFFlagFacialAnimationRecordingInStudio() and Roact.createElement(RecordingModeButton, {
 			}),
 		}),
 
 		--old single button layout for when FaceControlsEditorUI is not enabled
 		IKController = not GetFFlagFaceControlsEditorUI() and Roact.createElement(IKController, {
 			Position = UDim2.new(0, textWidth + PADDING, 0.5, 0),
-		}),
+		}) or nil,
 
-		AddTrackButton = (GetFFlagFacialAnimationSupport() and showTrackButton or (tracks and not isEmpty(tracks))) and Roact.createElement(AddTrackButton, {
+		AddTrackButton = showTrackButton and Roact.createElement(AddTrackButton, {
 			Size = UDim2.new(0, Constants.TRACKLIST_BUTTON_SIZE, 0, Constants.TRACKLIST_BUTTON_SIZE),
 			Position = UDim2.new(1, -Constants.TRACKLIST_RIGHT_PADDING, 0.5, 0),
 			Tracks = tracks,
 			Facs = facs,
 			OnTrackSelected = self.onTrackAdded,
-		}),
+		}) or nil,
 	})
 end
 

@@ -11,7 +11,6 @@ return function()
 	local SetBundlesAssetIsPartOf = require(InGameMenu.Actions.InspectAndBuy.SetBundlesAssetIsPartOf)
 	local SetBundles = require(InGameMenu.Actions.InspectAndBuy.SetBundles)
 	local SelectItem = require(InGameMenu.Actions.InspectAndBuy.SelectItem)
-
 	local UpdateStoreId = require(InGameMenu.Actions.InspectAndBuy.UpdateStoreId)
 	local inspectAndBuy = require(script.Parent.inspectAndBuy)
 

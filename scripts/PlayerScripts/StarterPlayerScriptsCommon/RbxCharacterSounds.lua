@@ -72,12 +72,12 @@ local function initializeSoundSystem(instances)
 	local player = instances.player
 	local humanoid = instances.humanoid
 	local rootPart = instances.rootPart
-	
+
 	local sounds: {[string]: Sound} = {}
 
 	-- initialize sounds
 	for name: string, props: {[string]: any} in pairs(SOUND_DATA) do
-		local sound: Sound = Instance.new("Sound") 
+		local sound: Sound = Instance.new("Sound")
 		sound.Name = name
 
 		-- set default values
@@ -87,7 +87,7 @@ local function initializeSoundSystem(instances)
 		sound.Volume = 0.65
 
 		for propName, propValue: any in pairs(props) do
-			sound[propName] = propValue
+			(sound :: any)[propName] = propValue
 		end
 
 		sound.Parent = rootPart
@@ -239,7 +239,7 @@ local function initializeSoundSystem(instances)
 			table.clear(sounds)
 		end
 	end
-	
+
 	return terminate
 end
 
@@ -280,7 +280,7 @@ local function playerRemoving(player: Player)
 		end
 		playerConnections[player] = nil
 	end
-	
+
 	if player.Character then
 		characterRemoving(player.Character)
 	end

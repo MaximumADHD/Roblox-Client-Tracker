@@ -54,7 +54,7 @@ local VRNavigation = setmetatable({}, BaseCharacterController)
 VRNavigation.__index = VRNavigation
 
 function VRNavigation.new(CONTROL_ACTION_PRIORITY)
-	local self = setmetatable(BaseCharacterController.new(), VRNavigation)
+	local self = setmetatable(BaseCharacterController.new() :: any, VRNavigation)
 
 	self.CONTROL_ACTION_PRIORITY = CONTROL_ACTION_PRIORITY
 
@@ -191,7 +191,7 @@ function VRNavigation:TryComputePath(startPos: Vector3, destination: Vector3)
 		end
 
 		if newPath and newPath.Status == Enum.PathStatus.FailStartNotEmpty then
-			startPos = startPos + (destination - startPos).unit
+			startPos = startPos + (destination - startPos).Unit
 			newPath = nil
 		end
 
@@ -361,7 +361,7 @@ function VRNavigation:OnHeartbeat(dt)
 			end
 		else
 			local ignoreTable = {
-				game.Players.LocalPlayer.Character,
+				(game.Players.LocalPlayer :: Player).Character,
 				workspace.CurrentCamera
 			}
 			local obstructRay = Ray.new(currentPosition - Vector3.new(0, 1, 0), moveDir * 3)

@@ -21,7 +21,7 @@ local sensitivityEvents = {
 
 local InGameMenu = script.Parent.Parent.Parent
 
-local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
+local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnectionMemo)
 local SliderEntry = require(script.Parent.SliderEntry)
 
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
@@ -141,7 +141,6 @@ function CameraSensitivityEntry:render()
 				SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 			end,
 			canCaptureFocus = self.props.canCaptureFocus,
-			isMenuOpen = self.props.isMenuOpen,
 		})
 	}
 

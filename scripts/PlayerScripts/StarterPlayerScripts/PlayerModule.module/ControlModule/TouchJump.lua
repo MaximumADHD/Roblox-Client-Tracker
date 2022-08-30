@@ -17,7 +17,7 @@ local TouchJump = setmetatable({}, BaseCharacterController)
 TouchJump.__index = TouchJump
 
 function TouchJump.new()
-	local self = setmetatable(BaseCharacterController.new(), TouchJump)
+	local self = setmetatable(BaseCharacterController.new() :: any, TouchJump)
 
 	self.parentUIFrame = nil
 	self.jumpButton = nil

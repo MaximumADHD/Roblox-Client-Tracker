@@ -15,10 +15,7 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
 
-local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
-local function wrappee(instanceName, trackName, trackType, rotationType, eulerAnglesOrder, analytics)
+return function(instanceName, trackName, trackType, rotationType, eulerAnglesOrder, analytics)
 	return function(store)
 		local state = store:getState()
 		local status = state.Status
@@ -54,15 +51,5 @@ local function wrappee(instanceName, trackName, trackType, rotationType, eulerAn
 		if analytics then
 			analytics:report("onTrackAdded", trackName, editorMode)
 		end
-	end
-end
-
-if GetFFlagCurveEditor() then
-	return function(instanceName, trackName, trackType, rotationType, eulerAnglesOrder, analytics)
-		return wrappee(instanceName, trackName, trackType, rotationType, eulerAnglesOrder, analytics)
-	end
-else
-	return function(instanceName, trackName, trackType, analytics)
-		return wrappee(instanceName, trackName, trackType, nil, nil, analytics)
 	end
 end

@@ -4,7 +4,7 @@
 	Props:
 	ToggleCallback, function, will return current selected statue if toggled.
 ]]
--- added with FFlagUnifyModelPackagePublish
+-- added with FFlagUnifyModelPackagePublish2
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages

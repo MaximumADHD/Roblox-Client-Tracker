@@ -5,5 +5,6 @@ game:DefineFastFlag("UXImprovementsShowUserPermsWhenCollaborator2", false)
 game:DefineFastFlag("GameSettingsFixSearchBarRef", false)
 game:DefineFastFlag("GameSettingsRemoveFitContent", false)
 game:DefineFastFlag("RemoveStudioThemeFromPlugins", false)
+game:DefineFastFlag("GameSettingsEnableThumbnailAltText", false)
 
 return nil

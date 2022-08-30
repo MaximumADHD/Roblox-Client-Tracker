@@ -13,7 +13,9 @@
 		function DragMove = A callback for when the user drags a Thumbnail over another slot.
 		function ButtonPressed = A callback for when the user interacts with a Thumbnail.
 		function AddNew = A callback for when the user wants to add a new Thumbnail.
+		function UpdateAltText = A callback for when the user wants to change the alt text of a thumbnail.
 ]]
+local FFlagGameSettingsEnableThumbnailAltText = game:GetFastFlag("GameSettingsEnableThumbnailAltText")
 local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFitContent")
 
 local THUMBNAIL_PADDING = UDim2.new(0, 30, 0, 30)
@@ -53,6 +55,7 @@ function ThumbnailSet:render()
 	local order = self.props.Order or {}
 	local active = self.props.Enabled
 	local hoverBarsEnabled = self.props.HoverBarsEnabled
+	local altTextError = self.props.AltTextError
 
 	local children = {}
 
@@ -72,6 +75,11 @@ function ThumbnailSet:render()
 					end
 				end
 
+				local altTextErrorMessage
+				if altTextError and altTextError.ThumbnailId == id then
+					altTextErrorMessage = altTextError.ErrorMessage
+				end
+
 				children[tostring(id)] = Roact.createElement(Thumbnail, {
 					Id = id,
 					LayoutOrder = Cryo.List.find(order, id),
@@ -86,6 +94,10 @@ function ThumbnailSet:render()
 
 					HoverBarEnabled = hoverBarsEnabled,
 					ButtonPressed = self.props.ButtonPressed,
+
+					AltText = thumbnail.altText,
+					AltTextChanged = self.props.UpdateAltText,
+					AltTextErrorMessage = altTextErrorMessage
 				})
 			end
 		end
@@ -99,7 +111,7 @@ function ThumbnailSet:render()
 	if FFlagGameSettingsRemoveFitContent then
 		children.Layout = Roact.createElement("UIGridLayout", {
 			CellPadding = THUMBNAIL_PADDING,
-			CellSize = DEPRECATED_Constants.THUMBNAIL_SIZE,
+			CellSize = if FFlagGameSettingsEnableThumbnailAltText then DEPRECATED_Constants.THUMBNAIL_CONTAINER_SIZE else DEPRECATED_Constants.THUMBNAIL_SIZE,
 			FillDirection = Enum.FillDirection.Horizontal,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			SortOrder = Enum.SortOrder.LayoutOrder,

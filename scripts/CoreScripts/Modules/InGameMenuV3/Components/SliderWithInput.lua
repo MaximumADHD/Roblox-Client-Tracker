@@ -16,7 +16,7 @@ local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
 local InGameMenu = script.Parent.Parent
 
-local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
+local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnectionMemo)
 local FocusHandler = require(script.Parent.Connection.FocusHandler)
 local Slider = require(script.Parent.Slider)
 local AssetImage = require(script.Parent.AssetImage)
@@ -204,6 +204,8 @@ function SliderWithInput:renderWithSelectionCursor(getSelectionCursor)
 		UserInputConnection = not props.disabled and Roact.createElement(ExternalEventConnection, {
 			event = UserInputService.InputBegan,
 			callback = function(input, gameProcessed)
+				local props = self.props
+
 				if input.UserInputType ~= Enum.UserInputType.Keyboard then
 					return
 				end

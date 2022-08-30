@@ -20,9 +20,11 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 
 local SetFacialRecordingMode = require(Plugin.Src.Thunks.Recording.SetFacialRecordingMode)
 local SetInReviewState = require(Plugin.Src.Actions.SetInReviewState)
+local ToggleRecordingAndEndReview = require(Plugin.Src.Thunks.Recording.ToggleRecordingAndEndReview)
 local TeachingCallout = require(Plugin.Src.Components.TeachingCallout)
 local GetFFlagFaceControlsEditorShowCallout = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorShowCallout)
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
+local GetFacialAnimationRecordingAnalytics1 = require(Plugin.LuaFlags.GetFacialAnimationRecordingAnalytics1)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local RecordingModeButton = Roact.PureComponent:extend("RecordingModeButton")
@@ -39,9 +41,14 @@ function RecordingModeButton:render()
 	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local style = theme.button
 	local state = self.state
+	local analytics = props.Analytics
 
 	local toggleRecordingAndEndReview = function()
-		props.ToggleRecordingAndEndReview(props)
+		if GetFacialAnimationRecordingAnalytics1() then
+			props.ToggleRecordingAndEndReview(analytics)
+		else
+			props.old_ToggleRecordingAndEndReview(props)
+		end
 	end
 	local canUseFaceControlsEditor = RigUtils.canUseFaceControlsEditor(props.RootInstance)
 
@@ -105,7 +112,7 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		ToggleRecordingAndEndReview = function(props)
+		old_ToggleRecordingAndEndReview = function(props)
 			--get out of review state in case user clicked this button while in review state
 			if props.inReviewState then 
 				dispatch(SetInReviewState(false))
@@ -114,6 +121,10 @@ local function mapDispatchToProps(dispatch)
 			--user was not in review state, get going with recoder
 				dispatch(SetFacialRecordingMode(true))
 			end
+		end,
+
+		ToggleRecordingAndEndReview = function(analytics)
+			dispatch(ToggleRecordingAndEndReview(analytics))
 		end
 	}
 end

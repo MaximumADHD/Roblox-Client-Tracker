@@ -8,6 +8,8 @@ local AddMessage = require(script.Parent.AddMessage)
 local RemoveMessage = require(script.Parent.RemoveMessage)
 local getSettingsForMessage = require(script.Parent.Parent.Helpers.getSettingsForMessage)
 
+local FIntBubbleChatAddMessageRolloutPercent = game:DefineFastInt("BubbleChatAddMessageRolloutPercent", 100)
+
 local function addMessageWithTimeout(message)
 	maybeAssert(Types.IMessage(message))
 
@@ -22,10 +24,12 @@ local function addMessageWithTimeout(message)
 		end
 
 		AnalyticsService:ReportCounter("RoactBubbleChat-MessagesSent")
-		AnalyticsService:SendEventDeferred("client", "bubbleChatMetric", "messageAdded", {
-			placeId = game.PlaceId,
-			userId = message.userId,
-		})
+		if FIntBubbleChatAddMessageRolloutPercent >= math.random(1, 100) then
+			AnalyticsService:SendEventDeferred("client", "bubbleChatMetric", "messageAdded", {
+				placeId = game.PlaceId,
+				senderUserId = message.userId,
+			})
+		end
 
 		wait(chatSettings.BubbleDuration)
 

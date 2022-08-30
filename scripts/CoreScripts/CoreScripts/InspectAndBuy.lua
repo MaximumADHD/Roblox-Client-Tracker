@@ -24,11 +24,6 @@ local function mount(humanoidDescription, playerName, userId, ctx)
 		InspectAndBuyInstanceHandle = nil
 	end
 
-	if InspectAndBuyInstanceHandle then
-		Roact.unmount(InspectAndBuyInstanceHandle)
-		InspectAndBuyInstanceHandle = nil
-	end
-
 	local appStyle = {
 		Theme = AppDarkTheme,
 		Font = AppFont,

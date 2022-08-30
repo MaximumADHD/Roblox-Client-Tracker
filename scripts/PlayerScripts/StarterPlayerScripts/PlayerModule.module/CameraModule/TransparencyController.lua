@@ -28,6 +28,7 @@ end
 
 function TransparencyController:HasToolAncestor(object: Instance)
 	if object.Parent == nil then return false end
+	assert(object.Parent, "")
 	return object.Parent:IsA('Tool') or self:HasToolAncestor(object.Parent)
 end
 

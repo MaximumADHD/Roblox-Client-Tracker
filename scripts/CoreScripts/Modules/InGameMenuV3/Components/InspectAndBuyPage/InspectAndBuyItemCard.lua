@@ -63,7 +63,6 @@ function InspectAndBuyItemCard:render()
 		backgroundImage = backgroundImage,
 		footer = Roact.createElement(InspectAndBuyItemCardFooter, {
 			price = price,
-			isPriceLoaded = asset ~= nil,
 			productId = asset and asset.productId or nil,
 			asset = asset,
 		}) or nil,

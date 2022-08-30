@@ -215,23 +215,41 @@ return function(analyticsService)
             })
         end,
 
-				onAnimationEditorImportVideoCreate = function(_)
-					sendEvent("animationEditorImportVideoCreate", {})
-				end,
+        onAnimationEditorImportVideoCreate = function(_)
+            sendEvent("animationEditorImportVideoCreate", {})
+        end,
 
-				onAnimationEditorImportVideoUploadCancel = function(_)
-					sendEvent("animationEditorImportVideoUploadCancel", {})
-				end,
+        onAnimationEditorImportVideoUploadCancel = function(_)
+            sendEvent("animationEditorImportVideoUploadCancel", {})
+        end,
 
-				onAnimationEditorImportVideoUploadSucceed = function(_)
-					sendEvent("animationEditorImportVideoUploadSucceed", {})
-				end,
+        onAnimationEditorImportVideoUploadSucceed = function(_)
+            sendEvent("animationEditorImportVideoUploadSucceed", {})
+        end,
 
-				onAnimationEditorImportVideoError = function(_, errorMsg)
-					sendEvent("animationEditorImportVideoError", {
-						errorMsg = errorMsg
-					})
-				end,
+        onAnimationEditorImportVideoError = function(_, errorMsg)
+            sendEvent("animationEditorImportVideoError", {
+                errorMsg = errorMsg
+            })
+        end,
+
+        onFacialAnimationRecordingEnabled = function(_)
+            sendEvent("facialAnimationRecordingEnabled", {})
+        end,
+
+        onFacialAnimationRecordingStartRecording = function(_)
+            sendEvent("facialAnimationRecordingStartRecording", {})
+        end,
+
+        onFacialAnimationRecordingEndRecording = function(_, duration)
+            sendEvent("facialAnimationRecordingEndRecording", {
+                duration = duration,
+            })
+        end,
+
+        onFacialAnimationRecordingReRecordPressed = function(_)
+            sendEvent("facialAnimationRecordingReRecordPressed", {})
+        end,
 
 		onEditorModeSwitch = function(_, oldMode, newMode, duration)
             sendEvent("editorModeSwitch", {

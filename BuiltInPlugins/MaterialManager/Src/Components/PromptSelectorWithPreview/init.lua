@@ -5,8 +5,6 @@
 	Props
 		SelectionName: string
 			Text to display below the preview
-		HasSelection: bool
-			Whether something is currently selected
 		PreviewTitle: string
 			Title to use on the expanded preview window
 		ImageId: string
@@ -43,10 +41,12 @@ local Components = Plugin.Src.Components
 local PreviewDialog = require(Components.PromptSelectorWithPreview.PreviewDialog)
 local PreviewImage = require(Components.PromptSelectorWithPreview.PreviewImage)
 
+local getFFlagMaterialManagerVariantCreatorOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
+
 export type Props = {
 	SelectionName: string?,
 	PreviewTitle: string?,
-	HasSelection: boolean,
+	HasSelection: boolean?,   -- Remove wih FFlagMaterialManagerVariantCreatorOverhaul
 	ImageId: string,
 	IsTempId: boolean,
 	PromptSelection: () -> (),
@@ -80,6 +80,7 @@ type _Style = {
 	BorderColorError: Color3,
 
 	ColumnWidth: number,
+	LabelColumnWidth: UDim,
 	PreviewSize: number,
 
 	PaddingVertical: number,
@@ -117,8 +118,8 @@ function PromptSelectorWithPreview:render()
 	local previewTitle = props.PreviewTitle or ""
 
 	local columnWidth = style.ColumnWidth
+	local totalWidth = columnWidth + style.LabelColumnWidth.Offset
 	local previewSize = style.PreviewSize
-	local importWidth = columnWidth - previewSize - style.PaddingHorizontal
 	local height = previewSize
 	local buttonHeight = style.ButtonHeight
 
@@ -131,7 +132,7 @@ function PromptSelectorWithPreview:render()
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
-		Size = UDim2.new(0, columnWidth, 0, height + style.PaddingVertical),
+		Size = UDim2.new(0, totalWidth, 0, height + style.PaddingVertical),
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
@@ -148,7 +149,7 @@ function PromptSelectorWithPreview:render()
 				Size = UDim2.new(0, previewSize, 1, 0),
 			}, {
 				PreviewImage = Roact.createElement(PreviewImage, {
-					HasSelection = props.HasSelection,
+					HasSelection = if getFFlagMaterialManagerVariantCreatorOverhaul() then nil else props.HasSelection,
 					ImageId = props.ImageId,
 					IsTempId = props.IsTempId,
 					ClearSelection = props.ClearSelection,
@@ -167,7 +168,7 @@ function PromptSelectorWithPreview:render()
 			}),
 
 			ImportColumn = Roact.createElement(Pane, {
-				Size = UDim2.new(0, importWidth, 1, 0),
+				Size = UDim2.new(0, columnWidth, 1, 0),
 				Style = "RoundBox",
 				Spacing = 10,
 				VerticalAlignment = Enum.VerticalAlignment.Top,
@@ -178,13 +179,13 @@ function PromptSelectorWithPreview:render()
 					PlaceholderText = localization:getText("CreateDialog", "InsertAssetURL"),
 					Text = props.SearchUrl,
 					OnTextChanged = props.UrlSelection,
-					Size = UDim2.new(0, importWidth, 0, buttonHeight),
+					Size = UDim2.new(1, 0, 0, buttonHeight),
 					OnFocusLost = props.OnFocusLost,
 					BorderColor = if props.BorderColorUrlBool then style.BorderColorError else nil,
 				}),
 
 				IconImport = Roact.createElement(IconButton, {
-					Size = UDim2.new(0, importWidth, 0, buttonHeight),
+					Size = UDim2.new(1, 0, 0, buttonHeight),
 					Text = localization:getText("CreateDialog", "Import"),
 					TextXAlignment = Enum.TextXAlignment.Left,
 					LeftIcon = style.ImportIcon,
@@ -200,7 +201,6 @@ function PromptSelectorWithPreview:render()
 		}),
 	})
 end
-
 
 PromptSelectorWithPreview = withContext({
 	Stylizer = Stylizer,

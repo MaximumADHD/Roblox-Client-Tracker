@@ -22,9 +22,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local SelectionUtils = require(Plugin.Src.Util.SelectionUtils)
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
-local wrappee = function(pivotTick, newTick, pivotValue, newValue, dragContext)
+return function(pivotTick, newTick, pivotValue, newValue, dragContext)
 	return function(store)
 		local state = store:getState()
 		local selectedKeyframes = dragContext and dragContext.selectedKeyframes or state.Status.SelectedKeyframes
@@ -89,7 +87,7 @@ local wrappee = function(pivotTick, newTick, pivotValue, newValue, dragContext)
 						if dataTrack.Keyframes then
 							AnimationData.moveKeyframe(dataTrack, oldTick, insertTick)
 							AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
-							if GetFFlagCurveEditor() and dataTrack.Type ~= Constants.TRACK_TYPES.Quaternion then
+							if dataTrack.Type ~= Constants.TRACK_TYPES.Quaternion then
 								if dataTrack.Data and dataTrack.Data[insertTick] and pivotValue and newValue then
 									if dataTrack.Type == Constants.TRACK_TYPES.Facs then
 										newValue = math.clamp(newValue, 0, 1)
@@ -108,13 +106,5 @@ local wrappee = function(pivotTick, newTick, pivotValue, newValue, dragContext)
 
 		store:dispatch(UpdateAnimationData(newData))
 		store:dispatch(SetSelectedKeyframes(newSelectedKeyframes))
-	end
-end
-
-if GetFFlagCurveEditor() then
-	return wrappee
-else
-	return function(pivotTick, newTick, dragContext)
-		return wrappee(pivotTick, newTick, nil, nil, dragContext)
 	end
 end

@@ -19,7 +19,7 @@ local InGameMenuPolicy = require(InGameMenu.InGameMenuPolicy)
 local OpenEducationalPopup = require(InGameMenu.Thunks.OpenEducationalPopup)
 local StartLeavingGame = require(InGameMenu.Actions.StartLeavingGame)
 
-local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
+local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnectionMemo)
 local UserLocalStore = require(InGameMenu.Utility.UserLocalStore)
 
 local GetFIntFullscreenTitleBarTriggerDelayMillis = require(InGameMenu.Flags.GetFIntFullscreenTitleBarTriggerDelayMillis)

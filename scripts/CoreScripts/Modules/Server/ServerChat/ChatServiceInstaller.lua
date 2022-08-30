@@ -87,6 +87,7 @@ local function Install()
 
 		ChatModules.Parent = installDirectory
 	end
+	assert(ChatModules, "")
 
 	local shouldInsertDefaultModules = GetBoolValue(ChatModules, "InsertDefaultModules", false)
 

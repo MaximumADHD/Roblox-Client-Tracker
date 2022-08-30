@@ -20,6 +20,7 @@ local WarningOverlay = require(Plugin.Src.Components.FacialAnimationRecorder.War
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
 local GetFFlagFacialAnimationRecordingResetPoseDuringRecording = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingResetPoseDuringRecording)
+local GetFacialAnimationRecordingAnalytics1 = require(Plugin.LuaFlags.GetFacialAnimationRecordingAnalytics1)
 local RunService = game:GetService("RunService")
 local VideoCaptureService = game:GetService("VideoCaptureService")
 local FacialAnimationRecorder = Roact.PureComponent:extend("FacialAnimationRecorder")
@@ -42,8 +43,7 @@ local SetPlayState = require(Plugin.Src.Actions.SetPlayState)
 local SetInReviewState = require(Plugin.Src.Actions.SetInReviewState)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local Selection = game:GetService("Selection")
-local timeAtEndOfRecording = 10000
-local displayDurationForOverwritingInfo = 5
+local DISPLAY_DURATION_FOR_OVERWRITING_INFO = 5
 local previousAnimationHadFacsTracks = false
 local cameHereFromPressingReRecord = false
 
@@ -60,6 +60,12 @@ function FacialAnimationRecorder:init()
 	})
 
 	self.startRecording = function()
+		self.timeAtStartOfRecording = os.clock()
+		local analytics = self.props.Analytics
+		if GetFacialAnimationRecordingAnalytics1() then
+			analytics:report("onFacialAnimationRecordingStartRecording")
+		end
+
 		self:setState({
 			isRecording = true
 		})
@@ -80,8 +86,13 @@ function FacialAnimationRecorder:init()
 	end
 
 	self.endRecording = function()
-		timeAtEndOfRecording = os.clock()
+		self.timeAtEndOfRecording = os.clock() -- this variable is also used in the render function
 		local props = self.props
+		local analytics = props.Analytics
+		if GetFacialAnimationRecordingAnalytics1() then
+			analytics:report("onFacialAnimationRecordingEndRecording",self.timeAtStartOfRecording and (self.timeAtEndOfRecording - self.timeAtStartOfRecording) or 0)
+		end
+
 		props.SetInReviewState(true)
 
 		self:setState({
@@ -151,6 +162,11 @@ function FacialAnimationRecorder:init()
 
 	self.triggerReRecording = function()
 		local props = self.props
+		local analytics = props.Analytics
+		if GetFacialAnimationRecordingAnalytics1() then
+			analytics:report("onFacialAnimationRecordingReRecordPressed")
+		end
+		
 		cameHereFromPressingReRecord = true
 		self.resetLooping()
 		props.SetPlayState(Constants.PLAY_STATE.Pause)
@@ -392,7 +408,7 @@ function FacialAnimationRecorder:render()
 	local style = props.Stylizer
 	local textColor = style.TextColor	
 	local currentTime = os.clock()	
-	local shouldShowPreviousFacsWillBeOverWrittenMessage = (not cameHereFromPressingReRecord) and previousAnimationHadFacsTracks  and ((currentTime - timeAtEndOfRecording) <= displayDurationForOverwritingInfo)
+	local shouldShowPreviousFacsWillBeOverWrittenMessage = (not cameHereFromPressingReRecord) and previousAnimationHadFacsTracks  and self.timeAtEndOfRecording and ((currentTime - self.timeAtEndOfRecording) <= DISPLAY_DURATION_FOR_OVERWRITING_INFO)
 
 	return ContextServices.provide({
 		self.focus

@@ -47,6 +47,7 @@ function MaterialServiceController.new(store: any, mock: boolean?)
 	local self = setmetatable({
 		_materialChangedListeners = {},
 		_overrideChangedListeners = {},
+		_changeHistoryService = ServiceWrapper.new("ChangeHistoryService", mock),
 
 		_rootCategory = {
 			Categories = {},
@@ -338,6 +339,8 @@ function MaterialServiceController:createMaterialVariant(baseMaterial: Enum.Mate
 	materialVariant.StudsPerTile = 10
 	self:setPath(getMaterialPath(materialVariant.BaseMaterial))
 	materialVariant.Parent = game:GetService("MaterialService")
+
+	self._changeHistoryService:asService():SetWaypoint("Create new Material Variant to" .. materialVariant.Name)
 	return materialVariant
 end
 

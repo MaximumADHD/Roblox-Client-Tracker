@@ -8,9 +8,8 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
-local FFlagUnifyModelPackagePublish = game:GetFastFlag("UnifyModelPackagePublish")
+local FFlagUnifyModelPackagePublish2 = game:GetFastFlag("UnifyModelPackagePublish2")
 local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
-local FFlagToolboxAssetConfigDiable = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
 
 local FFlagToolboxSwitchVerifiedEndpoint = require(Plugin.Core.Util.getFFlagToolboxSwitchVerifiedEndpoint)
 
@@ -47,7 +46,7 @@ local TagsUtil = require(Util.TagsUtil)
 
 local getNetwork = ContextGetter.getNetwork
 
-local AssetSubType = require(Plugin.Core.Types.AssetSubType)
+local AssetSubTypes = require(Plugin.Core.Types.AssetSubTypes)
 
 local MakeChangeRequest = require(Plugin.Core.Networking.Requests.MakeChangeRequest)
 
@@ -79,7 +78,6 @@ local GetAssetPermissionsRequest = require(Requests.GetAssetPermissionsRequest)
 local GetPublishingRequirementsRequest = if FFlagToolboxEnableAssetConfigPhoneVerification
 	then require(Plugin.Core.Networking.Requests.GetPublishingRequirementsRequest)
 	else nil
-
 local ClearChange = require(Plugin.Core.Actions.ClearChange)
 local SetAssetConfigTab = require(Plugin.Core.Actions.SetAssetConfigTab)
 local UpdateAssetConfigStore = require(Plugin.Core.Actions.UpdateAssetConfigStore)
@@ -128,8 +126,10 @@ function AssetConfig:init(props)
 		copyChanged = false, -- If the user has changed the copy status
 		allowComment = true, -- Default to allow comment, but off.
 		commentOn = nil,
-		allowPackage = FFlagUnifyModelPackagePublish, -- controls whether Package toggle is shown as disabled or not
+		allowPackage = FFlagUnifyModelPackagePublish2, -- controls whether Package toggle is shown as disabled or not
 		packageOn = nil, -- controls whether Package toggle is flipped on or not
+		canBePackage = nil, -- specifies whether instance can be made a package
+		isPackageAsset = nil,
 		price = nil, -- The price has to be nil in the first place for the price to load correctly when initial load.
 		status = nil,
 		isAssetPublic = false,
@@ -371,10 +371,10 @@ function AssetConfig:init(props)
 						genreTypeId = genreTypeId, -- Convert into a ID
 						copyOn = state.copyOn,
 						commentOn = state.commentOn,
-						packageOn = if FFlagUnifyModelPackagePublish then state.packageOn else nil,
+						packageOn = if FFlagUnifyModelPackagePublish2 and not state.isPackageAsset then state.packageOn else false, -- if already a package, then you can only publish the package as a new model asset
 						groupId = state.groupId, -- Used only for upload group asset.
 						instances = props.instances,
-						sourceInstances = if FFlagUnifyModelPackagePublish then props.sourceInstances else nil,
+						sourceInstances = if FFlagUnifyModelPackagePublish2 then props.sourceInstances else nil,
 						saleStatus = state.status,
 						price = state.price,
 						iconFile = state.iconFile,
@@ -545,7 +545,7 @@ function AssetConfig:init(props)
 		self:setState({
 			copyChanged = copyChanged,
 			copyOn = newCopyStatus,
-			allowPackage = if FFlagUnifyModelPackagePublish then (not newCopyStatus) else false,
+			allowPackage = if FFlagUnifyModelPackagePublish2 and not self.props.isPackageMarketplacePublishAllowed then not newCopyStatus else self.state.allowPackage
 		})
 
 		self.props.makeChangeRequest(
@@ -567,7 +567,7 @@ function AssetConfig:init(props)
 		)
 	end
 
-	self.togglePackage = if FFlagUnifyModelPackagePublish then function(newPackageStatus)
+	self.togglePackage = if FFlagUnifyModelPackagePublish2 then function(newPackageStatus)
 		self:setState({
 			packageOn = newPackageStatus,
 		})
@@ -627,7 +627,7 @@ function AssetConfig:init(props)
 
 			local assetSubtype
 			if isPackageAsset then
-				assetSubtype = AssetSubType.Package
+				assetSubtype = AssetSubTypes.Package
 			end
 
 			props.getPublishingRequirements(networkInterface, assetId, assetTypeEnum, assetSubtype)
@@ -651,7 +651,7 @@ function AssetConfig:isLoading()
 	return self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW and not self.state.assetId
 end
 
-function AssetConfig:didUpdate()
+function AssetConfig:didUpdate(prevProps, prevState)
 	if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
 		local assetConfigData = self.props.assetConfigData
 		if not next(assetConfigData) then -- check if assetConfigData is not empty - we cannot check the length here since the keys are non-numeric
@@ -715,7 +715,17 @@ function AssetConfig:didUpdate()
 			})
 		end
 	else
-		if (self.props.isVerifiedCreator ~= nil) and self.state.allowCopy ~= self.props.isVerifiedCreator then
+		if FFlagUnifyModelPackagePublish2 and self.props.isPublishingAllowed ~= nil and self.state.allowCopy ~= self.props.isPublishingAllowed then
+			self:setState(function(state)
+				if self.props.isPublishingAllowed ~= prevProps.isPublishingAllowed then
+					return {
+						allowCopy = self.props.isPublishingAllowed,
+					}
+				else
+					return nil
+				end
+			end)
+		elseif (self.props.isVerifiedCreator ~= nil) and self.state.allowCopy ~= self.props.isVerifiedCreator then
 			self:setState({
 				allowCopy = self.props.isVerifiedCreator,
 			})
@@ -781,6 +791,7 @@ function AssetConfig:didMount()
 		})
 		local audioIds = {}
 		if instances and self.props.assetTypeEnum == Enum.AssetType.Model then
+			-- Capture Audio Ids
 			for _, instance in pairs(instances) do
 				local descendants = instance:GetDescendants()
 				for _, descendant in pairs(descendants) do
@@ -792,9 +803,18 @@ function AssetConfig:didMount()
 					end
 				end
 			end
-			self:setState({
-				descendantIds = audioIds,
-			})
+
+			if FFlagUnifyModelPackagePublish2 then
+				self:setState({
+					descendantIds = audioIds,
+					canBePackage = AssetConfigUtil.isPackagePublishAllowed(instances),
+					isPackageAsset = if #instances == 1 then AssetConfigUtil.isPackage(instances[1]) else nil,
+				})
+			else
+				self:setState({
+					descendantIds = audioIds,
+				})
+			end
 		end
 	end
 end
@@ -941,8 +961,8 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 	local copyOn = state.copyOn
 	local allowComment = state.allowComment
 	local commentOn = state.commentOn
-	local allowPackage = if FFlagUnifyModelPackagePublish then state.allowPackage else nil
-	local packageOn = if FFlagUnifyModelPackagePublish then state.packageOn else nil
+	local allowPackage = if FFlagUnifyModelPackagePublish2 then state.canBePackage and state.allowPackage else nil
+	local packageOn = if FFlagUnifyModelPackagePublish2 then state.packageOn or state.isPackageAsset else nil
 	local newAssetStatus = state.status
 	local isAssetPublic = state.isAssetPublic
 
@@ -955,6 +975,7 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 	local changeTable = props.changeTable or {}
 	local allowedAssetTypesForRelease = props.allowedAssetTypesForRelease
 	local allowedAssetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then props.allowedAssetTypesForFree else nil
+	local isPackageMarketplacePublishAllowed = if FFlagUnifyModelPackagePublish2 then props.isPackageMarketplacePublishAllowed else nil
 
 	local currentAssetStatus = newAssetStatus or AssetConfigConstants.ASSET_STATUS.Unknown
 
@@ -964,11 +985,11 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 	local showOwnership = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_OWNERSHIP)
 	local showGenre = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_GENRE)
 	local showCopy = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_COPY)
-	if not FFlagUnifyModelPackagePublish and props.isPackageAsset then
+	if not FFlagUnifyModelPackagePublish2 and props.isPackageAsset then
 		showCopy = false
 	end
 	--checks whether package toggle should be visible based on screen
-	local showPackage = if FFlagUnifyModelPackagePublish then ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_PACKAGE) else nil
+	local showPackage = if FFlagUnifyModelPackagePublish2 then ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_PACKAGE) else nil
 	local showComment = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_COMMENT)
 	local showAssetType = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_ASSET_TYPE)
 	-- And then we show price according to the sales status and if user is whitelisted.
@@ -1000,6 +1021,7 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 	local isAudio = props.assetTypeEnum == Enum.AssetType.Audio
 	local isModel = props.assetTypeEnum == Enum.AssetType.Model
 	local isPlugin = props.assetTypeEnum == Enum.AssetType.Plugin
+	local isPackageAsset = if FFlagUnifyModelPackagePublish2 then state.isPackageAsset else nil
 
 	local allowSelectPrivate
 	local showSharing = false
@@ -1033,8 +1055,8 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 
 	if isAudio then
 		allowCopy = isAssetPublic
-	elseif FFlagUnifyModelPackagePublish and packageOn then
-		allowCopy = false
+	elseif FFlagUnifyModelPackagePublish2 and packageOn and not isPackageAsset then
+		allowCopy = isPackageMarketplacePublishAllowed
 	end
 
 	return Roact.createElement("Frame", {
@@ -1153,8 +1175,9 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 				copyOn = copyOn,
 				allowComment = allowComment,
 				commentOn = commentOn,
-				allowPackage = if FFlagUnifyModelPackagePublish then allowPackage else nil,
-				packageOn = if FFlagUnifyModelPackagePublish then packageOn else nil,
+				allowPackage = if FFlagUnifyModelPackagePublish2 then allowPackage else nil,
+				packageOn = if FFlagUnifyModelPackagePublish2 then packageOn else nil,
+				isPackageAsset = if FFlagUnifyModelPackagePublish2 then isPackageAsset else nil,
 				isAssetPublic = isAssetPublic,
 
 				assetTypeEnum = assetTypeEnum,
@@ -1166,12 +1189,12 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 				onSharingChanged = self.onSharingChanged,
 				toggleCopy = self.toggleCopy,
 				toggleComment = self.toggleComment,
-				togglePackage = if FFlagUnifyModelPackagePublish then self.togglePackage else nil,
+				togglePackage = if FFlagUnifyModelPackagePublish2 then self.togglePackage else nil,
 
 				displayOwnership = showOwnership,
 				displayGenre = showGenre,
 				displayCopy = showCopy,
-				displayPackage = if FFlagUnifyModelPackagePublish then showPackage else nil, -- prop controlling whether package toggle is visible
+				displayPackage = if FFlagUnifyModelPackagePublish2 then showPackage else nil, -- prop controlling whether package toggle is visible
 				displayComment = showComment,
 				displayAssetType = showAssetType,
 				displayTags = showTags,
@@ -1269,9 +1292,12 @@ local function mapStateToProps(state, props)
 	local assetConfigData = state.assetConfigData or {}
 	local changed = state.changed
 	local publishingRequirements = state.publishingRequirements or {}
-	local verification = publishingRequirements.verification or {}
+	local verification = publishingRequirements.verification or {} -- remove with FFlagUnifyModelPackagePublish2
+	local publishing = publishingRequirements.publishing or {}
+	local allowedSubTypesForPublish = if FFlagUnifyModelPackagePublish2 then publishing.allowedSubTypes or {} else {}
+	local isPackageMarketplacePublishAllowed = AssetSubTypes.contains(allowedSubTypesForPublish, AssetSubTypes.Package)
 
-	local isVerifiedCreator = if FFlagToolboxSwitchVerifiedEndpoint then verification.isVerified or false else state.isVerifiedCreator
+	local isVerifiedCreator = if FFlagToolboxSwitchVerifiedEndpoint then verification.isVerified or false else state.isVerifiedCreator -- remove with FFlagUnifyModelPackagePublish2
 
 	return {
 		assetConfigData = assetConfigData,
@@ -1280,12 +1306,14 @@ local function mapStateToProps(state, props)
 		changeTable = changed,
 		screenFlowType = state.screenFlowType,
 		instances = state.instances,
-		sourceInstances = if FFlagUnifyModelPackagePublish then state.sourceInstances else nil,
+		sourceInstances = if FFlagUnifyModelPackagePublish2 then state.sourceInstances else nil,
 		allowedAssetTypesForRelease = state.allowedAssetTypesForRelease,
 		allowedAssetTypesForUpload = state.allowedAssetTypesForUpload,
 		allowedAssetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then state.allowedAssetTypesForFree else nil,
 		currentTab = state.currentTab,
-		isVerifiedCreator = isVerifiedCreator,
+		isVerifiedCreator = isVerifiedCreator, -- remove with FFlagUnifyModelPackagePublish2
+		isPublishingAllowed = if FFlagUnifyModelPackagePublish2 then publishing.isAllowed or false else false,
+		isPackageMarketplacePublishAllowed = isPackageMarketplacePublishAllowed,
 		networkError = state.networkError,
 		networkErrorAction = state.networkErrorAction or {},
 		isPackageAsset = state.isPackageAsset,
@@ -1388,7 +1416,7 @@ local function mapDispatchToProps(dispatch)
 			dispatch(PostOverrideAssetRequest(networkInterface, assetid, type, instances))
 		end,
 
-		getIsVerifiedCreator = if not FFlagToolboxSwitchVerifiedEndpoint then function(networkInterface)
+		getIsVerifiedCreator = if not FFlagToolboxSwitchVerifiedEndpoint then function(networkInterface) -- remove with FFlagUnifyModelPackagePublish2
 			dispatch(GetIsVerifiedCreatorRequest(networkInterface))
 		end else nil,
 

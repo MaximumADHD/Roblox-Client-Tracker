@@ -1,5 +1,4 @@
 local Plugin = script.Parent.Parent.Parent
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFaceControlsEditorUIUpdate = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUIUpdate)
 local GetFFlagFaceControlsEditorBugBash2Update = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorBugBash2Update)
 
@@ -60,7 +59,7 @@ local Constants = {
 	TRACKLIST_BUTTON_SIZE = 16,
 	TRACKLIST_RIGHT_PADDING = 8,
 
-	NUMBERBOX_WIDTH = if GetFFlagCurveEditor() then 80 else 70,
+	NUMBERBOX_WIDTH = 80,
 	NUMBERBOX_PADDING = 4,
 	NUMBERBOX_DRAG_MULTIPLIER = 0.05,
 	NUMBERBOX_FACS_DRAG_MULTIPLIER = 0.01,
@@ -144,7 +143,6 @@ local Constants = {
 	PROPERTY_KEYS = {
 		Position = "Position",
 		Rotation = "Rotation",
-		Quaternion = if GetFFlagCurveEditor() then nil else "Quaternion",  -- Unused
 		X = "X",
 		Y = "Y",
 		Z = "Z",
@@ -707,32 +705,24 @@ Constants.COMPONENT_PATH_BASE_SCALE = 0.1
 Constants.KEYFRAME_STYLE[Enum.KeyInterpolationMode.Constant] = "Constant"
 Constants.KEYFRAME_STYLE[Enum.KeyInterpolationMode.Cubic] = "Cubic"
 
-if GetFFlagCurveEditor() then
-	Constants.TRACK_THEME_MAPPING = {
-		[Constants.TRACK_TYPES.Number] = {
-			[Constants.PROPERTY_KEYS.X] = "positionX",
-			[Constants.PROPERTY_KEYS.Y] = "positionY",
-			[Constants.PROPERTY_KEYS.Z] = "positionZ",
-		},
-		[Constants.TRACK_TYPES.Angle] = {
-			[Constants.PROPERTY_KEYS.X] = "rotationX",
-			[Constants.PROPERTY_KEYS.Y] = "rotationY",
-			[Constants.PROPERTY_KEYS.Z] = "rotationZ",
-		}
+Constants.TRACK_THEME_MAPPING = {
+	[Constants.TRACK_TYPES.Number] = {
+		[Constants.PROPERTY_KEYS.X] = "positionX",
+		[Constants.PROPERTY_KEYS.Y] = "positionY",
+		[Constants.PROPERTY_KEYS.Z] = "positionZ",
+	},
+	[Constants.TRACK_TYPES.Angle] = {
+		[Constants.PROPERTY_KEYS.X] = "rotationX",
+		[Constants.PROPERTY_KEYS.Y] = "rotationY",
+		[Constants.PROPERTY_KEYS.Z] = "rotationZ",
 	}
-end
+}
 
-if GetFFlagCurveEditor() then
-	Constants.TICK_LABEL_POSITION = {
-		[Constants.SCALE_TYPE.Number] = UDim2.new(.3, 0, .5, 0),
-		[Constants.SCALE_TYPE.Angle] = UDim2.new(.7, 0, .5, 0),
-	}
-end
+Constants.TICK_LABEL_POSITION = {
+	[Constants.SCALE_TYPE.Number] = UDim2.new(.3, 0, .5, 0),
+	[Constants.SCALE_TYPE.Angle] = UDim2.new(.7, 0, .5, 0),
+}
 
-if GetFFlagCurveEditor() then
-	Constants.DEFAULT_ROTATION_TYPE = Constants.TRACK_TYPES.EulerAngles
-else
-	Constants.DEFAULT_ROTATION_TYPE = Constants.TRACK_TYPES.Quaternion
-end
+Constants.DEFAULT_ROTATION_TYPE = Constants.TRACK_TYPES.EulerAngles
 
 return Constants

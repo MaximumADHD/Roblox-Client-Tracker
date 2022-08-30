@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local RoactRodux = require(CorePackages.RoactRodux)
 local CoreGui = game:GetService("CoreGui")

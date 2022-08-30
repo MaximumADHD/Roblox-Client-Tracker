@@ -64,6 +64,17 @@ LeavePrompt.defaultProps = {
 
 function LeavePrompt:init()
 	self.leaveButtonRef = Roact.createRef()
+
+	self.onConfirm = function()
+		if self.props.onConfirm then
+			self.props.onConfirm()
+		end
+	end
+	self.onCancel = function()
+		if self.props.onCancel then
+			self.props.onCancel()
+		end
+	end
 end
 
 function LeavePrompt:render()
@@ -213,7 +224,7 @@ function LeavePrompt:render()
 					ConfirmButton = Roact.createElement(PrimarySystemButton, {
 						layoutOrder = 4,
 						size = UDim2.fromOffset(BUTTON_WIDTH, BUTTON_HEIGHT),
-						onActivated = self.props.onConfirm,
+						onActivated = self.onConfirm,
 						text = self.props.confirmText,
 						buttonRef = self.leaveButtonRef,
 					}),
@@ -221,7 +232,7 @@ function LeavePrompt:render()
 						layoutOrder = 5,
 						position = UDim2.fromOffset(0, BUTTON_HEIGHT + BUTTON_PADDING),
 						size = UDim2.fromOffset(BUTTON_WIDTH, BUTTON_HEIGHT),
-						onActivated = self.props.onCancel,
+						onActivated = self.onCancel,
 						text = self.props.cancelText,
 					}),
 				}),

@@ -51,9 +51,6 @@ return function()
 	local AddTrack = require(Plugin.Src.Thunks.AddTrack)
 	local SkipAnimation = require(Plugin.Src.Thunks.Playback.SkipAnimation)
 
-	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-	local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
 	-- TODO: Ideally we want to write tests for number values and CFrame values
 	-- Right now, these tests only check number values if either FACS or channels are enabled.
 
@@ -900,13 +897,8 @@ return function()
 		it("should skip the playhead to the previous summary keyframe", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			if GetFFlagCurveEditor() then
-				store:dispatch(AddTrack("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, Enum.RotationOrder.XYZ, analytics))
-				store:dispatch(AddTrack("Root", "OtherTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, Enum.RotationOrder.XYZ, analytics))
-			else
-				store:dispatch(AddTrack("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, analytics))
-				store:dispatch(AddTrack("Root", "OtherTrack", Constants.TRACK_TYPES.CFrame, analytics))
-			end
+			store:dispatch(AddTrack("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, Enum.RotationOrder.XYZ, analytics))
+			store:dispatch(AddTrack("Root", "OtherTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, Enum.RotationOrder.XYZ, analytics))
 			store:dispatch(SetPlayhead(3))
 			store:dispatch(SetRootInstance({}))
 			store:dispatch(SkipAnimation(false, analytics))
@@ -921,13 +913,8 @@ return function()
 		it("should skip the playhead to the next summary keyframe", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			if GetFFlagCurveEditor() then
-				store:dispatch(AddTrack("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, analytics))
-				store:dispatch(AddTrack("Root", "OtherTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, analytics))
-			else
-				store:dispatch(AddTrack("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, analytics))
-				store:dispatch(AddTrack("Root", "OtherTrack", Constants.TRACK_TYPES.CFrame, analytics))
-			end
+			store:dispatch(AddTrack("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, analytics))
+			store:dispatch(AddTrack("Root", "OtherTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, analytics))
 			store:dispatch(SetPlayhead(3))
 			store:dispatch(SetRootInstance({}))
 			store:dispatch(SkipAnimation(true, analytics))

@@ -13,7 +13,7 @@ local t = InGameMenuDependencies.t
 local InGameMenu = script.Parent.Parent.Parent
 
 local Constants = require(InGameMenu.Resources.Constants)
-local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
+local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnectionMemo)
 
 local INGAME_MENU_CUSOR_OVERRIDE_KEY = Symbol.named("InGameMenuCursorOverride")
 
@@ -28,14 +28,12 @@ MouseOverrideManager.validateProps = t.strictInterface({
 })
 
 function MouseOverrideManager:render()
-	local isExitModalOpen = self.props.exitModalOpen
-
 	return Roact.createElement(ExternalEventConnection, {
 		event = UserInputService:GetPropertyChangedSignal("OverrideMouseIconBehavior"),
 		callback = function()
 			-- Another menu that overrides the mouse icon behaviour has closed.
 			-- But we are still open so we need to keep re-override the icon behaviour.
-			if (self.props.menuOpen or isExitModalOpen)
+			if (self.props.menuOpen or self.props.exitModalOpen)
 				and UserInputService.OverrideMouseIconBehavior == Enum.OverrideMouseIconBehavior.None
 			then
 				self:updateMouseIconOverride()

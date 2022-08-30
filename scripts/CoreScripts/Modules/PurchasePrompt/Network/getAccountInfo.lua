@@ -1,26 +1,11 @@
 local Root = script.Parent.Parent
-local UserInputService = game:GetService("UserInputService")
 
 local PurchaseError = require(Root.Enums.PurchaseError)
 local Promise = require(Root.Promise)
 
-local MAX_ROBUX = 2147483647
-
-local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
-
 local function getAccountInfo(network, externalSettings)
 	return network.getAccountInfo()
 		:andThen(function(result)
-			if not FFlagPPAccountInfoMigration then
-				--[[
-					In studio, we falsely report that users have the maximum amount
-					of robux, so that they can always test the normal purchase flow
-				]]
-				if externalSettings.isStudio() then
-					result.RobuxBalance = MAX_ROBUX
-				end
-			end
-
 			return Promise.resolve(result)
 		end)
 		:catch(function(failure)

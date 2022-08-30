@@ -42,7 +42,7 @@ local function getPluginTheme()
 	local MaterialDetailsRowHeight = 30
 	local MaterialDetailsTextureHeight = 64
 	local MaterialDetaulsLabelWidth = 108
-	local ColumnWidth = if getFFlagMaterialManagerVariantCreatorOverhaul() then 170 else 270
+	local ColumnWidth = if getFFlagMaterialManagerVariantCreatorOverhaul() then 160 else 270
 	local LabelColumnWidth = if getFFlagMaterialManagerVariantCreatorOverhaul() then UDim.new(0, 95) else UDim.new(0, 80)
 	local DialogWidth = 720
 	local DialogHeight = 480
@@ -374,8 +374,8 @@ local function getPluginTheme()
 			ImportImageBackground = StyleKey.ImportImageBackground,
 			ButtonColor = StyleKey.Button,
 			ButtonHeight = 24,
-			IconImportPaddingLeft = if getFFlagMaterialManagerVariantCreatorOverhaul() then 10 else 45,
-			IconImportPaddingRight = if getFFlagMaterialManagerVariantCreatorOverhaul() then 15 else 55,
+			IconImportPaddingLeft = 45,
+			IconImportPaddingRight = 55,
 
 			ButtonIconColor = StyleKey.Icon,
 			ButtonIconHoveredColor = Color3.fromRGB(255, 255, 255),
@@ -387,10 +387,11 @@ local function getPluginTheme()
 			ToolbarHeight = 32,
 
 			ColumnWidth = ColumnWidth,
-			PreviewSize = if getFFlagMaterialManagerVariantCreatorOverhaul() then 64 else 88,
+			LabelColumnWidth = LabelColumnWidth,
+			PreviewSize = if getFFlagMaterialManagerVariantCreatorOverhaul() then 74 else 88,
 
 			PaddingVertical = 4,
-			PaddingHorizontal = if getFFlagMaterialManagerVariantCreatorOverhaul() then 8 else 12,
+			PaddingHorizontal = if getFFlagMaterialManagerVariantCreatorOverhaul() then 21 else 12,
 			TextHeight = 16,
 
 			ExpandedPreviewDefaultSize = Vector2.new(400, 400),

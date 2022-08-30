@@ -22,7 +22,8 @@
 	Errors:
 		name: "Empty", "TooLong"
 		description: "TooLong"
-		devices: "NoDevices"
+		devices: "NoDevices",
+		altText: { ThumbnailId: string, Error: "Moderated" }
 ]]
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 
@@ -46,6 +47,10 @@ local descriptionErrors = {
 local imageErrors = {
 	UploadingTooQuickly = "ErrorImageLimit",
 	ImageNotRecognized = "ErrorImageNotRecognized",
+}
+
+local altTextErrors = {
+	Moderated = "ErrorAltTextModerated",
 }
 
 local Page = script.Parent
@@ -99,6 +104,7 @@ local InsufficientPermissionsPage = require(Plugin.Src.Components.SettingsPages.
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddErrors = require(Plugin.Src.Actions.AddErrors)
+local DiscardError = require(Plugin.Src.Actions.DiscardError)
 local SetCreatorId = require(Plugin.Src.Actions.SetCreatorId)
 local SetCreatorType = require(Plugin.Src.Actions.SetCreatorType)
 
@@ -314,9 +320,11 @@ local function saveSettings(store, contextItems)
 			local changedOrder = state.Settings.Changed.thumbnailOrder
 
 			if changedThumbnails ~= nil or changedOrder ~= nil then
+				local lastError
 				if currentThumbnails and changedThumbnails then
 					local thumbnailFilesToAdd = {}
 					local thumbnailIdsToRemove = {}
+					local thumbnailAltTextsToUpdate = {}
 
 					for thumbnailId in pairs(currentThumbnails) do
 						if changedThumbnails[thumbnailId] == nil then
@@ -326,10 +334,14 @@ local function saveSettings(store, contextItems)
 					for id, data in pairs(changedThumbnails) do
 						if currentThumbnails[id] == nil then
 							table.insert(thumbnailFilesToAdd, data.asset)
+							if data.altText ~= "" then
+								thumbnailAltTextsToUpdate[id] = data.altText
+							end
+						elseif currentThumbnails[id].altText ~= data.altText then
+							thumbnailAltTextsToUpdate[id] = data.altText
 						end
 					end
 
-					local lastError
 					local pendingJobs = 0
 					if #thumbnailIdsToRemove > 0 then
 						pendingJobs = pendingJobs + 1
@@ -339,14 +351,23 @@ local function saveSettings(store, contextItems)
 							pendingJobs = pendingJobs - 1
 						end)()
 					end
+
 					if #thumbnailFilesToAdd > 0 then
 						pendingJobs = pendingJobs + 1
 						coroutine.wrap(function()
 							local success, result = pcall(function() return gameInfoController:addThumbnails(gameId, thumbnailFilesToAdd) end)
 							if success then
 								for thumbnailFile,thumbnailId in pairs(result) do
-									local oldIndex = Cryo.List.find(changedOrder, thumbnailFile:GetTemporaryId())
+									local id = thumbnailFile:GetTemporaryId()
+									local oldIndex = Cryo.List.find(changedOrder, id)
 									changedOrder = Cryo.Dictionary.join(changedOrder, { [oldIndex] = thumbnailId })
+
+									if thumbnailAltTextsToUpdate[id] ~= nil then
+										-- Swap temporary file id to thumbnail id as key for alt text
+										local altText = thumbnailAltTextsToUpdate[id]
+										thumbnailAltTextsToUpdate[id] = nil
+										thumbnailAltTextsToUpdate[thumbnailId] = altText
+									end
 								end
 							else
 								lastError = result
@@ -357,16 +378,52 @@ local function saveSettings(store, contextItems)
 
 					while pendingJobs > 0 do wait() end
 
-					if lastError then
-						error(lastError)
+					local thumbnailsWithFilteredAltText
+					for thumbnailId, altText in pairs(thumbnailAltTextsToUpdate) do
+						pendingJobs = pendingJobs + 1
+
+						coroutine.wrap(function()
+							local thumbnailMediaItem = { MediaAssetId = thumbnailId, MediaAssetAltText = altText }
+							local success, result = pcall(function() return gameInfoController:updateThumbnailAltText(gameId, thumbnailMediaItem) end)
+
+							if success then
+								if result.MediaAssetAltText ~= altText then
+									if thumbnailsWithFilteredAltText == nil then
+										thumbnailsWithFilteredAltText = table.clone(state.Settings.Changed.thumbnails)
+									end
+
+									thumbnailsWithFilteredAltText[thumbnailId].altText = result.MediaAssetAltText
+								end
+							else
+								if result == gameInfoController.AltTextModerated then
+									store:dispatch(AddErrors({altText = {
+										ThumbnailId = thumbnailId,
+										Error = "Moderated",
+									}}))
+		
+									lastError = "Thumbnail alt text was moderated"
+								end
+							end
+							pendingJobs = pendingJobs - 1
+						end)()
+					end
+
+					while pendingJobs > 0 do wait() end
+
+					if thumbnailsWithFilteredAltText ~= nil then
+						store:dispatch(AddChange("thumbnails", thumbnailsWithFilteredAltText))
 					end
 				end
 
-				if currentOrder ~= changedOrder then
+				if currentOrder ~= changedOrder and changedOrder ~= nil then
 					for index,thumbnailId in pairs(changedOrder) do
 						changedOrder = Cryo.Dictionary.join(changedOrder, { [index] = tonumber(thumbnailId) })
 					end
 					gameInfoController:setThumbnailsOrder(gameId, changedOrder)
+				end
+
+				if lastError then
+					error(lastError)
 				end
 			end
 		end,
@@ -419,6 +476,9 @@ local function loadValuesToProps(getValue, state)
 		NameError = errors.name,
 		DescriptionError = errors.description,
 		DevicesError = errors.playableDevices,
+		ThumbnailsError = errors.thumbnails,
+		AltTextError = errors.altText,
+		GameIconError = errors.gameIcon,
 
 		IsCurrentlyActive =  state.Settings.Current.isActive,
 
@@ -426,16 +486,17 @@ local function loadValuesToProps(getValue, state)
 		OwnerType = state.GameOwnerMetadata.creatorType,
 	}
 
-	loadedProps.ThumbnailsError = errors.thumbnails
-	loadedProps.GameIconError = errors.gameIcon
-
 	return loadedProps
 end
 
 --Implements dispatch functions for when the user changes values
 local function dispatchChanges(setValue, dispatch)
 	local dispatchFuncs = {
-		ThumbnailsChanged = setValue("thumbnails"),
+		ThumbnailsChanged =  function(thumbnails)
+			dispatch(DiscardError("altText"))
+			dispatch(AddChange("thumbnails", thumbnails))
+		end,
+
 		GenreChanged = setValue("genre"),
 
 		NameChanged = function(text)
@@ -778,6 +839,12 @@ function BasicInfo:render()
 			thumbnailError = localization:getText("General", imageErrors[props.ThumbnailsError])
 		end
 
+		-- Alt text is associated with an individual thumbnail, so we need an ID along with the message
+		local altTextError
+		if props.AltTextError and props.AltTextError.Error and altTextErrors[props.AltTextError.Error] then
+			altTextError = localization:getText("General", altTextErrors[props.AltTextError.Error])
+		end
+
 		local devicesError = nil
 		if props.DevicesError then
 			devicesError = localization:getText("General", "ErrorNoDevices")
@@ -876,6 +943,10 @@ function BasicInfo:render()
 				ErrorMessage = thumbnailError,
 				ThumbnailsChanged = props.ThumbnailsChanged,
 				ThumbnailOrderChanged = props.ThumbnailOrderChanged,
+				AltTextError = {
+					ThumbnailId = if props.AltTextError then props.AltTextError.ThumbnailId else nil,
+					ErrorMessage = altTextError,
+				}
 			}),
 
 			Separator4 = Roact.createElement(Separator, {

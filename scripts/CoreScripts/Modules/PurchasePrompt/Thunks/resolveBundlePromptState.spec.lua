@@ -19,14 +19,10 @@ return function()
 	local resolveBundlePromptState = require(script.Parent.resolveBundlePromptState)
 
 	local GetFFlagDisableRobuxUpsell = require(Root.Flags.GetFFlagDisableRobuxUpsell)
-	local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
 
 	local function getTestAccountInfoDetails()
-		return FFlagPPAccountInfoMigration and {
+		return {
 			isPremium = false,
-		} or {
-			RobuxBalance = 10,
-			MembershipType = 0,
 		}
 	end
 

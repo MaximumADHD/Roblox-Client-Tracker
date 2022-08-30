@@ -18,7 +18,7 @@ local SavedQualityLevelChanged = UserGameSettings:GetPropertyChangedSignal("Save
 local InGameMenu = script.Parent.Parent.Parent
 
 local ToggleEntry = require(script.Parent.ToggleEntry)
-local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
+local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnectionMemo)
 local SliderEntry = require(script.Parent.SliderEntry)
 
 local CoreGui = game:GetService("CoreGui")
@@ -92,8 +92,6 @@ local GraphicsQualityEntry = Roact.PureComponent:extend("GraphicsQualityEntry")
 GraphicsQualityEntry.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
 	canCaptureFocus = t.optional(t.boolean),
-	isMenuOpen = t.optional(t.boolean),
-
 })
 
 function GraphicsQualityEntry:init()
@@ -223,7 +221,6 @@ function GraphicsQualityEntry:render()
 				SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 			end,
 			canCaptureFocus = self.props.canCaptureFocus,
-			isMenuOpen = self.props.isMenuOpen,
 		}),
 		QualityListener = Roact.createElement(ExternalEventConnection, {
 			event = GetFixGraphicsQuality() and GraphicsQualityLevelChanged or SavedQualityLevelChanged,

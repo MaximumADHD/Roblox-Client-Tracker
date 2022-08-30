@@ -4,6 +4,10 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local createTheme = UILibrary.createTheme
 local StudioStyle = UILibrary.Studio.Style
 
+local Framework = require(Plugin.Packages.Framework)
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
+
 local isCli, _ = pcall(function()
 	return game:GetService("ProcessService")
 end)
@@ -64,40 +68,46 @@ local function getUILibraryTheme()
 		return theme:GetColor(...)
 	end, StyleColor, StyleModifier)
 
-	-- define any custom changes to UILibrary elements, use UILibrary's createTheme path syntax
-	local UILibraryOverrides = {
-		treeView = {
-			elementPadding = 0,
-		},
+	local UILibraryOverrides
 
-		button = {
-			tableItemButton = {
-				font = Enum.Font.SourceSans,
-				textSize = 18,
-				backgroundColor = theme:GetColor(StyleColor.TableItem, StyleModifier.Default),
-				textColor = theme:GetColor(StyleColor.MainText, StyleModifier.Default),
-				dimmedTextColor = theme:GetColor(StyleColor.DimmedText, StyleModifier.Default),
+	if FFlagRemoveUILibraryButton then
+		UILibraryOverrides = {}
+	else
+		-- define any custom changes to UILibrary elements, use UILibrary's createTheme path syntax
+		UILibraryOverrides = {
+			treeView = {
+				elementPadding = 0,
+			},
 
-				disabled = {
-					backgroundColor = theme:GetColor(StyleColor.TableItem, StyleModifier.Disabled),
-					textColor = theme:GetColor(StyleColor.MainText, StyleModifier.Disabled),
-					dimmedTextColor = theme:GetColor(StyleColor.DimmedText, StyleModifier.Disabled),
-				},
+			button = {
+				tableItemButton = {
+					font = Enum.Font.SourceSans,
+					textSize = 18,
+					backgroundColor = theme:GetColor(StyleColor.TableItem, StyleModifier.Default),
+					textColor = theme:GetColor(StyleColor.MainText, StyleModifier.Default),
+					dimmedTextColor = theme:GetColor(StyleColor.DimmedText, StyleModifier.Default),
 
-				hovered = {
-					backgroundColor = theme:GetColor(StyleColor.TableItem, StyleModifier.Hover),
-					textColor = theme:GetColor(StyleColor.MainText, StyleModifier.Hover),
-					dimmedTextColor = theme:GetColor(StyleColor.DimmedText, StyleModifier.Hover),
-				},
+					disabled = {
+						backgroundColor = theme:GetColor(StyleColor.TableItem, StyleModifier.Disabled),
+						textColor = theme:GetColor(StyleColor.MainText, StyleModifier.Disabled),
+						dimmedTextColor = theme:GetColor(StyleColor.DimmedText, StyleModifier.Disabled),
+					},
 
-				selected = {
-					backgroundColor = theme:GetColor(StyleColor.TableItem, StyleModifier.Selected),
-					textColor = theme:GetColor(StyleColor.MainText, StyleModifier.Selected),
-					dimmedTextColor = theme:GetColor(StyleColor.DimmedText, StyleModifier.Selected),
-				},
-			}
-		},
-	}
+					hovered = {
+						backgroundColor = theme:GetColor(StyleColor.TableItem, StyleModifier.Hover),
+						textColor = theme:GetColor(StyleColor.MainText, StyleModifier.Hover),
+						dimmedTextColor = theme:GetColor(StyleColor.DimmedText, StyleModifier.Hover),
+					},
+
+					selected = {
+						backgroundColor = theme:GetColor(StyleColor.TableItem, StyleModifier.Selected),
+						textColor = theme:GetColor(StyleColor.MainText, StyleModifier.Selected),
+						dimmedTextColor = theme:GetColor(StyleColor.DimmedText, StyleModifier.Selected),
+					},
+				}
+			},
+		}
+	end
 
 	return createTheme(styleGuide, UILibraryOverrides)
 end

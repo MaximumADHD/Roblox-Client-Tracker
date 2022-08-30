@@ -16,8 +16,6 @@ local postPremiumImpression = require(Root.Network.postPremiumImpression)
 local completeRequest = require(Root.Thunks.completeRequest)
 local Thunk = require(Root.Thunk)
 
-local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
-
 local requiredServices = {
 	Network,
 	ExternalSettings,
@@ -33,9 +31,7 @@ local function resolvePremiumPromptState(accountInfo, balanceInfo, premiumProduc
 
 		store:dispatch(PremiumInfoRecieved(premiumProduct))
 		store:dispatch(AccountInfoReceived(accountInfo))
-		if FFlagPPAccountInfoMigration then
-			store:dispatch(BalanceInfoRecieved(balanceInfo))
-		end
+		store:dispatch(BalanceInfoRecieved(balanceInfo))
 
 		if canShowUpsell == false then
 			analytics.signalPremiumUpsellPrecheckFail()

@@ -23,7 +23,7 @@ local FocusHandler = require(script.Parent.Parent.Connection.FocusHandler)
 local InGameMenu = script.Parent.Parent.Parent
 
 local Divider = require(InGameMenu.Components.Divider)
-local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
+local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnectionMemo)
 local Page = require(InGameMenu.Components.Page)
 local PageUtils = require(InGameMenu.Components.Pages.PageUtils)
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
@@ -32,7 +32,7 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 local Assets = require(InGameMenu.Resources.Assets)
 
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
-
+local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 local AutoPropertyToggleEntry = require(script.Parent.AutoPropertyToggleEntry)
 local CameraModeEntry = require(script.Parent.CameraModeEntry)
 local CameraSensitivityEntry = require(script.Parent.CameraSensitivityEntry)
@@ -62,12 +62,11 @@ local BasicPage = Roact.PureComponent:extend("BasicPage")
 BasicPage.validateProps = t.strictInterface({
 	switchToAdvancedPage = t.callback,
 	pageTitle = t.string,
-	isMenuOpen = t.boolean,
 	currentPage = t.optional(t.string),
 	canCaptureFocus = t.optional(t.boolean),
 	canGamepadCaptureFocus = t.optional(t.boolean),
 	vrService = GetFFlagInGameMenuVRToggle() and t.optional(t.union(t.Instance, t.table)) or nil,
-	currentZone = t.optional(t.number),
+	shouldForgetPreviousSelection = t.optional(t.boolean),
 })
 
 BasicPage.defaultProps = {
@@ -98,13 +97,12 @@ function BasicPage:init()
 		end
 	end
 
-end
-
-function BasicPage:didUpdate(prevProps)
-	if self.props.isMenuOpen and not prevProps.isMenuOpen then
-		local scrollingFrame = self.scrollingFrameRef:getValue()
-		if scrollingFrame and scrollingFrame.CanvasPosition.Y > 0 then
-			scrollingFrame.CanvasPosition = Vector2.new(0, 0)
+	self.menuOpenChange = function(menuOpen, wasOpen)
+		if menuOpen and not wasOpen then
+			local scrollingFrame = self.scrollingFrameRef:getValue()
+			if scrollingFrame and scrollingFrame.CanvasPosition.Y > 0 then
+				scrollingFrame.CanvasPosition = Vector2.new(0, 0)
+			end
 		end
 	end
 end
@@ -124,8 +122,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 		}, {
 			FocusHandler = Roact.createElement(FocusHandler, {
 				isFocused = self.props.canCaptureFocus and self.props.canGamepadCaptureFocus,
-				shouldForgetPreviousSelection = self.props.currentPage == Constants.MainPagePageKey
-					or self.props.currentZone == 0,
+				shouldForgetPreviousSelection = self.props.shouldForgetPreviousSelection,
 				didFocus = function(previousSelection)
 					if previousSelection then
 						GuiService.SelectedCoreObject = previousSelection
@@ -172,7 +169,6 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				CameraSensitivity = shouldSettingsDisabledInVRBeShown and Roact.createElement(CameraSensitivityEntry, {
 					LayoutOrder = 4,
 					canCaptureFocus = self.props.canCaptureFocus and self.props.canGamepadCaptureFocus,
-					isMenuOpen = self.props.isMenuOpen,
 				}),
 				CameraDivider = Roact.createElement(Divider, {
 					LayoutOrder = 5,
@@ -202,12 +198,10 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 					LayoutOrder = 9,
 					buttonRef = self.volumeButton,
 					canCaptureFocus = self.props.canCaptureFocus and self.props.canGamepadCaptureFocus,
-					isMenuOpen = self.props.isMenuOpen,
 				}),
 				InputDevice = showVoiceChatOptions and Roact.createElement(DeviceSelectionEntry, {
 					LayoutOrder = 10,
 					deviceType = DeviceSelectionEntry.DeviceType.Input,
-					isMenuOpen = self.props.isMenuOpen,
 					canOpen = self.props.canCaptureFocus,
 					canCaptureFocus = self.props.canGamepadCaptureFocus,
 					screenSize = self.props.screenSize,
@@ -215,7 +209,6 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				OutputDevice = showVoiceChatOptions and Roact.createElement(DeviceSelectionEntry, {
 					LayoutOrder = 11,
 					deviceType = DeviceSelectionEntry.DeviceType.Output,
-					isMenuOpen = self.props.isMenuOpen,
 					canOpen = self.props.canCaptureFocus,
 					canCaptureFocus = self.props.canGamepadCaptureFocus,
 					screenSize = self.props.screenSize,
@@ -232,7 +225,6 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				GraphicsQualityEntry = Roact.createElement(GraphicsQualityEntry, {
 					LayoutOrder = 14,
 					canCaptureFocus = self.props.canCaptureFocus and self.props.canGamepadCaptureFocus,
-					isMenuOpen = self.props.isMenuOpen,
 				}),
 				FullScreen = not isMobileClient and shouldSettingsDisabledInVRBeShown and Roact.createElement(ToggleEntry, {
 					LayoutOrder = 15,
@@ -347,6 +339,10 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 						})
 					end,
 				}),
+				PageWatcher = Roact.createElement(PageNavigationWatcher, {
+					desiredPage = Constants.GameSettingsPageKey,
+					onNavigate = self.menuOpenChange,
+				}),
 			}),
 		})
 	end)
@@ -380,10 +376,11 @@ return RoactRodux.UNSTABLE_connect2(function(state)
 	local canGamepadCaptureFocus = state.displayOptions.inputType == Constants.InputType.Gamepad
 		and state.currentZone == 1
 
+	local shouldForgetPreviousSelection = state.menuPage ~= Constants.GameSettingsPageKey
+		or state.currentZone == 0
+
 	return {
-		isMenuOpen = state.isMenuOpen,
-		currentPage = state.menuPage,
-		currentZone = state.currentZone,
+		shouldForgetPreviousSelection = shouldForgetPreviousSelection,
 		canCaptureFocus = canCaptureFocus,
 		canGamepadCaptureFocus = canGamepadCaptureFocus,
 		screenSize = state.screenSize,

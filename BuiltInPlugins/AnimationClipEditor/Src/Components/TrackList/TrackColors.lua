@@ -20,7 +20,6 @@ local withContext = ContextServices.withContext
 
 local Constants = require(Plugin.Src.Util.Constants)
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local TrackColors = Roact.PureComponent:extend("TrackColors")
@@ -80,7 +79,7 @@ function TrackColors:render()
 	local position = props.Position
 
 	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, GetFFlagCurveEditor() and 0 or -Constants.SCROLL_BAR_SIZE, 1, 0),
+		Size = UDim2.new(1, 0, 1, 0),
 		Position = position,
 		BackgroundTransparency = 1,
 		ZIndex = 0,

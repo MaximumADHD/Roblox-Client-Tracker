@@ -70,10 +70,16 @@ function MenuIcon:init()
 					InGameMenu.openInGameMenu("Players")
 					if PlayerListMaster:GetSetVisible() then
 						PlayerListMaster:HideTemp("InGameMenuV3", true)
-						self.menuClosedPlayerListConnection = GuiService.MenuClosed:Connect(function()
-							PlayerListMaster:HideTemp("InGameMenuV3", false)
+						if self.menuClosedPlayerListConnection then
 							self.menuClosedPlayerListConnection:Disconnect()
 							self.menuClosedPlayerListConnection = nil
+						end
+						self.menuClosedPlayerListConnection = GuiService.MenuClosed:Connect(function()
+							PlayerListMaster:HideTemp("InGameMenuV3", false)
+							if self.menuClosedPlayerListConnection then
+								self.menuClosedPlayerListConnection:Disconnect()
+								self.menuClosedPlayerListConnection = nil
+							end
 						end)
 					end
 				else
@@ -93,6 +99,15 @@ function MenuIcon:init()
 			end
 			InGameMenu.openInGameMenu(InGameMenuConstants.InitalPageKey)
 			InGameMenu.setMenuIconTooltipOpen(false)
+		end
+	end
+
+	self.showTopBarCallback = function()
+		local vrShowMenuIcon = VRService.VREnabled and ((EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBar) or GamepadService.GamepadCursorEnabled)
+		if self.state.vrShowMenuIcon ~= vrShowMenuIcon then
+			self:setState({
+				vrShowMenuIcon = vrShowMenuIcon,
+			})
 		end
 	end
 end
@@ -125,11 +140,7 @@ function MenuIcon:render()
 		}),
 		ShowTopBarListener = FFlagEnableNewVrSystem and (not EngineFeatureEnableVRUpdate2 or GamepadService) and Roact.createElement(ExternalEventConnection, {
 			event = EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBarChanged.Event or GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"),
-			callback = function()
-				self:setState({
-					vrShowMenuIcon = VRService.VREnabled and ((EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBar) or GamepadService.GamepadCursorEnabled),
-				})
-			end,
+			callback = self.showTopBarCallback,
 		})
 	})
 end

@@ -12,7 +12,7 @@ local RCCProfilerDataCompleteListener = Roact.Component:extend("RCCProfilerDataC
 function RCCProfilerDataCompleteListener:didMount()
 	local clientReplicator = getClientReplicator()
 	if clientReplicator then
-		self.completeSignal = clientReplicator.RCCProfilerDataComplete:connect(function(success, message)
+		self.completeSignal = clientReplicator.RCCProfilerDataComplete:Connect(function(success, message)
 			if self.props.waitingForRecording then
 				if not success then
 					warn(message)

@@ -2,6 +2,8 @@
 type Array<T> = { [number]: T }
 
 return function()
+	local FFlagToolboxImmediateEvents = game:GetFastFlag("ToolboxImmediateEvents")
+
 	local AssetAnalytics = require(script.Parent.AssetAnalytics) :: any
 
 	local SEARCH_ID = "4581e024-c0f4-4d22-a107-18282b426833"
@@ -144,7 +146,7 @@ return function()
 
 		-- TODO STM-151: Re-enable Luau Type Checks when Luau bugs are fixed
 		local assetAnalytics: any
-		local sendEventDeferredCalls
+		local sendCalls
 
 		local insertionMethod = "ClickInsert"
 
@@ -177,7 +179,7 @@ return function()
 			assetAnalytics = AssetAnalytics.mock()
 
 			local stubSenders: any = assetAnalytics.senders
-			sendEventDeferredCalls = stubSenders.sendEventDeferredCalls
+			sendCalls = if FFlagToolboxImmediateEvents then stubSenders.sendEventImmediatelyCalls else stubSenders.sendEventDeferredCalls
 
 			stubInstance = Instance.new("Part")
 			stubParent = Instance.new("Model")
@@ -202,7 +204,7 @@ return function()
 			stubAnalyticsContextInfo.searchId = nil
 			assetAnalytics:logInsert(assets[1], insertionMethod, stubInstance, stubAnalyticsContextInfo)
 
-			expect(#sendEventDeferredCalls).to.equal(0)
+			expect(#sendCalls).to.equal(0)
 			expect(#scheduleCalls).to.equal(0)
 		end)
 
@@ -220,7 +222,7 @@ return function()
 				local stubAnalyticsContextInfo = getStubAnalyticsContextInfo()
 				assetAnalytics:logInsert(asset, insertionMethod, nil, stubAnalyticsContextInfo)
 
-				expect(#sendEventDeferredCalls).to.equal(1)
+				expect(#sendCalls).to.equal(1)
 				expect(#scheduleCalls).to.equal(0)
 			end)
 
@@ -228,12 +230,13 @@ return function()
 				local stubAnalyticsContextInfo = getStubAnalyticsContextInfo()
 				assetAnalytics:logInsert(asset, insertionMethod, stubInstance, stubAnalyticsContextInfo)
 
-				expect(#sendEventDeferredCalls).to.equal(1)
-				expect(sendEventDeferredCalls[1][1]).to.equal("studio")
-				expect(sendEventDeferredCalls[1][2]).to.equal("Marketplace")
-				expect(sendEventDeferredCalls[1][3]).to.equal("MarketplaceInsert")
-				expect(sendEventDeferredCalls[1][4].assetID).to.equal(tostring(asset.Asset.Id))
-				expect(sendEventDeferredCalls[1][4].method).to.equal(insertionMethod)
+
+				expect(#sendCalls).to.equal(1)
+				expect(sendCalls[1][1]).to.equal("studio")
+				expect(sendCalls[1][2]).to.equal("Marketplace")
+				expect(sendCalls[1][3]).to.equal("MarketplaceInsert")
+				expect(sendCalls[1][4].assetID).to.equal(tostring(asset.Asset.Id))
+				expect(sendCalls[1][4].method).to.equal(insertionMethod)
 
 				expect(#scheduleCalls).to.equal(#delays)
 				expect(scheduleCalls[1][1]).to.equal(delays[1])
@@ -241,32 +244,32 @@ return function()
 
 				-- Run all scheduled tracks
 				runScheduleTo(delays[#delays])
-				expect(#sendEventDeferredCalls).to.equal(3)
+				expect(#sendCalls).to.equal(3)
 
-				expect(sendEventDeferredCalls[2][1]).to.equal("studio")
-				expect(sendEventDeferredCalls[2][2]).to.equal("Marketplace")
+				expect(sendCalls[2][1]).to.equal("studio")
+				expect(sendCalls[2][2]).to.equal("Marketplace")
 
-				expect(sendEventDeferredCalls[2][3]).to.equal("InsertRemains" .. tostring(delays[1]))
-				expect(sendEventDeferredCalls[2][4].assetID).to.equal(tostring(asset.Asset.Id))
-				expect(sendEventDeferredCalls[2][4].method).to.equal(insertionMethod)
+				expect(sendCalls[2][3]).to.equal("InsertRemains" .. tostring(delays[1]))
+				expect(sendCalls[2][4].assetID).to.equal(tostring(asset.Asset.Id))
+				expect(sendCalls[2][4].method).to.equal(insertionMethod)
 
-				expect(sendEventDeferredCalls[3][1]).to.equal("studio")
-				expect(sendEventDeferredCalls[3][2]).to.equal("Marketplace")
-				expect(sendEventDeferredCalls[3][3]).to.equal("InsertRemains" .. tostring(delays[2]))
-				expect(sendEventDeferredCalls[3][4].assetID).to.equal(tostring(asset.Asset.Id))
-				expect(sendEventDeferredCalls[3][4].method).to.equal(insertionMethod)
+				expect(sendCalls[3][1]).to.equal("studio")
+				expect(sendCalls[3][2]).to.equal("Marketplace")
+				expect(sendCalls[3][3]).to.equal("InsertRemains" .. tostring(delays[2]))
+				expect(sendCalls[3][4].assetID).to.equal(tostring(asset.Asset.Id))
+				expect(sendCalls[3][4].method).to.equal(insertionMethod)
 			end)
 
 			it("logs remains, then deleted event if deleted in interim", function()
 				local stubAnalyticsContextInfo = getStubAnalyticsContextInfo()
 				assetAnalytics:logInsert(asset, insertionMethod, stubInstance, stubAnalyticsContextInfo)
 
-				expect(#sendEventDeferredCalls).to.equal(1)
-				expect(sendEventDeferredCalls[1][1]).to.equal("studio")
-				expect(sendEventDeferredCalls[1][2]).to.equal("Marketplace")
-				expect(sendEventDeferredCalls[1][3]).to.equal("MarketplaceInsert")
-				expect(sendEventDeferredCalls[1][4].assetID).to.equal(tostring(asset.Asset.Id))
-				expect(sendEventDeferredCalls[1][4].method).to.equal(insertionMethod)
+				expect(#sendCalls).to.equal(1)
+				expect(sendCalls[1][1]).to.equal("studio")
+				expect(sendCalls[1][2]).to.equal("Marketplace")
+				expect(sendCalls[1][3]).to.equal("MarketplaceInsert")
+				expect(sendCalls[1][4].assetID).to.equal(tostring(asset.Asset.Id))
+				expect(sendCalls[1][4].method).to.equal(insertionMethod)
 
 				expect(#scheduleCalls).to.equal(#delays)
 				expect(scheduleCalls[1][1]).to.equal(delays[1])
@@ -274,22 +277,22 @@ return function()
 
 				-- Run the first scheduled track
 				runScheduleTo(delays[1])
-				expect(#sendEventDeferredCalls).to.equal(2)
-				expect(sendEventDeferredCalls[2][1]).to.equal("studio")
-				expect(sendEventDeferredCalls[2][2]).to.equal("Marketplace")
-				expect(sendEventDeferredCalls[2][3]).to.equal("InsertRemains" .. tostring(delays[1]))
-				expect(sendEventDeferredCalls[2][4].assetID).to.equal(tostring(asset.Asset.Id))
-				expect(sendEventDeferredCalls[2][4].method).to.equal(insertionMethod)
+				expect(#sendCalls).to.equal(2)
+				expect(sendCalls[2][1]).to.equal("studio")
+				expect(sendCalls[2][2]).to.equal("Marketplace")
+				expect(sendCalls[2][3]).to.equal("InsertRemains" .. tostring(delays[1]))
+				expect(sendCalls[2][4].assetID).to.equal(tostring(asset.Asset.Id))
+				expect(sendCalls[2][4].method).to.equal(insertionMethod)
 
 				-- Destroy the instance and run to the next scheduled track, which should be a deleted event
 				stubInstance:Destroy()
 				runScheduleTo(delays[2])
-				expect(#sendEventDeferredCalls).to.equal(3)
-				expect(sendEventDeferredCalls[3][1]).to.equal("studio")
-				expect(sendEventDeferredCalls[3][2]).to.equal("Marketplace")
-				expect(sendEventDeferredCalls[3][3]).to.equal("InsertDeleted" .. tostring(delays[2]))
-				expect(sendEventDeferredCalls[3][4].assetID).to.equal(tostring(asset.Asset.Id))
-				expect(sendEventDeferredCalls[3][4].method).to.equal(insertionMethod)
+				expect(#sendCalls).to.equal(3)
+				expect(sendCalls[3][1]).to.equal("studio")
+				expect(sendCalls[3][2]).to.equal("Marketplace")
+				expect(sendCalls[3][3]).to.equal("InsertDeleted" .. tostring(delays[2]))
+				expect(sendCalls[3][4].assetID).to.equal(tostring(asset.Asset.Id))
+				expect(sendCalls[3][4].method).to.equal(insertionMethod)
 			end)
 
 			it("only logs a single event for multiple root-level instances", function()
@@ -297,11 +300,11 @@ return function()
 				local stubAnalyticsContextInfo = getStubAnalyticsContextInfo()
 				assetAnalytics:logInsert(asset, insertionMethod, instances, stubAnalyticsContextInfo)
 
-				expect(#sendEventDeferredCalls).to.equal(1)
+				expect(#sendCalls).to.equal(1)
 				expect(#scheduleCalls).to.equal(#delays)
 
 				runScheduleTo(delays[#delays])
-				expect(#sendEventDeferredCalls).to.equal(3)
+				expect(#sendCalls).to.equal(3)
 			end)
 		end)
 	end)

@@ -81,7 +81,7 @@ if FFlagLeaderstatsWithASideOfClient then
 		local function decodeJSON(jsonString)
 			return HttpService:JSONDecode(jsonString)
 		end
-		
+
 		local function decodeAddOrder(encodedValue)
 			local success, result = pcall(decodeJSON, encodedValue)
 			return success and result or {}
@@ -89,7 +89,7 @@ if FFlagLeaderstatsWithASideOfClient then
 
 		local addedListener
 
-		local function childAdded(instance)
+		local function childAdded(instance: ObjectValue)
 			if instance.Name ~= REPLICATED_ATTRIBUTE_NAME then
 				return
 			end

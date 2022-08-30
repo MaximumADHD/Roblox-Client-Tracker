@@ -31,7 +31,7 @@ function MouseLockController.new()
 
 	self.mouseLockToggledEvent = Instance.new("BindableEvent")
 
-	local boundKeysObj: StringValue = script:FindFirstChild("BoundKeys") :: StringValue
+	local boundKeysObj = script:FindFirstChild("BoundKeys")
 	if (not boundKeysObj) or (not boundKeysObj:IsA("StringValue")) then
 		-- If object with correct name was found, but it's not a StringValue, destroy and replace
 		if boundKeysObj then
@@ -39,6 +39,8 @@ function MouseLockController.new()
 		end
 
 		boundKeysObj = Instance.new("StringValue")
+		-- Luau FIXME: should be able to infer from assignment above that boundKeysObj is not nil
+		assert(boundKeysObj, "")
 		boundKeysObj.Name = "BoundKeys"
 		boundKeysObj.Value = "LeftShift,RightShift"
 		boundKeysObj.Parent = script
@@ -91,6 +93,7 @@ function MouseLockController:GetMouseLockOffset()
 			offsetValueObj:Destroy()
 		end
 		offsetValueObj = Instance.new("Vector3Value")
+		assert(offsetValueObj, "")
 		offsetValueObj.Name = "CameraOffset"
 		offsetValueObj.Value = Vector3.new(1.75,0,0) -- Legacy Default Value
 		offsetValueObj.Parent = script
@@ -134,7 +137,7 @@ function MouseLockController:OnMouseLockToggled()
 	self.isMouseLocked = not self.isMouseLocked
 
 	if self.isMouseLocked then
-		local cursorImageValueObj: StringValue = script:FindFirstChild("CursorImage") :: StringValue
+		local cursorImageValueObj: StringValue? = script:FindFirstChild("CursorImage") :: StringValue?
 		if cursorImageValueObj and cursorImageValueObj:IsA("StringValue") and cursorImageValueObj.Value then
 			CameraUtils.setMouseIconOverride(cursorImageValueObj.Value)
 		else
@@ -142,6 +145,7 @@ function MouseLockController:OnMouseLockToggled()
 				cursorImageValueObj:Destroy()
 			end
 			cursorImageValueObj = Instance.new("StringValue")
+			assert(cursorImageValueObj, "")
 			cursorImageValueObj.Name = "CursorImage"
 			cursorImageValueObj.Value = DEFAULT_MOUSE_LOCK_CURSOR
 			cursorImageValueObj.Parent = script

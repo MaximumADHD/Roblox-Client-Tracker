@@ -1,6 +1,8 @@
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
+local _Types = require(Plugin.Src.Types)
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 local Stylizer = Framework.Style.Stylizer
@@ -11,9 +13,13 @@ local Analytics = ContextServices.Analytics
 local Localization = ContextServices.Localization
 
 local UI = Framework.UI
-local SimpleExpandablePane = UI.SimpleExpandablePane
+local ExpandablePane = UI.ExpandablePane
 local TextInput = UI.TextInput
 local SelectInput = UI.SelectInput
+
+local Actions = Plugin.Src.Actions
+local SetExpandedPane = require(Actions.SetExpandedPane)
+local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local Controllers = Plugin.Src.Controllers
 local GeneralServiceController = require(Controllers.GeneralServiceController)
@@ -23,9 +29,12 @@ local LabeledElement = require(Plugin.Src.Components.MaterialBrowser.MaterialVar
 local Constants = Plugin.Src.Resources.Constants
 local getMaterialPatterns = require(Constants.getMaterialPatterns)
 local getMaterialPatternName = require(Constants.getMaterialPatternName)
-local materialPatterns = getMaterialPatterns()
+local getSettingsNames = require(Constants.getSettingsNames)
 
 local getNumberFromText = require(Plugin.Src.Util.getNumberFromText)
+
+local materialPatterns = getMaterialPatterns()
+local settingsNames = getSettingsNames()
 
 export type Props = {
 	LayoutOrder: number?,
@@ -34,6 +43,8 @@ export type Props = {
 
 type _Props = Props & { 
 	Analytics: any,
+	dispatchSetExpandedPane: (paneName: string, expandedPaneState: boolean) -> (),
+	ExpandedPane: boolean,
 	GeneralServiceController: any,
 	Localization: any,
 	Stylizer: any,
@@ -92,6 +103,12 @@ function TilingSettings:init()
 			props.GeneralServiceController:setMaterialPattern(props.MaterialVariant, materialPatterns[index])
 		end
 	end
+
+	self.onExpandedChanged = function()
+		local props: _Props = self.props
+		
+		props.dispatchSetExpandedPane(settingsNames.TilingSettings, not props.ExpandedPane)
+	end
 end
 
 function TilingSettings:didMount()
@@ -121,6 +138,8 @@ function TilingSettings:didUpdate(prevProps)
 	if prevProps.MaterialVariant ~= self.props.MaterialVariant then
 		self:setState({
 			studsPerTile = self.props.MaterialVariant.StudsPerTile,
+			nameMessage = Roact.None,
+			status = Enum.PropertyStatus.Ok,
 		})
 	end
 end
@@ -138,14 +157,15 @@ function TilingSettings:render()
 		end
 	end
 
-	return Roact.createElement(SimpleExpandablePane, {
+	return Roact.createElement(ExpandablePane, {
 		LayoutOrder = props.LayoutOrder,
 		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		ContentPadding = style.ContentPadding,
 		ContentSpacing = style.ItemSpacing,
 		Text = localization:getText("MaterialTiling", "Tiling"),
 		Style = style.CustomExpandablePane,
-		Expanded = true,
+		Expanded = props.ExpandedPane,
+		OnExpandedChanged = self.onExpandedChanged,
 	}, {
 		StudsPerTile = Roact.createElement(LabeledElement, {
 			LabelColumnWidth = style.LabelColumnWidth,
@@ -185,4 +205,17 @@ TilingSettings = withContext({
 	Stylizer = Stylizer,
 })(TilingSettings)
 
-return TilingSettings
+return RoactRodux.connect(
+	function(state: MainReducer.State)
+		return {
+			ExpandedPane = state.MaterialBrowserReducer.ExpandedPane[settingsNames.TilingSettings],
+		}
+	end,
+	function(dispatch)
+		return {
+			dispatchSetExpandedPane = function(paneName: string, expandedPaneState: boolean)
+				dispatch(SetExpandedPane(paneName, expandedPaneState))
+			end,
+		}
+	end
+)(TilingSettings)

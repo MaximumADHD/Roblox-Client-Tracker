@@ -6,6 +6,7 @@ local Constants = {
 	DEFAULT_LATTICE_SUBDIVISIONS = Vector3.new(1, 3, 1),
 	DEFAULT_CAGE_TRANSPARENCY = 100,
 	MANNEQUIN_PATH = "rbxasset://models/LayeredClothingEditor/mannequin.rbxm",
+	MANNEQUIN_MOCK_PATH = "rbxasset://models/LayeredClothingEditor/mannequin_mock.rbxm",
 	HEAD_TEMPLATE_PATH = "rbxasset://models/LayeredClothingEditor/PartHeadTemplate.rbxm",
 
 	MOCK_HIP_OFFSET = Vector3.new(0, 4.1, 0),

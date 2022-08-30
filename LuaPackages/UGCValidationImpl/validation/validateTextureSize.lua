@@ -1,3 +1,4 @@
+--!nonstrict
 local UGCValidationService = game:GetService("UGCValidationService")
 
 local root = script.Parent.Parent

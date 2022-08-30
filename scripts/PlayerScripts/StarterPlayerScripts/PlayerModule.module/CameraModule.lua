@@ -249,7 +249,7 @@ function CameraModule:ActivateOcclusionModule(occlusionMode: Enum.DevCameraOcclu
 					self.activeOcclusionModule:CharacterAdded(player.Character, player)
 				end
 			end
-			self.activeOcclusionModule:OnCameraSubjectChanged(game.Workspace.CurrentCamera.CameraSubject)
+			self.activeOcclusionModule:OnCameraSubjectChanged((game.Workspace.CurrentCamera :: Camera).CameraSubject)
 		end
 
 		-- Activate new choice
@@ -262,10 +262,10 @@ function CameraModule:ShouldUseVehicleCamera()
 	if not camera then
 		return false
 	end
-	
+
 	local cameraType = camera.CameraType
 	local cameraSubject = camera.CameraSubject
-	
+
 	local isEligibleType = cameraType == Enum.CameraType.Custom or cameraType == Enum.CameraType.Follow
 	local isEligibleSubject = cameraSubject and cameraSubject:IsA("VehicleSeat") or false
 	local isEligibleOcclusionMode = self.occlusionMode ~= Enum.DevCameraOcclusionMode.Invisicam
@@ -352,7 +352,7 @@ function CameraModule:ActivateCameraController(cameraMovementMode, legacyCameraT
 			newCameraController:Reset()
 		end
 	end
-	
+
 	if self.activeCameraController then
 		-- deactivate the old controller and activate the new one
 		if self.activeCameraController ~= newCameraController then
@@ -452,7 +452,7 @@ function CameraModule:OnLocalPlayerCameraPropertyChanged(propertyName: string)
 			warn("Unhandled value for property player.CameraMode: ",Players.LocalPlayer.CameraMode)
 		end
 
-	elseif propertyName == "DevComputerCameraMode" or 
+	elseif propertyName == "DevComputerCameraMode" or
 		   propertyName == "DevTouchCameraMode" then
 		local cameraMovementMode = self:GetCameraMovementModeFromSettings()
 		self:ActivateCameraController(CameraUtils.ConvertCameraModeEnumToStandard(cameraMovementMode))
@@ -499,8 +499,9 @@ function CameraModule:Update(dt)
 		end
 
 		-- Here is where the new CFrame and Focus are set for this render frame
-		game.Workspace.CurrentCamera.CFrame = newCameraCFrame
-		game.Workspace.CurrentCamera.Focus = newCameraFocus
+		local currentCamera = game.Workspace.CurrentCamera :: Camera
+		currentCamera.CFrame = newCameraCFrame
+		currentCamera.Focus = newCameraFocus
 
 		-- Update to character local transparency as needed based on camera-to-subject distance
 		if self.activeTransparencyController then

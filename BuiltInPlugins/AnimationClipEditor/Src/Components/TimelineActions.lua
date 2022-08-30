@@ -71,9 +71,6 @@ local Redo = require(Plugin.Src.Thunks.History.Redo)
 
 local TogglePlay = require(Plugin.Src.Thunks.Playback.TogglePlay)
 
-local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
 local TimelineActions = Roact.PureComponent:extend("TimelineActions")
 
 -- Returns the property value shared among all selected keyframes,
@@ -190,11 +187,7 @@ function TimelineActions:makeMenuActions(localization)
 		if isChannelAnimation then
 			table.insert(actions, self:makeSelectionSubMenu("KeyInterpolationMode", "InterpolationMode",
 				localization:getText("ContextMenu", "InterpolationMode")))
-			if GetFFlagCurveEditor() then
-				table.insert(actions, pluginActions:get("ClearBothTangents"))
-			else
-				table.insert(actions, pluginActions:get("ClearTangents"))
-			end
+			table.insert(actions, pluginActions:get("ClearBothTangents"))
 			if self:multipleSelected() then
 				table.insert(actions, self:makeGenerateCurveMenu(localization))
 			end
@@ -294,21 +287,13 @@ function TimelineActions:didMount()
 		if selectedTracks then
 			for instanceName, instance in pairs(props.AnimationData.Instances) do
 				for _, selectedTrack in pairs(selectedTracks) do
-					local track = if GetFFlagCurveEditor()
-						then AnimationData.getTrack(props.AnimationData, instanceName, selectedTrack)
-						else instance.Tracks[selectedTrack]
-					local trackType = track and track.Type or (if GetFFlagCurveEditor() then TrackUtils.getComponentTypeFromPath(selectedTrack, tracks) else nil)
+					local track = AnimationData.getTrack(props.AnimationData, instanceName, selectedTrack)
+					local trackType = track and track.Type or TrackUtils.getComponentTypeFromPath(selectedTrack, tracks)
 
 					if isChannelAnimation then
-						local rotationType
-						if GetFFlagCurveEditor() then
-							rotationType = track and TrackUtils.getRotationType(track) or props.DefaultRotationType
-						else
-							local rotationComponent = track.Components and track.Components[Constants.PROPERTY_KEYS.Rotation] or nil
-							rotationType = rotationComponent and rotationComponent.Type or nil
-						end
-						TrackUtils.traverseComponents(if GetFFlagCurveEditor() then trackType else track.Type, function(componentType, relPath)
-							local componentPath = Cryo.List.join(if GetFFlagCurveEditor() then selectedTrack else {selectedTrack}, relPath)
+						local rotationType = track and TrackUtils.getRotationType(track) or props.DefaultRotationType
+						TrackUtils.traverseComponents(trackType, function(componentType, relPath)
+							local componentPath = Cryo.List.join(selectedTrack, relPath)
 							props.SplitTrack(instanceName, componentPath, componentType, playhead, props.Analytics)
 						end, rotationType)
 					else
@@ -316,14 +301,14 @@ function TimelineActions:didMount()
 						if track and track.Keyframes then
 							value = KeyframeUtils.getValue(track, playhead)
 						else
-							value = KeyframeUtils.getDefaultValue(if GetFFlagCurveEditor() then trackType else track.Type)
+							value = KeyframeUtils.getDefaultValue(trackType)
 						end
 						local keyframeData = {
 							Value = value,
 							EasingStyle = Enum.PoseEasingStyle.Linear,
 							EasingDirection = Enum.PoseEasingDirection.In
 						}
-						props.AddKeyframe(instanceName, if GetFFlagCurveEditor() then selectedTrack else {selectedTrack}, if GetFFlagCurveEditor() then trackType else track.Type, playhead, keyframeData, props.Analytics)
+						props.AddKeyframe(instanceName, selectedTrack, trackType, playhead, keyframeData, props.Analytics)
 					end
 				end
 			end
@@ -460,11 +445,7 @@ function TimelineActions:didMount()
 
 	self:addAction(actions:get("TogglePlay"), togglePlayWrapper)
 	self:addAction(actions:get("ToggleBoneVis"), self.props.ToggleBoneVisibility)
-	if GetFFlagCurveEditor() then
-		self:addAction(actions:get("ClearBothTangents"), self.props.OnClearTangentsSelected)
-	else
-		self:addAction(actions:get("ClearTangents"), self.props.OnClearTangentsSelected)
-	end
+	self:addAction(actions:get("ClearBothTangents"), self.props.OnClearTangentsSelected)
 end
 
 function TimelineActions:render()
@@ -523,11 +504,7 @@ function TimelineActions:render()
 		end
 
 		if isChannelAnimation then
-			if GetFFlagCurveEditor() then
-				pluginActions:get("ClearBothTangents").Enabled = true
-			else
-				pluginActions:get("ClearTangents").Enabled = true
-			end
+			pluginActions:get("ClearBothTangents").Enabled = true
 		end
 
 		if tool == Enum.RibbonTool.Rotate or tool == Enum.RibbonTool.Move then

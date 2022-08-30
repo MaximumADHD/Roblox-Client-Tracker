@@ -8,8 +8,6 @@ local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local Templates = require(Plugin.Src.Util.Templates)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
 local CurveUtils = {}
 
 function CurveUtils.makeCubic(easingDirection, tickA, keyframeA, tickB, keyframeB, isQuaternionTrack)
@@ -121,31 +119,20 @@ function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyfram
 		slope = slope * elSqrt
 	end
 
-	-- Adjust the slopes at the ends of the segment
-	if not GetFFlagCurveEditor() then
-		keyframeA.EasingStyle = Enum.KeyInterpolationMode.Cubic
-		keyframeA.EasingDirection = nil
-	end
-
-	if GetFFlagCurveEditor() then
-		if easingDirection == Enum.PoseEasingDirection.In then
-			if isQuaternionTrack then
-				keyframeA.RightSlope = lastSlope
-			else
-				keyframeA.RightSlope = -lastSlope
-			end
-			keyframeB.LeftSlope = 0
+	if easingDirection == Enum.PoseEasingDirection.In then
+		if isQuaternionTrack then
+			keyframeA.RightSlope = lastSlope
 		else
-			keyframeA.RightSlope = 0
-			if isQuaternionTrack then
-				keyframeB.LeftSlope = lastSlope
-			else
-				keyframeB.LeftSlope = -lastSlope
-			end
+			keyframeA.RightSlope = -lastSlope
 		end
+		keyframeB.LeftSlope = 0
 	else
 		keyframeA.RightSlope = 0
-		keyframeB.LeftSlope = 0
+		if isQuaternionTrack then
+			keyframeB.LeftSlope = lastSlope
+		else
+			keyframeB.LeftSlope = -lastSlope
+		end
 	end
 
 	return keyframes

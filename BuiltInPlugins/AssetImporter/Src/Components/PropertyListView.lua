@@ -30,6 +30,7 @@ local GetLocalizedString = require(Plugin.Src.Utility.GetLocalizedString)
 
 local getFFlagAssetImportUsePropertyFactories = require(Plugin.Src.Flags.getFFlagAssetImportUsePropertyFactories)
 local FFlagLCQualityCageNamingChecks = game:GetFastFlag("LCQualityCageNamingChecks")
+local FFlagAssetImportPassLocalizationAllContextMixins = game:GetFastFlag("AssetImportPassLocalizationAllContextMixins")
 local getFFlagAssetImportGlobalStatusFix = require(Plugin.Src.Flags.getFFlagAssetImportGlobalStatusFix)
 
 local statusBucketToType = {
@@ -73,10 +74,13 @@ local function getHighestSeverityStatus(instance, propertyName)
 	return level, message
 end
 
-local function getLocalizedStatusMessage(localization, statusType, level, suggestedName)
+local function getLocalizedStatusMessage(localization, statusType, level, context)
 	local message
-	if FFlagLCQualityCageNamingChecks and suggestedName then
-		message = localization:getText("Statuses", statusType, {name = suggestedName});
+	if FFlagAssetImportPassLocalizationAllContextMixins then
+		message = GetLocalizedString(localization, "Statuses", statusType, context)
+	elseif FFlagLCQualityCageNamingChecks and context then
+		-- Note "context" is just the suggestedName in this case.
+		message = localization:getText("Statuses", statusType, {name = context});
 	else
 		message = GetLocalizedString(localization, "Statuses", statusType)
 	end
@@ -133,15 +137,21 @@ function PropertyListView:render()
 					statusObject.GlobalStatus = true
 				end
 				local statusStyle = statusBucketToType[statusBucketType] == StatusLevel.Error and style.ErrorStatus or style.WarningStatus
+				local text
+				if FFlagAssetImportPassLocalizationAllContextMixins then
+					text = getLocalizedStatusMessage(localization, status.StatusType, statusBucketType, status)
+				elseif FFlagLCQualityCageNamingChecks then
+					text = getLocalizedStatusMessage(localization, status.StatusType, statusBucketType, status.SuggestedName)
+				else
+					text = getLocalizedStatusMessage(localization, status.StatusType, statusBucketType)
+				end
 				if getFFlagAssetImportGlobalStatusFix() then
 					table.insert(sectionStatuses, Roact.createElement(TextLabel, {
 						AutomaticSize = Enum.AutomaticSize.XY,
 						LayoutOrder = #sectionStatuses,
 						Size = UDim2.fromOffset(statusMaxWidth, 0),
 						Style = statusStyle,
-						Text = if FFlagLCQualityCageNamingChecks 
-							then getLocalizedStatusMessage(localization, status.StatusType, statusBucketType, status.SuggestedName)
-							else getLocalizedStatusMessage(localization, status.StatusType, statusBucketType),
+						Text = text,
 						TextWrapped = true,
 						TextXAlignment = Enum.TextXAlignment.Left,
 					}))
@@ -153,9 +163,7 @@ function PropertyListView:render()
 						AutomaticSize = if FFlagDevFrameworkRemoveFitFrame then Enum.AutomaticSize.XY else nil,
 						LayoutOrder = #sectionStatuses,
 						Style = statusStyle,
-						Text = if FFlagLCQualityCageNamingChecks 
-							then getLocalizedStatusMessage(localization, status.StatusType, statusBucketType, status.SuggestedName)
-							else getLocalizedStatusMessage(localization, status.StatusType, statusBucketType),
+						Text = text,
 						TextSize = 18,
 						TextXAlignment = Enum.TextXAlignment.Left,
 					}))

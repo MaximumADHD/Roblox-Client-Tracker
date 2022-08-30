@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 
@@ -8,7 +9,7 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local InGameMenu = script.Parent.Parent.Parent
 
 local SetFriendStatus = require(InGameMenu.Actions.SetFriendStatus)
-local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
+local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnectionMemo)
 
 local FriendStatusConnector = Roact.PureComponent:extend("FriendStatusConnector")
 

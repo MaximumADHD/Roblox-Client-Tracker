@@ -1,16 +1,7 @@
-local FFlagToolboxFixTryInStudio = game:GetFastFlag("ToolboxFixTryInStudio")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Actions = Plugin.Core.Actions
 local MarkTryInStudioDone = require(Actions.MarkTryInStudioDone)
-
-local GetAssets
-local SetAssetPreview
-if not FFlagToolboxFixTryInStudio then
-	GetAssets = require(Actions.GetAssets)
-	SetAssetPreview = require(Actions.SetAssetPreview)
-end
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 
@@ -60,16 +51,7 @@ return function(assetId, tryInsert, localization, networkInterface, setAssetPrev
 					},
 				}
 
-				if FFlagToolboxFixTryInStudio then
-					setAssetPreview(assetData)
-				else
-					-- Add the asset data to the store, so that we can open AssetPreview
-					store:dispatch(GetAssets({
-						assetData,
-					}))
-
-					store:dispatch(SetAssetPreview(true, assetId))
-				end
+				setAssetPreview(assetData)
 
 				-- TODO: Make this is into a thunk & call it via that instead of a parameter:
 				tryInsert(assetData, false)

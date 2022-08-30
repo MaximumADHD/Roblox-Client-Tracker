@@ -69,7 +69,6 @@ return function()
 			PlayersPage,
 			Cryo.Dictionary.join({
 				pageTitle = "People",
-				isMenuOpen = true,
 				players = players,
 			}, props or {})
 		)

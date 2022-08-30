@@ -19,8 +19,6 @@ return function()
 
 	local retryAfterUpsell = require(script.Parent.retryAfterUpsell)
 
-	local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
-
 	it("should run without errors", function()
 		local store = Rodux.Store.new(Reducer, {
 			productInfo = {
@@ -56,11 +54,7 @@ return function()
 		end)
 
 		-- Account info should be re-populated
-		if FFlagPPAccountInfoMigration then
-			expect(state.accountInfo.balance).to.be.equal(balanceInfo.robux)
-		else
-			expect(state.accountInfo.balance).to.be.equal(accountInfo.RobuxBalance)
-		end
+		expect(state.accountInfo.balance).to.be.equal(balanceInfo.robux)
 		expect(state.accountInfo.membershipType).to.be.equal(accountInfo.MembershipType)
 	end)
 
@@ -81,7 +75,7 @@ return function()
 
 		local store = Rodux.Store.new(Reducer, {
 			productInfo = {
-				price = FFlagPPAccountInfoMigration and balanceInfo.robux + 1 or accountInfo.RobuxBalance + 1,
+				price = balanceInfo.robux + 1,
 				membershipTypeRequired = 0,
 			},
 			promptRequest = {

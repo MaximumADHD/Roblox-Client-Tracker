@@ -9,6 +9,7 @@
 		owner, table, contain data structure describe the owner.
 		genres, arrar of string, it's an array, even you can only select one genre.
 		allowCopy, bool, decide if user can change the copyOn toggle button or not.
+		allowPackage, bool, decide if user can change the packageOn toggle button or not.
 		copyOn, bool, decide if the user has set the copyOn to true or false.
 		allowComment, bool, decide if other users can change comment on this asset or not.
 		commentOn, bool, decide if the comment on is true or false.
@@ -44,7 +45,7 @@
 	Optional Props:
 		LayoutOrder, number, used by the layouter to set the position of the component.
 ]]
-local FFlagUnifyModelPackagePublish = game:GetFastFlag("UnifyModelPackagePublish")
+local FFlagUnifyModelPackagePublish2 = game:GetFastFlag("UnifyModelPackagePublish2")
 local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -69,8 +70,6 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 local Constants = require(Util.Constants)
 local Images = require(Plugin.Core.Util.Images)
-
-local AssetSubType = require(Plugin.Core.Types.AssetSubType)
 
 local ContextGetter = require(Util.ContextGetter)
 local getNetwork = ContextGetter.getNetwork
@@ -100,7 +99,7 @@ local ACCESS_HEIGHT = 70
 local GENRE_HEIGHT = 70
 local COPY_HEIGHT = 80
 local COMMENT_HEIGHT = 80
-local PACKAGE_HEIGHT = 80  --added with FFlagUnifyModelPackagePublish
+local PACKAGE_HEIGHT = 80  --added with FFlagUnifyModelPackagePublish2
 local PADDING = 24
 local HEIGHT_FOR_ACCOUNT_SETTING_TEXT = 60
 local DIVIDER_BASE_HEIGHT = 20
@@ -190,14 +189,15 @@ function PublishAsset:renderContent(theme, localizedContent)
 	local copyOn = props.copyOn
 	local allowComment = props.allowComment
 	local commentOn = props.commentOn
-	local allowPackage = if FFlagUnifyModelPackagePublish then props.allowPackage else nil
-	local packageOn = if FFlagUnifyModelPackagePublish then props.packageOn else nil
+	local allowPackage = if FFlagUnifyModelPackagePublish2 then props.allowPackage else nil
+	local packageOn = if FFlagUnifyModelPackagePublish2 then props.packageOn else nil
 	local assetTypeEnum = props.assetTypeEnum
 	local isAssetPublic = props.isAssetPublic
 
 	local isAudio = assetTypeEnum == Enum.AssetType.Audio
 	local isModel = assetTypeEnum == Enum.AssetType.Model
 	local isPlugin = assetTypeEnum == Enum.AssetType.Plugin
+	local isPackageAsset = if FFlagUnifyModelPackagePublish2 then props.isPackageAsset else nil
 
 	local onNameChange = props.onNameChange
 	local onDescChange = props.onDescChange
@@ -207,12 +207,12 @@ function PublishAsset:renderContent(theme, localizedContent)
 	local onSharingChanged = props.onSharingChanged
 	local toggleCopy = props.toggleCopy
 	local toggleComment = props.toggleComment
-	local togglePackage = if FFlagUnifyModelPackagePublish then props.togglePackage else nil
+	local togglePackage = if FFlagUnifyModelPackagePublish2 then props.togglePackage else nil
 
 	local displayOwnership = props.displayOwnership
 	local displayGenre = props.displayGenre
 	local displayCopy = props.displayCopy
-	local displayPackage = if FFlagUnifyModelPackagePublish then props.displayPackage else nil
+	local displayPackage = if FFlagUnifyModelPackagePublish2 then props.displayPackage else nil
 	local displayComment = props.displayComment
 	local displayAssetType = if isPlugin then false else props.displayAssetType
 	local displayTags = props.displayTags
@@ -235,10 +235,10 @@ function PublishAsset:renderContent(theme, localizedContent)
 
 	local maximumItemTagsPerItem = props.maximumItemTagsPerItem
 
-	local copyWarning -- remove with FFlagUnifyModelPackagePublish
+	local copyWarning -- remove with FFlagUnifyModelPackagePublish2
 	local modelPublishWarningText
 	local localization = props.Localization
-	if isAudio and not isAssetPublic and copyOn and not FFlagUnifyModelPackagePublish then
+	if isAudio and not isAssetPublic and copyOn and not FFlagUnifyModelPackagePublish2 then  -- remove clause with FFlagUnifyModelPackagePublish2
 		copyWarning = localization:getText("AssetConfigCopy", "MustShare")
 	end
 
@@ -450,9 +450,10 @@ function PublishAsset:renderContent(theme, localizedContent)
 
 			CopyEnabled = if isPlugin then canChangeSalesStatus else allowCopy,
 			CopyOn = copyOn,
-			CopyWarning = if FFlagUnifyModelPackagePublish then nil else copyWarning,
+			CopyWarning = if FFlagUnifyModelPackagePublish2 then nil else copyWarning,
 
-			PackageOn = if FFlagUnifyModelPackagePublish then packageOn else nil,
+			PackageOn = if FFlagUnifyModelPackagePublish2 then isPackageAsset or packageOn else nil,
+			isPackageAsset = if FFlagUnifyModelPackagePublish2 then isPackageAsset else nil,
 
 			ToggleCallback = toggleCopy,
 
@@ -483,7 +484,7 @@ function PublishAsset:renderContent(theme, localizedContent)
 			LayoutOrder = orderIterator:getNextOrder(),
 		}),
 
-		Package = if FFlagUnifyModelPackagePublish and displayPackage then Roact.createElement(ConfigPackage, {
+		Package = if FFlagUnifyModelPackagePublish2 and displayPackage then Roact.createElement(ConfigPackage, {
 			Title = publishAssetLocalized.Package,
 
 			TotalHeight = PACKAGE_HEIGHT,

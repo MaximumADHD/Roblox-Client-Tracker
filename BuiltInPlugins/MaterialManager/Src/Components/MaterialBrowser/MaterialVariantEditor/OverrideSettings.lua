@@ -13,16 +13,22 @@ local Localization = ContextServices.Localization
 
 local UI = Framework.UI
 local Pane = UI.Pane
-local SimpleExpandablePane = UI.SimpleExpandablePane
+local ExpandablePane = UI.ExpandablePane
 local ToggleButton = UI.ToggleButton
+
+local Actions = Plugin.Src.Actions
+local SetExpandedPane = require(Actions.SetExpandedPane)
+local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local MaterialServiceController = require(Plugin.Src.Controllers.MaterialServiceController)
 local LabeledElement = require(Plugin.Src.Components.MaterialBrowser.MaterialVariantEditor.LabeledElement)
 
-local getSupportedMaterials = require(Plugin.Src.Resources.Constants.getSupportedMaterials)
-local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+local Constants = Plugin.Src.Resources.Constants
+local getSettingsNames = require(Constants.getSettingsNames)
+local getSupportedMaterials = require(Constants.getSupportedMaterials)
 
 local supportedMaterials = getSupportedMaterials()
+local settingsNames = getSettingsNames()
 
 export type Props = {
 	LayoutOrder: number?,
@@ -32,6 +38,8 @@ export type Props = {
 
 type _Props = Props & { 
 	Analytics: any,
+	dispatchSetExpandedPane: (paneName: string, expandedPaneState: boolean) -> (),
+	ExpandedPane: boolean,
 	Localization: any,
 	Material: _Types.Material?,
 	MaterialOverride: number,
@@ -60,6 +68,12 @@ function OverrideSettings:init()
 		end
 		props.Analytics:report("setOverrideToggled")
 	end
+
+	self.onExpandedChanged = function()
+		local props: _Props = self.props
+		
+		props.dispatchSetExpandedPane(settingsNames.OverrideSettings, not props.ExpandedPane)
+	end
 end
 
 function OverrideSettings:render()
@@ -70,13 +84,14 @@ function OverrideSettings:render()
 
 	local toggled = props.MaterialOverride > 1 and props.MaterialOverrides[props.MaterialOverride] == materialVariant.Name
 
-	return Roact.createElement(SimpleExpandablePane, {
+	return Roact.createElement(ExpandablePane, {
 		LayoutOrder = props.LayoutOrder,
 		ContentPadding = style.ContentPadding,
 		ContentSpacing = style.ItemSpacing,
 		Text = localization:getText("OverrideSettings", "Overrides"),
 		Style = style.CustomExpandablePane,
-		Expanded = true,
+		Expanded = props.ExpandedPane,
+		OnExpandedChanged = self.onExpandedChanged,
 	}, {
 		OverridesNew = Roact.createElement(LabeledElement, {
 			LabelColumnWidth = style.LabelColumnWidth,
@@ -109,16 +124,27 @@ return RoactRodux.connect(
 	function(state: MainReducer.State, props: Props)
 		if props.MockMaterial then
 			return {
+				ExpandedPane = state.MaterialBrowserReducer.ExpandedPane[settingsNames.OverrideSettings],
 				MaterialOverrides = state.MaterialBrowserReducer.MaterialOverrides[props.MockMaterial.Material],
 				MaterialOverride = state.MaterialBrowserReducer.MaterialOverride[props.MockMaterial.Material],
 			}
 		elseif not state.MaterialBrowserReducer.Material or not supportedMaterials[state.MaterialBrowserReducer.Material.Material] then
-			return {}
+			return {
+				-- ßExpandedPane = state.MaterialBrowserReducer.ExpandedPane[settingsNames.OverrideSettings],
+			}
 		else
 			return {
+				ExpandedPane = state.MaterialBrowserReducer.ExpandedPane[settingsNames.OverrideSettings],
 				MaterialOverrides = state.MaterialBrowserReducer.MaterialOverrides[state.MaterialBrowserReducer.Material.Material],
 				MaterialOverride = state.MaterialBrowserReducer.MaterialOverride[state.MaterialBrowserReducer.Material.Material],
 			}
 		end
+	end,
+	function(dispatch)
+		return {
+			dispatchSetExpandedPane = function(paneName: string, expandedPaneState: boolean)
+				dispatch(SetExpandedPane(paneName, expandedPaneState))
+			end,
+		}
 	end
 )(OverrideSettings)

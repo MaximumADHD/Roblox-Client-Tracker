@@ -11,8 +11,6 @@ local AnimationData = require(Plugin.Src.Util.AnimationData)
 local AddTrack = require(Plugin.Src.Thunks.AddTrack)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
 return function(instanceName, path, trackType, tck, keyframeData, analytics)
 	return function(store)
 		local state = store:getState()
@@ -39,11 +37,7 @@ return function(instanceName, path, trackType, tck, keyframeData, analytics)
 				topTrackType = Constants.TRACK_TYPES.Facs
 			end
 
-			if GetFFlagCurveEditor() then
-				store:dispatch(AddTrack(instanceName, path[1], topTrackType, rotationType, eulerAnglesOrder, analytics))
-			else
-				store:dispatch(AddTrack(instanceName, path[1], topTrackType, analytics))
-			end
+			store:dispatch(AddTrack(instanceName, path[1], topTrackType, rotationType, eulerAnglesOrder, analytics))
 
 			AnimationData.addTrack(tracks, path[1], topTrackType, AnimationData.isChannelAnimation(newData), rotationType, eulerAnglesOrder)
 			track = AnimationData.getTrack(newData, instanceName, path)

@@ -4,6 +4,7 @@ local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
 local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
 local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
 local FFlagToolboxFixBreadcrumbColor = game:GetFastFlag("ToolboxFixBreadcrumbColor")
+local FFlagToolboxPackagesInAssetTile = game:GetFastFlag("ToolboxPackagesInAssetTile")
 
 local Images = require(Plugin.Core.Util.Images)
 
@@ -61,6 +62,9 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.Toolbox_HorizontalLineColor] = Color3.fromRGB(34, 34, 34),
 		[StyleKey.Toolbox_NavigationLinkTextColor] = StyleColors.White,
 		[StyleKey.Toolbox_NavigationLinkTextColorHover] = Color3.fromHex("#AAAAAA"),
+		[StyleKey.Toolbox_PackageBackgroundColor] = if FFlagToolboxPackagesInAssetTile then StyleColors.Black else nil,
+		[StyleKey.Toolbox_PackageBackgroundTransparency] = if FFlagToolboxPackagesInAssetTile then 0.5 else nil,
+		[StyleKey.Toolbox_PackageImage] = if FFlagToolboxPackagesInAssetTile then Images.PACKAGE_DARK else nil,
 		[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(41, 41, 41),
 		[StyleKey.ScrollingFrameImageColor] = Color3.fromRGB(85, 85, 85),
 		[StyleKey.Toolbox_SearchTagBackgroundColor] = Color3.fromRGB(56, 56, 56),
@@ -125,6 +129,9 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.Toolbox_HorizontalLineColor] = Color3.fromRGB(227, 227, 227),
 		[StyleKey.Toolbox_NavigationLinkTextColor] = Color3.fromHex("#121212"),
 		[StyleKey.Toolbox_NavigationLinkTextColorHover] = Color3.fromHex("#666666"),
+		[StyleKey.Toolbox_PackageBackgroundColor] = if FFlagToolboxPackagesInAssetTile then StyleColors.White else nil,
+		[StyleKey.Toolbox_PackageBackgroundTransparency] = if FFlagToolboxPackagesInAssetTile then 0.25 else nil,
+		[StyleKey.Toolbox_PackageImage] = if FFlagToolboxPackagesInAssetTile then Images.PACKAGE_LIGHT else nil,
 		[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(245, 245, 245),
 		[StyleKey.ScrollingFrameImageColor] = Color3.fromRGB(245, 245, 245),
 		[StyleKey.Toolbox_SearchTagBackgroundColor] = StyleColors.Gray_Lighter,
@@ -227,6 +234,12 @@ local makeTheme = function(themeExtension, themeClass)
 					else nil,
 				votingButtonImage = if FFlagAssetVoteSimplification then StyleKey.Toolbox_VotingButtonImage else nil,
 			},
+
+			packages = if FFlagToolboxPackagesInAssetTile then {
+				backgroundColor = StyleKey.Toolbox_PackageBackgroundColor,
+				backgroundTransparency = StyleKey.Toolbox_PackageBackgroundTransparency,
+				packageImage = StyleKey.Toolbox_PackageImage,
+			} else nil,
 		},
 
 		assetConfig = {

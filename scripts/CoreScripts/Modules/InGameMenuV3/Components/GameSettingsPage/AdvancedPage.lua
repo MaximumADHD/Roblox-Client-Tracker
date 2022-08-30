@@ -2,9 +2,10 @@
 local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
 local CorePackages = game:GetService("CorePackages")
+local UserInputService = game:GetService("UserInputService")
 
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
-local MicroProfilerChanged = UserGameSettings:GetPropertyChangedSignal("OnScreenProfilerEnabled")
+local OnScreenProfilerEnabled = UserGameSettings:GetPropertyChangedSignal("OnScreenProfilerEnabled")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -22,12 +23,14 @@ local DevConsoleMaster = require(CoreGui.RobloxGui.Modules.DevConsoleMaster)
 local InGameMenu = script.Parent.Parent.Parent
 
 local Divider = require(InGameMenu.Components.Divider)
-local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
+local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
+local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnectionMemo)
 local Page = require(script.Parent.Parent.Page)
 
 local CategoryHeader = require(script.Parent.CategoryHeader)
 local ToggleEntry = require(script.Parent.ToggleEntry)
 local VersionReporter = require(script.Parent.VersionReporter)
+local BillboardVisibilityEntry = require(script.Parent.BillboardVisibilityEntry)
 
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 
@@ -44,13 +47,17 @@ AdvancedPage.validateProps = t.strictInterface({
 	canCaptureFocus = t.boolean,
 	closeMenu = t.callback,
 	pageTitle = t.string,
-	currentPage = t.string,
-	currentZone = t.number,
+	shouldForgetPreviousSelection = t.boolean,
 })
 
 function AdvancedPage:init()
+	local platform = UserInputService:GetPlatform()
+	self.isDesktopClient = (platform == Enum.Platform.Windows) or (platform == Enum.Platform.OSX) or (platform == Enum.Platform.UWP)
+	self.isMobileClient = (platform == Enum.Platform.IOS) or (platform == Enum.Platform.Android)
+	self.canUseProfiler = (self.isDesktopClient or self.isMobileClient)
+
 	self:setState({
-		microProfilerEnabled = UserGameSettings.OnScreenProfilerEnabled,
+		isProfilerEnabled = self:isProfilerEnabled(),
 		performanceStatsEnabled = UserGameSettings.PerformanceStatsVisible,
 	})
 
@@ -66,7 +73,66 @@ function AdvancedPage:init()
 	end
 end
 
+function AdvancedPage:isProfilerEnabled()
+	if self.isDesktopClient then
+		return UserGameSettings.OnScreenProfilerEnabled
+	elseif self.isMobileClient then
+		return UserGameSettings.MicroProfilerWebServerEnabled
+	else
+		return false
+	end
+end
+
+function AdvancedPage:toggleProfiler()
+	if self.isDesktopClient then
+		UserGameSettings.OnScreenProfilerEnabled = not UserGameSettings.OnScreenProfilerEnabled
+	elseif self.isMobileClient then
+		if UserGameSettings.MicroProfilerWebServerEnabled then
+			self:turnOffMicroProfilerWebServer()
+		else
+			self:turnOnMicroProfilerWebServer()
+		end
+	end
+end
+
+function AdvancedPage:turnOnMicroProfilerWebServer()
+	UserGameSettings.MicroProfilerWebServerEnabled = true
+	-- wait for ip address and port
+	local pollCount = 30
+	while (pollCount >= 1) do
+		if UserGameSettings.MicroProfilerWebServerPort ~= 0 then
+			break
+		end
+		pollCount = pollCount - 1
+		wait(0.1)
+	end
+	if pollCount <= 0 then
+		-- if the web server has not been started, stop the web server
+		UserGameSettings.MicroProfilerWebServerEnabled = false
+	end
+	self:setState({
+		isProfilerEnabled = self:isProfilerEnabled(),
+	})
+end
+
+function AdvancedPage:turnOffMicroProfilerWebServer()
+	UserGameSettings.MicroProfilerWebServerEnabled = false
+	self:setState({
+		isProfilerEnabled = false,
+	})
+end
+
+function AdvancedPage:getMicroProfilerWebAddresses()
+	local enabled = UserGameSettings.MicroProfilerWebServerEnabled
+	local port = UserGameSettings.MicroProfilerWebServerPort
+	if (not self.isMobileClient) or (not enabled) or (not port) then
+		return nil
+	end
+	return UserGameSettings.MicroProfilerWebServerIP .. port
+end
+
 function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
+	local profilerWebAddresses = self:getMicroProfilerWebAddresses()
 	return withStyle(function(style)
 		return Roact.createElement(Page, {
 			pageTitle = self.props.pageTitle,
@@ -78,8 +144,7 @@ function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
 		}, {
 			FocusHandler = Roact.createElement(FocusHandler, {
 				isFocused = self.props.canCaptureFocus,
-				shouldForgetPreviousSelection = self.props.currentPage ~= Constants.advancedSettingsPageKey
-					or self.props.currentZone == 0,
+				shouldForgetPreviousSelection =  self.props.shouldForgetPreviousSelection,
 				didFocus = function(previousSelection)
 					GuiService.SelectedCoreObject = previousSelection or self.performanceToggleRef:getValue()
 				end,
@@ -111,14 +176,34 @@ function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
 					buttonRef = self.performanceToggleRef,
 					NextSelectionUp = self.backButtonRef,
 				}),
-				MicroProfiler = Roact.createElement(ToggleEntry, {
+				Divider1 = Roact.createElement(Divider, {
+					Size = UDim2.new(1, -24, 0, 1),
 					LayoutOrder = 3,
+				}),
+				Profiler = Roact.createElement(ToggleEntry, {
+					LayoutOrder = 4,
 					labelKey = "CoreScripts.InGameMenu.GameSettings.ShowMicroProfiler",
-					checked = self.state.microProfilerEnabled,
+					isDisabled = not self.canUseProfiler,
+					checked = self.state.isProfilerEnabled,
 					onToggled = function()
-						UserGameSettings.OnScreenProfilerEnabled = not UserGameSettings.OnScreenProfilerEnabled
+						self:toggleProfiler()
 						SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 					end,
+				}),
+				ProfilerText = profilerWebAddresses and Roact.createElement(ThemedTextLabel, {
+					LayoutOrder = 5,
+					Text = profilerWebAddresses,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					themeKey = "TextDefault",
+					fontKey = "Footer",
+					Size = UDim2.new(1, -24, 0, 24),
+				}) or nil,
+				Divider2 = Roact.createElement(Divider, {
+					Size = UDim2.new(1, -24, 0, 1),
+					LayoutOrder = 6,
+				}),
+				BillboardVisibilityToggle = Roact.createElement(BillboardVisibilityEntry, {
+					LayoutOrder = 7,
 				}),
 				DeveloperConsole = withLocalization({
 					text = "CoreScripts.InGameMenu.GameSettings.DeveloperConsole",
@@ -131,7 +216,7 @@ function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
 						Font = style.Font.Header2.Font,
 						TextSize = style.Font.Header2.RelativeSize * style.Font.BaseSize,
 						TextXAlignment = Enum.TextXAlignment.Left,
-						LayoutOrder = 4,
+						LayoutOrder = 8,
 						SelectionImageObject = getSelectionCursor(CursorKind.Square),
 						[Roact.Event.Activated] = function()
 							DevConsoleMaster:SetVisibility(true)
@@ -143,19 +228,19 @@ function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
 						}),
 					})
 				end),
-				Divider = Roact.createElement(Divider, {
+				Divider3 = Roact.createElement(Divider, {
 					Size = UDim2.new(1, -24, 0, 1),
-					LayoutOrder = 5,
+					LayoutOrder = 9,
 				}),
 				VersionReporter = Roact.createElement(VersionReporter, {
-					LayoutOrder = 6,
+					LayoutOrder = 10,
 				}),
 
-				MicroProfilerVisibilityListener = Roact.createElement(ExternalEventConnection, {
-					event = MicroProfilerChanged,
+				OnScreenProfilerListener = Roact.createElement(ExternalEventConnection, {
+					event = OnScreenProfilerEnabled,
 					callback = function()
 						self:setState({
-							microProfilerEnabled = UserGameSettings.OnScreenProfilerEnabled,
+							isProfilerEnabled = self:isProfilerEnabled(),
 						})
 					end,
 				}),
@@ -186,8 +271,7 @@ return RoactRodux.UNSTABLE_connect2(function(state)
 
 	return {
 		canCaptureFocus = canCaptureFocus,
-		currentPage = state.menuPage,
-		currentZone = state.currentZone,
+		shouldForgetPreviousSelection = state.menuPage ~= Constants.advancedSettingsPageKey or state.currentZone == 0
 	}
 end, function(dispatch)
 	return {

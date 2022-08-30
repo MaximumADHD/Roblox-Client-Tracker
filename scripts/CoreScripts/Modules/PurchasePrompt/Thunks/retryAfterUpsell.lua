@@ -19,8 +19,6 @@ local Thunk = require(Root.Thunk)
 
 local purchaseItem = require(script.Parent.purchaseItem)
 
-local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
-
 local MAX_RETRIES = game:DefineFastInt("UpsellAccountBalanceRetryAttemps", 3)
 local RETRY_RATE = game:DefineFastInt("UpsellAccountBalanceRetryIntervalSec", 1)
 
@@ -51,41 +49,34 @@ local function retryAfterUpsell(retriesRemaining)
 				store:dispatch(completeRequest())
 			end
 		else
-			return (FFlagPPAccountInfoMigration
-				and getBalanceInfo(network, externalSettings)
-				or getAccountInfo(network, externalSettings))
-				:andThen(function(balanceInfo)
-					local state = store:getState()
-					local isPlayerPremium = state.accountInfo.membershipType == 4
-					local price = getPlayerPrice(state.productInfo, isPlayerPremium)
+			return getBalanceInfo(network, externalSettings):andThen(function(balanceInfo)
+				local state = store:getState()
+				local isPlayerPremium = state.accountInfo.membershipType == 4
+				local price = getPlayerPrice(state.productInfo, isPlayerPremium)
 
-					local balance = FFlagPPAccountInfoMigration and balanceInfo.robux or balanceInfo.RobuxBalance
+				local balance = balanceInfo.robux
 
-					if FFlagPPAccountInfoMigration then
-						store:dispatch(BalanceInfoRecieved(balanceInfo))
+				store:dispatch(BalanceInfoRecieved(balanceInfo))
+
+				if price ~= nil and price > balance then
+					if retriesRemaining > 0 then
+						-- Upsell result may not yet have propagated, so we need to
+						-- wait a while and try again
+						delay(RETRY_RATE, function()
+							store:dispatch(retryAfterUpsell(retriesRemaining - 1))
+						end)
 					else
-						store:dispatch(AccountInfoReceived(balanceInfo))
+						analytics.signalFailedPurchasePostUpsell()
+						store:dispatch(ErrorOccurred(PurchaseError.InvalidFunds))
 					end
-
-					if price ~= nil and price > balance then
-						if retriesRemaining > 0 then
-							-- Upsell result may not yet have propagated, so we need to
-							-- wait a while and try again
-							delay(RETRY_RATE, function()
-								store:dispatch(retryAfterUpsell(retriesRemaining - 1))
-							end)
-						else
-							analytics.signalFailedPurchasePostUpsell()
-							store:dispatch(ErrorOccurred(PurchaseError.InvalidFunds))
-						end
-					else
-						-- Upsell was successful and purchase can now be completed
-						store:dispatch(purchaseItem())
-					end
-				end)
-				:catch(function(error)
-					store:dispatch(ErrorOccurred(error))
-				end)
+				else
+					-- Upsell was successful and purchase can now be completed
+					store:dispatch(purchaseItem())
+				end
+			end)
+			:catch(function(error)
+				store:dispatch(ErrorOccurred(error))
+			end)
 		end
 	end)
 end

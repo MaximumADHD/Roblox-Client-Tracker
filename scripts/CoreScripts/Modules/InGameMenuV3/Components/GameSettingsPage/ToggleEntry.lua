@@ -17,7 +17,8 @@ local ToggleEntry = Roact.PureComponent:extend("ToggleEntry")
 ToggleEntry.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
 	labelKey = t.string,
-	lockedToOff = t.optional(t.boolean),
+	lockedToOff = t.optional(t.boolean),	-- locked to off by developer
+	isDisabled = t.optional(t.boolean),		-- disabled by the system
 	subtextEnabled = t.optional(t.boolean),
 	subtextKey = t.optional(t.string),
 	checked = t.boolean,
@@ -78,7 +79,7 @@ function ToggleEntry:render()
 			position = UDim2.new(1, 0, 0.5, 0),
 			anchorPoint = Vector2.new(1, 0.5),
 			isSelected = self.props.checked and not self.props.lockedToOff,
-			isDisabled = self.props.lockedToOff,
+			isDisabled = self.props.lockedToOff or self.props.isDisabled,
 			onActivated = self.props.onToggled,
 		}),
 	})

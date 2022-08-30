@@ -50,7 +50,6 @@ local FFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Fla
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
-local GetFFlagEnableCaptureMode = require(RobloxGui.Modules.Flags.GetFFlagEnableCaptureMode)
 local GetFFlagShowGitHashInGame = require(RobloxGui.Modules.Flags.GetFFlagShowGitHashInGame)
 local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
@@ -1464,7 +1463,7 @@ local function CreateSettingsHub()
 			direction = -1
 		end
 
-		switchTab(direction, true, true)
+		switchTab(direction, true)
 	end
 
 	local switchTabFromKeyboard = function(input)
@@ -1476,7 +1475,7 @@ local function CreateSettingsHub()
 				direction = 1
 			end
 
-			switchTab(direction, true, true)
+			switchTab(direction, true)
 		end
 	end
 
@@ -2064,13 +2063,6 @@ local function CreateSettingsHub()
 	-- full page initialization
 	this.GameSettingsPage = require(RobloxGui.Modules.Settings.Pages.GameSettings)
 	this.GameSettingsPage:SetHub(this)
-
-	local shouldShowCapture = GetFFlagEnableCaptureMode() and not PolicyService:IsSubjectToChinaPolicies()
-
-	if shouldShowCapture then
-		this.CapturePage = require(RobloxGui.Modules.Settings.Pages.Capture)
-		this.CapturePage:SetHub(this)
-	end
 
 	local shouldShowReport = not PolicyService:IsSubjectToChinaPolicies() or FFlagShowInGameReportingLuobu
 

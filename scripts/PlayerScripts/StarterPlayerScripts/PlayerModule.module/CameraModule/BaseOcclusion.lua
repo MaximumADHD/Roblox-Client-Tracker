@@ -4,7 +4,7 @@
 --]]
 
 --[[ The Module ]]--
-local BaseOcclusion = {}
+local BaseOcclusion: any = {}
 BaseOcclusion.__index = BaseOcclusion
 setmetatable(BaseOcclusion, {
 	__call = function(_, ...)

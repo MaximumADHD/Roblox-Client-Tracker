@@ -10,7 +10,7 @@ local FFlagUserExcludeNonCollidableForPathfindingSuccess, FFlagUserExcludeNonCol
 local FFlagUserExcludeNonCollidableForPathfinding = FFlagUserExcludeNonCollidableForPathfindingSuccess and FFlagUserExcludeNonCollidableForPathfindingResult
 
 local FFlagUserClickToMoveSupportAgentCanClimbSuccess, FFlagUserClickToMoveSupportAgentCanClimbResult =
-    pcall(function() return UserSettings():IsUserFeatureEnabled("UserClickToMoveSupportAgentCanClimb") end)
+    pcall(function() return UserSettings():IsUserFeatureEnabled("UserClickToMoveSupportAgentCanClimb2") end)
 local FFlagUserClickToMoveSupportAgentCanClimb = FFlagUserClickToMoveSupportAgentCanClimbSuccess and FFlagUserClickToMoveSupportAgentCanClimbResult
 
 --[[ Roblox Services ]]--
@@ -166,7 +166,9 @@ local function maxV(a, b)
 end
 local function getCollidableExtentsSize(character: Model?)
 	if character == nil or character.PrimaryPart == nil then return end
-	local toLocalCFrame = character.PrimaryPart.CFrame:inverse()
+	assert(character, "")
+	assert(character.PrimaryPart, "")
+	local toLocalCFrame = character.PrimaryPart.CFrame:Inverse()
 	local min = Vector3.new(math.huge, math.huge, math.huge)
 	local max = Vector3.new(-math.huge, -math.huge, -math.huge)
 	for _,descendant in pairs(character:GetDescendants()) do
@@ -232,7 +234,7 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 
 	this.HumanoidOffsetFromPath = ZERO_VECTOR3
 
-	this.CurrentWaypointPosition = nil 
+	this.CurrentWaypointPosition = nil
 	this.CurrentWaypointPlaneNormal = ZERO_VECTOR3
 	this.CurrentWaypointPlaneDistance = 0
 	this.CurrentWaypointNeedsJump = false;
@@ -250,6 +252,10 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 	this.AgentCanFollowPath = false
 	this.DirectPath = false
 	this.DirectPathRiseFirst = false
+
+	this.stopTraverseFunc = nil :: (() -> ())?
+	this.setPointFunc = nil :: ((number) -> ())?
+	this.pointList = nil :: {PathWaypoint}?
 
 	local rootPart: BasePart = this.Humanoid and this.Humanoid.RootPart
 	if rootPart then
@@ -294,6 +300,7 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 			if extents == nil then
 				extents = GetCharacter():GetExtentsSize()
 			end
+			assert(extents, "")
 			agentRadius = AgentSizeIncreaseFactor * 0.5 * math.sqrt(extents.X * extents.X + extents.Z * extents.Z)
 			agentHeight = AgentSizeIncreaseFactor * extents.Y
 			agentCanJump = (this.Humanoid.JumpPower > 0)
@@ -314,11 +321,6 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 		if this.stopTraverseFunc then
 			this.stopTraverseFunc()
 			this.stopTraverseFunc = nil
-		end
-
-		if this.MoveToConn then
-			this.MoveToConn:Disconnect()
-			this.MoveToConn = nil
 		end
 
 		if this.BlockedConn then
@@ -555,7 +557,11 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 		-- (plane normal is perpendicular to the y plane and is from next waypoint towards current one (provided the two waypoints are not at the same location))
 		-- (plane location is at next waypoint)
 		this.CurrentWaypointPlaneNormal = currentWaypoint.Position - nextWaypoint.Position
-		this.CurrentWaypointPlaneNormal = Vector3.new(this.CurrentWaypointPlaneNormal.X, 0, this.CurrentWaypointPlaneNormal.Z)
+		
+		-- plane normal isn't perpendicular to the y plane when climbing up
+		if not FFlagUserClickToMoveSupportAgentCanClimb or (nextWaypoint.Label ~= "Climb") then
+			this.CurrentWaypointPlaneNormal = Vector3.new(this.CurrentWaypointPlaneNormal.X, 0, this.CurrentWaypointPlaneNormal.Z)
+		end
 		if this.CurrentWaypointPlaneNormal.Magnitude > ALMOST_ZERO then
 			this.CurrentWaypointPlaneNormal	= this.CurrentWaypointPlaneNormal.Unit
 			this.CurrentWaypointPlaneDistance = this.CurrentWaypointPlaneNormal:Dot(nextWaypoint.Position)
@@ -720,7 +726,7 @@ function OnTap(tapPositions: {Vector3}, goToPoint: Vector3?, wasTouchTap: boolea
 	-- This is a path tap position
 	if #tapPositions == 1 or goToPoint then
 		if camera then
-			local unitRay = camera:ScreenPointToRay(tapPositions[1].x, tapPositions[1].y)
+			local unitRay = camera:ScreenPointToRay(tapPositions[1].X, tapPositions[1].Y)
 			local ray = Ray.new(unitRay.Origin, unitRay.Direction*1000)
 
 			local myHumanoid = findPlayerHumanoid(Player)

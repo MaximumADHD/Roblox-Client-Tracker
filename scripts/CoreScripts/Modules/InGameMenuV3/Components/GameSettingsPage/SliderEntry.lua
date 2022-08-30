@@ -17,7 +17,6 @@ SliderEntry.validateProps = t.strictInterface({
 	disabled = t.optional(t.boolean),
 	valueChanged = t.callback,
 	canCaptureFocus = t.optional(t.boolean),
-	isMenuOpen = t.optional(t.boolean),
 	buttonRef = t.optional(t.table),
 })
 

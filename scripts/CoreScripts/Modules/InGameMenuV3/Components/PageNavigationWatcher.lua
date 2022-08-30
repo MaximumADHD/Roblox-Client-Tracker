@@ -1,3 +1,5 @@
+--!nonstrict
+
 --[[
 
 	Invokes a specified callback when a page has focus.
@@ -5,59 +7,38 @@
 ]]
 
 local CorePackages = game:GetService("CorePackages")
+local React = require(CorePackages.Packages.React)
+local useSelector = require(CorePackages.AppTempCommon.Hooks.RoactRodux.useSelector)
 
-local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
-local Roact = InGameMenuDependencies.Roact
-local RoactRodux = InGameMenuDependencies.RoactRodux
-local t = InGameMenuDependencies.t
-
-local PageNavigationWatcher = Roact.PureComponent:extend("PageNavigationWatcher")
-PageNavigationWatcher.validateProps = t.strictInterface({
-	desiredPage = t.string,
-	onNavigateTo = t.optional(t.callback),
-	onNavigateAway = t.optional(t.callback),
-
-	-- RoactRodux bound props
-	currentPage = t.optional(t.string),
-	menuOpen = t.optional(t.boolean),
-})
-
-function PageNavigationWatcher:init(props)
-	self:setState({
-		lastPage = props.currentPage,
-		lastMenuOpen = props.menuOpen,
-	})
+local function menuOpenSelector(state)
+	return state.isMenuOpen
 end
 
-function PageNavigationWatcher:render()
-	return Roact.createFragment(self.props[Roact.Children])
+local function currentPageSelector(state)
+	return state.menuPage
 end
 
-function PageNavigationWatcher:didUpdate()
-	local lastPage = self.state.lastPage
-	local lastMenuOpen = self.state.lastMenuOpen
-	local currentPage = self.props.currentPage
-	local currentMenuOpen = self.props.menuOpen
+return function(props)
+	local menuOpen = useSelector(menuOpenSelector)
+	local currentPage = useSelector(currentPageSelector)
 
-	if lastPage ~= currentPage or lastMenuOpen ~= currentMenuOpen then
-		self:setState({
-			lastPage = currentPage,
-			lastMenuOpen = currentMenuOpen,
-		})
+	-- "usePrevious" but with non-nil starting value
+	local lastMenuOpen = React.useRef(menuOpen)
+	local lastPage = React.useRef(currentPage)
 
-		if currentPage == self.props.desiredPage and currentMenuOpen and self.props.onNavigateTo ~= nil then
-			self.props.onNavigateTo()
-		elseif lastPage == self.props.desiredPage and lastMenuOpen and self.props.onNavigateAway ~= nil then
-			self.props.onNavigateAway()
-		elseif lastMenuOpen and not currentMenuOpen and self.props.onNavigateAway ~= nil then
-			self.props.onNavigateAway()
+	React.useEffect(function()
+		if props.onNavigate then
+			props.onNavigate(menuOpen, lastMenuOpen.current, currentPage, lastPage.current)
 		end
-	end
-end
+		if currentPage == props.desiredPage and menuOpen and props.onNavigateTo ~= nil then
+			props.onNavigateTo()
+		elseif ((lastPage.current == props.desiredPage and lastMenuOpen.current) or (lastMenuOpen.current and not menuOpen)) and props.onNavigateAway ~= nil then
+			props.onNavigateAway()
+		end
 
-return RoactRodux.UNSTABLE_connect2(function(state)
-	return {
-		currentPage = state.menuPage,
-		menuOpen = state.isMenuOpen,
-	}
-end)(PageNavigationWatcher)
+		lastPage.current = currentPage
+		lastMenuOpen.current = menuOpen
+	end, {menuOpen, currentPage})
+
+	return React.createElement(React.Fragment, nil, props.children)
+end

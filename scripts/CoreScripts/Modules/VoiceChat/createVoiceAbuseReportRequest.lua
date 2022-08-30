@@ -118,7 +118,7 @@ return function(
 				}
 			},
 
-			REPORTED_ABUSE_TYPE = {
+			REPORTED_ABUSE_VECTOR = {
 				valueList = {
 					{ data = "voice" },
 				}

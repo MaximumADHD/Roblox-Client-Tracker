@@ -8,14 +8,17 @@ local Framework = require(Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = if FFlagUpdateConvertToPackageToDFContextServices then ContextServices.withContext else require(Plugin.Src.ContextServices.withContext)
 
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateDialog = SharedFlags.getFFlagDevFrameworkMigrateDialog() and FFlagUpdateConvertToPackageToDFContextServices
+local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
+
 local GetTextSize = Framework.Util.GetTextSize
 
 local Constants = require(Plugin.Src.Util.Constants)
 
-local FFlagDevFrameworkMigrateDialog = Framework.SharedFlags.getFFlagDevFrameworkMigrateDialog() and FFlagUpdateConvertToPackageToDFContextServices
-
-local Dialog = if FFlagDevFrameworkMigrateDialog then Framework.UI.Dialog else UILibrary.Component.Dialog
-local Button = UILibrary.Component.Button
+local UI = Framework.UI
+local Button = if FFlagRemoveUILibraryButton then UI.Button else UILibrary.Component.Button
+local Dialog = if FFlagDevFrameworkMigrateDialog then UI.Dialog else UILibrary.Component.Dialog
 
 local MessageBox = Roact.PureComponent:extend("MessageBox")
 
@@ -103,7 +106,11 @@ function MessageBox:render()
 		})
 
 		for i, button in ipairs(buttonTexts) do
-			buttons[i] = Roact.createElement(Button, {
+			buttons[i] = Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
+				OnClick = button.OnClick,
+				Size = UDim2.new(0, buttonWidth, 1, 0),
+				Text = button.Text,
+			} else {
 				OnClick = button.OnClick,
 				Size = UDim2.new(0, buttonWidth, 1, 0),
 				RenderContents = function(buttonTheme, hovered, selected)

@@ -5,7 +5,6 @@ local SharedFlags = Framework.SharedFlags
 local FFlagDevFrameworkList = SharedFlags.getFFlagDevFrameworkList()
 
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local TestPaths = {}
 
 local WAIT_TIMEOUT = 2
@@ -50,15 +49,9 @@ end
 
 function TestPaths.getTrackList(container)
 	local base = TestPaths.getEditorController(container)
-	if GetFFlagCurveEditor() then
-		return TestPaths.waitForDescendant(base, {
-			"TrackListAndControlContainer", "EventsAndTracks", "TrackListAndScrollBar", "TrackList", "Canvas",
-		})
-	else
-		return TestPaths.waitForDescendant(base, {
-			"TrackListAndControlContainer", "EventsAndTracks", "TrackList", "Canvas",
-		})
-	end
+	return TestPaths.waitForDescendant(base, {
+		"TrackListAndControlContainer", "EventsAndTracks", "TrackListAndScrollBar", "TrackList", "Canvas",
+	})
 end
 
 function TestPaths.getIKButton(container)

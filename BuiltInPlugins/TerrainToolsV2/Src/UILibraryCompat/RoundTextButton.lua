@@ -1,5 +1,6 @@
 --[[
 	Mostly the same as UILibrary RoundTextButton component, but modified to use dev framework context
+	TODO FFlagRemoveUILibraryButton remove this component
 ]]
 
 local Plugin = script.Parent.Parent.Parent

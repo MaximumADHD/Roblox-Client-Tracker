@@ -42,7 +42,7 @@ if not GetFFlagUpgradeExpChatV2_0_0() then
 	MessageReceivedBindableEvent = ExperienceChat.MessageReceivedBindableEvent
 end
 
-local TopBar = {}
+local TopBar: any = {}
 TopBar.__index = TopBar
 
 function TopBar.new()

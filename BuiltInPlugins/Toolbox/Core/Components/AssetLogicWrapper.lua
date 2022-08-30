@@ -13,7 +13,6 @@
 local HttpService = game:GetService("HttpService")
 
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
-local FFlagToolboxFixTryInStudio = game:GetFastFlag("ToolboxFixTryInStudio")
 local FFlagToolboxLocalizeInsertTool2 = game:GetFastFlag("ToolboxLocalizeInsertTool2")
 
 local Plugin = script.Parent.Parent.Parent
@@ -310,12 +309,7 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 		local scriptWarningInfo = state.scriptWarningInfo
 		local grantPermissionsInfo = state.grantPermissionsInfo
 
-		local previewAssetData
-		if FFlagToolboxFixTryInStudio then
-			previewAssetData = state.previewAssetData or props._previewAssetData
-		else
-			previewAssetData = state.previewAssetData
-		end
+		local previewAssetData = state.previewAssetData or props._previewAssetData
 
 		local localization = self.props._Localization
 
@@ -438,17 +432,14 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 		local categoryName = pageInfo.categoryName or Category.DEFAULT.name
 
 		-- NOTE: props.previewAssetData is needed for TryInStudio on non-HomeView tabs
-		local previewAssetData
-		if FFlagToolboxFixTryInStudio then 
-			local idToAssetMap = assets.idToAssetMap or {}
-			local previewAssetId = assets.previewAssetId
-			previewAssetData = idToAssetMap[previewAssetId]
-		end
+		local idToAssetMap = assets.idToAssetMap or {}
+		local previewAssetId = assets.previewAssetId
+		local previewAssetData = idToAssetMap[previewAssetId]
 
 		return {
 			_categoryName = categoryName,
 			_isPreviewing = assets.isPreviewing or false,
-			_previewAssetData = if FFlagToolboxFixTryInStudio then previewAssetData else nil,
+			_previewAssetData = previewAssetData,
 			_searchTerm = pageInfo.searchTerm or "",
 		}
 	end

@@ -17,7 +17,6 @@ return function()
 	local Thunk = require(Root.Thunk)
 
 	local resolvePremiumPromptState = require(script.Parent.resolvePremiumPromptState)
-	local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
 
 	local function getTestProductInfo()
 		return {
@@ -32,11 +31,8 @@ return function()
 	end
 
 	local function getTestAccountInfoDetails()
-		return FFlagPPAccountInfoMigration and {
+		return {
 			isPremium = false,
-		} or {
-			RobuxBalance = 10,
-			MembershipType = 0,
 		}
 	end
 

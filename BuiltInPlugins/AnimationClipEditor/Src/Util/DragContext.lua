@@ -11,8 +11,6 @@ local AnimationData = require(Plugin.Src.Util.AnimationData)
 local deepCopy = require(Plugin.Src.Util.deepCopy)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
 local DragContext = {}
 DragContext.__index = DragContext
 
@@ -45,7 +43,7 @@ function DragContext.new(animationData, selectedKeyframes, pivotTick, pivotValue
 		scale = 1,
 		earliestTick = earliestTick,
 		latestTick = latestTick,
-		dragMode = if GetFFlagCurveEditor() then Constants.DRAG_MODE.Keyframe else nil,
+		dragMode = Constants.DRAG_MODE.Keyframe,
 	}
 
 	setmetatable(self, DragContext)

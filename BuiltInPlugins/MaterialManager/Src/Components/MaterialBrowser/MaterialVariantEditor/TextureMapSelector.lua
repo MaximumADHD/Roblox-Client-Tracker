@@ -20,6 +20,8 @@ local GeneralServiceController = require(Controllers.GeneralServiceController)
 local LabeledElement = require(Plugin.Src.Components.MaterialBrowser.MaterialVariantEditor.LabeledElement)
 local PromptSelectorWithPreview = require(Plugin.Src.Components.PromptSelectorWithPreview)
 
+local getFFlagMaterialManagerTextureMapDiverseErrors = require(Plugin.Src.Flags.getFFlagMaterialManagerTextureMapDiverseErrors)
+
 local getErrorTypes = require(Plugin.Src.Resources.Constants.getErrorTypes)
 local ErrorTypes = getErrorTypes()
 
@@ -86,7 +88,16 @@ function TextureMapSelector:init()
 			})
 		end, function(err)
 			self.clearTextureMap()
-			self.errorMessage = ErrorTypes.FailedToUploadFromFileMap
+			if getFFlagMaterialManagerTextureMapDiverseErrors() then
+				warn("Error uploading asset, responseCode ".. tostring(err.responseCode))
+				if not err or not err.responseCode or err.responseCode == -1 then
+					self.errorMessage = ErrorTypes.FailedToUploadTooLarge
+				else
+					self.errorMessage = ErrorTypes.FailedToUploadFromFileMap
+				end
+			else
+				self.errorMessage = ErrorTypes.FailedToUploadFromFileMap
+			end
 
 			if not self._isMounted then
 				return
@@ -209,6 +220,7 @@ function TextureMapSelector:didUpdate(prevProps)
 			importAsset = {},
 			uploading = false,
 		})
+		self.errorMessage = nil
 	end
 end
 
@@ -217,14 +229,12 @@ function TextureMapSelector:render()
 	local state = self.state
 	local localization = props.Localization
 
-	local hasSelection = false
 	local selectionName = ""
 	local imageId = ""
 	local isTempId = false
 	local materialVariant = props.MaterialVariant
 
 	if state.importAsset and state.importAsset.tempId or materialVariant[props.MapType] ~= "" then
-		hasSelection = true
 		selectionName = if state.importAsset.file then state.importAsset.file.Name else materialVariant[props.MapType]
 		if state.uploading == true and state.importAsset and state.importAsset.tempId then
 			imageId = state.importAsset.tempId 
@@ -244,8 +254,12 @@ function TextureMapSelector:render()
 				props.Analytics:report("uploadTextureMapError")
 			elseif self.errorMessage == ErrorTypes.FailedToImportMap then
 				props.Analytics:report("importTextureMapError")
-			elseif self.errorMessage == ErrorTypes.FailedToUploadFromFileMap then 
+			elseif not getFFlagMaterialManagerTextureMapDiverseErrors() and self.errorMessage == ErrorTypes.FailedToUploadFromFileMap then 
 				props.Analytics:report("uploadTextureMapFromFileError")
+			elseif getFFlagMaterialManagerTextureMapDiverseErrors() and self.errorMessage == ErrorTypes.FailedToUploadTooLarge then 
+				props.Analytics:report("uploadTextureMapFromFileError")
+			elseif getFFlagMaterialManagerTextureMapDiverseErrors() and self.errorMessage == ErrorTypes.FailedToUploadFromFileMap then 
+				props.Analytics:report("uploadTextureMapGeneralError")
 			end
 		else
 			status = Enum.PropertyStatus.Ok
@@ -256,6 +270,7 @@ function TextureMapSelector:render()
 	end
 
 	return Roact.createElement(LabeledElement, {
+		FillDirection = Enum.FillDirection.Vertical,
 		LayoutOrder = props.LayoutOrder,
 		LabelColumnWidth = props.LabelColumnWidth,
 		Text = props.Text,
@@ -265,7 +280,6 @@ function TextureMapSelector:render()
 		Roact.createElement(PromptSelectorWithPreview, {
 			SelectionName = selectionName,
 			PreviewTitle = props.PreviewTitle,
-			HasSelection = hasSelection,
 			IsTempId = isTempId,
 			ImageId = imageId,
 			PromptSelection = self.promptSelection,

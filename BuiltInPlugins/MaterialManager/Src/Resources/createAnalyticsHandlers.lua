@@ -6,6 +6,8 @@ local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
 local HttpService = game:GetService("HttpService")
 
+local getFFlagMaterialManagerTextureMapDiverseErrors = require(Plugin.Src.Flags.getFFlagMaterialManagerTextureMapDiverseErrors)
+
 -- New Plugin Setup: Change this to the analytics context name for your plugin
 local pluginAnalyticsContext = "MaterialManager"
 
@@ -116,5 +118,11 @@ return function(analyticsService)
 		uploadTextureMapFromFileError = function()
 			_reportCounter("UploadTextureMapFromFileError")
 		end,
+
+		uploadTextureMapGeneralError = if getFFlagMaterialManagerTextureMapDiverseErrors() then 
+			function()
+				_reportCounter("UploadTextureMapGeneralError")
+			end
+		else nil,
 	}
 end

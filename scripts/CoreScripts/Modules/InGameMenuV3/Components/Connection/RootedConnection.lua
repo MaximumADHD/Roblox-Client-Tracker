@@ -8,7 +8,7 @@ local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local t = InGameMenuDependencies.t
 
-local RootedConnection = Roact.PureComponent:extend("RootedConnection")
+local RootedConnection = Roact.Component:extend("RootedConnection")
 
 RootedConnection.validateProps = t.strictInterface({
 	render = t.callback,

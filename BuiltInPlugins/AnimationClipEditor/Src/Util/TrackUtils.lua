@@ -14,10 +14,6 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Templates = require(Plugin.Src.Util.Templates)
 local Types = require(Plugin.Src.Types)
 
-local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
 local TrackUtils = {}
 
 local function removeNegativeZero(val)
@@ -436,7 +432,6 @@ end
 function TrackUtils.getItemsForProperty(track, value, name, defaultEAO)
 	local trackType = track.Type
 	local eulerAnglesOrder = track.EulerAnglesOrder or defaultEAO
-	local properties = Constants.PROPERTY_KEYS
 	local items
 
 	local function makeVectorItems(x, y, z, componentType)
@@ -452,12 +447,7 @@ function TrackUtils.getItemsForProperty(track, value, name, defaultEAO)
 		-- This is also the only reason we need to pass down a default EAO, as curve tracks
 		-- will have that information embedded.
 		local position = value.Position
-		local xRot, yRot, zRot
-		if GetFFlagCurveEditor() then
-			xRot, yRot, zRot = value:ToEulerAngles(eulerAnglesOrder)
-		else
-			xRot, yRot, zRot = value:ToEulerAnglesXYZ()
-		end
+		local xRot, yRot, zRot = value:ToEulerAngles(eulerAnglesOrder)
 		xRot = removeNegativeZero(math.deg(xRot))
 		yRot = removeNegativeZero(math.deg(yRot))
 		zRot = removeNegativeZero(math.deg(zRot))
@@ -473,25 +463,17 @@ function TrackUtils.getItemsForProperty(track, value, name, defaultEAO)
 			removeNegativeZero(math.deg(value.Z)),
 			Constants.TRACK_TYPES.Angle)
 	elseif trackType == Constants.TRACK_TYPES.Quaternion then
-		local xRot, yRot, zRot
-		if GetFFlagCurveEditor() then
-			xRot, yRot, zRot = value:ToEulerAngles(eulerAnglesOrder)
-		else
-			xRot, yRot, zRot = value:ToEulerAnglesXYZ()
-		end
+		local xRot, yRot, zRot = value:ToEulerAngles(eulerAnglesOrder)
 		items = makeVectorItems(removeNegativeZero(math.deg(xRot)),
 			removeNegativeZero(math.deg(yRot)),
 			removeNegativeZero(math.deg(zRot)),
 			Constants.TRACK_TYPES.Angle)
 	elseif trackType == Constants.TRACK_TYPES.Facs then
-		if GetFFlagFacsUiChanges() then
-			value = math.clamp(value, 0, 1)
-		end
 		items = {
 			{
 				Name = "V",
 				Key = "Value",
-				Value = value,
+				Value = math.clamp(value, 0, 1),
 				Type = Constants.TRACK_TYPES.Facs,
 			},
 		}
@@ -542,10 +524,7 @@ function TrackUtils.getPropertyForItems(track, items, defaultEAO)
 	elseif trackType == Constants.TRACK_TYPES.Angle then
 		value = math.rad(items[1].Value)
 	elseif trackType == Constants.TRACK_TYPES.Facs then
-		value = items[1].Value
-		if GetFFlagFacsUiChanges() then
-			value = math.clamp(value, 0, 1)
-		end
+		value = math.clamp(items[1].Value, 0, 1)
 	end
 
 	return value
@@ -618,8 +597,10 @@ function TrackUtils.splitTrackComponents(track, rotationType, eulerAnglesOrder)
 					end
 
 					_track.Components[componentName] = Templates.track(componentType)
-					if GetFFlagCurveEditor() and componentName == Constants.PROPERTY_KEYS.Rotation
-							and componentType == Constants.TRACK_TYPES.EulerAngles then
+					if
+						componentName == Constants.PROPERTY_KEYS.Rotation
+						and componentType == Constants.TRACK_TYPES.EulerAngles
+					then
 						_track.Components[componentName].EulerAnglesOrder = eulerAnglesOrder
 					end
 					createTrackComponents(_track.Components[componentName])
@@ -651,12 +632,7 @@ function TrackUtils.splitTrackComponents(track, rotationType, eulerAnglesOrder)
 			else
 				-- Decompose the CFrame into two Vectors so they can both be accessed by .X, .Y, .Z
 				local position = cFrame.Position
-				local rotation
-				if GetFFlagCurveEditor() then
-					rotation = Vector3.new(cFrame:ToEulerAngles(eulerAnglesOrder))
-				else
-					rotation = Vector3.new(cFrame:ToEulerAnglesXYZ())
-				end
+				local rotation = Vector3.new(cFrame:ToEulerAngles(eulerAnglesOrder))
 
 				for componentName, componentTrack in pairs(track.Components) do
 					local values = componentName == Constants.PROPERTY_KEYS.Position and position or rotation
@@ -706,27 +682,18 @@ function TrackUtils.createTrackListEntryComponents(
 		for _, componentName in ipairs(componentTypes._Order) do
 			local componentType = componentTypes[componentName]
 
-			if not GetFFlagCurveEditor() then
-				if componentName == Constants.PROPERTY_KEYS.Rotation then
-					componentType = rotationType
-				end
+			local newTrack
 
-				track.Components[componentName] = Templates.trackListEntry(componentType)
-				track.Components[componentName].Name = componentName
+			if componentName == Constants.PROPERTY_KEYS.Rotation then
+				newTrack = Templates.trackListEntry(rotationType)
+				if rotationType == Constants.TRACK_TYPES.EulerAngles then
+					newTrack.EulerAnglesOrder = eulerAnglesOrder
+				end
 			else
-				local newTrack
-
-				if componentName == Constants.PROPERTY_KEYS.Rotation then
-					newTrack = Templates.trackListEntry(rotationType)
-					if rotationType == Constants.TRACK_TYPES.EulerAngles then
-						newTrack.EulerAnglesOrder = eulerAnglesOrder
-					end
-				else
-					newTrack = Templates.trackListEntry(componentType)
-				end
-				newTrack.Name = componentName
-				track.Components[componentName] = newTrack
+				newTrack = Templates.trackListEntry(componentType)
 			end
+			newTrack.Name = componentName
+			track.Components[componentName] = newTrack
 
 			TrackUtils.createTrackListEntryComponents(
 				track.Components[componentName],
@@ -843,16 +810,10 @@ function TrackUtils.traverseValue(trackType, value, func, rotationType, eulerAng
 			local position = _value.Position
 			recurse(Constants.TRACK_TYPES.Position, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Position}), position)
 
-			local rotation
-			if rotationType == Constants.TRACK_TYPES.Quaternion then
-				rotation = _value - position
-			else
-				if GetFFlagCurveEditor() then
-					rotation = Vector3.new(_value:ToEulerAngles(eulerAnglesOrder))
-				else
-					rotation = Vector3.new(_value:ToEulerAnglesXYZ())
-				end
-			end
+			local rotation = if rotationType == Constants.TRACK_TYPES.Quaternion
+			then _value - position
+			else Vector3.new(_value:ToEulerAngles(eulerAnglesOrder))
+
 			recurse(rotationType, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Rotation}), rotation)
 		elseif _trackType == Constants.TRACK_TYPES.Position then
 			recurse(Constants.TRACK_TYPES.Number, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.X}), _value.X)

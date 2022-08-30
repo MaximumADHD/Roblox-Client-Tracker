@@ -5,8 +5,6 @@
 		Size UDim2, the size of the window
 		onClose callback, called when the user presses the "cancel" button
 ]]
-local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag("ToolboxUseDevFrameworkLoadingBarAndRadioButton")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -15,7 +13,6 @@ local RoactRodux = require(Packages.RoactRodux)
 local Framework = require(Packages.Framework)
 
 local Util = Plugin.Core.Util
-local ContextHelper = require(Util.ContextHelper)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local PreviewTypes = AssetConfigConstants.PreviewTypes
 local AssetConfigUtil = require(Util.AssetConfigUtil)
@@ -23,19 +20,13 @@ local AssetConfigUtil = require(Util.AssetConfigUtil)
 local Actions = Plugin.Core.Actions
 local SetCurrentScreen = require(Actions.SetCurrentScreen)
 
-local withTheme = ContextHelper.withTheme
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
 
-local LoadingBar
-local LoadingBarWrapper
-if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
-	LoadingBarWrapper = require(AssetConfiguration.LoadingBarWrapper)
-else
-	LoadingBar = require(AssetConfiguration.LoadingBar)
-end
+local LoadingBarWrapper = require(AssetConfiguration.LoadingBarWrapper)
+
 local AssetThumbnailPreview = require(AssetConfiguration.AssetThumbnailPreview)
 
 local PREVIEW_PADDING = 48
@@ -97,7 +88,7 @@ function AssetUpload:render()
 			BorderSizePixel = 0,
 		}),
 
-		LoadingBar = Roact.createElement(FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and LoadingBarWrapper or LoadingBar, {
+		LoadingBar = Roact.createElement(LoadingBarWrapper, {
 			loadingText = LOADING_TEXT,
 			loadingTime = LOADING_TIME,
 			holdPercent = LOADING_PERCENT,

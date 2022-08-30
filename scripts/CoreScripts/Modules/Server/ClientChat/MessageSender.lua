@@ -24,7 +24,7 @@ end
 --//////////////////////////////////////
 
 function module.new()
-	local obj = setmetatable({}, methods)
+	local obj: any = setmetatable({}, methods)
 	obj.SayMessageRequest = nil
 
 	return obj

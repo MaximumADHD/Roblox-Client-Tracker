@@ -10,7 +10,7 @@ local Object = LuauPolyfill.Object
 local Array = LuauPolyfill.Array
 
 local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
-local AssetSubType = require(Plugin.Core.Types.AssetSubType)
+local AssetSubTypes = require(Plugin.Core.Types.AssetSubTypes)
 local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 local Category = require(Plugin.Core.Types.Category)
 local Url = require(Plugin.Libs.Http.Url)
@@ -624,14 +624,14 @@ if FFlagToolboxEnableAssetConfigPhoneVerification then
 	function Urls.constructPublishingRequirementsUrl(
 		assetId: number,
 		assetType: Enum.AssetType?,
-		assetSubType: AssetSubType.AssetSubType?,
+		assetSubType: AssetSubTypes.AssetSubType?,
 		marketplaceType: string?
 	)
 		return PUBLISHING_REQUIREMENTS_URL
 			.. Url.makeQueryString({
 				assetId = assetId,
 				assetType = if assetType then assetType.Name else nil,
-				assetSubType = assetSubType,
+				assetSubTypes = assetSubType, -- TODO: make this an array of subtypes: https://jira.rbx.com/browse/STM-2186
 				marketplaceType = marketplaceType,
 			})
 	end

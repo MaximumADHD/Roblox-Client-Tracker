@@ -12,9 +12,11 @@ local t = InGameMenuDependencies.t
 local InGameMenu = script.Parent.Parent.Parent
 local DropdownMenu = UIBlox.App.Menu.DropdownMenu
 
+local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
+local Constants = require(InGameMenu.Resources.Constants)
 
 -- This is a temporary component, will iterate when there's final design
 local DeviceSelectionEntry = Roact.PureComponent:extend("DeviceSelectionEntry")
@@ -44,7 +46,7 @@ function DeviceSelectionEntry:init()
 		deviceNames = {},
 		deviceGuids = {},
 		selectedIndex = 0,
-		ready = false
+		ready = false,
 	})
 
 	VoiceChatServiceManager:asyncInit():andThen(function()
@@ -54,7 +56,7 @@ function DeviceSelectionEntry:init()
 		VoiceChatServiceManager:SetupParticipantListeners()
 		if SoundService.DeviceListChanged then
 			SoundService.DeviceListChanged:Connect(function()
-				if self.props.isMenuOpen then
+				if self.onSettingsPage then
 					self:pollDevices(self.props.deviceType)
 				end
 			end)
@@ -132,6 +134,16 @@ function DeviceSelectionEntry:render()
 				end,
 			})
 		}),
+		PageWatcher = Roact.createElement(PageNavigationWatcher, {
+			desiredPage = Constants.GameSettingsPageKey,
+			onNavigateTo = function()
+				self.onSettingsPage = true
+				self:pollDevices(self.props.deviceType)
+			end,
+			onNavigateAway = function()
+				self.onSettingsPage = false
+			end,
+		}),
 	})
 end
 
@@ -156,14 +168,6 @@ function DeviceSelectionEntry:pollDevices(deviceType)
 		end
 	end)
 
-end
-
-function DeviceSelectionEntry:willUpdate(nextProps)
-	-- Update device info each time user opens the menu
-	-- TODO: This should be simplified by new API
-	if not self.props.isMenuOpen and nextProps.isMenuOpen then
-		self:pollDevices(nextProps.deviceType)
-	end
 end
 
 return DeviceSelectionEntry

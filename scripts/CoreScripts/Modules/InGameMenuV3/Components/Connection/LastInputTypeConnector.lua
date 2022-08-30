@@ -9,7 +9,7 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local InGameMenu = script.Parent.Parent.Parent
 
 local SetInputType = require(InGameMenu.Actions.SetInputType)
-local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
+local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnectionMemo)
 local Constants = require(InGameMenu.Resources.Constants)
 
 local InputTypeMap = Constants.InputTypeMap

@@ -9,14 +9,14 @@ local Actions = Plugin.Core.Actions
 local NetworkError = require(Actions.NetworkError)
 local SetPublishingRequirements = require(Actions.SetPublishingRequirements)
 
-local AssetSubType = require(Plugin.Core.Types.AssetSubType)
+local AssetSubTypes = require(Plugin.Core.Types.AssetSubTypes)
 local PublishingRequirementsType = require(Plugin.Core.Types.PublishingRequirementsType)
 
 return function(
 	networkInterface,
 	assetId: number,
 	assetType: Enum.AssetType?,
-	assetSubType: AssetSubType.AssetSubType?
+	assetSubType: AssetSubTypes.AssetSubType?
 )
 	return function(store)
 		local formattedAssetType = assetType

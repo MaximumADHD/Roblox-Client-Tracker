@@ -1,7 +1,7 @@
 local Players = game:GetService("Players")
 
 -- Gets the player from a Part inside their Character model.
-local function getPlayerFromPart(part)
+local function getPlayerFromPart(part): Player?
 	if not part then
 		return nil
 	end

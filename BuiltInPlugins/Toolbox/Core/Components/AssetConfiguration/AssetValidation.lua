@@ -12,7 +12,6 @@
 		Size UDim2, the size of the window
 		onClose callback, called when the user presses the "cancel" button
 ]]
-local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag("ToolboxUseDevFrameworkLoadingBarAndRadioButton")
 local FFlagDebugDisableLocalUGCValidation = game:GetFastFlag("DebugDisableLocalUGCValidation")
 
 local CorePackages = game:GetService("CorePackages")
@@ -26,13 +25,11 @@ local RoactRodux = require(Packages.RoactRodux)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
-local ContextHelper = require(Util.ContextHelper)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 
 local UGCValidation = require(CorePackages.UGCValidation)
 
-local withTheme = ContextHelper.withTheme
 local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
@@ -41,13 +38,8 @@ local SetCurrentScreen = require(Actions.SetCurrentScreen)
 
 local Components = Plugin.Core.Components
 
-local LoadingBar
-local LoadingBarWrapper
-if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
-	LoadingBarWrapper = require(Components.AssetConfiguration.LoadingBarWrapper)
-else
-	LoadingBar = require(Components.AssetConfiguration.LoadingBar)
-end
+local LoadingBarWrapper = require(Components.AssetConfiguration.LoadingBarWrapper)
+
 local AssetThumbnailPreview = require(Components.AssetConfiguration.AssetThumbnailPreview)
 local NavButton = require(Components.NavButton)
 
@@ -131,7 +123,7 @@ function AssetValidation:render()
 			),
 		}),
 
-		LoadingBar = self.state.isLoading and Roact.createElement(FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and LoadingBarWrapper or LoadingBar, {
+		LoadingBar = self.state.isLoading and Roact.createElement(LoadingBarWrapper, {
 			loadingText = LOADING_TEXT,
 			loadingTime = LOADING_TIME,
 			holdPercent = LOADING_PERCENT,
@@ -140,7 +132,7 @@ function AssetValidation:render()
 			onFinish = state.onFinish,
 		}),
 
-		LoadingResult = not self.state.isLoading and  Roact.createElement("Frame", {
+		LoadingResult = not self.state.isLoading and Roact.createElement("Frame", {
 			Position = UDim2.new(0, 0, 0, LOADING_RESULT_Y_POS),
 			Size = UDim2.new(1, 0, 1, -LOADING_RESULT_Y_POS),
 			BackgroundTransparency = 1,

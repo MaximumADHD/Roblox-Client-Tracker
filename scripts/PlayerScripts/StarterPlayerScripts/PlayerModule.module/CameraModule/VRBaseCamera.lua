@@ -146,7 +146,7 @@ function VRBaseCamera:GetVRFocus(subjectPosition, timeDelta)
 
 	local cameraHeightDelta = Vector3.new(0, self:GetCameraHeight(), 0)
 	local newFocus = CFrame.new(Vector3.new(subjectPosition.x, lastFocus.y, subjectPosition.z):
-			lerp(subjectPosition + cameraHeightDelta, self.cameraTranslationConstraints.y))
+			Lerp(subjectPosition + cameraHeightDelta, self.cameraTranslationConstraints.y))
 
 	return newFocus
 end
@@ -156,11 +156,11 @@ function VRBaseCamera:StartFadeFromBlack()
 	if UserGameSettings.VignetteEnabled == false then
 		return
 	end
-	
+
 	local VRFade = Lighting:FindFirstChild("VRFade")
 	if not VRFade then
 		VRFade = Instance.new("ColorCorrectionEffect")
-		VRFade.Name = "VRFade" 
+		VRFade.Name = "VRFade"
 		VRFade.Parent = Lighting
 	end
 	VRFade.Brightness = -1
@@ -187,9 +187,9 @@ function VRBaseCamera:StartVREdgeBlur(player)
 	if UserGameSettings.VignetteEnabled == false then
 		return
 	end
-	
+
 	local blurPart = nil
-	blurPart = workspace.CurrentCamera:FindFirstChild("VRBlurPart")
+	blurPart = (workspace.CurrentCamera :: Camera):FindFirstChild("VRBlurPart")
 	if not blurPart then
 		blurPart = Instance.new("Part")
 		blurPart.Name = "VRBlurPart"
@@ -204,11 +204,11 @@ function VRBaseCamera:StartVREdgeBlur(player)
 
 		RunService.RenderStepped:Connect(function(step)
 			local userHeadCF = VRService:GetUserCFrame(Enum.UserCFrame.Head)
-			local vrCF = workspace.Camera.CFrame * userHeadCF
+			local vrCF = (workspace :: any).Camera.CFrame * userHeadCF
 			blurPart.CFrame = (vrCF * CFrame.Angles(0, math.rad(180), 0)) + vrCF.LookVector * 1.05
 		end)
 	end
-	
+
 	local VRScreen = player.PlayerGui:FindFirstChild("VRBlurScreen")
 	local VRBlur = nil
 	if VRScreen then
@@ -219,10 +219,10 @@ function VRBaseCamera:StartVREdgeBlur(player)
 		if not VRScreen then
 			VRScreen = Instance.new("SurfaceGui") or Instance.new("ScreenGui")
 		end
-		
+
 		VRScreen.Name = "VRBlurScreen"
 		VRScreen.Parent = player.PlayerGui
-		
+
 		VRScreen.Adornee = blurPart
 
 		VRBlur = Instance.new("ImageLabel")
@@ -235,8 +235,8 @@ function VRBaseCamera:StartVREdgeBlur(player)
 
 		-- this computes the ratio between the GUI 3D panel and the VR viewport
 		-- adding 15% overshoot for edges on 2 screen headsets
-		local ratioX = workspace.CurrentCamera.ViewportSize.X * 2.3 / VR_PANEL_SIZE
-		local ratioY = workspace.CurrentCamera.ViewportSize.Y * 2.3 / VR_PANEL_SIZE
+		local ratioX = (workspace.CurrentCamera :: Camera).ViewportSize.X * 2.3 / VR_PANEL_SIZE
+		local ratioY = (workspace.CurrentCamera :: Camera).ViewportSize.Y * 2.3 / VR_PANEL_SIZE
 
 		VRBlur.Size = UDim2.fromScale(ratioX, ratioY)
 		VRBlur.BackgroundTransparency = 1
@@ -255,7 +255,7 @@ function VRBaseCamera:UpdateEdgeBlur(player, timeDelta)
 	if VRScreen then
 		VRBlur = VRScreen:FindFirstChild("VRBlur")
 	end
-	
+
 	if VRBlur then
 		if self.VREdgeBlurTimer > 0 then
 			self.VREdgeBlurTimer = self.VREdgeBlurTimer - timeDelta
@@ -289,7 +289,7 @@ function VRBaseCamera:GetSubjectCFrame(): CFrame
 	if not cameraSubject then
 		return result
 	end
-	
+
 	-- new VR system overrides
 	if cameraSubject:IsA("Humanoid") then
 		local humanoid = cameraSubject
@@ -307,7 +307,7 @@ function VRBaseCamera:GetSubjectCFrame(): CFrame
 	return result
 end
 
-function VRBaseCamera:GetSubjectPosition(): Vector3
+function VRBaseCamera:GetSubjectPosition(): Vector3?
 	local result = BaseCamera.GetSubjectPosition(self)
 
 	-- new VR system overrides
@@ -326,7 +326,7 @@ function VRBaseCamera:GetSubjectPosition(): Vector3
 			result = cameraSubject.CFrame.p + cameraSubject.CFrame:vectorToWorldSpace(offset)
 		end
 	else
-		return
+		return nil
 	end
 
 	self.lastSubjectPosition = result

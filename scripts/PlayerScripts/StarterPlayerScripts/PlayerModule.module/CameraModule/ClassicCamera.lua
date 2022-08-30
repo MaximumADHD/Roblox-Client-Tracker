@@ -95,7 +95,7 @@ function ClassicCamera:Update()
 	if self.lastUpdate == nil or timeDelta > 1 then
 		self.lastCameraTransform = nil
 	end
-	
+
 	local rotateInput = CameraInput.getRotation()
 
 	self:StepZoom()
@@ -122,7 +122,7 @@ function ClassicCamera:Update()
 			local newLookCFrame: CFrame = self:CalculateNewLookCFrameFromArg(overrideCameraLookVector, rotateInput)
 
 			local offset: Vector3 = self:GetMouseLockOffset()
-			local cameraRelativeOffset: Vector3 = offset.X * newLookCFrame.rightVector + offset.Y * newLookCFrame.upVector + offset.Z * newLookCFrame.lookVector
+			local cameraRelativeOffset: Vector3 = offset.X * newLookCFrame.RightVector + offset.Y * newLookCFrame.UpVector + offset.Z * newLookCFrame.LookVector
 
 			--offset can be NAN, NAN, NAN if newLookVector has only y component
 			if Util.IsFiniteVector3(cameraRelativeOffset) then

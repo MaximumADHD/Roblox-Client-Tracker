@@ -6,17 +6,18 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Actions = Plugin.Src.Actions
 local ClearMaterial = require(Actions.ClearMaterial)
 local ClearMaterialWrapper = require(Actions.ClearMaterialWrapper)
+local SetExpandedPane = require(Actions.SetExpandedPane)
 local SetGridLock = require(Actions.SetGridLock)
 local SetMaterial = require(Actions.SetMaterial)
 local SetMaterialAsTool = require(Actions.SetMaterialAsTool)
 local SetMaterialList = require(Actions.SetMaterialList)
+local SetMaterialOverride = require(Actions.SetMaterialOverride)
+local SetMaterialOverrides = require(Actions.SetMaterialOverrides)
 local SetMaterialStatus = require(Actions.SetMaterialStatus)
 local SetMaterialTileSize = require(Actions.SetMaterialTileSize)
 local SetMaterialVariant = require(Actions.SetMaterialVariant)
 local SetMaterialWrapper = require(Actions.SetMaterialWrapper)
 local SetMenuHover = require(Actions.SetMenuHover)
-local SetMaterialOverride = require(Actions.SetMaterialOverride)
-local SetMaterialOverrides = require(Actions.SetMaterialOverrides)
 local SetPath = require(Actions.SetPath)
 local SetSearch = require(Actions.SetSearch)
 local SetUse2022Materials = require(Actions.SetUse2022Materials)
@@ -25,8 +26,14 @@ local SetViewType = require(Actions.SetViewType)
 local Util = Plugin.Src.Util
 local CompareMaterials = require(Util.CompareMaterials)
 
+local Constants = Plugin.Src.Resources.Constants
+local getSettingsNames = require(Constants.getSettingsNames)
+
+local settingsNames = getSettingsNames()
+
 export type State = {
 	ActiveAsTool: boolean,
+	ExpandedPane: _Types.Map<string, boolean>,
 	GridLock: boolean,
 	Material: _Types.Material?,
 	Materials: any,
@@ -42,8 +49,14 @@ export type State = {
 	ViewType: string,
 }
 
+local expandedPane = {}
+for _, settingsName in pairs(settingsNames) do
+	expandedPane[settingsName] = true
+end
+
 local initialState: State = {
 	ActiveAsTool = false,
+	ExpandedPane = expandedPane,
 	GridLock = false,
 	MaterialOverride = {},
 	MaterialOverrides = {},
@@ -174,6 +187,14 @@ return (Rodux.createReducer(initialState, {
 	[SetUse2022Materials.name] = function(state: State, action: SetUse2022Materials.Payload): State
 		return Cryo.Dictionary.join(state, {
 			Use2022Materials = action.Use2022Materials
+		})
+	end,
+
+	[SetExpandedPane.name] = function(state: State, action: SetExpandedPane.Payload): State
+		return Cryo.Dictionary.join(state, {
+			ExpandedPane = Cryo.Dictionary.join(state.ExpandedPane, {
+				[action.PaneName] = action.ExpandedPaneState,
+			})
 		})
 	end,
 }))

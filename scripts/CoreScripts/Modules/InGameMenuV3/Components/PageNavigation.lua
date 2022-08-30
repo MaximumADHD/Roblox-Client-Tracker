@@ -21,6 +21,7 @@ local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 
 local Pages = require(script.Parent.Pages)
 local Divider = require(script.Parent.Divider)
+local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
@@ -123,11 +124,11 @@ if GetFFlagShareInviteLinkContextMenuV3Enabled() then
 	end
 
 	function PageNavigation:didUpdate(prevProps)
-		if self.props.currentPage == "MainPage" and (prevProps.shareInviteLink == nil and self.props.shareInviteLink ~= nil) then
+		if self.state.isCurrentPage and (prevProps.shareInviteLink == nil and self.props.shareInviteLink ~= nil) then
 			local linkId = self.props.shareInviteLink.linkId
 			SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsLinkGeneratedName, {
 				page = "inGameMenuV3",
-				subpage = self.props.currentPage,
+				subpage = Constants.MainPagePageKey,
 				linkId = linkId,
 				linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue(),
 			})
@@ -142,6 +143,23 @@ if GetFFlagShareInviteLinkContextMenuV3Enabled() then
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				HorizontalAlignment = Enum.HorizontalAlignment.Right,
 			}),
+			Watcher = Roact.createElement(PageNavigationWatcher, {
+				desiredPage = Constants.MainPagePageKey,
+				onNavigateTo = function()
+					if not self.state.isCurrentPage then
+						self:setState({
+							isCurrentPage = true,
+						})
+					end
+				end,
+				onNavigateAway = function()
+					if self.state.isCurrentPage then
+						self:setState({
+							isCurrentPage = false,
+						})
+					end
+				end,
+			}),
 		}
 
 		local favoriteSelected = props.isFavorited ~= nil and props.isFavorited or false
@@ -155,7 +173,7 @@ if GetFFlagShareInviteLinkContextMenuV3Enabled() then
 							SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsButtonClickName, {
 								btn = "shareServerInviteLink",
 								page = "inGameMenuV3",
-								subpage = props.currentPage,
+								subpage = Constants.MainPagePageKey,
 							})
 
 							if props.shareInviteLink == nil then
@@ -264,7 +282,7 @@ else
 							SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsButtonClickName, {
 								btn = "shareServerInviteLink",
 								page = "inGameMenuV3",
-								subpage = props.currentPage,
+								subpage = Constants.MainPagePageKey,
 							})
 
 							if props.shareInviteLink == nil then
@@ -357,7 +375,6 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 	return {
 		isFavorited = state.gameInfo.isFavorited,
 		isFollowed = state.gameInfo.isFollowed,
-		currentPage = state.menuPage,
 		shareInviteLink = if GetFFlagShareInviteLinkContextMenuV3Enabled()
 			then state.shareLinks.Invites.ShareInviteLink
 			else nil,

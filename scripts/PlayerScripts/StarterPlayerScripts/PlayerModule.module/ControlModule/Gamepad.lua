@@ -18,7 +18,7 @@ local Gamepad = setmetatable({}, BaseCharacterController)
 Gamepad.__index = Gamepad
 
 function Gamepad.new(CONTROL_ACTION_PRIORITY)
-	local self = setmetatable(BaseCharacterController.new(), Gamepad)
+	local self = setmetatable(BaseCharacterController.new() :: any, Gamepad)
 
 	self.CONTROL_ACTION_PRIORITY = CONTROL_ACTION_PRIORITY
 

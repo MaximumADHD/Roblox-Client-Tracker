@@ -5,17 +5,21 @@ local Plugin = script.Parent.Parent.Parent
 
 local StudioService = game:GetService("StudioService")
 
+local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
-local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
+
 local Constants = require(Plugin.Src.Resources.Constants)
 
-local RoundTextButton = UILibrary.Component.RoundTextButton
+local UI = Framework.UI
+local Button = if FFlagRemoveUILibraryButton then UI.Button else UILibrary.Component.RoundTextButton
 
 local ContentProvider = game:GetService("ContentProvider")
 
@@ -123,7 +127,14 @@ function ScreenPublishSuccessful:render()
 			Font = theme.header.font,
 		}),
 
-		CloseButton = Roact.createElement(RoundTextButton, {
+		CloseButton = Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			OnClick = onClose,
+			Position = UDim2.new(0.5, 0, 0.9, 0),
+			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+			Style = "Round",
+			Text = localization:getText("Button", "Close"),
+		} else {
 			Position = UDim2.new(0.5, 0, 0.9, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Style = theme.cancelButton,

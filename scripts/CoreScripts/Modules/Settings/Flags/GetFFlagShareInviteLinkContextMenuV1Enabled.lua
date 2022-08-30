@@ -8,7 +8,7 @@ local ShareInviteLinkABTestManager = require(Modules.Settings.ShareInviteLinkABT
 
 local GetFFlagShareInviteLinkContextMenuV1ABTestEnabled = require(Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1ABTestEnabled)
 
-game:DefineFastFlag("ShareInviteLinkContextMenuV1Enabled", false)
+game:DefineFastFlag("ShareInviteLinkContextMenuV1Enabled_v2", false)
 game:DefineFastInt("ShareInviteLinkContextMenuV1RolloutPercentage", 0)
 
 return function()
@@ -17,11 +17,12 @@ return function()
 	if not localPlayer or not localPlayer.UserId then
 		return false
 	end
+	local localPlayer = localPlayer :: Player
 
 	if GetFFlagShareInviteLinkContextMenuV1ABTestEnabled() then
 		return ShareInviteLinkABTestManager.default:isShareInviteLinkEnabled()
 	end
 
 	local rolloutPercent = game:GetFastInt("ShareInviteLinkContextMenuV1RolloutPercentage")
-	return game:GetFastFlag("ShareInviteLinkContextMenuV1Enabled") or ThrottleUserId(rolloutPercent, localPlayer.UserId)
+	return game:GetFastFlag("ShareInviteLinkContextMenuV1Enabled_v2") or ThrottleUserId(rolloutPercent, localPlayer.UserId)
 end

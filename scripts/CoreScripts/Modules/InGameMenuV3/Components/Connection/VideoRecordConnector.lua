@@ -10,7 +10,7 @@ local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 
 local SetVideoRecording = require(InGameMenu.Actions.SetVideoRecording)
-local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
+local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnectionMemo)
 
 local VideoRecordConnector = Roact.PureComponent:extend("VideoRecordConnector")
 

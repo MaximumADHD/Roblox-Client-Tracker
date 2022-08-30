@@ -8,8 +8,6 @@ local Promise = require(Root.Promise)
 
 local PurchaseWarning = require(Root.Enums.PurchaseWarning)
 
-local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
-
 local function getABTestGroup()
 	return Promise.resolve(false)
 end
@@ -56,16 +54,9 @@ local function loadAssetForEquip(assetId)
 end
 
 local function getAccountInfo()
-	if FFlagPPAccountInfoMigration then
-		return Promise.resolve({
-			isPremium = false,
-		})
-	else
-		return Promise.resolve({
-			RobuxBalance = 2147483647,
-			MembershipType = 0,
-		})
-	end
+	return Promise.resolve({
+		isPremium = false,
+	})
 end
 
 local function getBalanceInfo()

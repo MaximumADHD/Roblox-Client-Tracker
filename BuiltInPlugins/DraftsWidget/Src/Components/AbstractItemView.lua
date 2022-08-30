@@ -30,7 +30,6 @@
 		Used by the implementor of AbstractItemView (e.g. ListItemView) to lay out elements (e.g. create
 		UIListLayout, set size/position of elements, etc). Returned element is rendered inside AbstractItemView
 
-	TODO (awarwick) 7/28/2019 This should live in MyFeaturesListItem
 	ButtonStyle
 		UILibrary style the item buttons should be rendered in.
 
@@ -49,12 +48,16 @@ local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
 
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local ContextMenus = UILibrary.Studio.ContextMenus
 
-local Button = UILibrary.Component.Button
+local UI = Framework.UI
+local Button = if FFlagRemoveUILibraryButton then UI.Button else UILibrary.Component.Button
 
 local DOUBLE_CLICK_TIME = 0.5
 
@@ -249,27 +252,40 @@ function AbstractItemView:render()
 		local selected = self.state.selection[id] == true
 		existingIds[id] = true
 
-		local itemButton = Roact.createElement(Button, {
-			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundTransparency = 0,
-			BorderSizePixel = 0,
+		local itemButton
+		if FFlagRemoveUILibraryButton then
+			itemButton = renderItem(id, {
+				Selected = selected,
+				OnPress = function(_props, _instance, inputObject)
+					self.itemClicked(id, inputObject)
+				end,
+				OnSecondaryPress = function()
+					self.itemRightClicked(id)
+				end,
+			})
+		else
+			itemButton = Roact.createElement(Button, {
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 0,
+				BorderSizePixel = 0,
 
-			Style = buttonStyle,
-			StyleState = selected and "selected" or nil,
+				Style = buttonStyle,
+				StyleState = selected and "selected" or nil,
 
-			RenderContents = function(...)
-				return {
-					ClickCapturer = Roact.createElement("TextButton", {
-						BackgroundTransparency = 1,
-						Size = UDim2.new(1, 0, 1, 0),
-						Text = "",
+				RenderContents = function(...)
+					return {
+						ClickCapturer = Roact.createElement("TextButton", {
+							BackgroundTransparency = 1,
+							Size = UDim2.new(1, 0, 1, 0),
+							Text = "",
 
-						[Roact.Event.Activated] = function(_, inputObject) self.itemClicked(id, inputObject) end,
-						[Roact.Event.MouseButton2Click] = function() self.itemRightClicked(id) end,
-					}, { Item = renderItem(id, ...) })
-				}
-			end
-		})
+							[Roact.Event.Activated] = function(_, inputObject) self.itemClicked(id, inputObject) end,
+							[Roact.Event.MouseButton2Click] = function() self.itemRightClicked(id) end,
+						}, { Item = renderItem(id, ...) })
+					}
+				end
+			})
+		end
 
 		itemList[id] = { Button = itemButton, Index = i }
 	end

@@ -28,6 +28,7 @@ local MAX_NAME_LENGTH = 50
 local MAX_DESCRIPTION_LENGTH = 1000
 local TEAM_CREATE_ENABLED = "teamCreateEnabled"
 
+local FFlagCOLLAB734FixPublishPlaceAsDropdownContrastIssue = game:DefineFastFlag("COLLAB734FixPublishPlaceAsDropdownContrastIssue", false);
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 local FStringTeamCreateLearnMoreLink = game:GetFastString("TeamCreateLink")
 local FFlagRemoveUILibrarySeparator = game:GetFastFlag("RemoveUILibrarySeparator")
@@ -140,31 +141,95 @@ local function displayContents(parent)
 	local optInLocationsChanged = props.OptInLocationsChanged
 	local playerAcceptance = props.PlayerAcceptance
 
-	local genres = Cryo.List.map(Constants.GENRE_IDS, function(name)
-		return {Key = name, Text = localization:getText("Genre", name)}
-	end)
+	local selectedGenreIndex
+	local selectGenre
+	local genreItems
 
-	local dropdownItems = { { Type = Constants.SUBJECT_TYPE.USER, Key = 0, Text = localization:getText("GroupDropdown", "Me"), }, }
+	local selectedCreatorIndex
+	local selectCreator
+	local creatorItems
+	-- remove DEPRECATED variables with FFlagCOLLAB734FixPublishPlaceAsDropdownContrastIssue
+	local DEPRECATED_genres
 
-	local creatorItem = dropdownItems[1]
+	local DEPRECATED_dropdownItems
+	local DEPRECATED_creatorItem
 
-	if groups and next(groups) ~= nil then
-		for _, group in pairs(groups) do
-			table.insert(dropdownItems, { Type = Constants.SUBJECT_TYPE.GROUP, Key = group.groupId, Text = group.name, })
+	if FFlagCOLLAB734FixPublishPlaceAsDropdownContrastIssue then
+		local genreItemsMetadata = Cryo.List.map(Constants.GENRE_IDS, function(name)
+			return { Key = name, Text = localization:getText("Genre", name) }
+		end)
+
+		selectedGenreIndex = 1
+
+		selectGenre = function(_, index)
+			local selectedGenreKey = genreItemsMetadata[index].Key
+			genreChanged(selectedGenreKey)
 		end
-		if not groupsLoaded then
-			groupsLoaded = true
-			for _, item in ipairs(dropdownItems) do
-				if game.CreatorId == item.Key and game.CreatorType == Enum.CreatorType.Group then
-					creatorChanged(item.Key)
+
+		genreItems = {}
+		for index, genreMetadata in pairs(genreItemsMetadata) do
+			table.insert(genreItems, genreMetadata.Text)
+			if genre == genreMetadata.Key then
+				selectedGenreIndex = index
+			end
+		end
+
+		local creatorItemsMetadata = { { Key = 0, Type = Constants.SUBJECT_TYPE.USER, Text = localization:getText("GroupDropdown", "Me") } }
+		selectedCreatorIndex = 1
+
+		selectCreator = function(_, index)
+			local selectedCreatorKey = creatorItemsMetadata[index].Key
+			creatorChanged(selectedCreatorKey)
+		end
+
+		if groups and next(groups) ~= nil then
+			for _, group in pairs(groups) do
+				table.insert(creatorItemsMetadata, { Key = group.groupId, Type = Constants.SUBJECT_TYPE.GROUP, Text = group.name })
+			end
+			if not groupsLoaded then
+				groupsLoaded = true
+				for _, itemMetadata in ipairs(creatorItemsMetadata) do
+					if game.CreatorId == itemMetadata.Key and game.CreatorType == Enum.CreatorType.Group then
+						creatorChanged(itemMetadata.Key)
+					end
 				end
 			end
 		end
-	end
 
-	for _, item in ipairs(dropdownItems) do
-		if creatorId == item.Key then
-			creatorItem = item
+		creatorItems = {}
+		for index, itemMetadata in ipairs(creatorItemsMetadata) do
+			table.insert(creatorItems, itemMetadata.Text)
+			if creatorId == itemMetadata.Key then
+				selectedCreatorIndex = index
+			end
+		end
+	else
+		DEPRECATED_genres = Cryo.List.map(Constants.GENRE_IDS, function(name)
+			return {Key = name, Text = localization:getText("Genre", name)}
+		end)
+
+		DEPRECATED_dropdownItems = { { Type = Constants.SUBJECT_TYPE.USER, Key = 0, Text = localization:getText("GroupDropdown", "Me"), }, }
+
+		DEPRECATED_creatorItem = DEPRECATED_dropdownItems[1]
+
+		if groups and next(groups) ~= nil then
+			for _, group in pairs(groups) do
+				table.insert(DEPRECATED_dropdownItems, { Type = Constants.SUBJECT_TYPE.GROUP, Key = group.groupId, Text = group.name, })
+			end
+			if not groupsLoaded then
+				groupsLoaded = true
+				for _, item in ipairs(DEPRECATED_dropdownItems) do
+					if game.CreatorId == item.Key and game.CreatorType == Enum.CreatorType.Group then
+						creatorChanged(item.Key)
+					end
+				end
+			end
+		end
+
+		for _, item in ipairs(DEPRECATED_dropdownItems) do
+			if creatorId == item.Key then
+				DEPRECATED_creatorItem = item
+			end
 		end
 	end
 
@@ -256,8 +321,13 @@ local function displayContents(parent)
 			ZIndex = 2,
 			LayoutOrder = layoutOrder:getNextOrder(),
 		}, {
-			Selector = Roact.createElement(SelectInput, {
-				Items = dropdownItems,
+			Selector = Roact.createElement(SelectInput, if FFlagCOLLAB734FixPublishPlaceAsDropdownContrastIssue then {
+				Items = creatorItems,
+				SelectedIndex = selectedCreatorIndex,
+				OnItemActivated = selectCreator,
+				Width = theme.selectInput.width.creator,
+			} else {
+				Items = DEPRECATED_dropdownItems,
 				OnItemActivated = function(item)
 					creatorChanged(item.Key)
 				end,
@@ -285,7 +355,7 @@ local function displayContents(parent)
 						}),
 					})
 				end,
-				PlaceholderText = creatorItem.Text,
+				PlaceholderText = DEPRECATED_creatorItem.Text,
 				Width = theme.selectInput.width.creator,
 			}),
 		}),
@@ -304,8 +374,13 @@ local function displayContents(parent)
 			ZIndex = 2,
 			LayoutOrder = layoutOrder:getNextOrder(),
 		}, {
-			Selector = Roact.createElement(SelectInput, {
-				Items = genres,
+			Selector = Roact.createElement(SelectInput, if FFlagCOLLAB734FixPublishPlaceAsDropdownContrastIssue then {
+				Items = genreItems,
+				SelectedIndex = selectedGenreIndex,
+				OnItemActivated = selectGenre,
+				Width = theme.selectInput.width.genre,
+			} else {
+				Items = DEPRECATED_genres,
 				OnItemActivated = function(item)
 					genreChanged(item.Key)
 				end,

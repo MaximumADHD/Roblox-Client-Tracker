@@ -1,3 +1,4 @@
+--!nonstrict
 local MockCameraService = require(script.Parent.MockCameraService)
 local Workspace = game:GetService("Workspace")
 

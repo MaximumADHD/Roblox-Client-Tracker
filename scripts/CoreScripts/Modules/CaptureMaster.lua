@@ -8,11 +8,19 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CaptureNotification = require(RobloxGui.Modules.CaptureNotification)
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
 
+export type CaptureMaster = {
+	Start: (CaptureMaster) -> (),
+	Capture: (CaptureMaster) -> (),
+	DismissNotification: (CaptureMaster) -> (),
+	ShowPermissionToast: (CaptureMaster) -> (),
+	captureEvent: BindableEvent,
+}
+
 local CaptureMaster = {}
 CaptureMaster.__index = CaptureMaster
 
-function CaptureMaster.new()
-	local self = {}
+function CaptureMaster.new(): CaptureMaster
+	local self: any = {}
 	setmetatable(self, CaptureMaster)
 	self.init = false
 	self.captureEvent = Instance.new("BindableEvent")
@@ -37,7 +45,7 @@ function CaptureMaster:Start()
 	end
 end
 
-local master = CaptureMaster.new()
+local master: CaptureMaster = CaptureMaster.new()
 
 function CaptureMaster:DismissNotification()
 	if not self.init then

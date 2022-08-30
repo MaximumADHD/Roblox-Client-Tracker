@@ -263,6 +263,11 @@ function ThumbnailWidget:render()
 			AddNew = function()
 				self.props.ThumbnailAction("AddNew")
 			end,
+
+			UpdateAltText = function(info)
+				self.props.ThumbnailAction("UpdateAltText", info)
+			end,
+			AltTextError = self.props.AltTextError,
 		}),
 
 		-- Placed in a folder to prevent this component from being part

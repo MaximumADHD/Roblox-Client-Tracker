@@ -17,8 +17,10 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local FFlagDevFrameworkMigrateSearchBar = Framework.SharedFlags.getFFlagDevFrameworkMigrateSearchBar()
-local FFlagRemoveUILibraryLoadingIndicator = Framework.SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateSearchBar = SharedFlags.getFFlagDevFrameworkMigrateSearchBar()
+local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
+local FFlagRemoveUILibraryLoadingIndicator = SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
 
 local Constants = require(Plugin.Src.Resources.Constants)
 
@@ -33,12 +35,12 @@ local TileGame = require(Plugin.Src.Components.TileGame)
 
 local StyledDropDown = UILibrary.Component.StyledDropdown
 local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
-local SearchBar = if FFlagDevFrameworkMigrateSearchBar then Framework.StudioUI.SearchBar else UILibrary.Component.SearchBar
-local Separator = if FFlagRemoveUILibrarySeparator then Framework.UI.Separator else UILibrary.Component.Separator
-local RoundTextButton = UILibrary.Component.RoundTextButton
 
 local UI = Framework.UI
+local Button = if FFlagRemoveUILibraryButton then UI.Button else UILibrary.Component.RoundTextButton
 local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator then UI.LoadingIndicator else UILibrary.Component.LoadingIndicator
+local SearchBar = if FFlagDevFrameworkMigrateSearchBar then Framework.StudioUI.SearchBar else UILibrary.Component.SearchBar
+local Separator = if FFlagRemoveUILibrarySeparator then Framework.UI.Separator else UILibrary.Component.Separator
 
 local ScreenChooseGame = Roact.PureComponent:extend("ScreenChooseGame")
 local SelectedItemKey = 0
@@ -246,7 +248,16 @@ function ScreenChooseGame:render()
 						TextColor3 = theme.failText.text,
 						Font = theme.failText.font,
 					}),
-					Roact.createElement(RoundTextButton, {
+					Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 0, 100),
+						Size = UDim2.new(0, 150, 0, 75),
+						Style = "Round",
+						Text = localization:getText("Button", "Retry"),
+						OnClick = function()
+							dispatchLoadExistingGames(SelectedItemType, SelectedItemKey)
+						end
+					} else {
 						Position = UDim2.new(0.5, 0, 0, 100),
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						Style = theme.defaultButton,
@@ -256,8 +267,9 @@ function ScreenChooseGame:render()
 						TextSize = Constants.TEXT_SIZE,
 						OnClicked = function()
 							dispatchLoadExistingGames(SelectedItemType, SelectedItemKey)
-						end}
-				)}
+						end
+					})
+				}
 			),
 
 		Footer = Roact.createElement(Footer, {

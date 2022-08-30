@@ -1,3 +1,7 @@
+local FFlagToolboxHideAnnouncementFromNewUsersAndAfterMonth = game:GetFastFlag("ToolboxHideAnnouncementFromNewUsersAndAfterMonth")
+local FFlagToolboxFixVerifyAndAnnouncementBugs = game:GetFastFlag("ToolboxFixVerifyAndAnnouncementBugs")
+local FFlagToolboxAddAnnouncementAnalytics = game:GetFastFlag("ToolboxAddAnnouncementAnalytics")
+
 local GuiService = game:GetService("GuiService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -22,9 +26,11 @@ local withContext = ContextServices.withContext
 local formatLocalDateTime = Framework.Util.formatLocalDateTime
 
 local Util = Plugin.Core.Util
+local Analytics = require(Util.Analytics.Analytics)
 local ContextGetter = require(Util.ContextGetter)
 local Images = require(Util.Images)
 local ToolboxUtilities = require(Util.ToolboxUtilities)
+local getUserId = require(Util.getUserId)
 
 local getModal = ContextGetter.getModal
 
@@ -37,10 +43,16 @@ local CLOSE_BUTTON_SIZE = 28
 local CONTENT_HORIZONTAL_PADDING = 16
 local CONTENT_VERTICAL_PADDING = 20
 local CONTENT_SPACING = 10
+local MAX_DAYS_ACTIVE = 30
+local DATETIME_PATTERN = "(%d+)-(%d+)-(%d+) (%d+):(%d+):(%d+)"
 local IMAGE_SIZE = UDim2.fromOffset(264, 110)
 local MAX_WIDTH = 400
 local OVERLAY_PADDING = 20
 local OVERLAY_SPACING = 10
+
+local DEFAULT_BUTTON_KEY = "Button_Default"
+local DEFAULT_HEADER_KEY = "Header_Default"
+local DEFAULT_LINK_KEY = "LinkText_Default"
 
 type _InternalProps = {
 	AbsoluteSize: Vector2?, -- From withAbsoluteSize
@@ -61,6 +73,7 @@ local AnnouncementDialog = Roact.PureComponent:extend("AnnouncementDialog")
 function AnnouncementDialog:init(props: AnnouncementDialogProps)
 	self.state = {
 		isEnabled = true,
+		openStartTime = if FFlagToolboxAddAnnouncementAnalytics then 0 else nil,
 	}
 
 	self.shouldShowAnnouncementDialog = function()
@@ -73,7 +86,44 @@ function AnnouncementDialog:init(props: AnnouncementDialogProps)
 		local announcementConfiguration = ToolboxUtilities.getAnnouncementConfiguration()
 		local dateKey = announcementConfiguration.Date or ""
 
-		return state.isEnabled and dateKey ~= "" and lastAnnouncementViewed ~= dateKey
+		local isExpired
+		local isUserTooNew
+		if FFlagToolboxHideAnnouncementFromNewUsersAndAfterMonth then
+			isExpired = false
+			isUserTooNew = false
+
+			if dateKey ~= "" then
+				local runYear, runMonth, runDay, runHour, runMinute, runSeconds = dateKey:match(DATETIME_PATTERN)
+				local timeObj = {
+					year = tonumber(runYear),
+					month = tonumber(runMonth),
+					day = tonumber(runDay),
+					hour = tonumber(runHour),
+					min = tonumber(runMinute),
+					sec = tonumber(runSeconds),
+				}
+				local convertedTimestamp = os.time(timeObj)
+				local daysfrom = os.difftime(os.time(), convertedTimestamp) / (24 * 60 * 60) -- seconds in a day
+				local wholedays = math.floor(daysfrom)
+
+				if wholedays > MAX_DAYS_ACTIVE then
+					isExpired = true
+				end
+			end
+
+			local latestUserId = announcementConfiguration.LatestUserId
+			if latestUserId and latestUserId ~= "" then
+				latestUserId = tonumber(latestUserId)
+				isUserTooNew = getUserId() > latestUserId
+			end
+
+			return state.isEnabled and dateKey ~= ""
+				and lastAnnouncementViewed ~= dateKey
+				and not isExpired
+				and not isUserTooNew
+		else
+			return state.isEnabled and dateKey ~= "" and lastAnnouncementViewed ~= dateKey
+		end
 	end
 
 	self.onClose = function()
@@ -101,6 +151,67 @@ function AnnouncementDialog:init(props: AnnouncementDialogProps)
 		local announcementConfiguration = ToolboxUtilities.getAnnouncementConfiguration()
 		local linkLocation = announcementConfiguration.LinkLocation
 		GuiService:OpenBrowserWindow(linkLocation)
+
+		if FFlagToolboxAddAnnouncementAnalytics then
+			local announcementConfig = self.getAnnouncementConfigurationOrDefault()
+			Analytics.AnnouncementLinkClicked(
+				announcementConfig.ButtonKey,
+				announcementConfig.Date,
+				announcementConfig.DescriptionKey,
+				announcementConfig.HeaderKey,
+				announcementConfig.LinkKey,
+				announcementConfig.LinkLocation
+			)
+		end
+	end
+
+	if FFlagToolboxAddAnnouncementAnalytics then
+		self.onClickXButton = function()
+			local announcementConfig = self.getAnnouncementConfigurationOrDefault()
+			local endTime = tick()
+			local startTime = self.state.openStartTime
+			local deltaMs = (endTime - startTime) * 1000
+			Analytics.AnnouncementClosed(
+				announcementConfig.ButtonKey,
+				announcementConfig.Date,
+				announcementConfig.DescriptionKey,
+				announcementConfig.HeaderKey,
+				announcementConfig.LinkKey,
+				announcementConfig.LinkLocation,
+				deltaMs
+			)
+			self.onClose()
+		end
+
+		self.onClickAcknowledgeButton = function()
+			local announcementConfig = self.getAnnouncementConfigurationOrDefault()
+			local endTime = tick()
+			local startTime = self.state.openStartTime
+			local deltaMs = (endTime - startTime) * 1000
+			Analytics.AnnouncementAcknowledged(
+				announcementConfig.ButtonKey,
+				announcementConfig.Date,
+				announcementConfig.DescriptionKey,
+				announcementConfig.HeaderKey,
+				announcementConfig.LinkKey,
+				announcementConfig.LinkLocation,
+				deltaMs
+			)
+			self.onClose()
+		end
+
+		self.getAnnouncementConfigurationOrDefault = function(analyticsFunction)
+			local announcementConfiguration = ToolboxUtilities.getAnnouncementConfiguration()
+			return {
+				ButtonKey = announcementConfiguration.ButtonKey or DEFAULT_BUTTON_KEY,
+				Date = announcementConfiguration.Date or "",
+				DescriptionKey = announcementConfiguration.DescriptionKey or "",
+				Image = announcementConfiguration.Image,
+				HeaderKey = announcementConfiguration.HeaderKey or DEFAULT_HEADER_KEY,
+				LinkKey = announcementConfiguration.LinkKey or DEFAULT_LINK_KEY,
+				LinkLocation = announcementConfiguration.LinkLocation,
+			}
+		end
 	end
 end
 
@@ -108,6 +219,21 @@ function AnnouncementDialog:didMount()
 	if self.shouldShowAnnouncementDialog() then
 		local modal = getModal(self)
 		modal.onAssetPreviewToggled(true)
+
+		if FFlagToolboxAddAnnouncementAnalytics then
+			self:setState({
+				openStartTime = tick(),
+			})
+			local announcementConfig = self.getAnnouncementConfigurationOrDefault()
+			Analytics.AnnouncementViewed(
+				announcementConfig.ButtonKey,
+				announcementConfig.Date,
+				announcementConfig.DescriptionKey,
+				announcementConfig.HeaderKey,
+				announcementConfig.LinkKey,
+				announcementConfig.LinkLocation
+			)
+		end
 	end
 end
 
@@ -131,14 +257,33 @@ function AnnouncementDialog:render()
 
 	local lastAnnouncementViewed = settings:getLastAnnouncementViewedKey()
 
-	local announcementConfiguration = ToolboxUtilities.getAnnouncementConfiguration()
-	local buttonKey = announcementConfiguration.ButtonKey or "Button_Default"
-	local dateKey = announcementConfiguration.Date or ""
-	local descriptionKey = announcementConfiguration.DescriptionKey or ""
-	local headerKey = announcementConfiguration.HeaderKey or "Header_Default"
-	local imageLocation = announcementConfiguration.Image
-	local linkTextKey = announcementConfiguration.LinkKey or "LinkText_Default"
-	local linkLocation = announcementConfiguration.LinkLocation
+	local buttonKey
+	local dateKey
+	local descriptionKey
+	local headerKey
+	local imageLocation
+	local linkTextKey
+	local linkLocation
+	if FFlagToolboxAddAnnouncementAnalytics then
+		local announcementConfiguration = self.getAnnouncementConfigurationOrDefault()
+		buttonKey = announcementConfiguration.ButtonKey
+		dateKey = announcementConfiguration.Date
+		descriptionKey = announcementConfiguration.DescriptionKey
+		headerKey = announcementConfiguration.HeaderKey
+		imageLocation = announcementConfiguration.Image
+		linkTextKey = announcementConfiguration.LinkKey
+		linkLocation = announcementConfiguration.LinkLocation
+
+	else
+		local announcementConfiguration = ToolboxUtilities.getAnnouncementConfiguration()
+		buttonKey = announcementConfiguration.ButtonKey or DEFAULT_BUTTON_KEY
+		dateKey = announcementConfiguration.Date or ""
+		descriptionKey = announcementConfiguration.DescriptionKey or ""
+		headerKey = announcementConfiguration.HeaderKey or DEFAULT_HEADER_KEY
+		imageLocation = announcementConfiguration.Image
+		linkTextKey = announcementConfiguration.LinkKey or DEFAULT_LINK_KEY
+		linkLocation = announcementConfiguration.LinkLocation
+	end
 
 	local buttonText = localization:getText("Announcement", buttonKey)
 	local descriptionText = localization:getText("Announcement", descriptionKey)
@@ -189,7 +334,9 @@ function AnnouncementDialog:render()
 							ImageColor3 = announcementTheme.closeIconColor,
 							Size = UDim2.fromOffset(CLOSE_BUTTON_SIZE, CLOSE_BUTTON_SIZE),
 							LayoutOrder = 1,
-							[Roact.Event.Activated] = self.onClose,
+							[Roact.Event.Activated] = if FFlagToolboxAddAnnouncementAnalytics
+								then self.onClickXButton
+								else self.onClose,
 						}, {
 							HoverArea = Roact.createElement(HoverArea, {
 								Cursor = "PointingHand",
@@ -248,7 +395,28 @@ function AnnouncementDialog:render()
 								},
 								Size = UDim2.new(1, 0, 0, 0),
 							}, {
-								LinkText = if linkLocation and linkLocation ~= ""
+								LinkContainer = if FFlagToolboxFixVerifyAndAnnouncementBugs
+										and linkLocation
+										and linkLocation ~= ""
+									then Roact.createElement(Pane, {
+										AutomaticSize = Enum.AutomaticSize.X,
+										LayoutOrder = orderIterator:getNextOrder(),
+										Size = UDim2.new(0, 0, 0, BUTTON_SIZE.Y.Offset),
+										Layout = Enum.FillDirection.Horizontal,
+										VerticalAlignment = if true then Enum.VerticalAlignment.Center else nil,
+									}, {
+										LinkText = Roact.createElement(LinkText, {
+											LayoutOrder = orderIterator:getNextOrder(),
+											OnClick = self.onClickLink,
+											Style = "Underlined",
+											Text = linkText,
+										}),
+									})
+									else nil,
+
+								LinkText = if not FFlagToolboxFixVerifyAndAnnouncementBugs
+										and linkLocation
+										and linkLocation ~= ""
 									then Roact.createElement(LinkText, {
 										LayoutOrder = orderIterator:getNextOrder(),
 										OnClick = self.onClickLink,
@@ -261,7 +429,9 @@ function AnnouncementDialog:render()
 									AnchorPoint = Vector2.new(1, 0),
 									Position = UDim2.new(1, 0, 0, 0),
 									LayoutOrder = orderIterator:getNextOrder(),
-									OnClick = self.onClose,
+									OnClick = if FFlagToolboxAddAnnouncementAnalytics
+										then self.onClickAcknowledgeButton
+										else self.onClose,
 									Size = BUTTON_SIZE,
 									Style = "RoundPrimary",
 									Text = buttonText,

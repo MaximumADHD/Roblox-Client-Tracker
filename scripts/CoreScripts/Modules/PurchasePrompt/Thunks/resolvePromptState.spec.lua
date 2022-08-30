@@ -21,8 +21,6 @@ return function()
 	local resolvePromptState = require(script.Parent.resolvePromptState)
 	local RequestType = require(Root.Enums.RequestType)
 
-	local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
-
 	local function getTestProductInfo()
 		return {
 			IsForSale = true,
@@ -37,11 +35,8 @@ return function()
 	end
 
 	local function getTestAccountInfo()
-		return FFlagPPAccountInfoMigration and {
+		return {
 			isPremium = false,
-		} or {
-			RobuxBalance = 10,
-			MembershipType = 0,
 		}
 	end
 
@@ -147,11 +142,7 @@ return function()
 		-- Player will not have enough robux
 		local accountInfo = getTestAccountInfo()
 		local balanceInfo = getTestBalance()
-		if FFlagPPAccountInfoMigration then
-			balanceInfo.robux = 0
-		else
-			accountInfo.RobuxBalance = 0
-		end
+		balanceInfo.robux = 0
 		testThunk(mockAnalytics, nil, store, productInfo, accountInfo, balanceInfo, false, false):andThen(function()
 			local state = store:getState()
 			expect(state.promptState).to.equal(PromptState.RobuxUpsell)
@@ -167,11 +158,7 @@ return function()
 		-- Player will not have enough robux
 		local accountInfo = getTestAccountInfo()
 		local balanceInfo = getTestBalance()
-		if FFlagPPAccountInfoMigration then
-			balanceInfo.robux = 0
-		else
-			accountInfo.RobuxBalance = 0
-		end
+		balanceInfo.robux = 0
 		testThunk(mockAnalytics, MockExternalSettings.new(false, false, {
 			DisableRobuxUpsell = true,
 		}), store, productInfo, accountInfo, balanceInfo, false, false)

@@ -21,8 +21,6 @@ return function()
 
 	local Templates = require(Plugin.Src.Util.Templates)
 
-	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-
 	local emptyData = Templates.animationData()
 	local testAnimationData = Templates.animationData()
 

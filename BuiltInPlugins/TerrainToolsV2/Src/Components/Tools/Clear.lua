@@ -2,11 +2,15 @@
 	Displays panels associated with the Clear tool
 ]]
 local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -16,7 +20,9 @@ local StudioUI = Framework.StudioUI
 local Dialog = StudioUI.Dialog
 
 local UILibraryCompat = Plugin.Src.UILibraryCompat
-local Button = require(UILibraryCompat.Button)
+
+local UI = Framework.UI
+local Button = if FFlagRemoveUILibraryButton then UI.Button else require(UILibraryCompat.Button)
 
 local Actions = Plugin.Src.Actions
 local ChangeTool = require(Actions.ChangeTool)
@@ -102,8 +108,8 @@ function Clear:render()
 		PADDING + ICON_SIZE + PADDING + messageWidth + PADDING)
 
 	local Buttons = {
-		{Key = KEY_NO, Text = localization:getText("Confirmation", "No")},
-		{Key = KEY_YES, Text = localization:getText("Confirmation", "Yes"), Style = "Primary"},
+		{Key = KEY_NO, Text = localization:getText("Confirmation", "No"), Style = if FFlagRemoveUILibraryButton then "Round" else nil},
+		{Key = KEY_YES, Text = localization:getText("Confirmation", "Yes"), Style = if FFlagRemoveUILibraryButton then "RoundPrimary" else "Primary"},
 	}
 
 	local buttonComponents = {
@@ -122,7 +128,13 @@ function Clear:render()
 
 	-- Copied from UI Library StyledDialog and BaseDialog
 	local function renderButton(button, index, activated)
-		return Roact.createElement(Button, {
+		return Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
+			AutomaticSize = Enum.AutomaticSize.XY,
+			LayoutOrder = index,
+			OnClick = activated,
+			Style = button.Style,
+			Text = button.Text,
+		} else {
 			Size = UDim2.new(0, buttonWidth, 0, buttonHeight),
 			LayoutOrder = index,
 			Style = button.Style,

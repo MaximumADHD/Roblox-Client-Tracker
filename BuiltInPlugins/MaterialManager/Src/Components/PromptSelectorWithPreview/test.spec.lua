@@ -5,7 +5,7 @@ local mockContext = require(Plugin.Src.Util.mockContext)
 local PromptSelectorWithPreview = require(script.Parent)
 
 return function()
-	local hasSelection = false
+	local hasSelection = false  -- Remove wih FFlagMaterialManagerVariantCreatorOverhaul
 	local imageId = ""
 	local isTempId = false
 	local promptSelection = function() end
@@ -16,7 +16,7 @@ return function()
 
 	local function createTestElement(props: PromptSelectorWithPreview.Props?)
 		props = props or {
-			HasSelection = hasSelection,
+			HasSelection = hasSelection,  -- Remove wih FFlagMaterialManagerVariantCreatorOverhaul
 			ImageId = imageId,
 			IsTempId = isTempId,
 			PromptSelection = promptSelection,
@@ -40,7 +40,7 @@ return function()
 	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local element = createTestElement({
-			HasSelection = true,
+			HasSelection = true,  -- Remove wih FFlagMaterialManagerVariantCreatorOverhaul
 			ImageId = "rbxasset://textures/MaterialManager/Create_New_Variant.png",
 			IsTempId = true,
 			PromptSelection = promptSelection,

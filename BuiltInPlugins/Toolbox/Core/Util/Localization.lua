@@ -20,7 +20,7 @@ local Localization = {}
 Localization.__index = Localization
 
 local FFlagLimitGroupRoleSetPermissionsInGui = game:GetFastFlag("LimitGroupRoleSetPermissionsInGui")
-local FFlagUnifyModelPackagePublish = game:GetFastFlag("UnifyModelPackagePublish")
+local FFlagUnifyModelPackagePublish2 = game:GetFastFlag("UnifyModelPackagePublish2")
 
 --[[
 	options:
@@ -731,7 +731,7 @@ function Localization:_recalculateContent()
 				Ownership = self:_safeLocalize("Studio.Toolbox.General.Ownership"),
 				Genre = self:_safeLocalize("Studio.Toolbox.General.Genre"),
 				Copy = self:_safeLocalize("Studio.Toolbox.General.Copy"),
-				Package = FFlagUnifyModelPackagePublish and self:_safeLocalize("Studio.Toolbox.General.Package") or nil,
+				Package = FFlagUnifyModelPackagePublish2 and self:_safeLocalize("Studio.Toolbox.General.Package") or nil,
 				Comments = self:_safeLocalize("Studio.Toolbox.General.Comments"),
 				DistributeOnMarketplace = self:_safeLocalize("Studio.Toolbox.General.DistributeOnMarketplace"),
 				LearnMore = self:_safeLocalize("Studio.Toolbox.General.LearnMore"),

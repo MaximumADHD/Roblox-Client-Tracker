@@ -63,7 +63,6 @@ local Pause = require(Plugin.Src.Actions.Pause)
 
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagCurveEditorFreeZoom = require(Plugin.LuaFlags.GetFFlagCurveEditorFreeZoom)
 
 local DopeSheetController = Roact.Component:extend("DopeSheetController")
@@ -594,7 +593,7 @@ function DopeSheetController:render()
 			Size = size,
 			Position = position,
 			BackgroundTransparency = 1,
-			ZIndex = GetFFlagCurveEditor() and props.ZIndex or nil,
+			ZIndex = props.ZIndex,
 			[Roact.Event.InputChanged] = if GetFFlagCurveEditorFreeZoom() then self.props.OnInputChanged else nil,
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
@@ -775,14 +774,14 @@ function DopeSheetController:render()
 				})
 			}),
 
-			IgnoreLayout = GetFFlagCurveEditor() and Roact.createElement("Folder", {}, {
+			IgnoreLayout = Roact.createElement("Folder", {}, {
 				TrackColors = Roact.createElement(TrackColors, {
 					Tracks = tracks,
 					TopTrackIndex = topTrackIndex,
 					Position = UDim2.new(0, 0, 0, colorsPosition),
 					MaxHeight = absoluteSize.Y - colorsPosition,
 				})
-			 }) or nil,
+			 }),
 		})
 	else
 		return Roact.createElement("Frame", {
@@ -814,7 +813,7 @@ local function mapStateToProps(state, props)
 		FrameRate = status.FrameRate,
 		SnapMode = status.SnapMode,
 		InvalidIdWarning = state.Notifications.InvalidAnimation,
-		Tracks = if GetFFlagCurveEditor() then status.Tracks else nil,
+		Tracks = status.Tracks,
 	}
 
 	return stateToProps
@@ -827,11 +826,7 @@ local function mapDispatchToProps(dispatch)
 		end,
 
 		MoveSelectedKeyframes = function(pivotTick, newTick, dragContext)
-			if GetFFlagCurveEditor() then
-				dispatch(MoveSelectedKeyframes(pivotTick, newTick, nil, nil, dragContext))
-			else
-				dispatch(MoveSelectedKeyframes(pivotTick, newTick, dragContext))
-			end
+			dispatch(MoveSelectedKeyframes(pivotTick, newTick, nil, nil, dragContext))
 		end,
 
 		ScaleSelectedKeyframes = function(pivotTick, scale, dragContext)

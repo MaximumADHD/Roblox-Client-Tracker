@@ -1,6 +1,7 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local UserInputService = game:GetService("UserInputService")
+local React = require(CorePackages.Packages.React)
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -40,14 +41,13 @@ PlayerCell.validateProps = t.strictInterface({
 	displayName = t.optional(t.string),
 	isOnline = t.optional(t.boolean),
 	isSelected = t.optional(t.boolean),
-	LayoutOrder = t.integer,
+	LayoutOrder = t.union(t.integer, t.table),
 	Visible = t.optional(t.boolean),
 
 	onActivated = t.optional(t.callback),
-
+	memoKey = t.optional(t.number),
 	[Roact.Children] = t.optional(t.table),
 	[Roact.Change.AbsolutePosition] = t.optional(t.callback),
-	[Roact.Ref] = t.optional(t.union(t.callback, t.table)),
 	forwardRef = t.optional(t.union(t.callback, t.table)),
 	UserInputService = t.optional(t.union(t.Instance, t.table)),
 })
@@ -117,7 +117,7 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 			onTouchTapped = FFlagPlayerCellHandleTouchTap and self.onActivated or nil,
 
 			[Roact.Change.AbsolutePosition] = self.props[Roact.Change.AbsolutePosition],
-			[Roact.Ref] = self.props.forwardRef or Roact.createRef(),
+			[Roact.Ref] = self.props.forwardRef or nil,
 			SelectionImageObject = getSelectionCursor(CursorKind.Square),
 
 			layoutOrder = props.LayoutOrder,
@@ -246,11 +246,11 @@ function PlayerCell:render()
 	end)
 end
 
-return Roact.forwardRef(function(props, ref)
-	return Roact.createElement(
-		PlayerCell,
-		Cryo.Dictionary.join(props, {
-			forwardRef = ref,
-		})
-	)
+
+return React.memo(PlayerCell, function(newProps, oldProps)
+	return newProps.isSelected == oldProps.isSelected
+		and newProps.isOnline == oldProps.isOnline
+		and newProps[Roact.Change.AbsolutePosition] == oldProps[Roact.Change.AbsolutePosition]
+		and newProps.forwardRef == oldProps.forwardRef
+		and newProps.memoKey == oldProps.memoKey
 end)

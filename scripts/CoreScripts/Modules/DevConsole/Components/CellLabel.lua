@@ -7,7 +7,15 @@ local TEXT_COLOR = Constants.Color.Text
 local MAIN_FONT = Constants.Font.MainWindow
 local MAIN_FONT_BOLD = Constants.Font.MainWindowBold
 
-local function CellLabel(props)
+export type Props = {
+	text: string,
+	size: number,
+	pos: UDim2,
+	layoutOrder: number?,
+	bold: boolean?
+}
+
+local function CellLabel(props: Props)
 	local text = props.text
 	local size = props.size
 	local pos = props.pos

@@ -10,12 +10,12 @@ local TransformExtrapolator = {} do
 	local CF_IDENTITY = CFrame.new()
 
 	local function cframeToAxis(cframe: CFrame): Vector3
-		local axis: Vector3, angle: number = cframe:toAxisAngle()
+		local axis: Vector3, angle: number = cframe:ToAxisAngle()
 		return axis*angle
 	end
 
 	local function axisToCFrame(axis: Vector3): CFrame
-		local angle: number = axis.magnitude
+		local angle: number = axis.Magnitude
 		if angle > 1e-5 then
 			return CFrame.fromAxisAngle(axis, angle)
 		end
@@ -23,7 +23,7 @@ local TransformExtrapolator = {} do
 	end
 
 	local function extractRotation(cf: CFrame): CFrame
-		local _, _, _, xx, yx, zx, xy, yy, zy, xz, yz, zz = cf:components()
+		local _, _, _, xx, yx, zx, xy, yy, zy, xz, yz, zz = cf:GetComponents()
 		return CFrame.new(0, 0, 0, xx, yx, zx, xy, yy, zy, xz, yz, zz)
 	end
 

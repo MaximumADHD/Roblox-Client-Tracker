@@ -43,7 +43,6 @@ local Input = require(Plugin.Src.Util.Input)
 local IKTreeView = require(Plugin.Src.Components.IK.IKTreeView)
 local IKModeButtons = require(Plugin.Src.Components.IK.IKModeButtons)
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local IKWindow = Roact.PureComponent:extend("IKWindow")
@@ -89,26 +88,15 @@ function IKWindow:init()
 
 		local currentIndex = 0
 		for index, node in ipairs(treeArray) do
-			if GetFFlagCurveEditor() then
-				if selectedTrack and selectedTrack[1] == node then
-					currentIndex = index
-					break
-				end
-			else
-				if selectedTrack == node then
-					currentIndex = index
-					break
-				end
+			if selectedTrack and selectedTrack[1] == node then
+				currentIndex = index
+				break
 			end
 		end
 
 		local newIndex = math.clamp(currentIndex + increment, 1, #treeArray)
-		if GetFFlagCurveEditor() then
-			local path = {treeArray[newIndex]}
-			SetSelectedTracks({path})
-		else
-			SetSelectedTracks({treeArray[newIndex]})
-		end
+		local path = {treeArray[newIndex]}
+		SetSelectedTracks({path})
 	end
 
 	self.onInputBegan = function(rbx, input)

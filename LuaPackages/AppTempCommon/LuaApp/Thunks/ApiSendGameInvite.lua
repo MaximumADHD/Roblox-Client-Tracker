@@ -26,7 +26,7 @@ return function(networkImpl, userId, placeInfo)
 		return ChatStartOneToOneConversation(networkImpl, userId, clientId):andThen(function(conversationResult)
 			local conversation = conversationResult.responseBody.conversation
 
-			return ChatSendMessage(networkImpl, conversation.id, inviteTextMessage):andThen(function()
+			return ChatSendMessage(networkImpl, conversation.id, inviteTextMessage, nil, true, userId):andThen(function()
 				local function handleResult(inviteResult)
 					local data = inviteResult.responseBody
 
@@ -37,7 +37,7 @@ return function(networkImpl, userId, placeInfo)
 					}
 				end
 
-				return ChatSendGameLinkMessage(networkImpl, conversation.id, placeInfo.universeId):andThen(handleResult)
+				return ChatSendGameLinkMessage(networkImpl, conversation.id, placeInfo.universeId, nil, true, userId, placeInfo.universeRootPlaceId):andThen(handleResult)
 			end)
 		end)
 	end

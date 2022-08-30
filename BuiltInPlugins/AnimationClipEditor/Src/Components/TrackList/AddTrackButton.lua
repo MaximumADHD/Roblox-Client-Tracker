@@ -26,7 +26,6 @@ local Tooltip = require(Plugin.Src.Components.Tooltip)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local RigUtils = require(Plugin.Src.Util.RigUtils)
@@ -152,7 +151,7 @@ function AddTrackButton:makeTrackActions(localization)
 		})
 	end
 
-	if not GetFFlagFacialAnimationSupport() or #props.Tracks > 0 then
+	if #props.Tracks > 0 then
 		table.insert(actions, Constants.MENU_SEPARATOR)
 		table.insert(actions, {
 			Name = localization:getText("Menu", "AddAllTracks"),
@@ -163,18 +162,14 @@ function AddTrackButton:makeTrackActions(localization)
 			end,
 		})
 
-		if GetFFlagFacialAnimationSupport() then
-			table.insert(actions, Constants.MENU_SEPARATOR)
-		end
+		table.insert(actions, Constants.MENU_SEPARATOR)
 	end
 
-	if GetFFlagFacialAnimationSupport() then
-		local isFacsRig = GetFFlagFaceAnimationEditorUITweaks() and RigUtils.getFaceControls(self.props.RootInstance)
-		if GetFFlagFaceAnimationEditorUITweaks() == false or (GetFFlagFaceAnimationEditorUITweaks() and isFacsRig) then
-			local facsItems = self:makeFacialAnimationRegionSubMenu(localization)
-			for _, item in pairs(facsItems) do
-				table.insert(actions, item)
-			end
+	local isFacsRig = GetFFlagFaceAnimationEditorUITweaks() and RigUtils.getFaceControls(self.props.RootInstance)
+	if GetFFlagFaceAnimationEditorUITweaks() == false or (GetFFlagFaceAnimationEditorUITweaks() and isFacsRig) then
+		local facsItems = self:makeFacialAnimationRegionSubMenu(localization)
+		for _, item in pairs(facsItems) do
+			table.insert(actions, item)
 		end
 	end
 

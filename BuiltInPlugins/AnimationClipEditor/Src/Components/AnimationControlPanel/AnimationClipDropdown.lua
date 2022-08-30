@@ -38,11 +38,9 @@ local ImportFBXAnimationUserMayChooseModel = require(Plugin.Src.Thunks.Exporting
 local CreateFromVideoAndImportFBXAnimationUserMayChooseModel = require(Plugin.Src.Thunks.Exporting.CreateFromVideoAndImportFBXAnimationUserMayChooseModel)
 local ImportLoadedFBXAnimation = require(Plugin.Src.Thunks.Exporting.ImportLoadedFBXAnimation)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
-local PromoteKeyframeSequence = require(Plugin.Src.Thunks.PromoteKeyframeSequence)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 local Pause = require(Plugin.Src.Actions.Pause)
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 local GetFFlagCreateAnimationFromVideoAgeGateSizeFix = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAgeGateSizeFix)
 
@@ -488,10 +486,6 @@ local function mapDispatchToProps(dispatch)
 
 		SetIsDirty = function(isDirty)
 			dispatch(SetIsDirty(isDirty))
-		end,
-
-		PromoteKeyframeSequence = if GetFFlagCurveEditor() then nil else function(analytics)
-			dispatch(PromoteKeyframeSequence(analytics))
 		end,
 	}
 end

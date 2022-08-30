@@ -3,12 +3,20 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local UILibraryCompat = Plugin.Src.UILibraryCompat
-local RoundTextButton = require(UILibraryCompat.RoundTextButton)
+
+local Util = Framework.Util
+local StyleModifier = Util.StyleModifier
+
+local UI = Framework.UI
+local Button = if FFlagRemoveUILibraryButton then UI.Button else require(UILibraryCompat.RoundTextButton)
 
 local MIN_BUTTON_WIDTH = 64
 local MAX_BUTTON_WIDTH = 200
@@ -36,7 +44,14 @@ function ButtonGroup:render()
 	local buttonWidth = math.max(MAX_BUTTON_WIDTH / #buttons, MIN_BUTTON_WIDTH)
 
 	for index, button in ipairs(buttons) do
-		children[button.Key] = Roact.createElement(RoundTextButton, {
+		children[button.Key] = Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
+			OnClick = button.OnClicked,
+			LayoutOrder = index,
+			Size = UDim2.new(0, buttonWidth, 0, BUTTON_HEIGHT),
+			Style = "Round",
+			StyleModifier = if button.Active then nil else StyleModifier.Disabled,
+			Text = button.Name,
+		} else {
 			LayoutOrder = index,
 			Size = UDim2.new(0, buttonWidth, 0, BUTTON_HEIGHT),
 			Style = theme.roundTextButtonTheme.styleSheet,
@@ -56,11 +71,8 @@ function ButtonGroup:render()
 	}, children)
 end
 
-
 ButtonGroup = withContext({
 	Theme = ContextItems.UILibraryTheme,
 })(ButtonGroup)
-
-
 
 return ButtonGroup

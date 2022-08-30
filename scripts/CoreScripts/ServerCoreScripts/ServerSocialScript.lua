@@ -48,7 +48,6 @@ local PlayerToGroupDetailsMap = {}
 local PlayerToCanManageMap = {}
 
 local FIntCanManageLuaRolloutPercentage = game:DefineFastInt("CanManageLuaRolloutPercentage", 0)
-game:DefineFastFlag("VerifyBlockListContentsV2", false)
 game:DefineFastInt("MaxBlockListSize", 500)
 
 --[[ Remotes ]]--
@@ -187,16 +186,16 @@ local function onPlayerAdded(newPlayer)
 end
 
 RemoteEvent_SetPlayerBlockList.OnServerEvent:Connect(function(player, blockList)
-	if not game:GetFastFlag("VerifyBlockListContentsV2") or type(blockList) == "table" then
-		if not game:GetFastFlag("VerifyBlockListContentsV2") or verifyBlockList(blockList) then
+	if type(blockList) == "table" then
+		if verifyBlockList(blockList) then
 			player:AddToBlockList(blockList)
 		end
 	end
 end)
 
 RemoteEvent_UpdatePlayerBlockList.OnServerEvent:Connect(function(player, userId, block)
-	if not game:GetFastFlag("VerifyBlockListContentsV2") or type(block) == "boolean" then
-		if not game:GetFastFlag("VerifyBlockListContentsV2") or verifyUserId(userId) then
+	if type(block) == "boolean" then
+		if verifyUserId(userId) then
 			player:UpdatePlayerBlocked(userId, block)
 		end
 	end

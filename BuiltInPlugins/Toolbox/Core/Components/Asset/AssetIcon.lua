@@ -8,10 +8,12 @@
 		number LayoutOrder = 0
 		number curentSoundId
 		AssetConfigConstants.ASSET_STATUS status
+		boolean isPackage, passed down to AssetIconBadge to show if the asset is a package or not
 
 		callback onMouseEnter()
 		callback onMouseLeave()
 ]]
+local FFlagToolboxPackagesInAssetTile = game:GetFastFlag("ToolboxPackagesInAssetTile")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -25,7 +27,7 @@ local Constants = require(Util.Constants)
 local Images = require(Util.Images)
 local ContextGetter = require(Util.ContextGetter)
 local ContextHelper = require(Util.ContextHelper)
-local ToolboxUtilities = require(Util.ToolboxUtilities)
+local ToolboxUtilities = if FFlagToolboxPackagesInAssetTile then nil else require(Util.ToolboxUtilities) -- unused variable, remove with FFlagToolboxPackagesInAssetTile
 local Urls = require(Util.Urls)
 
 local Types = Plugin.Core.Types
@@ -85,7 +87,8 @@ function AssetIcon:render()
 		local backgroundIndex = props.backgroundIndex
 		local isEndorsed = props.isEndorsed
 		local typeId = props.typeId
-		local isPlugin = typeId == Enum.AssetType.Plugin.Value
+		local isPlugin = if FFlagToolboxPackagesInAssetTile then nil else typeId == Enum.AssetType.Plugin.Value -- unused variable, remove with FFlagToolboxPackagesInAssetTile
+		local isPackage = if FFlagToolboxPackagesInAssetTile then props.isPackage else nil
 		local currentSoundId = props.currentSoundId
 		local isLoading = props.isLoading
 
@@ -127,10 +130,11 @@ function AssetIcon:render()
 				}),
 			}),
 
-			Badge = isEndorsed and Roact.createElement(AssetIconBadge, {
+			Badge = if isEndorsed or isPackage then Roact.createElement(AssetIconBadge, { -- isPackage added with FFlagToolboxPackagesInAssetTile
 				assetId = assetId,
+				isPackage = isPackage, -- added with FFlagToolboxPackagesInAssetTile
 				floatLeft = isAudioAsset,
-			}),
+			}) else nil,
 
 			PreviewAudioButton = isAudioAsset and Roact.createElement(AudioPreviewButton, {
 				ZIndex = 3,

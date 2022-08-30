@@ -112,7 +112,7 @@ function ControlModule.new()
 				self.touchControlFrame.Visible = false
 			end
 		end)
-		
+
 		GuiService.MenuClosed:Connect(function()
 			if self.touchControlFrame then
 				self.touchControlFrame.Visible = true
@@ -185,7 +185,7 @@ function ControlModule.new()
 end
 
 -- Convenience function so that calling code does not have to first get the activeController
--- and then call GetMoveVector on it. When there is no active controller, this function returns the 
+-- and then call GetMoveVector on it. When there is no active controller, this function returns the
 -- zero vector
 function ControlModule:GetMoveVector(): Vector3
 	if self.activeController then
@@ -201,7 +201,7 @@ end
 -- Checks for conditions for enabling/disabling the active controller and updates whether the active controller is enabled/disabled
 function ControlModule:UpdateActiveControlModuleEnabled()
 	-- helpers for disable/enable
-	local disable = function() 
+	local disable = function()
 		self.activeController:Enable(false)
 
 		if self.moveFunction then
@@ -236,10 +236,10 @@ function ControlModule:UpdateActiveControlModuleEnabled()
 		return
 	end
 
-	-- GuiService.TouchControlsEnabled == false and the active controller is a touch controller, 
+	-- GuiService.TouchControlsEnabled == false and the active controller is a touch controller,
 	-- disable controls
-	if not GuiService.TouchControlsEnabled and UserInputService.TouchEnabled and 
-			(self.activeControlModule == ClickToMove or self.activeControlModule == TouchThumbstick or 
+	if not GuiService.TouchControlsEnabled and UserInputService.TouchEnabled and
+			(self.activeControlModule == ClickToMove or self.activeControlModule == TouchThumbstick or
 			self.activeControlModule == DynamicThumbstick) then
 		disable()
 		return
@@ -250,22 +250,22 @@ function ControlModule:UpdateActiveControlModuleEnabled()
 end
 
 function ControlModule:Enable(enable: boolean?)
-	if enable == nil then 
-		enable = true 
+	if enable == nil then
+		enable = true
 	end
 	self.controlsEnabled = enable
 
 	if not self.activeController then
 		return
 	end
-	
+
 	self:UpdateActiveControlModuleEnabled()
 end
 
 -- For those who prefer distinct functions
 function ControlModule:Disable()
 	self.controlsEnabled = false
-	
+
 	self:UpdateActiveControlModuleEnabled()
 end
 
@@ -334,9 +334,9 @@ local function calculateRawMoveVector(humanoid: Humanoid, cameraRelativeMoveVect
 	if humanoid:GetState() == Enum.HumanoidStateType.Swimming then
 		return camera.CFrame:VectorToWorldSpace(cameraRelativeMoveVector)
 	end
-	
+
 	local cameraCFrame = camera.CFrame
-	
+
 	if VRService.VREnabled and humanoid.RootPart then
 		-- movement relative to VR frustum
 		local cameraDelta = humanoid.RootPart.CFrame.Position - cameraCFrame.Position
@@ -360,9 +360,9 @@ local function calculateRawMoveVector(humanoid: Humanoid, cameraRelativeMoveVect
 	end
 	local norm = math.sqrt(c*c + s*s)
 	return Vector3.new(
-		(c*cameraRelativeMoveVector.x + s*cameraRelativeMoveVector.z)/norm,
+		(c*cameraRelativeMoveVector.X + s*cameraRelativeMoveVector.Z)/norm,
 		0,
-		(c*cameraRelativeMoveVector.z - s*cameraRelativeMoveVector.x)/norm
+		(c*cameraRelativeMoveVector.Z - s*cameraRelativeMoveVector.X)/norm
 	)
 end
 
@@ -472,12 +472,12 @@ function ControlModule:SwitchToController(controlModule)
 		self.activeControlModule = nil
 		return
 	end
-	
+
 	-- first time switching to this control module, should instantiate it
 	if not self.controllers[controlModule] then
 		self.controllers[controlModule] = controlModule.new(CONTROL_ACTION_PRIORITY)
 	end
-	
+
 	-- switch to the new controlModule
 	if self.activeController ~= self.controllers[controlModule] then
 		if self.activeController then
@@ -499,7 +499,7 @@ function ControlModule:SwitchToController(controlModule)
 				self.touchJumpController:Enable(false)
 			end
 		end
-		
+
 		self:UpdateActiveControlModuleEnabled()
 	end
 end

@@ -8,6 +8,7 @@ local StudioService = game:GetService("StudioService")
 
 local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
 local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
+local FFlagToolboxPackagesInAssetTile = game:GetFastFlag("ToolboxPackagesInAssetTile")
 
 local Category = require(Plugin.Core.Types.Category)
 
@@ -158,8 +159,14 @@ if FFlagAssetVoteSimplification then
 	Constants.ASSET_VOTE_BUTTONS_TEXT_PADDING = 4
 	Constants.ASSET_VOTE_BUTTONS_HORIZONTAL_PADDING = 1
 	Constants.ASSET_VOTE_BUTTONS_SCRIPT_PADDING = 3
-else
 end
+
+if FFlagToolboxPackagesInAssetTile then
+	Constants.PACKAGE_BACKGROUND_SIZE = UDim2.new(0, 16, 0, 16)
+	Constants.PACKAGE_DETAIL_SIZE = UDim2.fromOffset(12, 12)
+	Constants.PACKAGE_BACKGROUND_CORNER_RADIUS = 3
+end
+
 Constants.ASSET_CORNER_RADIUS = 5
 
 Constants.ASSET_HEIGHT = Constants.ASSET_THUMBNAIL_SIZE + Constants.ASSET_INNER_PADDING + Constants.ASSET_NAME_HEIGHT

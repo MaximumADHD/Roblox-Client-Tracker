@@ -125,7 +125,7 @@ local theme = {
 	},
 	DropShadow = {
 		Color = Colors.Black,
-		Transparency = 0,
+		Transparency = 0.5, -- 0.5 Alpha
 	},
 	NavigationBar = {
 		Color = Colors.Carbon,

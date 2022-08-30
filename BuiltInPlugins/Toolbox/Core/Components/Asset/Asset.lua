@@ -19,6 +19,7 @@
 ]]
 local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
 local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
+local FFlagToolboxPackagesInAssetTile = game:GetFastFlag("ToolboxPackagesInAssetTile")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
@@ -66,7 +67,9 @@ local getTextSize = if FFlagAssetVoteSimplification then FrameworkUtil.GetTextSi
 local disableRatings = not FFlagToolboxUseGetVote and require(Plugin.Core.Util.ToolboxUtilities).disableRatings
 local ratingsDisabled = FFlagToolboxUseGetVote and require(Plugin.Core.Util.ToolboxUtilities).disableRatings
 
-local Category = require(Plugin.Core.Types.Category)
+local Types = if FFlagToolboxPackagesInAssetTile then Plugin.Core.Types else nil
+local Category = if FFlagToolboxPackagesInAssetTile then require(Types.Category) else require(Plugin.Core.Types.Category)
+local AssetSubTypes = if FFlagToolboxPackagesInAssetTile then require(Types.AssetSubTypes) else nil
 
 local Asset = Roact.PureComponent:extend("Asset")
 
@@ -227,14 +230,16 @@ function Asset:didMount()
 end
 
 function Asset:render()
-	return withLocalization(function(localization, localizedContent)
-		return self:renderContent(nil, localization, localizedContent)
+	return withLocalization(function(DEPRECATED_localization, DEPRECATED_localizedContent)
+		return self:renderContent(nil, DEPRECATED_localization, DEPRECATED_localizedContent)
 	end)
 end
 
-function Asset:renderContent(theme, localization, localizedContent)
+function Asset:renderContent(theme, DEPRECATED_localization, DEPRECATED_localizedContent)
 	local props = self.props
 	theme = props.Stylizer
+
+	local localization = if FFlagToolboxPackagesInAssetTile then props.Localization else nil
 
 	local assetId = props.assetId
 	local assetData = props.assetData
@@ -267,6 +272,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 	local isEndorsed = asset.IsEndorsed
 	local isVerifiedCreator = assetData.Creator.IsVerifiedCreator
 	local hasScripts = asset.HasScripts
+	local isPackage = if FFlagToolboxPackagesInAssetTile and asset.AssetSubTypes then AssetSubTypes.contains(asset.AssetSubTypes, AssetSubTypes.Package) else nil
 
 	local showAudioLength = false
 	if assetTypeId == Enum.AssetType.Audio.Value then
@@ -354,11 +360,11 @@ function Asset:renderContent(theme, localization, localizedContent)
 		assetOutlineHeight = assetOutlineHeight + Constants.ASSET_CREATOR_NAME_HEIGHT
 	end
 
-	if hasScripts then
+	if hasScripts or isPackage then
 		assetOutlineHeight = assetOutlineHeight + Constants.PRICE_HEIGHT
 	end
 
-	if FFlagAssetVoteSimplification and showVoteButtons and isHovered and hasScripts then
+	if FFlagAssetVoteSimplification and showVoteButtons and isHovered and (hasScripts or isPackage) then
 		assetOutlineHeight = assetOutlineHeight + Constants.ASSET_VOTE_BUTTONS_SCRIPT_PADDING
 	end
 
@@ -375,17 +381,18 @@ function Asset:renderContent(theme, localization, localizedContent)
 		innerFramePadding = 0
 	end
 
+	local packagesTheme = if FFlagToolboxPackagesInAssetTile then theme.asset.packages else nil
+
 	local durationText = ""
 	if showAudioLength then
 		durationText = (asset.Duration ~= nil) and getTimeString(asset.Duration, 1) or ""
 	end
 
-	local isDarkerTheme = true
 	local dropShadowSize = theme.asset.dropShadowSize
 	local outlineTransparency = outlineTheme.transparency
 
 	local tryCreateLocalizedContextMenu = function()
-		self.tryCreateContextMenu(localizedContent)
+		self.tryCreateContextMenu(DEPRECATED_localizedContent)
 	end
 
 	local result = Roact.createElement("Frame", {
@@ -398,7 +405,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 		ZIndex = isHovered and 2 or 1,
 		[Roact.Change.AbsolutePosition] = self.onAbsolutePositionChange,
 	}, {
-		DropShadow = isHovered and isDarkerTheme and Roact.createElement(DropShadow, {
+		DropShadow = isHovered and Roact.createElement(DropShadow, {
 			-- Copy the size and position of the outline but add a few pixels extra
 			AnchorPoint = Vector2.new(0.5, 0),
 			Position = UDim2.new(0.5, 0, 0, -(Constants.ASSET_OUTLINE_PADDING + dropShadowSize)),
@@ -460,6 +467,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 
 				voting = votingProps,
 				isHovered = isHovered,
+				isPackage = isPackage, -- added with FFlagToolboxPackagesInAssetTile
 
 				status = showStatus and status or nil,
 
@@ -505,7 +513,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 					Font = Constants.FONT,
 					TextSize = Constants.PRICE_FONT_SIZE,
 					TextXAlignment = Enum.TextXAlignment.Left,
-					Text = isFree and localizedContent.PurchaseFlow.Free or price,
+					Text = isFree and DEPRECATED_localizedContent.PurchaseFlow.Free or price,
 					TextTruncate = Enum.TextTruncate.AtEnd,
 				}),
 
@@ -581,7 +589,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 				TextColor3 = theme.asset.textColor,
 			}),
 
-			HasScripts = isHovered and hasScripts and Roact.createElement("Frame", {
+			HasScripts = if isHovered and hasScripts and not isPackage then Roact.createElement("Frame", { -- isPackage check added with FFlagToolboxPackagesInAssetTile
 				BackgroundTransparency = 1,
 				LayoutOrder = if FFlagAssetVoteSimplification then 50 else 5,
 				Size = UDim2.new(1, 0, 0, Constants.PRICE_HEIGHT),
@@ -609,16 +617,49 @@ function Asset:renderContent(theme, localization, localizedContent)
 					Font = Constants.FONT,
 					TextSize = Constants.STATUS_NAME_FONT_SIZE,
 					TextXAlignment = Enum.TextXAlignment.Left,
-					Text = localizedContent.HasScripts.HasScripts,
+					Text = DEPRECATED_localizedContent.HasScripts.HasScripts,
 					TextTruncate = Enum.TextTruncate.None,
 				}),
-			}),
+			}) else nil,
+
+			Package = if isHovered and isPackage then Roact.createElement("Frame", { -- added with FFlagToolboxPackagesInAssetTile
+				BackgroundTransparency = 1,
+				LayoutOrder = if FFlagAssetVoteSimplification then 50 else 5,
+				Size = UDim2.new(1, 0, 0, Constants.PRICE_HEIGHT),
+			}, {
+				Layout = Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					FillDirection = Enum.FillDirection.Horizontal,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
+					Padding = UDim.new(0, 4),
+				}),
+
+				PackageIcon = Roact.createElement("ImageLabel", {
+					LayoutOrder = 1,
+					Image = packagesTheme.packageImage,
+					Size = Constants.PACKAGE_DETAIL_SIZE,
+					BackgroundTransparency = 1,
+				}),
+
+				Text = Roact.createElement("TextLabel", {
+					LayoutOrder = 2,
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, -20, 0, Constants.PRICE_HEIGHT),
+					TextColor3 = theme.asset.textColor,
+					Font = Constants.FONT,
+					TextSize = Constants.STATUS_NAME_FONT_SIZE,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					Text = localization:getText("General", "PackagesUpdateable"),
+					TextTruncate = Enum.TextTruncate.None,
+				}),
+			}) else nil,
 
 			Status = isHovered and showStatus and Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
 				LayoutOrder = if FFlagAssetVoteSimplification then 60 else 6,
 				Size = UDim2.new(1, 0, 0, Constants.STATUS_NAME_HEIGHT),
-				Text = localizedContent.Status[status],
+				Text = DEPRECATED_localizedContent.Status[status],
 				TextColor3 = theme.asset.textColor,
 				Font = Constants.FONT,
 				TextSize = Constants.STATUS_NAME_FONT_SIZE,
@@ -634,6 +675,7 @@ end
 
 Asset = withContext({
 	AssetAnalytics = AssetAnalyticsContextItem,
+	Localization = if FFlagToolboxPackagesInAssetTile then ContextServices.Localization else nil,
 	Plugin = ContextServices.Plugin,
 	NavigationContext = NavigationContext,
 	Stylizer = ContextServices.Stylizer,

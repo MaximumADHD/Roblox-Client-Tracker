@@ -104,7 +104,6 @@ function PreviewToolbarButton:render()
 	})
 end
 
-
 PreviewToolbarButton = withContext({
 	Stylizer = Stylizer,
 })(PreviewToolbarButton)

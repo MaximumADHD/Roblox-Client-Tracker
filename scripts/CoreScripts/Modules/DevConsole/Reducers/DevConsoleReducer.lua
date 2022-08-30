@@ -10,8 +10,9 @@ local ServerStatsData = require(Reducers.ServerStatsData)
 local ServerJobsData = require(Reducers.ServerJobsData)
 local ActionBindingsData = require(Reducers.ActionBindingsData)
 local MicroProfiler = require(Reducers.MicroProfiler)
+local DebugVisualizations = require(Reducers.DebugVisualizationsData)
 
-return function(state, action)
+return function(state: {[string]: any}?, action: {[string]: any}): {[string]: any}
 	local devConsoleState = state or {}
 	return {
 		DisplayOptions = DevConsoleDisplayOptions(devConsoleState.DisplayOptions, action),
@@ -25,5 +26,6 @@ return function(state, action)
 		ServerJobsData = ServerJobsData(devConsoleState.ServerJobsData, action),
 		ActionBindingsData = ActionBindingsData(devConsoleState.ActionBindingsData, action),
 		MicroProfiler = MicroProfiler(devConsoleState.MicroProfiler, action),
+		DebugVisualizationsData = DebugVisualizations(devConsoleState.DebugVisualizationsData, action),
 	}
 end

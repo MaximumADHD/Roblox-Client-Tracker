@@ -18,7 +18,7 @@ local Urls = require(Plugin.Core.Util.Urls)
 local Constants = require(Plugin.Core.Util.Constants)
 
 local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
-local AssetSubType = require(Plugin.Core.Types.AssetSubType)
+local AssetSubTypes = require(Plugin.Core.Types.AssetSubTypes)
 local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 local Category = require(Plugin.Core.Types.Category)
 
@@ -908,7 +908,7 @@ if FFlagToolboxEnableAssetConfigPhoneVerification then
 	function NetworkInterface:getPublishingRequirements(
 		assetId: number,
 		assetType: Enum.AssetType?,
-		assetSubType: AssetSubType.AssetSubType?
+		assetSubType: AssetSubTypes.AssetSubType?
 	)
 		local marketplaceType = "Creator"
 		local targetUrl = Urls.constructPublishingRequirementsUrl(assetId, assetType, assetSubType, marketplaceType)

@@ -3,8 +3,9 @@ local PublishingRequirements = {}
 
 export type PublishingRequirements = {
 	publishing: {
-		isAllowed: boolean,
 		restrictions: { string },
+		allowedSubTypes: { string },
+		isAllowed: boolean,
 	},
 	verification: {
 		isVerified: boolean,

@@ -18,7 +18,6 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local TrackListBorder = Roact.PureComponent:extend("TrackListBorder")
@@ -32,7 +31,7 @@ function TrackListBorder:render()
 		LayoutOrder = 1,
 		BackgroundColor3 = theme.borderColor,
 		BorderSizePixel = 0,
-		ZIndex = GetFFlagCurveEditor() and props.ZIndex or 2,
+		ZIndex = props.ZIndex,
 	}, {
 		DragArea = Roact.createElement(DragListenerArea, {
 			AnchorPoint = Vector2.new(1, 0),

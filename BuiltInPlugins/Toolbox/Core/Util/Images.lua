@@ -3,6 +3,7 @@ local Plugin = script.Parent.Parent.Parent
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
 local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
+local FFlagToolboxPackagesInAssetTile = game:GetFastFlag("ToolboxPackagesInAssetTile")
 
 local Images = {}
 
@@ -59,6 +60,8 @@ Images.LINK_ARROW = "rbxasset://textures/StudioToolbox/AssetPreview/Link_Arrow.p
 Images.CLOSE_BUTTON = "rbxasset://textures/StudioToolbox/AssetPreview/close.png"
 Images.SHOW_MORE = "rbxasset://textures/StudioToolbox/AssetPreview/more.png"
 Images.SCRIPT = "rbxasset://textures/StudioToolbox/script.png"
+Images.PACKAGE_DARK = if FFlagToolboxPackagesInAssetTile then "rbxasset://textures/StudioToolbox/package_dark.png" else nil
+Images.PACKAGE_LIGHT = if FFlagToolboxPackagesInAssetTile then "rbxasset://textures/StudioToolbox/package_light.png" else nil
 
 Images.MAGNIFIER_PH = "rbxasset://textures/StudioToolbox/AssetPreview/MAGNIFIER_PH.png"
 Images.SEARCH_OPTIONS = "rbxasset://textures/StudioToolbox/SearchOptions.png"

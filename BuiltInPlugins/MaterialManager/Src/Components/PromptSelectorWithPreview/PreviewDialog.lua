@@ -138,7 +138,6 @@ function PreviewDialog:render()
 	})
 end
 
-
 PreviewDialog = withContext({
 	Stylizer = Stylizer,
 })(PreviewDialog)

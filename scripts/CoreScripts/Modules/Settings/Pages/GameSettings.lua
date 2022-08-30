@@ -88,6 +88,7 @@ local CoreUtility = require(RobloxGui.Modules.CoreUtility)
 local IsDeveloperConsoleEnabled = require(RobloxGui.Modules.DevConsole.IsDeveloperConsoleEnabled)
 
 local PlayerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModule)
+local GetHasGuiHidingPermission = require(RobloxGui.Modules.Common.GetHasGuiHidingPermission)
 
 ------------ Variables -------------------
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
@@ -1984,6 +1985,42 @@ local function Initialize()
 		end
 	end
 
+	local function createUiToggleOptions()
+		local uiToggleOptions = {
+			"All visible",
+			"Hide nameplates/bubble chat",
+		}
+		this.uiToggleRow, this.uiToggleFrame, this.uiToggleSelector =
+			utility:AddNewRow(this, "BillboardGui Visibility", "Selector", uiToggleOptions, 1)
+		this.uiToggleRow.LayoutOrder = 30 -- Make sure this is last
+
+		this.uiToggleSelector.IndexChanged:connect(
+			function(newIndex)
+				GuiService:ToggleGuiIsVisibleIfAllowed(Enum.GuiType.PlayerNameplates)
+			end
+		)
+	end
+
+	local function updateUiToggleSelection()
+		-- If the toggle doesn't exist, we probably don't have permission to change this
+		if not this.uiToggleSelector then
+			return
+		end
+
+		local newIndex
+		if GuiService:GetGuiIsVisible(Enum.GuiType.PlayerNameplates) then
+			newIndex = 1
+		else
+			newIndex = 2
+		end
+
+		if newIndex == this.uiToggleSelector:GetSelectedIndex() then
+			return
+		end
+
+		this.uiToggleSelector:SetSelectionIndex(newIndex)
+	end
+
 	local function isValidDeviceList(deviceNames, deviceGuids, index)
 		return deviceNames and deviceGuids and index and #deviceNames > 0 and index > 0
 			and index <= #deviceNames and #deviceNames == #deviceGuids
@@ -2357,6 +2394,14 @@ local function Initialize()
 		createDeveloperConsoleOption()
 	end
 
+	GetHasGuiHidingPermission(RunService:IsStudio(), LocalPlayer, PlayerPermissionsModule):andThen(function(hasPermission)
+		if hasPermission then
+			createUiToggleOptions()
+		end
+	end):catch(function(error)
+		warn(error)
+	end)
+
 	allSettingsCreated = true
 	if VRService.VREnabled then
 		onVRSettingsReady()
@@ -2392,6 +2437,8 @@ local function Initialize()
 			setupDeviceChangedListener()
 			this.startVolume = GameSettings.MasterVolume
 		end
+
+		updateUiToggleSelection()
 	end
 
 	this.CloseSettingsPage = function()

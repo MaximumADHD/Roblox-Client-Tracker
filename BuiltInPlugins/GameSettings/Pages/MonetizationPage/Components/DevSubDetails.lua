@@ -35,11 +35,10 @@ local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddDevSubKeyChange = require(Page.Thunks.AddDevSubKeyChange)
 local DevSubModeration = require(Page.Thunks.DevSubModeration)
 
-local RoundTextButton = UILibrary.Component.RoundTextButton
-
 local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
 local FFlagRemoveUILibraryRoundTextBox = SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
 local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
@@ -50,8 +49,9 @@ end
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-
+	
 local UI = Framework.UI
+local Button = if FFlagRemoveUILibraryButton then UI.Button else UILibrary.Component.RoundTextButton
 local HoverArea = UI.HoverArea
 local Image = UI.Decoration.Image
 local Pane = UI.Pane
@@ -259,7 +259,11 @@ function DeveloperSubscriptionDetails:render()
 					VerticalAlignment = Enum.VerticalAlignment.Bottom,
 				}),
 
-				Button = Roact.createElement(RoundTextButton, Cryo.Dictionary.join(theme.fontStyle.Normal, {
+				Button = Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
+					Text = localization:getText("General", "DevSubsDeleteAction"),
+					OnClick = self.onDeleteClicked,
+					Style = "Round",
+				} else Cryo.Dictionary.join(theme.fontStyle.Normal, {
 					Active = true,
 					Name = localization:getText("General", "DevSubsDeleteAction"),
 					OnClicked = self.onDeleteClicked,

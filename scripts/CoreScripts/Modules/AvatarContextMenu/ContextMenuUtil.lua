@@ -25,9 +25,12 @@ local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 
 --- VARIABLES
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
-
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
+local AvatarMenuModules = CoreGuiModules:WaitForChild("AvatarContextMenu")
+local ThemeHandler = require(AvatarMenuModules.ThemeHandler)
 local BlockingUtility = require(CoreGuiModules.BlockingUtility)
+
+type Theme = ThemeHandler.Theme
 
 local LocalPlayer = PlayersService.LocalPlayer
 while not LocalPlayer do
@@ -149,7 +152,7 @@ local SelectionOverrideObject = Instance.new("ImageLabel")
 SelectionOverrideObject.Image = ""
 SelectionOverrideObject.BackgroundTransparency = 1
 
-local function MakeDefaultButton(name, size, clickFunc, theme)
+local function MakeDefaultButton(name, size, clickFunc, theme: Theme)
 
 	local button = Instance.new("ImageButton")
 	button.Name = name
@@ -236,6 +239,7 @@ local function getViewportSize()
 	while not workspace.CurrentCamera do
 		workspace.Changed:Wait()
 	end
+	assert(workspace.CurrentCamera, "")
 
 	-- ViewportSize is initally set to 1, 1 in Camera.cpp constructor.
 	-- Also check against 0, 0 incase this is changed in the future.
@@ -252,7 +256,7 @@ local function isSmallTouchScreen()
 	return UserInputService.TouchEnabled and (viewportSize.Y < 500 or viewportSize.X < 700)
 end
 
-function ContextMenuUtil:MakeStyledButton(name, text, size, clickFunc, theme)
+function ContextMenuUtil:MakeStyledButton(name, text, size, clickFunc, theme: Theme)
 	local button = MakeDefaultButton(name, size, clickFunc, theme)
 
 	local textLabel = Instance.new("TextLabel")

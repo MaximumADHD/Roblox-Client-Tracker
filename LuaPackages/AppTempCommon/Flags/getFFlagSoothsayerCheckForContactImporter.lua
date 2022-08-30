@@ -1,5 +1,5 @@
-game:DefineFastFlag("SoothsayerCheckForContactImporter", false)
+game:DefineFastFlag("SoothsayerCheckForContactImporterV1", false)
 
 return function()
-	return game:GetFastFlag("SoothsayerCheckForContactImporter")
+	return game:GetFastFlag("SoothsayerCheckForContactImporterV1")
 end

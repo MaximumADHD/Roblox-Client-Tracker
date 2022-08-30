@@ -34,6 +34,7 @@ local LinkingProtocol: LinkingProtocolModule = {
 		validateParams = t.strictInterface({
 			matchedUrl = t.string,
 			url = t.string,
+			attributionUrl = t.optional(t.string),
 		}),
 	},
 	OPEN_URL_REQUEST_DESCRIPTOR = {

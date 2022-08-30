@@ -16,11 +16,14 @@ local withStyle = UIBlox.Core.Style.withStyle
 local ExpandableTextArea = UIBlox.App.Text.ExpandableTextArea
 
 local InGameMenu = script.Parent.Parent.Parent
+local IBConstants = require(InGameMenu.InspectAndBuyConstants)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 local Page = require(InGameMenu.Components.Page)
 local ItemInfoList = require(InGameMenu.Components.InspectAndBuyPage.ItemInfoList)
 local AssetDetailThumbnail = require(InGameMenu.Components.InspectAndBuyPage.AssetDetailThumbnail)
 local AssetDetailFavorite = require(InGameMenu.Components.InspectAndBuyPage.AssetDetailFavorite)
+local AssetDetailBottomBar = require(InGameMenu.Components.InspectAndBuyPage.AssetDetailBottomBar)
+
 local Constants = require(InGameMenu.Resources.Constants)
 
 local TITLE_TEXT_SIZE = 24
@@ -97,7 +100,6 @@ function AssetDetailsPage:renderWithProviders(style, localized)
 				PaddingTop = UDim.new(0, VERTICAL_PADDING),
 				PaddingLeft = UDim.new(0, HORIZONTAL_PADDING),
 				PaddingRight = UDim.new(0, HORIZONTAL_PADDING),
-				PaddingBottom = UDim.new(0, VERTICAL_PADDING + 30),
 			}),
 			TitleText = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
@@ -140,8 +142,14 @@ function AssetDetailsPage:renderWithProviders(style, localized)
 				itemType = bundleInfo and Enum.AvatarItemType.Bundle or Enum.AvatarItemType.Asset,
 				itemSubType = not bundleInfo and selectedItem.assetTypeId or nil,
 				showAllDividers = true,
-			})
+			}),
+			BottomBarPaddingFrame = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, IBConstants.BOTTOM_BAR_PADDING + IBConstants.BUTTON_HEIGHT),
+				BackgroundTransparency = 1,
+				LayoutOrder = 6,
+			}),
 		}),
+		AssetDetailBottomBar = Roact.createElement(AssetDetailBottomBar),
 	})
 end
 

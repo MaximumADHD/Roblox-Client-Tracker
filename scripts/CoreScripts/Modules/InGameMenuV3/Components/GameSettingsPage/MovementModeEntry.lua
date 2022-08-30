@@ -24,7 +24,7 @@ local t = InGameMenuDependencies.t
 
 local InGameMenu = script.Parent.Parent.Parent
 local DropdownMenu = UIBlox.App.Menu.DropdownMenu
-local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
+local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnectionMemo)
 
 local InputLabel = require(script.Parent.InputLabel)
 local DeveloperLockLabel = require(script.Parent.DeveloperLockLabel)

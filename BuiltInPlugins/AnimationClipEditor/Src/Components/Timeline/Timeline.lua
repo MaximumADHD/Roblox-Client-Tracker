@@ -41,7 +41,6 @@ local Constants = require(Plugin.Src.Util.Constants)
 local TimelineTick = require(Plugin.Src.Components.Timeline.TimelineTick)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local Timeline = Roact.PureComponent:extend("Timeline")
@@ -182,7 +181,7 @@ function Timeline:render()
 		AnchorPoint = anchorPoint,
 		Size = UDim2.new(0, width, 0, height),
 		BackgroundTransparency = 1,
-		ZIndex = GetFFlagCurveEditor() and zIndex or nil,
+		ZIndex = zIndex,
 		[Roact.Event.InputBegan] = self.onDragBegan,
 	}, {
 		Ticks = Roact.createElement("Frame", {

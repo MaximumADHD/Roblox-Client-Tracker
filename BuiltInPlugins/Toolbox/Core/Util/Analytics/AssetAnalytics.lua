@@ -1,5 +1,4 @@
---!nocheck
--- TODO STM-151: Re-enable Luau Type Checks when Luau bugs are fixed
+local FFlagToolboxImmediateEvents = game:GetFastFlag("ToolboxImmediateEvents")
 
 local HttpService = game:GetService("HttpService")
 
@@ -36,9 +35,14 @@ export type AssetData = {
 	Asset: {
 		Id: number,
 		TypeId: number,
+		IsEndorsed: boolean,
+		HasScripts: boolean,
 	},
 	-- TODO STM-151: Ideally this should be optional, but Luau type guards are not working (reported)
 	Context: AssetContext,
+	Creator: {
+		IsVerifiedCreator: boolean,
+	}
 }
 
 type PageInfo = {
@@ -49,6 +53,7 @@ type PageInfo = {
 
 type TSenders = {
 	sendEventDeferred: (string, string, string, Object<string>) -> any,
+	sendEventImmediately: (string, string, string, Object<string>) -> any,
 }
 
 export type NavigationData = {
@@ -83,12 +88,19 @@ end
     Returns an AssetAnalytics instance with stubbed out senders
 ]]
 function AssetAnalytics.mock()
+	local sendEventImmediatelyCalls = if FFlagToolboxImmediateEvents then {} else nil
 	local sendEventDeferredCalls = {}
 	local stubSenders: any = {
 		sendEventDeferredCalls = sendEventDeferredCalls,
 		sendEventDeferred = function(...)
 			table.insert(sendEventDeferredCalls, { ... })
 		end,
+		sendEventImmediatelyCalls = sendEventImmediatelyCalls,
+		sendEventImmediately = if FFlagToolboxImmediateEvents then function(...)
+			table.insert(sendEventImmediatelyCalls, { ... })
+		end
+
+		else nil,
 	}
 	return AssetAnalytics.new(stubSenders)
 end
@@ -250,7 +262,11 @@ function AssetAnalytics:logInsert(
 		method = insertionMethod,
 	}, AssetAnalytics.getTrackingAttributes(assetData, assetAnalyticsContext), navigationData or {})
 
-	self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, "MarketplaceInsert", insertionAttributes)
+	if FFlagToolboxImmediateEvents then
+		self.senders.sendEventImmediately(EVENT_TARGET, EVENT_CONTEXT, "MarketplaceInsert", insertionAttributes)
+	else
+		self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, "MarketplaceInsert", insertionAttributes)
+	end
 
 	if insertedInstance == nil then
 		-- We have no way of tracking whether the inserted instance remains or is deleted if it is not supplied
@@ -274,7 +290,11 @@ end
 function AssetAnalytics:logRemainsOrDeleted(delay: number, insertionAttributes: Object<any>, insertedInstance: Instance)
 	local eventNameStem = (insertedInstance and insertedInstance.Parent) and "InsertRemains" or "InsertDeleted"
 
-	self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, eventNameStem .. tostring(delay), insertionAttributes)
+	if FFlagToolboxImmediateEvents then
+		self.senders.sendEventImmediately(EVENT_TARGET, EVENT_CONTEXT, eventNameStem .. tostring(delay), insertionAttributes)
+	else
+		self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, eventNameStem .. tostring(delay), insertionAttributes)
+	end
 end
 
 function AssetAnalytics:logNavigationButtonInteraction(
@@ -282,7 +302,7 @@ function AssetAnalytics:logNavigationButtonInteraction(
 	searchID: string,
 	searchCategory: string,
 	subcategoryName: string?,
-	navBreadcrumbs: table?,
+	navBreadcrumbs: {string}?,
 	toolboxTab: string,
 	assetType: number
 )
@@ -300,7 +320,7 @@ function AssetAnalytics:logPageView(
 	searchID: string,
 	searchCategory: string,
 	subcategoryName: string?,
-	navBreadcrumbs: table,
+	navBreadcrumbs: {string},
 	toolboxTab: string,
 	assetType: number
 )
@@ -319,7 +339,7 @@ function AssetAnalytics:logGoBack(
 	searchID: string,
 	searchCategory: string,
 	subcategoryName: string?,
-	navBreadcrumbs: table,
+	navBreadcrumbs: {string},
 	toolboxTab: string,
 	assetType: number
 )

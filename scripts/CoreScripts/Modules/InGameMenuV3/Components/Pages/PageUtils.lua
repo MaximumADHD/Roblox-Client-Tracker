@@ -5,8 +5,10 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 
 local InGameMenu = script.Parent.Parent.Parent
 local Constants = require(InGameMenu.Resources.Constants)
+local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
+--local React = require(CorePackages.Packages.React)
 
-local ScrollDownState = Roact.Component:extend("ScrollDownState")
+local ScrollDownState = Roact.PureComponent:extend("ScrollDownState")
 function ScrollDownState:init()
 	self.priorScrollPosition = 0
 
@@ -25,30 +27,35 @@ function ScrollDownState:init()
 		end
 	end
 
+	self.menuOpenChanged = function(menuOpen, wasOpen)
+		if
+			not menuOpen
+			and wasOpen
+			and self.state.scrollingDown == true
+		then
+			self:setState({
+				scrollingDown = false,
+			})
+		end
+	end
+
 	self:setState({
 		scrollingDown = false,
 	})
 end
 
-function ScrollDownState:didUpdate(prevProps, prevState)
-	if
-		self.props.isMenuOpen ~= prevProps.isMenuOpen
-		and self.props.isMenuOpen == false
-		and self.state.scrollingDown == true
-	then
-		self:setState({
-			scrollingDown = false,
-		})
-	end
-end
-
 function ScrollDownState:render()
-	return self.props.render(self.onScroll, self.state.scrollingDown or self.props.showingLeavePage)
+	return Roact.createFragment({
+		Watcher = Roact.createElement(PageNavigationWatcher, {
+			desiredPage = "",
+			onNavigate = self.menuOpenChanged,
+		}),
+		Child = self.props.render(self.onScroll, self.state.scrollingDown or self.props.showingLeavePage)
+	})
 end
 
 ScrollDownState = RoactRodux.connect(function(state)
 	return {
-		isMenuOpen = state.isMenuOpen,
 		showingLeavePage = state.menuPage == Constants.LeaveGamePromptPageKey
 			or state.menuPage == Constants.LeaveToAppPromptPageKey,
 	}

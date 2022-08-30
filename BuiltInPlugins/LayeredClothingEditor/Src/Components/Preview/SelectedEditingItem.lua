@@ -31,6 +31,7 @@ local AccessoryUtil = AccessoryAndBodyToolSharedUtil.AccessoryUtil
 
 local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
 local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
+local MannequinContext = AvatarToolsShared.Contexts.MannequinContext
 
 local SetAccessoryTypeInfo = require(Plugin.Src.Actions.SetAccessoryTypeInfo)
 local VerifyBounds = require(Plugin.Src.Thunks.VerifyBounds)
@@ -126,7 +127,8 @@ function SelectedEditingItem:init()
 			end
 			self.props.EditingItemContext:setSourceItemWithUniqueDeformerNames(nil)
 			if sourceItem then
-				self.mannequin = Mannequin.new(sourceItem, nil, Workspace, function()
+				local mannequinModel = self.props.MannequinContext:createMannequinModel()
+				self.mannequin = Mannequin.new(sourceItem, mannequinModel, Workspace, function()
 					onMannequinChanged(self, true)
 				end)
 				self.props.EditingItemContext:setSourceItemWithUniqueDeformerNames(self.mannequin.sourceDisplayItem)
@@ -211,6 +213,7 @@ SelectedEditingItem = withContext({
 	Analytics = ContextServices.Analytics,
 	EditingItemContext = EditingItemContext,
 	LuaMeshEditingModuleContext = LuaMeshEditingModuleContext,
+	MannequinContext = MannequinContext,
 })(SelectedEditingItem)
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SelectedEditingItem)

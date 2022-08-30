@@ -15,20 +15,27 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
+
 local GetTextSize = Framework.Util.GetTextSize
 
 local DraftDiscardDialog = require(Plugin.Src.Components.DraftDiscardDialog)
 local DraftListItem = require(Plugin.Src.Components.DraftListItem)
 local ListItemView = require(Plugin.Src.Components.ListItemView)
-local RoundTextButton = UILibrary.Component.RoundTextButton
+
+local UI = Framework.UI
+local Button = if FFlagRemoveUILibraryButton then UI.Button else UILibrary.Component.RoundTextButton
+local StyleModifier = Framework.Util.StyleModifier
 
 local DraftStateChangedAction = require(Plugin.Src.Actions.DraftStateChangedAction)
 local DraftState = require(Plugin.Src.Symbols.DraftState)
 local CommitState = require(Plugin.Src.Symbols.CommitState)
 
-local ITEM_HEIGHT = 32
-local TOOLBAR_HEIGHT = 28
+local ITEM_HEIGHT = if FFlagRemoveUILibraryButton then 24 else 32
+local TOOLBAR_HEIGHT = if FFlagRemoveUILibraryButton then 32 else 28
 local PADDING = 4
+local BUTTON_PADDING = 10
 
 local DraftListView = Roact.Component:extend("DraftListView")
 
@@ -270,7 +277,13 @@ function DraftListView:render()
 				HorizontalAlignment = Enum.HorizontalAlignment.Right,
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 			}),
-			CommitButton = Roact.createElement(RoundTextButton, {
+			CommitButton = Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
+				OnClick = self.commitSelectedScripts,
+				Size = UDim2.new(0, GetTextSize(commitButtonText).X + BUTTON_PADDING * 2, 1, 0),
+				StyleModifier = if not commitButtonEnabled then StyleModifier.Disabled else nil,
+				Style = "RoundPrimary",
+				Text = commitButtonText,
+			} else {
 				Active = commitButtonEnabled,
 				Size = UDim2.new(0, GetTextSize(commitButtonText).X+PADDING*2, 1, 0),
 				Style = style.draftsButton,
@@ -286,7 +299,7 @@ function DraftListView:render()
 			LayoutOrder = 1,
 		}, {
 			ListItemView = Roact.createElement(ListItemView, {
-				ButtonStyle = "tableItemButton",
+				ButtonStyle = if FFlagRemoveUILibraryButton then nil else "tableItemButton",
 				Items = sortedDraftList,
 				ItemHeight = ITEM_HEIGHT,
 
@@ -295,13 +308,14 @@ function DraftListView:render()
 				OnSelectionChanged = self.onSelectionChanged,
 				MakeMenuActions = self.makeMenuActions,
 
-				RenderItem = function(draft, buttonTheme, hovered)
+				RenderItem = function(draft, props)
 					return Roact.createElement(DraftListItem, {
 						Draft = draft,
-						PrimaryTextColor = buttonTheme.textColor,
-						StatusTextColor = buttonTheme.dimmedTextColor,
-						Font = buttonTheme.font,
-						TextSize = buttonTheme.textSize,
+						PrimaryTextColor = if FFlagRemoveUILibraryButton then nil else props.textColor,
+						StatusTextColor = if FFlagRemoveUILibraryButton then nil else props.dimmedTextColor,
+						Font = if FFlagRemoveUILibraryButton then nil else props.font,
+						TextSize = if FFlagRemoveUILibraryButton then nil else props.textSize,
+						RowProps = if FFlagRemoveUILibraryButton then props else nil,
 
 						IndicatorMargin = draftStatusSidebarEnabled and ITEM_HEIGHT or 0,
 					})

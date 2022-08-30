@@ -17,7 +17,7 @@ local Keyboard = setmetatable({}, BaseCharacterController)
 Keyboard.__index = Keyboard
 
 function Keyboard.new(CONTROL_ACTION_PRIORITY)
-	local self = setmetatable(BaseCharacterController.new(), Keyboard)
+	local self = setmetatable(BaseCharacterController.new() :: any, Keyboard)
 
 	self.CONTROL_ACTION_PRIORITY = CONTROL_ACTION_PRIORITY
 

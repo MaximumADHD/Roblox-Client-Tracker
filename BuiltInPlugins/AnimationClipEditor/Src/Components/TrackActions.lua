@@ -39,8 +39,6 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
 local Types = require(Plugin.Src.Types)
 
-local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFixEulerAnglesMenu = require(Plugin.LuaFlags.GetFFlagFixEulerAnglesMenu)
 
 export type Props = {
@@ -105,7 +103,7 @@ function TrackActions:makeEulerAnglesOrderSubMenu(): ContextMenu.MenuItem
 	}
 end
 
-function TrackActions:makeMenuActions(isTopLevel: boolean, showEulerConversion: boolean): { PluginAction }
+function TrackActions:makeMenuActions(): { PluginAction }
 	local props = self.props
 	local pluginActions = props.PluginActions
 	local isChannelAnimation = props.IsChannelAnimation
@@ -114,18 +112,12 @@ function TrackActions:makeMenuActions(isTopLevel: boolean, showEulerConversion: 
 	local animationData = props.AnimationData
 	local instanceName = props.InstanceName
 
-	if GetFFlagCurveEditor() then
-		local track = AnimationData.getTrack(animationData, instanceName, path)
-		if track then
-			showEulerConversion = track.Type == Constants.TRACK_TYPES.Quaternion or
-				(track.Type == Constants.TRACK_TYPES.CFrame and TrackUtils.getRotationType(track) == Constants.TRACK_TYPES.Quaternion)
-		end
-	end
+	local track = AnimationData.getTrack(animationData, instanceName, path)
+	local showEulerConversion = track ~= nil
+		and (track.Type == Constants.TRACK_TYPES.Quaternion
+			 or (track.Type == Constants.TRACK_TYPES.CFrame	and TrackUtils.getRotationType(track) == Constants.TRACK_TYPES.Quaternion))
 
-	if GetFFlagCurveEditor() then
-		isTopLevel = not isChannelAnimation or (path ~= nil and #path <= 1)
-	end
-
+	local isTopLevel = not isChannelAnimation or (path ~= nil and #path <= 1)
 	local deleteAction = isTopLevel and "DeleteTrack" or "ClearTrack"
 
 	local actions = {
@@ -133,19 +125,17 @@ function TrackActions:makeMenuActions(isTopLevel: boolean, showEulerConversion: 
 		pluginActions:get(deleteAction),
 	}
 
-	if GetFFlagCurveEditor() then
-		local separator = false
-		if isChannelAnimation and showEulerConversion then
+	local separator = false
+	if isChannelAnimation and showEulerConversion then
+		table.insert(actions, Constants.MENU_SEPARATOR)
+		table.insert(actions, pluginActions:get("ConvertToEulerAngles"))
+		separator = true
+	end
+	if trackType == Constants.TRACK_TYPES.EulerAngles then
+		if not separator then
 			table.insert(actions, Constants.MENU_SEPARATOR)
-			table.insert(actions, pluginActions:get("ConvertToEulerAngles"))
-			separator = true
 		end
-		if trackType == Constants.TRACK_TYPES.EulerAngles then
-			if not separator then
-				table.insert(actions, Constants.MENU_SEPARATOR)
-			end
-			table.insert(actions, self:makeEulerAnglesOrderSubMenu())
-		end
+		table.insert(actions, self:makeEulerAnglesOrderSubMenu())
 	end
 	return actions
 end
@@ -221,25 +211,23 @@ function TrackActions:didMount(): ()
 		end
 	end)
 
-	if GetFFlagCurveEditor() then
-		self:addAction(actions:get("ConvertToEulerAngles"), function()
-			local props = self.props
-			local path = props.Path
-			local instanceName = props.InstanceName
-			local trackType = props.TrackType
-			local animationData = props.AnimationData
+	self:addAction(actions:get("ConvertToEulerAngles"), function()
+		local props = self.props
+		local path = props.Path
+		local instanceName = props.InstanceName
+		local trackType = props.TrackType
+		local animationData = props.AnimationData
 
-			-- If the track is not a quaternion track, try to find a quaternion descendant.
-			if trackType == Constants.TRACK_TYPES.CFrame then
-				table.insert(path, Constants.PROPERTY_KEYS.Rotation)
-				local track = AnimationData.getTrack(animationData, instanceName, path)
-				if not track or track.Type ~= Constants.TRACK_TYPES.Quaternion then
-					return
-				end
+		-- If the track is not a quaternion track, try to find a quaternion descendant.
+		if trackType == Constants.TRACK_TYPES.CFrame then
+			table.insert(path, Constants.PROPERTY_KEYS.Rotation)
+			local track = AnimationData.getTrack(animationData, instanceName, path)
+			if not track or track.Type ~= Constants.TRACK_TYPES.Quaternion then
+				return
 			end
-			props.ConvertTrack(instanceName, path, Constants.TRACK_TYPES.EulerAngles, props.Analytics)
-		end)
-	end
+		end
+		props.ConvertTrack(instanceName, path, Constants.TRACK_TYPES.EulerAngles, props.Analytics)
+	end)
 end
 
 function TrackActions:render(): (any?)
@@ -254,7 +242,6 @@ function TrackActions:render(): (any?)
 	local actions = self.Actions
 	local pluginActions = self.props.PluginActions
 	local isChannelAnimation = self.props.IsChannelAnimation
-	local showEulerConversion = false
 
 	if not isEmpty(pluginActions) and actions ~= nil then
 		for _, action in ipairs(actions) do
@@ -263,10 +250,6 @@ function TrackActions:render(): (any?)
 
 		if path and instanceName then
 			local track = AnimationData.getTrack(animationData, instanceName, path)
-			if not GetFFlagCurveEditor() and track then
-				showEulerConversion = track.Type == Constants.TRACK_TYPES.Quaternion or
-					(track.Type == Constants.TRACK_TYPES.CFrame and TrackUtils.getRotationType(track) == Constants.TRACK_TYPES.Quaternion)
-			end
 			local enabled
 
 			if not isChannelAnimation then
@@ -283,19 +266,12 @@ function TrackActions:render(): (any?)
 
 		pluginActions:get("DeleteTrack").Enabled = true
 		pluginActions:get("ClearTrack").Enabled = true
-		if isChannelAnimation and GetFFlagCurveEditor() then
+		if isChannelAnimation then
 			pluginActions:get("ConvertToEulerAngles").Enabled = true
 		end
 	end
 
-	-- topLevelTrack is not needed anymore if GetFFlagCurveEditor is ON
-	local topLevelTrack = not isChannelAnimation or (path ~= nil and #path <= 1)
-	local menuActions
-	if GetFFlagCurveEditor() then
-		menuActions = self:makeMenuActions()
-	else
-		menuActions = self:makeMenuActions(topLevelTrack, showEulerConversion)
-	end
+	local menuActions = self:makeMenuActions()
 
 	if self.hasInternalPermission then
 		table.insert(menuActions, {
@@ -317,13 +293,9 @@ function TrackActions:render(): (any?)
 				trackName = trackName or path[1]
 				local track = instance.Tracks[trackName]
 
-				if GetFFlagCurveEditor() then
-					local eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
-					dumpTrack(track, trackName,
-						eulerAnglesOrder or props.DefaultEulerAnglesOrder)
-				else
-					dumpTrack(track, trackName, props.DefaultEulerAnglesOrder)
-				end
+				local eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
+				dumpTrack(track, trackName,
+					eulerAnglesOrder or props.DefaultEulerAnglesOrder)
 			end
 		})
 	end

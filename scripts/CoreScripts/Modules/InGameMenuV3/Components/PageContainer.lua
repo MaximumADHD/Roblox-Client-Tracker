@@ -10,7 +10,7 @@ local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local t = InGameMenuDependencies.t
 local InGameMenu = script.Parent.Parent
-
+local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 local BlurredModalPortal = require(script.Parent.BlurredModalPortal)
 local Pages = require(script.Parent.Pages)
 
@@ -86,10 +86,99 @@ function PageContainer:init(props)
 			self.onContainerRenderedForKey(rbx, key)
 		end
 	end
+	self.updatePositions = function(menuOpen, priorMenuOpen, currentPage, lastPage)
+		local visibilityChanged = menuOpen ~= priorMenuOpen
+		if visibilityChanged then
+			local activePosition = menuOpen and SIDE_NAV_WIDTH or HIDE_POSITION
+			local containerFrame = self.pageContainerRef:getValue()
+			if containerFrame then
+				containerFrame.Visible = true
+				tweenYPosition(containerFrame, 0, activePosition, function()
+					if menuOpen then
+						PerfUtils.menuOpenComplete()
+					else
+						PerfUtils.menuCloseComplete()
+						containerFrame.Visible = false
+					end
+				end)
+			end
+
+			if not menuOpen then
+				for _, page in pairs(self.pageRbxComponents) do
+					tweenYPosition(page, animateLeftGoal)
+				end
+			end
+		end
+
+		if lastPage ~= currentPage then
+			local currentPageIsModal = Pages.pagesByKey[currentPage].isModal
+			local lastPageWasModal = Pages.pagesByKey[lastPage].isModal
+			if currentPageIsModal or lastPageWasModal then
+				return
+			end
+
+			local sameNavigationDepth = Pages.pagesByKey[lastPage].navigationDepth
+				== Pages.pagesByKey[currentPage].navigationDepth
+			if Pages.pagesByKey[lastPage].navigationDepth < Pages.pagesByKey[currentPage].navigationDepth then
+				-- nav down
+				if not currentPageIsModal then
+					tweenYPosition(self.pageRbxComponents[lastPage], animateRightGoal, 0, function()
+						if currentPage ~= lastPage then
+							self.pageRbxComponents[lastPage].Visible = false
+						end
+					end)
+				end
+			elseif sameNavigationDepth then
+				-- this is added temporarily to fix crash that caused by nav from invite friends to players in "Make Friends"
+				if self.pageRbxComponents[lastPage] then
+					self.pageRbxComponents[lastPage].Visible = false
+					self.pageRbxComponents[lastPage].Position = UDim2.new(animateLeftGoal, 0, 0, 0)
+				end
+			else
+				-- nav up/ nav to top
+				-- To accomodate Navigate to Top, containter needs to move all used pages over. Therefore if current page and last page are not
+				-- parent-child pages, it will move all parent pages of lastPage until it reaches currentPage
+				local pageOnNavPath = lastPage
+				while pageOnNavPath ~= nil and pageOnNavPath ~= currentPage do
+					local page = pageOnNavPath
+					tweenYPosition(self.pageRbxComponents[page], animateLeftGoal, 0, function()
+						if currentPage ~= page then
+							self.pageRbxComponents[page].Visible = false
+						end
+					end)
+					pageOnNavPath = Pages.pagesByKey[pageOnNavPath].parentPage
+				end
+			end
+
+			if self.pageRbxComponents[currentPage] then
+				self.pageRbxComponents[currentPage].Visible = true
+				if not visibilityChanged and sameNavigationDepth then
+					self.pageRbxComponents[currentPage].Position = UDim2.new(0, 0, 0, 0)
+				else
+					if
+						menuOpen
+						and visibilityChanged
+						and self.pageRbxComponents[currentPage].Position.X.Scale <= animateLeftGoal
+					then
+						-- on first shown, the parent also animates,
+						-- set to an advanced position to avoid unnecessary speed and delay
+						self.pageRbxComponents[currentPage].Position = UDim2.new(-0.8, 0, 0, 0)
+					end
+					tweenYPosition(self.pageRbxComponents[currentPage], 0)
+				end
+			end
+		end
+	end
+
 end
 
 function PageContainer:render()
-	local pageElements = {}
+	local pageElements = {
+		Watcher = Roact.createElement(PageNavigationWatcher, {
+			desiredPage = "",
+			onNavigate = self.updatePositions,
+		}),
+	}
 
 	for key, pageInfo in pairs(Pages.pagesByKey) do
 		pageElements[key] = withLocalization({
@@ -108,7 +197,7 @@ function PageContainer:render()
 				})
 			else
 				return Roact.createElement(BlurredModalPortal, {
-					Enabled = self.props.currentPage == key,
+					pageName = key,
 				}, {
 					ModalPageContent = pageComponents[key] and Roact.createElement(pageComponents[key], {
 						pageTitle = localized.title,
@@ -130,98 +219,13 @@ end
 
 function PageContainer:didMount()
 	local containerFrame = self.pageContainerRef:getValue()
-	local activePosition = self.props.visible and SIDE_NAV_WIDTH or HIDE_POSITION
+	local activePosition = HIDE_POSITION
 	if containerFrame then
-		containerFrame.Visible = self.props.visible
+		containerFrame.Visible = false
 		containerFrame.Position = UDim2.new(0, activePosition, 0, 0)
 	end
 end
 
-function PageContainer:didUpdate(oldProps, oldState)
-	local visibilityChanged = self.props.visible ~= oldProps.visible
-	if visibilityChanged then
-		local activePosition = self.props.visible and SIDE_NAV_WIDTH or HIDE_POSITION
-		local containerFrame = self.pageContainerRef:getValue()
-		if containerFrame then
-			containerFrame.Visible = true
-			tweenYPosition(containerFrame, 0, activePosition, function()
-				if self.props.visible then
-					PerfUtils.menuOpenComplete()
-				else
-					PerfUtils.menuCloseComplete()
-					containerFrame.Visible = false
-				end
-			end)
-		end
-
-		if not self.props.visible then
-			for _, page in pairs(self.pageRbxComponents) do
-				tweenYPosition(page, animateLeftGoal)
-			end
-		end
-	end
-
-	local lastPage = oldProps.currentPage
-	local currentPage = self.props.currentPage
-	if lastPage ~= currentPage then
-		local currentPageIsModal = Pages.pagesByKey[currentPage].isModal
-		local lastPageWasModal = Pages.pagesByKey[lastPage].isModal
-		if currentPageIsModal or lastPageWasModal then
-			return
-		end
-
-		local sameNavigationDepth = Pages.pagesByKey[lastPage].navigationDepth
-			== Pages.pagesByKey[currentPage].navigationDepth
-		if Pages.pagesByKey[lastPage].navigationDepth < Pages.pagesByKey[currentPage].navigationDepth then
-			-- nav down
-			if not currentPageIsModal then
-				tweenYPosition(self.pageRbxComponents[lastPage], animateRightGoal, 0, function()
-					if self.props.currentPage ~= lastPage then
-						self.pageRbxComponents[lastPage].Visible = false
-					end
-				end)
-			end
-		elseif sameNavigationDepth then
-			-- this is added temporarily to fix crash that caused by nav from invite friends to players in "Make Friends"
-			if self.pageRbxComponents[lastPage] then
-				self.pageRbxComponents[lastPage].Visible = false
-				self.pageRbxComponents[lastPage].Position = UDim2.new(animateLeftGoal, 0, 0, 0)
-			end
-		else
-			-- nav up/ nav to top
-			-- To accomodate Navigate to Top, containter needs to move all used pages over. Therefore if current page and last page are not
-			-- parent-child pages, it will move all parent pages of lastPage until it reaches currentPage
-			local pageOnNavPath = lastPage
-			while pageOnNavPath ~= nil and pageOnNavPath ~= currentPage do
-				local page = pageOnNavPath
-				tweenYPosition(self.pageRbxComponents[page], animateLeftGoal, 0, function()
-					if self.props.currentPage ~= page then
-						self.pageRbxComponents[page].Visible = false
-					end
-				end)
-				pageOnNavPath = Pages.pagesByKey[pageOnNavPath].parentPage
-			end
-		end
-
-		if self.pageRbxComponents[currentPage] then
-			self.pageRbxComponents[currentPage].Visible = true
-			if not visibilityChanged and sameNavigationDepth then
-				self.pageRbxComponents[currentPage].Position = UDim2.new(0, 0, 0, 0)
-			else
-				if
-					self.props.visible
-					and visibilityChanged
-					and self.pageRbxComponents[currentPage].Position.X.Scale <= animateLeftGoal
-				then
-					-- on first shown, the parent also animates,
-					-- set to an advanced position to avoid unnecessary speed and delay
-					self.pageRbxComponents[currentPage].Position = UDim2.new(-0.8, 0, 0, 0)
-				end
-				tweenYPosition(self.pageRbxComponents[currentPage], 0)
-			end
-		end
-	end
-end
 
 function PageContainer:willUnmount()
 	for key, pageInfo in pairs(Pages.pagesByKey) do
@@ -241,8 +245,6 @@ return RoactRodux.UNSTABLE_connect2(function(state)
 	local controllerBarCount = state.controllerBarCount
 
 	return {
-		currentPage = state.menuPage,
-		visible = state.isMenuOpen,
 		controllerBarHeight = controllerBarHeight,
 		controllerBarCount = controllerBarCount,
 	}

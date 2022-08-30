@@ -9,11 +9,20 @@ return function(allGroups)
 
 	for _, part in pairs(parts) do
 		for _, group in pairs(allGroups) do
-			if PhysicsService:CollisionGroupContainsPart(group.Name, part) then
-				selectedGroupsMap[group] = true
-
-				-- we can break here because a part can belong only to one collision group
-				break
+			if game:GetFastFlag("CollisionGroupNameStage3") then
+				if part.CollisionGroup == group.Name then
+					selectedGroupsMap[group] = true
+	
+					-- we can break here because a part can belong only to one collision group
+					break
+				end
+			else
+				if PhysicsService:CollisionGroupContainsPart(group.Name, part) then
+					selectedGroupsMap[group] = true
+	
+					-- we can break here because a part can belong only to one collision group
+					break
+				end
 			end
 		end
 	end

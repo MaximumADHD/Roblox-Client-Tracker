@@ -148,6 +148,16 @@ function QuickActions:init()
 	self.button5Transparency, self.updateButton5 = Roact.createBinding(1)
 	self.button6Transparency, self.updateButton6 = Roact.createBinding(1)
 
+	self.transparencies = {
+		frame = self.frameTransparency,
+		button1 = self.button1Transparency,
+		button2= self.button2Transparency,
+		button3 = self.button3Transparency,
+		button4 = self.button4Transparency,
+		button5 = self.button5Transparency,
+		button6 = self.button6Transparency,
+	}
+
 	self.updateBindings = {
 		gradient = self.updateGradient,
 		frame = self.updateFrame,
@@ -191,15 +201,7 @@ function QuickActions:render()
 		else
 			gradientWidth = gradientWidth + 2 * NO_NOTCH_OFFSET
 		end
-		local transparencies = {
-			frame = self.frameTransparency,
-			button1 = self.button1Transparency,
-			button2= self.button2Transparency,
-			button3 = self.button3Transparency,
-			button4 = self.button4Transparency,
-			button5 = self.button5Transparency,
-			button6 = self.button6Transparency,
-		}
+
 		local isMobilePlatform = platform == Enum.Platform.IOS or platform == Enum.Platform.Android
 		if isMobilePlatform then
 			return Roact.createElement("Frame", {
@@ -241,7 +243,7 @@ function QuickActions:render()
 						respawnEnabled = self.props.respawnEnabled,
 						fullscreenEnabled = false,
 						screenshotEnabled = FFlagEnableInGameMenuQAScreenshot,
-						transparencies = transparencies,
+						transparencies = self.transparencies,
 						fillDirection = Enum.FillDirection.Vertical,
 						automaticSize = Enum.AutomaticSize.Y,
 						size = UDim2.new(0, CONTROL_WIDTH, 0, 0),
@@ -283,7 +285,7 @@ function QuickActions:render()
 						respawnEnabled = self.props.respawnEnabled,
 						fullscreenEnabled = isDesktopClient,
 						screenshotEnabled = FFlagEnableInGameMenuQAScreenshot,
-						transparencies = transparencies,
+						transparencies = self.transparencies,
 						fillDirection = Enum.FillDirection.Horizontal,
 						automaticSize = Enum.AutomaticSize.X,
 						size = UDim2.new(0, 0, 0, CONTROL_WIDTH),

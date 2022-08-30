@@ -8,8 +8,6 @@ return function()
 	local VirtualInput = require(Plugin.Rhodium.VirtualInput)
 	local runTest = TestHelpers.runTest
 
-	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-	local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 	local GetFFlagFixSelectionRightArrow = require(Plugin.LuaFlags.GetFFlagFixSelectionRightArrow)
 
 	local Templates = require(Plugin.Src.Util.Templates)
@@ -62,11 +60,7 @@ return function()
 			TestHelpers.delay()
 
 			TestHelpers.clickInstance(trackList:WaitForChild("Track_Head"))
-			if GetFFlagCurveEditor() then
-				expect(store:getState().Status.SelectedTracks[1][1]).to.equal("Head")
-			else
-				expect(store:getState().Status.SelectedTracks[1]).to.equal("Head")
-			end
+			expect(store:getState().Status.SelectedTracks[1][1]).to.equal("Head")
 		end)
 	end)
 
@@ -97,27 +91,15 @@ return function()
 			TestHelpers.delay()
 
 			TestHelpers.clickInstance(trackList:WaitForChild("Track_Head"))
-			if GetFFlagCurveEditor() then
-				expect(store:getState().Status.SelectedTracks[1][1]).to.equal("Head")
-			else
-				expect(store:getState().Status.SelectedTracks[1]).to.equal("Head")
-			end
+			expect(store:getState().Status.SelectedTracks[1][1]).to.equal("Head")
 
 			VirtualInput.hitKey(Enum.KeyCode.Up)
 			TestHelpers.delay()
-			if GetFFlagCurveEditor() then
-				expect(store:getState().Status.SelectedTracks[1][1]).to.equal("UpperTorso")
-			else
-				expect(store:getState().Status.SelectedTracks[1]).to.equal("UpperTorso")
-			end
+			expect(store:getState().Status.SelectedTracks[1][1]).to.equal("UpperTorso")
 
 			VirtualInput.hitKey(Enum.KeyCode.Down)
 			TestHelpers.delay()
-			if GetFFlagCurveEditor() then
-				expect(store:getState().Status.SelectedTracks[1][1]).to.equal("Head")
-			else
-				expect(store:getState().Status.SelectedTracks[1]).to.equal("Head")
-			end
+			expect(store:getState().Status.SelectedTracks[1][1]).to.equal("Head")
 		end)
 	end)
 
@@ -139,28 +121,26 @@ return function()
 		end)
 	end)
 
-	if GetFFlagCurveEditor() then
-		it("should toggle the selected track expanded state with the arrow keys", function()
-			runTest(function(test)
-				local store = test:getStore()
-				local container = test:getContainer()
-				TestHelpers.loadAnimation(store, testAnimationData)
-				local trackList = TestPaths.getTrackList(container)
-				TestHelpers.delay()
+	it("should toggle the selected track expanded state with the arrow keys", function()
+		runTest(function(test)
+			local store = test:getStore()
+			local container = test:getContainer()
+			TestHelpers.loadAnimation(store, testAnimationData)
+			local trackList = TestPaths.getTrackList(container)
+			TestHelpers.delay()
 
-				TestHelpers.clickInstance(trackList:WaitForChild("Track_Head"))
-				VirtualInput.hitKey(Enum.KeyCode.Right)
-				TestHelpers.delay()
-				expect(trackList:FindFirstChild("Head_Position")).to.be.ok()
-				expect(trackList:FindFirstChild("Head_Rotation")).to.be.ok()
+			TestHelpers.clickInstance(trackList:WaitForChild("Track_Head"))
+			VirtualInput.hitKey(Enum.KeyCode.Right)
+			TestHelpers.delay()
+			expect(trackList:FindFirstChild("Head_Position")).to.be.ok()
+			expect(trackList:FindFirstChild("Head_Rotation")).to.be.ok()
 
-				VirtualInput.hitKey(Enum.KeyCode.Left)
-				TestHelpers.delay()
-				expect(trackList:FindFirstChild("Head_Position")).never.to.be.ok()
-				expect(trackList:FindFirstChild("Head_Rotation")).never.to.be.ok()
-			end)
+			VirtualInput.hitKey(Enum.KeyCode.Left)
+			TestHelpers.delay()
+			expect(trackList:FindFirstChild("Head_Position")).never.to.be.ok()
+			expect(trackList:FindFirstChild("Head_Rotation")).never.to.be.ok()
 		end)
-	end
+	end)
 
 	it("should add a keyframe if the keyframe components are changed", function()
 		runTest(function(test)

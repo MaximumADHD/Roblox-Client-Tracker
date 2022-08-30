@@ -29,7 +29,6 @@ local Thunk = require(Root.Thunk)
 
 local GetFFlagPPUpsellEndpoint = require(Root.Flags.GetFFlagPPUpsellEndpoint)
 local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
-local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
 local GetFFlagEnableInsufficientRobuxForBundleUpsellFix = require(Root.Flags.GetFFlagEnableInsufficientRobuxForBundleUpsellFix)
 
 local function getPurchasableStatus(productPurchasableDetails)
@@ -61,9 +60,7 @@ local function resolveBundlePromptState(productPurchasableDetails, bundleDetails
 
 		store:dispatch(BundleProductInfoReceived(bundleDetails))
 		store:dispatch(AccountInfoReceived(accountInfo))
-		if FFlagPPAccountInfoMigration then
-			store:dispatch(BalanceInfoRecieved(balanceInfo))
-		end
+		store:dispatch(BalanceInfoRecieved(balanceInfo))
 
 		local canPurchase = productPurchasableDetails.purchasable
 		local failureReason = getPurchasableStatus(productPurchasableDetails)
@@ -76,15 +73,15 @@ local function resolveBundlePromptState(productPurchasableDetails, bundleDetails
 				if not GetFFlagEnableInsufficientRobuxForBundleUpsellFix() and upsellFlow == UpsellFlow.Web then
 					return store:dispatch(SetPromptState(PromptState.RobuxUpsell))
 				else
-					local neededRobux = price - accountInfo.RobuxBalance
-					local hasMembership = accountInfo.MembershipType > 0
+					local neededRobux = price - balanceInfo.robux
+					local isPlayerPremium = accountInfo.isPremium
 
 					if GetFFlagPPUpsellEndpoint() then
 						local isAmazon = getHasAmazonUserAgent()
 						local isLuobu = GetFFlagEnableLuobuInGameUpsell()
 						local paymentPlatform = getPaymentFromPlatform(platform, isLuobu, isAmazon)
 
-						local robuxBalance = FFlagPPAccountInfoMigration and balanceInfo.robux or accountInfo.RobuxBalance
+						local robuxBalance = balanceInfo.robux
 		
 						return getRobuxUpsellProduct(network, price, robuxBalance, paymentPlatform)
 							:andThen(function(product: RobuxUpsell.Product)
@@ -95,7 +92,7 @@ local function resolveBundlePromptState(productPurchasableDetails, bundleDetails
 								store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
 							end)
 					else
-						return selectRobuxProduct(platform, neededRobux, hasMembership)
+						return selectRobuxProduct(platform, neededRobux, isPlayerPremium)
 							:andThen(function(product)
 								-- We found a valid upsell product for the current platform
 								store:dispatch(PromptNativeUpsell(product.productId, product.robuxValue))

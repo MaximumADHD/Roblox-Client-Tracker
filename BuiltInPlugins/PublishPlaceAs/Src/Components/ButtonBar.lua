@@ -1,20 +1,27 @@
 --[[
-	A horizontal collection of RoundTextButtons.
+	A horizontal collection of Buttons.
 
 	Props:
 		Enum.HorizontalAlignment HorizontalAlignment = The alignment of the button bar.
 			Determines if buttons should be centered or aligned to one corner.
 		table Buttons = The buttons to add to this button bar.
 ]]
-
 local BUTTON_BAR_PADDING = 25
 local BUTTON_BAR_EDGE_PADDING = 35
 
 local Plugin = script.Parent.Parent.Parent
+local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Resources.Constants)
 local UILibrary = require(Plugin.Packages.UILibrary)
-local RoundTextButton = UILibrary.Component.RoundTextButton
+
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
+
+local UI = Framework.UI
+local Button = if FFlagRemoveUILibraryButton then UI.Button else UILibrary.Component.RoundTextButton
+
+local StyleModifier = Framework.Util.StyleModifier
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -64,7 +71,17 @@ function ButtonBar:render()
 	-- 		Default
 	-- 		Value
 	for i, button in ipairs(buttons) do
-		table.insert(components, Roact.createElement(RoundTextButton, {
+		table.insert(components, Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
+			OnClick = function()
+				buttonActivated(button.Value)
+			end,
+			LayoutOrder = i,
+			Size = UDim2.new(0, BUTTON_WIDTH, 1, 0),
+			Style = if button.Default then "RoundPrimary" else "Round",
+			StyleModifier = if button.Active == false then StyleModifier.Disabled else nil,
+			Text = localization:getText("FooterButton", button.Name),
+			ZIndex = ZIndex or 1,
+		} else {
 			LayoutOrder = i,
 			Style = button.Default and theme.defaultButton or theme.cancelButton,
 			BorderMatchesBackground = button.Default,

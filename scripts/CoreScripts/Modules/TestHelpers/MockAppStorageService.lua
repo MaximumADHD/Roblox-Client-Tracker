@@ -1,7 +1,7 @@
 local MockAppStorageService = {}
 MockAppStorageService.__index = MockAppStorageService
 
-function MockAppStorageService.new(initial)
+function MockAppStorageService.new(initial: any?)
 	local self = initial or {}
 
 	setmetatable(self, {

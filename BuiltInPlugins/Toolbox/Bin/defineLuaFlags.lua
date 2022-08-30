@@ -20,6 +20,16 @@ game:DefineFastFlag("ToolboxSwitchVerifiedEndpoint", false)
 
 game:DefineFastFlag("ToolboxAllowDisablingCopyingAtQuota", false)
 
+game:DefineFastFlag("ToolboxHideAnnouncementFromNewUsersAndAfterMonth", false)
+
+game:DefineFastFlag("ToolboxFixVerifyAndAnnouncementBugs", false)
+
 game:DefineFastFlag("ToolboxAssetConfigurationMaxPrice", false)
+
+game:DefineFastFlag("ToolboxImmediateEvents", false)
+
+game:DefineFastFlag("ToolboxAddAnnouncementAnalytics", false)
+
+game:DefineFastFlag("ToolboxPackagesInAssetTile", false)
 
 return nil

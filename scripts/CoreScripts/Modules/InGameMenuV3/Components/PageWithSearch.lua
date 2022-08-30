@@ -5,6 +5,7 @@ local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
+local React = require(CorePackages.Packages.React)
 
 local withStyle = UIBlox.Core.Style.withStyle
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
@@ -18,7 +19,7 @@ local Pages = require(InGameMenu.Components.Pages)
 local Spacer = require(InGameMenu.Components.Spacer)
 local LeaveButton = require(InGameMenu.Components.LeaveButton)
 local SearchBar = require(InGameMenu.Components.SearchBar)
-
+local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 local Direction = require(InGameMenu.Enums.Direction)
 
 local IconButton = UIBlox.App.Button.IconButton
@@ -36,12 +37,15 @@ local SPACER_HEIGHT = 4
 local TOTAL_HEADER_HEIGHT = TITLE_HEIGHT + SPACER_HEIGHT
 local ACTIONS_ICON_PADDING = 10
 
+local HeaderBarMemo = React.memo(HeaderBar, function(newProps, oldProps)
+	return newProps.memoKey == oldProps.memoKey and newProps.title == oldProps.title
+end)
+
 local PageWithSearch = Roact.PureComponent:extend("PageWithSearch")
 
 PageWithSearch.validateProps = t.strictInterface({
 	pageTitle = t.string,
 	searchText = t.string,
-	isMenuOpen = t.optional(t.boolean),
 	enableBackButton = t.optional(t.boolean),
 	scrollingDown = t.optional(t.boolean),
 	position = t.optional(t.UDim2),
@@ -101,6 +105,17 @@ function PageWithSearch:init()
 			self.props.onSearchBarDismissed()
 		end
 	end
+
+	self.menuOpenChange = function(menuOpen, wasOpen)
+		if not menuOpen and wasOpen and self.state.isFilteringMode then
+			self:setState({
+				isFilteringMode = false
+			})
+			if self.props.onSearchBarDismissed then
+				self.props.onSearchBarDismissed()
+			end
+		end
+	end
 end
 
 function PageWithSearch:renderTitle(style)
@@ -121,6 +136,17 @@ end
 
 function PageWithSearch:renderWithSelectionCursor(getSelectionCursor)
 	local props = self.props
+	local memoKey = 0;
+	if props.isFilteringMode then
+		memoKey += 1
+	end
+	if props.enableBackButton then
+		memoKey += 2
+	end
+	if props.hasSearchBar then
+		memoKey += 4
+	end
+
 	return withStyle(function(style)
 		return Roact.createElement("TextButton", {
 			AutoButtonColor = false,
@@ -140,8 +166,9 @@ function PageWithSearch:renderWithSelectionCursor(getSelectionCursor)
 				BackgroundColor3 = style.Theme.BackgroundDefault.Color,
 				BackgroundTransparency = style.Theme.BackgroundDefault.Transparency,
 			}, {
-				Roact.createElement(HeaderBar, {
+				Roact.createElement(HeaderBarMemo, {
 					title = props.pageTitle,
+					memoKey = memoKey,
 					onHeaderActivated = props.onHeaderActivated,
 					renderLeft = function()
 						if props.enableBackButton and self.state.isFilteringMode == false then
@@ -245,6 +272,10 @@ function PageWithSearch:renderWithSelectionCursor(getSelectionCursor)
 				targetZone = 0,
 				direction = Direction.Left,
 			}) or nil,
+			Watcher = Roact.createElement(PageNavigationWatcher, {
+				onNavigate = self.menuOpenChange,
+				desiredPage = "",
+			}),
 		})
 	end)
 end
@@ -255,22 +286,9 @@ function PageWithSearch:render()
 	end)
 end
 
-function PageWithSearch:didUpdate(prevProps, prevState)
-	if not self.props.isMenuOpen and prevProps.isMenuOpen and self.state.isFilteringMode then
-		self:setState({
-			isFilteringMode = false
-		})
-		if self.props.onSearchBarDismissed then
-			self.props.onSearchBarDismissed()
-		end
-	end
-end
-
-
 return RoactRodux.UNSTABLE_connect2(function(state)
 	local page = Pages.pagesByKey[state.menuPage]
 	return {
-		isMenuOpen = state.isMenuOpen,
 		enableBackButton = page and page.navigationDepth > 1,
 	}
 end, function(dispatch)

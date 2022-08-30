@@ -1,6 +1,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
+	local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 
 	local act = require(Modules.act)
 
@@ -158,17 +159,25 @@ return function()
 			}),
 		})
 
-		local instance = Roact.mount(element)
+		local container = Instance.new("Folder") :: any
+		local root = ReactRoblox.createRoot(container)
+		ReactRoblox.act(function()
+			root:render(element)
+		end)
 
-		act(function()
+		didCallOnNavigateTo = false
+		didCallOnNavigateAway = false
+
+		ReactRoblox.act(function()
 			store:dispatch(SetCurrentPage("otherTestPage"))
 			store:flush()
+			root:render(element)
 		end)
 
 		expect(didCallOnNavigateTo).to.equal(false)
 		expect(didCallOnNavigateAway).to.equal(true)
 
-		Roact.unmount(instance)
+		root:unmount()
 	end)
 
 	it("should call onNavigateAway when the menu is closed", function()
@@ -192,17 +201,25 @@ return function()
 			}),
 		})
 
-		local instance = Roact.mount(element)
+		local container = Instance.new("Folder") :: any
+		local root = ReactRoblox.createRoot(container)
+		ReactRoblox.act(function()
+			root:render(element)
+		end)
 
-		act(function()
+		didCallOnNavigateTo = false
+		didCallOnNavigateAway = false
+
+		ReactRoblox.act(function()
 			store:dispatch(SetMenuOpen(false))
 			store:flush()
+			root:render(element)
 		end)
 
 		expect(didCallOnNavigateTo).to.equal(false)
 		expect(didCallOnNavigateAway).to.equal(true)
 
-		Roact.unmount(instance)
+		root:unmount()
 	end)
 
 

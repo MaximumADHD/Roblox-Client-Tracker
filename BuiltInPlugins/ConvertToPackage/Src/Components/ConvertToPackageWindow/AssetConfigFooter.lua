@@ -24,10 +24,14 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = if FFlagUpdateConvertToPackageToDFContextServices then ContextServices.withContext else require(Plugin.Src.ContextServices.withContext)
 
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
+
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
 
-local RoundTextButton = UILibrary.Component.RoundTextButton
+local UI = Framework.UI
+local Button = if FFlagRemoveUILibraryButton then UI.Button else UILibrary.Component.RoundTextButton
 
 local AssetConfigFooter = Roact.PureComponent:extend("AssetConfigFooter")
 
@@ -74,7 +78,13 @@ function AssetConfigFooter:render()
 				Padding = UDim.new(0, PADDING),
 			}),
 
-			CancelButton = Roact.createElement(RoundTextButton, {
+			CancelButton = Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
+				LayoutOrder = 2,
+				OnClick = tryCancel,
+				Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+				Style = "Round",
+				Text = localization:getText("Action", "Cancel"),
+			} else {
 				Style = theme.cancelButton,
 				BorderMatchesBackground = false,
 				Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
@@ -87,7 +97,13 @@ function AssetConfigFooter:render()
 				LayoutOrder = 2,
 			}),
 
-			PublishButton = Roact.createElement(RoundTextButton, {
+			PublishButton = Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
+				LayoutOrder = 3,
+				OnClick = tryPublish,
+				Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+				Style = "RoundPrimary",
+				Text = localization:getText("Action", "Submit"),
+			} else {
 				Style = theme.defaultButton,
 				BorderMatchesBackground = true,
 				Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),

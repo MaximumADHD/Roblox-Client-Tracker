@@ -1,4 +1,3 @@
---!nolint DeprecatedApi
 --!nonstrict
 --!nolint DeprecatedApi
 
@@ -81,7 +80,7 @@ local function getLocalHumanoid()
 			return child
 		end
 	end
-end	
+end
 
 local function applyExpCurve(x, exp)
 	local y = x ^ exp
@@ -163,7 +162,7 @@ local LASER = {
 
 	--Couldn't figure out a good name for this. This is the maximum angle that the parabola's hit point
 	--can be from the laser's hit point when switching to laser pointer mode solely from the parabola hitting
-	--a gui part. 
+	--a gui part.
 	SWITCH_AIM_THRESHOLD = math.rad(15),
 
 	TRANSITION_DURATION = 0.075,
@@ -188,7 +187,7 @@ LaserPointer.Mode = LaserPointerMode
 
 function LaserPointer.new(laserDistance)
 	local self = setmetatable({}, LaserPointer)
-	
+
 	if laserDistance then
 		self.laserMaxDistance = laserDistance
 	else
@@ -753,7 +752,7 @@ function LaserPointer:update(dt)
 	local cameraSpace = (workspace.CurrentCamera :: Camera).CFrame
 	local thickness0, thickness1 = LASER.ARC_THICKNESS, TELEPORT.ARC_THICKNESS
 	local gravity0, gravity1 = LASER.G, TELEPORT.G
-	
+
 	if EngineFeatureEnableVRUpdate2 then
 		self:updateCursor()
 	end
@@ -784,7 +783,7 @@ function LaserPointer:update(dt)
 			else
 				self.parabola.Color3 = LASER.ARC_COLOR_GOOD
 			end
-			
+
 		end
 	else
 		local originCFrame = cameraSpace * VRService:GetUserCFrame(self.inputUserCFrame)

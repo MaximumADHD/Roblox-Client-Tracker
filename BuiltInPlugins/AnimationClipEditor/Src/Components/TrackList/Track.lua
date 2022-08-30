@@ -35,20 +35,11 @@ local ContextButton = require(Plugin.Src.Components.ContextButton)
 
 local Constants = require(Plugin.Src.Util.Constants)
 
-local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local Track = Roact.PureComponent:extend("Track")
 
 function Track:init()
-	if not GetFFlagFacsUiChanges() then
-		self.state = {
-			values = nil,
-			renderFromNumberEntry = false,
-		}
-	end
-
 	local doubleClickDetector = DoubleClickDetector.new()
 
 	self.onExpandToggled = function()
@@ -69,28 +60,6 @@ function Track:init()
 	self.onContextButtonClick = function()
 		if self.props.OnContextButtonClick then
 			self.props.OnContextButtonClick()
-		end
-	end
-
-	if not GetFFlagFacsUiChanges() then
-		self.onSetNumber = function(index, number)
-			local props = self.props
-			local state = self.state
-			local items = props.Items
-			local values = state.Values
-			local newValues = {}
-			for i, newItem in ipairs(items) do
-				if values and values[i] then
-					newValues[i] = values[i]
-				else
-					newValues[i] = newItem.Value
-				end
-			end
-			newValues[index] = number
-			self:setState({
-				renderFromNumberEntry = 2,
-				values = newValues,
-			})
 		end
 	end
 
@@ -157,19 +126,10 @@ function Track:render()
 	}
 
 	for index, item in ipairs(items) do
-		local color
-		local precision
+		local colorName = Constants.TRACK_THEME_MAPPING[item.Type] and Constants.TRACK_THEME_MAPPING[item.Type][item.Name] or "Default"
+		local color = theme.curveTheme[colorName]
 
-		if GetFFlagCurveEditor() then
-			local colorName = Constants.TRACK_THEME_MAPPING[item.Type] and Constants.TRACK_THEME_MAPPING[item.Type][item.Name] or "Default"
-			color = theme.curveTheme[colorName]
-		end
-
-		if GetFFlagCurveEditor() then
-			precision = if item.Type == Constants.TRACK_TYPES.Facs then Constants.NUMBER_FACS_PRECISION else Constants.NUMBER_PRECISION
-		else
-			precision = Constants.NUMBER_PRECISION
-		end
+		local precision = if item.Type == Constants.TRACK_TYPES.Facs then Constants.NUMBER_FACS_PRECISION else Constants.NUMBER_PRECISION
 
 		children[item.Key .. "_Entry"] = Roact.createElement(NumberBox, {
 			Size = UDim2.new(0, Constants.NUMBERBOX_WIDTH, 1, -Constants.NUMBERBOX_PADDING),
@@ -184,13 +144,10 @@ function Track:render()
 			Precision = precision,
 			SetNumber = function(number)
 				props.OnChangeBegan()
-				if not GetFFlagFacsUiChanges() then
-					self.onSetNumber(index, number)
-				end
 				return self.onItemChanged(item.Key, number)
 			end,
 			OnDragMoved = function(input)
-				self.onItemChanged(item.Key, item.Value + input.Delta.X * (GetFFlagFacsUiChanges() and dragMultiplier or Constants.NUMBERBOX_DRAG_MULTIPLIER))
+				self.onItemChanged(item.Key, item.Value + input.Delta.X * dragMultiplier)
 			end,
 			OnDragBegan = props.OnChangeBegan,
 		})

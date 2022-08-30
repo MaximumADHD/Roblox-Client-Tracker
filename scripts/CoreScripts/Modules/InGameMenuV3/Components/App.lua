@@ -6,7 +6,7 @@ local CorePackages = game:GetService("CorePackages")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
-local RoactRodux = InGameMenuDependencies.RoactRodux
+local React = require(CorePackages.Packages.React)
 
 local InGameMenu = script.Parent.Parent
 local InGameMenuPolicy = require(InGameMenu.InGameMenuPolicy)
@@ -24,6 +24,14 @@ local FullscreenTitleBar = require(script.Parent.FullscreenTitleBar)
 local QuickActions = require(script.Parent.QuickActions)
 local ScreenshotToast = require(script.Parent.ScreenshotToast)
 local ScreenOrientationSwitcher = require(script.Parent.ScreenOrientationSwitcher)
+local SideNavigationMemo = React.memo(SideNavigation)
+local PageContainerMemo = React.memo(PageContainer)
+local RespawnDialogMemo = React.memo(RespawnDialog)
+local ScreenshotToastMemo = React.memo(ScreenshotToast)
+local ScreenOrientationSwitcherMemo = React.memo(ScreenOrientationSwitcher)
+local ViewportOverlayMemo = React.memo(ViewportOverlay)
+local MenuIconTooltipMemo = React.memo(MenuIconTooltip)
+
 
 local Constants = require(InGameMenu.Resources.Constants)
 
@@ -36,19 +44,19 @@ local function App(props)
 	end
 
 	return Roact.createFragment({
-		Overlay = Roact.createElement(ViewportOverlay),
-		SideNavigation = Roact.createElement(SideNavigation),
+		Overlay = Roact.createElement(ViewportOverlayMemo),
+		SideNavigation = Roact.createElement(SideNavigationMemo),
+		PageContainer = Roact.createElement(PageContainerMemo),
+		RespawnDialog = Roact.createElement(RespawnDialogMemo),
 		LeaveGameDialog = Roact.createElement(LeaveGameDialog),
-		PageContainer = Roact.createElement(PageContainer),
-		RespawnDialog = Roact.createElement(RespawnDialog),
 		ControlLayoutSetter = Roact.createElement(ControlLayoutSetter),
 		Connection = Roact.createElement(Connection),
 		EducationalPopup = props.isEducationalPopupEnabled and Roact.createElement(EducationalPopup) or nil,
-		MenuIconTooltip = props.isEducationalPopupEnabled and Roact.createElement(MenuIconTooltip) or nil,
+		MenuIconTooltip = props.isEducationalPopupEnabled and Roact.createElement(MenuIconTooltipMemo) or nil,
 		FullscreenTitleBar = fullscreenTitleBar,
 		QuickActions = Roact.createElement(QuickActions),
-		ScreenshotToast = Roact.createElement(ScreenshotToast),
-		ScreenOrientationSwitcher = Roact.createElement(ScreenOrientationSwitcher),
+		ScreenshotToast = Roact.createElement(ScreenshotToastMemo),
+		ScreenOrientationSwitcher = Roact.createElement(ScreenOrientationSwitcherMemo),
 	})
 end
 
@@ -59,10 +67,4 @@ App = InGameMenuPolicy.connect(function(appPolicy, props)
 	}
 end)(App)
 
-local function mapStateToProps(state, props)
-	return {
-		isMenuOpen = state.isMenuOpen,
-	}
-end
-
-return RoactRodux.connect(mapStateToProps, nil)(App)
+return App

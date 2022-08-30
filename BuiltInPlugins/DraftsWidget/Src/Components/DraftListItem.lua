@@ -19,8 +19,14 @@ local withContext = ContextServices.withContext
 
 local DraftStatusIndicator = require(Plugin.Src.Components.DraftStatusIndicator)
 
+local SharedFlags = Framework.SharedFlags
 local FFlagDevFrameworkMigrateTooltip = Framework.SharedFlags.getFFlagDevFrameworkMigrateTooltip()
-local Tooltip = if FFlagDevFrameworkMigrateTooltip then Framework.UI.Tooltip else UILibrary.Component.Tooltip
+local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
+
+local UI = Framework.UI
+local TextLabel = UI.Decoration.TextLabel
+local Tooltip = if FFlagDevFrameworkMigrateTooltip then UI.Tooltip else UILibrary.Component.Tooltip
+local TreeViewRow = UI.TreeViewRow
 
 local DraftState = require(Plugin.Src.Symbols.DraftState)
 local CommitState = require(Plugin.Src.Symbols.CommitState)
@@ -114,69 +120,102 @@ end
 function DraftListItem:render()
 	local drafts = self.props.Drafts
 	local draft = self.props.Draft
-	local primaryTextColor = self.props.PrimaryTextColor
-	local statusTextColor = self.props.StatusTextColor
-	local textSize = self.props.TextSize
-	local font = self.props.Font
 
 	local draftState = drafts[draft]
 	if not draftState then return nil end
+
 	local indicatorMargin = self.props.IndicatorMargin
 	local indicatorEnabled = indicatorMargin > 0
 
-	local indicator = self.getDraftIndicator()
 	local text = self.getLabelText()
 	local statusText = self.getStatusText()
-	local statusWidth = TextService:GetTextSize(statusText, textSize, font, Vector2.new(math.huge, math.huge)).X
-	statusWidth = statusWidth > 0 and statusWidth + HORIZONTAL_PADDING or 0
 
-	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 1, 0),
-		BackgroundTransparency = 1,
-	}, {
-		Indicator = indicatorEnabled and Roact.createElement("Frame", {
-			Size = UDim2.new(0, indicatorMargin, 1, 0),
-			BackgroundTransparency = 1,
-		}, {
-			Indicator = indicator,
-		}),
+	if FFlagRemoveUILibraryButton then
 
-		Status = Roact.createElement("TextLabel", {
-			BackgroundTransparency = 1,
-			Size = UDim2.new(0, statusWidth, 1, 0),
-			AnchorPoint = Vector2.new(1, 0),
-			Position = UDim2.new(1, 0, 0, 0),
-			Text = statusText,
-			TextColor3 = statusTextColor,
-			TextXAlignment = Enum.TextXAlignment.Right,
-			Font = font,
-			TextSize = textSize,
-		}),
-
-		ScriptName = Roact.createElement("TextLabel", {
-			Size = UDim2.new(1, -(indicatorMargin+statusWidth), 1, 0),
-			Position = UDim2.new(0, indicatorMargin, 0, 0),
-			BackgroundTransparency = 1,
-
-			TextTruncate = Enum.TextTruncate.AtEnd,
-			Text = text,
-			TextXAlignment = Enum.TextXAlignment.Left,
-
-			TextColor3 = primaryTextColor,
-			Font = font,
-			TextSize = textSize,
-		}, {
-			Tooltip = Roact.createElement(Tooltip, {
-				Text = draft:GetFullName(),
-				Enabled = true,
-			})
-		}),
-
-		UIPadding = Roact.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, indicatorEnabled and 0 or HORIZONTAL_PADDING),
-			PaddingRight = UDim.new(0, 12 + HORIZONTAL_PADDING),
+		local rowProps = self.props.RowProps
+		return Roact.createElement(TreeViewRow, {
+			TailItem = function()
+				return Roact.createElement(TextLabel, {
+					AutomaticSize = Enum.AutomaticSize.XY,
+					Style = if rowProps.Selected then "Selected" else "Label",
+					Text = statusText,
+				})
+			end,
+			BeforeIcon = function()
+				return self.getDraftIndicator()
+			end,
+			Children = {},
+			Depth = 0,
+			Index = 1,
+			Item = {
+				text = text,
+				tooltip = draft:getFullName(),
+			},
+			OnToggle = function() end,
+			OnPress = rowProps.OnPress,
+			OnSecondaryPress = rowProps.OnSecondaryPress,
+			Selected = rowProps.Selected,
 		})
-	})
+
+	else
+		local primaryTextColor = self.props.PrimaryTextColor
+		local statusTextColor = self.props.StatusTextColor
+		local textSize = self.props.TextSize
+		local font = self.props.Font
+
+		local indicator = self.getDraftIndicator()
+
+		local statusWidth = TextService:GetTextSize(statusText, textSize, font, Vector2.new(math.huge, math.huge)).X
+		statusWidth = statusWidth > 0 and statusWidth + HORIZONTAL_PADDING or 0
+
+		return Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+		}, {
+			Indicator = indicatorEnabled and Roact.createElement("Frame", {
+				Size = UDim2.new(0, indicatorMargin, 1, 0),
+				BackgroundTransparency = 1,
+			}, {
+				Indicator = indicator,
+			}),
+
+			Status = Roact.createElement("TextLabel", {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(0, statusWidth, 1, 0),
+				AnchorPoint = Vector2.new(1, 0),
+				Position = UDim2.new(1, 0, 0, 0),
+				Text = statusText,
+				TextColor3 = statusTextColor,
+				TextXAlignment = Enum.TextXAlignment.Right,
+				Font = font,
+				TextSize = textSize,
+			}),
+
+			ScriptName = Roact.createElement("TextLabel", {
+				Size = UDim2.new(1, -(indicatorMargin+statusWidth), 1, 0),
+				Position = UDim2.new(0, indicatorMargin, 0, 0),
+				BackgroundTransparency = 1,
+
+				TextTruncate = Enum.TextTruncate.AtEnd,
+				Text = text,
+				TextXAlignment = Enum.TextXAlignment.Left,
+
+				TextColor3 = primaryTextColor,
+				Font = font,
+				TextSize = textSize,
+			}, {
+				Tooltip = Roact.createElement(Tooltip, {
+					Text = draft:GetFullName(),
+					Enabled = true,
+				})
+			}),
+
+			UIPadding = Roact.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, indicatorEnabled and 0 or HORIZONTAL_PADDING),
+				PaddingRight = UDim.new(0, 12 + HORIZONTAL_PADDING),
+			})
+		})
+	end
 end
 
 DraftListItem = withContext({

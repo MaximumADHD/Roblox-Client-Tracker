@@ -29,8 +29,6 @@ local Tooltip = require(Plugin.Src.Components.Tooltip)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 local TeachingCallout = require(Plugin.Src.Components.TeachingCallout)
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
 local TimelineContainer = Roact.PureComponent:extend("TimelineContainer")
 
 local function getExponent(value)
@@ -119,8 +117,6 @@ function TimelineContainer:render()
 	local parentSize = props.ParentSize
 	local animationData = props.AnimationData
 
-	local showToggleEditorButton = props.ShowToggleEditorButton
-	local toggleEditorButtonActive = if not GetFFlagCurveEditor() then props.EditorMode == Constants.EDITOR_MODE.CurveCanvas else nil
 	local isCurveCanvas = props.EditorMode == Constants.EDITOR_MODE.CurveCanvas
 
 	startTick = startTick * frameRate / Constants.TICK_FREQUENCY
@@ -133,12 +129,12 @@ function TimelineContainer:render()
 		endTick)
 
 	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 0, Constants.TIMELINE_HEIGHT + (GetFFlagCurveEditor() and 1 or 0)),
+		Size = UDim2.new(1, 0, 0, Constants.TIMELINE_HEIGHT + 1),
 		LayoutOrder = layoutOrder,
-		BorderSizePixel = GetFFlagCurveEditor() and 0 or 1,
+		BorderSizePixel = 0,
 		BackgroundColor3 = theme.timelineTheme.backgroundColor,
 		BorderColor3 = theme.borderColor,
-		ZIndex = GetFFlagCurveEditor() and props.ZIndex or 1,
+		ZIndex = props.ZIndex,
 	}, {
 		Timeline = Roact.createElement(Timeline, {
 			StartTick = startTick,
@@ -156,12 +152,12 @@ function TimelineContainer:render()
 			OnDragMoved = self.onScrubberMoved,
 			AnimationData = animationData,
 			FrameRate = frameRate,
-			ZIndex = GetFFlagCurveEditor() and 2 or nil,
+			ZIndex = 2,
 		}),
-		ToggleEditorButton = if GetFFlagCurveEditor() then Roact.createElement(Button, {
+		ToggleEditorButton = Roact.createElement(Button, {
 				ZIndex = 1,
 				Size = UDim2.new(0, self.props.TrackPadding / 2, 0, Constants.TIMELINE_HEIGHT),
-				Style = toggleEditorButtonActive and theme.button.ActiveControl or theme.button.MediaControl,
+				Style = theme.button.MediaControl,
 					OnClick = props.OnToggleEditorClicked,
 			}, {
 				Image = Roact.createElement("ImageLabel", {
@@ -180,7 +176,7 @@ function TimelineContainer:render()
 					DefinitionId = "CurveEditorCallout",
 					LocationId = "ToggleEditorButton"
 				}),
-		}) else nil,
+		}),
 		KeyboardListener = Roact.createElement(KeyboardListener, {
 			OnKeyPressed = function(input)
 				if Input.isLeftBracket(input.KeyCode) then

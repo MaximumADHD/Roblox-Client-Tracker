@@ -62,7 +62,7 @@ local pages = {
 		parentPage = nil,
 	},
 	{
-		key = "InviteFriends",
+		key = Constants.InviteFriendsPageKey,
 		title = "CoreScripts.InGameMenu.PageTitle.Friends",
 		icon = Images["icons/actions/friends/friendInvite"],
 		component = script.Parent.InviteFriendsPage,

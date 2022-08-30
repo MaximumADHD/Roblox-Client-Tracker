@@ -2,9 +2,11 @@
 local CorePackages = game:GetService("CorePackages")
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
+local React = require(CorePackages.Packages.React)
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
+local Cryo = InGameMenuDependencies.Cryo
 
 local InGameMenu = script.Parent.Parent
 local Constants = require(InGameMenu.Resources.Constants)
@@ -31,52 +33,15 @@ local TWEEN_EASE_RAMP = Enum.EasingDirection.InOut
 local TWEEN_EASE_CURVE = Enum.EasingStyle.Sine
 
 LeaveButton.validateProps = t.strictInterface({
-	hidden = t.optional(t.boolean),
 	ZIndex = t.optional(t.integer),
 	onActivated = t.optional(t.callback),
+	containerRef = t.optional(t.table),
+	hidden = t.optional(t.boolean),
 
 	-- rodux provided
 	inputType = t.optional(t.string),
 	startLeavingGame = t.optional(t.callback),
 })
-
-function LeaveButton:init()
-	self.containerRef = Roact.createRef()
-end
-
-function LeaveButton:didMount()
-	local containerFrame = self.containerRef:getValue()
-	local hidden = self.props.hidden
-	if containerFrame then
-		containerFrame.Visible = not hidden
-		local pos = hidden and HIDDEN_Y_OFFSET or 0
-		containerFrame.Position = UDim2.new(0, 0, 1, pos)
-	end
-end
-
-function LeaveButton:didUpdate(priorProps, _)
-	local hidden = self.props.hidden
-	local visibilityChanged = hidden ~= priorProps.hidden
-	if visibilityChanged then
-		local pos = hidden and HIDDEN_Y_OFFSET or 0
-		local containerFrame = self.containerRef:getValue()
-		if containerFrame then
-			containerFrame.Visible = true
-			containerFrame:TweenPosition(
-				UDim2.new(0, 0, 1, pos),
-				TWEEN_EASE_RAMP,
-				TWEEN_EASE_CURVE,
-				TWEEN_TIME,
-				true,
-				function(status)
-					if self.props.hidden and status == Enum.TweenStatus.Completed then
-						containerFrame.Visible = false
-					end
-				end
-			)
-		end
-	end
-end
 
 function LeaveButton:renderWithProviders(style, localized)
 	local inputType = self.props.inputType
@@ -87,7 +52,7 @@ function LeaveButton:renderWithProviders(style, localized)
 		AnchorPoint = Vector2.new(0, 1),
 		BackgroundTransparency = 1,
 		ZIndex = self.props.ZIndex or 1,
-		[Roact.Ref] = self.containerRef,
+		[Roact.Ref] = self.props.containerRef,
 	}, {
 		Gradient = Roact.createElement("ImageLabel", {
 			Size = UDim2.new(1, 0, 0, GRADIENT_HEIGHT),
@@ -134,7 +99,7 @@ function LeaveButton:render()
 	end)
 end
 
-return RoactRodux.connect(function(state, props)
+LeaveButton =  RoactRodux.connect(function(state, props)
 	return {
 		inputType = state.displayOptions.inputType,
 	}
@@ -142,8 +107,54 @@ end, function(dispatch)
 	return {
 		startLeavingGame = function()
 			dispatch(SetCurrentPage(Constants.LeaveGamePromptPageKey))
-
 			SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsLeaveGameName, {})
 		end,
 	}
 end)(LeaveButton)
+
+local LeaveButtonMemo = React.memo(LeaveButton)
+
+function LeaveButtonAnimationWrapper(props)
+	local containerRef = React.useRef(nil)
+
+	local button = Roact.createElement(LeaveButtonMemo, Cryo.Dictionary.join(props, {
+		containerRef = containerRef
+	}))
+
+	React.useEffect(function()
+		local containerFrame = containerRef:getValue()
+		local hidden = props.hidden
+		if containerFrame then
+			containerFrame.Visible = not hidden
+			local pos = hidden and HIDDEN_Y_OFFSET or 0
+			containerFrame.Position = UDim2.new(0, 0, 1, pos)
+		end
+	end, {})
+
+	React.useEffect(function()
+		local hidden = props.hidden
+		local pos = hidden and HIDDEN_Y_OFFSET or 0
+		local containerFrame = containerRef:getValue()
+		if containerFrame then
+			containerFrame.Visible = true
+			pcall(function()
+				containerFrame:TweenPosition(
+					UDim2.new(0, 0, 1, pos),
+					TWEEN_EASE_RAMP,
+					TWEEN_EASE_CURVE,
+					TWEEN_TIME,
+					true,
+					function(status)
+						if props.hidden and status == Enum.TweenStatus.Completed then
+							containerFrame.Visible = false
+						end
+					end
+				)
+			end)
+		end
+	end, {props.hidden or false})
+
+	return button
+end
+
+return LeaveButtonAnimationWrapper

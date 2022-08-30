@@ -18,6 +18,7 @@ local PreviewContext = require(Plugin.Src.Context.PreviewContext)
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 local AssetServiceWrapper = require(Plugin.Src.Context.AssetServiceWrapper)
 local MockAssetService = require(Plugin.Src.Util.MockAssetService)
+local MannequinContext = require(Plugin.Src.Context.MannequinContext)
 
 local TransformPoints = require(Plugin.Src.Thunks.TransformPoints)
 local TransformLatticePoints = require(Plugin.Src.Thunks.TransformLatticePoints)
@@ -123,6 +124,7 @@ local function run(testChildren, container, testRunner, draggerType)
 	local signals = Signals.new(Constants.SIGNAL_KEYS)
 	local editingItemContext = EditingItemContext.new()
 	local assetServiceWrapper = AssetServiceWrapper.new(MockAssetService)
+	local mannequinContext = MannequinContext.mock()
 	local theme = PluginTheme.mock()
 
 	local previewContext
@@ -143,6 +145,7 @@ local function run(testChildren, container, testRunner, draggerType)
 		editingItemContext,
 		previewContext,
 		assetServiceWrapper,
+		mannequinContext,
 	}, testChildren)
 	local handle = Roact.mount(element, container)
 

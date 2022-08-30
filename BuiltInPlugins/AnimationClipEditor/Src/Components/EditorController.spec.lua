@@ -5,8 +5,6 @@ return function()
 
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
 
-	local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
 	local EditorController = require(script.Parent.EditorController)
 
 	local function createTestController(animationData)
@@ -38,12 +36,8 @@ return function()
 		expect(trackListContainer.AnimationControlPanel).to.be.ok()
 		expect(trackListContainer.EventsAndTracks).to.be.ok()
 		expect(trackListContainer.EventsAndTracks.Layout).to.be.ok()
-		if GetFFlagCurveEditor() then
-			expect(trackListContainer.EventsAndTracks.TrackListAndScrollBar).to.be.ok()
-			expect(trackListContainer.EventsAndTracks.TrackListAndScrollBar.TrackList).to.be.ok()
-		else
-			expect(trackListContainer.EventsAndTracks.TrackList).to.be.ok()
-		end
+		expect(trackListContainer.EventsAndTracks.TrackListAndScrollBar).to.be.ok()
+		expect(trackListContainer.EventsAndTracks.TrackListAndScrollBar.TrackList).to.be.ok()
 		expect(frame.TrackListBorder).to.be.ok()
 		Roact.unmount(instance)
 	end)
@@ -58,10 +52,6 @@ return function()
 		expect(frame.SettingsAndVerticalScrollBar).to.be.ok()
 		expect(frame.SettingsAndVerticalScrollBar.SettingsButton).to.be.ok()
 		expect(frame.SettingsAndVerticalScrollBar.TrackScrollbar).to.be.ok()
-		if not GetFFlagCurveEditor() then
-			expect(frame.IgnoreLayout).to.be.ok()
-			expect(frame.IgnoreLayout.TrackColors).to.be.ok()
-		end
 		expect(frame:FindFirstChild("StartScreen")).never.to.be.ok()
 		Roact.unmount(instance)
 	end)

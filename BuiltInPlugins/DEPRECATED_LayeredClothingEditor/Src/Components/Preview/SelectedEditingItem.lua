@@ -25,6 +25,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local VerifyBounds = require(Plugin.Src.Thunks.VerifyBounds)
 local SelectEditingItem = require(Plugin.Src.Thunks.SelectEditingItem)
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
+local MannequinContext = require(Plugin.Src.Context.MannequinContext)
 
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -70,6 +71,8 @@ local function destroyEditingItem(self)
 end
 
 local function setupEditingItem(self, regenerated, accessoryTypeChanged)
+	local props = self.props
+	local mannequinContext = props.MannequinContext
 	if not self.sourceItemWithUniqueDeformerNames then
 		return
 	end
@@ -84,7 +87,11 @@ local function setupEditingItem(self, regenerated, accessoryTypeChanged)
 	if isClothing then
 		local useCurrentAttachmentPointInfo = not accessoryTypeChanged and regenerated
 
-		self.mannequin = InsertService:LoadLocalAsset(Constants.MANNEQUIN_PATH)
+		if game:GetFastFlag("UseMockMannequin") then
+			self.mannequin = mannequinContext:createMannequinModel()
+		else
+			self.mannequin = InsertService:LoadLocalAsset(Constants.MANNEQUIN_PATH)
+		end
 		self.mannequin.Parent = Workspace
 
 		if regenerated then
@@ -276,6 +283,7 @@ end
 
 SelectedEditingItem = withContext({
 	EditingItemContext = EditingItemContext,
+	MannequinContext = MannequinContext,
 })(SelectedEditingItem)
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SelectedEditingItem)

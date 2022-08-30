@@ -72,6 +72,7 @@ return function()
 		local ServerStatsData = require(Components.ServerStats.ServerStatsData)
 		local ActionBindingsData = require(Components.ActionBindings.ActionBindingsData)
 		local ServerJobsData = require(Components.ServerJobs.ServerJobsData)
+		local DebugVisualizationsData = require(Components.DebugVisualizations.DebugVisualizationsData)
 
 		local DevConsoleData = {
 			ClientLogData = LogData.new(true),
@@ -85,6 +86,7 @@ return function()
 			ServerStatsData = ServerStatsData.new(),
 			ActionBindingsData = ActionBindingsData.new(),
 			ServerJobsData = ServerJobsData.new(),
+			DebugVisualizationsData = DebugVisualizationsData.new(),
 		}
 
 		local capturedProps
@@ -105,7 +107,8 @@ return function()
 			"DataStoresData",
 			"ServerStatsData",
 			"ActionBindingsData",
-			"ServerJobsData"
+			"ServerJobsData",
+			"DebugVisualizationsData"
 		)
 
 		local store = Store.new(function()

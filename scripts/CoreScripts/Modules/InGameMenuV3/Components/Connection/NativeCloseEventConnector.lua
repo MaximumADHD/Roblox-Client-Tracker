@@ -10,7 +10,7 @@ local t = InGameMenuDependencies.t
 
 local InGameMenu = script.Parent.Parent.Parent
 local OpenEducationalPopup = require(InGameMenu.Thunks.OpenEducationalPopup)
-local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
+local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnectionMemo)
 local InGameMenuPolicy = require(InGameMenu.InGameMenuPolicy)
 local UserLocalStore = require(InGameMenu.Utility.UserLocalStore)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)

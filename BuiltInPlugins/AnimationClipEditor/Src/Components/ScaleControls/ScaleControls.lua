@@ -40,7 +40,6 @@ local StringUtils = require(Plugin.Src.Util.StringUtils)
 local ScaleHandle = require(Plugin.Src.Components.ScaleControls.ScaleHandle)
 local TimeTag = require(Plugin.Src.Components.ScaleControls.TimeTag)
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local ScaleControls = Roact.PureComponent:extend("PureComponent")
@@ -118,7 +117,7 @@ function ScaleControls:init()
 		local endTick = props.EndTick
 		local trackWidth = props.DopeSheetWidth
 
-		if GetFFlagCurveEditor() and props.UseFullHeight then
+		if props.UseFullHeight then
 			return {
 				left = TrackUtils.getScaledKeyframePosition(selectionData.earliestKeyframe, startTick, endTick, trackWidth),
 				right = TrackUtils.getScaledKeyframePosition(selectionData.latestKeyframe, startTick, endTick, trackWidth),
@@ -140,7 +139,6 @@ function ScaleControls:init()
 	end
 
 	self.getSelectionData = function()
-		local trackIndices = {}
 		local earliestKeyframe = self.props.EndTick + 1
 		local latestKeyframe = 0
 		local selectionData = self.props.SelectedKeyframes
@@ -149,7 +147,7 @@ function ScaleControls:init()
 
 		local function traverse(track, trackIndex, path)
 			if track.Selection then
-				if not GetFFlagCurveEditor() or not self.props.UseFullHeight then
+				if not self.props.UseFullHeight then
 					-- This component has a selection. Calculate the path value, add it
 					-- to the trackIndex, and check if the result extends the current
 					-- trackRange
@@ -179,7 +177,7 @@ function ScaleControls:init()
 
 		for _, instance in pairs(selectionData) do
 			for trackName, track in pairs(instance) do
-				if not GetFFlagCurveEditor() or not self.props.UseFullHeight then
+				if not self.props.UseFullHeight then
 					local trackIndex = TrackUtils.getTrackIndex(self.props.Tracks, trackName)
 					if trackIndex then
 						traverse(track, trackIndex, {})
@@ -223,39 +221,26 @@ function ScaleControls:render()
 	local earliestKeyframe = selectionData.earliestKeyframe
 	local latestKeyframe = selectionData.latestKeyframe
 
-	local height
-	local width
-
-	if GetFFlagCurveEditor() then
-		width = UDim.new(0, extents.right - extents.left + PADDING)
-		height = UDim.new(if useFullHeight then 1 else 0, if useFullHeight then 0 else extents.bottom - extents.top)
-	else
-		height = extents.bottom - extents.top
-		width = extents.right - extents.left + PADDING
-	end
+	local width = UDim.new(0, extents.right - extents.left + PADDING)
+	local height = UDim.new(if useFullHeight then 1 else 0, if useFullHeight then 0 else extents.bottom - extents.top)
 
 	local timeTagYOffset
-	if GetFFlagCurveEditor() then
-		if useFullHeight then
-			timeTagYOffset = Constants.SUMMARY_TRACK_HEIGHT + (Constants.SUMMARY_TRACK_HEIGHT - TIME_TAG_HEIGHT) / 2
-		else
-			timeTagYOffset = Constants.SUMMARY_TRACK_HEIGHT - extents.top + (Constants.SUMMARY_TRACK_HEIGHT - TIME_TAG_HEIGHT) / 2
-		end
+	if useFullHeight then
+		timeTagYOffset = Constants.SUMMARY_TRACK_HEIGHT + (Constants.SUMMARY_TRACK_HEIGHT - TIME_TAG_HEIGHT) / 2
 	else
-		timeTagYOffset = -extents.top - (Constants.SUMMARY_TRACK_HEIGHT - TIME_TAG_HEIGHT) / 2
-		timeTagYOffset = Constants.SUMMARY_TRACK_HEIGHT + timeTagYOffset or timeTagYOffset
+		timeTagYOffset = Constants.SUMMARY_TRACK_HEIGHT - extents.top + (Constants.SUMMARY_TRACK_HEIGHT - TIME_TAG_HEIGHT) / 2
 	end
-
+	
 	return Roact.createElement("Frame", {
 		BackgroundColor3 = theme.selectionBox,
 		BackgroundTransparency = showSelectionArea and 0.8 or 1,
-		Position = UDim2.new(0, (props.TrackPadding / 2) + extents.left - (PADDING / 2), 0, if GetFFlagCurveEditor() and useFullHeight then 0 else extents.top),
-		Size = if GetFFlagCurveEditor() then UDim2.new(width, height) else UDim2.new(0, width, 0, height),
+		Position = UDim2.new(0, (props.TrackPadding / 2) + extents.left - (PADDING / 2), 0, if useFullHeight then 0 else extents.top),
+		Size = UDim2.new(width, height),
 		ZIndex = zIndex,
 	}, {
 		LeftHandle = Roact.createElement(ScaleHandle, {
 			Position = UDim2.new(0, (-HANDLE_WIDTH / 2), 0, 0),
-			Size = if GetFFlagCurveEditor() then UDim2.new(UDim.new(0, HANDLE_WIDTH), height) else UDim2.new(0, HANDLE_WIDTH, 0, height),
+			Size = UDim2.new(UDim.new(0, HANDLE_WIDTH), height),
 			ZIndex = zIndex,
 			OnScaleHandleDragStart = self.leftScaleHandleDragStart,
 			OnScaleHandleDragMoved = onScaleHandleDragMoved,
@@ -264,7 +249,7 @@ function ScaleControls:render()
 
 		RightHandle = Roact.createElement(ScaleHandle, {
 			Position = UDim2.new(1, (-HANDLE_WIDTH / 2), 0, 0),
-			Size = if GetFFlagCurveEditor() then UDim2.new(UDim.new(0, HANDLE_WIDTH), height) else UDim2.new(0, HANDLE_WIDTH, 0, height),
+			Size = UDim2.new(UDim.new(0, HANDLE_WIDTH), height),
 			ZIndex = zIndex,
 			OnScaleHandleDragStart = self.rightScaleHandleDragStart,
 			OnScaleHandleDragMoved = onScaleHandleDragMoved,

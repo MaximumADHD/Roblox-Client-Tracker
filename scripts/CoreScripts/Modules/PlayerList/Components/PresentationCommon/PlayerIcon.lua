@@ -67,7 +67,7 @@ local function getIconImage(layoutValues, player, iconInfo, relationship)
 		-- TODO: Replace this with single premium icon check if that is the future.
 		return membershipIcon
 	end
-	return ""
+	return "" :: any
 end
 
 function PlayerIcon:render()

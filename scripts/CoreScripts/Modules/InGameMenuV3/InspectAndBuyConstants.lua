@@ -1,4 +1,7 @@
 local Constants = {
+	BUTTON_HEIGHT = 48,
+	BOTTOM_BAR_PADDING = 24,
+
 	HumanoidDescriptionIdToName = {
 		[tostring(Enum.AssetType.TShirt.Value)]  = "GraphicTShirt",
 		[tostring(Enum.AssetType.Hat.Value)]  = "HatAccessory",

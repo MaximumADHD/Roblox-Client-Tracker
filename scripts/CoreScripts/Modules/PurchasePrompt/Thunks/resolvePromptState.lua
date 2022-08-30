@@ -32,7 +32,6 @@ local Thunk = require(Root.Thunk)
 
 local GetFFlagPPUpsellEndpoint = require(Root.Flags.GetFFlagPPUpsellEndpoint)
 local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
-local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
 
 local requiredServices = {
 	Analytics,
@@ -49,9 +48,7 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 
 		store:dispatch(ProductInfoReceived(productInfo))
 		store:dispatch(AccountInfoReceived(accountInfo))
-		if FFlagPPAccountInfoMigration then
-			store:dispatch(BalanceInfoRecieved(balanceInfo))
-		end
+		store:dispatch(BalanceInfoRecieved(balanceInfo))
 
 		local restrictThirdParty =
 			(not externalSettings.getFlagBypassThirdPartySettingForRobloxPurchase() or not isRobloxPurchase)
@@ -66,8 +63,8 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 			return store:dispatch(ErrorOccurred(failureReason))
 		end
 
-		local robuxBalance = FFlagPPAccountInfoMigration and balanceInfo.robux or accountInfo.RobuxBalance
-		local isPlayerPremium = FFlagPPAccountInfoMigration and accountInfo.isPremium or accountInfo.MembershipType == 4
+		local robuxBalance = balanceInfo.robux
+		local isPlayerPremium = accountInfo.isPremium
 		local price = getPlayerProductInfoPrice(productInfo, isPlayerPremium)
 		local platform = UserInputService:GetPlatform()
 

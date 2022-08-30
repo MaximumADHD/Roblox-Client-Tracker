@@ -1,4 +1,4 @@
--- Delete entire plugin with FFlagUnifyModelPackagePublish
+-- Delete entire plugin with FFlagUnifyModelPackagePublish2
 return function(plugin, pluginLoaderContext)
 	if not plugin then
 		return

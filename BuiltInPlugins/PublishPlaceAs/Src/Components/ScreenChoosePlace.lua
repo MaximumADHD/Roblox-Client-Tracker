@@ -18,18 +18,19 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local FFlagDevFrameworkMigrateSearchBar = Framework.SharedFlags.getFFlagDevFrameworkMigrateSearchBar()
-local FFlagRemoveUILibraryLoadingIndicator = Framework.SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateSearchBar = SharedFlags.getFFlagDevFrameworkMigrateSearchBar()
+local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
+local FFlagRemoveUILibraryLoadingIndicator = SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
 
 local Constants = require(Plugin.Src.Resources.Constants)
 
 local UI = Framework.UI
-local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator then UI.LoadingIndicator else UILibrary.Component.LoadingIndicator
+local Button = if FFlagRemoveUILibraryButton then UI.Button else UILibrary.Component.RoundTextButton
 local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
+local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator then UI.LoadingIndicator else UILibrary.Component.LoadingIndicator
 local SearchBar = if FFlagDevFrameworkMigrateSearchBar then Framework.StudioUI.SearchBar else UILibrary.Component.SearchBar
 local Separator = if FFlagRemoveUILibrarySeparator then UI.Separator else UILibrary.Component.Separator
-
-local RoundTextButton = UILibrary.Component.RoundTextButton
 
 local SetIsPublishing = require(Plugin.Src.Actions.SetIsPublishing)
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
@@ -310,7 +311,16 @@ function ScreenChoosePlace:render()
 						TextColor3 = theme.failText.text,
 						Font = theme.failText.font,
 					}),
-					Roact.createElement(RoundTextButton, {
+					Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						OnClick = function()
+							dispatchLoadExistingPlaces(parentGame)
+						end,
+						Position = UDim2.new(0.5, 0, 0, 100),
+						Size = UDim2.new(0, 150, 0, 75),
+						Style = "Round",
+						Text = localization:getText("Button", "Retry"),
+					} else {
 						Position = UDim2.new(0.5, 0, 0, 100),
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						Style = theme.defaultButton,
@@ -320,8 +330,9 @@ function ScreenChoosePlace:render()
 						TextSize = Constants.TEXT_SIZE,
 						OnClicked = function()
 							dispatchLoadExistingPlaces(parentGame)
-						end}
-				)}
+						end
+					})
+				}
 			),
 
 		Footer = Roact.createElement(Footer, {

@@ -7,6 +7,7 @@ return function()
 	local tutils = require(CorePackages.Packages.tutils)
 
 	local testUrl = "roblox://navigation/game_details?gameId=123"
+	local testAttributionUrl = "ro.blox.com/Ebh5/this_is_a_test"
 
 	describe("LinkingProtocol", function()
 		beforeAll(function(context)
@@ -71,6 +72,15 @@ return function()
 			MessageBus.publish(context.LinkingProtocol.HANDLE_LUA_URL_DESCRIPTOR, {
 				url = testUrl,
 				matchedUrl = testUrl,
+			})
+			expect(context.LinkingProtocol:getLastLuaURL()).to.equal(testUrl)
+		end)
+
+		it("should still work when attributionUrl is present", function(context)
+			MessageBus.publish(context.LinkingProtocol.HANDLE_LUA_URL_DESCRIPTOR, {
+				url = testUrl,
+				matchedUrl = testUrl,
+				attributionUrl = testAttributionUrl,
 			})
 			expect(context.LinkingProtocol:getLastLuaURL()).to.equal(testUrl)
 		end)

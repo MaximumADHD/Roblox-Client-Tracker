@@ -11,8 +11,6 @@ local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
 return function(movement)
 	return function(store)
 		-- TODO AVBURST-7265: `or store:getState()` is only necessary because of the test in Status.spec.lua. Can we do better?
@@ -26,7 +24,7 @@ return function(movement)
 		end
 
 		-- Disable moving the selection if the animation is Channel based and if more than one track is selected
-		if GetFFlagCurveEditor() and AnimationData.isChannelAnimation(animationData) and #selectedTracks > 1 then
+		if AnimationData.isChannelAnimation(animationData) and #selectedTracks > 1 then
 			return
 		end
 
@@ -42,12 +40,7 @@ return function(movement)
 		-- Find the biggest move we can make without getting out of bounds
 		local minIndex, maxIndex
 		for _, selectedTrack in ipairs(selectedTracks) do
-			local selectedTrackName
-			if GetFFlagCurveEditor() then
-				selectedTrackName = selectedTrack[1]
-			else
-				selectedTrackName = selectedTrack
-			end
+			local selectedTrackName = selectedTrack[1]
 			local selectedTrackIndex = trackMap[selectedTrackName]
 
 			minIndex = minIndex and math.min(minIndex, selectedTrackIndex) or selectedTrackIndex
@@ -62,12 +55,7 @@ return function(movement)
 		-- For each selected track, find its index, adjust it depending on movement,
 		-- and store it in newSelectedTracksMap.
 		for _, selectedTrack in ipairs(selectedTracks) do
-			local selectedTrackName
-			if GetFFlagCurveEditor() then
-				selectedTrackName = selectedTrack[1]
-			else
-				selectedTrackName = selectedTrack
-			end
+			local selectedTrackName = selectedTrack[1]
 			local selectedTrackIndex = trackMap[selectedTrackName]
 
 			if selectedTrackIndex then
@@ -77,14 +65,10 @@ return function(movement)
 			end
 		end
 
-		if GetFFlagCurveEditor() then
-			local newSelectedTracks = {}
-			for selectedTrackName, _ in pairs(newSelectedTracksMap) do
-				table.insert(newSelectedTracks, {selectedTrackName})
-			end
-			store:dispatch(SetSelectedTracks(newSelectedTracks))
-		else
-			store:dispatch(SetSelectedTracks(Cryo.Dictionary.keys(newSelectedTracksMap)))
+		local newSelectedTracks = {}
+		for selectedTrackName, _ in pairs(newSelectedTracksMap) do
+			table.insert(newSelectedTracks, {selectedTrackName})
 		end
+		store:dispatch(SetSelectedTracks(newSelectedTracks))
 	end
 end

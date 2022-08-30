@@ -17,9 +17,6 @@ return function()
 	local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
 	local Constants = require(Plugin.Src.Util.Constants)
 
-	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-	local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
 	local mockSkeleton = {
 		ClassName = "MockSkeleton",
 		Names = {"Hips", "Torso", "LeftArm", "RightArm", "LeftHand", "RightHand", "Neck", "Head"},
@@ -67,12 +64,8 @@ return function()
 		it("should add a track to Tracks", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			if GetFFlagCurveEditor() then
-				store:dispatch(AddTrack("Root", "Neck", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, Enum.RotationOrder.XYZ, analytics))
-			else
-				store:dispatch(AddTrack("Root", "Neck", Constants.TRACK_TYPES.CFrame, analytics))
-			end
-
+			store:dispatch(AddTrack("Root", "Neck", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, Enum.RotationOrder.XYZ, analytics))
+			
 			local found = false
 			local status = store:getState().Status
 			for _, track in ipairs(status.Tracks) do
@@ -88,12 +81,8 @@ return function()
 		it("should do nothing if a track already exists", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			if GetFFlagCurveEditor() then
-				store:dispatch(AddTrack("Root", "Hips", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, Enum.RotationOrder.XYZ, analytics))
-			else
-				store:dispatch(AddTrack("Root", "Hips", Constants.TRACK_TYPES.CFrame, analytics))
-			end
-
+			store:dispatch(AddTrack("Root", "Hips", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, Enum.RotationOrder.XYZ, analytics))
+			
 			local found = 0
 			local status = store:getState().Status
 			for _, track in ipairs(status.Tracks) do
@@ -228,7 +217,7 @@ return function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
 			store:dispatch(AddKeyframe("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, 0, {}, analytics))
-			
+
 			local found = false
 			local status = store:getState().Status
 			for _, track in ipairs(status.Tracks) do

@@ -12,9 +12,6 @@
 			If cancelled, options will be nil. Else, it will contain the new options
 			that were set by the user.
 ]]
-local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag(
-	"ToolboxUseDevFrameworkLoadingBarAndRadioButton"
-)
 local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -42,13 +39,8 @@ local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local LiveSearchBar = require(Plugin.Core.Components.SearchOptions.LiveSearchBar)
-local RadioButtons
-local RadioButtonList
-if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
-	RadioButtonList = require(Packages.Framework).UI.RadioButtonList
-else
-	RadioButtons = require(Plugin.Core.Components.SearchOptions.RadioButtons)
-end
+local RadioButtonList = require(Packages.Framework).UI.RadioButtonList
+
 local Checkbox = Framework.UI.Checkbox
 local Pane = Framework.UI.Pane
 local Image = Framework.UI.Decoration.Image
@@ -106,9 +98,7 @@ function SearchOptions:init(initialProps)
 		includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then includeUnverifiedCreators else nil,
 	}
 
-	if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
-		self.sortsList = {}
-	end
+	self.sortsList = {}
 
 	local modal = getModal(self)
 	self.mouseEnter = function()
@@ -130,24 +120,16 @@ function SearchOptions:init(initialProps)
 		end
 	end
 
-	if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
-		self.selectSort = function(key)
-			local sortIndex
-			for i, value in pairs(self.sortsList) do
-				if value.Key == key then
-					sortIndex = i
-				end
+	self.selectSort = function(key)
+		local sortIndex
+		for i, value in pairs(self.sortsList) do
+			if value.Key == key then
+				sortIndex = i
 			end
-			self:setState({
-				SortIndex = sortIndex,
-			})
 		end
-	else
-		self.selectSort = function(_, index)
-			self:setState({
-				SortIndex = index,
-			})
-		end
+		self:setState({
+			SortIndex = sortIndex,
+		})
 	end
 
 	self.apply = function(options)
@@ -292,27 +274,15 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 		showCreatorSearch = false
 	end
 
-	local sorts
-	if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
-		self.sortsList = {
-			{ Key = "Relevance", Text = localizedContent.Sort.Relevance },
-			{ Key = "MostTaken", Text = localizedContent.Sort.MostTaken },
-			{ Key = "Favorites", Text = localizedContent.Sort.Favorites },
-			{ Key = "Updated", Text = localizedContent.Sort.Updated },
-			{ Key = "Ratings", Text = localizedContent.Sort.Ratings },
-		}
-	else
-		sorts = {
-			{ Key = "Relevance", Text = localizedContent.Sort.Relevance },
-			{ Key = "MostTaken", Text = localizedContent.Sort.MostTaken },
-			{ Key = "Favorites", Text = localizedContent.Sort.Favorites },
-			{ Key = "Updated", Text = localizedContent.Sort.Updated },
-			{ Key = "Ratings", Text = localizedContent.Sort.Ratings },
-		}
-	end
+	self.sortsList = {
+		{ Key = "Relevance", Text = localizedContent.Sort.Relevance },
+		{ Key = "MostTaken", Text = localizedContent.Sort.MostTaken },
+		{ Key = "Favorites", Text = localizedContent.Sort.Favorites },
+		{ Key = "Updated", Text = localizedContent.Sort.Updated },
+		{ Key = "Ratings", Text = localizedContent.Sort.Ratings },
+	}
 	local sortIndex = self.state.SortIndex or self.props.SortIndex
-	local selectedSort = FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and self.sortsList[sortIndex].Key
-		or sorts[sortIndex].Key
+	local selectedSort = self.sortsList[sortIndex].Key
 
 	local tabHeight = Constants.TAB_WIDGET_HEIGHT
 
@@ -490,20 +460,11 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 						LayoutOrder = self:nextLayout(),
 						Header = localizedContent.SearchOptions.Sort,
 					}, {
-						RadioButtons = Roact.createElement(
-							FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and RadioButtonList or RadioButtons,
-							FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton
-									and {
-										Buttons = self.sortsList,
-										SelectedKey = selectedSort,
-										OnClick = self.selectSort,
-									}
-								or {
-									Buttons = sorts,
-									Selected = selectedSort,
-									onButtonClicked = self.selectSort,
-								}
-						),
+						RadioButtons = Roact.createElement(RadioButtonList, {
+							Buttons = self.sortsList,
+							SelectedKey = selectedSort,
+							OnClick = self.selectSort,
+						}),
 					}),
 
 					ViewPadding = showSortOptions and Roact.createElement("Frame", {

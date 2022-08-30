@@ -36,10 +36,12 @@ function LegacyCamera:SetCameraToSubjectDistance(desiredSubjectDistance)
 	return BaseCamera.SetCameraToSubjectDistance(self,desiredSubjectDistance)
 end
 
-function LegacyCamera:Update(dt: number): (CFrame, CFrame)
+function LegacyCamera:Update(dt: number): (CFrame?, CFrame?)
 
 	-- Cannot update until cameraType has been set
-	if not self.cameraType then return end
+	if not self.cameraType then
+		return nil, nil
+	end
 
 	local now = tick()
 	local timeDelta = (now - self.lastUpdate)
@@ -66,9 +68,9 @@ function LegacyCamera:Update(dt: number): (CFrame, CFrame)
 		local subjectCFrame = self:GetSubjectCFrame()
 		local cameraPitch = camera.CFrame:ToEulerAnglesYXZ()
 		local _, subjectYaw = subjectCFrame:ToEulerAnglesYXZ()
-		
+
 		cameraPitch = math.clamp(cameraPitch - CameraInput.getRotation().Y, -PITCH_LIMIT, PITCH_LIMIT)
-		
+
 		newCameraFocus = CFrame.new(subjectCFrame.p)*CFrame.fromEulerAnglesYXZ(cameraPitch, subjectYaw, 0)
 		newCameraCFrame = newCameraFocus*CFrame.new(0, 0, self:StepZoom())
 

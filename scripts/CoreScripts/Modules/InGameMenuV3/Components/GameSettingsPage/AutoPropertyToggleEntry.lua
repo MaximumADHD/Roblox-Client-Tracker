@@ -7,7 +7,7 @@ local t = InGameMenuDependencies.t
 
 local InGameMenu = script.Parent.Parent.Parent
 
-local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
+local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnectionMemo)
 
 local ToggleEntry = require(script.Parent.ToggleEntry)
 

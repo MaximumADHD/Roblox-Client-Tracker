@@ -26,11 +26,6 @@ local SignalsContext = require(Plugin.Src.Context.Signals)
 local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackInstances)
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-local GetFFlagHideBonesWithToggle = require(Plugin.LuaFlags.GetFFlagHideBonesWithToggle)
-
-
-
 local InstanceSelector = Roact.PureComponent:extend("InstanceSelector")
 
 local function getModel(instance)
@@ -178,7 +173,7 @@ function InstanceSelector:render()
 	local children = {}
 	local folder = RigUtils.getOrCreateMicroboneFolder()
 
-	if not GetFFlagHideBonesWithToggle() or GetFFlagHideBonesWithToggle() and visualizeBones then 
+	if visualizeBones then 
 		local boneLinks = folder:GetChildren()
 		for _, boneLink in pairs(boneLinks) do
 			if boneLink:FindFirstChild("Cone") and boneLink.Cone.Color3 == Constants.BONE_COLOR_SELECTED then 
@@ -194,7 +189,7 @@ function InstanceSelector:render()
 	end
 	if props.SelectedTrackInstances then
 		for index, part in ipairs(props.SelectedTrackInstances) do
-			if not GetFFlagHideBonesWithToggle() or GetFFlagHideBonesWithToggle() and visualizeBones then 
+			if visualizeBones then 
 				if part.Parent == nil or part.Parent.Name ~=  "RBX_MICROBONE_NODES" then 
 					children["SelectionBox" ..index] = Roact.createElement("SelectionBox", {
 						Archivable = false,
@@ -301,7 +296,7 @@ local function mapDispatchToProps(dispatch)
 		SetSelectedTrackInstances = function(tracks)
 			local trackNames = {}
 			for index, track in pairs(tracks) do
-				trackNames[index] = if GetFFlagCurveEditor() then {track.Name} else track.Name
+				trackNames[index] = {track.Name}
 			end
 			dispatch(SetSelectedTrackInstances(tracks))
 			dispatch(SetSelectedTracks(trackNames))

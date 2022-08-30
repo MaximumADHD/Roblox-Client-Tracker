@@ -13,6 +13,9 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
+
 -- TODO: jbousellam - 9/10/21 - STUDIOPLAT-25892 - Figure out why we need to do this instead of using ContextServices.API
 local RobloxAPI = Framework.RobloxAPI
 local API = RobloxAPI.new()
@@ -23,7 +26,11 @@ local SetIsPublishing = require(Plugin.Src.Actions.SetIsPublishing)
 
 local Constants = require(Plugin.Src.Resources.Constants)
 
-local RoundTextButton = UILibrary.Component.RoundTextButton
+local Util = Framework.Util
+local StyleModifier = Util.StyleModifier
+
+local UI = Framework.UI
+local Button = if FFlagRemoveUILibraryButton then UI.Button else UILibrary.Component.RoundTextButton
 
 local SettingsImpl = require(Plugin.Src.Network.Requests.SettingsImpl)
 
@@ -98,6 +105,22 @@ function ScreenPublishFail:render()
 		failureMessage = localization:getText("PublishFail", "SaveFail")
 	end
 
+	local function onClick()
+		if not isPublishing then
+			if parentGameId == 0 then
+				SettingsImpl.saveAll(settings, localization, apiImpl, nil, props.IsPublish)
+			else
+				if FFlagPlacePublishManagementUI2 and publishParameters ~= nil and next(publishParameters) ~= nil then
+					-- groupId is unused in existing game/place publish, only new game publish
+					StudioPublishService:publishAs(parentGameId, id, 0, true, publishParameters)
+				else
+					StudioPublishService:publishAs(parentGameId, id, 0, props.IsPublish, nil)
+				end
+			end
+		end
+		dispatchSetIsPublishing(true)
+	end
+
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundColor3 = theme.backgroundColor,
@@ -131,7 +154,15 @@ function ScreenPublishFail:render()
 			Font = theme.failText.font,
 		}),
 
-		Retry = Roact.createElement(RoundTextButton, {
+		Retry = Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			OnClick = onClick,
+			Position = UDim2.new(0.5, 0, 0.8, 0),
+			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+			Style = "Round",
+			StyleModifier = if isPublishing then StyleModifier.Disabled else nil,
+			Text = localization:getText("Button", "Retry"),
+		} else {
 			Position = UDim2.new(0.5, 0, 0.8, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Style = theme.defaultButton,
@@ -139,21 +170,7 @@ function ScreenPublishFail:render()
 			Active = not isPublishing,
 			Name = localization:getText("Button", "Retry"),
 			TextSize = Constants.TEXT_SIZE,
-			OnClicked = function()
-				if not isPublishing then
-					if parentGameId == 0 then
-						SettingsImpl.saveAll(settings, localization, apiImpl, nil, props.IsPublish)
-					else
-						if FFlagPlacePublishManagementUI2 and publishParameters ~= nil and next(publishParameters) ~= nil then
-							-- groupId is unused in existing game/place publish, only new game publish
-							StudioPublishService:publishAs(parentGameId, id, 0, true, publishParameters)
-						else
-							StudioPublishService:publishAs(parentGameId, id, 0, props.IsPublish, nil)
-						end
-					end
-				end
-				dispatchSetIsPublishing(true)
-			end,
+			OnClicked = onClick,
 		})
 	})
 end

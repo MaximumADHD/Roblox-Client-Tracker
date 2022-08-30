@@ -11,6 +11,7 @@ local getUserId = require(Plugin.Core.Util.getUserId)
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
 local FFlagToolboxIncludedPlaceIdInConfigRequest = game:GetFastFlag("ToolboxIncludedPlaceIdInConfigRequest")
 local FFlagToolboxTrackHidden = game:GetFastFlag("ToolboxTrackHidden")
+local FFlagToolboxAddAnnouncementAnalytics = game:GetFastFlag("ToolboxAddAnnouncementAnalytics")
 
 local getPlaceId
 if FFlagToolboxIncludedPlaceIdInConfigRequest then
@@ -371,6 +372,104 @@ function Analytics.onToolboxWidgetInteraction(widgetSize)
 		widgetWidth = widgetSize.X,
 		widgetHeight = widgetSize.Y,
 	})
+end
+
+if FFlagToolboxAddAnnouncementAnalytics then
+	function Analytics.AnnouncementViewed(
+		announcementButtonKey,
+		announcementDateKey,
+		announcementDescriptionKey,
+		announcementHeaderKey,
+		announcementLinkKey,
+		announcementLinkLocation
+	)
+		local data = {
+			announcementButtonKey = announcementButtonKey,
+			announcementDateKey = announcementDateKey,
+			announcementDescriptionKey = announcementDescriptionKey,
+			announcementHeaderKey = announcementHeaderKey,
+			announcementLinkKey = announcementLinkKey,
+			announcementLinkLocation = announcementLinkLocation,
+			clientId = getClientId(),
+			platformId = getPlatformId(),
+			studioSid = getStudioSessionId(),
+			userId = getUserId(),
+		}
+		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "AnnouncementViewed", data)
+	end
+
+	function Analytics.AnnouncementLinkClicked(
+		announcementButtonKey,
+		announcementDateKey,
+		announcementDescriptionKey,
+		announcementHeaderKey,
+		announcementLinkKey,
+		announcementLinkLocation
+	)
+		local data = {
+			announcementButtonKey = announcementButtonKey,
+			announcementDateKey = announcementDateKey,
+			announcementDescriptionKey = announcementDescriptionKey,
+			announcementHeaderKey = announcementHeaderKey,
+			announcementLinkKey = announcementLinkKey,
+			announcementLinkLocation = announcementLinkLocation,
+			clientId = getClientId(),
+			platformId = getPlatformId(),
+			studioSid = getStudioSessionId(),
+			userId = getUserId(),
+		}
+		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "AnnouncementLinkClicked", data)
+	end
+
+	function Analytics.AnnouncementClosed(
+		announcementButtonKey,
+		announcementDateKey,
+		announcementDescriptionKey,
+		announcementHeaderKey,
+		announcementLinkKey,
+		announcementLinkLocation,
+		durationBeforeClosed
+	)
+		local data = {
+			announcementButtonKey = announcementButtonKey,
+			announcementDateKey = announcementDateKey,
+			announcementDescriptionKey = announcementDescriptionKey,
+			announcementHeaderKey = announcementHeaderKey,
+			announcementLinkKey = announcementLinkKey,
+			announcementLinkLocation = announcementLinkLocation,
+			durationBeforeClosed = durationBeforeClosed,
+			clientId = getClientId(),
+			platformId = getPlatformId(),
+			studioSid = getStudioSessionId(),
+			userId = getUserId(),
+		}
+		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "AnnouncementClosed", data)
+	end
+
+	function Analytics.AnnouncementAcknowledged(
+		announcementButtonKey,
+		announcementDateKey,
+		announcementDescriptionKey,
+		announcementHeaderKey,
+		announcementLinkKey,
+		announcementLinkLocation,
+		durationBeforeClosed
+	)
+		local data = {
+			announcementButtonKey = announcementButtonKey,
+			announcementDateKey = announcementDateKey,
+			announcementDescriptionKey = announcementDescriptionKey,
+			announcementHeaderKey = announcementHeaderKey,
+			announcementLinkKey = announcementLinkKey,
+			announcementLinkLocation = announcementLinkLocation,
+			durationBeforeClosed = durationBeforeClosed,
+			clientId = getClientId(),
+			platformId = getPlatformId(),
+			studioSid = getStudioSessionId(),
+			userId = getUserId(),
+		}
+		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "AnnouncementAcknowledged", data)
+	end
 end
 
 return Analytics

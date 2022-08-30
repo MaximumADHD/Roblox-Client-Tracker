@@ -18,6 +18,7 @@ local Stylizer = Framework.Style.Stylizer
 local StatusIcon = require(Plugin.Src.Components.StatusIcon)
 
 export type Props = {
+	FillDirection: Enum.FillDirection?,
 	LabelColumnWidth: UDim?,
 	LayoutOrder: number?,
 	Status: Enum.PropertyStatus?,
@@ -49,7 +50,7 @@ function LabeledElement:render()
 	local style: _Style = props.Stylizer.LabeledElement
 
 	local layoutOrderIterator = LayoutOrderIterator.new()
-	local fillDirection = style.FillDirection
+	local fillDirection = props.FillDirection or style.FillDirection
 	local labelColumnWidth = props.LabelColumnWidth
 	local labelSize = UDim2.new(labelColumnWidth, style.LabelYSize)
 	local imageSize = style.ImageSize
@@ -60,7 +61,7 @@ function LabeledElement:render()
 		AutomaticSize = Enum.AutomaticSize.Y,
 		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		VerticalAlignment = Enum.VerticalAlignment.Top,
-		Layout = fillDirection,
+		Layout = Enum.FillDirection.Horizontal,
 		LayoutOrder = props.LayoutOrder,
 		Padding = if not status or (status and status == Enum.PropertyStatus.Ok) then {
 			Left = imageSize.Width.Offset,
@@ -73,16 +74,24 @@ function LabeledElement:render()
 				StatusText = statusText,
 				Status = status,
 			}) else nil,
-		Label = Roact.createElement(TextLabel, {
+		LabeledElement = Roact.createElement(Pane, {
+			AutomaticSize = Enum.AutomaticSize.Y,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			VerticalAlignment = Enum.VerticalAlignment.Top,
+			Layout = fillDirection,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
-			Size = labelSize,
-			Text = props.Text,
-			TextXAlignment = props.TextXAlignment or style.TextXAlignment,
-		}),
-		ElementListItem = Roact.createElement(Pane, join({
-			LayoutOrder = layoutOrderIterator:getNextOrder(),
-			AutomaticSize = Enum.AutomaticSize.XY,
-		}, props.WrapperProps), (props:: any)[Roact.Children]),
+		}, {
+			Label = Roact.createElement(TextLabel, {
+				LayoutOrder = 1,
+				Size = labelSize,
+				Text = props.Text,
+				TextXAlignment = props.TextXAlignment or style.TextXAlignment,
+			}),
+			ElementListItem = Roact.createElement(Pane, join({
+				LayoutOrder = 2,
+				AutomaticSize = Enum.AutomaticSize.XY,
+			}, props.WrapperProps), (props:: any)[Roact.Children]),
+		})
 	})
 end
 

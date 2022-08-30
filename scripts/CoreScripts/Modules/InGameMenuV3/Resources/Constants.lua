@@ -27,6 +27,7 @@ local Constants = {
 	GameSettingsPageKey = "GameSettings",
 	InspectAndBuyPageKey = "InspectAndBuy",
 	InspectAndBuyAssetDetailsPageKey = "InspectAndBuyAssetDetails",
+	InviteFriendsPageKey = "InviteFriends",
 
 	AnalyticsTargetName = "client",
 	AnalyticsInGameMenuName = "ingame_menu",
@@ -104,7 +105,7 @@ local Constants = {
 	PageWidth = 320,
 	SideNavigationWidth = 64,
 
-	MenuOpenTweenTime = 0.208,
+	MenuOpenTweenTime = 0.192,
 
 	DisplayOrder = {
 		-- Fullscreen Title Bar should be on top of Topbar (DisplayOrder = 6)

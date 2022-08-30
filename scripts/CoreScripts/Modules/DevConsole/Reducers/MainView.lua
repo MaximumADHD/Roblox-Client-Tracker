@@ -3,12 +3,20 @@ local Immutable = require(script.Parent.Parent.Immutable)
 local SetActiveTab = require(script.Parent.Parent.Actions.SetActiveTab)
 local SetTabList = require(script.Parent.Parent.Actions.SetTabList)
 
-return function(state, action)
+type TabList = {[any]: any}
+
+export type State = {
+	isDeveloperView: boolean,
+	isClientView: boolean,
+	tabList: TabList,
+	currTabIndex: number?,
+}
+return function(state: State?, action: {[string]: any}): State
 	local mainView = state or {
 		-- initializes to the first tab in the list of views which should be Log
 		isDeveloperView = false,
 		isClientView = true,
-		tabList = {},
+		tabList = {} :: TabList,
 		currTabIndex = nil,
 	}
 

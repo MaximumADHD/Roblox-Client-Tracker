@@ -372,6 +372,9 @@ function ModelUtil:attachClothingItem(avatar, item, attachmentName, weldWithCurr
 	end
 
 	if not bodyWrapTarget then
+		if (game:GetFastFlag("UseMockMannequin")) then
+			item.Parent = avatar
+		end
 		return
 	end
 

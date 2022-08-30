@@ -10,7 +10,7 @@ return function(plugin, pluginLoaderContext)
 	
 	local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
 	local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
-	local FFlagUnifyModelPackagePublish = game:GetFastFlag("UnifyModelPackagePublish")
+	local FFlagUnifyModelPackagePublish2 = game:GetFastFlag("UnifyModelPackagePublish2")
 	local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
 
 	local isCli = require(Util.isCli)
@@ -214,7 +214,7 @@ return function(plugin, pluginLoaderContext)
 			screenFlowType = flowType,
 			currentScreen = startScreen,
 			instances = clonedInstances,
-			sourceInstances = FFlagUnifyModelPackagePublish and sourceInstances or nil,
+			sourceInstances = FFlagUnifyModelPackagePublish2 and sourceInstances or nil,
 			allowedAssetTypesForRelease = assetTypesForRelease,
 			allowedAssetTypesForUpload = assetTypesForUpload,
 			allowedAssetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then assetTypesForFree else nil,
@@ -352,7 +352,7 @@ return function(plugin, pluginLoaderContext)
 		end
 
 		-- Create publish new asset page.
-		if FFlagUnifyModelPackagePublish then
+		if FFlagUnifyModelPackagePublish2 then
 			pluginLoaderContext.signals["StudioAssetService.OnSaveToRoblox"]:Connect(function(instances)
 				local function proceedToUpload()
 					local clonedInstances = AssetConfigUtil.getClonedInstances(instances)

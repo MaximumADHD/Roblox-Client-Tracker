@@ -17,8 +17,6 @@ local Thunk = require(Root.Thunk)
 
 local resolveBundlePromptState = require(script.Parent.resolveBundlePromptState)
 
-local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
-
 local requiredServices = {
 	Network,
 	ExternalSettings,
@@ -50,7 +48,7 @@ local function initiateBundlePurchase(bundleId)
 		return Promise.all({
 			bundleDetails = getBundleDetails(network, bundleId),
 			accountInfo = getAccountInfo(network, externalSettings),
-			balanceInfo = FFlagPPAccountInfoMigration and getBalanceInfo(network, externalSettings) or Promise.resolve(),
+			balanceInfo = getBalanceInfo(network, externalSettings),
 		})
 			:andThen(function(results)
 				local bundleProductId = results.bundleDetails.product.id

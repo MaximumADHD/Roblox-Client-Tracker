@@ -24,6 +24,7 @@ local ServerStats = require(Components.ServerStats.MainViewServerStats)
 local ActionBindings = require(Components.ActionBindings.MainViewActionBindings)
 local ServerJobs = require(Components.ServerJobs.MainViewServerJobs)
 local MicroProfiler = require(Components.MicroProfiler.MainViewMicroProfiler)
+local DebugVisualizations = require(Components.DebugVisualizations.MainViewDebugVisualizations)
 
 local RCCProfilerDataCompleteListener = require(Components.MicroProfiler.RCCProfilerDataCompleteListener)
 local getClientReplicator = require(DevConsole.Util.getClientReplicator)
@@ -40,6 +41,8 @@ local DevConsoleAnalytics = require(MiddleWare.DevConsoleAnalytics)
 
 local IsDeveloperConsoleEnabled = require(DevConsole.IsDeveloperConsoleEnabled)
 local PlayerPermissionsModule = require(CoreGui.RobloxGui.Modules.PlayerPermissionsModule)
+
+local FFlagEnableDevConsoleDebugVisualizations = require(CoreGui.RobloxGui.Modules.Common.Flags.GetFFlagEnableDevConsoleDebugVisualizations)
 
 local DEV_TAB_LIST = {
 	Log = {
@@ -82,6 +85,13 @@ local DEV_TAB_LIST = {
 		layoutOrder = 9,
 	},
 }
+
+if FFlagEnableDevConsoleDebugVisualizations() then
+	DEV_TAB_LIST["DebugVisualizations"] = {
+		tab = DebugVisualizations,
+		layoutOrder = 10,
+	}
+end
 
 local PLAYER_TAB_LIST = {
 	Log = {

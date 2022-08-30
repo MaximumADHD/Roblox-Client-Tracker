@@ -6,7 +6,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxUseExpandableTopSearch = game:GetFastFlag("ToolboxUseExpandableTopSearch") -- TODO: Flip when UISYS-1334 is ready
 local FintToolboxHomeViewInitialPageSize = game:GetFastInt("ToolboxHomeViewInitialPageSize")
-local FFlagToolboxFixTryInStudio = game:GetFastFlag("ToolboxFixTryInStudio")
 local FFlagToolboxUseDisplayName = game:GetFastFlag("ToolboxUseDisplayName")
 local FFlagToolboxFixMissingCategories = game:GetFastFlag("ToolboxFixMissingCategories")
 local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
@@ -133,18 +132,14 @@ function HomeView:didMount()
 	local assetId = tonumber(assetIdStr)
 
 	if assetId then
-		if FFlagToolboxFixTryInStudio then
-			local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
-			props.getAssetPreviewDataForStartup(
-				assetId,
-				props.TryInsert,
-				props.Localization,
-				getNetwork(self),
-				onAssetPreviewButtonClicked
-			)
-		else
-			props.getAssetPreviewDataForStartup(assetId, props.TryInsert, props.Localization, getNetwork(self))
-		end
+		local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
+		props.getAssetPreviewDataForStartup(
+			assetId,
+			props.TryInsert,
+			props.Localization,
+			getNetwork(self),
+			onAssetPreviewButtonClicked
+		)
 	end
 
 	self.onOverallAbsoluteSizeChange()

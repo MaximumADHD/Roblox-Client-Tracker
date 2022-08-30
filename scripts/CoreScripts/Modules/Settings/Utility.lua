@@ -236,6 +236,7 @@ local function getViewportSize()
 	while not workspace.CurrentCamera do
 		workspace.Changed:Wait()
 	end
+	assert(workspace.CurrentCamera, "")
 
 	-- ViewportSize is initally set to 1, 1 in Camera.cpp constructor.
 	-- Also check against 0, 0 incase this is changed in the future.
@@ -2608,7 +2609,7 @@ function moduleApiTable:IsExperienceOlderThanOneWeek(gameInfo)
 		local dateTime = DateTime.fromIsoDate(gameInfo.Created)
 		local createdDateUnixMillis = dateTime.UnixTimestampMillis
 		local currDateUnixMillis = Workspace:GetServerTimeNow() * MILLISECONDS_PER_SECOND
-		
+
 		if currDateUnixMillis - createdDateUnixMillis > MILLISECONDS_PER_WEEK then
 			return true
 		end

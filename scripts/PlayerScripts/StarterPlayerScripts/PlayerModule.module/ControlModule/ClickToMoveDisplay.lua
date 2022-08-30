@@ -216,7 +216,7 @@ function EndWaypoint.new(position: Vector3, closestWaypoint: number?, originalPo
 
 	self.DisplayModel = self:NewDisplayModel(position)
 	self.Destroyed = false
-	if originalPosition and (originalPosition - position).magnitude > TWEEN_WAYPOINT_THRESHOLD then
+	if originalPosition and (originalPosition - position).Magnitude > TWEEN_WAYPOINT_THRESHOLD then
 		self.Tween = self:TweenInFrom(originalPosition)
 		coroutine.wrap(function()
 			self.Tween.Completed:Wait()
@@ -325,6 +325,7 @@ local function getFailureAnimationTrack(myHumanoid)
 		return lastFailureAnimationTrack
 	end
 	lastFailureAnimationTrack = myHumanoid:LoadAnimation(failureAnimation)
+	assert(lastFailureAnimationTrack, "")
 	lastFailureAnimationTrack.Priority = Enum.AnimationPriority.Action
 	lastFailureAnimationTrack.Looped = false
 	return lastFailureAnimationTrack
@@ -341,7 +342,7 @@ local function createTrailDots(wayPoints: {PathWaypoint}, originalEndWaypoint: V
 	local newTrailDots = {}
 	local count = 1
 	for i = 1, #wayPoints - 1 do
-		local closeToEnd = (wayPoints[i].Position - wayPoints[#wayPoints].Position).magnitude < LAST_DOT_DISTANCE
+		local closeToEnd = (wayPoints[i].Position - wayPoints[#wayPoints].Position).Magnitude < LAST_DOT_DISTANCE
 		local includeWaypoint = i % WAYPOINT_INCLUDE_FACTOR == 0 and not closeToEnd
 		if includeWaypoint then
 			local trailDot = TrailDot.new(wayPoints[i].Position, i)
@@ -398,7 +399,7 @@ function ClickToMoveDisplay.CreatePathDisplay(wayPoints, originalEndWaypoint)
 		for i = 1, #trailDots do
 			local trailDotImage: ImageHandleAdornment = trailDots[i].DisplayModel:FindFirstChild("TrailDotImage")
 			if trailDotImage then
-				local distanceToCamera = (trailDots[i].DisplayModel.Position - cameraPos).magnitude
+				local distanceToCamera = (trailDots[i].DisplayModel.Position - cameraPos).Magnitude
 				trailDotImage.Size = getTrailDotScale(distanceToCamera, TrailDotSize)
 			end
 		end

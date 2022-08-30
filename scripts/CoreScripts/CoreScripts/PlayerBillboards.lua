@@ -43,6 +43,7 @@ local GetFFlagBubbleChatDuplicateMessagesFix = require(RobloxGui.Modules.Flags.G
 local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
 local GetFFlagUpgradeExpChatV2_0_0 = require(CorePackages.Flags.GetFFlagUpgradeExpChatV2_0_0)
 local FFlagExperienceChatBubbleUseSending = game:DefineFastFlag("ExperienceChatBubbleUseSending", false)
+local FFlagFixMessageReceivedEventLeak = game:DefineFastFlag("FixMessageReceivedEventLeak", false)
 
 local ExperienceChat = require(CorePackages.ExperienceChat)
 local MessageReceivedBindableEvent
@@ -91,7 +92,7 @@ local function validateMessageData(eventName, messageData)
 	return ok
 end
 
-local handle, newMessageConn, messageDoneFilteringConn, chattedConn
+local handle, newMessageConn, messageDoneFilteringConn, chattedConn, messageReceivedConn, sendingMessageConn
 local adorneeId = 0
 local messageId = 0
 local adorneeIdMap = {}
@@ -197,7 +198,7 @@ local function initBubbleChat()
 		local TextChatService = game:GetService("TextChatService")
 
 		if FFlagExperienceChatBubbleUseSending then
-			TextChatService.SendingMessage:Connect(function(textChatMessage)
+			sendingMessageConn = TextChatService.SendingMessage:Connect(function(textChatMessage)
 				local textSource = textChatMessage.TextSource
 				if textSource and textSource.UserId then
 					local player = Players:GetPlayerByUserId(textSource.UserId)
@@ -211,8 +212,7 @@ local function initBubbleChat()
 			end)
 		end
 
-
-		TextChatService.MessageReceived:Connect(function(textChatMessage)
+		messageReceivedConn = TextChatService.MessageReceived:Connect(function(textChatMessage)
 			local textSource = textChatMessage.TextSource
 			if textSource and textSource.UserId then
 				local player = Players:GetPlayerByUserId(textSource.UserId)
@@ -269,6 +269,17 @@ local function destroyBubbleChat()
 	if chattedConn then
 		chattedConn:Disconnect()
 		chattedConn = nil
+	end
+
+	if FFlagFixMessageReceivedEventLeak then
+		if sendingMessageConn then
+			sendingMessageConn:Disconnect()
+			sendingMessageConn = nil
+		end
+		if messageReceivedConn then
+			messageReceivedConn:Disconnect()
+			messageReceivedConn = nil
+		end
 	end
 end
 

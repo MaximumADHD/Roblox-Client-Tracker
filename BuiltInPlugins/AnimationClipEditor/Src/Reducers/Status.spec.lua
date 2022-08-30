@@ -38,7 +38,6 @@ return function()
 	local ToggleWorldSpace = require(Plugin.Src.Actions.ToggleWorldSpace)
 	local SetActive = require(Plugin.Src.Actions.SetActive)
 
-	local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 	local GetFFlagFixSelectionRightArrow = require(Plugin.LuaFlags.GetFFlagFixSelectionRightArrow)
 
 	local testRightClickInfo = {
@@ -172,20 +171,13 @@ return function()
 	describe("SetScrollZoom", function()
 		it("should set Scroll and Zoom values", function()
 			local store = createTestStore()
-			if GetFFlagCurveEditor() then
-				store:dispatch(SetHorizontalScrollZoom(0.1, 0.2))
-				store:dispatch(SetVerticalScrollZoom(0.3, 0.4))
-				local state = store:getState()
-				expect(state.HorizontalScroll).to.equal(0.1)
-				expect(state.HorizontalZoom).to.equal(0.2)
-				expect(state.VerticalScroll).to.equal(0.3)
-				expect(state.VerticalZoom).to.equal(0.4)
-			else
-				store:dispatch(SetScrollZoom(0.5, 0.4))
-				local state = store:getState()
-				expect(state.Scroll).to.equal(0.5)
-				expect(state.Zoom).to.equal(0.4)
-			end
+			store:dispatch(SetHorizontalScrollZoom(0.1, 0.2))
+			store:dispatch(SetVerticalScrollZoom(0.3, 0.4))
+			local state = store:getState()
+			expect(state.HorizontalScroll).to.equal(0.1)
+			expect(state.HorizontalZoom).to.equal(0.2)
+			expect(state.VerticalScroll).to.equal(0.3)
+			expect(state.VerticalZoom).to.equal(0.4)
 		end)
 	end)
 
@@ -314,17 +306,9 @@ return function()
 	describe("SetSelectedTracks", function()
 		it("should set selectedTracks", function()
 			local store = createTestStore()
-			if GetFFlagCurveEditor() then
-				store:dispatch(SetSelectedTracks({{"TestTrack"}}))
-			else
-				store:dispatch(SetSelectedTracks({"TestTrack"}))
-			end
+			store:dispatch(SetSelectedTracks({{"TestTrack"}}))
 			local state = store:getState()
-			if GetFFlagCurveEditor() then
-				expect(state.SelectedTracks[1][1]).to.equal("TestTrack")
-			else
-				expect(state.SelectedTracks[1]).to.equal("TestTrack")
-			end
+			expect(state.SelectedTracks[1][1]).to.equal("TestTrack")
 
 			store:dispatch(SetSelectedTracks())
 			state = store:getState()
@@ -344,25 +328,13 @@ return function()
 				{ Name = "TestTrack2", },
 				{ Name = "TestTrack3", },
 			}))
-			if GetFFlagCurveEditor() then
-				store:dispatch(SetSelectedTracks({{"TestTrack1"}}))
-			else
-				store:dispatch(SetSelectedTracks({"TestTrack1"}))
-			end
+			store:dispatch(SetSelectedTracks({{"TestTrack1"}}))
 			store:dispatch(MoveSelectedTrack(1))
 			local state = store:getState()
-			if GetFFlagCurveEditor() then
-				expect(state.SelectedTracks[1][1]).to.equal("TestTrack2")
-			else
-				expect(state.SelectedTracks[1]).to.equal("TestTrack2")
-			end
+			expect(state.SelectedTracks[1][1]).to.equal("TestTrack2")
 			store:dispatch(MoveSelectedTrack(-1))
 			state = store:getState()
-			if GetFFlagCurveEditor() then
-				expect(state.SelectedTracks[1][1]).to.equal("TestTrack1")
-			else
-				expect(state.SelectedTracks[1]).to.equal("TestTrack1")
-			end
+			expect(state.SelectedTracks[1][1]).to.equal("TestTrack1")
 		end)
 
 		it("should clamp the selection", function()
@@ -372,25 +344,14 @@ return function()
 				{ Name = "TestTrack2", },
 				{ Name = "TestTrack3", },
 			}))
-			if GetFFlagCurveEditor() then
-				store:dispatch(SetSelectedTracks({{"TestTrack1"}}))
-			else
-				store:dispatch(SetSelectedTracks({"TestTrack1"}))
-			end
+			store:dispatch(SetSelectedTracks({{"TestTrack1"}}))
+			
 			store:dispatch(MoveSelectedTrack(-1))
 			local state = store:getState()
-			if GetFFlagCurveEditor() then
-				expect(state.SelectedTracks[1][1]).to.equal("TestTrack1")
-			else
-				expect(state.SelectedTracks[1]).to.equal("TestTrack1")
-			end
+			expect(state.SelectedTracks[1][1]).to.equal("TestTrack1")
 			store:dispatch(MoveSelectedTrack(4))
 			state = store:getState()
-			if GetFFlagCurveEditor() then
-				expect(state.SelectedTracks[1][1]).to.equal("TestTrack3")
-			else
-				expect(state.SelectedTracks[1]).to.equal("TestTrack3")
-			end
+			expect(state.SelectedTracks[1][1]).to.equal("TestTrack3")
 		end)
 	end)
 

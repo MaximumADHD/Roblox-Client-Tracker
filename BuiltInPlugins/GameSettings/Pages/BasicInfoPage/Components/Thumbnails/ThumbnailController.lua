@@ -17,7 +17,8 @@
 		function ThumbnailOrderChanged = A callback for BasicInfo when the thumbnail
 			order has been changed and needs to be saved.
 		function ThumbnailsChanged = A callback for BasicInfo when the thumbnails
-			have changed and need to be saved, for example, when a thumbnail was deleted.
+			have changed and need to be saved, for example, when a thumbnail was deleted,
+			or if a thumbnails alt text was changed.
 		function AddThumbnail = A callback for BasicInfo when the user wants to add
 			a new thumbnail.
 ]]
@@ -45,6 +46,8 @@ function ThumbnailController:init()
 			self:deleteThumbnail(info.thumbnailId)
 		elseif action == "MoveTo" then
 			self:moveToIndex(info.thumbnailId, info.index)
+		elseif action == "UpdateAltText" then
+			self:updateAltText(info.thumbnailId, info.altText)
 		elseif action == "Zoom" then
 			self:openPreviewDialog(info.thumbnailId)
 		end
@@ -77,6 +80,17 @@ function ThumbnailController:deleteThumbnail(thumbnailId)
 	}))
 	local newOrder = Cryo.List.removeValue(self.props.Order, thumbnailId)
 	self.props.ThumbnailOrderChanged(newOrder)
+end
+
+function ThumbnailController:updateAltText(thumbnailId, altText)
+	local thumbnail = table.clone(self.props.Thumbnails[thumbnailId])
+	thumbnail.altText = altText
+
+	Cryo.List.removeValue(self.props.Thumbnails, thumbnailId)
+
+	self.props.ThumbnailsChanged(Cryo.Dictionary.join(self.props.Thumbnails, {
+		[thumbnailId] = thumbnail,
+	}))
 end
 
 function ThumbnailController:moveToIndex(thumbnailId, index)

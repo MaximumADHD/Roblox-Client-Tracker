@@ -16,8 +16,6 @@ local ExternalSettings = require(Root.Services.ExternalSettings)
 local resolvePremiumPromptState = require(Root.Thunks.resolvePremiumPromptState)
 local hasPendingRequest = require(Root.Utils.hasPendingRequest)
 
-local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
-
 local requiredServices = {
 	Network,
 	ExternalSettings,
@@ -43,7 +41,7 @@ local function initiatePremiumPurchase(id, infoType, equipIfPurchased)
 			canShowUpsell = shouldPrecheck and getPremiumUpsellPrecheck(network) or Promise.resolve(true),
 			premiumProductInfo = getPremiumProductInfo(network),
 			accountInfo = getAccountInfo(network, externalSettings),
-			balanceInfo = FFlagPPAccountInfoMigration and getBalanceInfo(network, externalSettings) or Promise.resolve(),
+			balanceInfo = getBalanceInfo(network, externalSettings),
 		})
 			:andThen(function(results)
 				store:dispatch(resolvePremiumPromptState(results.accountInfo, results.balanceInfo, results.premiumProductInfo, results.canShowUpsell))

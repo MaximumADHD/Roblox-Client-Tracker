@@ -12,6 +12,7 @@ local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
+local React = require(CorePackages.Packages.React)
 
 local withStyle = UIBlox.Core.Style.withStyle
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
@@ -25,6 +26,8 @@ local Constants = require(InGameMenu.Resources.Constants)
 local Direction = require(InGameMenu.Enums.Direction)
 
 local PageNavigation = require(script.Parent.PageNavigation)
+local PageNavigationMemo = React.memo(PageNavigation)
+
 local GameIconHeader = require(script.Parent.GameIconHeader)
 local ZonePortal = require(script.Parent.ZonePortal)
 
@@ -63,7 +66,7 @@ MainPage.validateProps = t.strictInterface({
 	canCaptureFocus = t.optional(t.boolean),
 	inputType = t.optional(t.string),
 	setFirstItemRef = t.optional(t.callback),
-	currentZone = t.optional(t.number),
+	shouldForgetPreviousSelection = t.optional(t.boolean),
 	isMainPageInForeground = GetFFlagSideNavControllerBar() and t.optional(t.boolean) or nil,
 })
 
@@ -79,7 +82,7 @@ end
 function MainPage:renderMainPageFocusHandler()
 	return Roact.createElement(FocusHandler, {
 		isFocused = self.canGamepadCaptureFocus(self.props),
-		shouldForgetPreviousSelection = not self.props.open or self.props.currentZone == 0,
+		shouldForgetPreviousSelection = self.props.shouldForgetPreviousSelection,
 		didFocus = function(previousSelection)
 			GuiService.SelectedCoreObject = previousSelection or self.mainPageFirstButtonRef:getValue()
 		end,
@@ -133,7 +136,7 @@ function MainPage:render()
 					Spacer = Roact.createElement(Spacer, {
 						layoutOrder = 2,
 					}),
-					PageNavigation = Roact.createElement(PageNavigation, {
+					PageNavigation = Roact.createElement(PageNavigationMemo, {
 						LayoutOrder = 3,
 						mainPageFirstButtonRef = self.mainPageFirstButtonRef,
 						autosize = true,
@@ -206,10 +209,9 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 		and state.currentZone == 1
 
 	return {
-		open = state.isMenuOpen,
+		shouldForgetPreviousSelection = state.menuPage ~= Constants.MainPagePageKey or state.currentZone == 0,
 		screenSize = state.screenSize,
 		canCaptureFocus = canCaptureFocus,
-		currentZone = state.currentZone,
 		inputType = state.displayOptions.inputType,
 		isMainPageInForeground = isMainPageInForeground,
 		isFavorited = state.gameInfo.isFavorited,

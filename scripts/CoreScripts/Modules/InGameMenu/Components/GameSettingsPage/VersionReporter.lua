@@ -1,3 +1,4 @@
+--!nonstrict
 local LATEST_PLACE_VERSION = "CoreScripts.InGameMenu.GameSettings.PlaceVersionWithLatest"
 local PLACE_VERSION = "CoreScripts.InGameMenu.GameSettings.PlaceVersion"
 

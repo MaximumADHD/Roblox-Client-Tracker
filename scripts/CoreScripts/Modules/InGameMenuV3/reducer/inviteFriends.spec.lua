@@ -14,8 +14,7 @@ return function()
 	it("should be empty by default", function()
 		local defaultState = inviteFriends(nil, {})
 		expect(type(defaultState)).to.equal("table")
-		expect(countKeys(defaultState)).to.equal(1)
-		expect(countKeys(defaultState.inviteFriends)).to.equal(0)
+		expect(countKeys(defaultState)).to.equal(0)
 	end)
 
 	describe("SetFriends", function()
@@ -44,7 +43,7 @@ return function()
 					},
 				})
 			)
-			expect(countKeys(newState.inviteFriends)).to.equal(3)
+			expect(countKeys(newState)).to.equal(3)
 		end)
 	end)
 end

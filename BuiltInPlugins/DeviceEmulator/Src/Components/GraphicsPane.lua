@@ -23,6 +23,7 @@ local GraphicsPane = Roact.PureComponent:extend("GraphicsPane")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local RenderSettings = settings().Rendering
 
+local SavedQualityLevelChanged = UserGameSettings:GetPropertyChangedSignal("SavedQualityLevel")
 local GraphicsQualityLevelChanged = UserGameSettings:GetPropertyChangedSignal("GraphicsQualityLevel")
 local GRAPHICS_QUALITY_LEVELS = RenderSettings:GetMaxQualityLevel() - 1
 
@@ -80,10 +81,12 @@ function GraphicsPane:init(_props)
 	end
 
 	self.graphicsQualityLevelChangedConnection = GraphicsQualityLevelChanged:Connect(onQualityChanged)
+	self.savedQualityLevelChangedConnection = SavedQualityLevelChanged:Connect(onQualityChanged)
 end
 
 function GraphicsPane:willUnmount()
 	self.graphicsQualityLevelChangedConnection:Disconnect()
+	self.savedQualityLevelChangedConnection:Disconnect()
 end
 
 function GraphicsPane:render()

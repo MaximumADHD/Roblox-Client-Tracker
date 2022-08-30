@@ -2,9 +2,6 @@ return function()
 	local Plugin = script.Parent.Parent.Parent
 	local Constants = require(Plugin.Src.Util.Constants)
 
-	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-	local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
 	local AnimationData = require(script.Parent.AnimationData)
 
 	local bones = {"TestTrack", "OtherTrack"}
@@ -785,9 +782,7 @@ return function()
 			expect(AnimationData.getTrack(data, "Root", {"TestTrack3"})).never.to.be.ok()
 			expect(AnimationData.getTrack(data, "Root", {"Component"})).never.to.be.ok()
 			expect(AnimationData.getTrack(data, "Root", {"TestTrack2", "Foo"})).never.to.be.ok()
-			if GetFFlagCurveEditor() then
-				expect(AnimationData.getTrack(data, "Root", {"TestTrack2", "Component", "Foo"})).never.to.be.ok()
-			end
+			expect(AnimationData.getTrack(data, "Root", {"TestTrack2", "Component", "Foo"})).never.to.be.ok()
 		end)
 	end)
 end

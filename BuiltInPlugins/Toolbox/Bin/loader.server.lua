@@ -22,7 +22,7 @@ local MemStorageService = game:GetService("MemStorageService")
 
 local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
 
-local FFlagUnifyModelPackagePublish = game:GetFastFlag("UnifyModelPackagePublish")
+local FFlagUnifyModelPackagePublish2 = game:GetFastFlag("UnifyModelPackagePublish2")
 
 local args: PluginLoaderBuilder.Args = {
 	plugin = plugin,
@@ -62,7 +62,7 @@ local args: PluginLoaderBuilder.Args = {
 		zIndexBehavior = Enum.ZIndexBehavior.Sibling,
 	},
 	extraTriggers = {
-		["StudioAssetService.OnSaveToRoblox"] = if FFlagUnifyModelPackagePublish then function()
+		["StudioAssetService.OnSaveToRoblox"] = if FFlagUnifyModelPackagePublish2 then function()
 			return StudioAssetService.OnSaveToRoblox
 		end else nil,
 		["StudioService.OnSaveToRoblox"] = function()

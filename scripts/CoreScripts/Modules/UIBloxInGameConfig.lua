@@ -22,6 +22,9 @@ local GetFFlagUIBloxSliderUpdateOnDismiss = require(
 local GetFFlagUIBloxFixDropdownMenuCellTextSize = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuCellTextSize
 )
+local GetFFlagUIBloxEnableActionBarLayoutFix = require(
+	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableActionBarLayoutFix
+)
 
 local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 
@@ -45,4 +48,5 @@ return {
 	sliderUpdateOnDismiss = GetFFlagUIBloxSliderUpdateOnDismiss(),
 
 	devMode = ArgCheck.isEnabled(),
+	enableActionBarLayoutFix = GetFFlagUIBloxEnableActionBarLayoutFix(),
 }

@@ -23,13 +23,10 @@ local Templates = require(Plugin.Src.Util.Templates)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local GetFFlagACESaveRigWithAnimation = require(Plugin.LuaFlags.GetFFlagACESaveRigWithAnimation)
-local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
 local GetFFlagFixRigInfoForFacs = require(Plugin.LuaFlags.GetFFlagFixRigInfoForFacs)
-local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagFixFocusOnFaceForDifferentRigSetup = require(Plugin.LuaFlags.GetFFlagFixFocusOnFaceForDifferentRigSetup)
 
-local FFlagCheckPart0OfMotor6DExists = game:DefineFastFlag("CheckPart0OfMotor6DExists", false)
 local FFlagCheckIsRunning = game:DefineFastFlag("ACECheckIsRunning", false)
 local FFlagRetireGetBoneMap = game:DefineFastFlag("ACERetireGetBoneMap", false)
 
@@ -182,17 +179,9 @@ function RigUtils.getBones(rig)
 	local bones = {}
 
 	local descendants = getDescendants({}, rig)
-	if GetFFlagFacialAnimationSupport() then
-		for _, child in ipairs(descendants) do
-			if child:IsA(Constants.BONE_CLASS_NAME) and child.IsCFrameDriven then
-				table.insert(bones, child)
-			end
-		end
-	else
-		for _, child in ipairs(descendants) do
-			if child:IsA(Constants.BONE_CLASS_NAME) then
-				table.insert(bones, child)
-			end
+	for _, child in ipairs(descendants) do
+		if child:IsA(Constants.BONE_CLASS_NAME) and child.IsCFrameDriven then
+			table.insert(bones, child)
 		end
 	end
 	return bones
@@ -265,8 +254,8 @@ function RigUtils.findRootPart(rig)
 	if currentPart then
 		while not root do
 			local motor = motorMap[currentPart]
-			if motor and (not FFlagCheckPart0OfMotor6DExists or motorMap[currentPart].Part0) then
-				currentPart = motorMap[currentPart].Part0.Name
+			if motor and motor.Part0 then
+				currentPart = motor.Part0.Name
 			else
 				root = currentPart
 			end
@@ -528,10 +517,6 @@ end
 
 function RigUtils.canUseFaceControlsEditor(rig)
 	if not rig then
-		return false
-	end
-
-	if not GetFFlagFacialAnimationSupport() then
 		return false
 	end
 
@@ -903,24 +888,6 @@ function RigUtils.getUnusedRigTracks(rig, tracks)
 		return first.Name < second.Name
 	end)
 
-	if GetFFlagRootMotionTrack() then
-		local used = false
-		for _, track in ipairs(tracks) do
-			if rootPart.Name == track.Name then
-				used = true
-				break
-			end
-		end
-
-		if not used then
-			table.insert(unusedTracks, {
-				Name = rootPart.Name,
-				Instance = "Root",
-				Type = Constants.TRACK_TYPES.CFrame,
-			})
-		end
-	end
-
 	return unusedTracks
 end
 
@@ -1164,56 +1131,11 @@ end
 
 function RigUtils.fillFloatCurve(track, curve)
 	if track then
-		if not GetFFlagCurveEditor() then
-			for tck, keyframe in pairs(track.Data) do
-				local time = tck / Constants.TICK_FREQUENCY
-				local key = FloatCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode or Enum.KeyInterpolationMode.Cubic)
-				key.LeftTangent = keyframe.LeftSlope and (keyframe.LeftSlope * Constants.TICK_FREQUENCY) or nil
-				if keyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic then
-					key.RightTangent = keyframe.RightSlope and (keyframe.RightSlope * Constants.TICK_FREQUENCY) or nil
-				end
-				curve:InsertKey(key)
-			end
-		else
-			local prevKeyframe = nil
-			for _, tck in ipairs(track.Keyframes) do
-				local keyframe = track.Data[tck]
-				local time = tck / Constants.TICK_FREQUENCY
-				local key = FloatCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode or Enum.KeyInterpolationMode.Cubic)
-				if prevKeyframe and prevKeyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic and keyframe.LeftSlope then
-					key.LeftTangent = keyframe.LeftSlope * Constants.TICK_FREQUENCY
-				else
-					key.LeftTangent = nil
-				end
-				if keyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic then
-					key.RightTangent = keyframe.RightSlope and (keyframe.RightSlope * Constants.TICK_FREQUENCY) or nil
-				end
-				curve:InsertKey(key)
-
-				prevKeyframe = keyframe
-			end
-		end
-	end
-end
-
-function RigUtils.fillQuaternionCurve(track, curve)
-	if not GetFFlagCurveEditor() then
-		for tck, keyframe in pairs(track.Data) do
-			local time = tck / Constants.TICK_FREQUENCY
-			local key = RotationCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode)
-			if keyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic then
-				key.LeftTangent = keyframe.LeftSlope and (keyframe.LeftSlope * Constants.TICK_FREQUENCY) or nil
-				key.RightTangent = keyframe.RightSlope and (keyframe.RightSlope * Constants.TICK_FREQUENCY) or nil
-			end
-
-			curve:InsertKey(key)
-		end
-	else
 		local prevKeyframe = nil
-		for index, tck in ipairs(track.Keyframes) do
+		for _, tck in ipairs(track.Keyframes) do
 			local keyframe = track.Data[tck]
 			local time = tck / Constants.TICK_FREQUENCY
-			local key = RotationCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode)
+			local key = FloatCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode or Enum.KeyInterpolationMode.Cubic)
 			if prevKeyframe and prevKeyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic and keyframe.LeftSlope then
 				key.LeftTangent = keyframe.LeftSlope * Constants.TICK_FREQUENCY
 			else
@@ -1226,6 +1148,26 @@ function RigUtils.fillQuaternionCurve(track, curve)
 
 			prevKeyframe = keyframe
 		end
+	end
+end
+
+function RigUtils.fillQuaternionCurve(track, curve)
+	local prevKeyframe = nil
+	for _, tck in ipairs(track.Keyframes) do
+		local keyframe = track.Data[tck]
+		local time = tck / Constants.TICK_FREQUENCY
+		local key = RotationCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode)
+		if prevKeyframe and prevKeyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic and keyframe.LeftSlope then
+			key.LeftTangent = keyframe.LeftSlope * Constants.TICK_FREQUENCY
+		else
+			key.LeftTangent = nil
+		end
+		if keyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic then
+			key.RightTangent = keyframe.RightSlope and (keyframe.RightSlope * Constants.TICK_FREQUENCY) or nil
+		end
+		curve:InsertKey(key)
+
+		prevKeyframe = keyframe
 	end
 end
 
@@ -1243,7 +1185,7 @@ end
 function RigUtils.makeEulerCurve(track)
 	if track then
 		local eulerCurve = Instance.new("EulerRotationCurve")
-		eulerCurve.RotationOrder = if GetFFlagCurveEditor() then track.EulerAnglesOrder else Enum.RotationOrder.XYZ
+		eulerCurve.RotationOrder = track.EulerAnglesOrder
 		RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.X], eulerCurve:X())
 		RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.Y], eulerCurve:Y())
 		RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.Z], eulerCurve:Z())
@@ -1432,7 +1374,7 @@ function RigUtils.readCurve(track, curve, trackType)
 			end
 		end
 
-		if GetFFlagCurveEditor() and trackType == Constants.TRACK_TYPES.EulerAngles then
+		if trackType == Constants.TRACK_TYPES.EulerAngles then
 			track.EulerAnglesOrder = curve.RotationOrder
 		end
 	end
@@ -1441,10 +1383,6 @@ function RigUtils.readCurve(track, curve, trackType)
 end
 
 function RigUtils.readFacsCurves(tracks, faceControlsFolder)
-	if not GetFFlagFacialAnimationSupport() then
-		return 0
-	end
-
 	local endTick = 0
 	local facsCurves = faceControlsFolder:GetChildren()
 	for _, facsCurve in pairs(facsCurves) do
@@ -1699,15 +1637,11 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 			-- TODO: At some point we will need to differentiate NumberPoses into
 			-- FACS channels and generic float channels. On name? Parent?
 			local trackType = pose:IsA("Pose") and Constants.TRACK_TYPES.CFrame or Constants.TRACK_TYPES.Facs
-			local shouldAddTrackForPose = GetFFlagRootMotionTrack() and true or poseName ~= "HumanoidRootPart"
+			local shouldAddTrackForPose = poseName ~= "HumanoidRootPart"
 
 			if shouldAddTrackForPose and pose.Weight ~= 0 then
 				if tracks[poseName] == nil then
-					if GetFFlagCurveEditor() then
-						AnimationData.addTrack(tracks, poseName, trackType, false, Constants.TRACK_TYPES.Quaternion, nil)
-					else
-						AnimationData.addTrack(tracks, poseName, trackType)
-					end
+					AnimationData.addTrack(tracks, poseName, trackType, false, Constants.TRACK_TYPES.Quaternion, nil)
 				end
 				local track = tracks[poseName]
 				local keyframeData = {
@@ -1790,9 +1724,9 @@ function RigUtils.stepRigAnimation(rig, instance, tck)
 		boneMap = RigUtils.getBoneMap(rig)
 	end
 
-	if not GetFFlagFacialAnimationSupport() then
-		for _, part in ipairs(parts) do
-			local joint = partsToMotors[part.Name] or boneMap[part.Name]
+	for _, part in ipairs(parts) do
+		local joint = partsToMotors[part.Name] or boneMap[part.Name]
+		if joint then
 			local track = instance.Tracks[part.Name]
 			if track then
 				joint.Transform = KeyframeUtils.getValue(track, tck)
@@ -1800,45 +1734,33 @@ function RigUtils.stepRigAnimation(rig, instance, tck)
 				joint.Transform = CFrame.new()
 			end
 		end
-	else
-		for _, part in ipairs(parts) do
-			local joint = partsToMotors[part.Name] or boneMap[part.Name]
-			if joint then
-				local track = instance.Tracks[part.Name]
-				if track then
-					joint.Transform = KeyframeUtils.getValue(track, tck)
-				else
-					joint.Transform = CFrame.new()
-				end
-			end
-		end
+	end
 
-		local faceControls = RigUtils.getFaceControls(rig)
-		if  GetFFlagFaceControlsEditorUI() then
-			if faceControls ~= nil then
-				--looping through the facs instead of looping through tracks
-				--so we also handle cases like a track was deleted
-				for i, facsName in pairs(Constants.FacsNames) do
-					if instance and instance.Tracks ~= nil then
-						local track = instance.Tracks[facsName]
-						if track and track.Type == Constants.TRACK_TYPES.Facs then
-							faceControls[facsName] = KeyframeUtils.getValue(track, tck)
-						else
-							faceControls[facsName] = 0
-						end
+	local faceControls = RigUtils.getFaceControls(rig)
+	if  GetFFlagFaceControlsEditorUI() then
+		if faceControls ~= nil then
+			--looping through the facs instead of looping through tracks
+			--so we also handle cases like a track was deleted
+			for i, facsName in pairs(Constants.FacsNames) do
+				if instance and instance.Tracks ~= nil then
+					local track = instance.Tracks[facsName]
+					if track and track.Type == Constants.TRACK_TYPES.Facs then
+						faceControls[facsName] = KeyframeUtils.getValue(track, tck)
 					else
 						faceControls[facsName] = 0
 					end
+				else
+					faceControls[facsName] = 0
 				end
 			end
-		else
-			--old implementation, was not reseting the values in facecontrols when facs key deleted
-			--so the avatar would have a wrong face expression then
-			if faceControls ~= nil then
-				for trackName, track in pairs(instance.Tracks) do
-					if track.Type == Constants.TRACK_TYPES.Facs and Constants.FacsControlToRegionMap[trackName] ~= nil then
-						faceControls[trackName] = KeyframeUtils.getValue(track, tck)
-					end
+		end
+	else
+		--old implementation, was not reseting the values in facecontrols when facs key deleted
+		--so the avatar would have a wrong face expression then
+		if faceControls ~= nil then
+			for trackName, track in pairs(instance.Tracks) do
+				if track.Type == Constants.TRACK_TYPES.Facs and Constants.FacsControlToRegionMap[trackName] ~= nil then
+					faceControls[trackName] = KeyframeUtils.getValue(track, tck)
 				end
 			end
 		end
@@ -1913,25 +1835,76 @@ function RigUtils.focusCameraOnFace(rootInstance)
 	local faceControls = RigUtils.getFaceControls(rootInstance)
 	if faceControls ~= nil then
 		local head = faceControls.Parent
-		local connectingPart = head.Parent.UpperTorso
-		--support custom setup characters by searching for the Neck joint and then getting Part0 rather than hardcoded "UpperTorso":
-		local neck = head:FindFirstChild("Neck")
-		if neck and neck:IsA("Motor6D") then
-			connectingPart = neck.Part0
-		end
+		local connectingPart = nil
+		if GetFFlagFixFocusOnFaceForDifferentRigSetup() then
 
-		--eyeballed distance avatar fits in nicely at base fov and avatar being average height (1.75)
-		local width = 0.75
-		local baseWidth = 0.75
-		--base fov is the default fov the camera has
-		local baseFOV = 70
-		width = baseWidth
-		if currentCamera.FieldOfView ~= baseFOV then
-			width = baseWidth / (currentCamera.FieldOfView / baseFOV)
-		end	
-		local center = head.Position + connectingPart.CFrame.LookVector * (width * 2)
-		currentCamera.CFrame = CFrame.lookAt(center, head.CFrame.Position)
-		currentCamera.Focus = head.CFrame		
+			--support custom setup characters by searching for the Neck joint and then getting Part0 rather than hardcoded "UpperTorso":
+			local neck = head:FindFirstChild("Neck")
+			if neck and neck:IsA("Motor6D") and neck.Part1 == head then
+				connectingPart = neck.Part0
+			else
+				neck = head:FindFirstChildOfClass("Motor6D")
+				if neck and neck.Part1 == head then
+					connectingPart = neck.Part0
+				else
+					--try the more generous, but also more prone to not be the correct object options
+					--in case the user has a more esoteric rig setup
+					--(like multiple moto6ds in there or the connecting motor6d not inside the head but rather another object inside the avatar)
+
+					--try to still find a connectingPart
+					if connectingPart == nil then
+						if head.Parent and head.Parent ~= Workspace then
+						--if still couldn't find a part connected to the head,
+						--try to look through all the motor6ds to check if any is connected to the head
+							local descendants = head.Parent:GetDescendants()
+
+							for index, descendant in pairs(descendants) do
+								if descendant:IsA("Motor6D") and descendant.Part1 == head then
+									connectingPart = descendant
+									break
+								end
+							end
+						end
+					end
+				end
+			end
+
+			if connectingPart ~= nil then
+				--eyeballed distance avatar fits in nicely at base fov and avatar being average height (1.75)
+				local width = 0.75
+				local baseWidth = 0.75
+				--base fov is the default fov the camera has
+				local baseFOV = 70
+				width = baseWidth
+				if currentCamera.FieldOfView ~= baseFOV then
+					width = baseWidth / (currentCamera.FieldOfView / baseFOV)
+				end
+				local center = head.Position + connectingPart.CFrame.LookVector * (width * 2)
+				currentCamera.CFrame = CFrame.lookAt(center, head.CFrame.Position)
+				currentCamera.Focus = head.CFrame
+			end
+		else
+			connectingPart = head.Parent.UpperTorso
+
+			--support custom setup characters by searching for the Neck joint and then getting Part0 rather than hardcoded "UpperTorso":
+			local neck = head:FindFirstChild("Neck")
+			if neck and neck:IsA("Motor6D") then
+				connectingPart = neck.Part0
+			end
+
+			--eyeballed distance avatar fits in nicely at base fov and avatar being average height (1.75)
+			local width = 0.75
+			local baseWidth = 0.75
+			--base fov is the default fov the camera has
+			local baseFOV = 70
+			width = baseWidth
+			if currentCamera.FieldOfView ~= baseFOV then
+				width = baseWidth / (currentCamera.FieldOfView / baseFOV)
+			end
+			local center = head.Position + connectingPart.CFrame.LookVector * (width * 2)
+			currentCamera.CFrame = CFrame.lookAt(center, head.CFrame.Position)
+			currentCamera.Focus = head.CFrame
+		end
 	end
 end
 

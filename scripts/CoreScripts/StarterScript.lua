@@ -31,13 +31,12 @@ local PolicyService = require(CoreGuiModules:WaitForChild("Common"):WaitForChild
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 local FFlagVirtualCursorEnabled = game:GetEngineFeature("VirtualCursorEnabled")
+local FFlagKeyboardUINavigationEnabled = game:DefineFastFlag("KeyboardUINavigationEnabled", false)
 
 local FFlagUseRoactGlobalConfigInCoreScripts = require(RobloxGui.Modules.Flags.FFlagUseRoactGlobalConfigInCoreScripts)
 local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
 
 local GetFFlagScreenTime = require(CorePackages.Regulations.ScreenTime.GetFFlagScreenTime)
-
-local GetFFlagEnableCaptureMode = require(RobloxGui.Modules.Flags.GetFFlagEnableCaptureMode)
 
 local GetFFlagScreenshotHudApi = require(RobloxGui.Modules.Flags.GetFFlagScreenshotHudApi)
 
@@ -58,6 +57,8 @@ local GetCoreScriptsLayers = require(CoreGuiModules.Experiment.GetCoreScriptsLay
 local FFlagEnableLuobuWarningToast = require(RobloxGui.Modules.Flags.FFlagEnableLuobuWarningToast)
 
 local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
+
+game:DefineFastFlag("MoodsEmoteFix2", false)
 
 -- The Rotriever index, as well as the in-game menu code itself, relies on
 -- the init.lua convention, so we have to run initify over the module.
@@ -203,6 +204,11 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/AvatarContextMenu", RobloxGui)
 -- Backpack!
 coroutine.wrap(safeRequire)(RobloxGui.Modules.BackpackScript)
 
+-- Keyboard Navigation :)
+if FFlagKeyboardUINavigationEnabled then
+	coroutine.wrap(safeRequire)(RobloxGui.Modules.KeyboardUINavigation)
+end
+
 -- Emotes Menu
 coroutine.wrap(safeRequire)(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 
@@ -241,10 +247,6 @@ end)()
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/NetworkPause", RobloxGui)
 
-if GetFFlagEnableCaptureMode() and not PolicyService:IsSubjectToChinaPolicies() then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/CaptureHud", RobloxGui)
-end
-
 if GetFFlagScreenshotHudApi() and not PolicyService:IsSubjectToChinaPolicies() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/ScreenshotHud", RobloxGui)
 end
@@ -282,6 +284,6 @@ if game:GetEngineFeature("FacialAnimationStreaming") then
 	end
 end
 
-if game:GetEngineFeature("NewMoodAnimationTypeApiEnabled") then
+if game:GetEngineFeature("NewMoodAnimationTypeApiEnabled") and game:GetFastFlag("MoodsEmoteFix2") then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/AvatarMood", script.Parent)
 end

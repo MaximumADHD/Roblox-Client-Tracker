@@ -74,10 +74,7 @@ local FacialAnimationRecorder = require(Plugin.Src.Components.FacialAnimationRec
 local TrackColors = require(Plugin.Src.Components.TrackList.TrackColors)
 local PromoteToCurvesPrompt = require(Plugin.Src.Components.PromoteToCurvesPrompt)
 
-local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
-local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
 local GetFFlagFaceControlsEditorFixNonChannelPath = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorFixNonChannelPath)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
@@ -204,25 +201,15 @@ function EditorController:init()
 		local selectedTracks = props.SelectedTracks
 		local setSelectedTracks = props.SetSelectedTracks
 
-		if GetFFlagCurveEditor() then
-			if selectedTracks and PathUtils.findPath(selectedTracks, path) then
-				setSelectedTracks(PathUtils.removePath(selectedTracks, path))
-			else
-				if GetFFlagFixTrackListSelection() then
-					props.SetLastSelectedPath(path)
-				else
-					self.lastSelected = path
-				end
-				setSelectedTracks(Cryo.List.join(selectedTracks or {}, { path }))
-			end
+		if selectedTracks and PathUtils.findPath(selectedTracks, path) then
+			setSelectedTracks(PathUtils.removePath(selectedTracks, path))
 		else
-			local trackName = path
-			if selectedTracks and Cryo.List.find(selectedTracks, trackName) then
-				setSelectedTracks(Cryo.List.removeValue(selectedTracks, trackName))
+			if GetFFlagFixTrackListSelection() then
+				props.SetLastSelectedPath(path)
 			else
-				self.lastSelected = trackName
-				setSelectedTracks(Cryo.List.join(selectedTracks or {}, {trackName}))
+				self.lastSelected = path
 			end
+			setSelectedTracks(Cryo.List.join(selectedTracks or {}, { path }))
 		end
 	end
 
@@ -234,21 +221,13 @@ function EditorController:init()
 		local currentSelectedIndex, lastSelectedIndex
 		local lastSelectedPath = self.props.LastSelectedPath
 		for index, track in ipairs(tracks) do
-			if GetFFlagCurveEditor() then
-				if
-					(GetFFlagFixTrackListSelection() and lastSelectedPath and track.Name == lastSelectedPath[1])
-					or (not GetFFlagFixTrackListSelection() and track.Name == self.lastSelected[1])
-				then
-					lastSelectedIndex = index
-				elseif track.Name == path[1] then
-					currentSelectedIndex = index
-				end
-			else
-				if track.Name == self.lastSelected then
-					lastSelectedIndex = index
-				elseif track.Name == trackName then
-					currentSelectedIndex = index
-				end
+			if
+				(GetFFlagFixTrackListSelection() and lastSelectedPath and track.Name == lastSelectedPath[1])
+				or (not GetFFlagFixTrackListSelection() and track.Name == self.lastSelected[1])
+			then
+				lastSelectedIndex = index
+			elseif track.Name == path[1] then
+				currentSelectedIndex = index
 			end
 		end
 		if currentSelectedIndex ~= nil and lastSelectedIndex ~= nil then
@@ -256,16 +235,16 @@ function EditorController:init()
 			local endIndex = math.max(currentSelectedIndex, lastSelectedIndex)
 			local newSelectedTracks = {}
 			for i = startIndex, endIndex do
-				table.insert(newSelectedTracks, if GetFFlagCurveEditor() then {tracks[i].Name} else tracks[i].Name)
+				table.insert(newSelectedTracks, {tracks[i].Name})
 			end
 			setSelectedTracks(newSelectedTracks)
 		else
 			if GetFFlagFixTrackListSelection() then
 				self.props.SetLastSelectedPath(path)
 			else
-				self.lastSelected = if GetFFlagCurveEditor() then path else trackName
+				self.lastSelected = path
 			end
-			setSelectedTracks(if GetFFlagCurveEditor() then { path } else { trackName })
+			setSelectedTracks({path})
 		end
 	end
 
@@ -278,7 +257,7 @@ function EditorController:init()
 		self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(rootInstance)
 		if selectedTracks and rootInstance and self.KinematicParts and #self.KinematicParts > 0 then
 			for _, path in ipairs(selectedTracks) do
-				local track = if GetFFlagCurveEditor() then path[1] else path
+				local track = path[1]
 				local bone = RigUtils.getBoneByName(rootInstance, track)
 				if bone then
 					table.insert(currentParts, bone)
@@ -303,7 +282,7 @@ function EditorController:init()
 
 		if self.controlDown then
 			self.controlSelectTrack(path)
-		elseif (not GetFFlagCurveEditor() or not AnimationData.isChannelAnimation(animationData)) and self.shiftDown then
+		elseif not AnimationData.isChannelAnimation(animationData) and self.shiftDown then
 			self.shiftSelectTrack(path)
 		else
 			if GetFFlagFixTrackListSelection() then
@@ -314,11 +293,7 @@ function EditorController:init()
 			setSelectedTracks({ path })
 		end
 		self.findCurrentParts({path}, props.RootInstance)
-		if GetFFlagCurveEditor() then
-			props.Analytics:report("onTrackSelected", path[1], "TrackList", editorMode)
-		else
-			props.Analytics:report("onTrackSelected", path, "TrackList", editorMode)
-		end
+		props.Analytics:report("onTrackSelected", path[1], "TrackList", editorMode)
 	end
 
 	self.onPartSelected = function(path)
@@ -341,23 +316,15 @@ function EditorController:init()
 	end
 
 	self.addTrackWrapper = function(instanceName, trackName, trackType)
-		if GetFFlagCurveEditor() then
-			self.props.AddTrack(instanceName, trackName, trackType, nil, nil, self.props.Analytics)
-		else
-			self.props.AddTrack_deprecated2(instanceName, trackName, trackType, self.props.Analytics)
-		end
+		self.props.AddTrack(instanceName, trackName, trackType, nil, nil, self.props.Analytics)
 	end
 
 	self.createAnimationWrapper = function(name)
-		if GetFFlagFacialAnimationSupport() or self.props.Analytics then
-			self.props.CreateAnimation(name, self.props.Analytics)
-		end
+		self.props.CreateAnimation(name, self.props.Analytics)
 	end
 
 	self.attachEditorWrapper = function()
-		if GetFFlagFacialAnimationSupport() or self.props.Analytics then
-			self.props.AttachEditor(self.props.Analytics)
-		end
+		self.props.AttachEditor(self.props.Analytics)
 	end
 
 	self.applyValueToFacsSliderPartners = function(instanceName, path, trackType, tck, value)
@@ -436,13 +403,13 @@ function EditorController:init()
 		if not AnimationData.isChannelAnimation(animationData) then
 			self.props.ValueChanged(instanceName, path, trackType, tck, value, self.props.Analytics)
 		else
-			local rotationType = GetFFlagCurveEditor() and self.props.DefaultRotationType or Constants.TRACK_TYPES.EulerAngles
+			local rotationType = self.props.DefaultRotationType
 			local eulerAnglesOrder = self.props.DefaultEulerAnglesOrder
 			local trackName = path[1]
 			local track = AnimationData.getTrack(animationData, instanceName, {trackName})
 			if track and track.Components and track.Components[Constants.PROPERTY_KEYS.Rotation] then
 				rotationType = track.Components[Constants.PROPERTY_KEYS.Rotation].Type
-				if GetFFlagCurveEditor() and rotationType == Constants.TRACK_TYPES.EulerAngles then
+				if rotationType == Constants.TRACK_TYPES.EulerAngles then
 					eulerAnglesOrder = track.EulerAnglesOrder
 				end
 			end
@@ -470,10 +437,6 @@ function EditorController:willUpdate(nextProps)
 		self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(nextProps.RootInstance)
 		for _, part in ipairs(self.KinematicParts) do
 			self.nameToPart[part.Name] = part
-		end
-		if GetFFlagRootMotionTrack() then
-			local rootPart = RigUtils.findRootPart(nextProps.RootInstance)
-			self.nameToPart[rootPart.Name] = rootPart
 		end
 	end
 
@@ -504,8 +467,6 @@ function EditorController:render()
 	local tracks = props.Tracks
 	local unusedTracks = props.UnusedTracks
 	local unusedFacs = props.UnusedFacs
-	local scroll = not GetFFlagCurveEditor() and props.Scroll or nil
-	local zoom = not GetFFlagCurveEditor() and props.Zoom or nil
 	local horizontalScroll = props.HorizontalScroll
 	local horizontalZoom = props.HorizontalZoom
 	local verticalScroll = props.VerticalScroll
@@ -528,20 +489,8 @@ function EditorController:render()
 	local animationImportProgress = props.AnimationImportProgress
 	local animationImportStatus = props.AnimationImportStatus
 
-	local selectedPaths = {}
-	if not GetFFlagCurveEditor() and selectedTracks then
-		for _, track in pairs(selectedTracks) do
-			table.insert(selectedPaths, {track})
-		end
-	end
-
 	if animationData then
-		local range
-		if GetFFlagCurveEditor() then
-			range = TrackUtils.getZoomRange(props.AnimationData, horizontalScroll, horizontalZoom, editingLength)
-		else
-			range = TrackUtils.getZoomRange(props.AnimationData, scroll, zoom, editingLength)
-		end
+		local range = TrackUtils.getZoomRange(props.AnimationData, horizontalScroll, horizontalZoom, editingLength)
 		startTick = range.Start
 		endTick = range.End
 		lastTick = animationData.Metadata.EndTick
@@ -560,15 +509,7 @@ function EditorController:render()
 	local position = props.Position
 	local size = props.Size
 
-	local colorsPosition
-	if GetFFlagCurveEditor() then
-		colorsPosition = (showEvents and Constants.TRACK_HEIGHT or 0) + Constants.SUMMARY_TRACK_HEIGHT
-	else
-		colorsPosition = (showEvents and Constants.TRACK_HEIGHT or 0) + Constants.TIMELINE_HEIGHT
-		+ Constants.SUMMARY_TRACK_HEIGHT
-	end
-
-	local showCurveCanvas = props.EditorMode == Constants.EDITOR_MODE.CurveCanvas
+	local colorsPosition = (showEvents and Constants.TRACK_HEIGHT or 0) + Constants.SUMMARY_TRACK_HEIGHT
 	local showDopeSheet = props.EditorMode == Constants.EDITOR_MODE.DopeSheet
 
 	return Roact.createElement("Frame", {
@@ -586,17 +527,17 @@ function EditorController:render()
 		}),
 
 		TrackListAndControlContainer = Roact.createElement("Frame", {
-			BackgroundTransparency = GetFFlagCurveEditor() and 0 or 1,
-			BackgroundColor3 = GetFFlagCurveEditor() and theme.backgroundColor or nil,
-			BorderSizePixel = GetFFlagCurveEditor() and 0 or nil,
+			BackgroundTransparency = 0,
+			BackgroundColor3 = theme.backgroundColor,
+			BorderSizePixel = 0,
 			Size = UDim2.new(0, trackListWidth, 1, 0),
 			LayoutOrder = 0,
-			ZIndex = GetFFlagCurveEditor() and 2 or nil,
+			ZIndex = 2,
 		}, {
-			Layout = GetFFlagCurveEditor() and Roact.createElement("UIListLayout", {
+			Layout = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Vertical,
 				SortOrder = Enum.SortOrder.LayoutOrder,
-			}) or nil,
+			}),
 
 			AnimationControlPanel = Roact.createElement(AnimationControlPanel, {
 				StartTick = startTick,
@@ -606,17 +547,16 @@ function EditorController:render()
 				AnimationData = props.AnimationData,
 				ShowAsSeconds = showAsSeconds,
 				IsChannelAnimation = isChannelAnimation,
-				LayoutOrder = GetFFlagCurveEditor() and 0 or nil,
+				LayoutOrder = 0,
 				ShowAnimationImportProgress = self.showAnimationImportProgress,
 				HideAnimationImportProgress = self.hideAnimationImportProgress,
 			}),
 
 			EventsAndTracks = Roact.createElement("ImageButton", {
 				Size = UDim2.new(0, trackListWidth, 1, -Constants.TIMELINE_HEIGHT),
-				Position = not GetFFlagCurveEditor() and UDim2.new(0, 0, 0, Constants.TIMELINE_HEIGHT) or nil,
 				BackgroundTransparency = 1,
 				ImageTransparency = 1,
-				LayoutOrder = GetFFlagCurveEditor() and 1 or nil,
+				LayoutOrder = 1,
 				[Roact.Event.Activated] = function()
 					props.SetSelectedTracks(if GetFFlagFixSelectionRightArrow() then {} else nil)
 					if GetFFlagFixTrackListSelection() then
@@ -638,7 +578,7 @@ function EditorController:render()
 					end,
 				}),
 
-				TrackListAndScrollBar = GetFFlagCurveEditor() and Roact.createElement("Frame", {
+				TrackListAndScrollBar = Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, showEvents and -Constants.TRACK_HEIGHT or 0),
 					LayoutOrder = 1,
 					BackgroundTransparency = 1,
@@ -677,29 +617,9 @@ function EditorController:render()
 							OnScroll = self.onScroll,
 						})
 					}),
-				}) or nil,
+				}),
 
-				TrackList = not GetFFlagCurveEditor() and Roact.createElement(TrackList, {
-					Size = showEvents and UDim2.new(1, 0, 1, -Constants.TRACK_HEIGHT) or UDim2.new(1, 0, 1, 0),
-					LayoutOrder = 1,
-					TopTrackIndex = topTrackIndex,
-					Tracks = tracks,
-					SelectedTracks = selectedTracks,
-					UnusedTracks = unusedTracks,
-					UnusedFacs = unusedFacs,
-					AnimationData = animationData,
-					Playhead = playhead,
-					RootName = rootName,
-
-					OnScroll = self.onScroll,
-					OpenContextMenu = self.showMenu,
-					ToggleTrackExpanded = props.SetTracksExpanded,
-					OnTrackAdded = self.addTrackWrapper,
-					OnValueChanged = self.onValueChanged,
-					OnChangeBegan = props.AddWaypoint,
-					OnTrackSelected = self.onTrackSelected,
-				}) or nil,
-
+				
 				KeyboardListener = Roact.createElement(KeyboardListener, {
 					OnKeyPressed = function(input)
 						if Input.isUp(input.KeyCode) then
@@ -707,17 +627,9 @@ function EditorController:render()
 						elseif Input.isDown(input.KeyCode) then
 							props.MoveSelectedTrack(1)
 						elseif Input.isLeft(input.KeyCode) then
-							if GetFFlagCurveEditor() then
-								props.CloseSelectedTracks(selectedTracks)
-							else
-								props.CloseSelectedTracks_deprecated(selectedPaths)
-							end
+							props.CloseSelectedTracks(selectedTracks)
 						elseif Input.isRight(input.KeyCode) then
-							if GetFFlagCurveEditor() then
-								props.ExpandSelectedTracks(selectedTracks)
-							else
-								props.ExpandSelectedTracks_deprecated(selectedPaths)
-							end
+							props.ExpandSelectedTracks(selectedTracks)
 						elseif Input.isControl(input.KeyCode) then
 							self.controlDown = true
 						elseif Input.isShift(input.KeyCode) then
@@ -733,7 +645,7 @@ function EditorController:render()
 					end,
 				}),
 
-				IgnoreLayout = GetFFlagCurveEditor() and showEditor and Roact.createElement("Folder", {}, {
+				IgnoreLayout = showEditor and Roact.createElement("Folder", {}, {
 					TrackColors = Roact.createElement(TrackColors, {
 						Tracks = tracks,
 						TopTrackIndex = topTrackIndex,
@@ -746,13 +658,12 @@ function EditorController:render()
 
 		TrackListBorder = Roact.createElement(TrackListBorder, {
 			OnDragMoved = self.updateTrackListWidth,
-			ZIndex = GetFFlagCurveEditor() and 3 or nil,
+			ZIndex = 3,
 		}),
 
 		TrackEditor = showEditor and Roact.createElement(TrackEditor, {
 			ZIndex = zIndex,
 			TopTrackIndex = topTrackIndex,
-			Tracks = if GetFFlagCurveEditor() then nil else tracks,
 			LayoutOrder = 2,
 			Size = UDim2.new(1, -trackListWidth - Constants.SCROLL_BAR_SIZE - Constants.SCROLL_BAR_PADDING, 1, 0),
 			StartTick = startTick,
@@ -762,15 +673,13 @@ function EditorController:render()
 			FrameRate = props.FrameRate,
 			ShowAsSeconds = showAsSeconds,
 			ShowEvents = showEvents,
-			Scroll = not GetFFlagCurveEditor() and scroll or nil,
-			Zoom = not GetFFlagCurveEditor() and zoom or nil,
 			HorizontalScroll = horizontalScroll,
 			HorizontalZoom = horizontalZoom,
 			VerticalScroll = verticalScroll,
 			VerticalZoom = verticalZoom,
 			OnScroll = self.onScroll,
 			IsChannelAnimation = isChannelAnimation,
-			ColorsPosition = GetFFlagCurveEditor() and colorsPosition or nil,
+			ColorsPosition = colorsPosition,
 			OnPromoteRequested = self.showPromotePrompt,
 		}),
 
@@ -784,7 +693,7 @@ function EditorController:render()
 				OnChangePlaybackSpeed = self.showChangePlaybackSpeedPrompt,
 			}),
 
-			TrackScrollbar = (not GetFFlagCurveEditor() or showDopeSheet) and Roact.createElement(TrackScrollbar, {
+			TrackScrollbar = showDopeSheet and Roact.createElement(TrackScrollbar, {
 				Size = UDim2.new(1, 0, 1, -Constants.SCROLL_BAR_SIZE - Constants.TIMELINE_HEIGHT - 1),
 				Position = UDim2.new(0, 0, 0, Constants.TIMELINE_HEIGHT),
 				TopTrackIndex = topTrackIndex,
@@ -819,15 +728,6 @@ function EditorController:render()
 			IsChannelAnimation = isChannelAnimation,
 		}),
 
-		IgnoreLayout = not GetFFlagCurveEditor() and showEditor and Roact.createElement("Folder", {}, {
-			TrackColors = Roact.createElement(TrackColors, {
-				Tracks = tracks,
-				TopTrackIndex = topTrackIndex,
-				Position = UDim2.new(0, 0, 0, colorsPosition),
-				MaxHeight = absoluteSize.Y - Constants.TRACK_HEIGHT - colorsPosition,
-			}),
-		}) or nil,
-
 		InactiveCover = not active and Roact.createElement(InactiveCover, {
 			OnFocused = self.attachEditorWrapper,
 		}),
@@ -850,7 +750,7 @@ function EditorController:render()
 			OnClose = self.hideChangePlaybackSpeedPrompt,
 		}),
 
-		PromotePrompt = if GetFFlagCurveEditor() and showPromotePrompt
+		PromotePrompt = if showPromotePrompt
 			then Roact.createElement(PromoteToCurvesPrompt, {
 				OnPromote = self.promoteKeyframeSequence,
 				OnClose = self.hidePromotePrompt,
@@ -889,8 +789,6 @@ local function mapStateToProps(state)
 		ShowAsSeconds = state.Status.ShowAsSeconds,
 		SnapMode = state.Status.SnapMode,
 		AnimationData = state.AnimationData,
-		Scroll = not GetFFlagCurveEditor() and status.Scroll or nil,
-		Zoom = not GetFFlagCurveEditor() and status.Zoom or nil,
 		HorizontalScroll = status.HorizontalScroll,
 		HorizontalZoom = status.HorizontalZoom,
 		VerticalScroll = status.VerticalScroll,
@@ -963,11 +861,6 @@ local function mapDispatchToProps(dispatch)
 		AddTrack = function(instance, track, trackType, rotationType, EulerAnglesOrder, analytics)
 			dispatch(AddWaypoint())
 			dispatch(AddTrack(instance, track, trackType, rotationType, EulerAnglesOrder, analytics))
-		end,
-
-		AddTrack_deprecated2 = not GetFFlagCurveEditor() and function(instance, track, trackType, analytics)
-			dispatch(AddWaypoint())
-			dispatch(AddTrack(instance, track, trackType, analytics))
 		end,
 
 		SetRightClickContextInfo = function(info)

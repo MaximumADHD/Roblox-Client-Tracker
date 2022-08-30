@@ -22,8 +22,6 @@ return function()
 
 	local MathUtil = Framework.Util.Math
 
-	local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
 	local function setupInstance(store, instance)
 		expect(instance).to.be.ok()
 		local analytics = Analytics.mock()
@@ -160,11 +158,7 @@ return function()
 			TestHelpers.clickInstance(lowerTorsoJoint)
 
 			local status = store:getState().Status
-			if GetFFlagCurveEditor() then
-				expect(status.SelectedTracks[1][1]).to.equal("LowerTorso")
-			else
-				expect(status.SelectedTracks[1]).to.equal("LowerTorso")
-			end
+			expect(status.SelectedTracks[1][1]).to.equal("LowerTorso")
 		end)
 	end)
 

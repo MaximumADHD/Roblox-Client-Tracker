@@ -43,15 +43,11 @@ local Constants = require(Plugin.Src.Util.Constants)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local PathUtils = require(Plugin.Src.Util.PathUtils)
 
-local ExpandableTrack = require(Plugin.Src.Components.TrackList.ExpandableTrack)
 local SummaryTrack = require(Plugin.Src.Components.TrackList.SummaryTrack)
 local TrackListEntry = require(Plugin.Src.Components.TrackList.TrackListEntry)
-local NumberTrack = require(Plugin.Src.Components.TrackList.NumberTrack)
 local Track = require(Plugin.Src.Components.TrackList.Track)
 local WideScrollingFrame = require(Plugin.Src.Components.TrackList.WideScrollingFrame)
 
-local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local TrackList = Roact.PureComponent:extend("TrackList")
@@ -168,8 +164,8 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 
 	self.maxTrackWidth = math.max(self.maxTrackWidth, trackWidth)
 
-	local dragMultiplier = if GetFFlagFacsUiChanges() and track.Type == Constants.TRACK_TYPES.Facs then
-		Constants.NUMBERBOX_FACS_DRAG_MULTIPLIER else Constants.NUMBERBOX_DRAG_MULTIPLIER
+	local dragMultiplier = if track.Type == Constants.TRACK_TYPES.Facs then Constants.NUMBERBOX_FACS_DRAG_MULTIPLIER
+		else Constants.NUMBERBOX_DRAG_MULTIPLIER
 
 	local function makeNumberTrack(name, targetProperty)
 		children[name .. "_" .. targetProperty] = Roact.createElement(Track, {
@@ -273,12 +269,12 @@ function TrackList:renderTrack(track, children, theme, parentPath, parentType)
 		items = {}
 	end
 
-	local selected = GetFFlagCurveEditor() and (PathUtils.findPath(selectedTracks, path) ~= nil) or self:isSelected(path[1])
+	local selected = PathUtils.findPath(selectedTracks, path) ~= nil
 
 	self.maxTrackWidth = math.max(self.maxTrackWidth, trackWidth)
 
-	local dragMultiplier = if GetFFlagFacsUiChanges() and track.Type == Constants.TRACK_TYPES.Facs then
-		Constants.NUMBERBOX_FACS_DRAG_MULTIPLIER else Constants.NUMBERBOX_DRAG_MULTIPLIER
+	local dragMultiplier = if track.Type == Constants.TRACK_TYPES.Facs then Constants.NUMBERBOX_FACS_DRAG_MULTIPLIER
+		else Constants.NUMBERBOX_DRAG_MULTIPLIER
 
 	children["Track_" .. pathName] = Roact.createElement(Track, {
 		LayoutOrder = self.trackCount,
@@ -313,7 +309,7 @@ function TrackList:renderTrack(track, children, theme, parentPath, parentType)
 			self.onContextButtonClick(instance, path, trackType, rotationType)
 		end,
 		OnTrackSelected = function()
-			self.onTrackSelected(GetFFlagCurveEditor() and path or path[1])
+			self.onTrackSelected(path)
 		end,
 	})
 

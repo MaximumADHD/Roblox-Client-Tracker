@@ -1,4 +1,7 @@
 --!nonstrict
+
+local FFlagInspectAndBuyDynamicHeads = require(script.Parent.Flags.FFlagInspectAndBuyDynamicHeads)
+
 local Constants = {
 	NotificationKeys = {
 		MultipleBundleNoticeKey = "InGame.InspectMenu.Description.MultipleBundlesNotice",
@@ -18,34 +21,6 @@ local Constants = {
 		WideLandscape = 2,
 	},
 
-	HumanoidDescriptionAssetNames = {
-		BackAccessory = "BackAccessory",
-		FaceAccessory = "FaceAccessory",
-		FrontAccessory = "FrontAccessory",
-		HairAccessory = "HairAccessory",
-		HatAccessory = "HatAccessory",
-		NeckAccessory = "NeckAccessory",
-		ShouldersAccessory = "ShouldersAccessory",
-		WaistAccessory = "WaistAccessory",
-		Face = "Face",
-		Head = "Head",
-		LeftArm = "LeftArm",
-		LeftLeg = "LeftLeg",
-		RightArm = "RightArm",
-		RightLeg = "RightLeg",
-		Torso = "Torso",
-		GraphicTShirt = "GraphicTShirt",
-		Pants = "Pants",
-		Shirt = "Shirt",
-		ClimbAnimation = "ClimbAnimation",
-		FallAnimation = "FallAnimation",
-		IdleAnimation = "IdleAnimation",
-		JumpAnimation = "JumpAnimation",
-		RunAnimation = "RunAnimation",
-		SwimAnimation = "SwimAnimation",
-		WalkAnimation = "WalkAnimation",
-	},
-
 	HumanoidDescriptionIdToName = {
 		["2"]  = "GraphicTShirt",
 		["8"]  = "HatAccessory",
@@ -59,6 +34,8 @@ local Constants = {
 		["11"] = "Shirt",
 		["12"] = "Pants",
 		["17"] = "Head",
+		-- DynamicHead goes in the same field as a classic head.
+		["79"] = if FFlagInspectAndBuyDynamicHeads then "Head" else nil,
 		["18"] = "Face",
 		["27"] = "Torso",
 		["28"] = "RightArm",
@@ -83,6 +60,7 @@ local Constants = {
 		["54"] = 54,
 		["55"] = 55,
 		["61"] = 61, -- Emotes
+		["78"] = if FFlagInspectAndBuyDynamicHeads then 78 else nil, -- MoodAnimation
 	},
 
 	AssetTypeIdToAccessoryTypeEnum = {
@@ -103,6 +81,10 @@ local Constants = {
 		[tostring(Enum.AssetType.LeftShoeAccessory.Value)] = Enum.AccessoryType.LeftShoe,
 		[tostring(Enum.AssetType.RightShoeAccessory.Value)] = Enum.AccessoryType.RightShoe,
 		[tostring(Enum.AssetType.DressSkirtAccessory.Value)] = Enum.AccessoryType.DressSkirt,
+		[tostring(Enum.AssetType.EyebrowAccessory.Value)] =
+			if FFlagInspectAndBuyDynamicHeads then Enum.AccessoryType.Eyebrow else nil,
+		[tostring(Enum.AssetType.EyelashAccessory.Value)] =
+			if FFlagInspectAndBuyDynamicHeads then Enum.AccessoryType.Eyelash else nil,
 	},
 
 	LayeredAssetTypes = {
@@ -116,12 +98,27 @@ local Constants = {
 		[tostring(Enum.AssetType.RightShoeAccessory.Value)] = Enum.AccessoryType.RightShoe,
 		[tostring(Enum.AssetType.DressSkirtAccessory.Value)] = Enum.AccessoryType.DressSkirt,
 		[tostring(Enum.AssetType.HairAccessory.Value)] = Enum.AccessoryType.Hair,
+		[tostring(Enum.AssetType.EyebrowAccessory.Value)] =
+			if FFlagInspectAndBuyDynamicHeads then Enum.AccessoryType.Eyebrow else nil,
+		[tostring(Enum.AssetType.EyelashAccessory.Value)] =
+			if FFlagInspectAndBuyDynamicHeads then Enum.AccessoryType.Eyelash else nil,
 	},
 
 	AssetCategory = {
 		Tops = "Tops",
 		Bottoms = "Bottoms"
 	}
+}
+
+-- AVBURST-9497 TODO Remove when Mood/DynamicHead Enum are in the engine
+Constants.MoodAnimationAssetTypeId = "78"
+Constants.DynamicHeadAssetTypeId = "79"
+
+Constants.DynamicHeadAssetTypes = {
+	[tostring(Enum.AssetType.EyebrowAccessory.Value)] = true,
+	[tostring(Enum.AssetType.EyelashAccessory.Value)] = true,
+	[Constants.MoodAnimationAssetTypeId] = true,
+	[Constants.DynamicHeadAssetTypeId] = true,
 }
 
 Constants.AccessoryTypeEnumToAssetTypeId = {}
@@ -164,6 +161,8 @@ Constants.LayeredClothingOrder = {
 	[tostring(Enum.AssetType.SweaterAccessory.Value)] = 9,
 	[tostring(Enum.AssetType.JacketAccessory.Value)] = 10,
 	[tostring(Enum.AssetType.HairAccessory.Value)] = 11,
+	[tostring(Enum.AssetType.EyebrowAccessory.Value)] = if FFlagInspectAndBuyDynamicHeads then 3 else nil,
+	[tostring(Enum.AssetType.EyelashAccessory.Value)] = if FFlagInspectAndBuyDynamicHeads then 3 else nil,
 }
 
 return Constants

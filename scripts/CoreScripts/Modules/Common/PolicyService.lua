@@ -32,9 +32,10 @@ function PolicyService:InitAsync()
 
 	local localPlayer = PlayersService.LocalPlayer
 	while not localPlayer do
-		PlayersService.PlayerAdded:wait()
+		PlayersService.PlayerAdded:Wait()
 		localPlayer = PlayersService.LocalPlayer
 	end
+	assert(localPlayer, "")
 
 	pcall(function() policyTable = game:GetService("PolicyService"):GetPolicyInfoForPlayerAsync(localPlayer) end)
 	if policyTable then

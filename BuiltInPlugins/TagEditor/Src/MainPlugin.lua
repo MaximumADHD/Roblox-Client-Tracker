@@ -29,6 +29,7 @@ local Plugin = ContextServices.Plugin
 local Mouse = ContextServices.Mouse
 
 local MakeTheme = require(main.Src.Resources.MakeTheme)
+local createAnalyticsHandlers = require(main.Src.Util.createAnalyticsHandlers)
 
 local SourceStrings = main.Src.Resources.Localization.SourceStrings
 local LocalizedStrings = main.Src.Resources.Localization.LocalizedStrings
@@ -45,28 +46,25 @@ function MainPlugin:init(props)
 
 	self.toggleEnabled = function()
 		self:setState(function(state)
-			return {
-				enabled = not state.enabled,
-			}
+			local newEnabled = not state.enabled
+			local initiatedByUser = true
+			self:setEnabled(newEnabled, initiatedByUser)
 		end)
 	end
 
 	self.onClose = function()
-		self:setState({
-			enabled = false,
-		})
+		local initiatedByUser = true
+		self:setEnabled(false, initiatedByUser)
 	end
 
 	self.onRestore = function(enabled)
-		self:setState({
-			enabled = enabled
-		})
+		local initiatedByUser = false
+		self:setEnabled(enabled, initiatedByUser)
 	end
 
 	self.onWidgetEnabledChanged = function(widget)
-		self:setState({
-			enabled = widget.Enabled
-		})
+		local initiatedByUser = true
+		self:setEnabled(widget.Enabled, initiatedByUser)
 	end
 
 	self.localization = ContextServices.Localization.new({
@@ -79,9 +77,34 @@ function MainPlugin:init(props)
 			which should return a table mapping event -> eventHandler.
 
 	--]]
-	self.analytics = ContextServices.Analytics.new(function()
-		return {}
-	end, {})
+	self.analytics = ContextServices.Analytics.new(createAnalyticsHandlers)
+end
+
+function MainPlugin:sendWindowEnabledAnalytics(enabled)
+	if not self.analytics then
+		return
+	end
+
+	self.analytics:report("toggleWidget")
+	self.analytics:report(enabled and "openWidget" or "closeWidget")
+end
+
+function MainPlugin:setEnabled(newEnabled, initiatedByUser)
+	self:setState(function(state)
+		if state.enabled == newEnabled then
+			return nil
+		end
+
+		self.analytics:report("opened")
+
+		if initiatedByUser then
+			self:sendWindowEnabledAnalytics(newEnabled)
+		end
+
+		return {
+			enabled = newEnabled,
+		}
+	end)
 end
 
 function MainPlugin:renderButtons(toolbar)

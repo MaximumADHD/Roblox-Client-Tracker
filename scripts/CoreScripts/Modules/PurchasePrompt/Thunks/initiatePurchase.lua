@@ -22,8 +22,6 @@ local Thunk = require(Root.Thunk)
 
 local resolvePromptState = require(script.Parent.resolvePromptState)
 
-local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
-
 local requiredServices = {
 	--ABTest,
 	Network,
@@ -69,7 +67,7 @@ local function initiatePurchase(id, infoType, equipIfPurchased, isRobloxPurchase
 			productInfo = getProductInfo(network, id, infoType),
 			accountInfo = getAccountInfo(network, externalSettings),
 			alreadyOwned = getIsAlreadyOwned(network, id, infoType),
-			balanceInfo = FFlagPPAccountInfoMigration and getBalanceInfo(network, externalSettings) or Promise.resolve(),
+			balanceInfo = getBalanceInfo(network, externalSettings),
 		})
 			:andThen(function(results)
 				-- Once we've finished all of our async data fetching, we'll

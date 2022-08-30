@@ -1,3 +1,4 @@
+--!nonstrict
 local LATEST_PLACE_VERSION = "CoreScripts.InGameMenu.GameSettings.PlaceVersionWithLatest"
 local PLACE_VERSION = "CoreScripts.InGameMenu.GameSettings.PlaceVersion"
 
@@ -26,7 +27,7 @@ local InGameMenu = script.Parent.Parent.Parent
 local Constants = require(InGameMenu.Resources.Constants)
 local Divider = require(InGameMenu.Components.Divider)
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
-local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
+local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnectionMemo)
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 

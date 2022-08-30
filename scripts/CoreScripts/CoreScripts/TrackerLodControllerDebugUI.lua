@@ -146,5 +146,3 @@ videoAccurateButton.Activated:Connect(makeOnButtonActivated(true, false, 1))
 videoAudioFastButton.Activated:Connect(makeOnButtonActivated(true, true, 0))
 videoAudioAccurateButton.Activated:Connect(makeOnButtonActivated(true, true, 1))
 audioButton.Activated:Connect(makeOnButtonActivated(false, true, 1))
-
-print("[FaceAnimatorUI] Face animator LOD control UI enabled.")

@@ -3,7 +3,6 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFaceAnimationEditorFocusFaceWithF = require(Plugin.LuaFlags.GetFFlagFaceAnimationEditorFocusFaceWithF)
 local GetFFlagCurveEditorFreeZoom = require(Plugin.LuaFlags.GetFFlagCurveEditorFreeZoom)
 
@@ -49,20 +48,16 @@ local ACTION_KEYS = {
 
 	-- Bones
 	"ToggleBoneVis",
+
+	-- Curve Editor
+	"ClearBothTangents",
+	"ZeroBothTangents",
+	"ClearTangent",
+	"ZeroTangent",
 }
 
 if GetFFlagFaceAnimationEditorFocusFaceWithF() then
 	table.insert(ACTION_KEYS, "FocusCamera")
-end
-
--- Move that back to the ACTION_KEYS table when GetFFlagCurveEditor is retired
-if GetFFlagCurveEditor() then
-	table.insert(ACTION_KEYS, "ClearBothTangents")
-	table.insert(ACTION_KEYS, "ZeroBothTangents")
-	table.insert(ACTION_KEYS, "ClearTangent")
-	table.insert(ACTION_KEYS, "ZeroTangent")
-else
-	table.insert(ACTION_KEYS, "ClearTangents")
 end
 
 -- Move that back to the ACTION_KEYS table when GetFFlagCurveEditorFreeZoom is retired

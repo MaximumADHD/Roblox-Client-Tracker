@@ -10,6 +10,7 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 
 local AssetServiceWrapper = require(Plugin.Src.Context.AssetServiceWrapper)
+local MannequinContext = require(Plugin.Src.Context.MannequinContext)
 
 -- props.localization : (ContextServices.Localization) an object for fetching translated strings
 -- props.plugin : plugin wrapper created from ContextServices
@@ -57,6 +58,7 @@ function ServiceWrapper:render()
 		ContextServices.Mouse.new(mouse),
 		editingItemContext,
 		AssetServiceWrapper.new(AssetService),
+		MannequinContext.new(),
 	}, children)
 end
 

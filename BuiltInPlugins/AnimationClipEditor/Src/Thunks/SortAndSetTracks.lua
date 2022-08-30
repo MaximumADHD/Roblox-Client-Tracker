@@ -18,8 +18,6 @@ local FacsUtils = require(Plugin.Src.Util.FacsUtils)
 
 local SetTracks = require(Plugin.Src.Actions.SetTracks)
 
-local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-
 local function setTrackDepth(track, depth)
 	track.Depth = depth
 	for _, tr in pairs(track.Components or {}) do
@@ -106,23 +104,17 @@ return function(newTracks)
 			-- different levels of indentation
 			sorted = sortByHierarchy(newTracks, hierarchy)
 
-			if GetFFlagFacialAnimationSupport() then
-				-- Facs tracks have been skipped during sortByHierarchy.
-				-- Add them now
-				local facs = FacsUtils.filterFacsTracks(newTracks)
-				sorted = Cryo.List.join(sorted, sortAlphabetically(facs))
-			end
+			-- Facs tracks have been skipped during sortByHierarchy.
+			-- Add them now
+			local facs = FacsUtils.filterFacsTracks(newTracks)
+			sorted = Cryo.List.join(sorted, sortAlphabetically(facs))
 		else
 			-- If there is no hierarchy do the data, just alphabetically sort
 			-- and display every track at the same level of indentation.
 			sorted = sortAlphabetically(newTracks)
 		end
 
-		if GetFFlagFacialAnimationSupport() then
-			local unusedFacs = FacsUtils.getUnusedFacs(newTracks)
-			store:dispatch(SetTracks(sorted, unusedTracks, unusedFacs))
-		else
-			store:dispatch(SetTracks(sorted, unusedTracks))
-		end
+		local unusedFacs = FacsUtils.getUnusedFacs(newTracks)
+		store:dispatch(SetTracks(sorted, unusedTracks, unusedFacs))
 	end
 end

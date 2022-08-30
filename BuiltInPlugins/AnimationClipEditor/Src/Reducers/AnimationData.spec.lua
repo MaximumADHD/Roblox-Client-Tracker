@@ -6,11 +6,8 @@ return function()
 	local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
 	local AddKeyframe = require(Plugin.Src.Thunks.AddKeyframe)
 	local SetKeyframeData = require(Plugin.Src.Thunks.SetKeyframeData)
-	local QuantizeKeyframes = require(Plugin.Src.Thunks.QuantizeKeyframes)
 	local UpdateMetadata = require(Plugin.Src.Thunks.UpdateMetadata)
 	local Constants = require(Plugin.Src.Util.Constants)
-
-	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 
 	local function makeAnimationData(tracks)
 		return {

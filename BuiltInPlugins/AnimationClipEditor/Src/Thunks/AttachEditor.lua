@@ -20,9 +20,6 @@ local SetBoneLinksToBone = require(Plugin.Src.Actions.SetBoneLinksToBone)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
-local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
 return function(analytics)
 	return function(store)
 		local state = store:getState()
@@ -54,13 +51,9 @@ return function(analytics)
 			store:dispatch(SortAndSetTracks({}))
 			for instanceName, instance in pairs(animationData.Instances) do
 				for trackName, track in pairs(instance.Tracks) do
-					if GetFFlagCurveEditor() then
-						local rotationType = TrackUtils.getRotationType(track)
-						local eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
-						store:dispatch(AddTrack(instanceName, trackName, track.Type, rotationType, eulerAnglesOrder, analytics))
-					else
-						store:dispatch(AddTrack(instanceName, trackName, track.Type, analytics))
-					end
+					local rotationType = TrackUtils.getRotationType(track)
+					local eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
+					store:dispatch(AddTrack(instanceName, trackName, track.Type, rotationType, eulerAnglesOrder, analytics))
 				end
 			end
 		end

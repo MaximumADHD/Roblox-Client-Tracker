@@ -1,12 +1,11 @@
 --[[
-	A horizontal collection of RoundTextButtons.
+	A horizontal collection of Buttons.
 
 	Props:
 		Enum.HorizontalAlignment HorizontalAlignment = The alignment of the button bar.
 			Determines if buttons should be centered or aligned to one corner.
 		table Buttons = The buttons to add to this button bar.
 ]]
-
 local BUTTON_BAR_PADDING = 25
 local BUTTON_BAR_EDGE_PADDING = 35
 
