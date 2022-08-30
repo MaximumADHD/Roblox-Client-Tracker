@@ -55,6 +55,7 @@ A_NW4UserInputType
 AA61B3A2068118C14FDE5E01E7934
 AAAAAAAAAAAAAAAAAAAAAAAA
 AAACertificateServices.crl0
+AAACertificateServices.crl04
 AAACertificateServices.crl06
 AAAEB11E38B9D871882A8E559
 AAAEC11E38B9D871882A8E559
@@ -2181,6 +2182,7 @@ AUTHORITY_INFO_ACCESS
 AUTHORITY_KEYID
 Authority0
 Authority0v0
+Authority1
 AuthorityId
 AuthorityText
 AuthorityUrl
@@ -10227,8 +10229,8 @@ Corporation
 Corporation.
 Corporation\Roblox
 Corporation\Roblox\FilteredExceptionCrash
-Corporation0
-Corporation1
+CORPORATION0
+CORPORATION1
 Corporation1402
 CorrectCreationOfConnections
 Correction
@@ -12577,15 +12579,6 @@ DiffuseFilePath
 DigestAlgorithm_find_ctx
 DigestAlgorithm_init_bio
 DigestedData_do_final
-DigiCertAssuredIDRootCA.crl0
-DigiCertAssuredIDRootCA.crt0E
-DigiCertEVCodeSigningCA
-DigiCertHighAssuranceEVRootCA.crl0
-DigiCertHighAssuranceEVRootCA.crt0
-DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crl0
-DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crt0
-DigiCertTrustedRootG4.crl0
-DigiCertTrustedRootG4.crt0C
 DigitalSignature
 DilateTemporalFS
 DilleniaUPC
@@ -13090,6 +13083,7 @@ DtmfSenderProxyWithInternal
 DualStreamVertexData5
 DUARAndOpenSurvey
 DueToMaxBytesInFlightCountToTotalCount
+DueToTargetSpeedCountToTotalCount
 DumpAction
 DumpFileCount
 DumpUtcCaptureTime
@@ -13125,7 +13119,6 @@ DurationMs_
 DurationNameLookup
 DurationOneRoundTrip
 DurationReceiveResponse
-DurationSec
 DurationSeconds
 DurationSSLHandshake
 DurationTooLong
@@ -14087,7 +14080,6 @@ EvAudioVideoInput
 EvAV2CFaceIsOccluded
 EvAV2CFaceNotFound
 EvAV2CHasTrackingError
-EVCodeSigningSHA2
 Event.button
 Event.clientX
 Event.clientY
@@ -22086,6 +22078,7 @@ NetworkOwnershipRule
 NetworkOwnershipUnitAdded
 NetworkOwnershipUnitRemoving
 NetworkOwnerV3
+NetworkPacketSplitCountOver
 NetworkPacketSplitCountOverThreshold
 NetworkPacketsReceive
 NetworkPacketsReceive]
@@ -22973,7 +22966,6 @@ OrFetchPlugin
 OrFirstTier
 Organizaci
 Organization
-Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -29495,6 +29487,10 @@ SecondaryFilterValue
 SecondaryTangentAxis
 SecondsBetweenDynamicVariableReloading
 SecondsPerBatchAwardPointsCall
+SectigoPublicCodeSigningCAR36.crl0y
+SectigoPublicCodeSigningCAR36.crt0
+SectigoPublicCodeSigningRootR46.crl0
+SectigoPublicCodeSigningRootR46.p7c0
 SectionClicked
 SectionResizeMode
 SectionsClickable
@@ -37356,7 +37352,6 @@ TimeSpentRemoving
 TimesReplicatedNeverReplicate
 TimesReplicatedNeverReplicatedPerInterval
 Timestamping
-TimeStamping
 TimestampStart
 TimestepArbiterAccelerationModelFactorThou
 TimestepArbiterAngAccelerationThresholdThou
