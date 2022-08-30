@@ -12,7 +12,7 @@ Roact = { target = "github.com/Roblox/roact-alignment", version = "17.0.1-rc.14"
 Rodux = "github.com/roblox/rodux@1.0"
 RoactRodux = "github.com/roblox/roact-rodux@0.2"
 RoactAppExperiment = "github.com/roblox/roact-app-experiment@0.1.3"
-RoactNavigation = "github.com/roblox/roact-navigation@0.5.2"
+RoactNavigation = "github.com/roblox/roact-navigation@0.5.3"
 Cryo = "github.com/roblox/cryo@1.0"
 Dash = "github.com/roblox/dash@0.1"
 VerifiedBadges = "github.com/roblox/lua-verified-badges@0.7.7"
@@ -41,9 +41,8 @@ React = "github.com/Roblox/roact-alignment@17.0.1-rc.14"
 ReactIs = "github.com/Roblox/roact-alignment@17.0.1-rc.14"
 ReactRoblox = "github.com/Roblox/roact-alignment@17.0.1-rc.14"
 Promise = "github.com/Roblox/roblox-lua-promise@3.3.0"
-RoactNavigationUpgradeFlag = { git = "https://github.com/roblox/roact-navigation-upgrade", rev = "v0.1.0", package = "RoactNavigationUpgradeFlag" }
-VirtualizedList = { git = "https://github.com/roblox/virtualized-list-upgrade", rev = "0.2.0", package = "VirtualizedListProxy" }
-VirtualizedListUpgradeFlag = { git = "https://github.com/roblox/virtualized-list-upgrade", rev = "0.2.0", package = "VirtualizedListUpgradeFlag" }
+VirtualizedList = { git = "https://github.com/roblox/virtualized-list-upgrade", rev = "0.4.0", package = "VirtualizedListProxy" }
+VirtualizedListUpgradeFlag = { git = "https://github.com/roblox/virtualized-list-upgrade", rev = "0.4.0", package = "VirtualizedListUpgradeFlag" }
 LuauPolyfill = "github.com/Roblox/luau-polyfill@0.4.0"
 
 # The following packages were ported from AppTempCommon
@@ -74,8 +73,7 @@ Promise = "github.com/Roblox/roblox-lua-promise@3.3.0"
 Promise = "github.com/Roblox/roblox-lua-promise@3.3.0"
 
 [config.patch."https://github.com/roblox/roact-navigation"]
-# RoactNavigation = "github.com/roblox/roact-navigation@0.5.1"
-RoactNavigation = { git = "https://github.com/roblox/roact-navigation-upgrade", rev = "v0.1.0", package = "RoactNavigationProxy" }
+RoactNavigation = "github.com/roblox/roact-navigation@0.5.3"
 
 [config.patch_git."https://github.com/roblox/roact-17-upgrade"]
 Roact = { target = "github.com/Roblox/roact-alignment", version = "17.0.1-rc.14", package = "RoactCompat" }
@@ -95,4 +93,4 @@ InfiniteScroller = "github.com/Roblox/infinite-scroller@0.9.5"
 RoactGamepad = "github.com/Roblox/roact-gamepad@0.5.4"
 
 [config.patch."github.com/roblox/virtualized-list-lua"]
-VirtualizedList = { git = "https://github.com/roblox/virtualized-list-upgrade", rev = "0.2.0", package = "VirtualizedListProxy" }
+VirtualizedList = { git = "https://github.com/roblox/virtualized-list-upgrade", rev = "0.4.0", package = "VirtualizedListProxy" }

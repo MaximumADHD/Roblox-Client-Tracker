@@ -223,6 +223,12 @@
                     "$path": "../.robloxrc"
                 }
             },
+            "KeyboardUINavigation": {
+                "$path": "KeyboardUINavigation.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
             "LoadingScreen3D": {
                 "$path": "LoadingScreen3D.lua",
                 ".robloxrc": {

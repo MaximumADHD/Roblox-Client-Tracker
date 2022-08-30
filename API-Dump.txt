@@ -231,7 +231,7 @@ Class Bone : Attachment
 	Property CFrame Bone.TransformedWorldCFrame [ReadOnly] {🧬Unsafe}
 Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function HumanoidDescription AvatarEditorService:CheckApplyDefaultClothing(HumanoidDescription humanoidDescription) [Yields]
-	Function HumanoidDescription AvatarEditorService:ConformToAvatarRules(HumanoidDescription humanoidDescription) {RobloxScriptSecurity} [Yields]
+	Function HumanoidDescription AvatarEditorService:ConformToAvatarRules(HumanoidDescription humanoidDescription) [Yields]
 	Function Dictionary AvatarEditorService:GetAvatarRules() [Yields]
 	Function Array AvatarEditorService:GetBatchItemDetails(Array itemIds, Enum.AvatarItemType itemType) [Yields]
 	Function bool AvatarEditorService:GetFavorite(int64 itemId, Enum.AvatarItemType itemType) [Yields]
@@ -858,18 +858,18 @@ Class VehicleController : Controller
 Class ControllerBase : Instance [NotCreatable]
 	Property bool ControllerBase.RigidityEnabled
 	Property float ControllerBase.MoveSpeedFactor
-Class AirController : ControllerBase
+Class AirController : ControllerBase [NotBrowsable]
 	Property float AirController.OrientationMaxTorque
 	Property float AirController.OrientationSpeed
 	Property Vector3 AirController.VectorForce
 	Property bool AirController.CancelAirMomentum
 	Property float AirController.MoveMaxForce
-Class ClimbController : ControllerBase
+Class ClimbController : ControllerBase [NotBrowsable]
 	Property float ClimbController.OrientationMaxTorque
 	Property float ClimbController.OrientationSpeed
 	Property float ClimbController.AccelerationTime
 	Property float ClimbController.MoveMaxForce
-Class GroundController : ControllerBase
+Class GroundController : ControllerBase [NotBrowsable]
 	Property float GroundController.AccelerationLean
 	Property float GroundController.AlignSpeed
 	Property float GroundController.AlignTorque
@@ -881,11 +881,11 @@ Class GroundController : ControllerBase
 	Property float GroundController.StandForce
 	Property float GroundController.StandSpeed
 	Property float GroundController.TurningFactor
-Class SwimController : ControllerBase
+Class SwimController : ControllerBase [NotBrowsable]
 	Property float SwimController.OrientationMaxTorque
 	Property float SwimController.OrientationSpeed
 	Property float SwimController.AccelerationTime
-Class ControllerManager : Instance
+Class ControllerManager : Instance [NotBrowsable]
 	Property ControllerBase ControllerManager.ActiveController [ReadOnly]
 	Property float ControllerManager.BaseMoveSpeed
 	Property float ControllerManager.HipHeight
@@ -1990,6 +1990,15 @@ Class HumanoidDescription : Instance
 	Function void HumanoidDescription:SetEquippedEmotes(Array equippedEmotes)
 	Event HumanoidDescription.EmotesChanged(Dictionary newEmotes)
 	Event HumanoidDescription.EquippedEmotesChanged(Array newEquippedEmotes)
+Class IKControl : Instance [NotBrowsable]
+	Property Instance IKControl.ChainRoot
+	Property bool IKControl.Enabled
+	Property Instance IKControl.EndEffector
+	Property Instance IKControl.Pole
+	Property int IKControl.Priority
+	Property Instance IKControl.Target
+	Property Enum.IKControlType IKControl.Type
+	Property float IKControl.Weight
 Class ILegacyStudioBridge : Instance [NotCreatable] [Service]
 Class LegacyStudioBridge : ILegacyStudioBridge [NotCreatable] [Service] [NotReplicated]
 Class IXPService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -2012,6 +2021,7 @@ Class ImporterBaseSettings : Instance [NotCreatable] [NotReplicated]
 	Property bool ImporterBaseSettings.ShouldImport
 	Function Dictionary ImporterBaseSettings:GetStatuses() {RobloxScriptSecurity}
 Class ImporterAnimationSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
+Class ImporterFacsSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 Class ImporterGroupSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property bool ImporterGroupSettings.Anchored
 	Property bool ImporterGroupSettings.ImportAsModelAsset
@@ -2269,6 +2279,7 @@ Class LuaSourceContainer : Instance [NotCreatable] [NotBrowsable]
 	Property Instance LuaSourceContainer.CurrentEditor [NotScriptable]
 Class BaseScript : LuaSourceContainer [NotCreatable]
 	Property bool BaseScript.Disabled
+	Property bool BaseScript.Enabled [NotReplicated]
 	Property Enum.RunContext BaseScript.RunContext {PluginSecurity}
 	Property Content BaseScript.LinkedSource
 Class CoreScript : BaseScript [NotCreatable] [NotReplicated]
@@ -2561,7 +2572,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property bool BasePart.CanCollide
 	Property bool BasePart.CanQuery
 	Property bool BasePart.CanTouch
-	Property string BasePart.CollisionGroup {RobloxScriptSecurity} [<📁> LoadOnly] [Hidden] [NotReplicated]
+	Property string BasePart.CollisionGroup [NotReplicated]
 	Property int BasePart.CollisionGroupId [NotReplicated]
 	Property float BasePart.LocalTransparencyModifier [Hidden] [NotReplicated]
 	Property bool BasePart.Locked
@@ -3524,6 +3535,7 @@ Class ScriptDocument : Instance [NotCreatable] [NotReplicated]
 Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ScriptDocument ScriptEditorService:FindScriptDocument(LuaSourceContainer script) {PluginSecurity}
 	Function Objects ScriptEditorService:GetScriptDocuments() {PluginSecurity}
+	Function Tuple ScriptEditorService:OpenScriptDocumentAsync(LuaSourceContainer script) {PluginSecurity} [Yields]
 	Function void ScriptEditorService:RegisterLSPCallback(Enum.LSPMethodType methodToOverride, Function callbackFunction) {RobloxScriptSecurity}
 	Event ScriptEditorService.TextDocumentDidChange(ScriptDocument document, Variant changesArray) {PluginSecurity}
 	Event ScriptEditorService.TextDocumentDidClose(ScriptDocument oldDocument) {PluginSecurity}
@@ -5596,6 +5608,13 @@ Enum IKCollisionsMode
 	EnumItem IKCollisionsMode.NoCollisions : 0
 	EnumItem IKCollisionsMode.OtherMechanismsAnchored : 1
 	EnumItem IKCollisionsMode.IncludeContactedMechanisms : 2
+Enum IKControlType
+	EnumItem IKControlType.Null : 0
+	EnumItem IKControlType.Position : 1
+	EnumItem IKControlType.Rotation : 2
+	EnumItem IKControlType.Transform : 3
+	EnumItem IKControlType.LookAt : 4
+	EnumItem IKControlType.Length : 5
 Enum IXPLoadingStatus
 	EnumItem IXPLoadingStatus.None : 0
 	EnumItem IXPLoadingStatus.Pending : 1
@@ -5913,16 +5932,16 @@ Enum LSPMethodType
 	EnumItem LSPMethodType.Completion : 15
 	EnumItem LSPMethodType.Declaration : 16
 	EnumItem LSPMethodType.DocumentSymbols : 17
-	EnumItem LSPMethodType.TextDocument_publishDiagnostics : 20
-	EnumItem LSPMethodType.Window_showMessage : 21
-	EnumItem LSPMethodType.Window_showMessageRequest : 22
-	EnumItem LSPMethodType.Roblox_registerSyntaxCategories : 23
-	EnumItem LSPMethodType.Roblox_signalQuiescence : 24
-	EnumItem LSPMethodType.Roblox_syntaxHighlight : 25
-	EnumItem LSPMethodType.Roblox_suggestExtraSelections : 26
-	EnumItem LSPMethodType.Roblox_findExecutablePosition : 27
-	EnumItem LSPMethodType.Roblox_findColor3 : 28
-	EnumItem LSPMethodType.Roblox_patchSnippetData : 29
+	EnumItem LSPMethodType.TextDocument_publishDiagnostics : 21
+	EnumItem LSPMethodType.Window_showMessage : 22
+	EnumItem LSPMethodType.Window_showMessageRequest : 23
+	EnumItem LSPMethodType.Roblox_registerSyntaxCategories : 24
+	EnumItem LSPMethodType.Roblox_signalQuiescence : 25
+	EnumItem LSPMethodType.Roblox_syntaxHighlight : 26
+	EnumItem LSPMethodType.Roblox_suggestExtraSelections : 27
+	EnumItem LSPMethodType.Roblox_findExecutablePosition : 28
+	EnumItem LSPMethodType.Roblox_findColor3 : 29
+	EnumItem LSPMethodType.Roblox_patchSnippetData : 30
 Enum Language
 	EnumItem Language.Default : 0
 Enum LeftRight

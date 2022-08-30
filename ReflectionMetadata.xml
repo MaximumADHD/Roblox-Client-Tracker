@@ -4466,6 +4466,53 @@
         <string name="PreferredParent">BasePart</string>
       </Properties>
     </Item>
+    
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">ControllerManager</string>
+        <string name="FFlag">SimHumanoidPhysics</string>
+        <string name="ClassCategory">Avatar</string>
+        <string name="ExplorerOrder">20</string>
+        <string name="PreferredParent">Humanoid</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">GroundController</string>
+        <string name="FFlag">SimHumanoidPhysics</string>
+        <string name="ClassCategory">Avatar</string>
+        <string name="ExplorerOrder">20</string>
+        <string name="PreferredParent">ControllerManager</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AirController</string>
+        <string name="FFlag">SimHumanoidPhysics</string>
+        <string name="ClassCategory">Avatar</string>
+        <string name="ExplorerOrder">20</string>
+        <string name="PreferredParent">ControllerManager</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">ClimbController</string>
+        <string name="FFlag">SimHumanoidPhysics</string>
+        <string name="ClassCategory">Avatar</string>
+        <string name="ExplorerOrder">20</string>
+        <string name="PreferredParent">ControllerManager</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">SwimController</string>
+        <string name="FFlag">SimHumanoidPhysics</string>
+        <string name="ClassCategory">Avatar</string>
+        <string name="ExplorerOrder">20</string>
+        <string name="PreferredParent">ControllerManager</string>
+      </Properties>
+    </Item>
+    
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Humanoid</string>
@@ -7646,6 +7693,15 @@
             <string name="ClassCategory">Animations</string>
             <string name="ExplorerOrder">220</string>
             <string name="ExplorerImageIndex">60</string>
+        </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+        <Properties>
+            <string name="Name">IKControl</string>
+            <string name="ClassCategory">Animations</string>
+            <string name="ExplorerOrder">220</string>
+            <string name="ExplorerImageIndex">53</string>
+            <bool name="FFlag">IkControlEnabled</bool>
         </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">

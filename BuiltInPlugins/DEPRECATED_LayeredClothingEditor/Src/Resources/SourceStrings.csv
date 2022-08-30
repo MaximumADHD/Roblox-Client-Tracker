@@ -36,6 +36,10 @@ Studio.LayeredClothingEditor.AssetType.Skirt,Skirt
 Studio.LayeredClothingEditor.AssetType.Sweater,Sweater
 Studio.LayeredClothingEditor.AssetType.TeeShirt,Tee Shirt
 Studio.LayeredClothingEditor.AssetType.Waist,Waist
+Studio.LayeredClothingEditor.ClothesHelper.BulkCreateAccessories,Bulk Create Accessories
+Studio.LayeredClothingEditor.ClothesHelper.BulkCreateAccessoriesTooltip,Bulk Create Accessories from Imported Model
+Studio.LayeredClothingEditor.ClothesHelper.CreateAccessory,CreateAccessory
+Studio.LayeredClothingEditor.ClothesHelper.CreateAccessoryTooltip,Create Accessory from Imported Model
 Studio.LayeredClothingEditor.Dialog.Cancel,Cancel
 Studio.LayeredClothingEditor.Dialog.Confirm,Confirm
 Studio.LayeredClothingEditor.Dialog.DefaultTitle,Layered Clothing Editor

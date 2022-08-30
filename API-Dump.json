@@ -5221,7 +5221,7 @@
                         "Category": "Class",
                         "Name": "HumanoidDescription"
                     },
-                    "Security": "RobloxScriptSecurity",
+                    "Security": "None",
                     "Tags": [
                         "Yields"
                     ],
@@ -12530,8 +12530,8 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
+                        "CanLoad": false,
+                        "CanSave": false
                     },
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -12620,8 +12620,8 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
+                        "CanLoad": false,
+                        "CanSave": false
                     },
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -16454,7 +16454,10 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "AirController",
-            "Superclass": "ControllerBase"
+            "Superclass": "ControllerBase",
+            "Tags": [
+                "NotBrowsable"
+            ]
         },
         {
             "Members": [
@@ -16533,7 +16536,10 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "ClimbController",
-            "Superclass": "ControllerBase"
+            "Superclass": "ControllerBase",
+            "Tags": [
+                "NotBrowsable"
+            ]
         },
         {
             "Members": [
@@ -16738,7 +16744,10 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "GroundController",
-            "Superclass": "ControllerBase"
+            "Superclass": "ControllerBase",
+            "Tags": [
+                "NotBrowsable"
+            ]
         },
         {
             "Members": [
@@ -16799,7 +16808,10 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "SwimController",
-            "Superclass": "ControllerBase"
+            "Superclass": "ControllerBase",
+            "Tags": [
+                "NotBrowsable"
+            ]
         },
         {
             "Members": [
@@ -16876,7 +16888,10 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "ControllerManager",
-            "Superclass": "Instance"
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
         },
         {
             "Members": [
@@ -37236,6 +37251,160 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "ChainRoot",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "Enabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "EndEffector",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "Pole",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "Priority",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "Target",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "Type",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "IKControlType"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "Weight",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Animation",
+            "Name": "IKControl",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
             ],
             "MemoryCategory": "Instances",
             "Name": "ILegacyStudioBridge",
@@ -37573,6 +37742,17 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "ImporterAnimationSettings",
+            "Superclass": "ImporterBaseSettings",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ImporterFacsSettings",
             "Superclass": "ImporterBaseSettings",
             "Tags": [
                 "NotCreatable",
@@ -42223,6 +42403,27 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "Enabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -48482,15 +48683,14 @@
                     "MemberType": "Property",
                     "Name": "CollisionGroup",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "None",
+                        "Write": "None"
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": false
+                        "CanSave": true
                     },
                     "Tags": [
-                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
@@ -67212,6 +67412,28 @@
                         "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "OpenScriptDocumentAsync",
+                    "Parameters": [
+                        {
+                            "Name": "script",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "LuaSourceContainer"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "PluginSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -92828,6 +93050,35 @@
         {
             "Items": [
                 {
+                    "Name": "Null",
+                    "Value": 0
+                },
+                {
+                    "Name": "Position",
+                    "Value": 1
+                },
+                {
+                    "Name": "Rotation",
+                    "Value": 2
+                },
+                {
+                    "Name": "Transform",
+                    "Value": 3
+                },
+                {
+                    "Name": "LookAt",
+                    "Value": 4
+                },
+                {
+                    "Name": "Length",
+                    "Value": 5
+                }
+            ],
+            "Name": "IKControlType"
+        },
+        {
+            "Items": [
+                {
                     "Name": "None",
                     "Value": 0
                 },
@@ -94116,43 +94367,43 @@
                 },
                 {
                     "Name": "TextDocument_publishDiagnostics",
-                    "Value": 20
-                },
-                {
-                    "Name": "Window_showMessage",
                     "Value": 21
                 },
                 {
-                    "Name": "Window_showMessageRequest",
+                    "Name": "Window_showMessage",
                     "Value": 22
                 },
                 {
-                    "Name": "Roblox_registerSyntaxCategories",
+                    "Name": "Window_showMessageRequest",
                     "Value": 23
                 },
                 {
-                    "Name": "Roblox_signalQuiescence",
+                    "Name": "Roblox_registerSyntaxCategories",
                     "Value": 24
                 },
                 {
-                    "Name": "Roblox_syntaxHighlight",
+                    "Name": "Roblox_signalQuiescence",
                     "Value": 25
                 },
                 {
-                    "Name": "Roblox_suggestExtraSelections",
+                    "Name": "Roblox_syntaxHighlight",
                     "Value": 26
                 },
                 {
-                    "Name": "Roblox_findExecutablePosition",
+                    "Name": "Roblox_suggestExtraSelections",
                     "Value": 27
                 },
                 {
-                    "Name": "Roblox_findColor3",
+                    "Name": "Roblox_findExecutablePosition",
                     "Value": 28
                 },
                 {
-                    "Name": "Roblox_patchSnippetData",
+                    "Name": "Roblox_findColor3",
                     "Value": 29
+                },
+                {
+                    "Name": "Roblox_patchSnippetData",
+                    "Value": 30
                 }
             ],
             "Name": "LSPMethodType"

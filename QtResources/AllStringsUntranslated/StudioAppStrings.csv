@@ -4,6 +4,10 @@ Studio.App.Properties.MultipleTypes,,<Multiple Types>,<Multiple Types>
 Studio.App.Properties.NoAttributeAdded,Displayed in Attributes Section when no attribute has been added yet.,No Attribute has been added yet,No Attribute has been added yet
 Studio.App.Properties.AddAttribute,Title/text for Add Attribute button/dialog,Add Attribute,Add Attribute
 Studio.App.Properties.UnknownAttribute,Displayed when an unhandled exception occurs.,Unknown attributes runtime error.,Unknown attributes runtime error.
+Studio.App.Properties.Button.FontFamily.Bold.Label,"Label for the button, not normally shown.",Bold,Bold
+Studio.App.Properties.Button.FontFamily.Bold.ToolTip,Tooltip for a button that toggles bold on/off in TextLabel/etc objects.,Whether the text should be displayed emboldened.,Whether the text should be displayed emboldened.
+Studio.App.Properties.Button.FontFamily.Italic.Label,"Label for the button, not normally shown.",Italic,Italic
+Studio.App.Properties.Button.FontFamily.Italic.ToolTip,Tooltip for a button that toggles italic on/off in TextLabel/etc objects.,Whether the text should be displayed in an italicized font.,Whether the text should be displayed in an italicized font.
 Studio.App.PopupImagePicker.Url,Displayed as a label in the popup image picker,URL:,URL:
 Studio.App.PopupImagePicker.Search,Displayed as a label in the popup image picker,Search:,Search:
 Studio.App.AddAttributeDialog.AttributeName,Displayed to the left of attribute name line edit.,Name,Name
@@ -388,10 +392,10 @@ Studio.App.BetaFeatures.LearnMoreTooltip,,Learn More,Learn More
 Studio.App.BetaFeatures.AutoEnrollmentToggle,,Enroll in Beta Channel,Enroll in Beta Channel
 Studio.App.BetaFeatures.AutoEnrollmentToggleTooltip,,New Beta Features Will Automatically Be Activated,New Beta Features Will Automatically Be Activated
 Studio.App.BetaFeatures.NewFeaturesForChannelUserWarning1,,"New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>","New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>"
-Studio.App.BetaFeatures.MaterialServiceTitle,,Material Service,Material Service
-Studio.App.BetaFeatures.MaterialServiceDescription,,"Enables MaterialService and MaterialVariant, which allows Part Material appearance customization.","Enables MaterialService and MaterialVariant, which allows Part Material appearance customization."
 Studio.App.BetaFeatures.AudioVolumetricSoundsTitle,,Volumetric Sounds,Volumetric Sounds
 Studio.App.BetaFeatures.AudioVolumetricSoundsDescription,,"Enables Sound Instances that are children of Cylinder, Block, and Ball parts to emit audio from every point on the surface of the part, rather than only the center.","Enables Sound Instances that are children of Cylinder, Block, and Ball parts to emit audio from every point on the surface of the part, rather than only the center."
+Studio.App.BetaFeatures.NewFontUITitle,,New Font Picker UI,New Font Picker UI
+Studio.App.BetaFeatures.NewFontUIDescription,,Enables a new UI for selecting fonts which supports previews and provides access to more weights and styles than before.,Enables a new UI for selecting fonts which supports previews and provides access to more weights and styles than before.
 Studio.App.RobloxDocManager.NoToggleBetweenDMsWhilePaused,Explain why click through message doesn't work,You cannot open a script from one data model while debugger is paused on a different data model.,You cannot open a script from one data model while debugger is paused on a different data model.
 Studio.App.RBXMainWindow.PublishSelectionToRobloxAsPlugin,,Publish the selection to Roblox as a plugin,Publish the selection to Roblox as a plugin
 Studio.App.RBXMainWindow.CreateLocalPluginFromScriptElps,,Create a local plugin from this script...,Create a local plugin from this script...
@@ -2304,6 +2308,8 @@ Studio.App.BetaFeatures.ParticleFlipbooksTitle,,Particle Flipbooks,Particle Flip
 Studio.App.BetaFeatures.ParticlFlipbooksDescription,,"Enables the new particle flipbook feature, allowing the use of animated textures on particles (needing a 1024x1024 grid-layout texture of individiual frames).","Enables the new particle flipbook feature, allowing the use of animated textures on particles (needing a 1024x1024 grid-layout texture of individiual frames)."
 Studio.App.BetaFeatures.StartPageListModeTitle,,Start Page List Display,Start Page List Display
 Studio.App.BetaFeatures.StartPageListModeDescription,,"Enables the new list mode feature for Studio's Start Page, allowing you to view and manage your Roblox games from a condensed list view.","Enables the new list mode feature for Studio's Start Page, allowing you to view and manage your Roblox games from a condensed list view."
+Studio.App.BetaFeatures.NewCharacterControllerTitle,,New Character Controller,New Character Controller
+Studio.App.BetaFeatures.NewCharacterControllerDescription,,Enables trying the ControllerManager and Controller instances for better simulated character movement and customization.,Enables trying the ControllerManager and Controller instances for better simulated character movement and customization.
 Studio.App.DataModelPackageManager.PackageFailedToAutoUpdate1,,%1 failed to auto-update.,%1 failed to auto-update.
 Studio.App.LoginRequest.InternalServerError,Start page login,Our servers are having problems right now. Please try again later.,Our servers are having problems right now. Please try again later.
 Studio.App.LoginRequest.NetworkConnection,Start page login,Could not connect to the server. Please check your internet connection and try again later.,Could not connect to the server. Please check your internet connection and try again later.
@@ -3377,3 +3383,7 @@ Studio.App.BetaFeatures.ScriptEditorApiTitle,,Script Editor API,Script Editor AP
 Studio.App.BetaFeatures.ScriptEditorApiDescription,,"Allow plugins to access the ScriptEditorService and ScriptDocument objects, permitting them to interact with an active editor.","Allow plugins to access the ScriptEditorService and ScriptDocument objects, permitting them to interact with an active editor."
 Studio.App.BetaFeatures.OneClickCollaborateTitle,,One-click Collaborate Button,One-click Collaborate Button
 Studio.App.BetaFeatures.OneClickCollaborateDescription,,"A new ""Collaborate"" button that enables you to immediately add, view, or manage collaborators and their permissions for your game. If collaborators are added, Team Create is turned on so that you can work together with your friends.","A new ""Collaborate"" button that enables you to immediately add, view, or manage collaborators and their permissions for your game. If collaborators are added, Team Create is turned on so that you can work together with your friends."
+Studio.App.BetaFeatures.StrafingTitle,,Strafing Animations,Strafing Animations
+Studio.App.BetaFeatures.StrafingDescription,,Enables strafing animations to be played when characters walk/run in directions they are not facing.,Enables strafing animations to be played when characters walk/run in directions they are not facing.
+Studio.App.BetaFeatures.IkControlTitle,,IK Controls,IK Controls
+Studio.App.BetaFeatures.IkControlDescription,,"Enables IK Controls, which allow you to create realistic procedural animations using IK (Inverse Kinematics)","Enables IK Controls, which allow you to create realistic procedural animations using IK (Inverse Kinematics)"

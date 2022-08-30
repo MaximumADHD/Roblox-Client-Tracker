@@ -35,10 +35,9 @@ Studio.MaterialManager.CreateDialog.ErrorNameExists,Name already exists
 Studio.MaterialManager.CreateDialog.ErrorNoName,Name required
 Studio.MaterialManager.CreateDialog.ErrorSelectMap,Failed to select Texture Map
 Studio.MaterialManager.CreateDialog.ErrorStudsPerTile,Studs Per Tile should be positive
-Studio.MaterialManager.CreateDialog.ErrorUploadFromFileMap,Failed to upload Texture Map
-Studio.MaterialManager.CreateDialog.ErrorUploadFromFileMapToLarge,Failed to upload: file is too large
 Studio.MaterialManager.CreateDialog.FailedToImportMap,Failed to import Texture Map
-Studio.MaterialManager.CreateDialog.FailedToUploadFromFileMap,Failed to upload: file is too large
+Studio.MaterialManager.CreateDialog.FailedToUploadFromFileMap,Failed to upload
+Studio.MaterialManager.CreateDialog.FailedToUploadTooLarge,Failed to upload: file is too large
 Studio.MaterialManager.CreateDialog.FailedUrl,Failed to find URL
 Studio.MaterialManager.CreateDialog.General,General
 Studio.MaterialManager.CreateDialog.Import,Import

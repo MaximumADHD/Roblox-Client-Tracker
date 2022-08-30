@@ -996,6 +996,18 @@
             "NewNotificationAvailableIcon": {
                 "Default": ":images/newNotificationAvailable_dark.png"
             }
+        },
+        {
+          "ToggleButtons/FontStyle/Bold": {
+            "Default": ":/images/ToggleButtons/Dark/Bold_Default.png",
+            "Selected": ":/images/ToggleButtons/Dark/Bold_Selected.png"
+          }
+        },
+        {
+          "ToggleButtons/FontStyle/Italic": {
+            "Default": ":/images/ToggleButtons/Dark/Italic_Default.png",
+            "Selected": ":/images/ToggleButtons/Dark/Italic_Selected.png"
+          }
         }
     ],
     "Package": {

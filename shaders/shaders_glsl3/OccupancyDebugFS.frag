@@ -4,7 +4,7 @@
 #include <Globals.h>
 #include <Params.h>
 uniform vec4 CB0[53];
-uniform vec4 CB1[8];
+uniform vec4 CB1[10];
 uniform sampler2D GBufferDepthTexture;
 uniform sampler3D OccupancyTexture;
 

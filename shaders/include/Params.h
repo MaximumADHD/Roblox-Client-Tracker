@@ -7,5 +7,7 @@ struct Params
     vec4 Params4;
     vec4 Params5;
     vec4 Params6;
+    vec4 Params7;
+    vec4 Params8;
     vec4 Bloom;
 };

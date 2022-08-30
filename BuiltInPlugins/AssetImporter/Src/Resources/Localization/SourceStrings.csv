@@ -110,7 +110,8 @@ Studio.AssetImporter.Statuses.AvatarCagesMissingWarning,Corresponding cage mesh 
 Studio.AssetImporter.Statuses.CageHasMaterialWarning,Material(s) found under this cage mesh will be ignored. Materials cannot be applied to CageWrap instances.
 Studio.AssetImporter.Statuses.CageMeshIntersectedWarning,"The cage intersects with the clothing mesh, which could lead to interpenetration issues."
 Studio.AssetImporter.Statuses.CageMismatchWarning,The number of cage vertices between the outer and inner cage don't match.
-Studio.AssetImporter.Statuses.CageNameHasTypoWarning,"Cage name contains a typo, try renaming to {name}."
+Studio.AssetImporter.Statuses.CageNameHasTypoWarning,"Cage name contains a typo, try renaming to {SuggestedName}."
+Studio.AssetImporter.Statuses.CageNameHasTypoWarning_Deprecated,"Cage name contains a typo, try renaming to {name}."
 Studio.AssetImporter.Statuses.CageNoGeoParentError,"Couldn't find geometry for cage, check your mesh names and spelling."
 Studio.AssetImporter.Statuses.CageNonManifoldWarning,"This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render."
 Studio.AssetImporter.Statuses.CageOverlappingVerticesWarning,"Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render."
@@ -133,7 +134,8 @@ Studio.AssetImporter.Statuses.MeshScaleWarning,One of the objects dimensions are
 Studio.AssetImporter.Statuses.MeshSizeWarning,The number of triangles is greater than is supported. Object will be simplified.
 Studio.AssetImporter.Statuses.MetalnessBadFileFormatError,Unsupported metalness texture file format.
 Studio.AssetImporter.Statuses.NoRefMeshForCageWarning,Could not find corresponding Geo Mesh for Cage Mesh.
-Studio.AssetImporter.Statuses.NoRefMeshForCageWarningWithSuggestion,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {name}.
+Studio.AssetImporter.Statuses.NoRefMeshForCageWarningWithSuggestion,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {SuggestedName}.
+Studio.AssetImporter.Statuses.NoRefMeshForCageWarningWithSuggestion_Deprecated,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {name}.
 Studio.AssetImporter.Statuses.NormalBadFileFormatError,Unsupported normal texture file format.
 Studio.AssetImporter.Statuses.OuterCageBloatingWarning,The average distance between the clothing and outer cage is too large. This will lead to bloating issues when other clothing is layered on top.
 Studio.AssetImporter.Statuses.OuterCageFarExtendedFromMeshWarning,There are outer cage vertex(s) that are too far away from the clothing mesh. This will lead to issues when other clothing is layered on top.

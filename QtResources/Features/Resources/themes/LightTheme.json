@@ -990,6 +990,18 @@
             "NewNotificationAvailableIcon": {
                 "Default": ":images/newNotificationAvailable_light.png"
             }
+        },
+        {
+          "ToggleButtons/FontStyle/Bold": {
+            "Default": ":/images/ToggleButtons/Light/Bold_Default.png",
+            "Selected": ":/images/ToggleButtons/Light/Bold_Selected.png"
+          }
+        },
+        {
+          "ToggleButtons/FontStyle/Italic": {
+            "Default": ":/images/ToggleButtons/Light/Italic_Default.png",
+            "Selected": ":/images/ToggleButtons/Light/Italic_Selected.png"
+          }
         }
     ],
     "Package": {

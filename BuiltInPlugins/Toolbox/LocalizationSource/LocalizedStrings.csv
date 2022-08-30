@@ -184,7 +184,7 @@ Radio FX,Radio FX,FX radio,Radio FX,ラジオ効果音,라디오 효과음,Efeit
 In Review,En revisión,En révision,In fase di revisione,レビュー中,검토 중,Sob revisão,На рассмотрении,审核中,审核中,審查中,Studio.Toolbox.ThumbnailStatus.InReview,In Review, 
 In Review,En revisión,En révision,In fase di revisione,レビュー中,검토 중,Sob revisão,На рассмотрении,审核中,审核中,審查中,Studio.Toolbox.AssetUploadResult.Back,Back, 
 Back,Volver,Retour,Indietro,戻る,뒤로,Voltar, ,返回,返回,返回,Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaRemaining2,{remaining} shares left through {date}., 
-{remaining} shares left through {date}.,{remaining} Compartir en el Mercado desde {date}.,{remaining} parts de marché restantes jusqu'à {date}.,{remaining} Quote del Marketplace rimaste attraverso {date}.,{date} まであと {remaining} 件、マーケットプレース共有できます。,{date}까지 {remaining}회의 마켓플레이스 공유가 남았습니다.,{remaining} Compartilhamentos restantes no mercado até {date}., , , ,{date} 前還有 {remaining} 個商城分享。,Studio.Toolbox.Audio.SoundEffect.Category.marine,Marine, 
+{remaining} shares left through {date}.,{remaining} restantes para compartir hasta el {date}.,{remaining} parts restantes le {date}.,{remaining} Quote del Marketplace rimaste attraverso {date}.,{date} まであと {remaining} 件、残っています。,{date}까지 {remaining}회의 공유가 남았습니다.,{remaining} compartilhamentos restantes até {date}., , , ,{date} 前還有 {remaining} 個分享。,Studio.Toolbox.Audio.SoundEffect.Category.marine,Marine, 
 Marine,Marino,Marin,Marina,海洋,해양,Marinho, , , ,海洋,Studio.Toolbox.Audio.SoundEffect.Category.crowds,Crowds, 
 Crowds,Multitudes,Foules,Folle,群衆,군중,Multidões, , , ,喧嘩,Studio.Toolbox.General.StatusModerated,Rejected, 
 Rejected,Rechazado,Rejeté,Rifiutato,却下済み,거부됨,Rejeitado,Отклонено,已拒绝,已拒绝,遭拒,Studio.Toolbox.General.StatusDelayedRelease,Ready For Sale, 
@@ -638,7 +638,8 @@ Golpes, , , ,打擊,Studio.Toolbox.Audio.SoundEffect.Category.exotic,Exotic, ,Ex
 Exótico, , , ,異國,Studio.Toolbox.Audio.SoundEffect.Category.farm,Farm, ,Farm,Granja,Ferme,Azienda,農場,농장
 Fazenda, , , ,農場,Studio.Toolbox.Audio.SoundEffect.Category.farts,Farts, ,Farts,Flatulencia,Flatulences,Scoregge,おなら,방귀
 Peidos, , , ,放屁,Studio.Toolbox.Audio.SoundEffect.Category.fire,Fire, ,Fire,Fuego,Feu,Fuoco,火,불
-Fogo, , , ,火焰,Studio.Toolbox.Audio.SoundEffect.Category.foley,Foley, ,Foley,Efecto de sala,Bruiteur,Effetto stanza,フォーリー,폴리
+Fogo, , , ,火焰,Studio.Toolbox.General.PackagesUpdateable,Updateable, ,Updateable, , , , , 
+ , , , , ,Studio.Toolbox.Audio.SoundEffect.Category.foley,Foley, ,Foley,Efecto de sala,Bruiteur,Effetto stanza,フォーリー,폴리
 Efeito de sala, , , ,擬聲音效,Studio.Toolbox.Audio.SoundEffect.Category.foreign,Foreign, ,Foreign,Extranjero,Étranger,Stranieri,外国,외국
 Estrangeiro, , , ,外國,Studio.Toolbox.Audio.SoundEffect.Category.metal,Metal, ,Metal,Metal,Métal,Metallo,メタル,금속
 Metal, , , ,金屬,Studio.Toolbox.Audio.SoundEffect.Category.games,Games, ,Games,Juegos,Jeux,Giochi,ゲーム,게임
@@ -744,9 +745,10 @@ O Mercado está mais seguro do que nunca!, , , ,給您更安全的商城！,Stud
  • A aprendizagem de máquina bloqueia os ativos mais nocivos<br />• Conteúdo de criadores verificados agora são destacados por padrão, , , , • 透過機器學習過濾更多有害素材<br />• 驗證創作者的內容將在預設情況下被標記,Studio.Toolbox.Announcement.LinkText_Default,Learn More, ,Learn More,Aprende más,En savoir plus,Scopri di più,もっと詳しく,더 알아보기
 Saiba mais, , , ,了解更多,Studio.Toolbox.Subcategory.ModelMaterial,Materials, ,Materials,Materiales,Matériel, ,素材,재질
 Materiais, , , ,材質,Studio.Toolbox.Common.No,No, ,No,No,Non, ,いいえ,아니요
-Não, , , ,否,Studio.Toolbox.General.SearchTagIdUnverified,Show ID Unverified assets, ,Show ID Unverified assets, , , , , 
- , , , , ,Studio.Toolbox.AssetConfigSharing.VerifyYourAccount,Verify your account, ,Verify your account, , , , , 
- , , , , ,Studio.Toolbox.AssetConfigSharing.VerifyCurrentLimit,Current limit: {quotaText}, ,Current limit: {quotaText}, , , , , 
- , , , , ,Studio.Toolbox.AssetConfigSharing.VerifyReason1,Maximize discoverability, ,Maximize discoverability, , , , , 
- , , , , ,Studio.Toolbox.AssetConfigSharing.VerifyReason2,Increase Marketplace publishing limit, ,Increase Marketplace publishing limit, , , , , 
+Não, , , ,否,Studio.Toolbox.General.SearchTagIdUnverified,Show ID Unverified assets, ,Show ID Unverified assets,Mostrar ID de recursos no verificados,Afficher l'ID des contenus non vérifiés, ,本人確認済みではないアセットを表示,본인 인증 미완료된 애셋만 표시
+Mostrar ativos com identidade não verificada, , , ,顯示沒有 ID 認證的素材,Studio.Toolbox.AssetConfigSharing.VerifyYourAccount,Verify your account, ,Verify your account,Verifica tu cuenta,Vérifier ton compte, ,お持ちのアカウントを認証してください,계정 인증
+Verificar sua conta, , , ,進行帳號驗證,Studio.Toolbox.AssetConfigSharing.VerifyCurrentLimit,Current limit: {quotaText}, ,Current limit: {quotaText},Límite actual: {quotaText},Limite actuelle : {quotaText}, ,現在の上限: {quotaText},현재 한도: {quotaText}
+Limite atual: {quotaText}, , , ,目前上限：{quotaText},Studio.Toolbox.AssetConfigSharing.VerifyReason1,Maximize discoverability, ,Maximize discoverability,Maximizar descubrimiento,Maximiser la visibilité, ,最大限に見つけやすくする,검색 가능성 최대화
+Maximizar descoberta, , , ,提高可發現性,Studio.Toolbox.AssetConfigSharing.VerifyReason2,Increase Marketplace publishing limit, ,Increase Marketplace publishing limit,Aumentar límite de publicación en el Mercado,Augmenter la limite de publication du Marketplace, ,マーケットプレース公開の上限を上げる,마켓플레이스 게시 한도 높이기
+Aumentar o limite de publicação no mercado, , , ,提高商城發布上限,Studio.Toolbox.General.SalesMaxPrice,The maximum price for this item type is {maxPrice}, ,The maximum price for this item type is {maxPrice}, , , , , 
  , , , , 

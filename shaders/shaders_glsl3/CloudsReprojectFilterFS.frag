@@ -6,7 +6,7 @@
 #include <Globals.h>
 #include <CBMatrix.h>
 uniform vec4 CB4[2];
-uniform vec4 CB1[8];
+uniform vec4 CB1[10];
 uniform vec4 CB0[53];
 uniform vec4 CB3[4];
 uniform sampler2D dist;

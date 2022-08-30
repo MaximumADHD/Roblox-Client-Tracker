@@ -91,6 +91,18 @@
                     "$path": ".robloxrc"
                 }
             },
+            "GetHasGuiHidingPermission": {
+                "$path": "GetHasGuiHidingPermission.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "GetHasGuiHidingPermission.spec": {
+                "$path": "GetHasGuiHidingPermission.spec.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
             "PerfUtils": {
                 "$path": "PerfUtils.lua",
                 ".robloxrc": {
