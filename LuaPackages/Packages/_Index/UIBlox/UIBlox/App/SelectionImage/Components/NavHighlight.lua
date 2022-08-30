@@ -17,7 +17,7 @@ return function(props)
 			BorderColor3 = style.Theme.SelectionCursor.Color,
 			BackgroundTransparency = style.Theme.SelectionCursor.Transparency,
 
-			[Roact.Ref] = props.cursorRef
+			[Roact.Ref] = props.cursorRef,
 		})
 	end)
 end

@@ -38,7 +38,7 @@ function AlertContainer:init()
 	self.changeScreenSize = function(rbx)
 		if self.state.screenSize ~= rbx.AbsoluteSize then
 			self:setState({
-				screenSize = rbx.AbsoluteSize
+				screenSize = rbx.AbsoluteSize,
 			})
 		end
 	end
@@ -49,7 +49,7 @@ function AlertContainer:init()
 			BackgroundColor3 = Color3.fromRGB(164, 86, 78),
 			LayoutOrder = 3,
 			Size = UDim2.new(1, 0, 0, 60),
-		},{
+		}, {
 			CustomInner = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
 				LayoutOrder = 3,
@@ -67,7 +67,7 @@ function AlertContainer:init()
 			BackgroundColor3 = Color3.fromRGB(164, 86, 78),
 			LayoutOrder = 3,
 			Size = UDim2.new(1, 0, 0, 60),
-		},{
+		}, {
 			CustomInner = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
 				LayoutOrder = 3,
@@ -85,7 +85,7 @@ function AlertContainer:init()
 			BackgroundColor3 = Color3.fromRGB(164, 86, 78),
 			LayoutOrder = 3,
 			Size = UDim2.new(1, 0, 0, 60),
-		},{
+		}, {
 			CustomInner = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
 				LayoutOrder = 3,
@@ -143,14 +143,14 @@ function AlertContainer:render()
 				},
 				footerContent = self.renderFooter,
 				isFooterContentFocusable = true,
-			})
-		})
+			}),
+		}),
 	})
 end
 
 return function(target)
 	local story = Roact.createElement(StoryView, {}, {
-		Roact.createElement(AlertContainer)
+		Roact.createElement(AlertContainer),
 	})
 	local handle = Roact.mount(story, target, "Alert")
 	return function()

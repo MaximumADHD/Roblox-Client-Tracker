@@ -22,20 +22,20 @@ function PortraitModal:init()
 	self.screenRef = Roact.createRef()
 	self.state = {
 		screenSize = Vector2.new(0, 0),
-		isFullHeight = false
+		isFullHeight = false,
 	}
 
 	self.changeScreenSize = function(rbx)
 		if self.state.screenSize ~= rbx.AbsoluteSize then
 			self:setState({
-				screenSize = rbx.AbsoluteSize
+				screenSize = rbx.AbsoluteSize,
 			})
 		end
 	end
 
 	self.toggleisFullHeight = function()
 		self:setState({
-			isFullHeight = not self.state.isFullHeight
+			isFullHeight = not self.state.isFullHeight,
 		})
 	end
 end
@@ -77,7 +77,7 @@ function PortraitModal:render()
 					Size = UDim2.new(1, 0, 1, 0),
 					[Roact.Ref] = self.screenRef,
 					[Roact.Change.AbsoluteSize] = self.changeScreenSize,
-				} , {
+				}, {
 					ModalWindowContainer = Roact.createElement(ModalWindow, {
 						isFullHeight = self.state.isFullHeight,
 						screenSize = self.state.screenSize,
@@ -86,7 +86,7 @@ function PortraitModal:render()
 							BorderSizePixel = 0,
 							BackgroundTransparency = 1,
 							Size = UDim2.new(1, 0, 0, 60),
-						},{
+						}, {
 							CustomInner = Roact.createElement("TextLabel", {
 								BackgroundTransparency = 1,
 								LayoutOrder = 3,
@@ -96,17 +96,21 @@ function PortraitModal:render()
 								Size = UDim2.new(1, 0, 1, 0),
 							}),
 						}),
-					})
-				})
-			})
-		})
+					}),
+				}),
+			}),
+		}),
 	})
 end
 
 return function(target)
-	local handle = Roact.mount(Roact.createElement(StoryView, {}, {
-		Story = Roact.createElement(PortraitModal),
-	}), target, "PortraitModal")
+	local handle = Roact.mount(
+		Roact.createElement(StoryView, {}, {
+			Story = Roact.createElement(PortraitModal),
+		}),
+		target,
+		"PortraitModal"
+	)
 
 	return function()
 		Roact.unmount(handle)

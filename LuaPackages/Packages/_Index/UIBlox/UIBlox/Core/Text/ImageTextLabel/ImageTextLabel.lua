@@ -82,21 +82,28 @@ function ImageTextLabel:render()
 		local labelTextSize = GetTextSize(text, fontSize, font, Vector2.new(maxSize.X, maxSize.Y))
 		local labelTextHeight = useMaxHeight and maxSize.Y or labelTextSize.Y
 
-		return Roact.createElement("Frame", Cryo.Dictionary.join(frameProps, {
-			Size = UDim2.new(0, labelTextSize.X, 0, labelTextHeight)
-		}), {
-			Icon = if imageProps then Roact.createElement(ImageSetComponent.Label, imageProps) else nil,
-			Name = Roact.createElement(GenericTextLabel, Cryo.Dictionary.join(genericTextLabelProps, {
-				Text = text,
-				AnchorPoint = Vector2.new(0, 0),
-				Position = UDim2.new(0, 0, 0, 0),
-				Size = UDim2.new(1, 0, 1, 0),
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Top,
-				fluidSizing = if imageProps then false else self.props.fluidSizing,
-				maxSize = maxSize,
-			})),
-		})
+		return Roact.createElement(
+			"Frame",
+			Cryo.Dictionary.join(frameProps, {
+				Size = UDim2.new(0, labelTextSize.X, 0, labelTextHeight),
+			}),
+			{
+				Icon = if imageProps then Roact.createElement(ImageSetComponent.Label, imageProps) else nil,
+				Name = Roact.createElement(
+					GenericTextLabel,
+					Cryo.Dictionary.join(genericTextLabelProps, {
+						Text = text,
+						AnchorPoint = Vector2.new(0, 0),
+						Position = UDim2.new(0, 0, 0, 0),
+						Size = UDim2.new(1, 0, 1, 0),
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Top,
+						fluidSizing = if imageProps then false else self.props.fluidSizing,
+						maxSize = maxSize,
+					})
+				),
+			}
+		)
 	end)
 end
 

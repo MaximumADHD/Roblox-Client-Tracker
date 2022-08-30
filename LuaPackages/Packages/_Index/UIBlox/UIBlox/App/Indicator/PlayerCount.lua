@@ -20,7 +20,7 @@ local PADDING_LEFT_RIGHT = 12
 local StatWidgetPropsInterface = t.strictInterface({
 	countText = t.string,
 	labelText = t.string,
-	icon = validateImage
+	icon = validateImage,
 })
 
 local PlayerCount = Roact.PureComponent:extend("PlayerCount")
@@ -28,7 +28,7 @@ local PlayerCount = Roact.PureComponent:extend("PlayerCount")
 PlayerCount.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
 	countLeft = StatWidgetPropsInterface,
-	countRight = StatWidgetPropsInterface
+	countRight = StatWidgetPropsInterface,
 })
 
 function PlayerCount:init()
@@ -63,7 +63,7 @@ function PlayerCount:render()
 				position = UDim2.new(0, 0, 0, 0),
 				anchorPoint = Vector2.new(0, 0),
 				size = UDim2.new(leftSectionWeight, 0, 1, 0),
-				horizontalAlignment = Enum.HorizontalAlignment.Left
+				horizontalAlignment = Enum.HorizontalAlignment.Left,
 			}, style),
 			RightSection = self:renderStatWidget({
 				stat = self.props.countRight,
@@ -71,8 +71,8 @@ function PlayerCount:render()
 				position = UDim2.new(1, 0, 0, 0),
 				anchorPoint = Vector2.new(1, 0),
 				size = UDim2.new(rightSectionWeight, 0, 1, 0),
-				horizontalAlignment = Enum.HorizontalAlignment.Right
-			}, style)
+				horizontalAlignment = Enum.HorizontalAlignment.Right,
+			}, style),
 		})
 	end)
 end
@@ -119,7 +119,7 @@ function PlayerCount:renderStatWidget(widgetProps, style)
 		}, {
 			ListLayout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Vertical
+				FillDirection = Enum.FillDirection.Vertical,
 			}),
 			Number = Roact.createElement(GenericTextLabel, {
 				Size = UDim2.fromScale(0, 0),

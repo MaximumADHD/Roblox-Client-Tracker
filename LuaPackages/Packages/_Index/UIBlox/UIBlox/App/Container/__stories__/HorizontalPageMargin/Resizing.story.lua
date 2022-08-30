@@ -21,7 +21,7 @@ return function(target)
 			subtitle = table.concat({
 				"Page margins are either 12pt, 24pt, or 48pt, depending on container width.",
 				"Interact with the red rulers to resize the demonstration.",
-			}, "\n\n")
+			}, "\n\n"),
 		}, {
 			layout = Roact.createElement("UIListLayout", {
 				Padding = UDim.new(0, 50),

@@ -31,16 +31,18 @@ local defaultBreakpoint = {
 
 local function findBreakpoint(config, width)
 	local bpconf = Array.find(config, function(subconfig)
-		return type(subconfig) == "table" and
-			subconfig.breakpoint ~= nil and
-			width <= (subconfig.max or math.huge) and
-			width >= (subconfig.min or 0)
+		return type(subconfig) == "table"
+			and subconfig.breakpoint ~= nil
+			and width <= (subconfig.max or math.huge)
+			and width >= (subconfig.min or 0)
 	end)
-	return if bpconf then {
-		name = bpconf.breakpoint,
-		min = bpconf.min or 0,
-		max = bpconf.max or math.huge,
-	} else defaultBreakpoint
+	return if bpconf
+		then {
+			name = bpconf.breakpoint,
+			min = bpconf.min or 0,
+			max = bpconf.max or math.huge,
+		}
+		else defaultBreakpoint
 end
 
 return {

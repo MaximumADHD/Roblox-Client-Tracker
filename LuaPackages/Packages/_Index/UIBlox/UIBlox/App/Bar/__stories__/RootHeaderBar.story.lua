@@ -100,8 +100,9 @@ local function RootHeaderBarForPhone()
 end
 
 return function(target)
-	local handle = Roact.mount(Roact.createElement(StoryView, {}, {
-		Story = Roact.createElement(StoryItem, {
+	local handle = Roact.mount(
+		Roact.createElement(StoryView, {}, {
+			Story = Roact.createElement(StoryItem, {
 				size = UDim2.new(1, 0, 1, 0),
 				title = "RootHeaderBar",
 				subTitle = "App.Bar.RootHeaderBar",
@@ -111,16 +112,19 @@ return function(target)
 					BackgroundTransparency = 1,
 					Size = UDim2.fromOffset(800, 45),
 				}, {
-					headerBar = Roact.createElement(RootHeaderBarWithSearchBox)
+					headerBar = Roact.createElement(RootHeaderBarWithSearchBox),
 				}),
 				frame2 = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
 					Size = UDim2.fromOffset(350, 45),
 				}, {
-					headerBar = Roact.createElement(RootHeaderBarForPhone)
+					headerBar = Roact.createElement(RootHeaderBarForPhone),
 				}),
-			})
-	}), target, "HeaderBar")
+			}),
+		}),
+		target,
+		"HeaderBar"
+	)
 	return function()
 		Roact.unmount(handle)
 	end

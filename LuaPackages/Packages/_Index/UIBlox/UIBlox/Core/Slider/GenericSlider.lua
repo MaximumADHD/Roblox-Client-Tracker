@@ -18,7 +18,7 @@ local withSelectionCursorProvider = require(UIBloxRoot.App.SelectionImage.withSe
 
 local PLUGINGUI_INPUT_CAPTURER_ZINDEX = 100000
 local SLIDER_HEIGHT = 36
-local DEFAULT_KNOB_HEIGHT  = 44
+local DEFAULT_KNOB_HEIGHT = 44
 
 local DPAD_INITIAL_MOVE_INTERVAL = 0.5
 local STICK_INITIAL_MOVE_INTERVAL = 0.2
@@ -90,7 +90,7 @@ GenericSlider.validateProps = t.strictInterface({
 GenericSlider.defaultProps = {
 	width = UDim.new(1, 0),
 	knobImagePadding = 0,
-	customKnobBorderColor = if UIBloxConfig.enableSliderCustomization then Color3.new(0, 0, 0) else nil
+	customKnobBorderColor = if UIBloxConfig.enableSliderCustomization then Color3.new(0, 0, 0) else nil,
 }
 
 function GenericSlider:init()
@@ -113,16 +113,16 @@ end
 
 function GenericSlider:getKnobVisibleHeight()
 	if UIBloxConfig.enableSliderCustomization and self.props.customKnobHeight then
-		local scale = (DEFAULT_KNOB_HEIGHT  - (self.props.knobImagePadding * 2))/DEFAULT_KNOB_HEIGHT
+		local scale = (DEFAULT_KNOB_HEIGHT - (self.props.knobImagePadding * 2)) / DEFAULT_KNOB_HEIGHT
 		return scale * self.props.customKnobHeight
 	else
-		return DEFAULT_KNOB_HEIGHT  - (self.props.knobImagePadding * 2)
+		return DEFAULT_KNOB_HEIGHT - (self.props.knobImagePadding * 2)
 	end
 end
 
 function GenericSlider:getKnobHeight()
 	if UIBloxConfig.enableSliderCustomization and self.props.customKnobHeight then
-		local scaleToActualeSize = DEFAULT_KNOB_HEIGHT /(DEFAULT_KNOB_HEIGHT  - (self.props.knobImagePadding * 2))
+		local scaleToActualeSize = DEFAULT_KNOB_HEIGHT / (DEFAULT_KNOB_HEIGHT - (self.props.knobImagePadding * 2))
 		local actualSize = scaleToActualeSize * self.props.customKnobHeight
 		return actualSize
 	else
@@ -147,7 +147,8 @@ function GenericSlider:onMoveStep(inputObjects, delta)
 		speed = STICK_SPEED
 	else
 		local leftMovement = inputObjects[Enum.KeyCode.DPadLeft].UserInputState == Enum.UserInputState.Begin and -1 or 0
-		local rightMovement = inputObjects[Enum.KeyCode.DPadRight].UserInputState == Enum.UserInputState.Begin and 1 or 0
+		local rightMovement = inputObjects[Enum.KeyCode.DPadRight].UserInputState == Enum.UserInputState.Begin and 1
+			or 0
 		moveDirection = leftMovement + rightMovement
 		initialMoveInterval = DPAD_INITIAL_MOVE_INTERVAL
 		speed = DPAD_SPEED
@@ -160,7 +161,7 @@ function GenericSlider:onMoveStep(inputObjects, delta)
 			self.totalMoveTime = 0
 			self.unhandledTime = 0
 			increments = 1
-		-- Process input if enough time has passed.
+			-- Process input if enough time has passed.
 		elseif self.totalMoveTime > initialMoveInterval then
 			-- How much of delta time that was in the first interval
 			local initialIntervalOverlap = math.max(initialMoveInterval - self.totalMoveTime - delta, 0)
@@ -223,14 +224,20 @@ function GenericSlider:processTwoKnobGamepadInput(polarity, increments)
 	end
 
 	if self.state.lowerKnobIsSelected then
-		local steppedValue = math.max(math.min(lowerValue + (stepInterval * increments), self.props.max), self.props.min)
+		local steppedValue = math.max(
+			math.min(lowerValue + (stepInterval * increments), self.props.max),
+			self.props.min
+		)
 		if steppedValue <= upperValue then
 			lowerValue = steppedValue
 		else
 			lowerValue = upperValue
 		end
 	elseif self.state.upperKnobIsSelected then
-		local steppedValue = math.max(math.min(upperValue + (stepInterval * increments), self.props.max), self.props.min)
+		local steppedValue = math.max(
+			math.min(upperValue + (stepInterval * increments), self.props.max),
+			self.props.min
+		)
 		if steppedValue >= lowerValue then
 			upperValue = steppedValue
 		else
@@ -280,7 +287,7 @@ function GenericSlider:renderTrack(fillSize, isTwoKnobs, fillPercentLower)
 				Position = isTwoKnobs and UDim2.new(fillPercentLower, 0, 0, 0) or UDim2.new(0, 0, 0, 0),
 				ScaleType = Enum.ScaleType.Slice,
 				SliceCenter = self.props.trackFillSliceCenter,
-			})
+			}),
 		})
 	end
 end
@@ -309,7 +316,11 @@ function GenericSlider:renderUpperKnob(knobPositionUpper, knobIsSelected, isTwoK
 
 	local adjustedKnobHeight = self:getKnobHeight()
 	local knobPosition = knobPositionUpper
-	if UIBloxConfig.enableSliderCustomization and self.props.customKnobBorderSize and self.props.customKnobBorderSize > 0 then
+	if
+		UIBloxConfig.enableSliderCustomization
+		and self.props.customKnobBorderSize
+		and self.props.customKnobBorderSize > 0
+	then
 		adjustedKnobHeight = adjustedKnobHeight - 2 * (self.props.customKnobBorderSize + 2)
 		knobPosition = UDim2.fromScale(0.5, 0.5)
 	end
@@ -325,19 +336,24 @@ function GenericSlider:renderUpperKnob(knobPositionUpper, knobIsSelected, isTwoK
 		ZIndex = 3,
 
 		NextSelectionLeft = (not knobIsSelected and self.props.upperValue ~= self.props.lowerValue)
-			and self.lowerKnobRef or nil,
+				and self.lowerKnobRef
+			or nil,
 		NextSelectionRight = knobIsSelected and self.upperKnobRef or nil,
 		NextSelectionUp = knobIsSelected and self.upperKnobRef or nil,
 		NextSelectionDown = knobIsSelected and self.upperKnobRef or nil,
-		SelectionImageObject = knobIsSelected and getSelectionCursor(CursorKind.SelectedKnob)
-			or getSelectionCursor(CursorKind.UnselectedKnob),
+		SelectionImageObject = knobIsSelected and getSelectionCursor(CursorKind.SelectedKnob) or getSelectionCursor(
+			CursorKind.UnselectedKnob
+		),
 		[Roact.Ref] = self.upperKnobRef,
 		[Roact.Event.InputBegan] = function(rbx, inputObject)
 			if self.props.isDisabled then
 				return
 			end
 
-			self:onInputBegan(inputObject, --[[isKnob =]] true)
+			self:onInputBegan(
+				inputObject, --[[isKnob =]]
+				true
+			)
 		end,
 		inputBindings = {
 			OnMoveStep = Gamepad.Input.onMoveStep(function(inputObjects, delta)
@@ -360,7 +376,11 @@ function GenericSlider:renderUpperKnob(knobPositionUpper, knobIsSelected, isTwoK
 		},
 	})
 
-	if UIBloxConfig.enableSliderCustomization and self.props.customKnobBorderSize and self.props.customKnobBorderSize > 0 then
+	if
+		UIBloxConfig.enableSliderCustomization
+		and self.props.customKnobBorderSize
+		and self.props.customKnobBorderSize > 0
+	then
 		return self:wrapKnobWithBorder(upperKnob, knobPositionUpper)
 	else
 		return upperKnob
@@ -370,7 +390,11 @@ end
 function GenericSlider:renderLowerKnob(knobPositionLower, knobIsSelected, isTwoKnobs, getSelectionCursor)
 	local adjustedKnobHeight = self:getKnobHeight()
 	local knobPosition = knobPositionLower
-	if UIBloxConfig.enableSliderCustomization and self.props.customKnobBorderSize and self.props.customKnobBorderSize > 0 then
+	if
+		UIBloxConfig.enableSliderCustomization
+		and self.props.customKnobBorderSize
+		and self.props.customKnobBorderSize > 0
+	then
 		adjustedKnobHeight = adjustedKnobHeight - 2 * (self.props.customKnobBorderSize + 2)
 		knobPosition = UDim2.fromScale(0.5, 0.5)
 	end
@@ -405,22 +429,31 @@ function GenericSlider:renderLowerKnob(knobPositionLower, knobIsSelected, isTwoK
 		},
 		NextSelectionLeft = knobIsSelected and self.lowerKnobRef or nil,
 		NextSelectionRight = (isTwoKnobs and not knobIsSelected and self.props.upperValue ~= self.props.lowerValue)
-			and self.upperKnobRef or nil,
+				and self.upperKnobRef
+			or nil,
 		NextSelectionUp = knobIsSelected and self.lowerKnobRef or nil,
 		NextSelectionDown = knobIsSelected and self.lowerKnobRef or nil,
-		SelectionImageObject = knobIsSelected and getSelectionCursor(CursorKind.SelectedKnob)
-			or getSelectionCursor(CursorKind.UnselectedKnob),
+		SelectionImageObject = knobIsSelected and getSelectionCursor(CursorKind.SelectedKnob) or getSelectionCursor(
+			CursorKind.UnselectedKnob
+		),
 		[Roact.Ref] = self.lowerKnobRef,
 		[Roact.Event.InputBegan] = function(rbx, inputObject)
 			if self.props.isDisabled then
 				return
 			end
 
-			self:onInputBegan(inputObject, --[[isKnob =]] true)
+			self:onInputBegan(
+				inputObject, --[[isKnob =]]
+				true
+			)
 		end,
 	})
 
-	if UIBloxConfig.enableSliderCustomization and self.props.customKnobBorderSize and self.props.customKnobBorderSize > 0 then
+	if
+		UIBloxConfig.enableSliderCustomization
+		and self.props.customKnobBorderSize
+		and self.props.customKnobBorderSize > 0
+	then
 		return self:wrapKnobWithBorder(lowerKnob, knobPositionLower)
 	else
 		return lowerKnob
@@ -466,17 +499,24 @@ function GenericSlider:render()
 					return
 				end
 
-				self:onInputBegan(inputObject, --[[isKnob =]] false)
+				self:onInputBegan(
+					inputObject, --[[isKnob =]]
+					false
+				)
 			end,
 			[Roact.Ref] = self.rootRef,
 
 			-- If Slider bar has an ancestor with NextSelectionRight/Left defined, we won't be able to use
 			-- gamepad to move thumb right or left: we need to override these values when knob is selected.
-			NextSelectionLeft = (UIBloxConfig.selectedSliderOverridesNextSelectionRightLeft and selectedKnob) and self.rootRef or nil,
-			NextSelectionRight = (UIBloxConfig.selectedSliderOverridesNextSelectionRightLeft and selectedKnob) and self.rootRef or nil,
+			NextSelectionLeft = (UIBloxConfig.selectedSliderOverridesNextSelectionRightLeft and selectedKnob)
+					and self.rootRef
+				or nil,
+			NextSelectionRight = (UIBloxConfig.selectedSliderOverridesNextSelectionRightLeft and selectedKnob)
+					and self.rootRef
+				or nil,
 
-			NextSelectionUp = (not selectedKnob) and self.props.NextSelectionUp or self.rootRef,
-			NextSelectionDown = (not selectedKnob) and self.props.NextSelectionDown or self.rootRef,
+			NextSelectionUp = not selectedKnob and self.props.NextSelectionUp or self.rootRef,
+			NextSelectionDown = not selectedKnob and self.props.NextSelectionDown or self.rootRef,
 			defaultChild = (self.props.upperValue ~= self.props.min and self.lowerKnobRef or self.upperKnobRef) or nil,
 			onFocusLost = function()
 				if self.state.lowerKnobIsSelected or self.state.upperKnobIsSelected then
@@ -491,7 +531,10 @@ function GenericSlider:render()
 			LowerKnob = self:renderLowerKnob(knobPositionLower, knobIsSelected, isTwoKnobs, getSelectionCursor),
 			LowerKnobShadow = self:renderKnobShadow(self.props.knobShadowTransparencyLower, knobPositionLower),
 			UpperKnob = self:renderUpperKnob(knobPositionUpper, knobIsSelected, isTwoKnobs, getSelectionCursor),
-			UpperKnobShadow = isTwoKnobs and self:renderKnobShadow(self.props.knobShadowTransparencyUpper, knobPositionUpper) or nil,
+			UpperKnobShadow = isTwoKnobs and self:renderKnobShadow(
+				self.props.knobShadowTransparencyUpper,
+				knobPositionUpper
+			) or nil,
 		})
 	end)
 end
@@ -779,7 +822,10 @@ function GenericSlider:hasTwoKnobs()
 end
 
 return Roact.forwardRef(function(props, ref)
-	return Roact.createElement(GenericSlider, Cryo.Dictionary.join(props, {
-		imageButtonRef = ref
-	}))
+	return Roact.createElement(
+		GenericSlider,
+		Cryo.Dictionary.join(props, {
+			imageButtonRef = ref,
+		})
+	)
 end)

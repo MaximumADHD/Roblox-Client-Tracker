@@ -46,7 +46,10 @@ function Interactable:render()
 end
 
 return Roact.forwardRef(function(props, ref)
-	return Roact.createElement(Interactable, Cryo.Dictionary.join(props, {
-		forwardedRef = ref,
-	}))
+	return Roact.createElement(
+		Interactable,
+		Cryo.Dictionary.join(props, {
+			forwardedRef = ref,
+		})
+	)
 end)

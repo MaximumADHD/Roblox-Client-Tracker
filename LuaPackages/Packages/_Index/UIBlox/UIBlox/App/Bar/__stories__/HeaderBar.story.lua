@@ -177,114 +177,118 @@ local function HeaderBarWithBackButtonAndSearchBoxForTablet()
 end
 
 return function(target)
-	local handle = Roact.mount(Roact.createElement(StoryView, {}, {
-		Story =	Roact.createElement(StoryItem, {
-			backgroundColor3 = Color3.fromRGB(177, 177, 177),
-			size = UDim2.fromScale(1, 1),
-			title = "HeaderBar",
-			subTitle = "App.Bar.HeaderBar",
-		}, {
-			scrollingFrame = Roact.createElement("ScrollingFrame", {
-				Size = UDim2.fromScale(1, 1),
+	local handle = Roact.mount(
+		Roact.createElement(StoryView, {}, {
+			Story = Roact.createElement(StoryItem, {
+				backgroundColor3 = Color3.fromRGB(177, 177, 177),
+				size = UDim2.fromScale(1, 1),
+				title = "HeaderBar",
+				subTitle = "App.Bar.HeaderBar",
 			}, {
-				layout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, 15),
-				}),
-				frame = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.fromOffset(700, 45),
-					LayoutOrder = 1,
+				scrollingFrame = Roact.createElement("ScrollingFrame", {
+					Size = UDim2.fromScale(1, 1),
 				}, {
-					headerBar = Roact.createElement(BarDemo)
+					layout = Roact.createElement("UIListLayout", {
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						Padding = UDim.new(0, 15),
+					}),
+					frame = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.fromOffset(700, 45),
+						LayoutOrder = 1,
+					}, {
+						headerBar = Roact.createElement(BarDemo),
+					}),
+					frame2 = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.fromOffset(361, 45),
+						LayoutOrder = 2,
+					}, {
+						headerBar = Roact.createElement(BarDemo),
+					}),
+					frame3 = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.fromOffset(300, 45),
+						LayoutOrder = 3,
+					}, {
+						headerBar = Roact.createElement(BarDemo),
+					}),
+					frame4 = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.fromOffset(700, 45),
+						LayoutOrder = 4,
+					}, {
+						headerBar = Roact.createElement(BarWithTextButtonsDemo),
+					}),
+					frame5 = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.fromOffset(361, 45),
+						LayoutOrder = 5,
+					}, {
+						headerBar = Roact.createElement(BarWithTextButtonsDemo),
+					}),
+					frame6 = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.fromOffset(300, 45),
+						LayoutOrder = 6,
+					}, {
+						headerBar = Roact.createElement(BarWithTextButtonsDemo),
+					}),
+					frameHeaderBarWithSearchBoxForPhone = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.fromOffset(450, 45),
+						LayoutOrder = 7,
+					}, {
+						headerBar = Roact.createElement(HeaderBarWithSearchBox),
+					}),
+					frameHeaderBarWithOnlySearchBoxForPhone = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.fromOffset(450, 45),
+						LayoutOrder = 8,
+					}, {
+						headerBar = Roact.createElement(HeaderBarWithOnlySearchBox),
+					}),
+					frameHeaderBarWithRootTitleForPhone = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.fromOffset(450, 45),
+						LayoutOrder = 9,
+					}, {
+						headerBar = Roact.createElement(HeaderBarWithRootTitle),
+					}),
+					frameHeaderBarWithRootTitleAndSearchBoxForTablet = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.fromOffset(950, 45),
+						LayoutOrder = 10,
+					}, {
+						headerBar = Roact.createElement(HeaderBarWithRootTitleAndSearchBoxForTablet),
+					}),
+					frameHeaderBarWithBackButtonAndSearchBoxForTablet = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.fromOffset(950, 45),
+						LayoutOrder = 11,
+					}, {
+						headerBar = Roact.createElement(HeaderBarWithBackButtonAndSearchBoxForTablet),
+					}),
+					frameHeaderBarWithNilTitle = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.fromOffset(600, 45),
+						LayoutOrder = 12,
+					}, {
+						headerBar = Roact.createElement(HeaderBarWithEmptyTitle),
+					}),
+					frameHeaderBarWithNoProps = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.fromOffset(600, 45),
+						LayoutOrder = 13,
+					}, {
+						headerBar = Roact.createElement(HeaderBar),
+					}),
 				}),
-				frame2 = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.fromOffset(361, 45),
-					LayoutOrder = 2,
-				}, {
-					headerBar = Roact.createElement(BarDemo)
-				}),
-				frame3 = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.fromOffset(300, 45),
-					LayoutOrder = 3,
-				}, {
-					headerBar = Roact.createElement(BarDemo)
-				}),
-				frame4 = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.fromOffset(700, 45),
-					LayoutOrder = 4,
-				}, {
-					headerBar = Roact.createElement(BarWithTextButtonsDemo)
-				}),
-				frame5 = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.fromOffset(361, 45),
-					LayoutOrder = 5,
-				}, {
-					headerBar = Roact.createElement(BarWithTextButtonsDemo)
-				}),
-				frame6 = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.fromOffset(300, 45),
-					LayoutOrder = 6,
-				}, {
-					headerBar = Roact.createElement(BarWithTextButtonsDemo)
-				}),
-				frameHeaderBarWithSearchBoxForPhone = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.fromOffset(450, 45),
-					LayoutOrder = 7,
-				}, {
-					headerBar = Roact.createElement(HeaderBarWithSearchBox)
-				}),
-				frameHeaderBarWithOnlySearchBoxForPhone = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.fromOffset(450, 45),
-					LayoutOrder = 8,
-				}, {
-					headerBar = Roact.createElement(HeaderBarWithOnlySearchBox)
-				}),
-				frameHeaderBarWithRootTitleForPhone = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.fromOffset(450, 45),
-					LayoutOrder = 9,
-				}, {
-					headerBar = Roact.createElement(HeaderBarWithRootTitle)
-				}),
-				frameHeaderBarWithRootTitleAndSearchBoxForTablet = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.fromOffset(950, 45),
-					LayoutOrder = 10,
-				}, {
-					headerBar = Roact.createElement(HeaderBarWithRootTitleAndSearchBoxForTablet)
-				}),
-				frameHeaderBarWithBackButtonAndSearchBoxForTablet = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.fromOffset(950, 45),
-					LayoutOrder = 11,
-				}, {
-					headerBar = Roact.createElement(HeaderBarWithBackButtonAndSearchBoxForTablet)
-				}),
-				frameHeaderBarWithNilTitle = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.fromOffset(600, 45),
-					LayoutOrder = 12,
-				}, {
-					headerBar = Roact.createElement(HeaderBarWithEmptyTitle)
-				}),
-				frameHeaderBarWithNoProps = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.fromOffset(600, 45),
-					LayoutOrder = 13,
-				}, {
-					headerBar = Roact.createElement(HeaderBar)
-				})
-			})
+			}),
 		}),
-	}), target, "HeaderBar")
+		target,
+		"HeaderBar"
+	)
 	return function()
 		Roact.unmount(handle)
 	end

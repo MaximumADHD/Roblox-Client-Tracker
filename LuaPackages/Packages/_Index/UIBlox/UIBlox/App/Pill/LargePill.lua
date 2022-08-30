@@ -69,7 +69,7 @@ LargePill.validateProps = t.strictInterface({
 
 LargePill.defaultProps = {
 	layoutOrder = 1,
-	width = UDim.new(.5, 0),
+	width = UDim.new(0.5, 0),
 	text = "",
 	isSelected = false,
 	isLoading = false,
@@ -78,7 +78,7 @@ LargePill.defaultProps = {
 
 function LargePill:init()
 	self.state = {
-		controlState = ControlState.Initialize
+		controlState = ControlState.Initialize,
 	}
 
 	self.onStateChanged = function(oldState, newState)
@@ -157,9 +157,6 @@ function LargePill:render()
 	end)
 end
 
-return Roact.forwardRef(function (props, ref)
-	return Roact.createElement(LargePill, Cryo.Dictionary.join(
-		props,
-		{controlRef = ref}
-	))
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(LargePill, Cryo.Dictionary.join(props, { controlRef = ref }))
 end)

@@ -69,10 +69,12 @@ function TextureScroller:init()
 
 		local anchoredImageOffsetStart = Vector2.new(
 			imageRectOffsetStart.X - imageAnchorPoint.X * imageRectSize.X,
-			imageRectOffsetStart.Y - imageAnchorPoint.Y * imageRectSize.Y)
+			imageRectOffsetStart.Y - imageAnchorPoint.Y * imageRectSize.Y
+		)
 		local anchoredImageOffsetEnd = Vector2.new(
 			imageRectOffsetEnd.X - imageAnchorPoint.X * imageRectSize.X,
-			imageRectOffsetEnd.Y - imageAnchorPoint.Y * imageRectSize.Y)
+			imageRectOffsetEnd.Y - imageAnchorPoint.Y * imageRectSize.Y
+		)
 
 		local lerpPerFrame = 0
 		if imageScrollCycleTime ~= 0 then
@@ -81,7 +83,8 @@ function TextureScroller:init()
 		self.lerpValue = (self.lerpValue + lerpPerFrame) % 1
 		if self.imageRef.current then
 			self.imageRef.current.ImageRectOffset = floorVector2(
-				anchoredImageOffsetStart:lerp(anchoredImageOffsetEnd, self.lerpValue))
+				anchoredImageOffsetStart:lerp(anchoredImageOffsetEnd, self.lerpValue)
+			)
 		end
 	end
 end

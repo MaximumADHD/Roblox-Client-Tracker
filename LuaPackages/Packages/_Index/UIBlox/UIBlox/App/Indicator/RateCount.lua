@@ -19,7 +19,7 @@ local RATINGS_HEIGHT = 72
 local ICON_SIZE = getIconSize(IconSize.Large)
 local BUTTON_SIZE = 44
 local HORIZONTAL_PADDING = 12
-local TEXT_SECTION_OFFSET = - (ICON_SIZE + BUTTON_SIZE * 2 + HORIZONTAL_PADDING * 3)
+local TEXT_SECTION_OFFSET = -(ICON_SIZE + BUTTON_SIZE * 2 + HORIZONTAL_PADDING * 3)
 
 local ICON_RATING = Images["icons/status/games/rating_large"]
 local ICON_VOTE_DOWN_OFF = Images["icons/actions/vote/voteDownOff"]
@@ -121,7 +121,7 @@ function RateCount:render()
 			}, {
 				ListLayout = Roact.createElement("UIListLayout", {
 					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = Enum.FillDirection.Vertical
+					FillDirection = Enum.FillDirection.Vertical,
 				}),
 				RateText = Roact.createElement(GenericTextLabel, {
 					LayoutOrder = 1,

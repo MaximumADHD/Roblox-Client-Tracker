@@ -81,7 +81,7 @@ function InteractiveAlert:render()
 						ImageColor3 = theme.IconEmphasis.Color,
 						ImageTransparency = theme.IconEmphasis.Transparency,
 						Size = UDim2.new(0, TITLE_ICON_SIZE, 0, TITLE_ICON_SIZE),
-					})
+					}),
 				})
 			end
 		end
@@ -92,8 +92,12 @@ function InteractiveAlert:render()
 		local footerContent = self.props.footerContent
 		if self.props.footerText then
 			local fullFooterTextHeight = self.props.footerText
-				and GetTextHeight(self.props.footerText, font.Footer.Font,
-					font.BaseSize * font.Footer.RelativeSize, innerWidth)
+					and GetTextHeight(
+						self.props.footerText,
+						font.Footer.Font,
+						font.BaseSize * font.Footer.RelativeSize,
+						innerWidth
+					)
 				or 0
 
 			footerContent = function()
@@ -111,11 +115,12 @@ function InteractiveAlert:render()
 		end
 
 		local fullTextHeight = self.props.bodyText
-			and GetTextHeight(self.props.bodyText, textFont, fontSize, innerWidth) or 0
+				and GetTextHeight(self.props.bodyText, textFont, fontSize, innerWidth)
+			or 0
 
 		local middleContent = self.props.middleContent
 		if self.props.bodyText then
-			middleContent = function ()
+			middleContent = function()
 				return Roact.createElement(FitFrameOnAxis, {
 					BackgroundTransparency = 1,
 					contentPadding = UDim.new(0, MIDDLE_CONTENT_PADDING),
@@ -137,7 +142,7 @@ function InteractiveAlert:render()
 						LayoutOrder = 2,
 						minimumSize = UDim2.new(1, 0, 0, 0),
 					}, {
-						Content = self.props.middleContent()
+						Content = self.props.middleContent(),
 					}),
 				})
 			end

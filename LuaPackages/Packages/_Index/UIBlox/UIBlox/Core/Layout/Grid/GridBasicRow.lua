@@ -12,27 +12,30 @@ local GridConfigReader = require(Grid.GridConfigReader)
 
 local GridBasicRow = Roact.PureComponent:extend("GridBasicRow")
 
-GridBasicRow.validateProps = t.intersection(t.strictInterface({
-	kind = t.optional(t.string),
-	layoutOrder = t.optional(t.integer),
-	scrollable = t.optional(t.boolean),
-	pages = t.optional(t.numberPositive),
-	multiLine = t.optional(t.boolean),
-	lines = t.optional(t.intersection(t.integer, t.numberPositive)),
-	relativeHeight = t.optional(t.UDim),
-	[Roact.Children] = t.optional(t.table),
-}), function(props)
-	if props.scrollable and not props.relativeHeight then
-		return false, "scrollable requires relativeHeight"
+GridBasicRow.validateProps = t.intersection(
+	t.strictInterface({
+		kind = t.optional(t.string),
+		layoutOrder = t.optional(t.integer),
+		scrollable = t.optional(t.boolean),
+		pages = t.optional(t.numberPositive),
+		multiLine = t.optional(t.boolean),
+		lines = t.optional(t.intersection(t.integer, t.numberPositive)),
+		relativeHeight = t.optional(t.UDim),
+		[Roact.Children] = t.optional(t.table),
+	}),
+	function(props)
+		if props.scrollable and not props.relativeHeight then
+			return false, "scrollable requires relativeHeight"
+		end
+		if props.multiLine and not props.relativeHeight then
+			return false, "multiLine requires relativeHeight"
+		end
+		if props.multiLine and props.scrollable then
+			return false, "multiLine can't be scrollable"
+		end
+		return true
 	end
-	if props.multiLine and not props.relativeHeight then
-		return false, "multiLine requires relativeHeight"
-	end
-	if props.multiLine and props.scrollable then
-		return false, "multiLine can't be scrollable"
-	end
-	return true
-end)
+)
 
 GridBasicRow.defaultProps = {
 	kind = "default",
@@ -148,22 +151,33 @@ function GridBasicRow:render()
 			return Roact.createElement(GridContext.Provider, {
 				value = context,
 			}, {
-				[rowName] = Roact.createElement("Frame", {
-					Size = frameSize,
-					SizeConstraint = Enum.SizeConstraint.RelativeXX,
-					AutomaticSize = if (relativeHeight and not multiLine) or (multiLine and self.props.lines)
-						then Enum.AutomaticSize.None
-						else Enum.AutomaticSize.Y,
-					BackgroundTransparency = 1,
-					LayoutOrder = self.props.layoutOrder,
-				}, Object.assign({
-					_uiblox_grid_maxwidth_ = if width then Roact.createElement("UISizeConstraint", {
-						MaxSize = Vector2.new(width, if relativeHeight then applyUDim(frameSize.Y, width) else math.huge),
-					}) else nil,
-				}, if multiLine
-					then self:renderChildrenMultiline(columns, margin, gutter)
-					else self:renderChildren(scrollable, margin, gutter)
-				)),
+				[rowName] = Roact.createElement(
+					"Frame",
+					{
+						Size = frameSize,
+						SizeConstraint = Enum.SizeConstraint.RelativeXX,
+						AutomaticSize = if (relativeHeight and not multiLine) or (multiLine and self.props.lines)
+							then Enum.AutomaticSize.None
+							else Enum.AutomaticSize.Y,
+						BackgroundTransparency = 1,
+						LayoutOrder = self.props.layoutOrder,
+					},
+					Object.assign(
+						{
+							_uiblox_grid_maxwidth_ = if width
+								then Roact.createElement("UISizeConstraint", {
+									MaxSize = Vector2.new(
+										width,
+										if relativeHeight then applyUDim(frameSize.Y, width) else math.huge
+									),
+								})
+								else nil,
+						},
+						if multiLine
+							then self:renderChildrenMultiline(columns, margin, gutter)
+							else self:renderChildren(scrollable, margin, gutter)
+					)
+				),
 			})
 		end,
 	})

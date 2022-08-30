@@ -27,7 +27,7 @@ DetailsPageTitleContent.validateProps = t.strictInterface({
 
 function DetailsPageTitleContent:init()
 	self.state = {
-		containerWidth = nil
+		containerWidth = nil,
 	}
 	self.onContainerSizeChange = function(rbx)
 		self:setState(function(prevState, props)

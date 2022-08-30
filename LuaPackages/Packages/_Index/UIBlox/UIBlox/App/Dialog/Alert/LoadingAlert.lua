@@ -46,7 +46,7 @@ function LoadingAlert:init()
 				size = UDim2.fromOffset(48, 48),
 				position = UDim2.fromScale(0.5, 0.5),
 				anchorPoint = Vector2.new(0.5, 0.5),
-			})
+			}),
 		})
 	end
 end
@@ -91,7 +91,7 @@ function LoadingAlert:render()
 						ImageColor3 = theme.IconEmphasis.Color,
 						ImageTransparency = theme.IconEmphasis.Transparency,
 						Size = UDim2.new(0, TITLE_ICON_SIZE, 0, TITLE_ICON_SIZE),
-					})
+					}),
 				})
 			end or nil,
 		})

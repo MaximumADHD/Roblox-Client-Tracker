@@ -18,7 +18,7 @@ local function getWrappedTextWithIcon(text, fontSize, font, iconWidth, iconPaddi
 	local spaceTextSize = GetTextSize("  ", fontSize, font, Vector2.new(0, 0))
 		- GetTextSize(" ", fontSize, font, Vector2.new(0, 0))
 	local numSpaces = math.ceil((iconWidth + iconPadding) / spaceTextSize.X)
-	return string.rep(" ", numSpaces)..text
+	return string.rep(" ", numSpaces) .. text
 end
 
 return getWrappedTextWithIcon

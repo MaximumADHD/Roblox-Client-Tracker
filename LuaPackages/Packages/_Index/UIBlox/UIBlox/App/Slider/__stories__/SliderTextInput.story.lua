@@ -15,7 +15,7 @@ local Story = Roact.PureComponent:extend("Story")
 
 function Story:init()
 	self:setState({
-		value = 10
+		value = 10,
 	})
 end
 
@@ -47,15 +47,14 @@ function Story:render()
 			max = 100,
 			stepInterval = 10,
 			disabled = true,
-			onValueChanged = function(newValue)
-			end,
+			onValueChanged = function(newValue) end,
 		}),
 	})
 end
 
 return function(target)
 	local styleProvider = Roact.createElement(StoryView, {}, {
-		Roact.createElement(Story)
+		Roact.createElement(Story),
 	})
 
 	local handle = Roact.mount(styleProvider, target, "SliderTextInput")

@@ -37,25 +37,25 @@ LogoTray.validateProps = t.strictInterface({
 		-- so it shall be unique.
 		key = t.string,
 		-- Logo image.
-		logo = validateImage
+		logo = validateImage,
 	})),
 	layoutOrder = t.integer,
 	-- Padding of the LogoTray
 	padding = t.optional(t.UDim),
 	-- A callback function for the click event on a Logo item.
-	handleItemClick = t.optional(t.callback)
+	handleItemClick = t.optional(t.callback),
 })
 
 LogoTray.defaultProps = {
 	padding = UDim.new(0, LOGO_PADDING_DEFAULT),
-	handleItemClick = noOpt
+	handleItemClick = noOpt,
 }
 
 function LogoTray:init()
 	self.getInteractableItemTable = function()
 		local itemTable = {}
 		Cryo.List.map(self.props.itemList, function(v)
-			assert(itemTable[v.key]	== nil, "Duplicate logo key is not allowed.")
+			assert(itemTable[v.key] == nil, "Duplicate logo key is not allowed.")
 			itemTable[v.key] = v
 		end)
 		return itemTable
@@ -67,10 +67,10 @@ function LogoTray:init()
 	end
 
 	self.renderItem = function(logoItem)
-		assert(logoItem.logo ~= nil, "Invalid icon: "..logoItem.key)
+		assert(logoItem.logo ~= nil, "Invalid icon: " .. logoItem.key)
 		local index = Cryo.List.find(self.props.itemList, logoItem)
 		local extraProps = {
-			LayoutOrder = index
+			LayoutOrder = index,
 		}
 		local item = Roact.createElement(IconButton, {
 			icon = logoItem.logo,
@@ -79,7 +79,7 @@ function LogoTray:init()
 			iconSize = LOGO_SIZE_DEFAULT,
 			onActivated = function()
 				self.props.handleItemClick(logoItem.key)
-			end
+			end,
 		})
 		return item, extraProps
 	end
@@ -97,7 +97,7 @@ function LogoTray:render()
 		itemSize = measuredItemSize,
 		layoutOrder = self.props.layoutOrder,
 		renderItem = self.renderItem,
-		selectionMode = SelectionMode.None
+		selectionMode = SelectionMode.None,
 	})
 end
 

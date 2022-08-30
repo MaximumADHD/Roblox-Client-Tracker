@@ -20,7 +20,7 @@ function Controllable:init()
 	self.isMounted = false
 	local initialState = ControlState.Initialize
 	self.state = {
-		currentState = initialState
+		currentState = initialState,
 	}
 	local stateTableName = string.format("Controllable(%s)", tostring(self))
 
@@ -32,8 +32,7 @@ function Controllable:init()
 		end
 	end
 
-	self.stateTable = StateTable.new(stateTableName, initialState, {},
-	{
+	self.stateTable = StateTable.new(stateTableName, initialState, {}, {
 		[ControlState.Initialize] = {
 			Enable = { nextState = ControlState.Default },
 			Disable = { nextState = ControlState.Disabled },
@@ -124,107 +123,107 @@ function Controllable:render()
 		selectable = true
 	end
 
-	local newChildProps = Cryo.Dictionary.join(
-		self.props,
-		controlComponent.props or {},
-		{
-			Selectable = selectable,
-			Active = not self.props.isDisabled,
-			[Roact.Event.MouseEnter] = function(...)
-				if not userInteractionEnabled then
-					return nil
-				end
-				self.stateTable.events.StartHover()
-				if controlComponent.props[Roact.Event.MouseEnter] ~= nil then
-					return controlComponent.props[Roact.Event.MouseEnter](...)
-				end
+	local newChildProps = Cryo.Dictionary.join(self.props, controlComponent.props or {}, {
+		Selectable = selectable,
+		Active = not self.props.isDisabled,
+		[Roact.Event.MouseEnter] = function(...)
+			if not userInteractionEnabled then
 				return nil
-			end,
-			[Roact.Event.MouseLeave] = function(...)
-				if not userInteractionEnabled then
-					return nil
-				end
-				self.stateTable.events.EndHover()
-				if controlComponent.props[Roact.Event.MouseLeave] ~= nil then
-					return controlComponent.props[Roact.Event.MouseLeave](...)
-				end
+			end
+			self.stateTable.events.StartHover()
+			if controlComponent.props[Roact.Event.MouseEnter] ~= nil then
+				return controlComponent.props[Roact.Event.MouseEnter](...)
+			end
+			return nil
+		end,
+		[Roact.Event.MouseLeave] = function(...)
+			if not userInteractionEnabled then
 				return nil
-			end,
-			[Roact.Event.InputBegan] = function(...)
-				if not userInteractionEnabled then
-					return nil
-				end
-				local inputObject = select(2, ...)
-				if inputObject.UserInputType == Enum.UserInputType.MouseButton1 or
-					inputObject.UserInputType == Enum.UserInputType.Touch or
-					inputObject.KeyCode == Enum.KeyCode.ButtonA then
-					self.stateTable.events.OnPressed()
-				end
-				if controlComponent.props[Roact.Event.InputBegan] ~= nil then
-					return controlComponent.props[Roact.Event.InputBegan](...)
-				end
+			end
+			self.stateTable.events.EndHover()
+			if controlComponent.props[Roact.Event.MouseLeave] ~= nil then
+				return controlComponent.props[Roact.Event.MouseLeave](...)
+			end
+			return nil
+		end,
+		[Roact.Event.InputBegan] = function(...)
+			if not userInteractionEnabled then
 				return nil
-			end,
-			[Roact.Event.InputEnded] = function(...)
-				if not userInteractionEnabled then
-					return nil
-				end
-				local inputObject = select(2, ...)
-				if inputObject.UserInputType == Enum.UserInputType.MouseButton1 then
-					self.stateTable.events.OnReleasedHover()
-				elseif inputObject.UserInputType == Enum.UserInputType.Touch or
-					inputObject.KeyCode == Enum.KeyCode.ButtonA or
-					inputObject.UserInputType == Enum.UserInputType.MouseMovement then
-					self.stateTable.events.OnReleased()
-				end
-				if controlComponent.props[Roact.Event.InputEnded] ~= nil then
-					return controlComponent.props[Roact.Event.InputEnded](...)
-				end
+			end
+			local inputObject = select(2, ...)
+			if
+				inputObject.UserInputType == Enum.UserInputType.MouseButton1
+				or inputObject.UserInputType == Enum.UserInputType.Touch
+				or inputObject.KeyCode == Enum.KeyCode.ButtonA
+			then
+				self.stateTable.events.OnPressed()
+			end
+			if controlComponent.props[Roact.Event.InputBegan] ~= nil then
+				return controlComponent.props[Roact.Event.InputBegan](...)
+			end
+			return nil
+		end,
+		[Roact.Event.InputEnded] = function(...)
+			if not userInteractionEnabled then
 				return nil
-			end,
-			[Roact.Event.SelectionGained] = function(...)
-				if not userInteractionEnabled then
-					return nil
-				end
-				self.stateTable.events.OnSelectionGained()
-				if controlComponent.props[Roact.Event.SelectionGained] ~= nil then
-					return controlComponent.props[Roact.Event.SelectionGained](...)
-				end
+			end
+			local inputObject = select(2, ...)
+			if inputObject.UserInputType == Enum.UserInputType.MouseButton1 then
+				self.stateTable.events.OnReleasedHover()
+			elseif
+				inputObject.UserInputType == Enum.UserInputType.Touch
+				or inputObject.KeyCode == Enum.KeyCode.ButtonA
+				or inputObject.UserInputType == Enum.UserInputType.MouseMovement
+			then
+				self.stateTable.events.OnReleased()
+			end
+			if controlComponent.props[Roact.Event.InputEnded] ~= nil then
+				return controlComponent.props[Roact.Event.InputEnded](...)
+			end
+			return nil
+		end,
+		[Roact.Event.SelectionGained] = function(...)
+			if not userInteractionEnabled then
 				return nil
-			end,
-			[Roact.Event.SelectionLost] = function(...)
-				if not userInteractionEnabled then
-					return nil
-				end
-				self.stateTable.events.OnSelectionLost()
-				if controlComponent.props[Roact.Event.SelectionLost] ~= nil then
-					return controlComponent.props[Roact.Event.SelectionLost](...)
-				end
+			end
+			self.stateTable.events.OnSelectionGained()
+			if controlComponent.props[Roact.Event.SelectionGained] ~= nil then
+				return controlComponent.props[Roact.Event.SelectionGained](...)
+			end
+			return nil
+		end,
+		[Roact.Event.SelectionLost] = function(...)
+			if not userInteractionEnabled then
 				return nil
-			end,
-			[Roact.Event.Activated] = function(...)
-				if not userInteractionEnabled then
-					return nil
-				end
-				if controlComponent.props[Roact.Event.Activated] then
-					if self.state.currentState ~= ControlState.Disabled then
-						if self.isMounted then
-							return controlComponent.props[Roact.Event.Activated](...)
-						end
+			end
+			self.stateTable.events.OnSelectionLost()
+			if controlComponent.props[Roact.Event.SelectionLost] ~= nil then
+				return controlComponent.props[Roact.Event.SelectionLost](...)
+			end
+			return nil
+		end,
+		[Roact.Event.Activated] = function(...)
+			if not userInteractionEnabled then
+				return nil
+			end
+			if controlComponent.props[Roact.Event.Activated] then
+				if self.state.currentState ~= ControlState.Disabled then
+					if self.isMounted then
+						return controlComponent.props[Roact.Event.Activated](...)
 					end
 				end
-				return nil
-			end,
-			[Roact.Ref] = controlComponent.props.forwardedRef,
+			end
+			return nil
+		end,
+		[Roact.Ref] = controlComponent.props.forwardedRef,
 
-			forwardedRef = Cryo.None,
-			userInteractionEnabled = Cryo.None,
-			isDisabled = Cryo.None,
-			onStateChanged = Cryo.None,
-			[Roact.Children] = Cryo.None,
-			controlComponent = Cryo.None,
-		}
-	)
+		forwardedRef = Cryo.None,
+		userInteractionEnabled = Cryo.None,
+		isDisabled = Cryo.None,
+		onStateChanged = Cryo.None,
+		[Roact.Children] = Cryo.None,
+		controlComponent = Cryo.None,
+	})
 
 	return Roact.createElement(controlComponent.component, newChildProps, controlComponent.children)
 end

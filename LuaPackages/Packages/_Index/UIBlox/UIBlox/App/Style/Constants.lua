@@ -12,7 +12,7 @@ Constants.FontName = {
 Constants.Layout = {
 	ActionBar = {
 		PositionOffset = 24,
-	}
+	},
 }
 
 return Constants

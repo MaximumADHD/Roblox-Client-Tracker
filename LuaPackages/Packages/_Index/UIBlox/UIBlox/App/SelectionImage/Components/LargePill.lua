@@ -16,7 +16,7 @@ local ASSET_NAME = "component_assets/circle_52_stroke_3"
 
 local validateProps = devOnly(t.strictInterface({
 	cursorRef = t.table,
-	isVisible = t.boolean
+	isVisible = t.boolean,
 }))
 
 return function(props)
@@ -36,8 +36,9 @@ return function(props)
 
 			[Roact.Ref] = props.cursorRef,
 		}, {
-			AnimatedGradient = (UIBloxConfig.useAnimatedXboxCursors and props.isVisible)
-				and Roact.createElement(AnimatedGradient) or nil
+			AnimatedGradient = (UIBloxConfig.useAnimatedXboxCursors and props.isVisible) and Roact.createElement(
+				AnimatedGradient
+			) or nil,
 		})
 	end)
 end

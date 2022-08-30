@@ -107,4 +107,7 @@ return t.strictInterface({
 	NextSelectionLeft = t.optional(t.table),
 	NextSelectionRight = t.optional(t.table),
 	buttonRef = t.optional(t.table),
+
+	[React.Change.AbsoluteSize] = t.optional(t.callback),
+	[React.Change.AbsolutePosition] = t.optional(t.callback),
 })

@@ -48,8 +48,10 @@ local function getAdditionalText(restrictionTypes, restrictionInfo)
 end
 
 local function getRestrictionIcon(restrictionTypes)
-	if restrictionTypes[ItemTileEnums.Restriction.Limited] or
-		restrictionTypes[ItemTileEnums.Restriction.LimitedUnique] then
+	if
+		restrictionTypes[ItemTileEnums.Restriction.Limited]
+		or restrictionTypes[ItemTileEnums.Restriction.LimitedUnique]
+	then
 		return Images["icons/status/item/limited"]
 	end
 

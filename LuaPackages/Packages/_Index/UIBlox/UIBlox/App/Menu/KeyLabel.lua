@@ -71,25 +71,25 @@ local GAMEPAD_OVERRIDE_MAP = {
 }
 
 local KEYBOARD_OVERRIDE_MAP = {
-	[Enum.KeyCode.Escape] = {text = "ESC", fontKey = SMALL, width = 36},
-	[Enum.KeyCode.Space] = {text = "Space", width = 92},
-	[Enum.KeyCode.LeftShift] = {text = "Shift", width = 66, alignment = Enum.TextXAlignment.Left},
-	[Enum.KeyCode.LeftControl] = {text = "Ctrl", width = 66, alignment = Enum.TextXAlignment.Left},
-	[Enum.KeyCode.Tab] = {text = "Tab", width = 56},
+	[Enum.KeyCode.Escape] = { text = "ESC", fontKey = SMALL, width = 36 },
+	[Enum.KeyCode.Space] = { text = "Space", width = 92 },
+	[Enum.KeyCode.LeftShift] = { text = "Shift", width = 66, alignment = Enum.TextXAlignment.Left },
+	[Enum.KeyCode.LeftControl] = { text = "Ctrl", width = 66, alignment = Enum.TextXAlignment.Left },
+	[Enum.KeyCode.Tab] = { text = "Tab", width = 56 },
 
-	[Enum.KeyCode.LeftSuper] = {text = "Command"},
-	[Enum.KeyCode.LeftMeta] = {text = "fn"},
-	[Enum.KeyCode.LeftAlt] = {text = "Opt"},
+	[Enum.KeyCode.LeftSuper] = { text = "Command" },
+	[Enum.KeyCode.LeftMeta] = { text = "fn" },
+	[Enum.KeyCode.LeftAlt] = { text = "Opt" },
 
-	[Enum.KeyCode.Tilde] = {text = "~", fontKey = BIG},
+	[Enum.KeyCode.Tilde] = { text = "~", fontKey = BIG },
 
-	[Enum.KeyCode.F10] = {fontKey = BIG, width = 36},
-	[Enum.KeyCode.F11] = {fontKey = BIG, width = 36},
+	[Enum.KeyCode.F10] = { fontKey = BIG, width = 36 },
+	[Enum.KeyCode.F11] = { fontKey = BIG, width = 36 },
 
-	[Enum.KeyCode.Up] = {image = Images["icons/controls/keys/arrowUp"]},
-	[Enum.KeyCode.Down] = {image = Images["icons/controls/keys/arrowDown"]},
-	[Enum.KeyCode.Left] = {image = Images["icons/controls/keys/arrowLeft"]},
-	[Enum.KeyCode.Right] = {image = Images["icons/controls/keys/arrowRight"]},
+	[Enum.KeyCode.Up] = { image = Images["icons/controls/keys/arrowUp"] },
+	[Enum.KeyCode.Down] = { image = Images["icons/controls/keys/arrowDown"] },
+	[Enum.KeyCode.Left] = { image = Images["icons/controls/keys/arrowLeft"] },
+	[Enum.KeyCode.Right] = { image = Images["icons/controls/keys/arrowRight"] },
 }
 
 local KeyLabel = Roact.PureComponent:extend("KeyLabel")
@@ -97,10 +97,13 @@ local KeyLabel = Roact.PureComponent:extend("KeyLabel")
 KeyLabel.validateProps = t.strictInterface({
 	-- KeyCode OR a table with a KeyCode and some metadata for differentiating
 	-- between multiple states of a single KeyCode
-	keyCode = t.union(t.enum(Enum.KeyCode), t.strictInterface({
-		key = t.enum(Enum.KeyCode),
-		axis = t.optional(t.string), -- Used for thumbsticks KeyCodes
-	})),
+	keyCode = t.union(
+		t.enum(Enum.KeyCode),
+		t.strictInterface({
+			key = t.enum(Enum.KeyCode),
+			axis = t.optional(t.string), -- Used for thumbsticks KeyCodes
+		})
+	),
 
 	-- Theme for the icon (border icon for keyboard KeyCodes, button icon for gamepad icons)
 	iconThemeKey = t.optional(t.string),
@@ -186,19 +189,19 @@ function KeyLabel:getKeyboardLabel(style)
 		LayoutOrder = self.props.LayoutOrder,
 		ZIndex = self.props.ZIndex,
 
-		[Roact.Change.AbsoluteSize] = self.props[Roact.Change.AbsoluteSize]
+		[Roact.Change.AbsoluteSize] = self.props[Roact.Change.AbsoluteSize],
 	}, {
 		Padding = padding and Roact.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, padding),
-			PaddingRight = UDim.new(0, padding)
+			PaddingRight = UDim.new(0, padding),
 		}),
-		LabelContent = content
+		LabelContent = content,
 	})
 end
 
 function KeyLabel:getLabelWidthAndContent(style)
-	local keyCode = UIBloxConfig.enableGamepadKeyCodeSupportForKeyLabel
-		and self:getKeyCodeAndMetadata() or self.props.keyCode
+	local keyCode = UIBloxConfig.enableGamepadKeyCodeSupportForKeyLabel and self:getKeyCodeAndMetadata()
+		or self.props.keyCode
 	local override = KEYBOARD_OVERRIDE_MAP[keyCode]
 	local font = style.Font
 
@@ -216,7 +219,8 @@ function KeyLabel:getLabelWidthAndContent(style)
 
 		return width, content
 	else
-		local text, fontKey, width, alignment do
+		local text, fontKey, width, alignment
+		do
 			if override and override.text then
 				text = override.text
 			else
@@ -246,12 +250,7 @@ function KeyLabel:getLabelWidthAndContent(style)
 				local textSize = fontStyle.RelativeSize * style.Font.BaseSize
 				local fontType = fontStyle.Font
 
-				local textWidth = TextService:GetTextSize(
-					text,
-					textSize,
-					fontType,
-					Vector2.new(math.huge, 36)
-				).X
+				local textWidth = TextService:GetTextSize(text, textSize, fontType, Vector2.new(math.huge, 36)).X
 
 				width = textWidth + CENTERED_EXTRA_WIDTH
 			end
@@ -265,8 +264,7 @@ function KeyLabel:getLabelWidthAndContent(style)
 		local contentTextSize = font.BaseSize * contentFont.RelativeSize
 
 		local content = Roact.createElement(GenericTextLabel, {
-			colorStyle = style.Theme[UIBloxConfig.enableGamepadKeyCodeSupportForKeyLabel
-				and self.props.textThemeKey or "TextDefault"],
+			colorStyle = style.Theme[UIBloxConfig.enableGamepadKeyCodeSupportForKeyLabel and self.props.textThemeKey or "TextDefault"],
 			fontStyle = contentFont,
 
 			Text = text,
@@ -317,13 +315,13 @@ function KeyLabel:render()
 				LayoutOrder = self.props.LayoutOrder,
 				ZIndex = self.props.ZIndex,
 
-				[Roact.Change.AbsoluteSize] = self.props[Roact.Change.AbsoluteSize]
+				[Roact.Change.AbsoluteSize] = self.props[Roact.Change.AbsoluteSize],
 			}, {
 				Padding = padding and Roact.createElement("UIPadding", {
 					PaddingLeft = UDim.new(0, padding),
-					PaddingRight = UDim.new(0, padding)
+					PaddingRight = UDim.new(0, padding),
 				}),
-				LabelContent = content
+				LabelContent = content,
 			})
 		end
 	end)

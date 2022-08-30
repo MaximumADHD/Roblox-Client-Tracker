@@ -5,5 +5,6 @@ local Packages = UIBlox.Parent
 local enumerate = require(Packages.enumerate)
 
 return enumerate("debugProps", {
-    "forceLoading", "forceFailed"
+	"forceLoading",
+	"forceFailed",
 })

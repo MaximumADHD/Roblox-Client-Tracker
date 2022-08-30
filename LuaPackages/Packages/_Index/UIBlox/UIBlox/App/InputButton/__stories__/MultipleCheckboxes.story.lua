@@ -15,14 +15,12 @@ function yourComponent:init()
 end
 
 function yourComponent:render()
-
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, -50),
 		BackgroundColor3 = Color3.fromRGB(55, 55, 55),
 	}, {
 		layout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
-
 		}),
 		checkboxes = Roact.createElement(CheckboxList, {
 			layoutOrder = 1,
@@ -64,14 +62,16 @@ function yourComponent:render()
 			[Roact.Ref] = self.ref,
 		}),
 	})
-
 end
 
-
 return function(target)
-	local handle = Roact.mount(Roact.createElement(StoryView, {}, {
-		Story = Roact.createElement(yourComponent),
-	}), target, "MultipleCheckboxes")
+	local handle = Roact.mount(
+		Roact.createElement(StoryView, {}, {
+			Story = Roact.createElement(yourComponent),
+		}),
+		target,
+		"MultipleCheckboxes"
+	)
 	return function()
 		Roact.unmount(handle)
 	end

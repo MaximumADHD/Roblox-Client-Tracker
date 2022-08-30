@@ -56,7 +56,7 @@ local function initializeLibrary(configs)
 
 		VR = strict({
 			Panel3D = require(script.Core.VR.Panel3D),
-			Constants = require(script.Core.VR.Constants)
+			Constants = require(script.Core.VR.Constants),
 		}),
 
 		Text = strict({
@@ -229,6 +229,8 @@ local function initializeLibrary(configs)
 			}),
 			Toast = require(script.App.Dialog.Toast.SlideFromTopToast),
 			Tooltip = require(script.App.Dialog.Tooltip.Tooltip),
+			TooltipV2 = require(script.App.Dialog.TooltipV2.Controllers),
+			TooltipOrientation = require(script.App.Dialog.Tooltip.Enum.TooltipOrientation),
 		}),
 
 		Constant = strict({
@@ -274,6 +276,7 @@ local function initializeLibrary(configs)
 			DropdownMenu = require(script.App.Menu.DropdownMenu),
 
 			KeyLabel = require(script.App.Menu.KeyLabel),
+			KeyLabelV2 = require(script.App.Menu.KeyLabelV2),
 		}),
 
 		Control = strict({

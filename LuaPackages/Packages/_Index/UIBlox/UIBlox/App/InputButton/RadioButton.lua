@@ -102,17 +102,15 @@ function RadioButton:render()
 			NextSelectionDown = UIBloxConfig.enableRadioButtonGamepadSupport and self.props.NextSelectionDown or nil,
 			NextSelectionLeft = UIBloxConfig.enableRadioButtonGamepadSupport and self.props.NextSelectionLeft or nil,
 			NextSelectionRight = UIBloxConfig.enableRadioButtonGamepadSupport and self.props.NextSelectionRight or nil,
-			SelectionImageObject = UIBloxConfig.enableRadioButtonGamepadSupport and self.props.SelectionImageObject or nil,
+			SelectionImageObject = UIBloxConfig.enableRadioButtonGamepadSupport and self.props.SelectionImageObject
+				or nil,
 		})
 	end)
 end
 
 if UIBloxConfig.enableRadioButtonGamepadSupport then
-	return Roact.forwardRef(function (props, ref)
-		return Roact.createElement(RadioButton, Cryo.Dictionary.join(
-			props,
-			{forwardRef = ref}
-		))
+	return Roact.forwardRef(function(props, ref)
+		return Roact.createElement(RadioButton, Cryo.Dictionary.join(props, { forwardRef = ref }))
 	end)
 else
 	return RadioButton

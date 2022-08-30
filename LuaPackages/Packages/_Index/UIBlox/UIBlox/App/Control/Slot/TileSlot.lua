@@ -48,7 +48,7 @@ local BG_EMPTY_COLOR_MAP_OFF = {
 }
 
 local BG_EMPTY_COLOR_MAP_ON = {
-	[ControlState.Default] = "PlaceHolder"
+	[ControlState.Default] = "PlaceHolder",
 }
 
 local BG_FILLED_COLOR_MAP = {
@@ -56,7 +56,7 @@ local BG_FILLED_COLOR_MAP = {
 }
 
 local IMAGE_STATE_COLOR_MAP = {
-	[ControlState.Default] = "TextEmphasis"
+	[ControlState.Default] = "TextEmphasis",
 }
 
 local DEFAULT_SLOT_SIZE = 48
@@ -99,7 +99,7 @@ local function TileSlot(props: Props)
 
 	local onActivated = React.useCallback(function()
 		props.onActivated(props.index)
-	end, {props.onActivated :: any, props.index})
+	end, { props.onActivated :: any, props.index })
 
 	local onStateChanged = React.useCallback(function(oldState, newState)
 		setControlState(newState)
@@ -137,7 +137,7 @@ local function TileSlot(props: Props)
 
 	local isFilledMode = props.thumbnail ~= nil
 	local isEmptyMode = props.displayText ~= nil
-	local nonInteractable  = isDisabled or isLoading
+	local nonInteractable = isDisabled or isLoading
 	if nonInteractable then
 		hasBorder = false
 	end
@@ -166,17 +166,19 @@ local function TileSlot(props: Props)
 				ZIndex = 1,
 			}),
 
-			Border = if hasBorder then React.createElement(ImageSetComponent.Label, {
-				Size = UDim2.fromScale(1, 1),
-				Position = UDim2.fromScale(0, 0),
-				BackgroundTransparency = 1,
-				Image = BORDER_IMAGE,
-				ImageColor3 = borderStyle.Color,
-				ImageTransparency = borderStyle.Transparency,
-				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter = Rect.new(4, 4, 5, 5),
-				ZIndex = 2,
-			}) else nil,
+			Border = if hasBorder
+				then React.createElement(ImageSetComponent.Label, {
+					Size = UDim2.fromScale(1, 1),
+					Position = UDim2.fromScale(0, 0),
+					BackgroundTransparency = 1,
+					Image = BORDER_IMAGE,
+					ImageColor3 = borderStyle.Color,
+					ImageTransparency = borderStyle.Transparency,
+					ScaleType = Enum.ScaleType.Slice,
+					SliceCenter = Rect.new(4, 4, 5, 5),
+					ZIndex = 2,
+				})
+				else nil,
 
 			ButtonContentLayer = React.createElement("Frame", {
 				Size = UDim2.fromScale(1, 1),
@@ -184,35 +186,40 @@ local function TileSlot(props: Props)
 				BackgroundTransparency = 1,
 				ZIndex = 3,
 			}, {
-				Thumbnail = if not isLoading and isFilledMode then React.createElement(ImageSetComponent.Label, {
-					Size = UDim2.fromOffset(getIconSize(IconSize.Medium), getIconSize(IconSize.Medium)),
-					BackgroundTransparency = 1,
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Position = UDim2.fromScale(0.5, 0.5),
-					Image = thumbnail,
-					ImageColor3 = imageStyle.Color,
-					ImageTransparency = imageStyle.Transparency,
-					ZIndex = 3,
-				}) else nil,
+				Thumbnail = if not isLoading and isFilledMode
+					then React.createElement(ImageSetComponent.Label, {
+						Size = UDim2.fromOffset(getIconSize(IconSize.Medium), getIconSize(IconSize.Medium)),
+						BackgroundTransparency = 1,
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.fromScale(0.5, 0.5),
+						Image = thumbnail,
+						ImageColor3 = imageStyle.Color,
+						ImageTransparency = imageStyle.Transparency,
+						ZIndex = 3,
+					})
+					else nil,
 
-				Text = if not isLoading and isEmptyMode then React.createElement(GenericTextLabel, {
-					Size = UDim2.new(1, -INNER_PADDING * 2, 1, -INNER_PADDING * 2),
-					BackgroundTransparency = 1,
-					Text = props.displayText,
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Position = UDim2.fromScale(0.5, 0.5),
-					fontStyle = fontStyle,
-					colorStyle = textStyle,
-					ZIndex = 3,
-				}) else nil,
+				Text = if not isLoading and isEmptyMode
+					then React.createElement(GenericTextLabel, {
+						Size = UDim2.new(1, -INNER_PADDING * 2, 1, -INNER_PADDING * 2),
+						BackgroundTransparency = 1,
+						Text = props.displayText,
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.fromScale(0.5, 0.5),
+						fontStyle = fontStyle,
+						colorStyle = textStyle,
+						ZIndex = 3,
+					})
+					else nil,
 
-				LoadingShimmer = if isLoading then React.createElement(ShimmerPanel, {
-					Size = UDim2.fromScale(1, 1),
-				}) else nil,
-			})
-		})
+				LoadingShimmer = if isLoading
+					then React.createElement(ShimmerPanel, {
+						Size = UDim2.fromScale(1, 1),
+					})
+					else nil,
+			}),
+		}),
 	})
 end
-
 
 return TileSlot

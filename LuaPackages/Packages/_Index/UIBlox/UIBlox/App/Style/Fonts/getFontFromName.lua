@@ -3,7 +3,7 @@ local Style = Themes.Parent
 
 local validateFont = require(Style.Validator.validateFont)
 
-return function (fontName, defaultFont, fontMap)
+return function(fontName, defaultFont, fontMap)
 	local mappedFont
 	if fontName ~= nil and #fontName > 0 then
 		mappedFont = fontMap[string.lower(fontName)]

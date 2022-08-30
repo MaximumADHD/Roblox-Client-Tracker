@@ -17,10 +17,13 @@ return t.array(t.strictInterface({
 
 	-- A KeyCode to display a keycode hint for, the display string based on
 	-- the users keyboard or gamepad button is displayed.
-	keyCodeLabel = t.optional(t.union(t.enum(Enum.KeyCode), t.strictInterface({
-		key = t.enum(Enum.KeyCode),
-		axis = t.optional(t.string),
-	}))),
+	keyCodeLabel = t.optional(t.union(
+		t.enum(Enum.KeyCode),
+		t.strictInterface({
+			key = t.enum(Enum.KeyCode),
+			axis = t.optional(t.string),
+		})
+	)),
 	selected = t.optional(t.boolean),
 	stayOnActivated = t.optional(t.boolean),
 

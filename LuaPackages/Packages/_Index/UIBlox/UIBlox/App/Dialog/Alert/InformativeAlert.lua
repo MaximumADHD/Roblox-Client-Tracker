@@ -51,7 +51,7 @@ function InformativeAlert:render()
 		local innerWidth = totalWidth - 2 * MARGIN
 
 		local fullTextHeight = self.props.bodyText
-			and GetTextHeight(self.props.bodyText, textFont, fontSize, innerWidth)
+				and GetTextHeight(self.props.bodyText, textFont, fontSize, innerWidth)
 			or 0
 
 		return Roact.createElement(Alert, {
@@ -88,7 +88,7 @@ function InformativeAlert:render()
 						ImageColor3 = theme.IconEmphasis.Color,
 						ImageTransparency = theme.IconEmphasis.Transparency,
 						Size = UDim2.new(0, TITLE_ICON_SIZE, 0, TITLE_ICON_SIZE),
-					})
+					}),
 				})
 			end or nil,
 			middleContent = function()

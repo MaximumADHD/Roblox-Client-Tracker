@@ -50,9 +50,7 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 		end)
 
 		self.trackTransparency = joinedBindings:map(function(values)
-			return divideTransparency(
-				values.style.Theme.UIMuted.Transparency,
-				values.disabled and 2 or 1)
+			return divideTransparency(values.style.Theme.UIMuted.Transparency, values.disabled and 2 or 1)
 		end)
 
 		self.trackFillColor = joinedBindings:map(function(values)
@@ -60,9 +58,7 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 		end)
 
 		self.trackFillTransparency = joinedBindings:map(function(values)
-			return divideTransparency(
-				values.style.Theme[trackFillThemeKey].Transparency,
-				values.disabled and 2 or 1)
+			return divideTransparency(values.style.Theme[trackFillThemeKey].Transparency, values.disabled and 2 or 1)
 		end)
 
 		self.knobColorLower = joinedBindings:map(function(values)
@@ -96,9 +92,7 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 		end)
 
 		self.knobTransparency = joinedBindings:map(function(values)
-			return divideTransparency(
-				values.style.Theme[trackFillThemeKey].Transparency,
-				values.disabled and 2 or 1)
+			return divideTransparency(values.style.Theme[trackFillThemeKey].Transparency, values.disabled and 2 or 1)
 		end)
 
 		self.knobShadowTransparencyLower = joinedBindings:map(function(values)
@@ -107,7 +101,11 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 			else
 				if UIBloxConfig.enableSliderCustomization then
 					local goalTransparency = self.props.customPressedKnobShadowTransparencyLower
-					return lerp(values.style.Theme.DropShadow.Transparency, goalTransparency, values.pressedProgressLower)
+					return lerp(
+						values.style.Theme.DropShadow.Transparency,
+						goalTransparency,
+						values.pressedProgressLower
+					)
 				else
 					return lerp(values.style.Theme.DropShadow.Transparency, 1, values.pressedProgressLower)
 				end

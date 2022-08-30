@@ -58,19 +58,19 @@ StickyActionBar.validateProps = t.strictInterface({
 	-- Width of the component. The component will fit the parent container size by default if not specified.
 	width = t.optional(t.integer),
 	-- LayoutOrder of the component in parent container
-	layoutOrder = t.optional(t.integer)
+	layoutOrder = t.optional(t.integer),
 })
 
 StickyActionBar.defaultProps = {
 	actionBarProps = nil,
 	infoProps = nil,
 	layoutOrder = 1,
-	width = nil
+	width = nil,
 }
 
 function StickyActionBar:init()
 	self.state = {
-		containerWidth = nil
+		containerWidth = nil,
 	}
 	self.onContainerSizeChange = function(rbx)
 		self:setState(function(prevState, props)
@@ -90,7 +90,8 @@ function StickyActionBar:init()
 		else
 			local actionBarWidth = getActionBarSectionSize().X.Offset
 			local paddingLeftRight = PADDING_LEFT + PADDING_RIGHT
-			return hasActionBar and containerWidth - paddingLeftRight - actionBarWidth or containerWidth - paddingLeftRight
+			return hasActionBar and containerWidth - paddingLeftRight - actionBarWidth
+				or containerWidth - paddingLeftRight
 		end
 	end
 
@@ -99,7 +100,7 @@ function StickyActionBar:init()
 			return {
 				horizontalAlignment = Enum.HorizontalAlignment.Left,
 				left = INFO_PADDING_LEFT_DEFAULT,
-				right = INFO_PADDING_RIGHT
+				right = INFO_PADDING_RIGHT,
 			}
 		else
 			local infoOffsetToContainerLeft = (containerWidth - infoContentWidth) / 2
@@ -113,7 +114,7 @@ function StickyActionBar:init()
 			infoOffsetToContainerLeft = math.max(actionBarWidth + minimumPadding, infoOffsetToContainerLeft)
 			return {
 				left = infoOffsetToContainerLeft - actionBarWidth,
-				right = INFO_PADDING_RIGHT
+				right = INFO_PADDING_RIGHT,
 			}
 		end
 	end
@@ -125,30 +126,39 @@ function StickyActionBar:init()
 		return GetTextSize(text, fontSize, fontStyle.Font, bounds).X
 	end
 
-	self.getLayoutConfig = function(containerWidth, hasActionBar, infoProps, infoIconSize, infoText, infoTextStyle, style)
-		local enableInfoAtStart = (self.props.infoProps and self.props.infoProps.enableInfoAtStart) and true or false
-		local infoContentWidth = getTextWidth(infoText, infoTextStyle, style) + infoIconSize + (infoIconSize > 0 and INFO_SPACING_ICON_TEXT or 0)
-		local layoutOrder = enableInfoAtStart and {
-			infoSection = 1,
-			actionBarSection = 2,
-		} or {
-			infoSection = 2,
-			actionBarSection = 1,
-		}
-		return {
-			layoutOrder = layoutOrder,
-			infoHorizontalAlignment = Enum.HorizontalAlignment.Left,
-			infoSectionWidth = getInfoSectionWidth(containerWidth, hasActionBar, infoProps),
-			infoSectionPadding = getInfoSectionPadding(containerWidth, infoContentWidth, hasActionBar, enableInfoAtStart),
-			actionBarSectionSize = getActionBarSectionSize(),
-			actionBarSectionMarginOverride = {
-				left = 0,
-				right = 0,
-				top = 0,
-				bottom = 0,
+	self.getLayoutConfig =
+		function(containerWidth, hasActionBar, infoProps, infoIconSize, infoText, infoTextStyle, style)
+			local enableInfoAtStart = (self.props.infoProps and self.props.infoProps.enableInfoAtStart) and true
+				or false
+			local infoContentWidth = getTextWidth(infoText, infoTextStyle, style)
+				+ infoIconSize
+				+ (infoIconSize > 0 and INFO_SPACING_ICON_TEXT or 0)
+			local layoutOrder = enableInfoAtStart and {
+				infoSection = 1,
+				actionBarSection = 2,
+			} or {
+				infoSection = 2,
+				actionBarSection = 1,
 			}
-		}
-	end
+			return {
+				layoutOrder = layoutOrder,
+				infoHorizontalAlignment = Enum.HorizontalAlignment.Left,
+				infoSectionWidth = getInfoSectionWidth(containerWidth, hasActionBar, infoProps),
+				infoSectionPadding = getInfoSectionPadding(
+					containerWidth,
+					infoContentWidth,
+					hasActionBar,
+					enableInfoAtStart
+				),
+				actionBarSectionSize = getActionBarSectionSize(),
+				actionBarSectionMarginOverride = {
+					left = 0,
+					right = 0,
+					top = 0,
+					bottom = 0,
+				},
+			}
+		end
 end
 
 function StickyActionBar:render()
@@ -161,8 +171,13 @@ function StickyActionBar:render()
 		local infoText = hasInfo and self.props.infoProps.title or ""
 		local infoTextStyle = style.Font.Header2
 		local layoutConfig = self.getLayoutConfig(
-			containerWidth or 0, hasActionBar, self.props.infoProps,
-			infoIconSize, infoText, infoTextStyle, style
+			containerWidth or 0,
+			hasActionBar,
+			self.props.infoProps,
+			infoIconSize,
+			infoText,
+			infoTextStyle,
+			style
 		)
 		return self:renderHorizontalLayout({
 			layoutOrder = self.props.layoutOrder,
@@ -171,8 +186,8 @@ function StickyActionBar:render()
 			horizontalAlignment = Enum.HorizontalAlignment.Left,
 			padding = {
 				left = PADDING_LEFT,
-				right = PADDING_RIGHT
-			}
+				right = PADDING_RIGHT,
+			},
 		}, {
 			ActionBarSection = hasActionBar and self:renderHorizontalLayout({
 				layoutOrder = layoutConfig.layoutOrder.actionBarSection,
@@ -219,7 +234,7 @@ function StickyActionBar:render()
 					TextTruncate = Enum.TextTruncate.AtEnd,
 					BackgroundTransparency = 1,
 				}),
-			})
+			}),
 		})
 	end)
 end

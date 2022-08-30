@@ -34,7 +34,7 @@ local SHADOW_SLICE = 16
 local SCROLLBAR_OFFSET = 4
 
 local function makeBaseMenu(cellComponent, backgroundThemeKey)
-	local baseMenuComponent = Roact.PureComponent:extend("BaseMenuFor" ..backgroundThemeKey)
+	local baseMenuComponent = Roact.PureComponent:extend("BaseMenuFor" .. backgroundThemeKey)
 
 	baseMenuComponent.validateProps = t.strictInterface({
 		buttonProps = validateButtonProps,
@@ -108,10 +108,10 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 					ClipsDescendants = true,
 				}, {
 					ScrollingFrame = Roact.createElement(VerticalScrollViewV2, {
-						canvasSizeY = UDim.new(0,#props.buttonProps * ELEMENT_HEIGHT),
+						canvasSizeY = UDim.new(0, #props.buttonProps * ELEMENT_HEIGHT),
 					}, children),
 				}),
-			})
+			}),
 		})
 	end
 
@@ -137,11 +137,13 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 			local mergedProps = Cryo.Dictionary.join(cellProps, {
 				elementHeight = ELEMENT_HEIGHT,
 				hasRoundTop = self.props.topElementRounded and index == 1 and not needsScrollbar,
-				hasRoundBottom = self.props.bottomElementRounded and index == #self.props.buttonProps and not needsScrollbar,
+				hasRoundBottom = self.props.bottomElementRounded
+					and index == #self.props.buttonProps
+					and not needsScrollbar,
 				hasDivider = index < #self.props.buttonProps,
 				layoutOrder = index,
 				inputBindingKey = Cryo.None,
-				setButtonRef = (index == 1 and self.props.setFirstItemRef) or nil
+				setButtonRef = (index == 1 and self.props.setFirstItemRef) or nil,
 			})
 
 			local cursorKind
@@ -175,9 +177,9 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 							key = cellProps.inputBindingKey,
 						}),
 					},
-					SelectionImageObject = getSelectionCursor(cursorKind)
+					SelectionImageObject = getSelectionCursor(cursorKind),
 				}, {
-					Cell = Roact.createElement(cellComponent, mergedProps)
+					Cell = Roact.createElement(cellComponent, mergedProps),
 				})
 			end)
 		end
@@ -234,7 +236,7 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 					Image = MENU_BACKGROUND_ASSET.Image,
 					ScaleType = Enum.ScaleType.Slice,
 					SliceScale = 0.5 / Images.ImagesResolutionScale,
-					SliceCenter = Rect.new(halfImageWidth - 1, halfImageWidth - 1, halfImageWidth +1, halfImageWidth),
+					SliceCenter = Rect.new(halfImageWidth - 1, halfImageWidth - 1, halfImageWidth + 1, halfImageWidth),
 					ImageRectSize = Vector2.new(imageWidth, halfImageWidth),
 					ImageRectOffset = imageRectOffset,
 
@@ -261,12 +263,7 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 						ScrollBarImageColor3 = theme.UIEmphasis.Color,
 						ScrollBarImageTransparency = theme.UIEmphasis.Transparency,
 						ScrollingDirection = Enum.ScrollingDirection.Y,
-						CanvasSize = UDim2.new(
-							1,
-							0,
-							0,
-							#self.props.buttonProps * ELEMENT_HEIGHT
-						),
+						CanvasSize = UDim2.new(1, 0, 0, #self.props.buttonProps * ELEMENT_HEIGHT),
 						ClipsDescendants = false,
 					}, children),
 				}),

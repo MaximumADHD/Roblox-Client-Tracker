@@ -34,9 +34,7 @@ ControllerBar.validateProps = t.strictInterface({
 	-- Left side button (usually 'Back button') text
 	leftHint = hintValidation,
 	-- Button hints
-	rightHints = t.optional(t.map(t.number,
-		hintValidation
-	)),
+	rightHints = t.optional(t.map(t.number, hintValidation)),
 })
 
 function ControllerBar:init()
@@ -56,7 +54,7 @@ function ControllerBar.calculateHintRatios(leftHint, rightHints)
 	--  calculate the relative sizes of all the hint label text
 	local hintSizes = {}
 	local hintSizeSum = 0
-	local mergedHints = Cryo.List.join({leftHint}, rightHints or {})
+	local mergedHints = Cryo.List.join({ leftHint }, rightHints or {})
 	for _, hint in ipairs(mergedHints) do
 		-- using 17 as font size and font enum 2 as font (just placeholders,
 		-- these values don't matter for relative size calculations)
@@ -86,8 +84,10 @@ function ControllerBar.calculateHintRatios(leftHint, rightHints)
 end
 
 function ControllerBar.getDerivedStateFromProps(nextProps)
-	local hintRatios, requiredSpace, hintStringsConcat =
-		ControllerBar.calculateHintRatios(nextProps.leftHint, nextProps.rightHints)
+	local hintRatios, requiredSpace, hintStringsConcat = ControllerBar.calculateHintRatios(
+		nextProps.leftHint,
+		nextProps.rightHints
+	)
 
 	return {
 		hintRatios = hintRatios,
@@ -143,10 +143,10 @@ function ControllerBar:render()
 
 		local function makeHint(hint, keySuffix)
 			-- Set font size for  hint
-			local hintProps =  Cryo.Dictionary.join(hint, {
+			local hintProps = Cryo.Dictionary.join(hint, {
 				key = "Hint" .. tostring(keySuffix),
 				hintTextSize = hintTextSize,
-				maxWidth = hintSizes and hintSizes[hint.text] or nil
+				maxWidth = hintSizes and hintSizes[hint.text] or nil,
 			})
 
 			return Roact.createElement(ControllerBarHint, hintProps)
@@ -154,9 +154,7 @@ function ControllerBar:render()
 
 		local hintsFragment
 		if self.props.rightHints then
-			hintsFragment = Roact.createFragment(
-				Cryo.List.map(self.props.rightHints, makeHint)
-			)
+			hintsFragment = Roact.createFragment(Cryo.List.map(self.props.rightHints, makeHint))
 		end
 
 		return Roact.createElement("Frame", {
@@ -168,14 +166,14 @@ function ControllerBar:render()
 			AnchorPoint = Vector2.new(0, 1),
 			[Roact.Change.AbsoluteSize] = function(rbx)
 				self:setState({
-					controllerBarWidth = rbx.AbsoluteSize.X
+					controllerBarWidth = rbx.AbsoluteSize.X,
 				})
 			end,
 			[Roact.Event.AncestryChanged] = function(rbx)
 				self:setState({
-					controllerBarWidth = rbx.AbsoluteSize.X
+					controllerBarWidth = rbx.AbsoluteSize.X,
 				})
-			end
+			end,
 		}, {
 			Padding = Roact.createElement("UIPadding", {
 				PaddingLeft = UDim.new(0, SCREENSIDE_PADDING),

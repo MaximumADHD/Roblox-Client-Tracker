@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["RoactNavigationProxy"]["RoactNavigationProxy"])
+local Package = require(PackageIndex["RoactNavigation"]["RoactNavigation"])
 
 return Package

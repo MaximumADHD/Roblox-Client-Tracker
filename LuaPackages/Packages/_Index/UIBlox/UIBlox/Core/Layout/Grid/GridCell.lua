@@ -107,12 +107,15 @@ function GridCell:render()
 				}, self.props[Roact.Children])
 				-- wrap multiline cell to allow row/colspan
 				if context.multiLine then
-					return widthName(cellName , Roact.createElement("Frame", {
-						BackgroundTransparency = 1,
-						LayoutOrder = order,
-					}, {
-						GridCellInner = cell,
-					}))
+					return widthName(
+						cellName,
+						Roact.createElement("Frame", {
+							BackgroundTransparency = 1,
+							LayoutOrder = order,
+						}, {
+							GridCellInner = cell,
+						})
+					)
 				else
 					return widthName(cellName, cell)
 				end

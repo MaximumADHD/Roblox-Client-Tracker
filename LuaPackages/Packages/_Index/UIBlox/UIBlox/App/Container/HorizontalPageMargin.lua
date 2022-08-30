@@ -49,24 +49,28 @@ function PageMargin:init()
 end
 
 function PageMargin:render()
-	return Roact.createElement("Frame", {
-		AnchorPoint = self.props.anchorPoint,
-		AutomaticSize = self.props.useAutomaticSizing and Enum.AutomaticSize.Y or Enum.AutomaticSize.None,
-		BackgroundColor3 = self.props.backgroundColor3,
-		BackgroundTransparency = self.props.backgroundTransparency,
-		BorderSizePixel = 0,
-		Position = self.props.position,
-		Size = self.props.size,
-		[Roact.Change.AbsoluteSize] = self.onResize,
-		[Roact.Ref] = self.ref,
-		LayoutOrder = self.props.layoutOrder,
-		ZIndex = self.props.zIndex,
-	}, Cryo.Dictionary.join(self.props[Roact.Children], {
-		padding = Roact.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, self.state.margin),
-			PaddingRight = UDim.new(0, self.state.margin),
-		}),
-	}))
+	return Roact.createElement(
+		"Frame",
+		{
+			AnchorPoint = self.props.anchorPoint,
+			AutomaticSize = self.props.useAutomaticSizing and Enum.AutomaticSize.Y or Enum.AutomaticSize.None,
+			BackgroundColor3 = self.props.backgroundColor3,
+			BackgroundTransparency = self.props.backgroundTransparency,
+			BorderSizePixel = 0,
+			Position = self.props.position,
+			Size = self.props.size,
+			[Roact.Change.AbsoluteSize] = self.onResize,
+			[Roact.Ref] = self.ref,
+			LayoutOrder = self.props.layoutOrder,
+			ZIndex = self.props.zIndex,
+		},
+		Cryo.Dictionary.join(self.props[Roact.Children], {
+			padding = Roact.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, self.state.margin),
+				PaddingRight = UDim.new(0, self.state.margin),
+			}),
+		})
+	)
 end
 
 function PageMargin:didMount()

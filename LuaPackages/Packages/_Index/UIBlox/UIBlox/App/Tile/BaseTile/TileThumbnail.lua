@@ -6,7 +6,7 @@ local UIBlox = App.Parent
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 if UIBloxConfig.useTileThumbnailV2 then
-    return require(script.Parent.TileThumbnailV2)
+	return require(script.Parent.TileThumbnailV2)
 end
 
 local Packages = UIBlox.Parent
@@ -65,7 +65,8 @@ function TileThumbnail:render()
 					Position = UDim2.new(0.5, 0, 0.5, 0),
 					Size = imageSize,
 					ZIndex = 0,
-					cornerRadius = UIBloxConfig.useNewUICornerRoundedCorners and hasRoundedCorners and CORNER_RADIUS or nil,
+					cornerRadius = UIBloxConfig.useNewUICornerRoundedCorners and hasRoundedCorners and CORNER_RADIUS
+						or nil,
 					showFailedStateWhenLoadingFailed = true,
 					useShimmerAnimationWhileLoading = true,
 				}),
@@ -79,16 +80,20 @@ function TileThumbnail:render()
 					Position = UDim2.new(0.5, 0, 0.5, 0),
 					Size = imageSize - UDim2.fromOffset(imagePadding * 2, imagePadding * 2),
 				}, {
-					UICorner = UIBloxConfig.useNewUICornerRoundedCorners and hasRoundedCorners
-						and Roact.createElement("UICorner", {
+					UICorner = UIBloxConfig.useNewUICornerRoundedCorners and hasRoundedCorners and Roact.createElement(
+						"UICorner",
+						{
 							CornerRadius = CORNER_RADIUS,
-						}) or nil,
+						}
+					) or nil,
 				}),
 
-				UICorner = UIBloxConfig.useNewUICornerRoundedCorners and hasRoundedCorners
-					and Roact.createElement("UICorner", {
+				UICorner = UIBloxConfig.useNewUICornerRoundedCorners and hasRoundedCorners and Roact.createElement(
+					"UICorner",
+					{
 						CornerRadius = CORNER_RADIUS,
-					}) or nil,
+					}
+				) or nil,
 			}),
 
 			ComponentsFrame = overlayComponents and Roact.createElement("Frame", {
@@ -106,7 +111,8 @@ function TileThumbnail:render()
 				ZIndex = 2,
 			}),
 
-			RoundedCornersOverlay = not UIBloxConfig.useNewUICornerRoundedCorners and hasRoundedCorners
+			RoundedCornersOverlay = not UIBloxConfig.useNewUICornerRoundedCorners
+				and hasRoundedCorners
 				and Roact.createElement(ImageSetComponent.Label, {
 					BackgroundTransparency = 1,
 					Image = Images["component_assets/circle_17_mask"],

@@ -40,7 +40,6 @@ local validateProps = devOnly(t.strictInterface({
 	layoutOrder = t.optional(t.integer),
 }))
 
-
 local function StatWidget(props: Props)
 	assert(validateProps(props))
 
@@ -79,7 +78,7 @@ local function StatWidget(props: Props)
 		}, {
 			ListLayout = React.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Vertical
+				FillDirection = Enum.FillDirection.Vertical,
 			}),
 			Number = React.createElement(GenericTextLabel, {
 				Size = UDim2.fromScale(0, 0),

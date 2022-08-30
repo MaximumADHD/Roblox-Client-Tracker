@@ -146,8 +146,6 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 			contextMenuWidth = self.props.contextMenuWidthOverride or contextMenuWidth
 			local anchorPoint = self.props.anchorPointOverride or Vector2.new(anchorPointX, anchorPointY)
 
-
-
 			local topCornerInset, _ = GuiService:GetGuiInset()
 			local absolutePosition = self.state.absolutePosition + topCornerInset
 
@@ -196,7 +194,12 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 				PositionFrame = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
 					Size = UDim2.fromScale(1, 1),
-					Position = UDim2.new(openPositionX.Scale, openPositionX.Offset, self.props.openPositionY.Scale, self.props.openPositionY.Offset),
+					Position = UDim2.new(
+						openPositionX.Scale,
+						openPositionX.Offset,
+						self.props.openPositionY.Scale,
+						self.props.openPositionY.Offset
+					),
 					ZIndex = 2,
 				}, {
 					BaseMenu = Roact.createElement(baseMenuComponent, {

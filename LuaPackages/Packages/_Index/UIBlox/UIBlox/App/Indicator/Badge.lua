@@ -71,7 +71,12 @@ function Badge:render()
 		local baseSize = stylePalette.Font.BaseSize
 		local fontSize = font.CaptionBody.RelativeSize * baseSize
 
-		local textBounds = TextService:GetTextSize(badgeText, fontSize, font.CaptionBody.Font, Vector2.new(10000, 10000)).X
+		local textBounds = TextService:GetTextSize(
+			badgeText,
+			fontSize,
+			font.CaptionBody.Font,
+			Vector2.new(10000, 10000)
+		).X
 		local badgeWidth = textBounds + (TEXT_PADDING * 2) + (INNER_PADDING * 2)
 		if badgeWidth < BADGE_MIN_WIDTH then
 			badgeWidth = BADGE_MIN_WIDTH
@@ -106,7 +111,10 @@ function Badge:render()
 				Size = UDim2.fromScale(1, 1),
 
 				ImageColor3 = theme.BackgroundDefault.Color,
-				ImageTransparency = divideTransparency(theme.BackgroundDefault.Transparency, self.props.disabled and 2 or 1),
+				ImageTransparency = divideTransparency(
+					theme.BackgroundDefault.Transparency,
+					self.props.disabled and 2 or 1
+				),
 				Image = BACKGROUND_CIRCLE_IMAGE,
 				ScaleType = Enum.ScaleType.Slice,
 				SliceCenter = Rect.new(14, 14, 15, 15),

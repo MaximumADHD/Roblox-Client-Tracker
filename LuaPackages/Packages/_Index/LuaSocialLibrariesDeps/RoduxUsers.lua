@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["roblox_rodux-users-38f05a90-28427098"]["rodux-users"])
+local Package = require(PackageIndex["RoduxUsers"]["RoduxUsers"])
 
 return Package

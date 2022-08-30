@@ -1,4 +1,3 @@
-
 local Control = script.Parent
 local Core = Control.Parent
 local UIBlox = Core.Parent
@@ -46,16 +45,24 @@ function InteractableListItem:render()
 	local selected = Cryo.List.find(self.props.selection, self.props.id) ~= nil
 	local renderedItem, extraProps = self.props.renderItem(self.props.item, self.props.interactableState, selected)
 
-	return Roact.createElement(Interactable, Cryo.Dictionary.join({
-		Size = self.props.itemSize,
-		BackgroundTransparency = 1,
-		BorderSizePixel = 0,
-	}, extraProps or {}, {
-		onStateChanged = self.onStateChanged,
-		[Roact.Event.Activated] = self.onActivated,
-	}), {
-		[self.props.id] = renderedItem,
-	})
+	return Roact.createElement(
+		Interactable,
+		Cryo.Dictionary.join(
+			{
+				Size = self.props.itemSize,
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+			},
+			extraProps or {},
+			{
+				onStateChanged = self.onStateChanged,
+				[Roact.Event.Activated] = self.onActivated,
+			}
+		),
+		{
+			[self.props.id] = renderedItem,
+		}
+	)
 end
 
 return InteractableListItem

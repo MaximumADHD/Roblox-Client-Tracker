@@ -44,9 +44,7 @@ function CellTypesOverviewComponent:render()
 			}, {
 				Button = Roact.createElement(Cell, {
 					text = "Title Case",
-					onActivated = function()
-
-					end,
+					onActivated = function() end,
 
 					elementHeight = 56,
 					hasRoundTop = false,
@@ -67,9 +65,7 @@ function CellTypesOverviewComponent:render()
 				Button = Roact.createElement(Cell, {
 					text = "Title Case",
 					selected = true,
-					onActivated = function()
-
-					end,
+					onActivated = function() end,
 
 					elementHeight = 56,
 					hasRoundTop = false,
@@ -90,9 +86,7 @@ function CellTypesOverviewComponent:render()
 				Button = Roact.createElement(Cell, {
 					icon = Images["icons/menu/friends"],
 					text = "Title Case",
-					onActivated = function()
-
-					end,
+					onActivated = function() end,
 
 					elementHeight = 56,
 					hasRoundTop = false,
@@ -114,9 +108,7 @@ function CellTypesOverviewComponent:render()
 					icon = Images["icons/menu/friends"],
 					text = "Title Case",
 					keyCodeLabel = Enum.KeyCode.E,
-					onActivated = function()
-
-					end,
+					onActivated = function() end,
 
 					elementHeight = 56,
 					hasRoundTop = false,
@@ -137,9 +129,7 @@ function CellTypesOverviewComponent:render()
 				Button = Roact.createElement(Cell, {
 					icon = Images["icons/menu/friends"],
 					text = "Title Case",
-					onActivated = function()
-
-					end,
+					onActivated = function() end,
 
 					elementHeight = 56,
 					hasRoundTop = false,
@@ -150,14 +140,18 @@ function CellTypesOverviewComponent:render()
 					layoutOrder = 2,
 				}),
 			}),
-		})
+		}),
 	})
 end
 
 return function(target)
-	local handle = Roact.mount(Roact.createElement(StoryView, {}, {
-		Story = Roact.createElement(CellTypesOverviewComponent),
-	}), target, "CellTypes")
+	local handle = Roact.mount(
+		Roact.createElement(StoryView, {}, {
+			Story = Roact.createElement(CellTypesOverviewComponent),
+		}),
+		target,
+		"CellTypes"
+	)
 
 	return function()
 		Roact.unmount(handle)

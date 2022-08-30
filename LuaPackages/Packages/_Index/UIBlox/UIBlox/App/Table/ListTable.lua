@@ -36,7 +36,7 @@ function ListTable:render()
 		local children = {
 			ListLayout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Vertical
+				FillDirection = Enum.FillDirection.Vertical,
 			}),
 		}
 

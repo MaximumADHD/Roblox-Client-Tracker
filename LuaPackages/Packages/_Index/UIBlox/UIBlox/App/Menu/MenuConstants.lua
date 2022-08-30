@@ -1,3 +1,3 @@
 return {
-    DefaultKeyLabelSize = 36
+	DefaultKeyLabelSize = 36,
 }

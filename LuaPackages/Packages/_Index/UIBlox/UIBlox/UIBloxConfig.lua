@@ -1,1 +1,1 @@
-return require(script.Parent).Config
+return (require(script.Parent) :: any).Config

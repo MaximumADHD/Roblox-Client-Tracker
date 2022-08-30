@@ -18,7 +18,7 @@ return function(target)
 			Roact.createElement(RadioButtonList, {
 				radioButtons = {
 					{
-						label = "Bulbasaur"
+						label = "Bulbasaur",
 					},
 					"Squirtle",
 					"Charmander",
@@ -32,8 +32,8 @@ return function(target)
 				end,
 				selectedValue = 2,
 				elementSize = UDim2.new(0, 480, 0, 54),
-			})
-		})
+			}),
+		}),
 	})
 	local handle = Roact.mount(styleProvider, target, "MultipleRadioButtons")
 	return function()

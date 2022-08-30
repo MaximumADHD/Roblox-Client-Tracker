@@ -58,7 +58,7 @@ local function renderBackgroundImage(titleBackgroundImageProps, stylePalette, co
 		titleHeight = titleHeight + TITLE_RADIUS
 		contents = Cryo.Dictionary.join(contents, {
 			UICorner = Roact.createElement("UICorner", {
-				CornerRadius = UDim.new(0, TITLE_RADIUS)
+				CornerRadius = UDim.new(0, TITLE_RADIUS),
 			}),
 		})
 	end
@@ -90,7 +90,7 @@ local function renderBackgroundImage(titleBackgroundImageProps, stylePalette, co
 					Color = ColorSequence.new(Color3.new(0, 0, 0)),
 					Transparency = NumberSequence.new({
 						NumberSequenceKeypoint.new(0, 1),
-						NumberSequenceKeypoint.new(0.6, .25),
+						NumberSequenceKeypoint.new(0.6, 0.25),
 						NumberSequenceKeypoint.new(1, 1),
 					}),
 					Rotation = 90,
@@ -157,8 +157,8 @@ function ModalTitle:render()
 							ImageTransparency = theme.IconEmphasis.Transparency,
 							AnchorPoint = Vector2.new(0.5, 0.5),
 							Position = UDim2.new(0.5, 0, 0.5, 0),
-						})
-					}
+						}),
+					},
 				},
 				onStateChanged = function(...) end,
 			}) or nil,

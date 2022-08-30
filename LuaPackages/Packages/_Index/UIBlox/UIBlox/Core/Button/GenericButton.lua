@@ -39,7 +39,7 @@ local GenericButton = Roact.PureComponent:extend("GenericButton")
 function GenericButton:init()
 	self:setState({
 		controlState = ControlState.Initialize,
-		absoluteSize = Vector2.new(PLACEHOLDER_ABSOLUTE_SIZE_PX, PLACEHOLDER_ABSOLUTE_SIZE_PX)
+		absoluteSize = Vector2.new(PLACEHOLDER_ABSOLUTE_SIZE_PX, PLACEHOLDER_ABSOLUTE_SIZE_PX),
 	})
 
 	self.onStateChanged = function(oldState, newState)
@@ -55,6 +55,9 @@ function GenericButton:init()
 		self:setState({
 			absoluteSize = rbx.AbsoluteSize,
 		})
+		if self.props[Roact.Change.AbsoluteSize] then
+			self.props[Roact.Change.AbsoluteSize](rbx)
+		end
 	end
 end
 
@@ -131,9 +134,7 @@ local validateProps = devOnly(t.interface({
 
 	--For standard buttons, optionally override the default max width of 640 for Regular and Small,
 	--or set a max width for XSmall (e.g. width of parent container)
-	maxWidth = if UIBloxConfig.enableStandardButtonSizes
-		then t.optional(t.numberPositive)
-		else nil,
+	maxWidth = if UIBloxConfig.enableStandardButtonSizes then t.optional(t.numberPositive) else nil,
 
 	--For standard buttons, optionally override the default width behavior.
 	--If true: button just wide enough to fit its text. If false: default to the full width of its container.
@@ -167,7 +168,7 @@ function GenericButton:render()
 			local loadingProgress = math.clamp(values.loadingProgress, 0, 1)
 			return self:renderButton(loadingProgress)
 		end, {
-			frequency = 1/delayInputSeconds,
+			frequency = 1 / delayInputSeconds,
 			dampingRatio = 0.8,
 		})
 	else
@@ -307,146 +308,156 @@ function GenericButton:renderButton(loadingProgress)
 			end
 			local maxSize = Vector2.new(maxSizeX, maxSizeY)
 
-			buttonContentLayer = self.props[Roact.Children] or {
-				UIListLayout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-					HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, CONTENT_PADDING),
-				}),
-				Icon = icon and Roact.createElement(ImageSetComponent.Label, {
-					Size = UDim2.new(0, getIconSize(IconSize.Medium), 0, getIconSize(IconSize.Medium)),
-					BackgroundTransparency = 1,
-					Image = icon,
-					ImageColor3 = iconStyle.Color,
-					ImageTransparency = iconStyle.Transparency,
-					LayoutOrder = 1,
-				}) or nil,
-				Text = text and Roact.createElement(GenericTextLabel, {
-					BackgroundTransparency = 1,
-					Text = text,
-					fontStyle = fontStyle,
-					colorStyle = textStyle,
-					LayoutOrder = 2,
-					maxSize = maxSize,
-					-- For standard buttons, text should truncate with ... and never wrap onto 2 lines
-					TextWrapped = if (UIBloxConfig.enableStandardButtonSizes and standardSize)
-						then false
-						else nil,
-					TextTruncate = if (UIBloxConfig.enableStandardButtonSizes and standardSize)
-						then Enum.TextTruncate.AtEnd
-						else nil,
-					-- For standard buttons, if there's an icon, left-align the text to avoid a big gap
-					-- between icon and text, especially in cases where the text is truncated
-					TextXAlignment = if (UIBloxConfig.enableStandardButtonSizes and standardSize and icon)
-						then Enum.TextXAlignment.Left
-						else nil,
-				}) or nil,
-			}
-			if UIBloxConfig.genericButtonInputChanges then
-				-- buttonMiddleContent should never == self.props[Roact.Children] and init the standard button content
-				buttonContentLayer = self.props[Roact.Children] or {
-					ButtonMiddleContent = Roact.createElement("Frame", {
-						AutomaticSize = if fitContent then Enum.AutomaticSize.X else nil,
-						Size = if fitContent then UDim2.fromScale(0, 1) else UDim2.fromScale(1, 1),
-						BackgroundTransparency = 1,
-					}, buttonContentLayer),
-					ButtonIcon = inputIcon and Roact.createElement(ImageSetComponent.Label, {
-						AnchorPoint = Vector2.new(1, 0.5),
-						Position = UDim2.new(1, -4, 0.5, 0),
+			buttonContentLayer = self.props[Roact.Children]
+				or {
+					UIListLayout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Horizontal,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+						HorizontalAlignment = Enum.HorizontalAlignment.Center,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						Padding = UDim.new(0, CONTENT_PADDING),
+					}),
+					Icon = icon and Roact.createElement(ImageSetComponent.Label, {
 						Size = UDim2.new(0, getIconSize(IconSize.Medium), 0, getIconSize(IconSize.Medium)),
 						BackgroundTransparency = 1,
-						Image = inputIcon,
-						ImageColor3 = inputIconStyle.Color,
-						ImageTransparency = inputIconStyle.Transparency,
+						Image = icon,
+						ImageColor3 = iconStyle.Color,
+						ImageTransparency = iconStyle.Transparency,
+						LayoutOrder = 1,
+					}) or nil,
+					Text = text and Roact.createElement(GenericTextLabel, {
+						BackgroundTransparency = 1,
+						Text = text,
+						fontStyle = fontStyle,
+						colorStyle = textStyle,
+						LayoutOrder = 2,
+						maxSize = maxSize,
+						-- For standard buttons, text should truncate with ... and never wrap onto 2 lines
+						TextWrapped = if UIBloxConfig.enableStandardButtonSizes and standardSize then false else nil,
+						TextTruncate = if (UIBloxConfig.enableStandardButtonSizes and standardSize)
+							then Enum.TextTruncate.AtEnd
+							else nil,
+						-- For standard buttons, if there's an icon, left-align the text to avoid a big gap
+						-- between icon and text, especially in cases where the text is truncated
+						TextXAlignment = if (UIBloxConfig.enableStandardButtonSizes and standardSize and icon)
+							then Enum.TextXAlignment.Left
+							else nil,
 					}) or nil,
 				}
+			if UIBloxConfig.genericButtonInputChanges then
+				-- buttonMiddleContent should never == self.props[Roact.Children] and init the standard button content
+				buttonContentLayer = self.props[Roact.Children]
+					or {
+						ButtonMiddleContent = Roact.createElement("Frame", {
+							AutomaticSize = if fitContent then Enum.AutomaticSize.X else nil,
+							Size = if fitContent then UDim2.fromScale(0, 1) else UDim2.fromScale(1, 1),
+							BackgroundTransparency = 1,
+						}, buttonContentLayer),
+						ButtonIcon = inputIcon and Roact.createElement(ImageSetComponent.Label, {
+							AnchorPoint = Vector2.new(1, 0.5),
+							Position = UDim2.new(1, -4, 0.5, 0),
+							Size = UDim2.new(0, getIconSize(IconSize.Medium), 0, getIconSize(IconSize.Medium)),
+							BackgroundTransparency = 1,
+							Image = inputIcon,
+							ImageColor3 = inputIconStyle.Color,
+							ImageTransparency = inputIconStyle.Transparency,
+						}) or nil,
+					}
 			end
 		end
 
-		return Roact.createElement(Interactable, Cryo.Dictionary.join(self.props, {
-			-- We are going to pass along to interactable some of the props that were
-			-- passed in to us.  Remove the ones it doesn't understand.
-			forwardedRef = Cryo.None,
-			icon = Cryo.None,
-			text = Cryo.None,
-			inputIcon = Cryo.None,
-			buttonImage = Cryo.None,
-			fontStyle = Cryo.None,
-			delayedInputImage = Cryo.None,
-			buttonStateColorMap = Cryo.None,
-			contentStateColorMap = Cryo.None,
-			textStateColorMap = Cryo.None,
-			iconStateColorMap = Cryo.None,
-			inputIconStateColorMap = Cryo.None,
-			onActivated = Cryo.None,
-			isLoading = Cryo.None,
-			isHoverBackgroundEnabled = Cryo.None,
-			isDelayedInput = Cryo.None,
-			enableInputDelayed = Cryo.None,
-			delayInputSeconds = Cryo.None,
-			standardSize = if UIBloxConfig.enableStandardButtonSizes then Cryo.None else nil,
-			maxWidth = if UIBloxConfig.enableStandardButtonSizes then Cryo.None else nil,
-			fitContent = if UIBloxConfig.enableStandardButtonSizes then Cryo.None else nil,
-			[Roact.Children] = Cryo.None,
+		return Roact.createElement(
+			Interactable,
+			Cryo.Dictionary.join(self.props, {
+				-- We are going to pass along to interactable some of the props that were
+				-- passed in to us.  Remove the ones it doesn't understand.
+				forwardedRef = Cryo.None,
+				icon = Cryo.None,
+				text = Cryo.None,
+				inputIcon = Cryo.None,
+				buttonImage = Cryo.None,
+				fontStyle = Cryo.None,
+				delayedInputImage = Cryo.None,
+				buttonStateColorMap = Cryo.None,
+				contentStateColorMap = Cryo.None,
+				textStateColorMap = Cryo.None,
+				iconStateColorMap = Cryo.None,
+				inputIconStateColorMap = Cryo.None,
+				onActivated = Cryo.None,
+				isLoading = Cryo.None,
+				isHoverBackgroundEnabled = Cryo.None,
+				isDelayedInput = Cryo.None,
+				enableInputDelayed = Cryo.None,
+				delayInputSeconds = Cryo.None,
+				standardSize = if UIBloxConfig.enableStandardButtonSizes then Cryo.None else nil,
+				maxWidth = if UIBloxConfig.enableStandardButtonSizes then Cryo.None else nil,
+				fitContent = if UIBloxConfig.enableStandardButtonSizes then Cryo.None else nil,
+				[Roact.Children] = Cryo.None,
 
-			Size = if UIBloxConfig.enableStandardButtonSizes then size else nil,
-			-- fitContent is already conditional on UIBloxConfig.enableStandardButtonSizes
-			AutomaticSize = if fitContent then Enum.AutomaticSize.X else nil,
-			[Roact.Ref] = self.props.forwardedRef,
-			isDisabled = isDisabled,
-			onStateChanged = self.onStateChanged,
-			userInteractionEnabled = userInteractionEnabled,
-			Image = buttonImage,
-			ScaleType = Enum.ScaleType.Slice,
-			ImageColor3 = buttonStyle.Color,
-			ImageTransparency = buttonStyle.Transparency,
-			BackgroundTransparency = 1,
-			AutoButtonColor = false,
-			[Roact.Event.Activated] = self.props.onActivated,
-			[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChanged,
-		}), {
-			-- For standard button sizes, enforce max width if present
-			UISizeConstraint = if UIBloxConfig.enableStandardButtonSizes and standardSize and maxWidth
+				Size = if UIBloxConfig.enableStandardButtonSizes then size else nil,
+				-- fitContent is already conditional on UIBloxConfig.enableStandardButtonSizes
+				AutomaticSize = if fitContent then Enum.AutomaticSize.X else nil,
+				[Roact.Ref] = self.props.forwardedRef,
+				isDisabled = isDisabled,
+				onStateChanged = self.onStateChanged,
+				userInteractionEnabled = userInteractionEnabled,
+				Image = buttonImage,
+				ScaleType = Enum.ScaleType.Slice,
+				ImageColor3 = buttonStyle.Color,
+				ImageTransparency = buttonStyle.Transparency,
+				BackgroundTransparency = 1,
+				AutoButtonColor = false,
+				[Roact.Event.Activated] = self.props.onActivated,
+				[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChanged,
+			}),
+			{
+				-- For standard button sizes, enforce max width if present
+				UISizeConstraint = if UIBloxConfig.enableStandardButtonSizes
+						and standardSize
+						and maxWidth
 					then
 						Roact.createElement("UISizeConstraint", {
 							-- Each standard size has a fixed height, so the max height can be infinite (math.huge)
 							MaxSize = Vector2.new(maxWidth, math.huge),
 						})
 					else nil,
-			-- For standard button sizes, require sidePadding (only really necessary if scaleWidthAutomatically)
-			UIPadding = if UIBloxConfig.enableStandardButtonSizes and standardSize
-					then
-						Roact.createElement("UIPadding", {
-							PaddingLeft = UDim.new(0, sidePadding),
-							PaddingRight = UDim.new(0, sidePadding),
-						})
+				-- For standard button sizes, require sidePadding (only really necessary if scaleWidthAutomatically)
+				UIPadding = if UIBloxConfig.enableStandardButtonSizes and standardSize
+					then Roact.createElement("UIPadding", {
+						PaddingLeft = UDim.new(0, sidePadding),
+						PaddingRight = UDim.new(0, sidePadding),
+					})
 					else nil,
-			ButtonContent = Roact.createElement("Frame", {
-				AutomaticSize = if fitContent then Enum.AutomaticSize.X else nil,
-				Size = if fitContent then UDim2.fromScale(0, 1) else UDim2.fromScale(1, 1),
-				BackgroundTransparency = 1,
-			}, buttonContentLayer),
-			LoadingImage = (UIBloxConfig.genericButtonInputChanges and isDelayedInput) and
-			Roact.createElement(ImageSetComponent.Label, {
-				Size = UDim2.new(loadingProgress, 0, 1, 0),
-				Position = UDim2.new(1, 0, 0.5, 0),
-				AnchorPoint = Vector2.new(1, 0.5),
-				BackgroundTransparency = 1,
-				Image = loadingImage,
-				ImageColor3 = Color3.new(0, 0, 0),
-				ImageTransparency = 0.5,
-				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter = self.props.SliceCenter,
-			}),
-			HoverBackground = showHoverBackground and Roact.createElement(HoverButtonBackground) or nil,
-		})
+				ButtonContent = Roact.createElement("Frame", {
+					AutomaticSize = if fitContent then Enum.AutomaticSize.X else nil,
+					Size = if fitContent then UDim2.fromScale(0, 1) else UDim2.fromScale(1, 1),
+					BackgroundTransparency = 1,
+				}, buttonContentLayer),
+				LoadingImage = (UIBloxConfig.genericButtonInputChanges and isDelayedInput) and Roact.createElement(
+					ImageSetComponent.Label,
+					{
+						Size = UDim2.new(loadingProgress, 0, 1, 0),
+						Position = UDim2.new(1, 0, 0.5, 0),
+						AnchorPoint = Vector2.new(1, 0.5),
+						BackgroundTransparency = 1,
+						Image = loadingImage,
+						ImageColor3 = Color3.new(0, 0, 0),
+						ImageTransparency = 0.5,
+						ScaleType = Enum.ScaleType.Slice,
+						SliceCenter = self.props.SliceCenter,
+					}
+				),
+				HoverBackground = showHoverBackground and Roact.createElement(HoverButtonBackground) or nil,
+			}
+		)
 	end)
 end
 
 return Roact.forwardRef(function(props, ref)
-	return Roact.createElement(GenericButton, Cryo.Dictionary.join(props, {
-		forwardedRef = ref
-	}))
+	return Roact.createElement(
+		GenericButton,
+		Cryo.Dictionary.join(props, {
+			forwardedRef = ref,
+		})
+	)
 end)

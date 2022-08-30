@@ -23,13 +23,13 @@ local BaseKnob = Roact.Component:extend("BaseKnob")
 
 local ShadowColorMap = {
 	[ControlState.Default] = {
-		Color = Color3.fromRGB(0,0,0),
-		Transparency = 0.7
+		Color = Color3.fromRGB(0, 0, 0),
+		Transparency = 0.7,
 	},
 	[ControlState.Hover] = {
-		Color = Color3.fromRGB(0,0,0),
-		Transparency = 0.5
-	}
+		Color = Color3.fromRGB(0, 0, 0),
+		Transparency = 0.5,
+	},
 }
 
 local ShadowSizeMap = {
@@ -65,7 +65,6 @@ BaseKnob.validateProps = t.interface({
 	layoutOrder = t.optional(t.number),
 	position = t.optional(t.UDim2),
 
-
 	colorMap = t.strictInterface({
 		[ControlState.Default] = validateColor,
 		[ControlState.Hover] = validateColor,
@@ -84,11 +83,11 @@ BaseKnob.validateProps = t.interface({
 BaseKnob.defaultProps = {
 	anchorPoint = Vector2.new(0.5, 0.5),
 	userInteractionEnabled = true,
-	isDisabled = false
+	isDisabled = false,
 }
 function BaseKnob:init()
 	self:setState({
-		controlState = ControlState.Initialize
+		controlState = ControlState.Initialize,
 	})
 
 	self.onStateChanged = function(oldState, newState)
@@ -106,19 +105,19 @@ function BaseKnob:render()
 		local color = self.props.colorMap[self.state.controlState] or self.props.colorMap[ControlState.Default]
 		local shadowSize = ShadowSizeMap[self.state.controlState] or ShadowSizeMap[ControlState.Default]
 		local shadowImage = ShadowImageMap[self.state.controlState] or ShadowImageMap[ControlState.Default]
-		local isGamepadSelected = self.state.controlState == ControlState.Selected or
-			self.state.controlState == ControlState.SelectedPressed
+		local isGamepadSelected = self.state.controlState == ControlState.Selected
+			or self.state.controlState == ControlState.SelectedPressed
 		local shadowColor = ShadowColorMap[self.state.controlState] or ShadowColorMap[ControlState.Default]
 		if isGamepadSelected then
 			shadowColor = style.Theme.SelectionCursor
 		end
 
-		return Roact.createElement("Frame",{
+		return Roact.createElement("Frame", {
 			AnchorPoint = self.props.anchorPoint,
 			LayoutOrder = self.props.layoutOrder,
 			Position = self.props.position,
 			BackgroundTransparency = 1,
-			Size = UDim2.fromOffset(28, 28)
+			Size = UDim2.fromOffset(28, 28),
 		}, {
 			KnobShadow = Roact.createElement(ImageSetComponent.Label, {
 				Size = shadowSize,
@@ -131,7 +130,7 @@ function BaseKnob:render()
 				BackgroundTransparency = 1,
 			}),
 			KnobButton = Roact.createElement(RoactGamepad.Focusable[Interactable], {
-				Size = UDim2.fromScale(1,1),
+				Size = UDim2.fromScale(1, 1),
 
 				isDisabled = self.props.isDisabled,
 				onStateChanged = self.onStateChanged,

@@ -70,15 +70,19 @@ return function(target)
 		end)
 	end
 
-	local handle = Roact.mount(Roact.createElement(StoryView, {}, {
-		StoryItem = Roact.createElement(StoryItem, {
-			title = "A demonstration of checkboxes with long labels",
-			subTitle = "Shows how text can wrap when it is long",
-			showDivider = true,
-		}, {
-			Roact.createElement(MulitlineCheckboxDemo)
-		})
-	}), target, "CheckboxList")
+	local handle = Roact.mount(
+		Roact.createElement(StoryView, {}, {
+			StoryItem = Roact.createElement(StoryItem, {
+				title = "A demonstration of checkboxes with long labels",
+				subTitle = "Shows how text can wrap when it is long",
+				showDivider = true,
+			}, {
+				Roact.createElement(MulitlineCheckboxDemo),
+			}),
+		}),
+		target,
+		"CheckboxList"
+	)
 	return function()
 		Roact.unmount(handle)
 	end

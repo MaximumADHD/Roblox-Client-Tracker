@@ -124,7 +124,7 @@ local theme = {
 	},
 	DropShadow = {
 		Color = Colors.Black,
-		Transparency = 0,
+		Transparency = 0.5, -- 0.5 Alpha
 	},
 	NavigationBar = {
 		Color = Colors.Carbon,
@@ -169,11 +169,11 @@ local theme = {
 		GradientRotationSpeed = 2,
 		GradientColorSequence = ColorSequence.new({
 			ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)),
-			ColorSequenceKeypoint.new(1, Color3.new(0.336, 0.336, 0.336)) -- Color is #565656
+			ColorSequenceKeypoint.new(1, Color3.new(0.336, 0.336, 0.336)), -- Color is #565656
 		}),
 		GradientTransparencySequence = NumberSequence.new({
 			NumberSequenceKeypoint.new(0, 0),
-			NumberSequenceKeypoint.new(1, 0)
+			NumberSequenceKeypoint.new(1, 0),
 		}),
 	},
 

@@ -60,22 +60,26 @@ InteractableList.defaultProps = {
 		for key in pairs(items) do
 			children[tostring(key)] = renderItem(key)
 		end
-		return Roact.createElement("Frame", {
-			Size = extraProps.size,
-			Position = extraProps.position,
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-		}, Cryo.Dictionary.join({
-			[LAYOUT_KEY] = Roact.createElement("UIListLayout", {
-				Padding = extraProps.padding,
-				FillDirection = extraProps.fillDirection,
-				HorizontalAlignment = extraProps.horizontalAlignment,
-				VerticalAlignment = extraProps.verticalAlignment,
-				SortOrder = extraProps.sortOrder,
-			})
-		}, children))
+		return Roact.createElement(
+			"Frame",
+			{
+				Size = extraProps.size,
+				Position = extraProps.position,
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+			},
+			Cryo.Dictionary.join({
+				[LAYOUT_KEY] = Roact.createElement("UIListLayout", {
+					Padding = extraProps.padding,
+					FillDirection = extraProps.fillDirection,
+					HorizontalAlignment = extraProps.horizontalAlignment,
+					VerticalAlignment = extraProps.verticalAlignment,
+					SortOrder = extraProps.sortOrder,
+				}),
+			}, children)
+		)
 	end,
-	size = UDim2.fromScale(1,1),
+	size = UDim2.fromScale(1, 1),
 	itemSize = UDim2.fromScale(1, 1),
 	selectionMode = SelectionMode.Single,
 }
@@ -97,7 +101,7 @@ function InteractableList:init()
 		self:setState({
 			interactable = Cryo.Dictionary.join(self.state.interactable, {
 				[key] = newState,
-			})
+			}),
 		})
 	end
 	self.setSelection = function(newSelection)
@@ -149,7 +153,7 @@ function InteractableList:render()
 			interactableState = interactableState,
 			selection = selection,
 			renderItem = self.props.renderItem,
-			itemSize = self.props.itemSize,
+			itemSize = self.props.itemList[key] and self.props.itemList[key].itemSize or self.props.itemSize,
 			selectionMode = self.props.selectionMode,
 			onSelectionChanged = self.props.onSelectionChanged,
 			setInteractableState = self.setInteractableState,

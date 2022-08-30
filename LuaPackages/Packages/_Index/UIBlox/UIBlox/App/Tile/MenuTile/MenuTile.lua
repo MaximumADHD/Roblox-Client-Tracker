@@ -4,7 +4,7 @@ local MenuTileRoot = script.Parent
 local Tile = MenuTileRoot.Parent
 local App = Tile.Parent
 local UIBlox = App.Parent
-local Core  = UIBlox.Core
+local Core = UIBlox.Core
 local Packages = UIBlox.Parent
 
 local Otter = require(Packages.Otter)
@@ -113,8 +113,12 @@ function MenuTile:render()
 		local titleStyle = theme.TextDefault
 		local titleFont = stylePalette.Font.SubHeader1
 		local titleFontSize = titleFont.RelativeSize * stylePalette.Font.BaseSize
-		local titleTextOneLineSizeY = TextService:GetTextSize(title, titleFontSize, titleFont.Font,
-				Vector2.new(100, titleFontSize)).Y
+		local titleTextOneLineSizeY = TextService:GetTextSize(
+			title,
+			titleFontSize,
+			titleFont.Font,
+			Vector2.new(100, titleFontSize)
+		).Y
 
 		local function onStateChanged(oldState, newState)
 			if newState == ControlState.Hover then
@@ -135,7 +139,7 @@ function MenuTile:render()
 			elseif newState == ControlState.Pressed then
 				self:setState({
 					backgroundTransparency = divideTransparency(backgroundStyle.Transparency, 2),
-					iconTransparency = divideTransparency(iconStyle.Transparency,2),
+					iconTransparency = divideTransparency(iconStyle.Transparency, 2),
 					titleTransparency = divideTransparency(titleStyle.Transparency, 2),
 					showHoverMask = false,
 				})
@@ -144,104 +148,105 @@ function MenuTile:render()
 		end
 
 		return Roact.createElement(Interactable, {
+			Size = size,
+			Position = position,
+			BackgroundTransparency = 1, -- Default is 0
+			LayoutOrder = layoutOrder,
+			onStateChanged = onStateChanged,
+			[Roact.Event.Activated] = onActivated,
+		}, {
+			MenuTileFrame = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
 				Size = size,
-				Position = position,
-				BackgroundTransparency = 1, -- Default is 0
-				LayoutOrder = layoutOrder,
-				onStateChanged = onStateChanged,
-				[Roact.Event.Activated] = onActivated,
 			}, {
-				MenuTileFrame = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = size,
+				Background = Roact.createElement("Frame", {
+					BackgroundColor3 = backgroundStyle.Color,
+					BackgroundTransparency = backgroundTransparency,
+					BorderSizePixel = 0,
+					Size = UDim2.fromScale(1, 1),
+					ZIndex = Z_INDEX.BACKGROUND,
 				}, {
-					Background =  Roact.createElement("Frame", {
-						BackgroundColor3 = backgroundStyle.Color,
-						BackgroundTransparency = backgroundTransparency,
-						BorderSizePixel = 0,
-						Size = UDim2.fromScale(1,1),
-						ZIndex = Z_INDEX.BACKGROUND,
-					}, {
-						RoundedCornerUI = UIBloxConfig.useNewUICornerRoundedCorners and Roact.createElement("UICorner", {
-							CornerRadius = UDim.new(0, 8),
-						}),
+					RoundedCornerUI = UIBloxConfig.useNewUICornerRoundedCorners and Roact.createElement("UICorner", {
+						CornerRadius = UDim.new(0, 8),
 					}),
-					HoverMask = self.state.showHoverMask and Roact.createElement("Frame", {
-						BackgroundColor3 = hoverStyle.Color,
-						BackgroundTransparency = self.hoverTransparency,
-						BorderSizePixel = 0,
-						Size = UDim2.fromScale(1,1),
-						ZIndex = Z_INDEX.HOVER_MASK,
-					}, {
-						RoundedCornerUI = UIBloxConfig.useNewUICornerRoundedCorners and Roact.createElement("UICorner", {
-							CornerRadius = UDim.new(0, 8),
-						}),
+				}),
+				HoverMask = self.state.showHoverMask and Roact.createElement("Frame", {
+					BackgroundColor3 = hoverStyle.Color,
+					BackgroundTransparency = self.hoverTransparency,
+					BorderSizePixel = 0,
+					Size = UDim2.fromScale(1, 1),
+					ZIndex = Z_INDEX.HOVER_MASK,
+				}, {
+					RoundedCornerUI = UIBloxConfig.useNewUICornerRoundedCorners and Roact.createElement("UICorner", {
+						CornerRadius = UDim.new(0, 8),
 					}),
-					IconAndTitleContainer = Roact.createElement("Frame", {
+				}),
+				IconAndTitleContainer = Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					Size = UDim2.fromScale(1, 1),
+					ZIndex = Z_INDEX.ICON_AND_TITLE_CONTAINER,
+				}, {
+					IconAndTitleUIListLayout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Vertical,
+						HorizontalAlignment = Enum.HorizontalAlignment.Center,
+						Padding = LIST_PADDING,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+					}),
+					IconAndTitleUIPadding = Roact.createElement("UIPadding", {
+						PaddingBottom = PADDING_PADDING,
+						PaddingLeft = PADDING_PADDING,
+						PaddingRight = PADDING_PADDING,
+						-- pad by the height of the title line, to position Icon in the middle,
+						-- title height is always 2 lines high
+						PaddingTop = PADDING_PADDING + UDim.new(0, titleTextOneLineSizeY),
+					}),
+					Icon = icon and Roact.createElement(ImageSetComponent.Label, {
 						BackgroundTransparency = 1,
-						Size = UDim2.fromScale(1,1),
-						ZIndex = Z_INDEX.ICON_AND_TITLE_CONTAINER
-					}, {
-						IconAndTitleUIListLayout = Roact.createElement("UIListLayout", {
-							FillDirection = Enum.FillDirection.Vertical,
-							HorizontalAlignment = Enum.HorizontalAlignment.Center,
-							Padding = LIST_PADDING,
-							VerticalAlignment = Enum.VerticalAlignment.Center,
-						}),
-						IconAndTitleUIPadding = Roact.createElement("UIPadding", {
-							PaddingBottom = PADDING_PADDING,
-							PaddingLeft = PADDING_PADDING,
-							PaddingRight = PADDING_PADDING,
-							-- pad by the height of the title line, to position Icon in the middle,
-							-- title height is always 2 lines high
-							PaddingTop = PADDING_PADDING + UDim.new(0, titleTextOneLineSizeY),
-						}),
-						Icon = icon and  Roact.createElement(ImageSetComponent.Label, {
-							BackgroundTransparency = 1,
-							Image = icon,
-							ImageColor3 = iconStyle.Color,
-							ImageTransparency = iconTransparency,
-							LayoutOrder = LAYOUT_ORDER.ICON,
-							Size = UDim2.fromOffset(getIconSize(IconSize.Large), getIconSize(IconSize.Large)),
-						}),
-						-- GenericText, does not limit to 2 lines
-						Title = title and Roact.createElement("TextLabel", {
-							BackgroundTransparency = 1,
-							Font = titleFont.Font,
-							LayoutOrder = LAYOUT_ORDER.TITLE,
-							Size = UDim2.new(1, 0, 0, titleTextOneLineSizeY * TITLE_MAX_NUMBER_OF_LINES),
-							Text = title,
-							TextColor3 = titleStyle.Color,
-							TextSize = titleFontSize,
-							TextTransparency = titleTransparency,
-							TextTruncate = Enum.TextTruncate.AtEnd,
-							TextWrapped = true,
-							TextYAlignment = Enum.TextYAlignment.Top,
-						}),
+						Image = icon,
+						ImageColor3 = iconStyle.Color,
+						ImageTransparency = iconTransparency,
+						LayoutOrder = LAYOUT_ORDER.ICON,
+						Size = UDim2.fromOffset(getIconSize(IconSize.Large), getIconSize(IconSize.Large)),
 					}),
-					BadgeContainer = badgeValue and Roact.createElement("Frame", {
+					-- GenericText, does not limit to 2 lines
+					Title = title and Roact.createElement("TextLabel", {
 						BackgroundTransparency = 1,
-						Size = UDim2.fromScale(1,1),
-						ZIndex = Z_INDEX.BADGE_CONTAINER,
-					}, {
-						BadgeUIListLayout = Roact.createElement("UIListLayout", {
-							FillDirection = Enum.FillDirection.Vertical,
-							HorizontalAlignment = Enum.HorizontalAlignment.Right,
-							Padding = LIST_PADDING,
-							VerticalAlignment = Enum.VerticalAlignment.Top,
-						}),
-						BadgeUIPadding = Roact.createElement("UIPadding", {
-							PaddingBottom = PADDING_PADDING,
-							PaddingLeft = PADDING_PADDING,
-							PaddingRight = PADDING_PADDING,
-							PaddingTop = PADDING_PADDING,
-						}),
-						Badge = Roact.createElement(Badge, {
-							value = badgeValue,
-						}),
+						Font = titleFont.Font,
+						LayoutOrder = LAYOUT_ORDER.TITLE,
+						Size = UDim2.new(1, 0, 0, titleTextOneLineSizeY * TITLE_MAX_NUMBER_OF_LINES),
+						Text = title,
+						TextColor3 = titleStyle.Color,
+						TextSize = titleFontSize,
+						TextTransparency = titleTransparency,
+						TextTruncate = Enum.TextTruncate.AtEnd,
+						TextWrapped = true,
+						TextYAlignment = Enum.TextYAlignment.Top,
 					}),
-					RoundedCornersMask = not UIBloxConfig.useNewUICornerRoundedCorners and
-					Roact.createElement(ImageSetComponent.Label, {
+				}),
+				BadgeContainer = badgeValue and Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					Size = UDim2.fromScale(1, 1),
+					ZIndex = Z_INDEX.BADGE_CONTAINER,
+				}, {
+					BadgeUIListLayout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Vertical,
+						HorizontalAlignment = Enum.HorizontalAlignment.Right,
+						Padding = LIST_PADDING,
+						VerticalAlignment = Enum.VerticalAlignment.Top,
+					}),
+					BadgeUIPadding = Roact.createElement("UIPadding", {
+						PaddingBottom = PADDING_PADDING,
+						PaddingLeft = PADDING_PADDING,
+						PaddingRight = PADDING_PADDING,
+						PaddingTop = PADDING_PADDING,
+					}),
+					Badge = Roact.createElement(Badge, {
+						value = badgeValue,
+					}),
+				}),
+				RoundedCornersMask = not UIBloxConfig.useNewUICornerRoundedCorners and Roact.createElement(
+					ImageSetComponent.Label,
+					{
 						BackgroundTransparency = 1,
 						Image = Images["component_assets/circle_17_mask"],
 						ImageColor3 = roundedCornersStyle.Color,
@@ -249,9 +254,9 @@ function MenuTile:render()
 						SliceCenter = Rect.new(8, 8, 9, 9),
 						Size = UDim2.fromScale(1, 1),
 						ZIndex = Z_INDEX.ROUNDED_CORNERS_MASK,
-					}),
-				}
-			)
+					}
+				),
+			}),
 		})
 	end)
 end

@@ -27,8 +27,7 @@ local ICON_STATE_COLOR = {
 }
 
 local function getCellStyle(contentMap, controlState, style)
-	local buttonThemeClass = contentMap[controlState]
-		or contentMap[ControlState.Default]
+	local buttonThemeClass = contentMap[controlState] or contentMap[ControlState.Default]
 
 	local buttonStyle = {
 		Color = style.Theme[buttonThemeClass].Color,
@@ -45,8 +44,7 @@ local function getCellStyle(contentMap, controlState, style)
 end
 
 local function getIconStyle(contentMap, controlState, style)
-	local iconThemeClass = contentMap[controlState]
-		or contentMap[ControlState.Default]
+	local iconThemeClass = contentMap[controlState] or contentMap[ControlState.Default]
 
 	local iconStyle = {
 		Color = style.Theme[iconThemeClass].Color,
@@ -54,9 +52,8 @@ local function getIconStyle(contentMap, controlState, style)
 	}
 
 	--Based on the design specs, the disabled and pressed state is 0.5 * alpha value
-	if controlState == ControlState.Disabled or
-		controlState == ControlState.Pressed then
-			iconStyle.Transparency = 0.5 * iconStyle.Transparency + 0.5
+	if controlState == ControlState.Disabled or controlState == ControlState.Pressed then
+		iconStyle.Transparency = 0.5 * iconStyle.Transparency + 0.5
 	end
 
 	return iconStyle
@@ -69,9 +66,8 @@ local function getTextStyle(theme, controlState)
 	}
 
 	--Based on the design specs, the disabled and pressed state is 0.5 * alpha value
-	if controlState == ControlState.Disabled or
-		controlState == ControlState.Pressed then
-			textStyle.Transparency = 0.5 * textStyle.Transparency + 0.5
+	if controlState == ControlState.Disabled or controlState == ControlState.Pressed then
+		textStyle.Transparency = 0.5 * textStyle.Transparency + 0.5
 	end
 
 	return textStyle
@@ -123,7 +119,7 @@ GenericSelectionCell.defaultProps = {
 
 function GenericSelectionCell:init()
 	self.state = {
-		controlState = ControlState.Default
+		controlState = ControlState.Default,
 	}
 
 	self.onStateChanged = function(_, newState)
@@ -189,8 +185,8 @@ function GenericSelectionCell:render()
 							ImageTransparency = iconStyle.Transparency,
 							AnchorPoint = Vector2.new(0.5, 0.5),
 							Position = UDim2.new(0.5, 0, 0.5, 0),
-						})
-					})
+						}),
+					}),
 				})
 			end,
 			onStateChanged = self.onStateChanged,
@@ -199,7 +195,10 @@ function GenericSelectionCell:render()
 end
 
 return Roact.forwardRef(function(props, ref)
-	return Roact.createElement(GenericSelectionCell, Cryo.Dictionary.join(props, {
-		controlRef = ref
-	}))
+	return Roact.createElement(
+		GenericSelectionCell,
+		Cryo.Dictionary.join(props, {
+			controlRef = ref,
+		})
+	)
 end)

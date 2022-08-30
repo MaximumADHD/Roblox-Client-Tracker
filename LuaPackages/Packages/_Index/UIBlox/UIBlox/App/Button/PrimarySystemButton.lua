@@ -69,6 +69,9 @@ function PrimarySystemButton:render()
 			NextSelectionLeft = self.props.NextSelectionLeft,
 			NextSelectionRight = self.props.NextSelectionRight,
 			ref = self.props.buttonRef,
+
+			[React.Change.AbsoluteSize] = self.props[React.Change.AbsoluteSize],
+			[React.Change.AbsolutePosition] = self.props[React.Change.AbsolutePosition],
 		})
 	end)
 end

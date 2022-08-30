@@ -9,7 +9,6 @@ local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Packages = UIBlox.Parent
 local enumerate = require(Packages.enumerate)
 
-
 if UIBloxConfig.devHasDeprecationWarning then
 	warn("LoadingState Enum is deprecated.")
 end
@@ -17,5 +16,5 @@ end
 return enumerate("LoadingState", {
 	"Loading",
 	"Failed",
-	"Loaded"
+	"Loaded",
 })

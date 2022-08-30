@@ -98,8 +98,8 @@ function TileThumbnail:render()
 						Size = imageSize - UDim2.fromOffset(imagePadding * 2, imagePadding * 2),
 					}, {
 						UICorner = hasRoundedCorners and Roact.createElement("UICorner", {
-								CornerRadius = CORNER_RADIUS,
-							}) or nil,
+							CornerRadius = CORNER_RADIUS,
+						}) or nil,
 					}) or Roact.createElement(LoadableImage, {
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						BackgroundColor3 = theme.PlaceHolder.Color,
@@ -117,13 +117,13 @@ function TileThumbnail:render()
 					}),
 
 					UICorner = hasRoundedCorners and Roact.createElement("UICorner", {
-							CornerRadius = CORNER_RADIUS,
-						}) or nil,
+						CornerRadius = CORNER_RADIUS,
+					}) or nil,
 				}),
 
 				UICorner = hasRoundedCorners and Roact.createElement("UICorner", {
-						CornerRadius = CORNER_RADIUS,
-					}) or nil,
+					CornerRadius = CORNER_RADIUS,
+				}) or nil,
 			}),
 
 			ComponentsFrame = overlayComponents and Roact.createElement("Frame", {

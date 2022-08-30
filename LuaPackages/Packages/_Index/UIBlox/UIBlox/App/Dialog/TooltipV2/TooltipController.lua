@@ -161,6 +161,7 @@ local function TooltipController(props: Types.TooltipControllerProps)
 
 		local tooltipLayer = if props.DEBUG_useTargetDirectly
 			then React.createElement("Frame", {
+				ZIndex = props.DisplayOrder,
 				Size = UDim2.fromScale(1, 1),
 				BackgroundTransparency = 1,
 				[React.Change.AbsoluteSize] = updateScreenSize,

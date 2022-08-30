@@ -56,7 +56,7 @@ function ThreeSectionBar:init()
 
 		local largestWidth = math.max(leftWidth, rightWidth)
 
-		local centerPoint = Vector2.new(fullWidth/2, 0)
+		local centerPoint = Vector2.new(fullWidth / 2, 0)
 		local largestEdge = Vector2.new(largestWidth, 0)
 
 		local distance = (centerPoint - largestEdge).magnitude
@@ -72,7 +72,7 @@ function ThreeSectionBar:init()
 	self.computeBumpedPosition = function(widths)
 		local leftWidth, rightWidth, fullWidth = widths[1], widths[2], widths[3]
 
-		local x = (fullWidth - leftWidth - rightWidth) /2
+		local x = (fullWidth - leftWidth - rightWidth) / 2
 
 		return UDim2.new(0, leftWidth + x, 0.5, 0)
 	end
@@ -142,15 +142,17 @@ function ThreeSectionBar:render()
 				[Roact.Children] = {
 					-- introduce a size constraint in order to give the renderRight priority
 					sizeConstraint = Roact.createElement("UISizeConstraint", {
-						MaxSize = Roact.joinBindings({self.leftWidth, self.rightWidth, self.fullWidth}):map(function(widths)
-							local _, rightWidth, fullWidth = widths[1], widths[2], widths[3]
+						MaxSize = Roact.joinBindings({ self.leftWidth, self.rightWidth, self.fullWidth }):map(
+							function(widths)
+								local _, rightWidth, fullWidth = widths[1], widths[2], widths[3]
 
-							local maxLeftWidth = math.max(0, fullWidth - rightWidth - self.props.marginLeft)
+								local maxLeftWidth = math.max(0, fullWidth - rightWidth - self.props.marginLeft)
 
-							return Vector2.new(maxLeftWidth, math.huge)
-						end),
+								return Vector2.new(maxLeftWidth, math.huge)
+							end
+						),
 					}),
-				}
+				},
 			})),
 		}),
 
@@ -158,7 +160,7 @@ function ThreeSectionBar:render()
 			AnchorPoint = centerAnchor,
 			BackgroundTransparency = 1,
 
-			Position = Roact.joinBindings({self.leftWidth, self.rightWidth, self.fullWidth}):map(function(widths)
+			Position = Roact.joinBindings({ self.leftWidth, self.rightWidth, self.fullWidth }):map(function(widths)
 				local centeredSize = self.computeCenteredSize(widths)
 
 				if math.abs(centeredSize.X.Offset) <= self.props.estimatedCenterWidth then
@@ -167,7 +169,7 @@ function ThreeSectionBar:render()
 					return centerPosition
 				end
 			end),
-			Size = Roact.joinBindings({self.leftWidth, self.rightWidth, self.fullWidth}):map(function(widths)
+			Size = Roact.joinBindings({ self.leftWidth, self.rightWidth, self.fullWidth }):map(function(widths)
 				local centeredSize = self.computeCenteredSize(widths)
 
 				if math.abs(centeredSize.X.Offset) <= self.props.estimatedCenterWidth then
@@ -210,7 +212,7 @@ function ThreeSectionBar:render()
 			end,
 		}, {
 			rightContent = self.props.renderRight(self.props),
-		})
+		}),
 	})
 end
 

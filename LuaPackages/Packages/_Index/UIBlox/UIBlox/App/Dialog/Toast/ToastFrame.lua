@@ -64,9 +64,13 @@ function ToastFrame:render()
 			PaddingRight = UDim.new(0, padding),
 			PaddingTop = UDim.new(0, padding),
 		}),
-		ToastIcon = iconProps and Roact.createElement(ToastIcon, Cryo.Dictionary.join(iconProps, {
-			LayoutOrder = 1,
-		}), self.props.iconChildren),
+		ToastIcon = iconProps and Roact.createElement(
+			ToastIcon,
+			Cryo.Dictionary.join(iconProps, {
+				LayoutOrder = 1,
+			}),
+			self.props.iconChildren
+		),
 		ToastTextFrame = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			LayoutOrder = 2,
@@ -76,12 +80,18 @@ function ToastFrame:render()
 				FillDirection = Enum.FillDirection.Vertical,
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
-			ToastTitle = Roact.createElement(ToastText, Cryo.Dictionary.join(self.props.titleTextProps, {
-				LayoutOrder = 1,
-			})),
-			ToastSubtitle = subtitleTextProps and Roact.createElement(ToastText, Cryo.Dictionary.join(subtitleTextProps, {
-				LayoutOrder = 2,
-			})),
+			ToastTitle = Roact.createElement(
+				ToastText,
+				Cryo.Dictionary.join(self.props.titleTextProps, {
+					LayoutOrder = 1,
+				})
+			),
+			ToastSubtitle = subtitleTextProps and Roact.createElement(
+				ToastText,
+				Cryo.Dictionary.join(subtitleTextProps, {
+					LayoutOrder = 2,
+				})
+			),
 		}),
 	})
 end

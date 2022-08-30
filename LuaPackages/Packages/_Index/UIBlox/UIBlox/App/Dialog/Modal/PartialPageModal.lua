@@ -45,7 +45,7 @@ local validateProps = devOnly(t.strictInterface({
 }))
 
 PartialPageModal.defaultProps = {
-	marginSize = MARGIN
+	marginSize = MARGIN,
 }
 
 -- Used to determine width of middle content for dynamically sizing children in the content
@@ -104,13 +104,15 @@ function PartialPageModal:render()
 				}),
 				Roact.createElement(ButtonStack, self.props.buttonStackProps),
 			}),
-			BottomFrame = if self.props.footerContent then Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, 0),
-				LayoutOrder = 3,
-				BackgroundTransparency = 1,
-				AutomaticSize = Enum.AutomaticSize.Y
-			}, { FooterContent = self.props.footerContent() }) else nil,
-		})
+			BottomFrame = if self.props.footerContent
+				then Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, 0),
+					LayoutOrder = 3,
+					BackgroundTransparency = 1,
+					AutomaticSize = Enum.AutomaticSize.Y,
+				}, { FooterContent = self.props.footerContent() })
+				else nil,
+		}),
 	})
 end
 

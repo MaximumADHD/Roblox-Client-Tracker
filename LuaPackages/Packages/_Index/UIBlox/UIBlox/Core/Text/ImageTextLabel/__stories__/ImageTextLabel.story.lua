@@ -116,7 +116,7 @@ function ImageTextLabelStory:render()
 				},
 				padding = 4,
 				maxSize = Vector2.new(170, 40),
-			})
+			}),
 		})
 	end)
 end

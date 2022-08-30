@@ -32,7 +32,9 @@ local function createButton(props)
 		selectedColor = Color3.fromRGB(255, 0, 0),
 		textColor = theme.Color,
 		transparency = theme.Transparency,
-		onActivated = function(value) print(value) end,
+		onActivated = function(value)
+			print(value)
+		end,
 		layoutOrder = props.layoutOrder,
 	})
 end

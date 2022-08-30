@@ -7,11 +7,14 @@ local scaleSliceToResolution = require(UIBlox.App.ImageSet.scaleSliceToResolutio
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 return function(innerComponent, resolutionScale)
-	assert(resolutionScale > 0, "resolutionScale for ImageSet must be greater than 0! got " .. tostring(resolutionScale))
+	assert(
+		resolutionScale > 0,
+		"resolutionScale for ImageSet must be greater than 0! got " .. tostring(resolutionScale)
+	)
 
 	return Roact.forwardRef(function(props, ref)
 		local fullProps = {
-			[Roact.Ref] = ref
+			[Roact.Ref] = ref,
 		}
 		local imageSetProps
 		local usesImageSet = false

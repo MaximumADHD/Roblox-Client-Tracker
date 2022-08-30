@@ -51,18 +51,19 @@ local function makeAppOneKnobSlider(trackFillThemeKey)
 
 		customTrack = UIBloxConfig.enableSliderCustomization and t.optional(t.table) or nil,
 		customKnobColorLower = UIBloxConfig.enableSliderCustomization and t.optional(t.Color3) or nil,
-		customPressedKnobShadowTransparencyLower = UIBloxConfig.enableSliderCustomization and t.optional(t.number) or nil,
+		customPressedKnobShadowTransparencyLower = UIBloxConfig.enableSliderCustomization and t.optional(t.number)
+			or nil,
 		customKnobHeight = UIBloxConfig.enableSliderCustomization and t.optional(t.number) or nil,
 		customKnobBorderSize = UIBloxConfig.enableSliderCustomization and t.optional(t.number) or nil,
 		customKnobBorderColor = UIBloxConfig.enableSliderCustomization and t.optional(t.Color3) or nil,
 		--Internal Only - Don't Pass In
-		style = validateStyle
+		style = validateStyle,
 	})
 
 	oneKnobAppSliderComponent.defaultProps = {
 		stepInterval = 1,
 		width = UDim.new(1, 0),
-		textInputEnabled = false
+		textInputEnabled = false,
 	}
 
 	function oneKnobAppSliderComponent:render()
@@ -86,7 +87,9 @@ local function makeAppOneKnobSlider(trackFillThemeKey)
 			customKnobBorderColor = UIBloxConfig.enableSliderCustomization and props.customKnobBorderColor or nil,
 			customKnobBorderSize = UIBloxConfig.enableSliderCustomization and props.customKnobBorderSize or nil,
 			customKnobColorLower = UIBloxConfig.enableSliderCustomization and props.customKnobColorLower or nil,
-			customPressedKnobShadowTransparencyLower = UIBloxConfig.enableSliderCustomization and props.customPressedKnobShadowTransparencyLower or nil,
+			customPressedKnobShadowTransparencyLower = UIBloxConfig.enableSliderCustomization
+					and props.customPressedKnobShadowTransparencyLower
+				or nil,
 		}
 
 		if not props.textInputEnabled then
@@ -99,12 +102,7 @@ local function makeAppOneKnobSlider(trackFillThemeKey)
 			sliderProps.width = UDim.new(1, -(56 + 12))
 			return Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				Size = UDim2.new(
-					props.width.Scale,
-					props.width.Offset,
-					0,
-					44
-				),
+				Size = UDim2.new(props.width.Scale, props.width.Offset, 0, 44),
 				AnchorPoint = props.anchorPoint,
 				LayoutOrder = props.layoutOrder,
 				Position = props.position,
@@ -119,7 +117,7 @@ local function makeAppOneKnobSlider(trackFillThemeKey)
 					disabled = props.isDisabled,
 					stepInterval = props.stepInterval,
 					onValueChanged = props.onValueChanged,
-				})
+				}),
 			})
 		end
 	end

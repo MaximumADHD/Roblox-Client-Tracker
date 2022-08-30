@@ -31,7 +31,7 @@ dropdownMenuListComponent.validateProps = t.strictInterface({
 	screenSize = t.Vector2,
 
 	onDismiss = t.optional(t.callback),
-	buttonSize = t.UDim2
+	buttonSize = t.UDim2,
 })
 
 dropdownMenuListComponent.defaultProps = {
@@ -44,7 +44,7 @@ dropdownMenuListComponent.defaultProps = {
 function dropdownMenuListComponent:init()
 	self:setState({
 		absolutePosition = Vector2.new(0, 0),
-		visible = false
+		visible = false,
 	})
 
 	self.setAbsolutePosition = function(rbx)
@@ -56,7 +56,7 @@ function dropdownMenuListComponent:init()
 	self.dismissMenu = function()
 		if self.state.visible then
 			self:setState({
-				visible = false
+				visible = false,
 			})
 			self.props.onDismiss()
 		end
@@ -94,7 +94,7 @@ function dropdownMenuListComponent:render()
 				-absolutePosition.X + self.props.screenSize.X / 2 - self.props.buttonSize.X.Offset / 2,
 				0,
 				UIBloxConfig.fixDropdownMenuListPositionAndSize
-					and (self.props.screenSize.Y - absolutePosition.Y - bottomCornerInset.Y - 24)
+						and (self.props.screenSize.Y - absolutePosition.Y - bottomCornerInset.Y - 24)
 					or (self.props.screenSize.Y - absolutePosition.Y - 24)
 			)
 		end
@@ -105,8 +105,10 @@ function dropdownMenuListComponent:render()
 		end
 
 		return Roact.createElement("Frame", {
-			Size = UIBloxConfig.fixDropdownMenuListPositionAndSize and UDim2.fromScale(1, 1)
-				or UDim2.fromOffset(self.props.screenSize.X, self.props.screenSize.Y),
+			Size = UIBloxConfig.fixDropdownMenuListPositionAndSize and UDim2.fromScale(1, 1) or UDim2.fromOffset(
+				self.props.screenSize.X,
+				self.props.screenSize.Y
+			),
 			BackgroundTransparency = 1,
 			Visible = self.state.visible,
 			ZIndex = self.props.zIndex,
@@ -148,7 +150,7 @@ end
 function dropdownMenuListComponent:didMount()
 	if self.props.open then
 		self:setState({
-			visible = true
+			visible = true,
 		})
 	end
 end
@@ -157,11 +159,11 @@ function dropdownMenuListComponent:didUpdate(previousProps, previousState)
 	if self.props.open ~= previousProps.open then
 		if self.props.open then
 			self:setState({
-				visible = true
+				visible = true,
 			})
 		else
 			self:setState({
-				visible = false
+				visible = false,
 			})
 		end
 	end

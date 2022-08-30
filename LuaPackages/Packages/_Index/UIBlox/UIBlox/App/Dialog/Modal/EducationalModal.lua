@@ -58,7 +58,12 @@ local function ContentItem(props)
 		local textSize = font.Body.RelativeSize * font.BaseSize
 
 		return Roact.createElement("Frame", {
-			Size = hasIcon and UDim2.new(0, BODY_CONTENTS_WIDTH, 0, totalTextSize.Y) or UDim2.new(1, 0, 0, totalTextSize.Y),
+			Size = hasIcon and UDim2.new(0, BODY_CONTENTS_WIDTH, 0, totalTextSize.Y) or UDim2.new(
+				1,
+				0,
+				0,
+				totalTextSize.Y
+			),
 			AutomaticSize = hasIcon and Enum.AutomaticSize.None or Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
 			LayoutOrder = props.layoutOrder,
@@ -66,13 +71,11 @@ local function ContentItem(props)
 			HorizontalLayout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				FillDirection = Enum.FillDirection.Horizontal,
-				Padding = isSystemMenuIcon and UDim.new(0, paddingBetween + 2)
-					or UDim.new(0, paddingBetween),
-				VerticalAlignment = Enum.VerticalAlignment.Center
+				Padding = isSystemMenuIcon and UDim.new(0, paddingBetween + 2) or UDim.new(0, paddingBetween),
+				VerticalAlignment = Enum.VerticalAlignment.Center,
 			}),
 			Padding = Roact.createElement("UIPadding", {
-				PaddingLeft = isSystemMenuIcon and UDim.new(0, 2)
-					or UDim.new(0, 0),
+				PaddingLeft = isSystemMenuIcon and UDim.new(0, 2) or UDim.new(0, 0),
 			}),
 			Icon = isSystemMenuIcon and Roact.createElement(ImageSetLabel, {
 				BackgroundTransparency = 1,

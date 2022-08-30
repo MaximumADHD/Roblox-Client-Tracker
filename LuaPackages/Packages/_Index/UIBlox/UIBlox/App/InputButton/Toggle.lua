@@ -84,7 +84,7 @@ function InnerToggle:init()
 	-- otherwise it creates a visually jarring border around the filled track.
 	self.trackTransparency = joinedBinding:map(function(values)
 		local targetTransparency = values.controlState == ControlState.Hover
-			and values.style.Theme.SecondaryOnHover.Transparency
+				and values.style.Theme.SecondaryOnHover.Transparency
 			or values.style.Theme.SecondaryDefault.Transparency
 
 		if values.controlState == ControlState.Disabled then
@@ -169,7 +169,7 @@ function InnerToggle:render()
 						AnchorPoint = Vector2.new(0, 0.5),
 						ZIndex = 3,
 					}),
-				}
+				},
 			},
 			isDisabled = self.props.isDisabled,
 			onStateChanged = function(_, newState)
@@ -203,9 +203,12 @@ local function injectUIBloxStyle(props)
 	-- the style prop!
 	assert(validateProps(props))
 	return withStyle(function(style)
-		return Roact.createElement(InnerToggle, Cryo.Dictionary.join(props, {
-			style = style,
-		}))
+		return Roact.createElement(
+			InnerToggle,
+			Cryo.Dictionary.join(props, {
+				style = style,
+			})
+		)
 	end)
 end
 

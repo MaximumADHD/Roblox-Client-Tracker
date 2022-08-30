@@ -91,22 +91,26 @@ function TitleBarStory:render()
 					title = "Roblox",
 					isTriggered = self.state.isTriggered,
 					onDisappear = self.hideTitleBar,
-					exitFullscreen =  function()
-						print "Exit Fullscreen"
+					exitFullscreen = function()
+						print("Exit Fullscreen")
 					end,
 					closeRoblox = function()
-						print "Close Roblox"
+						print("Close Roblox")
 					end,
 				}),
-			})
+			}),
 		}),
 	})
 end
 
 return function(target)
-	local handle = Roact.mount(Roact.createElement(StoryView, {}, {
-		Story = Roact.createElement(TitleBarStory),
-	}), target, "FullscreenTitleBar")
+	local handle = Roact.mount(
+		Roact.createElement(StoryView, {}, {
+			Story = Roact.createElement(TitleBarStory),
+		}),
+		target,
+		"FullscreenTitleBar"
+	)
 	return function()
 		Roact.unmount(handle)
 	end

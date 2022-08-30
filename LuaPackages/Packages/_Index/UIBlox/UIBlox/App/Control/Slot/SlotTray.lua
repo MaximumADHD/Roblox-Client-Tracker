@@ -63,7 +63,7 @@ export type Slot = {
 }
 
 export type Props = {
-	slots: {Slot},
+	slots: { Slot },
 	onChange: (selectedIndex: number) -> (),
 	defaultSelectedSlotIndex: number?,
 	width: number?,
@@ -157,14 +157,14 @@ local function SlotTray(props: Props)
 		elseif canvasPos > scrollingFramePositionL then
 			motor:setGoal(Otter.spring(scrollingFramePositionL, ANIMATION_SPRING_SETTINGS))
 		end
-	end, {selectedIndex, frameWidth, slotRefs, scrollingFrameRef, motor})
+	end, { selectedIndex, frameWidth, slotRefs, scrollingFrameRef, motor })
 
 	local selectIndex = React.useCallback(function(index)
 		setSelectedIndex(index)
 		props.onChange(index)
-	end, {props.onChange})
+	end, { props.onChange })
 
-	local canvasWidth = #props.slots * DEFAULT_SLOT_SIZE + (#props.slots - 1) * INNER_PADDING + OUTER_PADDING * 2;
+	local canvasWidth = #props.slots * DEFAULT_SLOT_SIZE + (#props.slots - 1) * INNER_PADDING + OUTER_PADDING * 2
 
 	local style = useStyle()
 	local selectionCursor = useSelectionCursor(CursorKind.RoundedSlot)
@@ -236,8 +236,10 @@ local function SlotTray(props: Props)
 		SlotContainer = React.createElement("Frame", {
 			Size = UDim2.fromScale(1, 1),
 			BackgroundColor3 = if props.darken then theme.Overlay.Color else theme.PlaceHolder.Color,
-			BackgroundTransparency = if props.darken then theme.Overlay.Transparency else theme.PlaceHolder.Transparency,
-		}, slots)
+			BackgroundTransparency = if props.darken
+				then theme.Overlay.Transparency
+				else theme.PlaceHolder.Transparency,
+		}, slots),
 	})
 end
 

@@ -14,7 +14,7 @@ return function(target)
 		text = Roact.createElement("TextLabel", {
 			Text = "Hello",
 			Size = UDim2.fromScale(1, 1),
-		})
+		}),
 	})
 	local handle = Roact.mount(tree, target, "HorizontalPageMargin")
 	return function()

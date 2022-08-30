@@ -114,7 +114,6 @@ function LoadableImage:init()
 	}
 	self._isMounted = false
 
-
 	self.isLoadingComplete = function(image)
 		if image == Roact.None or image == nil then
 			return false
@@ -225,10 +224,11 @@ function LoadableImage:render()
 		hasUISizeConstraint = true
 	end
 
-	local sizeConstraint = hasUISizeConstraint and Roact.createElement("UISizeConstraint", {
-		MaxSize = maxSize,
-		MinSize = minSize,
-	})
+	local sizeConstraint = hasUISizeConstraint
+		and Roact.createElement("UISizeConstraint", {
+			MaxSize = maxSize,
+			MinSize = minSize,
+		})
 
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
@@ -322,16 +322,16 @@ function LoadableImage:_loadImage()
 
 	if shouldLoadImage(image) then
 		self:setState({
-			loadingState = LoadingState.InProgress
+			loadingState = LoadingState.InProgress,
 		})
 	else
 		if loadedImagesByUri[image] then
 			self:setState({
-				loadingState = LoadingState.Loaded
+				loadingState = LoadingState.Loaded,
 			})
 		elseif loadedImagesByUri[image] == false then
 			self:setState({
-				loadingState = LoadingState.Failed
+				loadingState = LoadingState.Failed,
 			})
 		end
 		return
@@ -351,7 +351,7 @@ function LoadableImage:_loadImage()
 			loadingFailed = false
 			decal.Texture = image
 
-			self.props.contentProvider:PreloadAsync({decal}, function(contentId, assetFetchStatus)
+			self.props.contentProvider:PreloadAsync({ decal }, function(contentId, assetFetchStatus)
 				if contentId == image and assetFetchStatus == Enum.AssetFetchStatus.Failure then
 					loadingFailed = true
 				end

@@ -28,7 +28,7 @@ local function createFooter()
 		TextLabel = Roact.createElement("TextLabel", {
 			Text = "Your custom footer goes here.",
 			Size = UDim2.new(1, 0, 1, 0),
-		})
+		}),
 	})
 end
 
@@ -106,7 +106,7 @@ function TileStoryContainer:render()
 		LongerLoadItemTileContainer = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			LayoutOrder = 1,
-			Size = UDim2.new(0, 200, 0, 200 + NAME_HEIGHT + PADDING+ FOOTER_HEIGHT),
+			Size = UDim2.new(0, 200, 0, 200 + NAME_HEIGHT + PADDING + FOOTER_HEIGHT),
 		}, {
 			ThumbnailLongerLoadItemTile = Roact.createElement(Tile, {
 				footer = createFooter(),
@@ -163,7 +163,7 @@ end
 
 return function(target)
 	local styleProvider = Roact.createElement(StoryView, {}, {
-		Roact.createElement(TileStoryContainer)
+		Roact.createElement(TileStoryContainer),
 	})
 
 	local handle = Roact.mount(styleProvider, target, "TileStoryContainer")

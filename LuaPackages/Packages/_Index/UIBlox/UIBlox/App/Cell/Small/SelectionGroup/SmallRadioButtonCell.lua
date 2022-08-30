@@ -92,9 +92,6 @@ function SmallRadioButtonCell:render()
 	})
 end
 
-return Roact.forwardRef(function (props, ref)
-	return Roact.createElement(SmallRadioButtonCell, Cryo.Dictionary.join(
-		props,
-		{controlRef = ref}
-	))
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(SmallRadioButtonCell, Cryo.Dictionary.join(props, { controlRef = ref }))
 end)

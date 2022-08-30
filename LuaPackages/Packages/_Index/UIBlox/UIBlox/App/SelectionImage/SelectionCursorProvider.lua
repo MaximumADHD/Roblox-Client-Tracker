@@ -17,20 +17,22 @@ function SelectionCursorProvider:init()
 	self.refs = RoactGamepad.createRefCache()
 	self.state = {
 		mountedCursors = {},
-		currentSelection = nil, 	-- The object which is currently selected in game UI
-		currentCoreSelection = nil,	-- The object which is currently selected in core UI
+		currentSelection = nil, -- The object which is currently selected in game UI
+		currentCoreSelection = nil, -- The object which is currently selected in core UI
 	}
 
 	self.getSelectionCursor = function(cursorKind)
-		assert(CursorKind.isEnumValue(cursorKind),
-			("Invalid arg #1: expected a CursorKind enum variant, got %s"):format(tostring(cursorKind)))
+		assert(
+			CursorKind.isEnumValue(cursorKind),
+			("Invalid arg #1: expected a CursorKind enum variant, got %s"):format(tostring(cursorKind))
+		)
 
 		if self.state.mountedCursors[cursorKind] == nil then
 			self:setState(function(state)
 				return {
 					mountedCursors = Cryo.Dictionary.join(state.mountedCursors, {
 						[cursorKind] = true,
-					})
+					}),
 				}
 			end)
 		end
@@ -59,20 +61,26 @@ function SelectionCursorProvider:init()
 
 		-- Register new listeners. We listen to different signals depending on whether we're under CoreGui or PlayerGui.
 		if instance:IsDescendantOf(CoreGui) then
-			self.coreSelectionListener = GuiService:GetPropertyChangedSignal('SelectedCoreObject'):Connect(function()
+			self.coreSelectionListener = GuiService:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function()
 				-- Trigger a re-render when UI selection changes and we're using a new cursor, so that we can choose whether to add
 				-- an animated gradient child to each cursor, depending on whether or not the cursor is visible.
-				if self.state.currentCoreSelection == nil
+				if
+					self.state.currentCoreSelection == nil
 					or GuiService.SelectedCoreObject == nil
-					or self.state.currentCoreSelection.SelectionImageObject ~= GuiService.SelectedCoreObject.SelectionImageObject then
+					or self.state.currentCoreSelection.SelectionImageObject
+						~= GuiService.SelectedCoreObject.SelectionImageObject
+				then
 					self:setState({ currentCoreSelection = GuiService.SelectedCoreObject })
 				end
 			end)
 		else
-			self.selectionListener = GuiService:GetPropertyChangedSignal('SelectedObject'):Connect(function()
-				if self.state.currentSelection == nil
+			self.selectionListener = GuiService:GetPropertyChangedSignal("SelectedObject"):Connect(function()
+				if
+					self.state.currentSelection == nil
 					or GuiService.SelectedObject == nil
-					or self.state.currentSelection.SelectionImageObject ~= GuiService.SelectedObject.SelectionImageObject then
+					or self.state.currentSelection.SelectionImageObject
+						~= GuiService.SelectedObject.SelectionImageObject
+				then
 					self:setState({ currentSelection = GuiService.SelectedObject })
 				end
 			end)
@@ -103,12 +111,17 @@ function SelectionCursorProvider:render()
 		local CursorComponent = cursorKind.rawValue()
 		local key = tostring(CursorComponent)
 		local visible = false
-		if self.refs[cursorKind] ~= nil
-		and	((self.state.currentSelection ~= nil
-				and self.refs[cursorKind].current == self.state.currentSelection.SelectionImageObject)
-			or
-			(self.state.currentCoreSelection ~= nil
-				and self.refs[cursorKind].current == self.state.currentCoreSelection.SelectionImageObject)
+		if
+			self.refs[cursorKind] ~= nil
+			and (
+				(
+					self.state.currentSelection ~= nil
+					and self.refs[cursorKind].current == self.state.currentSelection.SelectionImageObject
+				)
+				or (
+					self.state.currentCoreSelection ~= nil
+					and self.refs[cursorKind].current == self.state.currentCoreSelection.SelectionImageObject
+				)
 			)
 		then
 			visible = true
@@ -128,7 +141,7 @@ function SelectionCursorProvider:render()
 			Visible = false,
 		}, cursors),
 		OnRootedListener = Roact.createElement(OnRootedListener, {
-			onRooted = self.initSelectionChangedListener
+			onRooted = self.initSelectionChangedListener,
 		}),
 		Children = Roact.createFragment(self.props[Roact.Children]),
 	})

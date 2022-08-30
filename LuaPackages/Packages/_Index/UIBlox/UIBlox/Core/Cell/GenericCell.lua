@@ -95,7 +95,7 @@ function GenericCell:render()
 			BackgroundTransparency = self.props.colorStyle.Transparency,
 			BorderSizePixel = 0,
 			AutoButtonColor = false,
-			[Roact.Event.Activated] = (not self.props.isDisabled) and self.props.onActivated,
+			[Roact.Event.Activated] = not self.props.isDisabled and self.props.onActivated,
 			[Roact.Ref] = self.props.controlRef,
 			NextSelectionUp = self.props.NextSelectionUp,
 			NextSelectionDown = self.props.NextSelectionDown,
@@ -158,12 +158,15 @@ function GenericCell:render()
 				BackgroundColor3 = self.props.dividerStyle.Color,
 				BackgroundTransparency = self.props.dividerStyle.Transparency,
 			}),
-		})
+		}),
 	})
 end
 
 return Roact.forwardRef(function(props, ref)
-	return Roact.createElement(GenericCell, Cryo.Dictionary.join(props, {
-		controlRef = ref
-	}))
+	return Roact.createElement(
+		GenericCell,
+		Cryo.Dictionary.join(props, {
+			controlRef = ref,
+		})
+	)
 end)

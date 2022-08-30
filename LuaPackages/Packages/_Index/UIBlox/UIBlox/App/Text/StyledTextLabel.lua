@@ -17,7 +17,6 @@ local DEFAULT_LINE_HEIGHT = 1.4
 ]]
 local StyledTextLabel = Roact.PureComponent:extend("StyledTextLabel")
 
-
 StyledTextLabel.validateProps = t.strictInterface({
 	text = t.string,
 	fontStyle = validateFontInfo,
@@ -53,7 +52,6 @@ function StyledTextLabel:render()
 		fontStyle = self.props.fontStyle,
 		colorStyle = self.props.colorStyle,
 		fluidSizing = self.props.fluidSizing,
-
 
 		Size = self.props.size,
 		Text = self.props.text,

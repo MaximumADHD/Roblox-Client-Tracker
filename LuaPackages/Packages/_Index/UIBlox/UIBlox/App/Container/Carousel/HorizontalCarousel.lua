@@ -67,7 +67,7 @@ HorizontalCarousel.validateProps = t.strictInterface({
 	loadNext = t.optional(t.callback),
 
 	-- A callback function, called when the carousel reaches the trailing end of the itemList (index 1).
-	loadPrevious =  t.optional(t.callback),
+	loadPrevious = t.optional(t.callback),
 
 	-- Animate the scrolling
 	animateScrolling = t.optional(t.boolean),
@@ -110,7 +110,12 @@ type MetaData = {
 	animationActive: boolean?,
 }
 
-local function updateScrollState(newIndex: number?, maxNumOfItemsVisible: number, numOfItems: number?, scrollerFocusLock: number?): State
+local function updateScrollState(
+	newIndex: number?,
+	maxNumOfItemsVisible: number,
+	numOfItems: number?,
+	scrollerFocusLock: number?
+): State
 	if newIndex == nil then
 		return {}
 	end
@@ -162,9 +167,7 @@ local promisifyCallback = function(callback: () -> ())
 	if not callback then
 		return nil
 	end
-	return Promise.is(callback)
-		and callback
-		or Promise.promisify(callback)
+	return Promise.is(callback) and callback or Promise.promisify(callback)
 end
 
 function HorizontalCarousel.getDerivedStateFromProps(nextProps: Props, lastState: State): State?
@@ -187,11 +190,9 @@ function HorizontalCarousel:init()
 		self.listRef = Roact.createRef()
 	end
 
-	local carouselMetaData: MetaData = UIBloxConfig.enableVirtualizedListForCarousel
-		and {
-				anchorIndex = 1
-			}
-		or {}
+	local carouselMetaData: MetaData = UIBloxConfig.enableVirtualizedListForCarousel and {
+		anchorIndex = 1,
+	} or {}
 
 	self:setState({
 		scrollerFocusLock = if UIBloxConfig.enableVirtualizedListForCarousel then nil else 0,
@@ -244,7 +245,7 @@ function HorizontalCarousel:init()
 			carouselMetaData = {
 				anchorIndex = anchorIndex,
 				-- TODO: VirtualizedList doesn't support animation currently
-				animationActive = false
+				animationActive = false,
 			}
 		else
 			carouselMetaData = data
@@ -361,119 +362,116 @@ function HorizontalCarousel:render()
 		[Roact.Event.InputBegan] = self.onMouseEnter,
 		[Roact.Event.InputEnded] = self.onMouseLeave,
 		[Roact.Change.AbsoluteSize] = self.onResize,
-	},{
+	}, {
 		LeftMargin = Roact.createElement("Frame", {
 			Position = UDim2.fromScale(0, 0),
 			AnchorPoint = Vector2.new(0, 0),
 			Size = UDim2.new(0, carouselMargin, 1, 0),
 			BackgroundTransparency = 1,
 			ZIndex = 2,
-		},{
+		}, {
 			ScrollLeftButton = scrollLeftButton,
 		}),
 		ScrollerCarousel = if UIBloxConfig.enableVirtualizedListForCarousel
-			then (state.maxNumOfItemsVisible > 0) and
-				Roact.createElement(BidirectionalFlatList, {
-					[Roact.Ref] = self.listRef,
+			then (state.maxNumOfItemsVisible > 0) and Roact.createElement(BidirectionalFlatList, {
+				[Roact.Ref] = self.listRef,
 
-					data = itemList,
-					renderItem = self.proxyRenderItem,
-					keyExtractor = self.proxyKeyExtractor,
+				data = itemList,
+				renderItem = self.proxyRenderItem,
+				keyExtractor = self.proxyKeyExtractor,
 
-					horizontal = true,
-					initialScrollIndex = 1,
-					initialNumToRender = INITIAL_NUM_TO_RENDER,
-					windowSize = WINDOW_SIZE,
+				horizontal = true,
+				initialScrollIndex = 1,
+				initialNumToRender = INITIAL_NUM_TO_RENDER,
+				windowSize = WINDOW_SIZE,
 
-					onScroll = self.onScrollUpdate,
+				onScroll = self.onScrollUpdate,
 
-					onStartReachedThreshold = 1,
-					onStartReached = promisifyCallback(loadPrevious),
-					onEndReachedThreshold = 1,
-					onEndReached = promisifyCallback(loadNext),
+				onStartReachedThreshold = 1,
+				onStartReached = promisifyCallback(loadPrevious),
+				onEndReachedThreshold = 1,
+				onEndReached = promisifyCallback(loadNext),
 
-					overrideAutomaticCanvasSize = true,
-					getItemLayout = self.getItemLayout,
+				overrideAutomaticCanvasSize = true,
+				getItemLayout = self.getItemLayout,
 
-					ItemSeparatorComponent = if itemPadding then
-						function()
-							return Roact.createFragment({
-								ItemPadding = Roact.createElement("UIPadding", {
-									PaddingRight = UDim.new(0, itemPadding),
-								})
-							})
-						end
-						else nil,
+				ItemSeparatorComponent = if itemPadding
+					then function()
+						return Roact.createFragment({
+							ItemPadding = Roact.createElement("UIPadding", {
+								PaddingRight = UDim.new(0, itemPadding),
+							}),
+						})
+					end
+					else nil,
 
-					showDefaultLoadingIndicators = false,
-					ListHeaderComponent = if carouselMargin then
-						function()
-							return Roact.createFragment({
-								LeftCarouselMargin = Roact.createElement("Frame", {
-									Position = UDim2.fromScale(0, 0),
-									AnchorPoint = Vector2.new(0, 0),
-									BackgroundTransparency = 1,
-									Size = UDim2.new(0, carouselMargin, 1, 0),
-								})
-							})
-						end
-						else nil,
+				showDefaultLoadingIndicators = false,
+				ListHeaderComponent = if carouselMargin
+					then function()
+						return Roact.createFragment({
+							LeftCarouselMargin = Roact.createElement("Frame", {
+								Position = UDim2.fromScale(0, 0),
+								AnchorPoint = Vector2.new(0, 0),
+								BackgroundTransparency = 1,
+								Size = UDim2.new(0, carouselMargin, 1, 0),
+							}),
+						})
+					end
+					else nil,
 
-					ListFooterComponent = if carouselMargin then
-						function()
-							return Roact.createFragment({
-								RightCarouselMargin = Roact.createElement("Frame", {
-									Position = UDim2.fromScale(0, 0),
-									AnchorPoint = Vector2.new(0, 0),
-									BackgroundTransparency = 1,
-									Size = UDim2.new(0, carouselMargin, 1, 0),
-								})
-							})
-						end
-						else nil,
+				ListFooterComponent = if carouselMargin
+					then function()
+						return Roact.createFragment({
+							RightCarouselMargin = Roact.createElement("Frame", {
+								Position = UDim2.fromScale(0, 0),
+								AnchorPoint = Vector2.new(0, 0),
+								BackgroundTransparency = 1,
+								Size = UDim2.new(0, carouselMargin, 1, 0),
+							}),
+						})
+					end
+					else nil,
 
-					contentContainerStyle = {
-						BackgroundTransparency = 1,
-						Size = UDim2.fromScale(1, 1),
-						ClipsDescendants = false,
-					},
-					style = {
-						BackgroundTransparency = 1,
-						ScrollBarThickness = 0,
-					},
-				}) or nil
-			else
-				(state.maxNumOfItemsVisible > 0) and
-				Roact.createElement(Scroller, {
-					identifier = props.identifier,
+				contentContainerStyle = {
 					BackgroundTransparency = 1,
 					Size = UDim2.fromScale(1, 1),
-					Position = UDim2.fromOffset(carouselMargin, 0),
-					ScrollBarThickness = 0,
 					ClipsDescendants = false,
-					padding = UDim.new(0, itemPadding),
-					orientation = Scroller.Orientation.Right,
-					itemList = itemList,
-					loadingBuffer = 1,
-					mountingBuffer = state.maxNumOfItemsVisible * 3 * itemSize.X,
-					loadNext = loadNext,
-					loadPrevious = loadPrevious,
-					focusLock = state.scrollerFocusLock,
-					focusIndex = state.index,
-					anchorLocation = UDim.new(1, 0),
-					estimatedItemSize = itemSize.X,
-					renderItem = renderItem,
-					onScrollUpdate = self.onScrollUpdate,
-					animateScrolling = true,
-					animateOptions = MOTOR_OPTIONS,
-				}) or nil,
+				},
+				style = {
+					BackgroundTransparency = 1,
+					ScrollBarThickness = 0,
+				},
+			}) or nil
+			else (state.maxNumOfItemsVisible > 0) and Roact.createElement(Scroller, {
+				identifier = props.identifier,
+				BackgroundTransparency = 1,
+				Size = UDim2.fromScale(1, 1),
+				Position = UDim2.fromOffset(carouselMargin, 0),
+				ScrollBarThickness = 0,
+				ClipsDescendants = false,
+				padding = UDim.new(0, itemPadding),
+				orientation = Scroller.Orientation.Right,
+				itemList = itemList,
+				loadingBuffer = 1,
+				mountingBuffer = state.maxNumOfItemsVisible * 3 * itemSize.X,
+				loadNext = loadNext,
+				loadPrevious = loadPrevious,
+				focusLock = state.scrollerFocusLock,
+				focusIndex = state.index,
+				anchorLocation = UDim.new(1, 0),
+				estimatedItemSize = itemSize.X,
+				renderItem = renderItem,
+				onScrollUpdate = self.onScrollUpdate,
+				animateScrolling = true,
+				animateOptions = MOTOR_OPTIONS,
+			}) or nil,
 		RightMargin = Roact.createElement("Frame", {
 			Position = UDim2.fromScale(1, 0),
 			AnchorPoint = Vector2.new(1, 0),
 			Size = UDim2.new(0, carouselMargin, 1, 0),
 			BackgroundTransparency = 1,
 			ZIndex = 2,
-		},{
+		}, {
 			ScrollRightButton = scrollRightButton,
 		}),
 	})

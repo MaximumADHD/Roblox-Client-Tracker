@@ -42,6 +42,7 @@ ProductPurchasePrompt.validateProps = t.strictInterface({
 	itemName = t.string,
 	itemRobuxCost = t.number,
 	currentBalance = t.number,
+	isGamePass = t.optional(t.boolean),
 
 	testPurchase = t.optional(t.boolean),
 
@@ -63,6 +64,7 @@ ProductPurchasePrompt.defaultProps = {
 	isDelayedInput = false,
 	enableInputDelayed = false,
 	isLuobu = false,
+	isGamePass = false,
 }
 
 function ProductPurchasePrompt:init()
@@ -92,11 +94,12 @@ end
 
 function ProductPurchasePrompt:render()
 	local buyItemQuestionText = self.props.isLuobu and "Text.BuyItemQuestionWithWarning" or "Text.BuyItemQuestion"
+	local useGamepassTitle = self.props.isGamePass
 	
 	return Roact.createElement(MultiTextLocalizer, {
 		keys = {
 			BuyItemTitle = {
-				key = LOC_KEY:format("Title.BuyItem"),
+				key = useGamepassTitle and LOC_KEY:format("Title.BuyGamepass") or LOC_KEY:format("Title.BuyItem")
 			},
 			BuyItemQuestion = {
 				key = LOC_KEY:format(buyItemQuestionText),
@@ -112,6 +115,9 @@ function ProductPurchasePrompt:render()
 			},
 			ButtonCancel = {
 				key = LOC_KEY:format("Action.Cancel"),
+			},
+			LoadingText = {
+				key = LOC_KEY:format("Text.Loading"),
 			},
 		},
 		render = function(locMap)

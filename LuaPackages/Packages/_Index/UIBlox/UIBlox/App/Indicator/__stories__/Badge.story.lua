@@ -69,7 +69,7 @@ function BadgeStory:render()
 							badgeValue = rbx.Text,
 						})
 					end,
-				})
+				}),
 			}),
 
 			BadgeStory = Roact.createElement(StoryItem, {
@@ -167,17 +167,17 @@ function BadgeStory:render()
 
 							hasShadow = true,
 							value = badgeValue,
-						})
+						}),
 					}),
 				}),
 			}),
-		})
+		}),
 	})
 end
 
 return function(target)
 	local story = Roact.createElement(StoryView, {}, {
-		Roact.createElement(BadgeStory)
+		Roact.createElement(BadgeStory),
 	})
 	local handle = Roact.mount(story, target, "BadgeStory")
 	return function()

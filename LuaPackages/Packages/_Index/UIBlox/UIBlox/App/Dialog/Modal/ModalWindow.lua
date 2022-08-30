@@ -102,7 +102,7 @@ function ModalWindow:render()
 					Position = UDim2.new(0.5, 0, 0.5, 0),
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
-				}, self.props[Roact.Children])
+				}, self.props[Roact.Children]),
 			})
 		else
 			return Roact.createElement(ImageSetComponent.Button, {
@@ -131,7 +131,7 @@ function ModalWindow:render()
 					[Roact.Change.AbsoluteSize] = function(rbx)
 						self.changeContentSize(rbx.AbsoluteSize)
 					end,
-				}, self.props[Roact.Children])
+				}, self.props[Roact.Children]),
 			})
 		end
 	end)

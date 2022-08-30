@@ -11,6 +11,10 @@ module.DefaultHeadMarginScale = 1.1
 -- When generating a full body thumbnail, how much 'margin' around whole body?
 module.DefaultBodyMarginScale = 1.1
 
+module.XRotForFullBody = 15.0
+module.XRotForCloseup = 0.0
+module.DistanceScaleForFullBody = 1.0
+
 --[[
 	Determine a position by applying targetCFrame to relativePos.
 	Return CFrame looking from that pos back towards target.

@@ -53,12 +53,15 @@ return function(frameWidth, frameHeight, orientation, triggerPosition, triggerSi
 		if frameWidth < TRIANGLE_WIDTH + 2 * MARGIN then
 			positionInfo.caretPosition = UDim2.fromScale(0.5, 0)
 		elseif userInputPosition then
-			local dist = triggerSize.X * 0.5 + math.abs(triggerSize.X * userInputPosition.X.Scale + userInputPosition.X.Offset)
+			local dist = triggerSize.X * 0.5
+				+ math.abs(triggerSize.X * userInputPosition.X.Scale + userInputPosition.X.Offset)
 			caretOffsetX = math.clamp(dist, MARGIN, maxCaretOffsetX)
 			positionInfo.caretPosition = UDim2.fromOffset(caretOffsetX, 0)
-		-- enough space for both left and right side
-		-- or frameWidth is less than TRIANGLE_WIDTH + 2 * MARGIN
-		elseif triggerCenter.X - frameWidth * 0.5 >= MARGIN and triggerCenter.X + frameWidth * 0.5 <= screenSize.X - MARGIN
+			-- enough space for both left and right side
+			-- or frameWidth is less than TRIANGLE_WIDTH + 2 * MARGIN
+		elseif
+			triggerCenter.X - frameWidth * 0.5 >= MARGIN
+			and triggerCenter.X + frameWidth * 0.5 <= screenSize.X - MARGIN
 		then
 			positionInfo.caretPosition = UDim2.fromScale(0.5, 0)
 		else
@@ -95,12 +98,15 @@ return function(frameWidth, frameHeight, orientation, triggerPosition, triggerSi
 		local caretOffsetY
 		local maxCaretOffsetY = frameHeight - MARGIN - TRIANGLE_WIDTH
 		if userInputPosition then
-			local dist = triggerSize.Y * 0.5 + math.abs(triggerSize.Y * userInputPosition.Y.Scale + userInputPosition.Y.Offset)
+			local dist = triggerSize.Y * 0.5
+				+ math.abs(triggerSize.Y * userInputPosition.Y.Scale + userInputPosition.Y.Offset)
 			caretOffsetY = math.clamp(dist, MARGIN, maxCaretOffsetY)
 			positionInfo.caretPosition = UDim2.fromOffset(0, caretOffsetY)
-		-- frameHeight always greater than or equal to TRIANGLE_WIDTH + 2 * MARGIN
-		-- caret should in center for one-line tooltip
-		elseif triggerCenter.Y - frameHeight * 0.5 >= MARGIN and triggerCenter.Y + frameHeight * 0.5 <= screenSize.Y - MARGIN
+			-- frameHeight always greater than or equal to TRIANGLE_WIDTH + 2 * MARGIN
+			-- caret should in center for one-line tooltip
+		elseif
+			triggerCenter.Y - frameHeight * 0.5 >= MARGIN
+				and triggerCenter.Y + frameHeight * 0.5 <= screenSize.Y - MARGIN
 			or frameHeight <= 40
 		then
 			positionInfo.caretPosition = UDim2.fromScale(0, 0.5)

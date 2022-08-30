@@ -9,6 +9,8 @@ local Images = require(App.ImageSet.Images)
 
 local CARET_SIZE = UDim2.fromOffset(16, 8)
 local CARET_DISTANCE = 4
+-- subtract one to avoid a pixel gap between the caret and the box (could use border, but UICorner prevents that)
+local CONTENT_TO_CARET_TIP = CARET_SIZE.Y.Offset - 1
 
 local INACTIVE_ANIMATION_TARGETS: Types.AnimationValues = {
 	-- tooltip starts 4px closer to trigger point
@@ -21,7 +23,7 @@ local ACTIVE_ANIMATION_TARGETS: Types.AnimationValues = {
 	transparency = 0,
 }
 
-type DropShadowConsts = {
+export type DropShadowConsts = {
 	IMAGE: Images.ImageSetImage,
 	SLICE_CENTER: Rect,
 	-- hopefully eventually enums play better with luau
@@ -60,8 +62,12 @@ local Constants = {
 	DEFAULT_LIST_PADDING = 8,
 	-- corner radius
 	CORNER_RADIUS = UDim.new(0, 8),
-	-- distance from the edge of the trigger point to the center of the caret image
-	DISTANCE_TO_CARET_CENTER = CARET_DISTANCE + CARET_SIZE.Y.Offset / 2,
+	-- istance from edge of trigger point to tip of caret
+	CARET_DISTANCE = CARET_DISTANCE,
+	-- distance from the edge of the content to the tip of the caret
+	CONTENT_TO_CARET_TIP = CONTENT_TO_CARET_TIP,
+	-- distance from edge of content to center of caret
+	CONTENT_TO_CARET_CENTER = CONTENT_TO_CARET_TIP - CARET_SIZE.Y.Offset / 2,
 	-- maximum tooltip box width
 	MAX_WIDTH = 240,
 	-- padding between hotkeys
@@ -92,15 +98,6 @@ local Constants = {
 		[TooltipOrientation.Left] = Vector2.new(-1, 0),
 		[TooltipOrientation.Right] = Vector2.new(1, 0),
 	},
-	-- distance from the edge of the trigger point to the edge of the tooltip box
-	-- subtract one to avoid a pixel gap between the caret and the box (could use border, but UICorner prevents that)
-	DISTANCE_TO_CONTENT = CARET_DISTANCE + CARET_SIZE.Y.Offset - 1,
-
-	-- TOOLTIP CONTROLLER CONSTANTS
-	-- min distance from tooltip to edge of screen
-	SCREEN_MARGIN = 12,
-	-- minimum lateral distance between the edge of the content box and the middle of the caret
-	MIN_DISTANCE_TO_CARET_MIDDLE = 12 + CARET_SIZE.X.Offset / 2,
 	-- the opposit orientation to any given orientation
 	OPPOSITE_ORIENTATION = {
 		[TooltipOrientation.Top] = TooltipOrientation.Bottom,
@@ -108,6 +105,14 @@ local Constants = {
 		[TooltipOrientation.Right] = TooltipOrientation.Left,
 		[TooltipOrientation.Left] = TooltipOrientation.Right,
 	},
+	-- distance from the edge of the trigger point to the edge of the tooltip box
+	DISTANCE_TO_CONTENT = CARET_DISTANCE + CONTENT_TO_CARET_TIP,
+
+	-- TOOLTIP CONTROLLER CONSTANTS
+	-- min distance from tooltip to edge of screen
+	SCREEN_MARGIN = 12,
+	-- minimum lateral distance between the edge of the content box and the middle of the caret
+	MIN_DISTANCE_TO_CARET_MIDDLE = 12 + CARET_SIZE.X.Offset / 2,
 	-- animation targets when the tooltip is inactive
 	INACTIVE_ANIMATION_TARGETS = INACTIVE_ANIMATION_TARGETS,
 	-- animation targets when the tooltip is active

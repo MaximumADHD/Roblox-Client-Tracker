@@ -30,7 +30,7 @@ local SegmentedControlTabName = Roact.PureComponent:extend("SegmentedControlTabN
 
 function SegmentedControlTabName:init()
 	self.state = {
-		controlState = ControlState.Initialize
+		controlState = ControlState.Initialize,
 	}
 
 	self.onStateChanged = function(oldState, newState)
@@ -94,14 +94,13 @@ SegmentedControlTabName.defaultProps = {
 	},
 	buttonStateColorMap = {
 		[ControlState.Default] = "SecondaryContent",
-	}
+	},
 }
 
 SegmentedControlTabName.validateProps = validateProps
 
 function SegmentedControlTabName:render()
 	return withStyle(function(style)
-
 		local currentState = self.state.controlState
 
 		local text = self.props.text
@@ -134,62 +133,67 @@ function SegmentedControlTabName:render()
 			buttonContentLayer = {
 				isLoadingShimmer = Roact.createElement(ShimmerPanel, {
 					Size = UDim2.new(1, 0, 1, 0),
-				})
+				}),
 			}
 		else
-			buttonContentLayer = self.props[Roact.Children] or {
-				UIListLayout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-					HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, CONTENT_PADDING),
-				}),
-				Icon = icon and Roact.createElement(ImageSetComponent.Label, {
-					Size = UDim2.new(0, getIconSize(IconSize.Medium), 0, getIconSize(IconSize.Medium)),
-					BackgroundTransparency = 1,
-					Image = icon,
-					ImageColor3 = iconStyle.Color,
-					ImageTransparency = iconStyle.Transparency,
-					LayoutOrder = 1,
-				}) or nil,
-				Text = text and Roact.createElement(GenericTextLabel, {
-					BackgroundTransparency = 1,
-					Text = text,
-					fontStyle = fontStyle,
-					colorStyle = textStyle,
-					LayoutOrder = 2,
-				}) or nil,
-			}
+			buttonContentLayer = self.props[Roact.Children]
+				or {
+					UIListLayout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Horizontal,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+						HorizontalAlignment = Enum.HorizontalAlignment.Center,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						Padding = UDim.new(0, CONTENT_PADDING),
+					}),
+					Icon = icon and Roact.createElement(ImageSetComponent.Label, {
+						Size = UDim2.new(0, getIconSize(IconSize.Medium), 0, getIconSize(IconSize.Medium)),
+						BackgroundTransparency = 1,
+						Image = icon,
+						ImageColor3 = iconStyle.Color,
+						ImageTransparency = iconStyle.Transparency,
+						LayoutOrder = 1,
+					}) or nil,
+					Text = text and Roact.createElement(GenericTextLabel, {
+						BackgroundTransparency = 1,
+						Text = text,
+						fontStyle = fontStyle,
+						colorStyle = textStyle,
+						LayoutOrder = 2,
+					}) or nil,
+				}
 		end
 
-		return Roact.createElement(Interactable, Cryo.Dictionary.join(self.props, {
-			icon = Cryo.None,
-			text = Cryo.None,
-			buttonStateColorMap = Cryo.None,
-			contentStateColorMap = Cryo.None,
-			textStateColorMap = Cryo.None,
-			iconStateColorMap = Cryo.None,
-			onActivated = Cryo.None,
-			isLoading = Cryo.None,
-			isSelectedStyle = Cryo.None,
-			[Roact.Children] = Cryo.None,
-			isDisabled = isDisabled,
-			onStateChanged = self.onStateChanged,
-			userInteractionEnabled = self.props.userInteractionEnabled,
-			Image = Cryo.None,
-			ScaleType = Enum.ScaleType.Slice,
-			ImageColor3 = buttonStyle.Color,
-			ImageTransparency = buttonStyle.Transparency,
-			BackgroundTransparency = 1,
-			AutoButtonColor = false,
-			[Roact.Event.Activated] = self.props.onActivated,
-		}), {
-			ButtonContent = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 1, 0),
+		return Roact.createElement(
+			Interactable,
+			Cryo.Dictionary.join(self.props, {
+				icon = Cryo.None,
+				text = Cryo.None,
+				buttonStateColorMap = Cryo.None,
+				contentStateColorMap = Cryo.None,
+				textStateColorMap = Cryo.None,
+				iconStateColorMap = Cryo.None,
+				onActivated = Cryo.None,
+				isLoading = Cryo.None,
+				isSelectedStyle = Cryo.None,
+				[Roact.Children] = Cryo.None,
+				isDisabled = isDisabled,
+				onStateChanged = self.onStateChanged,
+				userInteractionEnabled = self.props.userInteractionEnabled,
+				Image = Cryo.None,
+				ScaleType = Enum.ScaleType.Slice,
+				ImageColor3 = buttonStyle.Color,
+				ImageTransparency = buttonStyle.Transparency,
 				BackgroundTransparency = 1,
-			}, buttonContentLayer)
-		})
+				AutoButtonColor = false,
+				[Roact.Event.Activated] = self.props.onActivated,
+			}),
+			{
+				ButtonContent = Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 1, 0),
+					BackgroundTransparency = 1,
+				}, buttonContentLayer),
+			}
+		)
 	end)
 end
 

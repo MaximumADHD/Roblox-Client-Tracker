@@ -97,11 +97,10 @@ function TooltipContainer:render()
 
 		local bodyTextHeight = GetTextHeight(self.props.bodyText, bodyFont.Font, fontSize, innerWidth)
 		local headerTextHeight = self.props.headerText
-			and GetTextHeight(self.props.headerText, headerFont.Font, fontSize, innerWidth)
+				and GetTextHeight(self.props.headerText, headerFont.Font, fontSize, innerWidth)
 			or 0
 
-		local frameHeight = self.props.headerText
-			and headerTextHeight + bodyTextHeight + MARGIN * 2 + PADDING_BETWEEN
+		local frameHeight = self.props.headerText and headerTextHeight + bodyTextHeight + MARGIN * 2 + PADDING_BETWEEN
 			or bodyTextHeight + MARGIN * 2
 
 		local positionInfo = getPositionInfo(
@@ -111,7 +110,8 @@ function TooltipContainer:render()
 			self.props.triggerPosition,
 			self.props.triggerSize,
 			self.props.screenSize,
-			self.props.position)
+			self.props.position
+		)
 
 		local containerPosition = self.progress:map(function(value)
 			local startPosition
@@ -143,9 +143,10 @@ function TooltipContainer:render()
 			Position = containerPosition,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
-			Size = positionInfo.fillDirection == Enum.FillDirection.Vertical
-				and UDim2.fromOffset(frameWidth, frameHeight + TRIANGLE_HEIGHT)
-				or UDim2.fromOffset(frameWidth + TRIANGLE_HEIGHT, frameHeight),
+			Size = positionInfo.fillDirection == Enum.FillDirection.Vertical and UDim2.fromOffset(
+				frameWidth,
+				frameHeight + TRIANGLE_HEIGHT
+			) or UDim2.fromOffset(frameWidth + TRIANGLE_HEIGHT, frameHeight),
 		}, {
 			UIListLayout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
@@ -185,7 +186,7 @@ function TooltipContainer:render()
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					FillDirection = Enum.FillDirection.Vertical,
 					Padding = UDim.new(0, PADDING_BETWEEN),
-					VerticalAlignment = Enum.VerticalAlignment.Center
+					VerticalAlignment = Enum.VerticalAlignment.Center,
 				}),
 				Padding = Roact.createElement("UIPadding", {
 					PaddingTop = UDim.new(0, MARGIN),
@@ -224,7 +225,8 @@ end
 
 function TooltipContainer:didUpdate(lastProps, lastState)
 	if lastProps.triggerPosition ~= self.props.triggerPosition then
-		if self.props.triggerPosition.Y < 0
+		if
+			self.props.triggerPosition.Y < 0
 			or self.props.triggerPosition.Y + self.props.triggerSize.Y > self.props.screenSize.Y
 		then
 			self.visible = false

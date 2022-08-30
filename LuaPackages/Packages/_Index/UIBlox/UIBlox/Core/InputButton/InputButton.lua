@@ -18,7 +18,8 @@ local FitFrameHorizontal = require(Packages.FitFrame).FitFrameHorizontal
 
 -- TODO AVBURST-3748: Remove this soon after TextBoundsRoundUp is turned on to make the UIBlox places display
 -- the same way as the App
-local EngineFeatureTextBoundsRoundUp do
+local EngineFeatureTextBoundsRoundUp
+do
 	local success, value = pcall(function()
 		return game:GetEngineFeature("TextBoundsRoundUp")
 	end)
@@ -72,12 +73,12 @@ function InputButton:init()
 		if buttonState == ControlState.Hover then
 			if not self.props.isDisabled then
 				self:setState({
-					outerImageColor = self.props.selectedColor
+					outerImageColor = self.props.selectedColor,
 				})
 			end
 		elseif buttonState == ControlState.Default then
 			self:setState({
-				outerImageColor = self.props.imageColor
+				outerImageColor = self.props.imageColor,
 			})
 		end
 	end
@@ -124,7 +125,7 @@ function InputButton:render()
 			local size = self.props.size
 			local frameSize = Vector2.new(size.X.Offset - SELECTION_BUTTON_SIZE - HORIZONTAL_PADDING, size.Y.Offset)
 			local touchZoneWidth = TextService:GetTextSize(self.props.text, fontSize, font.Body.Font, frameSize).X
-			if (not EngineFeatureTextBoundsRoundUp) and touchZoneWidth > 0 then
+			if not EngineFeatureTextBoundsRoundUp and touchZoneWidth > 0 then
 				-- GetTextSize documentation recommends to add a pixel of padding to the result to ensure no text is cut off
 				-- Only add that extra padding if there is text to display
 				touchZoneWidth = touchZoneWidth + 1
@@ -142,8 +143,10 @@ function InputButton:render()
 			end
 			textComponent = FitTextLabel
 			textComponentProps = Cryo.Dictionary.join(textComponentProps, {
-				width = UIBloxConfig.useUpdatedCheckbox and FitTextLabel.Width.FitToText
-					or UDim.new(1, -SELECTION_BUTTON_SIZE - HORIZONTAL_PADDING),
+				width = UIBloxConfig.useUpdatedCheckbox and FitTextLabel.Width.FitToText or UDim.new(
+					1,
+					-SELECTION_BUTTON_SIZE - HORIZONTAL_PADDING
+				),
 				onActivated = self.props.onActivated,
 				[Roact.Change.AbsoluteSize] = self.textAbsoluteSizeChanged,
 			})
@@ -156,79 +159,80 @@ function InputButton:render()
 		local fillImage = self.props.fillImage
 
 		return Roact.createElement(frameComponent, {
-				Size = not useAutomaticSizing and (self.props.size or self.sizeBinding) or nil,
-				height = useAutomaticSizing and UDim.new(0, SELECTION_BUTTON_SIZE) or nil,
-				BackgroundTransparency = 1,
-				LayoutOrder = self.props.layoutOrder,
-				[Roact.Ref] = UIBloxConfig.useUpdatedCheckbox and self.props.frameRef or nil,
-				SelectionImageObject = UIBloxConfig.useUpdatedCheckbox and self.props.SelectionImageObject or nil,
-				inputBindings = UIBloxConfig.useUpdatedCheckbox and {
-					Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, self.props.onActivated),
-				} or nil,
-				FillDirection = useAutomaticSizing and Enum.FillDirection.Horizontal or nil,
-				VerticalAlignment = useAutomaticSizing and Enum.VerticalAlignment.Center or nil,
-				contentPadding = useAutomaticSizing and UDim.new(0, HORIZONTAL_PADDING) or nil,
-			}, {
-				HorizontalLayout = not useAutomaticSizing and Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = Enum.FillDirection.Horizontal,
-					Padding = UDim.new(0, HORIZONTAL_PADDING),
-					VerticalAlignment = Enum.VerticalAlignment.Center
-				}) or nil,
-				Padding = not useAutomaticSizing and Roact.createElement("UIPadding", {
-					PaddingLeft = UDim.new(0, HORIZONTAL_PADDING),
-				}) or nil,
-				InputButtonImage = Roact.createElement(Controllable, {
-					controlComponent = {
+			Size = not useAutomaticSizing and (self.props.size or self.sizeBinding) or nil,
+			height = useAutomaticSizing and UDim.new(0, SELECTION_BUTTON_SIZE) or nil,
+			BackgroundTransparency = 1,
+			LayoutOrder = self.props.layoutOrder,
+			[Roact.Ref] = UIBloxConfig.useUpdatedCheckbox and self.props.frameRef or nil,
+			SelectionImageObject = UIBloxConfig.useUpdatedCheckbox and self.props.SelectionImageObject or nil,
+			inputBindings = UIBloxConfig.useUpdatedCheckbox and {
+				Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, self.props.onActivated),
+			} or nil,
+			FillDirection = useAutomaticSizing and Enum.FillDirection.Horizontal or nil,
+			VerticalAlignment = useAutomaticSizing and Enum.VerticalAlignment.Center or nil,
+			contentPadding = useAutomaticSizing and UDim.new(0, HORIZONTAL_PADDING) or nil,
+		}, {
+			HorizontalLayout = not useAutomaticSizing and Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Horizontal,
+				Padding = UDim.new(0, HORIZONTAL_PADDING),
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+			}) or nil,
+			Padding = not useAutomaticSizing and Roact.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, HORIZONTAL_PADDING),
+			}) or nil,
+			InputButtonImage = Roact.createElement(Controllable, {
+				controlComponent = {
 					component = ImageSetComponent.Button,
-						props = {
+					props = {
+						BackgroundTransparency = 1,
+						Size = UDim2.new(0, SELECTION_BUTTON_SIZE, 0, SELECTION_BUTTON_SIZE),
+						Image = self.props.image,
+						ImageTransparency = self.props.transparency,
+						ScaleType = self.props.buttonSliceType,
+						SliceCenter = self.props.buttonSliceCenter,
+						ImageColor3 = self.state.outerImageColor,
+						[Roact.Event.Activated] = self.props.onActivated,
+						LayoutOrder = 1,
+					},
+					children = {
+						InputFillImage = fillImage and Roact.createElement(ImageSetComponent.Label, {
 							BackgroundTransparency = 1,
-							Size = UDim2.new(0, SELECTION_BUTTON_SIZE, 0, SELECTION_BUTTON_SIZE),
-							Image = self.props.image,
+							Size = self.props.fillImageSize,
+							Image = fillImage,
 							ImageTransparency = self.props.transparency,
-							ScaleType = self.props.buttonSliceType,
-							SliceCenter = self.props.buttonSliceCenter,
-							ImageColor3 = self.state.outerImageColor,
-							[Roact.Event.Activated] = self.props.onActivated,
-							LayoutOrder = 1,
-						},
-						children = {
-							InputFillImage = fillImage and Roact.createElement(ImageSetComponent.Label, {
-								BackgroundTransparency = 1,
-								Size = self.props.fillImageSize,
-								Image = fillImage,
-								ImageTransparency = self.props.transparency,
-								ImageColor3 = self.props.fillImageColor,
-								AnchorPoint = Vector2.new(0.5, 0.5),
-								Position = UDim2.new(0.5, 0, 0.5, 0),
-							})
-						}
+							ImageColor3 = self.props.fillImageColor,
+							AnchorPoint = Vector2.new(0.5, 0.5),
+							Position = UDim2.new(0.5, 0, 0.5, 0),
+						}),
 					},
-					isDisabled = self.props.isDisabled,
+				},
+				isDisabled = self.props.isDisabled,
 
-					onStateChanged = function(_, newState)
-						self.changeSprite(newState)
-					end,
-				}),
-				-- Only create this element if there is text to display
-				InputButtonText = (self.props.text ~= "") and Roact.createElement(Controllable, {
-					controlComponent =
-					{
-						component = textComponent,
-						props = textComponentProps,
-					},
-					isDisabled = self.props.isDisabled,
-					onStateChanged = function(_, newState)
-						self.changeSprite(newState)
-					end,
-				})
-			}
-		)
+				onStateChanged = function(_, newState)
+					self.changeSprite(newState)
+				end,
+			}),
+			-- Only create this element if there is text to display
+			InputButtonText = (self.props.text ~= "") and Roact.createElement(Controllable, {
+				controlComponent = {
+					component = textComponent,
+					props = textComponentProps,
+				},
+				isDisabled = self.props.isDisabled,
+				onStateChanged = function(_, newState)
+					self.changeSprite(newState)
+				end,
+			}),
+		})
 	end)
 end
 
 return Roact.forwardRef(function(props, ref)
-	return Roact.createElement(InputButton, Cryo.Dictionary.join(props, {
-		frameRef = ref
-	}))
+	return Roact.createElement(
+		InputButton,
+		Cryo.Dictionary.join(props, {
+			frameRef = ref,
+		})
+	)
 end)

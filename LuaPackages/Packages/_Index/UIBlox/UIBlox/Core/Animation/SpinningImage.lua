@@ -30,14 +30,14 @@ end
 
 function SpinningImage:didMount()
 	self.heartbeatConnection = RunService.Heartbeat:Connect(function(dt)
-		local newAngle = self.state.angle + self.props.rotationRate*dt
+		local newAngle = self.state.angle + self.props.rotationRate * dt
 		if newAngle > 360 then
 			newAngle = newAngle - 360
 		elseif newAngle < 0 then
 			newAngle = newAngle + 360
 		end
 		self:setState({
-			angle = newAngle
+			angle = newAngle,
 		})
 	end)
 end
@@ -49,7 +49,7 @@ end
 function SpinningImage.getDerivedStateFromProps(nextProps, lastState)
 	local imageSize = nextProps.image.ImageRectSize
 	return {
-		size = nextProps.size or UDim2.fromOffset(imageSize.X, imageSize.Y)
+		size = nextProps.size or UDim2.fromOffset(imageSize.X, imageSize.Y),
 	}
 end
 
@@ -67,7 +67,7 @@ function SpinningImage:render()
 			Image = self.props.image,
 			Rotation = self.state.angle,
 			BackgroundTransparency = 1,
-		})
+		}),
 	})
 end
 

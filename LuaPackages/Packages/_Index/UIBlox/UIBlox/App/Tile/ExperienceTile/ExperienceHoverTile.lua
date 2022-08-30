@@ -439,13 +439,14 @@ function ExperienceHoverTile:renderActionRow(stylePalette)
 			onActivated = self.onToggleFavorite,
 		}),
 		FriendsIcon = if self.props.isPlayable
-			then Roact.createElement(IconButton, {
-				layoutOrder = 2,
-				icon = Images[FRIENDS_PLAYING_ICON],
-				onActivated = self.toggleFriendsMenu,
-				-- APPFDN-1343: debugProps.controlState should be replaced with a "sticky" IconButton prop
-				[IconButton.debugProps.controlState] = if friendsMenuOpen then ControlState.Pressed else nil,
-			})
+			then
+				Roact.createElement(IconButton, {
+					layoutOrder = 2,
+					icon = Images[FRIENDS_PLAYING_ICON],
+					onActivated = self.toggleFriendsMenu,
+					-- APPFDN-1343: debugProps.controlState should be replaced with a "sticky" IconButton prop
+					[IconButton.debugProps.controlState] = if friendsMenuOpen then ControlState.Pressed else nil,
+				})
 			else nil,
 		MoreIcon = Roact.createElement(IconButton, {
 			layoutOrder = 3,

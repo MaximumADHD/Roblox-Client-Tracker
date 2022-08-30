@@ -51,8 +51,7 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 				lastLookCFrame.current = lastLookCFrame.current:Lerp(userHeadCameraCF, LERP_SPEED * deltaSeconds)
 			end
 
-			finalPosition = userHeadCameraCF.Position
-				+ lastLookCFrame.current.LookVector * cameraHeadScale * 2
+			finalPosition = userHeadCameraCF.Position + lastLookCFrame.current.LookVector * (cameraHeadScale + 1)
 			finalPosition = Vector3.new(finalPosition.X, userHeadCameraCF.Position.Y, finalPosition.Z)
 		elseif props.anchoring == Constants.AnchoringTypes.Wrist then
 			-- Always try to use non-primary hand for anchoring the menu, defaults to LeftHand when using head tracking.
@@ -98,8 +97,7 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 
 		if basePart.current ~= nil then
 			basePart.current.CFrame = panelCFrame
-			basePart.current.Size = Vector3.new(props.partSize.X, props.partSize.Y, 0)
-				* cameraHeadScale
+			basePart.current.Size = Vector3.new(props.partSize.X, props.partSize.Y, 0) * cameraHeadScale
 		end
 	end, { props.anchoring, props.faceCamera, props.lerp, props.offset, props.partSize } :: { any })
 

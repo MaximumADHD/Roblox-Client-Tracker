@@ -217,22 +217,26 @@ function DetailsPageTemplate:render()
 					ScaleType = Enum.ScaleType.Crop,
 				}) or nil,
 			}),
-			StickyActionBarFrame = (self.state.showStickyActionTopBar or showFullscreen) and Roact.createElement("TextButton", {
-				Text = "",
-				AutoButtonColor = false,
-				Size = UDim2.new(1, 0, 0, headerHeight),
-				BackgroundColor3 = theme.BackgroundUIDefault.Color,
-				BackgroundTransparency = theme.BackgroundUIDefault.Transparency,
-				BorderSizePixel = 0,
-			}, {
-				StickyActionBar = Roact.createElement(StickyActionBar, {
-					actionBarProps = self.props.actionBarProps,
-					infoProps = {
-						icon = self.props.thumbnailImageUrl,
-						title = self.props.titleText,
-					},
-				}),
-			}) or nil,
+			StickyActionBarFrame = (self.state.showStickyActionTopBar or showFullscreen) and Roact.createElement(
+				"TextButton",
+				{
+					Text = "",
+					AutoButtonColor = false,
+					Size = UDim2.new(1, 0, 0, headerHeight),
+					BackgroundColor3 = theme.BackgroundUIDefault.Color,
+					BackgroundTransparency = theme.BackgroundUIDefault.Transparency,
+					BorderSizePixel = 0,
+				},
+				{
+					StickyActionBar = Roact.createElement(StickyActionBar, {
+						actionBarProps = self.props.actionBarProps,
+						infoProps = {
+							icon = self.props.thumbnailImageUrl,
+							title = self.props.titleText,
+						},
+					}),
+				}
+			) or nil,
 			ContentScrollingFrame = Roact.createElement(VerticalScrollView, {
 				size = UDim2.fromScale(1, 1),
 				canvasSizeY = UDim.new(1, 0),

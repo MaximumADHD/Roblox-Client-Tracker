@@ -19,13 +19,13 @@ local ICON_TEXT_PADDING = 12
 local StatWidgetPropsInterface = t.strictInterface({
 	countText = t.string,
 	labelText = t.string,
-	icon = validateImage
+	icon = validateImage,
 })
 
 local validateProps = devOnly(t.strictInterface({
 	layoutOrder = t.integer,
 	countLeft = StatWidgetPropsInterface,
-	countRight = StatWidgetPropsInterface
+	countRight = StatWidgetPropsInterface,
 }))
 
 local function getTextWidth(text, fontStyle, style)
@@ -68,7 +68,7 @@ local function PlayerCount(props: Props)
 			position = UDim2.new(0, 0, 0, 0),
 			anchorPoint = Vector2.new(0, 0),
 			size = UDim2.new(leftSectionWeight, 0, 1, 0),
-			horizontalAlignment = Enum.HorizontalAlignment.Left
+			horizontalAlignment = Enum.HorizontalAlignment.Left,
 		}),
 		RightSection = React.createElement(StatWidget, {
 			countText = countRight.countText,
@@ -78,8 +78,8 @@ local function PlayerCount(props: Props)
 			position = UDim2.new(1, 0, 0, 0),
 			anchorPoint = Vector2.new(1, 0),
 			size = UDim2.new(rightSectionWeight, 0, 1, 0),
-			horizontalAlignment = Enum.HorizontalAlignment.Right
-		})
+			horizontalAlignment = Enum.HorizontalAlignment.Right,
+		}),
 	})
 end
 

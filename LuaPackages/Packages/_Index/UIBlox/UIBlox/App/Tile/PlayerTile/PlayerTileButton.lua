@@ -52,7 +52,7 @@ function PlayerTileButton:render()
 
 		local BUTTON_HEIGHT = 36
 		local OUTER_BUTTON_PADDING = 10
-		local MAX_BUTTON_SIZE = tileSize.X.Offset/2 - (OUTER_BUTTON_PADDING + 5)
+		local MAX_BUTTON_SIZE = tileSize.X.Offset / 2 - (OUTER_BUTTON_PADDING + 5)
 
 		buttonSize = UDim2.new(0, MAX_BUTTON_SIZE, 0, BUTTON_HEIGHT)
 	end

@@ -14,7 +14,6 @@ local devOnly = require(UIBlox.Utility.devOnly)
 
 local SaveTile = Roact.PureComponent:extend("SaveTile")
 
-
 local validateProps = devOnly(t.strictInterface({
 	-- Optional boolean indicating whether to create an overlay to round the corners of the image
 	hasRoundedCorners = t.optional(t.boolean),
@@ -77,7 +76,10 @@ function SaveTile:render()
 end
 
 return Roact.forwardRef(function(props, ref)
-	return Roact.createElement(SaveTile, Cryo.Dictionary.join(props, {
-		thumbnailRef = ref
-	}))
+	return Roact.createElement(
+		SaveTile,
+		Cryo.Dictionary.join(props, {
+			thumbnailRef = ref,
+		})
+	)
 end)

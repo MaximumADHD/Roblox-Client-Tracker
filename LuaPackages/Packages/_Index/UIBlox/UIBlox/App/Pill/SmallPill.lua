@@ -76,7 +76,7 @@ SmallPill.defaultProps = {
 
 function SmallPill:init()
 	self.state = {
-		controlState = ControlState.Initialize
+		controlState = ControlState.Initialize,
 	}
 
 	self.onStateChanged = function(oldState, newState)
@@ -142,7 +142,7 @@ function SmallPill:render()
 						fontStyle = fontStyle,
 						colorStyle = textStyle,
 						LayoutOrder = 2,
-					})
+					}),
 				}),
 				Mask = self.props.isLoading and Roact.createElement(ImageSetComponent.Label, {
 					BackgroundTransparency = 1,
@@ -158,9 +158,6 @@ function SmallPill:render()
 	end)
 end
 
-return Roact.forwardRef(function (props, ref)
-	return Roact.createElement(SmallPill, Cryo.Dictionary.join(
-		props,
-		{controlRef = ref}
-	))
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(SmallPill, Cryo.Dictionary.join(props, { controlRef = ref }))
 end)

@@ -126,7 +126,7 @@ function FullscreenTitleBar:render()
 					layoutOrder = 1,
 					onStateChanged = function(oldState, newState)
 						self.setExitControlState(newState)
-					end
+					end,
 				}),
 				CloseButton = Roact.createElement(IconButton, {
 					icon = Images[CLOSE_BUTTON_IMAGE_ID],
@@ -136,7 +136,7 @@ function FullscreenTitleBar:render()
 					layoutOrder = 2,
 					onStateChanged = function(oldState, newState)
 						self.setCloseControlState(newState)
-					end
+					end,
 				}),
 			})
 		end
@@ -199,8 +199,8 @@ function FullscreenTitleBar:render()
 						NumberSequenceKeypoint.new(0, 1 - GRADIENT_OPACITY),
 						NumberSequenceKeypoint.new(1, 1.0),
 					}),
-				})
-			})
+				}),
+			}),
 		})
 	end)
 end

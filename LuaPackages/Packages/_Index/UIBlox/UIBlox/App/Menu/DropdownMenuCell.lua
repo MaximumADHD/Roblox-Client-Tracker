@@ -181,8 +181,8 @@ function DropdownMenuCell:render()
 						Padding = Roact.createElement("UIPadding", {
 							PaddingLeft = UDim.new(0, ELEMENT_PADDING),
 						}),
-						Text = if fixDropdownMenuCellTextSize and text then
-							Roact.createElement(GenericTextLabel, {
+						Text = if fixDropdownMenuCellTextSize and text
+							then Roact.createElement(GenericTextLabel, {
 								BackgroundTransparency = 1,
 								Text = text,
 								fontStyle = fontStyle,
@@ -193,15 +193,15 @@ function DropdownMenuCell:render()
 								TextXAlignment = Enum.TextXAlignment.Left,
 								TextWrapped = false,
 							})
-						else if text then
-							Roact.createElement(GenericTextLabel, {
-								BackgroundTransparency = 1,
-								Text = text,
-								fontStyle = fontStyle,
-								colorStyle = textStyle,
-								LayoutOrder = 1,
-							})
-						else nil
+							else if text
+								then Roact.createElement(GenericTextLabel, {
+									BackgroundTransparency = 1,
+									Text = text,
+									fontStyle = fontStyle,
+									colorStyle = textStyle,
+									LayoutOrder = 1,
+								})
+								else nil,
 					}),
 					IconContainer = Roact.createElement("Frame", {
 						Size = UDim2.fromScale(1, 1),

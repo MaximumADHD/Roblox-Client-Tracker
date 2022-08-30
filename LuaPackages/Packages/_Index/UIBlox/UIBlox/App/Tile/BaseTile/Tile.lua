@@ -184,7 +184,7 @@ function Tile:render()
 				maxTitleTextHeight = math.ceil(font.BaseSize * font.Header2.RelativeSize * titleTextLineCount)
 			end
 			local footerHeight = tileHeight - tileWidth - innerPadding - maxTitleTextHeight - innerPadding
-			local titleTextSize = Vector2.new(0,0)
+			local titleTextSize = Vector2.new(0, 0)
 			local subtitleTextHeight = 0
 
 			if UIBloxConfig.enableSubtitleOnTile then
@@ -212,13 +212,18 @@ function Tile:render()
 						if titleIcon then
 							local iconWidth = titleIcon.ImageRectSize.X / Images.ImagesResolutionScale
 							textToMeasure = GetWrappedTextWithIcon(
-								textToMeasure, titleFontSize, titleFont, iconWidth, ICON_PADDING)
-						end
-						titleTextSize = GetTextSize(textToMeasure, titleFontSize, titleFont,
-							Vector2.new(
-								tileWidth,
-								maxTitleTextHeight
+								textToMeasure,
+								titleFontSize,
+								titleFont,
+								iconWidth,
+								ICON_PADDING
 							)
+						end
+						titleTextSize = GetTextSize(
+							textToMeasure,
+							titleFontSize,
+							titleFont,
+							Vector2.new(tileWidth, maxTitleTextHeight)
 						)
 					end
 
@@ -261,7 +266,7 @@ function Tile:render()
 					[Roact.Ref] = self.props.thumbnailRef,
 					SelectionImageObject = getSelectionCursor(CursorKind.RoundedRectNoInset),
 					inputBindings = (not isDisabled and onActivated) and {
-						Activate = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, onActivated)
+						Activate = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, onActivated),
 					} or nil,
 				}, {
 					Image = Roact.createElement(TileThumbnail, {
@@ -278,10 +283,10 @@ function Tile:render()
 					TileInset = renderTileInset and renderTileInset() or nil,
 				}),
 				TitleArea = UIBloxConfig.enableSubtitleOnTile and Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0, titleTextSize.Y+subtitleTextHeight),
+					Size = UDim2.new(1, 0, 0, titleTextSize.Y + subtitleTextHeight),
 					BackgroundTransparency = 1,
 					LayoutOrder = 2,
-				},{
+				}, {
 					UIListLayout = Roact.createElement("UIListLayout", {
 						FillDirection = Enum.FillDirection.Vertical,
 						SortOrder = Enum.SortOrder.LayoutOrder,
@@ -332,7 +337,10 @@ function Tile:render()
 end
 
 return Roact.forwardRef(function(props, ref)
-	return Roact.createElement(Tile, Cryo.Dictionary.join(props, {
-		thumbnailRef = ref
-	}))
+	return Roact.createElement(
+		Tile,
+		Cryo.Dictionary.join(props, {
+			thumbnailRef = ref,
+		})
+	)
 end)

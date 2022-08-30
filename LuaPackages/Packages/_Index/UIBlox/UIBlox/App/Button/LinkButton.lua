@@ -132,17 +132,20 @@ function LinkButton:render()
 		local textWidth = getTextSize(manipulatedText, fontSize, fontStyle.Font, Vector2.new(10000, 0)).X
 
 		manipulatedText = self.props.text
-		if self.props.underlineAlwaysEnabled or currentState == ControlState.Hover or
-			currentState == ControlState.Pressed then
+		if
+			self.props.underlineAlwaysEnabled
+			or currentState == ControlState.Hover
+			or currentState == ControlState.Pressed
+		then
 			manipulatedText = self.applyRichTextUnderline(self.props.text)
 		end
 
 		local minPaddingX = self.props.minPaddingX
 		local minPaddingY = self.props.minPaddingY
 
-		local minSize = Vector2.new(textWidth + HORIZONTAL_PADDING*2, fontSize + VERTICAL_PADDING*2)
+		local minSize = Vector2.new(textWidth + HORIZONTAL_PADDING * 2, fontSize + VERTICAL_PADDING * 2)
 		if UIBloxConfig.enableCustomMinPaddingForLinkButton then
-			minSize = Vector2.new(textWidth + minPaddingX*2, fontSize + minPaddingY*2)
+			minSize = Vector2.new(textWidth + minPaddingX * 2, fontSize + minPaddingY * 2)
 		end
 
 		return Roact.createElement(Interactable, {
@@ -171,7 +174,8 @@ function LinkButton:render()
 				colorStyle = textStyle,
 				RichText = true,
 			}),
-			background = self.props.hoverBackgroundEnabled and currentState == ControlState.Hover
+			background = self.props.hoverBackgroundEnabled
+				and currentState == ControlState.Hover
 				and Roact.createElement(HoverButtonBackground),
 		})
 	end)

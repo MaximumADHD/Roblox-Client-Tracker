@@ -38,7 +38,7 @@ function ControllerBarHint:render()
 		return Roact.createElement("Frame", {
 			LayoutOrder = self.props.layoutOrder,
 			BackgroundTransparency = 1,
-			AutomaticSize = Enum.AutomaticSize.X
+			AutomaticSize = Enum.AutomaticSize.X,
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
@@ -73,7 +73,7 @@ function ControllerBarHint:render()
 				TextTruncate = self.props.maxWidth and Enum.TextTruncate.AtEnd or nil,
 
 				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment =  Enum.TextYAlignment.Center,
+				TextYAlignment = Enum.TextYAlignment.Center,
 			}),
 		})
 	end)

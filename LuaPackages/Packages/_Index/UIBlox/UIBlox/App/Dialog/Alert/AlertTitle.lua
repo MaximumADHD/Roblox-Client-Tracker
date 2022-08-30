@@ -44,8 +44,11 @@ AlertTitle.defaultProps = {
 function AlertTitle:render()
 	assert(validateProps(self.props))
 
-	local totalWidth = math.clamp(self.props.screenSize.X - self.props.margin.left - self.props.margin.right,
-		self.props.minWidth, self.props.maxWidth)
+	local totalWidth = math.clamp(
+		self.props.screenSize.X - self.props.margin.left - self.props.margin.right,
+		self.props.minWidth,
+		self.props.maxWidth
+	)
 	local innerWidth = totalWidth - self.props.margin.left - self.props.margin.right
 
 	return withStyle(function(stylePalette)
@@ -72,7 +75,7 @@ function AlertTitle:render()
 				LayoutOrder = 0,
 				minimumSize = UDim2.new(1, 0, 0, 0),
 			}, {
-				Content = self.props.titleContent()
+				Content = self.props.titleContent(),
 			}),
 			TitleArea = Roact.createElement(FitFrameOnAxis, {
 				BackgroundTransparency = 1,

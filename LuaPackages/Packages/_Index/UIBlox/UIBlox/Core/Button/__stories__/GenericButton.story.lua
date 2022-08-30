@@ -33,7 +33,7 @@ function GenericButtonOverviewComponent:init()
 	self.toggleDisabled = function()
 		if self.isMounted then
 			self:setState({
-				isDisabled = not self.state.isDisabled
+				isDisabled = not self.state.isDisabled,
 			})
 		end
 	end
@@ -41,7 +41,7 @@ function GenericButtonOverviewComponent:init()
 	self.toggleLoading = function()
 		if self.isMounted then
 			self:setState({
-				isLoading = not self.state.isLoading
+				isLoading = not self.state.isLoading,
 			})
 		end
 	end
@@ -49,7 +49,7 @@ function GenericButtonOverviewComponent:init()
 	self.toggleUserInteraction = function()
 		if self.isMounted then
 			self:setState({
-				userInteractionEnabled = not self.state.userInteractionEnabled
+				userInteractionEnabled = not self.state.userInteractionEnabled,
 			})
 		end
 	end
@@ -74,7 +74,7 @@ function GenericButtonOverviewComponent:render()
 					onActivated = self.toggleLoading,
 				},
 				{
-					text = "userInteractionEnabled = "..tostring(userInteractionEnabled),
+					text = "userInteractionEnabled = " .. tostring(userInteractionEnabled),
 					onActivated = self.toggleUserInteraction,
 				},
 			},
@@ -99,8 +99,8 @@ function GenericButtonOverviewComponent:render()
 					if oldState ~= ControlState.Initialize then
 						print("state changed \n oldState:", oldState, " newState:", newState)
 					end
-				end
-			})
+				end,
+			}),
 		})
 	end)
 end
@@ -114,9 +114,13 @@ function GenericButtonOverviewComponent:willUnmount()
 end
 
 return function(target)
-	local handle = Roact.mount(Roact.createElement(StoryView, {}, {
-		Story = Roact.createElement(GenericButtonOverviewComponent),
-	}), target, "Button")
+	local handle = Roact.mount(
+		Roact.createElement(StoryView, {}, {
+			Story = Roact.createElement(GenericButtonOverviewComponent),
+		}),
+		target,
+		"Button"
+	)
 
 	return function()
 		Roact.unmount(handle)

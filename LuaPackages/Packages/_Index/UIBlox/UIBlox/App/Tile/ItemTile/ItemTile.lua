@@ -205,7 +205,10 @@ function ItemTile:render()
 end
 
 return Roact.forwardRef(function(props, ref)
-	return Roact.createElement(ItemTile, Cryo.Dictionary.join(props, {
-		thumbnailRef = ref
-	}))
+	return Roact.createElement(
+		ItemTile,
+		Cryo.Dictionary.join(props, {
+			thumbnailRef = ref,
+		})
+	)
 end)

@@ -63,7 +63,7 @@ function GenericTextLabel:render()
 		if textboxSize == nil then
 			local sampleText = text
 			if self.props.TextTruncate == Enum.TextTruncate.AtEnd then
-				sampleText = sampleText.."..."
+				sampleText = sampleText .. "..."
 			end
 			local textBounds = self.props.maxSize
 			local textboxBounds = GetTextSize(sampleText, fontSizeMax, textFont, textBounds)
@@ -102,12 +102,16 @@ function GenericTextLabel:render()
 			BackgroundTransparency = 1,
 		})
 
-		return Roact.createElement("TextLabel", newProps, Cryo.Dictionary.join({
-			UITextSizeConstraint = isFluidSizing and Roact.createElement("UITextSizeConstraint", {
-				MaxTextSize = fontSizeMax,
-				MinTextSize = fontSizeMin,
-			} or nil)
-		}, self.props[Roact.Children] or {}))
+		return Roact.createElement(
+			"TextLabel",
+			newProps,
+			Cryo.Dictionary.join({
+				UITextSizeConstraint = isFluidSizing and Roact.createElement("UITextSizeConstraint", {
+					MaxTextSize = fontSizeMax,
+					MinTextSize = fontSizeMin,
+				} or nil),
+			}, self.props[Roact.Children] or {})
+		)
 	end)
 end
 

@@ -49,7 +49,7 @@ local Images = {
 export type ImageSetImage = {
 	ImageRectOffset: Vector2,
 	ImageRectSize: Vector2,
-	Image: string
+	Image: string,
 }
 
 export type Images = {

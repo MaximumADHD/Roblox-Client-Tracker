@@ -52,7 +52,7 @@ local function makeAppTwoKnobSlider(trackFillThemeKey)
 		focusController = t.optional(t.table),
 
 		--Internal Only - Don't Pass In
-		style = validateStyle
+		style = validateStyle,
 	})
 
 	local function valueValidator(props)

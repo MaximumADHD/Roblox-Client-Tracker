@@ -42,17 +42,14 @@ end
 function SliderTextInput:render()
 	return withStyle(function(style)
 		local transparencyDivisor = self.props.disabled and 2 or 1
-		local textTransparency = divideTransparency(
-			style.Theme.TextDefault.Transparency,
-			transparencyDivisor)
+		local textTransparency = divideTransparency(style.Theme.TextDefault.Transparency, transparencyDivisor)
 
-		local borderTransparency = divideTransparency(
-			style.Theme.Divider.Transparency,
-			transparencyDivisor)
+		local borderTransparency = divideTransparency(style.Theme.Divider.Transparency, transparencyDivisor)
 
 		local backgroundTransparency = divideTransparency(
 			style.Theme.BackgroundUIContrast.Transparency,
-			transparencyDivisor)
+			transparencyDivisor
+		)
 
 		return Roact.createElement(ImageSetComponent.Label, {
 			BackgroundTransparency = 1,
@@ -109,7 +106,8 @@ function SliderTextInput:render()
 					newValue = math.clamp(
 						math.floor(newValue / self.props.stepInterval + 0.5) * self.props.stepInterval,
 						self.props.min,
-						self.props.max)
+						self.props.max
+					)
 
 					self.props.onValueChanged(newValue)
 				end,
@@ -117,7 +115,7 @@ function SliderTextInput:render()
 				TextSizeConstraint = Roact.createElement("UITextSizeConstraint", {
 					MinTextSize = style.Font.Body.RelativeMinSize * style.Font.BaseSize,
 					MaxTextSize = style.Font.Body.RelativeSize * style.Font.BaseSize,
-				})
+				}),
 			}),
 			UserInputConnection = not self.props.disabled and Roact.createElement(ExternalEventConnection, {
 				event = UserInputService.InputBegan,
@@ -137,8 +135,10 @@ function SliderTextInput:render()
 						direction = -1
 					end
 
-					if UserInputService:IsKeyDown(Enum.KeyCode.LeftShift)
-						or UserInputService:IsKeyDown(Enum.KeyCode.RightShift) then
+					if
+						UserInputService:IsKeyDown(Enum.KeyCode.LeftShift)
+						or UserInputService:IsKeyDown(Enum.KeyCode.RightShift)
+					then
 						direction = direction * 10
 					end
 
@@ -147,14 +147,15 @@ function SliderTextInput:render()
 						local newValue = math.clamp(
 							math.floor(rawNewValue / self.props.stepInterval + 0.5) * self.props.stepInterval,
 							self.props.min,
-							self.props.max)
+							self.props.max
+						)
 
 						if newValue ~= self.props.value then
 							self.props.onValueChanged(newValue)
 						end
 					end
 				end,
-			})
+			}),
 		})
 	end)
 end

@@ -115,6 +115,9 @@ function ProductPurchaseRobuxUpsell:render()
 			ButtonCancel = {
 				key = LOC_KEY:format("Action.Cancel"),
 			},
+			LoadingText = {
+				key = LOC_KEY:format("Text.Loading"),
+			},
 		},
 		render = function(locMap)
 			return self:renderAlert(locMap)

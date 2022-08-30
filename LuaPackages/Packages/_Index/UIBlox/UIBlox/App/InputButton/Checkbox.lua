@@ -39,11 +39,13 @@ local CHECKMARK_SIZE = 14
 
 function Checkbox:init()
 	self.state = {
-		value = self.props.isSelected
+		value = self.props.isSelected,
 	}
 
 	self.onFlip = function()
-		if self.props.isDisabled then return end
+		if self.props.isDisabled then
+			return
+		end
 		self.props.onActivated(not self.props.isSelected)
 	end
 end
@@ -105,15 +107,12 @@ function Checkbox:renderWithProviders(style, getSelectionCursor)
 			layoutOrder = self.props.layoutOrder,
 			isDisabled = self.props.isDisabled,
 			[Roact.Ref] = UIBloxConfig.useUpdatedCheckbox and self.props.frameRef or nil,
-			SelectionImageObject = UIBloxConfig.useUpdatedCheckbox
-				and getSelectionCursor(CursorKind.InputButton) or nil,
+			SelectionImageObject = UIBloxConfig.useUpdatedCheckbox and getSelectionCursor(CursorKind.InputButton)
+				or nil,
 		})
 	end)
 end
 
-return Roact.forwardRef(function (props, ref)
-	return Roact.createElement(Checkbox, Cryo.Dictionary.join(
-		props,
-		{frameRef = ref}
-	))
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(Checkbox, Cryo.Dictionary.join(props, { frameRef = ref }))
 end)

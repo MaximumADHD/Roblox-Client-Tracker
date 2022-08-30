@@ -71,7 +71,7 @@ type TooltipControllerPublicProps = {
 	-- the Roblox instance under which the controller will create its ScreenGui
 	guiTarget: Instance,
 	-- the DisplayOrder of the new ScreenGui
-	DisplayOrder: number?,
+	DisplayOrder: number,
 	-- if true, the tooltip mounts to guiTarget directly, without creating a ScreenGui
 	DEBUG_useTargetDirectly: boolean?,
 }

@@ -51,10 +51,12 @@ function TileSelectionOverlay:render()
 				Position = UDim2.new(1, -PADDING_RIGHT, 0, PADDING_TOP),
 				Size = UDim2.new(0, imageSize.X, 0, imageSize.Y),
 			}),
-			UICorner = UIBloxConfig.useNewUICornerRoundedCorners and cornerRadius ~= UDim.new(0, 0)
-				and Roact.createElement("UICorner", {
-					CornerRadius = cornerRadius,
-				}) or nil,
+			UICorner = UIBloxConfig.useNewUICornerRoundedCorners
+					and cornerRadius ~= UDim.new(0, 0)
+					and Roact.createElement("UICorner", {
+						CornerRadius = cornerRadius,
+					})
+				or nil,
 		})
 	end)
 end

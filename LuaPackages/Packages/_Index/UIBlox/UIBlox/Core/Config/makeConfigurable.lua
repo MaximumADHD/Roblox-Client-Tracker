@@ -36,27 +36,25 @@ return function(initializeLibrary, name, defaultConfig)
 		local firstInitTraceback = trimTrailingNewline(debug.traceback())
 		Library.init = function()
 			local currentInitTraceback = trimTrailingNewline(debug.traceback())
-			warn(string.format("%s has already been configured\nFirst init traceback:\n%s\nCurrent init traceback:\n%s",
-				name, firstInitTraceback, currentInitTraceback))
+			warn(
+				string.format(
+					"%s has already been configured\nFirst init traceback:\n%s\nCurrent init traceback:\n%s",
+					name,
+					firstInitTraceback,
+					currentInitTraceback
+				)
+			)
 		end
 
 		return setmetatable(Library, {
 			__index = function(self, key)
-				local message = ("%q (%s) is not a valid member of %s"):format(
-					tostring(key),
-					typeof(key),
-					name
-				)
+				local message = ("%q (%s) is not a valid member of %s"):format(tostring(key), typeof(key), name)
 
 				error(message, 2)
 			end,
 
 			__newindex = function(self, key, value)
-				local message = ("%q (%s) is not a valid member of %s"):format(
-					tostring(key),
-					typeof(key),
-					name
-				)
+				local message = ("%q (%s) is not a valid member of %s"):format(tostring(key), typeof(key), name)
 
 				error(message, 2)
 			end,

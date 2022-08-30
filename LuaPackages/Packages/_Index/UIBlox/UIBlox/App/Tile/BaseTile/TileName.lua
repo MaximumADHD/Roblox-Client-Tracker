@@ -23,7 +23,7 @@ local validateProps = devOnly(t.strictInterface({
 	LayoutOrder = t.optional(t.integer),
 
 	maxHeight = t.intersection(t.integer, t.numberMin(0)),
-	maxWidth =  t.intersection(t.integer, t.numberMin(0)),
+	maxWidth = t.intersection(t.integer, t.numberMin(0)),
 
 	-- Loading skeleton will be rendered if name is not included
 	name = t.optional(t.string),
@@ -67,7 +67,8 @@ function ItemTileName:render()
 		end
 
 		if name ~= nil then
-			local titleIconSize = titleIcon and titleIcon.ImageRectSize / Images.ImagesResolutionScale or Vector2.new(0, 0)
+			local titleIconSize = titleIcon and titleIcon.ImageRectSize / Images.ImagesResolutionScale
+				or Vector2.new(0, 0)
 
 			return Roact.createElement(ImageTextLabel, {
 				imageProps = titleIcon and {

@@ -19,7 +19,7 @@ local validateProps = devOnly(t.strictInterface({
 	onActivated = t.callback,
 	elementSize = t.UDim2,
 	atMost = t.optional(t.number),
-	layoutOrder = t.optional(t.number)
+	layoutOrder = t.optional(t.number),
 }))
 
 local function numTrue(truthTable)
@@ -55,8 +55,10 @@ function CheckboxList:init()
 
 	self.doLogic = function(key)
 		self:setState({
-			selectedIndices = Cryo.Dictionary.join(self.state.selectedIndices,
-			{[key] = not self.state.selectedIndices[key] and numTrue(self.state.selectedIndices) < atMost})
+			selectedIndices = Cryo.Dictionary.join(
+				self.state.selectedIndices,
+				{ [key] = not self.state.selectedIndices[key] and numTrue(self.state.selectedIndices) < atMost }
+			),
 		})
 		self.props.onActivated(self.state.selectedIndices)
 	end
@@ -67,15 +69,17 @@ function CheckboxList:render()
 
 	local checkboxes = {}
 	checkboxes.layout = Roact.createElement("UIListLayout", {
-		SortOrder = Enum.SortOrder.LayoutOrder
+		SortOrder = Enum.SortOrder.LayoutOrder,
 	})
 
 	for i, value in ipairs(self.props.checkboxes) do
-		checkboxes["Checkbox"..i] = Roact.createElement(Checkbox, {
+		checkboxes["Checkbox" .. i] = Roact.createElement(Checkbox, {
 			text = type(value) == "table" and value.label or value,
 			isSelected = self.state.selectedIndices[i],
 			isDisabled = self.state.disabledIndices[i],
-			onActivated = function() self.doLogic(i) end,
+			onActivated = function()
+				self.doLogic(i)
+			end,
 			size = self.props.elementSize,
 			layoutOrder = i,
 		})

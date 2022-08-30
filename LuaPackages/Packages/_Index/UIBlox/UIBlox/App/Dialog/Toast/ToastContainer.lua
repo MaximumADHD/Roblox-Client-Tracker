@@ -91,9 +91,13 @@ function ToastContainer:init()
 	end
 
 	self.onButtonInputBegan = function(_, inputObject)
-		if inputObject.UserInputState == Enum.UserInputState.Begin and
-			(inputObject.UserInputType == Enum.UserInputType.Touch or
-			inputObject.UserInputType == Enum.UserInputType.MouseButton1) then
+		if
+			inputObject.UserInputState == Enum.UserInputState.Begin
+			and (
+				inputObject.UserInputType == Enum.UserInputType.Touch
+				or inputObject.UserInputType == Enum.UserInputType.MouseButton1
+			)
+		then
 			if not self.state.pressed then
 				self:setState({
 					pressed = true,
@@ -121,7 +125,7 @@ function ToastContainer:init()
 		local titleStyle = font.Header2
 		local subtitleStyle = font.CaptionBody
 
-		local textFrameWidth = self.state.containerWidth - padding*2
+		local textFrameWidth = self.state.containerWidth - padding * 2
 		if iconImage then
 			textFrameWidth = textFrameWidth - iconSize.X - padding
 		end
@@ -155,7 +159,7 @@ function ToastContainer:render()
 
 		local size = self.props.size
 		if self.props.fitHeight then
-			local containerHeight = math.max(iconSize.Y, textFrameHeight) + padding*2
+			local containerHeight = math.max(iconSize.Y, textFrameHeight) + padding * 2
 			size = UDim2.new(size.X.Scale, size.X.Offset, 0, containerHeight)
 		end
 
@@ -174,7 +178,7 @@ function ToastContainer:render()
 			[Roact.Change.AbsoluteSize] = function(rbx)
 				if self.state.containerWidth ~= rbx.AbsoluteSize.X then
 					self:setState({
-						containerWidth = rbx.AbsoluteSize.X
+						containerWidth = rbx.AbsoluteSize.X,
 					})
 				end
 			end,
@@ -215,7 +219,7 @@ end
 
 function ToastContainer:didMount()
 	self:setState({
-		containerWidth = self.containerRef.current and self.containerRef.current.AbsoluteSize.X or 0
+		containerWidth = self.containerRef.current and self.containerRef.current.AbsoluteSize.X or 0,
 	})
 end
 

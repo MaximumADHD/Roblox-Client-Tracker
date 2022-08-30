@@ -108,10 +108,10 @@ local KEYBOARD_OVERRIDE_MAP: { [Enum.KeyCode]: string | Image } = {
 	[Enum.KeyCode.Return] = "Enter",
 	[Enum.KeyCode.LeftShift] = "Shift",
 	[Enum.KeyCode.LeftControl] = "Ctrl",
-	[Enum.KeyCode.LeftAlt] = "Alt",	-- Ideally would be "Opt" for mac
+	[Enum.KeyCode.LeftAlt] = "Alt", -- Ideally would be "Opt" for mac
 	[Enum.KeyCode.Space] = "Space",
 	[Enum.KeyCode.LeftMeta] = "Fn",
-	[Enum.KeyCode.LeftSuper] = "Cmd",	-- Only for mac, ideally would be Windows key for windows
+	[Enum.KeyCode.LeftSuper] = "Cmd", -- Only for mac, ideally would be Windows key for windows
 	[Enum.KeyCode.Tilde] = "~",
 
 	[Enum.KeyCode.Up] = Images["icons/controls/keys/arrowUp"],
@@ -139,7 +139,6 @@ local function getKeyCodeContent(keyCode: FlexibleKeyCode): KeyLabelContent
 	end
 end
 
-
 local function getWidthFromContent(content: KeyLabelContent, font: Fonts.FontPallette): number
 	if content.inputType == "keyboard" then
 		local innerWidth: number
@@ -153,7 +152,9 @@ local function getWidthFromContent(content: KeyLabelContent, font: Fonts.FontPal
 		else
 			innerWidth = content.content.ImageRectSize.X
 		end
-		return if innerWidth + 2 * MIN_SIDE_PADDING <= PREFERRED_WIDTH then PREFERRED_WIDTH else innerWidth + 2 * SIDE_PADDING
+		return if innerWidth + 2 * MIN_SIDE_PADDING <= PREFERRED_WIDTH
+			then PREFERRED_WIDTH
+			else innerWidth + 2 * SIDE_PADDING
 		-- just using else doesn't get the proper type refinement
 	elseif content.inputType == "gamepad" then
 		local size: Vector2 = content.content.ImageRectSize
@@ -199,7 +200,7 @@ local function KeyLabel(props: KeyLabelProps)
 				BackgroundTransparency = 1,
 				Size = UDim2.fromOffset(size.X, size.Y),
 				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.fromScale(0.5, 0.5)
+				Position = UDim2.fromScale(0.5, 0.5),
 			})
 		end
 
@@ -235,7 +236,7 @@ local function KeyLabel(props: KeyLabelProps)
 			})
 		)
 	end
-	assert(false, string.format("Unreachable: Invalid inputType value: \"%s\"", content.inputType))
+	assert(false, string.format('Unreachable: Invalid inputType value: "%s"', content.inputType))
 end
 
 function getKeyLabelWidth(keyCode: FlexibleKeyCode, font)

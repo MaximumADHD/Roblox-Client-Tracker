@@ -84,6 +84,8 @@ IconButton.validateProps = t.strictInterface({
 	NextSelectionDown = t.optional(t.table),
 	inputBindings = t.optional(t.table),
 	buttonRef = t.optional(t.table),
+
+	[Roact.Change.AbsoluteSize] = t.optional(t.callback),
 })
 
 IconButton.defaultProps = {
@@ -180,6 +182,7 @@ function IconButton:renderWithProviders(style, getSelectionCursor)
 		BackgroundTransparency = 1,
 		AutoButtonColor = false,
 
+		[Roact.Change.AbsoluteSize] = self.props[Roact.Change.AbsoluteSize],
 		[Roact.Change.AbsolutePosition] = self.props.onAbsolutePositionChanged,
 		[Roact.Event.Activated] = self.props.onActivated,
 

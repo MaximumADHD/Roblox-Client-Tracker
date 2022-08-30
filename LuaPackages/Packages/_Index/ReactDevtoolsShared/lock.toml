@@ -4,7 +4,7 @@ version = "17.0.1-rc.14"
 commit = "b2f1915958df7286b1e74fd08ab4e8f6a0fbe7d4"
 source = "url+https://github.com/roblox/roact-alignment"
 dependencies = [
-    "LuauPolyfill LuauPolyfill 0.4.0 url+https://github.com/roblox/luau-polyfill",
+    "LuauPolyfill LuauPolyfill 0.4.2 url+https://github.com/roblox/luau-polyfill",
     "React React 17.0.1-rc.14 url+https://github.com/roblox/roact-alignment",
     "ReactDebugTools ReactDebugTools 17.0.1-rc.14 url+https://github.com/roblox/roact-alignment",
     "ReactIs ReactIs 17.0.1-rc.14 url+https://github.com/roblox/roact-alignment",

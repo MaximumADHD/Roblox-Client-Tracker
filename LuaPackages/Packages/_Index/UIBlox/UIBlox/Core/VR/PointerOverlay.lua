@@ -36,7 +36,7 @@ local defaultProps: PointerOverlayProps = {
 	UpdateEvent = RunService.Heartbeat,
 }
 
-local function PointerOverlay(providedProps : PointerOverlayProps)
+local function PointerOverlay(providedProps: PointerOverlayProps)
 	local props = Object.assign({}, defaultProps, providedProps)
 
 	-- props types
@@ -45,9 +45,9 @@ local function PointerOverlay(providedProps : PointerOverlayProps)
 	local VRService = props.VRService
 
 	-- Set up refs and state
-	local LaserPointer : Constants.Ref<Part?> = React.useRef(nil)
-	local LeftControllerModel : Constants.Ref<Part?> = React.useRef(nil)
-	local RightControllerModel : Constants.Ref<Part?> = React.useRef(nil)
+	local LaserPointer: Constants.Ref<Part?> = React.useRef(nil)
+	local LeftControllerModel: Constants.Ref<Part?> = React.useRef(nil)
+	local RightControllerModel: Constants.Ref<Part?> = React.useRef(nil)
 
 	local VREnabledCallback = React.useCallback(function()
 		if not LaserPointer.current then
@@ -60,7 +60,7 @@ local function PointerOverlay(providedProps : PointerOverlayProps)
 
 		LeftControllerModel.current:setEnabled(VRService.VREnabled)
 		RightControllerModel.current:setEnabled(VRService.VREnabled)
-	end, {LeftControllerModel, RightControllerModel, LaserPointer, LaserPointerComponent, VRControllerModel})
+	end, { LeftControllerModel, RightControllerModel, LaserPointer, LaserPointerComponent, VRControllerModel })
 
 	-- Runs on first render, in case we start with VREnabled = true
 	React.useEffect(function()
@@ -73,7 +73,7 @@ local function PointerOverlay(providedProps : PointerOverlayProps)
 		target = workspace,
 	}, {
 		UserCFrameChangedConnection = React.createElement(ExternalEventConnection, {
-						event = props.UpdateEvent,
+			event = props.UpdateEvent,
 			callback = function()
 				if LaserPointer.current then
 					LaserPointer.current:update()
@@ -89,7 +89,7 @@ local function PointerOverlay(providedProps : PointerOverlayProps)
 		VREnabledConnection = React.createElement(ExternalEventConnection, {
 			event = VRService:GetPropertyChangedSignal("VREnabled"),
 			callback = VREnabledCallback,
-		})
+		}),
 	})
 end
 

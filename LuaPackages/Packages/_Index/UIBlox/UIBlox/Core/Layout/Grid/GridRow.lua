@@ -116,9 +116,12 @@ local function addPaddingCells(children, context)
 		if child.colspan > 1 or child.rowspan > 1 then
 			setSkip(#current, child.colspan, child.rowspan)
 		end
-		table.insert(current, Object.assign(child, {
-			order = #current + 1,
-		}))
+		table.insert(
+			current,
+			Object.assign(child, {
+				order = #current + 1,
+			})
+		)
 		return current
 	end, {})
 end
@@ -176,7 +179,9 @@ function GridRow:renderChildren(context)
 		}, {
 			GridItem = child.cell,
 		})
-	end), pages, lines
+	end),
+		pages,
+		lines
 end
 
 function GridRow:render()

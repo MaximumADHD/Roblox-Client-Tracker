@@ -58,21 +58,25 @@ function GridContainer:render()
 			breakpoint = self.state.breakpoint.name,
 		},
 	}, {
-		GridContainer = Roact.createElement("Frame", {
-			Size = UDim2.fromScale(1, 0),
-			AutomaticSize = Enum.AutomaticSize.Y,
-			BackgroundTransparency = 1,
-			LayoutOrder = self.props.layoutOrder,
-			[Roact.Ref] = self.frameRef,
-			[Roact.Change.AbsoluteSize] = self.updateBreakpoint,
-		}, Object.assign({
-			_uiblox_grid_layout_ = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = self.props.padding,
-			}),
-		}, self.props[Roact.Children])),
+		GridContainer = Roact.createElement(
+			"Frame",
+			{
+				Size = UDim2.fromScale(1, 0),
+				AutomaticSize = Enum.AutomaticSize.Y,
+				BackgroundTransparency = 1,
+				LayoutOrder = self.props.layoutOrder,
+				[Roact.Ref] = self.frameRef,
+				[Roact.Change.AbsoluteSize] = self.updateBreakpoint,
+			},
+			Object.assign({
+				_uiblox_grid_layout_ = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = self.props.padding,
+				}),
+			}, self.props[Roact.Children])
+		),
 	})
 end
 

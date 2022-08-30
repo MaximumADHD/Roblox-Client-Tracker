@@ -48,6 +48,15 @@ local function convertPadding(padding: number?, defaultPadding: number)
 	return UDim.new(0, padding or defaultPadding)
 end
 
+-- add offsets to a size and return the larger size
+local function addOffsets<K>(originalSize: Vector2, offset: { [K]: number }): Vector2
+	return originalSize
+		+ Vector2.new(
+			offset[TooltipOrientation.Left] + offset[TooltipOrientation.Right],
+			offset[TooltipOrientation.Top] + offset[TooltipOrientation.Bottom]
+		)
+end
+
 local function getHotkeysAndWidth(
 	hotkeyCodes: { KeyLabel.FlexibleKeyCode }?,
 	contentWidth,
@@ -91,29 +100,8 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 		"renderCustomComponents and buttonProps are not compatible"
 	)
 
+	local boxSize, setBoxSize = React.useState(Vector2.zero)
 	local stylePalette = useStyle()
-
-	local dropShadowConsts = if props.useLargeDropShadow then Consts.DropShadow.Large else Consts.DropShadow.Small
-
-	-- round to make the animation consistent regardless of orientation
-	-- otherwise the implicit floor in the engine causes different effects when animating up vs down
-	local distanceOffset = math.floor(props.distanceOffset + 0.5)
-
-	local caretPosition = getOffsetPosition(
-		props.triggerPointCenter,
-		props.triggerPointRadius,
-		props.orientation,
-		Consts.DISTANCE_TO_CARET_CENTER + distanceOffset
-	)
-
-	local contentPosition = getOffsetPosition(
-		props.triggerPointCenter,
-		props.triggerPointRadius,
-		props.orientation,
-		Consts.DISTANCE_TO_CONTENT
-			+ distanceOffset
-			- dropShadowConsts.OFFSET[Consts.OPPOSITE_ORIENTATION[props.orientation]]
-	) + props.contentOffsetVector
 
 	local textAlignment = props.textAlignment or Enum.TextXAlignment.Left
 	local listAlignment = Enum.HorizontalAlignment[textAlignment.Name]
@@ -135,7 +123,7 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 	if props.headerText then
 		local maxHeaderSize = Vector2.new(maxContentWidth, 2 * headerTextSize)
 		headerSize = GetTextSize(props.headerText, headerTextSize, headerFont.Font, maxHeaderSize)
-		-- for some reason luau doen't know about Vector2.Min
+		-- for some reason luau doen't know about Vector2:Min
 		headerSize = (headerSize :: any):Min(maxHeaderSize)
 		contentWidth = math.max(contentWidth, headerSize.X)
 	end
@@ -153,7 +141,7 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 	if props.renderCustomComponents then
 		customChildren = {
 			Content = props.renderCustomComponents(contentWidth),
-			SizeContraint = React.createElement("UISizeConstraint", {
+			SizeConstraint = React.createElement("UISizeConstraint", {
 				MaxSize = sizeConstraint,
 			}),
 		}
@@ -202,9 +190,45 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 		})
 		else hotkeyContainer or customContainer
 
+	local dropShadowConsts = if props.useLargeDropShadow then Consts.DropShadow.Large else Consts.DropShadow.Small
+
+	-- this is the side of the tooltip that is close to the trigger point
+	local caretSide = Consts.OPPOSITE_ORIENTATION[props.orientation]
+	local dropShadowSize = addOffsets(boxSize, dropShadowConsts.OFFSET)
+
+	local totalOffsets = table.clone(dropShadowConsts.OFFSET)
+	-- how much the caret extends past the dropshadow
+	local caretOffset = Consts.CONTENT_TO_CARET_TIP - totalOffsets[caretSide]
+	local positiveCaretOffset = math.max(0, caretOffset)
+	-- the total offset around the box (to the edge of the canvas) increases if the caret extends past the dropshadow
+	totalOffsets[caretSide] += positiveCaretOffset
+	local boxPosition = Vector2.new(totalOffsets[TooltipOrientation.Left], totalOffsets[TooltipOrientation.Top])
+	-- if the caret extends past the dropshadow to the top or left, then the dropshadow should be shifted by that much
+	local dropShadowPosition = (Vector2.zero :: any):Max(
+		Consts.ORIENTATION_VECTOR[props.orientation] * positiveCaretOffset
+	)
+	local caretPosition = boxPosition
+		+ product(boxSize, getContentAnchorPoint(props.orientation))
+		- props.contentOffsetVector
+		+ Consts.ORIENTATION_VECTOR[caretSide] * Consts.CONTENT_TO_CARET_CENTER
+
+	local canvasSize = addOffsets(boxSize, totalOffsets)
+
+	-- round to make the animation consistent regardless of orientation
+	-- otherwise the implicit floor in the engine causes different effects when animating up vs down
+	local distanceOffset = math.floor(props.distanceOffset + 0.5)
+	local canvasPosition = getOffsetPosition(
+		props.triggerPointCenter,
+		props.triggerPointRadius,
+		props.orientation,
+		Consts.CARET_DISTANCE + math.min(0, caretOffset) + distanceOffset
+	) + props.contentOffsetVector
+
 	return React.createElement("CanvasGroup", {
 		GroupTransparency = props.transparency,
-		Size = UDim2.fromScale(1, 1),
+		Position = vectorToPosition(canvasPosition),
+		Size = vectorToPosition(canvasSize),
+		AnchorPoint = getContentAnchorPoint(props.orientation),
 		BackgroundTransparency = 1,
 	}, {
 		Caret = React.createElement(ImageSetLabel, {
@@ -218,79 +242,74 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 			ImageTransparency = theme.UIDefault.Transparency,
 			ZIndex = 2,
 		}),
-
 		DropShadow = React.createElement(ImageSetLabel, {
 			Image = dropShadowConsts.IMAGE,
 			ImageColor3 = theme.DropShadow.Color,
 			ImageTransparency = theme.DropShadow.Transparency,
 			BackgroundTransparency = 1,
-			AutomaticSize = Enum.AutomaticSize.XY,
-			AnchorPoint = getContentAnchorPoint(props.orientation),
-			Position = vectorToPosition(contentPosition),
+			Position = vectorToPosition(dropShadowPosition),
+			Size = vectorToPosition(dropShadowSize),
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = dropShadowConsts.SLICE_CENTER,
 			ZIndex = 1,
-		}, {
-			Padding = React.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, dropShadowConsts.OFFSET[TooltipOrientation.Top]),
-				PaddingBottom = UDim.new(0, dropShadowConsts.OFFSET[TooltipOrientation.Bottom]),
-				PaddingLeft = UDim.new(0, dropShadowConsts.OFFSET[TooltipOrientation.Left]),
-				PaddingRight = UDim.new(0, dropShadowConsts.OFFSET[TooltipOrientation.Right]),
-			}),
-			Box = React.createElement("Frame", {
-				AutomaticSize = Enum.AutomaticSize.XY,
-				-- Position = contentPosition,
-				BackgroundColor3 = theme.UIDefault.Color,
-				BackgroundTransparency = theme.UIDefault.Transparency,
-				-- AnchorPoint = getContentAnchorPoint(props.orientation),
-				[React.Change.AbsoluteSize] = props.onContentSizeChanged and function(rbx: GuiObject)
+		}),
+		Box = React.createElement("Frame", {
+			AutomaticSize = Enum.AutomaticSize.XY,
+			Position = vectorToPosition(boxPosition),
+			BackgroundColor3 = theme.UIDefault.Color,
+			BackgroundTransparency = theme.UIDefault.Transparency,
+			-- AnchorPoint = getContentAnchorPoint(props.orientation),
+			[React.Change.AbsoluteSize] = function(rbx: GuiObject)
+				setBoxSize(rbx.AbsoluteSize)
+				if props.onContentSizeChanged then
 					props.onContentSizeChanged(rbx.AbsoluteSize)
-				end,
-				ref = ref,
-			}, {
-				Layout = React.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Vertical,
-					HorizontalAlignment = listAlignment,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = convertPadding(props.listPadding, Consts.DEFAULT_LIST_PADDING),
-				}),
-				Padding = React.createElement("UIPadding", {
-					PaddingTop = convertPadding(props.PaddingTop, Consts.DEFAULT_PADDING),
-					PaddingBottom = convertPadding(props.PaddingBottom, Consts.DEFAULT_PADDING),
-					PaddingLeft = convertPadding(props.PaddingLeft, Consts.DEFAULT_PADDING),
-					PaddingRight = convertPadding(props.PaddingRight, Consts.DEFAULT_PADDING),
-				}),
-				Corner = React.createElement("UICorner", {
-					CornerRadius = Consts.CORNER_RADIUS,
-				}),
-				Header = props.headerText and React.createElement(StyledTextLabel, {
-					text = props.headerText,
-					fontStyle = headerFont,
-					colorStyle = theme.TextEmphasis,
-					textYAlignment = Enum.TextYAlignment.Center,
-					textXAlignment = textAlignment,
-					textTruncate = Enum.TextTruncate.AtEnd,
-					layoutOrder = 1,
-					size = vectorToPosition(headerSize),
-					fluidSizing = false,
-					richText = false,
-					lineHeight = 1,
-				}),
-				Body = props.bodyText and React.createElement(StyledTextLabel, {
-					text = props.bodyText,
-					fontStyle = bodyFont,
-					colorStyle = theme.TextEmphasis,
-					textYAlignment = Enum.TextYAlignment.Center,
-					textXAlignment = textAlignment,
-					textTruncate = Enum.TextTruncate.None,
-					layoutOrder = 2,
-					size = vectorToPosition(bodySize),
-					fluidSizing = false,
-					richText = false,
-					lineHeight = 1,
-				}),
-				Additional = additionalContent,
+				end
+			end,
+			ref = ref,
+			ZIndex = 2,
+		}, {
+			Layout = React.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				HorizontalAlignment = listAlignment,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				Padding = convertPadding(props.listPadding, Consts.DEFAULT_LIST_PADDING),
 			}),
+			Padding = React.createElement("UIPadding", {
+				PaddingTop = convertPadding(props.PaddingTop, Consts.DEFAULT_PADDING),
+				PaddingBottom = convertPadding(props.PaddingBottom, Consts.DEFAULT_PADDING),
+				PaddingLeft = convertPadding(props.PaddingLeft, Consts.DEFAULT_PADDING),
+				PaddingRight = convertPadding(props.PaddingRight, Consts.DEFAULT_PADDING),
+			}),
+			Corner = React.createElement("UICorner", {
+				CornerRadius = Consts.CORNER_RADIUS,
+			}),
+			Header = props.headerText and React.createElement(StyledTextLabel, {
+				text = props.headerText,
+				fontStyle = headerFont,
+				colorStyle = theme.TextEmphasis,
+				textYAlignment = Enum.TextYAlignment.Center,
+				textXAlignment = textAlignment,
+				textTruncate = Enum.TextTruncate.AtEnd,
+				layoutOrder = 1,
+				size = vectorToPosition(headerSize),
+				fluidSizing = false,
+				richText = false,
+				lineHeight = 1,
+			}),
+			Body = props.bodyText and React.createElement(StyledTextLabel, {
+				text = props.bodyText,
+				fontStyle = bodyFont,
+				colorStyle = theme.TextEmphasis,
+				textYAlignment = Enum.TextYAlignment.Center,
+				textXAlignment = textAlignment,
+				textTruncate = Enum.TextTruncate.None,
+				layoutOrder = 2,
+				size = vectorToPosition(bodySize),
+				fluidSizing = false,
+				richText = false,
+				lineHeight = 1,
+			}),
+			Additional = additionalContent,
 		}),
 	})
 end

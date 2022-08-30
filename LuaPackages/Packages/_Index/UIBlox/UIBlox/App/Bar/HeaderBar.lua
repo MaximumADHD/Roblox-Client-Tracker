@@ -98,7 +98,7 @@ function HeaderBar:render()
 						TextXAlignment = Enum.TextXAlignment.Left,
 						fontStyle = font.Title,
 						colorStyle = theme.TextEmphasis,
-					}, props[Roact.Children])
+					}, props[Roact.Children]),
 				})
 			end
 		end
@@ -155,7 +155,7 @@ function HeaderBar:render()
 				estimatedCenterWidth = estimatedCenterWidth,
 				contentPaddingRight = UDim.new(0, isRoot and 0 or 12),
 				renderRight = renderRight,
-			})
+			}),
 		})
 	end)
 end

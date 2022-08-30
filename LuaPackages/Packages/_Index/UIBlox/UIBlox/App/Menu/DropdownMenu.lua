@@ -31,7 +31,7 @@ DropdownMenuComponent.validateProps = t.strictInterface({
 	onChange = t.callback,
 
 	-- Size of the DropdownCell.
-	size = (not UIBloxConfig.fixDropdownMenuListPositionAndSize) and t.UDim2 or nil,
+	size = not UIBloxConfig.fixDropdownMenuListPositionAndSize and t.UDim2 or nil,
 
 	-- Height of the DropdownCell.
 	height = UIBloxConfig.fixDropdownMenuListPositionAndSize and t.UDim or nil,
@@ -67,17 +67,20 @@ DropdownMenuComponent.validateProps = t.strictInterface({
 
 		-- A KeyCode to display a keycode hint for, the display string based on
 		-- the users keyboard or gamepad button is displayed.
-		keyCodeLabel = t.optional(t.union(t.enum(Enum.KeyCode), t.strictInterface({
-			key = t.enum(Enum.KeyCode),
-			axis = t.optional(t.string),
-		}))),
+		keyCodeLabel = t.optional(t.union(
+			t.enum(Enum.KeyCode),
+			t.strictInterface({
+				key = t.enum(Enum.KeyCode),
+				axis = t.optional(t.string),
+			})
+		)),
 
 		-- the color to override the default icon color
 		iconColorOverride = t.optional(t.Color3),
 
 		-- the color to override the default text color
 		textColorOverride = t.optional(t.Color3),
-	}))
+	})),
 })
 
 DropdownMenuComponent.defaultProps = {
@@ -102,13 +105,13 @@ function DropdownMenuComponent:init()
 
 	self.openMenu = function()
 		self:setState({
-			menuOpen = true
+			menuOpen = true,
 		})
 	end
 
 	self.closeMenu = function()
 		self:setState({
-			menuOpen = false
+			menuOpen = false,
 		})
 	end
 
@@ -123,7 +126,7 @@ function DropdownMenuComponent:init()
 
 	self.mapCellData = function(cellData, cellIndex)
 		local functionalCell = {}
-		for i,v in pairs(cellData) do
+		for i, v in pairs(cellData) do
 			functionalCell[i] = v
 		end
 		functionalCell.onActivated = self.onSelect
@@ -201,9 +204,8 @@ function DropdownMenuComponent:render()
 				fixedListHeight = self.props.fixedListHeight,
 				onDismiss = self.closeMenu,
 			}),
-			UISizeConstraint = limitMenuWidth and
-				Roact.createElement("UISizeConstraint", {
-					MaxSize = Vector2.new(DROPDOWN_MENU_MAX_WIDTH, math.huge),
+			UISizeConstraint = limitMenuWidth and Roact.createElement("UISizeConstraint", {
+				MaxSize = Vector2.new(DROPDOWN_MENU_MAX_WIDTH, math.huge),
 			}) or nil,
 		}) or nil,
 	} or {

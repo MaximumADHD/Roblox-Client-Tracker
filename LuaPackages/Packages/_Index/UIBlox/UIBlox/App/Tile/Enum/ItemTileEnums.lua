@@ -27,10 +27,10 @@ return strict({
 	ItemIconType = ItemIconType,
 	StatusStyle = enumerate("StatusStyle", {
 		"Alert",
-		"Info"
+		"Info",
 	}),
 	Restriction = enumerate("Restriction", {
 		"Limited",
-		"LimitedUnique"
-	})
+		"LimitedUnique",
+	}),
 }, script.Name)

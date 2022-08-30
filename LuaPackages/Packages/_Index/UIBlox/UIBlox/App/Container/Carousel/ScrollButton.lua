@@ -34,7 +34,7 @@ function ScrollButton:render()
 			BorderSizePixel = 0,
 			[Roact.Event.Activated] = self.props.callback,
 			--Note State change is not being used right now.
-			onStateChanged = function()end,
+			onStateChanged = function() end,
 		}, {
 			Icon = Roact.createElement(ImageSetComponent.Label, {
 				Size = UDim2.fromOffset(getIconSize(IconSize.Medium), getIconSize(IconSize.Medium)),
@@ -46,7 +46,6 @@ function ScrollButton:render()
 				ImageTransparency = style.Theme.IconEmphasis.Transparency,
 			}),
 		})
-
 	end)
 end
 

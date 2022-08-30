@@ -42,13 +42,13 @@ local BUTTON_STATE_COLOR_MAP = {
 	[ControlState.Selected] = "SystemPrimaryOnHover",
 }
 local TEXT_STATE_COLOR_MAP = {
-	[ControlState.Default] = "TextEmphasis"
+	[ControlState.Default] = "TextEmphasis",
 }
 local ICON_STATE_COLOR_MAP = {
-	[ControlState.Default] = "TextEmphasis"
+	[ControlState.Default] = "TextEmphasis",
 }
 local BACKGROUND_STATE_COLOR_MAP = {
-	[ControlState.Default] = "BackgroundUIDefault"
+	[ControlState.Default] = "BackgroundUIDefault",
 }
 
 local RobuxBalance = Roact.PureComponent:extend("RobuxBalance")
@@ -64,7 +64,7 @@ function RobuxBalance:init()
 		controlState = ControlState.Initialize,
 		triggerPosition = Vector2.new(0, 0),
 		triggerSize = Vector2.new(0, 0),
-		showToolTip = false
+		showToolTip = false,
 	}
 
 	self.onStateChanged = function(oldState, newState)
@@ -144,7 +144,6 @@ RobuxBalance.validateProps = t.strictInterface({
 
 function RobuxBalance:render()
 	return withStyle(function(style)
-
 		local currentState = self.state.controlState
 		local showToolTip = self.state.showToolTip
 
@@ -156,19 +155,14 @@ function RobuxBalance:render()
 		local textStyle = getContentStyle(TEXT_STATE_COLOR_MAP, currentState, style)
 		local iconStyle = getContentStyle(ICON_STATE_COLOR_MAP, currentState, style)
 		local backgroundStyle = getContentStyle(BACKGROUND_STATE_COLOR_MAP, currentState, style)
-		local buttonImage = self.state.controlState == ControlState.Selected and
-			SELECTED_BORDER_CIRCLE or DEFAULT_BORDER_CIRCLE
-		local sliceCenter = self.state.controlState == ControlState.Selected and
-			SELECTED_SLICE_CENTER or DEFAULT_SLICE_CENTER
+		local buttonImage = self.state.controlState == ControlState.Selected and SELECTED_BORDER_CIRCLE
+			or DEFAULT_BORDER_CIRCLE
+		local sliceCenter = self.state.controlState == ControlState.Selected and SELECTED_SLICE_CENTER
+			or DEFAULT_SLICE_CENTER
 		local fontStyle = style.Font.CaptionHeader
 
 		local fontSize = fontStyle.RelativeSize * style.Font.BaseSize
-		local estimatedTextWidth = GetTextSize(
-			text,
-			fontSize,
-			fontStyle.Font,
-			Vector2.new(1000, 1000)
-		).X
+		local estimatedTextWidth = GetTextSize(text, fontSize, fontStyle.Font, Vector2.new(1000, 1000)).X
 		local buttonWidth = estimatedTextWidth + getIconSize(IconSize.Small) + DEFAULT_PADDING * 3
 		return Roact.createElement(Interactable, {
 			Position = self.props.position or UDim2.fromScale(0, 0),
@@ -239,7 +233,7 @@ function RobuxBalance:render()
 						maxSize = Vector2.new(estimatedTextWidth, BUTTON_AREA_HEIGHT),
 						TextTruncate = Enum.TextTruncate.AtEnd,
 						TextWrapped = false,
-						TextXAlignment = Enum.TextXAlignment.Left
+						TextXAlignment = Enum.TextXAlignment.Left,
 					}),
 				}),
 			}),
@@ -250,20 +244,23 @@ function RobuxBalance:render()
 				BackgroundTransparency = 1,
 			}, {
 				TooltipContent = Roact.createElement(TooltipContainer, {
-					triggerPosition = self.state.triggerPosition or Vector2.new(0 ,0),
-					triggerSize = self.state.triggerSize or Vector2.new(0 ,0),
+					triggerPosition = self.state.triggerPosition or Vector2.new(0, 0),
+					triggerSize = self.state.triggerSize or Vector2.new(0, 0),
 					position = self.props.tooltipPosition or UDim2.new(1, -self.tooltipWidth:getValue(), 1, 0),
 					bodyText = self.props.fullText or "",
 					isDirectChild = true,
 				}),
-			})
+			}),
 		})
 	end)
 end
 
 function RobuxBalance:didUpdate()
 	local hasFullText = self.props.fullText
-	self.setTooltipWidth((self.triggerRef.current and hasFullText) and
-		self.triggerRef.current.TooltipContainer.TooltipContent.Size.X.Offset or 0)
+	self.setTooltipWidth(
+		(self.triggerRef.current and hasFullText)
+				and self.triggerRef.current.TooltipContainer.TooltipContent.Size.X.Offset
+			or 0
+	)
 end
 return RobuxBalance

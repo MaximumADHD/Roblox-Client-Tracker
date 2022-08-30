@@ -90,7 +90,7 @@ function FreeFlowCarousel:render()
 			itemList = self.props.itemList,
 			renderItem = self.props.renderItem,
 			itemSize = self.props.itemSize,
-			itemPadding =  innerPadding,
+			itemPadding = innerPadding,
 			carouselMargin = carouselMargin,
 			layoutOrder = 2,
 			loadNext = self.props.loadNext,

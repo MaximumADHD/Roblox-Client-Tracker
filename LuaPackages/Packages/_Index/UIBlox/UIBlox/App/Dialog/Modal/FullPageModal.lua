@@ -46,12 +46,11 @@ function FullPageModal:init()
 	self.changeButtonFrameSize = function(rbx)
 		if self.state.buttonFrameSize ~= rbx.AbsoluteSize then
 			self:setState({
-				buttonFrameSize = rbx.AbsoluteSize
+				buttonFrameSize = rbx.AbsoluteSize,
 			})
 		end
 	end
 end
-
 
 function FullPageModal:render()
 	return Roact.createElement(ModalWindow, {
@@ -82,7 +81,7 @@ function FullPageModal:render()
 			MiddleContent = Roact.createElement("Frame", {
 				Size = UDim2.new(1, -2 * self.props.marginSize, 1, -self.state.buttonFrameSize.Y),
 				BackgroundTransparency = 1,
-				LayoutOrder = 1
+				LayoutOrder = 1,
 			}, self.props[Roact.Children]),
 			Buttons = self.props.buttonStackProps and Roact.createElement(FitFrameVertical, {
 				BackgroundTransparency = 1,
@@ -96,7 +95,7 @@ function FullPageModal:render()
 				}),
 				Roact.createElement(ButtonStack, self.props.buttonStackProps),
 			}),
-		})
+		}),
 	})
 end
 

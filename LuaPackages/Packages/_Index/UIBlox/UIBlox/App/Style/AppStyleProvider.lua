@@ -32,9 +32,9 @@ local validateProps = devOnly(t.strictInterface({
 	-- The current style of the app.
 	style = t.strictInterface({
 		themeName = t.string,
-		fontName = t.string
+		fontName = t.string,
 	}),
-	[Roact.Children] = t.table
+	[Roact.Children] = t.table,
 }))
 
 function AppStyleProvider:render()

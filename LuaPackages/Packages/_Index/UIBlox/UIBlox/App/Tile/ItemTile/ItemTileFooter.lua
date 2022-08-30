@@ -23,7 +23,7 @@ local validateProps = devOnly(t.strictInterface({
 	priceText = t.optional(t.string),
 
 	-- Is the item owned
-	isOwned = t.optional(t.boolean)
+	isOwned = t.optional(t.boolean),
 }))
 
 function ItemTileFooter:render()
@@ -80,7 +80,7 @@ function ItemTileFooter:render()
 				TextTruncate = Enum.TextTruncate.AtEnd,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Top,
-			})
+			}),
 		})
 	end)
 end

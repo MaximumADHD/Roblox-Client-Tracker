@@ -15,7 +15,7 @@ local RenderOnFailedStyle = require(UIBlox.App.Loading.Enum.RenderOnFailedStyle)
 local RETRY_BUTTON_HEIGHT = 44
 local RETRY_BUTTON_WIDTH = 44
 local RETRY_BACKGROUND_IMAGE = "icons/common/refresh"
-local ICON = 'icons/status/noconnection_large'
+local ICON = "icons/status/noconnection_large"
 
 local FailedStatePage = Roact.PureComponent:extend("FailedStatePage")
 

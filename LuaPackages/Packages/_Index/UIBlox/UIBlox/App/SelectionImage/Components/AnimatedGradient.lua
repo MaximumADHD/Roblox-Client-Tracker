@@ -34,7 +34,7 @@ function AnimatedGradient:render()
 				callback = function()
 					self.updateRotation(self.rotation:getValue() + style.Theme.SelectionCursor.GradientRotationSpeed)
 				end,
-			})
+			}),
 		})
 	end)
 end

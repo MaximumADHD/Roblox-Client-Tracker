@@ -8,7 +8,6 @@ local React = require(Packages.React)
 local VirtualizedList = require(Packages.VirtualizedList).VirtualizedList
 local withStyle = require(Core.Style.withStyle)
 
-
 local DIVIDER_START_OFFSET = 24
 
 type ListTableProps = {
@@ -61,7 +60,7 @@ local function ScrollingListTable(props: ListTableProps)
 				local key = "Cell " .. tostring(index)
 				return data[key]
 			end,
-			keyExtractor = function(_, index: number) : string
+			keyExtractor = function(_, index: number): string
 				return "Cell " .. tostring(index)
 			end,
 			style = {

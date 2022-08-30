@@ -35,7 +35,7 @@ function ButtonStack:init()
 	self.buttonRefs = RoactGamepad.createRefCache()
 
 	self.state = {
-		frameWidth = 0
+		frameWidth = 0,
 	}
 
 	self.updateFrameSize = function(rbx)
@@ -113,7 +113,8 @@ function ButtonStack:render()
 				NextSelectionUp = (isButtonStacked and colIndex > 1) and self.buttonRefs[colIndex - 1] or nil,
 				NextSelectionDown = (isButtonStacked and colIndex < #buttons) and self.buttonRefs[colIndex + 1] or nil,
 				NextSelectionLeft = (not isButtonStacked and colIndex > 1) and self.buttonRefs[colIndex - 1] or nil,
-				NextSelectionRight = (not isButtonStacked and colIndex < #buttons) and self.buttonRefs[colIndex + 1] or nil,
+				NextSelectionRight = (not isButtonStacked and colIndex < #buttons) and self.buttonRefs[colIndex + 1]
+					or nil,
 			}
 			local buttonPropsWithGamepad = Cryo.Dictionary.join(buttonProps, gamepadProps)
 			table.insert(buttonTable, Roact.createElement(buttonComponent, buttonPropsWithGamepad))
@@ -134,15 +135,10 @@ function ButtonStack:render()
 			NextSelectionUp = self.props.NextSelectionUp,
 			NextSelectionDown = self.props.NextSelectionDown,
 			defaultChild = defaultChildIndex and self.buttonRefs[defaultChildIndex] or nil,
-		},
-			buttonTable
-		)
+		}, buttonTable)
 	end)
 end
 
-return Roact.forwardRef(function (props, ref)
-	return Roact.createElement(ButtonStack, Cryo.Dictionary.join(
-		props,
-		{frameRef = ref}
-	))
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(ButtonStack, Cryo.Dictionary.join(props, { frameRef = ref }))
 end)

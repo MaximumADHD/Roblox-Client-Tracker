@@ -86,8 +86,11 @@ function Alert:render()
 	local isMiddleContentFocusable = self.props.isMiddleContentFocusable
 	local isFooterContentFocusable = self.props.isFooterContentFocusable
 
-	local totalWidth = math.clamp(self.props.screenSize.X - self.props.margin.left - self.props.margin.right,
-		self.props.minWidth, self.props.maxWidth)
+	local totalWidth = math.clamp(
+		self.props.screenSize.X - self.props.margin.left - self.props.margin.right,
+		self.props.minWidth,
+		self.props.maxWidth
+	)
 
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
@@ -154,16 +157,17 @@ function Alert:render()
 					title = self.props.title,
 					titleContent = self.props.titleContent,
 				}),
-				MiddleContent = self.props.middleContent and Roact.createElement(RoactGamepad.Focusable[FitFrameOnAxis], {
-					BackgroundTransparency = 1,
-					LayoutOrder = 2,
-					minimumSize = UDim2.new(1, 0, 0, 0),
+				MiddleContent = self.props.middleContent
+					and Roact.createElement(RoactGamepad.Focusable[FitFrameOnAxis], {
+						BackgroundTransparency = 1,
+						LayoutOrder = 2,
+						minimumSize = UDim2.new(1, 0, 0, 0),
 
-					[Roact.Ref] = self.middleContentRef,
-					NextSelectionDown = isMiddleContentFocusable and self.buttonStackRef or nil,
-				}, {
-					Content = self.props.middleContent()
-				}),
+						[Roact.Ref] = self.middleContentRef,
+						NextSelectionDown = isMiddleContentFocusable and self.buttonStackRef or nil,
+					}, {
+						Content = self.props.middleContent(),
+					}),
 				Footer = Roact.createElement(FitFrameOnAxis, {
 					BackgroundTransparency = 1,
 					contentPadding = UDim.new(0, 12),
@@ -171,18 +175,22 @@ function Alert:render()
 					minimumSize = UDim2.new(1, 0, 0, 0),
 				}, {
 					Buttons = buttonStackInfo and Roact.createElement(ButtonStack, buttonStackInfo),
-					FooterContent = self.props.footerContent and Roact.createElement(RoactGamepad.Focusable[FitFrameOnAxis], {
-						BackgroundTransparency = 1,
-						LayoutOrder = 5,
-						minimumSize = UDim2.new(1, 0, 0, 0),
+					FooterContent = self.props.footerContent and Roact.createElement(
+						RoactGamepad.Focusable[FitFrameOnAxis],
+						{
+							BackgroundTransparency = 1,
+							LayoutOrder = 5,
+							minimumSize = UDim2.new(1, 0, 0, 0),
 
-						[Roact.Ref] = self.footerContentRef,
-						NextSelectionUp = isFooterContentFocusable and self.buttonStackRef or nil,
-					}, {
-						Content = self.props.footerContent()
-					}),
+							[Roact.Ref] = self.footerContentRef,
+							NextSelectionUp = isFooterContentFocusable and self.buttonStackRef or nil,
+						},
+						{
+							Content = self.props.footerContent(),
+						}
+					),
 				}),
-			}) or nil
+			}) or nil,
 		})
 	end)
 end

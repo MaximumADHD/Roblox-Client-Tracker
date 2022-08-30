@@ -29,7 +29,7 @@ function SlidingContainerComponent:render()
 		}, {
 			Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
-			})
+			}),
 		}),
 		ControlButton = Roact.createElement("TextButton", {
 			BackgroundColor3 = Color3.fromRGB(2, 183, 87),
@@ -40,11 +40,10 @@ function SlidingContainerComponent:render()
 				self:setState({
 					show = not self.state.show,
 				})
-				self.buttonRef.current.Text = self.state.show
-					and "Page slide up" or "Page slide down"
+				self.buttonRef.current.Text = self.state.show and "Page slide up" or "Page slide down"
 			end,
 			[Roact.Ref] = self.buttonRef,
-		})
+		}),
 	})
 end
 

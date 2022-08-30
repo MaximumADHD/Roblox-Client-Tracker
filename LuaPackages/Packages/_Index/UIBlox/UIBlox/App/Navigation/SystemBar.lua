@@ -81,6 +81,8 @@ SystemBar.validateProps = t.strictInterface({
 		onActivated = t.callback,
 		-- number to display as badge next to the icon
 		badgeValue = t.optional(t.union(t.integer, t.string, BadgeStates.isEnumValue)),
+		-- size of icons being passed to itemlist
+		itemSize = t.optional(t.UDim2),
 	})),
 	-- index of the currently selected item
 	selection = t.optional(t.integer),
@@ -99,6 +101,12 @@ SystemBar.validateProps = t.strictInterface({
 	firstItemPaddingOffset = t.optional(t.UDim),
 	-- children are placed in a Frame occupying the safe area
 	[Roact.Children] = t.optional(t.any),
+	-- rounds the corners of the bar / buttons
+	roundCorners = t.optional(t.boolean),
+	-- adds outline to the buttons
+	buttonStroke = t.optional(t.boolean),
+	-- sets background transparency
+	bgTransparency = t.optional(t.integer),
 })
 
 SystemBar.defaultProps = {
@@ -118,8 +126,10 @@ function SystemBar:isPortrait()
 end
 
 function SystemBar:renderItem(item, state, selected)
-	assert((item.iconOn ~= nil and item.iconOff ~= nil) or item.iconComponent ~= nil,
-		"items must define either iconOn and iconOff or iconComponent")
+	assert(
+		(item.iconOn ~= nil and item.iconOff ~= nil) or item.iconComponent ~= nil,
+		"items must define either iconOn and iconOff or iconComponent"
+	)
 
 	local pressed = state == ControlState.Pressed
 	local hovered = pressed or state == ControlState.Hover
@@ -172,21 +182,27 @@ function SystemBar:renderItem(item, state, selected)
 		return withStyle(function(stylePalette)
 			local theme = stylePalette.Theme
 			return Roact.createElement(ImageSetComponent.Label, {
-				Position = UDim2.fromOffset(
-					math.floor(values.positionX + 0.5),
-					math.floor(values.positionY + 0.5)
-				),
+				Position = UDim2.fromOffset(math.floor(values.positionX + 0.5), math.floor(values.positionY + 0.5)),
 				Size = UDim2.fromOffset(ICON_SIZE_X, ICON_SIZE_Y),
-				BackgroundTransparency = 1,
+				BackgroundTransparency = self.props.buttonStroke and 0.99 or 1,
 				Image = selected and item.iconOn or item.iconOff,
 				ImageColor3 = theme.IconDefault.Color,
 				ImageTransparency = pressed and ICON_TRANSPARENCY_HOVERED or ICON_TRANSPARENCY,
 			}, {
 				Badge = hasBadge and Roact.createElement(Badge, {
-					position = item.badgeValue == BadgeStates.isEmpty
-						and UDim2.fromOffset(EMPTY_BADGE_POSITION_X, EMPTY_BADGE_POSITION_Y)
-						or UDim2.fromOffset(BADGE_POSITION_X, BADGE_POSITION_Y),
+					position = item.badgeValue == BadgeStates.isEmpty and UDim2.fromOffset(
+						EMPTY_BADGE_POSITION_X,
+						EMPTY_BADGE_POSITION_Y
+					) or UDim2.fromOffset(BADGE_POSITION_X, BADGE_POSITION_Y),
 					value = item.badgeValue,
+				}) or nil,
+				UICorner = self.props.roundCorners and Roact.createElement("UICorner", {
+					CornerRadius = UDim.new(0.15, 0),
+				}) or nil,
+				UIStroke = self.props.buttonStroke and Roact.createElement("UIStroke", {
+					Color = Color3.new(0.4, 0.4, 0.4),
+					Transparency = 0,
+					Thickness = 1,
 				}) or nil,
 			})
 		end)
@@ -195,52 +211,64 @@ end
 
 function SystemBar:renderPortrait(frameProps, contents)
 	return withAnimation({
-		offset = self.props.hidden and 0 or -TAB_SIZE_PORTRAIT_Y
+		offset = self.props.hidden and 0 or -TAB_SIZE_PORTRAIT_Y,
 	}, function(values)
-		return Roact.createElement("Frame", Cryo.Dictionary.join(frameProps, {
-			Position = UDim2.new(0, 0, 1, math.floor(values.offset + 0.5)),
-			Size = UDim2.new(1, 0, 0, TAB_SIZE_PORTRAIT_Y),
-			ZIndex = 99,
-		}), {
-			Layout = Roact.createElement("UIListLayout", {
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+		return Roact.createElement(
+			"Frame",
+			Cryo.Dictionary.join(frameProps, {
+				Position = UDim2.new(0, 0, 1, math.floor(values.offset + 0.5)),
+				Size = UDim2.new(1, 0, 0, TAB_SIZE_PORTRAIT_Y),
+				ZIndex = 99,
 			}),
-			InnerFrame = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 1, 0),
-				BackgroundTransparency = 1,
-			}, Cryo.Dictionary.join({
-				Constraint = Roact.createElement("UISizeConstraint", {
-					MaxSize = Vector2.new(MAX_SIZE_PORTRAIT_X, TAB_SIZE_PORTRAIT_Y),
-				}),
+			{
 				Layout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-					Padding = self.props.layoutPaddingOffset + UDim.new(1 / #self.props.itemList, -ITEM_SIZE_X),
-				}, {})
-			}, contents))
-		})
+				}),
+				InnerFrame = Roact.createElement(
+					"Frame",
+					{
+						Size = UDim2.new(1, 0, 1, 0),
+						BackgroundTransparency = 1,
+					},
+					Cryo.Dictionary.join({
+						Constraint = Roact.createElement("UISizeConstraint", {
+							MaxSize = Vector2.new(MAX_SIZE_PORTRAIT_X, TAB_SIZE_PORTRAIT_Y),
+						}),
+						Layout = Roact.createElement("UIListLayout", {
+							FillDirection = Enum.FillDirection.Horizontal,
+							HorizontalAlignment = Enum.HorizontalAlignment.Center,
+							VerticalAlignment = Enum.VerticalAlignment.Center,
+							Padding = self.props.layoutPaddingOffset + UDim.new(1 / #self.props.itemList, -ITEM_SIZE_X),
+						}, {}),
+					}, contents)
+				),
+			}
+		)
 	end, SPRING_OPTIONS)
 end
 
 function SystemBar:renderLandscape(frameProps, contents)
 	return withAnimation({
-		offset = self.props.hidden and -TAB_SIZE_LANDSCAPE_X or 0
+		offset = self.props.hidden and -TAB_SIZE_LANDSCAPE_X or 0,
 	}, function(values)
-		return Roact.createElement("Frame", Cryo.Dictionary.join(frameProps, {
-			Position = UDim2.new(0, math.floor(values.offset + 0.5), 0, 0),
-			Size = UDim2.new(0, TAB_SIZE_LANDSCAPE_X, 1, 0),
-			ZIndex = 99,
-		}), Cryo.Dictionary.join({
-			Padding = Roact.createElement("UIPadding", {
-				PaddingTop = self.props.firstItemPaddingOffset + UDim.new(0, FIRST_ITEM_PADDING_LANDSCAPE_Y),
+		return Roact.createElement(
+			"Frame",
+			Cryo.Dictionary.join(frameProps, {
+				Position = UDim2.new(0, math.floor(values.offset + 0.5), 0, 0),
+				Size = UDim2.new(0, TAB_SIZE_LANDSCAPE_X, 1, 0),
+				ZIndex = 99,
 			}),
-			Layout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				Padding = self.props.layoutPaddingOffset + UDim.new(0, ITEM_PADDING_LANDSCAPE_Y),
-			}),
-		}, contents))
+			Cryo.Dictionary.join({
+				Padding = Roact.createElement("UIPadding", {
+					PaddingTop = self.props.firstItemPaddingOffset + UDim.new(0, FIRST_ITEM_PADDING_LANDSCAPE_Y),
+				}),
+				Layout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					Padding = self.props.layoutPaddingOffset + UDim.new(0, ITEM_PADDING_LANDSCAPE_Y),
+				}),
+			}, contents)
+		)
 	end, SPRING_OPTIONS)
 end
 
@@ -282,9 +310,10 @@ function SystemBar:renderList(items, renderItem)
 		return Roact.createElement("Frame", {
 			Position = self.props.position or UDim2.new(0, 0, 0, 0),
 			Size = self.props.size or UDim2.new(1, 0, 1, 0),
+			BackgroundColor3 = Color3.new(0, 0, 0),
 			ClipsDescendants = true,
 			LayoutOrder = self.props.layoutOrder,
-			BackgroundTransparency = 1,
+			BackgroundTransparency = self.props.bgTransparency or 1,
 			[Roact.Change.AbsoluteSize] = function(rbx)
 				if self.state.portrait and rbx.AbsoluteSize.X > rbx.AbsoluteSize.Y then
 					self:setState({
@@ -295,14 +324,18 @@ function SystemBar:renderList(items, renderItem)
 						portrait = true,
 					})
 				end
-			end
+			end,
 		}, {
 			NavBar = self:renderBackground({
 				BackgroundColor3 = theme.NavigationBar.Color,
-				BackgroundTransparency = theme.NavigationBar.Transparency,
+				BackgroundTransparency = self.props.roundCorners and 1 or theme.NavigationBar.Transparency,
 				BorderSizePixel = 0,
 			}, renderedItems),
 			SafeArea = self:renderSafeArea(),
+		}, {
+			UICorner = self.props.roundCorners and Roact.createElement("UICorner", {
+				CornerRadius = UDim.new(0.15, 0) or nil,
+			}) or nil,
 		})
 	end)
 end
@@ -335,7 +368,7 @@ function SystemBar:render()
 		if itemList[selection] == nil then
 			selection = nil
 		else
-			selection = {selection}
+			selection = { selection }
 		end
 	end
 	return Roact.createElement(InteractableList, {

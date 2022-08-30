@@ -40,7 +40,7 @@ end
 
 return function(target)
 	local story = Roact.createElement(StoryView, {}, {
-		Roact.createElement(InformativeToastContainer)
+		Roact.createElement(InformativeToastContainer),
 	})
 	local handle = Roact.mount(story, target, "InformativeToast")
 	return function()

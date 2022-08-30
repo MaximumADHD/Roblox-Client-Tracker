@@ -47,7 +47,9 @@ function RadioButtonList:init()
 	self.state.disabledIndices = disabledIndices
 
 	self.doLogic = function(key)
-		if self.state.disabledIndices[key] then return end
+		if self.state.disabledIndices[key] then
+			return
+		end
 		self:setState({
 			currentValue = key,
 		})
@@ -65,12 +67,11 @@ function RadioButtonList:renderWithProviders(getSelectionCursor)
 	local radioButtons = {}
 	radioButtons.layout = Roact.createElement("UIListLayout", {
 		SortOrder = Enum.SortOrder.LayoutOrder,
-		Padding = self.props.padding
+		Padding = self.props.padding,
 	})
 
 	for i, value in ipairs(self.props.radioButtons) do
-		radioButtons["RadioButton"..i] =
-			Roact.createElement(RoactGamepad.Focusable[RadioButton], {
+		radioButtons["RadioButton" .. i] = Roact.createElement(RoactGamepad.Focusable[RadioButton], {
 			text = type(value) == "table" and value.label or value,
 			isSelected = i == self.state.currentValue,
 			isDisabled = self.state.disabledIndices[i],
@@ -83,7 +84,9 @@ function RadioButtonList:renderWithProviders(getSelectionCursor)
 			NextSelectionDown = i < #self.props.radioButtons and self.gamepadRefs[i + 1] or nil,
 			SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
 			inputBindings = {
-				OnActivatedButton = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, function() self.doLogic(i) end)
+				OnActivatedButton = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, function()
+					self.doLogic(i)
+				end),
 			},
 		})
 	end
@@ -111,11 +114,11 @@ function RadioButtonList:render()
 
 	local radioButtons = {}
 	radioButtons.layout = Roact.createElement("UIListLayout", {
-		SortOrder = Enum.SortOrder.LayoutOrder
+		SortOrder = Enum.SortOrder.LayoutOrder,
 	})
 
 	for i, value in ipairs(self.props.radioButtons) do
-		radioButtons["RadioButton"..i] = Roact.createElement(RadioButton, {
+		radioButtons["RadioButton" .. i] = Roact.createElement(RadioButton, {
 			text = type(value) == "table" and value.label or value,
 			isSelected = i == self.state.currentValue,
 			isDisabled = self.state.disabledIndices[i],
@@ -123,8 +126,7 @@ function RadioButtonList:render()
 			size = self.props.elementSize,
 			layoutOrder = i,
 			id = i,
-			}
-		)
+		})
 	end
 
 	return Roact.createElement("Frame", {
@@ -135,7 +137,10 @@ function RadioButtonList:render()
 end
 
 return Roact.forwardRef(function(props, ref)
-	return Roact.createElement(RadioButtonList, Cryo.Dictionary.join(props, {
-		forwardRef = ref,
-	}))
+	return Roact.createElement(
+		RadioButtonList,
+		Cryo.Dictionary.join(props, {
+			forwardRef = ref,
+		})
+	)
 end)
