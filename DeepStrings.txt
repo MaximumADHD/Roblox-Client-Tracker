@@ -55,7 +55,6 @@ A_NW4UserInputType
 AA61B3A2068118C14FDE5E01E7934
 AAAAAAAAAAAAAAAAAAAAAAAA
 AAACertificateServices.crl0
-AAACertificateServices.crl04
 AAACertificateServices.crl06
 AAAEB11E38B9D871882A8E559
 AAAEC11E38B9D871882A8E559
@@ -140,6 +139,7 @@ AbsoluteSizeWrite
 AbsoluteURL
 AbsoluteWindowSize
 AbstractGraph
+ABTNxvAgDQC6MLGZP6epuVzTJbALMW9HzZ
 AbuseReport
 AbuseReporter
 AbuseReportMaxChatMessages
@@ -1395,7 +1395,6 @@ Array.length
 Array[threadIdx]
 Array[threadIdx].length
 ArrayIndex
-ARRMvlDsCAwEAAQ
 ArrowCursor
 ArrowCursor.png
 ArrowCursorDecalDrag
@@ -1409,6 +1408,7 @@ ArtificialLatencyIxpBackendMs
 ArtificialLatencyIxpCacheMs
 ArtificiallyDelayed
 ArtistIntent
+ArXRMFg8nm
 Ascii_helper
 AShotOfEsspressoForEveryone
 ASIdentifierChoice
@@ -2193,7 +2193,6 @@ AUTHORITY_INFO_ACCESS
 AUTHORITY_KEYID
 Authority0
 Authority0v0
-Authority1
 AuthorityId
 AuthorityText
 AuthorityUrl
@@ -7123,7 +7122,6 @@ BgUpdateRedirectsRejectInfluxHundredthsPercentage
 BHBpBJXcdFg
 BHHHHHHHHHHHHHHHHHHHHHHHHHH
 BhHlLjJTiIfdnczsxX
-BHW1MIb2V4zZh4KzZeysyKWITC
 Bibliotheksausweises
 Bidirectional
 BIIIIIIIIIIIIIIIIIIIIIIIIII
@@ -10264,8 +10262,8 @@ Corporation
 Corporation.
 Corporation\Roblox
 Corporation\Roblox\FilteredExceptionCrash
-CORPORATION0
-CORPORATION1
+Corporation0
+Corporation1
 Corporation1402
 CorrectCreationOfConnections
 Correction
@@ -11383,7 +11381,6 @@ DE8FD5272E11E489A6CDE46C99CA59
 DE8FD6272E11E489A6CDE46C99CA59
 DE8FD7272E11E489A6CDE46C99CA59
 DE8FD8272E11E489A6CDE46C99CA59
-DE9VnuC8Sps1gsOcUYsalCJyFK79
 Deactivate
 Deactivated
 Deactivation
@@ -12533,7 +12530,6 @@ DFbxAMatrix
 DFbxMatrix
 DFIntGameNetLocalSpaceMaxSendIndex
 DfNfXfbftf
-DfqoHVHF2cvMpAJ0gLgKA2eUCOGyTMZIVDhL0Vqkz5gS7okdWirCFRmJP58TeSf5
 DGHASH_ASM
 DgNg`ghgpgxg
 DgNgXgbglgvg
@@ -12628,6 +12624,15 @@ DiffuseFilePath
 DigestAlgorithm_find_ctx
 DigestAlgorithm_init_bio
 DigestedData_do_final
+DigiCertAssuredIDRootCA.crl0
+DigiCertAssuredIDRootCA.crt0E
+DigiCertEVCodeSigningCA
+DigiCertHighAssuranceEVRootCA.crl0
+DigiCertHighAssuranceEVRootCA.crt0
+DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crl0
+DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crt0
+DigiCertTrustedRootG4.crl0
+DigiCertTrustedRootG4.crt0C
 DigitalSignature
 DilateTemporalFS
 DilleniaUPC
@@ -12838,7 +12843,6 @@ DistributionPoints
 DistributorType
 DistToShowBufferCountSqr
 DJOTX\_cfiloruwz
-Dk8i3F1N8hdE24NBvVCnnIUc5QI3nGNK6NVA1KFwtijYAPSXaavL2AF9Mqd
 DKECCAK1600_ASM
 DkrigidSubset
 DlcVersion
@@ -13190,6 +13194,7 @@ DXSetResourceShareHandleNV
 DXUnlockObjectsNV
 DXUnregisterObjectNV
 DXVideoMemory
+DXVUYlmUqQ
 DynamicallyMoveSoundStorageLocationOnMemoryNotification
 DynamicFastVariableReloaderPreserveStaticFilters
 DynamicFastVariableReloaderTest1
@@ -14141,6 +14146,7 @@ EvAudioVideoInput
 EvAV2CFaceIsOccluded
 EvAV2CFaceNotFound
 EvAV2CHasTrackingError
+EVCodeSigningSHA2
 Event.button
 Event.clientX
 Event.clientY
@@ -14471,7 +14477,6 @@ EyesLookDown
 EyesLookLeft
 EyesLookRight
 EyesLookUp
-EyRYUX2vsNuL56l81cF4KhS77JQab3vfPnmll0idnpTZ8RlYcd8p1lRAUXcSb9zh
 F_ObjectHasComponents
 F`F`F`F`F`F`F`F
 F`F`F`F`F`F`F`F`F
@@ -15058,7 +15063,6 @@ FinishedReplicating
 FinishFetchingAssetsCorrectly
 FinishSpan
 FinishTask
-FIPFMTjBVhOHFw
 FIPS_mode_set
 FireAction
 FireActionButtonFoundSignal
@@ -16870,6 +16874,7 @@ GGGGGGGGGGGGGGGGGGGGGGGGGGGGG
 GGGJJJJJJJJJJJJJJJJ
 Giallarancione
 Gialloverde
+GICmx0yXvozYl
 GIM_ShapeRetriever
 GImageTGARemoveTagCheck
 GImpactCollisionAlgorithm
@@ -16974,6 +16979,7 @@ GoToSourceCodeTB
 GotoTargetsRequest
 GoToVersionFailed
 GpuVariance
+GQywbO6izzxrqWyGz9Wgldxh78TXTi2
 GrabCursor.png
 GrabRotateCursor
 GrabRotateCursor.png
@@ -17432,6 +17438,7 @@ Herramientas
 Herunterfahren
 HeuristicMask
 Hexadecimal
+HfEnji0XRyOYX
 HHAEBVQModelIndex
 HHHHHAEBVQString
 HHHHHHHHHHHHHHHHHHHHHHHHHHHHH
@@ -17604,6 +17611,7 @@ HPEAVVideoStream
 HPEAXHPEANNH
 HPEBVQMimeData
 HQEAPEAVQGraphicsItem
+HqFo5CHyaLLuA5zcZayDx8K2DG
 HSRAssetId
 HSRClusterImprovement
 HSRClusterSymmetryDistancePercent
@@ -19264,13 +19272,13 @@ Jdiv2RecvDuringJoin
 JDJNJXJbJlJvJ
 JHJRJ\JfJpJxJ
 JHW4MembershipType
-Ji2WFOEwxXLezNoL
 JIIIIIIIKI
 JitterBufferDelayInterface
 JitterBufferDelayProxyWithInternal
 JJJBBB\\\xx
 JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ
 JKLMNOPQRSTU
+JnYO7eb5o37LclGzWs
 JobTimerDuringInitialExperience
 Jogabilidade
 JoinAttemptId
@@ -19393,6 +19401,7 @@ Kalam.json
 Kameraempfindlichkeit
 Kamerageschwindigkeit
 Kamerazoom
+KBVmnriFrEjSAEo92PKaiP
 KBytesPerSec
 KeepAliveTimeout
 KeepAutoSkinMeshesShared
@@ -19742,6 +19751,7 @@ LevelOfDetail
 LevelOfDetailSetting
 LevelQuality
 LfA9r0uEfA9r
+LFeuMoplp3laS3EUTx8E83nL4MhLTo0ukCv0VNLB2Xlhqcn8EzFSJ7vUHwbpQbUj
 LhF`F`F`F`F`
 Liberation
 LibjingleSession
@@ -20309,7 +20319,6 @@ LowQMaterialDetiledNewFS_
 LowQMaterialFS_
 LowQMaterialWangFallbackFS
 LowQMaterialWangFS
-LoYrP3HTfZifRJj6dxwXVuyy1Hqm
 LRakRecvToAppPop
 LSCReplacer
 LSCReplacerLog
@@ -20324,6 +20333,7 @@ LSPServiceAPI
 LSPWarning
 LSRegExErrorHundredthsPercentage
 LTAnalyticsDontMoveName
+LtuZSCIWXJX95sgdLMqKZzG8lSItNO7hd8hT6FRMc9a8yydxRByYKydAbSL8y3LY
 LUA_ERRRUN
 LUA_ERRSYNTAX
 LUA_UNAUTHORIZED_LOG_OUT
@@ -21445,7 +21455,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAq
+MIICCgKCAgEA7YD
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -22349,7 +22359,6 @@ NHVVariant
 NinjaMask.mesh
 NLSF_mu_Q20
 NLSFInterpCoef_Q2
-NMhLE5Jv9P6QwJWxNY76Dgb
 NMMMMW4Priority
 NNNNNNNNNNNNNNNNNNNNNN
 NNNNNNNSSSSSSSSSSSSSSSSSSSSSS
@@ -23083,6 +23092,7 @@ OrFetchPlugin
 OrFirstTier
 Organizaci
 Organization
+Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -23697,8 +23707,6 @@ PaysageCapteur
 PaysageDroite
 PaysageGauche
 Pb4bTfXz4r^
-PbDNhbJ8FwW2LCZNvaLbsDYLNtxkmOKWyMYfMi
-PbI3alsk6kFGlvjnl9tDxfyS4hMsn992GGYVzu
 PBKDF2PARAM
 PCDeviceWithResolution
 PCertReqData
@@ -25866,7 +25874,6 @@ PSPECIFIED
 Psychadelic
 Psychedelic
 PtdL9w`t^L9whtXH
-PtoMgXbR5NhaGeFeroScCC
 PTransportChannel
 Pu7fA9r`u0fA9rpu
 Pubblicato
@@ -26456,7 +26463,6 @@ QJsonDocument
 QJsonObject
 QJsonValue
 QJsonValueRef
-QkeQPjqO8oqP6QfupT4VhMRXhGOW2EK5GPgnit2x16e
 QKeySequence
 QLabel[iconLabel
 QLabel[iconLabelText
@@ -26927,7 +26933,6 @@ RateLimited
 RateLimiterGlobalDefaultAmount
 RateLimiterGlobalDefaultRetryTime
 RateLimiterGlobalDefaultSeconds
-RateLimitMax
 RateLimitUpload
 RatePermyriad
 RAW_ASCENT
@@ -27893,7 +27898,6 @@ ReplicatorEventMetaDataPreSerialize
 ReplicatorEventReportEventMetaDataMyriad
 ReplicatorGameLoadPercentCycleWhenJoinDataCompleteTransfer
 ReplicatorGameLoadPercentTimeWhenJoinDataCompleteTransfer
-ReplicatorJ
 ReplicatorJdiReportThrottlePercent
 ReplicatorJdiReportThrottlePercentStreamingEnabled
 ReplicatorJDIv2NoOrderInfoCloudEdit
@@ -28405,7 +28409,6 @@ RFormatTrace]
 RGBA_Buffers
 RGBOL565RGBP5551RGBO
 RhodiumHelpers
-RhSeIA1GSKIQd6RJqgjkm9gjUxnHunr9Q1
 RibbonBarGallery
 RibbonBarGalleryBetaFeature
 RibbonBarGalleryBetaFeatureRoleSet
@@ -28811,7 +28814,6 @@ RSA_verify_ASN1_OCTET_STRING
 RSA_verify_PKCS1_PSS_mgf1
 RSAPrivateKey
 RSAPublicKey
-RsPTkX36IQjc0uoGxL1mgmiYKaBvFKLADolMYM6YPJRlFn9AznNbcswtiDn85Nr
 RTCCertificate_
 RTCCertificateGenerationTask
 RTCCertificateGenerator
@@ -29105,6 +29107,7 @@ SAXPEAVQStyle
 SAXPEAVQWidget
 SAXPEBDP6AXAEAVQDataStream
 SAXW4ApplicationAttribute
+SBWt4p08yk8FUO8KaXWQwJxuv2IrWHAVOd7q51VV1xgz75DGe
 Scale_Green.png
 ScaleButton.png
 ScaleButton_dn.png
@@ -29191,6 +29194,7 @@ ScriptBuiltInFunction
 ScriptChanged
 ScriptChangedServiceLog
 ScriptChangedServiceLog]
+ScriptChanges]
 ScriptChangeService
 ScriptChangesSubmitted
 ScriptCheckBox
@@ -29640,10 +29644,6 @@ SecondaryFilterValue
 SecondaryTangentAxis
 SecondsBetweenDynamicVariableReloading
 SecondsPerBatchAwardPointsCall
-SectigoPublicCodeSigningCAR36.crl0y
-SectigoPublicCodeSigningCAR36.crt0
-SectigoPublicCodeSigningRootR46.crl0
-SectigoPublicCodeSigningRootR46.p7c0
 SectionClicked
 SectionResizeMode
 SectionsClickable
@@ -31247,6 +31247,7 @@ SSAOCompositVS
 SSAODepthDownFS
 SSAOMipLevels
 SSDeserialized
+SsgpzDD3cNZdT4DTqZrce
 SSL_add_dir_cert_subjects_to_stack
 SSL_add_file_cert_subjects_to_stack
 SSL_bytes_to_cipher_list
@@ -32980,7 +32981,6 @@ Studio.App.LoginRequest.TwoStepVerificationFloodedError
 Studio.App.LoginRequest.UnknownError
 Studio.App.LoginRequest.UserIdError
 Studio.App.LoginRequest.UsernameError
-Studio.App.MainWindow.32BitPare
 Studio.App.MainWindow.32BitParens
 Studio.App.MainWindow.64BitParens
 Studio.App.MainWindow.AboutRobloxStudio
@@ -37535,6 +37535,7 @@ TimeSpentRemoving
 TimesReplicatedNeverReplicate
 TimesReplicatedNeverReplicatedPerInterval
 Timestamping
+TimeStamping
 TimestampStart
 TimestepArbiterAccelerationModelFactorThou
 TimestepArbiterAngAccelerationThresholdThou
@@ -38278,6 +38279,7 @@ TS_TST_INFO_set_time
 TS_TST_INFO_set_tsa
 TS_VERIFY_CTX_new
 TShirtAccessory
+TTEKw92D6PX6MKKXCH7zszchS
 TTTTTTTTTT
 TTTTTTTTTTTTTTTTTTT
 TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
@@ -38356,6 +38358,7 @@ U_Mbstatet
 U_TaskProcHandle
 U_TypeSelectorNoAsync
 U_Unforced
+UA7MLTEDR1sS6v
 UAC_enabled
 UACEnabled
 UActionsQuickOpenProviderSharedState
@@ -39194,6 +39197,7 @@ UProbeState
 UProjection
 UPromiseResult
 UPropertyPair
+UPs1fGIjabaOMGH6v6VTVfDnk
 UpSampleTentFS
 UPublishDiagnosticsNotification
 UQLatin1Char
@@ -40397,6 +40401,7 @@ VFloatParser
 VFloorWire
 VFlushBatch
 VFlyweightService
+VfM2sGJilFTRmyX9BNaUOPqg4QGy6X1BWDVCb3v68
 VFmodAudioDevice
 VFmodAudioSinkOutput
 VFmodOutputCapture
@@ -42234,7 +42239,7 @@ Wiederholen
 Wiederholungslimit
 Wiederverbindung
 WilError_03
-Win64.542.46472
+Win64.542.46557
 WinchEnabled
 WinchForce
 WinchResponsiveness
@@ -42334,6 +42339,7 @@ WithSHA384
 WithSHA512
 WithUserCredentials
 WithUserCredentialsSecurityQuestionsRedemption
+Wj3L9FZAouPy7BBDK
 WMCreateProfileManager
 WMCreateSyncReader
 WmfAudioDecoder
@@ -42782,6 +42788,7 @@ ZAEBQEAV34
 Zahlenfarbe
 Zb\b^Lbbp6tPxb
 Zcaronsmall
+ZCd47AELqdEOhZ7JfWvKt5OfHBP3KG2SlInqGOoi0llLbKECAwEAAQ
 Zdotaccent
 Zeichenfolgefarbe
 Zeilennummer
@@ -42813,6 +42820,7 @@ ZXPEAURVIOContext
 Zylinderteil
 Zylindrisch
 Zylindrische
+ZZq8kKtJA9I
 ZZZZZZZZYYYYYYYYYYYYYYYYYYY
 ZZZZZZZZZZZZZZZ
 ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
