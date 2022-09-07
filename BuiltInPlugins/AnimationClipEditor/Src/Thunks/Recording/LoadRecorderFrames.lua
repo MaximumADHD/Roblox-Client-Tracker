@@ -1,6 +1,8 @@
 -- LoadRecorderFrames
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local GetFFlagACEFaceRecorderRemoveBrokenFrameReduction = require(Plugin.LuaFlags.GetFFlagACEFaceRecorderRemoveBrokenFrameReduction)
+
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local Constants = require(Plugin.Src.Util.Constants)
@@ -11,10 +13,11 @@ local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
 local SetHaveToSetBackToNotLooping = require(Plugin.Src.Actions.SetHaveToSetBackToNotLooping)
 
 local deepCopy = require(Plugin.Src.Util.deepCopy)
+local FFlagFixFaceRecorderKeyframeInterpolation = game:DefineFastFlag("ACEFixFaceRecorderKeyframeInterpolation", false)
 
 function clearFacsTracksAndHeadTrack(animationData)
 	for instanceName, instance in pairs(animationData.Instances) do
-		for i, facsName in pairs(Constants.FacsNames) do		
+		for i, facsName in pairs(Constants.FacsNames) do
 			local trackName = facsName
 			for track, _ in pairs(instance.Tracks) do
 				if track == trackName then
@@ -22,7 +25,7 @@ function clearFacsTracksAndHeadTrack(animationData)
 				end
 			end
 		end
-		animationData.Instances["Root"].Tracks["Head"] = nil	
+		animationData.Instances["Root"].Tracks["Head"] = nil
 	end
 end
 
@@ -31,7 +34,7 @@ return function(props, recordedFrames, analytics)
 		--[[
 			prepping recorded frames for loading in as new animation:
 			we have to cover a few cases:
-			-there is no previous existing (body) animation: in that case we just use the recording as new animation 
+			-there is no previous existing (body) animation: in that case we just use the recording as new animation
 			-there is a previous existing (body) animation and it was not a channel animation:
 				-in that case we add the face animation to a copy of that and use that then
 			-there is a previous existing (body) animation and it is a channel animation:
@@ -44,7 +47,7 @@ return function(props, recordedFrames, analytics)
 		local newAnimationData = AnimationData.newRigAnimation(defaultFaceRecordingName)
 
 		local isChannelAnimation = false
-		
+
 		if previousAnimationData ~= nil then
 			--clearing these so no glitchy output where old facs tracks and head rotation track are combined with new values
 			clearFacsTracksAndHeadTrack(previousAnimationData)
@@ -52,10 +55,10 @@ return function(props, recordedFrames, analytics)
 
 		if previousAnimationData ~= nil and not previousAnimationData.Metadata.IsChannelAnimation then
 			newAnimationData = previousAnimationData
-		end		
+		end
 
 		if previousAnimationData ~= nil and previousAnimationData.Metadata.IsChannelAnimation then
-			isChannelAnimation = true						
+			isChannelAnimation = true
 		end
 		for _, instance in pairs(newAnimationData.Instances) do
 			local tracks = instance.Tracks
@@ -71,56 +74,67 @@ return function(props, recordedFrames, analytics)
 								false, Constants.TRACK_TYPES.Quaternion)
 						end
 					end
-					AnimationData.addKeyframe(track, tck, {
-						Value = value,
-						EasingStyle = Enum.PoseEasingStyle.Linear,
-						EasingDirection = Enum.PoseEasingDirection.In,
-					})
+					if FFlagFixFaceRecorderKeyframeInterpolation and isChannelAnimation then
+						AnimationData.addKeyframe(track, tck, {
+							Value = value,
+							InterpolationMode = Enum.KeyInterpolationMode.Linear,
+						})
+					else
+						AnimationData.addKeyframe(track, tck, {
+							Value = value,
+							EasingStyle = Enum.PoseEasingStyle.Linear,
+							EasingDirection = Enum.PoseEasingDirection.In,
+						})
+					end
 				end
 			end
 
-			-- Remove identical values
-			for _, track in pairs(tracks) do
-				--only do it for the facs tracks, don't do it for body tracks coming from existing anim
-				if track.Type == Constants.TRACK_TYPES.Facs then				
-					local value_2, value_1, value
-					local lastIndex, lastTick
+			--we don't use this keyframe reduction anymore (until revising it) because Hubert noticed it can mess up the anim data
+			--and also there is a more general purpose keyframe reduction in the works
+			if not GetFFlagACEFaceRecorderRemoveBrokenFrameReduction() then
+				-- Remove identical values
+				for _, track in pairs(tracks) do
+					--only do it for the facs tracks, don't do it for body tracks coming from existing anim
+					if track.Type == Constants.TRACK_TYPES.Facs then
+						local value_2, value_1, value
+						local lastIndex, lastTick
 
-					local keyframes = track.Keyframes
-					local data = track.Data
+						local keyframes = track.Keyframes
+						local data = track.Data
 
-					local newKeyframes = {}
-					for index, tck in ipairs(keyframes) do
-						value_2, value_1, value = value_1, value, data[tck].Value
-						if value_2 == value_1 and value_1 == value then
-							keyframes[lastIndex] = nil
-							data[lastTick] = nil
-						else
-							table.insert(newKeyframes, keyframes[lastIndex])
+						local newKeyframes = {}
+						for index, tck in ipairs(keyframes) do
+							value_2, value_1, value = value_1, value, data[tck].Value
+							if value_2 == value_1 and value_1 == value then
+								keyframes[lastIndex] = nil
+								data[lastTick] = nil
+							else
+								table.insert(newKeyframes, keyframes[lastIndex])
+							end
+							lastTick = tck
+							lastIndex = index
 						end
-						lastTick = tck
-						lastIndex = index
-					end
 
-					track.Keyframes = newKeyframes
+						track.Keyframes = newKeyframes
+					end
 				end
-			end	
+			end
 		end
 		-- Preserve the changes history past as LoadAnimationData clears it
 		store:dispatch(AddWaypoint())
 		local state = store:getState()
 		local history = state.History
-		local past = history.Past		
-		
+		local past = history.Past
+
 		-- handling the case where there was a previous (body) animation and it is a channel animation,
-			--in that case we convert the new recorded face animation to a channel animation, too 
+			--in that case we convert the new recorded face animation to a channel animation, too
 			--and then add it to a copy of the previous animation
 		if previousAnimationData and isChannelAnimation then
 			--convert face capture to channelanimation
 			local status = props.Status
 			local rotationType = status.DefaultRotationType
 			local eulerAnglesOrder = status.DefaultEulerAnglesOrder
-			local numTracks, numKeyframes = AnimationData.promoteToChannels(newAnimationData, rotationType, eulerAnglesOrder)	
+			local numTracks, numKeyframes = AnimationData.promoteToChannels(newAnimationData, rotationType, eulerAnglesOrder)
 
 			local instance = previousAnimationData.Instances["Root"]
 			local previousAnimationsTracks = instance.Tracks
@@ -136,15 +150,15 @@ return function(props, recordedFrames, analytics)
 			end
 			store:dispatch(LoadAnimationData(previousAnimationData, analytics))
 			newAnimationData = previousAnimationData
-		else	
+		else
 			store:dispatch(LoadAnimationData(newAnimationData, analytics))
-		end		
-		
-		store:dispatch(SetPast(past))	
-		
+		end
+
+		store:dispatch(SetPast(past))
+
 		store:dispatch(SetInReviewState(true))
-		
-		
+
+
 		--set looping on to play animation looped while in recording state.
 		--also noting haveToSetBackToNotLooping to set it back on exit review state
 		local animationData = newAnimationData
@@ -153,6 +167,6 @@ return function(props, recordedFrames, analytics)
 			AnimationData.setLooping(newAnimationData, true)
 			store:dispatch(SetAnimationData(newAnimationData))
 			store:dispatch(SetHaveToSetBackToNotLooping(true))
-		end		
+		end
 	end
 end

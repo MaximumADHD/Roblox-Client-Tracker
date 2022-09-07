@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: ChatChannel.lua
 --	// Written by: Xsitsu
 --	// Description: A representation of one channel that speakers can chat in.

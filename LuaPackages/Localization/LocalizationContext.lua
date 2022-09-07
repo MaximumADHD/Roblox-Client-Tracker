@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Contains all of the loaded translations and provides methods to translate
 	keys and parameters to strings.

@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName: TouchJump
 	// Version 1.0

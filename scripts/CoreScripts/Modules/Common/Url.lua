@@ -1,3 +1,4 @@
+--!nonstrict
 -- Domain list
 local Urls = {}
 

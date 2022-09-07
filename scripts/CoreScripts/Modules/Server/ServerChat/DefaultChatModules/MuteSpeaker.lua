@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: MuteSpeaker.lua
 --	// Written by: TheGamer101
 --	// Description: Module that handles all the mute and unmute commands.

@@ -5,6 +5,9 @@ local Players = game:GetService("Players")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
+if game:GetEngineFeature("FacialAnimationStreaming") and game:GetFastFlag("SelfieViewFeature") then
+	FaceAnimatorService.VideoAnimationEnabled = true
+end
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingService")
 
 if not FaceAnimatorService or not FacialAnimationStreamingService then

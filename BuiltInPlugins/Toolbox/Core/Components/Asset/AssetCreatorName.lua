@@ -9,11 +9,16 @@
 		callback onMouseEnter()
 		callback onMouseLeave()
 ]]
+local FFlagToolboxAddUnverifiedIcon = game:GetFastFlag("ToolboxAddUnverifiedIcon")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
+
+local Framework = require(Packages.Framework)
+local Pane = Framework.UI.Pane
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
@@ -23,10 +28,8 @@ local ToolboxUtilities = require(Util.ToolboxUtilities)
 
 local getNetwork = ContextGetter.getNetwork
 local getModal = ContextGetter.getModal
-local getSettings = ContextGetter.getSettings
 local withModal = ContextHelper.withModal
-local withTheme = ContextHelper.withTheme
-local withLocalization = ContextHelper.withLocalization
+local withLocalization = if FFlagToolboxAddUnverifiedIcon then nil else ContextHelper.withLocalization
 
 local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
@@ -86,22 +89,36 @@ end
 
 function AssetCreatorName:render()
 	return withModal(function(modalTarget, modalStatus)
-		return withLocalization(function(localization, localizedContent)
-			return self:renderContent(nil, localization, localizedContent, modalTarget, modalStatus)
-		end)
+		if FFlagToolboxAddUnverifiedIcon then
+			return self:renderContent(nil, nil, modalTarget, modalStatus)
+		else
+			return withLocalization(function(localization, localizedContent)
+				return self:renderContent(localization, localizedContent, modalTarget, modalStatus)
+			end)
+		end
 	end)
 end
 
-function AssetCreatorName:renderContent(theme, localization, localizedContent, modalTarget, modalStatus)
+-- TODO: Remove localization and localizedContent with FFlagToolboxAddUnverifiedIcon
+function AssetCreatorName:renderContent(localization, localizedContent, modalTarget, modalStatus)
 	local props = self.props
-	local showVerifiedCreatorBadge = props.isVerifiedCreator
-		and not ToolboxUtilities.getShouldHideVerifiedCreatorBadges()
-	theme = props.Stylizer
+
+	local showCreatorBadge -- TODO: remove with FFlagToolboxAddUnverifiedIcon
+	local showWarningIcon
+	if FFlagToolboxAddUnverifiedIcon then
+		showWarningIcon = not props.isVerifiedCreator
+			and not ToolboxUtilities.getShouldHideVerifiedCreatorBadges()
+	else
+		showCreatorBadge = props.isVerifiedCreator
+			and not ToolboxUtilities.getShouldHideVerifiedCreatorBadges()
+	end
+
+	local theme = props.Stylizer
 
 	local creatorNameField
 	local layoutOrder = props.LayoutOrder or 0
 
-	if showVerifiedCreatorBadge then
+	if FFlagToolboxAddUnverifiedIcon or showCreatorBadge then
 		creatorNameField = props.creatorName
 	else
 		creatorNameField = localization:getLocalizedCreatorIntroText(props.creatorName)
@@ -117,50 +134,97 @@ function AssetCreatorName:renderContent(theme, localization, localizedContent, m
 	local isHovered = self.state.isHovered
 	local maxTextWidth = 60
 
-	return Roact.createElement("Frame", {
-		BackgroundTransparency = 1,
-		LayoutOrder = layoutOrder,
-		Size = UDim2.new(1, 0, 0, Constants.ASSET_CREATOR_NAME_HEIGHT),
-	}, {
-		Text = Roact.createElement("TextButton", {
-			BackgroundTransparency = 1,
-			Size = UDim2.new(0, maxTextWidth, 1, 0),
-			Text = creatorNameField,
-			TextColor3 = creatorNameTheme.textColor,
-			Font = Constants.FONT,
-			TextSize = Constants.ASSET_CREATOR_NAME_FONT_SIZE,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Top,
-			ClipsDescendants = false,
-			TextTruncate = Enum.TextTruncate.AtEnd,
-			AutoButtonColor = false,
-
-			Position = showVerifiedCreatorBadge and UDim2.new(0, 16, 0, 0) or nil,
-
-			[Roact.Event.MouseEnter] = self.onMouseEnter,
-			[Roact.Event.MouseLeave] = self.onMouseLeave,
-			[Roact.Event.Activated] = self.onActivated,
-			[Roact.Ref] = self.textButtonRef,
+	if FFlagToolboxAddUnverifiedIcon then
+		return Roact.createElement(Pane, {
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			Layout = Enum.FillDirection.Horizontal,
+			LayoutOrder = layoutOrder,
+			Size = UDim2.new(1, 0, 0, Constants.ASSET_CREATOR_NAME_HEIGHT),
 		}, {
-			TooltipWrapper = isHovered and Roact.createElement(TooltipWrapper, {
-				Text = creatorName,
-				canShowCurrentTooltip = canShowCurrentTooltip,
-				isHovered = isHovered,
+			Text = Roact.createElement("TextButton", {
+				AutoButtonColor = false,
+				BackgroundTransparency = 1,
+				ClipsDescendants = false,
+				LayoutOrder = 1,
+				Font = Constants.FONT,
+				Size = UDim2.new(0, maxTextWidth, 1, 0),
+				TextSize = Constants.ASSET_CREATOR_NAME_FONT_SIZE,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Top,
+				TextTruncate = Enum.TextTruncate.AtEnd,
+				Text = creatorNameField,
+				TextColor3 = creatorNameTheme.textColor,
+
+				[Roact.Event.MouseEnter] = self.onMouseEnter,
+				[Roact.Event.MouseLeave] = self.onMouseLeave,
+				[Roact.Event.Activated] = self.onActivated,
+				[Roact.Ref] = self.textButtonRef,
+			}, {
+				TooltipWrapper = isHovered and Roact.createElement(TooltipWrapper, {
+					Text = creatorName,
+					canShowCurrentTooltip = canShowCurrentTooltip,
+					isHovered = isHovered,
+				}),
+
+				UnderLine = isHovered and (nil == props.clickable or props.clickable) and Roact.createElement("Frame", {
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Position = UDim2.new(0.5, 0, 1, 1),
+					Size = UDim2.new(0, self.underLineWidth, 0, 1),
+					BorderSizePixel = 0,
+				}),
 			}),
 
-			UnderLine = isHovered and (nil == props.clickable or props.clickable) and Roact.createElement("Frame", {
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.new(0.5, 0, 1, 1),
-				Size = UDim2.new(0, self.underLineWidth, 0, 1),
-				BorderSizePixel = 0,
+			CreatorBadge = showWarningIcon and Roact.createElement(VerifiedCreatorBadge, {
+				LayoutOrder = 2,
+				small = true,
 			}),
-		}),
+		})
+	else
+		return Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			LayoutOrder = layoutOrder,
+			Size = UDim2.new(1, 0, 0, Constants.ASSET_CREATOR_NAME_HEIGHT),
+		}, {
+			Text = Roact.createElement("TextButton", {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(0, maxTextWidth, 1, 0),
+				Text = creatorNameField,
+				TextColor3 = creatorNameTheme.textColor,
+				Font = Constants.FONT,
+				TextSize = Constants.ASSET_CREATOR_NAME_FONT_SIZE,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Top,
+				ClipsDescendants = false,
+				TextTruncate = Enum.TextTruncate.AtEnd,
+				AutoButtonColor = false,
 
-		VerifiedCreatorBadge = showVerifiedCreatorBadge and Roact.createElement(VerifiedCreatorBadge, {
-			small = true,
-			Position = UDim2.new(0, 0, 0, 1),
-		}),
-	})
+				Position = showCreatorBadge and UDim2.new(0, 16, 0, 0) or nil,
+
+				[Roact.Event.MouseEnter] = self.onMouseEnter,
+				[Roact.Event.MouseLeave] = self.onMouseLeave,
+				[Roact.Event.Activated] = self.onActivated,
+				[Roact.Ref] = self.textButtonRef,
+			}, {
+				TooltipWrapper = isHovered and Roact.createElement(TooltipWrapper, {
+					Text = creatorName,
+					canShowCurrentTooltip = canShowCurrentTooltip,
+					isHovered = isHovered,
+				}),
+
+				UnderLine = isHovered and (nil == props.clickable or props.clickable) and Roact.createElement("Frame", {
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Position = UDim2.new(0.5, 0, 1, 1),
+					Size = UDim2.new(0, self.underLineWidth, 0, 1),
+					BorderSizePixel = 0,
+				}),
+			}),
+
+			CreatorBadge = showCreatorBadge and Roact.createElement(VerifiedCreatorBadge, {
+				small = true,
+				Position = UDim2.new(0, 0, 0, 1),
+			}),
+		})
+	end
 end
 
 AssetCreatorName = withContext({

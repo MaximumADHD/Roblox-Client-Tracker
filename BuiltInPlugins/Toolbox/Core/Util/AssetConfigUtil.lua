@@ -228,25 +228,50 @@ function AssetConfigUtil.getResultThumbnail(assetId, iconFile)
 	return thumbnail
 end
 
--- don't allow Package publish if it is already a package and/or it's archivable and/or if user is trying to publish a group of assets at once
-function AssetConfigUtil.isPackagePublishAllowed(instances)
+--[[
+	don't allow Package publish if any of the following is true:
+	- it is already a package
+	- if user is trying to publish a group of assets at once -> package needs a single root to place Package Link under
+	- if it's a Model of a group of instances and primary part is not-archivable -> primary part will not be uploadable
+	- it's an instances with a child modified Nested package -> modification wills be lost 
+]]
+function AssetConfigUtil.isPackagePublishAllowed(instances, localization)
 	local allowPublish = true
+	local warningMessage
 
 	if #instances > 1 then
 		allowPublish = false
+		warningMessage = localization:getText("AssetConfigPackage", "CantConvertMultipleInstancesWarning")
 	end
 
 	local rootInstance = instances[1]
-
-	if rootInstance.Archivable == false then
-		allowPublish = false
-	end
 
 	if AssetConfigUtil.isPackage(rootInstance) then
 		allowPublish = false
 	end
 
-	return allowPublish
+	if rootInstance:IsA("Model") and rootInstance.PrimaryPart ~= nil and rootInstance.PrimaryPart.Archivable ~= true then
+		allowPublish = false
+		warningMessage = localization:getText("AssetConfigPackage", "CantConvertModelWithPrimaryPartNonArchivableWarning")
+	end
+
+	if rootInstance:IsA("PVInstance") == false and rootInstance:FindFirstChildWhichIsA("PVInstance") ~= nil then
+		warningMessage = localization:getText("AssetConfigPackage", "Non3DRoot3DDescendentsWarning")
+	end
+
+	-- these strings are used in code to signal package modification and not surfaced to user
+	local modifiedUpdateString = "Changed + New Version Available" 
+	local isModifiedString = "Changed"
+	for _, instance in pairs(rootInstance:GetDescendants()) do
+		if instance:IsA("PackageLink") and instance.Parent ~= rootInstance then
+			if instance.Status ~= nil and (instance.Status == isModifiedString or instance.Status == modifiedUpdateString) then
+				allowPublish = false
+				warningMessage = localization:getText("AssetConfigPackage", "CantConvertIfChildPackageHasUnpublishedChangesWarning")
+			end
+		end
+	end
+
+	return allowPublish, warningMessage
 end
 
 function AssetConfigUtil.isPackage(instance)

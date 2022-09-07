@@ -1,3 +1,4 @@
+--!nonstrict
 ------------------------------------------------------------------------
 -- Freecam
 -- Cinematic free camera for spectating and video production.

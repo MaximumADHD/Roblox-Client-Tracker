@@ -1,4 +1,3 @@
---!strict
 --[[
 	A hook to access the Rodux store.
 

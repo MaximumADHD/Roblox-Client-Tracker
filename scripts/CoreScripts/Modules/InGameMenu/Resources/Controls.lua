@@ -2,7 +2,7 @@
 local UserInputService = game:GetService("UserInputService")
 
 local CoreGui = game:GetService('CoreGui')
-local FFlagLuaMacUpdateFullscreenKeyboardShortcut2 = require(CoreGui.RobloxGui.Modules.Flags.FFlagLuaMacUpdateFullscreenKeyboardShortcut2)
+local GetFFlagEnableKeyboardUINavigation = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagEnableKeyboardUINavigation)
 
 local key = Enum.KeyCode
 local input = Enum.UserInputType
@@ -96,20 +96,6 @@ local osxMiscKeybinds = {
 		{desc = "CoreScripts.InGameMenu.Controls.GraphicsLevelUp", inputs = {{key.LeftMeta, key.F10}, key.F10}},
 		{desc = "CoreScripts.InGameMenu.Controls.GraphicsLevelDown", inputs = {
 			{key.LeftMeta, key.LeftShift, key.F10}, {key.LeftShift, key.F10}}},
-		{desc = "CoreScripts.InGameMenu.Controls.ToggleFullscreen", inputs = {{key.LeftMeta, key.F11}, key.F11}},
-		{desc = "CoreScripts.InGameMenu.Controls.PerformanceStats", inputs =
-			{{key.LeftMeta, key.LeftAlt, key.LeftSuper, key.F7}}},
-	}
-}
-
-local osxNewMiscKeybinds = {
-	title = "CoreScripts.InGameMenu.Controls.MiscellaneousTitle",
-	controls = {
-		{desc = "CoreScripts.InGameMenu.Controls.Screenshot", inputs = {{key.LeftSuper, key.LeftShift, key.Three}}},
-		{desc = "CoreScripts.InGameMenu.Controls.DevConsole", inputs = {{key.LeftMeta, key.F9}, key.F9}},
-		{desc = "CoreScripts.InGameMenu.Controls.GraphicsLevelUp", inputs = {{key.LeftMeta, key.F10}, key.F10}},
-		{desc = "CoreScripts.InGameMenu.Controls.GraphicsLevelDown", inputs = {
-			{key.LeftMeta, key.LeftShift, key.F10}, {key.LeftShift, key.F10}}},
 		{desc = "CoreScripts.InGameMenu.Controls.ToggleFullscreen", inputs = {{key.LeftControl, key.LeftSuper, key.F}}},
 		{desc = "CoreScripts.InGameMenu.Controls.PerformanceStats", inputs =
 			{{key.LeftMeta, key.LeftAlt, key.LeftSuper, key.F7}}},
@@ -130,13 +116,15 @@ local pcMiscKeybinds = {
 }
 
 if UserInputService:GetPlatform() == Enum.Platform.OSX then
-	if FFlagLuaMacUpdateFullscreenKeyboardShortcut2 then
-		table.insert(keybinds, osxNewMiscKeybinds)
-	else
-		table.insert(keybinds, osxMiscKeybinds)
-	end
+	table.insert(keybinds, osxMiscKeybinds)
 else
 	table.insert(keybinds, pcMiscKeybinds)
+end
+
+if GetFFlagEnableKeyboardUINavigation() then
+	local keyboardNavigationControl =  {desc = "CoreScripts.InGameMenu.Controls.MenuNavigationGamepad", inputs = {{key.BackSlash}}}
+	table.insert(osxMiscKeybinds.controls, 1, keyboardNavigationControl)
+	table.insert(pcMiscKeybinds.controls, 1, keyboardNavigationControl)
 end
 
 local gamepadLabels = {

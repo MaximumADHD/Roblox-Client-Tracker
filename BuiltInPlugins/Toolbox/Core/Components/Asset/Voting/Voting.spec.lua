@@ -1,6 +1,4 @@
 return function()
-	local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
-
 	local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 	local Packages = Plugin.Packages
@@ -19,8 +17,8 @@ return function()
 					UpVotes = upVotes,
 					DownVotes = downVotes,
 					ShowVotes = true,
-					VoteCount = if FFlagAssetVoteSimplification then upVotes + downVotes else nil,
-					UpVotePercent = if FFlagAssetVoteSimplification then upVotes / (upVotes + downVotes) else nil,
+					VoteCount = upVotes + downVotes,
+					UpVotePercent = upVotes / (upVotes + downVotes),
 				},
 			}),
 		})
@@ -32,23 +30,6 @@ return function()
 		local instance = createTestVoting(150, 10)
 		Roact.unmount(instance)
 	end)
-
-	-- there's no way to get the VoteCount from here anymore, so this test is no longer relevant
-	if not FFlagAssetVoteSimplification then
-		it("should show the total number of votes", function()
-			for _, voteTotals in ipairs(votes) do
-				local upVotes = voteTotals[1]
-				local downVotes = voteTotals[2]
-				local totalVotes = upVotes + downVotes
-
-				local container = Instance.new("Folder")
-				local instance = createTestVoting(upVotes, downVotes, container, "Voting")
-				local voteCountLabel = container.Voting.VoteBar.VoteCount
-				expect(voteCountLabel.Text:match(totalVotes)).to.be.ok()
-				Roact.unmount(instance)
-			end
-		end)
-	end
 
 	itSKIP("should have a bar showing ratio of up to down votes", function()
 		for _, voteTotals in ipairs(votes) do

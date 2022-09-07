@@ -1,7 +1,7 @@
 --[[
   Filename: StatsButton.lua
   Written by: dbanks
-  Description: Button that displays latest deets of one or two 
+  Description: Button that displays latest deets of one or two
     particular stats.
 --]]
 
@@ -27,7 +27,7 @@ local GraphSize = UDim2.new(GraphXFraction, 0, 1, -StyleWidgets.TabSelectionHeig
 local StatsButtonClass = {}
 StatsButtonClass.__index = StatsButtonClass
 
-function StatsButtonClass.new(statType) 
+function StatsButtonClass.new(statType)
   local self = {}
   setmetatable(self, StatsButtonClass)
 
@@ -35,43 +35,43 @@ function StatsButtonClass.new(statType)
   self._button = Instance.new("TextButton")
   self._button.Name = "PS_Button"
   self._button.Text = ""
-  
+
   StatsUtils.StyleButton(self._button)
 
   self._textPanel = StatsMiniTextPanelClass.new(statType)
   self._textPanel:PlaceInParent(self._button,
-    TextPanelSize, 
+    TextPanelSize,
     TextPanelPosition)
-        
+
   self._graph = StatsAnnotatedGraphClass.new(statType, false)
-  self._graph:PlaceInParent(self._button, 
-    GraphSize, 
+  self._graph:PlaceInParent(self._button,
+    GraphSize,
     GraphPosition)
-  
+
   self._textPanel:SetZIndex(StatsUtils.TextZIndex)
   self._graph:SetZIndex(StatsUtils.GraphZIndex)
 
   self._tabSelection = StyleWidgets.MakeTabSelectionWidget(self._button)
 
   self._isSelected = false
-  
+
   self:_updateTabSelectionState();
-  
+
   return self
 end
 
 function StatsButtonClass:OnPerformanceStatsShouldBeVisibleChanged()
-  if self._graph then 
+  if self._graph then
     self._graph:OnPerformanceStatsShouldBeVisibleChanged()
   end
-  
-  if self._textPanel then 
+
+  if self._textPanel then
     self._textPanel:OnPerformanceStatsShouldBeVisibleChanged()
   end
 end
 
-function StatsButtonClass:SetToggleCallbackFunction(callbackFunction) 
-    self._button.MouseButton1Click:connect(function() 
+function StatsButtonClass:SetToggleCallbackFunction(callbackFunction)
+    self._button.MouseButton1Click:connect(function()
           callbackFunction(self._statType)
         end)
 end
@@ -93,10 +93,10 @@ end
 function StatsButtonClass:SetParent(parent)
   self._button.Parent = parent
 end
-  
-function StatsButtonClass:SetStatsAggregator(aggregator) 
+
+function StatsButtonClass:SetStatsAggregator(aggregator)
   self._textPanel:SetStatsAggregator(aggregator)
   self._graph:SetStatsAggregator(aggregator)
 end
-  
+
 return StatsButtonClass

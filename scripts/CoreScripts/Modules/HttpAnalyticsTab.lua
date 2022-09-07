@@ -1,3 +1,4 @@
+--!nonstrict
 local ROW_HEIGHT = 20
 local COL_WIDTH = 100
 local BORDER_WIDTH = 1

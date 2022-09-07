@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: ChatSettings.lua
 --	// Written by: Xsitsu
 --	// Description: Settings module for configuring different aspects of the chat window.

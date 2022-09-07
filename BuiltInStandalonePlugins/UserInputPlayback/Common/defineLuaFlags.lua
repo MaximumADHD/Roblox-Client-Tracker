@@ -4,6 +4,6 @@
 -- And then error when trying to use flags that aren't yet defined
 -- In most circumstances flags should be initialized to false
 
--- New Plugin Setup: Define initial fast flag
+game:DefineFastFlag("UserInputPlaybackPluginShowMouseCursorAfterPlayback", false)
 
 return nil

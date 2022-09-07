@@ -30,7 +30,6 @@ local withContext = ContextServices.withContext
 local Constants = require(Plugin.Src.Util.Constants)
 local PathUtils = require(Plugin.Src.Util.PathUtils)
 
-local FFlagDisableTooltipsWhenDragging = game:DefineFastFlag("ACEDisableTooltipsWhenDragging", false)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local Keyframe = Roact.PureComponent:extend("Keyframe")
@@ -122,7 +121,7 @@ function Keyframe:render(): ()
 		[Roact.Event.InputBegan] = props.OnInputBegan,
 		[Roact.Event.InputEnded] = props.OnInputEnded,
 	}, {
-		Tooltip = (not FFlagDisableTooltipsWhenDragging or showTooltip) and tooltipText and Roact.createElement(Tooltip, {
+		Tooltip = tooltipText and Roact.createElement(Tooltip, {
 			Text = tooltipText,
 			ShowDelay = 0,
 			TextXAlignment = Enum.TextXAlignment.Left

@@ -13,6 +13,8 @@
 		table AssetServiceWrapper: An AssetServiceWrapper context item, provided via withContext.
 ]]
 
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
@@ -29,6 +31,7 @@ local PreviewConstants = AccessoryAndBodyToolSharedUtil.PreviewConstants
 local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
 local PreviewContext = AvatarToolsShared.Contexts.PreviewContext
 local AssetServiceWrapper = AvatarToolsShared.Contexts.AssetServiceWrapper
+local StudioServiceWrapper = AvatarToolsShared.Contexts.StudioServiceWrapper
 local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
 
 local Framework = require(Plugin.Packages.Framework)
@@ -57,23 +60,20 @@ local function onPreviewSelectionChanged(self)
 	local selectedAvatarIds = Cryo.Dictionary.keys(selectedAssets[avatarTabKey] or {})
 	local selectedClothingIds = Cryo.Dictionary.keys(selectedAssets[clothingTabKey] or {})
 
-	local previewAvatars
-	if FFlagEnablePreviewDockWidget then
-		previewAvatars = PreviewUtil.createPreviewAvatars(selectedAvatarIds, userAddedAssets[avatarTabKey], nil, assetService)
-	else
-		previewAvatars = PreviewUtil.createPreviewAvatars(selectedAvatarIds, userAddedAssets[avatarTabKey], self.folderRef.current, assetService)
-	end
+	local previewAvatars = PreviewUtil.createPreviewAvatars(selectedAvatarIds, userAddedAssets[avatarTabKey], nil, assetService)
+	local storageCopies = PreviewUtil.createPreviewAvatars(selectedAvatarIds, userAddedAssets[avatarTabKey], self.folderRef.current, assetService)
 	
 	-- this will be first layer on the preview avatar
 	local archivable = editingItem.Archivable
 	editingItem.Archivable = true
 	local clone = editingItem:Clone()
 	editingItem.Archivable = archivable
-	PreviewUtil.addPreviewClothingFromInstances(previewAvatars, {clone})
-
-	PreviewUtil.addPreviewClothingFromIds(previewAvatars, selectedClothingIds, userAddedAssets[clothingTabKey], assetService)
 
 	previewContext:setAvatars(previewAvatars)
+	previewContext:setStorageAvatars(storageCopies)
+	local allAvatars = previewContext:getAllAvatars()
+	PreviewUtil.addPreviewClothingFromInstances(allAvatars, {clone})
+	PreviewUtil.addPreviewClothingFromIds(allAvatars, selectedClothingIds, userAddedAssets[clothingTabKey], assetService)
 
 	if not FFlagEnablePreviewDockWidget then
 		for _, previewAvatar in ipairs(previewAvatars) do
@@ -95,7 +95,8 @@ local function transformOrDeformPreviewLayers(self, selectionChanged)
 	local innerCageContext = luaMeshEditingModuleContext:getInnerCageContext()
 	local meshEditingContext = luaMeshEditingModuleContext:getCurrentContext()
 
-	local previewAvatars = previewContext:getAvatars()
+	local previewAvatars = previewContext:getAllAvatars()
+
 	local layer
 	local editingItem
 	if FFlagEnablePreviewDockWidget then
@@ -153,10 +154,12 @@ local function updatePreviewAssets(self, selectionChanged)
 			transformOrDeformPreviewLayers(self)
 		end
 
-		if FFlagEnablePreviewDockWidget and selectionChanged then
+		if selectionChanged then
 			local props = self.props
 			local previewContext = props.PreviewContext
-			previewContext:updatePreviewModel()
+			if FFlagEnablePreviewDockWidget then
+				previewContext:updatePreviewModel()
+			end
 		end
 
 		self.isUpdateInProgress = false
@@ -189,14 +192,29 @@ function ExplorerPreviewInstances:didMount()
 	end
 end
 
+function ExplorerPreviewInstances:getOrCreatePreviewFolder()
+	self.previewFolder = ReplicatedStorage:FindFirstChild(Constants.PREVIEW_FOLDER_NAME)
+	if not self.previewFolder then
+		self.previewFolder = Instance.new("Folder")
+		self.previewFolder.Name = Constants.PREVIEW_FOLDER_NAME
+		self.previewFolder.Archivable = true
+		self.previewFolder.Parent = ReplicatedStorage
+	end
+end
+
 function ExplorerPreviewInstances:render()
+	local props = self.props
+
+	local studioService = props.StudioServiceWrapper:get()
+	self:getOrCreatePreviewFolder()
+	local userId = studioService:GetUserId()
 	return Roact.createElement(Roact.Portal, {
-		target = game.Workspace
+		target = self.previewFolder
 	}, {
-		LayeredClothingEditorPreview = Roact.createElement("Folder", {
+		[userId] = Roact.createElement("Folder", {
 			[Roact.Ref] = self.folderRef,
-			Archivable = false,
-		}),
+			Archivable = true,
+		})
 	})
 end
 
@@ -227,6 +245,7 @@ ExplorerPreviewInstances = withContext({
 	PreviewContext = PreviewContext,
 	AssetServiceWrapper = AssetServiceWrapper,
 	LuaMeshEditingModuleContext = LuaMeshEditingModuleContext,
+	StudioServiceWrapper = StudioServiceWrapper,
 })(ExplorerPreviewInstances)
 
 return RoactRodux.connect(mapStateToProps)(ExplorerPreviewInstances)

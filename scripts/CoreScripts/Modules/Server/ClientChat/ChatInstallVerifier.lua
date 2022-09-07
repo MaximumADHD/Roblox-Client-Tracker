@@ -1,3 +1,4 @@
+--!nonstrict
 --- This script is used when a Player is in the game before we have a chance 
 --- to put the ChatScripts in StarterPlayerScripts. This script looks for 
 --- the ChatScripts in a users PlayerScripts and clones them from 

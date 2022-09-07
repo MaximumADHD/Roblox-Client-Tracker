@@ -276,4 +276,11 @@ return{
 	["CoreScripts.InGameMenu.Label.DressesAndSkirts"] = [[Dresses & Skirts]],
 	["CoreScripts.InGameMenu.Label.Type"] = [[Type]],
 	["CoreScripts.InGameMenu.Title.Item"] = [[Item]],
+	["CoreScripts.InGameMenu.LeaveTooltip"] = [[Leave Experience]],
+	["CoreScripts.InGameMenu.QuickActions.Respawn"] = [[Respawn]],
+	["CoreScripts.InGameMenu.QuickActions.FullScreen"] = [[FullScreen]],
+	["CoreScripts.InGameMenu.QuickActions.StopRecording"] = [[Stop Recording\n({Duration})]],
+	["CoreScripts.InGameMenu.QuickActions.RecordVideo"] = [[Record Video]],
+	["CoreScripts.InGameMenu.QuickActions.Screenshot"] = [[Screenshot]],
+	["CoreScripts.InGameMenu.QuickActions.Report"] = [[Report]],
 }

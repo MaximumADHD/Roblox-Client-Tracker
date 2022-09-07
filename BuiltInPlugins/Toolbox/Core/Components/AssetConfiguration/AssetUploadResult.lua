@@ -71,7 +71,7 @@ local SUCCESS_HEIGHT = 24
 
 local AssetUploadResult = Roact.PureComponent:extend("AssetUploadResult")
 
-local FFlagUnifyModelPackagePublish2 = game:GetFastFlag("UnifyModelPackagePublish2")
+local FFlagUnifyModelPackagePublish3 = game:GetFastFlag("UnifyModelPackagePublish3")
 
 function AssetUploadResult:init(props)
 	self.state = {
@@ -145,7 +145,7 @@ function AssetUploadResult:renderContent(theme, localizedContent)
 	local showFail = not showSuccess
 	local showReasons = false
 
-	local isPackageAsset = if FFlagUnifyModelPackagePublish2 then props.isPackageAsset else nil
+	local isPackageAsset = if FFlagUnifyModelPackagePublish3 then props.isPackageAsset else nil
 
 	local footerHeight = BASE_FOOTER_HEIGHT + FOOTER_PADDING + Constants.FONT_SIZE_MEDIUM
 
@@ -343,7 +343,7 @@ local function mapStateToProps(state, props)
 		thumbnailStatus = state.thumbnailStatus,
 		networkTable = state.networkTable or {},
 		iconFile = state.iconFile,
-		isPackageAsset = if FFlagUnifyModelPackagePublish2 then state.isPackageAsset else nil,
+		isPackageAsset = if FFlagUnifyModelPackagePublish3 then state.isPackageAsset else nil,
 	}
 
 	return stateToProps

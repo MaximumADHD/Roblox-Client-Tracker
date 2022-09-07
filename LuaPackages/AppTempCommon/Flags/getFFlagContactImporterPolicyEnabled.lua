@@ -1,5 +1,3 @@
---!strict
-
 local getFFlagContactImporterEnabledForDev = require(script.Parent.getFFlagContactImporterEnabledForDev)
 
 game:DefineFastFlag("ContactImporterPolicyEnabledV1", false)

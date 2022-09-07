@@ -1,4 +1,5 @@
 return function()
+	local FFlagToolboxAddUnverifiedIcon = game:GetFastFlag("ToolboxAddUnverifiedIcon")
 	local Plugin = script.Parent.Parent.Parent.Parent
 
 	local Packages = Plugin.Packages
@@ -30,7 +31,7 @@ return function()
 		local instance = Roact.mount(element, container, "AssetCreatorName")
 		local assetCreatorName = container.AssetCreatorName
 		-- Use match to handle localization
-		local text = assetCreatorName:GetChildren()[1].Text
+		local text = if FFlagToolboxAddUnverifiedIcon then assetCreatorName.Text.Text else assetCreatorName:GetChildren()[1].Text
 		expect(text:match(creatorNameString)).to.be.ok()
 		Roact.unmount(instance)
 	end)

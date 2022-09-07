@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 		Filename: LeaveGameToHome.lua
 		Written by: relkhattabi

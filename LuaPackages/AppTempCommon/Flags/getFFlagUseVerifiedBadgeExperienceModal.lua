@@ -1,4 +1,3 @@
---!strict
 game:DefineFastFlag("UseVerifiedBadgeExperienceModal", false)
 
 return function()

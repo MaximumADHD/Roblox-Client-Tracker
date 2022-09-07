@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: SystemMessage.lua
 --	// Written by: TheGamer101
 --	// Description: Create a message label for a system message.

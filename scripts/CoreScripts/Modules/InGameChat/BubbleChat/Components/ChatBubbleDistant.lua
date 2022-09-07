@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Distant chat bubble.
 

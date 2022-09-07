@@ -9,6 +9,7 @@ local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 local ContextServices = Framework.ContextServices
 
 local AssetServiceWrapper = AvatarToolsShared.Contexts.AssetServiceWrapper
+local StudioServiceWrapper = AvatarToolsShared.Contexts.StudioServiceWrapper
 local MannequinContext = AvatarToolsShared.Contexts.MannequinContext
 
 -- props.localization : (ContextServices.Localization) an object for fetching translated strings
@@ -60,6 +61,7 @@ function ServiceWrapper:render()
 		editingItemContext,
 		meshEditingContext,
 		AssetServiceWrapper.new(),
+		StudioServiceWrapper.new(),
 		MannequinContext.new(),
 	}, children)
 end

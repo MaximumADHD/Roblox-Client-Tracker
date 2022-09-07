@@ -16,6 +16,7 @@ local ui = Framework.Style.ComponentSymbols
 
 local UI = Framework.UI
 local Decoration = UI.Decoration
+local Colors = Framework.Style.Colors
 
 local Spritesheet = Util.Spritesheet
 
@@ -457,6 +458,7 @@ local PluginTheme = {
 		Offset = 3,
 		Padding = 5,
 		Folder = "rbxasset://textures/StudioSharedUI/folder.png",
+		ColorIcon = Colors.White,
 
 		Arrow = {
 			Expanded = downArrowProps,

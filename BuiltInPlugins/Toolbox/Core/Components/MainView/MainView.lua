@@ -22,6 +22,7 @@
 		callback nextPage()
 		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
+local FFlagToolboxFixUnverifiedSearchTagBugs = game:getFastFlag("ToolboxFixUnverifiedSearchTagBugs")
 
 local GuiService = game:GetService("GuiService")
 
@@ -102,6 +103,7 @@ function MainView:render()
 
 		local allAssetCount = props.allAssetCount
 		local assetCount = props.allAssetCount
+		local includeUnverifiedCreators = if FFlagToolboxFixUnverifiedSearchTagBugs then props.includeUnverifiedCreators else nil
 
 		local lowerIndexToRender = state.lowerIndexToRender or 0
 
@@ -113,7 +115,9 @@ function MainView:render()
 
 		local creatorName = props.creator and props.creator.Name
 		local searchTerm = props.searchTerm
-		local showTags = (creatorName ~= nil) or (#searchTerm > 0) or (props.audioSearchInfo ~= nil)
+		local showTags = if FFlagToolboxFixUnverifiedSearchTagBugs
+			then (includeUnverifiedCreators == true) or (creatorName ~= nil) or (#searchTerm > 0) or (props.audioSearchInfo ~= nil)
+			else (creatorName ~= nil) or (#searchTerm > 0) or (props.audioSearchInfo ~= nil)
 
 		local headerHeight, headerToBodyPadding = Layouter.calculateMainViewHeaderHeight(
 			showTags,
@@ -222,6 +226,7 @@ local function mapStateToProps(state, props)
 		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
 		searchTerm = pageInfo.searchTerm or "",
 		creator = pageInfo.creator,
+		includeUnverifiedCreators = if FFlagToolboxFixUnverifiedSearchTagBugs then pageInfo.includeUnverifiedCreators else nil,
 	}
 end
 

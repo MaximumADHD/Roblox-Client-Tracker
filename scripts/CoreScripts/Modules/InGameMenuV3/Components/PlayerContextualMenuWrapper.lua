@@ -8,6 +8,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceConstants = require(RobloxGui.Modules.InGameChat.BubbleChat.Constants)
+local useVoiceState = require(RobloxGui.Modules.VoiceChat.Hooks.useVoiceState)
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 local BlockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.BlockPlayer)
 local UnblockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.UnblockPlayer)
@@ -52,7 +53,6 @@ PlayerContextualMenuWrapper.validateProps = t.strictInterface({
 	playersService = t.union(t.Instance, t.table),
 	onActionComplete = t.optional(t.callback),
 	invitesState = t.table,
-	voiceEnabled = t.optional(t.boolean),
 	voiceState = t.optional(t.string),
 	canCaptureFocus = t.optional(t.boolean),
 	screenSize = t.Vector2,
@@ -83,6 +83,18 @@ local CONTEXT_LEFT_PADDING = 20
 local CONTEXT_MENU_BUTTON_CONTAINER_WIDTH = 118
 local CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT = 36
 local CONTEXT_MENU_BUTTON_WIDTH = 47
+
+function PlayerVoiceState(props)
+	local voiceState = useVoiceState(props.userId)
+	return props.render(voiceState)
+end
+
+function withPlayerVoiceState(userId, render)
+	return Roact.createElement(PlayerVoiceState, {
+		userId = userId,
+		render = render,
+	})
+end
 
 function PlayerContextualMenuWrapper:init()
 	self:setState({
@@ -131,11 +143,15 @@ function PlayerContextualMenuWrapper:render()
 		muteSelf = "CoreScripts.InGameMenu.QuickActions.MuteSelf",
 		unmuteSelf = "CoreScripts.InGameMenu.QuickActions.UnmuteSelf",
 	})(function(localized)
-		return self:renderWithLocalized(localized)
+		local player = self.props.selectedPlayer
+		local userId = player and player.UserId or 0
+		return withPlayerVoiceState(userId, function(voiceState)
+			return self:renderWithLocalized(localized, voiceState)
+		end)
 	end)
 end
 
-function PlayerContextualMenuWrapper:renderWithLocalized(localized)
+function PlayerContextualMenuWrapper:renderWithLocalized(localized, voiceState)
 	local moreMenuPositionYOffset = 0
 	local moreMenuPositionXOffset = 0
 	local maxMenuHeight = 0
@@ -156,7 +172,7 @@ function PlayerContextualMenuWrapper:renderWithLocalized(localized)
 			end
 		end
 
-		moreActions = self:getMoreActions(localized, player, isFriendsWithPlayer)
+		moreActions = self:getMoreActions(localized, player, isFriendsWithPlayer, voiceState)
 		local actionMenuHeight = (math.min(7.5, #moreActions) * ACTION_HEIGHT) + CONTEXT_MENU_HEADER_HEIGHT
 		local screenWidth = self.props.screenSize.X
 		local screenHeight = self.props.screenSize.Y
@@ -208,7 +224,7 @@ function PlayerContextualMenuWrapper:renderWithLocalized(localized)
 	return moreActionsMenuPanel
 end
 
-function PlayerContextualMenuWrapper:getMoreActions(localized, player, isFriendsWithPlayer)
+function PlayerContextualMenuWrapper:getMoreActions(localized, player, isFriendsWithPlayer, voiceState)
 	local moreActions = {}
 	if self.props.selectedPlayer ~= nil then
 		local inviteAction = self:getInviteAction(localized, player, isFriendsWithPlayer)
@@ -231,7 +247,7 @@ function PlayerContextualMenuWrapper:getMoreActions(localized, player, isFriends
 			table.insert(moreActions, reportAction)
 		end
 
-		local mutePlayerAction = self:getMutePlayerAction(localized, player)
+		local mutePlayerAction = self:getMutePlayerAction(localized, player, voiceState)
 		if mutePlayerAction then
 			table.insert(moreActions, mutePlayerAction)
 		end
@@ -435,7 +451,8 @@ end
 
 function PlayerContextualMenuWrapper:getReportAction(localized, player)
 	local isLocalPlayer = player.UserId == self.props.playersService.LocalPlayer.UserId
-	if isLocalPlayer then
+	local notPlayerObj = not t.instanceIsA("Player")(player)
+	if isLocalPlayer or notPlayerObj then
 		return nil
 	end
 
@@ -455,7 +472,7 @@ function PlayerContextualMenuWrapper:getReportAction(localized, player)
 	}
 end
 
-function PlayerContextualMenuWrapper:getMutePlayerAction(localized, player)
+function PlayerContextualMenuWrapper:getMutePlayerAction(localized, player, voiceState)
 	local isPlayerInstanceType = typeof(player) == "Instance" and player:IsA("Player")
 	if not isPlayerInstanceType then
 		return nil
@@ -465,45 +482,43 @@ function PlayerContextualMenuWrapper:getMutePlayerAction(localized, player)
 		return nil
 	end
 
-	if self.props.voiceState == VoiceConstants.VOICE_STATE.HIDDEN then
+	if voiceState == VoiceConstants.VOICE_STATE.HIDDEN then
 		return nil
 	end
 
-	if self.props.voiceEnabled then
-		local voiceParticipant = VoiceChatServiceManager.participants[tostring(player.UserId)]
-		local isLocalPlayer = player.UserId == Players.LocalPlayer.UserId
-		if isLocalPlayer then
-			local isMuted = self.props.voiceState == VoiceConstants.VOICE_STATE.MUTED
-				or self.props.voiceState == VoiceConstants.VOICE_STATE.LOCAL_MUTED
-			return {
-				text = isMuted and localized.unmuteSelf or localized.muteSelf,
-				icon = VoiceChatServiceManager:GetIcon(isMuted and "Mute" or "Unmute", "Misc"),
-				onActivated = function()
-					VoiceChatServiceManager:ToggleMic()
-					SendAnalytics(
-						Constants.AnalyticsMenuActionName,
-						isMuted and Constants.AnalyticsUnmuteSelf or Constants.AnalyticsMuteSelf,
-						{ source = Constants.AnalyticsPlayerContextMenuSource }
-					)
-					self.props.onActionComplete(false)
-				end,
-			}
-		elseif voiceParticipant then
-			local isMuted = voiceParticipant.isMutedLocally
-			return {
-				text = isMuted and localized.unmutePlayer or localized.mutePlayer,
-				icon = VoiceChatServiceManager:GetIcon(isMuted and "Muted" or "Unmuted0", "SpeakerLight"),
-				onActivated = function()
-					VoiceChatServiceManager:ToggleMutePlayer(player.UserId)
-					SendAnalytics(
-						Constants.AnalyticsMenuActionName,
-						isMuted and Constants.AnalyticsUnmutePlayer or Constants.AnalyticsMutePlayer,
-						{ source = Constants.AnalyticsPlayerContextMenuSource }
-					)
-					self.props.onActionComplete(false)
-				end,
-			}
-		end
+	local voiceParticipant = VoiceChatServiceManager.participants[tostring(player.UserId)]
+	local isLocalPlayer = player.UserId == Players.LocalPlayer.UserId
+	if isLocalPlayer then
+		local isMuted = self.props.voiceState == VoiceConstants.VOICE_STATE.MUTED
+			or self.props.voiceState == VoiceConstants.VOICE_STATE.LOCAL_MUTED
+		return {
+			text = isMuted and localized.unmuteSelf or localized.muteSelf,
+			icon = VoiceChatServiceManager:GetIcon(isMuted and "Mute" or "Unmute", "Misc"),
+			onActivated = function()
+				VoiceChatServiceManager:ToggleMic()
+				SendAnalytics(
+					Constants.AnalyticsMenuActionName,
+					isMuted and Constants.AnalyticsUnmuteSelf or Constants.AnalyticsMuteSelf,
+					{ source = Constants.AnalyticsPlayerContextMenuSource }
+				)
+				self.props.onActionComplete(false)
+			end,
+		}
+	elseif voiceParticipant then
+		local isMuted = voiceParticipant.isMutedLocally
+		return {
+			text = isMuted and localized.unmutePlayer or localized.mutePlayer,
+			icon = VoiceChatServiceManager:GetIcon(isMuted and "Muted" or "Unmuted0", "SpeakerLight"),
+			onActivated = function()
+				VoiceChatServiceManager:ToggleMutePlayer(player.UserId)
+				SendAnalytics(
+					Constants.AnalyticsMenuActionName,
+					isMuted and Constants.AnalyticsUnmutePlayer or Constants.AnalyticsMutePlayer,
+					{ source = Constants.AnalyticsPlayerContextMenuSource }
+				)
+				self.props.onActionComplete(false)
+			end,
+		}
 	end
 
 	return nil
@@ -573,21 +588,12 @@ function PlayerContextualMenuWrapper:getUnfriendAction(localized, player, isFrie
 end
 
 return RoactRodux.connect(function(state, props)
-	local voiceState = ""
-	local userId = 0
-	if props.selectedPlayer and props.selectedPlayer.UserId then
-		userId = props.selectedPlayer.UserId
-		voiceState = state.voiceState[tostring(userId)]
-	end
-
 	local canCaptureFocus = state.displayOptions.inputType == Constants.InputType.Gamepad
 		and not state.respawn.dialogOpen
 		and state.currentZone == 1
 
 	return {
 		invitesState = state.invites,
-		voiceEnabled = state.voiceState.voiceEnabled,
-		voiceState = voiceState,
 		screenSize = state.screenSize,
 		canCaptureFocus = canCaptureFocus,
 	}

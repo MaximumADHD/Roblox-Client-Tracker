@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local Influx = require(script.Parent.Influx)
 

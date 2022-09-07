@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: UnknownMessage.lua
 --	// Written by: TheGamer101
 --	// Description: Default handler for message types with no other creator registered.

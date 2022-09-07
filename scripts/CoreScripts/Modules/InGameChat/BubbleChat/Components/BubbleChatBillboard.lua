@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Singular BillboardGui that displays a user's ChatBubbles.
 

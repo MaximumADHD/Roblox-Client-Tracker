@@ -1,4 +1,3 @@
-
 --[[
   Filename: StatsAggregatorManager.lua
   Written by: dbanks
@@ -23,7 +22,7 @@ StatsAggregatorManagerClass.NumSamplesToKeep = 20
 local statsAggregatorManagerSingleton = nil
 
 function StatsAggregatorManagerClass.getSingleton()
-  if (statsAggregatorManagerSingleton == nil) then 
+  if (statsAggregatorManagerSingleton == nil) then
     statsAggregatorManagerSingleton = StatsAggregatorManagerClass.__new()
     -- Start listening for updates in stats.
     statsAggregatorManagerSingleton:StartListening()
@@ -31,19 +30,19 @@ function StatsAggregatorManagerClass.getSingleton()
   return statsAggregatorManagerSingleton
 end
 
-function StatsAggregatorManagerClass.__new() 
+function StatsAggregatorManagerClass.__new()
   local self = {}
   setmetatable(self, StatsAggregatorManagerClass)
-  
+
   self._statsAggregators = {}
-  
+
   for i, statType in ipairs(StatsUtils.AllStatTypes) do
-    local statsAggregator = StatsAggregatorClass.new(statType, 
-      StatsAggregatorManagerClass.NumSamplesToKeep, 
+    local statsAggregator = StatsAggregatorClass.new(statType,
+      StatsAggregatorManagerClass.NumSamplesToKeep,
       StatsAggregatorManagerClass.SecondsBetweenUpdate)
     self._statsAggregators[statType] = statsAggregator
   end
-  
+
   return self
 end
 

@@ -14,6 +14,8 @@ local HttpService = game:GetService("HttpService")
 
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 local FFlagToolboxLocalizeInsertTool2 = game:GetFastFlag("ToolboxLocalizeInsertTool2")
+local FFlagToolboxInsertMaterialsInMS = game:GetFastFlag("ToolboxInsertMaterialsInMS")
+local FFlagToolboxFixInsertPackage = game:GetFastFlag("ToolboxFixInsertPackage")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -240,6 +242,7 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			local assetId = asset.Id
 			local assetName = asset.Name
 			local assetTypeId = asset.TypeId
+			local assetSubTypes = if FFlagToolboxInsertMaterialsInMS or FFlagToolboxFixInsertPackage then asset.AssetSubTypes else nil
 
 			local currentProps = self.props
 			local categoryName = currentProps._categoryName
@@ -256,6 +259,7 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 				plugin = plugin,
 				assetId = assetId,
 				assetName = assetName,
+				assetSubTypes = if FFlagToolboxInsertMaterialsInMS or FFlagToolboxFixInsertPackage then assetSubTypes else nil,
 				assetTypeId = assetTypeId,
 				onSuccess = function(assetId, insertedInstance)
 					self.props._postInsertAssetRequest(getNetwork(self), assetId)

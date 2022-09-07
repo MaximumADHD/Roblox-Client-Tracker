@@ -1,4 +1,3 @@
-
 local PlayersService = game:GetService('Players')
 local VRService = game:GetService("VRService")
 
@@ -38,19 +37,19 @@ end
 
 local function CreateClassicCamera()
 	local module = RootCameraCreator()
-	
+
 	local tweenAcceleration = math_rad(220)
 	local tweenSpeed = math_rad(0)
 	local tweenMaxSpeed = math_rad(250)
 	local timeBeforeAutoRotate = 2
-	
+
 	local lastUpdate = tick()
 	module.LastUserPanCamera = tick()
 	function module:Update()
 		module:ProcessTweens()
 		local now = tick()
 		local timeDelta = (now - lastUpdate)
-		
+
 		local userPanningTheCamera = (self.UserPanningTheCamera == true)
 		local camera = 	workspace.CurrentCamera
 		local player = PlayersService.LocalPlayer
@@ -58,21 +57,21 @@ local function CreateClassicCamera()
 		local cameraSubject = camera and camera.CameraSubject
 		local isInVehicle = cameraSubject and cameraSubject:IsA('VehicleSeat')
 		local isOnASkateboard = cameraSubject and cameraSubject:IsA('SkateboardPlatform')
-		
+
 		if lastUpdate == nil or now - lastUpdate > 1 then
 			module:ResetCameraLook()
 			self.LastCameraTransform = nil
-		end	
-		
+		end
+
 		if lastUpdate then
 			local gamepadRotation = self:UpdateGamepad()
-			
-			if self:ShouldUseVRRotation() then				
+
+			if self:ShouldUseVRRotation() then
 				self.RotateInput = self.RotateInput + self:GetVRRotationInput()
 			else
 				-- Cap out the delta to 0.1 so we don't get some crazy things when we re-resume from
 				local delta = math_min(0.1, now - lastUpdate)
-				
+
 				if gamepadRotation ~= ZERO_VECTOR2 then
 					userPanningTheCamera = true
 					self.RotateInput = self.RotateInput + (gamepadRotation * delta)
@@ -83,7 +82,7 @@ local function CreateClassicCamera()
 					angle = angle + (self.TurningLeft and -120 or 0)
 					angle = angle + (self.TurningRight and 120 or 0)
 				end
-				
+
 				if angle ~= 0 then
 					self.RotateInput = self.RotateInput +  Vector2.new(math_rad(angle * delta), 0)
 					userPanningTheCamera = true
@@ -96,16 +95,16 @@ local function CreateClassicCamera()
 			tweenSpeed = 0
 			module.LastUserPanCamera = tick()
 		end
-		
+
 		local userRecentlyPannedCamera = now - module.LastUserPanCamera < timeBeforeAutoRotate
 		local subjectPosition = self:GetSubjectPosition()
-		
+
 		if subjectPosition and player and camera then
 			local zoom = self:GetCameraZoom()
 			if zoom < 0.5 then
 				zoom = 0.5
 			end
-			
+
 			if self:GetShiftLock() and not self:IsInFirstPerson() then
 				-- We need to use the right vector of the camera after rotation, not before
 				local newLookVector = self:RotateCamera(self:GetCameraLook(), self.RotateInput)
@@ -131,14 +130,14 @@ local function CreateClassicCamera()
 							if isOnASkateboard then
 								forwardVector = cameraSubject.CFrame.lookVector
 							end
-							
+
 							tweenSpeed = clamp(0, tweenMaxSpeed, tweenSpeed + tweenAcceleration * timeDelta)
-	
+
 							local percent = clamp(0, 1, tweenSpeed * timeDelta)
 							if self:IsInFirstPerson() then
 								percent = 1
 							end
-							
+
 							local y = findAngleBetweenXZVectors(forwardVector, self:GetCameraLook())
 							if IsFinite(y) and math_abs(y) > 0.0001 then
 								self.RotateInput = self.RotateInput + Vector2.new(y * percent, 0)
@@ -168,7 +167,7 @@ local function CreateClassicCamera()
 					end
 					local lookAt = Vector3.new(newPos.x + desiredLookDir.x, newPos.y, newPos.z + desiredLookDir.z)
 					self.RotateInput = ZERO_VECTOR2
-					
+
 					camera.CFrame = CFrame_new(newPos, lookAt) + Vector3_new(0, cameraHeight, 0)
 				end
 			else
@@ -185,10 +184,10 @@ local function CreateClassicCamera()
 				self.LastSubjectCFrame = nil
 			end
 		end
-		
+
 		lastUpdate = now
 	end
-	
+
 	return module
 end
 

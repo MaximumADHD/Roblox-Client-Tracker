@@ -1,3 +1,4 @@
+--!nonstrict
 local ExperienceChat = require(script.Parent.ExperienceChat)
 
 local CoreGui = game:GetService("CoreGui")

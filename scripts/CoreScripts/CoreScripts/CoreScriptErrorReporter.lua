@@ -1,3 +1,4 @@
+--!nonstrict
 local ContentProvider = game:GetService("ContentProvider")
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
@@ -13,6 +14,8 @@ local RateLimiter = require(RobloxGui.Modules.ErrorReporting.RateLimiter)
 local PiiFilter = require(RobloxGui.Modules.ErrorReporting.PiiFilter)
 
 local BacktraceReporter = require(CorePackages.ErrorReporters.Backtrace.BacktraceReporter)
+local React = require(CorePackages.Packages.React)
+local FFlagCoreScriptReactErrorDisambiguation = game:DefineFastFlag("CoreScriptReactErrorDisambiguation", false)
 
 game:DefineFastString("CoreScriptBacktraceErrorUploadToken", "")
 
@@ -74,6 +77,19 @@ if game:GetFastString("CoreScriptBacktraceErrorUploadToken") ~= "" then
 
 	local function handleErrorDetailed(message, stack, offendingScript, details)
 		if offendingScript ~= nil and (offendingScript:IsDescendantOf(CoreGui) or offendingScript:IsDescendantOf(CorePackages)) then
+			if FFlagCoreScriptReactErrorDisambiguation then
+				local reactError, reactRethrow = React.unstable_parseReactError(message)
+				-- if unstable_parseReactError recieves a non-react error, it will
+				-- just use it as the message in its output
+				message = reactError.message
+				-- if unstable_parseReactError receives a non-react error, the stack
+				-- will be nil and we should use what was provided in the callback
+				stack = reactError.stack or stack
+				-- It's unclear what the details field typically contains; we'll
+				-- only replace it with our rethrow description if it's absent
+				details = details or reactRethrow
+			end
+
 			local cleanedMessage = piiFilter:cleanPii(message)
 			local cleanedStack = piiFilter:cleanPii(stack)
 

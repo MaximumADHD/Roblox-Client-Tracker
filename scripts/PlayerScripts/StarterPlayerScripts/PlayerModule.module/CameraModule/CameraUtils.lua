@@ -3,8 +3,6 @@
 	2018 Camera Update - AllYourBlox
 --]]
 
---!strict
-
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
@@ -71,7 +69,7 @@ function CameraUtils.getLooseBoundingSphere(parts: {BasePart})
 	for idx, part in pairs(parts) do
 		points[idx] = part.Position
 	end
-	
+
 	-- pick an arbitrary starting point
 	local x = points[1]
 
@@ -190,9 +188,9 @@ function CameraUtils.GamepadLinearToCurve(thumbstickPosition: Vector2)
 end
 
 -- This function converts 4 different, redundant enumeration types to one standard so the values can be compared
-function CameraUtils.ConvertCameraModeEnumToStandard(enumValue: 
-		Enum.TouchCameraMovementMode | 
-		Enum.ComputerCameraMovementMode | 
+function CameraUtils.ConvertCameraModeEnumToStandard(enumValue:
+		Enum.TouchCameraMovementMode |
+		Enum.ComputerCameraMovementMode |
 		Enum.DevTouchCameraMovementMode |
 		Enum.DevComputerCameraMovementMode): Enum.ComputerCameraMovementMode | Enum.DevComputerCameraMovementMode
 	if enumValue == Enum.TouchCameraMovementMode.Default then

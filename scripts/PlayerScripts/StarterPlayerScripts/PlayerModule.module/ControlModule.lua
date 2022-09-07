@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	ControlModule - This ModuleScript implements a singleton class to manage the
 	selection, activation, and deactivation of the current character movement controller.

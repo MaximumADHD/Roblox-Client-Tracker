@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	MouseLockController - Replacement for ShiftLockController, manages use of mouse-locked mode
 	2018 Camera Update - AllYourBlox

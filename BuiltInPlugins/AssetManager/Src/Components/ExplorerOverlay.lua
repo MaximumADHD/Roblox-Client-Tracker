@@ -18,7 +18,6 @@ local Pane = UI.Pane
 local ShowOnTop = UI.ShowOnTop
 
 local UILibrary = require(Plugin.Packages.UILibrary)
-local TreeView = UILibrary.Component.TreeView
 local FolderTreeItem = require(Plugin.Src.Components.FolderTreeItem)
 
 local Screens = require(Plugin.Src.Util.Screens)
@@ -27,6 +26,53 @@ local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 
 local ExplorerOverlay = Roact.PureComponent:extend("ExplorerOverlay")
+
+local FFlagDevFrameworkMigrateTreeView = Framework.SharedFlags.getFFlagDevFrameworkMigrateTreeView()
+local Dash
+local join
+local TreeView
+if FFlagDevFrameworkMigrateTreeView then
+	Dash = Framework.Dash
+	join = Dash.join
+	TreeView = UI.TreeView
+else
+	TreeView = UILibrary.Component.TreeView
+end
+
+function ExplorerOverlay:init()
+	if FFlagDevFrameworkMigrateTreeView then
+		self.state = {
+			Expansion = { [self.props.FileExplorerData[1]] = true },
+			Selection = {},
+		}
+
+		self.OnExpansionChange = function(items)
+			self:setState( { Expansion = items } )
+		end
+
+		self.onSelectionChange = function(items)
+			self:setState( { Selection = items } )
+
+			local props = self.props
+			local dispatchSetScreen = props.dispatchSetScreen
+			local closeOverlay = props.CloseOverlay
+
+			local recentViewToggled = props.RecentViewToggled
+			local dispatchSetRecentViewToggled = props.dispatchSetRecentViewToggled
+
+			local item = next(items)
+			if (#item.children == 0) then
+				if recentViewToggled then
+					dispatchSetRecentViewToggled(false)
+				end
+
+				local screen = Screens[item.Screen]
+				dispatchSetScreen(screen)
+				closeOverlay()
+			end
+		end
+	end
+end
 
 function ExplorerOverlay:render()
 	local props = self.props
@@ -74,32 +120,42 @@ function ExplorerOverlay:render()
 				})
 			}),
 
-			FolderTree = Roact.createElement(TreeView, {
-				dataTree = self.props.FileExplorerData,
-				createFlatList = false,
-				getChildren = function(instance)
-					return instance.Children
-				end,
-
-				renderElement = function(properties)
-					return Roact.createElement(FolderTreeItem, properties)
-				end,
-
-				onSelectionChanged = function(instances)
-					if instances[1] then
-						if recentViewToggled then
-							dispatchSetRecentViewToggled(false)
+			FolderTree = if FFlagDevFrameworkMigrateTreeView then
+				Roact.createElement(TreeView, {
+					RootItems = self.props.FileExplorerData,
+					Size = UDim2.fromScale(1, 1),
+					Expansion = self.state.Expansion,
+					LayoutOrder = 2,
+					OnExpansionChange = self.OnExpansionChange,
+					OnSelectionChange = self.onSelectionChange,
+				})
+			else
+				Roact.createElement(TreeView, {
+					dataTree = self.props.FileExplorerData,
+					createFlatList = false,
+					getChildren = function(instance)
+						return instance.Children
+					end,
+			
+					renderElement = function(properties)
+						return Roact.createElement(FolderTreeItem, properties)
+					end,
+			
+					onSelectionChanged = function(instances)
+						if instances[1] then
+							if recentViewToggled then
+								dispatchSetRecentViewToggled(false)
+							end
+							local screen = Screens[instances[1].Screen]
+							dispatchSetScreen(screen)
 						end
-						local screen = Screens[instances[1].Screen]
-						dispatchSetScreen(screen)
-					end
-					closeOverlay()
-				end,
-
-				expandRoot = true,
-
-				LayoutOrder = 2,
-			})
+						closeOverlay()
+					end,
+			
+					expandRoot = true,
+			
+					LayoutOrder = 2,
+				})
 		})
 	})
 end

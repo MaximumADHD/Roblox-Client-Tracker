@@ -1,3 +1,4 @@
+--!nonstrict
 local CircularBuffer = require(script.Parent.Parent.Parent.CircularBuffer)
 local Signal = require(script.Parent.Parent.Parent.Signal)
 

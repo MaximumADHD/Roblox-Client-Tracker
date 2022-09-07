@@ -1,5 +1,3 @@
---!nonstrict
-
 local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
 local Cryo = require(CorePackages.Cryo)

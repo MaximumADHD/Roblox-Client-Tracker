@@ -1,3 +1,4 @@
+--!nonstrict
 -- Roblox character sound script
 
 local Players = game:GetService("Players")

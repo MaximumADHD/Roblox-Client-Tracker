@@ -1,3 +1,4 @@
+--!nonstrict
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local CheckboxRow = require(Modules.Settings.Components.ReportConfirmation.CheckboxRow)
 

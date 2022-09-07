@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: Util.lua
 --	// Written by: Xsitsu, TheGamer101
 --	// Description: Module for shared code between MessageCreatorModules.

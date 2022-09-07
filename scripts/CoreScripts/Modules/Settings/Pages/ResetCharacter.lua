@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 		Filename: ResetCharacter.lua
 		Written by: jeditkacheff

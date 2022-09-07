@@ -53,7 +53,8 @@ if FFlagRemoveUILibraryRoundTextBox then
 			local isValid = text == "" or tonumber(text) ~= nil
 			local errorText
 			if not isValid then
-				errorText = self.props.localization:getText("General", "NumberError")
+				local localization = self.props.Localization
+				errorText = localization:getText("General", "NumberError")
 			end
 			return isValid, errorText
 		end

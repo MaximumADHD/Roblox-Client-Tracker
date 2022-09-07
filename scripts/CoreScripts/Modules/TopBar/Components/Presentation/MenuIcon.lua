@@ -11,6 +11,7 @@ local t = require(CorePackages.Packages.t)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
+local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 
@@ -39,6 +40,7 @@ local ICON_SIZE = 24
 
 local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
+local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 
 MenuIcon.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
@@ -47,7 +49,7 @@ MenuIcon.validateProps = t.strictInterface({
 
 function MenuIcon:init()
 	self:setState({
-		vrShowMenuIcon = FFlagEnableNewVrSystem and VRService.VREnabled and ((EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBar) or GamepadService.GamepadCursorEnabled),
+		vrShowMenuIcon = FFlagEnableNewVrSystem and VRService.VREnabled and ((EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBar) or GamepadService.GamepadCursorEnabled) and not EngineFeatureEnableVRUpdate3,
 	})
 
 	self.menuIconActivated = function()
@@ -103,7 +105,7 @@ function MenuIcon:init()
 	end
 
 	self.showTopBarCallback = function()
-		local vrShowMenuIcon = VRService.VREnabled and ((EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBar) or GamepadService.GamepadCursorEnabled)
+		local vrShowMenuIcon = VRService.VREnabled and ((EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBar) or GamepadService.GamepadCursorEnabled) and not EngineFeatureEnableVRUpdate3
 		if self.state.vrShowMenuIcon ~= vrShowMenuIcon then
 			self:setState({
 				vrShowMenuIcon = vrShowMenuIcon,

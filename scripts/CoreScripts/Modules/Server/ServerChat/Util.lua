@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: Util.lua
 --	// Written by: TheGamer101
 --	// Description: Utility code used by the server side chat implementation.

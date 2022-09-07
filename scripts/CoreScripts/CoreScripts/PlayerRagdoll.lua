@@ -1,3 +1,4 @@
+--!nonstrict
 local Players = game:GetService("Players")
 local CoreGuiService = game:GetService("CoreGui")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")

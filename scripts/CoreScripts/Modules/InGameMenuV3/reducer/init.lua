@@ -1,6 +1,5 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
-
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Cryo = InGameMenuDependencies.Cryo
 
@@ -31,7 +30,6 @@ local inviteFriends = require(script.inviteFriends)
 local quickActions = require(script.quickActions)
 local displayOptions = require(script.displayOptions)
 local nativeClosePrompt = require(script.nativeClosePrompt)
-local voiceStateReducer = require(InGameMenu.Parent.VoiceChat.Reducers.voiceState)
 local inspectAndBuy = require(script.inspectAndBuy)
 local FetchingStatus = require(CorePackages.AppTempCommon.LuaApp.Reducers.FetchingStatus)
 local RoduxShareLinks = SocialDependencies.RoduxShareLinks
@@ -154,7 +152,6 @@ local function reducer(state, action)
 			currentZone = nil,
 			menuPage = Constants.defaultPageKey,
 			previousPage = nil,
-			voiceState = nil,
 			invites = invites(nil, action),
 			respawn = respawn(nil, action),
 			gameInfo = gameInfo(nil, action),
@@ -184,7 +181,6 @@ local function reducer(state, action)
 
 	state.respawn = respawn(state.respawn, action)
 	state.invites = invites(state.invites, action)
-	state.voiceState = voiceStateReducer(state.voiceState, action)
 	state.gameInfo = gameInfo(state.gameInfo, action)
 	state.friends = friends(state.friends, action)
 	state.inviteFriends = inviteFriends(state.inviteFriends, action)

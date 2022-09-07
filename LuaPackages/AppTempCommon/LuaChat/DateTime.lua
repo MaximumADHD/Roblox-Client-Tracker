@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 
 This is deprecated. Do not use.

@@ -45,8 +45,9 @@
 	Optional Props:
 		LayoutOrder, number, used by the layouter to set the position of the component.
 ]]
-local FFlagUnifyModelPackagePublish2 = game:GetFastFlag("UnifyModelPackagePublish2")
+local FFlagUnifyModelPackagePublish3 = game:GetFastFlag("UnifyModelPackagePublish3")
 local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
+local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -71,8 +72,8 @@ local AssetConfigUtil = require(Util.AssetConfigUtil)
 local Constants = require(Util.Constants)
 local Images = require(Plugin.Core.Util.Images)
 
-local ContextGetter = require(Util.ContextGetter)
-local getNetwork = ContextGetter.getNetwork
+local ContextGetter = if FFlagToolboxAssetConfigurationVerifiedPrice then nil else require(Util.ContextGetter) -- unused, remove with FFlagToolboxAssetConfigurationVerifiedPrice
+local getNetwork = if FFlagToolboxAssetConfigurationVerifiedPrice then nil else ContextGetter.getNetwork -- unused, remove with FFlagToolboxAssetConfigurationVerifiedPrice
 
 local withLocalization = ContextHelper.withLocalization
 
@@ -89,7 +90,8 @@ local Header = require(AssetConfiguration.Header)
 local PriceComponent = require(AssetConfiguration.PriceComponent)
 
 local SetFieldError = require(Plugin.Core.Actions.SetFieldError)
-local GetPublishingRequirementsRequest = require(Plugin.Core.Networking.Requests.GetPublishingRequirementsRequest)
+local GetPublishingRequirementsRequest = if FFlagToolboxAssetConfigurationVerifiedPrice then nil
+	else require(Plugin.Core.Networking.Requests.GetPublishingRequirementsRequest) -- unused, remove with FFlagToolboxAssetConfigurationVerifiedPrice
 
 local PublishAsset = Roact.PureComponent:extend("PublishAsset")
 
@@ -99,7 +101,7 @@ local ACCESS_HEIGHT = 70
 local GENRE_HEIGHT = 70
 local COPY_HEIGHT = 80
 local COMMENT_HEIGHT = 80
-local PACKAGE_HEIGHT = 80  --added with FFlagUnifyModelPackagePublish2
+local PACKAGE_HEIGHT = 80  --added with FFlagUnifyModelPackagePublish3
 local PADDING = 24
 local HEIGHT_FOR_ACCOUNT_SETTING_TEXT = 60
 local DIVIDER_BASE_HEIGHT = 20
@@ -189,15 +191,16 @@ function PublishAsset:renderContent(theme, localizedContent)
 	local copyOn = props.copyOn
 	local allowComment = props.allowComment
 	local commentOn = props.commentOn
-	local allowPackage = if FFlagUnifyModelPackagePublish2 then props.allowPackage else nil
-	local packageOn = if FFlagUnifyModelPackagePublish2 then props.packageOn else nil
+	local allowPackage = if FFlagUnifyModelPackagePublish3 then props.allowPackage else nil
+	local packageOn = if FFlagUnifyModelPackagePublish3 then props.packageOn else nil
+	local packageWarningText = if FFlagUnifyModelPackagePublish3 then props.packageWarningText else nil
 	local assetTypeEnum = props.assetTypeEnum
 	local isAssetPublic = props.isAssetPublic
 
 	local isAudio = assetTypeEnum == Enum.AssetType.Audio
 	local isModel = assetTypeEnum == Enum.AssetType.Model
 	local isPlugin = assetTypeEnum == Enum.AssetType.Plugin
-	local isPackageAsset = if FFlagUnifyModelPackagePublish2 then props.isPackageAsset else nil
+	local isPackageAsset = if FFlagUnifyModelPackagePublish3 then props.isPackageAsset else nil
 
 	local onNameChange = props.onNameChange
 	local onDescChange = props.onDescChange
@@ -207,12 +210,12 @@ function PublishAsset:renderContent(theme, localizedContent)
 	local onSharingChanged = props.onSharingChanged
 	local toggleCopy = props.toggleCopy
 	local toggleComment = props.toggleComment
-	local togglePackage = if FFlagUnifyModelPackagePublish2 then props.togglePackage else nil
+	local togglePackage = if FFlagUnifyModelPackagePublish3 then props.togglePackage else nil
 
 	local displayOwnership = props.displayOwnership
 	local displayGenre = props.displayGenre
 	local displayCopy = props.displayCopy
-	local displayPackage = if FFlagUnifyModelPackagePublish2 then props.displayPackage else nil
+	local displayPackage = if FFlagUnifyModelPackagePublish3 then props.displayPackage else nil
 	local displayComment = props.displayComment
 	local displayAssetType = if isPlugin then false else props.displayAssetType
 	local displayTags = props.displayTags
@@ -235,10 +238,10 @@ function PublishAsset:renderContent(theme, localizedContent)
 
 	local maximumItemTagsPerItem = props.maximumItemTagsPerItem
 
-	local copyWarning -- remove with FFlagUnifyModelPackagePublish2
+	local copyWarning -- remove with FFlagUnifyModelPackagePublish3
 	local modelPublishWarningText
 	local localization = props.Localization
-	if isAudio and not isAssetPublic and copyOn and not FFlagUnifyModelPackagePublish2 then  -- remove clause with FFlagUnifyModelPackagePublish2
+	if isAudio and not isAssetPublic and copyOn and not FFlagUnifyModelPackagePublish3 then  -- remove clause with FFlagUnifyModelPackagePublish3
 		copyWarning = localization:getText("AssetConfigCopy", "MustShare")
 	end
 
@@ -261,10 +264,21 @@ function PublishAsset:renderContent(theme, localizedContent)
 		LayoutOrder = LayoutOrder,
 		[Roact.Ref] = self.baseFrameRef,
 	}
+	
+	local showPrice
+	if FFlagToolboxAssetConfigurationVerifiedPrice then
+		local publishingRequirements = props.publishingRequirements
+		local verification = if publishingRequirements then publishingRequirements.verification else nil
+		local isVerificationSupported = if verification and verification.supportedTypes then #verification.supportedTypes ~= 0 else nil
 
-	-- If the asset is a plugin, buyable on the marketplace, and the user is not whitelisted, we hide the price.
-	-- The copy option will only be able to toggle between Free and OffSale.
-	local showPrice = if isPlugin then allowedAssetTypesForRelease[assetTypeEnum.Name] else false
+		-- If the asset is a plugin and (is unverified but can be verified or can sell marketplace assets), we show the price component.
+		-- Otherwise, the user can only toggle on/off "Distribute on Marketplace".
+		showPrice = if isPlugin then isVerificationSupported or allowedAssetTypesForRelease[assetTypeEnum.Name] else false
+	else
+		-- If the asset is a plugin, buyable on the marketplace, and the user is whitelisted, we show the price.
+		-- The copy option will only be able to toggle between Free and OffSale.
+		showPrice = if isPlugin then allowedAssetTypesForRelease[assetTypeEnum.Name] else false
+	end
 
 	return Roact.createElement(StyledScrollingFrame, scrollingFrameProps, {
 		Padding = Roact.createElement("UIPadding", {
@@ -450,10 +464,10 @@ function PublishAsset:renderContent(theme, localizedContent)
 
 			CopyEnabled = if isPlugin then canChangeSalesStatus else allowCopy,
 			CopyOn = copyOn,
-			CopyWarning = if FFlagUnifyModelPackagePublish2 then nil else copyWarning,
+			CopyWarning = if FFlagUnifyModelPackagePublish3 then nil else copyWarning,
 
-			PackageOn = if FFlagUnifyModelPackagePublish2 then isPackageAsset or packageOn else nil,
-			isPackageAsset = if FFlagUnifyModelPackagePublish2 then isPackageAsset else nil,
+			PackageOn = if FFlagUnifyModelPackagePublish3 then isPackageAsset or packageOn else nil,
+			isPackageAsset = if FFlagUnifyModelPackagePublish3 then isPackageAsset else nil,
 
 			ToggleCallback = toggleCopy,
 
@@ -484,12 +498,13 @@ function PublishAsset:renderContent(theme, localizedContent)
 			LayoutOrder = orderIterator:getNextOrder(),
 		}),
 
-		Package = if FFlagUnifyModelPackagePublish2 and displayPackage then Roact.createElement(ConfigPackage, {
+		Package = if FFlagUnifyModelPackagePublish3 and displayPackage then Roact.createElement(ConfigPackage, {
 			Title = publishAssetLocalized.Package,
 
 			TotalHeight = PACKAGE_HEIGHT,
 			PackageEnabled = allowPackage,
 			PackageOn = packageOn,
+			PackageWarningText = packageWarningText,
 
 			ToggleCallback = togglePackage,
 
@@ -510,6 +525,20 @@ function PublishAsset:renderContent(theme, localizedContent)
 	})
 end
 
+local function mapStateToProps(state)
+	if not FFlagToolboxAssetConfigurationVerifiedPrice then
+		return {}
+	end
+
+	state = state or {}
+
+	local stateToProps = {
+		publishingRequirements = state.publishingRequirements,
+	}
+
+	return stateToProps
+end
+
 local function mapDispatchToProps(dispatch)
 	return {
 		setFieldError = function(fieldName, hasError)
@@ -523,4 +552,8 @@ PublishAsset = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(PublishAsset)
 
-return RoactRodux.connect(nil, mapDispatchToProps)(PublishAsset)
+if FFlagToolboxAssetConfigurationVerifiedPrice then
+	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PublishAsset)
+else
+	return RoactRodux.connect(nil, mapDispatchToProps)(PublishAsset)
+end

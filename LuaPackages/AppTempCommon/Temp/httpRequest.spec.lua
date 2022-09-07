@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local httpRequest = require(script.Parent.httpRequest)
 

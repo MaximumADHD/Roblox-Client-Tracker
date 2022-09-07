@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local GoogleAnalytics = require(script.Parent.GoogleAnalytics)
 

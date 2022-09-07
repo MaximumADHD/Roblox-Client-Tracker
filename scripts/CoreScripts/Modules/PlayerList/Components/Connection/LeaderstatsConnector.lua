@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	LeaderstatsConnector is the interface between the playerlist and the leaderstats objects.
 	Leaderstats allow a Roblox developer to display scores in the playerlist.

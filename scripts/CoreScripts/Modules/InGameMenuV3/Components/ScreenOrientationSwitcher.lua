@@ -1,4 +1,3 @@
---!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local PlayerGUI = (Players.LocalPlayer :: Player):WaitForChild("PlayerGui")

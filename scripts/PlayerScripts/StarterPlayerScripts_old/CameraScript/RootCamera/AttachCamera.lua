@@ -21,19 +21,19 @@ end
 
 local function CreateAttachCamera()
 	local module = RootCameraCreator()
-	
+
 	local lastUpdate = tick()
 	function module:Update()
 		local now = tick()
-		
+
 		local camera = 	workspace.CurrentCamera
-		
+
 		if lastUpdate == nil or now - lastUpdate > 1 then
 			module:ResetCameraLook()
 			self.LastCameraTransform = nil
-		end	
-		
-		local subjectPosition = self:GetSubjectPosition()		
+		end
+
+		local subjectPosition = self:GetSubjectPosition()
 		if subjectPosition and camera then
 			local zoom = self:GetCameraZoom()
 			if zoom <= 0 then
@@ -43,12 +43,12 @@ local function CreateAttachCamera()
 
 			local humanoid = self:GetHumanoid()
 			if lastUpdate and humanoid and humanoid.Torso then
-				
+
 				-- Cap out the delta to 0.1 so we don't get some crazy things when we re-resume from
 				local delta = math_min(0.1, now - lastUpdate)
 				local gamepadRotation = self:UpdateGamepad()
-				self.RotateInput = self.RotateInput + (gamepadRotation * delta)		
-				
+				self.RotateInput = self.RotateInput + (gamepadRotation * delta)
+
 				local forwardVector = humanoid.Torso.CFrame.lookVector
 
 				local y = findAngleBetweenXZVectors(forwardVector, self:GetCameraLook())
@@ -68,7 +68,7 @@ local function CreateAttachCamera()
 		end
 		lastUpdate = now
 	end
-	
+
 	return module
 end
 

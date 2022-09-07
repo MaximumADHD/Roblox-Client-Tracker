@@ -1,3 +1,4 @@
+--!nonstrict
 -- Load the legacy SoundDispatcher script into the server if the rest of the old system is present
 
 local SOUND_DISPATCHER_NAME = "SoundDispatcher"

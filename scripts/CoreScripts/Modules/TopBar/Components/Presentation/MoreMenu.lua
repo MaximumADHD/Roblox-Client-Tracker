@@ -67,8 +67,8 @@ local MORE_ICON_OFF = "rbxasset://textures/ui/TopBar/moreOff.png"
 
 local MoreMenu = Roact.PureComponent:extend("MoreMenu")
 
-local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
+local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 
 MoreMenu.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
@@ -195,10 +195,10 @@ function MoreMenu:render()
 		moreIcon = MORE_ICON_OFF
 	end
 
-	local moreButtonVisible = not TenFootInterface:IsEnabled() and self.props.topBarEnabled and hasOptions and not (FFlagEnableNewVrSystem and VRService.VREnabled)
+	local moreButtonVisible = not TenFootInterface:IsEnabled() and self.props.topBarEnabled and hasOptions and not VRService.VREnabled
 
 	return Roact.createElement("Frame", {
-		Visible = moreButtonVisible or (EngineFeatureEnableVRUpdate2 and self.state.vrShowMenuIcon),
+		Visible = moreButtonVisible or (EngineFeatureEnableVRUpdate2 and self.state.vrShowMenuIcon and not EngineFeatureEnableVRUpdate3),
 		BackgroundTransparency = 1,
 		Size = UDim2.new(0, MORE_BUTTON_SIZE, 1, 0),
 		LayoutOrder = self.props.layoutOrder,

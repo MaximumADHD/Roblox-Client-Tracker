@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: PlayEmote.lua
 --	// Written by: TheGamer101
 --	// Description: Play an emote by name.

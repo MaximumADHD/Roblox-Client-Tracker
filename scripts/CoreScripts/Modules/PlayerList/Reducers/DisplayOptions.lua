@@ -1,3 +1,4 @@
+--!nonstrict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local VRService = game:GetService("VRService")
@@ -23,6 +24,8 @@ local SetSubjectToChinaPolicies = require(Actions.SetSubjectToChinaPolicies)
 
 local FFlagMobilePlayerList = require(RobloxGui.Modules.Flags.FFlagMobilePlayerList)
 
+local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
+
 local initialDisplayOptions = {
 	isMinimized = false,
 	setVisible = true, --If the user wants the leaderboard visible or not
@@ -45,12 +48,12 @@ local function updateIsVisible(state)
 
 	if FFlagMobilePlayerList then
 		if not state.isTenFootInterface then
-			state.isVisible = state.isVisible and not state.vrEnabled
+			state.isVisible = state.isVisible and (not state.vrEnabled or EngineFeatureEnableVRUpdate3)
 		end
 	else
 		if not state.isTenFootInterface then
-			state.isVisible = state.isVisible
-				and (not state.isSmallTouchDevice) and (not state.vrEnabled)
+			state.isVisible = state.isVisible and (not state.vrEnabled or EngineFeatureEnableVRUpdate3)
+				and (not state.isSmallTouchDevice)
 		end
 	end
 

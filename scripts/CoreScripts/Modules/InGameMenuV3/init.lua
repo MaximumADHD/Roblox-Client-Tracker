@@ -23,10 +23,9 @@ local createStore = require(script.createStore)
 
 local App = require(script.Components.App)
 local FocusHandlerContextProvider = require(script.Components.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
-local initVoiceChatStore = require(RobloxGui.Modules.VoiceChat.initVoiceChatStore)
 local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local TrustAndSafety = require(RobloxGui.Modules.TrustAndSafety)
-
+local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
 local Localization = require(script.Localization.Localization)
 
 local SetLocaleId = require(script.Actions.SetLocaleId)
@@ -36,6 +35,7 @@ local SetScreenSize = require(script.Actions.SetScreenSize)
 local SetMenuIconTooltipOpen = require(script.Actions.SetMenuIconTooltipOpen)
 local SetRespawning = require(script.Actions.SetRespawning)
 local OpenMenu = require(script.Thunks.OpenMenu)
+local CloseMenu = require(script.Thunks.CloseMenu)
 local InGameMenuPolicy = require(script.InGameMenuPolicy)
 
 local GlobalConfig = require(script.GlobalConfig)
@@ -96,8 +96,6 @@ return {
 			menuStore:dispatch(SetInspectMenuEnabled(enabled))
 		end)
 
-		initVoiceChatStore(menuStore)
-
 		local menuTree = Roact.createElement("ScreenGui", {
 			ResetOnSpawn = false,
 			IgnoreGuiInset = true,
@@ -122,7 +120,9 @@ return {
 						}, {
 							CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
 								FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
-									InGameMenu = Roact.createElement(App),
+									VoiceStateContextProvider = Roact.createElement(VoiceStateContext.Provider, {}, {
+										InGameMenu = Roact.createElement(App),
+									})
 								}) or nil,
 							}),
 						}),
@@ -148,6 +148,10 @@ return {
 	openInGameMenu = function(pageKey)
 		PerfUtils.menuOpenBegin()
 		menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.TopbarButton, pageKey))
+	end,
+	
+	closeInGameMenu = function()
+		CloseMenu(menuStore)
 	end,
 
 	openReportDialog = function(player)

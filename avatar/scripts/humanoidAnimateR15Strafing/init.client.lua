@@ -2,6 +2,8 @@ local Character = script.Parent
 local Humanoid = Character:WaitForChild("Humanoid")
 local pose = "Standing"
 
+local UserGameSettings = UserSettings():GetService("UserGameSettings")
+
 local userNoUpdateOnLoopSuccess, userNoUpdateOnLoopValue = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNoUpdateOnLoop") end)
 local userNoUpdateOnLoop = userNoUpdateOnLoopSuccess and userNoUpdateOnLoopValue
 
@@ -30,7 +32,7 @@ local runBlendtime = 0.1
 local rootPart
 
 local function strafeMode()
-	local result = not strafingDisabled and not Humanoid.AutoRotate
+	local result = not strafingDisabled and (Humanoid.AutoRotate == (UserGameSettings.rotationType == Enum.RotationType.CameraRelative))
 	return result
 end
 

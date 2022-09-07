@@ -1,3 +1,4 @@
+--!nonstrict
 local CameraUtils = require(script.Parent.Parent.CameraUtils)
 local VehicleCameraConfig = require(script.Parent.VehicleCameraConfig)
 

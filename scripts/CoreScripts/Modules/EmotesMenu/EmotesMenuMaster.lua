@@ -10,6 +10,7 @@ local StarterGui = game:GetService("StarterGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local FFlagAllowEmotesMenuWhenTopbarIsDisabled = game:DefineFastFlag("AllowEmotesMenuWhenTopbarIsDisabled", false)
+local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 
 -- Wait for LocalPlayer to exist
 local LocalPlayer = Players.LocalPlayer
@@ -178,6 +179,9 @@ end
 
 function EmotesMenuMaster:_onNumberEmotesLoadedChanged(newNumberEmotesLoaded)
 	self.store:dispatch(NumberEmotesLoadedChanged(newNumberEmotesLoaded))
+	if EngineFeatureEnableVRUpdate3 then
+		self.EmotesLoaded:Fire(newNumberEmotesLoaded > 0)
+	end
 end
 
 function EmotesMenuMaster:_onHumanoidDescriptionChanged(humanoidDescription)
@@ -364,6 +368,9 @@ function EmotesMenuMaster.new()
 	-- Bindable that can be used by other modules to see when the Emotes Menu should
 	-- not be visible to users or should be visible to users.
 	self.MenuVisibilityChanged = Instance.new("BindableEvent")
+	
+	-- Fired with a bool indicating whether there are any equipped emotes
+	self.EmotesLoaded = Instance.new("BindableEvent")
 
 	self.store = Rodux.Store.new(EmotesMenuReducer, {}, {
 		Rodux.thunkMiddleware,

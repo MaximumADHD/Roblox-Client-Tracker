@@ -1,3 +1,4 @@
+--!nonstrict
 local Players = game:GetService("Players")
 
  -- wait for the first of the passed signals to fire

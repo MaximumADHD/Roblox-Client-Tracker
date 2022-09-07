@@ -50,6 +50,7 @@ local SetPublishingRequirements = require(Actions.SetPublishingRequirements)
 local FFlagInfiniteScrollerForVersions2 = game:getFastFlag("InfiniteScrollerForVersions2")
 local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
 local FFlagToolboxSwitchVerifiedEndpoint = require(Plugin.Core.Util.getFFlagToolboxSwitchVerifiedEndpoint)
+local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
 
 return Rodux.createReducer({
 	-- Empty table means publish new asset
@@ -466,7 +467,7 @@ return Rodux.createReducer({
 		})
 	end,
 
-	[SetPublishingRequirements.name] = if FFlagToolboxEnableAssetConfigPhoneVerification then function(state, action)
+	[SetPublishingRequirements.name] = if FFlagToolboxEnableAssetConfigPhoneVerification or FFlagToolboxAssetConfigurationVerifiedPrice then function(state, action)
 		return Cryo.Dictionary.join(state, {
 			publishingRequirements = action.publishingRequirements,
 		})

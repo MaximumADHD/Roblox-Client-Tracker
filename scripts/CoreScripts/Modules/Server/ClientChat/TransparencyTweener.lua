@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: TransparencyTweener.lua
 --	// Written by: Xsitsu
 --	// Description: Data structure for tweening transparency of a group of objects as one unit.

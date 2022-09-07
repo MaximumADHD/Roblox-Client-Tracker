@@ -1,12 +1,12 @@
 --[[
 	Invisicam
-	
+
 	Modified 5.16.2017 by AllYourBlox to consider combined transparency when looking through multiple parts, and to add
 	a mode that takes advantage of the reduced cost of ray casts from re-implementing GetPartsObscuringTarget
 	on the C++ side to be O(N) for N parts hit, rather than O(N^2), and to have optimizations specifically
 	improving performance of closely bundled rays. Fading is also removed, since it is a frame rate killer with high-poly models,
 	and on mobile.
-	
+
 	Based on Invisicam Version 2.5 by OnlyTwentyCharacters
 --]]
 
@@ -36,13 +36,13 @@ local STARTING_MODE = MODE.SMART_CIRCLE
 local LIMB_TRACKING_SET = {
 	-- Common to R6, R15
 	['Head'] = true,
-	
+
 	-- R6 Only
 	['Left Arm'] = true,
 	['Right Arm'] = true,
 	['Left Leg'] = true,
 	['Right Leg'] = true,
-	
+
 	-- R15 Only
 	['LeftLowerArm'] = true,
 	['RightLowerArm'] = true,
@@ -155,7 +155,7 @@ local function CircleBehavior(castPoints)
 		local offset = 3 * Vector3_new(math_cos(angle), math_sin(angle), 0)
 		castPoints[#castPoints + 1] = cframe * offset
 	end
-end	
+end
 
 local function LimbMoveBehavior(castPoints)
 	LimbBehavior(castPoints)
@@ -165,7 +165,7 @@ end
 local function CharacterOutlineBehavior(castPoints)
 	local torsoUp = TorsoPart.CFrame.upVector.unit
 	local torsoRight = TorsoPart.CFrame.rightVector.unit
-	
+
 	-- Torso cross of points for interior coverage
 	castPoints[#castPoints + 1] = TorsoPart.CFrame.p
 	castPoints[#castPoints + 1] = TorsoPart.CFrame.p + torsoUp
@@ -175,24 +175,24 @@ local function CharacterOutlineBehavior(castPoints)
 	if HeadPart then
 		castPoints[#castPoints + 1] = HeadPart.CFrame.p
 	end
-	
+
 	local cframe = CFrame.new(ZERO_VECTOR3,Vector3_new(Camera.CoordinateFrame.lookVector.X,0,Camera.CoordinateFrame.lookVector.Z))
 	local centerPoint = (TorsoPart and TorsoPart.Position or HumanoidRootPart.Position)
-	
+
 	local partsWhitelist = {TorsoPart}
 	if HeadPart then
 		partsWhitelist[#partsWhitelist + 1] = HeadPart
 	end
-	
+
 	for i = 1, CHAR_OUTLINE_CASTS do
 		local angle = (2 * math_pi * i / CHAR_OUTLINE_CASTS)
 		local offset = cframe * (3 * Vector3_new(math_cos(angle), math_sin(angle), 0))
-		
-		offset = Vector3_new(offset.X, math_max(offset.Y, -2.25), offset.Z)	
-		
+
+		offset = Vector3_new(offset.X, math_max(offset.Y, -2.25), offset.Z)
+
 		local ray = Ray.new(centerPoint + offset, -3 * offset)
 		local hit, hitPoint = game.Workspace:FindPartOnRayWithWhitelist(ray, partsWhitelist, false, false)
-		
+
 		if hit then
 			-- Use hit point as the cast point, but nudge it slightly inside the character so that bumping up against
 			-- walls is less likely to cause a transparency glitch
@@ -216,19 +216,19 @@ local function RayIntersection(p0, v0, p1, v1)
 	local d2 = p1.y - p0.y
 	local d3 = p1.z - p0.z
 	local denom = Det3x3(v0.x,-v1.x,v2.x,v0.y,-v1.y,v2.y,v0.z,-v1.z,v2.z)
-	
+
 	if (denom == 0) then
 		return ZERO_VECTOR3 -- No solution (rays are parallel)
 	end
-	
+
 	local t0 = Det3x3(d1,-v1.x,v2.x,d2,-v1.y,v2.y,d3,-v1.z,v2.z) / denom
 	local t1 = Det3x3(v0.x,d1,v2.x,v0.y,d2,v2.y,v0.z,d3,v2.z) / denom
 	local s0 = p0 + t0 * v0
 	local s1 = p1 + t1 * v1
 	local s = s0 + 0.5 * ( s1 - s0 )
-	
+
 	-- 0.25 studs is a threshold for deciding if the rays are
-	-- close enough to be considered intersecting, found through testing 
+	-- close enough to be considered intersecting, found through testing
 	if (s1-s0).Magnitude < 0.25 then
 		return s
 	else
@@ -239,7 +239,7 @@ end
 local function SmartCircleBehavior(castPoints)
 	local torsoUp = TorsoPart.CFrame.upVector.unit
 	local torsoRight = TorsoPart.CFrame.rightVector.unit
-	
+
 	-- SMART_CIRCLE mode includes rays to head and 5 to the torso.
 	-- Hands, arms, legs and feet are not included since they
 	-- are not canCollide and can therefore go inside of parts
@@ -251,11 +251,11 @@ local function SmartCircleBehavior(castPoints)
 	if HeadPart then
 		castPoints[#castPoints + 1] = HeadPart.CFrame.p
 	end
-	
+
 	local cameraOrientation = Camera.CFrame - Camera.CFrame.p
 	local torsoPoint = Vector3_new(0,0.5,0) + (TorsoPart and TorsoPart.Position or HumanoidRootPart.Position)
 	local radius = 2.5
-	
+
 	-- This loop first calculates points in a circle of radius 2.5 around the torso of the character, in the
 	-- plane orthogonal to the camera's lookVector. Each point is then raycast to, to determine if it is within
 	-- the free space surrounding the player (not inside anything). Two iterations are done to adjust points that
@@ -267,37 +267,37 @@ local function SmartCircleBehavior(castPoints)
 	for i = 1, SMART_CIRCLE_CASTS do
 		local angle = SMART_CIRCLE_INCREMENT * i - 0.5 * math.pi
 		local offset = radius * Vector3_new(math_cos(angle), math_sin(angle), 0)
-		local circlePoint = torsoPoint + cameraOrientation * offset		
-		 
-		-- Vector from camera to point on the circle being tested		
+		local circlePoint = torsoPoint + cameraOrientation * offset
+
+		-- Vector from camera to point on the circle being tested
 		local vp = circlePoint - Camera.CFrame.p
-		
+
 		local ray = Ray.new(torsoPoint, circlePoint - torsoPoint)
 		local hit, hp, hitNormal = game.Workspace:FindPartOnRayWithIgnoreList(ray, {Character}, false, false )
 		local castPoint = circlePoint
-				
+
 		if hit then
 			local hprime = hp + 0.1 * hitNormal.unit -- Slightly offset hit point from the hit surface
 			local v0 = hprime - torsoPoint -- Vector from torso to offset hit point
 			local d0 = v0.magnitude
-			
+
 			local perp = (v0:Cross(vp)).unit
 
 			-- Vector from the offset hit point, along the hit surface
 			local v1 = (perp:Cross(hitNormal)).unit
-			
+
 			-- Vector from camera to offset hit
 			local vprime = (hprime - Camera.CFrame.p).unit
-			
+
 			-- This dot product checks to see if the vector along the hit surface would hit the correct
 			-- side of the invisicam cone, or if it would cross the camera look vector and hit the wrong side
 			if ( v0.unit:Dot(-v1) < v0.unit:Dot(vprime)) then
 				castPoint = RayIntersection(hprime, v1, circlePoint, vp)
-				
+
 				if castPoint.Magnitude > 0 then
 					local ray = Ray.new(hprime, castPoint - hprime)
 					local hit, hitPoint, hitNormal = game.Workspace:FindPartOnRayWithIgnoreList(ray, {Character}, false, false )
-					
+
 					if hit then
 						local hprime2 = hitPoint + 0.1 * hitNormal.unit
 						castPoint = hprime2
@@ -308,16 +308,16 @@ local function SmartCircleBehavior(castPoints)
 			else
 				castPoint = hprime
 			end
-			
+
 			local ray = Ray.new(torsoPoint, (castPoint - torsoPoint))
 			local hit, hitPoint, hitNormal = game.Workspace:FindPartOnRayWithIgnoreList(ray, {Character}, false, false )
-	
+
 			if hit then
 				local castPoint2 = hitPoint - 0.1 * (castPoint - torsoPoint).unit
-				castPoint = castPoint2	
+				castPoint = castPoint2
 			end
 		end
-		
+
 		castPoints[#castPoints + 1] = castPoint
 	end
 end
@@ -331,7 +331,7 @@ local function CheckTorsoReference()
 				TorsoPart = Character:FindFirstChild("HumanoidRootPart")
 			end
 		end
-		
+
 		HeadPart = Character:FindFirstChild("Head")
 	end
 end
@@ -347,7 +347,7 @@ local function OnCharacterAdded(character)
 	end
 
 	Character = character
-	
+
 	TrackedLimbs = {}
 	local function childAdded(child)
 		if child:IsA('BasePart') then
@@ -361,20 +361,20 @@ local function OnCharacterAdded(character)
 
 			if (child.Name == 'Head') then
 				HeadPart = child
-			end			
+			end
 		end
 	end
-	
+
 	local function childRemoved(child)
 		TrackedLimbs[child] = nil
-		
+
 		-- If removed/replaced part is 'Torso' or 'UpperTorso' double check that we still have a TorsoPart to use
 		CheckTorsoReference()
-	end	
-	
+	end
+
 	childAddedConn = character.ChildAdded:connect(childAdded)
 	childRemovedConn = character.ChildRemoved:connect(childRemoved)
-	
+
 	for _, child in pairs(Character:GetChildren()) do
 		childAdded(child)
 	end
@@ -396,7 +396,7 @@ function Invisicam:Update()
 
 	-- Bail if there is no Character
 	if not Character then return end
-	
+
 	-- Make sure we still have a HumanoidRootPart
 	if not HumanoidRootPart then
 		local humanoid = Character:FindFirstChildOfClass("Humanoid")
@@ -412,7 +412,7 @@ function Invisicam:Update()
 		end
 		local ancestryChangedConn;
 		ancestryChangedConn = HumanoidRootPart.AncestryChanged:connect(function(child, parent)
-			if child == HumanoidRootPart and not parent then 
+			if child == HumanoidRootPart and not parent then
 				HumanoidRootPart = nil
 				if ancestryChangedConn and ancestryChangedConn.Connected then
 					ancestryChangedConn:Disconnect()
@@ -421,7 +421,7 @@ function Invisicam:Update()
 			end
 		end)
 	end
-	
+
 	if not TorsoPart then
 		CheckTorsoReference()
 		if not TorsoPart then
@@ -433,7 +433,7 @@ function Invisicam:Update()
 	-- Make a list of world points to raycast to
 	local castPoints = {}
 	BehaviorFunction(castPoints)
-	
+
 	-- Cast to get a list of objects between the camera and the cast points
 	local currentHits = {}
 	local ignoreList = {Character}
@@ -443,26 +443,26 @@ function Invisicam:Update()
 			SavedHits[hit] = hit.LocalTransparencyModifier
 		end
 	end
-	
+
 	local hitParts
 	local hitPartCount = 0
-	
+
 	-- Hash table to treat head-ray-hit parts differently than the rest of the hit parts hit by other rays
 	-- head/torso ray hit parts will be more transparent than peripheral parts when USE_STACKING_TRANSPARENCY is enabled
-	local headTorsoRayHitParts = {}	
+	local headTorsoRayHitParts = {}
 	local partIsTouchingCamera = {}
-	
+
 	local perPartTransparencyHeadTorsoHits = TARGET_TRANSPARENCY
 	local perPartTransparencyOtherHits = TARGET_TRANSPARENCY
-	
+
 	if USE_STACKING_TRANSPARENCY then
-	
+
 		-- This first call uses head and torso rays to find out how many parts are stacked up
 		-- for the purpose of calculating required per-part transparency
 		local headPoint = HeadPart and HeadPart.CFrame.p or castPoints[1]
 		local torsoPoint = TorsoPart and TorsoPart.CFrame.p or castPoints[2]
 		hitParts = Camera:GetPartsObscuringTarget({headPoint, torsoPoint}, ignoreList)
-		
+
 		-- Count how many things the sample rays passed through, including decals. This should only
 		-- count decals facing the camera, but GetPartsObscuringTarget does not return surface normals,
 		-- so my compromise for now is to just let any decal increase the part count by 1. Only one
@@ -478,22 +478,22 @@ function Invisicam:Update()
 				end
 			end
 		end
-		
+
 		if (hitPartCount > 0) then
 			perPartTransparencyHeadTorsoHits = math.pow( ((0.5 * TARGET_TRANSPARENCY) + (0.5 * TARGET_TRANSPARENCY / hitPartCount)), 1 / hitPartCount )
 			perPartTransparencyOtherHits = math.pow( ((0.5 * TARGET_TRANSPARENCY_PERIPHERAL) + (0.5 * TARGET_TRANSPARENCY_PERIPHERAL / hitPartCount)), 1 / hitPartCount )
 		end
 	end
-	
+
 	-- Now get all the parts hit by all the rays
 	hitParts = Camera:GetPartsObscuringTarget(castPoints, ignoreList)
-	
+
 	local partTargetTransparency = {}
-	
+
 	-- Include decals and textures
 	for i = 1, #hitParts do
 		local hitPart = hitParts[i]
-		
+
 		partTargetTransparency[hitPart] =headTorsoRayHitParts[hitPart] and perPartTransparencyHeadTorsoHits or perPartTransparencyOtherHits
 
 		-- If the part is not already as transparent or more transparent than what invisicam requires, add it to the list of
@@ -501,7 +501,7 @@ function Invisicam:Update()
 		if hitPart.Transparency < partTargetTransparency[hitPart] then
 			add(hitPart)
 		end
-		
+
 		-- Check all decals and textures on the part
 		for _, child in pairs(hitPart:GetChildren()) do
 			if child:IsA('Decal') or child:IsA('Texture') then
@@ -512,11 +512,11 @@ function Invisicam:Update()
 			end
 		end
 	end
-	
+
 	-- Invisibilize objects that are in the way, restore those that aren't anymore
 	for hitPart, originalLTM in pairs(SavedHits) do
 		if currentHits[hitPart] then
-			-- LocalTransparencyModifier gets whatever value is required to print the part's total transparency to equal perPartTransparency			
+			-- LocalTransparencyModifier gets whatever value is required to print the part's total transparency to equal perPartTransparency
 			hitPart.LocalTransparencyModifier = (hitPart.Transparency < 1) and ((partTargetTransparency[hitPart] - hitPart.Transparency) / (1.0 - hitPart.Transparency)) or 0
 		else -- Restore original pre-invisicam value of LTM
 			hitPart.LocalTransparencyModifier = originalLTM

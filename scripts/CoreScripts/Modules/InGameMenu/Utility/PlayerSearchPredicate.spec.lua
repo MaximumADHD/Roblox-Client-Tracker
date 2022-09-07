@@ -1,4 +1,3 @@
---!nonstrict
 return function()
 	local PlayerSearchPredicate = require(script.Parent.PlayerSearchPredicate)
 

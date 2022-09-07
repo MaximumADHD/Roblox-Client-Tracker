@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Provides an implementation of functional programming primitives.
 ]]

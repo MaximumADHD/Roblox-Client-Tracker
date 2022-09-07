@@ -4,6 +4,7 @@ local isCli = require(script.Parent.isCli)
 local FFlagToolboxEnableAnnouncementsDialog = game:GetFastFlag("ToolboxEnableAnnouncementsDialog")
 local FFlagToolboxCreatorMarketplaceWebLinks = game:GetFastFlag("ToolboxCreatorMarketplaceWebLinks")
 local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
+local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
 
 local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
 local ToolboxPolicy
@@ -155,7 +156,7 @@ if FFlagToolboxEnableAnnouncementsDialog then
 	end
 end
 
-if FFlagToolboxEnableAssetConfigPhoneVerification then
+if FFlagToolboxEnableAssetConfigPhoneVerification or FFlagToolboxAssetConfigurationVerifiedPrice then
 	function ToolboxUtilities.getVerificationDocumentationUrl(): string?
 		return ToolboxPolicy["VerificationDocumentationUrl"]
 	end

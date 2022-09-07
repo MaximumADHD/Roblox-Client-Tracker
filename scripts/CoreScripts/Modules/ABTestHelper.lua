@@ -1,3 +1,4 @@
+--!nonstrict
 local ABTestHelper = {}
 
 ABTestHelper.VARIATION_B = 2

@@ -5,6 +5,7 @@ local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
 
+local VRService = game:GetService("VRService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -39,6 +40,8 @@ local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlag
 local EmotesMenu = Roact.PureComponent:extend("EmotesMenu")
 
 local KEYBINDS_PRIORITY = Enum.ContextActionPriority.High.Value
+
+local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 
 function EmotesMenu:init()
 	self.savedSelectedCoreObject = nil
@@ -191,7 +194,7 @@ function EmotesMenu:didMount()
 	self:currentCameraChanged()
 
 	self.menuOpenedConn = GuiService.MenuOpened:Connect(function()
-		if self.props.displayOptions.menuVisible then
+		if self.props.displayOptions.menuVisible and not (EngineFeatureEnableVRUpdate3 and VRService.VREnabled) then
 			self.props.hideMenu()
 			if EnableInGameMenuV3() then
 				self.shouldResumeEmotes = true
@@ -219,7 +222,8 @@ function EmotesMenu:didMount()
 
 		local inputType = input.UserInputType
 		if not GetFFlagNewEmotesInGame() and
-			(inputType == Enum.UserInputType.MouseButton1 or inputType == Enum.UserInputType.Touch) then
+			(inputType == Enum.UserInputType.MouseButton1 or inputType == Enum.UserInputType.Touch) and
+			  not (EngineFeatureEnableVRUpdate3 and VRService.VREnabled) then
 			-- Don't close the emotes menu when interacting with the game outside of the menu with
 			-- the new emotes flag on
 			self.props.hideMenu()

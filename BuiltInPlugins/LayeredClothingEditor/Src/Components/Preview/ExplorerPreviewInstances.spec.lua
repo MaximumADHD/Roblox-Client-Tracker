@@ -18,7 +18,7 @@ return function()
 				UserAddedAssets = {}
 			}),
 			function(container)
-				expect(game.Workspace.LayeredClothingEditorPreview).to.be.ok()
+				expect(game.ReplicatedStorage.LayeredClothingEditorPreview).to.be.ok()
 			end
 		)
 	end)

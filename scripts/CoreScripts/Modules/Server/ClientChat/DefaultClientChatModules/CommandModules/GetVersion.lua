@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: GetVersion.lua
 --	// Written by: spotco
 --	// Description: Command to print the chat version.

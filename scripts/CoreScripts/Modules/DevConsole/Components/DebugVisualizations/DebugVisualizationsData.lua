@@ -1,3 +1,4 @@
+--!nonstrict
 local Signal = require(script.Parent.Parent.Parent.Signal)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)

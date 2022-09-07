@@ -1,3 +1,4 @@
+--!nonstrict
 local LogService = game:GetService("LogService")
 local TextService = game:GetService("TextService")
 

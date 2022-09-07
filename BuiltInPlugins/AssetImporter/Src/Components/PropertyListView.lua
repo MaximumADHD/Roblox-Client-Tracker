@@ -30,7 +30,7 @@ local GetLocalizedString = require(Plugin.Src.Utility.GetLocalizedString)
 
 local getFFlagAssetImportUsePropertyFactories = require(Plugin.Src.Flags.getFFlagAssetImportUsePropertyFactories)
 local FFlagLCQualityCageNamingChecks = game:GetFastFlag("LCQualityCageNamingChecks")
-local FFlagAssetImportPassLocalizationAllContextMixins = game:GetFastFlag("AssetImportPassLocalizationAllContextMixins")
+local FFlagAssetImportPassLocalizationAllContextMixins = require(Plugin.Src.Flags.getFFlagAssetImportPassLocalizationAllContextMixins)
 local getFFlagAssetImportGlobalStatusFix = require(Plugin.Src.Flags.getFFlagAssetImportGlobalStatusFix)
 
 local statusBucketToType = {
@@ -60,15 +60,22 @@ end
 
 local function getHighestSeverityStatus(instance, propertyName)
 	local level = nil
+	local context = nil
 	local message = ""
 	local statuses = getRelevantStatuses(instance:GetStatuses(), propertyName)
 
 	if #statuses.Errors > 0 then
 		level = StatusLevel.Error
 		message = statuses.Errors[1].StatusType
+		context = statuses.Errors[1]
 	elseif #statuses.Warnings > 0 then
 		level = StatusLevel.Warning
 		message = statuses.Warnings[1].StatusType
+		context = statuses.Warnings[1]
+	end
+
+	if FFlagAssetImportPassLocalizationAllContextMixins() then
+		return level, message, context
 	end
 
 	return level, message
@@ -123,6 +130,7 @@ function PropertyListView:render()
 		local statusObject : Types.SectionStatus = {
 			StatusLevel = nil,
 			StatusMessage = nil,
+			StatusContext = nil,
 			GlobalStatus = false,
 		}
 
@@ -134,6 +142,7 @@ function PropertyListView:render()
 				if statusObject.StatusLevel ~= StatusLevel.Error then
 					statusObject.StatusLevel = statusBucketToType[statusBucketType]
 					statusObject.StatusMessage = status.StatusType
+					statusObject.StatusContext = status
 					statusObject.GlobalStatus = true
 				end
 				local statusStyle = statusBucketToType[statusBucketType] == StatusLevel.Error and style.ErrorStatus or style.WarningStatus
@@ -174,11 +183,12 @@ function PropertyListView:render()
 		-- Create property components
 		for propertyIndex, propertyMetadata: Types.PropDescriptor in pairs(sectionMetadata.Properties) do
 			if not propertyMetadata.ShouldHide or not propertyMetadata.ShouldHide(props.Instance, props.AssetImportSession) then
-				local level, message = getHighestSeverityStatus(props.Instance, propertyMetadata.Name)
+				local level, message, context = getHighestSeverityStatus(props.Instance, propertyMetadata.Name)
 
 				if level and not statusObject.GlobalStatus and statusObject.StatusLevel ~= StatusLevel.Error then
 					statusObject.StatusLevel = level
 					statusObject.StatusMessage = message
+					statusObject.StatusContext = context
 				end
 
 				local dependencies = nil
@@ -207,6 +217,7 @@ function PropertyListView:render()
 					SetProperty = props.SetProperty,
 					StatusLevel = level,
 					StatusMessage = message,
+					StatusContext = context,
 					ValueType = valueType,
 					PropertyMetadata = propertyMetadataProp,
 					AllowPickFile = allowPickFile,
@@ -223,11 +234,20 @@ function PropertyListView:render()
 
 			if statusObject.StatusLevel and (not expanded or statusObject.GlobalStatus) then
 				headerComponent = PropertyStatus
-				headerComponentProps = {
-					StatusLevel = statusObject.StatusLevel,
-					StatusMessage = statusObject.StatusMessage,
-					Position = UDim2.new(1, 0, 0, 0),
-				}
+				if FFlagAssetImportPassLocalizationAllContextMixins() then
+					headerComponentProps = {
+						StatusLevel = statusObject.StatusLevel,
+						StatusMessage = statusObject.StatusMessage,
+						StatusContext = statusObject.StatusContext,
+						Position = UDim2.new(1, 0, 0, 0),
+					}
+				else
+					headerComponentProps = {
+						StatusLevel = statusObject.StatusLevel,
+						StatusMessage = statusObject.StatusMessage,
+						Position = UDim2.new(1, 0, 0, 0),
+					}
+				end
 			end
 
 			sections[sectionIndex] = Roact.createElement(ExpandablePane, {

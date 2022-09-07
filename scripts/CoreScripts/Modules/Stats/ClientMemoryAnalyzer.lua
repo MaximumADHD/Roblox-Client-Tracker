@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
   Filename: ClientMemoryAnalyzer.lua
   Written by: dbanks

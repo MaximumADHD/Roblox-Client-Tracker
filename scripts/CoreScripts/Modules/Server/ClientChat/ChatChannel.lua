@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: ChatChannel.lua
 --	// Written by: Xsitsu
 --	// Description: ChatChannel class for handling messages being added and removed from the chat channel.

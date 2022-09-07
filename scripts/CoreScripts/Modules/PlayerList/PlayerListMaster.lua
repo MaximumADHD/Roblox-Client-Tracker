@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
@@ -119,7 +120,7 @@ function PlayerListMaster.new()
 	end)()
 
 	local lastInputType = UserInputService:GetLastInputType()
-	local isGamepad = lastInputType.Name:find("Gamepad")
+	local isGamepad = lastInputType and lastInputType.Name:find("Gamepad")
 	self.store:dispatch(SetIsUsingGamepad(isGamepad ~= nil))
 
 	self:_trackEnabled()
@@ -156,7 +157,7 @@ function PlayerListMaster.new()
 				})
 			})
 		})
-		
+
 		self.element = Roact.mount(self.root, RobloxGui, "PlayerListMaster")
 	end
 

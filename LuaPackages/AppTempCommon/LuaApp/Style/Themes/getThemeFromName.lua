@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local ArgCheck = require(CorePackages.ArgCheck)
 local Logging = require(CorePackages.Logging)

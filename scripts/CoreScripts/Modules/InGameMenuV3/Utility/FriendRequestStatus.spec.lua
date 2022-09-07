@@ -1,5 +1,3 @@
---!nonstrict
-
 return function()
 
 	local FriendStatusChanged = Instance.new("BindableEvent")

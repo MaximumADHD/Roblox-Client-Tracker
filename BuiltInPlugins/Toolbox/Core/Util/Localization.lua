@@ -7,6 +7,7 @@ local Plugin = script.Parent.Parent.Parent
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
 local FFlagToolboxAssetConfigurationMaxPrice = game:GetFastFlag("ToolboxAssetConfigurationMaxPrice")
+local FFlagToolboxAddUnverifiedIcon = game:GetFastFlag("ToolboxAddUnverifiedIcon")
 
 local Packages = Plugin.Packages
 local Cryo = require(Packages.Cryo)
@@ -20,7 +21,7 @@ local Localization = {}
 Localization.__index = Localization
 
 local FFlagLimitGroupRoleSetPermissionsInGui = game:GetFastFlag("LimitGroupRoleSetPermissionsInGui")
-local FFlagUnifyModelPackagePublish2 = game:GetFastFlag("UnifyModelPackagePublish2")
+local FFlagUnifyModelPackagePublish3 = game:GetFastFlag("UnifyModelPackagePublish3")
 
 --[[
 	options:
@@ -118,10 +119,12 @@ function Localization:getLocalizedContent()
 	return self.content
 end
 
-function Localization:getLocalizedCreatorIntroText(userName)
-	return self:_safeLocalize("Studio.Toolbox.General.AssetCreatorIntroText", {
-		name = userName,
-	})
+if not FFlagToolboxAddUnverifiedIcon then
+	function Localization:getLocalizedCreatorIntroText(userName)
+		return self:_safeLocalize("Studio.Toolbox.General.AssetCreatorIntroText", {
+			name = userName,
+		})
+	end
 end
 
 if FFlagToolboxAssetConfigurationMinPriceFloor2 and not FFlagToolboxAssetConfigurationMaxPrice then
@@ -731,7 +734,7 @@ function Localization:_recalculateContent()
 				Ownership = self:_safeLocalize("Studio.Toolbox.General.Ownership"),
 				Genre = self:_safeLocalize("Studio.Toolbox.General.Genre"),
 				Copy = self:_safeLocalize("Studio.Toolbox.General.Copy"),
-				Package = FFlagUnifyModelPackagePublish2 and self:_safeLocalize("Studio.Toolbox.General.Package") or nil,
+				Package = FFlagUnifyModelPackagePublish3 and self:_safeLocalize("Studio.Toolbox.General.Package") or nil,
 				Comments = self:_safeLocalize("Studio.Toolbox.General.Comments"),
 				DistributeOnMarketplace = self:_safeLocalize("Studio.Toolbox.General.DistributeOnMarketplace"),
 				LearnMore = self:_safeLocalize("Studio.Toolbox.General.LearnMore"),

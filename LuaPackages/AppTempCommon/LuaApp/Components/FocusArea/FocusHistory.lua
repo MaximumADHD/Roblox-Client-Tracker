@@ -1,3 +1,4 @@
+--!nonstrict
 local module = {}
 
 -- Holds the current history of all initialized focus areas

@@ -1,3 +1,4 @@
+--!nonstrict
 local Signal = require(script.Parent.Parent.Parent.Signal)
 local SoundService = game:GetService("SoundService")
 local MeshContentProvider = game:GetService("MeshContentProvider")

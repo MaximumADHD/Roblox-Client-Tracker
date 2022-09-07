@@ -45,6 +45,7 @@ type _Props = Props & {
 	dispatchSetExpandedPane: (paneName: string, expandedPaneState: boolean) -> (),
 	ExpandedPane: boolean,
 	GeneralServiceController: any,
+	Material: _Types.Material,
 	MaterialServiceController: any,
 	Localization: any,
 	Stylizer: any,
@@ -122,7 +123,7 @@ function GeneralSettings:init()
 
 	self.onExpandedChanged = function()
 		local props: _Props = self.props
-		
+
 		props.dispatchSetExpandedPane(settingsNames.GeneralSettings, not props.ExpandedPane)
 	end
 end
@@ -131,27 +132,14 @@ function GeneralSettings:didMount()
 	local props: _Props = self.props
 	local localization = props.Localization
 
-	self.connectionName = props.MaterialVariant:GetPropertyChangedSignal("Name"):Connect(function()
-		self:setState({
-			name = props.MaterialVariant.Name,
-		})
-		self.setNameStatus(nil)
-	end)
-
 	for index, material in ipairs(materials) do
 		table.insert(self.baseMaterials, localization:getText("Materials", getMaterialName(material)))
 	end
-	self:setState({})   -- Force a rerender of the baseMaterials list
-end
-
-function GeneralSettings:willUnmount()
-	if self.connectionName then
-		self.connectionName:Disconnect()
-	end
+	self:setState({}) -- Force a rerender of the baseMaterials list
 end
 
 function GeneralSettings:didUpdate(prevProps)
-	if prevProps.MaterialVariant ~= self.props.MaterialVariant then
+	if prevProps.MaterialVariant.Name ~= self.props.MaterialVariant.Name then
 		self:setState({
 			name = self.props.MaterialVariant.Name,
 			nameMessage = Roact.None,
@@ -202,7 +190,7 @@ function GeneralSettings:render()
 				Text = self.state.name,
 				OnTextChanged = self.onNameChanged,
 				OnFocusLost = self.onFocusLost,
-			})
+			}),
 		}),
 		BaseMaterial = Roact.createElement(LabeledElement, {
 			LabelColumnWidth = style.LabelColumnWidth,
@@ -216,7 +204,7 @@ function GeneralSettings:render()
 				OnItemActivated = self.onBaseMaterialSelected,
 				PlaceholderText = localization:getText("CreateDialog", "PlaceholderBaseMaterial"),
 				SelectedIndex = currentIndex,
-			})
+			}),
 		}),
 	})
 end
@@ -233,6 +221,7 @@ return RoactRodux.connect(
 	function(state: MainReducer.State)
 		return {
 			ExpandedPane = state.MaterialBrowserReducer.ExpandedPane[settingsNames.GeneralSettings],
+			Material = state.MaterialBrowserReducer.Material, -- Needed for refresh purposes
 		}
 	end,
 	function(dispatch)

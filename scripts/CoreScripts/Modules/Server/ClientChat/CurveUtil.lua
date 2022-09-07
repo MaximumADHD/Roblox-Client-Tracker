@@ -1,3 +1,4 @@
+--!nonstrict
 local CurveUtil = {	}
 local DEFAULT_THRESHOLD = 0.01
 

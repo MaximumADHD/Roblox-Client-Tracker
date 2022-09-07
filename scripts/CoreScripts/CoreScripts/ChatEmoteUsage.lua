@@ -1,4 +1,3 @@
---!nonstrict
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")

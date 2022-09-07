@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: ProcessCommands.lua
 --	// Written by: TheGamer101
 --	// Description: Module for processing commands using the client CommandModules

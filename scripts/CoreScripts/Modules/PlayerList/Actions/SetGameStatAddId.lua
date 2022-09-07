@@ -1,3 +1,4 @@
+--!nonstrict
 local ActionCreator = require(script.Parent.Parent.ActionCreator)
 
 return ActionCreator("SetGameStatAddId", function(statName, serverAddId)

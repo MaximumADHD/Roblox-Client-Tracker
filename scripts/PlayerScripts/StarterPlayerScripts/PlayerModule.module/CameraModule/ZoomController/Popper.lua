@@ -1,3 +1,4 @@
+--!nonstrict
 --------------------------------------------------------------------------------
 -- Popper.lua
 -- Prevents your camera from clipping through walls.

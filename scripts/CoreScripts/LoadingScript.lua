@@ -1,3 +1,4 @@
+--!nonstrict
 -- Creates the generic "ROBLOX" loading screen on startup
 -- Written by ArceusInator & Ben Tkacheff, 2014
 -- Updates by 0xBAADF00D, 2017
@@ -13,23 +14,28 @@ local ContentProvider = game:GetService("ContentProvider")
 local CoreGui = game:GetService("CoreGui")
 local ReplicatedFirst = game:GetService("ReplicatedFirst")
 local ScriptContext = game:GetService("ScriptContext")
-
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Modules = RobloxGui:WaitForChild("Modules")
 local Common = Modules:WaitForChild("Common")
+local CorePackages = game:GetService("CorePackages")
 local create = require(RobloxGui:WaitForChild("Modules"):WaitForChild("Common"):WaitForChild("Create"))
 local PolicyService = require(RobloxGui.Modules.Common:WaitForChild("PolicyService"))
 local LoadingScreen = require(Modules.LoadingScreen.LoadingScreen)
 local LoadingScreenReducer = require(Modules.LoadingScreen.Reducers.LoadingScreenReducer)
-
+local IXPServiceWrapper = require(Modules.Common.IXPServiceWrapper)
 --FFlags
 local FFlagLoadingScreenShowBlankUntilPolicyServiceReturns = game:DefineFastFlag("LoadingScreenShowBlankUntilPolicyServiceReturns", false)
 local FFlagLoadingRemoveRemoteCallErrorPrint = game:DefineFastFlag("LoadingRemoveRemoteCallErrorPrint", false)
 
-local FFlagLoadingScreenRevamp2 = game:DefineFastFlag("LoadingScreenRevamp2", false)
+local FFlagLoadingScreenRevamp = game:DefineFastFlag("LoadingScreenRevamp3", false)
+
 
 local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCode")
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
+
+local GetFFlagLoadingScreenUseIXP = require(RobloxGui.Modules.Flags.GetFFlagLoadingScreenUseIXP)
+local AppTempCommon = CorePackages:WaitForChild("AppTempCommon")
+local GetFStringLoadingScreenIxpLayer = require(AppTempCommon.Flags.GetFStringLoadingScreenIxpLayer)
 
 local antiAddictionNoticeStringEn = "Boycott bad games, refuse pirated games. Be aware of self-defense and being deceived. Playing games is good for your brain, but too much game play can harm your health. Manage your time well and enjoy a healthy lifestyle."
 local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
@@ -61,6 +67,24 @@ if numArgs > 0 then
 	PLACE_ID_FROM_ENGINE = select(1, ...)
 end
 
+-- IXP set up
+local IXP_ENROLLED = false
+if GetFFlagLoadingScreenUseIXP() then
+	-- Rely on app side for ixp data fetching since we don't want to block waiting for ixp initalization.
+	-- The cached data might no exist and will introduce metric error for ixp users.
+	-- But for this particular case, we are acceptable with that.
+	local layerFetchSuccess, layerData = pcall(function()
+		return IXPServiceWrapper:GetLayerData(GetFStringLoadingScreenIxpLayer()) or {}
+	end)
+	if layerFetchSuccess and layerData and layerData.enableNewLoadingScreen then
+		IXP_ENROLLED = true
+	end
+else
+	-- if IXP is not used, default to true
+	IXP_ENROLLED = true
+end
+local UseNewVersionLoadingScreen = FFlagLoadingScreenRevamp and IXP_ENROLLED
+
 -- Variables
 local GameAssetInfo -- loaded by InfoProvider:LoadAssets()
 local currScreenGui
@@ -79,7 +103,7 @@ local connectionHealthCon
 
 -- [Info provider section] should be removed after new loading screen goes alive
 local InfoProvider = {}
-if not FFlagLoadingScreenRevamp2 then
+if not UseNewVersionLoadingScreen then
 	function InfoProvider:GetGameName()
 		if GameAssetInfo ~= nil then
 			return GameAssetInfo.Name
@@ -126,7 +150,7 @@ end
 
 -- create a cancel binding for console to be able to cancel anytime while loading
 local function createTenfootCancelGui()
-	if FFlagLoadingScreenRevamp2 then return end
+	if UseNewVersionLoadingScreen then return end
 	local cancelLabel = create'ImageLabel'
 	{
 		Name = "CancelLabel",
@@ -181,7 +205,7 @@ local function createTenfootCancelGui()
 end
 
 local function GenerateGui()
-	if FFlagLoadingScreenRevamp2 then return end
+	if UseNewVersionLoadingScreen then return end
 	local screenGui = create 'ScreenGui' {
 		Name = 'RobloxLoadingGui',
 		DisplayOrder = 8,
@@ -605,19 +629,18 @@ end
 ---------------------------------------------------------
 -- Main Script (show something now + setup connections)
 local transtion = nil
-if FFlagLoadingScreenRevamp2 then
+if UseNewVersionLoadingScreen then
 	transtion = GenerateTransition()
 end
 
-if not FFlagLoadingScreenRevamp2 then
+if not UseNewVersionLoadingScreen then
 	-- start loading assets asap
 	InfoProvider:LoadAssets()
 end
 
 local loadingScreenUIHandle = nil
-if FFlagLoadingScreenRevamp2 then
+if UseNewVersionLoadingScreen then
 	local spwanUI = coroutine.create(function()
-		local CorePackages = game:GetService("CorePackages")
 		local Roact = require(CorePackages:WaitForChild("Roact"))
 		local Rodux = require(CorePackages:WaitForChild("Rodux"))
 		local RoactRodux = require(CorePackages:WaitForChild("RoactRodux"))
@@ -643,7 +666,7 @@ else
 end
 
 -- [events section] should be removed after new loading screen goes alive
-if not FFlagLoadingScreenRevamp2 then
+if not UseNewVersionLoadingScreen then
 	local fadeCycleTime = 1.7
 	local turnCycleTime = 2
 
@@ -821,7 +844,7 @@ local function disconnectAndCloseHealthStat()
 end
 
 local function fadeAndDestroyBlackFrame(blackFrame)
-	if FFlagLoadingScreenRevamp2 then return end
+	if UseNewVersionLoadingScreen then return end
 	if destroyingBackground then return end
 	destroyingBackground = true
 	spawn(function()
@@ -893,7 +916,7 @@ local function fadeAndDestroyBlackFrame(blackFrame)
 end
 
 local function destroyLoadingElements(instant)
-	if FFlagLoadingScreenRevamp2 then return end
+	if UseNewVersionLoadingScreen then return end
 	if not currScreenGui then return end
 	if destroyedLoadingGui then return end
 	destroyedLoadingGui = true
@@ -927,7 +950,7 @@ local function waitForCharacterLoaded()
 end
 
 local function handleRemoveDefaultLoadingGui(instant)
-	if FFlagLoadingScreenRevamp2 then
+	if UseNewVersionLoadingScreen then
 		if loadingScreenUIHandle then
 			local CorePackages = game:GetService("CorePackages")
 			local Roact = require(CorePackages.Roact)

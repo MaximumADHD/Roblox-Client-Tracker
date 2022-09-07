@@ -8,6 +8,8 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local useSelector = require(CorePackages.AppTempCommon.Hooks.RoactRodux.useSelector)
+local React = require(CorePackages.Packages.React)
+local Cryo = require(CorePackages.Cryo)
 
 local UIBlox = InGameMenuDependencies.UIBlox
 local RoactRodux = InGameMenuDependencies.RoactRodux
@@ -46,7 +48,8 @@ local FocusHandler = require(script.Parent.Parent.Connection.FocusHandler)
 local SearchBar = require(script.Parent.Parent.SearchBar)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
-local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicator)
+local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicatorFunc)
+local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
 local DIVIDER_INDENT = 0
@@ -57,11 +60,30 @@ local COPLAY_INVITE_ANIMATION_SPEED = 0.3
 
 local ICON_SIZE = getIconSize(UIBlox.App.ImageSet.Enum.IconSize.Medium)
 
+local VoiceIndicatorWrapper = function(props)
+	local voiceServiceState = React.useContext(VoiceStateContext.Context)
+	local visible, setVisible = React.useState(false)
+
+	if not voiceServiceState.voiceEnabled then
+		return nil
+	end
+
+	return React.createElement(React.Fragment, nil, {
+		Watcher = React.createElement(PageNavigationWatcher, {
+			desiredPage = Constants.PlayersPageKey,
+			onNavigate = setVisible,
+		}),
+		VoiceIndicator = React.createElement(VoiceIndicator, Cryo.Dictionary.join(props, {
+			disable = not visible
+		})),
+	})
+end
+
+
 local PlayersPage = Roact.PureComponent:extend("PlayersPage")
 
 PlayersPage.validateProps = t.strictInterface({
 	players = t.array(playerInterface),
-	voiceEnabled = t.optional(t.boolean),
 	inviteFriends = t.array(t.strictInterface({
 		IsOnline = t.boolean,
 		Id = t.integer,
@@ -281,10 +303,6 @@ function PlayersPage:getIncomingFriendRequestsPlayerByUserId(userId)
 end
 
 function PlayersPage:isPlayerUserIdMuted(userId)
-	if not self.props.voiceEnabled then
-		return nil
-	end
-
 	local voiceParticipant = VoiceChatServiceManager.participants[tostring(userId)]
 	local isMuted = nil
 	if voiceParticipant then
@@ -304,6 +322,12 @@ function PlayersPage:renderListEntries(style, localized, players)
 	listComponents.ListLayout = Roact.createElement("UIListLayout", {
 		SortOrder = Enum.SortOrder.LayoutOrder,
 		HorizontalAlignment = Enum.HorizontalAlignment.Right,
+	})
+
+	listComponents.EndPad = Roact.createElement("Frame", {
+		Size = UDim2.new(0, 1, 0, 72),
+		BackgroundTransparency = 1,
+		LayoutOrder = 1000,
 	})
 
 	-- divider
@@ -392,7 +416,7 @@ function PlayersPage:renderListEntries(style, localized, players)
 						or nil,
 					forwardRef = RoactRef,
 				}, {
-					VoiceIndicator = self.props.voiceEnabled and Roact.createElement(VoiceIndicator, {
+					VoiceIndicator = Roact.createElement(VoiceIndicatorWrapper, {
 						userId = tostring(player.UserId),
 						hideOnError = true,
 						iconStyle = "SpeakerLight",
@@ -495,9 +519,6 @@ function PlayersPage:renderListEntries(style, localized, players)
 			if acceptedRequest then
 				memoKey += 4
 			end
-			if self.props.voiceEnabled then
-				memoKey += 8
-			end
 
 			listComponents["player_" .. id] = Roact.createElement(PlayerCell, {
 				username = player.Name,
@@ -512,7 +533,7 @@ function PlayersPage:renderListEntries(style, localized, players)
 				[Roact.Change.AbsolutePosition] = self.state.selectedPlayer == player and self.positionChanged or nil,
 				forwardRef = RoactRef,
 			}, {
-				VoiceIndicator = self.props.voiceEnabled and Roact.createElement(VoiceIndicator, {
+				VoiceIndicator = Roact.createElement(VoiceIndicatorWrapper, {
 					userId = tostring(player.UserId),
 					hideOnError = true,
 					iconStyle = iconStyle,
@@ -751,7 +772,6 @@ end
 return RoactRodux.connect(function(state, props)
 	return {
 		inviteFriends = state.inviteFriends,
-		voiceEnabled = state.voiceState.voiceEnabled,
 	}
 end, function(dispatch)
 	return {

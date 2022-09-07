@@ -1,3 +1,4 @@
+--!nonstrict
 
 --[[
 		Filename: PerformanceStatsManagerScript.lua

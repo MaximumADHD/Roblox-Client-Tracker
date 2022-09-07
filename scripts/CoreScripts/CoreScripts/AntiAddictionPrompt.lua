@@ -1,3 +1,4 @@
+--!nonstrict
 --[[]
 DEPRECATE THIS FILE WITH FFlagStartScreenTimeUsingGuacEnabled
 ]]

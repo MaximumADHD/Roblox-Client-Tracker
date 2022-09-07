@@ -75,14 +75,14 @@ local function initialize()
 	end
 	ScreenGui = Instance.new('ScreenGui')
 	ScreenGui.Name = "ControlGui"
-	
+
 	local frame = Instance.new('Frame')
 	frame.Name = "BottomLeftControl"
 	frame.Size = UDim2.new(0, 130, 0, 46)
 	frame.Position = UDim2.new(0, 0, 1, -46)
 	frame.BackgroundTransparency = 1
 	frame.Parent = ScreenGui
-	
+
 	ShiftLockIcon = Instance.new('ImageButton')
 	ShiftLockIcon.Name = "MouseLockLabel"
 	ShiftLockIcon.Size = UDim2.new(0, 31, 0, 31)
@@ -91,9 +91,9 @@ local function initialize()
 	ShiftLockIcon.Image = IsShiftLocked and SHIFT_LOCK_ON or SHIFT_LOCK_OFF
 	ShiftLockIcon.Visible = true
 	ShiftLockIcon.Parent = frame
-	
+
 	ShiftLockIcon.MouseButton1Click:connect(onShiftLockToggled)
-	
+
 	ScreenGui.Parent = IsShiftLockMode and PlayerGui or nil
 end
 

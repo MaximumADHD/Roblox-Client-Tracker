@@ -2,12 +2,13 @@ local CorePackages = game:GetService("CorePackages")
 local HttpService = game:GetService("HttpService")
 
 local Url = require(CorePackages.AppTempCommon.LuaApp.Http.Url)
+local RequestTypes = require(CorePackages.AppTempCommon.LuaApp.Http.Requests.RequestTypes)
 
 return function(
-	requestImpl, 
-	conversationId, 
-	universeId, 
-	decorators, 
+	requestImpl: RequestTypes.Request,
+	conversationId,
+	universeId,
+	decorators,
 	isExperienceInvite: boolean?,
 	userId: number?,
 	placeId: number?

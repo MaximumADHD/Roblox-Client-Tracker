@@ -1,3 +1,4 @@
+--!nonstrict
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local SetActiveTab = require(script.Parent.Parent.Actions.SetActiveTab)

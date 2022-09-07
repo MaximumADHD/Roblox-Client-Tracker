@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local TextService = game:GetService("TextService")
 local ContextActionService = game:GetService("ContextActionService")

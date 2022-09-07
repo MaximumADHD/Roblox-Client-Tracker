@@ -21,7 +21,6 @@ local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 
 local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
-local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
 
 local getModal = ContextGetter.getModal
 local withModal = ContextHelper.withModal
@@ -65,7 +64,7 @@ function AssetName:renderContent(theme, modalTarget, modalStatus)
 	local assetName = props.assetName
 	local layoutOrder = props.LayoutOrder or 0
 	local assetNameHeight = Constants.ASSET_NAME_HEIGHT
-	if FFlagAssetVoteSimplification and props.NumberRows ~= nil then
+	if props.NumberRows ~= nil then
 		assetNameHeight = Constants.ASSET_NAME_ONE_LINE_HEIGHT * props.NumberRows
 	end
 	local canShowCurrentTooltip = modalStatus:canShowCurrentTooltip(assetId, Constants.TOOLTIP_TYPE.ASSET_NAME)
@@ -76,12 +75,12 @@ function AssetName:renderContent(theme, modalTarget, modalStatus)
 	return Roact.createElement("TextLabel", {
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
-		Size = if FFlagAssetVoteSimplification then UDim2.new(1, 0, 0, assetNameHeight) else UDim2.new(1, 0, 0, Constants.ASSET_NAME_HEIGHT),
+		Size = UDim2.new(1, 0, 0, assetNameHeight),
 		Text = assetName,
 		TextColor3 = assetNameTheme.textColor,
 
-		Font = if FFlagAssetVoteSimplification then props.Font else Constants.FONT,
-		TextSize = if FFlagAssetVoteSimplification then props.TextSize else Constants.ASSET_NAME_FONT_SIZE,
+		Font = props.Font,
+		TextSize = props.TextSize,
 		TextXAlignment = Enum.TextXAlignment.Left,
 		TextYAlignment = Enum.TextYAlignment.Top,
 		TextWrapped = true,

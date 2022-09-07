@@ -16,12 +16,13 @@ return function()
 
 	local FFlagEnablePreviewDockWidget = game:GetFastFlag("EnablePreviewDockWidget")
 
-	local LayeredClothingEditorPreviewPath = XPath.new("game.Workspace.LayeredClothingEditorPreview")
+	local LayeredClothingEditorPreviewPath = XPath.new("game.ReplicatedStorage.LayeredClothingEditorPreview")
+	local UserFolderPath = LayeredClothingEditorPreviewPath:cat(XPath.new("1"))
 	local ScrollerPath = TestHelper.getEditScreenContainer()
 	local editSwizzlePath = ScrollerPath:cat(XPath.new("EditSwizzle.Header"))
-	local previewAvatarPath = LayeredClothingEditorPreviewPath:cat(XPath.new(TestHelper.DefaultAvatarName))
+	local previewAvatarPath = UserFolderPath:cat(XPath.new(TestHelper.DefaultAvatarName))
 
-	it("LayeredClothingEditorPreview folder should exist in Workspace", function()
+	it("LayeredClothingEditorPreview folder should exist in ReplicatedStorage", function()
 		runRhodiumTest(function()
 			TestHelper.goToEditScreenFromStart(true)
 			expect(TestHelper.waitForXPathInstance(LayeredClothingEditorPreviewPath)).to.be.ok()
@@ -38,9 +39,8 @@ return function()
 				-- minimize edit swizzle in case UI is too big and cuts off animation slider
 				TestHelper.clickXPath(editSwizzlePath)
 
-				-- make sure we have the LayeredClothingEditorPreview folder, and it initially has no children
 				expect(TestHelper.waitForXPathInstance(LayeredClothingEditorPreviewPath)).to.be.ok()
-				expect(#TestHelper.waitForXPathInstance(LayeredClothingEditorPreviewPath):GetChildren()).to.equal(0)
+				expect(TestHelper.waitForXPathInstance(UserFolderPath)).to.be.ok()
 
 				TestHelper.addAvatarToGrid() -- calling TestHelper.addLCItemWithoutCageFromExplorer() earlier makes avatar tab active
 

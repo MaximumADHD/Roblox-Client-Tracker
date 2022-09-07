@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: SwallowGuestChat.lua
 --	// Written by: TheGamer101
 --	// Description: Stop Guests from chatting and give them a message telling them to sign up.

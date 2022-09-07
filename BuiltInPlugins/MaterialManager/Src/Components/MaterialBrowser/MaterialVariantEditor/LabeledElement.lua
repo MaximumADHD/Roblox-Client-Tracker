@@ -77,15 +77,18 @@ function LabeledElement:render()
 		LabeledElement = Roact.createElement(Pane, {
 			AutomaticSize = Enum.AutomaticSize.Y,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			VerticalAlignment = Enum.VerticalAlignment.Top,
 			Layout = fillDirection,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
+			Spacing = 2,
+			VerticalAlignment = Enum.VerticalAlignment.Top,
 		}, {
 			Label = Roact.createElement(TextLabel, {
+				AutomaticSize = Enum.AutomaticSize.Y,
 				LayoutOrder = 1,
 				Size = labelSize,
 				Text = props.Text,
 				TextXAlignment = props.TextXAlignment or style.TextXAlignment,
+				TextWrapped = true,
 			}),
 			ElementListItem = Roact.createElement(Pane, join({
 				LayoutOrder = 2,

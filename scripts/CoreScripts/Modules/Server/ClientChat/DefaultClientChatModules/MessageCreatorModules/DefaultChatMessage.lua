@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: DefaultChatMessage.lua
 --	// Written by: TheGamer101
 --	// Description: Create a message label for a standard chat message.

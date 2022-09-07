@@ -20,17 +20,20 @@
 local FIntToolboxPriceTextBoxMaxCount = game:GetFastInt("ToolboxPriceTextBoxMaxCount")
 local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
 local FFlagToolboxAssetConfigurationMaxPrice = game:GetFastFlag("ToolboxAssetConfigurationMaxPrice")
+local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
+local RoactRodux = if FFlagToolboxAssetConfigurationVerifiedPrice then require(Packages.RoactRodux) else nil
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local TextInput = Framework.UI.TextInput
-local TextLabel = if FFlagToolboxAssetConfigurationMaxPrice then Framework.UI.TextLabel else nil
+local TextLabel = if FFlagToolboxAssetConfigurationMaxPrice or FFlagToolboxAssetConfigurationVerifiedPrice then Framework.UI.TextLabel else nil
+local LinkText = if FFlagToolboxAssetConfigurationVerifiedPrice then Framework.UI.LinkText else nil
 local TitledFrame = Framework.StudioUI.TitledFrame
 local GetTextSize = Framework.Util.GetTextSize
 
@@ -41,6 +44,7 @@ local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local Constants = require(Util.Constants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 local Images = require(Util.Images)
+local ToolboxUtilities = if FFlagToolboxAssetConfigurationVerifiedPrice then require(Util.ToolboxUtilities) else nil
 
 local withLocalization = ContextHelper.withLocalization
 
@@ -48,6 +52,8 @@ local ROW_HEIGHT = 24
 local TEXT_INPUT_BOX_HEIGHT = 40
 local SHALLOW_ROW_HEIGHT = ROW_HEIGHT*0.75
 local INPUT_BOX_WIDTH = if FFlagToolboxAssetConfigurationMinPriceFloor2 then 225 else 200
+
+local GuiService = if FFlagToolboxAssetConfigurationVerifiedPrice then game:GetService("GuiService") else nil
 
 local PriceComponent = Roact.PureComponent:extend("PriceComponent")
 
@@ -57,6 +63,12 @@ function PriceComponent:init(props)
 	self.onPriceChange = function(text)
 		if props.OnPriceChange then
 			props.OnPriceChange(text)
+		end
+	end
+
+	if FFlagToolboxAssetConfigurationVerifiedPrice then
+		self.onClickLearnMore = function()
+			GuiService:OpenBrowserWindow(ToolboxUtilities.getVerificationDocumentationUrl())
 		end
 	end
 end
@@ -95,6 +107,7 @@ function PriceComponent:renderContent(theme, DEPRECATED_localization, DEPRECATED
 	end
 
 	local assetConfigTheme = theme.assetConfig
+	local publishAssetTheme = if FFlagToolboxAssetConfigurationVerifiedPrice then theme.publishAsset else nil
 
 	local componentHeight = TEXT_INPUT_BOX_HEIGHT+ROW_HEIGHT+SHALLOW_ROW_HEIGHT
 
@@ -129,9 +142,56 @@ function PriceComponent:renderContent(theme, DEPRECATED_localization, DEPRECATED
 		subTextColor = if isPriceValid then assetConfigTheme.labelTextColor else assetConfigTheme.errorColor
 	end
 
+	local publishingRequirements = props.publishingRequirements
+	local isVerified = if FFlagToolboxAssetConfigurationVerifiedPrice then publishingRequirements and publishingRequirements.verification and publishingRequirements.verification.isVerified else nil
+
+	-- show price input if we did not retrieve any publishing requirements (non-creator marketplace asset) or if they are verified already
+	local showPriceInput = if FFlagToolboxAssetConfigurationVerifiedPrice then publishingRequirements == nil or isVerified else true
+
+	if not showPriceInput then
+		return Roact.createElement(TitledFrame, {
+			Title = if FFlagToolboxAssetConfigurationMaxPrice then localization:getText("General", "SalesPrice") else DEPRECATED_localizedContent.Sales.Price,
+			LayoutOrder = order,
+		}, {
+			RightFrame = Roact.createElement("Frame", {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 0, 0),
+				LayoutOrder = 1,
+			}, {
+				UIListLayout = Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					FillDirection = Enum.FillDirection.Vertical,
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
+					VerticalAlignment = Enum.VerticalAlignment.Top,
+					Padding = UDim.new(0, 0),
+				}),
+
+				SalesVerification = Roact.createElement(TextLabel, {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					LayoutOrder = 1,
+					Size = UDim2.new(1, 0, 0, 0),
+					Text = localization:getText("General", "SalesVerification"),
+					TextColor = publishAssetTheme.verifyTextColor,
+					TextSize = Constants.FONT_SIZE_LARGE,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextYAlignment = Enum.TextYAlignment.Center,
+				}),
+
+				LearnMore = Roact.createElement(LinkText, {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					LayoutOrder = 2,
+					OnClick = self.onClickLearnMore,
+					Size = UDim2.new(1, 0, 0, 0),
+					Text = localization:getText("General", "LearnMore"),
+				})
+			})
+		})
+	end
+
 	return Roact.createElement(TitledFrame, {
 		Title = if FFlagToolboxAssetConfigurationMaxPrice then localization:getText("General", "SalesPrice") else DEPRECATED_localizedContent.Sales.Price,
-		LayoutOrder = order
+		LayoutOrder = order,
 	}, {
 		InputRow = Roact.createElement("Frame", {
 			Size = if canBeSetAsFree then UDim2.new(1, 0, 0, componentHeight - 15) else UDim2.new(1, 0, 0, componentHeight - 30),
@@ -498,10 +558,27 @@ function PriceComponent:renderContent(theme, DEPRECATED_localization, DEPRECATED
 end
 
 
+local function mapStateToProps(state)
+	if not FFlagToolboxAssetConfigurationVerifiedPrice then
+		return {}
+	end
+
+	state = state or {}
+
+	local stateToProps = {
+		publishingRequirements = state.publishingRequirements,
+	}
+
+	return stateToProps
+end
+
 PriceComponent = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 })(PriceComponent)
 
-
-return PriceComponent
+if FFlagToolboxAssetConfigurationVerifiedPrice then
+	return RoactRodux.connect(mapStateToProps, nil)(PriceComponent)
+else
+	return PriceComponent
+end

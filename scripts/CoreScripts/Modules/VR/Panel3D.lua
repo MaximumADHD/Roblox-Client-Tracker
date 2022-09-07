@@ -1,3 +1,4 @@
+--!nonstrict
 --Panel3D: 3D GUI panels for VR
 --written by 0xBAADF00D
 --revised/refactored 5/11/16
@@ -12,6 +13,8 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Players = game:GetService("Players")
 local Utility = require(RobloxGui.Modules.Settings.Utility)
 local GamepadService = game:GetService("GamepadService")
+
+local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 
 --Panel3D State variables
 local renderStepName = "Panel3DRenderStep-" .. game:GetService("HttpService"):GenerateGUID()
@@ -34,6 +37,8 @@ local panelAdjustCF = CFrame.new(0, 0, -0.5 * partThickness) * CFrame.Angles(0, 
 local cursorHidden = false
 local cursorHideTime = 2.5
 local cursorSize = 3
+
+local lerpSpeed = 4
 
 local currentModal = nil
 local lastModal = nil
@@ -73,7 +78,9 @@ Panel3D.Type = {
 	Fixed = 2,
 	HorizontalFollow = 3,
 	FixedToHead = 4,
-	NewStandard = 5
+	NewStandard = 5,
+	WristView = 6,
+	PositionLocked = 7,
 }
 
 Panel3D.OnPanelClosed = Utility:Create 'BindableEvent' {
@@ -191,12 +198,12 @@ function Panel.new(name)
 
 	self.linkedTo = false
 	self.subpanels = {}
-	
+
 	self.transparency = 0
-	
 	self.forceShowUntilLookedAt = false
 	self.forceShowUntilTick = 0
 	self.isLookedAt = false
+	self.isWristHeldUp = false
 	self.isOffscreen = true
 	self.lookAtPixel = Vector2.new(-1, -1)
 	self.cursorPos = Vector2.new(-1, -1)
@@ -207,7 +214,18 @@ function Panel.new(name)
 	self.localCF = CFrame.new()
 	self.angleFromHorizon = false
 	self.angleFromForward = false
-	self.distance = false
+	self.distance = 0
+	
+	self.lerpTime = 0
+	self.lerpInitialCF = nil
+	self.lerpScaleSize = Vector2.new(0,0)
+	self.lerpInitialSize = Vector2.new(0,0)
+	
+	self.FollowView = true
+	self.LastFollowCF = nil
+	
+	--self.wristLockPosition = false
+	self.wristTargetPosition = Vector3.new()
 
 	if panels[name] then
 		error("A panel by the name of " .. name .. " already exists.")
@@ -293,6 +311,14 @@ function Panel:SetEnabled(enabled)
 	self:OnEnabled(enabled)
 end
 
+function Panel:StartLerp(scaleSize)
+	-- this starts a linear interpolation of the position and size of the panel
+	self.lerpInitialCF = self:GetPart().CFrame * CFrame.new(0, -1.5, 0)
+	self.lerpTime = 1
+	self.lerpInitialSize = Vector2.new(self.width, self.height)
+	self.lerpScaleSize = scaleSize and scaleSize or Vector2.new(0,0)
+end
+
 function Panel:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF, dt)
 	if self.panelType == Panel3D.Type.Fixed then
 		--Places the panel in the camera's local space, but doesn't follow the user's head.
@@ -329,7 +355,90 @@ function Panel:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF, dt)
 			self.originCF = userHeadCF * CFrame.new(screenOffset)
 		end
 		
-		self:SetPartCFrame(cameraCF * self.originCF * self.localCF)
+		self:SetPartCFrame(cameraCF * self.originCF * self.localCF)	
+	elseif self.panelType == Panel3D.Type.WristView then
+		if VRService:GetUserCFrameEnabled(Enum.UserCFrame.LeftHand) then
+			if self.needsPositionUpdate or self.alwaysUpdatePosition then
+				self.needsPositionUpdate = false
+				local userLeftCF = VRService:GetUserCFrame(Enum.UserCFrame.LeftHand)
+				local scaledPosition = userLeftCF.Position * (workspace.CurrentCamera :: Camera).HeadScale
+				self.originCF = CFrame.new(scaledPosition)
+			end
+
+			local userHeadCF = VRService:GetUserCFrame(Enum.UserCFrame.Head)
+			local userHeadCameraCF = cameraCF * userHeadCF
+
+			-- make sure the panel sits at a good distance
+			local wristCF = cameraCF * self.originCF
+			local finalPosition = wristCF.Position
+			if self.distance > 0 then
+				-- hack : bring it up to head height when at a distance
+				finalPosition = Vector3.new(finalPosition.x, userHeadCameraCF.Position.y - 0.33, finalPosition.z)
+
+				local finalDistance = math.clamp((finalPosition - userHeadCameraCF.Position).Magnitude, self.distance - 0.5, self.distance + 0.5)
+				local offsetPos = (finalPosition - userHeadCameraCF.Position).Unit * finalDistance
+				finalPosition = userHeadCameraCF.Position + offsetPos
+			end
+
+			-- don't angle up/down
+			local targetPosition = Vector3.new(userHeadCameraCF.Position.x, finalPosition.y, userHeadCameraCF.Position.z)
+
+			-- face the VR camera from the wrist
+			local facingCF = CFrame.new(finalPosition, targetPosition)
+
+			self:GetPart().CFrame = facingCF
+		else
+			local cf = self.localCF - self.localCF.p
+			cf = cf + (self.localCF.p * (workspace.CurrentCamera :: Camera).HeadScale)
+			self:SetPartCFrame(cameraCF * cf)
+		end
+	elseif self.panelType == Panel3D.Type.PositionLocked then
+		local userHeadCF = VRService:GetUserCFrame(Enum.UserCFrame.Head)
+		local userHeadCameraCF = cameraCF * userHeadCF
+		
+		if not self.LastFollowCF then
+			self.LastFollowCF = userHeadCameraCF
+		end
+		
+		if self.LastFollowCF.LookVector:Dot(userHeadCameraCF.LookVector) < 0.85 then
+			self.FollowView = true
+		else
+			if self.LastFollowCF.LookVector:Dot(userHeadCameraCF.LookVector) > 0.99 then
+				self.FollowView = false
+			end
+		end
+	
+		userHeadCameraCF = cameraCF * userHeadCF
+		if self.FollowView then
+			self.LastFollowCF = self.LastFollowCF:Lerp(userHeadCameraCF, 0.1)
+		end
+
+		local finalPosition = userHeadCameraCF.Position + self.LastFollowCF.LookVector * self.distance * (workspace.CurrentCamera :: Camera).HeadScale
+		finalPosition = Vector3.new(finalPosition.X, userHeadCameraCF.Position.Y - 0.5, finalPosition.Z)
+
+		-- don't angle up/down
+		local targetPosition = Vector3.new(userHeadCameraCF.Position.x, finalPosition.y, userHeadCameraCF.Position.z)
+
+		-- face the VR camera from the wrist
+		local facingCF = CFrame.new(finalPosition, targetPosition)
+
+		self:GetPart().CFrame = facingCF
+	end
+	
+	-- optional lerp
+	if self.lerpInitialCF and self.lerpTime > 0 then
+		local targetCF = self:GetPart().CFrame
+		local targetLook = targetCF.Position + targetCF.LookVector
+		self.lerpTime -= dt * lerpSpeed
+		local lerpAmount = math.clamp(1 - self.lerpTime, 0, 1)
+		targetCF = self.lerpInitialCF:Lerp(targetCF, lerpAmount)
+		
+		self:GetPart().CFrame = targetCF --CFrame.new(targetCF.Position, targetLook)
+		
+		if(self.lerpScaleSize.x > 0 or self.lerpScaleSize.y > 0) then
+			local newSize = self.lerpInitialSize:Lerp(self.lerpScaleSize, lerpAmount)
+			self:ResizeStuds(newSize.x, newSize.y, self.pixelsPerStud)
+		end
 	end
 end
 
@@ -389,6 +498,38 @@ function Panel:EvaluateGaze(cameraCF, cameraRenderCF, userHeadCF, lookRay, point
 			end
 		end
 		highestSubpanel:SetLookedAt(true)
+	end
+	
+	if self.panelType == Panel3D.Type.WristView then
+		self.isWristHeldUp = false
+		local userLeftCF = VRService:GetUserCFrame(Enum.UserCFrame.LeftHand)
+		local scaledPosition = userLeftCF.Position * (workspace.CurrentCamera :: Camera).HeadScale
+		local wristCF = cameraCF * CFrame.new(scaledPosition)
+
+		if self.distance == 0 then
+			-- conversely is the wrist where the panel would be ?
+			local userHeadCF = VRService:GetUserCFrame(Enum.UserCFrame.Head)
+			local userHeadCameraCF = cameraCF * userHeadCF
+			local finalPosition = wristCF.Position
+			finalPosition = Vector3.new(finalPosition.x, userHeadCameraCF.Position.y - 0.33, finalPosition.z)
+
+			local finalDistance = math.clamp((finalPosition - userHeadCameraCF.Position).Magnitude, 0.5, 1.0)
+			local offsetPos = (finalPosition - userHeadCameraCF.Position).Unit * finalDistance
+			finalPosition = userHeadCameraCF.Position + offsetPos
+			
+			local delta = (finalPosition - wristCF.Position).Magnitude
+			self.isWristHeldUp = delta < 0.25
+		else
+			-- keep holding it up while you are aiming at the wrist / bottom bar
+			local userRightCF = VRService:GetUserCFrame(Enum.UserCFrame.RightHand)
+			local dirRightToLeft = userLeftCF.Position - userRightCF.Position
+			local dotDir = userRightCF.LookVector:Dot(dirRightToLeft)
+			local projectedPosition = userRightCF.Position + userRightCF.LookVector * dotDir
+			local projectedDistance = (userLeftCF.Position - projectedPosition).Magnitude
+			if(projectedDistance < 0.5) then -- projected distance from the aim dir
+				self.isWristHeldUp = true
+			end
+		end
 	end
 
 	local gui = self:GetGUI()
@@ -584,7 +725,7 @@ function Panel:SetType(panelType, config)
 
 	self.angleFromHorizon = false
 	self.angleFromForward = false
-	self.distance = false
+	self.distance = 0
 
 	if not config then
 		config = {}
@@ -605,6 +746,11 @@ function Panel:SetType(panelType, config)
 		self.localCF = config.CFrame or CFrame.new()
 	elseif panelType == Panel3D.Type.NewStandard then
 		self.localCF = config.CFrame or CFrame.new()
+	elseif panelType == Panel3D.Type.WristView then
+		self.localCF = config.CFrame or CFrame.new()
+		self.distance = 0
+	elseif panelType == Panel3D.Type.PositionLocked then
+		self.localCF = config.CFrame or CFrame.new()	
 	else
 		error("Invalid Panel type")
 	end
@@ -617,6 +763,10 @@ function Panel:SetVisible(visible, modal)
 			Panel3D.OnPanelClosed:Fire(self.name)
 		else
 			self.needsPositionUpdate = true
+			if self.panelType == Panel3D.Type.WristView then
+				local userHeadCF = VRService:GetUserCFrame(Enum.UserCFrame.Head)
+				self.originCF = userHeadCF * newStandardOriginCF
+			end
 		end
 	end
 
@@ -1017,8 +1167,16 @@ local function onRenderStep()
 
 		v:OnUpdate(dt)
 	end
+	
+	if currentClosest and EngineFeatureEnableVRUpdate3 then
+		local x, y = currentCursorPos.X, currentCursorPos.Y
+		local pixelScale = currentClosest:GetPixelScale()
+		cursor.Size = UDim2.new(0, cursorSize * pixelScale, 0, cursorSize * pixelScale)
+		cursor.Position = UDim2.new(0, x - cursor.AbsoluteSize.x * 0.5, 0, y - cursor.AbsoluteSize.y * 0.5)
+	else
+		cursor.Parent = nil
+	end
 
-	cursor.Parent = nil
 	lastClosest = currentClosest
 end
 

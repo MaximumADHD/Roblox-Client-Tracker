@@ -29,6 +29,7 @@ local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("Toolbox
 local FIntToolboxGrantUniverseAudioPermissionsTimeoutInMS = game:GetFastInt(
 	"ToolboxGrantUniverseAudioPermissionsTimeoutInMS"
 )
+local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
 
 local NetworkInterface = {}
 NetworkInterface.__index = NetworkInterface
@@ -904,7 +905,7 @@ function NetworkInterface:getCreatorMarketplaceQuotas(
 	return self._networkImp:httpGetJson(targetUrl)
 end
 
-if FFlagToolboxEnableAssetConfigPhoneVerification then
+if FFlagToolboxEnableAssetConfigPhoneVerification or FFlagToolboxAssetConfigurationVerifiedPrice then
 	function NetworkInterface:getPublishingRequirements(
 		assetId: number,
 		assetType: Enum.AssetType?,

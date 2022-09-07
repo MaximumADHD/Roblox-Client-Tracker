@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// Filename: AvatarMood.lua
 	// Version 0.1
@@ -6,6 +7,7 @@
 ]]--
 local userPlayEmoteByIdAnimTrackReturn = game:GetEngineFeature("PlayEmoteAndGetAnimTrackByIdApiEnabled")
 game:DefineFastFlag("EmoteTriggeredSignalEnabledLua2", false)
+game:DefineFastFlag("MoodsHeadRemovedFix", false)
 
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
@@ -75,11 +77,11 @@ local function resumeMoodAfterEmote()
 end
 
 local function onEmoteTriggered(emoteSuccess, emoteTrack)
-	if not moodCoreScriptEnabled or currentMoodTrack == nil then 
+	if not moodCoreScriptEnabled or currentMoodTrack == nil then
 		return
 	end
 
-	if emoteSuccess and emoteTrack then	
+	if emoteSuccess and emoteTrack then
 		currentMoodTrack:Stop()
 		currentEmoteTrack = emoteTrack
 		wheelEmotePlaying = true
@@ -146,7 +148,7 @@ local function checkEmotePlaying(humanoid)
 end
 
 emoteChattedConnection = LocalPlayer.Chatted:connect(function(msg)
-	if not moodCoreScriptEnabled or currentMoodTrack == nil then 
+	if not moodCoreScriptEnabled or currentMoodTrack == nil then
 		return
 	end
 
@@ -159,8 +161,9 @@ emoteChattedConnection = LocalPlayer.Chatted:connect(function(msg)
 			elseif (string.sub(msg, 1, 7) == "/emote ") then
 				emote = string.sub(msg, 8)
 			end
-		
+
 			if LegacyDefaultEmotes[emote] then
+				wait(EMOTE_LOOP_TRANSITION_TIME)
 				checkEmotePlaying(humanoid)
 			end
 		end
@@ -183,14 +186,14 @@ local function updateCharacterMood(character, moodAnimation)
 	if connections[Connection.AnimationInstanceChanged] then
 		disconnectAndRemoveConnection(Connection.AnimationInstanceChanged)
 	end
-	
+
 	local humanoid = character:WaitForChild("Humanoid")
 	local animator = humanoid:WaitForChild("Animator")
 	stopAndDestroyCurrentMoodTrack()
-	
+
 	currentMoodAnimationInstance = moodAnimation
-	connections[Connection.AnimationInstanceChanged] = currentMoodAnimationInstance.Changed:connect(function(property) 
-		updateCharacterMood(character, moodAnimation) 
+	connections[Connection.AnimationInstanceChanged] = currentMoodAnimationInstance.Changed:connect(function(property)
+		updateCharacterMood(character, moodAnimation)
 	end)
 
 	-- play mood animation
@@ -204,7 +207,7 @@ local function updateCharacterMood(character, moodAnimation)
 	if userPlayEmoteByIdAnimTrackReturn then
 		-- listen for emotes
 		disconnectAndRemoveConnection(Connection.EmoteTriggered)
-		
+
 		if game:GetFastFlag("EmoteTriggeredSignalEnabledLua2") then
 			connections[Connection.EmoteTriggered] = humanoid.EmoteTriggered:Connect(onEmoteTriggered)
 		end
@@ -276,7 +279,7 @@ local function waitForAnimateScript()
 	if animScript then
 		initAvatarMood(animScript)
 	end
-	
+
 	disconnectAndRemoveConnection(Connection.AnimateScriptAdded)
 	connections[Connection.AnimateScriptAdded] = LocalPlayer.Character.ChildAdded:Connect(function(child)
 		if child.Name == "Animate" then
@@ -292,7 +295,7 @@ local function onHeadAdded(head)
 	end
 
 	disconnectAndRemoveConnection(Connection.HeadChildAdded)
-	
+
 	connections[Connection.HeadChildAdded] = head.ChildAdded:Connect(function(child)
 		if child:IsA("FaceControls") then
 			waitForAnimateScript()
@@ -316,6 +319,12 @@ local function onCharacterAdded(character)
 	connections[Connection.CharacterChildRemoved] = character.ChildRemoved:Connect(function(child)
 		if child.Name == "Head" then
 			stopAndDestroyCurrentMoodTrack()
+			if game:GetFastFlag("MoodsHeadRemovedFix") then
+				local otherHead = character:FindFirstChild("Head")
+				if otherHead then
+					onHeadAdded(otherHead)
+				end
+			end
 		end
 	end)
 end

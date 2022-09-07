@@ -26,6 +26,7 @@ local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForC
 local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
 local FFlagStudioPluginsUseBedev2Endpoint = game:GetFastFlag("StudioPluginsUseBedev2Endpoint")
 local FFlagToolboxSwitchVerifiedEndpoint = require(Plugin.Core.Util.getFFlagToolboxSwitchVerifiedEndpoint)
+local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
 
 local Urls = {}
 
@@ -620,7 +621,7 @@ function Urls.constructGetHomeConfigurationUrl(assetType: Enum.AssetType, locale
 		})
 end
 
-if FFlagToolboxEnableAssetConfigPhoneVerification then
+if FFlagToolboxEnableAssetConfigPhoneVerification or FFlagToolboxAssetConfigurationVerifiedPrice then
 	function Urls.constructPublishingRequirementsUrl(
 		assetId: number,
 		assetType: Enum.AssetType?,

@@ -1,3 +1,4 @@
+--!nonstrict
 --[[r
 		Filename: Record.lua
 		Written by: jeditkacheff

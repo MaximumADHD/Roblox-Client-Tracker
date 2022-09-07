@@ -8,19 +8,19 @@ local CFrame_new = CFrame.new
 local function CreateWatchCamera()
 	local module = RootCameraCreator()
 	module.PanEnabled = false
-	
+
 	local lastUpdate = tick()
 	function module:Update()
 		local now = tick()
-		
+
 		local camera = workspace.CurrentCamera
 		local player = PlayersService.LocalPlayer
-		
+
 		if lastUpdate == nil or now - lastUpdate > 1 then
 			module:ResetCameraLook()
 			self.LastZoom = nil
-		end	
-		
+		end
+
 
 		local subjectPosition = self:GetSubjectPosition()
 		if subjectPosition and player and camera then
@@ -39,12 +39,12 @@ local function CreateWatchCamera()
 					self:ZoomCamera(zoom)
 				end
 			end
-			
+
 			local zoom = self:GetCameraZoom()
 			if zoom <= 0 then
 				zoom = 0.1
 			end
-			
+
 			local newLookVector = self:RotateVector(cameraLook or self:GetCameraLook(), self.RotateInput)
 			self.RotateInput = ZERO_VECTOR2
 			local newFocus = CFrame_new(subjectPosition)
@@ -56,7 +56,7 @@ local function CreateWatchCamera()
 		end
 		lastUpdate = now
 	end
-	
+
 	return module
 end
 

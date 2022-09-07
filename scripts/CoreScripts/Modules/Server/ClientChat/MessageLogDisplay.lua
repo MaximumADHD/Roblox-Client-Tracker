@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: MessageLogDisplay.lua
 --	// Written by: Xsitsu, TheGamer101
 --	// Description: ChatChannel window for displaying messages.

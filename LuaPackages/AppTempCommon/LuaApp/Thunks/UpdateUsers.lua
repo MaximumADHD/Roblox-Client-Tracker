@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 
 local User = require(CorePackages.AppTempCommon.LuaApp.Models.User)

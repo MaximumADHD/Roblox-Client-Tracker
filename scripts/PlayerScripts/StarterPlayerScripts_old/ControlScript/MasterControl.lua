@@ -54,8 +54,8 @@ local function characterAdded(character)
 
 	if characterChildRemovedConn then
 		characterChildRemovedConn:disconnect()
-	end	
-	
+	end
+
 	LocalCharacter = character
 	CachedHumanoid = LocalCharacter:FindFirstChildOfClass("Humanoid")
 	characterAncestryChangedConn = character.AncestryChanged:connect(function()
@@ -65,7 +65,7 @@ local function characterAdded(character)
 			LocalCharacter = character
 		end
 	end)
-	
+
 	characterChildRemovedConn = character.ChildRemoved:connect(function(child)
 		if child == CachedHumanoid then
 			CachedHumanoid = nil
@@ -82,12 +82,12 @@ LocalPlayer.CharacterAdded:connect(characterAdded)
 local getHumanoid = MasterControl.GetHumanoid
 local moveFunc = LocalPlayer.Move
 local updateMovement = function()
-	
+
 	if not areControlsEnabled then return end
-	
+
 	local humanoid = getHumanoid()
 	if not humanoid then return end
-	
+
 	if isJumpEnabled and isJumping and not humanoid.PlatformStand then
 		local state = humanoid:GetState()
 		if state ~= STATE_JUMPING and state ~= STATE_FREEFALL and state ~= STATE_LANDED then
@@ -106,23 +106,23 @@ end
 function MasterControl:Enable()
 	areControlsEnabled = true
 	isJumpEnabled = true
-	
+
 	if self.ControlState.Current then
 		self.ControlState.Current:Enable()
 	end
 end
 
 function MasterControl:Disable()
-	
+
 	if self.ControlState.Current then
 		self.ControlState.Current:Disable()
 	end
-	
+
 	--After current control state is disabled, moveValue has been set to zero,
 	--Call updateMovement one last time to make sure this propagates to the engine -
 	--Otherwise if disabled while humanoid is moving, humanoid won't stop moving.
 	updateMovement()
-	
+
 	isJumping = false
 	areControlsEnabled = false
 end

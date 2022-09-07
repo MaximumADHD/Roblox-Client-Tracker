@@ -1,3 +1,5 @@
+local FFlagToolboxAddUnverifiedIcon = game:GetFastFlag("ToolboxAddUnverifiedIcon")
+
 local GuiService = game:GetService("GuiService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -65,16 +67,31 @@ function VerifiedCreatorBadge:render()
 
 		local image
 		local size
-
 		if props.small then
-			image = Images.VERIFIED_CREATOR_BADGE_ICON_SMALL
+			if FFlagToolboxAddUnverifiedIcon then
+				image = Images.WARNING_ICON_SMALL
+			else
+				image = Images.VERIFIED_CREATOR_BADGE_ICON_SMALL
+			end
 			size = 13
 		else
-			image = Images.VERIFIED_CREATOR_BADGE_ICON
+			if FFlagToolboxAddUnverifiedIcon then
+				image = Images.WARNING_ICON
+			else
+				image = Images.VERIFIED_CREATOR_BADGE_ICON
+			end
 			size = 16
 		end
 
-		local tooltipText = props.Localization:getText("General", "VerifiedCreatorBadgeTooltipText")
+		local tooltipText
+		local iconColor
+		if FFlagToolboxAddUnverifiedIcon then
+			tooltipText = props.Localization:getText("General", "UnverifiedCreatorBadgeTooltipText")
+			local theme = props.Stylizer
+			iconColor = theme.asset.icon.warningColor
+		else
+			tooltipText = props.Localization:getText("General", "VerifiedCreatorBadgeTooltipText")
+		end
 
 		return Roact.createElement("ImageButton", {
 			AnchorPoint = props.AnchorPoint,
@@ -83,6 +100,7 @@ function VerifiedCreatorBadge:render()
 			BackgroundTransparency = 1,
 			Size = UDim2.fromOffset(size, size),
 			Image = image,
+			ImageColor3 = if FFlagToolboxAddUnverifiedIcon then iconColor else nil,
 			ZIndex = 2,
 
 			[Roact.Event.Activated] = self.onActivated,

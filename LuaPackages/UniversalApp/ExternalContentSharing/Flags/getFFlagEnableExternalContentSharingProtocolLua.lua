@@ -1,5 +1,3 @@
---!strict
-
 game:DefineFastFlag("EnableExternalContentSharingProtocolLua", false)
 
 return function()

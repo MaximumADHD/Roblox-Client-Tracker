@@ -1,6 +1,10 @@
+local CorePackages = game:GetService("CorePackages")
 local IsExperienceMenuABTestEnabled = require(script.Parent.Parent.InGameMenuV3.IsExperienceMenuABTestEnabled)
 local GetFFlagShareInviteLinkContextMenuV1ABTestEnabled = require(script.Parent.Parent.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1ABTestEnabled)
+local GetFFlagEnableNewInviteMenuIXP = require(script.Parent.Parent.Flags.GetFFlagEnableNewInviteMenuIXP)
 local GetFFlagEnableIXPInGame = require(script.Parent.Parent.Common.Flags.GetFFlagEnableIXPInGame)
+local GetFFlagLoadingScreenUseIXP = require(script.Parent.Parent.Flags.GetFFlagLoadingScreenUseIXP)
+local GetFStringLoadingScreenIxpLayer = require(CorePackages.AppTempCommon.Flags.GetFStringLoadingScreenIxpLayer)
 
 return function()
 	local layers = {}
@@ -9,8 +13,15 @@ return function()
 		table.insert(layers, "AbuseReports")
 	end
 
-	if IsExperienceMenuABTestEnabled() or GetFFlagShareInviteLinkContextMenuV1ABTestEnabled() then
+	if IsExperienceMenuABTestEnabled()
+		or GetFFlagShareInviteLinkContextMenuV1ABTestEnabled()
+		or GetFFlagEnableNewInviteMenuIXP()
+	then
 		table.insert(layers, "Experience.Menu")
+	end
+
+	if GetFFlagLoadingScreenUseIXP() then
+		table.insert(layers, GetFStringLoadingScreenIxpLayer())
 	end
 
 	return layers

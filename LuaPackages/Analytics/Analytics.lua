@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	A centralized hub for basic metrics reporting.
 	This class is designed to provide a baseline exposure to the reporters.

@@ -13,6 +13,7 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local withStyle = UIBlox.Core.Style.withStyle
 local QuickActionsTooltip = require(script.QuickActionsTooltip)
 local QuickActionsMenu = require(script.QuickActionsMenu)
+local withVoiceState = require(RobloxGui.Modules.VoiceChat.VoiceStateContext).withVoiceState
 
 local InGameMenu = script.Parent.Parent
 local Constants = require(InGameMenu.Resources.Constants)
@@ -29,11 +30,16 @@ local NOTCH_OFFSET = 44
 local NO_NOTCH_OFFSET = 24
 local TOOLTIP_HEIGHT = 36
 local FPS = 30
+local IN_MENU_MENU_WIDTH = Constants.PageWidth + Constants.SideNavigationWidth
+local IN_MENU_MENU_WIDTH_PAD = IN_MENU_MENU_WIDTH + 12
+
+local platform = UserInputService:GetPlatform()
+local isDesktopClient = platform == Enum.Platform.OSX or platform == Enum.Platform.Windows
+local isMobilePlatform = platform == Enum.Platform.IOS or platform == Enum.Platform.Android
 
 QuickActions.validateProps = t.strictInterface({
 	respawnEnabled = t.boolean,
 	visible = t.boolean,
-	voiceEnabled = t.boolean,
 })
 
 local function linearTween(dTime, startFrame, endFrame)
@@ -47,16 +53,11 @@ end
 
 local buttonCount = 1 -- default: Report
 local frameFinalTransparency = 0.2 -- default: style.Theme.UIMuted
-local platform
 
 local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 	if reverse then
 		if isBetweenFrames(timeElapsed, 0, 5) then
 			local elapsed = linearTween(timeElapsed, 0, 5)
-			updateBindings.gradient(elapsed)
-			if elapsed > frameFinalTransparency then
-				updateBindings.frame(elapsed)
-			end
 			-- updateBindings.frame(0.2 + elapsed * 0.8)
 			updateBindings.button1(elapsed)
 			updateBindings.button2(elapsed)
@@ -66,8 +67,6 @@ local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 			updateBindings.button6(elapsed)
 		else
 			local finalTransparency = 1
-			updateBindings.gradient(finalTransparency)
-			updateBindings.frame(finalTransparency)
 			updateBindings.button1(finalTransparency)
 			updateBindings.button2(finalTransparency)
 			updateBindings.button3(finalTransparency)
@@ -75,53 +74,56 @@ local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 			updateBindings.button5(finalTransparency)
 			stopCallback()
 		end
+		updateBindings.gradient(1)
+		updateBindings.frame(1)
 		return
 	end
 	--[[
 		- frame 0 -> 9.5   300ms
 		- frame 2  (50ms x buttonCcount)
 	]]
-	if isBetweenFrames(timeElapsed, 9.5, 11.5) then
-		local elapsed = linearTween(timeElapsed, 9.5, 11.5)
+	if isBetweenFrames(timeElapsed, 0, 2) then
+		local elapsed = linearTween(timeElapsed, 0, 2)
 		local scaledElapsed = 1 - elapsed
 		updateBindings.button1(scaledElapsed)
 	end
 
-	if isBetweenFrames(timeElapsed, 11.5, 13.5) then
-		local elapsed = linearTween(timeElapsed, 11.5, 13.5)
+	if isBetweenFrames(timeElapsed, 2, 4) then
+		local elapsed = linearTween(timeElapsed, 2, 4)
 		local scaledElapsed = 1 - elapsed
 		updateBindings.button2(scaledElapsed)
 	end
 
-	if isBetweenFrames(timeElapsed, 13.5, 15.5) then
-		local elapsed = linearTween(timeElapsed, 13.5, 15.5)
+	if isBetweenFrames(timeElapsed, 4, 6) then
+		local elapsed = linearTween(timeElapsed, 4, 6)
 		local scaledElapsed = 1 - elapsed
 		updateBindings.button3(scaledElapsed)
 	end
 
-	if isBetweenFrames(timeElapsed, 15.5, 17.5) then
-		local elapsed = linearTween(timeElapsed, 15.5, 17.5)
+	if isBetweenFrames(timeElapsed, 6, 8) then
+		local elapsed = linearTween(timeElapsed, 6, 8)
 		local scaledElapsed = 1 - elapsed
 		updateBindings.button4(scaledElapsed)
 	end
-	if isBetweenFrames(timeElapsed, 17.5, 19.5) then
-		local elapsed = linearTween(timeElapsed, 17.5, 19.5)
+	if isBetweenFrames(timeElapsed, 8, 10) then
+		local elapsed = linearTween(timeElapsed, 8, 10)
 		local scaledElapsed = 1 - elapsed
 		updateBindings.button5(scaledElapsed)
 	end
-	if isBetweenFrames(timeElapsed, 19.5, 21.5) then
-		local elapsed = linearTween(timeElapsed, 19.5, 21.5)
+	if isBetweenFrames(timeElapsed, 10, 12) then
+		local elapsed = linearTween(timeElapsed, 10, 12)
 		local scaledElapsed = 1 - elapsed
 		updateBindings.button6(scaledElapsed)
 	end
-	local totalFrame = buttonCount * 2 + 9.5
-	if isBetweenFrames(timeElapsed, 0, 9.5) then
+	local totalFrame = buttonCount * 2
+	local delay = if isMobilePlatform then 0 else 4
+	if isBetweenFrames(timeElapsed, 0, delay) then
 		updateBindings.gradient(1)
 		updateBindings.frame(1)
-	elseif isBetweenFrames(timeElapsed, 9.5, totalFrame) then
-		local elapsed = linearTween(timeElapsed, 9.5, totalFrame)
+	elseif isBetweenFrames(timeElapsed, delay, totalFrame+2.5) then
+		local elapsed = linearTween(timeElapsed, delay, totalFrame+2.5)
 		local scaledElapsed = 1 - elapsed
-		updateBindings.gradient(scaledElapsed)
+		updateBindings.gradient(1-linearTween(timeElapsed, delay, totalFrame+2.5))
 		scaledElapsed = 1 - 0.8 * elapsed
 		updateBindings.frame(scaledElapsed)
 	else
@@ -185,15 +187,42 @@ function QuickActions:init()
 	if self.props.voiceEnabled then
 		buttonCount = buttonCount + 2
 	end
-	platform = UserInputService:GetPlatform()
-	local isDesktopClient = platform == Enum.Platform.OSX or platform == Enum.Platform.Windows
+
 	if isDesktopClient then
 		buttonCount = buttonCount + 1
+	end
+
+	-- Dynamic desktop position for encroachment/overlap with the InGameMenu panel
+	self.containerWidth = 0
+	self.menuWidth = 0
+	self.updateSizeConstraint = function()
+		local leftEdge = self.containerWidth * 0.5 - self.menuWidth * 0.5
+		local encroach =  IN_MENU_MENU_WIDTH_PAD - leftEdge
+		if encroach > 0 then
+			if not self.state.lockToMenuEdge then
+				self:setState({
+					lockToMenuEdge = true
+				})
+			end
+		elseif self.state.lockToMenuEdge then
+			self:setState({
+				lockToMenuEdge = false
+			})
+		end
+	end
+	self.onContainerSizeChange = function(rbx)
+		self.containerWidth = rbx.AbsoluteSize.x
+		self.updateSizeConstraint()
+	end
+	self.onMenuSizeChange = function(rbx)
+		self.menuWidth = rbx.AbsoluteSize.x
+		self.updateSizeConstraint()
 	end
 end
 
 function QuickActions:render()
 	return withStyle(function(style)
+		return withVoiceState(function(voiceState)
 		frameFinalTransparency = style.Theme.UIMuted.Transparency
 		local gradientWidth = CONTROL_WIDTH
 		if game:GetEngineFeature("NotchSpaceSupportEnabled") then
@@ -202,7 +231,6 @@ function QuickActions:render()
 			gradientWidth = gradientWidth + 2 * NO_NOTCH_OFFSET
 		end
 
-		local isMobilePlatform = platform == Enum.Platform.IOS or platform == Enum.Platform.Android
 		if isMobilePlatform then
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(0, gradientWidth, 1, 0),
@@ -239,7 +267,7 @@ function QuickActions:render()
 					}),
 					Menu = Roact.createElement(QuickActionsMenu, {
 						layoutOrder = 2,
-						voiceEnabled = self.props.voiceEnabled,
+						voiceEnabled = voiceState.voiceEnabled,
 						respawnEnabled = self.props.respawnEnabled,
 						fullscreenEnabled = false,
 						screenshotEnabled = FFlagEnableInGameMenuQAScreenshot,
@@ -255,33 +283,49 @@ function QuickActions:render()
 			local isDesktopClient = platform == Enum.Platform.OSX or platform == Enum.Platform.Windows
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, HORIZONTAL_CONTROL_HEIGHT),
-				BackgroundTransparency = self.gradientTransparency,
+				BackgroundTransparency = 1,
 				Visible = self.state.frameVisible,
 			}, {
-				UIGradient = Roact.createElement("UIGradient", {
-					Rotation = 90,
-					Color = ColorSequence.new({
-						ColorSequenceKeypoint.new(0, Color3.new(0, 0, 0)),
-						ColorSequenceKeypoint.new(1, Color3.new(0, 0, 0))
+				QuickActionGradient = Roact.createElement("Frame", {
+					BorderSizePixel = 0,
+					Position = UDim2.new(0, IN_MENU_MENU_WIDTH, 0, 0),
+					Size = UDim2.new(1, -IN_MENU_MENU_WIDTH, 0, HORIZONTAL_CONTROL_HEIGHT),
+					BackgroundTransparency = self.gradientTransparency,
+				}, {
+					UIGradient = Roact.createElement("UIGradient", {
+						Rotation = 90,
+						Color = ColorSequence.new({
+							ColorSequenceKeypoint.new(0, Color3.new(0, 0, 0)),
+							ColorSequenceKeypoint.new(1, Color3.new(0, 0, 0))
+						}),
+						Transparency = NumberSequence.new({
+							NumberSequenceKeypoint.new(0.0, 0.5),
+							NumberSequenceKeypoint.new(1.0, 1.0),
+						})
 					}),
-					Transparency = NumberSequence.new({
-						NumberSequenceKeypoint.new(0.0, 0.5),
-						NumberSequenceKeypoint.new(1.0, 1.0),
-					})
 				}),
 				QuickActionFrame = Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundTransparency = 1,
+					[Roact.Change.AbsoluteSize] = self.onContainerSizeChange,
 				}, {
+					LeftPad = Roact.createElement("Frame", {
+						Size = if self.state.lockToMenuEdge
+							then UDim2.new(0, IN_MENU_MENU_WIDTH_PAD, 0, 1)
+							else UDim2.new(0, 0, 0, 0),
+						BackgroundTransparency = 1,
+					}),
 					Layout = Roact.createElement("UIListLayout", {
-						FillDirection = Enum.FillDirection.Vertical,
-						HorizontalAlignment = Enum.HorizontalAlignment.Center,
+						FillDirection = Enum.FillDirection.Horizontal,
+						HorizontalAlignment = if self.state.lockToMenuEdge
+							then Enum.HorizontalAlignment.Left
+							else Enum.HorizontalAlignment.Center,
 						VerticalAlignment = Enum.VerticalAlignment.Center,
 						SortOrder = Enum.SortOrder.LayoutOrder,
 					}),
 					Menu = Roact.createElement(QuickActionsMenu, {
 						layoutOrder = 1,
-						voiceEnabled = self.props.voiceEnabled,
+						voiceEnabled = voiceState.voiceEnabled,
 						respawnEnabled = self.props.respawnEnabled,
 						fullscreenEnabled = isDesktopClient,
 						screenshotEnabled = FFlagEnableInGameMenuQAScreenshot,
@@ -290,10 +334,12 @@ function QuickActions:render()
 						automaticSize = Enum.AutomaticSize.X,
 						size = UDim2.new(0, 0, 0, CONTROL_WIDTH),
 						isHorizontal = true,
+						absoluteSizeChanged = self.onMenuSizeChange,
 					}),
 				})
 			})
 		end
+	end)
 	end)
 end
 
@@ -345,14 +391,9 @@ function QuickActions:willUnmount()
 end
 
 local function mapStateToProps(state, _)
-	local voiceEnabled = false
-	if state.voiceState then
-		voiceEnabled = state.voiceState.voiceEnabled or false
-	end
 	return {
 		respawnEnabled = state.respawn.enabled,
 		visible = state.isMenuOpen,
-		voiceEnabled = voiceEnabled,
 	}
 end
 

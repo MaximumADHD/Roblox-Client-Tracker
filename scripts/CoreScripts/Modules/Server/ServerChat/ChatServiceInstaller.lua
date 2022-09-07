@@ -1,3 +1,4 @@
+--!nonstrict
 local runnerScriptName = "ChatServiceRunner"
 
 local installDirectory = game:GetService("Chat")

@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
   Filename: StatsAggregator.lua
   Written by: dbanks

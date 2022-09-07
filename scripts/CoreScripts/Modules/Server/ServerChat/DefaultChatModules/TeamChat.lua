@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: TeamChat.lua
 --	// Written by: Xsitsu
 --	// Description: Module that handles all team chat.

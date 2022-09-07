@@ -49,12 +49,12 @@ function KeyboardMovement:Enable()
 	if not UserInputService.KeyboardEnabled then
 		return
 	end
-	
+
 	local forwardValue  = 0
 	local backwardValue = 0
 	local leftValue = 0
 	local rightValue = 0
-	
+
 	local updateMovement = function(inputState)
 		if inputState == Enum.UserInputState.Cancel then
 			MasterControl:AddToPlayerMovement(-currentMoveVector)
@@ -62,11 +62,11 @@ function KeyboardMovement:Enable()
 		else
 			MasterControl:AddToPlayerMovement(-currentMoveVector)
 			currentMoveVector = Vector3.new(leftValue + rightValue,0,forwardValue + backwardValue)
-			MasterControl:AddToPlayerMovement(currentMoveVector)	
+			MasterControl:AddToPlayerMovement(currentMoveVector)
 		end
 	end
-	
-	local moveForwardFunc = function(actionName, inputState, inputObject)			
+
+	local moveForwardFunc = function(actionName, inputState, inputObject)
 		if inputState == Enum.UserInputState.Begin then
 			forwardValue = -1
 		elseif inputState == Enum.UserInputState.End or inputState == Enum.UserInputState.Cancel then
@@ -74,8 +74,8 @@ function KeyboardMovement:Enable()
 		end
 		updateMovement(inputState)
 	end
-	
-	local moveBackwardFunc = function(actionName, inputState, inputObject)	
+
+	local moveBackwardFunc = function(actionName, inputState, inputObject)
 		if inputState == Enum.UserInputState.Begin then
 			backwardValue = 1
 		elseif inputState == Enum.UserInputState.End or inputState == Enum.UserInputState.Cancel then
@@ -83,8 +83,8 @@ function KeyboardMovement:Enable()
 		end
 		updateMovement(inputState)
 	end
-	
-	local moveLeftFunc = function(actionName, inputState, inputObject)	
+
+	local moveLeftFunc = function(actionName, inputState, inputObject)
 		if inputState == Enum.UserInputState.Begin then
 			leftValue = -1
 		elseif inputState == Enum.UserInputState.End or inputState == Enum.UserInputState.Cancel then
@@ -92,8 +92,8 @@ function KeyboardMovement:Enable()
 		end
 		updateMovement(inputState)
 	end
-	
-	local moveRightFunc = function(actionName, inputState, inputObject)	
+
+	local moveRightFunc = function(actionName, inputState, inputObject)
 		if inputState == Enum.UserInputState.Begin then
 			rightValue = 1
 		elseif inputState == Enum.UserInputState.End or inputState == Enum.UserInputState.Cancel then
@@ -101,11 +101,11 @@ function KeyboardMovement:Enable()
 		end
 		updateMovement(inputState)
 	end
-	
+
 	local jumpFunc = function(actionName, inputState, inputObject)
 		MasterControl:SetIsJumping(inputState == Enum.UserInputState.Begin)
 	end
-	
+
 	-- TODO: remove up and down arrows, these seem unnecessary
 	ContextActionService:BindActionToInputTypes("forwardMovement", moveForwardFunc, false, Enum.PlayerActions.CharacterForward)
 	ContextActionService:BindActionToInputTypes("backwardMovement", moveBackwardFunc, false, Enum.PlayerActions.CharacterBackward)
@@ -113,7 +113,7 @@ function KeyboardMovement:Enable()
 	ContextActionService:BindActionToInputTypes("rightMovement", moveRightFunc, false, Enum.PlayerActions.CharacterRight)
 	ContextActionService:BindActionToInputTypes("jumpAction", jumpFunc, false, Enum.PlayerActions.CharacterJump)
 	-- TODO: make sure we check key state before binding to check if key is already down
-	
+
 	local function onFocusReleased()
 		local humanoid = getHumanoid()
 		if humanoid then
@@ -123,11 +123,11 @@ function KeyboardMovement:Enable()
 			MasterControl:SetIsJumping(false)
 		end
 	end
-	
+
 	local function onTextFocusGained(textboxFocused)
 		MasterControl:SetIsJumping(false)
 	end
-	
+
 	SeatJumpCn = UserInputService.InputBegan:connect(function(inputObject, isProcessed)
 		if inputObject.KeyCode == Enum.KeyCode.Backspace and not isProcessed then
 			local humanoid = getHumanoid()
@@ -136,7 +136,7 @@ function KeyboardMovement:Enable()
 			end
 		end
 	end)
-	
+
 	TextFocusReleasedCn = UserInputService.TextBoxFocusReleased:connect(onFocusReleased)
 	TextFocusGainedCn = UserInputService.TextBoxFocused:connect(onTextFocusGained)
 	-- TODO: remove pcall when API is live
@@ -149,7 +149,7 @@ function KeyboardMovement:Disable()
 	ContextActionService:UnbindAction("leftMovement")
 	ContextActionService:UnbindAction("rightMovement")
 	ContextActionService:UnbindAction("jumpAction")
-	
+
 	if SeatJumpCn then
 		SeatJumpCn:disconnect()
 		SeatJumpCn = nil
@@ -166,7 +166,7 @@ function KeyboardMovement:Disable()
 		WindowFocusReleasedCn:disconnect()
 		WindowFocusReleasedCn = nil
 	end
-	
+
 	MasterControl:AddToPlayerMovement(-currentMoveVector)
 	currentMoveVector = Vector3.new(0,0,0)
 	MasterControl:SetIsJumping(false)

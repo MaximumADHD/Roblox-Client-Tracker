@@ -1,4 +1,3 @@
---!strict
 game:DefineFastFlag("ShareLinkDeepLinkEnabled_v3", false)
 
 return function()

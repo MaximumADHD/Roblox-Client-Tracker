@@ -1,3 +1,4 @@
+--!nonstrict
 local ThumbnailRequest = {}
 
 function ThumbnailRequest.new()

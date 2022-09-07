@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Specialized reporter for sending data to Backtrace.
 	Useful for reporting Lua errors.

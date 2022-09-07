@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	LegacyCamera - Implements legacy controller types: Attach, Fixed, Watch
 	2018 Camera Update - AllYourBlox

@@ -1,3 +1,4 @@
+--!nonstrict
 local VRService 		= game:GetService("VRService")
 local Players 			= game:GetService("Players")
 local UserInputService 	= game:GetService("UserInputService")
@@ -5,6 +6,10 @@ local CoreGui 			= game:GetService("CoreGui")
 
 local RobloxGui 		= CoreGui.RobloxGui
 local ViveController 	= require(RobloxGui.Modules.VR.Controllers.ViveController)
+local RiftController 	= require(RobloxGui.Modules.VR.Controllers.RiftController)
+local IndexController 	= require(RobloxGui.Modules.VR.Controllers.IndexController)
+
+local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 
 local LocalPlayer = Players.LocalPlayer
 while not LocalPlayer do
@@ -20,7 +25,7 @@ function VRControllerModel.new(userCFrame)
 	self.userCFrame = userCFrame
 	self.enabled = false
 	self.currentModel = nil
-	self.currentVRDeviceName = nil
+	self.currentVRDeviceName = EngineFeatureEnableVRUpdate3 and VRService.VRDeviceName or nil
 	self.modelIsInWorkspace = false
 
 	self.onVRDeviceChangedConn = nil
@@ -30,11 +35,27 @@ function VRControllerModel.new(userCFrame)
 	self.onInputChangedConn = nil
 	self.onInputEndedConn = nil
 
+	-- these models are not destroyed and instead stored because creation is expensive
+	self.controllerModel = nil -- the model for device controller
+
 	return self
 end
 
+-- creates the controller model and stores it in self.controllerModel
+function VRControllerModel:createControllerModel()
+	if self.currentVRDeviceName:match("Vive") then
+		self.controllerModel = ViveController.new(self.userCFrame)
+	elseif self.currentVRDeviceName:match("Rift") then
+		self.controllerModel = RiftController.new(self.userCFrame)
+	elseif self.currentVRDeviceName:match("Index") then
+		self.controllerModel = IndexController.new(self.userCFrame)
+	else
+		self.controllerModel = RiftController.new(self.userCFrame)
+	end
+end
+
 function VRControllerModel:setModelType(vrDeviceName)
-	if vrDeviceName ~= self.currentVRDeviceName then
+	if not EngineFeatureEnableVRUpdate3 and vrDeviceName ~= self.currentVRDeviceName then
 		self.currentVRDeviceName = vrDeviceName
 
 		if self.currentModel then
@@ -55,20 +76,51 @@ function VRControllerModel:setModelType(vrDeviceName)
 	end
 end
 
+-- sets currentModel based on VRDeviceName
+function VRControllerModel:setCurrentModel()
+	-- if current model, remove from workspace (but not destroyed)
+	if self.currentModel then
+		self:setModelInWorkspace(false)
+	end
+
+	if not self.controllerModel then
+		self:createControllerModel()
+	end
+	self.currentModel = self.controllerModel
+
+	--If the controller is enabled, put the model into the workspace
+	if self.enabled then
+		self:setModelInWorkspace(VRService:GetUserCFrameEnabled(self.userCFrame))
+	end
+end
+
 function VRControllerModel:setModelInWorkspace(inWorkspace)
 	if not self.currentModel then
 		return
 	end
+
 	if inWorkspace ~= self.modelIsInWorkspace then
 		self.modelIsInWorkspace = inWorkspace
-		if self.modelIsInWorkspace then
-			local camera = workspace.CurrentCamera
-			local folder = camera:FindFirstChild("VRCoreEffectParts")
-			if folder then
-				self.currentModel.model.Parent = folder
+		if EngineFeatureEnableVRUpdate3 then
+			if self.currentModel.model then
+				if self.modelIsInWorkspace then
+					self.currentModel.model.Parent = workspace
+				else
+					self.currentModel.model.Parent = nil
+				end
+			else
+				self.currentModel:setInWorkspace(inWorkspace)
 			end
 		else
-			self.currentModel.model.Parent = nil
+			if self.modelIsInWorkspace then
+				local camera = workspace.CurrentCamera
+				local folder = camera:FindFirstChild("VRCoreEffectParts")
+				if folder then
+					self.currentModel.model.Parent = folder
+				end
+			else
+				self.currentModel.model.Parent = nil
+			end
 		end
 	end
 end
@@ -78,11 +130,15 @@ function VRControllerModel:setEnabled(enabled)
 		self.enabled = enabled
 		
 		if self.enabled then
-			--Connect events
-			self.onVRDeviceChangedConn = VRService:GetPropertyChangedSignal("VRDeviceName"):connect(function()
+			if EngineFeatureEnableVRUpdate3 then
+				self:setCurrentModel()
+			else
+				--Connect events
+				self.onVRDeviceChangedConn = VRService:GetPropertyChangedSignal("VRDeviceName"):connect(function()
+					self:setModelType(VRService.VRDeviceName)
+				end)
 				self:setModelType(VRService.VRDeviceName)
-			end)
-			self:setModelType(VRService.VRDeviceName)
+			end
 
 			self.onCurrentCameraChangedConn = workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
 				self:setModelInWorkspace(VRService:GetUserCFrameEnabled(self.userCFrame))

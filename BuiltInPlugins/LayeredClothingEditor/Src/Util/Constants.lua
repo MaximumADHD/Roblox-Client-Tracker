@@ -8,6 +8,8 @@ local Constants = {
 	DEFAULT_CAGE_TRANSPARENCY = 100,
 	MANNEQUIN_PATH = "rbxasset://models/LayeredClothingEditor/mannequin.rbxm",
 	HEAD_TEMPLATE_PATH = "rbxasset://models/LayeredClothingEditor/PartHeadTemplate.rbxm",
+	PREVIEW_FOLDER_NAME = "LayeredClothingEditorPreview",
+	PREVIEW_REMOTE_EVENT_NAME = "PreviewChanged",
 
 	MOCK_HIP_OFFSET = Vector3.new(0, 4.1, 0),
 

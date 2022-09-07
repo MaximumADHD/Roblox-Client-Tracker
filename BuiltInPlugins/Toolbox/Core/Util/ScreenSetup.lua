@@ -7,7 +7,7 @@ local AssetConfigUtil = require(Util.AssetConfigUtil)
 local ScreenSetup = {}
 
 local FFlagSupportUploadGroupAnimations = game:GetFastFlag("StudioSupportUploadGroupAnimations")
-local FFlagUnifyModelPackagePublish2 = game:GetFastFlag("UnifyModelPackagePublish2")
+local FFlagUnifyModelPackagePublish3 = game:GetFastFlag("UnifyModelPackagePublish3")
 
 ScreenSetup.keys = convertArrayToTable({
 	"SHOW_SALES_TAB",
@@ -15,7 +15,7 @@ ScreenSetup.keys = convertArrayToTable({
 	"SHOW_OWNERSHIP",
 	"SHOW_GENRE",
 	"SHOW_COPY",
-	"SHOW_PACKAGE", --added with FFlagUnifyModelPackagePublish2
+	"SHOW_PACKAGE", --added with FFlagUnifyModelPackagePublish3
 	"SHOW_COMMENT",
 	"SHOW_ASSET_TYPE",
 	"SHOW_OVERRIDE_BUTTON",
@@ -51,7 +51,7 @@ local params = {
 
 	[AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW] = {
 		[AssetCategory.Marketplace] = {
-			[keys.SHOW_PACKAGE] = if FFlagUnifyModelPackagePublish2 then true else false,
+			[keys.SHOW_PACKAGE] = false,
 			[keys.SHOW_COMMENT] = true,
 			[keys.SHOW_COPY] = true,
 			[keys.SHOW_GENRE] = true,
@@ -118,6 +118,7 @@ local assetTypeOverride = {
 	},
 	[Enum.AssetType.Model] = {
 		[AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW] = {
+			[keys.SHOW_PACKAGE] = FFlagUnifyModelPackagePublish3,
 			[keys.SHOW_OVERRIDE_BUTTON] = true,
 		},
 	},

@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local CorePackages = game:GetService("CorePackages")
 	local FriendPresenceCounts = require(CorePackages.AppTempCommon.LuaChat.Reducers.FriendPresenceCounts)

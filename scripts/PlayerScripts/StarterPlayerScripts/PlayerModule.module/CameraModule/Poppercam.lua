@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Poppercam - Occlusion module that brings the camera closer to the subject when objects are blocking the view.
 --]]

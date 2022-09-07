@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: SetCoreMessage.lua
 --	// Written by: TheGamer101
 --	// Description: Create a message label for a message created with SetCore(ChatMakeSystemMessage).

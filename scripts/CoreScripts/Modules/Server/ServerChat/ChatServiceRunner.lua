@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: ChatServiceRunner.lua
 --	// Written by: Xsitsu
 --	// Description: Main script to initialize ChatService and run ChatModules.

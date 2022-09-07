@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local Dependencies = require(script.Parent.Dependencies)
 

@@ -13,17 +13,12 @@ local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
 
-local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
-
-local Framework, ContextServices, withContext, Resources, COMPONENT_NAME, LOCALIZATION_PROJECT_NAME
-if FFlagAssetVoteSimplification then
-	Framework = require(Packages.Framework)
-	ContextServices = Framework.ContextServices
-	withContext = ContextServices.withContext
-	Resources = Framework.Resources
-	COMPONENT_NAME = "VoteButons"
-	LOCALIZATION_PROJECT_NAME = Resources.LOCALIZATION_PROJECT_NAME
-end
+local Framework = require(Packages.Framework)
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
+local Resources = Framework.Resources
+local COMPONENT_NAME = "VoteButons"
+local LOCALIZATION_PROJECT_NAME = Resources.LOCALIZATION_PROJECT_NAME
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
@@ -65,48 +60,44 @@ end
 
 function VoteButtons:render()
 	local props = self.props
-	local theme = if FFlagAssetVoteSimplification then props.Stylizer else nil
-	local votingTheme = if FFlagAssetVoteSimplification then theme.asset.voting else nil
-	local localization = if FFlagAssetVoteSimplification then props.Localization else nil
-	local showBackgroundBox = if FFlagAssetVoteSimplification then props.showBackgroundBox else nil
+	local theme = props.Stylizer
+	local votingTheme = theme.asset.voting
+	local localization = props.Localization
+	local showBackgroundBox = props.showBackgroundBox
 	return Roact.createElement("Frame", {
-		BackgroundTransparency = if FFlagAssetVoteSimplification and showBackgroundBox then .95 else 1,
-		BackgroundColor3 = if FFlagAssetVoteSimplification and showBackgroundBox then votingTheme.votingButtonsBackgroundBoxColor else nil,
+		BackgroundTransparency = if showBackgroundBox then 0.95 else 1,
+		BackgroundColor3 = if showBackgroundBox then votingTheme.votingButtonsBackgroundBoxColor else nil,
 		LayoutOrder = nil,
-		Size = if FFlagAssetVoteSimplification and showBackgroundBox
-			then UDim2.new(1, 0, 0, Constants.ASSET_VOTING_BUTTONS_HEIGHT)
-			elseif FFlagAssetVoteSimplification and not showBackgroundBox then UDim2.new(1, 0, 0, Constants.ASSET_VOTING_BUTTONS_HEIGHT) -- todo use a difference height? (and then change height in asset.lua when it's active as well...?)
-			else UDim2.new(1, 0, 1, 0),
+		Size = UDim2.new(1, 0, 0, Constants.ASSET_VOTING_BUTTONS_HEIGHT)
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
-			Padding = if FFlagAssetVoteSimplification then UDim.new(0, Constants.ASSET_VOTE_BUTTONS_HORIZONTAL_PADDING) else UDim.new(0, 2),
+			Padding = UDim.new(0, Constants.ASSET_VOTE_BUTTONS_HORIZONTAL_PADDING),
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Horizontal,
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 		}),
 
-		UICorner = if FFlagAssetVoteSimplification and showBackgroundBox then Roact.createElement("UICorner", {
-			CornerRadius = UDim.new(0, Constants.ASSET_VOTING_BUTTONS_BACKGROUND_BOX_CORNER_RADIUS),
-		}) else nil,
-
-		RateText = if FFlagAssetVoteSimplification
-			then
-				Roact.createElement("TextLabel", {
-					AutomaticSize = Enum.AutomaticSize.XY,
-					LayoutOrder = 0,
-					Text = localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "Rate"),
-					BackgroundTransparency = 1,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					Font = Constants.FONT,
-					TextSize = Constants.FONT_SIZE_SMALL,
-					TextColor3 = theme.asset.voting.rateTextColor,
-				}, {
-					UIPadding = Roact.createElement("UIPadding", {
-						PaddingRight = UDim.new(0, Constants.ASSET_VOTE_BUTTONS_TEXT_PADDING),
-					}),
-				})
+		UICorner = if showBackgroundBox
+			then Roact.createElement("UICorner", {
+				CornerRadius = UDim.new(0, Constants.ASSET_VOTING_BUTTONS_BACKGROUND_BOX_CORNER_RADIUS),
+			})
 			else nil,
+
+		RateText = Roact.createElement("TextLabel", {
+			AutomaticSize = Enum.AutomaticSize.XY,
+			LayoutOrder = 0,
+			Text = localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "Rate"),
+			BackgroundTransparency = 1,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			Font = Constants.FONT,
+			TextSize = Constants.FONT_SIZE_SMALL,
+			TextColor3 = theme.asset.voting.rateTextColor,
+		}, {
+			UIPadding = Roact.createElement("UIPadding", {
+				PaddingRight = UDim.new(0, Constants.ASSET_VOTE_BUTTONS_TEXT_PADDING),
+			}),
+		}),
 
 		VoteUpButton = Roact.createElement(VoteButton, {
 			isVoteUp = true,
@@ -128,12 +119,10 @@ function VoteButtons:render()
 	})
 end
 
-if FFlagAssetVoteSimplification then
-	VoteButtons = withContext({
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-	})(VoteButtons)
-end
+VoteButtons = withContext({
+	Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+})(VoteButtons)
 
 local function mapDispatchToProps(dispatch)
 	return {

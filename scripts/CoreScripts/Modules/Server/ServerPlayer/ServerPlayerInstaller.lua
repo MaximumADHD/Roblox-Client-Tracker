@@ -1,3 +1,4 @@
+--!nonstrict
 
 local Install = function ()
 

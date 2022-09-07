@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: DeveloperConsole.lua
 --	// Written by: TheGamer101
 --	// Description: Command to open or close the developer console.

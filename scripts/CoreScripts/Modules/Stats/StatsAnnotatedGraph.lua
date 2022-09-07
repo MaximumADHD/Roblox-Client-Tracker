@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
   Filename: StatsAnnotatedGraph.lua
   Written by: dbanks

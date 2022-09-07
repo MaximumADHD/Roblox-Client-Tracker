@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Filename: CommonUtil.lua
 	Written by: dbanks

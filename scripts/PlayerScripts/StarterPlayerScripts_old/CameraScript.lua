@@ -39,7 +39,7 @@ do
 	end
 end
 
-local CameraTypeEnumMap = 
+local CameraTypeEnumMap =
 {
 	[Enum.CameraType.Attach] = AttachCamera;
 	[Enum.CameraType.Fixed] = FixedCamera;
@@ -151,9 +151,9 @@ local function OnCameraMovementModeChange(newCameraMode)
 		local currentCameraType = workspace.CurrentCamera and workspace.CurrentCamera.CameraType
 		if VRService.VREnabled and currentCameraType ~= Enum.CameraType.Scriptable then
 			SetEnabledCamera(VRCamera)
-			TransparencyController:SetEnabled(false)		
+			TransparencyController:SetEnabled(false)
 		elseif currentCameraType == Enum.CameraType.Custom and newCameraMode == Enum.ComputerCameraMovementMode.Classic.Name then
-			SetEnabledCamera(ClassicCamera)			
+			SetEnabledCamera(ClassicCamera)
 			TransparencyController:SetEnabled(true)
 		elseif currentCameraType == Enum.CameraType.Custom and newCameraMode == Enum.ComputerCameraMovementMode.Follow.Name then
 			SetEnabledCamera(FollowCamera)
@@ -169,15 +169,15 @@ local function OnCameraMovementModeChange(newCameraMode)
 			TransparencyController:SetEnabled(false)
 		end
 	end
-	
+
 	local useOcclusion = shouldUseOcclusionModule()
 	local newOcclusionMode = getCameraOcclusionMode()
 	if EnabledOcclusion == Invisicam and (newOcclusionMode ~= Enum.DevCameraOcclusionMode.Invisicam or (not useOcclusion)) then
 		Invisicam:Cleanup()
 	end
-	
+
 	-- PopperCam does not work with OrbitalCamera, as OrbitalCamera's distance can be fixed.
-	if useOcclusion then	
+	if useOcclusion then
 		if newOcclusionMode == Enum.DevCameraOcclusionMode.Zoom and newCameraMode ~= Enum.ComputerCameraMovementMode.Orbital.Name then
 			EnabledOcclusion = PopperCam
 		elseif newOcclusionMode == Enum.DevCameraOcclusionMode.Invisicam then
@@ -217,7 +217,7 @@ local function OnNewCamera()
 		cameraSubjectChangedConn = currentCamera:GetPropertyChangedSignal("CameraSubject"):connect(function()
 			OnCameraSubjectChanged(currentCamera.CameraSubject)
 		end)
-	
+
 		cameraTypeChangedConn = currentCamera:GetPropertyChangedSignal("CameraType"):connect(function()
 			OnCameraMovementModeChange(getCurrentCameraMode())
 			OnCameraTypeChanged(currentCamera.CameraType)
@@ -254,7 +254,7 @@ do
 	while PlayersService.LocalPlayer == nil do PlayersService.PlayerAdded:wait() end
 	hasLastInput = pcall(function()
 		lastInputType = UserInputService:GetLastInputType()
-		UserInputService.LastInputTypeChanged:connect(function(newLastInputType) 
+		UserInputService.LastInputTypeChanged:connect(function(newLastInputType)
 			lastInputType = newLastInputType
 		end)
 	end)

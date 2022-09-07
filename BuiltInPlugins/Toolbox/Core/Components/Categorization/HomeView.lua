@@ -10,6 +10,7 @@ local FFlagToolboxUseDisplayName = game:GetFastFlag("ToolboxUseDisplayName")
 local FFlagToolboxFixMissingCategories = game:GetFastFlag("ToolboxFixMissingCategories")
 local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
+local FFlagToolboxAddVerifiedCreatorToAnalytics = game:GetFastFlag("ToolboxAddVerifiedCreatorToAnalytics")
 
 local Libs = Plugin.Packages
 
@@ -107,7 +108,7 @@ type _InternalProps = {
 	-- mapDispatchToProps
 	getAssetPreviewDataForStartup: any,
 	requestSearchRequest: (networkInterface: any, settings: any, searchText: string, categoryName: string) -> (),
-	logSearchAnalytics: (keyword: string, assetType: string) -> (),
+	logSearchAnalytics: (keyword: string, assetType: string?) -> (), -- TODO: remove assetType parmeter with LogMarketplaceSearchAnalytics
 	-- withContext
 	API: any?,
 	Localization: any,
@@ -215,8 +216,15 @@ function HomeView:init()
 		local networkInterface = getNetwork(self)
 		local settings = self.props.Settings:get("Plugin")
 
-		logSearchAnalytics(searchText, categoryName)
+		if not FFlagToolboxAddVerifiedCreatorToAnalytics then
+			logSearchAnalytics(searchText, categoryName)
+		end
+
 		requestSearchRequest(networkInterface, settings, searchText, categoryName)
+
+		if FFlagToolboxAddVerifiedCreatorToAnalytics then
+			logSearchAnalytics(searchText, nil)
+		end
 	end
 
 	self.renderSubcategory = function(index, subcategory)
@@ -549,8 +557,12 @@ local function mapDispatchToProps(dispatch)
 		requestSearchRequest = function(networkInterface, settings, searchTerm, categoryName)
 			dispatch(RequestSearchRequest(networkInterface, settings, searchTerm, categoryName, true))
 		end,
-		logSearchAnalytics = function(keyword, assetType)
-			dispatch(LogMarketplaceSearchAnalytics(keyword, assetType, nil, nil, nil, false, true))
+		logSearchAnalytics = function(keyword, assetType) -- TODO: remove assetType parameter with LogMarketplaceSearchAnalytics
+			if FFlagToolboxAddVerifiedCreatorToAnalytics then
+				dispatch(LogMarketplaceSearchAnalytics(keyword, true))
+			else
+				dispatch(LogMarketplaceSearchAnalytics(keyword, assetType, nil, nil, nil, false, true))
+			end
 		end,
 	}
 end

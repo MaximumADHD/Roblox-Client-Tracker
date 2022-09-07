@@ -115,6 +115,7 @@ local Constants = {
 		EducationalPopup = 9,
 		HeadsetDisconnectedDialog = 100,
 		ControllerBar = 9,
+		Tooltips = 10,
 	},
 
 	Zone = {

@@ -1,4 +1,3 @@
---!strict
 local getFFlagContactImporterAnalyticsEnabled = require(script.Parent.getFFlagContactImporterAnalyticsEnabled)
 
 

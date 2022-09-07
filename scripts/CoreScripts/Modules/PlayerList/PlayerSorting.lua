@@ -1,3 +1,4 @@
+--!nonstrict
 local function defaultLessThan(a, b)
 	return a < b
 end

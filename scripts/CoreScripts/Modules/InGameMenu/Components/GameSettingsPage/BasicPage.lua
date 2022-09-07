@@ -53,6 +53,7 @@ local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelec
 local GetFFlagInGameMenuVRToggle = require(Flags.GetFFlagInGameMenuVRToggle)
 	 
 local VREnabledChanged = UserGameSettings:GetPropertyChangedSignal("VREnabled")
+local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 
 local BasicPage = Roact.PureComponent:extend("BasicPage")
 BasicPage.validateProps = t.strictInterface({
@@ -247,12 +248,18 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				instance = UserGameSettings,
 				valueKey = "VignetteEnabled",
 			}),
-			GraphicsDivider = Roact.createElement(Divider, {
+			VRSmoothRotationEnabled = self.state.vrActive and EngineFeatureEnableVRUpdate3 and Roact.createElement(AutoPropertyToggleEntry, {
 				LayoutOrder = 18,
+				labelKey = "CoreScripts.InGameMenu.GameSettings.VRSmoothRotationEnabled",
+				instance = UserGameSettings,
+				valueKey = "VRSmoothRotationEnabled",
+			}),
+			GraphicsDivider = Roact.createElement(Divider, {
+				LayoutOrder = 19,
 				Size = UDim2.new(1, -24, 0, 1),
 			}),
 			AdvancedSettings = Roact.createElement("TextButton", {
-				LayoutOrder = 19,
+				LayoutOrder = 20,
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 0, 54),
 				Text = "",
@@ -281,7 +288,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				}),
 			}),
 			AdvancedDivider = Roact.createElement(Divider, {
-				LayoutOrder = 20,
+				LayoutOrder = 21,
 				Size = UDim2.new(1, -24, 0, 1),
 			}),
 

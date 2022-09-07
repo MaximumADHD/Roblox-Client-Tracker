@@ -13,7 +13,7 @@ local function getDefaultDeathType()
 	if not game:GetEngineFeature("PolicyInfoForServerRobloxOnlyAsyncEnabled") then
 		return game:DefineFastString("DeathTypeValue", "Classic")
 	end
-	
+
 	local PolicyService = game:GetService("PolicyService")
 	local policies = PolicyService:GetPolicyInfoForServerRobloxOnlyAsync()
 
@@ -21,7 +21,7 @@ local function getDefaultDeathType()
 	if policyServiceDefaultAvatarDeathType == nil then
 		error("PolicyService did not have death type policy")
 	end
-	
+
 	return policyServiceDefaultAvatarDeathType
 end
 

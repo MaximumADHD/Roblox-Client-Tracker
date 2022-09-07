@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 
 local LuaSocialLibrariesDeps = require(CorePackages.LuaSocialLibrariesDeps)

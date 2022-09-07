@@ -1,3 +1,4 @@
+--!nonstrict
 local VRService 	= game:GetService("VRService")
 local CoreGui 		= game:GetService("CoreGui")
 
@@ -104,10 +105,10 @@ function ViveController.new(userCFrame)
 	self.origin = CommonUtil.Create("Part") {
 		Parent = self.model,		
 		Name = "Origin",
-		Anchored = false,
+		Anchored = true,
 		Transparency = 1,
 		Size = Vector3.new(0.05, 0.05, 0.05),
-		CanCollide = false
+		CanCollide = false,
 	}
 	
 	self.parts = {}
@@ -121,11 +122,11 @@ function ViveController.new(userCFrame)
 		local part = CommonUtil.Create("Part") {
 			Parent = self.model,
 			Name = partName,
-			Anchored = false,
-			CanCollide = false,
+			Anchored = true,
 			Material = MATERIAL,
 			Size = partInfo.size or Vector3.new(0.05, 0.05, 0.05),
-			CFrame = self.origin.CFrame * partInfo.offset
+			CFrame = self.origin.CFrame * partInfo.offset,
+			CanCollide = false,
 		}
 		local mesh = CommonUtil.Create("SpecialMesh") {
 			Parent = part,
@@ -151,10 +152,10 @@ function ViveController.new(userCFrame)
 		Material = Enum.Material.Neon,
 		BrickColor = BrickColor.new("Institutional white"),
 		Shape = Enum.PartType.Ball,
-		Anchored = false,
+		Anchored = true,
 		Transparency = 1,
 		Size = Vector3.new(0.05, 0.05, 0.05),
-		CanCollide = false
+		CanCollide = false,
 	}
 	CommonUtil.Create("Weld") {
 		Parent = trackpadIndicator,

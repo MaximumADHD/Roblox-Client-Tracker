@@ -44,8 +44,6 @@ local SnapToNearestKeyframe = require(Plugin.Src.Thunks.SnapToNearestKeyframe)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SwitchEditorMode = require(Plugin.Src.Thunks.SwitchEditorMode)
 
-local GetFFlagCurveEditorFreeZoom = require(Plugin.LuaFlags.GetFFlagCurveEditorFreeZoom)
-
 local TrackEditor = Roact.PureComponent:extend("TrackEditor")
 
 function TrackEditor:init()
@@ -200,7 +198,6 @@ function TrackEditor:render()
 		[Roact.Change.AbsoluteSize] = self.updateSize,
 
 		[Roact.Event.InputBegan] = self.inputBegan,
-		[Roact.Event.InputChanged] = if not GetFFlagCurveEditorFreeZoom() then self.inputChanged else nil,
 		[Roact.Event.InputEnded] = self.inputEnded,
 		[Roact.Event.MouseLeave] = self.stopDragging,
 	}, {
@@ -243,7 +240,7 @@ function TrackEditor:render()
 			IsChannelAnimation = isChannelAnimation,
 			ColorsPosition = colorsPosition,
 			ZIndex = 1,
-			OnInputChanged = if GetFFlagCurveEditorFreeZoom() then self.inputChanged else nil,
+			OnInputChanged = self.inputChanged,
 		}) or nil,
 
 		CurveEditorController = showCurveCanvas and Roact.createElement(CurveEditorController, {
@@ -252,12 +249,10 @@ function TrackEditor:render()
 			EndTick = endTick,
 			TrackPadding = trackPadding,
 			Size = UDim2.new(1, 0, 1, -Constants.TIMELINE_HEIGHT - Constants.SCROLL_BAR_SIZE),
-			VerticalScroll = if not GetFFlagCurveEditorFreeZoom() then verticalScroll else nil,
-			VerticalZoom = if not GetFFlagCurveEditorFreeZoom() then verticalZoom else nil,
 			ShowAsSeconds = showAsSeconds,
 			Playhead = playhead,
 			ZIndex = 1,
-			OnInputChanged = if GetFFlagCurveEditorFreeZoom() then self.inputChanged else nil,
+			OnInputChanged = self.inputChanged,
 		}) or nil,
 
 		CannotPasteToast = showCannotPasteError and Roact.createElement(NoticeToast, {

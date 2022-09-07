@@ -1,3 +1,5 @@
+local FFlagToolboxAddVerifiedCreatorToAnalytics = game:GetFastFlag("ToolboxAddVerifiedCreatorToAnalytics")
+
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -18,6 +20,7 @@ local SetToolboxManageableGroups = require(Actions.SetToolboxManageableGroups)
 local UpdatePageInfo = require(Actions.UpdatePageInfo)
 local UpdateSearchTerm = require(Actions.UpdateSearchTerm)
 local SetCurrentPage = require(Actions.SetCurrentPage)
+local UpdateLastLoggedSearchId = require(Actions.UpdateLastLoggedSearchId)
 
 local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
 
@@ -89,6 +92,10 @@ return Rodux.createReducer({
 	hoveredBackgroundIndex = 0,
 
 	requestReason = RequestReason.InitLoad,
+
+	-- Used to prevent double-logging for Analytics.marketplaceSearch which logs for any
+	-- searchId change as well as for isTopKeyword
+	lastLoggedSearchId = if FFlagToolboxAddVerifiedCreatorToAnalytics then "" else nil,
 }, {
 	[UpdateSearchTerm.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
@@ -175,4 +182,10 @@ return Rodux.createReducer({
 
 		return newState
 	end,
+
+	[UpdateLastLoggedSearchId.name] = if FFlagToolboxAddVerifiedCreatorToAnalytics then function(state, action)
+		return Cryo.Dictionary.join(state, {
+			lastLoggedSearchId = action.searchId,
+		})
+	end else nil,
 })

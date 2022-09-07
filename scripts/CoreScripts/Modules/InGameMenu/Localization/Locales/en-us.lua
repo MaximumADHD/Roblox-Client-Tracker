@@ -172,4 +172,5 @@ return{
 	["CoreScripts.InGameMenu.ControllerBar.RespawnCharacter"] = [[Respawn Character]],
 	["CoreScripts.InGameMenu.ControllerBar.Cancel"] = [[Cancel]],
 	["CoreScripts.InGameMenu.GameSettings.VignetteEnabled"] = [[VR Vignette Enabled]],
+	["CoreScripts.InGameMenu.GameSettings.VRSmoothRotationEnabled"] = [[VR Smooth Rotation Enabled]],	
 }

@@ -1,33 +1,32 @@
+--!nonstrict
 --[[
 	Handles A/B testing of experience menu with IXP service
 	on the Experience.Menu layer for Share Invite Link
 ]]
 
+local AppStorageService = game:GetService("AppStorageService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Modules = CoreGui.RobloxGui.Modules
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 
-local GetFFlagShareInviteLinkContextMenuV1ABTestEnabled = require(
-	Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1ABTestEnabled
-)
+local LOCAL_STORAGE_KEY_EXPERIMENT_ENABLED = "ShareInviteLinkExperimentEnabled"
+local HAS_KEY_IN_GAME_ENGINE = game:GetEngineFeature("UniversalAppShareLinksStorageKey")
+
+local GetFFlagShareInviteLinkContextMenuV1ABTestEnabled =
+	require(Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1ABTestEnabled)
 
 local ShareInviteLinkABTestManager = {}
 ShareInviteLinkABTestManager.__index = ShareInviteLinkABTestManager
 
 function ShareInviteLinkABTestManager.new(ixpServiceWrapper)
 	local instance = {
-		_isShareInviteLinkEnabled = false,
 		_ixpServiceWrapper = ixpServiceWrapper or IXPServiceWrapper,
 	}
 
 	setmetatable(instance, ShareInviteLinkABTestManager)
 	return instance
-end
-
-function ShareInviteLinkABTestManager:isShareInviteLinkEnabled()
-	return self._isShareInviteLinkEnabled
 end
 
 function ShareInviteLinkABTestManager:initialize()
@@ -45,9 +44,37 @@ function ShareInviteLinkABTestManager:initialize()
 		return
 	end
 
-	if layerData and layerData.share_invite_link_enabled ~= nil then
-		self._isShareInviteLinkEnabled = layerData.share_invite_link_enabled
+	-- get the cached value for next session, we don't want to change it for this session
+	local prevIsEnabled = self.getCachedValue()
+	local isEnabled = if layerData then layerData.share_invite_link_enabled else false
+	if isEnabled ~= prevIsEnabled and HAS_KEY_IN_GAME_ENGINE
+	then
+		pcall(function()
+			AppStorageService:SetItem(
+				LOCAL_STORAGE_KEY_EXPERIMENT_ENABLED,
+				tostring(layerData.share_invite_link_enabled)
+			)
+			AppStorageService:Flush()
+		end)
 	end
+end
+
+function ShareInviteLinkABTestManager.getCachedValue()
+	if HAS_KEY_IN_GAME_ENGINE then
+		local cacheFetchSuccess, cachedExperimentEnabledValue = pcall(function()
+			return AppStorageService:GetItem(LOCAL_STORAGE_KEY_EXPERIMENT_ENABLED)
+		end)
+
+		if cacheFetchSuccess then
+			return cachedExperimentEnabledValue == "true"
+		end
+	end
+	-- fallback to default if there was an issue with local storage
+	return false
+end
+
+function ShareInviteLinkABTestManager:isShareInviteLinkEnabled()
+	return self.getCachedValue()
 end
 
 ShareInviteLinkABTestManager.default = ShareInviteLinkABTestManager.new()

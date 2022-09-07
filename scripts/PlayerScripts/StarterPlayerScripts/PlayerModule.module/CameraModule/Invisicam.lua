@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Invisicam - Occlusion module that makes objects occluding character view semi-transparent
 	2018 Camera Update - AllYourBlox

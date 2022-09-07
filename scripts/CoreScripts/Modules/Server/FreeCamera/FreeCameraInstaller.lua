@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: FreeCameraInstaller.lua
 --	// Written by: TheGamer101
 --	// Description: Installs Freecam for privileged users.

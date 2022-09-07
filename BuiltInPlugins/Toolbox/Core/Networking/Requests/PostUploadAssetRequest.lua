@@ -22,7 +22,7 @@ local SetIsPackage = require(Actions.SetIsPackage)
 local TrySaveSalesAndThumbnailRequest = require(Plugin.Core.Networking.Requests.TrySaveSalesAndThumbnailRequest)
 
 local FFlagDebugAssetConfigNetworkError = game:GetFastFlag("DebugAssetConfigNetworkError")
-local FFlagUnifyModelPackagePublish2 = game:GetFastFlag("UnifyModelPackagePublish2")
+local FFlagUnifyModelPackagePublish3 = game:GetFastFlag("UnifyModelPackagePublish3")
 
 -- publishInfo is a table contains the following:
 -- assetId, number, defualt to 0 for new asset.
@@ -95,7 +95,7 @@ return function(publishInfo)
 			Analytics.incrementUploadAssetFailure(publishInfo.assetType)
 		end
 
-		if FFlagUnifyModelPackagePublish2 and publishInfo.packageOn then 
+		if FFlagUnifyModelPackagePublish3 and publishInfo.packageOn then 
 			for _, instance in pairs(publishInfo.sourceInstances) do
 				if not instance:isDescendantOf(game) then
 					warn("Failed to convert to Package: the original instance was deleted")

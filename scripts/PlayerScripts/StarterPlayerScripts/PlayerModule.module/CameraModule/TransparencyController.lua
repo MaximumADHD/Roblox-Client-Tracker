@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	TransparencyController - Manages transparency of player character at close camera-to-subject distances
 	2018 Camera Update - AllYourBlox

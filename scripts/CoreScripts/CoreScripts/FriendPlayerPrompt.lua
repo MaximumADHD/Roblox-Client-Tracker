@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// Filename: FriendPlayerPrompt.lua
 	// Version 1.0

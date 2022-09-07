@@ -31,7 +31,7 @@ local settingsNames = getSettingsNames()
 
 export type Props = {
 	LayoutOrder: number?,
-	MaterialVariant: string,
+	MaterialVariant: MaterialVariant,
 }
 
 type _Props = Props & { 

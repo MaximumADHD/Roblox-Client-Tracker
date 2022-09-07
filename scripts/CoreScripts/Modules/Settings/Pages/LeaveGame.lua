@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 		Filename: LeaveGame.lua
 		Written by: jeditkacheff

@@ -1,3 +1,4 @@
+--!nonstrict
 return {
     {
         Key = "GameChat_ChatCommandsTeller_AllChannelWelcomeMessage",

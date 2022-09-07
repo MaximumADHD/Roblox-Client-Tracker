@@ -1,5 +1,3 @@
---!strict
-
 game:DefineFastFlag("UpgradeLuaProfileDepsToV310", false)
 
 return function()

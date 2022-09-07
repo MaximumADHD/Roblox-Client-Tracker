@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	VRBaseCamera - Base class for VR camera
 	2021 Roblox VR

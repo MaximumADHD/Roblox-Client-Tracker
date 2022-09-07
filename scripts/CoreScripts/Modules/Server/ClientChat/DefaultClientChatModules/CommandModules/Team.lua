@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: Team.lua
 --	// Written by: Partixel/TheGamer101
 --	// Description: Team chat bar manipulation.

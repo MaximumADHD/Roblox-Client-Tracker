@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	VRVehicleCamera - Roblox VR vehicle camera control module
 	2021 Roblox VR

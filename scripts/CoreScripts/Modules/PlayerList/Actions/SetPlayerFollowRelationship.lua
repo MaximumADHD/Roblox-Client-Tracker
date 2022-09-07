@@ -1,3 +1,4 @@
+--!nonstrict
 local ActionCreator = require(script.Parent.Parent.ActionCreator)
 
 return ActionCreator("SetPlayerFollowRelationship", function(player, isFollower, isFollowing)

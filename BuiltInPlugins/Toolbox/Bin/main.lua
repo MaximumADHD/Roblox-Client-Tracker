@@ -10,8 +10,9 @@ return function(plugin, pluginLoaderContext)
 	
 	local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
 	local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
-	local FFlagUnifyModelPackagePublish2 = game:GetFastFlag("UnifyModelPackagePublish2")
+	local FFlagUnifyModelPackagePublish3 = game:GetFastFlag("UnifyModelPackagePublish3")
 	local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
+	local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
 
 	local isCli = require(Util.isCli)
 	if isCli() then
@@ -214,7 +215,7 @@ return function(plugin, pluginLoaderContext)
 			screenFlowType = flowType,
 			currentScreen = startScreen,
 			instances = clonedInstances,
-			sourceInstances = FFlagUnifyModelPackagePublish2 and sourceInstances or nil,
+			sourceInstances = FFlagUnifyModelPackagePublish3 and sourceInstances or nil,
 			allowedAssetTypesForRelease = assetTypesForRelease,
 			allowedAssetTypesForUpload = assetTypesForUpload,
 			allowedAssetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then assetTypesForFree else nil,
@@ -352,7 +353,7 @@ return function(plugin, pluginLoaderContext)
 		end
 
 		-- Create publish new asset page.
-		if FFlagUnifyModelPackagePublish2 then
+		if FFlagUnifyModelPackagePublish3 then
 			pluginLoaderContext.signals["StudioAssetService.OnSaveToRoblox"]:Connect(function(instances)
 				local function proceedToUpload()
 					local clonedInstances = AssetConfigUtil.getClonedInstances(instances)
@@ -406,12 +407,29 @@ return function(plugin, pluginLoaderContext)
 
 		-- Create publish new plugin page.
 		pluginLoaderContext.signals["StudioService.OnPublishAsPlugin"]:Connect(function(instances)
-			createAssetConfig(
-				nil,
-				AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW,
-				AssetConfigUtil.getClonedInstances(instances),
-				Enum.AssetType.Plugin
-			)
+			if FFlagToolboxAssetConfigurationVerifiedPrice then
+				local function proceedToPublish()
+					createAssetConfig(
+						nil,
+						AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW,
+						AssetConfigUtil.getClonedInstances(instances),
+						Enum.AssetType.Plugin
+					)
+				end
+
+				if FFlagDebugToolboxGetRolesRequest then
+					toolboxStore:dispatch(GetRolesDebugRequest(networkInterface)):andThen(proceedToPublish, proceedToPublish)
+				else
+					toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToPublish, proceedToPublish)
+				end
+			else
+				createAssetConfig(
+					nil,
+					AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW,
+					AssetConfigUtil.getClonedInstances(instances),
+					Enum.AssetType.Plugin
+				)
+			end
 		end)
 
 		-- Listen to MemStorageService

@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: WhisperMessage.lua
 --	// Written by: TheGamer101
 --	// Description: Create a message label for a whisper chat message.

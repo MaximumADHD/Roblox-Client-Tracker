@@ -117,6 +117,23 @@ local function getBundleFavoriteCount(bundleId)
 	return createYieldingPromise(options, false)
 end
 
+--[[
+	Gets the favorite status of an item for a user.
+]]
+local function getItemFavorite(itemId, itemType)
+	return Promise.new(function(resolve, reject)
+		local success, result = pcall(function()
+			return AvatarEditorService:GetFavorite(itemId, itemType)
+		end)
+
+		if success then
+			resolve(result)
+		else
+			reject("Failure in getItemFavorite: ", tostring(result))
+		end
+	end)
+end
+
 local Network = {}
 
 function Network.new()
@@ -126,6 +143,7 @@ function Network.new()
 		getItemDetails = getItemDetails,
 		getAssetBundles = getAssetBundles,
 		getBundleFavoriteCount = getBundleFavoriteCount,
+		getItemFavorite = getItemFavorite,
 	}
 
 	setmetatable(networkService, {

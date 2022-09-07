@@ -35,6 +35,7 @@ local SetScreenSize = require(script.Actions.SetScreenSize)
 local SetMenuIconTooltipOpen = require(script.Actions.SetMenuIconTooltipOpen)
 local SetRespawning = require(script.Actions.SetRespawning)
 local OpenMenu = require(script.Thunks.OpenMenu)
+local CloseMenu = require(script.Thunks.CloseMenu)
 local InGameMenuPolicy = require(script.InGameMenuPolicy)
 
 local GlobalConfig = require(script.GlobalConfig)
@@ -152,6 +153,10 @@ return {
 
 	openInGameMenu = function(pageKey)
 		menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.TopbarButton, pageKey))
+	end,
+	
+	closeInGameMenu = function()
+		CloseMenu(menuStore)
 	end,
 
 	openReportDialog = function(player)

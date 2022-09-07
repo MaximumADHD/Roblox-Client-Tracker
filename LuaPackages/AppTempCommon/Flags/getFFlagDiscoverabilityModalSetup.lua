@@ -1,5 +1,3 @@
---!strict
-
 game:DefineFastFlag("DiscoverabilityModalSetup", false)
 
 return function()

@@ -1,3 +1,4 @@
+--!nonstrict
 local EPSILON = 1e-3
 local PITCH_LIMIT = math.rad(80)
 local YAW_DEFAULT = math.rad(0)

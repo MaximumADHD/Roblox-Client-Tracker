@@ -1,8 +1,8 @@
---!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 local IconButton = UIBlox.App.Button.IconButton
+local withHoverTooltip = UIBlox.App.Dialog.TooltipV2.withHoverTooltip
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -19,6 +19,10 @@ local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+
+-- These hotkeys are on the spec, but they haven't been implemented
+-- https://jira.rbx.com/browse/APPEXP-476
+local MUTE_ALL_HOTKEYS = nil -- { Enum.KeyCode.LeftAlt, Enum.KeyCode.A }
 
 local MuteAllButton = Roact.PureComponent:extend("MuteAllButton")
 
@@ -64,16 +68,28 @@ function MuteAllButton:render()
 	})(function(localized)
 		self.unmuteAll = localized.unmuteAll
 		self.muteAll = localized.muteAll
-		return Roact.createElement(IconButton, {
-			iconTransparency = self.props.backgroundTransparency,
-			backgroundTransparency = self.props.backgroundTransparency,
-			backgroundColor = self.props.backgroundColor,
-			showBackground = true,
-			layoutOrder = self.props.layoutOrder,
-			icon = VoiceChatServiceManager:GetIcon(self.state.allMuted and "MuteAll" or "UnmuteAll", "Misc"),
-			iconSize = self.props.iconSize,
-			onActivated = self.onActivated,
-		})
+		return withHoverTooltip({
+			headerText = if self.state.allMuted then localized.unmuteAll else localized.muteAll,
+			textAlignment = Enum.TextXAlignment.Center,
+			hotkeyCodes = MUTE_ALL_HOTKEYS,
+		}, {
+			guiTarget = CoreGui,
+			DisplayOrder = Constants.DisplayOrder.Tooltips,
+		}, function(triggerPointChanged, onStateChanged)
+			return Roact.createElement(IconButton, {
+				iconTransparency = self.props.backgroundTransparency,
+				backgroundTransparency = self.props.backgroundTransparency,
+				backgroundColor = self.props.backgroundColor,
+				showBackground = true,
+				layoutOrder = self.props.layoutOrder,
+				icon = VoiceChatServiceManager:GetIcon(self.state.allMuted and "MuteAll" or "UnmuteAll", "Misc"),
+				iconSize = self.props.iconSize,
+				onActivated = self.onActivated,
+				onStateChanged = onStateChanged,
+				[Roact.Change.AbsoluteSize] = triggerPointChanged,
+				onAbsolutePositionChanged = triggerPointChanged,
+			})
+		end)
 	end)
 end
 

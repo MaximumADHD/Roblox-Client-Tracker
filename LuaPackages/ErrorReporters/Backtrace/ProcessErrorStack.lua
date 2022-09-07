@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Module for splitting the errorStack string to a list.
 

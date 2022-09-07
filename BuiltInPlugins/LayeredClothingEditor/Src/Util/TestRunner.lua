@@ -10,6 +10,7 @@ local Signals = AvatarToolsShared.Contexts.Signals
 local PreviewContext = AvatarToolsShared.Contexts.PreviewContext
 local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
 local AssetServiceWrapper = AvatarToolsShared.Contexts.AssetServiceWrapper
+local StudioServiceWrapper = AvatarToolsShared.Contexts.StudioServiceWrapper
 local MannequinContext = AvatarToolsShared.Contexts.MannequinContext
 
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
@@ -36,6 +37,7 @@ local function run(testChildren, container, testRunner)
 	local signals = Signals.new(Constants.SIGNAL_KEYS)
 	local editingItemContext = EditingItemContext.new()
 	local assetServiceWrapper = AssetServiceWrapper.mock()
+	local studioServiceWrapper = StudioServiceWrapper.mock()
 	local mannequinContext = MannequinContext.mock()
 	local theme = PluginTheme.mock()
 	local localization = ContextServices.Localization.mock({
@@ -71,6 +73,7 @@ local function run(testChildren, container, testRunner)
 		previewContext,
 		meshEditingContext,
 		assetServiceWrapper,
+		studioServiceWrapper,
 		mannequinContext,
 	}, testChildren)
 	local handle = Roact.mount(element, container)

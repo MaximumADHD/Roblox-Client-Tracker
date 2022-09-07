@@ -1,4 +1,3 @@
---!strict
 -- Zoom
 -- Controls the distance between the focus and the camera.
 
@@ -119,7 +118,7 @@ local Zoom = {} do
 
 		return zoomSpring:Step(renderDt)
 	end
-	
+
 	function Zoom.GetZoomRadius()
 		return zoomSpring.x
 	end
@@ -132,7 +131,7 @@ local Zoom = {} do
 	function Zoom.ReleaseSpring()
 		zoomSpring.x = zoomSpring.goal
 		zoomSpring.v = 0
-	end	
+	end
 end
 
 return Zoom

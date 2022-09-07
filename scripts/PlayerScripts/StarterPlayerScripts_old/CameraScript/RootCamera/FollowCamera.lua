@@ -39,19 +39,19 @@ end
 
 local function CreateFollowCamera()
 	local module = RootCameraCreator()
-	
+
 	local tweenAcceleration = math_rad(220)
 	local tweenSpeed = math_rad(0)
 	local tweenMaxSpeed = math_rad(250)
 	local timeBeforeAutoRotate = 2
-	
+
 	local lastUpdate = tick()
 	module.LastUserPanCamera = tick()
 	function module:Update()
 		module:ProcessTweens()
 		local now = tick()
 		local timeDelta = (now - lastUpdate)
-		
+
 		local userPanningTheCamera = (self.UserPanningTheCamera == true)
 		local camera = workspace.CurrentCamera
 		local player = PlayersService.LocalPlayer
@@ -60,14 +60,14 @@ local function CreateFollowCamera()
 		local isClimbing = humanoid and humanoid:GetState() == HUMANOIDSTATE_CLIMBING
 		local isInVehicle = cameraSubject and cameraSubject:IsA('VehicleSeat')
 		local isOnASkateboard = cameraSubject and cameraSubject:IsA('SkateboardPlatform')
-		
+
 		if lastUpdate == nil or now - lastUpdate > 1 then
 			module:ResetCameraLook()
 			self.LastCameraTransform = nil
 		end
-		
+
 		if lastUpdate then
-			
+
 			if self:ShouldUseVRRotation() then
 				self.RotateInput = self.RotateInput + self:GetVRRotationInput()
 			else
@@ -79,35 +79,35 @@ local function CreateFollowCamera()
 					angle = angle + (self.TurningLeft and -120 or 0)
 					angle = angle + (self.TurningRight and 120 or 0)
 				end
-				
+
 				local gamepadRotation = self:UpdateGamepad()
 				if gamepadRotation ~= Vector2.new(0,0) then
 					userPanningTheCamera = true
 					self.RotateInput = self.RotateInput + (gamepadRotation * delta)
 				end
-				
+
 				if angle ~= 0 then
 					userPanningTheCamera = true
 					self.RotateInput = self.RotateInput + Vector2_new(math_rad(angle * delta), 0)
 				end
 			end
 		end
-		
+
 		-- Reset tween speed if user is panning
 		if userPanningTheCamera then
 			tweenSpeed = 0
 			module.LastUserPanCamera = tick()
 		end
-		
+
 		local userRecentlyPannedCamera = now - module.LastUserPanCamera < timeBeforeAutoRotate
-		
+
 		local subjectPosition = self:GetSubjectPosition()
 		if subjectPosition and player and camera then
 			local zoom = self:GetCameraZoom()
 			if zoom < 0.5 then
 				zoom = 0.5
 			end
-			
+
 			if self:GetShiftLock() and not self:IsInFirstPerson() then
 				local newLookVector = self:RotateCamera(self:GetCameraLook(), self.RotateInput)
 				local offset = ((newLookVector * XZ_VECTOR):Cross(UP_VECTOR).unit * 1.75)
@@ -131,9 +131,9 @@ local function CreateFollowCamera()
 							if isOnASkateboard then
 								forwardVector = cameraSubject.CFrame.lookVector
 							end
-							
+
 							tweenSpeed = clamp(0, tweenMaxSpeed, tweenSpeed + tweenAcceleration * timeDelta)
-							
+
 							local percent = clamp(0, 1, tweenSpeed*timeDelta)
 							if not isClimbing and self:IsInFirstPerson() then
 								percent = 1
@@ -146,15 +146,15 @@ local function CreateFollowCamera()
 						end
 					elseif not (isInFirstPerson or userRecentlyPannedCamera) and not VRService.VREnabled then
 						local lastVec = -(self.LastCameraTransform.p - subjectPosition)
-						
+
 						local y = findAngleBetweenXZVectors(lastVec, self:GetCameraLook())
-						
+
 						-- This cutoff is to decide if the humanoid's angle of movement,
 						-- relative to the camera's look vector, is enough that
-						-- we want the camera to be following them. The point is to provide 
+						-- we want the camera to be following them. The point is to provide
 						-- a sizable deadzone to allow more precise forward movements.
 						local thetaCutoff = 0.4
-						
+
 						-- Check for NaNs
 						if IsFinite(y) and math.abs(y) > 0.0001 and math_abs(y) > thetaCutoff*timeDelta then
 							self.RotateInput = self.RotateInput + Vector2.new(y, 0)
@@ -182,10 +182,10 @@ local function CreateFollowCamera()
 				self.LastSubjectCFrame = nil
 			end
 		end
-		
+
 		lastUpdate = now
 	end
-	
+
 	return module
 end
 

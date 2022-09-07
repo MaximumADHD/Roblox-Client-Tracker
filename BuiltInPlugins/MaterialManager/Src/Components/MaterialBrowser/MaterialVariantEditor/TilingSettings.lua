@@ -41,12 +41,13 @@ export type Props = {
 	MaterialVariant: MaterialVariant,
 }
 
-type _Props = Props & { 
+type _Props = Props & {
 	Analytics: any,
 	dispatchSetExpandedPane: (paneName: string, expandedPaneState: boolean) -> (),
 	ExpandedPane: boolean,
 	GeneralServiceController: any,
 	Localization: any,
+	Material: _Types.Material,
 	Stylizer: any,
 }
 
@@ -106,7 +107,7 @@ function TilingSettings:init()
 
 	self.onExpandedChanged = function()
 		local props: _Props = self.props
-		
+
 		props.dispatchSetExpandedPane(settingsNames.TilingSettings, not props.ExpandedPane)
 	end
 end
@@ -115,31 +116,21 @@ function TilingSettings:didMount()
 	local props: _Props = self.props
 	local localization = props.Localization
 
-	self.connectionStudsPerTile = props.MaterialVariant:GetPropertyChangedSignal("StudsPerTile"):Connect(function()
-		self:setState({
-			studsPerTile = tostring(props.MaterialVariant.StudsPerTile),
-		})
-		self.setStudsPerTileStatus(nil)
-	end)
-
 	for index, materialPattern in ipairs(materialPatterns) do
-		table.insert(self.materialPatterns, localization:getText("MaterialPatterns", getMaterialPatternName(materialPattern)))
+		table.insert(
+			self.materialPatterns,
+			localization:getText("MaterialPatterns", getMaterialPatternName(materialPattern))
+		)
 	end
-	self:setState({})  -- Force a rerender of the patterns list
-end
-
-function TilingSettings:willUnmount()
-	if self.connectionStudsPerTile then
-		self.connectionStudsPerTile:Disconnect()
-	end
+	self:setState({}) -- Force a rerender of the patterns list
 end
 
 function TilingSettings:didUpdate(prevProps)
-	if prevProps.MaterialVariant ~= self.props.MaterialVariant then
+	if prevProps.MaterialVariant.StudsPerTile ~= self.props.MaterialVariant.StudsPerTile then
 		self:setState({
-			studsPerTile = self.props.MaterialVariant.StudsPerTile,
-			nameMessage = Roact.None,
 			status = Enum.PropertyStatus.Ok,
+			studsPerTile = self.props.MaterialVariant.StudsPerTile,
+			studsPerTileMessage = Roact.None,
 		})
 	end
 end
@@ -180,7 +171,7 @@ function TilingSettings:render()
 				Text = self.state.studsPerTile,
 				OnTextChanged = self.onStudsPerTileChanged,
 				OnFocusLost = self.onFocusLost,
-			})
+			}),
 		}),
 		MaterialPattern = Roact.createElement(LabeledElement, {
 			LabelColumnWidth = style.LabelColumnWidth,
@@ -193,7 +184,7 @@ function TilingSettings:render()
 				Size = style.DialogColumnSize,
 				OnItemActivated = self.onMaterialPatternSelected,
 				SelectedIndex = currentIndex,
-			})
+			}),
 		}),
 	})
 end
@@ -209,6 +200,7 @@ return RoactRodux.connect(
 	function(state: MainReducer.State)
 		return {
 			ExpandedPane = state.MaterialBrowserReducer.ExpandedPane[settingsNames.TilingSettings],
+			Material = state.MaterialBrowserReducer.Material, -- Needed for refresh purposes
 		}
 	end,
 	function(dispatch)

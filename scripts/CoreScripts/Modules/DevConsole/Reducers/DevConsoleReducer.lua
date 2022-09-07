@@ -1,3 +1,4 @@
+--!nonstrict
 local Reducers = script.Parent
 local DevConsoleDisplayOptions = require(Reducers.DevConsoleDisplayOptions)
 local MainView = require(Reducers.MainView)

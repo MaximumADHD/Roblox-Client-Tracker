@@ -83,7 +83,7 @@ local function OnPlayersChildRemoved(child)
 		PlayerCharacters[child] = nil
 	end
 end
- 
+
  local function OnWorkspaceChanged(property)
  	if property == 'CurrentCamera' then
  		local newCamera = workspace.CurrentCamera
@@ -117,7 +117,7 @@ function PopperCam:Update(EnabledCamera)
 		for i = 1, #VehicleParts do
 			ignoreList[#ignoreList + 1] = VehicleParts[i]
 		end
-		
+
 		-- Get largest cutoff distance
 		local largest = Camera:GetLargestCutoffDistance(ignoreList)
 
@@ -127,7 +127,7 @@ function PopperCam:Update(EnabledCamera)
 		if math_abs(zoomLevel - LastZoomLevel) > 0.001 then
 			LastPopAmount = 0
 		end
-		
+
 		-- Finally, zoom the camera in (pop) by that most-cut-off amount, or the last pop amount if that's more
 		local popAmount = largest
 		if LastPopAmount > popAmount then
@@ -143,11 +143,11 @@ function PopperCam:Update(EnabledCamera)
 		end
 
 		LastZoomLevel = zoomLevel
-		
+
 		-- Stop shift lock being able to see through walls by manipulating Camera focus inside the wall
 		if EnabledCamera and EnabledCamera:GetShiftLock() and not EnabledCamera:IsInFirstPerson() then
 			if EnabledCamera:GetCameraActualZoom() < 1 then
-				local subjectPosition = EnabledCamera.lastSubjectPosition 
+				local subjectPosition = EnabledCamera.lastSubjectPosition
 				if subjectPosition then
 					Camera.Focus = CFrame_new(subjectPosition)
 					Camera.CFrame = CFrame_new(subjectPosition - MIN_CAMERA_ZOOM*EnabledCamera:GetCameraLook(), subjectPosition)

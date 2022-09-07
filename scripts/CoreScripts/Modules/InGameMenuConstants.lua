@@ -1,3 +1,4 @@
+--!nonstrict
 local Modules = script.Parent
 local EnableInGameMenuV3 = require(Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 

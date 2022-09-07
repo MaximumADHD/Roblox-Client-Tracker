@@ -1,3 +1,4 @@
+--!nonstrict
 local ProximityPromptService = game:GetService("ProximityPromptService")
 
 local PlayerHelper = require(script.Parent.PlayerHelper)

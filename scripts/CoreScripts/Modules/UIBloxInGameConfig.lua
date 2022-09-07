@@ -25,6 +25,9 @@ local GetFFlagUIBloxFixDropdownMenuCellTextSize = require(
 local GetFFlagUIBloxEnableActionBarLayoutFix = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableActionBarLayoutFix
 )
+local GetFFlagUIBloxDisableTooltipAnimation = require(
+	CorePackages.UIBloxFlags.GetFFlagUIBloxDisableTooltipAnimation
+)
 
 local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 
@@ -49,4 +52,6 @@ return {
 
 	devMode = ArgCheck.isEnabled(),
 	enableActionBarLayoutFix = GetFFlagUIBloxEnableActionBarLayoutFix(),
+
+	disableTooltipAnimation = GetFFlagUIBloxDisableTooltipAnimation(),
 }

@@ -68,8 +68,11 @@ local IXPContext = require(Plugin.Core.ContextServices.IXPContext)
 
 local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 
+local LogMarketplaceSearchAnalytics = require(Plugin.Core.Thunks.LogMarketplaceSearchAnalytics)
+
 local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
 local FFlagToolboxEnableAnnouncementsDialog = game:GetFastFlag("ToolboxEnableAnnouncementsDialog")
+local FFlagToolboxAddVerifiedCreatorToAnalytics = game:GetFastFlag("ToolboxAddVerifiedCreatorToAnalytics")
 
 local Background = require(Plugin.Core.Types.Background)
 
@@ -206,6 +209,15 @@ function Toolbox:init(props)
 		self.changeMarketplaceTab(currentTabKey, {
 			categoryName = categoryName,
 		})
+	end
+end
+
+if FFlagToolboxAddVerifiedCreatorToAnalytics then
+	function Toolbox:didUpdate(prevProps, prevState)
+		local props = self.props
+		if prevProps.searchId ~= props.searchId then
+			self.props.logSearchAnalytics(props.searchTerm)
+		end
 	end
 end
 
@@ -374,6 +386,7 @@ local function mapStateToProps(state, props)
 		creator = pageInfo.creator,
 		audioSearchInfo = pageInfo.audioSearchInfo,
 		roles = state.roles or {},
+		searchId = if FFlagToolboxAddVerifiedCreatorToAnalytics then pageInfo.searchId or "" else nil,
 		searchTerm = pageInfo.searchTerm or "",
 		sorts = pageInfo.sorts or {},
 	}
@@ -404,6 +417,10 @@ local function mapDispatchToProps(dispatch)
 		getToolboxManageableGroups = function(networkInterface, settings, newPageInfo)
 			dispatch(GetToolboxManageableGroupsRequest(networkInterface, settings, newPageInfo))
 		end,
+
+		logSearchAnalytics = if FFlagToolboxAddVerifiedCreatorToAnalytics then function(keyword)
+			return dispatch(LogMarketplaceSearchAnalytics(keyword, false))
+		end else nil,
 	}
 end
 

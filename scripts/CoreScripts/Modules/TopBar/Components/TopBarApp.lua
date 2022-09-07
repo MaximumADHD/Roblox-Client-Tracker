@@ -1,6 +1,8 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
+local VRService = game:GetService("VRService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -35,6 +37,10 @@ local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local GetFFlagEnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 local GetFFlagEnableVoiceBetaBadge = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceBetaBadge)
+
+-- vr bottom bar
+local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
+local VRBottomBar = require(RobloxGui.Modules.VR.VRBottomBar.VRBottomBar)
 
 local CLOSE_MENU_ICON_SIZE = 30
 
@@ -150,6 +156,7 @@ function TopBarApp:render()
 
 		GamepadMenu = Roact.createElement(GamepadMenu),
 		HeadsetMenu = Roact.createElement(HeadsetMenu),
+		VRBottomBar = EngineFeatureEnableVRUpdate3 and VRService.VREnabled and Roact.createElement(VRBottomBar) or nil,
 
 		FullScreenFrame = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,

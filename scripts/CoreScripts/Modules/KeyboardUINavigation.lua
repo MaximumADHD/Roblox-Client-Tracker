@@ -1,3 +1,4 @@
+--!nonstrict
 local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
 local ContextActionService = game:GetService("ContextActionService")

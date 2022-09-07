@@ -14,8 +14,6 @@ return function()
 
 	local InGameMenu = script.Parent.Parent
 	local reducer = require(InGameMenu.reducer)
-	local Constants = require(InGameMenu.Resources.Constants)
-	local SetInputType = require(InGameMenu.Actions.SetInputType)
 	local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
 	local LeaveButton = require(InGameMenu.Components.LeaveButton)
 	local PageUtils = require(InGameMenu.Components.Pages.PageUtils)
@@ -55,34 +53,6 @@ return function()
 		expect(element).to.be.ok()
 
 		local instance = Roact.mount(element)
-		Roact.unmount(instance)
-	end)
-
-	it("shows KeyLabel is input type is keyboard", function()
-		expect(LeaveButton).to.be.ok()
-		local element, store = getMountableTreeAndStore({
-			LeaveButton = Roact.createElement(LeaveButton, {}),
-		})
-		expect(element).to.be.ok()
-
-		local frame = Instance.new("Frame")
-
-		local instance = Roact.mount(element, frame)
-		act(function()
-			store:dispatch(SetInputType(Constants.InputType.MouseAndKeyboard))
-			store:dispatch(SetMenuOpen(true))
-			store:flush()
-		end)
-
-		expect(frame:FindFirstChild("KeyLabel", true)).to.never.equal(nil)
-
-		act(function()
-			store:dispatch(SetInputType(Constants.InputType.Touch))
-			store:flush()
-		end)
-
-		expect(frame:FindFirstChild("KeyLabel", true)).to.equal(nil)
-
 		Roact.unmount(instance)
 	end)
 

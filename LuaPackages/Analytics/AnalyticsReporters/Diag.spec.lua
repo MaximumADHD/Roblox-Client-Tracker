@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local Diag = require(script.Parent.Diag)
 

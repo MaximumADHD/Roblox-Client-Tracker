@@ -7,6 +7,7 @@ local AppTempCommon = CorePackages.AppTempCommon
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -16,12 +17,14 @@ local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 
 local Constants = require(ShareGame.Constants)
 local ConversationEntry = require(ShareGame.Components.ConversationEntry)
+local InviteListEntry = require(ShareGame.Components.InviteListEntry)
 local FriendsErrorPage = require(ShareGame.Components.FriendsErrorPage)
 local InviteUserIdToPlaceId = require(ShareGame.Thunks.InviteUserIdToPlaceId)
 local LoadingFriendsPage = require(ShareGame.Components.LoadingFriendsPage)
 local NoFriendsPage = require(ShareGame.Components.NoFriendsPage)
 local PlayerSearchPredicate = require(CoreGui.RobloxGui.Modules.InGameMenu.Utility.PlayerSearchPredicate)
 local GetFFlagShareInviteLinkContextMenuV1Enabled = require(Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
+local GetFFlagEnableNewInviteMenu = require(Modules.Flags.GetFFlagEnableNewInviteMenu)
 
 local User = require(AppTempCommon.LuaApp.Models.User)
 local httpRequest = require(AppTempCommon.Temp.httpRequest)
@@ -86,6 +89,8 @@ function ConversationList:render()
 	local inviteUser = self.props.inviteUser
 	local searchText = self.props.searchText
 
+	local newInviteMenuEnabled = GetFFlagEnableNewInviteMenu()
+
 	children["RowListLayout"] = Roact.createElement("UIListLayout", {
 		FillDirection = Enum.FillDirection.Vertical,
 		HorizontalAlignment = Enum.HorizontalAlignment.Center,
@@ -99,19 +104,31 @@ function ConversationList:render()
 	for i, user in ipairs(friends) do
 		local isEntryShown = PlayerSearchPredicate(searchText, user.name, user.displayName)
 
-		children["User-" .. tostring(i)] = Roact.createElement(ConversationEntry, {
-			analytics = analytics,
-			visible = isEntryShown,
-			size = UDim2.new(1, 0, 0, entryHeight),
-			layoutOrder = i,
-			zIndex = zIndex,
-			title = user.displayName,
-			subtitle = "@" .. user.name,
-			presence = user.presence,
-			users = {user},
-			inviteUser = inviteUser,
-			inviteStatus = invites[user.id],
-		})
+		if newInviteMenuEnabled then
+			children["User-" .. tostring(i)] = Roact.createElement(InviteListEntry, {
+				analytics = analytics,
+				user = user,
+				visible = isEntryShown,
+				layoutOrder = i,
+				inviteUser = inviteUser,
+				inviteStatus = invites[user.id],
+				isFullRowActivatable = UserInputService.GamepadEnabled,
+			})
+		else
+			children["User-" .. tostring(i)] = Roact.createElement(ConversationEntry, {
+				analytics = analytics,
+				visible = isEntryShown,
+				size = UDim2.new(1, 0, 0, entryHeight),
+				layoutOrder = i,
+				zIndex = zIndex,
+				title = user.displayName,
+				subtitle = "@" .. user.name,
+				presence = user.presence,
+				users = { user },
+				inviteUser = inviteUser,
+				inviteStatus = invites[user.id],
+			})
+		end
 
 		if isEntryShown then
 			numEntries = numEntries + 1
@@ -157,7 +174,8 @@ function ConversationList:render()
 		LayoutOrder = layoutOrder,
 		Size = size,
 		Position = GetFFlagShareInviteLinkContextMenuV1Enabled() and UDim2.new(0, 0, 0, topPadding) or nil,
-		CanvasSize = UDim2.new(0, 0, 0, numEntries * (entryHeight + entryPadding)),
+		CanvasSize = if newInviteMenuEnabled then UDim2.new() else UDim2.new(0, 0, 0, numEntries * (entryHeight + entryPadding)),
+		AutomaticCanvasSize = if newInviteMenuEnabled then Enum.AutomaticSize.Y else nil,
 		ScrollBarThickness = 0,
 		ZIndex = zIndex,
 		Selectable = isSelectable,
@@ -166,6 +184,12 @@ function ConversationList:render()
 end
 
 local function handleBinding(self)
+	-- We want to avoid putting the gamepad UI selector on the screen when the user
+	-- doesn't have a gamepad connected to their device
+	if GetFFlagEnableNewInviteMenu() and not UserInputService.GamepadEnabled then
+		return
+	end
+
 	local conversationList = self.scrollingRef:getValue()
 	if conversationList then
 		if conversationList:FindFirstAncestorOfClass("ScreenGui").Enabled then

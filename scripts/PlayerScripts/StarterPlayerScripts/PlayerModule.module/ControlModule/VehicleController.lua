@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName: VehicleControl
 	// Version 1.0

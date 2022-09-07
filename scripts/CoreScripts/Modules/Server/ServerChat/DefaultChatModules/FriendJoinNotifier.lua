@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: FriendJoinNotifer.lua
 --	// Written by: TheGamer101
 --	// Description: Module that adds a message to the chat whenever a friend joins the game.

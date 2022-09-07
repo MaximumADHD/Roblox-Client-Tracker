@@ -28,9 +28,14 @@ local TextureSettings = require(MaterialVariantEditorComponent.TextureSettings)
 local TilingSettings = require(MaterialVariantEditorComponent.TilingSettings)
 local MaterialOverrides = require(MaterialVariantEditorComponent.MaterialOverrides)
 local OverrideSettings = require(MaterialVariantEditorComponent.OverrideSettings)
+local PhysicalSettings = require(MaterialVariantEditorComponent.PhysicalSettings)
 
 local getSupportedMaterials = require(Plugin.Src.Resources.Constants.getSupportedMaterials)
 local supportedMaterials = getSupportedMaterials()
+
+local getFFlagMaterialVariantPhysicalPropertiesV2 = require(
+	Plugin.Src.Flags.getFFlagMaterialVariantPhysicalPropertiesV2
+)
 
 local MaterialVariantEditor = Roact.PureComponent:extend("MaterialVariantEditor")
 
@@ -117,6 +122,12 @@ function MaterialVariantEditor:render()
 					else nil,
 				TilingSettings = if materialVariant then
 					Roact.createElement(TilingSettings, {
+						LayoutOrder = layoutOrderIterator:getNextOrder(),
+						MaterialVariant = materialVariant,
+					})
+					else nil,
+				PhysicalSettings = if getFFlagMaterialVariantPhysicalPropertiesV2() and materialVariant then
+					Roact.createElement(PhysicalSettings, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),
 						MaterialVariant = materialVariant,
 					})

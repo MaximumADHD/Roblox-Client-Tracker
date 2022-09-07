@@ -1,8 +1,9 @@
+local FFlagToolboxAddUnverifiedIcon = game:GetFastFlag("ToolboxAddUnverifiedIcon")
+
 local Plugin = script.Parent.Parent.Parent
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
-local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
 local FFlagToolboxPackagesInAssetTile = game:GetFastFlag("ToolboxPackagesInAssetTile")
 
 local Images = {}
@@ -22,13 +23,13 @@ Images.SCROLLBAR_MIDDLE_IMAGE = "rbxasset://textures/StudioToolbox/ScrollBarMidd
 Images.SCROLLBAR_BOTTOM_IMAGE = "rbxasset://textures/StudioToolbox/ScrollBarBottom.png"
 
 Images.THUMB = "rbxasset://textures/StudioToolbox/Voting/Thumb.png"
-Images.THUMB_UP_WHITE = if FFlagAssetVoteSimplification then "rbxasset://textures/StudioToolbox/Voting/thumbs-up-white.png" else nil
-Images.THUMB_UP_DARK_GRAY = if FFlagAssetVoteSimplification then "rbxasset://textures/StudioToolbox/Voting/thumbs-up-dark-gray.png" else nil
+Images.THUMB_UP_WHITE = "rbxasset://textures/StudioToolbox/Voting/thumbs-up-white.png"
+Images.THUMB_UP_DARK_GRAY = "rbxasset://textures/StudioToolbox/Voting/thumbs-up-dark-gray.png"
 Images.THUMB_UP_GREY = "rbxasset://textures/StudioToolbox/Voting/thumbup.png"
 Images.THUMB_DOWN_GREY = "rbxasset://textures/StudioToolbox/Voting/thumb-down.png"
 -- These buttons are the same ones as in the Asset Preview in dev framework, so use the same images
-Images.THUMB_UP_GREEN = if FFlagAssetVoteSimplification then "rbxasset://textures/DeveloperFramework/Votes/rating_up_green.png" else "rbxasset://textures/StudioToolbox/Voting/thumbs-up-filled.png"
-Images.THUMB_UP_RED = if FFlagAssetVoteSimplification then "rbxasset://textures/DeveloperFramework/Votes/rating_up_red.png" else nil
+Images.THUMB_UP_GREEN = "rbxasset://textures/DeveloperFramework/Votes/rating_up_green.png"
+Images.THUMB_UP_RED = "rbxasset://textures/DeveloperFramework/Votes/rating_up_red.png"
 Images.THUMB_DOWN_RED = "rbxasset://textures/StudioToolbox/Voting/thumbs-down-filled.png"
 
 Images.AUDIO_PREVIEW_PLAY = "rbxasset://textures/StudioToolbox/AssetPreview/play_button.png"
@@ -40,8 +41,10 @@ Images.NO_BACKGROUND_ICON = "rbxasset://textures/StudioToolbox/NoBackgroundIcon.
 
 Images.ENDORSED_BADGE_ICON = "rbxasset://textures/StudioToolbox/EndorsedBadge.png"
 
-Images.VERIFIED_CREATOR_BADGE_ICON = "rbxasset://textures/StudioToolbox/verified-badge-2x.png"
-Images.VERIFIED_CREATOR_BADGE_ICON_SMALL = "rbxasset://textures/StudioToolbox/verified-badge-sm-2x.png"
+if not FFlagToolboxAddUnverifiedIcon then
+	Images.VERIFIED_CREATOR_BADGE_ICON = "rbxasset://textures/StudioToolbox/verified-badge-2x.png"
+	Images.VERIFIED_CREATOR_BADGE_ICON_SMALL = "rbxasset://textures/StudioToolbox/verified-badge-sm-2x.png"
+end
 
 Images.DEPRECATED_TOOLBOX_ICON = "rbxasset://textures/StudioToolbox/ToolboxIcon.png"
 Images.TOOLBOX_ICON = "rbxlocaltheme://Toolbox"
@@ -60,8 +63,12 @@ Images.LINK_ARROW = "rbxasset://textures/StudioToolbox/AssetPreview/Link_Arrow.p
 Images.CLOSE_BUTTON = "rbxasset://textures/StudioToolbox/AssetPreview/close.png"
 Images.SHOW_MORE = "rbxasset://textures/StudioToolbox/AssetPreview/more.png"
 Images.SCRIPT = "rbxasset://textures/StudioToolbox/script.png"
-Images.PACKAGE_DARK = if FFlagToolboxPackagesInAssetTile then "rbxasset://textures/StudioToolbox/package_dark.png" else nil
-Images.PACKAGE_LIGHT = if FFlagToolboxPackagesInAssetTile then "rbxasset://textures/StudioToolbox/package_light.png" else nil
+Images.PACKAGE_DARK = if FFlagToolboxPackagesInAssetTile
+	then "rbxasset://textures/StudioToolbox/package_dark.png"
+	else nil
+Images.PACKAGE_LIGHT = if FFlagToolboxPackagesInAssetTile
+	then "rbxasset://textures/StudioToolbox/package_light.png"
+	else nil
 
 Images.MAGNIFIER_PH = "rbxasset://textures/StudioToolbox/AssetPreview/MAGNIFIER_PH.png"
 Images.SEARCH_OPTIONS = "rbxasset://textures/StudioToolbox/SearchOptions.png"

@@ -1,3 +1,4 @@
+--!nonstrict
 --!nolint DeprecatedApi
 -- ContextActionTouch.lua
 -- Copyright ROBLOX 2014, created by Ben Tkacheff

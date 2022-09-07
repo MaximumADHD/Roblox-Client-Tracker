@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName: NetworkPause.lua
 	// Written by: woot3

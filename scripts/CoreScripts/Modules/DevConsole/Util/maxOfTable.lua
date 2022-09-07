@@ -1,3 +1,4 @@
+--!nonstrict
 return function (tableA, tableB)
 	local maxTable = {}
 	for ind, valA in pairs(tableA) do

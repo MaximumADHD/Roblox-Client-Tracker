@@ -1,3 +1,4 @@
+--!nonstrict
 -- This thunk is used to make requests for player info when the player gets added to the store.
 
 local CoreGui = game:GetService("CoreGui")

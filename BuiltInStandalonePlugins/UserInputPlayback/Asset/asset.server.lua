@@ -34,6 +34,7 @@ local VirtualInputManager = game:GetService("VirtualInputManager")
 local StudioDeviceEmulatorService = game:GetService("StudioDeviceEmulatorService")
 local HttpService = game:GetService("HttpService")
 local CoreGui = game:GetService("CoreGui")
+local UserInputService = game:GetService("UserInputService")
 
 local mdiInstance = plugin.MultipleDocumentInterfaceInstance
 local DMBridge = require(main.Src.Util.DMBridge)
@@ -51,6 +52,8 @@ local MakeTheme = require(main.Src.Resources.MakeTheme)
 DMBridge.setPluginObject(plugin)
 
 local recordingSessionProperties: Types.RecordingMetadata
+
+local FFlagUserInputPlaybackPluginShowMouseCursorAfterPlayback = game:GetFastFlag("UserInputPlaybackPluginShowMouseCursorAfterPlayback")
 
 local function setInputTypesToIgnore(ignoreState)
 	local groups = {
@@ -149,6 +152,10 @@ local function onPlaybackEnded()
 	DMBridge.setPluginState(Enums.PluginState.Default)
 
 	teardownInputVisualizer()
+
+	if FFlagUserInputPlaybackPluginShowMouseCursorAfterPlayback then
+		UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.None
+	end
 end
 
 local function stopPlayback()

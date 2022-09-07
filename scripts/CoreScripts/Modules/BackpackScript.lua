@@ -14,6 +14,8 @@ BackpackScript.KeepVRTopbarOpen = true
 BackpackScript.VRIsExclusive = true
 BackpackScript.VRClosesNonExclusive = true
 
+local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
+
 local ICON_SIZE = 60
 local FONT_SIZE = Enum.FontSize.Size14
 local ICON_BUFFER = 5
@@ -22,7 +24,7 @@ local BACKGROUND_FADE = 0.50
 local BACKGROUND_COLOR = Color3.new(31/255, 31/255, 31/255)
 
 local VR_FADE_TIME = 1
-local VR_PANEL_RESOLUTION = 100
+local VR_PANEL_RESOLUTION = EngineFeatureEnableVRUpdate3 and 64 or 100
 
 local SLOT_DRAGGABLE_COLOR = Color3.new(49/255, 49/255, 49/255)
 local SLOT_EQUIP_COLOR = Color3.new(90/255, 142/255, 233/255)
@@ -91,6 +93,8 @@ RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local IsTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 local Utility = require(RobloxGui.Modules.Settings.Utility)
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
+
+local Util = require(RobloxGui.Modules.Settings.Utility)
 
 local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 
@@ -169,6 +173,18 @@ local function ShowVRBackpackPopup()
 	end
 end
 
+BackpackScript.BackpackEmpty = Util:Create "BindableEvent" {
+	Name = "BackpackEmpty"
+}
+
+BackpackScript.BackpackItemAdded = Util:Create "BindableEvent" {
+	Name = "BackpackAdded"
+}
+
+BackpackScript.BackpackItemRemoved = Util:Create "BindableEvent" {
+	Name = "BackpackRemoved"
+}
+
 local function NewGui(className, objectName)
 	local newGui = Instance.new(className)
 	newGui.Name = objectName
@@ -231,8 +247,8 @@ local function AdjustHotbarFrames()
 			slot.Frame.Visible = false
 		end
 	end
-
-	OpenInventoryButton.Visible = not inventoryOpen and (hotbarIsVisible or not isInventoryEmpty())
+	
+	OpenInventoryButton.Visible = not inventoryOpen and (hotbarIsVisible or not isInventoryEmpty()) and not (VRService.VREnabled and EngineFeatureEnableVRUpdate3)
 	OpenInventoryButton.Position = UDim2.new(0.5, -15, 1, hotbarIsVisible and -110 or -50)
 	BackpackScript.IsHotbarVisible = hotbarIsVisible
 end
@@ -413,7 +429,7 @@ local function MakeSlot(parent, index)
 		local hotbarSlot = (self.Index <= NumberOfHotbarSlots)
 		local inventoryOpen = InventoryFrame.Visible
 
-		if (not hotbarSlot or inventoryOpen) and not UserInputService.VREnabled then
+		if (not hotbarSlot or inventoryOpen) and not VRService.VREnabled then
 			SlotFrame.Draggable = true
 		end
 
@@ -683,6 +699,12 @@ local function MakeSlot(parent, index)
 		local startParent = nil
 
 		SlotFrame.DragBegin:connect(function(dragPoint)
+
+			if VRService.VREnabled and EngineFeatureEnableVRUpdate3 then
+				-- select instead of drag
+				return
+			end
+
 			Dragging[SlotFrame] = true
 			startPoint = dragPoint
 
@@ -722,6 +744,12 @@ local function MakeSlot(parent, index)
 		SlotFrame.DragStopped:connect(function(x, y)
 			if FakeSlotFrame then
 				FakeSlotFrame:Destroy()
+			end
+
+			if VRService.VREnabled and EngineFeatureEnableVRUpdate3 then
+				-- select instead of drag
+				slot:Select(false)
+				return
 			end
 
 			local now = tick()
@@ -954,6 +982,10 @@ local function OnChildAdded(child) -- To Character or Backpack
 			end
 		end
 	end
+	
+	if EngineFeatureEnableVRUpdate3 then
+		BackpackScript.BackpackItemAdded:Fire()
+	end
 end
 
 local function OnChildRemoved(child) -- From Character or Backpack
@@ -983,6 +1015,13 @@ local function OnChildRemoved(child) -- From Character or Backpack
 
 	if tool == ActiveHopper then --NOTE: HopperBin
 		ActiveHopper = nil
+	end
+	
+	if EngineFeatureEnableVRUpdate3 then
+		BackpackScript.BackpackItemRemoved:Fire()
+		if isInventoryEmpty() then
+			BackpackScript.BackpackEmpty:Fire()
+		end
 	end
 end
 
@@ -1339,20 +1378,24 @@ local function unbindBackpackHotbarAction()
 end
 
 function gamepadDisconnected()
-	GamepadEnabled = false
-	disableGamepadInventoryControl()
+	if not EngineFeatureEnableVRUpdate3 or not VRService.VREnabled then
+		GamepadEnabled = false
+		disableGamepadInventoryControl()
+	end
 end
 
 function gamepadConnected()
-	GamepadEnabled = true
-	GuiService:AddSelectionParent("RBXBackpackSelection", MainFrame)
+	if not EngineFeatureEnableVRUpdate3 or not VRService.VREnabled then
+		GamepadEnabled = true
+		GuiService:AddSelectionParent("RBXBackpackSelection", MainFrame)
 
-	if FullHotbarSlots >= 1 then
-		bindBackpackHotbarAction()
-	end
+		if FullHotbarSlots >= 1 then
+			bindBackpackHotbarAction()
+		end
 
-	if InventoryFrame.Visible then
-		enableGamepadInventoryControl()
+		if InventoryFrame.Visible then
+			enableGamepadInventoryControl()
+		end
 	end
 end
 
@@ -1914,7 +1957,7 @@ local BackpackStateChangedInVRConn, VRModuleOpenedConn, VRModuleClosedConn = nil
 local function OnVREnabled()
 	local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
 
-	IsVR = VRService.VREnabled
+	IsVR = VRService.VREnabled and not EngineFeatureEnableVRUpdate3
 	OnCoreGuiChanged(backpackType, StarterGui:GetCoreGuiEnabled(backpackType))
 	OnCoreGuiChanged(healthType, StarterGui:GetCoreGuiEnabled(healthType))
 
@@ -1924,8 +1967,8 @@ local function OnVREnabled()
 		local VRHub = require(RobloxGui.Modules.VR.VRHub)
 
 		local slotsToStuds = (ICON_SIZE + ICON_BUFFER) / VR_PANEL_RESOLUTION
-		local inventoryOpenStudSize = Vector2.new(6.25, 7.2) * slotsToStuds
-		local inventoryClosedStudSize = Vector2.new(6.25, 2) * slotsToStuds -- Closed size is computed as numberOfHotbarSlots + 0.25
+		local inventoryOpenStudSize = EngineFeatureEnableVRUpdate3 and (Vector2.new(6.25, 4.6) * slotsToStuds) or (Vector2.new(6.25, 7.2) * slotsToStuds)
+		local inventoryClosedStudSize = EngineFeatureEnableVRUpdate3 and Vector2.new(6.25, 4.6) * slotsToStuds or (Vector2.new(6.25, 2) * slotsToStuds) -- Closed size is computed as numberOfHotbarSlots + 0.25
 		local inventoryOpenPanelCF = CFrame.new(0, 0.6, 0)
 		local inventoryClosedPanelCF = CFrame.new(0, -1, 0)
 		local currentPanelLocalCF = inventoryClosedPanelCF
@@ -1962,7 +2005,12 @@ local function OnVREnabled()
 		function BackpackPanel:OnUpdate()
 			local inventoryOpen = InventoryFrame.Visible
 			if not inventoryOpen then
-				BackpackPanel:ResizeStuds((FullHotbarSlots + 0.25) * slotsToStuds, inventoryClosedStudSize.y, VR_PANEL_RESOLUTION)
+				if EngineFeatureEnableVRUpdate3 then
+					BackpackPanel:ResizeStuds((FullHotbarSlots + 0.25) * slotsToStuds * 4, slotsToStuds * 4, VR_PANEL_RESOLUTION)
+				else
+					BackpackPanel:ResizeStuds((FullHotbarSlots + 0.25) * slotsToStuds, inventoryClosedStudSize.y, VR_PANEL_RESOLUTION)
+				end
+				
 			end
 
 			-- Update transparency
@@ -2008,7 +2056,7 @@ local function OnVREnabled()
 		end)
 		VRModuleClosedConn = VRHub.ModuleClosed.Event:connect(function(moduleName)
 			local openedModule = VRHub:GetModule(moduleName)
-			if openedModule ~= BackpackScript then
+			if openedModule ~= BackpackScript and (not EngineFeatureEnableVRUpdate3 or not VRService.VREnabled) then
 				BackpackPanel:SetVisible(EvaluateBackpackPanelVisibility(true))
 			end
 		end)
@@ -2016,7 +2064,7 @@ local function OnVREnabled()
 
 		-- Turn off dragging when in VR
 		for _, slot in pairs(Slots) do
-			slot:SetClickability(false)
+			slot:SetClickability(EngineFeatureEnableVRUpdate3)
 		end
 	else -- not IsVR (VR was turned off)
 		local BackpackPanel = Panel3D.Get(BackpackScript.ModuleName)

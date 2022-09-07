@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: ClearMessages.lua
 --	// Written by: TheGamer101
 --	// Description: Command to clear the message log of the current channel.

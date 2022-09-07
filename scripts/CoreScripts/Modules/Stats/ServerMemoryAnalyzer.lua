@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
   Filename: ServerMemoryAnalyzer.lua
   Written by: dbanks

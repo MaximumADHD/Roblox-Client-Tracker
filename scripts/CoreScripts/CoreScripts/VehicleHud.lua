@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 		// Filename: VehicleHud.lua
 		// Version 1.0

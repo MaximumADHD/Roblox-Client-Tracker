@@ -1,5 +1,3 @@
---!strict
-
 game:DefineFastFlag("ContactImporterModalFixEnabled", false)
 
 return function()

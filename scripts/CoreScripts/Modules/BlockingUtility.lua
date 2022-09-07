@@ -1,3 +1,4 @@
+--!nonstrict
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local HttpService = game:GetService("HttpService")
 local PlayersService = game:GetService("Players")
@@ -45,7 +46,7 @@ local function GetBlockedPlayersAsync()
 		blockList = request and HttpService:JSONDecode(request)
 	end)
 
-	if success and blockList then
+	if success and blockList and blockList["blockedUserIds"] then
 		local returnList = {}
 		for _, v in pairs(blockList["blockedUserIds"]) do
 			returnList[v] = true

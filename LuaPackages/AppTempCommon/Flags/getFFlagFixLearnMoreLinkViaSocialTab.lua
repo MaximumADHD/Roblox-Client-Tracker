@@ -1,4 +1,3 @@
---!strict
 game:DefineFastFlag("FixLearnMoreLinkViaSocialTab", false)
 
 return function()

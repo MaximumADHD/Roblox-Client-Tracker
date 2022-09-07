@@ -113,4 +113,11 @@ function AssetInfo.fromGetAssetBundles(assetId, bundleIds)
 	return newAsset
 end
 
+function AssetInfo.fromGetItemFavorite(assetId, isFavorited)
+	local newAsset = AssetInfo.new()
+	newAsset.assetId = tostring(assetId)
+	newAsset.isFavorited = isFavorited
+	return newAsset
+end
+
 return AssetInfo

@@ -24,6 +24,7 @@ function PropertyStatus:render()
 
 	local statusLevel = props.StatusLevel
 	local statusMessage = props.StatusMessage
+	local statusContext = props.StatusContext
 	local layoutOrder = props.LayoutOrder
 	local iconSize = style.PropertyView.IconSize
 	local iconStyle = statusLevel == StatusLevel.Error and style.ErrorIcon or style.WarningIcon
@@ -34,7 +35,7 @@ function PropertyStatus:render()
 		LayoutOrder = layoutOrder,
 	}, {
 		Tooltip = Roact.createElement(Tooltip, {
-			Text = localization:getText("Statuses", statusMessage),
+			Text = localization:getText("Statuses", statusMessage, statusContext),
 		})
 	})
 end

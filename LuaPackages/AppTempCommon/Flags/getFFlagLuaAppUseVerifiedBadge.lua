@@ -1,4 +1,3 @@
---!strict
 game:DefineFastFlag("LuaAppUseVerifiedBadgeV1", false)
 
 return function()

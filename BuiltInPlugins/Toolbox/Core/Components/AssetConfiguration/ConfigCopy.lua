@@ -12,7 +12,7 @@ local FStringToolboxAssetConfigEnabledAudioSharingLearnMoreLink = game:GetFastSt
 	"ToolboxAssetConfigEnabledAudioSharingLearnMoreLink"
 )
 
-local FFlagUnifyModelPackagePublish2 = game:GetFastFlag("UnifyModelPackagePublish2")
+local FFlagUnifyModelPackagePublish3 = game:GetFastFlag("UnifyModelPackagePublish3")
 local FFlagToolboxAllowDisablingCopyingAtQuota = game:GetFastFlag("ToolboxAllowDisablingCopyingAtQuota")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -180,7 +180,7 @@ function ConfigCopy:init(props)
 end
 
 function ConfigCopy:didMount(prevProps, prevState)
-	if FFlagUnifyModelPackagePublish2 and self.props.AssetType == Enum.AssetType.Audio then
+	if FFlagUnifyModelPackagePublish3 and self.props.AssetType == Enum.AssetType.Audio then
 		local timeSignal = game:GetService("RunService").Heartbeat
 		self.connection = timeSignal:connect(function(dt)
 			self:setState(function(state)
@@ -230,7 +230,7 @@ function ConfigCopy:didUpdate(prevProps, prevState)
 				return nil
 			end
 		end)
-	elseif props.AssetType == Enum.AssetType.Model and FFlagUnifyModelPackagePublish2 and not props.isPackageAsset and not props.isPackageMarketplacePublishAllowed then
+	elseif props.AssetType == Enum.AssetType.Model and FFlagUnifyModelPackagePublish3 and not props.isPackageAsset and not props.isPackageMarketplacePublishAllowed then
 		-- We only need to show warning if we're trying to publish a new instance as a package to marketplace, but we don't have permission to do so
 		self:setState(function(state)
 			if state.copyWarning ~= packageWarningText and props.PackageOn and not prevProps.PackageOn then
@@ -644,7 +644,7 @@ if FFlagToolboxEnableAssetConfigPhoneVerification then
 		local verification = publishingRequirements.verification or {}
 
 		local publishing = publishingRequirements.publishing or {}
-		local allowedSubTypesForPublish = if FFlagUnifyModelPackagePublish2 then publishing.allowedSubTypes or {} else {}
+		local allowedSubTypesForPublish = if FFlagUnifyModelPackagePublish3 then publishing.allowedSubTypes or {} else {}
 		local isPackageMarketplacePublishAllowed = AssetSubTypes.contains(allowedSubTypesForPublish, AssetSubTypes.Package)
 		
 		return {

@@ -3,6 +3,7 @@ local HttpService = game:GetService("HttpService")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagCMSUploadAccessoryMeshPartFormat2 = game:GetFastFlag("CMSUploadAccessoryMeshPartFormat2")
+local FFlagAssetConfigLayeredClothingBoxCollisions = game:getFastFlag("AssetConfigLayeredClothingBoxCollisions")
 
 local SetAssetId = require(Plugin.Core.Actions.SetAssetId)
 local NetworkError = require(Plugin.Core.Actions.NetworkError)
@@ -15,8 +16,9 @@ local getUserId = require(Util.getUserId)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local SerializeInstances = require(Util.SerializeInstances)
 local Analytics = require(Util.Analytics.Analytics)
-
 local createMultipartFormDataBody = require(Util.createMultipartFormDataBody)
+local isLayeredClothing = require(Util.isLayeredClothing)
+local fixMeshPartAccessory = require(Util.fixMeshPartAccessory)
 
 local ConfigureItemTagsRequest = require(Plugin.Core.Networking.Requests.ConfigureItemTagsRequest)
 local UploadCatalogItemMeshPartFormatRequest = require(
@@ -90,6 +92,13 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 			store:dispatch(UploadResult(false))
 
 			Analytics.incrementUploadAssetFailure(assetTypeId)
+		end
+
+		if FFlagAssetConfigLayeredClothingBoxCollisions then
+			local accessory = instances[1]
+			if isLayeredClothing(accessory) then
+				fixMeshPartAccessory(accessory)
+			end
 		end
 
 		return SerializeInstances(instances, services.StudioAssetService):andThen(function(fileDataString)

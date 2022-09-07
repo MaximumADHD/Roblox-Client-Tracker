@@ -1,5 +1,3 @@
---!strict
-
 game:DefineFastFlag("ContactsAppReducerEnabled_v3", false)
 
 local getFFlagContactImporterEnabledForDev = require(script.Parent.getFFlagContactImporterEnabledForDev)

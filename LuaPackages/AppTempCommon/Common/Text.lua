@@ -1,3 +1,4 @@
+--!nonstrict
 local EngineFeatureTextBoundsRoundUp = game:GetEngineFeature("TextBoundsRoundUp")
 
 local TextService = game:GetService("TextService")

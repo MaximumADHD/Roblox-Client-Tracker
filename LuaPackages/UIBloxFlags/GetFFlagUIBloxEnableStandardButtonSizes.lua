@@ -1,5 +1,3 @@
---!strict
-
 game:DefineFastFlag("UIBloxEnableStandardButtonSizes", false)
 
 return function()

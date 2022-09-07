@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
   Filename: StatsTextPanel.lua
   Written by: dbanks

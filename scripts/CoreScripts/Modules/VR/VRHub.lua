@@ -1,3 +1,4 @@
+--!nonstrict
 --Modules/VR/VRHub.lua
 --Handles all global VR state that isn't built into a specific module.
 --Written by 0xBAADF00D (Kyle) on 6/10/16
@@ -33,7 +34,8 @@ VRHub.ControllerModelsEnabled = false
 VRHub.LeftControllerModel = nil
 VRHub.RightControllerModel = nil
 
-VRHub.vrGuiLockEnabled = nil
+-- TODO: AvatarGestures cannot be turned on until this is implemented
+VRHub.IsFirstPerson = false
 
 StarterGui:RegisterSetCore("VRLaserPointerMode", function(mode)
 	if not VRHub.LaserPointer then

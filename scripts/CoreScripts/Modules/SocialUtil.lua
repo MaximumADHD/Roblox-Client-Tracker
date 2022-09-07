@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName:    SocialUtil.lua
 	// Written by:  TheGamer101

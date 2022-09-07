@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
   Filename: StatsButtonViewer.lua
   Written by: dbanks

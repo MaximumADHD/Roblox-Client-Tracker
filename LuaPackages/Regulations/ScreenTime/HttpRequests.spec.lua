@@ -1,3 +1,4 @@
+--!nonstrict
 local HttpRequests = require(script.Parent.HttpRequests)
 
 function createMockHttpService(success, statusCode, errorCode, instructions)

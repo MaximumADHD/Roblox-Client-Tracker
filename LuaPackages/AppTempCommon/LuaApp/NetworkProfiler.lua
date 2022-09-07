@@ -1,3 +1,4 @@
+--!nonstrict
 local percentReporting = tonumber(settings():GetFVariable("PercentReportingNetworkProfileAfterStartup"))
 
 local FEATURE_NAME = "NetworkProfileDuringStartup"

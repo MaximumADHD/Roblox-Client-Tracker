@@ -1,4 +1,5 @@
 local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
+local FFlagToolboxFixUnverifiedSearchTagBugs = game:GetFastFlag("ToolboxFixUnverifiedSearchTagBugs")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -150,8 +151,13 @@ function MainViewHeader:render()
 					onDelete = self.onAudioSearchCleared,
 				})
 			end
+
 			if FFlagToolboxUseVerifiedIdAsDefault then
-				if includeUnverifiedCreators and (creatorName or audioTime) then
+				local canInsertUnverifiedTag = if FFlagToolboxFixUnverifiedSearchTagBugs
+					then includeUnverifiedCreators or creatorName or audioTime
+					else includeUnverifiedCreators and (creatorName or audioTime)
+	
+				if canInsertUnverifiedTag then
 					table.insert(tagsList, {
 						prefix = idVerifiedPrefix,
 						text = "",
@@ -159,7 +165,11 @@ function MainViewHeader:render()
 					})
 				end
 			else
-				if includeOnlyVerifiedCreators and (creatorName or audioTime) then
+				local canInsertUnverifiedTag = if FFlagToolboxFixUnverifiedSearchTagBugs
+					then includeOnlyVerifiedCreators or creatorName or audioTime
+					else includeOnlyVerifiedCreators and (creatorName or audioTime)
+	
+				if canInsertUnverifiedTag then
 					table.insert(tagsList, {
 						prefix = idVerifiedPrefix,
 						text = "",

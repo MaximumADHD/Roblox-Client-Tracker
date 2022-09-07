@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: ChatCommandsTeller.lua
 --	// Written by: Xsitsu
 --	// Description: Module that provides information on default chat commands to players.

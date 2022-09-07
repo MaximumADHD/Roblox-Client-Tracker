@@ -43,7 +43,7 @@ local function getPluginTheme()
 	local MaterialDetailsTextureHeight = 64
 	local MaterialDetaulsLabelWidth = 108
 	local ColumnWidth = if getFFlagMaterialManagerVariantCreatorOverhaul() then 160 else 270
-	local LabelColumnWidth = if getFFlagMaterialManagerVariantCreatorOverhaul() then UDim.new(0, 95) else UDim.new(0, 80)
+	local LabelColumnWidth = if getFFlagMaterialManagerVariantCreatorOverhaul() then UDim.new(0, 93) else UDim.new(0, 80)
 	local DialogWidth = 720
 	local DialogHeight = 480
 	local SearchBarMaxWidth = 600
@@ -57,7 +57,7 @@ local function getPluginTheme()
 	local ExpandablePaneFont = Enum.Font.SourceSansBold
 	local ExpandablePaneTextSize = 18
 	local ContentPadding = 5
-	local LabeledErrorOrWarningColor = Color3.fromRGB(255, 0, 0)  -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
+	local LabeledErrorOrWarningColor = Color3.fromRGB(255, 0, 0) -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 
 	return {
 		MaterialBrowser = {
@@ -122,6 +122,19 @@ local function getPluginTheme()
 			ItemSpacing = LabeledItemSpacing,
 			LabelColumnWidth = LabelColumnWidth,
 			VerticalSpacing = LabeledVerticalSpacing,
+			ItemPaddingHorizontal = LabeledItemPaddingHorizontal,
+			ErrorOrWarningTextSize = LabeledErrorOrWarningTextSize,
+			ErrorOrWarningColor = LabeledErrorOrWarningColor,  -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
+			ContentPadding = ContentPadding,
+		},
+
+		PhysicalSettings = {
+			ButtonPadding = 18,
+			ButtonSize = UDim2.new(1, -6, 0, 25),
+			DialogColumnSize = UDim2.new(0, ColumnWidth, 0, 25),
+			LabelColumnWidth = LabelColumnWidth,
+			ItemSpacing = LabeledItemSpacing,
+			VerticalSpacing = LabeledVerticalSpacing, -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 			ItemPaddingHorizontal = LabeledItemPaddingHorizontal,
 			ErrorOrWarningTextSize = LabeledErrorOrWarningTextSize,
 			ErrorOrWarningColor = LabeledErrorOrWarningColor,  -- Remove with FFlagMaterialManagerVariantCreatorOverhaul

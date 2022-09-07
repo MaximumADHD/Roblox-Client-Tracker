@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local Functional = require(script.Parent.Functional)
 

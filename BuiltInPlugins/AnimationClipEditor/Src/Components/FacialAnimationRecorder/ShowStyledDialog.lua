@@ -6,6 +6,8 @@ local Theme = require(Plugin.Src.Util.Theme)
 
 local Cryo = require(Plugin.Packages.Cryo)
 
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -29,7 +31,7 @@ local function showDialog(plugin, localization, stylizer, mouse, dialogName, pro
 		end
 	end
 
-    local theme = stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and stylizer or stylizer.PluginTheme
 
 	local dialogElement = ContextServices.provide({
 		Mouse = mouse,

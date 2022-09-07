@@ -1,3 +1,4 @@
+--!nonstrict
 -- This Module allows easy configuration of player's humanoid and camera.
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")

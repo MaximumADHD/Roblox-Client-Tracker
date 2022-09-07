@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName: ChatSelector.lua
 	// Written by: Xsitsu
@@ -21,6 +22,8 @@ local Util = require(RobloxGui.Modules.ChatUtil)
 
 local ClassicChatEnabled = Players.ClassicChat
 local BubbleChatEnabled = Players.BubbleChat
+
+local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 
 local useModule = nil
 
@@ -151,7 +154,7 @@ end
 local isConsole = GuiService:IsTenFootInterface() or FORCE_IS_CONSOLE
 local isVR = UserInputService.VREnabled or FORCE_IS_VR
 
-if ( not isConsole and not isVR ) then
+if ( not isConsole and (not isVR or EngineFeatureEnableVRUpdate3)) then
 	coroutine.wrap(function()
 		useModule = require(RobloxGui.Modules.NewChat)
 

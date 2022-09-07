@@ -1,3 +1,4 @@
+--!nonstrict
 local ActionCreator = require(script.Parent.Parent.ActionCreator)
 
 return ActionCreator("SetTeamColor", function(team, teamColor)

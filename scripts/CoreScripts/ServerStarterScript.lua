@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 		// Filename: ServerStarterScript.lua
 		// Version: 1.0

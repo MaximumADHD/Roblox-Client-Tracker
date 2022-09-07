@@ -1,5 +1,3 @@
---!strict
-
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
 game:DefineFastInt("LuaVoiceChatAnalyticsPointsThrottle", 0)

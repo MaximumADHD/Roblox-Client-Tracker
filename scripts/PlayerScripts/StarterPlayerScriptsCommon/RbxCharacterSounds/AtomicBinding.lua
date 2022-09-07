@@ -1,3 +1,4 @@
+--!nonstrict
 local ROOT_ALIAS = "root"
 
 local function parsePath(pathStr)

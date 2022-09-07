@@ -44,7 +44,15 @@ local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath
 local universeNameSet = false
 local initialHasLinkedScriptValue = false
 
-local function createDefaultFileOverlayFolders(screen, parent, localization)
+local FFlagDevFrameworkMigrateTreeView = Framework.SharedFlags.getFFlagDevFrameworkMigrateTreeView()
+local FFlagHighDpiIcons
+local ModernIcons
+if FFlagDevFrameworkMigrateTreeView then
+	FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and not game:GetService("StudioHighDpiService"):IsNotHighDPIAwareBuild()
+	ModernIcons = require(Plugin.Src.Util.ModernIcons)
+end
+
+local function DEPRECATED_createDefaultFileOverlayFolders(screen, parent, localization)
 	local node = {
 		ClassName = "Folder",
 		Name = localization:getText("Folders", screen.Path),
@@ -58,18 +66,52 @@ local function createDefaultFileOverlayFolders(screen, parent, localization)
 	end
 end
 
-function MainView:init()
-	self.state = {
-		currentScreen = "",
-		showAssetPreview = false,
-		showOverlay = false,
-		fileExplorerData = {
-			Name = "Game 1",
-			ClassName = "Folder",
-			Screen = Screens.MAIN.Path,
-			Children = {},
+local function createDefaultFileOverlayFolders(screen, parent, localization, treeViewTheme)
+	local treeViewFolder = if FFlagHighDpiIcons then ModernIcons.getIconForCurrentTheme(ModernIcons.IconEnums.BlankFolder) else treeViewTheme.Folder
+	local treeViewIconHeight = treeViewTheme.Height
+
+	local node = {
+		text = localization:getText("Folders", screen.Path),
+		icon = {
+			Image = treeViewFolder,
+			Size = UDim2.new(0, treeViewIconHeight, 0, treeViewIconHeight),
+			ImageColor3 = treeViewTheme.ColorIcon
 		},
+		Screen = screen.Path,
+		children = {},
+		Parent = parent,
 	}
+
+	if parent then
+		parent.children[screen.LayoutOrder] = node
+	end
+end
+
+function MainView:init()
+	if FFlagDevFrameworkMigrateTreeView then
+		self.state = {
+			currentScreen = "",
+			showAssetPreview = false,
+			showOverlay = false,
+			fileExplorerData = {
+				text = "Game 1",
+				Screen = Screens.MAIN.Path,
+				children = {},
+			},
+		}
+	else
+		self.state = {
+			currentScreen = "",
+			showAssetPreview = false,
+			showOverlay = false,
+			fileExplorerData = {
+				Name = "Game 1",
+				ClassName = "Folder",
+				Screen = Screens.MAIN.Path,
+				Children = {},
+			},
+		}
+	end
 
 	self.gamePublishedConnection = nil
 
@@ -165,7 +207,11 @@ function MainView:didUpdate()
 			if screen.Path ~= Screens.MAIN.Path then
 				-- Only show the scripts folder if this universe has linked scripts because they're deprecated.
 				if (screen.Path == Screens.SCRIPTS.Path and hasLinkedScripts) or screen.Path ~= Screens.SCRIPTS.Path then
-					createDefaultFileOverlayFolders(screen, self.state.fileExplorerData, localization)
+					if FFlagDevFrameworkMigrateTreeView then
+						createDefaultFileOverlayFolders(screen, self.state.fileExplorerData, localization, props.Stylizer.TreeViewItem)
+					else
+						DEPRECATED_createDefaultFileOverlayFolders(screen, self.state.fileExplorerData, localization)
+					end
 				end
 			end
 		end
@@ -194,7 +240,12 @@ function MainView:render()
 
 	local layoutIndex = LayoutOrderIterator.new()
 
-	self.state.fileExplorerData.Name = universeName
+	if FFlagDevFrameworkMigrateTreeView then
+		self.state.fileExplorerData.text = universeName
+	else
+		self.state.fileExplorerData.Name = universeName
+	end
+
 	if universeName ~= "" and not universeNameSet then
 		universeNameSet = true
 	end
@@ -263,7 +314,7 @@ function MainView:render()
 		}),
 
 		ExplorerOverlay = isPublishedGame and self.state.showOverlay and Roact.createElement(ExplorerOverlay, {
-			FileExplorerData = self.state.fileExplorerData,
+			FileExplorerData = if FFlagDevFrameworkMigrateTreeView then { self.state.fileExplorerData }	else self.state.fileExplorerData,
 			CloseOverlay = self.closeOverlay,
 		}),
 

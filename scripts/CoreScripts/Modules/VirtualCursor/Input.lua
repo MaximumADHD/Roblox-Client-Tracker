@@ -1,3 +1,4 @@
+--!nonstrict
 local VirtualCursorFolder = script.Parent
 
 local ContextActionService = game:GetService("ContextActionService")

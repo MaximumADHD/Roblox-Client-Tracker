@@ -17,6 +17,7 @@ export type InstanceProperties = {Section}
 export type SectionStatus = {
 	StatusLevel: string,
 	StatusMessage: string,
+	StatusContext: {[string] : any}?,
 	GlobalStatus: boolean,
 }
 

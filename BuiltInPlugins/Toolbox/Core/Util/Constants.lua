@@ -6,7 +6,6 @@ local getMaxAudioLength = require(Plugin.Core.Util.ToolboxUtilities).getMaxAudio
 
 local StudioService = game:GetService("StudioService")
 
-local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
 local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
 local FFlagToolboxPackagesInAssetTile = game:GetFastFlag("ToolboxPackagesInAssetTile")
 
@@ -50,14 +49,11 @@ Constants.SCROLLBAR_THICKNESS = 8
 Constants.SCROLLBAR_PADDING = 2
 Constants.SCROLLBAR_BACKGROUND_THICKNESS = Constants.SCROLLBAR_THICKNESS + (2 * Constants.SCROLLBAR_PADDING)
 
-if FFlagAssetVoteSimplification then
-	Constants.THUMB_ICON_PADDING = 1
-	Constants.SMALL_THUMB_ICON_HEIGHT = 13
-	Constants.SMALL_THUMB_ICON_WIDTH = 10
-else
-end
-Constants.THUMB_ICON_HEIGHT = if FFlagAssetVoteSimplification then 18 else 22
-Constants.THUMB_ICON_WIDTH = if FFlagAssetVoteSimplification then 15 else 22
+Constants.THUMB_ICON_PADDING = 1
+Constants.SMALL_THUMB_ICON_HEIGHT = 13
+Constants.SMALL_THUMB_ICON_WIDTH = 10
+Constants.THUMB_ICON_HEIGHT = 18
+Constants.THUMB_ICON_WIDTH = 15
 
 Constants.DROP_SHADOW_IMAGE_SIZE = 16
 Constants.DROP_SHADOW_IMAGE_SLICE_0 = 8
@@ -122,13 +118,8 @@ Constants.ASSET_ENDORSED_BADGE_ICON_SIZE = 20
 Constants.ASSET_PLAY_AUDIO_ICON_SIZE = 28
 
 Constants.ASSET_NAME_FONT_SIZE = Constants.FONT_SIZE_MEDIUM
-if FFlagAssetVoteSimplification then
-	Constants.ASSET_NAME_ONE_LINE_HEIGHT = Constants.ASSET_NAME_FONT_SIZE
-else
-end
-Constants.ASSET_NAME_HEIGHT = if FFlagAssetVoteSimplification
-	then Constants.ASSET_NAME_ONE_LINE_HEIGHT * 2
-	else Constants.ASSET_NAME_FONT_SIZE * 2 -- The asset name is 2 rows tall
+Constants.ASSET_NAME_ONE_LINE_HEIGHT = Constants.ASSET_NAME_FONT_SIZE
+Constants.ASSET_NAME_HEIGHT = Constants.ASSET_NAME_ONE_LINE_HEIGHT * 2 -- The asset name is 2 rows tall
 
 Constants.ASSET_CREATOR_NAME_FONT_SIZE = Constants.FONT_SIZE_SMALL
 Constants.ASSET_CREATOR_NAME_HEIGHT = Constants.ASSET_CREATOR_NAME_FONT_SIZE
@@ -142,24 +133,20 @@ Constants.PRICE_HEIGHT = Constants.PRICE_FONT_SIZE
 Constants.AUDIO_LENGTH_HEIGHT = Constants.FONT_SIZE_MEDIUM
 
 Constants.ASSET_VOTE_BAR_HEIGHT = 5
-Constants.ASSET_VOTE_BAR_OUTER_HEIGHT = if FFlagAssetVoteSimplification then 0 else 13
+Constants.ASSET_VOTE_BAR_OUTER_HEIGHT = 0
 Constants.ASSET_VOTE_COUNT_FONT_SIZE = Constants.FONT_SIZE_SMALL
-Constants.ASSET_VOTE_COUNT_HEIGHT = if FFlagAssetVoteSimplification
-	then Constants.ASSET_VOTE_COUNT_FONT_SIZE + Constants.THUMB_ICON_PADDING
-	else Constants.ASSET_VOTE_COUNT_FONT_SIZE
+Constants.ASSET_VOTE_COUNT_HEIGHT = Constants.ASSET_VOTE_COUNT_FONT_SIZE + Constants.THUMB_ICON_PADDING
 Constants.ASSET_VOTING_HEIGHT = Constants.ASSET_VOTE_BAR_OUTER_HEIGHT + Constants.ASSET_VOTE_COUNT_HEIGHT
-if FFlagAssetVoteSimplification then
-	Constants.ASSET_VOTE_COUNT_HORIZONTAL_PADDING = 3
-	Constants.ASSET_VOTING_BUTTONS_BACKGROUND_BOX_PADDING = 2
-	Constants.ASSET_VOTING_BUTTONS_BACKGROUND_BOX_CORNER_RADIUS = 3
-	-- Multiply padding by two below for top and bottom padding
-	Constants.ASSET_VOTING_BUTTONS_HEIGHT = Constants.THUMB_ICON_HEIGHT
-		+ Constants.ASSET_VOTING_BUTTONS_BACKGROUND_BOX_PADDING * 2
+Constants.ASSET_VOTE_COUNT_HORIZONTAL_PADDING = 3
+Constants.ASSET_VOTING_BUTTONS_BACKGROUND_BOX_PADDING = 2
+Constants.ASSET_VOTING_BUTTONS_BACKGROUND_BOX_CORNER_RADIUS = 3
+-- Multiply padding by two below for top and bottom padding
+Constants.ASSET_VOTING_BUTTONS_HEIGHT = Constants.THUMB_ICON_HEIGHT
+	+ Constants.ASSET_VOTING_BUTTONS_BACKGROUND_BOX_PADDING * 2
 
-	Constants.ASSET_VOTE_BUTTONS_TEXT_PADDING = 4
-	Constants.ASSET_VOTE_BUTTONS_HORIZONTAL_PADDING = 1
-	Constants.ASSET_VOTE_BUTTONS_SCRIPT_PADDING = 3
-end
+Constants.ASSET_VOTE_BUTTONS_TEXT_PADDING = 4
+Constants.ASSET_VOTE_BUTTONS_HORIZONTAL_PADDING = 1
+Constants.ASSET_VOTE_BUTTONS_SCRIPT_PADDING = 3
 
 if FFlagToolboxPackagesInAssetTile then
 	Constants.PACKAGE_BACKGROUND_SIZE = UDim2.new(0, 16, 0, 16)
@@ -178,15 +165,12 @@ Constants.ASSET_OUTLINE_EXTRA_HEIGHT = Constants.ASSET_CREATOR_NAME_HEIGHT
 Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTING = Constants.ASSET_OUTLINE_EXTRA_HEIGHT
 	+ Constants.ASSET_VOTING_HEIGHT
 	+ Constants.ASSET_INNER_PADDING
-if FFlagAssetVoteSimplification then
-	Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTING_COUNT = Constants.ASSET_OUTLINE_EXTRA_HEIGHT
-		+ Constants.ASSET_VOTING_HEIGHT
-		+ Constants.ASSET_INNER_PADDING
-	Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTE_BUTTONS_HOVERED = Constants.ASSET_OUTLINE_EXTRA_HEIGHT
-		+ Constants.ASSET_VOTING_BUTTONS_HEIGHT
-		+ Constants.THUMB_ICON_PADDING
-else
-end
+Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTING_COUNT = Constants.ASSET_OUTLINE_EXTRA_HEIGHT
+	+ Constants.ASSET_VOTING_HEIGHT
+	+ Constants.ASSET_INNER_PADDING
+Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTE_BUTTONS_HOVERED = Constants.ASSET_OUTLINE_EXTRA_HEIGHT
+	+ Constants.ASSET_VOTING_BUTTONS_HEIGHT
+	+ Constants.THUMB_ICON_PADDING
 
 Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING = 8
 Constants.BETWEEN_ASSETS_VERTICAL_PADDING = 16

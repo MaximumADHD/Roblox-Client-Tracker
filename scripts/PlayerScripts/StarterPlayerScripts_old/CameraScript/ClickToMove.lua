@@ -246,13 +246,13 @@ local GetThetaBetweenCFrames; do
 	local components = CFrame.new().components
 	local inverse = CFrame.new().inverse
 	local acos = math.acos
-	
+
 	GetThetaBetweenCFrames = function(c0, c1) -- (CFrame from, CFrame to) -> (float theta)
 		local _, _, _, xx, yx, zx,
 		               xy, yy, zy,
 		               xz, yz, zz = components(inverse(c0)*c1)
 		local cosTheta = (xx + yy + zz - 1)/2
-	
+
 		if cosTheta >= 0.999 then
 			-- Same rotation
 			return 0
@@ -1101,13 +1101,13 @@ local function OnTap(tapPositions, goToPoint)
 						end
 					end
 				end
-			elseif hitPt and character and CurrentSeatPart then 
+			elseif hitPt and character and CurrentSeatPart then
 				local destinationGlobe = CreateDestinationIndicator(hitPt)
 				destinationGlobe.Parent = camera
 				ExistingIndicator = destinationGlobe
-				DrivingTo = hitPt		
+				DrivingTo = hitPt
 				local ConnectedParts = CurrentSeatPart:GetConnectedParts(true)
-				
+
 				while wait() do
 					if CurrentSeatPart and ExistingIndicator == destinationGlobe then
 						local ExtentsSize = getExtentsSize(ConnectedParts)
@@ -1126,8 +1126,8 @@ local function OnTap(tapPositions, goToPoint)
 						destinationGlobe = nil
 						break
 					end
-				end		
-				
+				end
+
 			else
 				-- no hit pt
 			end
@@ -1207,11 +1207,11 @@ local function CreateClickToMoveModule()
 	local function IsFinite(num)
 		return num == num and num ~= 1/0 and num ~= -1/0
 	end
-	
+
 	local function findAngleBetweenXZVectors(vec2, vec1)
 		return math_atan2(vec1.X*vec2.Z-vec1.Z*vec2.X, vec1.X*vec2.X + vec1.Z*vec2.Z)
 	end
-	
+
 	-- Setup the camera
 	CameraModule = ClassicCameraModule()
 
@@ -1236,7 +1236,7 @@ local function CreateClickToMoveModule()
 		local lerp = CFrame.new().lerp
 		function CameraModule:TweenCameraLook(desiredCFrame, speed)
 			local e = 2.718281828459
-			
+
 			local function SCurve(t)
 				return 1/(1 + e^(-t*1.5))
 			end
@@ -1374,7 +1374,7 @@ local function CreateClickToMoveModule()
 			end
 			AutoJumperInstance = AutoJumper()
 		end
-		
+
 		local function getThrottleAndSteer(object, point)
 			local lookVector = (point - object.Position)
 			lookVector = Vector3_new(lookVector.X, 0, lookVector.Z).unit
@@ -1420,7 +1420,7 @@ local function CreateClickToMoveModule()
 			end
 			return throttle, steer
 		end
-		
+
 		local function Update()
 			if CameraModule then
 				if CameraModule.UserPanningTheCamera then
@@ -1444,7 +1444,7 @@ local function CreateClickToMoveModule()
 				end
 			end
 		end
-		
+
 		local success = pcall(function() RunService:BindToRenderStep("ClickToMoveRenderUpdate",Enum.RenderPriority.Camera.Value - 1,Update) end)
 		if not success then
 			if RenderSteppedConn then
@@ -1452,9 +1452,9 @@ local function CreateClickToMoveModule()
 			end
 			RenderSteppedConn = RunService.RenderStepped:connect(Update)
 		end
-		
+
 		local WasAutoJumper = false
-		local WasAutoJumpMobile = false		
+		local WasAutoJumpMobile = false
 		local function onSeated(child, active, currentSeatPart)
 			if active then
 				if BindableEvent_EnableTouchJump then

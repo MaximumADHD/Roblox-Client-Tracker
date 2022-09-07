@@ -1,3 +1,4 @@
+--!nonstrict
 local PlayerPermissionsModule = {}
 
 local PlayersService = game:GetService("Players")

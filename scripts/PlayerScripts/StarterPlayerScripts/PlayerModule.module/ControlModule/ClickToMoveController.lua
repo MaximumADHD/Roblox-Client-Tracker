@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	-- Original By Kip Turner, Copyright Roblox 2014
 	-- Updated by Garnold to utilize the new PathfindingService API, 2017

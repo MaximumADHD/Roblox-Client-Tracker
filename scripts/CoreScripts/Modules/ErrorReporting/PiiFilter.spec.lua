@@ -1,3 +1,4 @@
+--!nonstrict
 local MockPlayers = {}
 MockPlayers.__index = MockPlayers
 

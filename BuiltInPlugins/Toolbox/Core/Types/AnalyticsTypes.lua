@@ -6,6 +6,8 @@ export type SearchInfo = {
 	searchId: string?,
 	sort: string?,
 	toolboxTab: number?,
+	categoryName: string?,
+	includeOnlyVerifiedCreators: boolean?,
 }
 
 return AnalyticsTypes

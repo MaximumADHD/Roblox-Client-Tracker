@@ -5,6 +5,7 @@ game:DefineFastFlag("UGCValidateMeshVertColors", false)
 game:DefineFastString("UGCLCAllowedAssetTypeIds", "")
 game:DefineFastFlag("UGCValidateHSR", false)
 game:DefineFastFlag("UGCFixModerationCheck", false)
+game:DefineFastFlag("UGCBetterModerationErrorText", false)
 
 local root = script
 

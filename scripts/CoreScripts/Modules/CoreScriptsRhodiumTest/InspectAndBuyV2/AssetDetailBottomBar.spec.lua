@@ -15,7 +15,7 @@ return function()
 
 	local wrappedComponent = withInGameMenuV3Providers(AssetDetailBottomBar)
 
-	local getInitState = function(owned, price, isForSale, bundlesAssetIsIn)
+	local getInitState = function(owned, price, isForSale: boolean?, bundlesAssetIsIn: any)
 		return {
 			inspectAndBuy = {
 				SelectedItem = {
@@ -30,7 +30,8 @@ return function()
 						price = 999,
 					}
 				}
-			}
+			},
+			screenSize = Vector2.new(500, 500),
 		}
 	end
 
@@ -53,7 +54,7 @@ return function()
 					local baseWidget = Element.new(path)
 					expect(baseWidget:waitForRbxInstance(1)).to.be.ok()
 				end,
-				wrappedComponent, Reducer, {}, nil)
+				wrappedComponent, Reducer, getInitState(false, false), nil)
 			end)
 
 			it("should display all buttons in the bottom bar", function()
@@ -74,7 +75,7 @@ return function()
 					local actionButton = Element.new(actionButtonPath)
 					expect(actionButton:waitForRbxInstance(1)).to.be.ok()
 				end,
-				wrappedComponent, Reducer, {}, nil)
+				wrappedComponent, Reducer, getInitState(false, false), nil)
 			end)
 
 			it("should display price and icon when not owned", function()

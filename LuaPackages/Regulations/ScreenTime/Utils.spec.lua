@@ -1,3 +1,4 @@
+--!nonstrict
 local Utils = require(script.Parent.Utils)
 
 function createMockDependencies()

@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local FocusArea = require(script.Parent.FocusArea)
 	local CorePackages = game:GetService("CorePackages")

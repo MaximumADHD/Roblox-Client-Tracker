@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
   Filename: DecoratedValueLabel.lua
   Written by: dbanks

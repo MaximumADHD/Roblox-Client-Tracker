@@ -1,3 +1,4 @@
+--!nonstrict
 local runnerScriptName = "ChatScript"
 local bubbleChatScriptName = "BubbleChat"
 local installDirectory = game:GetService("Chat")

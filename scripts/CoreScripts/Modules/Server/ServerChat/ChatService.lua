@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: ChatService.lua
 --	// Written by: Xsitsu
 --	// Description: Manages creating and destroying ChatChannels and Speakers.

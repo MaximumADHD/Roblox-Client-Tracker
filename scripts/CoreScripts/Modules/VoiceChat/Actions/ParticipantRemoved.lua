@@ -7,7 +7,7 @@ local t = require(CorePackages.Packages.t)
 local maybeAssert = require(RobloxGui.Modules.InGameChat.BubbleChat.Helpers.maybeAssert)
 
 -- ParticipantRemoved is fired when someone leaves the voice call, whether or
--- not they're still in the game. 
+-- not they're still in the game.
 return Action(script.Name, function(userId)
 	maybeAssert(tonumber(userId) ~= nil)
 

@@ -1,3 +1,4 @@
+--!nonstrict
 -- NotifierHint3D.lua --
 -- Written by Kip Turner, copyright ROBLOX 2016 --
 

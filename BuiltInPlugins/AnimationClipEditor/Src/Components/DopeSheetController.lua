@@ -63,8 +63,6 @@ local Pause = require(Plugin.Src.Actions.Pause)
 
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 
-local GetFFlagCurveEditorFreeZoom = require(Plugin.LuaFlags.GetFFlagCurveEditorFreeZoom)
-
 local DopeSheetController = Roact.Component:extend("DopeSheetController")
 
 function DopeSheetController:init()
@@ -594,7 +592,7 @@ function DopeSheetController:render()
 			Position = position,
 			BackgroundTransparency = 1,
 			ZIndex = props.ZIndex,
-			[Roact.Event.InputChanged] = if GetFFlagCurveEditorFreeZoom() then self.props.OnInputChanged else nil,
+			[Roact.Event.InputChanged] = self.props.OnInputChanged,
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Vertical,

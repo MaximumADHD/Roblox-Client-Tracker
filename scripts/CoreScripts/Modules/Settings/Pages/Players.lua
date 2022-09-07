@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 		Filename: Players.lua
 		Written by: Stickmasterluke

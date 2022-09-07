@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 
 -- This covers all of the Packages folder, which is fairly defensive, but should

@@ -1,4 +1,3 @@
---!nonstrict
 local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
 
@@ -160,6 +159,12 @@ function InviteFriendsList:renderListEntries()
 	friendList.ListLayout = Roact.createElement("UIListLayout", {
 		SortOrder = Enum.SortOrder.LayoutOrder,
 		HorizontalAlignment = Enum.HorizontalAlignment.Right,
+	})
+
+	friendList.EndPad = Roact.createElement("Frame", {
+		Size = UDim2.new(0, 1, 0, 72),
+		BackgroundTransparency = 1,
+		LayoutOrder = 1000,
 	})
 
 	local map, visibilityCount = self:mapVisibilityToIndex(friends, self.props.searchText)

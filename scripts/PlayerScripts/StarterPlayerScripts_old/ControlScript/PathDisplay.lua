@@ -1,5 +1,4 @@
 
-
 local PathDisplay = {}
 PathDisplay.spacing = 8
 PathDisplay.image = "rbxasset://textures/Cursors/Gamepad/Pointer.png"
@@ -35,7 +34,7 @@ local function retrieveFromPool()
 	if not point then
 		return
 	end
-	
+
 	pointPool[1], pointPool[poolTop] = pointPool[poolTop], nil
 	poolTop = poolTop - 1
 	return point
@@ -52,13 +51,13 @@ local function renderPoint(point, isLast)
 	end
 
 	local rayDown = Ray.new(point + Vector3.new(0, 2, 0), Vector3.new(0, -8, 0))
-	local hitPart, hitPoint, hitNormal = workspace:FindPartOnRayWithIgnoreList(rayDown, { game.Players.LocalPlayer.Character, workspace.CurrentCamera  }) 	
+	local hitPart, hitPoint, hitNormal = workspace:FindPartOnRayWithIgnoreList(rayDown, { game.Players.LocalPlayer.Character, workspace.CurrentCamera  })
 	if not hitPart then
 		return
 	end
 
 	local pointCFrame = CFrame.new(hitPoint, hitPoint + hitNormal)
-	
+
 	local point = retrieveFromPool()
 	point.CFrame = pointCFrame
 	point.Parent = pointModel
@@ -89,25 +88,25 @@ function PathDisplay.renderPath()
 	end
 
 	local currentIdx = #currentPoints
-	local lastPos = currentPoints[currentIdx]	
+	local lastPos = currentPoints[currentIdx]
 	local distanceBudget = 0
-	
+
 	renderedPoints[1] = renderPoint(lastPos, true)
 	if not renderedPoints[1] then
 		return
 	end
-	
+
 	while true do
 		local currentPoint = currentPoints[currentIdx]
 		local nextPoint = currentPoints[currentIdx - 1]
-		
+
 		if currentIdx < 2 then
 			break
 		else
-			
+
 			local toNextPoint = nextPoint - currentPoint
-			local distToNextPoint = toNextPoint.magnitude	
-			
+			local distToNextPoint = toNextPoint.magnitude
+
 			if distanceBudget > distToNextPoint then
 				distanceBudget = distanceBudget - distToNextPoint
 				currentIdx = currentIdx - 1
@@ -115,16 +114,16 @@ function PathDisplay.renderPath()
 				local dirToNextPoint = toNextPoint.unit
 				local pointPos = currentPoint + (dirToNextPoint * distanceBudget)
 				local point = renderPoint(pointPos, false)
-				
+
 				if point then
 					renderedPoints[#renderedPoints + 1] = point
 				end
-				
+
 				distanceBudget = distanceBudget + PathDisplay.spacing
 			end
 		end
 	end
-	
+
 	pointModel.Parent = workspace.CurrentCamera
 end
 

@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
     Server-side network glue for the legacy avatar sound system.
     The legacy system supported by this script has known bugs and performance issues!

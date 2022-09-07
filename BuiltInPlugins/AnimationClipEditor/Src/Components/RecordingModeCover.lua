@@ -9,10 +9,13 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local CaptureFocus = Framework.UI.CaptureFocus
 
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+
 local RecordingModeCover = Roact.PureComponent:extend("RecordingModeCover")
 
 function RecordingModeCover:render()
-	local theme = self.props.Stylizer.PluginTheme
+	local props = self.props
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local localization = self.props.Localization
 
 	return Roact.createElement(CaptureFocus, {

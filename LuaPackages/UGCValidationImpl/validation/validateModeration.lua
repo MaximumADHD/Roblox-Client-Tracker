@@ -111,7 +111,14 @@ local function validateModeration(instance: Instance): (boolean, {string}?)
 	local success, response = getAssetCreationDetails(contentIds)
 
 	if not success or #response ~= #contentIds then
-		return false, { "Could not fetch details for assets" }
+		if game:GetFastFlag("UGCBetterModerationErrorText") then
+			return false, {
+				"Could not fetch moderation details for assets.",
+				"Make sure all assets are created by the current user.",
+			}
+		else
+			return false, { "Could not fetch details for assets" }
+		end
 	end
 
 	for _, details in pairs(response) do

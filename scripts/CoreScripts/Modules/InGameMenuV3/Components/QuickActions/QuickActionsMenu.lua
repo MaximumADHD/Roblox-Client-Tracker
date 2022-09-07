@@ -8,6 +8,7 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local IconButton = UIBlox.App.Button.IconButton
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local withStyle = UIBlox.Core.Style.withStyle
+local withHoverTooltip = UIBlox.App.Dialog.TooltipV2.withHoverTooltip
 
 local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
@@ -27,6 +28,7 @@ local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local Constants = require(InGameMenu.Resources.Constants)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
+local withLocalization = require(InGameMenu.Localization.withLocalization)
 local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
 
 local QuickActionsMenu = Roact.PureComponent:extend("QuickActionsMenu")
@@ -34,6 +36,13 @@ local QuickActionsMenu = Roact.PureComponent:extend("QuickActionsMenu")
 local QUICK_ACTIONS_BUTTON_PADDING = 12
 local QUICK_ACTIONS_CORNER_RADIUS = 8
 local QUICK_ACTIONS_PADDING = 8
+
+-- These hotkeys are on the spec, but they haven't been implemented
+-- https://jira.rbx.com/browse/APPEXP-476
+local REPORT_HOTKEYS = nil -- { Enum.KeyCode.LeftControl, Enum.KeyCode.R }
+local SCREENSHOT_HOTKEYS = nil -- { Enum.KeyCode.S }
+local FULLSCREEN_HOTKEYS = { Enum.KeyCode.F11 }
+local RESPAWN_HOTKEYS = { Enum.KeyCode.R }
 
 QuickActionsMenu.validateProps = t.strictInterface({
 	layoutOrder = t.number,
@@ -48,6 +57,7 @@ QuickActionsMenu.validateProps = t.strictInterface({
 	closeMenu = t.callback,
 	fillDirection = t.enum(Enum.FillDirection),
 	isHorizontal = t.boolean,
+	absoluteSizeChanged = t.optional(t.callback),
 })
 
 function QuickActionsMenu:init()
@@ -98,7 +108,7 @@ function QuickActionsMenu:init()
 	end
 
 	self:setState({
-		isFullScreen = GameSettings:InFullScreen()
+		isFullScreen = GameSettings:InFullScreen(),
 	})
 
 	GameSettings.FullscreenChanged:connect(function(isFullScreen)
@@ -213,85 +223,143 @@ end
 
 function QuickActionsMenu:render()
 	return withStyle(function(style)
-		local transparency = self.props.isHorizontal and updateHorizontalTransparency(self.props) or updateTransparency(self.props)
-		return Roact.createElement("Frame", {
-			LayoutOrder = self.props.layoutOrder,
-			Size = self.props.size,
-			AutomaticSize = self.props.automaticSize,
-			BackgroundColor3 = style.Theme.UIMuted.Color,
-			BackgroundTransparency = self.props.transparencies.frame,
-		}, {
-			padding = Roact.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, QUICK_ACTIONS_PADDING),
-				PaddingBottom = UDim.new(0, QUICK_ACTIONS_PADDING),
-				PaddingLeft = UDim.new(0, QUICK_ACTIONS_PADDING),
-				PaddingRight = UDim.new(0, QUICK_ACTIONS_PADDING),
-			}),
-			UICorner = Roact.createElement("UICorner", {
-				CornerRadius = UDim.new(0, QUICK_ACTIONS_CORNER_RADIUS),
-			}),
-			Layout = Roact.createElement("UIListLayout", {
-				FillDirection = self.props.fillDirection,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				VerticalAlignment = Enum.VerticalAlignment.Center,
-				Padding = UDim.new(0, QUICK_ACTIONS_BUTTON_PADDING),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-			}),
-			MuteSelfButton = self.props.voiceEnabled and Roact.createElement(MuteSelfButton, {
-				iconTransparency = transparency.muteSelf,
-				backgroundTransparency = transparency.muteSelf,
-				backgroundColor = style.Theme.BackgroundUIDefault,
-				iconSize = IconSize.Medium,
-				layoutOrder = 1,
-			}) or nil,
-			MuteAllButton = self.props.voiceEnabled and Roact.createElement(MuteAllButton, {
-				iconTransparency = transparency.muteAll,
-				backgroundTransparency = transparency.muteAll,
-				backgroundColor = style.Theme.BackgroundUIDefault,
-				iconSize = IconSize.Medium,
-				layoutOrder = 2,
-			}) or nil,
-			ReportButton = Roact.createElement(IconButton, {
-				iconTransparency = transparency.report,
-				backgroundTransparency = transparency.report,
-				backgroundColor = style.Theme.BackgroundUIDefault,
-				showBackground = true,
-				layoutOrder = 3,
-				icon = Assets.Images.ReportIcon,
-				iconSize = IconSize.Medium,
-				onActivated = self.openReportMenu,
-			}),
-			ScreenshotButton = self.props.screenshotEnabled and Roact.createElement(IconButton, {
-				iconTransparency = transparency.screenshot,
-				backgroundTransparency = transparency.screenshot,
-				backgroundColor = style.Theme.BackgroundUIDefault,
-				showBackground = true,
-				layoutOrder = 4,
-				iconSize = IconSize.Medium,
-				onActivated = self.screenshot,
-				icon = Assets.Images.ScreenshotIcon,
-			}) or nil,
-			FullscreenButton = self.props.fullscreenEnabled and Roact.createElement(IconButton, {
-				iconTransparency = transparency.fullscreen,
-				backgroundTransparency = transparency.fullscreen,
-				backgroundColor = style.Theme.BackgroundUIDefault,
-				showBackground = true,
-				layoutOrder = 5,
-				onActivated = self.toggleFullscreen,
-				iconSize = IconSize.Medium,
-				icon = self.state.isFullScreen and Assets.Images.PreviewShrinkIcon or Assets.Images.PreviewExpandIcon,
-			}) or nil,
-			RespawnButton = self.props.respawnEnabled and Roact.createElement(IconButton, {
-				iconTransparency = transparency.respawn,
-				backgroundTransparency = transparency.respawn,
-				backgroundColor = style.Theme.BackgroundUIDefault,
-				showBackground = true,
-				layoutOrder = 6,
-				onActivated = self.startRespawning,
-				iconSize = IconSize.Medium,
-				icon = Assets.Images.RespawnIcon,
-			}) or nil,
-		})
+		local transparency = self.props.isHorizontal and updateHorizontalTransparency(self.props)
+			or updateTransparency(self.props)
+		return withLocalization({
+			report = "CoreScripts.InGameMenu.QuickActions.Report",
+			screenshot = "CoreScripts.InGameMenu.QuickActions.Screenshot",
+			fullscreen = "CoreScripts.InGameMenu.QuickActions.FullScreen",
+			respawn = "CoreScripts.InGameMenu.QuickActions.Respawn",
+		})(function(localized)
+			return Roact.createElement("Frame", {
+				LayoutOrder = self.props.layoutOrder,
+				Size = self.props.size,
+				AutomaticSize = self.props.automaticSize,
+				BackgroundColor3 = style.Theme.UIMuted.Color,
+				BackgroundTransparency = self.props.transparencies.frame,
+				[Roact.Change.AbsoluteSize] = self.props.absoluteSizeChanged,
+			}, {
+				padding = Roact.createElement("UIPadding", {
+					PaddingTop = UDim.new(0, QUICK_ACTIONS_PADDING),
+					PaddingBottom = UDim.new(0, QUICK_ACTIONS_PADDING),
+					PaddingLeft = UDim.new(0, QUICK_ACTIONS_PADDING),
+					PaddingRight = UDim.new(0, QUICK_ACTIONS_PADDING),
+				}),
+				UICorner = Roact.createElement("UICorner", {
+					CornerRadius = UDim.new(0, QUICK_ACTIONS_CORNER_RADIUS),
+				}),
+				Layout = Roact.createElement("UIListLayout", {
+					FillDirection = self.props.fillDirection,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					Padding = UDim.new(0, QUICK_ACTIONS_BUTTON_PADDING),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				}),
+				MuteSelfButton = self.props.voiceEnabled and Roact.createElement(MuteSelfButton, {
+					iconTransparency = transparency.muteSelf,
+					backgroundTransparency = transparency.muteSelf,
+					backgroundColor = style.Theme.BackgroundUIDefault,
+					iconSize = IconSize.Medium,
+					layoutOrder = 1,
+				}) or nil,
+				MuteAllButton = self.props.voiceEnabled and Roact.createElement(MuteAllButton, {
+					iconTransparency = transparency.muteAll,
+					backgroundTransparency = transparency.muteAll,
+					backgroundColor = style.Theme.BackgroundUIDefault,
+					iconSize = IconSize.Medium,
+					layoutOrder = 2,
+				}) or nil,
+				ReportButton = withHoverTooltip({
+					headerText = localized.report,
+					hotkeyCodes = REPORT_HOTKEYS,
+					textAlignment = Enum.TextXAlignment.Center,
+				}, {
+					guiTarget = CoreGui,
+					DisplayOrder = Constants.DisplayOrder.Tooltips,
+				}, function(triggerPointChanged, onStateChanged)
+					return Roact.createElement(IconButton, {
+						iconTransparency = transparency.report,
+						backgroundTransparency = transparency.report,
+						backgroundColor = style.Theme.BackgroundUIDefault,
+						showBackground = true,
+						layoutOrder = 3,
+						icon = Assets.Images.ReportIcon,
+						iconSize = IconSize.Medium,
+						onActivated = self.openReportMenu,
+						onStateChanged = onStateChanged,
+						onAbsolutePositionChanged = triggerPointChanged,
+						[Roact.Change.AbsoluteSize] = triggerPointChanged,
+					})
+				end),
+				ScreenshotButton = self.props.screenshotEnabled and withHoverTooltip({
+					headerText = localized.screenshot,
+					hotkeyCodes = SCREENSHOT_HOTKEYS,
+					textAlignment = Enum.TextXAlignment.Center,
+				}, {
+					guiTarget = CoreGui,
+					DisplayOrder = Constants.DisplayOrder.Tooltips,
+				}, function(triggerPointChanged, onStateChanged)
+					return Roact.createElement(IconButton, {
+						iconTransparency = transparency.screenshot,
+						backgroundTransparency = transparency.screenshot,
+						backgroundColor = style.Theme.BackgroundUIDefault,
+						showBackground = true,
+						layoutOrder = 4,
+						iconSize = IconSize.Medium,
+						onActivated = self.screenshot,
+						icon = Assets.Images.ScreenshotIcon,
+						onStateChanged = onStateChanged,
+						onAbsolutePositionChanged = triggerPointChanged,
+						[Roact.Change.AbsoluteSize] = triggerPointChanged,
+					})
+				end),
+				FullscreenButton = self.props.fullscreenEnabled and withHoverTooltip({
+					headerText = localized.fullscreen,
+					hotkeyCodes = FULLSCREEN_HOTKEYS,
+					textAlignment = Enum.TextXAlignment.Center,
+				}, {
+					guiTarget = CoreGui,
+					DisplayOrder = Constants.DisplayOrder.Tooltips,
+				}, function(triggerPointChanged, onStateChanged)
+					return Roact.createElement(IconButton, {
+						iconTransparency = transparency.fullscreen,
+						backgroundTransparency = transparency.fullscreen,
+						backgroundColor = style.Theme.BackgroundUIDefault,
+						showBackground = true,
+						layoutOrder = 5,
+						onActivated = self.toggleFullscreen,
+						iconSize = IconSize.Medium,
+						icon = self.state.isFullScreen and Assets.Images.PreviewShrinkIcon
+							or Assets.Images.PreviewExpandIcon,
+						onStateChanged = onStateChanged,
+						onAbsolutePositionChanged = triggerPointChanged,
+						[Roact.Change.AbsoluteSize] = triggerPointChanged,
+					})
+				end),
+				RespawnButton = self.props.respawnEnabled and withHoverTooltip({
+					headerText = localized.respawn,
+					hotkeyCodes = RESPAWN_HOTKEYS,
+					textAlignment = Enum.TextXAlignment.Center,
+				}, {
+					guiTarget = CoreGui,
+					DisplayOrder = Constants.DisplayOrder.Tooltips,
+				}, function(triggerPointChanged, onStateChanged)
+					return Roact.createElement(IconButton, {
+						iconTransparency = transparency.respawn,
+						backgroundTransparency = transparency.respawn,
+						backgroundColor = style.Theme.BackgroundUIDefault,
+						showBackground = true,
+						layoutOrder = 6,
+						onActivated = self.startRespawning,
+						iconSize = IconSize.Medium,
+						icon = Assets.Images.RespawnIcon,
+						onStateChanged = onStateChanged,
+						onAbsolutePositionChanged = triggerPointChanged,
+						[Roact.Change.AbsoluteSize] = triggerPointChanged,
+					})
+				end),
+			})
+		end)
 	end)
 end
 

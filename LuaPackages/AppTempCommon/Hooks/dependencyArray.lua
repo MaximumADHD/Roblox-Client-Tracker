@@ -1,5 +1,3 @@
---!strict
-
 --[[
 	A helper function for creating a dependency array for React hooks.
 

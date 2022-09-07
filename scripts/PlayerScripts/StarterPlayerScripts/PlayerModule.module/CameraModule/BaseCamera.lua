@@ -1,3 +1,4 @@
+--!nonstrict
 --!nolint DeprecatedApi
 --[[
 	BaseCamera - Abstract base class for camera control modules

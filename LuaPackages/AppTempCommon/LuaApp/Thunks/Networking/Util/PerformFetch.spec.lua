@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local PerformFetch = require(script.Parent.PerformFetch)
 	local CorePackages = game:GetService("CorePackages")
@@ -146,11 +147,15 @@ return function()
 
 		it("should set fetching state to failed for sync reject", function()
 			local store = Rodux.Store.new(MockReducer, { }, { Rodux.thunkMiddleware })
+			local caughtPromiseRejection = false
 			doDispatchSingle(store, TEST_KEY_1, function()
 				return Promise.reject()
+			end):catch(function()
+				caughtPromiseRejection = true
 			end)
 
 			expect(store:getState().FetchingStatus[TEST_KEY_1]).to.equal(RetrievalStatus.Failed)
+			expect(caughtPromiseRejection).to.equal(true)
 		end)
 
 		it("should set fetching state to Done after async fetch resolves", function()
@@ -163,14 +168,20 @@ return function()
 
 		it("should set fetching state to Failed after async fetch rejects", function()
 			local bundle = doBasicSingleTest(TEST_KEY_1)
+			local caughtPromiseRejection = false
+			bundle.promise:catch(function()
+				caughtPromiseRejection = true
+			end)
 
 			bundle.resolver.reject()
 			expect(bundle.store:getState().FetchingStatus[TEST_KEY_1]).to.equal(RetrievalStatus.Failed)
+			expect(caughtPromiseRejection).to.equal(true)
 		end)
 
 
 		it("should not mix fetching status of two separate keys", function()
 			local store = Rodux.Store.new(MockReducer, { }, { Rodux.thunkMiddleware })
+			local caughtPromiseRejection = false
 
 			doDispatchSingle(store, TEST_KEY_1, function()
 				return Promise.resolve()
@@ -178,10 +189,13 @@ return function()
 
 			doDispatchSingle(store, TEST_KEY_2, function()
 				return Promise.reject()
+			end):catch(function()
+				caughtPromiseRejection = true
 			end)
 
 			expect(store:getState().FetchingStatus[TEST_KEY_1]).to.equal(RetrievalStatus.Done)
 			expect(store:getState().FetchingStatus[TEST_KEY_2]).to.equal(RetrievalStatus.Failed)
+			expect(caughtPromiseRejection).to.equal(true)
 		end)
 
 		it("should pass original promise args to daisy-chained promise upon resolve", function()
@@ -316,6 +330,7 @@ return function()
 		it("should reject daisy-chained promises on second thunk after first thunk rejects", function()
 			local store = Rodux.Store.new(MockReducer, { }, { Rodux.thunkMiddleware })
 			local secondPromiseRejected = false
+			local firstPromiseRejected = false
 
 			local startReject
 			local firstThunkPromise = Promise.new(function(_, reject)
@@ -324,6 +339,8 @@ return function()
 
 			doDispatchSingle(store, TEST_KEY_1, function()
 				return firstThunkPromise
+			end):catch(function()
+				firstPromiseRejected = true
 			end)
 
 			doDispatchSingle(store, TEST_KEY_1, function()
@@ -334,11 +351,14 @@ return function()
 				secondPromiseRejected = true
 			end)
 
+
 			expect(secondPromiseRejected).to.equal(false)
+			expect(firstPromiseRejected).to.equal(false)
 
 			startReject()
 
 			expect(secondPromiseRejected).to.equal(true)
+			expect(firstPromiseRejected).to.equal(true)
 		end)
 	end)
 

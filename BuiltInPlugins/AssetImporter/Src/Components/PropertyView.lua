@@ -170,6 +170,7 @@ function PropertyView:render()
 	local instance = props.Instance
 	local statusLevel = props.StatusLevel
 	local statusMessage = props.StatusMessage
+	local statusContext = props.StatusContext
 	local editable = nil
 	local propertyName = nil
 	local allowPickFile = nil
@@ -225,6 +226,7 @@ function PropertyView:render()
 			Icon = statusLevel and Roact.createElement(PropertyStatus, {
 				StatusLevel = statusLevel,
 				StatusMessage = statusMessage,
+				StatusContext = statusContext,
 			}) or nil,
 		}),
 		Label = Roact.createElement(TextLabel, {

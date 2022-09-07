@@ -29,7 +29,7 @@ export type Props = {
 	LabelColumnWidth: UDim,
 	LayoutOrder: number?,
 	MapType: string,
-	MaterialVariant: string,
+	MaterialVariant: MaterialVariant | TerrainDetail,
 	PreviewTitle: string,
 	Text: string,
 }
@@ -86,7 +86,7 @@ function TextureMapSelector:init()
 			self:setState({
 				uploading = false,
 			})
-		end, function(err)
+		end):catch(function(err)
 			self.clearTextureMap()
 			if getFFlagMaterialManagerTextureMapDiverseErrors() then
 				warn("Error uploading asset, responseCode ".. tostring(err.responseCode))

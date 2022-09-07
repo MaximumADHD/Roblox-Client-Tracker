@@ -1,4 +1,3 @@
---!nonstrict
 return function()
 	local AppStorageService = game:GetService("AppStorageService")
 	local UserLocalStore = require(script.Parent.UserLocalStore)

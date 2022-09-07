@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local ErrorQueue = require(script.Parent.ErrorQueue)
 	local CorePackages = game:GetService("CorePackages")

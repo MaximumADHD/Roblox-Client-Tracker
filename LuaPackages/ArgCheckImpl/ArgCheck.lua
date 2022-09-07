@@ -1,3 +1,4 @@
+--!nonstrict
 local FFlagDebugLuaArgCheck = game:DefineFastFlag("DebugLuaArgCheck", false)
 
 local ArgCheck = {}

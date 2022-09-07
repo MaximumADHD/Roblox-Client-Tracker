@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Performs validation on the messages that get sent from the server.
 

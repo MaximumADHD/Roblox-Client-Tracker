@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	ClassicCamera - Classic Roblox camera control module
 	2018 Camera Update - AllYourBlox

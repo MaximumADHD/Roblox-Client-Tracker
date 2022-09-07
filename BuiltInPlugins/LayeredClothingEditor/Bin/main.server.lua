@@ -2,7 +2,15 @@
 	Layered Clothing Editor main script.
 	Mounts and unmounts the Roact tree.
 ]]
+
+local RunService = game:GetService("RunService")
+local StudioService = game:GetService("StudioService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
 require(script.Parent.defineLuaFlags)
+local Plugin = script.Parent.Parent
+local InExperiencePreviewerClient = require(Plugin.Src.Components.InExperiencePreviewer.InExperiencePreviewerClient)
+local InExperiencePreviewerServer = require(Plugin.Src.Components.InExperiencePreviewer.InExperiencePreviewerServer)
 
 if not game:GetFastFlag("AccessoryToolRefactor2") then
 	return
@@ -32,17 +40,48 @@ local LayeredClothingEditorPlugin = require(Plugin.Src.Components.LayeredClothin
 
 local handle = nil
 
-local function init()
-	local mainPlugin = Roact.createElement(LayeredClothingEditorPlugin, {
-		plugin = plugin,
-	})
+local function cleanupPreviousPreviewSessionForUser()
+	local previewFolder = ReplicatedStorage:FindFirstChild("LayeredClothingEditorPreview")
+	if not previewFolder then
+		return
+	end
 
-	handle = Roact.mount(mainPlugin)
+	local userFolder = previewFolder:FindFirstChild(tostring(StudioService:GetUserId()))
+	if userFolder then
+		userFolder:Destroy()
+	end
+end
+
+local function init()
+	if RunService:IsRunning() then
+		if RunService:IsClient() then
+			InExperiencePreviewerClient:init()
+		else
+			InExperiencePreviewerServer:init()
+		end
+	else
+		if RunService:IsEdit() then
+			cleanupPreviousPreviewSessionForUser()
+		end
+		local mainPlugin = Roact.createElement(LayeredClothingEditorPlugin, {
+			plugin = plugin,
+		})
+
+		handle = Roact.mount(mainPlugin)
+	end
 end
 
 plugin.Unloading:Connect(function()
-	if handle then
-		Roact.unmount(handle)
+	if RunService:IsRunning() then
+		if RunService:IsClient() then
+			InExperiencePreviewerClient:shutdown()
+		else
+			InExperiencePreviewerServer:shutdown()
+		end
+	else
+		if handle then
+			Roact.unmount(handle)
+		end
 	end
 end)
 

@@ -1,3 +1,5 @@
+local FFlagToolboxInsertMaterialsInMS = game:GetFastFlag("ToolboxInsertMaterialsInMS")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Actions = Plugin.Core.Actions
@@ -32,7 +34,6 @@ return function(assetId, tryInsert, localization, networkInterface, setAssetPrev
 					Analytics.onTryAssetFailure(assetId)
 					return
 				end
-
 				local assetData = {
 					Asset = {
 						Id = responseItem.asset.id,
@@ -42,6 +43,7 @@ return function(assetId, tryInsert, localization, networkInterface, setAssetPrev
 						Description = responseItem.asset.description,
 						Created = responseItem.asset.createdUtc,
 						Updated = responseItem.asset.updatedUtc,
+						AssetSubTypes = if FFlagToolboxInsertMaterialsInMS then responseItem.asset.assetSubTypes else nil,
 					},
 					Context = {}, -- TODO: STM-828 Add currentCategory and other context item Analytics
 					Creator = {

@@ -81,6 +81,8 @@ local MOCK_ITEM_DETAILS = {
 }
 
 local MOCK_FAVORITE_COUNT = 120
+local GET_FAVORITE_MODEL_FOR_ASSET = "GetFavoriteModelForAsset"
+local GET_FAVORITE_MODEL_FOR_BUNDLE = "GetFavoriteModelForBundle"
 
 local function getProductInfo(id)
 	local info = Cryo.Dictionary.join(MOCK_PRODUCT_INFO, { AssetId = id })
@@ -104,6 +106,15 @@ local function getBundleFavoriteCount(id)
 	return Promise.resolve(MOCK_FAVORITE_COUNT)
 end
 
+local function getItemFavorite(id, type)
+	if type == Enum.AvatarItemType.Asset and id == GET_FAVORITE_MODEL_FOR_ASSET or
+		type == Enum.AvatarItemType.Bundle and id == GET_FAVORITE_MODEL_FOR_BUNDLE then
+		return Promise.resolve(true)
+	else
+		return Promise.resolve(false)
+	end
+end
+
 local MockNetwork = {}
 MockNetwork.__index = MockNetwork
 
@@ -116,6 +127,7 @@ function MockNetwork.new(shouldFail: boolean?)
 			getAssetBundles = networkFailure,
 			getItemDetails = networkFailure,
 			getBundleFavoriteCount = networkFailure,
+			getItemFavorite = networkFailure,
 		}
 	else
 		mockNetworkService = {
@@ -123,6 +135,7 @@ function MockNetwork.new(shouldFail: boolean?)
 			getAssetBundles = getAssetBundles,
 			getItemDetails = getItemDetails,
 			getBundleFavoriteCount = getBundleFavoriteCount,
+			getItemFavorite = getItemFavorite,
 		}
 	end
 
@@ -157,6 +170,14 @@ end
 
 function MockNetwork.GetMockFavoriteCount()
 	return MOCK_FAVORITE_COUNT
+end
+
+function MockNetwork.GetFavoriteModelIdForAsset()
+	return GET_FAVORITE_MODEL_FOR_ASSET
+end
+
+function MockNetwork.GetFavoriteModelIdForBundle()
+	return GET_FAVORITE_MODEL_FOR_BUNDLE
 end
 
 return MockNetwork

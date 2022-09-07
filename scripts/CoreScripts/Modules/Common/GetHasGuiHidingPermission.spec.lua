@@ -1,3 +1,4 @@
+--!nonstrict
 local CoreGui = game:GetService("CoreGui")
 
 local GetFIntCanHideGuiGroupId = require(CoreGui.RobloxGui.Modules.Flags.GetFIntCanHideGuiGroupId)

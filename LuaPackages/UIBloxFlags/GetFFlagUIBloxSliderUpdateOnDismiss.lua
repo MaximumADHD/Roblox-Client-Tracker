@@ -1,5 +1,3 @@
---!strict
-
 game:DefineFastFlag("UIBloxSliderUpdateOnDismiss", false)
 
 return function()

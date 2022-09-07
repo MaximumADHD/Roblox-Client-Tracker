@@ -1,3 +1,4 @@
+--!nonstrict
 local function numberWithZero(num)
 	return (num < 10 and "0" or "") .. num
 end

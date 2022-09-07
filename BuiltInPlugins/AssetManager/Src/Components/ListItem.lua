@@ -36,6 +36,7 @@ local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableM
 
 local ModernIcons = require(Plugin.Src.Util.ModernIcons)
 local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and not game:GetService("StudioHighDpiService"):IsNotHighDPIAwareBuild()
+local FFlagFixHighDPIScreenIcon = game:DefineFastFlag("FixHighDPIScreenIcon", false)
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local ContentProvider = game:GetService("ContentProvider")
@@ -333,7 +334,15 @@ function ListItem:render()
 	local imageInfo = {}
 	local isFolder = assetData.ClassName == "Folder"
 	if isFolder and FFlagHighDpiIcons then
-		imageInfo.Image = ModernIcons.getIconForCurrentTheme(assetData.Screen.Image)
+		if FFlagFixHighDPIScreenIcon then
+			if assetData.Screen.Image == nil then
+				imageInfo.Image = ModernIcons.getIconForCurrentTheme(ModernIcons.IconEnums.BlankFolder)
+			else
+				imageInfo.Image = ModernIcons.getIconForCurrentTheme(assetData.Screen.Image)
+			end
+		else
+			imageInfo.Image = ModernIcons.getIconForCurrentTheme(assetData.Screen.Image)
+		end
 	elseif isFolder then
 		imageInfo.Image = assetData.Screen.Image
 	else

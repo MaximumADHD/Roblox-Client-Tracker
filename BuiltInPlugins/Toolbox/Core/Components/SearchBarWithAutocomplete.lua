@@ -10,6 +10,7 @@
 		callback OnTextChanged: callback for when the text was changed - OnTextChanged(text: string)
 ]]
 local FIntToolboxAutocompleteDropdownSize = game:GetFastInt("ToolboxAutocompleteDropdownSize")
+local FFlagToolboxAddVerifiedCreatorToAnalytics = game:GetFastFlag("ToolboxAddVerifiedCreatorToAnalytics")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -26,6 +27,7 @@ local getNetwork = ContextGetter.getNetwork
 
 local GetAutocompleteResultsRequest = require(Plugin.Core.Networking.Requests.GetAutocompleteResultsRequest)
 local LogMarketplaceSearchAnalytics = require(Plugin.Core.Thunks.LogMarketplaceSearchAnalytics)
+local LogMarketplaceAutocompleteSearchAnalytics = require(Plugin.Core.Thunks.LogMarketplaceAutocompleteSearchAnalytics)
 
 local DropdownMenu = require(Packages.Framework).UI.DropdownMenu
 local DropdownMenuItem = require(Plugin.Core.Components.DropdownMenuItem)
@@ -84,14 +86,25 @@ function SearchBarWithAutocomplete:init()
 
 	self.onItemActivated = function(item, index)
 		self.props.OnSearchRequested(item)
-		self.props.logSearchAnalytics(
-			item,
-			Category.AUTOCOMPLETE_API_NAMES[self.props.categoryName],
-			self.state.displayedSearchTerm,
-			self.keyCount,
-			self.deleteCount,
-			true
-		)
+		if FFlagToolboxAddVerifiedCreatorToAnalytics then
+			self.props.logAutocompleteSearchAnalytics(
+				item,
+				Category.AUTOCOMPLETE_API_NAMES[self.props.categoryName],
+				self.state.displayedSearchTerm,
+				self.keyCount,
+				self.deleteCount,
+				true
+			)
+		else
+			self.props.logSearchAnalytics(
+				item,
+				Category.AUTOCOMPLETE_API_NAMES[self.props.categoryName],
+				self.state.displayedSearchTerm,
+				self.keyCount,
+				self.deleteCount,
+				true
+			)
+		end
 
 		self.keyCount = 0
 		self.deleteCount = 0
@@ -102,14 +115,25 @@ function SearchBarWithAutocomplete:init()
 	self.onSearchRequested = function(searchTerm)
 		self.props.OnSearchRequested(searchTerm)
 
-		self.props.logSearchAnalytics(
-			searchTerm,
-			Category.AUTOCOMPLETE_API_NAMES[self.props.categoryName],
-			nil,
-			self.keyCount,
-			self.deleteCount,
-			true
-		)
+		if FFlagToolboxAddVerifiedCreatorToAnalytics then
+			self.props.logAutocompleteSearchAnalytics(
+				searchTerm,
+				Category.AUTOCOMPLETE_API_NAMES[self.props.categoryName],
+				nil,
+				self.keyCount,
+				self.deleteCount,
+				true
+			)
+		else
+			self.props.logSearchAnalytics(
+				searchTerm,
+				Category.AUTOCOMPLETE_API_NAMES[self.props.categoryName],
+				nil,
+				self.keyCount,
+				self.deleteCount,
+				true
+			)
+		end
 
 		self.keyCount = 0
 		self.deleteCount = 0
@@ -240,11 +264,20 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		logSearchAnalytics = function(keyword, assetType, prefix, keyCount, delCount, autocompleteShown)
+		logAutocompleteSearchAnalytics = if FFlagToolboxAddVerifiedCreatorToAnalytics then function(keyword, assetType, prefix, keyCount, delCount, autocompleteShown)
 			dispatch(
-				LogMarketplaceSearchAnalytics(keyword, assetType, prefix, keyCount, delCount, autocompleteShown, false)
+				LogMarketplaceAutocompleteSearchAnalytics(keyword, assetType, prefix, keyCount, delCount, autocompleteShown, false)
 			)
-		end,
+		end else nil,
+
+		logSearchAnalytics = if FFlagToolboxAddVerifiedCreatorToAnalytics then
+			nil
+		else
+			function(keyword, assetType, prefix, keyCount, delCount, autocompleteShown)
+				dispatch(
+					LogMarketplaceSearchAnalytics(keyword, assetType, prefix, keyCount, delCount, autocompleteShown, false)
+				)
+			end,
 
 		getAutocompleteResults = function(networkInterface, categoryName, searchTerm, numberOfResults)
 			dispatch(GetAutocompleteResultsRequest(networkInterface, categoryName, searchTerm, numberOfResults))

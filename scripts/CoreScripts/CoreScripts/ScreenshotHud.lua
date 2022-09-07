@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 		// Filename: ScreenshotHud.lua
 		// Version 1.0

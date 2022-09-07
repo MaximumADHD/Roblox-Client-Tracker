@@ -1,3 +1,4 @@
+--!nonstrict
 return function (tableA, tableB)
 	local minTable = {}
 	for ind, valA in pairs(tableA) do

@@ -1,3 +1,4 @@
+--!nonstrict
 -- VirtualKeyboard.lua --
 -- Written by Kip Turner, copyright ROBLOX 2016 --
 

@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Keyboard Character Control - This module handles controlling your avatar from a keyboard
 

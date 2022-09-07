@@ -1,4 +1,3 @@
---!nonstrict
 return function()
 	it("should create and destroy without errors", function()
 		local CorePackages = game:GetService("CorePackages")

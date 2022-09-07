@@ -1,4 +1,3 @@
---!strict
 --[[
 upstream: https://github.com/reduxjs/react-redux/blob/a3503c1402cd5b752d9b642dce54d05327ccf3b4/src/hooks/useSelector.ts
 

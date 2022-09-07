@@ -3,8 +3,14 @@
 
 	Props:
 	ToggleCallback, function, will return current selected statue if toggled.
+	TotalHeight, integer, gives height of package toggle.
+	PackageEnabled, boolean, specifies whether toggle is enabled.
+	PackageOn, boolean, specifies whether toggle is shown on.
+	PackageWarningText, string, warning to show if Package publish contains any issues.
+	LayoutOrder, integer, specifies order in container.
+	Title, string
 ]]
--- added with FFlagUnifyModelPackagePublish2
+-- added with FFlagUnifyModelPackagePublish3
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -21,8 +27,12 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 local ToggleButton = Framework.UI.ToggleButton
 local TextLabel = Framework.UI.Decoration.TextLabel
 local StyleModifier = Framework.Util.StyleModifier
+local Pane = Framework.UI.Pane
 
 local ConfigPackage = Roact.PureComponent:extend("ConfigPackage")
+
+local ERROR_TEXT_SPACING = 10
+local TIPS_SPACING = 10
 
 local TOGGLE_BUTTON_WIDTH = 40
 local TOGGLE_BUTTON_HEIGHT = 24
@@ -46,6 +56,7 @@ function ConfigPackage:renderContent()
 	local TotalHeight = props.TotalHeight
 	local PackageOn = props.PackageOn
 	local PackageEnabled = props.PackageEnabled
+	local PackageWarningText = props.PackageWarningText
 
 	local ToggleCallback = props.ToggleCallback
 
@@ -54,8 +65,12 @@ function ConfigPackage:renderContent()
 
 	local localization = props.Localization
 	local informationText = localization:getText("AssetConfigPackage", "HelpText")
+	local ThreeDWarning = localization:getText("AssetConfigPackage", "Non3DRoot3DDescendentsWarning")
+
+	local showWarningText = props.PackageWarningText ~= nil
 
 	return Roact.createElement("Frame", {
+		AutomaticSize = Enum.AutomaticSize.Y,
 		Size = UDim2.new(1, 0, 0, TotalHeight),
 
 		BackgroundTransparency = 1,
@@ -72,7 +87,8 @@ function ConfigPackage:renderContent()
 		}),
 
 		Title = Roact.createElement(TextLabel, {
-			Size = UDim2.new(0, AssetConfigConstants.TITLE_GUTTER_WIDTH, 1, 0),
+			Size = UDim2.new(0, AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
 
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
@@ -104,12 +120,42 @@ function ConfigPackage:renderContent()
 				Padding = UDim.new(0, 5),
 			}),
 
-			ToggleButton = Roact.createElement(ToggleButton, {
-				Disabled = not PackageEnabled,
+			ToggleButtonContainer = Roact.createElement(Pane, {
+				BackgroundTransparency = 1,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				Layout = Enum.FillDirection.Horizontal,
 				LayoutOrder = 2,
-				OnClick = self.toggleCallback,
-				Selected = PackageOn,
-				Size = UDim2.new(0, TOGGLE_BUTTON_WIDTH, 0, TOGGLE_BUTTON_HEIGHT),
+				Size = UDim2.new(1, 0, 0, TOGGLE_BUTTON_HEIGHT + TIPS_SPACING),
+				Padding = {
+					Bottom = TIPS_SPACING,
+				},
+				Spacing = ERROR_TEXT_SPACING,
+				VerticalAlignment = Enum.VerticalAlignment.Top,
+				AutomaticSize = Enum.AutomaticSize.Y,
+			}, {
+				ToggleButton = Roact.createElement(ToggleButton, {
+					Disabled = not PackageEnabled,
+					LayoutOrder = 1,
+					OnClick = self.toggleCallback,
+					Selected = PackageOn,
+					Size = UDim2.new(0, TOGGLE_BUTTON_WIDTH, 0, TOGGLE_BUTTON_HEIGHT),
+				}),
+
+				ErrorText = if showWarningText
+					then Roact.createElement(TextLabel, {
+						AutomaticSize = Enum.AutomaticSize.Y,
+						LayoutOrder = 2,
+						BackgroundTransparency = 1,
+						Font = Constants.FONT,
+						Size = UDim2.new(1,  -(TOGGLE_BUTTON_WIDTH+ERROR_TEXT_SPACING), 0, 0),
+						Text = PackageWarningText,
+						TextWrapped = true,
+						TextColor = if PackageWarningText == ThreeDWarning then theme.assetConfig.warningColor else theme.assetConfig.errorColor,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Center,
+						TextSize = Constants.FONT_SIZE_LARGE,
+					})
+					else nil,
 			}),
 
 			TipsLabel = Roact.createElement(TextLabel, {

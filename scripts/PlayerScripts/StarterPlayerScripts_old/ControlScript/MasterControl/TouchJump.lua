@@ -113,11 +113,11 @@ function TouchJump:Create(parentFrame)
 		JumpButton:Destroy()
 		JumpButton = nil
 	end
-	
+
 	local minAxis = math.min(parentFrame.AbsoluteSize.x, parentFrame.AbsoluteSize.y)
 	local isSmallScreen = minAxis <= 500
 	local jumpButtonSize = isSmallScreen and 70 or 120
-	
+
 	JumpButton = Instance.new('ImageButton')
 	JumpButton.Name = "JumpButton"
 	JumpButton.Visible = false
@@ -129,8 +129,8 @@ function TouchJump:Create(parentFrame)
 
     JumpButton.Position = isSmallScreen and UDim2.new(1, -(jumpButtonSize*1.5-10), 1, -jumpButtonSize - 20) or
         UDim2.new(1, -(jumpButtonSize*1.5-10), 1, -jumpButtonSize * 1.75)
-	
-	local touchObject = nil	
+
+	local touchObject = nil
 	JumpButton.InputBegan:connect(function(inputObject)
 		--A touch that starts elsewhere on the screen will be sent to a frame's InputBegan event
 		--if it moves over the frame. So we check that this is actually a new touch (inputObject.UserInputState ~= Enum.UserInputState.Begin)
@@ -138,34 +138,34 @@ function TouchJump:Create(parentFrame)
 			or inputObject.UserInputState ~= Enum.UserInputState.Begin then
 			return
 		end
-		
+
 		touchObject = inputObject
 		JumpButton.ImageRectOffset = Vector2.new(146, 146)
 		MasterControl:SetIsJumping(true)
 	end)
-	
+
 	OnInputEnded = function()
 		touchObject = nil
 		MasterControl:SetIsJumping(false)
 		JumpButton.ImageRectOffset = Vector2.new(1, 146)
 	end
-	
+
 	JumpButton.InputEnded:connect(function(inputObject)
 		if inputObject == touchObject then
 			OnInputEnded()
 		end
 	end)
-	
+
 	GuiService.MenuOpened:connect(function()
 		if touchObject then
 			OnInputEnded()
 		end
 	end)
-	
+
 	if not CharacterAddedConnection then
 		setupCharacterAddedFunction()
 	end
-	
+
 	JumpButton.Parent = parentFrame
 end
 

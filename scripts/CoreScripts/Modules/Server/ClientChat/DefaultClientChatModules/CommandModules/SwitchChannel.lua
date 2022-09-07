@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: ClearMessages.lua
 --	// Written by: TheGamer101
 --	// Description: Command to switch channel.

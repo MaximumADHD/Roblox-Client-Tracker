@@ -33,7 +33,6 @@ local TextBox = require(Plugin.Src.Components.TextBox)
 local Tooltip = require(Plugin.Src.Components.Tooltip)
 
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
-local FFlagFixTimeDisplay = game:DefineFastFlag("ACEFixTimeDisplay", false)
 
 local TimeDisplay = Roact.PureComponent:extend("TimeDisplay")
 
@@ -43,18 +42,13 @@ function TimeDisplay:init()
 		local animationData = props.AnimationData
 		if not focused and animationData then
 			local showAsTime = props.ShowAsTime
-			local startTick = props.StartTick
 			local endTick = props.EndTick
 			local updateEditingLength = props.UpdateEditingLength
 			local stepAnimation = props.StepAnimation
 			local frameRate = props.FrameRate
 
 			local time = StringUtils.parseTime(rbx.Text, frameRate) or 0
-			if FFlagFixTimeDisplay then
-				time = math.clamp(time, 0, Constants.TICK_FREQUENCY * Constants.MAX_ANIMATION_LENGTH)
-			else
-				time = math.clamp(time, startTick, AnimationData.getMaximumLength(frameRate))
-			end
+			time = math.clamp(time, 0, Constants.TICK_FREQUENCY * Constants.MAX_ANIMATION_LENGTH)
 
 			if time > endTick then
 				updateEditingLength(time)

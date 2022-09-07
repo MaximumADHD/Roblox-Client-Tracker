@@ -1,4 +1,3 @@
---!strict
 --[[
 	BaseCharacterController - Abstract base class for character controllers, not intended to be
 	directly instantiated.

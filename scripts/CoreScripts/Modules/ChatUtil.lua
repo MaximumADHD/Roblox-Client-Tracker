@@ -1,3 +1,4 @@
+--!nonstrict
 local Util = {}
 do
 	function Util.Signal()

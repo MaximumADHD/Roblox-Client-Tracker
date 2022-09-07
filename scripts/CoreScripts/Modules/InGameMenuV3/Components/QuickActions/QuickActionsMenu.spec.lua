@@ -8,6 +8,8 @@ local Rodux = InGameMenuDependencies.Rodux
 local UIBlox = InGameMenuDependencies.UIBlox
 local InGameMenu = script.Parent.Parent.Parent
 local reducer = require(InGameMenu.reducer)
+local Localization = require(InGameMenu.Localization.Localization)
+local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 
 local QuickActionsMenu = require(script.Parent.QuickActionsMenu)
 
@@ -24,22 +26,26 @@ return function()
 			button4 = 0,
 		}
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = Rodux.Store.new(reducer)
+			store = Rodux.Store.new(reducer),
 		}, {
 			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
 			}, {
-				QuickActions = Roact.createElement(QuickActionsMenu, {
-					layoutOrder = 1,
-					respawnEnabled = true,
-					voiceEnabled = false,
-					screenshotEnabled = true,
-					fullscreenEnabled = true,
-					transparencies = transparencies,
-					fillDirection = Enum.FillDirection.Horizontal,
-					automaticSize = Enum.AutomaticSize.X,
-					size = UDim2.new(0, 0, 0, 108),
-					isHorizontal = true,
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = Localization.new("en-us"),
+				}, {
+					QuickActions = Roact.createElement(QuickActionsMenu, {
+						layoutOrder = 1,
+						respawnEnabled = true,
+						voiceEnabled = false,
+						screenshotEnabled = true,
+						fullscreenEnabled = true,
+						transparencies = transparencies,
+						fillDirection = Enum.FillDirection.Horizontal,
+						automaticSize = Enum.AutomaticSize.X,
+						size = UDim2.new(0, 0, 0, 108),
+						isHorizontal = true,
+					}),
 				}),
 			}),
 		})
@@ -58,22 +64,26 @@ return function()
 			button3 = 0,
 		}
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = Rodux.Store.new(reducer)
+			store = Rodux.Store.new(reducer),
 		}, {
 			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
 			}, {
-				QuickActions = Roact.createElement(QuickActionsMenu, {
-					layoutOrder = 2,
-					respawnEnabled = true,
-					voiceEnabled = false,
-					screenshotEnabled = true,
-					fullscreenEnabled = false,
-					transparencies = transparencies,
-					fillDirection = Enum.FillDirection.Vertical,
-					automaticSize = Enum.AutomaticSize.Y,
-					size = UDim2.new(0, 60, 0, 0),
-					isHorizontal = false,
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = Localization.new("en-us"),
+				}, {
+					QuickActions = Roact.createElement(QuickActionsMenu, {
+						layoutOrder = 2,
+						respawnEnabled = true,
+						voiceEnabled = false,
+						screenshotEnabled = true,
+						fullscreenEnabled = false,
+						transparencies = transparencies,
+						fillDirection = Enum.FillDirection.Vertical,
+						automaticSize = Enum.AutomaticSize.Y,
+						size = UDim2.new(0, 60, 0, 0),
+						isHorizontal = false,
+					}),
 				}),
 			}),
 		})

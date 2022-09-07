@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local MemStorageService = game:GetService("MemStorageService")
 local PlayersService = game:GetService("Players")
@@ -665,8 +666,8 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 				self.participants[tostring(userId)] = nil
 				self.participantLeft:Fire(self.participants, GetFFlagPlayerListAnimateMic() and userId or nil)
 			end
-			for _ in ipairs(participantJoined) do
-				self.participantJoined:Fire(self.participants)
+			for _, userId in ipairs(participantJoined) do
+				self.participantJoined:Fire(self.participants, userId)
 			end
 			for _, state in pairs(updatedStates) do
 				local userId = state["userId"]

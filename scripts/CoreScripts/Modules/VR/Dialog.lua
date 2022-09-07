@@ -1,3 +1,4 @@
+--!nonstrict
 --Dialog: 3D dialogs for ROBLOX in VR
 --written by 0xBAADF00D
 --6/30/2016

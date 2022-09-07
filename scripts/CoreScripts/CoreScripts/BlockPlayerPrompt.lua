@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// Filename: BlockPlayerPrompt.lua
 	// Version 1.0

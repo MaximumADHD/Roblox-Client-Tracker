@@ -28,7 +28,6 @@ local VoteBar = require(Plugin.Core.Components.Asset.Voting.VoteBar)
 local VoteButtons = require(Plugin.Core.Components.Asset.Voting.VoteButtons)
 local LoadingIndicator = Framework.UI.LoadingIndicator
 
-local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
 local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
 
 local function Voting(props)
@@ -52,9 +51,7 @@ local function Voting(props)
 		end
 	end
 
-	local height = if FFlagAssetVoteSimplification and showVoteButtons then Constants.ASSET_VOTING_BUTTONS_HEIGHT
-		elseif FFlagAssetVoteSimplification then Constants.ASSET_VOTE_COUNT_HEIGHT
-		else Constants.ASSET_VOTING_HEIGHT
+	local height = if showVoteButtons then Constants.ASSET_VOTING_BUTTONS_HEIGHT else Constants.ASSET_VOTE_COUNT_HEIGHT
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,

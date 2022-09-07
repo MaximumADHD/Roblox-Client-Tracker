@@ -1,3 +1,4 @@
+--!nonstrict
 --!nolint DeprecatedApi
 --[[
 	// FileName: BubbleChat.lua

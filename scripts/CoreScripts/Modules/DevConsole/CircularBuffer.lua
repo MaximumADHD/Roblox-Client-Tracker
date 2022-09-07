@@ -1,3 +1,4 @@
+--!nonstrict
 local CircularBuffer = {}
 CircularBuffer.__index = CircularBuffer
 

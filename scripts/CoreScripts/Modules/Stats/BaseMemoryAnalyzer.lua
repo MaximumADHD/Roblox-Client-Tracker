@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
   Filename: BaseMemoryAnalyzer.lua
   Written by: dbanks

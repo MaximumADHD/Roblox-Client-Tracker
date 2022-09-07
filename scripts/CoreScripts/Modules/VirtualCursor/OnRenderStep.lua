@@ -1,3 +1,4 @@
+--!nonstrict
 local VirtualCursorFolder = script.Parent
 
 local GuiService = game:GetService("GuiService")

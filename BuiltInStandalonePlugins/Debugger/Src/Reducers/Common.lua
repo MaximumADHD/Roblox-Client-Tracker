@@ -148,7 +148,6 @@ return Rodux.createReducer(productionStartStore, {
 	[AddThreadIdAction.name] = function(state: CommonStore, action: AddThreadIdAction.Props)
 		local newState = {}
 		newState.debuggerConnectionIdToCurrentThreadId = deepCopy(state.debuggerConnectionIdToCurrentThreadId)
-		assert(newState.debuggerConnectionIdToCurrentThreadId[state.currentDebuggerConnectionId] ~= action.threadId)
 
 		if newState.debuggerConnectionIdToCurrentThreadId[state.currentDebuggerConnectionId] == nil then
 			newState.debuggerConnectionIdToCurrentThreadId[state.currentDebuggerConnectionId] = action.threadId

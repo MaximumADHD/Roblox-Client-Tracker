@@ -1,5 +1,6 @@
 local FFlagToolboxFixDurationOnCreationTab = game:GetFastFlag("ToolboxFixDurationOnCreationTab")
 local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
+local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
 
@@ -8,7 +9,7 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local getAllowedAssetTypeEnums = require(Plugin.Core.Util.getAllowedAssetTypeEnums)
 
 local Packages = Plugin.Packages
-local Cryo = require(Packages.Cryo)
+local Cryo = if FFlagToolboxAssetConfigurationVerifiedPrice then nil else require(Packages.Cryo) -- unused, remove with FFlagToolboxAssetConfigurationVerifiedPrice
 
 local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents

@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local TweenService = game:GetService("TweenService")
 local Roact = require(CorePackages.Roact)

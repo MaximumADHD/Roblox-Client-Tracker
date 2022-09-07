@@ -1,5 +1,3 @@
---!strict
-
 game:DefineFastFlag("ContactImporterAnalyticsEnabled", false)
 
 return function()

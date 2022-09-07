@@ -1,3 +1,4 @@
+--!nonstrict
 -- Creates all neccessary scripts for the gui on initial load, everything except build tools
 -- Created by Ben T. 10/29/10
 -- Please note that these are loaded in a specific order to diminish errors/perceived load time by user
@@ -31,7 +32,7 @@ local PolicyService = require(CoreGuiModules:WaitForChild("Common"):WaitForChild
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 local FFlagVirtualCursorEnabled = game:GetEngineFeature("VirtualCursorEnabled")
-local FFlagKeyboardUINavigationEnabled = game:DefineFastFlag("KeyboardUINavigationEnabled", false)
+local FFlagVRAvatarGestures = game:DefineFastFlag("VRAvatarGestures", false)
 
 local FFlagUseRoactGlobalConfigInCoreScripts = require(RobloxGui.Modules.Flags.FFlagUseRoactGlobalConfigInCoreScripts)
 local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
@@ -51,6 +52,8 @@ local GetFFlagShareInviteLinkContextMenuV1ABTestEnabled = require(RobloxGui.Modu
 local ShareInviteLinkABTestManager = require(RobloxGui.Modules.Settings.ShareInviteLinkABTestManager)
 local IsExperienceMenuABTestEnabled = require(CoreGuiModules.InGameMenuV3.IsExperienceMenuABTestEnabled)
 local ExperienceMenuABTestManager = require(CoreGuiModules.InGameMenuV3.ExperienceMenuABTestManager)
+local GetFFlagEnableNewInviteMenuIXP = require(CoreGuiModules.Flags.GetFFlagEnableNewInviteMenuIXP)
+local NewInviteMenuExperimentManager = require(CoreGuiModules.Settings.Pages.ShareGame.NewInviteMenuExperimentManager)
 
 local GetCoreScriptsLayers = require(CoreGuiModules.Experiment.GetCoreScriptsLayers)
 
@@ -58,7 +61,10 @@ local FFlagEnableLuobuWarningToast = require(RobloxGui.Modules.Flags.FFlagEnable
 
 local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
 
-game:DefineFastFlag("MoodsEmoteFix2", false)
+local GetFFlagEnableKeyboardUINavigation = require(RobloxGui.Modules.Flags.GetFFlagEnableKeyboardUINavigation)
+
+game:DefineFastFlag("MoodsEmoteFix3", false)
+game:DefineFastFlag("SelfieViewFeature", false)
 
 -- The Rotriever index, as well as the in-game menu code itself, relies on
 -- the init.lua convention, so we have to run initify over the module.
@@ -205,7 +211,7 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/AvatarContextMenu", RobloxGui)
 coroutine.wrap(safeRequire)(RobloxGui.Modules.BackpackScript)
 
 -- Keyboard Navigation :)
-if FFlagKeyboardUINavigationEnabled then
+if GetFFlagEnableKeyboardUINavigation() then
 	coroutine.wrap(safeRequire)(RobloxGui.Modules.KeyboardUINavigation)
 end
 
@@ -266,6 +272,10 @@ if GetFFlagEnableIXPInGame() then
 		if GetFFlagShareInviteLinkContextMenuV1ABTestEnabled() then
 			ShareInviteLinkABTestManager.default:initialize()
 		end
+
+		if GetFFlagEnableNewInviteMenuIXP() then
+			NewInviteMenuExperimentManager.default:initialize()
+		end
 	end)()
 end
 
@@ -279,11 +289,18 @@ end
 
 if game:GetEngineFeature("FacialAnimationStreaming") then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/FacialAnimationStreaming", script.Parent)
+	if game:GetFastFlag("SelfieViewFeature") then
+		ScriptContext:AddCoreScriptLocal("CoreScripts/FaceChatSelfieView", RobloxGui)
+	end	
 	if game:GetEngineFeature("TrackerLodControllerDebugUI") then
 		ScriptContext:AddCoreScriptLocal("CoreScripts/TrackerLodControllerDebugUI", script.Parent)
 	end
 end
 
-if game:GetEngineFeature("NewMoodAnimationTypeApiEnabled") and game:GetFastFlag("MoodsEmoteFix2") then
+if FFlagVRAvatarGestures then
+	coroutine.wrap(safeRequire)(RobloxGui.Modules.VR.AvatarGesturesController)
+end
+
+if game:GetEngineFeature("NewMoodAnimationTypeApiEnabled") and game:GetFastFlag("MoodsEmoteFix3") then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/AvatarMood", script.Parent)
 end

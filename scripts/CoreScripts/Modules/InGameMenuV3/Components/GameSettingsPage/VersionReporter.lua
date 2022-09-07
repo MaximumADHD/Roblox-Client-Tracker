@@ -1,4 +1,3 @@
---!nonstrict
 local LATEST_PLACE_VERSION = "CoreScripts.InGameMenu.GameSettings.PlaceVersionWithLatest"
 local PLACE_VERSION = "CoreScripts.InGameMenu.GameSettings.PlaceVersion"
 
@@ -242,7 +241,7 @@ function VersionReporter:didMount()
 				local json = HttpRbxApiService:GetAsync(string.format("assets/%d/versions", game.PlaceId))
 				local versionData = HttpService:JSONDecode(json)
 				local latestVersion = versionData[1].VersionNumber
-	
+
 				if self.mounted then
 					self:setState({
 						latestPlaceVersion = latestVersion,

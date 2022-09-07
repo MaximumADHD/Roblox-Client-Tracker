@@ -1,3 +1,4 @@
+--!nonstrict
 
 -- Written by SolarCrane
 

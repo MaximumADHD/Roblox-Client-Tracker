@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local BacktraceReport = require(script.Parent.BacktraceReport)
 	local CorePackages = game:GetService("CorePackages")

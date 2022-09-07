@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	{
 		universeId : string,

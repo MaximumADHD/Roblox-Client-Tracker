@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local CorePackages = game:GetService("CorePackages")
 	local VRService = game:GetService("VRService")

@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: ExtraDataInitializer.lua
 --	// Written by: Xsitsu
 --	// Description: Module that sets some basic ExtraData such as name color, and chat color.

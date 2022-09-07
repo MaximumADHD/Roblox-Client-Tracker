@@ -5,12 +5,16 @@ local CorePackages = game:GetService("CorePackages")
 local Modules = CoreGui.RobloxGui.Modules
 
 local Roact = require(CorePackages.Roact)
+local RoactRodux = require(CorePackages.RoactRodux)
 
 local ShareGame = Modules.Settings.Pages.ShareGame
+local Constants = require(ShareGame.Constants)
 local Header = require(ShareGame.Components.Header)
 local ConversationList = require(ShareGame.Components.ConversationList)
 local ToasterComponent = require(ShareGame.Components.ErrorToaster)
 local BackButton = require(ShareGame.Components.BackButton)
+
+local GetFFlagEnableNewInviteMenu = require(Modules.Flags.GetFFlagEnableNewInviteMenu)
 
 local HEADER_HEIGHT = 60
 local USER_LIST_PADDING = 10
@@ -25,6 +29,8 @@ local CLAMP_TO_FIVE_HALF_ENTRIES = (HEADER_HEIGHT)
 local MAX_MODAL_WIDTH = UDim.new(0.8, 320)
 local MAX_MODAL_HEIGHT = UDim.new(0.7, CLAMP_TO_FIVE_HALF_ENTRIES)
 local POSITION_HEIGHT_OFFSET = 0.075
+
+local NEW_MAX_MODAL_WDITH = UDim.new(0.8, 440)
 
 local IMAGE_ROUNDED_BACKGROUND = "rbxasset://textures/ui/LuaChat/9-slice/btn-control-sm.png"
 
@@ -57,15 +63,33 @@ function ModalShareGamePageFrame:render()
 
 	local isVisible = self.props.isVisible
 
+	local isNewUI = GetFFlagEnableNewInviteMenu()
+	local modalWidth = if isNewUI then NEW_MAX_MODAL_WDITH else MAX_MODAL_WIDTH
+
+	local useMobileLandscapeLayout = isNewUI and
+		self.props.deviceInfo and
+		self.props.deviceInfo.DeviceLayout == Constants.DeviceLayout.PHONE_LANDSCAPE
+
+	local anchorPoint = Vector2.new(0.5, 0.5)
+	local size = UDim2.new(modalWidth.Scale, 0, MAX_MODAL_HEIGHT.Scale, 0)
+	local maxSize = Vector2.new(modalWidth.Offset, MAX_MODAL_HEIGHT.Offset)
+	local position = UDim2.new(0.5, 0, 0.5 - POSITION_HEIGHT_OFFSET, 0)
+	if useMobileLandscapeLayout then
+		anchorPoint = Vector2.new(0.5, 1)
+		size = UDim2.new(modalWidth.Scale, 0, 1, 0)
+		maxSize = Vector2.new(modalWidth.Offset, math.huge)
+		position = UDim2.new(0.5, 0, 1, 4)
+	end
+
 	return Roact.createElement("ImageButton", {
-		AnchorPoint = Vector2.new(0.5, 0.5),
+		AnchorPoint = anchorPoint,
 		BackgroundTransparency = 1,
 		Image = IMAGE_ROUNDED_BACKGROUND,
 		ImageColor3 = SETTINGS_SHIELD_BACKGROUND_COLOR,
 		ImageTransparency = 0.1,
 		Modal = isVisible,
-		Position = UDim2.new(0.5, 0, 0.5 - POSITION_HEIGHT_OFFSET, 0),
-		Size = UDim2.new(MAX_MODAL_WIDTH.Scale, 0, MAX_MODAL_HEIGHT.Scale, 0),
+		Position = position,
+		Size = size,
 		ScaleType = Enum.ScaleType.Slice,
 		SliceCenter = Rect.new(
 			Vector2.new(BACKGROUND_BORDER_RADIUS, BACKGROUND_BORDER_RADIUS),
@@ -73,7 +97,7 @@ function ModalShareGamePageFrame:render()
 		),
 	}, {
 		sizeConstraint = Roact.createElement("UISizeConstraint", {
-			MaxSize = Vector2.new(MAX_MODAL_WIDTH.Offset, MAX_MODAL_HEIGHT.Offset),
+			MaxSize = maxSize,
 		}),
 		uiPadding2 = Roact.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, CONTENT_PADDING),
@@ -120,5 +144,11 @@ function ModalShareGamePageFrame:render()
 		})
 	})
 end
+
+ModalShareGamePageFrame = RoactRodux.connect(function(state)
+	return {
+		deviceInfo = state.DeviceInfo
+	}
+end)(ModalShareGamePageFrame)
 
 return ModalShareGamePageFrame

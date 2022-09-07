@@ -1,30 +1,41 @@
-local workspace = game:GetService("Workspace")
+local Workspace = game:GetService("Workspace")
 
-local DebugFlags = {}
+local FLAGS_FOLDER = "AssetManagerFlags"
 
-local function checkFlag(flagName)
-	local flags = workspace:FindFirstChild("AssetManagerFlags")
-	if flags then
-		return flags:FindFirstChild(flagName) and flags[flagName].Value
-	else
-		return false
+local hasInternalPermission = require(script.Parent.hasInternalPermission)()
+
+local inCLI = pcall(function()
+	-- Process service only available in CLI
+	return game:GetService("ProcessService")
+end)
+
+local function defineFlag(flagName: string, default: boolean?): (() -> boolean)
+	default = default or false
+	return function()
+		local folder = Workspace:FindFirstChild(FLAGS_FOLDER)
+		if not folder or not folder:FindFirstChild(flagName) then
+			return default
+		end
+		return folder[flagName].Value
 	end
 end
 
-function DebugFlags.RunTests()
-	return checkFlag("RunTests")
-end
+export type DebugFlags = {
+	RunningUnderCLI: () -> boolean,
+	RunTests: () -> boolean,
+	LogTestsQuiet: () -> boolean,
+	LogAnalytics: () -> boolean,
+	RunDeveloperFrameworkTests: () -> boolean,
+	EnableRoactConfigs: () -> boolean,
+}
 
-function DebugFlags.RunRhodiumTests()
-	return checkFlag("RunRhodiumTests")
-end
-
-function DebugFlags.LogRoduxEvents()
-	return checkFlag("LogRoduxEvents")
-end
-
-function DebugFlags.LogAnalytics()
-	return checkFlag("LogAnalytics")
-end
+local DebugFlags: DebugFlags = {
+	RunningUnderCLI = defineFlag("RunningUnderCLI", inCLI),
+	RunTests = defineFlag("RunTests", false),
+	LogTestsQuiet = defineFlag("LogTestsQuiet"),
+	LogAnalytics = defineFlag("LogAnalytics"),
+	RunDeveloperFrameworkTests = defineFlag("RunDeveloperFrameworkTests"),
+	EnableRoactConfigs = defineFlag("EnableRoactConfigs", inCLI or hasInternalPermission),
+}
 
 return DebugFlags

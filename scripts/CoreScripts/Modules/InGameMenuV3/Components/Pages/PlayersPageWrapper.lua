@@ -59,6 +59,7 @@ function PlayersPageWrapper:init()
 
 	self.onPlayerRemoved = function(player)
 		self:setPlayerListDirty()
+		self:removeIncomingFriendRequestPlayer(player)
 		if self.menuOpen then
 			self:setState({
 				lastRemovedPlayerId = player.UserId

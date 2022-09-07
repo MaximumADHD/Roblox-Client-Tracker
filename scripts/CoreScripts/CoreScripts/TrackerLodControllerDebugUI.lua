@@ -1,3 +1,4 @@
+--!nonstrict
 local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -71,7 +72,7 @@ local lodButtons = {
 }
 
 local function updateButtonsState()
-	if not FaceAnimatorService:isStarted() then
+	if not FaceAnimatorService:IsStarted() then
 		offButton.BackgroundColor3 = HIGHLIGHT_LOD_BG_COLOR
 		print("[FaceAnimatorUI] FaceAnimatorService not started or LodController not enabled. UI not active.")
 	else

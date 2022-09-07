@@ -90,4 +90,11 @@ function BundleInfo.fromGetBundleFavoriteCount(bundleId, numFavorites)
 	return newBundle
 end
 
+function BundleInfo.fromGetItemFavorite(bundleId, isFavorited)
+	local newBundle = BundleInfo.new()
+	newBundle.bundleId = tostring(bundleId)
+	newBundle.isFavorited = isFavorited
+	return newBundle
+end
+
 return BundleInfo

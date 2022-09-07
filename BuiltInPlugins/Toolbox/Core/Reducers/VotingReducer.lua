@@ -1,5 +1,3 @@
-local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
-local FFlagToolboxFixVoteCountAfterRating = game:GetFastFlag("ToolboxFixVoteCountAfterRating")
 local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
 local FFlagToolboxFixAssetsNoVoteData2 = game:GetFastFlag("ToolboxFixAssetsNoVoteData2")
 
@@ -32,23 +30,23 @@ local function handleVoting(state, assetId, voteDirection)
 	local currentVoting = state[assetId]
 	local newVoteUp = currentVoting.UpVotes
 	local newVoteDown = currentVoting.DownVotes
-	local newVoteCount = if FFlagAssetVoteSimplification then currentVoting.VoteCount else nil
+	local newVoteCount = currentVoting.VoteCount
 
 	if voteDirection then
 		if currentVoting.HasVoted and not currentVoting.UserVote then
 			newVoteDown = currentVoting.DownVotes - 1
-			newVoteCount = if FFlagAssetVoteSimplification then newVoteCount - 1 else nil
+			newVoteCount = newVoteCount - 1
 		end
 		newVoteUp = currentVoting.UpVotes + 1
-		newVoteCount = if FFlagAssetVoteSimplification then newVoteCount + 1 else nil
+		newVoteCount = newVoteCount + 1
 	else
 		if currentVoting.HasVoted and currentVoting.UserVote then
 			newVoteUp = currentVoting.UpVotes - 1
-			newVoteCount = if FFlagAssetVoteSimplification then newVoteCount - 1 else nil
+			newVoteCount = newVoteCount - 1
 		end
 
 		newVoteDown = currentVoting.DownVotes + 1
-		newVoteCount = if FFlagAssetVoteSimplification then newVoteCount + 1 else nil
+		newVoteCount = newVoteCount + 1
 	end
 
 	local hasVoted = true
@@ -61,11 +59,9 @@ local function handleVoting(state, assetId, voteDirection)
 			UserVote = voteDirection,
 			UpVotes = newVoteUp,
 			DownVotes = newVoteDown,
-			VoteCount = if FFlagToolboxFixVoteCountAfterRating and FFlagAssetVoteSimplification
-				then currentVoting.VoteCount
-				else FFlagAssetVoteSimplification and newVoteCount,
+			VoteCount = currentVoting.VoteCount,
 			-- If they have a vote, show the vote buttons so they'll see the red or green thumb near the asset icon
-			showVoteButtons = if FFlagToolboxUseGetVote then hasVoted else nil,
+			showVoteButtons = hasVoted,
 		}),
 	})
 end
@@ -74,14 +70,14 @@ local function handleUnvoting(state, assetId)
 	local currentVoting = state[assetId]
 	local newVoteUp = currentVoting.UpVotes
 	local newVoteDown = currentVoting.DownVotes
-	local newVoteCount = if FFlagAssetVoteSimplification then currentVoting.VoteCount else nil
+	local newVoteCount = currentVoting.VoteCount
 	if currentVoting.HasVoted then
 		if currentVoting.UserVote == true then
 			newVoteUp = newVoteUp - 1
 		else
 			newVoteDown = newVoteDown - 1
 		end
-		newVoteCount = if FFlagAssetVoteSimplification then newVoteCount - 1 else nil
+		newVoteCount = newVoteCount - 1
 	end
 
 	return Cryo.Dictionary.join(state, {
@@ -90,9 +86,7 @@ local function handleUnvoting(state, assetId)
 			UserVote = Cryo.None,
 			UpVotes = newVoteUp,
 			DownVotes = newVoteDown,
-			VoteCount = if FFlagToolboxFixVoteCountAfterRating and FFlagAssetVoteSimplification
-				then currentVoting.VoteCount
-				else FFlagAssetVoteSimplification and newVoteCount,
+			VoteCount = currentVoting.VoteCount,
 		}),
 	})
 end

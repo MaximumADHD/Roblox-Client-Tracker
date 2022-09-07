@@ -1,4 +1,3 @@
---!nonstrict
 --[[
 	Action that sets the user info of the inspected user
 	in the inspect and buy menu. This sets the user id which

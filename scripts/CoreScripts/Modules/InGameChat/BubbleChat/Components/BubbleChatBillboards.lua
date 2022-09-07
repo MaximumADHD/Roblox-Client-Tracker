@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Handles rendering of each BubbleChatBillboard depending on if a user has any
 	messages.

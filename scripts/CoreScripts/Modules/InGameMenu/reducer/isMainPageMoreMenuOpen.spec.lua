@@ -1,4 +1,3 @@
---!nonstrict
 return function()
 	local InGameMenu = script.Parent.Parent
 	local SetMainPageMoreMenuOpen = require(InGameMenu.Actions.SetMainPageMoreMenuOpen)

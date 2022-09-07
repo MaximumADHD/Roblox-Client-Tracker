@@ -1,3 +1,4 @@
+--!nonstrict
 -- module to contain methods related to managing ui and ui effects.
 local VirtualCursorFolder = script.Parent
 

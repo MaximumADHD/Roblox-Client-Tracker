@@ -1,5 +1,3 @@
---!nonstrict
-
 local CorePackages = game:GetService("CorePackages")
 -- FIXME: Add WaitForChild method to RobloxDefinitions.cpp settingsProps
 local GameSettings = (settings() :: any):WaitForChild("Game Options") -- TODO: we should migrate the APIs from here to CoreGui

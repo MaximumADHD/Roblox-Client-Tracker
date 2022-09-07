@@ -1,8 +1,8 @@
 --!strict
 local FFlagToolboxPackagesInAssetTile = game:GetFastFlag("ToolboxPackagesInAssetTile")
+local FFlagToolboxInsertMaterialsInMS = game:GetFastFlag("ToolboxInsertMaterialsInMS")
 
 local Plugin = if FFlagToolboxPackagesInAssetTile then nil else script:FindFirstAncestor("Toolbox") -- unused variable, remove with FFlagToolboxPackagesInAssetTile
-local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
 
 export type AudioDetails = {
 	Type: string?,
@@ -99,7 +99,7 @@ function AssetInfo.fromItemDetailsRequest(data): AssetInfo
 			Name = data.asset.name,
 			TypeId = data.asset.typeId,
 			AssetGenres = data.asset.assetGenres,
-			AssetSubTypes = if FFlagToolboxPackagesInAssetTile then data.asset.assetSubTypes else nil,
+			AssetSubTypes = if FFlagToolboxPackagesInAssetTile or FFlagToolboxInsertMaterialsInMS then data.asset.assetSubTypes else nil,
 			IsEndorsed = data.asset.isEndorsed,
 			Description = data.asset.description,
 			Duration = data.asset.duration,
@@ -151,8 +151,8 @@ function AssetInfo.fromItemDetailsRequest(data): AssetInfo
 			ShowVotes = data.voting.showVotes,
 			UpVotes = data.voting.upVotes,
 			DownVotes = data.voting.downVotes,
-			VoteCount = FFlagAssetVoteSimplification and data.voting.voteCount,
-			UpVotePercent = FFlagAssetVoteSimplification and data.voting.upVotePercent,
+			VoteCount = data.voting.voteCount,
+			UpVotePercent = data.voting.upVotePercent,
 			CanVote = data.voting.canVote,
 			UserVote = data.voting.userVote,
 			HasVoted = data.voting.hasVoted,

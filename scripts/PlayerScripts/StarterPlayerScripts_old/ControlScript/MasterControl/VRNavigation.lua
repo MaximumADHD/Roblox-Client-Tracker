@@ -58,7 +58,7 @@ local function getLocalHumanoid()
 	if not character then
 		return
 	end
-	
+
 	for _, child in pairs(character:GetChildren()) do
 		if child:IsA("Humanoid") then
 			return child
@@ -91,7 +91,7 @@ local function shouldUseNavigationLaser()
 	--using an Xbox controller with a desktop VR headset means no laser since the user has a thumbstick.
 	--in the future, we should query thumbstick presence with a features API
 	if isMobileVR() then
-		return true		
+		return true
 	else
 		if hasBothHandControllers() then
 			return false
@@ -118,16 +118,16 @@ local function startFollowingPath(newPath)
 	currentPoints = currentPath:GetPointCoordinates()
 	currentPointIdx = 1
 	moving = true
-	
+
 	timeReachedLastPoint = tick()
-	
+
 	local humanoid = getLocalHumanoid()
 	if humanoid and humanoid.Torso and #currentPoints >= 1 then
 		local dist = (currentPoints[1] - humanoid.Torso.Position).magnitude
 		expectedTimeToNextPoint = dist / humanoid.WalkSpeed
 	end
-	
-	movementUpdateEvent:Fire("targetPoint", currentDestination)	
+
+	movementUpdateEvent:Fire("targetPoint", currentDestination)
 end
 
 local function goToPoint(point)
@@ -137,12 +137,12 @@ local function goToPoint(point)
 	moving = true
 
 	local humanoid = getLocalHumanoid()
-	local distance = (humanoid.Torso.Position - point).magnitude	
-	local estimatedTimeRemaining = distance / humanoid.WalkSpeed 
-	
+	local distance = (humanoid.Torso.Position - point).magnitude
+	local estimatedTimeRemaining = distance / humanoid.WalkSpeed
+
 	timeReachedLastPoint = tick()
 	expectedTimeToNextPoint = estimatedTimeRemaining
-	
+
 	movementUpdateEvent:Fire("targetPoint", point)
 end
 
@@ -158,27 +158,27 @@ end
 local function tryComputePath(startPos, destination)
 	local numAttempts = 0
 	local newPath = nil
-	
+
 	while not newPath and numAttempts < 5 do
 		newPath = PathfindingService:ComputeSmoothPathAsync(startPos, destination, MAX_PATHING_DISTANCE)
 		numAttempts = numAttempts + 1
-		
+
 		if newPath.Status == Enum.PathStatus.ClosestNoPath or newPath.Status == Enum.PathStatus.ClosestOutOfRange then
 			newPath = nil
 			break
 		end
-		
+
 		if newPath and newPath.Status == Enum.PathStatus.FailStartNotEmpty then
 			startPos = startPos + (destination - startPos).unit
 			newPath = nil
 		end
-		
+
 		if newPath and newPath.Status == Enum.PathStatus.FailFinishNotEmpty then
 			destination = destination + Vector3.new(0, 1, 0)
 			newPath = nil
 		end
 	end
-	
+
 	return newPath
 end
 
@@ -189,24 +189,24 @@ local function onNavigationRequest(destinationCFrame, requestedWith)
 	if not IsFiniteVector3(destinationPosition) then
 		return
 	end
-	
+
 	currentDestination = destinationPosition
-		
+
 	local humanoid = getLocalHumanoid()
 	if not humanoid or not humanoid.Torso then
 		return
 	end
-		
+
 	local currentPosition = humanoid.Torso.Position
 	local distanceToDestination = (currentDestination - currentPosition).magnitude
-		
+
 	if distanceToDestination < NO_PATH_THRESHOLD then
 		goToPoint(currentDestination)
 		return
-	end		
-		
+	end
+
 	if not lastDestination or (currentDestination - lastDestination).magnitude > RECALCULATE_PATH_THRESHOLD then
-		local newPath = tryComputePath(currentPosition, currentDestination)	
+		local newPath = tryComputePath(currentPosition, currentDestination)
 		if newPath then
 			startFollowingPath(newPath)
 			if PathDisplay then
@@ -252,24 +252,24 @@ end
 local moveLatch = false
 local controlCharacterGamepad = function(actionName, inputState, inputObject)
 	if inputObject.KeyCode ~= Enum.KeyCode.Thumbstick1 then return end
-	
+
 	if inputState == Enum.UserInputState.Cancel then
 		MasterControl:AddToPlayerMovement(-currentMoveVector)
 		currentMoveVector =  Vector3.new(0,0,0)
 		return
 	end
-	
+
 	if inputState ~= Enum.UserInputState.End then
-		stopFollowingPath()		
+		stopFollowingPath()
 		if PathDisplay then
 			PathDisplay.clearRenderedPath()
 		end
-		
+
 		if shouldUseNavigationLaser() then
 			bindJumpAction(true)
 			setLaserPointerMode("Hidden")
 		end
-		
+
 		if inputObject.Position.magnitude > THUMBSTICK_DEADZONE then
 			MasterControl:AddToPlayerMovement(-currentMoveVector)
 			currentMoveVector = Vector3.new(inputObject.Position.X, 0, -inputObject.Position.Y)
@@ -283,12 +283,12 @@ local controlCharacterGamepad = function(actionName, inputState, inputObject)
 	else
 		MasterControl:AddToPlayerMovement(-currentMoveVector)
 		currentMoveVector =  Vector3.new(0,0,0)
-		
+
 		if shouldUseNavigationLaser() then
 			bindJumpAction(false)
 			setLaserPointerMode("Navigation")
 		end
-		
+
 		if moveLatch then
 			moveLatch = false
 			movementUpdateEvent:Fire("offtrack")
@@ -309,7 +309,7 @@ local function onHeartbeat(dt)
 		local vectorToGoal = (goalPosition - currentPosition) * XZ_VECTOR3
 		local moveDist = vectorToGoal.magnitude
 		local moveDir = vectorToGoal / moveDist
-			
+
 		if moveDist < POINT_REACHED_THRESHOLD then
 			local estimatedTimeRemaining = 0
 			local prevPoint = currentPoints[1]
@@ -319,8 +319,8 @@ local function onHeartbeat(dt)
 					prevPoint = point
 					estimatedTimeRemaining = estimatedTimeRemaining + (dist / humanoid.WalkSpeed)
 				end
-			end					
-			
+			end
+
 			table.remove(currentPoints, 1)
 			currentPointIdx = currentPointIdx + 1
 
@@ -335,45 +335,45 @@ local function onHeartbeat(dt)
 					PathDisplay.setCurrentPoints(currentPoints)
 					PathDisplay.renderPath()
 				end
-				
+
 				local newGoal = currentPoints[1]
 				local distanceToGoal = (newGoal - currentPosition).magnitude
 				expectedTimeToNextPoint = distanceToGoal / humanoid.WalkSpeed
 				timeReachedLastPoint = tick()
 			end
 		else
-			local ignoreTable = { 
-				game.Players.LocalPlayer.Character, 
-				workspace.CurrentCamera 
+			local ignoreTable = {
+				game.Players.LocalPlayer.Character,
+				workspace.CurrentCamera
 			}
 			local obstructRay = Ray.new(currentPosition - Vector3.new(0, 1, 0), moveDir * 3)
-			local obstructPart, obstructPoint, obstructNormal = workspace:FindPartOnRayWithIgnoreList(obstructRay, ignoreTable)		
-				
+			local obstructPart, obstructPoint, obstructNormal = workspace:FindPartOnRayWithIgnoreList(obstructRay, ignoreTable)
+
 			if obstructPart then
 				local heightOffset = Vector3.new(0, 100, 0)
 				local jumpCheckRay = Ray.new(obstructPoint + moveDir * 0.5 + heightOffset, -heightOffset)
-				local jumpCheckPart, jumpCheckPoint, jumpCheckNormal = workspace:FindPartOnRayWithIgnoreList(jumpCheckRay, ignoreTable)		
-				
+				local jumpCheckPart, jumpCheckPoint, jumpCheckNormal = workspace:FindPartOnRayWithIgnoreList(jumpCheckRay, ignoreTable)
+
 				local heightDifference = jumpCheckPoint.Y - currentPosition.Y
 				if heightDifference < 6 and heightDifference > -2 then
 					humanoid.Jump = true
 				end
 			end
-			
+
 			local timeSinceLastPoint = tick() - timeReachedLastPoint
 			if timeSinceLastPoint > expectedTimeToNextPoint + OFFTRACK_TIME_THRESHOLD then
 				stopFollowingPath()
 				if PathDisplay then
 					PathDisplay.clearRenderedPath()
 				end
-				
+
 				movementUpdateEvent:Fire("offtrack")
 			end
-				
+
 			newMoveVector = currentMoveVector:Lerp(moveDir, dt * 10)
 		end
 	end
-	
+
 	if IsFiniteVector3(newMoveVector) then
 		MasterControl:AddToPlayerMovement(newMoveVector - currentMoveVector)
 		currentMoveVector = newMoveVector
@@ -394,10 +394,10 @@ end
 function VRNavigation:Enable()
 	navigationRequestedConn = VRService.NavigationRequested:connect(onNavigationRequest)
 	heartbeatConn = RunService.Heartbeat:connect(onHeartbeat)
-	
+
 	ContextActionService:BindAction("MoveThumbstick", controlCharacterGamepad, false, Enum.KeyCode.Thumbstick1)
-	ContextActionService:BindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)	
-	
+	ContextActionService:BindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)
+
 	userCFrameEnabledConn = VRService.UserCFrameEnabled:connect(onUserCFrameEnabled)
 	onUserCFrameEnabled()
 
@@ -409,13 +409,13 @@ end
 
 function VRNavigation:Disable()
 	stopFollowingPath()
-	
+
 	ContextActionService:UnbindAction("MoveThumbstick")
 	ContextActionService:UnbindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)
-	
+
 	bindJumpAction(false)
 	setLaserPointerMode("Disabled")
-	
+
 	if navigationRequestedConn then
 		navigationRequestedConn:disconnect()
 		navigationRequestedConn = nil

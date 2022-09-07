@@ -1,10 +1,10 @@
---!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 local IconButton = UIBlox.App.Button.IconButton
+local withHoverTooltip = UIBlox.App.Dialog.TooltipV2.withHoverTooltip
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -22,9 +22,13 @@ local GetFFlagSelfMuteConnectingFix = require(InGameMenu.Flags.GetFFlagSelfMuteC
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceConstants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
-local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicator)
+local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicatorFunc)
 local GetFFlagEnableVoiceChatManualReconnect = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatManualReconnect)
 local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
+
+-- These hotkeys are on the spec, but they haven't been implemented
+-- https://jira.rbx.com/browse/APPEXP-476
+local MUTE_SELF_HOTKEYS = nil -- { Enum.KeyCode.LeftAlt, Enum.KeyCode.S }
 
 local MuteSelfButton = Roact.PureComponent:extend("MuteSelfButton")
 
@@ -86,22 +90,35 @@ function MuteSelfButton:render()
 		self.muteSelf = localized.muteSelf
 		self.unmuteSelf = localized.unmuteSelf
 		self.connecting = localized.connecting
-		return Roact.createElement(IconButton, {
-			backgroundTransparency = self.props.backgroundTransparency,
-			backgroundColor = self.props.backgroundColor,
-			showBackground = true,
-			layoutOrder = self.props.layoutOrder,
-			onActivated = self.onActivated,
+
+		return withHoverTooltip({
+			headerText = if self.state.selfMuted then localized.unmuteSelf else localized.muteSelf,
+			hotkeyCodes = MUTE_SELF_HOTKEYS,
+			textAlignment = Enum.TextXAlignment.Center,
 		}, {
-			VoiceIndicator = Roact.createElement(VoiceIndicator, {
-				userId = tostring(Players.LocalPlayer.UserId),
-				hideOnError = false,
-				iconStyle = "MicLight",
-				size = UDim2.fromOffset(36, 36),
-				onClicked = self.onActivated,
-				iconTransparency = self.props.backgroundTransparency,
-			}),
-		})
+			guiTarget = CoreGui,
+			DisplayOrder = Constants.DisplayOrder.Tooltips,
+		}, function(triggerPointChanged, onStateChanged)
+			return Roact.createElement(IconButton, {
+				backgroundTransparency = self.props.backgroundTransparency,
+				backgroundColor = self.props.backgroundColor,
+				showBackground = true,
+				layoutOrder = self.props.layoutOrder,
+				onActivated = self.onActivated,
+				onStateChanged = onStateChanged,
+				[Roact.Change.AbsoluteSize] = triggerPointChanged,
+				onAbsolutePositionChanged = triggerPointChanged,
+			}, {
+				VoiceIndicator = Roact.createElement(VoiceIndicator, {
+					userId = tostring((Players.LocalPlayer :: Player).UserId),
+					hideOnError = false,
+					iconStyle = "MicLight",
+					size = UDim2.fromOffset(36, 36),
+					onClicked = self.onActivated,
+					iconTransparency = self.props.backgroundTransparency,
+				}),
+			})
+		end)
 	end)
 end
 

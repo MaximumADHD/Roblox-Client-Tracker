@@ -1,3 +1,4 @@
+--!nonstrict
 local ContextActionService = game:GetService("ContextActionService")
 local Signal = require(script.Parent.Parent.Parent.Signal)
 

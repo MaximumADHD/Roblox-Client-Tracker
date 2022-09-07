@@ -23,8 +23,6 @@ local GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix = require(
 local GetFFlagUIBloxEnableStandardButtonSizes = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableStandardButtonSizes
 )
-local FFlagUIBloxSliderCustomization = require(CorePackages.UIBloxFlags.FFlagUIBloxSliderCustomization)
-
 local GetFFlagUIBloxSliderUpdateOnDismiss = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxSliderUpdateOnDismiss
 )
@@ -33,8 +31,6 @@ local GetFFlagUIBloxFixDropdownMenuCellTextSize = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuCellTextSize
 )
 
-local GetFFlagAdjustableTextUnderTile = require(CorePackages.UIBloxFlags.GetFFlagAdjustableTextUnderTile)
-local GetFFlagEnableTileInsets = require(CorePackages.UIBloxFlags.GetFFlagEnableTileInsets)
 local GetFFlagUIBloxEnableVirtualizedListForCarousel = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableVirtualizedListForCarousel
 )
@@ -43,9 +39,9 @@ local FFlagSelectedSliderOverridesNextSelectionRightLeft = require(CorePackages.
 
 return {
 	selectedSliderOverridesNextSelectionRightLeft = FFlagSelectedSliderOverridesNextSelectionRightLeft,
-	enableTileInsets = GetFFlagEnableTileInsets(),
-	enableAdjustableTextUnderTile = GetFFlagAdjustableTextUnderTile(),
-	enableSliderCustomization = FFlagUIBloxSliderCustomization,
+	enableTileInsets = true,
+	enableAdjustableTextUnderTile = true,
+	enableSliderCustomization = true,
 	useNewUICornerRoundedCorners = true,
 	genericSliderFilterOldTouchInputs = true,
 	allowSystemBarToAcceptString = true,

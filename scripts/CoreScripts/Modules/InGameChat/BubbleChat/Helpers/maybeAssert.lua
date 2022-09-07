@@ -1,3 +1,4 @@
+--!nonstrict
 local GlobalConfig = require(script.Parent.Parent.GlobalConfig)
 
 local function maybeAssert(...)

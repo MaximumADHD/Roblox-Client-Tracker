@@ -1,4 +1,3 @@
---!strict
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local GameSettings = UserSettings():GetService("UserGameSettings")

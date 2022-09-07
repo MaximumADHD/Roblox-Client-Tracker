@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
   Filename: BarGraph.lua
   Written by: dbanks

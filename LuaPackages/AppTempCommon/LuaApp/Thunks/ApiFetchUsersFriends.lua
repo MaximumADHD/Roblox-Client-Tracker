@@ -12,7 +12,7 @@ local FetchUserFriendsCompleted = require(CorePackages.AppTempCommon.LuaApp.Acti
 local UserModel = require(CorePackages.AppTempCommon.LuaApp.Models.User)
 local UpdateUsers = require(CorePackages.AppTempCommon.LuaApp.Thunks.UpdateUsers)
 
-return function(requestImpl, userId, thumbnailRequest, userSort)
+return function(requestImpl, userId, thumbnailRequest, userSort): any
 	return function(store)
 		store:dispatch(FetchUserFriendsStarted(userId))
 

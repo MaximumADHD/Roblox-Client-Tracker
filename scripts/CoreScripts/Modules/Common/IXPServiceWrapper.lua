@@ -8,18 +8,14 @@
 --]]
 
 local RunService = game:GetService("RunService")
+local IXPService = game:GetService("IXPService")
 
 local GetFFlagEnableIXPInGame = require(script.Parent.Flags.GetFFlagEnableIXPInGame)
-
-local IXPService = nil
-pcall(function()
-	IXPService = game:GetEngineFeature("IXPService") and game:GetService("IXPService") or nil
-end)
 
 local ModuleTable = {}
 
 function ModuleTable:IsEnabled()
-	return GetFFlagEnableIXPInGame() and IXPService ~= nil
+	return GetFFlagEnableIXPInGame()
 end
 
 --[[
@@ -38,7 +34,6 @@ function ModuleTable:InitializeAsync(userId, userLayers)
 	if not self:IsEnabled() then
 		return
 	end
-	assert(IXPService, "")
 
 	local success, result = pcall(function()
 		if RunService:IsStudio() then
@@ -66,11 +61,10 @@ end
 
 	@returns nullable table containing the data associated with the layer
 --]]
-function ModuleTable:GetLayerData(userLayer): {[string]: any}?
+function ModuleTable:GetLayerData(userLayer): { [string]: any }?
 	if not self:IsEnabled() then
 		return nil
 	end
-	assert(IXPService, "")
 
 	local success, result = pcall(function()
 		return IXPService:GetUserLayerVariables(userLayer)
@@ -86,7 +80,6 @@ end
 --]]
 function ModuleTable:LogUserLayerExposure(layerName)
 	if self:IsEnabled() then
-		assert(IXPService, "")
 		pcall(function()
 			IXPService:LogUserLayerExposure(layerName)
 		end)
@@ -100,7 +93,6 @@ end
 --]]
 function ModuleTable:LogBrowserTrackerLayerExposure(layerName)
 	if self:IsEnabled() then
-		assert(IXPService, "")
 		pcall(function()
 			IXPService:LogBrowserTrackerLayerExposure(layerName)
 		end)

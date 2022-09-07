@@ -1,3 +1,4 @@
+--!nonstrict
 local ClickToMoveDisplay = {}
 
 local FAILURE_ANIMATION_ID = "rbxassetid://2874840706"

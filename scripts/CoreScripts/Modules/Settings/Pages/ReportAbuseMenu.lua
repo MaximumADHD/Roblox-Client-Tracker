@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 		Filename: ReportAbuseMenu.lua
 		Written by: jeditkacheff

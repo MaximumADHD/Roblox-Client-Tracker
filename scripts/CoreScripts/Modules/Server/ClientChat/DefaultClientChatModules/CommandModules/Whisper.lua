@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: Whisper.lua
 --	// Written by: TheGamer101
 --	// Description: Whisper chat bar manipulation.

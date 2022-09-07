@@ -7,13 +7,6 @@
 		Description: Takes care of the help page in Settings Menu
 --]]
 
------------- FFLAGS -------------------
-local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
-local FFlagUseNotificationsLocalization = success and result
-
-local CoreGui = game:GetService('CoreGui')
-local FFlagLuaMacUpdateFullscreenKeyboardShortcut2 = require(CoreGui.RobloxGui.Modules.Flags.FFlagLuaMacUpdateFullscreenKeyboardShortcut2)
-
 -------------- CONSTANTS --------------
 local KEYBOARD_MOUSE_TAG = "KeyboardMouse"
 local TOUCH_TAG = "Touch"
@@ -40,6 +33,11 @@ local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 local PageInstance = nil
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
+
+------------ FFLAGS -------------------
+local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
+local FFlagUseNotificationsLocalization = success and result
+local GetFFlagEnableKeyboardUINavigation = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagEnableKeyboardUINavigation)
 
 ----------- CLASS DECLARATION --------------
 
@@ -204,6 +202,10 @@ local function Initialize()
 
 		local miscActions = {}
 
+		if GetFFlagEnableKeyboardUINavigation() then
+			table.insert(miscActions, {["UI Selection Toggle"] = UserInputService:GetStringForKeyCode(Enum.KeyCode.BackSlash) })
+		end
+
 		local canShowRecordAndStats = not PolicyService:IsSubjectToChinaPolicies()
 
 		if canShowRecordAndStats then
@@ -219,11 +221,7 @@ local function Initialize()
 		table.insert(miscActions, {["Mouselock"] = "Shift"})
 		if canShowRecordAndStats then
 			table.insert(miscActions, {["Graphics Level"] = isOSX and "F10/fn + F10" or "F10"})
-			if FFlagLuaMacUpdateFullscreenKeyboardShortcut2 then
-				table.insert(miscActions, {["Fullscreen"] = isOSX and "Ctrl + Cmd + F" or "F11"})
-			else
-				table.insert(miscActions, {["Fullscreen"] = isOSX and "F11/fn + F11" or "F11"})
-			end
+			table.insert(miscActions, {["Fullscreen"] = isOSX and "Ctrl + Cmd + F" or "F11"})
 		end
 
 		if canShowRecordAndStats then

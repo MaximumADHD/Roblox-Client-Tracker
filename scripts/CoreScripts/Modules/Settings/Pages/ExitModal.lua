@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 		Filename: ExitModal.lua
 		Written by: relkhattabi

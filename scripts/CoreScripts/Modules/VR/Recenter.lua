@@ -67,7 +67,7 @@ end)
 
 function RecenterModule:SetVisible(value)
 	visible = value
-	
+
 	if visible then
 		if isCountingDown then
 			cancelCountdown()
@@ -95,7 +95,7 @@ function RecenterModule:SetVisible(value)
 			end
 
 			if isCountingDown then
-				InputService:RecenterUserHeadCFrame() 
+				InputService:RecenterUserHeadCFrame()
 			end
 
 			countdownPanel:SetVisible(false)

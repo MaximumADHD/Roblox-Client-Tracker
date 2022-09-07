@@ -4,5 +4,6 @@ game:DefineFastFlag("MaterialManagerVariantCreatorOverhaul", false)
 game:DefineFastFlag("DeprecateMaterialController", false)
 game:DefineFastFlag("MaterialManagerTextureMapUploadFix", false)
 game:DefineFastFlag("MaterialManagerTextureMapDiverseErrors", false)
+game:DefineFastFlag("MaterialManagerDisableSelectionOnTool", false)
 
 return nil

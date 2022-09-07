@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: ChatWindow.lua
 --	// Written by: Xsitsu
 --	// Description: Main GUI window piece. Manages ChatBar, ChannelsBar, and ChatChannels.

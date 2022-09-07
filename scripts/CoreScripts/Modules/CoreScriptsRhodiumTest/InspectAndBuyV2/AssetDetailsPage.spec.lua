@@ -24,7 +24,8 @@ return function()
 						description = "testDesc",
 						name = "testName"
 					}
-				}
+				},
+				screenSize = Vector2.new(500, 500),
 			}
 
 			it("should mount", function()
@@ -33,7 +34,7 @@ return function()
 					local baseWidget = Element.new(path)
 					expect(baseWidget:waitForRbxInstance(1)).to.be.ok()
 				end,
-				wrappedComponent, Reducer, {}, nil)
+				wrappedComponent, Reducer, initState, nil)
 			end)
 
 			it("should render all aspects of the page", function()

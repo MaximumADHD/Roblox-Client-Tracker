@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: ChatBar.lua
 --	// Written by: Xsitsu
 --	// Description: Manages text typing and typing state.

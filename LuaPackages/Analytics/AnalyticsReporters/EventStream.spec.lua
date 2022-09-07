@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 
 	local EventStream = require(script.Parent.EventStream)

@@ -1,3 +1,4 @@
+--!nonstrict
 --!nolint DeprecatedApi
 local PURPOSE_DATA = {
 	[Enum.DialogPurpose.Quest] = {

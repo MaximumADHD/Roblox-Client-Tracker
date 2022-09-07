@@ -7,11 +7,18 @@ local isCli = require(Plugin.Core.Util.isCli)
 local NetworkInterface = require(Plugin.Core.Networking.NetworkInterface)
 local Urls = require(Plugin.Core.Util.Urls)
 
+local Libs = Plugin.Packages
+local Framework = require(Libs.Framework)
+local Dash = Framework.Dash
+
 local Category = require(Plugin.Core.Types.Category)
+local AssetSubTypes = require(Plugin.Core.Types.AssetSubTypes)
 
 local webKeys = require(Plugin.Core.Util.Permissions.Constants).webKeys
 
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
+local FFlagToolboxInsertMaterialsInMS = game:GetFastFlag("ToolboxInsertMaterialsInMS")
+local FFlagToolboxFixInsertPackage = game:GetFastFlag("ToolboxFixInsertPackage")
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local InsertService = game:GetService("InsertService")
@@ -20,6 +27,7 @@ local StarterPack = game:GetService("StarterPack")
 local Workspace = game:GetService("Workspace")
 local StudioService = game:GetService("StudioService")
 local Lighting = game:GetService("Lighting")
+local MaterialService = game:GetService("MaterialService")
 local MarketplaceService = game:GetService("MarketplaceService")
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
@@ -71,7 +79,14 @@ local function grantAssetPermission(assetId, networkInterface)
 		:await()
 end
 
-local function doPermissionGrantDialogForAsset(assetName, assetId, assetTypeId, insertToolPromise, localization, networkInterface)
+local function doPermissionGrantDialogForAsset(
+	assetName,
+	assetId,
+	assetTypeId,
+	insertToolPromise,
+	localization,
+	networkInterface
+)
 	if game.GameId == 0 then
 		return
 	end
@@ -95,7 +110,13 @@ local function doPermissionGrantDialogForAsset(assetName, assetId, assetTypeId, 
 	})
 	if grantPermission then
 		local result = grantAssetPermission(assetId, networkInterface)
-		if result ~= nil and result.Body ~= nil and result.Body.Error ~= nil and result.Body.Error.Code ~= nil and result.Body.Error.Code ~= 4 then
+		if
+			result ~= nil
+			and result.Body ~= nil
+			and result.Body.Error ~= nil
+			and result.Body.Error.Code ~= nil
+			and result.Body.Error.Code ~= 4
+		then
 			warn(localization:getText("GrantAssetPermission", "Failure", {
 				assetId = assetId,
 			}))
@@ -126,7 +147,14 @@ local function insertAudio(assetId, assetName, insertToolPromise, localization, 
 	if FFlagToolboxEnableAudioGrantDialog then
 		-- If for some reason this fails in an unexpected way, we want it to happen after inserting
 		-- the asset for parity with the drag/drop code where the asset is already inserted.
-		doPermissionGrantDialogForAsset(assetName, assetId, Enum.AssetType.Audio.Value, insertToolPromise, localization, networkInterface)
+		doPermissionGrantDialogForAsset(
+			assetName,
+			assetId,
+			Enum.AssetType.Audio.Value,
+			insertToolPromise,
+			localization,
+			networkInterface
+		)
 	end
 
 	return soundObj
@@ -187,7 +215,7 @@ local function doScriptConfirmationIfContainsScripts(assetName, instances, inser
 	insertToolPromise:promptScriptWarningAndWait({ assetName = assetName, numScripts = numScripts })
 end
 
-local function insertAsset(assetId, assetName, insertToolPromise, assetTypeId, localization)
+local function insertAsset(assetId, assetName, insertToolPromise, assetTypeId, localization, assetSubTypes)
 	local targetParent = Workspace
 
 	local assetInstance = nil
@@ -221,6 +249,11 @@ local function insertAsset(assetId, assetName, insertToolPromise, assetTypeId, l
 				-- If it's a sky or atmosphere object, we will parent it to lighting.
 				-- No promise needed here.
 				o.Parent = Lighting
+			elseif
+				FFlagToolboxInsertMaterialsInMS
+				and (AssetSubTypes.contains(assetSubTypes, AssetSubTypes.MaterialPack))
+			then
+				o.Parent = MaterialService
 			else
 				-- If it's a tool or hopperbin, then we should ask the
 				-- dev if they want to put it in the starterpack or not,
@@ -380,11 +413,20 @@ local function assetTypeIdToString(assetTypeId)
 end
 
 local function dispatchInsertAsset(options, insertToolPromise, networkInterface)
-	local isPackage = Category.categoryIsPackage(options.categoryName)
+	local isPackage = if FFlagToolboxFixInsertPackage and options.assetSubTypes ~= nil
+		then AssetSubTypes.contains(options.assetSubTypes, AssetSubTypes.Package)
+		else Category.categoryIsPackage(options.categoryName)
+
 	if isPackage then
 		return insertPackage(options.assetId)
 	elseif options.assetTypeId == Enum.AssetType.Audio.Value then
-		return insertAudio(options.assetId, options.assetName, insertToolPromise, options.localization, networkInterface)
+		return insertAudio(
+			options.assetId,
+			options.assetName,
+			insertToolPromise,
+			options.localization,
+			networkInterface
+		)
 	elseif options.assetTypeId == Enum.AssetType.Decal.Value then
 		return insertDecal(options.plugin, options.assetId, options.assetName)
 	elseif options.assetTypeId == Enum.AssetType.Plugin.Value then
@@ -397,7 +439,8 @@ local function dispatchInsertAsset(options, insertToolPromise, networkInterface)
 			options.assetName,
 			insertToolPromise,
 			options.assetTypeId,
-			options.localization
+			options.localization,
+			if FFlagToolboxInsertMaterialsInMS then options.assetSubTypes else nil
 		)
 	end
 end
@@ -450,6 +493,7 @@ function InsertAsset.tryInsert(options, insertToolPromise, assetWasDragged, netw
 			assetName = options.assetName,
 			assetId = options.assetId,
 			assetTypeId = if FFlagToolboxEnableAudioGrantDialog then options.assetTypeId else nil,
+			assetSubTypes = if FFlagToolboxInsertMaterialsInMS then options.assetSubTypes else nil,
 			localization = if FFlagToolboxEnableAudioGrantDialog then InsertAsset._localization else nil,
 			insertToolPromise = insertToolPromise,
 			onSuccess = options.onSuccess,
@@ -589,6 +633,15 @@ function InsertAsset.registerProcessDragHandler(plugin)
 					activeDraggingState.instances,
 					activeDraggingState.insertToolPromise
 				)
+
+				if
+					FFlagToolboxInsertMaterialsInMS
+					and (AssetSubTypes.contains(activeDraggingState.assetSubTypes, AssetSubTypes.MaterialPack))
+				then
+					for _, instance in activeDraggingState.instances do
+						instance.Parent = MaterialService
+					end
+				end
 
 				if activeDraggingState.onSuccess then
 					activeDraggingState.onSuccess(activeDraggingState.assetId, activeDraggingState.instances)

@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: PrivateMessaging.lua
 --	// Written by: Xsitsu
 --	// Description: Module that handles all private messaging.

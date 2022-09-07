@@ -1,3 +1,4 @@
+--!nonstrict
 local Players = game:GetService("Players")
 local Chat = game:GetService("Chat")
 local ReplicatedModules = Chat:WaitForChild("ClientChatModules")

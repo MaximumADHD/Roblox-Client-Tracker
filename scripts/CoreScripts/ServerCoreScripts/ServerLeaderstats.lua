@@ -1,3 +1,4 @@
+--!nonstrict
 -- ServerLeaderstats.lua
 -- Authors: WallsAreForClimbing (2020)
 -- Description: Tracks leaderstat creation order

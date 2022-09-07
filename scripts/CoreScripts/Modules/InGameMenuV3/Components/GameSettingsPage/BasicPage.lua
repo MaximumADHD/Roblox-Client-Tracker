@@ -42,6 +42,7 @@ local GraphicsQualityEntry = require(script.Parent.GraphicsQualityEntry)
 local MovementModeEntry = require(script.Parent.MovementModeEntry)
 local ToggleEntry = require(script.Parent.ToggleEntry)
 local VolumeEntry = require(script.Parent.VolumeEntry)
+local VideoCameraEntry = require(script.Parent.VideoCameraEntry)
 
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
@@ -55,6 +56,8 @@ local Flags = InGameMenu.Flags
 local GetFFlagInGameMenuVRToggle = require(Flags.GetFFlagInGameMenuVRToggle)
 
 local VREnabledChanged = UserGameSettings:GetPropertyChangedSignal("VREnabled")
+local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
+
 local platform = UserInputService:GetPlatform()
 local isMobileClient = (platform == Enum.Platform.IOS) or (platform == Enum.Platform.Android)
 
@@ -110,6 +113,7 @@ end
 function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 	local shouldSettingsDisabledInVRBeShown = not (GetFFlagInGameMenuVRToggle() and self.state.vrActive)
 	local showVoiceChatOptions = self.state.voiceChatEnabled
+	local showVideoCameraOptions = game:GetEngineFeature("VideoCaptureService")
 	local dividerSize = UDim2.new(1, -24, 0, 1)
 
 	return PageUtils.withScrollDownState(function(onScroll, scrollingDown)
@@ -213,21 +217,26 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 					canCaptureFocus = self.props.canGamepadCaptureFocus,
 					screenSize = self.props.screenSize,
 				}),
-				ControlsDivider = Roact.createElement(Divider, {
+				VideoCamera = showVideoCameraOptions and Roact.createElement(VideoCameraEntry, {
 					LayoutOrder = 12,
+					ButtonRef = self.cameraModeButton,
+					screenSize = self.props.screenSize,
+				}),
+				ControlsDivider = Roact.createElement(Divider, {
+					LayoutOrder = 13,
 					Size = dividerSize,
 				}),
 
 				GraphicsHeader = Roact.createElement(CategoryHeader, {
-					LayoutOrder = 13,
+					LayoutOrder = 14,
 					localizationKey = "CoreScripts.InGameMenu.GameSettings.GraphicsTitle",
 				}),
 				GraphicsQualityEntry = Roact.createElement(GraphicsQualityEntry, {
-					LayoutOrder = 14,
+					LayoutOrder = 15,
 					canCaptureFocus = self.props.canCaptureFocus and self.props.canGamepadCaptureFocus,
 				}),
 				FullScreen = not isMobileClient and shouldSettingsDisabledInVRBeShown and Roact.createElement(ToggleEntry, {
-					LayoutOrder = 15,
+					LayoutOrder = 16,
 					labelKey = "CoreScripts.InGameMenu.GameSettings.FullScreen",
 					checked = self.state.fullScreenEnabled,
 					onToggled = function()
@@ -238,28 +247,34 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				VRMode = GetFFlagInGameMenuVRToggle()
 					and (self.state.vrActive or UserGameSettings.HasEverUsedVR)
 					and Roact.createElement(AutoPropertyToggleEntry, {
-						LayoutOrder = 16,
+						LayoutOrder = 17,
 						labelKey = "CoreScripts.InGameMenu.GameSettings.VREnabled",
 						instance = UserGameSettings,
 						valueKey = "VREnabled",
 						subtextEnabled = self.state.vrEnabled ~= vrEnabledAtModuleLoad,
 						subtextKey = "CoreScripts.InGameMenu.GameSettings.RestartPending",
 					}),
+				VRSmoothRotationEnabled = self.state.vrActive and EngineFeatureEnableVRUpdate3 and Roact.createElement(AutoPropertyToggleEntry, {
+					LayoutOrder = 17,
+					labelKey = "CoreScripts.InGameMenu.GameSettings.VRSmoothRotationEnabled",
+					instance = UserGameSettings,
+					valueKey = "VRSmoothRotationEnabled",
+				}),
 				VignetteEnabled = self.state.vrActive and Roact.createElement(
 					AutoPropertyToggleEntry,
 					{
-						LayoutOrder = 17,
+						LayoutOrder = 18,
 						labelKey = "CoreScripts.InGameMenu.GameSettings.VignetteEnabled",
 						instance = UserGameSettings,
 						valueKey = "VignetteEnabled",
 					}
 				),
 				GraphicsDivider = Roact.createElement(Divider, {
-					LayoutOrder = 18,
+					LayoutOrder = 19,
 					Size = dividerSize,
 				}),
 				AdvancedSettings = Roact.createElement("TextButton", {
-					LayoutOrder = 19,
+					LayoutOrder = 20,
 					BackgroundTransparency = 1,
 					Size = UDim2.new(1, 0, 0, 54),
 					Text = "",
@@ -288,7 +303,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 					}),
 				}),
 				AdvancedDivider = Roact.createElement(Divider, {
-					LayoutOrder = 20,
+					LayoutOrder = 21,
 					Size = dividerSize,
 				}),
 

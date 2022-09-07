@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	OrbitalCamera - Spherical coordinates control camera for top-down games
 	2018 Camera Update - AllYourBlox

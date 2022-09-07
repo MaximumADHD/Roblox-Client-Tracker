@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Gamepad Character Control - This module handles controlling your avatar using a game console-style controller
 

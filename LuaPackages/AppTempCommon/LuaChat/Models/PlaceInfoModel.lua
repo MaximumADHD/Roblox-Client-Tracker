@@ -1,3 +1,4 @@
+--!nonstrict
 local CorePackages = game:GetService("CorePackages")
 
 local MockId = require(CorePackages.AppTempCommon.LuaApp.MockId)

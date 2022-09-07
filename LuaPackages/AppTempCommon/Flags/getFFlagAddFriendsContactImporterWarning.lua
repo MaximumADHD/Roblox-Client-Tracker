@@ -1,5 +1,3 @@
---!strict
-
 game:DefineFastFlag("AddFriendsContactImporterWarning_v1", false)
 
 return function()

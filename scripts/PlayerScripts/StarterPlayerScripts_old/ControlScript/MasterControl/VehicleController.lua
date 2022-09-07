@@ -3,7 +3,7 @@
 	// Version 1.0
 	// Written by: jmargh
 	// Description: Implements in-game vehicle controls for all input devices
-	
+
 	// NOTE: This works for basic vehicles (single vehicle seat). If you use custom VehicleSeat code,
 	// multiple VehicleSeats or your own implementation of a VehicleSeat this will not work.
 --]]
@@ -95,7 +95,7 @@ local function getClosestFittingValue(value)
 	elseif value < -0.5 then
 		return -1
 	end
-	return 0 
+	return 0
 end
 
 local function onRenderStepped()
@@ -109,8 +109,8 @@ local function onRenderStepped()
 				CurrentVehicleSeat.ThrottleFloat = -moveValue.z
 			end
 			CurrentVehicleSeat.SteerFloat = moveValue.x
-		end)	
-		
+		end)
+
 		if didSetThrottleSteerFloat == false then
 			if game:GetService("UserInputService"):GetGamepadConnected(Enum.UserInputType.Gamepad1) and onlyTriggersForThrottle and useTriggersForThrottle then
 				CurrentVehicleSeat.Throttle = -CurrentThrottle

@@ -25,6 +25,7 @@ local AssetDetailFavorite = require(InGameMenu.Components.InspectAndBuyPage.Asse
 local AssetDetailBottomBar = require(InGameMenu.Components.InspectAndBuyPage.AssetDetailBottomBar)
 
 local Constants = require(InGameMenu.Resources.Constants)
+local GetFavoriteForItem = require(InGameMenu.Thunks.GetFavoriteForItem)
 
 local TITLE_TEXT_SIZE = 24
 local TEXT_FRAME_HEIGHT = 40
@@ -56,6 +57,19 @@ function AssetDetailsPage:getBundleInfo()
 	end
 
 	return nil
+end
+
+function AssetDetailsPage:attemptFetchFavorite()
+	local bundleInfo = self:getBundleInfo()
+	if bundleInfo then
+		if bundleInfo.isFavorited == nil then
+			self.props.fetchItemFavorite(bundleInfo.bundleId, Enum.AvatarItemType.Bundle)
+		end
+	else
+		if self.props.selectedItem and self.props.selectedItem.isFavorited == nil then
+			self.props.fetchItemFavorite(self.props.selectedItem.assetId, Enum.AvatarItemType.Asset)
+		end
+	end
 end
 
 function AssetDetailsPage:init()
@@ -149,7 +163,9 @@ function AssetDetailsPage:renderWithProviders(style, localized)
 				LayoutOrder = 6,
 			}),
 		}),
-		AssetDetailBottomBar = Roact.createElement(AssetDetailBottomBar),
+		AssetDetailBottomBar = Roact.createElement(AssetDetailBottomBar, {
+			bundleInfo = bundleInfo,
+		}),
 	})
 end
 
@@ -166,20 +182,34 @@ function AssetDetailsPage:didUpdate(prevProps)
 	-- When navigating away from the AssetDetailsPage, reset the scrolling frame
 	-- CanvasPosition. This way, if a user had scrolled down on the page when inspecting
 	-- one item, it will not remain in that position when going to inspect another
-	if self.props.currentPage ~= prevProps.currentPage and
-		prevProps.currentPage == Constants.InspectAndBuyAssetDetailsPageKey then
-
-		local scrollingFrame = self.scrollingFrameRef:getValue()
-		if scrollingFrame then
-			scrollingFrame.CanvasPosition = Vector2.new(0, 0)
+	if self.props.currentPage ~= prevProps.currentPage then
+		if prevProps.currentPage == Constants.InspectAndBuyAssetDetailsPageKey then
+			-- Leaving Page
+			local scrollingFrame = self.scrollingFrameRef:getValue()
+			if scrollingFrame then
+				scrollingFrame.CanvasPosition = Vector2.new(0, 0)
+			end
+		elseif self.props.currentPage == Constants.InspectAndBuyAssetDetailsPageKey then
+			-- Entering Page
+			self:attemptFetchFavorite()
 		end
 	end
 end
 
-return RoactRodux.connect(function(state, props)
+local function mapStateToProps(state, props)
 	return {
 		selectedItem = state.inspectAndBuy.SelectedItem,
 		bundles = state.inspectAndBuy.Bundles,
 		currentPage = state.menuPage
 	}
-end, nil)(AssetDetailsPage)
+end
+
+local function mapDispatchToProps(dispatch)
+	return {
+		fetchItemFavorite = function(itemId, itemType)
+			dispatch(GetFavoriteForItem(itemId, itemType))
+		end,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetDetailsPage)

@@ -1,5 +1,3 @@
---!strict
-
 game:DefineFastFlag("OffNetworkFriendingEnabled_3", false)
 
 return function()

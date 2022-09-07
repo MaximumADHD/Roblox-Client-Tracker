@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local PlayerSorting = require(script.Parent.PlayerSorting)
 

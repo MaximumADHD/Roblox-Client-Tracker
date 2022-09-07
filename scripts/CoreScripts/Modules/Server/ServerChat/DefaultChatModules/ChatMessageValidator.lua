@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: ChatMessageValidator.lua
 --	// Written by: TheGamer101
 --	// Description: Validate things such as no disallowed whitespace and chat message length on the server.

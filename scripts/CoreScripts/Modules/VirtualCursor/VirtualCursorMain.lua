@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName: GamepadVirtualCursor.lua
 	// Written by: dangel (Garnold)

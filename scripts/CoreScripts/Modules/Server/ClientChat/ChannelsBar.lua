@@ -1,3 +1,4 @@
+--!nonstrict
 --	// FileName: ChannelsBar.lua
 --	// Written by: Xsitsu
 --	// Description: Manages creating, destroying, and displaying ChannelTabs.

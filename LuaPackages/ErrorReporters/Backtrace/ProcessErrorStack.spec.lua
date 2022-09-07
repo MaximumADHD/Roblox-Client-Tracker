@@ -1,3 +1,4 @@
+--!nonstrict
 return function()
 	local ProcessErrorStack = require(script.Parent.ProcessErrorStack)
 	local CorePackages = game:GetService("CorePackages")
