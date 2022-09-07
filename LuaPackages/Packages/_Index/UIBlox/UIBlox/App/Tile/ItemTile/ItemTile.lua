@@ -84,6 +84,7 @@ local itemTileInterface = t.strictInterface({
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	thumbnailRef = t.optional(t.table),
+	textButtonRef = t.optional(t.table),
 
 	-- Optional height of the title area is set to the max
 	useMaxTitleHeight = t.optional(t.boolean),
@@ -200,6 +201,7 @@ function ItemTile:render()
 		NextSelectionRight = self.props.NextSelectionRight,
 		NextSelectionUp = self.props.NextSelectionUp,
 		NextSelectionDown = self.props.NextSelectionDown,
+		textButtonRef = self.props.textButtonRef,
 		[Roact.Ref] = self.props.thumbnailRef,
 	})
 end

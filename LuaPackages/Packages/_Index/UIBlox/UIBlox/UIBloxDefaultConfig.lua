@@ -124,4 +124,7 @@ return {
 
 	-- Support React tags when running in DEV mode
 	enableReactTag = false,
+
+	-- disable tooltip animation
+	disableTooltipAnimation = false,
 }

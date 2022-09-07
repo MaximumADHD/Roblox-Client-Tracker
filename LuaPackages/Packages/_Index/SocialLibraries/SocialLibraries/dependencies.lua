@@ -3,6 +3,7 @@ local UserInputService = game:GetService("UserInputService")
 local UIBlox = require(Packages.UIBlox)
 local RoduxPresence = require(Packages.RoduxPresence)
 local RoduxFriends = require(Packages.RoduxFriends)
+local Players = game:GetService("Players")
 
 return {
 	Roact = require(Packages.Roact),
@@ -29,6 +30,7 @@ return {
 		keyPath = "SocialLibraries.Friends",
 	}),
 	enumerate = require(Packages.enumerate),
+	Players = Players,
 
 	-- TODO remove this when keyboard covering screen is automatically tracked on android
 	UserInputService = UserInputService,

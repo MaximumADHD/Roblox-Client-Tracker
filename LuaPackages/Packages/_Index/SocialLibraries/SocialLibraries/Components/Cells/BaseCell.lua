@@ -16,16 +16,25 @@ BaseCell.defaultProps = {
 	onPressedBackgroundTransparency = 1,
 	LayoutOrder = 0,
 
-	onActivated = function() print("BaseCell onActivated") end,
+	onActivated = function()
+		print("BaseCell onActivated")
+	end,
 	showDivider = true,
 	dividerTransparency = 0,
 	dividerColor3 = Color3.fromRGB(227, 227, 227),
 }
 
 function BaseCell:init()
+	self:setState({
+		isPressed = false,
+	})
+
 	self.touchFunction = function()
-		return function (_, inputObject)
-			if (inputObject.UserInputType == Enum.UserInputType.MouseButton1 or inputObject.UserInputType == Enum.UserInputType.Touch) then
+		return function(_, inputObject)
+			if
+				inputObject.UserInputType == Enum.UserInputType.MouseButton1
+				or inputObject.UserInputType == Enum.UserInputType.Touch
+			then
 				self:setState({
 					isPressed = inputObject.UserInputState == Enum.UserInputState.Begin,
 				})
@@ -72,8 +81,8 @@ function BaseCell:render()
 		LayoutOrder = self.props.LayoutOrder,
 		BorderSizePixel = 0,
 		[Roact.Event.Activated] = self.props.onActivated,
-		[Roact.Event.InputBegan] = self.touchFunction(self.props.onPressedBackgroundColor3),
-		[Roact.Event.InputEnded] = self.touchFunction(self.props.BackgroundColor3),
+		[Roact.Event.InputBegan] = self.touchFunction(),
+		[Roact.Event.InputEnded] = self.touchFunction(),
 	}, Cryo.Dictionary.join(self.props[Roact.Children] or {}, accessories))
 end
 

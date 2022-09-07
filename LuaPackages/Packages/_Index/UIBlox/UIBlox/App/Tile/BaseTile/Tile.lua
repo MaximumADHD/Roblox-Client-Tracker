@@ -93,6 +93,7 @@ local tileInterface = t.strictInterface({
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	thumbnailRef = t.optional(t.table),
+	textButtonRef = t.optional(t.table),
 
 	-- Optional height of the title area is set to the max
 	useMaxTitleHeight = t.optional(t.boolean),
@@ -247,6 +248,8 @@ function Tile:render()
 				Selectable = self.props.Selectable,
 				[Roact.Event.Activated] = not isDisabled and onActivated or nil,
 				[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
+				[Roact.Ref] = self.props.textButtonRef,
+				SelectionImageObject = getSelectionCursor(CursorKind.RoundedRectNoInset),
 			}, {
 				UIListLayout = Roact.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Vertical,

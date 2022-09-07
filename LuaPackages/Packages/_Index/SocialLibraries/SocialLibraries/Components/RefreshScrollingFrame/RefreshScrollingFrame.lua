@@ -1,12 +1,6 @@
 --[[
 	Imported from Lua App, stripped down for SocialTab use case
 ]]
-game:DefineFastFlag("SocialFixTabScrollingFrameError", false)
-
-local getSocialTabFixScrollingFrameError = function()
-	return game:GetFastFlag("SocialFixTabScrollingFrameError")
-end
-
 local UserInputService = game:GetService("UserInputService")
 local SocialLibraries = script:FindFirstAncestor("SocialLibraries")
 local dependencies = require(SocialLibraries.dependencies)
@@ -71,9 +65,7 @@ function RefreshScrollingFrameNew:init()
 		isRefreshing = false,
 	}
 
-	if getSocialTabFixScrollingFrameError() then
-		self.startHeight = 0
-	end
+	self.startHeight = 0
 
 	self.isUserInteracting = false
 

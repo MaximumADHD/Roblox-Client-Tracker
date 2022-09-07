@@ -54,6 +54,16 @@ return {
 	controls = {
 		errorType = {
 			PurchaseErrorType.Unknown,
+			PurchaseErrorType.AlreadyOwn,
+			PurchaseErrorType.FailedGrant,
+			PurchaseErrorType.FailedGrantUnknown,
+			PurchaseErrorType.Limited,
+			PurchaseErrorType.NotEnoughRobux,
+			PurchaseErrorType.NotForSale,
+			PurchaseErrorType.NotForSaleExperience,
+			PurchaseErrorType.PremiumOnly,
+			PurchaseErrorType.ThirdPartyDisabled,
+			PurchaseErrorType.Under13,
 		},
 		showController = true,
 	},

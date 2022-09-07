@@ -9,6 +9,7 @@ local Roact = require(Packages.Roact)
 
 local RobuxUpsellFlowState = require(RobuxUpsellRoot.RobuxUpsellFlowState)
 
+local Animator = require(IAPExperienceRoot.Generic.Animator)
 local LoadingOverlay = require(IAPExperienceRoot.Generic.LoadingOverlay)
 local LoadingOverlayState = require(IAPExperienceRoot.Generic.LoadingOverlayState)
 local PurchaseErrorPrompt = require(IAPExperienceRoot.Generic.PurchaseErrorPrompt)
@@ -21,6 +22,9 @@ local RobuxUpsellFlow = Roact.Component:extend(script.Name)
 
 type Props = {
 	screenSize: Vector2,
+
+	shouldAnimate: boolean?,
+	isDelayedInput: boolean?,
 
 	itemIcon: any?,
 	itemName: string,
@@ -53,8 +57,13 @@ type State = {
 }
 
 function RobuxUpsellFlow:init()
+	local props: Props = self.props
+
 	self.state = {
 		analyticId = HttpService:GenerateGUID(false);
+
+		isDelayedInput = props.isDelayedInput,
+		enableInputDelayed = false,
 	}
 end
 
@@ -123,117 +132,155 @@ function RobuxUpsellFlow:purchaseStateToOverlayState(purchaseState: any?): any?
 	elseif purchaseState == RobuxUpsellFlowState.ItemPurchasePending then
 		return LoadingOverlayState.PurchasingItem
 	end
-	return LoadingOverlayState.None
-end
-
-function RobuxUpsellFlow:renderChildren()
-	local props: Props = self.props
-	local purchaseState = props.purchaseState
-
-	if purchaseState == RobuxUpsellFlowState.PurchaseModal then
-		return Roact.createElement(RobuxUpsellPrompt, {
-			screenSize = props.screenSize,
-
-			itemIcon = props.itemIcon,
-			itemName = props.itemName,
-			itemRobuxCost = props.itemRobuxCost,
-			robuxPurchaseAmount = props.iapRobuxAmount,
-			balanceAmount = props.beforeRobuxBalance,
-
-			buyItemControllerIcon = props.acceptControllerIcon,
-			cancelControllerIcon = props.cancelControllerIcon,
-
-			buyItemActivated = function()
-				self:reportUserInput("Buy")
-				props.purchaseRobux()
-			end,
-			cancelPurchaseActivated = function()
-				self:reportUserInput("Cancel")
-				props.cancelPurchase()
-			end,
-			termsOfUseActivated = props.showTermsOfUse and function()
-				self:reportUserInput("TermsOfService")
-				props.showTermsOfUse()
-			end or nil,
-		})
-	elseif purchaseState == RobuxUpsellFlowState.PurchaseWarning then
-		return Roact.createElement(U13ConfirmPrompt, {
-			screenSize = props.screenSize,
-			
-			modalType = props.u13ConfirmType,
-
-			doneControllerIcon = props.acceptControllerIcon,
-			cancelControllerIcon = props.cancelControllerIcon,
-
-			doneActivated = function()
-				self:reportUserInput("Confirm")
-				props.acceptPurchaseWarning()
-			end,
-			cancelActivated = function()
-				self:reportUserInput("Cancel")
-				props.cancelPurchase()
-			end,
-		})
-	elseif purchaseState == RobuxUpsellFlowState.Success then
-		local newBalance = props.iapRobuxAmount + props.beforeRobuxBalance - props.itemRobuxCost
-		return Roact.createElement(RobuxUpsellSuccessPrompt, {
-			screenSize = props.screenSize,
-
-			itemIcon = props.itemIcon,
-			itemName = props.itemName,
-			balance = newBalance,
-
-			confirmControllerIcon = props.acceptControllerIcon,
-			cancelControllerIcon = props.cancelControllerIcon,
-
-			doneActivated = function()
-				self:reportUserInput("Done")
-				props.flowComplete()
-			end,
-			equipActivated = props.equipItem and function()
-				self:reportUserInput("Equip")
-				props.equipItem()
-			end or nil,
-		})
-	elseif purchaseState == RobuxUpsellFlowState.Error then
-		return Roact.createElement(PurchaseErrorPrompt, {
-			screenSize = props.screenSize,
-			
-			errorType = props.errorType,
-
-			doneControllerIcon = props.acceptControllerIcon,
-
-			doneActivated = function()
-				self:reportUserInput("Done")
-				props.flowComplete()
-			end,
-		})
-	elseif purchaseState == RobuxUpsellFlowState.TwoStepRequired then
-		return Roact.createElement(TwoStepReqPrompt, {
-			screenSize = props.screenSize,
-			
-			doneControllerIcon = props.acceptControllerIcon,
-
-			openSecuritySettings = props.openSecuritySettings and function()
-				self:reportUserInput("GoToSecuritySettings")
-				props.openSecuritySettings()
-				props.flowComplete()
-			end or nil,
-			closePrompt = function()
-				self:reportUserInput("Cancel")
-				props.flowComplete()
-			end,
-		})
+	if purchaseState == RobuxUpsellFlowState.None then
+		return nil -- Do not show faded overlay
+	else
+		return LoadingOverlayState.None -- Show faded overlay
 	end
 end
 
 function RobuxUpsellFlow:render()
 	local props: Props = self.props
+	local state: State = self.state
+	local purchaseState = props.purchaseState
 	
 	return Roact.createElement(LoadingOverlay, {
+		shouldAnimate = props.shouldAnimate,
 		loadingState = self:purchaseStateToOverlayState(props.purchaseState)
-	},{
-		Prompt = self:renderChildren()
+	}, {
+		RobuxUpsellPromptAnimator = Roact.createElement(Animator, {
+			shouldAnimate = props.shouldAnimate,
+			shouldShow = purchaseState == RobuxUpsellFlowState.PurchaseModal,
+			onShown = self.props.isDelayedInput and function()
+				self:setState({
+					enableInputDelayed = true
+				})
+				delay(3, function()
+					self:setState({
+						isDelayedInput = false,
+						enableInputDelayed = false,
+					})
+				end)
+			end or nil,
+			onHidden = self.props.isDelayedInput and function()
+				self:setState({
+					isDelayedInput = props.isDelayedInput,
+					enableInputDelayed = false,
+				})
+			end or nil,
+		}, {
+			RobuxUpsellPrompt = Roact.createElement(RobuxUpsellPrompt, {
+				screenSize = props.screenSize,
+
+				isDelayedInput = state.isDelayedInput,
+				enableInputDelayed = state.enableInputDelayed,
+	
+				itemIcon = props.itemIcon,
+				itemName = props.itemName,
+				itemRobuxCost = props.itemRobuxCost,
+				robuxPurchaseAmount = props.iapRobuxAmount,
+				balanceAmount = props.beforeRobuxBalance,
+	
+				buyItemControllerIcon = props.acceptControllerIcon,
+				cancelControllerIcon = props.cancelControllerIcon,
+	
+				buyItemActivated = function()
+					self:reportUserInput("Buy")
+					props.purchaseRobux()
+				end,
+				cancelPurchaseActivated = function()
+					self:reportUserInput("Cancel")
+					props.cancelPurchase()
+				end,
+				termsOfUseActivated = props.showTermsOfUse and function()
+					self:reportUserInput("TermsOfService")
+					props.showTermsOfUse()
+				end or nil,
+			})
+		}),
+		U13ConfirmPromptAnimator = Roact.createElement(Animator, {
+			shouldAnimate = props.shouldAnimate,
+			shouldShow = purchaseState == RobuxUpsellFlowState.PurchaseWarning,
+		}, {
+			U13ConfirmPrompt = Roact.createElement(U13ConfirmPrompt, {
+				screenSize = props.screenSize,
+				
+				modalType = props.u13ConfirmType,
+	
+				doneControllerIcon = props.acceptControllerIcon,
+				cancelControllerIcon = props.cancelControllerIcon,
+	
+				doneActivated = function()
+					self:reportUserInput("Confirm")
+					props.acceptPurchaseWarning()
+				end,
+				cancelActivated = function()
+					self:reportUserInput("Cancel")
+					props.cancelPurchase()
+				end,
+			})
+		}),
+		PurchaseErrorPromptAnimator = Roact.createElement(Animator, {
+			shouldAnimate = props.shouldAnimate,
+			shouldShow = purchaseState == RobuxUpsellFlowState.Error,
+		}, {
+			PurchaseErrorPrompt = Roact.createElement(PurchaseErrorPrompt, {
+				screenSize = props.screenSize,
+				
+				errorType = props.errorType,
+	
+				doneControllerIcon = props.acceptControllerIcon,
+	
+				doneActivated = function()
+					self:reportUserInput("Done")
+					props.flowComplete()
+				end,
+			})
+		}),
+		TwoStepRequiredAnimator = Roact.createElement(Animator, {
+			shouldAnimate = props.shouldAnimate,
+			shouldShow = purchaseState == RobuxUpsellFlowState.TwoStepRequired,
+		}, {
+			TwoStepReqPrompt = Roact.createElement(TwoStepReqPrompt, {
+				screenSize = props.screenSize,
+				
+				doneControllerIcon = props.acceptControllerIcon,
+	
+				openSecuritySettings = function()
+					self:reportUserInput("GoToSecuritySettings")
+					props.openSecuritySettings()
+					props.flowComplete()
+				end,
+				closePrompt = function()
+					self:reportUserInput("Cancel")
+					props.flowComplete()
+				end,
+			})
+		}),
+		RobuxUpsellSuccessPromptAnimator = Roact.createElement(Animator, {
+			shouldAnimate = props.shouldAnimate,
+			shouldShow = purchaseState == RobuxUpsellFlowState.Success,
+		}, {
+			RobuxUpsellSuccessPrompt = Roact.createElement(RobuxUpsellSuccessPrompt, {
+				screenSize = props.screenSize,
+	
+				itemIcon = props.itemIcon,
+				itemName = props.itemName,
+				balance = props.iapRobuxAmount + props.beforeRobuxBalance - props.itemRobuxCost,
+	
+				confirmControllerIcon = props.acceptControllerIcon,
+				cancelControllerIcon = props.cancelControllerIcon,
+	
+				doneActivated = function()
+					self:reportUserInput("Done")
+					props.flowComplete()
+				end,
+				equipActivated = props.equipItem and function()
+					self:reportUserInput("Equip")
+					props.equipItem()
+				end or nil,
+			})
+		}),
 	})
 end
 

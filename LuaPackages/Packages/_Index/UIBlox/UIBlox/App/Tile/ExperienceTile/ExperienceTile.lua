@@ -10,16 +10,13 @@ local t = require(Packages.t)
 
 local withStyle = require(Core.Style.withStyle)
 local Interactable = require(Core.Control.Interactable)
-local ControlState = require(Core.Control.Enum.ControlState)
-local LoadableImage = require(UIBlox.App.Loading.LoadableImage)
+local LoadableImage = require(App.Loading.LoadableImage)
+local TileOverlay = require(TileRoot.SplitTile.TileOverlay)
+local TileContentPanel = require(TileRoot.SplitTile.TileContentPanel)
 
--- Some constants may be abstracted as props later on in subsequent designs
-local TEXT_LINE_COUNT = 2
-local TITLE_PADDING = 8
 local BOTTOM_CONTENT_HEIGHT = 60
-local USE_ROUNDED_CORNERS = true
-
-local DEFAULT_CORNER_RADIUS = UDim.new(0, 8)
+local FOOTER_HEIGHT = 22
+local CORNER_RADIUS = UDim.new(0, 8)
 
 local ExperienceTile = Roact.PureComponent:extend("ExperienceTile")
 
@@ -27,47 +24,60 @@ ExperienceTile.validateProps = t.strictInterface({
 	-- The experience's name that will show a loading state if nil
 	experienceName = t.optional(t.string),
 
-	-- Whether the tile should use a background or not
-	hasBackground = t.optional(t.boolean),
-
-	-- The function that gets called when an ExperienceTile is clicked
-	onActivated = t.optional(t.callback),
-
-	-- The function that gets called when a user hovers over an ExperienceTile
-	onHover = t.optional(t.callback),
-
 	-- The experience's thumbnail that will show a loading state if nil
 	thumbnail = t.optional(t.string),
 
-	-- Whether the tile is disabled or not
-	isDisabled = t.optional(t.boolean),
+	-- Footer to be shown below the experience title
+	footer = t.optional(t.table),
+
+	-- The height of the footer. If nil, a default height of 22 is used
+	footerHeight = t.optional(t.number),
+
+	-- Whether or not the tile should use a background
+	hasBackground = t.optional(t.boolean),
+
+	-- Whether or not the tile should show a border outline
+	hasOutline = t.optional(t.boolean),
+
+	-- Whether or not the tile should show a stateful overlay
+	isOverlayVisible = t.optional(t.boolean),
+
+	-- Whether or not the tile should render its hovered state
+	isActive = t.optional(t.boolean),
+
+	-- The function that gets called when an ExperienceTile is clicked
+	onActivated = t.optional(t.callback),
 })
 
 ExperienceTile.defaultProps = {
+	footerHeight = FOOTER_HEIGHT,
 	hasBackground = true,
-	isDisabled = false,
+	hasOutline = true,
+	isOverlayVisible = true,
+	isActive = true,
 }
 
 function ExperienceTile:init()
-	self:setState({
-		controlState = ControlState.Initialize,
-	})
-
-	self.onStateChanged = function(oldState, newState)
-		self:setState({
-			controlState = newState,
-		})
-
-		if newState == ControlState.Hover and self.props.onHover then
-			self.props.onHover()
+	self.getPanelHeight = function()
+		local panelHeight = BOTTOM_CONTENT_HEIGHT
+		local footerHeight = self.props.footerHeight
+		if self.props.experienceName then
+			if string.len(self.props.experienceName) < 1 then
+				panelHeight = 0
+			end
 		end
+		if self.props.footer ~= nil then
+			panelHeight = panelHeight + footerHeight
+		end
+
+		return panelHeight
 	end
 end
 
 function ExperienceTile:renderImageFrame(isOffset, useFullSize, stylePalette)
 	local thumbnail = self.props.thumbnail
 	local theme = stylePalette.Theme
-	local hasRoundedCorners = USE_ROUNDED_CORNERS and (useFullSize or not isOffset)
+	local hasRoundedCorners = useFullSize or not isOffset
 
 	return Roact.createElement("Frame", {
 		Position = UDim2.fromScale(0, if isOffset then 0.5 else 0),
@@ -81,7 +91,7 @@ function ExperienceTile:renderImageFrame(isOffset, useFullSize, stylePalette)
 			Image = thumbnail,
 			Position = UDim2.fromScale(0, if isOffset then -1 else 0),
 			Size = UDim2.fromScale(1, if useFullSize then 1 else 2),
-			cornerRadius = if hasRoundedCorners then DEFAULT_CORNER_RADIUS else nil,
+			cornerRadius = if hasRoundedCorners then CORNER_RADIUS else nil,
 			showFailedStateWhenLoadingFailed = true,
 			useShimmerAnimationWhileLoading = true,
 		}),
@@ -110,112 +120,57 @@ function ExperienceTile:renderTopContent(stylePalette)
 	})
 end
 
-function ExperienceTile:renderBottomContent(stylePalette)
-	local experienceName = self.props.experienceName
-	local hasBackground = self.props.hasBackground
-	local titleTextLineCount = TEXT_LINE_COUNT
-	local font = stylePalette.Font
-	local theme = stylePalette.Theme
-
-	local bottomContentHeight = BOTTOM_CONTENT_HEIGHT
-	if self.props.experienceName then
-		if string.len(self.props.experienceName) < 1 then
-			bottomContentHeight = 0
-		end
-	end
-
-	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 0, bottomContentHeight),
-		BackgroundTransparency = 1,
-		LayoutOrder = 2,
-	}, {
-		Padding = Roact.createElement("UIPadding", {
-			PaddingLeft = if hasBackground then UDim.new(0, TITLE_PADDING) else nil,
-			PaddingRight = if hasBackground then UDim.new(0, TITLE_PADDING) else nil,
-			PaddingTop = UDim.new(0, TITLE_PADDING),
-			PaddingBottom = UDim.new(0, TITLE_PADDING),
-		}),
-		Name = if titleTextLineCount > 0
-				and experienceName
-				and string.len(experienceName) > 0
-			then Roact.createElement("TextLabel", {
-				Size = UDim2.new(1, 0, 1, 0),
-				BackgroundTransparency = 1,
-				Text = experienceName,
-				Font = font.Header2.Font,
-				TextSize = font.BaseSize * font.Header2.RelativeSize,
-				TextTransparency = theme.TextEmphasis.Transparency,
-				TextColor3 = theme.TextEmphasis.Color,
-				TextWrapped = true,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Top,
-			})
-			else nil,
+function ExperienceTile:renderBottomContent()
+	return Roact.createElement(TileContentPanel, {
+		panelHeight = self.getPanelHeight(),
+		contentTitle = self.props.experienceName,
+		contentFooter = self.props.footer,
+		footerHeight = self.props.footerHeight,
+		hasSidePadding = self.props.hasBackground,
 	})
 end
 
 function ExperienceTile:render()
 	local onActivated = self.props.onActivated
-	local isDisabled = self.props.isDisabled
 	local hasBackground = self.props.hasBackground
-	local hasRoundedCorners = USE_ROUNDED_CORNERS
+	local hasOutline = self.props.hasOutline
+	local isOverlayVisible = self.props.isOverlayVisible
+	local isActive = self.props.isActive
+	local panelHeight = self.getPanelHeight()
 
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
+		local tileBackgroundColor = if hasBackground then theme.BackgroundUIDefault.Color else nil
+		local tileBackgroundTransparency = if hasBackground then theme.BackgroundUIDefault.Transparency else 1
 
-		local backgroundStateMap = {
-			[ControlState.Hover] = theme.BackgroundOnHover,
-			[ControlState.Pressed] = theme.BackgroundOnPress,
-		}
-
-		local backgroundColor = if hasBackground then theme.BackgroundUIDefault.Color else nil
-		local backgroundTransparency = if hasBackground then theme.BackgroundUIDefault.Transparency else 1
-
-		if hasBackground and backgroundStateMap[self.state.controlState] then
-			backgroundColor = backgroundStateMap[self.state.controlState].Color
-			backgroundTransparency = backgroundStateMap[self.state.controlState].Transparency
-		end
-
-		-- These values should change IF top and bottom content is abstracted to be passed in as props
-		local bottomContentHeight = BOTTOM_CONTENT_HEIGHT
-		if self.props.experienceName then
-			if string.len(self.props.experienceName) < 1 then
-				bottomContentHeight = 0
-			end
-		end
-
-		local TileContent = Roact.createElement(Interactable, {
-			Size = UDim2.new(1, 0, 1, bottomContentHeight),
+		return Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 1, panelHeight),
 			SizeConstraint = Enum.SizeConstraint.RelativeXX,
-			BackgroundColor3 = backgroundColor,
-			BackgroundTransparency = backgroundTransparency,
-			isDisabled = isDisabled,
-			onStateChanged = self.onStateChanged,
-			[Roact.Event.Activated] = if not isDisabled then onActivated else nil,
+			BackgroundColor3 = tileBackgroundColor,
+			BackgroundTransparency = tileBackgroundTransparency,
 		}, {
-			UICorner = if hasRoundedCorners
-				then Roact.createElement("UICorner", {
-					CornerRadius = DEFAULT_CORNER_RADIUS,
-				})
-				else nil,
-			UIStroke = if hasBackground
-				then Roact.createElement("UIStroke", {
-					Color = theme.Divider.Color,
-					Transparency = theme.Divider.Transparency,
-					Thickness = 1,
-				})
-				else nil,
-			UIListLayout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				SortOrder = Enum.SortOrder.LayoutOrder,
+			UICorner = Roact.createElement("UICorner", {
+				CornerRadius = CORNER_RADIUS,
 			}),
-
-			TopContent = self:renderTopContent(stylePalette),
-			BottomContent = self:renderBottomContent(stylePalette),
+			Panel = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 1,
+			}, {
+				UIListLayout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				}),
+				TopContent = self:renderTopContent(stylePalette),
+				BottomContent = self:renderBottomContent(),
+			}),
+			Overlay = Roact.createElement(TileOverlay, {
+				onActivated = onActivated,
+				isFullOverlay = hasBackground,
+				hasOutline = hasOutline,
+				isVisible = isOverlayVisible,
+				isActive = isActive,
+			}),
 		})
-
-		return TileContent
 	end)
 end
 

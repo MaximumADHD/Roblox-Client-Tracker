@@ -9,6 +9,8 @@ local React = require(Packages.React)
 local RoactPortal = require(Packages.Roact).Portal
 local LuauPolyfill = require(Packages.LuauPolyfill)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local Types = require(TooltipPackage.Types)
 local Consts = require(TooltipPackage.Constants)
 local withAnimation = require(UIBlox.Core.Animation.withAnimation)
@@ -137,7 +139,7 @@ local function TooltipController(props: Types.TooltipControllerProps)
 
 	local animationTarget = if props.active then Consts.ACTIVE_ANIMATION_TARGETS else Consts.INACTIVE_ANIMATION_TARGETS
 
-	local tooltipTree = withAnimation(animationTarget, function(values: Types.AnimationValues): React.Node?
+	local function renderWithAnimation(values: Types.AnimationValues): React.ReactElement?
 		-- if the tooltip is invisible don't render anything
 		if values.transparency == 1 then
 			return nil
@@ -182,7 +184,11 @@ local function TooltipController(props: Types.TooltipControllerProps)
 		}, {
 			TooltipLayer = tooltipLayer,
 		})
-	end, Consts.ANIMATION_OPTIONS)
+	end
+
+	local tooltipTree = if UIBloxConfig.disableTooltipAnimation
+		then renderWithAnimation(animationTarget)
+		else withAnimation(animationTarget, renderWithAnimation, Consts.ANIMATION_OPTIONS)
 
 	local triggerPointName = props.triggerPointName or "TriggerPoint"
 

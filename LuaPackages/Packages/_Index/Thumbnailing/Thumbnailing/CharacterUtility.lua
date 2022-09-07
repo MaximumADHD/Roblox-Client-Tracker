@@ -3,6 +3,8 @@
 ]]
 local module = {}
 
+local FFlagCharacterUtilityClampsHeadExtentAtChin = game:DefineFastFlag("CharacterUtilityClampsHeadExtentAtChin", false)
+
 --[[
 	A map of names of all Attachment children of character's head.
 ]]
@@ -59,8 +61,12 @@ end
 	account for the size of this thing.
 	Apply the part's transform to each corner of bounding box of part.
 	Apply given inverse so we wind up with extents relative to some coordinate frame.
+
+	There's optional arguments to clamp y above a certain threshold.
+	This is available for the case of Closeups with hats that go down below the chin:
+	we don't want the center of the closeup to be dragged down to the belly.
 ]]
-local function growExtentsToInclude(minExtent, maxExtent, part, cInverse)
+local function growExtentsToInclude(minExtent, maxExtent, part, cInverse, optYMinCFrame, optYMin)
 	local size = part.Size / 2
 	local corner
 
@@ -68,6 +74,18 @@ local function growExtentsToInclude(minExtent, maxExtent, part, cInverse)
 		for y = -1, 1, 2 do
 			for z = -1, 1, 2 do
 				corner = makeRotatedCorner(x, y, z, size, part.CFrame)
+
+				if FFlagCharacterUtilityClampsHeadExtentAtChin and optYMinCFrame and optYMin then
+					-- 'corner' is the position in space of this corner.
+					-- transform it back into the 'yMin' cframe, clamp y to be no less than
+					-- optYMin, and transform back.
+					local transformedCorner = optYMinCFrame:Inverse() * corner
+					local clampedTransformedCorner = Vector3.new(transformedCorner.X,
+						math.max(optYMin, transformedCorner.Y),
+						transformedCorner.Z)
+					corner = optYMinCFrame * clampedTransformedCorner
+				end
+
 				corner = cInverse * corner
 				minExtent, maxExtent = growExtentsToIncludePoint(minExtent, maxExtent, corner)
 			end
@@ -137,11 +155,16 @@ module.CalculateHeadExtents = function(character, targetCFrame)
 
 	local cInverse = targetCFrame:Inverse()
 
+	-- We don't want our min y extent to consider anything below the avatar's chin.  Figure
+	-- our where that is.
+	local untransformedHeadYMin = -head.Size.Y/2
+
 	-- Get extent of head.
 	minExtent, maxExtent = growExtentsToInclude(minExtent, maxExtent, head, cInverse)
 
 	-- Account for hair and hats too.
 	local headAttachments = getHeadAttachments(character)
+
 	for _, child in pairs(character:GetChildren()) do
 		if child:IsA("Accoutrement") then
 			local handle = child:FindFirstChild("Handle")
@@ -149,7 +172,12 @@ module.CalculateHeadExtents = function(character, targetCFrame)
 				local attachment = handle:FindFirstChildWhichIsA("Attachment")
 				-- Legacy hat does not have attachment in it and should be considered
 				if not attachment or headAttachments[attachment.Name] then
-					minExtent, maxExtent = growExtentsToInclude(minExtent, maxExtent, handle, cInverse)
+
+					if FFlagCharacterUtilityClampsHeadExtentAtChin then
+						minExtent, maxExtent = growExtentsToInclude(minExtent, maxExtent, handle, cInverse, head.CFrame, untransformedHeadYMin)
+					else
+						minExtent, maxExtent = growExtentsToInclude(minExtent, maxExtent, handle, cInverse)
+					end
 				end
 			end
 		end

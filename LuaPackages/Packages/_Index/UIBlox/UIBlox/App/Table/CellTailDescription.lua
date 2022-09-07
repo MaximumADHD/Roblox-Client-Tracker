@@ -25,6 +25,7 @@ CellTailDescription.validateProps = t.strictInterface({
 	text = t.optional(t.string),
 	textColor = t.optional(validateColorInfo),
 	textFont = t.optional(validateFontInfo),
+	renderTextOverride = t.optional(t.callback),
 	showArrow = t.optional(t.boolean),
 })
 
@@ -32,8 +33,34 @@ CellTailDescription.defaultProps = {
 	showArrow = false,
 }
 
+function CellTailDescription:init()
+	self.getDescription = function(text, textColor, textFont, layoutOrder, override)
+		local textLabel = nil
+
+		if text then
+			if override then
+				textLabel = override()
+			end
+
+			if not textLabel then
+				textLabel = Roact.createElement(GenericTextLabel, {
+					LayoutOrder = layoutOrder,
+					AutomaticSize = Enum.AutomaticSize.XY,
+					Text = text,
+					colorStyle = textColor,
+					fontStyle = textFont,
+					BackgroundTransparency = 1,
+				})
+			end
+		end
+
+		return textLabel
+	end
+end
+
 function CellTailDescription:render()
 	local text = self.props.text
+	local override = self.props.renderTextOverride
 	local showArrow = self.props.showArrow
 
 	if not text and not showArrow then
@@ -55,14 +82,7 @@ function CellTailDescription:render()
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 				Padding = UDim.new(0, PADDING_ITEM),
 			}),
-			Description = text and Roact.createElement(GenericTextLabel, {
-				LayoutOrder = 1,
-				AutomaticSize = Enum.AutomaticSize.XY,
-				Text = text,
-				colorStyle = textColor,
-				fontStyle = textFont,
-				BackgroundTransparency = 1,
-			}) or nil,
+			Description = self.getDescription(text, textColor, textFont, 1, override),
 			RightArrow = showArrow and Roact.createElement(ImageSetComponent.Label, {
 				LayoutOrder = 2,
 				Size = UDim2.fromOffset(getIconSize(IconSize.Small), getIconSize(IconSize.Small)),

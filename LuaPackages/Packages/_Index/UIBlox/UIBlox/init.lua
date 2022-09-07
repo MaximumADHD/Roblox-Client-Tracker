@@ -294,6 +294,7 @@ local function initializeLibrary(configs)
 				Placement = require(script.App.Navigation.Enum.Placement),
 			}),
 			SystemBar = require(script.App.Navigation.SystemBar),
+			IABottomBar = require(script.App.Navigation.IABottomBar.IABottomBar),
 		}),
 
 		SelectionImage = strict({

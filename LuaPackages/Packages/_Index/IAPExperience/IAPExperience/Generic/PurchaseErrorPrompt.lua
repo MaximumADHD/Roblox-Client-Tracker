@@ -34,8 +34,26 @@ ErrorPrompt.defaultProps = {
 
 function ErrorPrompt:getErrorMessage(locMap: {[string]: string}, errorType: any?)
 	-- pointless code since it returns the same regardless, but sets up structure for future error messages.
-	if errorType == PurchaseErrorType.Unknown then
-		return locMap.unknownText
+	if errorType == PurchaseErrorType.AlreadyOwn then
+		return locMap.alreadyOwnText
+	elseif errorType == PurchaseErrorType.FailedGrant then
+		return locMap.failedGrantText
+	elseif errorType == PurchaseErrorType.FailedGrantUnknown then
+		return locMap.failedGrantUnknownText
+	elseif errorType == PurchaseErrorType.Limited then
+		return locMap.limitedText
+	elseif errorType == PurchaseErrorType.NotEnoughRobux then
+		return locMap.notEnoughRobuxText
+	elseif errorType == PurchaseErrorType.NotForSale then
+		return locMap.notForSaleText
+	elseif errorType == PurchaseErrorType.NotForSaleExperience then
+		return locMap.notForSaleExperienceText
+	elseif errorType == PurchaseErrorType.PremiumOnly then
+		return locMap.premiumOnlyText
+	elseif errorType == PurchaseErrorType.ThirdPartyDisabled then
+		return locMap.thirdPartyDisabledText
+	elseif errorType == PurchaseErrorType.Under13 then
+		return locMap.under13Text
 	end
 	return locMap.unknownText
 end
@@ -51,6 +69,36 @@ function ErrorPrompt:render()
 			},
 			okText = {
 				key = LOC_KEY:format("Text.Ok")
+			},
+			alreadyOwnText = {
+				key = LOC_KEY:format("Text.AlreadyOwn")
+			},
+			failedGrantText = {
+				key = LOC_KEY:format("Text.FailedGrant")
+			},
+			failedGrantUnknownText = {
+				key = LOC_KEY:format("Text.FailedGrantUnknown")
+			},
+			limitedText = {
+				key = LOC_KEY:format("Text.Limited")
+			},
+			notEnoughRobuxText = {
+				key = LOC_KEY:format("Text.NotEnoughRobux")
+			},
+			notForSaleText = {
+				key = LOC_KEY:format("Text.NotForSale")
+			},
+			notForSaleExperienceText = {
+				key = LOC_KEY:format("Text.NotForSaleExperience")
+			},
+			premiumOnlyText = {
+				key = LOC_KEY:format("Text.PremiumOnly")
+			},
+			thirdPartyDisabledText = {
+				key = LOC_KEY:format("Text.ThirdPartyDisabled")
+			},
+			under13Text = {
+				key = LOC_KEY:format("Text.Under13")
 			},
 		},
 		render = function(locMap: {[string]: string})

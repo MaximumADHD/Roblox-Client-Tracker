@@ -1,14 +1,18 @@
 --!strict
---[[
-	This class is a complete wrapper for the IXPService.
-	IXPService should not need to be called directly.
 
-	Its responsibilities include registering user layers, fetching/clearing layer data,
-	and mapping layer data to connected components' props, and re-rendering when layer data changes.
-]]
+--[=[
+	This class is a complete wrapper for the [IXPService]. As such, [IXPService]
+	itself should not need to be called directly.
+
+	Its responsibilities include registering user layers, fetching/clearing
+	layer data, and mapping layer data to connected components' props, and
+	re-rendering when layer data changes.
+
+	@class RoactAppExperiment
+]=]
 
 local RunService = game:GetService("RunService")
-local IXPService = game:GetEngineFeature("IXPService") and game:GetService("IXPService") or nil
+local IXPService = game:GetService("IXPService")
 
 local Roact = require(script.Parent.Roact)
 local t = require(script.Parent.t)
@@ -17,7 +21,13 @@ local Cryo = require(script.Parent.Cryo)
 local FFlagDebugUnmuteLuaErrors = false -- = require(Modules.LuaApp.Flags.FFlagDebugUnmuteLuaErrors)
 local ExperimentContext = require(script.ExperimentContext)
 
-local function registerUserLayers(userLayers)
+--[=[
+	Only user layers can be registered from lua; browser-tracker layers need to
+	be set in native code, as the fetch happens before lua is ready.
+
+	@within RoactAppExperiment
+]=]
+local function registerUserLayers(userLayers: { [string]: string })
 	assert(t.table(userLayers))
 	if IXPService ~= nil then
 		if RunService:IsStudio() or FFlagDebugUnmuteLuaErrors then
@@ -33,21 +43,38 @@ local function registerUserLayers(userLayers)
 	end
 end
 
-local function initializeUserLayers(userId)
+--[=[
+	Starts an HTTP fetch of registered user layers for this user.  Should be
+	called after user is known. Layers should be registered before this is
+	called.
+
+	@within RoactAppExperiment
+]=]
+local function initializeUserLayers(userId: number)
 	if IXPService ~= nil then
 		IXPService:InitializeUserLayers(userId)
 	end
 end
 
+--[=[
+	Clear user layer data and reset any status. Should be called when a
+	user logs out.
+
+	@within RoactAppExperiment
+]=]
 local function clearUserLayers()
 	if IXPService ~= nil then
 		IXPService:ClearUserLayers()
 	end
 end
 
--- Takes in the actual names of the functions to be called on the IXPService.
--- Since browser-tracker layers and user layers have very similar functionality,
--- we can just pass the service call names as input and have the same logic work with both.
+--[[
+	Takes in the actual names of the functions to be called on the IXPService.
+
+	Since browser-tracker layers and user layers have very similar
+	functionality, we can just pass the service call names as input and have the
+	same logic work with both.
+]]
 local function connect(
 	onLayerLoadingStatusChanged: string,
 	getLayerLoadingStatus: string,
@@ -185,39 +212,45 @@ local function connect(
 	end
 end
 
+--[=[
+	Connect a component to browser-tracker layers.
+
+	@within RoactAppExperiment
+	@function connectBrowserTrackerLayer
+]=]
+local connectBrowserTrackerLayer = connect(
+	"OnBrowserTrackerLayerLoadingStatusChanged",
+	"GetBrowserTrackerLayerLoadingStatus",
+	"GetBrowserTrackerLayerVariables",
+	"LogBrowserTrackerLayerExposure",
+	"GetBrowserTrackerStatusForLayer"
+)
+
+--[=[
+	Connect a component to user layers.
+
+	@within RoactAppExperiment
+	@function connectUserLayer
+]=]
+local connectUserLayer = connect(
+	"OnUserLayerLoadingStatusChanged",
+	"GetUserLayerLoadingStatus",
+	"GetUserLayerVariables",
+	"LogUserLayerExposure",
+	"GetUserStatusForLayer"
+)
+
 return {
 	Provider = ExperimentContext.Provider,
 	Consumer = ExperimentContext.Consumer,
 
-	-- Only user layers can be registered from lua; browser-tracker layers need to be set in native code,
-	-- as the fetch happens before lua is ready.
 	registerUserLayers = registerUserLayers,
-
-	-- Starts an HTTP fetch of registered user layers for this user.  Should be called after user is known.
-	-- Layers should be registered before this is called.
 	initializeUserLayers = initializeUserLayers,
-
-	-- Clear user layer data and reset any status.  Should be called when a user logs out.
 	clearUserLayers = clearUserLayers,
 
 	useBrowserTrackerExperiment = require(script.useBrowserTrackerExperiment),
 	useUserExperiment = require(script.useUserExperiment),
 
-	-- Connect a component to browser-tracker layers.
-	connectBrowserTrackerLayer = connect(
-		"OnBrowserTrackerLayerLoadingStatusChanged",
-		"GetBrowserTrackerLayerLoadingStatus",
-		"GetBrowserTrackerLayerVariables",
-		"LogBrowserTrackerLayerExposure",
-		"GetBrowserTrackerStatusForLayer"
-	),
-
-	-- Connect a component to user layers.
-	connectUserLayer = connect(
-		"OnUserLayerLoadingStatusChanged",
-		"GetUserLayerLoadingStatus",
-		"GetUserLayerVariables",
-		"LogUserLayerExposure",
-		"GetUserStatusForLayer"
-	),
+	connectBrowserTrackerLayer = connectBrowserTrackerLayer,
+	connectUserLayer = connectUserLayer,
 }

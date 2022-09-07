@@ -6,7 +6,6 @@
 	</auto-generated>
 --------------------------------------------------------------------------------------------------------]]
     return{
-    ["IAPExperience.PurchaseSuccess.Text.BalanceNow"] = [[Saldomu saat ini {BALANCE_NOW}.]],
     ["Authentication.TwoStepVerification.Action.Cancel"] = [[Batal]],
     ["Authentication.TwoStepVerification.Action.Resend"] = [[Kirim Ulang Kode]],
     ["Authentication.TwoStepVerification.Action.Verify"] = [[Verifikasi]],
