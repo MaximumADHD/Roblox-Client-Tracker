@@ -110,8 +110,8 @@ Studio.AssetImporter.Statuses.AvatarCagesMissingWarning,Corresponding cage mesh 
 Studio.AssetImporter.Statuses.CageHasMaterialWarning,Material(s) found under this cage mesh will be ignored. Materials cannot be applied to CageWrap instances.
 Studio.AssetImporter.Statuses.CageMeshIntersectedWarning,"The cage intersects with the clothing mesh, which could lead to interpenetration issues."
 Studio.AssetImporter.Statuses.CageMismatchWarning,The number of cage vertices between the outer and inner cage don't match.
-Studio.AssetImporter.Statuses.CageNameHasTypoWarning,"Cage name contains a typo, try renaming to {SuggestedName}."
-Studio.AssetImporter.Statuses.CageNameHasTypoWarning_Deprecated,"Cage name contains a typo, try renaming to {name}."
+Studio.AssetImporter.Statuses.CageNameHasTypoWarning,"Cage name contains a typo, try renaming to {name}."
+Studio.AssetImporter.Statuses.CageNameHasTypoWarning_v1,"Cage name contains a typo, try renaming to {SuggestedName}."
 Studio.AssetImporter.Statuses.CageNoGeoParentError,"Couldn't find geometry for cage, check your mesh names and spelling."
 Studio.AssetImporter.Statuses.CageNonManifoldWarning,"This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render."
 Studio.AssetImporter.Statuses.CageOverlappingVerticesWarning,"Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render."
@@ -125,6 +125,19 @@ Studio.AssetImporter.Statuses.DefaultError,Import experienced a {type} error.
 Studio.AssetImporter.Statuses.DefaultWarnings,Import experienced a {type} warning.
 Studio.AssetImporter.Statuses.DeletedCageGeometryWarning,Some cage geometry has been removed. This will result in layering issues.
 Studio.AssetImporter.Statuses.DiffuseBadFileFormatError,Unsupported diffuse texture file format.
+Studio.AssetImporter.Statuses.FacsCorrectiveDupeError3,Found duplicate FACS control name "{FacsDupeName}" for corrective "{FacsControlName}" in attribute "{FrameAttr}"
+Studio.AssetImporter.Statuses.FacsDupeControlError3,Duplicate control name found: "{FacsControlName}" in frame {FrameNumber1} and frame {FrameNumber2}
+Studio.AssetImporter.Statuses.FacsEmptyAttributeWarning1,Empty value found for attribute "{FrameAttr}".  Ignoring this.
+Studio.AssetImporter.Statuses.FacsFrameAttrNotStringError1,"{FrameAttr}" attribute must be of type string
+Studio.AssetImporter.Statuses.FacsFrameExtraCharsWarning1,Ignoring {FrameAttr} because it contains underscores or spaces.  Must be of the form "Frame#" where "#" is an integer with no spaces or underscores.
+Studio.AssetImporter.Statuses.FacsHasFramesNoRootFaceJointError1,Found "Frame#" attributes in mesh "{ParentNodeName}" but no "RootFaceJoint" attribute.  No FACS mapping will be created for this mesh.
+Studio.AssetImporter.Statuses.FacsInvalidCorrectiveError2,Invalid corrective name "{FacsControlName}" for attribute"{FrameAttr}": Neutral cannot be part of a corrective
+Studio.AssetImporter.Statuses.FacsMax3CorrectivesError3,Correctives can be for at most 3 control names.  Found {Size} for attribute "{FrameAttr}": "{FacsControlName}"
+Studio.AssetImporter.Statuses.FacsRootFaceJointExtraCharsError1,"{FacsControlName}" must be exactly "RootFaceJoint" with no spaces or underscores.
+Studio.AssetImporter.Statuses.FacsRootFaceJointNoValueError,RootFaceJoint attribute has no value
+Studio.AssetImporter.Statuses.FacsRootFaceJointNotStringError,RootFaceJoint attribute must be of type string
+Studio.AssetImporter.Statuses.FacsUnparseableFrameNumberError1,Couldn't parse the frame number in attribute "{FrameAttr}".
+Studio.AssetImporter.Statuses.FacsUnrecognizedFACSError2,Unrecognized FACS control name "{FacsControlName}" for attribute "{FrameAttr}"
 Studio.AssetImporter.Statuses.IncorrectR15Warning,This rig does not follow the guidelines of chosen rig type.
 Studio.AssetImporter.Statuses.InnerButNoOuterCageWarning,Inner Cage has no corresponding Outer Cage.
 Studio.AssetImporter.Statuses.IrrelevantCageModifiedWarning,Some outer cage geometry that is far away from the clothing mesh has been modified. This will lead to issues when other clothing is layered on top.
@@ -134,8 +147,8 @@ Studio.AssetImporter.Statuses.MeshScaleWarning,One of the objects dimensions are
 Studio.AssetImporter.Statuses.MeshSizeWarning,The number of triangles is greater than is supported. Object will be simplified.
 Studio.AssetImporter.Statuses.MetalnessBadFileFormatError,Unsupported metalness texture file format.
 Studio.AssetImporter.Statuses.NoRefMeshForCageWarning,Could not find corresponding Geo Mesh for Cage Mesh.
-Studio.AssetImporter.Statuses.NoRefMeshForCageWarningWithSuggestion,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {SuggestedName}.
-Studio.AssetImporter.Statuses.NoRefMeshForCageWarningWithSuggestion_Deprecated,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {name}.
+Studio.AssetImporter.Statuses.NoRefMeshForCageWarningWithSuggestion,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {name}.
+Studio.AssetImporter.Statuses.NoRefMeshForCageWarningWithSuggestion_v1,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {SuggestedName}.
 Studio.AssetImporter.Statuses.NormalBadFileFormatError,Unsupported normal texture file format.
 Studio.AssetImporter.Statuses.OuterCageBloatingWarning,The average distance between the clothing and outer cage is too large. This will lead to bloating issues when other clothing is layered on top.
 Studio.AssetImporter.Statuses.OuterCageFarExtendedFromMeshWarning,There are outer cage vertex(s) that are too far away from the clothing mesh. This will lead to issues when other clothing is layered on top.

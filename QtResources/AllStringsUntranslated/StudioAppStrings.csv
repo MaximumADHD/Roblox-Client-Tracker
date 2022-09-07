@@ -964,12 +964,14 @@ Studio.App.RBXMainWindow.Run,,Run,Run
 Studio.App.RBXMainWindow.TiltObjects,,Tilt objects,Tilt objects
 Studio.App.RBXMainWindow.TestPlay,,Test - play,Test - play
 Studio.App.RBXMainWindow.MoveDown,,Move Down,Move Down
-Studio.App.RBXMainWindow.Group,,Group,Group
+Studio.App.RBXMainWindow.Group,,Group As a Model,Group As a Model
+Studio.App.RBXMainWindow.GroupFolder,,Group As a Folder,Group As a Folder
 Studio.App.RBXMainWindow.MoveObjectsUp,,Move objects up,Move objects up
 Studio.App.RBXMainWindow.SmoothSurfaceWithoutOutlines,,Smooth Surface without Outlines,Smooth Surface without Outlines
 Studio.App.RBXMainWindow.UniversalsForSurface,,Universals for Surface,Universals for Surface
 Studio.App.RBXMainWindow.HingeOnSurface,,Hinge on Surface,Hinge on Surface
-Studio.App.RBXMainWindow.GroupPartsOrModels,,Group parts or models,Group parts or models
+Studio.App.RBXMainWindow.GroupPartsOrModels,,Group the selected Instances under a new Model,Group the selected Instances under a new Model
+Studio.App.RBXMainWindow.GroupUnderFolder,,Group the selected Instances under a new Folder,Group the selected Instances under a new Folder
 Studio.App.RBXMainWindow.MoveUp,,Move Up,Move Up
 Studio.App.RBXMainWindow.MoveUpBrick,,Move Up Brick,Move Up Brick
 Studio.App.RBXMainWindow.UngroupModelsOrParts,,Ungroup models or parts,Ungroup models or parts
@@ -1268,7 +1270,8 @@ Studio.App.RobloxRibbonMainWindow.GameSettings,,Game Settings,Game Settings
 Studio.App.RobloxRibbonMainWindow.Gameplay,,Gameplay,Gameplay
 Studio.App.RobloxRibbonMainWindow.GoToNextChange,,Go to next change,Go to next change
 Studio.App.RobloxRibbonMainWindow.GoToPreviousChange,,Go to previous change,Go to previous change
-Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel,,Group the selected parts into a model,Group the selected parts into a model
+Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel,,Group the selected parts into a new Model,Group the selected parts into a new Model
+Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoFolder,,Group the selected Instances into a new Folder,Group the selected Instances into a new Folder
 Studio.App.RobloxRibbonMainWindow.Hinge,,Hinge,Hinge
 Studio.App.RobloxRibbonMainWindow.ImageButton,,Image Button,Image Button
 Studio.App.RobloxRibbonMainWindow.ImageLabel,,Image Label,Image Label
@@ -1624,7 +1627,7 @@ Studio.App.PackageManagementVerbs.PackageScriptDiffError1,,Package Script Diff e
 Studio.App.PackageManagementVerbs.ThisModifiesPackage,,"This object has 3D content but is not a Model, so moving or rotating it will count as modifying the Package. Are you sure you want to continue?","This object has 3D content but is not a Model, so moving or rotating it will count as modifying the Package. Are you sure you want to continue?"
 Studio.App.PackageManagementVerbs.ErrorPrimaryPart,,Error: Models must have a PrimaryPart before they can be converted into a Package.,Error: Models must have a PrimaryPart before they can be converted into a Package.
 Studio.App.PackageManagementVerbs.ErrorPrimaryPartNotArchivable,,Error: Cannot publish a Model package when the PrimaryPart is not Archivable.,Error: Cannot publish a Model package when the PrimaryPart is not Archivable.
-Studio.App.PackageManagementVerbs.ErrorUnpublishedPackages,,Error: Cannot convert to package while the object contains packages with unpublished changes.,Error: Cannot convert to package while the object contains packages with unpublished changes.
+Studio.App.PackageManagementVerbs.ErrorUnpublishedPackages,,Error: Cannot publish because packages cannot contain modified child packages.,Error: Cannot publish because packages cannot contain modified child packages.
 Studio.App.PackageManagementVerbs.ConfirmPublishChanges,,Are you sure you want to publish your changes to this package?,Are you sure you want to publish your changes to this package?
 Studio.App.PackageManagementVerbs.ConfirmPublishChangesNewVersion,,"Are you sure you want to publish your changes to this package?
 There is also a new version available.","Are you sure you want to publish your changes to this package?

@@ -38,6 +38,7 @@ Studio.AssetImporter.Sections.FileGeometry,File Geometry,File Geometry
 Studio.AssetImporter.Properties.InsertInWorkspace,Insert In Workspace,Insert In Workspace
 Studio.AssetImporter.Properties.ImportName,Name,Name
 Studio.AssetImporter.Statuses.CageNameHasTypoWarning,"Cage name contains a typo, try renaming to {name}.","Cage name contains a typo, try renaming to {name}."
+Studio.AssetImporter.Statuses.CageNameHasTypoWarning_Deprecated,"Cage name contains a typo, try renaming to {name}.","Cage name contains a typo, try renaming to {name}."
 Studio.AssetImporter.Sections.ObjectGeneral,Object General,Object General
 Studio.AssetImporter.Statuses.CouldNotReadTextureError,Could not read the texture file associated with this object.,Could not read the texture file associated with this object.
 Studio.AssetImporter.Sections.ObjectGeometry,Object Geometry,Object Geometry
@@ -165,3 +166,5 @@ Studio.AssetImporter.Statuses.AvatarCagesMissingWarning,Corresponding cage mesh 
 Studio.AssetImporter.Statuses.NoRefMeshForCageWarning,Could not find corresponding Geo Mesh for Cage Mesh.,Could not find corresponding Geo Mesh for Cage Mesh.
 Studio.AssetImporter.Statuses.NoRefMeshForCageWarningWithSuggestion,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {name}.,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {name}.
 Studio.AssetImporter.Statuses.InnerButNoOuterCageWarning,Inner Cage has no corresponding Outer Cage.,Inner Cage has no corresponding Outer Cage.
+Studio.AssetImporter.Statuses.CageNameHasTypoWarning_v1,"Cage name contains a typo, try renaming to {SuggestedName}.","Cage name contains a typo, try renaming to {SuggestedName}."
+Studio.AssetImporter.Statuses.NoRefMeshForCageWarningWithSuggestion_v1,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {SuggestedName}.,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {SuggestedName}.

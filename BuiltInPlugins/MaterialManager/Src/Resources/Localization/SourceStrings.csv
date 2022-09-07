@@ -212,6 +212,13 @@ Studio.MaterialManager.Materials.WoodPlanksVariant,Wood Planks Variant
 Studio.MaterialManager.Materials.WoodVariant,Wood Variant
 Studio.MaterialManager.OverrideSettings.Overrides,Overrides
 Studio.MaterialManager.OverrideSettings.SetOverride,Set as Override
+Studio.MaterialManager.PhysicalProperties.Density,Density
+Studio.MaterialManager.PhysicalProperties.Elasticity,Elasticity
+Studio.MaterialManager.PhysicalProperties.ElasticityWeight,Elasticity Weight
+Studio.MaterialManager.PhysicalProperties.Friction,Friction
+Studio.MaterialManager.PhysicalProperties.FrictionWeight,Friction Weight
+Studio.MaterialManager.PhysicalProperties.Physics,Physics
+Studio.MaterialManager.PhysicalProperties.Reset,Reset
 Studio.MaterialManager.Plugin.Button,Material Manager
 Studio.MaterialManager.Plugin.Name,Material Manager
 Studio.MaterialManager.TopBar.Apply,Apply to Selected Parts

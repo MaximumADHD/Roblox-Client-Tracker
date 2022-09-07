@@ -85,6 +85,11 @@ DefaultGlassHQFS_Level0,Fragment
 DefaultGlassHQFS_Level8,Fragment
 DefaultGlassSuperHQFS_Level0,Fragment
 DefaultGlassSuperHQFS_Level8,Fragment
+DefaultHighlightAlphaTestVS_Level0,Vertex
+DefaultHighlightAlphaTestVS_Level1,Vertex
+DefaultHighlightAlphaTestVS_Level2,Vertex
+DefaultHighlightAlphaTestVS_Level6,Vertex
+DefaultHighlightAlphaTestVS_Level4098,Vertex
 DefaultHighlightVS_Level0,Vertex
 DefaultHighlightVS_Level1,Vertex
 DefaultHighlightVS_Level2,Vertex
@@ -229,7 +234,6 @@ DownSampleGlowTemporalLinear8x8FS,Fragment
 EnvGlassFS,Fragment
 FastConvDownsamplePS,Fragment
 FastConvolutionPS,Fragment
-FastConvolutionPSNew,Fragment
 FixUpCoCFS,Fragment
 FXCompositingFS,Fragment
 FXCompositingLinearFS,Fragment
@@ -269,6 +273,7 @@ GridVS_Level14,Vertex
 GridVS_Level4098,Vertex
 GridVS_Level4106,Vertex
 HighlightInPlaceFS_Level0,Fragment
+HighlightPostprocessAlphaTestFS_Level0,Fragment
 HighlightPostprocessFS_Level0,Fragment
 ImageProcessAlphaFS,Fragment
 ImageProcessBloomFS,Fragment
