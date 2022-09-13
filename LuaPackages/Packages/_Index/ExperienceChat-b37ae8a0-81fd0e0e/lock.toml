@@ -7,9 +7,9 @@ dependencies = [
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
     "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
     "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
-    "Roact RoactCompat 17.0.1-rc.14 url+https://github.com/roblox/roact-alignment",
+    "Roact RoactCompat 17.0.1-rc.15 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox 8cf74bb3 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox e214055f git+https://github.com/roblox/uiblox#master",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]

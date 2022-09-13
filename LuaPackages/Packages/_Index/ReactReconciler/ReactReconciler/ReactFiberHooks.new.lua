@@ -21,7 +21,6 @@ local LuauPolyfill = require(Packages.LuauPolyfill)
 local Array = LuauPolyfill.Array
 local Error = LuauPolyfill.Error
 local Object = LuauPolyfill.Object
-local inspect = LuauPolyfill.util.inspect
 local Cryo = require(Packages.Cryo)
 
 -- ROBLOX: use Bindings to implement useRef
@@ -246,6 +245,15 @@ local InvalidNestedHooksDispatcherOnMountInDEV: Dispatcher | nil = nil
 local InvalidNestedHooksDispatcherOnUpdateInDEV: Dispatcher | nil = nil
 local InvalidNestedHooksDispatcherOnRerenderInDEV: Dispatcher | nil = nil
 
+-- ROBLOX deviation: Used to better approximate arrays with gaps
+local function getHighestIndex(array: Array<any>)
+  local highestIndex = 0
+  for k, v in array do
+    highestIndex = if k > highestIndex then k else highestIndex
+  end
+  return highestIndex
+end
+
 local function mountHookTypesDev()
   if _G.__DEV__ then
     local hookName = (currentHookNameInDev :: any) :: HookType
@@ -376,23 +384,40 @@ local function areHookInputsEqual(
     return false
   end
 
-  if _G.__DEV__ then
-    -- Don't bother comparing lengths in prod because these arrays should be
-    -- passed inline.
-    if #nextDeps ~= #prevDeps then
-      -- ROBLOX TODO: no unit tests in upstream for this, we should add some
-      console.error(
-        "The final argument passed to %s changed size between renders. The " ..
-          "order and size of this array must remain constant.\n\n" ..
-          "Previous: %s\n" ..
-          "Incoming: %s",
-        currentHookNameInDev,
-        inspect(prevDeps),
-        inspect(nextDeps)
-      )
-    end
+  -- ROBLOX deviation START: calculate lengths with iteration instead of # to
+  -- accommodate nil values and disable warning for differing lengths
+  local nextDepsLength = getHighestIndex(nextDeps)
+  local prevDepsLength = getHighestIndex(prevDeps)
+
+  -- ROBLOX note: In upstream, lengths aren't even compared unless dev mode is
+  -- enabled because they _always_ indicate a misuse of dependency arrays. In
+  -- luau, since trailing `nil`s effectively change the length of the array,
+  -- it's possible to trigger this scenario with a valid use of the dependencies
+  -- array (e.g. `{1, 2, 3}` -> `{1, 2, nil}`)
+  if nextDepsLength ~= prevDepsLength then
+    -- ROBLOX TODO: linting like upstream does would make this warning less
+    -- necessary, and would help justify our exclusion of the warning.
+
+    -- https://jira.rbx.com/browse/LUAFDN-1175
+    -- if _G.__DEV__ then
+    --   console.error(
+    --     "The final argument passed to %s changed size between renders. The " ..
+    --       "order and size of this array must remain constant.\n\n" ..
+    --       "Previous: %s\n" ..
+    --       "Incoming: %s",
+    --     currentHookNameInDev,
+    --     inspect(prevDeps),
+    --     inspect(nextDeps)
+    --   )
+    -- end
+
+    -- Short-circuit here since we know that different lengths means a change in
+    -- values, even if it's due to trailing nil values
+    return false
   end
-  local minDependencyCount = math.min(#prevDeps, #nextDeps)
+  -- ROBLOX deviation END
+
+  local minDependencyCount = math.min(prevDepsLength, nextDepsLength)
   for i = 1, minDependencyCount do
     if is(nextDeps[i], prevDeps[i]) then
       continue
@@ -1351,8 +1376,12 @@ function imperativeHandleEffect<T>(
     local refObject = ref
     -- ROBLOX deviation: can't check for key presence because nil is a legitimate value.
     if _G.__DEV__ then
-      -- ROBLOX FIXME: upstream uses hasOwnProperty, is this an OK translation?
-      if rawget(refObject, 'current') == nil then
+      -- ROBLOX FIXME: This is a clumsy approximation, since we don't have any
+      -- explicit way to know that something is a ref object; instead, we check
+      -- that it's an empty object with a metatable, which is what Roact refs
+      -- look like since they indirect to bindings via their metatable
+      local isRefObject = getmetatable(refObject :: any) ~= nil and #Object.keys(refObject) == 0
+      if not isRefObject then
         console.error(
           'Expected useImperativeHandle() first argument to either be a ' ..
             'ref callback or React.createRef() object. Instead received: %s.',

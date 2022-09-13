@@ -8,6 +8,6 @@ dependencies = [
     "FitFrame RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "Lumberyak roblox/lumberyak 0.1.1 url+https://github.com/roblox/lumberyak",
     "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
-    "Roact <patched> RoactCompat 17.0.1-rc.14 url+https://github.com/roblox/roact-alignment",
+    "Roact <patched> RoactCompat 17.0.1-rc.15 url+https://github.com/roblox/roact-alignment",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]

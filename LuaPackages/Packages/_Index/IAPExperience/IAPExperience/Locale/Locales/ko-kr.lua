@@ -60,6 +60,7 @@
     ["IAPExperience.PurchaseError.Text.ThirdPartyDisabled"] = [[이 플레이스에 대한 제3자 아이템 판매가 비활성화 상태입니다. 계정에 비용이 청구되지 않습니다.]],
     ["IAPExperience.PurchaseError.Text.Under13"] = [[이 아이템은 만 13세 미만 계정으로 구매할 수 없습니다. 계정에 비용이 청구되지 않습니다.]],
     ["IAPExperience.PurchaseError.Text.FailedGrant"] = [[결제가 진행되었지만 아직 Robux를 받지 못하셨습니다. 나중에 다시 시도하세요.]],
+    ["IAPExperience.PurchaseError.FailedGrantUnknown"] = [[사용되지 않음]],
     ["IAPExperience.Loading.Text.PurchasingRobux"] = [[Robux 구매 중...]],
     ["IAPExperience.Loading.Text.PurchasingItem"] = [[아이템 구매 중...]],
     ["IAPExperience.Loading.WaitingForPurchase"] = [[구매를 기다리는 중...]],

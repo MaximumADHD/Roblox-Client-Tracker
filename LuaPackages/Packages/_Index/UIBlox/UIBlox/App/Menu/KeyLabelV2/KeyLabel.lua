@@ -139,7 +139,7 @@ local function getKeyCodeContent(keyCode: FlexibleKeyCode): KeyLabelContent
 	end
 end
 
-local function getWidthFromContent(content: KeyLabelContent, font: Fonts.FontPallette): number
+local function getWidthFromContent(content: KeyLabelContent, font: Fonts.FontPalette): number
 	if content.inputType == "keyboard" then
 		local innerWidth: number
 		if type(content.content) == "string" then

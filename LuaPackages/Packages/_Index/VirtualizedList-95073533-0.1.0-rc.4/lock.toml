@@ -6,5 +6,5 @@ source = "url+https://github.com/roblox/virtualized-list-lua"
 dependencies = [
     "LuauPolyfill LuauPolyfill 0.3.4 url+https://github.com/roblox/luau-polyfill",
     "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
-    "React React 17.0.1-rc.14 url+https://github.com/roblox/roact-alignment",
+    "React React 17.0.1-rc.15 url+https://github.com/roblox/roact-alignment",
 ]

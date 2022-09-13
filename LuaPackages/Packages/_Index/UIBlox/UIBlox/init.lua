@@ -2,6 +2,19 @@ local makeConfigurable = require(script.Core.Config.makeConfigurable)
 local UIBloxDefaultConfig = require(script.UIBloxDefaultConfig)
 local Packages = script.Parent
 
+local Fonts = require(script.App.Style.Fonts)
+local Images = require(script.App.ImageSet.Images)
+local StyleTypes = require(script.App.Style.StyleTypes)
+
+export type Font = Fonts.Font
+export type FontPalette = Fonts.FontPalette
+
+export type ImageSetImage = Images.ImageSetImage
+export type Images = Images.Images
+
+export type Theme = StyleTypes.Theme
+export type AppStyle = StyleTypes.AppStyle
+
 local function initializeLibrary(configs)
 	local strict = require(script.Utility.strict)
 
@@ -57,6 +70,7 @@ local function initializeLibrary(configs)
 		VR = strict({
 			Panel3D = require(script.Core.VR.Panel3D),
 			Constants = require(script.Core.VR.Constants),
+			PointerOverlay = require(script.Core.VR.PointerOverlay),
 		}),
 
 		Text = strict({
@@ -67,6 +81,12 @@ local function initializeLibrary(configs)
 		}),
 
 		InfiniteScroller = strict(require(Packages.InfiniteScroller)),
+
+		Hooks = strict({
+			useLazyRef = require(script.Utility.useLazyRef),
+			useInitializedValue = require(script.Utility.useInitializedValue),
+			useBinding = require(script.Utility.useBinding),
+		}),
 	})
 
 	UIBlox.Common = strict({
@@ -209,6 +229,8 @@ local function initializeLibrary(configs)
 			}),
 			PlayerTile = require(script.App.Tile.PlayerTile.PlayerTile),
 			ExperienceTile = require(script.App.Tile.ExperienceTile.ExperienceTile),
+			ExperienceTileV2 = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceTileV2),
+			ExperienceStatsV2 = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceStatsV2),
 			ExperienceHoverTile = require(script.App.Tile.ExperienceTile.ExperienceHoverTile),
 		}),
 
@@ -287,6 +309,8 @@ local function initializeLibrary(configs)
 			Slot = strict({
 				SlotTray = require(script.App.Control.Slot.SlotTray),
 			}),
+			Tag = require(script.App.Control.Tag.Tag),
+			TagGroup = require(script.App.Control.Tag.TagGroup),
 		}),
 
 		Navigation = strict({

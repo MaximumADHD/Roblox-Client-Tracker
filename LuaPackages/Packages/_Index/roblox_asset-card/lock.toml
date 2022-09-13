@@ -4,8 +4,8 @@ version = "1.0.3"
 commit = "103b2a571ef09611ac91d38f15c3777682f69bfe"
 source = "git+https://github.com/roblox/asset-card#v1.0.3"
 dependencies = [
-    "Roact <patched> RoactCompat 17.0.1-rc.14 url+https://github.com/roblox/roact-alignment",
+    "Roact <patched> RoactCompat 17.0.1-rc.15 url+https://github.com/roblox/roact-alignment",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox 8cf74bb3 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox e214055f git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]

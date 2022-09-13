@@ -22,7 +22,7 @@ local REGEX_SPECIAL_CHARS = Constants.REGEX_SPECIAL_CHARS
 -- 	Constants.REGEX_BACKSLASH,
 -- 	Constants.REGEX_REMOVE_BACKSLASH,
 -- 	Constants.REGEX_SPECIAL_CHARS,
--- 	Constants.REGEX_SPECIAL_CHARS_GLOBAL
+local REGEX_SPECIAL_CHARS_GLOBAL = Constants.REGEX_SPECIAL_CHARS_GLOBAL
 -- ROBLOX TODO END
 
 function exports.isObject(val)
@@ -34,10 +34,17 @@ end
 function exports.isRegexChar(str: string)
 	return #str == 1 and exports.hasRegexChars(str)
 end
--- ROBLOX TODO START: implement missing RegExp when 'g' flag available (or reimplement without RegExp)
+-- ROBLOX deviation START: additional dependencies
+local String_replace = require(CurrentModule.stringUtils).stringReplace
+-- ROBLOX deviation END
+
 function exports.escapeRegex(str): string
-	error("escapeRegex not implemented")
+	-- ROBLOX deviation: using custom String_replace function
+	return String_replace(str, REGEX_SPECIAL_CHARS_GLOBAL, function(m)
+		return "\\" .. m
+	end)
 	-- return str:replace(REGEX_SPECIAL_CHARS_GLOBAL, "\\$1")
+	-- ROBLOX deviation END
 end
 function exports.toPosixSlashes(str): string
 	error("toPosixSlashes not implemented")

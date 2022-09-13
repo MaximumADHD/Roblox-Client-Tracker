@@ -93,7 +93,8 @@ return {
 	REGEX_SPECIAL_CHARS = "[-*+?.^${}(|)[%]]",
 	-- ROBLOX TODO START: no "g" flag supported yet
 	REGEX_SPECIAL_CHARS_BACKREF = RegExp("(\\\\?)((\\W)(\\3*))"),
-	-- REGEX_SPECIAL_CHARS_GLOBAL = RegExp("([-*+?.^${}(|)[\\]])", "g"),
+	-- ROBLOX TODO: no "g" flag supported yet
+	REGEX_SPECIAL_CHARS_GLOBAL = RegExp("([-*+?.^${}(|)[\\]])"),
 	-- REGEX_REMOVE_BACKSLASH = RegExp("(?:\\[.*?[^\\\\]\\]|\\\\(?=.))", "g"),
 	-- ROBLOX TODO END
 

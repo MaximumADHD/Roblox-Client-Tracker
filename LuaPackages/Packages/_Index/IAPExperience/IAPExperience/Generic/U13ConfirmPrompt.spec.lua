@@ -47,5 +47,8 @@ return function()
         it("should mount and unmount without issue (U13MonthlyThreshold2Modal)", function()
             testU13ConfirmPrompt(U13ConfirmType.U13MonthlyThreshold2Modal)
 		end)
+        it("should mount and unmount without issue (ParentalConsentWarningPaymentModal13To17)", function()
+            testU13ConfirmPrompt(U13ConfirmType.ParentalConsentWarningPaymentModal13To17)
+		end)
 	end)
 end

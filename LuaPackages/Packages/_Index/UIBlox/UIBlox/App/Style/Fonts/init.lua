@@ -6,7 +6,7 @@ export type Font = {
 	RelativeMinSize: number,
 }
 
-export type FontPallette = {
+export type FontPalette = {
 	BaseSize: number,
 	Title: Font,
 	Header1: Font,

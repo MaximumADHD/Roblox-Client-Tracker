@@ -42,6 +42,8 @@ function U13ConfirmPrompt:getMessage(locMap: {[string]: string}, modalType: any?
 		return locMap.u13MonthlyThreshold1Modal
 	elseif modalType == U13ConfirmType.U13MonthlyThreshold2Modal then
 		return locMap.u13MonthlyThreshold2Modal
+	elseif modalType == U13ConfirmType.ParentalConsentWarningPaymentModal13To17 then
+		return locMap.parentalConsentWarningPaymentModal13To17
 	end
 end
 
@@ -59,6 +61,9 @@ function U13ConfirmPrompt:render()
 			},
 			u13MonthlyThreshold2Modal = {
 				key = LOC_KEY:format("Text.U13MonthlyThreshold2Modal")
+			},
+			parentalConsentWarningPaymentModal13To17 = {
+				key = LOC_KEY:format("Text.ParentalConsentWarningPaymentModal13To17")
 			},
 			confirm = {
 				key = LOC_KEY:format("Action.Confirm")

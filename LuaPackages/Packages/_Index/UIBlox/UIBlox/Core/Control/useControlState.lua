@@ -22,7 +22,7 @@ local function useControlState()
 
 	local onStateChanged = React.useCallback(function(_oldState, newState)
 		setControlState(newState)
-	end)
+	end, {})
 
 	return controlState, onStateChanged
 end

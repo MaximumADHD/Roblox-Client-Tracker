@@ -5,7 +5,7 @@ commit = "941abdeb135c61070b76aab6416dad7333ba554d"
 source = "git+https://github.com/roblox/rodux-users#v1.3.3"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
-    "FriendsNetworking NetworkingFriends 2.6.0 url+https://github.com/roblox/networking-friends",
+    "FriendsNetworking NetworkingFriends 2.7.0 url+https://github.com/roblox/networking-friends",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
     "RoduxNetworking RoduxNetworking 3.0.1 url+https://github.com/roblox/rodux-networking",
     "UsersNetworking roblox/networking-users 6616f72f git+https://github.com/roblox/networking-users#v1.0.0",

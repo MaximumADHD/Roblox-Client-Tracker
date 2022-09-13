@@ -1,3 +1,4 @@
+--!strict
 local ThemesRoot = script.Parent
 local StylesRoot = ThemesRoot.Parent
 local Colors = require(StylesRoot.Colors)

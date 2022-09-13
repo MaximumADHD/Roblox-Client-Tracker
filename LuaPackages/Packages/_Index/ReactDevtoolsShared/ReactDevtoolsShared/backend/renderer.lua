@@ -15,6 +15,7 @@ local Set = LuauPolyfill.Set
 local Array = LuauPolyfill.Array
 local Object = LuauPolyfill.Object
 local Number = LuauPolyfill.Number
+local String = LuauPolyfill.String
 
 type Array<K> = { [number]: K }
 type Map<K, V> = { [K]: V }
@@ -1257,7 +1258,7 @@ exports.attach = function(
 			-- children of already pushed "real" IDs. If they were, we wouldn't be able
 			-- to discover them during the traversal, as they would have been deleted.
 			for j = 1, #pendingSimulatedUnmountedIDs do
-				operations[i + j] = pendingSimulatedUnmountedIDs[j] :: number
+				operations[i + j - 1] = pendingSimulatedUnmountedIDs[j] :: number
 			end
 
 			i = i + #pendingSimulatedUnmountedIDs
@@ -3474,9 +3475,12 @@ exports.attach = function(
 			error("Expected root pseudo key to be known.")
 		end
 
-		-- ROBLOX deviation: No existing lastIndexOf implementation
-		-- local name = string.sub(pseudoKey, 1, String.lastIndexOf(pseudoKey, ':'))
-		local name = string.gsub(pseudoKey :: string, "%%:[0-9]$", "")
+		-- Luau FIXME: `pseudoKey == nil` above should narrow pseudoKey from string? to string
+		local name = string.sub(
+			pseudoKey :: string,
+			1,
+			String.lastIndexOf(pseudoKey :: string, ":") - 1
+		)
 		local counter = rootDisplayNameCounter[name]
 
 		if counter == nil then

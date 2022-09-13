@@ -6,7 +6,6 @@ local Core = UIBlox.Core
 local Packages = UIBlox.Parent
 
 local React = require(Packages.React)
-local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
 
 local Interactable = require(Core.Control.Interactable)
@@ -16,14 +15,13 @@ local ControlState = require(Core.Control.Enum.ControlState)
 
 local setDefault = require(UIBlox.Utility.setDefault)
 
-local OUTLINE_THICKNESS = 1
 local CORNER_RADIUS = UDim.new(0, 8)
 
-export type TileOverlayProps = {
-	-- Whether or not overlay should visibly cover full tile
-	isFullOverlay: boolean?,
-	-- Whether or not overlay should show border outline
-	hasOutline: boolean?,
+export type Props = {
+	-- Row with interactable contents to be displayed at bottom of tile
+	actionRow: table?,
+	-- Height of action row. Determines where stateful overlay is visually cut off
+	actionRowHeight: number?,
 	-- Whether or not overlay should be visible
 	isVisible: boolean?,
 	-- Whether or not overlay should capture input
@@ -32,14 +30,14 @@ export type TileOverlayProps = {
 	onActivated: (() -> ())?,
 }
 
-local function TileOverlay(props: TileOverlayProps)
+local function TileOverlay(props: Props)
 	local onActivated = props.onActivated
-	local isFullOverlay = setDefault(props.isFullOverlay, true)
-	local hasOutline = setDefault(props.hasOutline, true)
 	local isVisible = setDefault(props.isVisible, true)
 	local isActive = setDefault(props.isActive, true)
+	local actionRow = props.actionRow
+	local actionRowHeight = props.actionRowHeight
 
-	local controlState, onStateChanged = useControlState()
+	local controlState, updateControlState = useControlState()
 	local stylePalette = useStyle()
 
 	local theme = stylePalette.Theme
@@ -56,39 +54,34 @@ local function TileOverlay(props: TileOverlayProps)
 		end
 	end
 
-	return React.createElement(Interactable, {
+	return React.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
-		BackgroundColor3 = if isFullOverlay then overlayColor else nil,
-		BackgroundTransparency = if isFullOverlay then overlayTransparency else 1,
-		AutoButtonColor = false,
-		onStateChanged = onStateChanged,
-		[React.Event.Activated] = if isActive then onActivated else nil,
+		BackgroundTransparency = 1,
 		ZIndex = 3,
 	}, {
 		UICorner = React.createElement("UICorner", {
 			CornerRadius = CORNER_RADIUS,
 		}),
-		BorderFrame = if hasOutline
-			then React.createElement("Frame", {
-				Size = UDim2.new(1, -2 * OUTLINE_THICKNESS, 1, -2 * OUTLINE_THICKNESS),
-				AnchorPoint = if isFullOverlay then Vector2.new(0.5, 0.5) else nil,
-				Position = if isFullOverlay
-					then UDim2.fromScale(0.5, 0.5)
-					else UDim2.fromOffset(OUTLINE_THICKNESS, OUTLINE_THICKNESS),
-				BackgroundColor3 = if not isFullOverlay then overlayColor else nil,
-				BackgroundTransparency = if not isFullOverlay then overlayTransparency else 1,
-				SizeConstraint = if not isFullOverlay then Enum.SizeConstraint.RelativeXX else nil,
+		ClippingFrame = React.createElement("Frame", {
+			Size = UDim2.new(1, 0, 1, if actionRow and actionRowHeight then -actionRowHeight else 0),
+			BackgroundTransparency = 1,
+			ClipsDescendants = true,
+		}, {
+			Interactable = React.createElement(Interactable, {
+				Size = UDim2.new(1, 0, 1, if actionRow then CORNER_RADIUS.Offset else 0),
+				BackgroundColor3 = overlayColor,
+				BackgroundTransparency = overlayTransparency,
+				AutoButtonColor = false,
+				onStateChanged = updateControlState,
+				[React.Event.Activated] = if isActive then onActivated else nil,
+				ZIndex = 3,
 			}, {
-				UIStroke = React.createElement("UIStroke", {
-					Color = theme.Divider.Color,
-					Transparency = theme.Divider.Transparency,
-					Thickness = OUTLINE_THICKNESS,
-				}),
 				UICorner = React.createElement("UICorner", {
 					CornerRadius = CORNER_RADIUS,
 				}),
-			})
-			else nil,
+			}),
+		}),
+		ActionRow = props.actionRow,
 	})
 end
 

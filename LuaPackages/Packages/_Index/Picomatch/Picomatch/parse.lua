@@ -439,14 +439,16 @@ function parse_(input, options) -- ROBLOX deviation END
 				slashes = #match[1]
 				state.index += slashes
 				if slashes % 2 ~= 0 then
-					value ..= "\\"
+					-- ROBLOX FIXME Luau: it seems that Luau narrows the type to be singleton type of "\\" and doesn't allow to append anything to it
+					value ..= "\\" :: any
 				end
 			end
 
 			if opts.unescape == true then
 				value = advance()
 			else
-				value ..= advance()
+				-- ROBLOX FIXME Luau: it seems that Luau narrows the type to be singleton type of "\\" and doesn't allow to append anything to it
+				value ..= advance() :: any
 			end
 
 			if state.brackets == 0 then
@@ -463,10 +465,10 @@ function parse_(input, options) -- ROBLOX deviation END
 		if state.brackets > 0 and (value ~= "]" or prev.value == "[" or prev.value == "[^") then
 			if opts.posix ~= false and value == ":" then
 				local inner = String.slice(prev.value, 1)
-				if inner:find("[") ~= nil then
+				if inner:find("[", 1, true) ~= nil then
 					prev.posix = true
 
-					if inner:find(":") ~= nil then
+					if inner:find(":", 1, true) ~= nil then
 						local idx = String.lastIndexOf(prev.value, "[")
 						local pre = String.slice(prev.value, 1, idx)
 						local rest = String.slice(prev.value, idx + 2)
@@ -500,7 +502,8 @@ function parse_(input, options) -- ROBLOX deviation END
 				value = "^"
 			end
 
-			prev.value ..= value
+			-- ROBLOX FIXME Luau: it seems that Luau narrows the type to be singleton type of "\\" and doesn't allow to append anything to it
+			prev.value ..= value :: any
 			append({ value = value })
 			continue
 		end
@@ -564,7 +567,7 @@ function parse_(input, options) -- ROBLOX deviation END
 		 ]]
 
 		if value == "[" then
-			if opts.nobracket == true or not remaining():find("]") ~= nil then
+			if opts.nobracket == true or remaining():find("]", 1, true) == nil then
 				if opts.nobracket ~= true and opts.strictBrackets == true then
 					error(Error.new("SyntaxError: " .. syntaxError("closing", "]")))
 				end
@@ -595,7 +598,7 @@ function parse_(input, options) -- ROBLOX deviation END
 			decrement("brackets")
 
 			local prevValue = String.slice(prev.value, 2)
-			if prev.posix ~= true and prevValue:sub(1, 1) == "^" and not prevValue:find("/") ~= nil then
+			if prev.posix ~= true and prevValue:sub(1, 1) == "^" and prevValue:find("/", 1, true) == nil then
 				value = ("/%s"):format(value)
 			end
 

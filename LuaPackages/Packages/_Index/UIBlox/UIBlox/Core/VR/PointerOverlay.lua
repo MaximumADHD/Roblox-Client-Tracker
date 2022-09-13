@@ -20,7 +20,7 @@ type VRService = {
 }
 type LaserPointer = {
 	setMode: (mode: number) -> (),
-	setEnableAmidexterousPointer: (enabled: boolean) -> (),
+	setEnableAmbidexterousPointer: (enabled: boolean) -> (),
 	new: () -> LaserPointer,
 }
 
@@ -53,7 +53,7 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 		if not LaserPointer.current then
 			LaserPointer.current = LaserPointerComponent.new()
 			LaserPointer.current:setMode(LaserPointer.current.Mode["Pointer"])
-			LaserPointer.current:setEnableAmidexterousPointer(true)
+			LaserPointer.current:setEnableAmbidexterousPointer(true)
 			LeftControllerModel.current = VRControllerModel.new(Enum.UserCFrame.LeftHand)
 			RightControllerModel.current = VRControllerModel.new(Enum.UserCFrame.RightHand)
 		end

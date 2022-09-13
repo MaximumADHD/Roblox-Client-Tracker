@@ -59,6 +59,7 @@ return {
 			U13ConfirmType.U13PaymentModal,
 			U13ConfirmType.U13MonthlyThreshold1Modal,
 			U13ConfirmType.U13MonthlyThreshold2Modal,
+			U13ConfirmType.ParentalConsentWarningPaymentModal13To17,
 		},
 		showController = true,
 	},

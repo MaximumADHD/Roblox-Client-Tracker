@@ -19,7 +19,7 @@ type Props = {
 	onShown: ()->any?,
 	onHidden: ()->any?,
 
-	[Roact.Children]: any,
+	renderChildren: ()->any,
 }
 
 function Animator:init()
@@ -82,10 +82,10 @@ function Animator:render()
 			Position = self.animationProgress:map(function(value)
 				return UDim2.new(0, 0, -1 * value, 0)
 			end),
-		}, self.state.shouldRenderChildren and self.props[Roact.Children] or nil)
+		}, self.state.shouldRenderChildren and props.renderChildren() or nil)
 	else
-		if self.props.shouldShow then
-			return self.props[Roact.Children]
+		if props.shouldShow then
+			return props.renderChildren()
 		else
 			return nil
 		end
