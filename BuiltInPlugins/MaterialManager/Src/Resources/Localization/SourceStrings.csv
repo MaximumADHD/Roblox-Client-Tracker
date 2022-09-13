@@ -221,6 +221,12 @@ Studio.MaterialManager.PhysicalProperties.Physics,Physics
 Studio.MaterialManager.PhysicalProperties.Reset,Reset
 Studio.MaterialManager.Plugin.Button,Material Manager
 Studio.MaterialManager.Plugin.Name,Material Manager
+Studio.MaterialManager.TerrainDetails.Bottom,Bottom
+Studio.MaterialManager.TerrainDetails.ButtonCreate,Create
+Studio.MaterialManager.TerrainDetails.Delete,Delete
+Studio.MaterialManager.TerrainDetails.Side,Side
+Studio.MaterialManager.TerrainDetails.TerrainDetails,Terrain Details
+Studio.MaterialManager.TerrainDetails.Top,Top
 Studio.MaterialManager.TopBar.Apply,Apply to Selected Parts
 Studio.MaterialManager.TopBar.Create,Create Material Variant
 Studio.MaterialManager.TopBar.Filters,Filters

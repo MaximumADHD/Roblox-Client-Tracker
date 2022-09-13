@@ -101,7 +101,7 @@
         <addseparator visible="false"/>
         <addaction name="toggleUIMenuAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/UIEditor.png" modernIcon="UI" width="32" height="32"/>
       </Group>
-      <Group name="Edit" text="Studio.Common.Action.Edit" options="true" modernIcon="Material" icon=":/RibbonBar/images/RibbonIcons/Home/Material.png" width="32" height="32">
+      <Group name="Edit" text="Studio.Common.Action.Edit" options="true" modernIcon="MaterialManager" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" width="32" height="32">
         <groupoptionsmenu tooltip="Studio.App.RobloxRibbonMainWindow.ActionsAsTools" handleMenuTrigger="true">
           <addaction name="colorFillActionAsTool" text="Studio.App.RobloxRibbonMainWindow.ColorActionAsTool" modernIcon="ColorPicker" ischeckable="true" tooltip="Studio.App.RobloxRibbonMainWindow.TogglesMaterialActionAsTool"/>
         </groupoptionsmenu>
@@ -280,8 +280,8 @@
         <addaction name="showWeldsAction" iscommonslot="true" ischeckable="true" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.ShowWelds" tooltip="Studio.App.RobloxRibbonMainWindow.ShowWelds" icon=":/RibbonBar/images/RibbonIcons/Physics/weld-32x32.png" modernIcon="ShowWelds" width="16" height="16"/>
         <addaction name="showConstraintDetailsAction" iscommonslot="true" ischeckable="true" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.ConstraintDetails" tooltip="Studio.App.RobloxRibbonMainWindow.ShowConstraintDetails" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" modernIcon="ConstraintDetails" width="16" height="16"/>
         <addaction name="constraintDrawOnTopAction" iscommonslot="true" ischeckable="true" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.DrawOnTop" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" modernIcon="DrawOnTop" tooltip="Studio.App.RobloxRibbonMainWindow.DrawConstraintsAttWeldsTop" width="16" height="16"/>
-        <addspinbox name="constraintWidgetScaleAction" type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.ConstraintWidgetScale" decimals="2" text="Studio.App.RobloxRibbonMainWindow.Scale" minimum="0.1" minumumWidth="30" step=".5" suffix=" x" fflag="!StudioDisableSpinBoxKeyboardTracking"/>
-        <addspinbox name="constraintWidgetScaleAction" type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.ConstraintWidgetScale" decimals="2" text="Studio.App.RobloxRibbonMainWindow.Scale" minimum="0.1" maximum="60" minumumWidth="30" step=".5" suffix=" x" fflag="StudioDisableSpinBoxKeyboardTracking"/>
+        <addspinbox name="constraintGizmoScaleAction" type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.ConstraintGizmoScale" decimals="2" text="Studio.App.RobloxRibbonMainWindow.Scale" minimum="0.1" minumumWidth="30" step=".5" suffix=" x" fflag="!StudioDisableSpinBoxKeyboardTracking"/>
+        <addspinbox name="constraintGizmoScaleAction" type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.ConstraintGizmoScale" decimals="2" text="Studio.App.RobloxRibbonMainWindow.Scale" minimum="0.1" maximum="60" minumumWidth="30" step=".5" suffix=" x" fflag="StudioDisableSpinBoxKeyboardTracking"/>
       </Group>
       <Group name="Gameplay" text="Studio.App.RobloxRibbonMainWindow.Gameplay" modernIcon="Effects" icon=":/RibbonBar/images/RibbonIcons/Insert/Effects.png" width="32" height="32">
         <MenuButton name="actionParticleEffects" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Effects" tooltip="Studio.App.RobloxRibbonMainWindow.SelectAndClickForEffects" icon=":/RibbonBar/images/RibbonIcons/Insert/Effects.png" modernIcon="Effects" width="32" height="32" >
@@ -508,6 +508,7 @@
           <addaction name="selectAllAction" icon=":/RibbonBar/images/RibbonIcons/Home/Select.png" modernIcon="SelectAll" width="16" height="16" />
           <addaction name="selectParentsAction" fflag="SelectParentsEnabled"/>
           <addaction name="selectChildrenAction" icon=":/16x16/images/Studio 2.0 icons/16x16/select_children.png" modernIcon="SelectChildren" />
+          <addaction name="collapseAllAction" fflag="CollapseAllEnabled"/>
         </MenuButton>
         <!--<addaction name="deleteSelectedAction" text="Studio.Common.Action.Delete" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Delete.png" modernIcon="" width="32" height="32" />-->
       </Group>

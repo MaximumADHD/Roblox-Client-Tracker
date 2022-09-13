@@ -161,6 +161,7 @@ Studio.MaterialManager.Materials.AirVariant,Air Variant,Air Variant
 Studio.MaterialManager.Materials.AsphaltVariant,Asphalt Variant,Asphalt Variant
 Studio.MaterialManager.Materials.BasaltVariant,Basalt Variant,Basalt Variant
 Studio.MaterialManager.Materials.BrickVariant,Brick Variant,Brick Variant
+Studio.MaterialManager.TerrainDetails.Top,Top,Top
 Studio.MaterialManager.Materials.CobblestoneVariant,Cobblestone Variant,Cobblestone Variant
 Studio.MaterialManager.Materials.GlacierMaterial,Glacier Material,Glacier Material
 Studio.MaterialManager.Materials.ConcreteVariant,Concrete Variant,Concrete Variant
@@ -186,6 +187,7 @@ Studio.MaterialManager.MaterialPatterns.Organic,Organic,Organic
 Studio.MaterialManager.Materials.NeonMaterial,Neon Material,Neon Material
 Studio.MaterialManager.Materials.PavementVariant,Pavement Variant,Pavement Variant
 Studio.MaterialManager.Materials.PebbleVariant,Pebble Variant,Pebble Variant
+Studio.MaterialManager.TerrainDetails.ButtonCreate,Create,Create
 Studio.MaterialManager.Materials.RockVariant,Rock Variant,Rock Variant
 Studio.MaterialManager.Materials.SaltVariant,Salt Variant,Salt Variant
 Studio.MaterialManager.Materials.SandVariant,Sand Variant,Sand Variant
@@ -207,6 +209,7 @@ Studio.MaterialManager.Materials.FoilMaterial,Foil Material,Foil Material
 Studio.MaterialManager.Materials.ForcefieldMaterial,Force Field Material,Force Field Material
 Studio.MaterialManager.Materials.GlassMaterial,Glass Material,Glass Material
 Studio.MaterialManager.Materials.GraniteMaterial,Granite Material,Granite Material
+Studio.MaterialManager.TerrainDetails.Side,Side,Side
 Studio.MaterialManager.Materials.GrassMaterial,Grass Material,Grass Material
 Studio.MaterialManager.Materials.GroundMaterial,Ground Material,Ground Material
 Studio.MaterialManager.CreateDialog.StudsPerTileVariant,Studs Per Tile,Studs Per Tile
@@ -239,7 +242,9 @@ Studio.MaterialManager.Callout.MaterialManagerApplyDescription,Click here to app
 Studio.MaterialManager.MaterialPatterns.Regular,Regular,Regular
 Studio.MaterialManager.Categories.Special,Special,Special
 Studio.MaterialManager.ViewType.List,List,List
+Studio.MaterialManager.TerrainDetails.Bottom,Bottom,Bottom
 Studio.MaterialManager.MaterialInformation.Delete,Delete,Delete
+Studio.MaterialManager.TerrainDetails.Delete,Delete,Delete
 Studio.MaterialManager.CreateDialog.ErrorUploadFromFileMapToLarge,Failed to upload: file is too large,Failed to upload: file is too large
 Studio.MaterialManager.CreateDialog.FailedToUploadTooLarge,Failed to upload: file is too large,Failed to upload: file is too large
 Studio.MaterialManager.CreateDialog.Uploading,Uploading Texture Map...,Uploading Texture Map...
@@ -252,3 +257,4 @@ Studio.MaterialManager.OverrideSettings.SetOverride,Set as Override,Set as Overr
 Studio.MaterialManager.PhysicalProperties.Elasticity,Elasticity,Elasticity
 Studio.MaterialManager.PhysicalProperties.Friction,Friction,Friction
 Studio.MaterialManager.PhysicalProperties.Physics,Physics,Physics
+Studio.MaterialManager.TerrainDetails.TerrainDetails,Terrain Details,Terrain Details

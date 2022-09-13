@@ -1122,6 +1122,29 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
+                    "Name": "PortalStatus",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "AdPortalStatus"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
                     "Name": "PortalType",
                     "Security": {
                         "Read": "None",
@@ -1134,7 +1157,7 @@
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Enum",
-                        "Name": "PortalType"
+                        "Name": "AdPortalType"
                     }
                 }
             ],
@@ -4621,6 +4644,25 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "GetAccessoryType",
+                    "Parameters": [
+                        {
+                            "Name": "avatarAssetType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AvatarAssetType"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Enum",
+                        "Name": "AccessoryType"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
                 {
                     "MemberType": "Function",
                     "Name": "NoPromptCreateOutfit",
@@ -54418,29 +54460,6 @@
                     }
                 },
                 {
-                    "Category": "Link",
-                    "MemberType": "Property",
-                    "Name": "Package Id",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated",
-                        "NotScriptable"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "Content"
-                    }
-                },
-                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "PackageAssetName",
@@ -54476,7 +54495,6 @@
                         "CanSave": true
                     },
                     "Tags": [
-                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -54534,39 +54552,16 @@
                 {
                     "Category": "Link",
                     "MemberType": "Property",
-                    "Name": "Version Number",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int64"
-                    }
-                },
-                {
-                    "Category": "Link",
-                    "MemberType": "Property",
                     "Name": "VersionNumber",
                     "Security": {
                         "Read": "None",
                         "Write": "NotAccessibleSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": false,
+                        "CanLoad": true,
                         "CanSave": false
                     },
                     "Tags": [
-                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
@@ -89426,6 +89421,14 @@
                 },
                 {
                     "MemberType": "Event",
+                    "Name": "LocalPlayerModerated",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
                     "Name": "ParticipantsStateChanged",
                     "Parameters": [
                         {
@@ -89875,6 +89878,36 @@
                 }
             ],
             "Name": "ActuatorType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Invalid",
+                    "Value": 0
+                },
+                {
+                    "Name": "Inactive",
+                    "Value": 1
+                },
+                {
+                    "Name": "Active",
+                    "Value": 2
+                }
+            ],
+            "Name": "AdPortalStatus"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Forward",
+                    "Value": 0
+                },
+                {
+                    "Name": "Return",
+                    "Value": 1
+                }
+            ],
+            "Name": "AdPortalType"
         },
         {
             "Items": [
@@ -96162,19 +96195,6 @@
                 }
             ],
             "Name": "PlayerChatType"
-        },
-        {
-            "Items": [
-                {
-                    "Name": "Forward",
-                    "Value": 0
-                },
-                {
-                    "Name": "Return",
-                    "Value": 1
-                }
-            ],
-            "Name": "PortalType"
         },
         {
             "Items": [

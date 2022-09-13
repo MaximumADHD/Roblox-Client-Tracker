@@ -763,6 +763,7 @@ Studio.App.RBXMainWindow.ClearStats,,Clear Stats,Clear Stats
 Studio.App.RBXMainWindow.ResetsFontSize,,Reset font size,Reset font size
 Studio.App.RBXMainWindow.SelectChildren,,Select Children,Select Children
 Studio.App.RBXMainWindow.SelectParents,,Select Parent(s),Select Parent(s)
+Studio.App.RBXMainWindow.CollapseChildren,,Collapse All,Collapse All
 Studio.App.RBXMainWindow.CheckNetworkAndUserAuthentication,,"Feature not available in offline mode.
 Please check internet connection and restart Roblox.","Feature not available in offline mode.
 Please check internet connection and restart Roblox."
@@ -1202,7 +1203,7 @@ Studio.App.RobloxRibbonMainWindow.ConnectionIsStable,,Connection is stable.,Conn
 Studio.App.RobloxRibbonMainWindow.ConnectionIsUnstable,,Connection is unstable. Changes may not be saved.,Connection is unstable. Changes may not be saved.
 Studio.App.RobloxRibbonMainWindow.ConnectionIsLost,,Server connection lost. Functionality is limited. Attempting to reconnect...,Server connection lost. Functionality is limited. Attempting to reconnect...
 Studio.App.RobloxRibbonMainWindow.ConstraintDetails,,Constraint Details,Constraint Details
-Studio.App.RobloxRibbonMainWindow.ConstraintWidgetScale,,Constraint widget scale (Alt+Scroll Wheel),Constraint widget scale (Alt+Scroll Wheel)
+Studio.App.RobloxRibbonMainWindow.ConstraintGizmoScale,,Constraint widget scale (Alt+Scroll Wheel),Constraint widget scale (Alt+Scroll Wheel)
 Studio.App.RobloxRibbonMainWindow.Constraints,,Constraints,Constraints
 Studio.App.RobloxRibbonMainWindow.CopySelectedText,,Copy selected text,Copy selected text
 Studio.App.RobloxRibbonMainWindow.CorrodedMetal,,Corroded Metal,Corroded Metal

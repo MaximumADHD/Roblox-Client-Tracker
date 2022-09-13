@@ -146,6 +146,7 @@ Studio.AnimationClipEditor.Menu.New, ,New...
 Studio.AnimationClipEditor.Menu.Overwrite_Migrated, ,Do you want to overwrite existing animation {overwriteName}?
 Studio.AnimationClipEditor.Menu.PromoteToChannels, ,Promote to Channel Animation
 Studio.AnimationClipEditor.Menu.PublishToRoblox, ,Publish to Roblox
+Studio.AnimationClipEditor.Menu.ReduceKeyframes, ,Reduce Keyframes
 Studio.AnimationClipEditor.Menu.RenameKeyframePrompt, ,New Keyframe Name
 Studio.AnimationClipEditor.Menu.RenamePrompt, ,New Animation Name:
 Studio.AnimationClipEditor.Menu.Save, ,Save
@@ -156,6 +157,7 @@ Studio.AnimationClipEditor.Plugin.Button, ,Animation Editor
 Studio.AnimationClipEditor.Plugin.Description, ,"Create, preview, and publish Animation clips"
 Studio.AnimationClipEditor.Plugin.Name, ,Animation Editor
 Studio.AnimationClipEditor.Plugin.Toolbar, ,Animations
+Studio.AnimationClipEditor.ReduceKeyframes.Keyframes, ,Keyframes:
 Studio.AnimationClipEditor.RigErrors.CircularRig, ,This rig contains a cycle between the connections of certain parts.
 Studio.AnimationClipEditor.RigErrors.MissingPart0_Migrated, ,The following Motor6Ds do not have a Part0 set: {entries}
 Studio.AnimationClipEditor.RigErrors.MissingPart1_Migrated, ,The following Motor6Ds do not have a Part1 set: {entries}
@@ -225,6 +227,7 @@ Studio.AnimationClipEditor.Title.MinPBSParam, ,Minimum playback speed is {speed}
 Studio.AnimationClipEditor.Title.NewDuration, ,New Duration
 Studio.AnimationClipEditor.Title.NoAnimationExists_Migrated, ,"No animation exists for {rig}, please create one to start animating"
 Studio.AnimationClipEditor.Title.Parameter, ,Parameter
+Studio.AnimationClipEditor.Title.ReduceKeyframes, ,Reduce Keyframes
 Studio.AnimationClipEditor.Title.ResetAll, ,Reset All
 Studio.AnimationClipEditor.Title.SaveAsNew, ,Save As New Animation
 Studio.AnimationClipEditor.Title.SelectARig, ,Select a rig to animate or create a new rig by selecting Build Rig under the Plugins tab

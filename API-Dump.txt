@@ -50,7 +50,8 @@ Class Accessory : Accoutrement
 	Property Enum.AccessoryType Accessory.AccessoryType {✏️NotAccessibleSecurity}
 Class Hat : Accoutrement [Deprecated]
 Class AdPortal : Instance [NotCreatable] [NotBrowsable]
-	Property Enum.PortalType AdPortal.PortalType
+	Property Enum.AdPortalStatus AdPortal.PortalStatus [ReadOnly] [NotScriptable]
+	Property Enum.AdPortalType AdPortal.PortalType
 	Property string AdPortal.PortalInvalidReason [ReadOnly] [NotScriptable]
 Class AdService : Instance [NotCreatable] [Service] [Deprecated]
 	Function void AdService:ShowVideoAd() [Deprecated]
@@ -236,6 +237,7 @@ Class Bone : Attachment
 Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function HumanoidDescription AvatarEditorService:CheckApplyDefaultClothing(HumanoidDescription humanoidDescription) [Yields]
 	Function HumanoidDescription AvatarEditorService:ConformToAvatarRules(HumanoidDescription humanoidDescription) [Yields]
+	Function Enum.AccessoryType AvatarEditorService:GetAccessoryType(Enum.AvatarAssetType avatarAssetType)
 	Function Dictionary AvatarEditorService:GetAvatarRules() [Yields]
 	Function Array AvatarEditorService:GetBatchItemDetails(Array itemIds, Enum.AvatarItemType itemType) [Yields]
 	Function bool AvatarEditorService:GetFavorite(int64 itemId, Enum.AvatarItemType itemType) [Yields]
@@ -2849,11 +2851,9 @@ Class PackageLink : Instance [NotCreatable] [NotBrowsable]
 	Property string PackageLink.PackageAssetName [ReadOnly] [NotScriptable]
 	Property Enum.PackagePermission PackageLink.PermissionLevel [ReadOnly] [NotScriptable]
 	Property bool PackageLink.AutoUpdate [NotScriptable]
-	Property Content PackageLink.Package Id [ReadOnly] [NotScriptable]
-	Property Content PackageLink.PackageId [Hidden] [ReadOnly]
+	Property Content PackageLink.PackageId [ReadOnly]
 	Property string PackageLink.Status {RobloxScriptSecurity} [ReadOnly]
-	Property int64 PackageLink.Version Number [NotReplicated] [NotScriptable]
-	Property int64 PackageLink.VersionNumber {✏️NotAccessibleSecurity} [Hidden] [NotReplicated]
+	Property int64 PackageLink.VersionNumber {✏️NotAccessibleSecurity} [<📁> LoadOnly] [NotReplicated]
 Class PackageService : Instance [NotCreatable] [Service] [NotReplicated]
 Class PackageUIService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void PackageUIService:ConvertToPackageUpload(string uploadUrl, Objects cloneInstances, Objects originalInstances) {RobloxScriptSecurity}
@@ -4710,6 +4710,7 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service] [NotBrowsable]
 	Function bool VoiceChatInternal:SubscribePauseAll(bool paused) [Deprecated]
 	Function bool VoiceChatInternal:SubscribeRetry(int64 userId) {RobloxScriptSecurity}
 	Function bool VoiceChatInternal:SubscribeUnblock(int64 userId) {RobloxScriptSecurity}
+	Event VoiceChatInternal.LocalPlayerModerated() {RobloxScriptSecurity}
 	Event VoiceChatInternal.ParticipantsStateChanged(Array participantsLeft, Array participantsJoined, Array updatedStates) {RobloxScriptSecurity} [Deprecated]
 	Event VoiceChatInternal.PlayerMicActivitySignalChange(Dictionary activityInfo) {RobloxScriptSecurity} [Deprecated]
 	Event VoiceChatInternal.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new) [Deprecated]
@@ -4760,6 +4761,13 @@ Enum ActuatorType
 	EnumItem ActuatorType.None : 0
 	EnumItem ActuatorType.Motor : 1
 	EnumItem ActuatorType.Servo : 2
+Enum AdPortalStatus
+	EnumItem AdPortalStatus.Invalid : 0
+	EnumItem AdPortalStatus.Inactive : 1
+	EnumItem AdPortalStatus.Active : 2
+Enum AdPortalType
+	EnumItem AdPortalType.Forward : 0
+	EnumItem AdPortalType.Return : 1
 Enum AdShape
 	EnumItem AdShape.HorizontalRectangle : 1
 Enum AdornCullingMode
@@ -6250,9 +6258,6 @@ Enum PlayerChatType
 	EnumItem PlayerChatType.All : 0
 	EnumItem PlayerChatType.Team : 1
 	EnumItem PlayerChatType.Whisper : 2
-Enum PortalType
-	EnumItem PortalType.Forward : 0
-	EnumItem PortalType.Return : 1
 Enum PoseEasingDirection
 	EnumItem PoseEasingDirection.In : 0
 	EnumItem PoseEasingDirection.Out : 1

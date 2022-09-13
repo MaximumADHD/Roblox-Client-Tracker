@@ -82,6 +82,7 @@ DefaultOpaqueHQFS_Level0,Fragment
 DefaultPlasticFS_Level0,Fragment
 DefaultPlasticHQFS_Level0,Fragment
 DefaultPlasticReflectionFS_Level0,Fragment
+DefaultPlasticReflectionHQFS_Level0,Fragment
 DefaultReflectionVS_Level0,Vertex
 DefaultReflectionVS_Level2,Vertex
 DefaultReflectionVS_Level6,Vertex

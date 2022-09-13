@@ -19,6 +19,7 @@ Studio.AssetImporter.EnumItem.RthroNarrow,Rthro Narrow,Rthro Narrow
 Studio.AssetImporter.TreeViewToolbar.Expand,Expand,Expand
 Studio.AssetImporter.TreeViewToolbar.Collapse,Collapse,Collapse
 Studio.AssetImporter.Upload.Success,Successfully Imported!,Successfully Imported!
+Studio.AssetImporter.Statuses.FacsRootFaceJointExtraCharsError1,"{FacsControlName}" must be exactly "RootFaceJoint" with no spaces or underscores.,"{FacsControlName}" must be exactly "RootFaceJoint" with no spaces or underscores.
 Studio.AssetImporter.Statuses.DefaultError,Import experienced a {type} error.,Import experienced a {type} error.
 Studio.AssetImporter.AssetImportTree.Contains,Contains %d %s,Contains %d %s
 Studio.AssetImporter.AssetImportTree.Descendants,Descendants contain %d %s,Descendants contain %d %s
@@ -67,6 +68,7 @@ Studio.AssetImporter.Statuses.CageHasMaterialWarning,Material(s) found under thi
 Studio.AssetImporter.Statuses.MeshSizeWarning,The number of triangles is greater than is supported. Object will be simplified.,The number of triangles is greater than is supported. Object will be simplified.
 Studio.AssetImporter.PropertiesTooltip.ImportName,The name of the object,The name of the object
 Studio.AssetImporter.PropertiesTooltip.InsertInWorkspace,If this object should be inserted into the workspace after import,If this object should be inserted into the workspace after import
+Studio.AssetImporter.Statuses.FacsMax3CorrectivesError3,Correctives can be for at most 3 control names.  Found {Size} for attribute "{FrameAttr}": "{FacsControlName}",Correctives can be for at most 3 control names.  Found {Size} for attribute "{FrameAttr}": "{FacsControlName}"
 Studio.AssetImporter.PropertiesTooltip.InvertNegativeFaces,Whether or not to flip negative faces,Whether or not to flip negative faces
 Studio.AssetImporter.PropertiesTooltip.PolygonCount,The total count of polygons in this object,The total count of polygons in this object
 Studio.AssetImporter.PropertiesTooltip.RigType,The type of Rig to import,The type of Rig to import
@@ -161,6 +163,7 @@ Studio.AssetImporter.Statuses.CageNoGeoParentError,"Couldn't find geometry for c
 Studio.AssetImporter.PropertiesTooltip.OuterCageFarExtendedFromMeshWarning,There are outer cage vertex(s) that are too far away from the clothing mesh. This will lead to issues when other clothing is layered on top.,There are outer cage vertex(s) that are too far away from the clothing mesh. This will lead to issues when other clothing is layered on top.
 Studio.AssetImporter.Statuses.OuterCageFarExtendedFromMeshWarning,There are outer cage vertex(s) that are too far away from the clothing mesh. This will lead to issues when other clothing is layered on top.,There are outer cage vertex(s) that are too far away from the clothing mesh. This will lead to issues when other clothing is layered on top.
 Studio.AssetImporter.Statuses.OuterCageBloatingWarning,The average distance between the clothing and outer cage is too large. This will lead to bloating issues when other clothing is layered on top.,The average distance between the clothing and outer cage is too large. This will lead to bloating issues when other clothing is layered on top.
+Studio.AssetImporter.Statuses.FacsCorrectiveDupeError3,Found duplicate FACS control name "{FacsDupeName}" for corrective "{FacsControlName}" in attribute "{FrameAttr}",Found duplicate FACS control name "{FacsDupeName}" for corrective "{FacsControlName}" in attribute "{FrameAttr}"
 Studio.AssetImporter.Properties.OuterCageFarExtendedFromMeshPreview,Outer cage extends too far,Outer cage extends too far
 Studio.AssetImporter.Statuses.AvatarCagesMissingWarning,Corresponding cage mesh is missing for this mesh. All R15 Body Parts must have a cage.,Corresponding cage mesh is missing for this mesh. All R15 Body Parts must have a cage.
 Studio.AssetImporter.Statuses.NoRefMeshForCageWarning,Could not find corresponding Geo Mesh for Cage Mesh.,Could not find corresponding Geo Mesh for Cage Mesh.
@@ -168,3 +171,13 @@ Studio.AssetImporter.Statuses.NoRefMeshForCageWarningWithSuggestion,Could not fi
 Studio.AssetImporter.Statuses.InnerButNoOuterCageWarning,Inner Cage has no corresponding Outer Cage.,Inner Cage has no corresponding Outer Cage.
 Studio.AssetImporter.Statuses.CageNameHasTypoWarning_v1,"Cage name contains a typo, try renaming to {SuggestedName}.","Cage name contains a typo, try renaming to {SuggestedName}."
 Studio.AssetImporter.Statuses.NoRefMeshForCageWarningWithSuggestion_v1,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {SuggestedName}.,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {SuggestedName}.
+Studio.AssetImporter.Statuses.FacsFrameExtraCharsWarning1,Ignoring {FrameAttr} because it contains underscores or spaces.  Must be of the form "Frame#" where "#" is an integer with no spaces or underscores.,Ignoring {FrameAttr} because it contains underscores or spaces.  Must be of the form "Frame#" where "#" is an integer with no spaces or underscores.
+Studio.AssetImporter.Statuses.FacsUnrecognizedFACSError2,Unrecognized FACS control name "{FacsControlName}" for attribute "{FrameAttr}",Unrecognized FACS control name "{FacsControlName}" for attribute "{FrameAttr}"
+Studio.AssetImporter.Statuses.FacsInvalidCorrectiveError2,Invalid corrective name "{FacsControlName}" for attribute"{FrameAttr}": Neutral cannot be part of a corrective,Invalid corrective name "{FacsControlName}" for attribute"{FrameAttr}": Neutral cannot be part of a corrective
+Studio.AssetImporter.Statuses.FacsRootFaceJointNotStringError,RootFaceJoint attribute must be of type string,RootFaceJoint attribute must be of type string
+Studio.AssetImporter.Statuses.FacsRootFaceJointNoValueError,RootFaceJoint attribute has no value,RootFaceJoint attribute has no value
+Studio.AssetImporter.Statuses.FacsFrameAttrNotStringError1,"{FrameAttr}" attribute must be of type string,"{FrameAttr}" attribute must be of type string
+Studio.AssetImporter.Statuses.FacsUnparseableFrameNumberError1,Couldn't parse the frame number in attribute "{FrameAttr}".,Couldn't parse the frame number in attribute "{FrameAttr}".
+Studio.AssetImporter.Statuses.FacsEmptyAttributeWarning1,Empty value found for attribute "{FrameAttr}".  Ignoring this.,Empty value found for attribute "{FrameAttr}".  Ignoring this.
+Studio.AssetImporter.Statuses.FacsDupeControlError3,Duplicate control name found: "{FacsControlName}" in frame {FrameNumber1} and frame {FrameNumber2},Duplicate control name found: "{FacsControlName}" in frame {FrameNumber1} and frame {FrameNumber2}
+Studio.AssetImporter.Statuses.FacsHasFramesNoRootFaceJointError1,Found "Frame#" attributes in mesh "{ParentNodeName}" but no "RootFaceJoint" attribute.  No FACS mapping will be created for this mesh.,Found "Frame#" attributes in mesh "{ParentNodeName}" but no "RootFaceJoint" attribute.  No FACS mapping will be created for this mesh.
