@@ -5,15 +5,13 @@
 	Necessary props:
 	assetId, number, will be used to request assetData on didMount.
 ]]
-local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
-local FFlagUpdateFocusToUsePropsConvertToPackage = game:DefineFastFlag("UpdateFocusToUsePropsConvertToPackage", false)
 local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
-local withContext = if FFlagUpdateConvertToPackageToDFContextServices then ContextServices.withContext else require(Plugin.Src.ContextServices.withContext)
+local withContext = ContextServices.withContext
 
 local Components = Plugin.Src.Components
 local ConvertToPackageWindow = Components.ConvertToPackageWindow
@@ -26,7 +24,6 @@ local SetAssetName = require(Plugin.Src.Actions.SetAssetName)
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
 
-local getPluginGui = if FFlagUpdateConvertToPackageToDFContextServices then nil else require(Plugin.Src.ContextServices.PluginContext).getPluginGui
 local getUserId = require(Plugin.Src.Util.getUserId)
 
 local MakeChangeRequest = require(Plugin.Src.Thunks.MakeChangeRequest)
@@ -121,15 +118,7 @@ function AssetConfig:init(props)
 
 	self.closeAssetConfig = function()
 		-- Close the assetConfig
-		local pluginGui
-
-		if FFlagUpdateFocusToUsePropsConvertToPackage and FFlagUpdateConvertToPackageToDFContextServices then
-			pluginGui = self.props.pluginGui
-		elseif FFlagUpdateConvertToPackageToDFContextServices then
-			pluginGui = self.props.Plugin:get()
-		else
-			pluginGui = getPluginGui(self)
-		end
+		local pluginGui = self.props.pluginGui
 		-- And we will let AssetConfigWrapper to handle the onClose and unMount.
 		pluginGui.Enabled = false
 	end
@@ -234,106 +223,99 @@ local function getMessageBoxProps(localization, cancelFunc, closeFunc)
 end
 
 function AssetConfig:render()
-	local style = self.props.Stylizer
+	local props = self.props
+	local localization = props.Localization
+	local style = props.Stylizer
+	local state = self.state
+	local Size = props.Size
+	local assetId = props.assetId
+	local name = state.name or props.assetName or ""
+	local description = state.description or ""
+	local owner = state.owner
+	local allowComment = state.allowComment
+	local commentOn = state.commentOn
+	local isShowChangeDiscardMessageBox = state.isShowChangeDiscardMessageBox
 
-	local function renderWithContext(localization, theme)
-		local props = self.props
-		local state = self.state
-		local Size = props.Size
-		local assetId = props.assetId
-		local name = state.name or props.assetName or ""
-		local description = state.description or ""
-		local owner = state.owner
-		local allowComment = state.allowComment
-		local commentOn = state.commentOn
-		local isShowChangeDiscardMessageBox = state.isShowChangeDiscardMessageBox
+	return Roact.createElement("Frame", {
+		Size = Size,
+		BackgroundTransparency = 0,
+		BackgroundColor3 = style.assetConfig.backgroundColor,
+		BorderSizePixel = 0,
+	}, {
+		UIListLayout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Vertical,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			VerticalAlignment = Enum.VerticalAlignment.Bottom,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, 0),
+		}),
 
-		return Roact.createElement("Frame", {
-			Size = Size,
-			BackgroundTransparency = 0,
-			BackgroundColor3 = theme.assetConfig.backgroundColor,
-			BorderSizePixel = 0,
+		AssetConfigMessageBox = isShowChangeDiscardMessageBox and Roact.createElement(MessageBox,
+			getMessageBoxProps(localization, self.onMessageBoxClosed, self.closeAssetConfig)),
+
+		MainPage = Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 1, -FOOTER_HEIGHT),
+
+			BackgroundTransparency = 1,
+
+			LayoutOrder = 1,
 		}, {
 			UIListLayout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
+				FillDirection = Enum.FillDirection.Horizontal,
 				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-				VerticalAlignment = Enum.VerticalAlignment.Bottom,
+				VerticalAlignment = Enum.VerticalAlignment.Top,
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				Padding = UDim.new(0, 0),
 			}),
 
-			AssetConfigMessageBox = isShowChangeDiscardMessageBox and Roact.createElement(MessageBox,
-				getMessageBoxProps(localization, self.onMessageBoxClosed, self.closeAssetConfig)),
-
-			MainPage = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 1, -FOOTER_HEIGHT),
-
-				BackgroundTransparency = 1,
-
-				LayoutOrder = 1,
-			}, {
-				UIListLayout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, 0),
-				}),
-
-				Preview = Roact.createElement(PreviewArea, {
-					TotalWidth = PREVIEW_WIDTH,
-					LayoutOrder = 1
-				}),
-
-				VerticalLine = Roact.createElement("Frame", {
-					Size = UDim2.new(0 , 2, 1, 0),
-
-					BackgroundTransparency = 0,
-					BackgroundColor3 = theme.divider.verticalLineColor,
-					BorderSizePixel = 0,
-
-					LayoutOrder = 2,
-				}),
-
-				PublishAsset = Roact.createElement(PublishAsset, {
-					Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
-
-					assetId = assetId,
-					name = name,
-					description = description,
-					owner = owner,
-					allowComment = allowComment,
-					commentOn = commentOn,
-					onNameChange = self.onNameChange,
-					onDescChange = self.onDescChange,
-					onOwnerSelected = self.onAccessChange,
-					toggleComment = self.toggleComment,
-					LayoutOrder = 3,
-				})
+			Preview = Roact.createElement(PreviewArea, {
+				TotalWidth = PREVIEW_WIDTH,
+				LayoutOrder = 1
 			}),
 
-			Footer = Roact.createElement(AssetConfigFooter, {
-				Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
-				CanSave = canSave(name, description),
+			VerticalLine = Roact.createElement("Frame", {
+				Size = UDim2.new(0 , 2, 1, 0),
 
-				tryCancel = self.tryCancelWithYield,
-				tryPublish = self.tryPublish,
+				BackgroundTransparency = 0,
+				BackgroundColor3 = style.divider.verticalLineColor,
+				BorderSizePixel = 0,
 
-				LayoutOrder = 2
+				LayoutOrder = 2,
+			}),
+
+			PublishAsset = Roact.createElement(PublishAsset, {
+				Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
+
+				assetId = assetId,
+				name = name,
+				description = description,
+				owner = owner,
+				allowComment = allowComment,
+				commentOn = commentOn,
+				onNameChange = self.onNameChange,
+				onDescChange = self.onDescChange,
+				onOwnerSelected = self.onAccessChange,
+				toggleComment = self.toggleComment,
+				LayoutOrder = 3,
 			})
+		}),
+
+		Footer = Roact.createElement(AssetConfigFooter, {
+			Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
+			CanSave = canSave(name, description),
+
+			tryCancel = self.tryCancelWithYield,
+			tryPublish = self.tryPublish,
+
+			LayoutOrder = 2
 		})
-	end
-
-	return if FFlagUpdateConvertToPackageToDFContextServices then renderWithContext(self.props.Localization, style) else withContext(renderWithContext)
+	})
 end
 
-if FFlagUpdateConvertToPackageToDFContextServices then
-	AssetConfig = withContext({
-		Localization = ContextServices.Localization,
-		Plugin = if FFlagUpdateFocusToUsePropsConvertToPackage then nil else ContextServices.Plugin,
-		Stylizer = ContextServices.Stylizer,
-	})(AssetConfig)
-end
+AssetConfig = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
+})(AssetConfig)
 
 local function mapStateToProps(state, props)
 	state = state or {}

@@ -8,6 +8,7 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 local Rodux = PurchasePromptDeps.Rodux
 
 local PromptRequestReducer = require(script.Parent.PromptRequestReducer)
+local PurchaseFlowReducer = require(script.Parent.PurchaseFlowReducer)
 local ProductInfoReducer = require(script.Parent.ProductInfoReducer)
 local PremiumProductsReducer = require(script.Parent.PremiumProductsReducer)
 local NativeUpsellReducer = require(script.Parent.NativeUpsellReducer)
@@ -23,6 +24,7 @@ local ButtonStateReducer = require(script.Parent.ButtonStateReducer)
 
 local Reducer = Rodux.combineReducers({
 	promptRequest = PromptRequestReducer,
+	purchaseFlow = PurchaseFlowReducer,
 	productInfo = ProductInfoReducer,
 	premiumProductInfo = PremiumProductsReducer,
 	nativeUpsell = NativeUpsellReducer,

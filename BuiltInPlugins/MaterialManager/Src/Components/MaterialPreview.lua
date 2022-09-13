@@ -25,8 +25,6 @@ local MaterialServiceController = require(Controllers.MaterialServiceController)
 local Constants = Plugin.Src.Resources.Constants
 local getMaterialColor = require(Constants.getMaterialColor)
 
-local getFFlagDevFrameworkBetterVFOptions = require(Plugin.Src.Flags.getFFlagDevFrameworkBetterVFOptions)
-
 export type Props = {
 	BackgroundColor: Color3?,
 	DisableZoom: boolean?,
@@ -126,15 +124,13 @@ function MaterialPreview:render()
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		AssetRenderModel = Roact.createElement(AssetRenderModel, {
-			Ambient = if getFFlagDevFrameworkBetterVFOptions() then style.Ambient else nil,
-			BackgroundColor3 = if getFFlagDevFrameworkBetterVFOptions()
-				then prioritize(props.BackgroundColor, color)
-				else nil,
+			Ambient = style.Ambient,
+			BackgroundColor3 = prioritize(props.BackgroundColor, color),
 			DisablePan = true,
 			DisableZoom = props.DisableZoom,
 			InitialDistance = props.InitialDistance,
-			LightColor = if getFFlagDevFrameworkBetterVFOptions() then style.LightColor else nil,
-			LightDirection = if getFFlagDevFrameworkBetterVFOptions() then style.LightDirection else nil,
+			LightColor = style.LightColor,
+			LightDirection = style.LightDirection,
 			Model = self.model,
 			Size = UDim2.fromScale(1, 1),
 			Static = props.Static,

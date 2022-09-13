@@ -35,7 +35,6 @@ local FFlagAvatarContextMenuItemsChatButtonRefactor
 	= require(CoreGuiModules.Flags.FFlagAvatarContextMenuItemsChatButtonRefactor)
 local FFlagWaveEmoteOnAvatarContextMenuWithExpChat = require(CoreGuiModules.Common.Flags.FFlagWaveEmoteOnAvatarContextMenuWithExpChat)
 local FFlagWhisperEmoteOnAvatarContextMenuWithExpChat = require(CoreGuiModules.Common.Flags.FFlagWhisperEmoteOnAvatarContextMenuWithExpChat)
-local GetFFlagUpgradeExpChatV2_0_0 = require(CorePackages.Flags.GetFFlagUpgradeExpChatV2_0_0)
 -- VARIABLES
 
 local LocalPlayer = PlayersService.LocalPlayer
@@ -353,7 +352,7 @@ local IChatButtonProps = t.interface({
 })
 
 function ContextMenuItems:CreateChatButton(props)
-	local isWhisperEnabledForExpChat = FFlagWhisperEmoteOnAvatarContextMenuWithExpChat and GetFFlagUpgradeExpChatV2_0_0()
+	local isWhisperEnabledForExpChat = FFlagWhisperEmoteOnAvatarContextMenuWithExpChat
 	if not isWhisperEnabledForExpChat and isExperienceChatOn(self.TextChatService) then
 		return
 	end

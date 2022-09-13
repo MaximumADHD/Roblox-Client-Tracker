@@ -7,7 +7,6 @@ Props:
 	setMaterial : (Enum.Material) => void - Callback to select a material
 	AllowAir : boolean = false - Whether to show Air in the materials grid
 ]]
-local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -114,10 +113,10 @@ MaterialTooltip = withContext({
 	end
 
 	function MaterialButton:render()
-		local theme = self.props.Theme:get()
-		local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
-
 		local props = self.props
+		local theme = props.Theme:get()
+		local localization = props.Localization
+
 		local layoutOrder = props.LayoutOrder
 		local material = props.Material
 
@@ -156,7 +155,7 @@ MaterialTooltip = withContext({
 
 	MaterialButton = withContext({
 		Theme = ContextItems.UILibraryTheme,
-		Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
+		Localization = ContextServices.Localization,
 	})(MaterialButton)
 
 end
@@ -195,7 +194,7 @@ end
 
 function MaterialSelector:render()
 	local theme = self.props.Theme:get()
-	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
+	local localization = self.props.Localization
 
 	local layoutOrder = self.props.LayoutOrder or 1
 	local material = self.props.material
@@ -268,7 +267,7 @@ end
 
 MaterialSelector = withContext({
 	Theme = ContextItems.UILibraryTheme,
-	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
+	Localization = ContextServices.Localization,
 })(MaterialSelector)
 
 return MaterialSelector

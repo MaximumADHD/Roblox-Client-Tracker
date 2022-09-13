@@ -1,5 +1,3 @@
-local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFitContent")
-
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -32,15 +30,6 @@ local SetGroupPermission = require(Page.Thunks.SetGroupPermission)
 
 local DEFAULT_ROLESET_VALUE = PermissionsConstants.NoAccessKey
 local PERMISSIONS = "Permissions"
-
-local FitToContent
-if not FFlagGameSettingsRemoveFitContent then
-	local createFitToContent = UILibrary.Component.createFitToContent
-	FitToContent = createFitToContent("Frame", "UIListLayout", {
-		SortOrder = Enum.SortOrder.LayoutOrder,
-		Padding = UDim.new(0, 0),
-	})
-end
 
 local arrowSize = 12
 local arrowPadding = 4 -- padding between arrow and GroupCollaboratorItem icon
@@ -196,18 +185,12 @@ function GroupCollaboratorItem:render()
 		},
 
 		Content = {
-			RoleCollaborators = if FFlagGameSettingsRemoveFitContent then
-				Roact.createElement(Pane, {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					LayoutOrder = 1,
-					Layout = Enum.FillDirection.Vertical,
-				}, children)
-			else
-				Roact.createElement(FitToContent, {
-					LayoutOrder = 1,
-					BackgroundTransparency = 1,
-				}, children)
+			RoleCollaborators = Roact.createElement(Pane, {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				LayoutOrder = 1,
+				Layout = Enum.FillDirection.Vertical,
+			}, children)
 		},
 
 		IsExpanded = self.state.expanded and not isLoading,

@@ -38,8 +38,6 @@
 		callback OnItemClicked(key) : A callback when the user selects an item in the dropdown.
 			Returns the key as it was defined in the Results array.
 ]]
-local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFitContent")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
@@ -52,34 +50,12 @@ local FFlagRemoveUILibraryLoadingIndicator = SharedFlags.getFFlagRemoveUILibrary
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
-
 local UI = Framework.UI
 local DropdownMenu = UI.DropdownMenu
 local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator then UI.LoadingIndicator else UILibrary.Component.LoadingIndicator
 local Pane = UI.Pane
 
-local FFlagGameSettingsFixSearchBarRef = game:GetFastFlag("GameSettingsFixSearchBarRef")
-
 local TextService = game:GetService("TextService")
-
-if not FFlagGameSettingsRemoveFitContent then
-	local createFitToContent = UILibrary.Component.createFitToContent
-	ContentFit = createFitToContent("Frame", "UIListLayout", {
-		SortOrder = Enum.SortOrder.LayoutOrder,
-		Padding = UDim.new(0, 0),
-	})
-	HorizontalContentFit = createFitToContent("Frame", "UIListLayout", {
-		SortOrder = Enum.SortOrder.LayoutOrder,
-		Padding = UDim.new(0, 0),
-		FillDirection = Enum.FillDirection.Horizontal,
-	})
-	SearchBarContentFit = createFitToContent("ImageLabel", "UIListLayout", {
-		SortOrder = Enum.SortOrder.LayoutOrder,
-		Padding = UDim.new(0, 0),
-		FillDirection = Enum.FillDirection.Horizontal,
-	})
-end
 
 local THUMBNAIL_SIZE = 32
 local SEARCH_BAR_HEIGHT = 40
@@ -165,7 +141,7 @@ function SearchBar:init()
 
 	self.onTextBoxFocused = function(textboxEnabled, rbx)
 		local textBox = self.textBoxRef.current
-		if FFlagGameSettingsFixSearchBarRef and not textBox then
+		if not textBox then
 			return
 		end
 
@@ -210,7 +186,7 @@ function SearchBar:init()
 
 	self.onClearButtonClicked = function()
 		local textBox = self.textBoxRef.current
-		if FFlagGameSettingsFixSearchBarRef and not textBox then
+		if not textBox then
 			return
 		end
 		self:setState({
@@ -401,18 +377,12 @@ function SearchBar:init()
 						self.onKeyMouseLeave(key)
 					end,
 				}, {
-					if FFlagGameSettingsRemoveFitContent then
-						Roact.createElement(Pane, {
-							AutomaticSize = Enum.AutomaticSize.XY,
-							HorizontalAlignment = Enum.HorizontalAlignment.Left,
-							LayoutOrder = index,
-							Layout = Enum.FillDirection.Horizontal,
-						}, children)
-					else
-						Roact.createElement(HorizontalContentFit, {
-							LayoutOrder = index,
-							BackgroundTransparency = 1,
-						}, children)
+					Roact.createElement(Pane, {
+						AutomaticSize = Enum.AutomaticSize.XY,
+						HorizontalAlignment = Enum.HorizontalAlignment.Left,
+						LayoutOrder = index,
+						Layout = Enum.FillDirection.Horizontal,
+					}, children)
 				})
 		end
 	end
@@ -602,35 +572,16 @@ function SearchBar:render()
 		}),
 	}
 
-	if FFlagGameSettingsRemoveFitContent then
-		return Roact.createElement(Pane, {
-			Style = "BorderBox",
-			AutomaticSize = Enum.AutomaticSize.Y,
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			LayoutOrder = layoutOrder,
-			Layout = Enum.FillDirection.Horizontal,
-			[Roact.Event.MouseEnter] = self.onContainerHovered,
-			[Roact.Event.MouseMoved] = self.onContainerHovered,
-			[Roact.Event.MouseLeave] = self.onContainerHoverEnded,
-		}, children)
-	else
-		return Roact.createElement(ContentFit, {
-			BackgroundTransparency = 1,
-			LayoutOrder = layoutOrder,
-		}, {
-			Background = Roact.createElement(SearchBarContentFit, {
-				BackgroundTransparency = 1,
-				Image = DEPRECATED_Constants.ROUNDED_BORDER_IMAGE,
-				ImageColor3 = borderColor,
-				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter = DEPRECATED_Constants.ROUNDED_FRAME_SLICE,
-
-				[Roact.Event.MouseEnter] = self.onContainerHovered,
-				[Roact.Event.MouseMoved] = self.onContainerHovered,
-				[Roact.Event.MouseLeave] = self.onContainerHoverEnded,
-			}, children),
-		})
-	end
+	return Roact.createElement(Pane, {
+		Style = "BorderBox",
+		AutomaticSize = Enum.AutomaticSize.Y,
+		HorizontalAlignment = Enum.HorizontalAlignment.Left,
+		LayoutOrder = layoutOrder,
+		Layout = Enum.FillDirection.Horizontal,
+		[Roact.Event.MouseEnter] = self.onContainerHovered,
+		[Roact.Event.MouseMoved] = self.onContainerHovered,
+		[Roact.Event.MouseLeave] = self.onContainerHoverEnded,
+	}, children)
 end
 
 SearchBar = withContext({

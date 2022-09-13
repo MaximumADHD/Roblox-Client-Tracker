@@ -14,7 +14,6 @@
 	LayoutOrder number, will be checked by the layouter used inside the assetConfigFooter to
 	override the Position of the whole component.
 ]]
-local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -22,10 +21,12 @@ local Roact = require(Packages.Roact)
 local UILibrary = require(Packages.UILibrary)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
-local withContext = if FFlagUpdateConvertToPackageToDFContextServices then ContextServices.withContext else require(Plugin.Src.ContextServices.withContext)
+local withContext = ContextServices.withContext
 
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
+
+local StyleModifier = Framework.Util.StyleModifier
 
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
@@ -42,90 +43,85 @@ local EDGE_PADDING = 35
 local PADDING = 24
 
 function AssetConfigFooter:render()
-	local style = self.props.Stylizer
+	local props = self.props
+	local localization = props.Localization
+	local style = props.Stylizer
+	local Size = props.Size
+	local LayoutOrder = props.LayoutOrder
+	local tryPublish = props.tryPublish
+	local tryCancel = props.tryCancel
+	local footerTheme = style.footer
+	local canSave = props.CanSave
 
-	local function renderWithContext(localization, theme)
-		local props = self.props
-		local Size = props.Size
-		local LayoutOrder = props.LayoutOrder
-		local tryPublish = props.tryPublish
-		local tryCancel = props.tryCancel
-		local footerTheme = theme.footer
-		local canSave = props.CanSave
+	return Roact.createElement("Frame", {
+		Size = Size,
 
-		return Roact.createElement("Frame", {
-			Size = Size,
+		BackgroundTransparency = 0,
+		BackgroundColor3 = footerTheme.backgroundColor,
+		BorderSizePixel = 1,
+		BorderColor3 = footerTheme.borderColor,
 
-			BackgroundTransparency = 0,
-			BackgroundColor3 = footerTheme.backgroundColor,
-			BorderSizePixel = 1,
-			BorderColor3 = footerTheme.borderColor,
+		LayoutOrder = LayoutOrder,
+	}, {
+		UIPadding = Roact.createElement("UIPadding", {
+			PaddingBottom = UDim.new(0, 0),
+			PaddingLeft = UDim.new(0, EDGE_PADDING),
+			PaddingRight = UDim.new(0, EDGE_PADDING),
+			PaddingTop = UDim.new(0, 0),
+		}),
 
-			LayoutOrder = LayoutOrder,
-		}, {
-			UIPadding = Roact.createElement("UIPadding", {
-				PaddingBottom = UDim.new(0, 0),
-				PaddingLeft = UDim.new(0, EDGE_PADDING),
-				PaddingRight = UDim.new(0, EDGE_PADDING),
-				PaddingTop = UDim.new(0, 0),
-			}),
+		UIListLayout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Horizontal,
+			HorizontalAlignment = Enum.HorizontalAlignment.Right,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, PADDING),
+		}),
 
-			UIListLayout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Horizontal,
-				HorizontalAlignment = Enum.HorizontalAlignment.Right,
-				VerticalAlignment = Enum.VerticalAlignment.Center,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, PADDING),
-			}),
+		CancelButton = Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
+			LayoutOrder = 2,
+			OnClick = tryCancel,
+			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+			Style = "Round",
+			Text = localization:getText("Action", "Cancel"),
+		} else {
+			Style = style.cancelButton,
+			BorderMatchesBackground = false,
+			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+			Active = true,
+			Name = localization:getText("Action", "Cancel"),
+			TextSize = Constants.FONT_SIZE_TITLE,
 
-			CancelButton = Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
-				LayoutOrder = 2,
-				OnClick = tryCancel,
-				Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
-				Style = "Round",
-				Text = localization:getText("Action", "Cancel"),
-			} else {
-				Style = theme.cancelButton,
-				BorderMatchesBackground = false,
-				Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
-				Active = true,
-				Name = localization:getText("Action", "Cancel"),
-				TextSize = Constants.FONT_SIZE_TITLE,
+			OnClicked = tryCancel,
 
-				OnClicked = tryCancel,
+			LayoutOrder = 2,
+		}),
 
-				LayoutOrder = 2,
-			}),
+		PublishButton = Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
+			LayoutOrder = 3,
+			OnClick = tryPublish,
+			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+			Style = "RoundPrimary",
+			StyleModifier = if not canSave then StyleModifier.Disabled else nil,
+			Text = localization:getText("Action", "Submit"),
+		} else {
+			Style = style.defaultButton,
+			BorderMatchesBackground = true,
+			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+			Active = canSave,
+			Name = localization:getText("Action", "Submit"),
+			TextSize = Constants.FONT_SIZE_TITLE,
 
-			PublishButton = Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
-				LayoutOrder = 3,
-				OnClick = tryPublish,
-				Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
-				Style = "RoundPrimary",
-				Text = localization:getText("Action", "Submit"),
-			} else {
-				Style = theme.defaultButton,
-				BorderMatchesBackground = true,
-				Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
-				Active = canSave,
-				Name = localization:getText("Action", "Submit"),
-				TextSize = Constants.FONT_SIZE_TITLE,
+			OnClicked = tryPublish,
 
-				OnClicked = tryPublish,
-
-				LayoutOrder = 3,
-			})
+			LayoutOrder = 3,
 		})
-	end
-
-	return if FFlagUpdateConvertToPackageToDFContextServices then renderWithContext(self.props.Localization, style) else withContext(renderWithContext)
+	})
 end
 
-if FFlagUpdateConvertToPackageToDFContextServices then
-	AssetConfigFooter = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = ContextServices.Stylizer,
-	})(AssetConfigFooter)
-end
+AssetConfigFooter = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
+})(AssetConfigFooter)
 
 return AssetConfigFooter

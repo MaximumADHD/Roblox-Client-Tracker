@@ -1,5 +1,4 @@
 local StudioService = game:GetService("StudioService")
-local FFlagRemoveStudioThemeFromPlugins = game:GetFastFlag("RemoveStudioThemeFromPlugins")
 
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -17,7 +16,7 @@ local PublishingHint = Roact.PureComponent:extend("PublishingHint")
 function PublishingHint:render()
 	local props = self.props
 	local localization = props.Localization
-	local theme = if FFlagRemoveStudioThemeFromPlugins then self.props.Stylizer else nil
+	local theme = self.props.Stylizer
 
 	if props.IsEnabled then
 		return nil
@@ -50,7 +49,7 @@ function PublishingHint:render()
 			BackgroundTransparency = 1,
 			Position = UDim2.new(0, hyperLinkTextSize.X, 0, 0),
 			Size = UDim2.new(1, 0, 1, 0),
-			TextColor3 = if FFlagRemoveStudioThemeFromPlugins then (if StateInterfaceTheme.getRadioButtonTextColor(props) then StateInterfaceTheme.getRadioButtonTextColor(props) else theme.fontStyle.Header.TextColor3) else StateInterfaceTheme.getRadioButtonTextColor(props),
+			TextColor3 = if StateInterfaceTheme.getRadioButtonTextColor(props) then StateInterfaceTheme.getRadioButtonTextColor(props) else theme.fontStyle.Header.TextColor3,
 			Font = Enum.Font.SourceSans,
 			TextSize = 22,
 			TextXAlignment = Enum.TextXAlignment.Left,
@@ -59,12 +58,9 @@ function PublishingHint:render()
 	})
 end
 
-
 PublishingHint = withContext({
 	Localization = ContextServices.Localization,
-	Stylizer = if FFlagRemoveStudioThemeFromPlugins then ContextServices.Stylizer else nil,
+	Stylizer = ContextServices.Stylizer,
 })(PublishingHint)
-
-
 
 return PublishingHint

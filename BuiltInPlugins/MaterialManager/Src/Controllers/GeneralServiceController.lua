@@ -103,6 +103,11 @@ function GeneralServiceController:setMaterialPattern(materialVariant: MaterialVa
 	self._changeHistoryService:asService():SetWaypoint("Set MaterialPattern for Material Variant to" .. getMaterialPatternName(materialPattern))
 end
 
+function GeneralServiceController:setTerrainDetailName(terrainDetail: TerrainDetail, name: string)
+	terrainDetail.Name = name
+	self._changeHistoryService:asService():SetWaypoint("Set Name for Terrain Detail to" .. name)
+end
+
 -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 function GeneralServiceController:saveMaterialVariant(instance: Instance)
 	self._changeHistoryService:asService():SetWaypoint("Save Material Variant" .. instance.Name)

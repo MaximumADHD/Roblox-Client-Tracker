@@ -1,4 +1,3 @@
---!nonstrict
 return function()
 	local InspectAndBuyFolder = script.Parent.Parent
 	local SetBundles = require(InspectAndBuyFolder.Actions.SetBundles)

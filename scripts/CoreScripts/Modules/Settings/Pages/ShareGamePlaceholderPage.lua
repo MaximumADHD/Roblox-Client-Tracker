@@ -67,8 +67,8 @@ function this:ConnectHubToApp(settingsHub, shareGameApp)
 	shareGameApp.store:dispatch(ClosePage(Constants.PageRoute.SETTINGS_HUB))
 end
 
-if GetFFlagShareInviteLinkContextMenuV1Enabled() then
-	function this:ClearShareInviteLink(shareGameApp)
+function this:ClearShareInviteLink(shareGameApp)
+	if GetFFlagShareInviteLinkContextMenuV1Enabled() then
 		local state = shareGameApp.store:getState()
 		if state.ShareLinks.Invites.ShareInviteLink ~= nil then
 			shareGameApp.store:dispatch(ClearShareInviteLink())

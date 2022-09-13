@@ -153,6 +153,7 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalOne"] = [[This purchase involves the exchange of real money.   I agree that I am at least 18 years of age, and am the parent or legal guardian of the account owner. I authorize this purchase and agree to the Terms of Use.]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalTwo"] = [[You've spent a lot on Roblox this month. Do you want to proceed? This purchase involves the exchange of real money. You must be the parent or legal guardian of the account owner to authorize this purchase.]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalParental"] = [[You've spent a lot on Roblox this month. Receipts will be sent to the verified parental email on this account for this and all subsequent purchases. ]],
+	["CoreScripts.PurchasePrompt.PurchaseDetails.ParentalConsent"] = [[I agree that I am the parent or legal guardian of the account owner. I authorize this purchase and agree to the Terms of Use.]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.NotForSaleHere"] = [[This item can not be sold in this experience. Your account has not been charged.]],
 	["CoreScripts.PurchasePrompt.Title.BuyItem"] = [[Buy Item]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.Enable2SV"] = [[2-Step Verification is required to make further transactions. Go to Settings > Security to complete 2-Step Verification.]],

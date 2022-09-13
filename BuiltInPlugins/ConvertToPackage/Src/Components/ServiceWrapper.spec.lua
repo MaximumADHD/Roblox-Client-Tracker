@@ -1,15 +1,13 @@
 local ServiceWrapper = require(script.Parent.ServiceWrapper)
-local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 
-local PluginTheme = if FFlagUpdateConvertToPackageToDFContextServices then require(Plugin.Src.Resources.MakeTheme) else require(Plugin.Src.Resources.DEPRECATED_UILibraryTheme)
+local PluginTheme = require(Plugin.Src.Resources.MakeTheme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local Localization = if FFlagUpdateConvertToPackageToDFContextServices then ContextServices.Localization else UILibrary.Studio.Localization
+local Localization = ContextServices.Localization
 local NetworkInterfaceMock = require(Plugin.Src.Networking.NetworkInterfaceMock)
 
 return function()
@@ -17,7 +15,7 @@ return function()
 		local localization = Localization.mock()
 		local store = Rodux.Store.new(MainReducer, {}, { Rodux.thunkMiddleware })
 		local networkInterface = NetworkInterfaceMock.new()
-		local theme = if FFlagUpdateConvertToPackageToDFContextServices then PluginTheme(true) else PluginTheme.mock()
+		local theme = PluginTheme(true)
 
 		local element = Roact.createElement(ServiceWrapper, {
 			localization = localization,

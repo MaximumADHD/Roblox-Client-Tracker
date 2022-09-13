@@ -479,7 +479,7 @@ function KeyframeUtils.getValue(
 	end
 
 	if track.Type == Constants.TRACK_TYPES.CFrame then
-		local positionTrack = if ((not GetFFlagFacialAnimationRecordingInStudio()) or (track and track.Components)) then track.Components[Constants.PROPERTY_KEYS.Position] else nil	
+		local positionTrack = if ((not GetFFlagFacialAnimationRecordingInStudio()) or (track and track.Components)) then track.Components[Constants.PROPERTY_KEYS.Position] else nil
 		local rotationTrack = if ((not GetFFlagFacialAnimationRecordingInStudio()) or (track and track.Components)) then track.Components[Constants.PROPERTY_KEYS.Rotation] else nil
 
 		local position = positionTrack and KeyframeUtils.getValue(positionTrack, tck, defaultEulerAnglesOrder)::Vector3? or Vector3.new()

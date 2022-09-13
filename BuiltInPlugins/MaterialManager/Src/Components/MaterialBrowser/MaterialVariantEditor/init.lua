@@ -28,11 +28,15 @@ local TextureSettings = require(MaterialVariantEditorComponent.TextureSettings)
 local TilingSettings = require(MaterialVariantEditorComponent.TilingSettings)
 local MaterialOverrides = require(MaterialVariantEditorComponent.MaterialOverrides)
 local OverrideSettings = require(MaterialVariantEditorComponent.OverrideSettings)
+local TerrainDetailsSettings = require(MaterialVariantEditorComponent.TerrainDetailsSettings)
 local PhysicalSettings = require(MaterialVariantEditorComponent.PhysicalSettings)
 
 local getSupportedMaterials = require(Plugin.Src.Resources.Constants.getSupportedMaterials)
 local supportedMaterials = getSupportedMaterials()
 
+local getFFlagMaterialManagerTerrainDetails = require(
+	Plugin.Src.Flags.getFFlagMaterialManagerTerrainDetails
+)
 local getFFlagMaterialVariantPhysicalPropertiesV2 = require(
 	Plugin.Src.Flags.getFFlagMaterialVariantPhysicalPropertiesV2
 )
@@ -73,11 +77,7 @@ function MaterialVariantEditor:render()
 	local size = props.Size
 
 	if not props.Material then
-		return Roact.createElement(Pane, {
-			Layout = Enum.FillDirection.Vertical,
-			LayoutOrder = layoutOrder,
-			Size = size,
-		})
+		return Roact.createElement(Pane)
 	else
 		local materialVariant = props.Material.MaterialVariant
 		local overrideSupport = supportedMaterials[props.Material.Material]
@@ -106,7 +106,8 @@ function MaterialVariantEditor:render()
 				TextureSettings = if materialVariant then
 					Roact.createElement(TextureSettings, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),
-						MaterialVariant = materialVariant,
+						PBRMaterial = materialVariant,
+						Expandable = true,
 					})
 					else nil,
 				MaterialOverrides = if overrideSupport and not materialVariant then
@@ -122,6 +123,13 @@ function MaterialVariantEditor:render()
 					else nil,
 				TilingSettings = if materialVariant then
 					Roact.createElement(TilingSettings, {
+						LayoutOrder = layoutOrderIterator:getNextOrder(),
+						PBRMaterial = materialVariant,
+						Expandable = true,
+					})
+					else nil,
+				TerrainDetailsSettings = if getFFlagMaterialManagerTerrainDetails() and materialVariant then
+					Roact.createElement(TerrainDetailsSettings, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),
 						MaterialVariant = materialVariant,
 					})

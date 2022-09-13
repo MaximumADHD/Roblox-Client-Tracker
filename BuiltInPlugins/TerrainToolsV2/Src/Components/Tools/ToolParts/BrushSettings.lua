@@ -1,7 +1,6 @@
 --[[
 	BrushSettings.lua
 ]]
-local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -19,7 +18,6 @@ local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local ContextItems = if FFlagRemoveUILibraryCompatLocalization then nil else require(Plugin.Src.ContextItems)
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -174,7 +172,7 @@ function BrushSettings:render()
 		self.resetPlaneCFrame()
 	end
 
-	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
+	local localization = self.props.Localization
 
 	local layoutOrder = self.props.LayoutOrder
 	local LayoutOrderIterator = LayoutOrderIterator.new()
@@ -326,7 +324,7 @@ function BrushSettings:render()
 end
 
 BrushSettings = withContext({
-	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
+	Localization = ContextServices.Localization,
 })(BrushSettings)
 
 return BrushSettings

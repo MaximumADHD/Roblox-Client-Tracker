@@ -74,8 +74,8 @@ function ShareGamePageFrame:shouldShowInviteLink(gameInfo)
 		return false
 end
 
-if GetFFlagShareInviteLinkContextMenuV1Enabled() then
-	function ShareGamePageFrame:didMount()
+function ShareGamePageFrame:didMount()
+	if GetFFlagShareInviteLinkContextMenuV1Enabled() then
 		self.props.fetchGameInfo()
 		if self.state.serverType == nil then
 			Promise.try(function()

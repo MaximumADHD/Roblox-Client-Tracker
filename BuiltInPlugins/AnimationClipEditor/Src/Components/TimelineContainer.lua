@@ -158,7 +158,7 @@ function TimelineContainer:render()
 				ZIndex = 1,
 				Size = UDim2.new(0, self.props.TrackPadding / 2, 0, Constants.TIMELINE_HEIGHT),
 				Style = theme.button.MediaControl,
-					OnClick = props.OnToggleEditorClicked,
+				OnClick = props.OnToggleEditorClicked,
 			}, {
 				Image = Roact.createElement("ImageLabel", {
 					BackgroundTransparency = 1,

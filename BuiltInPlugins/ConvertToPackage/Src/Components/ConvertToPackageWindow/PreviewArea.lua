@@ -7,7 +7,6 @@
 	Optional Props:
 	LayoutOrder number, will be used by the layouter to change the position of the components.
 ]]
-local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -19,61 +18,53 @@ local withContext = ContextServices.withContext
 local AssetThumbnailPreview = require(Plugin.Src.Components.ConvertToPackageWindow.AssetThumbnailPreview)
 local Util = Plugin.Src.Util
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
-local withTheme = if FFlagUpdateConvertToPackageToDFContextServices then nil else require(Plugin.Src.ContextServices.Theming).withTheme
 
 local PreviewArea = Roact.PureComponent:extend("PreviewArea")
 
 function PreviewArea:render()
-	local style = self.props.Stylizer
+	local props = self.props
+	local style = props.Stylizer
 
-	local function renderWithContext(theme)
-		local props = self.props
+	local TotalWidth = props.TotalWidth
+	local LayoutOrder = props.LayoutOrder
+	local thumbnailSize = 150
+	local previewAreaTheme = style.previewArea
+	local orderIterator = LayoutOrderIterator.new()
 
-		local TotalWidth = props.TotalWidth
-		local LayoutOrder = props.LayoutOrder
-		local thumbnailSize = 150
-		local previewAreaTheme = theme.previewArea
-		local orderIterator = LayoutOrderIterator.new()
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(0, TotalWidth, 1, 0),
 
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(0, TotalWidth, 1, 0),
+		BackgroundTransparency = 0,
+		BackgroundColor3 = previewAreaTheme.backgroundColor,
+		BorderSizePixel = 0,
 
-			BackgroundTransparency = 0,
-			BackgroundColor3 = previewAreaTheme.backgroundColor,
-			BorderSizePixel = 0,
+		LayoutOrder = LayoutOrder,
+	}, {
+		Padding = Roact.createElement("UIPadding", {
+			PaddingTop = UDim.new(0, 24),
+			PaddingBottom = UDim.new(0, 5),
+			PaddingLeft = UDim.new(0, 5),
+			PaddingRight = UDim.new(0, 5),
+		}),
 
-			LayoutOrder = LayoutOrder,
-		}, {
-			Padding = Roact.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, 24),
-				PaddingBottom = UDim.new(0, 5),
-				PaddingLeft = UDim.new(0, 5),
-				PaddingRight = UDim.new(0, 5),
-			}),
+		UIListLayout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Vertical,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			VerticalAlignment = Enum.VerticalAlignment.Top,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, 20),
+		}),
+		AssetThumbnailPreview = Roact.createElement(AssetThumbnailPreview, {
+			Size = UDim2.new(0, thumbnailSize, 0, thumbnailSize),
+			ShowTitle = false,
 
-			UIListLayout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				VerticalAlignment = Enum.VerticalAlignment.Top,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, 20),
-			}),
-			AssetThumbnailPreview = Roact.createElement(AssetThumbnailPreview, {
-				Size = UDim2.new(0, thumbnailSize, 0, thumbnailSize),
-				ShowTitle = false,
-
-				LayoutOrder = orderIterator:getNextOrder()
-			})
+			LayoutOrder = orderIterator:getNextOrder()
 		})
-	end
-
-	return if FFlagUpdateConvertToPackageToDFContextServices then renderWithContext(style) else withTheme(renderWithContext)
+	})
 end
 
-if FFlagUpdateConvertToPackageToDFContextServices then
-	PreviewArea = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(PreviewArea)
-end
+PreviewArea = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(PreviewArea)
 
 return PreviewArea

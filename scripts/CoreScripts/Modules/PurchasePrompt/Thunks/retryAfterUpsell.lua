@@ -1,21 +1,25 @@
 --!nonstrict
 local Root = script.Parent.Parent
 
-local AccountInfoReceived = require(Root.Actions.AccountInfoReceived)
+local SetPromptState = require(Root.Actions.SetPromptState)
 local BalanceInfoRecieved = require(Root.Actions.BalanceInfoRecieved)
 local PurchaseCompleteRecieved = require(Root.Actions.PurchaseCompleteRecieved)
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
+local PurchaseFlow = require(Root.Enums.PurchaseFlow)
+local UpsellFlow = require(Root.Enums.UpsellFlow)
 local PurchaseError = require(Root.Enums.PurchaseError)
 local PromptState = require(Root.Enums.PromptState)
 local RequestType = require(Root.Enums.RequestType)
-local getAccountInfo = require(Root.Network.getAccountInfo)
 local getBalanceInfo = require(Root.Network.getBalanceInfo)
 local Network = require(Root.Services.Network)
 local Analytics = require(Root.Services.Analytics)
 local ExternalSettings = require(Root.Services.ExternalSettings)
 local completeRequest = require(Root.Thunks.completeRequest)
 local getPlayerPrice = require(Root.Utils.getPlayerPrice)
+local getUpsellFlow = require(Root.NativeUpsell.getUpsellFlow)
 local Thunk = require(Root.Thunk)
+
+local GetFFlagRobuxUpsellIXP = require(Root.Flags.GetFFlagRobuxUpsellIXP)
 
 local purchaseItem = require(script.Parent.purchaseItem)
 
@@ -38,8 +42,15 @@ local function retryAfterUpsell(retriesRemaining)
 		local state = store:getState()
 		local requestType = state.promptRequest.requestType
 		local promptState = state.promptState
+		local purchaseFlow = state.purchaseFlow
+
+		local upsellFlow = getUpsellFlow(externalSettings.getPlatform())
 
 		if requestType == RequestType.None then
+			return
+		end
+
+		if GetFFlagRobuxUpsellIXP() and promptState ~= PromptState.UpsellInProgress then
 			return
 		end
 
@@ -49,6 +60,12 @@ local function retryAfterUpsell(retriesRemaining)
 				store:dispatch(completeRequest())
 			end
 		else
+			if GetFFlagRobuxUpsellIXP() then
+				if purchaseFlow == PurchaseFlow.RobuxUpsellV2 then
+					store:dispatch(SetPromptState(PromptState.PollingBalance))
+				end
+			end
+
 			return getBalanceInfo(network, externalSettings):andThen(function(balanceInfo)
 				local state = store:getState()
 				local isPlayerPremium = state.accountInfo.membershipType == 4
@@ -67,7 +84,11 @@ local function retryAfterUpsell(retriesRemaining)
 						end)
 					else
 						analytics.signalFailedPurchasePostUpsell()
-						store:dispatch(ErrorOccurred(PurchaseError.InvalidFunds))
+						if GetFFlagRobuxUpsellIXP() and upsellFlow == UpsellFlow.Web then
+							store:dispatch(ErrorOccurred(PurchaseError.InvalidFundsUnknown))
+						else
+							store:dispatch(ErrorOccurred(PurchaseError.InvalidFunds))
+						end
 					end
 				else
 					-- Upsell was successful and purchase can now be completed

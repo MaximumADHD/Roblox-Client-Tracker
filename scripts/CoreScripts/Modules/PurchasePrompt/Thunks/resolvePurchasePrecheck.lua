@@ -17,6 +17,8 @@ local function resolvePurchasePrecheck(purchaseWarning)
 			return store:dispatch(SetPromptState(PromptState.RequireEmailVerification))
 		elseif purchaseWarning == PurchaseWarning.U13MonthlyThreshold2Modal then
 			return store:dispatch(SetPromptState(PromptState.U13MonthlyThreshold2Modal))
+		elseif purchaseWarning == PurchaseWarning.ParentalConsentWarningPaymentModal13To17 then
+			return store:dispatch(SetPromptState(PromptState.ConfirmedParentalConsentWarningPaymentModal13To17))
 		end
 
 		return store:dispatch(launchRobuxUpsell())

@@ -1,6 +1,3 @@
-local Root = script.Parent.Parent
-
-
 -- Used on the data in the state
 return function(productInfo, isPlayerPremium)
 	if isPlayerPremium then

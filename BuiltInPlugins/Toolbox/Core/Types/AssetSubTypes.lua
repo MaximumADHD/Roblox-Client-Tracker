@@ -1,5 +1,6 @@
 --!strict
 local FFlagToolboxInsertMaterialsInMS = game:GetFastFlag("ToolboxInsertMaterialsInMS")
+local FFlagToolboxFixPackageDragging = game:GetFastFlag("ToolboxFixPackageDragging")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
 
@@ -20,9 +21,15 @@ function AssetSubTypes.contains(assetSubTypesArray, assetSubType)
 	if FFlagToolboxInsertMaterialsInMS and assetSubTypesArray == nil then
 		return false
 	end
-	return Dash.find(assetSubTypesArray, function(subType)
+	local result = Dash.find(assetSubTypesArray, function(subType)
 		return subType == assetSubType
 	end)
+
+	if FFlagToolboxFixPackageDragging then
+		return result == assetSubType
+	else
+		return result
+	end
 end
 
 return AssetSubTypes

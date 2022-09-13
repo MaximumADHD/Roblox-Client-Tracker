@@ -21,6 +21,7 @@ local ValueChanged = require(Plugin.Src.Thunks.ValueChanged)
 local DraggerSchema = require(Plugin.Src.Util.DraggerSchema.DraggerSchema)
 local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackInstances)
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
+local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
 
 local DraggerWrapper = Roact.PureComponent:extend("DraggerWrapper")
 
@@ -52,7 +53,7 @@ local function mapDraggerContextToProps(draggerContext, props)
 
 	draggerContext.ScrubberSignal = props.Signals:get(Constants.SIGNAL_KEYS.ScrubberChanged)
 	draggerContext.OnManipulateJoints = function(instanceName, values)
-		if props.PlayState ~= Constants.PLAY_STATE.Pause then
+		if (GetFFlagKeyframeReduction() and props.ReadOnly) or props.PlayState ~= Constants.PLAY_STATE.Pause then
 			return
 		end
 
@@ -137,6 +138,7 @@ local function mapStateToProps(state, props)
 		DefaultEulerAnglesOrder = status.DefaultEulerAnglesOrder,
 		BoneLinksToBone = state.Status.BoneLinksToBone,
 		VisualizeBones = state.Status.VisualizeBones,
+		ReadOnly = state.Status.ReadOnly,
 	}
 end
 

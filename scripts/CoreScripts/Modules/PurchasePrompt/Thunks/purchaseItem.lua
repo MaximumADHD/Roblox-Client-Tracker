@@ -4,8 +4,11 @@ local HttpService = game:GetService("HttpService")
 local Workspace = game:GetService("Workspace")
 local Players = game:GetService("Players")
 
+local SetPromptState = require(Root.Actions.SetPromptState)
 local StartPurchase = require(Root.Actions.StartPurchase)
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
+local PurchaseFlow = require(Root.Enums.PurchaseFlow)
+local PromptState = require(Root.Enums.PromptState)
 local ItemType = require(Root.Enums.ItemType)
 local PurchaseError = require(Root.Enums.PurchaseError)
 local getToolAsset = require(Root.Network.getToolAsset)
@@ -18,6 +21,8 @@ local Thunk = require(Root.Thunk)
 local Promise = require(Root.Promise)
 
 local completePurchase = require(script.Parent.completePurchase)
+
+local GetFFlagRobuxUpsellIXP = require(Root.Flags.GetFFlagRobuxUpsellIXP)
 
 -- Only tools can be equipped on purchase
 local ASSET_TYPE_TOOL = 19
@@ -34,9 +39,18 @@ local function purchaseItem()
 		local externalSettings = services[ExternalSettings]
 		local analytics = services[Analytics]
 
+		local state = store:getState()
+		local purchaseFlow = state.purchaseFlow
+
 		local platform = externalSettings.getPlatform()
 
 		store:dispatch(StartPurchase(Workspace.DistributedGameTime))
+
+		if GetFFlagRobuxUpsellIXP() then
+			if purchaseFlow == PurchaseFlow.RobuxUpsellV2 then
+				store:dispatch(SetPromptState(PromptState.PurchaseInProgress))
+			end
+		end
 
 		local state = store:getState()
 

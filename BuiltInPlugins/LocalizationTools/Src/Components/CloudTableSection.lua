@@ -9,7 +9,6 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryFitContent = SharedFlags.getFFlagRemoveUILibraryFitContent()
 local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
 
 local ContextServices = Framework.ContextServices
@@ -19,15 +18,6 @@ local UI = Framework.UI
 local LinkText = UI.LinkText
 local Pane = UI.Pane
 local TextLabel = UI.Decoration.TextLabel
-
-local FitToContent
-if not FFlagRemoveUILibraryFitContent then
-	local UILibrary = require(Plugin.Packages.UILibrary)
-    local createFitToContent = UILibrary.Component.createFitToContent
-    FitToContent = createFitToContent("Frame", "UIListLayout", {
-        SortOrder = Enum.SortOrder.LayoutOrder,
-    })
-end
 
 local AnalyticsContext = require(Plugin.Src.ContextServices.AnalyticsContext)
 local LabeledTextButton = require(Plugin.Src.Components.LabeledTextButton)
@@ -145,19 +135,12 @@ function CloudTableSection:render()
 			}),
 		}
 		
-		if FFlagRemoveUILibraryFitContent then
-			content = Roact.createElement(Pane, {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-				Layout = Enum.FillDirection.Vertical,
-				LayoutOrder = 2,
-			}, contentChildren)
-		else
-			content = Roact.createElement(FitToContent, {
-				BackgroundTransparency = 1,
-				LayoutOrder = 2,
-			}, contentChildren)
-		end
+		content = Roact.createElement(Pane, {
+			AutomaticSize = Enum.AutomaticSize.Y,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			Layout = Enum.FillDirection.Vertical,
+			LayoutOrder = 2,
+		}, contentChildren)
 	else
 		content = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, theme.PublishMessageHeight),
@@ -173,20 +156,12 @@ function CloudTableSection:render()
 					Text = localization:getText("CloudTableSection", "PublishPlaceMessage"),
 				})
 			) else (
-				if game:GetFastFlag("LocalizationToolsFixCloudTableTextDot") then (
-					Roact.createElement("TextLabel", {
-						Position = UDim2.new(0.5, 0, 0.5, 0),
-						Text = localization:getText("CloudTableSection", "PublishPlaceMessage"),
-						TextColor3 = theme.TextColor,
-						BorderSizePixel = 0,
-					})
-				) else (
-					Roact.createElement("TextLabel", {
-						Position = UDim2.new(0.5, 0, 0.5, 0),
-						Text = localization:getText("CloudTableSection", "PublishPlaceMessage"),
-						TextColor3 = theme.TextColor,
-					})
-				)
+				Roact.createElement("TextLabel", {
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					Text = localization:getText("CloudTableSection", "PublishPlaceMessage"),
+					TextColor3 = theme.TextColor,
+					BorderSizePixel = 0,
+				})
 			)
 		})
 	end
@@ -215,20 +190,13 @@ function CloudTableSection:render()
 		),
 		Content = content,
 	}
-
-	if FFlagRemoveUILibraryFitContent then
-		return Roact.createElement(Pane, {
-			AutomaticSize = Enum.AutomaticSize.Y,
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			Layout = Enum.FillDirection.Vertical,
-			LayoutOrder = layoutOrder,
-		}, children)
-	else
-		return Roact.createElement(FitToContent, {
-			BackgroundTransparency = 1,
-			LayoutOrder = layoutOrder,
-		}, children)
-	end
+	
+	return Roact.createElement(Pane, {
+		AutomaticSize = Enum.AutomaticSize.Y,
+		HorizontalAlignment = Enum.HorizontalAlignment.Left,
+		Layout = Enum.FillDirection.Vertical,
+		LayoutOrder = layoutOrder,
+	}, children)
 end
 
 CloudTableSection = withContext({

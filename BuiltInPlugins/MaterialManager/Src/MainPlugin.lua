@@ -16,8 +16,6 @@ local Store = ContextServices.Store
 
 local Http = Framework.Http
 
-local ServiceWrapper = Framework.TestHelpers.ServiceWrapper
-
 local MainReducer = require(main.Src.Reducers.MainReducer)
 local MakeTheme = require(main.Src.Resources.MakeTheme)
 local createAnalyticsHandlers = require(main.Src.Resources.createAnalyticsHandlers)
@@ -28,6 +26,7 @@ local LocalizedStrings = main.Src.Resources.Localization.LocalizedStrings
 local SetGridLock = require(main.Src.Actions.SetGridLock)
 
 local Components = main.Src.Components
+local DEPRECATED_MaterialBrowser = require(Components.DEPRECATED_MaterialBrowser)
 local MaterialBrowser = require(Components.MaterialBrowser)
 local MaterialPrompt = require(Components.MaterialPrompt) -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 
@@ -36,11 +35,10 @@ local GeneralServiceController = require(Controllers.GeneralServiceController)
 local ImageUploader = require(Controllers.ImageUploader)
 local ImportAssetHandler = require(Controllers.ImportAssetHandler)
 local ImageLoader = require(Controllers.ImageLoader)
-local MaterialController = require(Controllers.MaterialController) -- Remove with FFlagDeprecateMaterialController
 local MaterialServiceController = require(Controllers.MaterialServiceController)
 local PluginController = require(Controllers.PluginController)
 
-local getFFlagDeprecateMaterialController = require(main.Src.Flags.getFFlagDeprecateMaterialController)
+local getFFlagMaterialBrowserOverhaul2 = require(main.Src.Flags.getFFlagMaterialBrowserOverhaul2)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -110,10 +108,6 @@ function MainPlugin:init(props)
 	})
 
 	self.analytics = ContextServices.Analytics.new(createAnalyticsHandlers)
-	if not getFFlagDeprecateMaterialController() then
-		self.materialController = MaterialController.new(ServiceWrapper.new("MaterialService"))
-	end
-
 	self.materialServiceController = MaterialServiceController.new(self.store)
 	self.generalServiceController = GeneralServiceController.new()
 
@@ -122,9 +116,6 @@ function MainPlugin:init(props)
 end
 
 function MainPlugin:willUnmount()
-	if self.materialController then -- Remove with FFlagDeprecateMaterialController
-		self.materialController:destroy()
-	end
 	if self.imageLoader then
 		self.imageLoader:destroy()
 	end
@@ -170,7 +161,6 @@ function MainPlugin:render()
 		self.localization,
 		self.analytics,
 		self.generalServiceController,
-		self.materialController, -- Remove with FFlagDeprecateMaterialController
 		self.materialServiceController,
 		self.imageLoader,
 		self.assetHandler,
@@ -200,7 +190,7 @@ function MainPlugin:render()
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
 		}, {
-			Roact.createElement(MaterialBrowser, {
+			Roact.createElement(if getFFlagMaterialBrowserOverhaul2() then MaterialBrowser else DEPRECATED_MaterialBrowser, {
 				OpenPrompt = self.openPrompt,
 			}),
 		}),

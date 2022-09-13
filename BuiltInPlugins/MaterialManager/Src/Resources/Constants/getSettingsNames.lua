@@ -1,7 +1,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local _Types = require(Plugin.Src.Types)
 
-export type SettingsName = string
+export type SettingsName = string | _Types.Map<string, string>
 
 local SettingsNames: _Types.Map<string, SettingsName> = {
 	GeneralSettings = "GeneralSettings",
@@ -10,6 +10,11 @@ local SettingsNames: _Types.Map<string, SettingsName> = {
 	TilingSettings = "TilingSettings",
 	PhysicalSettings = "PhysicalSettings",
 	TerrainDetailsSettings = "TerrainDetailsSettings",
+	TerrainDetailsEditor = {
+		Top = "TerrainDetailsTop",
+		Side = "TerrainDetailsSide",
+		Bottom = "TerrainDetailsBottom",
+	},
 }
 
 return function(): _Types.Map<string, SettingsName>

@@ -1,5 +1,5 @@
-game:DefineFastFlag("ShareInviteLinkContextMenuV1ABTestEnabled_v3", false)
+game:DefineFastFlag("ShareInviteLinkContextMenuV1ABTestEnabled_v4", false)
 
 return function()
-	return game:GetFastFlag("ShareInviteLinkContextMenuV1ABTestEnabled_v3")
+	return game:GetFastFlag("ShareInviteLinkContextMenuV1ABTestEnabled_v4")
 end

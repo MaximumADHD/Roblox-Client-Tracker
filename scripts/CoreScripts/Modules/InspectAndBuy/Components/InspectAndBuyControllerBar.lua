@@ -1,4 +1,3 @@
---!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local Roact = require(CorePackages.Roact)
@@ -39,7 +38,7 @@ function InspectAndBuyControllerBar:render()
 
 	if self.props.showTryOn then
 		table.insert(controllerBarRightHints, 1, {
-			text = 
+			text =
 				self.props.tryingOn and
 				RobloxTranslator:FormatByKey(localizationKeys.takeOff) or
 				RobloxTranslator:FormatByKey(localizationKeys.tryOn),

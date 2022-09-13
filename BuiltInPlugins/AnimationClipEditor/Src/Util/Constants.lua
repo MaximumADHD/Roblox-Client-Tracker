@@ -433,7 +433,15 @@ local Constants = {
 		CurveAnimation = "CurveAnimation",
 	},
 
-	CANVAS_ZOOM_INCREMENT = 0.1
+	CANVAS_ZOOM_INCREMENT = 0.1,
+
+	REDUCE_KEYFRAMES_DIALOG_MODE = {
+		Hidden = "Hidden",
+		FromImportFBX = "FromImportFBX",
+		FromImportLiveAnimationCreator = "FromImportLiveAnimationCreator",
+		FromImportFaceRecorder = "FromImportFaceRecorder",
+		FromMenu = "FromMenu",
+	},
 }
 
 Constants.MAIN_MINIMUM_SIZE = Vector2.new(Constants.TRACK_LIST_MIN_WIDTH + Constants.TIMELINE_MIN_WIDTH, 200)

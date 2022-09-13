@@ -6,7 +6,6 @@
 	|  Button |
 	|_________|
 ]]
-local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -50,7 +49,7 @@ end
 
 function ToolButton:render()
 	local theme = self.props.Theme:get()
-	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
+	local localization = self.props.Localization
 
 	local toolId = self.props.ToolId
 	local text = localization:getText("ToolName", toolId)
@@ -105,7 +104,7 @@ end
 
 ToolButton = withContext({
 	Theme = ContextItems.UILibraryTheme,
-	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
+	Localization = ContextServices.Localization,
 })(ToolButton)
 
 return ToolButton

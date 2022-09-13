@@ -32,7 +32,6 @@ local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
 local PreviewContext = AvatarToolsShared.Contexts.PreviewContext
 local AssetServiceWrapper = AvatarToolsShared.Contexts.AssetServiceWrapper
 local StudioServiceWrapper = AvatarToolsShared.Contexts.StudioServiceWrapper
-local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -90,48 +89,12 @@ local function transformOrDeformPreviewLayers(self, selectionChanged)
 	local previewContext = props.PreviewContext
 	local editingCage = props.EditingCage
 	local itemSize = props.ItemSize
-	local luaMeshEditingModuleContext = props.LuaMeshEditingModuleContext
-	local outerCageContext = luaMeshEditingModuleContext:getOuterCageContext()
-	local innerCageContext = luaMeshEditingModuleContext:getInnerCageContext()
-	local meshEditingContext = luaMeshEditingModuleContext:getCurrentContext()
 
 	local previewAvatars = previewContext:getAllAvatars()
 
-	local layer
-	local editingItem
-	if FFlagEnablePreviewDockWidget then
-		editingItem = props.EditingItemContext:getItem()
-	end
 	for _, avatar in ipairs(previewAvatars) do
-		layer = 1
-		if FFlagEnablePreviewDockWidget then
-			if not avatar.model then
-				continue
-			end
-			local child = avatar.model:FindFirstChild(editingItem.Name, true)
-			if not child then
-				continue
-			end
-			local wrap = child:FindFirstChildWhichIsA("WrapLayer", true)
-			if wrap then
-				layer = wrap.Order
-			end
-		end
 		if editingCage == Constants.EDIT_MODE.Mesh then
-			avatar:transformLayer(layer, itemSize, attachmentPoint.AttachmentCFrame, attachmentPoint.ItemCFrame, accessoryTypeInfo.Name)
-		else
-			if game:GetFastFlag("FixDeformerUpdateOnCageEdit") and selectionChanged then
-				if outerCageContext then
-					avatar:deformLayer(layer, outerCageContext:getVertexData(), Enum.CageType.Outer)
-				end
-				if innerCageContext then
-					avatar:deformLayer(layer, innerCageContext:getVertexData(), Enum.CageType.Inner)
-				end
-			else
-				if meshEditingContext then
-					avatar:deformLayer(layer, meshEditingContext:getVertexData(), editingCage)
-				end
-			end
+			avatar:transformLayer(1, itemSize, attachmentPoint.AttachmentCFrame, attachmentPoint.ItemCFrame, accessoryTypeInfo.Name)
 		end
 	end
 end
@@ -169,27 +132,6 @@ end
 function ExplorerPreviewInstances:init()
 	self.folderRef = Roact.createRef()
 	self.isUpdateInProgress = false
-end
-
-function ExplorerPreviewInstances:didMount()
-	local props = self.props
-	local luaMeshEditingModuleContext = self.props.LuaMeshEditingModuleContext
-	local outerCageContext = luaMeshEditingModuleContext:getOuterCageContext()
-	local innerCageContext = luaMeshEditingModuleContext:getInnerCageContext()
-
-	if outerCageContext then
-		self.outerCageDataChanged = outerCageContext:getMeshDataChangedSignal():Connect(function()
-			-- force an update
-			self:setState({temp = {}})
-		end)
-	end
-
-	if innerCageContext then
-		self.innerCageDataChanged = innerCageContext:getMeshDataChangedSignal():Connect(function()
-			-- force an update
-			self:setState({temp = {}})
-		end)
-	end
 end
 
 function ExplorerPreviewInstances:getOrCreatePreviewFolder()
@@ -244,7 +186,6 @@ ExplorerPreviewInstances = withContext({
 	EditingItemContext = EditingItemContext,
 	PreviewContext = PreviewContext,
 	AssetServiceWrapper = AssetServiceWrapper,
-	LuaMeshEditingModuleContext = LuaMeshEditingModuleContext,
 	StudioServiceWrapper = StudioServiceWrapper,
 })(ExplorerPreviewInstances)
 

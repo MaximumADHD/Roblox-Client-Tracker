@@ -1,4 +1,3 @@
-local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -113,7 +112,7 @@ function Generate:didMount()
 end
 
 function Generate:render()
-	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
+	local localization = self.props.Localization
 
 	local position = self.props.position
 	local size = self.props.size
@@ -190,7 +189,7 @@ function Generate:render()
 end
 
 Generate = withContext({
-	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
+	Localization = ContextServices.Localization,
 	TerrainGeneration = ContextItems.TerrainGeneration,
 })(Generate)
 

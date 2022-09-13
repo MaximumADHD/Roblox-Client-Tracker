@@ -31,7 +31,7 @@ return function(editingItem)
 		end
 
 		local attachment = editingItem:FindFirstChild(accessoryTypeInfo.Name)
-		local weld = editingItem:FindFirstChildWhichIsA("WeldConstraint")
+		local weld = editingItem:FindFirstChildWhichIsA("Weld")
 		if not attachment or not weld then
 			return nil
 		end

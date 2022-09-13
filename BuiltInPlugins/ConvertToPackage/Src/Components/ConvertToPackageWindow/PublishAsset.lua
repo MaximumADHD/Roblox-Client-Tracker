@@ -13,7 +13,6 @@
 	onOwnerSelected, function, callback when owner changes.
 	toggleComment, function, callback when comment changes.
 ]]
-local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -21,7 +20,7 @@ local Roact = require(Packages.Roact)
 local UILibrary = require(Packages.UILibrary)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
-local withContext = if FFlagUpdateConvertToPackageToDFContextServices then ContextServices.withContext else require(Plugin.Src.ContextServices.withContext)
+local withContext = ContextServices.withContext
 
 local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
 
@@ -50,112 +49,106 @@ function PublishAsset:init(props)
 end
 
 function PublishAsset:render()
-	local style = self.props.Stylizer
+	local props = self.props
+	local localization = props.Localization
+	local style = props.Stylizer
 
-	local function renderWithContext(localization, theme)
-		local props = self.props
+	local Size = props.Size
+	local LayoutOrder = props.LayoutOrder
 
-		local Size = props.Size
-		local LayoutOrder = props.LayoutOrder
+	local name = props.name
+	local description = props.description
+	local owner = props.owner
+	local allowComment = props.allowComment
+	local commentOn = props.commentOn
+	local onNameChange = props.onNameChange
+	local onDescChange = props.onDescChange
+	local onOwnerSelected = props.onOwnerSelected
+	local toggleComment = props.toggleComment
 
-		local name = props.name
-		local description = props.description
-		local owner = props.owner
-		local allowComment = props.allowComment
-		local commentOn = props.commentOn
-		local onNameChange = props.onNameChange
-		local onDescChange = props.onDescChange
-		local onOwnerSelected = props.onOwnerSelected
-		local toggleComment = props.toggleComment
+	local orderIterator = LayoutOrderIterator.new()
 
-		local orderIterator = LayoutOrderIterator.new()
+	local publishAssetTheme = style.publishAsset
+	return Roact.createElement(StyledScrollingFrame, {
+		Size = Size,
+		BackgroundTransparency = 0,
+		BackgroundColor3 = publishAssetTheme.backgroundColor,
+		BorderSizePixel = 0,
 
-		local publishAssetTheme = theme.publishAsset
-		return Roact.createElement(StyledScrollingFrame, {
-			Size = Size,
-			BackgroundTransparency = 0,
-			BackgroundColor3 = publishAssetTheme.backgroundColor,
-			BorderSizePixel = 0,
+		LayoutOrder = LayoutOrder,
 
-			LayoutOrder = LayoutOrder,
+		[Roact.Ref] = self.baseFrameRef,
+	}, {
+		Padding = Roact.createElement("UIPadding", {
+			PaddingTop = UDim.new(0, PADDING),
+			PaddingBottom = UDim.new(0, PADDING),
+			PaddingLeft = UDim.new(0, PADDING),
+			PaddingRight = UDim.new(0, PADDING),
+		}),
 
-			[Roact.Ref] = self.baseFrameRef,
-		}, {
-			Padding = Roact.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, PADDING),
-				PaddingBottom = UDim.new(0, PADDING),
-				PaddingLeft = UDim.new(0, PADDING),
-				PaddingRight = UDim.new(0, PADDING),
-			}),
+		UIListLayout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Vertical,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			VerticalAlignment = Enum.VerticalAlignment.Top,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, 5),
 
-			UIListLayout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-				VerticalAlignment = Enum.VerticalAlignment.Top,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, 5),
+			[Roact.Change.AbsoluteContentSize] = function(rbx)
+				-- workaround because we do not disconnect events before we start unmounting host components.
+				-- see https://github.com/Roblox/roact/issues/235 for more info
+				if not self.baseFrameRef.current then return end
 
-				[Roact.Change.AbsoluteContentSize] = function(rbx)
-					-- workaround because we do not disconnect events before we start unmounting host components.
-					-- see https://github.com/Roblox/roact/issues/235 for more info
-					if not self.baseFrameRef.current then return end
+				self.baseFrameRef.current.CanvasSize = UDim2.new(Size.X.Scale, Size.X.Offset, 0, rbx.AbsoluteContentSize.y + PADDING*2)
+			end,
+		}),
 
-					self.baseFrameRef.current.CanvasSize = UDim2.new(Size.X.Scale, Size.X.Offset, 0, rbx.AbsoluteContentSize.y + PADDING*2)
-				end,
-			}),
+		Title = Roact.createElement(ConfigTextField, {
+			Title = localization:getText("General", "Title"),
+			TotalHeight = NAME_HEIGHT,
+			MaxCount = Constants.NAME_CHARACTER_LIMIT,
+			TextChangeCallBack = onNameChange,
+			TextContent = name,
+			LayoutOrder = orderIterator:getNextOrder()
+		}),
 
-			Title = Roact.createElement(ConfigTextField, {
-				Title = localization:getText("General", "Title"),
-				TotalHeight = NAME_HEIGHT,
-				MaxCount = Constants.NAME_CHARACTER_LIMIT,
-				TextChangeCallBack = onNameChange,
-				TextContent = name,
-				LayoutOrder = orderIterator:getNextOrder()
-			}),
+		Description = Roact.createElement(ConfigTextField, {
+			Title = localization:getText("General", "Description"),
+			TotalHeight = DESC_HEIGHT,
+			MaxCount = Constants.DESCRIPTION_CHARACTER_LIMIT ,
+			TextChangeCallBack = onDescChange,
+			TextContent = description,
 
-			Description = Roact.createElement(ConfigTextField, {
-				Title = localization:getText("General", "Description"),
-				TotalHeight = DESC_HEIGHT,
-				MaxCount = Constants.DESCRIPTION_CHARACTER_LIMIT ,
-				TextChangeCallBack = onDescChange,
-				TextContent = description,
+			LayoutOrder = orderIterator:getNextOrder()
+		}),
 
-				LayoutOrder = orderIterator:getNextOrder()
-			}),
+		Ownership = Roact.createElement(ConfigAccess, {
+			Title = localization:getText("General", "Ownership"),
+			owner = owner,
 
-			Ownership = Roact.createElement(ConfigAccess, {
-				Title = localization:getText("General", "Ownership"),
-				owner = owner,
+			TotalHeight = ACCESS_HEIGHT,
 
-				TotalHeight = ACCESS_HEIGHT,
+			onDropDownSelect = onOwnerSelected,
 
-				onDropDownSelect = onOwnerSelected,
+			LayoutOrder = orderIterator:getNextOrder()
+		}),
 
-				LayoutOrder = orderIterator:getNextOrder()
-			}),
+		Comment = Roact.createElement(ConfigComment, {
+			Title = localization:getText("General", "Comments"),
 
-			Comment = Roact.createElement(ConfigComment, {
-				Title = localization:getText("General", "Comments"),
+			TotalHeight = COMMENT_HEIGHT,
+			CommentEnabled = allowComment,
+			CommentOn = commentOn,
 
-				TotalHeight = COMMENT_HEIGHT,
-				CommentEnabled = allowComment,
-				CommentOn = commentOn,
+			ToggleCallback = toggleComment,
 
-				ToggleCallback = toggleComment,
-
-				LayoutOrder = orderIterator:getNextOrder()
-			}),
-		})
-	end
-
-	return if FFlagUpdateConvertToPackageToDFContextServices then renderWithContext(self.props.Localization, style) else withContext(renderWithContext)
+			LayoutOrder = orderIterator:getNextOrder()
+		}),
+	})
 end
 
-if FFlagUpdateConvertToPackageToDFContextServices then
-	PublishAsset = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = ContextServices.Stylizer,
-	})(PublishAsset)
-end
+PublishAsset = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
+})(PublishAsset)
 
 return PublishAsset

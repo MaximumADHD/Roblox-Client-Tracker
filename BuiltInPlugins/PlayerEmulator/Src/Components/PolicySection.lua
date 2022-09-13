@@ -24,7 +24,6 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
-local FFlagRemoveUILibraryFitContent = Framework.SharedFlags.getFFlagRemoveUILibraryFitContent()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -32,15 +31,6 @@ local NetworkingContext = require(Plugin.Src.ContextServices.NetworkingContext)
 
 local UI = Framework.UI
 local Pane = UI.Pane
-
-local FitToContent
-if not FFlagRemoveUILibraryFitContent then
-	local UILibrary = require(Plugin.Packages.UILibrary)
-    local createFitToContent = UILibrary.Component.createFitToContent
-    FitToContent = createFitToContent("Frame", "UIListLayout", {
-        SortOrder = Enum.SortOrder.LayoutOrder,
-    })
-end
 
 local GetPolicySettings = require(Plugin.Src.Networking.Requests.GetPolicySettings)
 local UpdatePolicyBooleanItem = require(Plugin.Src.Thunks.UpdatePolicyBooleanItem)
@@ -95,43 +85,26 @@ function PolicySection:render()
 		end
 	end
 
-	if FFlagRemoveUILibraryFitContent then
-		return Roact.createElement(Pane, {
+	return Roact.createElement(Pane, {
+		AutomaticSize = Enum.AutomaticSize.Y,
+		HorizontalAlignment = Enum.HorizontalAlignment.Left,
+		Layout = Enum.FillDirection.Vertical,
+		LayoutOrder = layoutOrder,
+	}, {
+		ToggleElementsFrame = Roact.createElement(Pane, {
 			AutomaticSize = Enum.AutomaticSize.Y,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			Layout = Enum.FillDirection.Vertical,
-			LayoutOrder = layoutOrder,
-		}, {
-			ToggleElementsFrame = Roact.createElement(Pane, {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-				Layout = Enum.FillDirection.Vertical,
-				LayoutOrder = 1,
-			}, toggleElements),
-	
-			ListElementsFrame = Roact.createElement(Pane, {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-				Layout = Enum.FillDirection.Vertical,
-				LayoutOrder = 2,
-			}, listItemElements)
-		})
-	else
-		return Roact.createElement(FitToContent, {
-			LayoutOrder = layoutOrder,
-			BackgroundTransparency = 1,
-		}, {
-			ToggleElementsFrame = Roact.createElement(FitToContent, {
-				BackgroundTransparency = 1,
-				LayoutOrder = 1,
-			}, toggleElements),
-	
-			ListElementsFrame = Roact.createElement(FitToContent, {
-				BackgroundTransparency = 1,
-				LayoutOrder = 2,
-			}, listItemElements)
-		})
-	end
+			LayoutOrder = 1,
+		}, toggleElements),
+
+		ListElementsFrame = Roact.createElement(Pane, {
+			AutomaticSize = Enum.AutomaticSize.Y,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			Layout = Enum.FillDirection.Vertical,
+			LayoutOrder = 2,
+		}, listItemElements)
+	})
 end
 
 PolicySection = withContext({

@@ -14,9 +14,10 @@ local Main = script.Parent.Parent
 local commonInit = require(Main.Common.commonInit)
 commonInit()
 
+local FFlagCGERefreshUI = game:GetFastFlag("CGERefreshUI3")
+
 local PhysicsService = game:GetService("PhysicsService")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
-
 
 local getSelectedParts = require(Main.Plugin.getSelectedParts)
 local getPartsInGroup = require(Main.Plugin.getPartsInGroup)
@@ -99,6 +100,13 @@ local function bindToPluginEvents()
 	table.insert(PluginEventConnections, plugin:OnInvoke("RenameCollisionGroup", function(renameBlob)
 		ChangeHistoryService:SetWaypoint("Renaming collision group")
 		PhysicsService:RenameCollisionGroup(renameBlob.oldName, renameBlob.newName)
+		if FFlagCGERefreshUI and game:GetFastFlag("CollisionGroupNameStage3") then
+			for _, part in pairs(getPartsInGroup(renameBlob.oldName)) do
+				if part.CollisionGroup == renameBlob.oldName then
+					part.CollisionGroup = renameBlob.newName
+				end
+			end
+		end
 		ChangeHistoryService:SetWaypoint("Renamed collision group")
 		SetStateAndRefresh({GroupRenaming = ""})
 	end))

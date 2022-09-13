@@ -1,4 +1,3 @@
-local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -141,7 +140,7 @@ function TerrainTools:render()
 		calloutController,
 	}, {
 		TerrainTools = Roact.createElement(DockWidget, {
-			Title = if FFlagRemoveUILibraryCompatLocalization then localization:getText("Main", "Title") else localization:get():getText("Main", "Title"),
+			Title = localization:getText("Main", "Title"),
 			Enabled = enabled,
 
 			Widget = self.props.pluginLoaderContext and

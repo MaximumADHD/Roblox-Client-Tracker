@@ -15,7 +15,6 @@
 		int LayoutOrder - will be used by the layouter to change the position of the components (defaults to 1 if not passed in)
 
 ]]
-local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 local PREVIEW_TITLE_PADDING = 12
 local PREVIEW_TITLE_HEIGHT = 24
 
@@ -24,17 +23,20 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local Util = Plugin.Src.Util
 
+local Framework = require(Packages.Framework)
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
 local UILibrary = require(Packages.UILibrary)
-local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local Constants = require(Util.Constants)
-local RoundFrame = UILibrary.Component.RoundFrame
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryRoundFrame = SharedFlags.getFFlagRemoveUILibraryRoundFrame()
 
-local withTheme = if FFlagUpdateConvertToPackageToDFContextServices then nil else require(Plugin.Src.ContextServices.Theming).withTheme
+local Constants = require(Util.Constants)
+
+local UI = Framework.UI
+local Pane = if FFlagRemoveUILibraryRoundFrame then UI.Pane else UILibrary.Component.RoundFrame
 
 local function removeAllScripts(object)
 	for _, descendant in pairs(object:GetDescendants()) do
@@ -111,68 +113,64 @@ function AssetThumbnailPreview:getName()
 end
 
 function AssetThumbnailPreview:render()
-	local style = self.props.Stylizer
+	local props = self.props
+	local style = props.Stylizer
 
-	local function renderWithContext(theme)
-		local props = self.props
-
-		local title = props.title or self:getName()
-		local showTitle = true
-		if nil ~= props.ShowTitle then
-			showTitle = props.showTitle
-		end
-		local position = props.Position or UDim2.new(1, 0, 1, 0)
-		local titleHeight = props.titleHeight or PREVIEW_TITLE_HEIGHT
-		local titlePadding = props.titlePadding or PREVIEW_TITLE_PADDING
-		local layoutOrder = props.LayoutOrder or 1
-		local showPlaceholder = self.props.instances and not hasShowableObject(self.props.instances[1])
-		return Roact.createElement("Frame", {
-			Name = "AssetThumbnailPreview",
-			BackgroundTransparency = 1,
-			Size = props.Size,
-			Position = position,
-
-			LayoutOrder = layoutOrder
-		}, {
-			PreviewFrame = Roact.createElement(RoundFrame, {
-				BackgroundColor3 = theme.thumbnailPreview.background,
-				BorderColor3 = theme.thumbnailPreview.border,
-				Size = showTitle and UDim2.new(1, 0, 1, -(titleHeight + titlePadding)) or UDim2.new(1, 0, 1, 0),
-			}, {
-				Viewport = not showPlaceholder and Roact.createElement("ViewportFrame", {
-					[Roact.Ref] = self.viewportRef,
-					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundColor3 = theme.thumbnailPreview.background,
-					BackgroundTransparency = 1,
-				}),
-				PreviewPlaceholder = showPlaceholder and Roact.createElement("ImageLabel", {
-					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundTransparency = 0,
-					Image = Constants.Images.IMAGE_PLACEHOLDER,
-					BackgroundColor3 = theme.thumbnailPreview.background,
-					ImageColor3 = theme.thumbnailPreview.placeholderColor
-				}),
-			}),
-			Title = showTitle and Roact.createElement("TextLabel", {
-				Text = title,
-				Font = Constants.FONT,
-				TextSize = Constants.FONT_SIZE_MEDIUM,
-				TextColor3 = theme.thumbnailPreview.text,
-				Position = UDim2.new(0, 0, 1, -titleHeight),
-				Size = UDim2.new(1, 0, 0, titleHeight),
-				BackgroundTransparency = 1,
-			})
-		})
+	local title = props.title or self:getName()
+	local showTitle = true
+	if nil ~= props.ShowTitle then
+		showTitle = props.showTitle
 	end
+	local position = props.Position or UDim2.new(1, 0, 1, 0)
+	local titleHeight = props.titleHeight or PREVIEW_TITLE_HEIGHT
+	local titlePadding = props.titlePadding or PREVIEW_TITLE_PADDING
+	local layoutOrder = props.LayoutOrder or 1
+	local showPlaceholder = self.props.instances and not hasShowableObject(self.props.instances[1])
+	return Roact.createElement("Frame", {
+		Name = "AssetThumbnailPreview",
+		BackgroundTransparency = 1,
+		Size = props.Size,
+		Position = position,
 
-	return if FFlagUpdateConvertToPackageToDFContextServices then renderWithContext(style) else withTheme(renderWithContext)
+		LayoutOrder = layoutOrder
+	}, {
+		PreviewFrame = Roact.createElement(Pane, if FFlagRemoveUILibraryRoundFrame then {
+			Style = "BorderBox",
+			Size = if showTitle then UDim2.new(1, 0, 1, -(titleHeight + titlePadding)) else nil,
+		} else {
+			BackgroundColor3 = style.thumbnailPreview.background,
+			BorderColor3 = style.thumbnailPreview.border,
+			Size = showTitle and UDim2.new(1, 0, 1, -(titleHeight + titlePadding)) or UDim2.new(1, 0, 1, 0),
+		}, {
+			Viewport = not showPlaceholder and Roact.createElement("ViewportFrame", {
+				[Roact.Ref] = self.viewportRef,
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundColor3 = style.thumbnailPreview.background,
+				BackgroundTransparency = 1,
+			}),
+			PreviewPlaceholder = showPlaceholder and Roact.createElement("ImageLabel", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 0,
+				Image = Constants.Images.IMAGE_PLACEHOLDER,
+				BackgroundColor3 = style.thumbnailPreview.background,
+				ImageColor3 = style.thumbnailPreview.placeholderColor
+			}),
+		}),
+		Title = showTitle and Roact.createElement("TextLabel", {
+			Text = title,
+			Font = Constants.FONT,
+			TextSize = Constants.FONT_SIZE_MEDIUM,
+			TextColor3 = style.thumbnailPreview.text,
+			Position = UDim2.new(0, 0, 1, -titleHeight),
+			Size = UDim2.new(1, 0, 0, titleHeight),
+			BackgroundTransparency = 1,
+		})
+	})
 end
 
-if FFlagUpdateConvertToPackageToDFContextServices then
-	AssetThumbnailPreview = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(AssetThumbnailPreview)
-end
+AssetThumbnailPreview = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(AssetThumbnailPreview)
 
 local function mapStateToProps(state, props)
 	state = state or {}

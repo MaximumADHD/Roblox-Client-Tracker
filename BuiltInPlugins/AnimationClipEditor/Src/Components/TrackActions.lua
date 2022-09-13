@@ -40,6 +40,7 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local Types = require(Plugin.Src.Types)
 
 local GetFFlagFixEulerAnglesMenu = require(Plugin.LuaFlags.GetFFlagFixEulerAnglesMenu)
+local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
 
 export type Props = {
 	-- State/Context
@@ -238,6 +239,7 @@ function TrackActions:render(): (any?)
 	local instanceName = props.InstanceName
 	local animationData = props.AnimationData
 	local playhead = props.Playhead
+	local readOnly = props.ReadOnly
 
 	local actions = self.Actions
 	local pluginActions = self.props.PluginActions
@@ -261,13 +263,13 @@ function TrackActions:render(): (any?)
 				enabled = not compInfo[playhead] or not compInfo[playhead].Complete
 			end
 
-			pluginActions:get("AddKeyframe").Enabled = enabled
+			pluginActions:get("AddKeyframe").Enabled = (not GetFFlagKeyframeReduction() or not readOnly) and enabled
 		end
 
-		pluginActions:get("DeleteTrack").Enabled = true
-		pluginActions:get("ClearTrack").Enabled = true
+		pluginActions:get("DeleteTrack").Enabled = not GetFFlagKeyframeReduction() or not readOnly
+		pluginActions:get("ClearTrack").Enabled = not GetFFlagKeyframeReduction() or not readOnly
 		if isChannelAnimation then
-			pluginActions:get("ConvertToEulerAngles").Enabled = true
+			pluginActions:get("ConvertToEulerAngles").Enabled = not GetFFlagKeyframeReduction() or not readOnly
 		end
 	end
 
@@ -335,6 +337,7 @@ local function mapStateToProps(state): { [string]: any }
 		InstanceName = status.RightClickContextInfo.InstanceName,
 		Path = status.RightClickContextInfo.Path,
 		Playhead = status.Playhead,
+		ReadOnly = status.ReadOnly,
 		RotationType = status.RightClickContextInfo.RotationType,
 		TrackName = status.RightClickContextInfo.TrackName,
 		TrackType = status.RightClickContextInfo.TrackType,

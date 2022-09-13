@@ -256,6 +256,13 @@ function Analytics.new()
 		ReportPlatformCounter("2SVSettingsErrorConfirmed")
 	end
 
+	function service.signalRobuxUpsellInGameIXP(isInExperiment)
+		ReportEvent("RobuxUpsellInGameIXP", {})
+		if isInExperiment then
+			ReportPlatformCounter("RobuxUpsellInGameIXP")
+		end
+	end
+
 	return service
 end
 

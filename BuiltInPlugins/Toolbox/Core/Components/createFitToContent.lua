@@ -3,7 +3,7 @@ local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
 
--- TODO Delete this file once FFlagRemoveUILibraryFitContent is retired and Toolbox's RadioButtons.lua & SearchOptionsEntry.lua are replaced with DF components. This model is deprecated in favor of AutomaticSize in-engine.
+-- TODO Delete this file once Toolbox's RadioButtons.lua & SearchOptionsEntry.lua are replaced with DF components. This model is deprecated in favor of AutomaticSize in-engine.
 local function createFitToContent(containerComponent, layoutComponent, layoutProps)
 	local name = ("FitComponent(%s, %s)"):format(containerComponent, layoutComponent)
 	local FitComponent = Roact.Component:extend(name)

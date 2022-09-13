@@ -44,6 +44,8 @@ local SnapToNearestKeyframe = require(Plugin.Src.Thunks.SnapToNearestKeyframe)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SwitchEditorMode = require(Plugin.Src.Thunks.SwitchEditorMode)
 
+local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
+
 local TrackEditor = Roact.PureComponent:extend("TrackEditor")
 
 function TrackEditor:init()
@@ -148,7 +150,7 @@ function TrackEditor:init()
 			else
 				self.props.SwitchEditorMode(Constants.EDITOR_MODE.CurveCanvas, self.props.Analytics)
 			end
-		else
+		elseif not (GetFFlagKeyframeReduction() and self.props.ReadOnly) then
 			self.props.OnPromoteRequested()
 		end
 	end
@@ -324,12 +326,13 @@ end
 
 local function mapStateToProps(state)
 	return {
+		AnimationData = state.AnimationData,
+		CannotPasteError = state.Notifications.CannotPasteError,
+		EditorMode = state.Status.EditorMode,
 		IsPlaying = state.Status.IsPlaying,
 		PlayState = state.Status.PlayState,
 		SnapMode = state.Status.SnapMode,
-		AnimationData = state.AnimationData,
-		EditorMode = state.Status.EditorMode,
-		CannotPasteError = state.Notifications.CannotPasteError,
+		ReadOnly = state.Status.ReadOnly,
 	}
 end
 

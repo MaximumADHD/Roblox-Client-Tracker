@@ -10,6 +10,8 @@ return function()
 	local PromptState = require(Root.Enums.PromptState)
 	local PurchaseError = require(Root.Enums.PurchaseError)
 	local Reducer = require(Root.Reducers.Reducer)
+	local ABTest = require(Root.Services.ABTest)
+	local MockABTest = require(Root.Test.MockABTest)
 	local Analytics = require(Root.Services.Analytics)
 	local MockAnalytics = require(Root.Test.MockAnalytics)
 	local ExternalSettings = require(Root.Services.ExternalSettings)
@@ -49,6 +51,7 @@ return function()
 	local function testThunk(mockAnalytics, mockExternalSettings, store,
 			productInfo, accountInfo, balanceInfo, alreadyOwned, isRobloxPurchase)
 		return Thunk.test(resolvePromptState(productInfo, accountInfo, balanceInfo, alreadyOwned, isRobloxPurchase), store, {
+			[ABTest] = MockABTest.new(),
 			[Analytics] = mockAnalytics or MockAnalytics.new().mockService,
 			[ExternalSettings] = mockExternalSettings or MockExternalSettings.new(false, false, {}),
 			[Network] = MockNetwork.new(),
@@ -143,7 +146,7 @@ return function()
 		local accountInfo = getTestAccountInfo()
 		local balanceInfo = getTestBalance()
 		balanceInfo.robux = 0
-		testThunk(mockAnalytics, nil, store, productInfo, accountInfo, balanceInfo, false, false):andThen(function()
+		testThunk(mockAnalytics.mockService, nil, store, productInfo, accountInfo, balanceInfo, false, false):andThen(function()
 			local state = store:getState()
 			expect(state.promptState).to.equal(PromptState.RobuxUpsell)
 			expect(mockAnalytics.spies.signalProductPurchaseUpsellShown.callCount).to.equal(1)

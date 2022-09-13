@@ -50,6 +50,32 @@ Typecheck.wrap(SelectedEditingItem, script)
 
 local GetFFlagAccessoryFittingToolAnalytics = require(Plugin.Src.Flags.GetFFlagAccessoryFittingToolAnalytics)
 
+local function connectCageDataChanged(self)
+	local props = self.props
+	local luaMeshEditingModuleContext = props.LuaMeshEditingModuleContext
+	local outerCageContext = luaMeshEditingModuleContext:getOuterCageContext()
+	local innerCageContext = luaMeshEditingModuleContext:getInnerCageContext()
+	if outerCageContext then
+		if self.outerCageDataChanged then
+			self.outerCageDataChanged:Disconnect()
+		end
+		self.outerCageDataChanged = outerCageContext:getMeshDataChangedSignal():Connect(function()
+			-- force an update
+			self:setState({temp = {}})
+		end)
+	end
+
+	if innerCageContext then
+		if self.innerCageDataChanged then
+			self.innerCageDataChanged:Disconnect()
+		end
+		self.innerCageDataChanged = innerCageContext:getMeshDataChangedSignal():Connect(function()
+			-- force an update
+			self:setState({temp = {}})
+		end)
+	end
+end
+
 local function onMannequinChanged(self, regenerated)
 	local props = self.props
 
@@ -108,6 +134,7 @@ local function onMannequinChanged(self, regenerated)
 				self.props.SelectEditingItem(luaMeshEditingModuleContext, displayItem)
 			end
 			AvatarUtil:focusCameraOnAvatar(mannequinInstance)
+			connectCageDataChanged(self)
 		end
 
 		ChangeHistoryService:ResetWaypoints()
@@ -143,6 +170,18 @@ end
 -- We are not rendering the mannequin/editing item directly through Roact since we wonly want
 -- it to be tied to mounting/unmounting of the component.
 function SelectedEditingItem:render()
+	local props = self.props
+	local editingCage = props.EditingCage
+	if editingCage == Constants.EDIT_MODE.Mesh then
+		return nil
+	end
+
+	local luaMeshEditingModuleContext = props.LuaMeshEditingModuleContext
+	local meshEditingContext = luaMeshEditingModuleContext:getCurrentContext()
+	if meshEditingContext and self.mannequin then
+		self.mannequin:deformLayer(1, meshEditingContext:getVertexData(), editingCage)
+	end
+
 	return nil
 end
 
@@ -174,6 +213,16 @@ function SelectedEditingItem:willUnmount()
 	if self.SourceItemChangedHandle then
 		self.SourceItemChangedHandle:Disconnect()
 		self.SourceItemChangedHandle = nil
+	end
+
+	if self.outerCageDataChanged then
+		self.outerCageDataChanged:Disconnect()
+		self.outerCageDataChanged = nil
+	end
+
+	if self.innerCageDataChanged then
+		self.innerCageDataChanged:Disconnect()
+		self.innerCageDataChanged = nil
 	end
 end
 

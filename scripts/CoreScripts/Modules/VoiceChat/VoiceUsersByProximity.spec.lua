@@ -63,6 +63,10 @@ return function()
 		c.mockPlayersService = mockPlayersService
 	end)
 
+	afterEach(function(c)
+		c.VoiceChatServiceManager:Disconnect()
+	end)
+
 	describe("GetVoiceUsersByProximity", function(c)
 		it("Should sort by proximity", function(c)
 			c.mockPlayersService:addMockPlayerAndCharacter("001", Vector3.new(0, 0, 0))

@@ -1,4 +1,3 @@
-local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -22,7 +21,7 @@ local FlattenModeSelector = Roact.PureComponent:extend("FlattenModeSelector")
 
 function FlattenModeSelector:render()
 	local theme = self.props.Theme:get()
-	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
+	local localization = self.props.Localization
 
 	local layoutOrder = self.props.LayoutOrder
 	local flattenMode = self.props.flattenMode
@@ -80,7 +79,7 @@ end
 
 FlattenModeSelector = withContext({
 	Theme = ContextItems.UILibraryTheme,
-	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
+	Localization = ContextServices.Localization,
 })(FlattenModeSelector)
 
 return FlattenModeSelector

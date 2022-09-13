@@ -2,7 +2,6 @@
 	Displays panels associated with The Replace tool
 ]]
 local FFlagTerrainToolsGlobalState = game:GetFastFlag("TerrainToolsGlobalState")
-local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -102,7 +101,7 @@ function Replace:init()
 end
 
 function Replace:render()
-	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
+	local localization = self.props.Localization
 
 	local position = self.props.Position
 	local size = self.props.Size
@@ -250,7 +249,7 @@ function Replace:render()
 end
 
 Replace = withContext({
-	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
+	Localization = ContextServices.Localization,
 	-- Replace tool reuses SeaLevel object
 	-- TODO: Rename SeaLevel object to TerrainReplacer?
 	Replace = ContextItems.SeaLevel,

@@ -7,7 +7,6 @@ local INPUT_BOX_HORIZONTAL_OFFSET = 8
 local INPUT_BOX_WIDTH = 175
 local INPUT_BOX_HEIGHT = 25
 
-local FFlagRemoveStudioThemeFromPlugins = game:GetFastFlag("RemoveStudioThemeFromPlugins")
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -65,7 +64,7 @@ function AssetInput:render()
 	local props = self.props
 	local localization = props.Localization
 	local mouse = props.Mouse:get()
-	local theme = if FFlagRemoveStudioThemeFromPlugins then self.props.Stylizer else nil
+	local theme = self.props.Stylizer
 
 	self.currentTextInputBoxText = getText(self)
 
@@ -94,7 +93,7 @@ function AssetInput:render()
 			Position = UDim2.new(0, CUSTOM_ITEM_LABEL_HORIZONTAL_POSITION, 0, 0),
 			Size = UDim2.new(0, customItemTextSize.X, 0, TOGGLE_BUTTON_HEIGHT),
 			BackgroundTransparency = 1,
-			TextColor3 = if FFlagRemoveStudioThemeFromPlugins then (if StateInterfaceTheme.getRadioButtonTextColor(self.props) then StateInterfaceTheme.getRadioButtonTextColor(self.props) else theme.fontStyle.Header.TextColor3) else StateInterfaceTheme.getRadioButtonTextColor(self.props),
+			TextColor3 = if StateInterfaceTheme.getRadioButtonTextColor(self.props) then StateInterfaceTheme.getRadioButtonTextColor(self.props) else theme.fontStyle.Header.TextColor3,
 			TextTransparency = (self.props.IsEnabled and not self.props.PlayerChoice) and 0 or 0.5,
 			Font = Enum.Font.SourceSans,
 			TextSize = 22,
@@ -155,7 +154,7 @@ end
 AssetInput = withContext({
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
-	Stylizer = if FFlagRemoveStudioThemeFromPlugins then ContextServices.Stylizer else nil,
+	Stylizer = ContextServices.Stylizer,
 })(AssetInput)
 
 calculateTextSize = function(text, textSize, font)

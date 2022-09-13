@@ -6,7 +6,6 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryFitContent = SharedFlags.getFFlagRemoveUILibraryFitContent()
 local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
 
 local ContextServices = Framework.ContextServices
@@ -17,15 +16,6 @@ local Pane = UI.Pane
 local TextLabel = UI.Decoration.TextLabel
 
 local StyleModifier = Framework.Util.StyleModifier
-
-local FitToContent
-if not FFlagRemoveUILibraryFitContent then
-	local UILibrary = require(Plugin.Packages.UILibrary)
-    local createFitToContent = UILibrary.Component.createFitToContent
-    FitToContent = createFitToContent("Frame", "UIListLayout", {
-        SortOrder = Enum.SortOrder.LayoutOrder,
-    })
-end
 
 local Collapsible = Roact.PureComponent:extend("Collapsible")
 
@@ -106,25 +96,15 @@ function Collapsible:render()
 
 	local content = open and renderContent() or nil
 
-	if FFlagRemoveUILibraryFitContent then
-		return Roact.createElement(Pane, {
-			AutomaticSize = Enum.AutomaticSize.Y,
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			Layout = Enum.FillDirection.Vertical,
-			LayoutOrder = layoutOrder,
-		}, {
-			TopBar = topBar,
-			Content = content,
-		})
-	else
-		return Roact.createElement(FitToContent, {
-			BackgroundTransparency = 1,
-			LayoutOrder = layoutOrder,
-		}, {
-			TopBar = topBar,
-			Content = content,
-		})
-	end
+	return Roact.createElement(Pane, {
+		AutomaticSize = Enum.AutomaticSize.Y,
+		HorizontalAlignment = Enum.HorizontalAlignment.Left,
+		Layout = Enum.FillDirection.Vertical,
+		LayoutOrder = layoutOrder,
+	}, {
+		TopBar = topBar,
+		Content = content,
+	})
 end
 
 Collapsible = withContext({

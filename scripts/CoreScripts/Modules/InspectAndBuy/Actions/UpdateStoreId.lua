@@ -1,4 +1,3 @@
---!nonstrict
 --[[
 	Action to update the "store id" which basically acts as
 	an incrementing number of how many times the inspect and buy

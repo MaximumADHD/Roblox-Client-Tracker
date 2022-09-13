@@ -12,6 +12,8 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 local Button = Framework.UI.Button
+local Util = Framework.Util
+local StyleModifier = Util.StyleModifier
 local GetTextSize = Framework.Util.GetTextSize
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -26,6 +28,7 @@ local GetFFlagFaceControlsEditorShowCallout = require(Plugin.LuaFlags.GetFFlagFa
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
 local GetFacialAnimationRecordingAnalytics1 = require(Plugin.LuaFlags.GetFacialAnimationRecordingAnalytics1)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
 
 local RecordingModeButton = Roact.PureComponent:extend("RecordingModeButton")
 
@@ -42,6 +45,7 @@ function RecordingModeButton:render()
 	local style = theme.button
 	local state = self.state
 	local analytics = props.Analytics
+	local readOnly = props.ReadOnly
 
 	local toggleRecordingAndEndReview = function()
 		if GetFacialAnimationRecordingAnalytics1() then
@@ -73,7 +77,9 @@ function RecordingModeButton:render()
 	}, {
 		FaceControlsEditorButton = props.RootInstance and canUseFaceControlsEditor and Roact.createElement(Button, {
 			Style = props.inReviewState and "RoundPrimary" or style.FaceControlsEditorDefault,
+			StyleModifier = if (GetFFlagKeyframeReduction() and readOnly) then StyleModifier.Disabled else nil,
 			Size = UDim2.new(1, 0, 1, 0),
+			IsDisabled = true,
 			OnClick = toggleRecordingAndEndReview,
 		}, {
 			Label = Roact.createElement("TextLabel", {
@@ -90,9 +96,9 @@ function RecordingModeButton:render()
 					Offset = Vector2.new(0, 6),
 					DefinitionId = "FaceRecorderCallout",
 					LocationId = "RecordingModeButton"
-				}) else nil,			
+				}) else nil,
 
-			})			
+			})
 		}),
 	})
 end
@@ -105,8 +111,9 @@ RecordingModeButton = withContext({
 
 local function mapStateToProps(state, props)
 	return {
-		RootInstance = state.Status.RootInstance,
 		inReviewState = state.Status.inReviewState,
+		ReadOnly = state.Status.ReadOnly,
+		RootInstance = state.Status.RootInstance,
 	}
 end
 
@@ -114,7 +121,7 @@ local function mapDispatchToProps(dispatch)
 	return {
 		old_ToggleRecordingAndEndReview = function(props)
 			--get out of review state in case user clicked this button while in review state
-			if props.inReviewState then 
+			if props.inReviewState then
 				dispatch(SetInReviewState(false))
 				dispatch(SetFacialRecordingMode(false))
 			else

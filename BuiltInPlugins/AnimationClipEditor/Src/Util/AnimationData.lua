@@ -9,6 +9,10 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
+
+local Framework = require(Plugin.Packages.Framework)
+local MathUtils = Framework.Util.Math
+
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local PathUtils = require(Plugin.Src.Util.PathUtils)
@@ -17,7 +21,9 @@ local Constants = require(Plugin.Src.Util.Constants)
 local deepCopy = require(Plugin.Src.Util.deepCopy)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Cryo = require(Plugin.Packages.Cryo)
+local Types = require(Plugin.Src.Types)
 
+local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
 export type AnimationData = any
 
 local AnimationData = {}
@@ -440,6 +446,10 @@ function AnimationData.promoteToChannels(data, rotationType, eulerAnglesOrder): 
 		end
 	end
 
+	if GetFFlagKeyframeReduction() then
+		AnimationData.clearTrackSequences(data)
+	end
+
 	data.Metadata.IsChannelAnimation = true
 	data.Metadata.Name = data.Metadata.Name .. " [CHANNELS]"
 
@@ -491,6 +501,132 @@ function AnimationData.hasFacsData(data)
 	end
 
 	return false
+end
+
+-- Helper to compare two CFrames with a fuzzyEq method
+local function fuzzyCFrameEq(A: CFrame, B: CFrame): boolean
+	local aComp = {A:GetComponents()}
+	local bComp = {B:GetComponents()}
+
+	for i = 1, 12 do
+		if not MathUtils.fuzzyEq(aComp[i], bComp[i]) then
+			return false
+		end
+	end
+	return true
+end
+
+-- Remove intermediate keyframes within a sequence of constant values. For
+-- instance, if a track has keyframes with values : 0 0 0 1 1 1 1 2 3 3 3 2 2 1,
+-- then this function will delete keyframes to keep 0 . 0 1 . . 1 2 3 . 3 2 2 1
+-- Additionally, if only two keys are left (by definition, the first and the
+-- last) and those keys have the default value, then the track is cleared.
+local function clearSequences(track: Types.Track): boolean
+	local fuzzyEq = if track.Type == Constants.TRACK_TYPES.CFrame
+		then fuzzyCFrameEq else MathUtils.fuzzyEq
+
+	if not (track.Keyframes and track.Keyframes[1] and track.Data) then
+		return false
+	end
+
+	local refTick = track.Keyframes[1]
+	local refKeyframe = track.Data[refTick]
+	if not refKeyframe then
+		return false
+	end
+
+	local lastTick
+	local toDelete = {}
+
+	for cur = 2, #track.Keyframes do
+		local curTick = track.Keyframes[cur]
+		local curKeyframe = track.Data[curTick]
+
+		if fuzzyEq(curKeyframe.Value, refKeyframe.Value) then
+			toDelete[curTick] = true
+		elseif curTick ~= refTick then
+			if lastTick then
+				toDelete[lastTick] = nil
+			end
+			refTick = curTick
+			refKeyframe = track.Data[refTick]
+		end
+		lastTick = curTick
+	end
+
+	if lastTick and lastTick ~= refTick then
+		toDelete[lastTick] = nil
+	end
+
+	local newKeyframes = {}
+	local hasChanges = false
+	for _, tck in track.Keyframes do
+		if toDelete[tck] then
+			track.Data[tck] = nil
+			hasChanges = true
+		else
+			table.insert(newKeyframes, tck)
+		end
+	end
+	track.Keyframes = newKeyframes
+
+	if #track.Keyframes == 2 then
+		local firstValue = KeyframeUtils.getValue(track, track.Keyframes[1])
+		local lastValue = KeyframeUtils.getValue(track, track.Keyframes[2])
+		if
+			fuzzyEq(firstValue, lastValue)
+			and fuzzyEq(firstValue, KeyframeUtils.getDefaultValue(track.Type))
+		then
+			track.Data = {}
+			track.Keyframes = {}
+			hasChanges = true
+		end
+	end
+
+	return hasChanges
+end
+
+-- Clear sequences across all tracks (see above). Remove empty tracks.
+function AnimationData.clearTrackSequences(data: AnimationData?): boolean
+	if not data then
+		return false
+	end
+
+	local hasChanges = false
+
+	for _, instance in pairs(data.Instances) do
+		for trackName, track in pairs(instance.Tracks) do
+			TrackUtils.traverseTracks(nil, track, function(tr: Types.Track)
+				hasChanges = clearSequences(tr) or hasChanges
+			end, true)
+
+			if
+				(track.Type == Constants.TRACK_TYPES.CFrame
+					or track.Type == Constants.TRACK_TYPES.Facs)
+				and track.Keyframes and isEmpty(track.Keyframes)
+			then
+				instance.Tracks[trackName] = nil
+			end
+		end
+	end
+
+	return hasChanges
+end
+
+function AnimationData.getKeyframeCount(data: AnimationData?): boolean
+	if not data then
+		return 0
+	end
+
+	local allTicks = {}
+	for _, instance in pairs(data.Instances) do
+		local keyframes = Cryo.TrackUtils.getSummaryKeyframes(instance.Tracks, data.Metadata.StartTick, data.Metadata.EndTick)
+		for _, keyframe in keyframes do
+			allTicks[keyframe] = true
+		end
+	end
+
+	return #Cryo.Dictionary.keys(allTicks)
 end
 
 return AnimationData

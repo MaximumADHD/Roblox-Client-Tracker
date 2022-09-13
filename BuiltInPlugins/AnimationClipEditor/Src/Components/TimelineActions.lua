@@ -34,42 +34,43 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
-local isEmpty = require(Plugin.Src.Util.isEmpty)
-local Constants = require(Plugin.Src.Util.Constants)
-local SignalsContext = require(Plugin.Src.Context.Signals)
-
-local ContextMenu = require(Plugin.Src.Components.ContextMenu)
-
-local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
-local TrackUtils = require(Plugin.Src.Util.TrackUtils)
-local SelectionUtils = require(Plugin.Src.Util.SelectionUtils)
-local AnimationData = require(Plugin.Src.Util.AnimationData)
-
-local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
-local AddKeyframe = require(Plugin.Src.Thunks.AddKeyframe)
-local SplitTrack = require(Plugin.Src.Thunks.SplitTrack)
-local PasteKeyframes = require(Plugin.Src.Thunks.PasteKeyframes)
-local CopySelectedKeyframes = require(Plugin.Src.Thunks.Selection.CopySelectedKeyframes)
-local DeleteSelectedKeyframes = require(Plugin.Src.Thunks.Selection.DeleteSelectedKeyframes)
-local ResetSelectedKeyframes = require(Plugin.Src.Thunks.Selection.ResetSelectedKeyframes)
-local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
-local ToggleBoneVisibility = require(Plugin.Src.Thunks.ToggleBoneVisibility)
-
-local SelectAllKeyframes = require(Plugin.Src.Thunks.Selection.SelectAllKeyframes)
-local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
-local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
-local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
-local SetEventEditingTick = require(Plugin.Src.Actions.SetEventEditingTick)
-local SetTool = require	(Plugin.Src.Actions.SetTool)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local Undo = require(Plugin.Src.Thunks.History.Undo)
-local Redo = require(Plugin.Src.Thunks.History.Redo)
+local SetEventEditingTick = require(Plugin.Src.Actions.SetEventEditingTick)
+local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
+local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
+local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
+local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
+local SetTool = require	(Plugin.Src.Actions.SetTool)
 
+local ContextMenu = require(Plugin.Src.Components.ContextMenu)
+
+local SignalsContext = require(Plugin.Src.Context.Signals)
+
+local AddKeyframe = require(Plugin.Src.Thunks.AddKeyframe)
+local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
+local CopySelectedKeyframes = require(Plugin.Src.Thunks.Selection.CopySelectedKeyframes)
+local DeleteSelectedKeyframes = require(Plugin.Src.Thunks.Selection.DeleteSelectedKeyframes)
+local PasteKeyframes = require(Plugin.Src.Thunks.PasteKeyframes)
+local Redo = require(Plugin.Src.Thunks.History.Redo)
+local ResetSelectedKeyframes = require(Plugin.Src.Thunks.Selection.ResetSelectedKeyframes)
+local SelectAllKeyframes = require(Plugin.Src.Thunks.Selection.SelectAllKeyframes)
+local SplitTrack = require(Plugin.Src.Thunks.SplitTrack)
+local ToggleBoneVisibility = require(Plugin.Src.Thunks.ToggleBoneVisibility)
 local TogglePlay = require(Plugin.Src.Thunks.Playback.TogglePlay)
+local Undo = require(Plugin.Src.Thunks.History.Undo)
+
+local AnimationData = require(Plugin.Src.Util.AnimationData)
+local Constants = require(Plugin.Src.Util.Constants)
+local isEmpty = require(Plugin.Src.Util.isEmpty)
+local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
+local SelectionUtils = require(Plugin.Src.Util.SelectionUtils)
+local TrackUtils = require(Plugin.Src.Util.TrackUtils)
+
+local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
 
 local TimelineActions = Roact.PureComponent:extend("TimelineActions")
 
@@ -459,6 +460,7 @@ function TimelineActions:render()
 	local tool = props.Tool
 	local tracks = props.Tracks
 	local isChannelAnimation = props.IsChannelAnimation
+	local readOnly = props.ReadOnly
 
 	local actions = self.Actions
 	local pluginActions = self.props.PluginActions
@@ -475,28 +477,28 @@ function TimelineActions:render()
 		--     create full CFrames (for instance, if we only copy the Position.X channel)
 		local expectedClipboardType = isChannelAnimation and Constants.CLIPBOARD_TYPE.Channels or Constants.CLIPBOARD_TYPE.Keyframes
 		if clipboard and not isEmpty(clipboard) and clipboardType == expectedClipboardType then
-			pluginActions:get("PasteKeyframes").Enabled = true
+			pluginActions:get("PasteKeyframes").Enabled = not (GetFFlagKeyframeReduction() and readOnly)
 		end
 
 		if selectedKeyframes and not isEmpty(selectedKeyframes) then
 			pluginActions:get("DeselectAll").Enabled = true
-			pluginActions:get("CutSelected").Enabled = true
-			pluginActions:get("CopySelected").Enabled = true
-			pluginActions:get("ResetSelected").Enabled = true
-			pluginActions:get("DeleteSelected").Enabled = true
+			pluginActions:get("CutSelected").Enabled = not (GetFFlagKeyframeReduction() and readOnly)
+			pluginActions:get("CopySelected").Enabled = not (GetFFlagKeyframeReduction() and readOnly)
+			pluginActions:get("ResetSelected").Enabled = not (GetFFlagKeyframeReduction() and readOnly)
+			pluginActions:get("DeleteSelected").Enabled = not (GetFFlagKeyframeReduction() and readOnly)
 		else
-			pluginActions:get("SelectAll").Enabled = true
+			pluginActions:get("SelectAll").Enabled = not (GetFFlagKeyframeReduction() and readOnly)
 		end
 
 		if not props.OnKeyframe and not isEmpty(tracks) then
-			pluginActions:get("AddKeyframeHere").Enabled = true
-			pluginActions:get("AddResetKeyframe").Enabled = true
+			pluginActions:get("AddKeyframeHere").Enabled = not (GetFFlagKeyframeReduction() and readOnly)
+			pluginActions:get("AddResetKeyframe").Enabled = not (GetFFlagKeyframeReduction() and readOnly)
 		end
 
-		pluginActions:get("AddKeyframeAtScrubber").Enabled = true
+		pluginActions:get("AddKeyframeAtScrubber").Enabled = not (GetFFlagKeyframeReduction() and readOnly)
 
 		if multipleSelected then
-			pluginActions:get("ChangeDuration").Enabled = true
+			pluginActions:get("ChangeDuration").Enabled = not (GetFFlagKeyframeReduction() and readOnly)
 		end
 
 		if summaryKeyframe ~= nil then
@@ -504,25 +506,25 @@ function TimelineActions:render()
 		end
 
 		if isChannelAnimation then
-			pluginActions:get("ClearBothTangents").Enabled = true
+			pluginActions:get("ClearBothTangents").Enabled = not (GetFFlagKeyframeReduction() and readOnly)
 		end
 
 		if tool == Enum.RibbonTool.Rotate or tool == Enum.RibbonTool.Move then
-			pluginActions:get("ToggleTool").Enabled = true
+			pluginActions:get("ToggleTool").Enabled = not (GetFFlagKeyframeReduction() and readOnly)
 		end
 
-		pluginActions:get("Undo").Enabled = true
-		pluginActions:get("Redo").Enabled = true
+		pluginActions:get("Undo").Enabled = not (GetFFlagKeyframeReduction() and readOnly)
+		pluginActions:get("Redo").Enabled = not (GetFFlagKeyframeReduction() and readOnly)
 		pluginActions:get("TogglePlay").Enabled = true
 		pluginActions:get("AddEvent").Enabled = true
 		pluginActions:get("ToggleBoneVis").Enabled = true
 	end
 
 	local localization = self.props.Localization
-		return showMenu and Roact.createElement(ContextMenu, {
-			Actions = self:makeMenuActions(localization),
-			OnMenuOpened = props.OnMenuOpened,
-		}) or nil
+	return showMenu and (not GetFFlagKeyframeReduction() or not readOnly) and Roact.createElement(ContextMenu, {
+		Actions = self:makeMenuActions(localization),
+		OnMenuOpened = props.OnMenuOpened,
+	}) or nil
 end
 
 function TimelineActions:willUnmount()
@@ -539,15 +541,12 @@ function TimelineActions:willUnmount()
 	end
 end
 
-
 TimelineActions = withContext({
 	Localization = ContextServices.Localization,
 	PluginActions = ContextServices.PluginActions,
 	Analytics = ContextServices.Analytics,
 	Signals = SignalsContext,
 })(TimelineActions)
-
-
 
 local function mapStateToProps(state, props)
 	local status = state.Status
@@ -569,7 +568,8 @@ local function mapStateToProps(state, props)
 		OnKeyframe = status.RightClickContextInfo.OnKeyframe,
 		Tool = status.Tool,
 		SelectedTracks = status.SelectedTracks,
-		DefaultRotationType = status.DefaultRotationType
+		DefaultRotationType = status.DefaultRotationType,
+		ReadOnly = status.ReadOnly,
 	}
 end
 

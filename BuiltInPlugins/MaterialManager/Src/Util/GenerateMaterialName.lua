@@ -2,7 +2,8 @@ local Plugin = script.Parent.Parent.Parent
 local _Types = require(Plugin.Src.Types)
 
 local Util = Plugin.Src.Util
-local getNumberFromText = require(Util.getNumberFromText)
+local getNumberFromName = require(Util.getNumberFromName)
+local getNextFreeIndex = require(Util.getNextFreeIndex)
 local MapMaterials = require(Util.MapMaterials)
 
 return function(category: _Types.Category, prefix: string): number
@@ -13,28 +14,8 @@ return function(category: _Types.Category, prefix: string): number
 	]]--
 	local numbers = {}
 	MapMaterials(category, numbers, function(material)
-		if material.MaterialVariant then
-			local name = material.MaterialVariant.Name
-			local foundPrefix = string.sub(name, 1, #prefix) == prefix
-			local suffix = string.sub(name, string.len(prefix) + 1)
-			local numberFromText = getNumberFromText(suffix)
-			local foundSuffix = if numberFromText then true else false
-			return if foundPrefix and foundSuffix then numberFromText else nil
-		else
-			return nil
-		end
+		return if material.MaterialVariant then getNumberFromName(material.MaterialVariant.Name, prefix) else nil
 	end)
 
-	local index = 1
-	if #numbers > 0 then
-		table.sort(numbers)
-		for _, num in ipairs(numbers) do
-			if index < num then
-				break
-			end
-			index += 1
-		end
-	end
-	
-	return index
+	return getNextFreeIndex(numbers)
 end

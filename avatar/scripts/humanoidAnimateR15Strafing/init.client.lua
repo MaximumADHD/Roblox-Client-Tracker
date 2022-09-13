@@ -28,8 +28,8 @@ local cachedRunningSpeed = 0 -- The most recent speed passed to onRunning().  Ti
 local cachedLocalDirection = {x=0.0, y=0.0} -- unit 2D object space direction of motion
 local smallButNotZero = 0.0001 -- We want weights to be small but not so small the animation stops
 local strafingDisabled = nil
-local runBlendtime = 0.1
-local rootPart
+local runBlendtime = 0.2
+local lastLookVector = Vector3.new(0.0, 0.0, 0.0) -- used to track whether rootPart orientation is changing.
 
 local function strafeMode()
 	local result = not strafingDisabled and (Humanoid.AutoRotate == (UserGameSettings.rotationType == Enum.RotationType.CameraRelative))
@@ -495,13 +495,14 @@ local function getWalkDirection()
 		else
 			destination = walkToPoint
 		end
-		local moveVector = destination - Humanoid.RootPart.CFrame.Position
-		moveVector = Vector3.new(moveVector.x, 0.0, moveVector.z)
-		local mag = moveVector.Magnitude
-		if mag > 0.01 then
-			moveVector /= mag
-		else
-			moveVector = Vector3.zero
+		local moveVector = Vector3.zero
+		if Humanoid.RootPart then
+			moveVector = destination - Humanoid.RootPart.CFrame.Position
+			moveVector = Vector3.new(moveVector.x, 0.0, moveVector.z)
+			local mag = moveVector.Magnitude
+			if mag > 0.01 then
+				moveVector /= mag
+			end
 		end
 		return moveVector
 	else
@@ -519,11 +520,12 @@ local function onVelocityChanged(speed)
 	end
 	cachedRunningSpeed = speed
 	local moveDirection = getWalkDirection()
-	if not rootPart then
-		rootPart = Humanoid.RootPart
-		rootPart:GetPropertyChangedSignal("Rotation"):Connect(onVelocityChanged)
+	
+	if not Humanoid.RootPart then
+		return
 	end
-	local cframe = rootPart.CFrame
+	
+	local cframe = Humanoid.RootPart.CFrame
 	if math.abs(cframe.UpVector.Y) < smallButNotZero or pose ~= "Running" or speed <0.001 then
 		-- We are horizontal!  Do something  (turn off locomotion)
 		for n,v in pairs(locomotionMap) do
@@ -538,6 +540,9 @@ local function onVelocityChanged(speed)
 	local direction = Vector3.new(lookat.X, 0.0, lookat.Z)
 	direction = direction / direction.Magnitude --sensible upVector means this is non-zero.
 	local ly = moveDirection:Dot(direction)
+	if ly == 0.0 then
+		ly = 0.0001 -- break quadrant ties for side strafes
+	end
 	local lx = direction.X*moveDirection.Z - direction.Z*moveDirection.X
 	local tempDir = {x=lx, y=ly} -- root space moveDirection
 	local delta = {x=tempDir.x-cachedLocalDirection.x, y=tempDir.y-cachedLocalDirection.y}
@@ -547,14 +552,6 @@ local function onVelocityChanged(speed)
 		cachedRunningSpeed = speed
 	end 
 
-end
-
-local function onRootPartChanged()
-	if rootPart then
-		rootPart:GetPropertyChangedSignal("Rotation"):Disconnect(onVelocityChanged)
-	end
-	rootPart = Humanoid.RootPart
-	rootPart:GetPropertyChangedSignal("Rotation"):Connect(onVelocityChanged)
 end
 
 local function rootMotionCompensation(speed)
@@ -1014,7 +1011,6 @@ Humanoid.PlatformStanding:connect(onPlatformStanding)
 Humanoid.Swimming:connect(onSwimming)
 
 Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(onVelocityChanged)
-Humanoid:GetPropertyChangedSignal("RootPart"):Connect(onRootPartChanged)
 Humanoid:GetPropertyChangedSignal("AutoRotate"):Connect(onAutoRotate)
 Humanoid:GetPropertyChangedSignal("WalkToPoint"):Connect(onVelocityChanged)
 Humanoid:GetPropertyChangedSignal("WalkToPart"):Connect(onVelocityChanged)
@@ -1074,4 +1070,13 @@ end
 while Character.Parent ~= nil do
 	local _, currentGameTime = wait(0.1)
 	stepAnimate(currentGameTime)
+	
+	-- Catch the unlikely case where the character orientation is being perturbed without subsequent change to its MoveDirection
+	if Humanoid.RootPart then
+		local lookVector = Humanoid.RootPart.CFrame.LookVector
+		if 1.0 - lookVector:Dot(lastLookVector) > 0.1 then
+			lastLookVector = lookVector
+			onVelocityChanged()
+		end 
+	end
 end

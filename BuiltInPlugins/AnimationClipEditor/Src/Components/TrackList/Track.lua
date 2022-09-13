@@ -36,6 +36,7 @@ local ContextButton = require(Plugin.Src.Components.ContextButton)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
 
 local Track = Roact.PureComponent:extend("Track")
 
@@ -58,8 +59,10 @@ function Track:init()
 	end
 
 	self.onContextButtonClick = function()
-		if self.props.OnContextButtonClick then
-			self.props.OnContextButtonClick()
+		if not (GetFFlagKeyframeReduction() and self.props.ReadOnly) then
+			if self.props.OnContextButtonClick then
+				self.props.OnContextButtonClick()
+			end
 		end
 	end
 
@@ -78,6 +81,7 @@ function Track:render()
 	local name = props.Name
 	local items = props.Items or {}
 	local dragMultiplier = props.DragMultiplier or Constants.NUMBERBOX_DRAG_MULTIPLIER
+	local readOnly = props.ReadOnly
 
 	local trackTheme = theme.trackTheme
 	local arrowTheme = trackTheme.arrow
@@ -142,6 +146,8 @@ function Track:render()
 			Name = item.Name,
 			Color = color,
 			Precision = precision,
+			ReadOnly = GetFFlagKeyframeReduction() and readOnly,
+
 			SetNumber = function(number)
 				props.OnChangeBegan()
 				return self.onItemChanged(item.Key, number)

@@ -11,6 +11,7 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local Framework = require(Plugin.Packages.Framework)
 
 local FFlagDevFrameworkMigrateTooltip = Framework.SharedFlags.getFFlagDevFrameworkMigrateTooltip()
+local FFlagRemoveUILibraryButton = Framework.SharedFlags.getFFlagRemoveUILibraryButton()
 local Tooltip = if FFlagDevFrameworkMigrateTooltip then Framework.UI.Tooltip else UILibrary.Component.Tooltip
 
 local DraftStatusIndicator = Roact.PureComponent:extend("DraftStatusIndicator")
@@ -21,7 +22,7 @@ function DraftStatusIndicator:render()
 
 	return Roact.createElement("ImageLabel", {
 		BackgroundTransparency = 1,
-		Size = UDim2.new(0.5, 0, 0.5, 0),
+		Size = if FFlagRemoveUILibraryButton then UDim2.fromOffset(16, 16) else UDim2.new(0.5, 0, 0.5, 0),
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		AnchorPoint = Vector2.new(0.5, 0.5),
 

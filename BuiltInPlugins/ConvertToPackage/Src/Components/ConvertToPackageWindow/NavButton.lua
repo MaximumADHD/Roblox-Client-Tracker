@@ -11,20 +11,25 @@
 		Position UDim2, position of the button
 		LayoutOrder number, layout order of the button
 ]]
-local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
+local Framework = require(Packages.Framework)
 local Roact = require(Packages.Roact)
 local UILibrary = require(Packages.UILibrary)
-local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
 
-local withTheme = if FFlagUpdateConvertToPackageToDFContextServices then nil else require(Plugin.Src.ContextServices.Theming).withTheme
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryRoundFrame = SharedFlags.getFFlagRemoveUILibraryRoundFrame()
+
+if FFlagRemoveUILibraryRoundFrame then
+	return nil
+end
+
 local RoundFrame = UILibrary.Component.RoundFrame
 
 local NavButton = Roact.Component:extend("NavButton")
@@ -34,7 +39,6 @@ function NavButton:init(props)
 		hovered = false,
 		pressed = false,
 	})
-
 	self.onMouseEnter = function()
 		self:setState({ hovered = true })
 	end
@@ -53,51 +57,44 @@ function NavButton:init(props)
 end
 
 function NavButton:render()
-	local style = self.props.Stylizer
+	local props = self.props
+	local style = props.Stylizer
+	local colors = props.isPrimary and style.nav.mainButton or style.nav.button
 
-	local function renderWithContext(theme)
-		local props = self.props
-		local colors = props.isPrimary and theme.nav.mainButton or theme.nav.button
-
-		local backgroundColor
-		if self.state.hovered and self.state.pressed then
-			backgroundColor = colors.pressBackground
-		elseif self.state.hovered then
-			backgroundColor = colors.hoverBackground
-		else
-			backgroundColor = colors.background
-		end
-
-		return Roact.createElement(RoundFrame, {
-			Size = props.Size,
-			Position = props.Position,
-			LayoutOrder = props.LayoutOrder,
-			BackgroundColor3 = backgroundColor,
-			BorderSizePixel = props.isPrimary and 0 or 1,
-			[Roact.Event.MouseButton1Down] = self.onMouseButton1Down,
-			[Roact.Event.MouseButton1Up] = self.onMouseButton1Up,
-			OnActivated = props.onClick,
-			OnMouseEnter = self.onMouseEnter,
-			OnMouseLeave = self.onMouseLeave
-		}, {
-			Title = Roact.createElement("TextLabel", {
-				Text = props.titleText,
-				Font = Constants.FONT,
-				TextSize = Constants.FONT_SIZE_LARGE,
-				BackgroundTransparency = 1,
-				TextColor3 = colors.textColor,
-				Size = UDim2.new(1, 0, 1, 0),
-			})
-		})
+	local backgroundColor
+	if self.state.hovered and self.state.pressed then
+		backgroundColor = colors.pressBackground
+	elseif self.state.hovered then
+		backgroundColor = colors.hoverBackground
+	else
+		backgroundColor = colors.background
 	end
 
-	return if FFlagUpdateConvertToPackageToDFContextServices then renderWithContext(style) else withTheme(renderWithContext)
+	return Roact.createElement(RoundFrame, {
+		Size = props.Size,
+		Position = props.Position,
+		LayoutOrder = props.LayoutOrder,
+		BackgroundColor3 = backgroundColor,
+		BorderSizePixel = props.isPrimary and 0 or 1,
+		[Roact.Event.MouseButton1Down] = self.onMouseButton1Down,
+		[Roact.Event.MouseButton1Up] = self.onMouseButton1Up,
+		OnActivated = props.onClick,
+		OnMouseEnter = self.onMouseEnter,
+		OnMouseLeave = self.onMouseLeave
+	}, {
+		Title = Roact.createElement("TextLabel", {
+			Text = props.titleText,
+			Font = Constants.FONT,
+			TextSize = Constants.FONT_SIZE_LARGE,
+			BackgroundTransparency = 1,
+			TextColor3 = colors.textColor,
+			Size = UDim2.new(1, 0, 1, 0),
+		})
+	})
 end
 
-if FFlagUpdateConvertToPackageToDFContextServices then
-	NavButton = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(NavButton)
-end
+NavButton = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(NavButton)
 
 return NavButton

@@ -110,6 +110,7 @@ return function()
 
 	afterEach(function()
 		VoiceChatServiceManager:UnmountPrompt()
+		VoiceChatServiceManager:Disconnect()
 	end)
 
 	describe("VoiceChatServiceManager Recent Users Interaction", function()

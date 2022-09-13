@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["roblox_purchase-prompt-deps"]["purchase-prompt-deps"])
+local Package = require(PackageIndex["PurchasePromptDeps"]["PurchasePromptDeps"])
 
 return Package

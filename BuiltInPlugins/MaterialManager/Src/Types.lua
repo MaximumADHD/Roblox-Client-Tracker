@@ -9,10 +9,13 @@ export type MaterialPromptType = string
 export type MaterialType = string
 
 export type Material = {
-	Material : Enum.Material,
-	MaterialPath : Path,
+	Material: Enum.Material,
+	MaterialPath: Path,
 	MaterialType: MaterialType,
-	MaterialVariant : MaterialVariant?,
+	MaterialVariant: MaterialVariant?,
+	TerrainDetailTop: TerrainDetail?,
+	TerrainDetailBottom: TerrainDetail?,
+	TerrainDetailSide: TerrainDetail?,
 }
 
 export type Category = {
@@ -40,6 +43,12 @@ export type Image = {
 	Color: Color3,
 	Position: UDim?,
 	Size: UDim?,
+}
+
+export type MaterialBrowserLayout = {
+	BaseShowSideBar: boolean,
+	OverrideShowSideBar: boolean,
+	SideBarWidth: number,
 }
 
 return {}

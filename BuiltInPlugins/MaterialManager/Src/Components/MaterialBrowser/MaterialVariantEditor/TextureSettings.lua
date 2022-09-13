@@ -1,5 +1,4 @@
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
-local _Types = require(Plugin.Src.Types)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
@@ -31,7 +30,8 @@ local settingsNames = getSettingsNames()
 
 export type Props = {
 	LayoutOrder: number?,
-	MaterialVariant: MaterialVariant,
+	PBRMaterial: MaterialVariant | TerrainDetail,
+	Expandable: boolean?,
 }
 
 type _Props = Props & { 
@@ -39,15 +39,16 @@ type _Props = Props & {
 	dispatchSetExpandedPane: (paneName: string, expandedPaneState: boolean) -> (),
 	ExpandedPane: boolean,
 	Localization: any,
-	Material: _Types.Material?,
 	Stylizer: any,
 }
 
 type _Style = {
+	ColumnWidth: number,
 	ContentPadding: number,
 	CustomExpandablePane: any,
 	ItemSpacing: number,
 	LabelColumnWidth: UDim,
+	TerrainDetailColumnWidth: number,
 }
 
 local TextureSettings = Roact.PureComponent:extend("TextureSettings")
@@ -56,7 +57,8 @@ function TextureSettings:init()
 	self.onExpandedChanged = function()
 		local props: _Props = self.props
 		
-		props.dispatchSetExpandedPane(settingsNames.TextureSettings, not props.ExpandedPane)
+		local settingName = settingsNames.TextureSettings
+		props.dispatchSetExpandedPane(settingName, not props.ExpandedPane)
 	end
 end
 
@@ -65,29 +67,22 @@ function TextureSettings:render()
 	local style: _Style = props.Stylizer.MaterialDetails
 	local localization = props.Localization
 
-	if not props.MaterialVariant then
+	if not props.PBRMaterial then
 		return Roact.createElement(Pane)
 	end
 
 	local layoutOrderIterator = LayoutOrderIterator.new()
+	local columnWidth = if props.Expandable then style.ColumnWidth else style.TerrainDetailColumnWidth
 
-	return Roact.createElement(ExpandablePane, {
-		AutomaticSize = Enum.AutomaticSize.Y,
-		LayoutOrder = props.LayoutOrder,
-		ContentPadding = style.ContentPadding,
-		ContentSpacing = style.ItemSpacing,
-		Text = localization:getText("MaterialTextures", "TextureMaps"),
-		Style = style.CustomExpandablePane,
-		Expanded = props.ExpandedPane,
-		OnExpandedChanged = self.onExpandedChanged,
-	}, {
+	local children = {
 		ImportColorMap = Roact.createElement(TextureMapSelector, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			LabelColumnWidth = style.LabelColumnWidth,
 			MapType = TextureMaps.ColorMap,
 			PreviewTitle = localization:getText("Import", "ColorMapPreview"),
 			Text = localization:getText("CreateDialog", "ImportColorMap"),
-			MaterialVariant = props.MaterialVariant,
+			PBRMaterial = props.PBRMaterial,
+			ColumnWidth = columnWidth,
 		}),
 		ImportMetalnessMap = Roact.createElement(TextureMapSelector, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
@@ -95,7 +90,8 @@ function TextureSettings:render()
 			MapType = TextureMaps.MetalnessMap,
 			PreviewTitle = localization:getText("Import", "MetalnessMapPreview"),
 			Text = localization:getText("CreateDialog", "ImportMetalnessMap"),
-			MaterialVariant = props.MaterialVariant,
+			PBRMaterial = props.PBRMaterial,
+			ColumnWidth = columnWidth,
 		}),
 		ImportNormalMap = Roact.createElement(TextureMapSelector, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
@@ -103,7 +99,8 @@ function TextureSettings:render()
 			MapType = TextureMaps.NormalMap,
 			PreviewTitle = localization:getText("Import", "NormalMapPreview"),
 			Text = localization:getText("CreateDialog", "ImportNormalMap"),
-			MaterialVariant = props.MaterialVariant,
+			PBRMaterial = props.PBRMaterial,
+			ColumnWidth = columnWidth,
 		}),
 		ImportRoughnessMap = Roact.createElement(TextureMapSelector, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
@@ -111,9 +108,31 @@ function TextureSettings:render()
 			MapType = TextureMaps.RoughnessMap,
 			PreviewTitle = localization:getText("Import", "RoughnessMapPreview"),
 			Text = localization:getText("CreateDialog", "ImportRoughnessMap"),
-			MaterialVariant = props.MaterialVariant,
+			PBRMaterial = props.PBRMaterial,
+			ColumnWidth = columnWidth,
 		})
-	})
+	}
+
+	if props.Expandable then
+		return Roact.createElement(ExpandablePane, {
+			AutomaticSize = Enum.AutomaticSize.Y,
+			LayoutOrder = props.LayoutOrder,
+			ContentPadding = style.ContentPadding,
+			ContentSpacing = style.ItemSpacing,
+			Text = localization:getText("MaterialTextures", "TextureMaps"),
+			Style = style.CustomExpandablePane,
+			Expanded = props.ExpandedPane,
+			OnExpandedChanged = self.onExpandedChanged,
+		}, children)
+	else
+		return Roact.createElement(Pane, {
+			AutomaticSize = Enum.AutomaticSize.Y,
+			LayoutOrder = props.LayoutOrder,
+			Layout = Enum.FillDirection.Vertical,
+			Spacing = style.ItemSpacing,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+		}, children)
+	end
 end
 
 TextureSettings = withContext({

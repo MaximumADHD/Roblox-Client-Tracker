@@ -14,6 +14,8 @@ if not FaceAnimatorService or not FacialAnimationStreamingService then
 	return
 end
 
+local FFlagEnableSyncAudioWithVoiceChatMuteState = game:DefineFastFlag("EnableSyncAudioWithVoiceChatMuteState", false)
+
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local TrackerMenu = require(RobloxGui.Modules.Tracker.TrackerMenu)
 local TrackerPromptType = require(RobloxGui.Modules.Tracker.TrackerPromptType)
@@ -28,6 +30,7 @@ local playerJoinedChat = {}
 local playerJoinedGame = {}
 
 local trackerErrorConnection = nil
+local voiceChatMuteConnection = nil
 
 local facialAnimationStreamingInited = false
 
@@ -230,10 +233,30 @@ end
 function InitializeVoiceChatServices()
 	if VoiceChatServiceManager then
 		VoiceChatServiceManager:asyncInit():catch(function(error)
+			if FFlagEnableSyncAudioWithVoiceChatMuteState then
+				log:trace("Disabling audio processing when VoiceChat fails (possibly denied mic permission)")
+				FaceAnimatorService.AudioAnimationEnabled = false
+			end
 		end):finally(function()
 			JoinAllExistingPlayers()
 			ConnectStateChangeCallback()
 		end)
+
+		if FFlagEnableSyncAudioWithVoiceChatMuteState then
+			-- Sync VoiceChat mute status with FaceAnimatorService.AudioAnimationEnabled
+			voiceChatMuteConnection = VoiceChatServiceManager.muteChanged.Event:connect(function(muted)
+				log:trace("Syncing audio processing with VoiceChat mute changed: muted="..tostring(muted))
+				FaceAnimatorService.AudioAnimationEnabled = not muted
+			end)
+
+			-- Initially set audio enable to false until VoiceChat mic is enabled
+			local initialAudioEnabled = false
+			if VoiceChatServiceManager.localMuted ~= nil then
+				log:trace("Syncing audio processing with VoiceChat mute status: muted="..tostring(VoiceChatServiceManager.localMuted))
+				initialAudioEnabled = not VoiceChatServiceManager.localMuted
+			end
+			FaceAnimatorService.AudioAnimationEnabled = initialAudioEnabled
+		end
 	end
 end
 
@@ -262,6 +285,13 @@ end
 function CleanupFacialAnimationStreaming()
 	if not facialAnimationStreamingInited then
 		return
+	end
+
+	if FFlagEnableSyncAudioWithVoiceChatMuteState then
+		if voiceChatMuteConnection then
+			voiceChatMuteConnection:Disconnect()
+			voiceChatMuteConnection = nil
+		end
 	end
 
 	for _, player in ipairs(Players:GetPlayers()) do

@@ -22,7 +22,10 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Framework = require(Plugin.Packages.Framework)
-local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
+
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryRoundFrame = SharedFlags.getFFlagRemoveUILibraryRoundFrame()
+local FFlagRemoveUILibraryRoundTextBox = SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
 
 local Util = Framework.Util
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
@@ -37,7 +40,8 @@ local TextInput2 = UI.TextInput2
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local RoundFrame = UILibrary.Component.RoundFrame
+local RoundFrame = if FFlagRemoveUILibraryRoundFrame then UI.Pane else UILibrary.Component.RoundFrame
+
 local TextEntry
 if not FFlagRemoveUILibraryRoundTextBox then
     TextEntry = UILibrary.Component.TextEntry
@@ -93,7 +97,7 @@ function RobuxFeeBase:render()
         BackgroundTransparency = 1,
         LayoutOrder = layoutIndex:getNextOrder(),
     }, {
-        HorizontalLayout = Roact.createElement("UIListLayout",{
+        HorizontalLayout = Roact.createElement("UIListLayout", {
             FillDirection = Enum.FillDirection.Horizontal,
             SortOrder = Enum.SortOrder.LayoutOrder,
             VerticalAlignment = Enum.VerticalAlignment.Center,

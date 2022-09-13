@@ -1,4 +1,3 @@
-local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -6,7 +5,6 @@ local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local ContextItems = if FFlagRemoveUILibraryCompatLocalization then nil else require(Plugin.Src.ContextItems)
 
 local ToolParts = script.Parent
 local LabeledToggle = require(ToolParts.LabeledToggle)
@@ -15,7 +13,7 @@ local MaterialSelector = require(ToolParts.MaterialSelector)
 local MaterialSettingsFragment = Roact.PureComponent:extend("MaterialSettingsFragment")
 
 function MaterialSettingsFragment:render()
-	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
+	local localization = self.props.Localization
 
 	local layoutOrder = self.props.LayoutOrder or 1
 	local autoMaterial = self.props.autoMaterial
@@ -38,7 +36,7 @@ function MaterialSettingsFragment:render()
 end
 
 MaterialSettingsFragment = withContext({
-	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
+	Localization = ContextServices.Localization,
 })(MaterialSettingsFragment)
 
 return MaterialSettingsFragment

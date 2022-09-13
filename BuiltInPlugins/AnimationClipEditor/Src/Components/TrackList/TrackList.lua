@@ -49,6 +49,7 @@ local Track = require(Plugin.Src.Components.TrackList.Track)
 local WideScrollingFrame = require(Plugin.Src.Components.TrackList.WideScrollingFrame)
 
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
 
 local TrackList = Roact.PureComponent:extend("TrackList")
 
@@ -245,6 +246,7 @@ function TrackList:renderTrack(track, children, theme, parentPath, parentType)
 	local playhead = props.Playhead
 	local animationData = props.AnimationData
 	local isPlaying = props.PlayState ~= Constants.PLAY_STATE.Pause
+	local isReadOnly = props.ReadOnly
 	local isChannelAnimation = animationData and animationData.Metadata and animationData.Metadata.IsChannelAnimation
 
 	local isExpandable
@@ -283,7 +285,7 @@ function TrackList:renderTrack(track, children, theme, parentPath, parentType)
 		Items = items,
 		Height = Constants.TRACK_HEIGHT,
 		Indent = indent,
-		ReadOnly = isPlaying,
+		ReadOnly = isPlaying or (GetFFlagKeyframeReduction() and isReadOnly),
 		Expanded = expanded,
 		Selected = selected,
 		DragMultiplier = dragMultiplier,
@@ -395,6 +397,7 @@ local function mapStateToProps(state, props)
 		DefaultEulerAnglesOrder = status.DefaultEulerAnglesOrder,
 		IsPlaying = status.IsPlaying,
 		PlayState = status.PlayState,
+		ReadOnly = status.ReadOnly,
 	}
 end
 

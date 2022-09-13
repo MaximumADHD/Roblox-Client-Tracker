@@ -1,6 +1,7 @@
 --!nonstrict
 --!nolint DeprecatedApi
 local Root = script.Parent.Parent
+local CorePackages = game:GetService("CorePackages")
 local ContentProvider = game:GetService("ContentProvider")
 local GuiService = game:GetService("GuiService")
 local MarketplaceService = game:GetService("MarketplaceService")
@@ -8,6 +9,9 @@ local PlatformService = nil
 pcall(function()
 	PlatformService = game:GetService("PlatformService")
 end)
+
+local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+local UrlBuilder = PurchasePromptDeps.UrlBuilder.UrlBuilder
 
 local BASE_URL = string.gsub(ContentProvider.BaseUrl:lower(), "/m.", "/www.")
 
@@ -32,14 +36,22 @@ function PlatformInterface.new()
 		GuiService:OpenBrowserWindow(url)
 	end
 
-	function service.startRobuxUpsellWeb()
-		local url = ("%sUpgrades/Robux.aspx"):format(BASE_URL)
-
-		GuiService:OpenBrowserWindow(url)
+	function service.startRobuxUpsellWeb(productId: string?)
+		if productId then
+			GuiService:OpenBrowserWindow(("%supgrades/paymentmethods?ap=%s"):format(BASE_URL, productId))
+		else
+			GuiService:OpenBrowserWindow(("%sUpgrades/Robux.aspx"):format(BASE_URL))
+		end
 	end
 
 	function service.openSecuritySettings()
 		local url = ("%smy/account#!/security"):format(BASE_URL)
+
+		GuiService:OpenBrowserWindow(url)
+	end
+
+	function service.openTermsOfUse()
+		local url = UrlBuilder.static.about.terms()
 
 		GuiService:OpenBrowserWindow(url)
 	end

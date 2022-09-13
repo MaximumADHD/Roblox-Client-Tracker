@@ -2,15 +2,13 @@
 	The top level container of the Player Emulator window.
 	Contains MainSwitchSection, LanuageSection, CountryRegionSection, CustomPolicySwitchSection, and PolicySection
 ]]
-local FFlagRemoveUILibrarySeparator = game:GetFastFlag("RemoveUILibrarySeparator")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
--- TODO: jbousellam - remove with FFlagRemoveUILibrarySeparator
-local UILibrary = require(Plugin.Packages.UILibrary)
-local Separator = if FFlagRemoveUILibrarySeparator then Framework.UI.Separator else UILibrary.Component.Separator
+
+local Separator = Framework.UI.Separator
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 
 local MainSwitchSection = require(Plugin.Src.Components.MainSwitchSection)
@@ -47,7 +45,6 @@ function MainView:render()
 				LayoutOrder = layoutIndex:getNextOrder(),
 			}),
 			Separator = Roact.createElement(Separator, {
-				Size = if FFlagRemoveUILibrarySeparator then nil else UDim2.new(1, 0, 0, 1),
 				LayoutOrder = layoutIndex:getNextOrder(),
 			}),
 			LanguageSection = Roact.createElement(LanguageSection, {

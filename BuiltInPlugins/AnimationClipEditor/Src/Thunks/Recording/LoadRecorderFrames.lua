@@ -3,17 +3,21 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local GetFFlagACEFaceRecorderRemoveBrokenFrameReduction = require(Plugin.LuaFlags.GetFFlagACEFaceRecorderRemoveBrokenFrameReduction)
 
-local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
-local AnimationData = require(Plugin.Src.Util.AnimationData)
-local Constants = require(Plugin.Src.Util.Constants)
-local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
-local SetPast = require(Plugin.Src.Actions.SetPast)
-local SetInReviewState = require(Plugin.Src.Actions.SetInReviewState)
 local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
 local SetHaveToSetBackToNotLooping = require(Plugin.Src.Actions.SetHaveToSetBackToNotLooping)
+local SetInReviewState = require(Plugin.Src.Actions.SetInReviewState)
+local SetPast = require(Plugin.Src.Actions.SetPast)
+local SetReduceKeyframesDialogMode = require(Plugin.Src.Actions.SetReduceKeyframesDialogMode)
 
+local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
+local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
+
+local AnimationData = require(Plugin.Src.Util.AnimationData)
+local Constants = require(Plugin.Src.Util.Constants)
 local deepCopy = require(Plugin.Src.Util.deepCopy)
 local FFlagFixFaceRecorderKeyframeInterpolation = game:DefineFastFlag("ACEFixFaceRecorderKeyframeInterpolation", false)
+
+local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
 
 function clearFacsTracksAndHeadTrack(animationData)
 	for instanceName, instance in pairs(animationData.Instances) do
@@ -148,9 +152,17 @@ return function(props, recordedFrames, analytics)
 					previousAnimationsTracks[trackName] = clonedTrack
 				end
 			end
+
+			if GetFFlagKeyframeReduction() then
+				AnimationData.clearTrackSequences(previousAnimationData)
+			end
+
 			store:dispatch(LoadAnimationData(previousAnimationData, analytics))
 			newAnimationData = previousAnimationData
 		else
+			if GetFFlagKeyframeReduction() then
+				AnimationData.clearTrackSequences(newAnimationData)
+			end
 			store:dispatch(LoadAnimationData(newAnimationData, analytics))
 		end
 

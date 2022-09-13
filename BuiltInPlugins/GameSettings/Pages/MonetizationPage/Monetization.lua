@@ -17,6 +17,7 @@ local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryLoadingIndicator = SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
+local FFlagRemoveUILibraryRoundFrame = SharedFlags.getFFlagRemoveUILibraryRoundFrame()
 local FFlagRemoveUILibraryRoundTextBox = SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
 local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
@@ -40,6 +41,7 @@ local Container = UI.Container
 local HoverArea = UI.HoverArea
 local Image = UI.Decoration.Image
 local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator then UI.LoadingIndicator else UILibrary.Component.LoadingIndicator
+local Pane = if FFlagRemoveUILibraryRoundFrame then UI.Pane else UILibrary.Component.RoundFrame
 local Separator = UI.Separator
 local TextInput2 = UI.TextInput2
 local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
@@ -54,8 +56,6 @@ if not FFlagRemoveUILibraryRoundTextBox then
 	RoundTextBox = UILibrary.Component.RoundTextBox
     TextEntry = UILibrary.Component.TextEntry
 end
-
-local RoundFrame = UILibrary.Component.RoundFrame
 
 local BadgeIconThumbnail = require(Plugin.Src.Components.AutoThumbnails.BadgeIconThumbnail)
 
@@ -974,7 +974,6 @@ local function displayEditDevProductsPage(props)
                 FillDirection = Enum.FillDirection.Vertical,
             }),
 
-            --TODO: Change price entry in RobuxFeeBase and this to be a shared component
             PriceFrame = if FFlagRemoveUILibraryRoundTextBox then
                 Roact.createElement(TextInput2, {
                     OnTextChanged = onPriceTextChanged,
@@ -987,7 +986,7 @@ local function displayEditDevProductsPage(props)
                         Image = theme.robuxFeeBase.icon.image,
                     }
                 })
-            else Roact.createElement(RoundFrame, {
+            else Roact.createElement(Pane, {
                 Size = UDim2.new(0, theme.robuxFeeBase.priceField.width, 0, theme.rowHeight),
 
                 BorderColor3 = theme.textBox.borderDefault,
@@ -995,7 +994,7 @@ local function displayEditDevProductsPage(props)
                 BackgroundColor3 = theme.textBox.background,
 
                 LayoutOrder = 1,
-            },{
+            }, {
                 HorizontalLayout = Roact.createElement("UIListLayout",{
                     FillDirection = Enum.FillDirection.Horizontal,
                     SortOrder = Enum.SortOrder.LayoutOrder,

@@ -15,10 +15,16 @@ local Utility = require(RobloxGui.Modules.Settings.Utility)
 require(RobloxGui.Modules.VR.Panel3D)
 
 local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
+local GetFFlagIsVRAppEnabled = require(RobloxGui.Modules.Flags.GetFFlagIsVRAppEnabled)
 
 local FFlagRenderVRCursorOnTop = game:DefineFastFlag("RenderVRCursorOnTop", false)
 local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
+
+local UserInputService = nil -- move up when flag is removed
+if GetFFlagIsVRAppEnabled() then
+	UserInputService = game:GetService("UserInputService")
+end
 
 local LocalPlayer = Players.LocalPlayer
 while not LocalPlayer do
@@ -104,6 +110,12 @@ local LaserPointerMode = {
 	Hidden = 3
 }
 
+-- The origination hand of the laser, only used while enableAmbidexterousPointer is true
+local LaserHand = {
+	Right = 0,
+	Left = 1,
+}
+
 --Teleport visual configuration
 local TELEPORT = {
 	MODE_ENABLED = true,
@@ -157,7 +169,7 @@ local LASER = {
 	ARC_COLOR_BAD = TELEPORT.ARC_COLOR_BAD,
 	ARC_COLOR_HIT = fromLinearRGB(Color3.fromRGB(0, 255, 162)),
 	ARC_THICKNESS = EngineFeatureEnableVRUpdate2 and 0.01 or 0.02,
-	
+
 	MAX_DISTANCE = EngineFeatureEnableVRUpdate2 and 50 or 500,
 
 	G = 0, -- Gravity constant for parabola; in this case we want a laser/straight line
@@ -189,7 +201,7 @@ LaserPointer.Mode = LaserPointerMode
 
 function LaserPointer.new(laserDistance)
 	local self = setmetatable({}, LaserPointer)
-	
+
 	if EngineFeatureEnableVRUpdate3 then
 		self.laserMaxDistance = VRService.LaserDistance
 	else
@@ -201,7 +213,13 @@ function LaserPointer.new(laserDistance)
 	end
 
 	self.mode = LaserPointerMode.Disabled
-	self.lastMode = self.mode 
+	self.lastMode = self.mode
+
+	if GetFFlagIsVRAppEnabled() then
+		self.enableAmbidexterousPointer = false
+		self.laserHand = LaserHand.Right
+	end
+
 	self.inputUserCFrame = Enum.UserCFrame.RightHand
 	self.equippedTool = false
 
@@ -322,6 +340,24 @@ function LaserPointer.new(laserDistance)
 				self.inputUserCFrame = VRService.GuiInputUserCFrame
 			end
 		end)
+
+		if GetFFlagIsVRAppEnabled() then
+			UserInputService.InputBegan:connect(function(input, gameProcessed)
+				if self.enableAmbidexterousPointer then
+					if input.KeyCode == Enum.KeyCode.ButtonR2 and self.laserHand ~= LaserHand.Right then
+						self.laserHand = LaserHand.Right
+						self:updateInputUserCFrame()
+					elseif input.KeyCode == Enum.KeyCode.ButtonL2 and self.laserHand ~= LaserHand.Left then
+						self.laserHand = LaserHand.Left
+						self:updateInputUserCFrame()
+					end
+				end
+			end)
+
+			-- TODO: Should bind A, L2 and R2 buttons for VR controller point and click function.
+			-- However binding multiple buttons at the same is currently not supported: NFDN-2448
+			ContextActionService:BindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonA)
+		end
 	end
 
 	self:onModeChanged(self.mode)
@@ -347,7 +383,15 @@ function LaserPointer.getModeName(mode)
 end
 
 function LaserPointer:updateInputUserCFrame()
-	if VRService:GetUserCFrameEnabled(Enum.UserCFrame.RightHand) then
+	if GetFFlagIsVRAppEnabled() and (self.enableAmbidexterousPointer
+		and VRService:GetUserCFrameEnabled(Enum.UserCFrame.RightHand)
+		and self.laserHand == LaserHand.Right) then
+		VRService.GuiInputUserCFrame = Enum.UserCFrame.RightHand
+	elseif GetFFlagIsVRAppEnabled() and (self.enableAmbidexterousPointer
+		and VRService:GetUserCFrameEnabled(Enum.UserCFrame.LeftHand)
+		and self.laserHand == LaserHand.Left) then
+			VRService.GuiInputUserCFrame = Enum.UserCFrame.LeftHand
+	elseif VRService:GetUserCFrameEnabled(Enum.UserCFrame.RightHand) then
 		VRService.GuiInputUserCFrame = Enum.UserCFrame.RightHand
 	elseif VRService:GetUserCFrameEnabled(Enum.UserCFrame.LeftHand) then
 		VRService.GuiInputUserCFrame = Enum.UserCFrame.LeftHand
@@ -387,6 +431,12 @@ function LaserPointer:setMode(mode)
 	self.mode = mode
 	self.lastMode = oldMode
 	self:onModeChanged(mode)
+end
+
+if GetFFlagIsVRAppEnabled() then
+	function LaserPointer:setEnableAmbidexterousPointer(enabled)
+		self.enableAmbidexterousPointer = enabled
+	end
 end
 
 function LaserPointer:getMode()
@@ -774,7 +824,7 @@ function LaserPointer:update(dt)
 		--we actually want to render the laser from an offset from the head though
 		local offsetPosition = originCFrame:pointToWorldSpace(HEAD_MOUNT_OFFSET * (workspace.CurrentCamera :: Camera).HeadScale)
 		self:renderAsLaser(offsetPosition, laserHitPoint)
-		
+
 		if self.showPlopBallOnPointer then
 			self:updateNavPlop(laserHitPoint, laserHitNormal)
 		end
@@ -821,28 +871,28 @@ function LaserPointer:update(dt)
 			self:updateNavigationMode(parabHitPoint, parabHitNormal, parabHitPart)
 		else
 			self.parabola.Thickness = LASER.ARC_THICKNESS
-			
+
 			if EngineFeatureEnableVRUpdate2 then
 				self.parabola.Color3 = VRService.DidPointerHit and LASER.ARC_COLOR_HIT or LASER.ARC_COLOR_GOOD
 			else
 				self.parabola.Color3 = LASER.ARC_COLOR_GOOD
 			end
-			
+
 			if EngineFeatureEnableVRUpdate3 then
 				if LocalPlayer and LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Tool") then
 					self.parabola.Color3 = LASER.ARC_COLOR_BAD -- item equipped means RT action bound
 				end
-				
+
 				if VRService.DidPointerHit then
 					laserHitPoint = VRService.PointerHitCFrame.Position
 				else
 					laserHitPoint = originPos + originLook * self.laserMaxDistance
 				end
 			end
-			
+
 			self.parabola.Thickness = LASER.ARC_THICKNESS
 			self:renderAsLaser(originPos, laserHitPoint)
-			
+
 			if EngineFeatureEnableVRUpdate2 and self.showPlopBallOnPointer then
 				self:updateNavPlop(laserHitPoint, laserHitNormal)
 			end

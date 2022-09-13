@@ -21,8 +21,6 @@
 			thumbnail, or when the user has finished dragging a thumbnail.
 			These actions are handled by the ThumbnailController above this component.
 ]]
-local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFitContent")
-
 local Page = script.Parent.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -48,16 +46,6 @@ local DragGhostThumbnail = require(Page.Components.Thumbnails.DragGhostThumbnail
 local BulletPoint
 if not FFlagRemoveUILibraryBulletPoint then
     BulletPoint = UILibrary.Component.BulletPoint
-end
-
-local FitToContent
-
-if not FFlagGameSettingsRemoveFitContent then
-	local createFitToContent = UILibrary.Component.createFitToContent
-	FitToContent = createFitToContent("Frame", "UIListLayout", {
-		Padding = UDim.new(0, 15),
-		SortOrder = Enum.SortOrder.LayoutOrder,
-	})
 end
 
 local getSocialMediaReferencesAllowed = require(Plugin.Src.Util.GameSettingsUtilities).getSocialMediaReferencesAllowed
@@ -289,19 +277,12 @@ function ThumbnailWidget:render()
 		}),
 	}
 
-	if FFlagGameSettingsRemoveFitContent then
-		return Roact.createElement(Pane, {
-			LayoutOrder = self.props.LayoutOrder or 1,
-			Layout = Enum.FillDirection.Vertical,
-			AutomaticSize = Enum.AutomaticSize.XY,
-			Spacing = UDim.new(0, 15),
-		}, children)
-	else
-		return Roact.createElement(FitToContent, {
-			LayoutOrder = self.props.LayoutOrder or 1,
-			BackgroundTransparency = 1,
-		}, children)
-	end
+	return Roact.createElement(Pane, {
+		LayoutOrder = self.props.LayoutOrder or 1,
+		Layout = Enum.FillDirection.Vertical,
+		AutomaticSize = Enum.AutomaticSize.XY,
+		Spacing = UDim.new(0, 15),
+	}, children)
 end
 
 ThumbnailWidget = withContext({

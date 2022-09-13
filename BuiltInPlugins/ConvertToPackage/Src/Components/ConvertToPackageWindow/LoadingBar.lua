@@ -13,26 +13,28 @@
 		number loadingTime - total time it takes to load without waiting for onFinish
 		callback onFinish - provide this callback to signal that loading has finished
 ]]
-local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local RunService = game:GetService("RunService")
 
 local Packages = Plugin.Packages
+local Framework = require(Packages.Framework)
 local Roact = require(Packages.Roact)
 local UILibrary = require(Packages.UILibrary)
-local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryRoundFrame = SharedFlags.getFFlagRemoveUILibraryRoundFrame()
+
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
-local RoundFrame = UILibrary.Component.RoundFrame
+
+local UI = Framework.UI
+local Pane = if FFlagRemoveUILibraryRoundFrame then UI.Pane else UILibrary.Component.RoundFrame
 
 local LOADING_TITLE_HEIGHT = 20
 local LOADING_TITLE_PADDING = 10
-
-local withTheme = if FFlagUpdateConvertToPackageToDFContextServices then nil else require(Plugin.Src.ContextServices.Theming).withTheme
 
 local LoadingBar = Roact.Component:extend("LoadingBar")
 
@@ -85,53 +87,50 @@ function LoadingBar:willUnmount()
 end
 
 function LoadingBar:render()
-	local style = self.props.Stylizer
+	local props = self.props
+	local style = props.Stylizer
+	local state = self.state
 
-	local function renderWithContext(theme)
-		local props = self.props
-		local state = self.state
+	local progress = math.min(math.max(state.progress, 0), 1)
+	local loadingText = props.loadingText .. " ( " .. math.floor((progress * 100) + 0.5) .. "% )"
 
-		local progress = math.min(math.max(state.progress, 0), 1)
-		local loadingText = props.loadingText .. " ( " .. math.floor((progress * 100) + 0.5) .. "% )"
-
-		return Roact.createElement("Frame", {
+	return Roact.createElement("Frame", {
+		BackgroundTransparency = 1,
+		Size = props.Size,
+		Position = props.Position,
+	}, {
+		LoadingTitle = Roact.createElement("TextLabel", {
 			BackgroundTransparency = 1,
-			Size = props.Size,
-			Position = props.Position,
+			Font = Constants.FONT,
+			Position = UDim2.new(0, 0, 0, -(LOADING_TITLE_HEIGHT + LOADING_TITLE_PADDING)),
+			Size = UDim2.new(1, 0, 0, LOADING_TITLE_HEIGHT),
+			Text = loadingText,
+			TextColor3 = style.loading.text,
+			TextSize = Constants.FONT_SIZE_MEDIUM,
+			TextXAlignment = Enum.TextXAlignment.Center,
+			TextYAlignment = Enum.TextYAlignment.Center,
+		}),
+
+		LoadingBackgroundBar = Roact.createElement(Pane, if FFlagRemoveUILibraryRoundFrame then {
+			Style = "BorderBox",
+		} else {
+			BorderSizePixel = 0,
+			BackgroundColor3 = style.loading.backgroundBar,
+			Size = UDim2.new(1, 0, 1, 0),
 		}, {
-			LoadingTitle = Roact.createElement("TextLabel", {
-				BackgroundTransparency = 1,
-				Font = Constants.FONT,
-				Position = UDim2.new(0, 0, 0, -(LOADING_TITLE_HEIGHT + LOADING_TITLE_PADDING)),
-				Size = UDim2.new(1, 0, 0, LOADING_TITLE_HEIGHT),
-				Text = loadingText,
-				TextColor3 = theme.loading.text,
-				TextSize = Constants.FONT_SIZE_MEDIUM,
-				TextXAlignment = Enum.TextXAlignment.Center,
-				TextYAlignment = Enum.TextYAlignment.Center,
-			}),
-
-			LoadingBackgroundBar = Roact.createElement(RoundFrame, {
+			LoadingBar = Roact.createElement(Pane, if FFlagRemoveUILibraryRoundFrame then {
+				Style = "SubtleBox",
+			} else {
 				BorderSizePixel = 0,
-				BackgroundColor3 = theme.loading.backgroundBar,
-				Size = UDim2.new(1, 0, 1, 0),
-			}, {
-				LoadingBar = Roact.createElement(RoundFrame, {
-					BorderSizePixel = 0,
-					BackgroundColor3 = theme.loading.bar,
-					Size = UDim2.new(progress, 0, 1, 0),
-				}),
+				BackgroundColor3 = style.loading.bar,
+				Size = UDim2.new(progress, 0, 1, 0),
 			}),
-		})
-	end
-
-	return if FFlagUpdateConvertToPackageToDFContextServices then renderWithContext(style) else withTheme(renderWithContext)
+		}),
+	})
 end
 
-if FFlagUpdateConvertToPackageToDFContextServices then
-	LoadingBar = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(LoadingBar)
-end
+LoadingBar = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(LoadingBar)
 
 return LoadingBar

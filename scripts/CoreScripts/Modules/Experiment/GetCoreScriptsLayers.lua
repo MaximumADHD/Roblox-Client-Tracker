@@ -5,6 +5,7 @@ local GetFFlagEnableNewInviteMenuIXP = require(script.Parent.Parent.Flags.GetFFl
 local GetFFlagEnableIXPInGame = require(script.Parent.Parent.Common.Flags.GetFFlagEnableIXPInGame)
 local GetFFlagLoadingScreenUseIXP = require(script.Parent.Parent.Flags.GetFFlagLoadingScreenUseIXP)
 local GetFStringLoadingScreenIxpLayer = require(CorePackages.AppTempCommon.Flags.GetFStringLoadingScreenIxpLayer)
+local GetFStringRobuxUpsellIxpLayer = require(CorePackages.AppTempCommon.Flags.GetFStringRobuxUpsellIxpLayer)
 
 return function()
 	local layers = {}
@@ -22,6 +23,10 @@ return function()
 
 	if GetFFlagLoadingScreenUseIXP() then
 		table.insert(layers, GetFStringLoadingScreenIxpLayer())
+	end
+
+	if GetFStringRobuxUpsellIxpLayer() then
+		table.insert(layers, GetFStringRobuxUpsellIxpLayer())
 	end
 
 	return layers

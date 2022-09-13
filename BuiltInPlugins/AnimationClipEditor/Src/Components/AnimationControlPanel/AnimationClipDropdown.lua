@@ -26,11 +26,16 @@ local PADDING = UDim.new(0, Constants.INDENT_PADDING)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local Pause = require(Plugin.Src.Actions.Pause)
+local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
+local SetReduceKeyframesDialogMode = require(Plugin.Src.Actions.SetReduceKeyframesDialogMode)
+
 local AnimationClipMenu = require(Plugin.Src.Components.AnimationClipMenu)
 local ContextButton = require(Plugin.Src.Components.ContextButton)
 local FocusedPrompt = require(Plugin.Src.Components.EditEventsDialog.FocusedPrompt)
 local TextEntryPrompt = require(Plugin.Src.Components.TextEntryPrompt)
 local ActionToast = require(Plugin.Src.Components.Toast.ActionToast)
+
 local LoadAnimation = require(Plugin.Src.Thunks.Exporting.LoadAnimation)
 local SaveAnimation = require(Plugin.Src.Thunks.Exporting.SaveAnimation)
 local ImportKeyframeSequence = require(Plugin.Src.Thunks.Exporting.ImportKeyframeSequence)
@@ -38,11 +43,10 @@ local ImportFBXAnimationUserMayChooseModel = require(Plugin.Src.Thunks.Exporting
 local CreateFromVideoAndImportFBXAnimationUserMayChooseModel = require(Plugin.Src.Thunks.Exporting.CreateFromVideoAndImportFBXAnimationUserMayChooseModel)
 local ImportLoadedFBXAnimation = require(Plugin.Src.Thunks.Exporting.ImportLoadedFBXAnimation)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
-local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
-local Pause = require(Plugin.Src.Actions.Pause)
 
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 local GetFFlagCreateAnimationFromVideoAgeGateSizeFix = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAgeGateSizeFix)
+local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
 
 local AnimationClipDropdown = Roact.PureComponent:extend("AnimationClipDropdown")
 
@@ -59,10 +63,12 @@ function AnimationClipDropdown:init()
 	}
 
 	self.showMenu = function()
-		self.props.Pause()
-		self:setState({
-			showMenu = true,
-		})
+		if not (GetFFlagKeyframeReduction() and self.props.ReadOnly) then
+			self.props.Pause()
+			self:setState({
+				showMenu = true,
+			})
+		end
 	end
 
 	self.hideMenu = function()
@@ -113,6 +119,10 @@ function AnimationClipDropdown:init()
 
 	self.hideAnimationImportProgress = function()
 		self.props.HideAnimationImportProgress()
+	end
+
+	self.showReduceKeyframesDialog = function()
+		self.props.SetReduceKeyframesDialogMode(Constants.REDUCE_KEYFRAMES_DIALOG_MODE.FromMenu)
 	end
 
 	self.showCreateNewPrompt = function()
@@ -243,7 +253,6 @@ function AnimationClipDropdown:render()
 	local overwriteName = state.overwriteName
 	local loadingName = state.loadingName
 	local showPromotePrompt = state.showPromotePrompt
-	local style = theme.button
 
 	local showCreateAnimationFromVideoTutorial = state.showCreateAnimationFromVideoTutorial
 
@@ -302,6 +311,7 @@ function AnimationClipDropdown:render()
 			OnImportFbxRequested = self.importFbxRequested,
 			OnCreateFromVideoRequested = self.createFromVideoRequested,
 			OnPromoteRequested = self.showPromotePrompt,
+			OnReduceKeyframesRequested = self.showReduceKeyframesDialog,
 		}),
 
 		CreateNewPrompt = showCreateNewPrompt and Roact.createElement(TextEntryPrompt, {
@@ -445,8 +455,9 @@ AnimationClipDropdown = withContext({
 
 local function mapStateToProps(state, props)
 	return {
-		IsDirty = state.Status.IsDirty,
 		Analytics = state.Analytics,
+		IsDirty = state.Status.IsDirty,
+		ReadOnly = state.Status.ReadOnly,
 	}
 end
 
@@ -486,6 +497,10 @@ local function mapDispatchToProps(dispatch)
 
 		SetIsDirty = function(isDirty)
 			dispatch(SetIsDirty(isDirty))
+		end,
+
+		SetReduceKeyframesDialogMode = function(showMode: string): ()
+			dispatch(SetReduceKeyframesDialogMode(showMode))
 		end,
 	}
 end

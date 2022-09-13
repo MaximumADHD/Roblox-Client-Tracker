@@ -19,6 +19,8 @@
 			import a new animation from Roblox.
 		function OnImportFbxRequested() = A callback for when the user wants to
 			import a new animation from FBX.
+		function OnReduceKeyframesRequested() = A callback for when the user
+			wants to reduce the keyframes.
 ]]
 
 local Plugin = script.Parent.Parent.Parent
@@ -42,6 +44,7 @@ local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local UpdateMetadata = require(Plugin.Src.Thunks.UpdateMetadata)
 local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
 
+local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
 local FFlagAnimationFromVideoCreatorServiceInAnimationEditor = game:DefineFastFlag("AnimationFromVideoCreatorServiceInAnimationEditor", false)
 
 local AnimationClipMenu = Roact.PureComponent:extend("AnimationClipMenu")
@@ -151,15 +154,18 @@ end
 function AnimationClipMenu:makeMenuActions(localization)
 	local props = self.props
 	local onCreateNewRequested = props.OnCreateNewRequested
-	local onPromoteRequested = props.OnPromoteRequested
+	local onReduceKeyframesRequested = props.OnReduceKeyframesRequested
 	local current = props.CurrentAnimation or ""
 	local animationData = props.AnimationData
 	local plugin = props.Plugin
-	local isChannelAnimation = props.IsChannelAnimation
+	local inRecordMode = props.PlayState == Constants.PLAY_STATE.Record
 
 	local currentPriority = animationData and animationData.Metadata
 		and animationData.Metadata.Priority
-	local enablePromote = animationData and not isChannelAnimation
+	local enableReduce = animationData
+		and animationData.Metadata
+		and animationData.Metadata.EndTick > 0
+		and not inRecordMode
 
 	local actions = {}
 	table.insert(actions, self:makeLoadMenu(localization, current))
@@ -187,7 +193,14 @@ function AnimationClipMenu:makeMenuActions(localization)
 
 	table.insert(actions, Separator)
 	table.insert(actions, self:makePrioritySubMenu(localization, currentPriority))
-
+	if GetFFlagKeyframeReduction() then
+		table.insert(actions, Separator)
+		table.insert(actions, {
+			Name = localization:getText("Menu", "ReduceKeyframes"),
+			ItemSelected = onReduceKeyframesRequested,
+			Enabled = enableReduce,
+		})
+	end
 	return actions
 end
 
@@ -211,20 +224,25 @@ AnimationClipMenu = withContext({
 local function mapStateToProps(state, props)
 	local status = state.Status
 	return {
-		RootInstance = status.RootInstance,
 		AnimationData = state.AnimationData,
-		EditorMode = status.EditorMode
+		EditorMode = status.EditorMode,
+		PlayState = status.PlayState,
+		RootInstance = status.RootInstance,
 	}
 end
 
 local function mapDispatchToProps(dispatch)
 	return {
+		ExportAnimation = function(plugin, analytics)
+			dispatch(ExportAnimation(plugin, analytics))
+		end,
+
 		SaveAnimation = function(name, analytics)
 			dispatch(SaveAnimation(name, analytics))
 		end,
 
-		ExportAnimation = function(plugin, analytics)
-			dispatch(ExportAnimation(plugin, analytics))
+		SetEditorMode = function(editorMode)
+			dispatch(SetEditorMode(editorMode))
 		end,
 
 		SetPriority = function(priority)
@@ -232,10 +250,6 @@ local function mapDispatchToProps(dispatch)
 			dispatch(UpdateMetadata({
 				Priority = priority,
 			}))
-		end,
-
-		SetEditorMode = function(editorMode)
-			dispatch(SetEditorMode(editorMode))
 		end,
 	}
 end

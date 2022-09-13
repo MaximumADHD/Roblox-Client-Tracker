@@ -79,6 +79,7 @@ local GetFFlagFaceControlsEditorUIUpdate = require(Plugin.LuaFlags.GetFFlagFaceC
 local GetFFlagFaceControlsEditorBugBash2Update = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorBugBash2Update)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
+local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
 
 local PADDING = 10
 
@@ -463,7 +464,9 @@ function makeFacsOnFaceDiagramSliderUIItems (self, style, localization)
 end
 
 function triggerValueChanged(props, trackName, value)
-	props.ValueChanged(instanceForFacs, {trackName}, Constants.TRACK_TYPES.Facs, props.Playhead, value, props.Analytics)
+	if not (GetFFlagKeyframeReduction() and props.ReadOnly) then
+		props.ValueChanged(instanceForFacs, {trackName}, Constants.TRACK_TYPES.Facs, props.Playhead, value, props.Analytics)
+	end
 end
 
 function makeEyesControlDragBox (self, style, localization)
@@ -737,8 +740,8 @@ function handleFocusFace(props)
 			RigUtils.focusCameraOnFace(props.RootInstance)
 		else
 			focusFace(props)
-		end		
-	end	
+		end
+	end
 end
 
 --the actual focus face function which does not check AutoFocusFaceEnabled, is also called by F key press handler
@@ -986,6 +989,7 @@ local function mapStateToProps(state, props)
 		DefaultRotationType = status.DefaultRotationType,
 		SymmetryEnabled = status.SymmetryEnabled,
 		AutoFocusFaceEnabled = status.AutoFocusFaceEnabled,
+		ReadOnly = status.ReadOnly,
 	}
 end
 

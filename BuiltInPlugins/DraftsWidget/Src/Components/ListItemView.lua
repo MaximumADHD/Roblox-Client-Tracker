@@ -32,7 +32,6 @@ local Plugin = script.Parent.Parent.Parent
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local FFlagRemoveUILibraryFitContent = Framework.SharedFlags.getFFlagRemoveUILibraryFitContent()
 
 local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
 
@@ -40,15 +39,6 @@ local AbstractItemView = require(Plugin.Src.Components.AbstractItemView)
 
 local UI = Framework.UI
 local Pane = UI.Pane
-
-local FitToContent
-if not FFlagRemoveUILibraryFitContent then
-	local createFitToContent = UILibrary.Component.createFitToContent
-	FitToContent = createFitToContent("Frame", "UIListLayout", {
-		SortOrder = Enum.SortOrder.LayoutOrder,
-		FillDirection = Enum.FillDirection.Vertical,
-	})
-end
 
 local ListItemView = Roact.Component:extend("ListItemView")
 
@@ -114,16 +104,11 @@ function ListItemView:render()
 						self.contentSizeChanged(rbx.AbsoluteContentSize)
 					end,
 				}),
-				FitContent = (
-					if FFlagRemoveUILibraryFitContent then
-						Roact.createElement(Pane, {
-							AutomaticSize = Enum.AutomaticSize.Y,
-							HorizontalAlignment = Enum.HorizontalAlignment.Left,
-							Layout = Enum.FillDirection.Vertical,
-						}, children)
-					else
-						Roact.createElement(FitToContent, {}, children)
-				),
+				FitContent = Roact.createElement(Pane, {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
+					Layout = Enum.FillDirection.Vertical,
+				}, children),
 			})
 		end,
 	})

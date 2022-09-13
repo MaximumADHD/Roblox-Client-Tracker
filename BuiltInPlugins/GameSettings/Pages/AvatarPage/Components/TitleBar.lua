@@ -1,5 +1,3 @@
-local FFlagRemoveStudioThemeFromPlugins = game:GetFastFlag("RemoveStudioThemeFromPlugins")
-
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -31,7 +29,7 @@ function TitleBar:render()
 
 	local props = self.props
 	local localization = props.Localization
-	local theme = if FFlagRemoveStudioThemeFromPlugins then self.props.Stylizer else nil
+	local theme = self.props.Stylizer
 
 	local children = {}
 	if self.props.IsPlayerChoiceTitleStyle then
@@ -40,7 +38,7 @@ function TitleBar:render()
 			BorderSizePixel = 0,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Top,
-			TextColor3 = if FFlagRemoveStudioThemeFromPlugins then (if StateInterfaceTheme.getRadioButtonTextColor(self.props) then StateInterfaceTheme.getRadioButtonTextColor(self.props) else theme.fontStyle.Header.TextColor3) else StateInterfaceTheme.getRadioButtonTextColor(self.props),
+			TextColor3 = if StateInterfaceTheme.getRadioButtonTextColor(self.props) then StateInterfaceTheme.getRadioButtonTextColor(self.props) else theme.fontStyle.Header.TextColor3,
 			Font = Enum.Font.SourceSans,
 			TextSize = 22,
 			Text = localization:getText("General", "AvatarOverridePrompt"),
@@ -60,7 +58,7 @@ end
 
 TitleBar = withContext({
 	Localization = ContextServices.Localization,
-	Stylizer = if FFlagRemoveStudioThemeFromPlugins then ContextServices.Stylizer else nil,
+	Stylizer = ContextServices.Stylizer,
 })(TitleBar)
 
 return TitleBar

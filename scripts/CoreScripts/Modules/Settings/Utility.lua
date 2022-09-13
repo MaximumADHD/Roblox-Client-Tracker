@@ -46,15 +46,11 @@ local Workspace = game:GetService("Workspace")
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
-local FFlagFixUsernamesAutoLocalizeIssue = require(RobloxGui.Modules.Flags.FFlagFixUsernamesAutoLocalizeIssue)
 local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
 
 
 ------------------ Modules --------------------
-local RobloxTranslator
-if FFlagFixUsernamesAutoLocalizeIssue then
-	RobloxTranslator = require(CoreGui.RobloxGui.Modules:WaitForChild("RobloxTranslator"))
-end
+local RobloxTranslator = require(CoreGui.RobloxGui.Modules:WaitForChild("RobloxTranslator"))
 
 ------------------ VARIABLES --------------------
 local tenFootInterfaceEnabled = require(RobloxGui.Modules:WaitForChild("TenFootInterface")):IsEnabled()
@@ -478,7 +474,6 @@ end
 
 local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	-------------------- CONSTANTS ------------------------
-	local DEFAULT_DROPDOWN_TEXT = "Choose One"
 	local DROPDOWN_DEFAULT_TEXT_KEY = "Feature.SettingsHub.Label.ChooseOne"
 	local SCROLLING_FRAME_PIXEL_OFFSET = 25
 	local SELECTION_TEXT_COLOR_NORMAL = Color3.fromRGB(178,178,178)
@@ -638,10 +633,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		dropDownButtonEnabled.Value = false
 	end
 
-	local dropDownDefaultText = DEFAULT_DROPDOWN_TEXT
-	if FFlagFixUsernamesAutoLocalizeIssue then
-		dropDownDefaultText = RobloxTranslator:FormatByKey(DROPDOWN_DEFAULT_TEXT_KEY)
-	end
+	local dropDownDefaultText = RobloxTranslator:FormatByKey(DROPDOWN_DEFAULT_TEXT_KEY)
 
 	local dropDownFrameSize = UDim2.new(0.6, 0, 0, 50)
 	this.DropDownFrame = MakeButton("DropDownFrame", dropDownDefaultText,
@@ -763,10 +755,8 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		dropDownButtonEnabled.Value = value and not active
 	end
 
-	if FFlagFixUsernamesAutoLocalizeIssue then
-		function this:SetAutoLocalize(autoLocalize)
-			DropDownFullscreenFrame.AutoLocalize = autoLocalize
-		end
+	function this:SetAutoLocalize(autoLocalize)
+		DropDownFullscreenFrame.AutoLocalize = autoLocalize
 	end
 
 	function this:UpdateDropDownList(dropDownStringTable)
@@ -2277,13 +2267,11 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 
 	ValueChangerInstance.Name = rowDisplayName .. "ValueChanger"
 
-	if FFlagFixUsernamesAutoLocalizeIssue then
-		local SetAutoLocalizeBase = ValueChangerInstance.SetAutoLocalize
-		ValueChangerInstance.SetAutoLocalize = function(self, autoLocalize)
-			RowFrame.AutoLocalize = autoLocalize
-			if SetAutoLocalizeBase then
-				SetAutoLocalizeBase(self, autoLocalize)
-			end
+	local SetAutoLocalizeBase = ValueChangerInstance.SetAutoLocalize
+	ValueChangerInstance.SetAutoLocalize = function(self, autoLocalize)
+		RowFrame.AutoLocalize = autoLocalize
+		if SetAutoLocalizeBase then
+			SetAutoLocalizeBase(self, autoLocalize)
 		end
 	end
 

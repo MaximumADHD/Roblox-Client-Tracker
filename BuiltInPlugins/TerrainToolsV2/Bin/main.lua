@@ -6,20 +6,18 @@ return function(plugin, pluginLoaderContext)
 	local Plugin = script.Parent.Parent
 
 	local FFlagTerrainToolsImportUploadAssets = game:GetFastFlag("TerrainToolsImportUploadAssets")
-	local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 
 	-- Libraries
 	local Framework = require(Plugin.Packages.Framework)
 	local Roact = require(Plugin.Packages.Roact)
 	local Rodux = require(Plugin.Packages.Rodux)
-	local UILibraryCompat = if FFlagRemoveUILibraryCompatLocalization then nil else Plugin.Src.UILibraryCompat
 
 	-- Context
 	local ContextServices = Framework.ContextServices
 	local Analytics = ContextServices.Analytics
 	local Mouse = ContextServices.Mouse
 	local Store = ContextServices.Store
-	local Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else require(UILibraryCompat.Localization)
+	local Localization = ContextServices.Localization
 
 	local ContextItems = require(Plugin.Src.ContextItems)
 
@@ -66,10 +64,6 @@ return function(plugin, pluginLoaderContext)
 			stringResourceTable = SourceStrings,
 			translationResourceTable = LocalizedStrings,
 		})
-		local localizationItem
-		if not FFlagRemoveUILibraryCompatLocalization then
-			localizationItem = ContextItems.UILibraryLocalization.new(localization)
-		end
 
 		local pluginActions = {
 			EditPlane = {
@@ -137,7 +131,7 @@ return function(plugin, pluginLoaderContext)
 			store = store,
 			theme = theme,
 			devFrameworkThemeItem = devFrameworkThemeItem,
-			localization = if FFlagRemoveUILibraryCompatLocalization then localization else localizationItem,
+			localization = localization,
 			analytics = analytics,
 			networking = networking,
 			imageUploader = imageUploader,

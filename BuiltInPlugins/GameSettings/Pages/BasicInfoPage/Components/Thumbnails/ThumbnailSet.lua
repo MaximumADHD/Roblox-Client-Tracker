@@ -16,7 +16,6 @@
 		function UpdateAltText = A callback for when the user wants to change the alt text of a thumbnail.
 ]]
 local FFlagGameSettingsEnableThumbnailAltText = game:GetFastFlag("GameSettingsEnableThumbnailAltText")
-local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFitContent")
 
 local THUMBNAIL_PADDING = UDim2.new(0, 30, 0, 30)
 
@@ -34,19 +33,6 @@ local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local Thumbnail = require(Page.Components.Thumbnails.Thumbnail)
 local DragDestination = require(Page.Components.Thumbnails.DragDestination)
 local NewThumbnail = require(Page.Components.Thumbnails.NewThumbnail)
-
-local FitToContent
-
-if not FFlagGameSettingsRemoveFitContent then
-	local UILibrary = require(Plugin.Packages.UILibrary)
-	local createFitToContent = UILibrary.Component.createFitToContent
-	FitToContent = createFitToContent("Frame", "UIGridLayout", {
-		CellPadding = THUMBNAIL_PADDING,
-		CellSize = DEPRECATED_Constants.THUMBNAIL_SIZE,
-		FillDirection = Enum.FillDirection.Horizontal,
-		SortOrder = Enum.SortOrder.LayoutOrder,
-	})
-end
 
 local ThumbnailSet = Roact.PureComponent:extend("ThumbnailSet")
 
@@ -108,27 +94,19 @@ function ThumbnailSet:render()
 		})
 	end
 
-	if FFlagGameSettingsRemoveFitContent then
-		children.Layout = Roact.createElement("UIGridLayout", {
-			CellPadding = THUMBNAIL_PADDING,
-			CellSize = if FFlagGameSettingsEnableThumbnailAltText then DEPRECATED_Constants.THUMBNAIL_CONTAINER_SIZE else DEPRECATED_Constants.THUMBNAIL_SIZE,
-			FillDirection = Enum.FillDirection.Horizontal,
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			SortOrder = Enum.SortOrder.LayoutOrder,
-		})
-		return Roact.createElement(Pane, {
-			LayoutOrder = self.props.LayoutOrder or 1,
-			Position = self.props.Position or UDim2.new(),
-			AutomaticSize = Enum.AutomaticSize.Y,
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-		}, children)
-	else
-		return Roact.createElement(FitToContent, {
-			BackgroundTransparency = 1,
-			LayoutOrder = self.props.LayoutOrder or 1,
-			Position = self.props.Position or UDim2.new(),
-		}, children)
-	end
+	children.Layout = Roact.createElement("UIGridLayout", {
+		CellPadding = THUMBNAIL_PADDING,
+		CellSize = if FFlagGameSettingsEnableThumbnailAltText then DEPRECATED_Constants.THUMBNAIL_CONTAINER_SIZE else DEPRECATED_Constants.THUMBNAIL_SIZE,
+		FillDirection = Enum.FillDirection.Horizontal,
+		HorizontalAlignment = Enum.HorizontalAlignment.Left,
+		SortOrder = Enum.SortOrder.LayoutOrder,
+	})
+	return Roact.createElement(Pane, {
+		LayoutOrder = self.props.LayoutOrder or 1,
+		Position = self.props.Position or UDim2.new(),
+		AutomaticSize = Enum.AutomaticSize.Y,
+		HorizontalAlignment = Enum.HorizontalAlignment.Left,
+	}, children)
 end
 
 return ThumbnailSet

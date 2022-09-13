@@ -4,6 +4,7 @@ local Framework = require(Plugin.Packages.Framework)
 
 local Actions = Plugin.Src.Actions
 local SetMaterialAsTool = require(Actions.SetMaterialAsTool)
+local SetMaterialBrowserLayout = require(Actions.SetMaterialBrowserLayout)
 local SetMaterialTileSize = require(Actions.SetMaterialTileSize)
 local SetViewType = require(Actions.SetViewType)
 
@@ -45,8 +46,13 @@ function PluginController:initialize()
 		return
 	end
 
+	local materialBrowserLayout = self._plugin:GetSetting("MaterialBrowserLayout")
 	local materialTileSize = self._plugin:GetSetting("MaterialTileSize")
 	local viewType = self._plugin:GetSetting("ViewType")
+
+	if materialBrowserLayout then
+		self._store:dispatch(SetMaterialBrowserLayout(materialBrowserLayout))
+	end
 
 	if materialTileSize then
 		self._store:dispatch(SetMaterialTileSize(materialTileSize))
@@ -71,6 +77,14 @@ function PluginController:setViewType(viewType: string)
 	end
 
 	self._plugin:SetSetting("ViewType", viewType)
+end
+
+function PluginController:setMaterialBrowserLayout(materialBrowserLayout: _Types.MaterialBrowserLayout)
+	if self._mock then
+		return
+	end
+
+	self._plugin:SetSetting("MaterialBrowserLayout", materialBrowserLayout)
 end
 
 function PluginController:toggleMaterialAsTool()

@@ -58,6 +58,9 @@ local function initiatePurchasePrecheck(productId)
 						elseif results.action == "U13MonthlyThreshold2Modal" then
 							analytics.signalScaryModalShown(productId, "U13MonthlyThreshold2Modal", nativeProductId)
 							return store:dispatch(resolvePurchasePrecheck(PurchaseWarning.U13MonthlyThreshold2Modal))
+						elseif results.action == "ParentalConsentWarningPaymentModal13To17" then
+							analytics.signalScaryModalShown(productId, "ParentalConsentWarningPaymentModal13To17", nativeProductId)
+							return store:dispatch(resolvePurchasePrecheck(PurchaseWarning.ParentalConsentWarningPaymentModal13To17))
 						end
 					end
 

@@ -8,6 +8,7 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
 
 local CoreGui = game:GetService("CoreGui")
+local Players = game:GetService("Players")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local PolicyService = require(RobloxGui.Modules.Common:WaitForChild("PolicyService"))
 
@@ -63,6 +64,7 @@ local DELAYED_INPUT_SEC = 2.5
 local FFlagPurchasePromptDelayedInStudio = game:DefineFastFlag("PurchasePromptDelayedInStudio", false)
 local FFlagPPTwoFactorLogOutMessage = game:DefineFastFlag("PPTwoFactorLogOutMessage", false)
 local FFlagEnableLuobuWarningText = game:DefineFastFlag("EnableLuobuWarningText", false)
+local FFlagPauseGameExploitFix = game:DefineFastFlag("PauseGameExploitFix", false)
 
 local function isRelevantRequestType(requestType)
 	return requestType == RequestType.Asset
@@ -114,6 +116,9 @@ function ProductPurchaseContainer:init()
 	end
 
 	self.canConfirmInput = function()
+		if FFlagPauseGameExploitFix and Players.LocalPlayer.GameplayPaused then
+			return false
+		end
 		-- check == false because isAnimating == nil is used for when its not even shown
 		local isDoneAnimating = self.isWindowShowAndDoneAnimating()
 
@@ -149,7 +154,8 @@ function ProductPurchaseContainer:init()
 			return self.props.onRobuxUpsell
 		elseif promptState == PromptState.U13PaymentModal
 				or promptState == PromptState.U13MonthlyThreshold1Modal
-				or promptState == PromptState.U13MonthlyThreshold2Modal then
+				or promptState == PromptState.U13MonthlyThreshold2Modal
+				or promptState == PromptState.ParentalConsentWarningPaymentModal13To17 then
 			return self.props.onScaryModalConfirm
 		elseif promptState == PromptState.Error
 				and purchaseError == PurchaseError.TwoFactorNeededSettings then
@@ -260,6 +266,12 @@ function ProductPurchaseContainer:getMessageKeysFromPromptState()
 			okText = { key = OK_LOCALE_KEY },
 			titleText = { key = BUY_ITEM_LOCALE_KEY },
 		}
+	elseif promptState == PromptState.ParentalConsentWarningPaymentModal13To17 then
+		return {
+			messageText = { key = "CoreScripts.PurchasePrompt.PurchaseDetails.ParentalConsent", },
+			okText = { key = OK_LOCALE_KEY },
+			titleText = { key = BUY_ITEM_LOCALE_KEY },
+		}
 	elseif promptState == PromptState.Error then
 		if purchaseError == PurchaseError.UnknownFailure then
 			return {
@@ -329,8 +341,12 @@ function ProductPurchaseContainer:render()
 			buyItemControllerIcon = self.props.isGamepadEnabled and Images[XBOX_A_ICON] or nil,
 			cancelControllerIcon = self.props.isGamepadEnabled and Images[XBOX_B_ICON] or nil,
 
-			buyItemActivated = self.getConfirmButtonAction(promptState, requestType, purchaseError),
-			cancelPurchaseActivated = self.getCancelButtonAction(promptState, requestType),
+			buyItemActivated = FFlagPauseGameExploitFix
+				and self.confirmButtonPressed
+				or self.getConfirmButtonAction(promptState, requestType, purchaseError),
+			cancelPurchaseActivated = FFlagPauseGameExploitFix
+				and self.cancelButtonPressed
+				or self.getCancelButtonAction(promptState, requestType),
 			
 			isLuobu = self.state.isLuobu,
 		})
@@ -352,8 +368,12 @@ function ProductPurchaseContainer:render()
 			buyItemControllerIcon = self.props.isGamepadEnabled and Images[XBOX_A_ICON] or nil,
 			cancelControllerIcon = self.props.isGamepadEnabled and Images[XBOX_B_ICON] or nil,
 
-			buyItemActivated = self.getConfirmButtonAction(promptState, requestType, purchaseError),
-			cancelPurchaseActivated = self.getCancelButtonAction(promptState, requestType),
+			buyItemActivated = FFlagPauseGameExploitFix
+				and self.confirmButtonPressed
+				or self.getConfirmButtonAction(promptState, requestType, purchaseError),
+			cancelPurchaseActivated = FFlagPauseGameExploitFix
+				and self.cancelButtonPressed
+				or self.getCancelButtonAction(promptState, requestType),
 			
 			isLuobu = self.state.isLuobu,
 		})
@@ -368,7 +388,9 @@ function ProductPurchaseContainer:render()
 						buttons = {
 							{
 								props = {
-									onActivated = self.getCancelButtonAction(promptState, requestType),
+									onActivated = FFlagPauseGameExploitFix
+										and self.cancelButtonPressed
+										or self.getCancelButtonAction(promptState, requestType),
 									text = localeMap.cancelText,
 									inputIcon = self.props.isGamepadEnabled and Images[XBOX_B_ICON] or nil,
 								},
@@ -376,7 +398,9 @@ function ProductPurchaseContainer:render()
 							{
 								buttonType = ButtonType.PrimarySystem,
 								props = {
-									onActivated = self.getConfirmButtonAction(promptState, requestType, purchaseError),
+									onActivated = FFlagPauseGameExploitFix
+										and self.confirmButtonPressed
+										or self.getConfirmButtonAction(promptState, requestType, purchaseError),
 									text = localeMap.okText,
 									inputIcon = self.props.isGamepadEnabled and Images[XBOX_A_ICON] or nil,
 								},
@@ -400,7 +424,9 @@ function ProductPurchaseContainer:render()
 							{
 								buttonType = ButtonType.PrimarySystem,
 								props = {
-									onActivated = self.getConfirmButtonAction(promptState, requestType, purchaseError),
+									onActivated = FFlagPauseGameExploitFix
+										and self.confirmButtonPressed
+										or self.getConfirmButtonAction(promptState, requestType, purchaseError),
 									text = localeMap.okText,
 									inputIcon = self.props.isGamepadEnabled and Images[XBOX_A_ICON] or nil,
 								},

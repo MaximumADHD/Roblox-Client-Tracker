@@ -1,8 +1,6 @@
 --[[
 	Displays panels associated with the Clear tool
 ]]
-local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -94,7 +92,7 @@ end
 
 function Clear:render()
 	local theme = self.props.Theme:get()
-	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
+	local localization = self.props.Localization
 
 	if not self.state.showingDialog then
 		return nil
@@ -129,9 +127,9 @@ function Clear:render()
 	-- Copied from UI Library StyledDialog and BaseDialog
 	local function renderButton(button, index, activated)
 		return Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
-			AutomaticSize = Enum.AutomaticSize.XY,
 			LayoutOrder = index,
 			OnClick = activated,
+			Size = UDim2.new(0, buttonWidth, 0, buttonHeight),
 			Style = button.Style,
 			Text = button.Text,
 		} else {
@@ -222,7 +220,7 @@ end
 
 Clear = withContext({
 	Theme = ContextItems.UILibraryTheme,
-	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
+	Localization = ContextServices.Localization,
 	Terrain = ContextItems.Terrain,
 })(Clear)
 

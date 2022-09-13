@@ -5,7 +5,6 @@
 		Size UDim2, the size of the window
 		onClose callback, called when the user presses the "cancel" button
 ]]
-local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -13,7 +12,7 @@ local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
-local withContext = if FFlagUpdateConvertToPackageToDFContextServices then ContextServices.withContext else require(Plugin.Src.ContextServices.withContext)
+local withContext = ContextServices.withContext
 
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
@@ -46,48 +45,43 @@ function AssetUpload:init(props)
 end
 
 function AssetUpload:render()
-	local style = self.props.Stylizer
+	local props = self.props
+	local localization = props.Localization
+	local style = props.Stylizer
+	local assetName = props.assetName
 
-	local function renderWithContext(localization, theme)
-		local props = self.props
-		local assetName = props.assetName
-		return Roact.createElement("Frame", {
-			BackgroundColor3 = theme.typeValidation.background,
-			BackgroundTransparency = 0,
-			BorderSizePixel = 0,
-			Size = props.Size,
-		}, {
-			ModelPreview = Roact.createElement(AssetThumbnailPreview, {
-				titleHeight = PREVIEW_TITLE_HEIGHT,
-				titlePadding = PREVIEW_TITLE_PADDING,
-				title = assetName,
-				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
-				Size = UDim2.new(
-					0, PREVIEW_SIZE,
-					0, PREVIEW_SIZE + PREVIEW_TITLE_PADDING + PREVIEW_TITLE_HEIGHT
-				),
-			}),
+	return Roact.createElement("Frame", {
+		BackgroundColor3 = style.typeValidation.background,
+		BackgroundTransparency = 0,
+		BorderSizePixel = 0,
+		Size = props.Size,
+	}, {
+		ModelPreview = Roact.createElement(AssetThumbnailPreview, {
+			titleHeight = PREVIEW_TITLE_HEIGHT,
+			titlePadding = PREVIEW_TITLE_PADDING,
+			title = assetName,
+			Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
+			Size = UDim2.new(
+				0, PREVIEW_SIZE,
+				0, PREVIEW_SIZE + PREVIEW_TITLE_PADDING + PREVIEW_TITLE_HEIGHT
+			),
+		}),
 
-			LoadingBar = Roact.createElement(LoadingBar, {
-				loadingText = localization:getText("Action", "Converting"),
-				loadingTime = LOADING_TIME,
-				holdPercent = LOADING_PERCENT,
-				Size = UDim2.new(0, LOADING_BAR_WIDTH, 0, LOADING_BAR_HEIGHT),
-				Position = UDim2.new(0.5, -LOADING_BAR_WIDTH/2, 0, LOADING_BAR_Y_POS),
-				onFinish = props.uploadSucceeded ~= nil and props.onNext or nil,
-			}),
-		})
-	end
-
-	return if FFlagUpdateConvertToPackageToDFContextServices then renderWithContext(self.props.Localization, style) else withContext(renderWithContext)
+		LoadingBar = Roact.createElement(LoadingBar, {
+			loadingText = localization:getText("Action", "Converting"),
+			loadingTime = LOADING_TIME,
+			holdPercent = LOADING_PERCENT,
+			Size = UDim2.new(0, LOADING_BAR_WIDTH, 0, LOADING_BAR_HEIGHT),
+			Position = UDim2.new(0.5, -LOADING_BAR_WIDTH/2, 0, LOADING_BAR_Y_POS),
+			onFinish = props.uploadSucceeded ~= nil and props.onNext or nil,
+		}),
+	})
 end
 
-if FFlagUpdateConvertToPackageToDFContextServices then
-	AssetUpload = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = ContextServices.Stylizer,
-	})(AssetUpload)
-end
+AssetUpload = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
+})(AssetUpload)
 
 local function mapStateToProps(state, props)
 	state = state or {}

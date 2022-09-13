@@ -10,8 +10,6 @@
 		func OnEditFinished = function to call when this page wants to return to the
 			list view, when the back button gets clicked
 ]]
-local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFitContent")
-
 local StudioService = game:GetService("StudioService")
 
 local Page = script.Parent.Parent
@@ -63,15 +61,6 @@ local Util = Framework.Util
 local GetTextSize = Util.GetTextSize
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 local LayoutOrderIterator = Util.LayoutOrderIterator
-
-local FitToContent
-if not FFlagGameSettingsRemoveFitContent then
-	local createFitToContent = UILibrary.Component.createFitToContent
-	FitToContent = createFitToContent("Frame", "UIListLayout", {
-		SortOrder = Enum.SortOrder.LayoutOrder,
-		Padding = UDim.new(0, DEPRECATED_Constants.ELEMENT_PADDING),
-	})
-end
 
 local PRICE_ICON_PADDING = 8
 
@@ -448,20 +437,13 @@ function DeveloperSubscriptionDetails:render()
 		}),
 	}
 
-	if FFlagGameSettingsRemoveFitContent then
-		return Roact.createElement(Pane, {
-			AutomaticSize = Enum.AutomaticSize.Y,
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			LayoutOrder = self.props.LayoutOrder or 1,
-			Layout = Enum.FillDirection.Vertical,
-			Spacing = UDim.new(0, DEPRECATED_Constants.ELEMENT_PADDING),
-		}, children)
-	else
-		return Roact.createElement(FitToContent, {
-			LayoutOrder = self.props.LayoutOrder or 1,
-			BackgroundTransparency = 1,
-		}, children)
-	end
+	return Roact.createElement(Pane, {
+		AutomaticSize = Enum.AutomaticSize.Y,
+		HorizontalAlignment = Enum.HorizontalAlignment.Left,
+		LayoutOrder = self.props.LayoutOrder or 1,
+		Layout = Enum.FillDirection.Vertical,
+		Spacing = UDim.new(0, DEPRECATED_Constants.ELEMENT_PADDING),
+	}, children)
 end
 
 DeveloperSubscriptionDetails = withContext({

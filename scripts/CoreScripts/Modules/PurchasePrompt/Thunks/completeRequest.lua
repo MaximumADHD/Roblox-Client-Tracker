@@ -32,6 +32,8 @@ local function completeRequest()
 			analytics.signalScaryModalCanceled(productId, "U13MonthlyThreshold1Modal", nativeProductId)
 		elseif state.promptState == PromptState.U13MonthlyThreshold2Modal then
 			analytics.signalScaryModalCanceled(productId, "U13MonthlyThreshold2Modal", nativeProductId)
+		elseif state.promptState == PromptState.ParentalConsentWarningPaymentModal13To17 then
+			analytics.signalScaryModalCanceled(productId, "ParentalConsentWarningPaymentModal13To17", nativeProductId)
 		end
 
 		if requestType == RequestType.Product then

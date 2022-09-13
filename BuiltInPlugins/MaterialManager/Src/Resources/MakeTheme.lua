@@ -43,6 +43,7 @@ local function getPluginTheme()
 	local MaterialDetailsTextureHeight = 64
 	local MaterialDetaulsLabelWidth = 108
 	local ColumnWidth = if getFFlagMaterialManagerVariantCreatorOverhaul() then 160 else 270
+	local TerrainDetailColumnWidth = 130
 	local LabelColumnWidth = if getFFlagMaterialManagerVariantCreatorOverhaul() then UDim.new(0, 93) else UDim.new(0, 80)
 	local DialogWidth = 720
 	local DialogHeight = 480
@@ -61,6 +62,7 @@ local function getPluginTheme()
 
 	return {
 		MaterialBrowser = {
+			GridBackgroundColor = StyleKey.ScrollingFrameBackgroundColor,
 			TopBarSize = UDim2.new(1, 0, 0, TopBarHeight),
 			MainViewSize = UDim2.new(1, 0, 1, -TopBarHeight),
 			MinSideBarWidth = 120,
@@ -299,7 +301,10 @@ local function getPluginTheme()
 			LabelColumnWidth = LabelColumnWidth,
 			ItemSpacing = LabeledItemSpacing,
 			ErrorOrWarningTextSize = LabeledErrorOrWarningTextSize,
+			ColumnWidth = ColumnWidth,
+			TerrainDetailColumnWidth = TerrainDetailColumnWidth,
 			DialogColumnSize = UDim2.new(0, ColumnWidth, 0, 25),
+			TerrainDetailDialogColumnSize = UDim2.new(0, TerrainDetailColumnWidth, 0, 25),
 			ContentPadding = ContentPadding,
 		},
 
@@ -387,8 +392,8 @@ local function getPluginTheme()
 			ImportImageBackground = StyleKey.ImportImageBackground,
 			ButtonColor = StyleKey.Button,
 			ButtonHeight = 24,
-			IconImportPaddingLeft = 45,
-			IconImportPaddingRight = 55,
+			IconImportPaddingLeft = 45, -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
+			IconImportPaddingRight = 55,  -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 
 			ButtonIconColor = StyleKey.Icon,
 			ButtonIconHoveredColor = Color3.fromRGB(255, 255, 255),
@@ -400,6 +405,8 @@ local function getPluginTheme()
 			ToolbarHeight = 32,
 
 			ColumnWidth = ColumnWidth,
+			TerrainDetailColumnWidth = TerrainDetailColumnWidth,
+
 			LabelColumnWidth = LabelColumnWidth,
 			PreviewSize = if getFFlagMaterialManagerVariantCreatorOverhaul() then 74 else 88,
 

@@ -101,7 +101,7 @@ function PhysicalSettings:init()
 	self.onExpandedChanged = function()
 		local props: _Props = self.props
 
-		props.dispatchSetExpandedPane(settingsNames.GeneralSettings, not props.ExpandedPane)
+		props.dispatchSetExpandedPane(settingsNames.PhysicalSettings, not props.ExpandedPane)
 	end
 end
 

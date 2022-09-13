@@ -15,7 +15,6 @@
 		vector2 AnchorPoint
 		UDim2 Position
 ]]
-local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -23,7 +22,6 @@ local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local ContextItems = if FFlagRemoveUILibraryCompatLocalization then nil else require(Plugin.Src.ContextItems)
 
 local UI = Framework.UI
 local Container = UI.Container
@@ -55,7 +53,7 @@ local ProgressWidget = Roact.PureComponent:extend("ProgressWidget")
 
 function ProgressWidget:render()
 	local props = self.props
-	local localization = if FFlagRemoveUILibraryCompatLocalization then props.Localization else self.props.Localization:get()
+	local localization = props.Localization
 
 	local anchorPoint = props.AnchorPoint
 	local position = props.Position
@@ -166,7 +164,7 @@ function ProgressWidget:render()
 end
 
 ProgressWidget = withContext({
-	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
+	Localization = ContextServices.Localization,
 })(ProgressWidget)
 
 return ProgressWidget

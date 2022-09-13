@@ -35,7 +35,6 @@ local ReportAbuseLogic = require(RobloxGui.Modules.VoiceChat.ReportAbuseLogic)
 local createVoiceAbuseReportRequest = require(RobloxGui.Modules.VoiceChat.createVoiceAbuseReportRequest)
 local VoiceUsersByProximity = require(RobloxGui.Modules.VoiceChat.VoiceUsersByProximity)
 
-local FFlagFixUsernamesAutoLocalizeIssue = require(RobloxGui.Modules.Flags.FFlagFixUsernamesAutoLocalizeIssue)
 local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
 local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
 local GetFFlagHideMOAOnExperience = require(RobloxGui.Modules.Flags.GetFFlagHideMOAOnExperience)
@@ -414,16 +413,11 @@ local function Initialize()
 		end
 		this.GameOrPlayerMode.Selection.LayoutOrder = 1
 
-		local whichPlayerText = "Which Person?"
-		if FFlagFixUsernamesAutoLocalizeIssue then
-			whichPlayerText = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.WhichPlayer")
-		end
+		local whichPlayerText = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.WhichPlayer")
 		this.WhichPlayerFrame, this.WhichPlayerLabel, this.WhichPlayerMode =
 			utility:AddNewRow(this, whichPlayerText, "DropDown", {"update me"})
 		this.WhichPlayerMode:SetInteractable(false)
-		if FFlagFixUsernamesAutoLocalizeIssue then
-			this.WhichPlayerMode:SetAutoLocalize(false)
-		end
+		this.WhichPlayerMode:SetAutoLocalize(false)
 		this.WhichPlayerLabel.ZIndex = 1
 		this.WhichPlayerFrame.LayoutOrder = 2
 

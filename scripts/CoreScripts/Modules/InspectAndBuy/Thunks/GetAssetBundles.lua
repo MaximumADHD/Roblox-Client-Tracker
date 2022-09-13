@@ -1,4 +1,3 @@
---!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local PerformFetch = require(CorePackages.AppTempCommon.LuaApp.Thunks.Networking.Util.PerformFetch)
 local InspectAndBuyFolder = script.Parent.Parent
@@ -34,7 +33,7 @@ local function GetAssetBundles(assetId)
 						local newBundle = BundleInfo.fromGetAssetBundles(bundleInfo)
 						table.insert(newBundles, newBundle)
 						table.insert(bundleIdsAssetIsIn, tostring(newBundle.bundleId))
-						
+
 						-- determine if the bundle has a UserOutfit
 						local hasUserOutfit = false
 						for _, asset in pairs(bundleInfo.items) do

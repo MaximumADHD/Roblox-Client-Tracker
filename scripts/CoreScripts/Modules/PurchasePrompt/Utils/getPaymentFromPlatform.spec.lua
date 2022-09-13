@@ -29,6 +29,7 @@ return function()
 	it("should return correctly when on Linux", function()
 		expect(getPaymentFromPlatform(Enum.Platform.Linux, false, false)).to.equal(PaymentPlatform.Web)
 	end)
+	
 	it("should return correctly when on Android", function()
 		expect(getPaymentFromPlatform(Enum.Platform.Linux, false, false)).to.equal(PaymentPlatform.Web)
 	end)

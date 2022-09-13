@@ -5,6 +5,5 @@ game:DefineFastString("TeamCreateLink", "https://developer.roblox.com/articles/T
 
 game:DefineFastFlag("EnablePlacePublishManagementInTeamCreate", false)
 game:defineFastString("PlacePublishRollbackLearnMoreLink", "https://www.roblox.com")
-game:DefineFastFlag("RemoveUILibraryLocalization", false)
 
 return nil

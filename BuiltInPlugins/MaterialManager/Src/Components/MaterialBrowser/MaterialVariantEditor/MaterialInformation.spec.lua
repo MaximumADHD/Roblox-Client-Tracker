@@ -1,5 +1,4 @@
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
-local _Types = require(Plugin.Src.Types)
 local Roact = require(Plugin.Packages.Roact)
 local mockContext = require(Plugin.Src.Util.mockContext)
 

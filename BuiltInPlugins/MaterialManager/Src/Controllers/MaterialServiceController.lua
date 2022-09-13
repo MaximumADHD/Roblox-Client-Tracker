@@ -4,6 +4,7 @@ local Framework = require(Plugin.Packages.Framework)
 
 local ContextItem = Framework.ContextServices.ContextItem
 local ServiceWrapper = Framework.TestHelpers.ServiceWrapper
+local join = Framework.Dash.join
 
 local MaterialBrowserReducer = require(Plugin.Src.Reducers.MaterialBrowserReducer)
 
@@ -24,13 +25,19 @@ local getMaterialPath = require(Constants.getMaterialPath)
 local getMaterialType = require(Constants.getMaterialType)
 local getMaterialName = require(Constants.getMaterialName)
 local getSupportedMaterials = require(Constants.getSupportedMaterials)
+local getTerrainFaceName = require(Constants.getTerrainFaceName)
 
 local Util = Plugin.Src.Util
 local CheckMaterialName = require(Util.CheckMaterialName)
 local ContainsPath = require(Util.ContainsPath)
 local GenerateMaterialName = require(Util.GenerateMaterialName)
+local GenerateTerrainDetailName = require(Util.GenerateTerrainDetailName)
 local getMaterials = require(Util.getMaterials)
 local getOverrides = require(Util.getOverrides)
+
+local getFFlagMaterialManagerTerrainDetails = require(
+	Plugin.Src.Flags.getFFlagMaterialManagerTerrainDetails
+)
 
 local supportedMaterials = getSupportedMaterials()
 
@@ -46,6 +53,8 @@ local MaterialServiceController = ContextItem:extend("MaterialServiceController"
 function MaterialServiceController.new(store: any, mock: boolean?)
 	local self = setmetatable({
 		_materialChangedListeners = {},
+		_terrainDetailAddedListeners = {},
+		_terrainDetailRemovedListeners = {},
 		_overrideChangedListeners = {},
 		_changeHistoryService = ServiceWrapper.new("ChangeHistoryService", mock),
 
@@ -137,6 +146,16 @@ function MaterialServiceController:destroy()
 		self._materialChangedListeners[materialIndex]:Disconnect()
 		self._materialChangedListeners[materialIndex] = nil
 	end
+
+	for terrainDetailIndex, _ in ipairs(self._terrainDetailAddedListeners) do
+		self._terrainDetailAddedListeners[terrainDetailIndex]:Disconnect()
+		self._terrainDetailAddedListeners[terrainDetailIndex] = nil
+	end
+
+	for terrainDetailIndex, _ in ipairs(self._terrainDetailRemovedListeners) do
+		self._terrainDetailRemovedListeners[terrainDetailIndex]:Disconnect()
+		self._terrainDetailRemovedListeners[terrainDetailIndex] = nil
+	end
 end
 
 function MaterialServiceController:getRootCategory(): Category
@@ -144,12 +163,37 @@ function MaterialServiceController:getRootCategory(): Category
 end
 
 function MaterialServiceController:getMaterialWrapper(material: Enum.Material, materialVariant: MaterialVariant?): _Types.Material
-	return {
-		Material = material,
-		MaterialPath = getMaterialPath(material),
-		MaterialType = getMaterialType(material),
-		MaterialVariant = materialVariant,
-	}
+	if getFFlagMaterialManagerTerrainDetails() then
+		local materialWrapper = {
+			Material = material,
+			MaterialPath = getMaterialPath(material),
+			MaterialType = getMaterialType(material),
+			MaterialVariant = materialVariant,
+		}
+		if materialVariant then
+			local terrainDetailUpdate
+			for _, child in ipairs(materialVariant:GetChildren()) do
+				if child:IsA("TerrainDetail") then
+					local face = getTerrainFaceName(child.Face)
+					terrainDetailUpdate = "TerrainDetail" .. face
+					if not materialWrapper[terrainDetailUpdate] then
+						materialWrapper = join(materialWrapper, {
+							[terrainDetailUpdate] = child,
+						})
+					end
+				end
+			end
+		end
+		return materialWrapper
+	else
+		return {
+			Material = material,
+			MaterialPath = getMaterialPath(material),
+			MaterialType = getMaterialType(material),
+			MaterialVariant = materialVariant,
+		}
+	end
+
 end
 
 function MaterialServiceController:addCategory(path: _Types.Path, builtin: boolean): Category?
@@ -192,6 +236,18 @@ function MaterialServiceController:addMaterial(material: Enum.Material, material
 	if materialVariant then
 		self._materialPaths[materialVariant] = path
 		self._materialWrappers[materialVariant] = materialWrapper
+
+		if getFFlagMaterialManagerTerrainDetails() then
+			for _, child in ipairs(materialVariant:GetChildren()) do
+				assert(not self._materialChangedListeners[child], "Already connected to material changed")
+
+				self._materialChangedListeners[child] = child.Changed:Connect(function(property)
+					local materialWrapper = self:getMaterialWrapper(materialVariant.BaseMaterial, materialVariant)
+					self._store:dispatch(SetMaterialWrapper(materialWrapper))
+				end)
+			end
+		end
+
 		-- If the way to categorize is changed, make it happen here
 		assert(not self._materialChangedListeners[materialVariant], "Already connected to material changed")
 
@@ -204,6 +260,38 @@ function MaterialServiceController:addMaterial(material: Enum.Material, material
 
 			self._store:dispatch(SetMaterialWrapper(materialWrapper))
 		end)
+
+		if getFFlagMaterialManagerTerrainDetails() then
+			assert(not self._terrainDetailAddedListeners[materialVariant], "Already connected to material child added")
+
+			self._terrainDetailAddedListeners[materialVariant] = materialVariant.ChildAdded:Connect(function(child)
+				if child:IsA("TerrainDetail") then
+					local materialWrapper = self:getMaterialWrapper(materialVariant.BaseMaterial, materialVariant)
+					self._store:dispatch(SetMaterialWrapper(materialWrapper))
+					
+					assert(not self._materialChangedListeners[child], "Already connected to material changed")
+
+					self._materialChangedListeners[child] = child.Changed:Connect(function(property)
+						local materialWrapper = self:getMaterialWrapper(materialVariant.BaseMaterial, materialVariant)
+						self._store:dispatch(SetMaterialWrapper(materialWrapper))
+					end)
+				end
+			end)
+		
+			assert(not self._terrainDetailRemovedListeners[materialVariant], "Already connected to material child removed")
+			
+			self._terrainDetailRemovedListeners[materialVariant] = materialVariant.ChildRemoved:Connect(function(child)
+				if child:IsA("TerrainDetail") then
+					local materialWrapper = self:getMaterialWrapper(materialVariant.BaseMaterial, materialVariant)
+					self._store:dispatch(SetMaterialWrapper(materialWrapper))
+					
+					if self._materialChangedListeners[child] then
+						self._materialChangedListeners[child]:Disconnect()
+						self._materialChangedListeners[child] = nil
+					end
+				end
+			end)
+		end
 	else
 		self._store:dispatch(SetMaterialStatus(material, self._materialServiceWrapper:asService():GetOverrideStatus(material)))
 	end
@@ -237,6 +325,24 @@ function MaterialServiceController:removeMaterial(material: MaterialVariant, mov
 	if self._materialChangedListeners[material] then
 		self._materialChangedListeners[material]:Disconnect()
 		self._materialChangedListeners[material] = nil
+	end
+	
+	if getFFlagMaterialManagerTerrainDetails() then
+		-- Clear terrainDetail listeners
+		if self._terrainDetailAddedListeners[material] then
+			self._terrainDetailAddedListeners[material]:Disconnect()
+			self._terrainDetailAddedListeners[material] = nil
+		end
+		if self._terrainDetailRemovedListeners[material] then
+			self._terrainDetailRemovedListeners[material]:Disconnect()
+			self._terrainDetailRemovedListeners[material] = nil
+		end
+		for _, child in pairs(material:GetChildren()) do
+			if self._materialChangedListeners[child] then
+				self._materialChangedListeners[child]:Disconnect()
+				self._materialChangedListeners[child] = nil
+			end
+		end
 	end
 
 	self._store:dispatch(ClearMaterialWrapper(self._store:getState().MaterialBrowserReducer.Materials[material]))
@@ -342,6 +448,17 @@ function MaterialServiceController:createMaterialVariant(baseMaterial: Enum.Mate
 
 	self._changeHistoryService:asService():SetWaypoint("Create new Material Variant to" .. materialVariant.Name)
 	return materialVariant
+end
+
+function MaterialServiceController:createTerrainDetail(materialVariant: MaterialVariant, face: string)
+	local terrainDetail = Instance.new("TerrainDetail")
+	local generativeName = "TerrainDetail"
+	terrainDetail.Face = face
+	terrainDetail.Name = generativeName .. GenerateTerrainDetailName(materialVariant, generativeName)
+	terrainDetail.Parent = materialVariant
+
+	self._changeHistoryService:asService():SetWaypoint("Create new Terrain Detail to" .. terrainDetail.Name)
+	return terrainDetail
 end
 
 return MaterialServiceController

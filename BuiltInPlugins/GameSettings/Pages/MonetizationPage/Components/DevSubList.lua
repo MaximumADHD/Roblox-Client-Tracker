@@ -7,13 +7,10 @@
         func OnDeveloperSubscriptionCreated = when a developer subscriptin is made
         int ListItemHeight = the height in pixels of the list items
 ]]
-local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFitContent")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
 local Framework = require(Plugin.Packages.Framework)
 
 local Util = Framework.Util
@@ -33,15 +30,6 @@ local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local DeepMergeTables = require(Plugin.Src.Util.DeepMergeTables)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
-
-local FitToContent
-if not FFlagGameSettingsRemoveFitContent then
-    local createFitToContent = UILibrary.Component.createFitToContent
-    FitToContent = createFitToContent("Frame", "UIListLayout", {
-        SortOrder = Enum.SortOrder.LayoutOrder,
-        Padding = UDim.new(0, 10),
-    })
-end
 
 local DeveloperSubscriptionList = Roact.Component:extend("DeveloperSubscriptionList")
 
@@ -179,19 +167,12 @@ function DeveloperSubscriptionList:render()
         LayoutOrder = index + 1
     })
 
-    if FFlagGameSettingsRemoveFitContent then
-        return Roact.createElement(Pane, {
-            Layout = Enum.FillDirection.Vertical,
-            LayoutOrder = layoutOrder,
-            AutomaticSize = Enum.AutomaticSize.Y,
-            Spacing = UDim.new(0, 10),
-        }, elements)
-    else
-        return Roact.createElement(FitToContent, {
-            BackgroundTransparency = 1,
-            LayoutOrder = layoutOrder,
-        }, elements)
-    end
+    return Roact.createElement(Pane, {
+        Layout = Enum.FillDirection.Vertical,
+        LayoutOrder = layoutOrder,
+        AutomaticSize = Enum.AutomaticSize.Y,
+        Spacing = UDim.new(0, 10),
+    }, elements)
 end
 
 DeveloperSubscriptionList = withContext({

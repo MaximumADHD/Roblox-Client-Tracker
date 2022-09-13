@@ -273,5 +273,9 @@ return function()
 		it("should signal for U13MonthlyThreshold2Modal", function()
 			checkScaryModalCanceled(PromptState.U13MonthlyThreshold2Modal)
 		end)
+
+		it("should signal for ParentalConsentWarningPaymentModal13To17", function()
+			checkScaryModalCanceled(PromptState.ParentalConsentWarningPaymentModal13To17)
+		end)
 	end)
 end

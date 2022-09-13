@@ -22,6 +22,7 @@ ShareInviteLinkABTestManager.__index = ShareInviteLinkABTestManager
 
 function ShareInviteLinkABTestManager.new(ixpServiceWrapper)
 	local instance = {
+		_currentSessionIsEnabled = nil,
 		_ixpServiceWrapper = ixpServiceWrapper or IXPServiceWrapper,
 	}
 
@@ -44,11 +45,12 @@ function ShareInviteLinkABTestManager:initialize()
 		return
 	end
 
-	-- get the cached value for next session, we don't want to change it for this session
-	local prevIsEnabled = self.getCachedValue()
+	if self._currentSessionIsEnabled == nil then
+		self._currentSessionIsEnabled = self.getCachedValue()
+	end
+
 	local isEnabled = if layerData then layerData.share_invite_link_enabled else false
-	if isEnabled ~= prevIsEnabled and HAS_KEY_IN_GAME_ENGINE
-	then
+	if isEnabled ~= self._currentSessionIsEnabled and HAS_KEY_IN_GAME_ENGINE then
 		pcall(function()
 			AppStorageService:SetItem(
 				LOCAL_STORAGE_KEY_EXPERIMENT_ENABLED,
@@ -59,6 +61,7 @@ function ShareInviteLinkABTestManager:initialize()
 	end
 end
 
+-- VisibleForTesting
 function ShareInviteLinkABTestManager.getCachedValue()
 	if HAS_KEY_IN_GAME_ENGINE then
 		local cacheFetchSuccess, cachedExperimentEnabledValue = pcall(function()
@@ -74,7 +77,10 @@ function ShareInviteLinkABTestManager.getCachedValue()
 end
 
 function ShareInviteLinkABTestManager:isShareInviteLinkEnabled()
-	return self.getCachedValue()
+	if self._currentSessionIsEnabled == nil then
+		self._currentSessionIsEnabled = self.getCachedValue()
+	end
+	return self._currentSessionIsEnabled
 end
 
 ShareInviteLinkABTestManager.default = ShareInviteLinkABTestManager.new()

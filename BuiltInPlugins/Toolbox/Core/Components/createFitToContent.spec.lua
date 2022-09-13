@@ -1,4 +1,4 @@
--- TODO Delete this file when FFlagRemoveUILibraryFitContent is retired. This model is deprecated in favor of AutomaticSize in-engine.
+-- TODO Delete this file when Toolbox no longer uses FitContent. This model is deprecated in favor of AutomaticSize in-engine.
 return function()
 	local Plugin = script.Parent.Parent.Parent
 	local Packages = Plugin.Packages

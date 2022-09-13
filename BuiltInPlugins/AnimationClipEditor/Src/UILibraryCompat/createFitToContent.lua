@@ -2,7 +2,7 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 
--- TODO Delete this file when FFlagRemoveUILibraryFitContent is retired and ACE's UILibraryCompat is removed. This model is deprecated in favor of AutomaticSize in-engine.
+-- TODO Delete this file when ACE's UILibraryCompat is removed. This model is deprecated in favor of AutomaticSize in-engine.
 local function createFitToContent(containerComponent, layoutComponent, layoutProps)
 	local name = ("FitComponent(%s, %s)"):format(containerComponent, layoutComponent)
 	local FitComponent = Roact.Component:extend(name)

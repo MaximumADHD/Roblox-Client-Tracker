@@ -15,7 +15,6 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryFitContent = SharedFlags.getFFlagRemoveUILibraryFitContent()
 local FFlagRemoveUILibraryBulletPoint = SharedFlags.getFFlagRemoveUILibraryBulletPoint()
 local FFlagDevFrameworkMigrateStyledDialog = SharedFlags.getFFlagDevFrameworkMigrateStyledDialog()
 
@@ -37,15 +36,6 @@ end
 local StyledDialog = if FFlagDevFrameworkMigrateStyledDialog then UI.StyledDialog else UILibrary.Component.StyledDialog
 local StyledScrollingFrame = if FFlagDevFrameworkMigrateStyledDialog then UI.ScrollingFrame else UILibrary.Component.StyledScrollingFrame
 local TextLabel = if FFlagDevFrameworkMigrateStyledDialog then UI.TextLabel else "TextLabel"
-
-local FitToContent
-if not FFlagRemoveUILibraryFitContent then
-	local createFitToContent = UILibrary.Component.createFitToContent
-	FitToContent = createFitToContent("Frame", "UIListLayout", {
-		SortOrder = Enum.SortOrder.LayoutOrder,
-		FillDirection = Enum.FillDirection.Vertical,
-	})
-end
 
 local HEADER_TEXT_SIZE = 22
 local BULLET_TEXT_SIZE = 18
@@ -231,16 +221,11 @@ function DraftDiscardDialog:render()
 			}),
 
 			Bullets = if FFlagRemoveUILibraryBulletPoint then bullets else (
-				if FFlagRemoveUILibraryFitContent then
-					Roact.createElement(Pane, {
-						AutomaticSize = Enum.AutomaticSize.Y,
-						HorizontalAlignment = Enum.HorizontalAlignment.Left,
-						Layout = Enum.FillDirection.Vertical,
-					}, bullets)
-				else
-					Roact.createElement(FitToContent, {
-						BackgroundTransparency = 1,
-					}, bullets)
+				Roact.createElement(Pane, {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
+					Layout = Enum.FillDirection.Vertical,
+				}, bullets)
 			)
 		})
 	})

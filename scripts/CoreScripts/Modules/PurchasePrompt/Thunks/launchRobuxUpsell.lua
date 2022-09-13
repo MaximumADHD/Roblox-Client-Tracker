@@ -7,6 +7,7 @@ local SetPromptState = require(Root.Actions.SetPromptState)
 local UpsellFlow = require(Root.Enums.UpsellFlow)
 local PromptState = require(Root.Enums.PromptState)
 local PurchaseError = require(Root.Enums.PurchaseError)
+local PurchaseFlow = require(Root.Enums.PurchaseFlow)
 local getUpsellFlow = require(Root.NativeUpsell.getUpsellFlow)
 local Constants = require(Root.Misc.Constants)
 local postPurchaseWarningAcknowledge = require(Root.Network.postPurchaseWarningAcknowledge)
@@ -18,6 +19,8 @@ local Thunk = require(Root.Thunk)
 local Promise = require(Root.Promise)
 
 local retryAfterUpsell = require(script.Parent.retryAfterUpsell)
+
+local GetFFlagRobuxUpsellIXP = require(Root.Flags.GetFFlagRobuxUpsellIXP)
 
 local requiredServices = {
 	Analytics,
@@ -44,14 +47,22 @@ local function launchRobuxUpsell()
 			analytics.signalScaryModalConfirmed(productId, "U13MonthlyThreshold1Modal", nativeProductId)
 		elseif state.promptState == PromptState.U13MonthlyThreshold2Modal then
 			analytics.signalScaryModalConfirmed(productId, "U13MonthlyThreshold2Modal", nativeProductId)
+		elseif state.promptState == PromptState.ParentalConsentWarningPaymentModal13To17 then
+			analytics.signalScaryModalConfirmed(productId, "ConfirmedParentalConsentWarningPaymentModal13To17", nativeProductId)
 		end
 
 		if state.promptState == PromptState.U13PaymentModal then
-			postPurchaseWarningAcknowledge(network, "ConfirmedU13PaymentModal")
+			postPurchaseWarningAcknowledge.Post(network,
+				postPurchaseWarningAcknowledge.UserActionType.ConfirmedU13PaymentModal)
 		elseif state.promptState == PromptState.U13MonthlyThreshold1Modal then
-			postPurchaseWarningAcknowledge(network, "ConfirmedU13MonthlyThreshold1Modal")
+			postPurchaseWarningAcknowledge.Post(network,
+				postPurchaseWarningAcknowledge.UserActionType.ConfirmedU13MonthlyThreshold1Modal)
 		elseif state.promptState == PromptState.U13MonthlyThreshold2Modal then
-			postPurchaseWarningAcknowledge(network, "ConfirmedU13MonthlyThreshold2Modal")
+			postPurchaseWarningAcknowledge.Post(network,
+				postPurchaseWarningAcknowledge.UserActionType.ConfirmedU13MonthlyThreshold2Modal)
+		elseif state.promptState == PromptState.ParentalConsentWarningPaymentModal13To17 then
+			postPurchaseWarningAcknowledge.Post(network,
+				postPurchaseWarningAcknowledge.UserActionType.ConfirmedParentalConsentWarningPaymentModal13To17)
 		end
 
 		if externalSettings.getFFlagDisableRobuxUpsell() then
@@ -60,11 +71,20 @@ local function launchRobuxUpsell()
 		end
 
 		if upsellFlow == UpsellFlow.Web then
-			local productId = state.productInfo.productId
 			local requestType = state.requestType
 
-			analytics.signalProductPurchaseUpsellConfirmed(productId, requestType, "UNKNOWN")
-			platformInterface.startRobuxUpsellWeb()
+			if GetFFlagRobuxUpsellIXP() then
+				analytics.signalProductPurchaseUpsellConfirmed(productId, requestType, state.nativeUpsell.productId)
+				local purchaseFlow = state.purchaseFlow
+				if purchaseFlow == PurchaseFlow.RobuxUpsellV2 then
+					platformInterface.startRobuxUpsellWeb(state.nativeUpsell.productId)
+				else
+					platformInterface.startRobuxUpsellWeb()
+				end
+			else
+				analytics.signalProductPurchaseUpsellConfirmed(productId, requestType, "UNKNOWN")
+				platformInterface.startRobuxUpsellWeb()
+			end
 			store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 
 		elseif upsellFlow == UpsellFlow.Mobile then

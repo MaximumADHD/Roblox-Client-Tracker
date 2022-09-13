@@ -10,7 +10,6 @@ local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Framework = require(Plugin.Packages.Framework)
 local TestHelpers = Framework.TestHelpers
-local ServiceWrapper = TestHelpers.ServiceWrapper
 local ContextServices = Framework.ContextServices
 local Http = Framework.Http
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
@@ -21,18 +20,14 @@ local GeneralServiceController = require(Controllers.GeneralServiceController)
 local ImageLoader = require(Controllers.ImageLoader)
 local ImageUploader = require(Controllers.ImageUploader)
 local ImportAssetHandler = require(Controllers.ImportAssetHandler)
-local MaterialController = require(Controllers.MaterialController) -- Remove with FFlagDeprecateMaterialController
 local MaterialServiceController = require(Controllers.MaterialServiceController)
 local PluginController = require(Controllers.PluginController)
-
-local getFFlagDeprecateMaterialController = require(Plugin.Src.Flags.getFFlagDeprecateMaterialController)
 
 -- New Plugin Setup: Populate contextItemsList with mocks
 
 local store = ContextServices.Store.new(Rodux.Store.new(MainReducer, nil, {
 	Rodux.thunkMiddleware,
 }, nil))
-local materialController = MaterialController.new(ServiceWrapper.new("MaterialService", true))
 local networking = Http.Networking.new({
 	isInternal = true,
 })
@@ -49,10 +44,6 @@ local contextItemsList = {
 	PluginController.mock(),
 	MakeTheme(true),
 }
-
-if not getFFlagDeprecateMaterialController() then
-	table.insert(contextItemsList, materialController)
-end
 
 return function (story)
 	assert(type(story) == "table", "Expected story to be a table")

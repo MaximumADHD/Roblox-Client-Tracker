@@ -6,6 +6,8 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 return Rodux.createReducer({
 	Active = false,
+	ReadOnly = false,
+
 	SelectedKeyframes = {},
 	SelectedEvents = {},
 	SelectedTracks = nil,
@@ -37,6 +39,7 @@ return Rodux.createReducer({
 	IKMode = Constants.IK_MODE.FullBody,
 	ShowTree = false,
 	ShowFaceControlsEditorPanel = false,
+	ReduceKeyframesDialogMode = Constants.REDUCE_KEYFRAMES_DIALOG_MODE.Hidden,
 
 	Tool = Enum.RibbonTool.Rotate,
 	WorldSpace = false,
@@ -64,6 +67,12 @@ return Rodux.createReducer({
 	SetActive = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			Active = action.active,
+		})
+	end,
+
+	SetReadOnly = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			ReadOnly = action.readOnly,
 		})
 	end,
 
@@ -121,13 +130,13 @@ return Rodux.createReducer({
 			PlayState = action.playState,
 		})
 	end,
-	
+
 	SetInReviewState = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			inReviewState = action.inReviewState,
 		})
 	end,
-	
+
 	SetHaveToSetBackToNotLooping = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			haveToSetBackToNotLooping = action.haveToSetBackToNotLooping,
@@ -195,6 +204,12 @@ return Rodux.createReducer({
 	SetShowAsSeconds = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			ShowAsSeconds = action.showAsSeconds,
+		})
+	end,
+
+	SetReduceKeyframesDialogMode = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			ReduceKeyframesDialogMode = action.reduceKeyframesDialogMode,
 		})
 	end,
 

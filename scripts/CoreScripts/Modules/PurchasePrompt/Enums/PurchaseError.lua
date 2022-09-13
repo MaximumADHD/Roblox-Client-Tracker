@@ -33,6 +33,7 @@ local PurchaseError = createEnum("PurchaseError", {
 	"UnknownFailureNoItemName",
 	"PurchaseDisabled",
 	"InvalidFunds",
+	"InvalidFundsUnknown",
 })
 
 return PurchaseError

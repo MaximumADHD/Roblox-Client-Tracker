@@ -26,10 +26,11 @@ local getErrorTypes = require(Plugin.Src.Resources.Constants.getErrorTypes)
 local ErrorTypes = getErrorTypes()
 
 export type Props = {
+	ColumnWidth: number?,
 	LabelColumnWidth: UDim,
 	LayoutOrder: number?,
 	MapType: string,
-	MaterialVariant: MaterialVariant | TerrainDetail,
+	PBRMaterial: MaterialVariant | TerrainDetail,
 	PreviewTitle: string,
 	Text: string,
 }
@@ -55,8 +56,8 @@ function TextureMapSelector:init()
 	self.clearTextureMap = function()
 		local props: _Props = self.props
 
-		local materialVariant = props.MaterialVariant:: any
-		props.GeneralServiceController:setTextureMap(materialVariant, props.MapType, "")
+		local pbrMaterial = props.PBRMaterial:: any
+		props.GeneralServiceController:setTextureMap(pbrMaterial, props.MapType, "")
 		if not self._isMounted then
 			return
 		end
@@ -75,8 +76,8 @@ function TextureMapSelector:init()
 				uploading = true,
 			})
 		end):andThen(function(assetId)
-			local materialVariant = props.MaterialVariant:: any
-			props.GeneralServiceController:setTextureMap(materialVariant, props.MapType, assetId)
+			local pbrMaterial = props.PBRMaterial:: any
+			props.GeneralServiceController:setTextureMap(pbrMaterial, props.MapType, assetId)
 			props.Analytics:report("uploadTextureMap")
 			self.errorMessage = nil
 
@@ -112,9 +113,9 @@ function TextureMapSelector:init()
 		local props: _Props = self.props
 		
 		local newImportState
-		local materialVariant = props.MaterialVariant:: any
+		local pbrMaterial = props.PBRMaterial:: any
 		if assetId then
-			props.GeneralServiceController:setTextureMap(materialVariant, props.MapType, assetId)
+			props.GeneralServiceController:setTextureMap(pbrMaterial, props.MapType, assetId)
 		elseif file then
 			local tempId = file:GetTemporaryId()
 			newImportState = {
@@ -214,7 +215,7 @@ function TextureMapSelector:willUnmount()
 end
 
 function TextureMapSelector:didUpdate(prevProps)
-	if prevProps.MaterialVariant ~= self.props.MaterialVariant then
+	if prevProps.PBRMaterial ~= self.props.PBRMaterial then
 		self:setState({
 			urlAsset = "",
 			importAsset = {},
@@ -232,21 +233,21 @@ function TextureMapSelector:render()
 	local selectionName = ""
 	local imageId = ""
 	local isTempId = false
-	local materialVariant = props.MaterialVariant
+	local pbrMaterial = props.PBRMaterial
 
-	if state.importAsset and state.importAsset.tempId or materialVariant[props.MapType] ~= "" then
-		selectionName = if state.importAsset.file then state.importAsset.file.Name else materialVariant[props.MapType]
+	if state.importAsset and state.importAsset.tempId or pbrMaterial[props.MapType] ~= "" then
+		selectionName = if state.importAsset.file then state.importAsset.file.Name else pbrMaterial[props.MapType]
 		if state.uploading == true and state.importAsset and state.importAsset.tempId then
 			imageId = state.importAsset.tempId 
 			isTempId = true
 		else
-			imageId = materialVariant[props.MapType]
+			imageId = pbrMaterial[props.MapType]
 			isTempId = false
 		end
 	end
 
 	local status, errorText
-	if materialVariant[props.MapType] == "" then
+	if pbrMaterial[props.MapType] == "" then
 		if self.errorMessage and self.errorMessage ~= "" then
 			status = Enum.PropertyStatus.Error
 			errorText = localization:getText("CreateDialog", self.errorMessage)
@@ -288,6 +289,7 @@ function TextureMapSelector:render()
 			BorderColorUrlBool = if self.errorMessage == ErrorTypes.FailedUrl then true else false,
 			ClearSelection = self.clearTextureMap,
 			OnFocusLost = self.onFocusLost,
+			ColumnWidth = props.ColumnWidth,
 		})
 	})
 end

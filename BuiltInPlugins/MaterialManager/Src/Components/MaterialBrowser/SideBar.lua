@@ -22,11 +22,7 @@ local Util = Plugin.Src.Util
 local getCategories = require(Util.getCategories)
 
 local Controllers = Plugin.Src.Controllers
-local MaterialController = require(Controllers.MaterialController) -- Remove with FFlagDeprecateMaterialController
 local MaterialServiceController = require(Controllers.MaterialServiceController)
-
-local Flags = Plugin.Src.Flags
-local getFFlagDeprecateMaterialController = require(Flags.getFFlagDeprecateMaterialController)
 
 local SideBar = Roact.PureComponent:extend("SideBar")
 
@@ -40,7 +36,6 @@ type _Props = Props & {
 	Path: _Types.Path,
 	dispatchSetPath: (path: _Types.Path) -> (),
 	Localization: any,
-	MaterialController: any, -- Remove with FFlagDeprecateMaterialController
 	MaterialServiceController: any,
 	Stylizer: any,
 }
@@ -141,12 +136,7 @@ function SideBar:didMount()
 	local props: _Props = self.props
 	local localization = props.Localization
 
-	local rootCategory
-	if getFFlagDeprecateMaterialController() then
-		rootCategory = props.MaterialServiceController:getRootCategory()
-	else
-		rootCategory = props.MaterialController:getRootCategory()
-	end
+	local rootCategory = props.MaterialServiceController:getRootCategory()
 
 	if not self.categories then
 		self.categories = getCategories(rootCategory, localization)
@@ -186,7 +176,6 @@ end
 SideBar = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
-	MaterialController = if not getFFlagDeprecateMaterialController() then MaterialController else nil,
 	MaterialServiceController = MaterialServiceController,
 })(SideBar)
 

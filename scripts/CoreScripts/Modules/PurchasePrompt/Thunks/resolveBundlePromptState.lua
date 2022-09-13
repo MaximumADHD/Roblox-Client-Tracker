@@ -86,7 +86,7 @@ local function resolveBundlePromptState(productPurchasableDetails, bundleDetails
 						return getRobuxUpsellProduct(network, price, robuxBalance, paymentPlatform)
 							:andThen(function(product: RobuxUpsell.Product)
 								analytics.signalProductPurchaseUpsellShown(product.id, state.requestType, product.providerId)
-								store:dispatch(PromptNativeUpsell(product.providerId, product.robuxAmount))
+								store:dispatch(PromptNativeUpsell(product.providerId, product.id, product.robuxAmount))
 							end, function()
 								-- No upsell item will provide sufficient funds to make this purchase
 								store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
@@ -95,7 +95,7 @@ local function resolveBundlePromptState(productPurchasableDetails, bundleDetails
 						return selectRobuxProduct(platform, neededRobux, isPlayerPremium)
 							:andThen(function(product)
 								-- We found a valid upsell product for the current platform
-								store:dispatch(PromptNativeUpsell(product.productId, product.robuxValue))
+								store:dispatch(PromptNativeUpsell(product.productId, nil, product.robuxValue))
 							end, function()
 								-- No upsell item will provide sufficient funds to make this purchase
 								store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))

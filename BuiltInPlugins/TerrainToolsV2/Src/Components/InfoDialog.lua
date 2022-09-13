@@ -18,7 +18,6 @@
 		callback OnClose
 			Called when the user either clicks the "ok" button or closes the dialog
 ]]
-local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -27,7 +26,6 @@ local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local ContextItems = if FFlagRemoveUILibraryCompatLocalization then nil else require(Plugin.Src.ContextItems)
 
 local UI = Framework.UI
 local Container = UI.Container
@@ -70,7 +68,7 @@ function InfoDialog:didMount()
 end
 
 function InfoDialog:render()
-	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
+	local localization = self.props.Localization
 
 	local title = self.props.Title
 	local mainText = self.props.MainText
@@ -179,7 +177,7 @@ function InfoDialog:render()
 end
 
 InfoDialog = withContext({
-	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
+	Localization = ContextServices.Localization,
 })(InfoDialog)
 
 return InfoDialog

@@ -9,7 +9,6 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryFitContent = SharedFlags.getFFlagRemoveUILibraryFitContent()
 local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
 
 local ContextServices = Framework.ContextServices
@@ -18,15 +17,6 @@ local withContext = ContextServices.withContext
 local UI = Framework.UI
 local Pane = UI.Pane
 local TextLabel = UI.Decoration.TextLabel
-
-local FitToContent
-if not FFlagRemoveUILibraryFitContent then
-	local UILibrary = require(Plugin.Packages.UILibrary)
-    local createFitToContent = UILibrary.Component.createFitToContent
-    FitToContent = createFitToContent("Frame", "UIListLayout", {
-        SortOrder = Enum.SortOrder.LayoutOrder,
-    })
-end
 
 local AnalyticsContext = require(Plugin.Src.ContextServices.AnalyticsContext)
 local LabeledImageButton = require(Plugin.Src.Components.LabeledImageButton)
@@ -116,35 +106,20 @@ function EmbeddedTableSection:render()
 				TextXAlignment = Enum.TextXAlignment.Left,
 			})
 		),
-		Container = (
-			if FFlagRemoveUILibraryFitContent then
-				Roact.createElement(Pane, {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					Layout = Enum.FillDirection.Vertical,
-					LayoutOrder = 2,
-				}, containerChildren)
-			else
-				Roact.createElement(FitToContent, {
-					BackgroundTransparency = 1,
-					LayoutOrder = 2,
-				}, containerChildren)
-		)
-	}
-
-	if FFlagRemoveUILibraryFitContent then
-		return Roact.createElement(Pane, {
+		Container = Roact.createElement(Pane, {
 			AutomaticSize = Enum.AutomaticSize.Y,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			Layout = Enum.FillDirection.Vertical,
-			LayoutOrder = layoutOrder,
-		}, children)
-	else
-		return Roact.createElement(FitToContent, {
-			BackgroundTransparency = 1,
-			LayoutOrder = layoutOrder,
-		}, children)
-	end
+			LayoutOrder = 2,
+		}, containerChildren)
+	}
+
+	return Roact.createElement(Pane, {
+		AutomaticSize = Enum.AutomaticSize.Y,
+		HorizontalAlignment = Enum.HorizontalAlignment.Left,
+		Layout = Enum.FillDirection.Vertical,
+		LayoutOrder = layoutOrder,
+	}, children)
 end
 
 local function mapStateToProps(state, _)

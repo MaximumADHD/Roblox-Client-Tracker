@@ -1,5 +1,3 @@
-local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFitContent")
-
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -19,23 +17,6 @@ local GroupCollaboratorItem = require(Page.Components.GroupCollaboratorItem)
 
 local GetUserCollaborators = require(Page.Selectors.GetUserCollaborators)
 local GetGroupCollaborators = require(Page.Selectors.GetGroupCollaborators)
-
-local FitToContentWidget
-local FitToContentList
-if not FFlagGameSettingsRemoveFitContent then
-	local UILibrary = require(Plugin.Packages.UILibrary)
-	local createFitToContent = UILibrary.Component.createFitToContent
-
-	FitToContentWidget = createFitToContent("Frame", "UIListLayout", {
-		SortOrder = Enum.SortOrder.LayoutOrder,
-		Padding = UDim.new(0, 32),
-	})
-
-	FitToContentList = createFitToContent("Frame", "UIListLayout", {
-		SortOrder = Enum.SortOrder.LayoutOrder,
-		Padding = UDim.new(0, 0),
-	})
-end
 
 local CollaboratorsWidget = Roact.PureComponent:extend("CollaboratorsWidget")
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
@@ -109,18 +90,12 @@ function CollaboratorsWidget:render()
 		})),
 
 		Users = #userCollaborators > 0 and (
-			if FFlagGameSettingsRemoveFitContent then
-				Roact.createElement(Pane, {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					Layout = Enum.FillDirection.Vertical,
-					LayoutOrder = 1,
-				}, userChildren)
-			else
-				Roact.createElement(FitToContentList, {
-					LayoutOrder = 1,
-					BackgroundTransparency = 1,
-				}, userChildren)
+			Roact.createElement(Pane, {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				Layout = Enum.FillDirection.Vertical,
+				LayoutOrder = 1,
+			}, userChildren)
 		),
 
 		GroupsTitle = #groupCollaborators > 0 and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
@@ -134,35 +109,22 @@ function CollaboratorsWidget:render()
 		})),
 
 		Groups = #groupCollaborators > 0 and (
-			if FFlagGameSettingsRemoveFitContent then
-				Roact.createElement(Pane, {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					Layout = Enum.FillDirection.Vertical,
-					LayoutOrder = groupLabelSpot + 1,
-				}, groupChildren)
-			else
-				Roact.createElement(FitToContentList, {
-					LayoutOrder = groupLabelSpot + 1,
-					BackgroundTransparency = 1,
-				}, groupChildren)
+			Roact.createElement(Pane, {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				Layout = Enum.FillDirection.Vertical,
+				LayoutOrder = groupLabelSpot + 1,
+			}, groupChildren)
 		),
 	}
 
-	if FFlagGameSettingsRemoveFitContent then
-		return Roact.createElement(Pane, {
-			AutomaticSize = Enum.AutomaticSize.Y,
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			Layout = Enum.FillDirection.Vertical,
-			LayoutOrder = layoutOrder,
-			Spacing = UDim.new(0, 32),
-		}, widgetChildren)
-	else
-		return Roact.createElement(FitToContentWidget, {
-			LayoutOrder = layoutOrder,
-			BackgroundTransparency = 1,
-		}, widgetChildren)
-	end
+	return Roact.createElement(Pane, {
+		AutomaticSize = Enum.AutomaticSize.Y,
+		HorizontalAlignment = Enum.HorizontalAlignment.Left,
+		Layout = Enum.FillDirection.Vertical,
+		LayoutOrder = layoutOrder,
+		Spacing = UDim.new(0, 32),
+	}, widgetChildren)
 end
 
 CollaboratorsWidget = withContext({

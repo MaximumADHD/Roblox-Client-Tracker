@@ -5,6 +5,8 @@ local FFlagToolboxEnableAnnouncementsDialog = game:GetFastFlag("ToolboxEnableAnn
 local FFlagToolboxCreatorMarketplaceWebLinks = game:GetFastFlag("ToolboxCreatorMarketplaceWebLinks")
 local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
 local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
+local FFlagToolboxAddUnverifiedIcon = game:GetFastFlag("ToolboxAddUnverifiedIcon")
+local FFlagToolboxAddUnverifiedIconFollowUp = game:GetFastFlag("ToolboxAddUnverifiedIconFollowUp") and FFlagToolboxAddUnverifiedIcon
 
 local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
 local ToolboxPolicy
@@ -156,7 +158,7 @@ if FFlagToolboxEnableAnnouncementsDialog then
 	end
 end
 
-if FFlagToolboxEnableAssetConfigPhoneVerification or FFlagToolboxAssetConfigurationVerifiedPrice then
+if FFlagToolboxEnableAssetConfigPhoneVerification or FFlagToolboxAssetConfigurationVerifiedPrice or FFlagToolboxAddUnverifiedIconFollowUp then
 	function ToolboxUtilities.getVerificationDocumentationUrl(): string?
 		return ToolboxPolicy["VerificationDocumentationUrl"]
 	end

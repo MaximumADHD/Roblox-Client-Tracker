@@ -31,7 +31,6 @@ local TEAM_CREATE_ENABLED = "teamCreateEnabled"
 local FFlagCOLLAB734FixPublishPlaceAsDropdownContrastIssue = game:DefineFastFlag("COLLAB734FixPublishPlaceAsDropdownContrastIssue", false);
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 local FStringTeamCreateLearnMoreLink = game:GetFastString("TeamCreateLink")
-local FFlagRemoveUILibrarySeparator = game:GetFastFlag("RemoveUILibrarySeparator")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -57,7 +56,7 @@ local HoverArea = UI.HoverArea
 local Image = UI.Decoration.Image
 local LinkText = UI.LinkText
 local SelectInput = UI.SelectInput
-local Separator = if FFlagRemoveUILibrarySeparator then Framework.UI.Separator else UILibrary.Component.Separator
+local Separator = Framework.UI.Separator
 local StyledDialog = Framework.StudioUI.StyledDialog
 local TextLabel = UI.Decoration.TextLabel
 local TextInput2 = UI.TextInput2

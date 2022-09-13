@@ -19,6 +19,7 @@ local webKeys = require(Plugin.Core.Util.Permissions.Constants).webKeys
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 local FFlagToolboxInsertMaterialsInMS = game:GetFastFlag("ToolboxInsertMaterialsInMS")
 local FFlagToolboxFixInsertPackage = game:GetFastFlag("ToolboxFixInsertPackage")
+local FFlagToolboxFixPackageDragging = game:GetFastFlag("ToolboxFixPackageDragging")
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local InsertService = game:GetService("InsertService")
@@ -560,7 +561,9 @@ function InsertAsset.doDragInsertAsset(options)
 		-- That will insert the given asset and drag it in the 3d view
 		options.plugin.UsesAssetInsertionDrag = true
 
-		local isPackage = Category.categoryIsPackage(options.categoryName)
+		local isPackage = if FFlagToolboxFixPackageDragging and options.assetSubTypes ~= nil
+			then AssetSubTypes.contains(options.assetSubTypes, AssetSubTypes.Package)
+			else Category.categoryIsPackage(options.categoryName)
 
 		local url = Urls.constructAssetGameAssetIdUrl(assetId, options.assetTypeId, isPackage, assetName)
 		if DebugFlags.shouldDebugUrls() then

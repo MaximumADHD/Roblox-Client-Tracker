@@ -40,6 +40,7 @@ local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
 local VoiceChatPromptType = require(RobloxGui.Modules.VoiceChatPrompt.PromptType)
 local GetShowAgeVerificationOverlay = require(CorePackages.AppTempCommon.VoiceChat.Requests.GetShowAgeVerificationOverlay)
+local GetUserSettings = require(CorePackages.AppTempCommon.VoiceChat.Requests.GetUserSettings)
 local GetInformedOfBan = require(CorePackages.AppTempCommon.VoiceChat.Requests.GetInformedOfBan)
 local PostInformedOfBan = require(CorePackages.AppTempCommon.VoiceChat.Requests.PostInformedOfBan)
 local SKIP_VOICE_CHECK_KEY = Constants.SKIP_VOICE_CHECK_KEY
@@ -291,6 +292,21 @@ function VoiceChatServiceManager:userAndPlaceCanUseVoice()
 	return universePlaceSettings and userSettings
 		and userSettings.isVoiceEnabled
 		and universePlaceSettings.isPlaceEnabledForVoice
+end
+
+function VoiceChatServiceManager:ShowPlayerModeratedMessage()
+	local userSettings = GetUserSettings(bind(self, 'GetRequest'))
+	if not userSettings or not userSettings.isBanned then
+		self:_reportJoinFailed("PlayerModeratedBadState", Analytics.ERROR)
+		return
+	else
+		if userSettings.bannedUntil == nil then
+			self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedPermanent)
+		else
+			self.bannedUntil = userSettings.bannedUntil
+			self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporary)
+		end
+	end
 end
 
 function VoiceChatServiceManager:checkLocalNetworkPermission()
@@ -649,7 +665,7 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 		end
 
 		-- TODO: Init the participants list with the "Initial" state when API is ready
-		self.service.ParticipantsStateChanged:Connect(function(participantLeft, participantJoined, updatedStates)
+		self.participantConnection = self.service.ParticipantsStateChanged:Connect(function(participantLeft, participantJoined, updatedStates)
 			log:trace("Participants state changed")
 
 			for _, userId in ipairs(participantLeft) do
@@ -695,7 +711,7 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 			end
 		end)
 
-		self.service.StateChanged:Connect(function(oldState, newState)
+		self.stateConnection = self.service.StateChanged:Connect(function(oldState, newState)
 			local inFailedState = newState == (Enum::any).VoiceChatState.Failed
 			local inConnectingState = newState == (Enum::any).VoiceChatState.Joining
 			local newMuted = self.service:IsPublishPaused()
@@ -737,7 +753,7 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 		end)
 
 		if self.service:GetVoiceChatApiVersion() >= MIN_VOICE_CHAT_API_VERSION_LOCAL_MIC_ACTIVITY then
-			self.service.PlayerMicActivitySignalChange:Connect(function(result)
+			self.micConnection = self.service.PlayerMicActivitySignalChange:Connect(function(result)
 				self.isTalking = result.isActive
 				if not self.localMuted then
 					self.talkingChanged:Fire(self.isTalking)
@@ -745,8 +761,16 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 			end)
 		end
 
+		-- This is controlled by DFFlagVoiceChatEnablePlayerModeratedSignal
+		if game:GetEngineFeature("VoiceChatServicePlayerModeratedEvent") then
+			self.playerModeratedConnection = self.service.LocalPlayerModerated:connect(function()
+				log:debug("User Moderated")
+				self:ShowPlayerModeratedMessage()
+			end)
+		end
+
 		if GetFFlagEnableVoiceChatRejoinOnBlock() then
-			self.BlockStatusChanged:Connect(function(userId: number, isBlocked: boolean)
+			self.blockConnection = self.BlockStatusChanged:Connect(function(userId: number, isBlocked: boolean)
 				if isBlocked then
 					if self.participants[tostring(userId)] then
 						if GetFFlagEnableSessionCancelationOnBlock() then
@@ -769,6 +793,30 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 				end
 			end)
 		end
+	end
+end
+
+function VoiceChatServiceManager:Disconnect()
+	if self.participantConnection then
+		self.participantConnection:Disconnect()
+		self.participantConnection = nil
+	end
+	if self.stateConnection then
+		self.stateConnection:Disconnect()
+		self.stateConnection = nil
+	end
+	if self.micConnection then
+		self.micConnection:Disconnect()
+		self.micConnection = nil
+	end
+	if self.blockConnection then
+		self.blockConnection:Disconnect()
+		self.blockConnection = nil
+	end
+
+	if self.playerModeratedConnection then
+		self.playerModeratedConnection:Disconnect()
+		self.playerModeratedConnection = nil
 	end
 end
 

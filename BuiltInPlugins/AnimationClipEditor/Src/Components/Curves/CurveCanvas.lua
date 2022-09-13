@@ -41,6 +41,7 @@ local Keyframe = require(Plugin.Src.Components.Curves.Keyframe)
 local TangentControl = require(Plugin.Src.Components.Curves.TangentControl)
 
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
 
 local CurveCanvas = Roact.PureComponent:extend("CurveCanvas")
 
@@ -190,6 +191,11 @@ function CurveCanvas:renderCurve(track): ()
 
 	for keyframeIndex, curTick in ipairs(track.Keyframes) do
 		local curKeyframe = track.Data[curTick]
+
+		if GetFFlagKeyframeReduction() and curKeyframe == nil then
+			continue
+		end
+
 		local curSelected = selectionTrack and selectionTrack.Selection and selectionTrack.Selection[curTick]
 		if track.Type == Constants.TRACK_TYPES.Quaternion then
 			cur = self:toCanvasSpace(Vector2.new(curTick, 1))

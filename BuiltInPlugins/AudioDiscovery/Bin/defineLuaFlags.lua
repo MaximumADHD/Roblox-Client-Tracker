@@ -1,4 +1,3 @@
-game:DefineFastFlag("EnableAudioDiscoveryPlugin", false)
 game:DefineFastInt("StudioAudioDiscoveryMaxAssetIdsPerRequest", 30)
 game:DefineFastInt("StudioAudioDiscoveryPerRequestCooldown", 60)
 game:DefineFastInt("StudioAudioDiscoveryCooldownAfterHttp429", 120)

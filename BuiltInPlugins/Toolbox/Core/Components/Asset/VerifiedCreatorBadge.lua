@@ -1,4 +1,5 @@
 local FFlagToolboxAddUnverifiedIcon = game:GetFastFlag("ToolboxAddUnverifiedIcon")
+local FFlagToolboxAddUnverifiedIconFollowUp = game:GetFastFlag("ToolboxAddUnverifiedIconFollowUp") and FFlagToolboxAddUnverifiedIcon
 
 local GuiService = game:GetService("GuiService")
 
@@ -11,16 +12,19 @@ local Framework = require(Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Images = require(Plugin.Core.Util.Images)
-local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
+local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
 
 local getModal = ContextGetter.getModal
 local withModal = ContextHelper.withModal
 
 local TooltipWrapper = require(Plugin.Core.Components.TooltipWrapper)
+
+local ICON_SIZE = 13
 
 local VerifiedCreatorBadge = Roact.PureComponent:extend("VerifiedCreatorBadge")
 
@@ -45,7 +49,11 @@ function VerifiedCreatorBadge:init(props)
 
 	self.onActivated = function()
 		Analytics.onIdVerificationIconClicked(self.props.assetId)
-		GuiService:OpenBrowserWindow("https://en.help.roblox.com/hc/articles/4407282410644-Age-ID-Verification")
+		if FFlagToolboxAddUnverifiedIconFollowUp then
+			GuiService:OpenBrowserWindow(ToolboxUtilities.getVerificationDocumentationUrl())
+		else
+			GuiService:OpenBrowserWindow("https://en.help.roblox.com/hc/articles/4407282410644-Age-ID-Verification")
+		end
 	end
 end
 
@@ -67,20 +75,24 @@ function VerifiedCreatorBadge:render()
 
 		local image
 		local size
-		if props.small then
-			if FFlagToolboxAddUnverifiedIcon then
-				image = Images.WARNING_ICON_SMALL
-			else
-				image = Images.VERIFIED_CREATOR_BADGE_ICON_SMALL
-			end
-			size = 13
+		if FFlagToolboxAddUnverifiedIconFollowUp then
+			image = Images.WARNING_ICON_SMALL
 		else
-			if FFlagToolboxAddUnverifiedIcon then
-				image = Images.WARNING_ICON
+			if props.small then
+				if FFlagToolboxAddUnverifiedIcon then
+					image = Images.WARNING_ICON_SMALL
+				else
+					image = Images.VERIFIED_CREATOR_BADGE_ICON_SMALL
+				end
+				size = 13
 			else
-				image = Images.VERIFIED_CREATOR_BADGE_ICON
+				if FFlagToolboxAddUnverifiedIcon then
+					image = Images.WARNING_ICON_SMALL
+				else
+					image = Images.VERIFIED_CREATOR_BADGE_ICON
+				end
+				size = 16
 			end
-			size = 16
 		end
 
 		local tooltipText
@@ -98,7 +110,7 @@ function VerifiedCreatorBadge:render()
 			Position = props.Position,
 			LayoutOrder = props.LayoutOrder,
 			BackgroundTransparency = 1,
-			Size = UDim2.fromOffset(size, size),
+			Size = if FFlagToolboxAddUnverifiedIconFollowUp then UDim2.fromOffset(ICON_SIZE, ICON_SIZE) else UDim2.fromOffset(size, size),
 			Image = image,
 			ImageColor3 = if FFlagToolboxAddUnverifiedIcon then iconColor else nil,
 			ZIndex = 2,

@@ -29,15 +29,10 @@ local BubbleChatEnabled = PlayersService.BubbleChat
 local Util = require(RobloxGui.Modules.ChatUtil)
 
 local CorePackages = game:GetService("CorePackages")
-local GetFFlagUpgradeExpChatV2_0_0 = require(CorePackages.Flags.GetFFlagUpgradeExpChatV2_0_0)
 local FFlagExperienceChatShowChatOnFocusKeybind = game:DefineFastFlag("ExperienceChatShowChatOnFocusKeybind", false)
 local FFlagExperienceChatTopBarVisibilityFix = game:DefineFastFlag("ExperienceChatTopBarVisibilityFix", false)
 
 local ExperienceChat = require(CorePackages.ExperienceChat)
-local ChatTopBarButtonActivated
-if not GetFFlagUpgradeExpChatV2_0_0() then
-	ChatTopBarButtonActivated = ExperienceChat.ChatVisibility.Actions.ChatTopBarButtonActivated
-end
 
 local moduleApiTable = {}
 do
@@ -97,20 +92,14 @@ do
 				moduleApiTable.VisibilityStateChanged:fire(ChatWindowState.Visible)
 			end
 
-			if GetFFlagUpgradeExpChatV2_0_0() then
-				ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
-			else
-				ExperienceChat.DispatchBindableEvent:Fire(ChatTopBarButtonActivated(ChatWindowState.Visible))
-			end
+			ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
 		end
 
 		function moduleApiTable:SetVisible(visible)
 			ChatWindowState.Visible = visible
 
-			if GetFFlagUpgradeExpChatV2_0_0() then
-				if FFlagExperienceChatTopBarVisibilityFix then
-					ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
-				end
+			if FFlagExperienceChatTopBarVisibilityFix then
+				ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
 			end
 
 			local didFire = DispatchEvent("SetVisible", ChatWindowState.Visible)

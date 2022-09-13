@@ -13,7 +13,7 @@ local RecyclingBin = require(script.Parent.RecyclingBin)
 -------------FAST FLAGS------------
 -----------------------------------
 
--- None :)
+game:DefineFastFlag("TransformGarbageCreationRemoval", false)
 
 -----------------------------------
 --------------VARIABLES------------
@@ -33,6 +33,8 @@ local workplaneAccessor = nil
 
 local strayAdornee = nil
 
+local parentScreen = nil
+
 --measure
 local measureFrame1 = nil
 local measureLabel1 = nil
@@ -42,8 +44,8 @@ local measureFrame2 = nil
 local measureLabel2 = nil
 local unitLabel2 = nil
 
-local measureLine = {}
-local measureCone = {}
+local measureLines = {}
+local measureCones = {}
 
 local planeOriginLines = {}
 
@@ -466,12 +468,8 @@ local function initializeAdorns()
 	createAdorn(IMAGE_ADORN, R_XY, {rbxBlue, 0}, {rbxBlue, .3}, Vector2.new(1, 1), Vector2.new(1, 1), Vector3.new(-1, 1, -1), CFrame.new(Vector3.new(0,0,0), Vector3.new(0, 0, 1)), rotationArrow)
 	createAdorn(IMAGE_ADORN, R_XZ, {rbxGreen, 0}, {rbxGreen, .3}, Vector2.new(1, 1), Vector2.new(1, 1), Vector3.new(-1, 1, 1), CFrame.new(Vector3.new(0,0,0), Vector3.new(0, 1, 0)), rotationArrow)
 	createAdorn(IMAGE_ADORN, R_YZ, {rbxRed, 0}, {rbxRed, .3}, Vector2.new(1, 1), Vector2.new(1, 1), Vector3.new(1, 1, 1), CFrame.new(Vector3.new(0,0,0), Vector3.new(1, 0, 0)), rotationArrow)
-			
-	local planeAdorn = Instance.new("ImageHandleAdornment", cg)
-	planeAdorn.Image = planeImage
-	planeAdorn.Visible = false
 	
-	local parentScreen = Instance.new("ScreenGui",  cg)
+	parentScreen = Instance.new("ScreenGui",  cg)
 	parentScreen.Name = "PrecisionDraggerGui"
 	
 	local imageLabel = Instance.new("ImageLabel", parentScreen)
@@ -503,7 +501,6 @@ local function initializeAdorns()
 	rotateAxisLine[3] = rotateAxisLine[1]:Clone()
 	rotateAxisLine[3].Parent = cg
 	rotateAxisLine[3].Color3 = rbxBlue
-	
 	--measure
 	
 	if not strayAdornee then
@@ -541,29 +538,29 @@ local function initializeAdorns()
 		strayAdornee.Anchored = true
 		strayAdornee.CFrame = CFrame.new()
 		
-		measureLine[1] = Instance.new("LineHandleAdornment", cg)
-		measureLine[1].Visible = false
-		measureLine[1].Color3 = black
-		measureLine[1].Adornee = strayAdornee
-		measureLine[1].AlwaysOnTop = true
-		measureLine[1].ZIndex = 5
+		measureLines[1] = Instance.new("LineHandleAdornment", cg)
+		measureLines[1].Visible = false
+		measureLines[1].Color3 = black
+		measureLines[1].Adornee = strayAdornee
+		measureLines[1].AlwaysOnTop = true
+		measureLines[1].ZIndex = 5
 		
-		measureLine[2] = measureLine[1]:Clone()
-		measureLine[2].Parent = cg
+		measureLines[2] = measureLines[1]:Clone()
+		measureLines[2].Parent = cg
 		
-		measureLine[3] = measureLine[1]:Clone()
-		measureLine[3].Parent = cg
+		measureLines[3] = measureLines[1]:Clone()
+		measureLines[3].Parent = cg
 		
-		measureLine[4] = measureLine[1]:Clone()
-		measureLine[4].Parent = cg
+		measureLines[4] = measureLines[1]:Clone()
+		measureLines[4].Parent = cg
 		
-		measureLine[5] = measureLine[1]:Clone()
-		measureLine[5].Parent = cg
+		measureLines[5] = measureLines[1]:Clone()
+		measureLines[5].Parent = cg
 		
-		measureLine[6] = measureLine[1]:Clone()
-		measureLine[6].Parent = cg
+		measureLines[6] = measureLines[1]:Clone()
+		measureLines[6].Parent = cg
 		
-		planeOriginLines[1] = measureLine[1]:Clone()
+		planeOriginLines[1] = measureLines[1]:Clone()
 		planeOriginLines[1].Color3 = yellow
 		planeOriginLines[1].Parent = cg
 		planeOriginLines[1].Thickness = 2
@@ -574,23 +571,23 @@ local function initializeAdorns()
 			planeOriginLines[i].Parent = cg
 		end
 				
-		measureCone[1] = Instance.new("ConeHandleAdornment", cg)
-		measureCone[1].Visible = false
-		measureCone[1].Color3 = black
-		measureCone[1].Adornee = strayAdornee
-		measureCone[1].Height = 0.5
-		measureCone[1].Radius = 0.1
-		measureCone[1].AlwaysOnTop = true
-		measureCone[1].ZIndex = 5
+		measureCones[1] = Instance.new("ConeHandleAdornment", cg)
+		measureCones[1].Visible = false
+		measureCones[1].Color3 = black
+		measureCones[1].Adornee = strayAdornee
+		measureCones[1].Height = 0.5
+		measureCones[1].Radius = 0.1
+		measureCones[1].AlwaysOnTop = true
+		measureCones[1].ZIndex = 5
 		
-		measureCone[2] = measureCone[1]:Clone()
-		measureCone[2].Parent = cg
+		measureCones[2] = measureCones[1]:Clone()
+		measureCones[2].Parent = cg
 		
-		measureCone[3] = measureCone[1]:Clone()
-		measureCone[3].Parent = cg
+		measureCones[3] = measureCones[1]:Clone()
+		measureCones[3].Parent = cg
 		
-		measureCone[4] = measureCone[1]:Clone()
-		measureCone[4].Parent = cg
+		measureCones[4] = measureCones[1]:Clone()
+		measureCones[4].Parent = cg
 		
 		-- mini plane		
 		miniPlaneLines[1] = Instance.new("ImageLabel", parentScreen)
@@ -658,19 +655,19 @@ local function setTextVisible(measureFrame, value, location)
 end
 
 local function setSizeLineVisible1(value)
-	measureLine[1].Visible = value
-	measureLine[2].Visible = value
-	measureLine[3].Visible = value
-	measureCone[1].Visible = value
-	measureCone[2].Visible = value
+	measureLines[1].Visible = value
+	measureLines[2].Visible = value
+	measureLines[3].Visible = value
+	measureCones[1].Visible = value
+	measureCones[2].Visible = value
 end
 
 local function setSizeLineVisible2(value)
-	measureLine[4].Visible = value
-	measureLine[5].Visible = value
-	measureLine[6].Visible = value
-	measureCone[3].Visible = value
-	measureCone[4].Visible = value
+	measureLines[4].Visible = value
+	measureLines[5].Visible = value
+	measureLines[6].Visible = value
+	measureCones[3].Visible = value
+	measureCones[4].Visible = value
 end
 
 local function setRotateVisible(value)
@@ -1279,7 +1276,7 @@ local function setCurrentHandle(value)
 end
 
 local function scaleOne(point1, point2, direction)
-	setLinePosition(measureCone[1], measureCone[2], measureLine[1], measureLine[2], measureLine[3], point1, point2, direction)
+	setLinePosition(measureCones[1], measureCones[2], measureLines[1], measureLines[2], measureLines[3], point1, point2, direction)
 	local mag = (point1 - point2).magnitude
 	
 	setUnitText(measureFrame1, measureLabel1, unitLabel1, string.format("%.2f",mag), TYPE_STUDS)
@@ -1289,7 +1286,7 @@ local function scaleOne(point1, point2, direction)
 end
 
 local function scaleTwo(point1, point2, direction)
-	setLinePosition(measureCone[3], measureCone[4], measureLine[4], measureLine[5], measureLine[6], point1, point2, direction)
+	setLinePosition(measureCones[3], measureCones[4], measureLines[4], measureLines[5], measureLines[6], point1, point2, direction)
 	local mag = (point1 - point2).magnitude
 	
 	setUnitText(measureFrame2, measureLabel2, unitLabel2, string.format("%.2f",mag), TYPE_STUDS)
@@ -1375,7 +1372,7 @@ local function destroyAdorns()
     for _, shadow in pairs(shadowKeeper) do
         shadow:Destroy()
     end
-    shadowKeeper = {}
+	shadowKeeper = {}
 
     for _, plane in pairs(planeKeeper) do
         plane:Destroy()
@@ -1392,10 +1389,30 @@ local function destroyAdorns()
     end
     rotateLines = {}
 
+	if game:GetFastFlag("TransformGarbageCreationRemoval") then
+		for _, measureLine in pairs(measureLines) do
+			measureLine:Destroy()
+		end
+		measureLines = {}
+
+		for _, planeOriginLine in pairs(planeOriginLines) do
+			planeOriginLine:Destroy()
+		end
+		planeOriginLines = {}
+
+		for _, measureCone in pairs(measureCones) do
+			measureCone:Destroy()
+		end
+		measureCones = {}
+
+		parentScreen:Destroy()
+		parentScreen = nil
+	end
+
     for _, ral in pairs(rotateAxisLine) do
         ral.Parent = nil
     end
-	
+
 	strayAdornee:Destroy()
 	strayAdornee = nil
 		

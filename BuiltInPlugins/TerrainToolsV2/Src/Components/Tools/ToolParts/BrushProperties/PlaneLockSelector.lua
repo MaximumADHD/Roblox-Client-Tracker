@@ -1,4 +1,3 @@
-local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -6,7 +5,6 @@ local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local ContextItems = if FFlagRemoveUILibraryCompatLocalization then nil else require(Plugin.Src.ContextItems)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local PlaneLockType = TerrainEnums.PlaneLockType
@@ -18,7 +16,7 @@ local SingleSelectButtonGroup = require(ToolParts.SingleSelectButtonGroup)
 local PlaneLockSelector = Roact.PureComponent:extend("PlaneLockSelector")
 
 function PlaneLockSelector:render()
-	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
+	local localization = self.props.Localization
 
 	local layoutOrder = self.props.LayoutOrder
 	local planeLock = self.props.planeLock
@@ -50,7 +48,7 @@ function PlaneLockSelector:render()
 end
 
 PlaneLockSelector = withContext({
-	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
+	Localization = ContextServices.Localization,
 })(PlaneLockSelector)
 
 return PlaneLockSelector

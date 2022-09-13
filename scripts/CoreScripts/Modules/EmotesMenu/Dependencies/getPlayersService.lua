@@ -1,4 +1,3 @@
---!nonstrict
 local MockPlayersService = require(script.Parent.MockPlayersService)
 local Players = game:GetService("Players")
 

@@ -1,10 +1,8 @@
-local FFlagRemoveUILibrarySeparator = game:GetFastFlag("RemoveUILibrarySeparator")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
--- TODO: jbousellam - remove with FFlagRemoveUILibrarySeparator
-local UILibrary = require(Plugin.Packages.UILibrary)
-local Separator = if FFlagRemoveUILibrarySeparator then Framework.UI.Separator else UILibrary.Component.Separator
+
+local Separator = Framework.UI.Separator
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -90,8 +88,6 @@ function TileGame:render()
 		}),
 
 		Separator = Roact.createElement(Separator, {
-			Weight = if FFlagRemoveUILibrarySeparator then nil else 1,
-			Padding = if FFlagRemoveUILibrarySeparator then nil else 10,
 			Position = UDim2.new(0.5, 0, 1, PADDING),
 		}),
 

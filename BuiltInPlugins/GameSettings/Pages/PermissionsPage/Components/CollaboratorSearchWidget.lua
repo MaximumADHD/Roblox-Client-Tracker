@@ -1,5 +1,3 @@
-local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFitContent")
-
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -29,16 +27,6 @@ local AddGroupCollaborator = require(Page.Thunks.AddGroupCollaborator)
 local SearchCollaborators = require(Page.Thunks.SearchCollaborators)
 
 local IsGroupGame = require(Page.Selectors.IsGroupGame)
-
-local FitToContent
-if not FFlagGameSettingsRemoveFitContent then
-	local UILibrary = require(Plugin.Packages.UILibrary)
-	local createFitToContent = UILibrary.Component.createFitToContent
-	FitToContent = createFitToContent("Frame", "UIListLayout", {
-		SortOrder = Enum.SortOrder.LayoutOrder,
-		Padding = UDim.new(0, 32),
-	})
-end
 
 local PERMISSIONS_ID = "Permissions"
 
@@ -285,20 +273,13 @@ function CollaboratorSearchWidget:render()
 		}),
 	}
 
-	if FFlagGameSettingsRemoveFitContent then
-		return Roact.createElement(Pane, {
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			AutomaticSize = Enum.AutomaticSize.Y,
-			Layout = Enum.FillDirection.Vertical,
-			LayoutOrder = layoutOrder,
-			Spacing = UDim.new(0, 32),
-		}, children)
-	else
-		return Roact.createElement(FitToContent, {
-			BackgroundTransparency = 1,
-			LayoutOrder = layoutOrder,
-		}, children)
-	end
+	return Roact.createElement(Pane, {
+		HorizontalAlignment = Enum.HorizontalAlignment.Left,
+		AutomaticSize = Enum.AutomaticSize.Y,
+		Layout = Enum.FillDirection.Vertical,
+		LayoutOrder = layoutOrder,
+		Spacing = UDim.new(0, 32),
+	}, children)
 end
 
 CollaboratorSearchWidget = withContext({

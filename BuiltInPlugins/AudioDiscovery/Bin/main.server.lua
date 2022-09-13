@@ -29,12 +29,6 @@ if not ok or not isEdit then
 	return
 end
 
--- New Plugin Setup: Uncomment this line and replace with your flag's name.
-local FLAG = game:GetFastFlag("EnableAudioDiscoveryPlugin")
-if not FLAG then
-	return
-end
-
 local commonInit = require(script.Parent.commonInit)
 commonInit()
 

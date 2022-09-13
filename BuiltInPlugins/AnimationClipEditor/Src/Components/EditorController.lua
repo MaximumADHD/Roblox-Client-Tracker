@@ -38,6 +38,8 @@ local StartScreen = require(Plugin.Src.Components.StartScreen)
 local FloorGrid = require(Plugin.Src.Components.FloorGrid)
 local ChangeFPSPrompt = require(Plugin.Src.Components.ChangeFPSPrompt)
 local ChangePlaybackSpeedPrompt = require(Plugin.Src.Components.ChangePlaybackSpeedPrompt)
+local ReduceKeyframesDialog = require(Plugin.Src.Components.ReduceKeyframesDialog)
+
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local PathUtils = require(Plugin.Src.Util.PathUtils)
 
@@ -66,6 +68,7 @@ local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
 local SwitchEditorMode = require(Plugin.Src.Thunks.SwitchEditorMode)
 local SetCreatingAnimationFromVideo = require(Plugin.Src.Actions.SetCreatingAnimationFromVideo)
 local SetLastSelectedPath = require(Plugin.Src.Actions.SetLastSelectedPath)
+local SetReduceKeyframesDialogMode = require(Plugin.Src.Actions.SetReduceKeyframesDialogMode)
 
 local Playback = require(Plugin.Src.Components.Playback)
 local InstanceSelector = require(Plugin.Src.Components.InstanceSelector)
@@ -80,6 +83,7 @@ local GetFFlagFaceControlsEditorFixNonChannelPath = require(Plugin.LuaFlags.GetF
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 local GetFFlagFixSelectionRightArrow = require(Plugin.LuaFlags.GetFFlagFixSelectionRightArrow)
 local GetFFlagFixTrackListSelection = require(Plugin.LuaFlags.GetFFlagFixTrackListSelection)
+local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
 
 local EditorController = Roact.PureComponent:extend("EditorController")
 
@@ -118,6 +122,10 @@ function EditorController:init()
 		self:setState({
 			showChangePlaybackSpeedPrompt = false,
 		})
+	end
+
+	self.hideReduceKeyframesDialog = function(): ()
+		self.props.SetReduceKeyframesDialogMode(Constants.REDUCE_KEYFRAMES_DIALOG_MODE.Hidden)
 	end
 
 	self.setTopTrackIndex = function(index)
@@ -511,6 +519,7 @@ function EditorController:render()
 
 	local colorsPosition = (showEvents and Constants.TRACK_HEIGHT or 0) + Constants.SUMMARY_TRACK_HEIGHT
 	local showDopeSheet = props.EditorMode == Constants.EDITOR_MODE.DopeSheet
+	local showReduceKeyframesDialog = props.ReduceKeyframesDialogMode ~= Constants.REDUCE_KEYFRAMES_DIALOG_MODE.Hidden
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -619,7 +628,7 @@ function EditorController:render()
 					}),
 				}),
 
-				
+
 				KeyboardListener = Roact.createElement(KeyboardListener, {
 					OnKeyPressed = function(input)
 						if Input.isUp(input.KeyCode) then
@@ -756,6 +765,12 @@ function EditorController:render()
 				OnClose = self.hidePromotePrompt,
 			})
 			else nil,
+
+		ReduceKeyframesDialog = if GetFFlagKeyframeReduction() and showReduceKeyframesDialog
+			then Roact.createElement(ReduceKeyframesDialog, {
+				OnClose = self.hideReduceKeyframesDialog,
+			})
+			else nil,
 	})
 end
 
@@ -817,6 +832,7 @@ local function mapStateToProps(state)
 		AnimationImportProgress = status.AnimationImportProgress,
 		AnimationImportStatus = status.AnimationImportStatus,
 		CreatingAnimationFromVideo = status.CreatingAnimationFromVideo,
+		ReduceKeyframesDialogMode = status.ReduceKeyframesDialogMode,
 	}
 end
 
@@ -915,6 +931,10 @@ local function mapDispatchToProps(dispatch)
 
 		SetEditorMode = function(editorMode)
 			dispatch(SetEditorMode(editorMode))
+		end,
+
+		SetReduceKeyframesDialogMode = function(showMode: string): ()
+			dispatch(SetReduceKeyframesDialogMode(showMode))
 		end,
 
 		SwitchEditorMode = function(editorMode, analytics)

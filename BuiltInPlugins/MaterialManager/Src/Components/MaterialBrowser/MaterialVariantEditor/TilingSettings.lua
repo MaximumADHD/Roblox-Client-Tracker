@@ -13,6 +13,7 @@ local Analytics = ContextServices.Analytics
 local Localization = ContextServices.Localization
 
 local UI = Framework.UI
+local Pane = UI.Pane
 local ExpandablePane = UI.ExpandablePane
 local TextInput = UI.TextInput
 local SelectInput = UI.SelectInput
@@ -38,7 +39,8 @@ local settingsNames = getSettingsNames()
 
 export type Props = {
 	LayoutOrder: number?,
-	MaterialVariant: MaterialVariant,
+	PBRMaterial: MaterialVariant | TerrainDetail,
+	Expandable: boolean?,
 }
 
 type _Props = Props & {
@@ -56,6 +58,7 @@ type _Style = {
 	CustomExpandablePane: any,
 	CustomSelectInput: any,
 	DialogColumnSize: UDim2,
+	TerrainDetailDialogColumnSize: UDim2,
 	ItemSpacing: number,
 	LabelColumnWidth: UDim,
 }
@@ -64,7 +67,7 @@ local TilingSettings = Roact.PureComponent:extend("TilingSettings")
 
 function TilingSettings:init()
 	self.state = {
-		studsPerTile = tostring(self.props.MaterialVariant.StudsPerTile),
+		studsPerTile = tostring(self.props.PBRMaterial.StudsPerTile),
 	}
 	self.materialPatterns = {}
 
@@ -87,12 +90,12 @@ function TilingSettings:init()
 
 		local numberFromText = getNumberFromText(self.state.studsPerTile)
 		if numberFromText then
-			props.GeneralServiceController:setStudsPerTile(props.MaterialVariant, numberFromText)
+			props.GeneralServiceController:setStudsPerTile(props.PBRMaterial, numberFromText)
 			self.setStudsPerTileStatus(nil)
 		else
 			self.setStudsPerTileStatus(localization:getText("CreateDialog", "ErrorStudsPerTile"))
 			self:setState({
-				studsPerTile = tostring(props.MaterialVariant.StudsPerTile),
+				studsPerTile = tostring(props.PBRMaterial.StudsPerTile),
 			})
 		end
 	end
@@ -101,14 +104,14 @@ function TilingSettings:init()
 		local props: _Props = self.props
 
 		if materialPattern then
-			props.GeneralServiceController:setMaterialPattern(props.MaterialVariant, materialPatterns[index])
+			props.GeneralServiceController:setMaterialPattern(props.PBRMaterial, materialPatterns[index])
 		end
 	end
 
 	self.onExpandedChanged = function()
 		local props: _Props = self.props
-
-		props.dispatchSetExpandedPane(settingsNames.TilingSettings, not props.ExpandedPane)
+		local settingName = settingsNames.TilingSettings
+		props.dispatchSetExpandedPane(settingName, not props.ExpandedPane)
 	end
 end
 
@@ -125,12 +128,11 @@ function TilingSettings:didMount()
 	self:setState({}) -- Force a rerender of the patterns list
 end
 
-function TilingSettings:didUpdate(prevProps)
-	if prevProps.MaterialVariant.StudsPerTile ~= self.props.MaterialVariant.StudsPerTile then
+function TilingSettings:didUpdate(_, prevState)
+	if self.state.studsPerTile ~= self.props.PBRMaterial.StudsPerTile
+		and prevState.studsPerTile == self.state.studsPerTile then
 		self:setState({
-			status = Enum.PropertyStatus.Ok,
-			studsPerTile = self.props.MaterialVariant.StudsPerTile,
-			studsPerTileMessage = Roact.None,
+			studsPerTile = self.props.PBRMaterial.StudsPerTile,
 		})
 	end
 end
@@ -143,21 +145,14 @@ function TilingSettings:render()
 
 	local currentIndex = 1
 	for index, materialPattern in ipairs(materialPatterns) do
-		if materialPattern == props.MaterialVariant.MaterialPattern then
+		if materialPattern == props.PBRMaterial.MaterialPattern then
 			currentIndex = index
 		end
 	end
 
-	return Roact.createElement(ExpandablePane, {
-		LayoutOrder = props.LayoutOrder,
-		HorizontalAlignment = Enum.HorizontalAlignment.Left,
-		ContentPadding = style.ContentPadding,
-		ContentSpacing = style.ItemSpacing,
-		Text = localization:getText("MaterialTiling", "Tiling"),
-		Style = style.CustomExpandablePane,
-		Expanded = props.ExpandedPane,
-		OnExpandedChanged = self.onExpandedChanged,
-	}, {
+	local size = if props.Expandable then style.DialogColumnSize else style.TerrainDetailDialogColumnSize
+
+	local children = {
 		StudsPerTile = Roact.createElement(LabeledElement, {
 			LabelColumnWidth = style.LabelColumnWidth,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
@@ -167,7 +162,7 @@ function TilingSettings:render()
 		}, {
 			Roact.createElement(TextInput, {
 				Style = "FilledRoundedBorder",
-				Size = style.DialogColumnSize,
+				Size = size,
 				Text = self.state.studsPerTile,
 				OnTextChanged = self.onStudsPerTileChanged,
 				OnFocusLost = self.onFocusLost,
@@ -181,12 +176,32 @@ function TilingSettings:render()
 			Roact.createElement(SelectInput, {
 				Style = style.CustomSelectInput,
 				Items = self.materialPatterns,
-				Size = style.DialogColumnSize,
+				Size = size,
 				OnItemActivated = self.onMaterialPatternSelected,
 				SelectedIndex = currentIndex,
 			}),
-		}),
-	})
+		})
+	}
+
+	if props.Expandable then
+		return Roact.createElement(ExpandablePane, {
+			LayoutOrder = props.LayoutOrder,
+			ContentPadding = style.ContentPadding,
+			ContentSpacing = style.ItemSpacing,
+			Text = localization:getText("MaterialTiling", "Tiling"),
+			Style = style.CustomExpandablePane,
+			Expanded = props.ExpandedPane,
+			OnExpandedChanged = self.onExpandedChanged,
+		}, children)
+	else
+		return Roact.createElement(Pane, {
+			AutomaticSize = Enum.AutomaticSize.Y,
+			LayoutOrder = props.LayoutOrder,
+			Layout = Enum.FillDirection.Vertical,
+			Spacing = style.ItemSpacing,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+		}, children)
+	end
 end
 
 TilingSettings = withContext({

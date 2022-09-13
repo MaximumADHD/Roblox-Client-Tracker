@@ -138,12 +138,11 @@ function GeneralSettings:didMount()
 	self:setState({}) -- Force a rerender of the baseMaterials list
 end
 
-function GeneralSettings:didUpdate(prevProps)
-	if prevProps.MaterialVariant.Name ~= self.props.MaterialVariant.Name then
+function GeneralSettings:didUpdate(_, prevState)
+	if self.state.name ~= self.props.MaterialVariant.Name 
+		and prevState.name == self.state.name then
 		self:setState({
 			name = self.props.MaterialVariant.Name,
-			nameMessage = Roact.None,
-			status = Enum.PropertyStatus.Ok,
 		})
 	end
 end

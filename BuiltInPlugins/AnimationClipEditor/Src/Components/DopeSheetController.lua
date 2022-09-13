@@ -63,6 +63,8 @@ local Pause = require(Plugin.Src.Actions.Pause)
 
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 
+local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
+
 local DopeSheetController = Roact.Component:extend("DopeSheetController")
 
 function DopeSheetController:init()
@@ -204,7 +206,7 @@ function DopeSheetController:init()
 	end
 
 	self.onSelectDragStarted = function(input)
-		if not self.state.showContextMenu then
+		if not self.state.showContextMenu and not (GetFFlagKeyframeReduction() and self.props.ReadOnly) then
 			self.updateSelectDragStart(input.Position)
 			self.updateSelectDragEnd(input.Position)
 			self:setState({
@@ -375,7 +377,9 @@ function DopeSheetController:handleTimelineInputBegan(input, keysHeld)
 		if Input.isMultiSelectKey(input.KeyCode) then
 			-- Start multi selecting on ctrl hold
 			self.isMultiSelecting = true
-		elseif Input.isDeleteKey(input.KeyCode) then
+		elseif not GetFFlagKeyframeReduction() and Input.isDeleteKey(input.KeyCode) then
+			-- We don't need this anymore. DeleteSelectedKeyframes is handled
+			-- by TrackActions or KeyframeActions
 			self.props.DeleteSelectedKeyframes(self.props.Analytics)
 		end
 	elseif input.UserInputType == Enum.UserInputType.MouseButton1 then
@@ -446,7 +450,10 @@ end
 
 function DopeSheetController:handleKeyframeInputBegan(instance, path, tck, selected, input)
 	-- Select keyframe if not selected
-	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+	if
+		not (GetFFlagKeyframeReduction() and self.props.ReadOnly)
+		and input.UserInputType == Enum.UserInputType.MouseButton1
+	then
 		self.mouseDownOnKeyframe = true
 
 		if selected then
@@ -812,6 +819,7 @@ local function mapStateToProps(state, props)
 		SnapMode = status.SnapMode,
 		InvalidIdWarning = state.Notifications.InvalidAnimation,
 		Tracks = status.Tracks,
+		ReadOnly = status.ReadOnly,
 	}
 
 	return stateToProps
@@ -854,11 +862,11 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetSelectedEvents({}))
 		end,
 
-		DeleteSelectedKeyframes = function(analytics)
+		DeleteSelectedKeyframes = if not GetFFlagKeyframeReduction() then function(analytics)
 			dispatch(AddWaypoint())
 			dispatch(DeleteSelectedKeyframes(analytics))
 			dispatch(SetRightClickContextInfo({}))
-		end,
+		end else nil,
 
 		SetRightClickContextInfo = function(info)
 			dispatch(SetRightClickContextInfo(info))

@@ -88,7 +88,8 @@ function AnimationControlPanel:render()
 	local showAnimationImportProgress = props.ShowAnimationImportProgress
 	local hideAnimationImportProgress = props.HideAnimationImportProgress
 	local updateAnimationImportProgress = props.UpdateAnimationImportProgress
-
+	local readOnly = props.ReadOnly
+	
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, Constants.TIMELINE_HEIGHT),
 		BorderSizePixel = 1,
@@ -139,6 +140,7 @@ function AnimationControlPanel:render()
 			EditingLength = editingLength,
 			StepAnimation = stepAnimation,
 			UpdateEditingLength = updateEditingLength,
+			ReadOnly = readOnly,
 			LayoutOrder = 2,
 		}),
 	})
@@ -151,9 +153,11 @@ AnimationControlPanel = withContext({
 
 local function mapStateToProps(state)
 	return {
+		FrameRate = state.Status.FrameRate,
 		PlayState = state.Status.PlayState,
+		ReadOnly = state.Status.ReadOnly,
 		RootInstance = state.Status.RootInstance,
-		FrameRate = state.Status.FrameRate
+
 	}
 end
 

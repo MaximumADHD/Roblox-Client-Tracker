@@ -69,7 +69,7 @@ local SelectKeyframeRange = require(Plugin.Src.Thunks.Selection.SelectKeyframeRa
 local SetKeyframeTangent = require(Plugin.Src.Thunks.SetKeyframeTangent)
 local SetSelectedKeyframeData = require(Plugin.Src.Thunks.Selection.SetSelectedKeyframeData)
 
-local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
 
 local CurveEditorController = Roact.Component:extend("CurveEditorController")
 
@@ -301,7 +301,11 @@ function CurveEditorController:init()
 	end
 
 	self.onSelectDragStarted = function(input: any): ()
-		if not self.state.ShowKeyframeMenu and not self.state.ShotTangentMenu then
+		if
+			not self.state.ShowKeyframeMenu
+			and not self.state.ShowTangentMenu
+			and not (GetFFlagKeyframeReduction() and self.props.ReadOnly)
+		then
 			self.updateSelectDragStart(input.Position)
 			self.updateSelectDragEnd(input.Position)
 			self:setState({
@@ -479,7 +483,10 @@ function CurveEditorController:init()
 
 	self.handleKeyframeInputBegan = function(instanceName: string, path: PathUtils.Path, tck: number, selected: boolean, input: any): ()
 		-- Select keyframe if not selected
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		if
+			not (GetFFlagKeyframeReduction() and self.props.ReadOnly)
+			and input.UserInputType == Enum.UserInputType.MouseButton1
+		then
 			self.mouseDown = true
 
 			if selected then
@@ -519,7 +526,10 @@ function CurveEditorController:init()
 	end
 
 	self.handleTangentInputBegan = function(input: any): ()
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		if
+			not (GetFFlagKeyframeReduction() and self.props.ReadOnly)
+			and input.UserInputType == Enum.UserInputType.MouseButton1
+		then
 			self.mouseDown = true
 		end
 	end
@@ -749,7 +759,9 @@ function CurveEditorController:handleCanvasInputBegan(input: any, keysHeld: bool
 		if Input.isMultiSelectKey(input.KeyCode) then
 			-- Start multi selecting on ctrl hold
 			self.isMultiSelecting = true
-		elseif Input.isDeleteKey(input.KeyCode) then
+		elseif not GetFFlagKeyframeReduction() and Input.isDeleteKey(input.KeyCode) then
+			-- We don't need this anymore. DeleteSelectedKeyframes is handled by
+			-- KeyframeActions
 			self.props.DeleteSelectedKeyframes(self.props.Analytics)
 		end
 		if Input.isControl(input.KeyCode) then
@@ -812,7 +824,6 @@ end
 function CurveEditorController:render(): (any)
 	local props = self.props
 	local state = self.state
-	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 
 	local animationData = props.AnimationData
 	local isMounted = self.isMounted
@@ -1028,6 +1039,7 @@ local function mapStateToProps(state): ({[string]: any})
 		AnimationData = state.AnimationData,
 		Active = status.Active,
 		FrameRate = status.FrameRate,
+		ReadOnly = status.ReadOnly,
 		SelectedKeyframes = status.SelectedKeyframes,
 		SelectedTracks = status.SelectedTracks,
 		SnapMode = status.SnapMode,
@@ -1044,11 +1056,11 @@ local function mapDispatchToProps(dispatch): ({[string]: any})
 			dispatch(AddWaypoint())
 		end,
 
-		DeleteSelectedKeyframes = function(analytics: any): ()
+		DeleteSelectedKeyframes = if not GetFFlagKeyframeReduction() then function(analytics: any): ()
 			dispatch(AddWaypoint())
 			dispatch(DeleteSelectedKeyframes(analytics))
 			dispatch(SetRightClickContextInfo({}))
-		end,
+		end else nil,
 
 		DeselectAllKeyframes = function(): ()
 			dispatch(SetSelectedKeyframes{})

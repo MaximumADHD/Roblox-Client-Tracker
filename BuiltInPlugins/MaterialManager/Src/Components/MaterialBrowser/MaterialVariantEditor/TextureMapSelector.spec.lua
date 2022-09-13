@@ -9,13 +9,13 @@ return function()
 	local mapType = "ColorMap"
 	local previewTitle = ""
 	local text = ""
-	local TestMaterialVariant
+	local TestPBRMaterial
 
 	local function createTestElement(props: TextureMapSelector.Props?)
 		props = props or {
 			LabelColumnWidth = labelColumnWidth,
 			MapType = mapType,
-			MaterialVariant = TestMaterialVariant,
+			PBRMaterial = TestPBRMaterial,
 			PreviewTitle = previewTitle,
 			Text = text,
 		}
@@ -26,14 +26,14 @@ return function()
 	end
 
 	beforeEach(function()
-		TestMaterialVariant = Instance.new("MaterialVariant")
+		TestPBRMaterial = Instance.new("MaterialVariant")
 	end)
 
 	afterEach(function()
-		if TestMaterialVariant then
-			TestMaterialVariant:Destroy()
+		if TestPBRMaterial then
+			TestPBRMaterial:Destroy()
 		end
-		TestMaterialVariant = nil
+		TestPBRMaterial = nil
 	end)
 
 	it("should create and destroy without errors", function()
@@ -47,7 +47,25 @@ return function()
 		local element = createTestElement({
 			LabelColumnWidth = labelColumnWidth,
 			MapType = mapType,
-			MaterialVariant = TestMaterialVariant,
+			PBRMaterial = TestPBRMaterial,
+			PreviewTitle = previewTitle,
+			Text = text,
+		})
+		local instance = Roact.mount(element, container)
+
+		local main = container:FindFirstChildOfClass("Frame")
+		expect(main).to.be.ok()
+		Roact.unmount(instance)
+	end)
+
+	it("should render terrain detail correctly", function()
+		TestPBRMaterial = Instance.new("TerrainDetail")
+		
+		local container = Instance.new("Folder")
+		local element = createTestElement({
+			LabelColumnWidth = labelColumnWidth,
+			MapType = mapType,
+			PBRMaterial = TestPBRMaterial,
 			PreviewTitle = previewTitle,
 			Text = text,
 		})

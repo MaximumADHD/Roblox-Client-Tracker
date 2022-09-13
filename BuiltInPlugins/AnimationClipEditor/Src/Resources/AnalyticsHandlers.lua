@@ -258,5 +258,21 @@ return function(analyticsService)
                 duration = duration,
             })
         end,
+
+        onKeyframeReductionApply = function(_, tracks, isChannelAnimation, before, after)
+            sendEvent("keyframeReductionApply", {
+                isChannelAnimation = isChannelAnimation,
+                tracks = tracks,
+                before = before,
+                after = after,
+            })
+        end,
+
+        onKeyframeReductionCancel = function(_, tracks, isChannelAnimation)
+            sendEvent("keyframeReductionCancel", {
+                isChannelAnimation = isChannelAnimation,
+                tracks = tracks,
+            })
+        end,
     }
 end

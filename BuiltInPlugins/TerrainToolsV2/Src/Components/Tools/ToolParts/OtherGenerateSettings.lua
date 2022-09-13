@@ -1,4 +1,3 @@
-local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -6,7 +5,6 @@ local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local ContextItems = if FFlagRemoveUILibraryCompatLocalization then nil else require(Plugin.Src.ContextItems)
 
 local ToolParts = script.Parent
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
@@ -29,7 +27,7 @@ function OtherGenerateSettings:init()
 end
 
 function OtherGenerateSettings:render()
-	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
+	local localization = self.props.Localization
 
 	return Roact.createElement(Panel, {
 		Title = localization:getText("Generate", "OtherSettings"),
@@ -51,7 +49,7 @@ function OtherGenerateSettings:render()
 end
 
 OtherGenerateSettings = withContext({
-	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
+	Localization = ContextServices.Localization,
 })(OtherGenerateSettings)
 
 return OtherGenerateSettings

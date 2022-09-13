@@ -6,7 +6,6 @@
 
 ]]
 local FFlagPlacePublishManagementUI2 = game:GetFastFlag("PlacePublishManagementUI2")
-local FFlagRemoveUILibrarySeparator = game:GetFastFlag("RemoveUILibrarySeparator")
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -40,7 +39,7 @@ local UI = Framework.UI
 local Button = if FFlagRemoveUILibraryButton then UI.Button else UILibrary.Component.RoundTextButton
 local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator then UI.LoadingIndicator else UILibrary.Component.LoadingIndicator
 local SearchBar = if FFlagDevFrameworkMigrateSearchBar then Framework.StudioUI.SearchBar else UILibrary.Component.SearchBar
-local Separator = if FFlagRemoveUILibrarySeparator then Framework.UI.Separator else UILibrary.Component.Separator
+local Separator = Framework.UI.Separator
 
 local ScreenChooseGame = Roact.PureComponent:extend("ScreenChooseGame")
 local SelectedItemKey = 0
@@ -146,8 +145,6 @@ function ScreenChooseGame:render()
 		}),
 
 		Sep1 = Roact.createElement(Separator, {
-			Weight = if FFlagRemoveUILibrarySeparator then nil else 2,
-			Padding = if FFlagRemoveUILibrarySeparator then nil else 20,
 			Position = UDim2.new(0.5, 0, 0, 50),
 		}),
 

@@ -97,7 +97,7 @@ function MeshPartTool:init()
 		end
 
 		local attachment = item:FindFirstChild(accessoryTypeInfo.Name)
-		local weld = item:FindFirstChildWhichIsA("WeldConstraint")
+		local weld = item:FindFirstChildWhichIsA("Weld")
 		if not attachment or not weld then
 			return
 		end

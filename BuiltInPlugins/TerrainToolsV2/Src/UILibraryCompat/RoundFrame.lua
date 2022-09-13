@@ -1,7 +1,6 @@
 --[[
 	Mostly the same as UILibrary RoundFrame component, but modified to use dev framework context
 ]]
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)

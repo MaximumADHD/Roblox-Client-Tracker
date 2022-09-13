@@ -1,5 +1,3 @@
-local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFitContent")
-
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -12,16 +10,6 @@ local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local Pane = UI.Pane
-
-local FitToContent
-if not FFlagGameSettingsRemoveFitContent then
-	local UILibrary = require(Plugin.Packages.UILibrary)
-	local createFitToContent = UILibrary.Component.createFitToContent
-	FitToContent = createFitToContent("Frame", "UIListLayout", {
-		SortOrder = Enum.SortOrder.LayoutOrder,
-		Padding = UDim.new(0, 32),
-	})
-end
 
 local UserCollaboratorItem = require(Page.Components.UserCollaboratorItem)
 local GroupCollaboratorItem = require(Page.Components.GroupCollaboratorItem)
@@ -65,20 +53,13 @@ function GameOwnerWidget:render()
 		})
 	}
 	
-	if FFlagGameSettingsRemoveFitContent then
-		return Roact.createElement(Pane, {
-			AutomaticSize = Enum.AutomaticSize.Y,
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			LayoutOrder = layoutOrder,
-			Layout = Enum.FillDirection.Vertical,
-			Spacing = UDim.new(0, 32),
-		}, children)
-	else
-		return Roact.createElement(FitToContent, {
-			LayoutOrder = layoutOrder,
-			BackgroundTransparency = 1,
-		}, children)
-	end
+	return Roact.createElement(Pane, {
+		AutomaticSize = Enum.AutomaticSize.Y,
+		HorizontalAlignment = Enum.HorizontalAlignment.Left,
+		LayoutOrder = layoutOrder,
+		Layout = Enum.FillDirection.Vertical,
+		Spacing = UDim.new(0, 32),
+	}, children)
 end
 
 GameOwnerWidget = withContext({

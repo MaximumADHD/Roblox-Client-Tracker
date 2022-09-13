@@ -1,4 +1,3 @@
-local FFlagRemoveUILibraryLocalization = game:GetFastFlag("RemoveUILibraryLocalization")
 local MockServiceWrapper = require(script.Parent.MockServiceWrapper)
 
 local Plugin = script.Parent.Parent.Parent
@@ -8,7 +7,6 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local withLocalization = if FFlagRemoveUILibraryLocalization then nil else require(Plugin.Packages.UILibrary).Localizing.withLocalization
 local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
 
 return function()
@@ -33,35 +31,25 @@ return function()
 
 	describe("Localization", function()
 		local function createTestLocalizedElement()
-			if FFlagRemoveUILibraryLocalization then
-				local testElement = Roact.PureComponent:extend("TestElement")
+			local testElement = Roact.PureComponent:extend("TestElement")
 
-				function testElement:render()
-					local localization = self.props.Localization
-					return Roact.createElement("TextLabel",{
-						Text = localization:getText("test", "Hello World")
-					})
-				end
-
-				testElement = withContext({
-					Localization = ContextServices.Localization,
-				})(testElement)
-
-				return testElement
-			else
-				return
+			function testElement:render()
+				local localization = self.props.Localization
+				return Roact.createElement("TextLabel",{
+					Text = localization:getText("test", "Hello World")
+				})
 			end
+
+			testElement = withContext({
+				Localization = ContextServices.Localization,
+			})(testElement)
+
+			return testElement
 		end
 
 		it("should supply a functional localization object to its children", function()
 			local element = Roact.createElement(MockServiceWrapper, {}, {
-				TestElement = Roact.createElement(if FFlagRemoveUILibraryLocalization then createTestLocalizedElement() else function()
-					return withLocalization(function(localization)
-						return Roact.createElement("TextLabel", {
-							Text = localization:getText("test", "Hello World")
-						})
-					end)
-				end)
+				TestElement = Roact.createElement(createTestLocalizedElement())
 			})
 
 			local container = Instance.new("Folder")

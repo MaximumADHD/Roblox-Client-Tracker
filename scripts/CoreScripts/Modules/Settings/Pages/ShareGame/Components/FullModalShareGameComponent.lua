@@ -1,7 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
-
-local RobloxGui = CoreGui.RobloxGui
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -14,24 +11,17 @@ local LayoutProvider = require(ShareGameComponents.LayoutProvider)
 
 local FullModalShareGameComponent = Roact.PureComponent:extend("FullModalShareGameComponent")
 
-local FFlagFixUsernamesAutoLocalizeIssue = require(RobloxGui.Modules.Flags.FFlagFixUsernamesAutoLocalizeIssue)
-
 function FullModalShareGameComponent:render()
 	local isVisible = self.props.isVisible
 	local analytics = self.props.analytics
 	local onAfterClosePage = self.props.onAfterClosePage
 	local store = self.props.store
 
-	local autoLocalize
-	if FFlagFixUsernamesAutoLocalizeIssue then
-		autoLocalize = false
-	end
-
 	return Roact.createElement(RoactRodux.StoreProvider, {
 		store = store,
 	}, {
 		screenGui = Roact.createElement("ScreenGui", {
-			AutoLocalize = autoLocalize,
+			AutoLocalize = false,
 			Enabled = isVisible,
 			DisplayOrder = -1,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,

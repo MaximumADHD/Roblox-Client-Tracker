@@ -44,6 +44,7 @@ local PreviewImage = require(Components.PromptSelectorWithPreview.PreviewImage)
 local getFFlagMaterialManagerVariantCreatorOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
 
 export type Props = {
+	ColumnWidth: number?,
 	SelectionName: string?,
 	PreviewTitle: string?,
 	HasSelection: boolean?,   -- Remove wih FFlagMaterialManagerVariantCreatorOverhaul
@@ -117,7 +118,9 @@ function PromptSelectorWithPreview:render()
 	local selectionName = props.SelectionName or ""
 	local previewTitle = props.PreviewTitle or ""
 
-	local columnWidth = style.ColumnWidth
+	local columnWidth = props.ColumnWidth or style.ColumnWidth
+	local iconImportPaddingLeft = (columnWidth - 60) / 2 - 5
+	local iconImportPaddingRight = (columnWidth - 60) / 2 + 5
 	local totalWidth = columnWidth + style.LabelColumnWidth.Offset
 	local previewSize = style.PreviewSize
 	local height = previewSize
@@ -193,8 +196,8 @@ function PromptSelectorWithPreview:render()
 					BackgroundColor = style.ButtonColor,
 					OnClick = props.PromptSelection,
 					Padding = {
-						Left = style.IconImportPaddingLeft,
-						Right = style.IconImportPaddingRight,
+						Left = if getFFlagMaterialManagerVariantCreatorOverhaul() then iconImportPaddingLeft else style.IconImportPaddingLeft,
+						Right = if getFFlagMaterialManagerVariantCreatorOverhaul() then iconImportPaddingRight else style.IconImportPaddingRight,
 					},
 				}),
 			}),

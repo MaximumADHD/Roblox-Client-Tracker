@@ -10,6 +10,7 @@
 		callback onMouseLeave()
 ]]
 local FFlagToolboxAddUnverifiedIcon = game:GetFastFlag("ToolboxAddUnverifiedIcon")
+local FFlagToolboxAddUnverifiedIconFollowUp = game:GetFastFlag("ToolboxAddUnverifiedIconFollowUp") and FFlagToolboxAddUnverifiedIcon
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -176,7 +177,7 @@ function AssetCreatorName:renderContent(localization, localizedContent, modalTar
 
 			CreatorBadge = showWarningIcon and Roact.createElement(VerifiedCreatorBadge, {
 				LayoutOrder = 2,
-				small = true,
+				small = if FFlagToolboxAddUnverifiedIconFollowUp then nil else true,
 			}),
 		})
 	else

@@ -1,7 +1,6 @@
 --[[
 	A customizable wrapper for tests that supplies all the required providers for component testing
 ]]
-local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -11,10 +10,10 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
-local PluginTheme = if FFlagUpdateConvertToPackageToDFContextServices then require(Plugin.Src.Resources.MakeTheme) else require(Plugin.Src.Resources.DEPRECATED_UILibraryTheme)
+local PluginTheme = require(Plugin.Src.Resources.MakeTheme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local NetworkInterfaceMock = require(Plugin.Src.Networking.NetworkInterfaceMock)
-local Localization = if FFlagUpdateConvertToPackageToDFContextServices then ContextServices.Localization else UILibrary.Studio.Localization
+local Localization = ContextServices.Localization
 local UILibraryWrapper = ContextServices.UILibraryWrapper
 
 local MockServiceWrapper = Roact.Component:extend("MockServiceWrapper")
@@ -30,7 +29,7 @@ function MockServiceWrapper:render()
 
 	local theme = self.props.theme
 	if not theme then
-		theme = if FFlagUpdateConvertToPackageToDFContextServices then PluginTheme(true) else PluginTheme.new()
+		theme = PluginTheme(true)
 	end
 	local networkInterface = self.props.networkInterface or NetworkInterfaceMock.new()
 	local plugin = self.props.plugin or {}
@@ -43,7 +42,7 @@ function MockServiceWrapper:render()
 		networkInterface = networkInterface,
 		store = store,
 		theme = theme,
-		uiLibWrapper = if FFlagUpdateConvertToPackageToDFContextServices then UILibraryWrapper.new(UILibrary) else nil,
+		uiLibWrapper = UILibraryWrapper.new(UILibrary),
 	}, children)
 end
 

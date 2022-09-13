@@ -33,6 +33,7 @@ local TextBox = require(Plugin.Src.Components.TextBox)
 local Tooltip = require(Plugin.Src.Components.Tooltip)
 
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
 
 local TimeDisplay = Roact.PureComponent:extend("TimeDisplay")
 
@@ -85,6 +86,7 @@ function TimeDisplay:render()
 	local frameRate = props.FrameRate
 	local textBoxTheme = theme.textBox
 	local playbackTheme = theme.playbackTheme
+	local readOnly = props.ReadOnly
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -128,6 +130,7 @@ function TimeDisplay:render()
 			LayoutOrder = 2,
 			ClearTextOnFocus = false,
 			FocusChanged = self.setEndTime,
+			ReadOnly = GetFFlagKeyframeReduction() and readOnly,
 		}, {
 			Tooltip = Roact.createElement(Tooltip, {
 				TextKey = "EndFrameBox",

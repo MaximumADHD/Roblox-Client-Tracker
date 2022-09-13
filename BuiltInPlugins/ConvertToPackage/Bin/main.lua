@@ -5,7 +5,6 @@ return function(plugin, pluginLoaderContext)
 	end
 
 	local FFlagDebugBuiltInPluginModalsNotBlocking = game:GetFastFlag("DebugBuiltInPluginModalsNotBlocking")
-	local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 
 	local Plugin = script.Parent.Parent
 	local Roact = require(Plugin.Packages.Roact)
@@ -16,7 +15,7 @@ return function(plugin, pluginLoaderContext)
 	local UILibraryWrapper = ContextServices.UILibraryWrapper
 
 	local Util = Plugin.Src.Util
-	local PluginTheme = if FFlagUpdateConvertToPackageToDFContextServices then require(Plugin.Src.Resources.MakeTheme) else require(Plugin.Src.Resources.DEPRECATED_UILibraryTheme)
+	local PluginTheme = require(Plugin.Src.Resources.MakeTheme)
 	local Constants = require(Util.Constants)
 
 	local MainReducer = require(Plugin.Src.Reducers.MainReducer)
@@ -26,7 +25,7 @@ return function(plugin, pluginLoaderContext)
 	-- localization
 	local SourceStrings = Plugin.Src.Resources.SourceStrings
 	local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
-	local Localization = if FFlagUpdateConvertToPackageToDFContextServices then ContextServices.Localization else UILibrary.Studio.Localization
+	local Localization = ContextServices.Localization
 
 	local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
 
@@ -90,7 +89,7 @@ return function(plugin, pluginLoaderContext)
 			Rodux.thunkMiddleware,
 		})
 
-		local theme = if FFlagUpdateConvertToPackageToDFContextServices then PluginTheme() else PluginTheme.new()
+		local theme = PluginTheme()
 
 		local networkInterface = NetworkInterface.new()
 		local assetConfigComponent = Roact.createElement(ServiceWrapper, {
@@ -100,7 +99,7 @@ return function(plugin, pluginLoaderContext)
 			focusGui = assetConfigGui,
 			networkInterface = networkInterface,
 			localization = localization,
-			uiLibWrapper = if FFlagUpdateConvertToPackageToDFContextServices then UILibraryWrapper.new(UILibrary) else nil,
+			uiLibWrapper = UILibraryWrapper.new(UILibrary),
 		}, {
 			Roact.createElement(ScreenSelect, {
 				onClose = onAssetConfigDestroy,

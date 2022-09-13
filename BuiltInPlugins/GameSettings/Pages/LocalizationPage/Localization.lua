@@ -12,8 +12,6 @@
 		bool UseTranslatedContentEnabled
 		list Languages enabled for automatic translation
 ]]
-local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFitContent")
-
 local StudioService = game:GetService("StudioService")
 
 local Page = script.Parent
@@ -42,15 +40,6 @@ local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else 
 
 local FrameworkUtil = Framework.Util
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
-
-local FitToContent
-if not FFlagGameSettingsRemoveFitContent then
-	local createFitToContent = UILibrary.Component.createFitToContent
-	FitToContent = createFitToContent("Frame", "UIListLayout", {
-		SortOrder = Enum.SortOrder.LayoutOrder,
-		Padding = UDim.new(0, 10),
-	})
-end
 
 local Dropdown = require(Plugin.Src.Components.Dropdown)
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
@@ -334,18 +323,12 @@ local function displayLocalizationSettingsPage(props, localization, theme)
 			TextSize = theme.fontStyle.Subtitle.TextSize,
 		}),
 		AutoTranslationOptions = showAutoTranslationOptions and (
-			if FFlagGameSettingsRemoveFitContent then
-				Roact.createElement(Pane, {
-					Layout = Enum.FillDirection.Vertical,
-					LayoutOrder = layoutIndex:getNextOrder(),
-					AutomaticSize = Enum.AutomaticSize.Y,
-					Spacing = UDim.new(0, 10),
-				}, autoTranslationChildren)
-			else
-				Roact.createElement(FitToContent, {
-					LayoutOrder = layoutIndex:getNextOrder(),
-					BackgroundTransparency = 1,
-				}, autoTranslationChildren)
+			Roact.createElement(Pane, {
+				Layout = Enum.FillDirection.Vertical,
+				LayoutOrder = layoutIndex:getNextOrder(),
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Spacing = UDim.new(0, 10),
+			}, autoTranslationChildren)
 		),
 		AutoTranlsationUnavailable = showAutoTranlsationUnavailable and
 			Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtext, {

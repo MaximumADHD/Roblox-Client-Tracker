@@ -1,13 +1,12 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 
-local GetFFlagUpgradeExpChatV2_0_0 = require(CorePackages.Flags.GetFFlagUpgradeExpChatV2_0_0)
 local initify = require(CorePackages.initify)
 
 initify(CorePackages.Packages)
 
-if GetFFlagUpgradeExpChatV2_0_0() then
-	return require(CorePackages.Packages.ExperienceChatV2_0_0)
+if game:DefineFastFlag("UpgradeExpChatV2_1_1", false) then
+    return require(CorePackages.Packages.ExperienceChat_New)
 else
-	return require(CorePackages.Packages.ExperienceChat)
+    return require(CorePackages.Packages.ExperienceChat)
 end

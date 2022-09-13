@@ -28,6 +28,12 @@ ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerLeaderstats", script.P
 -- Default Alternate Death Ragdoll (China only for now)
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/PlayerRagdollRigCreator", script.Parent)
 
+local FFlagVRAvatarGestures = game:DefineFastFlag("VRAvatarGestures", false) 
+if FFlagVRAvatarGestures then
+	-- make the avatars match controller movement when the player is in VR
+	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerAvatarGesturesController", script.Parent)
+end
+
 -- FFlag for admin freecam (for easy disabling in case of security breach)
 game:DefineFastFlag("DebugFreeCameraForAdmins", true)
 

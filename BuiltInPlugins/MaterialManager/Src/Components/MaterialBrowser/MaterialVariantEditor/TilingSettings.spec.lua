@@ -7,11 +7,11 @@ local TilingSettings = require(script.Parent.TilingSettings)
 return function()
 	local studsPerTile = 1
 	local materialPattern = "Organic"
-	local TestMaterialVariant
+	local TestPBRMaterial
 
 	local function createTestElement(props: TilingSettings.Props?)
 		props = props or {
-			MaterialVariant = TestMaterialVariant,
+			PBRMaterial = TestPBRMaterial,
 		}
 
 		return mockContext({
@@ -20,14 +20,14 @@ return function()
 	end
 
 	beforeEach(function()
-		TestMaterialVariant = Instance.new("MaterialVariant")
+		TestPBRMaterial = Instance.new("MaterialVariant")
 	end)
 
 	afterEach(function()
-		if TestMaterialVariant then
-			TestMaterialVariant:Destroy()
+		if TestPBRMaterial then
+			TestPBRMaterial:Destroy()
 		end
-		TestMaterialVariant = nil
+		TestPBRMaterial = nil
 	end)
 
 	it("should create and destroy without errors", function()
@@ -37,12 +37,12 @@ return function()
 	end)
 
 	it("should render materialVariant with studs per tile correctly", function()
-		TestMaterialVariant.StudsPerTile = studsPerTile
+		TestPBRMaterial.StudsPerTile = studsPerTile
 
 		local container = Instance.new("Folder")
 		local element = createTestElement({
 			LayoutOrder = 1,
-			MaterialVariant = TestMaterialVariant,
+			PBRMaterial = TestPBRMaterial,
 		})
 		local instance = Roact.mount(element, container)
 
@@ -52,12 +52,12 @@ return function()
 	end)
 
 	it("should render materialVariant with material pattern correctly", function()
-		TestMaterialVariant.MaterialPattern = materialPattern
+		TestPBRMaterial.MaterialPattern = materialPattern
 
 		local container = Instance.new("Folder")
 		local element = createTestElement({
 			LayoutOrder = 1,
-			MaterialVariant = TestMaterialVariant,
+			PBRMaterial = TestPBRMaterial,
 		})
 		local instance = Roact.mount(element, container)
 
