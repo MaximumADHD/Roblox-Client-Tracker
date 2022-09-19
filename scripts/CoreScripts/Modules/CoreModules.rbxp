@@ -25,6 +25,9 @@
             "DevConsole": {
                 "$path": "DevConsole"
             },
+            "Emote": {
+                "$path": "Emote"
+            },
             "EmotesMenu": {
                 "$path": "EmotesMenu"
             },
