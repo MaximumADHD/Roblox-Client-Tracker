@@ -19,7 +19,6 @@ local InputType = Constants.InputType
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 
 local initialDisplayOptions = {
 	menuOpen = false,
@@ -33,18 +32,15 @@ local initialDisplayOptions = {
 
 local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 	[SetMenuOpen.name] = function(state, action)
-		local gamepadMenuOpen = false
-		if FFlagEnableNewVrSystem then
-			--when the main menu opens, close the gamepad menu
-			gamepadMenuOpen = state.isGamepadMenuOpen
-			if not state.menuOpen and action.menuOpen then
-				gamepadMenuOpen = false
-			end
+		--when the main menu opens, close the gamepad menu
+		local gamepadMenuOpen = state.isGamepadMenuOpen
+		if not state.menuOpen and action.menuOpen then
+			gamepadMenuOpen = false
 		end
 
 		return Cryo.Dictionary.join(state, {
 			menuOpen = action.menuOpen,
-			isGamepadMenuOpen = FFlagEnableNewVrSystem and gamepadMenuOpen,
+			isGamepadMenuOpen = gamepadMenuOpen,
 		})
 	end,
 

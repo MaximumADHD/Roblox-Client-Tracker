@@ -1795,7 +1795,7 @@ local function CreateSettingsHub()
 					true,
 					function ()
 						if FFlagEnableInGameMenuDurationLogger then
-							PerfUtils.menuOpenBegin()
+							PerfUtils.menuOpenComplete()
 						end
 					end
 				)

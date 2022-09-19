@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName: DynamicThumbstick
 	// Version 0.9
@@ -12,7 +13,8 @@ local TweenService = game:GetService("TweenService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
-local MasterControl = require(script.Parent)
+-- When PlayerScripts are loaded, sibling scripts and folders with the same name are merged
+local MasterControl = require(script.Parent) :: typeof(require(script.Parent.Parent.MasterControl))
 
 local Thumbstick = {}
 local Enabled = false
@@ -550,7 +552,7 @@ function Thumbstick:Create(parentFrame)
 		if game:IsLoaded() then
 			longShowBackground()
 		else
-			game.Loaded:wait()
+			game.Loaded:Wait()
 			longShowBackground()
 		end
 	end)

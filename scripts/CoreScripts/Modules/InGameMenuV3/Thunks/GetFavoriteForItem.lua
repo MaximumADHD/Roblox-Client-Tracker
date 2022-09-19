@@ -15,8 +15,7 @@ local SetAssets = require(InGameMenu.Actions.InspectAndBuy.SetAssets)
 local SetBundles = require(InGameMenu.Actions.InspectAndBuy.SetBundles)
 local createInspectAndBuyKeyMapper = require(InGameMenu.Utility.createInspectAndBuyKeyMapper)
 
-local keyMapper = createInspectAndBuyKeyMapper("getFavoriteForAsset")
-
+local keyMapper = createInspectAndBuyKeyMapper("getFavoriteForItem")
 local function GetFavoriteForItem(itemId, itemType)
 	return InspectAndBuyThunk.new(script.Name, function(store, services)
 		local network = services[Network]

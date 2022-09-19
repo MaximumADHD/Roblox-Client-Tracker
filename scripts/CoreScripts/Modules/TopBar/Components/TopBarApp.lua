@@ -25,6 +25,7 @@ local HurtOverlay = require(Presentation.HurtOverlay)
 local GamepadMenu = require(Presentation.GamepadMenu)
 local HeadsetMenu = require(Presentation.HeadsetMenu)
 local VoiceBetaBadge = require(Presentation.VoiceBetaBadge)
+local RecordingPill = require(Presentation.RecordingPill)
 
 local Connection = require(script.Parent.Connection)
 
@@ -37,6 +38,9 @@ local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local GetFFlagEnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 local GetFFlagEnableVoiceBetaBadge = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceBetaBadge)
+local GameSettings = settings():FindFirstChild("Game Options") or error("Game Options does not exist", 0)
+local FFlagRecordRecording = require(RobloxGui.Modules.Flags.GetFFlagRecordRecording)
+local FFlagEnableInGameMenuV3 = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuV3)
 
 -- vr bottom bar
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
@@ -92,6 +96,7 @@ function TopBarApp:init(props)
 		updateVisible(self.fullScreenFrameRef:getValue(), visible)
 		updateVisible(self.topBarFrameRef:getValue(), visible)
 	end
+	self.recordEnabled = FFlagEnableInGameMenuV3 and FFlagRecordRecording and GameSettings.VideoCaptureEnabled or false
 end
 
 function TopBarApp:updateValues()
@@ -223,6 +228,10 @@ function TopBarApp:render()
 					layoutOrder = 3,
 					Analytics = Analytics.new()
 				}),
+
+				RecordingPill = self.recordEnabled and Roact.createElement(RecordingPill, {
+					layoutOrder = 4,
+				}) or nil,
 			}),
 
 			RightFrame = Roact.createElement("Frame", {

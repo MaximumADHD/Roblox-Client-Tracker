@@ -1,16 +1,19 @@
 --!nonstrict
 
 local CoreGui = game:GetService("CoreGui")
+local NotificationService = game:GetService("NotificationService")
 local Players = game:GetService("Players")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
 local FFlagDebugDefaultChannelStartMuted = game:DefineFastFlag("DebugDefaultChannelStartMuted", true)
+local FFlagUseNotificationServiceIsConnected = game:DefineFastFlag("UseNotificationServiceIsConnected", false)
 local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
 
 local GenerateDefaultChannelAvailable = game:GetEngineFeature("VoiceServiceGenerateDefaultChannelAvailable")
 local EnableDefaultVoiceAvailable = game:GetEngineFeature("VoiceServiceEnableDefaultVoiceAvailable")
+local NotificationServiceIsConnectedAvailable = game:GetEngineFeature("NotificationServiceIsConnectedAvailable")
 
 local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
 local Analytics = require(RobloxGui.Modules.VoiceChat.Analytics).new()
@@ -35,6 +38,14 @@ local function initializeDefaultChannel()
 	end
 
 	return success
+end
+
+if NotificationServiceIsConnectedAvailable and FFlagUseNotificationServiceIsConnected then
+	if not NotificationService.IsConnected then
+		log:debug("NotificationService is not yet connected")
+		NotificationService:GetPropertyChangedSignal("IsConnected"):Wait()
+	end
+	log:debug("NotificationService connected")
 end
 
 if not Players.LocalPlayer.Character then

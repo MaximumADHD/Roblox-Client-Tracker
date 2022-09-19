@@ -115,6 +115,14 @@ local function getItemFavorite(id, type)
 	end
 end
 
+local function getHumanoidDescriptionFromCostumeId(costumeId)
+	return Promise.resolve(MOCK_HUMANOID_DESCRIPTION)
+end
+
+local function setItemFavorite(itemId, itemType, shouldFavorite)
+	return Promise.resolve()
+end
+
 local MockNetwork = {}
 MockNetwork.__index = MockNetwork
 
@@ -128,6 +136,8 @@ function MockNetwork.new(shouldFail: boolean?)
 			getItemDetails = networkFailure,
 			getBundleFavoriteCount = networkFailure,
 			getItemFavorite = networkFailure,
+			getHumanoidDescriptionFromCostumeId = networkFailure,
+			setItemFavorite = networkFailure,
 		}
 	else
 		mockNetworkService = {
@@ -136,6 +146,8 @@ function MockNetwork.new(shouldFail: boolean?)
 			getItemDetails = getItemDetails,
 			getBundleFavoriteCount = getBundleFavoriteCount,
 			getItemFavorite = getItemFavorite,
+			getHumanoidDescriptionFromCostumeId = getHumanoidDescriptionFromCostumeId,
+			setItemFavorite = setItemFavorite,
 		}
 	end
 

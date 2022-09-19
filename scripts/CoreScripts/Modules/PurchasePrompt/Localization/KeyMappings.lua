@@ -81,6 +81,7 @@ KeyMappings.PurchaseErrorKey = {
 	[PurchaseError.UnknownFailureNoItemName] = PURCHASE_FAILED_KEY:format("UnknownFailureNoItemName"),
 	[PurchaseError.PurchaseDisabled] = PURCHASE_FAILED_KEY:format("PurchaseDisabled"),
 	[PurchaseError.InvalidFunds] = PURCHASE_FAILED_KEY:format("InvalidFunds"),
+	[PurchaseError.InvalidFundsUnknown] = PURCHASE_FAILED_KEY:format("InvalidFunds"),
 	[PurchaseError.PremiumOnly] = PURCHASE_FAILED_KEY:format("PremiumOnly"),
 }
 

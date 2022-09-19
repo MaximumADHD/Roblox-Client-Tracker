@@ -21,6 +21,7 @@ local IAPExperience = require(CorePackages.IAPExperience)
 local ProductPurchase =  IAPExperience.ProductPurchase
 local ProductPurchaseRobuxUpsell =  IAPExperience.ProductPurchaseRobuxUpsell
 
+local PurchaseFlow = require(Root.Enums.PurchaseFlow)
 local RequestType = require(Root.Enums.RequestType)
 local PromptState = require(Root.Enums.PromptState)
 local WindowState = require(Root.Enums.WindowState)
@@ -66,7 +67,10 @@ local FFlagPPTwoFactorLogOutMessage = game:DefineFastFlag("PPTwoFactorLogOutMess
 local FFlagEnableLuobuWarningText = game:DefineFastFlag("EnableLuobuWarningText", false)
 local FFlagPauseGameExploitFix = game:DefineFastFlag("PauseGameExploitFix", false)
 
-local function isRelevantRequestType(requestType)
+local function isRelevantRequestType(requestType, purchaseFlow)
+	if purchaseFlow == PurchaseFlow.RobuxUpsellV2 then
+		return false
+	end
 	return requestType == RequestType.Asset
 		or requestType == RequestType.Bundle
 		or requestType == RequestType.GamePass
@@ -308,6 +312,7 @@ function ProductPurchaseContainer:getMessageKeysFromPromptState()
 end
 
 function ProductPurchaseContainer:render()
+	local purchaseFlow = self.props.purchaseFlow
 	local promptState = self.props.promptState
 	local requestType = self.props.requestType
 	local purchaseError = self.props.purchaseError
@@ -317,7 +322,7 @@ function ProductPurchaseContainer:render()
 	local isTestPurchase = self.props.isTestPurchase
 
 	local prompt
-	if promptState == PromptState.None or not isRelevantRequestType(requestType) then
+	if promptState == PromptState.None or not isRelevantRequestType(requestType, purchaseFlow) then
 		--[[
 			When the prompt is hidden, we'd rather not keep unused Roblox
 			instances for it around, so we don't render them
@@ -485,6 +490,7 @@ end
 
 local function mapStateToProps(state)
 	return {
+		purchaseFlow = state.purchaseFlow,
 		promptState = state.promptState,
 		requestType = state.promptRequest.requestType,
 		windowState = state.windowState,

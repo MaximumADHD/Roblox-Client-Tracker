@@ -12,7 +12,6 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 
-local Images = UIBlox.App.ImageSet.Images
 local ShimmerPanel = UIBlox.Loading.ShimmerPanel
 local withStyle = UIBlox.Core.Style.withStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
@@ -20,11 +19,10 @@ local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local InGameMenu = script.Parent.Parent.Parent
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 local getPurchaseInfo = require(InGameMenu.Selectors.getPurchaseInfo)
+local IBUtils = require(InGameMenu.Utility.InspectAndBuyUtils)
 local GetItemDetails = require(InGameMenu.Thunks.GetItemDetails)
 local GetAssetBundles = require(InGameMenu.Thunks.GetAssetBundles)
 
-local ROBUX_ICON = Images["icons/common/robux"]
-local OWNED_ICON = Images["icons/status/item/owned"]
 local ICON_PADDING = 4
 
 local InspectAndBuyItemCardFooter = Roact.PureComponent:extend("InspectAndBuyItemCardFooter")
@@ -71,35 +69,15 @@ function InspectAndBuyItemCardFooter:renderWithProviders(stylePalette, localized
 	local fontSize = stylePalette.Font.BaseSize * stylePalette.Font.SubHeader1.RelativeSize
 	local theme = stylePalette.Theme
 
-	local icon, text
 	local iconSize = Vector2.new(fontSize, fontSize)
-	local owned, robuxPrice, isLoading
 	local purchaseInfo = self.props.purchaseInfo
-	if purchaseInfo then
-		owned = purchaseInfo.owned
-		robuxPrice = purchaseInfo.robuxPrice
-		isLoading = purchaseInfo.isLoading
-	end
-
-	if owned then
-		icon = OWNED_ICON
-		text = ""
-	elseif robuxPrice == 0 then
-		icon = nil
-		text = "Free"
-	elseif robuxPrice then
-		icon = ROBUX_ICON
-		text = string.format("%.0f", robuxPrice)
-	elseif isLoading then
-		icon = nil
-		text = "Offsale"
-	end
+	local icon, text = IBUtils.getItemLabelData(purchaseInfo, localized)
 
 	local iconPadding = 0
 	if icon then
 		iconPadding = iconSize.X + ICON_PADDING
 	end
-	local shouldShimmer = isLoading or owned == nil
+	local shouldShimmer = purchaseInfo.isLoading or purchaseInfo.owned == nil
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.fromScale(1, 1),

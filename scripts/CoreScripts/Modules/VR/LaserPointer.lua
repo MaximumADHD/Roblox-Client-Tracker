@@ -14,7 +14,6 @@ local VRService = game:GetService("VRService")
 local Utility = require(RobloxGui.Modules.Settings.Utility)
 require(RobloxGui.Modules.VR.Panel3D)
 
-local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 local GetFFlagIsVRAppEnabled = require(RobloxGui.Modules.Flags.GetFFlagIsVRAppEnabled)
 
 local FFlagRenderVRCursorOnTop = game:DefineFastFlag("RenderVRCursorOnTop", false)
@@ -455,11 +454,7 @@ function LaserPointer:calculateLaunchVelocity(gravity, desiredRange, height)
 end
 
 function LaserPointer:isHeadMounted()
-	if FFlagEnableNewVrSystem then
-		return VRService.GuiInputUserCFrame == Enum.UserCFrame.Head
-	end
-
-	return self.inputUserCFrame == Enum.UserCFrame.Head
+	return VRService.GuiInputUserCFrame == Enum.UserCFrame.Head
 end
 
 function LaserPointer:shouldForcePointer()

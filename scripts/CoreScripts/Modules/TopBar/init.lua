@@ -34,8 +34,6 @@ local registerSetCores = require(script.registerSetCores)
 
 local GlobalConfig = require(script.GlobalConfig)
 
-local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
-
 local TopBar: any = {}
 TopBar.__index = TopBar
 

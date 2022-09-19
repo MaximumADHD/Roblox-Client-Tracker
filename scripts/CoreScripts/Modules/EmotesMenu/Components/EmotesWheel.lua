@@ -4,8 +4,6 @@ local CorePackages = game:GetService("CorePackages")
 local UserInputService = game:GetService("UserInputService")
 local GamepadService = game:GetService("GamepadService")
 local VRService = game:GetService("VRService")
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui.RobloxGui
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -33,11 +31,7 @@ local PlayEmote = require(Thunks.PlayEmote)
 
 local KEYBINDS_PRIORITY = Enum.ContextActionPriority.High.Value
 
-local EngineFeatureVirtualCursor = game:GetEngineFeature("VirtualCursorEnabled")
-
 local EmotesWheel = Roact.PureComponent:extend("EmotesWheel")
-
-local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 
 local function getRandomAssetId(emotesAssetIds)
     if #emotesAssetIds == 0 then
@@ -160,15 +154,11 @@ function EmotesWheel:bindActions()
     ContextActionService:BindActionAtPriority(Constants.ActivateEmoteSlotAction, activateEmoteByNumber,
         --[[ createTouchButton = ]] false, KEYBINDS_PRIORITY, unpack(Constants.EmoteSlotKeys))
 
-
-    if EngineFeatureVirtualCursor then
-        local function sinkInput(actionName, inputState, inputObj)
-            return Enum.ContextActionResult.Sink
-        end
-
-        ContextActionService:BindCoreActionAtPriority(Constants.VirtualCursorSinkAction, sinkInput, false, KEYBINDS_PRIORITY, Enum.KeyCode.ButtonSelect)
+    local function sinkInput(actionName, inputState, inputObj)
+        return Enum.ContextActionResult.Sink
     end
 
+    ContextActionService:BindCoreActionAtPriority(Constants.VirtualCursorSinkAction, sinkInput, false, KEYBINDS_PRIORITY, Enum.KeyCode.ButtonSelect)
     self.actionsBound = true
 end
 
@@ -186,17 +176,14 @@ function EmotesWheel:unbindActions()
 end
 
 function EmotesWheel:addCursorOverride()
-	if VRService.VREnabled and FFlagEnableNewVrSystem then
+	if VRService.VREnabled then
 		return -- cursor is already hidden in VR
 	end
 
     if self.isUsingGamepad and not self.isCursorHidden then
         MouseIconOverrideService.push(Constants.CursorOverrideName, Enum.OverrideMouseIconBehavior.ForceHide)
 
-        if EngineFeatureVirtualCursor then
-            GamepadService.GamepadCursorEnabled = false
-        end
-
+        GamepadService.GamepadCursorEnabled = false
         self.isCursorHidden = true
     end
 end

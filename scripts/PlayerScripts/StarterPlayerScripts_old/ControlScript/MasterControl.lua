@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName: MasterControl
 	// Version 1.0
@@ -13,6 +14,9 @@ local STATE_LANDED = Enum.HumanoidStateType.Landed
 
 --[[ Local Variables ]]--
 local MasterControl = {}
+
+MasterControl.ControlState = nil
+MasterControl.TouchJumpModule = nil
 
 local Players = game:GetService('Players')
 local RunService = game:GetService('RunService')

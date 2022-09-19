@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName: ComputerMovementKeyboardMovement
 	// Version 1.2
@@ -23,7 +24,8 @@ local TextFocusReleasedCn = nil
 local TextFocusGainedCn = nil
 local WindowFocusReleasedCn = nil
 
-local MasterControl = require(script.Parent)
+-- When PlayerScripts are loaded, sibling scripts and folders with the same name are merged
+local MasterControl = require(script.Parent) :: typeof(require(script.Parent.Parent.MasterControl))
 local currentMoveVector = Vector3.new(0,0,0)
 
 --[[ Local Functions ]]--

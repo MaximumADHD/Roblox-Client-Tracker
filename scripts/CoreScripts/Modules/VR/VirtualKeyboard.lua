@@ -1368,22 +1368,6 @@ function VirtualKeyboardClass:CreateVirtualKeyboardOptions(textbox)
 end
 
 local VirtualKeyboardPlatform = false
-do
-	-- iOS, Android and Xbox already have platform specific keyboards
-	local platform = UserInputService:GetPlatform()
-	
-	local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
-	
-	-- gaze input doesn't work correctly on this panel, disable until fixed	
-	if not FFlagEnableNewVrSystem then
-		VirtualKeyboardPlatform = platform == Enum.Platform.Windows or 
-			platform == Enum.Platform.OSX or
-			platform == Enum.Platform.IOS or
-			platform == Enum.Platform.Android
-	end
-end
-
-
 function VirtualKeyboardClass:ShowVirtualKeyboard(virtualKeyboardOptions)
 	if VirtualKeyboardPlatform and UserInputService.VREnabled then
 		GetKeyboard():Open(virtualKeyboardOptions)

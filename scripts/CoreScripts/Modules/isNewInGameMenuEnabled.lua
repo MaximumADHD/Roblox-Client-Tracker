@@ -11,19 +11,12 @@ game:DefineFastFlag("NewInGameMenuDisabledInVR", false)
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 local FFlagDisableNewIGMinDUA = game:DefineFastFlag("DisableNewIGMinDUA", false)
 
 local isSubjectToDesktopPolicies = require(script.Parent.InGameMenu.isSubjectToDesktopPolicies)
 
 return function()
-	if game:GetFastFlag("NewInGameMenuDisabledInVR") and not FFlagEnableNewVrSystem then
-		if VRService.VREnabled then
-			-- VR is enabled and the VR device is connected. Disable the new In Game Menu.
-			return false
-		end
-	end
-
+	-- new IGM is always on in VR
 	if VRService.VREnabled then
 		return true
 	end

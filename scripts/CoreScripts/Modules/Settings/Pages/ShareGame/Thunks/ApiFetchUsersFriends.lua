@@ -1,4 +1,3 @@
---!nonstrict
 local CorePackages = game:GetService("CorePackages")
 
 local ShareGame = game:GetService("CoreGui").RobloxGui.Modules.Settings.Pages.ShareGame

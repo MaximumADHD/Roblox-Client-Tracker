@@ -81,7 +81,11 @@ function Analytics.new()
 		if RunService:IsStudio() then
 			return
 		end
-		AnalyticsService:SetRBXEvent("client", "InGamePrompt", eventName, params) 
+		AnalyticsService:SetRBXEvent("client", "InGamePrompt", eventName, params or {}) 
+	end
+
+	function service.signalEvent(name, data )
+		ReportEvent(name, data)
 	end
 
 	function service.reportRobuxUpsellStarted()

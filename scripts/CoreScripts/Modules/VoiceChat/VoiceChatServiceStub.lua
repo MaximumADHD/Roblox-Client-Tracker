@@ -6,10 +6,12 @@ local stub = function(val)
 end
 
 local ParticipantsStateChangedMock = Instance.new("BindableEvent")
+local LocalPlayerModeratedMock = Instance.new("BindableEvent")
 local StateChangedMock = Instance.new("BindableEvent")
 local VoiceChatServiceStub = {
 	ParticipantsStateChanged = ParticipantsStateChangedMock.Event,
 	StateChanged = StateChangedMock.Event,
+	LocalPlayerModerated = LocalPlayerModeratedMock.Event,
 	GetVoiceChatApiVersionCB = stub(0),
 	GetVoiceChatAvailableCB = noop,
 	IsSubscribePausedCB = noop,
@@ -73,6 +75,10 @@ function VoiceChatServiceStub:kickUsers(users)
 	ParticipantsStateChangedMock:Fire(users, {}, {})
 end
 
+function VoiceChatServiceStub:ModerateLocalPlayer()
+	LocalPlayerModeratedMock:Fire()
+end
+
 function VoiceChatServiceStub:addUsers(userStates)
 	ParticipantsStateChangedMock:Fire({}, {}, userStates)
 end
@@ -85,6 +91,8 @@ end
 function VoiceChatServiceStub:resetMocks()
 	ParticipantsStateChangedMock = Instance.new("BindableEvent")
 	StateChangedMock = Instance.new("BindableEvent")
+	LocalPlayerModeratedMock = Instance.new("BindableEvent")
+	self.LocalPlayerModerated = LocalPlayerModeratedMock.Event
 	self.ParticipantsStateChanged = ParticipantsStateChangedMock.Event
 	self.StateChanged = StateChangedMock.Event
 end

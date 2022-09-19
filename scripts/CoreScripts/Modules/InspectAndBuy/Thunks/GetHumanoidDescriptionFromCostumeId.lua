@@ -14,7 +14,7 @@ local keyMapper = createInspectAndBuyKeyMapper("getHumanoidDescriptionFromCostum
 --[[
 	Get a HumanoidDescription object from a costume id.
 ]]
-local function GetHumanoidDescriptionFromCostumeId(costumeId, callback)
+local function GetHumanoidDescriptionFromCostumeId(costumeId, callback: (HumanoidDescription) -> ())
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]
 

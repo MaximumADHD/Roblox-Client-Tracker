@@ -1,3 +1,4 @@
+--!nonstrict
 local RunService = game:GetService('RunService')
 local UserInputService = game:GetService('UserInputService')
 local PlayersService = game:GetService('Players')
@@ -230,7 +231,7 @@ end
 
 
 local function OnPlayerAdded(player)
-	workspace.Changed:connect(function(prop)
+	workspace.Changed:Connect(function(prop)
 		if prop == 'CurrentCamera' then
 			OnNewCamera()
 		end

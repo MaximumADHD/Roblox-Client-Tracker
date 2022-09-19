@@ -15,6 +15,7 @@ return {
 		PreviewExpandIcon = UIBloxImages["icons/actions/previewExpand"],
 		PreviewShrinkIcon = UIBloxImages["icons/actions/previewShrink"],
 		ReportIcon = UIBloxImages["icons/actions/feedback"],
+		RecordIcon = UIBloxImages["icons/controls/screenrecord"],
 		ScreenshotIcon = UIBloxImages["icons/controls/screenshot"],
 		SuccessXLarge = UIBloxImages["icons/graphic/success_xlarge"],
 
@@ -114,6 +115,8 @@ return {
 		SliderButton = Images["InGameMenu/Graphic/SliderButton"],
 
 		LeaveGameTilesBackground = "rbxasset://textures/ui/InGameMenu/game_tiles_background.png",
+		LeaveGameTilesBackgroundDesktop = "rbxasset://textures/ui/InGameMenu/game_tiles_background_desktop.png",
+
 		LeaveRobloxLogo = "rbxasset://textures/ui/InGameMenu/roblox_logo.png",
 		ButtonStackGradient = "rbxasset://textures/ui/InGameMenu/gradient.png",
 		DropShadowFavorite = "rbxasset://textures/ui/InGameMenu/drop_shadow_favorite.png",

@@ -1,4 +1,3 @@
---!strict
 local Root = script.Parent.Parent
 
 type Json = {

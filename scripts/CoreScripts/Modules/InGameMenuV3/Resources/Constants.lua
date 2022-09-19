@@ -71,6 +71,7 @@ local Constants = {
 	AnalyticsUnblockPlayer = "unblock_player",
 	AnalyticsBlockPlayer = "block_player",
 	AnalyticsInvitePlayerToPlaceId = "invite_player_to_place_id",
+	AnalyticsRecord = "record",
 	AnalyticsScreenshot = "screenshot",
 	AnalyticsFullscreen = "fullscreen",
 	AnalyticsFollowExperience = "follow_experience",

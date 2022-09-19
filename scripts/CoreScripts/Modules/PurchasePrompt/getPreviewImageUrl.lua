@@ -1,4 +1,3 @@
---!nonstrict
 local Root = script.Parent
 local ContentProvider = game:GetService("ContentProvider")
 local ItemType = require(Root.Enums.ItemType)

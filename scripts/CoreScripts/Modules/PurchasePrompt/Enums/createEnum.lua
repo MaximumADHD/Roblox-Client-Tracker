@@ -1,4 +1,3 @@
---!nonstrict
 --[[
 	An implementation of an enumerated type in Lua. Creates enumerated
 	types with uniquely identifiable values (using symbol)

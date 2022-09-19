@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName: Thumbpad
 	// Version 1.0
@@ -11,7 +12,8 @@ local GuiService = game:GetService('GuiService')
 
 local Thumbpad = {}
 
-local MasterControl = require(script.Parent)
+-- When PlayerScripts are loaded, sibling scripts and folders with the same name are merged
+local MasterControl = require(script.Parent) :: typeof(require(script.Parent.Parent.MasterControl))
 
 --[[ Script Variables ]]--
 while not Players.LocalPlayer do
@@ -129,7 +131,7 @@ function Thumbpad:Create(parentFrame)
 			if currentMoveVector.magnitude == 0 then
 				currentMoveVector = Vector3.new(0, 0, 0)
 			else
-				currentMoveVector = Vector3.new(currentMoveVector.x, 0, currentMoveVector.y).unit
+				currentMoveVector = Vector3.new(currentMoveVector.x, 0, currentMoveVector.y).Unit
 			end
 		end
 

@@ -1,3 +1,4 @@
+--!nonstrict
 -- PopperCam Version 16
 -- OnlyTwentyCharacters
 
@@ -162,7 +163,7 @@ end
 --------------------
 
 -- Connect to the current and all future cameras
-workspace.Changed:connect(OnWorkspaceChanged)
+workspace.Changed:Connect(OnWorkspaceChanged)
 OnWorkspaceChanged('CurrentCamera')
 
 -- Connect to all Players so we can ignore their Characters

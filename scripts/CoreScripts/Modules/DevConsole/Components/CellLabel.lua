@@ -9,7 +9,7 @@ local MAIN_FONT_BOLD = Constants.Font.MainWindowBold
 
 export type Props = {
 	text: string,
-	size: number,
+	size: UDim2,
 	pos: UDim2,
 	layoutOrder: number?,
 	bold: boolean?

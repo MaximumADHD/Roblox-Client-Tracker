@@ -17,6 +17,7 @@ local dummyState = {
 			["123"] = {
 				owned = false,
 				price = 200,
+				isForSale = false,
 			}
 		},
 	}
@@ -30,6 +31,7 @@ return function()
 			expect(purchaseInfo.owned).toEqual(true)
 			expect(purchaseInfo.isLoading).toEqual(false)
 			expect(purchaseInfo.robuxPrice).toEqual(100)
+			expect(purchaseInfo.offsale).toEqual(false)
 		end)
 
 		it("should allow for selected asset in store to be overwritten", function()
@@ -44,6 +46,7 @@ return function()
 			expect(purchaseInfo.owned).toEqual(false)
 			expect(purchaseInfo.isLoading).toEqual(false)
 			expect(purchaseInfo.robuxPrice).toEqual(400)
+			expect(purchaseInfo.offsale).toEqual(false)
 		end)
 
 		it("should get bundle info", function()
@@ -58,6 +61,7 @@ return function()
 			expect(purchaseInfo.owned).toEqual(false)
 			expect(purchaseInfo.isLoading).toEqual(false)
 			expect(purchaseInfo.robuxPrice).toEqual(200)
+			expect(purchaseInfo.offsale).toEqual(true)
 		end)
 	end)
 end

@@ -13,12 +13,16 @@ local Header = require(ShareGame.Components.Header)
 local ConversationList = require(ShareGame.Components.ConversationList)
 local ToasterComponent = require(ShareGame.Components.ErrorToaster)
 local BackButton = require(ShareGame.Components.BackButton)
+local Text = require(CorePackages.AppTempCommon.Common.Text)
 
 local GetFFlagEnableNewInviteMenu = require(Modules.Flags.GetFFlagEnableNewInviteMenu)
 
 local HEADER_HEIGHT = 60
 local USER_LIST_PADDING = 10
 local CONTENT_PADDING = 15
+
+local HEADER_HEIGHT_NEW = 40
+local HEADER_PADDING = 10
 
 local CONVERSATION_ENTRY_HEIGHT = 62
 local CONVERSATION_ENTRY_PADDING = 18
@@ -30,7 +34,7 @@ local MAX_MODAL_WIDTH = UDim.new(0.8, 320)
 local MAX_MODAL_HEIGHT = UDim.new(0.7, CLAMP_TO_FIVE_HALF_ENTRIES)
 local POSITION_HEIGHT_OFFSET = 0.075
 
-local NEW_MAX_MODAL_WDITH = UDim.new(0.8, 440)
+local NEW_MAX_MODAL_WIDTH = UDim.new(0.8, 440)
 
 local IMAGE_ROUNDED_BACKGROUND = "rbxasset://textures/ui/LuaChat/9-slice/btn-control-sm.png"
 
@@ -46,10 +50,34 @@ ModalShareGamePageFrame.defaultProps = {
 }
 
 function ModalShareGamePageFrame:init()
+	self.state = {
+		promptMessageFitsFrame = true,
+	}
+
+	self.onCustomTextAreaSizeChange = function(rbx)
+		local deviceLayout = self.props.deviceLayout
+		local layoutSpecific = Constants.LayoutSpecific[deviceLayout]
+		local promptMessage = self.props.promptMessage
+		local promptTextSize = layoutSpecific.PAGE_TITLE_TEXT_SIZE
+		self:setState({
+			promptMessageFitsFrame = promptMessage and
+				Text.GetTextWidth(promptMessage, Enum.Font.SourceSans, promptTextSize) < rbx.AbsoluteSize.X
+		})
+	end
+	self.customTextAreaRef = Roact.createRef()
+
 	self.onClosePage = function()
 		self.props.closePage()
 		if self.props.onAfterClosePage then
 			self.props.onAfterClosePage()
+		end
+	end
+end
+
+function ModalShareGamePageFrame:didMount()
+	if GetFFlagEnableNewInviteMenu() then
+		if self.customTextAreaRef.current then
+			self.onCustomTextAreaSizeChange(self.customTextAreaRef.current)
 		end
 	end
 end
@@ -64,7 +92,7 @@ function ModalShareGamePageFrame:render()
 	local isVisible = self.props.isVisible
 
 	local isNewUI = GetFFlagEnableNewInviteMenu()
-	local modalWidth = if isNewUI then NEW_MAX_MODAL_WDITH else MAX_MODAL_WIDTH
+	local modalWidth = if isNewUI then NEW_MAX_MODAL_WIDTH else MAX_MODAL_WIDTH
 
 	local useMobileLandscapeLayout = isNewUI and
 		self.props.deviceInfo and
@@ -80,6 +108,14 @@ function ModalShareGamePageFrame:render()
 		maxSize = Vector2.new(modalWidth.Offset, math.huge)
 		position = UDim2.new(0.5, 0, 1, 4)
 	end
+
+	local layoutSpecific = Constants.LayoutSpecific[deviceLayout]
+	local promptMessage = self.props.promptMessage
+	local promptTextSize = layoutSpecific.PAGE_TITLE_TEXT_SIZE
+	local displayCustomText = isNewUI and promptMessage and self.state.promptMessageFitsFrame
+	local customTextHeight = if displayCustomText then promptTextSize + HEADER_PADDING else HEADER_PADDING
+
+	local headerSpace = if isNewUI then HEADER_HEIGHT_NEW + customTextHeight else HEADER_HEIGHT
 
 	return Roact.createElement("ImageButton", {
 		AnchorPoint = anchorPoint,
@@ -120,9 +156,13 @@ function ModalShareGamePageFrame:render()
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 
+			Padding = if isNewUI then Roact.createElement("UIPadding", {
+				PaddingTop = UDim.new(0, HEADER_PADDING),
+			}) else nil,
+
 			Header = Roact.createElement(Header, {
 				deviceLayout = deviceLayout,
-				size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
+				size = UDim2.new(1, 0, 0, if isNewUI then HEADER_HEIGHT_NEW else HEADER_HEIGHT),
 				layoutOrder = 0,
 				zIndex = zIndex,
 				closePage = self.onClosePage,
@@ -130,9 +170,20 @@ function ModalShareGamePageFrame:render()
 				toggleSearchIcon = true,
 				iconType = FFlagLuaInviteModalEnabled and BackButton.IconType.Cross or nil,
 			}),
+			CustomText = isNewUI and Roact.createElement("TextLabel", {
+				Size = UDim2.new(1, 0, 0, customTextHeight),
+				TextYAlignment = Enum.TextYAlignment.Top,
+				TextSize = promptTextSize,
+				TextColor3 = Constants.Color.WHITE,
+				Font = Enum.Font.SourceSans,
+				BackgroundTransparency = 1,
+				Text = if displayCustomText then promptMessage else "",
+				[Roact.Change.AbsoluteSize] = self.onCustomTextAreaSizeChange,
+				[Roact.Ref] = self.customTextAreaRef,
+			}),
 			ConversationList = Roact.createElement(ConversationList, {
 				analytics = analytics,
-				size = UDim2.new(1, 0, 1, -HEADER_HEIGHT),
+				size = UDim2.new(1, 0, 1, -headerSpace),
 				topPadding = USER_LIST_PADDING,
 				layoutOrder = 1,
 				zIndex = zIndex,

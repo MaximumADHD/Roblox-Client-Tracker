@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName: VehicleControl
 	// Version 1.0
@@ -14,7 +15,8 @@ local ContextActionService = game:GetService('ContextActionService')
 local Players = game:GetService('Players')
 local RunService = game:GetService('RunService')
 
-local MasterControl = require(script.Parent)
+-- When PlayerScripts are loaded, sibling scripts and folders with the same name are merged
+local MasterControl = require(script.Parent) :: typeof(require(script.Parent.Parent.MasterControl))
 
 while not Players.LocalPlayer do
 	wait()

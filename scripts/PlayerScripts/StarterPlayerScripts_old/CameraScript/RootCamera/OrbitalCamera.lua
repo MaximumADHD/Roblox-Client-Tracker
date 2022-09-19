@@ -1,7 +1,8 @@
---[[	
+--!nonstrict
+--[[
 	Orbital Camera 1.0.0
 	AllYourBlox
-		
+
 	Derived from ClassicCamera, adds camera angle constraints, and represents position values in spherical
 	coordinates (azimuth, elevation, radius), instead of Cartesian coordinates (x, y, z). Azimuth is the
 	angle of rotation about the Y axis, with the zero-angle reference point corresponding to offsetting
@@ -47,7 +48,8 @@ local changedSignalConnections = {}
 local PlayersService = game:GetService('Players')
 local VRService = game:GetService("VRService")
 
-local RootCameraCreator = require(script.Parent)
+-- When PlayerScripts are loaded, sibling scripts and folders with the same name are merged
+local RootCameraCreator = require(script.Parent) :: typeof(require(script.Parent.Parent.RootCamera))
 
 local UP_VECTOR = Vector3.new(0, 1, 0)
 local XZ_VECTOR = Vector3.new(1, 0, 1)
@@ -100,7 +102,7 @@ end
 
 local function LoadOrCreateNumberValueParameter(name, valueType, updateFunction)
 	local valueObj = script:FindFirstChild(name)
-	
+
 	if valueObj and valueObj:isA(valueType) then
 		-- Value object exists and is the correct type, use its value
 		externalProperties[name] = valueObj.Value
@@ -114,7 +116,7 @@ local function LoadOrCreateNumberValueParameter(name, valueType, updateFunction)
 		print("externalProperties table has no entry for ",name)
 		return
 	end
-	
+
 	if updateFunction then
 		if changedSignalConnections[name] then
 			changedSignalConnections[name]:disconnect()
@@ -144,7 +146,7 @@ local function SetAndBoundsCheckElevationValues()
 	-- internal values adjust to match intent as best as possible.
 	local minElevationDeg = math.max(externalProperties["MinElevation"], MIN_ALLOWED_ELEVATION_DEG)
 	local maxElevationDeg = math.min(externalProperties["MaxElevation"], MAX_ALLOWED_ELEVATION_DEG)
-	
+
 	-- Set internal values in radians
 	minElevationRad = math.rad(math.min(minElevationDeg, maxElevationDeg))
 	maxElevationRad = math.rad(math.max(minElevationDeg, maxElevationDeg))
@@ -164,7 +166,7 @@ local function LoadNumberValueParameters()
 	-- These initial values do not require change listeners since they are read only once
 	LoadOrCreateNumberValueParameter("InitialElevation", "NumberValue", nil)
 	LoadOrCreateNumberValueParameter("InitialDistance", "NumberValue", nil)
-	
+
 	-- Note: ReferenceAzimuth is also used as an initial value, but needs a change listener because it is used in the calculation of the limits
 	LoadOrCreateNumberValueParameter("ReferenceAzimuth", "NumberValue", SetAndBoundsCheckAzimuthValues)
 	LoadOrCreateNumberValueParameter("CWAzimuthTravel", "NumberValue", SetAndBoundsCheckAzimuthValues)
@@ -174,12 +176,12 @@ local function LoadNumberValueParameters()
 	LoadOrCreateNumberValueParameter("MinDistance", "NumberValue", SetAndBoundsCheckDistanceValues)
 	LoadOrCreateNumberValueParameter("MaxDistance", "NumberValue", SetAndBoundsCheckDistanceValues)
 	LoadOrCreateNumberValueParameter("UseAzimuthLimits", "BoolValue", SetAndBoundsCheckAzimuthValues)
-	
+
 	-- Internal values set (in radians, from degrees), plus sanitization
 	curAzimuthRad = math.rad(externalProperties["ReferenceAzimuth"])
 	curElevationRad = math.rad(externalProperties["InitialElevation"])
 	curDistance = externalProperties["InitialDistance"]
-	
+
 	SetAndBoundsCheckAzimuthValues()
 	SetAndBoundsCheckElevationValues()
 	SetAndBoundsCheckDistanceValues()
@@ -187,19 +189,19 @@ end
 
 local function CreateOrbitalCamera()
 	local module = RootCameraCreator()
-	
-	LoadNumberValueParameters()	
-	
+
+	LoadNumberValueParameters()
+
 	module.DefaultZoom = curDistance
-	
+
 	local tweenAcceleration = math_rad(220)
 	local tweenSpeed = math_rad(0)
 	local tweenMaxSpeed = math_rad(250)
 	local timeBeforeAutoRotate = 2
-	
+
 	local lastUpdate = tick()
 	module.LastUserPanCamera = tick()
-	
+
 	function module:Update()
 		module:ProcessTweens()
 		local now = tick()
@@ -211,21 +213,21 @@ local function CreateOrbitalCamera()
 		local cameraSubject = camera and camera.CameraSubject
 		local isInVehicle = cameraSubject and cameraSubject:IsA('VehicleSeat')
 		local isOnASkateboard = cameraSubject and cameraSubject:IsA('SkateboardPlatform')
-		
+
 		if lastUpdate == nil or now - lastUpdate > 1 then
 			module:ResetCameraLook()
 			self.LastCameraTransform = nil
-		end	
-		
+		end
+
 		if lastUpdate then
 			local gamepadRotation = self:UpdateGamepad()
-			
-			if self:ShouldUseVRRotation() then				
+
+			if self:ShouldUseVRRotation() then
 				self.RotateInput = self.RotateInput + self:GetVRRotationInput()
 			else
 				-- Cap out the delta to 0.1 so we don't get some crazy things when we re-resume from
 				local delta = math_min(0.1, now - lastUpdate)
-				
+
 				if gamepadRotation ~= ZERO_VECTOR2 then
 					userPanningTheCamera = true
 					self.RotateInput = self.RotateInput + (gamepadRotation * delta)
@@ -236,7 +238,7 @@ local function CreateOrbitalCamera()
 					angle = angle + (self.TurningLeft and -120 or 0)
 					angle = angle + (self.TurningRight and 120 or 0)
 				end
-				
+
 				if angle ~= 0 then
 					self.RotateInput = self.RotateInput +  Vector2.new(math_rad(angle * delta), 0)
 					userPanningTheCamera = true
@@ -249,16 +251,16 @@ local function CreateOrbitalCamera()
 			tweenSpeed = 0
 			module.LastUserPanCamera = tick()
 		end
-		
+
 		local userRecentlyPannedCamera = now - module.LastUserPanCamera < timeBeforeAutoRotate
 		local subjectPosition = self:GetSubjectPosition()
-		
+
 		if subjectPosition and player and camera then
-		
-			
+
+
 			local zoom = self:ZoomCamera(curDistance * currentZoomSpeed)
-			
-			
+
+
 			if not userPanningTheCamera and self.LastCameraTransform then
 				local isInFirstPerson = self:IsInFirstPerson()
 				if (isInVehicle or isOnASkateboard) and lastUpdate and humanoid and humanoid.Torso then
@@ -275,14 +277,14 @@ local function CreateOrbitalCamera()
 						if isOnASkateboard then
 							forwardVector = cameraSubject.CFrame.lookVector
 						end
-						
+
 						tweenSpeed = clamp(0, tweenMaxSpeed, tweenSpeed + tweenAcceleration * timeDelta)
 
 						local percent = clamp(0, 1, tweenSpeed * timeDelta)
 						if self:IsInFirstPerson() then
 							percent = 1
 						end
-						
+
 						local y = findAngleBetweenXZVectors(forwardVector, self:GetCameraLook())
 						if IsFinite(y) and math_abs(y) > 0.0001 then
 							self.RotateInput = self.RotateInput + Vector2.new(y * percent, 0)
@@ -290,7 +292,7 @@ local function CreateOrbitalCamera()
 					end
 				end
 			end
-			
+
 			local VREnabled = VRService.VREnabled
 			camera.Focus = VREnabled and self:GetVRFocus(subjectPosition, timeDelta) or CFrame_new(subjectPosition)
 
@@ -311,13 +313,13 @@ local function CreateOrbitalCamera()
 					end
 					local lookAt = Vector3.new(newPos.x + desiredLookDir.x, newPos.y, newPos.z + desiredLookDir.z)
 					self.RotateInput = ZERO_VECTOR2
-					
+
 					camera.CFrame = CFrame_new(newPos, lookAt) + Vector3_new(0, cameraHeight, 0)
 				end
 			else
 				-- self.RotateInput is a Vector2 of mouse movement deltas since last update
 				curAzimuthRad = curAzimuthRad - self.RotateInput.x
-				
+
 				if useAzimuthLimits then
 					curAzimuthRad = clamp(curAzimuthRad, minAzimuthAbsoluteRad, maxAzimuthAbsoluteRad)
 				else
@@ -325,14 +327,14 @@ local function CreateOrbitalCamera()
 				end
 
 				curDistance = clamp(zoom, minDistance, maxDistance)
-				
+
 				curElevationRad = clamp(curElevationRad + self.RotateInput.y, minElevationRad,maxElevationRad)
-				
-				local cameraPosVector = curDistance * ( CFrame.fromEulerAnglesYXZ( -curElevationRad, curAzimuthRad, 0 ) * UNIT_Z ) 
+
+				local cameraPosVector = curDistance * ( CFrame.fromEulerAnglesYXZ( -curElevationRad, curAzimuthRad, 0 ) * UNIT_Z )
 				local camPos = subjectPosition + cameraPosVector
-				
+
 				camera.CFrame = CFrame.new(camPos, subjectPosition)
-			
+
 				self.RotateInput = ZERO_VECTOR2
 			end
 
@@ -344,14 +346,14 @@ local function CreateOrbitalCamera()
 				self.LastSubjectCFrame = nil
 			end
 		end
-		
+
 		lastUpdate = now
 	end
-	
+
 	function module:GetCameraZoom()
 		return curDistance
 	end
-	
+
 	function module:ZoomCamera(desiredZoom)
 		local player = PlayersService.LocalPlayer
 		if player then
@@ -365,7 +367,7 @@ local function CreateOrbitalCamera()
 		self:UpdateMouseBehavior()
 		return self:GetCameraZoom()
 	end
-	
+
 	function module:ZoomCameraBy(zoomScale)
 		local newDist = curDistance
 		-- Can break into more steps to get more accurate integration
@@ -377,7 +379,7 @@ local function CreateOrbitalCamera()
 	function module:ZoomCameraFixedBy(zoomIncrement)
 		return self:ZoomCamera(self:GetCameraZoom() + zoomIncrement)
 	end
-	
+
 	function module:SetInitialOrientation(humanoid)
 		local newDesiredLook = (humanoid.Torso.CFrame.lookVector - Vector3.new(0,0.23,0)).unit
 		local horizontalShift = findAngleBetweenXZVectors(newDesiredLook, self:GetCameraLook())
@@ -399,15 +401,15 @@ local function CreateOrbitalCamera()
 					currentZoomSpeed = 0.96
 				elseif (input.Position.Y < -THUMBSTICK_DEADZONE) then
 					currentZoomSpeed = 1.04
-				else 
+				else
 					currentZoomSpeed = 1.00
 				end
 			else
 				if state == Enum.UserInputState.Cancel then
 					module.GamepadPanningCamera = ZERO_VECTOR2
 					return
-				end		
-				
+				end
+
 				local inputVector = Vector2.new(input.Position.X, -input.Position.Y)
 				if inputVector.magnitude > THUMBSTICK_DEADZONE then
 					module.GamepadPanningCamera = Vector2.new(input.Position.X, -input.Position.Y)
@@ -435,14 +437,14 @@ local function CreateOrbitalCamera()
 			end
 		end
 	end
-	
+
 	function module:BindGamepadInputActions()
 		local ContextActionService = game:GetService('ContextActionService')
 		ContextActionService:BindAction("OrbitalCamGamepadPan", module.getGamepadPan, false, Enum.KeyCode.Thumbstick2)
 		ContextActionService:BindAction("OrbitalCamGamepadZoom", module.doGamepadZoom, false, Enum.KeyCode.ButtonR3)
 		ContextActionService:BindAction("OrbitalCamGamepadZoomAlt", module.doGamepadZoom, false, Enum.KeyCode.ButtonL3)
 	end
-	
+
 	return module
 end
 

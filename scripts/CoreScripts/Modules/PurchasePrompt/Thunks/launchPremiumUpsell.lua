@@ -1,4 +1,3 @@
---!nonstrict
 local Root = script.Parent.Parent
 local Players = game:GetService("Players")
 
@@ -40,7 +39,7 @@ local function launchPremiumUpsell()
 		end
 
 		local upsellFlow = getUpsellFlow(externalSettings.getPlatform())
-	
+
 		-- signalPremiumUpsellConfirmed does have a isStudio check but never hits because above
 		analytics.signalPremiumUpsellConfirmed()
 

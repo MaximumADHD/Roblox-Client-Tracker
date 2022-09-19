@@ -38,7 +38,6 @@ local MenuIcon = Roact.PureComponent:extend("MenuIcon")
 local BACKGROUND_SIZE = 32
 local ICON_SIZE = 24
 
-local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 
@@ -49,12 +48,12 @@ MenuIcon.validateProps = t.strictInterface({
 
 function MenuIcon:init()
 	self:setState({
-		vrShowMenuIcon = FFlagEnableNewVrSystem and VRService.VREnabled and ((EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBar) or GamepadService.GamepadCursorEnabled) and not EngineFeatureEnableVRUpdate3,
+		vrShowMenuIcon = VRService.VREnabled and ((EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBar) or GamepadService.GamepadCursorEnabled) and not EngineFeatureEnableVRUpdate3,
 	})
 
 	self.menuIconActivated = function()
 
-		if FFlagEnableNewVrSystem and VRService.VREnabled and ((EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBar) or GamepadService.GamepadCursorEnabled) then
+		if VRService.VREnabled and ((EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBar) or GamepadService.GamepadCursorEnabled) then
 			-- in the new VR System, the menu icon opens the gamepad menu instead
 			if EngineFeatureEnableVRUpdate2 then
 				if EnableInGameMenuV3() then
@@ -117,10 +116,8 @@ end
 function MenuIcon:render()
 
 	local v3Menu = isNewInGameMenuEnabled() and EnableInGameMenuV3()
-	local visible = not TenFootInterface:IsEnabled()
-	if FFlagEnableNewVrSystem then
-		visible = (not VRService.VREnabled or self.state.vrShowMenuIcon)
-	end
+	local visible = (not VRService.VREnabled or self.state.vrShowMenuIcon)
+
 	return Roact.createElement("Frame", {
 		Visible = visible,
 		BackgroundTransparency = 1,
@@ -140,7 +137,7 @@ function MenuIcon:render()
 			onActivated = self.menuIconActivated,
 			onHover = self.menuIconOnHover,
 		}),
-		ShowTopBarListener = FFlagEnableNewVrSystem and (not EngineFeatureEnableVRUpdate2 or GamepadService) and Roact.createElement(ExternalEventConnection, {
+		ShowTopBarListener = (not EngineFeatureEnableVRUpdate2 or GamepadService) and Roact.createElement(ExternalEventConnection, {
 			event = EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBarChanged.Event or GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"),
 			callback = self.showTopBarCallback,
 		})

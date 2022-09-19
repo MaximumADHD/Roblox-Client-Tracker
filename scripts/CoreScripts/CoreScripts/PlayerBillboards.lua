@@ -45,7 +45,9 @@ local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFF
 local GetFFlagDisableBubbleChatForExpChat = require(CorePackages.Flags.GetFFlagDisableBubbleChatForExpChat)
 local FFlagExperienceChatBubbleUseSending = game:DefineFastFlag("ExperienceChatBubbleUseSending", false)
 local FFlagFixMessageReceivedEventLeak = game:DefineFastFlag("FixMessageReceivedEventLeak", false)
+local GetFFlagUpgradeExpChatV3_0_0 = require(CorePackages.Flags.GetFFlagUpgradeExpChatV3_0_0)
 
+local ExperienceChat = require(CorePackages.ExperienceChat)
 local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
 
 local MALFORMED_TEXT_WARNING = "Message text %q sent to chat event %q is not a valid UTF-8 characters sequence"
@@ -54,9 +56,46 @@ local WRONG_LENGTH_WARNING = "Message text %q is too long for chat event %q (exp
 local MALFORMED_DATA_WARNING = "Malformed message data sent to chat event %q. If you have modified the chat system, " ..
 	"check what you are firing to this event"
 
-local chatStore = Rodux.Store.new(chatReducer, nil, {
-	Rodux.thunkMiddleware,
-})
+local chatStore
+if GetFFlagUpgradeExpChatV3_0_0() and GetFFlagDisableBubbleChatForExpChat() then
+	local SPY_ACTION_WHITELIST = {
+		[VoiceEnabledChanged.name] = function(action)
+			ExperienceChat.Events.VoiceEnabledChanged(action.enabled)
+		end,
+
+		[VoiceStateChanged.name] = function(action)
+			ExperienceChat.Events.VoiceStateChanged(action.userId, action.newState)
+		end,
+
+		[ParticipantAdded.name] = function(action)
+			ExperienceChat.Events.VoiceParticipantAdded(action.userId)
+		end,
+
+		[ParticipantRemoved.name] = function(action)
+			ExperienceChat.Events.VoiceParticipantRemoved(action.userId)
+		end,
+	}
+
+	local spyMiddleware = function(nextDispatch)
+		return function(action)
+			local event = SPY_ACTION_WHITELIST[action.type]
+			if event then
+				event(action)
+			end
+
+			nextDispatch(action)
+		end
+	end
+
+	chatStore = Rodux.Store.new(chatReducer, nil, {
+		Rodux.thunkMiddleware,
+		spyMiddleware,
+	})
+else
+	chatStore = Rodux.Store.new(chatReducer, nil, {
+		Rodux.thunkMiddleware,
+	})
+end
 
 Roact.mount(Roact.createElement(App, {
 	store = chatStore

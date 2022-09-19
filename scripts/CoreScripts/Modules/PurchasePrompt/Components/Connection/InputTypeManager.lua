@@ -1,4 +1,3 @@
---!nonstrict
 --[[
 	Sets whether or not gamepad buttons should be shown, based on recently
 	received inputs

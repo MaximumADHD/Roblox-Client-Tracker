@@ -1,4 +1,3 @@
---!nonstrict
 --[[
 	Mocks calls to certain platform-specific functions so that we can
 	ensure they're being called properly by our thunks.

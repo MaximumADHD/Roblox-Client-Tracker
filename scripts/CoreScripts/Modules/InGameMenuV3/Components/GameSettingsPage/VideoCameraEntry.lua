@@ -8,6 +8,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local t = InGameMenuDependencies.t
 
 local InGameMenu = script.Parent.Parent.Parent
@@ -20,6 +21,10 @@ local Constants = require(InGameMenu.Resources.Constants)
 
 local VideoCameraEntry = Roact.PureComponent:extend("VideoCameraEntry")
 local GetFFlagEnableCameraByDefault = require(RobloxGui.Modules.Flags.GetFFlagEnableCameraByDefault)
+
+local VideoPromptOff = RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.Off")
+local VideoPromptSystemDefault = RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.SystemDefault")
+local VideoPromptVideoCamera = RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.VideoCamera")
 
 VideoCameraEntry.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
@@ -71,7 +76,7 @@ function VideoCameraEntry:render()
 			Size = UDim2.new(1, 0, 0, 56),
 			Position = UDim2.new(0, 0, 0, 0),
 			AnchorPoint = Vector2.new(0, 0),
-			Text = "Video Camera",
+			Text = VideoPromptVideoCamera,
 			TextTruncate = Enum.TextTruncate.AtEnd,
 			TextXAlignment = Enum.TextXAlignment.Left,
 		}),
@@ -127,10 +132,9 @@ function VideoCameraEntry:updateDevicesList()
 			selectedIndex = 2
 		end
 
-		-- TODO: localization: https://jira.rbx.com/browse/AVBURST-10030
-		table.insert(deviceNames, "Off")
+		table.insert(deviceNames, VideoPromptOff)
 		table.insert(deviceGuids, "{NullDeviceGuid}")
-		table.insert(deviceNames, "System default")
+		table.insert(deviceNames, VideoPromptSystemDefault)
 		table.insert(deviceGuids, "{DefaultDeviceGuid}")
 
 		for guid, name in pairs(devs) do

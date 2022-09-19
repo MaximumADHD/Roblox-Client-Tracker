@@ -1,3 +1,4 @@
+--!nonstrict
 local VRService = game:GetService("VRService")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
@@ -6,7 +7,8 @@ local PathfindingService = game:GetService("PathfindingService")
 local ContextActionService = game:GetService("ContextActionService")
 local StarterGui = game:GetService("StarterGui")
 
-local MasterControl = require(script.Parent)
+-- When PlayerScripts are loaded, sibling scripts and folders with the same name are merged
+local MasterControl = require(script.Parent) :: typeof(require(script.Parent.Parent.MasterControl))
 local PathDisplay = nil
 local LocalPlayer = Players.LocalPlayer
 
@@ -343,7 +345,7 @@ local function onHeartbeat(dt)
 			end
 		else
 			local ignoreTable = {
-				game.Players.LocalPlayer.Character,
+				(game.Players.LocalPlayer :: Player).Character,
 				workspace.CurrentCamera
 			}
 			local obstructRay = Ray.new(currentPosition - Vector3.new(0, 1, 0), moveDir * 3)

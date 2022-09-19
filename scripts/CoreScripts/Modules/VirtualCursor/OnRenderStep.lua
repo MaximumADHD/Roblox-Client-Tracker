@@ -14,10 +14,6 @@ local Input = require(VirtualCursorFolder.Input)
 local Interface = require(VirtualCursorFolder.Interface)
 local Properties = require(VirtualCursorFolder.Properties)
 
-local FIntVirtualCursorScrollingRadius = game:DefineFastInt("VirtualCursorScrollingRadius", 15)
-local FIntVirtualCursorScrollingSlowDownPercent = game:DefineFastInt("VirtualCursorScrollingSlowDownPercent", 25)
-local FIntVirtualCursorScrollingFrameSpeed = game:DefineFastInt("VirtualCursorScrollingFrameSpeed", 2000)
-
 local velocityTarget = 1
 local lastSelectedObject = nil
 local isScrolling = false
@@ -47,8 +43,8 @@ local function handleScrollingFrame(element, pos, dt)
 	if not element.ScrollingEnabled then return false end
 
 	local rthumbstick = Input:GetThumbstick2Vector()
-	local scrollSpeed = FIntVirtualCursorScrollingFrameSpeed * dt
-	local cursorRadius = FIntVirtualCursorScrollingRadius
+	local scrollSpeed = Properties.ScrollingSpeed * dt
+	local cursorRadius = Properties.ScrollingRadius
 	local absCanvasSize = element.AbsoluteCanvasSize
 	local absSize = element.AbsoluteSize
 	local scrollingDirection = element.ScrollingDirection
@@ -165,7 +161,7 @@ return function(VirtualCursorMain, dt)
 	end
 
 	if isScrolling then
-		velocityTarget = FIntVirtualCursorScrollingSlowDownPercent / 100
+		velocityTarget = Properties.ScrollingSlowDown
 	end
 
 	velocityFromInput = thumbstickVector * getMaxSpeed()

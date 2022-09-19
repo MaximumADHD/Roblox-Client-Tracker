@@ -48,8 +48,11 @@ QuickActionsMenu.validateProps = t.strictInterface({
 	layoutOrder = t.number,
 	startRespawning = t.callback,
 	transparencies = t.table,
+	frameTransparency = t.table,
 	voiceEnabled = t.boolean,
 	respawnEnabled = t.boolean,
+	recording = t.boolean,
+	recordEnabled = t.boolean,
 	fullscreenEnabled = t.boolean,
 	screenshotEnabled = t.boolean,
 	size = t.UDim2,
@@ -59,6 +62,47 @@ QuickActionsMenu.validateProps = t.strictInterface({
 	isHorizontal = t.boolean,
 	absoluteSizeChanged = t.optional(t.callback),
 })
+
+
+local function updateTransparency(props)
+	local transparency = {}
+	for _, v in pairs(props.transparencies) do
+		if props.isHorizontal then
+			if props.voiceEnabled and transparency["muteSelf"] == nil then
+				transparency["muteSelf"] = v
+			elseif props.voiceEnabled and transparency["muteAll"] == nil then
+				transparency["muteAll"] = v
+			elseif transparency["report"] == nil then
+				transparency["report"] = v
+			elseif props.screenshotEnabled and transparency["screenshot"] == nil then
+				transparency["screenshot"] = v
+			elseif props.recordEnabled and transparency["record"] == nil then
+				transparency["record"] = v
+			elseif props.fullscreenEnabled and transparency["fullscreen"] == nil then
+				transparency["fullscreen"] = v
+			elseif props.respawnEnabled and transparency["respawn"] == nil then
+				transparency["respawn"] = v
+			end
+		else
+			if props.respawnEnabled and transparency["respawn"] == nil then
+				transparency["respawn"] = v
+			elseif props.fullscreenEnabled and transparency["fullscreen"] == nil then
+				transparency["fullscreen"] = v
+			elseif props.recordEnabled and transparency["record"] == nil then
+				transparency["record"] = v
+			elseif props.screenshotEnabled and transparency["screenshot"] == nil then
+				transparency["screenshot"] = v
+			elseif transparency["report"] == nil then
+				transparency["report"] = v
+			elseif props.voiceEnabled and transparency["muteAll"] == nil then
+				transparency["muteAll"] = v
+			elseif props.voiceEnabled and transparency["muteSelf"] == nil then
+				transparency["muteSelf"] = v
+			end
+		end
+	end
+	return transparency
+end
 
 function QuickActionsMenu:init()
 	self.openReportMenu = function()
@@ -81,13 +125,28 @@ function QuickActionsMenu:init()
 			RunService.RenderStepped:Wait()
 		end
 		CoreGui:TakeScreenshot()
-
 		SendAnalytics(
 			Constants.AnalyticsMenuActionName,
 			Constants.AnalyticsScreenshot,
 			{ source = Constants.AnalyticsQuickActionsMenuSource }
 		)
+		if IsMenuCsatEnabled() then
+			ExperienceMenuABTestManager.default:setCSATQualification()
+		end
+	end
+ 
 
+	self.record = function()
+		self.props.closeMenu()
+		for _ = 1, 16 do -- wait for menu animation to hide
+			RunService.RenderStepped:Wait()
+		end
+		CoreGui:ToggleRecording()
+		SendAnalytics(
+			Constants.AnalyticsMenuActionName,
+			Constants.AnalyticsRecord,
+			{ source = Constants.AnalyticsQuickActionsMenuSource }
+		)
 		if IsMenuCsatEnabled() then
 			ExperienceMenuABTestManager.default:setCSATQualification()
 		end
@@ -108,10 +167,10 @@ function QuickActionsMenu:init()
 	end
 
 	self:setState({
-		isFullScreen = GameSettings:InFullScreen(),
+		isFullScreen = GameSettings:InFullScreen()
 	})
 
-	GameSettings.FullscreenChanged:connect(function(isFullScreen)
+	GameSettings.FullscreenChanged:Connect(function(isFullScreen)
 		self:setState({
 			isFullScreen = isFullScreen,
 		})
@@ -129,102 +188,13 @@ function QuickActionsMenu:init()
 			ExperienceMenuABTestManager.default:setCSATQualification()
 		end
 	end
-end
 
-local function updateHorizontalTransparency(props)
-	local transparency = {
-		respawn = props.transparencies.button6,
-		fullscreen = props.transparencies.button5,
-		screenshot = props.transparencies.button4,
-		report = props.transparencies.button3,
-		muteAll = props.transparencies.button2,
-		muteSelf = props.transparencies.button1,
-	}
-	if props.respawnEnabled then
-		if props.fullscreenEnabled then
-			if not props.screenshotEnabled then
-				if props.voiceEnabled then
-					transparency.respawn = props.transparencies.button5
-					transparency.fullscreen = props.transparencies.button4
-					transparency.report = props.transparencies.button3
-					transparency.muteAll = props.transparencies.button2
-					transparency.muteSelf = props.transparencies.button1
-				else
-					transparency.respawn = props.transparencies.button3
-					transparency.fullscreen = props.transparencies.button2
-					transparency.report = props.transparencies.button1
-				end
-			end
-		else
-			if not props.screenshotEnabled then
-				if props.voiceEnabled then
-					transparency.respawn = props.transparencies.button4
-					transparency.report = props.transparencies.button3
-					transparency.muteAll = props.transparencies.button2
-					transparency.muteSelf = props.transparencies.button1
-				else
-					transparency.respawn = props.transparencies.button2
-					transparency.report = props.transparencies.button1
-				end
-			end
-		end
-	else
-		if props.screenshotEnabled then
-			if props.voiceEnabled then
-				transparency.screenshot = props.transparencies.button4
-				transparency.report = props.transparencies.button3
-				transparency.muteAll = props.transparencies.button2
-				transparency.muteSelf = props.transparencies.button1
-			else
-				transparency.screenshot = props.transparencies.button2
-				transparency.report = props.transparencies.button1
-			end
-		else
-			if props.voiceEnabled then
-				transparency.report = props.transparencies.button3
-				transparency.muteAll = props.transparencies.button2
-				transparency.muteSelf = props.transparencies.button1
-			else
-				transparency.report = props.transparencies.button1
-			end
-		end
-	end
-	return transparency
-end
+	self.transparency = updateTransparency(self.props)
 
-local function updateTransparency(props)
-	local transparency = {
-		respawn = props.transparencies.button1,
-		screenshot = props.transparencies.button2,
-		report = props.transparencies.button3,
-		muteAll = props.transparencies.button4,
-		muteSelf = props.transparencies.button5,
-	}
-	if props.respawnEnabled then
-		if not props.screenshotEnabled then
-			transparency.report = props.transparencies.button2
-			transparency.muteAll = props.transparencies.button3
-			transparency.muteSelf = props.transparencies.button4
-		end
-	else
-		if props.screenshotEnabled then
-			transparency.screenshot = props.transparencies.button1
-			transparency.report = props.transparencies.button2
-			transparency.muteAll = props.transparencies.button3
-			transparency.muteSelf = props.transparencies.button4
-		else
-			transparency.report = props.transparencies.button1
-			transparency.muteAll = props.transparencies.button2
-			transparency.muteSelf = props.transparencies.button3
-		end
-	end
-	return transparency
 end
 
 function QuickActionsMenu:render()
 	return withStyle(function(style)
-		local transparency = self.props.isHorizontal and updateHorizontalTransparency(self.props)
-			or updateTransparency(self.props)
 		return withLocalization({
 			report = "CoreScripts.InGameMenu.QuickActions.Report",
 			screenshot = "CoreScripts.InGameMenu.QuickActions.Screenshot",
@@ -236,7 +206,7 @@ function QuickActionsMenu:render()
 				Size = self.props.size,
 				AutomaticSize = self.props.automaticSize,
 				BackgroundColor3 = style.Theme.UIMuted.Color,
-				BackgroundTransparency = self.props.transparencies.frame,
+				BackgroundTransparency = self.props.frameTransparency,
 				[Roact.Change.AbsoluteSize] = self.props.absoluteSizeChanged,
 			}, {
 				padding = Roact.createElement("UIPadding", {
@@ -256,15 +226,15 @@ function QuickActionsMenu:render()
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 				MuteSelfButton = self.props.voiceEnabled and Roact.createElement(MuteSelfButton, {
-					iconTransparency = transparency.muteSelf,
-					backgroundTransparency = transparency.muteSelf,
+					iconTransparency = self.transparency.muteSelf,
+					backgroundTransparency = self.transparency.muteSelf,
 					backgroundColor = style.Theme.BackgroundUIDefault,
 					iconSize = IconSize.Medium,
 					layoutOrder = 1,
 				}) or nil,
 				MuteAllButton = self.props.voiceEnabled and Roact.createElement(MuteAllButton, {
-					iconTransparency = transparency.muteAll,
-					backgroundTransparency = transparency.muteAll,
+					iconTransparency = self.transparency.muteAll,
+					backgroundTransparency = self.transparency.muteAll,
 					backgroundColor = style.Theme.BackgroundUIDefault,
 					iconSize = IconSize.Medium,
 					layoutOrder = 2,
@@ -278,8 +248,8 @@ function QuickActionsMenu:render()
 					DisplayOrder = Constants.DisplayOrder.Tooltips,
 				}, function(triggerPointChanged, onStateChanged)
 					return Roact.createElement(IconButton, {
-						iconTransparency = transparency.report,
-						backgroundTransparency = transparency.report,
+						iconTransparency = self.transparency.report,
+						backgroundTransparency = self.transparency.report,
 						backgroundColor = style.Theme.BackgroundUIDefault,
 						showBackground = true,
 						layoutOrder = 3,
@@ -300,8 +270,8 @@ function QuickActionsMenu:render()
 					DisplayOrder = Constants.DisplayOrder.Tooltips,
 				}, function(triggerPointChanged, onStateChanged)
 					return Roact.createElement(IconButton, {
-						iconTransparency = transparency.screenshot,
-						backgroundTransparency = transparency.screenshot,
+						iconTransparency = self.transparency.screenshot,
+						backgroundTransparency = self.transparency.screenshot,
 						backgroundColor = style.Theme.BackgroundUIDefault,
 						showBackground = true,
 						layoutOrder = 4,
@@ -313,6 +283,16 @@ function QuickActionsMenu:render()
 						[Roact.Change.AbsoluteSize] = triggerPointChanged,
 					})
 				end),
+				RecordButton = self.props.recordEnabled and Roact.createElement(IconButton, {
+					iconTransparency = self.transparency.record,
+					backgroundTransparency = self.transparency.record,
+					backgroundColor = self.state.recording and style.Theme.Alert or style.Theme.BackgroundUIDefault,
+					showBackground = true,
+					layoutOrder = 5,
+					iconSize = IconSize.Medium,
+					onActivated = self.record,
+					icon = Assets.Images.RecordIcon,
+				}) or nil,
 				FullscreenButton = self.props.fullscreenEnabled and withHoverTooltip({
 					headerText = localized.fullscreen,
 					hotkeyCodes = FULLSCREEN_HOTKEYS,
@@ -322,11 +302,11 @@ function QuickActionsMenu:render()
 					DisplayOrder = Constants.DisplayOrder.Tooltips,
 				}, function(triggerPointChanged, onStateChanged)
 					return Roact.createElement(IconButton, {
-						iconTransparency = transparency.fullscreen,
-						backgroundTransparency = transparency.fullscreen,
+						iconTransparency = self.transparency.fullscreen,
+						backgroundTransparency = self.transparency.fullscreen,
 						backgroundColor = style.Theme.BackgroundUIDefault,
 						showBackground = true,
-						layoutOrder = 5,
+						layoutOrder = 6,
 						onActivated = self.toggleFullscreen,
 						iconSize = IconSize.Medium,
 						icon = self.state.isFullScreen and Assets.Images.PreviewShrinkIcon
@@ -345,11 +325,11 @@ function QuickActionsMenu:render()
 					DisplayOrder = Constants.DisplayOrder.Tooltips,
 				}, function(triggerPointChanged, onStateChanged)
 					return Roact.createElement(IconButton, {
-						iconTransparency = transparency.respawn,
-						backgroundTransparency = transparency.respawn,
+						iconTransparency = self.transparency.respawn,
+						backgroundTransparency = self.transparency.respawn,
 						backgroundColor = style.Theme.BackgroundUIDefault,
 						showBackground = true,
-						layoutOrder = 6,
+						layoutOrder = 7,
 						onActivated = self.startRespawning,
 						iconSize = IconSize.Medium,
 						icon = Assets.Images.RespawnIcon,
@@ -363,6 +343,20 @@ function QuickActionsMenu:render()
 	end)
 end
 
+function QuickActionsMenu:didUpdate(prevProps, prevState)
+	if self.props.recording ~= prevProps.recording then
+		self:setState({
+			recording = self.props.recording
+		})
+	end
+end
+
+local function mapStateToProps(state, _)
+	return {
+		recording = state.recording,
+	}
+end
+
 local function mapDispatchToProps(dispatch)
 	return {
 		closeMenu = function()
@@ -374,4 +368,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.connect(nil, mapDispatchToProps)(QuickActionsMenu)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(QuickActionsMenu)

@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName: ShiftLockController
 	// Written by: jmargh

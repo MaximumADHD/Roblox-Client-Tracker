@@ -1,4 +1,3 @@
---!nonstrict
 return function()
 	local Root = script.Parent.Parent
 
@@ -72,7 +71,7 @@ return function()
 		local bundleDetails = getTestBundleDetails()
 		local accountInfo = getTestAccountInfoDetails()
 		local balanceInfo = getTestBalanceDetails()
-		
+
 		local thunk = resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo, balanceInfo)
 
 		Thunk.test(thunk, store, {

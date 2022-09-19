@@ -9,6 +9,10 @@ local properties = {
 
 	MaxSpeedRelative = 0.7,             -- viewport radii/s
 	ThumbstickDeadzone = 0.20,          -- 20% of thumbstick is deadzone
+
+	ScrollingRadius = 15, 				-- Scrollable area near the edge of scrolling frames for virtual cursor
+	ScrollingSlowDown = 0.25, 			-- 25% slowdown when hovering over objects
+	ScrollingSpeed = 1000,				-- Scrolling speed of scrolling frames
 }
 
 setmetatable(properties, {

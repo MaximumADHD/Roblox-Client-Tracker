@@ -75,8 +75,6 @@ local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
 local GamepadMenu = Roact.PureComponent:extend("GamepadMenu")
-
-local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 local GetFFlagQuickMenuControllerBarRefactor = require(RobloxGui.Modules.Flags.GetFFlagQuickMenuControllerBarRefactor)
 
 local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
@@ -102,15 +100,9 @@ GamepadMenu.validateProps = t.strictInterface({
 })
 
 function GamepadMenu:init()
-	local visibleValue = nil
-	if not FFlagEnableNewVrSystem then
-		visibleValue = false
-	end
-
 	self:setState({
 		selectedIndex = 1,
 		menuActions = {},
-		visible = visibleValue,
 	})
 
 	self.boundMenuOpenActions = false
@@ -120,13 +112,7 @@ function GamepadMenu:init()
 			return Enum.ContextActionResult.Pass
 		end
 
-		if FFlagEnableNewVrSystem then
-			self.props.setGamepadMenuOpen(not self.props.isGamepadMenuOpen)
-		else
-			self:setState({
-				visible = not self.state.visible,
-			})
-		end
+		self.props.setGamepadMenuOpen(not self.props.isGamepadMenuOpen)
 
 		return Enum.ContextActionResult.Sink
 	end
@@ -136,13 +122,7 @@ function GamepadMenu:init()
 			return Enum.ContextActionResult.Pass
 		end
 
-		if FFlagEnableNewVrSystem then
-			self.props.setGamepadMenuOpen(false)
-		else
-			self:setState({
-				visible = false,
-			})
-		end
+		self.props.setGamepadMenuOpen(false)
 
 		return Enum.ContextActionResult.Sink
 	end
@@ -153,14 +133,8 @@ function GamepadMenu:init()
 		end
 
 		GamepadMenu.leaveGame()
-
-		if FFlagEnableNewVrSystem then
-			self.props.setGamepadMenuOpen(false)
-		else
-			self:setState({
-				visible = false,
-			})
-		end
+		
+		self.props.setGamepadMenuOpen(false)
 
 		return Enum.ContextActionResult.Sink
 	end
@@ -171,14 +145,8 @@ function GamepadMenu:init()
 		end
 
 		GamepadMenu.respawnCharacter()
-
-		if FFlagEnableNewVrSystem then
-			self.props.setGamepadMenuOpen(false)
-		else
-			self:setState({
-				visible = false,
-			})
-		end
+		
+		self.props.setGamepadMenuOpen(false)
 
 		return Enum.ContextActionResult.Sink
 	end
@@ -253,14 +221,7 @@ function GamepadMenu:init()
 		end
 
 		local action = self.state.menuActions[self.state.selectedIndex]
-
-		if FFlagEnableNewVrSystem then
-			self.props.setGamepadMenuOpen(false)
-		else
-			self:setState({
-				visible = false,
-			})
-		end
+		self.props.setGamepadMenuOpen(false)
 
 		-- Since the above call closing the gamepad menu is not instant we can't rely on
 		-- this being called in didUpdate. We need to call it manually here.
@@ -273,13 +234,7 @@ function GamepadMenu:init()
 	end
 
 	self.overlayDismiss = function()
-		if FFlagEnableNewVrSystem then
-			self.props.setGamepadMenuOpen(false)
-		else
-			self:setState({
-				visible = false,
-			})
-		end
+		self.props.setGamepadMenuOpen(false)
 	end
 end
 
@@ -315,7 +270,7 @@ end
 
 function GamepadMenu.toggleLeaderboard()
 	-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
-	if isNewInGameMenuEnabled() and FFlagEnableNewVrSystem then
+	if isNewInGameMenuEnabled() then
 		local InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
 		InGameMenu.openPlayersPage()
 	else
@@ -337,7 +292,7 @@ end
 
 function GamepadMenu.leaveGame()
 	-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
-	if isNewInGameMenuEnabled() and FFlagEnableNewVrSystem then
+	if isNewInGameMenuEnabled() then
 		local InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
 		InGameMenu.openGameLeavePage()
 	else
@@ -521,13 +476,7 @@ function GamepadMenu:render()
 			})
 		end
 
-		local visible
-		if FFlagEnableNewVrSystem then
-			visible = self.props.isGamepadMenuOpen
-		else
-			visible = self.state.visible
-		end
-
+		local visible = self.props.isGamepadMenuOpen
 		local controllerBarComponent
 		if GetFFlagQuickMenuControllerBarRefactor() then
 			controllerBarComponent = visible and Roact.createElement(ControllerBar) or nil
@@ -615,13 +564,8 @@ end
 
 function GamepadMenu:didUpdate(prevProps, prevState)
 	local stateChanged, openMenu
-	if FFlagEnableNewVrSystem then
-		stateChanged = prevProps.isGamepadMenuOpen ~= self.props.isGamepadMenuOpen
-		openMenu = self.props.isGamepadMenuOpen
-	else
-		stateChanged = self.state.visible ~= prevState.visible
-		openMenu = self.state.visible
-	end
+	stateChanged = prevProps.isGamepadMenuOpen ~= self.props.isGamepadMenuOpen
+	openMenu = self.props.isGamepadMenuOpen
 
 	if stateChanged then
 		if openMenu then
@@ -642,28 +586,7 @@ function GamepadMenu:didUpdate(prevProps, prevState)
 		else
 			self:unbindMenuOpenActions()
 
-			if not FFlagEnableNewVrSystem then
-				if GuiService.SelectedCoreObject == nil and self.savedSelectedCoreObject then
-					if self.savedSelectedCoreObject:IsDescendantOf(CoreGui) then
-						GuiService.SelectedCoreObject = self.savedSelectedCoreObject
-					end
-				end
-				if GuiService.SelectedObject == nil and self.savedSelectedObject then
-					if self.savedSelectedObject:IsDescendantOf(PlayerGui) then
-						GuiService.SelectedObject = self.savedSelectedObject
-					end
-				end
-			end
-
 			GuiService:SetMenuIsOpen(false, GAMEPAD_MENU_KEY)
-		end
-	end
-
-	if not FFlagEnableNewVrSystem and self.props.menuOpen and not prevProps.menuOpen then
-		if self.state.visible then
-			self:setState({
-				visible = false,
-			})
 		end
 	end
 end
@@ -678,7 +601,7 @@ local function mapStateToProps(state)
 	return {
 		screenSize = state.displayOptions.screenSize,
 
-		chatEnabled = state.coreGuiEnabled[Enum.CoreGuiType.Chat] and topBarEnabled and not (VRService.VREnabled and FFlagEnableNewVrSystem),
+		chatEnabled = state.coreGuiEnabled[Enum.CoreGuiType.Chat] and topBarEnabled and not VRService.VREnabled,
 		leaderboardEnabled = state.coreGuiEnabled[Enum.CoreGuiType.PlayerList] and topBarEnabled,
 		emotesEnabled = state.moreMenu.emotesEnabled and state.coreGuiEnabled[Enum.CoreGuiType.EmotesMenu] and topBarEnabled,
 		backpackEnabled = state.coreGuiEnabled[Enum.CoreGuiType.Backpack] and topBarEnabled,

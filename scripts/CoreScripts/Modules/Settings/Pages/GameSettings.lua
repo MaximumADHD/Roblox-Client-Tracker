@@ -104,6 +104,10 @@ local RenderSettings
 local SendNotification
 local RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
 
+local VideoPromptOff = RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.Off")
+local VideoPromptSystemDefault = RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.SystemDefault")
+local VideoPromptVideoCamera = RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.VideoCamera")
+
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
 if GetFixGraphicsQuality() then
@@ -2133,8 +2137,7 @@ local function Initialize()
 		local options = this[CAMERA_DEVICE_NAMES_KEY] or {}
 		local guids = this[CAMERA_DEVICE_GUID_KEY] or {}
 
-                -- TODO: localization: https://jira.rbx.com/browse/AVBURST-8776
-		local deviceLabel = "Video camera"
+		local deviceLabel = VideoPromptVideoCamera
 		this[CAMERA_DEVICE_FRAME_KEY], _, this[CAMERA_DEVICE_SELECTOR_KEY] =
 				utility:AddNewRow(this, deviceLabel, "Selector", options, selectedIndex)
 		this[CAMERA_DEVICE_FRAME_KEY].LayoutOrder = 15
@@ -2218,10 +2221,9 @@ local function Initialize()
 		if GetFFlagEnableCameraByDefault() and (UserGameSettings.DefaultCameraID ~= "{NullDeviceGuid}") then
 			selectedIndex = 2
 		end
-		table.insert(deviceNames, "Off")
+		table.insert(deviceNames, VideoPromptOff)
 		table.insert(deviceGuids, "{NullDeviceGuid}")
-                -- TODO: localization: https://jira.rbx.com/browse/AVBURST-8776
-		table.insert(deviceNames, "System default")
+		table.insert(deviceNames, VideoPromptSystemDefault)
 		table.insert(deviceGuids, "{DefaultDeviceGuid}")
 		for guid, name in pairs(devs) do
 			if guid == UserGameSettings.DefaultCameraID then

@@ -1,4 +1,3 @@
---!nonstrict
 return function()
 	local strict = require(script.Parent.strict)
 

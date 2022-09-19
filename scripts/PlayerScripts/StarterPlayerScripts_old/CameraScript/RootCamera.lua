@@ -1,3 +1,4 @@
+--!nonstrict
 local PlayersService = game:GetService('Players')
 local UserInputService = game:GetService('UserInputService')
 local StarterGui = game:GetService('StarterGui')
@@ -360,7 +361,7 @@ local function CreateCamera()
 	end
 
 	function this:GetCameraLook()
-		return workspace.CurrentCamera and workspace.CurrentCamera.CoordinateFrame.lookVector or Vector3.new(0,0,1)
+		return workspace.CurrentCamera and workspace.CurrentCamera.CoordinateFrame.LookVector or Vector3.new(0,0,1)
 	end
 
 	function this:GetCameraZoom()
@@ -1411,7 +1412,7 @@ local function CreateCamera()
 			self.Enabled = newState
 			if self.Enabled then
 				self:ConnectInputEvents()
-				self.cframe = workspace.CurrentCamera.CFrame
+				self.cframe = (workspace.CurrentCamera :: Camera).CFrame
 			else
 				self:DisconnectInputEvents()
 			end
@@ -1485,7 +1486,7 @@ local function CreateCamera()
 		if game:IsLoaded() then
 			OnGameLoaded()
 		else
-			game.Loaded:wait()
+			game.Loaded:Wait()
 			OnGameLoaded()
 		end
 	end)

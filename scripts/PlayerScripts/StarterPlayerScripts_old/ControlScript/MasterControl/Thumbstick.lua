@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName: Thumbstick
 	// Version 1.0
@@ -8,7 +9,8 @@ local Players = game:GetService('Players')
 local UserInputService = game:GetService('UserInputService')
 local GuiService = game:GetService('GuiService')
 
-local MasterControl = require(script.Parent)
+-- When PlayerScripts are loaded, sibling scripts and folders with the same name are merged
+local MasterControl = require(script.Parent) :: typeof(require(script.Parent.Parent.MasterControl))
 
 local Thumbstick = {}
 

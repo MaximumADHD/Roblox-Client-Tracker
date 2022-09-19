@@ -60,8 +60,6 @@ local IGMMainPageControllerBar = require(script.Parent.IGMMainPageControllerBar)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
-local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
-
 local MAIN_PAGE_WIDTH = 400
 local RECORD_UPDATE_STEP = 0.2
 local BOTTOM_MENU_ICON_SIZE = 44
@@ -83,7 +81,7 @@ local LEAVE_GAME_KEY_CODE_LABEL = {
 local MainPage = Roact.PureComponent:extend("MainPage")
 
 local function areCapturesAllowed()
-	if FFlagEnableNewVrSystem and VRService.VREnabled then
+	if VRService.VREnabled then
 		return false -- screenshots aren't functional in VR
 	end
 
@@ -462,7 +460,7 @@ function MainPage:render()
 			}, {
 				MoreMenuFocusHandler = self:renderMoreMenuFocusHandler(),
 				MainPageFocusHandler = GetFFlagUseIGMControllerBar()
-						and not (VRService.VREnabled and FFlagEnableNewVrSystem)
+						and not VRService.VREnabled
 						and self:renderMainPageFocusHandler()
 					or nil,
 				ControllerBar = ControllerBar,
@@ -640,7 +638,7 @@ function MainPage:didUpdate(prevProps, prevState)
 		end
 	end
 
-	if VRService.VREnabled and FFlagEnableNewVrSystem then
+	if VRService.VREnabled then
 		UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
 	end
 end

@@ -1,3 +1,4 @@
+--!nonstrict
 -- Written By Kip Turner, Copyright Roblox 2014
 -- Updated by Garnold to utilize the new PathfindingService API, 2017
 
@@ -382,6 +383,10 @@ local function Pather(character, endPoint, surfaceNormal)
 
 	this.MoveToConn = nil
 	this.CurrentPoint = 0
+
+	this.stopTraverseFunc = nil :: (() -> ())?
+	this.setPointFunc = nil :: ((number) -> ())?
+	this.pointList = nil :: {PathWaypoint}?
 
 	function this:Cleanup()
 		if this.stopTraverseFunc then

@@ -16,17 +16,20 @@ function BannerButton:render()
 
 	local size = self.props.size
 	local pos = self.props.pos
+	local isExpandable = self.props.isExpandable
 	local isExpanded = self.props.isExpanded
 	local layoutOrder = self.props.layoutOrder
+	local inset = self.props.inset or 0
 
 	local onButtonPress = self.props.onButtonPress
 
 	local bannerElements = {
 		BannerButtonArrow = onButtonPress and Roact.createElement("ImageLabel", {
+			Visible = isExpandable,
 			Image = isExpanded and OPEN_ARROW or CLOSE_ARROW,
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, ARROW_WIDTH, 0, ARROW_WIDTH),
-			Position = UDim2.new(0, 0, .5, -ARROW_WIDTH / 2),
+			Position = UDim2.new(0, inset, .5, -ARROW_WIDTH / 2),
 		}),
 
 		HorizontalLineTop = Roact.createElement("Frame", {

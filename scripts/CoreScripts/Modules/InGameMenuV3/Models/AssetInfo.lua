@@ -120,4 +120,13 @@ function AssetInfo.fromGetItemFavorite(assetId, isFavorited)
 	return newAsset
 end
 
+function AssetInfo.fromSetItemFavorite(assetId, setFavorited, numFavorites: number)
+	local newAsset = AssetInfo.new()
+	newAsset.assetId = tostring(assetId)
+	newAsset.isFavorited = setFavorited
+	newAsset.numFavorites = setFavorited and numFavorites + 1 or numFavorites - 1
+
+	return newAsset
+end
+
 return AssetInfo

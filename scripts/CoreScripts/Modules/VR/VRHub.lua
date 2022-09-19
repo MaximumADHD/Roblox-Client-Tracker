@@ -19,8 +19,6 @@ local LaserPointer = require(RobloxGui.Modules.VR.LaserPointer)
 
 local VRControllerModel = require(RobloxGui.Modules.VR.VRControllerModel)
 
-local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
-
 local VRHub = {}
 local RegisteredModules = {}
 local OpenModules = {}
@@ -117,16 +115,14 @@ local function onVREnabled(property)
 		end
 		RunService:BindToRenderStep(vrUpdateRenderstepName, Enum.RenderPriority.Last.Value, onRenderSteppedLast)
 
-		if FFlagEnableNewVrSystem then
-			if VRHub.LaserPointer then
-				if not EngineFeatureEnableVRUpdate2 then
-					VRHub.LaserPointer:setMode(LaserPointer.Mode.Disabled)
-				end
-				
-				VRHub.LaserPointer:setForcePointer(true)
+		if VRHub.LaserPointer then
+			if not EngineFeatureEnableVRUpdate2 then
+				VRHub.LaserPointer:setMode(LaserPointer.Mode.Disabled)
 			end
-			UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
+			
+			VRHub.LaserPointer:setForcePointer(true)
 		end
+		UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
 	else
 		if VRHub.LaserPointer then
 			VRHub.LaserPointer:setMode(LaserPointer.Mode.Disabled)

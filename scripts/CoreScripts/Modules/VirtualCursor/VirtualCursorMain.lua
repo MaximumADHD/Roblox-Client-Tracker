@@ -19,8 +19,6 @@ local input = require(VirtualCursorFolder:WaitForChild("Input"))
 local interface = require(VirtualCursorFolder:WaitForChild("Interface"))
 local onRenderStep = require(VirtualCursorFolder:WaitForChild("OnRenderStep"))
 
-local FFlagVirtualCursorFixDisconnectNil = game:DefineFastFlag("VirtualCursorFixDisconnectNil", false)
-
 -- There should only be one instance of virtual cursor.
 -- This will allow it to stay a class, while also still being able to rely on guiservice enabling/disabling
 local VirtualCursorSingleton = nil
@@ -49,10 +47,8 @@ local function enableVirtualCursor(position)
 end
 
 local function disableVirtualCursor()
-	if FFlagVirtualCursorFixDisconnectNil then
-		if not VirtualCursorSingleton.Enabled then 
-			return 
-		end
+	if not VirtualCursorSingleton.Enabled then 
+		return 
 	end
 
 	-- disconnect events

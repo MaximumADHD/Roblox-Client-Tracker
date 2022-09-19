@@ -6,6 +6,7 @@
 local CorePackages = game:GetService("CorePackages")
 
 local Roact = require(CorePackages.Roact)
+local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
 local t = require(CorePackages.Packages.t)
 
@@ -40,15 +41,27 @@ end
 function AssetDetailThumbnail:render()
 	local thumbnailSize = Constants.PageWidth * THUMB_SIZE_RATIO
 
-	return Roact.createElement(LoadableImage, {
+	return Roact.createElement("Frame", {
 		LayoutOrder = self.props.LayoutOrder,
 		BackgroundTransparency = 1,
-		Image = self:getUrl(),
 		AnchorPoint = Vector2.new(0.5, 0),
 		Position = UDim2.fromScale(0.5, 0),
 		Size = UDim2.fromOffset(thumbnailSize, thumbnailSize),
-		useShimmerAnimationWhileLoading = true,
+		Visible = not self.props.tryingOn,
+	}, {
+		LoadableImage = Roact.createElement(LoadableImage, {
+			BackgroundTransparency = 1,
+			Image = self:getUrl(),
+			Size = UDim2.fromScale(1, 1),
+			useShimmerAnimationWhileLoading = true,
+		})
 	})
 end
 
-return AssetDetailThumbnail
+return RoactRodux.connect(
+	function(state, props)
+		return {
+			tryingOn = state.inspectAndBuy.TryingOn,
+		}
+	end, nil
+)(AssetDetailThumbnail)

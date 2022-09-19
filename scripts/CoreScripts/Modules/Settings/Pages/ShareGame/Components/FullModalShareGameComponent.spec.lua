@@ -50,4 +50,21 @@ return function()
 		end)
 	end)
 
+	describe("multi user invite prompt", function()
+		it("should display custom text when prop is provided", function()
+			local oldFlagValue = game:SetFastFlagForTesting("EnableNewInviteMenuDev", true)
+			
+			local folder = Instance.new("Folder")
+			local instance = Roact.mount(Roact.createElement(FullModalShareGameComponent, {
+				store = createStore(),
+				isVisible = true,
+				promptMessage = "Custom",
+			}), folder)
+
+			expect(instance).to.be.ok()
+			expect(folder:FindFirstChild("CustomText", true).Text).to.equal("Custom")
+
+			game:SetFastFlagForTesting("EnableNewInviteMenuDev", oldFlagValue)
+		end)
+	end)
 end

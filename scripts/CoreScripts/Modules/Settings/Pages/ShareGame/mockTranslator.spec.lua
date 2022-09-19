@@ -1,4 +1,3 @@
---!nonstrict
 return function()
 	local mockTranslator = require(script.Parent.mockTranslator)
 

@@ -50,7 +50,8 @@ local function retryAfterUpsell(retriesRemaining)
 			return
 		end
 
-		if GetFFlagRobuxUpsellIXP() and promptState ~= PromptState.UpsellInProgress then
+		if GetFFlagRobuxUpsellIXP() and promptState ~= PromptState.UpsellInProgress
+			and promptState ~= PromptState.PollingBalance then
 			return
 		end
 

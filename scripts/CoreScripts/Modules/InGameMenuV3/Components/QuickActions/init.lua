@@ -1,9 +1,9 @@
---!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local RunService = game:GetService("RunService")
 local CoreGui = game:GetService("CoreGui")
 local UserInputService = game:GetService("UserInputService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local GameSettings = settings():FindFirstChild("Game Options") or error("Game Options does not exist", 0)
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -18,6 +18,7 @@ local withVoiceState = require(RobloxGui.Modules.VoiceChat.VoiceStateContext).wi
 local InGameMenu = script.Parent.Parent
 local Constants = require(InGameMenu.Resources.Constants)
 
+local FFlagRecordRecording = require(InGameMenu.Flags.FFlagRecordRecording)
 local FFlagEnableInGameMenuQAScreenshot = game:DefineFastFlag("EnableInGameMenuQAScreenshot", false)
 
 local QuickActions = Roact.PureComponent:extend("QuickActions")
@@ -42,29 +43,30 @@ QuickActions.validateProps = t.strictInterface({
 	visible = t.boolean,
 })
 
-local function linearTween(dTime, startFrame, endFrame)
+local buttonCount = 1 -- default: Report
+local checkVoiceButton = false
+local frameFinalTransparency = 0.2 -- default: style.Theme.UIMuted
+
+local function linearTween(dTime : number, startFrame : number, endFrame : number)
 	local range = (endFrame - startFrame)/FPS
 	return (dTime - (startFrame/FPS)) / range
 end
 
-local function isBetweenFrames(dTime, startFrame, endFrame)
+local function isBetweenFrames(dTime : number, startFrame : number, endFrame : number)
 	return dTime >= (startFrame/FPS) and dTime <= (endFrame/FPS)
 end
-
-local buttonCount = 1 -- default: Report
-local frameFinalTransparency = 0.2 -- default: style.Theme.UIMuted
 
 local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 	if reverse then
 		if isBetweenFrames(timeElapsed, 0, 5) then
 			local elapsed = linearTween(timeElapsed, 0, 5)
-			-- updateBindings.frame(0.2 + elapsed * 0.8)
 			updateBindings.button1(elapsed)
 			updateBindings.button2(elapsed)
 			updateBindings.button3(elapsed)
 			updateBindings.button4(elapsed)
 			updateBindings.button5(elapsed)
 			updateBindings.button6(elapsed)
+			updateBindings.button7(elapsed)
 		else
 			local finalTransparency = 1
 			updateBindings.button1(finalTransparency)
@@ -72,6 +74,8 @@ local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 			updateBindings.button3(finalTransparency)
 			updateBindings.button4(finalTransparency)
 			updateBindings.button5(finalTransparency)
+			updateBindings.button6(finalTransparency)
+			updateBindings.button7(finalTransparency)
 			stopCallback()
 		end
 		updateBindings.gradient(1)
@@ -115,6 +119,12 @@ local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 		local scaledElapsed = 1 - elapsed
 		updateBindings.button6(scaledElapsed)
 	end
+	if isBetweenFrames(timeElapsed, 12, 14) then
+		local elapsed = linearTween(timeElapsed, 12, 14)
+		local scaledElapsed = 1 - elapsed
+		updateBindings.button7(scaledElapsed)
+	end
+
 	local totalFrame = buttonCount * 2
 	local delay = if isMobilePlatform then 0 else 4
 	if isBetweenFrames(timeElapsed, 0, delay) then
@@ -136,6 +146,7 @@ local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 		updateBindings.button4(0)
 		updateBindings.button5(0)
 		updateBindings.button6(0)
+		updateBindings.button7(0)
 		stopCallback()
 	end
 end
@@ -149,17 +160,17 @@ function QuickActions:init()
 	self.button4Transparency, self.updateButton4 = Roact.createBinding(1)
 	self.button5Transparency, self.updateButton5 = Roact.createBinding(1)
 	self.button6Transparency, self.updateButton6 = Roact.createBinding(1)
+	self.button7Transparency, self.updateButton7 = Roact.createBinding(1)
 
 	self.transparencies = {
-		frame = self.frameTransparency,
 		button1 = self.button1Transparency,
 		button2= self.button2Transparency,
 		button3 = self.button3Transparency,
 		button4 = self.button4Transparency,
 		button5 = self.button5Transparency,
 		button6 = self.button6Transparency,
+		button7 = self.button7Transparency,
 	}
-
 	self.updateBindings = {
 		gradient = self.updateGradient,
 		frame = self.updateFrame,
@@ -169,6 +180,7 @@ function QuickActions:init()
 		button4 = self.updateButton4,
 		button5 = self.updateButton5,
 		button6 = self.updateButton6,
+		button7 = self.updateButton7,
 	}
 	self.animationStartTime = nil
 	self.animationFunction = nil
@@ -184,11 +196,11 @@ function QuickActions:init()
 	if self.props.respawnEnabled then
 		buttonCount = buttonCount + 1
 	end
-	if self.props.voiceEnabled then
-		buttonCount = buttonCount + 2
-	end
-
 	if isDesktopClient then
+		buttonCount = buttonCount + 1
+	end
+	self.recordEnabled = GameSettings.VideoCaptureEnabled and FFlagRecordRecording or false
+	if self.recordEnabled then
 		buttonCount = buttonCount + 1
 	end
 
@@ -223,6 +235,10 @@ end
 function QuickActions:render()
 	return withStyle(function(style)
 		return withVoiceState(function(voiceState)
+		if not checkVoiceButton and voiceState.voiceEnabled then
+			buttonCount = buttonCount + 2
+			checkVoiceButton = true
+		end
 		frameFinalTransparency = style.Theme.UIMuted.Transparency
 		local gradientWidth = CONTROL_WIDTH
 		if game:GetEngineFeature("NotchSpaceSupportEnabled") then
@@ -230,7 +246,6 @@ function QuickActions:render()
 		else
 			gradientWidth = gradientWidth + 2 * NO_NOTCH_OFFSET
 		end
-
 		if isMobilePlatform then
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(0, gradientWidth, 1, 0),
@@ -271,6 +286,8 @@ function QuickActions:render()
 						respawnEnabled = self.props.respawnEnabled,
 						fullscreenEnabled = false,
 						screenshotEnabled = FFlagEnableInGameMenuQAScreenshot,
+						recordEnabled = self.recordEnabled,
+						frameTransparency = self.frameTransparency,
 						transparencies = self.transparencies,
 						fillDirection = Enum.FillDirection.Vertical,
 						automaticSize = Enum.AutomaticSize.Y,
@@ -280,8 +297,9 @@ function QuickActions:render()
 				})
 			})
 		else
-			local isDesktopClient = platform == Enum.Platform.OSX or platform == Enum.Platform.Windows
 			return Roact.createElement("Frame", {
+				AnchorPoint = Vector2.new(0, 0),
+				Position = UDim2.new(0, 0, 0, 0),
 				Size = UDim2.new(1, 0, 0, HORIZONTAL_CONTROL_HEIGHT),
 				BackgroundTransparency = 1,
 				Visible = self.state.frameVisible,
@@ -328,7 +346,9 @@ function QuickActions:render()
 						voiceEnabled = voiceState.voiceEnabled,
 						respawnEnabled = self.props.respawnEnabled,
 						fullscreenEnabled = isDesktopClient,
-						screenshotEnabled = FFlagEnableInGameMenuQAScreenshot,
+						screenshotEnabled = isDesktopClient,
+						recordEnabled = self.recordEnabled,
+						frameTransparency = self.frameTransparency,
 						transparencies = self.transparencies,
 						fillDirection = Enum.FillDirection.Horizontal,
 						automaticSize = Enum.AutomaticSize.X,

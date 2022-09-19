@@ -23,7 +23,6 @@ local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEven
 
 local VoiceBetaBadge = Roact.PureComponent:extend("MenuIcon")
 
-local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 local GetFStringVoiceBetaBadgeLearnMore = require(RobloxGui.Modules.Flags.GetFStringVoiceBetaBadgeLearnMore)
 local GetFFlagEnableBetaBadgeLearnMore = require(RobloxGui.Modules.Flags.GetFFlagEnableBetaBadgeLearnMore)
 local GetFFlagBetaBadgeLearnMoreLinkFormview = require(RobloxGui.Modules.Flags.GetFFlagBetaBadgeLearnMoreLinkFormview)
@@ -64,7 +63,7 @@ end
 
 function VoiceBetaBadge:init()
 	self:setState({
-		vrShowMenuIcon = FFlagEnableNewVrSystem and VRService.VREnabled and GamepadService.GamepadCursorEnabled,
+		vrShowMenuIcon = VRService.VREnabled and GamepadService.GamepadCursorEnabled,
 		voiceChatServiceConnected = false,
 		showPopup = false
 	})
@@ -93,10 +92,7 @@ function VoiceBetaBadge:init()
 end
 
 function VoiceBetaBadge:render()
-	local visible = not TenFootInterface:IsEnabled() and self.state.voiceChatServiceConnected
-	if FFlagEnableNewVrSystem then
-		visible = (not VRService.VREnabled or self.state.vrShowMenuIcon) and self.state.voiceChatServiceConnected
-	end
+	local visible = (not VRService.VREnabled or self.state.vrShowMenuIcon) and self.state.voiceChatServiceConnected
 	return withStyle(function(style)
 		local fontStyle = style.Font.Footer
 		local font = fontStyle.Font
@@ -236,7 +232,7 @@ function VoiceBetaBadge:render()
 						Thickness = 2,
 						Color = textTheme.Color,
 					}),
-					VREnabledListener = FFlagEnableNewVrSystem and GamepadService and Roact.createElement(ExternalEventConnection, {
+					VREnabledListener = GamepadService and Roact.createElement(ExternalEventConnection, {
 						event = GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"),
 						callback = function()
 							self:setState({

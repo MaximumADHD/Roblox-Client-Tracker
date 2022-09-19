@@ -1,3 +1,4 @@
+--!nonstrict
 -- SolarCrane
 
 local MAX_TWEEN_RATE = 2.8 -- per second

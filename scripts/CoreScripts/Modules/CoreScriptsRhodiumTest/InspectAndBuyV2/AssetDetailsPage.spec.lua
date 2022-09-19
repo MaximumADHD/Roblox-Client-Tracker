@@ -28,6 +28,19 @@ return function()
 				screenSize = Vector2.new(500, 500),
 			}
 
+			local initStateChina = {
+				inspectAndBuy = {
+					SelectedItem = {
+						numFavorites = 20,
+						creatorName = "Brandon",
+						description = "testDesc",
+						name = "testName"
+					},
+					IsSubjectToChinaPolicies = true,
+				},
+				screenSize = Vector2.new(500, 500),
+			}
+
 			it("should mount", function()
 				withServices(function(path)
 					path = XPath.new(path)
@@ -67,6 +80,18 @@ return function()
 					expect(info:waitForRbxInstance(1)).to.be.ok()
 				end,
 				wrappedComponent, Reducer, initState, nil)
+			end)
+			it("should not render the favorites count if subject to china policies", function()
+				withServices(function(path)
+					path = XPath.new(path)
+					local baseWidget = Element.new(path)
+					expect(baseWidget:waitForRbxInstance(1)).to.be.ok()
+
+					local favPath = path:cat(XPath.new("PageContainer.ScrollingFrame.AssetDetailFavorite"))
+					local fav = Element.new(favPath)
+					expect(fav:waitForRbxInstance(1)).to.never.be.ok()
+				end,
+				wrappedComponent, Reducer, initStateChina, nil)
 			end)
 		end)
 	end

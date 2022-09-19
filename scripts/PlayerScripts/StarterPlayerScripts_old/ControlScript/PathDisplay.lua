@@ -1,3 +1,4 @@
+--!nonstrict
 
 local PathDisplay = {}
 PathDisplay.spacing = 8
@@ -51,7 +52,8 @@ local function renderPoint(point, isLast)
 	end
 
 	local rayDown = Ray.new(point + Vector3.new(0, 2, 0), Vector3.new(0, -8, 0))
-	local hitPart, hitPoint, hitNormal = workspace:FindPartOnRayWithIgnoreList(rayDown, { game.Players.LocalPlayer.Character, workspace.CurrentCamera  })
+	local hitPart, hitPoint, hitNormal = workspace:FindPartOnRayWithIgnoreList(rayDown, { (game.Players.LocalPlayer :: Player).Character :: Model, workspace.CurrentCamera :: Camera })
+
 	if not hitPart then
 		return
 	end

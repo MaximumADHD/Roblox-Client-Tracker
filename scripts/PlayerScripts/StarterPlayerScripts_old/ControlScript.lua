@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName: ControlScript.lua
 	// Version 1.1
@@ -101,17 +102,18 @@ local MasterControl = require(script:WaitForChild('MasterControl'))
 --MasterControl needs access to ControlState in order to be able to fully enable and disable control
 MasterControl.ControlState = ControlState
 
-local DynamicThumbstickModule = require(script.MasterControl:WaitForChild('DynamicThumbstick'))
-local ThumbstickModule = require(script.MasterControl:WaitForChild('Thumbstick'))
-local ThumbpadModule = require(script.MasterControl:WaitForChild('Thumbpad'))
-local DPadModule = require(script.MasterControl:WaitForChild('DPad'))
-local TouchJumpModule = require(script.MasterControl:WaitForChild('TouchJump'))
-local ClickToMoveModule = require(script.MasterControl:WaitForChild('ClickToMoveController'))
+local MasterControlScript = (script :: any).MasterControl
+local DynamicThumbstickModule = require(MasterControlScript:WaitForChild('DynamicThumbstick'))
+local ThumbstickModule = require(MasterControlScript:WaitForChild('Thumbstick'))
+local ThumbpadModule = require(MasterControlScript:WaitForChild('Thumbpad'))
+local DPadModule = require(MasterControlScript:WaitForChild('DPad'))
+local TouchJumpModule = require(MasterControlScript:WaitForChild('TouchJump'))
+local ClickToMoveModule = require(MasterControlScript:WaitForChild('ClickToMoveController'))
 
 MasterControl.TouchJumpModule = TouchJumpModule
-local VRNavigationModule = require(script.MasterControl:WaitForChild('VRNavigation'))
-local keyboardModule = require(script.MasterControl:WaitForChild('KeyboardMovement'))
-ControlModules.Gamepad = require(script.MasterControl:WaitForChild('Gamepad'))
+local VRNavigationModule = require(MasterControlScript:WaitForChild('VRNavigation'))
+local keyboardModule = require(MasterControlScript:WaitForChild('KeyboardMovement'))
+ControlModules.Gamepad = require(MasterControlScript:WaitForChild('Gamepad'))
 
 function getTouchModule()
 
@@ -334,7 +336,7 @@ function ControlModules.VRNavigation:Disable()
 end
 
 -- not used, but needs to be required
-local VehicleController = require(script.MasterControl:WaitForChild('VehicleController'))
+local VehicleController = require(MasterControlScript:WaitForChild('VehicleController'))
 
 
 --[[ Initialization/Setup ]]--

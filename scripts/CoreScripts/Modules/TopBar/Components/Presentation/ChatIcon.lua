@@ -19,8 +19,6 @@ local IconButton = require(script.Parent.IconButton)
 
 local GameSettings = UserSettings().GameSettings
 
-local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
-
 local function shouldShowEmptyBadge()
 	return game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService
 end
@@ -53,7 +51,7 @@ end
 
 function ChatIcon:render()
 	return withStyle(function(style)
-		local chatEnabled = self.props.topBarEnabled and self.props.chatEnabled and not TenFootInterface:IsEnabled() and not (VRService.VREnabled and FFlagEnableNewVrSystem)
+		local chatEnabled = self.props.topBarEnabled and self.props.chatEnabled and not TenFootInterface:IsEnabled() and not VRService.VREnabled
 
 		local chatIcon = "rbxasset://textures/ui/TopBar/chatOn.png"
 		if not self.props.chatVisible then

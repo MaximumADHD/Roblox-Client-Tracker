@@ -16,6 +16,7 @@ function FullModalShareGameComponent:render()
 	local analytics = self.props.analytics
 	local onAfterClosePage = self.props.onAfterClosePage
 	local store = self.props.store
+	local promptMessage = self.props.promptMessage
 
 	return Roact.createElement(RoactRodux.StoreProvider, {
 		store = store,
@@ -31,6 +32,7 @@ function FullModalShareGameComponent:render()
 					analytics = analytics,
 					isVisible = isVisible,
 					skeletonComponent = ModalShareGamePageFrame,
+					promptMessage = promptMessage,
 					onAfterClosePage = function()
 						local sentToUserIds = {}
 						for userId, _ in pairs(store:getState().Invites) do

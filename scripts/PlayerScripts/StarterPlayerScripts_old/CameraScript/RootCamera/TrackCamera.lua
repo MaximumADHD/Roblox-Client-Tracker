@@ -1,5 +1,7 @@
 local PlayersService = game:GetService('Players')
-local RootCameraCreator = require(script.Parent)
+
+-- When PlayerScripts are loaded, sibling scripts and folders with the same name are merged
+local RootCameraCreator = require(script.Parent) :: typeof(require(script.Parent.Parent.RootCamera))
 
 local ZERO_VECTOR2 = Vector2.new(0, 0)
 

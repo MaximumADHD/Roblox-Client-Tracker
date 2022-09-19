@@ -1,8 +1,9 @@
+--!nonstrict
 -- Written By Kip Turner, Copyright Roblox 2014
 
 local newClickToMove = script:FindFirstChild("NewClickToMove")
 if newClickToMove then
-	return require(newClickToMove)
+	return require(newClickToMove) :: any
 end
 
 local UIS = game:GetService("UserInputService")
@@ -14,6 +15,7 @@ local ReplicatedStorage = game:GetService('ReplicatedStorage')
 
 local CameraScript = script.Parent
 local ClassicCameraModule = require(CameraScript:WaitForChild('RootCamera'):WaitForChild('ClassicCamera'))
+local CameraModule: any = nil
 
 local Player = PlayerService.localPlayer
 local MyMouse = Player:GetMouse()
@@ -243,8 +245,8 @@ local function findPlayerHumanoid(player)
 end
 
 local GetThetaBetweenCFrames; do
-	local components = CFrame.new().components
-	local inverse = CFrame.new().inverse
+	local components = CFrame.new().GetComponents
+	local inverse = CFrame.new().Inverse
 	local acos = math.acos
 
 	GetThetaBetweenCFrames = function(c0, c1) -- (CFrame from, CFrame to) -> (float theta)
@@ -662,7 +664,7 @@ local function Pather(character, point)
 			local pathFound = false
 			if this.pathResult.Status == Enum.PathStatus.FailFinishNotEmpty then
 				-- Lets try again with a slightly set back start point; it is ok to do this again so the FailFinishNotEmpty uses little computation
-				local diffVector = point - workspace.CurrentCamera.CoordinateFrame.p
+				local diffVector = point - (workspace.CurrentCamera :: Camera).CoordinateFrame.p
 				if diffVector.magnitude > 2 then
 					local setBackPoint = point - (diffVector).unit * 2.1
 					local success = pcall(function()
@@ -795,7 +797,7 @@ local function Pather(character, point)
 
 											local theta = math_deg(math_acos(squashedLook:Dot(direction)))
 
-											if tick() - Utility.GetLastInput() > 2 and theta > (workspace.CurrentCamera.FieldOfView / 2) then
+											if tick() - Utility.GetLastInput() > 2 and theta > ((workspace.CurrentCamera :: Camera).FieldOfView / 2) then
 												local rotatedCFrame = CameraModule:LookAtPreserveHeight(point)
 												local finishedSignal, duration = CameraModule:TweenCameraLook(rotatedCFrame)
 												--return
@@ -1233,7 +1235,7 @@ local function CreateClickToMoveModule()
 			return CFrame.new(newCamPos, newCamPos + flippedLook)
 		end
 
-		local lerp = CFrame.new().lerp
+		local lerp = CFrame.new().Lerp
 		function CameraModule:TweenCameraLook(desiredCFrame, speed)
 			local e = 2.718281828459
 

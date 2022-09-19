@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Invisicam
 
@@ -191,7 +192,7 @@ local function CharacterOutlineBehavior(castPoints)
 		offset = Vector3_new(offset.X, math_max(offset.Y, -2.25), offset.Z)
 
 		local ray = Ray.new(centerPoint + offset, -3 * offset)
-		local hit, hitPoint = game.Workspace:FindPartOnRayWithWhitelist(ray, partsWhitelist, false, false)
+		local hit, hitPoint = game.Workspace:FindPartOnRayWithWhitelist(ray, partsWhitelist, false)
 
 		if hit then
 			-- Use hit point as the cast point, but nudge it slightly inside the character so that bumping up against
@@ -561,7 +562,7 @@ end
 ---------------------
 
 -- Connect to the current and all future cameras
-workspace:GetPropertyChangedSignal("CurrentCamera"):connect(OnCurrentCameraChanged)
+workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(OnCurrentCameraChanged)
 OnCurrentCameraChanged()
 
 Player.CharacterAdded:connect(OnCharacterAdded)

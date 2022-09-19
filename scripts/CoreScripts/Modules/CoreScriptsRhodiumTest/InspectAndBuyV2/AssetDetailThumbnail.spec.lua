@@ -21,6 +21,18 @@ return function()
 			name = "testName"
 		}
 	}
+
+	local initStateVisible = {
+		inspectAndBuy = {
+			TryingOn = false
+		}
+	}
+
+	local initStateNotVisible = {
+		inspectAndBuy = {
+			TryingOn = true
+		}
+	}
 	local wrappedComponent = withInGameMenuV3Providers(AssetDetailThumbnail, props)
 
 	if FFlagInspectAndBuyV2Enabled then
@@ -32,6 +44,26 @@ return function()
 					expect(baseWidget:waitForRbxInstance(1)).to.be.ok()
 				end,
 				wrappedComponent, Reducer, {}, nil)
+			end)
+
+			it("should be visible when not trying on the item", function()
+				withServices(function(path)
+					path = XPath.new(path)
+					local baseWidget = Element.new(path)
+					expect(baseWidget:waitForRbxInstance(1)).to.be.ok()
+					expect(baseWidget:getAttribute("Visible")).to.equal(true)
+				end,
+				wrappedComponent, Reducer, initStateVisible, nil)
+			end)
+
+			it("should not be visible when trying on the item", function()
+				withServices(function(path)
+					path = XPath.new(path)
+					local baseWidget = Element.new(path)
+					expect(baseWidget:waitForRbxInstance(1)).to.be.ok()
+					expect(baseWidget:getAttribute("Visible")).to.equal(false)
+				end,
+				wrappedComponent, Reducer, initStateNotVisible, nil)
 			end)
 		end)
 	end

@@ -1,7 +1,5 @@
 --!nonstrict
 
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
@@ -37,6 +35,7 @@ local GamePostFavorite = require(InGameMenu.Thunks.GamePostFavorite)
 local Spacer = require(InGameMenu.Components.Spacer)
 local LeaveButton = require(InGameMenu.Components.LeaveButton)
 local PageUtils = require(InGameMenu.Components.Pages.PageUtils)
+local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local Network = InGameMenu.Network
@@ -49,7 +48,6 @@ local GetFFlagSideNavControllerBar = require(Flags.GetFFlagSideNavControllerBar)
 local FocusHandler = require(script.Parent.Connection.FocusHandler)
 local IGMMainPageControllerBar = require(script.Parent.IGMMainPageControllerBar)
 
-local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 local GetFFlagShareInviteLinkContextMenuV3Enabled = require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
 
 local MAIN_PAGE_WIDTH = Constants.PageWidth
@@ -76,6 +74,15 @@ function MainPage:init()
 
 	self.fetchGameIsFavorite = function()
 		return self.props.fetchGameIsFavorite(networkImpl)
+	end
+
+	self.onMenuNavigate = function(menuOpen, prevOpen)
+		if menuOpen and not prevOpen then
+			local scrollingFrame = self.scrollingFrameRef:getValue()
+			if scrollingFrame and scrollingFrame.CanvasPosition.Y > 0 then
+				scrollingFrame.CanvasPosition = Vector2.new(0, 0)
+			end
+		end
 	end
 end
 
@@ -109,8 +116,12 @@ function MainPage:render()
 				AutoButtonColor = false,
 				Selectable = false,
 			}, {
+				PageNavigationWatcher = Roact.createElement(PageNavigationWatcher, {
+					desiredPage = Constants.MainPagePageKey,
+					onNavigate = self.onMenuNavigate,
+				}),
 				MainPageFocusHandler = GetFFlagUseIGMControllerBar()
-						and not (VRService.VREnabled and FFlagEnableNewVrSystem)
+						and not VRService.VREnabled
 						and self:renderMainPageFocusHandler()
 					or nil,
 				ControllerBar = Roact.createElement(IGMMainPageControllerBar, {
@@ -183,15 +194,8 @@ function MainPage.canGamepadCaptureFocus(props)
 end
 
 function MainPage:didUpdate(prevProps, prevState)
-	if VRService.VREnabled and FFlagEnableNewVrSystem then
+	if VRService.VREnabled then
 		UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
-	end
-
-	if self.props.open and not prevProps.open then
-		local scrollingFrame = self.scrollingFrameRef:getValue()
-		if scrollingFrame and scrollingFrame.CanvasPosition.Y > 0 then
-			scrollingFrame.CanvasPosition = Vector2.new(0, 0)
-		end
 	end
 end
 

@@ -1,4 +1,3 @@
---!nonstrict
 --[[
 	Mocks ABTest services so we can test the purchase prompt's
 	behavior under various ABTest.

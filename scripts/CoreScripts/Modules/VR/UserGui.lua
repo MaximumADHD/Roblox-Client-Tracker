@@ -14,7 +14,6 @@ local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 
-local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 
@@ -33,11 +32,7 @@ local newPanelSize = Vector2.new(2.66, 2)
 local vrMenuOpen = false
 
 local userGuiPanel = Panel3D.Get(UserGuiModule.ModuleName)
-if FFlagEnableNewVrSystem then
-	userGuiPanel:SetType(Panel3D.Type.NewStandard)
-else
-	userGuiPanel:SetType(Panel3D.Type.Standard)
-end
+userGuiPanel:SetType(Panel3D.Type.NewStandard)
 
 if EngineFeatureEnableVRUpdate2 then
 	-- this matches the core ui rect in ScreenGui
@@ -186,15 +181,11 @@ local function OnVREnabledChanged()
 					VRHub.LaserPointer:updateInputUserCFrame()
 
 					-- the new VR System using a wand instead of the gamepad to interact with the 2D UI on a 3D panel
-					if FFlagEnableNewVrSystem then
-
-						if VRHub.ShowTopBar then
-							UserGuiModule:SetVisible(true) -- UI fixed in front of camera
-						else -- interaction off
-							UserGuiModule:SetVisible(false) 
-							CoreGui:SetUserGuiRendering(false, nil, Enum.NormalId.Front) -- go back to "normal" ui rendering
-						end
-
+					if VRHub.ShowTopBar then
+						UserGuiModule:SetVisible(true) -- UI fixed in front of camera
+					else -- interaction off
+						UserGuiModule:SetVisible(false) 
+						CoreGui:SetUserGuiRendering(false, nil, Enum.NormalId.Front) -- go back to "normal" ui rendering
 					end
 				end 
 
@@ -232,19 +223,17 @@ local function OnVREnabledChanged()
 			else
 				local function onGuiSelection()
 					-- the new VR System using a wand instead of the gamepad to interact with the 2D UI on a 3D panel
-					if FFlagEnableNewVrSystem then
-						if GamepadService.GamepadCursorEnabled then
-							VRHub.LaserPointer:setMode(VRHub.LaserPointer.Mode.Pointer)
-							UserGuiModule:SetVisible(true)
-							userGuiPanel:ForcePositionUpdate(false)
-						else
-							UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
+					if GamepadService.GamepadCursorEnabled then
+						VRHub.LaserPointer:setMode(VRHub.LaserPointer.Mode.Pointer)
+						UserGuiModule:SetVisible(true)
+						userGuiPanel:ForcePositionUpdate(false)
+					else
+						UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
 
-							VRHub.LaserPointer:setMode(VRHub.LaserPointer.Mode.Disabled)
-							UserGuiModule:SetVisible(false)
-							CoreGui:SetUserGuiRendering(false, nil, Enum.NormalId.Front) -- go back to "normal" ui
-							userGuiPanel:ForcePositionUpdate(true)
-						end
+						VRHub.LaserPointer:setMode(VRHub.LaserPointer.Mode.Disabled)
+						UserGuiModule:SetVisible(false)
+						CoreGui:SetUserGuiRendering(false, nil, Enum.NormalId.Front) -- go back to "normal" ui
+						userGuiPanel:ForcePositionUpdate(true)
 					end
 				end 
 				GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"):Connect(onGuiSelection)
@@ -267,13 +256,9 @@ VRKeyboard.ClosedEvent:connect(function()
 	UserGuiModule:Update()
 end)
 
-if not FFlagEnableNewVrSystem then
-	UserGuiModule:SetVisible(true, userGuiPanel)
-else
-	if EngineFeatureEnableVRUpdate3 then
-		VRHub:SetShowTopBar(true)
-		onGuiSelection()
-	end
+if EngineFeatureEnableVRUpdate3 then
+	VRHub:SetShowTopBar(true)
+	onGuiSelection()
 end
 
 return UserGuiModule

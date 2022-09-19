@@ -10,7 +10,7 @@ type SortFunction = (text: string) -> ()
 
 export type Props = {
 	text: string,
-	size: number,
+	size: UDim2,
 	pos: UDim2,
 	sortfunction: SortFunction?,
 }

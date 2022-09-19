@@ -4,12 +4,15 @@ local ProximityPromptService = game:GetService("ProximityPromptService")
 local CoreGui = game:GetService("CoreGui")
 local TweenService = game:GetService("TweenService")
 local TextService = game:GetService("TextService")
+local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local CoreUtility = require(RobloxGui.Modules.CoreUtility)
 
 local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
+local EnableProximityPromptAutomaticSize = require(RobloxGui.Modules.Flags.FFlagEnableProximityPromptAutomaticSize)
+local EnableAutomaticSizeVerticalOffsetWidthFix = require(RobloxGui.Modules.Flags.FFlagEnableAutomaticSizeVerticalOffsetWidthFix)
 
 local LocalPlayer = Players.LocalPlayer
 while LocalPlayer == nil do
@@ -171,7 +174,6 @@ local function createCircularProgressBar(tweensForFadeOut, tweensForFadeIn)
 end
 
 local function createPrompt(prompt, inputType, gui)
-
 	local tweensForButtonHoldBegin = {}
 	local tweensForButtonHoldEnd = {}
 	local tweensForFadeOut = {}
@@ -190,6 +192,8 @@ local function createPrompt(prompt, inputType, gui)
 	frame.BackgroundTransparency = 1
 	frame.BackgroundColor3 = Color3.new(0.07, 0.07, 0.07)
 	frame.Parent = promptUI
+
+	local padding
 
 	local roundedCorner = Instance.new("UICorner")
 	roundedCorner.Parent = frame
@@ -217,14 +221,12 @@ local function createPrompt(prompt, inputType, gui)
 
 	local actionText = Instance.new("TextLabel")
 	actionText.Name = "ActionText"
-	actionText.Size = UDim2.fromScale(1, 1)
 	actionText.Font = Enum.Font.GothamMedium
 	actionText.TextSize = 19
 	actionText.BackgroundTransparency = 1
 	actionText.TextTransparency = 1
 	actionText.TextColor3 = Color3.new(1, 1, 1)
 	actionText.TextXAlignment = Enum.TextXAlignment.Left
-	actionText.Parent = frame
 	table.insert(tweensForButtonHoldBegin, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 1 }))
 	table.insert(tweensForButtonHoldEnd, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 0 }))
 	table.insert(tweensForFadeOut, TweenService:Create(actionText, tweenInfoFast, { TextTransparency = 1 }))
@@ -232,20 +234,64 @@ local function createPrompt(prompt, inputType, gui)
 
 	local objectText = Instance.new("TextLabel")
 	objectText.Name = "ObjectText"
-	objectText.Size = UDim2.fromScale(1, 1)
 	objectText.Font = Enum.Font.GothamMedium
 	objectText.TextSize = 14
 	objectText.BackgroundTransparency = 1
 	objectText.TextTransparency = 1
 	objectText.TextColor3 = Color3.new(0.7, 0.7, 0.7)
 	objectText.TextXAlignment = Enum.TextXAlignment.Left
-	objectText.Parent = frame
+
+	if EnableProximityPromptAutomaticSize then
+		-- Set parent frame to automatically size and center
+		frame.AnchorPoint = Vector2.new(0.5, 0)
+		frame.Position = UDim2.fromScale(0.5, 0)
+		frame.Size = UDim2.fromScale(0, 1)
+		frame.AutomaticSize = Enum.AutomaticSize.X
+
+		-- Add right padding
+		padding = Instance.new("UIPadding")
+		padding.Parent = frame
+	
+		-- Add list layout, as well a tween out to mimic old shrinking
+		local listLayout = Instance.new("UIListLayout")
+		listLayout.FillDirection = Enum.FillDirection.Horizontal
+		listLayout.Padding = UDim.new(-0.25, 0)
+		listLayout.Parent = frame
+		table.insert(tweensForButtonHoldBegin, TweenService:Create(listLayout, tweenInfoFast, { Padding = UDim.new(-0.25, 0) }))
+		table.insert(tweensForButtonHoldEnd, TweenService:Create(listLayout, tweenInfoFast, { Padding = UDim.new(0, 0) }))
+		table.insert(tweensForFadeOut, TweenService:Create(listLayout, tweenInfoFast, { Padding = UDim.new(-0.25, 0) }))
+		table.insert(tweensForFadeIn, TweenService:Create(listLayout, tweenInfoFast, { Padding = UDim.new(0, 0) }))
+		
+		-- Add container for text labels
+		local textFrame = Instance.new("Frame")
+		textFrame.Name = "TextFrame"
+		textFrame.Size = UDim2.fromScale(0, 1)
+		textFrame.AutomaticSize = Enum.AutomaticSize.X
+		textFrame.BackgroundTransparency = 1
+		textFrame.Parent = frame
+
+		-- ActionText and ObjectText automatic sizing, parent to textFrame
+		actionText.Size = UDim2.fromScale(0, 1)
+		actionText.AutomaticSize = Enum.AutomaticSize.X
+		actionText.Parent = textFrame
+
+		objectText.Size = UDim2.fromScale(0, 1)
+		objectText.AutomaticSize = Enum.AutomaticSize.X
+		objectText.Parent = textFrame
+	else
+		actionText.Size = UDim2.fromScale(1, 1)
+		actionText.Parent = frame
+
+		objectText.Size = UDim2.fromScale(1, 1)
+		objectText.Parent = frame
+	end
 
 	table.insert(tweensForButtonHoldBegin, TweenService:Create(objectText, tweenInfoFast, { TextTransparency = 1 }))
 	table.insert(tweensForButtonHoldEnd, TweenService:Create(objectText, tweenInfoFast, { TextTransparency = 0 }))
 	table.insert(tweensForFadeOut, TweenService:Create(objectText, tweenInfoFast, { TextTransparency = 1 }))
 	table.insert(tweensForFadeIn, TweenService:Create(objectText, tweenInfoFast, { TextTransparency = 0 }))
 
+	-- TODO: When cleaning up EnableProximityPromptAutomaticSize, remove Size tweens
 	table.insert(tweensForButtonHoldBegin, TweenService:Create(frame, tweenInfoFast, { Size = UDim2.fromScale(0.5, 1), BackgroundTransparency = 1 }))
 	table.insert(tweensForButtonHoldEnd, TweenService:Create(frame, tweenInfoFast, { Size = UDim2.fromScale(1, 1), BackgroundTransparency = 0.2 }))
 	table.insert(tweensForFadeOut, TweenService:Create(frame, tweenInfoFast, { Size = UDim2.fromScale(0.5, 1), BackgroundTransparency = 1 }))
@@ -427,25 +473,14 @@ local function createPrompt(prompt, inputType, gui)
 	end)
 
 	local function updateUIFromPrompt()
-		-- todo: Use AutomaticSize instead of GetTextSize when that feature becomes available
-		local actionTextSize = TextService:GetTextSize(prompt.ActionText, 19, Enum.Font.GothamMedium, Vector2.new(1000, 1000))
-		local objectTextSize = TextService:GetTextSize(prompt.ObjectText, 14, Enum.Font.GothamMedium, Vector2.new(1000, 1000))
-		local maxTextWidth = math.max(actionTextSize.X, objectTextSize.X)
 		local promptHeight = 72
 		local promptWidth = 72
-		local textPaddingLeft = 72
-
-		if (prompt.ActionText ~= nil and prompt.ActionText ~= '') or
-			(prompt.ObjectText ~= nil and prompt.ObjectText ~= '') then
-			promptWidth = maxTextWidth + textPaddingLeft + 24
-		end
-
+		local textPaddingRight = 24
+		
 		local actionTextYOffset = 0
 		if prompt.ObjectText ~= nil and prompt.ObjectText ~= '' then
 			actionTextYOffset = 9
 		end
-		actionText.Position = UDim2.new(0.5, textPaddingLeft - promptWidth/2, 0, actionTextYOffset)
-		objectText.Position = UDim2.new(0.5, textPaddingLeft - promptWidth/2, 0, -10)
 
 		actionText.Text = prompt.ActionText
 		objectText.Text = prompt.ObjectText
@@ -454,8 +489,57 @@ local function createPrompt(prompt, inputType, gui)
 		objectText.AutoLocalize = prompt.AutoLocalize
 		objectText.RootLocalizationTable = prompt.RootLocalizationTable
 
-		promptUI.Size = UDim2.fromOffset(promptWidth, promptHeight)
-		promptUI.SizeOffset = Vector2.new(prompt.UIOffset.X / promptUI.Size.Width.Offset, prompt.UIOffset.Y / promptUI.Size.Height.Offset)
+		if EnableProximityPromptAutomaticSize then
+			assert(padding ~= nil, "Padding should be initialized if automatic sizing is enabled")
+
+			if not EnableAutomaticSizeVerticalOffsetWidthFix then
+				-- There is currently a bug with AutomaticSize where the vertical offset of the
+				-- ActionText affects the size of the overall frame. This adjusts for that existing bug.
+				textPaddingRight = textPaddingRight - actionTextYOffset
+			end
+
+			if
+				(prompt.ActionText ~= nil and prompt.ActionText ~= '')
+				or (prompt.ObjectText ~= nil and prompt.ObjectText ~= '')
+			then
+				padding.PaddingRight = UDim.new(0, textPaddingRight)
+			else
+				padding.PaddingRight = UDim.new(0, 0)
+			end
+
+			actionText.Position = UDim2.new(0, 0, 0, actionTextYOffset)
+			objectText.Position = UDim2.new(0, 0, 0, -10)
+
+			promptUI.Size = UDim2.fromOffset(promptWidth, promptHeight)
+
+			-- BillboardGuis can't be automatically sized, so we need to calculate
+			-- the size based on the automatically sized prompt frame.
+			task.defer(function ()
+				-- Automatic sizing takes approximately 2 render cycles to be calculated
+				RunService.RenderStepped:Wait()
+				RunService.RenderStepped:Wait()
+
+				promptWidth = frame.AbsoluteSize.X
+				promptUI.Size = UDim2.fromOffset(promptWidth, promptHeight)
+				promptUI.SizeOffset = Vector2.new(prompt.UIOffset.X / promptUI.Size.Width.Offset, prompt.UIOffset.Y / promptUI.Size.Height.Offset)
+			end)
+		else 
+			local actionTextSize = TextService:GetTextSize(prompt.ActionText, 19, Enum.Font.GothamMedium, Vector2.new(1000, 1000))
+			local objectTextSize = TextService:GetTextSize(prompt.ObjectText, 14, Enum.Font.GothamMedium, Vector2.new(1000, 1000))
+			local maxTextWidth = math.max(actionTextSize.X, objectTextSize.X)
+			local textPaddingLeft = 72
+
+			if (prompt.ActionText ~= nil and prompt.ActionText ~= '') or
+				(prompt.ObjectText ~= nil and prompt.ObjectText ~= '') then
+				promptWidth = maxTextWidth + textPaddingLeft + textPaddingRight
+			end
+
+			actionText.Position = UDim2.new(0.5, textPaddingLeft - promptWidth/2, 0, actionTextYOffset)
+			objectText.Position = UDim2.new(0.5, textPaddingLeft - promptWidth/2, 0, -10)
+
+			promptUI.Size = UDim2.fromOffset(promptWidth, promptHeight)
+			promptUI.SizeOffset = Vector2.new(prompt.UIOffset.X / promptUI.Size.Width.Offset, prompt.UIOffset.Y / promptUI.Size.Height.Offset)
+		end
 	end
 
 	local changedConnection = prompt.Changed:Connect(updateUIFromPrompt)

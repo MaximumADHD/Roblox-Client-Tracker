@@ -1,3 +1,4 @@
+--!nonstrict
 -- Written By Kip Turner, Copyright Roblox 2014
 -- Updated by Garnold to utilize the new PathfindingService API, 2017
 
@@ -24,7 +25,9 @@ if CameraScript then
 end
 
 local MasterControlModule = script.Parent
-local MasterControl = require(MasterControlModule)
+
+-- When PlayerScripts are loaded, sibling scripts and folders with the same name are merged
+local MasterControl = require(MasterControlModule) :: typeof(require(script.Parent.Parent.MasterControl))
 local TouchJump = nil
 if MasterControl then
 	local TouchJumpModule = MasterControlModule:FindFirstChild("TouchJump")
@@ -269,7 +272,7 @@ local function createNewPopup(popupType)
 			--Start the 10-stud long ray 2.5 studs above where the tap happened and point straight down to try to find
 			--the actual ground position.
 			local ray = Ray.new(position + Vector3.new(0, 2.5, 0), Vector3.new(0, -10, 0))
-			local hitPart, hitPoint, hitNormal = workspace:FindPartOnRayWithIgnoreList(ray, { workspace.CurrentCamera, Player.Character })
+			local hitPart, hitPoint, hitNormal = workspace:FindPartOnRayWithIgnoreList(ray, { workspace.CurrentCamera :: Camera, Player.Character })
 
 			self.Model.CFrame = CFrame.new(hitPoint) + Vector3.new(0, -radius,0)
 		end
@@ -345,6 +348,11 @@ local function Pather(character, endPoint, surfaceNormal)
 	this.MoveToConn = nil
 	this.BlockedConn = nil
 	this.CurrentPoint = 0
+
+	this.stopTraverseFunc = nil :: (() -> ())?
+	this.setPointFunc = nil :: ((number) -> ())?
+	this.pointList = nil :: {PathWaypoint}?
+	this.pathResult = nil :: Path?
 
 	function this:Cleanup()
 		if this.stopTraverseFunc then
@@ -432,7 +440,7 @@ local function Pather(character, endPoint, surfaceNormal)
 		this.PathComputed = this.pathResult and this.pathResult.Status == Enum.PathStatus.Success or false
 
 		if SHOW_PATH then
-			this.stopTraverseFunc, this.setPointFunc = createPopupPath(this.pointList, 4, true)
+			this.stopTraverseFunc, this.setPointFunc = createPopupPath(this.pointList, 4)
 		end
 		if this.PathComputed then
 			this.humanoid = findPlayerHumanoid(Player)
@@ -1060,7 +1068,7 @@ local function CreateClickToMoveModule()
 				end
 			end
 
-			local cameraPos = workspace.CurrentCamera.CFrame.p
+			local cameraPos = (workspace.CurrentCamera :: Camera).CFrame.p
 			for i = 1, #activePopups do
 				local popup = activePopups[i]
 				popup.CFrame = CFrame.new(popup.CFrame.p, cameraPos)

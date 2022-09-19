@@ -5,7 +5,10 @@
 	by selecting and inspecting a player from the Players page
 	in the InGameMenuV3
 ]]
+local GuiService = game:GetService("GuiService")
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local PolicyService = require(CoreGui.RobloxGui.Modules.Common.PolicyService)
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -25,18 +28,21 @@ local InspectAndBuyItemCard = require(InGameMenu.Components.InspectAndBuyPage.In
 local GetCharacterModelFromUserId = require(InGameMenu.Thunks.GetCharacterModelFromUserId)
 local GetAssetsFromHumanoidDescription = require(InGameMenu.Thunks.GetAssetsFromHumanoidDescription)
 local UpdateStoreId = require(InGameMenu.Actions.InspectAndBuy.UpdateStoreId)
+local SetIsSubjectToChinaPolicies = require(InGameMenu.Actions.InspectAndBuy.SetIsSubjectToChinaPolicies)
+local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
+local Constants = require(InGameMenu.Resources.Constants)
 
 local InspectAndBuyPage = Roact.PureComponent:extend("InspectAndBuyPage")
 
 local AVATAR_HEADSHOT_SIZE = 48
-local CELL_HEIGHT = 122
+local CELL_HEIGHT = 130
 local CELL_WIDTH = 130
 local CELL_PADDING_X = 12
 local CELL_PADDING_Y = 72
 local GRID_PADDING_TOP = 24
-local LEAVE_BUTTON_HEIGHT = 84
 local MAX_CELLS_PER_ROW = 2
 local SHIMMER_CELLS = 10
+local BOTTOM_PADDING = 20
 
 InspectAndBuyPage.validateProps = t.strictInterface({
 	pageTitle = t.optional(t.string),
@@ -45,6 +51,7 @@ InspectAndBuyPage.validateProps = t.strictInterface({
 	inspectedDisplayName = t.optional(t.string),
 	inspectedUserId = t.optional(t.number),
 	assets = t.table,
+	canGamepadCaptureFocus = t.boolean,
 
 	-- from mapDispatchToProps
 	getCharacterModelFromUserId = t.callback,
@@ -56,6 +63,19 @@ function InspectAndBuyPage:init()
 	-- When initializing the menu, update the storeId so calls to
 	-- perform fetch aren't colliding
 	self.props.updateStoreId()
+
+	self.didInitFocus = false
+	self.firstItemCard = Roact.createRef()
+	self:setState({
+		previousFocus = nil
+	})
+
+	self.tilePressCallback = function()
+		self:setState({
+			previousFocus = GuiService.SelectedCoreObject
+		})
+		GuiService.SelectedCoreObject = nil
+	end
 end
 
 function InspectAndBuyPage:getAvatarHeadshot(style)
@@ -102,7 +122,9 @@ function InspectAndBuyPage:renderWithProviders(style, localized, getSelectionCur
 	for _, asset in pairs(self.props.assets) do
 		numAssets += 1
 		assetCards[asset.assetId] = Roact.createElement(InspectAndBuyItemCard, {
-			asset = asset
+			asset = asset,
+			textButtonRef = numAssets == 1 and self.firstItemCard or nil,
+			callback = self.tilePressCallback,
 		})
 	end
 	if numAssets == 0 then
@@ -115,9 +137,9 @@ function InspectAndBuyPage:renderWithProviders(style, localized, getSelectionCur
 	end
 
 	local numRows = math.ceil(numAssets / MAX_CELLS_PER_ROW)
-	local canvasHeight = numRows * (CELL_HEIGHT + CELL_PADDING_Y) + GRID_PADDING_TOP + LEAVE_BUTTON_HEIGHT
+	local canvasHeight = numRows * (CELL_HEIGHT + CELL_PADDING_Y) + BOTTOM_PADDING
 	return Roact.createElement(Page, {
-		useLeaveButton = true,
+		useLeaveButton = false,
 		pageTitle = self.props.inspectedDisplayName,
 		titleChildren = self:getAvatarHeadshot(style),
 	}, {
@@ -128,7 +150,15 @@ function InspectAndBuyPage:renderWithProviders(style, localized, getSelectionCur
 			ScrollBarThickness = 0,
 			ScrollingDirection = Enum.ScrollingDirection.Y,
 			CanvasSize = UDim2.fromOffset(0, canvasHeight),
-		}, assetCards)
+			Selectable = false,
+		}, assetCards),
+		FocusHandler = Roact.createElement(FocusHandler, {
+			isFocused = self.props.canGamepadCaptureFocus,
+
+			didFocus = function(previousSelection)
+				GuiService.SelectedCoreObject = self.state.previousFocus or self.firstItemCard:getValue()
+			end,
+		}),
 	})
 end
 
@@ -163,10 +193,19 @@ function InspectAndBuyPage:didUpdate(prevProps, prevState)
 	if self.props.inspectedUserId and self.props.inspectedUserId ~= prevProps.inspectedUserId then
 		self:onPlayerInspected()
 	end
+
+	if not self.didInitFocus and self.firstItemCard:getValue() then
+		self.didInitFocus = true
+		GuiService.SelectedCoreObject = self.firstItemCard:getValue()
+	end
 end
 
 function InspectAndBuyPage:didMount()
 	self.isMounted = true
+	task.spawn(function()
+		local subjectToChinaPolicies = PolicyService:IsSubjectToChinaPolicies()
+		self.props.setIsSubjectToChinaPolicies(subjectToChinaPolicies)
+	end)
 end
 
 function InspectAndBuyPage:willUnmount()
@@ -174,10 +213,15 @@ function InspectAndBuyPage:willUnmount()
 end
 
 return RoactRodux.connect(function(state, props)
+	local canGamepadCaptureFocus = state.menuPage == Constants.InspectAndBuyPageKey
+		and state.displayOptions.inputType == Constants.InputType.Gamepad
+		and state.currentZone == 1
+
 	return {
 		inspectedDisplayName = state.inspectAndBuy.DisplayName,
 		inspectedUserId = state.inspectAndBuy.UserId,
 		assets = state.inspectAndBuy.Assets,
+		canGamepadCaptureFocus = canGamepadCaptureFocus,
 	}
 end, function(dispatch: (any) -> any)
 	return {
@@ -189,6 +233,9 @@ end, function(dispatch: (any) -> any)
 		end,
 		updateStoreId = function()
 			dispatch(UpdateStoreId())
+		end,
+		setIsSubjectToChinaPolicies = function(subjectToChinaPolicies)
+			dispatch(SetIsSubjectToChinaPolicies(subjectToChinaPolicies))
 		end,
 	}
 end)(InspectAndBuyPage)

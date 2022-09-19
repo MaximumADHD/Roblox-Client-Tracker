@@ -2,6 +2,7 @@
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local ContextActionService = game:GetService("ContextActionService")
+local UserInputService = game:GetService("UserInputService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -41,6 +42,9 @@ local DROP_SHADOW_IMAGE = Images.DropShadowFavorite
 local DROP_SHADOW_HEIGHT = 17
 local DROP_SHADOW_SLICE = Rect.new(10, 0, 20, 8)
 local DROP_SHADOW_TRANSPARENCY = 0.3
+
+local platform = UserInputService:GetPlatform()
+local isMobileClient = (platform == Enum.Platform.IOS) or (platform == Enum.Platform.Android)
 
 local LeavePrompt = Roact.PureComponent:extend("LeavePrompt")
 
@@ -87,8 +91,8 @@ function LeavePrompt:render()
 		local oldContent = {
 			Background = Roact.createElement("ImageLabel", {
 				Visible = returnHomeMode,
-				Size = UDim2.new(1,0, 0, Constants.PageWidth),
-				Image = Images.LeaveGameTilesBackground,
+				Size = UDim2.new(1,0, 0, if isMobileClient then 375 else 1024),
+				Image = if isMobileClient then Images.LeaveGameTilesBackground else Images.LeaveGameTilesBackgroundDesktop,
 				BackgroundTransparency = 1,
 				ZIndex = 0,
 			}, {

@@ -1,5 +1,5 @@
-game:DefineFastFlag("RobuxUpsellV2", false)
+game:DefineFastFlag("RobuxUpsellV3", false)
 
 return function()
-	return game:GetFastFlag("RobuxUpsellV2")
+	return game:GetFastFlag("RobuxUpsellV3")
 end

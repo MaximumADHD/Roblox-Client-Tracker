@@ -4,7 +4,6 @@
 	allows for trying on the item and purchasing it. This item
 	card includes a footer with price or owned status
 ]]
-
 local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -29,6 +28,8 @@ local InspectAndBuyItemCard = Roact.PureComponent:extend("InspectAndBuyItemCard"
 
 InspectAndBuyItemCard.validateProps = t.strictInterface({
 	asset = t.table,
+	callback = t.optional(t.callback),
+	textButtonRef = t.optional(t.table),
 
 	-- from mapDispatchToProps
 	setCurrentPage = t.callback,
@@ -38,6 +39,10 @@ InspectAndBuyItemCard.validateProps = t.strictInterface({
 
 function InspectAndBuyItemCard:init()
 	self.onActivated = function()
+		if self.props.callback then
+			self.props.callback()
+		end
+
 		self.props.selectItem(self.props.asset)
 		self.props.openAssetDetailsPage()
 	end
@@ -56,6 +61,7 @@ function InspectAndBuyItemCard:render()
 
 	return Roact.createElement(ItemTile, {
 		name = name,
+		Selectable = true,
 		titleTextLineCount = NAME_LINE_COUNT,
 		innerPadding = INNER_PADDING,
 		onActivated = self.onActivated,
@@ -66,6 +72,7 @@ function InspectAndBuyItemCard:render()
 			productId = asset and asset.productId or nil,
 			asset = asset,
 		}) or nil,
+		textButtonRef = self.props.textButtonRef,
 	})
 end
 

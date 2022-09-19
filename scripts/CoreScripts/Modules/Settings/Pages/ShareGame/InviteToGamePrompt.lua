@@ -18,6 +18,11 @@ local AppReducer = require(ShareGameDirectory.AppReducer)
 
 local HIDE_INVITE_CONTEXT_BIND = "hideInvitePrompt"
 
+export type InviteCustomizationProps = {
+	promptMessage: string?,
+	inviteUserId: number?,
+}
+
 local InviteToGamePrompt: any = {}
 InviteToGamePrompt.__index = InviteToGamePrompt
 
@@ -42,11 +47,12 @@ function InviteToGamePrompt:withAnalytics(analytics)
 	return self
 end
 
-function InviteToGamePrompt:_createTree(isVisible)
+function InviteToGamePrompt:_createTree(isVisible, props: InviteCustomizationProps?)
 	return Roact.createElement(FullModalShareGameComponent, {
 		store = Rodux.Store.new(AppReducer, nil, { Rodux.thunkMiddleware }),
 		isVisible = isVisible,
 		analytics = self.analytics,
+		promptMessage = props and props.promptMessage,
 		onAfterClosePage = function(_)
 			-- * "Why are we no-opting sentToUserIds?"
 			-- Originally our specs required us to pass the userIds of
@@ -60,16 +66,16 @@ function InviteToGamePrompt:_createTree(isVisible)
 	})
 end
 
-function InviteToGamePrompt:show()
+function InviteToGamePrompt:show(props: InviteCustomizationProps?)
 	if self.isActive then
 		return
 	end
 	self.isActive = true
 
 	if not self.instance then
-		self.instance = Roact.mount(self:_createTree(true), self.mountTarget, "invitePrompt")
+		self.instance = Roact.mount(self:_createTree(true, props), self.mountTarget, "invitePrompt")
 	else
-		self.instance = Roact.update(self.instance, self:_createTree(true))
+		self.instance = Roact.update(self.instance, self:_createTree(true, props))
 	end
 
 	if self.analytics then

@@ -8,7 +8,6 @@ local TweenService = game:GetService("TweenService")
 local VRService = game:GetService("VRService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui.RobloxGui
-local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 local properties = require(VirtualCursorFolder.Properties)
 
 local Interface = {}
@@ -117,7 +116,7 @@ function Interface:SetArrow(x, y)
 end
 
 function Interface:EnableUI(defaultPosition)
-	local showInterface = not (VRService.VREnabled and FFlagEnableNewVrSystem)
+	local showInterface = not VRService.VREnabled
 	
 	getOrCreateVirtualCursorContainer().Enabled = showInterface
 	cursorIndicator.Size = getCursorSize("Default")

@@ -221,6 +221,14 @@ local Constants = {
 		ButtonTextSize = 20,
 	},
 
+	ScriptProfilerFormatting = {
+		HeaderNames = {"Name", "Total", "Self"},
+		ValueCellWidth = .2,
+		CellPadding = 24,
+		ValuePadding = 12,
+		DepthIndent = 24,
+	},
+
 	DebugVisualizationsFormatting = {
 		ChartHeaderNames = {"Name", "Toggle", "Draw Type", "Tags"},
 		ChartCellWidths = {60, 80}, -- width of cells 2-4; cell 1 fills remainder

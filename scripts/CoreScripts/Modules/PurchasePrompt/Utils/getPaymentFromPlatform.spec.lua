@@ -1,4 +1,3 @@
---!strict
 return function()
 	local Root = script.Parent.Parent
 

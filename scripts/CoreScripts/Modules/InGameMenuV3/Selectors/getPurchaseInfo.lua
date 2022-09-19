@@ -4,27 +4,38 @@
 	icon to show in the item card footers on the InspectAndBuyPage
 	and the BottomBar action button in the AssetDetailsPage
 ]]
+local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
 local memoize = require(CorePackages.AppTempCommon.Common.memoize)
 
 local getPurchaseInfoHelper = memoize(function(asset, bundles)
-	local owned = if asset then asset.owned else nil
-	local robuxPrice = if asset then asset.price else nil
+	local itemInfo = asset
+	local offsale = if itemInfo then not itemInfo.isForSale and not itemInfo.isLimited else nil
 	local partOfBundle = asset and asset.bundlesAssetIsIn and #asset.bundlesAssetIsIn == 1
 	local partOfBundleAndOffsale = partOfBundle and not asset.isForSale
 	if partOfBundleAndOffsale then
 		local bundleId = asset.bundlesAssetIsIn[1]
-		local bundleInfo = bundles[bundleId]
-		if bundleInfo then
-			owned = bundleInfo.owned
-			robuxPrice = bundleInfo.price
+		itemInfo = bundles[bundleId]
+		offsale = not itemInfo.isForSale
+	end
+
+	local robuxPrice = itemInfo.price
+	local premiumExclusiveWhileNotPremium = false
+	if itemInfo.isForSale and itemInfo.premiumPricing ~= nil then
+		if (Players.LocalPlayer :: Player).MembershipType == Enum.MembershipType.Premium then
+			robuxPrice = itemInfo.premiumPricing.premiumPriceInRobux
+		elseif itemInfo.price == nil then
+			premiumExclusiveWhileNotPremium = true
 		end
 	end
 
 	return {
-		owned = owned,
+		owned = itemInfo.owned,
 		robuxPrice = robuxPrice,
-		isLoading = not asset
+		isLoading = not itemInfo,
+		offsale = offsale,
+		isLimited = itemInfo.isLimited,
+		premiumExclusiveWhileNotPremium = premiumExclusiveWhileNotPremium,
 	}
 end)
 

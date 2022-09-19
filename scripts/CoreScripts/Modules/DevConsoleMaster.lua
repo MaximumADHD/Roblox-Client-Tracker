@@ -25,6 +25,7 @@ local ServerStats = require(Components.ServerStats.MainViewServerStats)
 local ActionBindings = require(Components.ActionBindings.MainViewActionBindings)
 local ServerJobs = require(Components.ServerJobs.MainViewServerJobs)
 local MicroProfiler = require(Components.MicroProfiler.MainViewMicroProfiler)
+local ScriptProfiler = require(Components.ScriptProfiler.MainViewScriptProfiler)
 local DebugVisualizations = require(Components.DebugVisualizations.MainViewDebugVisualizations)
 
 local RCCProfilerDataCompleteListener = require(Components.MicroProfiler.RCCProfilerDataCompleteListener)
@@ -44,6 +45,7 @@ local IsDeveloperConsoleEnabled = require(DevConsole.IsDeveloperConsoleEnabled)
 local PlayerPermissionsModule = require(CoreGui.RobloxGui.Modules.PlayerPermissionsModule)
 
 local FFlagEnableDevConsoleDebugVisualizations = require(CoreGui.RobloxGui.Modules.Common.Flags.GetFFlagEnableDevConsoleDebugVisualizations)
+local ScriptProfilerEngineFeature = game:GetEngineFeature("ScriptProfiler")
 
 local DEV_TAB_LIST = {
 	Log = {
@@ -85,6 +87,10 @@ local DEV_TAB_LIST = {
 		tab = MicroProfiler,
 		layoutOrder = 9,
 	},
+	ScriptProfiler = if ScriptProfilerEngineFeature then {
+		tab = ScriptProfiler,
+		layoutOrder = 11,
+	} else nil
 }
 
 if FFlagEnableDevConsoleDebugVisualizations() then

@@ -8,15 +8,23 @@ local TEXT_SIZE = Constants.DefaultFontSize.MainWindowHeader
 local TEXT_COLOR = Constants.Color.Text
 local BACKGROUND_COLOR = Constants.Color.UnselectedGray
 
-local function BoxButton(props)
+export type Props = {
+	text: string,
+	size: UDim2?,
+	pos: UDim2?,
+	onClicked: (string) -> (),
+}
+
+local function BoxButton(props: Props)
 	local text = props.text
 	local size = props.size
 	local pos = props.pos
 	local onClicked = props.onClicked
 
+	-- LUAU FIXME: CLI-58211
 	local onActivated = React.useCallback(function()
 		props.onClicked(props.text)
-	end, {props.onClicked, props.text})
+	end, {props.onClicked, props.text}::{any})
 
 	return Roact.createElement("TextButton", {
 		Text = text,

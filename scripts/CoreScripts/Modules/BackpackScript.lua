@@ -153,7 +153,6 @@ local CharConns = {} -- Holds character connections to be cleared later
 local GamepadEnabled = false -- determines if our gui needs to be gamepad friendly
 local TimeOfLastToolChange = 0
 
-local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 local FFlagVirtualCursorInteractWithInventory = game:DefineFastFlag("VirtualCursorInteractWithInventory", false)
 
 local IsVR = VRService.VREnabled -- Are we currently using a VR device?
@@ -228,7 +227,7 @@ local function isInventoryEmpty()
 end
 
 local function UseGazeSelection()
-	return (UserInputService.VREnabled and not FFlagEnableNewVrSystem)
+	return false -- disabled in new VR system
 end
 
 local function AdjustHotbarFrames()
@@ -1979,7 +1978,7 @@ local function OnVREnabled()
 		BackpackPanel:ResizeStuds(inventoryClosedStudSize.x, inventoryClosedStudSize.y, VR_PANEL_RESOLUTION)
 		BackpackPanel:SetType(Panel3D.Type.Standard, { CFrame = currentPanelLocalCF })
 		BackpackPanel:RequestPositionUpdate()
-		BackpackPanel.showCursor = not FFlagEnableNewVrSystem
+		BackpackPanel.showCursor = false
 
 		function BackpackPanel:CalculateTransparency()
 			if InventoryFrame.Visible then

@@ -28,6 +28,7 @@ return function()
 					["123"] = {
 						owned = false,
 						price = 999,
+						isForSale = true
 					}
 				}
 			},

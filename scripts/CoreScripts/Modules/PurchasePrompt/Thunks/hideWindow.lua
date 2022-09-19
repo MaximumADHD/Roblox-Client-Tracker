@@ -1,4 +1,3 @@
---!nonstrict
 local Root = script.Parent.Parent
 
 local SetWindowState = require(Root.Actions.SetWindowState)

@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName: TouchJump
 	// Version 1.0
@@ -10,7 +11,8 @@ local GuiService = game:GetService('GuiService')
 
 local TouchJump = {}
 
-local MasterControl = require(script.Parent)
+-- When PlayerScripts are loaded, sibling scripts and folders with the same name are merged
+local MasterControl = require(script.Parent) :: typeof(require(script.Parent.Parent.MasterControl))
 
 --[[ Script Variables ]]--
 while not Players.LocalPlayer do

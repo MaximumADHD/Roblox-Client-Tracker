@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	// FileName: DPad
 	// Version 1.0
@@ -10,7 +11,8 @@ local GuiService = game:GetService('GuiService')
 
 local DPad = {}
 
-local MasterControl = require(script.Parent)
+-- When PlayerScripts are loaded, sibling scripts and folders with the same name are merged
+local MasterControl = require(script.Parent) :: typeof(require(script.Parent.Parent.MasterControl))
 
 --[[ Script Variables ]]--
 while not Players.LocalPlayer do
@@ -25,13 +27,13 @@ local OnInputEnded = nil		-- defined in Create()
 local DPAD_SHEET = "rbxasset://textures/ui/DPadSheet.png"
 local COMPASS_DIR = {
 	Vector3.new(1, 0, 0),			-- E
-	Vector3.new(1, 0, 1).unit,		-- SE
+	Vector3.new(1, 0, 1).Unit,		-- SE
 	Vector3.new(0, 0, 1),			-- S
-	Vector3.new(-1, 0, 1).unit,		-- SW
+	Vector3.new(-1, 0, 1).Unit,		-- SW
 	Vector3.new(-1, 0, 0),			-- W
-	Vector3.new(-1, 0, -1).unit,	-- NW
+	Vector3.new(-1, 0, -1).Unit,	-- NW
 	Vector3.new(0, 0, -1),			-- N
-	Vector3.new(1, 0, -1).unit,		-- NE
+	Vector3.new(1, 0, -1).Unit,		-- NE
 }
 
 --[[ lua Function Cache ]]--

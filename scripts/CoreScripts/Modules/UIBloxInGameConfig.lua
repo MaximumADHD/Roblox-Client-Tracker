@@ -4,32 +4,25 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local ArgCheck = require(CorePackages.ArgCheck)
 
-local GetFFlagUIBloxFixDropdownMenuListPositionAndSize = require(
-	CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuListPositionAndSize
-)
-local GetFFlagUIBloxGenericButtonInputChangesInGame = require(
-	CorePackages.UIBloxFlags.GetFFlagUIBloxGenericButtonInputChangesInGame
-)
-local GetFFlagUIBloxUseNewGenericTextLabelProps = require(
-	CorePackages.UIBloxFlags.GetFFlagUIBloxUseNewGenericTextLabelProps
-)
-local GetFFlagUIBloxEnableRadioButtonGamepadSupport = require(
-	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableRadioButtonGamepadSupport
-)
-local GetFFlagUIBloxSliderUpdateOnDismiss = require(
-	CorePackages.UIBloxFlags.GetFFlagUIBloxSliderUpdateOnDismiss
-)
-local GetFFlagUIBloxFixDropdownMenuCellTextSize = require(
-	CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuCellTextSize
-)
-local GetFFlagUIBloxEnableActionBarLayoutFix = require(
-	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableActionBarLayoutFix
-)
-local GetFFlagUIBloxDisableTooltipAnimation = require(
-	CorePackages.UIBloxFlags.GetFFlagUIBloxDisableTooltipAnimation
-)
+local GetFFlagUIBloxFixDropdownMenuListPositionAndSize =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuListPositionAndSize)
+local GetFFlagUIBloxGenericButtonInputChangesInGame =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxGenericButtonInputChangesInGame)
+local GetFFlagUIBloxUseNewGenericTextLabelProps =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxUseNewGenericTextLabelProps)
+local GetFFlagUIBloxEnableRadioButtonGamepadSupport =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableRadioButtonGamepadSupport)
+local GetFFlagUIBloxSliderUpdateOnDismiss = require(CorePackages.UIBloxFlags.GetFFlagUIBloxSliderUpdateOnDismiss)
+local GetFFlagUIBloxFixDropdownMenuCellTextSize =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuCellTextSize)
+local GetFFlagUIBloxEnableActionBarLayoutFix = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableActionBarLayoutFix)
+local GetFFlagUIBloxDisableTooltipAnimation = require(CorePackages.UIBloxFlags.GetFFlagUIBloxDisableTooltipAnimation)
+
+local GetFFlagUIBloxSystemBarBottomAlignedItems =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxSystemBarBottomAlignedItems)
 
 local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
+local GetFFlagUIBloxEnableReactTag = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableReactTag)
 
 return {
 	useUpdatedCheckbox = true,
@@ -44,6 +37,7 @@ return {
 		false
 	),
 	enableRadioButtonGamepadSupport = GetFFlagUIBloxEnableRadioButtonGamepadSupport(),
+	enableReactTag = GetFFlagUIBloxEnableReactTag(),
 
 	useNewVerticalScrollView = false, -- TODO: https://jira.rbx.com/browse/UIBLOX-225
 	enableRightSideGadgetView = EnableInGameMenuV3(),
@@ -54,4 +48,6 @@ return {
 	enableActionBarLayoutFix = GetFFlagUIBloxEnableActionBarLayoutFix(),
 
 	disableTooltipAnimation = GetFFlagUIBloxDisableTooltipAnimation(),
+
+	systemBarBottomAlignedItems = GetFFlagUIBloxSystemBarBottomAlignedItems(),
 }

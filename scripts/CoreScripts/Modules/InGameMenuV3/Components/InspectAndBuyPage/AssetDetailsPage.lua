@@ -5,6 +5,7 @@
 	type. It will also allow for trying on and purchasing through the
 	bottom bar
 ]]
+local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
 
 local Roact = require(CorePackages.Roact)
@@ -20,12 +21,15 @@ local IBConstants = require(InGameMenu.InspectAndBuyConstants)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 local Page = require(InGameMenu.Components.Page)
 local ItemInfoList = require(InGameMenu.Components.InspectAndBuyPage.ItemInfoList)
+local AssetDetailNotification = require(InGameMenu.Components.InspectAndBuyPage.AssetDetailNotification)
 local AssetDetailThumbnail = require(InGameMenu.Components.InspectAndBuyPage.AssetDetailThumbnail)
+local TryOnViewport = require(InGameMenu.Components.InspectAndBuyPage.TryOnViewport)
 local AssetDetailFavorite = require(InGameMenu.Components.InspectAndBuyPage.AssetDetailFavorite)
 local AssetDetailBottomBar = require(InGameMenu.Components.InspectAndBuyPage.AssetDetailBottomBar)
 
 local Constants = require(InGameMenu.Resources.Constants)
 local GetFavoriteForItem = require(InGameMenu.Thunks.GetFavoriteForItem)
+local GetCharacterModelFromUserId = require(InGameMenu.Thunks.GetCharacterModelFromUserId)
 
 local TITLE_TEXT_SIZE = 24
 local TEXT_FRAME_HEIGHT = 40
@@ -43,6 +47,7 @@ AssetDetailsPage.validateProps = t.strictInterface({
 	bundles = t.table,
 	selectedItem = t.table,
 	currentPage = t.string,
+	showFavoritesCount = t.boolean
 })
 
 --[[
@@ -72,8 +77,52 @@ function AssetDetailsPage:attemptFetchFavorite()
 	end
 end
 
+--[[
+	See if we need to include a notice on the top of the page.
+	A notice will be shown if any of the following are the case:
+	1. The item selected is offsale and part of more than one bundle
+	2. The item selected is offsale and part of a single bundle
+	3. The item selected is LC and the user has an R6 character
+]]
+function AssetDetailsPage:getNoticeKey()
+	local selectedItem = self.props.selectedItem
+	local multipleBundles = selectedItem.bundlesAssetIsIn and #selectedItem.bundlesAssetIsIn > 1 and not selectedItem.isForSale
+	local partOfBundle = self:getBundleInfo() ~= nil
+	local assetType = selectedItem.assetTypeId
+	local layeredClothingOnR6 = IBConstants.LayeredAssetTypes[assetType] ~= nil and assetType ~= tostring(Enum.AssetType.HairAccessory.Value) and
+		self.localPlayerModel and self.localPlayerModel.Humanoid.RigType == Enum.HumanoidRigType.R6
+
+	--TODO: LOCALIZE
+	if multipleBundles then
+		return "This item is part of multiple bundles."
+	elseif partOfBundle then
+		return "This item is part of a bundle."
+	elseif layeredClothingOnR6 then
+		return "The R6 body type doesn't support this item."
+	elseif selectedItem.isLimited then
+		return "This item can only be purchased from resellers in the Catalog."
+	end
+
+	return nil
+end
+
 function AssetDetailsPage:init()
 	self.scrollingFrameRef = Roact.createRef()
+	self.localPlayerModel = nil
+
+	self:setState({
+		scrollingEnabled = true
+	})
+
+	self.setScrollingEnabled = function(enabled)
+		local scrollingEnabled = self.state.scrollingEnabled
+
+		if scrollingEnabled ~= enabled then
+			self:setState({
+				scrollingEnabled = enabled
+			})
+		end
+	end
 end
 
 function AssetDetailsPage:renderWithProviders(style, localized)
@@ -91,6 +140,8 @@ function AssetDetailsPage:renderWithProviders(style, localized)
 		titleText = selectedItem.name
 	end
 
+	local noticeKey = self:getNoticeKey()
+
 	return Roact.createElement(Page, {
 		useLeaveButton = false,
 		pageTitle = "Item", --TODO: Localize AVBURST-9792
@@ -103,6 +154,7 @@ function AssetDetailsPage:renderWithProviders(style, localized)
 			ScrollBarImageTransparency = 1,
 			CanvasSize = UDim2.fromScale(1, 1),
 			ScrollingDirection = Enum.ScrollingDirection.Y,
+			ScrollingEnabled = self.state.scrollingEnabled,
 			[Roact.Ref] = self.scrollingFrameRef,
 		}, {
 			UIListLayout = Roact.createElement("UIListLayout", {
@@ -115,6 +167,9 @@ function AssetDetailsPage:renderWithProviders(style, localized)
 				PaddingLeft = UDim.new(0, HORIZONTAL_PADDING),
 				PaddingRight = UDim.new(0, HORIZONTAL_PADDING),
 			}),
+			AssetDetailNotification = noticeKey and Roact.createElement(AssetDetailNotification, {
+				noticeKey = noticeKey
+			}) or nil,
 			TitleText = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, -10, 0, TEXT_FRAME_HEIGHT),
@@ -137,18 +192,23 @@ function AssetDetailsPage:renderWithProviders(style, localized)
 				bundleInfo = bundleInfo,
 				selectedItem = self.props.selectedItem,
 			}),
+			TryOnViewport = self.localPlayerModel and Roact.createElement(TryOnViewport, {
+				LayoutOrder = 2,
+				localPlayerModel = self.localPlayerModel,
+				setScrollingEnabled = self.setScrollingEnabled,
+			}),
 			DetailsDescription = Roact.createElement(ExpandableTextArea, {
 				LayoutOrder = 3,
 				Text = description,
 				width = UDim.new(1, -20),
 				compactNumberOfLines = COMPACT_NUMBER_OF_LINES,
 			}),
-			AssetDetailFavorite = Roact.createElement(AssetDetailFavorite, {
+			AssetDetailFavorite = self.props.showFavoritesCount and Roact.createElement(AssetDetailFavorite, {
 				LayoutOrder = 4,
 				numFavorites = numFavorites,
 				bundleInfo = bundleInfo,
 				selectedItem = self.props.selectedItem,
-			}),
+			}) or nil,
 			ItemInfoList = Roact.createElement(ItemInfoList, {
 				LayoutOrder = 5,
 				genreText = (not bundleInfo and selectedItem.genres) and table.concat(selectedItem.genres, ", ") or nil,
@@ -165,6 +225,7 @@ function AssetDetailsPage:renderWithProviders(style, localized)
 		}),
 		AssetDetailBottomBar = Roact.createElement(AssetDetailBottomBar, {
 			bundleInfo = bundleInfo,
+			localPlayerModel = self.localPlayerModel,
 		}),
 	})
 end
@@ -175,6 +236,13 @@ function AssetDetailsPage:render()
 		})(function(localized)
 			return self:renderWithProviders(style, localized)
 		end)
+	end)
+end
+
+function AssetDetailsPage:didMount()
+	local localUserId = (Players.LocalPlayer :: Player).UserId
+	self.props.getCharacterModelFromUserId(localUserId, true, function(localPlayerModel)
+		self.localPlayerModel = localPlayerModel
 	end)
 end
 
@@ -200,7 +268,8 @@ local function mapStateToProps(state, props)
 	return {
 		selectedItem = state.inspectAndBuy.SelectedItem,
 		bundles = state.inspectAndBuy.Bundles,
-		currentPage = state.menuPage
+		currentPage = state.menuPage,
+		showFavoritesCount = not state.inspectAndBuy.IsSubjectToChinaPolicies,
 	}
 end
 
@@ -208,6 +277,9 @@ local function mapDispatchToProps(dispatch)
 	return {
 		fetchItemFavorite = function(itemId, itemType)
 			dispatch(GetFavoriteForItem(itemId, itemType))
+		end,
+		getCharacterModelFromUserId = function(userId, isLocalPlayer, callback)
+			dispatch(GetCharacterModelFromUserId(userId, isLocalPlayer, callback))
 		end,
 	}
 end

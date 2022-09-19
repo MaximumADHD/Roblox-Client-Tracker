@@ -1,4 +1,3 @@
---!nonstrict
 return function()
 	local Root = script.Parent.Parent
 	local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
@@ -92,7 +91,7 @@ return function()
 					verifyRobuxUpsellProduct(Enum.Platform.Android, 10000, false, 10000, "com.roblox.robloxmobile.premium10000robux")
 					verifyMaxRobuxUpsellProduct(Enum.Platform.Android, 10000 + 1, false)
 				end)
-	
+
 				it("should select the appropriate premium product when user IS premium", function()
 					verifyRobuxUpsellProduct(Enum.Platform.Android, 88, true, 88, "com.roblox.robloxmobile.premium88subscribed")
 					verifyRobuxUpsellProduct(Enum.Platform.Android, 11000, true, 11000, "com.roblox.robloxmobile.premium11000subscribed")

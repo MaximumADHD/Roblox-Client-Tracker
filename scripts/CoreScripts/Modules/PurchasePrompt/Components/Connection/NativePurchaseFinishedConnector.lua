@@ -17,6 +17,8 @@ local connectToStore = require(Root.connectToStore)
 
 local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
 
+local GetFFlagRobuxUpsellIXP = require(Root.Flags.GetFFlagRobuxUpsellIXP)
+
 local function NativePurchaseFinishedConnector(props)
 	local nativePurchaseFinished = props.nativePurchaseFinished
 
@@ -32,7 +34,11 @@ local function mapDispatchToProps(dispatch)
 			if wasPurchased then
 				dispatch(retryAfterUpsell())
 			else
-				dispatch(ErrorOccurred(PurchaseError.InvalidFunds))
+				if GetFFlagRobuxUpsellIXP() then
+					dispatch(ErrorOccurred(PurchaseError.InvalidFundsUnknown))
+				else
+					dispatch(ErrorOccurred(PurchaseError.InvalidFunds))
+				end
 			end
 		end,
 	}

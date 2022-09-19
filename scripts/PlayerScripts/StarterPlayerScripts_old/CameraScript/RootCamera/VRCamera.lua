@@ -1,3 +1,4 @@
+--!nonstrict
 local PlayersService = game:GetService('Players')
 local UserInputService = game:GetService('UserInputService')
 local VRService = game:GetService("VRService")
@@ -5,7 +6,8 @@ local ContextActionService = game:GetService("ContextActionService")
 
 local LocalPlayer = PlayersService.LocalPlayer
 
-local RootCameraCreator = require(script.Parent)
+-- When PlayerScripts are loaded, sibling scripts and folders with the same name are merged
+local RootCameraCreator = require(script.Parent) :: typeof(require(script.Parent.Parent.RootCamera))
 
 local XZ_VECTOR = Vector3.new(1, 0, 1)
 local ZERO_VECTOR2 = Vector2.new(0, 0)
@@ -184,11 +186,11 @@ local function CreateVRCamera()
 			onCameraSubjectChangedConn = nil
 		end
 		if workspace.CurrentCamera then
-			onCameraSubjectChangedConn = workspace.CurrentCamera:GetPropertyChangedSignal("CameraSubject"):connect(onCameraSubjectChanged)
+			onCameraSubjectChangedConn = workspace.CurrentCamera:GetPropertyChangedSignal("CameraSubject"):Connect(onCameraSubjectChanged)
 			onCameraSubjectChanged()
 		end
 	end
-	workspace:GetPropertyChangedSignal("CurrentCamera"):connect(onCurrentCameraChanged)
+	workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(onCurrentCameraChanged)
 	onCurrentCameraChanged()
 
 	local function onVREnabled()

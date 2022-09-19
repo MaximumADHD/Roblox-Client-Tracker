@@ -20,6 +20,7 @@ return function()
 			assetTypeId = "8",
 			productId = 123,
 			owned = false,
+			isForSale = true,
 		},
 		price = 200,
 		isPriceLoaded = true,

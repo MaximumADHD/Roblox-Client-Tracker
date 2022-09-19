@@ -134,6 +134,44 @@ local function getItemFavorite(itemId, itemType)
 	end)
 end
 
+--[[
+	Get a humanoid description object from a costume id.
+]]
+local function getHumanoidDescriptionFromCostumeId(costumeId)
+	return Promise.new(function(resolve, reject)
+		spawn(function()
+			local humanoidDescription = Players:GetHumanoidDescriptionFromOutfitId(costumeId)
+
+			if humanoidDescription then
+				resolve(humanoidDescription)
+			end
+		end)
+	end)
+end
+
+--[[
+	Sets the favorite status of an item for a user.
+]]
+local function setItemFavorite(itemId, itemType, shouldFavorite)
+	return Promise.new(function(resolve, reject)
+		local setFavoriteSuccess = AvatarEditorService:NoPromptSetFavorite(itemId, itemType, shouldFavorite)
+		while not setFavoriteSuccess do
+			-- currently, a call to SetFavorite is in progress. Wait for that call to be completed before trying to call
+			-- SetFavorite here. This exhibits an edge case where a call to SetFavorite does not complete before trying
+			-- to do the same with another item
+			AvatarEditorService.PromptSetFavoriteCompleted:Wait()
+			setFavoriteSuccess = AvatarEditorService:NoPromptSetFavorite(itemId, itemType, shouldFavorite)
+		end
+
+		local avatarPromptResult = AvatarEditorService.PromptSetFavoriteCompleted:Wait()
+		if avatarPromptResult == Enum.AvatarPromptResult.Success then
+			resolve()
+		else
+			reject("Failure in setItemFavorite")
+		end
+	end)
+end
+
 local Network = {}
 
 function Network.new()
@@ -144,6 +182,8 @@ function Network.new()
 		getAssetBundles = getAssetBundles,
 		getBundleFavoriteCount = getBundleFavoriteCount,
 		getItemFavorite = getItemFavorite,
+		setItemFavorite = setItemFavorite,
+		getHumanoidDescriptionFromCostumeId = getHumanoidDescriptionFromCostumeId,
 	}
 
 	setmetatable(networkService, {
