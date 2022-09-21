@@ -64,6 +64,8 @@ export type TooltipProps = TooltipPublicProps & TooltipSuppliedProps
 
 -- options always supplied by user
 type TooltipControllerPublicProps = {
+	-- a toggle that can be used to switch on or switch off tooltip
+	disabled: boolean?,
 	-- the name of the trigger point returned by the render function
 	triggerPointName: string?,
 	-- the orientation that the tooltip will use if there is space

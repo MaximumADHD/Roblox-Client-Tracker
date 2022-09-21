@@ -137,7 +137,10 @@ local function TooltipController(props: Types.TooltipControllerProps)
 		return getOrientationAndContentOffset(preferredOrientation, distances, triggerPointRadius, contentSize)
 	end, { preferredOrientation, screenSize, triggerPointCenter, triggerPointRadius, contentSize })
 
-	local animationTarget = if props.active then Consts.ACTIVE_ANIMATION_TARGETS else Consts.INACTIVE_ANIMATION_TARGETS
+	-- Can disable the tooltip completely
+	local toolipActive = if props.disabled then false else props.active
+
+	local animationTarget = if toolipActive then Consts.ACTIVE_ANIMATION_TARGETS else Consts.INACTIVE_ANIMATION_TARGETS
 
 	local function renderWithAnimation(values: Types.AnimationValues): React.ReactElement?
 		-- if the tooltip is invisible don't render anything

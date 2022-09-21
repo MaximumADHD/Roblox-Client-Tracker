@@ -19,6 +19,8 @@ return {
 				return Contacts(options)
 			end,
 			Selectors = Selectors(options),
+			Models = require(script.Models),
+			Actions = require(script.Actions),
 		}
 	end,
 }

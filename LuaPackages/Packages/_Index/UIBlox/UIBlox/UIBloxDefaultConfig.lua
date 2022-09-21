@@ -127,4 +127,7 @@ return {
 
 	-- disable tooltip animation
 	disableTooltipAnimation = false,
+
+	-- support bottom aligns items in SystemBar
+	systemBarBottomAlignedItems = false,
 }

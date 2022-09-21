@@ -26,6 +26,7 @@ local validateProps = devOnly(t.strictInterface({
 	selectedValue = t.optional(t.number),
 	layoutOrder = t.optional(t.number),
 	padding = t.optional(t.UDim),
+	automaticSize = t.optional(t.boolean),
 
 	-- optional parameters for RoactGamepad
 	NextSelectionLeft = t.optional(t.table),
@@ -92,7 +93,8 @@ function RadioButtonList:renderWithProviders(getSelectionCursor)
 	end
 
 	return Roact.createElement(RoactGamepad.Focusable.Frame, {
-		Size = UDim2.new(1, 0, 1, 0),
+		Size = if self.props.automaticSize then UDim2.fromScale(1, 0) else UDim2.fromScale(1, 1),
+		AutomaticSize = if self.props.automaticSize then Enum.AutomaticSize.Y else nil,
 		BackgroundTransparency = 1,
 		LayoutOrder = self.props.layoutOrder,
 		NextSelectionLeft = self.props.NextSelectionLeft,

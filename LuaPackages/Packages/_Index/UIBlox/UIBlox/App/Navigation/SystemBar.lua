@@ -83,6 +83,8 @@ SystemBar.validateProps = t.strictInterface({
 		badgeValue = t.optional(t.union(t.integer, t.string, BadgeStates.isEnumValue)),
 		-- size of icons being passed to itemlist
 		itemSize = t.optional(t.UDim2),
+		-- aligns icon to the bottom in landscape mode
+		bottomAligned = t.optional(t.boolean),
 	})),
 	-- index of the currently selected item
 	selection = t.optional(t.integer),
@@ -99,6 +101,7 @@ SystemBar.validateProps = t.strictInterface({
 	-- offset icon layout positions
 	layoutPaddingOffset = t.optional(t.UDim),
 	firstItemPaddingOffset = t.optional(t.UDim),
+	lastItemPaddingOffset = t.optional(t.UDim),
 	-- children are placed in a Frame occupying the safe area
 	[Roact.Children] = t.optional(t.any),
 	-- rounds the corners of the bar / buttons
@@ -113,6 +116,7 @@ SystemBar.defaultProps = {
 	placement = Placement.Auto,
 	layoutPaddingOffset = UDim.new(0, 0),
 	firstItemPaddingOffset = UDim.new(0, 0),
+	lastItemPaddingOffset = UDim.new(0, 0),
 }
 
 function SystemBar:isPortrait()
@@ -190,10 +194,9 @@ function SystemBar:renderItem(item, state, selected)
 				ImageTransparency = pressed and ICON_TRANSPARENCY_HOVERED or ICON_TRANSPARENCY,
 			}, {
 				Badge = hasBadge and Roact.createElement(Badge, {
-					position = item.badgeValue == BadgeStates.isEmpty and UDim2.fromOffset(
-						EMPTY_BADGE_POSITION_X,
-						EMPTY_BADGE_POSITION_Y
-					) or UDim2.fromOffset(BADGE_POSITION_X, BADGE_POSITION_Y),
+					position = if item.badgeValue == BadgeStates.isEmpty
+						then UDim2.fromOffset(EMPTY_BADGE_POSITION_X, EMPTY_BADGE_POSITION_Y)
+						else UDim2.fromOffset(BADGE_POSITION_X, BADGE_POSITION_Y),
 					value = item.badgeValue,
 				}) or nil,
 				UICorner = self.props.roundCorners and Roact.createElement("UICorner", {
@@ -247,7 +250,8 @@ function SystemBar:renderPortrait(frameProps, contents)
 	end, SPRING_OPTIONS)
 end
 
-function SystemBar:renderLandscape(frameProps, contents)
+function SystemBar:renderLandscape(frameProps, contents, bottomAligned)
+	bottomAligned = UIBloxConfig.systemBarBottomAlignedItems and bottomAligned
 	return withAnimation({
 		offset = self.props.hidden and -TAB_SIZE_LANDSCAPE_X or 0,
 	}, function(values)
@@ -257,14 +261,21 @@ function SystemBar:renderLandscape(frameProps, contents)
 				Position = UDim2.new(0, math.floor(values.offset + 0.5), 0, 0),
 				Size = UDim2.new(0, TAB_SIZE_LANDSCAPE_X, 1, 0),
 				ZIndex = 99,
+				BackgroundTransparency = if bottomAligned then 1 else nil,
 			}),
 			Cryo.Dictionary.join({
 				Padding = Roact.createElement("UIPadding", {
-					PaddingTop = self.props.firstItemPaddingOffset + UDim.new(0, FIRST_ITEM_PADDING_LANDSCAPE_Y),
+					PaddingTop = if not bottomAligned
+						then self.props.firstItemPaddingOffset + UDim.new(0, FIRST_ITEM_PADDING_LANDSCAPE_Y)
+						else nil,
+					PaddingBottom = if bottomAligned
+						then self.props.lastItemPaddingOffset + UDim.new(0, ITEM_PADDING_LANDSCAPE_Y)
+						else nil,
 				}),
 				Layout = Roact.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Vertical,
 					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					VerticalAlignment = if bottomAligned then Enum.VerticalAlignment.Bottom else nil,
 					Padding = self.props.layoutPaddingOffset + UDim.new(0, ITEM_PADDING_LANDSCAPE_Y),
 				}),
 			}, contents)
@@ -272,11 +283,28 @@ function SystemBar:renderLandscape(frameProps, contents)
 	end, SPRING_OPTIONS)
 end
 
-function SystemBar:renderBackground(...)
+function SystemBar:renderBackground(frameProps, contents)
 	if self:isPortrait() then
-		return self:renderPortrait(...)
+		return self:renderPortrait(frameProps, contents)
 	else
-		return self:renderLandscape(...)
+		if UIBloxConfig.systemBarBottomAlignedItems then
+			local topItems = Cryo.List.filter(contents, function(_, index)
+				return not self.props.itemList[index].bottomAligned
+			end)
+			local bottomItems = Cryo.List.filter(contents, function(_, index)
+				return self.props.itemList[index].bottomAligned
+			end)
+			local rendered = self:renderLandscape(frameProps, topItems)
+			if #bottomItems > 0 then
+				rendered = Roact.createFragment({
+					NavBar = rendered,
+					BottomAlignedNavBar = self:renderLandscape(frameProps, bottomItems, true),
+				})
+			end
+			return rendered
+		else
+			return self:renderLandscape(frameProps, contents)
+		end
 	end
 end
 

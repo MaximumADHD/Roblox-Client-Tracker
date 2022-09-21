@@ -18,6 +18,7 @@ return {
 	RoduxContacts = require(LuaSocialLibrariesDeps.RoduxContacts),
 	RoduxUserPermissions = require(LuaSocialLibrariesDeps.RoduxUserPermissions),
 	NetworkingAccountInformation = require(LuaSocialLibrariesDeps.NetworkingAccountInformation),
+	NetworkingAccountSettings = require(LuaSocialLibrariesDeps.NetworkingAccountSettings),
 	NetworkingUserSettings = require(LuaSocialLibrariesDeps.NetworkingUserSettings),
 	RoduxShareLinks = require(LuaSocialLibrariesDeps.RoduxShareLinks),
 	httpRequest = require(LuaSocialLibrariesDeps.httpRequest),

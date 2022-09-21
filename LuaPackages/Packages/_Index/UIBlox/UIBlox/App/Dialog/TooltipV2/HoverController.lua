@@ -27,6 +27,10 @@ local function HoverController(props: Types.HoverControllerProps)
 	local delayTime = props.delayTime or Consts.DEFAULT_DELAY_TIME
 
 	local onStateChanged = React.useCallback(function(oldState, newState)
+		if props.disabled then
+			setActive(false)
+			return
+		end
 		if newState == ControlState.Hover then
 			local prevTick = lastEndHover.current
 			delay(delayTime, function()

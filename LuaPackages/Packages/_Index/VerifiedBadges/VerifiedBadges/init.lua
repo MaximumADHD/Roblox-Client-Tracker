@@ -14,6 +14,7 @@ local constants = require(script.constants)
 
 return {
 	EmojiWrapper = require(script.Components.EmojiWrapper),
+	SmartEmoji = require(script.Components.SmartEmoji),
 
 	installReducer = require(script.installReducer),
 

@@ -14,7 +14,10 @@ return function(options)
 	local NetworkingContacts = options.networkingContacts
 
 	return Rodux.createReducer(DEFAULT_STATE, {
-		[NetworkingContacts.FindContactFriends.Succeeded.name] = function(_: ReducerTypes.ByContactId, action: ActionTypes.FindContactFriendsSucceeded): ReducerTypes.ByContactId
+		[NetworkingContacts.FindContactFriends.Succeeded.name] = function(
+			_: ReducerTypes.ByContactId,
+			action: ActionTypes.FindContactFriendsSucceeded
+		): ReducerTypes.ByContactId
 			return setContactsInStore(action)
 		end :: (
 			state: ReducerTypes.ByContactId,

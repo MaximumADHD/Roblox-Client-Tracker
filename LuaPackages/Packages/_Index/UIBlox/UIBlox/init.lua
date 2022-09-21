@@ -85,7 +85,6 @@ local function initializeLibrary(configs)
 		Hooks = strict({
 			useLazyRef = require(script.Utility.useLazyRef),
 			useInitializedValue = require(script.Utility.useInitializedValue),
-			useBinding = require(script.Utility.useBinding),
 		}),
 	})
 

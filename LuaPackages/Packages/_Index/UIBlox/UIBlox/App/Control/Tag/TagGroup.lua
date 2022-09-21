@@ -23,7 +23,6 @@ local useStyle = require(UIBlox.Core.Style.useStyle)
 local IconButton = require(UIBlox.App.Button.IconButton)
 local InputButton = require(UIBlox.Core.InputButton.InputButton)
 local isCallable = require(UIBlox.Utility.isCallable)
-local useBinding = require(UIBlox.Utility.useBinding)
 local useInitializedValue = require(UIBlox.Utility.useInitializedValue)
 
 -- Signature for callback invoked when tag selection changes
@@ -42,6 +41,8 @@ export type Props = {
 	NextSelectionDown: any,
 	forwardRef: any,
 }
+
+local TAG_GROUP_HEIGHT = 52
 
 local GRADIENT_SIZE = 50
 local BUTTON_PADDING = 12
@@ -96,8 +97,8 @@ local function TagGroup(props: Props)
 
 	local tagRefs = useRefCache()
 
-	local showLeftGradientBinding, updateShowLeftGradient = useBinding(false)
-	local showRightGradientBinding, updateShowRightGradient = useBinding(false)
+	local showLeftGradientBinding, updateShowLeftGradient = React.useBinding(false)
+	local showRightGradientBinding, updateShowRightGradient = React.useBinding(false)
 
 	local checkShowGradient = React.useCallback(function(rbx)
 		local showLeft, showRight = shouldShowGradientForScrollingFrame(rbx)
@@ -169,7 +170,7 @@ local function TagGroup(props: Props)
 	end
 
 	return React.createElement(Focusable.Frame, {
-		Size = UDim2.fromScale(1, 1),
+		Size = UDim2.new(1, 0, 0, TAG_GROUP_HEIGHT),
 		BackgroundColor3 = theme.BackgroundDefault.Color,
 		BackgroundTransparency = theme.BackgroundDefault.Transparency,
 		BorderSizePixel = 0,

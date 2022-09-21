@@ -8,6 +8,7 @@ local constants = require(VerifiedBadges.constants)
 local sendExposureEvent = require(VerifiedBadges.Utils.sendExposureEvent)
 local usePrevious = require(VerifiedBadges.Utils.usePrevious)
 local getFStringVerifiedBadgeLayer = require(VerifiedBadges.Flags.getFStringVerifiedBadgeLayer)
+local getFFlagFixAnalyticsOverfire = require(VerifiedBadges.Flags.getFFlagFixAnalyticsOverfire)
 local getExperimentValue = require(VerifiedBadges.Experiments.getExperimentValue)
 
 local defaultProps = {
@@ -105,7 +106,13 @@ local function EmojiWrapper(props: Props)
 		if props.mockAnalyticExposureEvent then
 			props.mockAnalyticExposureEvent(exposureEvent)
 		else
-			sendExposureEvent(exposureEvent)
+			if getFFlagFixAnalyticsOverfire() then
+				if props.emoji == constants.VERIFIED_EMOJI then
+					sendExposureEvent(exposureEvent)
+				end
+			else
+				sendExposureEvent(exposureEvent)
+			end
 		end
 	end, { props.mockAnalyticExposureEvent })
 
