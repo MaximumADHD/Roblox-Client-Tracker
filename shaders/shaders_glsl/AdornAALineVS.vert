@@ -4,7 +4,7 @@
 #include <AdornParams.h>
 #include <Globals.h>
 uniform vec4 CB1[6];
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 attribute vec4 POSITION;
 attribute vec3 NORMAL;
 varying vec4 VARYING0;
@@ -55,7 +55,7 @@ void main()
     v21.y = v18.y * CB1[5].z;
     gl_Position = v16;
     VARYING0 = v19;
-    VARYING1 = CB0[7].xyz - v6.xyz;
+    VARYING1 = CB0[11].xyz - v6.xyz;
     VARYING2 = v20;
     VARYING3 = v21;
 }

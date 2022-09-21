@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB2[1];
 attribute vec4 POSITION;
 attribute vec2 TEXCOORD0;
@@ -19,6 +19,6 @@ void main()
     gl_Position = v1;
     VARYING0 = TEXCOORD0;
     VARYING1 = COLOR0;
-    VARYING2 = CB0[7].xyz - POSITION.xyz;
+    VARYING2 = CB0[11].xyz - POSITION.xyz;
 }
 

@@ -7,7 +7,7 @@ const vec3 v1[16] = vec3[](vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 1
 
 #include <Globals.h>
 uniform vec4 CB1[511];
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 in vec4 POSITION;
 in vec4 NORMAL;
 in vec2 TEXCOORD0;

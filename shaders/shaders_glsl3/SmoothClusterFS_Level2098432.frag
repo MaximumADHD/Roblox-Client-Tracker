@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
@@ -39,13 +39,13 @@ void main()
     f12.y = f10.y;
     vec4 f13 = f12;
     f13.z = f10.z;
-    float f14 = clamp(dot(step(CB0[19].xyz, abs(VARYING4 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
+    float f14 = clamp(dot(step(CB0[24].xyz, abs(VARYING4 - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f15 = VARYING4.yzx - (VARYING4.yzx * f14);
     vec4 f16 = vec4(clamp(f14, 0.0, 1.0));
     vec4 f17 = mix(texture(LightMapTexture, f15), vec4(0.0), f16);
     vec4 f18 = mix(texture(LightGridSkylightTexture, f15), vec4(1.0), f16);
     vec4 f19 = texture(ShadowMapTexture, VARYING5.xy);
-    vec3 f20 = (min((f17.xyz * (f17.w * 120.0)) + (CB0[8].xyz + (CB0[9].xyz * f18.x)), vec3(CB0[16].w)) + (VARYING6 * ((1.0 - ((step(f19.x, VARYING5.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING5.z - 0.5)), 0.0, 1.0)) * f19.y)) * f18.y))) * (f13.xyz * f13.xyz);
+    vec3 f20 = (min((f17.xyz * (f17.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f18.x)), vec3(CB0[21].w)) + (VARYING6 * ((1.0 - ((step(f19.x, VARYING5.z) * clamp(CB0[29].z + (CB0[29].w * abs(VARYING5.z - 0.5)), 0.0, 1.0)) * f19.y)) * f18.y))) * (f13.xyz * f13.xyz);
     vec4 f21 = vec4(0.0);
     f21.x = f20.x;
     vec4 f22 = f21;
@@ -54,17 +54,17 @@ void main()
     f23.z = f20.z;
     vec4 f24 = f23;
     f24.w = 1.0;
-    float f25 = clamp(exp2((CB0[13].z * VARYING5.w) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
-    vec3 f26 = textureLod(PrefilteredEnvTexture, vec4(-VARYING7, 0.0).xyz, max(CB0[13].y, f25) * 5.0).xyz;
-    bvec3 f27 = bvec3(!(CB0[13].w == 0.0));
-    vec3 f28 = mix(vec3(f27.x ? CB0[14].xyz.x : f26.x, f27.y ? CB0[14].xyz.y : f26.y, f27.z ? CB0[14].xyz.z : f26.z), f24.xyz, vec3(f25));
+    float f25 = clamp(exp2((CB0[18].z * VARYING5.w) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
+    vec3 f26 = textureLod(PrefilteredEnvTexture, vec4(-VARYING7, 0.0).xyz, max(CB0[18].y, f25) * 5.0).xyz;
+    bvec3 f27 = bvec3(!(CB0[18].w == 0.0));
+    vec3 f28 = mix(vec3(f27.x ? CB0[19].xyz.x : f26.x, f27.y ? CB0[19].xyz.y : f26.y, f27.z ? CB0[19].xyz.z : f26.z), f24.xyz, vec3(f25));
     vec4 f29 = f24;
     f29.x = f28.x;
     vec4 f30 = f29;
     f30.y = f28.y;
     vec4 f31 = f30;
     f31.z = f28.z;
-    vec3 f32 = sqrt(clamp(f31.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec3 f32 = sqrt(clamp(f31.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
     vec4 f33 = f31;
     f33.x = f32.x;
     vec4 f34 = f33;

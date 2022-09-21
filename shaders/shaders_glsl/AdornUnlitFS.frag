@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 varying vec4 VARYING0;
 varying vec3 VARYING1;
 
@@ -15,14 +15,14 @@ void main()
     f2.y = f0.y;
     vec4 f3 = f2;
     f3.z = f0.z;
-    vec3 f4 = mix(CB0[14].xyz, f3.xyz, vec3(clamp(exp2((CB0[13].z * length(VARYING1)) + CB0[13].x) - CB0[13].w, 0.0, 1.0)));
+    vec3 f4 = mix(CB0[19].xyz, f3.xyz, vec3(clamp(exp2((CB0[18].z * length(VARYING1)) + CB0[18].x) - CB0[18].w, 0.0, 1.0)));
     vec4 f5 = f3;
     f5.x = f4.x;
     vec4 f6 = f5;
     f6.y = f4.y;
     vec4 f7 = f6;
     f7.z = f4.z;
-    vec3 f8 = sqrt(clamp(f7.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec3 f8 = sqrt(clamp(f7.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
     vec4 f9 = f7;
     f9.x = f8.x;
     vec4 f10 = f9;

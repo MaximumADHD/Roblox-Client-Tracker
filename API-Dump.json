@@ -1159,6 +1159,29 @@
                         "Category": "Enum",
                         "Name": "AdPortalType"
                     }
+                },
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "PortalVersion",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
                 }
             ],
             "MemoryCategory": "Instances",
@@ -21957,29 +21980,6 @@
                     }
                 },
                 {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "TrackerMode",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "TrackerMode"
-                    }
-                },
-                {
                     "Category": "Control",
                     "MemberType": "Property",
                     "Name": "VideoAnimationEnabled",
@@ -22003,6 +22003,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetTrackerLodController",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "TrackerLodController"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "IsStarted",
                     "Parameters": [
                     ],
@@ -22016,6 +22028,18 @@
                 {
                     "MemberType": "Function",
                     "Name": "Start",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Step",
                     "Parameters": [
                     ],
                     "ReturnType": {
@@ -23435,6 +23459,27 @@
         },
         {
             "Members": [
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "EnableFlags",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "FacialAnimationFlags"
+                    }
+                },
                 {
                     "Category": "State",
                     "MemberType": "Property",
@@ -30619,7 +30664,6 @@
             "Name": "AdGui",
             "Superclass": "SurfaceGuiBase",
             "Tags": [
-                "NotCreatable",
                 "NotBrowsable"
             ]
         },
@@ -48070,6 +48114,29 @@
         {
             "Members": [
                 {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "IsConnected",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Behavior",
                     "MemberType": "Property",
                     "Name": "IsLuaChatEnabled",
@@ -49023,6 +49090,28 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Part",
+                    "MemberType": "Property",
+                    "Name": "CurrentPhysicalProperties",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "PhysicalProperties"
                     }
                 },
                 {
@@ -67651,15 +67740,8 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "RegisterLSPCallback",
+                    "Name": "RegisterAutocompleteCallback",
                     "Parameters": [
-                        {
-                            "Name": "methodToOverride",
-                            "Type": {
-                                "Category": "Enum",
-                                "Name": "LSPMethodType"
-                            }
-                        },
                         {
                             "Name": "callbackFunction",
                             "Type": {
@@ -67672,7 +67754,7 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
-                    "Security": "RobloxScriptSecurity",
+                    "Security": "PluginSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -81591,6 +81673,115 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Control",
+                    "MemberType": "Property",
+                    "Name": "AudioMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "TrackerLodFlagMode"
+                    }
+                },
+                {
+                    "Category": "Control",
+                    "MemberType": "Property",
+                    "Name": "VideoLodMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "TrackerLodValueMode"
+                    }
+                },
+                {
+                    "Category": "Control",
+                    "MemberType": "Property",
+                    "Name": "VideoMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "TrackerLodFlagMode"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "getVideoLod",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "isAudioEnabled",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "isVideoEnabled",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "UpdateState",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "TrackerLodController",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
             ],
             "MemoryCategory": "Animation",
             "Name": "TrackerStreamAnimation",
@@ -91471,6 +91662,169 @@
         {
             "Items": [
                 {
+                    "Name": "Text",
+                    "Value": 1
+                },
+                {
+                    "Name": "Method",
+                    "Value": 2
+                },
+                {
+                    "Name": "Function",
+                    "Value": 3
+                },
+                {
+                    "Name": "Constructor",
+                    "Value": 4
+                },
+                {
+                    "Name": "Field",
+                    "Value": 5
+                },
+                {
+                    "Name": "Variable",
+                    "Value": 6
+                },
+                {
+                    "Name": "Class",
+                    "Value": 7
+                },
+                {
+                    "Name": "Interface",
+                    "Value": 8
+                },
+                {
+                    "Name": "Module",
+                    "Value": 9
+                },
+                {
+                    "Name": "Property",
+                    "Value": 10
+                },
+                {
+                    "Name": "Unit",
+                    "Value": 11
+                },
+                {
+                    "Name": "Value",
+                    "Value": 12
+                },
+                {
+                    "Name": "Enum",
+                    "Value": 13
+                },
+                {
+                    "Name": "Keyword",
+                    "Value": 14
+                },
+                {
+                    "Name": "Snippet",
+                    "Value": 15
+                },
+                {
+                    "Name": "Color",
+                    "Value": 16
+                },
+                {
+                    "Name": "File",
+                    "Value": 17
+                },
+                {
+                    "Name": "Reference",
+                    "Value": 18
+                },
+                {
+                    "Name": "Folder",
+                    "Value": 19
+                },
+                {
+                    "Name": "EnumMember",
+                    "Value": 20
+                },
+                {
+                    "Name": "Constant",
+                    "Value": 21
+                },
+                {
+                    "Name": "Struct",
+                    "Value": 22
+                },
+                {
+                    "Name": "Event",
+                    "Value": 23
+                },
+                {
+                    "Name": "Operator",
+                    "Value": 24
+                },
+                {
+                    "Name": "TypeParameter",
+                    "Value": 25
+                }
+            ],
+            "Name": "CompletionItemKind"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Deprecated",
+                    "Value": 1
+                },
+                {
+                    "Name": "IncorrectIndexType",
+                    "Value": 2
+                },
+                {
+                    "Name": "PluginPermissions",
+                    "Value": 3
+                },
+                {
+                    "Name": "CommandLinePermissions",
+                    "Value": 4
+                },
+                {
+                    "Name": "RobloxPermissions",
+                    "Value": 5
+                },
+                {
+                    "Name": "AddParens",
+                    "Value": 6
+                },
+                {
+                    "Name": "PutCursorInParens",
+                    "Value": 7
+                },
+                {
+                    "Name": "TypeCorrect",
+                    "Value": 8
+                },
+                {
+                    "Name": "ClientServerBoundaryViolation",
+                    "Value": 9
+                }
+            ],
+            "Name": "CompletionItemTag"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Invoked",
+                    "Value": 1
+                },
+                {
+                    "Name": "TriggerCharacter",
+                    "Value": 2
+                },
+                {
+                    "Name": "TriggerForIncompleteCompletions",
+                    "Value": 3
+                }
+            ],
+            "Name": "CompletionTriggerKind"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Default",
                     "Value": 0
                 },
@@ -92537,6 +92891,27 @@
                 }
             ],
             "Name": "ExplosionType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "None",
+                    "Value": 0
+                },
+                {
+                    "Name": "Place",
+                    "Value": 1
+                },
+                {
+                    "Name": "Server",
+                    "Value": 2
+                },
+                {
+                    "Name": "PlaceServer",
+                    "Value": 3
+                }
+            ],
+            "Name": "FacialAnimationFlags"
         },
         {
             "Items": [
@@ -94879,119 +95254,6 @@
         {
             "Items": [
                 {
-                    "Name": "Initialize",
-                    "Value": 1
-                },
-                {
-                    "Name": "Initialized",
-                    "Value": 2
-                },
-                {
-                    "Name": "CancelRequest",
-                    "Value": 3
-                },
-                {
-                    "Name": "TextDocument_didOpen",
-                    "Value": 4
-                },
-                {
-                    "Name": "TextDocument_didChange",
-                    "Value": 5
-                },
-                {
-                    "Name": "TextDocument_didClose",
-                    "Value": 6
-                },
-                {
-                    "Name": "TextDocument_foldingRange",
-                    "Value": 7
-                },
-                {
-                    "Name": "TextDocument_onTypeFormatting",
-                    "Value": 8
-                },
-                {
-                    "Name": "TextDocument_formatting",
-                    "Value": 9
-                },
-                {
-                    "Name": "TextDocument_rangeFormatting",
-                    "Value": 10
-                },
-                {
-                    "Name": "TextDocument_hover",
-                    "Value": 11
-                },
-                {
-                    "Name": "TextDocument_signatureHelp",
-                    "Value": 12
-                },
-                {
-                    "Name": "Workspace_DidChangeConfiguration",
-                    "Value": 13
-                },
-                {
-                    "Name": "ShutdownRequest",
-                    "Value": 14
-                },
-                {
-                    "Name": "Completion",
-                    "Value": 15
-                },
-                {
-                    "Name": "Declaration",
-                    "Value": 16
-                },
-                {
-                    "Name": "DocumentSymbols",
-                    "Value": 17
-                },
-                {
-                    "Name": "TextDocument_publishDiagnostics",
-                    "Value": 22
-                },
-                {
-                    "Name": "Window_showMessage",
-                    "Value": 23
-                },
-                {
-                    "Name": "Window_showMessageRequest",
-                    "Value": 24
-                },
-                {
-                    "Name": "Roblox_registerSyntaxCategories",
-                    "Value": 25
-                },
-                {
-                    "Name": "Roblox_signalQuiescence",
-                    "Value": 26
-                },
-                {
-                    "Name": "Roblox_syntaxHighlight",
-                    "Value": 27
-                },
-                {
-                    "Name": "Roblox_suggestExtraSelections",
-                    "Value": 28
-                },
-                {
-                    "Name": "Roblox_findExecutablePosition",
-                    "Value": 29
-                },
-                {
-                    "Name": "Roblox_findColor3",
-                    "Value": 30
-                },
-                {
-                    "Name": "Roblox_patchSnippetData",
-                    "Value": 31
-                }
-            ],
-            "Name": "LSPMethodType"
-        },
-        {
-            "Items": [
-                {
                     "Name": "Default",
                     "Value": 0
                 }
@@ -95158,6 +95420,19 @@
                 }
             ],
             "Name": "LoadDynamicHeads"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "PlainText",
+                    "Value": 0
+                },
+                {
+                    "Name": "Markdown",
+                    "Value": 1
+                }
+            ],
+            "Name": "MarkupKind"
         },
         {
             "Items": [
@@ -98821,6 +99096,40 @@
                 }
             ],
             "Name": "TrackerError"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Auto",
+                    "Value": 2
+                },
+                {
+                    "Name": "ForceFalse",
+                    "Value": 0
+                },
+                {
+                    "Name": "ForceTrue",
+                    "Value": 1
+                }
+            ],
+            "Name": "TrackerLodFlagMode"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Auto",
+                    "Value": 2
+                },
+                {
+                    "Name": "Force0",
+                    "Value": 0
+                },
+                {
+                    "Name": "Force1",
+                    "Value": 1
+                }
+            ],
+            "Name": "TrackerLodValueMode"
         },
         {
             "Items": [

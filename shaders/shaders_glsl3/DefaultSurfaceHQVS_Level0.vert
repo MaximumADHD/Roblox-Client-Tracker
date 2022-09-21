@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 in vec4 POSITION;
 in vec4 NORMAL;
 in vec2 TEXCOORD0;
@@ -28,7 +28,7 @@ void main()
     v2.w = (TEXCOORD2.w * 0.0078740157186985015869140625) - 1.0;
     vec4 v3 = vec4(POSITION.xyz, 1.0);
     vec4 v4 = v3 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec3 v5 = ((POSITION.xyz + (v0 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
+    vec3 v5 = ((POSITION.xyz + (v0 * 6.0)).yxz * CB0[21].xyz) + CB0[22].xyz;
     vec4 v6 = vec4(0.0);
     v6.x = v5.x;
     vec4 v7 = v6;
@@ -37,7 +37,7 @@ void main()
     v8.z = v5.z;
     vec4 v9 = v8;
     v9.w = 0.0;
-    vec4 v10 = vec4(dot(CB0[20], v3), dot(CB0[21], v3), dot(CB0[22], v3), 0.0);
+    vec4 v10 = vec4(dot(CB0[25], v3), dot(CB0[26], v3), dot(CB0[27], v3), 0.0);
     v10.w = COLOR1.w * 0.0039215688593685626983642578125;
     vec4 v11 = v2;
     v11.x = v1.x;
@@ -52,7 +52,7 @@ void main()
     VARYING1 = TEXCOORD1;
     VARYING2 = COLOR0;
     VARYING3 = v9;
-    VARYING4 = vec4(CB0[7].xyz - POSITION.xyz, v4.w);
+    VARYING4 = vec4(CB0[11].xyz - POSITION.xyz, v4.w);
     VARYING5 = v14;
     VARYING6 = v13;
     VARYING7 = v10;

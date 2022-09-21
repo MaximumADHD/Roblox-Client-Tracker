@@ -4,7 +4,7 @@
 #include <AdornParams.h>
 #include <Globals.h>
 uniform vec4 CB1[6];
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 in vec4 POSITION;
 in vec2 TEXCOORD0;
 out vec2 VARYING0;
@@ -17,6 +17,6 @@ void main()
     gl_Position = v0 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     VARYING0 = TEXCOORD0;
     VARYING1 = vec4(CB1[4].xyz, CB1[4].w);
-    VARYING2 = CB0[7].xyz - v0.xyz;
+    VARYING2 = CB0[11].xyz - v0.xyz;
 }
 

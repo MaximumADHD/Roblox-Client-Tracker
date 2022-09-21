@@ -6,7 +6,7 @@
 const vec3 v0[16] = vec3[](vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0));
 const vec3 v1[16] = vec3[](vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.699999988079071044921875, 0.699999988079071044921875), vec3(0.0, 0.699999988079071044921875, 0.699999988079071044921875), vec3(0.699999988079071044921875, 0.699999988079071044921875, 0.0), vec3(0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 0.0, -1.0), vec3(0.0, 0.0, 1.0));
 
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB1[511];
 in vec4 POSITION;
 in vec4 NORMAL;
@@ -50,7 +50,7 @@ void main()
     v18.y = dot(CB1[gl_InstanceID * 7 + 3].xyz, v1[v2]);
     vec4 v19 = vec4(v8, v9, v10, 1.0);
     vec4 v20 = v19 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec3 v21 = ((v11 + (vec3(v12, v13, v14) * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
+    vec3 v21 = ((v11 + (vec3(v12, v13, v14) * 6.0)).yxz * CB0[21].xyz) + CB0[22].xyz;
     vec4 v22 = vec4(0.0);
     v22.x = v21.x;
     vec4 v23 = v22;
@@ -59,7 +59,7 @@ void main()
     v24.z = v21.z;
     vec4 v25 = v24;
     v25.w = abs(CB1[gl_InstanceID * 7 + 3].w);
-    vec4 v26 = vec4(dot(CB0[20], v19), dot(CB0[21], v19), dot(CB0[22], v19), 0.0);
+    vec4 v26 = vec4(dot(CB0[25], v19), dot(CB0[26], v19), dot(CB0[27], v19), 0.0);
     v26.w = CB1[gl_InstanceID * 7 + 6].w;
     vec4 v27 = vec4(v12, v13, v14, 0.0);
     v27.w = inversesqrt(0.1745329201221466064453125 * CB1[gl_InstanceID * 7 + 6].z);
@@ -68,7 +68,7 @@ void main()
     VARYING1 = TEXCOORD0.zw * v18;
     VARYING2 = CB1[gl_InstanceID * 7 + 4] * mix(COLOR0 * 0.0039215688593685626983642578125, vec4(1.0), vec4(max(sign(CB1[gl_InstanceID * 7 + 3].w), 0.0)));
     VARYING3 = v25;
-    VARYING4 = vec4(CB0[7].xyz - v11, v20.w);
+    VARYING4 = vec4(CB0[11].xyz - v11, v20.w);
     VARYING5 = v27;
     VARYING6 = v26;
     VARYING7 = TEXCOORD2.w - 1.0;

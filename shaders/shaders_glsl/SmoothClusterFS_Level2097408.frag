@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB3[1];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
@@ -38,13 +38,13 @@ void main()
     f13.y = f11.y;
     vec4 f14 = f13;
     f14.z = f11.z;
-    float f15 = clamp(dot(step(CB0[19].xyz, abs(VARYING4 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
+    float f15 = clamp(dot(step(CB0[24].xyz, abs(VARYING4 - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f16 = VARYING4.yzx - (VARYING4.yzx * f15);
     vec4 f17 = vec4(clamp(f15, 0.0, 1.0));
     vec4 f18 = mix(texture3D(LightMapTexture, f16), vec4(0.0), f17);
     vec4 f19 = mix(texture3D(LightGridSkylightTexture, f16), vec4(1.0), f17);
     vec4 f20 = texture2D(ShadowMapTexture, VARYING5.xy);
-    vec3 f21 = (min((f18.xyz * (f18.w * 120.0)) + (CB0[8].xyz + (CB0[9].xyz * f19.x)), vec3(CB0[16].w)) + (VARYING6 * ((1.0 - ((step(f20.x, VARYING5.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING5.z - 0.5)), 0.0, 1.0)) * f20.y)) * f19.y))) * (f14.xyz * f14.xyz);
+    vec3 f21 = (min((f18.xyz * (f18.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f19.x)), vec3(CB0[21].w)) + (VARYING6 * ((1.0 - ((step(f20.x, VARYING5.z) * clamp(CB0[29].z + (CB0[29].w * abs(VARYING5.z - 0.5)), 0.0, 1.0)) * f20.y)) * f19.y))) * (f14.xyz * f14.xyz);
     vec4 f22 = vec4(0.0);
     f22.x = f21.x;
     vec4 f23 = f22;
@@ -53,14 +53,14 @@ void main()
     f24.z = f21.z;
     vec4 f25 = f24;
     f25.w = 1.0;
-    vec3 f26 = mix(CB0[14].xyz, f25.xyz, vec3(clamp(exp2((CB0[13].z * VARYING5.w) + CB0[13].x) - CB0[13].w, 0.0, 1.0)));
+    vec3 f26 = mix(CB0[19].xyz, f25.xyz, vec3(clamp(exp2((CB0[18].z * VARYING5.w) + CB0[18].x) - CB0[18].w, 0.0, 1.0)));
     vec4 f27 = f25;
     f27.x = f26.x;
     vec4 f28 = f27;
     f28.y = f26.y;
     vec4 f29 = f28;
     f29.z = f26.z;
-    vec3 f30 = sqrt(clamp(f29.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec3 f30 = sqrt(clamp(f29.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
     vec4 f31 = f29;
     f31.x = f30.x;
     vec4 f32 = f31;

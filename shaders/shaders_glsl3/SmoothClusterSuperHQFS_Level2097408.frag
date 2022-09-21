@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB4[63];
 uniform vec4 CB5[63];
 uniform sampler2D ShadowMapTexture;
@@ -120,7 +120,7 @@ void main()
     float f60 = f59.x;
     float f61 = f60 - f59.z;
     vec3 f62 = vec4(vec3(f61, f60, f61) + (vec3(f59.yzy) * vec3(1.0, 1.0, -1.0)), 0.0).xyz;
-    float f63 = clamp(1.0 - (VARYING5.w * CB0[23].y), 0.0, 1.0);
+    float f63 = clamp(1.0 - (VARYING5.w * CB0[28].y), 0.0, 1.0);
     vec4 f64 = texture(NormalMapTexture, f0);
     vec4 f65 = texture(NormalMapTexture, f2);
     vec4 f66 = texture(NormalMapTexture, VARYING3.xyz);
@@ -129,26 +129,26 @@ void main()
     vec3 f69 = normalize(((vec3(f68, sqrt(clamp(1.0 + dot(vec2(1.0) - f67, f68), 0.0, 1.0))) - vec3(0.0, 0.0, 1.0)) * inversesqrt(dot(f5, f5))) + vec3(0.0, 0.0, 1.0));
     vec3 f70 = vec3(dot(VARYING7, f5));
     vec3 f71 = vec4(normalize(((mix(vec3(VARYING6.z, 0.0, -VARYING6.x), vec3(-VARYING6.y, VARYING6.x, 0.0), f70) * f69.x) + (mix(vec3(0.0, 1.0, 0.0), vec3(0.0, -VARYING6.z, VARYING6.y), f70) * f69.y)) + (VARYING6 * f69.z)), 0.0).xyz;
-    vec3 f72 = VARYING5.xyz - (CB0[11].xyz * 0.001000000047497451305389404296875);
-    float f73 = clamp(dot(step(CB0[19].xyz, abs(VARYING4 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
-    vec3 f74 = VARYING4.yzx - (VARYING4.yzx * f73);
-    vec4 f75 = texture(LightMapTexture, f74);
-    vec4 f76 = texture(LightGridSkylightTexture, f74);
-    vec4 f77 = vec4(clamp(f73, 0.0, 1.0));
-    vec4 f78 = mix(f75, vec4(0.0), f77);
-    vec4 f79 = mix(f76, vec4(1.0), f77);
-    float f80 = f79.x;
-    vec4 f81 = texture(ShadowMapTexture, f72.xy);
-    float f82 = f72.z;
-    vec3 f83 = normalize(VARYING9);
-    float f84 = 0.08900000154972076416015625 + (f28.y * 0.9110000133514404296875);
-    float f85 = CB0[26].w * f63;
-    vec3 f86 = reflect(-f83, f71);
-    vec3 f87 = -CB0[11].xyz;
-    float f88 = (dot(f71, f87) * CB0[9].w) * ((1.0 - ((step(f81.x, f82) * clamp(CB0[24].z + (CB0[24].w * abs(f82 - 0.5)), 0.0, 1.0)) * f81.y)) * f79.y);
-    vec3 f89 = normalize(f83 - CB0[11].xyz);
+    vec3 f72 = normalize(VARYING9);
+    float f73 = 0.08900000154972076416015625 + (f28.y * 0.9110000133514404296875);
+    float f74 = CB0[31].w * f63;
+    vec3 f75 = reflect(-f72, f71);
+    vec3 f76 = VARYING5.xyz - (CB0[16].xyz * 0.001000000047497451305389404296875);
+    float f77 = clamp(dot(step(CB0[24].xyz, abs(VARYING4 - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
+    vec3 f78 = VARYING4.yzx - (VARYING4.yzx * f77);
+    vec4 f79 = texture(LightMapTexture, f78);
+    vec4 f80 = texture(LightGridSkylightTexture, f78);
+    vec4 f81 = vec4(clamp(f77, 0.0, 1.0));
+    vec4 f82 = mix(f79, vec4(0.0), f81);
+    vec4 f83 = mix(f80, vec4(1.0), f81);
+    float f84 = f83.x;
+    vec4 f85 = texture(ShadowMapTexture, f76.xy);
+    float f86 = f76.z;
+    vec3 f87 = -CB0[16].xyz;
+    float f88 = (dot(f71, f87) * CB0[14].w) * ((1.0 - ((step(f85.x, f86) * clamp(CB0[29].z + (CB0[29].w * abs(f86 - 0.5)), 0.0, 1.0)) * f85.y)) * f83.y);
+    vec3 f89 = normalize(f72 - CB0[16].xyz);
     float f90 = clamp(f88, 0.0, 1.0);
-    float f91 = f84 * f84;
+    float f91 = f73 * f73;
     float f92 = max(0.001000000047497451305389404296875, dot(f71, f89));
     float f93 = dot(f87, f89);
     float f94 = 1.0 - f93;
@@ -157,19 +157,19 @@ void main()
     vec3 f97 = vec3(f96) + (vec3(0.039999999105930328369140625) * (1.0 - f96));
     float f98 = f91 * f91;
     float f99 = (((f92 * f98) - f92) * f92) + 1.0;
-    float f100 = f84 * 5.0;
-    vec3 f101 = vec4(f86, f100).xyz;
+    float f100 = f73 * 5.0;
+    vec3 f101 = vec4(f75, f100).xyz;
     vec3 f102 = textureLod(PrefilteredEnvIndoorTexture, f101, f100).xyz;
     vec3 f103;
-    if (CB0[27].w == 0.0)
+    if (CB0[32].w == 0.0)
     {
         f103 = f102;
     }
     else
     {
-        f103 = mix(f102, textureLod(PrefilteredEnvBlendTargetTexture, f101, f100).xyz, vec3(CB0[27].w));
+        f103 = mix(f102, textureLod(PrefilteredEnvBlendTargetTexture, f101, f100).xyz, vec3(CB0[32].w));
     }
-    vec4 f104 = texture(PrecomputedBRDFTexture, vec2(f84, max(9.9999997473787516355514526367188e-05, dot(f71, f83))));
+    vec4 f104 = texture(PrecomputedBRDFTexture, vec2(f73, max(9.9999997473787516355514526367188e-05, dot(f71, f72))));
     float f105 = f104.x;
     float f106 = f104.y;
     vec3 f107 = ((vec3(0.039999999105930328369140625) * f105) + vec3(f106)) / vec3(f105 + f106);
@@ -183,7 +183,7 @@ void main()
     float f115 = f110.x;
     float f116 = f110.y;
     float f117 = f110.z;
-    vec3 f118 = (((((((((vec3(1.0) - (f97 * f85)) * CB0[10].xyz) * f90) + (CB0[12].xyz * clamp(-f88, 0.0, 1.0))) + ((f78.xyz * (f78.w * 120.0)) * 1.0)) + ((vec3(1.0) - (f107 * f85)) * (((((((CB0[35].xyz * f112) + (CB0[37].xyz * f113)) + (CB0[39].xyz * f114)) + (CB0[36].xyz * f115)) + (CB0[38].xyz * f116)) + (CB0[40].xyz * f117)) + (((((((CB0[29].xyz * f112) + (CB0[31].xyz * f113)) + (CB0[33].xyz * f114)) + (CB0[30].xyz * f115)) + (CB0[32].xyz * f116)) + (CB0[34].xyz * f117)) * f80)))) + (CB0[27].xyz + ((CB0[28].xyz * (2.0 - CB0[9].w)) * f80))) + vec3((f28.z * 2.0) * f63)) * (f62 * f62)) + ((((((f97 * (((f98 + (f98 * f98)) / (((f99 * f99) * ((f93 * 3.0) + 0.5)) * ((f92 * 0.75) + 0.25))) * f90)) * CB0[10].xyz) * (CB0[9].w * CB0[9].w)) * f63) * VARYING0.w) + ((mix(f103, textureLod(PrefilteredEnvTexture, f101, f100).xyz * mix(CB0[26].xyz, CB0[25].xyz, vec3(clamp(f86.y * 1.58823525905609130859375, 0.0, 1.0))), vec3(f80)) * f107) * f85));
+    vec3 f118 = (((((((f82.xyz * (f82.w * 120.0)) * 1.0) + ((((vec3(1.0) - (f97 * f74)) * CB0[15].xyz) * f90) + (CB0[17].xyz * clamp(-f88, 0.0, 1.0)))) + ((vec3(1.0) - (f107 * f74)) * (((((((CB0[40].xyz * f112) + (CB0[42].xyz * f113)) + (CB0[44].xyz * f114)) + (CB0[41].xyz * f115)) + (CB0[43].xyz * f116)) + (CB0[45].xyz * f117)) + (((((((CB0[34].xyz * f112) + (CB0[36].xyz * f113)) + (CB0[38].xyz * f114)) + (CB0[35].xyz * f115)) + (CB0[37].xyz * f116)) + (CB0[39].xyz * f117)) * f84)))) + (CB0[32].xyz + ((CB0[33].xyz * (2.0 - CB0[14].w)) * f84))) + vec3((f28.z * 2.0) * f63)) * (f62 * f62)) + (((((f97 * (((f98 + (f98 * f98)) / (((f99 * f99) * ((f93 * 3.0) + 0.5)) * ((f92 * 0.75) + 0.25))) * f90)) * CB0[15].xyz) * (CB0[14].w * CB0[14].w)) * (f63 * VARYING0.w)) + ((mix(f103, textureLod(PrefilteredEnvTexture, f101, f100).xyz * mix(CB0[31].xyz, CB0[30].xyz, vec3(clamp(f75.y * 1.58823525905609130859375, 0.0, 1.0))), vec3(f84)) * f107) * f74));
     vec4 f119 = vec4(0.0);
     f119.x = f118.x;
     vec4 f120 = f119;
@@ -192,17 +192,17 @@ void main()
     f121.z = f118.z;
     vec4 f122 = f121;
     f122.w = 1.0;
-    float f123 = clamp(exp2((CB0[13].z * VARYING5.w) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
-    vec3 f124 = textureLod(PrefilteredEnvTexture, vec4(-VARYING9, 0.0).xyz, max(CB0[13].y, f123) * 5.0).xyz;
-    bvec3 f125 = bvec3(!(CB0[13].w == 0.0));
-    vec3 f126 = mix(vec3(f125.x ? CB0[14].xyz.x : f124.x, f125.y ? CB0[14].xyz.y : f124.y, f125.z ? CB0[14].xyz.z : f124.z), f122.xyz, vec3(f123));
+    float f123 = clamp(exp2((CB0[18].z * VARYING5.w) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
+    vec3 f124 = textureLod(PrefilteredEnvTexture, vec4(-VARYING9, 0.0).xyz, max(CB0[18].y, f123) * 5.0).xyz;
+    bvec3 f125 = bvec3(!(CB0[18].w == 0.0));
+    vec3 f126 = mix(vec3(f125.x ? CB0[19].xyz.x : f124.x, f125.y ? CB0[19].xyz.y : f124.y, f125.z ? CB0[19].xyz.z : f124.z), f122.xyz, vec3(f123));
     vec4 f127 = f122;
     f127.x = f126.x;
     vec4 f128 = f127;
     f128.y = f126.y;
     vec4 f129 = f128;
     f129.z = f126.z;
-    vec3 f130 = sqrt(clamp(f129.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec3 f130 = sqrt(clamp(f129.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
     vec4 f131 = f129;
     f131.x = f130.x;
     vec4 f132 = f131;

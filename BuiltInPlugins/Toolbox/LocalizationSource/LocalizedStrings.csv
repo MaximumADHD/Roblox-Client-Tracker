@@ -30,8 +30,8 @@ Studio.Toolbox.Subcategory.Audio,Audio, ,Audio,Audio,4000,Audio,オーディオ,
 Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabelTooltip,Not all roles have the same access; expand the group for details., ,Not all roles have the same access; expand the group for details.,No todos los roles tienen el mismo acceso; expande el grupo para más detalles.,"Tous les rôles n'ont pas le même accès, élargir le groupe pour plus de détails.",Non tutti i ruoli hanno lo stesso accesso; espandere il gruppo per i dettagli.,すべての役割に同じアクセス権限があるわけではありません。詳しくはグループを展開してください。,모든 역할이 동일한 액세스 권한을 갖는 것은 아닙니다. 자세한 내용은 그룹을 확장해 확인하세요.,Nem todos os cargos têm o mesmo acesso; expanda o grupo para detalhes., , , ,各階級的權限不一樣，請展開群組獲得詳細資訊。
 Studio.Toolbox.General.CategoryMyDecals,My Images,Meine Bilder,My Images,Mis imágenes,Mes images,Le mie immagini,マイ画像,내 이미지,Minhas imagens,Мои изображения,我的图片,我的图片,我的圖像
 Studio.Toolbox.Audio.SoundEffect.Category.cameras,Cameras, ,Cameras,Cámaras,Caméras,Telecamere,カメラ,카메라,Câmeras, , , ,攝影機
-Studio.Toolbox.General.Ownership,Creator, ,Creator,Creador,Créateur,Creatore,クリエーター,크리에이터,Criador,Автор,创建者,创建者,創作者
-Studio.Toolbox.General.SearchOptionCreator,Creator,Ersteller,Creator,Creador,Créateur,Creatore,クリエーター,크리에이터,Criador,Автор,创建者,创建者,創作者
+Studio.Toolbox.General.Ownership,Creator, ,Creator,Creador,Créateur,Creatore,クリエーター,크리에이터,Criador,Автор,创作者,创作者,創作者
+Studio.Toolbox.General.SearchOptionCreator,Creator,Ersteller,Creator,Creador,Créateur,Creatore,クリエーター,크리에이터,Criador,Автор,创作者,创作者,創作者
 Studio.Toolbox.General.CategoryMyModels,My Models,Meine Modelle,My Models,Mis modelos,Mes modèles,I miei modelli,マイモデル,내 모델,Meus modelos,Мои модели,我的模型,我的模型,我的模型
 Studio.Toolbox.General.CategoryMyMeshes,My Meshes,Meine Meshes,My Meshes,Mis mallas,Mes maillages,Le mie mesh,マイメッシュ,내 메시,Minhas malhas,Мои сетки,我的网格,我的网格,我的網格
 Studio.Toolbox.Audio.Music.Genre.corporate,Corporate, ,Corporate,Empresarial,Entreprise,Corporate,コーポレート,코퍼레이트,Corporativo,Корпоративная, , ,企業
@@ -68,7 +68,7 @@ Studio.Toolbox.AssetConfigFooter.UploadWithFee,Submit for,{price:int} Robux, ,Su
 Gruppen-Bilder,Group Images,Imágenes del grupo,Images du groupe,Immagini del gruppo,グループ画像,그룹 이미지,Agrupar imagens,Изображения группы,群组图片,群组图片,組合圖像,Studio.Toolbox.AudioView.Name,Name
  ,Name,Nombre,Nom,Nome,名前,이름,Nome,Имя, , ,名稱,Studio.Toolbox.General.SuggestionsBuilding,Building
 Gebäude,Building,Edificio,Bâtiment,Edificio,ビル,건물,Construção,Постройки,建筑,建筑,建築,Studio.Toolbox.AssetConfigPackage.CantConvertModelWithPrimaryPartNonArchivableWarning,Cannot publish a Model package when the PrimaryPart is not archivable.
- ,Cannot publish a Model package when the PrimaryPart is not archivable., , , , , , , , , , ,Studio.Toolbox.General.CategoryGroupMeshes,Group Meshes
+ ,Cannot publish a Model package when the PrimaryPart is not archivable.,No se puede publicar un paquete Modelo cuando el PrimaryPart no es archivable., ,Impossibile pubblicare un pacchetto Modello quando PrimaryPart non è archiviabile.,エラー: PrimaryPart がアーカイブできない場合はモデルパッケージを公開できません。,PrimaryPart를 보관할 수 없는 경우 모델 패키지를 게시할 수 없습니다.,Não é possível publicar um pacote modelo quando a PrimaryPart não é arquivável., , , ,PrimaryPart 無法封存，因此無法發布模型套件。,Studio.Toolbox.General.CategoryGroupMeshes,Group Meshes
 Gruppen-Meshes,Group Meshes,Mallas del grupo,Maillages du groupe,Mesh del gruppo,グループメッシュ,그룹 메시,Agrupar malhas,Сетки группы,群组网格,群组网格,組合網格,Studio.Toolbox.Audio.SoundEffect.Category.voices,Voices
  ,Voices,Voces,Voix,Voci,音声,말소리들,Vozes, , , ,話語,Studio.Toolbox.General.GoBack,Go Back
  ,Go Back,Volver,Retour,Indietro,戻る,돌아가기,Voltar, ,返回,返回,返回,Studio.Toolbox.General.TabRecent,Recent
@@ -314,7 +314,7 @@ Blues,Blues,Blues,Blues,ブルース,블루스,Blues,Блюз, , ,藍調,Studio.
 Blues,Blues,Bleus,Blues,ブルース,블루스,Blues,Блюз,蓝调,蓝调,藍調,Studio.Toolbox.Audio.SoundEffect.Category.human,Human, 
 Human,Humano,Humain,Umano,人間,인간,Humano, , , ,人類,Studio.Toolbox.AssetConfigPackagePermissions.UsersCollaboratorType,Users, 
 Users,Usuarios,Utilisateurs,Utenti,ユーザー,사용자,Usuários,Пользователи,用户,用户,使用者,Studio.Toolbox.AssetConfigPackagePermissions.PackageCreator,Package Creator, 
-Package Creator,Creador del paquete,Créateur package,Creatore del pacchetto,パッケージクリエーター,패키지 생성자,Criador de pacotes,Создатель пакета,包创建者,包创建者,套件創作者,Studio.Toolbox.General.CategoryGroupAnimations,Group Animations, 
+Package Creator,Creador del paquete,Créateur package,Creatore del pacchetto,パッケージクリエーター,패키지 생성자,Criador de pacotes,Создатель пакета,包创作者,包创作者,套件創作者,Studio.Toolbox.General.CategoryGroupAnimations,Group Animations, 
 Group Animations,Animaciones del grupo,Animations de groupe,Animazioni del gruppo,グループアニメーション,그룹 애니메이션,Animações de grupo, ,群组动画,群组动画,群組動畫,Studio.Toolbox.ThumbnailStatus.Blocked,Blocked, 
 Blocked,Bloqueada,Bloqué,Bloccati,ブロック済み,차단됨,Bloqueado,Заблокировано,已屏蔽,已屏蔽,遭拒,Studio.Toolbox.AssetConfigPackagePermissions.GroupsCollaboratorType,Groups, 
 Groups,Grupos,Groupes,Gruppi,グループ,그룹,Grupos,Группы,组合,组合,組合,Studio.Toolbox.AssetConfigPackagePermissions.MyFriendsCollaborator,My Friends, 
@@ -331,7 +331,7 @@ Glass,Vidrio,Verre,Vetro,ガラス,유리,Vidro, , , ,玻璃,Studio.Toolbox.Subc
 Grass,Pasto,Herbe,Erba,草,풀,Grama,Трава,草地,草地,草,Studio.Toolbox.Purchase.BuyTitle,Buy & Install Plugin, 
 Buy & Install Plugin,Comprar e instalar plugin,Acheter et installer plugin,Acquista e installa plugin,プラグインを買ってインストール,플러그인 설치 및 구매,Comprar e instalar plugin,Купить и установить плагин,购买和安装插件,购买和安装插件,購買並安裝外掛程式,Studio.Toolbox.AudioView.Album,Album, 
 Album,Álbum,Album d'album,Album,アルバム,앨범,Álbum,Альбом, , ,專輯,Studio.Toolbox.AssetConfigPackage.CantConvertMultipleInstancesWarning,Cannot convert to package unless package has a single root instance., 
-Cannot convert to package unless package has a single root instance., , , , , , , , , , ,Studio.Toolbox.Purchase.InsufficientTitle,Insufficient Robux, 
+Cannot convert to package unless package has a single root instance.,No se puede convertir al paquete a menos que el paquete tenga una única instancia raíz., ,Impossibile convertire in pacchetto a meno che il pacchetto non abbia un'unica istanza radice.,パッケージに単一のルートインスタンスがない限り、パッケージに変換できません。,패키지에 단일 루트 인스턴스가 없으면 패키지로 변환할 수 없습니다.,Não é possível converter o pacote a menos que o pacote tenha uma única instância raiz., , , ,無法轉換成套件，除非套件只有一個根個體。,Studio.Toolbox.Purchase.InsufficientTitle,Insufficient Robux, 
 Insufficient Robux,Robux insuficientes,Nombre insuffisant de Robux,Robux insufficienti,Robuxが足りません,Robux가 부족함,Não há Robux suficientes,Недостаточно Robux,Robux 不足,Robux 不足,Robux 不足,Studio.Toolbox.Purchase.FailedHeader,Purchase failed, 
 Purchase failed,Error en la compra,Échec de l'achat,Acquisto fallito,購入できませんでした,구매 실패,Falha na compra,Покупка не совершена,购买失败,购买失败,購買失敗,Studio.Toolbox.Purchase.Free,FREE, 
 FREE,GRATIS,GRATUIT,GRATIS,無料,무료,GRÁTIS,БЕСПЛАТНО,免费,免费,免費,Studio.Toolbox.General.Fee,After {percent}% fee:, 
@@ -640,8 +640,8 @@ Inglês, , , ,英文,Studio.Toolbox.Audio.SoundEffect.Category.hits,Hits, ,Hits,
 Golpes, , , ,打擊,Studio.Toolbox.Audio.SoundEffect.Category.exotic,Exotic, ,Exotic,Exótico,Exotique,Esotico,エキゾチック,이국적
 Exótico, , , ,異國,Studio.Toolbox.Audio.SoundEffect.Category.farm,Farm, ,Farm,Granja,Ferme,Azienda,農場,농장
 Fazenda, , , ,農場,Studio.Toolbox.Audio.SoundEffect.Category.farts,Farts, ,Farts,Flatulencia,Flatulences,Scoregge,おなら,방귀
-Peidos, , , ,放屁,Studio.Toolbox.AssetConfigPackage.CantConvertIfChildPackageHasUnpublishedChangesWarning,Cannot convert to package while the instance contains packages with unpublished changes., ,Cannot convert to package while the instance contains packages with unpublished changes., , , , , 
- , , , , ,Studio.Toolbox.Audio.SoundEffect.Category.fire,Fire, ,Fire,Fuego,Feu,Fuoco,火,불
+Peidos, , , ,放屁,Studio.Toolbox.AssetConfigPackage.CantConvertIfChildPackageHasUnpublishedChangesWarning,Cannot convert to package while the instance contains packages with unpublished changes., ,Cannot convert to package while the instance contains packages with unpublished changes.,No se puede convertir en paquete mientras que la instancia contenga paquetes con cambios sin publicar., ,Non è possibile convertire in pacchetto mentre l'istanza contiene pacchetti con modifiche non pubblicate.,インスタンスに未公開の変更があるパッケージが含まれている場合はパッケージに変換できません。,인스턴스에 게시되지 않은 변경 사항이 있는 패키지가 포함되어 있으면 패키지로 변환할 수 없습니다.
+Não é possível converter em pacote enquanto a instância contiver pacotes com alterações não publicadas., , , ,個體包含的套件具有未發布的變更，因此無法轉換成套件。,Studio.Toolbox.Audio.SoundEffect.Category.fire,Fire, ,Fire,Fuego,Feu,Fuoco,火,불
 Fogo, , , ,火焰,Studio.Toolbox.General.PackagesUpdateable,Updateable, ,Updateable,Actualizable,Mise à jour possible,Aggiornabile,アップデート可能,업데이트 가능
 Atualizável, , , ,可更新,Studio.Toolbox.Audio.SoundEffect.Category.foley,Foley, ,Foley,Efecto de sala,Bruiteur,Effetto stanza,フォーリー,폴리
 Efeito de sala, , , ,擬聲音效,Studio.Toolbox.Audio.SoundEffect.Category.foreign,Foreign, ,Foreign,Extranjero,Étranger,Stranieri,外国,외국
@@ -755,6 +755,6 @@ Verificar sua conta, , , ,進行帳號驗證,Studio.Toolbox.AssetConfigSharing.V
 Limite atual: {quotaText}, , , ,目前上限：{quotaText},Studio.Toolbox.AssetConfigSharing.VerifyReason1,Maximize discoverability, ,Maximize discoverability,Maximizar descubrimiento,Maximiser la visibilité,Massimizza la scopertabilità,最大限に見つけやすくする,검색 가능성 최대화
 Maximizar descoberta, , , ,提高可發現性,Studio.Toolbox.AssetConfigSharing.VerifyReason2,Increase Marketplace publishing limit, ,Increase Marketplace publishing limit,Aumentar límite de publicación en el Mercado,Augmenter la limite de publication du Marketplace,Aumenta il limite di pubblicazione Marketplace,マーケットプレース公開の上限を上げる,마켓플레이스 게시 한도 높이기
 Aumentar o limite de publicação no mercado, , , ,提高商城發布上限,Studio.Toolbox.General.SalesMaxPrice,The maximum price for this item type is {maxPrice}, ,The maximum price for this item type is {maxPrice},El precio máximo para este tipo de objecto es de {maxPrice},Le prix maximum pour ce type d'article est de {maxPrice},Il prezzo minimo per questo tipo di articolo è {maxPrice},このアイテムタイプの最高価格は {maxPrice} です,이 아이템류의 최대 가격은 {maxPrice}입니다
-O preço máximo para este tipo de item é {maxPrice}, , , ,此道具類型的最高價格為 {maxPrice}。,Studio.Toolbox.General.UnverifiedCreatorBadgeTooltipText,Creator is unverified, ,Creator is unverified, , , , , 
- , , , , ,Studio.Toolbox.AssetConfigPackage.Non3DRoot3DDescendentsWarning,"This object has 3D content but is not a Model, so moving or rotating it will count as modifying the package.", ,"This object has 3D content but is not a Model, so moving or rotating it will count as modifying the package.", , , , , 
- , , , , 
+O preço máximo para este tipo de item é {maxPrice}, , , ,此道具類型的最高價格為 {maxPrice}。,Studio.Toolbox.General.UnverifiedCreatorBadgeTooltipText,Creator is unverified, ,Creator is unverified,El creador no está verificado, ,Creatore non è verificato,クリエーターが未認証です,크리에이터 본인 인증 미완료
+O criador não foi verificado, , , ,創作者未經過 ID 驗證,Studio.Toolbox.AssetConfigPackage.Non3DRoot3DDescendentsWarning,"This object has 3D content but is not a Model, so moving or rotating it will count as modifying the package.", ,"This object has 3D content but is not a Model, so moving or rotating it will count as modifying the package.","Este objeto tiene contenido 3D, pero no es un Modelo, por lo que moverlo o girarlo implicará la modificación del paquete.", ,"Questo oggetto ha contenuto 3D ma non è un Modello, quindi spostandolo o ruotandolo conterà come modificando il pacchetto.",このオブジェクトには、3Dコンテンツがありますがモデルではありません。そのため移動や回転はパッケージの修正と見なされます。,이 개체에는 3D 콘텐츠가 있지만 모델은 아닙니다. 따라서 이를 이동하거나 회전하면 패키지를 수정한 것으로 간주됩니다.
+"Este objeto tem conteúdo 3D, mas não é um modelo, então movê-lo ou girá-lo contará como modificação do pacote.", , , ,此物件含有 3D 內容但不是 Model，移動或旋轉物件將視為修改套件。

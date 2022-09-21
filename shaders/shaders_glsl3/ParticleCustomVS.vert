@@ -4,7 +4,7 @@
 #include <EmitterParams.h>
 #include <Globals.h>
 uniform vec4 CB1[4];
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 in vec3 POSITION;
 in vec3 TEXCOORD0;
 in vec2 TEXCOORD5;
@@ -53,14 +53,14 @@ void main()
     vec4 v14;
     if (0.0 == CB1[3].x)
     {
-        v14 = (v0 + (CB0[4] * dot(v1, v13.xy))) + (CB0[5] * dot(v1, v13.zw));
+        v14 = (v0 + (CB0[8] * dot(v1, v13.xy))) + (CB0[9] * dot(v1, v13.zw));
     }
     else
     {
         vec4 v15;
         if (1.0 == CB1[3].x)
         {
-            v15 = (v0 + (CB0[4] * dot(v1, v13.xy))) + (vec4(0.0, 1.0, 0.0, 0.0) * dot(v1, v13.zw));
+            v15 = (v0 + (CB0[8] * dot(v1, v13.xy))) + (vec4(0.0, 1.0, 0.0, 0.0) * dot(v1, v13.zw));
         }
         else
         {
@@ -73,7 +73,7 @@ void main()
                 vec3 v20;
                 if (2.0 == CB1[3].x)
                 {
-                    v20 = normalize(cross(v18, CB0[6].xyz));
+                    v20 = normalize(cross(v18, CB0[10].xyz));
                     v19 = v18;
                 }
                 else
@@ -92,7 +92,7 @@ void main()
         }
         v14 = v15;
     }
-    vec4 v22 = v14 + (CB0[6] * CB1[1].x);
+    vec4 v22 = v14 + (CB0[10] * CB1[1].x);
     mat4 v23 = mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     vec4 v24 = v14 * v23;
     vec3 v25 = vec3(0.0);
@@ -102,7 +102,7 @@ void main()
     vec3 v27 = v26;
     v27.y = 1.0 - TEXCOORD2.y;
     vec3 v28 = v27;
-    v28.z = length(CB0[7].xyz - v22.xyz);
+    v28.z = length(CB0[11].xyz - v22.xyz);
     vec4 v29 = v22 * v23;
     vec4 v30 = v24;
     v30.z = (v29.z * v24.w) / v29.w;

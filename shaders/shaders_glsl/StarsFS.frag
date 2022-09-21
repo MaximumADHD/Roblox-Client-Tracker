@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform sampler2D DiffuseMapTexture;
 
 varying vec2 VARYING0;
@@ -19,7 +19,7 @@ void main()
     f4.y = f2.y;
     vec4 f5 = f4;
     f5.z = f2.z;
-    vec3 f6 = sqrt(clamp(f5.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec3 f6 = sqrt(clamp(f5.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
     vec4 f7 = f5;
     f7.x = f6.x;
     vec4 f8 = f7;

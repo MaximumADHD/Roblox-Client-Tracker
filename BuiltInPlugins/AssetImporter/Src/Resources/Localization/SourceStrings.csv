@@ -131,8 +131,21 @@ Studio.AssetImporter.Statuses.FacsEmptyAttributeWarning1,Empty value found for a
 Studio.AssetImporter.Statuses.FacsFrameAttrNotStringError1,"{FrameAttr}" attribute must be of type string
 Studio.AssetImporter.Statuses.FacsFrameExtraCharsWarning1,Ignoring {FrameAttr} because it contains underscores or spaces.  Must be of the form "Frame#" where "#" is an integer with no spaces or underscores.
 Studio.AssetImporter.Statuses.FacsHasFramesNoRootFaceJointError1,Found "Frame#" attributes in mesh "{ParentNodeName}" but no "RootFaceJoint" attribute.  No FACS mapping will be created for this mesh.
+Studio.AssetImporter.Statuses.FacsIncompletePosesWarning1,Found only {Size} base poses. You character may not be able to express itself.
 Studio.AssetImporter.Statuses.FacsInvalidCorrectiveError2,Invalid corrective name "{FacsControlName}" for attribute"{FrameAttr}": Neutral cannot be part of a corrective
 Studio.AssetImporter.Statuses.FacsMax3CorrectivesError3,Correctives can be for at most 3 control names.  Found {Size} for attribute "{FrameAttr}": "{FacsControlName}"
+Studio.AssetImporter.Statuses.FacsMissingBaseError2,"{FacsControlName}" has not been specified. This is needed for corrective "{FacsControlName2}".
+Studio.AssetImporter.Statuses.FacsMissingKeyFrameError2,Animation has no frame {FrameNumber1} for "{FacsControlName}".
+Studio.AssetImporter.Statuses.FacsMissingSupportCorrectiveWarning2,Found corrective "{FacsControlName}" but missing corrective "{FacsControlName2}" to support it.  This may cause odd deformations.
+Studio.AssetImporter.Statuses.FacsMultipleAnimationStackWarning,Found multiple animation stacks in FBX file.  Using the first one for extract FACS controls.
+Studio.AssetImporter.Statuses.FacsMultipleRootFaceJoints1,Multiple joints named "{JointName}" were found as specified by extra attribute "RootFaceJoint".  Joint names must be unique.
+Studio.AssetImporter.Statuses.FacsNearNeutralWarning1,Control {FacsControlName} is nearly identical to Neutral.
+Studio.AssetImporter.Statuses.FacsNoAnimationStackError,No animation timeline found in FBX file.
+Studio.AssetImporter.Statuses.FacsNoAttributesError1,"{ParentNodeName}" has no "Frame#" attributes that map FACS controls to animation frames.
+Studio.AssetImporter.Statuses.FacsNoJointsErrors1,No joints were found under "{JointName}".
+Studio.AssetImporter.Statuses.FacsNoNeutralError,No frame was set to "Neutral" in animation.
+Studio.AssetImporter.Statuses.FacsNoRootFaceJoint1,No joint named "{JointName}" found as specified by extra attribute "RootFaceJoint".
+Studio.AssetImporter.Statuses.FacsOnlyNeutralError,Only "Neutral" pose exists.  No facial expressions possible.
 Studio.AssetImporter.Statuses.FacsRootFaceJointExtraCharsError1,"{FacsControlName}" must be exactly "RootFaceJoint" with no spaces or underscores.
 Studio.AssetImporter.Statuses.FacsRootFaceJointNoValueError,RootFaceJoint attribute has no value
 Studio.AssetImporter.Statuses.FacsRootFaceJointNotStringError,RootFaceJoint attribute must be of type string

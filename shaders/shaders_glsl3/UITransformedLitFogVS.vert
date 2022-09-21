@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <UIParams.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB1[5];
 uniform vec4 CB2[1];
 in vec4 POSITION;
@@ -22,15 +22,15 @@ void main()
     vec4 v1 = v0 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     vec4 v2 = v1;
     v2.z = v1.z - CB2[0].x;
-    float v3 = dot(CB1[0].xyz, -CB0[11].xyz);
+    float v3 = dot(CB1[0].xyz, -CB0[16].xyz);
     vec3 v4 = v0.xyz;
     vec4 v5 = vec4(v0.xyz, 1.0);
     gl_Position = v2;
     VARYING0 = TEXCOORD0;
     VARYING1 = COLOR0;
-    VARYING2 = (CB0[10].xyz * clamp(v3, 0.0, 1.0)) + (CB0[12].xyz * clamp(-v3, 0.0, 1.0));
-    VARYING3 = ((v4 + (CB1[0].xyz * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
-    VARYING4 = vec4(dot(CB0[20], v5), dot(CB0[21], v5), dot(CB0[22], v5), 1.0);
-    VARYING5 = CB0[7].xyz - v4;
+    VARYING2 = (CB0[15].xyz * clamp(v3, 0.0, 1.0)) + (CB0[17].xyz * clamp(-v3, 0.0, 1.0));
+    VARYING3 = ((v4 + (CB1[0].xyz * 6.0)).yxz * CB0[21].xyz) + CB0[22].xyz;
+    VARYING4 = vec4(dot(CB0[25], v5), dot(CB0[26], v5), dot(CB0[27], v5), 1.0);
+    VARYING5 = CB0[11].xyz - v4;
 }
 

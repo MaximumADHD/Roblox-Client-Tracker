@@ -4,7 +4,7 @@
 #include <CloudsParams.h>
 #include <Globals.h>
 uniform vec4 CB5[5];
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform sampler3D CloudsDistanceFieldTexture;
 uniform sampler2D AdvectionTexTexture;
 uniform sampler3D DetailTex3DTexture;
@@ -14,7 +14,7 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec3 f0 = -CB0[11].xyz;
+    vec3 f0 = -CB0[16].xyz;
     float f1 = f0.y;
     vec3 f2 = f0;
     f2.y = (f1 < 0.0) ? min(-0.001000000047497451305389404296875, f1) : max(0.001000000047497451305389404296875, f1);
@@ -46,7 +46,7 @@ void main()
         vec3 f22 = vec3(f21.x, 0.0, f21.y);
         vec3 f23 = f19;
         f23.x = f19.x + (CB5[0].w * 39.0625);
-        float f24 = CB5[2].y * clamp(1.0 + (0.001000000047497451305389404296875 * (6000.0 - CB0[7].y)), 0.0, 1.0);
+        float f24 = CB5[2].y * clamp(1.0 + (0.001000000047497451305389404296875 * (6000.0 - CB0[11].y)), 0.0, 1.0);
         vec2 f25 = mix(vec2(0.1500000059604644775390625, 0.070000000298023223876953125), vec2(0.07500000298023223876953125, 0.0500000007450580596923828125), vec2(f24));
         vec2 f26 = vec2(CB5[4].x, 0.3499999940395355224609375 * CB5[4].x) * ((vec2(textureLod(DetailTex3DTexture, vec4((f23 * (0.5 * CB5[4].y)) + (f22 * f25.x), f20).xyz, f20).x, textureLod(DetailTex3DTexture, vec4((f23 * (2.0 * CB5[4].y)) + (f22 * f25.y), f20).xyz, f20).x) * 2.0) - vec2(1.0));
         float f27 = textureLod(CloudsDistanceFieldTexture, vec4(((f19 + (f22 * 0.75)) * vec3(0.03125, 1.0, 0.03125)).xzy, f20).xyz, f20).x + (f26.x + f26.y);
@@ -91,7 +91,7 @@ void main()
                 vec3 f43 = vec3(f42.x, 0.0, f42.y);
                 vec3 f44 = f40;
                 f44.x = f40.x + (CB5[0].w * 39.0625);
-                float f45 = CB5[2].y * clamp(1.0 + (0.001000000047497451305389404296875 * (6000.0 - CB0[7].y)), 0.0, 1.0);
+                float f45 = CB5[2].y * clamp(1.0 + (0.001000000047497451305389404296875 * (6000.0 - CB0[11].y)), 0.0, 1.0);
                 vec2 f46 = mix(vec2(0.1500000059604644775390625, 0.070000000298023223876953125), vec2(0.07500000298023223876953125, 0.0500000007450580596923828125), vec2(f45));
                 vec2 f47 = vec2(CB5[4].x, 0.3499999940395355224609375 * CB5[4].x) * ((vec2(textureLod(DetailTex3DTexture, vec4((f44 * (0.5 * CB5[4].y)) + (f43 * f46.x), f41).xyz, f41).x, textureLod(DetailTex3DTexture, vec4((f44 * (2.0 * CB5[4].y)) + (f43 * f46.y), f41).xyz, f41).x) * 2.0) - vec2(1.0));
                 float f48 = textureLod(CloudsDistanceFieldTexture, vec4(((f40 + (f43 * 0.75)) * vec3(0.03125, 1.0, 0.03125)).xzy, f41).xyz, f41).x + (f47.x + f47.y);

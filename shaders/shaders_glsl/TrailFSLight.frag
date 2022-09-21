@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <TrailParams.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB1[1];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
@@ -33,21 +33,21 @@ void main()
     f7.y = f5.y;
     vec4 f8 = f7;
     f8.z = f5.z;
-    float f9 = clamp(dot(step(CB0[19].xyz, abs(VARYING2 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
+    float f9 = clamp(dot(step(CB0[24].xyz, abs(VARYING2 - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f10 = VARYING2.yzx - (VARYING2.yzx * f9);
     vec4 f11 = vec4(clamp(f9, 0.0, 1.0));
     vec4 f12 = mix(texture3D(LightMapTexture, f10), vec4(0.0), f11);
     vec4 f13 = mix(texture3D(LightGridSkylightTexture, f10), vec4(1.0), f11);
     vec4 f14 = texture2D(ShadowMapTexture, VARYING3.xy);
-    vec3 f15 = mix(f8.xyz * CB1[0].w, (min((f12.xyz * (f12.w * 120.0)) + (CB0[8].xyz + (CB0[9].xyz * f13.x)), vec3(CB0[16].w)) + (CB0[10].xyz * ((1.0 - ((step(f14.x, VARYING3.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING3.z - 0.5)), 0.0, 1.0)) * f14.y)) * f13.y))) * f8.xyz, vec3(CB1[0].z));
+    vec3 f15 = mix(f8.xyz * CB1[0].w, (min((f12.xyz * (f12.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f13.x)), vec3(CB0[21].w)) + (CB0[15].xyz * ((1.0 - ((step(f14.x, VARYING3.z) * clamp(CB0[29].z + (CB0[29].w * abs(VARYING3.z - 0.5)), 0.0, 1.0)) * f14.y)) * f13.y))) * f8.xyz, vec3(CB1[0].z));
     vec4 f16 = f8;
     f16.x = f15.x;
     vec4 f17 = f16;
     f17.y = f15.y;
     vec4 f18 = f17;
     f18.z = f15.z;
-    float f19 = clamp(exp2((CB0[13].z * length(VARYING4)) + CB0[13].x) - CB0[13].w, 0.0, 1.0) * (VARYING1.w * f0.w);
-    vec3 f20 = sqrt(clamp(f18.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    float f19 = clamp(exp2((CB0[18].z * length(VARYING4)) + CB0[18].x) - CB0[18].w, 0.0, 1.0) * (VARYING1.w * f0.w);
+    vec3 f20 = sqrt(clamp(f18.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
     vec4 f21 = f18;
     f21.x = f20.x;
     vec4 f22 = f21;

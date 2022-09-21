@@ -392,6 +392,7 @@ ParticleCustomVS,Vertex
 ParticleCustomVS_Soft,Vertex
 ParticleLightingFS,Fragment
 ParticleLightingVS,Vertex
+PassThroughArrayFS,Fragment
 PassThroughFS,Fragment
 PassThroughNoOpVS,Vertex
 PassThroughPosVS,Vertex

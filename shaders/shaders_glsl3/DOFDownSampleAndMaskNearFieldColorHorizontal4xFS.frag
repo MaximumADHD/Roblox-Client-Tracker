@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <Params.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB1[10];
 uniform sampler2D colorTexture;
 
@@ -19,7 +19,7 @@ void main()
     vec3 f4 = texture(colorTexture, VARYING0 + f2).xyz;
     vec3 f5 = texture(colorTexture, VARYING0 - f2).xyz;
     vec3 f6 = texture(colorTexture, VARYING0 - f1).xyz;
-    _entryPointOutput = vec4((((((f3 * f3) * CB0[15].x) + ((f4 * f4) * CB0[15].x)) + ((f5 * f5) * CB0[15].x)) + ((f6 * f6) * CB0[15].x)) * 0.25, 1.0);
+    _entryPointOutput = vec4((((((f3 * f3) * CB0[20].x) + ((f4 * f4) * CB0[20].x)) + ((f5 * f5) * CB0[20].x)) + ((f6 * f6) * CB0[20].x)) * 0.25, 1.0);
 }
 
 //$$colorTexture=s1

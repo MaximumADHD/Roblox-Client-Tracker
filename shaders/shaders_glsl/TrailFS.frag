@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <TrailParams.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB1[1];
 uniform sampler2D texTexture;
 
@@ -35,8 +35,8 @@ void main()
     f11.y = f9.y;
     vec4 f12 = f11;
     f12.z = f9.z;
-    float f13 = clamp(exp2((CB0[13].z * length(VARYING2)) + CB0[13].x) - CB0[13].w, 0.0, 1.0) * (VARYING1.w * f0.w);
-    vec3 f14 = sqrt(clamp(f12.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    float f13 = clamp(exp2((CB0[18].z * length(VARYING2)) + CB0[18].x) - CB0[18].w, 0.0, 1.0) * (VARYING1.w * f0.w);
+    vec3 f14 = sqrt(clamp(f12.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
     vec4 f15 = f12;
     f15.x = f14.x;
     vec4 f16 = f15;

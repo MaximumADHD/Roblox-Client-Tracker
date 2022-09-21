@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <Params.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB3[3];
 uniform vec4 CB2[74];
 uniform vec4 CB1[1];
@@ -30,13 +30,13 @@ void main()
     float v4 = dot(v3, TEXCOORD0.xyz) * 0.0039215688593685626983642578125;
     float v5 = v0.z;
     float v6 = v0.x;
-    float v7 = v0.y + (((sin(((v5 - v6) * CB3[0].x) - CB3[0].y) + sin(((v5 + v6) * CB3[0].x) + CB3[0].y)) * CB3[0].z) * (v4 * clamp(1.0 - (dot(v0 - CB0[7].xyz, -CB0[6].xyz) * CB0[23].y), 0.0, 1.0)));
+    float v7 = v0.y + (((sin(((v5 - v6) * CB3[0].x) - CB3[0].y) + sin(((v5 + v6) * CB3[0].x) + CB3[0].y)) * CB3[0].z) * (v4 * clamp(1.0 - (dot(v0 - CB0[11].xyz, -CB0[10].xyz) * CB0[28].y), 0.0, 1.0)));
     vec3 v8 = v0;
     v8.y = v7;
     vec4 v9 = vec4(v0.x, v7, v0.z, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     vec4 v10 = v9;
     v10.z = v9.z - (float(POSITION.w < 0.0) * 0.00200000009499490261077880859375);
-    vec3 v11 = CB0[7].xyz - v8;
+    vec3 v11 = CB0[11].xyz - v8;
     int v12 = int(TEXCOORD1.x);
     int v13 = int(TEXCOORD1.y);
     int v14 = int(TEXCOORD1.z);
@@ -61,8 +61,8 @@ void main()
     VARYING2 = (vec2(dot(v8, CB2[v12 * 1 + 0].xyz), dot(v8, CB2[(18 + v12) * 1 + 0].xyz)) * 0.0500000007450580596923828125) + (vec2(NORMAL.w, floor(NORMAL.w * 2.6651442050933837890625)) * 0.100000001490116119384765625);
     VARYING3 = (vec2(dot(v8, CB2[v13 * 1 + 0].xyz), dot(v8, CB2[(18 + v13) * 1 + 0].xyz)) * 0.0500000007450580596923828125) + (vec2(TEXCOORD0.w, floor(TEXCOORD0.w * 2.6651442050933837890625)) * 0.100000001490116119384765625);
     VARYING4 = (vec2(dot(v8, CB2[v14 * 1 + 0].xyz), dot(v8, CB2[(18 + v14) * 1 + 0].xyz)) * 0.0500000007450580596923828125) + (vec2(TEXCOORD1.w, floor(TEXCOORD1.w * 2.6651442050933837890625)) * 0.100000001490116119384765625);
-    VARYING5 = ((v8 + (v1 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
-    VARYING6 = vec4(v1, clamp(exp2((CB0[13].z * length(v11)) + CB0[13].x) - CB0[13].w, 0.0, 1.0));
+    VARYING5 = ((v8 + (v1 * 6.0)).yxz * CB0[21].xyz) + CB0[22].xyz;
+    VARYING6 = vec4(v1, clamp(exp2((CB0[18].z * length(v11)) + CB0[18].x) - CB0[18].w, 0.0, 1.0));
     VARYING7 = vec4(v11, v19);
     VARYING8 = v23;
 }

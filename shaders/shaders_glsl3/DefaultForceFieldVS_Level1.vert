@@ -6,7 +6,7 @@
 const vec3 v0[16] = vec3[](vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0));
 const vec3 v1[16] = vec3[](vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.699999988079071044921875, 0.699999988079071044921875), vec3(0.0, 0.699999988079071044921875, 0.699999988079071044921875), vec3(0.699999988079071044921875, 0.699999988079071044921875, 0.0), vec3(0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 0.0, 1.0), vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 0.0, -1.0), vec3(0.0, 0.0, 1.0));
 
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB1[511];
 in vec4 POSITION;
 in vec4 NORMAL;
@@ -61,14 +61,14 @@ void main()
     v25.z = v22.z;
     vec4 v26 = v25;
     v26.w = CB1[gl_InstanceID * 7 + 4].w;
-    vec3 v27 = CB0[7].xyz - v13;
-    vec3 v28 = -CB0[11].xyz;
+    vec3 v27 = CB0[11].xyz - v13;
+    vec3 v28 = -CB0[16].xyz;
     float v29 = dot(v17, v28);
     vec4 v30 = vec4(v10, v11, v12, 1.0);
     vec4 v31 = v30 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     vec2 v32 = TEXCOORD0.zw * v21;
     v32.x = max(0.0500000007450580596923828125, mix(1.0 - v3.w, 0.0, v4));
-    vec3 v33 = ((v13 + (v17 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
+    vec3 v33 = ((v13 + (v17 * 6.0)).yxz * CB0[21].xyz) + CB0[22].xyz;
     vec4 v34 = vec4(0.0);
     v34.x = v33.x;
     vec4 v35 = v34;
@@ -79,7 +79,7 @@ void main()
     v37.w = abs(CB1[gl_InstanceID * 7 + 3].w);
     float v38 = CB1[gl_InstanceID * 7 + 6].z * 0.50359570980072021484375;
     float v39 = clamp(v29, 0.0, 1.0);
-    vec3 v40 = (CB0[10].xyz * v39) + (CB0[12].xyz * clamp(-v29, 0.0, 1.0));
+    vec3 v40 = (CB0[15].xyz * v39) + (CB0[17].xyz * clamp(-v29, 0.0, 1.0));
     vec4 v41 = vec4(0.0);
     v41.x = v40.x;
     vec4 v42 = v41;
@@ -87,8 +87,8 @@ void main()
     vec4 v43 = v42;
     v43.z = v40.z;
     vec4 v44 = v43;
-    v44.w = (v39 * CB0[23].w) * (CB1[gl_InstanceID * 7 + 6].z * exp2((v38 * dot(v17, normalize(v28 + normalize(v27)))) - v38));
-    vec4 v45 = vec4(dot(CB0[20], v30), dot(CB0[21], v30), dot(CB0[22], v30), 0.0);
+    v44.w = (v39 * CB0[28].w) * (CB1[gl_InstanceID * 7 + 6].z * exp2((v38 * dot(v17, normalize(v28 + normalize(v27)))) - v38));
+    vec4 v45 = vec4(dot(CB0[25], v30), dot(CB0[26], v30), dot(CB0[27], v30), 0.0);
     v45.w = CB1[gl_InstanceID * 7 + 6].w;
     gl_Position = v31;
     VARYING0 = (TEXCOORD0.xy * v19) + CB1[gl_InstanceID * 7 + 6].xy;

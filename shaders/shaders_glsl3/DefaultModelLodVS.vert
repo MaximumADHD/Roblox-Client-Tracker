@@ -4,7 +4,7 @@
 #include <Instance.h>
 #include <Globals.h>
 uniform vec4 CB1[384];
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 in vec4 POSITION;
 in vec4 NORMAL;
 out vec3 VARYING0;
@@ -28,10 +28,10 @@ void main()
     v12.x = v11.x;
     vec3 v13 = v12;
     v13.y = v11.y;
-    float v14 = dot(normalize(vec3(dot(CB1[gl_InstanceID * 3 + 0].xyz, v13), dot(CB1[gl_InstanceID * 3 + 1].xyz, v13), dot(CB1[gl_InstanceID * 3 + 2].xyz, v13))), -CB0[11].xyz);
+    float v14 = dot(normalize(vec3(dot(CB1[gl_InstanceID * 3 + 0].xyz, v13), dot(CB1[gl_InstanceID * 3 + 1].xyz, v13), dot(CB1[gl_InstanceID * 3 + 2].xyz, v13))), -CB0[16].xyz);
     vec3 v15 = NORMAL.yzw * vec3(0.0039215688593685626983642578125);
     gl_Position = v1 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    VARYING0 = ((((CB0[10].xyz * clamp(v14, 0.0, 1.0)) + (CB0[12].xyz * clamp(-v14, 0.0, 1.0))) + CB0[8].xyz) + CB0[9].xyz) * (v15 * v15);
-    VARYING1 = CB0[7].xyz - v1.xyz;
+    VARYING0 = ((((CB0[15].xyz * clamp(v14, 0.0, 1.0)) + (CB0[17].xyz * clamp(-v14, 0.0, 1.0))) + CB0[13].xyz) + CB0[14].xyz) * (v15 * v15);
+    VARYING1 = CB0[11].xyz - v1.xyz;
 }
 

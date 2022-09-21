@@ -53,6 +53,7 @@ Class AdPortal : Instance [NotCreatable] [NotBrowsable]
 	Property Enum.AdPortalStatus AdPortal.PortalStatus [ReadOnly] [NotScriptable]
 	Property Enum.AdPortalType AdPortal.PortalType
 	Property string AdPortal.PortalInvalidReason [ReadOnly] [NotScriptable]
+	Property int64 AdPortal.PortalVersion {RobloxScriptSecurity} [Hidden] [ReadOnly]
 Class AdService : Instance [NotCreatable] [Service] [Deprecated]
 	Function void AdService:ShowVideoAd() [Deprecated]
 	Event AdService.VideoAdClosed(bool adShown) [Deprecated]
@@ -1161,9 +1162,10 @@ Class FaceAnimatorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool FaceAnimatorService.AudioAnimationEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool FaceAnimatorService.FlipHeadOrientation {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool FaceAnimatorService.VideoAnimationEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property Enum.TrackerMode FaceAnimatorService.TrackerMode {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Function TrackerLodController FaceAnimatorService:GetTrackerLodController() {RobloxScriptSecurity}
 	Function bool FaceAnimatorService:IsStarted() {RobloxScriptSecurity}
 	Function void FaceAnimatorService:Start() {RobloxScriptSecurity}
+	Function void FaceAnimatorService:Step() {RobloxScriptSecurity}
 	Function void FaceAnimatorService:Stop() {RobloxScriptSecurity}
 	Event FaceAnimatorService.TrackerError(Enum.TrackerError error) {RobloxScriptSecurity}
 Class FaceControls : Instance
@@ -1237,6 +1239,7 @@ Class FacialAnimationRecordingService : Instance [NotCreatable] [Service] [NotRe
 	Function string FacialAnimationRecordingService:CheckOrRequestCameraPermission() {RobloxScriptSecurity} [Yields]
 	Function bool FacialAnimationRecordingService:IsAgeRestricted() {RobloxScriptSecurity}
 Class FacialAnimationStreamingService : Instance [NotCreatable] [Service]
+	Property Enum.FacialAnimationFlags FacialAnimationStreamingService.EnableFlags {RobloxScriptSecurity} [Hidden]
 	Property bool FacialAnimationStreamingService.Enabled {RobloxScriptSecurity} [Hidden]
 Class Feature : Instance [NotCreatable]
 	Property Enum.NormalId Feature.FaceId
@@ -1626,7 +1629,7 @@ Class SurfaceGuiBase : LayerCollector [NotCreatable]
 	Property bool SurfaceGuiBase.Active
 	Property Instance SurfaceGuiBase.Adornee
 	Property Enum.NormalId SurfaceGuiBase.Face
-Class AdGui : SurfaceGuiBase [NotCreatable] [NotBrowsable]
+Class AdGui : SurfaceGuiBase [NotBrowsable]
 	Property Enum.AdShape AdGui.AdShape
 Class SurfaceGui : SurfaceGuiBase
 	Property float SurfaceGui.ZOffset
@@ -2554,6 +2557,7 @@ Class NotificationService : Instance [NotCreatable] [Service]
 	Property bool NotificationService.IsLuaChatEnabled {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool NotificationService.IsLuaGameDetailsEnabled {RobloxScriptSecurity} [ReadOnly]
 	Property string NotificationService.SelectedTheme {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
+	Property bool NotificationService.IsConnected {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function void NotificationService:ActionEnabled(Enum.AppShellActionType actionType) {RobloxScriptSecurity}
 	Function void NotificationService:ActionTaken(Enum.AppShellActionType actionType) {RobloxScriptSecurity}
 	Function void NotificationService:CancelAllNotification(int64 userId) {LocalUserSecurity}
@@ -2600,6 +2604,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property Vector3 BasePart.Velocity [Hidden] [Deprecated]
 	Property bool BasePart.Anchored
 	Property Vector3 BasePart.CenterOfMass [ReadOnly]
+	Property PhysicalProperties BasePart.CurrentPhysicalProperties [ReadOnly]
 	Property PhysicalProperties BasePart.CustomPhysicalProperties
 	Property float BasePart.Elasticity [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property float BasePart.Friction [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
@@ -3551,7 +3556,7 @@ Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ScriptDocument ScriptEditorService:FindScriptDocument(LuaSourceContainer script) {PluginSecurity}
 	Function Objects ScriptEditorService:GetScriptDocuments() {PluginSecurity}
 	Function Tuple ScriptEditorService:OpenScriptDocumentAsync(LuaSourceContainer script) {PluginSecurity} [Yields]
-	Function void ScriptEditorService:RegisterLSPCallback(Enum.LSPMethodType methodToOverride, Function callbackFunction) {RobloxScriptSecurity}
+	Function void ScriptEditorService:RegisterAutocompleteCallback(Function callbackFunction) {PluginSecurity}
 	Event ScriptEditorService.TextDocumentDidChange(ScriptDocument document, Variant changesArray) {PluginSecurity}
 	Event ScriptEditorService.TextDocumentDidClose(ScriptDocument oldDocument) {PluginSecurity}
 	Event ScriptEditorService.TextDocumentDidOpen(ScriptDocument newDocument) {PluginSecurity}
@@ -4297,6 +4302,14 @@ Class TouchTransmitter : Instance [NotCreatable] [NotBrowsable]
 Class TracerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void TracerService:FinishSpan(string spanId) {RobloxScriptSecurity}
 	Function string TracerService:StartSpan(string name, string parentId) {RobloxScriptSecurity}
+Class TrackerLodController : Instance [NotCreatable] [NotReplicated]
+	Property Enum.TrackerLodFlagMode TrackerLodController.AudioMode
+	Property Enum.TrackerLodValueMode TrackerLodController.VideoLodMode
+	Property Enum.TrackerLodFlagMode TrackerLodController.VideoMode
+	Function int TrackerLodController:getVideoLod() {RobloxScriptSecurity}
+	Function bool TrackerLodController:isAudioEnabled() {RobloxScriptSecurity}
+	Function bool TrackerLodController:isVideoEnabled() {RobloxScriptSecurity}
+	Event TrackerLodController.UpdateState() {RobloxScriptSecurity}
 Class TrackerStreamAnimation : Instance [NotReplicated]
 Class Trail : Instance
 	Property float Trail.Brightness
@@ -5138,6 +5151,46 @@ Enum CollisionFidelity
 Enum CommandPermission
 	EnumItem CommandPermission.Plugin : 0
 	EnumItem CommandPermission.LocalUser : 1
+Enum CompletionItemKind
+	EnumItem CompletionItemKind.Text : 1
+	EnumItem CompletionItemKind.Method : 2
+	EnumItem CompletionItemKind.Function : 3
+	EnumItem CompletionItemKind.Constructor : 4
+	EnumItem CompletionItemKind.Field : 5
+	EnumItem CompletionItemKind.Variable : 6
+	EnumItem CompletionItemKind.Class : 7
+	EnumItem CompletionItemKind.Interface : 8
+	EnumItem CompletionItemKind.Module : 9
+	EnumItem CompletionItemKind.Property : 10
+	EnumItem CompletionItemKind.Unit : 11
+	EnumItem CompletionItemKind.Value : 12
+	EnumItem CompletionItemKind.Enum : 13
+	EnumItem CompletionItemKind.Keyword : 14
+	EnumItem CompletionItemKind.Snippet : 15
+	EnumItem CompletionItemKind.Color : 16
+	EnumItem CompletionItemKind.File : 17
+	EnumItem CompletionItemKind.Reference : 18
+	EnumItem CompletionItemKind.Folder : 19
+	EnumItem CompletionItemKind.EnumMember : 20
+	EnumItem CompletionItemKind.Constant : 21
+	EnumItem CompletionItemKind.Struct : 22
+	EnumItem CompletionItemKind.Event : 23
+	EnumItem CompletionItemKind.Operator : 24
+	EnumItem CompletionItemKind.TypeParameter : 25
+Enum CompletionItemTag
+	EnumItem CompletionItemTag.Deprecated : 1
+	EnumItem CompletionItemTag.IncorrectIndexType : 2
+	EnumItem CompletionItemTag.PluginPermissions : 3
+	EnumItem CompletionItemTag.CommandLinePermissions : 4
+	EnumItem CompletionItemTag.RobloxPermissions : 5
+	EnumItem CompletionItemTag.AddParens : 6
+	EnumItem CompletionItemTag.PutCursorInParens : 7
+	EnumItem CompletionItemTag.TypeCorrect : 8
+	EnumItem CompletionItemTag.ClientServerBoundaryViolation : 9
+Enum CompletionTriggerKind
+	EnumItem CompletionTriggerKind.Invoked : 1
+	EnumItem CompletionTriggerKind.TriggerCharacter : 2
+	EnumItem CompletionTriggerKind.TriggerForIncompleteCompletions : 3
 Enum ComputerCameraMovementMode
 	EnumItem ComputerCameraMovementMode.Default : 0
 	EnumItem ComputerCameraMovementMode.Classic : 1
@@ -5394,6 +5447,11 @@ Enum EnviromentalPhysicsThrottle
 Enum ExplosionType
 	EnumItem ExplosionType.NoCraters : 0
 	EnumItem ExplosionType.Craters : 1
+Enum FacialAnimationFlags
+	EnumItem FacialAnimationFlags.None : 0
+	EnumItem FacialAnimationFlags.Place : 1
+	EnumItem FacialAnimationFlags.Server : 2
+	EnumItem FacialAnimationFlags.PlaceServer : 3
 Enum FieldOfViewMode
 	EnumItem FieldOfViewMode.Vertical : 0
 	EnumItem FieldOfViewMode.Diagonal : 1
@@ -5952,34 +6010,6 @@ Enum KeyInterpolationMode
 Enum KeywordFilterType
 	EnumItem KeywordFilterType.Include : 0
 	EnumItem KeywordFilterType.Exclude : 1
-Enum LSPMethodType
-	EnumItem LSPMethodType.Initialize : 1
-	EnumItem LSPMethodType.Initialized : 2
-	EnumItem LSPMethodType.CancelRequest : 3
-	EnumItem LSPMethodType.TextDocument_didOpen : 4
-	EnumItem LSPMethodType.TextDocument_didChange : 5
-	EnumItem LSPMethodType.TextDocument_didClose : 6
-	EnumItem LSPMethodType.TextDocument_foldingRange : 7
-	EnumItem LSPMethodType.TextDocument_onTypeFormatting : 8
-	EnumItem LSPMethodType.TextDocument_formatting : 9
-	EnumItem LSPMethodType.TextDocument_rangeFormatting : 10
-	EnumItem LSPMethodType.TextDocument_hover : 11
-	EnumItem LSPMethodType.TextDocument_signatureHelp : 12
-	EnumItem LSPMethodType.Workspace_DidChangeConfiguration : 13
-	EnumItem LSPMethodType.ShutdownRequest : 14
-	EnumItem LSPMethodType.Completion : 15
-	EnumItem LSPMethodType.Declaration : 16
-	EnumItem LSPMethodType.DocumentSymbols : 17
-	EnumItem LSPMethodType.TextDocument_publishDiagnostics : 22
-	EnumItem LSPMethodType.Window_showMessage : 23
-	EnumItem LSPMethodType.Window_showMessageRequest : 24
-	EnumItem LSPMethodType.Roblox_registerSyntaxCategories : 25
-	EnumItem LSPMethodType.Roblox_signalQuiescence : 26
-	EnumItem LSPMethodType.Roblox_syntaxHighlight : 27
-	EnumItem LSPMethodType.Roblox_suggestExtraSelections : 28
-	EnumItem LSPMethodType.Roblox_findExecutablePosition : 29
-	EnumItem LSPMethodType.Roblox_findColor3 : 30
-	EnumItem LSPMethodType.Roblox_patchSnippetData : 31
 Enum Language
 	EnumItem Language.Default : 0
 Enum LeftRight
@@ -6018,6 +6048,9 @@ Enum LoadDynamicHeads
 	EnumItem LoadDynamicHeads.Default : 0
 	EnumItem LoadDynamicHeads.Disabled : 1
 	EnumItem LoadDynamicHeads.Enabled : 2
+Enum MarkupKind
+	EnumItem MarkupKind.PlainText : 0
+	EnumItem MarkupKind.Markdown : 1
 Enum Material
 	EnumItem Material.Plastic : 256
 	EnumItem Material.SmoothPlastic : 272
@@ -6867,6 +6900,14 @@ Enum TrackerError
 	EnumItem TrackerError.NoAudio : 6
 	EnumItem TrackerError.AudioError : 7
 	EnumItem TrackerError.AudioNoPermission : 8
+Enum TrackerLodFlagMode
+	EnumItem TrackerLodFlagMode.ForceFalse : 0
+	EnumItem TrackerLodFlagMode.ForceTrue : 1
+	EnumItem TrackerLodFlagMode.Auto : 2
+Enum TrackerLodValueMode
+	EnumItem TrackerLodValueMode.Force0 : 0
+	EnumItem TrackerLodValueMode.Force1 : 1
+	EnumItem TrackerLodValueMode.Auto : 2
 Enum TrackerMode
 	EnumItem TrackerMode.None : 0
 	EnumItem TrackerMode.Audio : 1

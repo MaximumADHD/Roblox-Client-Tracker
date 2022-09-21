@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform samplerCube PrefilteredEnvTexture;
 
 in vec4 VARYING2;
@@ -19,10 +19,10 @@ void main()
     f2.y = VARYING2.y;
     vec4 f3 = f2;
     f3.z = VARYING2.z;
-    float f4 = clamp(exp2((CB0[13].z * length(VARYING4.xyz)) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
-    vec3 f5 = textureLod(PrefilteredEnvTexture, vec4(-VARYING4.xyz, 0.0).xyz, max(CB0[13].y, f4) * 5.0).xyz;
-    bvec3 f6 = bvec3(!(CB0[13].w == 0.0));
-    vec3 f7 = mix(vec3(f6.x ? CB0[14].xyz.x : f5.x, f6.y ? CB0[14].xyz.y : f5.y, f6.z ? CB0[14].xyz.z : f5.z), f3.xyz, vec3(f4));
+    float f4 = clamp(exp2((CB0[18].z * length(VARYING4.xyz)) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
+    vec3 f5 = textureLod(PrefilteredEnvTexture, vec4(-VARYING4.xyz, 0.0).xyz, max(CB0[18].y, f4) * 5.0).xyz;
+    bvec3 f6 = bvec3(!(CB0[18].w == 0.0));
+    vec3 f7 = mix(vec3(f6.x ? CB0[19].xyz.x : f5.x, f6.y ? CB0[19].xyz.y : f5.y, f6.z ? CB0[19].xyz.z : f5.z), f3.xyz, vec3(f4));
     vec4 f8 = f3;
     f8.x = f7.x;
     vec4 f9 = f8;

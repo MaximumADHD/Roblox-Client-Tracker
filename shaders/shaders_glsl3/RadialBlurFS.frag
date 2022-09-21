@@ -11,11 +11,11 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec2 f0 = CB1[1].xy - VARYING1.xy;
+    vec2 f0 = vec2(CB1[1].x, CB1[1].y) - VARYING1.xy;
     vec2 f1 = (sign(f0) - VARYING1.xy) / f0;
     float f2 = f1.x;
     float f3 = f1.y;
-    vec2 f4 = (((VARYING1.xy - CB1[1].xy) * 0.5) * min(min((f2 < 0.0) ? 1.0 : f2, (f3 < 0.0) ? 1.0 : f3), 1.0)) * 0.0416666679084300994873046875;
+    vec2 f4 = (((VARYING1.xy - vec2(CB1[1].x, CB1[1].y)) * 0.5) * min(min((f2 < 0.0) ? 1.0 : f2, (f3 < 0.0) ? 1.0 : f3), 1.0)) * 0.0416666679084300994873046875;
     vec2 f5 = VARYING0 - f4;
     vec2 f6 = f5 - f4;
     vec2 f7 = f6 - f4;

@@ -11,7 +11,7 @@ varying vec2 VARYING0;
 
 void main()
 {
-    vec4 f0 = texture2DLod(depthBufferTexture, vec4(VARYING0, 0.0, 0.0).xy, 0.0);
+    vec4 f0 = texture2DLod(depthBufferTexture, VARYING0, 0.0);
     float f1 = f0.x;
     vec4 f2 = texture2D(randMapTexture, fract((VARYING0 * CB1[0].xy) * vec2(0.25)));
     vec4 f3 = (f2 * 2.0) - vec4(1.0);
@@ -34,9 +34,9 @@ void main()
         float f16 = f13 * 0.010000000707805156707763671875;
         vec2 f17 = ((vec2(cos(f15), sin(f15)) * f14) * f5) * f6;
         vec2 f18 = f10;
-        f18.x = texture2DLod(depthBufferTexture, vec4(VARYING0 + f17, 0.0, f7).xy, f7).x;
+        f18.x = texture2DLod(depthBufferTexture, VARYING0 + f17, f7).x;
         vec2 f19 = f18;
-        f19.y = texture2DLod(depthBufferTexture, vec4(VARYING0 - f17, 0.0, f7).xy, f7).x;
+        f19.y = texture2DLod(depthBufferTexture, VARYING0 - f17, f7).x;
         vec2 f20 = ((f19 - vec2(f1)) * (124.99999237060546875 / sqrt(1.0 - (f14 * f14)))) + vec2(0.5);
         float f21 = f20.x;
         float f22 = f20.y;

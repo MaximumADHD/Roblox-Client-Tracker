@@ -4,7 +4,7 @@
 #include <Globals.h>
 #include <CloudsParams.h>
 #include <Params.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB5[5];
 uniform vec4 CB1[10];
 uniform sampler2D BeerShadowMapTexture;
@@ -13,8 +13,8 @@ out float _entryPointOutput;
 
 void main()
 {
-    vec3 f0 = CB0[7].xyz * 0.00028000000747852027416229248046875;
-    vec3 f1 = -CB0[11].xyz;
+    vec3 f0 = CB0[11].xyz * 0.00028000000747852027416229248046875;
+    vec3 f1 = -CB0[16].xyz;
     vec3 f2 = f0;
     f2.y = f0.y + 971.0;
     float f3 = dot(f1, f2);

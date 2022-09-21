@@ -1,4 +1,4 @@
 struct CBMatrix
 {
-    vec4 row[4];
+    mat4 toLastFrames[2];
 };

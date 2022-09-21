@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB1[216];
 in vec4 POSITION;
 in vec4 NORMAL;
@@ -30,12 +30,12 @@ void main()
     float v6 = dot(CB1[v3 * 1 + 0], POSITION);
     vec3 v7 = vec3(v4, v5, v6);
     vec3 v8 = vec3(dot(CB1[v1 * 1 + 0].xyz, v0), dot(CB1[v2 * 1 + 0].xyz, v0), dot(CB1[v3 * 1 + 0].xyz, v0));
-    vec3 v9 = CB0[7].xyz - v7;
-    vec3 v10 = -CB0[11].xyz;
+    vec3 v9 = CB0[11].xyz - v7;
+    vec3 v10 = -CB0[16].xyz;
     float v11 = dot(v8, v10);
     vec4 v12 = vec4(v4, v5, v6, 1.0);
     vec4 v13 = v12 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec3 v14 = ((v7 + (v8 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
+    vec3 v14 = ((v7 + (v8 * 6.0)).yxz * CB0[21].xyz) + CB0[22].xyz;
     vec4 v15 = vec4(0.0);
     v15.x = v14.x;
     vec4 v16 = v15;
@@ -46,7 +46,7 @@ void main()
     v18.w = 0.0;
     float v19 = COLOR1.y * 0.50359570980072021484375;
     float v20 = clamp(v11, 0.0, 1.0);
-    vec3 v21 = (CB0[10].xyz * v20) + (CB0[12].xyz * clamp(-v11, 0.0, 1.0));
+    vec3 v21 = (CB0[15].xyz * v20) + (CB0[17].xyz * clamp(-v11, 0.0, 1.0));
     vec4 v22 = vec4(0.0);
     v22.x = v21.x;
     vec4 v23 = v22;
@@ -54,8 +54,8 @@ void main()
     vec4 v24 = v23;
     v24.z = v21.z;
     vec4 v25 = v24;
-    v25.w = (v20 * CB0[23].w) * (COLOR1.y * exp2((v19 * dot(v8, normalize(v10 + normalize(v9)))) - v19));
-    vec4 v26 = vec4(dot(CB0[20], v12), dot(CB0[21], v12), dot(CB0[22], v12), 0.0);
+    v25.w = (v20 * CB0[28].w) * (COLOR1.y * exp2((v19 * dot(v8, normalize(v10 + normalize(v9)))) - v19));
+    vec4 v26 = vec4(dot(CB0[25], v12), dot(CB0[26], v12), dot(CB0[27], v12), 0.0);
     v26.w = COLOR1.z * 0.0039215688593685626983642578125;
     gl_Position = v13;
     VARYING0 = TEXCOORD0;

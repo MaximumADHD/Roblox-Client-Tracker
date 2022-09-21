@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <Params.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB1[10];
 uniform sampler2D GBufferDepthTexture;
 uniform sampler3D OccupancyTexture;
@@ -21,7 +21,7 @@ void main()
         discard;
     }
     vec3 f3 = vec3(vec2(dot(f0, CB1[3].xy), dot(f0, CB1[3].zw)) + CB1[4].zw, -1.0) * f2;
-    _entryPointOutput = vec4(texture(OccupancyTexture, (((((CB0[7].xyz + (CB0[4].xyz * f3.x)) + (CB0[5].xyz * f3.y)) + (CB0[6].xyz * f3.z)).yxz * CB0[16].xyz) + CB0[17].xyz).yzx).xyz, 1.0);
+    _entryPointOutput = vec4(texture(OccupancyTexture, (((((CB0[11].xyz + (CB0[8].xyz * f3.x)) + (CB0[9].xyz * f3.y)) + (CB0[10].xyz * f3.z)).yxz * CB0[21].xyz) + CB0[22].xyz).yzx).xyz, 1.0);
 }
 
 //$$GBufferDepthTexture=s0

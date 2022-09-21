@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB4[63];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
@@ -77,13 +77,13 @@ void main()
         float f29 = f26 - f28;
         f22 = f14 + ((vec3(f29, f26, f29) + (vec3(f27, f28, f27) * vec3(1.0, 1.0, -1.0))) * VARYING0.z);
     }
-    float f30 = clamp(dot(step(CB0[19].xyz, abs(VARYING4 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
+    float f30 = clamp(dot(step(CB0[24].xyz, abs(VARYING4 - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f31 = VARYING4.yzx - (VARYING4.yzx * f30);
     vec4 f32 = vec4(clamp(f30, 0.0, 1.0));
     vec4 f33 = mix(texture(LightMapTexture, f31), vec4(0.0), f32);
     vec4 f34 = mix(texture(LightGridSkylightTexture, f31), vec4(1.0), f32);
     vec4 f35 = texture(ShadowMapTexture, VARYING5.xy);
-    vec3 f36 = (min((f33.xyz * (f33.w * 120.0)) + (CB0[8].xyz + (CB0[9].xyz * f34.x)), vec3(CB0[16].w)) + (VARYING6 * ((1.0 - ((step(f35.x, VARYING5.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING5.z - 0.5)), 0.0, 1.0)) * f35.y)) * f34.y))) * (f22 * f22);
+    vec3 f36 = (min((f33.xyz * (f33.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f34.x)), vec3(CB0[21].w)) + (VARYING6 * ((1.0 - ((step(f35.x, VARYING5.z) * clamp(CB0[29].z + (CB0[29].w * abs(VARYING5.z - 0.5)), 0.0, 1.0)) * f35.y)) * f34.y))) * (f22 * f22);
     vec4 f37 = vec4(0.0);
     f37.x = f36.x;
     vec4 f38 = f37;
@@ -92,17 +92,17 @@ void main()
     f39.z = f36.z;
     vec4 f40 = f39;
     f40.w = 1.0;
-    float f41 = clamp(exp2((CB0[13].z * VARYING5.w) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
-    vec3 f42 = textureLod(PrefilteredEnvTexture, vec4(-VARYING7, 0.0).xyz, max(CB0[13].y, f41) * 5.0).xyz;
-    bvec3 f43 = bvec3(!(CB0[13].w == 0.0));
-    vec3 f44 = mix(vec3(f43.x ? CB0[14].xyz.x : f42.x, f43.y ? CB0[14].xyz.y : f42.y, f43.z ? CB0[14].xyz.z : f42.z), f40.xyz, vec3(f41));
+    float f41 = clamp(exp2((CB0[18].z * VARYING5.w) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
+    vec3 f42 = textureLod(PrefilteredEnvTexture, vec4(-VARYING7, 0.0).xyz, max(CB0[18].y, f41) * 5.0).xyz;
+    bvec3 f43 = bvec3(!(CB0[18].w == 0.0));
+    vec3 f44 = mix(vec3(f43.x ? CB0[19].xyz.x : f42.x, f43.y ? CB0[19].xyz.y : f42.y, f43.z ? CB0[19].xyz.z : f42.z), f40.xyz, vec3(f41));
     vec4 f45 = f40;
     f45.x = f44.x;
     vec4 f46 = f45;
     f46.y = f44.y;
     vec4 f47 = f46;
     f47.z = f44.z;
-    vec3 f48 = sqrt(clamp(f47.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec3 f48 = sqrt(clamp(f47.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
     vec4 f49 = f47;
     f49.x = f48.x;
     vec4 f50 = f49;

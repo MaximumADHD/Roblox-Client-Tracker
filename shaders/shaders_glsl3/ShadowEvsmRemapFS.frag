@@ -3,14 +3,14 @@
 #extension GL_ARB_shading_language_include : require
 #include <Params.h>
 uniform vec4 CB1[10];
-uniform sampler2D Texture0Texture;
+uniform sampler2D EvsmTexture0Texture;
 
 in vec2 VARYING0;
 out vec4 _entryPointOutput;
 
 void main()
 {
-    vec4 f0 = texture(Texture0Texture, VARYING0) * CB1[2];
+    vec4 f0 = texture(EvsmTexture0Texture, VARYING0) * CB1[2];
     vec2 f1 = clamp(f0.xy, CB1[3].xy, CB1[3].zw);
     vec4 f2 = f0;
     f2.x = f1.x;
@@ -23,4 +23,4 @@ void main()
     _entryPointOutput = f5;
 }
 
-//$$Texture0Texture=s0
+//$$EvsmTexture0Texture=s0

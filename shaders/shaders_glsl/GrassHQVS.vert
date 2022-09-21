@@ -4,7 +4,7 @@
 #include <Globals.h>
 #include <GrassParams.h>
 #include <GrassPerFrameParams.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB1[2];
 uniform vec4 CB2[4];
 attribute vec4 POSITION;
@@ -36,14 +36,14 @@ void main()
     float v16 = v15.x;
     float v17 = v15.y;
     vec3 v18 = (v0.xyz + CB1[0].xyz) + ((vec3(0.5, 0.0, 0.5) * mix(mix((-1.0) + (2.0 * fract((v6 * v7) * (v6 + v7))), (-1.0) + (2.0 * fract((v9 * v10) * (v9 + v10))), v11), mix((-1.0) + (2.0 * fract((v13 * v14) * (v13 + v14))), (-1.0) + (2.0 * fract((v16 * v17) * (v16 + v17))), v11), v4.y)) * ((NORMAL.w > 0.100000001490116119384765625) ? 0.0 : 0.4000000059604644775390625));
-    float v19 = v18.y - (smoothstep(0.0, 1.0, 1.0 - ((CB1[1].x - length(CB0[7].xyz - v18)) * CB1[1].y)) * v0.w);
+    float v19 = v18.y - (smoothstep(0.0, 1.0, 1.0 - ((CB1[1].x - length(CB0[11].xyz - v18)) * CB1[1].y)) * v0.w);
     vec3 v20 = v18;
     v20.y = v19;
     vec3 v21 = (NORMAL.xyz * 2.0) - vec3(1.0);
     vec4 v22 = vec4(v18.x, v19, v18.z, 1.0);
-    vec3 v23 = CB0[7].xyz - v20;
+    vec3 v23 = CB0[11].xyz - v20;
     float v24 = length(v23);
-    vec3 v25 = -CB0[11].xyz;
+    vec3 v25 = -CB0[16].xyz;
     float v26 = abs(dot(v21, v25));
     float v27 = exp2((((-clamp(NORMAL.w, 0.0, 1.0)) * CB2[3].x) + CB2[3].y) * CB2[1].x);
     vec3 v28 = v23 / vec3(v24);
@@ -54,13 +54,13 @@ void main()
     vec4 v32 = v31;
     v32.y = abs(dot(v29, v21));
     vec4 v33 = v32;
-    v33.z = (dot(v28, CB0[11].xyz) * v30) * v27;
+    v33.z = (dot(v28, CB0[16].xyz) * v30) * v27;
     vec4 v34 = v33;
     v34.w = (pow(clamp(v29.y, 0.0, 1.0), 8.0) * v30) * v27;
     gl_Position = v22 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    VARYING0 = vec4(((v20 + vec3(0.0, 6.0, 0.0)).yxz * CB0[16].xyz) + CB0[17].xyz, clamp(exp2((CB0[13].z * v24) + CB0[13].x) - CB0[13].w, 0.0, 1.0));
-    VARYING1 = vec3(dot(CB0[20], v22), dot(CB0[21], v22), dot(CB0[22], v22));
-    VARYING2 = (CB0[10].xyz * clamp((v26 + 0.89999997615814208984375) * 0.52631580829620361328125, 0.0, 1.0)) * v27;
+    VARYING0 = vec4(((v20 + vec3(0.0, 6.0, 0.0)).yxz * CB0[21].xyz) + CB0[22].xyz, clamp(exp2((CB0[18].z * v24) + CB0[18].x) - CB0[18].w, 0.0, 1.0));
+    VARYING1 = vec3(dot(CB0[25], v22), dot(CB0[26], v22), dot(CB0[27], v22));
+    VARYING2 = (CB0[15].xyz * clamp((v26 + 0.89999997615814208984375) * 0.52631580829620361328125, 0.0, 1.0)) * v27;
     VARYING3 = v34;
     VARYING4 = v23;
 }

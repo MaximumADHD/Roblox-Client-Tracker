@@ -1,5 +1,28 @@
-Key,en-us
-Studio.TagEditor.Plugin.Button,Toggle
-Studio.TagEditor.Plugin.Description,Toggles the Template plugin window.
-Studio.TagEditor.Plugin.Name,TagEditor
-Studio.TagEditor.Plugin.Toolbar,TagEditor
+Key,Source,Context,en-us
+Studio.TagEditor.Tooltip.ApplyTag,Apply this tag to all selected Instances, ,Apply this tag to all selected Instances
+Studio.TagEditor.Groups.NewGroup,New Group,Action for creating a new group,New Group
+Studio.TagEditor.Info.SelectTaggedInstances,Select Tagged Instances,Label for the Select tagged instances action for a tag,Select Tagged Instances
+Studio.TagEditor.Tooltip.ToggleVisibility,Toggle Visibility, ,Toggle Visibility
+Studio.TagEditor.Groups.None,None,Indicating no group is assigned,None
+Studio.TagEditor.Info.AlwaysOnTop,Always on top,Label for the toggle for the always on top attribute for a tag,Always on top
+Studio.TagEditor.Info.Icon,Icon,Label for the icon attribute for a tag,Icon
+Studio.TagEditor.Info.Color,Color,Label for the color attribute for a tag,Color
+Studio.TagEditor.Info.Group,Group,Label for a group that's assigned,Group
+Studio.TagEditor.Info.VisualizeAs,Visualize as,Label for the visualize as attribute for a tag,Visualize as
+Studio.TagEditor.Plugin.EditorWindowButton,Tag Editor Window, ,Tag Editor Window
+Studio.TagEditor.Plugin.EditorWindowDescription,Toggles the Tag Editor Window., ,Toggles the Tag Editor Window.
+Studio.TagEditor.Tooltip.EndGroupAssignment,Stop editing group membership, ,Stop editing group membership
+Studio.TagEditor.Plugin.Name,TagEditor, ,TagEditor
+Studio.TagEditor.Plugin.Toolbar,TagEditor, ,TagEditor
+Studio.TagEditor.Plugin.WorldViewButton,World Visualization, ,World Visualization
+Studio.TagEditor.Plugin.WorldViewDescription,Toggles the world view visualization of tags., ,Toggles the world view visualization of tags.
+Studio.TagEditor.Tooltip.StartGroupAssignment,Edit group membership, ,Edit group membership
+Studio.TagEditor.Tooltip.AlwaysOnTop,If checked the visual for this tag will draw above everything else., ,If checked the visual for this tag will draw above everything else.
+Studio.TagEditor.Tooltip.ColorPicker,Change the visualization color for this tag., ,Change the visualization color for this tag.
+Studio.TagEditor.Tooltip.GroupPicker,Change the group this tag belongs to., ,Change the group this tag belongs to.
+Studio.TagEditor.Tooltip.IconPicker,The change the icon that shows within the tag editor and the icon draw type, ,The change the icon that shows within the tag editor and the icon draw type
+Studio.TagEditor.Tooltip.SelectTaggedInstances,Select all instances with this tag in the explorer., ,Select all instances with this tag in the explorer.
+Studio.TagEditor.Tooltip.VisualizeAs,The type of visual to draw when toggled for this tag., ,The type of visual to draw when toggled for this tag.
+Studio.TagEditor.Tooltip.AssignToGroup,Assign to group, ,Assign to group
+Studio.TagEditor.Tooltip.UnassignFromGroup,Unassign from group, ,Unassign from group
+Studio.TagEditor.Tooltip.RemoveTag,Remove this tag from all selected instances, ,Remove this tag from all selected instances

@@ -4,7 +4,7 @@
 #include <EmitterParams.h>
 #include <Globals.h>
 uniform vec4 CB1[4];
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 in vec3 POSITION;
 in vec2 TEXCOORD5;
 in vec2 TEXCOORD1;
@@ -47,8 +47,8 @@ void main()
     v11.z = (v8 * TEXCOORD5.y) * v3;
     vec4 v12 = v11;
     v12.w = (v7 * TEXCOORD5.y) * v4;
-    vec4 v13 = (vec4(POSITION, 1.0) + (CB0[4] * dot(v0, v12.xy))) + (CB0[5] * dot(v0, v12.zw));
-    vec4 v14 = v13 + (CB0[6] * CB1[1].x);
+    vec4 v13 = (vec4(POSITION, 1.0) + (CB0[8] * dot(v0, v12.xy))) + (CB0[9] * dot(v0, v12.zw));
+    vec4 v14 = v13 + (CB0[10] * CB1[1].x);
     mat4 v15 = mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     vec4 v16 = v13 * v15;
     vec3 v17 = vec3(0.0);
@@ -58,7 +58,7 @@ void main()
     vec3 v19 = v18;
     v19.y = 1.0 - TEXCOORD2.y;
     vec3 v20 = v19;
-    v20.z = length(CB0[7].xyz - v14.xyz);
+    v20.z = length(CB0[11].xyz - v14.xyz);
     vec4 v21 = v14 * v15;
     vec4 v22 = v16;
     v22.z = (v21.z * v16.w) / v21.w;

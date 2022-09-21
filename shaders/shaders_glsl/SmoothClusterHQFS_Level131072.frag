@@ -3,7 +3,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB3[1];
 uniform vec4 CB4[63];
 uniform sampler2D ShadowMapTexture;
@@ -100,33 +100,33 @@ void main()
         f43 = f35 + ((vec3(f50, f47, f50) + (vec3(f48, f49, f48) * vec3(1.0, 1.0, -1.0))) * VARYING0.z);
     }
     vec3 f51 = f43 * f43;
-    float f52 = clamp(1.0 - (VARYING5.w * CB0[23].y), 0.0, 1.0);
+    float f52 = clamp(1.0 - (VARYING5.w * CB0[28].y), 0.0, 1.0);
     vec3 f53 = normalize(VARYING6);
-    vec3 f54 = VARYING5.xyz - (CB0[11].xyz * 0.001000000047497451305389404296875);
-    float f55 = clamp(dot(step(CB0[19].xyz, abs(VARYING4 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
-    vec3 f56 = VARYING4.yzx - (VARYING4.yzx * f55);
-    vec4 f57 = vec4(clamp(f55, 0.0, 1.0));
-    vec4 f58 = mix(texture3D(LightMapTexture, f56), vec4(0.0), f57);
-    vec4 f59 = mix(texture3D(LightGridSkylightTexture, f56), vec4(1.0), f57);
-    vec4 f60 = texture2D(ShadowMapTexture, f54.xy);
-    float f61 = f54.z;
-    float f62 = 0.08900000154972076416015625 + (f14.y * 0.9110000133514404296875);
-    float f63 = f14.x;
-    vec3 f64 = -CB0[11].xyz;
-    float f65 = (dot(f53, f64) * CB0[9].w) * ((1.0 - ((step(f60.x, f61) * clamp(CB0[24].z + (CB0[24].w * abs(f61 - 0.5)), 0.0, 1.0)) * f60.y)) * f59.y);
-    vec3 f66 = normalize(normalize(VARYING8) - CB0[11].xyz);
+    float f54 = 0.08900000154972076416015625 + (f14.y * 0.9110000133514404296875);
+    float f55 = f14.x;
+    vec3 f56 = VARYING5.xyz - (CB0[16].xyz * 0.001000000047497451305389404296875);
+    float f57 = clamp(dot(step(CB0[24].xyz, abs(VARYING4 - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
+    vec3 f58 = VARYING4.yzx - (VARYING4.yzx * f57);
+    vec4 f59 = vec4(clamp(f57, 0.0, 1.0));
+    vec4 f60 = mix(texture3D(LightMapTexture, f58), vec4(0.0), f59);
+    vec4 f61 = mix(texture3D(LightGridSkylightTexture, f58), vec4(1.0), f59);
+    vec4 f62 = texture2D(ShadowMapTexture, f56.xy);
+    float f63 = f56.z;
+    vec3 f64 = -CB0[16].xyz;
+    float f65 = (dot(f53, f64) * CB0[14].w) * ((1.0 - ((step(f62.x, f63) * clamp(CB0[29].z + (CB0[29].w * abs(f63 - 0.5)), 0.0, 1.0)) * f62.y)) * f61.y);
+    vec3 f66 = normalize(normalize(VARYING8) - CB0[16].xyz);
     float f67 = clamp(f65, 0.0, 1.0);
-    float f68 = f62 * f62;
+    float f68 = f54 * f54;
     float f69 = max(0.001000000047497451305389404296875, dot(f53, f66));
     float f70 = dot(f64, f66);
     float f71 = 1.0 - f70;
     float f72 = f71 * f71;
     float f73 = (f72 * f72) * f71;
-    vec3 f74 = vec3(f73) + (mix(vec3(0.039999999105930328369140625), f51, vec3(f63)) * (1.0 - f73));
+    vec3 f74 = vec3(f73) + (mix(vec3(0.039999999105930328369140625), f51, vec3(f55)) * (1.0 - f73));
     float f75 = f68 * f68;
     float f76 = (((f69 * f75) - f69) * f69) + 1.0;
-    float f77 = 1.0 - f63;
-    vec3 f78 = (((((((vec3(f77) - (f74 * ((CB0[26].w * f52) * f77))) * CB0[10].xyz) * f67) + (CB0[12].xyz * (f77 * clamp(-f65, 0.0, 1.0)))) + (min((f58.xyz * (f58.w * 120.0)) + (CB0[8].xyz + (CB0[9].xyz * f59.x)), vec3(CB0[16].w)) * 1.0)) + vec3((f14.z * 2.0) * f52)) * f51) + (((((f74 * (((f75 + (f75 * f75)) / (((f76 * f76) * ((f70 * 3.0) + 0.5)) * ((f69 * 0.75) + 0.25))) * f67)) * CB0[10].xyz) * (CB0[9].w * CB0[9].w)) * f52) * VARYING0.w);
+    float f77 = 1.0 - f55;
+    vec3 f78 = (((((((vec3(f77) - (f74 * ((CB0[31].w * f52) * f77))) * CB0[15].xyz) * f67) + (CB0[17].xyz * (f77 * clamp(-f65, 0.0, 1.0)))) + (min((f60.xyz * (f60.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f61.x)), vec3(CB0[21].w)) * 1.0)) + vec3((f14.z * 2.0) * f52)) * f51) + ((((f74 * (((f75 + (f75 * f75)) / (((f76 * f76) * ((f70 * 3.0) + 0.5)) * ((f69 * 0.75) + 0.25))) * f67)) * CB0[15].xyz) * (CB0[14].w * CB0[14].w)) * (f52 * VARYING0.w));
     vec4 f79 = vec4(0.0);
     f79.x = f78.x;
     vec4 f80 = f79;
@@ -135,14 +135,14 @@ void main()
     f81.z = f78.z;
     vec4 f82 = f81;
     f82.w = 1.0;
-    vec3 f83 = mix(CB0[14].xyz, f82.xyz, vec3(clamp(exp2((CB0[13].z * VARYING5.w) + CB0[13].x) - CB0[13].w, 0.0, 1.0)));
+    vec3 f83 = mix(CB0[19].xyz, f82.xyz, vec3(clamp(exp2((CB0[18].z * VARYING5.w) + CB0[18].x) - CB0[18].w, 0.0, 1.0)));
     vec4 f84 = f82;
     f84.x = f83.x;
     vec4 f85 = f84;
     f85.y = f83.y;
     vec4 f86 = f85;
     f86.z = f83.z;
-    vec3 f87 = sqrt(clamp(f86.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec3 f87 = sqrt(clamp(f86.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
     vec4 f88 = f86;
     f88.x = f87.x;
     vec4 f89 = f88;

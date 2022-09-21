@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <AdvancedUIShadingParams.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB2[1];
 uniform vec4 CB3[2];
 uniform sampler2D DiffuseMapTexture;
@@ -26,7 +26,7 @@ void main()
     float f9 = length(max(f8, vec2(0.0))) + min(max(f8.x, f8.y), 0.0);
     vec4 f10 = f7;
     f10.w = (f7.w * clamp(CB3[1].z - f9, 0.0, 1.0)) * clamp(f9 - CB3[1].w, 0.0, 1.0);
-    vec3 f11 = sqrt(clamp((f10.xyz * f10.xyz) * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec3 f11 = sqrt(clamp((f10.xyz * f10.xyz) * CB0[20].y, vec3(0.0), vec3(1.0)));
     vec4 f12 = f10;
     f12.x = f11.x;
     vec4 f13 = f12;

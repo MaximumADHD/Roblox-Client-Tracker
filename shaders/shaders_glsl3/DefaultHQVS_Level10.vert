@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB1[216];
 in vec4 POSITION;
 in vec4 NORMAL;
@@ -33,7 +33,7 @@ void main()
     float v9 = dot(CB1[v2 * 1 + 0].xyz, v0);
     float v10 = dot(CB1[v3 * 1 + 0].xyz, v0);
     vec4 v11 = vec4(v4, v5, v6, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec3 v12 = ((v7 + (vec3(v8, v9, v10) * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
+    vec3 v12 = ((v7 + (vec3(v8, v9, v10) * 6.0)).yxz * CB0[21].xyz) + CB0[22].xyz;
     vec4 v13 = vec4(0.0);
     v13.x = v12.x;
     vec4 v14 = v13;
@@ -51,7 +51,7 @@ void main()
     VARYING1 = TEXCOORD1;
     VARYING2 = COLOR0;
     VARYING3 = v16;
-    VARYING4 = vec4(CB0[7].xyz - v7, v11.w);
+    VARYING4 = vec4(CB0[11].xyz - v7, v11.w);
     VARYING5 = v18;
     VARYING6 = v17;
     VARYING7 = NORMAL.w;

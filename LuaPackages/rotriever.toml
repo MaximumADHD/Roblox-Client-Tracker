@@ -15,7 +15,7 @@ RoactAppExperiment = "github.com/roblox/roact-app-experiment@0.1.4"
 RoactNavigation = "github.com/roblox/roact-navigation@0.5.3"
 Cryo = "github.com/roblox/cryo@1.0"
 Dash = "github.com/roblox/dash@0.1"
-VerifiedBadges = "github.com/roblox/lua-verified-badges@0.7.7"
+VerifiedBadges = "github.com/roblox/lua-verified-badges@0.8.1"
 LuaChatDeps = { git = "https://github.com/Roblox/lua-chat-deps" }
 LuaSocialLibrariesDeps = { git = "https://github.com/Roblox/lua-social-libraries-deps" }
 PremiumUpsellDeps = { git = "https://github.com/Roblox/premium-upsell-deps" }
@@ -44,6 +44,9 @@ Promise = "github.com/Roblox/roblox-lua-promise@3.3.0"
 VirtualizedList = { git = "https://github.com/roblox/virtualized-list-upgrade", rev = "0.4.0", package = "VirtualizedListProxy" }
 VirtualizedListUpgradeFlag = { git = "https://github.com/roblox/virtualized-list-upgrade", rev = "0.4.0", package = "VirtualizedListUpgradeFlag" }
 LuauPolyfill = "github.com/Roblox/luau-polyfill@0.4.0"
+RoduxNetworking = "github.com/Roblox/rodux-networking@3.0.1"
+NetworkingVirtualEvents = "github.com/Roblox/lua-app-networking@1.1.0"
+HttpRequest = "github.com/Roblox/http-request@1.1.1"
 
 # The following packages were ported from AppTempCommon
 Result = { git = "https://github.com/Roblox/lua-result" }
@@ -56,6 +59,8 @@ RoactGamepad = "github.com/roblox/roact-gamepad@0.5.6"
 [dev_dependencies]
 JestGlobals = "github.com/roblox/jest-roblox@2.4.1"
 Rhodium = "github.com/roblox/rhodium@0.2.8"
+TagUtils = "github.com/Roblox/luau-tag-utils@0.1.0"
+RecordPlayback = "https://github.com/Roblox/http-service-utils@0.1.0"
 
 # Dependencies for the Roact17 inspector
 ReactDevtoolsExtensions = "github.com/Roblox/roact-alignment@17.0.1-rc.15"

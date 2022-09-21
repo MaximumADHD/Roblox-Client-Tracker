@@ -78,6 +78,7 @@ Studio.MaterialManager.MaterialInformation.SetTerrainOverride,Set Terrain Overri
 Studio.MaterialManager.MaterialOverrides.MaterialOverride,Material Override
 Studio.MaterialManager.MaterialOverrides.MaterialOverrides,Material Overrides
 Studio.MaterialManager.MaterialOverrides.None,None
+Studio.MaterialManager.MaterialOverrides.OverrideUnavailable,This Material doesn't support Variants
 Studio.MaterialManager.MaterialOverrides.PartOverride,Part Override
 Studio.MaterialManager.MaterialOverrides.SetOverride,Set Override
 Studio.MaterialManager.MaterialOverrides.TerrainOverride,Terrain Override

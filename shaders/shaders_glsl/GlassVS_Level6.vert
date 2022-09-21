@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB1[216];
 attribute vec4 POSITION;
 attribute vec4 NORMAL;
@@ -44,12 +44,12 @@ void main()
     float v17 = dot(v9.xyz, v0);
     float v18 = dot(v11.xyz, v0);
     vec3 v19 = vec3(v16, v17, v18);
-    vec3 v20 = CB0[7].xyz - v15;
-    vec3 v21 = -CB0[11].xyz;
+    vec3 v20 = CB0[11].xyz - v15;
+    vec3 v21 = -CB0[16].xyz;
     float v22 = dot(v19, v21);
     vec4 v23 = vec4(v12, v13, v14, 1.0);
     vec4 v24 = v23 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec3 v25 = ((v15 + (v19 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
+    vec3 v25 = ((v15 + (v19 * 6.0)).yxz * CB0[21].xyz) + CB0[22].xyz;
     vec4 v26 = vec4(0.0);
     v26.x = v25.x;
     vec4 v27 = v26;
@@ -64,11 +64,11 @@ void main()
     float v33 = (clamp(2.0 - (dot(v19, normalize(v30.xyz)) * 3.0), 0.0, 1.0) * 0.300000011920928955078125) * clamp(v31, 0.0, 1.0);
     vec4 v34 = COLOR0;
     v34.w = mix(v32, 1.0, v33);
-    vec4 v35 = vec4(dot(CB0[20], v23), dot(CB0[21], v23), dot(CB0[22], v23), 0.0);
+    vec4 v35 = vec4(dot(CB0[25], v23), dot(CB0[26], v23), dot(CB0[27], v23), 0.0);
     v35.w = mix((COLOR1.w * 0.0039215688593685626983642578125) * v32, 1.0, v33);
     float v36 = COLOR1.y * 0.50359570980072021484375;
     float v37 = clamp(v22, 0.0, 1.0);
-    vec3 v38 = (CB0[10].xyz * v37) + (CB0[12].xyz * clamp(-v22, 0.0, 1.0));
+    vec3 v38 = (CB0[15].xyz * v37) + (CB0[17].xyz * clamp(-v22, 0.0, 1.0));
     vec4 v39 = vec4(0.0);
     v39.x = v38.x;
     vec4 v40 = v39;
@@ -76,7 +76,7 @@ void main()
     vec4 v41 = v40;
     v41.z = v38.z;
     vec4 v42 = v41;
-    v42.w = (v37 * CB0[23].w) * (COLOR1.y * exp2((v36 * dot(v19, normalize(v21 + normalize(v20)))) - v36));
+    v42.w = (v37 * CB0[28].w) * (COLOR1.y * exp2((v36 * dot(v19, normalize(v21 + normalize(v20)))) - v36));
     gl_Position = v24;
     VARYING0 = TEXCOORD0;
     VARYING1 = TEXCOORD1;

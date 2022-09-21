@@ -51,12 +51,12 @@ Studio.PublishPlaceAs.Genre.WildWest,Western,Western,Western,Western,Western,ウ
 Studio.PublishPlaceAs.Genre.Tutorial,Building,Building,Construcción,Construction,Edificio,建築,건설,Construção,Постройки,建筑,建筑,建造
 Studio.PublishPlaceAs.Genre.Ninja,Fighting,Fighting,Lucha,Combat,Combattimento,格闘,대전,Luta,Файтинг,格斗,格斗,格鬥
 Studio.PublishPlaceAs.General.PlayabilityFriendsDesc,Friends on Roblox,Friends on Roblox,Amigos en Roblox,Amis sur Roblox,Amici su Roblox,Roblox上の友達,내 Roblox 친구만 가능,Amigos na Roblox, ,Roblox 上的好友,Roblox 上的好友,Roblox 上的好友
-Studio.PublishPlaceAs.PageTitle.Creator,Creator,Creator,Creador,Créateur,Creatore,クリエーター,크리에이터,Criador, ,创建者,创建者,創作者
-Studio.PublishPlaceAs.Genre.FPS,FPS,FPS,FPS,Tir subjectif,FPS,FPS,FPS,FPS,Шутер от первого лица,FPS,FPS,FPS
+Studio.PublishPlaceAs.PageTitle.Creator,Creator,Creator,Creador,Créateur,Creatore,クリエーター,크리에이터,Criador, ,创作者,创作者,創作者
+Studio.PublishPlaceAs.Genre.FPS,FPS,FPS,FPS,Tir subjectif,FPS,FPS,FPS,FPS,Шутер от первого лица,第一人称射击,第一人称射击,FPS
 Studio.PublishPlaceAs.Genre.War,Military,Military,Militar,Militaire,Militare,ミリタリー,군사,Militar,Войнушка,军事,军事,軍事
 Studio.PublishPlaceAs.General.TitlePlayability,Playability,Playability,Jugabilidad,Jouabilité,Giocabilità,プレイヤビリティ,플레이 가능 여부,Jogabilidade, ,游戏受众,游戏受众,權限
 Studio.PublishPlaceAs.Genre.Pirate,Naval,Naval,Naval,Naval,Navale,海軍,해군,Naval,Морской флот,海军,海军,海洋
-Studio.PublishPlaceAs.Genre.RPG,RPG,RPG,RPG,Jeu de rôle,GDR,RPG,RPG,RPG,Ролевая игра,RPG,RPG,RPG
+Studio.PublishPlaceAs.Genre.RPG,RPG,RPG,RPG,Jeu de rôle,GDR,RPG,RPG,RPG,Ролевая игра,角色扮演,角色扮演,RPG
 Studio.PublishPlaceAs.Genre.SciFi,Sci-Fi,Sci-Fi,Ciencia-ficción,SF,Fantascienza,SF,SF,Ficção científica,Фантастика,科幻,科幻,科幻
 Studio.PublishPlaceAs.Error.NameEmpty,Name cannot be empty.,Name cannot be empty.,El nombre no puede estar vacío.,Le nom ne peut pas être vide.,Il nome non può essere vuoto.,名前を空欄にはできません。,이름은 비워둘 수 없습니다.,O nome não pode ficar vazio.,Имя не может быть пустым.,名称不能为空。,名称不能为空。,名稱不可空白。
 Studio.PublishPlaceAs.Error.DescriptionTooLong,{1}/{2},{1}/{2},{1} de {2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2}

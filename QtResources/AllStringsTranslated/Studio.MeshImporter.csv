@@ -6,4 +6,4 @@ Studio.MeshImporter.Plugin.Description,,,Import an FBX file using the Mesh Impor
 Studio.MeshImporter.Plugin.Browse,,,Browse...,Browse...,,Buscar...,Recherche...,,Sfoglia...,閲覧する...,둘러보기...,Procurar...,Просмотреть...,,,,浏览...,浏览...,瀏覽……
 Studio.MeshImporter.Plugin.ImportConfiguration,,,Settings for the current import,Settings for the current import,,Configuración para la importación actual,Paramètres de l'importation actuelle,,Impostazioni per l'importazione attuale,現在のインポートの設定,현재 가져오기 설정,Configurações para a importação atual,,,,,当前导入的设置,当前导入的设置,目前匯入設定
 Studio.MeshImporter.TreeViewToolbar.Expand,,,Expand,Expand,,Ampliar,Développer,,Ingrandisci,展開,확장,Expandir,Развернуть,,,,扩展,扩展,展開
-Studio.MeshImporter.TreeViewToolbar.Collapse,,,Collapse,Collapse,,Contraer,Réduire,,Riduci,折り畳み表示,축소,Recolher,,,,,收起,收起,收合
+Studio.MeshImporter.TreeViewToolbar.Collapse,,,Collapse,Collapse,,Contraer,Réduire,,Riduci,折り畳み表示,축소,Recolher,,,,,收起,收起,摺疊

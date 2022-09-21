@@ -6,7 +6,7 @@
 #include <Globals.h>
 uniform vec4 CB1[2];
 uniform vec4 CB2[4];
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 in vec4 POSITION;
 in vec4 NORMAL;
 
@@ -31,7 +31,7 @@ void main()
     float v16 = v15.x;
     float v17 = v15.y;
     vec3 v18 = (v0.xyz + CB1[0].xyz) + ((vec3(0.5, 0.0, 0.5) * mix(mix((-1.0) + (2.0 * fract((v6 * v7) * (v6 + v7))), (-1.0) + (2.0 * fract((v9 * v10) * (v9 + v10))), v11), mix((-1.0) + (2.0 * fract((v13 * v14) * (v13 + v14))), (-1.0) + (2.0 * fract((v16 * v17) * (v16 + v17))), v11), v4.y)) * ((NORMAL.w > 0.100000001490116119384765625) ? 0.0 : 0.4000000059604644775390625));
-    vec4 v19 = vec4(v18.x, v18.y - (smoothstep(0.0, 1.0, 1.0 - ((CB1[1].x - length(CB0[7].xyz - v18)) * CB1[1].y)) * v0.w), v18.z, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    vec4 v19 = vec4(v18.x, v18.y - (smoothstep(0.0, 1.0, 1.0 - ((CB1[1].x - length(CB0[11].xyz - v18)) * CB1[1].y)) * v0.w), v18.z, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     vec4 v20 = v19;
     v20.z = v19.z - (float(POSITION.w < 0.0) * 0.00200000009499490261077880859375);
     gl_Position = v20;

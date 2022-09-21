@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <AdvancedUIShadingParams.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB2[1];
 uniform vec4 CB3[2];
 uniform samplerCube PrefilteredEnvTexture;
@@ -38,17 +38,17 @@ void main()
     f15.y = f13.y;
     vec4 f16 = f15;
     f16.z = f13.z;
-    float f17 = clamp(exp2((CB0[13].z * length(VARYING2)) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
-    vec3 f18 = textureLod(PrefilteredEnvTexture, vec4(-VARYING2, 0.0).xyz, max(CB0[13].y, f17) * 5.0).xyz;
-    bvec3 f19 = bvec3(!(CB0[13].w == 0.0));
-    vec3 f20 = mix(vec3(f19.x ? CB0[14].xyz.x : f18.x, f19.y ? CB0[14].xyz.y : f18.y, f19.z ? CB0[14].xyz.z : f18.z), f16.xyz, vec3(f17));
+    float f17 = clamp(exp2((CB0[18].z * length(VARYING2)) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
+    vec3 f18 = textureLod(PrefilteredEnvTexture, vec4(-VARYING2, 0.0).xyz, max(CB0[18].y, f17) * 5.0).xyz;
+    bvec3 f19 = bvec3(!(CB0[18].w == 0.0));
+    vec3 f20 = mix(vec3(f19.x ? CB0[19].xyz.x : f18.x, f19.y ? CB0[19].xyz.y : f18.y, f19.z ? CB0[19].xyz.z : f18.z), f16.xyz, vec3(f17));
     vec4 f21 = f16;
     f21.x = f20.x;
     vec4 f22 = f21;
     f22.y = f20.y;
     vec4 f23 = f22;
     f23.z = f20.z;
-    vec3 f24 = sqrt(clamp(f23.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec3 f24 = sqrt(clamp(f23.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
     vec4 f25 = f23;
     f25.x = f24.x;
     vec4 f26 = f25;

@@ -1,10 +1,10 @@
 struct Globals
 {
-    mat4 ViewProjection;
+    mat4 ViewProjection[2];
     vec4 ViewRight;
     vec4 ViewUp;
     vec4 ViewDir;
-    vec3 CameraPosition;
+    vec3 CameraPosition[2];
     vec3 AmbientColor;
     vec4 SkyAmbient;
     vec3 Lamp0Color;

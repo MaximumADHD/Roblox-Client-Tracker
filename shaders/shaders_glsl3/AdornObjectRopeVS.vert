@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <AdornParams.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB1[6];
 in vec4 POSITION;
 in vec2 TEXCOORD0;
@@ -37,12 +37,12 @@ void main()
     vec4 v12 = vec4((v6 + (vec3(0.0, 0.0, 1.0) * (CB1[5].w * POSITION.z))) + (v10 * ((-CB1[5].w) * POSITION.y)), 1.0) * v11;
     vec3 v13 = v12.xyz;
     vec3 v14 = (((vec3(1.0, 0.0, 0.0) * NORMAL.x) + (vec3(0.0, 0.0, 1.0) * NORMAL.z)) - (v10 * NORMAL.y)) * mat3(v11[0].xyz, v11[1].xyz, v11[2].xyz);
-    float v15 = dot(v14, -CB0[11].xyz);
+    float v15 = dot(v14, -CB0[16].xyz);
     gl_Position = vec4(v12.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     VARYING0 = TEXCOORD0;
     VARYING1 = CB1[4];
-    VARYING2 = (CB0[10].xyz * clamp(v15, 0.0, 1.0)) + (CB0[12].xyz * clamp(-v15, 0.0, 1.0));
-    VARYING3 = ((v13 + (v14 * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
-    VARYING4 = CB0[7].xyz - v13;
+    VARYING2 = (CB0[15].xyz * clamp(v15, 0.0, 1.0)) + (CB0[17].xyz * clamp(-v15, 0.0, 1.0));
+    VARYING3 = ((v13 + (v14 * 6.0)).yxz * CB0[21].xyz) + CB0[22].xyz;
+    VARYING4 = CB0[11].xyz - v13;
 }
 

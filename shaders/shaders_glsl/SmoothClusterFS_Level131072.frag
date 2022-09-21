@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB3[1];
 uniform vec4 CB4[63];
 uniform sampler2D ShadowMapTexture;
@@ -76,13 +76,13 @@ void main()
         float f30 = f27 - f29;
         f23 = f15 + ((vec3(f30, f27, f30) + (vec3(f28, f29, f28) * vec3(1.0, 1.0, -1.0))) * VARYING0.z);
     }
-    float f31 = clamp(dot(step(CB0[19].xyz, abs(VARYING4 - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
+    float f31 = clamp(dot(step(CB0[24].xyz, abs(VARYING4 - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f32 = VARYING4.yzx - (VARYING4.yzx * f31);
     vec4 f33 = vec4(clamp(f31, 0.0, 1.0));
     vec4 f34 = mix(texture3D(LightMapTexture, f32), vec4(0.0), f33);
     vec4 f35 = mix(texture3D(LightGridSkylightTexture, f32), vec4(1.0), f33);
     vec4 f36 = texture2D(ShadowMapTexture, VARYING5.xy);
-    vec3 f37 = (min((f34.xyz * (f34.w * 120.0)) + (CB0[8].xyz + (CB0[9].xyz * f35.x)), vec3(CB0[16].w)) + (VARYING6 * ((1.0 - ((step(f36.x, VARYING5.z) * clamp(CB0[24].z + (CB0[24].w * abs(VARYING5.z - 0.5)), 0.0, 1.0)) * f36.y)) * f35.y))) * (f23 * f23);
+    vec3 f37 = (min((f34.xyz * (f34.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f35.x)), vec3(CB0[21].w)) + (VARYING6 * ((1.0 - ((step(f36.x, VARYING5.z) * clamp(CB0[29].z + (CB0[29].w * abs(VARYING5.z - 0.5)), 0.0, 1.0)) * f36.y)) * f35.y))) * (f23 * f23);
     vec4 f38 = vec4(0.0);
     f38.x = f37.x;
     vec4 f39 = f38;
@@ -91,14 +91,14 @@ void main()
     f40.z = f37.z;
     vec4 f41 = f40;
     f41.w = 1.0;
-    vec3 f42 = mix(CB0[14].xyz, f41.xyz, vec3(clamp(exp2((CB0[13].z * VARYING5.w) + CB0[13].x) - CB0[13].w, 0.0, 1.0)));
+    vec3 f42 = mix(CB0[19].xyz, f41.xyz, vec3(clamp(exp2((CB0[18].z * VARYING5.w) + CB0[18].x) - CB0[18].w, 0.0, 1.0)));
     vec4 f43 = f41;
     f43.x = f42.x;
     vec4 f44 = f43;
     f44.y = f42.y;
     vec4 f45 = f44;
     f45.z = f42.z;
-    vec3 f46 = sqrt(clamp(f45.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec3 f46 = sqrt(clamp(f45.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
     vec4 f47 = f45;
     f47.x = f46.x;
     vec4 f48 = f47;

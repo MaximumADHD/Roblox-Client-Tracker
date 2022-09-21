@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <Params.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB1[10];
 uniform sampler2D blurredTexture;
 uniform sampler2D originalTexture;
@@ -21,7 +21,7 @@ void main()
     float f5 = clamp(max(1.0, f4.w) * 1.5, 0.0, 1.0);
     vec4 f6 = texture(originalTexture, VARYING0);
     vec3 f7 = f6.xyz;
-    _entryPointOutput = vec4(sqrt(clamp(mix(((f7 * f7) * CB0[15].x) * (1.0 + f5), f4.xyz * f5, vec3(f5)) * CB0[15].y, vec3(0.0), vec3(1.0))), f6.w);
+    _entryPointOutput = vec4(sqrt(clamp(mix(((f7 * f7) * CB0[20].x) * (1.0 + f5), f4.xyz * f5, vec3(f5)) * CB0[20].y, vec3(0.0), vec3(1.0))), f6.w);
 }
 
 //$$blurredTexture=s2

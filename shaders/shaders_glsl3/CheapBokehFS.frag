@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <Params.h>
-uniform vec4 CB0[53];
+uniform vec4 CB0[58];
 uniform vec4 CB1[10];
 uniform sampler2D iChannel0Texture;
 
@@ -478,7 +478,7 @@ void main()
         f193 = f186;
     }
     vec4 f195 = mix(f0 * (1.0 + f1), (f194 * clamp(1.0 / (f193 + 0.001000000047497451305389404296875), 0.0, 1.0)) * f1, vec4(f1));
-    vec3 f196 = sqrt(clamp(f195.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec3 f196 = sqrt(clamp(f195.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
     vec4 f197 = f195;
     f197.x = f196.x;
     vec4 f198 = f197;
