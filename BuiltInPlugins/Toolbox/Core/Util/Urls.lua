@@ -21,10 +21,8 @@ local getPlaceId = require(Plugin.Core.Util.getPlaceId)
 local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
 local FIntCanManageLuaRolloutPercentage = game:DefineFastInt("CanManageLuaRolloutPercentage", 0)
 local FFlagInfiniteScrollerForVersions2 = game:getFastFlag("InfiniteScrollerForVersions2")
-local FFlagToolboxIncludedPlaceIdInConfigRequest = game:GetFastFlag("ToolboxIncludedPlaceIdInConfigRequest")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
-local FFlagStudioPluginsUseBedev2Endpoint = game:GetFastFlag("StudioPluginsUseBedev2Endpoint")
 local FFlagToolboxSwitchVerifiedEndpoint = require(Plugin.Core.Util.getFFlagToolboxSwitchVerifiedEndpoint)
 local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
 
@@ -49,7 +47,6 @@ local INSERT_ASSET = Url.BASE_URL .. "IDE/Toolbox/InsertAsset?"
 local GET_MANAGEABLE_GROUPS = Url.DEVELOP_URL .. "v1/user/groups/canmanage"
 
 local GET_PLUGIN_INFO = Url.APIS_URL .. "studio-plugin-api/v1/plugins?"
-local DEPRECATED_GET_PLUGIN_INFO = Url.DEVELOP_URL .. "v1/plugins?"
 
 local ASSET_ID_STRING = "rbxassetid://%d"
 local ASSET_ID_PATH = "asset/?"
@@ -149,32 +146,30 @@ function Urls.usesMarketplaceRoute(category: string): boolean
 	return MIGRATED_ASSET_TYPES:has(category)
 end
 
-function Urls.constructGetToolboxItemsUrl(
-	args: {
-		categoryName: string,
-		sectionName: string?,
-		sortType: string?,
-		keyword: string?,
-		queryParams: HomeTypes.SubcategoryQueryParams?,
-		cursor: string?,
-		limit: number?,
-		ownerId: number?,
-		creatorType: string?,
-		creatorTargetId: number?,
-		minDuration: number?,
-		maxDuration: number?,
-		includeOnlyVerifiedCreators: boolean?,
-		useCreatorWhitelist: boolean?,
-		tags: { string }?,
-	}
-)
+function Urls.constructGetToolboxItemsUrl(args: {
+	categoryName: string,
+	sectionName: string?,
+	sortType: string?,
+	keyword: string?,
+	queryParams: HomeTypes.SubcategoryQueryParams?,
+	cursor: string?,
+	limit: number?,
+	ownerId: number?,
+	creatorType: string?,
+	creatorTargetId: number?,
+	minDuration: number?,
+	maxDuration: number?,
+	includeOnlyVerifiedCreators: boolean?,
+	useCreatorWhitelist: boolean?,
+	tags: { string }?,
+})
 	local categoryName = args.categoryName
 	local ownerId = args.ownerId
 	local query = Object.assign(
 		{},
 		Dash.omit(args, { "categoryName", "sectionName", "ownerId", "tags" }),
 		{ tags = if args.tags then Array.join(args.tags, ",") else nil },
-		{ placeId = if FFlagToolboxIncludedPlaceIdInConfigRequest and args.sectionName then getPlaceId() else nil }
+		{ placeId = if args.sectionName then getPlaceId() else nil }
 	)
 
 	local categoryData = Category.getCategoryByName(categoryName)
@@ -214,7 +209,7 @@ function Urls.constructGetToolboxItemsUrl(
 	-- Add values in queryParams to the query, and override the ones in the query if necessary, since queryParams will be the source of truth going forward
 	if FFlagToolboxUseQueryForCategories2 and query.queryParams ~= nil then
 		for key, val in pairs(query.queryParams) do
-				query[key] = val
+			query[key] = val
 		end
 	end
 	local urlQueryParams = if FFlagToolboxUseQueryForCategories2
@@ -332,15 +327,9 @@ function Urls.constructInsertAssetUrl(assetId)
 end
 
 function Urls.constructGetPluginInfoUrl(assetId)
-	if FFlagStudioPluginsUseBedev2Endpoint then
-		return GET_PLUGIN_INFO .. Url.makeQueryString({
-			pluginIds = assetId,
-		})
-	else
-		return DEPRECATED_GET_PLUGIN_INFO .. Url.makeQueryString({
-			pluginIds = assetId,
-		})
-	end
+	return GET_PLUGIN_INFO .. Url.makeQueryString({
+		pluginIds = assetId,
+	})
 end
 
 function Urls.constructGetManageableGroupsUrl()
@@ -617,7 +606,7 @@ function Urls.constructGetHomeConfigurationUrl(assetType: Enum.AssetType, locale
 	return string.format("%s/home/%s/configuration?", TOOLBOX_SERVICE_URL, assetType.Name)
 		.. Url.makeQueryString({
 			locale = locale,
-			placeId = if FFlagToolboxIncludedPlaceIdInConfigRequest then getPlaceId() else nil,
+			placeId = getPlaceId(),
 		})
 end
 
@@ -625,14 +614,14 @@ if FFlagToolboxEnableAssetConfigPhoneVerification or FFlagToolboxAssetConfigurat
 	function Urls.constructPublishingRequirementsUrl(
 		assetId: number,
 		assetType: Enum.AssetType?,
-		assetSubType: AssetSubTypes.AssetSubType?,
+		assetSubTypes,  -- TODO: When using FFlagToolboxFixSubtypeArray then use assetSubType: {AssetSubType.AssetSubType}?
 		marketplaceType: string?
 	)
 		return PUBLISHING_REQUIREMENTS_URL
 			.. Url.makeQueryString({
 				assetId = assetId,
 				assetType = if assetType then assetType.Name else nil,
-				assetSubTypes = assetSubType, -- TODO: make this an array of subtypes: https://jira.rbx.com/browse/STM-2186
+				assetSubTypes = assetSubTypes,
 				marketplaceType = marketplaceType,
 			})
 	end

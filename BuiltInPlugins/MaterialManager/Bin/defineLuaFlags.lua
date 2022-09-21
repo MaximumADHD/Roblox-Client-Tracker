@@ -6,5 +6,7 @@ game:DefineFastFlag("MaterialManagerTerrainDetails", false)
 game:DefineFastFlag("MaterialManagerTextureMapDiverseErrors", false)
 game:DefineFastFlag("MaterialBrowserOverhaul2", false)
 game:DefineFastFlag("MaterialManagerDisableSelectionOnTool", false)
+game:DefineFastFlag("MaterialManagerExpandablePaneHeaderColor", false)
+game:DefineFastFlag("MaterialManagerReducerImprovements", false)
 
 return nil

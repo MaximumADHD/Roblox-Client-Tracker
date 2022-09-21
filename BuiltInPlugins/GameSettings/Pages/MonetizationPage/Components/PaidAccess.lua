@@ -31,6 +31,7 @@ local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
+local FFlagDevFrameworkMigrateToggleButton = SharedFlags.getFFlagDevFrameworkMigrateToggleButton()
 
 local Util = Framework.Util
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
@@ -39,12 +40,14 @@ local GetTextSize = Util.GetTextSize
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local UILibrary = require(Plugin.Packages.UILibrary)
+local UILibrary
+if not FFlagDevFrameworkMigrateToggleButton or not FFlagRemoveUILibraryTitledFrame then
+    UILibrary = require(Plugin.Packages.UILibrary)
+end
 
 local UI = Framework.UI
 local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
-
-local ToggleButton = UILibrary.Component.ToggleButton
+local ToggleButton = if FFlagDevFrameworkMigrateToggleButton then UI.ToggleButton else UILibrary.Component.ToggleButton
 
 local RobuxFeeBase = require(Page.Components.RobuxFeeBase)
 
@@ -111,7 +114,12 @@ function PaidAccess:render()
 				FillDirection = Enum.FillDirection.Vertical,
             }),
 
-            ToggleButton = Roact.createElement(ToggleButton, {
+            ToggleButton = Roact.createElement(ToggleButton, if FFlagDevFrameworkMigrateToggleButton then {
+				Disabled = not enabled,
+				LayoutOrder = 1,
+				OnClick = onButtonToggled,
+				Selected = selected,
+			} else {
                 Enabled = enabled,
                 IsOn = selected,
                 Mouse = mouse:get(),

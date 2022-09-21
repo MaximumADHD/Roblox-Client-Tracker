@@ -4,7 +4,7 @@ local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+-- local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 if game:GetEngineFeature("FacialAnimationStreaming") and game:GetFastFlag("SelfieViewFeature") then
@@ -43,8 +43,6 @@ local Connections = {
 	PlayerChatted = "PlayerChatted",
 	EmoteFinished = "EmoteFinished"
 }
-
-local PlaceUnavailableMessage = RobloxTranslator:FormatByKey("Feature.FaceChat.Message.PlaceUnavailable")
 
 local trackerErrorConnection = nil
 local voiceChatMuteConnection = nil
@@ -474,7 +472,9 @@ local function updateByEnableFlags()
 		-- as a server throttling mechanism
 		CleanupFacialAnimationStreaming()
 		if FFlagEnableFacialAnimationKickPlayerWhenServerDisabled then
-			Players.LocalPlayer:Kick(PlaceUnavailableMessage)
+			-- TODO: add to translation this kick message
+			local kickMsg = "This place is temporarily not available. Please try later."
+			Players.LocalPlayer:Kick(kickMsg)
 		else
 			TrackerMenu:showPrompt(TrackerPromptType.FeatureDisabled)
 		end

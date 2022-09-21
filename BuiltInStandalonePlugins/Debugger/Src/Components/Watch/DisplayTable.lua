@@ -44,11 +44,16 @@ local ExecuteExpressionForAllFrames = require(PluginRoot.Src.Thunks.Watch.Execut
 local FilterScopeWatchThunk = require(PluginRoot.Src.Thunks.Watch.FilterScopeWatchThunk)
 
 local UtilFolder = PluginRoot.Src.Util
-local MakePluginActions = require(UtilFolder.MakePluginActions)
 local Constants = require(UtilFolder.Constants)
 local ColumnResizeHelperFunctions = require(UtilFolder.ColumnResizeHelperFunctions)
 
 local FFlagOnlyLoadOneCallstack = require(PluginRoot.Src.Flags.GetFFlagOnlyLoadOneCallstack)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateContextMenu = SharedFlags.getFFlagDevFrameworkMigrateContextMenu()
+local MakePluginActions = if FFlagDevFrameworkMigrateContextMenu 
+	then require(UtilFolder.MakePluginActions) 
+	else require(UtilFolder.DEPRECATED_MakePluginActions)
 
 local DisplayTable = Roact.PureComponent:extend("DisplayTable")
 
@@ -338,8 +343,18 @@ function DisplayTable:init()
 		end
 	end
 
-	self.onMenuActionSelected = function(actionId, extraParameters)
+	self.DEPRECATED_onMenuActionSelected = function(actionId, extraParameters)
 		local _row = extraParameters.row
+		if actionId == Constants.WatchActionIds.AddExpression then
+			print("todo RIDE-5141")
+		elseif actionId == Constants.WatchActionIds.EditExpression then
+			print("todo RIDE-5141")
+		end
+	end
+
+	self.onMenuActionSelected = function(action)
+		local actionId = action.Id
+		local _row = action.Data
 		if actionId == Constants.WatchActionIds.AddExpression then
 			print("todo RIDE-5141")
 		elseif actionId == Constants.WatchActionIds.EditExpression then
@@ -352,15 +367,21 @@ function DisplayTable:init()
 			local props = self.props
 			local localization = props.Localization
 			local plugin = props.Plugin:get()
-			local actions = MakePluginActions.getWatchActions(localization)
-			showContextMenu(
-				plugin,
-				"Watch",
-				actions,
-				self.onMenuActionSelected,
-				{ row = row },
-				Constants.WatchActionsOrder
-			)
+
+			if FFlagDevFrameworkMigrateContextMenu then
+				local actions = MakePluginActions.getWatchActions(localization, row, self.onMenuActionSelected)
+				showContextMenu(plugin, actions, Constants.WatchActionsOrder)
+			else
+				local actions = MakePluginActions.getWatchActions(localization)
+				showContextMenu(
+					plugin,
+					"Watch",
+					actions,
+					self.DEPRECATED_onMenuActionSelected,
+					{ row = row },
+					Constants.WatchActionsOrder
+				)
+			end
 		end
 	end
 

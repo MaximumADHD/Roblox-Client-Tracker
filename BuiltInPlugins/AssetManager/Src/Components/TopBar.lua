@@ -17,8 +17,6 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local FFlagDevFrameworkMigrateSearchBar = Framework.SharedFlags.getFFlagDevFrameworkMigrateSearchBar()
-
 local UI = Framework.UI
 local Button = UI.Button
 local DropdownMenu = UI.DropdownMenu
@@ -33,9 +31,7 @@ local LayoutOrderIterator = Util.LayoutOrderIterator
 local StyleModifier = Util.StyleModifier
 local GetTextSize = Util.GetTextSize
 
--- TODO(@rbujnowicz) remove this require with FFlagDevFrameworkMigrateSearchBar
-local UILibrary = require(Plugin.Packages.UILibrary)
-local SearchBar = if FFlagDevFrameworkMigrateSearchBar then Framework.StudioUI.SearchBar else UILibrary.Component.SearchBar
+local SearchBar = Framework.StudioUI.SearchBar
 
 local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
 local SetSearchTerm = require(Plugin.Src.Actions.SetSearchTerm)
@@ -395,7 +391,7 @@ function TopBar:render()
 		}),
 
 		SearchBar = if not FFlagEnableAssetManagerSortButton and showSearchBar then 
-			Roact.createElement(SearchBar, if FFlagDevFrameworkMigrateSearchBar then {
+			Roact.createElement(SearchBar, {
 				Size = UDim2.new(1, -searchBarXOffset, 1, -searchBarYOffset),
 				LayoutOrder = layoutIndex:getNextOrder(),
 				
@@ -411,16 +407,6 @@ function TopBar:render()
 				IncrementalTextSearchDelay = 0,
 				
 				OnSearchRequested = self.OnSearchRequested,
-			} else {
-				Size = UDim2.new(1, -searchBarXOffset, 1, 0),
-				LayoutOrder = layoutIndex:getNextOrder(),
-				
-				Enabled = enabled,
-				
-				TextSearchDelay = 0,
-				DefaultText = defaultText,
-				
-				OnSearchRequested = self.OnSearchRequested,
 			}) else nil,
 
 		SearchSortFrame = if FFlagEnableAssetManagerSortButton then Roact.createElement(Pane, {
@@ -429,7 +415,7 @@ function TopBar:render()
 			Layout = Enum.FillDirection.Horizontal,
 			LayoutOrder = layoutIndex:getNextOrder(),
 		}, {
-			SearchBar = showSearchBar and Roact.createElement(SearchBar, if FFlagDevFrameworkMigrateSearchBar then {
+			SearchBar = showSearchBar and Roact.createElement(SearchBar, {
 				Size = UDim2.new(1, -topBarTheme.Button.Size, 1, -searchBarYOffset),
 				LayoutOrder = 1,
 				
@@ -444,16 +430,6 @@ function TopBar:render()
 				IncrementalTextSearch = true,
 				IncrementalTextSearchDelay = 0,
 				
-				OnSearchRequested = self.OnSearchRequested,
-			} else {
-				Size = UDim2.new(1, -topBarTheme.Button.Size, 1, 0),
-				LayoutOrder = 1,
-
-				Enabled = enabled,
-
-				TextSearchDelay = 0,
-				DefaultText = defaultText,
-
 				OnSearchRequested = self.OnSearchRequested,
 			}),
 

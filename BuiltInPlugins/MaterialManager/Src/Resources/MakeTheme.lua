@@ -27,6 +27,9 @@ local LightTheme = Style.Themes.LightTheme
 local StyleKey = Style.StyleKey
 
 local getFFlagMaterialManagerVariantCreatorOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
+local getFFlagMaterialManagerExpandablePaneHeaderColor = require(
+	Plugin.Src.Flags.getFFlagMaterialManagerExpandablePaneHeaderColor
+)
 
 local devFrameworkRoundBox = getRawComponentStyle("RoundBox")
 local devFrameworkSelectInput = getRawComponentStyle("SelectInput")
@@ -42,9 +45,11 @@ local function getPluginTheme()
 	local MaterialDetailsRowHeight = 30
 	local MaterialDetailsTextureHeight = 64
 	local MaterialDetaulsLabelWidth = 108
-	local ColumnWidth = if getFFlagMaterialManagerVariantCreatorOverhaul() then 160 else 270
+	local ColumnWidth = if getFFlagMaterialManagerVariantCreatorOverhaul() then 145 else 270
 	local TerrainDetailColumnWidth = 130
-	local LabelColumnWidth = if getFFlagMaterialManagerVariantCreatorOverhaul() then UDim.new(0, 93) else UDim.new(0, 80)
+	local LabelColumnWidth = if getFFlagMaterialManagerVariantCreatorOverhaul()
+		then UDim.new(0, 108)
+		else UDim.new(0, 80)
 	local DialogWidth = 720
 	local DialogHeight = 480
 	local SearchBarMaxWidth = 600
@@ -168,6 +173,7 @@ local function getPluginTheme()
 
 		CustomExpandablePane = Dash.joinDeep(expandablePane, {
 			Header = {
+				Background = if getFFlagMaterialManagerExpandablePaneHeaderColor() then StyleKey.Titlebar else nil,
 				Text = {
 					Font = ExpandablePaneFont,
 					TextSize = ExpandablePaneTextSize,
@@ -263,7 +269,6 @@ local function getPluginTheme()
 		},
 
 		MaterialDetails = {
-		
 			ButtonPosition = UDim2.new(1, -MaterialDetailsRowHeight, 0, 5),
 			ButtonSize = UDim2.fromOffset(MaterialDetailsRowHeight, MaterialDetailsRowHeight),
 			ButtonStyle = "RoundSubtle",
@@ -294,6 +299,7 @@ local function getPluginTheme()
 			ImagePosition = UDim2.fromOffset(5, 5),
 			ImageSize = UDim2.fromOffset(20, 20),
 			LabelRowSize = UDim2.new(1, 0, 0, MaterialDetailsRowHeight),
+			LabelWidth = UDim.new(0, 89),
 			OverrideSize = UDim2.fromOffset(140, 20),
 			Padding = 10,
 			SectionHeaderTextSize = 18,
@@ -305,7 +311,10 @@ local function getPluginTheme()
 			TerrainDetailColumnWidth = TerrainDetailColumnWidth,
 			DialogColumnSize = UDim2.new(0, ColumnWidth, 0, 25),
 			TerrainDetailDialogColumnSize = UDim2.new(0, TerrainDetailColumnWidth, 0, 25),
+			TerrainDetailLabelWidth = UDim.new(0, 85),
 			ContentPadding = ContentPadding,
+			TextureLabelSize = UDim.new(0, 69),
+			TilingLabelSize = UDim.new(0, 89),
 		},
 
 		LabeledString = {

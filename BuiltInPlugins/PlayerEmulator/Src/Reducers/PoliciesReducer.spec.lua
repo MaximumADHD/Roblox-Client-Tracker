@@ -5,8 +5,12 @@ local deepEqual = require(Plugin.Packages.Framework).Util.deepEqual
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 local TestImmutability = require(Plugin.Src.TestHelpers.testImmutability)
-local MockStudioPlugin = require(Plugin.Src.TestHelpers.MockStudioPlugin)
 local Constants = require(Plugin.Src.Util.Constants)
+
+local Framework = require(Plugin.Packages.Framework)
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateToggleButton = SharedFlags.getFFlagDevFrameworkMigrateToggleButton()
+local MockStudioPlugin = if FFlagDevFrameworkMigrateToggleButton then Framework.TestHelpers.Instances.MockPlugin else require(Plugin.Src.TestHelpers.MockStudioPlugin)
 
 local LoadAllPolicyValues = require(Plugin.Src.Actions.LoadAllPolicyValues)
 local UpdatePolicySettingStatus = require(Plugin.Src.Actions.UpdatePolicySettingStatus)
@@ -149,7 +153,15 @@ return function()
 
 		it("should load cached settings when http succeeded and has local cache", function()
 			local store = createTestStore()
-			local mockPlugin = MockStudioPlugin.new(mockCachedSetting)
+			local mockPlugin
+			if FFlagDevFrameworkMigrateToggleButton then
+				mockPlugin = MockStudioPlugin.new()
+				mockPlugin:MockSettings({
+					[Constants.POLICY_SETTING_KEY] = mockCachedSetting
+				})
+			else
+				mockPlugin = MockStudioPlugin.new(mockCachedSetting)
+			end
 			store:dispatch(InitPolicySettingStatus(mockAllPolicies, mockPolicyApiSetting, mockPlugin))
 			local state = store:getState()
 			expect(state.allPolicies).to.be.ok()

@@ -12,6 +12,8 @@
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local FFlagToolboxAudioSearchOptions = game:GetFastFlag("ToolboxAudioSearchOptions")
+
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
@@ -24,6 +26,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local LinkText = Framework.UI.LinkText
+local ScrollingFrame = Framework.UI.ScrollingFrame
 local GetTextSize = Framework.Util.GetTextSize
 
 local SearchTag = require(Plugin.Core.Components.SearchOptions.SearchTag)
@@ -49,25 +52,52 @@ function SearchTags:createTag(tag, index)
 	})
 end
 
-function SearchTags:createTags(tags)
-	local children = {
-		UIListLayout = Roact.createElement("UIListLayout", {
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			FillDirection = Enum.FillDirection.Horizontal,
-			Padding = TEXT_PADDING,
-		}),
-	}
+if FFlagToolboxAudioSearchOptions then
+	function SearchTags:createTags(tags, tagsSize)
+		local children = {
+			UIListLayout = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Horizontal,
+				Padding = TEXT_PADDING,
+			}),
+		}
 
-	for index, tag in ipairs(tags) do
-		children[tag] = self:createTag(tag, index)
+		for index, tag in ipairs(tags) do
+			children[tag] = self:createTag(tag, index)
+		end
+
+		return Roact.createElement(ScrollingFrame, {
+			AnchorPoint = Vector2.new(0, 1),
+			AutomaticCanvasSize = Enum.AutomaticSize.X,
+			BackgroundTransparency = 1,
+			Size = tagsSize,
+			ScrollingEnabled = true,
+			Position = UDim2.new(0, 0, 1, 0),
+			ScrollingDirection = Enum.ScrollingDirection.X,
+			ScrollBarThickness = 0,
+		}, children)
 	end
+else
+	function SearchTags:createTags(tags)
+		local children = {
+			UIListLayout = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Horizontal,
+				Padding = TEXT_PADDING,
+			}),
+		}
 
-	return Roact.createElement("Frame", {
-		BackgroundTransparency = 1,
-		Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
-		Position = UDim2.new(0, 0, 1, 0),
-		AnchorPoint = Vector2.new(0, 1),
-	}, children)
+		for index, tag in ipairs(tags) do
+			children[tag] = self:createTag(tag, index)
+		end
+
+		return Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
+			Position = UDim2.new(0, 0, 1, 0),
+			AnchorPoint = Vector2.new(0, 1),
+		}, children)
+	end
 end
 
 function SearchTags:createPrompt(searchTerm, theme, localizedContent)
@@ -134,6 +164,7 @@ function SearchTags:renderContent(theme, DEPRECATED_localization, localizedConte
 	local onClearTags = self.props.onClearTags
 	local clearAll = localizedContent.SearchResults.ClearAll
 	local clearAllWidth = GetTextSize(clearAll, nil, nil, Vector2.new(0, 0)).x
+	local tagsSize = UDim2.new(1, -clearAllWidth - TEXT_PADDING.Offset, 0, ITEM_HEIGHT)
 	local promptName = searchTerm or "Prompt"
 
 	local hasTags = tags and #tags > 0
@@ -144,22 +175,23 @@ function SearchTags:renderContent(theme, DEPRECATED_localization, localizedConte
 	}, {
 		[promptName] = self:createPrompt(searchTerm, theme, localizedContent),
 
-		ClearAll = hasTags and Roact.createElement("TextButton", {
-			Font = Constants.FONT,
-			Text = clearAll,
-			TextSize = Constants.FONT_SIZE_MEDIUM,
-			TextColor3 = theme.searchTag.clearAllText,
-			Size = UDim2.new(0, clearAllWidth, 0, ITEM_HEIGHT),
-			-- Position ClearAll to be inline with the text basis of the tag chips
-			Position = UDim2.new(1, 0, 0, 29),
-			AnchorPoint = Vector2.new(1, 0),
-			BackgroundTransparency = 1,
-			LayoutOrder = #tags + 1,
+		ClearAll = hasTags
+			and Roact.createElement("TextButton", {
+				Font = Constants.FONT,
+				Text = clearAll,
+				TextSize = Constants.FONT_SIZE_MEDIUM,
+				TextColor3 = theme.searchTag.clearAllText,
+				Size = UDim2.new(0, clearAllWidth, 0, ITEM_HEIGHT),
+				-- Position ClearAll to be inline with the text basis of the tag chips
+				Position = UDim2.new(1, 0, 0, 29),
+				AnchorPoint = Vector2.new(1, 0),
+				BackgroundTransparency = 1,
+				LayoutOrder = #tags + 1,
 
-			[Roact.Event.Activated] = onClearTags,
-		}),
+				[Roact.Event.Activated] = onClearTags,
+			}),
 
-		Tags = hasTags and self:createTags(tags),
+		Tags = hasTags and self:createTags(tags, if FFlagToolboxAudioSearchOptions then tagsSize else nil),
 	})
 end
 

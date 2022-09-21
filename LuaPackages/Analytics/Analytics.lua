@@ -1,4 +1,3 @@
---!nonstrict
 --[[
 	A centralized hub for basic metrics reporting.
 	This class is designed to provide a baseline exposure to the reporters.
@@ -10,7 +9,7 @@
 	most common interactions.
 ]]
 
-local AnalyticsService = game:GetService("RbxAnalyticsService")
+local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local Reporters = script.Parent.AnalyticsReporters
 
 local DiagReporter = require(Reporters.Diag)
@@ -24,29 +23,34 @@ export type Analytics = {
 	GoogleAnalytics: GoogleAnalyticsReporter.GoogleAnalytics,
 	InfluxDb: InfluxDbReporter.Influx,
 }
+type AnalyticsStatics = {
+	new: (RbxAnalyticsService?) -> Analytics,
+	mock: () -> Analytics,
+}
 
-local Analytics = {}
-Analytics.__index = Analytics
+local Analytics: AnalyticsStatics = {} :: any;
+(Analytics :: any).__index = Analytics
 
--- reportingService : (Service, optional) an object that exposes the same functions as AnalyticsService
-function Analytics.new(reportingService): Analytics
+-- reportingService : (Service, optional) an object that exposes the same functions as RbxAnalyticsService
+function Analytics.new(reportingService: RbxAnalyticsService?): Analytics
 	if not reportingService then
-		reportingService = AnalyticsService
+		reportingService = RbxAnalyticsService
 	end
 
 	-- All public reporting functions are exposed by the objects defined in the properties
-	local self: any = {}
-	self.Diag = DiagReporter.new(reportingService)
-	self.EventStream = EventStreamReporter.new(reportingService)
-	self.GoogleAnalytics = GoogleAnalyticsReporter.new(reportingService)
-	self.InfluxDb = InfluxDbReporter.new(reportingService)
+	local self = {}
+	-- Luau FIXME: analyze should know that `reportingService` is now of type `RbxAnalyticsService`
+	self.Diag = DiagReporter.new(reportingService :: RbxAnalyticsService)
+	self.EventStream = EventStreamReporter.new(reportingService :: RbxAnalyticsService)
+	self.GoogleAnalytics = GoogleAnalyticsReporter.new(reportingService :: RbxAnalyticsService)
+	self.InfluxDb = InfluxDbReporter.new(reportingService :: RbxAnalyticsService)
 
 	setmetatable(self, Analytics)
 
-	return self
+	return self :: any
 end
 
-function Analytics.mock()
+function Analytics.mock(): Analytics
 	-- create a reporting service that does not fire any requests out to the world
 	local fakeReportingService = {}
 	function fakeReportingService.ReportCounter() end
@@ -58,7 +62,7 @@ function Analytics.mock()
 	function fakeReportingService.UpdateHeartbeatObject() end
 	function fakeReportingService.SendEventDeferred() end
 
-	return Analytics.new(fakeReportingService)
+	return Analytics.new(fakeReportingService :: any)
 end
 
 return Analytics

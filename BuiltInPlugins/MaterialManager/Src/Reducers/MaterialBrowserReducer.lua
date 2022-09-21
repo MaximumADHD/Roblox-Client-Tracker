@@ -6,8 +6,8 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Actions = Plugin.Src.Actions
 local ClearMaterial = require(Actions.ClearMaterial)
 local ClearMaterialWrapper = require(Actions.ClearMaterialWrapper)
+local SetGridLock = require(Actions.SetGridLock) -- Remove with FFlagMaterialManagerReducerImprovements
 local SetExpandedPane = require(Actions.SetExpandedPane)
-local SetGridLock = require(Actions.SetGridLock)
 local SetMaterial = require(Actions.SetMaterial)
 local SetMaterialAsTool = require(Actions.SetMaterialAsTool)
 local SetMaterialBrowserLayout = require(Actions.SetMaterialBrowserLayout)
@@ -30,12 +30,14 @@ local CompareMaterials = require(Util.CompareMaterials)
 local Constants = Plugin.Src.Resources.Constants
 local getSettingsNames = require(Constants.getSettingsNames)
 
+local getFFlagMaterialManagerReducerImprovements = require(Plugin.Src.Flags.getFFlagMaterialManagerReducerImprovements)
+
 local settingsNames = getSettingsNames()
 
 export type State = {
 	ActiveAsTool: boolean,
 	ExpandedPane: _Types.Map<string, boolean>,
-	GridLock: boolean,
+	GridLock: boolean, -- Remove with FFlagMaterialManagerReducerImprovements
 	Material: _Types.Material?,
 	MaterialBrowserLayout: _Types.MaterialBrowserLayout,
 	MaterialList: _Types.Array<_Types.Material>?,
@@ -59,7 +61,7 @@ end
 local initialState: State = {
 	ActiveAsTool = false,
 	ExpandedPane = expandedPane,
-	GridLock = false,
+	GridLock = if not getFFlagMaterialManagerReducerImprovements() then false else nil,
 	MaterialBrowserLayout = {
 		BaseShowSideBar = true,
 		OverrideShowSideBar = false,
@@ -78,67 +80,9 @@ local initialState: State = {
 }
 
 return (Rodux.createReducer(initialState, {
-	[SetMaterial.name] = function(state: State, action: SetMaterial.Payload): State
-		return Cryo.Dictionary.join(state, {
-			Material = action.Material,
-		})
-	end,
-
-	[SetMaterialVariant.name] = function(state: State, action: SetMaterialVariant.Payload): State
-		return Cryo.Dictionary.join(state, {
-			Material = state.Materials[action.MaterialVariant],
-		})
-	end,
-
-	[SetPath.name] = function(state: State, action: SetPath.Payload): State
-		return Cryo.Dictionary.join(state, {
-			Path = action.Path,
-		})
-	end,
-
-	[SetSearch.name] = function(state: State, action: SetSearch.Payload): State
-		return Cryo.Dictionary.join(state, {
-			Search = action.Search,
-		})
-	end,
-
 	[ClearMaterial.name] = function(state: State, action: ClearMaterial.Payload): State
 		return Cryo.Dictionary.join(state, {
 			Material = Cryo.None,
-		})
-	end,
-
-	[SetMaterialTileSize.name] = function(state: State, action: SetMaterialTileSize.Payload): State
-		return Cryo.Dictionary.join(state, {
-			MaterialTileSize = action.MaterialTileSize,
-		})
-	end,
-
-	[SetViewType.name] = function(state: State, action: SetViewType.Payload): State
-		return Cryo.Dictionary.join(state, {
-			ViewType = action.ViewType,
-		})
-	end,
-
-	[SetMenuHover.name] = function(state: State, action: SetMenuHover.Payload): State
-		return Cryo.Dictionary.join(state, {
-			MenuHover = action.MenuHover,
-		})
-	end,
-
-	[SetMaterialWrapper.name] = function(state: State, action: SetMaterialWrapper.Payload): State
-		local index = if action.MaterialWrapper.MaterialVariant
-			then action.MaterialWrapper.MaterialVariant
-			else action.MaterialWrapper.Material
-		local hasMaterial = state.Material
-
-		return Cryo.Dictionary.join(state, {
-			Materials = Cryo.Dictionary.join(state.Materials, {
-				[index] = action.MaterialWrapper,
-			}),
-			Material = if hasMaterial and CompareMaterials(state.Materials[index], state.Material)
-				then action.MaterialWrapper
-				else nil,
 		})
 	end,
 
@@ -155,11 +99,42 @@ return (Rodux.createReducer(initialState, {
 		})
 	end,
 
-	[SetMaterialStatus.name] = function(state: State, action: SetMaterialStatus.Payload): State
+	[SetExpandedPane.name] = function(state: State, action: SetExpandedPane.Payload): State
 		return Cryo.Dictionary.join(state, {
-			MaterialStatus = Cryo.Dictionary.join(state.MaterialStatus, {
-				[action.Material] = action.MaterialStatus,
-			}),
+			ExpandedPane = Cryo.Dictionary.join(state.ExpandedPane, {
+				[action.PaneName] = action.ExpandedPaneState,
+			})
+		})
+	end,
+
+	[SetGridLock.name] = if getFFlagMaterialManagerReducerImprovements() then nil else
+		function(state: State, action: SetGridLock.Payload): State
+			return Cryo.Dictionary.join(state, {
+				GridLock = action.GridLock
+			})
+		end,
+
+	[SetMaterial.name] = function(state: State, action: SetMaterial.Payload): State
+		return Cryo.Dictionary.join(state, {
+			Material = action.Material,
+		})
+	end,
+
+	[SetMaterialAsTool.name] = function(state: State, action: SetMaterialAsTool.Payload): State
+		return Cryo.Dictionary.join(state, {
+			ActiveAsTool = action.ActiveAsTool,
+		})
+	end,
+	
+	[SetMaterialBrowserLayout.name] = function(state: State, action: SetMaterialBrowserLayout.Payload): State
+		return Cryo.Dictionary.join(state, {
+			MaterialBrowserLayout = Cryo.Dictionary.join(state.MaterialBrowserLayout, action.MaterialBrowserLayout),
+		})
+	end,
+
+	[SetMaterialList.name] = function(state: State, action: SetMaterialList.Payload): State
+		return Cryo.Dictionary.join(state, {
+			MaterialList = action.MaterialList
 		})
 	end,
 
@@ -179,41 +154,69 @@ return (Rodux.createReducer(initialState, {
 		})
 	end,
 
-	[SetGridLock.name] = function(state: State, action: SetGridLock.Payload): State
+	[SetMaterialStatus.name] = function(state: State, action: SetMaterialStatus.Payload): State
 		return Cryo.Dictionary.join(state, {
-			GridLock = action.GridLock,
+			MaterialStatus = Cryo.Dictionary.join(state.MaterialStatus, {
+				[action.Material] = action.MaterialStatus,
+			}),
 		})
 	end,
 
-	[SetMaterialAsTool.name] = function(state: State, action: SetMaterialAsTool.Payload): State
+	[SetMaterialTileSize.name] = function(state: State, action: SetMaterialTileSize.Payload): State
 		return Cryo.Dictionary.join(state, {
-			ActiveAsTool = action.ActiveAsTool,
+			MaterialTileSize = action.MaterialTileSize,
 		})
 	end,
 
-	[SetMaterialList.name] = function(state: State, action: SetMaterialList.Payload): State
+	[SetMaterialVariant.name] = function(state: State, action: SetMaterialVariant.Payload): State
 		return Cryo.Dictionary.join(state, {
-			MaterialList = action.MaterialList,
+			Material = state.Materials[action.MaterialVariant],
+		})
+	end,
+
+	[SetMaterialWrapper.name] = function(state: State, action: SetMaterialWrapper.Payload): State
+		local index = if action.MaterialWrapper.MaterialVariant
+			then action.MaterialWrapper.MaterialVariant
+			else action.MaterialWrapper.Material
+		local hasMaterial = state.Material
+
+		return Cryo.Dictionary.join(state, {
+			Materials = Cryo.Dictionary.join(state.Materials, {
+				[index] = action.MaterialWrapper,
+			}),
+			Material = if hasMaterial and CompareMaterials(state.Materials[index], state.Material)
+				then action.MaterialWrapper
+				else nil,
+		})
+	end,
+
+	[SetMenuHover.name] = function(state: State, action: SetMenuHover.Payload): State
+		return Cryo.Dictionary.join(state, {
+			MenuHover = action.MenuHover,
+		})
+	end,
+
+	[SetPath.name] = function(state: State, action: SetPath.Payload): State
+		return Cryo.Dictionary.join(state, {
+			Path = action.Path,
+		})
+	end,
+
+	[SetSearch.name] = function(state: State, action: SetSearch.Payload): State
+		return Cryo.Dictionary.join(state, {
+			Search = action.Search,
+		})
+	end,
+
+	[SetViewType.name] = function(state: State, action: SetViewType.Payload): State
+		return Cryo.Dictionary.join(state, {
+			ViewType = action.ViewType,
 		})
 	end,
 
 	[SetUse2022Materials.name] = function(state: State, action: SetUse2022Materials.Payload): State
 		return Cryo.Dictionary.join(state, {
 			Use2022Materials = action.Use2022Materials,
-		})
-	end,
-
-	[SetExpandedPane.name] = function(state: State, action: SetExpandedPane.Payload): State
-		return Cryo.Dictionary.join(state, {
-			ExpandedPane = Cryo.Dictionary.join(state.ExpandedPane, {
-				[action.PaneName] = action.ExpandedPaneState,
-			}),
-		})
-	end,
-
-	[SetMaterialBrowserLayout.name] = function(state: State, action: SetMaterialBrowserLayout.Payload): State
-		return Cryo.Dictionary.join(state, {
-			MaterialBrowserLayout = Cryo.Dictionary.join(state.MaterialBrowserLayout, action.MaterialBrowserLayout),
 		})
 	end,
 }))

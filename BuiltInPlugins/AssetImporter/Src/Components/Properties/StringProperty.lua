@@ -4,9 +4,12 @@ local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local UI = Framework.UI
+local Pane = UI.Pane
 local TextInput2 = UI.TextInput2
 local Tooltip = UI.Tooltip
 local TruncatedTextLabel = UI.TruncatedTextLabel
+
+local getFFlagAssetImportFixPropertyLength = require(Plugin.Src.Flags.getFFlagAssetImportFixPropertyLength)
 
 local function StringProperty(props)
 	if props.Editable ~= nil and not props.Editable then
@@ -22,12 +25,24 @@ local function StringProperty(props)
 			})
 		})
 	else
-		return Roact.createElement(TextInput2, {
-			LayoutOrder = props.LayoutOrder,
-			OnTextChanged = props.OnSetItem,
-			Size = props.Size,
-			Text = props.Value,
-		})
+		if getFFlagAssetImportFixPropertyLength() then
+			return Roact.createElement(Pane, {
+				Size = props.Size,
+				LayoutOrder = props.LayoutOrder,
+			}, {
+				Roact.createElement(TextInput2, {
+					OnTextChanged = props.OnSetItem,
+					Text = props.Value,
+				})
+			})
+		else
+			return Roact.createElement(TextInput2, {
+				LayoutOrder = props.LayoutOrder,
+				OnTextChanged = props.OnSetItem,
+				Size = props.Size,
+				Text = props.Value,
+			})
+		end
 	end
 end
 

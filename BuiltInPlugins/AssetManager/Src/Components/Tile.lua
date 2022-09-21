@@ -1,5 +1,3 @@
-local FFlagAssetManagerDragAndDrop = game:GetFastFlag("AssetManagerDragAndDrop")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -103,76 +101,42 @@ function Tile:init()
 		})
 	end
 
-	if FFlagAssetManagerDragAndDrop then
-		self.onClick = function(input, clickCount)
-			local props = self.props
-			if not props.Enabled then
-				return
-			end
-			local assetData = props.AssetData
-			if clickCount == 0 then
-				props.dispatchOnAssetSingleClick(input, assetData)
-			elseif clickCount == 1 then
-				props.dispatchOnAssetDoubleClick(props.Analytics, assetData)
-			end
+	self.onClick = function(input, clickCount)
+		local props = self.props
+		if not props.Enabled then
+			return
 		end
+		local assetData = props.AssetData
+		if clickCount == 0 then
+			props.dispatchOnAssetSingleClick(input, assetData)
+		elseif clickCount == 1 then
+			props.dispatchOnAssetDoubleClick(props.Analytics, assetData)
+		end
+	end
 
-		self.onDragBegan = function(input)
-			local props = self.props
-			local assetData = props.AssetData
-			props.OnAssetDrag(assetData)
-		end
+	self.onDragBegan = function(input)
+		local props = self.props
+		local assetData = props.AssetData
+		props.OnAssetDrag(assetData)
+	end
 
-		self.onRightClick = function()
-			local props = self.props
-			if not props.Enabled then
-				return
-			end
-			local assetData = props.AssetData
-			local isFolder = assetData.ClassName == "Folder"
-			if isFolder then
-				if not props.SelectedAssets[assetData.Screen.LayoutOrder] then
-					props.dispatchOnAssetSingleClick(nil, assetData)
-				end
-			else
-				if not props.SelectedAssets[assetData.key] then
-					props.dispatchOnAssetSingleClick(nil, assetData)
-				end
-			end
-			props.dispatchOnAssetRightClick(props)
+	self.onRightClick = function()
+		local props = self.props
+		if not props.Enabled then
+			return
 		end
-	else
-		self.onMouseActivated = function(rbx, obj, clickCount)
-			local props = self.props
-			if not props.Enabled then
-				return
+		local assetData = props.AssetData
+		local isFolder = assetData.ClassName == "Folder"
+		if isFolder then
+			if not props.SelectedAssets[assetData.Screen.LayoutOrder] then
+				props.dispatchOnAssetSingleClick(nil, assetData)
 			end
-			local assetData = props.AssetData
-			if clickCount == 0 then
-				props.dispatchOnAssetSingleClick(obj, assetData)
-			elseif clickCount == 1 then
-				props.dispatchOnAssetDoubleClick(props.Analytics, assetData)
+		else
+			if not props.SelectedAssets[assetData.key] then
+				props.dispatchOnAssetSingleClick(nil, assetData)
 			end
 		end
-
-		self.onMouseButton2Click = function(rbx, x, y)
-			local props = self.props
-			if not props.Enabled then
-				return
-			end
-			local assetData = props.AssetData
-			local isFolder = assetData.ClassName == "Folder"
-			if isFolder then
-				if not props.SelectedAssets[assetData.Screen.LayoutOrder] then
-					props.dispatchOnAssetSingleClick(nil, assetData)
-				end
-			else
-				if not props.SelectedAssets[assetData.key] then
-					props.dispatchOnAssetSingleClick(nil, assetData)
-				end
-			end
-			props.dispatchOnAssetRightClick(props)
-		end
+		props.dispatchOnAssetRightClick(props)
 	end
 
 	self.openAssetPreview = function()
@@ -411,125 +375,18 @@ function Tile:render()
 		end
 	end
 
-	if FFlagAssetManagerDragAndDrop then
-		return Roact.createElement(DragSource, {
-			AutomaticSize = Enum.AutomaticSize.XY,
-			LayoutOrder = layoutOrder,
-			OnClick = self.onClick,
-			OnRightClick = self.onRightClick,
-			OnDragBegan = self.onDragBegan,
-		}, {
-			Button = Roact.createElement(Pane, {
-				BackgroundColor = backgroundColor,
-				Size = size,
-				Transparency = backgroundTransparency,
-
-				[Roact.Event.MouseEnter] = self.onMouseEnter,
-				[Roact.Event.MouseLeave] = self.onMouseLeave,
-			}, {
-				ThumbnailContainer = Roact.createElement(thumbnailContainer, thumbnailContainerProps, {
-					AssetPreviewButton = createAssetPreviewButton and Roact.createElement(PopUpButton, {
-						Position = UDim2.new(1, -assetPreviewButtonOffset, 0, assetPreviewButtonOffset),
-
-						Image = magnifyingGlass,
-						ShowIcon = showAssetPreviewButton,
-						OnClick = self.openAssetPreview,
-						OnRightClick = self.onRightClick,
-					}),
-
-					RootPlaceImage = isRootPlace and Roact.createElement("ImageLabel", {
-						Size = UDim2.new(0, rootPlaceImageSize, 0, rootPlaceImageSize),
-						Position = UDim2.new(0, rootPlaceIconXOffset, 0, rootPlaceIconYOffset),
-
-						Image = rootPlaceIcon,
-						BackgroundTransparency = 1,
-					}),
-
-					ModerationStatusImage = displayModerationStatus and Roact.createElement("ImageLabel", {
-						Size = UDim2.new(0, moderationStatusImageSize, 0, moderationStatusImageSize),
-						Position = UDim2.new(0, moderationStatusIconXOffset, 0, moderationStatusIconYOffset),
-
-						Image = moderationImage,
-						BackgroundTransparency = 1,
-					}, {
-						ModerationTooltip = Roact.createElement(Tooltip, {
-							Text = moderationTooltip,
-							Enabled = enabled,
-						}),
-					}),
-
-					FolderImage = isFolder and Roact.createElement("ImageLabel", {
-						Size = imageSize,
-						Image = image,
-						Position = imageFolderPos,
-						AnchorPoint = imageFolderAnchorPos,
-
-						BackgroundTransparency = 1,
-					})
-				}),
-
-				Name = not isEditingAsset and Roact.createElement("TextLabel", {
-					Size = textFrameSize,
-					Position = textFramePos,
-
-					Text = displayName,
-					TextColor3 = textColor,
-					Font = textFont,
-					TextSize = textSize,
-
-					BackgroundTransparency = textBGTransparency,
-					TextXAlignment = textXAlignment,
-					TextYAlignment = textYAlignment,
-					TextTruncate = textTruncate,
-					TextWrapped = true,
-				}),
-
-				RenameTextBox = isEditingAsset and Roact.createElement("TextBox",{
-					Size = UDim2.new(0, editTextSize.X + editTextPadding,
-						0, editTextSize.Y),
-					Position = textFramePos,
-
-					BackgroundColor3 = editTextFrameBackgroundColor,
-					BorderColor3 = editTextFrameBorderColor,
-
-					Text = editText,
-					TextColor3 = textColor,
-					Font = textFont,
-					TextSize = textSize,
-
-					TextXAlignment = editTextXAlignment,
-					TextTruncate = Enum.TextTruncate.None,
-					TextWrapped = editTextWrapped,
-					ClearTextOnFocus = editTextClearOnFocus,
-
-					[Roact.Ref] = self.textBoxRef,
-
-					[Roact.Change.Text] = self.onTextChanged,
-					[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
-				}),
-
-				NameTooltip = Roact.createElement(Tooltip, {
-					Text = name,
-					Enabled = enabled,
-				}),
-
-				DEPRECATED_Tooltip = enabled and Roact.createElement(Tooltip, {
-					Text = name,
-					Enabled = true,
-				}),
-			})
-		})
-	else
-		return Roact.createElement("ImageButton", {
+	return Roact.createElement(DragSource, {
+		AutomaticSize = Enum.AutomaticSize.XY,
+		LayoutOrder = layoutOrder,
+		OnClick = self.onClick,
+		OnRightClick = self.onRightClick,
+		OnDragBegan = self.onDragBegan,
+	}, {
+		Button = Roact.createElement(Pane, {
+			BackgroundColor = backgroundColor,
 			Size = size,
-			BackgroundColor3 = backgroundColor,
-			BackgroundTransparency = backgroundTransparency,
-			BorderSizePixel = borderSizePixel,
+			Transparency = backgroundTransparency,
 
-			LayoutOrder = layoutOrder,
-
-			[Roact.Event.Activated] = self.onMouseActivated,
-			[Roact.Event.MouseButton2Click] = self.onMouseButton2Click,
 			[Roact.Event.MouseEnter] = self.onMouseEnter,
 			[Roact.Event.MouseLeave] = self.onMouseLeave,
 		}, {
@@ -540,7 +397,7 @@ function Tile:render()
 					Image = magnifyingGlass,
 					ShowIcon = showAssetPreviewButton,
 					OnClick = self.openAssetPreview,
-					OnRightClick = self.onMouseButton2Click,
+					OnRightClick = self.onRightClick,
 				}),
 
 				RootPlaceImage = isRootPlace and Roact.createElement("ImageLabel", {
@@ -618,8 +475,13 @@ function Tile:render()
 				Text = name,
 				Enabled = enabled,
 			}),
+
+			DEPRECATED_Tooltip = enabled and Roact.createElement(Tooltip, {
+				Text = name,
+				Enabled = true,
+			}),
 		})
-	end
+	})
 end
 
 Tile = withContext({

@@ -1,9 +1,14 @@
 local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
 
 local Plugin = script.Parent.Parent.Parent
+
+local Framework = require(Plugin.Packages.Framework)
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateToggleButton = SharedFlags.getFFlagDevFrameworkMigrateToggleButton()
+local MockStudioPlugin = if FFlagDevFrameworkMigrateToggleButton then Framework.TestHelpers.Instances.MockPlugin else require(Plugin.Src.TestHelpers.MockStudioPlugin)
+
 local Rodux = require(Plugin.Packages.Rodux)
 local TestImmutability = require(Plugin.Src.TestHelpers.testImmutability)
-local MockStudioPlugin = require(Plugin.Src.TestHelpers.MockStudioPlugin)
 local Http = require(Plugin.Packages.Http)
 local UrlConstructor = require(Plugin.Src.Networking.UrlConstructor)
 
@@ -112,7 +117,15 @@ return function()
 		}
 		it("should set PlayerEmulatorService.StudioEmulatedCountryRegionCode using cached value", function()
 			local store = createTestStore(mockCountryRegionTable)
-			local mockPlugin = MockStudioPlugin.new("US")
+			local mockPlugin
+			if FFlagDevFrameworkMigrateToggleButton then
+				mockPlugin = MockStudioPlugin.new()
+				mockPlugin:MockSettings({
+					PlayerEmulator_CountryRegionSetting = "US",
+				})
+			else
+				mockPlugin = MockStudioPlugin.new("US")
+			end
 			local mockNetworkingImpl = Http.Networking.mock(mockHttpResponse)
 			store:dispatch(InitCountryRegionSetting(mockNetworkingImpl, mockPlugin))
 			expect(PlayerEmulatorService.EmulatedCountryCode).equal("US")

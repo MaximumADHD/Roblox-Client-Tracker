@@ -17,17 +17,18 @@ local Framework = require(Plugin.Packages.Framework)
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
 local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
+local FFlagDevFrameworkMigrateToggleButton = SharedFlags.getFFlagDevFrameworkMigrateToggleButton()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UI = Framework.UI
+local ToggleButton = if FFlagDevFrameworkMigrateToggleButton then UI.ToggleButton else require(RoactStudioWidgets.ToggleButton)
 local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else require(RoactStudioWidgets.TitledFrame)
 local TextInput2 = UI.TextInput2
 
 local StateInterfaceTheme = require(Page.Util.StateInterfaceTheme)
 
-local ToggleButton = require(RoactStudioWidgets.ToggleButton)
 local RoundTextBox
 if not FFlagRemoveUILibraryRoundTextBox then
 	RoundTextBox = require(Plugin.Packages.RoactStudioWidgets.RoundTextBox)
@@ -75,7 +76,11 @@ function AssetInput:render()
 		+ INPUT_BOX_HORIZONTAL_OFFSET
 
 	local children = {
-		ToggleButton = Roact.createElement(ToggleButton, {
+		ToggleButton = Roact.createElement(ToggleButton, if FFlagDevFrameworkMigrateToggleButton then {
+			Enabled = self.props.IsEnabled,
+			OnClick = self.props.SetPlayerChoiceValue,
+			Selected = not self.props.PlayerChoice,
+		} else {
 			Size = UDim2.new(0, TOGGLE_BUTTON_WIDTH, 0, TOGGLE_BUTTON_HEIGHT),
 			Enabled = self.props.IsEnabled,
 			IsOn = not self.props.PlayerChoice,

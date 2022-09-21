@@ -1,4 +1,5 @@
 local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
+local FFlagToolboxAudioSearchOptions = game:GetFastFlag("ToolboxAudioSearchOptions")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -63,7 +64,7 @@ return function(networkInterface, settings, options)
 		store:dispatch(ClearAssets())
 
 		local audioSearchInfo = options.AudioSearch or Cryo.None
-
+		local additionalAudioSearchInfo = options.AdditionalAudioSearch or Cryo.None
 		local includeOnlyVerifiedCreators
 		local includeUnverifiedCreators
 		if FFlagToolboxUseVerifiedIdAsDefault then
@@ -82,8 +83,15 @@ return function(networkInterface, settings, options)
 				store:dispatch(SetLoading(false))
 				store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
 					audioSearchInfo = audioSearchInfo,
-					includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else includeOnlyVerifiedCreators,
-					includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then includeUnverifiedCreators else nil,
+					additionalAudioSearchInfo = if FFlagToolboxAudioSearchOptions
+						then additionalAudioSearchInfo
+						else nil,
+					includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+						then nil
+						else includeOnlyVerifiedCreators,
+					includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+						then includeUnverifiedCreators
+						else nil,
 					targetPage = 1,
 					currentPage = 0,
 					creator = creatorInfo,
@@ -96,12 +104,9 @@ return function(networkInterface, settings, options)
 
 			if type(options.Creator) == "string" then
 				-- we don't really know who the creator is, so fetch the first result based on their name
-				searchUsers(networkInterface, options.Creator, store):andThen(
-					updateSearchResultsHandler,
-					function(err)
-						-- We should still handle the error if searchUser fails.
-					end
-				)
+				searchUsers(networkInterface, options.Creator, store):andThen(updateSearchResultsHandler, function(err)
+					-- We should still handle the error if searchUser fails.
+				end)
 			elseif type(options.Creator == "table") then
 				-- assume we've gotten the creator details from the dropdown already
 				local details = {
@@ -123,9 +128,14 @@ return function(networkInterface, settings, options)
 			store:dispatch(SetLoading(false))
 			store:dispatch(SetLiveSearch("", {}))
 			store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
-				audioSearchInfo = audioSearchInfo,			
-				includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else includeOnlyVerifiedCreators,
-				includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then includeUnverifiedCreators else nil,
+				audioSearchInfo = audioSearchInfo,
+				additionalAudioSearchInfo = if FFlagToolboxAudioSearchOptions then additionalAudioSearchInfo else nil,
+				includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+					then nil
+					else includeOnlyVerifiedCreators,
+				includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+					then includeUnverifiedCreators
+					else nil,
 				targetPage = 1,
 				currentPage = 0,
 				sortIndex = options.SortIndex or 1, -- defualt to 1

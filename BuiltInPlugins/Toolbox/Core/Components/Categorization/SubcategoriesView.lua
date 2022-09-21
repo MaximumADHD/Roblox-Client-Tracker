@@ -11,6 +11,7 @@
 		UDim2 Size: The size of the scrolling frame.
 ]]
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
+local FFlagToolboxFixSubcategoryScrolling = game:GetFastFlag("ToolboxFixSubcategoryScrolling")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Packages
@@ -149,16 +150,21 @@ function SubcategoriesView:render()
 	}, {
 		ScrollingFrame = Roact.createElement(ScrollingFrame, {
 			AutoSizeCanvas = true,
-			AutoSizeLayoutOptions = {
+			AutomaticCanvasSize = if FFlagToolboxFixSubcategoryScrolling then Enum.AutomaticSize.Y else nil,
+			AutoSizeLayoutOptions = if FFlagToolboxFixSubcategoryScrolling then nil else {
 				Padding = UDim.new(0, SPACING),
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			},
 			CanvasSize = UDim2.new(1, 0, 0, 0),
+			Layout = if FFlagToolboxFixSubcategoryScrolling then Enum.FillDirection.Vertical else nil,
+			LayoutOrder = if FFlagToolboxFixSubcategoryScrolling then Enum.SortOrder.LayoutOrder else nil,
 			EnableScrollBarBackground = true,
 			Padding = Constants.MAIN_VIEW_PADDING,
 			Size = size,
+			Spacing = if FFlagToolboxFixSubcategoryScrolling then UDim.new(0, SPACING) else nil,
 		}, {
 			BackButton = Roact.createElement(LinkText, {
+				LayoutOrder = if FFlagToolboxFixSubcategoryScrolling then 1 else nil,
 				OnClick = self.onClickBack,
 				Style = "Unobtrusive",
 				Text = backText,
@@ -177,6 +183,7 @@ function SubcategoriesView:render()
 					},
 				},
 				ItemHeight = UDim.new(0, ICON_TILE_HEIGHT),
+				LayoutOrder = if FFlagToolboxFixSubcategoryScrolling then 2 else nil,
 				Size = UDim2.new(1, 0, 0, 0),
 			}, subcategoryElements),
 		}),

@@ -1,7 +1,6 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
 
-local FFlagToolboxRemoveSFXMonstercatBanner = game:GetFastFlag("ToolboxRemoveSFXMonstercatBanner")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 
 local Packages = Plugin.Packages
@@ -143,10 +142,7 @@ function AudioWrapper:init(props: AudioWrapperProps)
 			analytics:onCallToActionBannerClicked(MONSTER_CAT_CREATOR.Creator.Id)
 		end
 
-		local isMusic
-		if FFlagToolboxRemoveSFXMonstercatBanner then
-			isMusic = selectedTab == Category.MUSIC.name
-		end
+		local isMusic = selectedTab == Category.MUSIC.name
 
 		return Roact.createElement("Frame", {
 			LayoutOrder = 1,
@@ -177,7 +173,7 @@ function AudioWrapper:init(props: AudioWrapperProps)
 					OnTabSelect = self.onTabSelect,
 				}),
 			}),
-			CallToActionBanner = if (not FFlagToolboxRemoveSFXMonstercatBanner or isMusic)
+			CallToActionBanner = if isMusic
 				then CallToActionBanner.Generator({
 					LayoutOrder = 2,
 					Image = Images.MONSTER_CAT_BANNER,
@@ -312,9 +308,7 @@ local mapDispatchToProps = function(dispatch)
 		end,
 
 		getAssetPreviewDataForStartup = function(assetId, tryInsert, localization, networkInterface, setAssetPreview)
-			dispatch(
-				GetAssetPreviewDataForStartup(assetId, tryInsert, localization, networkInterface, setAssetPreview)
-			)
+			dispatch(GetAssetPreviewDataForStartup(assetId, tryInsert, localization, networkInterface, setAssetPreview))
 		end,
 	}
 end

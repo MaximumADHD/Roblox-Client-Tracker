@@ -1,10 +1,8 @@
---!nonstrict
 return function()
-
 	local EventStream = require(script.Parent.EventStream)
 
 	local testArgs = {
-		testKey = "testValue"
+		testKey = "testValue",
 	}
 	local testContext = "testContext"
 	local testEvent = "testEventName"
@@ -12,8 +10,7 @@ return function()
 	local badTestContext = {}
 	local badTestEvent = {}
 
-
-	local function isTableEqual(table1, table2)
+	local function isTableEqual(table1: { [any]: any }, table2: { [any]: any })
 		if table1 == table2 then
 			return true
 		end
@@ -40,7 +37,7 @@ return function()
 		return true
 	end
 
-	local function createDebugReportingService()
+	local function createDebugReportingService(): RbxAnalyticsService
 		local function validateInputs(eventTarget, eventContext, eventName, additionalArgs)
 			assert(eventTarget, "no value found for eventTarget")
 			assert(eventContext == testContext, "unexpected value for eventContext : " .. eventContext)
@@ -72,9 +69,8 @@ return function()
 			end
 		end
 
-		return DebugReportingService
+		return DebugReportingService :: any
 	end
-
 
 	describe("new()", function()
 		it("should construct with a Reporting Service", function()
@@ -84,7 +80,7 @@ return function()
 
 		it("should not allow construction without a Reporting Service", function()
 			expect(function()
-				EventStream.new(nil)
+				EventStream.new(nil :: any)
 			end).to.throw()
 		end)
 	end)
@@ -125,40 +121,40 @@ return function()
 		it("should throw an error if it is missing a context", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:setRBXEvent(nil, testEvent, testArgs)
+				es:setRBXEvent(nil :: any, testEvent, testArgs)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is missing an event name", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:setRBXEvent(testContext, nil, testArgs)
+				es:setRBXEvent(testContext, nil :: any, testArgs)
 			end).to.throw()
 		end)
 
 		it("should succeed even if there aren't any additional args", function()
 			local es = EventStream.new(createDebugReportingService())
-			es:setRBXEvent(testContext, testEvent, nil)
+			es:setRBXEvent(testContext, testEvent, nil :: any)
 		end)
 
 		it("should throw an error if it is given bad input for a context", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:setRBXEvent(badTestContext, testEvent, testArgs)
+				es:setRBXEvent(badTestContext :: any, testEvent, testArgs)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given bad input for a event", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:setRBXEvent(testContext, badTestEvent, testArgs)
+				es:setRBXEvent(testContext, badTestEvent :: any, testArgs)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given bad input for additionalArgs", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:setRBXEvent(testContext, testEvent, badTestArgs)
+				es:setRBXEvent(testContext, testEvent, badTestArgs :: any)
 			end).to.throw()
 		end)
 	end)
@@ -184,40 +180,40 @@ return function()
 		it("should throw an error if it is missing a context", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:setRBXEventStream(nil, testEvent, testArgs)
+				es:setRBXEventStream(nil :: any, testEvent, testArgs)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is missing an event name", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:setRBXEventStream(testContext, nil, testArgs)
+				es:setRBXEventStream(testContext, nil :: any, testArgs)
 			end).to.throw()
 		end)
 
 		it("should succeed even if there aren't any additional args", function()
 			local es = EventStream.new(createDebugReportingService())
-			es:setRBXEventStream(testContext, testEvent, nil)
+			es:setRBXEventStream(testContext, testEvent, nil :: any)
 		end)
 
 		it("should throw an error if it is given bad input for a context", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:setRBXEventStream(badTestContext, testEvent, testArgs)
+				es:setRBXEventStream(badTestContext :: any, testEvent, testArgs)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given bad input for a event", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:setRBXEventStream(testContext, badTestEvent, testArgs)
+				es:setRBXEventStream(testContext, badTestEvent :: any, testArgs)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given bad input for additionalArgs", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:setRBXEventStream(testContext, testEvent, badTestArgs)
+				es:setRBXEventStream(testContext, testEvent, badTestArgs :: any)
 			end).to.throw()
 		end)
 	end)
@@ -243,40 +239,40 @@ return function()
 		it("should throw an error if it is missing a context", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:sendEventImmediately(nil, testEvent, testArgs)
+				es:sendEventImmediately(nil :: any, testEvent, testArgs)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is missing an event name", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:sendEventImmediately(testContext, nil, testArgs)
+				es:sendEventImmediately(testContext, nil :: any, testArgs)
 			end).to.throw()
 		end)
 
 		it("should succeed even if there aren't any additional args", function()
 			local es = EventStream.new(createDebugReportingService())
-			es:sendEventImmediately(testContext, testEvent, nil)
+			es:sendEventImmediately(testContext, testEvent, nil :: any)
 		end)
 
 		it("should throw an error if it is given bad input for a context", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:sendEventImmediately(badTestContext, testEvent, testArgs)
+				es:sendEventImmediately(badTestContext :: any, testEvent, testArgs)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given bad input for a event", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:sendEventImmediately(testContext, badTestEvent, testArgs)
+				es:sendEventImmediately(testContext, badTestEvent :: any, testArgs)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given bad input for additionalArgs", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:sendEventImmediately(testContext, testEvent, badTestArgs)
+				es:sendEventImmediately(testContext, testEvent, badTestArgs :: any)
 			end).to.throw()
 		end)
 	end)
@@ -302,40 +298,40 @@ return function()
 		it("should throw an error if it is missing a context", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:sendEventDeferred(nil, testEvent, testArgs)
+				es:sendEventDeferred(nil :: any, testEvent, testArgs)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is missing an event name", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:sendEventDeferred(testContext, nil, testArgs)
+				es:sendEventDeferred(testContext, nil :: any, testArgs)
 			end).to.throw()
 		end)
 
 		it("should succeed even if there aren't any additional args", function()
 			local es = EventStream.new(createDebugReportingService())
-			es:sendEventDeferred(testContext, testEvent, nil)
+			es:sendEventDeferred(testContext, testEvent, nil :: any)
 		end)
 
 		it("should throw an error if it is given bad input for a context", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:sendEventDeferred(badTestContext, testEvent, testArgs)
+				es:sendEventDeferred(badTestContext :: any, testEvent, testArgs)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given bad input for a event", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:sendEventDeferred(testContext, badTestEvent, testArgs)
+				es:sendEventDeferred(testContext, badTestEvent :: any, testArgs)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given bad input for additionalArgs", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:sendEventDeferred(testContext, testEvent, badTestArgs)
+				es:sendEventDeferred(testContext, testEvent, badTestArgs :: any)
 			end).to.throw()
 		end)
 	end)
@@ -387,7 +383,7 @@ return function()
 		it("should throw an error with invalid input", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:updateHeartbeatObject(badTestArgs)
+				es:updateHeartbeatObject(badTestArgs :: any)
 			end).to.throw()
 		end)
 	end)

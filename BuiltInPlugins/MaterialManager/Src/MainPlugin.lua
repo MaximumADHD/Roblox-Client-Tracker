@@ -38,6 +38,7 @@ local ImageLoader = require(Controllers.ImageLoader)
 local MaterialServiceController = require(Controllers.MaterialServiceController)
 local PluginController = require(Controllers.PluginController)
 
+local getFFlagMaterialManagerReducerImprovements = require(main.Src.Flags.getFFlagMaterialManagerReducerImprovements)
 local getFFlagMaterialBrowserOverhaul2 = require(main.Src.Flags.getFFlagMaterialBrowserOverhaul2)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
@@ -57,7 +58,9 @@ function MainPlugin:init(props)
 	self.imageLoader = ImageLoader.new()
 
 	self.openPrompt = function()
-		self.store:dispatch(SetGridLock(true))
+		if not getFFlagMaterialManagerReducerImprovements() then
+			self.store:dispatch(SetGridLock(true))
+		end
 		-- Remove prompt with FFlagMaterialManagerVariantCreatorOverhaul
 		self:setState({
 			prompt = true,
@@ -65,7 +68,9 @@ function MainPlugin:init(props)
 	end
 
 	self.closePrompt = function()
-		self.store:dispatch(SetGridLock(false))
+		if not getFFlagMaterialManagerReducerImprovements() then
+			self.store:dispatch(SetGridLock(false))
+		end
 		self:setState({
 			prompt = false,
 		})

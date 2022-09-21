@@ -1,5 +1,6 @@
 local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
 local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
+local FFlagToolboxAudioSearchOptions = game:GetFastFlag("ToolboxAudioSearchOptions")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -27,6 +28,7 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 		local creator = pageInfo.creator
 		local isCreatorSearchEmpty = creator and creator.Id == -1
 		local creatorTargetId = not isCreatorSearchEmpty and creator and creator.Id or nil
+		local additionalAudioSearchInfo = pageInfo.additionalAudioSearchInfo or {}
 
 		local assetStore = store:getState().assets
 		local currentCursor = assetStore.currentCursor
@@ -79,6 +81,19 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 				includeOnlyVerifiedCreators = pageInfo.includeOnlyVerifiedCreators
 			end
 
+			local tags = {}
+			if FFlagToolboxAudioSearchOptions then
+				if additionalAudioSearchInfo.categories then
+					for _, category in ipairs(additionalAudioSearchInfo.categories) do
+						table.insert(tags, category)
+					end
+				end
+
+				if additionalAudioSearchInfo.genre then
+					table.insert(tags, additionalAudioSearchInfo.genre)
+				end
+			end
+
 			local getRequest = networkInterface:getToolboxItems({
 				categoryName = category,
 				sortType = sortName,
@@ -90,6 +105,9 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 				creatorTargetId = creatorTargetId,
 				minDuration = audioSearchInfo and audioSearchInfo.minDuration or nil,
 				maxDuration = audioSearchInfo and audioSearchInfo.maxDuration or nil,
+				artist = if FFlagToolboxAudioSearchOptions then additionalAudioSearchInfo.artist else nil,
+				album = if FFlagToolboxAudioSearchOptions then additionalAudioSearchInfo.albumn else nil,
+				tags = if FFlagToolboxAudioSearchOptions then tags else nil,
 				includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
 					then not includeUnverifiedCreators
 					else includeOnlyVerifiedCreators,

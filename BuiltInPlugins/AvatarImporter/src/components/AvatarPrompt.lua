@@ -18,6 +18,9 @@ local Constants = require(root.src.Constants)
 local themeConfig = require(root.src.utils.themeConfig)
 local getTextWidth = require(root.src.utils.getTextWidth)
 
+local getFFlagShowAvatarImportDeprecation = require(root.src.flags.getFFlagShowAvatarImportDeprecation)
+local getFStringAvatarImportDeprecationMessage = require(root.src.flags.getFStringAvatarImportDeprecationMessage)
+
 local Studio = settings().Studio
 
 -- component
@@ -25,6 +28,27 @@ local AvatarPrompt = Roact.Component:extend("AvatarPrompt")
 
 function AvatarPrompt:render()
 	local showImportRequirements = false
+
+	local headerOffset = 0
+	local deprecationBanner
+
+	if (getFFlagShowAvatarImportDeprecation()) then
+		headerOffset = 28
+		deprecationBanner = Roact.createElement("TextLabel", {
+			BackgroundColor3 = Constants.WARNING_COLOR,
+			BorderSizePixel = 0,
+			Font = Constants.FONT,
+			Name = "DeprecationBanner",
+			Position = UDim2.new(0, 0, 0, 0),
+			Size = UDim2.new(1, 0, 0, 28),
+			Text = getFStringAvatarImportDeprecationMessage(),
+			TextSize = Constants.FONT_SIZE_LARGE,
+			TextXAlignment = Enum.TextXAlignment.Center,
+			TextYAlignment = Enum.TextYAlignment.Center,
+			TextColor3 = Constants.WARNING_TEXT_COLOR,
+		})
+	end
+
 	return Roact.createElement("Frame", {
 		Name = "AvatarPrompt",
 		Size = UDim2.new(1, 0, 1, 0),
@@ -39,11 +63,12 @@ function AvatarPrompt:render()
 			Position = UDim2.new(0, 0, 0, 0),
 			Size = UDim2.new(1, 0, 1, 0),
 		}, {
+			deprecationBanner = deprecationBanner,
 			topDescription = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
 				Font = Constants.FONT,
 				Name = "TopDescription",
-				Position = UDim2.new(0, 0, 0, 20),
+				Position = UDim2.new(0, 0, 0, 20 + headerOffset),
 				Size = UDim2.new(1, 0, 0, 18),
 				Text = "Choose the Avatar type you are going to import:",
 				TextSize = Constants.FONT_SIZE_LARGE,
@@ -57,7 +82,7 @@ function AvatarPrompt:render()
 			buttons = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Name = "Buttons",
-				Position = UDim2.new(0, Constants.BUTTON_SIDE_PADDING, 0, Constants.BUTTON_TOP_PADDING),
+				Position = UDim2.new(0, Constants.BUTTON_SIDE_PADDING, 0, Constants.BUTTON_TOP_PADDING + headerOffset),
 				Size = UDim2.new(1, -Constants.BUTTON_SIDE_PADDING*2, 0, Constants.BUTTON_HEIGHT),
 			}, {
 				buttonsListLayout = Roact.createElement("UIListLayout", {
@@ -96,8 +121,8 @@ function AvatarPrompt:render()
 			}),
 			bottomDescription = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				Position = UDim2.new(0, 0, 0, 307),
-				Size = UDim2.new(1, 0, 1, -307),
+				Position = UDim2.new(0, 0, 0, 307 + headerOffset),
+				Size = UDim2.new(1, 0, 1, -(307 + headerOffset)),
 			}, {
 				bottomDescriptionListLayout = Roact.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Vertical,

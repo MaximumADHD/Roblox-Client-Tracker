@@ -102,25 +102,25 @@ function NetworkInterface:getAssets(pageInfo)
 	end)
 end
 
-function NetworkInterface:getToolboxItems(
-	args: {
-		categoryName: string,
-		sectionName: string?,
-		sortType: string?,
-		keyword: string?,
-		queryParams: HomeTypes.SubcategoryQueryParams?,
-		cursor: string?,
-		limit: number?,
-		ownerId: number?,
-		creatorType: string?,
-		creatorTargetId: number?,
-		minDuration: number?,
-		maxDuration: number?,
-		includeOnlyVerifiedCreators: boolean?,
-		tags: { string }?,
-		searchSource: string?,
-	}
-)
+function NetworkInterface:getToolboxItems(args: {
+	categoryName: string,
+	sectionName: string?,
+	sortType: string?,
+	keyword: string?,
+	queryParams: HomeTypes.SubcategoryQueryParams?,
+	cursor: string?,
+	limit: number?,
+	ownerId: number?,
+	creatorType: string?,
+	creatorTargetId: number?,
+	minDuration: number?,
+	maxDuration: number?,
+	artist: string?,
+	album: string?,
+	includeOnlyVerifiedCreators: boolean?,
+	tags: { string }?,
+	searchSource: string?,
+})
 	local categoryName = args.categoryName
 
 	local useCreatorWhitelist = nil
@@ -908,11 +908,11 @@ end
 if FFlagToolboxEnableAssetConfigPhoneVerification or FFlagToolboxAssetConfigurationVerifiedPrice then
 	function NetworkInterface:getPublishingRequirements(
 		assetId: number,
-		assetType: Enum.AssetType?,
-		assetSubType: AssetSubTypes.AssetSubType?
+		assetType: Enum.AssetType?, 
+		assetSubTypes -- TODO: When using FFlagToolboxFixSubtypeArray then use assetSubType: {AssetSubType.AssetSubType}?
 	)
 		local marketplaceType = "Creator"
-		local targetUrl = Urls.constructPublishingRequirementsUrl(assetId, assetType, assetSubType, marketplaceType)
+		local targetUrl = Urls.constructPublishingRequirementsUrl(assetId, assetType, assetSubTypes, marketplaceType)
 		printUrl("getPublishingRequirements", "GET", targetUrl)
 		return self._networkImp:httpGetJson(targetUrl)
 	end

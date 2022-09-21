@@ -2,7 +2,6 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
 local Packages = Plugin.Packages
 
-local FFlagToolboxFixAssetFetcherOnUpdate = game:GetFastFlag("ToolboxFixAssetFetcherOnUpdate")
 local FFlagToolboxFixAssetsNoVoteData2 = game:GetFastFlag("ToolboxFixAssetsNoVoteData2")
 local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
@@ -100,10 +99,9 @@ function ResultsFetcher:didUpdate(previousProps: ResultsFetcherProps)
 	local current = Dash.filter(self.props, filterRender)
 
 	if not deepEqual(prev, current) then
-		if FFlagToolboxFixAssetFetcherOnUpdate then
-			self.canceled = self.loadingMutex
-			self.loadingMutex = false
-		end
+		self.canceled = self.loadingMutex
+		self.loadingMutex = false
+
 		self:fetchResults({ initialPage = true })
 	end
 end
@@ -207,11 +205,9 @@ function ResultsFetcher:fetchResults(args: { pageSize: number?, initialPage: boo
 
 		self.loadingMutex = false
 
-		if FFlagToolboxFixAssetFetcherOnUpdate then
-			if self.canceled then
-				self.canceled = false
-				return
-			end
+		if self.canceled then
+			self.canceled = false
+			return
 		end
 
 		self:setState(function(previousState)

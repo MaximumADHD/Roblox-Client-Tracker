@@ -219,9 +219,9 @@ local function getPluginTheme()
 		},
 
 		GroupRenameDialog = {
-			DialogMinimumSize = Vector2.new(300, 150),
-			Padding = 10,
-			Spacing = 10,
+			DialogMinimumSize = Vector2.new(450, 200),
+			Padding = 5,
+			Spacing = 5,
 			WarningTextSize = UDim2.new(1, 0, 1, -60),
 		},
 	}

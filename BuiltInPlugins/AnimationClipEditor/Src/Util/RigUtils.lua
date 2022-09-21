@@ -27,9 +27,6 @@ local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControl
 local GetFFlagFixRigInfoForFacs = require(Plugin.LuaFlags.GetFFlagFixRigInfoForFacs)
 local GetFFlagFixFocusOnFaceForDifferentRigSetup = require(Plugin.LuaFlags.GetFFlagFixFocusOnFaceForDifferentRigSetup)
 
-local FFlagCheckIsRunning = game:DefineFastFlag("ACECheckIsRunning", false)
-local FFlagRetireGetBoneMap = game:DefineFastFlag("ACERetireGetBoneMap", false)
-
 local RigUtils = {}
 
 -- Get the rig descendants, ignoring the AnimSaves folder.
@@ -226,12 +223,6 @@ local function getAnimator(rig)
 	end
 end
 
--- Unused when FFlagRetireGetBoneMap is true
-function RigUtils.getBoneMap(rig)
-	local parts, motorMap, constraints, boneMap = RigUtils.getRigInfo(rig)
-	return boneMap
-end
-
 -- Given a rig, finds the root-most part of the rig.
 function RigUtils.findRootPart(rig)
 	local humanoidRootPart = rig:FindFirstChild("HumanoidRootPart")
@@ -241,13 +232,7 @@ function RigUtils.findRootPart(rig)
 		return rig.PrimaryPart
 	end
 
-	local motorMap, boneMap
-	if FFlagRetireGetBoneMap then
-		_, motorMap, _, boneMap = RigUtils.getRigInfo(rig)
-	else
-		_, motorMap = RigUtils.getRigInfo(rig)
-		boneMap = RigUtils.getBoneMap(rig)
-	end
+	local _, motorMap, _, boneMap = RigUtils.getRigInfo(rig)
 
 	local root = nil
 	local currentPart = next(motorMap)
@@ -542,12 +527,7 @@ function RigUtils.getPartByName(rig, name)
 end
 
 function RigUtils.getBoneByName(rig, name)
-	local boneMap
-	if FFlagRetireGetBoneMap then
-		_, _, _, boneMap = RigUtils.getRigInfo(rig)
-	else
-		boneMap = RigUtils.getBoneMap(rig)
-	end
+	local _, _, _, boneMap = RigUtils.getRigInfo(rig)
 	local bone = boneMap[name]
 	if bone then
 		return bone
@@ -1715,14 +1695,7 @@ end
 
 function RigUtils.stepRigAnimation(rig, instance, tck)
 	local animator = getAnimator(rig)
-	local parts, partsToMotors, boneMap
-
-	if FFlagRetireGetBoneMap then
-		parts, partsToMotors, _, boneMap = RigUtils.getRigInfo(rig)
-	else
-		parts, partsToMotors = RigUtils.getRigInfo(rig)
-		boneMap = RigUtils.getBoneMap(rig)
-	end
+	local parts, partsToMotors, _, boneMap = RigUtils.getRigInfo(rig)
 
 	for _, part in ipairs(parts) do
 		local joint = partsToMotors[part.Name] or boneMap[part.Name]
@@ -1766,7 +1739,7 @@ function RigUtils.stepRigAnimation(rig, instance, tck)
 		end
 	end
 
-	if animator and (not FFlagCheckIsRunning or not RunService:IsRunning()) then
+	if animator and not RunService:IsRunning() then
 		animator:StepAnimations(0)
 	end
 end
@@ -1780,7 +1753,7 @@ function RigUtils.clearPose(rig)
 		joint.Transform = CFrame.new()
 	end
 
-	if animator and (not FFlagCheckIsRunning or not RunService:IsRunning()) then
+	if animator and not RunService:IsRunning() then
 		animator:StepAnimations(0)
 	end
 end

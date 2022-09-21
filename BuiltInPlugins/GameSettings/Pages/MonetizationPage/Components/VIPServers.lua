@@ -40,6 +40,7 @@ local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
+local FFlagDevFrameworkMigrateToggleButton = SharedFlags.getFFlagDevFrameworkMigrateToggleButton()
 
 local Util = Framework.Util
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
@@ -52,11 +53,14 @@ local withContext = ContextServices.withContext
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local RobuxFeeBase = require(Page.Components.RobuxFeeBase)
 
-local UILibrary = require(Plugin.Packages.UILibrary)
-local ToggleButton = UILibrary.Component.ToggleButton
+local UILibrary
+if not FFlagDevFrameworkMigrateToggleButton or not FFlagRemoveUILibraryTitledFrame then
+    UILibrary = require(Plugin.Packages.UILibrary)
+end
 
 local UI = Framework.UI
 local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
+local ToggleButton = if FFlagDevFrameworkMigrateToggleButton then UI.ToggleButton else UILibrary.Component.ToggleButton
 
 local shouldDisablePrivateServersAndPaidAccess = require(Plugin.Src.Util.GameSettingsUtilities).shouldDisablePrivateServersAndPaidAccess
 
@@ -193,7 +197,12 @@ function VIPServers:render()
                 FillDirection = Enum.FillDirection.Vertical,
             }),
 
-            ToggleButton = Roact.createElement(ToggleButton, {
+            ToggleButton = Roact.createElement(ToggleButton, if FFlagDevFrameworkMigrateToggleButton then {
+				Disabled = not enabled,
+				Selected = selected,
+				OnClick = onVipServersToggled,
+				LayoutOrder = 1,
+			} else {
                 Enabled = enabled,
                 IsOn = selected,
                 Mouse = mouse:get(),

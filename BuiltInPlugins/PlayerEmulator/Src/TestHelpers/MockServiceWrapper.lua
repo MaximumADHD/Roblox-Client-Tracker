@@ -7,12 +7,16 @@ local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 
 local createMainReducer = require(Plugin.Src.Reducers.createMainReducer)
-local MockStudioPlugin = require(Plugin.Src.TestHelpers.MockStudioPlugin)
 local Http = require(Plugin.Packages.Http)
 local NetworkingContext = require(Plugin.Src.ContextServices.NetworkingContext)
 local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
 
 local Framework = require(Plugin.Packages.Framework)
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateToggleButton = SharedFlags.getFFlagDevFrameworkMigrateToggleButton()
+
+local MockStudioPlugin = if FFlagDevFrameworkMigrateToggleButton then Framework.TestHelpers.Instances.MockPlugin else require(Plugin.Src.TestHelpers.MockStudioPlugin)
+
 local ContextServices = Framework.ContextServices
 local UILibraryWrapper = ContextServices.UILibraryWrapper
 local UILibrary = require(Plugin.Packages.UILibrary)
@@ -51,6 +55,7 @@ function MockServiceWrapper:render()
 		localization,
 		ContextServices.Store.new(store),
 		NetworkingContext.new(networkingImpl),
+		if FFlagDevFrameworkMigrateToggleButton then ContextServices.Mouse.new(pluginInstance:GetMouse()) else nil,
 	}, {
 		UILibraryProvider = ContextServices.provide({
 			UILibraryWrapper.new(UILibrary),

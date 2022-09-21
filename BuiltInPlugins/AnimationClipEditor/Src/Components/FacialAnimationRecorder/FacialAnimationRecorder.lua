@@ -19,10 +19,12 @@ local WarningDialog = require(Plugin.Src.Components.FacialAnimationRecorder.Warn
 local WarningOverlay = require(Plugin.Src.Components.FacialAnimationRecorder.WarningOverlay)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
+local GetFFlagFaceAnimatorFixFacsHFlip2 = require(Plugin.LuaFlags.GetFFlagFaceAnimatorFixFacsHFlip2)
 local GetFFlagFacialAnimationRecordingResetPoseDuringRecording = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingResetPoseDuringRecording)
 local GetFacialAnimationRecordingAnalytics1 = require(Plugin.LuaFlags.GetFacialAnimationRecordingAnalytics1)
 local RunService = game:GetService("RunService")
 local VideoCaptureService = game:GetService("VideoCaptureService")
+local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local FacialAnimationRecorder = Roact.PureComponent:extend("FacialAnimationRecorder")
 local FIntFacialAnimationRecorderMaxRecordingTimeInSeconds = game:DefineFastInt("FacialAnimationRecorderMaxRecordingTimeInSeconds", 60)
 local FStringFaceRecorderBiometricsLearnMoreLink = game:DefineFastString("ACEFaceRecorderBiometricsLink", "https://en.help.roblox.com/hc/articles/8064749848980")
@@ -273,11 +275,15 @@ function FacialAnimationRecorder:updateAvatarData()
 end
 
 function FacialAnimationRecorder:InitializeRecordingMode()
-	local FaceAnimatorService = game:GetService("FaceAnimatorService")
 	if not FaceAnimatorService then
 		return
 	end
-	FaceAnimatorService.FlipHeadOrientation = true
+
+	if GetFFlagFaceAnimatorFixFacsHFlip2() then
+		FaceAnimatorService.FlipHeadOrientation = false --mirrored
+	else
+		FaceAnimatorService.FlipHeadOrientation = true
+	end
 
 	-- we have to spawn this function to avoid calling a yield function on the Rodux call stack
 	task.defer(self.checkOrRequestCameraPermission)
@@ -314,6 +320,7 @@ function FacialAnimationRecorder:InitializeRecordingMode()
 		self:updateAvatarData()
 
 		-- live preview driven by AnimationStreamTrack and we just get the data to create animation
+		FaceAnimatorService:Step()
 		self.Animator:StepAnimations(delta)
 		local facsWeights, neckRotationCFrame, timeStamp = self.track:GetTrackerData()
 

@@ -11,7 +11,7 @@ return function()
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(MockWrapper, {}, {
 			SearchTags = Roact.createElement(SearchTags, {
-				Tags = { "Tag" },
+				Tags = { { text = "Tag", prefix = "by" } },
 				categoryName = Category.FREE_MODELS.name,
 				onBackToHome = function() end,
 			}),
@@ -23,7 +23,7 @@ return function()
 	it("should render correctly", function()
 		local element = Roact.createElement(MockWrapper, {}, {
 			SearchTags = Roact.createElement(SearchTags, {
-				Tags = { "Tag" },
+				Tags = { { text = "Tag", prefix = "by" } },
 				searchTerm = "Term",
 				categoryName = Category.FREE_MODELS.name,
 				onBackToHome = function() end,

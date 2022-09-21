@@ -161,6 +161,7 @@ function AssetUploadResult:render()
 				OnClick = props.onClose,
 				Position = UDim2.new(0.5, -BUTTON_WIDTH/2, 0.5, -BUTTON_HEIGHT/2),
 				Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+				Style = "Round",
 				Text = localization:getText("Action", "Close"),
 			}) else Roact.createElement(NavButton, {
 				onClick = props.onClose,

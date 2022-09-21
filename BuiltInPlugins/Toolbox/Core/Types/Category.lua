@@ -1,4 +1,3 @@
-local FFlagToolboxFixDurationOnCreationTab = game:GetFastFlag("ToolboxFixDurationOnCreationTab")
 local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
 local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
 
@@ -662,11 +661,8 @@ Category.API_NAMES = {
 	[Category.RECENT_DECALS.name] = "decal",
 	[Category.RECENT_VIDEO.name] = "video",
 	[Category.RECENT_ANIMATIONS.name] = "animation",
+	[Category.CREATIONS_AUDIO.name] = "audio",
 }
-
-if FFlagToolboxFixDurationOnCreationTab then
-	Category.API_NAMES[Category.CREATIONS_AUDIO.name] = "audio"
-end
 
 Category.AUTOCOMPLETE_API_NAMES = {
 	[Category.FREE_AUDIO.name] = "audio",

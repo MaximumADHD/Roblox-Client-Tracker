@@ -14,7 +14,7 @@ local useSignal = require(CorePackages.AppTempCommon.Hooks.useSignal)
 
 type FormatTable = {any}
 
-local function useLocalization(stringsToBeLocalized: {[string]: string | FormatTable})
+local function useLocalization(stringsToBeLocalized: {[string]: string | FormatTable | nil})
 	local localization: any = React.useContext(LocalizationRoactContext)
 
 	local locale, setLocale = React.useState(LocalizationService.RobloxLocaleId)

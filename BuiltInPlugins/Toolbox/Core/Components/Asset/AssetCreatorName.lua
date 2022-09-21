@@ -10,7 +10,9 @@
 		callback onMouseLeave()
 ]]
 local FFlagToolboxAddUnverifiedIcon = game:GetFastFlag("ToolboxAddUnverifiedIcon")
-local FFlagToolboxAddUnverifiedIconFollowUp = game:GetFastFlag("ToolboxAddUnverifiedIconFollowUp") and FFlagToolboxAddUnverifiedIcon
+local FFlagToolboxAudioSearchOptions = game:GetFastFlag("ToolboxAudioSearchOptions")
+local FFlagToolboxAddUnverifiedIconFollowUp = game:GetFastFlag("ToolboxAddUnverifiedIconFollowUp")
+	and FFlagToolboxAddUnverifiedIcon
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -74,6 +76,9 @@ function AssetCreatorName:init(props)
 			options = {
 				Creator = props.creatorName,
 				AudioSearch = props.audioSearchInfo,
+				AdditionalAudioSearchInfo = if FFlagToolboxAudioSearchOptions
+					then props.additionalAudioSearchInfo
+					else nil,
 			}
 			local mySettings = self.props.Settings:get("Plugin")
 			props.searchWithOptions(networkInterface, mySettings, options)
@@ -107,11 +112,9 @@ function AssetCreatorName:renderContent(localization, localizedContent, modalTar
 	local showCreatorBadge -- TODO: remove with FFlagToolboxAddUnverifiedIcon
 	local showWarningIcon
 	if FFlagToolboxAddUnverifiedIcon then
-		showWarningIcon = not props.isVerifiedCreator
-			and not ToolboxUtilities.getShouldHideVerifiedCreatorBadges()
+		showWarningIcon = not props.isVerifiedCreator and not ToolboxUtilities.getShouldHideVerifiedCreatorBadges()
 	else
-		showCreatorBadge = props.isVerifiedCreator
-			and not ToolboxUtilities.getShouldHideVerifiedCreatorBadges()
+		showCreatorBadge = props.isVerifiedCreator and not ToolboxUtilities.getShouldHideVerifiedCreatorBadges()
 	end
 
 	local theme = props.Stylizer
@@ -167,12 +170,14 @@ function AssetCreatorName:renderContent(localization, localizedContent, modalTar
 					isHovered = isHovered,
 				}),
 
-				UnderLine = isHovered and (nil == props.clickable or props.clickable) and Roact.createElement("Frame", {
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Position = UDim2.new(0.5, 0, 1, 1),
-					Size = UDim2.new(0, self.underLineWidth, 0, 1),
-					BorderSizePixel = 0,
-				}),
+				UnderLine = isHovered
+					and (nil == props.clickable or props.clickable)
+					and Roact.createElement("Frame", {
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 1, 1),
+						Size = UDim2.new(0, self.underLineWidth, 0, 1),
+						BorderSizePixel = 0,
+					}),
 			}),
 
 			CreatorBadge = showWarningIcon and Roact.createElement(VerifiedCreatorBadge, {
@@ -212,12 +217,14 @@ function AssetCreatorName:renderContent(localization, localizedContent, modalTar
 					isHovered = isHovered,
 				}),
 
-				UnderLine = isHovered and (nil == props.clickable or props.clickable) and Roact.createElement("Frame", {
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Position = UDim2.new(0.5, 0, 1, 1),
-					Size = UDim2.new(0, self.underLineWidth, 0, 1),
-					BorderSizePixel = 0,
-				}),
+				UnderLine = isHovered
+					and (nil == props.clickable or props.clickable)
+					and Roact.createElement("Frame", {
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 1, 1),
+						Size = UDim2.new(0, self.underLineWidth, 0, 1),
+						BorderSizePixel = 0,
+					}),
 			}),
 
 			CreatorBadge = showCreatorBadge and Roact.createElement(VerifiedCreatorBadge, {
@@ -238,6 +245,7 @@ local mapStateToProps = function(state, props)
 	local pageInfo = state.pageInfo or {}
 	return {
 		audioSearchInfo = pageInfo.audioSearchInfo,
+		additionalAudioSearchInfo = if FFlagToolboxAudioSearchOptions then pageInfo.additionalAudioSearchInfo else nil,
 	}
 end
 

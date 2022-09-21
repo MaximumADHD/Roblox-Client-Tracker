@@ -1,30 +1,29 @@
-local workspace = game:GetService("Workspace")
+local Workspace = game:GetService("Workspace")
 
-local DebugFlags = {}
+local FLAGS_FOLDER = "AnimationClipEditorFlags"
 
-local function checkFlag(flagName)
-	local flags = workspace:FindFirstChild("AnimationClipEditorFlags")
-	if flags then
-		return flags:FindFirstChild(flagName) and flags[flagName].Value
-	else
-		return false
+local inCLI = pcall(function()
+	-- Process service only available in CLI
+	return game:GetService("ProcessService")
+end)
+
+local function defineFlag(flagName: string, default: boolean): (() -> boolean)
+	default = default or false
+	return function()
+		local folder = Workspace:FindFirstChild(FLAGS_FOLDER)
+		if not folder or not folder:FindFirstChild(flagName) then
+			return default
+		end
+		return folder[flagName].Value
 	end
 end
 
-function DebugFlags.RunTests()
-	return checkFlag("RunTests")
-end
-
-function DebugFlags.RunRhodiumTests()
-	return checkFlag("RunRhodiumTests")
-end
-
-function DebugFlags.LogRoduxEvents()
-	return checkFlag("LogRoduxEvents")
-end
-
-function DebugFlags.LogAnalytics()
-	return checkFlag("LogAnalytics")
-end
+local DebugFlags = {
+	RunTests = defineFlag("RunTests"),
+	RunRhodiumTests = defineFlag("RunRhodiumTests"),
+	LogRoduxEvents = defineFlag("LogRoduxEvents"),
+	LogAnalytics = defineFlag("LogAnalytics"),
+	RunningUnderCLI = defineFlag("RunningUnderCLI", inCLI)
+}
 
 return DebugFlags

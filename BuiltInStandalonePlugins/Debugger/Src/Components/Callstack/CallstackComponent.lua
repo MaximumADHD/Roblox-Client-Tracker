@@ -32,7 +32,6 @@ local StudioUI = Framework.StudioUI
 local showContextMenu = StudioUI.showContextMenu
 
 local UtilFolder = PluginFolder.Src.Util
-local MakePluginActions = require(UtilFolder.MakePluginActions)
 local ColumnResizeHelperFunctions = require(UtilFolder.ColumnResizeHelperFunctions)
 
 local Actions = PluginFolder.Src.Actions
@@ -42,6 +41,12 @@ local ColumnFilterChange = require(Actions.Callstack.ColumnFilterChange)
 local LoadAllVariablesForThreadAndFrame = require(PluginFolder.Src.Thunks.Watch.LoadAllVariablesForThreadAndFrame)
 local PopulateCallstackThreadThunk = require(PluginFolder.Src.Thunks.Callstack.PopulateCallstackThreadThunk)
 local FFlagOnlyLoadOneCallstack = require(PluginFolder.Src.Flags.GetFFlagOnlyLoadOneCallstack)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateContextMenu = SharedFlags.getFFlagDevFrameworkMigrateContextMenu()
+local MakePluginActions = if FFlagDevFrameworkMigrateContextMenu 
+	then require(UtilFolder.MakePluginActions) 
+	else require(UtilFolder.DEPRECATED_MakePluginActions)
 
 local Models = PluginFolder.Src.Models
 local CallstackRow = require(Models.Callstack.CallstackRow)
@@ -322,7 +327,16 @@ function CallstackComponent:init()
 		end)
 	end
 
-	self.onMenuActionSelected = function(actionId, extraParameters)
+	self.DEPRECATED_onMenuActionSelected = function(actionId, extraParameters)
+		if actionId == Constants.CallstackActionIds.CopySelected then
+			self.copySelectedRows()
+		elseif actionId == Constants.CallstackActionIds.SelectAll then
+			self.selectAllRows()
+		end
+	end
+
+	self.onMenuActionSelected = function(action)
+		local actionId = action.Id
 		if actionId == Constants.CallstackActionIds.CopySelected then
 			self.copySelectedRows()
 		elseif actionId == Constants.CallstackActionIds.SelectAll then
@@ -344,15 +358,21 @@ function CallstackComponent:init()
 		local props = self.props
 		local localization = props.Localization
 		local plugin = props.Plugin:get()
-		local actions = MakePluginActions.getCallstackActions(localization)
-		showContextMenu(
-			plugin,
-			"Callstack",
-			actions,
-			self.onMenuActionSelected,
-			{ row = row },
-			Constants.CallstackActionsOrder
-		)
+
+		if FFlagDevFrameworkMigrateContextMenu then
+			local actions = MakePluginActions.getCallstackActions(localization, self.onMenuActionSelected)
+			showContextMenu(plugin, actions, Constants.CallstackActionsOrder)
+		else
+			local actions = MakePluginActions.getCallstackActions(localization)
+			showContextMenu(
+				plugin,
+				"Callstack",
+				actions,
+				self.DEPRECATED_onMenuActionSelected,
+				{ row = row },
+				Constants.CallstackActionsOrder
+			)
+		end
 	end
 
 	self.onExpansionChange = function(newExpansion)

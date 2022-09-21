@@ -17,6 +17,7 @@ local withContext = ContextServices.withContext
 
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
+local FFlagDevFrameworkMigrateContextMenu = SharedFlags.getFFlagDevFrameworkMigrateContextMenu()
 
 local GetTextSize = Framework.Util.GetTextSize
 
@@ -178,50 +179,98 @@ function DraftListView:init()
 			revertActionEnabled = false
 		end
 
-		local contextMenuItems = {
-			{
-				Text = localization:getText("ContextMenu", "OpenScript"),
-				Enabled = openActionEnabled,
-				ItemSelected = function()
-					self.openScripts(selectedDrafts)
-				end,
-			},
-			{
-				Text = localization:getText("ContextMenu", "ShowDiff"),
-				Enabled = diffActionEnabled,
-				ItemSelected = function()
-					self.diffChanges(selectedDrafts)
-				end,
-			},
-			updateActionVisible and {
-				Text = localization:getText("ContextMenu", "Update"),
-				Enabled = updateActionEnabled,
-				ItemSelected = function()
-					self.updateSource(selectedDrafts)
-				end,
-			},
-			(not updateActionVisible) and {
-				Text = localization:getText("ContextMenu", "Commit"),
-				Enabled = commitActionEnabled,
-				ItemSelected = function()
-					self.commitChanges(selectedDrafts)
-				end,
-			},
-			restoreActionVisible and {
-				Text = localization:getText("ContextMenu", "Restore"),
-				Enabled = restoreActionEnabled,
-				ItemSelected = function()
-					self.restoreScripts(selectedDrafts)
-				end,
-			},
-			{
-				Text = localization:getText("ContextMenu", "Revert"),
-				Enabled = revertActionEnabled,
-				ItemSelected = function()
-					self.promptDiscardEdits(selectedDrafts)
-				end,
+		local contextMenuItems
+		if FFlagDevFrameworkMigrateContextMenu then
+			contextMenuItems = {
+				{
+					Text = localization:getText("ContextMenu", "OpenScript"),
+					Enabled = openActionEnabled,
+					OnItemClicked = function()
+						self.openScripts(selectedDrafts)
+					end,
+				},
+				{
+					Text = localization:getText("ContextMenu", "ShowDiff"),
+					Enabled = diffActionEnabled,
+					OnItemClicked = function()
+						self.diffChanges(selectedDrafts)
+					end,
+				},
+				updateActionVisible and {
+					Text = localization:getText("ContextMenu", "Update"),
+					Enabled = updateActionEnabled,
+					OnItemClicked = function()
+						self.updateSource(selectedDrafts)
+					end,
+				},
+				(not updateActionVisible) and {
+					Text = localization:getText("ContextMenu", "Commit"),
+					Enabled = commitActionEnabled,
+					OnItemClicked = function()
+						self.commitChanges(selectedDrafts)
+					end,
+				},
+				restoreActionVisible and {
+					Text = localization:getText("ContextMenu", "Restore"),
+					Enabled = restoreActionEnabled,
+					OnItemClicked = function()
+						self.restoreScripts(selectedDrafts)
+					end,
+				},
+				{
+					Text = localization:getText("ContextMenu", "Revert"),
+					Enabled = revertActionEnabled,
+					OnItemClicked = function()
+						self.promptDiscardEdits(selectedDrafts)
+					end,
+				}
 			}
-		}
+		else
+			contextMenuItems = {
+				{
+					Text = localization:getText("ContextMenu", "OpenScript"),
+					Enabled = openActionEnabled,
+					ItemSelected = function()
+						self.openScripts(selectedDrafts)
+					end,
+				},
+				{
+					Text = localization:getText("ContextMenu", "ShowDiff"),
+					Enabled = diffActionEnabled,
+					ItemSelected = function()
+						self.diffChanges(selectedDrafts)
+					end,
+				},
+				updateActionVisible and {
+					Text = localization:getText("ContextMenu", "Update"),
+					Enabled = updateActionEnabled,
+					ItemSelected = function()
+						self.updateSource(selectedDrafts)
+					end,
+				},
+				(not updateActionVisible) and {
+					Text = localization:getText("ContextMenu", "Commit"),
+					Enabled = commitActionEnabled,
+					ItemSelected = function()
+						self.commitChanges(selectedDrafts)
+					end,
+				},
+				restoreActionVisible and {
+					Text = localization:getText("ContextMenu", "Restore"),
+					Enabled = restoreActionEnabled,
+					ItemSelected = function()
+						self.restoreScripts(selectedDrafts)
+					end,
+				},
+				{
+					Text = localization:getText("ContextMenu", "Revert"),
+					Enabled = revertActionEnabled,
+					ItemSelected = function()
+						self.promptDiscardEdits(selectedDrafts)
+					end,
+				}
+			}
+		end
 
 		return contextMenuItems
 	end

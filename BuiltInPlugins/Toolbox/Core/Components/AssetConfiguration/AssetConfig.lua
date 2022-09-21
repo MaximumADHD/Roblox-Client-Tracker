@@ -12,7 +12,7 @@ local FFlagToolboxEditDialogUseMPRS = game:GetFastFlag("ToolboxEditDialogUseMPRS
 local FFlagUnifyModelPackagePublish3 = game:GetFastFlag("UnifyModelPackagePublish3")
 local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
 local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
-
+local FFlagToolboxFixSubtypeArray = game:GetFastFlag("ToolboxFixSubtypeArray")
 local FFlagToolboxSwitchVerifiedEndpoint = require(Plugin.Core.Util.getFFlagToolboxSwitchVerifiedEndpoint)
 
 local StudioService = game:GetService("StudioService")
@@ -628,12 +628,16 @@ function AssetConfig:init(props)
 			local assetTypeEnum = props.assetTypeEnum
 			local isPackageAsset = props.isPackageAsset
 
-			local assetSubtype
+			local assetSubtypes
 			if isPackageAsset then
-				assetSubtype = AssetSubTypes.Package
+				if FFlagToolboxFixSubtypeArray then
+					assetSubtypes = { AssetSubTypes.Package }
+				else
+					assetSubtypes = AssetSubTypes.Package
+				end
 			end
 
-			props.dispatchGetPublishingRequirements(networkInterface, assetId, assetTypeEnum, assetSubtype)
+			props.dispatchGetPublishingRequirements(networkInterface, assetId, assetTypeEnum, assetSubtypes)
 		end
 	end
 end
@@ -655,6 +659,10 @@ function AssetConfig:isLoading()
 end
 
 function AssetConfig:didUpdate(prevProps, prevState)
+	if FFlagToolboxFixSubtypeArray and prevProps.isPackageAsset ~= self.props.isPackageAsset then
+		self.getPublishingRequirements()
+	end
+
 	if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
 		local assetConfigData = self.props.assetConfigData
 		if not next(assetConfigData) then -- check if assetConfigData is not empty - we cannot check the length here since the keys are non-numeric
@@ -1202,7 +1210,7 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 				packageWarningText = packageWarningText,
 				allowPackage = if FFlagUnifyModelPackagePublish3 then allowPackage else nil,
 				packageOn = if FFlagUnifyModelPackagePublish3 then packageOn else nil,
-				isPackageAsset = if FFlagUnifyModelPackagePublish3 then isPackageAsset else nil,
+				isPackageAsset = if FFlagUnifyModelPackagePublish3 or FFlagToolboxFixSubtypeArray then isPackageAsset else nil,
 				isAssetPublic = isAssetPublic,
 
 				assetTypeEnum = assetTypeEnum,
@@ -1518,8 +1526,8 @@ local function mapDispatchToProps(dispatch)
 		end,
 
 		dispatchGetPublishingRequirements = if FFlagToolboxEnableAssetConfigPhoneVerification or FFlagToolboxAssetConfigurationVerifiedPrice then
-			function(networkInterface, assetId, assetType, assetSubType)
-				dispatch(GetPublishingRequirementsRequest(networkInterface, assetId, assetType, assetSubType))
+			function(networkInterface, assetId, assetType, assetSubTypes)
+				dispatch(GetPublishingRequirementsRequest(networkInterface, assetId, assetType, assetSubTypes))
 			end
 		else nil,
 	}

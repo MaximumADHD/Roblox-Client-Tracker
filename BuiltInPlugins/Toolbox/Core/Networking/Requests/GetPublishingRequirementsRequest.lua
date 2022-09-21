@@ -16,7 +16,7 @@ return function(
 	networkInterface,
 	assetId: number,
 	assetType: Enum.AssetType?,
-	assetSubType: AssetSubTypes.AssetSubType?
+	assetSubTypes -- TODO: When using FFlagToolboxFixSubtypeArray then use assetSubType: {AssetSubType.AssetSubType}?
 )
 	return function(store)
 		local formattedAssetType = assetType
@@ -26,7 +26,7 @@ return function(
 			assetType = Enum.AssetType.MeshPart
 		end
 
-		return networkInterface:getPublishingRequirements(assetId, assetType, assetSubType):andThen(function(result)
+		return networkInterface:getPublishingRequirements(assetId, assetType, assetSubTypes):andThen(function(result)
 			local response: PublishingRequirementsType.PublishingRequirements = result.responseBody
 			if response then
 				store:dispatch(SetPublishingRequirements(response))

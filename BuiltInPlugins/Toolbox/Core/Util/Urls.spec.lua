@@ -1,6 +1,5 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
-local FFlagToolboxIncludedPlaceIdInConfigRequest = game:GetFastFlag("ToolboxIncludedPlaceIdInConfigRequest")
 local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
 
 local Packages = Plugin.Packages
@@ -70,53 +69,26 @@ return function()
 	end
 
 	it("should generate section asset urls", function()
-		if FFlagToolboxIncludedPlaceIdInConfigRequest then
-			expect(Urls.constructGetToolboxItemsUrl({
-				categoryName = Category.FREE_MODELS.name,
-				sectionName = "trending",
-			})).toBe(
-				string.format(
-					"%s/home/%d/section/trending/assets?placeId=0",
-					EXPECTED_BASE_URL,
-					Enum.AssetType.Model.Value
-				)
-			)
-		else
-			expect(Urls.constructGetToolboxItemsUrl({
-				categoryName = Category.FREE_MODELS.name,
-				sectionName = "trending",
-			})).toBe(
-				string.format("%s/home/%d/section/trending/assets", EXPECTED_BASE_URL, Enum.AssetType.Model.Value)
-			)
-		end
+		expect(Urls.constructGetToolboxItemsUrl({
+			categoryName = Category.FREE_MODELS.name,
+			sectionName = "trending",
+		})).toBe(
+			string.format("%s/home/%d/section/trending/assets?placeId=0", EXPECTED_BASE_URL, Enum.AssetType.Model.Value)
+		)
 	end)
 
 	it("should generate section asset urls with params", function()
-		if FFlagToolboxIncludedPlaceIdInConfigRequest then
-			expect(Urls.constructGetToolboxItemsUrl({
-				categoryName = Category.FREE_MODELS.name,
-				sectionName = "trending",
-				limit = 10,
-			})).toBe(
-				string.format(
-					"%s/home/%d/section/trending/assets?limit=10&placeId=0",
-					EXPECTED_BASE_URL,
-					Enum.AssetType.Model.Value
-				)
+		expect(Urls.constructGetToolboxItemsUrl({
+			categoryName = Category.FREE_MODELS.name,
+			sectionName = "trending",
+			limit = 10,
+		})).toBe(
+			string.format(
+				"%s/home/%d/section/trending/assets?limit=10&placeId=0",
+				EXPECTED_BASE_URL,
+				Enum.AssetType.Model.Value
 			)
-		else
-			expect(Urls.constructGetToolboxItemsUrl({
-				categoryName = Category.FREE_MODELS.name,
-				sectionName = "trending",
-				limit = 10,
-			})).toBe(
-				string.format(
-					"%s/home/%d/section/trending/assets?limit=10",
-					EXPECTED_BASE_URL,
-					Enum.AssetType.Model.Value
-				)
-			)
-		end
+		)
 	end)
 
 	describe("Audio Subtypes", function()

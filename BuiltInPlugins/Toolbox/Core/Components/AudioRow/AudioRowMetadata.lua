@@ -1,6 +1,8 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
 
+local FFlagToolboxAudioSearchOptions = game:GetFastFlag("ToolboxAudioSearchOptions")
+
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
@@ -11,6 +13,7 @@ local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local AudioPlayer = require(Plugin.Core.Components.AudioPlayer.AudioPlayer)
+local AudioRowUnderlinedTextButton = require(Plugin.Core.Components.AudioRow.AudioRowUnderlinedTextButton)
 
 local Images = require(Plugin.Core.Util.Images)
 
@@ -27,7 +30,10 @@ type AudioRowMetadataProps = _InteralAudioRowMetadataProps & {
 	LayoutOrder: number,
 	Text: string?,
 	Size: UDim2,
+	OnClick: (() -> nil)?,
 }
+
+local HEADER_HEIGHT = 20
 
 function AudioRowMetadata:render()
 	local props: AudioRowMetadataProps = self.props
@@ -37,6 +43,7 @@ function AudioRowMetadata:render()
 	local text = props.Text
 	local theme = props.Stylizer.audioRow
 	local size = props.Size
+	local onClick = props.OnClick
 
 	return Roact.createElement("Frame", {
 		Size = size,
@@ -48,7 +55,7 @@ function AudioRowMetadata:render()
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 		Header = Roact.createElement("TextLabel", {
-			Size = UDim2.new(1, 0, 0, 20),
+			Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
 			BackgroundTransparency = 1,
 			LayoutOrder = 1,
 			Font = Constants.FONT,
@@ -57,19 +64,29 @@ function AudioRowMetadata:render()
 			TextColor3 = theme.headerTextColor,
 			TextXAlignment = Enum.TextXAlignment.Left,
 		}),
-		Text = Roact.createElement("TextLabel", {
-			Size = UDim2.new(1, 0, 1, -20),
-			BackgroundTransparency = 1,
-			LayoutOrder = 2,
-			Text = text,
-			TextColor3 = theme.textColor,
-			Font = Constants.FONT,
-			TextSize = Constants.FONT_SIZE_SMALL,
-			TextWrapped = true,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Top,
-			TextTruncate = Enum.TextTruncate.AtEnd,
-		}),
+		Text = if FFlagToolboxAudioSearchOptions
+			then Roact.createElement(AudioRowUnderlinedTextButton, {
+				LayoutOrder = 2,
+				OnClick = onClick,
+				Size = UDim2.new(1, 0, 1, -HEADER_HEIGHT),
+				Text = text,
+				TextSize = Constants.FONT_SIZE_SMALL,
+				TextWrapped = true,
+				TextYAlignment = Enum.TextYAlignment.Top,
+			})
+			else Roact.createElement("TextLabel", {
+				Size = UDim2.new(1, 0, 1, -HEADER_HEIGHT),
+				BackgroundTransparency = 1,
+				LayoutOrder = 2,
+				Text = text,
+				TextColor3 = theme.textColor,
+				Font = Constants.FONT,
+				TextSize = Constants.FONT_SIZE_SMALL,
+				TextWrapped = true,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Top,
+				TextTruncate = Enum.TextTruncate.AtEnd,
+			}),
 	})
 end
 

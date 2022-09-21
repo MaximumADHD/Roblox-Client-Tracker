@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 local _Types = require(Plugin.Src.Types)
 local Framework = require(Plugin.Packages.Framework)
+local Promise = require(Plugin.Packages.Promise)
 
 local ServiceWrapper = Framework.TestHelpers.ServiceWrapper
 
@@ -14,6 +15,8 @@ local Constants = Plugin.Src.Resources.Constants
 local getMaterialName = require(Constants.getMaterialName)
 local getMaterialPatternName = require(Constants.getMaterialPatternName)
 
+local getFFlagDevFrameworkAssetManagerServiceToMock = require(Plugin.Src.Flags.getFFlagDevFrameworkAssetManagerServiceToMock)
+
 local GeneralServiceController = ContextItem:extend("GeneralServiceController")
 
 function GeneralServiceController.new(mock: boolean?)
@@ -21,6 +24,7 @@ function GeneralServiceController.new(mock: boolean?)
 		_changeHistoryService = ServiceWrapper.new("ChangeHistoryService", mock),
 		_insertService = ServiceWrapper.new("InsertService", mock),
 		_selection = ServiceWrapper.new("Selection", mock),
+		_assetManagerService = ServiceWrapper.new("AssetManagerService", mock),
 
 		_loadedFiles = {},
 		_mock = mock,
@@ -36,6 +40,7 @@ end
 function GeneralServiceController:destroy()
 	self._changeHistoryService:destroy()
 	self._insertService:destroy()
+	self._assetManagerService:destroy()
 end
 
 function GeneralServiceController:destroyWithUndo(instance: Instance)
@@ -88,9 +93,29 @@ function GeneralServiceController:setBaseMaterial(materialVariant: MaterialVaria
 	self._changeHistoryService:asService():SetWaypoint("Set BaseMaterial for Material Variant to" .. getMaterialName(baseMaterial))
 end
 
-function GeneralServiceController:setTextureMap(materialVariant: any, textureMap: string, assetId: string)
+function GeneralServiceController:setTextureMap(materialVariant: any, textureMap: string, assetId: string, fileName: string?)
 	materialVariant[textureMap] = assetId
 	self._changeHistoryService:asService():SetWaypoint("Set" .. textureMap .. "for Material Variant to" .. assetId)
+	
+	if getFFlagDevFrameworkAssetManagerServiceToMock() then
+		local assetIdNumber = tonumber(assetId:match("://(%d+)"))
+		if assetIdNumber and fileName then
+			spawn(function()
+				local success, response = pcall(function()
+					self._assetManagerService:asService():CreateAlias(Enum.AssetType.Image.Value, assetIdNumber, fileName)
+				end)
+
+				if success then
+					return Promise.resolve()
+				else
+					return Promise.reject(response)
+				end
+			end)
+		else
+			return Promise.resolve()
+		end
+	end
+	return nil
 end
 
 function GeneralServiceController:setStudsPerTile(materialVariant: MaterialVariant, studsPerTile: number)

@@ -2,7 +2,6 @@ local Plugin = script.Parent.Parent.Parent
 local isCli = require(script.Parent.isCli)
 
 local FFlagToolboxEnableAnnouncementsDialog = game:GetFastFlag("ToolboxEnableAnnouncementsDialog")
-local FFlagToolboxCreatorMarketplaceWebLinks = game:GetFastFlag("ToolboxCreatorMarketplaceWebLinks")
 local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
 local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
 local FFlagToolboxAddUnverifiedIcon = game:GetFastFlag("ToolboxAddUnverifiedIcon")
@@ -96,10 +95,8 @@ function ToolboxUtilities.getAssetConfigMessaging(): AssetConfigMessaging
 	return ToolboxPolicy["AssetConfigMessaging"] or {}
 end
 
-if FFlagToolboxCreatorMarketplaceWebLinks then
-	function ToolboxUtilities.getCreatorMarketplaceWebBaseUrl(): string?
-		return ToolboxPolicy["CreatorMarketplaceWebUrl"]
-	end
+function ToolboxUtilities.getCreatorMarketplaceWebBaseUrl(): string?
+	return ToolboxPolicy["CreatorMarketplaceWebUrl"]
 end
 
 local assetTypeLookup = {}

@@ -7,6 +7,9 @@ local ContextServices = Framework.ContextServices
 local StudioUI = Framework.StudioUI
 local DockWidget = StudioUI.DockWidget
 
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateToggleButton = SharedFlags.getFFlagDevFrameworkMigrateToggleButton()
+
 local MainView = require(Plugin.Src.Components.MainView)
 
 local globals = require(Plugin.Src.Util.CreatePluginGlobals)
@@ -44,6 +47,7 @@ function PlayerEmulatorPlugin:init()
 		globals.theme,
 		globals.networking,
 		globals.store,
+		if FFlagDevFrameworkMigrateToggleButton then ContextServices.Mouse.new(self.props.plugin:GetMouse()) else nil,
 	}
 
 	self.toggleActive = function()

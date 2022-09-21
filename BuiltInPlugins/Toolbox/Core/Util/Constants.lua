@@ -8,6 +8,7 @@ local StudioService = game:GetService("StudioService")
 
 local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
 local FFlagToolboxPackagesInAssetTile = game:GetFastFlag("ToolboxPackagesInAssetTile")
+local FFlagToolboxAudioSearchOptions = game:GetFastFlag("ToolboxAudioSearchOptions")
 
 local Category = require(Plugin.Core.Types.Category)
 
@@ -315,6 +316,15 @@ Constants.AUDIO_ROW = {
 	TOP_BUTTON_PADDING = 6,
 	BORDER_SIZE = 2,
 }
+
+if FFlagToolboxAudioSearchOptions then
+	Constants.ADDITIONAL_AUDIO_SEARCH_KEYS = {
+		ARTIST = "artist",
+		CATEGORIES = "categories",
+		GENRE = "genre",
+		ALBUM = "album",
+	}
+end
 
 Constants.CalculateAudioColumnSize =
 	function(audioType: string?, column: number, yScale: number?, yOffset: number?): UDim2

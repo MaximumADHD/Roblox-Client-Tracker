@@ -26,6 +26,7 @@ local SetLastSelectedPath = require(Plugin.Src.Actions.SetLastSelectedPath)
 
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
 local GetFFlagFixTrackListSelection = require(Plugin.LuaFlags.GetFFlagFixTrackListSelection)
+local GetFFlagFixFaceRecorderFlow = require(Plugin.LuaFlags.GetFFlagFixFaceRecorderFlow)
 
 return function(animationData, analytics)
 	return function(store)
@@ -65,10 +66,12 @@ return function(animationData, analytics)
 		store:dispatch(UpdateEditingLength(animationData.Metadata.EndTick))
 		store:dispatch(SetShowEvents(not isEmpty(animationData.Events.Keyframes)))
 
-		--in case the user was in review state of face capture and switched animation (like by create new animation) then
-		--we exit out of review state
-		if GetFFlagFacialAnimationRecordingInStudio() then
-			store:dispatch(SetInReviewState(false))
+		if not GetFFlagFixFaceRecorderFlow() then
+			--in case the user was in review state of face capture and switched animation (like by create new animation) then
+			--we exit out of review state
+			if GetFFlagFacialAnimationRecordingInStudio() then
+				store:dispatch(SetInReviewState(false))
+			end
 		end
 	end
 end

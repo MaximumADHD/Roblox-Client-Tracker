@@ -10,9 +10,7 @@ commonInit()
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagAssetManagerGeneralizeSignalAPI = game:GetFastFlag("AssetManagerGeneralizeSignalAPI")
-local FFlagAssetManagerDragAndDrop = game:GetFastFlag("AssetManagerDragAndDrop")
 local FFlagEnableAssetManagerSortButton = game:GetFastFlag("EnableAssetManagerSortButton")
-local FFlagAssetManagerInitiallyDisabled = game:GetFastFlag("AssetManagerInitiallyDisabled")
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local BulkImportService = game:GetService("BulkImportService")
@@ -126,7 +124,7 @@ local function openPluginWindow()
 		store = store,
 		mouse = plugin:getMouse(),
 		calloutController = calloutController,
-		insertAsset = if FFlagAssetManagerDragAndDrop then InsertAssetContext.new(plugin, pluginGui) else nil,
+		insertAsset = InsertAssetContext.new(plugin, pluginGui),
 	}, {
 		MainView = Roact.createElement(MainView, {}),
 	})
@@ -275,7 +273,7 @@ local function main()
 		toolbarButton:SetActive(pluginGui.Enabled)
 	end
 
-	local initiallyEnabled = if FFlagAssetManagerInitiallyDisabled then false else true
+	local initiallyEnabled = false
 
 	-- create the plugin
 	local widgetInfo = DockWidgetPluginGuiInfo.new(

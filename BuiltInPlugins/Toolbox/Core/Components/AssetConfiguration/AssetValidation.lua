@@ -13,8 +13,8 @@
 		onClose callback, called when the user presses the "cancel" button
 ]]
 local FFlagDebugDisableLocalUGCValidation = game:GetFastFlag("DebugDisableLocalUGCValidation")
+local FFlagUGCValidationPackage = game:GetFastFlag("UGCValidationPackage")
 
-local CorePackages = game:GetService("CorePackages")
 local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -28,7 +28,13 @@ local Constants = require(Util.Constants)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 
-local UGCValidation = require(CorePackages.UGCValidation)
+local UGCValidation
+if FFlagUGCValidationPackage then
+	UGCValidation = require(Packages.UGCValidation)
+else
+	local CorePackages = game:GetService("CorePackages")
+	UGCValidation = require(CorePackages.UGCValidation)
+end
 
 local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext

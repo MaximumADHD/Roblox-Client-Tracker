@@ -1,5 +1,3 @@
-local FFlagAssetManagerDragAndDrop = game:GetFastFlag("AssetManagerDragAndDrop")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
@@ -133,89 +131,51 @@ function ListItem:init()
 		end
 	end
 
-	if FFlagAssetManagerDragAndDrop then
-		self.onClick = function(input, clickCount)
-			local props = self.props
-			if not props.Enabled then
-				return
-			end
-			local assetData = props.AssetData
-			if clickCount == 0 then
-				props.dispatchOnAssetSingleClick(input, assetData)
-			elseif clickCount == 1 then
-				props.dispatchOnAssetDoubleClick(props.Analytics, assetData)
-			end
+	self.onClick = function(input, clickCount)
+		local props = self.props
+		if not props.Enabled then
+			return
 		end
+		local assetData = props.AssetData
+		if clickCount == 0 then
+			props.dispatchOnAssetSingleClick(input, assetData)
+		elseif clickCount == 1 then
+			props.dispatchOnAssetDoubleClick(props.Analytics, assetData)
+		end
+	end
 
-		self.onDragBegan = function(input)
-			if self:isFolder() then
-				return
-			end
-			local props = self.props
-			if not props.OnAssetDrag then
-				return
-			end
-			local assetData = props.AssetData
-			props.OnAssetDrag(assetData)
+	self.onDragBegan = function(input)
+		if self:isFolder() then
+			return
 		end
+		local props = self.props
+		if not props.OnAssetDrag then
+			return
+		end
+		local assetData = props.AssetData
+		props.OnAssetDrag(assetData)
+	end
 
-		self.onRightClick = function()
-			local props = self.props
-			if not props.Enabled then
-				return
+	self.onRightClick = function()
+		local props = self.props
+		if not props.Enabled then
+			return
+		end
+		local assetData = props.AssetData
+		local isFolder = assetData.ClassName == "Folder"
+		if isFolder then
+			if not props.SelectedAssets[assetData.Screen.LayoutOrder] then
+				props.dispatchOnAssetSingleClick(nil, assetData)
 			end
-			local assetData = props.AssetData
-			local isFolder = assetData.ClassName == "Folder"
-			if isFolder then
-				if not props.SelectedAssets[assetData.Screen.LayoutOrder] then
-					props.dispatchOnAssetSingleClick(nil, assetData)
-				end
-			else
-				if not props.SelectedAssets[assetData.key] then
-					props.dispatchOnAssetSingleClick(nil, assetData)
-				end
-			end
-			if props.RecentListItem then
-				props.dispatchOnRecentAssetRightClick(props)
-			else
-				props.dispatchOnAssetRightClick(props)
+		else
+			if not props.SelectedAssets[assetData.key] then
+				props.dispatchOnAssetSingleClick(nil, assetData)
 			end
 		end
-	else
-		self.onMouseActivated = function(rbx, obj, clickCount)
-			local props = self.props
-			if not props.Enabled then
-				return
-			end
-			local assetData = props.AssetData
-			if clickCount == 0 then
-				props.dispatchOnAssetSingleClick(obj, assetData)
-			elseif clickCount == 1 then
-				props.dispatchOnAssetDoubleClick(props.Analytics, assetData)
-			end
-		end
-
-		self.onMouseButton2Click = function(rbx, x, y)
-			local props = self.props
-			if not props.Enabled then
-				return
-			end
-			local assetData = props.AssetData
-			local isFolder = assetData.ClassName == "Folder"
-			if isFolder then
-				if not props.SelectedAssets[assetData.Screen.LayoutOrder] then
-					props.dispatchOnAssetSingleClick(nil, assetData)
-				end
-			else
-				if not props.SelectedAssets[assetData.key] then
-					props.dispatchOnAssetSingleClick(nil, assetData)
-				end
-			end
-			if props.RecentListItem then
-				props.dispatchOnRecentAssetRightClick(props)
-			else
-				props.dispatchOnAssetRightClick(props)
-			end
+		if props.RecentListItem then
+			props.dispatchOnRecentAssetRightClick(props)
+		else
+			props.dispatchOnAssetRightClick(props)
 		end
 	end
 
@@ -327,9 +287,7 @@ function ListItem:render()
 
 	local backgroundColor = pluginStyle.BackgroundColor
 	local backgroundTransparency = pluginStyle.BackgroundTransparency
-	local borderSizePixel = pluginStyle.BorderSizePixel
-	local padding = if FFlagAssetManagerDragAndDrop then nil else pluginStyle.Padding
-	local spacing = if FFlagAssetManagerDragAndDrop then pluginStyle.Spacing else nil
+	local spacing = pluginStyle.Spacing
 
 	local imageInfo = {}
 	local isFolder = assetData.ClassName == "Folder"
@@ -420,209 +378,105 @@ function ListItem:render()
 		end
 	end
 
-	if FFlagAssetManagerDragAndDrop then
-		return Roact.createElement(DragSource, {
-			Size = size,
+	return Roact.createElement(DragSource, {
+		Size = size,
 
-			OnClick = self.onClick,
-			OnRightClick = self.onRightClick,
-			OnDragBegan = self.onDragBegan,
-		}, {
-			ListItem = Roact.createElement(Pane, {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				BackgroundColor = backgroundColor,
-				Layout = Enum.FillDirection.Horizontal,
-				LayoutOrder = layoutOrder,
-				Spacing = spacing,
-				Transparency = backgroundTransparency,
-
-				[Roact.Event.MouseEnter] = self.onMouseEnter,
-				[Roact.Event.MouseLeave] = self.onMouseLeave,
-			}, {
-				ImageFrame = Roact.createElement("Frame", {
-					Size = imageFrameSize,
-					LayoutOrder = layoutIndex:getNextOrder(),
-
-					BackgroundTransparency = 0,
-					BackgroundColor3 = imageBGColor,
-					BorderSizePixel = 0,
-				},{
-					Image = Roact.createElement("ImageLabel", Cryo.Dictionary.join(imageInfo, {
-						Size = imageSize,
-						Position = imagePos,
-						AnchorPoint = imageAnchorPos,
-
-						BackgroundTransparency = 1,
-					}))
-				}),
-
-				Name = not isEditingAsset and Roact.createElement("TextLabel", {
-					Size = textFrameSize,
-					LayoutOrder = layoutIndex:getNextOrder(),
-
-					Text = displayName,
-					TextColor3 = textColor,
-					Font = textFont,
-					TextSize = textSize,
-
-					BackgroundTransparency = textBGTransparency,
-					TextXAlignment = textXAlignment,
-					TextYAlignment = textYAlignment,
-					TextTruncate = textTruncate,
-					TextWrapped = true,
-				}, {
-					NameTooltip = Roact.createElement(Tooltip, {
-						Text = name,
-						Enabled = enabled,
-					}),
-				}),
-
-				RenameTextBox = isEditingAsset and Roact.createElement("TextBox", {
-					Size = UDim2.new(0, editTextSize.X + editTextPadding, 0, textFrameSize.Y.Offset),
-					LayoutOrder = layoutIndex:getNextOrder(),
-
-					BackgroundColor3 = editTextFrameBackgroundColor,
-					BorderColor3 = editTextFrameBorderColor,
-
-					Text = editText,
-					TextColor3 = textColor,
-					Font = textFont,
-					TextSize = textSize,
-
-					TextXAlignment = editTextXAlignment,
-					ClearTextOnFocus = editTextClearOnFocus,
-
-					[Roact.Ref] = self.textBoxRef,
-
-					[Roact.Change.Text] = self.onTextChanged,
-					[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
-				}),
-
-				ModerationImageFrame = displayModerationStatus and Roact.createElement("Frame", {
-					Size = imageFrameSize,
-					LayoutOrder = layoutIndex:getNextOrder(),
-
-					BackgroundTransparency = 1,
-				},{
-					Image = Roact.createElement("ImageLabel", {
-						Image = moderationImage,
-						Size = imageSize,
-						Position = imagePos,
-						AnchorPoint = imageAnchorPos,
-
-						BackgroundTransparency = 1,
-					}),
-
-					ModerationTooltip = Roact.createElement(Tooltip, {
-						Text = moderationTooltip,
-						Enabled = enabled,
-					}),
-				}),
-			}),
-		})
-	else
-		return Roact.createElement("ImageButton", {
-			Size = size,
-			BackgroundColor3 = backgroundColor,
-			BackgroundTransparency = backgroundTransparency,
-			BorderSizePixel = borderSizePixel,
-
+		OnClick = self.onClick,
+		OnRightClick = self.onRightClick,
+		OnDragBegan = self.onDragBegan,
+	}, {
+		ListItem = Roact.createElement(Pane, {
+			AutomaticSize = Enum.AutomaticSize.Y,
+			BackgroundColor = backgroundColor,
+			Layout = Enum.FillDirection.Horizontal,
 			LayoutOrder = layoutOrder,
+			Spacing = spacing,
+			Transparency = backgroundTransparency,
 
-			[Roact.Event.Activated] = self.onMouseActivated,
-			[Roact.Event.MouseButton2Click] = self.onMouseButton2Click,
 			[Roact.Event.MouseEnter] = self.onMouseEnter,
 			[Roact.Event.MouseLeave] = self.onMouseLeave,
 		}, {
-			ListItem = Roact.createElement(FitFrameOnAxis, {
-				BackgroundTransparency = 1,
-				axis = FitFrameOnAxis.Axis.Vertical,
-				FillDirection = Enum.FillDirection.Horizontal,
-				minimumSize = size,
-				contentPadding = padding,
-			}, {
-				ImageFrame = Roact.createElement("Frame", {
-					Size = imageFrameSize,
-					LayoutOrder = layoutIndex:getNextOrder(),
+			ImageFrame = Roact.createElement("Frame", {
+				Size = imageFrameSize,
+				LayoutOrder = layoutIndex:getNextOrder(),
 
-					BackgroundTransparency = 0,
-					BackgroundColor3 = imageBGColor,
-					BorderSizePixel = 0,
-				},{
-					Image = Roact.createElement("ImageLabel", Cryo.Dictionary.join(imageInfo, {
-						Size = imageSize,
-						Position = imagePos,
-						AnchorPoint = imageAnchorPos,
-
-						BackgroundTransparency = 1,
-					}))
-				}),
-
-				Name = not isEditingAsset and Roact.createElement("TextLabel", {
-					Size = textFrameSize,
-					LayoutOrder = layoutIndex:getNextOrder(),
-
-					Text = displayName,
-					TextColor3 = textColor,
-					Font = textFont,
-					TextSize = textSize,
-
-					BackgroundTransparency = textBGTransparency,
-					TextXAlignment = textXAlignment,
-					TextYAlignment = textYAlignment,
-					TextTruncate = textTruncate,
-					TextWrapped = true,
-				}, {
-					NameTooltip = Roact.createElement(Tooltip, {
-						Text = name,
-						Enabled = enabled,
-					}),
-				}),
-
-				RenameTextBox = isEditingAsset and Roact.createElement("TextBox", {
-					Size = UDim2.new(0, editTextSize.X + editTextPadding, 0, textFrameSize.Y.Offset),
-					LayoutOrder = layoutIndex:getNextOrder(),
-
-					BackgroundColor3 = editTextFrameBackgroundColor,
-					BorderColor3 = editTextFrameBorderColor,
-
-					Text = editText,
-					TextColor3 = textColor,
-					Font = textFont,
-					TextSize = textSize,
-
-					TextXAlignment = editTextXAlignment,
-					ClearTextOnFocus = editTextClearOnFocus,
-
-					[Roact.Ref] = self.textBoxRef,
-
-					[Roact.Change.Text] = self.onTextChanged,
-					[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
-				}),
-
-				ModerationImageFrame = displayModerationStatus and Roact.createElement("Frame", {
-					Size = imageFrameSize,
-					LayoutOrder = layoutIndex:getNextOrder(),
+				BackgroundTransparency = 0,
+				BackgroundColor3 = imageBGColor,
+				BorderSizePixel = 0,
+			},{
+				Image = Roact.createElement("ImageLabel", Cryo.Dictionary.join(imageInfo, {
+					Size = imageSize,
+					Position = imagePos,
+					AnchorPoint = imageAnchorPos,
 
 					BackgroundTransparency = 1,
-				},{
-					Image = Roact.createElement("ImageLabel", {
-						Image = moderationImage,
-						Size = imageSize,
-						Position = imagePos,
-						AnchorPoint = imageAnchorPos,
+				}))
+			}),
 
-						BackgroundTransparency = 1,
-					}),
+			Name = not isEditingAsset and Roact.createElement("TextLabel", {
+				Size = textFrameSize,
+				LayoutOrder = layoutIndex:getNextOrder(),
 
-					ModerationTooltip = Roact.createElement(Tooltip, {
-						Text = moderationTooltip,
-						Enabled = enabled,
-					}),
+				Text = displayName,
+				TextColor3 = textColor,
+				Font = textFont,
+				TextSize = textSize,
+
+				BackgroundTransparency = textBGTransparency,
+				TextXAlignment = textXAlignment,
+				TextYAlignment = textYAlignment,
+				TextTruncate = textTruncate,
+				TextWrapped = true,
+			}, {
+				NameTooltip = Roact.createElement(Tooltip, {
+					Text = name,
+					Enabled = enabled,
 				}),
 			}),
-		})
-	end
+
+			RenameTextBox = isEditingAsset and Roact.createElement("TextBox", {
+				Size = UDim2.new(0, editTextSize.X + editTextPadding, 0, textFrameSize.Y.Offset),
+				LayoutOrder = layoutIndex:getNextOrder(),
+
+				BackgroundColor3 = editTextFrameBackgroundColor,
+				BorderColor3 = editTextFrameBorderColor,
+
+				Text = editText,
+				TextColor3 = textColor,
+				Font = textFont,
+				TextSize = textSize,
+
+				TextXAlignment = editTextXAlignment,
+				ClearTextOnFocus = editTextClearOnFocus,
+
+				[Roact.Ref] = self.textBoxRef,
+
+				[Roact.Change.Text] = self.onTextChanged,
+				[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
+			}),
+
+			ModerationImageFrame = displayModerationStatus and Roact.createElement("Frame", {
+				Size = imageFrameSize,
+				LayoutOrder = layoutIndex:getNextOrder(),
+
+				BackgroundTransparency = 1,
+			},{
+				Image = Roact.createElement("ImageLabel", {
+					Image = moderationImage,
+					Size = imageSize,
+					Position = imagePos,
+					AnchorPoint = imageAnchorPos,
+
+					BackgroundTransparency = 1,
+				}),
+
+				ModerationTooltip = Roact.createElement(Tooltip, {
+					Text = moderationTooltip,
+					Enabled = enabled,
+				}),
+			}),
+		}),
+	})
 end
 
 ListItem = withContext({

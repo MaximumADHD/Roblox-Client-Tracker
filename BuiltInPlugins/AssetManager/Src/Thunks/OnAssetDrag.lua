@@ -3,11 +3,7 @@ local FFlagIncompleteDragShouldCancel = game:GetFastFlag("IncompleteDragShouldCa
 local Plugin = script.Parent.Parent.Parent
 local Promise = require(Plugin.Packages.Promise)
 
-local FFlagAssetManagerDragAndDrop = game:GetFastFlag("AssetManagerDragAndDrop")
-
 return function(insertAsset, assetData, analytics)
-	assert(FFlagAssetManagerDragAndDrop, "Requires FFlagAssetManagerDragAndDrop")
-
 	return function(store)
 		local isFolder = assetData.ClassName == "Folder"
 		if isFolder then

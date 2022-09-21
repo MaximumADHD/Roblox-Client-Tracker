@@ -7,7 +7,7 @@ local plugin, settings = plugin, settings
 -------------FAST FLAGS------------
 -----------------------------------
 
--- None :)
+game:DefineFastFlag("FixHPlaneForSphereAndCylinder", false)
 
 -----------------------------------
 -----------MODULE SCRIPTS----------
@@ -819,9 +819,20 @@ end
 ]]
 local function adjustScalingInCaseOfSpecialParts(part, dist, handle)
 	-- don't try to modify distance unless we're dealing with a part
-	-- also, we don't care about rotation and translation here
-	if not part:IsA("Part") or handle == T_Y_POS or handle == R_YZ or handle == R_XZ or handle == R_XY then
-		return dist
+	-- also, we don't care about rotation and translation here, nor do we care about the HPlane.
+	if game:GetFastFlag("FixHPlaneForSphereAndCylinder") then
+		if not part:IsA("Part") or 
+		   handle == T_Y_POS or 
+		   handle == R_YZ or 
+		   handle == R_XZ or 
+		   handle == R_XY or 
+		   handle == H_PLANE then
+			return dist
+		end
+	else
+		if not part:IsA("Part") or handle == T_Y_POS or handle == R_YZ or handle == R_XZ or handle == R_XY then
+			return dist
+		end
 	end
 
 	-- we hide all adornments except S_Y_POS when it's a sphere

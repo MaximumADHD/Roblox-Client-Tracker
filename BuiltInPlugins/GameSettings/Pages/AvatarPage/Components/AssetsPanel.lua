@@ -4,8 +4,14 @@ local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
-local FrameworkUtil = require(Plugin.Packages.Framework).Util
-local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
+
+local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateToggleButton = SharedFlags.getFFlagDevFrameworkMigrateToggleButton()
+
+local Util = Framework.Util
+local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local ConstantAvatar = require(Page.Util.ConstantAvatar)
 local ConstantLayout = require(Page.Util.ConstantLayout)
@@ -103,7 +109,7 @@ local createInputRow = function(self, label, assetTypeId, layoutOrderIterator)
 
 		SetPlayerChoiceValue = function(val)
 			local newTemplateModel = StateModelTemplate.makeCopy(template)
-			newTemplateModel:setAsset(assetTypeId, nil, val)
+			newTemplateModel:setAsset(assetTypeId, nil, if FFlagDevFrameworkMigrateToggleButton then not val else val)
 			self.props.clobberTemplate(self.props.template, newTemplateModel)
 		end
 	})

@@ -37,6 +37,8 @@ local TIPS_SPACING = 10
 local TOGGLE_BUTTON_WIDTH = 40
 local TOGGLE_BUTTON_HEIGHT = 24
 
+local FFlagToolboxFixPublishPackageColor = game:GetFastFlag("ToolboxFixPublishPackageColor")
+
 function ConfigPackage:init(props)
 	self.toggleCallback = function()
 		local props = self.props
@@ -97,7 +99,8 @@ function ConfigPackage:renderContent()
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Top,
 			TextSize = Constants.FONT_SIZE_TITLE,
-			TextColor3 = publishAssetTheme.titleTextColor,
+			TextColor3 = if FFlagToolboxFixPublishPackageColor then nil else publishAssetTheme.titleTextColor,
+			TextColor = if FFlagToolboxFixPublishPackageColor then publishAssetTheme.titleTextColor else nil,
 			Font = Constants.FONT,
 
 			LayoutOrder = 1,

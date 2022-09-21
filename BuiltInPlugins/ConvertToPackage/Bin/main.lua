@@ -14,6 +14,9 @@ return function(plugin, pluginLoaderContext)
 	local ContextServices = Framework.ContextServices
 	local UILibraryWrapper = ContextServices.UILibraryWrapper
 
+	local SharedFlags = Framework.SharedFlags
+	local FFlagDevFrameworkMigrateToggleButton = SharedFlags.getFFlagDevFrameworkMigrateToggleButton()
+
 	local Util = Plugin.Src.Util
 	local PluginTheme = require(Plugin.Src.Resources.MakeTheme)
 	local Constants = require(Util.Constants)
@@ -96,6 +99,7 @@ return function(plugin, pluginLoaderContext)
 			plugin = plugin,
 			store = mainStore,
 			theme = theme,
+			mouse = if FFlagDevFrameworkMigrateToggleButton then plugin:GetMouse() else nil,
 			focusGui = assetConfigGui,
 			networkInterface = networkInterface,
 			localization = localization,

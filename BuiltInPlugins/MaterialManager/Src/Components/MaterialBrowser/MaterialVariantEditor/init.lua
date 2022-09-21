@@ -110,17 +110,15 @@ function MaterialVariantEditor:render()
 						Expandable = true,
 					})
 					else nil,
-				MaterialOverrides = if overrideSupport and not materialVariant then
-					Roact.createElement(MaterialOverrides, {
-						LayoutOrder = layoutOrderIterator:getNextOrder(),
-					})
-					else nil,
-				OverrideSettings = if overrideSupport and materialVariant then
+				OverrideSettings = if materialVariant and overrideSupport then
 					Roact.createElement(OverrideSettings, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),
 						MaterialVariant = materialVariant,
 					})
-					else nil,
+				else 
+					Roact.createElement(MaterialOverrides, {
+						LayoutOrder = layoutOrderIterator:getNextOrder(),
+					}),
 				TilingSettings = if materialVariant then
 					Roact.createElement(TilingSettings, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),

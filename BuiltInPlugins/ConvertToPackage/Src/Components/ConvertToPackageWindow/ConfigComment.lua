@@ -6,17 +6,27 @@
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
+local Framework = require(Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateToggleButton = SharedFlags.getFFlagDevFrameworkMigrateToggleButton()
+
 local Roact = require(Packages.Roact)
-local UILibrary = require(Packages.UILibrary)
-local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+
+local UILibrary
+if not FFlagDevFrameworkMigrateToggleButton then
+	UILibrary = require(Packages.UILibrary)
+end
 
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
 
-local ToggleButton = UILibrary.Component.ToggleButton
+local UI = Framework.UI
+local ToggleButton = if FFlagDevFrameworkMigrateToggleButton then UI.ToggleButton else UILibrary.Component.ToggleButton
 
 local ConfigComment = Roact.PureComponent:extend("ConfigComment")
 
@@ -69,7 +79,12 @@ function ConfigComment:render()
 			LayoutOrder = 1,
 		}),
 
-		ToggleButton = Roact.createElement(ToggleButton, {
+		ToggleButton = Roact.createElement(ToggleButton, if FFlagDevFrameworkMigrateToggleButton then {
+			Disabled = not CommentEnabled,
+			LayoutOrder = 2,
+			OnClick = ToggleCallback,
+			Selected = CommentOn,
+		} else {
 			Size = UDim2.new(0, TOGGLE_BUTTON_WIDTH, 0, TOGGLE_BUTTON_HEIGHT),
 			Enabled = CommentEnabled,
 			IsOn = CommentOn,

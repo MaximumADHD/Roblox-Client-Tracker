@@ -19,14 +19,18 @@ local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
 local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+local FFlagDevFrameworkMigrateToggleButton = SharedFlags.getFFlagDevFrameworkMigrateToggleButton()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local UILibrary = require(Plugin.Packages.UILibrary)
-local ToggleButton = UILibrary.Component.ToggleButton
+local UILibrary
+if not FFlagDevFrameworkMigrateToggleButton then
+	UILibrary = require(Plugin.Packages.UILibrary)
+end
 
 local UI = Framework.UI
 local TextLabel = UI.Decoration.TextLabel
+local ToggleButton = if FFlagDevFrameworkMigrateToggleButton then UI.ToggleButton else UILibrary.Component.ToggleButton
 
 local Constants = require(Plugin.Src.Util.Constants)
 local OnPlayerEmulationEnabledChanged = require(Plugin.Src.Actions.OnPlayerEmulationEnabledChanged)
@@ -108,7 +112,13 @@ function MainSwitchSection:render()
 			})
 		),
 
-		Toggle = Roact.createElement(ToggleButton, {
+		Toggle = Roact.createElement(ToggleButton, if FFlagDevFrameworkMigrateToggleButton then {
+			AnchorPoint = Vector2.new(0, 0.5),
+			LayoutOrder = 2,
+			OnClick = SetMainSwitchEnabled,
+			Position = UDim2.new(0, theme.TOGGLE_BUTTON_OFFSET, 0.5, -theme.TOGGLE_BUTTON_HEIGHT/2),
+			Selected = isOn,
+		} else {
 			Size = UDim2.new(0, theme.TOGGLE_BUTTON_WIDTH, 0, theme.TOGGLE_BUTTON_HEIGHT),
 			AnchorPoint = Vector2.new(0, 0.5),
 			Position = UDim2.new(0, theme.TOGGLE_BUTTON_OFFSET, 0.5, -theme.TOGGLE_BUTTON_HEIGHT/2),

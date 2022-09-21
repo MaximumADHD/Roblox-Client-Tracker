@@ -13,7 +13,7 @@ return function()
 
 		it("should accept a custom reporting service", function()
 			local fakeService = {}
-			local na = Analytics.new(fakeService)
+			local na = Analytics.new(fakeService :: any)
 			jestExpect(na).never.toBeNil()
 		end)
 

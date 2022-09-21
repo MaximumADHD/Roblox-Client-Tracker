@@ -4,6 +4,15 @@
 local Plugin = script.Parent.Parent.Parent
 local Signal = require(Plugin.Src.Util.Signal)
 
+local Plugin = script.Parent.Parent.Parent
+local Framework = require(Plugin.Packages.Framework)
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateToggleButton = SharedFlags.getFFlagDevFrameworkMigrateToggleButton()
+
+if FFlagDevFrameworkMigrateToggleButton then
+	return nil
+end
+
 
 --[[
 	MockPluginToolbarButton

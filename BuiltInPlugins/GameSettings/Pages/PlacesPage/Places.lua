@@ -15,8 +15,6 @@
 		description: "TooLong"
 		devices: "NoDevices"
 ]]
-local FFlagGameSettingsChangeEditToConfigure = game:DefineFastFlag("GameSettingsChangeEditToConfigure", false)
-
 local Plugin = script.Parent.Parent.Parent
 
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
@@ -305,9 +303,6 @@ local function displayPlaceListPage(props, localization)
 
 	local places = props.Places and props.Places or {}
 	local placesData = createPlaceTableData(places)
-	local editKeyText = if FFlagGameSettingsChangeEditToConfigure
-		then localization:getText("Places", "ConfigurePlace")
-		else localization:getText("General", "ButtonEdit")
 
 	return
 	{
@@ -333,7 +328,7 @@ local function displayPlaceListPage(props, localization)
 			Headers = placeTableHeaders,
 			Data = placesData,
 			MenuItems = {
-				{ Key = GetEditKeyName(), Text = editKeyText },
+				{ Key = GetEditKeyName(), Text = localization:getText("Places", "ConfigurePlace") },
 				{ Key = GetVersionHistoryKeyName(), Text = localization:getText("Places", "VersionHistory") },
 			},
 			OnItemClicked = function(key, id)
@@ -430,7 +425,7 @@ local function displayEditPlacePage(props, localization)
 			}),
 
 			Header = Roact.createElement(Header, {
-				Title = if FFlagGameSettingsChangeEditToConfigure then localization:getText("Places", "ConfigurePlace") else localization:getText("Places", "EditPlace"),
+				Title = localization:getText("Places", "ConfigurePlace"),
 				LayoutOrder = 2,
 			}),
 		}),

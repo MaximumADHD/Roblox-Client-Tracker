@@ -17,7 +17,7 @@ local TableHeader = require(script.Parent.TableHeader)
 
 local GroupRenameDialog = require(script.Parent.GroupRenameDialog)
 
-local FFlagCGERenameWarningDialog = game:GetFastFlag("CGERenameWarningDialog")
+local FFlagCGERenameWarningDialog = game:GetFastFlag("CGERenameWarningDialog2")
 
 local MainView = Roact.Component:extend("MainView")
 

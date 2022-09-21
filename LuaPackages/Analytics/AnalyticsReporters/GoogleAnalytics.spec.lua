@@ -1,4 +1,3 @@
---!nonstrict
 return function()
 	local GoogleAnalytics = require(script.Parent.GoogleAnalytics)
 
@@ -10,7 +9,6 @@ return function()
 	local badTestAction = {}
 	local badTestLabel = {}
 	local badTestValue = "heyo"
-
 
 	local DebugReportingService = {}
 	function DebugReportingService:TrackEvent(category, action, label, value)
@@ -32,39 +30,39 @@ return function()
 		end
 	end
 
+	local ga = nil
+
+	beforeEach(function()
+		ga = GoogleAnalytics.new(DebugReportingService :: any)
+	end)
 
 	describe("new()", function()
 		it("should construct with a Reporting Service and Logging Service", function()
-			local ga = GoogleAnalytics.new(DebugReportingService)
 			expect(ga).to.be.ok()
 		end)
 
 		it("should fail to be constructed without a Reporting Service", function()
 			expect(function()
-				 GoogleAnalytics.new(nil)
+				GoogleAnalytics.new(nil :: any)
 			end).to.throw()
 		end)
 	end)
 
 	describe("setEnabled()", function()
 		it("should succeed with valid input", function()
-			local reporter = GoogleAnalytics.new(DebugReportingService)
-			reporter:setEnabled(false)
-			reporter:setEnabled(true)
+			ga:setEnabled(false)
+			ga:setEnabled(true)
 		end)
 		it("should disable the reporter", function()
-			local reporter = GoogleAnalytics.new(DebugReportingService)
-			reporter:setEnabled(false)
+			ga:setEnabled(false)
 			expect(function()
-				reporter:trackEvent(testCategory, testAction, testLabel, testValue)
+				ga:trackEvent(testCategory, testAction, testLabel, testValue)
 			end).to.throw()
 		end)
 	end)
 
 	describe("trackEvent()", function()
 		it("should work when appropriately enabled / disabled", function()
-			local ga = GoogleAnalytics.new(DebugReportingService)
-
 			expect(function()
 				ga:setEnabled(false)
 				ga:trackEvent(testCategory, testAction, testLabel)
@@ -75,59 +73,50 @@ return function()
 		end)
 
 		it("should succeed with valid input", function()
-			local ga = GoogleAnalytics.new(DebugReportingService)
 			ga:trackEvent(testCategory, testAction, testLabel, testValue)
 		end)
 
 		it("should throw an error if it is missing a category", function()
-			local ga = GoogleAnalytics.new(DebugReportingService)
 			expect(function()
-				ga:trackEvent(nil, testAction, testLabel, testValue)
+				ga:trackEvent(nil :: any, testAction, testLabel, testValue)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is missing a testAction", function()
-			local ga = GoogleAnalytics.new(DebugReportingService)
 			expect(function()
-				ga:trackEvent(testCategory, nil, testLabel, testValue)
+				ga:trackEvent(testCategory, nil :: any, testLabel, testValue)
 			end).to.throw()
 		end)
 
 		it("should not throw an error if it is missing a label", function()
-			local ga = GoogleAnalytics.new(DebugReportingService)
-			ga:trackEvent(testCategory, testAction, nil, testValue)
+			ga:trackEvent(testCategory, testAction, nil :: any, testValue)
 		end)
 
 		it("should not throw an error if it is missing a value", function()
-			local ga = GoogleAnalytics.new(DebugReportingService)
 			ga:trackEvent(testCategory, testAction, testLabel)
 		end)
 
 		it("should throw an error if it is given invalid input for category", function()
-			local ga = GoogleAnalytics.new(DebugReportingService)
 			expect(function()
-				ga:trackEvent(badTestCategory, testAction, testLabel, testValue)
+				ga:trackEvent(badTestCategory :: any, testAction, testLabel, testValue)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given invalid input for action", function()
-			local ga = GoogleAnalytics.new(DebugReportingService)
 			expect(function()
-				ga:trackEvent(testCategory, badTestAction, testLabel, testValue)
+				ga:trackEvent(testCategory, badTestAction :: any, testLabel, testValue)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given invalid input for label", function()
-			local ga = GoogleAnalytics.new(DebugReportingService)
 			expect(function()
-				ga:trackEvent(testCategory, testAction, badTestLabel, testValue)
+				ga:trackEvent(testCategory, testAction, badTestLabel :: any, testValue)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given invalid input for value", function()
-			local ga = GoogleAnalytics.new(DebugReportingService)
 			expect(function()
-				ga:trackEvent(testCategory, testAction, testLabel, badTestValue)
+				ga:trackEvent(testCategory, testAction, testLabel, badTestValue :: any)
 			end).to.throw()
 
 			expect(function()
@@ -135,7 +124,4 @@ return function()
 			end).to.throw()
 		end)
 	end)
-
-
-
 end

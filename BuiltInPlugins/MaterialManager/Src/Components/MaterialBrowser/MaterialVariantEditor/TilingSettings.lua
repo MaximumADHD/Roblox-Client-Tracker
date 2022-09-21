@@ -38,6 +38,7 @@ local materialPatterns = getMaterialPatterns()
 local settingsNames = getSettingsNames()
 
 export type Props = {
+	LabelWidth: UDim?,
 	LayoutOrder: number?,
 	PBRMaterial: MaterialVariant | TerrainDetail,
 	Expandable: boolean?,
@@ -129,8 +130,10 @@ function TilingSettings:didMount()
 end
 
 function TilingSettings:didUpdate(_, prevState)
-	if self.state.studsPerTile ~= self.props.PBRMaterial.StudsPerTile
-		and prevState.studsPerTile == self.state.studsPerTile then
+	if
+		self.state.studsPerTile ~= self.props.PBRMaterial.StudsPerTile
+		and prevState.studsPerTile == self.state.studsPerTile
+	then
 		self:setState({
 			studsPerTile = self.props.PBRMaterial.StudsPerTile,
 		})
@@ -154,7 +157,7 @@ function TilingSettings:render()
 
 	local children = {
 		StudsPerTile = Roact.createElement(LabeledElement, {
-			LabelColumnWidth = style.LabelColumnWidth,
+			LabelColumnWidth = props.LabelWidth or style.LabelColumnWidth,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			Text = localization:getText("MaterialTiling", "StudsPerTile"),
 			StatusText = self.state.studsPerTileMessage,
@@ -169,7 +172,7 @@ function TilingSettings:render()
 			}),
 		}),
 		MaterialPattern = Roact.createElement(LabeledElement, {
-			LabelColumnWidth = style.LabelColumnWidth,
+			LabelColumnWidth = props.LabelWidth or style.LabelColumnWidth,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			Text = localization:getText("MaterialTiling", "Pattern"),
 		}, {

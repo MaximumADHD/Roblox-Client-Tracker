@@ -1,10 +1,9 @@
---!nonstrict
 return function()
 	local Influx = require(script.Parent.Influx)
 
 	local testSeriesName = "testSeries"
 	local testArgs = {
-		testKey = "testValue"
+		testKey = "testValue",
 	}
 	local testThrottlingPercentage = 1000
 
@@ -13,7 +12,6 @@ return function()
 	local badThrottlingPercentage1 = -15
 	local badThrottlingPercentage2 = 150000
 	local badThrottlingPercentage3 = "a lot"
-
 
 	local function isTableEqual(table1, table2)
 		if table1 == table2 then
@@ -38,7 +36,6 @@ return function()
 		return true
 	end
 
-
 	local DebugReportingService = {}
 	function DebugReportingService:ReportInfluxSeries(seriesName, additionalArgs, throttlingPercentage)
 		if seriesName ~= seriesName then
@@ -54,28 +51,30 @@ return function()
 		end
 	end
 
+	local influx = nil
+
+	beforeEach(function()
+		influx = Influx.new(DebugReportingService :: any)
+	end)
 
 	describe("new()", function()
 		it("should construct with a Reporting Service", function()
-			local influx = Influx.new(DebugReportingService)
 			expect(influx).to.be.ok()
 		end)
 
 		it("should fail to be constructed without a Reporting Service", function()
 			expect(function()
-				Influx.new(nil)
+				Influx.new(nil :: any)
 			end).to.throw()
 		end)
 	end)
 
 	describe("setEnabled()", function()
 		it("should succeed with valid input", function()
-			local influx = Influx.new(DebugReportingService)
 			influx:setEnabled(false)
 			influx:setEnabled(true)
 		end)
 		it("should disable the reporter", function()
-			local influx = Influx.new(DebugReportingService)
 			influx:setEnabled(false)
 			expect(function()
 				influx:reportSeries(testSeriesName, testArgs, testThrottlingPercentage)
@@ -85,81 +84,74 @@ return function()
 
 	describe("reportSeries()", function()
 		it("should work when appropriately enabled / disabled", function()
-			local influx = Influx.new(DebugReportingService)
-
 			expect(function()
 				influx:setEnabled(false)
 				influx:reportSeries(testSeriesName, testArgs, testThrottlingPercentage)
 			end).to.throw()
-
 
 			influx:setEnabled(true)
 			influx:reportSeries(testSeriesName, testArgs, testThrottlingPercentage)
 		end)
 
 		it("should succeed with valid input", function()
-			local influx = Influx.new(DebugReportingService)
 			influx:reportSeries(testSeriesName, testArgs, testThrottlingPercentage)
 		end)
 
 		it("should succeed even if it is missing any additionalArgs", function()
-			local influx = Influx.new(DebugReportingService)
 			influx:reportSeries(testSeriesName, nil, testThrottlingPercentage)
 		end)
 
 		it("should throw an error with invalid input for the seriesName", function()
-			local influx = Influx.new(DebugReportingService)
 			expect(function()
-				influx:reportSeries(badTestSeriesName, testArgs, testThrottlingPercentage)
+				influx:reportSeries(badTestSeriesName :: any, testArgs, testThrottlingPercentage)
 			end).to.throw()
 		end)
 
-		it("should throw an error with invalid input for the throttlingPercentage - out of range - below zero", function()
-			expect(function()
-			local influx = Influx.new(DebugReportingService)
-				influx:reportSeries(testSeriesName, testArgs, badThrottlingPercentage1)
-			end).to.throw()
-		end)
+		it(
+			"should throw an error with invalid input for the throttlingPercentage - out of range - below zero",
+			function()
+				expect(function()
+					influx:reportSeries(testSeriesName, testArgs, badThrottlingPercentage1 :: any)
+				end).to.throw()
+			end
+		)
 
-		it("should throw an error with invalid input for the throttlingPercentage - out of range - above cap", function()
-			expect(function()
-			local influx = Influx.new(DebugReportingService)
-				influx:reportSeries(testSeriesName, testArgs, badThrottlingPercentage2)
-			end).to.throw()
-		end)
+		it(
+			"should throw an error with invalid input for the throttlingPercentage - out of range - above cap",
+			function()
+				expect(function()
+					influx:reportSeries(testSeriesName, testArgs, badThrottlingPercentage2 :: any)
+				end).to.throw()
+			end
+		)
 
 		it("should throw an error with invalid input for the throttlingPercentage - bad type", function()
 			expect(function()
-			local influx = Influx.new(DebugReportingService)
-				influx:reportSeries(testSeriesName, testArgs, badThrottlingPercentage3)
+				influx:reportSeries(testSeriesName, testArgs, badThrottlingPercentage3 :: any)
 			end).to.throw()
 		end)
 
 		it("should throw an error with completely invalid input", function()
-			local influx = Influx.new(DebugReportingService)
 			expect(function()
-				influx:reportSeries(badTestSeriesName, badTestArgs, badThrottlingPercentage1)
+				influx:reportSeries(badTestSeriesName :: any, badTestArgs :: any, badThrottlingPercentage1 :: any)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is missing a seriesName", function()
-			local influx = Influx.new(DebugReportingService)
 			expect(function()
-				influx:reportSeries(nil, testArgs, testThrottlingPercentage)
+				influx:reportSeries(nil :: any, testArgs, testThrottlingPercentage)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is missing a throttlingPercentage", function()
-			local influx = Influx.new(DebugReportingService)
 			expect(function()
-				influx:reportSeries(testSeriesName, testArgs, nil)
+				influx:reportSeries(testSeriesName, testArgs, nil :: any)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is missing any input", function()
-			local influx = Influx.new(DebugReportingService)
 			expect(function()
-				influx:reportSeries(nil, nil, nil)
+				influx:reportSeries(nil :: any, nil :: any, nil :: any)
 			end).to.throw()
 		end)
 	end)

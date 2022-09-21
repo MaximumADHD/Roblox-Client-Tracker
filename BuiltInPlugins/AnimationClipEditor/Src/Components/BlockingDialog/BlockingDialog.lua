@@ -29,6 +29,8 @@ local Localization = ContextServices.Localization
 local SourceStrings = Plugin.Src.Resources.SourceStrings
 local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+
 local BlockingDialog = Roact.PureComponent:extend("BlockingDialog")
 
 function BlockingDialog:init(initialProps)
@@ -55,7 +57,9 @@ function BlockingDialog:render()
 		ButtonPadding = Constants.PROMPT_BUTTON_PADDING,
 		ButtonHeight = Constants.PROMPT_BUTTON_SIZE.Y,
 		ButtonWidth = Constants.PROMPT_BUTTON_SIZE.X,
-		TextSize = theme.__calculatedStyle.PluginTheme.dialogTheme.textSize,
+		TextSize = if GetFFlagExtendPluginTheme()
+			then theme.__calculatedStyle.dialogTheme.textSize
+			else theme.__calculatedStyle.PluginTheme.dialogTheme.textSize,
 		Title = localization:getText("Title", titleKey),
 		OnClose = props.OnClose,
 		OnButtonPressed = props.OnButtonClicked,

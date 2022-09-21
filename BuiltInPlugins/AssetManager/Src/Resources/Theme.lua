@@ -1,5 +1,3 @@
-local FFlagAssetManagerDragAndDrop = game:GetFastFlag("AssetManagerDragAndDrop")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
@@ -189,7 +187,6 @@ local image = {
 local tile = {
 	Size = UDim2.new(0, 85, 0, 121),
 	BackgroundTransparency = 1,
-	BorderSizePixel = if FFlagAssetManagerDragAndDrop then nil else 0,
 
 	AssetPreview = {
 		Button = {
@@ -275,9 +272,7 @@ local listItem = {
 	Font = Enum.Font.SourceSans,
 	Size = UDim2.new(1, 0, 0, 24),
 	BackgroundTransparency = 1,
-	BorderSizePixel = if FFlagAssetManagerDragAndDrop then nil else 0,
-	Padding = if not FFlagAssetManagerDragAndDrop then UDim.new(0, 4) else nil,
-	Spacing = if FFlagAssetManagerDragAndDrop then UDim.new(0, 4) else nil,
+	Spacing = UDim.new(0, 4),
 
 	Image = {
 		FrameSize = UDim2.new(0, 24, 0, 24),

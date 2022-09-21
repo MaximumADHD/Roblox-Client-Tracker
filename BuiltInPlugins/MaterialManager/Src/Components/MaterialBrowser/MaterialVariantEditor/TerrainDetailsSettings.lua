@@ -119,6 +119,7 @@ function TerrainDetailsSettings:render()
 					OnClick = function()
 						self.onClick(face)
 					end,
+					Style = "Round",
 				})
 			})
 		end

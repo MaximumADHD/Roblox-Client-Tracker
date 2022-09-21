@@ -18,8 +18,12 @@ local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
 
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateToggleButton = SharedFlags.getFFlagDevFrameworkMigrateToggleButton()
+
 local ContextServices = Framework.ContextServices
 local NetworkContext = require(Plugin.Src.ContextServices.NetworkContext)
+
 local ServiceWrapper = Roact.PureComponent:extend("ServiceWrapper")
 
 function ServiceWrapper:init(props)
@@ -27,6 +31,9 @@ function ServiceWrapper:init(props)
 	assert(self.props.networkInterface ~= nil, "Expected a NetworkInterface object")
 	assert(self.props.localization ~= nil, "Expected a Localization object")
 	assert(self.props.plugin ~= nil, "Expected a plugin object")
+	if FFlagDevFrameworkMigrateToggleButton then
+		assert(self.props.mouse ~= nil, "Expected a mouse object")
+	end
 	assert(self.props.store ~= nil, "Expected a Rodux Store object")
 	assert(self.props.theme ~= nil, "Expected a PluginTheme object")
 	assert(self.props.focusGui ~= nil, "Expected a FocusGui object")
@@ -37,6 +44,7 @@ function ServiceWrapper:render()
 	local store = props.store
 	local plugin = props.plugin
 	local theme = props.theme
+	local mouse = if FFlagDevFrameworkMigrateToggleButton then props.mouse else nil
 	local focusGui = props.focusGui
 	local localization = props.localization
 	local networkInterface = props.networkInterface
@@ -49,7 +57,8 @@ function ServiceWrapper:render()
 		theme,
 		localization,
 		ContextServices.Plugin.new(plugin),
-		NetworkContext.new(networkInterface)
+		NetworkContext.new(networkInterface),
+		if FFlagDevFrameworkMigrateToggleButton then ContextServices.Mouse.new(mouse) else nil,
 	}, {
 		-- UILibraryWrapper consumes theme, focus etc. so needs to be wrapped in these items for React.createContext to consume them.
 		UILibraryWrapper = ContextServices.provide({

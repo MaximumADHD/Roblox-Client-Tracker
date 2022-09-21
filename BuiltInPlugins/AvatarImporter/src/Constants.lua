@@ -112,4 +112,7 @@ Constants.FONT_SIZE_TITLE = 20
 Constants.REQUIREMENTS_DESCRIPTION = "Avatar file needs to be FBX file following Avatar types and import requirements"
 Constants.REQUIREMENTS_LINK_TEXT = "What are Avatar types and import requirements?"
 
+Constants.WARNING_COLOR = Color3.fromHex("#FFC107")
+Constants.WARNING_TEXT_COLOR = Color3.fromHex("#212529")
+
 return Constants

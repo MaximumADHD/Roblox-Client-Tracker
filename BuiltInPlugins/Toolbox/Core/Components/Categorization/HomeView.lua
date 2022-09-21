@@ -6,7 +6,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxUseExpandableTopSearch = game:GetFastFlag("ToolboxUseExpandableTopSearch") -- TODO: Flip when UISYS-1334 is ready
 local FintToolboxHomeViewInitialPageSize = game:GetFastInt("ToolboxHomeViewInitialPageSize")
-local FFlagToolboxUseDisplayName = game:GetFastFlag("ToolboxUseDisplayName")
+local FFlagToolboxFixTryInStudio = game:GetFastFlag("ToolboxFixTryInStudio")
 local FFlagToolboxFixMissingCategories = game:GetFastFlag("ToolboxFixMissingCategories")
 local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
@@ -306,8 +306,12 @@ function HomeView:init()
 			assetSectionsElems["AssetSwimlane_" .. i] = Roact.createElement(AssetSwimlane, {
 				CanInsertAsset = canInsertAsset,
 				CategoryName = categoryName,
-				IncludeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else includeOnlyVerifiedCreators,
-				IncludeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then includeUnverifiedCreators else nil,
+				IncludeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+					then nil
+					else includeOnlyVerifiedCreators,
+				IncludeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+					then includeUnverifiedCreators
+					else nil,
 				InitialPageSize = SWIMLANE_SIZE,
 				SortName = sortName,
 				SearchTerm = nil,
@@ -317,9 +321,7 @@ function HomeView:init()
 				OnClickSeeAllAssets = onClickSeeAllAssets,
 				OnAssetPreviewButtonClicked = onAssetPreviewButtonClicked,
 				LayoutOrder = i,
-				Title = if FFlagToolboxUseDisplayName
-					then section.displayName
-					else localization:getText("HomeView", section.name),
+				Title = section.displayName,
 				TryInsert = tryInsert,
 				TryOpenAssetConfig = tryOpenAssetConfig,
 				ZIndex = assetSectionCount - i + 1,
@@ -339,10 +341,10 @@ function HomeView:init()
 		-- HACK: Add a minTopKeywordSize because a race condition is causing the resizing of the AssetGrid's
 		-- topContents to sometimes be inaccurrate due to the resizing of the SearchList.
 		local minTopKeywordsHeight = (
-					searchPillTheme.textSize
-					+ searchPillTheme.padding.top
-					+ searchPillTheme.padding.bottom
-				)
+			searchPillTheme.textSize
+			+ searchPillTheme.padding.top
+			+ searchPillTheme.padding.bottom
+		)
 				* topSearchesRowCount
 			+ searchListTheme.buttonSpacing
 
@@ -422,9 +424,7 @@ function HomeView:init()
 				Font = sectionHeaderTheme.font,
 				LayoutOrder = orderIterator:getNextOrder(),
 				Size = UDim2.new(1, 0, 0, sectionHeaderTheme.textSize),
-				Text = if FFlagToolboxUseDisplayName
-					then assetSections[assetSectionCount].displayName
-					else localization:getText("HomeView", assetSections[assetSectionCount].name),
+				Text = assetSections[assetSectionCount].displayName,
 				TextColor3 = sectionHeaderTheme.textColor,
 				TextSize = sectionHeaderTheme.textSize,
 				TextXAlignment = Enum.TextXAlignment.Left,
@@ -503,7 +503,9 @@ function HomeView:render()
 			queryParams = if FFlagToolboxUseQueryForCategories2 then {} else nil,
 			sectionName = sectionName,
 			initialPageSize = INITIAL_PAGE_SIZE,
-			includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else includeOnlyVerifiedCreators,
+			includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+				then nil
+				else includeOnlyVerifiedCreators,
 			includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then includeUnverifiedCreators else nil,
 			render = function(resultsState)
 				if resultsState.loading and #resultsState.assetIds == 0 then
@@ -544,8 +546,12 @@ function mapStateToProps(state: any, props)
 	state = state or {}
 	local pageInfo = state.pageInfo or {}
 	return {
-		IncludeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else pageInfo.includeOnlyVerifiedCreators,
-		IncludeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then pageInfo.includeUnverifiedCreators else nil,
+		IncludeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+			then nil
+			else pageInfo.includeOnlyVerifiedCreators,
+		IncludeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+			then pageInfo.includeUnverifiedCreators
+			else nil,
 	}
 end
 

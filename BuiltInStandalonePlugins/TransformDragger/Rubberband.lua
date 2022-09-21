@@ -1,3 +1,5 @@
+game:DefineFastFlag("TransformToolRubberBandError", false)
+
 local Adorn = require(script.Parent.Adornments)
 
 local selectionScreenGui = nil
@@ -42,7 +44,14 @@ local function findPartsInSelection(parent, startPos, endPos, partsList)
 			end
 			isLocked = false
 		elseif v:IsA("Tool") then
-			pos = findFirstCFrame(v).p
+			if game:GetFastFlag("TransformToolRubberBandError") then
+				pos = findFirstCFrame(v)
+				if pos then
+					pos = pos.p
+				end	
+			else
+				pos = findFirstCFrame(v).p
+			end
 			isLocked = false
 		elseif v:IsA("Folder") then
 			findPartsInSelection(v, startPos, endPos, partsList)

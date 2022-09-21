@@ -5,21 +5,28 @@
 
 local UserInputService = game:GetService("UserInputService")
 
-type Table = {[any]: any}
+type Table = { [any]: any }
 
-type SendEventFunction = (self: any, eventContext: string, eventName: string, additionalArgs: Table) -> ()
+type SendEventFunction<T> = (self: T, eventContext: string, eventName: string, additionalArgs: Table?) -> ()
 
-export type EventStream = {
+type EventStreamPrivate = {
+	_reporter: RbxAnalyticsService,
+	_isEnabled: boolean,
+}
+export type EventStream = EventStreamPrivate & {
 	setEnabled: (self: EventStream, isEnabled: boolean) -> (),
-	setRBXEvent: SendEventFunction,
-	setRBXEventStream: SendEventFunction,
-	sendEventImmediately: SendEventFunction,
-	sendEventDeferred: SendEventFunction,
-	updateHeartbeatObject: (self: EventStream, additionalArgs: Table) -> (),
+	setRBXEvent: SendEventFunction<EventStream>,
+	setRBXEventStream: SendEventFunction<EventStream>,
+	sendEventImmediately: SendEventFunction<EventStream>,
+	sendEventDeferred: SendEventFunction<EventStream>,
+	updateHeartbeatObject: (self: EventStream, additionalArgs: Table?) -> (),
 	releaseRBXEventStream: (self: EventStream) -> (),
 }
+type EventStreamStatics = {
+	new: (RbxAnalyticsService) -> EventStream,
+}
 
-local function getPlatformTarget()
+local function getPlatformTarget(): string
 	local platformTarget = "unknownLua"
 	local platformEnum = Enum.Platform.None
 
@@ -51,38 +58,35 @@ local function getPlatformTarget()
 		platformTarget = platformTarget .. tostring(platformEnum)
 	end
 
-
 	return platformTarget
 end
 
-
-local EventStream = {}
-EventStream.__index = EventStream
+local EventStream: EventStream & EventStreamStatics = {} :: any;
+(EventStream :: any).__index = EventStream
 
 -- reportingService - (object) any object that defines the same functions for Event Stream as AnalyticsService
-function EventStream.new(reportingService): EventStream
+function EventStream.new(reportingService: RbxAnalyticsService): EventStream
 	local rsType = type(reportingService)
 	assert(rsType == "table" or rsType == "userdata", "Unexpected value for reportingService")
 
-	local self: any = {
+	local self = {
 		_reporter = reportingService,
 		_isEnabled = true,
 	}
 	setmetatable(self, EventStream)
 
-	return self
+	return self :: any
 end
 
--- isEnabled : (boolean)
-function EventStream:setEnabled(isEnabled)
+function EventStream:setEnabled(isEnabled: boolean)
 	assert(type(isEnabled) == "boolean", "Expected isEnabled to be a boolean")
 	self._isEnabled = isEnabled
 end
 
--- eventContext : (string) the location or context in which the event is occurring.
--- eventName : (string) the name corresponding to the type of event to be reported. "screenLoaded" for example.
--- additionalArgs : (optional, map<string, Value>) table for additional information to appear in the event stream.
-function EventStream:setRBXEvent(eventContext, eventName, additionalArgs)
+-- eventContext: the location or context in which the event is occurring.
+-- eventName: the name corresponding to the type of event to be reported. "screenLoaded" for example.
+-- additionalArgs: (map<string, Value>) table for additional information to appear in the event stream.
+function EventStream:setRBXEvent(eventContext: string, eventName: string, additionalArgs: Table?)
 	local target = getPlatformTarget()
 	additionalArgs = additionalArgs or {}
 
@@ -95,11 +99,10 @@ function EventStream:setRBXEvent(eventContext, eventName, additionalArgs)
 	self._reporter:SetRBXEvent(target, eventContext, eventName, additionalArgs)
 end
 
-
 -- eventContext : (string) the location or context in which the event is occurring.
 -- eventName : (string) the name corresponding to the type of event to be reported. "screenLoaded" for example.
 -- additionalArgs : (optional, map<string, Value>) map for extra keys to appear in the event stream.
-function EventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
+function EventStream:setRBXEventStream(eventContext: string, eventName: string, additionalArgs: Table?)
 	local target = getPlatformTarget()
 	additionalArgs = additionalArgs or {}
 
@@ -112,18 +115,16 @@ function EventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
 	self._reporter:SetRBXEventStream(target, eventContext, eventName, additionalArgs)
 end
 
-
 function EventStream:releaseRBXEventStream()
 	assert(self._isEnabled, "This reporting service is disabled")
 
 	self._reporter:ReleaseRBXEventStream(getPlatformTarget())
 end
 
-
 -- eventContext : (string) the location or context in which the event is occurring.
 -- eventName : (string) the name corresponding to the type of event to be reported. "screenLoaded" for example.
 -- additionalArgs : (optional, map<string, Value>) map for extra keys to appear in the event stream.
-function EventStream:sendEventDeferred(eventContext, eventName, additionalArgs)
+function EventStream:sendEventDeferred(eventContext: string, eventName: string, additionalArgs: Table?)
 	local target = getPlatformTarget()
 	additionalArgs = additionalArgs or {}
 
@@ -136,11 +137,10 @@ function EventStream:sendEventDeferred(eventContext, eventName, additionalArgs)
 	self._reporter:SendEventDeferred(target, eventContext, eventName, additionalArgs)
 end
 
-
 -- eventContext : (string) the location or context in which the event is occurring.
 -- eventName : (string) the name corresponding to the type of event to be reported. "screenLoaded" for example.
 -- additionalArgs : (optional, map<string, Value>) map for extra keys to appear in the event stream.
-function EventStream:sendEventImmediately(eventContext, eventName, additionalArgs)
+function EventStream:sendEventImmediately(eventContext: string, eventName: string, additionalArgs: Table?)
 	local target = getPlatformTarget()
 	additionalArgs = additionalArgs or {}
 
@@ -153,9 +153,8 @@ function EventStream:sendEventImmediately(eventContext, eventName, additionalArg
 	self._reporter:SendEventImmediately(target, eventContext, eventName, additionalArgs)
 end
 
-
 -- additionalArgs : (optional, map<string, string>) table for extra keys to appear in the event stream.
-function EventStream:updateHeartbeatObject(additionalArgs)
+function EventStream:updateHeartbeatObject(additionalArgs: Table?)
 	additionalArgs = additionalArgs or {}
 
 	assert(type(additionalArgs) == "table", "Expected additionalArgs to be a table")
@@ -163,6 +162,5 @@ function EventStream:updateHeartbeatObject(additionalArgs)
 
 	self._reporter:UpdateHeartbeatObject(additionalArgs)
 end
-
 
 return EventStream

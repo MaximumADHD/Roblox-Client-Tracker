@@ -32,6 +32,10 @@ local LabeledElement = require(MaterialVariantEditorComponent.LabeledElement)
 local TextureSettings = require(MaterialVariantEditorComponent.TextureSettings)
 local TilingSettings = require(MaterialVariantEditorComponent.TilingSettings)
 
+local getFFlagMaterialManagerExpandablePaneHeaderColor = require(
+	Plugin.Src.Flags.getFFlagMaterialManagerExpandablePaneHeaderColor
+)
+
 local Constants = Plugin.Src.Resources.Constants
 local getSettingsNames = require(Constants.getSettingsNames)
 
@@ -45,7 +49,7 @@ export type Props = {
 	OnDelete: () -> (),
 }
 
-type _Props = Props & { 
+type _Props = Props & {
 	Analytics: any,
 	dispatchSetExpandedPane: (paneName: string, expandedPaneState: boolean) -> (),
 	ExpandedPane: boolean,
@@ -60,9 +64,13 @@ type _Style = {
 	CustomExpandablePane: any,
 	Delete: _Types.Image,
 	DialogColumnSize: UDim2,
+	HeaderFont: Enum.Font,
 	ImagePosition: UDim2,
 	ImageSize: UDim2,
 	LabelColumnWidth: UDim,
+	TerrainDetailLabelWidth: UDim,
+	TextureLabelSize: UDim,
+	TilingLabelSize: UDim,
 }
 
 local TerrainDetailsEditor = Roact.PureComponent:extend("TerrainDetailsEditor")
@@ -99,14 +107,13 @@ function TerrainDetailsEditor:init()
 
 	self.onExpandedChanged = function()
 		local props: _Props = self.props
-		
+
 		props.dispatchSetExpandedPane(settingsNames.TerrainDetailsEditor[props.TerrainFace], not props.ExpandedPane)
 	end
 end
 
 function TerrainDetailsEditor:didUpdate(_, prevState)
-	if self.state.name ~= self.props.TerrainDetail.Name
-		and prevState.name == self.state.name then
+	if self.state.name ~= self.props.TerrainDetail.Name and prevState.name == self.state.name then
 		self:setState({
 			name = self.props.TerrainDetail.Name,
 		})
@@ -122,16 +129,28 @@ function TerrainDetailsEditor:render()
 
 	local functionComponent = function()
 		return Roact.createElement(LabeledElement, {
-			LabelColumnWidth = UDim.new(0, 55),
+			Font = if getFFlagMaterialManagerExpandablePaneHeaderColor() then style.HeaderFont else nil,
+			LabelColumnWidth = if getFFlagMaterialManagerExpandablePaneHeaderColor()
+				then style.TerrainDetailLabelWidth
+				else UDim.new(0, 55),
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
+			Padding = if getFFlagMaterialManagerExpandablePaneHeaderColor() then 0 else nil,
 			Text = localization:getText("TerrainDetails", props.TerrainFace),
 			StatusText = self.state.nameMessage,
 			Status = self.state.status,
+			VerticalAlignment = if getFFlagMaterialManagerExpandablePaneHeaderColor()
+				then Enum.VerticalAlignment.Center
+				else nil,
 		}, {
 			Roact.createElement(Pane, {
-				Size = style.DialogColumnSize,
+				Size = if getFFlagMaterialManagerExpandablePaneHeaderColor()
+					then UDim2.fromScale(1, 1)
+					else style.DialogColumnSize,
 				HorizontalAlignment = Enum.HorizontalAlignment.Left,
 				Layout = Enum.FillDirection.Horizontal,
+				VerticalAlignment = if getFFlagMaterialManagerExpandablePaneHeaderColor()
+					then Enum.VerticalAlignment.Center
+					else nil,
 			}, {
 				Name = Roact.createElement(TextInput, {
 					Style = "FilledRoundedBorder",
@@ -152,10 +171,10 @@ function TerrainDetailsEditor:render()
 						Position = style.ImagePosition,
 					}),
 					Tooltip = Roact.createElement(Tooltip, {
-						Text = localization:getText("TerrainDetails", "Delete")
+						Text = localization:getText("TerrainDetails", "Delete"),
 					}),
-				})
-			})
+				}),
+			}),
 		})
 	end
 	
@@ -165,16 +184,18 @@ function TerrainDetailsEditor:render()
 		Style = style.CustomExpandablePane,
 		Expanded = props.ExpandedPane,
 		OnExpandedChanged = self.onExpandedChanged,
-		Padding = {
+		Padding = if getFFlagMaterialManagerExpandablePaneHeaderColor() then nil else {
 			Left = 10,
-		},
+		}
 	}, {
 		TextureSettings = Roact.createElement(TextureSettings, {
+			LabelWidth = style.TextureLabelSize,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			PBRMaterial = props.TerrainDetail,
 			Expandable = false,
 		}),
 		TilingSettings = Roact.createElement(TilingSettings, {
+			LabelWidth = style.TilingLabelSize,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			PBRMaterial = props.TerrainDetail,
 			Expandable = false,

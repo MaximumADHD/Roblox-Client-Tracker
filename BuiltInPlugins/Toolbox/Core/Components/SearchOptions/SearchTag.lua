@@ -49,9 +49,9 @@ function SearchTag:renderContent(theme, localizedContent)
 	local prefix = self.props.prefix
 	local name = self.props.Name
 	local onDelete = self.props.onDelete
+
 	local textWidth = GetTextSize(name, nil, nil, Vector2.new(0, 0)).X
 	local byTextWidth = GetTextSize(prefix, Constants.FONT_SIZE_MEDIUM, Constants.FONT_BOLD, Vector2.new(0, 0)).X
-
 	local frameWidth = byTextWidth + textWidth + DELETE_BUTTON_SIZE + TEXT_PADDING * 4
 
 	return Roact.createElement(RoundFrame, {

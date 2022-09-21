@@ -130,7 +130,7 @@ return RoactRodux.connect(
 			}
 		elseif not state.MaterialBrowserReducer.Material or not supportedMaterials[state.MaterialBrowserReducer.Material.Material] then
 			return {
-				-- ßExpandedPane = state.MaterialBrowserReducer.ExpandedPane[settingsNames.OverrideSettings],
+				-- ExpandedPane = state.MaterialBrowserReducer.ExpandedPane[settingsNames.OverrideSettings],
 			}
 		else
 			return {

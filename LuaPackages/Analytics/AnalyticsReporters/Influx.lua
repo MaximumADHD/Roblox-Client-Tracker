@@ -6,18 +6,25 @@
 	~Kyler Mulherin (9/12/2017)
 ]]
 
-type Table = {[any]: any}
+type Table = { [any]: any }
+type InfluxPrivate = {
+	_reporter: RbxAnalyticsService,
+	_isEnabled: boolean,
+}
 
-export type Influx = {
+export type Influx = InfluxPrivate & {
 	setEnabled: (self: Influx, isEnabled: boolean) -> (),
 	reportSeries: (self: Influx, seriesName: string, additionalArgs: Table?, throttlingPercent: number) -> (),
 }
+type InfluxStatics = {
+	new: (RbxAnalyticsService) -> Influx,
+}
 
-local Influx = {}
-Influx.__index = Influx
+local Influx: Influx & InfluxStatics = {} :: any;
+(Influx :: any).__index = Influx
 
 -- reportingService - (object) any object that defines the same functions for Influx as AnalyticsService
-function Influx.new(reportingService): Influx
+function Influx.new(reportingService: RbxAnalyticsService): Influx
 	local rsType = type(reportingService)
 	assert(rsType == "table" or rsType == "userdata", "Unexpected value for reportingService")
 
@@ -30,16 +37,15 @@ function Influx.new(reportingService): Influx
 	return self
 end
 
--- isEnabled : (boolean)
-function Influx:setEnabled(isEnabled)
+function Influx:setEnabled(isEnabled: boolean)
 	assert(type(isEnabled) == "boolean", "Expected isEnabled to be a boolean")
 	self._isEnabled = isEnabled
 end
 
--- seriesName : (string) the name of the series as it will appear in InfluxDb
--- additionalArgs : (map<string, string>) extra key/values to appear in each series
--- throttlingPercent : (int) the chance to actually report this series
-function Influx:reportSeries(seriesName, additionalArgs, throttlingPercent)
+-- seriesName: the name of the series as it will appear in InfluxDb
+-- additionalArgs: (map<string, string>) extra key/values to appear in each series
+-- throttlingPercent: the chance to actually report this series
+function Influx:reportSeries(seriesName: string, additionalArgs: Table?, throttlingPercent: number)
 	additionalArgs = additionalArgs or {}
 
 	assert(type(seriesName) == "string", "Expected seriesName to be a string")

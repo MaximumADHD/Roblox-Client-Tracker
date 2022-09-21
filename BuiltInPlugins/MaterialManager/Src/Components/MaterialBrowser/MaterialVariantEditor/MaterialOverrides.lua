@@ -85,22 +85,9 @@ function MaterialOverrides:render()
 		return Roact.createElement(Pane)
 	end
 
-	return Roact.createElement(Pane, {
-		AutomaticSize = Enum.AutomaticSize.Y,
-		Layout = Enum.FillDirection.Vertical,
-		LayoutOrder = props.LayoutOrder,
-		Spacing = style.Padding,
-		Padding = style.Padding,
-	}, {
-		Name = Roact.createElement(TruncatedTextLabel, {
-			LayoutOrder = 1,
-			Font = style.HeaderFont,
-			Size = style.LabelRowSize,
-			Text = localization:getText("MaterialOverrides", "MaterialOverrides"),
-			TextSize = style.SectionHeaderTextSize,
-			TextXAlignment = Enum.TextXAlignment.Left,
-		}),
-		OverridesNew = Roact.createElement(Pane, {
+	local overridesPanel
+	if supportedMaterials[material.Material] then
+		overridesPanel = Roact.createElement(Pane, {
 			AutomaticSize = Enum.AutomaticSize.Y,
 			Layout = Enum.FillDirection.Horizontal,
 			LayoutOrder = 2,
@@ -138,9 +125,41 @@ function MaterialOverrides:render()
 					PlaceholderText = props.MaterialOverrides[props.MaterialOverride],
 					SelectedIndex = props.MaterialOverride,
 					Width = style.OverrideSize.X.Offset,
-				})
-			})
+				}),
+			}),
 		})
+	else
+		overridesPanel = Roact.createElement(Pane, {
+			AutomaticSize = Enum.AutomaticSize.XY,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			LayoutOrder = 2,
+		}, {
+			TextLabel = Roact.createElement(TextLabel, {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Size = style.OverrideSize,
+				Text = localization:getText("MaterialOverrides", "OverrideUnavailable"),
+				TextXAlignment = Enum.TextXAlignment.Left,
+			}),
+		})
+	end
+
+	return Roact.createElement(Pane, {
+		AutomaticSize = Enum.AutomaticSize.Y,
+		HorizontalAlignment = Enum.HorizontalAlignment.Left,
+		Layout = Enum.FillDirection.Vertical,
+		LayoutOrder = props.LayoutOrder,
+		Spacing = style.Padding,
+		Padding = style.Padding,
+	}, {
+		Name = Roact.createElement(TruncatedTextLabel, {
+			LayoutOrder = 1,
+			Font = style.HeaderFont,
+			Size = style.LabelRowSize,
+			Text = localization:getText("MaterialOverrides", "MaterialOverrides"),
+			TextSize = style.SectionHeaderTextSize,
+			TextXAlignment = Enum.TextXAlignment.Left,
+		}),
+		OverridesPanel = overridesPanel,
 	})
 end
 
@@ -158,13 +177,14 @@ return RoactRodux.connect(
 				Material = props.MockMaterial,
 				MaterialOverrides = state.MaterialBrowserReducer.MaterialOverrides[props.MockMaterial.Material],
 				MaterialOverride = state.MaterialBrowserReducer.MaterialOverride[props.MockMaterial.Material],
-				MaterialStatus = if not props.MockMaterial.MaterialVariant then
-					state.MaterialBrowserReducer.MaterialStatus[props.MockMaterial.Material]
-					else
-					nil
+				MaterialStatus = if not props.MockMaterial.MaterialVariant
+					then state.MaterialBrowserReducer.MaterialStatus[props.MockMaterial.Material]
+					else nil,
 			}
 		elseif not state.MaterialBrowserReducer.Material or not supportedMaterials[state.MaterialBrowserReducer.Material.Material] then
-			return {}
+			return {
+				Material = state.MaterialBrowserReducer.Material,
+			}
 		else
 			return {
 				Material = state.MaterialBrowserReducer.Material,

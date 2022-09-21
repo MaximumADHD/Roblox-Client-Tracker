@@ -6,11 +6,11 @@ game:DefineFastFlag("LimitGroupRoleSetPermissionsInGui", false)
 
 game:DefineFastFlag("ToolboxLocalizeInsertTool2", false)
 
-game:DefineFastFlag("ToolboxCreatorMarketplaceWebLinks", false)
-
 game:DefineFastFlag("ToolboxInsertMaterialsInMS", false)
 
 game:DefineFastFlag("ToolboxTrackHidden", false)
+
+game:DefineFastFlag("UGCValidationPackage", false)
 
 game:DefineFastFlag("ToolboxUseQueryForCategories2", false)
 
@@ -44,11 +44,19 @@ game:DefineFastFlag("ToolboxFixInsertPackage", false)
 
 game:DefineFastFlag("ToolboxFixPackageDragging", false)
 
+game:DefineFastFlag("ToolboxFixPublishPackageColor", false)
+
 game:DefineFastFlag("AssetConfigLayeredClothingBoxCollisions", false)
 
 game:DefineFastFlag("ToolboxAddUnverifiedIcon", false)
+
 game:DefineFastFlag("ToolboxAddUnverifiedIconFollowUp", false)
 
 game:DefineFastFlag("ToolboxAssetConfigurationVerifiedPrice", false)
+
+game:DefineFastFlag("ToolboxFixSubtypeArray", false)
+
+game:DefineFastFlag("ToolboxFixAssetConfigWarningIconColor", false)
+
 
 return nil

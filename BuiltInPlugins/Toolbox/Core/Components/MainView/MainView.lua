@@ -23,6 +23,7 @@
 		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
 local FFlagToolboxFixUnverifiedSearchTagBugs = game:getFastFlag("ToolboxFixUnverifiedSearchTagBugs")
+local FFlagToolboxAudioSearchOptions = game:GetFastFlag("ToolboxAudioSearchOptions")
 
 local GuiService = game:GetService("GuiService")
 
@@ -116,15 +117,20 @@ function MainView:render()
 		local creatorName = props.creator and props.creator.Name
 		local searchTerm = props.searchTerm
 		local showTags = if FFlagToolboxFixUnverifiedSearchTagBugs
-			then (includeUnverifiedCreators == true) or (creatorName ~= nil) or (#searchTerm > 0) or (props.audioSearchInfo ~= nil)
-			else (creatorName ~= nil) or (#searchTerm > 0) or (props.audioSearchInfo ~= nil)
+			then
+				(includeUnverifiedCreators == true)
+				or (creatorName ~= nil)
+				or (#searchTerm > 0)
+				or (props.audioSearchInfo ~= nil)
+				or (FFlagToolboxAudioSearchOptions and props.additionalAudioSearchInfo ~= nil)
+			else
+				(creatorName ~= nil)
+				or (#searchTerm > 0)
+				or (props.audioSearchInfo ~= nil)
+				or (FFlagToolboxAudioSearchOptions and props.additionalAudioSearchInfo ~= nil)
 
-		local headerHeight, headerToBodyPadding = Layouter.calculateMainViewHeaderHeight(
-			showTags,
-			suggestionIntro,
-			suggestions,
-			containerWidth
-		)
+		local headerHeight, headerToBodyPadding =
+			Layouter.calculateMainViewHeaderHeight(showTags, suggestionIntro, suggestions, containerWidth)
 
 		local hasResults = allAssetCount > 0
 
@@ -223,6 +229,7 @@ local function mapStateToProps(state, props)
 		networkErrors = state.networkErrors or {},
 
 		audioSearchInfo = pageInfo.audioSearchInfo,
+		additionalAudioSearchInfo = if FFlagToolboxAudioSearchOptions then pageInfo.additionalAudioSearchInfo else nil,
 		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
 		searchTerm = pageInfo.searchTerm or "",
 		creator = pageInfo.creator,

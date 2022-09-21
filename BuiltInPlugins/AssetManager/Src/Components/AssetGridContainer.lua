@@ -5,8 +5,6 @@
 	Required Props:
 		callback OnOverlayActivated: to display the overlay when the overlay button is clicked.
 ]]
-local FFlagAssetManagerDragAndDrop = game:GetFastFlag("AssetManagerDragAndDrop")
-
 local Plugin = script.Parent.Parent.Parent
 
 local InsertAsset = require(Plugin.Packages.InsertAsset)
@@ -135,12 +133,10 @@ function AssetGridContainer:init()
 		self.props.OnAssetPreviewClose()
 	end
 
-	if FFlagAssetManagerDragAndDrop then
-		self.onAssetDrag = function(assetData)
-			local props = self.props
-			local insertAsset = props.InsertAsset:get()
-			props.dispatchOnAssetDrag(insertAsset, assetData, props.Analytics)
-		end
+	self.onAssetDrag = function(assetData)
+		local props = self.props
+		local insertAsset = props.InsertAsset:get()
+		props.dispatchOnAssetDrag(insertAsset, assetData, props.Analytics)
 	end
 end
 
@@ -234,7 +230,7 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
 					Enabled = enabled,
 					OnOpenAssetPreview = self.onOpenAssetPreview,
 					OnAssetPreviewClose = self.onAssetPreviewClose,
-					OnAssetDrag = if FFlagAssetManagerDragAndDrop then self.onAssetDrag else nil,
+					OnAssetDrag = self.onAssetDrag,
 				})
 				assetsToDisplay[asset.id] = assetTile
 				numberAssets = numberAssets + 1
@@ -291,7 +287,7 @@ function AssetGridContainer:createListItems(apiImpl, localization, theme,
 					Enabled = enabled,
 					OnOpenAssetPreview = self.onOpenAssetPreview,
 					OnAssetPreviewClose = self.onAssetPreviewClose,
-					OnAssetDrag = if FFlagAssetManagerDragAndDrop then self.onAssetDrag else nil,
+					OnAssetDrag = self.onAssetDrag,
 				})
 				assetsToDisplay[asset.id] = assetListItem
 				numberAssets = numberAssets + 1
@@ -460,7 +456,7 @@ end
 AssetGridContainer = withContext({
 	Analytics = ContextServices.Analytics,
 	API = ContextServices.API,
-	InsertAsset = if FFlagAssetManagerDragAndDrop then InsertAssetContext else nil,
+	InsertAsset = InsertAssetContext,
 	Localization = ContextServices.Localization,
 	Plugin = ContextServices.Plugin,
 	Stylizer = ContextServices.Stylizer,
@@ -492,9 +488,9 @@ local function mapDispatchToProps(dispatch)
 			props.AssetData = placesFolder
 			dispatch(OnAssetRightClick(props))
 		end,
-		dispatchOnAssetDrag = if FFlagAssetManagerDragAndDrop then function(insertAsset, assetData, analytics)
+		dispatchOnAssetDrag = function(insertAsset, assetData, analytics)
 			dispatch(OnAssetDrag(insertAsset, assetData, analytics))
-		end else nil,
+		end,
 		dispatchOnScreenChange = function(apiImpl, screen)
 			dispatch(OnScreenChange(apiImpl, screen))
 		end,

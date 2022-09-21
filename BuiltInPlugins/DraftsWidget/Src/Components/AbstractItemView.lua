@@ -50,6 +50,7 @@ local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
+local FFlagDevFrameworkMigrateContextMenu = SharedFlags.getFFlagDevFrameworkMigrateContextMenu()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -58,6 +59,12 @@ local ContextMenus = UILibrary.Studio.ContextMenus
 
 local UI = Framework.UI
 local Button = if FFlagRemoveUILibraryButton then UI.Button else UILibrary.Component.Button
+
+local showContextMenu
+if FFlagDevFrameworkMigrateContextMenu then
+	local StudioUI = Framework.StudioUI
+	showContextMenu = StudioUI.showContextMenu
+end
 
 local DOUBLE_CLICK_TIME = 0.5
 
@@ -93,7 +100,13 @@ function AbstractItemView:init()
 			self.setSelection(id)
 		end
 
-		self:setState({contextMenuOpened = true})
+		if FFlagDevFrameworkMigrateContextMenu then
+			local plugin = self.props.Plugin:get()
+			local actions = self.makeMenuActions()
+			showContextMenu(plugin, actions)
+		else
+			self:setState({contextMenuOpened = true})
+		end
 		return
 	end
 
@@ -311,7 +324,7 @@ function AbstractItemView:render()
 	}, {
 		Contents = renderContents(itemList),
 
-		ContextMenu = self.state.contextMenuOpened and Roact.createElement(ContextMenus.ContextMenu, {
+		ContextMenu = not FFlagDevFrameworkMigrateContextMenu and self.state.contextMenuOpened and Roact.createElement(ContextMenus.ContextMenu, {
 			Actions = self.makeMenuActions(),
 			OnMenuOpened = function()
 				self:setState({contextMenuOpened = false})
@@ -322,6 +335,7 @@ end
 
 AbstractItemView = withContext({
 	Localization = ContextServices.Localization,
+	Plugin = ContextServices.Plugin
 })(AbstractItemView)
 
 return AbstractItemView

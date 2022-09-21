@@ -35,7 +35,6 @@ local Store = ContextServices.Store
 
 local MainReducer = require(Src.Reducers.MainReducer)
 local MakeTheme = require(Src.Resources.MakeTheme)
-local MakePluginActions = require(Src.Util.MakePluginActions)
 local AnalyticsHolder = require(Src.Resources.AnalyticsHolder)
 
 local SourceStrings = Src.Resources.Localization.SourceStrings
@@ -57,6 +56,12 @@ local CrossDMScriptChangeListener = require(Src.Util.CrossDMScriptChangeListener
 local FFlagStudioDebuggerOverhaul_Dev = game:GetFastFlag("StudioDebuggerOverhaul_Dev")
 local FFlagDebugPopulateDebuggerPlugin = game:GetFastFlag("DebugPopulateDebuggerPlugin")
 local FFlagDebuggerUIQTitanDockingFixes = require(Src.Flags.GetFFlagDebuggerUIQTitanDockingFixes)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateContextMenu = SharedFlags.getFFlagDevFrameworkMigrateContextMenu()
+local MakePluginActions = if FFlagDevFrameworkMigrateContextMenu 
+	then require(Src.Util.MakePluginActions) 
+	else require(Src.Util.DEPRECATED_MakePluginActions)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 

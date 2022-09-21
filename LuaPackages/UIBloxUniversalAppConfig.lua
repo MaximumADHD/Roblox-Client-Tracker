@@ -4,38 +4,32 @@ local CorePackages = game:GetService("CorePackages")
 
 local ArgCheck = require(CorePackages.ArgCheck)
 
-local GetFFlagUIBloxFixDropdownMenuListPositionAndSize = require(
-	CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuListPositionAndSize
-)
+local GetFFlagUIBloxFixDropdownMenuListPositionAndSize =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuListPositionAndSize)
 local GetFFlagUIBloxEnableSubtitleOnTile = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableSubtitleOnTile)
-local GetFFlagUIBloxUseNewGenericTextLabelProps = require(
-	CorePackages.UIBloxFlags.GetFFlagUIBloxUseNewGenericTextLabelProps
-)
-local GetFFlagUIBloxEnableRadioButtonGamepadSupport = require(
-	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableRadioButtonGamepadSupport
-)
-local GetFFlagUIBloxEnableActionBarLayoutFix = require(
-	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableActionBarLayoutFix
-)
-local GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix = require(
-	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix
-)
-local GetFFlagUIBloxEnableStandardButtonSizes = require(
-	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableStandardButtonSizes
-)
-local GetFFlagUIBloxSliderUpdateOnDismiss = require(
-	CorePackages.UIBloxFlags.GetFFlagUIBloxSliderUpdateOnDismiss
-)
+local GetFFlagUIBloxUseNewGenericTextLabelProps =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxUseNewGenericTextLabelProps)
+local GetFFlagUIBloxEnableRadioButtonGamepadSupport =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableRadioButtonGamepadSupport)
+local GetFFlagUIBloxEnableActionBarLayoutFix = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableActionBarLayoutFix)
+local GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix)
+local GetFFlagUIBloxEnableStandardButtonSizes =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableStandardButtonSizes)
+local GetFFlagUIBloxSliderUpdateOnDismiss = require(CorePackages.UIBloxFlags.GetFFlagUIBloxSliderUpdateOnDismiss)
 
-local GetFFlagUIBloxFixDropdownMenuCellTextSize = require(
-	CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuCellTextSize
-)
+local GetFFlagUIBloxFixDropdownMenuCellTextSize =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuCellTextSize)
 
-local GetFFlagUIBloxEnableVirtualizedListForCarousel = require(
-	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableVirtualizedListForCarousel
-)
+local GetFFlagUIBloxEnableVirtualizedListForCarousel =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableVirtualizedListForCarousel)
 local GetFFlagUIBloxEnableDynamicHeadIcon = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableDynamicHeadIcon)
-local FFlagSelectedSliderOverridesNextSelectionRightLeft = require(CorePackages.UIBloxFlags.FFlagSelectedSliderOverridesNextSelectionRightLeft)
+local FFlagSelectedSliderOverridesNextSelectionRightLeft =
+	require(CorePackages.UIBloxFlags.FFlagSelectedSliderOverridesNextSelectionRightLeft)
+local GetFFlagUIBloxEnableReactTag = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableReactTag)
+
+local GetFFlagUIBloxSystemBarBottomAlignedItems =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxSystemBarBottomAlignedItems)
 
 return {
 	selectedSliderOverridesNextSelectionRightLeft = FFlagSelectedSliderOverridesNextSelectionRightLeft,
@@ -55,6 +49,7 @@ return {
 	useNewGenericTextLabelProps = GetFFlagUIBloxUseNewGenericTextLabelProps(),
 	enableCustomMinPaddingForLinkButton = game:DefineFastFlag("UIBloxEnableCustomMinPaddingForLinkButton", false),
 	enableRadioButtonGamepadSupport = GetFFlagUIBloxEnableRadioButtonGamepadSupport(),
+	enableReactTag = GetFFlagUIBloxEnableReactTag(),
 
 	useNewVerticalScrollView = false, -- TODO: https://jira.rbx.com/browse/UIBLOX-225
 	enableActionBarLayoutFix = GetFFlagUIBloxEnableActionBarLayoutFix(),
@@ -67,8 +62,9 @@ return {
 	sliderUpdateOnDismiss = GetFFlagUIBloxSliderUpdateOnDismiss(),
 	enableVirtualizedListForCarousel = GetFFlagUIBloxEnableVirtualizedListForCarousel(),
 
-	fixDropdownMenuCellTextSize =  GetFFlagUIBloxFixDropdownMenuCellTextSize(),
+	fixDropdownMenuCellTextSize = GetFFlagUIBloxFixDropdownMenuCellTextSize(),
 	useDynamicHeadIcon = GetFFlagUIBloxEnableDynamicHeadIcon(),
 
+	systemBarBottomAlignedItems = GetFFlagUIBloxSystemBarBottomAlignedItems(),
 	devMode = ArgCheck.isEnabled(),
 }

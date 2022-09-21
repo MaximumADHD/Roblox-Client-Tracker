@@ -5,8 +5,6 @@
 	Required Props:
 		boolean RecentViewToggled: Whether or not list is toggled.
 ]]
-local FFlagAssetManagerDragAndDrop = game:GetFastFlag("AssetManagerDragAndDrop")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
@@ -43,7 +41,7 @@ function RecentlyImportedView:createListItems(theme, recentAssets, selectedAsset
 			StyleModifier = selectedAssets[asset.key] and StyleModifier.Selected or nil,
 			Enabled = enabled,
 			RecentListItem = true,
-			OnAssetDrag = if FFlagAssetManagerDragAndDrop then self.onAssetDrag else nil,
+			OnAssetDrag = self.onAssetDrag,
 		})
 		assetsToDisplay[asset.id] = assetItem
 	end
@@ -67,12 +65,10 @@ function RecentlyImportedView:init()
 		props.Mouse:__popCursor()
 	end
 
-	if FFlagAssetManagerDragAndDrop then
-		self.onAssetDrag = function(assetData)
-			local props = self.props
-			local insertAsset = props.InsertAsset:get()
-			props.dispatchOnAssetDrag(insertAsset, assetData, props.Analytics)
-		end
+	self.onAssetDrag = function(assetData)
+		local props = self.props
+		local insertAsset = props.InsertAsset:get()
+		props.dispatchOnAssetDrag(insertAsset, assetData, props.Analytics)
 	end
 end
 
@@ -177,7 +173,7 @@ end
 
 RecentlyImportedView = withContext({
 	Analytics = ContextServices.Analytics,
-	InsertAsset = if FFlagAssetManagerDragAndDrop then InsertAssetContext else nil,
+	InsertAsset = InsertAssetContext,
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 	Stylizer = ContextServices.Stylizer,
@@ -195,9 +191,9 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		dispatchOnAssetDrag = if FFlagAssetManagerDragAndDrop then function(insertAsset, assetData, analytics)
+		dispatchOnAssetDrag = function(insertAsset, assetData, analytics)
 			dispatch(OnAssetDrag(insertAsset, assetData, analytics))
-		end else nil,
+		end,
 		dispatchSetRecentViewToggled = function(toggled)
 			dispatch(SetRecentViewToggled(toggled))
 		end,

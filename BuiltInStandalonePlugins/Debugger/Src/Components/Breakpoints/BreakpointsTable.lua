@@ -31,7 +31,6 @@ local BreakpointsTreeTableCell = require(PluginFolder.Src.Components.Breakpoints
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
 
 local UtilFolder = PluginFolder.Src.Util
-local MakePluginActions = require(UtilFolder.MakePluginActions)
 local BreakpointHelperFunctions = require(UtilFolder.BreakpointHelperFunctions)
 local WatchHelperFunctions = require(UtilFolder.WatchHelperFunctions)
 local ColumnResizeHelperFunctions = require(UtilFolder.ColumnResizeHelperFunctions)
@@ -47,6 +46,13 @@ local BreakpointColumnFilter = require(Actions.BreakpointsWindow.BreakpointColum
 
 local BreakpointsDropdownField = require(script.Parent.BreakpointsDropdownField)
 local DeleteAllBreakpointsDialog = require(script.Parent.DeleteAllBreakpointsDialog)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateContextMenu = SharedFlags.getFFlagDevFrameworkMigrateContextMenu()
+
+local MakePluginActions = if FFlagDevFrameworkMigrateContextMenu 
+	then require(UtilFolder.MakePluginActions) 
+	else require(UtilFolder.DEPRECATED_MakePluginActions)
 
 local defaultColumnKeys = {
 	[1] = "isEnabled",
@@ -119,8 +125,46 @@ function BreakpointsTable:init()
 		end)
 	end
 
-	self.onMenuActionSelected = function(actionId, extraParameters)
+	self.DEPRECATED_onMenuActionSelected = function(actionId, extraParameters)
 		local row = extraParameters.row
+
+		if
+			actionId == Constants.BreakpointActions.DeleteBreakpoint
+			or actionId == Constants.LogpointActions.DeleteLogpoint
+		then
+			local MetaBreakpointManager = game:GetService("MetaBreakpointManager")
+			MetaBreakpointManager:RemoveBreakpointById(row.item.id)
+
+			self.props.Analytics:report(AnalyticsEventNames.RemoveMetaBreakpoint, "LuaBreakpointsTable.ContextMenu")
+		elseif
+			actionId == Constants.BreakpointActions.EditBreakpoint
+			or actionId == Constants.LogpointActions.EditLogpoint
+		then
+			local DebuggerUIService = game:GetService("DebuggerUIService")
+			DebuggerUIService:EditBreakpoint(row.item.id)
+		elseif
+			actionId == Constants.BreakpointActions.EnableBreakpoint
+			or actionId == Constants.LogpointActions.EnableLogpoint
+			or actionId == Constants.BreakpointActions.DisableBreakpoint
+			or actionId == Constants.LogpointActions.DisableLogpoint
+		then
+			local bpManager = game:GetService("MetaBreakpointManager")
+			local bp = bpManager:GetBreakpointById(row.item.id)
+			BreakpointHelperFunctions.setBreakpointRowEnabled(
+				bp,
+				row,
+				self.props.Analytics,
+				"LuaBreakpointsTable.ContextMenu",
+				self.props.CurrentDebuggerConnectionId
+			)
+		elseif actionId == Constants.CommonActions.GoToScript then
+			self.goToScript()
+		end
+	end
+
+	self.onMenuActionSelected = function(action)
+		local actionId = action.Id
+		local row = action.Data
 
 		if
 			actionId == Constants.BreakpointActions.DeleteBreakpoint
@@ -161,6 +205,7 @@ function BreakpointsTable:init()
 		local defaultSortOrder = props.SortOrder or sortOrder
 		props.onSetBreakpointSortState((props.SortIndex == index) and sortOrder or defaultSortOrder, index)
 	end
+
 	self.onRightClick = function(row)
 		self:setState(function(state)
 			return {
@@ -173,9 +218,18 @@ function BreakpointsTable:init()
 		local plugin = props.Plugin:get()
 
 		local isLogpoint = row.item.debugpointType == Constants.DebugpointType.Logpoint
-		local actions = MakePluginActions.getBreakpointActions(localization, row.item.isEnabled, isLogpoint)
-		local actionsOrder = MakePluginActions.getBreakpointActionsOrder(row.item.isEnabled, isLogpoint)
-		showContextMenu(plugin, "Breakpoint", actions, self.onMenuActionSelected, { row = row }, actionsOrder)
+
+		if FFlagDevFrameworkMigrateContextMenu then
+			local actions = MakePluginActions.getBreakpointActions(localization, row.item.isEnabled, isLogpoint, row, self.onMenuActionSelected)
+			local actionsOrder = MakePluginActions.getBreakpointActionsOrder(row.item.isEnabled, isLogpoint)
+
+			showContextMenu(plugin, actions, actionsOrder)
+		else
+			local actions = MakePluginActions.getBreakpointActions(localization, row.item.isEnabled, isLogpoint)
+			local actionsOrder = MakePluginActions.getBreakpointActionsOrder(row.item.isEnabled, isLogpoint)
+	
+			showContextMenu(plugin, "Breakpoint", actions, self.DEPRECATED_onMenuActionSelected, { row = row }, actionsOrder)
+		end
 	end
 
 	self.displayDeleteAllBreakpointsPopup = function()

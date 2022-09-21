@@ -24,12 +24,12 @@ local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
+local FFlagDevFrameworkMigrateToggleButton = SharedFlags.getFFlagDevFrameworkMigrateToggleButton()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.Packages.UILibrary)
-local ToggleButton = UILibrary.Component.ToggleButton
 
 local UI = Framework.UI
 local LinkText = UI.LinkText
@@ -37,6 +37,7 @@ local Pane = UI.Pane
 local Separator = UI.Separator
 local TextLabel = UI.Decoration.TextLabel
 local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
+local ToggleButton = if FFlagDevFrameworkMigrateToggleButton then UI.ToggleButton else UILibrary.Component.ToggleButton
 
 local FrameworkUtil = Framework.Util
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
@@ -180,7 +181,10 @@ local function getAutomaticTranslationEntries(props, theme)
 					CenterGutter = CENTER_GUTTER,
 					TextSize = theme.fontStyle.Smaller.TextSize,
 				}, {
-					ToggleButton = Roact.createElement(ToggleButton, {
+					ToggleButton = Roact.createElement(ToggleButton, if FFlagDevFrameworkMigrateToggleButton then {
+						OnClick = props.AutoTranslationSettingChanged(props.AutoTranslationSettings, languageCode),
+						Selected = props.AutoTranslationSettings[languageCode] or false,
+					} else {
 						Enabled = true,
 						IsOn = props.AutoTranslationSettings[languageCode] or false,
 						onToggle = props.AutoTranslationSettingChanged(props.AutoTranslationSettings, languageCode),

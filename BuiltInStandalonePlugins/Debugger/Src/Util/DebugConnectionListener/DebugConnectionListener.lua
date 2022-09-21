@@ -17,9 +17,13 @@ local Constants = require(Src.Util.Constants)
 
 local FFlagUsePopulateCallstackThreadThunk = require(Src.Flags.GetFFlagUsePopulateCallstackThreadThunk)
 local FFlagOnlyLoadOneCallstack = require(Src.Flags.GetFFlagOnlyLoadOneCallstack)
+local FFlagStudioBufferPauseEvents = require(Src.Flags.GetFFlagStudioBufferPauseEvents)
 
 local DebugConnectionListener = {}
 DebugConnectionListener.__index = DebugConnectionListener
+
+DebugConnectionListener.bufferedPauseEvents = {}
+local bufferDuration = 0.1
 
 function DebugConnectionListener:onExecutionPaused(
 	connection,
@@ -28,6 +32,15 @@ function DebugConnectionListener:onExecutionPaused(
 	debuggerUIService,
 	scriptChangeService
 )
+	if FFlagStudioBufferPauseEvents then
+		-- buffer pause events to reduce roact re-renders when hitting simultaneous breakpoints
+		self.bufferedPauseEvents[debuggerPauseReason] = pausedState
+		wait(bufferDuration)
+		if self.bufferedPauseEvents[debuggerPauseReason] ~= pausedState then
+			return
+		end
+	end
+	
 	self.store:dispatch(SetFocusedDebuggerConnection(connection.Id))
 	local state = self.store:getState()
 	local common = state.Common

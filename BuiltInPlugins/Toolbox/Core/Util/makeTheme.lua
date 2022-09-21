@@ -5,6 +5,7 @@ local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedI
 local FFlagToolboxFixBreadcrumbColor = game:GetFastFlag("ToolboxFixBreadcrumbColor")
 local FFlagToolboxAddUnverifiedIcon = game:GetFastFlag("ToolboxAddUnverifiedIcon")
 local FFlagToolboxPackagesInAssetTile = game:GetFastFlag("ToolboxPackagesInAssetTile")
+local FFlagToolboxFixAssetConfigWarningIconColor = game:GetFastFlag("ToolboxFixAssetConfigWarningIconColor")
 
 local Images = require(Plugin.Core.Util.Images)
 
@@ -159,6 +160,13 @@ local makeTheme = function(themeExtension, themeClass)
 		styleRoot = StudioTheme.mock(overridedDarkTheme, overridedLightTheme)
 	else
 		styleRoot = themeClass.new(overridedDarkTheme, overridedLightTheme)
+	end
+
+	local warningColor
+	if FFlagToolboxFixAssetConfigWarningIconColor then
+		warningColor = StyleKey.Toolbox_AssetWarningIcon
+	else
+		warningColor = if FFlagToolboxUseVerifiedIdAsDefault then Color3.fromHex("#FFAA21") else nil
 	end
 
 	styleRoot:extend({
@@ -404,7 +412,7 @@ local makeTheme = function(themeExtension, themeClass)
 			imageColor = Colors.GRAY_2,
 			imageHoveredColor = StyleKey.Toolbox_SearchOptionButtonHover,
 			imageSelectedColor = Colors.BLUE_PRIMARY,
-			warningIconColor = if FFlagToolboxUseVerifiedIdAsDefault then Color3.fromHex("#FFAA21") else nil,
+			warningIconColor = warningColor,
 
 			audioSearch = {
 				textColor = StyleKey.MainText,

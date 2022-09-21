@@ -22,6 +22,8 @@ local SetMenuHover = require(Plugin.Src.Actions.SetMenuHover)
 local Components = Plugin.Src.Components
 local MaterialItem = require(Components.MaterialBrowser.MaterialGrid.MaterialItem)
 
+local getFFlagMaterialManagerReducerImprovements = require(Plugin.Src.Flags.getFFlagMaterialManagerReducerImprovements)
+
 local MaterialGrid = Roact.PureComponent:extend("MaterialGrid")
 
 export type Props = {
@@ -38,7 +40,7 @@ export type Props = {
 type _Props = Props & {
 	Analytics: any,
 	dispatchSetMenuHover: (menuHover: boolean) -> (),
-	GridLock: boolean,
+	GridLock: boolean, -- Delete with FFlagMaterialManagerReducerImprovements
 	Localization: any,
 	MaterialList: _Types.Array<_Types.Material>,
 	MaterialTileSize: number,
@@ -55,12 +57,12 @@ type _Style = {
 	IconSize: UDim2,
 	ListHeight: number,
 	ListPadding: number,
-	Padding: number, 
+	Padding: number,
 	ShowIcon: string,
 }
 
 function MaterialGrid:init()
-	self.renderItem = function (layoutOrder: number, item: _Types.Material)
+	self.renderItem = function(layoutOrder: number, item: _Types.Material)
 		return Roact.createElement(MaterialItem, {
 			MaterialItem = item,
 			LayoutOrder = layoutOrder,
@@ -80,10 +82,11 @@ function MaterialGrid:init()
 	end
 end
 
-function MaterialGrid:shouldUpdate(nextProps: _Props, nextState)
-	return if nextProps.GridLock then false else Roact.PureComponent.shouldUpdate(self, nextProps, nextState)
+if not getFFlagMaterialManagerReducerImprovements() then
+	function MaterialGrid:shouldUpdate(nextProps: _Props, nextState)
+		return if nextProps.GridLock then false else Roact.PureComponent.shouldUpdate(self, nextProps, nextState)
+	end
 end
-
 function MaterialGrid:render()
 	local props: _Props = self.props
 	local style: _Style = props.Stylizer.MaterialGrid
@@ -98,18 +101,16 @@ function MaterialGrid:render()
 	return Roact.createElement(Pane, {
 		BackgroundColor = style.BackgroundColor,
 		LayoutOrder = layoutOrder,
-		Size = size
+		Size = size,
 	}, {
 		Grid = Roact.createElement(InfiniteScrollingGrid, {
 			AbsoluteMax = #props.MaterialList,
-			CellPadding = if viewType == "Grid" then
-				UDim2.fromOffset(style.GridPadding, style.GridPadding)
-				else
-				UDim2.fromOffset(style.ListPadding, style.ListPadding),
-			CellSize = if viewType == "Grid" then
-				UDim2.fromOffset(materialTileSize, materialTileSize)
-				else
-				UDim2.new(1, -20, 0, style.ListHeight),
+			CellPadding = if viewType == "Grid"
+				then UDim2.fromOffset(style.GridPadding, style.GridPadding)
+				else UDim2.fromOffset(style.ListPadding, style.ListPadding),
+			CellSize = if viewType == "Grid"
+				then UDim2.fromOffset(materialTileSize, materialTileSize)
+				else UDim2.new(1, -20, 0, style.ListHeight),
 			BufferedRows = 2,
 			Items = props.MaterialList,
 			Loading = false,
@@ -118,17 +119,19 @@ function MaterialGrid:render()
 			Size = UDim2.fromScale(1, 1),
 			ZIndex = 1,
 		}),
-		SidebarButton = if not props.SideBarVisible then Roact.createElement(IconButton, {
-			Size = style.IconSize,
-			LeftIcon = style.ChevronRight,
-			IconColor = style.IconColor,
-			OnClick = sideBarButtonOnClick or function() end,
-			OnMouseEnter = self.onMouseEnter,
-			OnMouseLeave = self.onMouseLeave,
-			AnchorPoint = Vector2.new(0, 1),
-			Position = UDim2.new(0, 5, 1, -5),
-			ZIndex = 2,
-		}) else nil,
+		SidebarButton = if not props.SideBarVisible
+			then Roact.createElement(IconButton, {
+				Size = style.IconSize,
+				LeftIcon = style.ChevronRight,
+				IconColor = style.IconColor,
+				OnClick = sideBarButtonOnClick or function() end,
+				OnMouseEnter = self.onMouseEnter,
+				OnMouseLeave = self.onMouseLeave,
+				AnchorPoint = Vector2.new(0, 1),
+				Position = UDim2.new(0, 5, 1, -5),
+				ZIndex = 2,
+			})
+			else nil,
 	})
 end
 
@@ -141,7 +144,7 @@ MaterialGrid = withContext({
 return RoactRodux.connect(
 	function(state, props)
 		return {
-			GridLock = state.MaterialBrowserReducer.GridLock or nil,
+			GridLock = if getFFlagMaterialManagerReducerImprovements() then nil else (state.MaterialBrowserReducer.GridLock or nil),
 			MaterialList = state.MaterialBrowserReducer.MaterialList,
 			MaterialTileSize = state.MaterialBrowserReducer.MaterialTileSize,
 			ViewType = state.MaterialBrowserReducer.ViewType,

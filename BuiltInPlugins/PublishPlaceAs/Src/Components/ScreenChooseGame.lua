@@ -17,7 +17,6 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local SharedFlags = Framework.SharedFlags
-local FFlagDevFrameworkMigrateSearchBar = SharedFlags.getFFlagDevFrameworkMigrateSearchBar()
 local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
 local FFlagRemoveUILibraryLoadingIndicator = SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
 
@@ -38,7 +37,7 @@ local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
 local UI = Framework.UI
 local Button = if FFlagRemoveUILibraryButton then UI.Button else UILibrary.Component.RoundTextButton
 local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator then UI.LoadingIndicator else UILibrary.Component.LoadingIndicator
-local SearchBar = if FFlagDevFrameworkMigrateSearchBar then Framework.StudioUI.SearchBar else UILibrary.Component.SearchBar
+local SearchBar = Framework.StudioUI.SearchBar
 local Separator = Framework.UI.Separator
 
 local ScreenChooseGame = Roact.PureComponent:extend("ScreenChooseGame")
@@ -153,30 +152,12 @@ function ScreenChooseGame:render()
 			Size = UDim2.new(0, theme.DROPDOWN_WIDTH - 10, 0, theme.DROPDOWN_HEIGHT),
 			BackgroundTransparency = 1,
 		}, {
-			Roact.createElement(SearchBar, if FFlagDevFrameworkMigrateSearchBar then {
+			Roact.createElement(SearchBar, {
 				Size = UDim2.new(1, 0, 1, 0),
 				ShowSearchIcon = true,
 				ShowSearchButton = false,
 				IncrementalTextSearch = true,
 				OnSearchRequested = self.OnSearchRequested,
-			} else {
-				Position = UDim2.new(1, 0, 1, 0),
-				Size = UDim2.new(1, 0, 1, 0),
-				Enabled = true,
-				Rounded = true,
-				BackgroundTransparency = 1,
-				FocusDisabled = true,
-				OnSearchRequested = function(submittedSearch)
-					if string.byte(submittedSearch:sub(-1, -1)) == 13 then
-						self:setState({
-							searchTerm = submittedSearch:sub(1, -2)
-						})
-					else
-						self:setState({
-							searchTerm = submittedSearch
-						})
-					end
-				end,
 			}),
 		}),
 
