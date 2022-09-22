@@ -26525,10 +26525,7 @@
             ],
             "MemoryCategory": "Gui",
             "Name": "CanvasGroup",
-            "Superclass": "GuiObject",
-            "Tags": [
-                "NotBrowsable"
-            ]
+            "Superclass": "GuiObject"
         },
         {
             "Members": [

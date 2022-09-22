@@ -1391,7 +1391,7 @@ Class GuiObject : GuiBase2d [NotCreatable] [NotBrowsable]
 	Event GuiObject.TouchRotate(Array touchPositions, float rotation, float velocity, Enum.UserInputState state)
 	Event GuiObject.TouchSwipe(Enum.SwipeDirection swipeDirection, int numberOfTouches)
 	Event GuiObject.TouchTap(Array touchPositions)
-Class CanvasGroup : GuiObject [NotBrowsable]
+Class CanvasGroup : GuiObject
 	Property Color3 CanvasGroup.GroupColor3
 	Property float CanvasGroup.GroupTransparency
 Class Frame : GuiObject
