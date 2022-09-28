@@ -56,7 +56,6 @@ AA61B3A2068118C14FDE5E01E7934
 AAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWWWWWWWWWWWWWWWWWWWWWWWWNNNNNNNNN
 AAACertificateServices.crl0
-AAACertificateServices.crl04
 AAACertificateServices.crl06
 AAAEB11E38B9D871882A8E559
 AAAEC11E38B9D871882A8E559
@@ -2278,7 +2277,6 @@ AUTHORITY_INFO_ACCESS
 AUTHORITY_KEYID
 Authority0
 Authority0v0
-Authority1
 AuthorityId
 AuthorityText
 AuthorityUrl
@@ -10616,8 +10614,8 @@ Corporation
 Corporation.
 Corporation\Roblox
 Corporation\Roblox\FilteredExceptionCrash
-CORPORATION0
-CORPORATION1
+Corporation0
+Corporation1
 Corporation1402
 CorrectCreationOfConnections
 Correction
@@ -11454,6 +11452,7 @@ DA88D6583A11E29A3DBD856014A660
 DA88D7583A11E29A3DBD856014A660
 DA88D8583A11E29A3DBD856014A660
 DA88D9583A11E29A3DBD856014A660
+DAA85932068
 DAA8593206811871F972B2A9311C9
 DAAEB11E38B9D871882A8E559
 DADE9A44A91111E2B410EF351327957B
@@ -13028,6 +13027,15 @@ DiffuseFilePath
 DigestAlgorithm_find_ctx
 DigestAlgorithm_init_bio
 DigestedData_do_final
+DigiCertAssuredIDRootCA.crl0
+DigiCertAssuredIDRootCA.crt0E
+DigiCertEVCodeSigningCA
+DigiCertHighAssuranceEVRootCA.crl0
+DigiCertHighAssuranceEVRootCA.crt0
+DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crl0
+DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crt0
+DigiCertTrustedRootG4.crl0
+DigiCertTrustedRootG4.crt0C
 DigitalSignature
 DilateTemporalFS
 DilleniaUPC
@@ -13035,7 +13043,7 @@ Dimensionar
 Dimensione
 Dimensions
 DimmedText
-DIpaDIncDImcDItaDIlpDIegDIfsDIkaTRAannvthsvtnevtnsvtsevtkitspagptscpdruplrupdigemnoslaosraosaaosocosnsos`
+DIpaDIncDImcDItaDIlpDIegDIfsDIkaTRAannvthsvtnevtnsvtsevtkitspagptscpdruplrupdigemnoslaosraosaaosocosnsos
 DiqLimitMax
 DiqLimitMilliseconds
 DiqLimitPermyriad
@@ -13247,6 +13255,7 @@ DistributorType
 DistToShowBufferCountSqr
 DJOTX\_cfiloruwz
 DkCageMeshDistanceSDCoeff
+DKdoPB1uk5Nl
 DKECCAK1600_ASM
 DkrigidSubset
 DlcVersion
@@ -13831,6 +13840,7 @@ EBAPEAVTrackerStreamAnimation
 EBAPEAVWorkspace
 EbDgxvvfGb
 EBELEVE`EjEtE
+EBSHoPXzHjCzAD9ntPP0AKwsQGwVGbl7czJb4IewPZfplNGKYBmHhUVgoXghBF
 EC_GROUP_check
 EC_GROUP_check_discriminant
 EC_GROUP_copy
@@ -14627,6 +14637,7 @@ EvAudioVideoInput
 EvAV2CFaceIsOccluded
 EvAV2CFaceNotFound
 EvAV2CHasTrackingError
+EVCodeSigningSHA2
 Event.button
 Event.clientX
 Event.clientY
@@ -14965,7 +14976,6 @@ EXtSoftware
 EyeAccessory
 EyebrowAccessory
 EyebrowqvirtualMouthEdges
-EYECAwEAAQ
 EyelashAccessory
 EyesLookDown
 EyesLookLeft
@@ -18619,6 +18629,7 @@ HzJTLTNTPTRTTTVXX2\
 HZNVNRNNTJPF9
 Iacutesmall
 IAMCameraControl
+IaMmAM5FAqk1KtWvQ3rGuQ678OY02SPpURE5ahSncb04mv0cvHXy9f5JcY6Yl
 IAudioCaptureClient
 IAudioClient
 IAudioClock
@@ -18718,6 +18729,7 @@ IEBAPEAVQTreeWidgetItem
 IEBAXPEAVQStyleOptionComboBox
 IEBAXPEAVQStyleOptionSlider
 Ierusalimschy
+If7CWn2IQ9L
 IfE9Z0uBfE9Z
 IFindListener
 IfLastDocInLastAppInstance
@@ -20114,7 +20126,6 @@ KKKKKKKKKK
 KKKKKKKKKKKK
 KKKKKKKKKKKKKKKKKKKKKK
 KKKKXXoooopppppppr
-KL8U5zJDdczIq6rk2qBxZycgH0uwf2ng7NH6f
 Klebeoberfl
 Kleinschreibung
 KMMMQQkmmmrttttttt
@@ -20143,7 +20154,7 @@ Kopplungsbeschr
 Korrodiertes
 KPEAVICHull
 KPEBDPEBDH
-KTkx6UvgWEgb
+Kswsv4mGfQtH0RrIF6vCuO4zgW2YF3Pd3pN9sexX2O8OldZcUeuOxuSxB4o
 Kugelverbindung
 Kundendienst.
 Kundensupport.
@@ -20531,7 +20542,6 @@ LipPresser
 LipsTogether
 Lis.length
 Lis[i].style[
-LIsnzrXFHd1CDgin
 ListColumnIndexChanged
 ListColumnVisibilities
 ListColumnVisibilityChanged
@@ -22123,7 +22133,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEA3XhihBlAnCnntjDwtSiJeJcizvy94dlHoRKCYNtLU174oK2oag40
+MIICCgKCAgEAuLqQ2
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -22532,6 +22542,7 @@ MRURobloxApiGameStoreBase
 MSACM32.dll
 MsecBetweenTextureMemoryUsageArrayRefresh
 MSecsSinceEpoch
+MSFwLZv7Pt2cYf99FzYSgtaZFQvJmnq
 MsgWaitForMultipleObjectsEx
 MSTerrainDetailsDeterminism
 MsToScreen
@@ -23304,7 +23315,7 @@ NW4ActionType
 NW4HintingPreference
 NW4PenStyle
 NW4UserInputType
-NX42eFm35eild4y3eWdlEaAVOW4B15UgBTAXRBWFvf
+NwUKBIBiX7Bc7dml
 Oacutesmall
 OAEPEncryptionSET
 OAuth2Config.json
@@ -23471,6 +23482,7 @@ OfTruthFindItemFound
 OfUnsplitMessages
 OfVisibleResultsInScripts
 OfVisibleScripts
+OfZaIa5ExuRyitz6AueQBXcbMWMvEMkp38X4UMCAwEAAQ
 Ogoneksmall
 Ogravesmall
 OGRE_VIEW_UPDATE
@@ -23479,7 +23491,6 @@ OgreWidgetForGameState
 OgreWidgetShowEvent
 Ohungarumlaut
 OiCCPPhotoshop
-OIvGcCIoAV42ZQGTGrNQB2B8iGi66CgBQ
 OldActiveElement
 OldBinaryStringLength
 OldDOFDownSampleAndComputeFarCoCHorizontal4xFS
@@ -23784,6 +23795,7 @@ OrFetchPlugin
 OrFirstTier
 Organizaci
 Organization
+Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -26158,7 +26170,6 @@ PPPPPPPZZZZZZZZZZZZZZZZZZZZZZ
 PPPPTTTTXccccozzzzzzzzz
 PPPZZZZZbkkkkk
 PPSVVVVV]llooo
-PQbdGnNZ6JF0xQOhk2i73VUFr8
 Prc.length
 Prc[MouseGraphX]
 PreAnimation
@@ -27275,6 +27286,7 @@ QRegularExpressionMatch
 QRegularExpressionMatchIterator
 QResizeEvent
 QRubberBand
+QRYw45sdugVsYM
 QScrollArea
 QScrollBar
 QSemaphore
@@ -27486,6 +27498,7 @@ QWindowsEGLContext
 QWindowsEGLStaticContext
 QXmlStreamAttributes
 QXmlStreamReader
+QYGILjeUDd5OagUohgTdGXqwqOoWjqapBvzCt8145DnQwGWwTIVe
 RaceConditionInExplorer
 RaceDetected
 RadialBlurFS
@@ -29653,7 +29666,6 @@ RTCStatsMember
 RTCTransport_
 RtcWorkerThread
 RTDynamicCast
-RTeunlOBFJfDTQ34q8ls7DysOs9MKmMHytjGGxePY
 RthroNarrow
 RtlCaptureContext
 RtlCaptureStackBackTrace
@@ -30407,7 +30419,6 @@ SdpParseError
 SdpSemantics
 SdpSemantics.
 SdpVideoFormat
-SE2tAiDcEeT6RZGLpezWWiF1P7BUk1jZNBpik
 SeamToMaps
 SEARCH_GAMES
 SearchAction
@@ -30479,10 +30490,6 @@ SecondaryFilterValue
 SecondaryTangentAxis
 SecondsBetweenDynamicVariableReloading
 SecondsPerBatchAwardPointsCall
-SectigoPublicCodeSigningCAR36.crl0y
-SectigoPublicCodeSigningCAR36.crt0
-SectigoPublicCodeSigningRootR46.crl0
-SectigoPublicCodeSigningRootR46.p7c0
 SectionClicked
 SectionResizeMode
 SectionsClickable
@@ -31267,6 +31274,7 @@ SetWindowsHookExA
 SetWindowsHookExW
 SetWindowTextW
 Sfoglia...
+SGXUDKmIj2hgrJXHHcBfAHK0xr5F2jCNiLDU6LApXf5a9jcJUyW
 ShaderLoad
 ShaderLoad_TotalTime
 ShaderLoad_TotalTime_
@@ -32303,7 +32311,6 @@ StandForce
 Standortdaten.
 StandSpeed
 Stangenbeschr
-Start2RcvdSignalRSubscriptionsInitiatedMs
 StartAecDump
 StartCharacter
 StartCharMetrics
@@ -36750,6 +36757,7 @@ StudioDockPanelManager
 StudioDoNotDropDockWindowUponGSTChange
 StudioDoNotHideForRestoreLaterOnAboutToPlay
 StudioDoNotPlaceFloatingDMPluginsAtBottom
+StudioDoNotRestoreLiveDMPluginIfPlayDocNull
 StudioDoNotRestoreStandalonePluginsProperlyOnReverseGSTChange
 StudioDoNotShowExternalDialogWithUnifiedLogin
 StudioEmbeddedAuthorizationDialog
@@ -37453,6 +37461,7 @@ SwitchWindow
 Sword128.png
 SwordTexture.png
 SWXXXbbbgggggqqqq
+SX2tQBcFMVog
 SXNET_add_id_asc
 SXNET_add_id_INTEGER
 SXNET_add_id_ulong
@@ -38469,6 +38478,7 @@ TimeSpentRemoving
 TimesReplicatedNeverReplicate
 TimesReplicatedNeverReplicatedPerInterval
 Timestamping
+TimeStamping
 TimestampStart
 TimestepArbiterAccelerationModelFactorThou
 TimestepArbiterAngAccelerationThresholdThou
@@ -39301,6 +39311,7 @@ TypesToIgnore
 TypeToImport
 TypeVerification
 Typewriter
+TyqAKfHjhizvK2mt2bbj28VeW5jrcqUbDnzE9q2s5T
 U_ExceptionHolder
 U_Key_dn.png
 U_Mbstatet
@@ -40634,7 +40645,6 @@ UWorkspaceApplyEditRequest
 UWorkspaceApplyEditResponse
 UWorkspaceDidChangeConfigurationNotification
 UXImprovementAddSearchBar
-UzvvIPnmdmWgd68ms56nT5sZPcuKOLrdXcGbNlIUH0oxXK0Knsut1AfzNoc
 VAccessory
 VAccountInfoRequest
 VAccoutrement
@@ -41366,7 +41376,6 @@ VExpression
 VExternalContentSharingProtocol
 VExtractor
 VExtrudedPartInstance
-Vf3eVLEz1BRJXio70ZZn85L1Hbv7EM8myscJCkOaEU8IaI8RPCJE
 VFaceAnimatorAudioServiceSink
 VFaceAnimatorService
 VFaceControls
@@ -41475,6 +41484,7 @@ VGuiLayerCollector
 VGuiObject
 VGuiService
 VGuiTextButton
+VGz2byPkTFFYNASwPNhMyNUKHdsm7VBwAVDiMXrOKK6FDRuk2zcb8P9
 VH264EncoderSpecificSettings
 VHammerTool
 VHandleAdornment
@@ -42105,6 +42115,7 @@ VoiceChatMaxPostSubscriptionsComplete2SubscriptionsCompletedMs
 VoiceChatMaxPostSubscriptionsStart2RcvdSignalRSubscriptionsInitiatedMs
 VoiceChatMaxRcvdSignalRSubscriptionsInitiated2PostSubscriptionsCompleteMs
 VoiceChatMaxSubscriptionsStart2RcvdSignalRSubscriptionsCompletedMs
+VoiceChatMessagingTransportAudioIn
 VoiceChatMessagingTransportAudioInterleaved
 VoiceChatMessagingTransportAudioInterleavedFrameDecoder
 VoiceChatMessagingTransportAudioInterleavedFrameEncoder
@@ -43554,7 +43565,6 @@ WSAstartup
 WSAStartup
 WSAWaitForMultipleEvents
 WsClientIdleSleepMs
-WSK1w7JI3zipoQ
 WWWWWWWWWW
 WWWWWWWWWWWWWW
 WWWWWWWWWWWWWWWWWWWWWWW
@@ -43909,9 +43919,7 @@ YHcN4HcF0H
 YieldEvent
 YieldFuncDesc
 YieldFunction
-YmTuF4UStlIOnzi2MQ
 YResolution
-YtJ9Zot0aPHWk7GHhDaUHwaa5uzeWqJE
 YwBBvY55YvBBwY5
 YYYYYYYYYYYYYYYYYYYYYYYYY
 YYYYYYYYzzzzzzzzzzzzzzzzzz
@@ -43928,10 +43936,10 @@ Zekton.json
 ZeroTargetSpeedStartTimeCountToTotalCount
 ZgnhKhWhci
 ZhniZzzzZbarAnmrAgneBlryCaveDroeGkerGrjuGuruGgnaHinaHrbeHariHadnKanaKooaLntaLmylMayrOlmaTuleTiahTtbiTopoBiarBsnaCrehCihtErmhKgnoMrmyMmagOrnuRhniScrySaahTiiiYtrsDhtoGlatIdhuBonaHglgTbgaTtrpCbmiLbniLamsOwahSelaTragUiguBtpoCgalGrahKulaToepXolySgnfTilaBxusXookNga
-ZhveX7hTpr37UWMx
 ZIndexBehavior
 ZNjlXiODrHUcaGRYt
 ZntaLkerGlryCnmrArbeHbarAcrySaahTaveDgneBuruGrjuGayrOlmaTuleTadnKmylMhniSiahTooaLtbiTrmyMroeGgnaHihtErehCsnaCmagOrnuRrmhKgnoMariHanaKopoBinaHiiiYlatIhtoGtrsDhniZglgTonaHdhuBbgaTbmiLelaTbniLragUwahSamsOtrpCiarBiguBtpoCulaTgalGgnfTolySoepXrahKilaBxusXxnhPgahPoo
+Zo7wZKnBbLwL2JyyjCepMO2hj0f
 ZoomActive
 ZoomOutDistance
 ZoomToExtents
@@ -43939,10 +43947,9 @@ ZoomToHighlight
 ZP6APEAX1PEBX
 ZP6AX1PEAX
 ZPEAVPluginMouse
-Zpsw5K3TeAGn
 ZPu4fE9Z`u
-ZqbJEuCsc5snqNSnE5Z2JFqDWySSG4bitWYOKRpW90WlYi9qUp
 ZRZZZbZt[.[
+Zs6df72aeFx8iJCQt8kxqVIBCQc4jyONZjIwsIK0MdyohZrJxv6aD7bTNpDnY
 Zusammenfassung
 ZVLocalTouchedSignal
 ZVspecial_equipped_signal
