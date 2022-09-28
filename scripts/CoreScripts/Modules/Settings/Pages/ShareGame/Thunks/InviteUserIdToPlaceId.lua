@@ -18,7 +18,7 @@ local FFlagLuaInviteFailOnZeroPlaceId = settings():GetFFlag("LuaInviteFailOnZero
 
 local EMPTY_PLACE_ID = "0"
 
-return function(requestImpl, userId, placeId)
+return function(requestImpl: any, userId: string, placeId: string)
 	return function(store)
 		if FFlagLuaInviteFailOnZeroPlaceId then
 			if placeId == EMPTY_PLACE_ID then

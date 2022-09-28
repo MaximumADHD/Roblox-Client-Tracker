@@ -53,6 +53,7 @@ function InviteToGamePrompt:_createTree(isVisible, props: InviteCustomizationPro
 		isVisible = isVisible,
 		analytics = self.analytics,
 		promptMessage = props and props.promptMessage,
+		inviteUserId = props and props.inviteUserId,
 		onAfterClosePage = function(_)
 			-- * "Why are we no-opting sentToUserIds?"
 			-- Originally our specs required us to pass the userIds of

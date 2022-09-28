@@ -31,6 +31,9 @@ local GetFFlagUIBloxEnableReactTag = require(CorePackages.UIBloxFlags.GetFFlagUI
 local GetFFlagUIBloxSystemBarBottomAlignedItems =
 	require(CorePackages.UIBloxFlags.GetFFlagUIBloxSystemBarBottomAlignedItems)
 
+local GetFFlagUIBloxFixHorizontalCarouselLayout =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxFixHorizontalCarouselLayout)
+
 return {
 	selectedSliderOverridesNextSelectionRightLeft = FFlagSelectedSliderOverridesNextSelectionRightLeft,
 	enableTileInsets = true,
@@ -67,4 +70,6 @@ return {
 
 	systemBarBottomAlignedItems = GetFFlagUIBloxSystemBarBottomAlignedItems(),
 	devMode = ArgCheck.isEnabled(),
+
+	fixHorizontalCarouselLayout = GetFFlagUIBloxFixHorizontalCarouselLayout(),
 }

@@ -6,12 +6,16 @@
 		Press again to remove try on and bring back original thumbnail
 	3. Action Button - purchase item, get item (if free), or button is disabled (offsale/owned)
 ]]
+local ContextActionService = game:GetService("ContextActionService")
 local CorePackages = game:GetService("CorePackages")
+local MarketplaceService = game:GetService("MarketplaceService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
+local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 local UIBlox = require(CorePackages.UIBlox)
 local t = require(CorePackages.Packages.t)
+local Cryo = require(CorePackages.Cryo)
 
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local withStyle = UIBlox.Core.Style.withStyle
@@ -33,6 +37,8 @@ local IBUtils = require(InGameMenu.Utility.InspectAndBuyUtils)
 local BUTTON_WIDTH = 184
 local BOTTOM_BAR_GRADIENT_SIZE = 20
 local CONTEXTUAL_MENU_PADDING = 12
+local CLOSE_MENU_ACTION = "CloseMenu"
+local SINK_INPUT_ACTION = "SinkInput"
 local ICON_BUTTON_SIZE = 22
 
 local TRYON_ICON_OFF = Images["icons/menu/tryOnOff"]
@@ -46,6 +52,8 @@ local AssetDetailBottomBar = Roact.PureComponent:extend("AssetDetailBottomBar")
 AssetDetailBottomBar.validateProps = t.strictInterface({
 	bundleInfo = t.optional(t.table),
 	localPlayerModel = t.optional(t.table),
+	focusController = t.optional(t.table),
+	isFocused = t.optional(t.boolean),
 
 	-- from mapStateToProps
 	purchaseInfo = t.optional(t.table),
@@ -53,23 +61,45 @@ AssetDetailBottomBar.validateProps = t.strictInterface({
 	selectedItem = t.table,
 	tryingOn = t.boolean,
 	currentPage = t.string,
+
+	-- from forwardRef
+	forwardRef = t.optional(t.table),
 })
 
 function AssetDetailBottomBar:init()
+	self.moreButtonRef = Roact.createRef()
+	self.tryOnButtonRef = Roact.createRef()
+	self.buyButtonRef = Roact.createRef()
+	self.contextualMenuRef = Roact.createRef()
+	self.connections = {}
+
 	self:setState({
 		contextualMenuOpened = false
 	})
 
-	self.closeMenu = function()
+	self.closeMenu = function(actionName, inputState, input): Enum.ContextActionResult?
 		self:setState({
 			contextualMenuOpened = false
 		})
+		if self.props.isFocused then
+			if inputState == Enum.UserInputState.End then
+				ContextActionService:UnbindCoreAction(CLOSE_MENU_ACTION)
+				self.props.focusController.moveFocusTo(self.moreButtonRef)
+				return Enum.ContextActionResult.Sink
+			end
+		end
+
+		return nil
 	end
 
 	self.openMenu = function()
 		self:setState({
 			contextualMenuOpened = true
 		})
+		if self.props.isFocused then
+			self.props.focusController.moveFocusTo(self.contextualMenuRef)
+			ContextActionService:BindCoreAction(CLOSE_MENU_ACTION, self.closeMenu, false, Enum.KeyCode.ButtonB)
+		end
 	end
 
 	self.favoriteButtonActivated = function()
@@ -80,7 +110,20 @@ function AssetDetailBottomBar:init()
 		self.props.setFavoriteForItem(itemId, itemType, shouldFavorite)
 	end
 
+	self.sinkInput = function(actionName, inputState, input): Enum.ContextActionResult?
+		if inputState == Enum.UserInputState.End then
+			return Enum.ContextActionResult.Sink
+		end
+
+		return nil
+	end
+
 	self.buyButtonActivated = function()
+		if self.props.isFocused then
+			self.props.focusController.releaseFocus()
+			ContextActionService:BindCoreAction(SINK_INPUT_ACTION, self.sinkInput, false, Enum.KeyCode.ButtonB)
+		end
+
 		if self.props.bundleInfo then
 			self.props.promptPurchase(self.props.bundleInfo.bundleId, Enum.AvatarItemType.Bundle)
 		else
@@ -93,6 +136,14 @@ function AssetDetailBottomBar:init()
 			self.props.setTryOnItemInfo(false)
 		else
 			self.props.setTryOnItemInfo(true)
+		end
+	end
+
+	self.onPromptPurchaseFinished = function()
+		if self.props.isFocused then
+			-- when the prompt closes and we expect gamepad support, restore focus
+			self.props.focusController.captureFocus()
+			ContextActionService:UnbindCoreAction(SINK_INPUT_ACTION)
 		end
 	end
 end
@@ -147,16 +198,29 @@ function AssetDetailBottomBar:renderWithProviders(stylePalette, localized, getSe
 	local contextualMenuButtons = {
 		{
 			icon = favoriteIcon,
-			text = "Favorite", --TODO: Localize
+			text = localized.favoriteText,
 			onActivated = self.favoriteButtonActivated,
 		}
 	}
 
+	local moreButtonRight = nil
+	if not shouldDisableTryOn then
+		moreButtonRight = self.tryOnButtonRef
+	elseif not isBuyButtonDisabled then
+		moreButtonRight = self.buyButtonRef
+	end
+
+	local defaultChild = isBuyButtonDisabled and self.moreButtonRef or self.buyButtonRef
+	if self.state.contextualMenuOpened then
+		defaultChild = self.contextualMenuRef
+	end
 	return Roact.createFragment({
-		BottomBarContainer = Roact.createElement("Frame", {
+		BottomBarContainer = Roact.createElement(RoactGamepad.Focusable.Frame, {
 			Position = UDim2.new(0, 0, 1, -actionButtonHeight),
 			Size = UDim2.new(1, 0, 0, actionButtonHeight),
 			BackgroundColor3 = theme.BackgroundDefault.Color,
+			[Roact.Ref] = self.props.forwardRef,
+			defaultChild = defaultChild,
 		}, {
 			GradientFrame = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, BOTTOM_BAR_GRADIENT_SIZE),
@@ -181,6 +245,8 @@ function AssetDetailBottomBar:renderWithProviders(stylePalette, localized, getSe
 						icon = icon,
 						onActivated = self.buyButtonActivated,
 						isDisabled = isBuyButtonDisabled,
+						buttonRef = self.buyButtonRef,
+						NextSelectionLeft = shouldDisableTryOn and self.moreButtonRef or self.tryOnButtonRef,
 					},
 				},
 				icons = {
@@ -191,7 +257,12 @@ function AssetDetailBottomBar:renderWithProviders(stylePalette, localized, getSe
 							icon = MORE_ICON,
 							iconColor3 = theme.SystemPrimaryDefault.Color,
 							iconTransparency = theme.SystemPrimaryDefault.Transparency,
-							onActivated = self.openMenu,
+							onActivated = if not self.props.isFocused then self.openMenu else nil,
+							buttonRef = self.moreButtonRef,
+							NextSelectionRight = moreButtonRight,
+							inputBindings = {
+ 								Activate = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, self.openMenu),
+  							},
 						},
 					},
 					{
@@ -201,14 +272,20 @@ function AssetDetailBottomBar:renderWithProviders(stylePalette, localized, getSe
 							icon = self.props.tryingOn and TRYON_ICON_ON or TRYON_ICON_OFF,
 							iconColor3 = theme.SystemPrimaryDefault.Color,
 							iconTransparency = shouldDisableTryOn and 0.5 or theme.SystemPrimaryDefault.Transparency,
-							onActivated = self.tryOnButtonActivated,
 							isDisabled = shouldDisableTryOn,
+							onActivated = if not self.props.isFocused then self.tryOnButtonActivated else nil,
+							buttonRef = self.tryOnButtonRef,
+							NextSelectionRight = not isBuyButtonDisabled and self.buyButtonRef or nil,
+							NextSelectionLeft = self.moreButtonRef,
+							inputBindings = {
+ 								Activate = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, self.tryOnButtonActivated),
+  							},
 						},
 					},
 				}
 			})
 		}),
-		MoreContextualMenu = Roact.createElement(ContextualMenu, {
+		MoreContextualMenu = Roact.createElement(RoactGamepad.Focusable[ContextualMenu], {
 			buttonProps = contextualMenuButtons,
 			open = self.state.contextualMenuOpened,
 			menuDirection = MenuDirection.Up,
@@ -218,6 +295,8 @@ function AssetDetailBottomBar:renderWithProviders(stylePalette, localized, getSe
 			screenSize = self.props.screenSize,
 
 			onDismiss = self.closeMenu,
+
+			[Roact.Ref] = self.contextualMenuRef,
 		}),
 	})
 end
@@ -234,6 +313,11 @@ end
 function AssetDetailBottomBar:render()
 	return withStyle(function(stylePalette)
 		return withLocalization({
+			freeText = "CoreScripts.InGameMenu.Label.Free",
+			offSaleText = "CoreScripts.InGameMenu.Label.Offsale",
+			limitedText = "CoreScripts.InGameMenu.Label.Limited",
+			premiumOnlyText = "CoreScripts.InGameMenu.Label.PremiumOnly",
+			favoriteText = "CoreScripts.InGameMenu.Action.Favorite"
 		})(function(localized)
 			return withSelectionCursorProvider(function(getSelectionCursor)
 				return self:renderWithProviders(stylePalette, localized, getSelectionCursor)
@@ -242,7 +326,25 @@ function AssetDetailBottomBar:render()
 	end)
 end
 
-return RoactRodux.connect(function(state, props)
+function AssetDetailBottomBar:didMount()
+	local purchaseFinishedListener =
+			MarketplaceService.PromptPurchaseFinished:Connect(self.onPromptPurchaseFinished)
+	local bundlePurchaseFinishedListener =
+		MarketplaceService.PromptBundlePurchaseFinished:Connect(self.onPromptPurchaseFinished)
+	table.insert(self.connections, purchaseFinishedListener)
+	table.insert(self.connections, bundlePurchaseFinishedListener)
+end
+
+function AssetDetailBottomBar:willUnmount()
+	for _, connection in pairs(self.connections) do
+		connection:Disconnect()
+	end
+
+	ContextActionService:UnbindCoreAction(CLOSE_MENU_ACTION)
+	ContextActionService:UnbindCoreAction(SINK_INPUT_ACTION)
+end
+
+AssetDetailBottomBar = RoactRodux.connect(function(state, props)
 	return {
 		purchaseInfo = getPurchaseInfo(state),
 		screenSize = state.screenSize,
@@ -263,3 +365,9 @@ end, function(dispatch)
 		end,
 	}
 end)(AssetDetailBottomBar)
+
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(AssetDetailBottomBar, Cryo.Dictionary.join(props, {
+		forwardRef = ref
+	}))
+end)

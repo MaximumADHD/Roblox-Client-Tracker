@@ -11,8 +11,8 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CoreUtility = require(RobloxGui.Modules.CoreUtility)
 
 local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
-local EnableProximityPromptAutomaticSize = game:DefineFastFlag("EnableProximityPromptAutomaticSize", false)
-local EnableAutomaticSizeVerticalOffsetWidthFix = game:DefineFastFlag("EnableAutomaticSizeVerticalOffsetWidthFix", false)
+local EnableProximityPromptAutomaticSize = require(RobloxGui.Modules.Flags.FFlagEnableProximityPromptAutomaticSize)
+local EnableAutomaticSizeVerticalOffsetWidthFix = require(RobloxGui.Modules.Flags.FFlagEnableAutomaticSizeVerticalOffsetWidthFix)
 
 local LocalPlayer = Players.LocalPlayer
 while LocalPlayer == nil do

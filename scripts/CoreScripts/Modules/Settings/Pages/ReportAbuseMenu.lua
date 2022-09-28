@@ -35,6 +35,7 @@ local ReportAbuseLogic = require(RobloxGui.Modules.VoiceChat.ReportAbuseLogic)
 local createVoiceAbuseReportRequest = require(RobloxGui.Modules.VoiceChat.createVoiceAbuseReportRequest)
 local VoiceUsersByProximity = require(RobloxGui.Modules.VoiceChat.VoiceUsersByProximity)
 
+local GetFFlagReportSentPageV2Enabled = require(RobloxGui.Modules.Flags.GetFFlagReportSentPageV2Enabled)
 local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
 local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
 local GetFFlagHideMOAOnExperience = require(RobloxGui.Modules.Flags.GetFFlagHideMOAOnExperience)
@@ -243,7 +244,7 @@ local function Initialize()
 	end
 
 	function this:isVoiceReportMethodActive()
-		if not GetFFlagVoiceAbuseReportsEnabled() then
+		if not GetFFlagVoiceAbuseReportsEnabled() or not voiceChatEnabled then
 			return false
 		end
 		local recentVoicePlayers = VoiceChatServiceManager:getRecentUsersInteractionData()
@@ -252,7 +253,7 @@ local function Initialize()
 	end
 
 	function this:isVoiceReportSelected()
-		if not GetFFlagVoiceAbuseReportsEnabled() then
+		if not GetFFlagVoiceAbuseReportsEnabled() or not this.MethodOfAbuseMode then
 			return false
 		end
 
@@ -606,7 +607,7 @@ local function Initialize()
 					local dialogVariant = layerData.thankYouDialog
 					isReportSentEnabled = self.HubRef.ReportSentPage and GetFFlagAbuseReportEnableReportSentPage() and dialogVariant == "variant" -- "Report Sent" is only enabled for reporting players
 
-					if GetFFlagVoiceAbuseReportsEnabled() then
+					if GetFFlagVoiceAbuseReportsEnabled() and this.MethodOfAbuseMode then
 						local currentIndex = this.MethodOfAbuseMode.CurrentIndex
 						local methodOfAbuse
 
@@ -658,11 +659,9 @@ local function Initialize()
 						end)
 					end
 
-					if GetFFlagVoiceAbuseReportsEnabled() then
-						if this:isVoiceReportSelected() then
-							showReportSentAlert = false
-							self.HubRef.ReportSentPageV2:ShowReportedPlayer(currentAbusingPlayer, true)
-						end
+					if GetFFlagVoiceAbuseReportsEnabled() and GetFFlagReportSentPageV2Enabled() and this:isVoiceReportSelected() then
+						showReportSentAlert = false
+						self.HubRef.ReportSentPageV2:ShowReportedPlayer(currentAbusingPlayer, true)
 					elseif isReportSentEnabled then
 						showReportSentAlert = false -- Don't show the alert, since we'll show a different page
 						self.HubRef.ReportSentPage:ShowReportedPlayer(currentAbusingPlayer)
@@ -717,8 +716,7 @@ local function Initialize()
 		submitButton.Parent = this.AbuseDescription.Selection
 
 		local function playerSelectionChanged(newIndex)
-			if GetFFlagVoiceAbuseReportsEnabled() then
-				currentSelectedPlayer = this:GetPlayerFromIndex(this.WhichPlayerMode.CurrentIndex)
+			if GetFFlagVoiceAbuseReportsEnabled() and voiceChatEnabled then
 				this:updateMethodOfAbuseDropdown()
 
 				this.reportAbuseAnalytics:reportAnalyticsFieldChanged({

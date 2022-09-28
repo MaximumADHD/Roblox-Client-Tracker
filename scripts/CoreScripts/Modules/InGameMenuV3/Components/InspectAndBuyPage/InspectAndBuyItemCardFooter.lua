@@ -115,9 +115,10 @@ end
 function InspectAndBuyItemCardFooter:render()
 	return withStyle(function(stylePalette)
 		return withLocalization({
-			--TODO: Localize
-			--freeText = "Feature.Catalog.LabelFree",
-			--offSaleText = "Feature.Catalog.LabelOffSale",
+			freeText = "CoreScripts.InGameMenu.Label.Free",
+			offSaleText = "CoreScripts.InGameMenu.Label.Offsale",
+			limitedText = "CoreScripts.InGameMenu.Label.Limited",
+			premiumOnlyText = "CoreScripts.InGameMenu.Label.PremiumOnly",
 		})(function(localized)
 			return self:renderWithProviders(stylePalette, localized)
 		end)

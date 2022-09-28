@@ -12,9 +12,10 @@ local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
 local VRService = game:GetService("VRService")
 local Utility = require(RobloxGui.Modules.Settings.Utility)
+local CorePackages = game:GetService("CorePackages")
 require(RobloxGui.Modules.VR.Panel3D)
 
-local GetFFlagIsVRAppEnabled = require(RobloxGui.Modules.Flags.GetFFlagIsVRAppEnabled)
+local GetFFlagIsVRAppEnabled = require(CorePackages.AppTempCommon.Flags.GetFFlagIsVRAppEnabled)
 
 local FFlagRenderVRCursorOnTop = game:DefineFastFlag("RenderVRCursorOnTop", false)
 local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")

@@ -31,24 +31,35 @@ local coreGuiOverflowDetection = game:GetEngineFeature("CoreGuiOverflowDetection
 
 local LEAVE_GAME_FRAME_WAITS = 2
 
+local DEFAULT_ERROR_PROMPT_KEY = "ErrorPrompt"
+
 local noHardcodedStringInLuaKickMessage = game:GetEngineFeature("NoHardcodedStringInLuaKickMessage")
 
+local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagCoreScriptShowTeleportPrompt)
+
 local function safeGetFInt(name, defaultValue)
-	local success, result = pcall(function() return tonumber(settings():GetFVariable(name)) end)
+	local success, result = pcall(function()
+		return tonumber(settings():GetFVariable(name))
+	end)
 	return success and result or defaultValue
 end
 
 local function safeGetFString(name, defaultValue)
-	local success, result = pcall(function() return settings():GetFVariable(name) end)
+	local success, result = pcall(function()
+		return settings():GetFVariable(name)
+	end)
 	return success and result or defaultValue
 end
 
 local inGameGlobalGuiInset = safeGetFInt("InGameGlobalGuiInset", 36)
-local defaultTimeoutTime  = safeGetFInt("DefaultTimeoutTimeMs", 10000) / 1000
+local defaultTimeoutTime = safeGetFInt("DefaultTimeoutTimeMs", 10000) / 1000
 
 -- when this flag turns on, all the errors will not have reconnect option
 local reconnectDisabled = settings():GetFFlag("ReconnectDisabled")
-local reconnectDisabledReason = safeGetFString("ReconnectDisabledReason", "We're sorry, Roblox is temporarily unavailable.  Please try again later.")
+local reconnectDisabledReason = safeGetFString(
+	"ReconnectDisabledReason",
+	"We're sorry, Roblox is temporarily unavailable.  Please try again later."
+)
 
 local lastErrorTimeStamp = tick()
 
@@ -105,8 +116,8 @@ local ErrorTitleLocalizationKey = {
 -- only return success when a valid root id is given
 local function fetchStarterPlaceId(universeId)
 	local apiPath = "v1/games"
-	local params = "universeIds="..universeId
-	local fullUrl = Url.GAME_URL..apiPath.."?"..params
+	local params = "universeIds=" .. universeId
+	local fullUrl = Url.GAME_URL .. apiPath .. "?" .. params
 	local success, result = pcall(HttpRbxApiService.GetAsyncFullUrl, HttpRbxApiService, fullUrl)
 	if success then
 		local result = HttpService:JSONDecode(result)
@@ -121,24 +132,24 @@ local function fetchStarterPlaceId(universeId)
 end
 
 -- Screengui holding the prompt and make it on top of blur
-local screenGui = create 'ScreenGui' {
+local screenGui = create("ScreenGui")({
 	Parent = CoreGui,
 	Name = "RobloxPromptGui",
 	OnTopOfCoreBlur = true,
 	DisplayOrder = 9,
 	AutoLocalize = false,
-}
+})
 
 -- semi-transparent frame overlay
-local promptOverlay = create 'Frame' {
-	Name = 'promptOverlay',
+local promptOverlay = create("Frame")({
+	Name = "promptOverlay",
 	BackgroundColor3 = Color3.new(0, 0, 0),
 	BackgroundTransparency = 1,
 	Size = UDim2.new(1, 0, 1, inGameGlobalGuiInset),
 	Position = UDim2.new(0, 0, 0, -inGameGlobalGuiInset),
 	Active = false,
-	Parent = screenGui
-}
+	Parent = screenGui,
+})
 
 -- Button Callbacks --
 local reconnectFunction = function()
@@ -163,6 +174,10 @@ local reconnectFunction = function()
 		TeleportService:Teleport(starterPlaceId)
 	else
 		TeleportService:Teleport(game.PlaceId)
+	end
+
+	if FFlagCoreScriptShowTeleportPrompt then
+		GuiService:SetMenuIsOpen(false, DEFAULT_ERROR_PROMPT_KEY)
 	end
 end
 
@@ -214,14 +229,14 @@ local ButtonList = {
 			LocalizationKey = "InGame.CommonUI.Button.Retry",
 			LayoutOrder = 2,
 			Callback = reconnectFunction,
-			Primary = true
+			Primary = true,
 		},
 		{
 			Text = "Cancel",
 			LocalizationKey = "Feature.SettingsHub.Action.CancelSearch",
 			LayoutOrder = 1,
 			Callback = leaveFunction,
-		}
+		},
 	},
 	[ConnectionPromptState.RECONNECT_DISCONNECT] = {
 		{
@@ -236,7 +251,7 @@ local ButtonList = {
 			LocalizationKey = "Feature.SettingsHub.Label.LeaveButton",
 			LayoutOrder = 1,
 			Callback = leaveFunction,
-		}
+		},
 	},
 	[ConnectionPromptState.TELEPORT_FAILED] = {
 		{
@@ -245,7 +260,7 @@ local ButtonList = {
 			LayoutOrder = 1,
 			Callback = closePrompt,
 			Primary = true,
-		}
+		},
 	},
 	[ConnectionPromptState.RECONNECT_DISABLED_DISCONNECT] = {
 		{
@@ -254,7 +269,7 @@ local ButtonList = {
 			LayoutOrder = 1,
 			Callback = leaveFunction,
 			Primary = true,
-		}
+		},
 	},
 	[ConnectionPromptState.RECONNECT_DISABLED_PLACELAUNCH] = {
 		{
@@ -263,7 +278,7 @@ local ButtonList = {
 			LayoutOrder = 1,
 			Callback = leaveFunction,
 			Primary = true,
-		}
+		},
 	},
 	[ConnectionPromptState.RECONNECT_DISABLED] = {
 		{
@@ -272,7 +287,7 @@ local ButtonList = {
 			LayoutOrder = 1,
 			Callback = leaveFunction,
 			Primary = true,
-		}
+		},
 	},
 	[ConnectionPromptState.OUT_OF_MEMORY] = {
 		{
@@ -281,7 +296,7 @@ local ButtonList = {
 			LayoutOrder = 1,
 			Callback = leaveFunction,
 			Primary = true,
-		}
+		},
 	},
 	[ConnectionPromptState.OUT_OF_MEMORY_EXIT_CONTINUE] = {
 		{
@@ -297,7 +312,7 @@ local ButtonList = {
 			LayoutOrder = 2,
 			Callback = closePrompt,
 			Primary = if fflagExitContinueHighlight then nil else true,
-		}
+		},
 	},
 	[ConnectionPromptState.OUT_OF_MEMORY_KEEPPLAYING_EXIT] = {
 		{
@@ -312,8 +327,8 @@ local ButtonList = {
 			LayoutOrder = 2,
 			Callback = leaveFunction,
 			Primary = true,
-		}
-	}
+		},
+	},
 }
 
 local updateFullScreenEffect = {
@@ -363,7 +378,7 @@ local function onEnter(newState)
 	if not errorPrompt then
 		local extraConfiguration = {
 			MenuIsOpenKey = "ConnectionErrorPrompt",
-			PlayAnimation = not fflagDebugEnableErrorStringTesting
+			PlayAnimation = not fflagDebugEnableErrorStringTesting,
 		}
 		errorPrompt = ErrorPrompt.new("Default", extraConfiguration)
 		errorPrompt:setParent(promptOverlay)
@@ -398,10 +413,16 @@ local function stateTransit(errorType, errorCode, oldState)
 			-- reconnection will be delayed after graceTimeout
 			graceTimeout = tick() + defaultTimeoutTime
 			errorForReconnect = Enum.ConnectionError.DisconnectErrors
-			if fflagPredictedOOMKeepPlayingExit and errorCode == Enum.ConnectionError["DisconnectOutOfMemoryKeepPlayingExit"] then
+			if
+				fflagPredictedOOMKeepPlayingExit
+				and errorCode == Enum.ConnectionError["DisconnectOutOfMemoryKeepPlayingExit"]
+			then
 				return ConnectionPromptState.OUT_OF_MEMORY_KEEPPLAYING_EXIT
 			end
-			if fflagPredictedOOMExitContinueChoice and errorCode == Enum.ConnectionError["DisconnectOutOfMemoryExitContinue"] then
+			if
+				fflagPredictedOOMExitContinueChoice
+				and errorCode == Enum.ConnectionError["DisconnectOutOfMemoryExitContinue"]
+			then
 				return ConnectionPromptState.OUT_OF_MEMORY_EXIT_CONTINUE
 			end
 			if fflagPredictedOOMExit and errorCode == Enum.ConnectionError["DisconnectOutOfMemory"] then
@@ -426,12 +447,10 @@ local function stateTransit(errorType, errorCode, oldState)
 	end
 
 	if oldState == ConnectionPromptState.IS_RECONNECTING then
-
 		-- if is reconnecting, then it is the reconnect failure
 		AnalyticsService:ReportCounter("ReconnectPrompt-ReconnectFailed")
 
 		if errorType == Enum.ConnectionError.TeleportErrors then
-
 			-- disable reconnect at second try after a long period of time since last error pops up.
 			if tick() > lastErrorTimeStamp + fIntPotentialClientTimeout then
 				if errorForReconnect == Enum.ConnectionError.PlacelaunchErrors then
@@ -463,7 +482,9 @@ local function getErrorString(errorMsg: string, errorCode, reconnectError)
 		local success, attemptTranslation = pcall(function()
 			return coreScriptTableTranslator:FormatByKey("InGame.ConnectionError.ReconnectFailed")
 		end)
-		if success then return attemptTranslation end
+		if success then
+			return attemptTranslation
+		end
 		return "Reconnect was unsuccessful. Please try again."
 	end
 
@@ -479,7 +500,7 @@ local function getErrorString(errorMsg: string, errorCode, reconnectError)
 			-- errorMsg is dev message
 			local success, attemptTranslation = pcall(function()
 				local luaKickMessageKey = "InGame.ConnectionError.DisconnectLuaKickWithMessage"
-				return coreScriptTableTranslator:FormatByKey(luaKickMessageKey, {RBX_STR=errorMsg})
+				return coreScriptTableTranslator:FormatByKey(luaKickMessageKey, { RBX_STR = errorMsg })
 			end)
 			if success then
 				return attemptTranslation
@@ -494,7 +515,7 @@ local function getErrorString(errorMsg: string, errorCode, reconnectError)
 	if coreScriptTableTranslator then
 		local success, attemptTranslation = pcall(function()
 			if errorCode == Enum.ConnectionError.DisconnectIdle then
-				return coreScriptTableTranslator:FormatByKey(key, {RBX_NUM=tostring(20)})
+				return coreScriptTableTranslator:FormatByKey(key, { RBX_NUM = tostring(20) })
 			end
 			return coreScriptTableTranslator:FormatByKey(key)
 		end)
@@ -507,7 +528,9 @@ local function getErrorString(errorMsg: string, errorCode, reconnectError)
 			return successUnknownError and localizedUnknownError or ""
 		end
 
-		if success then return attemptTranslation end
+		if success then
+			return attemptTranslation
+		end
 	end
 	return errorMsg
 end
@@ -520,8 +543,10 @@ local function updateErrorPrompt(errorMsg, errorCode, errorType)
 		onEnter(newPromptState)
 	end
 
-	if errorType == Enum.ConnectionError.TeleportErrors and
-		connectionPromptState ~= ConnectionPromptState.TELEPORT_FAILED then
+	if
+		errorType == Enum.ConnectionError.TeleportErrors
+		and connectionPromptState ~= ConnectionPromptState.TELEPORT_FAILED
+	then
 		errorMsg = getErrorString(errorMsg, errorCode, true)
 	else
 		errorMsg = getErrorString(errorMsg, errorCode)
@@ -575,7 +600,11 @@ if shouldSetUpErrorHandlerFromThisScript then
 		local testingSet = require(RobloxGui.Modules.ErrorTestSets)
 		for errorType, errorList in pairs(testingSet) do
 			for _, errorCode in pairs(errorList) do
-				updateErrorPrompt("Should show localized strings, please file a jira ticket for missing translation.", errorCode, errorType)
+				updateErrorPrompt(
+					"Should show localized strings, please file a jira ticket for missing translation.",
+					errorCode,
+					errorType
+				)
 				wait(2)
 				connectionPromptState = ConnectionPromptState.NONE
 			end

@@ -21,19 +21,19 @@ function InspectAndBuyUtils.getItemLabelData(purchaseInfo, localized): (string?,
 		isBuyButtonDisabled = true
 	elseif purchaseInfo.isLimited then
 		icon = nil
-		text = "Limited" --TODO: Localize
+		text = localized.limitedText
 		isBuyButtonDisabled = true
 	elseif purchaseInfo.isLoading or purchaseInfo.offsale then
 		icon = nil
-		text = "Offsale" --TODO: Localize
+		text = localized.offSaleText
 		isBuyButtonDisabled = true
 	elseif purchaseInfo.premiumExclusiveWhileNotPremium then
 		icon = nil
-		text = "Premium Only" --TODO: Localize
+		text = localized.premiumOnlyText
 		isBuyButtonDisabled = true
 	elseif purchaseInfo.robuxPrice == 0 then
 		icon = nil
-		text = "Free" --TODO: Localize
+		text = localized.freeText
 	elseif purchaseInfo.robuxPrice then
 		icon = ROBUX_ICON
 		text = string.format("%.0f", purchaseInfo.robuxPrice)

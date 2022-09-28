@@ -17,6 +17,10 @@ return function()
 		return Rodux.Store.new(ShareGameAppReducer, nil, { Rodux.thunkMiddleware })
 	end
 
+	local function createStoreWithState(initialState)
+		return Rodux.Store.new(ShareGameAppReducer, initialState, { Rodux.thunkMiddleware })
+	end
+
 	describe("createElement", function()
 		it("should mount and unmount without issue", function()
 			local fullModalElement = Roact.createElement(FullModalShareGameComponent, {
@@ -65,6 +69,62 @@ return function()
 			expect(folder:FindFirstChild("CustomText", true).Text).to.equal("Custom")
 
 			game:SetFastFlagForTesting("EnableNewInviteMenuDev", oldFlagValue)
+		end)
+	end)
+
+	describe("single user invite prompt", function()
+		beforeAll(function(c)
+			c.oldFlagValue = game:SetFastFlagForTesting("EnableNewInviteMenuDev", true)
+		end)
+
+		afterAll(function(c)
+			game:SetFastFlagForTesting("EnableNewInviteMenuDev", c.oldFlagValue)
+		end)
+
+		it("should show display name in default prompt", function()
+			local folder = Instance.new("Folder")
+			local instance = Roact.mount(
+				Roact.createElement(FullModalShareGameComponent, {
+					store = createStoreWithState({
+						Users = {
+							["416"] = {
+								id = 416,
+								displayName = "TestUser",
+							}
+						},
+					}),
+					isVisible = true,
+					inviteUserId = 416,
+				}),
+				folder
+			)
+
+			expect(instance).to.be.ok()
+			expect(folder:FindFirstChild("Header", true).Text:match("TestUser")).to.be.ok()
+			expect(folder:FindFirstChild("TextBody", true).Text:match("TestUser")).to.be.ok()
+		end)
+
+		it("should use custom text if provided", function()
+			local folder = Instance.new("Folder")
+			local instance = Roact.mount(
+				Roact.createElement(FullModalShareGameComponent, {
+					store = createStoreWithState({
+						Users = {
+							["416"] = {
+								id = 416,
+								displayName = "TestUser",
+							},
+						},
+					}),
+					isVisible = true,
+					inviteUserId = 416,
+					promptMessage = "Custom Text",
+				}),
+				folder
+			)
+
+			expect(instance).to.be.ok()
+			expect(folder:FindFirstChild("TextBody", true).Text).to.equal("Custom Text")
 		end)
 	end)
 end

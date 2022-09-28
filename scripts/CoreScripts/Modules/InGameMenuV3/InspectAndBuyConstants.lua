@@ -184,4 +184,51 @@ Constants.LayeredClothingOrder = {
 	[tostring(Enum.AssetType.HairAccessory.Value)] = 11,
 }
 
+Constants.AssetCategoriesLocalized = {
+	[Constants.AssetCategories.Animation] = "CoreScripts.InGameMenu.Label.Animation",
+	[Constants.AssetCategories.Body] = "CoreScripts.InGameMenu.Label.Body",
+	[Constants.AssetCategories.Clothing] = "CoreScripts.InGameMenu.Label.Clothing",
+	[Constants.AssetCategories.Accessory] = "CoreScripts.InGameMenu.Label.Accessory",
+	[Constants.AssetCategories.Emotes] = "CoreScripts.InGameMenu.Label.Emotes",
+}
+
+Constants.AssetTypeLocalized = {
+	[tostring(Enum.AssetType.TShirt.Value)] = "CoreScripts.InGameMenu.Label.ClassicTShirts",
+	[tostring(Enum.AssetType.Hat.Value)] = "CoreScripts.InGameMenu.Label.Hat",
+	[tostring(Enum.AssetType.HairAccessory.Value)] = "CoreScripts.InGameMenu.Label.Hair",
+	[tostring(Enum.AssetType.FaceAccessory.Value)] = "CoreScripts.InGameMenu.Label.Face",
+	[tostring(Enum.AssetType.NeckAccessory.Value)] = "CoreScripts.InGameMenu.Label.Neck",
+	[tostring(Enum.AssetType.ShoulderAccessory.Value)] = "CoreScripts.InGameMenu.Label.Shoulder",
+	[tostring(Enum.AssetType.FrontAccessory.Value)] = "CoreScripts.InGameMenu.Label.Front",
+	[tostring(Enum.AssetType.BackAccessory.Value)] = "CoreScripts.InGameMenu.Label.Back",
+	[tostring(Enum.AssetType.WaistAccessory.Value)] = "CoreScripts.InGameMenu.Label.Waist",
+	[tostring(Enum.AssetType.ShirtAccessory.Value)] = "CoreScripts.InGameMenu.Label.ClassicShirts",
+	[tostring(Enum.AssetType.PantsAccessory.Value)] = "CoreScripts.InGameMenu.Label.ClassicPants",
+	[tostring(Enum.AssetType.Gear.Value)] = "CoreScripts.InGameMenu.Label.Gear",
+	[tostring(Enum.AssetType.Head.Value)] = "CoreScripts.InGameMenu.Label.Head",
+	[tostring(Enum.AssetType.Face.Value)] = "CoreScripts.InGameMenu.Label.Face",
+	[tostring(Enum.AssetType.Torso.Value)] = "CoreScripts.InGameMenu.Label.Torso",
+	[tostring(Enum.AssetType.RightArm.Value)] = "CoreScripts.InGameMenu.Label.RightArms",
+	[tostring(Enum.AssetType.LeftArm.Value)] = "CoreScripts.InGameMenu.Label.LeftArms",
+	[tostring(Enum.AssetType.LeftLeg.Value)] = "CoreScripts.InGameMenu.Label.LeftLegs",
+	[tostring(Enum.AssetType.RightLeg.Value)] = "CoreScripts.InGameMenu.Label.RightLegs",
+	[tostring(Enum.AssetType.ClimbAnimation.Value)] = "CoreScripts.InGameMenu.Label.Climb",
+	[tostring(Enum.AssetType.FallAnimation.Value)] = "CoreScripts.InGameMenu.Label.Fall",
+	[tostring(Enum.AssetType.IdleAnimation.Value)] = "CoreScripts.InGameMenu.Label.Idle",
+	[tostring(Enum.AssetType.JumpAnimation.Value)] = "CoreScripts.InGameMenu.Label.Jump",
+	[tostring(Enum.AssetType.RunAnimation.Value)] = "CoreScripts.InGameMenu.Label.Run",
+	[tostring(Enum.AssetType.SwimAnimation.Value)] = "CoreScripts.InGameMenu.Label.Swim",
+	[tostring(Enum.AssetType.WalkAnimation.Value)] = "CoreScripts.InGameMenu.Label.Walk",
+	[tostring(Enum.AssetType.EmoteAnimation.Value)] = "CoreScripts.InGameMenu.Label.Emote",
+	[tostring(Enum.AssetType.TShirtAccessory.Value)] = "CoreScripts.InGameMenu.Label.TShirt",
+	[tostring(Enum.AssetType.ShirtAccessory.Value)] = "CoreScripts.InGameMenu.Label.Shirt",
+	[tostring(Enum.AssetType.PantsAccessory.Value)] = "CoreScripts.InGameMenu.Label.Pants",
+	[tostring(Enum.AssetType.JacketAccessory.Value)] = "CoreScripts.InGameMenu.Label.Jacket",
+	[tostring(Enum.AssetType.SweaterAccessory.Value)] = "CoreScripts.InGameMenu.Label.Sweater",
+	[tostring(Enum.AssetType.ShortsAccessory.Value)] = "CoreScripts.InGameMenu.Label.Shorts",
+	[tostring(Enum.AssetType.LeftShoeAccessory.Value)] = "CoreScripts.InGameMenu.Label.LeftShoe",
+	[tostring(Enum.AssetType.RightShoeAccessory.Value)] = "CoreScripts.InGameMenu.Label.RightShoe",
+	[tostring(Enum.AssetType.DressSkirtAccessory.Value)] = "CoreScripts.InGameMenu.Label.DressesAndSkirts",
+}
+
 return Constants

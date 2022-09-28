@@ -46,7 +46,7 @@ return function()
 					local typePath = path:cat(XPath.new("InfoRow2.InfoDataTextLabel"))
 					local type = Element.new(typePath)
 					expect(type:waitForRbxInstance(1)).to.be.ok()
-					expect(type:getAttribute("Text")).to.equal("Accessory | 67")
+					expect(type:getAttribute("Text")).to.equal("Accessory | Jacket")
 
 					local genrePath = path:cat(XPath.new("InfoRow3.InfoDataTextLabel"))
 					local genre = Element.new(genrePath)

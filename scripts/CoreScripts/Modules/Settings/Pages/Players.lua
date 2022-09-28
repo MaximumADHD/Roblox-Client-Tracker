@@ -90,6 +90,8 @@ local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPla
 local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
 local GetFFlagSubscriptionFailureRejoin = require(RobloxGui.Modules.Flags.GetFFlagSubscriptionFailureRejoin)
 local GetFFlagInviteTextTruncateFix = require(RobloxGui.Modules.Flags.GetFFlagInviteTextTruncateFix)
+local GetFFlagSelfViewSettingsEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagSelfViewSettingsEnabled)
+local FFlagPlayersTranslationUpdate = game:DefineFastFlag("PlayersTranslationUpdate", false)
 
 local isEngineTruncationEnabledForIngameSettings = require(RobloxGui.Modules.Flags.isEngineTruncationEnabledForIngameSettings)
 
@@ -797,7 +799,11 @@ local function Initialize()
 
 		textLabel.Font = Enum.Font.SourceSansSemibold
 		textLabel.AutoLocalize = false
-		textLabel.Text = "Mute All"
+		if FFlagPlayersTranslationUpdate then
+			textLabel.Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.MuteAll")
+		else
+			textLabel.Text = "Mute All"
+		end
 
 		icon.Size = UDim2.new(0, 24, 0, 24)
 		icon.Position = UDim2.new(0, 18, 0, 18)
@@ -1037,13 +1043,31 @@ local function Initialize()
 
 	local function updateAllMuteButtons()
 		local players = PlayersService:GetPlayers()
-
+		local allMuted = true
 		for _, player in ipairs(players) do
 			local frame = existingPlayerLabels[player.Name]
 
 			if player and frame then
 				local status = VoiceChatServiceManager.participants[tostring(player.UserId)]
+				-- Check if a player is not muted to update the Mute All button.
+				if GetFFlagSelfViewSettingsEnabled() and status and (not status.isMutedLocally and not status.isMuted) then
+					allMuted = false
+				end
 				muteButtonUpdate(frame, status)
+			end
+		end
+
+		-- See if the Mute All button needs to update.
+		if GetFFlagSelfViewSettingsEnabled() then
+			if allMuted then
+				muteAllState = true
+			else
+				muteAllState = false
+			end
+			local text = muteAllState and RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.UnmuteAll") or RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.MuteAll")
+			muteAllButton.TextLabel.Text = text
+			if GetFFlagOldMenuNewIcons() then
+				muteAllButton.Icon.Image = VoiceChatServiceManager:GetIcon(muteAllState and "MuteAll" or "UnmuteAll", "Misc")
 			end
 		end
 	end
@@ -1101,7 +1125,12 @@ local function Initialize()
 			muteAllButton = createMuteAllButton()
 			muteAllButton.Activated:connect(function()
 				muteAllState = not muteAllState
-				muteAllButton.TextLabel.Text = muteAllState and "Unmute All" or "Mute All"
+				if FFlagPlayersTranslationUpdate then
+					local text = muteAllState and RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.UnmuteAll") or RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.MuteAll")
+					muteAllButton.TextLabel.Text = text
+				else
+					muteAllButton.TextLabel.Text = muteAllState and "Unmute All" or "Mute All"
+				end
 				if GetFFlagOldMenuNewIcons() then
 					muteAllButton.Icon.Image = VoiceChatServiceManager:GetIcon(muteAllState and "MuteAll" or "UnmuteAll", "Misc")
 				end

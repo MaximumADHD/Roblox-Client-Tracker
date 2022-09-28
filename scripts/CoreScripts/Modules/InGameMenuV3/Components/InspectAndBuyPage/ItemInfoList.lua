@@ -43,22 +43,21 @@ type ItemInfo = {
 	infoData: string,
 }
 
-function ItemInfoList:makeItemInfoListData(localizedCategoryType)
+function ItemInfoList:makeItemInfoListData(localized, localizedCategoryType)
 	local creatorText = self.props.creatorText
 	local genreText = self.props.genreText
 
 	local itemInfoListData: {ItemInfo} = {}
-	--TODO: LOCALIZE
 	table.insert(itemInfoListData, {
-		infoName = "Creator",
+		infoName = localized.creatorLocalized,
 		infoData = creatorText,
 	})
 	table.insert(itemInfoListData, {
-		infoName = "Type",
+		infoName = localized.typeLocalized,
 		infoData = localizedCategoryType or "",
 	})
 	table.insert(itemInfoListData, {
-		infoName = "Genre",
+		infoName = localized.genreLocalized,
 		infoData = genreText,
 	})
 
@@ -68,21 +67,14 @@ end
 function ItemInfoList:renderWithProviders(stylePalette, localized)
 	local itemType = self.props.itemType
 
-	--TODO: LOCALIZE
 	local categoryType
-	if itemType == Enum.AvatarItemType.Asset and self.props.itemSubType then
-		local category = Constants.AssetTypeIdToCategory[self.props.itemSubType]
-		if not category then
-			-- fallback if no category given
-			categoryType = "Unknown"
-		else
-			categoryType = category .. " | " .. self.props.itemSubType
-		end
-	elseif itemType == Enum.AvatarItemType.Bundle then
-		categoryType = "Bundle"
+	if itemType == Enum.AvatarItemType.Asset and localized.categoryText and localized.subTypeText then
+		categoryType = localized.categoryText .. " | " .. localized.subTypeText
+	elseif itemType == Enum.AvatarItemType.Asset then
+		categoryType = localized.bundleText
 	end
 
-	local itemInfoListData = self:makeItemInfoListData(categoryType)
+	local itemInfoListData = self:makeItemInfoListData(localized, categoryType)
 
 	local theme = stylePalette.Theme
 	local layoutOrder = self.props.LayoutOrder
@@ -128,7 +120,24 @@ function ItemInfoList:renderWithProviders(stylePalette, localized)
 end
 
 function ItemInfoList:render()
+	local itemType = self.props.itemType
+	local itemSubType = self.props.itemSubType
+
+	local categoryString
+	local itemSubTypeString
+	if itemType == Enum.AvatarItemType.Asset then
+		local category = Constants.AssetTypeIdToCategory[itemSubType]
+		categoryString = Constants.AssetCategoriesLocalized[category]
+		itemSubTypeString = Constants.AssetTypeLocalized[itemSubType]
+	end
+
 	return withLocalization({
+		creatorLocalized = "CoreScripts.InGameMenu.Label.Creator",
+		genreLocalized = "CoreScripts.InGameMenu.Label.Genre",
+		typeLocalized = "CoreScripts.InGameMenu.Labe.Type",
+		bundleText = "CoreScripts.InGameMenu.Label.Bundle",
+		categoryText = categoryString,
+		subTypeText = itemSubTypeString,
 	})(function(localized)
 		return withStyle(function(stylePalette)
 			return self:renderWithProviders(stylePalette, localized)

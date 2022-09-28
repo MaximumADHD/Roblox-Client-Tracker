@@ -31,13 +31,13 @@ return function()
 
 	describe("VoiceChatServiceManager Recent Users Interaction", function()
 		beforeAll(function(context)
-			context.fflagVoiceAbuseReportsEnabled = game:SetFastFlagForTesting("VoiceAbuseReportsEnabled", true)
+			context.fflagVoiceAbuseReportsEnabled = game:SetFastFlagForTesting("VoiceAbuseReportsEnabledV2", true)
 			context.fflagClearUserFromRecentVoiceDataOnLeave = game:SetFastFlagForTesting("ClearUserFromRecentVoiceDataOnLeave", false)
 		end)
 
 		afterAll(function(context)
-			game:SetFastFlagForTesting("VoiceAbuseReportsEnabled", context.fflagVoiceAbuseReportsEnabled)
-			game:SetFastFlagForTesting("VoiceAbuseReportsEnabled", context.fflagClearUserFromRecentVoiceDataOnLeave)
+			game:SetFastFlagForTesting("VoiceAbuseReportsEnabledV2", context.fflagVoiceAbuseReportsEnabled)
+			game:SetFastFlagForTesting("ClearUserFromRecentVoiceDataOnLeave", context.fflagClearUserFromRecentVoiceDataOnLeave)
 		end)
 
 		it("GetDefaultMethodOfAbuse returns voice if player local muted anyone", function()

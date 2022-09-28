@@ -24,26 +24,17 @@ TrackerPrompt.validateProps = t.strictInterface({
 	promptType = t.optional(t.string),
 })
 
---[[ TODO: add to translation
-RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.VideoNoPermission") = "Chat with Avatars Requires Camera"
-RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.NotAvailable") = "Chat with Avatars Unavailable"
-RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.FacialAnimation") = "Chat with Avatars"
-
-RobloxTranslator:FormatByKey("Feature.FaceChat.Subtitle.VideoNoPermission") = "Go to your settings to allow Roblox to use the camera."
-RobloxTranslator:FormatByKey("Feature.FaceChat.Subtitle.NotAvailable") = "Please try leaving and rejoining."
-RobloxTranslator:FormatByKey("Feature.FaceChat.Subtitle.FeatureDisabled") = "This feature is temporarily not available. Please try later"
---]]
 local PromptTitle = {
 	[TrackerPromptType.None] = "",
-	[TrackerPromptType.VideoNoPermission] = "Chat with Avatars Requires Camera",
-	[TrackerPromptType.NotAvailable] = "Chat with Avatars Unavailable",
-	[TrackerPromptType.FeatureDisabled] = "Chat with Avatars",
+	[TrackerPromptType.VideoNoPermission] = RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.VideoNoPermission"),
+	[TrackerPromptType.NotAvailable] = RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.NotAvailable"),
+	[TrackerPromptType.FeatureDisabled] = RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.FacialAnimation"),
 }
 local PromptSubTitle = {
 	[TrackerPromptType.None] = "",
-	[TrackerPromptType.VideoNoPermission] = "Go to your settings to allow Roblox to use the camera.",
-	[TrackerPromptType.NotAvailable] = "Please try leaving and rejoining.",
-	[TrackerPromptType.FeatureDisabled] = "This feature is temporarily not available. Please try later",
+	[TrackerPromptType.VideoNoPermission] = RobloxTranslator:FormatByKey("Feature.FaceChat.Subtitle.VideoNoPermission"),
+	[TrackerPromptType.NotAvailable] = RobloxTranslator:FormatByKey("Feature.FaceChat.Subtitle.NotAvailable"),
+	[TrackerPromptType.FeatureDisabled] = RobloxTranslator:FormatByKey("Feature.FaceChat.Subtitle.FeatureDisabled"),
 }
 
 function TrackerPrompt:init()

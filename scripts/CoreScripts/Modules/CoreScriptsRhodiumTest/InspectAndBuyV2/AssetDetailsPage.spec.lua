@@ -56,7 +56,7 @@ return function()
 					local baseWidget = Element.new(path)
 					expect(baseWidget:waitForRbxInstance(1)).to.be.ok()
 
-					local scrollingFramePath = path:cat(XPath.new("PageContainer.ScrollingFrame"))
+					local scrollingFramePath = path:cat(XPath.new("PageContainer.AssetDetailsPageFrame.ScrollingFrame"))
 					
 					local titlePath = scrollingFramePath:cat(XPath.new("TitleText"))
 					local title = Element.new(titlePath)

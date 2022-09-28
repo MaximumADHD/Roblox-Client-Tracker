@@ -18,6 +18,7 @@ local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local Constants = require(InGameMenu.Resources.Constants)
 local Pages = require(InGameMenu.Components.Pages)
+local UIAnimator = require(InGameMenu.Utility.UIAnimator)
 local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
 local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
 
@@ -29,13 +30,19 @@ local TWEEN_TIME = Constants.MenuOpenTweenTime
 local TWEEN_EASE_RAMP = Enum.EasingDirection.InOut
 local TWEEN_EASE_CURVE = Enum.EasingStyle.Sine
 
+local HIGHLIGHT_ANIMATION_SPEED = 1.2
+local HIGHLIGHT_TWEEN_INFO = TweenInfo.new(HIGHLIGHT_ANIMATION_SPEED, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, -1, true)
+
 SideNavigation.validateProps = t.strictInterface({
 	closeMenu = t.callback,
 	navigateTo = t.callback,
+	showEduTooltip = t.boolean,
 })
 
 function SideNavigation:init()
 	self.containerRef = Roact.createRef()
+	self.highlightFrameRef = Roact.createRef()
+	self.uiAnimator = UIAnimator:new()
 
 	self.onActivated = {}
 	for _, navigationBarItem in ipairs(Pages.navigationBarByIndex) do
@@ -59,11 +66,20 @@ function SideNavigation:init()
 					TWEEN_TIME,
 					true,
 					function(status)
-						if not menuOpen and status == Enum.TweenStatus.Completed then
-							containerFrame.Visible = false
+						if status == Enum.TweenStatus.Completed then
+							if menuOpen then
+								if self.props.showEduTooltip then
+									self:startHighlightAnimation()
+								end
+							else
+								containerFrame.Visible = false
+							end
 						end
 					end
 				)
+			end
+			if not menuOpen and self.props.showEduTooltip then
+				self:stopHighlightAnimation()
 			end
 		end
 
@@ -79,14 +95,42 @@ function SideNavigation:init()
 	})
 end
 
+function SideNavigation:startHighlightAnimation()
+	self.uiAnimator:playAllTweens()
+end
+
+function SideNavigation:stopHighlightAnimation()
+	self.uiAnimator:resetAllTweens()
+end
+
 function SideNavigation:didMount()
 	local containerFrame = self.containerRef:getValue()
 	if containerFrame then
 		containerFrame.Visible = self.props.open or false
 		containerFrame.Position = UDim2.new(0, self.props.open and 0 or HIDE_POSITION, 0, 0)
 	end
+
+	local highlightFrame = self.highlightFrameRef:getValue()
+	if highlightFrame then
+		self.uiAnimator:addTween(highlightFrame, 'FrameHighlight', {
+			BackgroundTransparency = 0.87,
+		}, HIGHLIGHT_TWEEN_INFO)
+	end
 end
 
+function SideNavigation:didUpdate(prevProps, prevState)
+	if self.props.showEduTooltip ~= prevProps.showEduTooltip then
+		if self.props.showEduTooltip then
+			self:startHighlightAnimation()
+		else
+			self:stopHighlightAnimation()
+		end
+	end
+end
+
+function SideNavigation:willUnmount()
+	self:stopHighlightAnimation()
+end
 
 function SideNavigation:render()
 	local navItems = Cryo.List.map(Pages.navigationBarByIndex, function(navigationBarItem)
@@ -115,6 +159,12 @@ function SideNavigation:render()
 				layoutPaddingOffset = UDim.new(0, -8),
 				firstItemPaddingOffset = UDim.new(0, -7),
 			}),
+			HighlightFrame = Roact.createElement("Frame", {
+				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+				Size = UDim2.new(0, Constants.SideNavigationWidth, 1, 0),
+				BackgroundTransparency = 1,
+				[Roact.Ref] = self.highlightFrameRef,
+			}),
 			Watcher = Roact.createElement(PageNavigationWatcher, {
 				desiredPage = "",
 				onNavigate = self.menuUpdate,
@@ -125,6 +175,7 @@ end
 
 return RoactRodux.UNSTABLE_connect2(nil, function(dispatch)
 	return {
+		showEduTooltip = false,
 		closeMenu = function()
 			dispatch(CloseMenu)
 		end,

@@ -86,6 +86,7 @@ function MuteAllButton:render()
 				iconSize = self.props.iconSize,
 				onActivated = self.onActivated,
 				onStateChanged = onStateChanged,
+				buttonRef = self.props.buttonRef,
 				[Roact.Change.AbsoluteSize] = triggerPointChanged,
 				onAbsolutePositionChanged = triggerPointChanged,
 			})

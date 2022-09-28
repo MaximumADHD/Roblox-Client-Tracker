@@ -1,5 +1,5 @@
-game:DefineFastFlag("ContactImporterWithPhoneVerification", false)
+game:DefineFastFlag("ContactImporterWithPhoneVerification_v1", false)
 
 return function()
-	return game:GetFastFlag("ContactImporterWithPhoneVerification")
+	return game:GetFastFlag("ContactImporterWithPhoneVerification_v1")
 end

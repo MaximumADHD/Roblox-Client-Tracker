@@ -247,6 +247,7 @@ function InviteFriendsPage:render()
 					titleChildren = self:getActions(),
 					hasSearchBar = true,
 					searchText = self.state.searchText,
+					isFilteringMode = self.state.isFilteringMode,
 					onSearchTextChanged = self.onSearchTextChanged,
 					onSearchModeEntered = self.onSearchModeEntered,
 					onSearchBarDismissed = self.onSearchBarDismissed,

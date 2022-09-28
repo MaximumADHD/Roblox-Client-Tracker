@@ -20,7 +20,8 @@ postPurchaseWarningAcknowledge.UserActionType = enumerate(script.Name, rawKeyToR
 addRawValueMethodToEnum(postPurchaseWarningAcknowledge.UserActionType, rawKeyToRawValue)
 
 function postPurchaseWarningAcknowledge.Post(network: any, userAction: string)
-	return network.postPurchaseWarningAcknowledge(userAction)
+	local userActionStr = postPurchaseWarningAcknowledge.UserActionType.toRawValue(userAction)
+	return network.postPurchaseWarningAcknowledge(userActionStr)
 end
 
 return postPurchaseWarningAcknowledge

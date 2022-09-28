@@ -46,6 +46,7 @@ local PageWithSearch = Roact.PureComponent:extend("PageWithSearch")
 PageWithSearch.validateProps = t.strictInterface({
 	pageTitle = t.string,
 	searchText = t.string,
+	isFilteringMode = t.boolean,
 	enableBackButton = t.optional(t.boolean),
 	scrollingDown = t.optional(t.boolean),
 	position = t.optional(t.UDim2),
@@ -68,35 +69,25 @@ PageWithSearch.defaultProps = {
 	hasSearchBar = false,
 	visible = true,
 	pageIsModal = false,
+	isFilteringMode = false,
 }
 
 function PageWithSearch:init()
-	self.state = {
-		isFilteringMode = false,
-	}
-
 	self.searchBarRef = Roact.createRef()
 	self.uiAnimator = UIAnimator:new()
 
 	self.setSearchBarRef = function(rbx)
 		self.searchBarRef = rbx
 		if rbx then
-			local tween = self.uiAnimator:addReversibleTween(
+			self.uiAnimator:addReversibleTween(
 				rbx,
 				'fade',
 				UIAnimator.ReversibleTweens.Fade(),
 				TweenInfo.new(FADE_ANIMATION_SPEED)
 			)
-			tween.toTween.Completed:Connect(self.onSearchBarFadeOutTweenCompleted)
 		else
 			self.uiAnimator:removeAllTweens(rbx)
 		end
-	end
-
-	self.onSearchBarFadeOutTweenCompleted = function()
-		self:setState({
-			isFilteringMode = false,
-		})
 	end
 
 	self.onSearchBarDismissed = function()
@@ -107,13 +98,8 @@ function PageWithSearch:init()
 	end
 
 	self.menuOpenChange = function(menuOpen, wasOpen)
-		if not menuOpen and wasOpen and self.state.isFilteringMode then
-			self:setState({
-				isFilteringMode = false
-			})
-			if self.props.onSearchBarDismissed then
-				self.props.onSearchBarDismissed()
-			end
+		if not menuOpen and wasOpen and self.props.isFilteringMode and self.props.onSearchBarDismissed then
+			self.props.onSearchBarDismissed()
 		end
 	end
 end
@@ -171,7 +157,7 @@ function PageWithSearch:renderWithSelectionCursor(getSelectionCursor)
 					memoKey = memoKey,
 					onHeaderActivated = props.onHeaderActivated,
 					renderLeft = function()
-						if props.enableBackButton and self.state.isFilteringMode == false then
+						if props.enableBackButton and self.props.isFilteringMode == false then
 							return HeaderBar.renderLeft.backButton(function()
 								props.navigateUp()
 							end)()
@@ -192,7 +178,7 @@ function PageWithSearch:renderWithSelectionCursor(getSelectionCursor)
 								onFocused = props.onSearchBarFocused,
 								onCancelled = self.onSearchBarDismissed,
 								zIndex = 1,
-								visible = self.state.isFilteringMode,
+								visible = self.props.isFilteringMode,
 								[Roact.Ref] = self.setSearchBarRef,
 							})
 						end
@@ -214,7 +200,7 @@ function PageWithSearch:renderWithSelectionCursor(getSelectionCursor)
 							})
 						}
 
-						if not self.state.isFilteringMode then
+						if not self.props.isFilteringMode then
 							if props.titleChildren then
 								for childKey, child in pairs(props.titleChildren) do
 									children[childKey] = child
@@ -228,9 +214,6 @@ function PageWithSearch:renderWithSelectionCursor(getSelectionCursor)
 									size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
 									icon = Images["icons/common/search"],
 									onActivated = function()
-										self:setState({
-											isFilteringMode = true
-										})
 										self.uiAnimator:playReversibleTween(self.searchBarRef, 'fade', true)
 										if self.props.onSearchModeEntered then
 											self.props.onSearchModeEntered()

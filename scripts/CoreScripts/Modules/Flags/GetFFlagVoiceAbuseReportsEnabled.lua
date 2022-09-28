@@ -1,5 +1,5 @@
-game:DefineFastFlag("VoiceAbuseReportsEnabled", false)
+game:DefineFastFlag("VoiceAbuseReportsEnabledV2", false)
 
 return function()
-	return game:GetFastFlag("VoiceAbuseReportsEnabled")
+	return game:GetFastFlag("VoiceAbuseReportsEnabledV2")
 end

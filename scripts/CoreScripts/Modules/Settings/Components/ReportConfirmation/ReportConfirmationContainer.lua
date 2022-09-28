@@ -196,10 +196,10 @@ function ReportConfirmationContainer:render()
 		local confirmActionsPage = Roact.createElement(ReportActionAreYouSure, {
 			mutedTitleText = RobloxTranslator:FormatByKey("Feature.SettingsHub.ReportSubmitted.MutePlayer", {Player = self.userFullName}),
 			blockedTitleText = RobloxTranslator:FormatByKey("Feature.SettingsHub.ReportSubmitted.BlockPlayer", {Player = self.userFullName}),
-			mutedAndBlockedTitleText = RobloxTranslator:FormatByKey("Feature.SettingsHub.ReportSubmitted.MuteAndBlockPlayer", {DisplayName = self.userFullName}),
+			mutedAndBlockedTitleText = RobloxTranslator:FormatByKey("Feature.SettingsHub.ReportSubmitted.Label.MuteAndBlockPlayer", {DisplayName = self.userFullName}),
 			mutedSubtitleText = RobloxTranslator:FormatByKey("Feature.SettingsHub.ReportSubmitted.MutedSubtitleText", {Player = self.userFullName}),
 			blockedSubtitleText = RobloxTranslator:FormatByKey("Feature.SettingsHub.ReportSubmitted.BlockedSubtitleText", {Player = self.userFullName}),
-			mutedAndBlockedSubtitleText = RobloxTranslator:FormatByKey("Feature.SettingsHub.ReportSubmitted.MuteAndBlockWarning", {Player = self.userFullName}),
+			mutedAndBlockedSubtitleText = RobloxTranslator:FormatByKey("Feature.SettingsHub.ReportSubmitted.Label.MuteAndBlockWarning", {Player = self.userFullName}),
 			cancelText = RobloxTranslator:FormatByKey("InGame.InspectMenu.Action.Cancel"),
 			confirmText = RobloxTranslator:FormatByKey("InGame.InspectMenu.Action.Confirm"),
 			isMuted = self.state.muteFlipped,

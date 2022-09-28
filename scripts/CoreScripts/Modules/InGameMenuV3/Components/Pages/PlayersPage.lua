@@ -703,6 +703,7 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, get
 			return Roact.createElement(PageWithSearch, {
 				useLeaveButton = true,
 				scrollingDown = scrollingDown,
+				isFilteringMode = self.state.isFilteringMode,
 				pageTitle = self.props.pageTitle,
 				hasSearchBar = true,
 				searchText = self.state.searchText,

@@ -8,6 +8,7 @@
 local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
 
+local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
@@ -26,10 +27,10 @@ local AssetDetailThumbnail = require(InGameMenu.Components.InspectAndBuyPage.Ass
 local TryOnViewport = require(InGameMenu.Components.InspectAndBuyPage.TryOnViewport)
 local AssetDetailFavorite = require(InGameMenu.Components.InspectAndBuyPage.AssetDetailFavorite)
 local AssetDetailBottomBar = require(InGameMenu.Components.InspectAndBuyPage.AssetDetailBottomBar)
-
 local Constants = require(InGameMenu.Resources.Constants)
 local GetFavoriteForItem = require(InGameMenu.Thunks.GetFavoriteForItem)
 local GetCharacterModelFromUserId = require(InGameMenu.Thunks.GetCharacterModelFromUserId)
+local getCanGamepadCaptureFocus = require(InGameMenu.Selectors.getCanGamepadCaptureFocus)
 
 local TITLE_TEXT_SIZE = 24
 local TEXT_FRAME_HEIGHT = 40
@@ -37,6 +38,8 @@ local VERTICAL_PADDING = 12
 local HORIZONTAL_PADDING = 24
 local CONTENT_PADDING = 20
 local COMPACT_NUMBER_OF_LINES = 3
+local THUMBSTICK_DEADZONE = 0.2
+local STICK_MAX_SPEED = 1000
 
 local AssetDetailsPage = Roact.PureComponent:extend("AssetDetailsPage")
 
@@ -84,7 +87,7 @@ end
 	2. The item selected is offsale and part of a single bundle
 	3. The item selected is LC and the user has an R6 character
 ]]
-function AssetDetailsPage:getNoticeKey()
+function AssetDetailsPage:getNoticeKey(localized)
 	local selectedItem = self.props.selectedItem
 	local multipleBundles = selectedItem.bundlesAssetIsIn and #selectedItem.bundlesAssetIsIn > 1 and not selectedItem.isForSale
 	local partOfBundle = self:getBundleInfo() ~= nil
@@ -92,22 +95,24 @@ function AssetDetailsPage:getNoticeKey()
 	local layeredClothingOnR6 = IBConstants.LayeredAssetTypes[assetType] ~= nil and assetType ~= tostring(Enum.AssetType.HairAccessory.Value) and
 		self.localPlayerModel and self.localPlayerModel.Humanoid.RigType == Enum.HumanoidRigType.R6
 
-	--TODO: LOCALIZE
 	if multipleBundles then
-		return "This item is part of multiple bundles."
+		return localized.multipleBundlesText
 	elseif partOfBundle then
-		return "This item is part of a bundle."
+		return localized.singleBundleText
 	elseif layeredClothingOnR6 then
-		return "The R6 body type doesn't support this item."
+		return localized.r6AlertText
 	elseif selectedItem.isLimited then
-		return "This item can only be purchased from resellers in the Catalog."
+		return localized.limitedAlertText
 	end
 
 	return nil
 end
 
 function AssetDetailsPage:init()
+	self.focusController = RoactGamepad.createFocusController()
 	self.scrollingFrameRef = Roact.createRef()
+	self.frameRef = Roact.createRef()
+	self.bottomBarRef = Roact.createRef()
 	self.localPlayerModel = nil
 
 	self:setState({
@@ -122,6 +127,21 @@ function AssetDetailsPage:init()
 				scrollingEnabled = enabled
 			})
 		end
+	end
+end
+
+function AssetDetailsPage:handleThumbstickInput(inputObject, deltaTime)
+	local stickInput = inputObject.Position
+	local scrollingFrame = self.scrollingFrameRef:getValue()
+	if scrollingFrame then
+		local yPos = scrollingFrame.CanvasPosition.Y
+		local stickVector = Vector2.new(0, 0)
+		if stickInput.Magnitude >= THUMBSTICK_DEADZONE then
+			stickVector = (stickInput.Magnitude - THUMBSTICK_DEADZONE) / (1 - THUMBSTICK_DEADZONE) * stickInput.Unit
+		end
+
+		local newYPos = yPos + deltaTime * -stickVector.Y * STICK_MAX_SPEED
+		scrollingFrame.CanvasPosition = Vector2.new(0, newYPos)
 	end
 end
 
@@ -140,99 +160,121 @@ function AssetDetailsPage:renderWithProviders(style, localized)
 		titleText = selectedItem.name
 	end
 
-	local noticeKey = self:getNoticeKey()
+	local noticeKey = self:getNoticeKey(localized)
 
 	return Roact.createElement(Page, {
 		useLeaveButton = false,
-		pageTitle = "Item", --TODO: Localize AVBURST-9792
+		pageTitle = localized.pageTitleText,
 		titleChildren = nil,
 	}, {
-		ScrollingFrame = Roact.createElement("ScrollingFrame", {
+		AssetDetailsPageFrame = Roact.createElement(RoactGamepad.Focusable.Frame, {
 			Size = UDim2.fromScale(1, 1),
-			AutomaticCanvasSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
-			ScrollBarImageTransparency = 1,
-			CanvasSize = UDim2.fromScale(1, 1),
-			ScrollingDirection = Enum.ScrollingDirection.Y,
-			ScrollingEnabled = self.state.scrollingEnabled,
-			[Roact.Ref] = self.scrollingFrameRef,
+
+			focusController = self.focusController,
+			defaultChild = self.bottomBarRef,
+			[Roact.Ref] = self.frameRef,
+			inputBindings = {
+				ScrollPage = RoactGamepad.Input.onStep(Enum.KeyCode.Thumbstick2, function(inputObject, deltaTime)
+					self:handleThumbstickInput(inputObject, deltaTime)
+				end),
+			}
 		}, {
-			UIListLayout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, CONTENT_PADDING),
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-			}),
-			UIPadding = Roact.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, VERTICAL_PADDING),
-				PaddingLeft = UDim.new(0, HORIZONTAL_PADDING),
-				PaddingRight = UDim.new(0, HORIZONTAL_PADDING),
-			}),
-			AssetDetailNotification = noticeKey and Roact.createElement(AssetDetailNotification, {
-				noticeKey = noticeKey
-			}) or nil,
-			TitleText = Roact.createElement("TextLabel", {
+			ScrollingFrame = Roact.createElement("ScrollingFrame", {
+				Size = UDim2.fromScale(1, 1),
+				AutomaticCanvasSize = Enum.AutomaticSize.Y,
 				BackgroundTransparency = 1,
-				Size = UDim2.new(1, -10, 0, TEXT_FRAME_HEIGHT),
-				LayoutOrder = 1,
-				Text = titleText,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Center,
-				RichText = true,
-				TextWrapped = true,
-				TextSize = TITLE_TEXT_SIZE,
-				Font = Enum.Font.GothamSemibold,
-				TextColor3 = Color3.fromRGB(255, 255, 255),
+				ScrollBarImageTransparency = 1,
+				CanvasSize = UDim2.fromScale(1, 1),
+				ScrollingDirection = Enum.ScrollingDirection.Y,
+				ScrollingEnabled = self.state.scrollingEnabled,
+				[Roact.Ref] = self.scrollingFrameRef,
 			}, {
-				UITextSizeConstraint = Roact.createElement("UITextSizeConstraint", {
-					MaxTextSize = 32,
-				})
+				UIListLayout = Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, CONTENT_PADDING),
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				}),
+				UIPadding = Roact.createElement("UIPadding", {
+					PaddingTop = UDim.new(0, VERTICAL_PADDING),
+					PaddingLeft = UDim.new(0, HORIZONTAL_PADDING),
+					PaddingRight = UDim.new(0, HORIZONTAL_PADDING),
+				}),
+				AssetDetailNotification = noticeKey and Roact.createElement(AssetDetailNotification, {
+					noticeKey = noticeKey
+				}) or nil,
+				TitleText = Roact.createElement("TextLabel", {
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, -10, 0, TEXT_FRAME_HEIGHT),
+					LayoutOrder = 1,
+					Text = titleText,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextYAlignment = Enum.TextYAlignment.Center,
+					RichText = true,
+					TextWrapped = true,
+					TextSize = TITLE_TEXT_SIZE,
+					Font = Enum.Font.GothamSemibold,
+					TextColor3 = Color3.fromRGB(255, 255, 255),
+				}, {
+					UITextSizeConstraint = Roact.createElement("UITextSizeConstraint", {
+						MaxTextSize = 32,
+					})
+				}),
+				AssetDetailThumbnail = Roact.createElement(AssetDetailThumbnail, {
+					LayoutOrder = 2,
+					bundleInfo = bundleInfo,
+					selectedItem = self.props.selectedItem,
+				}),
+				TryOnViewport = self.localPlayerModel and Roact.createElement(TryOnViewport, {
+					LayoutOrder = 2,
+					localPlayerModel = self.localPlayerModel,
+					setScrollingEnabled = self.setScrollingEnabled,
+				}),
+				DetailsDescription = Roact.createElement(ExpandableTextArea, {
+					LayoutOrder = 3,
+					Text = description,
+					width = UDim.new(1, -20),
+					compactNumberOfLines = COMPACT_NUMBER_OF_LINES,
+				}),
+				AssetDetailFavorite = self.props.showFavoritesCount and Roact.createElement(AssetDetailFavorite, {
+					LayoutOrder = 4,
+					numFavorites = numFavorites,
+					bundleInfo = bundleInfo,
+					selectedItem = self.props.selectedItem,
+				}) or nil,
+				ItemInfoList = Roact.createElement(ItemInfoList, {
+					LayoutOrder = 5,
+					genreText = (not bundleInfo and selectedItem.genres) and table.concat(selectedItem.genres, ", ") or nil,
+					creatorText = creatorText,
+					itemType = bundleInfo and Enum.AvatarItemType.Bundle or Enum.AvatarItemType.Asset,
+					itemSubType = not bundleInfo and selectedItem.assetTypeId or nil,
+					showAllDividers = true,
+				}),
+				BottomBarPaddingFrame = Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, IBConstants.BOTTOM_BAR_PADDING + IBConstants.BUTTON_HEIGHT),
+					BackgroundTransparency = 1,
+					LayoutOrder = 6,
+				}),
 			}),
-			AssetDetailThumbnail = Roact.createElement(AssetDetailThumbnail, {
-				LayoutOrder = 2,
+			AssetDetailBottomBar = Roact.createElement(AssetDetailBottomBar, {
 				bundleInfo = bundleInfo,
-				selectedItem = self.props.selectedItem,
-			}),
-			TryOnViewport = self.localPlayerModel and Roact.createElement(TryOnViewport, {
-				LayoutOrder = 2,
 				localPlayerModel = self.localPlayerModel,
-				setScrollingEnabled = self.setScrollingEnabled,
+				[Roact.Ref] = self.bottomBarRef,
+				focusController = self.focusController,
+				isFocused = self.props.canGamepadCaptureFocus,
 			}),
-			DetailsDescription = Roact.createElement(ExpandableTextArea, {
-				LayoutOrder = 3,
-				Text = description,
-				width = UDim.new(1, -20),
-				compactNumberOfLines = COMPACT_NUMBER_OF_LINES,
-			}),
-			AssetDetailFavorite = self.props.showFavoritesCount and Roact.createElement(AssetDetailFavorite, {
-				LayoutOrder = 4,
-				numFavorites = numFavorites,
-				bundleInfo = bundleInfo,
-				selectedItem = self.props.selectedItem,
-			}) or nil,
-			ItemInfoList = Roact.createElement(ItemInfoList, {
-				LayoutOrder = 5,
-				genreText = (not bundleInfo and selectedItem.genres) and table.concat(selectedItem.genres, ", ") or nil,
-				creatorText = creatorText,
-				itemType = bundleInfo and Enum.AvatarItemType.Bundle or Enum.AvatarItemType.Asset,
-				itemSubType = not bundleInfo and selectedItem.assetTypeId or nil,
-				showAllDividers = true,
-			}),
-			BottomBarPaddingFrame = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, IBConstants.BOTTOM_BAR_PADDING + IBConstants.BUTTON_HEIGHT),
-				BackgroundTransparency = 1,
-				LayoutOrder = 6,
-			}),
-		}),
-		AssetDetailBottomBar = Roact.createElement(AssetDetailBottomBar, {
-			bundleInfo = bundleInfo,
-			localPlayerModel = self.localPlayerModel,
-		}),
+		})
 	})
 end
 
 function AssetDetailsPage:render()
 	return withStyle(function(style)
 		return withLocalization({
+			pageTitleText = "CoreScripts.InGameMenu.Title.Item",
+			multipleBundlesText = "CoreScripts.InGameMenu.Alert.MultipleBundles",
+			singleBundleText = "CoreScripts.InGameMenu.Alert.SingleBundle",
+			r6AlertText = "CoreScripts.InGameMenu.Alert.LConR6",
+			limitedAlertText = "CoreScripts.InGameMenu.Alert.ResellersOnly",
 		})(function(localized)
 			return self:renderWithProviders(style, localized)
 		end)
@@ -262,6 +304,12 @@ function AssetDetailsPage:didUpdate(prevProps)
 			self:attemptFetchFavorite()
 		end
 	end
+
+	if self.props.canGamepadCaptureFocus and not prevProps.canGamepadCaptureFocus then
+		self.focusController.captureFocus()
+	elseif not self.props.canGamepadCaptureFocus and prevProps.canGamepadCaptureFocus then
+		self.focusController.releaseFocus()
+	end
 end
 
 local function mapStateToProps(state, props)
@@ -270,6 +318,7 @@ local function mapStateToProps(state, props)
 		bundles = state.inspectAndBuy.Bundles,
 		currentPage = state.menuPage,
 		showFavoritesCount = not state.inspectAndBuy.IsSubjectToChinaPolicies,
+		canGamepadCaptureFocus = getCanGamepadCaptureFocus(state, Constants.InspectAndBuyAssetDetailsPageKey),
 	}
 end
 

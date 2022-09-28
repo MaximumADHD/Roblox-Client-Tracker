@@ -25,14 +25,14 @@ local AnimationSpeedDampeningObject = script:FindFirstChild("ScaleDampeningPerce
 local HumanoidHipHeight = 2
 
 local cachedRunningSpeed = 0 -- The most recent speed passed to onRunning().  Tiny variations from cachedRunningSpeed will not cause animation updates.
-local cachedLocalDirection = {x=0.0, y=0.0} -- unit 2D object space direction of motion
+local cachedLocalDirection = Vector2.zero -- unit 2D object space direction of motion
 local smallButNotZero = 0.0001 -- We want weights to be small but not so small the animation stops
 local strafingDisabled = nil
 local runBlendtime = 0.2
 local lastLookVector = Vector3.new(0.0, 0.0, 0.0) -- used to track whether rootPart orientation is changing.
 
 local function strafeMode()
-	local result = not strafingDisabled and (Humanoid.AutoRotate == (UserGameSettings.rotationType == Enum.RotationType.CameraRelative))
+	local result = not strafingDisabled and (Humanoid.AutoRotate == (UserGameSettings.RotationType == Enum.RotationType.CameraRelative))
 	return result
 end
 
@@ -163,7 +163,7 @@ function configureAnimationSet(name, fileList)
 	if (allowCustomAnimations and config ~= nil) then
 		table.insert(animTable[name].connections, config.ChildAdded:connect(function(child) configureAnimationSet(name, fileList) end))
 		table.insert(animTable[name].connections, config.ChildRemoved:connect(function(child) configureAnimationSet(name, fileList) end))
-		
+
 		local idx = 0
 
 		for _, childPart in pairs(config:GetChildren()) do
@@ -184,7 +184,7 @@ function configureAnimationSet(name, fileList)
 				table.insert(animTable[name].connections, childPart.ChildRemoved:connect(function(property) configureAnimationSet(name, fileList) end))
 				local lv = childPart:GetAttribute("LinearVelocity")
 				if lv then
-					locomotionMap[name] = {lv={x=lv.x, y=lv.y}, speed = math.sqrt(lv.x * lv.x + lv.y * lv.y)}
+					locomotionMap[name] = {lv=lv, speed = math.sqrt(lv:Dot(lv))}
 				elseif name == "run" or name == "walk" then
 					-- If you don't have a linear velocity with your run or walk, you can't blend/strafe
 					locomotionMap[name] = {}
@@ -407,8 +407,8 @@ local angleWeight = 2.0
 local function get2DWeight(px, p1, p2, sx, s1, s2)
 	local avgLength = 0.5 * (s1 + s2)
 
-	local p_1 = {x = (sx - s1)/avgLength, y = (angleWeight * signedAngle(p1, px))}
-	local p12 = {x = (s2 - s1)/avgLength, y = (angleWeight * signedAngle(p1, p2))}	
+	local p_1 = Vector2.new((sx - s1)/avgLength, (angleWeight * signedAngle(p1, px)))
+	local p12 = Vector2.new((s2 - s1)/avgLength, (angleWeight * signedAngle(p1, p2)))	
 	local denom = smallButNotZero + (p12.x*p12.x + p12.y*p12.y)
 	local numer = p_1.x * p12.x + p_1.y * p12.y
 	local r = math.clamp(1.0 - numer/denom, 0.0, 1.0)
@@ -518,13 +518,12 @@ local function onVelocityChanged(speed)
 		-- If speed wasn't passed in, assume it hasn't changed
 		speed = cachedRunningSpeed
 	end
-	cachedRunningSpeed = speed
 	local moveDirection = getWalkDirection()
-	
+
 	if not Humanoid.RootPart then
 		return
 	end
-	
+
 	local cframe = Humanoid.RootPart.CFrame
 	if math.abs(cframe.UpVector.Y) < smallButNotZero or pose ~= "Running" or speed <0.001 then
 		-- We are horizontal!  Do something  (turn off locomotion)
@@ -540,16 +539,16 @@ local function onVelocityChanged(speed)
 	local direction = Vector3.new(lookat.X, 0.0, lookat.Z)
 	direction = direction / direction.Magnitude --sensible upVector means this is non-zero.
 	local ly = moveDirection:Dot(direction)
-	if ly == 0.0 then
-		ly = 0.0001 -- break quadrant ties for side strafes
+	if ly <= 0.0 and ly > -0.05 then
+		ly = smallButNotZero -- break quadrant ties in favor of forward-friendly strafes
 	end
 	local lx = direction.X*moveDirection.Z - direction.Z*moveDirection.X
-	local tempDir = {x=lx, y=ly} -- root space moveDirection
-	local delta = {x=tempDir.x-cachedLocalDirection.x, y=tempDir.y-cachedLocalDirection.y}
+	local tempDir = Vector2.new(lx, ly) -- root space moveDirection
+	local delta = Vector2.new(tempDir.x-cachedLocalDirection.x, tempDir.y-cachedLocalDirection.y)
 	if delta.x*delta.x + delta.y*delta.y > 0.001 or math.abs(speed - cachedRunningSpeed) > 0.01 then
 		cachedLocalDirection = tempDir
-		blend2D(cachedLocalDirection, cachedRunningSpeed)
 		cachedRunningSpeed = speed
+		blend2D(cachedLocalDirection, cachedRunningSpeed)
 	end 
 
 end
@@ -606,10 +605,10 @@ function keyFrameReachedFunc(frameName)
 			if strafeMode() then
 				for n,v in pairs(locomotionMap) do
 					local track = v.track
-				 	if not userNoUpdateOnLoop or track.Looped ~= true then
-				 		track.timePosition = 0.0
+					if not userNoUpdateOnLoop or track.Looped ~= true then
+						track.timePosition = 0.0
 					end
-				 end
+				end
 			else
 				if userNoUpdateOnLoop == true then
 					if runAnimTrack.Looped ~= true then
@@ -635,7 +634,7 @@ function keyFrameReachedFunc(frameName)
 					-- Allow the emote to loop
 					return
 				end
-				
+
 				repeatAnim = "idle"
 				currentlyPlayingEmote = false
 			end
@@ -749,7 +748,7 @@ local function switchToAnim(anim, animName, transitionTime, humanoid)
 			-- load it to the humanoid; get AnimationTrack
 			currentAnimTrack = humanoid:LoadAnimation(anim)
 			currentAnimTrack.Priority = Enum.AnimationPriority.Core
- 
+
 			currentAnimTrack:Play(transitionTime)		
 		end
 
@@ -788,30 +787,30 @@ end
 
 
 function playToolAnimation(animName, transitionTime, humanoid, priority)
-		local idx = rollAnimation(animName)
-		local anim = animTable[animName][idx].anim
+	local idx = rollAnimation(animName)
+	local anim = animTable[animName][idx].anim
 
-		if (toolAnimInstance ~= anim) then
+	if (toolAnimInstance ~= anim) then
 
-			if (toolAnimTrack ~= nil) then
-				toolAnimTrack:Stop()
-				toolAnimTrack:Destroy()
-				transitionTime = 0
-			end
-
-			-- load it to the humanoid; get AnimationTrack
-			toolAnimTrack = humanoid:LoadAnimation(anim)
-			if priority then
-				toolAnimTrack.Priority = priority
-			end
-
-			-- play the animation
-			toolAnimTrack:Play(transitionTime)
-			toolAnimName = animName
-			toolAnimInstance = anim
-
-			currentToolAnimKeyframeHandler = toolAnimTrack.KeyframeReached:connect(toolKeyFrameReachedFunc)
+		if (toolAnimTrack ~= nil) then
+			toolAnimTrack:Stop()
+			toolAnimTrack:Destroy()
+			transitionTime = 0
 		end
+
+		-- load it to the humanoid; get AnimationTrack
+		toolAnimTrack = humanoid:LoadAnimation(anim)
+		if priority then
+			toolAnimTrack.Priority = priority
+		end
+
+		-- play the animation
+		toolAnimTrack:Play(transitionTime)
+		toolAnimName = animName
+		toolAnimInstance = anim
+
+		currentToolAnimKeyframeHandler = toolAnimTrack.KeyframeReached:connect(toolKeyFrameReachedFunc)
+	end
 end
 
 function stopToolAnimations()
@@ -853,6 +852,8 @@ function onRunning(speed)
 	end
 	if strafeMode() then
 		onVelocityChanged(speed)
+	else
+		cachedRunningSpeed = speed
 	end
 end
 
@@ -942,15 +943,15 @@ local lastTick = 0
 function stepAnimate(currentTime)
 	local amplitude = 1
 	local frequency = 1
-  	local deltaTime = currentTime - lastTick
-  	lastTick = currentTime
+	local deltaTime = currentTime - lastTick
+	lastTick = currentTime
 
 	local climbFudge = 0
 	local setAngles = false
 
-  	if (jumpAnimTime > 0) then
-  		jumpAnimTime = jumpAnimTime - deltaTime
-  	end
+	if (jumpAnimTime > 0) then
+		jumpAnimTime = jumpAnimTime - deltaTime
+	end
 
 	if (pose == "FreeFall" and jumpAnimTime <= 0) then
 		playAnimation("fall", fallTransitionTime, Humanoid)
@@ -993,9 +994,21 @@ function stepAnimate(currentTime)
 end
 
 
-local function onAutoRotate()
-	-- reset running
-	onRunning(cachedRunningSpeed)
+local function onModeChange()
+	if pose == "Running" then
+		local savedSpeed = cachedRunningSpeed
+
+		playAnimation("idle", 0.2, Humanoid)
+		destroyRunAnimations()
+		playAnimation("walk", 0.2, Humanoid)
+
+		if strafeMode() then
+			cachedRunningSpeed = 0
+			onVelocityChanged(savedSpeed)
+		else
+			onRunning(savedSpeed)
+		end
+	end
 end
 
 -- connect events
@@ -1011,9 +1024,10 @@ Humanoid.PlatformStanding:connect(onPlatformStanding)
 Humanoid.Swimming:connect(onSwimming)
 
 Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(onVelocityChanged)
-Humanoid:GetPropertyChangedSignal("AutoRotate"):Connect(onAutoRotate)
+Humanoid:GetPropertyChangedSignal("AutoRotate"):Connect(onModeChange)
 Humanoid:GetPropertyChangedSignal("WalkToPoint"):Connect(onVelocityChanged)
 Humanoid:GetPropertyChangedSignal("WalkToPart"):Connect(onVelocityChanged)
+UserGameSettings:GetPropertyChangedSignal("RotationType"):Connect(onModeChange)
 
 -- setup emote chat hook
 game:GetService("Players").LocalPlayer.Chatted:connect(function(msg)
@@ -1070,7 +1084,7 @@ end
 while Character.Parent ~= nil do
 	local _, currentGameTime = wait(0.1)
 	stepAnimate(currentGameTime)
-	
+
 	-- Catch the unlikely case where the character orientation is being perturbed without subsequent change to its MoveDirection
 	if Humanoid.RootPart then
 		local lookVector = Humanoid.RootPart.CFrame.LookVector

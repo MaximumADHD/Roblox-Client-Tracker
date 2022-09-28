@@ -18,6 +18,7 @@ local Images = UIBlox.App.ImageSet.Images
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local InGameMenu = script.Parent.Parent.Parent
+local withLocalization = require(InGameMenu.Localization.withLocalization)
 local Constants = require(InGameMenu.Resources.Constants)
 local GetBundleFavoriteCount = require(InGameMenu.Thunks.GetBundleFavoriteCount)
 
@@ -40,11 +41,15 @@ AssetDetailFavorite.validateProps = t.strictInterface({
 
 function AssetDetailFavorite:render()
 	return withStyle(function(stylePalette)
-		return self:renderWithProviders(stylePalette)
+		return withLocalization({
+			favoritesText = "CoreScripts.InGameMenu.Label.Favorites",
+		})(function(localized)
+			return self:renderWithProviders(stylePalette, localized)
+		end)
 	end)
 end
 
-function AssetDetailFavorite:renderWithProviders(stylePalette)
+function AssetDetailFavorite:renderWithProviders(stylePalette, localized)
 	local numFavorites = self.props.numFavorites
 	if self.props.bundleInfo then
 		numFavorites = self.props.bundleInfo.numFavorites
@@ -96,7 +101,7 @@ function AssetDetailFavorite:renderWithProviders(stylePalette)
 			Label = Roact.createElement("TextLabel", {
 				Size = UDim2.new(1, 0, 0, LABEL_FONT_SIZE),
 				LayoutOrder = 2,
-				Text = "Favorites", --TODO: Localize
+				Text = localized.favoritesText,
 				Font = Enum.Font.GothamSemibold,
 				TextSize = LABEL_FONT_SIZE,
 				TextColor3 = Color3.fromRGB(255, 255, 255),

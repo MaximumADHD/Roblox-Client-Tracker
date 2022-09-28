@@ -27,15 +27,20 @@ local MuteSelfButton = require(InGameMenu.Components.QuickActions.MuteSelfButton
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local Constants = require(InGameMenu.Resources.Constants)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
+local UIAnimator = require(InGameMenu.Utility.UIAnimator)
 
 local QuickActionsMenu = Roact.PureComponent:extend("QuickActionsMenu")
 
 local QUICK_ACTIONS_BUTTON_PADDING = 12
 local QUICK_ACTIONS_CORNER_RADIUS = 8
 local QUICK_ACTIONS_PADDING = 8
+
+local HIGHLIGHT_ANIMATION_SPEED = 1.2
+local HIGHLIGHT_TWEEN_INFO = TweenInfo.new(HIGHLIGHT_ANIMATION_SPEED, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, -1, true)
 
 -- These hotkeys are on the spec, but they haven't been implemented
 -- https://jira.rbx.com/browse/APPEXP-476
@@ -56,6 +61,7 @@ QuickActionsMenu.validateProps = t.strictInterface({
 	fullscreenEnabled = t.boolean,
 	screenshotEnabled = t.boolean,
 	size = t.UDim2,
+	showEduTooltip = t.boolean,
 	automaticSize = t.enum(Enum.AutomaticSize),
 	closeMenu = t.callback,
 	fillDirection = t.enum(Enum.FillDirection),
@@ -105,6 +111,9 @@ local function updateTransparency(props)
 end
 
 function QuickActionsMenu:init()
+	self.highlightAnimator = UIAnimator:new()
+	self.highlightTheme = nil
+
 	self.openReportMenu = function()
 		TrustAndSafety.openReportMenu()
 
@@ -134,7 +143,7 @@ function QuickActionsMenu:init()
 			ExperienceMenuABTestManager.default:setCSATQualification()
 		end
 	end
- 
+
 
 	self.record = function()
 		self.props.closeMenu()
@@ -191,10 +200,53 @@ function QuickActionsMenu:init()
 
 	self.transparency = updateTransparency(self.props)
 
+	self.setRootRef = function (instance)
+		if instance ~= nil then
+			self.highlightAnimator:addTween(instance, 'FrameHighlight', {
+				BackgroundColor3 = self.highlightTheme.rootBackgroundColor,
+			}, HIGHLIGHT_TWEEN_INFO)
+		end
+	end
+
+	self.addButtonHighlightTween = function (instance)
+		if instance ~= nil then
+			local backgroundInstance = instance:FindFirstChild("background")
+			if backgroundInstance then
+				self.highlightAnimator:addTween(backgroundInstance, 'ButtonHighlight', {
+					BackgroundColor3 = self.highlightTheme.buttonBackgroundColor,
+				}, HIGHLIGHT_TWEEN_INFO)
+			end
+		end
+	end
+
+	self.onMenuOpenStateChanged = function(isOpened, wasOpened)
+		if self.props.showEduTooltip and isOpened ~= wasOpened then
+			if isOpened then
+				self:startHighlightAnimation()
+			else
+				self:stopHighlightAnimation()
+			end
+		end
+	end
+end
+
+function QuickActionsMenu:startHighlightAnimation()
+	self.highlightAnimator:playAllTweens()
+end
+
+function QuickActionsMenu:stopHighlightAnimation()
+	self.highlightAnimator:resetAllTweens()
 end
 
 function QuickActionsMenu:render()
 	return withStyle(function(style)
+		if not self.highlightTheme then
+			self.highlightTheme = {
+				rootBackgroundColor = style.Theme.BackgroundUIDefault.Color,
+				buttonBackgroundColor = style.Theme.UIDefault.Color,
+			}
+		end
+
 		return withLocalization({
 			report = "CoreScripts.InGameMenu.QuickActions.Report",
 			screenshot = "CoreScripts.InGameMenu.QuickActions.Screenshot",
@@ -207,6 +259,7 @@ function QuickActionsMenu:render()
 				AutomaticSize = self.props.automaticSize,
 				BackgroundColor3 = style.Theme.UIMuted.Color,
 				BackgroundTransparency = self.props.frameTransparency,
+				[Roact.Ref] = self.setRootRef,
 				[Roact.Change.AbsoluteSize] = self.props.absoluteSizeChanged,
 			}, {
 				padding = Roact.createElement("UIPadding", {
@@ -231,6 +284,7 @@ function QuickActionsMenu:render()
 					backgroundColor = style.Theme.BackgroundUIDefault,
 					iconSize = IconSize.Medium,
 					layoutOrder = 1,
+					buttonRef = self.addButtonHighlightTween,
 				}) or nil,
 				MuteAllButton = self.props.voiceEnabled and Roact.createElement(MuteAllButton, {
 					iconTransparency = self.transparency.muteAll,
@@ -238,6 +292,7 @@ function QuickActionsMenu:render()
 					backgroundColor = style.Theme.BackgroundUIDefault,
 					iconSize = IconSize.Medium,
 					layoutOrder = 2,
+					buttonRef = self.addButtonHighlightTween,
 				}) or nil,
 				ReportButton = withHoverTooltip({
 					headerText = localized.report,
@@ -258,6 +313,7 @@ function QuickActionsMenu:render()
 						onActivated = self.openReportMenu,
 						onStateChanged = onStateChanged,
 						onAbsolutePositionChanged = triggerPointChanged,
+						buttonRef = self.addButtonHighlightTween,
 						[Roact.Change.AbsoluteSize] = triggerPointChanged,
 					})
 				end),
@@ -280,6 +336,7 @@ function QuickActionsMenu:render()
 						icon = Assets.Images.ScreenshotIcon,
 						onStateChanged = onStateChanged,
 						onAbsolutePositionChanged = triggerPointChanged,
+						buttonRef = self.addButtonHighlightTween,
 						[Roact.Change.AbsoluteSize] = triggerPointChanged,
 					})
 				end),
@@ -292,6 +349,7 @@ function QuickActionsMenu:render()
 					iconSize = IconSize.Medium,
 					onActivated = self.record,
 					icon = Assets.Images.RecordIcon,
+					buttonRef = self.addButtonHighlightTween,
 				}) or nil,
 				FullscreenButton = self.props.fullscreenEnabled and withHoverTooltip({
 					headerText = localized.fullscreen,
@@ -313,6 +371,7 @@ function QuickActionsMenu:render()
 							or Assets.Images.PreviewExpandIcon,
 						onStateChanged = onStateChanged,
 						onAbsolutePositionChanged = triggerPointChanged,
+						buttonRef = self.addButtonHighlightTween,
 						[Roact.Change.AbsoluteSize] = triggerPointChanged,
 					})
 				end),
@@ -335,9 +394,14 @@ function QuickActionsMenu:render()
 						icon = Assets.Images.RespawnIcon,
 						onStateChanged = onStateChanged,
 						onAbsolutePositionChanged = triggerPointChanged,
+						buttonRef = self.addButtonHighlightTween,
 						[Roact.Change.AbsoluteSize] = triggerPointChanged,
 					})
 				end),
+				Watcher = Roact.createElement(PageNavigationWatcher, {
+					onNavigate = self.onMenuOpenStateChanged,
+					desiredPage = "",
+				}),
 			})
 		end)
 	end)
@@ -349,10 +413,23 @@ function QuickActionsMenu:didUpdate(prevProps, prevState)
 			recording = self.props.recording
 		})
 	end
+
+	if self.props.showEduTooltip ~= prevProps.showEduTooltip then
+		if self.props.showEduTooltip then
+			self:startHighlightAnimation()
+		else
+			self:stopHighlightAnimation()
+		end
+	end
+end
+
+function QuickActionsMenu:willUnmount()
+	self:stopHighlightAnimation()
 end
 
 local function mapStateToProps(state, _)
 	return {
+		showEduTooltip = false,
 		recording = state.recording,
 	}
 end

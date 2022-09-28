@@ -1,14 +1,15 @@
 --!nonstrict
 --[[
-TODO: this is just the initial checkin for MVP preview
+TODO: this is just an in between state checkin for MVP preview
 this will see major refactors over the next PRs before MVP release
 bigger changes before mvp release next up:
--addition of mic/cam view toggles and other bigger changes to UI and whole flow
+-addition of mic/cam view toggles getting hooked up and other bigger changes to UI and whole flow
 -addition of api for developer to toggle SelfView on/off
 
 *bigger changes before full version release:
 -potentially changing this to do the ui in roact
--reduce full rebuilds of clone as much as possible (color and size change for bodyparts should be done in place instead of doing full rebuild)
+-reduce full rebuilds of clone as much as possible 
+(potentially size change for bodyparts could be done in place instead of doing full rebuild)
 -improve cam framing in viewportframe further
 ]]
 
@@ -24,10 +25,10 @@ local viewportCamera = nil
 local cloneAnchor = nil
 local clone = nil
 
-local defaultPosition = UDim2.fromOffset(15, 25)
-local defaultSize = UDim2.fromOffset(150, 180)
-local buttonsBarHeight = 36
-local backgroundTransparency = 0.65
+local DEFAULT_POSITION = UDim2.fromOffset(15, 25)
+local DEFAULT_SIZE = UDim2.fromOffset(150, 180)
+local DEFAULT_BUTTONS_BAR_HEIGHT = 36
+local BACKGROUND_TRANSPARENCY = 0.65
 local selfViewName = "SelfViewGui"
 local cloneCharacterName = "SelfAvatar"
 
@@ -45,7 +46,14 @@ local playerCharacterRemovingConnection
 local trackStoppedConnections = {}
 local cloneAnimator = nil
 local cloneAnimationTracks = {}
+local orgAnimationTracks = {}
+local cachedHeadColor = nil
+local cachedHeadSize = nil
+
 local gui = nil
+
+--state
+local isOpen = true
 
 local observerInstances = {}
 local Observer = {
@@ -78,6 +86,8 @@ local function createViewport()
 	--TODO: this UI setup could be changed to roact setup before MVP release, to evaluate pros/ cons
 	if gui then gui:Destroy() end
 
+	isOpen = true
+
 	gui = Instance.new("ScreenGui")
 	gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	gui.Enabled = true
@@ -86,15 +96,15 @@ local function createViewport()
 
 	local frame = Instance.new("Frame")
 	frame.Name = "SelfView"
-	frame.Position = defaultPosition
-	frame.Size = defaultSize
+	frame.Position = DEFAULT_POSITION
+	frame.Size = DEFAULT_SIZE
 	frame.BackgroundTransparency = 1
 	frame.Parent = gui
 
 	local bottomButtonsFrame = Instance.new("Frame")
 	bottomButtonsFrame.Name = "BottomButtonsFrame"
-	bottomButtonsFrame.Position = UDim2.new(0, 0, 1, -buttonsBarHeight)
-	bottomButtonsFrame.Size = UDim2.new(1, 0, 0, buttonsBarHeight)
+	bottomButtonsFrame.Position = UDim2.new(0, 0, 1, -DEFAULT_BUTTONS_BAR_HEIGHT)
+	bottomButtonsFrame.Size = UDim2.new(1, 0, 0, DEFAULT_BUTTONS_BAR_HEIGHT)
 	bottomButtonsFrame.BackgroundColor3 = Color3.new(1, 1, 1)
 	bottomButtonsFrame.BackgroundTransparency = 0
 	bottomButtonsFrame.BorderSizePixel = 0
@@ -114,17 +124,21 @@ local function createViewport()
 	uiListLayout.FillDirection = Enum.FillDirection.Horizontal
 	uiListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 	uiListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+	uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
 	local micButton = Instance.new("ImageButton")
 	micButton.Name = "MicButton"
 	micButton.Parent = bottomButtonsFrame
 	micButton.Position = UDim2.new(0, 0, 0, 0)
 	micButton.Size = UDim2.new(0.5, -4, 1, -4)
-	micButton.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+	micButton.Image = "rbxasset://textures/SelfView/whiteRect.png"
 	micButton.ImageColor3 = Color3.new(0.294117, 0.294117, 0.294117)
 	micButton.BackgroundTransparency = 1
+	micButton.LayoutOrder = 0
+	micButton.ZIndex = 2
 	micButton.Activated:Connect(function()
 		print("button pressed")
+		--TODO will be populated with one of the next PRs once game engine side code ready
 	end)
 
 	local uiCorner = Instance.new("UICorner")
@@ -135,16 +149,38 @@ local function createViewport()
 	camButton.Parent = bottomButtonsFrame
 	camButton.Position = UDim2.new(0, 0, 0, 0)
 	camButton.Size = UDim2.new(0.5, -4, 1, -4)
-	camButton.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+	camButton.Image = "rbxasset://textures/SelfView/whiteRect.png"
 	camButton.ImageColor3 = Color3.new(0.294117, 0.294117, 0.294117)
 	camButton.BackgroundTransparency = 1
+	camButton.LayoutOrder = 1
+	camButton.ZIndex = 3
 	camButton.Activated:Connect(function()
 		print("button pressed")
+		--TODO will be populated with one of the next PRs once game engine side code ready
 	end)
 
 	uiCorner = Instance.new("UICorner")
 	uiCorner.Parent = camButton
 
+	local micIcon = Instance.new("ImageLabel")
+	micIcon.Name = "CamIcon"
+	micIcon.Parent = micButton
+	micIcon.AnchorPoint = Vector2.new(0.5, 0.5)
+	micIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
+	micIcon.Size = UDim2.new(0, 32, 0, 32)
+	micIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_mic_enabled.png"
+	micIcon.BackgroundTransparency = 1
+	micIcon.ZIndex = 2	
+
+	local camIcon = Instance.new("ImageLabel")
+	camIcon.Name = "CamIcon"
+	camIcon.Parent = camButton
+	camIcon.AnchorPoint = Vector2.new(0.5, 0.5)
+	camIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
+	camIcon.Size = UDim2.new(0, 32, 0, 32)
+	camIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_camera_enabled.png"
+	camIcon.BackgroundTransparency = 1
+	camIcon.ZIndex = 2
 
 	local selfViewFrame = Instance.new("Frame")
 	selfViewFrame.Name = "SelfViewFrame"
@@ -155,29 +191,75 @@ local function createViewport()
 
 	viewportFrame = Instance.new("ViewportFrame")
 	viewportFrame.Position = UDim2.new(0, 0, 0, 0)
-	viewportFrame.Size = UDim2.new(1, 0, 1, -(buttonsBarHeight - 1))
+	viewportFrame.Size = UDim2.new(1, 0, 1, -(DEFAULT_BUTTONS_BAR_HEIGHT - 1))
 	viewportFrame.BackgroundColor3 = Color3.new(0, 0, 0)
 	viewportFrame.BorderColor3 = Color3.new(0.6, 0.5, 0.4)
 	viewportFrame.BorderSizePixel = 2
-	viewportFrame.BackgroundTransparency = backgroundTransparency
+	viewportFrame.BackgroundTransparency = BACKGROUND_TRANSPARENCY
 	viewportFrame.Parent = selfViewFrame
 
-	viewportFrame.Ambient = Color3.new(0.815473, 0.82002, 0.84683)
-	viewportFrame.LightColor = Color3.new(0.960555, 0.959792, 0.976547)
+	viewportFrame.Ambient = Color3.new(0.7529411765, 0.7098039216, 0.7137254902)
+	viewportFrame.LightColor = Color3.new(1, 0.9960784314, 0.9960784314)
+	viewportFrame.LightDirection = Vector3.new(9.5, -12, 7.5)
 	viewportFrame.BackgroundColor3 = Color3.new(0.0990616, 0.138109, 0.452827)
-	viewportFrame.LightDirection = Vector3.new(-70, 70, 165)
+
+	local indicatorCircle = Instance.new("ImageLabel")
+	indicatorCircle.Name = "IndicatorCircle"
+	indicatorCircle.Parent = frame
+	indicatorCircle.Position = UDim2.new(1, -25, 0, 4)
+	indicatorCircle.Size = UDim2.new(0, 22, 0, 22)
+	indicatorCircle.Image = "rbxasset://textures/SelfView/SelfView_icon_indicator_on.png"
+	indicatorCircle.BackgroundTransparency = 1
+	indicatorCircle.ZIndex = 2
+
+
 
 	local closeButton = Instance.new("ImageButton")
 	closeButton.Name = "CloseButton"
+	closeButton.AnchorPoint = Vector2.new(0, 0.5)
 	closeButton.Parent = frame
-	closeButton.Position = UDim2.new(0, 4, 0, 4)
-	closeButton.Size = UDim2.new(0, 20, 0, 20)
-	closeButton.Image = "rbxasset://textures/ui/ScreenshotHud/Close.png"
+	closeButton.Position = UDim2.fromOffset(0, 16)
+	closeButton.Size = UDim2.new(0, 64, 0, 36)
+	closeButton.Image = "rbxasset://textures/SelfView/whiteRect.png"
+	closeButton.ImageTransparency = 1
 	closeButton.BackgroundTransparency = 1
+	closeButton.BackgroundColor3 = Color3.new(0.137254, 0.137254, 0.137254)
 	closeButton.ZIndex = 2
+
+
+	local closeButtonIcon =  Instance.new("ImageLabel")
+	closeButtonIcon.Name = "CloseButtonIcon"
+	closeButtonIcon.Parent = closeButton
+	closeButtonIcon.AnchorPoint = Vector2.new(0.5, 0.5)
+	closeButtonIcon.Position = UDim2.new(0, 18, 0, 18)
+	closeButtonIcon.Size = UDim2.new(0, 32, 0, 32)
+	closeButtonIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_close.png"
+	closeButtonIcon.ImageTransparency = 0
+	closeButtonIcon.BackgroundTransparency = 1
+	closeButtonIcon.ZIndex = 2
+
+	local faceIcon =  Instance.new("ImageLabel")
+	faceIcon.Name = "FaceIcon"
+	faceIcon.Parent = frame
+	faceIcon.AnchorPoint = Vector2.new(0.5, 0.5)
+	faceIcon.Position = UDim2.new(0, 46, 0, 18)
+	faceIcon.Size = UDim2.new(0, 32, 0, 32)
+	faceIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_faceToggle_on.png"
+	faceIcon.BackgroundTransparency = 1
+	faceIcon.ZIndex = 2
+	faceIcon.Visible = false	
+	faceIcon.Parent = closeButton
+
+	closeButton.Rotation = bottomButtonsFrame.Visible and 0 or -45
 	closeButton.Activated:Connect(function()
-		selfViewFrame.Visible = not selfViewFrame.Visible
-		bottomButtonsFrame.Visible = not bottomButtonsFrame.Visible
+		setIsOpen(not isOpen)
+
+		selfViewFrame.Visible = isOpen
+		bottomButtonsFrame.Visible = isOpen
+		indicatorCircle.Visible = isOpen
+		closeButtonIcon.Rotation = isOpen and 0 or -45
+		faceIcon.Visible = not isOpen
+		closeButton.BackgroundTransparency = isOpen and 1 or 0.5
 	end)
 
 	uiCorner = Instance.new("UICorner")
@@ -203,7 +285,8 @@ local function createViewport()
 	worldModel.Parent = viewportFrame
 
 	viewportCamera = Instance.new("Camera")
-	viewportCamera.FieldOfView = 55 --60 smaller is closer up
+	--FoV smaller is closer up
+	viewportCamera.FieldOfView = 55
 	viewportFrame.CurrentCamera = viewportCamera
 	viewportCamera.Parent = worldModel
 
@@ -270,7 +353,6 @@ local function syncTrack(animator, track)
 			cloneTrack:Stop()
 			if trackStoppedConnections[track] then trackStoppedConnections[track]:Disconnect() end
 			end)
-
 	end
 end
 
@@ -288,13 +370,14 @@ local function updateClone(player)
 		return
 	end
 
-	local character = player.Character
+	--need to wait here for character else sometimes error on respawn
+	local character = player.Character or player.CharacterAdded:Wait()
 	
 	-- wait for important components needed from the original model before cloning
 	local humanoid = character:WaitForChild("Humanoid", 10)
 	if humanoid then 
-		local animator = humanoid:WaitForChild("Animator")
-		local rootPart = character:WaitForChild("HumanoidRootPart")
+		local animator = humanoid:WaitForChild("Animator", 10)
+		local rootPart = character:WaitForChild("HumanoidRootPart", 10)
 
 		-- create clone
 		local previousArchivableValue = character.Archivable
@@ -306,10 +389,17 @@ local function updateClone(player)
 		--(removing these already here as otherwise on fast respawn the Animate script in the clone can execute some stuff already before removal)
 		removeChild(clone, "Animate")
 		removeChild(clone, "Health")
+
+		for index, script in pairs(clone:GetDescendants()) do
+			if script:IsA("BaseScript") then
+				script:Destroy()
+			end
+		end
 		
 		character.Archivable = previousArchivableValue
 		clone.Parent = cloneAnchor
 
+		--focus clone
 		local cloneRootPart = clone:WaitForChild("HumanoidRootPart", 5)
 		if cloneRootPart then
 			cloneRootPart.CFrame = CFrame.new(Vector3.new(0,0,0))
@@ -341,11 +431,12 @@ local function updateClone(player)
 			dummyModel:Destroy()		
 		end
 
-		local cloneHumanoid = clone:WaitForChild("Humanoid")
-		cloneAnimator = cloneHumanoid:WaitForChild("Animator")
+		local cloneHumanoid = clone:WaitForChild("Humanoid", 10)
+		cloneAnimator = cloneHumanoid:WaitForChild("Animator", 10)
 
 		cloneHumanoid.DisplayDistanceType = "None"
 
+		--prep sync streaming tracks
 		if cloneAnimator then
 			-- clear cloned tracks
 			local clonedTracks = cloneAnimator:GetPlayingAnimationTracks()
@@ -369,8 +460,7 @@ local function updateClone(player)
 
 				observerInstances[Observer.AnimationPlayedCoreScript] = animator.AnimationPlayedCoreScript:Connect(function(track)
 					syncTrack(cloneAnimator, track)
-				end)	
-					
+				end)					
 			else
 				--print("updateClone: no animator (original)!")
 				-- TODO: we'll add error tracking pre release
@@ -440,21 +530,7 @@ local function onCharacterAdded(character)
 end
 
 local function onCharacterRemoved(player)
-	headRef = nil
-	cachedHeadColor = nil
-	cachedHeadSize = nil
-	clearAllObservers()
-	clearObserver(Observer.CharacterAdded)
-	clearObserver(Observer.CharacterRemoving)
-	clearClone()
-	
-	local playerGui = player:FindFirstChild("PlayerGui")
-	if playerGui then
-		local selfieViewGui = playerGui:FindFirstChild(selfViewName)
-		if selfieViewGui then
-			selfieViewGui:Destroy()
-		end
-	end
+	setIsOpen(false)
 	
 	playerCharacterRemovingConnection:Disconnect()	
 end
@@ -503,12 +579,35 @@ function stopRenderStepped()
 	end
 end
 
+function updateClonePartsColor(headRefColor)
+
+	if headRef.Color ~= cachedHeadColor then
+		local character = Players.LocalPlayer.Character
+
+		if not character then return end
+
+		if not clone then return end
+
+		for index, part in pairs(character:GetChildren()) do
+			if part:IsA("MeshPart") then
+				local clonePart = clone:FindFirstChild(part.Name)
+				if clonePart then
+					clonePart.Color = part.Color
+				end
+			end
+		end		
+	end
+
+	cachedHeadColor = headRefColor
+end
+
+
 function startRenderStepped(player)
 	stopRenderStepped()
 	renderSteppedConnection = RunService.RenderStepped:Connect(function(step)
 		--GetPropertyChangedSignal for head color/size change fired reliably in a simple test place
 		--but it did not fire reliably in a more involved test place, so as fallback for now we also check manually for changes..
-		
+
 		if Players.LocalPlayer and Players.LocalPlayer.Character then
 			local character = Players.LocalPlayer.Character
 
@@ -526,21 +625,29 @@ function startRenderStepped(player)
 					animator = humanoid:FindFirstChild("Animator")
 				end
 
-				--manual sync
+				--manual sync of canned animation tracks
 				if cloneAnimator ~= nil and animator ~= nil then
 
 					
+					local playingAnims = cloneAnimator:GetPlayingAnimationTracks()
+					for _, track in pairs(playingAnims) do
+						track:Stop()
+					end
+
 					local orgPlayingTracks = animator:GetPlayingAnimationTracks()
 
 					local anim = nil
+					orgAnimationTracks = {}
 					for index, value in ipairs(orgPlayingTracks) do
 						anim = value.Animation
 						if anim then
 							if anim:IsA("Animation") then
+								orgAnimationTracks[anim.AnimationId] = value
 								if not cloneAnimationTracks[anim.AnimationId] then
 									cloneAnimationTracks[anim.AnimationId] = cloneAnimator:LoadAnimation(anim)
 								end
 								local cloneAnimationTrack = cloneAnimationTracks[anim.AnimationId]--cloneAnimator:LoadAnimation(anim)
+								
 								cloneAnimationTrack:Play()	
 								cloneAnimationTrack.TimePosition = value.TimePosition
 								cloneAnimationTrack.Priority = value.Priority
@@ -548,14 +655,27 @@ function startRenderStepped(player)
 							end
 						end	
 					end
+
+					--clear meanwhile not anymore playing track
+					for trackId in (cloneAnimationTracks) do
+						local track = cloneAnimationTracks[trackId]
+						if track then
+							anim = track.Animation
+							if anim then
+								if not orgAnimationTracks[anim.AnimationId] then
+									cloneAnimationTracks[anim.AnimationId]:Stop()
+									cloneAnimationTracks[anim.AnimationId] = nil
+								end
+							end
+						end	
+					end	
 		
 					for index, track in ipairs(animator:GetPlayingAnimationTracksCoreScript()) do
 						local playingAnims = cloneAnimator:GetPlayingAnimationTracksCoreScript()
 						for i, trackS in pairs(playingAnims) do
 							if trackS.Animation:IsA("TrackerStreamAnimation") then
-								--trackS:Play()	
 								trackS.Priority = track.Priority
-								trackS:AdjustWeight(track.WeightCurrent,0)--0.1)
+								trackS:AdjustWeight(track.WeightCurrent,0)
 							end
 						end
 					end		
@@ -564,13 +684,18 @@ function startRenderStepped(player)
 		end
 
 		if headRef then			
-			if headRef.Color ~= cachedHeadColor or headRef.Size ~= cachedHeadSize then
-				cachedHeadColor = headRef.Color
+			if headRef.Size ~= cachedHeadSize then
 				cachedHeadSize = headRef.Size
 				setCloneDirty(true)
 			end
 		end
 	
+		if headRef then			
+			if headRef.Color ~= cachedHeadColor then
+				updateClonePartsColor(headRef.Color)
+			end
+		end
+
 		if updateCloneCurrentCoolDown > 0 then
 			updateCloneCurrentCoolDown = updateCloneCurrentCoolDown - step
 			if updateCloneCurrentCoolDown <= 0 then
@@ -596,6 +721,23 @@ local function Initialize(player)
 	end)
 
 	startRenderStepped(player)
+end
+
+function setIsOpen(shouldBeOpen)
+	isOpen = shouldBeOpen
+
+	if isOpen then
+		ReInit(Players.LocalPlayer)
+	else
+
+		headRef = nil
+		cachedHeadColor = nil
+		cachedHeadSize = nil
+		clearAllObservers()
+		clearObserver(Observer.CharacterAdded)
+		clearObserver(Observer.CharacterRemoving)
+		clearClone()
+	end
 end
 
 Initialize(Players.LocalPlayer)

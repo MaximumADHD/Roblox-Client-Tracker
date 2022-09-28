@@ -2,8 +2,6 @@ local Root = script.Parent
 local ContentProvider = game:GetService("ContentProvider")
 local ItemType = require(Root.Enums.ItemType)
 
-local FFlagShoeBundlePurchaseImageFix = game:DefineFastFlag("ShoeBundlePurchaseImageFix", false)
-
 local BASE_URL = string.gsub(ContentProvider.BaseUrl:lower(), "https?://m.", "https?://www.")
 local THUMBNAIL_URL = BASE_URL.."thumbs/asset.ashx?assetid="
 local BUNDLE_THUMBNAIL_URL = BASE_URL.."outfit-thumbnail/image?userOutfitId=%s&width=100&height=100&format=png"
@@ -18,16 +16,12 @@ local function getPreviewImageUrl(productInfo, platform: any?)
 
 	-- AssetId will only be populated if ProductInfo was from an asset
 	if productInfo.itemType == ItemType.Bundle then
-		if FFlagShoeBundlePurchaseImageFix then
-			if productInfo.costumeId then
-				return string.format(BUNDLE_THUMBNAIL_URL, productInfo.costumeId)
-			else
-				-- If bundle does not contain costumeId, use the first item in the bundle
-				-- as the image reference for the bundle. This is useful for shoe bundles
-				imageId = productInfo.items[1].id
-			end
-		else
+		if productInfo.costumeId then
 			return string.format(BUNDLE_THUMBNAIL_URL, productInfo.costumeId)
+		else
+			-- If bundle does not contain costumeId, use the first item in the bundle
+			-- as the image reference for the bundle. This is useful for shoe bundles
+			imageId = productInfo.items[1].id
 		end
 	elseif productInfo.AssetId ~= nil and productInfo.AssetId ~= 0 then
 		imageId = productInfo.AssetId

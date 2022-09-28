@@ -163,13 +163,13 @@ function QuickActions:init()
 	self.button7Transparency, self.updateButton7 = Roact.createBinding(1)
 
 	self.transparencies = {
-		button1 = self.button1Transparency,
-		button2= self.button2Transparency,
-		button3 = self.button3Transparency,
-		button4 = self.button4Transparency,
-		button5 = self.button5Transparency,
-		button6 = self.button6Transparency,
-		button7 = self.button7Transparency,
+		self.button1Transparency,
+		self.button2Transparency,
+		self.button3Transparency,
+		self.button4Transparency,
+		self.button5Transparency,
+		self.button6Transparency,
+		self.button7Transparency,
 	}
 	self.updateBindings = {
 		gradient = self.updateGradient,

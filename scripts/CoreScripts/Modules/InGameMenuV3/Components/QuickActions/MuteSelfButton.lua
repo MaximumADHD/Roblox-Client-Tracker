@@ -106,6 +106,7 @@ function MuteSelfButton:render()
 				layoutOrder = self.props.layoutOrder,
 				onActivated = self.onActivated,
 				onStateChanged = onStateChanged,
+				buttonRef = self.props.buttonRef,
 				[Roact.Change.AbsoluteSize] = triggerPointChanged,
 				onAbsolutePositionChanged = triggerPointChanged,
 			}, {

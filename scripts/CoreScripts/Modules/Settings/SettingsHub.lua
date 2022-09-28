@@ -17,6 +17,8 @@ local Players = game:GetService("Players")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
+local Roact = require(CorePackages.Roact)
+
 --[[ UTILITIES ]]
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
@@ -64,6 +66,7 @@ local FFlagInGameMenuHomeButton = game:DefineFastFlag("InGameMenuHomeButton", fa
 local FFlagInGameMenuV1ExitModal = game:DefineFastFlag("InGameMenuV1ExitModal", false)
 local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
 local GetFFlagShareInviteLinkContextMenuV1Enabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
+local GetFFlagSelfViewSettingsEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagSelfViewSettingsEnabled)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -104,6 +107,7 @@ local chatWasVisible = false
 local connectedServerVersion = nil
 
 local SettingsFullScreenTitleBar = require(RobloxGui.Modules.Settings.Components.SettingsFullScreenTitleBar)
+local PermissionsButtons = require(RobloxGui.Modules.Settings.Components.PermissionsButtons)
 
 local ShareGameDirectory = CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame
 local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
@@ -626,6 +630,16 @@ local function CreateSettingsHub()
 
 	local setVisibilityInternal = nil
 
+	local function createPermissionsButtons()
+		return Roact.createElement(PermissionsButtons, {
+			isTenFootInterface = isTenFootInterface,
+			isPortrait = utility:IsPortrait(),
+			isSmallTouchScreen = utility:IsSmallTouchScreen(),
+			ZIndex = this.Shield.ZIndex,
+			LayoutOrder = -1,
+		})
+	end
+
 	local function createGui()
 		local PageViewSizeReducer = 0
 		if utility:IsSmallTouchScreen() then
@@ -961,11 +975,21 @@ local function CreateSettingsHub()
 		}
 		if not isTenFootInterface then
 			local topCornerInset = GuiService:GetGuiInset()
+			local paddingTop = topCornerInset.Y
+			if GetFFlagSelfViewSettingsEnabled() then
+				-- Audio/Video permissions bar takes up the padding
+				paddingTop = 0
+			end
 			this.MenuContainerPadding = utility:Create'UIPadding'
 			{
-				PaddingTop = UDim.new(0, topCornerInset.Y),
+				PaddingTop = UDim.new(0, paddingTop),
 				Parent = this.MenuContainer,
 			}
+		end
+		
+		if GetFFlagSelfViewSettingsEnabled() then
+			-- Create the settings buttons for audio/camera permissions.
+			this.permissionsButtonsRoot = Roact.mount(createPermissionsButtons(), this.MenuContainer, "PermissionsButtons")
 		end
 
 		this.MenuListLayout = utility:Create'UIListLayout'
@@ -1259,8 +1283,18 @@ local function CreateSettingsHub()
 			else
 				this.HubBar.Size = UDim2.new(0, 800, 0, 60)
 				this.MenuAspectRatio.Parent = this.MenuContainer
+
+				if GetFFlagSelfViewSettingsEnabled() then
+					-- Reconfigure these buttons to take a new parent to be next to
+					-- the close button.
+					if this.permissionsButtonsRoot then
+						Roact.unmount(this.permissionsButtonsRoot)
+					end
+					this.permissionsButtonsRoot = Roact.mount(createPermissionsButtons(), this.Shield, "PermissionsButtons")
+				end
 			end
 		end
+
 
 		--We need to wait and let the HubBar AbsoluteSize actually update.
 		--This is in the same frame, so the delay should be very minimal.

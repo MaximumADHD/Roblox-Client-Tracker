@@ -16,6 +16,7 @@ export type Props = {
 	zIndex: number?,
 	layoutOrder: number?,
 	user: any,
+	square: boolean?,
 }
 
 return function(props: Props)
@@ -31,7 +32,7 @@ return function(props: Props)
 		BorderSizePixel = 0,
 		BackgroundColor3 = Colors.FLINT,
 	}, {
-		Corner = React.createElement("UICorner", {
+		Corner = if props.square then nil else React.createElement("UICorner", {
 			CornerRadius = UDim.new(0.5, 0),
 		})
 	})

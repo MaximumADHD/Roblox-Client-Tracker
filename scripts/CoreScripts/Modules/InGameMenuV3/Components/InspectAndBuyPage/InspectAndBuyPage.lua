@@ -29,8 +29,9 @@ local GetCharacterModelFromUserId = require(InGameMenu.Thunks.GetCharacterModelF
 local GetAssetsFromHumanoidDescription = require(InGameMenu.Thunks.GetAssetsFromHumanoidDescription)
 local UpdateStoreId = require(InGameMenu.Actions.InspectAndBuy.UpdateStoreId)
 local SetIsSubjectToChinaPolicies = require(InGameMenu.Actions.InspectAndBuy.SetIsSubjectToChinaPolicies)
-local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
+local getCanGamepadCaptureFocus = require(InGameMenu.Selectors.getCanGamepadCaptureFocus)
 local Constants = require(InGameMenu.Resources.Constants)
+local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
 
 local InspectAndBuyPage = Roact.PureComponent:extend("InspectAndBuyPage")
 
@@ -194,7 +195,7 @@ function InspectAndBuyPage:didUpdate(prevProps, prevState)
 		self:onPlayerInspected()
 	end
 
-	if not self.didInitFocus and self.firstItemCard:getValue() then
+	if not self.didInitFocus and self.firstItemCard:getValue() and self.props.canGamepadCaptureFocus then
 		self.didInitFocus = true
 		GuiService.SelectedCoreObject = self.firstItemCard:getValue()
 	end
@@ -213,15 +214,11 @@ function InspectAndBuyPage:willUnmount()
 end
 
 return RoactRodux.connect(function(state, props)
-	local canGamepadCaptureFocus = state.menuPage == Constants.InspectAndBuyPageKey
-		and state.displayOptions.inputType == Constants.InputType.Gamepad
-		and state.currentZone == 1
-
 	return {
 		inspectedDisplayName = state.inspectAndBuy.DisplayName,
 		inspectedUserId = state.inspectAndBuy.UserId,
 		assets = state.inspectAndBuy.Assets,
-		canGamepadCaptureFocus = canGamepadCaptureFocus,
+		canGamepadCaptureFocus = getCanGamepadCaptureFocus(state, Constants.InspectAndBuyPageKey),
 	}
 end, function(dispatch: (any) -> any)
 	return {
