@@ -1,5 +1,5 @@
-game:DefineFastFlag("UpgradeVirtualizedList2", false)
+game:DefineFastFlag("UpgradeVirtualizedList3", false)
 
 return function ()
-  return game:GetFastFlag("UpgradeVirtualizedList2")
+  return game:GetFastFlag("UpgradeVirtualizedList3")
 end

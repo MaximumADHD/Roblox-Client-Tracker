@@ -8,6 +8,7 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local FitFrame = require(Packages.FitFrame)
 local FitFrameOnAxis = FitFrame.FitFrameOnAxis
+local isCallable = require(UIBlox.Utility.isCallable)
 
 local CarouselHeader = require(Carousel.CarouselHeader)
 local HorizontalCarousel = require(Carousel.HorizontalCarousel)
@@ -59,6 +60,20 @@ FreeFlowCarousel.validateProps = t.strictInterface({
 
 	-- Set up initial maxNumOfItemsVisible without waiting for resize triegger to do it, used for testing
 	maxNumOfItemsVisible = t.optional(t.integer),
+
+	-- List of ViewabilityConfig/onViewableItemsChanged pairs. A specific onViewableItemsChanged will be called
+	-- when its corresponding ViewabilityConfig's conditions are met.
+	viewabilityConfigCallbackPairs = if UIBloxConfig.addViewabilityConfigCallbackPairs
+		then t.optional(t.array(t.strictInterface({
+			viewabilityConfig = t.strictInterface({
+				minimumViewTime = t.optional(t.number),
+				viewAreaCoveragePercentThreshold = t.optional(t.number),
+				itemVisiblePercentThreshold = t.optional(t.number),
+				waitForInteraction = t.optional(t.boolean),
+			}),
+			onViewableItemsChanged = isCallable,
+		})))
+		else nil,
 })
 
 FreeFlowCarousel.defaultProps = {
@@ -96,6 +111,9 @@ function FreeFlowCarousel:render()
 			loadNext = self.props.loadNext,
 			maxNumOfItemsVisible = if UIBloxConfig.enableVirtualizedListForCarousel
 				then self.props.maxNumOfItemsVisible
+				else nil,
+			viewabilityConfigCallbackPairs = if UIBloxConfig.addViewabilityConfigCallbackPairs
+				then self.props.viewabilityConfigCallbackPairs
 				else nil,
 		}),
 	})

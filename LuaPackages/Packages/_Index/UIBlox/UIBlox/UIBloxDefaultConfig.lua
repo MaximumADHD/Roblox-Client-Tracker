@@ -130,4 +130,13 @@ return {
 
 	-- support bottom aligns items in SystemBar
 	systemBarBottomAlignedItems = false,
+
+	-- Enable bug fix for layout props in HorizontalCarousel
+	fixHorizontalCarouselLayout = false,
+
+	-- Pass prop viewabilityConfigCallbackPairs of VirtualizedList
+	addViewabilityConfigCallbackPairs = false,
+
+	-- Enable fix for the image set resolution scale
+	enableImageSetResolutionScaleFix = false,
 }

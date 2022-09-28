@@ -22,6 +22,8 @@ export type Panel3DProps = {
 	children: any,
 	panelName: string, -- useful for debugging
 	movementUpdateEvent: RBXScriptSignal,
+	alwaysOnTop: boolean, -- should the panel render on top of geometry
+	parent: Instance, -- parent object, e.g. folder of parts
 }
 
 return {

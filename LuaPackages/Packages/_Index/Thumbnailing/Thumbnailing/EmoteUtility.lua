@@ -19,16 +19,27 @@ local FALLBACK_POSE_ANIMATION_ID = "http://www.roblox.com/asset/?id=532421348"
 -- in a row with the same emote/pose assets.
 -- We can avoid a bunch of async calls by caching results.
 local cachedPoseAsset = nil
-local cachedPoseAssetId = nil
+local cachedPoseAssetIdOrUrl = nil
 local cachedAnimationClip = nil
 local cachedAnimationClipId = nil
 local cachedPoseAssetIsIdleAnim = nil
 
-local function getPoseAsset(poseAssetId)
-	if poseAssetId == cachedPoseAssetId then
+-- poseAssetIdOrUrl identifies the pose asset we want to load.
+-- If it's a number, it's an assetId: e.g. 10300116892
+-- If it's a string, it's a url including an asset hash: e.g.
+-- "http://www.roblox.com/Asset/?hash=225a9c414cf0f236d56759a5fabf56e4"
+-- Depending on the type we use a different approach to load the asset.
+local function getPoseAsset(poseAssetIdOrUrl)
+	if poseAssetIdOrUrl == cachedPoseAssetIdOrUrl then
 		return cachedPoseAsset, cachedPoseAssetIsIdleAnim
 	end
-	local asset = InsertService:LoadAsset(poseAssetId):GetChildren()[1]
+
+	local asset
+	if typeof(poseAssetIdOrUrl) == "number" then
+		asset = InsertService:LoadAsset(poseAssetIdOrUrl):GetChildren()[1]
+	else
+		asset = game:GetObjects(poseAssetIdOrUrl)[1]
+	end
 
 	local poseAssetIsIdleAnim = false
 	if asset.ClassName == "Folder" then
@@ -45,7 +56,7 @@ local function getPoseAsset(poseAssetId)
 	end
 
 	cachedPoseAsset = asset
-	cachedPoseAssetId = poseAssetId
+	cachedPoseAssetIdOrUrl = poseAssetIdOrUrl
 	cachedPoseAssetIsIdleAnim = poseAssetIsIdleAnim
 	return asset, poseAssetIsIdleAnim
 end
@@ -383,7 +394,8 @@ local function doR15ToolPose(character, humanoid, tool, poseAssetId, thumbnailKe
 end
 
 --[[
-	Given a pose asset ID, figure out the keyframe we're going to use to pose the avatar.
+	Given a pose asset ID (number) or pose asset url (string), figure out the keyframe we're going to use to
+	pose the avatar.
 	- may be nil, in which case we use a fallback/constant keyframe.  This is a 'weak'
 	  pose which may be trumped by a tool's suggested pose.
 	- may be asset id for a keyframe sequence.  This is also a 'weak' pose which may be
@@ -396,12 +408,12 @@ end
 
 	Return the keyframe and a bool on whether or not this trumps tools suggestions.
 ]]
-local function getMainThumbnailKeyframe(character, poseAssetId, useRotationInPoseAsset)
+local function getMainThumbnailKeyframe(character, poseAssetIdOrUrl, useRotationInPoseAsset)
 	local thumbnailKeyframe
 	local givenPoseTrumpsToolPose = false
 
-	if poseAssetId then
-		local poseAsset, poseAssetIsIdleAnim = getPoseAsset(poseAssetId)
+	if poseAssetIdOrUrl then
+		local poseAsset, poseAssetIsIdleAnim = getPoseAsset(poseAssetIdOrUrl)
 
 		-- In the current setup, a user may select an emote to pose their avatar for a picture.
 		-- If they do this, the 'poseAsset' is an Animation, and we consider that a 'stronger'
@@ -582,9 +594,15 @@ module.SetPlayerCharacterPose = function(character,
 	end
 end
 
-module.SetPlayerCharacterFace = function(character, poseAssetId, confirmProceedAfterYield)
-	assert(poseAssetId ~= nil, "EmoteUtility.SetPlayerCharacterFace non-nil poseAssetId")
-	assert(typeof(poseAssetId) == "number", "EmoteUtility.SetPlayerCharacterFace expects poseAssetId to be a number or nil")
+-- poseAssetIdOrUrl identifies the pose asset we want to load.
+-- If it's a number, it's an assetId: e.g. 10300116892
+-- If it's a string, it's a url including an asset hash: e.g.
+-- "http://www.roblox.com/Asset/?hash=225a9c414cf0f236d56759a5fabf56e4"
+-- Depending on the type we will use a different approach to load the asset.
+module.SetPlayerCharacterFace = function(character, poseAssetIdOrUrl, confirmProceedAfterYield)
+	assert(poseAssetIdOrUrl ~= nil, "EmoteUtility.SetPlayerCharacterFace expects non-nil poseAssetIdOrUrl")
+	assert(typeof(poseAssetIdOrUrl) == "number" or typeof(poseAssetIdOrUrl) == "string",
+		"EmoteUtility.SetPlayerCharacterFace expects poseAssetIdOrUrl to be a number or string")
 
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
 
@@ -592,12 +610,12 @@ module.SetPlayerCharacterFace = function(character, poseAssetId, confirmProceedA
 		return
 	end
 
-	-- Get the thumbnails suggested by poseAssetId.
-	local thumbnailKeyframe = getMainThumbnailKeyframe(character, poseAssetId, true)
+	-- Get the thumbnails suggested by poseAssetIdOrUrl.
+	local thumbnailKeyframe = getMainThumbnailKeyframe(character, poseAssetIdOrUrl, true)
 
 	-- We have called some yielding functions (and now we are done, no more yielding functions).
 	-- Do we still want to do this?
-	if confirmProceedAfterYield and not confirmProceedAfterYield(poseAssetId) then
+	if confirmProceedAfterYield and not confirmProceedAfterYield(poseAssetIdOrUrl) then
 		return
 	end
 

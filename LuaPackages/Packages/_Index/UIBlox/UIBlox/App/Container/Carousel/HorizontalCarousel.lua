@@ -13,6 +13,7 @@ local ScrollButton = require(Carousel.ScrollButton)
 
 local Core = UIBlox.Core
 local Scroller = require(Core.InfiniteScroller).Scroller
+local isCallable = require(UIBlox.Utility.isCallable)
 
 local VirtualizedList = require(Packages.VirtualizedList)
 local BidirectionalFlatList = VirtualizedList.BidirectionalFlatList
@@ -74,6 +75,23 @@ HorizontalCarousel.validateProps = t.strictInterface({
 
 	-- Set up initial maxNumOfItemsVisible without waiting for resize triegger to do it, used for testing
 	maxNumOfItemsVisible = t.optional(t.integer),
+
+	-- This callback fires when the canvas of the carousel resizes
+	onContentSizeChange = t.optional(t.callback),
+
+	-- List of ViewabilityConfig/onViewableItemsChanged pairs. A specific onViewableItemsChanged will be called
+	-- when its corresponding ViewabilityConfig's conditions are met.
+	viewabilityConfigCallbackPairs = if UIBloxConfig.addViewabilityConfigCallbackPairs
+		then t.optional(t.array(t.strictInterface({
+			viewabilityConfig = t.strictInterface({
+				minimumViewTime = t.optional(t.number),
+				viewAreaCoveragePercentThreshold = t.optional(t.number),
+				itemVisiblePercentThreshold = t.optional(t.number),
+				waitForInteraction = t.optional(t.boolean),
+			}),
+			onViewableItemsChanged = isCallable,
+		})))
+		else nil,
 })
 
 HorizontalCarousel.defaultProps = {
@@ -93,6 +111,7 @@ type Props = {
 	loadNext: () -> (),
 	loadPrevious: () -> (),
 	animateScrolling: boolean?,
+	onContentSizeChange: (number, number) -> (),
 }
 
 type State = {
@@ -312,15 +331,28 @@ function HorizontalCarousel:init()
 		return props.renderItem(element.item)
 	end
 
-	self.getItemLayout = function(_data, index)
-		local props: Props = self.props
-		local itemWidth = props.itemSize.X + (props.itemPadding or 0)
-		return {
-			length = itemWidth,
-			offset = itemWidth * index,
-			index = index,
-		}
-	end
+	self.getItemLayout = if UIBloxConfig.fixHorizontalCarouselLayout
+		then function(data, index)
+			local props: Props = self.props
+			local itemWidth = props.itemSize.X + (props.itemPadding or 0)
+			local offset = itemWidth * (index - 1) + props.carouselMargin
+			local length = if index == #data then props.itemSize.X else itemWidth
+
+			return {
+				length = length,
+				offset = offset,
+				index = index,
+			}
+		end
+		else function(_data, index)
+			local props: Props = self.props
+			local itemWidth = props.itemSize.X + (props.itemPadding or 0)
+			return {
+				length = itemWidth,
+				offset = itemWidth * index,
+				index = index,
+			}
+		end
 end
 
 function HorizontalCarousel:render()
@@ -395,6 +427,10 @@ function HorizontalCarousel:render()
 				overrideAutomaticCanvasSize = true,
 				getItemLayout = self.getItemLayout,
 
+				viewabilityConfigCallbackPairs = if UIBloxConfig.addViewabilityConfigCallbackPairs
+					then props.viewabilityConfigCallbackPairs
+					else nil,
+
 				ItemSeparatorComponent = if itemPadding
 					then function()
 						return Roact.createFragment({
@@ -434,13 +470,17 @@ function HorizontalCarousel:render()
 
 				contentContainerStyle = {
 					BackgroundTransparency = 1,
-					Size = UDim2.fromScale(1, 1),
+					Size = if UIBloxConfig.fixHorizontalCarouselLayout
+						then UDim2.fromScale(0, 1)
+						else UDim2.fromScale(1, 1),
 					ClipsDescendants = false,
 				},
 				style = {
 					BackgroundTransparency = 1,
 					ScrollBarThickness = 0,
 				},
+
+				onContentSizeChange = props.onContentSizeChange,
 			}) or nil
 			else (state.maxNumOfItemsVisible > 0) and Roact.createElement(Scroller, {
 				identifier = props.identifier,

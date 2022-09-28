@@ -28,6 +28,8 @@ local defaultProps: Props = {
 	faceCamera = false,
 	panelName = "PanelBase",
 	movementUpdateEvent = RunService.RenderStepped,
+	alwaysOnTop = false,
+	parent = workspace,
 }
 
 local function Panel3D(providedProps: Props)
@@ -44,7 +46,7 @@ local function Panel3D(providedProps: Props)
 		Archivable = false,
 	}, {
 		WorkspacePortal = React.createElement(Roact.Portal, {
-			target = workspace :: Instance, -- LUAU FIXME: Need read-write syntax for props (https://github.com/Roblox/luau/pull/284)
+			target = props.parent,
 		}, {
 			GUIPart = React.createElement("Part", {
 				Name = props.panelName .. "_Part",
@@ -68,6 +70,7 @@ local function Panel3D(providedProps: Props)
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			LightInfluence = 0,
 			children = props.children,
+			AlwaysOnTop = props.alwaysOnTop,
 		}),
 	})
 end

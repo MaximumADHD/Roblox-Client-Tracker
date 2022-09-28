@@ -3,14 +3,14 @@ local UIBloxDefaultConfig = require(script.UIBloxDefaultConfig)
 local Packages = script.Parent
 
 local Fonts = require(script.App.Style.Fonts)
-local Images = require(script.App.ImageSet.Images)
+local ImagesTypes = require(script.App.ImageSet.ImagesTypes)
 local StyleTypes = require(script.App.Style.StyleTypes)
 
 export type Font = Fonts.Font
 export type FontPalette = Fonts.FontPalette
 
-export type ImageSetImage = Images.ImageSetImage
-export type Images = Images.Images
+export type ImageSetImage = ImagesTypes.ImageSetImage
+export type Images = ImagesTypes.Images
 
 export type Theme = StyleTypes.Theme
 export type AppStyle = StyleTypes.AppStyle

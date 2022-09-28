@@ -2,6 +2,11 @@
 -- This file just provides a convenient interface to query for images
 local GetImageSetData = require(script.Parent.GetImageSetData)
 local FALLBACK_IMAGES = require(script.Parent.FallbackImages)
+local ImageSet = script.Parent
+local App = ImageSet.Parent
+local UIBlox = App.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local ImagesTypes = require(script.Parent.ImagesTypes)
 
 local GuiService = game:GetService("GuiService")
 
@@ -12,7 +17,13 @@ if not success or not CorePackages then
 	scale = 1
 end
 
-local sourceData = GetImageSetData(scale)
+local sourceData
+if UIBloxConfig.enableImageSetResolutionScaleFix then
+	-- scale should match the exact image scale used
+	sourceData, scale = GetImageSetData(scale)
+else
+	sourceData = GetImageSetData(scale)
+end
 
 local function getPackagePath(): string?
 	local packageRoot = script.Parent
@@ -46,16 +57,9 @@ local Images = {
 	ImagesResolutionScale = scale,
 }
 
-export type ImageSetImage = {
-	ImageRectOffset: Vector2,
-	ImageRectSize: Vector2,
-	Image: string,
-}
+export type ImageSetImage = ImagesTypes.ImageSetImage
 
-export type Images = {
-	ImagesResolutionScale: number,
-	[string]: ImageSetImage,
-}
+export type Images = ImagesTypes.Images
 
 for key, value in pairs(sourceData) do
 	assert(typeof(value) == "table", "invalid sourceData from GetImageSetData for scale " .. tostring(scale))

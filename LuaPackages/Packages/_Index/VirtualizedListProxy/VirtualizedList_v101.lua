@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["VirtualizedList-95073533-1.0.1"]["VirtualizedList"])
+local Package = require(PackageIndex["VirtualizedList-3fdb7aa4-d5a97d9e"]["VirtualizedList"])
 
 return Package

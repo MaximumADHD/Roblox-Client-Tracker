@@ -83,7 +83,7 @@ IconButton.validateProps = t.strictInterface({
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	inputBindings = t.optional(t.table),
-	buttonRef = t.optional(t.table),
+	buttonRef = t.optional(t.union(t.callback, t.table)),
 
 	[Roact.Change.AbsoluteSize] = t.optional(t.callback),
 })

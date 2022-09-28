@@ -8,7 +8,7 @@ dependencies = [
     "GenericPagination roblox/genericpagination 885168d0 git+https://github.com/roblox/genericpagination#master",
     "Mock mock 2db7a70f git+https://github.com/roblox/mock#v1.1.0",
     "NetworkingAccountInformation NetworkingAccountInformation 0.6.3 url+https://github.com/roblox/lua-app-networking",
-    "NetworkingAccountSettings NetworkingAccountSettings 1.0.0 url+https://github.com/roblox/lua-app-networking",
+    "NetworkingAccountSettings NetworkingAccountSettings 1.1.0 url+https://github.com/roblox/lua-app-networking",
     "NetworkingAliases NetworkingAliases 0.6.3 url+https://github.com/roblox/lua-app-networking",
     "NetworkingChat roblox/networking-chat a4ef5fb2 git+https://github.com/roblox/networking-chat#v0.2.0",
     "NetworkingContacts NetworkingContacts 0.6.3 url+https://github.com/roblox/lua-app-networking",
