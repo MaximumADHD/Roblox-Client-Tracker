@@ -31718,10 +31718,7 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "WireframeHandleAdornment",
-            "Superclass": "HandleAdornment",
-            "Tags": [
-                "NotBrowsable"
-            ]
+            "Superclass": "HandleAdornment"
         },
         {
             "Members": [

@@ -1693,7 +1693,7 @@ Class LineHandleAdornment : HandleAdornment
 	Property float LineHandleAdornment.Thickness
 Class SphereHandleAdornment : HandleAdornment
 	Property float SphereHandleAdornment.Radius
-Class WireframeHandleAdornment : HandleAdornment [NotBrowsable]
+Class WireframeHandleAdornment : HandleAdornment
 	Function void WireframeHandleAdornment:AddLine(Vector3 from, Vector3 to)
 	Function void WireframeHandleAdornment:AddLines(Array points)
 	Function void WireframeHandleAdornment:AddPath(Array points, bool loop)
