@@ -26,7 +26,7 @@ void main()
     vec4 f5 = texture(ShadowMapTexture, VARYING1.xy);
     vec3 f6 = textureLod(PrefilteredEnvTexture, vec4(-VARYING3, 0.0).xyz, max(CB0[18].y, VARYING0.w) * 5.0).xyz;
     bvec3 f7 = bvec3(!(CB0[18].w == 0.0));
-    _entryPointOutput = vec4(sqrt(clamp(mix(vec3(f7.x ? CB0[19].xyz.x : f6.x, f7.y ? CB0[19].xyz.y : f6.y, f7.z ? CB0[19].xyz.z : f6.z), ((min((f3.xyz * (f3.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f4.x)), vec3(CB0[21].w)) * 1.0) + (VARYING2 * (((1.0 - ((step(f5.x, VARYING1.z) * clamp(CB0[29].z + (CB0[29].w * abs(VARYING1.z - 0.5)), 0.0, 1.0)) * f5.y)) * f4.y) * CB0[14].w))) * CB2[0].xyz, vec3(VARYING0.w)) * CB0[20].y, vec3(0.0), vec3(1.0))), 1.0);
+    _entryPointOutput = vec4(sqrt(clamp(mix(vec3(f7.x ? CB0[19].xyz.x : f6.x, f7.y ? CB0[19].xyz.y : f6.y, f7.z ? CB0[19].xyz.z : f6.z), ((min((f3.xyz * (f3.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f4.x)), vec3(CB0[21].w)) * 1.0) + (VARYING2 * ((1.0 - ((step(f5.x, VARYING1.z) * clamp(CB0[29].z + (CB0[29].w * abs(VARYING1.z - 0.5)), 0.0, 1.0)) * f5.y)) * f4.y))) * CB2[0].xyz, vec3(VARYING0.w)) * CB0[20].y, vec3(0.0), vec3(1.0))), 1.0);
 }
 
 //$$ShadowMapTexture=s1

@@ -1,0 +1,8 @@
+Key,Context,Source,en-us
+Studio.App.RBXMainWindow.CheckNetworkAndUserAuthentication,,"Feature not available in offline mode.
+Please check internet connection and restart Roblox.","Feature not available in offline mode.
+Please check internet connection and restart Roblox."
+Studio.App.RobloxRibbonMainWindow.ShowDetails,,Show Details,Show Details
+Studio.App.TeamCreateActivePlayersDialog.UnexpectedDataFormat,Display this message when fetched result has unexpected format,Unexpected data format.,Unexpected data format.
+Studio.App.StudioUtilities.LogInRequired,,Log in required,Log in required
+Studio.App.StudioUtilities.YouMustLogInToPerformThisAction,,You must log in to perform this action!,You must log in to perform this action!

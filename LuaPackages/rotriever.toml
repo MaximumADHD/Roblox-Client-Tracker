@@ -34,15 +34,15 @@ Lumberyak = { git = "https://github.com/Roblox/lumberyak" }
 StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
 FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
-ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v2.1.0" }
-ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v2.2.1" }
+ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v2.2.1" }
+ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.0.0" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
 React = "github.com/Roblox/roact-alignment@17.0.1-rc.15"
 ReactIs = "github.com/Roblox/roact-alignment@17.0.1-rc.15"
 ReactRoblox = "github.com/Roblox/roact-alignment@17.0.1-rc.15"
 Promise = "github.com/Roblox/roblox-lua-promise@3.3.0"
-VirtualizedList = { git = "https://github.com/roblox/virtualized-list-upgrade", rev = "0.4.0", package = "VirtualizedListProxy" }
-VirtualizedListUpgradeFlag = { git = "https://github.com/roblox/virtualized-list-upgrade", rev = "0.4.0", package = "VirtualizedListUpgradeFlag" }
+VirtualizedList = { git = "https://github.com/roblox/virtualized-list-upgrade", rev = "0.5.0", package = "VirtualizedListProxy" }
+VirtualizedListUpgradeFlag = { git = "https://github.com/roblox/virtualized-list-upgrade", rev = "0.5.0", package = "VirtualizedListUpgradeFlag" }
 LuauPolyfill = "github.com/Roblox/luau-polyfill@0.4.0"
 RoduxNetworking = "github.com/Roblox/rodux-networking@3.0.1"
 NetworkingVirtualEvents = "github.com/Roblox/lua-app-networking@1.1.0"
@@ -98,7 +98,7 @@ InfiniteScroller = "github.com/Roblox/infinite-scroller@0.9.5"
 RoactGamepad = "github.com/Roblox/roact-gamepad@0.5.6"
 
 [config.patch."github.com/roblox/virtualized-list-lua"]
-VirtualizedList = { git = "https://github.com/roblox/virtualized-list-upgrade", rev = "0.4.0", package = "VirtualizedListProxy" }
+VirtualizedList = { git = "https://github.com/roblox/virtualized-list-upgrade", rev = "0.5.0", package = "VirtualizedListProxy" }
 
 # Patch over a deep jest dependency in order to preempt a new analysis error
 # that caught several mistranslation bugs

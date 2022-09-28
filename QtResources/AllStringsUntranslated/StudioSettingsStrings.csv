@@ -1,3 +1,101 @@
 Key,Context,Source,en-us
 Studio.Settings.BetaFeature.HighDpiAndIconsTitle,,Enable DPI Aware Studio,Enable DPI Aware Studio
 Studio.Settings.BetaFeature.HighDpiAndIconsDescription,Studio will look better on monitors with higher resolution.,Makes Studio scale better on monitors using scalings above 100%.  Also includes new themed icons.,Makes Studio scale better on monitors using scalings above 100%.  Also includes new themed icons.
+Studio.App.BetaFeatures.CloudLoadFailedFmt1,error fetching BF from cloud,Failed to load beta features from cloud: %1,Failed to load beta features from cloud: %1
+Studio.App.BetaFeatures.CloudReloadPrompt,reload because BFs loaded from cloud,Beta features enabled for this account differ from those saved locally. Updated Beta features will not be available until you restart Studio.,Beta features enabled for this account differ from those saved locally. Updated Beta features will not be available until you restart Studio.
+Studio.App.BetaFeatures.RestartStudioTitle,,Restart Studio,Restart Studio
+Studio.App.BetaFeatures.SomethingChangedPrompt,,Would you like to restart Studio now?,Would you like to restart Studio now?
+Studio.App.BetaFeatures.RestartWarning,,Beta features will not be activated until you restart Studio,Beta features will not be activated until you restart Studio
+Studio.App.BetaFeatures.AudioVolumetricSoundsTitle,,Volumetric Sounds,Volumetric Sounds
+Studio.App.BetaFeatures.AudioVolumetricSoundsDescription,,"Enables Sound Instances that are children of Cylinder, Block, and Ball parts to emit audio from every point on the surface of the part, rather than only the center.","Enables Sound Instances that are children of Cylinder, Block, and Ball parts to emit audio from every point on the surface of the part, rather than only the center."
+Studio.App.BetaFeatures.NewFontUITitle,,New Font Picker UI,New Font Picker UI
+Studio.App.BetaFeatures.NewFontUIDescription,,Enables a new UI for selecting fonts which supports previews and provides access to more weights and styles than before.,Enables a new UI for selecting fonts which supports previews and provides access to more weights and styles than before.
+Studio.App.BetaFeatures.SelectionImprovementsTitle,,Selection Improvements,Selection Improvements
+Studio.App.BetaFeatures.SelectionImprovementsDescription,,"Enables a new selection outline style, the ability to select objects that are behind other objects, a new option for showing bounding boxes, and a context menu item for selecting parents of objects.","Enables a new selection outline style, the ability to select objects that are behind other objects, a new option for showing bounding boxes, and a context menu item for selecting parents of objects."
+Studio.App.Settings.FolderSelectionDialogTitle,,Select folder to save Roblox documents,Select folder to save Roblox documents
+Studio.App.Settings.SelectFolderMessageBoxText,,"Need a location to store local files.
+Do you want to pick a file path now?","Need a location to store local files.
+Do you want to pick a file path now?"
+Studio.App.PropertyEnum.Off,,Off,Off
+Studio.App.BetaFeatures.CreateAnimationFromVideoTitle,,Live Animation Creator,Live Animation Creator
+Studio.App.BetaFeatures.CreateAnimationFromVideoDescription,,"Animation clip editor will have a ""Live Animation Creator"" option in the Import menu to transfer 3D pose from a video to an avatar.","Animation clip editor will have a ""Live Animation Creator"" option in the Import menu to transfer 3D pose from a video to an avatar."
+Studio.App.BetaFeatures.FacialAnimationRecordingTitle,,Face Recorder,Face Recorder
+Studio.App.BetaFeatures.FacialAnimationRecordingDescription,,"Animation Editor will have a ""Face Recorder"" button to use a camera to record your own face movements onto an avatar.","Animation Editor will have a ""Face Recorder"" button to use a camera to record your own face movements onto an avatar."
+Studio.App.BetaFeatures.ACESaveRigWithAnimationTitle,,Save rig with Animation,Save rig with Animation
+Studio.App.BetaFeatures.ACESaveRigWithAnimationDescription,,Animation clip editor will save the rig along with keyframes to make the animation retargetable.,Animation clip editor will save the rig along with keyframes to make the animation retargetable.
+Studio.App.BetaFeatures.ForumPostTitleEnding,,%1 is now enabled,%1 is now enabled
+Studio.App.BetaFeatures.LuauNonStrictByDefaultTitle,,Scripts Are Non-Strict By Default,Scripts Are Non-Strict By Default
+Studio.App.BetaFeatures.LuauNonStrictByDefaultDescription,,"Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis.","Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis."
+Studio.App.BetaFeatures.LuauLowerBoundsTitle,,Experimental Luau language features,Experimental Luau language features
+Studio.App.BetaFeatures.LuauLowerBoundsDescription,,Adds lower-bounds calculation to script analysis for more accurate type inference.,Adds lower-bounds calculation to script analysis for more accurate type inference.
+Studio.App.BetaFeatures.ParallelLuaTitle,,Parallel Lua,Parallel Lua
+Studio.App.BetaFeatures.ParallelLuaDescription,,Allows writing scripts that can execute in parallel to improve throughput.,Allows writing scripts that can execute in parallel to improve throughput.
+Studio.App.BetaFeatures.AccessoryToolBetaTitle,,Accessory Fitting Tool,Accessory Fitting Tool
+Studio.App.BetaFeatures.AccessoryToolBetaDescription,,Use Accessory Fitting Tool to edit caged clothing items as well as rigid accessories.,Use Accessory Fitting Tool to edit caged clothing items as well as rigid accessories.
+Studio.App.BetaFeatures.FacialAnimationBetaTitle,,Facial Animation,Facial Animation
+Studio.App.BetaFeatures.FacialAnimationBetaDescription,,Enable the FaceControls instance which supports facial animation for avatars that have a dynamic-head.,Enable the FaceControls instance which supports facial animation for avatars that have a dynamic-head.
+Studio.App.BetaFeatures.AutoSkinTransferBetaTitle,,Automatic Skinning Transfer,Automatic Skinning Transfer
+Studio.App.BetaFeatures.AutoSkinTransferBetaDescription,,Enables the auto-skinning property on the WrapDeformer’s WrapLayer instances which allows deformation of accessories based on the skinning information of the character it’s attached to.,Enables the auto-skinning property on the WrapDeformer’s WrapLayer instances which allows deformation of accessories based on the skinning information of the character it’s attached to.
+Studio.App.BetaFeatures.ProximityPromptTitle,,Proximity Prompt Beta,Proximity Prompt Beta
+Studio.App.BetaFeatures.ProximityPromptDescription,,ProximityPrompt is a new instance type used to prompt the user for input so they can interact with an object in the 3D world.,ProximityPrompt is a new instance type used to prompt the user for input so they can interact with an object in the 3D world.
+Studio.App.BetaFeatures.AdaptiveTimesteppingTitle,,Adaptive timestepping,Adaptive timestepping
+Studio.App.BetaFeatures.AdaptiveTimesteppingDescription,,Adaptively take larger timesteps for individual solver islands when possible.,Adaptively take larger timesteps for individual solver islands when possible.
+Studio.App.BetaFeatures.EnableCSGV3Title,,CSG Version 3,CSG Version 3
+Studio.App.BetaFeatures.EnableCSGV3Description,,Use the new and faster CSG Engine. ,Use the new and faster CSG Engine. 
+Studio.App.BetaFeatures.LuauDataModelAwarenessTitle,,Luau DataModel awareness,Luau DataModel awareness
+Studio.App.BetaFeatures.LuauDataModelAwarenessDescription,,"When typechecking scripts, incorporate the shape of the game's DataModel","When typechecking scripts, incorporate the shape of the game's DataModel"
+Studio.App.BetaFeatures.AcceleratedCollisionPipelineTitle,,Accelerated Collision Pipeline,Accelerated Collision Pipeline
+Studio.App.BetaFeatures.AcceleratedCollisionPipelineDescription,,Enable Accelerated Collision Detection which improves collision performance for large assemblies.,Enable Accelerated Collision Detection which improves collision performance for large assemblies.
+Studio.App.BetaFeatures.TerrainQolTitle,,Terrain Quality of Life Changes,Terrain Quality of Life Changes
+Studio.App.BetaFeatures.TerrainQolDescription,,Enable various small improvements to Terrain Tools.,Enable various small improvements to Terrain Tools.
+Studio.App.BetaFeatures.ImprovedInnerBoxTitle,,Improved Inner Box Avatar Collisions,Improved Inner Box Avatar Collisions
+Studio.App.BetaFeatures.ImprovedInnerBoxDescription,,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.
+Studio.App.BetaFeatures.RibbonBarGalleryMenuTitle,,Ribbon Bar Gallery Menu,Ribbon Bar Gallery Menu
+Studio.App.BetaFeatures.RibbonBarGalleryMenuDescription,,"Switches dropdown menu for Parts, Effects, Materials, and Physics constraints to use a gallery view from a list view.","Switches dropdown menu for Parts, Effects, Materials, and Physics constraints to use a gallery view from a list view."
+Studio.App.BetaFeatures.AssetImporterTitle,,New Mesh Importer,New Mesh Importer
+Studio.App.BetaFeatures.AssetImporterDescription,,"Enable the new smart, unified Avatar and Mesh Importer","Enable the new smart, unified Avatar and Mesh Importer"
+Studio.App.BetaFeatures.TextChatServiceTitle,,New Text Chat Service,New Text Chat Service
+Studio.App.BetaFeatures.TextChatServiceDescription,,"Enables the new TextChatService feature. Once enabled, you can change the ChatVersion property on TextChatService to 'TextChatService', which will prevent the legacy Lua system from loading and enable the new chat.","Enables the new TextChatService feature. Once enabled, you can change the ChatVersion property on TextChatService to 'TextChatService', which will prevent the legacy Lua system from loading and enable the new chat."
+Studio.App.BetaFeatures.ParticleFlipbooksTitle,,Particle Flipbooks,Particle Flipbooks
+Studio.App.BetaFeatures.ParticlFlipbooksDescription,,"Enables the new particle flipbook feature, allowing the use of animated textures on particles (needing a 1024x1024 grid-layout texture of individiual frames).","Enables the new particle flipbook feature, allowing the use of animated textures on particles (needing a 1024x1024 grid-layout texture of individiual frames)."
+Studio.App.BetaFeatures.StartPageListModeTitle,,Start Page List Display,Start Page List Display
+Studio.App.BetaFeatures.StartPageListModeDescription,,"Enables the new list mode feature for Studio's Start Page, allowing you to view and manage your Roblox games from a condensed list view.","Enables the new list mode feature for Studio's Start Page, allowing you to view and manage your Roblox games from a condensed list view."
+Studio.App.BetaFeatures.NewCharacterControllerTitle,,New Character Controller,New Character Controller
+Studio.App.BetaFeatures.NewCharacterControllerDescription,,Enables trying the ControllerManager and Controller instances for better simulated character movement and customization.,Enables trying the ControllerManager and Controller instances for better simulated character movement and customization.
+Studio.App.BetaFeatures.ScriptProfilerTitle,,Script Profiler,Script Profiler
+Studio.App.BetaFeatures.ScriptProfilerDescription,,Enables the new sampling profiler feature for Dev Console.,Enables the new sampling profiler feature for Dev Console.
+Studio.App.RobloxInputConfigDialog.Shift,"The name of the Shift key, as it would appear on the user's keyboard.",Shift,Shift
+Studio.App.RobloxInputConfigDialog.CapsLock,"The name of the Caps Lock key, as it would appear on the user's keyboard.",Caps Lock,Caps Lock
+Studio.App.RobloxInputConfigDialog.Control,"The name of the Control key, as it would appear on the user's keyboard.",Control Ctrl,Control Ctrl
+Studio.App.RobloxInputConfigDialog.Command,"The name of the MacOS Command key, as it would appear on the user's keyboard.",Command Cmd,Command Cmd
+Studio.App.RobloxInputConfigDialog.Option,"The name of the Option key, as it would appear on the user's keyboard.",Option,Option
+Studio.App.RobloxInputConfigDialog.Backspace,"The name of the Backspace key, as it would appear on the user's keyboard.",Backspace,Backspace
+Studio.App.RobloxInputConfigDialog.Tab,"The name of the Tab key, as it would appear on the user's keyboard.",Tab,Tab
+Studio.App.RobloxKeyboardConfig.ClearShortcut,,Clear Shortcut,Clear Shortcut
+Studio.App.RobloxMouseConfig.ContextMenu,,Context Menu,Context Menu
+Studio.App.RobloxMouseConfig.RightClick,,Right Click,Right Click
+Studio.App.RobloxMouseConfig.RightClickShift,,Right Click + Shift,Right Click + Shift
+Studio.App.RobloxMouseConfig.RightClickAlt,,Right Click + Alt,Right Click + Alt
+Studio.App.RobloxMouseConfig.RightClickCtrl,,Right Click + Ctrl,Right Click + Ctrl
+Studio.App.RobloxKeyboardConfigWidget.SearchActions,,Search Actions,Search Actions
+Studio.App.RobloxKeyboardConfigWidget.Name,,Name,Name
+Studio.App.RobloxKeyboardConfigWidget.Shortcut,,Shortcut,Shortcut
+Studio.App.RobloxKeyboardConfigWidget.Description,,Description,Description
+Studio.App.BetaFeatures.CanvasGroupTitle,,Canvas Group,Canvas Group
+Studio.App.BetaFeatures.CanvasGroupDescription,,A new UI object that renders descendants as a single layer that can be tinted and made transparent.,A new UI object that renders descendants as a single layer that can be tinted and made transparent.
+Studio.App.BetaFeatures.PathfindingLinksTitle,,Pathfinding Links,Pathfinding Links
+Studio.App.BetaFeatures.PathfindingLinksDescription,,Pathfinding link can be used to connect areas in the place which otherwise are unconnected.,Pathfinding link can be used to connect areas in the place which otherwise are unconnected.
+Studio.App.BetaFeatures.DebuggerV2Title,,Intuitive Debugger,Intuitive Debugger
+Studio.App.BetaFeatures.DebuggerV2Description,,"Enable a new debugging experience with a more powerful backend architecture and Lua-based UI for the Callstack, Watch, and Breakpoint windows.","Enable a new debugging experience with a more powerful backend architecture and Lua-based UI for the Callstack, Watch, and Breakpoint windows."
+Studio.App.BetaFeatures.NonuniformUnionsTitle,,Nonuniform Unions,Nonuniform Unions
+Studio.App.BetaFeatures.NonuniformUnionsDescription,,Allow unions created with the CSG system to scale nonuniformly in the same way as MeshParts. Change the interpretation of existing nonuniformly scaled unions.,Allow unions created with the CSG system to scale nonuniformly in the same way as MeshParts. Change the interpretation of existing nonuniformly scaled unions.
+Studio.App.BetaFeatures.ScriptEditorApiTitle,,Script Editor API,Script Editor API
+Studio.App.BetaFeatures.ScriptEditorApiDescription,,"Allow plugins to access the ScriptEditorService and ScriptDocument objects, permitting them to interact with an active editor.","Allow plugins to access the ScriptEditorService and ScriptDocument objects, permitting them to interact with an active editor."
+Studio.App.BetaFeatures.OneClickCollaborateTitle,,One-click Collaborate Button,One-click Collaborate Button
+Studio.App.BetaFeatures.OneClickCollaborateDescription,,"A new ""Collaborate"" button that enables you to immediately add, view, or manage collaborators and their permissions for your game. If collaborators are added, Team Create is turned on so that you can work together with your friends.","A new ""Collaborate"" button that enables you to immediately add, view, or manage collaborators and their permissions for your game. If collaborators are added, Team Create is turned on so that you can work together with your friends."
+Studio.App.BetaFeatures.StrafingTitle,,Strafing Animations,Strafing Animations
+Studio.App.BetaFeatures.StrafingDescription,,Enables strafing animations to be played when characters walk/run in directions they are not facing.,Enables strafing animations to be played when characters walk/run in directions they are not facing.
+Studio.App.BetaFeatures.IkControlTitle,,IK Controls,IK Controls
+Studio.App.BetaFeatures.IkControlDescription,,"Enables IK Controls, which allow you to create realistic procedural animations using IK (Inverse Kinematics)","Enables IK Controls, which allow you to create realistic procedural animations using IK (Inverse Kinematics)"
+Studio.App.BetaFeatures.MaterialManagerUXTitle,,Material Manager Improvements,Material Manager Improvements
+Studio.App.BetaFeatures.MaterialManagerUXDescription,,Workflow improvements and support for physical properties and terrain detail,Workflow improvements and support for physical properties and terrain detail

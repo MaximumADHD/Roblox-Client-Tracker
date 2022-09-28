@@ -1,0 +1,10 @@
+Key,Context,Source,en-us
+Studio.App.InsertObject.SearchObject1,,Search object %1,Search object %1
+Studio.App.InsertObject.MultipleSelectionError,,InsertObject: Cannot do insert object when there are multiple selections. Please make sure you select a valid target object.,InsertObject: Cannot do insert object when there are multiple selections. Please make sure you select a valid target object.
+Studio.App.InsertObjectWidget.ShowRecommendedOnly,,Show only recommended objects,Show only recommended objects
+Studio.App.InsertObjectWidget.SelectInsertedObject,,Select object after insert,Select object after insert
+Studio.App.InsertObjectWidget.UnpreferredObjectTooltip,,This object does not make sense under the currently selected parent.,This object does not make sense under the currently selected parent.
+Studio.App.InsertObjectWidget.EmptyFrequentlyUsedList,,Objects are not usually inserted under this parent.,Objects are not usually inserted under this parent.
+Studio.App.InsertObjectWidget.NoResultsFound,,No Results Found,No Results Found
+Studio.App.InsertObjectWidget.ExpandTooltip,,Toggle expanded view,Toggle expanded view
+Studio.App.InsertObjectCategory.FavoritesCategory,,Frequently Used,Frequently Used

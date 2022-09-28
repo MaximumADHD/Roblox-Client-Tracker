@@ -1,0 +1,16 @@
+Key,Context,Source,en-us
+Studio.App.ScriptingCmd.RELOADSCRIPT,,Reload Script,Reload Script
+Studio.App.ScriptingCmd.RELOADSCRIPTTooltip,,"Reload a script after modifying it, while playing","Reload a script after modifying it, while playing"
+Studio.App.RobloxScriptDoc.MultipleScriptLocks,,Multiple script locks were taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.,Multiple script locks were taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.
+Studio.App.RobloxScriptDoc.CantAccessRevertingChange,,"Cannot gain write access to script, reverting your change","Cannot gain write access to script, reverting your change"
+Studio.App.RobloxScriptDoc.LockTakenInactivity,,A script lock was taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.,A script lock was taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.
+Studio.App.RobloxScriptDoc.OtherChangesReverted1,,"%1 is currently modifying this script, your changes will be reverted","%1 is currently modifying this script, your changes will be reverted"
+Studio.App.RobloxScriptDoc.ScriptDeleted1,,%1 has been deleted from the server,%1 has been deleted from the server
+Studio.App.RobloxScriptDoc.ShowInExplorer,,Show in Explorer,Show in Explorer
+Studio.App.RobloxScriptDoc.DockTab,,Dock Tab,Dock Tab
+Studio.App.PlayModifiedScriptController.AlwaysSave,,Always Save,Always Save
+Studio.App.PlayModifiedScriptController.KeepTheseChanges,,You've made script changes while playing.  Would you like to keep these changes?,You've made script changes while playing.  Would you like to keep these changes?
+Studio.App.ScriptPickerDialog.CreateNewLinkedsource,,Create new LinkedSource,Create new LinkedSource
+Studio.App.ScriptPickerDialog.LinkedsourceDescriptionLabel,,"LinkedSources can be referenced by scripts in your game, allowing you to update all of them at the same time.","LinkedSources can be referenced by scripts in your game, allowing you to update all of them at the same time."
+Studio.App.ScriptPickerDialog.CanNotBeEmpty,,Name cannot be empty,Name cannot be empty
+Studio.App.ScriptPickerDialog.AlreadyTaken,,Name already taken (not case sensitive),Name already taken (not case sensitive)

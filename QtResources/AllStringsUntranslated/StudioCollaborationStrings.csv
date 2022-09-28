@@ -1,0 +1,74 @@
+Key,Context,Source,en-us
+Studio.App.IdeDoc.TeamTest,Roblox IDE Doc,Team Test,Team Test
+Studio.App.MainWindow.CloseStudio,Main Window,Close Studio,Close Studio
+Studio.App.MainWindow.ConnectionLostLocalFileNotRecoverable,Main Window,Internal Error: Connection was lost and local file was not recoverable. Contact Customer support if the error persists,Internal Error: Connection was lost and local file was not recoverable. Contact Customer support if the error persists
+Studio.App.MainWindow.ConnectionLostUnableToReconnect,Main Window,Internal Error: Connection was lost and unable to reconnect. Contact Customer support if the error persists,Internal Error: Connection was lost and unable to reconnect. Contact Customer support if the error persists
+Studio.App.MainWindow.DisconnectFromTeamCreateOutOfDate,Main Window,"Roblox Studio has disconnected from Team Create. The running version of Studio is out of date, and may be the cause of this disconnect. Please update Studio if this error persists","Roblox Studio has disconnected from Team Create. The running version of Studio is out of date, and may be the cause of this disconnect. Please update Studio if this error persists"
+Studio.App.MainWindow.LostConnectionToServerReconnectOrLocalCopy,Main Window,You have lost connection to the server. Do you want to reconnect or open a local copy of the place?,You have lost connection to the server. Do you want to reconnect or open a local copy of the place?
+Studio.App.MainWindow.OpenLocalCopy,Main Window,Open Local Copy,Open Local Copy
+Studio.App.MainWindow.Reconnect,Main Window,Reconnect,Reconnect
+Studio.App.MainWindow.RemovedAsTeamCreateContributor,Main Window,You have been removed as a Team Create contributor.,You have been removed as a Team Create contributor.
+Studio.App.MainWindow.TeamCreateReconnectFailedUnableToFetchSettingsData,Main Window,Team Create reconnect failed. Unable to fetch game settings data.,Team Create reconnect failed. Unable to fetch game settings data.
+Studio.App.MainWindow.UnableToFetchUniversePermissions1,Main Window,Unable to fetch universe permissions: %1,Unable to fetch universe permissions: %1
+Studio.App.MainWindow.WaitingForShutdown,Main Window,Waiting for Shutdown,Waiting for Shutdown
+Studio.App.TeamCreate.FailedToCreatePlace,,Failed to create new place,Failed to create new place
+Studio.App.TeamCreate.LoadingPlaceWithMissingName,,Loading place,Loading place
+Studio.App.TeamCreate.LoadingPlace1,,Loading place: %1,Loading place: %1
+Studio.App.TeamCreate.LoadingGameWithAttemptCount1,Load game with display of the attempt count,Loading game (attempt #%1),Loading game (attempt #%1)
+Studio.App.TeamCreate.UnableToFetchPlaceAndUniverseInfo,Failed to fetch place or universe info when opening a place,Unable to fetch place/universe info,Unable to fetch place/universe info
+Studio.App.TeamCreate.MembersOfYourGroupCanWorkTogether,,"Members of your group can work together, see updates instantly. Contact your admin to enable Team Create.","Members of your group can work together, see updates instantly. Contact your admin to enable Team Create."
+Studio.App.TeamCreate.UpdatingScriptVersionHistory,,Adding current script versions to Script Version History before closing place %1.,Adding current script versions to Script Version History before closing place %1.
+Studio.App.TeamCreate.Form,,Form,Form
+Studio.App.TeamCreate.EnableTeamCreateEditPlaceTogether,,"Enable Team Create: edit your place together, see updates instantly.","Enable Team Create: edit your place together, see updates instantly."
+Studio.App.TeamCreate.SavingLatestUpdatesAndEnablingTeamCreate,,Saving latest updates and enabling Team Create...,Saving latest updates and enabling Team Create...
+Studio.App.TeamCreate.LogInToEnableTeamCreateOptions,,Log in to enable Team Create options for your place.,Log in to enable Team Create options for your place.
+Studio.App.TeamCreate.PublishAndEnableteamCreateToBuildTogether,,Publish and enable Team Create to build this place together with your friends.,Publish and enable Team Create to build this place together with your friends.
+Studio.App.TeamCreate.SaveAndEnableteamCreateToBuildTogether,,Save and enable Team Create to build this place together with your friends.,Save and enable Team Create to build this place together with your friends.
+Studio.App.TeamCreate.PublishingCurrentPlace,,Publishing current place...,Publishing current place...
+Studio.App.TeamCreate.TurnOn,,Turn On,Turn On
+Studio.App.TeamCreate.EditYourPlaceWithFriends,,"Edit your place with friends, see the updates instantly.","Edit your place with friends, see the updates instantly."
+Studio.App.TeamCreate.ConfirmDisable,,Are you sure you want to turn Team Create off?,Are you sure you want to turn Team Create off?
+Studio.App.TeamCreate.UnpublishedChangesWarning,,Other users are currently editing scripts. Turning off team create will lose these unpublished changes. Continue anyway?,Other users are currently editing scripts. Turning off team create will lose these unpublished changes. Continue anyway?
+Studio.App.TeamCreate.SaveFailedConfirmation,,"Save failed. Turning off team create may result in loss of work.
+Are you sure?","Save failed. Turning off team create may result in loss of work.
+Are you sure?"
+Studio.App.TeamCreate.SaveOnDisableLog,,Sent message to save game before Team Create turns off.,Sent message to save game before Team Create turns off.
+Studio.App.TeamCreate.HearbeatDetectFail,,Studio detected Heartbeat failure.,Studio detected Heartbeat failure.
+Studio.App.RobloxRibbonMainWindow.Collaborate,,Collaborate,Collaborate
+Studio.App.RobloxRibbonMainWindow.ConnectionIsUnstable,,Connection is unstable. Changes may not be saved.,Connection is unstable. Changes may not be saved.
+Studio.App.RobloxRibbonMainWindow.ConnectionIsLost,,Server connection lost. Functionality is limited. Attempting to reconnect...,Server connection lost. Functionality is limited. Attempting to reconnect...
+Studio.App.RobloxRibbonMainWindow.Join,Join,Join,Join
+Studio.App.ChatSessionHandler.All,,All,All
+Studio.App.ChatSessionHandler.TeamChat,,Team Chat,Team Chat
+Studio.App.ContextMenuDropdown.DisableTeamCreate,,Disable Team Create,Disable Team Create
+Studio.App.RobloxChatWidget.ChatOptions,,Chat Options,Chat Options
+Studio.App.RobloxChatWidget.ConnectingToChatElps,,Connecting to chat...,Connecting to chat...
+Studio.App.RobloxChatWidget.ContentModerated,,Content was moderated. Message not sent.,Content was moderated. Message not sent.
+Studio.App.RobloxChatWidget.SendAMessage,,Send a message,Send a message
+Studio.App.RobloxChatWidget.FailedSendAMessage,,Failed to send message: ,Failed to send message: 
+Studio.App.RobloxChatWidget.DisabledChatMessage,,%1 Turn on chat in your %2 Privacy Settings %3 to chat with friends! %4,%1 Turn on chat in your %2 Privacy Settings %3 to chat with friends! %4
+Studio.App.RobloxChatWidget.NotFriendErrorMessage,,Individual chat is available only for friends. Please friend '%1' or use group chat to talk.,Individual chat is available only for friends. Please friend '%1' or use group chat to talk.
+Studio.App.RobloxChatWidget.ChattingWith,,Chatting with %1,Chatting with %1
+Studio.App.RobloxTeamCreateWidget.TeamCreateOptions,,Team Create Options,Team Create Options
+Studio.App.ScriptRecoveryWidget.OpenFile,,Open file,Open file
+Studio.App.ScriptRecoveryWidget.SelectAndOpenScript,,Select and open script,Select and open script
+Studio.App.ScriptRecoveryWidget.ViewDiff,,View Diff,View Diff
+Studio.App.ScriptRecoveryWidget.InitialWarning,,"You were disconnected from the last Team Create session without saving your scripts.
+Some of those scripts have either been changed or are currently being edited by another user.
+Please see the Script Recovery Widget to resolve these files. ","You were disconnected from the last Team Create session without saving your scripts.
+Some of those scripts have either been changed or are currently being edited by another user.
+Please see the Script Recovery Widget to resolve these files. "
+Studio.App.ScriptRecoveryWidget.ErrorRecovering,,Errors occurred while automatically recovering scripts.,Errors occurred while automatically recovering scripts.
+Studio.App.ScriptRecoveryWidget.ErrorRemovedFromWorksapce,,Unable to perform diff because this script has been removed from Workspace.,Unable to perform diff because this script has been removed from Workspace.
+Studio.App.ScriptRecoveryWidget.ErrorWriting,,Issue with writing script autosave,Issue with writing script autosave
+Studio.App.ScriptRecoveryWidget.ScriptNoLongerExists,,Script no longer exists,Script no longer exists
+Studio.App.CloudEditController.JoinTeamTestServer,,Join Team Test Server,Join Team Test Server
+Studio.App.CloudEditController.ShutdownServer,,Shutdown Server,Shutdown Server
+Studio.App.CloudEditUserData.FailToRestoreCameraPosition,,Failed to restore camera position: %s,Failed to restore camera position: %s
+Studio.App.TeamCreateActivePlayersDialog.TopLabelText1,Display this message to inform user about the ongoing active team create session,Place '%1' currently has an active Team Create Session with other users. The following users will need to close their session in order to proceed with this operation,Place '%1' currently has an active Team Create Session with other users. The following users will need to close their session in order to proceed with this operation
+Studio.App.TeamCreateActivePlayersDialog.UsernameField,Username field,User Name,User Name
+Studio.App.TeamCreateActivePlayersDialog.PlayerID1,String for Player ID,Player ID: '%1',Player ID: '%1'
+Studio.App.TeamCreateActivePlayersDialog.UnableToRetrieveUsernames1,Error message on fetching failure,"Unable to retrieve usernames.
+Additional Info: '%1'","Unable to retrieve usernames.
+Additional Info: '%1'"
+Studio.Common.Action.SaveToRoblox,,Save to Roblox,Save to Roblox

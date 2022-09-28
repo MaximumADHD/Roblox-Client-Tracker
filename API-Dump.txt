@@ -880,11 +880,12 @@ Class GroundController : ControllerBase [NotBrowsable]
 	Property float GroundController.AccelerationLean
 	Property float GroundController.AlignSpeed
 	Property float GroundController.AlignTorque
-	Property float GroundController.MaxSlopeAngle
+	Property float GroundController.MaxSlopeAngle [Hidden] [NotReplicated]
 	Property float GroundController.AccelerationTime
 	Property float GroundController.DecelerationTime
 	Property float GroundController.Friction
 	Property float GroundController.FrictionWeight
+	Property float GroundController.GroundOffset
 	Property float GroundController.StandForce
 	Property float GroundController.StandSpeed
 	Property float GroundController.TurningFactor
@@ -898,7 +899,7 @@ Class ControllerManager : Instance [NotBrowsable]
 	Property ControllerBase ControllerManager.ActiveController [ReadOnly]
 	Property float ControllerManager.BaseMoveSpeed
 	Property float ControllerManager.BaseTurnSpeed
-	Property float ControllerManager.HipHeight
+	Property float ControllerManager.HipHeight [Hidden] [NotReplicated]
 	Property Vector3 ControllerManager.FacingDirection
 	Property Vector3 ControllerManager.MovingDirection
 	Function Objects ControllerManager:GetControllers() {🧬Safe}
@@ -1786,6 +1787,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void GuiService:SetEmotesMenuOpen(bool isOpen)
 	Function void GuiService:SetGameplayPausedNotificationEnabled(bool enabled)
 	Function void GuiService:SetGlobalGuiInset(int x1, int y1, int x2, int y2) {RobloxScriptSecurity}
+	Function void GuiService:SetHardwareSafeAreaInsets(float left, float top, float right, float bottom) {RobloxScriptSecurity}
 	Function void GuiService:SetInspectMenuEnabled(bool enabled)
 	Function void GuiService:SetMenuIsOpen(bool open, string menuName = "default") {RobloxScriptSecurity}
 	Function void GuiService:SetSafeZoneOffsets(float top, float bottom, float left, float right) {RobloxScriptSecurity}
@@ -2013,7 +2015,6 @@ Class IKControl : Instance [NotBrowsable]
 	Property bool IKControl.Enabled
 	Property Instance IKControl.EndEffector
 	Property CFrame IKControl.Offset
-	Property Instance IKControl.Pole
 	Property int IKControl.Priority
 	Property Instance IKControl.Target
 	Property Enum.IKControlType IKControl.Type
@@ -2329,6 +2330,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function void MarketplaceService:PromptBundlePurchase(Instance player, int64 bundleId)
 	Function void MarketplaceService:PromptGamePassPurchase(Instance player, int64 gamePassId)
 	Function void MarketplaceService:PromptNativePurchase(Instance player, string productId) {RobloxScriptSecurity}
+	Function void MarketplaceService:PromptNativePurchaseWithLocalPlayer(string productId) {RobloxScriptSecurity}
 	Function void MarketplaceService:PromptPremiumPurchase(Instance player)
 	Function void MarketplaceService:PromptProductPurchase(Instance player, int64 productId, bool equipIfPurchased = true, Enum.CurrencyType currencyType = "Default")
 	Function void MarketplaceService:PromptPurchase(Instance player, int64 assetId, bool equipIfPurchased = true, Enum.CurrencyType currencyType = "Default")
@@ -2353,6 +2355,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.ClientLuaDialogRequested(Tuple arguments) {RobloxScriptSecurity}
 	Event MarketplaceService.ClientPurchaseSuccess(string ticket, int64 playerId, int64 productId) {RobloxScriptSecurity}
 	Event MarketplaceService.NativePurchaseFinished(Instance player, string productId, bool wasPurchased) {RobloxScriptSecurity}
+	Event MarketplaceService.NativePurchaseFinishedWithLocalPlayer(string productId, bool wasPurchased) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptBundlePurchaseFinished(Instance player, int64 bundleId, bool wasPurchased)
 	Event MarketplaceService.PromptBundlePurchaseRequested(Instance player, int64 bundleId) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptGamePassPurchaseFinished(Instance player, int64 gamePassId, bool wasPurchased)
@@ -2970,6 +2973,7 @@ Class PhysicsService : Instance [NotCreatable] [Service]
 	Function int PhysicsService:GetMaxCollisionGroups()
 	Function Array PhysicsService:GetRegisteredCollisionGroups()
 	Function void PhysicsService:IkSolve(BasePart part, CFrame target, float translateStiffness, float rotateStiffness) {RobloxScriptSecurity}
+	Function bool PhysicsService:IsCollisionGroupRegistered(string name)
 	Function void PhysicsService:LocalIkSolve(BasePart part, CFrame target, float translateStiffness, float rotateStiffness) {LocalUserSecurity}
 	Function void PhysicsService:RegisterCollisionGroup(string name)
 	Function void PhysicsService:RemoveCollisionGroup(string name)
@@ -3083,6 +3087,7 @@ Class Player : Instance
 	Function void Player:SaveString(string key, string value) [Deprecated]
 	Function void Player:SetAccountAge(int accountAge) {PluginSecurity}
 	Function void Player:SetCharacterAppearanceJson(string jsonBlob) {RobloxScriptSecurity}
+	Function void Player:SetExperienceSettingsLocaleId(string locale) {RobloxScriptSecurity}
 	Function void Player:SetMembershipType(Enum.MembershipType membershipType) {RobloxScriptSecurity}
 	Function void Player:SetModerationAccessKey(string moderationAccessKey) {RobloxScriptSecurity}
 	Function void Player:SetSuperSafeChat(bool value) {PluginSecurity}
@@ -3553,10 +3558,11 @@ Class ScriptDocument : Instance [NotCreatable] [NotReplicated]
 	Event ScriptDocument.SelectionChanged(int64 positionLine, int64 positionCharacter, int64 anchorLine, int64 anchorCharacter) {PluginSecurity}
 	Event ScriptDocument.ViewportChanged(int64 startLine, int64 endLine) {PluginSecurity}
 Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void ScriptEditorService:DeregisterAutocompleteCallback(string name) {PluginSecurity}
 	Function ScriptDocument ScriptEditorService:FindScriptDocument(LuaSourceContainer script) {PluginSecurity}
 	Function Objects ScriptEditorService:GetScriptDocuments() {PluginSecurity}
 	Function Tuple ScriptEditorService:OpenScriptDocumentAsync(LuaSourceContainer script) {PluginSecurity} [Yields]
-	Function void ScriptEditorService:RegisterAutocompleteCallback(Function callbackFunction) {PluginSecurity}
+	Function void ScriptEditorService:RegisterAutocompleteCallback(string name, int priority, Function callbackFunction) {PluginSecurity}
 	Event ScriptEditorService.TextDocumentDidChange(ScriptDocument document, Variant changesArray) {PluginSecurity}
 	Event ScriptEditorService.TextDocumentDidClose(ScriptDocument oldDocument) {PluginSecurity}
 	Event ScriptEditorService.TextDocumentDidOpen(ScriptDocument newDocument) {PluginSecurity}
@@ -4165,6 +4171,7 @@ Class TeleportService : Instance [NotCreatable] [Service]
 	Function void TeleportService:TeleportToPrivateServer(int64 placeId, string reservedServerAccessCode, Objects players, string spawnName = "", Variant teleportData, Instance customLoadingScreen = nil)
 	Function void TeleportService:TeleportToSpawnByName(int64 placeId, string spawnName, Instance player = nil, Variant teleportData, Instance customLoadingScreen = nil)
 	Event TeleportService.LocalPlayerArrivedFromTeleport(Instance loadingGui, Variant dataTable)
+	Event TeleportService.MenuTeleportAttempt() {RobloxScriptSecurity}
 	Event TeleportService.TeleportInitFailed(Instance player, Enum.TeleportResult teleportResult, string errorMessage, int64 placeId, Instance teleportOptions)
 Class TemporaryCageMeshProvider : Instance [NotCreatable] [Service] [NotReplicated]
 Class TemporaryScriptService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -5706,12 +5713,10 @@ Enum IKCollisionsMode
 	EnumItem IKCollisionsMode.OtherMechanismsAnchored : 1
 	EnumItem IKCollisionsMode.IncludeContactedMechanisms : 2
 Enum IKControlType
-	EnumItem IKControlType.Null : 0
+	EnumItem IKControlType.Transform : 0
 	EnumItem IKControlType.Position : 1
 	EnumItem IKControlType.Rotation : 2
-	EnumItem IKControlType.Transform : 3
-	EnumItem IKControlType.LookAt : 4
-	EnumItem IKControlType.Length : 5
+	EnumItem IKControlType.LookAt : 3
 Enum IXPLoadingStatus
 	EnumItem IXPLoadingStatus.None : 0
 	EnumItem IXPLoadingStatus.Pending : 1

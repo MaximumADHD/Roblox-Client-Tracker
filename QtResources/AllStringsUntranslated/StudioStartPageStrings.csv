@@ -1,0 +1,165 @@
+Key,Context,Source,en-us
+Studio.Auth.EmbeddedAuthorizationDialog.LaunchFailed,Title for the error dialog when Studio fails to launch,Launch Failed,Launch Failed
+Studio.Auth.EmbeddedAuthorizationDialog.InvalidWebView2Fmt1,Error message is shown when the user doesn't have WebView2 installed. WebView2 is required for Studio to load the login page correctly.,WebView2 installation required to launch Studio. Click <a href='%1'>here</a> for installation details.,WebView2 installation required to launch Studio. Click <a href='%1'>here</a> for installation details.
+Studio.Auth.AccountInfo.Mismatch,Error when web credentials don't match Studio's existing credentials,Studio failed to open because your web account credentials do not match the current Studio account credentials.,Studio failed to open because your web account credentials do not match the current Studio account credentials.
+Studio.Auth.Launch.Failed,This is shown as a header for an error dialog when Studio failes to launch,Launch Failed,Launch Failed
+Studio.Auth.AuthDialog.LoadError,Error message is shown when Studio fails to load WebView dialog for multiple times due to unexpected error,An error occurred while launching Studio login. Please login on the website or try again later.,An error occurred while launching Studio login. Please login on the website or try again later.
+Studio.Auth.Login.Failed,This is shown as a header for an error dialog when Studio failes to launch,Login Failed,Login Failed
+Studio.Auth.AuthDialog.LoginError,Error message is shown when Studio fails to load WebView dialog for multiple times due to unexpected error,An error occurred while logging into Studio. Please login on the website or try again later.,An error occurred while logging into Studio. Please login on the website or try again later.
+Studio.Auth.AuthDialog.RetryExternalBrowser,The text of the button for retrying the external login,Retry Browser Login,Retry Browser Login
+Studio.Auth.External.Login,The text for the external login button,Login via Browser,Login via Browser
+Studio.Auth.Try.Again,The text for retrying launching Studio login,Try Again,Try Again
+Studio.Auth.Original.Studio.Not.Found,Error message is shown when the original instance of Studio cannot be found during the external login flow,An error occurred while logging into Studio. Please do not close Studio during login.,An error occurred while logging into Studio. Please do not close Studio during login.
+Studio.App.StartPage.MyGames,Look at all my published games,My Games,My Games
+Studio.App.StartPage.Recent,Look at recent games,Recent,Recent
+Studio.App.StartPage.Archive,Look at archived games,Archive,Archive
+Studio.App.StartPage.PublishYourGame,,"Publish your game and make it public to share it
+Go to File > Publish to Roblox","Publish your game and make it public to share it
+Go to File > Publish to Roblox"
+Studio.App.StartPage.ShareYourGame,,Share your game,Share your game
+Studio.App.StartPage.ClickShareIcon,,Click the share icon to share your game with Roblox friends or on social media,Click the share icon to share your game with Roblox friends or on social media
+Studio.App.StartPage.GotIt,,Got it,Got it
+Studio.App.StartPage.By1,The game was written by whom?,By %1,By %1
+Studio.App.StartPage.MakingPublic,,Making public,Making public
+Studio.App.StartPage.MakingPrivate,,Making private,Making private
+Studio.App.StartPage.ShareOnTwitter,,Share on Twitter,Share on Twitter
+Studio.App.StartPage.ShareOnFacebook,,Share on Facebook,Share on Facebook
+Studio.App.TemplatesPage.AllTemplates,Templates page tab,All Templates,All Templates
+Studio.App.ListView.ExperienceName,The name of my game,Experience Name,Experience Name
+Studio.App.ListView.Description,,Description,Description
+Studio.App.ListView.DateCreated,,Date Created,Date Created
+Studio.App.ListView.Playability,,Playability,Playability
+Studio.App.ListView.Type,,Type,Type
+Studio.App.ListView.TypeLocal,,Local File,Local File
+Studio.App.ListView.TypeCloud,,Cloud,Cloud
+Studio.App.ListView.TeamCreate,,Team Create,Team Create
+Studio.App.ListView.TeamCreateOn,,On,On
+Studio.App.ListView.TeamCreateOff,,Off,Off
+Studio.App.ListView.Owner,,Owner,Owner
+Studio.App.ListView.Owner.You,,You,You
+Studio.App.ListView.ToolTipLoadingComplete,,Loading complete!,Loading complete!
+Studio.App.ListView.ToolTipPleaseWait1,,Please wait... %1 games loaded.,Please wait... %1 games loaded.
+Studio.App.ListView.ShowPlaces1,,View %1 Places,View %1 Places
+Studio.App.MyGamesPage.GroupGames,,Group Games,Group Games
+Studio.App.MyGamesPage.GamesInvitedToEdit,,"Games that you have
+been invited to edit","Games that you have
+been invited to edit"
+Studio.App.MyGamesPage.SharedWithMe,,Shared With Me,Shared With Me
+Studio.App.CreateNewGameWidget.GroupHasNoArchivedGames,,This group doesn't have any archived games,This group doesn't have any archived games
+Studio.App.CreateNewGameWidget.LearnMore,,Learn More,Learn More
+Studio.App.CreateNewGameWidget.NoArchivedGames,,You don't have any archived games,You don't have any archived games
+Studio.App.CreateNewGameWidget.NoGamesFound,,No games found,No games found
+Studio.App.CreateNewGameWidget.GroupHasNoGames,,This group doesn't have any games,This group doesn't have any games
+Studio.App.CreateNewGameWidget.NoRecentEditedGames,,You haven't edited any games recently,You haven't edited any games recently
+Studio.App.CreateNewGameWidget.NoEditInvitations,,You haven't been invited to edit any games,You haven't been invited to edit any games
+Studio.App.CreateNewGameWidget.NoArchivedGamesFound,,No archived games found,No archived games found
+Studio.App.CreateNewGameWidget.YouDontHaveAnyGames,,You don't have any games,You don't have any games
+Studio.App.CreateNewGameWidget.CreateNewGame,,Create New Game,Create New Game
+Studio.App.CurrentlyEditingWindow.CurrentlyEditing,,Currently Editing,Currently Editing
+Studio.App.GameWidget.Public,,Public,Public
+Studio.App.GameWidget.Private,,Private,Private
+Studio.App.GameWidget.LocalFile,,Local File,Local File
+Studio.App.GameWidget.TemplateHasInstruction,,This template contains instructions about how to get started in Studio,This template contains instructions about how to get started in Studio
+Studio.App.GameGridViewWithHeader.Sort,,Sort:,Sort:
+Studio.App.GameGridViewWithHeader.Refresh,,Refresh,Refresh
+Studio.App.GameGridViewWithHeader.Owner,,Owner:,Owner:
+Studio.App.LoginManager.LogOut,,Log Out,Log Out
+Studio.App.LoginManager.LoggedOut,,Logged Out,Logged Out
+Studio.App.LoginManager.CaptchaClosed,,Login requires Captcha. Please try again.,Login requires Captcha. Please try again.
+Studio.App.LoginManager.CaptchaInvalid,,Captcha response not recognized. Please try again.,Captcha response not recognized. Please try again.
+Studio.App.LoginManager.TwoSVClosed,,Login requires Two Step Verification. Please try again.,Login requires Two Step Verification. Please try again.
+Studio.App.LoginManager.SecurityQuestionsClosed,,Login requires Security Questions Verification. Please try again.,Login requires Security Questions Verification. Please try again.
+Studio.App.LoginManager.ToSTitle,,Roblox Terms of Service,Roblox Terms of Service
+Studio.App.LoginManager.ToSIAgree,,I Agree,I Agree
+Studio.App.LoginManager.MetadataFetchError1,,Failed to fetch account info: %1,Failed to fetch account info: %1
+Studio.App.LoginManager.ToSMessage1,,"<span>By clicking ""%1"", you are agreeing to </span>","<span>By clicking ""%1"", you are agreeing to </span>"
+Studio.App.LoginManager.UserAgreementsAcceptanceFailure,,Failed to accept user agreements. Please try to login again or contact support if problem persists.,Failed to accept user agreements. Please try to login again or contact support if problem persists.
+Studio.App.LoginManager.UserAgreementsAcceptanceCancel,,Are you sure you want to cancel? This will log you out and close all other running instances of Studio.,Are you sure you want to cancel? This will log you out and close all other running instances of Studio.
+Studio.App.LoginManager.FailToFetchModerationInfo,,Fail to get moderation status. Please try to login again or contact support if problem persists.,Fail to get moderation status. Please try to login again or contact support if problem persists.
+Studio.App.TemplatePage.Gameplay,,Gameplay,Gameplay
+Studio.App.TemplatePage.Theme,,Theme,Theme
+Studio.App.StartPageLogin.Username,,Username,Username
+Studio.App.StartPageLogin.Password,,Password,Password
+Studio.App.StartPageLogin.NotAMemberYet,,Not a member yet?,Not a member yet?
+Studio.App.StartPageLogin.SignUp,,Sign up,Sign up
+Studio.App.StartPageLogin.PrivacyPolicy,,Privacy Policy,Privacy Policy
+Studio.App.StartPageLogin.LogIn,,Log In,Log In
+Studio.App.StartPageLogin.StartCreatingOwnGames,,Start creating your own games!,Start creating your own games!
+Studio.App.StartPageLogin.OpeningPlaceElps,,Opening place...,Opening place...
+Studio.App.StartPageLogin.LoggingOutElps,,Logging out...,Logging out...
+Studio.App.StartPageLogin.LoggingInElps,,Logging in...,Logging in...
+Studio.App.StartPageLogin.ForgotPassword,,Forgot Password?,Forgot Password?
+Studio.App.StartPageLogin.WeChatQQLogin,,WeChat / QQ Login,WeChat / QQ Login
+Studio.App.ContextMenuDropdown.ConfigureGame,,Configure game,Configure game
+Studio.App.ContextMenuDropdown.ConfigurePlace,,Configure place,Configure place
+Studio.App.ContextMenuDropdown.MakePublic,,Make public,Make public
+Studio.App.ContextMenuDropdown.MakePrivate,,Make private,Make private
+Studio.App.ContextMenuDropdown.OpenPlacePage,,Open place page,Open place page
+Studio.App.ContextMenuDropdown.Restore,,Restore,Restore
+Studio.App.ContextMenuDropdown.Archive,Archive a game,Archive,Archive
+Studio.App.ContextMenuDropdown.RemoveFromList,,Remove from list,Remove from list
+Studio.App.LoginManager.ClosingDownAllOpenPlacesElps,,Closing down all open places...,Closing down all open places...
+Studio.App.RecentGamesPage.RecentGames,,Recent Games,Recent Games
+Studio.App.ShareModal.By1,,By %1,By %1
+Studio.App.ShareModal.CopyLink,,Copy Link,Copy Link
+Studio.App.ShareModal.LinkCopied,,Link Copied,Link Copied
+Studio.App.ShareModal.Failed,,Failed,Failed
+Studio.App.ShareModal.ShareGame,,Share Game,Share Game
+Studio.App.ShareModal.ShareWithRobloxFriends,,Share with Roblox Friends,Share with Roblox Friends
+Studio.App.ShareModal.Shared,,Shared,Shared
+Studio.App.ShareModal.SearchPlaceholderText,,Search for friends,Search for friends
+Studio.App.ShareModalInfoBox.MakeGamePublicToShare,,Make your game public to share it,Make your game public to share it
+Studio.App.TabTooltip.ReplaceTooltipText,,"Replace tooltip text by
+setting text property","Replace tooltip text by
+setting text property"
+Studio.App.GamesPageController.MakingGamePrivate,,Making game private,Making game private
+Studio.App.GamesPageController.RemoveTeamCreateGame,,Remove Team Create Game,Remove Team Create Game
+Studio.App.GamesPageController.ArchiveGame,,Archive Game,Archive Game
+Studio.App.GamesPageController.CantOpenArchivedGame,,You cannot open archived games. You must restore the game to open it.,You cannot open archived games. You must restore the game to open it.
+Studio.App.GamesPageController.Archived,,Archived,Archived
+Studio.App.GamesPageController.ArchiveGameFail,,Failed to archive game,Failed to archive game
+Studio.App.GamesPageController.ArchivingAGameMakesItPrivate1,,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='%1'>Learn more</a><br><br>Are you sure you want to archive this game?</p>,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='%1'>Learn more</a><br><br>Are you sure you want to archive this game?</p>
+Studio.App.GamesPageController.Restored,,Restored,Restored
+Studio.App.GamesPageController.RestoreGameFail,,Failed to restore game,Failed to restore game
+Studio.App.GamesPageController.FailedToMakeGamePublic,,Failed to make game public,Failed to make game public
+Studio.App.GamesPageController.ConfirmRemoveSelf,,Are you sure you want to remove yourself from this game? You will no longer be able to edit it.,Are you sure you want to remove yourself from this game? You will no longer be able to edit it.
+Studio.App.GamesPageController.FailedToLeaveTeamCreateGame,,Failed to leave team create game.,Failed to leave team create game.
+Studio.App.GamesPageController.PromptUserForMakingGamePrivate,"Do not translate 
+","Are you sure you want to make this game private?
+This will shutdown all running servers.","Are you sure you want to make this game private?
+This will shutdown all running servers."
+Studio.App.GamesPageController.Alphabetical,,Alphabetical,Alphabetical
+Studio.App.GamesPageController.DateCreatedDescending,,Date Created (Descending),Date Created (Descending)
+Studio.App.GamesPageController.DateCreated,,Date Created,Date Created
+Studio.App.GamesPageController.LastModified,,Last Modified,Last Modified
+Studio.App.AuthenticationHelper.AuthFailedTryAgain,,Authentication failed. Please try again or contact support if the problem persists.,Authentication failed. Please try again or contact support if the problem persists.
+Studio.App.Authenticator.TwoStepFailedParse,,"An error occurred while reading the response from the server. Please try again later, or contact support if the problem persists.","An error occurred while reading the response from the server. Please try again later, or contact support if the problem persists."
+Studio.App.LoginRequest.NetworkConnection,Start page login,Could not connect to the server. Please check your internet connection and try again later.,Could not connect to the server. Please check your internet connection and try again later.
+Studio.App.LoginRequest.ParseError,Start page login,Could not read response from server. Please try again later.,Could not read response from server. Please try again later.
+Studio.App.LoginRequest.NullPasswordError,Start page login,Unable to log in via username / password. Please use your WeChat / QQ account to log in.,Unable to log in via username / password. Please use your WeChat / QQ account to log in.
+Studio.App.LoginRequest.CaptchaError,Start page login,Please complete the Captcha in order to log in.,Please complete the Captcha in order to log in.
+Studio.App.LoginRequest.PasswordResetRequiredError,Start page login,Account has been locked. Please request a password reset.,Account has been locked. Please request a password reset.
+Studio.App.LoginRequest.TwoStepVerificationFailureError,Start page login,Account issue encountered. Please contact <a href='https://www.roblox.com/support'>support</a>,Account issue encountered. Please contact <a href='https://www.roblox.com/support'>support</a>
+Studio.App.LoginRequest.TwoStepVerificationFloodedError,Start page login,Too many attempts. Please try again later.,Too many attempts. Please try again later.
+Studio.App.LoginRequest.UnknownError,Start page login,"Something went wrong. Please try again later, or contact <a href='https://www.roblox.com/support'>support</a>","Something went wrong. Please try again later, or contact <a href='https://www.roblox.com/support'>support</a>"
+Studio.App.LoginRequest.UserIdError,Start page login,Could not get user id from server.,Could not get user id from server.
+Studio.App.LoginRequest.ErrorResponseParseError,Start page login,Could not parse error response from server.,Could not parse error response from server.
+Studio.App.Login.UnableToLogin,,Unable to log in,Unable to log in
+Studio.App.Login.UnableToLogout,,Unable to log out. Please save modified places in other Studio instances and then proceed with log out.,Unable to log out. Please save modified places in other Studio instances and then proceed with log out.
+Studio.App.Login.EnterUsernameAndPassword,,Please enter your username and password.,Please enter your username and password.
+Studio.App.Login.EnterUsername,,Please enter your username.,Please enter your username.
+Studio.App.Login.EnterPassword,,Please enter your password.,Please enter your password.
+Studio.App.Login.IncorrectUsernamePassword,,Incorrect username or password. Please try again.,Incorrect username or password. Please try again.
+Studio.App.Login.UserModerated,,"User is moderated, please check website for more details.","User is moderated, please check website for more details."
+Studio.App.Login.StudioVersion1,,Roblox Studio Version %1,Roblox Studio Version %1
+Studio.App.ExternalLoginDialog.WindowTitle,,Log In,Log In
+Studio.App.ExternalLoginDialog.GenericErrorMessage,,Failed to login. Please try again or contact support if problem persists.,Failed to login. Please try again or contact support if problem persists.
+Studio.App.ExternalLoginDialog.ReloadLoginPage,,Refresh,Refresh
+Studio.App.ExternalLoginDialog.RobloxLogin,,Roblox login,Roblox login
+Studio.App.ExternalLoginDialog.ExternalBrowserLogin,,External Browser Login,External Browser Login
+Studio.App.ExternalLoginDialog.StudioWillClose,,"Roblox Studio will now close, continue on the browser.","Roblox Studio will now close, continue on the browser."
+Studio.App.ExternalLoginDialog.CertificateCheckTimeout,,"Timeout on certification check, might due to unstable internet. If you can't see the login page, try refreshing or using external brower to login.","Timeout on certification check, might due to unstable internet. If you can't see the login page, try refreshing or using external brower to login."
+Studio.App.ExternalLoginDialog.CertificateCheckError,,"We failed the certificate check on your machine. If you can't see the login page, try refreshing or using external brower to login.","We failed the certificate check on your machine. If you can't see the login page, try refreshing or using external brower to login."
+Studio.App.StartPageDocumentPanel.StartPage,,Start Page,Start Page
+Studio.Common.Action.Okay,,Okay,Okay
+Studio.Common.Action.Remove,,Remove,Remove

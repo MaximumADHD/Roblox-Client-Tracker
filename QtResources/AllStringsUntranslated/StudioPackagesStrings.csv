@@ -1,0 +1,96 @@
+Key,Context,Source,en-us
+Studio.App.PackageManagementVerbs.PackagePublishError1,,Package publish error: %1,Package publish error: %1
+Studio.App.PackageManagementVerbs.PackageScriptDiffError1,,Package Script Diff error: %1,Package Script Diff error: %1
+Studio.App.PackageManagementVerbs.ThisModifiesPackage,,"This object has 3D content but is not a Model, so moving or rotating it will count as modifying the Package. Are you sure you want to continue?","This object has 3D content but is not a Model, so moving or rotating it will count as modifying the Package. Are you sure you want to continue?"
+Studio.App.PackageManagementVerbs.ErrorPrimaryPartNotArchivable,,Error: Cannot publish a Model package when the PrimaryPart is not Archivable.,Error: Cannot publish a Model package when the PrimaryPart is not Archivable.
+Studio.App.PackageManagementVerbs.ErrorUnpublishedPackages,,Error: Cannot publish because packages cannot contain modified child packages.,Error: Cannot publish because packages cannot contain modified child packages.
+Studio.App.PackageManagementVerbs.ConfirmPublishChanges,,Are you sure you want to publish your changes to this package?,Are you sure you want to publish your changes to this package?
+Studio.App.PackageManagementVerbs.ConfirmPublishChangesNewVersion,,"Are you sure you want to publish your changes to this package?
+There is also a new version available.","Are you sure you want to publish your changes to this package?
+There is also a new version available."
+Studio.App.PackageManagementVerbs.ConfirmGetLatest,,Are you sure you want to get the latest version of this package?,Are you sure you want to get the latest version of this package?
+Studio.App.PackageManagementVerbs.GetLatest,,Get Latest,Get Latest
+Studio.App.PackageManagementVerbs.ConfirmGetLatestWarn,,"Are you sure you want to get the latest version of this package?
+Your unpublished changes will be lost!","Are you sure you want to get the latest version of this package?
+Your unpublished changes will be lost!"
+Studio.App.PackageManagementVerbs.PublishNoop,,The package instance matched the newest version; no new version was created.,The package instance matched the newest version; no new version was created.
+Studio.App.PackageService.PublishPackageError1,,Package publish error: %1,Package publish error: %1
+Studio.App.PackageService.SetPackageVersionError1,,Set package version error: %1,Set package version error: %1
+Studio.App.PackageService.GetPackageInfoError1,,Get package info error: %1,Get package info error: %1
+Studio.App.PackageService.PackageAPIError.InvalidArgument,,Argument 1 is invalid,Argument 1 is invalid
+Studio.App.PackageService.PackageAPIError.NotAPackage,,Instance is not a package,Instance is not a package
+Studio.App.PackageService.PackageAPIError.NoPermissions,,Insufficient permissions,Insufficient permissions
+Studio.App.PackageService.PackageAPIError.NotArchivable,,Instance is not archivable,Instance is not archivable
+Studio.App.PackageService.PackageAPIError.NotEditMode,,Can only publish packages in Edit Mode,Can only publish packages in Edit Mode
+Studio.App.PackageService.PackageAPIError.NoChanges,,No changes detected,No changes detected
+Studio.App.PackageService.PackageAPIError.UploadPrepFailed,,Failed to prepare instance for upload,Failed to prepare instance for upload
+Studio.App.PackageService.PackageAPIError.LatestVersionFail,,Can't get selected package link latestVersionNum: data not available,Can't get selected package link latestVersionNum: data not available
+Studio.App.PackageService.PackageAPIError.VersionLowerBound,,VersionNumber cannot be less than 1,VersionNumber cannot be less than 1
+Studio.App.PackageService.PackageAPIError.VersionUpperBound.1,%1 is a number. e.g. VersionNumber cannot be greater than 45,VersionNumber cannot be greater than %1,VersionNumber cannot be greater than %1
+Studio.App.StudioPackageManager.PackageUnlinkConfirmation,,Modifying packages will prevent you from updating them until you publish or revert the changes,Modifying packages will prevent you from updating them until you publish or revert the changes
+Studio.App.StudioPackageManager.PackageUnlinkRevertButton,"The user modified a package, and we told them that this will have consequences. We're offering them a chance to avoid this by clicking a button and reverting the changes.",Revert Changes,Revert Changes
+Studio.App.StudioPackageManager.PackageScriptDocMessage,,This script is part of a package. <a href='unlinkpackage://asset'>Click here</a> to modify.,This script is part of a package. <a href='unlinkpackage://asset'>Click here</a> to modify.
+Studio.App.PackageMassUpdate.MassUpdate,A function that enables developer to update package across places.,Mass Update,Mass Update
+Studio.App.PackageMassUpdate.UpdateDescription1,<b>%1</b> should not be translated. %1 is name of the package to be updated.,Update all <b>%1</b> copies in the following places of this game to,Update all <b>%1</b> copies in the following places of this game to
+Studio.App.PackageMassUpdate.Version,Version of a package,Version,Version
+Studio.App.PackageMassUpdate.VersionContent1,latest mean the last version of the package,%1 (latest),%1 (latest)
+Studio.App.PackageMassUpdate.PublishedOn,The date that the package is published,Published on,Published on
+Studio.App.PackageMassUpdate.All,Text for checkbox option that can check all the children checkboxs,All,All
+Studio.App.PackageMassUpdate.WarningMessage,,Note: We recommend closing other Studio instances before mass updating.,Note: We recommend closing other Studio instances before mass updating.
+Studio.App.PackageMassUpdate.CancelConfirmation,,Update hasn't been completed. Once we finish cancelling we will close this window. Are you sure that you want to cancel?,Update hasn't been completed. Once we finish cancelling we will close this window. Are you sure that you want to cancel?
+Studio.App.PackageMassUpdate.CancelConfirmationWindowTitle,Window title for cancel confirmation,Cancel Update,Cancel Update
+Studio.App.PackageMassUpdate.Current,"Text that shows on the current place, which indicates the place is the current one that the user is working on",Current,Current
+Studio.App.PackageMassUpdate.UpdatingProgress1,%1 is the number of the progress. e.g. Updating (36%),Updating (%1%),Updating (%1%)
+Studio.App.PackageMassUpdate.Waiting,One of the update status,Waiting,Waiting
+Studio.App.PackageMassUpdate.Cancelling,One of the update status,Cancelling...,Cancelling...
+Studio.App.PackageMassUpdate.Cancelled,One of the update status,Cancelled,Cancelled
+Studio.App.PackageMassUpdate.Updated,One of the update status,Updated,Updated
+Studio.App.PackageMassUpdate.UpdateFailed,One of the update status,Update Failed,Update Failed
+Studio.App.PackageMassUpdate.WarningModifiedPackages2,%1 is the number of modified packages detected. %2 is the total number of packages detected. e.g. Warning: Did not update 8/10 packages due to modifications,Warning: Did not update %1/%2 packages due to modifications,Warning: Did not update %1/%2 packages due to modifications
+Studio.App.PackageMassUpdate.InitializationFailed,,Could not initialize Mass Update Window for this Package.,Could not initialize Mass Update Window for this Package.
+Studio.App.PackageMassUpdate.ChangeHistoryWayPoint,,Update packages in current place to latest,Update packages in current place to latest
+Studio.App.PackageMassUpdate.ErrorNoDataModel,,Error: No datamodel,Error: No datamodel
+Studio.App.PackageMassUpdate.ErrorUpdatePackageFailsWithException,,Error: Update package fails with exception,Error: Update package fails with exception
+Studio.App.PackageMassUpdate.ErrorCannotSavePlace,,Error: Cannot save place to Roblox,Error: Cannot save place to Roblox
+Studio.App.PackageMassUpdate.ErrorCannotSavePlaceDueToTCDisconnection,,Error: Cannot save place to Roblox due to team create disconnection,Error: Cannot save place to Roblox due to team create disconnection
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToCancellation,,Failed to open the team create place due to cancellation,Failed to open the team create place due to cancellation
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToTimeout,,Failed to open the team create place due to timeout,Failed to open the team create place due to timeout
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToVersionConflictLuobu,,Luobu Studio does not support joining a TeamCreate session with a global Studio developer. Please ask your teammates to download Loubu Studio to use TeamCreate together: www.robloxdev.cn,Luobu Studio does not support joining a TeamCreate session with a global Studio developer. Please ask your teammates to download Loubu Studio to use TeamCreate together: www.robloxdev.cn
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToVersionConflictGlobal,,Global Studio does not support joining a TeamCreate session with a Luobu Studio developer. Please download Luobu Studio to use TeamCreate together: www.robloxdev.cn,Global Studio does not support joining a TeamCreate session with a Luobu Studio developer. Please download Luobu Studio to use TeamCreate together: www.robloxdev.cn
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceGeneral,,"Failed to open the team create place, please try again","Failed to open the team create place, please try again"
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceWithErrorCode1,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.","Failed to open the team create place, please try again. (Error Code: %1)","Failed to open the team create place, please try again. (Error Code: %1)"
+Studio.App.PackageUtilities.GoToRevisionError1,,Package go to revision error: %1,Package go to revision error: %1
+Studio.App.PackageUtilities.UndoChangesError1,,Package undo changes error: %1,Package undo changes error: %1
+Studio.App.PackageUtilities.UpdateError1,,Package update error: %1,Package update error: %1
+Studio.App.PackageUtilities.PermissionNoAccess,,No Access,No Access
+Studio.App.PackageUtilities.PermissionUseView,,Use & View,Use & View
+Studio.App.PackageUtilities.PermissionEdit,,Edit,Edit
+Studio.App.PackageUtilities.PermissionOwn,,Own,Own
+Studio.App.PackagesBlockingPublishDialog.Header,Header of dialog window showing packages in a place that are preventing the user from publishing that place,Place could not be published.,Place could not be published.
+Studio.App.PackagesBlockingPublishDialog.NoAccessHeader,Header of dialog window showing packages that the user does not have access to when opening a place,No access to Package(s),No access to Package(s)
+Studio.App.PackagesBlockingPublishDialog.Warning,,The following packages are preventing this place from being published:,The following packages are preventing this place from being published:
+Studio.App.PackagesBlockingPublishDialog.MessageModifiedWriteAccess,,Unable to publish this place while one or more Packages have unpublished changes. Publish or undo changes to the following Packages.,Unable to publish this place while one or more Packages have unpublished changes. Publish or undo changes to the following Packages.
+Studio.App.PackagesBlockingPublishDialog.MessageModifiedReadAccess,,Unable to publish this place while one or more Packages have unpublished changes. Undo the changes or get permission from the Package owner.,Unable to publish this place while one or more Packages have unpublished changes. Undo the changes or get permission from the Package owner.
+Studio.App.PackagesBlockingPublishDialog.MessageModifiedNoAccess,,Unable to publish this place while one or more Packages have unpublished changes. Get permission to publish changes from the Package owner.,Unable to publish this place while one or more Packages have unpublished changes. Get permission to publish changes from the Package owner.
+Studio.App.PackagesBlockingPublishDialog.MessageInsufficientPermissionsRemovePackageLink,,Unable to publish this place as you do not have access to use one or more Packages. Get permission from the Package owner or remove Package link.,Unable to publish this place as you do not have access to use one or more Packages. Get permission from the Package owner or remove Package link.
+Studio.App.PackagesBlockingPublishDialog.MessageStillChecking,,Unable to publish this place as Studio is still checking for updates and modifications to the following packages. Please try again later.,Unable to publish this place as Studio is still checking for updates and modifications to the following packages. Please try again later.
+Studio.App.PackagesBlockingPublishDialog.MessageNoAccessOnPlaceOpen,,You will be unable to publish this place as you do not have access to use one or more Packages. Get permission from the Package owner.,You will be unable to publish this place as you do not have access to use one or more Packages. Get permission from the Package owner.
+Studio.App.PackagesBlockingPublishDialog.PackageAssetName,,Package Asset Name,Package Asset Name
+Studio.App.PackagesBlockingPublishDialog.PackageInstanceName,,Package Instance Name,Package Instance Name
+Studio.App.PackagesBlockingPublishDialog.PackageInstance,,Package Instance Name,Package Instance Name
+Studio.App.PackagesBlockingPublishDialog.ModificationCheckStatus,,Package Link Status,Package Link Status
+Studio.App.PackagesBlockingPublishDialog.Permission,,Permission Level,Permission Level
+Studio.App.PackagesBlockingPublishDialog.Creator,,Creator,Creator
+Studio.App.PackagesBlockingPublishDialog.CreatorTypeGroup,"Used in a list of package owners. Packages can be owned by individual users or by groups, so this label is used to distinguish the names of groups from the names of users.",Group,Group
+Studio.App.PackagesBlockingPublishDialog.PackageIsModified,,Package is modified,Package is modified
+Studio.App.PackagesBlockingPublishDialog.CheckInProgress,,Modification check is in progress,Modification check is in progress
+Studio.App.PackagesBlockingPublishDialog.InsufficientPermissions,,Insufficient permissions,Insufficient permissions
+Studio.App.PackagesBlockingPublishDialog.CannotCheck,Shows when an error is preventing Studio from checking if a package has been modified.,ERROR: Cannot check package for modification,ERROR: Cannot check package for modification
+Studio.App.PackagesBlockingPublishDialog.SelectPackages,,Select All in Explorer,Select All in Explorer
+Studio.App.DataModelPackageManager.PackageFailedToAutoUpdate1,,%1 failed to auto-update.,%1 failed to auto-update.
+Studio.App.RobloxStudioVerbs.RobloxLuaScripts,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox Lua Scripts (*.lua),Roblox Lua Scripts (*.lua)
+Studio.App.RobloxStudioVerbs.RobloxModelFiles,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox Model Files (*.rbxm),Roblox Model Files (*.rbxm)
+Studio.App.RobloxStudioVerbs.RobloxXmlModelFiles,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox XML Model Files (*.rbxmx),Roblox XML Model Files (*.rbxmx)
+Studio.App.DataModelPackageManager.DonTNotifyMeAgain,,Don't notify me again,Don't notify me again
+Studio.App.DataModelPackageManager.UnexpectedPlacementNewVersions,,Changing the PrimaryPart may result in unexpected placement when you get new versions. Make sure the new PrimaryPart is where you want your Package to update from.,Changing the PrimaryPart may result in unexpected placement when you get new versions. Make sure the new PrimaryPart is where you want your Package to update from.
+Studio.Common.Action.Update,,Update,Update

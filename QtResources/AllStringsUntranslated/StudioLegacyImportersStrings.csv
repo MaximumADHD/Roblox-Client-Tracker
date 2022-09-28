@@ -1,0 +1,190 @@
+Key,Context,Source,en-us
+Studio.App.IdeDoc.AnimationFilesFBX,Roblox IDE Doc,Animation Files (*fbx),Animation Files (*fbx)
+Studio.App.IdeDoc.ImportingRigPleaseWait,Roblox IDE Doc,Importing rig. Please wait..,Importing rig. Please wait..
+Studio.App.IdeDoc.LogInRequired,Roblox IDE Doc,Log in required,Log in required
+Studio.App.IdeDoc.NoFBXFileSelected,Roblox IDE Doc,No FBX file selected,No FBX file selected
+Studio.App.IdeDoc.NoRigWasPassedAsFirstArgument,Roblox IDE Doc,No rig was passed as first argument to ImportFbxAnimation,No rig was passed as first argument to ImportFbxAnimation
+Studio.App.IdeDoc.OpenAnimationFBXFile,Roblox IDE Doc,Open Animation FBX File,Open Animation FBX File
+Studio.App.IdeDoc.YouMustLogInToCreateMeshes,Roblox IDE Doc,You must log in to create meshes.,You must log in to create meshes.
+Studio.App.BulkImport.Import,Bulk importer,Import,Import
+Studio.App.BulkImport.Completed,Bulk importer,Completed,Completed
+Studio.App.BulkImport.ProgressFmt2,Bulk importer,Imported %1 of %2 files,Imported %1 of %2 files
+Studio.App.BulkImport.CancelImport,Bulk importer,Cancel Import,Cancel Import
+Studio.App.BulkImport.ClearWindow,Bulk importer,Clear Window,Clear Window
+Studio.App.MeshSplitterDialog.Checked12,,Checked (%1/%2),Checked (%1/%2)
+Studio.App.MeshSplitterDialog.MeshSplittingCheck,,Mesh Splitting Check,Mesh Splitting Check
+Studio.App.MeshSplitterDialog.ImportRemainingFiles,,Import Remaining Files,Import Remaining Files
+Studio.App.MeshSplitterDialog.WillBeSplitWarning,,"If a mesh contains multiple assets, it will be split into separate assets.","If a mesh contains multiple assets, it will be split into separate assets."
+Studio.App.MeshSplitterDialog.FilesCantBeImported,,The following files cannot be imported.,The following files cannot be imported.
+Studio.App.RBXMainWindow.BulkImport,,Bulk Import,Bulk Import
+Studio.App.BulkImportWidget.CancelImport,,Cancel Import,Cancel Import
+Studio.App.BulkImportWidget.ContinueImport,,Continue Import,Continue Import
+Studio.App.BulkImportWidget.ImportNotComplete,,Your import is not complete. Closing the widget will cancel the entire import process. Would you like to cancel it?,Your import is not complete. Closing the widget will cancel the entire import process. Would you like to cancel it?
+Studio.App.ImportCostVerificationDialog.AudioUpload,,Audio Upload,Audio Upload
+Studio.App.ImportCostVerificationDialog.BalanceAfterImport,,Balance after import:,Balance after import:
+Studio.App.ImportCostVerificationDialog.CopyrightDescription,,"By uploading this content, you certify that you have the rights to put this on Roblox.","By uploading this content, you certify that you have the rights to put this on Roblox."
+Studio.App.ImportCostVerificationDialog.GrantExperiencePermissionDescription,,You also allow this experience to use these assets.,You also allow this experience to use these assets.
+Studio.App.ImportCostVerificationDialog.CostVerificationDescription,,Click 'Show Details' to view the files to be imported. You will not be charged for imports that fail due to not meeting import requirements.,Click 'Show Details' to view the files to be imported. You will not be charged for imports that fail due to not meeting import requirements.
+Studio.App.ImportCostVerificationDialog.CostVerificationMainText1,,Would you like to import the selected files for %1 Robux?,Would you like to import the selected files for %1 Robux?
+Studio.App.ImportCostVerificationDialog.LuobuVerificationDescription,,Click 'Show Details' to view the files to be imported.,Click 'Show Details' to view the files to be imported.
+Studio.App.ImportCostVerificationDialog.LuobuVerificationMainText,,Would you like to import the selected files?,Would you like to import the selected files?
+Studio.App.ImportCostVerificationDialog.CostVerificationTitle,,File Import Cost,File Import Cost
+Studio.App.ImportCostVerificationDialog.LuobuVerificationTitle,,File Import,File Import
+Studio.App.ImportCostVerificationDialog.CurrentBalance,,Your current balance:,Your current balance:
+Studio.App.ImportCostVerificationDialog.DetailsErrorTitle,,Error,Error
+Studio.App.ImportCostVerificationDialog.DetailsCostTitle,,Cost,Cost
+Studio.App.ImportCostVerificationDialog.DetailsNameTitle,,Name,Name
+Studio.App.ImportCostVerificationDialog.LoadingFileData,,Loading file data...,Loading file data...
+Studio.App.ImportCostVerificationDialog.PurchaseRobux,,Purchase more Robux.,Purchase more Robux.
+Studio.App.ImportCostVerificationErrorDialog.EstimatedCostErrorDescription,,"Click 'Show Details' to view the files that could not be estimated and the import cost of files that were successfully estimated. Try importing a new selection, or resolve conflicts and reattempt.","Click 'Show Details' to view the files that could not be estimated and the import cost of files that were successfully estimated. Try importing a new selection, or resolve conflicts and reattempt."
+Studio.App.ImportCostVerificationErrorDialog.EstimateLuobuErrorDescription,,"Click 'Show Details' to view the files that could not be imported. Try importing a new selection, or resolve conflicts and reattempt.","Click 'Show Details' to view the files that could not be imported. Try importing a new selection, or resolve conflicts and reattempt."
+Studio.App.ImportCostVerificationErrorDialog.EstimatedCostErrorMainText,,Failed to estimate import cost of the selected files.,Failed to estimate import cost of the selected files.
+Studio.App.ImportCostVerificationErrorDialog.EstimateLuobuErrorMainText,,Failed to import the selected files.,Failed to import the selected files.
+Studio.App.ImportCostVerificationErrorDialog.EstimatedCostErrorTitle,,Estimated Cost Error,Estimated Cost Error
+Studio.App.ImportCostVerificationErrorDialog.EstimateLuobuErrorTitle,,Import Error,Import Error
+Studio.App.ImportCostVerificationErrorDialog.InsufficientFundsErrorDescription1,,Click 'Show Details' to view the cost of each file and the files that cannot be imported. Try importing a new selection or %1,Click 'Show Details' to view the cost of each file and the files that cannot be imported. Try importing a new selection or %1
+Studio.App.ImportCostVerificationErrorDialog.InsufficientFundsErrorMainText,,You do not have enough Robux to import selected files.,You do not have enough Robux to import selected files.
+Studio.App.ImportCostVerificationErrorDialog.InsufficientFundsErrorTitle,,Insufficient Funds,Insufficient Funds
+Studio.App.ImportCostVerificationErrorDialog.Failed,,Failed,Failed
+Studio.App.ImportCostVerificationErrorDialog.FundsRequired,,Funds Required:,Funds Required:
+Studio.App.ImportCostVerificationErrorDialog.TotalImportCost,,Total import cost:,Total import cost:
+Studio.App.AudioImportConfirmationDialog.ConfirmAudioImport,,Confirm Audio Import,Confirm Audio Import
+Studio.App.MeshImportOptionsDialog.FileCount2,,%1 of %2 files,%1 of %2 files
+Studio.App.MeshImportOptionsDialog.NoFilesAvailable,,No files available,No files available
+Studio.App.MeshImportOptionsDialog.MeshImportOptions,,Mesh Import Options,Mesh Import Options
+Studio.App.MeshImportOptionsDialog.RescaleIfTooLarge,,Rescale if too large,Rescale if too large
+Studio.App.MeshImportOptionsDialog.ReverseInwardPointingMeshNormals,,Reverse inward-pointing mesh normals,Reverse inward-pointing mesh normals
+Studio.App.MeshImportOptionsDialog.ImportFileAsSingleMesh,,Import file as single mesh,Import file as single mesh
+Studio.App.MeshImportOptionsDialog.ApplyAll,,Apply All,Apply All
+Studio.App.BulkImportController.TryAgain,,Did not get a result. Please try again or contact support if the problem persists.,Did not get a result. Please try again or contact support if the problem persists.
+Studio.App.BulkImportController.BusyCancelingPleaseTryAgainLater,,Busy canceling. Please try again later.,Busy canceling. Please try again later.
+Studio.App.BulkImportController.AlreadyBusy,,Already busy importing. Please try again later.,Already busy importing. Please try again later.
+Studio.App.BulkImportController.GotEmptyList,,Got an empty list of files to import. Please try again or contact support if the problem persists.,Got an empty list of files to import. Please try again or contact support if the problem persists.
+Studio.App.BulkImportController.TooManyFiles1,,You cannot import more than %1 files at a time.,You cannot import more than %1 files at a time.
+Studio.App.BulkImportController.UnsupportedAsset,,List of files contains unsupported asset type. Please try again or contact support if the problem persists.,List of files contains unsupported asset type. Please try again or contact support if the problem persists.
+Studio.App.BulkImportController.UnknownError,,An unknown error occurred. Please try again or contact support if the problem persists.,An unknown error occurred. Please try again or contact support if the problem persists.
+Studio.App.BulkImportController.BusySplitting,,Already busy mesh splitting. Please try again later.,Already busy mesh splitting. Please try again later.
+Studio.App.BulkImportController.EmptyListToSplit,,Got an empty list of assets to split. Please try again or contact support if the problem persists.,Got an empty list of assets to split. Please try again or contact support if the problem persists.
+Studio.App.BulkImportController.TooManyToSplit,,You cannot split more than %1 files at a time.,You cannot split more than %1 files at a time.
+Studio.App.BulkImportController.CouldNotStart,,Could not start mesh splitting. Please restart Studio or contact support if the problem persists.,Could not start mesh splitting. Please restart Studio or contact support if the problem persists.
+Studio.App.BulkImportController.TooManyFiles2,,You cannot import more than %1 assets at a time. The %2 file(s) you selected exceeds the limit. Please re-select file to import.,You cannot import more than %1 assets at a time. The %2 file(s) you selected exceeds the limit. Please re-select file to import.
+Studio.App.BulkImportController.CancelledBeforeProcessing,,Some files were not uploaded.,Some files were not uploaded.
+Studio.App.UploadImageRequest.CouldNotOpenFile,,Could not open file %1,Could not open file %1
+Studio.App.UploadImageRequest.UploadingTooQuickly,,Uploading too quickly,Uploading too quickly
+Studio.App.UploadImageRequest.UploadingQuickly1,,Uploading too quickly. Try again in %1 minute(s),Uploading too quickly. Try again in %1 minute(s)
+Studio.App.UploadImageRequest.UploadingQuicklyHour1,,Uploading too quickly. Try again in %1 hour(s),Uploading too quickly. Try again in %1 hour(s)
+Studio.App.BulkImporterImpl.AssetNameModerated,,Asset name on website has been moderated,Asset name on website has been moderated
+Studio.App.BulkImporterImpl.AssetHasBeenRenamedTo1,,Asset has been renamed to '%1',Asset has been renamed to '%1'
+Studio.App.BulkImporterImpl.RetryingUpload,,Retrying upload,Retrying upload
+Studio.App.BulkImporterImpl.RetryLimitHitTryAgainLater,,Retry limit hit. Try again later,Retry limit hit. Try again later
+Studio.App.BulkImporterImpl.RetryLimitHitTryAgainIfNotExceedingDailyLimit,,Upload retry limit for this asset has been reached. If daily limit hasn't been exceeded try again later.,Upload retry limit for this asset has been reached. If daily limit hasn't been exceeded try again later.
+Studio.App.UploadMeshRequest.NoVerticesFound,,No vertices found,No vertices found
+Studio.App.UploadMeshRequest.TextureNotFound,,Texture not found,Texture not found
+Studio.App.UploadMeshRequest.TextureFormatIsUnsupportedPlease,,Texture format is unsupported. Please use a supported texture format,Texture format is unsupported. Please use a supported texture format
+Studio.App.UploadMeshRequest.UnsupportedTextureFormat,,Unsupported texture format,Unsupported texture format
+Studio.App.UploadMeshRequest.MeshContainedRiggingData,,Mesh contained rigging data,Mesh contained rigging data
+Studio.App.UploadMeshRequest.MeshContainsMultipleMeshes,,Mesh contained multiple meshes that were merged,Mesh contained multiple meshes that were merged
+Studio.App.UploadMeshRequest.MeshContainsMultipleTextures,,Mesh contained multiple textures so mesh texture may be incorrect,Mesh contained multiple textures so mesh texture may be incorrect
+Studio.App.UploadMeshRequest.MeshHasBeenResized,,Mesh has been resized,Mesh has been resized
+Studio.App.UploadMeshRequest.ContainsMoreThan1Triangles,,Contains more than %1 triangles,Contains more than %1 triangles
+Studio.App.UploadMeshRequest.ThereWereErrorsWhileImportingYou,,There were errors while importing your mesh,There were errors while importing your mesh
+Studio.App.UploadMeshRequest.MultipleMeshesUnsupported,,Multiple meshes in mesh is unsupported,Multiple meshes in mesh is unsupported
+Studio.App.UploadMeshRequest.MultipleTexturesUnsupported,,Multiple textures in mesh is unsupported,Multiple textures in mesh is unsupported
+Studio.App.UploadMeshRequest.AnimationDataInMeshIsUnsupported,,Animation data in mesh is unsupported,Animation data in mesh is unsupported
+Studio.App.UploadTextureRequest.CouldNotReadTexture1FromTheDisk,,"Could not read texture ""%1"" from the disk","Could not read texture ""%1"" from the disk"
+Studio.App.BulkImporter.SplitFrom1,,Split from %1,Split from %1
+Studio.App.BulkImporter.RetryingUploadIn1SecondS,,Retrying upload in %1 second(s),Retrying upload in %1 second(s)
+Studio.App.PropertyItems.InvertMeshFaces,,The mesh you are importing contains odd number negative scales. Would you like to invert mesh faces?,The mesh you are importing contains odd number negative scales. Would you like to invert mesh faces?
+Studio.App.PropertyItems.ResizeTheMesh,,The mesh you are importing is very large. Would you like to resize the mesh?,The mesh you are importing is very large. Would you like to resize the mesh?
+Studio.App.PropertyItems.MoveTheMesh,,Your mesh contains location data. Would you like to move your mesh to the given location?,Your mesh contains location data. Would you like to move your mesh to the given location?
+Studio.App.PropertyItems.NoVerticesFound,Message which displays in an error pop-up window that tells the user that they are trying to import a mesh with no vertices,No vertices found! Please check the mesh you are attempting to import and try again.,No vertices found! Please check the mesh you are attempting to import and try again.
+Studio.App.PropertyItems.MeshImportErrors,Message which displays if there were multiple errors when importing a mesh,There were errors while importing your Mesh,There were errors while importing your Mesh
+Studio.App.PropertyItems.ThereWasAnIssueImportingMesh,Message that displays if a mesh importation was successful but there was a warning,There was an issue when importing the mesh,There was an issue when importing the mesh
+Studio.App.PropertyItems.ThereWereIssuesImportingMesh,Message that displays if a mesh importation was successful but there were multiple warnings,There were issues when importing the mesh,There were issues when importing the mesh
+Studio.App.PropertyItems.CouldNotFindTexture1,Error message that displays if Studio can't find a texture file at a certain path. The argument of this string is the path to the supposed texture file.,"Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the FBX/OBJ file","Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the FBX/OBJ file"
+Studio.App.PropertyItems.UnableToPublishMeshPart1,Error message that displays in the output widget when the Studio backend rejects an uploaded MeshPart. The parameter is the reason for the rejection.,Unable to publish MeshPart: %1,Unable to publish MeshPart: %1
+Studio.App.PropertyItems.InappropriateName,One of the reasons that an uploaded MeshPart would be rejected.,Inappropriate name,Inappropriate name
+Studio.App.PropertyItems.IssueImportingTexture1,Error message that displays in the output widget when Studio encounters an error when importing a texture. The parameter is the specific issue.,Issue importing texture: %1,Issue importing texture: %1
+Studio.App.PropertyItems.UnsupportedFiletype,One of the issues that could be encountered when uploading a texture.,Unsupported filetype,Unsupported filetype
+Studio.App.MeshSplitterImpl.ContainsMoreMeshes,,The mesh file contained more than %1 meshes.,The mesh file contained more than %1 meshes.
+Studio.App.FBXRigBuilder.UploadingAvatarMeshFailedTryLater,,"Uploading avatar mesh failed. API returned too many requests, please try again later.","Uploading avatar mesh failed. API returned too many requests, please try again later."
+Studio.App.FBXRigBuilder.CantFindDataModel,,Failed to import animations for rig: Unable to find DataModel,Failed to import animations for rig: Unable to find DataModel
+Studio.App.FBXRigBuilder.CantFindWorkspace,,Unable to find Workspace,Unable to find Workspace
+Studio.App.FBXRigBuilder.CantFindWorkspaceLong,,Failed to import animations for rig: Unable to find Workspace,Failed to import animations for rig: Unable to find Workspace
+Studio.App.FBXRigBuilder.FbxRigMeshUploadError,,FBX Rig Mesh Upload Error,FBX Rig Mesh Upload Error
+Studio.App.FBXRigBuilder.TooManyRequests,,"Uploading avatar texture failed. API returned too many requests, please try again later.","Uploading avatar texture failed. API returned too many requests, please try again later."
+Studio.App.FBXRigBuilder.UploadingAvatarMeshFailed,,Uploading avatar mesh failed.,Uploading avatar mesh failed.
+Studio.App.FBXRigBuilder.UploadingAvatarTextureFailed,,Uploading avatar texture failed.,Uploading avatar texture failed.
+Studio.App.FBXRigBuilder.IssueImportingTexture,,Issue importing texture,Issue importing texture
+Studio.App.FBXRigBuilder.UnableToFindDatamodel,,Unable to find DataModel,Unable to find DataModel
+Studio.App.FBXMeshImporter.MeshHasTooManyTriangles2,"Error message that displays if a user tries to import a 3D mesh that has too many faces (aka triangles). First argument is the max limit of triangles, second argument is the amount of triangles that were in the uploaded mesh.",Your mesh has too many triangles! Limit is %1. Your mesh has %2.,Your mesh has too many triangles! Limit is %1. Your mesh has %2.
+Studio.App.FBXMeshImporter.MeshHasNoVertices,Error message that displays if a user tries to import a 3D mesh that has no vertices.,Your mesh has no vertices! Please check the validity of your mesh and try again.,Your mesh has no vertices! Please check the validity of your mesh and try again.
+Studio.App.FBXMeshImporter.ContainsRiggingData,Warning message that displays if a user tries to import a 3D mesh that contains animation data.,Animation data detected! Studio does not support animation data. You may experience issues if the mesh is dependent on the initial position of the animation data.,Animation data detected! Studio does not support animation data. You may experience issues if the mesh is dependent on the initial position of the animation data.
+Studio.App.FBXMeshImporter.MultipleMeshes,"Warning message that appears if a user tries to import a 3D mesh file that contains multiple meshes. Studio reacts to this by joining the meshes together, but this could mess up the textures of the mesh.","Multiple meshes detected! The meshes were joined together, and textures may now be incorrect.","Multiple meshes detected! The meshes were joined together, and textures may now be incorrect."
+Studio.App.FBXMeshImporter.MultipleTextures,"Warning message that appears if a user tries to import a 3D mesh that contains multiple textures. Studio only allows one of these textures, but this may result in the texture not looking correct.",Multiple textures detected! We only allow one texture per MeshPart which may now result in the mesh texture not looking correct.,Multiple textures detected! We only allow one texture per MeshPart which may now result in the mesh texture not looking correct.
+Studio.App.FBXMeshImporter.UnexpectedFileType,Error message that appears if the user tries to import a 3D FBX mesh that is not properly formatted.,Your file does not seem to contain a FBX mesh! Make sure the file extension is correct.,Your file does not seem to contain a FBX mesh! Make sure the file extension is correct.
+Studio.App.FBXDynamicHeadImporter.FailureException1,Error message that displays if an internal error occurred while importing dynamic head,Failed importing dynamic head: %1,Failed importing dynamic head: %1
+Studio.App.FBXDynamicHeadImporter.Success2,Success message when importing dynamic head.  Note FACS refers to the acronym Facial Action Coding System.  FACS may not need to be translated if the English acronym is used.,Successfully loaded FACS control data: found %1 of %2 controls,Successfully loaded FACS control data: found %1 of %2 controls
+Studio.App.FBXDynamicHeadImporter.UniqueJointNames1,"Error message when imported FBX file contains multiple joints with the same name.  ""joint"", also known as skeleton or bones, is a technical term in 3d animation that refers to a single part of a rig that can deform a 3d mesh geometry.  Please ensure the appropriate technical term for ""joint"" is used in the translation.",Found more than one joint named %1.  All joints must have unique names.,Found more than one joint named %1.  All joints must have unique names.
+Studio.App.FBXDynamicHeadImporter.Max3Correctives2,"Error message when importing FBX file.  Correctives refers to a corrective shape that is used to handle bad deformations in a rig in 3d animation.  Please ensure the appropriate technical term for ""corrective"" is used in the translation.","Failed importing dynamic head: Correctives can be for at most 3 control names.  Found %1 in ""%2""","Failed importing dynamic head: Correctives can be for at most 3 control names.  Found %1 in ""%2"""
+Studio.App.FBXDynamicHeadImporter.UnrecognizedFACS1,Error message when importing FBX file.  Note FACS refers to the acronym Facial Action Coding System.  FACS may not need to be translated if the English acronym is used.,"Failed importing dynamic head: Unrecognized FACS control name ""%1""","Failed importing dynamic head: Unrecognized FACS control name ""%1"""
+Studio.App.FBXDynamicHeadImporter.InvalidCorrective1,"Error message when importing FBX file.  ""corrective"" is a technical term that refers to a corrective shape that is used to handle bad deformation.  Please ensure the appropriate technical term is used in the translation for ""corrective"".","Failed importing dynamic head: Invalid corrective name ""%1"": Neutral cannot be part of a corrective","Failed importing dynamic head: Invalid corrective name ""%1"": Neutral cannot be part of a corrective"
+Studio.App.FBXDynamicHeadImporter.CorrectiveDupe2,"Error message when importing FBX file.  ""corrective"" is a technical term that refers to a corrective shape that is used to handle bad deformation.  Please ensure the appropriate technical term is used in the translation for ""corrective"". Note FACS refers to the acronym Facial Action Coding System.  FACS may not need to be translated if the English acronym is used.",Failed importing dynamic head: Found duplicate FACS control name %1 for corrective %2,Failed importing dynamic head: Found duplicate FACS control name %1 for corrective %2
+Studio.App.FBXDynamicHeadImporter.UnparseableFrameNumber1,"Frame refers to a frame of animation.  ""Extra Attribute"" refers to a specific data section of an FBX file that contains extra key/value pairs of data","Failed importing dynamic head: Couldn't parse the frame number in Extra Attribute named ""%1"".","Failed importing dynamic head: Couldn't parse the frame number in Extra Attribute named ""%1""."
+Studio.App.FBXDynamicHeadImporter.DupeControl3,"""frame"" refers to a frame of animation.  ""control"" refers to a FACS control, where FACS stands for Facial Action Coding System","Failed importing dynamic head: Duplicate control name found: ""%1"" in frame %2 and frame %3","Failed importing dynamic head: Duplicate control name found: ""%1"" in frame %2 and frame %3"
+Studio.App.FBXDynamicHeadImporter.SkipAttribute2,Warning message indicating that some key/value pair was missed.  attribute refers to a specific metadata that is attached to objects in an FBX file,Skipping attribute %1: %2,Skipping attribute %1: %2
+Studio.App.FBXDynamicHeadImporter.NoAttributes,"Error message when expected metadata is not found.  ""Head_Geo"" should not be translated as this refers to a string in the FBX file.  ""Extra Attribute"" refers to a specific data section of an FBX file that contains extra key/value pairs of data. Note FACS refers to the acronym Facial Action Coding System.  FACS may not need to be translated if the English acronym is used.",Failed importing dynamic head: Head_Geo has no Extra Attributes that map FACS controls to animation frames.,Failed importing dynamic head: Head_Geo has no Extra Attributes that map FACS controls to animation frames.
+Studio.App.FBXDynamicHeadImporter.NoNeutral,"""frame"" refers to a frame of animation.  ""Neutral"" should not be translated as this refers to a string expected to be in the FBX file.","Failed importing dynamic head: No frame was set to ""Neutral"" in animation.","Failed importing dynamic head: No frame was set to ""Neutral"" in animation."
+Studio.App.FBXDynamicHeadImporter.MissingSupportCorrective2,"Error message when importing FBX file.  ""corrective"" is a technical term that refers to a corrective shape that is used to handle bad deformation.  Please ensure the appropriate technical term is used in the translation for ""corrective"".","You have corrective %1, but missing corrective %2 to support it.  This may cause odd deformations.","You have corrective %1, but missing corrective %2 to support it.  This may cause odd deformations."
+Studio.App.FBXDynamicHeadImporter.MissingBase2,"Error message when importing FBX file.  ""corrective"" is a technical term that refers to a corrective shape that is used to handle bad deformation.  Please ensure the appropriate technical term is used in the translation for ""corrective"".","Failed importing dynamic head: ""%1"" has not been specified. This is needed for corrective ""%2"".","Failed importing dynamic head: ""%1"" has not been specified. This is needed for corrective ""%2""."
+Studio.App.FBXDynamicHeadImporter.MissingKeyFrame2,"Error message when importing FBX file.  ""key frame"" refers to an animation frame between which other frames are interpolated.  Please use the appropriate technical term for ""key frame"".",Failed importing dynamic head: Missing key frame %1 for %2,Failed importing dynamic head: Missing key frame %1 for %2
+Studio.App.FBXDynamicHeadImporter.MissingNeutralKeyFrame1,"Error message when importing FBX file. ""key frame"" refers to an animation frame between which other frames are interpolated.  Do not translate ""Neutral"".  This is a particular string that is expected to be in the FBX file.",Failed importing dynamic head: Missing key frame %1 for Neutral,Failed importing dynamic head: Missing key frame %1 for Neutral
+Studio.App.FBXDynamicHeadImporter.NoJoints,"Error message when importing FBX file. ""joint"", also known as skeleton or bones, is a technical term in 3d animation that refers to a single part of a rig that can deform a 3d mesh geometry.  Please ensure the appropriate technical term for ""joint"" is used in the translation.  Do not translate ""DynamicHead"" because this refers to a string expected to be in the FBX file.",Failed importing dynamic head: No joints were found under DynamicHead.,Failed importing dynamic head: No joints were found under DynamicHead.
+Studio.App.FBXDynamicHeadImporter.NearNeutral,"Warning message when importing FBX file. ""Control"" refers to a FACS control, where FACS stands for Facial Action Coding System. ""Neutral"" should not be translated as this refers to a string expected to be in the FBX file.",Control %1 is nearly identical to Neutral,Control %1 is nearly identical to Neutral
+Studio.App.FBXDynamicHeadImporter.IncompletePoses,"Warning message when importing FBX file.  ""base poses"" refers to the main facial expressions for an avatar.  ""character"" refers to the 3d avatar",Found only %1 base poses. Your character may not be able to express itself.,Found only %1 base poses. Your character may not be able to express itself.
+Studio.App.FBXDynamicHeadImporter.Unloadable,Error message when importing FBX file.  Note FACS refers to the acronym Facial Action Coding System.  FACS may not need to be translated if the English acronym is used.,Could not load FACS control data,Could not load FACS control data
+Studio.App.FBXDynamicHeadImporter.NoJoint2,"Error message when importing FBX file.  Note FACS refers to the acronym Facial Action Coding System.  FACS may not need to be translated if the English acronym is used.  ""joint"" refers to a bone or joint as used in computer animation.",Failed importing FACS Control data for %1: No joint named %2.,Failed importing FACS Control data for %1: No joint named %2.
+Studio.App.FBXDynamicHeadImporter.MultipleJoints2,"Error message when importing FBX file.  Note FACS refers to the acronym Facial Action Coding System.  FACS may not need to be translated if the English acronym is used.  ""joint"" refers to a bone or joint as used in computer animation.",Failed importing FACS Control data for %1: Multiple joints named %2 were found.  Joint names must be unique.,Failed importing FACS Control data for %1: Multiple joints named %2 were found.  Joint names must be unique.
+Studio.App.FBXDynamicHeadImporter.RootFaceJointExtraChars1,"Error message when importing FBX file.  Note FACS refers to the acronym Facial Action Coding System.  FACS may not need to be translated if the English acronym is used.  Do not translate ""RootFaceJoint"".  This is a particular string that is expected to be in the FBX file.","Failed importing FACS Control data: ""%1"" must be exactly ""RootFaceJoint"" with no spaces or underscores.","Failed importing FACS Control data: ""%1"" must be exactly ""RootFaceJoint"" with no spaces or underscores."
+Studio.App.FBXDynamicHeadImporter.FrameExtraChars1,"Warning message when importing FBX file.  Do not translate ""Frame#"" and leave ""#"" as is.  These refer to specific computer-readable strings.","Ignoring ""%1"" because it contains underscores or spaces.  Must be of the form ""Frame#"" where ""#"" is an integer with no spaces or underscores.","Ignoring ""%1"" because it contains underscores or spaces.  Must be of the form ""Frame#"" where ""#"" is an integer with no spaces or underscores."
+Studio.App.FBXDynamicHeadImporter.HasFramesNoRootFaceJoint1,"Warning message when importing FBX file.  Note FACS refers to the acronym Facial Action Coding System.  FACS may not need to be translated if the English acronym is used.  Do not translate ""Frame#"" or ""RootFaceJoint"".","Found ""Frame#"" attributes in mesh ""%1"" but no ""RootFaceJoint"" attribute.  No FACS mapping will be created for this mesh.","Found ""Frame#"" attributes in mesh ""%1"" but no ""RootFaceJoint"" attribute.  No FACS mapping will be created for this mesh."
+Studio.App.FBXDynamicHeadImporter.WarnEmptyAttribute1,"""Extra Attribute"" refers to a specific data section of an FBX file that contains extra key/value pairs of data","Empty value found for Extra Attribute named ""%1"".  Ignoring this.","Empty value found for Extra Attribute named ""%1"".  Ignoring this."
+Studio.App.FBXDynamicHeadImporter.NoAnimationTimeline,Note FACS refers to the acronym Facial Action Coding System.  FACS may not need to be translated if the English acronym is used.,Failed importing FACS Control data: Animation does not exist.,Failed importing FACS Control data: Animation does not exist.
+Studio.App.AnimationFromVideoCreatorStudioService.SelectMP4VideoFile,,Select a video,Select a video
+Studio.App.AnimationFromVideoCreatorStudioService.NoFileSelected,,No file selected,No file selected
+Studio.App.AnimationFromVideoCreatorStudioService.FileTooLarge,,File is too large; must be less than %1MB,File is too large; must be less than %1MB
+Studio.App.AnimationFromVideoCreatorStudioService.UploadFailed,,Upload failed,Upload failed
+Studio.App.AvatarImportService.OpenRigFBXFile,,Open Rig FBX File,Open Rig FBX File
+Studio.App.BulkImportService.UniverseNotValid,,Universe is not valid,Universe is not valid
+Studio.App.BulkImportService.UniverseResourcesNotLoaded,,Universe resources are not loaded yet,Universe resources are not loaded yet
+Studio.App.BulkAudioImportErrors.FileTooLarge,,The file in the request is too large.,The file in the request is too large.
+Studio.App.BulkAudioImportErrors.DurationTooLarge,,The duration of the audio file is too long.,The duration of the audio file is too long.
+Studio.App.BulkAudioImportErrors.FileTypeNotSupported,,The file type is not supported.,The file type is not supported.
+Studio.App.BulkAudioImportErrors.FileCorrupted,,The file is corrupted.,The file is corrupted.
+Studio.App.BulkAudioImportErrors.MissingGroupPermissions,,Missing permissions to spend group funds.,Missing permissions to spend group funds.
+Studio.App.BulkAudioImportErrors.InsufficentFunds,,The user/group does not have sufficient funds to publish.,The user/group does not have sufficient funds to publish.
+Studio.App.BulkAudioImportErrors.RejectedAudio,,The audio file has already been reviewed and rejected.,The audio file has already been reviewed and rejected.
+Studio.App.BulkAudioImportErrors.TooManyRequests,,Too many requests. Try again later.,Too many requests. Try again later.
+Studio.App.BulkAudioImportErrors.UnableToPurchase,,Error while trying to purchase the product.,Error while trying to purchase the product.
+Studio.App.BulkAudioImportErrors.FileSizeEstimationError,,The file size estimation error was greater than the acceptable margin of error.,The file size estimation error was greater than the acceptable margin of error.
+Studio.App.BulkAudioImportErrors.DurationEstimationError,,The duration estimation error was greater than the acceptable margin of error.,The duration estimation error was greater than the acceptable margin of error.
+Studio.App.BulkAudioImportErrors.UploadLimitReached,,Reached your audio upload limit.,Reached your audio upload limit.
+Studio.App.BulkAudioImportErrors.UploadUnavailable,,Audio file could not be uploaded at this time.,Audio file could not be uploaded at this time.
+Studio.App.BulkAudioImportErrors.AudioCostUnverifiedFormat1,"NOTE TO LOCALIZERS: Do not translate the numbers inside the single quotes. For whatever is inside the single quotes, please use ASCII instead.",Verifing the audio cost did not return correctly formatted data. Status Code: '%1',Verifing the audio cost did not return correctly formatted data. Status Code: '%1'
+Studio.App.BulkAudioImportErrors.AudioUploadErrorCode1,"NOTE TO LOCALIZERS: Do not translate the numbers inside the single quotes. For whatever is inside the single quotes, please use ASCII instead.",Uploading the audio file failed. Status Code: '%1',Uploading the audio file failed. Status Code: '%1'
+Studio.App.BulkAudioImportRateLimiting.UploadsLeft4,,"%1 of %2 audio uploads left until %3.
+(<a href=%4>Learn more</a>)","%1 of %2 audio uploads left until %3.
+(<a href=%4>Learn more</a>)"
+Studio.App.BulkAudioImportRateLimiting.UploadsReachedLimit2,,"You've reached your audio upload limit. It refreshes on %1.
+(<a href=%2>Learn more</a>)","You've reached your audio upload limit. It refreshes on %1.
+(<a href=%2>Learn more</a>)"
+Studio.App.BulkAudioImportRateLimiting.NoCapacity,,Audio uploads are temporarily unavailable. Please try again later.,Audio uploads are temporarily unavailable. Please try again later.
+Studio.App.BulkAudioImportRateLimiting.UploadsDefault2,,"You have %1 audio uploads per 30 days.
+(<a href=%2>Learn more</a>)","You have %1 audio uploads per 30 days.
+(<a href=%2>Learn more</a>)"
+Studio.App.BulkVideoImportErrors.UploadError,WIP feature: This error message will be revisited,An error occurred during video uploading.,An error occurred during video uploading.
+Studio.App.BulkVideoImportErrors.ProcessError,WIP feature: This error message will be revisited,An error occurred during video processing.,An error occurred during video processing.
+Studio.App.BulkVideoImportErrors.ValidationError,WIP feature: This error message will be revisited,The file does not meet our requirement.,The file does not meet our requirement.
+Studio.Common.Action.Apply,,Apply,Apply
+Studio.Common.Action.Confirm,,Confirm,Confirm
+Studio.Common.Action.HideDetails,,Hide Details,Hide Details

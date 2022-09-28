@@ -16810,9 +16810,9 @@
                     }
                 },
                 {
-                    "Category": "Behavior",
+                    "Category": "Movement",
                     "MemberType": "Property",
-                    "Name": "MaxSlopeAngle",
+                    "Name": "GroundOffset",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -16821,6 +16821,28 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "MaxSlopeAngle",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -17076,9 +17098,13 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
+                        "CanLoad": false,
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -33234,6 +33260,46 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SetHardwareSafeAreaInsets",
+                    "Parameters": [
+                        {
+                            "Name": "left",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "top",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "right",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "bottom",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SetInspectMenuEnabled",
                     "Parameters": [
                         {
@@ -37628,24 +37694,6 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "CFrame"
-                    }
-                },
-                {
-                    "Category": "Behavior",
-                    "MemberType": "Property",
-                    "Name": "Pole",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Class",
-                        "Name": "Instance"
                     }
                 },
                 {
@@ -43134,6 +43182,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "PromptNativePurchaseWithLocalPlayer",
+                    "Parameters": [
+                        {
+                            "Name": "productId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PromptPremiumPurchase",
                     "Parameters": [
                         {
@@ -43965,6 +44032,28 @@
                                 "Name": "Instance"
                             }
                         },
+                        {
+                            "Name": "productId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "wasPurchased",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "NativePurchaseFinishedWithLocalPlayer",
+                    "Parameters": [
                         {
                             "Name": "productId",
                             "Type": {
@@ -56626,6 +56715,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "IsCollisionGroupRegistered",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "LocalIkSolve",
                     "Parameters": [
                         {
@@ -58627,6 +58735,25 @@
                     "Parameters": [
                         {
                             "Name": "jsonBlob",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetExperienceSettingsLocaleId",
+                    "Parameters": [
+                        {
+                            "Name": "locale",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -67706,6 +67833,25 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "DeregisterAutocompleteCallback",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "PluginSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "FindScriptDocument",
                     "Parameters": [
                         {
@@ -67739,6 +67885,20 @@
                     "MemberType": "Function",
                     "Name": "RegisterAutocompleteCallback",
                     "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "priority",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
                         {
                             "Name": "callbackFunction",
                             "Type": {
@@ -79089,6 +79249,14 @@
                         }
                     ],
                     "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "MenuTeleportAttempt",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -94007,7 +94175,7 @@
         {
             "Items": [
                 {
-                    "Name": "Null",
+                    "Name": "Transform",
                     "Value": 0
                 },
                 {
@@ -94019,16 +94187,8 @@
                     "Value": 2
                 },
                 {
-                    "Name": "Transform",
-                    "Value": 3
-                },
-                {
                     "Name": "LookAt",
-                    "Value": 4
-                },
-                {
-                    "Name": "Length",
-                    "Value": 5
+                    "Value": 3
                 }
             ],
             "Name": "IKControlType"

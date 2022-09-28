@@ -1,0 +1,49 @@
+Key,Context,Source,en-us
+Studio.App.RemoteDebugger.ColumnAssetId,,Asset Id,Asset Id
+Studio.App.RemoteDebugger.ColumnPath,,Path,Path
+Studio.App.RemoteDebugger.Messages,,Messages,Messages
+Studio.App.RemoteDebugger.AddRow,,Add Row,Add Row
+Studio.App.RemoteDebugger.RemoveRow,,Remove Row,Remove Row
+Studio.App.RemoteDebugger.ErrorDuplicateId,,Duplicate Asset ID,Duplicate Asset ID
+Studio.App.RemoteDebugger.ErrorAssetMissing,,Asset not found or not accessible to ContentProvider,Asset not found or not accessible to ContentProvider
+Studio.App.CoreScriptBuilder.WaitForStartedFailed1,Internal feature. Text in output window.,QProcess::waitForStarted failed(%1),QProcess::waitForStarted failed(%1)
+Studio.App.CoreScriptBuilder.WaitForStartedFailedHelp,Internal feature. Text in output window.,This error usually means that robloxdev-cli could not be found. Have you made sure that robloxdev-cli is in your PATH or you have set FFlagDebugStudioCoreScriptBuilderExecutable to point to the right location?,This error usually means that robloxdev-cli could not be found. Have you made sure that robloxdev-cli is in your PATH or you have set FFlagDebugStudioCoreScriptBuilderExecutable to point to the right location?
+Studio.App.CoreScriptBuilder.WaitForReadyReadFailed1,Internal feature. Text in output window.,QProcess::waitForReadyRead failed(%1),QProcess::waitForReadyRead failed(%1)
+Studio.App.CoreScriptBuilder.ParseFailInvalidArg,Internal feature. Text in output window.,Parsing port string failed with std::invalid_argument,Parsing port string failed with std::invalid_argument
+Studio.App.CoreScriptBuilder.ParseFailOutOfRange,Internal feature. Text in output window.,Parsing port string failed with std::out_of_range,Parsing port string failed with std::out_of_range
+Studio.App.Deployment.PatchBuilderFailure1,Internal feature. Text in output window.,Failed to initialize patch builder with: %1,Failed to initialize patch builder with: %1
+Studio.App.FlagEditor.OfferRestartTitle,,Overrides Saved,Overrides Saved
+Studio.App.FlagEditor.OfferRestart,,You must restart Studio for fast flag changes to take effect.,You must restart Studio for fast flag changes to take effect.
+Studio.App.StudioFlagEditor.CloseWithoutSaving,,Close without saving.,Close without saving.
+Studio.App.StudioFlagEditor.ValuesHighlightedRed,,Values highlighted red were overridden locally on load and may differ from the server values.,Values highlighted red were overridden locally on load and may differ from the server values.
+Studio.App.StudioFlagEditor.FlagEditor,,Flag Editor,Flag Editor
+Studio.App.StudioFlagEditor.NoLocalOverrides,,No local overrides were found on load. All values shown match the server values.,No local overrides were found on load. All values shown match the server values.
+Studio.App.StudioFlagEditor.SaveChangesCurrentBuild,,Save changes to the current Studio build.,Save changes to the current Studio build.
+Studio.App.StudioFlagEditor.ErrorWhenLoadingLocalOverrides,,Error when loading Local Overrides,Error when loading Local Overrides
+Studio.App.StudioFlagEditor.ExportsAllOverrides,,Exports all current overrides to a portable ClientAppSettings.json file.,Exports all current overrides to a portable ClientAppSettings.json file.
+Studio.App.StudioFlagEditor.AppliesOverridesImmediately,,Saves and immediately applies overrides to running studio instance (unsafe).,Saves and immediately applies overrides to running studio instance (unsafe).
+Studio.App.StudioFlagEditor.FlagsHaveBeenApplied,,"Flag overrides changes have been applied dynamically, studio behavior may be unstable until the next restart.","Flag overrides changes have been applied dynamically, studio behavior may be unstable until the next restart."
+Studio.App.StudioFlagEditor.DuplicateOverrides,,Duplicate Overrides,Duplicate Overrides
+Studio.App.StudioFlagEditor.ExportSuccess,,Export Success,Export Success
+Studio.App.StudioFlagEditor.ErrorWhenExportingOverrides,,Error when exporting Overrides,Error when exporting Overrides
+Studio.App.StudioFlagEditor.ExportAsJson,,Export as JSON,Export as JSON
+Studio.App.StudioFlagEditor.FlagsApplied,,Flag Overrides Applied,Flag Overrides Applied
+Studio.App.StudioFlagEditor.CantExportOverrides,,"Error: Could not export overrides.
+There was an error opening the json file for writing. Check Studio logs for more details.","Error: Could not export overrides.
+There was an error opening the json file for writing. Check Studio logs for more details."
+Studio.App.StudioFlagEditor.ExportSuccess1,,Success! Overrides exported to %1.,Success! Overrides exported to %1.
+Studio.App.StudioFlagEditor.FileIOError,,Unable to save. Try running RobloxStudio with admin permission.,Unable to save. Try running RobloxStudio with admin permission.
+Studio.App.StudioFlagEditor.AddButton,Button displayed in the Overrides tab of the Flag Editor (File -> Advanced -> Open Flag Editor). Button is used to add a new entry to the list of flag overrides by opening a new dialog.,Add,Add
+Studio.App.StudioFlagEditor.RemoveButton,Button displayed in the Overrides tab of the Flag Editor (File -> Advanced -> Open Flag Editor). Button is used to remove the currently selected entry in the list of flag overrides.,Remove,Remove
+Studio.App.StudioFlagEditor.RemoveAllButton,Button displayed in the Overrides tab of the Flag Editor (File -> Advanced -> Open Flag Editor). Button is used to remove all entries from the list of flag overrides.,Remove All,Remove All
+Studio.App.StudioFlagEditor.AddOverrideTitle,Title of Add Override dialog that appears after clicking add button in the Overrides tab of the Flag Editor (File -> Advanced -> Open Flag Editor).,Add Override,Add Override
+Studio.App.StudioFlagEditor.NameField,The name of a flag in the Flag Editor (File -> Advanced -> Open Flag Editor).,Name,Name
+Studio.App.StudioFlagEditor.TypeField,"The type of a flag (FFlag, FLog, DFString, etc.) in the Flag Editor (File -> Advanced -> Open Flag Editor).",Type,Type
+Studio.App.StudioFlagEditor.ValueField,The value of a flag in the Flag Editor (File -> Advanced -> Open Flag Editor).,Value,Value
+Studio.App.StudioProjectConfig.UnexpectedFieldWarning2,,"The Project File has unexpected fields, they will be ignored. 
+%1 
+%2","The Project File has unexpected fields, they will be ignored. 
+%1 
+%2"
+Studio.App.BrowserServiceController.Hidden,,(Hidden),(Hidden)
+Studio.App.BrowserServiceController.OSNotUpToDate,,"Your OS is not up to date, some functions may not be fully supported","Your OS is not up to date, some functions may not be fully supported"
