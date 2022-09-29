@@ -41,10 +41,12 @@ Studio.AccessoryFittingTool.Dialog.Confirm,Confirm
 Studio.AccessoryFittingTool.Dialog.DefaultTitle,Layered Clothing Editor
 Studio.AccessoryFittingTool.EditAndPreview.PromptCage,Adjust fitting by editing the cage mesh vertices. Use preview to access fitting quality with different options for bodies and animations.
 Studio.AccessoryFittingTool.EditAndPreview.PromptNoCage,"Move, rotate and scale accessory within the bounding box to adjust fitting. Use preview to access fitting quality on different bodies and animations."
-Studio.AccessoryFittingTool.EditingMode.InnerCage,Inner Cage
+Studio.AccessoryFittingTool.EditingMode.AutoWeight,Automatically generate skinning weights for mesh
+Studio.AccessoryFittingTool.EditingMode.InnerCage,Inner Cage Mode
 Studio.AccessoryFittingTool.EditingMode.MeshPart,Mesh Part
-Studio.AccessoryFittingTool.EditingMode.OuterCage,Outer Cage
-Studio.AccessoryFittingTool.EditingMode.Text,Editing
+Studio.AccessoryFittingTool.EditingMode.OuterCage,Outer Cage Mode
+Studio.AccessoryFittingTool.EditingMode.Text,Enable/Disable Cage Editing
+Studio.AccessoryFittingTool.Editor.BringMannequinToView,Bring Mannequin To View
 Studio.AccessoryFittingTool.Editor.CageGenerate,Cage Generate
 Studio.AccessoryFittingTool.Editor.Edit,Edit
 Studio.AccessoryFittingTool.Editor.EditAndPreview,Edit And Preview
@@ -70,17 +72,17 @@ Studio.AccessoryFittingTool.Main.Tooltip,Edit and Preview Cage Mesh for Clothing
 Studio.AccessoryFittingTool.Meta.PluginName,Layered Clothing Editor
 Studio.AccessoryFittingTool.Meta.ToolbarName,Avatar
 Studio.AccessoryFittingTool.Preview.AddNew,Add new...
-Studio.AccessoryFittingTool.Preview.AnimationInvalidAdd,Only a KeyframeSequence Instance can be added
 Studio.AccessoryFittingTool.Preview.Animations,Animations
 Studio.AccessoryFittingTool.Preview.Asset,Asset
-Studio.AccessoryFittingTool.Preview.AvatarInvalidAdd,Only an avatar item can be added
 Studio.AccessoryFittingTool.Preview.Avatars,Avatars
 Studio.AccessoryFittingTool.Preview.Clothing,Clothing
-Studio.AccessoryFittingTool.Preview.ClothingInvalidAdd,Only a clothing item can be added
 Studio.AccessoryFittingTool.Preview.ConfirmAddTile,Add {itemName} tile?
-Studio.AccessoryFittingTool.Preview.PanelBlockerAddAnimation,Add a KeyframeSequence Instance from the Explorer
-Studio.AccessoryFittingTool.Preview.PanelBlockerAddAvatar,Add an avatar item from the Explorer
-Studio.AccessoryFittingTool.Preview.PanelBlockerAddClothing,Add clothing item from the Explorer
+Studio.AccessoryFittingTool.Preview.Custom,Custom
+Studio.AccessoryFittingTool.Preview.Default,Default
+Studio.AccessoryFittingTool.Preview.FocusCamera,Focus camera on Mannequin
+Studio.AccessoryFittingTool.Preview.InvalidAdd,"Invalid instance selected. Must be a MeshPart, Accessory, Model, Animation, or Folder."
+Studio.AccessoryFittingTool.Preview.PanelBlockerAddItem,"Add a MeshPart, Accessory, Model, Animation, or Folder from the Explorer"
+Studio.AccessoryFittingTool.Preview.Tooltip,Click to wear item in Accessory Fitting Tool Preview!
 Studio.AccessoryFittingTool.Preview.Transparency,Transparency
 Studio.AccessoryFittingTool.Reset.InnerCage,Reset Inner Cage
 Studio.AccessoryFittingTool.Reset.OuterCage,Reset Outer Cage

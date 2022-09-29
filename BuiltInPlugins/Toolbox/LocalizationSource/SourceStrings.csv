@@ -10,7 +10,6 @@ Studio.Toolbox.AssetConfigCopy.AccountSetting,"In order to share content in Mark
 Studio.Toolbox.Common.Close,Close, ,Close
 Studio.Toolbox.Common.Install,Install, ,Install
 Studio.Toolbox.Common.Insert,Insert, ,Insert
-Studio.Toolbox.General.SearchTagIdVerified,Showing ID Verified assets, ,Showing ID Verified assets
 Studio.Toolbox.AssetConfigCopy.MustShare,Must share with anyone on Roblox, ,Must share with anyone on Roblox
 Studio.Toolbox.General.FooterButtonWhiteName,White, ,White
 Studio.Toolbox.AssetConfigFooter.UploadWithFee,Submit for,{price:int} Robux, 
@@ -67,7 +66,8 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.CategoryRecentVideos,Recent 
  ,Audio,Studio.Toolbox.General.CategoryAudio,Audio
  ,Audio,Studio.Toolbox.General.CategoryCreationsAudio,Audio
  ,Audio,Studio.Toolbox.General.CategoryMyDecals,My Images
- ,My Images,Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabelTooltip,Not all roles have the same access; expand the group for details.
+ ,My Images,Studio.Toolbox.AssetConfigPackage.HelpTextV2,Enables versioning and updates for this asset.
+ ,Enables versioning and updates for this asset.,Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabelTooltip,Not all roles have the same access; expand the group for details.
  ,Not all roles have the same access; expand the group for details.,Studio.Toolbox.Audio.SoundEffect.Category.cameras,Cameras
  ,Cameras,Studio.Toolbox.Audio.SoundEffect.Category.robots,Robots
  ,Robots,Studio.Toolbox.General.CategoryCreationsTShirtAccessory,T-Shirt Accessories

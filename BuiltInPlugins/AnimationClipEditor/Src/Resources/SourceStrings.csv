@@ -3,6 +3,7 @@ Studio.AnimationClipEditor.AnimationFromVideo.AgeRestricted, ,We're rolling this
 Studio.AnimationClipEditor.AnimationFromVideo.Cancelled, ,Your animation creation has been canceled.
 Studio.AnimationClipEditor.AnimationFromVideo.ChooseVideo, ,Choose Video
 Studio.AnimationClipEditor.AnimationFromVideo.Error, ,"We encountered an error. Please try again in a bit, and if you continue to see this error, you may need to try a new video."
+Studio.AnimationClipEditor.AnimationFromVideo.ErrorUploadingData, ,There was a problem uploading the video
 Studio.AnimationClipEditor.AnimationFromVideo.Initializing, ,Getting started...
 Studio.AnimationClipEditor.AnimationFromVideo.InputHasNoPerson, ,"Couldn't detect a person – try a video with a person fully in frame, facing the camera."
 Studio.AnimationClipEditor.AnimationFromVideo.InputTooLong, ,That video is too long – try a video shorter than 15 seconds.
@@ -16,6 +17,7 @@ Studio.AnimationClipEditor.AnimationFromVideo.Success, ,Success! Your animation 
 Studio.AnimationClipEditor.AnimationFromVideo.TimedOut, ,"Sorry, we're unable to process your video right now due to a high volume of requests. Please try again in a bit."
 Studio.AnimationClipEditor.AnimationFromVideo.TutorialText, ,"Choose a short video (15 seconds or less) containing a single person, fully in frame. Try to use a video with a stable, unmoving camera."
 Studio.AnimationClipEditor.AnimationFromVideo.TutorialTitle, ,Create animation from video
+Studio.AnimationClipEditor.AnimationFromVideo.UploadingData, ,Uploading video - please wait...
 Studio.AnimationClipEditor.ContextMenu.AddEvent, ,Add Animation Event Here
 Studio.AnimationClipEditor.ContextMenu.AddKeyframe, ,Add Keyframe
 Studio.AnimationClipEditor.ContextMenu.AddKeyframeHere, ,Add Keyframe Here
@@ -143,6 +145,7 @@ Studio.AnimationClipEditor.Menu.Load, ,Load
 Studio.AnimationClipEditor.Menu.Mouth, ,Mouth
 Studio.AnimationClipEditor.Menu.Movement, ,Movement
 Studio.AnimationClipEditor.Menu.New, ,New...
+Studio.AnimationClipEditor.Menu.OptimizeKeyframes, ,Optimize Keyframes
 Studio.AnimationClipEditor.Menu.Overwrite_Migrated, ,Do you want to overwrite existing animation {overwriteName}?
 Studio.AnimationClipEditor.Menu.PromoteToChannels, ,Promote to Channel Animation
 Studio.AnimationClipEditor.Menu.PublishToRoblox, ,Publish to Roblox
@@ -153,6 +156,7 @@ Studio.AnimationClipEditor.Menu.Save, ,Save
 Studio.AnimationClipEditor.Menu.SaveAs, ,Save As
 Studio.AnimationClipEditor.Menu.SetPriority, ,Set Animation Priority
 Studio.AnimationClipEditor.Menu.Tongue, ,Tongue
+Studio.AnimationClipEditor.OptimizeKeyframes.Keyframes, ,Keyframes:
 Studio.AnimationClipEditor.Plugin.Button, ,Animation Editor
 Studio.AnimationClipEditor.Plugin.Description, ,"Create, preview, and publish Animation clips"
 Studio.AnimationClipEditor.Plugin.Name, ,Animation Editor
@@ -226,6 +230,7 @@ Studio.AnimationClipEditor.Title.MinFPS, ,Minimum frame rate is 1 fps
 Studio.AnimationClipEditor.Title.MinPBSParam, ,Minimum playback speed is {speed}x
 Studio.AnimationClipEditor.Title.NewDuration, ,New Duration
 Studio.AnimationClipEditor.Title.NoAnimationExists_Migrated, ,"No animation exists for {rig}, please create one to start animating"
+Studio.AnimationClipEditor.Title.OptimizeKeyframes, ,Optimize Keyframes
 Studio.AnimationClipEditor.Title.Parameter, ,Parameter
 Studio.AnimationClipEditor.Title.ReduceKeyframes, ,Reduce Keyframes
 Studio.AnimationClipEditor.Title.ResetAll, ,Reset All

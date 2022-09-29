@@ -36,7 +36,7 @@ void main()
     vec3 f11 = normalize(VARYING7.xyz);
     vec3 f12 = -f11;
     vec3 f13 = reflect(f12, f10);
-    vec3 f14 = mix((min(f5 + (CB0[32].xyz + ((CB0[33].xyz * 1.0) * f6)), vec3(CB0[21].w)) + (CB0[15].xyz * f4.y)) * CB3[1].xyz, ((textureLod(PrefilteredEnvTexture, vec4(f13, 0.0).xyz, 0.0).xyz * mix(CB0[31].xyz, CB0[30].xyz, vec3(clamp(f13.y * 1.58823525905609130859375, 0.0, 1.0)))) * f6) + (f5 * 0.100000001490116119384765625), vec3((clamp(0.7799999713897705078125 - (2.5 * abs(dot(f10, f11))), 0.0, 1.0) + 0.300000011920928955078125) * CB3[2].z));
+    vec3 f14 = mix((min(f5 + (CB0[32].xyz + (CB0[33].xyz * f6)), vec3(CB0[21].w)) + (CB0[15].xyz * f4.y)) * CB3[1].xyz, ((textureLod(PrefilteredEnvTexture, vec4(f13, 0.0).xyz, 0.0).xyz * mix(CB0[31].xyz, CB0[30].xyz, vec3(clamp(f13.y * 1.58823525905609130859375, 0.0, 1.0)))) * f6) + (f5 * 0.100000001490116119384765625), vec3((clamp(0.7799999713897705078125 - (2.5 * abs(dot(f10, f11))), 0.0, 1.0) + 0.300000011920928955078125) * CB3[2].z));
     vec4 f15 = vec4(0.0);
     f15.x = f14.x;
     vec4 f16 = f15;

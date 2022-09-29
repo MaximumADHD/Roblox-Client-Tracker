@@ -19,22 +19,21 @@ uniform sampler2D NormalMapTexture;
 uniform sampler2D NormalDetailMapTexture;
 
 in vec2 VARYING0;
-in vec2 VARYING1;
+in vec3 VARYING1;
 in vec4 VARYING2;
 in vec4 VARYING3;
 in vec4 VARYING4;
 in vec4 VARYING5;
 in vec4 VARYING6;
 in vec4 VARYING7;
-in float VARYING8;
 out vec4 _entryPointOutput;
 
 void main()
 {
     float f0 = length(VARYING4.xyz);
     vec3 f1 = VARYING4.xyz / vec3(f0);
-    vec2 f2 = VARYING1;
-    f2.y = (fract(VARYING1.y) + VARYING8) * 0.25;
+    vec2 f2 = VARYING1.xy;
+    f2.y = (fract(VARYING1.y) + VARYING1.z) * 0.25;
     float f3 = clamp(1.0 - (VARYING4.w * CB0[28].y), 0.0, 1.0);
     vec4 f4 = texture(NormalMapTexture, f2);
     vec2 f5 = f4.wy * 2.0;
@@ -131,7 +130,7 @@ void main()
     float f81 = f76.x;
     float f82 = f76.y;
     float f83 = f76.z;
-    vec3 f84 = ((((((f38.xyz * (f38.w * 120.0)) * 1.0) + (((vec3(1.0) - (f68 * f25)) * CB0[15].xyz) * f61)) + ((vec3(1.0) - (f73 * f25)) * (((((((CB0[40].xyz * f78) + (CB0[42].xyz * f79)) + (CB0[44].xyz * f80)) + (CB0[41].xyz * f81)) + (CB0[43].xyz * f82)) + (CB0[45].xyz * f83)) + (((((((CB0[34].xyz * f78) + (CB0[36].xyz * f79)) + (CB0[38].xyz * f80)) + (CB0[35].xyz * f81)) + (CB0[37].xyz * f82)) + (CB0[39].xyz * f83)) * f40)))) + (CB0[32].xyz + ((CB0[33].xyz * (2.0 - CB0[14].w)) * f40))) * mix(f24.xyz, f30, vec3(VARYING7.w))) + ((((f68 * (min((f69 + (f69 * f69)) / (((f70 * f70) * ((f64 * 3.0) + 0.5)) * ((f63 * 0.75) + 0.25)), 65504.0) * f61)) * CB0[15].xyz) * (CB0[14].w * CB0[14].w)) + ((mix(f32, f30, vec3(f40)) * f73) * f25));
+    vec3 f84 = ((((((f38.xyz * (f38.w * 120.0)) * 1.0) + (((vec3(1.0) - (f68 * f25)) * CB0[15].xyz) * f61)) + ((vec3(1.0) - (f73 * f25)) * (((((((CB0[40].xyz * f78) + (CB0[42].xyz * f79)) + (CB0[44].xyz * f80)) + (CB0[41].xyz * f81)) + (CB0[43].xyz * f82)) + (CB0[45].xyz * f83)) + (((((((CB0[34].xyz * f78) + (CB0[36].xyz * f79)) + (CB0[38].xyz * f80)) + (CB0[35].xyz * f81)) + (CB0[37].xyz * f82)) + (CB0[39].xyz * f83)) * f40)))) + ((CB0[32].xyz + (CB0[33].xyz * (f40 * (2.0 - CB0[14].w)))) * 1.0)) * mix(f24.xyz, f30, vec3(VARYING7.w))) + ((((f68 * (min((f69 + (f69 * f69)) / (((f70 * f70) * ((f64 * 3.0) + 0.5)) * ((f63 * 0.75) + 0.25)), 65504.0) * f61)) * CB0[15].xyz) * (CB0[14].w * CB0[14].w)) + ((mix(f32, f30, vec3(f40)) * f73) * f25));
     vec4 f85 = vec4(0.0);
     f85.x = f84.x;
     vec4 f86 = f85;

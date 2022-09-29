@@ -98,6 +98,8 @@ Studio.App.RobloxRibbonMainWindow.GridOnYPlane,,Display a 3D grid on the y=0 pla
 Studio.App.RobloxRibbonMainWindow.DisplayGridMaterialOnParts,,Display grid material on Parts,Display grid material on Parts
 Studio.App.RobloxRibbonMainWindow.EnableWireframeRendering,,Enable Wireframe Rendering,Enable Wireframe Rendering
 Studio.App.RobloxRibbonMainWindow.EnableUIVisibility,,Toggles visibility of UI in the 3D View,Toggles visibility of UI in the 3D View
+Studio.App.RobloxRibbonMainWindow.BoundingBoxes,,Bounding Boxes,Bounding Boxes
+Studio.App.RobloxRibbonMainWindow.BoundingBoxesTooltip,,Toggles visibility of bounding boxes for the selection,Toggles visibility of bounding boxes for the selection
 Studio.App.RobloxRibbonMainWindow.DrawConstraintsAttWeldsTop,,"Draw constraints, attachments and welds on top","Draw constraints, attachments and welds on top"
 Studio.App.RobloxRibbonMainWindow.DrawOnTop,,Draw On Top,Draw On Top
 Studio.App.RobloxRibbonMainWindow.EditCollisionGroups,,Edit collision groups,Edit collision groups

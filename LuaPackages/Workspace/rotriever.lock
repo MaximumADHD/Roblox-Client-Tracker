@@ -3,5 +3,41 @@
 lockfile_format_version = 4
 
 [[package]]
+name = "AppCommonLib"
+version = "0.1.0"
+
+[[package]]
+name = "Dash"
+version = "0.1.0"
+
+[[package]]
+name = "JestGlobals"
+version = "0.1.0"
+
+[[package]]
+name = "Promise"
+version = "0.1.0"
+
+[[package]]
+name = "React"
+version = "0.1.0"
+
+[[package]]
+name = "ReactRoblox"
+version = "0.1.0"
+
+[[package]]
+name = "RoactNavigation"
+version = "0.1.0"
+
+[[package]]
+name = "RoactRodux"
+version = "0.1.0"
+
+[[package]]
+name = "Rodux"
+version = "0.1.0"
+
+[[package]]
 name = "TemplatePackage"
 version = "0.1.0"

@@ -479,6 +479,7 @@
         <addaction name="toggleWireframeRenderingAction" style="textundericon" text="Studio.App.RBXMainWindow.WireframeRendering" icon=":/RibbonBar/images/RibbonIcons/View/Wireframe-Box.png" modernIcon="WireframeRendering" tooltip="Studio.App.RobloxRibbonMainWindow.EnableWireframeRendering" height="32" width="32"/>
         <addaction fflag="AddUIToggleToRibbon" name="toggleUIVisibilityAction" style="textundericon" text="Studio.App.RBXMainWindow.UIVisibility" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/UIOff.png" modernIcon="UIOff" tooltip="Studio.App.RobloxRibbonMainWindow.EnableUIVisibility" height="32" width="32"/>
         <MenuButton name="switchWindowsMenu" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.SwitchWindows" icon=":/RibbonBar/images/RibbonIcons/View/Switch-Windows.png" modernIcon="SwitchWindows" tooltip="Studio.App.RobloxRibbonMainWindow.SwitchDifferentWindow" ischeckable="false" width="32" height="32"/>
+        <addaction fflag="OutlineSelection1" name="toggleBoundingBoxVisibilityAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.BoundingBoxes" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/BoundingBoxOff.png" modernIcon="BoundingBox" tooltip="Studio.App.RobloxRibbonMainWindow.BoundingBoxesTooltip" height="32" width="32"/>
       </Group>
       <Group name="Stats" text="Studio.App.RBXMainWindow.Stats">
         <addaction name="testStatsAction" action="testStudio.App.RBXMainWindow.StatsAction" text="Studio.App.RBXMainWindow.Stats" style="textbesideicon" />

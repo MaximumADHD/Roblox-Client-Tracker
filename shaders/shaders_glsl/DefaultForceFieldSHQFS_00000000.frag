@@ -7,7 +7,7 @@ uniform sampler2D GBufferDepthTexture;
 uniform sampler2D DiffuseMapTexture;
 
 varying vec2 VARYING0;
-varying vec2 VARYING1;
+varying float VARYING1;
 varying vec4 VARYING2;
 varying vec4 VARYING4;
 varying vec4 VARYING5;
@@ -27,7 +27,7 @@ void main()
     float f8 = f7.x;
     float f9 = (f8 > 0.0) ? ((1.0 - clamp(abs(f8 - CB0[19].w) * 13.0, 0.0, 1.0)) * f7.w) : 0.0;
     float f10 = max(max(1.0 - clamp(abs(dot(normalize(VARYING5.xyz), VARYING4.xyz / vec3(f6))) * 2.0, 0.0, 1.0), (f5 > 499.0) ? 0.0 : (1.0 - clamp((f5 - f1) * 3.0, 0.0, 1.0))), f9);
-    float f11 = VARYING2.w * max(mix(f9, 1.0, f10) * f10, VARYING1.x);
+    float f11 = VARYING2.w * max(mix(f9, 1.0, f10) * f10, VARYING1);
     vec4 f12 = vec4(VARYING2.xyz * VARYING2.xyz, f11);
     float f13 = clamp(exp2((CB0[18].z * f6) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
     vec3 f14 = mix(CB0[19].xyz, f12.xyz, vec3(f13));

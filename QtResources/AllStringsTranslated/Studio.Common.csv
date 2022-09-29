@@ -16,7 +16,7 @@ Studio.Common.Action.Help,,,Help,Help,Hilfe,Ayuda,Aide,,Guida,ヘルプ,도움�
 Studio.Common.Action.Home,,,Home,Home,,Inicio,Accueil,,Home,ホーム,홈,Início,Главная,,,,首页,首页,首頁
 Studio.Common.Action.Ignore,,,Ignore,Ignore,Ignorieren,Ignorar,Ignorer,,Ignora,無視,무시,Ignorar,Пропустить,,,,忽略,忽略,忽略
 Studio.Common.Action.Insert,,,Insert,Insert,Einfügen,Insertar,Insérer,,Immetti,挿入,삽입,Inserir,Вставить,,,,插入,插入,插入
-Studio.Common.Action.New,,,New,New,Neu,Nuevo,Nouveau,,Nuovo,新着,새로 만들기,Novo,Создать,,,,新增,新增,新增
+Studio.Common.Action.New,,,New,New,Neu,Nuevo,Nouveau,,Nuovo,新規,새로 만들기,Novo,Создать,,,,新增,新增,新增
 Studio.Common.Action.Next,,,Next,Next,Weiter,Siguiente,Suivant,,Avanti,次へ,다음,Próximo,Далее,,,,下一个,下一个,繼續
 Studio.Common.Action.No,,,No,No,Nein,No,Non,,No,いいえ,아니요,Não,Нет,,,,否,否,否
 Studio.Common.Action.OK,,,OK,OK,,Aceptar,OK,,OK,OK,확인,OK,ОК,,,,确认,确认,確定
@@ -66,7 +66,7 @@ Studio.Common.Action.SelectAll,,,Select All,Select All,,Seleccionar todo,Tout s�
 Studio.Common.Action.ShowDetails,,,Show Details,Show Details,,Mostrar detalles,Afficher détails,,Mostra dettagli,詳細を表示,세부 정보 표시,Exibir detalhes,,,,,显示详情,显示详情,顯示詳細資料
 Studio.Common.Action.ReportBug,,,Report Bug,Report Bug,,Reportar error,Signaler un bug,,Segnala bug,バグを報告,버그 신고,Comunicar bug,,,,,回报问题,回报问题,舉報問題
 Studio.Common.Action.SaveToRoblox,,,Save to Roblox,Save to Roblox,,Guardar en Roblox,Sauvegarder sur Roblox,,Salva su Roblox,Robloxに保存,Roblox에 저장,Salvar na Roblox,,,,,保存至 Roblox,保存至 Roblox,儲存到 Roblox
-Studio.Common.Action.Accessory,,,Accessory,Accessory,,,,,,,,,,,,,,,
-Studio.Common.Action.Import,,,Import,Import,,,,,,,,,,,,,,,
-Studio.Common.Action.Rig,,,Rig,Rig,,,,,,,,,,,,,,,
-Studio.Common.Action.Animation,,,Animation,Animation,,,,,,,,,,,,,,,
+Studio.Common.Action.Accessory,,,Accessory,Accessory,,Accesorio,Accessoire,,Accessorio,アクセサリ,장신구,Acessório,,,,,,,飾品
+Studio.Common.Action.Import,,,Import,Import,,Importar,Importer,,Importa,インポート,가져오기,Importar,,,,,,,匯入
+Studio.Common.Action.Rig,,,Rig,Rig,,Rig,Rig,,Rig,リグ,리그,Rig,,,,,,,骨架
+Studio.Common.Action.Animation,,,Animation,Animation,,Animación,Animation,,Animazione,アニメーション,애니메이션,Animação,,,,,,,動畫

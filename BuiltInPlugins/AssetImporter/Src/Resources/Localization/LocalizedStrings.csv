@@ -1,4 +1,5 @@
 Key,Source,en-us
+Studio.AssetImporter.Statuses.FacsMultipleAnimationStackWarning,Found multiple animation stacks in FBX file.  Using the first one for extract FACS controls.,Found multiple animation stacks in FBX file.  Using the first one for extract FACS controls.
 Studio.AssetImporter.Statuses.DefaultWarnings,Import experienced a {type} warning.,Import experienced a {type} warning.
 Studio.AssetImporter.Plugin.Description,Import a mesh rig or avatar from a file using the import UI.,Import a mesh rig or avatar from a file using the import UI.
 Studio.AssetImporter.Plugin.Name,AssetImporter,AssetImporter
@@ -36,6 +37,7 @@ Studio.AssetImporter.PropertiesTooltip.Dimensions,The size of the given object i
 Studio.AssetImporter.EnumItem.Right,Right,Right
 Studio.AssetImporter.Properties.Anchored,Anchored,Anchored
 Studio.AssetImporter.Sections.FileGeometry,File Geometry,File Geometry
+Studio.AssetImporter.Statuses.FacsOnlyNeutralError,Only "Neutral" pose exists.  No facial expressions possible.,Only "Neutral" pose exists.  No facial expressions possible.
 Studio.AssetImporter.Properties.InsertInWorkspace,Insert In Workspace,Insert In Workspace
 Studio.AssetImporter.Properties.ImportName,Name,Name
 Studio.AssetImporter.Statuses.CageNameHasTypoWarning,"Cage name contains a typo, try renaming to {name}.","Cage name contains a typo, try renaming to {name}."
@@ -54,6 +56,7 @@ Studio.AssetImporter.Properties.ScaleUnit,Scale Unit,Scale Unit
 Studio.AssetImporter.PropertiesTooltip.ScaleUnit,The scale used when exporting the file,The scale used when exporting the file
 Studio.AssetImporter.Properties.WorldForward,World Forward,World Forward
 Studio.AssetImporter.Properties.WorldUp,World Up,World Up
+Studio.AssetImporter.Statuses.FacsNoNeutralError,No frame was set to "Neutral" in animation.,No frame was set to "Neutral" in animation.
 Studio.AssetImporter.Properties.ZeroOrigin,Zero Origin,Zero Origin
 Studio.AssetImporter.Properties.ImportAsModelAsset,Import Only as a Model,Import Only as a Model
 Studio.AssetImporter.Sections.AvatarGeneral,Avatar General,Avatar General
@@ -70,6 +73,7 @@ Studio.AssetImporter.PropertiesTooltip.ImportName,The name of the object,The nam
 Studio.AssetImporter.PropertiesTooltip.InsertInWorkspace,If this object should be inserted into the workspace after import,If this object should be inserted into the workspace after import
 Studio.AssetImporter.Statuses.FacsMax3CorrectivesError3,Correctives can be for at most 3 control names.  Found {Size} for attribute "{FrameAttr}": "{FacsControlName}",Correctives can be for at most 3 control names.  Found {Size} for attribute "{FrameAttr}": "{FacsControlName}"
 Studio.AssetImporter.PropertiesTooltip.InvertNegativeFaces,Whether or not to flip negative faces,Whether or not to flip negative faces
+Studio.AssetImporter.Properties.CageMeshIntersectedPreview,Cage intersects clothing,Cage intersects clothing
 Studio.AssetImporter.PropertiesTooltip.PolygonCount,The total count of polygons in this object,The total count of polygons in this object
 Studio.AssetImporter.PropertiesTooltip.RigType,The type of Rig to import,The type of Rig to import
 Studio.AssetImporter.Statuses.CouldNotReadRoughnessError,Could not read the roughness texture file associated with this object.,Could not read the roughness texture file associated with this object.
@@ -78,6 +82,7 @@ Studio.AssetImporter.PropertiesTooltip.WorldUp,The file's up vector,The file's u
 Studio.AssetImporter.Plugin.Close,Close,Close
 Studio.AssetImporter.Error.DefaultNoStatus,Import failed,Import failed
 Studio.AssetImporter.Upload.Failure,Import failed,Import failed
+Studio.AssetImporter.Statuses.FacsNoRootFaceJoint1,No joint named "{JointName}" found as specified by extra attribute "RootFaceJoint".,No joint named "{JointName}" found as specified by extra attribute "RootFaceJoint".
 Studio.AssetImporter.Upload.Uploading,Uploading,Uploading
 Studio.AssetImporter.Error.WindowTitle,Error,Error
 Studio.AssetImporter.Error.Header,Failed to open the selected file.,Failed to open the selected file.
@@ -150,11 +155,10 @@ Studio.AssetImporter.PropertiesTooltip.UseImportedPivot,Whether or not to use th
 Studio.AssetImporter.Statuses.CageMismatchWarning,The number of cage vertices between the outer and inner cage don't match.,The number of cage vertices between the outer and inner cage don't match.
 Studio.AssetImporter.PropertiesTooltip.CageMeshIntersectedPreview,"The cage intersects with the clothing mesh, which could lead to interpenetration issues.","The cage intersects with the clothing mesh, which could lead to interpenetration issues."
 Studio.AssetImporter.Statuses.CageMeshIntersectedWarning,"The cage intersects with the clothing mesh, which could lead to interpenetration issues.","The cage intersects with the clothing mesh, which could lead to interpenetration issues."
-Studio.AssetImporter.Properties.CageMeshIntersectedPreview,Cage intersects with clothing,Cage intersects with clothing
 Studio.AssetImporter.PropertiesTooltip.IrrelevantCageModifiedPreview,Some outer cage geometry that is far away from the clothing mesh has been modified. This will lead to issues when other clothing is layered on top.,Some outer cage geometry that is far away from the clothing mesh has been modified. This will lead to issues when other clothing is layered on top.
 Studio.AssetImporter.Statuses.IrrelevantCageModifiedWarning,Some outer cage geometry that is far away from the clothing mesh has been modified. This will lead to issues when other clothing is layered on top.,Some outer cage geometry that is far away from the clothing mesh has been modified. This will lead to issues when other clothing is layered on top.
 Studio.AssetImporter.Properties.MeshHoleDetectedPreview,Not watertight,Not watertight
-Studio.AssetImporter.Properties.IrrelevantCageModifiedPreview,Irrelevant cage part modified,Irrelevant cage part modified
+Studio.AssetImporter.Properties.IrrelevantCageModifiedPreview,Unnecessary cage edits,Unnecessary cage edits
 Studio.AssetImporter.Statuses.UGCMeshVertColorsWarning,"Mesh has non-white vertex color values, which violates UGC upload requirements","Mesh has non-white vertex color values, which violates UGC upload requirements"
 Studio.AssetImporter.Statuses.UGCMaxMeshTrianglesWarning,Mesh exceeds the max triangle limit (4000) for UGC upload requirements.,Mesh exceeds the max triangle limit (4000) for UGC upload requirements.
 Studio.AssetImporter.Statuses.UGCExceedTextureSizeWarning,Textures exceeds the max texture size limit for UGC upload requirements.,Textures exceeds the max texture size limit for UGC upload requirements.
@@ -170,6 +174,7 @@ Studio.AssetImporter.Statuses.NoRefMeshForCageWarning,Could not find correspondi
 Studio.AssetImporter.Statuses.NoRefMeshForCageWarningWithSuggestion,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {name}.,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {name}.
 Studio.AssetImporter.Statuses.InnerButNoOuterCageWarning,Inner Cage has no corresponding Outer Cage.,Inner Cage has no corresponding Outer Cage.
 Studio.AssetImporter.Statuses.CageNameHasTypoWarning_v1,"Cage name contains a typo, try renaming to {SuggestedName}.","Cage name contains a typo, try renaming to {SuggestedName}."
+Studio.AssetImporter.Statuses.FacsMultipleRootFaceJoints1,Multiple joints named "{JointName}" were found as specified by extra attribute "RootFaceJoint".  Joint names must be unique.,Multiple joints named "{JointName}" were found as specified by extra attribute "RootFaceJoint".  Joint names must be unique.
 Studio.AssetImporter.Statuses.NoRefMeshForCageWarningWithSuggestion_v1,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {SuggestedName}.,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {SuggestedName}.
 Studio.AssetImporter.Statuses.FacsFrameExtraCharsWarning1,Ignoring {FrameAttr} because it contains underscores or spaces.  Must be of the form "Frame#" where "#" is an integer with no spaces or underscores.,Ignoring {FrameAttr} because it contains underscores or spaces.  Must be of the form "Frame#" where "#" is an integer with no spaces or underscores.
 Studio.AssetImporter.Statuses.FacsUnrecognizedFACSError2,Unrecognized FACS control name "{FacsControlName}" for attribute "{FrameAttr}",Unrecognized FACS control name "{FacsControlName}" for attribute "{FrameAttr}"
@@ -181,3 +186,11 @@ Studio.AssetImporter.Statuses.FacsUnparseableFrameNumberError1,Couldn't parse th
 Studio.AssetImporter.Statuses.FacsEmptyAttributeWarning1,Empty value found for attribute "{FrameAttr}".  Ignoring this.,Empty value found for attribute "{FrameAttr}".  Ignoring this.
 Studio.AssetImporter.Statuses.FacsDupeControlError3,Duplicate control name found: "{FacsControlName}" in frame {FrameNumber1} and frame {FrameNumber2},Duplicate control name found: "{FacsControlName}" in frame {FrameNumber1} and frame {FrameNumber2}
 Studio.AssetImporter.Statuses.FacsHasFramesNoRootFaceJointError1,Found "Frame#" attributes in mesh "{ParentNodeName}" but no "RootFaceJoint" attribute.  No FACS mapping will be created for this mesh.,Found "Frame#" attributes in mesh "{ParentNodeName}" but no "RootFaceJoint" attribute.  No FACS mapping will be created for this mesh.
+Studio.AssetImporter.Statuses.FacsNoAttributesError1,"{ParentNodeName}" has no "Frame#" attributes that map FACS controls to animation frames.,"{ParentNodeName}" has no "Frame#" attributes that map FACS controls to animation frames.
+Studio.AssetImporter.Statuses.FacsMissingSupportCorrectiveWarning2,Found corrective "{FacsControlName}" but missing corrective "{FacsControlName2}" to support it.  This may cause odd deformations.,Found corrective "{FacsControlName}" but missing corrective "{FacsControlName2}" to support it.  This may cause odd deformations.
+Studio.AssetImporter.Statuses.FacsMissingBaseError2,"{FacsControlName}" has not been specified. This is needed for corrective "{FacsControlName2}".,"{FacsControlName}" has not been specified. This is needed for corrective "{FacsControlName2}".
+Studio.AssetImporter.Statuses.FacsMissingKeyFrameError2,Animation has no frame {FrameNumber1} for "{FacsControlName}".,Animation has no frame {FrameNumber1} for "{FacsControlName}".
+Studio.AssetImporter.Statuses.FacsNoAnimationStackError,No animation timeline found in FBX file.,No animation timeline found in FBX file.
+Studio.AssetImporter.Statuses.FacsNoJointsErrors1,No joints were found under "{JointName}".,No joints were found under "{JointName}".
+Studio.AssetImporter.Statuses.FacsNearNeutralWarning1,Control {FacsControlName} is nearly identical to Neutral.,Control {FacsControlName} is nearly identical to Neutral.
+Studio.AssetImporter.Statuses.FacsIncompletePosesWarning1,Found only {Size} base poses. You character may not be able to express itself.,Found only {Size} base poses. You character may not be able to express itself.

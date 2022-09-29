@@ -7,7 +7,7 @@ uniform samplerCube PrefilteredEnvTexture;
 uniform sampler2D DiffuseMapTexture;
 
 in vec2 VARYING0;
-in vec2 VARYING1;
+in float VARYING1;
 in vec4 VARYING2;
 in vec4 VARYING4;
 in vec4 VARYING5;
@@ -20,7 +20,7 @@ void main()
     float f2 = f1.x;
     float f3 = (f2 > 0.0) ? ((1.0 - clamp(abs(f2 - CB0[19].w) * 13.0, 0.0, 1.0)) * f1.w) : 0.0;
     float f4 = max(max(1.0 - clamp(abs(dot(normalize(VARYING5.xyz), VARYING4.xyz / vec3(f0))) * 2.0, 0.0, 1.0), 0.0), f3);
-    float f5 = VARYING2.w * max(mix(f3, 1.0, f4) * f4, VARYING1.x);
+    float f5 = VARYING2.w * max(mix(f3, 1.0, f4) * f4, VARYING1);
     vec4 f6 = vec4(VARYING2.xyz * VARYING2.xyz, f5);
     float f7 = clamp(exp2((CB0[18].z * f0) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
     vec3 f8 = textureLod(PrefilteredEnvTexture, vec4(-VARYING4.xyz, 0.0).xyz, max(CB0[18].y, f7) * 5.0).xyz;
