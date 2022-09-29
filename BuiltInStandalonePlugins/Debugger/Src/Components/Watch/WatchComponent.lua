@@ -27,8 +27,6 @@ local SetTab = require(src.Actions.Watch.SetTab)
 local ExecuteExpressionForAllFrames = require(src.Thunks.Watch.ExecuteExpressionForAllFrames)
 local AnalyticsEventNames = require(src.Resources.AnalyticsEventNames)
 
-local FFlagUsePopulateCallstackThreadThunk = require(src.Flags.GetFFlagUsePopulateCallstackThreadThunk)
-
 local WatchComponent = Roact.PureComponent:extend("WatchComponent")
 
 -- Type Declarations
@@ -217,17 +215,9 @@ WatchComponent = RoactRodux.connect(function(state, props)
 	local common = state.Common
 	
 	local token = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
-	local threadId
-	local frameNumber
-	
-	if FFlagUsePopulateCallstackThreadThunk() then
-		threadId = (common.debuggerConnectionIdToCurrentThreadId and common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]) or nil
-		frameNumber = (threadId and common.currentFrameMap and common.currentDebuggerConnectionId and 
-			common.currentFrameMap[common.currentDebuggerConnectionId] and common.currentFrameMap[common.currentDebuggerConnectionId][threadId]) or nil
-	else
-		threadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
-		frameNumber = threadId and common.currentFrameMap[common.currentDebuggerConnectionId][threadId] or nil
-	end
+	local threadId = (common.debuggerConnectionIdToCurrentThreadId and common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]) or nil
+	local frameNumber = (threadId and common.currentFrameMap and common.currentDebuggerConnectionId and 
+		common.currentFrameMap[common.currentDebuggerConnectionId] and common.currentFrameMap[common.currentDebuggerConnectionId][threadId]) or nil
 
 	local currentStepStateBundle = nil
 	if token ~= nil and threadId ~= nil and frameNumber ~= nil then

@@ -49,6 +49,7 @@ local DeleteAllBreakpointsDialog = require(script.Parent.DeleteAllBreakpointsDia
 
 local SharedFlags = Framework.SharedFlags
 local FFlagDevFrameworkMigrateContextMenu = SharedFlags.getFFlagDevFrameworkMigrateContextMenu()
+local FFlagStudioDebuggerCheckMetaBpOnFocusLost = game:DefineFastFlag("StudioDebuggerCheckMetaBpOnFocusLost", false)
 
 local MakePluginActions = if FFlagDevFrameworkMigrateContextMenu 
 	then require(UtilFolder.MakePluginActions) 
@@ -308,6 +309,10 @@ function BreakpointsTable:init()
 		local bpModified = row.item
 		local bpId = bpModified.id
 		local metaBP = metaBreakpointManager:GetBreakpointById(bpId)
+
+		if FFlagStudioDebuggerCheckMetaBpOnFocusLost and not metaBP then
+			return
+		end
 
 		if self.props.CurrentKeys[col] == "condition" then
 			local newCondition = inputObj.Text

@@ -3,9 +3,6 @@
 ]]
 
 local PackageIndex = script.Parent._Index
-local Package = require(PackageIndex["DeveloperTools"]["DeveloperTools"])
-
-export type GuiOptions = Package.GuiOptions
-
+local Package = require(PackageIndex["RoactCompat"]["RoactCompat"])
 return Package
 

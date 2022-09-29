@@ -3,6 +3,9 @@
 ]]
 
 local PackageIndex = script.Parent._Index
-local Package = require(PackageIndex["RoactRodux"]["RoactRodux"])
+local Package = require(PackageIndex["TestLoader"]["TestLoader"])
+
+export type DebugFlags = Package.DebugFlags
+
 return Package
 

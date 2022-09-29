@@ -3,6 +3,8 @@ local DebuggerVariable = require(Src.Mocks.DebuggerVariable)
 local Constants = require(Src.Util.Constants)
 local WatchWindowTableRow = require(script.Parent.WatchWindowTableRow)
 
+local FFlagStudioDebuggerExpandVariables = require(Src.Flags.GetFFlagStudioDebuggerExpandVariables)
+
 type Expression = { expressionColumn: string }
 
 export type WatchRow = Expression & WatchWindowTableRow.WatchWindowTableRow
@@ -10,7 +12,7 @@ export type WatchRow = Expression & WatchWindowTableRow.WatchWindowTableRow
 local function fromExpression(expression): WatchRow
 	return {
 		expressionColumn = expression,
-		pathColumn = "",
+		pathColumn = if FFlagStudioDebuggerExpandVariables() then expression else "",
 		scopeColumn = "",
 		valueColumn = "",
 		dataTypeColumn = "",
@@ -41,7 +43,8 @@ local function fromInstance(instance: DebuggerVariable.DebuggerVariable, express
 
 	return {
 		expressionColumn = expression,
-		pathColumn = pathName,
+		pathColumn = if FFlagStudioDebuggerExpandVariables() then expression else pathName,
+		idColumn = if FFlagStudioDebuggerExpandVariables() then instance.VariableId else nil,
 		scopeColumn = "",
 		valueColumn = instance.Value,
 		dataTypeColumn = instance.Type,
@@ -59,7 +62,8 @@ local function fromChildInstance(instance: DebuggerVariable.DebuggerVariable, pa
 
 	return {
 		expressionColumn = instance.Name,
-		pathColumn = parentPathCopy .. pathName,
+		pathColumn = if FFlagStudioDebuggerExpandVariables() then (parentPathCopy .. instance.Name) else (parentPathCopy .. pathName),
+		idColumn = if FFlagStudioDebuggerExpandVariables() then instance.VariableId else nil,
 		scopeColumn = "",
 		valueColumn = instance.Value,
 		dataTypeColumn = instance.Type,

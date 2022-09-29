@@ -5,6 +5,8 @@ local DebuggerVariable = require(Src.Mocks.DebuggerVariable)
 local Constants = require(Src.Util.Constants)
 local WatchHelperFunctions = require(Src.Util.WatchHelperFunctions)
 
+local FFlagStudioDebuggerExpandVariables = require(Src.Flags.GetFFlagStudioDebuggerExpandVariables)
+
 type VarName = { nameColumn: string }
 
 export type VariableRow = VarName & WatchWindowTableRow.WatchWindowTableRow
@@ -13,6 +15,7 @@ local function fromData(data): VariableRow
 	return {
 		nameColumn = data.name,
 		pathColumn = data.path,
+		idColumn = if FFlagStudioDebuggerExpandVariables() then data.id else nil,
 		scopeColumn = data.scope,
 		valueColumn = data.value,
 		dataTypeColumn = data.dataType,
@@ -36,7 +39,8 @@ local function fromInstance(
 
 	local toReturn = {
 		nameColumn = instance.Name,
-		pathColumn = parentPath .. pathName,
+		pathColumn = if FFlagStudioDebuggerExpandVariables() then parentPath .. instance.Name else parentPath .. pathName,
+		idColumn = if FFlagStudioDebuggerExpandVariables() then instance.VariableId else nil,
 		scopeColumn = (parent and parent.scopeColumn) or scope,
 		valueColumn = instance.Value,
 		dataTypeColumn = instance.Type,
