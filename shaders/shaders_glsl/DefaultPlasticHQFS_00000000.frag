@@ -13,19 +13,20 @@ uniform sampler2D NormalMapTexture;
 uniform sampler2D NormalDetailMapTexture;
 
 varying vec2 VARYING0;
-varying vec3 VARYING1;
+varying vec2 VARYING1;
 varying vec4 VARYING2;
 varying vec4 VARYING3;
 varying vec4 VARYING4;
 varying vec4 VARYING5;
 varying vec4 VARYING6;
 varying vec4 VARYING7;
+varying float VARYING8;
 
 void main()
 {
     float f0 = length(VARYING4.xyz);
-    vec2 f1 = VARYING1.xy;
-    f1.y = (fract(VARYING1.y) + VARYING1.z) * 0.25;
+    vec2 f1 = VARYING1;
+    f1.y = (fract(VARYING1.y) + VARYING8) * 0.25;
     float f2 = clamp(1.0 - (VARYING4.w * CB0[28].y), 0.0, 1.0);
     vec2 f3 = texture2D(NormalMapTexture, f1).wy * 2.0;
     vec2 f4 = f3 - vec2(1.0);

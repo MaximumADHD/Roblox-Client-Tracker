@@ -6,7 +6,7 @@ uniform vec4 CB0[58];
 uniform sampler2D DiffuseMapTexture;
 
 varying vec2 VARYING0;
-varying float VARYING1;
+varying vec2 VARYING1;
 varying vec4 VARYING2;
 varying vec4 VARYING4;
 varying vec4 VARYING5;
@@ -18,7 +18,7 @@ void main()
     float f2 = f1.x;
     float f3 = (f2 > 0.0) ? ((1.0 - clamp(abs(f2 - CB0[19].w) * 13.0, 0.0, 1.0)) * f1.w) : 0.0;
     float f4 = max(max(1.0 - clamp(abs(dot(normalize(VARYING5.xyz), VARYING4.xyz / vec3(f0))) * 2.0, 0.0, 1.0), 0.0), f3);
-    float f5 = VARYING2.w * max(mix(f3, 1.0, f4) * f4, VARYING1);
+    float f5 = VARYING2.w * max(mix(f3, 1.0, f4) * f4, VARYING1.x);
     vec4 f6 = vec4(VARYING2.xyz * VARYING2.xyz, f5);
     float f7 = clamp(exp2((CB0[18].z * f0) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
     vec3 f8 = mix(CB0[19].xyz, f6.xyz, vec3(f7));

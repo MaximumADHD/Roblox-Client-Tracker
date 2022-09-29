@@ -4607,12 +4607,6 @@
             <string name="Name">CollisionType</string>
           </Properties>
         </Item>
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">EvaluateStateMachine</string>
-            <string name="FFlag">EnableEvaluateStateMachine</string>
-          </Properties>
-        </Item>
       </Item>
     </Item>
     <Item class="ReflectionMetadataClass">

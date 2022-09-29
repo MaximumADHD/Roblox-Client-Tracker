@@ -76,16 +76,10 @@ Studio.App.Property.BoundingBoxMoveHandles,,Use Bounding Box Move Handles,Use Bo
 Studio.App.PropertyTooltip.BoundingBoxMoveHandles,,Position Move handles at the edges of the bounding box instead of at the pivot.,Position Move handles at the edges of the bounding box instead of at the pivot.
 Studio.App.Property.PivotSnapToGeometryColor,,Pivot Snap To Geometry Color,Pivot Snap To Geometry Color
 Studio.App.PropertyTooltip.PivotSnapToGeometryColor,,"When snapping the pivot to geometry in the Pivot Editor, what color should the interesting points be highlighted with?","When snapping the pivot to geometry in the Pivot Editor, what color should the interesting points be highlighted with?"
-Studio.App.Property.DEPRECATEDHoverBoxThickness,,Hover Box Thickness,Hover Box Thickness
-Studio.App.Property.HoverBoxThickness,,(Unused) Hover Box Thickness,(Unused) Hover Box Thickness
+Studio.App.Property.HoverBoxThickness,,Hover Box Thickness,Hover Box Thickness
 Studio.App.PropertyTooltip.HoverThickness,,How thick is the box shown around the item your mouse is hovering over?,How thick is the box shown around the item your mouse is hovering over?
-Studio.App.Property.DEPRECATEDSelectionThickness,,Selection Box Thickness,Selection Box Thickness
-Studio.App.Property.SelectionThickness,,(Unused) Selection Box Thickness,(Unused) Selection Box Thickness
+Studio.App.Property.SelectionThickness,,Selection Box Thickness,Selection Box Thickness
 Studio.App.PropertyTooltip.SelectionThickness,,How thick is the box shown around the selected Instances?,How thick is the box shown around the selected Instances?
-Studio.App.Property.SelectionLineThickness,,Selection Line Thickness,Selection Line Thickness
-Studio.App.PropertyTooltip.SelectionLineThickness,,How thick is the outline shown around the selected Instances?,How thick is the outline shown around the selected Instances?
-Studio.App.Property.HoverLineThickness,,Hover Line Thickness,Hover Line Thickness
-Studio.App.PropertyTooltip.HoverLineThickness,,How thick is the outline shown around the item your mouse is hovering over?,How thick is the outline shown around the item your mouse is hovering over?
 Studio.App.Property.Font,,Font,Font
 Studio.App.Property.TabWidth,,Tab Width,Tab Width
 Studio.App.Property.IndentUsingSpaces,,Indent Using Spaces,Indent Using Spaces

@@ -41,7 +41,7 @@ Studio.AssetImporter.Plugin.Toolbar,Mesh Importer
 Studio.AssetImporter.Plugin.WindowTitle,Import Preview
 Studio.AssetImporter.PreviewTooltip.ResetCam,Reset camera
 Studio.AssetImporter.Properties.Anchored,Anchored
-Studio.AssetImporter.Properties.CageMeshIntersectedPreview,Cage intersects clothing
+Studio.AssetImporter.Properties.CageMeshIntersectedPreview,Cage intersects with clothing
 Studio.AssetImporter.Properties.CageNonManifoldPreview,Non-Manifold Geometry
 Studio.AssetImporter.Properties.CageOverlappingVerticesPreview,Coincident Vertices
 Studio.AssetImporter.Properties.CageUVMisMatchedPreview,Modified UV map
@@ -56,7 +56,7 @@ Studio.AssetImporter.Properties.ImportName,Name
 Studio.AssetImporter.Properties.InsertInWorkspace,Insert In Workspace
 Studio.AssetImporter.Properties.InsertWithScenePosition,Insert Using Scene Position
 Studio.AssetImporter.Properties.InvertNegativeFaces,Invert Negative Faces
-Studio.AssetImporter.Properties.IrrelevantCageModifiedPreview,Unnecessary cage edits
+Studio.AssetImporter.Properties.IrrelevantCageModifiedPreview,Irrelevant cage part modified
 Studio.AssetImporter.Properties.MergeMeshes,Merge Meshes
 Studio.AssetImporter.Properties.MeshHoleDetectedPreview,Not watertight
 Studio.AssetImporter.Properties.MetalnessFilePath,Metalness File Path

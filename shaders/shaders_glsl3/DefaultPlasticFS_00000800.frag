@@ -9,18 +9,19 @@ uniform sampler3D LightGridSkylightTexture;
 uniform samplerCube PrefilteredEnvTexture;
 uniform sampler2D StudsMapTexture;
 
-in vec3 VARYING1;
+in vec2 VARYING1;
 in vec4 VARYING2;
 in vec4 VARYING3;
 in vec4 VARYING4;
 in vec4 VARYING5;
 in vec4 VARYING6;
+in float VARYING7;
 out vec4 _entryPointOutput;
 
 void main()
 {
-    vec2 f0 = VARYING1.xy;
-    f0.y = (fract(VARYING1.y) + VARYING1.z) * 0.25;
+    vec2 f0 = VARYING1;
+    f0.y = (fract(VARYING1.y) + VARYING7) * 0.25;
     vec4 f1 = vec4((VARYING2.xyz * texture(StudsMapTexture, f0).x) * 2.0, VARYING2.w);
     vec3 f2 = f1.xyz;
     vec3 f3 = f2 * f2;
@@ -39,7 +40,7 @@ void main()
     vec4 f13 = texture(ShadowMapTexture, f7.xy);
     float f14 = f7.z;
     float f15 = (1.0 - ((step(f13.x, f14) * clamp(CB0[29].z + (CB0[29].w * abs(f14 - 0.5)), 0.0, 1.0)) * f13.y)) * f12.y;
-    vec3 f16 = (((VARYING5.xyz * f15) + min((f11.xyz * (f11.w * 120.0)) + (CB0[32].xyz + (CB0[33].xyz * f12.x)), vec3(CB0[21].w))) * f6.xyz) + ((CB0[15].xyz * mix(vec3(0.100000001490116119384765625), f6.xyz, vec3(VARYING6.w * CB0[31].w))) * (VARYING5.w * f15));
+    vec3 f16 = (((VARYING5.xyz * f15) + min((f11.xyz * (f11.w * 120.0)) + (CB0[32].xyz + ((CB0[33].xyz * 1.0) * f12.x)), vec3(CB0[21].w))) * f6.xyz) + ((CB0[15].xyz * mix(vec3(0.100000001490116119384765625), f6.xyz, vec3(VARYING6.w * CB0[31].w))) * (VARYING5.w * f15));
     vec4 f17 = vec4(0.0);
     f17.x = f16.x;
     vec4 f18 = f17;

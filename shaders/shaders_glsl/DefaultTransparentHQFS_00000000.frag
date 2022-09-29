@@ -9,17 +9,17 @@ uniform sampler3D LightGridSkylightTexture;
 uniform sampler2D DiffuseMapTexture;
 
 varying vec2 VARYING0;
-varying vec4 VARYING1;
 varying vec4 VARYING2;
 varying vec4 VARYING3;
 varying vec4 VARYING4;
 varying vec4 VARYING5;
+varying vec4 VARYING6;
 
 void main()
 {
-    float f0 = length(VARYING3.xyz);
-    vec4 f1 = texture2D(DiffuseMapTexture, VARYING0) * VARYING1;
-    vec3 f2 = normalize(VARYING4.xyz) * (gl_FrontFacing ? 1.0 : (-1.0));
+    float f0 = length(VARYING4.xyz);
+    vec4 f1 = texture2D(DiffuseMapTexture, VARYING0) * VARYING2;
+    vec3 f2 = normalize(VARYING5.xyz) * (gl_FrontFacing ? 1.0 : (-1.0));
     vec3 f3 = f1.xyz;
     vec3 f4 = f3 * f3;
     vec4 f5 = f1;
@@ -28,12 +28,12 @@ void main()
     f6.y = f4.y;
     vec4 f7 = f6;
     f7.z = f4.z;
-    float f8 = CB0[31].w * clamp(1.0 - (VARYING3.w * CB0[28].y), 0.0, 1.0);
-    float f9 = 0.08900000154972076416015625 + (VARYING4.w * 0.9110000133514404296875);
-    float f10 = VARYING5.w * f8;
-    vec3 f11 = VARYING5.xyz - (CB0[16].xyz * VARYING2.w);
-    float f12 = clamp(dot(step(CB0[24].xyz, abs(VARYING2.xyz - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
-    vec3 f13 = VARYING2.yzx - (VARYING2.yzx * f12);
+    float f8 = CB0[31].w * clamp(1.0 - (VARYING4.w * CB0[28].y), 0.0, 1.0);
+    float f9 = 0.08900000154972076416015625 + (VARYING5.w * 0.9110000133514404296875);
+    float f10 = VARYING6.w * f8;
+    vec3 f11 = VARYING6.xyz - (CB0[16].xyz * VARYING3.w);
+    float f12 = clamp(dot(step(CB0[24].xyz, abs(VARYING3.xyz - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
+    vec3 f13 = VARYING3.yzx - (VARYING3.yzx * f12);
     vec4 f14 = vec4(clamp(f12, 0.0, 1.0));
     vec4 f15 = mix(texture3D(LightMapTexture, f13), vec4(0.0), f14);
     vec4 f16 = mix(texture3D(LightGridSkylightTexture, f13), vec4(1.0), f14);
@@ -41,7 +41,7 @@ void main()
     float f18 = f11.z;
     vec3 f19 = -CB0[16].xyz;
     float f20 = dot(f2, f19) * ((1.0 - ((step(f17.x, f18) * clamp(CB0[29].z + (CB0[29].w * abs(f18 - 0.5)), 0.0, 1.0)) * f17.y)) * f16.y);
-    vec3 f21 = normalize((VARYING3.xyz / vec3(f0)) - CB0[16].xyz);
+    vec3 f21 = normalize((VARYING4.xyz / vec3(f0)) - CB0[16].xyz);
     float f22 = clamp(f20, 0.0, 1.0);
     float f23 = f9 * f9;
     float f24 = max(0.001000000047497451305389404296875, dot(f2, f21));

@@ -6,14 +6,17 @@ uniform vec4 CB0[58];
 attribute vec4 POSITION;
 attribute vec4 NORMAL;
 attribute vec2 TEXCOORD0;
+attribute vec2 TEXCOORD1;
 attribute vec4 COLOR0;
 attribute vec4 COLOR1;
 varying vec2 VARYING0;
-varying vec4 VARYING1;
+varying vec2 VARYING1;
 varying vec4 VARYING2;
 varying vec4 VARYING3;
 varying vec4 VARYING4;
 varying vec4 VARYING5;
+varying vec4 VARYING6;
+varying float VARYING7;
 
 void main()
 {
@@ -35,10 +38,12 @@ void main()
     v9.w = inversesqrt(0.1745329201221466064453125 * COLOR1.y);
     gl_Position = v2;
     VARYING0 = TEXCOORD0;
-    VARYING1 = COLOR0;
-    VARYING2 = v7;
-    VARYING3 = vec4(CB0[11].xyz - POSITION.xyz, v2.w);
-    VARYING4 = v9;
-    VARYING5 = v8;
+    VARYING1 = TEXCOORD1;
+    VARYING2 = COLOR0;
+    VARYING3 = v7;
+    VARYING4 = vec4(CB0[11].xyz - POSITION.xyz, v2.w);
+    VARYING5 = v9;
+    VARYING6 = v8;
+    VARYING7 = NORMAL.w;
 }
 

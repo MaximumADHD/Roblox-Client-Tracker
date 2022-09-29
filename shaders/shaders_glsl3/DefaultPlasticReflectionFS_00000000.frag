@@ -9,20 +9,21 @@ uniform sampler3D LightGridSkylightTexture;
 uniform samplerCube PrefilteredEnvTexture;
 uniform sampler2D StudsMapTexture;
 
-in vec3 VARYING1;
+in vec2 VARYING1;
 in vec4 VARYING2;
 in vec4 VARYING3;
 in vec4 VARYING4;
 in vec4 VARYING5;
 in vec4 VARYING6;
 in vec4 VARYING7;
+in float VARYING8;
 out vec4 _entryPointOutput;
 
 void main()
 {
     float f0 = length(VARYING4.xyz);
-    vec2 f1 = VARYING1.xy;
-    f1.y = (fract(VARYING1.y) + VARYING1.z) * 0.25;
+    vec2 f1 = VARYING1;
+    f1.y = (fract(VARYING1.y) + VARYING8) * 0.25;
     vec4 f2 = vec4((VARYING2.xyz * texture(StudsMapTexture, f1).x) * 2.0, VARYING2.w);
     vec3 f3 = f2.xyz;
     vec3 f4 = f3 * f3;
