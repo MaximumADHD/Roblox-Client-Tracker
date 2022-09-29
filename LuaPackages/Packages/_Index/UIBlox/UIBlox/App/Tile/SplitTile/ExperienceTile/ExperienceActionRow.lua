@@ -28,25 +28,15 @@ export type Props = {
 	verticalPadding: number?,
 	-- Callback run when the row's button is clicked
 	onPlayPressed: (() -> ())?,
-	-- text displayed on the button
-	text: string?,
-	-- icon displayed on the button, default based on isActionable
-	icon: Images.ImageSetImage?,
 }
 
 local function ExperienceActionRow(props: Props)
 	local isActionable = props.isActionable
 	local horizontalPadding = props.horizontalPadding or 0
 	local verticalPadding = props.verticalPadding or 0
-	local text = props.text
-	local icon = props.icon
-	if not icon then
-		icon = if isActionable then Images[PLAY_ICON] else Images[UNAVAILABLE_ICON]
-	end
 
 	return React.createElement(PrimaryContextualButton, {
-		text = text,
-		icon = icon,
+		icon = if isActionable then Images[PLAY_ICON] else Images[UNAVAILABLE_ICON],
 		size = UDim2.new(1, -2 * horizontalPadding, 0, props.height - 2 * verticalPadding),
 		position = UDim2.new(0, horizontalPadding, 1, -verticalPadding - BUTTON_HEIGHT),
 		userInteractionEnabled = isActionable,

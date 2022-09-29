@@ -33,5 +33,4 @@ return {
 	CollisionMatchers = require(LuaSocialLibrariesDeps.CollisionMatchers),
 	SocialLibraries = require(LuaSocialLibrariesDeps.SocialLibraries),
 	NetworkingUsers = require(LuaSocialLibrariesDeps.NetworkingUsers),
-	NetworkingBlocking = require(LuaSocialLibrariesDeps.NetworkingBlocking),
 }

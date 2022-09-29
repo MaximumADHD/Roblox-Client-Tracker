@@ -12,12 +12,12 @@ local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local success, scale = pcall(GuiService.GetResolutionScale, GuiService)
 if not success or not CorePackages then
 	scale = 1
-end
 
-if UIBloxConfig.enableImageSetResolutionScaleFix then
-	--TODO: When Studio wants to use imageset components,
-	-- We will need a different way to get the correct image scale value for the images
-	scale = Images.ImagesResolutionScale
+	if UIBloxConfig.enableImageSetResolutionScaleFix then
+		--TODO: When Studio wants to use imageset components,
+		-- We will need a different way to get the correct image scale value for the images
+		scale = Images.ImagesResolutionScale
+	end
 end
 
 return {

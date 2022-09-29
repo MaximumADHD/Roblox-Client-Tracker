@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["roblox_networking-users"]["networking-users"])
+local Package = require(PackageIndex["roblox_networking-users-3a51561d-6616f72f"]["networking-users"])
 
 return Package

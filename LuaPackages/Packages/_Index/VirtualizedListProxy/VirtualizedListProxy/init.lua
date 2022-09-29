@@ -2,7 +2,7 @@ local Packages = script.Parent
 local VirtualizedListUpgradeFlag = require(Packages.VirtualizedListUpgradeFlag)
 
 if VirtualizedListUpgradeFlag() then
-  return require(Packages.VirtualizedList_v111)
+  return require(Packages.VirtualizedList_v110)
 else
-  return require(Packages.VirtualizedList_v102)
+  return require(Packages.VirtualizedList_v101)
 end

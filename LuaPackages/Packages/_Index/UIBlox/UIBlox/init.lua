@@ -78,7 +78,6 @@ local function initializeLibrary(configs)
 				GetCanExpand = require(script.Core.Text.ExpandableText.ExpandableTextUtils).getCanExpand,
 			}),
 			GetWrappedTextWithIcon = require(script.Core.Text.GetWrappedTextWithIcon),
-			EmojiTextLabel = require(script.Core.Text.EmojiTextLabel.EmojiTextLabel),
 		}),
 
 		InfiniteScroller = strict(require(Packages.InfiniteScroller)),
@@ -157,7 +156,6 @@ local function initializeLibrary(configs)
 				LoadingState = require(script.App.Loading.Enum.LoadingState),
 				RenderOnFailedStyle = require(script.App.Loading.Enum.RenderOnFailedStyle),
 				ReloadingStyle = require(script.App.Loading.Enum.ReloadingStyle),
-				LoadingStrategy = require(script.App.Loading.Enum.LoadingStrategy),
 			}),
 			LoadableImage = require(script.App.Loading.LoadableImage),
 			ShimmerPanel = require(script.App.Loading.ShimmerPanel),
@@ -199,13 +197,6 @@ local function initializeLibrary(configs)
 			SystemSlider = require(script.App.Slider.SystemSlider),
 			TwoKnobSystemSlider = require(script.App.Slider.TwoKnobSystemSlider),
 			TwoKnobContextualSlider = require(script.App.Slider.TwoKnobContextualSlider),
-		}),
-
-		Emoji = strict({
-			Emoji = require(script.Core.Emoji.Emoji),
-			Enum = strict({
-				Emoji = require(script.Core.Emoji.Enum.Emoji),
-			}),
 		}),
 
 		Grid = strict({

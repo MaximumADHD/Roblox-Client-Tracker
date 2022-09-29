@@ -3,11 +3,12 @@ local SplitTileRoot = ExperienceTileRoot.Parent
 local TileRoot = SplitTileRoot.Parent
 local App = TileRoot.Parent
 local UIBlox = App.Parent
+local Core = UIBlox.Core
 local Packages = UIBlox.Parent
 
 local React = require(Packages.React)
+local t = require(Packages.t)
 
-local ImagesTypes = require(App.ImageSet.ImagesTypes)
 local setDefault = require(UIBlox.Utility.setDefault)
 local VerticalTile = require(SplitTileRoot.VerticalTile.VerticalTile)
 local ExperienceActionRow = require(SplitTileRoot.ExperienceTile.ExperienceActionRow)
@@ -47,10 +48,6 @@ export type Props = {
 	onActivated: (() -> ())?,
 	-- Function called when hover play button is pressed
 	onPlayPressed: (() -> ())?,
-	-- custom text for the play button, default empty
-	buttonText: string?,
-	-- custom icon for the play button, default based on isPlayable
-	buttonIcon: ImagesTypes.ImageSetImage?,
 }
 
 local function ExperienceTile(props: Props)
@@ -73,8 +70,6 @@ local function ExperienceTile(props: Props)
 				horizontalPadding = if hasBackground then ACTION_BUTTON_PADDING else nil,
 				verticalPadding = ACTION_BUTTON_PADDING,
 				onPlayPressed = props.onPlayPressed,
-				text = props.buttonText,
-				icon = props.buttonIcon,
 			})
 			else nil,
 		actionRowHeight = ACTION_ROW_HEIGHT,

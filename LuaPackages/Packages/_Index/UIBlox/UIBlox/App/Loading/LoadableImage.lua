@@ -9,7 +9,6 @@ local Cryo = require(Packages.Cryo)
 
 local ShimmerPanel = require(Loading.ShimmerPanel)
 local DebugProps = require(Loading.Enum.DebugProps)
-local LoadingStrategy = require(Loading.Enum.LoadingStrategy)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
 local Images = require(UIBlox.App.ImageSet.Images)
@@ -23,7 +22,6 @@ local devOnly = require(UIBlox.Utility.devOnly)
 
 local LOAD_FAILED_RETRY_COUNT = 3
 local RETRY_TIME_MULTIPLIER = 1.5
-local DEFAULT_IMAGE_AWAIT_TIMEOUT_IN_SECONDS = 30
 
 local decal = Instance.new("Decal")
 local inf = math.huge
@@ -72,10 +70,6 @@ local validateProps = devOnly(t.strictInterface({
 	LayoutOrder = t.optional(t.integer),
 	-- The loading image which shows if useShimmerAnimationWhileLoading is false
 	loadingImage = t.optional(t.union(t.string, t.table)),
-	-- The timing when image starts loading (Eager = on component, Default = leave up to game engine to decide)
-	loadingStrategy = t.optional(LoadingStrategy.isEnumValue),
-	-- The maximum time in seconds to wait for the image to load by game engine before it's considered an error.
-	loadingTimeout = t.optional(t.numberPositive),
 	-- A render function to run while loading (overrides useShimmerAnimationWhileLoading and loadingImage)
 	renderOnLoading = t.optional(t.callback),
 	-- A render function to run when loading fails
@@ -112,17 +106,13 @@ LoadableImage.defaultProps = {
 	MinSize = Vector2.new(0, 0),
 	useShimmerAnimationWhileLoading = false,
 	showFailedStateWhenLoadingFailed = false,
-	loadingStrategy = LoadingStrategy.Eager,
-	loadingTimeout = DEFAULT_IMAGE_AWAIT_TIMEOUT_IN_SECONDS,
 }
 
 function LoadableImage:init()
 	self.state = {
 		loadingState = loadedImagesByUri[self.props.Image] and LoadingState.Loaded or LoadingState.InProgress,
 	}
-	self.imageRef = Roact.createRef()
 	self._isMounted = false
-	self._hasStartedLoading = false
 
 	self.isLoadingComplete = function(image)
 		if image == Roact.None or image == nil then
@@ -217,7 +207,6 @@ function LoadableImage:render()
 	local renderOnLoading = self.props.renderOnLoading
 	local renderOnFailed = self.props.renderOnFailed
 	local loadingImage = self.props.loadingImage
-	local loadingStrategy = self.props.loadingStrategy
 	local useShimmerAnimationWhileLoading = self.props.useShimmerAnimationWhileLoading
 	local showFailedStateWhenLoadingFailed = self.props.showFailedStateWhenLoadingFailed
 	local loadingComplete = self.isLoadingComplete(image)
@@ -248,17 +237,11 @@ function LoadableImage:render()
 			return renderOnFailed()
 		elseif loadingFailed and showFailedStateWhenLoadingFailed then
 			return self.defaultRenderOnFail(theme, sizeConstraint)
-		elseif not loadingComplete and renderOnLoading and loadingStrategy ~= LoadingStrategy.Default then
+		elseif not loadingComplete and renderOnLoading then
 			return renderOnLoading()
-		elseif
-			not loadingComplete
-			and useShimmerAnimationWhileLoading
-			and loadingStrategy ~= LoadingStrategy.Default
-		then
+		elseif not loadingComplete and useShimmerAnimationWhileLoading then
 			return self.renderShimmer(theme, sizeConstraint)
 		else
-			-- Default strategy requires the Image property to be populated in order for the engine to fetch it
-			local shouldDisplayImage = loadingComplete or loadingStrategy == LoadingStrategy.Default
 			if enablePlayerTilePaddingFix then
 				return Roact.createElement("Frame", {
 					AnchorPoint = anchorPoint,
@@ -276,14 +259,13 @@ function LoadableImage:render()
 					}) or nil,
 					Image = Roact.createElement(ImageSetComponent.Label, {
 						BackgroundTransparency = 1,
-						Image = shouldDisplayImage and image or loadingImage,
+						Image = loadingComplete and image or loadingImage,
 						ImageTransparency = imageTransparency,
 						ImageRectOffset = imageRectOffset,
 						ImageRectSize = imageRectSize,
-						ImageColor3 = shouldDisplayImage and imageColor3 or nil,
+						ImageColor3 = loadingComplete and imageColor3 or nil,
 						ScaleType = scaleType,
 						Size = UDim2.new(1, 0, 1, 0),
-						[Roact.Ref] = self.imageRef,
 					}),
 					UIPadding = Roact.createElement("UIPadding", {
 						PaddingTop = UDim.new(0, ImagePaddingTop),
@@ -291,16 +273,6 @@ function LoadableImage:render()
 						PaddingLeft = UDim.new(0, ImagePaddingLeft),
 						PaddingRight = UDim.new(0, ImagePaddingRight),
 					}),
-					OnLoading = if not loadingComplete
-							and renderOnLoading
-							and loadingStrategy == LoadingStrategy.Default
-						then renderOnLoading()
-						else nil,
-					Shimmer = if not loadingComplete
-							and useShimmerAnimationWhileLoading
-							and loadingStrategy == LoadingStrategy.Default
-						then self.renderShimmer(theme, sizeConstraint)
-						else nil,
 				})
 			else
 				return Roact.createElement(ImageSetComponent.Label, {
@@ -308,32 +280,21 @@ function LoadableImage:render()
 					BackgroundColor3 = backgroundColor3 or theme.PlaceHolder.Color,
 					BackgroundTransparency = backgroundTransparency or theme.PlaceHolder.Transparency,
 					BorderSizePixel = 0,
-					Image = shouldDisplayImage and image or loadingImage,
+					Image = loadingComplete and image or loadingImage,
 					ImageTransparency = imageTransparency,
 					ImageRectOffset = imageRectOffset,
 					ImageRectSize = imageRectSize,
-					ImageColor3 = shouldDisplayImage and imageColor3 or nil,
+					ImageColor3 = loadingComplete and imageColor3 or nil,
 					LayoutOrder = layoutOrder,
 					Position = position,
 					ScaleType = scaleType,
 					Size = size,
 					ZIndex = zIndex,
-					[Roact.Ref] = self.imageRef,
 				}, {
 					UISizeConstraint = sizeConstraint,
 					UICorner = cornerRadius ~= UDim.new(0, 0) and Roact.createElement("UICorner", {
 						CornerRadius = cornerRadius,
 					}) or nil,
-					OnLoading = if not loadingComplete
-							and renderOnLoading
-							and loadingStrategy == LoadingStrategy.Default
-						then renderOnLoading()
-						else nil,
-					Shimmer = if not loadingComplete
-							and useShimmerAnimationWhileLoading
-							and loadingStrategy == LoadingStrategy.Default
-						then self.renderShimmer(theme, sizeConstraint)
-						else nil,
 				})
 			end
 		end
@@ -356,68 +317,8 @@ function LoadableImage:willUnmount()
 	self._isMounted = false
 end
 
-function LoadableImage:_awaitImageLoaded()
-	if self.imageRef then
-		local image = self.imageRef:getValue()
-		if image then
-			if image.IsNotOccluded then
-				self._hasStartedLoading = true
-			else
-				image.Changed:Connect(function(prop)
-					if prop == "IsNotOccluded" and image.IsNotOccluded and not self._hasStartedLoading then
-						-- Image became visible for the first time
-						self._hasStartedLoading = true
-					end
-				end)
-			end
-
-			while not self._hasStartedLoading do
-				task.wait()
-			end
-
-			local timeoutAt = os.clock() + self.props.loadingTimeout
-			while not image.IsLoaded and os.clock() < timeoutAt do
-				task.wait()
-			end
-			return image.IsLoaded
-		end
-	end
-	return nil
-end
-
-function LoadableImage:_preloadAsyncImage()
-	local image = self.props.Image
-	local retryCount = 0
-	local loadingFailed
-
-	while loadedImagesByUri[image] == nil and retryCount <= LOAD_FAILED_RETRY_COUNT do
-		if retryCount > 0 then
-			wait(RETRY_TIME_MULTIPLIER * math.pow(2, retryCount - 1))
-		end
-
-		loadingFailed = false
-		decal.Texture = image
-
-		self.props.contentProvider:PreloadAsync({ decal }, function(contentId, assetFetchStatus)
-			if contentId == image and assetFetchStatus == Enum.AssetFetchStatus.Failure then
-				loadingFailed = true
-			end
-		end)
-
-		-- Image load succeeded, no retry required
-		if not loadingFailed then
-			break
-		end
-
-		retryCount = retryCount + 1
-	end
-
-	return loadingFailed
-end
-
 function LoadableImage:_loadImage()
 	local image = self.props.Image
-	local loadingStrategy = self.props.loadingStrategy
 
 	if shouldLoadImage(image) then
 		self:setState({
@@ -439,11 +340,29 @@ function LoadableImage:_loadImage()
 	-- Synchronization/Batching work should be done in engine for performance improvements
 	-- related ticket: CLIPLAYEREX-1764
 	coroutine.wrap(function()
+		local retryCount = 0
 		local loadingFailed
-		if loadingStrategy == LoadingStrategy.Eager then
-			loadingFailed = self:_preloadAsyncImage()
-		elseif loadingStrategy == LoadingStrategy.Default then
-			loadingFailed = not self:_awaitImageLoaded()
+
+		while loadedImagesByUri[image] == nil and retryCount <= LOAD_FAILED_RETRY_COUNT do
+			if retryCount > 0 then
+				wait(RETRY_TIME_MULTIPLIER * math.pow(2, retryCount - 1))
+			end
+
+			loadingFailed = false
+			decal.Texture = image
+
+			self.props.contentProvider:PreloadAsync({ decal }, function(contentId, assetFetchStatus)
+				if contentId == image and assetFetchStatus == Enum.AssetFetchStatus.Failure then
+					loadingFailed = true
+				end
+			end)
+
+			-- Image load succeeded, no retry required
+			if not loadingFailed then
+				break
+			end
+
+			retryCount = retryCount + 1
 		end
 
 		if loadingFailed == nil then

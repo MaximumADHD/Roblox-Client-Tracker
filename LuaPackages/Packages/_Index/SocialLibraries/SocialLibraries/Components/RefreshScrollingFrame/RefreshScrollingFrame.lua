@@ -11,16 +11,11 @@ local Otter = dependencies.Otter
 local t = dependencies.t
 local Cryo = dependencies.Cryo
 local withStyle = UIBlox.Style.withStyle
-local getIconSize = UIBlox.App.ImageSet.getIconSize
-
-game:DefineFastFlag("SocialUpdateRefreshScrollingFrame", false)
-
-local fFlagSocialUpdateRefreshScrollingFrame = game:GetFastFlag("SocialUpdateRefreshScrollingFrame")
 
 local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
 local Spinner = require(script.Parent.Spinner)
 
-local SPINNER_ICON_SIZE = if fFlagSocialUpdateRefreshScrollingFrame then getIconSize(UIBlox.App.ImageSet.Enum.IconSize.Medium) else 20
+local SPINNER_ICON_SIZE = 20
 
 local SPINNER_ROTATION = {
 	Start = -240,
@@ -49,7 +44,7 @@ local RefreshScrollingFrameNew = Roact.PureComponent:extend("RefreshScrollingFra
 RefreshScrollingFrameNew.defaultProps = {
 	ScrollingElement = "ScrollingFrame",
 
-	refreshThreshold = if fFlagSocialUpdateRefreshScrollingFrame then 52 else 25,
+	refreshThreshold = 25,
 	scrollingElementProps = {},
 }
 

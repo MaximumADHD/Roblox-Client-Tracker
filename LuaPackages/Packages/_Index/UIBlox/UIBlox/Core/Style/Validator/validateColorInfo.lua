@@ -6,11 +6,6 @@ local Packages = UIBlox.Parent
 
 local t = require(Packages.t)
 
-export type ColorInfo = {
-	Color: Color3,
-	Transparency: number,
-}
-
 return t.strictInterface({
 	Color = t.Color3,
 	Transparency = t.numberConstrained(0, 1),
