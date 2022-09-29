@@ -29,7 +29,7 @@ return function()
 	-- todo: when change transparency slider, clothes' transparency would change too
 	-- add this when real lc clothes gets in
 
-	it("animation playback slider exist when select animation tab in preview", function()
+	itSKIP("animation playback slider exist when select animation tab in preview", function()
 		runRhodiumTest(function()
 			TestHelper.goToEditScreenFromStart(true)
 
@@ -49,7 +49,7 @@ return function()
 		end)
 	end)
 
-	it("select an animation, slider would play automatically", function()
+	itSKIP("select an animation, slider would play automatically", function()
 		runRhodiumTest(function()
 			if not isProductionEnvironment() then -- certain animation will only exist on production
 				return
@@ -90,7 +90,7 @@ return function()
 		end)
 	end)
 
-	it("click pause button, animation would pause", function()
+	itSKIP("click pause button, animation would pause", function()
 		runRhodiumTest(function()
 			if not isProductionEnvironment() then -- certain animation will only exist on production
 				return
@@ -133,7 +133,7 @@ return function()
 		end)
 	end)
 
-	it("deselct animation, it will stop playing", function()
+	itSKIP("deselct animation, it will stop playing", function()
 		runRhodiumTest(function()
 			if not isProductionEnvironment() then -- certain animation will only exist on production
 				return

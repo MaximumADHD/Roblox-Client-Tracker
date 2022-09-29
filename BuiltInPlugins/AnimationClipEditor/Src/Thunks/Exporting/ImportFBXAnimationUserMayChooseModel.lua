@@ -13,7 +13,7 @@ local AnimationData = require(Plugin.Src.Util.AnimationData)
 local Constants = require(Plugin.Src.Util.Constants)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 
-local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
+local GetFFlagAutomaticKeyframeReduction = require(Plugin.LuaFlags.GetFFlagAutomaticKeyframeReduction)
 
 return function(plugin, animationClipDropdown, analytics)
 	return function(store)
@@ -35,7 +35,7 @@ return function(plugin, animationClipDropdown, analytics)
 			local newData = RigUtils.fromRigAnimation(result)
 			newData.Metadata.Name = Constants.DEFAULT_IMPORTED_NAME
 
-			if GetFFlagKeyframeReduction() then
+			if GetFFlagAutomaticKeyframeReduction() then
 				AnimationData.clearTrackSequences(newData)
 			end
 

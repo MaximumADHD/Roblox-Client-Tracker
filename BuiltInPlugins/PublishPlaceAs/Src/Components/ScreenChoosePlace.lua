@@ -20,12 +20,14 @@ local withContext = ContextServices.withContext
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
 local FFlagRemoveUILibraryLoadingIndicator = SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
+local FFlagDevFrameworkMigrateScrollingFrame = SharedFlags.getFFlagDevFrameworkMigrateScrollingFrame()
 
 local Constants = require(Plugin.Src.Resources.Constants)
 
 local UI = Framework.UI
 local Button = if FFlagRemoveUILibraryButton then UI.Button else UILibrary.Component.RoundTextButton
-local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
+local ScrollingFrame = if FFlagDevFrameworkMigrateScrollingFrame then UI.ScrollingFrame else UILibrary.Component.InfiniteScrollingFrame
+
 local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator then UI.LoadingIndicator else UILibrary.Component.LoadingIndicator
 local SearchBar = Framework.StudioUI.SearchBar
 local Separator = UI.Separator
@@ -193,7 +195,7 @@ function ScreenChoosePlace:render()
 	local canvasSize = 200
 	canvasSize = components and math.ceil(#components * TILE_HEIGHT) or 200
 
-	-- Force atleast 7 rows to show up to force scroll to appear. Further search results can be taken care of by InfiniteScrollingFrame
+	-- Force atleast 7 rows to show up to force scroll to appear. Further search results can be taken care of by ScrollingFrame
 	-- nextPageFunc
 	if canvasSize < 7 * TILE_HEIGHT then
 		if nextPageCursor then
@@ -247,13 +249,14 @@ function ScreenChoosePlace:render()
 		}),
 
 		MainContentsSuccess = (props.PlacesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS)
-			and Roact.createElement(InfiniteScrollingFrame, {
+			and Roact.createElement(ScrollingFrame, {
+				AutomaticCanvasSize = if FFlagDevFrameworkMigrateScrollingFrame then Enum.AutomaticSize.Y else nil,
 				Size = UDim2.new(1, 0, 0.5, theme.FOOTER_HEIGHT * 2),
 				Position = UDim2.new(0, 0, 0, 100),
-				BackgroundTransparency = 1,
-				-- TODO: replace manual calculation with self.layoutRef
-				-- LayoutRef = self.layoutRef,
-				CanvasHeight = canvasSize,
+				BackgroundTransparency = if FFlagDevFrameworkMigrateScrollingFrame then nil else 1,
+
+				CanvasHeight = if FFlagDevFrameworkMigrateScrollingFrame then nil else canvasSize,
+
 				NextPageRequestDistance = 100,
 				NextPageFunc = function()
 					if nextPageCursor then

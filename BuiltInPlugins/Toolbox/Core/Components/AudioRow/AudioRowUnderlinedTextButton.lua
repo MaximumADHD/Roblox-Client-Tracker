@@ -29,8 +29,27 @@ type AudioRowUnderlineTextButtonContentProps = _InteralAudioRowUnderlineTextButt
 	UIPadding: any?,
 }
 
+type AudioRowUnderlineTextButtonContentState = {
+	isHovered: boolean,
+}
+
+function AudioRowUnderlineTextButtonContent:init()
+	self.state = {
+		isHovered = false,
+	}
+
+	self.onMouseEnter = function()
+		self:setState({ isHovered = true })
+	end
+
+	self.onMouseLeave = function()
+		self:setState({ isHovered = false })
+	end
+end
+
 function AudioRowUnderlineTextButtonContent:render()
 	local props: AudioRowUnderlineTextButtonContentProps = self.props
+	local state: AudioRowUnderlineTextButtonContentState = self.state
 
 	local theme = props.Stylizer.audioRow
 
@@ -42,6 +61,7 @@ function AudioRowUnderlineTextButtonContent:render()
 	local textYAlignment = props.TextYAlignment
 	local textWrapped = props.TextWrapped
 	local UIPadding = props.UIPadding
+	local isHovered = state.isHovered
 
 	return Roact.createElement(
 		Pane,
@@ -60,10 +80,12 @@ function AudioRowUnderlineTextButtonContent:render()
 			TextYAlignment = textYAlignment,
 			TextTruncate = Enum.TextTruncate.AtEnd,
 			TextWrapped = textWrapped,
-			[Roact.Event.MouseButton1Click] = onClick,
+			[Roact.Event.Activated] = onClick,
+			[Roact.Event.MouseEnter] = self.onMouseEnter,
+			[Roact.Event.MouseLeave] = self.onMouseLeave,
 		}, {
 			UIPadding = UIPadding,
-			Underline = onClick and Roact.createElement("Frame", {
+			Underline = onClick and isHovered and Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(0, 1),
 				Position = UDim2.new(0, 0, 1, 0),
 				Size = UDim2.new(1, 0, 0, 1),

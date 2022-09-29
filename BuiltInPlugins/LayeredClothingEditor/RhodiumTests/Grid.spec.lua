@@ -36,21 +36,21 @@ return function()
 		}
 	end
 
-	it("grid should exist", function()
+	itSKIP("grid should exist", function()
 		runRhodiumTest(function()
 			TestHelper.goToEditScreenFromStart(true)
 			expect(TestHelper.waitForXPathInstance(GridPath)).to.be.ok()
 		end)
 	end)
 
-	it("grid scroller should exist", function()
+	itSKIP("grid scroller should exist", function()
 		runRhodiumTest(function()
 			TestHelper.goToEditScreenFromStart(true)
 			expect(TestHelper.waitForXPathInstance(GridScrollerPath)).to.be.ok()
 		end)
 	end)
 
-	it("no tiles should be initially selected", function()
+	itSKIP("no tiles should be initially selected", function()
 		runRhodiumTest(function()
 			TestHelper.goToEditScreenFromStart(true)
 			-- start at 2 as the LayoutOrder is reused for the child table index, and LayoutOrder 1 is the add from explorer tile
@@ -65,7 +65,7 @@ return function()
 		end)
 	end)
 
-	it("the 2nd tile should be selected after clicking it", function()
+	itSKIP("the 2nd tile should be selected after clicking it", function()
 		runRhodiumTest(function()
 			if not isProductionEnvironment() then -- grid tiles will only exist on production
 				return
@@ -82,7 +82,7 @@ return function()
 		end)
 	end)
 
-	it("the 3rd tile should be selected after clicking, and the 2nd tile deselected when not multi-select", function()
+	itSKIP("the 3rd tile should be selected after clicking, and the 2nd tile deselected when not multi-select", function()
 		runRhodiumTest(function(_, store)
 			if not isProductionEnvironment() then -- grid tiles will only exist on production
 				return
@@ -116,7 +116,7 @@ return function()
 		end)
 	end)
 
-	it("the 3rd tile should be selected after clicking it, and the 2nd tile still selected, when multi-select", function()
+	itSKIP("the 3rd tile should be selected after clicking it, and the 2nd tile still selected, when multi-select", function()
 		runRhodiumTest(function(_, store)
 			if not isProductionEnvironment() then -- grid tiles will only exist on production
 				return
@@ -153,7 +153,7 @@ return function()
 		end)
 	end)
 
-	it("there should be a tile for adding from explorer when required", function()
+	itSKIP("there should be a tile for adding from explorer when required", function()
 		runRhodiumTest(function(_, store)
 			TestHelper.goToEditScreenFromStart(true)
 
@@ -177,7 +177,7 @@ return function()
 		end)
 	end)
 
-	it("clicking the tile to add from explorer should activate the controls panel blocker", function()
+	itSKIP("clicking the tile to add from explorer should activate the controls panel blocker", function()
 		runRhodiumTest(function(_, store)
 			TestHelper.goToEditScreenFromStart(true)
 
@@ -199,7 +199,7 @@ return function()
 		end)
 	end)
 
-	it("tile name should be correct", function()
+	itSKIP("tile name should be correct", function()
 		runRhodiumTest(function(_, store)
 			if not isProductionEnvironment() then
 				return

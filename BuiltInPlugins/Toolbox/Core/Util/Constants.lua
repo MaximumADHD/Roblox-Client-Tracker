@@ -8,7 +8,7 @@ local StudioService = game:GetService("StudioService")
 
 local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
 local FFlagToolboxPackagesInAssetTile = game:GetFastFlag("ToolboxPackagesInAssetTile")
-local FFlagToolboxAudioSearchOptions = game:GetFastFlag("ToolboxAudioSearchOptions")
+local FFlagToolboxAudioSearchOptions2 = game:GetFastFlag("ToolboxAudioSearchOptions2")
 
 local Category = require(Plugin.Core.Types.Category)
 
@@ -317,7 +317,7 @@ Constants.AUDIO_ROW = {
 	BORDER_SIZE = 2,
 }
 
-if FFlagToolboxAudioSearchOptions then
+if FFlagToolboxAudioSearchOptions2 then
 	Constants.ADDITIONAL_AUDIO_SEARCH_KEYS = {
 		ARTIST = "artist",
 		CATEGORIES = "categories",

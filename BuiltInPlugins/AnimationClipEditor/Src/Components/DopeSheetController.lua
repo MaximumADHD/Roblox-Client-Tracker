@@ -24,15 +24,12 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local KeyboardListener = Framework.UI.KeyboardListener
 
-local DragContext = require(Plugin.Src.Util.DragContext)
-
-local Input = require(Plugin.Src.Util.Input)
-local TrackUtils = require(Plugin.Src.Util.TrackUtils)
-local isEmpty = require(Plugin.Src.Util.isEmpty)
-local Constants = require(Plugin.Src.Util.Constants)
-local StringUtils = require(Plugin.Src.Util.StringUtils)
-local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
-local PathUtils = require(Plugin.Src.Util.PathUtils)
+local Pause = require(Plugin.Src.Actions.Pause)
+local SetNotification = require(Plugin.Src.Actions.SetNotification)
+local SetPlayState = require(Plugin.Src.Actions.SetPlayState)
+local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
+local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
+local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
 
 local DopeSheet = require(Plugin.Src.Components.DopeSheet)
 local TrackColors = require(Plugin.Src.Components.TrackList.TrackColors)
@@ -53,17 +50,20 @@ local ScaleSelectedKeyframes = require(Plugin.Src.Thunks.Selection.ScaleSelected
 local SetSelectedKeyframeData = require(Plugin.Src.Thunks.Selection.SetSelectedKeyframeData)
 local DeleteSelectedKeyframes = require(Plugin.Src.Thunks.Selection.DeleteSelectedKeyframes)
 local GenerateCurve = require(Plugin.Src.Thunks.Selection.GenerateCurve)
-local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
 local RenameKeyframe = require(Plugin.Src.Thunks.RenameKeyframe)
 local QuantizeKeyframes = require(Plugin.Src.Thunks.QuantizeKeyframes)
 
-local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
-local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
-local Pause = require(Plugin.Src.Actions.Pause)
-
-local SetNotification = require(Plugin.Src.Actions.SetNotification)
+local Constants = require(Plugin.Src.Util.Constants)
+local DragContext = require(Plugin.Src.Util.DragContext)
+local Input = require(Plugin.Src.Util.Input)
+local isEmpty = require(Plugin.Src.Util.isEmpty)
+local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
+local PathUtils = require(Plugin.Src.Util.PathUtils)
+local StringUtils = require(Plugin.Src.Util.StringUtils)
+local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
 local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
+local GetFFlagRetirePause = require(Plugin.LuaFlags.GetFFlagRetirePause)
 
 local DopeSheetController = Roact.Component:extend("DopeSheetController")
 
@@ -322,7 +322,11 @@ function DopeSheetController:init()
 	end
 
 	self.showMenu = function()
-		self.props.Pause()
+		if GetFFlagRetirePause() then
+			self.props.SetPlayState(Constants.PLAY_STATE.Pause)
+		else
+			self.props.Pause()
+		end
 		self:setState({
 			showContextMenu = true,
 		})
@@ -899,9 +903,9 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetNotification("Loaded", false))
 		end,
 
-		Pause = function()
+		Pause = if not GetFFlagRetirePause() then function()
 			dispatch(Pause())
-		end,
+		end else nil,
 
 		CloseClippedToast = function()
 			dispatch(SetNotification("ClippedWarning", false))
@@ -914,6 +918,10 @@ local function mapDispatchToProps(dispatch)
 		GenerateCurve = function(easingStyle, easingDirection)
 			dispatch(AddWaypoint())
 			dispatch(GenerateCurve(easingStyle, easingDirection))
+		end,
+
+		SetPlayState = function(playState)
+			dispatch(SetPlayState(playState))
 		end,
 	}
 

@@ -10,9 +10,9 @@ return function()
 	local MockId = require(InGameMenu.Mocks.MockAssetId)
 	local GetHumanoidDescriptionFromCostumeId = require(InGameMenu.Thunks.GetHumanoidDescriptionFromCostumeId)
 
-	local FFlagInspectAndBuyV2Enabled = require(InGameMenu.Flags.FFlagInspectAndBuyV2Enabled)
+	local FFlagInspectAndBuyV2IXPEnabledForAll = require(InGameMenu.Flags.FFlagInspectAndBuyV2IXPEnabledForAll)
 
-	if FFlagInspectAndBuyV2Enabled then
+	if FFlagInspectAndBuyV2IXPEnabledForAll then
 		it("should get a humanoid description from a costumeId", function()
 			local store = Rodux.Store.new(Reducer)
 			local mockId = MockId()

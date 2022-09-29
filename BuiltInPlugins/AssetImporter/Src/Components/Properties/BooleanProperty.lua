@@ -14,7 +14,6 @@ local Checkbox = UI.Checkbox
 local function BooleanProperty(props)
 	return Roact.createElement(Checkbox, {
 		OnClick = props.OnToggleItem,
-		Size = props.Size,
 		LayoutOrder = props.LayoutOrder,
 		Checked = props.Value,
 	})

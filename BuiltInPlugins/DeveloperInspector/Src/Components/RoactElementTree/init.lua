@@ -1,8 +1,11 @@
-
 local main = script.Parent.Parent.Parent
 local Roact = require(main.Packages.Roact)
 local RoactRodux = require(main.Packages.RoactRodux)
+
 local Framework = require(main.Packages.Framework)
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkList = SharedFlags.getFFlagDevFrameworkList()
+
 local InspectorContext = require(main.Src.Util.InspectorContext)
 
 local RoactElementRow = require(script.RoactElementRow)
@@ -83,26 +86,52 @@ function RoactElementTree:init()
 		end
 	end
 
-	self.renderRow = function(row)
-		local style = self.props.Stylizer
-		local flash = mapOne(self.props.Flash, function(flash, path)
-			if shallowEqual(path, row.item.Path) then
-				return flash
-			else
-				return nil
-			end
-		end)
-		return Roact.createElement(RoactElementRow, {
-			Row = row,
-			OnEnterRow = self.onEnterRow,
-			OnLeaveRow = self.onLeaveRow,
-			OnSelect = self.onSelectInstance,
-			OnToggle = self.onToggleInstance,
-			Flash = flash,
-			IsExpanded = self.props.Expansion[row.item],
-			IsSelected = self.props.Selection[row.item],
-			Style = style
-		})
+	if FFlagDevFrameworkList then
+		self.getRowProps = function(row, index: number, position: UDim2, size: UDim2)
+			local style = self.props.Stylizer
+			local flash = mapOne(self.props.Flash, function(flash, path)
+				if shallowEqual(path, row.item.Path) then
+					return flash
+				else
+					return nil
+				end
+			end)
+			return {
+				Row = row,
+				OnEnterRow = self.onEnterRow,
+				OnLeaveRow = self.onLeaveRow,
+				OnSelect = self.onSelectInstance,
+				OnToggle = self.onToggleInstance,
+				Position = position,
+				Flash = flash,
+				IsExpanded = self.props.Expansion[row.item],
+				IsSelected = self.props.Selection[row.item],
+				Size = size,
+				Style = style,
+			}
+		end
+	else
+		self.renderRow = function(row)
+			local style = self.props.Stylizer
+			local flash = mapOne(self.props.Flash, function(flash, path)
+				if shallowEqual(path, row.item.Path) then
+					return flash
+				else
+					return nil
+				end
+			end)
+			return Roact.createElement(RoactElementRow, {
+				Row = row,
+				OnEnterRow = self.onEnterRow,
+				OnLeaveRow = self.onLeaveRow,
+				OnSelect = self.onSelectInstance,
+				OnToggle = self.onToggleInstance,
+				Flash = flash,
+				IsExpanded = self.props.Expansion[row.item],
+				IsSelected = self.props.Selection[row.item],
+				Style = style
+			})
+		end
 	end
 end
 
@@ -120,8 +149,10 @@ function RoactElementTree:render()
 	return Roact.createElement(TreeView, {
 		Size = UDim2.new(1, 0, 1, 0),
 		Expansion = props.Expansion,
+		GetRowProps = if FFlagDevFrameworkList then self.getRowProps else nil,
 		RootItems = getChildren(props.RootInstance),
-		RenderRow = self.renderRow,
+		RenderRow = if FFlagDevFrameworkList then nil else self.renderRow,
+		RowComponent = if FFlagDevFrameworkList then RoactElementRow else nil,
 		GetChildren = getChildren,
 		ScrollingDirection = Enum.ScrollingDirection.Y,
 		Style = "BorderBox",

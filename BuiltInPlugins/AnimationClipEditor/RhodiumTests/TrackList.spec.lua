@@ -8,8 +8,6 @@ return function()
 	local VirtualInput = require(Plugin.Rhodium.VirtualInput)
 	local runTest = TestHelpers.runTest
 
-	local GetFFlagFixSelectionRightArrow = require(Plugin.LuaFlags.GetFFlagFixSelectionRightArrow)
-
 	local Templates = require(Plugin.Src.Util.Templates)
 
 	local testAnimationData = Templates.animationData()
@@ -74,11 +72,7 @@ return function()
 
 			TestHelpers.clickInstance(trackList:WaitForChild("Track_Head"))
 			TestHelpers.clickInstance(trackList)
-			if GetFFlagFixSelectionRightArrow() then
-				expect(#store:getState().Status.SelectedTracks).to.equal(0)
-			else
-				expect(store:getState().Status.SelectedTracks).never.to.be.ok()
-			end
+			expect(#store:getState().Status.SelectedTracks).to.equal(0)
 		end)
 	end)
 

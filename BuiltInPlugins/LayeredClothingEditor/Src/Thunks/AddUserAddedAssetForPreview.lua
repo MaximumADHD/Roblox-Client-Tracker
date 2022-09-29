@@ -7,7 +7,7 @@ local SetUserAddedAssets = require(Plugin.Src.Actions.SetUserAddedAssets)
 local Framework = require(Plugin.Packages.Framework)
 local deepJoin = Framework.Util.deepJoin
 
-return function(tab, asset)
+return function(tab, asset, callback)
 	return function(store)
 		local state = store:getState()
 
@@ -17,12 +17,16 @@ return function(tab, asset)
 			index = #userAddedAssets[tab] + 1
 		end
 
+		local newAsset = PreviewUtil.createUserAddedAsset(asset)
 		local newAssets = deepJoin(userAddedAssets, {
 			[tab] = {
-				[index] = PreviewUtil.createUserAddedAsset(asset)
+				[index] = newAsset
 			}
 		})
 
 		store:dispatch(SetUserAddedAssets(newAssets))
+		if callback then
+			callback(newAsset)
+		end
 	end
 end

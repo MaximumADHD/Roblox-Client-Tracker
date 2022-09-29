@@ -6,7 +6,7 @@ local Rodux = InGameMenuDependencies.Rodux
 local InGameMenu = script.Parent
 local Network = require(InGameMenu.Network.Requests.InspectAndBuy.Network)
 local InspectAndBuyThunk = require(InGameMenu.InspectAndBuyThunk)
-local FFlagInspectAndBuyV2Enabled = require(InGameMenu.Flags.FFlagInspectAndBuyV2Enabled)
+local InspectAndBuyV2IXPTest = require(InGameMenu.Flags.InspectAndBuyV2IXPTest)
 
 local GlobalConfig = require(InGameMenu.GlobalConfig)
 local reducer = require(InGameMenu.reducer)
@@ -20,7 +20,7 @@ local function createStore()
 		table.insert(middlewares, Rodux.loggerMiddleware)
 	end
 
-	if FFlagInspectAndBuyV2Enabled then
+	if InspectAndBuyV2IXPTest.isEnabled() then
 		local inspectAndBuyMiddleware = InspectAndBuyThunk.middleware({
 			[Network] = Network.new(),
 		})

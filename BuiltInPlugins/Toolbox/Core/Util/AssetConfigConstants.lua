@@ -1,3 +1,5 @@
+local FFlagToolboxFixVideoEditFlow = game:GetFastFlag("ToolboxFixVideoEditFlow")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Util = Plugin.Core.Util
@@ -133,6 +135,7 @@ AssetConfigConstants.ASSET_TYPE_INFO = {
 	marketplaceAssetInfo(Enum.AssetType.MeshPart),
 	marketplaceAssetInfo(Enum.AssetType.Audio),
 	marketplaceAssetInfo(Enum.AssetType.Animation),
+	if FFlagToolboxFixVideoEditFlow then marketplaceAssetInfo(Enum.AssetType.Video) else nil,
 	marketplaceAssetInfo(
 		Enum.AssetType.Plugin, --[[ isBuyable = ]]
 		true

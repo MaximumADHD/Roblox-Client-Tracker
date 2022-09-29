@@ -1,11 +1,11 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
 local FFlagToolboxEnableAnnouncementsDialog = game:GetFastFlag("ToolboxEnableAnnouncementsDialog")
 local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
-local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
 local FFlagToolboxFixBreadcrumbColor = game:GetFastFlag("ToolboxFixBreadcrumbColor")
 local FFlagToolboxAddUnverifiedIcon = game:GetFastFlag("ToolboxAddUnverifiedIcon")
 local FFlagToolboxPackagesInAssetTile = game:GetFastFlag("ToolboxPackagesInAssetTile")
 local FFlagToolboxFixAssetConfigWarningIconColor = game:GetFastFlag("ToolboxFixAssetConfigWarningIconColor")
+local FFlagToolboxAudioUIPolish = game:GetFastFlag("ToolboxAudioUIPolish")
 
 local Images = require(Plugin.Core.Util.Images)
 
@@ -54,7 +54,7 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.Toolbox_AudioPlayerProgressBarColor] = Color3.fromHex("#0077D6"),
 		[StyleKey.Toolbox_AudioPlayerIndicatorColor] = Color3.fromHex("#555555"),
 		[StyleKey.Toolbox_AudioPlayerIndicatorBorderColor] = Color3.fromHex("#555555"),
-		[StyleKey.Toolbox_AudioTabTextColor] = Color3.fromHex("#3B3B3B"),
+		[StyleKey.Toolbox_AudioTabTextColor] = if FFlagToolboxAudioUIPolish then nil else Color3.fromHex("#3B3B3B"),
 		[StyleKey.Toolbox_AudioTabSelectedTextColor] = StyleColors.White,
 		[StyleKey.Toolbox_DeleteIconColor] = Color3.fromRGB(136, 136, 136),
 		[StyleKey.Toolbox_DropdownItemSelectedColor] = StyleColors.Blue_Dark,
@@ -116,7 +116,7 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.Toolbox_AudioRowHeaderTextColor] = Color3.fromHex("#3B3B3B"),
 		[StyleKey.Toolbox_AudioRowTitleTextColor] = Color3.fromHex("#0055AC"),
 		[StyleKey.Toolbox_AudioRowTextColor] = Color3.fromHex("#171717"),
-		[StyleKey.Toolbox_AudioTabTextColor] = Color3.fromHex("#3B3B3B"),
+		[StyleKey.Toolbox_AudioTabTextColor] = if FFlagToolboxAudioUIPolish then nil else Color3.fromHex("#3B3B3B"),
 		[StyleKey.Toolbox_AudioTabSelectedTextColor] = Color3.fromHex("#FAFAFA"),
 		[StyleKey.Toolbox_DeleteIconColor] = Color3.fromRGB(184, 184, 184),
 		[StyleKey.Toolbox_DropdownItemSelectedColor] = StyleColors.Blue_Light,
@@ -166,7 +166,7 @@ local makeTheme = function(themeExtension, themeClass)
 	if FFlagToolboxFixAssetConfigWarningIconColor then
 		warningColor = StyleKey.Toolbox_AssetWarningIcon
 	else
-		warningColor = if FFlagToolboxUseVerifiedIdAsDefault then Color3.fromHex("#FFAA21") else nil
+		warningColor = Color3.fromHex("#FFAA21")
 	end
 
 	styleRoot:extend({
@@ -268,7 +268,9 @@ local makeTheme = function(themeExtension, themeClass)
 			backgroundButtonColor = StyleKey.Toolbox_AudioPlayerBackgroundColor,
 			selectedButtonColor = Color3.fromHex("#0077D6"),
 			selectedTextColor = StyleKey.Toolbox_AudioTabSelectedTextColor,
-			textColor = StyleKey.Toolbox_AudioTabTextColor,
+			textColor = if FFlagToolboxAudioUIPolish
+				then StyleKey.TextSecondary
+				else StyleKey.Toolbox_AudioTabTextColor,
 		},
 
 		creatorName = {

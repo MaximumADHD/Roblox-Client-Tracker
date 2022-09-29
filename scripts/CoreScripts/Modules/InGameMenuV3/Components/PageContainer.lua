@@ -13,6 +13,7 @@ local InGameMenu = script.Parent.Parent
 local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 local BlurredModalPortal = require(script.Parent.BlurredModalPortal)
 local Pages = require(script.Parent.Pages)
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local GetFFlagUseIGMControllerBar = require(InGameMenu.Flags.GetFFlagUseIGMControllerBar)
 
@@ -86,7 +87,12 @@ function PageContainer:init(props)
 			self.onContainerRenderedForKey(rbx, key)
 		end
 	end
-	self.updatePositions = function(menuOpen, priorMenuOpen, currentPage, lastPage)
+	self.onNavigate = function(menuOpen, priorMenuOpen, currentPage, lastPage)
+
+		if currentPage ~= lastPage and currentPage ~= Constants.InitalPageKey then
+			SendAnalytics("open_" .. currentPage .. "_tab", Constants.AnalyticsMenuActionName, {navigatedFrom = lastPage})
+		end
+
 		local visibilityChanged = menuOpen ~= priorMenuOpen
 		if visibilityChanged then
 			local activePosition = menuOpen and SIDE_NAV_WIDTH or HIDE_POSITION
@@ -176,7 +182,7 @@ function PageContainer:render()
 	local pageElements = {
 		Watcher = Roact.createElement(PageNavigationWatcher, {
 			desiredPage = "",
-			onNavigate = self.updatePositions,
+			onNavigate = self.onNavigate,
 		}),
 	}
 

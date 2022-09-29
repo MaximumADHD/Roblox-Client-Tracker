@@ -30,7 +30,7 @@ return function()
 	end)
 	
 	it("should return correctly when on Android", function()
-		expect(getPaymentFromPlatform(Enum.Platform.Linux, false, false)).to.equal(PaymentPlatform.Web)
+		expect(getPaymentFromPlatform(Enum.Platform.Android, false, false)).to.equal(PaymentPlatform.Google)
 	end)
 
 	it("should return correctly when on Android (Luobu)", function()
@@ -44,4 +44,9 @@ return function()
 	it("should return correctly when on Amazon (Luobu)", function()
 		expect(getPaymentFromPlatform(Enum.Platform.Android, true, true)).to.equal(PaymentPlatform.Midas)
 	end)
+
+	it("should return correctly when on UWP", function()
+		expect(getPaymentFromPlatform(Enum.Platform.UWP, false, false)).to.equal(PaymentPlatform.UWP)
+	end)
+
 end

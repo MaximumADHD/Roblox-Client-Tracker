@@ -1,5 +1,3 @@
-local FFlagIncompleteDragShouldCancel = game:GetFastFlag("IncompleteDragShouldCancel")
-
 local Plugin = script.Parent.Parent.Parent
 local Promise = require(Plugin.Packages.Promise)
 
@@ -33,7 +31,7 @@ return function(insertAsset, assetData, analytics)
 			warn(errorMessage)
 		end)
 		:finally(function(status)
-			if FFlagIncompleteDragShouldCancel and status == Promise.Status.Cancelled then
+			if status == Promise.Status.Cancelled then
 				analytics:report("cancelDragInsert")
 			end
 		end)

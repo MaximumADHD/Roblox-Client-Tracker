@@ -425,7 +425,11 @@ local Constants = {
 		InputUnstable = 9,
 		TimedOut = 10,
 		Cancelled = 11,
-		MultiplePeopleInFrame = 12
+		MultiplePeopleInFrame = 12,
+
+		UploadingData = 1001, -- local code
+
+		ErrorUploadingData = 2001, -- local code
 	},
 
 	ANIMATION_TYPE = {

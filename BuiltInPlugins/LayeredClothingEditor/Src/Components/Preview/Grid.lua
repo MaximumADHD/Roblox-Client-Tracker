@@ -6,11 +6,9 @@
 		table API: Roblox API from Devframework for calling end points
 		table PrebuiltAssetsInfo: from the rodux state, info about each prebuilt asset (name/description etc)
 		callback GetPrebuiltAssetsInfo: function provided via dispatch to get name/description etc info for prebuilt assets
-		callback FinishSelectingFromExplorer: function to call when we have finished adding an item as a new tile
 		callback UpdatePreviewAssetsSelected: function provided via dispatch to add/remove an asset from the selected assets
 		string SelectedTab: the preview tab selection (this is an entry from PreviewConstants.TABS_KEYS)
 		table SelectedAssets: which assets are selected in the grid, which is provided via mapStateToProps.
-		callback StartSelectingFromExplorer: function to start selecting from explorer, which mapDispatchToProps provides
 		Plugin Plugin: A Plugin ContextItem, which is provided via withContext.
 		table UserAddedAssets: the table of assets added by the user
 		callback UpdateUserAddedAssets: function called when user added assets are changed
@@ -33,17 +31,13 @@ local Cryo = require(Plugin.Packages.Cryo)
 local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
 local Components = AvatarToolsShared.Components
-local ConfirmCancelDialog = Components.ConfirmCancelDialog
-local ConfirmDialog = Components.ConfirmDialog
 local ScrollableGrid = Components.ScrollableGrid
 local AssetThumbnailTiles = Components.AssetThumbnailTiles
-local InstanceSelectorTile = Components.InstanceSelectorTile
 
 local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
 local AvatarToolsSharedConstants = AccessoryAndBodyToolSharedUtil.Constants
 local PreviewConstants = AccessoryAndBodyToolSharedUtil.PreviewConstants
 local PreviewConstantsInterface = AccessoryAndBodyToolSharedUtil.PreviewConstantsInterface
-local PreviewFolderManager = AccessoryAndBodyToolSharedUtil.PreviewFolderManager
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -56,9 +50,6 @@ local deepCopy = Util.deepCopy
 
 local UpdatePreviewAssetsSelected = require(Plugin.Src.Thunks.UpdatePreviewAssetsSelected)
 local GetPrebuiltAssetsInfo = require(Plugin.Src.Thunks.GetPrebuiltAssetsInfo)
-local StartSelectingFromExplorer = require(Plugin.Src.Thunks.StartSelectingFromExplorer)
-local FinishSelectingFromExplorer = require(Plugin.Src.Thunks.FinishSelectingFromExplorer)
-local DeleteUserAddedAssetForPreview = require(Plugin.Src.Thunks.DeleteUserAddedAssetForPreview)
 
 local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
 local AssetServiceWrapper = AvatarToolsShared.Contexts.AssetServiceWrapper
@@ -66,8 +57,8 @@ local AssetServiceWrapper = AvatarToolsShared.Contexts.AssetServiceWrapper
 local Constants = require(Plugin.Src.Util.Constants)
 local ShowDialog = require(Plugin.Src.Util.ShowDialog)
 
-local Grid = Roact.PureComponent:extend("Grid")
-Typecheck.wrap(Grid, script)
+local PreviewGrid = Roact.PureComponent:extend("PreviewGrid")
+Typecheck.wrap(PreviewGrid, script)
 
 local GetFFlagAccessoryFittingToolAnalytics = require(Plugin.Src.Flags.GetFFlagAccessoryFittingToolAnalytics)
 
@@ -88,21 +79,8 @@ local function getUserAddedAssets(self, selectedTab)
 	return userAddedAssets and userAddedAssets[selectedTab] or {}
 end
 
-function Grid:init()
+function PreviewGrid:init()
 	self.gridRef = Roact.createRef()
-
-	self.previewFolder = PreviewFolderManager.new()
-
-	self.onClickAddNewInstance = function()
-		local props = self.props
-		local selectedTab = props.SelectedTab
-		local localization = props.Localization
-		local tabInfo = PreviewConstantsInterface.getTabInfo(selectedTab)
-		if tabInfo then
-			local localizedText = localization:getText(AvatarToolsSharedConstants.LOCALIZATION_KEYS.Preview, tabInfo.PanelBlockerLocalizationKey)
-			props.StartSelectingFromExplorer(Constants.SELECTOR_MODE.Preview, localizedText)
-		end
-	end
 
 	self.onThumbnailClick = function(id, selected)
 		self.props.UpdatePreviewAssetsSelected(id, not selected)
@@ -114,55 +92,6 @@ function Grid:init()
 			if selectedTab == PreviewConstants.TABS_KEYS.Clothing or selectedTab == PreviewConstants.TABS_KEYS.Animations then
 				analytics:getHandler("PreviewAssetSelected")(usingCustomAssets, selectedTab == PreviewConstants.TABS_KEYS.Animations)
 			end
-		end
-	end
-
-	self.isInstanceValidForTab = function(tab, instance)
-		local props = self.props
-		local editingItem = props.EditingItemContext:getItem()
-		local tabInfo = PreviewConstantsInterface.getTabInfo(tab)
-		if not tabInfo or not tabInfo.IsSelectedInstanceValid(instance) then
-			return false
-		end
-		local isPreviewModel = instance:FindFirstAncestor("LayeredClothingEditorPreview") ~= nil
-		local isEditingItem = instance == editingItem
-		local isMannequin = instance == editingItem.Parent
-
-		return not (isPreviewModel or isEditingItem or isMannequin)
-	end
-
-	self.isSelectedInstanceValid = function(instance)
-		local props = self.props
-		local selectedTab = props.SelectedTab
-
-		return self.isInstanceValidForTab(selectedTab, instance)
-	end
-
-	self.onInstanceSelectorValidSelection = function(instance)
-		local props = self.props
-		ShowDialog(props.Plugin, props.Localization, ConfirmCancelDialog,{
-			Text = self.props.Localization:getText(AvatarToolsSharedConstants.LOCALIZATION_KEYS.Preview, "ConfirmAddTile", {
-				itemName = instance.Name,
-			}),
-			OnConfirm = function()
-				local selectedTab = props.SelectedTab
-
-				props.FinishSelectingFromExplorer(instance)
-				props.UpdateUserAddedAssets(selectedTab, instance:Clone())
-			end,
-		})
-	end
-
-	self.onInstanceSelectorInvalidSelection = function(instance)
-		local props = self.props
-		local localization = props.Localization
-		local selectedTab = props.SelectedTab
-		local tabInfo = PreviewConstantsInterface.getTabInfo(selectedTab)
-
-		if tabInfo then
-			ShowDialog(props.Plugin, props.Localization, ConfirmDialog,{
-				Text = localization:getText(AvatarToolsSharedConstants.LOCALIZATION_KEYS.Preview, tabInfo.InvalidAddLocalizationKey),
-			})
 		end
 	end
 end
@@ -182,35 +111,53 @@ end
 local function combineAssetInfo(self, selectedTab)
 	local props = self.props
 
+	local filter = props.SearchFilter
+	local categoryFilter = props.CategoryFilter
 	local prebuiltAssetsInfo = deepCopy(props.PrebuiltAssetsInfo)
 	local userAddedAssetsForTab = getUserAddedAssets(self, selectedTab)
 	local tabInfo = PreviewConstantsInterface.getTabInfo(selectedTab)
 	if tabInfo then
 		local guids = getUserAddedAssetIds(self, selectedTab)
-		local assetIds = tabInfo.AssetIds or {}
-		local bundleIds = tabInfo.BundleIds or {}
+		local assetIds = {}
+		local bundleIds = {}
 
-		for _, id in pairs(assetIds) do
-			local info = prebuiltAssetsInfo[id]
-			if info then
-				info.ThumbnailType = "Asset"
+		if categoryFilter == "" or categoryFilter == PreviewConstants.CategoryPrefixes.Default then
+			if tabInfo.AssetIds then
+				for _, id in pairs(tabInfo.AssetIds) do
+					local info = prebuiltAssetsInfo[id]
+					if info then
+						info.ThumbnailType = "Asset"
+						if filter == "" or string.find(info.Name or info.name, filter) then
+							table.insert(assetIds, id)
+						end
+					end
+				end
 			end
-		end
 
-		for _, id in pairs(bundleIds) do
-			local info = prebuiltAssetsInfo[id]
-			if info then
-				info.ThumbnailType = "BundleThumbnail"
+			if tabInfo.BundleIds then
+				for _, id in pairs(tabInfo.BundleIds) do
+					local info = prebuiltAssetsInfo[id]
+					if info then
+						info.ThumbnailType = "BundleThumbnail"
+						if filter == "" or string.find(info.Name or info.name, filter) then
+							table.insert(bundleIds, id)
+						end
+					end
+				end
 			end
 		end
 
 		local userAddedAssetsById = {}
-		for _, asset in ipairs(userAddedAssetsForTab) do
-			userAddedAssetsById[asset.uniqueId] = {
-				Name = asset.instance.Name,
-				ThumbnailType = "",
-				Instance = if FFlagEnablePreviewTiles then asset.instance else nil,
-			}
+		if categoryFilter == "" or categoryFilter == PreviewConstants.CategoryPrefixes.Custom then
+			for _, asset in ipairs(userAddedAssetsForTab) do
+				if filter == "" or string.find(asset.instance.Name, filter) then
+					userAddedAssetsById[asset.uniqueId] = {
+						Name = asset.instance.Name,
+						ThumbnailType = "",
+						Instance = if FFlagEnablePreviewTiles then asset.instance else nil,
+					}
+				end
+			end
 		end
 
 		local combinedAssetInfo = Cryo.Dictionary.join(prebuiltAssetsInfo, userAddedAssetsById)
@@ -220,7 +167,7 @@ local function combineAssetInfo(self, selectedTab)
 	end
 end
 
-function Grid:render()
+function PreviewGrid:render()
 	local props = self.props
 	local size = props.size
 	local layoutOrder = props.layoutOrder
@@ -233,18 +180,6 @@ function Grid:render()
 	local children = {}
 	local tabInfo = PreviewConstantsInterface.getTabInfo(selectedTab)
 	if tabInfo then
-		children = Cryo.Dictionary.join(children, {
-			AddNewTile = Roact.createElement(InstanceSelectorTile, {
-				Image = theme.AddNewImage,
-				ImageSize = theme.SmallImageSize,
-				LayoutOrder = orderIterator:getNextOrder(),
-				IsSelectedInstanceValid = self.isSelectedInstanceValid,
-				OnClickAddNewInstance = self.onClickAddNewInstance,
-				OnInstanceSelectorValidSelection = self.onInstanceSelectorValidSelection,
-				OnInstanceSelectorInvalidSelection = self.onInstanceSelectorInvalidSelection,
-			}),
-		})
-
 		local ids, info = combineAssetInfo(self, selectedTab)
 		children = Cryo.Dictionary.join(
 			children,
@@ -272,7 +207,7 @@ function Grid:render()
 	}, children)
 end
 
-function Grid:didMount()
+function PreviewGrid:didMount()
 	local props = self.props
 	local API = props.API
 
@@ -281,20 +216,9 @@ function Grid:didMount()
 	local arrayOfAssetIds = PreviewConstantsInterface.getAllAssetIds()
 	local arrayOfBundleIds = PreviewConstantsInterface.getAllBundleIds()
 	self.props.GetPrebuiltAssetsInfo(API, assetService, arrayOfAssetIds, arrayOfBundleIds)
-
-	if not next(self.props.UserAddedAssets) then
-		self.previewFolder:resetAllFoldersAttributes()
-	end
-
-	self.previewFolder:cleanDirtyFolders(self.props.UserAddedAssets, self.props.DeleteUserAddedAssetForPreview)
-	self.previewFolder:addDirtyFolders(
-		self.props.UserAddedAssets,
-		self.isInstanceValidForTab,
-		self.props.UpdateUserAddedAssets
-	)
 end
 
-Grid = withContext({
+PreviewGrid = withContext({
 	Analytics = ContextServices.Analytics,
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
@@ -302,39 +226,30 @@ Grid = withContext({
 	Plugin = ContextServices.Plugin,
 	EditingItemContext = EditingItemContext,
 	AssetServiceWrapper = AssetServiceWrapper,
-})(Grid)
+})(PreviewGrid)
 
 local function mapStateToProps(state, props)
 	local previewAssets = state.previewAssets
 	local previewStatus = state.previewStatus
-	local selectItem = state.selectItem
 
 	return {
 		PrebuiltAssetsInfo = previewAssets.prebuiltAssetsInfo,
 		SelectedTab = previewStatus.selectedTab,
+		SearchFilter = previewStatus.searchFilter,
+		CategoryFilter = previewStatus.categoryFilter,
 		SelectedAssets = previewStatus.selectedAssets,
-		EditingItem = selectItem.editingItem,
 	}
 end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		StartSelectingFromExplorer = function(mode, message)
-			dispatch(StartSelectingFromExplorer(mode, message))
-		end,
 		GetPrebuiltAssetsInfo = function(robloxApi, assetService, arrayOfAssetIds, arrayOfBundleIds)
 			dispatch(GetPrebuiltAssetsInfo(robloxApi, assetService, arrayOfAssetIds, arrayOfBundleIds))
 		end,
 		UpdatePreviewAssetsSelected = function(id, addAsset)
 			dispatch(UpdatePreviewAssetsSelected(id, addAsset))
 		end,
-		FinishSelectingFromExplorer = function(item)
-			dispatch(FinishSelectingFromExplorer())
-		end,
-		DeleteUserAddedAssetForPreview = function(tab, index)
-			dispatch(DeleteUserAddedAssetForPreview(tab, index))
-		end,
 	}
 end
 
-return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(Grid)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PreviewGrid)

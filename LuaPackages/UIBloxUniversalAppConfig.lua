@@ -34,6 +34,12 @@ local GetFFlagUIBloxSystemBarBottomAlignedItems =
 local GetFFlagUIBloxFixHorizontalCarouselLayout =
 	require(CorePackages.UIBloxFlags.GetFFlagUIBloxFixHorizontalCarouselLayout)
 
+local GetFFlagUIBloxEnableImageSetResolutionScaleFix =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableImageSetResolutionScaleFix)
+
+local GetFFlagUIBloxAddViewabilityConfigCallbackPairs =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxAddViewabilityConfigCallbackPairs)
+
 return {
 	selectedSliderOverridesNextSelectionRightLeft = FFlagSelectedSliderOverridesNextSelectionRightLeft,
 	enableTileInsets = true,
@@ -72,4 +78,8 @@ return {
 	devMode = ArgCheck.isEnabled(),
 
 	fixHorizontalCarouselLayout = GetFFlagUIBloxFixHorizontalCarouselLayout(),
+
+	enableImageSetResolutionScaleFix = GetFFlagUIBloxEnableImageSetResolutionScaleFix(),
+
+	addViewabilityConfigCallbackPairs = GetFFlagUIBloxAddViewabilityConfigCallbackPairs(),
 }

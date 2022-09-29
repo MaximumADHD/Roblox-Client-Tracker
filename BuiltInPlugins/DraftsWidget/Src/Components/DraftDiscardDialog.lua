@@ -17,6 +17,7 @@ local Framework = require(Plugin.Packages.Framework)
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryBulletPoint = SharedFlags.getFFlagRemoveUILibraryBulletPoint()
 local FFlagDevFrameworkMigrateStyledDialog = SharedFlags.getFFlagDevFrameworkMigrateStyledDialog()
+local FFlagDevFrameworkMigrateScrollingFrame = SharedFlags.getFFlagDevFrameworkMigrateScrollingFrame()
 
 local UI = Framework.UI
 local BulletList = UI.BulletList
@@ -203,6 +204,7 @@ function DraftDiscardDialog:render()
 		}),
 
 		DraftList = Roact.createElement(StyledScrollingFrame, if FFlagDevFrameworkMigrateStyledDialog then {
+			AutomaticCanvasSize = if FFlagDevFrameworkMigrateScrollingFrame then Enum.AutomaticSize.Y else nil,
 			LayoutOrder = 2,
 		} else {
 			BackgroundTransparency = 1,

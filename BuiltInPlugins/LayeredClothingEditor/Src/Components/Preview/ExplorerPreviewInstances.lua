@@ -27,11 +27,18 @@ local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyTo
 local PreviewUtil = AccessoryAndBodyToolSharedUtil.PreviewUtil
 local AvatarUtil = AccessoryAndBodyToolSharedUtil.AvatarUtil
 local PreviewConstants = AccessoryAndBodyToolSharedUtil.PreviewConstants
+local ItemCharacteristics = AccessoryAndBodyToolSharedUtil.ItemCharacteristics
+
+local PreviewItemSelector = AvatarToolsShared.Components.PreviewItemSelector
 
 local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
 local PreviewContext = AvatarToolsShared.Contexts.PreviewContext
 local AssetServiceWrapper = AvatarToolsShared.Contexts.AssetServiceWrapper
 local StudioServiceWrapper = AvatarToolsShared.Contexts.StudioServiceWrapper
+
+local SelectPreviewTab = require(Plugin.Src.Actions.SelectPreviewTab)
+local UpdatePreviewAssetsSelected = require(Plugin.Src.Thunks.UpdatePreviewAssetsSelected)
+local AddUserAddedAssetForPreview = require(Plugin.Src.Thunks.AddUserAddedAssetForPreview)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -129,9 +136,78 @@ local function updatePreviewAssets(self, selectionChanged)
 	end)()
 end
 
+local function equipUserAddedAsset(self, asset, isEquipped)
+	if asset then
+		self.props.UpdatePreviewAssetsSelected(asset.uniqueId, not isEquipped)
+	end
+end
+
+local function findUserAddedAsset(self, instance)
+	local userAddedAssets = self.props.UserAddedAssets
+	for _, assetsPerTab in pairs(userAddedAssets) do
+		for _, asset in pairs(assetsPerTab) do
+			if asset.instance == instance then
+				return asset
+			end
+		end
+	end
+end
+
+local function getTab(item)
+	if ItemCharacteristics.isClothes(item) then
+		return PreviewConstants.TABS_KEYS.Clothing
+	elseif ItemCharacteristics.isAvatar(item) then
+		return PreviewConstants.TABS_KEYS.Avatars
+	end
+	return nil
+end
+
 function ExplorerPreviewInstances:init()
 	self.folderRef = Roact.createRef()
 	self.isUpdateInProgress = false
+
+	self.isSelectedInstanceValid = function(instance)
+		local editingItemContext = self.props.EditingItemContext
+		local editingItem = editingItemContext:getItem()
+
+		if
+			instance == editingItem.Parent
+			or instance:FindFirstAncestor(editingItem.Parent.Name)
+			or instance:FindFirstAncestor(Constants.PREVIEW_FOLDER_NAME)
+		then
+			return false
+		end
+
+		return getTab(instance) ~= nil
+	end
+
+	self.isEquipped = function(instance)
+		local asset = findUserAddedAsset(self, instance)
+		if asset then
+			local selectedClothing = self.props.SelectedAssets[PreviewConstants.TABS_KEYS.Clothing]
+			if selectedClothing and selectedClothing[asset.uniqueId] then
+				return true
+			end
+		end
+		return false
+	end
+
+	self.onValidSelection = function(instance, isEquipped)
+		local tab = getTab(instance)
+		if not tab then
+			return
+		end
+		self.props.SelectPreviewTab(tab)
+
+		local asset = findUserAddedAsset(self, instance)
+		if not asset then
+			self.props.AddUserAddedAssetForPreview(tab, instance, function(addedAsset)
+				equipUserAddedAsset(self, addedAsset, isEquipped)
+			end)
+		else
+			equipUserAddedAsset(self, asset, isEquipped)
+		end
+	end
 end
 
 function ExplorerPreviewInstances:getOrCreatePreviewFolder()
@@ -147,6 +223,8 @@ end
 function ExplorerPreviewInstances:render()
 	local props = self.props
 
+	local localization = props.Localization
+
 	local studioService = props.StudioServiceWrapper:get()
 	self:getOrCreatePreviewFolder()
 	local userId = studioService:GetUserId()
@@ -156,7 +234,14 @@ function ExplorerPreviewInstances:render()
 		[userId] = Roact.createElement("Folder", {
 			[Roact.Ref] = self.folderRef,
 			Archivable = true,
-		})
+		}, {
+			PreviewSelector = Roact.createElement(PreviewItemSelector, {
+				IsSelectedInstanceValid = self.isSelectedInstanceValid,
+				IsEquipped = self.isEquipped,
+				OnValidSelection = self.onValidSelection,
+				TooltipText = localization:getText("Preview", "Tooltip"),
+			})
+		}),
 	})
 end
 
@@ -179,6 +264,23 @@ local function mapStateToProps(state, props)
 		ItemSize = selectItem.size,
 		SelectedAssets = previewStatus.selectedAssets,
 		EditingCage = selectItem.editingCage,
+		UserAddedAssets = previewStatus.userAddedAssets,
+	}
+end
+
+local function mapDispatchToProps(dispatch)
+	return {
+		UpdatePreviewAssetsSelected = function(id, addAsset)
+			dispatch(UpdatePreviewAssetsSelected(id, addAsset))
+		end,
+
+		AddUserAddedAssetForPreview = function(tab, asset, callback)
+			dispatch(AddUserAddedAssetForPreview(tab, asset, callback))
+		end,
+
+		SelectPreviewTab = function(tab)
+			dispatch(SelectPreviewTab(tab))
+		end,
 	}
 end
 
@@ -186,7 +288,8 @@ ExplorerPreviewInstances = withContext({
 	EditingItemContext = EditingItemContext,
 	PreviewContext = PreviewContext,
 	AssetServiceWrapper = AssetServiceWrapper,
+	Localization = ContextServices.Localization,
 	StudioServiceWrapper = StudioServiceWrapper,
 })(ExplorerPreviewInstances)
 
-return RoactRodux.connect(mapStateToProps)(ExplorerPreviewInstances)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(ExplorerPreviewInstances)

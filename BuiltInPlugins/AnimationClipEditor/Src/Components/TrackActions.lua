@@ -39,7 +39,6 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
 local Types = require(Plugin.Src.Types)
 
-local GetFFlagFixEulerAnglesMenu = require(Plugin.LuaFlags.GetFFlagFixEulerAnglesMenu)
 local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
 
 export type Props = {
@@ -97,7 +96,7 @@ function TrackActions:makeEulerAnglesOrderSubMenu(): ContextMenu.MenuItem
 	return {
 		Name = localization:getText("ContextMenu", "EulerAnglesOrder"),
 		Items = EULER_ANGLES_ORDER,
-		CurrentValue = if GetFFlagFixEulerAnglesMenu() then currentEulerAngles.Value else ((track::Types.Track).EulerAnglesOrder::(Enum.RotationOrder)).Value,
+		CurrentValue = currentEulerAngles.Value,
 		ItemSelected = function(eulerAngleOrder)
 			self.props.SetTrackEulerAnglesOrder(instanceName, path, eulerAngleOrder)
 		end,

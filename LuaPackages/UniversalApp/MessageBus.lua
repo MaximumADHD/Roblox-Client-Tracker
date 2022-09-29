@@ -32,8 +32,11 @@ export type Subscriber = Types.Subscriber
 
 local LuaAppFixMessageBusServiceCase = game:DefineFastFlag("LuaAppFixMessageBusServiceCase", false)
 
-local MessageBus = {}
-MessageBus.__index = MessageBus
+local CorePackages = game:GetService("CorePackages")
+local FFlagLuaAppFixMessageBusUnsubscribe = require(CorePackages.AppTempCommon.Flags.FFlagLuaAppFixMessageBusUnsubscribe)
+
+local MessageBus: MessageBus = {} :: MessageBus
+(MessageBus :: any).__index = MessageBus
 
 function MessageBus.publish(desc: MessageDescriptor, params: Table): ()
 	assert(desc.validateParams(params))
@@ -87,8 +90,8 @@ function MessageBus.call(desc: FunctionDescriptor, params: any): any
 
 end
 
-local Subscriber = {}
-Subscriber.__index = Subscriber
+local Subscriber: Subscriber = {} :: Subscriber
+(Subscriber :: any).__index = Subscriber
 
 function Subscriber.new(): Subscriber
 	local self = setmetatable({
@@ -128,7 +131,11 @@ function Subscriber:subscribeProtocolMethodRequest(desc: ProtocolMethodDescripto
 	local requestMid = MessageBus.getProtocolMethodRequestMessageId(protocolName, methodName) 
 	local existingConnection = self.connections[requestMid]
 	if existingConnection ~= nil then
-		self:unsubscribe(requestMid)
+		if FFlagLuaAppFixMessageBusUnsubscribe then
+			self:unsubscribeWithMsgId(requestMid)
+		else
+			(self :: any):unsubscribe(requestMid)
+		end
 	end
 	local conn = MessageBusService:SubscribeToProtocolMethodRequest(protocolName, methodName, callback, once, sticky)
 	self.connections[requestMid] = conn
@@ -143,7 +150,11 @@ function Subscriber:subscribeProtocolMethodResponse(desc: ProtocolMethodDescript
 	local responseMid = MessageBus.getProtocolMethodResponseMessageId(protocolName, methodName) 
 	local existingConnection = self.connections[responseMid]
 	if existingConnection ~= nil then
-		self:unsubscribe(responseMid)
+		if FFlagLuaAppFixMessageBusUnsubscribe then
+			self:unsubscribeWithMsgId(responseMid)
+		else
+			(self :: any):unsubscribe(responseMid)
+		end
 	end
 	local conn = MessageBusService:SubscribeToProtocolMethodResponse(protocolName, methodName, callback, once, sticky)
 	self.connections[responseMid] = conn

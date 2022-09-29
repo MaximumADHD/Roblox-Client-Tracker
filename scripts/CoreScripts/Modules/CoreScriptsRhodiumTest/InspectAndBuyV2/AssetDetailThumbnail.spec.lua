@@ -10,7 +10,7 @@ return function()
 	local Reducer = require(Modules.InGameMenuV3.reducer)
 	local AssetDetailThumbnail = require(Modules.InGameMenuV3.Components.InspectAndBuyPage.AssetDetailThumbnail)
 
-	local FFlagInspectAndBuyV2Enabled = require(Modules.InGameMenuV3.Flags.FFlagInspectAndBuyV2Enabled)
+	local FFlagInspectAndBuyV2IXPEnabledForAll = require(Modules.InGameMenuV3.Flags.FFlagInspectAndBuyV2IXPEnabledForAll)
 
 	local props = {
 		selectedItem = {
@@ -35,7 +35,7 @@ return function()
 	}
 	local wrappedComponent = withInGameMenuV3Providers(AssetDetailThumbnail, props)
 
-	if FFlagInspectAndBuyV2Enabled then
+	if FFlagInspectAndBuyV2IXPEnabledForAll then
 		describe("AssetDetailThumbnail", function()
 			it("should mount", function()
 				withServices(function(path)

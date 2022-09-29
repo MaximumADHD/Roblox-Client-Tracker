@@ -12,7 +12,7 @@
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagToolboxAudioSearchOptions = game:GetFastFlag("ToolboxAudioSearchOptions")
+local FFlagToolboxAudioSearchOptions2 = game:GetFastFlag("ToolboxAudioSearchOptions2")
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
@@ -52,7 +52,7 @@ function SearchTags:createTag(tag, index)
 	})
 end
 
-if FFlagToolboxAudioSearchOptions then
+if FFlagToolboxAudioSearchOptions2 then
 	function SearchTags:createTags(tags, tagsSize)
 		local children = {
 			UIListLayout = Roact.createElement("UIListLayout", {
@@ -191,7 +191,7 @@ function SearchTags:renderContent(theme, DEPRECATED_localization, localizedConte
 				[Roact.Event.Activated] = onClearTags,
 			}),
 
-		Tags = hasTags and self:createTags(tags, if FFlagToolboxAudioSearchOptions then tagsSize else nil),
+		Tags = hasTags and self:createTags(tags, if FFlagToolboxAudioSearchOptions2 then tagsSize else nil),
 	})
 end
 

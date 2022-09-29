@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["ReactIs"]["ReactIs"])
+local Package = require(PackageIndex["ReactIsProxy"]["ReactIsProxy"])
 
 return Package

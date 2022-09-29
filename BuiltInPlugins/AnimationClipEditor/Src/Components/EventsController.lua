@@ -39,14 +39,17 @@ local SelectEvent = require(Plugin.Src.Thunks.Events.SelectEvent)
 local DeselectEvent = require(Plugin.Src.Thunks.Events.DeselectEvent)
 local DeleteSelectedEvents = require(Plugin.Src.Thunks.Events.DeleteSelectedEvents)
 local MoveSelectedEvents = require(Plugin.Src.Thunks.Events.MoveSelectedEvents)
-local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
-local SetEventEditingTick = require(Plugin.Src.Actions.SetEventEditingTick)
 
+local Pause = require(Plugin.Src.Actions.Pause)
+local SetEventEditingTick = require(Plugin.Src.Actions.SetEventEditingTick)
+local SetPlayState = require(Plugin.Src.Actions.SetPlayState)
+local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
 local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
-local Pause = require(Plugin.Src.Actions.Pause)
 
 local EditEventsDialog = require(Plugin.Src.Components.EditEventsDialog.EditEventsDialog)
+
+local GetFFlagRetirePause = require(Plugin.LuaFlags.GetFFlagRetirePause)
 
 local EventsController = Roact.PureComponent:extend("EventsController")
 
@@ -173,7 +176,11 @@ function EventsController:init()
 	end
 
 	self.showMenu = function()
-		self.props.Pause()
+		if GetFFlagRetirePause() then
+			self.props.SetPlayState(Constants.PLAY_STATE.Pause)
+		else
+			self.props.Pause()
+		end
 		self:setState({
 			showContextMenu = true,
 		})
@@ -447,9 +454,13 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetEventEditingTick(tck))
 		end or nil,
 
-		Pause = function()
-			dispatch(Pause())
+		SetPlayState = function(playState)
+			dispatch(SetPlayState(playState))
 		end,
+
+		Pause = if not GetFFlagRetirePause() then function()
+			dispatch(Pause())
+		end else nil,
 	}
 end
 

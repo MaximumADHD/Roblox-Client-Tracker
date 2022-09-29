@@ -1,6 +1,7 @@
 --!strict
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
+local FFlagToolboxIncludeSearchSourceForLight = game:GetFastFlag("ToolboxIncludeSearchSourceForLight")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
 
@@ -151,6 +152,9 @@ local navigationRoutes = {
 								CategoryName = categoryName,
 								SearchTerm = if FFlagToolboxUseQueryForCategories2 then nil else searchTerm,
 								SortName = sortName,
+								SearchSource = if FFlagToolboxIncludeSearchSourceForLight
+									then Constants.SEARCH_SOURCE.CATEGORY
+									else nil,
 								QueryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil,
 							})
 						)

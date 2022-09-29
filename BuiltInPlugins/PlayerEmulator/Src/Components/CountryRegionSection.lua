@@ -128,9 +128,8 @@ function CountryRegionSection:render()
 
 		Label = if FFlagDevFrameworkMigrateTextLabels then (
 			Roact.createElement(TextLabel, {
-				AutomaticSize = Enum.AutomaticSize.Y,
+				AutomaticSize = Enum.AutomaticSize.XY,
 				StyleModifier = if mainSwitchEnabled then nil else StyleModifier.Disabled,
-				Style = "Subtitle",
 				Text = localization:getText("CountryRegionSection", "LabelText"),
 				LayoutOrder = 1,
 			})

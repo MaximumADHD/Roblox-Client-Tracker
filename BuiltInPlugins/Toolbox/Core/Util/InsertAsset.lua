@@ -20,6 +20,7 @@ local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioG
 local FFlagToolboxInsertMaterialsInMS = game:GetFastFlag("ToolboxInsertMaterialsInMS")
 local FFlagToolboxFixInsertPackage = game:GetFastFlag("ToolboxFixInsertPackage")
 local FFlagToolboxFixPackageDragging = game:GetFastFlag("ToolboxFixPackageDragging")
+local FFlagToolboxUnifyModelPackageInsertion = game:DefineFastFlag("ToolboxUnifyModelPackageInsertion", false)
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local InsertService = game:GetService("InsertService")
@@ -219,17 +220,39 @@ end
 local function insertAsset(assetId, assetName, insertToolPromise, assetTypeId, localization, assetSubTypes)
 	local targetParent = Workspace
 
+	local isPackage = if FFlagToolboxUnifyModelPackageInsertion then AssetSubTypes.contains(assetSubTypes, AssetSubTypes.Package) else nil
+
 	local assetInstance = nil
 	local success, errorMessage = pcall(function()
 		local url = Urls.constructAssetIdString(assetId)
-		if DebugFlags.shouldDebugUrls() then
-			print(("Inserting asset %s"):format(url))
+		if FFlagToolboxUnifyModelPackageInsertion then
+			if isPackage then
+				if DebugFlags.shouldDebugUrls() then
+					print(("Inserting package %s"):format(url))
+				end
+				assetInstance = InsertService:LoadPackageAssetAsync(url)
+			else
+				if DebugFlags.shouldDebugUrls() then
+					print(("Inserting asset %s"):format(url))
+				end
+		
+				assetInstance = game:InsertObjectsAndJoinIfLegacyAsync(url)
+			end
+		else
+			if DebugFlags.shouldDebugUrls() then
+				print(("Inserting asset %s"):format(url))
+			end
+	
+			assetInstance = game:InsertObjectsAndJoinIfLegacyAsync(url)
 		end
-
-		assetInstance = game:InsertObjectsAndJoinIfLegacyAsync(url)
 	end)
 
 	if success and assetInstance then
+		-- LoadPackageAssetAsync does not set the SourceAssetId
+		if FFlagToolboxUnifyModelPackageInsertion and isPackage and assetInstance[1] then
+			assetInstance[1].SourceAssetId = assetId
+		end
+
 		-- Parent everything to the target and select it
 		local insertPosition = getInsertPosition()
 
@@ -337,6 +360,7 @@ local function insertDecal(plugin, assetId, assetName)
 end
 
 -- For now, inserting packages is very different from inserting other assets
+-- TODO: Delete insertPackage function with FFlagToolboxUnifyModelPackageInsertion
 local function insertPackage(assetId)
 	local instanceTable = nil
 	local success, errorMessage = pcall(function()
@@ -414,11 +438,12 @@ local function assetTypeIdToString(assetTypeId)
 end
 
 local function dispatchInsertAsset(options, insertToolPromise, networkInterface)
+	-- TODO: Delete unused isPackage variable with FFlagToolboxUnifyModelPackageInsertion
 	local isPackage = if FFlagToolboxFixInsertPackage and options.assetSubTypes ~= nil
 		then AssetSubTypes.contains(options.assetSubTypes, AssetSubTypes.Package)
 		else Category.categoryIsPackage(options.categoryName)
 
-	if isPackage then
+	if not FFlagToolboxUnifyModelPackageInsertion and isPackage then
 		return insertPackage(options.assetId)
 	elseif options.assetTypeId == Enum.AssetType.Audio.Value then
 		return insertAudio(
@@ -441,7 +466,7 @@ local function dispatchInsertAsset(options, insertToolPromise, networkInterface)
 			insertToolPromise,
 			options.assetTypeId,
 			options.localization,
-			if FFlagToolboxInsertMaterialsInMS then options.assetSubTypes else nil
+			if FFlagToolboxInsertMaterialsInMS or FFlagToolboxUnifyModelPackageInsertion then options.assetSubTypes else nil
 		)
 	end
 end

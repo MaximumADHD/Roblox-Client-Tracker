@@ -1,5 +1,4 @@
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
-local FFlagManageCollaboratorsPluginEnabled = game:GetFastFlag("ManageCollaboratorsPluginEnabled")
 
 local StudioService = game:GetService("StudioService")
 
@@ -22,10 +21,6 @@ local RadioButtonList = UI.RadioButtonList
 local Separator = UI.Separator
 local TextLabel = UI.Decoration.TextLabel
 local TitledFrame = UI.TitledFrame
-
-local GameOwnerWidget = require(Page.Components.GameOwnerWidget)
-local CollaboratorsWidget = require(Page.Components.CollaboratorsWidget)
-local CollaboratorSearchWidget = require(Page.Components.CollaboratorSearchWidget)
 
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 
@@ -395,17 +390,7 @@ function Permissions:render()
 				LayoutOrder = 20,
 			}),
 
-			OwnerWidget = not FFlagManageCollaboratorsPluginEnabled and Roact.createElement(GameOwnerWidget, {
-				LayoutOrder = 30,
-
-				Writable = canUserEditPermissions,
-			}),
-
-			Separator2 = not FFlagManageCollaboratorsPluginEnabled and Roact.createElement(Separator, {
-				LayoutOrder = 40,
-			}),
-			
-			CollaboratorsMessage = FFlagManageCollaboratorsPluginEnabled and Roact.createElement(TextLabel, Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
+			CollaboratorsMessage = Roact.createElement(TextLabel, Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
 				Text = localization:getText(LOCALIZATION_ID, "CollaborateButtonMessage"),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextColor = theme.warningColor,
@@ -416,30 +401,6 @@ function Permissions:render()
 				})
 			}),
 
-			TeamCreateWarning = not FFlagManageCollaboratorsPluginEnabled and teamCreateWarningVisible and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
-				Text = localization:getText(LOCALIZATION_ID, "TeamCreateWarning"),
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextColor3 = theme.warningColor,
-				BackgroundTransparency = 1,
-				LayoutOrder = 50,
-			})),
-
-			SearchbarWidget = not FFlagManageCollaboratorsPluginEnabled and canUserEditCollaborators and Roact.createElement(CollaboratorSearchWidget, {
-				LayoutOrder = 50,
-				Writable = true,
-			}),
-
-			CollaboratorListWidget = not FFlagManageCollaboratorsPluginEnabled and FFlagUXImprovementsShowUserPermsWhenCollaborator2 and isTeamCreateEnabled() and Roact.createElement(CollaboratorsWidget, {
-				LayoutOrder = 60,
-				Writable = canUserEditCollaborators,
-				Editable = canUserEditCollaborators
-			}),
-
-			DEPRECATED_CollaboratorListWidget = not FFlagManageCollaboratorsPluginEnabled and not FFlagUXImprovementsShowUserPermsWhenCollaborator2 and DEPRECATED_canUserSeeCollaborators and Roact.createElement(CollaboratorsWidget, {
-				LayoutOrder = 60,
-				Writable = true,
-				Editable = canUserEditCollaborators
-			}),
 		}
 	end
 

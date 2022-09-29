@@ -23,7 +23,8 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Cryo = require(Plugin.Packages.Cryo)
 local Types = require(Plugin.Src.Types)
 
-local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
+local GetFFlagAutomaticKeyframeReduction = require(Plugin.LuaFlags.GetFFlagAutomaticKeyframeReduction)
+
 export type AnimationData = any
 
 local AnimationData = {}
@@ -446,7 +447,7 @@ function AnimationData.promoteToChannels(data, rotationType, eulerAnglesOrder): 
 		end
 	end
 
-	if GetFFlagKeyframeReduction() then
+	if GetFFlagAutomaticKeyframeReduction() then
 		AnimationData.clearTrackSequences(data)
 	end
 
@@ -522,8 +523,12 @@ end
 -- Additionally, if only two keys are left (by definition, the first and the
 -- last) and those keys have the default value, then the track is cleared.
 local function clearSequences(track: Types.Track): boolean
-	local fuzzyEq = if track.Type == Constants.TRACK_TYPES.CFrame
-		then fuzzyCFrameEq else MathUtils.fuzzyEq
+	local fuzzyEq
+	if (track.Type == Constants.TRACK_TYPES.CFrame or track.Type == Constants.TRACK_TYPES.Quaternion) then
+		fuzzyEq = fuzzyCFrameEq
+	else
+		fuzzyEq = MathUtils.fuzzyEq
+	end
 
 	if not (track.Keyframes and track.Keyframes[1] and track.Data) then
 		return false

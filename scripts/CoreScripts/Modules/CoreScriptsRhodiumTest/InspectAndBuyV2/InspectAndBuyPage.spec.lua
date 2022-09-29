@@ -10,7 +10,7 @@ return function()
 	local Reducer = require(Modules.InGameMenuV3.reducer)
 	local InspectAndBuyPage = require(Modules.InGameMenuV3.Components.InspectAndBuyPage.InspectAndBuyPage)
 
-	local FFlagInspectAndBuyV2Enabled = require(Modules.InGameMenuV3.Flags.FFlagInspectAndBuyV2Enabled)
+	local FFlagInspectAndBuyV2IXPEnabledForAll = require(Modules.InGameMenuV3.Flags.FFlagInspectAndBuyV2IXPEnabledForAll)
 
 	local wrappedComponent = withInGameMenuV3Providers(InspectAndBuyPage)
 
@@ -20,14 +20,16 @@ return function()
 		{assetId = "333"},
 	}
 
-	local initState = {
-		inspectAndBuy = {
-			DisplayName = "DisplayNameTest",
-			Assets = mockAssets,
+	local createInitState = function()
+		return {
+			inspectAndBuy = {
+				DisplayName = "DisplayNameTest",
+				Assets = mockAssets,
+			}
 		}
-	}
+	end
 
-	if FFlagInspectAndBuyV2Enabled then
+	if FFlagInspectAndBuyV2IXPEnabledForAll then
 		describe("InspectAndBuyPage", function()
 			it("should mount", function()
 				withServices(function(path)
@@ -53,7 +55,7 @@ return function()
 					expect(title:waitForRbxInstance(1)).to.be.ok()
 					expect(title:getAttribute("Text")).to.equal("DisplayNameTest")
 				end,
-				wrappedComponent, Reducer, initState, nil)
+				wrappedComponent, Reducer, createInitState(), nil)
 			end)
 
 			it("should display the correct number tiles", function()
@@ -71,7 +73,7 @@ return function()
 					local asset1 = Element.new(asset1Path)
 					expect(asset1:waitForRbxInstance(1)).to.be.ok()
 				end,
-				wrappedComponent, Reducer, initState, nil)
+				wrappedComponent, Reducer, createInitState(), nil)
 			end)
 		end)
 	end

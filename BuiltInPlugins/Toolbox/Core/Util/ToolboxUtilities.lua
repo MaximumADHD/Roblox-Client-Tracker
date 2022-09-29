@@ -6,6 +6,7 @@ local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("Toolbox
 local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
 local FFlagToolboxAddUnverifiedIcon = game:GetFastFlag("ToolboxAddUnverifiedIcon")
 local FFlagToolboxAddUnverifiedIconFollowUp = game:GetFastFlag("ToolboxAddUnverifiedIconFollowUp") and FFlagToolboxAddUnverifiedIcon
+local FFlagHideAssetConfigLearnMoreForLuobu = game:GetFastFlag("HideAssetConfigLearnMoreForLuobu")
 
 local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
 local ToolboxPolicy
@@ -166,6 +167,12 @@ if FFlagToolboxEnableAssetConfigPhoneVerification or FFlagToolboxAssetConfigurat
 
 	function ToolboxUtilities.getSafetyLearnMoreUrl(): string?
 		return ToolboxPolicy["SafetyLearnMoreUrl"]
+	end
+end
+
+if FFlagHideAssetConfigLearnMoreForLuobu then
+	function ToolboxUtilities.hideAssetConfigDistributeLearnMoreLink(): boolean
+		return ToolboxPolicy["HideAssetConfigDistributeLearnMoreLink"]
 	end
 end
 

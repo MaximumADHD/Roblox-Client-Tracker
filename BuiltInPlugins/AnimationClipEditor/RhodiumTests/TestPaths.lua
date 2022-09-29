@@ -137,4 +137,36 @@ function TestPaths.getAddEventEntry(eventsDialog)
 	})
 end
 
+function TestPaths.getStyledDialogContents(dialog)
+	return TestPaths.waitForDescendant(dialog, {
+		"SolidBackground", "Contents",
+	})
+end
+
+function TestPaths.getKFRKeyframesText(dialog)
+	local contents = TestPaths.getStyledDialogContents(dialog)
+	return TestPaths.waitForDescendant(contents, {
+		"KeyframePane", "KeyframesText",
+	})
+end
+
+function TestPaths.getKFRSlider(dialog)
+	local contents = TestPaths.getStyledDialogContents(dialog)
+	return TestPaths.waitForDescendant(contents, {
+		"Slider"
+	})
+end
+
+function TestPaths.getKFRCancel(dialog)
+	return TestPaths.waitForDescendant(dialog, {
+		"SolidBackground", "ButtonContainer"
+	})[1]
+end
+
+function TestPaths.getKFROk(dialog)
+	return TestPaths.waitForDescendant(dialog, {
+		"SolidBackground", "ButtonContainer"
+	})[2]
+end
+
 return TestPaths

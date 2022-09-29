@@ -17,7 +17,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local deepCopy = require(Plugin.Src.Util.deepCopy)
 local FFlagFixFaceRecorderKeyframeInterpolation = game:DefineFastFlag("ACEFixFaceRecorderKeyframeInterpolation", false)
 
-local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
+local GetFFlagAutomaticKeyframeReduction = require(Plugin.LuaFlags.GetFFlagAutomaticKeyframeReduction)
 
 function clearFacsTracksAndHeadTrack(animationData)
 	for instanceName, instance in pairs(animationData.Instances) do
@@ -153,14 +153,14 @@ return function(props, recordedFrames, analytics)
 				end
 			end
 
-			if GetFFlagKeyframeReduction() then
+			if GetFFlagAutomaticKeyframeReduction() then
 				AnimationData.clearTrackSequences(previousAnimationData)
 			end
 
 			store:dispatch(LoadAnimationData(previousAnimationData, analytics))
 			newAnimationData = previousAnimationData
 		else
-			if GetFFlagKeyframeReduction() then
+			if GetFFlagAutomaticKeyframeReduction() then
 				AnimationData.clearTrackSequences(newAnimationData)
 			end
 			store:dispatch(LoadAnimationData(newAnimationData, analytics))

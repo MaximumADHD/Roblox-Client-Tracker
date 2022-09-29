@@ -5,9 +5,13 @@ export type Tag = {
 	DrawType: string,
 	Color: Color3,
 	AlwaysOnTop: boolean,
-	Group: string,
+	Group: string?,
+	HasSome: boolean?,
+	HasAll: boolean?,
 }
 
 export type Array<T> = { [number]: T }
+
+export type Table<T, V> = { [T]: V }
 
 return nil

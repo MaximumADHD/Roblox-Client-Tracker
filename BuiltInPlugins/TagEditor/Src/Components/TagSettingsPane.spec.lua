@@ -1,20 +1,14 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Framework = require(Plugin.Packages.Framework)
 local mockContext = require(Plugin.Src.Util.mockContext)
-
-local join = Framework.Dash.join
 
 local TagSettingsPane = require(script.Parent.TagSettingsPane)
 
 return function()
 	local function createTestElement(props: {}?)
-		local componentProps: TagSettingsPane.Props = join({
-			-- If there are any props required for this component, add defaults for them here
-		}, props or {})
 
 		return mockContext({
-			TagSettingsPane = Roact.createElement(TagSettingsPane, componentProps)
+			TagSettingsPane = Roact.createElement(TagSettingsPane)
 		})
 	end
 

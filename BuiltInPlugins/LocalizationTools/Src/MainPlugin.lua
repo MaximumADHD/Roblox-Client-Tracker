@@ -10,6 +10,9 @@ local Roact = require(main.Packages.Roact)
 local Rodux = require(main.Packages.Rodux)
 local Framework = require(main.Packages.Framework)
 
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
 local ContextServices = Framework.ContextServices
 local Plugin = ContextServices.Plugin
 local Mouse = ContextServices.Mouse
@@ -27,7 +30,7 @@ local MainReducer = require(main.Src.Reducers.MainReducer)
 local LoadPluginMetadata = require(main.Src.Thunks.LoadPluginMetadata)
 local Analytics = require(main.Src.Util.Analytics)
 
-local WINDOW_SIZE = Vector2.new(300, 250)
+local WINDOW_SIZE = Vector2.new(if FFlagDevFrameworkMigrateTextLabels then 380 else 300, 250)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -127,6 +130,7 @@ function MainPlugin:render()
 			Title = self.localization:getText("Plugin", "WindowTitle"),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Left,
+			MinSize = if FFlagDevFrameworkMigrateTextLabels then WINDOW_SIZE else nil,
 			Size = WINDOW_SIZE,
 			OnClose = self.onClose,
 			ShouldRestore = true,

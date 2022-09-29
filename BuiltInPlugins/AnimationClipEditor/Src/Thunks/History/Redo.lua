@@ -16,8 +16,6 @@ local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
 local TrackSelectionUtils = require(Plugin.Src.Util.TrackSelectionUtils)
 
-local GetFFlagFixRedoDeleteSelection = require(Plugin.LuaFlags.GetFFlagFixRedoDeleteSelection)
-
 return function()
 	return function(store)
 		local state = store:getState()
@@ -49,11 +47,11 @@ return function()
 			-- This use case does not happen for now, but it might in the future.
 			-- This is added to mirror the behavior of Undo
 			local newSelectedTracks, changed = TrackSelectionUtils.PruneSelectedTracks(
-				if GetFFlagFixRedoDeleteSelection() then newState.AnimationData else animationData, selectedTracks)
+				newState.AnimationData, selectedTracks)
 			if changed then
 				store:dispatch(SetSelectedTracks(newSelectedTracks))
 			end
-	
+
 			store:dispatch(SetFuture(Cryo.List.removeIndex(future, 1)))
 		end
 	end

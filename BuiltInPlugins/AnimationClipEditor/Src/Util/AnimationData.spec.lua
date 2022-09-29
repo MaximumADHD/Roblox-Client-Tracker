@@ -1,6 +1,11 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
+	local Cryo = require(Plugin.Packages.Cryo)
+
 	local Constants = require(Plugin.Src.Util.Constants)
+	local isEmpty = require(Plugin.Src.Util.isEmpty)
+
+	local Types = require(Plugin.Src.Types)
 
 	local AnimationData = require(script.Parent.AnimationData)
 
@@ -783,6 +788,206 @@ return function()
 			expect(AnimationData.getTrack(data, "Root", {"Component"})).never.to.be.ok()
 			expect(AnimationData.getTrack(data, "Root", {"TestTrack2", "Foo"})).never.to.be.ok()
 			expect(AnimationData.getTrack(data, "Root", {"TestTrack2", "Component", "Foo"})).never.to.be.ok()
+		end)
+	end)
+
+	describe("clearTrackSequence", function()
+		local function makeTrack(type: string, value: CFrame | number): Types.Track
+			return {
+				Type = type,
+				Keyframes = {100, 200, 300, 400, 500},
+				Data = {
+					[100] = { Value = value },
+					[200] = { Value = value },
+					[300] = { Value = value },
+					[400] = { Value = value },
+					[500] = { Value = value },
+				}
+			}
+		end
+
+		it("should bail out without data", function()
+			expect(AnimationData.clearTrackSequences(nil)).to.equal(false)
+		end)
+
+		it("should accept tracks without keyframes or other odd datasets", function()
+			local data = {
+				Instances = {
+					Root = {
+						Tracks = {
+							Head = {},
+							LowerTorso = {
+								Keyframes = {},
+								Data = {}
+							},
+							UpperTorso = {
+								Keyframes = { 100 },
+								Data = {}
+							}
+						}
+					},
+				},
+			}
+			expect(AnimationData.clearTrackSequences(data)).to.equal(false)
+		end)
+
+		it("should keep first and last key of each sequence", function()
+			local data = {
+				Instances = {
+					Root = {
+						Tracks = {
+							Head = {
+								Type = Constants.TRACK_TYPES.Facs,
+								Keyframes = {100, 200, 300, 400, 500, 600, 700, 800},
+								Data = {
+									[100] = { Value = 0.5 },
+									[200] = { Value = 0.5 },
+									[300] = { Value = 0.5 },
+									[400] = { Value = 0.7 },
+									[500] = { Value = 0.7 },
+									[600] = { Value = 0.7 },
+									[700] = { Value = 0.7 },
+									[800] = { Value = 0.9 },
+								}
+							},
+						}
+					},
+				},
+			}
+
+			expect(AnimationData.clearTrackSequences(data)).to.equal(true)
+			local track = data.Instances["Root"].Tracks["Head"]
+			expect(track).to.be.ok()
+
+			expect(#track.Keyframes).to.equal(5)
+			expect(track.Data[100]).to.be.ok()
+			expect(track.Data[200]).never.to.be.ok()
+			expect(track.Data[300]).to.be.ok()
+			expect(track.Data[400]).to.be.ok()
+			expect(track.Data[500]).never.to.be.ok()
+			expect(track.Data[600]).never.to.be.ok()
+			expect(track.Data[700]).to.be.ok()
+			expect(track.Data[800]).to.be.ok()
+		end)
+
+		it("should work with all types of Tracks", function()
+			local cFrame = CFrame.new(Vector3.new(1, 2, 3), Vector3.new(6, 5, 4))
+			local rotation = cFrame.Rotation
+
+			local data = {
+				Instances = {
+					Root = {
+						Tracks = {
+							CFrameTrack = makeTrack(Constants.TRACK_TYPES.CFrame, cFrame),
+							QuaternionTrack = makeTrack(Constants.TRACK_TYPES.Quaternion, rotation),
+							FacsTrack = makeTrack(Constants.TRACK_TYPES.Facs, 0.5),
+							PositionTrack = {
+								Type = Constants.TRACK_TYPES.Position,
+								Components = {
+									X = makeTrack(Constants.TRACK_TYPES.Number, 0.2),
+									Y = makeTrack(Constants.TRACK_TYPES.Number, 0.3),
+									Z = makeTrack(Constants.TRACK_TYPES.Number, 0.4),
+								}
+							},
+							RotationTrack = {
+								Type = Constants.TRACK_TYPES.EulerAngles,
+								EulerAnglesOrder = Enum.RotationOrder.YZX,
+								Components = {
+									X = makeTrack(Constants.TRACK_TYPES.Number, 0.2),
+									Y = makeTrack(Constants.TRACK_TYPES.Number, 0.3),
+									Z = makeTrack(Constants.TRACK_TYPES.Number, 0.4),
+								}
+							},
+						}
+					},
+				},
+			}
+
+			expect(AnimationData.clearTrackSequences(data)).to.equal(true)
+			local tracks = data and data.Instances and data.Instances["Root"] and data.Instances["Root"].Tracks or nil
+			expect(tracks).to.be.ok()
+			expect(#tracks["CFrameTrack"].Keyframes).to.equal(2)
+			expect(#Cryo.Dictionary.keys(tracks["CFrameTrack"].Data)).to.equal(2)
+			expect(#tracks["QuaternionTrack"].Keyframes).to.equal(2)
+			expect(#Cryo.Dictionary.keys(tracks["QuaternionTrack"].Data)).to.equal(2)
+			expect(#tracks["FacsTrack"].Keyframes).to.equal(2)
+			expect(#Cryo.Dictionary.keys(tracks["FacsTrack"].Data)).to.equal(2)
+			local positionComponents = tracks and tracks["PositionTrack"] and tracks["PositionTrack"].Components or nil
+			expect(positionComponents).to.be.ok()
+			expect(#positionComponents["X"].Keyframes).to.equal(2)
+			expect(#Cryo.Dictionary.keys(positionComponents["X"].Data)).to.equal(2)
+			expect(#positionComponents["Y"].Keyframes).to.equal(2)
+			expect(#Cryo.Dictionary.keys(positionComponents["Y"].Data)).to.equal(2)
+			expect(#positionComponents["Z"].Keyframes).to.equal(2)
+			expect(#Cryo.Dictionary.keys(positionComponents["Z"].Data)).to.equal(2)
+			local rotationComponents = tracks and tracks["RotationTrack"] and tracks["RotationTrack"].Components or nil
+			expect(rotationComponents).to.be.ok()
+			expect(#rotationComponents["X"].Keyframes).to.equal(2)
+			expect(#Cryo.Dictionary.keys(rotationComponents["X"].Data)).to.equal(2)
+			expect(#rotationComponents["Y"].Keyframes).to.equal(2)
+			expect(#Cryo.Dictionary.keys(rotationComponents["Y"].Data)).to.equal(2)
+			expect(#rotationComponents["Z"].Keyframes).to.equal(2)
+			expect(#Cryo.Dictionary.keys(rotationComponents["Z"].Data)).to.equal(2)
+		end)
+
+		it("should clear constant tracks with default values", function()
+			local cFrame = CFrame.new()
+
+			local data = {
+				Instances = {
+					Root = {
+						Tracks = {
+							CFrameTrack = makeTrack(Constants.TRACK_TYPES.CFrame, cFrame),
+							QuaternionTrack = makeTrack(Constants.TRACK_TYPES.Quaternion, cFrame),
+							FacsTrack = makeTrack(Constants.TRACK_TYPES.Facs, 0),
+							PositionTrack = {
+								Type = Constants.TRACK_TYPES.Position,
+								Components = {
+									X = makeTrack(Constants.TRACK_TYPES.Number, 0),
+									Y = makeTrack(Constants.TRACK_TYPES.Number, 0),
+									Z = makeTrack(Constants.TRACK_TYPES.Number, 0),
+								}
+							},
+							RotationTrack = {
+								Type = Constants.TRACK_TYPES.EulerAngles,
+								EulerAnglesOrder = Enum.RotationOrder.YZX,
+								Components = {
+									X = makeTrack(Constants.TRACK_TYPES.Number, 0),
+									Y = makeTrack(Constants.TRACK_TYPES.Number, 0),
+									Z = makeTrack(Constants.TRACK_TYPES.Number, 0),
+								}
+							},
+						}
+					},
+				},
+			}
+
+			expect(AnimationData.clearTrackSequences(data)).to.equal(true)
+			local tracks = data and data.Instances and data.Instances["Root"] and data.Instances["Root"].Tracks or nil
+			expect(tracks).to.be.ok()
+			-- As top level tracks, CFrame and Facs should be removed
+			expect(tracks["CFrameTrack"]).never.to.be.ok()
+			expect(tracks["FacsTrack"]).never.to.be.ok()
+
+			expect(isEmpty(tracks["QuaternionTrack"].Keyframes)).to.equal(true)
+			expect(isEmpty(tracks["QuaternionTrack"].Data)).to.equal(true)
+			local positionComponents = tracks and tracks["PositionTrack"] and tracks["PositionTrack"].Components or nil
+			expect(positionComponents).to.be.ok()
+			expect(isEmpty(positionComponents["X"].Keyframes)).to.equal(true)
+			expect(isEmpty(positionComponents["X"].Data)).to.equal(true)
+			expect(isEmpty(positionComponents["Y"].Keyframes)).to.equal(true)
+			expect(isEmpty(positionComponents["Y"].Data)).to.equal(true)
+			expect(isEmpty(positionComponents["Z"].Keyframes)).to.equal(true)
+			expect(isEmpty(positionComponents["Z"].Data)).to.equal(true)
+
+			local rotationComponents = tracks and tracks["RotationTrack"] and tracks["RotationTrack"].Components or nil
+			expect(rotationComponents).to.be.ok()
+			expect(isEmpty(rotationComponents["X"].Keyframes)).to.equal(true)
+			expect(isEmpty(rotationComponents["X"].Data)).to.equal(true)
+			expect(isEmpty(rotationComponents["Y"].Keyframes)).to.equal(true)
+			expect(isEmpty(rotationComponents["Y"].Data)).to.equal(true)
+			expect(isEmpty(rotationComponents["Z"].Keyframes)).to.equal(true)
+			expect(isEmpty(rotationComponents["Z"].Data)).to.equal(true)
 		end)
 	end)
 end

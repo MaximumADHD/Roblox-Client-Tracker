@@ -162,6 +162,7 @@ return{
 	["CoreScripts.InGameMenu.ExitModal.Subtitle"] = [[Discover new experiences without leaving the app]],
 	["CoreScripts.InGameMenu.ExitModal.BodyTextOpenMenu"] = [[Open the Roblox menu]],
 	["CoreScripts.InGameMenu.ExitModal.BodyTextClickHome"] = [[Click the Home icon]],
+	["CoreScripts.InGameMenu.ExitModal.OptionDontShow"] = [[Don't Show Again]],
 	["CoreScripts.InGameMenu.ExitModal.ActionExit"] = [[Close Roblox]],
 	["CoreScripts.InGameMenu.ExitModal.ActionHome"] = [[Back to Home]],
 	["CoreScripts.InGameMenu.ControllerBar.Back"] = [[Back]],

@@ -1,7 +1,7 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
 
-local FFlagToolboxAudioSearchOptions = game:GetFastFlag("ToolboxAudioSearchOptions")
+local FFlagToolboxAudioSearchOptions2 = game:GetFastFlag("ToolboxAudioSearchOptions2")
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
@@ -64,7 +64,7 @@ function AudioRowMetadata:render()
 			TextColor3 = theme.headerTextColor,
 			TextXAlignment = Enum.TextXAlignment.Left,
 		}),
-		Text = if FFlagToolboxAudioSearchOptions
+		Text = if FFlagToolboxAudioSearchOptions2
 			then Roact.createElement(AudioRowUnderlinedTextButton, {
 				LayoutOrder = 2,
 				OnClick = onClick,

@@ -15,7 +15,8 @@ local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 local GetFFlagShareInviteLinkContextMenuV3Enabled = require(
 	InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled
 )
-local FFlagInspectAndBuyV2Enabled = require(InGameMenu.Flags.FFlagInspectAndBuyV2Enabled)
+local InspectAndBuyV2IXPTest = require(InGameMenu.Flags.InspectAndBuyV2IXPTest)
+
 
 local navigationBar = {
 	{
@@ -145,7 +146,7 @@ local pages = {
 	},
 }
 
-if FFlagInspectAndBuyV2Enabled then
+if InspectAndBuyV2IXPTest.isEnabled() then
 	table.insert(pages, {
 		key = Constants.InspectAndBuyPageKey,
 		icon = nil,

@@ -196,7 +196,7 @@ function AnimationClipMenu:makeMenuActions(localization)
 	if GetFFlagKeyframeReduction() then
 		table.insert(actions, Separator)
 		table.insert(actions, {
-			Name = localization:getText("Menu", "ReduceKeyframes"),
+			Name = localization:getText("Menu", "OptimizeKeyframes"),
 			ItemSelected = onReduceKeyframesRequested,
 			Enabled = enableReduce,
 		})

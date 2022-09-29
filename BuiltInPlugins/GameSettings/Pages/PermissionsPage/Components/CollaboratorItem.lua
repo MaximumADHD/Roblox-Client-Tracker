@@ -47,9 +47,11 @@ function DeleteButton:render()
 
 	if FFlagRemoveUILibraryButton then
 		return Roact.createElement(Button, {
+			AnchorPoint = Vector2.new(1, 0.5),
+			OnClick = onClicked,
+			Position = UDim2.fromScale(1, 0.5),
 			Style = "Close",
 			StyleModifier = if enabled then nil else StyleModifier.Disabled,
-			OnClick = onClicked,
 		})
 	else
 		return Roact.createElement(UILibraryButton, {
@@ -286,8 +288,10 @@ function CollaboratorItem:render()
 			}),
 
 			PermissionsDropdown = not loading and Roact.createElement(SelectInput, if FFlagCOLLAB2168FixPermissionsDropdownContrastIssue then {
+				AnchorPoint = if FFlagRemoveUILibraryButton then Vector2.new(0, 0.5) else nil,
 				Enabled = writable and #permissionItems > 1,
 				Items = permissionItems,
+				Position = if FFlagRemoveUILibraryButton then UDim2.fromScale(0, 0.5) else nil,
 				SelectedIndex = selectedPermissionIndex,
 				OnItemActivated = self.onItemActivated,
 				OnRenderItem = self.onRenderItem,

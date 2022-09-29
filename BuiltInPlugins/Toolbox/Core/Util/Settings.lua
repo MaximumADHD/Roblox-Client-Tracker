@@ -1,4 +1,5 @@
 local FFlagToolboxEnableAnnouncementsDialog = game:GetFastFlag("ToolboxEnableAnnouncementsDialog")
+local FFlagToolboxRemoveDefaultToolboxSearchStringValue = game:GetFastFlag("ToolboxRemoveDefaultToolboxSearchStringValue")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -150,7 +151,7 @@ function Settings:loadInitialSettings()
 	initSettings.searchTerm = self:getSelectedSearchTerm()
 	initSettings.sortIndex = self:getSelectedSortIndex()
 
-	if game:FindFirstChild("DefaultToolboxSearch") then
+	if ((not FFlagToolboxRemoveDefaultToolboxSearchStringValue) and game:FindFirstChild("DefaultToolboxSearch")) then
 		initSettings.searchTerm = game.DefaultToolboxSearch.Value
 		-- Also set the initial category to free models and relevant sort
 		initSettings.categoryName = Category.DEFAULT.name

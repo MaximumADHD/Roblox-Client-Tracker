@@ -8,9 +8,9 @@ return function()
 	local InspectAndBuyThunk = require(InGameMenu.InspectAndBuyThunk)
 	local GetItemDetails = require(script.Parent.GetItemDetails)
 
-	local FFlagInspectAndBuyV2Enabled = require(InGameMenu.Flags.FFlagInspectAndBuyV2Enabled)
+	local FFlagInspectAndBuyV2IXPEnabledForAll = require(InGameMenu.Flags.FFlagInspectAndBuyV2IXPEnabledForAll)
 
-	if FFlagInspectAndBuyV2Enabled then
+	if FFlagInspectAndBuyV2IXPEnabledForAll then
 		it("should get the product info", function()
 			local store = Rodux.Store.new(Reducer)
 			local thunk = GetItemDetails()

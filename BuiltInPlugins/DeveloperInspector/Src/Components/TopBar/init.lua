@@ -7,7 +7,6 @@ local Main = script.Parent.Parent.Parent
 local Roact = require(Main.Packages.Roact)
 local RoactRodux = require(Main.Packages.RoactRodux)
 local Framework = require(Main.Packages.Framework)
-local TabsTypes = require(Main.Packages._Index.DeveloperFramework.DeveloperFramework.UI.Tabs.types)
 local InspectorContext = require(Main.Src.Util.InspectorContext)
 
 local Actions = Main.Src.Actions
@@ -106,14 +105,14 @@ function TopBar:render()
 			OnClick = self.togglePicking,
 		}, {
 			Tooltip = Roact.createElement(Tooltip, {
-				Text = "Inspect a UI element"
+				Text = "Inspect a UI element",
 			}),
 			Icon = Roact.createElement(Image, {
 				Size = UDim2.fromOffset(style.IconSize, style.IconSize),
 				Position = UDim2.fromScale(0.5, 0.5),
 				AnchorPoint = Vector2.new(0.5, 0.5),
-				Image = "rbxasset://textures/DeveloperInspector/Inspect.png"
-			})
+				Image = "rbxasset://textures/DeveloperInspector/Inspect.png",
+			}),
 		}),
 		Profile = Roact.createElement(Button, {
 			Style = props.IsProfiling and "RoundPrimary" or "RoundSubtle",
@@ -123,14 +122,14 @@ function TopBar:render()
 			OnClick = self.toggleProfiling,
 		}, {
 			Tooltip = Roact.createElement(Tooltip, {
-				Text = "Profile a Roact tree (Ctrl+Shift+R)"
+				Text = "Profile a Roact tree (Ctrl+Shift+R)",
 			}),
 			Icon = Roact.createElement(Image, {
 				Size = UDim2.fromOffset(style.IconSize, style.IconSize),
 				Position = UDim2.fromScale(0.5, 0.5),
 				AnchorPoint = Vector2.new(0.5, 0.5),
-				Image = "rbxasset://textures/DeveloperInspector/Record.png"
-			})
+				Image = "rbxasset://textures/DeveloperInspector/Record.png",
+			}),
 		}),
 		Tabs = Roact.createElement(Pane, {
 			Position = UDim2.fromOffset(style.ButtonSize * 2 + style.Padding * 3, style.Padding),
@@ -154,7 +153,7 @@ function TopBar:render()
 				AutomaticSize = Enum.AutomaticSize.XY,
 				Text = props.SelectedTarget.Name,
 				LayoutOrder = 1,
-				TextXAlignment = Enum.TextXAlignment.Right
+				TextXAlignment = Enum.TextXAlignment.Right,
 			}),
 			Close = Roact.createElement(Button, {
 				Style = "RoundSubtle",
@@ -165,16 +164,16 @@ function TopBar:render()
 				OnClick = self.closeTarget,
 			}, {
 				Tooltip = Roact.createElement(Tooltip, {
-					Text = "Close this Roact tree"
+					Text = "Close this Roact tree",
 				}),
 				Icon = Roact.createElement(Image, {
 					Size = UDim2.fromOffset(style.IconSize, style.IconSize),
 					Position = UDim2.fromScale(0.5, 0.5),
 					AnchorPoint = Vector2.new(0.5, 0.5),
-					Image = "rbxasset://textures/DeveloperInspector/Close.png"
-				})
+					Image = "rbxasset://textures/DeveloperInspector/Close.png",
+				}),
 			}),
-		})
+		}),
 	})
 end
 
@@ -186,17 +185,18 @@ TopBar = withContext({
 
 return RoactRodux.connect(
 	function(state)
-		return {
-			Tabs = state.Targets.tabs,
-			SelectedTab = state.Targets.selectedTab,
-			SelectedTarget = state.Targets.selectedTarget,
-			IsPicking = state.RoactInspector.isPicking,
-			IsProfiling = state.RoactInspector.isProfiling,
-		}
+	return {
+		Tabs = state.Targets.tabs,
+		SelectedTab = state.Targets.selectedTab,
+		SelectedTarget = state.Targets.selectedTarget,
+		IsPicking = state.RoactInspector.isPicking,
+		IsProfiling = state.RoactInspector.isProfiling,
+	}
 	end,
 	function(dispatch)
 		return {
-			selectTab = function(tab: TabsTypes.Tab)
+			-- FIXME STUDIOPLAT-28652: Export the types of tab directly in the init file
+			selectTab = function(tab)
 				dispatch(SetTab(tab))
 			end,
 			setPicking = function(isPicking: boolean)

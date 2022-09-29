@@ -1,7 +1,8 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
 
-local FFlagToolboxAudioSearchOptions = game:GetFastFlag("ToolboxAudioSearchOptions")
+local FFlagToolboxAudioSearchOptions2 = game:GetFastFlag("ToolboxAudioSearchOptions2")
+local FFlagToolboxAudioUIPolish = game:GetFastFlag("ToolboxAudioUIPolish")
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
@@ -39,6 +40,11 @@ local getNetwork = ContextGetter.getNetwork
 local AssetInfo = require(Plugin.Core.Models.AssetInfo)
 local Category = require(Plugin.Core.Types.Category)
 
+local GetAudioTableSizes
+if FFlagToolboxAudioUIPolish then
+	GetAudioTableSizes = require(Plugin.Core.Components.AudioTable.GetAudioTableSizes)
+end
+
 local AudioRow = Roact.PureComponent:extend("AudioRow")
 
 type _InteralAudioRowProps = {
@@ -53,6 +59,7 @@ type _InteralAudioRowProps = {
 	audioSearchInfo: { [string]: number? }?,
 	additionalAudioSearchInfo: { [string]: string? }?,
 	creator: string?,
+	showCategory: boolean?,
 }
 
 type _ExternalAudioRowProps = {
@@ -64,6 +71,8 @@ type _ExternalAudioRowProps = {
 	OnExpanded: (assetId: number) -> nil,
 	LogImpression: (asset: AssetInfo.AssetInfo) -> ()?,
 	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn,
+	-- Make required with removal of FFlagToolboxAudioUIPolish
+	width: number?,
 }
 
 type AudioRowProps = _InteralAudioRowProps & _ExternalAudioRowProps
@@ -146,7 +155,7 @@ function AudioRow:init(props: AudioRowProps)
 		end
 	end
 
-	if FFlagToolboxAudioSearchOptions then
+	if FFlagToolboxAudioSearchOptions2 then
 		self.searchBy = function(searchParams: { [string]: any? })
 			local networkInterface = getNetwork(self)
 			local settings = self.props.Settings:get("Plugin")
@@ -249,6 +258,7 @@ function AudioRow:renderContent(localizedContent: any)
 	local localization = props.Localization
 	local layoutOrder = props.LayoutOrder
 	local insertAsset = props.InsertAsset
+	local width = props.width
 	local assetName = asset.Name
 	local audioType = audioDetails.Type
 	local artist = audioDetails.Artist :: string
@@ -334,10 +344,15 @@ function AudioRow:renderContent(localizedContent: any)
 		else Constants.AUDIO_ROW.EXPANDED_UNCATEGORIZED_ROW_HEIGHT
 
 	local textButtonUIPadding
-	if FFlagToolboxAudioSearchOptions then
+	if FFlagToolboxAudioSearchOptions2 then
 		textButtonUIPadding = Roact.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, Constants.AUDIO_ROW.LEFT_RIGHT_PADDING),
 		})
+	end
+
+	local columnSizes
+	if FFlagToolboxAudioUIPolish then
+		columnSizes = GetAudioTableSizes(audioType, width or 0)
 	end
 
 	return Roact.createElement("Frame", {
@@ -395,7 +410,9 @@ function AudioRow:renderContent(localizedContent: any)
 					}),
 				}),
 				Title = Roact.createElement("TextLabel", {
-					Size = calculateAudioColumnSize(Constants.AUDIO_ROW.COLUMNS.NAME),
+					Size = if FFlagToolboxAudioUIPolish
+						then columnSizes[Constants.AUDIO_ROW.COLUMNS.NAME]
+						else calculateAudioColumnSize(Constants.AUDIO_ROW.COLUMNS.NAME),
 					BackgroundTransparency = 1,
 					LayoutOrder = orderIterator:getNextOrder(),
 					Text = assetName,
@@ -406,16 +423,25 @@ function AudioRow:renderContent(localizedContent: any)
 					TextWrapped = true,
 					TextTruncate = Enum.TextTruncate.AtEnd,
 				}),
-				Artist = if FFlagToolboxAudioSearchOptions and isMusicType
+				Artist = if FFlagToolboxAudioSearchOptions2
+						and isMusicType
+						and (not FFlagToolboxAudioUIPolish or columnSizes[Constants.AUDIO_ROW.COLUMNS.ARTIST])
 					then Roact.createElement(AudioRowUnderlinedTextButton, {
 						LayoutOrder = orderIterator:getNextOrder(),
 						OnClick = if artist ~= EMPTY_TEXT_PLACEHOLDER then self.onSearchByArtist else nil,
-						Size = calculateAudioColumnSize(Constants.AUDIO_ROW.COLUMNS.ARTIST),
+						Size = if FFlagToolboxAudioUIPolish
+							then columnSizes[Constants.AUDIO_ROW.COLUMNS.ARTIST]
+							else calculateAudioColumnSize(Constants.AUDIO_ROW.COLUMNS.ARTIST),
 						Text = artist,
 						UIPadding = textButtonUIPadding,
 					})
-					elseif isMusicType then Roact.createElement("TextLabel", {
-						Size = calculateAudioColumnSize(Constants.AUDIO_ROW.COLUMNS.ARTIST),
+					elseif
+						isMusicType
+						and (not FFlagToolboxAudioUIPolish or columnSizes[Constants.AUDIO_ROW.COLUMNS.ARTIST])
+					then Roact.createElement("TextLabel", {
+						Size = if FFlagToolboxAudioUIPolish
+							then columnSizes[Constants.AUDIO_ROW.COLUMNS.ARTIST]
+							else calculateAudioColumnSize(Constants.AUDIO_ROW.COLUMNS.ARTIST),
 						BackgroundTransparency = 1,
 						LayoutOrder = orderIterator:getNextOrder(),
 						Font = Constants.FONT,
@@ -430,16 +456,25 @@ function AudioRow:renderContent(localizedContent: any)
 						}),
 					})
 					else nil,
-				Category = if FFlagToolboxAudioSearchOptions and isSoundEffectType
+				Category = if FFlagToolboxAudioSearchOptions2
+						and isSoundEffectType
+						and (not FFlagToolboxAudioUIPolish or columnSizes[Constants.AUDIO_ROW.COLUMNS.CATEGORY])
 					then Roact.createElement(AudioRowUnderlinedTextButton, {
 						LayoutOrder = orderIterator:getNextOrder(),
-						Size = calculateAudioColumnSize(Constants.AUDIO_ROW.COLUMNS.CATEGORY),
+						Size = if FFlagToolboxAudioUIPolish
+							then columnSizes[Constants.AUDIO_ROW.COLUMNS.CATEGORY]
+							else calculateAudioColumnSize(Constants.AUDIO_ROW.COLUMNS.CATEGORY),
 						Text = category,
 						OnClick = if category ~= EMPTY_TEXT_PLACEHOLDER then self.onSearchByCategories else nil,
 						UIPadding = textButtonUIPadding,
 					})
-					elseif isSoundEffectType then Roact.createElement("TextLabel", {
-						Size = calculateAudioColumnSize(Constants.AUDIO_ROW.COLUMNS.CATEGORY),
+					elseif
+						isSoundEffectType
+						and (not FFlagToolboxAudioUIPolish or columnSizes[Constants.AUDIO_ROW.COLUMNS.CATEGORY])
+					then Roact.createElement("TextLabel", {
+						Size = if FFlagToolboxAudioUIPolish
+							then columnSizes[Constants.AUDIO_ROW.COLUMNS.CATEGORY]
+							else calculateAudioColumnSize(Constants.AUDIO_ROW.COLUMNS.CATEGORY),
 						BackgroundTransparency = 1,
 						LayoutOrder = orderIterator:getNextOrder(),
 						Font = Constants.FONT,
@@ -454,16 +489,25 @@ function AudioRow:renderContent(localizedContent: any)
 						}),
 					})
 					else nil,
-				Genre = if FFlagToolboxAudioSearchOptions and isMusicType
+				Genre = if FFlagToolboxAudioSearchOptions2
+						and isMusicType
+						and (not FFlagToolboxAudioUIPolish or columnSizes[Constants.AUDIO_ROW.COLUMNS.GENRE])
 					then Roact.createElement(AudioRowUnderlinedTextButton, {
 						LayoutOrder = orderIterator:getNextOrder(),
-						Size = calculateAudioColumnSize(Constants.AUDIO_ROW.COLUMNS.GENRE),
+						Size = if FFlagToolboxAudioUIPolish
+							then columnSizes[Constants.AUDIO_ROW.COLUMNS.GENRE]
+							else calculateAudioColumnSize(Constants.AUDIO_ROW.COLUMNS.GENRE),
 						Text = genre,
 						OnClick = if genre ~= EMPTY_TEXT_PLACEHOLDER then self.onSearchByGenre else nil,
 						UIPadding = textButtonUIPadding,
 					})
-					elseif isMusicType then Roact.createElement("TextLabel", {
-						Size = calculateAudioColumnSize(Constants.AUDIO_ROW.COLUMNS.GENRE),
+					elseif
+						isMusicType
+						and (not FFlagToolboxAudioUIPolish or columnSizes[Constants.AUDIO_ROW.COLUMNS.GENRE])
+					then Roact.createElement("TextLabel", {
+						Size = if FFlagToolboxAudioUIPolish
+							then columnSizes[Constants.AUDIO_ROW.COLUMNS.GENRE]
+							else calculateAudioColumnSize(Constants.AUDIO_ROW.COLUMNS.GENRE),
 						BackgroundTransparency = 1,
 						LayoutOrder = orderIterator:getNextOrder(),
 						Font = Constants.FONT,
@@ -479,7 +523,9 @@ function AudioRow:renderContent(localizedContent: any)
 					})
 					else nil,
 				Duration = Roact.createElement("TextLabel", {
-					Size = calculateAudioColumnSize(Constants.AUDIO_ROW.COLUMNS.DURATION),
+					Size = if FFlagToolboxAudioUIPolish
+						then columnSizes[Constants.AUDIO_ROW.COLUMNS.DURATION]
+						else calculateAudioColumnSize(Constants.AUDIO_ROW.COLUMNS.DURATION),
 					BackgroundTransparency = 1,
 					LayoutOrder = orderIterator:getNextOrder(),
 					Font = Constants.FONT,
@@ -609,7 +655,7 @@ function AudioRow:renderContent(localizedContent: any)
 						LayoutOrder = 1,
 						HeaderText = localization:getText("AudioView", "AlbumArtist"):upper(),
 						Text = albumArtist,
-						OnClick = if FFlagToolboxAudioSearchOptions then self.onSearchByAlbum else nil,
+						OnClick = if FFlagToolboxAudioSearchOptions2 then self.onSearchByAlbum else nil,
 					}),
 					UploadBy = Roact.createElement(AudioRowMetadata, {
 						Size = UDim2.new(0.5, 0, 1, 0),
@@ -633,7 +679,7 @@ AudioRow = withContext({
 })(AudioRow)
 
 local function mapStateToProps(state: any, props: _ExternalAudioRowProps)
-	if FFlagToolboxAudioSearchOptions then
+	if FFlagToolboxAudioSearchOptions2 then
 		return {
 			additionalAudioSearchInfo = state.pageInfo and state.pageInfo.additionalAudioSearchInfo,
 			audioSearchInfo = state.pageInfo and state.pageInfo.audioSearchInfo,

@@ -1,8 +1,8 @@
 --!strict
 --[[
-    Implementation of a MinHeap specialized for the Visvalingam-Whyatt
-    algorithm. It partly relies on each element (Triangle) to have an _order
-    member to facilitate lookups during removal.
+	Implementation of a MinHeap specialized for the Visvalingam-Whyatt
+	algorithm. It partly relies on each element (Triangle) having an _order
+	member to facilitate lookups during removal.
 ]]
 
 local KeyframeReduction = script.Parent

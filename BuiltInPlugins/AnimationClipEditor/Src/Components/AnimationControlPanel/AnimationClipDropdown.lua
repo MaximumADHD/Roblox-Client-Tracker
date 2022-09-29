@@ -30,6 +30,7 @@ local withContext = ContextServices.withContext
 local Pause = require(Plugin.Src.Actions.Pause)
 local SetInReviewState = require(Plugin.Src.Actions.SetInReviewState)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
+local SetPlayState = require(Plugin.Src.Actions.SetPlayState)
 local SetReduceKeyframesDialogMode = require(Plugin.Src.Actions.SetReduceKeyframesDialogMode)
 
 local AnimationClipMenu = require(Plugin.Src.Components.AnimationClipMenu)
@@ -49,8 +50,10 @@ local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 local GetFFlagCreateAnimationFromVideoAgeGateSizeFix = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAgeGateSizeFix)
 local GetFFlagCreateAnimationFromVideoSaveWhenOverwritingDialog = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoSaveWhenOverwritingDialog)
+local GetFFlagAnimationFromVideoCreatorServiceAnalytics2 = require(Plugin.LuaFlags.GetFFlagAnimationFromVideoCreatorServiceAnalytics2)
 local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
 local GetFFlagFixFaceRecorderFlow = require(Plugin.LuaFlags.GetFFlagFixFaceRecorderFlow)
+local GetFFlagRetirePause = require(Plugin.LuaFlags.GetFFlagRetirePause)
 
 local AnimationClipDropdown = Roact.PureComponent:extend("AnimationClipDropdown")
 
@@ -68,7 +71,11 @@ function AnimationClipDropdown:init()
 
 	self.showMenu = function()
 		if not (GetFFlagKeyframeReduction() and self.props.ReadOnly) then
-			self.props.Pause()
+			if GetFFlagRetirePause() then
+				self.props.SetPlayState(Constants.PLAY_STATE.Pause)
+			else
+				self.props.Pause()
+			end
 			self:setState({
 				showMenu = true,
 			})
@@ -117,13 +124,13 @@ function AnimationClipDropdown:init()
 		})
 	end
 
-	self.showAnimationImportProgress = function()
+	self.showAnimationImportProgress = not GetFFlagAnimationFromVideoCreatorServiceAnalytics2() and function()
 		self.props.ShowAnimationImportProgress()
-	end
+	end or nil
 
-	self.hideAnimationImportProgress = function()
+	self.hideAnimationImportProgress = not GetFFlagAnimationFromVideoCreatorServiceAnalytics2() and function()
 		self.props.HideAnimationImportProgress()
-	end
+	end or nil
 
 	self.showReduceKeyframesDialog = function()
 		self.props.SetReduceKeyframesDialogMode(Constants.REDUCE_KEYFRAMES_DIALOG_MODE.FromMenu)
@@ -209,7 +216,7 @@ function AnimationClipDropdown:init()
 	end
 
 	self.createFromVideoRequested = function()
-		if GetFFlagCreateAnimationFromVideoSaveWhenOverwritingDialog() then 
+		if GetFFlagCreateAnimationFromVideoSaveWhenOverwritingDialog() then
 			if self.props.IsDirty then
 				self.showLoadNewPrompt(IMPORT_FROM_VIDEO_KEY)
 			else
@@ -264,7 +271,7 @@ function AnimationClipDropdown:init()
 				props.ImportKeyframeSequence(plugin, props.Analytics)
 			elseif loadingName == IMPORT_FBX_KEY then
 				props.ImportFBXAnimationUserMayChooseModel(plugin, self, props.Analytics)
-            elseif GetFFlagCreateAnimationFromVideoSaveWhenOverwritingDialog() and loadingName == IMPORT_FROM_VIDEO_KEY then
+			elseif GetFFlagCreateAnimationFromVideoSaveWhenOverwritingDialog() and loadingName == IMPORT_FROM_VIDEO_KEY then
                 self.startAnimationFromVideoFlow()
 			else
 				props.LoadAnimation(loadingName, props.Analytics)
@@ -532,9 +539,9 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SaveAnimation(name, analytics))
 		end,
 
-		Pause = function()
+		Pause = if not GetFFlagRetirePause() then function()
 			dispatch(Pause())
-		end,
+		end else nil,
 
 		ImportKeyframeSequence = function(plugin, analytics)
 			dispatch(ImportKeyframeSequence(plugin, analytics))
@@ -558,6 +565,10 @@ local function mapDispatchToProps(dispatch)
 
 		SetIsDirty = function(isDirty)
 			dispatch(SetIsDirty(isDirty))
+		end,
+
+		SetPlayState = function(playState)
+			dispatch(SetPlayState(playState))
 		end,
 
 		SetReduceKeyframesDialogMode = function(showMode: string): ()

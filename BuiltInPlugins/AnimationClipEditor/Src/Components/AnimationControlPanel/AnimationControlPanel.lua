@@ -85,9 +85,8 @@ function AnimationControlPanel:render()
 	local stepAnimation = props.StepAnimation
 	local frameRate = props.FrameRate
 	local isChannelAnimation = props.IsChannelAnimation
-	local showAnimationImportProgress = props.ShowAnimationImportProgress
-	local hideAnimationImportProgress = props.HideAnimationImportProgress
-	local updateAnimationImportProgress = props.UpdateAnimationImportProgress
+	local showAnimationImportProgress = props.ShowAnimationImportProgress -- delete with AnimationFromVideoCreatorServiceAnalytics2 flag and all references
+	local hideAnimationImportProgress = props.HideAnimationImportProgress -- delete with AnimationFromVideoCreatorServiceAnalytics2 flag and all references
 	local readOnly = props.ReadOnly
 	
 	return Roact.createElement("Frame", {
@@ -113,7 +112,6 @@ function AnimationControlPanel:render()
 			IsChannelAnimation = isChannelAnimation,
 			ShowAnimationImportProgress = showAnimationImportProgress,
 			HideAnimationImportProgress = hideAnimationImportProgress,
-			UpdateAnimationImportProgress = updateAnimationImportProgress,
 		}),
 
 		MediaControls = Roact.createElement(MediaControls, {

@@ -15,6 +15,8 @@ local FStringToolboxAssetConfigEnabledAudioSharingLearnMoreLink = game:GetFastSt
 local FFlagUnifyModelPackagePublish3 = game:GetFastFlag("UnifyModelPackagePublish3")
 local FFlagToolboxAllowDisablingCopyingAtQuota = game:GetFastFlag("ToolboxAllowDisablingCopyingAtQuota")
 
+local FFlagHideAssetConfigLearnMoreForLuobu = game:GetFastFlag("HideAssetConfigLearnMoreForLuobu")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -436,7 +438,7 @@ function ConfigCopy:render()
 	end
 
 	local rightFrameLayoutOrder = LayoutOrderIterator.new()
-
+	
 	return Roact.createElement("Frame", {
 		AutomaticSize = Enum.AutomaticSize.Y,
 		BackgroundTransparency = 1,
@@ -622,11 +624,13 @@ function ConfigCopy:render()
 				LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
 			}),
 
-			LinkButton = Roact.createElement(LinkText, {
-				LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
-				OnClick = self.onLearnMoreActivated,
-				Text = learnMoreText,
-			}),
+			LinkButton = if not FFlagHideAssetConfigLearnMoreForLuobu or not ToolboxUtilities.hideAssetConfigDistributeLearnMoreLink()
+				then Roact.createElement(LinkText, {
+					LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
+					OnClick = self.onLearnMoreActivated,
+					Text = learnMoreText,
+				})
+			else nil,
 		}),
 	})
 end

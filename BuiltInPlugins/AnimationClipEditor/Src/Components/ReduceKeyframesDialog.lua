@@ -40,8 +40,6 @@ local VisvalingamWhyatt = require(Plugin.Src.Util.KeyframeReduction.VisvalingamW
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local Checkbox = Framework.UI.Checkbox
-local LoadingIndicator = Framework.UI.LoadingIndicator
 local Pane = Framework.UI.Pane
 local StyledDialog = Framework.StudioUI.StyledDialog
 local Slider = Framework.UI.Slider
@@ -50,6 +48,7 @@ local TextLabel = Framework.UI.Decoration.TextLabel
 local Types = require(Plugin.Src.Types)
 
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local GetFFlagAutomaticKeyframeReduction = require(Plugin.LuaFlags.GetFFlagAutomaticKeyframeReduction)
 
 local DIALOG_WIDTH = 400
 local DIALOG_HEIGHT = 100
@@ -66,13 +65,14 @@ function ReduceKeyframesDialog:init(): ()
 		local props = self.props
 
 		local tracks = #props.Tracks
-		local beforeKeyframes = #self.state.ticks
-		local afterKeyframes = self.state.keyframes
 		local isChannelAnimation = AnimationData.isChannelAnimation(self.props.AnimationData)
 
 		self.keepChanges = didApply
 
 		if didApply then
+			local beforeKeyframes = if self.state.ticks then #self.state.ticks else 0
+			local afterKeyframes = self.state.keyframes
+
 			props.Analytics:report("onKeyframeReductionApply",
 				tracks, isChannelAnimation, beforeKeyframes, afterKeyframes)
 
@@ -83,7 +83,6 @@ function ReduceKeyframesDialog:init(): ()
 			props.Analytics:report("onKeyframeReductionCancel",
 				tracks, isChannelAnimation)
 		end
-
 
 		self.props.OnClose()
 	end
@@ -142,11 +141,20 @@ end
 -- matrix that represents the difference rotation is given by R = PQ*
 -- The angle is given by the formula tr(R) = 1 + 2 cos(theta)
 local function calculateAngle(P: CFrame, Q: CFrame): number
-	local transform = P * Q:Inverse()
+	-- TODO: On some occasions orientations[rootPartName] is nil. I haven't been
+	-- able to determine how to get there though.
+	local transform = if Q then P * Q:Inverse() else P
 	local _, _, _, m11, _, _, _, m22, _, _, _, m33 = transform:GetComponents()
 	local trace = m11 + m22 + m33
+
 	-- Clamp the cosine to avoid rounding errors
-	return math.acos(math.clamp((trace - 1) / 2, -1, 1))
+	if trace >= 3 then
+		return math.pi/2
+	elseif trace <= -1 then
+		return -math.pi/2
+	else
+		return math.acos((trace - 1) / 2)
+	end
 end
 
 function ReduceKeyframesDialog:calculateVisvalingamWhyatt(): {number}
@@ -227,18 +235,18 @@ function ReduceKeyframesDialog:previewVisvalingamWhyatt(newKeyframes: number, ol
 					local sourceTrack = AnimationData.getTrack(self.sourceData, instanceName, path)
 					if sourceTrack and sourceTrack.Data then
 						-- Keep the newKeyframes first keyframes
-						tr.Keyframes = table.create(newKeyframes)
-						tr.Data = table.create(newKeyframes)
-						assert(tr.Keyframes)  -- FIXME Luau
-						assert(tr.Data)  -- FIXME Luau
+						local keyframes = table.create(newKeyframes)
+						local data = table.create(newKeyframes)
 						for i = 1, newKeyframes do
 							local tck = ticks[i]
-							tr.Data[tck] = sourceTrack.Data[tck]
-							if tr.Data[tck] then
-								table.insert(tr.Keyframes, tck)
+							data[tck] = sourceTrack.Data[tck]
+							if data[tck] then
+								table.insert(keyframes, tck)
 							end
 						end
-						table.sort(tr.Keyframes)
+						table.sort(keyframes)
+						tr.Keyframes = keyframes
+						tr.Data = data
 					end
 				end, true)
 			end
@@ -281,9 +289,11 @@ function ReduceKeyframesDialog:didMount(): ()
 
 	-- Remove track sequences (successive keyframes with identical values)
 	self.sourceData = deepCopy(props.AnimationData)
-	if AnimationData.clearTrackSequences(self.sourceData) then
-		self.props.SetAnimationData(self.sourceData)
-		self.props.StepAnimation(self.props.Playhead)
+	if GetFFlagAutomaticKeyframeReduction() then
+		if AnimationData.clearTrackSequences(self.sourceData) then
+			self.props.SetAnimationData(self.sourceData)
+			self.props.StepAnimation(self.props.Playhead)
+		end
 	end
 
 	-- Clear tangent information of the source. Reduced animations will use
@@ -331,7 +341,7 @@ function ReduceKeyframesDialog:render(): any
 	local sliderPos = if keyframes then math.max(keyframes, 2) else 2
 	local sliderEnabled = ticks and #ticks > 2
 
-	local keyframesText = localization:getText("ReduceKeyframes", "Keyframes")
+	local keyframesText = localization:getText("OptimizeKeyframes", "Keyframes")
 
 	if ticks then
 		keyframesText ..= string.format(" %d / %d", keyframes, #ticks)
@@ -350,7 +360,7 @@ function ReduceKeyframesDialog:render(): any
 		Buttons = buttons,
 		OnButtonPressed = self.onClose,
 		OnClose = self.onClose,
-		Title = localization:getText("Title", "ReduceKeyframes"),
+		Title = localization:getText("Title", "OptimizeKeyframes"),
 	}, {
 		Layout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,

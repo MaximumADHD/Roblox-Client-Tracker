@@ -30,7 +30,7 @@ end
 
 -- Use Heron's formula to calculate the area of a triangle in N-d space
 -- Note that since we are comparing areas to find the minimum, we can safely
--- skip the (expensive) sqrt()/2 part.
+-- skip the (expensive) sqrt()/4 part.
 function Triangle:updateArea(): ()
 	local s1 = distance2(self.a, self.b)
 	local s2 = distance2(self.a, self.c)

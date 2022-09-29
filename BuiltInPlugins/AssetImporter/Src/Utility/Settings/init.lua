@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 
-local strict = require(Plugin.Packages.Framework.Util.strict)
+local strict = require(Plugin.Packages.Framework).Util.strict
 
 local GroupProps = require(script.GroupProps)
 local MeshProps = require(script.MeshProps)

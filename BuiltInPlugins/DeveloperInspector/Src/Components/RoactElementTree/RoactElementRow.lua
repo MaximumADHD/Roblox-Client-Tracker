@@ -4,6 +4,9 @@
 
 local main = script.Parent.Parent.Parent.Parent
 local Framework = require(main.Packages.Framework)
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkList = SharedFlags.getFFlagDevFrameworkList()
+
 local Roact = require(main.Packages.Roact)
 local getInspectorIcon = require(main.Src.Util.getInspectorIcon)
 
@@ -112,7 +115,9 @@ function RoactElementRow:render()
 	local textOffset = iconSize.X + 3 * padding
 
 	return Roact.createElement(Pane, {
-		Size = UDim2.new(1, 0, 0, style.RowHeight),
+		AutomaticSize = if FFlagDevFrameworkList then Enum.AutomaticSize.X else nil,
+		Position = if FFlagDevFrameworkList then props.Position else nil,
+		Size = if FFlagDevFrameworkList then props.Size else UDim2.new(1, 0, 0, style.RowHeight),
 		LayoutOrder = row.index,
 		[Roact.Ref] = self.containerRef,
 	}, {
@@ -128,6 +133,7 @@ function RoactElementRow:render()
 			[Roact.Event.Activated] = self.onToggle
 		}) or nil,
 		Label = Roact.createElement("Frame", {
+			AutomaticSize = if FFlagDevFrameworkList then Enum.AutomaticSize.X else nil,
 			[Roact.Event.MouseEnter] = self.onMouseEnter,
 			[Roact.Event.MouseLeave] = self.onMouseLeave,
 			[Roact.Event.InputBegan] = self.onInputBegan,
@@ -135,7 +141,7 @@ function RoactElementRow:render()
 			BorderSizePixel = 0,
 			BackgroundColor3 = isSelected and style.SelectedColor or style.HoverColor,
 			Position = UDim2.fromOffset(labelOffset, 0),
-			Size = UDim2.new(1, -arrowSize, 1, 0),
+			Size = if FFlagDevFrameworkList then UDim2.fromScale(0, 1) else UDim2.new(1, -arrowSize, 1, 0),
 		}, {
 			Icon = Roact.createElement("ImageLabel", {
 				Size = UDim2.fromOffset(iconSize.X, iconSize.Y),
@@ -147,10 +153,11 @@ function RoactElementRow:render()
 				AnchorPoint = Vector2.new(0, 0.5)
 			}),
 			Text = Roact.createElement(TextLabel, {
+				AutomaticSize = if FFlagDevFrameworkList then Enum.AutomaticSize.X else nil,
 				Style = style.Text,
 				Text = tostring(item.Name),
 				TextColor = isSelected and style.SelectedTextColor or nil,
-				Size = UDim2.new(1, -textOffset, 1, 0),
+				Size = if FFlagDevFrameworkList then UDim2.fromScale(0, 1) else UDim2.new(1, -textOffset, 1, 0),
 				Position = UDim2.new(0, textOffset, 0, 0),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Center

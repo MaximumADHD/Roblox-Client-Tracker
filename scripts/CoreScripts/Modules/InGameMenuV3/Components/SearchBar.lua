@@ -1,5 +1,6 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
+local UserInputService = game:GetService("UserInputService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -151,6 +152,13 @@ function SearchBar:render()
 				Size = self.props.size,
 			}
 
+			local textInputType = Enum.TextInputType.Default
+			if FFlagSearchBarHidesSuggestions then
+				local Platform = UserInputService:GetPlatform()
+				-- Android keyboard does not offer good NoSuggestions, which could make the keyboard smaller. PasswordShown type is closest to most useful native keyboard configuration for SearchBar.
+				textInputType = if Platform == Enum.Platform.Android then Enum.TextInputType.PasswordShown else Enum.TextInputType.NoSuggestions
+			end
+
 			return Roact.createElement(rootElementName, rootElementProps, {
 				SearchPanelLayout = Roact.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Horizontal,
@@ -210,7 +218,7 @@ function SearchBar:render()
 							),
 							Font = inputFontStyle.Font,
 							Text = self.props.text or "",
-							TextInputType = if FFlagSearchBarHidesSuggestions then Enum.TextInputType.NoSuggestions else Enum.TextInputType.Default,
+							TextInputType = textInputType,
 							TextSize = inputTextSize,
 							TextColor3 = style.Theme.TextEmphasis.Color,
 							TextXAlignment = Enum.TextXAlignment.Left,

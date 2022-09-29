@@ -31,6 +31,7 @@ local Images = require(Plugin.Src.Utility.Images)
 local GetLocalizedString = require(Plugin.Src.Utility.GetLocalizedString)
 
 local getFFlagAssetImportSessionCleanup = require(Plugin.Src.Flags.getFFlagAssetImportSessionCleanup)
+local getFFlagAssetImportResetMaterialCam = require(Plugin.Src.Flags.getFFlagAssetImportResetMaterialCam)
 
 local SEPARATOR_WEIGHT = 1
 local INSERT_CAMERA_DIST_MULT = 0.8
@@ -86,6 +87,30 @@ function AssetImporterUI:init()
 		self.camera.Focus = CFrame.new()
 		self.camera.CFrame = CFrame.new(cameraDistAway * dir, self.camera.Focus.Position)
 	end
+
+	self.recenterCamera = false
+	self.recenterModel = true
+	self.lastCamCFrame = CFrame.new()
+end
+
+if getFFlagAssetImportResetMaterialCam() then
+	function AssetImporterUI:willUpdate(nextProps)
+		local nextSettings = nextProps.SelectedSettingsItem
+		local currSettings = self.props.SelectedSettingsItem
+
+		if (currSettings ~= nextSettings) then 
+			if (currSettings.ClassName ~= "ImporterMaterialSettings") then
+				self.lastCamCFrame = self.camera.CFrame
+			end
+
+			if (nextSettings.ClassName == "ImporterMaterialSettings") then
+				self.recenterCamera = true
+			else
+				self.recenterCamera = false
+				self.camera.CFrame = self.lastCamCFrame
+			end
+		end
+	end
 end
 
 function AssetImporterUI:render()
@@ -140,8 +165,8 @@ function AssetImporterUI:render()
 						Model = model,
 						Camera = self.camera,
 						FocusDirection = CAMERA_FOCUS_DIR,
-						RecenterCameraOnUpdate = recenterCamera,
-						RecenterModelOnUpdate = recenterModel,
+						RecenterCameraOnUpdate = if getFFlagAssetImportResetMaterialCam() then self.recenterCamera else recenterCamera,
+						RecenterModelOnUpdate = if getFFlagAssetImportResetMaterialCam() then self.recenterModel else recenterModel,
 					}),
 					AxisIndicatorContainer = Roact.createElement(Pane, {
 						Size = UDim2.new(0, sizes.IndicatorSize, 0, sizes.IndicatorSize),

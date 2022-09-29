@@ -11,22 +11,25 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
-local UILibrary = require(Plugin.Packages.UILibrary)
-
 local Constants = require(Plugin.Src.Resources.Constants)
 
 local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
+local FFlagDevFrameworkMigrateCheckBox = SharedFlags.getFFlagDevFrameworkMigrateCheckBox()
+
+local UILibrary
+if not FFlagRemoveUILibraryTitledFrame or not FFlagDevFrameworkMigrateCheckBox then
+	UILibrary = require(Plugin.Packages.UILibrary)
+end
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
-
-local CheckBox = UILibrary.Component.CheckBox
+local CheckBox = if FFlagDevFrameworkMigrateCheckBox then UI.Checkbox else UILibrary.Component.CheckBox
 
 local CHECKBOX_SIZE = 20
 local CHECKBOX_PADDING = 8
@@ -69,10 +72,18 @@ function CheckBoxSet:render()
 		
 		tableToInsert = components
 	end
-	
-	-- TODO: Implement CheckBox changes into DevFramework since we want to deprecate UILibrary eventually.
+
 	for i, box in ipairs(boxes) do
-		table.insert(tableToInsert, Roact.createElement(CheckBox, {
+		table.insert(tableToInsert, Roact.createElement(CheckBox, if FFlagDevFrameworkMigrateCheckBox then {
+			Checked = box.Selected ~= nil and box.Selected,
+			Enabled = enabled,
+			Key = box.Id,
+			LayoutOrder = i,
+			OnClick = function()
+				entryClicked(box)
+			end,
+			Text = box.Title,
+		} else {
 			Title = box.Title,
 			Id = box.Id,
 			Height = CHECKBOX_SIZE,
@@ -84,7 +95,9 @@ function CheckBoxSet:render()
 				entryClicked(box)
 			end,
 			Link = box.LinkTextFrame,
-		}))
+		}, if FFlagDevFrameworkMigrateCheckBox then {
+			Link = box.LinkTextFrame,
+		} else nil))
 	end
 	
 	if props.UseGridLayout then

@@ -6,9 +6,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxUseExpandableTopSearch = game:GetFastFlag("ToolboxUseExpandableTopSearch") -- TODO: Flip when UISYS-1334 is ready
 local FintToolboxHomeViewInitialPageSize = game:GetFastInt("ToolboxHomeViewInitialPageSize")
-local FFlagToolboxFixTryInStudio = game:GetFastFlag("ToolboxFixTryInStudio")
 local FFlagToolboxFixMissingCategories = game:GetFastFlag("ToolboxFixMissingCategories")
-local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 local FFlagToolboxAddVerifiedCreatorToAnalytics = game:GetFastFlag("ToolboxAddVerifiedCreatorToAnalytics")
 
@@ -103,7 +101,6 @@ type _ExternalProps = {
 
 type _InternalProps = {
 	-- mapStateToProps
-	IncludeOnlyVerifiedCreators: boolean?, -- TODO: Remove with FFlagToolboxUseVerifiedIdAsDefault
 	IncludeUnverifiedCreators: boolean?,
 	-- mapDispatchToProps
 	getAssetPreviewDataForStartup: any,
@@ -254,13 +251,7 @@ function HomeView:init()
 		local canInsertAsset = props.CanInsertAsset
 		local categoryName = props.CategoryName
 
-		local includeOnlyVerifiedCreators
-		local includeUnverifiedCreators
-		if FFlagToolboxUseVerifiedIdAsDefault then
-			includeUnverifiedCreators = props.IncludeUnverifiedCreators
-		else
-			includeOnlyVerifiedCreators = props.IncludeOnlyVerifiedCreators
-		end
+		local includeUnverifiedCreators = props.IncludeUnverifiedCreators
 
 		local localization = props.Localization
 		local onClickSeeAllAssets = props.OnClickSeeAllAssets
@@ -306,12 +297,7 @@ function HomeView:init()
 			assetSectionsElems["AssetSwimlane_" .. i] = Roact.createElement(AssetSwimlane, {
 				CanInsertAsset = canInsertAsset,
 				CategoryName = categoryName,
-				IncludeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
-					then nil
-					else includeOnlyVerifiedCreators,
-				IncludeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
-					then includeUnverifiedCreators
-					else nil,
+				IncludeUnverifiedCreators = includeUnverifiedCreators,
 				InitialPageSize = SWIMLANE_SIZE,
 				SortName = sortName,
 				SearchTerm = nil,
@@ -438,13 +424,7 @@ function HomeView:render()
 
 	local categoryName = props.CategoryName
 
-	local includeOnlyVerifiedCreators
-	local includeUnverifiedCreators
-	if FFlagToolboxUseVerifiedIdAsDefault then
-		includeUnverifiedCreators = props.IncludeUnverifiedCreators
-	else
-		includeOnlyVerifiedCreators = props.IncludeOnlyVerifiedCreators
-	end
+	local includeUnverifiedCreators = props.IncludeUnverifiedCreators
 
 	local layoutOrder = props.LayoutOrder
 	local position = props.Position
@@ -503,10 +483,7 @@ function HomeView:render()
 			queryParams = if FFlagToolboxUseQueryForCategories2 then {} else nil,
 			sectionName = sectionName,
 			initialPageSize = INITIAL_PAGE_SIZE,
-			includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
-				then nil
-				else includeOnlyVerifiedCreators,
-			includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then includeUnverifiedCreators else nil,
+			includeUnverifiedCreators = includeUnverifiedCreators,
 			render = function(resultsState)
 				if resultsState.loading and #resultsState.assetIds == 0 then
 					return Roact.createElement("Frame", {
@@ -546,12 +523,7 @@ function mapStateToProps(state: any, props)
 	state = state or {}
 	local pageInfo = state.pageInfo or {}
 	return {
-		IncludeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
-			then nil
-			else pageInfo.includeOnlyVerifiedCreators,
-		IncludeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
-			then pageInfo.includeUnverifiedCreators
-			else nil,
+		IncludeUnverifiedCreators = pageInfo.includeUnverifiedCreators,
 	}
 end
 

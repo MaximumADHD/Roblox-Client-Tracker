@@ -20,6 +20,8 @@ local SetInspectedUserInfo = require(InGameMenu.Actions.InspectAndBuy.SetInspect
 local UpdateStoreId = require(InGameMenu.Actions.InspectAndBuy.UpdateStoreId)
 local SetTryOnItemInfo = require(InGameMenu.Actions.InspectAndBuy.SetTryOnItemInfo)
 local SetIsSubjectToChinaPolicies = require(InGameMenu.Actions.InspectAndBuy.SetIsSubjectToChinaPolicies)
+local SetItemBeingPurchased = require(InGameMenu.Actions.InspectAndBuy.SetItemBeingPurchased)
+local ResetInspectedInfo = require(InGameMenu.Actions.InspectAndBuy.ResetInspectedInfo)
 
 local storeIdCounter = 0
 
@@ -32,6 +34,7 @@ local defaultState = {
 	StoreId = tostring(storeIdCounter),
 	TryingOn = false,
 	IsSubjectToChinaPolicies = true,
+	ItemBeingPurchased = {},
 }
 
 type State = {
@@ -128,6 +131,27 @@ return Rodux.createReducer(defaultState, {
 	[SetIsSubjectToChinaPolicies.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			IsSubjectToChinaPolicies = action.isSubjectToChinaPolicies
+		})
+	end,
+
+	[SetItemBeingPurchased.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			ItemBeingPurchased = {
+				itemType = action.itemType,
+				itemId = action.itemId,
+			}
+		})
+	end,
+
+	[ResetInspectedInfo.name] = function(state, _)
+		return Cryo.Dictionary.join(state, {
+			Assets = {},
+			Bundles = {},
+			SelectedItem = {},
+			UserId = 0,
+			DisplayName = "",
+			TryingOn = false,
+			ItemBeingPurchased = {},
 		})
 	end
 })

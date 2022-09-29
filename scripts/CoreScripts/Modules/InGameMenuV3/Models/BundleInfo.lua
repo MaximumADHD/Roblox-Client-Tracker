@@ -107,4 +107,11 @@ function BundleInfo.fromSetItemFavorite(bundleId, setFavorited, numFavorites: nu
 	return newBundle
 end
 
+function BundleInfo.fromPurchaseSuccess(bundleId)
+	local newBundle = BundleInfo.new()
+	newBundle.bundleId = tostring(bundleId)
+	newBundle.owned = true
+	return newBundle
+end
+
 return BundleInfo

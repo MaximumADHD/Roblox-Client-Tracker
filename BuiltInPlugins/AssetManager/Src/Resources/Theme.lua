@@ -22,7 +22,6 @@ local FONT_SIZE_SMALL = 14
 local FONT_SIZE_MEDIUM = 16
 local FONT_SIZE_LARGE = 18
 
-local FFlagStudioAssetManagerAssetModerationPendingIcon = game:GetFastFlag("StudioAssetManagerAssetModerationPendingIcon")
 local FFlagEnableAssetManagerSortButton = game:GetFastFlag("EnableAssetManagerSortButton")
 
 local arrowSpritesheet = Spritesheet("rbxasset://textures/StudioSharedUI/arrowSpritesheet.png", {
@@ -218,7 +217,7 @@ local tile = {
 			XOffset = 4,
 			YOffset = 4,
 			Rejected = "rbxasset://textures/StudioSharedUI/alert_error_withbg.png",
-			Pending = if FFlagStudioAssetManagerAssetModerationPendingIcon then StyleKey.TilePendingImage else "rbxasset://textures/StudioSharedUI/DEPRECATED_pending_withbg.png",
+			Pending = StyleKey.TilePendingImage,
 		},
 	},
 
@@ -285,7 +284,7 @@ local listItem = {
 
 		ModerationStatus = {
 			Rejected = "rbxasset://textures/StudioSharedUI/alert_error.png",
-			Pending = if FFlagStudioAssetManagerAssetModerationPendingIcon then StyleKey.ListItemPendingImage else "rbxasset://textures/StudioSharedUI/pending.png",
+			Pending = StyleKey.ListItemPendingImage,
 		},
 	},
 
@@ -484,12 +483,7 @@ local lightThemeOverride = {
 local getUILibraryTheme = require(script.Parent.DEPRECATED_UILibraryTheme)
 
 return function(createMock: boolean?)
-	local studioTheme
-	if FFlagStudioAssetManagerAssetModerationPendingIcon then
-		studioTheme = if createMock then StudioTheme.mock(darkThemeOverride, lightThemeOverride) else StudioTheme.new(darkThemeOverride, lightThemeOverride)
-	else
-		studioTheme = if createMock then StudioTheme.mock() else StudioTheme.new()
-	end
+	local studioTheme = if createMock then StudioTheme.mock(darkThemeOverride, lightThemeOverride) else StudioTheme.new(darkThemeOverride, lightThemeOverride)
 	local styleRoot = studioTheme
 	local theme = styleRoot:extend(PluginTheme)
 	theme.getUILibraryTheme = getUILibraryTheme

@@ -1,21 +1,41 @@
 local CorePackages = game:GetService("CorePackages")
 local Types = require(CorePackages.UniversalApp.MessageBusTypes)
 
-export type WebViewProtocol = {
-	OPEN_WINDOW_DESCRIPTOR: Types.MessageDescriptor,
-	MUTATE_WINDOW_DESCRIPTOR: Types.MessageDescriptor,
-	CLOSE_WINDOW_DESCRIPTOR: Types.MessageDescriptor,
-	HANDLE_WINDOW_CLOSE_DESCRIPTOR: Types.MessageDescriptor,
-	isEnabled: () -> boolean,
+local AsyncQueueTypes = require(CorePackages.AppTempCommon.Common.AsyncQueue.AsyncQueueTypes)
 
-	openWindow: (WebViewProtocol, params: Types.Table) -> (),
-	mutateWindow: (WebViewProtocol, params: Types.Table) -> (),
-	closeWindow: (WebViewProtocol) -> (),
-	listenForWindowClose: (WebViewProtocol, listener: () -> ()) -> (),
-	stopListening: (WebViewProtocol) -> (),
-
-	messageBus: Types.MessageBus,
-	subscriber: Types.Subscriber,
+export type OptionalParams = {
+	url: string?,
+	title: string?,
+	isVisible: boolean?,
+	windowType: string?,
+	transitionAnimation: string?,
+	searchParams: {
+		searchType: string
+	}?,
 }
+
+export type Params = OptionalParams & {
+	url: string,
+}
+
+export type WebViewProtocolInterface<Impl> = {
+	openWindow: (Impl, params: Params) -> (),
+	mutateWindow: (Impl, params: OptionalParams) -> (),
+	closeWindow: (Impl) -> (),
+
+	listenForWindowClose: (Impl, listener: () -> ()) -> (),
+	stopListeningForWindowClose: (Impl) -> (),
+
+	listenForJavaScript: (Impl, listener: (string) -> ()) -> (),
+	stopListeningForJavaScript: (Impl) -> (),
+
+	stopListening: (Impl) -> (),
+
+	request: (Impl, AsyncQueueTypes.AcquireFn) -> AsyncQueueTypes.ReleaseFn,
+
+	isEnabled: () -> boolean,
+}
+
+export type WebViewProtocol = WebViewProtocolInterface<WebViewProtocol>
 
 return nil

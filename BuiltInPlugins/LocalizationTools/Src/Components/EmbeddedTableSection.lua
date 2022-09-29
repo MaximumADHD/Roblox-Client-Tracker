@@ -93,7 +93,7 @@ function EmbeddedTableSection:render()
 				AutomaticSize = Enum.AutomaticSize.XY,
 				LayoutOrder = 1,
 				Text = localization:getText("EmbeddedTableSection", "SectionLabel"),
-				Style = "Label",
+				Style = "Subtitle",
 			})
 		) else (
 			Roact.createElement("TextLabel", {

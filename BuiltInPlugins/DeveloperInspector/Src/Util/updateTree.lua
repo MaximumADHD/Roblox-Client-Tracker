@@ -42,13 +42,13 @@ end
 
 type UpdateTreeProps = {
 	-- Current expanded row map
-	expanded: Types.Map<any, boolean>,
+	expanded: { [any]: boolean },
 	-- Current expanded row map
-	selected: Types.Map<any, boolean>,
+	selected: { [any]: boolean },
 	-- Current root
-	root: Types.Array<any>,
+	root: {any},
 	-- New children
-	children: Types.Map<string, any>,
+	children: { [string]: any },
 	-- Path to insert new children at
 	path: string,
 }

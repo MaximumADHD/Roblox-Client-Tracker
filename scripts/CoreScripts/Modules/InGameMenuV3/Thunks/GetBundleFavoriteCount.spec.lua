@@ -9,7 +9,7 @@ return function()
 	local MockId = require(InGameMenu.Mocks.MockAssetId)
 	local GetBundleFavoriteCount = require(script.Parent.GetBundleFavoriteCount)
 
-	local FFlagInspectAndBuyV2Enabled = require(InGameMenu.Flags.FFlagInspectAndBuyV2Enabled)
+	local FFlagInspectAndBuyV2IXPEnabledForAll = require(InGameMenu.Flags.FFlagInspectAndBuyV2IXPEnabledForAll)
 
 	local function countKeys(t)
 		local count = 0
@@ -19,7 +19,7 @@ return function()
 		return count
 	end
 
-	if FFlagInspectAndBuyV2Enabled then
+	if FFlagInspectAndBuyV2IXPEnabledForAll then
 		describe("GetBundleFavoriteCount", function()
 			it("should run without errors", function()
 				local store = Rodux.Store.new(Reducer)

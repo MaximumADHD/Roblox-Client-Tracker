@@ -219,17 +219,22 @@ return function(analyticsService)
             sendEvent("animationEditorImportVideoCreate", {})
         end,
 
-        onAnimationEditorImportVideoUploadCancel = function(_)
-            sendEvent("animationEditorImportVideoUploadCancel", {})
+        onAnimationEditorImportVideoUploadCancel = function(_, duration)
+            sendEvent("animationEditorImportVideoUploadCancel", {
+                duration = duration,
+            })
         end,
 
-        onAnimationEditorImportVideoUploadSucceed = function(_)
-            sendEvent("animationEditorImportVideoUploadSucceed", {})
+        onAnimationEditorImportVideoUploadSucceed = function(_, duration)
+            sendEvent("animationEditorImportVideoUploadSucceed", {
+                duration = duration,
+            })
         end,
 
-        onAnimationEditorImportVideoError = function(_, errorMsg)
+        onAnimationEditorImportVideoError = function(_, errorMsg, duration)
             sendEvent("animationEditorImportVideoError", {
-                errorMsg = errorMsg
+                errorMsg = errorMsg,
+                duration = duration,
             })
         end,
 

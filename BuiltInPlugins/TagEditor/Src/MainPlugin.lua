@@ -15,7 +15,7 @@
 local main = script.Parent.Parent
 -- local _Types = require(main.Src.Types) -- uncomment to use types
 local Roact = require(main.Packages.Roact)
--- local Rodux = require(main.Packages.Rodux)
+local Rodux = require(main.Packages.Rodux)
 
 local Framework = require(main.Packages.Framework)
 
@@ -27,12 +27,18 @@ local PluginButton = StudioUI.PluginButton
 local ContextServices = Framework.ContextServices
 local Plugin = ContextServices.Plugin
 local Mouse = ContextServices.Mouse
+local Store = ContextServices.Store
 
+local Actions = require(main.Src.Actions)
+local Reducers = require(main.Src.Reducers)
 local MakeTheme = require(main.Src.Resources.MakeTheme)
-local createAnalyticsHandlers = require(main.Src.Util.createAnalyticsHandlers)
+local InitialStoreState = require(main.Src.InitialStoreState)
 
 local SourceStrings = main.Src.Resources.Localization.SourceStrings
 local LocalizedStrings = main.Src.Resources.Localization.LocalizedStrings
+
+local TagManager = require(script.Parent.TagManager)
+local createAnalyticsHandlers = require(main.Src.Util.createAnalyticsHandlers)
 
 local Components = main.Src.Components
 local MainGui = require(Components.MainGui)
@@ -42,7 +48,14 @@ local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 function MainPlugin:init(props)
 	self.state = {
 		enabled = false,
+		worldView = false,
 	}
+
+	self.store = Rodux.Store.new(Reducers, InitialStoreState, {
+		Rodux.thunkMiddleware,
+	}, nil)
+
+	self.manager = TagManager.new(self.store)
 
 	self.toggleEnabled = function()
 		self:setState(function(state)
@@ -50,6 +63,16 @@ function MainPlugin:init(props)
 			local initiatedByUser = true
 			self:setEnabled(newEnabled, initiatedByUser)
 		end)
+	end
+
+	self.toggleWorldView = function()
+		local store = self.store
+		local state = store:getState()
+		local newValue = not state.WorldView
+		store:dispatch(Actions.ToggleWorldView(newValue))
+		self:setState({
+			worldView = newValue,
+		})
 	end
 
 	self.onClose = function()
@@ -72,9 +95,6 @@ function MainPlugin:init(props)
 		translationResourceTable = LocalizedStrings,
 		pluginName = "TagEditor",
 	})
-	--[[
-		New Plugin Setup: Each plugin is expected to provide a createEventHandlers function to the constructor
-			which should return a table mapping event -> eventHandler.
 
 	--]]
 	self.analytics = ContextServices.Analytics.new(createAnalyticsHandlers)
@@ -111,14 +131,13 @@ function MainPlugin:renderButtons(toolbar)
 	local enabled = self.state.enabled
 
 	return {
-		Toggle = Roact.createElement(PluginButton, {
+		ToggleEditor = Roact.createElement(PluginButton, {
 			Toolbar = toolbar,
 			Active = enabled,
-			Id = "template_button",
-			Title = self.localization:getText("Plugin", "Button"),
-			Tooltip = self.localization:getText("Plugin", "Description"),
-			--New Plugin Setup: Change Icon. Can be nil if QT is managing the icon
-			Icon = "rbxasset://textures/GameSettings/ToolbarIcon.png",
+			Id = "tag_editor_window",
+			Title = self.localization:getText("Plugin", "EditorWindowButton"),
+			Tooltip = self.localization:getText("Plugin", "EditorWindowDescription"),
+			Icon = "http://www.roblox.com/asset/?id=1367281857",
 			OnClick = self.toggleEnabled,
 			ClickableWhenViewportHidden = true,
 		}),
@@ -133,7 +152,7 @@ function MainPlugin:render()
 
 	return ContextServices.provide({
 		Plugin.new(plugin),
-		--Store.new(self.store),
+		Store.new(self.store),
 		Mouse.new(plugin:getMouse()),
 		MakeTheme(),
 		self.localization,
@@ -152,7 +171,7 @@ function MainPlugin:render()
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Bottom,
 			Size = Vector2.new(300, 200),
-			MinSize = Vector2.new(150, 150),
+			MinSize = Vector2.new(200, 250),
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,

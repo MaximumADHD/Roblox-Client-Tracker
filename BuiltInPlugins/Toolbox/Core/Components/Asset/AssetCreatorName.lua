@@ -10,7 +10,7 @@
 		callback onMouseLeave()
 ]]
 local FFlagToolboxAddUnverifiedIcon = game:GetFastFlag("ToolboxAddUnverifiedIcon")
-local FFlagToolboxAudioSearchOptions = game:GetFastFlag("ToolboxAudioSearchOptions")
+local FFlagToolboxAudioSearchOptions2 = game:GetFastFlag("ToolboxAudioSearchOptions2")
 local FFlagToolboxAddUnverifiedIconFollowUp = game:GetFastFlag("ToolboxAddUnverifiedIconFollowUp")
 	and FFlagToolboxAddUnverifiedIcon
 
@@ -76,7 +76,7 @@ function AssetCreatorName:init(props)
 			options = {
 				Creator = props.creatorName,
 				AudioSearch = props.audioSearchInfo,
-				AdditionalAudioSearchInfo = if FFlagToolboxAudioSearchOptions
+				AdditionalAudioSearchInfo = if FFlagToolboxAudioSearchOptions2
 					then props.additionalAudioSearchInfo
 					else nil,
 			}
@@ -245,7 +245,7 @@ local mapStateToProps = function(state, props)
 	local pageInfo = state.pageInfo or {}
 	return {
 		audioSearchInfo = pageInfo.audioSearchInfo,
-		additionalAudioSearchInfo = if FFlagToolboxAudioSearchOptions then pageInfo.additionalAudioSearchInfo else nil,
+		additionalAudioSearchInfo = if FFlagToolboxAudioSearchOptions2 then pageInfo.additionalAudioSearchInfo else nil,
 	}
 end
 

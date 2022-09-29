@@ -5,6 +5,7 @@
 	by selecting and inspecting a player from the Players page
 	in the InGameMenuV3
 ]]
+local MarketplaceService = game:GetService("MarketplaceService")
 local GuiService = game:GetService("GuiService")
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
@@ -29,9 +30,13 @@ local GetCharacterModelFromUserId = require(InGameMenu.Thunks.GetCharacterModelF
 local GetAssetsFromHumanoidDescription = require(InGameMenu.Thunks.GetAssetsFromHumanoidDescription)
 local UpdateStoreId = require(InGameMenu.Actions.InspectAndBuy.UpdateStoreId)
 local SetIsSubjectToChinaPolicies = require(InGameMenu.Actions.InspectAndBuy.SetIsSubjectToChinaPolicies)
-local getCanGamepadCaptureFocus = require(InGameMenu.Selectors.getCanGamepadCaptureFocus)
-local Constants = require(InGameMenu.Resources.Constants)
+local ResetInspectedInfo = require(InGameMenu.Actions.InspectAndBuy.ResetInspectedInfo)
+local SetItemBeingPurchased = require(InGameMenu.Actions.InspectAndBuy.SetItemBeingPurchased)
+local UpdateOwnedStatus = require(InGameMenu.Thunks.UpdateOwnedStatus)
 local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
+local Constants = require(InGameMenu.Resources.Constants)
+local SendInspectAndBuyAnalytics = require(InGameMenu.Utility.SendInspectAndBuyAnalytics)
+local getCanGamepadCaptureFocus = require(InGameMenu.Selectors.getCanGamepadCaptureFocus)
 
 local InspectAndBuyPage = Roact.PureComponent:extend("InspectAndBuyPage")
 
@@ -53,19 +58,21 @@ InspectAndBuyPage.validateProps = t.strictInterface({
 	inspectedUserId = t.optional(t.number),
 	assets = t.table,
 	canGamepadCaptureFocus = t.boolean,
+	itemBeingPurchased = t.table,
+	currentPage = t.string,
 
 	-- from mapDispatchToProps
 	getCharacterModelFromUserId = t.callback,
 	getAssetsFromHumanoidDescription = t.callback,
 	updateStoreId = t.callback,
+	setIsSubjectToChinaPolicies = t.callback,
+	setItemBeingPurchased = t.callback,
+	updateOwnedStatus = t.callback,
 })
 
 function InspectAndBuyPage:init()
-	-- When initializing the menu, update the storeId so calls to
-	-- perform fetch aren't colliding
-	self.props.updateStoreId()
-
 	self.didInitFocus = false
+	self.connections = {}
 	self.firstItemCard = Roact.createRef()
 	self:setState({
 		previousFocus = nil
@@ -76,6 +83,20 @@ function InspectAndBuyPage:init()
 			previousFocus = GuiService.SelectedCoreObject
 		})
 		GuiService.SelectedCoreObject = nil
+	end
+
+	self.onPromptPurchaseFinished = function(_, itemId, isPurchased)
+		local purchasedInformation = self.props.itemBeingPurchased
+
+		if isPurchased and tostring(itemId) == purchasedInformation.itemId then
+			local analyticsFields = {
+				itemType = tostring(purchasedInformation.itemType),
+				itemID = purchasedInformation.itemId,
+			}
+			SendInspectAndBuyAnalytics("purchaseSuccessItem", self.props.inspectedUserId, analyticsFields)
+			self.props.updateOwnedStatus(purchasedInformation.itemId, purchasedInformation.itemType)
+		end
+		self.props.setItemBeingPurchased(nil, nil)
 	end
 end
 
@@ -175,7 +196,12 @@ function InspectAndBuyPage:render()
 end
 
 function InspectAndBuyPage:onPlayerInspected()
+	-- When opening the menu, update the storeId so calls to
+	-- perform fetch aren't colliding
+	self.props.updateStoreId()
+
 	local playerId = self.props.inspectedUserId
+	SendInspectAndBuyAnalytics("inspectUser", playerId)
 	if playerId then
 		self.props.getCharacterModelFromUserId(playerId, false, function(character)
 			if self and self.isMounted then
@@ -188,11 +214,40 @@ function InspectAndBuyPage:onPlayerInspected()
 			end
 		end)
 	end
+
+	-- Update the owned status of an asset if a user purchases it.
+	local marketplaceServicePurchaseFinishedListener =
+		MarketplaceService.PromptPurchaseFinished:Connect(self.onPromptPurchaseFinished)
+	table.insert(self.connections, marketplaceServicePurchaseFinishedListener)
+
+	-- Update the owned status of a bundle if a user purchases it.
+	local marketplaceServiceBundlePurchaseFinishedListener =
+		MarketplaceService.PromptBundlePurchaseFinished:Connect(self.onPromptPurchaseFinished)
+	table.insert(self.connections, marketplaceServiceBundlePurchaseFinishedListener)
+end
+
+function InspectAndBuyPage:onPageLeave()
+	self.props.resetInspectedInfo()
+	for _, connection in pairs(self.connections) do
+		connection:disconnect()
+		connection = nil
+	end
 end
 
 function InspectAndBuyPage:didUpdate(prevProps, prevState)
-	if self.props.inspectedUserId and self.props.inspectedUserId ~= prevProps.inspectedUserId then
-		self:onPlayerInspected()
+	if self.props.currentPage ~= prevProps.currentPage then
+		if self.props.currentPage == Constants.InspectAndBuyPageKey and
+			prevProps.currentPage ~= Constants.InspectAndBuyAssetDetailsPageKey then
+			-- Entering Page (not from the Asset Details Page)
+			if self.props.inspectedUserId then
+				self:onPlayerInspected()
+			end
+		elseif (prevProps.currentPage == Constants.InspectAndBuyPageKey and
+			self.props.currentPage ~= Constants.InspectAndBuyAssetDetailsPageKey) or
+			(not self.props.isMenuOpen and prevProps.isMenuOpen) then
+			-- Leaving Page (not to the Asset Details Page)
+			self:onPageLeave()
+		end
 	end
 
 	if not self.didInitFocus and self.firstItemCard:getValue() and self.props.canGamepadCaptureFocus then
@@ -210,6 +265,7 @@ function InspectAndBuyPage:didMount()
 end
 
 function InspectAndBuyPage:willUnmount()
+	self:onPageLeave()
 	self.isMounted = false
 end
 
@@ -218,6 +274,9 @@ return RoactRodux.connect(function(state, props)
 		inspectedDisplayName = state.inspectAndBuy.DisplayName,
 		inspectedUserId = state.inspectAndBuy.UserId,
 		assets = state.inspectAndBuy.Assets,
+		itemBeingPurchased = state.inspectAndBuy.ItemBeingPurchased,
+		currentPage = state.menuPage,
+		isMenuOpen = state.isMenuOpen,
 		canGamepadCaptureFocus = getCanGamepadCaptureFocus(state, Constants.InspectAndBuyPageKey),
 	}
 end, function(dispatch: (any) -> any)
@@ -233,6 +292,15 @@ end, function(dispatch: (any) -> any)
 		end,
 		setIsSubjectToChinaPolicies = function(subjectToChinaPolicies)
 			dispatch(SetIsSubjectToChinaPolicies(subjectToChinaPolicies))
+		end,
+		setItemBeingPurchased = function(itemId, itemType)
+			dispatch(SetItemBeingPurchased(itemId, itemType))
+		end,
+		updateOwnedStatus = function(itemId, itemType)
+			dispatch(UpdateOwnedStatus(itemId, itemType))
+		end,
+		resetInspectedInfo = function()
+			dispatch(ResetInspectedInfo())
 		end,
 	}
 end)(InspectAndBuyPage)

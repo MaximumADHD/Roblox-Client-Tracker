@@ -73,7 +73,7 @@ local LogMarketplaceSearchAnalytics = require(Plugin.Core.Thunks.LogMarketplaceS
 local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
 local FFlagToolboxEnableAnnouncementsDialog = game:GetFastFlag("ToolboxEnableAnnouncementsDialog")
 local FFlagToolboxAddVerifiedCreatorToAnalytics = game:GetFastFlag("ToolboxAddVerifiedCreatorToAnalytics")
-local FFlagToolboxAudioSearchOptions = game:GetFastFlag("ToolboxAudioSearchOptions")
+local FFlagToolboxAudioSearchOptions2 = game:GetFastFlag("ToolboxAudioSearchOptions2")
 
 local Background = require(Plugin.Core.Types.Background)
 
@@ -295,7 +295,7 @@ function Toolbox:render()
 		and (not creator or creator == "")
 		and searchTerm == ""
 		and audioSearchInfo == nil
-		and (not FFlagToolboxAudioSearchOptions or additionalAudioSearchInfo == nil)
+		and (not FFlagToolboxAudioSearchOptions2 or additionalAudioSearchInfo == nil)
 	then
 		if not ixp:isReady() then
 			-- IXP state has not loaded yet, avoid a flash of (potentially) the wrong content
@@ -389,7 +389,7 @@ local function mapStateToProps(state, props)
 		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
 		creator = pageInfo.creator,
 		audioSearchInfo = pageInfo.audioSearchInfo,
-		additionalAudioSearchInfo = if FFlagToolboxAudioSearchOptions then pageInfo.additionalAudioSearchInfo else nil,
+		additionalAudioSearchInfo = if FFlagToolboxAudioSearchOptions2 then pageInfo.additionalAudioSearchInfo else nil,
 		roles = state.roles or {},
 		searchId = if FFlagToolboxAddVerifiedCreatorToAnalytics then pageInfo.searchId or "" else nil,
 		searchTerm = pageInfo.searchTerm or "",

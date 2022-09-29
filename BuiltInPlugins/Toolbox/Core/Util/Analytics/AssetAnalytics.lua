@@ -1,4 +1,5 @@
 local FFlagToolboxImmediateEvents = game:GetFastFlag("ToolboxImmediateEvents")
+local FFlagFFlagToolboxAddAssetSubTypesToAnalytics = game:GetFastFlag("FFlagToolboxAddAssetSubTypesToAnalytics")
 
 local HttpService = game:GetService("HttpService")
 
@@ -13,6 +14,9 @@ local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 local getUserId = require(Plugin.Core.Util.getUserId)
 local Constants = require(Plugin.Core.Util.Constants)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
+
+local Types = if FFlagFFlagToolboxAddAssetSubTypesToAnalytics then Plugin.Core.Types else nil
+local AssetSubTypes = if FFlagFFlagToolboxAddAssetSubTypesToAnalytics then require(Types.AssetSubTypes) else nil
 
 local Analytics = require(script.Parent.Analytics)
 local Senders = require(script.Parent.Senders)
@@ -33,6 +37,7 @@ type AssetContext = {
 
 export type AssetData = {
 	Asset: {
+		AssetSubTypes: { string }?,
 		Id: number,
 		TypeId: number,
 		IsEndorsed: boolean,
@@ -167,8 +172,17 @@ function AssetAnalytics.getTrackingAttributes(assetData: AssetData, assetAnalyti
 	local context = Cryo.Dictionary.join(assetAnalyticsContext, assetContext)
 	local searchId = assetAnalyticsContext.searchId
 
+	local assetSubTypesCSV
+	if FFlagFFlagToolboxAddAssetSubTypesToAnalytics then
+		local assetSubTypes = assetData.Asset.AssetSubTypes
+		if assetSubTypes then
+			assetSubTypesCSV = table.concat(assetSubTypes,",")
+		end
+	end
+
 	local attributes = Cryo.Dictionary.join(context, {
 		assetID = assetData.Asset.Id,
+		assetSubTypes = assetSubTypesCSV,
 		assetType = AssetAnalytics.getAssetCategoryName(assetData.Asset.TypeId),
 		-- TODO STM-49: Do we get userId for free in EventIngest?
 		userID = getUserId(),
@@ -178,12 +192,12 @@ function AssetAnalytics.getTrackingAttributes(assetData: AssetData, assetAnalyti
 		searchID = searchId,
 		studioSid = Analytics.getStudioSessionId(),
 		isEditMode = Analytics.getIsEditMode(),
+		isVerifiedCreator = assetData.Creator.IsVerifiedCreator,
 
 		-- Legacy fields kept for S&D (see STM-215)
 		label = assetData.Asset.Id,
 		value = 0,
 
-		isVerifiedCreator = assetData.Creator.IsVerifiedCreator,
 		isEndorsed = assetData.Asset.IsEndorsed,
 		hasScripts = assetData.Asset.HasScripts,
 	})

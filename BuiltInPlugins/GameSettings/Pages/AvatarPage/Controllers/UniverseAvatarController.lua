@@ -1,4 +1,7 @@
+local FFlagGameSettingsDynamicHeadAssetOverrideSupport = game:GetFastFlag("GameSettingsDynamicHeadAssetOverrideSupport")
+
 local Plugin = script.Parent.Parent.Parent.Parent
+local Cryo = require(Plugin.Packages.Cryo)
 local FrameworkUtil = require(Plugin.Packages.Framework).Util
 local Math = FrameworkUtil.Math
 
@@ -51,6 +54,16 @@ function UniverseAvatarController:configurationV2PATCH(gameId, configuration)
 
 	return networking:patch("develop", "/v2/universes/"..gameId.."/configuration", {
 		Body = configuration
+	})
+end
+
+function UniverseAvatarController:assetdeliveryV2GET(assetId)
+	local networking = self.__networking
+
+	return networking:get("assetdelivery", "/v2/asset", {
+		Params = {
+			id = assetId,
+		},
 	})
 end
 
@@ -393,6 +406,34 @@ function UniverseAvatarController:getAssetOverrides(game)
 		local response = self:configurationV2GET(gameId):await()
 		assetOverrides = response.responseBody.universeAvatarAssetOverrides
 	end
+
+	if FFlagGameSettingsDynamicHeadAssetOverrideSupport then
+		local dynamicHeadOverrideIndex = Cryo.List.findWhere(assetOverrides, function(assetOverride)
+			return assetOverride.assetTypeID == Enum.AssetType.DynamicHead.Value
+				and assetOverride.assetID ~= nil
+				and assetOverride.assetID ~= 0
+				and not assetOverride.isPlayerChoice
+		end)
+
+		if dynamicHeadOverrideIndex ~= nil then
+			-- remove all overrides with Head explicitly
+			assetOverrides = Cryo.List.filter(assetOverrides, function(assetOverride)
+				return assetOverride.assetTypeID ~= Enum.AssetType.Head.Value
+			end)
+
+			-- map DynamicHead overrides to Head
+			assetOverrides = Cryo.List.map(assetOverrides, function(assetOverride)
+				if assetOverride.assetTypeID == Enum.AssetType.DynamicHead.Value then
+					return Cryo.Dictionary.join(assetOverride, {
+						assetTypeID = Enum.AssetType.Head.Value,
+					})
+				else
+					return assetOverride
+				end
+			end)
+		end
+	end
+
 	return assetOverrides
 end
 
@@ -409,6 +450,43 @@ function UniverseAvatarController:setAssetOverrides(game, assetOverrides)
 			starterPlayer[ASSETTYPE_PROPERTIES_MAPPING[assetType]] = playerChoice and 0 or assetId
 		end
 	else
+		if FFlagGameSettingsDynamicHeadAssetOverrideSupport then
+			local headOverrideIndex = Cryo.List.findWhere(assetOverrides, function(assetOverride)
+				return assetOverride.assetTypeID == Enum.AssetType.Head.Value and assetOverride.assetID ~= nil and assetOverride.assetID ~= 0
+			end)
+
+			if headOverrideIndex ~= nil then
+				local response = self:assetdeliveryV2GET(assetOverrides[headOverrideIndex].assetID):await()
+				local assetTypeId = tonumber(response.responseBody.assetTypeId)
+				if assetTypeId == Enum.AssetType.DynamicHead.Value then
+					-- real assetType is DynamicHead, update override assetTypeID
+					assetOverrides = Cryo.List.replaceIndex(
+						assetOverrides,
+						headOverrideIndex,
+							Cryo.Dictionary.join(assetOverrides[headOverrideIndex], {
+							assetTypeID = assetTypeId,
+						})
+					)
+				end
+
+				local assetTypeToClear = assetTypeId == Enum.AssetType.DynamicHead.Value and Enum.AssetType.Head or Enum.AssetType.DynamicHead
+
+				-- filter overrides to clear out any of the head type we are _not_ updating
+				assetOverrides = Cryo.List.filter(assetOverrides, function(assetOverride)
+					return assetOverride.assetTypeID ~= assetTypeToClear.Value
+				end)
+
+				-- add override to clear assetTypeToClear
+				assetOverrides = Cryo.List.join(assetOverrides, {
+					{
+						assetID = 0,
+						assetTypeID = assetTypeToClear.Value,
+						isPlayerChoice = true,
+					},
+				})
+			end
+		end
+
 		self:configurationV2PATCH(gameId, {universeAvatarAssetOverrides = assetOverrides}):await()
 	end
 end

@@ -7,6 +7,7 @@
 		table previewFuncs = A table of functions that can be called from
 			the AssetPreview component, provided from Rodux
 ]]
+local FFlagToolboxRearrangeAssetPreviewLayout = game:GetFastFlag("ToolboxRearrangeAssetPreviewLayout")
 
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
@@ -63,6 +64,7 @@ local TryCreateContextMenu = require(Plugin.Core.Thunks.TryCreateContextMenu)
 local GetPageInfoAnalyticsContextInfo = require(Plugin.Core.Thunks.GetPageInfoAnalyticsContextInfo)
 local NavigationContext = require(Plugin.Core.ContextServices.NavigationContext)
 
+local AssetSubTypes = require(Plugin.Core.Types.AssetSubTypes)
 local Category = require(Plugin.Core.Types.Category)
 local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 
@@ -542,6 +544,11 @@ function AssetPreviewWrapper:renderContent(theme, modalTarget, localizedContent)
 		voting = (purchaseFlow.HasRating and self.props.voting)
 	end
 
+	local isPackage
+	if FFlagToolboxRearrangeAssetPreviewLayout and assetData.Asset.AssetSubTypes then
+		isPackage = AssetSubTypes.contains(assetData.Asset.AssetSubTypes, AssetSubTypes.Package)
+	end
+
 	local assetPreview = Roact.createElement(AssetPreview, {
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		AnchorPoint = Vector2.new(0.5, 0.5),
@@ -571,6 +578,7 @@ function AssetPreviewWrapper:renderContent(theme, modalTarget, localizedContent)
 		RenderFooter = self.renderFooter,
 
 		CanFlagAsset = assetData.Creator and assetData.Creator.Id ~= 1 and assetData.Creator.Id ~= getUserId(),
+		IsPackage = isPackage,
 
 		UsageContext = Enum.UsageContext.Preview,
 	})

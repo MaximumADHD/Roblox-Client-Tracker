@@ -7,7 +7,7 @@
 			{
 				TopTrackName = "Head",
 				TopTrackType = Constants.TRACK_TYPES.CFrame | Constants.TRACK_TYPES.Facs,
-				RotationType = Constants.TRACK_TYPES.Quaternions | Constants.TRACK_TYPES.EulerAngles,
+				RotationType = Constants.TRACK_TYPES.Quaternion | Constants.TRACK_TYPES.EulerAngles,
 				EulerAnglesOrder = Constants.EULER_ANGLES_ORDER.{XYZ}
 				RelPath = {"Position", "X"},
 				Data = {

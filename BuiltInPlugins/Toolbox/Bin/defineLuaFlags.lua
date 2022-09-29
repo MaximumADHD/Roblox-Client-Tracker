@@ -46,6 +46,8 @@ game:DefineFastFlag("ToolboxFixPackageDragging", false)
 
 game:DefineFastFlag("ToolboxFixPublishPackageColor", false)
 
+game:DefineFastFlag("ToolboxUpdatePackageString", false)
+
 game:DefineFastFlag("AssetConfigLayeredClothingBoxCollisions", false)
 
 game:DefineFastFlag("ToolboxAddUnverifiedIcon", false)
@@ -56,7 +58,14 @@ game:DefineFastFlag("ToolboxAssetConfigurationVerifiedPrice", false)
 
 game:DefineFastFlag("ToolboxFixSubtypeArray", false)
 
+game:DefineFastFlag("FFlagToolboxAddAssetSubTypesToAnalytics", false)
+
 game:DefineFastFlag("ToolboxFixAssetConfigWarningIconColor", false)
 
+game:DefineFastFlag("ToolboxFixVideoEditFlow", false)
+
+game:DefineFastFlag("ToolboxRemoveDefaultToolboxSearchStringValue", false)
+
+game:DefineFastFlag("HideAssetConfigLearnMoreForLuobu", false)
 
 return nil

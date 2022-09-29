@@ -38,6 +38,7 @@ local TOGGLE_BUTTON_WIDTH = 40
 local TOGGLE_BUTTON_HEIGHT = 24
 
 local FFlagToolboxFixPublishPackageColor = game:GetFastFlag("ToolboxFixPublishPackageColor")
+local FFlagToolboxUpdatePackageString = game:GetFastFlag("ToolboxUpdatePackageString")
 
 function ConfigPackage:init(props)
 	self.toggleCallback = function()
@@ -66,7 +67,7 @@ function ConfigPackage:renderContent()
 	local publishAssetTheme = theme.publishAsset
 
 	local localization = props.Localization
-	local informationText = localization:getText("AssetConfigPackage", "HelpText")
+	local informationText = localization:getText("AssetConfigPackage", if FFlagToolboxUpdatePackageString then "HelpTextV2" else "HelpText")
 	local ThreeDWarning = localization:getText("AssetConfigPackage", "Non3DRoot3DDescendentsWarning")
 
 	local showWarningText = props.PackageWarningText ~= nil

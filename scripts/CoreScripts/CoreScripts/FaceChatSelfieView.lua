@@ -3,57 +3,74 @@
 TODO: this is just an in between state checkin for MVP preview
 this will see major refactors over the next PRs before MVP release
 bigger changes before mvp release next up:
--addition of mic/cam view toggles getting hooked up and other bigger changes to UI and whole flow
 -addition of api for developer to toggle SelfView on/off
+-bigger changes to UI and whole flow
 
 *bigger changes before full version release:
+-add tracking calls
 -potentially changing this to do the ui in roact
+-improve cam framing in viewportframe further
 -reduce full rebuilds of clone as much as possible 
 (potentially size change for bodyparts could be done in place instead of doing full rebuild)
--improve cam framing in viewportframe further
 ]]
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local AppStorageService = game:GetService("AppStorageService")
+local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local VideoCaptureService = game:FindService("VideoCaptureService")
+local FaceAnimatorService = game:FindService("FaceAnimatorService")
+local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingService")
 
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
-
-local viewportFrame = nil
-local viewportCamera = nil
-local cloneAnchor = nil
-local clone = nil
 
 local DEFAULT_POSITION = UDim2.fromOffset(15, 25)
 local DEFAULT_SIZE = UDim2.fromOffset(150, 180)
 local DEFAULT_BUTTONS_BAR_HEIGHT = 36
 local BACKGROUND_TRANSPARENCY = 0.65
-local selfViewName = "SelfViewGui"
+local SCREEN_BORDER_OFFSET = 3
+local SELF_VIEW_NAME = "SelfView"
+local MIC_ICON_ENABLED = "rbxasset://textures/SelfView/SelfView_icon_mic_enabled.png"
+local MIC_ICON_DISABLED = "rbxasset://textures/SelfView/SelfView_icon_mic_disabled.png"
+local CAM_ICON_ENABLED = "rbxasset://textures/SelfView/SelfView_icon_camera_enabled.png"
+local CAM_ICON_DISABLED = "rbxasset://textures/SelfView/SelfView_icon_camera_disabled.png"
 local cloneCharacterName = "SelfAvatar"
-
-local headRef = nil
-
 -- seconds to wait to update the clone after something in the original has changed
 local UPDATE_CLONE_CD = 0.35
 local updateCloneCurrentCoolDown = 0
 
 local renderSteppedConnection = nil
-
 local playerCharacterAddedConnection
 local playerCharacterRemovingConnection
-
 local trackStoppedConnections = {}
+local videoAnimationPropertyChangedSingalConnection = nil
+local audioAnimationPropertyChangedSingalConnection = nil
+
 local cloneAnimator = nil
 local cloneAnimationTracks = {}
 local orgAnimationTracks = {}
 local cachedHeadColor = nil
 local cachedHeadSize = nil
-
-local gui = nil
+local cachedAudioEnabled = nil
+local cachedMode = nil
+local viewportFrame = nil
+local viewportCamera = nil
+local cloneAnchor = nil
+local clone = nil
+local headRef = nil
+local frame = nil
+local micIcon = nil
+local camIcon = nil
+local indicatorCircle = nil
 
 --state
 local isOpen = true
+local audioIsEnabled = false
+local videoIsEnabled = false
+local foundStreamTrack = nil
 
 local observerInstances = {}
 local Observer = {
@@ -74,7 +91,7 @@ local function removeChild(model, childName)
 	end
 end
 
-local function setCloneDirty(dirty)
+function setCloneDirty(dirty)
 	if dirty then
 		updateCloneCurrentCoolDown = UPDATE_CLONE_CD
 	else
@@ -82,24 +99,123 @@ local function setCloneDirty(dirty)
 	end
 end
 
+-- DRAGGING --
+local connections = {}
+local dragging = false
+local function disconnectListeners()
+	for _, connection in connections do
+		connection:Disconnect()
+	end
+	connections = {}
+end
+
+-- Update the position of the Self View frame based on dragging.
+local function processDrag(frame, inputPosition, dragStartPosition, frameStartPosition)
+	local delta = (inputPosition - dragStartPosition)
+	local newPosition = {
+		X = (delta + frameStartPosition).X,
+		Y = (delta + frameStartPosition).Y,
+	}
+
+	-- Constrain the location to the screen.
+	local screenSize = frame.Parent.AbsoluteSize
+	newPosition.X = math.min(newPosition.X, (screenSize.X - SCREEN_BORDER_OFFSET ) - frame.AbsoluteSize.X)
+	newPosition.Y = math.min(newPosition.Y, (screenSize.Y - SCREEN_BORDER_OFFSET ) - frame.AbsoluteSize.Y)
+	newPosition.X = math.max(SCREEN_BORDER_OFFSET, newPosition.X)
+	newPosition.Y = math.max(SCREEN_BORDER_OFFSET, newPosition.Y)
+
+	frame.Position = UDim2.fromOffset(newPosition.X, newPosition.Y)
+end
+
+-- Listen for drag input from the user
+local function inputBegan(frame, inputObj)
+	local inputType = inputObj.UserInputType
+	-- We only care about left clicks / touches
+	if inputType ~= Enum.UserInputType.MouseButton1 and inputType ~= Enum.UserInputType.Touch then
+		return
+	end
+
+	if dragging then
+		return
+	end
+	dragging = true
+
+	local dragStartPosition = inputObj.Position
+	local frameStartPosition = Vector3.new(frame.AbsolutePosition.X, frame.AbsolutePosition.Y, 0)
+
+	disconnectListeners()
+	local changedConnection = UserInputService.InputChanged:Connect(function(inputObject)
+		if not dragging then
+			return
+		end
+
+		local inputType = inputObject.UserInputType
+
+		-- We only care about mouse movements / touches
+		if inputType ~= Enum.UserInputType.MouseMovement and inputType ~= Enum.UserInputType.Touch then
+			return
+		end
+
+		-- In case of other component listening to changes
+		if inputObject.UserInputState ~= Enum.UserInputState.Change then
+			return
+		end
+
+		processDrag(frame, inputObject.Position, dragStartPosition, frameStartPosition)
+	end)
+	table.insert(connections, changedConnection)
+
+	local inputEndedConnection = UserInputService.InputEnded:Connect(function(inputObject)
+		local inputType = inputObject.UserInputType
+		if inputType ~= Enum.UserInputType.MouseButton1 and inputType ~= Enum.UserInputType.Touch then
+			return
+		end
+		dragging = false
+
+		disconnectListeners()
+
+		local value = frame.AbsolutePosition.X .."," ..frame.AbsolutePosition.Y
+		AppStorageService:SetItem("SelfViewPosition", value)
+	end)
+	table.insert(connections, inputEndedConnection)
+
+	local focusLostConnection = UserInputService.WindowFocusReleased:Connect(function()
+		disconnectListeners()
+	end)
+	table.insert(connections, focusLostConnection)
+end
+-- END DRAGGING --
+
 local function createViewport()
 	--TODO: this UI setup could be changed to roact setup before MVP release, to evaluate pros/ cons
-	if gui then gui:Destroy() end
+	--(also regarding aspect this may tween towards worldspace UI above player head once closed in progressed iteration)
+
+	if frame then
+		frame:Destroy()
+	end
 
 	isOpen = true
 
-	gui = Instance.new("ScreenGui")
-	gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-	gui.Enabled = true
-	gui.Name = selfViewName
-	gui.Parent = RobloxGui
-
-	local frame = Instance.new("Frame")
-	frame.Name = "SelfView"
-	frame.Position = DEFAULT_POSITION
+	frame = Instance.new("Frame")
+	frame.Name = SELF_VIEW_NAME
+	frame.Parent = RobloxGui
+	
+	local position = DEFAULT_POSITION
+	-- Remove pcall when the key SelfViewPosition is in AppStorageService.
+	pcall(function()
+		local savedPosition = AppStorageService:GetItem("SelfViewPosition")
+		if savedPosition then
+			local pos = string.split(savedPosition, ",")
+			position = UDim2.fromOffset(pos[1], pos[2])
+		end
+	end)
+	frame.Position = position
 	frame.Size = DEFAULT_SIZE
 	frame.BackgroundTransparency = 1
-	frame.Parent = gui
+	frame.InputBegan:Connect(function(input)
+		inputBegan(frame, input)
+	end)
+	-- TODO AVBURST-10067 Disconnect event when applicable.
 
 	local bottomButtonsFrame = Instance.new("Frame")
 	bottomButtonsFrame.Name = "BottomButtonsFrame"
@@ -137,8 +253,10 @@ local function createViewport()
 	micButton.LayoutOrder = 0
 	micButton.ZIndex = 2
 	micButton.Activated:Connect(function()
-		print("button pressed")
-		--TODO will be populated with one of the next PRs once game engine side code ready
+		local voiceService = VoiceChatServiceManager:getService()
+		if voiceService then
+			VoiceChatServiceManager:ToggleMic()
+		end
 	end)
 
 	local uiCorner = Instance.new("UICorner")
@@ -155,30 +273,32 @@ local function createViewport()
 	camButton.LayoutOrder = 1
 	camButton.ZIndex = 3
 	camButton.Activated:Connect(function()
-		print("button pressed")
-		--TODO will be populated with one of the next PRs once game engine side code ready
+		if not FaceAnimatorService or not FaceAnimatorService:IsStarted() then
+			return
+		end
+		FaceAnimatorService.VideoAnimationEnabled = not FaceAnimatorService.VideoAnimationEnabled
 	end)
 
 	uiCorner = Instance.new("UICorner")
 	uiCorner.Parent = camButton
 
-	local micIcon = Instance.new("ImageLabel")
-	micIcon.Name = "CamIcon"
+	micIcon = Instance.new("ImageLabel")
+	micIcon.Name = "MicIcon"
 	micIcon.Parent = micButton
 	micIcon.AnchorPoint = Vector2.new(0.5, 0.5)
 	micIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
 	micIcon.Size = UDim2.new(0, 32, 0, 32)
-	micIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_mic_enabled.png"
+	micIcon.Image = MIC_ICON_ENABLED
 	micIcon.BackgroundTransparency = 1
 	micIcon.ZIndex = 2	
 
-	local camIcon = Instance.new("ImageLabel")
+	camIcon = Instance.new("ImageLabel")
 	camIcon.Name = "CamIcon"
 	camIcon.Parent = camButton
 	camIcon.AnchorPoint = Vector2.new(0.5, 0.5)
 	camIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
 	camIcon.Size = UDim2.new(0, 32, 0, 32)
-	camIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_camera_enabled.png"
+	camIcon.Image = CAM_ICON_ENABLED
 	camIcon.BackgroundTransparency = 1
 	camIcon.ZIndex = 2
 
@@ -203,35 +323,33 @@ local function createViewport()
 	viewportFrame.LightDirection = Vector3.new(9.5, -12, 7.5)
 	viewportFrame.BackgroundColor3 = Color3.new(0.0990616, 0.138109, 0.452827)
 
-	local indicatorCircle = Instance.new("ImageLabel")
+	indicatorCircle = Instance.new("ImageLabel")
 	indicatorCircle.Name = "IndicatorCircle"
 	indicatorCircle.Parent = frame
 	indicatorCircle.Position = UDim2.new(1, -25, 0, 4)
 	indicatorCircle.Size = UDim2.new(0, 22, 0, 22)
 	indicatorCircle.Image = "rbxasset://textures/SelfView/SelfView_icon_indicator_on.png"
 	indicatorCircle.BackgroundTransparency = 1
-	indicatorCircle.ZIndex = 2
-
-
+	indicatorCircle.Visible = false
+	indicatorCircle.ZIndex = 4
 
 	local closeButton = Instance.new("ImageButton")
 	closeButton.Name = "CloseButton"
 	closeButton.AnchorPoint = Vector2.new(0, 0.5)
 	closeButton.Parent = frame
 	closeButton.Position = UDim2.fromOffset(0, 16)
-	closeButton.Size = UDim2.new(0, 64, 0, 36)
+	closeButton.Size = UDim2.new(0, 34, 0, 34)
 	closeButton.Image = "rbxasset://textures/SelfView/whiteRect.png"
 	closeButton.ImageTransparency = 1
 	closeButton.BackgroundTransparency = 1
 	closeButton.BackgroundColor3 = Color3.new(0.137254, 0.137254, 0.137254)
 	closeButton.ZIndex = 2
 
-
 	local closeButtonIcon =  Instance.new("ImageLabel")
 	closeButtonIcon.Name = "CloseButtonIcon"
 	closeButtonIcon.Parent = closeButton
 	closeButtonIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-	closeButtonIcon.Position = UDim2.new(0, 18, 0, 18)
+	closeButtonIcon.Position = UDim2.new(0, 17, 0, 17)
 	closeButtonIcon.Size = UDim2.new(0, 32, 0, 32)
 	closeButtonIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_close.png"
 	closeButtonIcon.ImageTransparency = 0
@@ -242,7 +360,7 @@ local function createViewport()
 	faceIcon.Name = "FaceIcon"
 	faceIcon.Parent = frame
 	faceIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-	faceIcon.Position = UDim2.new(0, 46, 0, 18)
+	faceIcon.Position = UDim2.new(0, 17, 0, 17)
 	faceIcon.Size = UDim2.new(0, 32, 0, 32)
 	faceIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_faceToggle_on.png"
 	faceIcon.BackgroundTransparency = 1
@@ -250,16 +368,41 @@ local function createViewport()
 	faceIcon.Visible = false	
 	faceIcon.Parent = closeButton
 
-	closeButton.Rotation = bottomButtonsFrame.Visible and 0 or -45
 	closeButton.Activated:Connect(function()
 		setIsOpen(not isOpen)
 
 		selfViewFrame.Visible = isOpen
 		bottomButtonsFrame.Visible = isOpen
-		indicatorCircle.Visible = isOpen
-		closeButtonIcon.Rotation = isOpen and 0 or -45
+		closeButtonIcon.Visible = isOpen
 		faceIcon.Visible = not isOpen
 		closeButton.BackgroundTransparency = isOpen and 1 or 0.5
+
+		if isOpen then
+			micButton.Position = UDim2.new(0, 0, 0, 0)
+			micButton.Size = UDim2.new(0.5, -4, 1, -4)
+			micButton.ImageTransparency = 0
+
+			camButton.Position = UDim2.new(0, 0, 0, 0)
+			camButton.Size = UDim2.new(0.5, -4, 1, -4)
+			camButton.ImageTransparency = 0
+
+			indicatorCircle.Position = UDim2.new(1, -25, 0, 4)
+		else
+			micButton.Position = UDim2.new(0, 40, 0, -1)
+			micButton.Size = UDim2.new(0, 34, 0, 34)
+			micButton.Parent = frame
+			micButton.ImageTransparency = 0.3
+
+			camButton.Position = UDim2.new(0, 80, 0, -1)
+			camButton.Size = UDim2.new(0, 34, 0, 34)
+			camButton.Parent = frame
+			camButton.ImageTransparency = 0.3
+
+			indicatorCircle.Position = UDim2.new(0, 20, 0, -10)
+		end
+
+		bottomButtonsFrame.Visible = isOpen
+
 	end)
 
 	uiCorner = Instance.new("UICorner")
@@ -294,6 +437,67 @@ local function createViewport()
 	cloneAnchor = worldModel
 end
 
+function toggleIndicator(mode)
+	if indicatorCircle then 
+		indicatorCircle.Visible = mode ~= nil and mode ~= Enum.TrackerMode.None
+	end
+end
+
+function updateAudioButton(enabled)
+	if enabled then
+		if micIcon then 
+			micIcon.Image = MIC_ICON_ENABLED 
+		end
+	else
+		if micIcon then 
+			micIcon.Image = MIC_ICON_DISABLED 
+		end
+	end
+
+	audioIsEnabled = enabled
+end
+
+function updateVideoButton(enabled)
+	if enabled then
+		if camIcon then 
+			camIcon.Image = CAM_ICON_ENABLED 
+		end
+	else
+		if camIcon then 
+			camIcon.Image = CAM_ICON_DISABLED 
+		end
+	end
+
+	videoIsEnabled = enabled
+end
+
+local onUpdateTrackerMode = function()
+	local mode = Enum.TrackerMode.None --"NONE"
+	if FaceAnimatorService.AudioAnimationEnabled and not FaceAnimatorService.VideoAnimationEnabled then
+		mode = Enum.TrackerMode.Audio --"A2C"
+	elseif not FaceAnimatorService.AudioAnimationEnabled and FaceAnimatorService.VideoAnimationEnabled and FaceAnimatorService:IsStarted() then
+		mode = Enum.TrackerMode.Video --"V2C"
+	elseif FaceAnimatorService.AudioAnimationEnabled and FaceAnimatorService.VideoAnimationEnabled  and FaceAnimatorService:IsStarted() then
+		mode = Enum.TrackerMode.AudioVideo --"AV2C"
+	end
+	--TODO: remove testing messages before mvp release
+	--print("onUpdateTrackerMode(), mode: "..tostring(mode))
+
+	updateVideoButton(mode == Enum.TrackerMode.AudioVideo or mode == Enum.TrackerMode.Video)
+
+	toggleIndicator(mode)
+
+	--if clone was setup with no streamtrack but now mode changed to one of the modes which could deliver a stream track, queue refresh of Self View
+	if not foundStreamTrack and ( cachedMode == nil or ( cachedMode == Enum.TrackerMode.None and mode ~=  Enum.TrackerMode.None) ) then
+		setCloneDirty(true)
+	end
+	cachedMode = mode
+end
+
+VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
+	updateAudioButton(not muted)
+end)
+
 local function clearObserver(observerId)
 	if observerInstances[observerId] then
 		observerInstances[observerId]:Disconnect()
@@ -312,7 +516,18 @@ local function clearClone()
 	stopRenderStepped()
 	clearObserver(Observer.AnimationPlayed)
 	clearObserver(Observer.AnimationPlayedCoreScript)
+	if videoAnimationPropertyChangedSingalConnection then
+		videoAnimationPropertyChangedSingalConnection:Disconnect()
+		videoAnimationPropertyChangedSingalConnection = nil
+	end
 
+	if audioAnimationPropertyChangedSingalConnection then
+		audioAnimationPropertyChangedSingalConnection:Disconnect()
+		audioAnimationPropertyChangedSingalConnection = nil
+	end
+	foundStreamTrack = nil
+	cachedAudioEnabled = nil
+	cachedMode = nil
 	cloneAnimator = nil
 	cloneAnimationTracks = {}
 	-- clear objects
@@ -339,6 +554,7 @@ local function syncTrack(animator, track)
 	--	cloneTrack:AdjustSpeed(track.Speed)
 	elseif track.Animation:IsA("TrackerStreamAnimation") then
 		cloneTrack = animator:LoadStreamAnimation(track.Animation)
+		foundStreamTrack = true
 	else
 		warn("No animation to clone in SelfView")
 	end
@@ -356,8 +572,35 @@ local function syncTrack(animator, track)
 	end
 end
 
+-- Finds the FaceControls instance attached to the rig
+function getFaceControls(rig)
+	return rig:FindFirstChildWhichIsA("FaceControls", true)
+end
+
+function getHead(character)
+	if not character then return nil end
+
+	--most simple lookup
+	local head = character:FindFirstChild("Head")
+
+	if not head then
+		--lookup for dynamic heads
+		local faceControls = getFaceControls(character)
+		if faceControls ~= nil then
+			head = faceControls.Parent
+		end
+
+		--lookup for non dynamic heads
+		if not head then
+			head = character:FindFirstChild("Head",true)
+		end
+	end
+
+	return head
+end
+
 local function updateClone(player)
-    
+
 	clearClone()
 
 	if not player then
@@ -385,7 +628,7 @@ local function updateClone(player)
 		clone = character:Clone()
 		clone.Name = cloneCharacterName
 		
-		-- remove unneeded cloned assets 
+		-- remove unneeded cloned assets
 		--(removing these already here as otherwise on fast respawn the Animate script in the clone can execute some stuff already before removal)
 		removeChild(clone, "Animate")
 		removeChild(clone, "Health")
@@ -410,7 +653,7 @@ local function updateClone(player)
 			--todo: only run this if head found, also look for head with descendents if not found
 			local dummyModel = Instance.new("Model")
 			dummyModel.Parent = clone
-			local head = clone:FindFirstChild("Head")
+			local head = getHead(clone)
 			character.Archivable = true
 			local headClone = head:Clone()
 			headClone.CanCollide = false
@@ -477,7 +720,7 @@ end
 
 local function characterAdded(character)
 	
-	headRef = character:WaitForChild("Head", 10)
+	headRef = getHead(character)
 	if headRef then
 		cachedHeadColor = headRef.Color
 		cachedHeadSize = headRef.Size
@@ -509,7 +752,7 @@ local function characterAdded(character)
 end
 
 local function ReInit(player)	
-	headRef = player.Character:WaitForChild("Head")
+	headRef = getHead(player.Character)
 	if headRef then
 		cachedHeadColor = headRef.Color
 		cachedHeadSize = headRef.Size
@@ -532,7 +775,7 @@ end
 local function onCharacterRemoved(player)
 	setIsOpen(false)
 	
-	playerCharacterRemovingConnection:Disconnect()	
+	playerCharacterRemovingConnection:Disconnect()
 end
 
 --not making this a local function, else on respawn of avatar the function is not available yet when wanting to call it again from the ReInit function
@@ -601,21 +844,51 @@ function updateClonePartsColor(headRefColor)
 	cachedHeadColor = headRefColor
 end
 
+function prepMicAndCamPropertyChangedSignalHandler()
+	if not videoAnimationPropertyChangedSingalConnection then
+		videoAnimationPropertyChangedSingalConnection = FaceAnimatorService:GetPropertyChangedSignal("VideoAnimationEnabled"):Connect(function()
+			onUpdateTrackerMode()
+		end)
+	end
+
+	if not audioAnimationPropertyChangedSingalConnection then
+		audioAnimationPropertyChangedSingalConnection = FaceAnimatorService:GetPropertyChangedSignal("AudioAnimationEnabled"):Connect(function()
+			onUpdateTrackerMode()
+		end)
+	end
+end
 
 function startRenderStepped(player)
 	stopRenderStepped()
+
+	prepMicAndCamPropertyChangedSignalHandler()
+
+	onUpdateTrackerMode()
+
 	renderSteppedConnection = RunService.RenderStepped:Connect(function(step)
-		--GetPropertyChangedSignal for head color/size change fired reliably in a simple test place
+		--GetPropertyChangedSignal for head color/size change fired reliably in a simple test place for animation props
 		--but it did not fire reliably in a more involved test place, so as fallback for now we also check manually for changes..
 
-		if Players.LocalPlayer and Players.LocalPlayer.Character then
+		local audioEnabled = false
+		local voiceService = VoiceChatServiceManager:getService()
+		if voiceService and VoiceChatServiceManager.localMuted ~= nil then
+			audioEnabled = VoiceChatServiceManager.localMuted
+		end
+		if cachedAudioEnabled ~= audioEnabled then
+			updateAudioButton(audioEnabled)
+			cachedAudioEnabled = audioEnabled
+		end
+
+
+
+		if Players.LocalPlayer then
 			local character = Players.LocalPlayer.Character
 
 			if not character then return end
 
 			if not character.Parent then return end
 			
-			headRef = character:FindFirstChild("Head")
+			headRef = getHead(character)
 
 			if headRef then
 			
@@ -628,7 +901,6 @@ function startRenderStepped(player)
 				--manual sync of canned animation tracks
 				if cloneAnimator ~= nil and animator ~= nil then
 
-					
 					local playingAnims = cloneAnimator:GetPlayingAnimationTracks()
 					for _, track in pairs(playingAnims) do
 						track:Stop()
@@ -653,7 +925,7 @@ function startRenderStepped(player)
 								cloneAnimationTrack.Priority = value.Priority
 								cloneAnimationTrack:AdjustWeight(value.WeightCurrent,0.1)
 							end
-						end	
+						end
 					end
 
 					--clear meanwhile not anymore playing track
@@ -667,8 +939,8 @@ function startRenderStepped(player)
 									cloneAnimationTracks[anim.AnimationId] = nil
 								end
 							end
-						end	
-					end	
+						end
+					end
 		
 					for index, track in ipairs(animator:GetPlayingAnimationTracksCoreScript()) do
 						local playingAnims = cloneAnimator:GetPlayingAnimationTracksCoreScript()
@@ -681,18 +953,18 @@ function startRenderStepped(player)
 					end		
 				end
 			end
-		end
 
-		if headRef then			
-			if headRef.Size ~= cachedHeadSize then
-				cachedHeadSize = headRef.Size
-				setCloneDirty(true)
+			if headRef then			
+				if headRef.Size ~= cachedHeadSize then
+					cachedHeadSize = headRef.Size
+					setCloneDirty(true)
+				end
 			end
-		end
-	
-		if headRef then			
-			if headRef.Color ~= cachedHeadColor then
-				updateClonePartsColor(headRef.Color)
+		
+			if headRef then			
+				if headRef.Color ~= cachedHeadColor then
+					updateClonePartsColor(headRef.Color)
+				end
 			end
 		end
 
@@ -737,6 +1009,8 @@ function setIsOpen(shouldBeOpen)
 		clearObserver(Observer.CharacterAdded)
 		clearObserver(Observer.CharacterRemoving)
 		clearClone()
+
+		prepMicAndCamPropertyChangedSignalHandler()
 	end
 end
 

@@ -14,11 +14,13 @@ local Roact = require(Packages.Roact)
 
 local Framework = require(Packages.Framework)
 local FFlagDevFrameworkRemoveFitFrame = Framework.SharedFlags.getFFlagDevFrameworkRemoveFitFrame()
+local FFlagToolboxRearrangeAssetPreviewLayout = game:GetFastFlag("ToolboxRearrangeAssetPreviewLayout")
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local TextLabel = Framework.UI.Decoration.TextLabel
 local Container = Framework.UI.Container
+local Pane = Framework.UI.Pane
 
 local AssetPreviewFooter = Roact.PureComponent:extend("AssetPreviewFooter")
 
@@ -42,25 +44,44 @@ function AssetPreviewFooter:render()
 		size = if fitMaxWidth then UDim2.fromOffset(fitMaxWidth, 0) else UDim2.fromScale(1, 0)
 	end
 
-	return Roact.createElement(Container, {
-		LayoutOrder = layoutOrder,
-		Size = UDim2.fromScale(1, 0),
-		AutomaticSize = Enum.AutomaticSize.Y,
-	}, {
-		Text = Roact.createElement(TextLabel, {
-			Text = localization:getText("AssetPreview", "PluginNotice"),
-			AnchorPoint = Vector2.new(0.5, 0),
-			Position = UDim2.fromScale(0.5, 0),
-			FitWidth = if FFlagDevFrameworkRemoveFitFrame then nil else true,
-			TextWrapped = true,
-			FitMaxWidth = if FFlagDevFrameworkRemoveFitFrame then nil else fitMaxWidth,
-			Size = if FFlagDevFrameworkRemoveFitFrame then size else nil,
-			TextTransparency = 0.5,
-			TextXAlignment = Enum.TextXAlignment.Center,
+	if FFlagToolboxRearrangeAssetPreviewLayout then
+		return Roact.createElement(Pane, {
 			AutomaticSize = Enum.AutomaticSize.Y,
-			TextSize = 14,
-		}),
-	})
+			LayoutOrder = layoutOrder,
+			Size = UDim2.fromScale(1, 0),
+		}, {
+			Text = Roact.createElement(TextLabel, {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				TextWrapped = true,
+				Size = UDim2.fromScale(1, 0),
+				Style = "Body",
+				TextTransparency = 0.5,
+				TextXAlignment = Enum.TextXAlignment.Center,
+				Text = localization:getText("AssetPreview", "PluginNotice"),
+			}),
+		})
+	else
+		return Roact.createElement(Container, {
+			LayoutOrder = layoutOrder,
+			Size = UDim2.fromScale(1, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+		}, {
+			Text = Roact.createElement(TextLabel, {
+				Text = localization:getText("AssetPreview", "PluginNotice"),
+				AnchorPoint = Vector2.new(0.5, 0),
+				Position = UDim2.fromScale(0.5, 0),
+				FitWidth = if FFlagDevFrameworkRemoveFitFrame then nil else true,
+				TextWrapped = true,
+				FitMaxWidth = if FFlagDevFrameworkRemoveFitFrame then nil else fitMaxWidth,
+				Size = if FFlagDevFrameworkRemoveFitFrame then size else nil,
+				TextTransparency = 0.5,
+				TextXAlignment = Enum.TextXAlignment.Center,
+				AutomaticSize = Enum.AutomaticSize.Y,
+				TextSize = 14,
+			}),
+		})
+
+	end
 end
 
 AssetPreviewFooter = withContext({

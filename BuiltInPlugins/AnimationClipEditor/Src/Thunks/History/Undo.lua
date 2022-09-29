@@ -18,7 +18,6 @@ local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
 local TrackSelectionUtils = require(Plugin.Src.Util.TrackSelectionUtils)
 
-local GetFFlagFixRedoDeleteSelection = require(Plugin.LuaFlags.GetFFlagFixRedoDeleteSelection)
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
 
 return function(signals)
@@ -35,8 +34,8 @@ return function(signals)
 			--in case the user was in review state of face capture and pressed undo then, we exit out of review state
 			if GetFFlagFacialAnimationRecordingInStudio() then
 				store:dispatch(SetInReviewState(false))
-			end			
-			
+			end
+
 			future = Cryo.List.join({
 				{
 					AnimationData = Cryo.Dictionary.join(animationData),
@@ -56,7 +55,7 @@ return function(signals)
 			-- Prune selected tracks, as some tracks might have disappeared
 			-- (Undoing a conversion from Quaternions to Euler's angles, for instance)
 			local newSelectedTracks, changed = TrackSelectionUtils.PruneSelectedTracks(
-				if GetFFlagFixRedoDeleteSelection() then newState.AnimationData else animationData, selectedTracks)
+				newState.AnimationData, selectedTracks)
 			if changed then
 				store:dispatch(SetSelectedTracks(newSelectedTracks))
 			end

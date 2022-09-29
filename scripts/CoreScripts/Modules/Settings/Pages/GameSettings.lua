@@ -12,7 +12,6 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
-local HttpRbxApiService = game:GetService('HttpRbxApiService')
 local HttpService = game:GetService('HttpService')
 local RunService = game:GetService("RunService")
 local ContextActionService = game:GetService("ContextActionService")
@@ -178,7 +177,6 @@ local function reportSettingsForAnalytics()
 end
 
 --------------- FLAGS ----------------
-local FIntCanManageLuaRolloutPercentage = game:DefineFastInt("CanManageLuaRolloutPercentage", 0)
 game:DefineFastInt("V1MenuLanguageSelectionFeaturePerMillageRollout", 999)
 game:DefineFastString("V1MenuLanguageSelectionFeatureForcedUserIds", "31415926535")
 
@@ -2001,27 +1999,8 @@ local function Initialize()
 		else
 			spawn(function()
 				--only show option if player has edit access
-				if (Players.LocalPlayer.UserId % 100) + 1 <= FIntCanManageLuaRolloutPercentage then
-					if PlayerPermissionsModule.CanPlayerManagePlaceAsync(Players.LocalPlayer) then
-						makeDevConsoleOption()
-					end
-				else
-					local canManageSuccess, canManageResult = pcall(function()
-						local url = string.format("/users/%d/canmanage/%d", (game:GetService("Players").LocalPlayer :: Player).UserId, game.PlaceId)
-						return HttpRbxApiService:GetAsync(url, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Default, true)
-					end)
-					if canManageSuccess and type(canManageResult) == "string" then
-						-- API returns: {"Success":BOOLEAN,"CanManage":BOOLEAN}
-						-- Convert from JSON to a table
-						-- pcall in case of invalid JSON
-						local success, result = pcall(function()
-							return HttpService:JSONDecode(canManageResult)
-						end)
-
-						if success and result.CanManage == true then
-							makeDevConsoleOption()
-						end
-					end
+				if PlayerPermissionsModule.CanPlayerManagePlaceAsync(Players.LocalPlayer) then
+					makeDevConsoleOption()
 				end
 			end)
 		end

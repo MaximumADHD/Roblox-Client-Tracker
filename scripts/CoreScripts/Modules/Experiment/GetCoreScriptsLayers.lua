@@ -6,6 +6,7 @@ local GetFFlagEnableIXPInGame = require(script.Parent.Parent.Common.Flags.GetFFl
 local GetFFlagLoadingScreenUseIXP = require(script.Parent.Parent.Flags.GetFFlagLoadingScreenUseIXP)
 local GetFStringLoadingScreenIxpLayer = require(CorePackages.AppTempCommon.Flags.GetFStringLoadingScreenIxpLayer)
 local GetFStringRobuxUpsellIxpLayer = require(CorePackages.AppTempCommon.Flags.GetFStringRobuxUpsellIxpLayer)
+local GetFStringLuaAppExperienceMenuLayer = require(script.Parent.Parent.Flags.GetFStringLuaAppExperienceMenuLayer)
 
 return function()
 	local layers = {}
@@ -18,7 +19,7 @@ return function()
 		or GetFFlagShareInviteLinkContextMenuV1ABTestEnabled()
 		or GetFFlagEnableNewInviteMenuIXP()
 	then
-		table.insert(layers, "Experience.Menu")
+		table.insert(layers, GetFStringLuaAppExperienceMenuLayer())
 	end
 
 	if GetFFlagLoadingScreenUseIXP() then

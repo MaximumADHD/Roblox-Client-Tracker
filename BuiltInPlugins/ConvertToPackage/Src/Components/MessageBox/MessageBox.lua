@@ -8,7 +8,6 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local SharedFlags = Framework.SharedFlags
-local FFlagDevFrameworkMigrateDialog = SharedFlags.getFFlagDevFrameworkMigrateDialog()
 local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
 
 local GetTextSize = Framework.Util.GetTextSize
@@ -17,7 +16,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local UI = Framework.UI
 local Button = if FFlagRemoveUILibraryButton then UI.Button else UILibrary.Component.Button
-local Dialog = if FFlagDevFrameworkMigrateDialog then UI.Dialog else UILibrary.Component.Dialog
+local Dialog = UI.Dialog
 
 local MessageBox = Roact.PureComponent:extend("MessageBox")
 
@@ -61,9 +60,6 @@ function MessageBox:render()
 	local style = props.Stylizer
 
 	local title = props.Title or ""
-	-- TODO(@rbujnowicz): remove with FFlagDevFrameworkMigrateDialog
-	local name = if FFlagDevFrameworkMigrateDialog then nil else (props.Name or title)
-	local id = if FFlagDevFrameworkMigrateDialog then nil else (props.Id or nil)
 
 	local text = props.Text or ""
 	local informativeText = props.InformativeText or ""
@@ -178,29 +174,12 @@ function MessageBox:render()
 	if mockTesting ~= "" then
 		return nil
 	end
-	return Roact.createElement(Dialog, if FFlagDevFrameworkMigrateDialog then {
+	return Roact.createElement(Dialog, {
 		Title = title,
 		Modal = true,
 		Resizable = false,
 		Size = Vector2.new(boxWidth, boxHeight),
 		MinSize = Vector2.new(boxWidth, boxHeight),
-		Enabled = true,
-		OnClose = props.onClose,
-		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-		[Roact.Change.Enabled] = self.onEnabledChanged,
-		[Roact.Event.AncestryChanged] = self.onAncestryChanged,
-	} else {
-		Name = name,
-		Title = title,
-		Id = id,
-		Options = {
-			Size = Vector2.new(boxWidth, boxHeight),
-			MinSize = Vector2.new(boxWidth, boxHeight),
-			Resizable = false,
-			Modal = true,
-			InitialEnabled = true,
-		},
-		Size = Vector2.new(boxWidth, boxHeight),
 		Enabled = true,
 		OnClose = props.onClose,
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,

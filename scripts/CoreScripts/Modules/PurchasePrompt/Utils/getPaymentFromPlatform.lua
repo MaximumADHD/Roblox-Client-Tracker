@@ -22,6 +22,8 @@ return function(platform, isLuobu, isAmazon)
 		else
 			return PaymentPlatform.Google
 		end
+	elseif platform == Enum.Platform.UWP then
+		return PaymentPlatform.UWP
 	else
 		return PaymentPlatform.None
 	end

@@ -45,6 +45,7 @@ local StringUtils = require(Plugin.Src.Util.StringUtils)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
 local Pause = require(Plugin.Src.Actions.Pause)
+local SetPlayState = require(Plugin.Src.Actions.SetPlayState)
 local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
 local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
@@ -70,6 +71,7 @@ local SetKeyframeTangent = require(Plugin.Src.Thunks.SetKeyframeTangent)
 local SetSelectedKeyframeData = require(Plugin.Src.Thunks.Selection.SetSelectedKeyframeData)
 
 local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
+local GetFFlagRetirePause = require(Plugin.LuaFlags.GetFFlagRetirePause)
 
 local CurveEditorController = Roact.Component:extend("CurveEditorController")
 
@@ -97,10 +99,10 @@ export type Props = {
 	DeselectAllKeyframes: () -> (),
 	DeselectKeyframe: (string, PathUtils.Path, number) -> (),
 	GenerateCurve: (Enum.KeyInterpolationMode, Enum.KeyInterpolationMode) -> (),
-	Pause: () -> (),
 	ScaleSelectedKeyframes: (number, number, any) -> (),
 	SelectKeyframeRange: (string, PathUtils.Path, number, number, boolean) -> (),
 	SetKeyframeTangent: (string, PathUtils.Path, number, string, number) -> (),
+	SetPlayState: (string) -> (),
 	SetSelectedKeyframes: (any) -> (),
 	SetSelectedKeyframeData: (any) -> (),
 
@@ -189,7 +191,11 @@ function CurveEditorController:init()
 	end
 
 	self.showKeyframeMenu = function(): ()
-		self.props.Pause()
+		if GetFFlagRetirePause() then
+			self.props.SetPlayState(Constants.PLAY_STATE.Pause)
+		else
+			self.props.Pause()
+		end
 		self:setState({
 			ShowKeyframeMenu = true,
 			ShowTangentMenu = false,
@@ -203,7 +209,11 @@ function CurveEditorController:init()
 	end
 
 	self.showTangentMenu = function(): ()
-		self.props.Pause()
+		if GetFFlagRetirePause() then
+			self.props.SetPlayState(Constants.PLAY_STATE.Pause)
+		else
+			self.props.Pause()
+		end
 		self:setState({
 			ShowKeyframeMenu = false,
 			ShowTangentMenu = true,
@@ -1082,9 +1092,9 @@ local function mapDispatchToProps(dispatch): ({[string]: any})
 			dispatch(MoveSelectedKeyframes(pivotTick, newTick, pivotValue, newValue, dragContext))
 		end,
 
-		Pause = function(): ()
+		Pause = if not GetFFlagRetirePause() then function(): ()
 			dispatch(Pause())
-		end,
+		end else nil,
 
 		ScaleSelectedKeyframes = function(pivotTick: number, scale: number, dragContext: any): ()
 			dispatch(ScaleSelectedKeyframes(pivotTick, scale, dragContext))
@@ -1097,6 +1107,10 @@ local function mapDispatchToProps(dispatch): ({[string]: any})
 
 		SetKeyframeTangent = function(instanceName: string, path: PathUtils.Path, tck: number, side: string, slope: number): ()
 			dispatch(SetKeyframeTangent(instanceName, path, tck, side, slope))
+		end,
+
+		SetPlayState = function(playState: string): ()
+			dispatch(SetPlayState(playState))
 		end,
 
 		SetRightClickContextInfo = function(info: any): ()

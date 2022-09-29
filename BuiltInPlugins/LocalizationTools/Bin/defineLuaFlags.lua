@@ -5,5 +5,12 @@ game:DefineFastFlag("LocalizationToolsPluginInvalidEntryIdentifierMessageEnabled
 game:DefineFastFlag("LocalizationToolsAllowUploadZhCjv", false)
 game:DefineFastFlag("LocalizationToolsFixExampleNotDownloaded", false)
 game:DefineFastFlag("ImageLocalizationFeatureEnabled", false)
+game:DefineFastFlag("LocalizationToolsCloudTableUploadErrors", false)
+game:DefineFastInt("LocalizationToolsCloudTableContextLength", 500)
+game:DefineFastInt("LocalizationToolsCloudTableKeyLength", 300)
+game:DefineFastInt("LocalizationToolsCloudTableSourceLength", 300)
+game:DefineFastInt("LocalizationToolsCloudTableExampleLength", 300)
+game:DefineFastInt("LocalizationToolsCloudTableTranslationLength", 300)
+game:DefineFastInt("LocalizationToolsCloudTableLocaleLength", 100)
 
 return nil

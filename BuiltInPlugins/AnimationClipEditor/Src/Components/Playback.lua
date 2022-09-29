@@ -4,10 +4,12 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local Pause = require(Plugin.Src.Actions.Pause)
+local SetPlayState = require(Plugin.Src.Actions.SetPlayState)
 local SetPlaybackStartInfo = require(Plugin.Src.Actions.SetPlaybackStartInfo)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
+local GetFFlagRetirePause = require(Plugin.LuaFlags.GetFFlagRetirePause)
 
 local RunService = game:GetService("RunService")
 
@@ -21,7 +23,7 @@ function Playback:didMount()
 		local playbackSpeed = props.PlaybackSpeed
 		local playbackStartInfo = props.PlaybackStartInfo
 
-		local isPlaying 
+		local isPlaying
 		if GetFFlagFacialAnimationRecordingInStudio() then
 			isPlaying = props.PlayState == Constants.PLAY_STATE.Play or props.PlayState == Constants.PLAY_STATE.Reverse
 		else
@@ -61,12 +63,20 @@ function Playback:didMount()
 					newTick = math.clamp(newTick, 0, endTick)
 					if (newTick == endTick and props.PlayState == Constants.PLAY_STATE.Play) or
 						(newTick == 0 and props.PlayState == Constants.PLAY_STATE.Reverse) then
-						props.Pause()
+						if GetFFlagRetirePause() then
+							props.SetPlayState(Constants.PLAY_STATE.Pause)
+						else
+							props.Pause()
+						end
 					end
 				end
 				props.StepAnimation(newTick)
 			else
-				props.Pause()
+				if GetFFlagRetirePause() then
+					props.SetPlayState(Constants.PLAY_STATE.Pause)
+				else
+					props.Pause()
+				end
 			end
 		else
 			props.SetPlaybackStartInfo({})
@@ -101,12 +111,16 @@ local function mapDispatchToProps(dispatch)
 			dispatch(StepAnimation(tck))
 		end,
 
-		Pause = function()
+		Pause = if not GetFFlagRetirePause() then function()
 			dispatch(Pause())
-		end,
+		end else nil,
 
 		SetPlaybackStartInfo = function(playbackStartInfo)
 			dispatch(SetPlaybackStartInfo(playbackStartInfo))
+		end,
+
+		SetPlayState = function(playState)
+			dispatch(SetPlayState(playState))
 		end,
 	}
 end

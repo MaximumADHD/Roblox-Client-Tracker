@@ -4,6 +4,9 @@
 
 local main = script.Parent.Parent.Parent.Parent
 local Framework = require(main.Packages.Framework)
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkList = SharedFlags.getFFlagDevFrameworkList()
+
 local Roact = require(main.Packages.Roact)
 
 local Dash = require(main.Packages.Dash)
@@ -77,7 +80,8 @@ function FieldTreeRow:render()
 		[Roact.Event.InputBegan] = self.onInputBegan,
 		LayoutOrder = props.Index,
 		BackgroundTransparency = 1,
-		Size = UDim2.new(1, 0, 0, style.RowHeight),
+		Position = if FFlagDevFrameworkList then props.Position else nil,
+		Size = if FFlagDevFrameworkList then props.Size else UDim2.new(1, 0, 0, style.RowHeight),
 	}, {
 		NameCell = Roact.createElement("Frame", {
 			Size = nameSize,

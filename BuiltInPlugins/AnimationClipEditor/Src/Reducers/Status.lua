@@ -50,6 +50,8 @@ return Rodux.createReducer({
 	UnusedFacs = {},
 	IsDirty = false,
 	CreatingAnimationFromVideo = false,
+	AnimationFromVideoUploadStartTime = nil,
+	AnimationFromVideoErroredOut = false,
 	AnimationImportProgress = 0.0,
 	AnimationImportStatus = Constants.ANIMATION_FROM_VIDEO_STATUS.Initializing,
 	PinnedParts = {},
@@ -270,6 +272,18 @@ return Rodux.createReducer({
 	SetAnimationImportStatus = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			AnimationImportStatus = action.animationImportStatus,
+		})
+	end,
+
+	SetAnimationFromVideoUploadStartTime = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			AnimationFromVideoUploadStartTime = action.animationFromVideoUploadStartTime,
+		})
+	end,
+
+	SetAnimationFromVideoErroredOut = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			AnimationFromVideoErroredOut = action.animationFromVideoErroredOut,
 		})
 	end,
 

@@ -10,7 +10,6 @@ return function()
 	local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 	local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
 	local SetRootInstance = require(Plugin.Src.Actions.SetRootInstance)
-	local SetScrollZoom = require(Plugin.Src.Actions.SetScrollZoom)
 	local SetHorizontalScrollZoom = require(Plugin.Src.Actions.SetHorizontalScrollZoom)
 	local SetVerticalScrollZoom = require(Plugin.Src.Actions.SetVerticalScrollZoom)
 	local SetPlayState = require(Plugin.Src.Actions.SetPlayState)
@@ -37,8 +36,6 @@ return function()
 	local SetTool = require(Plugin.Src.Actions.SetTool)
 	local ToggleWorldSpace = require(Plugin.Src.Actions.ToggleWorldSpace)
 	local SetActive = require(Plugin.Src.Actions.SetActive)
-
-	local GetFFlagFixSelectionRightArrow = require(Plugin.LuaFlags.GetFFlagFixSelectionRightArrow)
 
 	local testRightClickInfo = {
 		InstanceName = "Root",
@@ -165,19 +162,6 @@ return function()
 			store:dispatch(SetPlayState(Constants.PLAY_STATE.Reverse))
 			local state = store:getState()
 			expect(state.PlayState).to.equal(Constants.PLAY_STATE.Reverse)
-		end)
-	end)
-
-	describe("SetScrollZoom", function()
-		it("should set Scroll and Zoom values", function()
-			local store = createTestStore()
-			store:dispatch(SetHorizontalScrollZoom(0.1, 0.2))
-			store:dispatch(SetVerticalScrollZoom(0.3, 0.4))
-			local state = store:getState()
-			expect(state.HorizontalScroll).to.equal(0.1)
-			expect(state.HorizontalZoom).to.equal(0.2)
-			expect(state.VerticalScroll).to.equal(0.3)
-			expect(state.VerticalZoom).to.equal(0.4)
 		end)
 	end)
 
@@ -312,11 +296,7 @@ return function()
 
 			store:dispatch(SetSelectedTracks())
 			state = store:getState()
-			if GetFFlagFixSelectionRightArrow() then
-				expect(#state.SelectedTracks).to.equal(0)
-			else
-				expect(state.SelectedTracks).never.to.be.ok()
-			end
+			expect(#state.SelectedTracks).to.equal(0)
 		end)
 	end)
 
@@ -345,7 +325,7 @@ return function()
 				{ Name = "TestTrack3", },
 			}))
 			store:dispatch(SetSelectedTracks({{"TestTrack1"}}))
-			
+
 			store:dispatch(MoveSelectedTrack(-1))
 			local state = store:getState()
 			expect(state.SelectedTracks[1][1]).to.equal("TestTrack1")

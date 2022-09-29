@@ -48,7 +48,7 @@ local TWEEN_ACTION_NAMES = {
 local getInstanceOriginalProps = function (instance: Instance, props: Table): Table
 	local originalProps = {}
 	for propName in pairs(props) do
-		local attribute = instance:GetAttribute(propName)
+		local attribute = (instance::any)[propName]
 		if attribute ~= nil then
 			originalProps[propName] = attribute
 		end
@@ -58,7 +58,7 @@ end
 
 local restoreInstanceOriginalProps = function (instance: Instance, originalProps: Table)
 	for propName in pairs(originalProps) do
-		instance:SetAttribute(propName, originalProps[propName])
+		(instance::any)[propName] = originalProps[propName]
 	 end
 end
 

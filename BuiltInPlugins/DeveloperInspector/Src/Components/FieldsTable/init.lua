@@ -3,6 +3,9 @@ local main = script.Parent.Parent.Parent
 local Roact = require(main.Packages.Roact)
 local RoactRodux = require(main.Packages.RoactRodux)
 local Framework = require(main.Packages.Framework)
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkList = SharedFlags.getFFlagDevFrameworkList()
+
 local InspectorContext = require(main.Src.Util.InspectorContext)
 
 local FieldTreeRow = require(script.FieldTreeRow)
@@ -50,16 +53,32 @@ function FieldsTable:init()
 		-- self.props.selectInstance(change)
 	end
 
-	self.renderRow = function(row)
-		local style = self.props.Stylizer
-		return Roact.createElement(FieldTreeRow, {
-			Row = row,
-			OnSelect = self.onSelectField,
-			OnToggle = self.onToggleField,
-			IsExpanded = self.props.Expansion[row.item],
-			IsSelected = false,
-			Style = style
-		})
+	if FFlagDevFrameworkList then
+		self.getRowProps = function(row, index: number, position: UDim2, size: UDim2)
+			local style = self.props.Stylizer
+			return {
+				Row = row,
+				OnSelect = self.onSelectField,
+				OnToggle = self.onToggleField,
+				IsExpanded = self.props.Expansion[row.item],
+				IsSelected = false,
+				Position = position,
+				Style = style,
+				Size = size,
+			}
+		end
+	else
+		self.renderRow = function(row)
+			local style = self.props.Stylizer
+			return Roact.createElement(FieldTreeRow, {
+				Row = row,
+				OnSelect = self.onSelectField,
+				OnToggle = self.onToggleField,
+				IsExpanded = self.props.Expansion[row.item],
+				IsSelected = false,
+				Style = style
+			})
+		end
 	end
 end
 
@@ -111,8 +130,10 @@ function FieldsTable:render()
 		Size = UDim2.new(1, 0, 1, 0),
 		Expansion = self.props.Expansion,
 		RootItems = fields,
-		RenderRow = self.renderRow,
+		RenderRow = if FFlagDevFrameworkList then nil else self.renderRow,
+		RowComponent = if FFlagDevFrameworkList then FieldTreeRow else nil,
 		GetChildren = getChildren,
+		GetRowProps = if FFlagDevFrameworkList then self.getRowProps else nil,
 		ScrollingDirection = Enum.ScrollingDirection.Y,
 		Style = "BorderBox",
 	})

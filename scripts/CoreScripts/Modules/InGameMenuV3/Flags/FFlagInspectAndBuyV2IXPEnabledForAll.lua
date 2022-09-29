@@ -1,0 +1,1 @@
+return game:DefineFastFlag("InspectAndBuyV2IXPEnabledForAll", false)

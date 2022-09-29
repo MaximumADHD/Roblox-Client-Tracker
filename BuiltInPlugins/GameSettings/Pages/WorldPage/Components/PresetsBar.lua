@@ -11,11 +11,15 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
+
 local RoactStudioWidgets = Plugin.Packages.RoactStudioWidgets
-local StudioWidgetButtonBarWithToolTip = require(RoactStudioWidgets.ButtonBarWithToolTip)
+local ButtonBar = if FFlagRemoveUILibraryButton then require(RoactStudioWidgets.ButtonBar) else require(RoactStudioWidgets.ButtonBarWithToolTip)
 
 
 local PresetsBar = Roact.PureComponent:extend(script.Name)
@@ -29,7 +33,53 @@ function PresetsBar:render()
 	local mouse = props.Mouse:get()
 	local localization = props.Localization
 
-	return Roact.createElement(StudioWidgetButtonBarWithToolTip, {
+	local buttons = {
+		{
+			Name = localization:getText("General", "WorldPresetsClassic"),
+			Enabled = true,
+			ShowPressed = true,
+			Mouse = mouse,
+			Value = {
+				ToolTip = localization:getText("General", "WorldPresetsClassicToolTip"),
+				Preset = {
+					Gravity = 196.2,
+					JumpPower = 50,
+					Walkspeed = 16,
+					MaxSlopeAngle = 89,
+				},
+			}
+		},
+		{
+			Name = localization:getText("General", "WorldPresetsRealistic"),
+			Enabled = true,
+			ShowPressed = true,
+			Mouse = mouse,
+			Value = {
+				ToolTip = localization:getText("General", "WorldPresetsRealisticToolTip"),
+				Preset = {
+					Gravity = 35,
+					JumpPower = 13,
+					Walkspeed = 16,
+				},
+			}
+		},
+		{
+			Name = localization:getText("General", "WorldPresetsAction"),
+			Enabled = true,
+			ShowPressed = true,
+			Mouse = mouse,
+			Value = {
+				ToolTip = localization:getText("General", "WorldPresetsActionToolTip"),
+				Preset = {
+					Gravity = 75,
+					JumpPower = 31,
+					Walkspeed = 18,
+				},
+			}
+		}
+	}
+
+	return Roact.createElement(ButtonBar, {
 		LayoutOrder = layoutOrder,
 		Title = localization:getText("General", "TitlePresets"),
 
@@ -37,51 +87,8 @@ function PresetsBar:render()
 			applyPreset(value.Preset)
 		end,
 
-		ButtonBarButtons = {
-			{
-				Name = localization:getText("General", "WorldPresetsClassic"),
-				Enabled = true,
-				ShowPressed = true,
-				Mouse = mouse,
-				Value = {
-					ToolTip = localization:getText("General", "WorldPresetsClassicToolTip"),
-					Preset = {
-						Gravity = 196.2,
-						JumpPower = 50,
-						Walkspeed = 16,
-						MaxSlopeAngle = 89,
-					},
-				}
-			},
-			{
-				Name = localization:getText("General", "WorldPresetsRealistic"),
-				Enabled = true,
-				ShowPressed = true,
-				Mouse = mouse,
-				Value = {
-					ToolTip = localization:getText("General", "WorldPresetsRealisticToolTip"),
-					Preset = {
-						Gravity = 35,
-						JumpPower = 13,
-						Walkspeed = 16,
-					},
-				}
-			},
-			{
-				Name = localization:getText("General", "WorldPresetsAction"),
-				Enabled = true,
-				ShowPressed = true,
-				Mouse = mouse,
-				Value = {
-					ToolTip = localization:getText("General", "WorldPresetsActionToolTip"),
-					Preset = {
-						Gravity = 75,
-						JumpPower = 31,
-						Walkspeed = 18,
-					},
-				}
-			}
-		},
+		Buttons = if FFlagRemoveUILibraryButton then buttons else nil,
+		ButtonBarButtons = if FFlagRemoveUILibraryButton then nil else buttons,
 	})
 end
 

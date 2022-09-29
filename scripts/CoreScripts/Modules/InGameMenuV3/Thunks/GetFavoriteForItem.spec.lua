@@ -9,9 +9,9 @@ return function()
 	local MockId = require(InGameMenu.Mocks.MockAssetId)
 	local GetFavoriteForItem = require(script.Parent.GetFavoriteForItem)
 
-	local FFlagInspectAndBuyV2Enabled = require(InGameMenu.Flags.FFlagInspectAndBuyV2Enabled)
+	local FFlagInspectAndBuyV2IXPEnabledForAll = require(InGameMenu.Flags.FFlagInspectAndBuyV2IXPEnabledForAll)
 
-	if FFlagInspectAndBuyV2Enabled then
+	if FFlagInspectAndBuyV2IXPEnabledForAll then
 		describe("GetFavoriteForItem", function()
 			it("should return false if asset is not favorited", function()
 				local store = Rodux.Store.new(Reducer)

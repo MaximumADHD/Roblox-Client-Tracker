@@ -46,7 +46,6 @@ local PathUtils = require(Plugin.Src.Util.PathUtils)
 local SettingsButton = require(Plugin.Src.Components.SettingsButton)
 
 local AddTrack = require(Plugin.Src.Thunks.AddTrack)
-local SetTracksExpanded_deprecated = require(Plugin.Src.Actions.SetTracksExpanded)
 local SetTracksExpanded = require(Plugin.Src.Thunks.SetTracksExpanded)
 local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackInstances)
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
@@ -67,7 +66,9 @@ local PromoteKeyframeSequence = require(Plugin.Src.Thunks.PromoteKeyframeSequenc
 local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
 local SwitchEditorMode = require(Plugin.Src.Thunks.SwitchEditorMode)
 local SetCreatingAnimationFromVideo = require(Plugin.Src.Actions.SetCreatingAnimationFromVideo)
+local CancelAnimationFromVideoImport = require(Plugin.Src.Thunks.CancelAnimationFromVideoImport)
 local SetLastSelectedPath = require(Plugin.Src.Actions.SetLastSelectedPath)
+local SetPlayState = require(Plugin.Src.Actions.SetPlayState)
 local SetReduceKeyframesDialogMode = require(Plugin.Src.Actions.SetReduceKeyframesDialogMode)
 
 local Playback = require(Plugin.Src.Components.Playback)
@@ -81,9 +82,10 @@ local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFla
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
 local GetFFlagFaceControlsEditorFixNonChannelPath = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorFixNonChannelPath)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
-local GetFFlagFixSelectionRightArrow = require(Plugin.LuaFlags.GetFFlagFixSelectionRightArrow)
 local GetFFlagFixTrackListSelection = require(Plugin.LuaFlags.GetFFlagFixTrackListSelection)
+local GetFFlagAnimationFromVideoCreatorServiceAnalytics2 = require(Plugin.LuaFlags.GetFFlagAnimationFromVideoCreatorServiceAnalytics2)
 local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
+local GetFFlagRetirePause = require(Plugin.LuaFlags.GetFFlagRetirePause)
 
 local EditorController = Roact.PureComponent:extend("EditorController")
 
@@ -152,7 +154,11 @@ function EditorController:init()
 	end
 
 	self.showMenu = function(instanceName, path, trackType, rotationType)
-		self.props.Pause()
+		if GetFFlagRetirePause() then
+			self.props.SetPlayState(Constants.PLAY_STATE.Pause)
+		else
+			self.props.Pause()
+		end
 		self.props.SetRightClickContextInfo({
 			Path = path,
 			TrackType = trackType,
@@ -182,17 +188,23 @@ function EditorController:init()
 		})
 	end
 
+	-- delete with AnimationFromVideoCreatorServiceAnalytics2 flag and all references
 	self.showAnimationImportProgress = function(): ()
 		self.props.SetCreatingAnimationFromVideo(true)
 	end
 
+	-- delete with AnimationFromVideoCreatorServiceAnalytics2 flag and all references
 	self.hideAnimationImportProgress = function(): ()
 		self.props.SetCreatingAnimationFromVideo(false)
 	end
 
 	self.cancelCreateFromVideo = function()
-		self.props.Analytics:report("onAnimationEditorImportVideoUploadCancel")
-		self.hideAnimationImportProgress()
+		if GetFFlagAnimationFromVideoCreatorServiceAnalytics2() then
+			self.props.CancelAnimationFromVideoImport(self.props.Analytics)
+		else
+			self.props.Analytics:report("onAnimationEditorImportVideoUploadCancel")
+			self.hideAnimationImportProgress()
+		end
 	end
 
 	self.updateTrackListWidth = function(input)
@@ -567,7 +579,7 @@ function EditorController:render()
 				ImageTransparency = 1,
 				LayoutOrder = 1,
 				[Roact.Event.Activated] = function()
-					props.SetSelectedTracks(if GetFFlagFixSelectionRightArrow() then {} else nil)
+					props.SetSelectedTracks({})
 					if GetFFlagFixTrackListSelection() then
 						props.SetLastSelectedPath(nil)
 					end
@@ -862,16 +874,8 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetTracksExpanded(paths, true, true))
 		end,
 
-		ExpandSelectedTracks_deprecated = function(tracks)
-			dispatch(SetTracksExpanded_deprecated(tracks, true))
-		end,
-
 		CloseSelectedTracks = function(paths)
 			dispatch(SetTracksExpanded(paths, false, true))
-		end,
-
-		CloseSelectedTracks_deprecated = function(tracks)
-			dispatch(SetTracksExpanded_deprecated(tracks, false))
 		end,
 
 		AddTrack = function(instance, track, trackType, rotationType, EulerAnglesOrder, analytics)
@@ -917,9 +921,9 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetFrameRate(frameRate))
 		end,
 
-		Pause = function()
+		Pause = if not GetFFlagRetirePause() then function()
 			dispatch(Pause())
-		end,
+		end else nil,
 
 		SetPlaybackSpeed = function(playbackSpeed)
 			dispatch(SetPlaybackSpeed(playbackSpeed))
@@ -933,6 +937,10 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetEditorMode(editorMode))
 		end,
 
+		SetPlayState = function(playState)
+			dispatch(SetPlayState(playState))
+		end,
+
 		SetReduceKeyframesDialogMode = function(showMode: string): ()
 			dispatch(SetReduceKeyframesDialogMode(showMode))
 		end,
@@ -943,6 +951,10 @@ local function mapDispatchToProps(dispatch)
 
 		SetCreatingAnimationFromVideo = function(creatingAnimationFromVideo)
 			dispatch(SetCreatingAnimationFromVideo(creatingAnimationFromVideo))
+		end,
+
+		CancelAnimationFromVideoImport = function(analytics)
+			dispatch(CancelAnimationFromVideoImport(analytics))
 		end,
 	}
 
