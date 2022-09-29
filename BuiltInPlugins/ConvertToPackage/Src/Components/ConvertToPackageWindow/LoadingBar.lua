@@ -119,9 +119,7 @@ function LoadingBar:render()
 			Size = UDim2.new(1, 0, 1, 0),
 		}, {
 			LoadingBar = Roact.createElement(Pane, if FFlagRemoveUILibraryRoundFrame then {
-				Style = "Box",
-				BackgroundColor = style.loading.bar,
-				Size = UDim2.new(progress, 0, 1, 0),
+				Style = "SubtleBox",
 			} else {
 				BorderSizePixel = 0,
 				BackgroundColor3 = style.loading.bar,

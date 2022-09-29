@@ -13,7 +13,6 @@ local Cell = UIBlox.App.Table.Cell
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local LoadableImage = UIBlox.App.Loading.LoadableImage
-local LoadingStrategy = UIBlox.App.Loading.Enum.LoadingStrategy
 local Images = UIBlox.App.ImageSet.Images
 local withStyle = UIBlox.Core.Style.withStyle
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
@@ -31,7 +30,6 @@ local USERNAME_HEIGHT = 14
 
 local CORNER_RADIUS = UDim.new(0, PLAYER_ICON_SIZE / 2)
 local BUTTONS_PADDING = 5
-local NAME_PADDING = 15
 
 local FFlagPlayerCellHandleTouchTap = game:DefineFastFlag("PlayerCellHandleTouchTap", false)
 
@@ -45,7 +43,6 @@ PlayerCell.validateProps = t.strictInterface({
 	isSelected = t.optional(t.boolean),
 	LayoutOrder = t.union(t.integer, t.table),
 	Visible = t.optional(t.boolean),
-	loadingStrategy = t.optional(LoadingStrategy.isEnumValue),
 
 	onActivated = t.optional(t.callback),
 	memoKey = t.optional(t.number),
@@ -129,7 +126,7 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				AnchorPoint = Vector2.new(0, 0),
-				Size = UDim2.new(1, -BUTTONS_PADDING - NAME_PADDING, 0, CONTAINER_FRAME_HEIGHT),
+				Size = UDim2.new(1, -BUTTONS_PADDING, 0, CONTAINER_FRAME_HEIGHT),
 			}, {
 				HeadListLayout = Roact.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Horizontal,
@@ -145,7 +142,6 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 						CornerRadius = CORNER_RADIUS,
 					}),
 					PlayerIcon = Roact.createElement(LoadableImage, {
-						loadingStrategy = self.props.loadingStrategy,
 						Size = UDim2.fromScale(1, 1),
 						ImageColor3 = props.isOnline and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(115, 115, 115),
 						BackgroundTransparency = 1,
@@ -196,7 +192,7 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 
 				NameContainer = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
-					Size = UDim2.new(1, -PLAYER_ICON_SIZE - BUTTONS_PADDING - NAME_PADDING, 0, CONTAINER_FRAME_HEIGHT),
+					Size = UDim2.new(1, -PLAYER_ICON_SIZE - BUTTONS_PADDING, 0, CONTAINER_FRAME_HEIGHT),
 					Position = UDim2.fromOffset(PLAYER_ICON_SIZE, 0),
 					AnchorPoint = Vector2.new(0, 0.5),
 					LayoutOrder = 2,
@@ -250,11 +246,11 @@ function PlayerCell:render()
 	end)
 end
 
+
 return React.memo(PlayerCell, function(newProps, oldProps)
 	return newProps.isSelected == oldProps.isSelected
 		and newProps.isOnline == oldProps.isOnline
 		and newProps[Roact.Change.AbsolutePosition] == oldProps[Roact.Change.AbsolutePosition]
 		and newProps.forwardRef == oldProps.forwardRef
 		and newProps.memoKey == oldProps.memoKey
-		and newProps.loadingStrategy == oldProps.loadingStrategy
 end)

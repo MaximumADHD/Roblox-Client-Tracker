@@ -15,13 +15,19 @@ local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 
 local loadErrorHandlerFromEngine = game:GetEngineFeature("LoadErrorHandlerFromEngine")
+local FFlagInitifyCoreGuiModulesAndCorePackages = require(CorePackages.AppTempCommon.Flags.FFlagInitifyCoreGuiModulesAndCorePackages)
 
 local initify = require(CorePackages.initify)
 
 -- Initifying CorePackages.Packages is required for the error reporter to work.
--- We need to initify extensively to all CorePackages to accommodate the Packagification works.
-initify(CorePackages)
-initify(CoreGuiModules)
+if FFlagInitifyCoreGuiModulesAndCorePackages then
+	-- We need to initify extensively to all CorePackages to accommodate the Packagification works.
+	initify(CorePackages)
+	-- TODO: Remove the remaining initify when FFlagInitifyCoreGuiModulesAndCorePackages is removed
+	initify(CoreGuiModules)
+else
+	initify(CorePackages.Packages)
+end
 
 -- Load the error reporter as early as possible, even before we finish requiring,
 -- so that it can report any errors that come after this point.
@@ -66,6 +72,14 @@ local GetFFlagEnableKeyboardUINavigation = require(RobloxGui.Modules.Flags.GetFF
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
 game:DefineFastFlag("SelfieViewFeature", false)
+
+-- The Rotriever index, as well as the in-game menu code itself, relies on
+-- the init.lua convention, so we have to run initify over the module.
+-- We do this explicitly because the LocalPlayer hasn't been created at this
+-- point, so we can't check enrollment status.
+initify(CoreGuiModules.InGameMenu)
+initify(CoreGuiModules.InGameMenuV3)
+initify(CoreGuiModules.TrustAndSafety)
 
 local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 local FFlagRoactGamepadFixDelayedRefFocusLost = require(CorePackages.AppTempCommon.Flags.FFlagRoactGamepadFixDelayedRefFocusLost)

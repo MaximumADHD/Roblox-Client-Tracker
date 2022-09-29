@@ -12,7 +12,6 @@ local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 local IconButton = UIBlox.App.Button.IconButton
 local Images = UIBlox.App.ImageSet.Images
 local VerticalScrollViewWithIndicator = UIBlox.App.Container.VerticalScrollViewWithIndicator
-local LoadingStrategy = UIBlox.App.Loading.Enum.LoadingStrategy
 
 local InGameMenu = script.Parent.Parent.Parent
 local InviteUserToPlaceId = require(InGameMenu.Thunks.InviteUserToPlaceId)
@@ -28,7 +27,6 @@ local Divider = require(InGameMenu.Components.Divider)
 local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
 local RootedConnection = require(InGameMenu.Components.Connection.RootedConnection)
 local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
-local FIntFirstPlayerCellIndexEngineLoadingStrategy = require(InGameMenu.Flags.GetFIntFirstPlayerCellIndexEngineLoadingStrategy)()
 
 local InviteFriendsList = Roact.PureComponent:extend("InviteFriendsList")
 
@@ -175,10 +173,6 @@ function InviteFriendsList:renderListEntries()
 		if self.props.isFilteringMode then
 			isEntryVisibleForPlayer = map[index]
 		end
-		local loadingStrategy = nil
-		if FIntFirstPlayerCellIndexEngineLoadingStrategy ~= 0 and index >= FIntFirstPlayerCellIndexEngineLoadingStrategy then
-			loadingStrategy = LoadingStrategy.Default
-		end
 
 		if isEntryVisibleForPlayer then
 			local userInvited = self.props.invitesState[tostring(playerInfo.Id)]
@@ -205,7 +199,6 @@ function InviteFriendsList:renderListEntries()
 					self.toggleMoreActions(self:getPlayerByIndex(index))
 				end,
 				memoKey = key,
-				loadingStrategy = loadingStrategy,
 			}, {
 				InviteFriend = Roact.createElement(IconButton, {
 					size = UDim2.fromOffset(0, 0),

@@ -4,7 +4,7 @@ local LocalStoreIGM = require(script.Parent.LocalStoreIGM)
 return function()
 	describe("EducationTooltipPolicy", function()
 
-		if EducationTooltipPolicy.isEnabled() and not game:GetFastFlag("EducationTooltipPolicyDisableAll") then
+		if EducationTooltipPolicy.isEnabled() then
 
 			beforeEach(function()
 				EducationTooltipPolicy.reset("tooltip1")

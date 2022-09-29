@@ -21,7 +21,6 @@ local SetControllerBarHeight = require(InGameMenu.Actions.SetControllerBarHeight
 local DecrementControllerBar = require(InGameMenu.Actions.DecrementControllerBar)
 local IncrementControllerBar = require(InGameMenu.Actions.IncrementControllerBar)
 
-local educationalTooltip = require(script.educationalTooltip)
 local navigationReducer = require(script.navigationReducer)
 local respawn = require(script.respawn)
 local invites = require(script.invites)
@@ -41,7 +40,7 @@ local NetworkStatus = RoduxNetworking.installReducer()
 local FFlagRecordRecording = require(InGameMenu.Flags.FFlagRecordRecording)
 local GetFFlagUseIGMControllerBar = require(InGameMenu.Flags.GetFFlagUseIGMControllerBar)
 local GetFFlagShareInviteLinkContextMenuV3Enabled = require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
-local InspectAndBuyV2IXPTest = require(InGameMenu.Flags.InspectAndBuyV2IXPTest)
+local FFlagInspectAndBuyV2Enabled = require(InGameMenu.Flags.FFlagInspectAndBuyV2Enabled)
 
 local Constants = require(InGameMenu.Resources.Constants)
 local Controls = require(InGameMenu.Resources.Controls)
@@ -160,7 +159,7 @@ local function reducer(state, action)
 			inviteFriends = inviteFriends(nil, action),
 			quickActions = quickActions(nil, action),
 			displayOptions = displayOptions(nil, action),
-			inspectAndBuy = InspectAndBuyV2IXPTest.isEnabled() and inspectAndBuy(nil, action) or nil,
+			inspectAndBuy = FFlagInspectAndBuyV2Enabled and inspectAndBuy(nil, action) or nil,
 			screenSize = Vector2.new(0, 0),
 			recording = false,
 			isMainPageMoreMenuOpen = false,
@@ -171,7 +170,6 @@ local function reducer(state, action)
 			NetworkStatus = {},
 			shareLinks = nil,
 			serverType = nil,
-			educationalTooltip = educationalTooltip(nil, action)
 		}
 	end
 
@@ -188,12 +186,12 @@ local function reducer(state, action)
 	state.inviteFriends = inviteFriends(state.inviteFriends, action)
 	state.quickActions = quickActions(state.quickActions, action)
 	state.displayOptions = displayOptions(state.displayOptions, action)
-	state.inspectAndBuy = InspectAndBuyV2IXPTest.isEnabled() and inspectAndBuy(state.inspectAndBuy, action) or nil
+	state.inspectAndBuy = FFlagInspectAndBuyV2Enabled and inspectAndBuy(state.inspectAndBuy, action) or nil
 	state.nativeClosePrompt = nativeClosePrompt(state.nativeClosePrompt, action)
 	state.shareLinks = ShareLinks(state.shareLinks, action)
+
 	state.NetworkStatus = NetworkStatus(state.NetworkStatus, action)
 	state.FetchingStatus = FetchingStatus(state.FetchingStatus, action)
-	state.educationalTooltip = educationalTooltip(state.educationalTooltip, action)
 
 	return state
 end

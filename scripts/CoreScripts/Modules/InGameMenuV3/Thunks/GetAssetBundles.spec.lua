@@ -9,9 +9,9 @@ return function()
 	local MockAssetId = require(InGameMenu.Mocks.MockAssetId)
 	local GetAssetBundles = require(InGameMenu.Thunks.GetAssetBundles)
 
-	local FFlagInspectAndBuyV2IXPEnabledForAll = require(InGameMenu.Flags.FFlagInspectAndBuyV2IXPEnabledForAll)
+	local FFlagInspectAndBuyV2Enabled = require(InGameMenu.Flags.FFlagInspectAndBuyV2Enabled)
 
-	if FFlagInspectAndBuyV2IXPEnabledForAll then
+	if FFlagInspectAndBuyV2Enabled then
 		it("set the bundles an asset is part of", function()
 			local store = Rodux.Store.new(Reducer)
 			local mockAssetId = MockAssetId()

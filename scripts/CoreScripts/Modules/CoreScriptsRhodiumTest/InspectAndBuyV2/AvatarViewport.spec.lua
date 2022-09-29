@@ -11,7 +11,7 @@ return function()
 	local Reducer = require(Modules.InGameMenuV3.reducer)
 	local AvatarViewport = require(Modules.InGameMenuV3.Components.InspectAndBuyPage.AvatarViewport)
 
-	local FFlagInspectAndBuyV2IXPEnabledForAll = require(Modules.InGameMenuV3.Flags.FFlagInspectAndBuyV2IXPEnabledForAll)
+	local FFlagInspectAndBuyV2Enabled = require(Modules.InGameMenuV3.Flags.FFlagInspectAndBuyV2Enabled)
 
 	local humanoidDescription = Instance.new("HumanoidDescription")
 	local mockCharacter = Players:CreateHumanoidModelFromDescription(humanoidDescription, Enum.HumanoidRigType.R15)
@@ -21,7 +21,7 @@ return function()
 	}
 	local wrappedComponent = withInGameMenuV3Providers(AvatarViewport, props)
 
-	if FFlagInspectAndBuyV2IXPEnabledForAll then
+	if FFlagInspectAndBuyV2Enabled then
 		describe("AvatarViewport", function()
 			it("should mount", function()
 				withServices(function(path)

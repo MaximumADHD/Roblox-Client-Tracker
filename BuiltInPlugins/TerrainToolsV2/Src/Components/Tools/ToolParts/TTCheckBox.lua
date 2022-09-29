@@ -4,14 +4,6 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
-local Framework = require(Plugin.Packages.Framework)
-local SharedFlags = Framework.SharedFlags
-local FFlagDevFrameworkMigrateCheckBox = SharedFlags.getFFlagDevFrameworkMigrateCheckBox()
-
-if FFlagDevFrameworkMigrateCheckBox then
-	return nil
-end
-
 local Roact = require(Plugin.Packages.Roact)
 
 local UILibraryCompat = Plugin.Src.UILibraryCompat

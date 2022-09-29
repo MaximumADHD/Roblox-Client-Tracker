@@ -11,7 +11,7 @@ return function()
 	local Reducer = require(Modules.InGameMenuV3.reducer)
 	local TryOnViewport = require(Modules.InGameMenuV3.Components.InspectAndBuyPage.TryOnViewport)
 
-	local FFlagInspectAndBuyV2IXPEnabledForAll = require(Modules.InGameMenuV3.Flags.FFlagInspectAndBuyV2IXPEnabledForAll)
+	local FFlagInspectAndBuyV2Enabled = require(Modules.InGameMenuV3.Flags.FFlagInspectAndBuyV2Enabled)
 
 	local mockCharacter = Players:CreateHumanoidModelFromDescription(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R15)
 	local props = {
@@ -31,7 +31,7 @@ return function()
 	}
 	local wrappedComponent = withInGameMenuV3Providers(TryOnViewport, props)
 
-	if FFlagInspectAndBuyV2IXPEnabledForAll then
+	if FFlagInspectAndBuyV2Enabled then
 		describe("TryOnViewport", function()
 			it("should mount", function()
 				withServices(function(path)

@@ -7,18 +7,11 @@ local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyTo
 local PreviewConstants = AccessoryAndBodyToolSharedUtil.PreviewConstants
 
 return Rodux.createReducer({
-	categoryFilter = "",
 	searchFilter = "",
 	selectedTab = PreviewConstants.TABS_KEYS.None,
 	selectedAssets = {}, --saved which assets are selected for previewing, maps tabs -> { ids }
 	userAddedAssets = {},
 }, {
-	SetCategoryFilter = function(state, action)
-		return Cryo.Dictionary.join(state, {
-			categoryFilter = action.categoryFilter,
-		})
-	end,
-
 	SetSearchFilter = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			searchFilter = action.searchFilter,

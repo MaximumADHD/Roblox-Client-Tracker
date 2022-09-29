@@ -12,6 +12,8 @@
 			If cancelled, options will be nil. Else, it will contain the new options
 			that were set by the user.
 ]]
+local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -81,13 +83,19 @@ function SearchOptions:init(initialProps)
 
 	local audioSearchInfo = self.props.audioSearchInfo
 	local includeOnlyVerifiedCreators
-	local includeUnverifiedCreators = self.props.includeUnverifiedCreators
+	local includeUnverifiedCreators
+	if FFlagToolboxUseVerifiedIdAsDefault then
+		includeUnverifiedCreators = self.props.includeUnverifiedCreators
+	else
+		includeOnlyVerifiedCreators = self.props.includeOnlyVerifiedCreators
+	end
 
 	self.state = {
 		minDuration = audioSearchInfo and audioSearchInfo.minDuration or Constants.MIN_AUDIO_SEARCH_DURATION,
 		maxDuration = audioSearchInfo and audioSearchInfo.maxDuration or Constants.MAX_AUDIO_SEARCH_DURATION,
 		SortIndex = nil,
-		includeUnverifiedCreators = includeUnverifiedCreators,
+		includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else includeOnlyVerifiedCreators,
+		includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then includeUnverifiedCreators else nil,
 	}
 
 	self.sortsList = {}
@@ -155,7 +163,11 @@ function SearchOptions:init(initialProps)
 			}
 		end
 
-		options.includeUnverifiedCreators = self.state.includeUnverifiedCreators
+		if FFlagToolboxUseVerifiedIdAsDefault then
+			options.includeUnverifiedCreators = self.state.includeUnverifiedCreators
+		else
+			options.includeOnlyVerifiedCreators = self.state.includeOnlyVerifiedCreators
+		end
 
 		self:setState({
 			SortIndex = Roact.None,
@@ -181,7 +193,8 @@ function SearchOptions:init(initialProps)
 	self.onToggleIdVerified = function()
 		self:setState(function(prevState)
 			return {
-				includeUnverifiedCreators = not prevState.includeUnverifiedCreators,
+				includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else not prevState.includeOnlyVerifiedCreators,
+				includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then not prevState.includeUnverifiedCreators else nil,
 			}
 		end)
 	end
@@ -244,9 +257,14 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 	local localization = self.props.Localization
 	local audioSearchTitle = localization:getText("General", "SearchOptionAudioLength")
 
-	local unverifiedDescription = localization:getText("General", "SearchOptionsIncludeUnverifiedDescription")
-	local unverifiedTitle = localization:getText("General", "SearchOptionsIncludeUnverifiedHeader")
-	local unverifiedTooltip = localization:getText("General", "SearchOptionsIncludeUnverifiedTooltip")
+	local unverifiedDescription
+	local unverifiedTitle
+	local unverifiedTooltip
+	if FFlagToolboxUseVerifiedIdAsDefault then
+		unverifiedDescription = localization:getText("General", "SearchOptionsIncludeUnverifiedDescription")
+		unverifiedTitle = localization:getText("General", "SearchOptionsIncludeUnverifiedHeader")
+		unverifiedTooltip = localization:getText("General", "SearchOptionsIncludeUnverifiedTooltip")
+	end
 
 	local categoryName = self.props.categoryName
 	local showAudioSearch = Category.categoryIsAudio(categoryName)
@@ -337,7 +355,21 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 						PaddingBottom = UDim.new(0, 10),
 					}),
 
-					AllViews = Roact.createElement(SearchOptionsEntry, {
+					AllViewsLabel = not FFlagToolboxUseVerifiedIdAsDefault and Roact.createElement(TextLabel, {
+						AutomaticSize = Enum.AutomaticSize.XY,
+						LayoutOrder = self:nextLayout(),
+						Text = localizedContent.SearchOptions.AllViews,
+					}),
+
+					IdVerifiedToggle = not FFlagToolboxUseVerifiedIdAsDefault and Roact.createElement(Checkbox, {
+						LayoutOrder = self:nextLayout(),
+						Text = localizedContent.SearchBarIdVerified,
+						OnClick = self.onToggleIdVerified,
+						Size = UDim2.new(1, 0, 0, 20),
+						Checked = if FFlagToolboxUseVerifiedIdAsDefault then state.includeUnverifiedCreators else state.includeOnlyVerifiedCreators,
+					}),
+
+					AllViews = if FFlagToolboxUseVerifiedIdAsDefault then Roact.createElement(SearchOptionsEntry, {
 						Header = localizedContent.SearchOptions.AllViews,
 						LayoutOrder = self:nextLayout(),
 					}, {						
@@ -349,7 +381,7 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 							Spacing = 3,
 						}, {
 							IncludeUnverifiedToggle = Roact.createElement(Checkbox, {
-								Checked = state.includeUnverifiedCreators,
+								Checked = if FFlagToolboxUseVerifiedIdAsDefault then state.includeUnverifiedCreators else state.includeOnlyVerifiedCreators,
 								LayoutOrder = self:nextLayout(),
 								OnClick = self.onToggleIdVerified,
 								Size = UDim2.new(1, 0, 0, 20),
@@ -392,7 +424,7 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 								}),
 							})
 						}),
-					}),
+					}) else nil,
 
 					Separator = self:createSeparator(optionsTheme.separator),
 
@@ -525,7 +557,8 @@ local function mapStateToProps(state, props)
 
 	return {
 		audioSearchInfo = pageInfo.audioSearchInfo,
-		includeUnverifiedCreators = pageInfo.includeUnverifiedCreators,
+		includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else pageInfo.includeOnlyVerifiedCreators,
+		includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then pageInfo.includeUnverifiedCreators else nil,
 		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
 		LiveSearchData = liveSearchData,
 		SortIndex = pageInfo.sortIndex or 1,

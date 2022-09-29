@@ -14,19 +14,11 @@ local Promise = Framework.Util.Promise
 local SetIsBusy = require(Plugin.Src.Actions.SetIsBusy)
 local SetMessage = require(Plugin.Src.Actions.SetMessage)
 local UploadDialogContent = require(Plugin.Src.Components.UploadDialogContent)
-local ErrorDialog = require(Plugin.Src.Components.ErrorDialog)
-local WarningDialog = require(Plugin.Src.Components.WarningDialog)
 local DownloadCloudTable = require(Plugin.Src.Thunks.DownloadCloudTable)
 local DEPRECATED_RbxEntriesToWebEntries = require(Plugin.Src.Util.DEPRECATED_RbxEntriesToWebEntries)
 local RbxEntriesToWebEntries = require(Plugin.Src.Util.RbxEntriesToWebEntries)
 local PatchInfo = require(Plugin.Src.Util.PatchInfo)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
-local ValidateCloudTable = require(Plugin.Src.Util.ValidateCloudTable)
-
-local UPLOAD_DIALOG_SIZE = Vector2.new(300, 370)
-local ERROR_DIALOG_SIZE = Vector2.new(500, 200)
-
-local FFlagLocalizationToolsCloudTableUploadErrors = game:GetFastFlag("LocalizationToolsCloudTableUploadErrors")
 
 local FFlagLocalizationToolsPluginInvalidEntryIdentifierMessageEnabled
 	= game:GetFastFlag("LocalizationToolsPluginInvalidEntryIdentifierMessageEnabled")
@@ -209,26 +201,6 @@ local function makeRenderDialogContent(patchInfo)
 	end
 end
 
-local function makeErrorDialogContent(text)
-	return function(okCallback, cancelCallback)
-		return Roact.createElement(ErrorDialog, {
-			OkCallback = okCallback,
-			CancelCallback = cancelCallback,
-			Text = text,
-		})
-	end
-end
-
-local function makeWarningDialogContent(text)
-	return function(okCallback, cancelCallback)
-		return Roact.createElement(WarningDialog, {
-			OkCallback = okCallback,
-			CancelCallback = cancelCallback,
-			Text = text,
-		})
-	end
-end
-
 return function(api, localization, analytics, showDialog, isReplace)
 	return function(store)
 		local dispatchErrorMessage = makeDispatchErrorMessageFunc(store, localization)
@@ -255,26 +227,6 @@ return function(api, localization, analytics, showDialog, isReplace)
 			return
 		end
 
-		if FFlagLocalizationToolsCloudTableUploadErrors then
-			-- 1.0 validate CSV against backend rules
-			if isReplace and ValidateCloudTable.isTableEmpty(newTable:GetEntries()) then
-				dispatchErrorMessage()
-				local confirm = showDialog(localization:getText("UploadTable", "EmptyCSVDialogTitle"), ERROR_DIALOG_SIZE, makeWarningDialogContent(localization:getText("UploadTable", "EmptyCSVWarning"))):await()
-				if not confirm then
-					return
-				end
-			end
-
-			local invalidTable, errors = ValidateCloudTable.tableContainsInvalidEntries(newTable:GetEntries(), localization)
-			if invalidTable then
-				dispatchErrorMessage()
-				for index, error in ipairs(errors) do
-					warn(error)
-				end
-				showDialog(localization:getText("UploadTable", "InvalidTableDialogTitle"), ERROR_DIALOG_SIZE, makeErrorDialogContent(localization:getText("UploadTable", "InvalidEntryDialogError"))):await()
-				return
-			end
-		end
 		-- 2. compute patch
 		store:dispatch(
 			SetMessage(localization:getText("MessageFrame", "ComputingPatchMessage")))
@@ -353,12 +305,7 @@ return function(api, localization, analytics, showDialog, isReplace)
 		store:dispatch(
 			SetMessage(localization:getText("MessageFrame", "ConfirmUploadMessage")))
 		local dialogTitle = localization:getText("UploadDialogContent", "ConfirmUploadDialogTitle")
-		local confirm
-		if FFlagLocalizationToolsCloudTableUploadErrors then
-			confirm = showDialog(dialogTitle, UPLOAD_DIALOG_SIZE, makeRenderDialogContent(patchInfo)):await()
-		else
-			confirm = showDialog(dialogTitle, makeRenderDialogContent(patchInfo)):await()
-		end
+		local confirm = showDialog(dialogTitle, makeRenderDialogContent(patchInfo)):await()
 		if not confirm then
 			store:dispatch(SetIsBusy(false))
 			store:dispatch(

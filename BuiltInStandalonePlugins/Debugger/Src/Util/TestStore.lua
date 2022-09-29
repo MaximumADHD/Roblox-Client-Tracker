@@ -23,10 +23,12 @@ local AddExpression = require(Actions.Watch.AddExpression)
 local ExpressionEvaluated = require(Actions.Watch.ExpressionEvaluated)
 local AddBreakpoint = require(Actions.BreakpointsWindow.AddBreakpoint)
 local AddChildVariables = require(Actions.Watch.AddChildVariables)
+local SetCurrentThreadAction = require(Actions.Callstack.SetCurrentThread)
 
 local DebugConnectionListener = require(Src.Util.DebugConnectionListener.DebugConnectionListener)
 local Constants = require(Src.Util.Constants)
 
+local FFlagOnlyLoadOneCallstack = require(Src.Flags.GetFFlagOnlyLoadOneCallstack)
 local FFlagStudioDebuggerExpandVariables = require(Src.Flags.GetFFlagStudioDebuggerExpandVariables)
 
 return function(store)
@@ -172,6 +174,9 @@ return function(store)
 		store:dispatch(AddChildVariables(stepStateBundle1, "1_2", { variableRow1Child21 }))
 		store:dispatch(AddChildVariables(stepStateBundle1, "2", { variableRow2Child1 }))
 		store:dispatch(AddChildVariables(stepStateBundle1, "2_1", { variableRow2Child11 }))
+	end
+	if not FFlagOnlyLoadOneCallstack() then
+		store:dispatch(SetCurrentThreadAction(1))
 	end
 	return store
 end

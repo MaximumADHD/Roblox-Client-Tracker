@@ -40,7 +40,6 @@ local ICON_SIZE = 24
 
 local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
-local GetFFlagSelfViewSettingsEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagSelfViewSettingsEnabled)
 
 MenuIcon.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
@@ -137,7 +136,6 @@ function MenuIcon:render()
 
 			onActivated = self.menuIconActivated,
 			onHover = self.menuIconOnHover,
-			enableFlashingDot = GetFFlagSelfViewSettingsEnabled(),
 		}),
 		ShowTopBarListener = (not EngineFeatureEnableVRUpdate2 or GamepadService) and Roact.createElement(ExternalEventConnection, {
 			event = EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBarChanged.Event or GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"),

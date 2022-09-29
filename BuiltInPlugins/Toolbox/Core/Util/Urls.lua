@@ -19,6 +19,7 @@ local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local getPlaceId = require(Plugin.Core.Util.getPlaceId)
 
 local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
+local FIntCanManageLuaRolloutPercentage = game:DefineFastInt("CanManageLuaRolloutPercentage", 0)
 local FFlagInfiniteScrollerForVersions2 = game:getFastFlag("InfiniteScrollerForVersions2")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
@@ -527,7 +528,11 @@ function Urls.constructGetGroupRoleInfoUrl(groupId)
 end
 
 function Urls.constructCanManageAssetUrl(assetId: number, userId: number)
-    return CAN_MANAGE_ASSET_DEVELOP_URL:format(userId, assetId)
+	if (userId % 100) + 1 <= FIntCanManageLuaRolloutPercentage then
+		return CAN_MANAGE_ASSET_DEVELOP_URL:format(userId, assetId)
+	else
+		return CAN_MANAGE_ASSET_URL:format(userId, assetId)
+	end
 end
 
 function Urls.constructAssetPurchaseUrl(productId)

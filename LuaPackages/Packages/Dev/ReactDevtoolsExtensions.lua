@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent._Index
 
-local Package = require(PackageIndex["ReactDevtoolsExtensionsProxy"]["ReactDevtoolsExtensionsProxy"])
+local Package = require(PackageIndex["ReactDevtoolsExtensions"]["ReactDevtoolsExtensions"])
 
 return Package

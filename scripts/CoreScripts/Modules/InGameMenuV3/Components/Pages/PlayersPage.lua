@@ -18,7 +18,6 @@ local t = InGameMenuDependencies.t
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local withStyle = UIBlox.Core.Style.withStyle
 local IconButton = UIBlox.App.Button.IconButton
-local LoadingStrategy = UIBlox.App.Loading.Enum.LoadingStrategy
 local Images = UIBlox.App.ImageSet.Images
 local getIconSize = UIBlox.App.ImageSet.getIconSize
 local VerticalScrollViewWithIndicator = UIBlox.App.Container.VerticalScrollViewWithIndicator
@@ -28,7 +27,6 @@ local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local PlayerSearchPredicate = require(InGameMenu.Utility.PlayerSearchPredicate)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 local GetFFlagUsePageSearchAnimation = require(InGameMenu.Flags.GetFFlagUsePageSearchAnimation)
-local FIntFirstPlayerCellIndexEngineLoadingStrategy = require(InGameMenu.Flags.GetFIntFirstPlayerCellIndexEngineLoadingStrategy)()
 
 local PlayerCell = require(InGameMenu.Components.PlayerCell)
 local PlayerContextualMenuWrapper = require(InGameMenu.Components.PlayerContextualMenuWrapper)
@@ -316,7 +314,6 @@ end
 
 function PlayersPage:renderListEntries(style, localized, players)
 	local sortedPlayers = players
-
 	local layoutOrder = 0
 	local listComponents = {}
 	local visibleEntryCount = 0
@@ -476,10 +473,6 @@ function PlayersPage:renderListEntries(style, localized, players)
 
 	for index, player in pairs(sortedPlayers) do
 		local id = player.UserId
-		local loadingStrategy = nil
-		if FIntFirstPlayerCellIndexEngineLoadingStrategy ~= 0 and index >= FIntFirstPlayerCellIndexEngineLoadingStrategy then
-			loadingStrategy = LoadingStrategy.Default
-		end
 
 		if playerRequestFriendship[id] then
 			continue
@@ -501,7 +494,6 @@ function PlayersPage:renderListEntries(style, localized, players)
 					and player.Parent == Players
 					and self.props.playersService.LocalPlayer:GetFriendStatus(player)
 				or nil
-			local online = not notLocalPlayer or friendStatus ~= nil
 			local notFriend = friendStatus
 					and (friendStatus == Enum.FriendStatus.Unknown or friendStatus == Enum.FriendStatus.NotFriend)
 				or nil
@@ -532,11 +524,10 @@ function PlayersPage:renderListEntries(style, localized, players)
 				username = player.Name,
 				displayName = player.DisplayName,
 				userId = player.UserId,
-				isOnline = online,
+				isOnline = true,
 				isSelected = self.state.selectedPlayer == player,
 				LayoutOrder = self.getLayoutBinding(id, layoutOrder),
 				memoKey = memoKey,
-				loadingStrategy = loadingStrategy,
 				onActivated = self.toggleMoreActions,
 
 				[Roact.Change.AbsolutePosition] = self.state.selectedPlayer == player and self.positionChanged or nil,

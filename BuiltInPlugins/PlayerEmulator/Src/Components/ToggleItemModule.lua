@@ -57,8 +57,8 @@ function ToggleItemModule:render()
 	}, {
 		TextLabel = if FFlagDevFrameworkMigrateTextLabels then (
 			Roact.createElement(TextLabel, {
-				AutomaticSize = Enum.AutomaticSize.XY,
 				StyleModifier = if enabled then nil else StyleModifier.Disabled,
+				Size = theme.TOGGLE_ITEM_LABEL_SIZE,
 				Text = key,
 			})
 		) else (

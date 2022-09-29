@@ -21,19 +21,16 @@
         ImageButton HeaderButton = Button displayed in the top right corner of the table, e.g. a button to refresh the table
         bool showTableBackground = If true, we show the table background
 ]]
+
+
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local UILibrary = require(Plugin.Packages.UILibrary)
+local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
 
 local Framework = require(Plugin.Packages.Framework)
-
-local SharedFlags = Framework.SharedFlags
-local FFlagDevFrameworkMigrateScrollingFrame = SharedFlags.getFFlagDevFrameworkMigrateScrollingFrame()
-
-local UI = Framework.UI
-local ScrollingFrame = if FFlagDevFrameworkMigrateScrollingFrame then UI.ScrollingFrame else UILibrary.Component.InfiniteScrollingFrame
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -179,16 +176,13 @@ function TableWithMenu:render()
             LayoutOrder = 1,
         }, headerContent),
 
-        ScrollingContainer = not emptyText and Roact.createElement(ScrollingFrame, {
-            AutomaticCanvasSize = if FFlagDevFrameworkMigrateScrollingFrame then Enum.AutomaticSize.Y else nil,
-  
+        ScrollingContainer = not emptyText and Roact.createElement(InfiniteScrollingFrame, {
             Size = size,
-            BackgroundTransparency = if FFlagDevFrameworkMigrateScrollingFrame then nil else 0,
-            BackgroundColor = if FFlagDevFrameworkMigrateScrollingFrame then nil else backgroundColor,
+            BackgroundTransparency = 0,
+            BackgroundColor = backgroundColor,
 
-            LayoutRef = if FFlagDevFrameworkMigrateScrollingFrame then nil else self.layoutRef,
-
-            CanvasHeight = if FFlagDevFrameworkMigrateScrollingFrame then nil else theme.table.height,
+            LayoutRef = self.layoutRef,
+            CanvasHeight = theme.table.height,
 
             NextPageFunc = nextPageFunc,
             NextPageRequestDistance = nextPageRequestDistance,

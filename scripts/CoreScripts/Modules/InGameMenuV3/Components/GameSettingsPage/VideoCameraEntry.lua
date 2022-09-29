@@ -21,11 +21,10 @@ local Constants = require(InGameMenu.Resources.Constants)
 
 local VideoCameraEntry = Roact.PureComponent:extend("VideoCameraEntry")
 local GetFFlagEnableCameraByDefault = require(RobloxGui.Modules.Flags.GetFFlagEnableCameraByDefault)
-local GetFFlagUseVideoCaptureServiceEvents = require(RobloxGui.Modules.Flags.GetFFlagUseVideoCaptureServiceEvents)
 
-local VideoPromptOff = "Off"
-local VideoPromptSystemDefault = "System Default"
-local VideoPromptVideoCamera =  "Video Camera"
+local VideoPromptOff = RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.Off")
+local VideoPromptSystemDefault = RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.SystemDefault")
+local VideoPromptVideoCamera = RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.VideoCamera")
 
 VideoCameraEntry.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
@@ -37,13 +36,6 @@ VideoCameraEntry.defaultProps = {
 }
 
 function VideoCameraEntry:init()
-
-	pcall(function()
-		VideoPromptOff = RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.Off")
-		VideoPromptSystemDefault = RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.SystemDefault")
-		VideoPromptVideoCamera =  RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.VideoCamera")
-	end)
-
 	self:setState({
 		deviceNames = {},
 		deviceGuids = {},
@@ -120,21 +112,9 @@ function VideoCameraEntry:render()
 			onNavigateTo = function()
 				self.onSettingsPage = true
 				self:updateDevicesList()
-				if GetFFlagUseVideoCaptureServiceEvents() then
-					self.connection = VideoCaptureService.DevicesChanged:Connect(function()
-						if self.onSettingsPage then
-							self:updateDevicesList()
-						end
-					end)
-				end
 			end,
 			onNavigateAway = function()
 				self.onSettingsPage = false
-				if GetFFlagUseVideoCaptureServiceEvents() then
-					if self.connection then
-						self.connection:Disconnect()
-					end
-				end
 			end,
 		}),
 	})

@@ -1,6 +1,7 @@
 --[[
 	A view wrapper displaying a back button and a grid of assets based on prop filters.
 ]]
+local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
 
@@ -49,6 +50,7 @@ export type _ExternalProps = {
 
 export type _InternalProps = {
 	-- mapStateToProps
+	IncludeOnlyVerifiedCreators: boolean?, -- TODO: Remove with FFlagToolboxUseVerifiedIdAsDefault
 	IncludeUnverifiedCreators: boolean?,
 	-- withContext
 	Localization: any,
@@ -105,7 +107,13 @@ function ResultsView:render()
 	local sectionName = props.SectionName
 	local sortName = props.SortName
 
-	local includeUnverifiedCreators = props.IncludeUnverifiedCreators
+	local includeOnlyVerifiedCreators
+	local includeUnverifiedCreators
+	if FFlagToolboxUseVerifiedIdAsDefault then
+		includeUnverifiedCreators = props.IncludeUnverifiedCreators
+	else
+		includeOnlyVerifiedCreators = props.IncludeOnlyVerifiedCreators
+	end
 
 	-- Props from AssetLogicWrapper
 	local canInsertAsset = props.CanInsertAsset
@@ -129,7 +137,8 @@ function ResultsView:render()
 		searchTerm = searchTerm,
 		queryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil,
 		initialPageSize = INITIAL_PAGE_SIZE,
-		includeUnverifiedCreators = includeUnverifiedCreators,
+		includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then nil else includeOnlyVerifiedCreators,
+		includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then includeUnverifiedCreators else nil,
 		searchSource = searchSource,
 		render = function(resultsState)
 			if resultsState.loading and #resultsState.assetIds == 0 then
@@ -169,7 +178,12 @@ function mapStateToProps(state: any, props)
 	state = state or {}
 	local pageInfo = state.pageInfo or {}
 	return {
-		IncludeUnverifiedCreators = pageInfo.includeUnverifiedCreators,
+		IncludeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+			then nil
+			else pageInfo.includeOnlyVerifiedCreators,
+		IncludeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+			then pageInfo.includeUnverifiedCreators
+			else nil,
 	}
 end
 

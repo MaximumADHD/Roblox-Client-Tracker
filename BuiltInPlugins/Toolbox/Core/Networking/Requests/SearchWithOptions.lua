@@ -1,3 +1,4 @@
+local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
 local FFlagToolboxAudioSearchOptions2 = game:GetFastFlag("ToolboxAudioSearchOptions2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -65,7 +66,12 @@ return function(networkInterface, settings, options)
 		local audioSearchInfo = options.AudioSearch or Cryo.None
 		local additionalAudioSearchInfo = options.AdditionalAudioSearch or Cryo.None
 		local includeOnlyVerifiedCreators
-		local includeUnverifiedCreators = options.includeUnverifiedCreators
+		local includeUnverifiedCreators
+		if FFlagToolboxUseVerifiedIdAsDefault then
+			includeUnverifiedCreators = options.includeUnverifiedCreators
+		else
+			includeOnlyVerifiedCreators = options.includeOnlyVerifiedCreators
+		end
 
 		local sound = store:getState().sound
 		if sound ~= nil and sound.isPlaying then
@@ -80,7 +86,12 @@ return function(networkInterface, settings, options)
 					additionalAudioSearchInfo = if FFlagToolboxAudioSearchOptions2
 						then additionalAudioSearchInfo
 						else nil,
-					includeUnverifiedCreators = includeUnverifiedCreators,
+					includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+						then nil
+						else includeOnlyVerifiedCreators,
+					includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+						then includeUnverifiedCreators
+						else nil,
 					targetPage = 1,
 					currentPage = 0,
 					creator = creatorInfo,
@@ -119,7 +130,12 @@ return function(networkInterface, settings, options)
 			store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
 				audioSearchInfo = audioSearchInfo,
 				additionalAudioSearchInfo = if FFlagToolboxAudioSearchOptions2 then additionalAudioSearchInfo else nil,
-				includeUnverifiedCreators = includeUnverifiedCreators,
+				includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+					then nil
+					else includeOnlyVerifiedCreators,
+				includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+					then includeUnverifiedCreators
+					else nil,
 				targetPage = 1,
 				currentPage = 0,
 				sortIndex = options.SortIndex or 1, -- defualt to 1

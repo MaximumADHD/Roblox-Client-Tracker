@@ -80,24 +80,6 @@ local function createValuesInternal(mock)
 		}
 	})
 
-	local CageControls = {
-		Padding = 8,
-		ButtonSize = 32,
-		CageModeIcon = "rbxasset://textures/LayeredClothingEditor/WorkspaceIcons/Cage Mode.png",
-		InnerCageIcon = "rbxasset://textures/LayeredClothingEditor/WorkspaceIcons/Inner Cage.png",
-		OuterCageIcon = "rbxasset://textures/LayeredClothingEditor/WorkspaceIcons/Outer Cage.png",
-		AutoWeightIcon = "rbxasset://textures/LayeredClothingEditor/WorkspaceIcons/Auto-Weight.png",
-		OptionsIcon = "rbxasset://textures/LayeredClothingEditor/WorkspaceIcons/Option Dots.png",
-	}
-
-	local VisibilityControls = {
-		Padding = 8,
-		ButtonSize = 32,
-		CageVisibilityIcon = "rbxasset://textures/LayeredClothingEditor/WorkspaceIcons/Cage Visibility.png",
-		MeshPartVisibilityIcon = "rbxasset://textures/LayeredClothingEditor/WorkspaceIcons/Mesh Visibility Icon.png",
-		FocusMannequinIcon = "",
-	}
-
 	local DeformerDropdownMenu = Cryo.Dictionary.join(downArrowProps, {
 		Size = UDim2.new(0, 10, 0, 10),
 		Color = StyleKey.MainText,
@@ -240,7 +222,7 @@ local function createValuesInternal(mock)
 		Padding = 8,
 	}
 
-	local PreviewGrid = {
+	local Grid = {
 		TileSize = UDim2.new(0, 140, 0, 160),
 		TileInnerBorder = Vector2.new(10, 10),
 		ImageFrameSize = UDim2.new(0, 120, 0, 118),
@@ -318,8 +300,6 @@ local function createValuesInternal(mock)
 	}
 
 	local componentThemes = {
-		CageControls = CageControls,
-		VisibilityControls = VisibilityControls,
 		EditorScreen = EditorScreen,
 		EditorFrame = EditorFrame,
 		DeformerDropdownMenu = DeformerDropdownMenu,
@@ -331,7 +311,7 @@ local function createValuesInternal(mock)
 		SelectItemList = SelectItemList,
 		SelectItemListRow = SelectItemListRow,
 		SelectItemMoreButton = SelectItemMoreButton,
-		PreviewGrid = PreviewGrid,
+		Grid = Grid,
 		EditTransparencyView = EditTransparencyView,
 		AnimPlaybackSlider = AnimPlaybackSlider,
 		Tile = Tile,

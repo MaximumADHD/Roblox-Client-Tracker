@@ -6,10 +6,6 @@ local MarketplaceService = game:GetService("MarketplaceService")
 local InsertService = game:GetService("InsertService")
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
-local CorePackages = game:GetService("CorePackages")
-
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
-local UrlBuilder = PurchasePromptDeps.UrlBuilder.UrlBuilder
 
 local Promise = require(Root.Promise)
 local PremiumProduct = require(Root.Models.PremiumProduct)
@@ -31,8 +27,6 @@ local ECONOMY_URL = string.gsub(BASE_URL, "https://www.", "https://economy.")
 local PREMIUM_FEATURES_URL = string.gsub(BASE_URL, "https://www.", "https://premiumfeatures.")
 local ECONOMY_CREATOR_STATS_URL = string.gsub(BASE_URL, "https://www.", "https://economycreatorstats.")
 local USERS_URL = string.gsub(BASE_URL, "https://www", "https://users")
-
-local GetFFlagDesktopPurchaseWarnings = require(Root.Flags.GetFFlagDesktopPurchaseWarnings)
 
 local function request(options, resolve, reject)
 	debugLog(function() return "Request "..options.Url.."\n"..serializeTable(options) end)
@@ -248,10 +242,8 @@ local function getPremiumUpsellPrecheck()
 	end)
 end
 
-local function getPurchaseWarning(mobileProductId: string?, productId: number?, isPremium: boolean)
-	local url = if GetFFlagDesktopPurchaseWarnings()
-		then UrlBuilder.economy.purchaseWarning.getPurchaseWarning(mobileProductId, productId, not isPremium)
-		else string.format("%spurchase-warning/v1/purchase-warnings?mobileProductId=%s", APIS_URL, mobileProductId or "")
+local function getPurchaseWarning(mobileProductId)
+	local url = string.format("%spurchase-warning/v1/purchase-warnings?mobileProductId=%s", APIS_URL, mobileProductId)
 	local options = {
 		Url = url,
 		Method = "GET"
@@ -265,9 +257,7 @@ local function getPurchaseWarning(mobileProductId: string?, productId: number?, 
 end
 
 local function postPurchaseWarningAcknowledge(userAction)
-	local url = if GetFFlagDesktopPurchaseWarnings()
-		then UrlBuilder.economy.purchaseWarning.ackPurchaseWarning()
-		else string.format("%spurchase-warning/v1/purchase-warnings/acknowledge", APIS_URL)
+	local url = string.format("%spurchase-warning/v1/purchase-warnings/acknowledge", APIS_URL)
 	local options = {
 		Url = url,
 		Method = "POST",

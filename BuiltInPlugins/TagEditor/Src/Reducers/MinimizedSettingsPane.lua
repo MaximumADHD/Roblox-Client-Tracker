@@ -1,4 +1,5 @@
 return function(state: any, action: any)
+	state = state or true
 
 	if action.type == "SetMinimizedSettingsPane" then
 		return action.minimized

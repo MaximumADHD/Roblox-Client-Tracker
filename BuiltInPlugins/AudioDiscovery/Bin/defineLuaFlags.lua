@@ -1,5 +1,4 @@
 game:DefineFastInt("StudioAudioDiscoveryMaxAssetIdsPerRequest", 30)
-game:DefineFastFlag("AudioDiscoveryMigrateToRoact17", false)
 game:DefineFastInt("StudioAudioDiscoveryPerRequestCooldown", 60)
 game:DefineFastInt("StudioAudioDiscoveryCooldownAfterHttp429", 120)
 game:DefineFastInt("StudioAudioDiscoveryMaxRecentRequests", 20)

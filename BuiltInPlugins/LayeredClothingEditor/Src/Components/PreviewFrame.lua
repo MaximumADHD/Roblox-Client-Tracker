@@ -14,7 +14,6 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local Cryo = require(Plugin.Packages.Cryo)
 local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
 local FFlagEnablePreviewDockWidget = require(Plugin.Src.Flags.GetFFlagEnablePreviewDockWidget)()
@@ -24,8 +23,6 @@ local PreviewConstantsInterface = AccessoryAndBodyToolSharedUtil.PreviewConstant
 
 local Components = AvatarToolsShared.Components
 local AnimationPlaybackSlider = Components.AnimationPlaybackSlider
-local PreviewDockWidget = Components.PreviewDockWidget
-local PreviewCategoryList = Components.PreviewCategoryList
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -38,11 +35,10 @@ local UI = Framework.UI
 local Pane = UI.Pane
 
 local PreviewTabsRibbon = require(Plugin.Src.Components.Preview.PreviewTabsRibbon)
+local PreviewDockWidget = Components.PreviewDockWidget
 local Grid = require(Plugin.Src.Components.Preview.Grid)
 local PreviewTopBarWrapper = require(Plugin.Src.Components.Preview.PreviewTopBarWrapper)
 
-local SetSelectedTab = require(Plugin.Src.Actions.SelectPreviewTab)
-local SetCategoryFilter = require(Plugin.Src.Actions.SetCategoryFilter)
 local SetSliderPlayhead = require(Plugin.Src.Actions.SetSliderPlayhead)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 local SetPlayhead = require(Plugin.Src.Actions.SetPlayhead)
@@ -54,13 +50,6 @@ Typecheck.wrap(PreviewFrame, script)
 
 function PreviewFrame:init()
 	self.previewFrameRef = Roact.createRef()
-
-	self.onCategoryChanged = function(tabKey, categoryFilter)
-		categoryFilter = if categoryFilter then categoryFilter else ""
-		tabKey = if tabKey then tabKey else ""
-		self.props.SetSelectedTab(tabKey)
-		self.props.SetCategoryFilter(categoryFilter)
-	end
 end
 
 function PreviewFrame:render()
@@ -82,7 +71,7 @@ function PreviewFrame:render()
 	-- is to set ZIndex to something higher.
 	local zIndex = 1
 	if self.previewFrameRef.current then
-		zIndex = self.previewFrameRef.current.GridContainer.Grid.ZIndex + 1
+		zIndex = self.previewFrameRef.current.Grid.ZIndex + 1
 	end
 
 	return Roact.createElement("Frame", {
@@ -99,24 +88,27 @@ function PreviewFrame:render()
 			VerticalAlignment = Enum.VerticalAlignment.Top,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			Padding = UDim.new(0, theme.MainPadding),
+
+			[Roact.Change.AbsoluteContentSize] = function(rbx)
+				if not self.previewFrameRef.current then
+					return
+				end
+				local totalFixedHeight =
+					self.previewFrameRef.current.PreviewTabsRibbon.AbsoluteSize.Y +
+					self.previewFrameRef.current.AnimPlaybackSliderContainer.AbsoluteSize.Y
+				self.previewFrameRef.current.Grid.Size = UDim2.new(1, 0, 1, -totalFixedHeight)
+			end,
+		}),
+		PreviewTabsRibbon = Roact.createElement(PreviewTabsRibbon, {
+			LayoutOrder = orderIterator:getNextOrder(),
 		}),
 		PreviewTopBar = Roact.createElement(PreviewTopBarWrapper, {
 			LayoutOrder = orderIterator:getNextOrder(),
 		}),
-		GridContainer = Roact.createElement(Pane, {
-			Layout = Enum.FillDirection.Horizontal,
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			LayoutOrder = orderIterator:getNextOrder(),
-		}, {
-			CategoryList = Roact.createElement(PreviewCategoryList, {
-				LayoutOrder = orderIterator:getNextOrder(),
-				OnCategoryChanged = self.onCategoryChanged,
-			}),
-			Grid = Roact.createElement(Grid, {
-				layoutOrder = orderIterator:getNextOrder(),
-				UpdateUserAddedAssets = props.UpdateUserAddedAssets,
-				UserAddedAssets = userAddedAssets
-			}),
+		Grid = Roact.createElement(Grid, {
+			layoutOrder = orderIterator:getNextOrder(),
+			UpdateUserAddedAssets = props.UpdateUserAddedAssets,
+			UserAddedAssets = userAddedAssets
 		}),
 		AnimPlaybackSliderContainer = Roact.createElement(Pane, {
 			Size = UDim2.new(1, -theme.MainPadding, 0, theme.SliderHeight),
@@ -166,12 +158,6 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		SetSelectedTab = function(tab)
-			dispatch(SetSelectedTab(tab))
-		end,
-		SetCategoryFilter = function(filter)
-			dispatch(SetCategoryFilter(filter))
-		end,
 		SetIsPlaying = function(isPlaying)
 			dispatch(SetIsPlaying(isPlaying))
 		end,

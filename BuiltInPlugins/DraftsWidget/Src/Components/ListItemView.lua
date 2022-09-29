@@ -29,18 +29,16 @@
 		Passthrough BindableFunction to AbstractItemView
 --]]
 local Plugin = script.Parent.Parent.Parent
-local Framework = require(Plugin.Packages.Framework)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
 
-local SharedFlags = Framework.SharedFlags
-local FFlagDevFrameworkMigrateScrollingFrame = SharedFlags.getFFlagDevFrameworkMigrateScrollingFrame()
+local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
 
 local AbstractItemView = require(Plugin.Src.Components.AbstractItemView)
 
 local UI = Framework.UI
 local Pane = UI.Pane
-local ScrollingFrame = if FFlagDevFrameworkMigrateScrollingFrame then UI.ScrollingFrame else UILibrary.Component.StyledScrollingFrame
 
 local ListItemView = Roact.Component:extend("ListItemView")
 
@@ -89,10 +87,9 @@ function ListItemView:render()
 				}, { Button = info.Button })
 			end
 
-			return Roact.createElement(ScrollingFrame, {
-				AutomaticCanvasSize = if FFlagDevFrameworkMigrateScrollingFrame then Enum.AutomaticSize.Y else nil,
-				BackgroundTransparency = if FFlagDevFrameworkMigrateScrollingFrame then nil else 1,
-				Size = if FFlagDevFrameworkMigrateScrollingFrame then nil else UDim2.new(1, 0, 1, 0),
+			return Roact.createElement(StyledScrollingFrame, {
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 1,
 
 				[Roact.Ref] = self.canvasRef,
 			}, {

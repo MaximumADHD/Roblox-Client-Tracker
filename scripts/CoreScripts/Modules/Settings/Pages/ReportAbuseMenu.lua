@@ -38,7 +38,6 @@ local VoiceUsersByProximity = require(RobloxGui.Modules.VoiceChat.VoiceUsersByPr
 local GetFFlagReportSentPageV2Enabled = require(RobloxGui.Modules.Flags.GetFFlagReportSentPageV2Enabled)
 local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
 local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
-local GetFFlagVoiceARCantSelectVoiceAfterTextFix = require(RobloxGui.Modules.Flags.GetFFlagVoiceARCantSelectVoiceAfterTextFix)
 local GetFFlagHideMOAOnExperience = require(RobloxGui.Modules.Flags.GetFFlagHideMOAOnExperience)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 
@@ -718,10 +717,6 @@ local function Initialize()
 
 		local function playerSelectionChanged(newIndex)
 			if GetFFlagVoiceAbuseReportsEnabled() and voiceChatEnabled then
-				if GetFFlagVoiceARCantSelectVoiceAfterTextFix() then
-					currentSelectedPlayer = this:GetPlayerFromIndex(this.WhichPlayerMode.CurrentIndex)
-				end
-
 				this:updateMethodOfAbuseDropdown()
 
 				this.reportAbuseAnalytics:reportAnalyticsFieldChanged({

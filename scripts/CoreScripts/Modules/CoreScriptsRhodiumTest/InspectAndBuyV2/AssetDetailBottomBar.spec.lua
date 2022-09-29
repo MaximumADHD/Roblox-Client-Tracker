@@ -10,9 +10,8 @@ return function()
 	local Reducer = require(Modules.InGameMenuV3.reducer)
 	local AssetDetailBottomBar = require(Modules.InGameMenuV3.Components.InspectAndBuyPage.AssetDetailBottomBar)
 
-	local FFlagInspectAndBuyV2IXPEnabledForAll = require(Modules.InGameMenuV3.Flags.FFlagInspectAndBuyV2IXPEnabledForAll)
+	local FFlagInspectAndBuyV2Enabled = require(Modules.InGameMenuV3.Flags.FFlagInspectAndBuyV2Enabled)
 	local UIBloxConfig = require(Modules.UIBloxInGameConfig)
-
 
 	local wrappedComponent = withInGameMenuV3Providers(AssetDetailBottomBar)
 
@@ -48,7 +47,7 @@ return function()
 		buttonContentPath = buttonContentPath .. ".ButtonMiddleContent"
 	end
 
-	if FFlagInspectAndBuyV2IXPEnabledForAll then
+	if FFlagInspectAndBuyV2Enabled then
 		describe("AssetDetailBottomBar", function()
 			it("should mount", function()
 				withServices(function(path)

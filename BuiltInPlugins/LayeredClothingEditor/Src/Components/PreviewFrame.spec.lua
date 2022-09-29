@@ -24,18 +24,14 @@ return function()
 			function(container)
 				local frame = container:FindFirstChildOfClass("Frame")
 				local uiListLayout = frame.UIListLayout
-				local previewTopBar = frame.PreviewTopBar
-				local gridContainer = frame.GridContainer
-				local grid = gridContainer.Grid
-				local categoryList = gridContainer.CategoryList
+				local grid = frame.Grid
+				local PreviewTabsRibbon = frame.PreviewTabsRibbon
 				local animPlaybackSliderContainer = frame.AnimPlaybackSliderContainer
 
 				expect(frame).to.be.ok()
 				expect(uiListLayout).to.be.ok()
-				expect(previewTopBar).to.be.ok()
-				expect(gridContainer).to.be.ok()
 				expect(grid).to.be.ok()
-				expect(categoryList).to.be.ok()
+				expect(PreviewTabsRibbon).to.be.ok()
 				expect(animPlaybackSliderContainer).to.be.ok()
 			end
 		)

@@ -18,7 +18,6 @@ local withStyle = UIBlox.Core.Style.withStyle
 local ExpandableTextArea = UIBlox.App.Text.ExpandableTextArea
 
 local InGameMenu = script.Parent.Parent.Parent
-local SendInspectAndBuyAnalytics = require(InGameMenu.Utility.SendInspectAndBuyAnalytics)
 local IBConstants = require(InGameMenu.InspectAndBuyConstants)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 local Page = require(InGameMenu.Components.Page)
@@ -51,9 +50,7 @@ AssetDetailsPage.validateProps = t.strictInterface({
 	bundles = t.table,
 	selectedItem = t.table,
 	currentPage = t.string,
-	showFavoritesCount = t.boolean,
-	canGamepadCaptureFocus = t.boolean,
-	userId = t.number,
+	showFavoritesCount = t.boolean
 })
 
 --[[
@@ -305,13 +302,6 @@ function AssetDetailsPage:didUpdate(prevProps)
 		elseif self.props.currentPage == Constants.InspectAndBuyAssetDetailsPageKey then
 			-- Entering Page
 			self:attemptFetchFavorite()
-
-			local bundleInfo = self:getBundleInfo()
-			local analyticsFields = {
-				itemType = bundleInfo and tostring(Enum.AvatarItemType.Bundle) or tostring(Enum.AvatarItemType.Asset),
-				itemID = bundleInfo and bundleInfo.bundleId or self.props.selectedItem.assetId,
-			}
-			SendInspectAndBuyAnalytics("itemDetailView", self.props.userId, analyticsFields)
 		end
 	end
 
@@ -329,7 +319,6 @@ local function mapStateToProps(state, props)
 		currentPage = state.menuPage,
 		showFavoritesCount = not state.inspectAndBuy.IsSubjectToChinaPolicies,
 		canGamepadCaptureFocus = getCanGamepadCaptureFocus(state, Constants.InspectAndBuyAssetDetailsPageKey),
-		userId = state.inspectAndBuy.UserId,
 	}
 end
 

@@ -15,13 +15,8 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local SharedFlags = Framework.SharedFlags
-local FFlagDevFrameworkMigrateScrollingFrame = SharedFlags.getFFlagDevFrameworkMigrateScrollingFrame()
-
 local UILibrary = require(Plugin.Packages.UILibrary)
-
-local UI = Framework.UI
-local ScrollingFrame = if FFlagDevFrameworkMigrateScrollingFrame then UI.ScrollingFrame else UILibrary.Component.StyledScrollingFrame
+local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
 
 local SettingsImpl = require(Plugin.Src.Network.Requests.SettingsImpl)
 
@@ -148,7 +143,7 @@ function ScreenCreateNewGame:render()
 			DominantAxis = Enum.DominantAxis.Height,
 		}),
 
-		Page = if not canScroll then Roact.createElement("Frame", {
+		Page = not canScroll and Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0, 0),
 			Size = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, -theme.FOOTER_HEIGHT)
@@ -156,8 +151,8 @@ function ScreenCreateNewGame:render()
 			Roact.createElement(BasicInfo, {
 				IsPublish = isPublish,
 			}),
-		}) else Roact.createElement(ScrollingFrame, {
-			BackgroundTransparency = if FFlagDevFrameworkMigrateScrollingFrame then nil else 1,
+		}) or Roact.createElement(StyledScrollingFrame, {
+			BackgroundTransparency = 1,
 			Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0, 0),
 			Size = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, -theme.FOOTER_HEIGHT),
 			CanvasSize = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, 0),
@@ -251,11 +246,11 @@ function ScreenCreateNewGame:render()
 		}),
 	}
 	if isPublish then
-		children.Page = Roact.createElement(ScrollingFrame, {
+		children.Page = Roact.createElement(StyledScrollingFrame, {
 			BackgroundTransparency = 1,
 			Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0, 0),
 			Size = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, -theme.FOOTER_HEIGHT),
-			CanvasSize = UDim2.new(1, -theme.MENU_BAR_WIDTH, if FFlagDevFrameworkMigrateScrollingFrame then 0 else 1, 0),
+			CanvasSize = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, 0),
 			AutomaticCanvasSize = Enum.AutomaticSize.Y,
 			[Roact.Ref] = self.scrollingFrameRef,
 		}, {

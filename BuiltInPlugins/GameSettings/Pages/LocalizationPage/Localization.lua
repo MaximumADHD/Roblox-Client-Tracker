@@ -262,12 +262,7 @@ local function displayLocalizationSettingsPage(props, localization, theme)
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				Padding = UDim.new(0, theme.uiListLayout.padding),
 			}),
-			ToggleButton = Roact.createElement(ToggleButton, if FFlagDevFrameworkMigrateToggleButton then {
-				Disabled = props.AutoTextCaptureEnabled == nil,
-				LayoutOrder = 1,
-				OnClick = props.AutoTextCaptureEnabledChanged,
-				Selected = props.AutoTextCaptureEnabled,
-			} else {
+			ToggleButton = Roact.createElement(ToggleButton, {
 				LayoutOrder = 1,
 				Enabled = props.AutoTextCaptureEnabled ~= nil,
 				IsOn = props.AutoTextCaptureEnabled,
@@ -301,12 +296,7 @@ local function displayLocalizationSettingsPage(props, localization, theme)
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				Padding = UDim.new(0, theme.uiListLayout.padding),
 			}),
-			ToggleButton = Roact.createElement(ToggleButton, if FFlagDevFrameworkMigrateToggleButton then {
-				Disabled = props.UseTranslatedContentEnabled == nil,
-				LayoutOrder = 1,
-				OnClick = props.UseTranslatedContentEnabledChanged,
-				Selected = props.UseTranslatedContentEnabled,
-			} else {
+			ToggleButton = Roact.createElement(ToggleButton, {
 				LayoutOrder = 1,
 				Enabled = props.UseTranslatedContentEnabled ~= nil,
 				IsOn = props.UseTranslatedContentEnabled,

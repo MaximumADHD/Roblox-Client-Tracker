@@ -25,8 +25,8 @@ export type FunctionDescriptor = {
 
 export type MessageBus = {
 	publish: (MessageDescriptor, Table) -> (),
-	publishProtocolMethodRequest: (ProtocolMethodDescriptor, Table, Table) -> (),
-	publishProtocolMethodResponse: (ProtocolMethodDescriptor, Table, number, Table) -> (),
+	publishProtocolMethodRequest: (MessageDescriptor, Table, Table) -> (),
+	publishProtocolMethodResponse: (MessageDescriptor, Table, number, Table) -> (),
 	getLast: (MessageDescriptor) -> Table?,
 	getMessageId: (string, string) -> string,
 	getProtocolMethodRequestMessageId: (string, string) -> string,

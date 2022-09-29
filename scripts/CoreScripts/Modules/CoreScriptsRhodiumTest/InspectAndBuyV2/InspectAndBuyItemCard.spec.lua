@@ -10,7 +10,7 @@ return function()
 	local Reducer = require(Modules.InGameMenuV3.reducer)
 	local InspectAndBuyItemCard = require(Modules.InGameMenuV3.Components.InspectAndBuyPage.InspectAndBuyItemCard)
 
-	local FFlagInspectAndBuyV2IXPEnabledForAll = require(Modules.InGameMenuV3.Flags.FFlagInspectAndBuyV2IXPEnabledForAll)
+	local FFlagInspectAndBuyV2Enabled = require(Modules.InGameMenuV3.Flags.FFlagInspectAndBuyV2Enabled)
 
 	local props = {
 		asset = {
@@ -25,7 +25,7 @@ return function()
 	local wrappedComponent = withInGameMenuV3Providers(InspectAndBuyItemCard, props)
 	local wrappedComponentShimmer = withInGameMenuV3Providers(InspectAndBuyItemCard)
 
-	if FFlagInspectAndBuyV2IXPEnabledForAll then
+	if FFlagInspectAndBuyV2Enabled then
 		describe("InspectAndBuyItemCard", function()
 			it("should mount", function()
 				withServices(function(path)

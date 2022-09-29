@@ -48,6 +48,7 @@ local PlayerToGroupDetailsMap = {}
 -- Map of player to if they can manage the current place.
 local PlayerToCanManageMap = {}
 
+local FIntCanManageLuaRolloutPercentage = game:DefineFastInt("CanManageLuaRolloutPercentage", 0)
 game:DefineFastInt("MaxBlockListSize", 500)
 
 --[[ Remotes ]]--
@@ -144,9 +145,14 @@ local function getPlayerCanManage(player)
 	local canManage = false
 	if player.UserId > 0 then
 		local canManageSuccess, canManageResult = pcall(function()
-			local apiPath = "v1/user/%d/canmanage/%d"
-			local url = string.format(Url.DEVELOP_URL..apiPath, player.UserId, game.PlaceId)
-			return HttpRbxApiService:GetAsyncFullUrl(url)
+			if (player.UserId % 100) + 1 <= FIntCanManageLuaRolloutPercentage then
+				local apiPath = "v1/user/%d/canmanage/%d"
+				local url = string.format(Url.DEVELOP_URL..apiPath, player.UserId, game.PlaceId)
+				return HttpRbxApiService:GetAsyncFullUrl(url)
+			else
+				local url = string.format("/users/%d/canmanage/%d", player.UserId, game.PlaceId)
+				return HttpRbxApiService:GetAsync(url, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Default, true)
+			end
 		end)
 		if canManageSuccess and type(canManageResult) == "string" then
 			-- API returns: {"Success":BOOLEAN,"CanManage":BOOLEAN}

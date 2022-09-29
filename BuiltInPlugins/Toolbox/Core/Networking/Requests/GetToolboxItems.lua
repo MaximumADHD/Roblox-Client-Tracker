@@ -1,4 +1,5 @@
 local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
+local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
 local FFlagToolboxAudioSearchOptions2 = game:GetFastFlag("ToolboxAudioSearchOptions2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -72,7 +73,13 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 				ownerId = PageInfoHelper.getGroupIdForPageInfo(pageInfo)
 			end
 
-			local includeUnverifiedCreators = pageInfo.includeUnverifiedCreators
+			local includeOnlyVerifiedCreators
+			local includeUnverifiedCreators
+			if FFlagToolboxUseVerifiedIdAsDefault then
+				includeUnverifiedCreators = pageInfo.includeUnverifiedCreators
+			else
+				includeOnlyVerifiedCreators = pageInfo.includeOnlyVerifiedCreators
+			end
 
 			local tags = {}
 			if FFlagToolboxAudioSearchOptions2 then
@@ -101,7 +108,9 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 				artist = if FFlagToolboxAudioSearchOptions2 then additionalAudioSearchInfo.artist else nil,
 				album = if FFlagToolboxAudioSearchOptions2 then additionalAudioSearchInfo.albumn else nil,
 				tags = if FFlagToolboxAudioSearchOptions2 then tags else nil,
-				includeOnlyVerifiedCreators = not includeUnverifiedCreators,
+				includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+					then not includeUnverifiedCreators
+					else includeOnlyVerifiedCreators,
 				searchSource = if FFlagToolboxIncludeSearchSource then pageInfo.searchSource else nil,
 			})
 

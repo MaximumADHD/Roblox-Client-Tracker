@@ -96,7 +96,7 @@ function MainSwitchSection:render()
 	}, {
 		Label = if FFlagDevFrameworkMigrateTextLabels then (
 			Roact.createElement(TextLabel, {
-				AutomaticSize = Enum.AutomaticSize.XY,
+				Size = theme.TOGGLE_ITEM_LABEL_SIZE,
 				Text = localization:getText("MainSwitchSection", "LabelText"),
 				LayoutOrder = 1,
 			})

@@ -16,6 +16,7 @@
 	Optional Properties:
 
 ]]
+local FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane = game:GetFastFlag("DevFrameworkReplaceExpandaleWidgetWithExpandablePane2")
 local FFlagLimitGroupRoleSetPermissionsInGui = game:GetFastFlag("LimitGroupRoleSetPermissionsInGui")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -35,7 +36,13 @@ local PermissionsDirectory = Plugin.Core.Components.AssetConfiguration.Permissio
 local CollaboratorItem = require(PermissionsDirectory.CollaboratorItem)
 local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 
-local ExpandablePane = require(Packages.Framework).UI.ExpandablePane
+local ExpandablePane
+local ExpandableWidget
+if FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane then
+	ExpandablePane = require(Packages.Framework).UI.ExpandablePane
+else
+	ExpandableWidget = require(Packages.Framework).UI.ExpandableWidget
+end
 local Spritesheet = require(Packages.Framework).Util.Spritesheet
 
 local ARROW_SIZE = 12
@@ -228,34 +235,90 @@ function GroupCollaboratorItem:renderContent(theme, localization, localized)
 		groupHeaderTooltipText = localized.PackagePermissions.ActionDropdown.GroupOwnedTooltip .. " " .. (not sameAction and localized.PackagePermissions.ActionDropdown.MultipleLabelTooltip or "")
 	end
 
-	return Roact.createElement(ExpandablePane, {
-		AutomaticSize = Enum.AutomaticSize.XY,
-		Expanded = props.Enabled and self.state.expanded,
-		LayoutOrder = layoutOrder,
-		OnExpandedChanged = self.onClick,
-		HeaderComponent = props.GroupData and CollaboratorItem or nil,
-		HeaderComponentProps = {
-			Enabled = false,
+	local expandableList
+	if FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane then
+		return Roact.createElement(ExpandablePane, {
+			AutomaticSize = Enum.AutomaticSize.XY,
+			Expanded = props.Enabled and self.state.expanded,
+			LayoutOrder = layoutOrder,
+			OnExpandedChanged = self.onClick,
+			HeaderComponent = props.GroupData and CollaboratorItem or nil,
+			HeaderComponentProps = {
+				Enabled = false,
 
-			SubjectType = Enum.CreatorType.Group,
+				SubjectType = Enum.CreatorType.Group,
 
-			CollaboratorName = props.GroupData.Name,
-			CollaboratorId = props.GroupData.Id,
-			CollaboratorIcon = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["GroupIcon"], props.GroupData.Id,
-				AssetConfigConstants.rbxThumbSizes.GroupIconImageSize),
-			UseMask = false,
+				CollaboratorName = props.GroupData.Name,
+				CollaboratorId = props.GroupData.Id,
+				CollaboratorIcon = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["GroupIcon"], props.GroupData.Id,
+					AssetConfigConstants.rbxThumbSizes.GroupIconImageSize),
+				UseMask = false,
 
-			Action = sameAction and getLabelForAction(localized, sameAction) or localized.PackagePermissions.ActionDropdown.MultipleLabel,
-			Items = anyLocked and {} or props.Items,
+				Action = sameAction and getLabelForAction(localized, sameAction) or localized.PackagePermissions.ActionDropdown.MultipleLabel,
+				Items = anyLocked and {} or props.Items,
 
-			SecondaryText = props.SecondaryText,
-			Removable = props.Removable or false,
-			Removed = props.Removed,
+				SecondaryText = props.SecondaryText,
+				Removable = props.Removable or false,
+				Removed = props.Removed,
 
-			IsLoading = #rolesets == 0,
-			TooltipText = groupHeaderTooltipText
-		},
-	}, rolesetCollaboratorItems)
+				IsLoading = #rolesets == 0,
+				TooltipText = groupHeaderTooltipText
+			},
+		}, rolesetCollaboratorItems)
+	else
+		return Roact.createElement(ExpandableWidget, {
+			ExpandableContent = {
+				RoleCollaborators = Roact.createElement("Frame", {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					BackgroundTransparency = 1,
+					LayoutOrder = 1,
+					Size = UDim2.new(1, 0, 0, 0),
+				}, rolesetCollaboratorItems)
+			},
+			IsExpanded = props.Enabled and self.state.expanded,
+			LayoutOrder = layoutOrder,
+			OnClick = self.onClick,
+			TopLevelContent = {
+				CollapseArrow = props.Enabled and Roact.createElement("ImageLabel", Cryo.Dictionary.join(arrowImageProps, {
+					Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
+					AnchorPoint = Vector2.new(0, 0.5),
+					Position = UDim2.new(0, 0, 0.5, 0),
+					BackgroundTransparency = 1,
+					ImageColor3 = Color3.fromRGB(204, 204, 204),
+				})),
+
+				Frame = Roact.createElement("Frame", {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, -collaboratorItemOffset, 0, 60),
+					Position = UDim2.new(0, collaboratorItemOffset, 0, 0),
+				}, {
+					GroupCollaborator = props.GroupData and Roact.createElement(CollaboratorItem, {
+						Enabled = false,
+
+						SubjectType = Enum.CreatorType.Group,
+
+						CollaboratorName = props.GroupData.Name,
+						CollaboratorId = props.GroupData.Id,
+						CollaboratorIcon = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["GroupIcon"], props.GroupData.Id,
+							AssetConfigConstants.rbxThumbSizes.GroupIconImageSize),
+						UseMask = false,
+
+						Action = sameAction and getLabelForAction(localized, sameAction) or localized.PackagePermissions.ActionDropdown.MultipleLabel,
+						Items = anyLocked and {} or props.Items,
+
+						SecondaryText = props.SecondaryText,
+						Removable = props.Removable or false,
+						Removed = props.Removed,
+
+						IsLoading = #rolesets == 0,
+
+						TooltipText = groupHeaderTooltipText
+					})
+				}),
+			},
+		})
+	end
 end
 
 return GroupCollaboratorItem

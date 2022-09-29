@@ -184,8 +184,8 @@ function LanguageSection:render()
 
 		Label = if FFlagDevFrameworkMigrateTextLabels then (
 			Roact.createElement(TextLabel, {
-				AutomaticSize = Enum.AutomaticSize.XY,
 				LayoutOrder = 1,
+				Size = theme.SECTION_LABEL_SIZE,
 				StyleModifier = if mainSwitchEnabled then nil else StyleModifier.Disabled,
 				Text = localization:getText("LanguageSection", "LabelText"),
 			})

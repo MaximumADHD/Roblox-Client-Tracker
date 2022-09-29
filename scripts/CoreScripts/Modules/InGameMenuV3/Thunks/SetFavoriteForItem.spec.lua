@@ -9,9 +9,9 @@ return function()
 	local MockId = require(InGameMenu.Mocks.MockAssetId)
 	local SetFavoriteForItem = require(InGameMenu.Thunks.SetFavoriteForItem)
 
-	local FFlagInspectAndBuyV2IXPEnabledForAll = require(InGameMenu.Flags.FFlagInspectAndBuyV2IXPEnabledForAll)
+	local FFlagInspectAndBuyV2Enabled = require(InGameMenu.Flags.FFlagInspectAndBuyV2Enabled)
 
-	if FFlagInspectAndBuyV2IXPEnabledForAll then
+	if FFlagInspectAndBuyV2Enabled then
 		local getInitState = function(mockId, numFavorites, isFavorited, isAsset)
 			return {
 				inspectAndBuy = {

@@ -3,6 +3,7 @@ local Plugin = script:FindFirstAncestor("Toolbox")
 local Packages = Plugin.Packages
 
 local FFlagToolboxFixAssetsNoVoteData2 = game:GetFastFlag("ToolboxFixAssetsNoVoteData2")
+local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 
 local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
@@ -57,6 +58,7 @@ export type ResultsFetcherProps = {
 	searchTerm: string?,
 	initialPageSize: number,
 	tags: { string }?,
+	includeOnlyVerifiedCreators: boolean?, -- TODO: Remove with FFlagToolboxUseVerifiedIdAsDefault
 	includeUnverifiedCreators: boolean?,
 	queryParams: HomeTypes.SubcategoryQueryParams?,
 	searchSource: string?,
@@ -127,7 +129,13 @@ function ResultsFetcher:fetchResults(args: { pageSize: number?, initialPage: boo
 	end)
 
 	local innerFetch = function()
-		local includeUnverifiedCreators = self.props.includeUnverifiedCreators
+		local includeOnlyVerifiedCreators
+		local includeUnverifiedCreators
+		if FFlagToolboxUseVerifiedIdAsDefault then
+			includeUnverifiedCreators = self.props.includeUnverifiedCreators
+		else
+			includeOnlyVerifiedCreators = self.props.includeOnlyVerifiedCreators
+		end
 
 		local promiseError
 		local assetIdsResponse = networkInterface
@@ -139,7 +147,9 @@ function ResultsFetcher:fetchResults(args: { pageSize: number?, initialPage: boo
 				tags = props.tags,
 				cursor = nextPageCursor,
 				limit = pageSize,
-				includeOnlyVerifiedCreators = not includeUnverifiedCreators,
+				includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
+					then not includeUnverifiedCreators
+					else includeOnlyVerifiedCreators,
 				queryParams = if FFlagToolboxUseQueryForCategories2 then props.queryParams else nil,
 				searchSource = if FFlagToolboxIncludeSearchSource then props.searchSource else nil,
 			})

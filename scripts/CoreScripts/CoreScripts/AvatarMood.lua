@@ -8,9 +8,6 @@
 local userPlayEmoteByIdAnimTrackReturn = game:GetEngineFeature("PlayEmoteAndGetAnimTrackByIdApiEnabled")
 game:DefineFastFlag("EmoteTriggeredSignalEnabledLua2", false)
 game:DefineFastFlag("MoodsHeadRemovedFix", false)
-game:DefineFastFlag("SetDefaultMoodNeutralLua", false)
-
-local FFlagSwitchMoodPriorityWhileStreaming = game:DefineFastFlag("SwitchMoodPriorityWhileStreaming", false)
 
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
@@ -29,7 +26,6 @@ defaultMoodAnimation.AnimationId = defaultMoodId
 
 local currentMoodAnimationInstance = nil
 local currentMoodTrack = nil
-local currentMoodTrackPriority = Enum.AnimationPriority.Core
 local currentEmoteTrack = nil
 local moodCoreScriptEnabled = true
 local wheelEmotePlaying = false
@@ -49,10 +45,6 @@ local Connection = {
 	HeadChildAdded = "headChildAdded",
 	CharacterChildAdded = "characterChildAdded",
 	CharacterChildRemoved = "characterChildRemoved",
-	DescendantAdded = "DescendantAdded",
-	DescendantRemoving = "DescendantRemoving",
-	AnimationPlayedCoreScript = "AnimationPlayedCoreScript",
-	StreamTrackStopped = "StreamTrackStopped"
 }
 
 local EMOTE_LOOP_TRANSITION_TIME = 0.3
@@ -66,13 +58,6 @@ local LegacyDefaultEmotes = {
 	laugh = true,
 	cheer = true,
 }
-
-local function switchPriority(priority)
-	currentMoodTrackPriority = priority
-	if currentMoodTrack then
-		currentMoodTrack.Priority = currentMoodTrackPriority
-	end
-end
 
 local function disconnectAndRemoveConnection(key)
 	if connections[key] ~= nil then
@@ -193,15 +178,6 @@ local function stopAndDestroyCurrentMoodTrack()
 	end
 end
 
-local function stopAndDestroyCurrentMoodTrackConnections()
-	stopAndDestroyCurrentMoodTrack()
-	disconnectAndRemoveConnection(Connection.EmoteStopped)
-	disconnectAndRemoveConnection(Connection.EmoteKeyframeReached)
-	disconnectAndRemoveConnection(Connection.AnimationInstanceChanged)
-	disconnectAndRemoveConnection(Connection.EmoteTriggered)
-	currentMoodAnimationInstance = nil
-end
-
 local function updateCharacterMood(character, moodAnimation)
 	if character == nil or moodAnimation == nil or not moodCoreScriptEnabled then
 		return
@@ -222,11 +198,7 @@ local function updateCharacterMood(character, moodAnimation)
 
 	-- play mood animation
 	currentMoodTrack = animator:LoadAnimation(currentMoodAnimationInstance)
-	if FFlagSwitchMoodPriorityWhileStreaming then
-		currentMoodTrack.Priority = currentMoodTrackPriority
-	else
-		currentMoodTrack.Priority = Enum.AnimationPriority.Core
-	end
+	currentMoodTrack.Priority = Enum.AnimationPriority.Core
 
 	if currentEmoteTrack == nil then
 		currentMoodTrack:Play()
@@ -269,11 +241,7 @@ function initAvatarMood(animateScript)
 			updateCharacterMood(LocalPlayer.Character, moodAnimation)
 		end)
 	else
-		if game:GetFastFlag("SetDefaultMoodNeutralLua") then
-			stopAndDestroyCurrentMoodTrackConnections()
-		else
-			updateCharacterMood(LocalPlayer.Character, defaultMoodAnimation)
-		end
+		updateCharacterMood(LocalPlayer.Character, defaultMoodAnimation)
 	end
 
 	connections[Connection.AnimateScriptMoodAdded] = animateScript.ChildAdded:Connect(function(child)
@@ -300,11 +268,7 @@ function initAvatarMood(animateScript)
 			if otherMood then
 				updateCharacterMood(LocalPlayer.Character, otherMood:FindFirstChildWhichIsA("Animation"))
 			else
-				if game:GetFastFlag("SetDefaultMoodNeutralLua") then
-					stopAndDestroyCurrentMoodTrackConnections()
-				else
-					updateCharacterMood(LocalPlayer.Character, defaultMoodAnimation)
-				end
+				updateCharacterMood(LocalPlayer.Character, defaultMoodAnimation)
 			end
 		end
 	end)
@@ -339,58 +303,6 @@ local function onHeadAdded(head)
 	end)
 end
 
-local function syncWithStreamTrack(streamTrack)
-	-- disconnect any previous stream track listener
-	disconnectAndRemoveConnection(Connection.StreamTrackStopped)
-
-	-- move Mood to blend with Streaming animation
-	switchPriority(Enum.AnimationPriority.Idle)
-
-	-- listen for when the track stops
-	connections[Connection.StreamTrackStopped] = streamTrack.Stopped:Connect(function()
-		-- disconnect the track listener
-		disconnectAndRemoveConnection(Connection.StreamTrackStopped)
-		-- move Mood to blend with Locomotion
-		switchPriority(Enum.AnimationPriority.Core)
-	end)
-end
-
-local function onAnimatorAdded(animator)
-	-- disconnect any previous animator listener
-	disconnectAndRemoveConnection(Connection.AnimationPlayedCoreScript)
-	-- listen for animations played on this animator
-	connections[Connection.AnimationPlayedCoreScript] = animator.AnimationPlayedCoreScript:Connect(function(track)
-		if track:IsA("AnimationStreamTrack") then
-			syncWithStreamTrack(track)
-		end
-	end)
-
-	-- check if streaming animation is already playing
-	local coreTracks = animator:GetPlayingAnimationTracksCoreScript()
-	local streamTrack = nil
-	for _, t in coreTracks do
-		if t:IsA("AnimationStreamTrack") then
-			streamTrack = t
-			break
-		end
-	end
-
-	if streamTrack then
-		syncWithStreamTrack(streamTrack)
-	else
-		-- move Mood to blend with Locomotion
-		switchPriority(Enum.AnimationPriority.Core)
-	end
-end
-
-local function onAnimatorRemoving(animator)
-	-- clear connections
-	disconnectAndRemoveConnection(Connection.AnimationPlayedCoreScript)
-	disconnectAndRemoveConnection(Connection.StreamTrackStopped)
-	-- move Mood to blend with Locomotion
-	switchPriority(Enum.AnimationPriority.Core)
-end
-
 -- Update mood whenever character head is changed
 local function onCharacterAdded(character)
 	local head = character:FindFirstChild("Head")
@@ -415,24 +327,6 @@ local function onCharacterAdded(character)
 			end
 		end
 	end)
-
-	if FFlagSwitchMoodPriorityWhileStreaming then
-		connections[Connection.DescendantAdded] = character.DescendantAdded:Connect(function(descendant)
-			if descendant:IsA("Animator") then
-				onAnimatorAdded(descendant)
-			end
-		end)
-		local animator = character:FindFirstChildWhichIsA("Animator", true)
-		if animator then
-			onAnimatorAdded(animator)
-		end
-
-		connections[Connection.DescendantRemoving] = character.DescendantRemoving:Connect(function(descendant)
-			if descendant:IsA("Animator") then
-				onAnimatorRemoving(descendant)
-			end
-		end)
-	end
 end
 
 local function onCharacterRemoving(character)

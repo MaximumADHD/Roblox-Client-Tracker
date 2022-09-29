@@ -8,13 +8,11 @@ local FaceAnimatorService = game:FindService("FaceAnimatorService")
 local HIGHLIGHT_LOD_BG_COLOR = Color3.fromRGB(0, 196, 221)
 local HIGHLIGHT_AUTO_BG_COLOR = Color3.fromRGB(18, 217, 40)
 local DEFAULT_BG_COLOR = Color3.fromRGB(150, 150, 150)
-local HIGHLIGHT_EXTRAPOLATION_BG_COLOR_MODE1 = Color3.fromRGB(128, 196, 128)
-local HIGHLIGHT_EXTRAPOLATION_BG_COLOR_MODE2 = Color3.fromRGB(255, 196, 128)
 
 local BUTTON_WIDTH = 160
 local BUTTON_HEIGHT = 20
 local BUTTON_PADDING = 10
-local NUM_BUTTONS = 8
+local NUM_BUTTONS = 7
 
 if not FaceAnimatorService then
 	print("[FaceAnimatorUI] FaceAnimatorService is nil. UI disabled.")
@@ -64,7 +62,6 @@ local videoAccurateButton = createLodTextButton(4, "VideoAccurateButton", "Video
 local videoFastButton = createLodTextButton(5, "VideoFastButton", "Video Fast")
 local audioButton = createLodTextButton(6, "AudioButton", "Audio")
 local offButton = createLodTextButton(7, "OffButton", "Off")
-local extrapolationButton = createLodTextButton(8, "ExtrapolationButton", "Extrapolation")
 
 local lodButtons = {
 	videoFastButton,
@@ -83,7 +80,6 @@ local function updateButtonsState()
 		local videoAuto = (lodController.VideoMode == (Enum::any).TrackerLodFlagMode.Auto)
 		local lodAuto = (lodController.VideoLodMode == (Enum::any).TrackerLodValueMode.Auto)
 
-		local extrapolation = lodController:getExtrapolation()
 		local audioEnabled = lodController:isAudioEnabled()
 		local videoEnabled = lodController:isVideoEnabled()
 		local lod = lodController:getVideoLod()
@@ -99,13 +95,7 @@ local function updateButtonsState()
 				autoButton.BackgroundColor3 = DEFAULT_BG_COLOR
 			end
 		end
-		if extrapolation == 1 then
-			extrapolationButton.BackgroundColor3 = HIGHLIGHT_EXTRAPOLATION_BG_COLOR_MODE1
-		elseif extrapolation == 2 then
-			extrapolationButton.BackgroundColor3 = HIGHLIGHT_EXTRAPOLATION_BG_COLOR_MODE2
-		else
-			extrapolationButton.BackgroundColor3 = DEFAULT_BG_COLOR
-		end
+		
 		-- Highlight currently selected LOD button --
 		local activeButton = nil
 		if videoEnabled then
@@ -131,14 +121,12 @@ local function onAutoButtonActivated()
 	lodController.VideoMode = (Enum::any).TrackerLodFlagMode.Auto
 	lodController.AudioMode = (Enum::any).TrackerLodFlagMode.Auto
 	lodController.VideoLodMode = (Enum::any).TrackerLodValueMode.Auto
-	lodController.VideoExtrapolationMode = (Enum::any).TrackerExtrapolationFlagMode.Auto
 end
 
 local function onOffButtonActivated()
 	lodController.VideoMode = (Enum::any).TrackerLodFlagMode.ForceFalse
 	lodController.AudioMode = (Enum::any).TrackerLodFlagMode.ForceFalse
 	lodController.VideoLodMode = (Enum::any).TrackerLodValueMode.Auto
-	lodController.VideoExtrapolationMode = (Enum::any).TrackerExtrapolationFlagMode.Auto
 end
 
 local function makeOnButtonActivated(videoEnabled, audioEnabled, videoLod)
@@ -151,20 +139,9 @@ local function makeOnButtonActivated(videoEnabled, audioEnabled, videoLod)
 		lodController.VideoLodMode = int_to_mode[videoLod]
 	end
 end
-local function onExtrapolationButtonActivated()
-	local extrapolation = lodController.VideoExtrapolationMode
-	if extrapolation == (Enum::any).TrackerExtrapolationFlagMode.ForceDisabled then
-		lodController.VideoExtrapolationMode = (Enum::any).TrackerExtrapolationFlagMode.ExtrapolateFacsAndPose
-	elseif extrapolation == (Enum::any).TrackerExtrapolationFlagMode.ExtrapolateFacsAndPose then
-		lodController.VideoExtrapolationMode = (Enum::any).TrackerExtrapolationFlagMode.ExtrapolateFacsOnly
-	else
-		lodController.VideoExtrapolationMode = (Enum::any).TrackerExtrapolationFlagMode.ForceDisabled
-	end
-end
 
 autoButton.Activated:Connect(onAutoButtonActivated)
 offButton.Activated:Connect(onOffButtonActivated)
-extrapolationButton.Activated:Connect(onExtrapolationButtonActivated)
 videoFastButton.Activated:Connect(makeOnButtonActivated(true, false, 0))
 videoAccurateButton.Activated:Connect(makeOnButtonActivated(true, false, 1))
 videoAudioFastButton.Activated:Connect(makeOnButtonActivated(true, true, 0))

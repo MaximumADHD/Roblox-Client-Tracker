@@ -7,10 +7,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
-local SharedFlags = Framework.SharedFlags
-local FFlagDevFrameworkMigrateCheckBox = SharedFlags.getFFlagDevFrameworkMigrateCheckBox()
-
-local Checkbox = if FFlagDevFrameworkMigrateCheckBox then Framework.UI.Checkbox else require(script.Parent.TTCheckBox)
+local TTCheckBox = require(script.Parent.TTCheckBox)
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -54,13 +51,7 @@ function BiomeSelector:render()
 	}
 
 	for i, biome in ipairs(BiomeOrder) do
-		content[biome] = Roact.createElement(Checkbox, if FFlagDevFrameworkMigrateCheckBox then {
-			Checked = biomeSelection[biome],
-			OnClick = selectBiome,
-			Key = biome,
-			LayoutOrder = i,
-			Text = localization:getText("Generate", Constants.BiomeToLocalizationKey[biome]),
-		} else {
+		content[biome] = Roact.createElement(TTCheckBox, {
 			Title = localization:getText("Generate", Constants.BiomeToLocalizationKey[biome]),
 			Tag = biome,
 			Selected = biomeSelection[biome],

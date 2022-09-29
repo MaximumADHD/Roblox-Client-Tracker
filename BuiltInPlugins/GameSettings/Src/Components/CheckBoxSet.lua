@@ -14,21 +14,18 @@ local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
-local FFlagDevFrameworkMigrateCheckBox = SharedFlags.getFFlagDevFrameworkMigrateCheckBox()
 
 local Cryo = require(Plugin.Packages.Cryo)
-local UILibrary
-if not FFlagDevFrameworkMigrateCheckBox or not FFlagRemoveUILibraryTitledFrame then
-	UILibrary = require(Plugin.Packages.UILibrary)
-end
+local UILibrary = require(Plugin.Packages.UILibrary)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
+local CheckBox = UILibrary.Component.CheckBox
+
 local UI = Framework.UI
-local Checkbox = if FFlagDevFrameworkMigrateCheckBox then UI.Checkbox else UILibrary.Component.CheckBox
 local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
 
 local CheckBoxSet = Roact.PureComponent:extend("CheckBoxSet")
@@ -48,36 +45,22 @@ function CheckBoxSet:render()
 		})
 	}
 
+	-- TODO: Implement CheckBox changes into DevFramework since we want to deprecate UILibrary eventually.
 	for i, box in ipairs(boxes) do
-		table.insert(children, if FFlagDevFrameworkMigrateCheckBox then
-			Roact.createElement(Checkbox, {
-				Checked = box.Selected ~= nil and box.Selected,
-				Enabled = props.Enabled,
-				Key = box.Id,
-				LayoutOrder = i,
-				OnClick = function()
-					props.EntryClicked(box)
-				end,
-				Text = box.Title,
-			}, {
-				Link = box.LinkTextFrame,
-			})
-		else
-			Roact.createElement(Checkbox, {
-				Title = box.Title,
-				Id = box.Id,
-				Height = DEPRECATED_Constants.CHECKBOX_SIZE,
-				TextSize = theme.fontStyle.Smaller.TextSize,
-				Description = box.Description,
-				Selected = box.Selected,
-				Enabled = props.Enabled,
-				LayoutOrder = i,
-				OnActivated = function()
-					props.EntryClicked(box)
-				end,
-				Link = box.LinkTextFrame,
-			})
-		)
+		table.insert(children, Roact.createElement(CheckBox, {
+			Title = box.Title,
+			Id = box.Id,
+			Height = DEPRECATED_Constants.CHECKBOX_SIZE,
+			TextSize = theme.fontStyle.Smaller.TextSize,
+			Description = box.Description,
+			Selected = box.Selected,
+			Enabled = props.Enabled,
+			LayoutOrder = i,
+			OnActivated = function()
+				props.EntryClicked(box)
+			end,
+			Link = box.LinkTextFrame,
+		}))
 	end
 
 	if errorState then

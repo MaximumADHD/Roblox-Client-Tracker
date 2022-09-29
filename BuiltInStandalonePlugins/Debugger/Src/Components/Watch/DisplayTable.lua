@@ -47,6 +47,8 @@ local UtilFolder = PluginRoot.Src.Util
 local Constants = require(UtilFolder.Constants)
 local ColumnResizeHelperFunctions = require(UtilFolder.ColumnResizeHelperFunctions)
 
+local FFlagOnlyLoadOneCallstack = require(PluginRoot.Src.Flags.GetFFlagOnlyLoadOneCallstack)
+
 local SharedFlags = Framework.SharedFlags
 local FFlagDevFrameworkMigrateContextMenu = SharedFlags.getFFlagDevFrameworkMigrateContextMenu()
 local MakePluginActions = if FFlagDevFrameworkMigrateContextMenu 
@@ -514,7 +516,7 @@ DisplayTable = RoactRodux.connect(function(state, props)
 	local isVariablesTab = (tabState == TableTab.Variables)
 	local threadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
 
-	local frameNumber = (threadId and common.currentFrameMap[common.currentDebuggerConnectionId] and common.currentFrameMap[common.currentDebuggerConnectionId][threadId]) or (1)
+	local frameNumber = (threadId and common.currentFrameMap[common.currentDebuggerConnectionId] and common.currentFrameMap[common.currentDebuggerConnectionId][threadId]) or (if FFlagOnlyLoadOneCallstack() then 1 else nil)
 	local token = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
 	local watchVars = token and watch.stateTokenToRoots[token] or nil
 

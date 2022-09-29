@@ -10,7 +10,7 @@ return function()
 	local Reducer = require(Modules.InGameMenuV3.reducer)
 	local ItemInfoList = require(Modules.InGameMenuV3.Components.InspectAndBuyPage.ItemInfoList)
 
-	local FFlagInspectAndBuyV2IXPEnabledForAll = require(Modules.InGameMenuV3.Flags.FFlagInspectAndBuyV2IXPEnabledForAll)
+	local FFlagInspectAndBuyV2Enabled = require(Modules.InGameMenuV3.Flags.FFlagInspectAndBuyV2Enabled)
 
 	local props = {
 		creatorText = "testCreator",
@@ -21,7 +21,7 @@ return function()
 	}
 	local wrappedComponent = withInGameMenuV3Providers(ItemInfoList, props)
 
-	if FFlagInspectAndBuyV2IXPEnabledForAll then
+	if FFlagInspectAndBuyV2Enabled then
 		describe("ItemInfoList", function()
 			it("should mount", function()
 				withServices(function(path)

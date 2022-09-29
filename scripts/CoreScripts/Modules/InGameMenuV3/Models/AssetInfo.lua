@@ -129,11 +129,4 @@ function AssetInfo.fromSetItemFavorite(assetId, setFavorited, numFavorites: numb
 	return newAsset
 end
 
-function AssetInfo.fromPurchaseSuccess(assetId)
-	local newAsset = AssetInfo.new()
-	newAsset.assetId = tostring(assetId)
-	newAsset.owned = true
-	return newAsset
-end
-
 return AssetInfo

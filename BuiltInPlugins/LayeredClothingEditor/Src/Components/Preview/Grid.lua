@@ -57,8 +57,8 @@ local AssetServiceWrapper = AvatarToolsShared.Contexts.AssetServiceWrapper
 local Constants = require(Plugin.Src.Util.Constants)
 local ShowDialog = require(Plugin.Src.Util.ShowDialog)
 
-local PreviewGrid = Roact.PureComponent:extend("PreviewGrid")
-Typecheck.wrap(PreviewGrid, script)
+local Grid = Roact.PureComponent:extend("Grid")
+Typecheck.wrap(Grid, script)
 
 local GetFFlagAccessoryFittingToolAnalytics = require(Plugin.Src.Flags.GetFFlagAccessoryFittingToolAnalytics)
 
@@ -79,7 +79,7 @@ local function getUserAddedAssets(self, selectedTab)
 	return userAddedAssets and userAddedAssets[selectedTab] or {}
 end
 
-function PreviewGrid:init()
+function Grid:init()
 	self.gridRef = Roact.createRef()
 
 	self.onThumbnailClick = function(id, selected)
@@ -112,7 +112,6 @@ local function combineAssetInfo(self, selectedTab)
 	local props = self.props
 
 	local filter = props.SearchFilter
-	local categoryFilter = props.CategoryFilter
 	local prebuiltAssetsInfo = deepCopy(props.PrebuiltAssetsInfo)
 	local userAddedAssetsForTab = getUserAddedAssets(self, selectedTab)
 	local tabInfo = PreviewConstantsInterface.getTabInfo(selectedTab)
@@ -121,42 +120,38 @@ local function combineAssetInfo(self, selectedTab)
 		local assetIds = {}
 		local bundleIds = {}
 
-		if categoryFilter == "" or categoryFilter == PreviewConstants.CategoryPrefixes.Default then
-			if tabInfo.AssetIds then
-				for _, id in pairs(tabInfo.AssetIds) do
-					local info = prebuiltAssetsInfo[id]
-					if info then
-						info.ThumbnailType = "Asset"
-						if filter == "" or string.find(info.Name or info.name, filter) then
-							table.insert(assetIds, id)
-						end
+		if tabInfo.AssetIds then
+			for _, id in pairs(tabInfo.AssetIds) do
+				local info = prebuiltAssetsInfo[id]
+				if info then
+					info.ThumbnailType = "Asset"
+					if filter == "" or string.find(info.Name or info.name, filter) then
+						table.insert(assetIds, id)
 					end
 				end
 			end
+		end
 
-			if tabInfo.BundleIds then
-				for _, id in pairs(tabInfo.BundleIds) do
-					local info = prebuiltAssetsInfo[id]
-					if info then
-						info.ThumbnailType = "BundleThumbnail"
-						if filter == "" or string.find(info.Name or info.name, filter) then
-							table.insert(bundleIds, id)
-						end
+		if tabInfo.BundleIds then
+			for _, id in pairs(tabInfo.BundleIds) do
+				local info = prebuiltAssetsInfo[id]
+				if info then
+					info.ThumbnailType = "BundleThumbnail"
+					if filter == "" or string.find(info.Name or info.name, filter) then
+						table.insert(bundleIds, id)
 					end
 				end
 			end
 		end
 
 		local userAddedAssetsById = {}
-		if categoryFilter == "" or categoryFilter == PreviewConstants.CategoryPrefixes.Custom then
-			for _, asset in ipairs(userAddedAssetsForTab) do
-				if filter == "" or string.find(asset.instance.Name, filter) then
-					userAddedAssetsById[asset.uniqueId] = {
-						Name = asset.instance.Name,
-						ThumbnailType = "",
-						Instance = if FFlagEnablePreviewTiles then asset.instance else nil,
-					}
-				end
+		for _, asset in ipairs(userAddedAssetsForTab) do
+			if filter == "" or string.find(asset.instance.Name, filter) then
+				userAddedAssetsById[asset.uniqueId] = {
+					Name = asset.instance.Name,
+					ThumbnailType = "",
+					Instance = if FFlagEnablePreviewTiles then asset.instance else nil,
+				}
 			end
 		end
 
@@ -167,7 +162,7 @@ local function combineAssetInfo(self, selectedTab)
 	end
 end
 
-function PreviewGrid:render()
+function Grid:render()
 	local props = self.props
 	local size = props.size
 	local layoutOrder = props.layoutOrder
@@ -207,7 +202,7 @@ function PreviewGrid:render()
 	}, children)
 end
 
-function PreviewGrid:didMount()
+function Grid:didMount()
 	local props = self.props
 	local API = props.API
 
@@ -218,7 +213,7 @@ function PreviewGrid:didMount()
 	self.props.GetPrebuiltAssetsInfo(API, assetService, arrayOfAssetIds, arrayOfBundleIds)
 end
 
-PreviewGrid = withContext({
+Grid = withContext({
 	Analytics = ContextServices.Analytics,
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
@@ -226,7 +221,7 @@ PreviewGrid = withContext({
 	Plugin = ContextServices.Plugin,
 	EditingItemContext = EditingItemContext,
 	AssetServiceWrapper = AssetServiceWrapper,
-})(PreviewGrid)
+})(Grid)
 
 local function mapStateToProps(state, props)
 	local previewAssets = state.previewAssets
@@ -236,7 +231,6 @@ local function mapStateToProps(state, props)
 		PrebuiltAssetsInfo = previewAssets.prebuiltAssetsInfo,
 		SelectedTab = previewStatus.selectedTab,
 		SearchFilter = previewStatus.searchFilter,
-		CategoryFilter = previewStatus.categoryFilter,
 		SelectedAssets = previewStatus.selectedAssets,
 	}
 end
@@ -252,4 +246,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PreviewGrid)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(Grid)

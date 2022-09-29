@@ -152,8 +152,6 @@ function CloudTableSection:render()
 		}, {
 			PublishPlaceMessage = if FFlagDevFrameworkMigrateTextLabels then (
 				Roact.createElement(TextLabel, {
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					AutomaticSize = Enum.AutomaticSize.XY,
 					Position = UDim2.new(0.5, 0, 0.5, 0),
 					Text = localization:getText("CloudTableSection", "PublishPlaceMessage"),
 				})

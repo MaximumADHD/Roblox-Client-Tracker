@@ -17,8 +17,6 @@ local HAS_KEY_IN_GAME_ENGINE = game:GetEngineFeature("UniversalAppShareLinksStor
 local GetFFlagShareInviteLinkContextMenuV1ABTestEnabled =
 	require(Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1ABTestEnabled)
 
-local GetFStringLuaAppExperienceMenuLayer = require(script.Parent.Parent.Flags.GetFStringLuaAppExperienceMenuLayer)
-
 local ShareInviteLinkABTestManager = {}
 ShareInviteLinkABTestManager.__index = ShareInviteLinkABTestManager
 
@@ -39,7 +37,7 @@ function ShareInviteLinkABTestManager:initialize()
 
 	-- fetch variant from IXP
 	local layerFetchSuccess, layerData = pcall(function()
-		return self._ixpServiceWrapper:IsEnabled() and self._ixpServiceWrapper:GetLayerData(GetFStringLuaAppExperienceMenuLayer()) or {}
+		return self._ixpServiceWrapper:IsEnabled() and self._ixpServiceWrapper:GetLayerData("Experience.Menu") or {}
 	end)
 
 	-- bail if we aren't able to communicate with IXP service

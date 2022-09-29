@@ -1,14 +1,6 @@
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
-local Framework = require(Plugin.Packages.Framework)
-local SharedFlags = Framework.SharedFlags
-local FFlagDevFrameworkMigrateCheckBox = SharedFlags.getFFlagDevFrameworkMigrateCheckBox()
-
-if FFlagDevFrameworkMigrateCheckBox then
-	return function() end
-end
-
 
 local MockProvider = require(Plugin.Src.TestHelpers.MockProvider)
 

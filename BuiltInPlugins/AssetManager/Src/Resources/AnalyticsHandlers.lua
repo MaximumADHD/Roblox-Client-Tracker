@@ -7,6 +7,7 @@ local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
 local join = Dash.join
 
+local FFlagIncompleteDragShouldCancel = game:GetFastFlag("IncompleteDragShouldCancel")
 local FFlagAssetManagerUseEventIngest = game:GetFastFlag("AssetManagerUseEventIngest")
 
 -- Remove with FFlagAssetManagerUseEventIngest
@@ -16,30 +17,34 @@ local ASSET_MANAGER_CATEGORY = "Asset Manager"
 local pluginAnalyticsContext = if FFlagAssetManagerUseEventIngest then "Asset Manager" else ASSET_MANAGER_CATEGORY
 
 return function(rbxAnalyticsService)
-	local function sendEvent(eventName, additionalArgs)
-		additionalArgs = additionalArgs or {}
+	local sendEvent
+	local reportCounter
+	if FFlagIncompleteDragShouldCancel then
+		function sendEvent(eventName, additionalArgs)
+			additionalArgs = additionalArgs or {}
 
-		local args = join({
-			studioSid = rbxAnalyticsService:GetSessionId(),
-			clientId = rbxAnalyticsService:GetClientId(),
-			placeId = game.PlaceId,
-		}, additionalArgs)
+			local args = join({
+				studioSid = rbxAnalyticsService:GetSessionId(),
+				clientId = rbxAnalyticsService:GetClientId(),
+				placeId = game.PlaceId,
+			}, additionalArgs)
 
-		if DebugFlags.LogAnalytics() then
-			print(("%s SendEvent eventName=%s args=%s"):format(
-				pluginAnalyticsContext, tostring(eventName), HttpService:JSONEncode(args)))
+			if DebugFlags.LogAnalytics() then
+				print(("%s SendEvent eventName=%s args=%s"):format(
+					pluginAnalyticsContext, tostring(eventName), HttpService:JSONEncode(args)))
+			end
+
+			rbxAnalyticsService:SendEventDeferred("studio", pluginAnalyticsContext, eventName, args)
 		end
 
-		rbxAnalyticsService:SendEventDeferred("studio", pluginAnalyticsContext, eventName, args)
-	end
-
-	local function reportCounter(counterName, count)
-		count = count or 1
-		if DebugFlags.LogAnalytics() then
-			print(("%s ReportCounter counterName=%s count=%s"):format(
-				pluginAnalyticsContext, tostring(counterName), tostring(count)))
+		function reportCounter(counterName, count)
+			count = count or 1
+			if DebugFlags.LogAnalytics() then
+				print(("%s ReportCounter counterName=%s count=%s"):format(
+					pluginAnalyticsContext, tostring(counterName), tostring(count)))
+			end
+			rbxAnalyticsService:ReportCounter(counterName, count)
 		end
-		rbxAnalyticsService:ReportCounter(counterName, count)
 	end
 
 	return {
@@ -121,10 +126,10 @@ return function(rbxAnalyticsService)
 			end
 		end,
 
-		cancelDragInsert = function()
+		cancelDragInsert = if FFlagIncompleteDragShouldCancel then function()
 			sendEvent("CancelDragInsert")
 			reportCounter("AssetManagerCancelDragInsert")
-		end,
+		end else nil,
 
 		AssetPreviewPlaySound = function()
 			if FFlagAssetManagerUseEventIngest then

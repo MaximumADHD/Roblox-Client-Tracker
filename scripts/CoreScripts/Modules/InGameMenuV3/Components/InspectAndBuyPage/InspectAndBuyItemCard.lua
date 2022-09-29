@@ -42,7 +42,7 @@ function InspectAndBuyItemCard:init()
 		if self.props.callback then
 			self.props.callback()
 		end
-		
+
 		self.props.selectItem(self.props.asset)
 		self.props.openAssetDetailsPage()
 	end

@@ -341,7 +341,7 @@ function ReduceKeyframesDialog:render(): any
 	local sliderPos = if keyframes then math.max(keyframes, 2) else 2
 	local sliderEnabled = ticks and #ticks > 2
 
-	local keyframesText = localization:getText("OptimizeKeyframes", "Keyframes")
+	local keyframesText = localization:getText("ReduceKeyframes", "Keyframes")
 
 	if ticks then
 		keyframesText ..= string.format(" %d / %d", keyframes, #ticks)
@@ -360,7 +360,7 @@ function ReduceKeyframesDialog:render(): any
 		Buttons = buttons,
 		OnButtonPressed = self.onClose,
 		OnClose = self.onClose,
-		Title = localization:getText("Title", "OptimizeKeyframes"),
+		Title = localization:getText("Title", "ReduceKeyframes"),
 	}, {
 		Layout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,

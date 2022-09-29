@@ -5,12 +5,16 @@
 ]]
 
 local CorePackages = game:GetService("CorePackages")
+
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local t = InGameMenuDependencies.t
 
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
+local RenderSettings = settings().Rendering
+
 local SavedQualityLevelChanged = UserGameSettings:GetPropertyChangedSignal("SavedQualityLevel")  --  <- DEPRECATED: remove with FixGraphicsQuality
+
 local InGameMenu = script.Parent.Parent.Parent
 
 local ToggleEntry = require(script.Parent.ToggleEntry)
@@ -25,21 +29,22 @@ local SendNotification
 local RobloxTranslator
 local GraphicsQualityLevelChanged
 
+if GetFixGraphicsQuality() then
+	RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
+	GraphicsQualityLevelChanged = UserGameSettings:GetPropertyChangedSignal("GraphicsQualityLevel")
+end
+
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
 
 local SAVED_QUALITY_LEVELS = #Enum.SavedQualitySetting:GetEnumItems() - 1 --  <- DEPRECATED: remove with FixGraphicsQuality
 local GRAPHICS_QUALITY_LEVELS = 10
 
-pcall(function()
-	if GetFixGraphicsQuality() then
-		RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
-		GraphicsQualityLevelChanged = UserGameSettings:GetPropertyChangedSignal("GraphicsQualityLevel")
-		GRAPHICS_QUALITY_LEVELS = settings().Rendering:GetMaxQualityLevel() - 1
-		-- Don't be fooled by the word "max".  It's not the maximum level, it's a strict upper bound
-		-- so if GetMaxQualityLevel() returns 22, that means the biggest the level can be is 21
-	end
-end)
+if GetFixGraphicsQuality() then
+	GRAPHICS_QUALITY_LEVELS = RenderSettings:GetMaxQualityLevel() - 1
+	-- Don't be fooled by the word "max".  It's not the maximum level, it's a strict upper bound
+	-- so if GetMaxQualityLevel() returns 22, that means the biggest the level can be is 21
+end
 
 local function mapInteger(x, xMin, xMax, yMin, yMax) --  <- DEPRECATED: remove with FixGraphicsQuality
 	return math.clamp(
@@ -152,10 +157,10 @@ end
 function GraphicsQualityEntry:setAutomaticQualityLevel()
 	if GetFixGraphicsQuality() then
 		UserGameSettings.GraphicsQualityLevel = 0
-		settings().Rendering.QualityLevel = Enum.QualityLevel.Automatic
+		RenderSettings.QualityLevel = 0
 	else
 		UserGameSettings.SavedQualityLevel = Enum.SavedQualitySetting.Automatic
-		settings().Rendering.QualityLevel = Enum.QualityLevel.Automatic
+		RenderSettings.QualityLevel = 0
 	end
 end
 
@@ -165,7 +170,7 @@ function GraphicsQualityEntry:setManualQualityLevel(manualQualityLevel)
 		local oldValue = UserGameSettings.GraphicsQualityLevel
 
 		UserGameSettings.GraphicsQualityLevel = newValue
-		settings().Rendering.QualityLevel = newValue
+		RenderSettings.QualityLevel = newValue
 
 		return newValue, newValue - oldValue
 	else
@@ -174,9 +179,9 @@ function GraphicsQualityEntry:setManualQualityLevel(manualQualityLevel)
 			1, SAVED_QUALITY_LEVELS,
 			-- Quality levels are zero-based; GetMaxQualityLevel reports 22, even
 			-- though 21 is the maximum.
-			1, settings().Rendering:GetMaxQualityLevel() - 1)
+			1, RenderSettings:GetMaxQualityLevel() - 1)
 		UserGameSettings.SavedQualityLevel = manualQualityLevel
-		settings().Rendering.QualityLevel = renderQualityLevel
+		RenderSettings.QualityLevel = renderQualityLevel
 		return nil
 	end
 end

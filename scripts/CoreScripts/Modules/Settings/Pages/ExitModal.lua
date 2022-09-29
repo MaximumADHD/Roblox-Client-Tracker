@@ -7,22 +7,11 @@
 --]]
 
 -------------- CONSTANTS -------------
-
 local LEAVE_GAME_ACTION = "LeaveGameAction"
 local DONT_LEAVE_ACTION = "DontLeaveAction"
 local LEAVE_GAME_FRAME_WAITS = 2
 
-local EducationalAnalytics = {
-	EventContext = "educational_popup",
-	ConfirmName = "educational_confirmed",
-	CancelName = "educational_close_app",
-	DismissName = "educational_dismiss_prompt",
-}
-
-local LOCAL_STORAGE_KEY_NATIVE_CLOSE = "NativeCloseLuaPromptDisplayCount"
-
 -------------- SERVICES --------------
-
 local CoreGui = game:GetService("CoreGui")
 local ContextActionService = game:GetService("ContextActionService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -32,14 +21,11 @@ local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
 
 ----------- UTILITIES --------------
-
 local NotificationType = GuiService:GetNotificationTypeList()
 local Roact = require(CorePackages.Roact)
-local LinkingProtocol = require(CorePackages.UniversalApp.Linking.LinkingProtocol)
 local Localization = require(RobloxGui.Modules.InGameMenu.Localization.Localization)
 local SendAnalytics = require(RobloxGui.Modules.InGameMenu.Utility.SendAnalytics)
-local UserLocalStore = require(RobloxGui.Modules.InGameMenu.Utility.UserLocalStore)
-local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
+local LinkingProtocol = require(CorePackages.UniversalApp.Linking.LinkingProtocol)
 
 ----------- COMPONENTS --------------
 
@@ -52,17 +38,21 @@ local EducationalModal = UIBlox.App.Dialog.Modal.EducationalModal
 local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 
------------- VARIABLES -------------------
-
+------------ Variables -------------------
 local PageInstance = nil
 
------------- FLAGS -------------------
+local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
 
 local GetFFlagInGameMenuV1LeaveToHome = require(RobloxGui.Modules.Flags.GetFFlagInGameMenuV1LeaveToHome)
-local GetFIntEducationalPopupDisplayMaxCount = require(RobloxGui.Modules.Flags.GetFIntEducationalPopupDisplayMaxCount)
-local FFlagLuaAppExitModalDoNotShow = game:DefineFastFlag("LuaAppExitModalDoNotShow", false)
 
+local EducationalAnalytics = {
+	EventContext = "educational_popup",
+	ConfirmName = "educational_confirmed",
+	CancelName = "educational_close_app",
+	DismissName = "educational_dismiss_prompt",
+}
 ----------- CLASS DECLARATION --------------
+
 local function Initialize()
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
 	local this = settingsPageFactory:CreateNewPage()
@@ -88,7 +78,7 @@ local function Initialize()
 		GuiService.SelectedCoreObject = nil -- deselects the button and prevents spamming the popup to save in studio when using gamepad
 
 		SendAnalytics(EducationalAnalytics.EventContext, EducationalAnalytics.ConfirmName, {
-			source = if isUsingGamepad then "Gamepad" else "Button",
+			source = if isUsingGamepad then "Gamepad" else "Button"
 		})
 
 		if GetFFlagInGameMenuV1LeaveToHome() then
@@ -107,10 +97,8 @@ local function Initialize()
 	end
 	this.LeaveGameFromHotkey = function(name, state, input)
 		if state == Enum.UserInputState.Begin then
-			local isUsingGamepad = input.UserInputType == Enum.UserInputType.Gamepad1
-				or input.UserInputType == Enum.UserInputType.Gamepad2
-				or input.UserInputType == Enum.UserInputType.Gamepad3
-				or input.UserInputType == Enum.UserInputType.Gamepad4
+			local isUsingGamepad = input.UserInputType == Enum.UserInputType.Gamepad1 or input.UserInputType == Enum.UserInputType.Gamepad2
+				or input.UserInputType == Enum.UserInputType.Gamepad3 or input.UserInputType == Enum.UserInputType.Gamepad4
 
 			this.LeaveGameFunc(isUsingGamepad)
 		end
@@ -124,31 +112,10 @@ local function Initialize()
 	end
 	this.DontLeaveFromHotkey = function(name, state, input)
 		if state == Enum.UserInputState.Begin then
-			local isUsingGamepad = input.UserInputType == Enum.UserInputType.Gamepad1
-				or input.UserInputType == Enum.UserInputType.Gamepad2
-				or input.UserInputType == Enum.UserInputType.Gamepad3
-				or input.UserInputType == Enum.UserInputType.Gamepad4
+			local isUsingGamepad = input.UserInputType == Enum.UserInputType.Gamepad1 or input.UserInputType == Enum.UserInputType.Gamepad2
+				or input.UserInputType == Enum.UserInputType.Gamepad3 or input.UserInputType == Enum.UserInputType.Gamepad4
 
 			this.DontLeaveFunc(isUsingGamepad)
-		end
-	end
-
-	this.DontShowAgain = function()
-		local userStore = UserLocalStore.new()
-		userStore:SetItem(LOCAL_STORAGE_KEY_NATIVE_CLOSE, tostring(math.huge))
-		userStore:Flush()
-	end
-
-	-- increments the counter and checks if it's smaller than the max value (flag)
-	this.ShouldShow = function()
-		local userStore = UserLocalStore.new()
-		local displayCount = tonumber(userStore:GetItem(LOCAL_STORAGE_KEY_NATIVE_CLOSE))
-		if displayCount > GetFIntEducationalPopupDisplayMaxCount() then
-			return false
-		else
-			userStore:SetItem(LOCAL_STORAGE_KEY_NATIVE_CLOSE, tostring(displayCount + 1))
-			userStore:Flush()
-			return true
 		end
 	end
 
@@ -174,9 +141,6 @@ local function Initialize()
 			subtitle = localization:Format("CoreScripts.InGameMenu.ExitModal.Subtitle"),
 			bodyTextOpenMenu = localization:Format("CoreScripts.InGameMenu.ExitModal.BodyTextOpenMenu"),
 			bodyTextClickHome = localization:Format("CoreScripts.InGameMenu.ExitModal.BodyTextClickHome"),
-			optionDontShow = if FFlagLuaAppExitModalDoNotShow
-				then localization:Format("CoreScripts.InGameMenu.ExitModal.OptionDontShow")
-				else nil,
 			actionExit = localization:Format("CoreScripts.InGameMenu.ExitModal.ActionExit"),
 			actionHome = localization:Format("CoreScripts.InGameMenu.ExitModal.ActionHome"),
 		}
@@ -198,35 +162,19 @@ local function Initialize()
 						text = localized.bodyTextClickHome,
 					},
 				},
-				hasDoNotShow = if FFlagLuaAppExitModalDoNotShow then true else nil,
 				cancelText = localized.actionExit,
 				confirmText = localized.actionHome,
-				doNotShowText = if FFlagLuaAppExitModalDoNotShow then localized.optionDontShow else nil,
 				titleBackgroundImageProps = {
 					image = "rbxasset://textures/ui/LuaApp/graphic/Auth/GridBackground.jpg",
 					imageHeight = 200,
-					text = [[<font face="GothamBlack" size="42">]]
-						.. localized.title
-						.. [[</font><font size="4"><br /></font><br />]]
-						.. localized.subtitle,
+					text = [[<font face="GothamBlack" size="42">]] .. localized.title ..
+						[[</font><font size="4"><br /></font><br />]] .. localized.subtitle,
 				},
 				screenSize = CoreGui.RobloxGui.AbsoluteSize,
-				onDismiss = function()
-					this.DontLeaveFunc(false)
-				end,
-				onCancel = function(doNotShow)
-					if FFlagLuaAppExitModalDoNotShow and doNotShow then
-						this.DontShowAgain()
-					end
-					this.LeaveAppFunc(false)
-				end,
-				onConfirm = function(doNotShow)
-					if FFlagLuaAppExitModalDoNotShow and doNotShow then
-						this.DontShowAgain()
-					end
-					this.LeaveGameFunc(false)
-				end,
-			}),
+				onDismiss = function() this.DontLeaveFunc(false) end,
+				onCancel = function() this.LeaveAppFunc(false) end,
+				onConfirm = function() this.LeaveGameFunc(false) end,
+			})
 		})
 	end
 
@@ -252,23 +200,9 @@ end
 PageInstance = Initialize()
 
 PageInstance.Displayed.Event:connect(function()
-	if FFlagLuaAppExitModalDoNotShow and not PageInstance.ShouldShow() then
-		PageInstance.LeaveAppFunc(true)
-	end
-
 	PageInstance.dismissedFrom = "Menu"
-	ContextActionService:BindCoreAction(
-		LEAVE_GAME_ACTION,
-		PageInstance.LeaveGameFromHotkey,
-		false,
-		Enum.KeyCode.ButtonA
-	)
-	ContextActionService:BindCoreAction(
-		DONT_LEAVE_ACTION,
-		PageInstance.DontLeaveFromHotkey,
-		false,
-		Enum.KeyCode.ButtonB
-	)
+	ContextActionService:BindCoreAction(LEAVE_GAME_ACTION, PageInstance.LeaveGameFromHotkey, false, Enum.KeyCode.ButtonA)
+	ContextActionService:BindCoreAction(DONT_LEAVE_ACTION, PageInstance.DontLeaveFromHotkey, false, Enum.KeyCode.ButtonB)
 end)
 
 PageInstance.Hidden.Event:connect(function()

@@ -5,9 +5,7 @@
 local Plugin = script.Parent.Parent.Parent
 local _Types = require(Plugin.Src.Types) -- uncomment to use types
 local Roact = require(Plugin.Packages.Roact)
-local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
-local Dash = require(Plugin.Packages.Dash)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -23,20 +21,12 @@ local IconButton = UI.IconButton
 local Pane = UI.Pane
 local ScrollingFrame = UI.ScrollingFrame
 
-local Util = Framework.Util
-local LayoutOrderIterator = Util.LayoutOrderIterator
-
-local Action = require(Plugin.Src.Actions)
-local Icon = require(script.Parent.Icon)
-local TagManager = require(Plugin.Src.TagManager)
 local TagSettingRow = require(script.Parent.TagSettingRow)
+
+local ColorSystem = Framework.Style.ColorSystem
 
 export type Props = {
 	LayoutOrder: number,
-	tag: _Types.Tag,
-	groups: _Types.Array<string>,
-	openColorPicker: ((string) -> ()),
-	openIconPicker: ((string) -> ()),
 }
 
 type _Props = Props & {
@@ -45,78 +35,24 @@ type _Props = Props & {
 	Stylizer: any,
 }
 
+-- If the component has a specific style associated with it in makeTheme, define those values here
 type _Style = {
 	Size: UDim2,
-	CanvasSize: UDim2,
-	Padding: number,
-	Spacing: UDim,
-	GroupRow: {
-		Size: UDim2,
-		Icon: string,
-		UnassignIcon: string,
-		NewGroupIcon: string,
-		DropDownWidth: number,
-		ItemHeight: number,
-		MaxHeight: number,
-	},
-	VisualizeAsRow: {
-		Size: UDim2,
-		Icon: string,
-		DropDownWidth: number,
-		ItemHeight: number,
-		MaxHeight: number,
-	},
-	TaggedInstancesRow: {
-		Icon: string,
-		Size: UDim2,
-	},
-	AlwaysOnTopRow: {
-		Size: UDim2,
-	},
-	IconRow: {
-		Size: UDim2,
-	},
-	ColorRow: {
-		Size: UDim2,
-		Icon: string,
-	},
+	IconControlSize: UDim2,
+	CheckboxControlSize: UDim2,
+	DropdownControlSize: UDim2,
 }
 
 local TagSettingsListView = Roact.PureComponent:extend("TagSettingsListView")
 
 function TagSettingsListView:init()
-	self.onAlwaysOntopRowClicked = function()
-		local tag = self.props.tag
-		TagManager.Get():SetAlwaysOnTop(tag.Name, not tag.AlwaysOnTop)
-	end
-
-	self.onColorRowClicked = function()
-		local props: _Props = self.props
-		props.openColorPicker(props.tag.Name)
-	end
-
-	self.onIconRowClicked = function()
-		local props: _Props = self.props
-		props.openIconPicker(props.tag.Name)
-	end
-
-	self.onTaggedInstancesRowClicked = function()
-		TagManager.Get():SelectAll(self.props.tag.Name)
-	end
-
-	self.onVisualizeRowClicked = function()
+	self.OnVisualizeDropdownClicked = function()
 		self:setState({
 			VisualizeAsDropdownHidden = false
 		})
 	end
 
-	self.onGroupRowClicked = function()
-		self:setState({
-			GroupDropdownHidden = false
-		})
-	end
-
-	self.onVisualizeDropdownItemCloseMenu = function()
+	self.OnVisualizeDropdownItemCloseMenu = function()
 		self:setState(function(state)
 			return {
 				VisualizeAsDropdownHidden = true
@@ -124,201 +60,101 @@ function TagSettingsListView:init()
 		end)
 	end
 
-	self.onGroupDropdownItemCloseMenu = function()
-		self:setState(function(state)
-			return {
-				GroupDropdownHidden = true
-			}
-		end)
+	self.OnVisualizeDropdownItemActivated = function(item, index)
+		self.OnVisualizeDropdownItemCloseMenu()
+		self:setState({
+			VisualizeAsCurrentSelectedItem = item,
+		})
+	end
+
+	self.OnButtonClicked = function()
+		print("Click!")
 	end
 
 	self:setState({
 		VisualizeAsDropdownHidden = true,
-		GroupDropdownHidden = true,
+		VisualizeAsCurrentSelectedItem = "Box",
 	})
 end
 
 function TagSettingsListView:render()
 	local props: _Props = self.props
-	local localization = props.Localization
 	local style: _Style = props.Stylizer.TagSettingsListView
-	local orderIterator = LayoutOrderIterator.new()
 
-	local tag = props.tag
-
-	local hasData = tag ~= nil
-
-	local noneString = localization:getText("Groups", "None")
-	local newGroupString = localization:getText("Groups", "NewGroup")
-
-	local taggedInstancesControl = function()
-		return Roact.createElement(IconButton, {
-			RightIcon = style.TaggedInstancesRow.Icon,
-			OnClick = self.onTaggedInstancesRowClicked,
-		})
-	end
-
-	local iconControl = function()
-		return Roact.createElement(Icon, {
-			Name = tag.Icon,
-			OnClick = self.onIconRowClicked,
-		})
-	end
-
-	local groupRowControl = function()
-		return Roact.createElement(Pane, {
-			Size = style.GroupRow.Size,
-		}, {
-			Button = Roact.createElement(IconButton, {
-				RightIcon = style.GroupRow.Icon,
-				OnClick = self.onGroupRowClicked,
-			}),
-			DropdownMenu = Roact.createElement(DropdownMenu, {
-				Hide = self.state.GroupDropdownHidden,
-				OnItemActivated = function(item: string, index: number)
-					if item == noneString then
-						TagManager.Get():SetGroup(tag.Name, "")
-					elseif item == newGroupString then
-						TagManager.Get():SetGroup(tag.Name, tag.Name .. " " .. localization:getText("Info", "Group"))
-					else
-						TagManager.Get():SetGroup(tag.Name, item)
-					end
-					self.onGroupDropdownItemCloseMenu()
-				end,
-				OnFocusLost = self.onGroupDropdownItemCloseMenu,
-				PlaceholderText = tag.Group,
-				Width = style.GroupRow.DropDownWidth,
-				ItemHeight = style.GroupRow.ItemHeight,
-				MaxHeight = style.GroupRow.MaxHeight,
-				Icons = {if tag.Group then style.GroupRow.UnassignIcon else style.GroupRow.NewGroupIcon},
-				Items = Dash.append({if tag.Group then noneString else newGroupString}, props.groups),
-				Priority = 2,
-			}),
-		})
-	end
-
-	local colorControl = function()
-		return Roact.createElement(IconButton, {
-			RightIcon = style.ColorRow.Icon,
-			IconColor = tag.Color,
-			OnClick = self.onColorRowClicked,
-		})
-	end
-
-	local alwaysOnTopControl = function()
-		return Roact.createElement(Checkbox, {
-			Checked = tag.AlwaysOnTop,
-			OnClick = self.onAlwaysOntopRowClicked,
-		})
-	end
-
-	local visualizeAsControl = function()
-		local visualizeAsOptions = {
-			"Box",
-			"Sphere",
-			"Outline",
-			"Text",
-			"Icon",
-		}
-		local visualizeAsLocalizedOptions = {
-			localization:getText("VisualizeOptions", "Box"),
-			localization:getText("VisualizeOptions", "Sphere"),
-			localization:getText("VisualizeOptions", "Outline"),
-			localization:getText("VisualizeOptions", "Text"),
-			localization:getText("VisualizeOptions", "Icon"),
-		}
-
-		local visualizeTypeComparator = function(visualType: string)
-			return  visualType == tag.DrawType
-		end
-		local index = Dash.findIndex(visualizeAsOptions, visualizeTypeComparator)
-		local visualizeDrawTypeLocalized = if index then visualizeAsLocalizedOptions[index] else ""
-
-		return Roact.createElement(Pane, {
-			Size = style.VisualizeAsRow.Size,
-			Style = "BorderBox",
-		}, {
-			Button = Roact.createElement(IconButton, {
-				Text = visualizeDrawTypeLocalized,
-				RightIcon = style.VisualizeAsRow.Icon,
-				OnClick = self.onVisualizeRowClicked,
-				Size = style.VisualizeAsRow.Size,
-			}),
-			DropdownMenu = Roact.createElement(DropdownMenu, {
-				Hide = self.state.VisualizeAsDropdownHidden,
-				OnItemActivated = function(item, index)
-					TagManager.Get():SetDrawType(tag.Name, visualizeAsOptions[index])
-					self.onVisualizeDropdownItemCloseMenu()
-				end,
-				OnFocusLost = self.onVisualizeDropdownItemCloseMenu,
-				PlaceholderText = visualizeDrawTypeLocalized,
-				Width = style.VisualizeAsRow.DropDownWidth,
-				ItemHeight = style.VisualizeAsRow.ItemHeight,
-				MaxHeight = style.VisualizeAsRow.MaxHeight,
-				Priority = 2,
-				Items = visualizeAsLocalizedOptions,
-			}),
-		})
-	end
-
-	return if hasData then Roact.createElement(ScrollingFrame, {
-		CanvasSize = style.CanvasSize,
+	return Roact.createElement(ScrollingFrame, {
+		AutomaticCanvasSize = Enum.AutomaticSize.Y,
 		Size = style.Size,
 		LayoutOrder = props.LayoutOrder,
 		Layout = Enum.FillDirection.Vertical,
-		AutomaticCanvasSize = Enum.AutomaticSize.None,
-		Padding = style.Padding,
-		Spacing = style.Spacing,
+		Padding = 9,
 	}, {
-		TaggedInstancesRow = Roact.createElement(TagSettingRow, {
-			LayoutOrder = orderIterator:getNextOrder(),
-			ControlSize = style.TaggedInstancesRow.Size,
-			Text = localization:getText("Info", "SelectInExplorer"),
-			TooltipText = localization:getText("Tooltip", "SelectInExplorer"),
-			OnClick = self.onTaggedInstancesRowClicked,
-			Control = taggedInstancesControl,
-		}),
-		IconRow = Roact.createElement(TagSettingRow, {
-			LayoutOrder = orderIterator:getNextOrder(),
-			ControlSize = style.IconRow.Size,
-			Text = localization:getText("Info", "Icon"),
-			TooltipText = localization:getText("Tooltip", "IconPicker"),
-			OnClick = self.onIconRowClicked,
-			Control = iconControl,
-		}),
-		GroupRow = Roact.createElement(TagSettingRow, {
-			LayoutOrder = orderIterator:getNextOrder(),
-			ControlSize = style.GroupRow.Size,
-			Text = localization:getText("Info", "Group") .. ": " .. if tag.Group then tag.Group else noneString,
-			TooltipText = localization:getText("Tooltip", "GroupPicker"),
-			OnClick = self.onGroupRowClicked,
-			Control = groupRowControl,
-		}),
 		ColorRow = Roact.createElement(TagSettingRow , {
-			LayoutOrder = orderIterator:getNextOrder(),
-			ControlSize = style.ColorRow.Size,
-			Text = localization:getText("Info", "Color"),
-			TooltipText = localization:getText("Tooltip", "ColorPicker"),
-			OnClick = self.onColorRowClicked,
-			Control = colorControl,
+			LayoutOrder = 1,
+			Text = "Color",
+			ControlSize = style.IconControlSize,
+			Control = Roact.createElement(IconButton, {
+				RightIcon = "rbxasset://textures/ui/InGameMenu/WhiteSquare.png",
+				IconColor = ColorSystem.Red[20],
+				OnClick = self.OnButtonClicked,
+			}),
+		}),
+		IconRow= Roact.createElement(TagSettingRow, {
+			LayoutOrder = 2,
+			Text = "Icon",
+			ControlSize = style.IconControlSize,
+			Control = Roact.createElement(IconButton, {
+				RightIcon = "rbxasset://textures/TerrainTools/button_arrow_down.png",
+				IconColor = ColorSystem.Blue[20],
+				OnClick = self.OnButtonClicked,
+			}),
 		}),
 		AlwaysOnTopRow= Roact.createElement(TagSettingRow, {
-			LayoutOrder = orderIterator:getNextOrder(),
-			ControlSize = style.AlwaysOnTopRow.Size,
-			Text = localization:getText("Info", "AlwaysOnTop"),
-			TooltipText = localization:getText("Tooltip", "AlwaysOnTop"),
-			OnClick = self.onAlwaysOntopRowClicked,
-			Control = alwaysOnTopControl,
+			ControlSize = style.CheckboxControlSize,
+			LayoutOrder = 3,
+			Text = "Always on top",
+			Control = Roact.createElement(Checkbox, {
+				OnClick = self.OnButtonClicked,
+			}),
 		}),
 		VisualizeAsRow= Roact.createElement(TagSettingRow, {
-			LayoutOrder = orderIterator:getNextOrder(),
-			ControlSize = style.VisualizeAsRow.Size,
-			Text = localization:getText("Info", "VisualizeAs"),
-			TooltipText = localization:getText("Tooltip", "VisualizeAs"),
-			OnClick = self.onVisualizeRowClicked,
-			Control = visualizeAsControl,
+			ControlSize = style.DropdownControlSize,
+			LayoutOrder = 4,
+			Text = "Visualize as",
+			Control = Roact.createElement(Pane, {
+				Size = style.DropdownControlSize,
+				Style = "BorderBox",
+			}, {
+				Button = Roact.createElement(IconButton, {
+					Text = self.state.VisualizeAsCurrentSelectedItem,
+					RightIcon = "rbxasset://textures/TerrainTools/button_arrow_down.png",
+					IconColor = ColorSystem.Green[20],
+					OnClick = self.OnVisualizeDropdownClicked,
+					Size = style.DropdownControlSize,
+				}),
+				DropdownMenu = Roact.createElement(DropdownMenu, {
+					Hide = self.state.VisualizeAsDropdownHidden,
+					OnItemActivated = self.OnVisualizeDropdownItemActivated,
+					OnFocusLost = self.OnVisualizeDropdownItemCloseMenu,
+					PlaceholderText = "Box",
+					Items = {
+						"Box",
+						"Sphere",
+						"Outline",
+						"Text",
+						"Icon",
+					},
+				}),
+			}),
 		}),
-	}) else nil
+		TaggedInstancesRow= Roact.createElement(TagSettingRow, {
+			ControlSize = style.CheckboxControlSize,
+			LayoutOrder = 5,
+			Text = "Tagged Instances",
+			Control = Roact.createElement(Checkbox, {
+				OnClick = self.OnButtonClicked,
+			}),
+		}),
+	})
 end
 
 TagSettingsListView = withContext({
@@ -327,39 +163,4 @@ TagSettingsListView = withContext({
 	Stylizer = Stylizer,
 })(TagSettingsListView)
 
-local function mapStateToProps(state, _)
-	local settingsTag = nil
-
-	for _, tag in pairs(state.TagData) do
-		if tag.Name == state.TagMenu then
-			settingsTag = tag
-			break
-		end
-	end
-
-	for _, tag in pairs(state.UnknownTags) do
-		if tag.Name == state.TagMenu then
-			settingsTag = tag
-			break
-		end
-	end
-
-	return {
-		groups = state.GroupData,
-		tag = settingsTag,
-	}
-end
-
-local function mapDispatchToProps(dispatch)
-	return {
-		openColorPicker = function(tag: string)
-			dispatch(Action.ToggleColorPicker(tag))
-		end,
-		openIconPicker = function(tag: string)
-			dispatch(Action.ToggleIconPicker(tag))
-		end,
-	}
-end
-
-return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(TagSettingsListView)
-
+return TagSettingsListView

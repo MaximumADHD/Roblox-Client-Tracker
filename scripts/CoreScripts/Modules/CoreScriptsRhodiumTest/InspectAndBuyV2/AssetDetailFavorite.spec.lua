@@ -10,7 +10,7 @@ return function()
 	local Reducer = require(Modules.InGameMenuV3.reducer)
 	local AssetDetailFavorite = require(Modules.InGameMenuV3.Components.InspectAndBuyPage.AssetDetailFavorite)
 
-	local FFlagInspectAndBuyV2IXPEnabledForAll = require(Modules.InGameMenuV3.Flags.FFlagInspectAndBuyV2IXPEnabledForAll)
+	local FFlagInspectAndBuyV2Enabled = require(Modules.InGameMenuV3.Flags.FFlagInspectAndBuyV2Enabled)
 
 	local props = {
 		LayourOrder = 1,
@@ -27,7 +27,7 @@ return function()
 	local wrappedComponent = withInGameMenuV3Providers(AssetDetailFavorite, props)
 	local wrappedComponentForBundle = withInGameMenuV3Providers(AssetDetailFavorite, bundleProps)
 
-	if FFlagInspectAndBuyV2IXPEnabledForAll then
+	if FFlagInspectAndBuyV2Enabled then
 		describe("AssetDetailFavorite", function()
 			it("should mount", function()
 				withServices(function(path)

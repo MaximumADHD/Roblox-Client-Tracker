@@ -32,7 +32,6 @@ local SetTryOnItemInfo = require(InGameMenu.Actions.InspectAndBuy.SetTryOnItemIn
 local SetFavoriteForItem = require(InGameMenu.Thunks.SetFavoriteForItem)
 local Constants = require(InGameMenu.Resources.Constants)
 local IBConstants = require(InGameMenu.InspectAndBuyConstants)
-local SendInspectAndBuyAnalytics = require(InGameMenu.Utility.SendInspectAndBuyAnalytics)
 local IBUtils = require(InGameMenu.Utility.InspectAndBuyUtils)
 
 local BUTTON_WIDTH = 184
@@ -62,7 +61,6 @@ AssetDetailBottomBar.validateProps = t.strictInterface({
 	selectedItem = t.table,
 	tryingOn = t.boolean,
 	currentPage = t.string,
-	userId = t.number,
 
 	-- from forwardRef
 	forwardRef = t.optional(t.table),
@@ -137,11 +135,6 @@ function AssetDetailBottomBar:init()
 		if self.props.tryingOn then
 			self.props.setTryOnItemInfo(false)
 		else
-			local analyticsFields = {
-				itemType = if self.props.bundleInfo then self.props.bundleInfo.bundleId else self.props.selectedItem.assetId,
-				itemID = if self.props.bundleInfo then tostring(Enum.AvatarItemType.Bundle) else tostring(Enum.AvatarItemType.Asset),
-			}
-			SendInspectAndBuyAnalytics("tryItem", self.props.userId, analyticsFields)
 			self.props.setTryOnItemInfo(true)
 		end
 	end
@@ -357,7 +350,6 @@ AssetDetailBottomBar = RoactRodux.connect(function(state, props)
 		screenSize = state.screenSize,
 		selectedItem = state.inspectAndBuy.SelectedItem,
 		tryingOn = state.inspectAndBuy.TryingOn,
-		userId = state.inspectAndBuy.UserId,
 		currentPage = state.menuPage,
 	}
 end, function(dispatch)

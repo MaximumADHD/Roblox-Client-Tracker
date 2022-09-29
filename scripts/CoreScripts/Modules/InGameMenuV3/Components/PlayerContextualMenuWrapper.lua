@@ -13,7 +13,6 @@ local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 local BlockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.BlockPlayer)
 local UnblockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.UnblockPlayer)
 local TrustAndSafety = require(RobloxGui.Modules.TrustAndSafety)
-local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -41,8 +40,8 @@ local FriendRequestStatus = require(InGameMenu.Utility.FriendRequestStatus)
 
 local InviteStatus = Constants.InviteStatus
 local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
-	
-local InspectAndBuyV2IXPTest = require(InGameMenu.Flags.InspectAndBuyV2IXPTest)
+
+local FFlagInspectAndBuyV2Enabled = require(InGameMenu.Flags.FFlagInspectAndBuyV2Enabled)
 
 local PlayerContextualMenuWrapper = Roact.PureComponent:extend("PlayerContextualMenuWrapper")
 
@@ -61,11 +60,8 @@ PlayerContextualMenuWrapper.validateProps = t.strictInterface({
 	blockPlayer = t.callback,
 	unblockPlayer = t.callback,
 	openFriendBlockConfirmation = t.callback,
-	openInspectAndBuyPage = InspectAndBuyV2IXPTest.isEnabled() and t.callback or nil,
-	setInspectedUserInfo = InspectAndBuyV2IXPTest.isEnabled() and t.callback or nil,
-
-	-- from RoactAppExperiment
-	inspectAndBuyV2Enabled = InspectAndBuyV2IXPTest.isEnabled() and t.boolean or nil,
+	openInspectAndBuyPage = FFlagInspectAndBuyV2Enabled and t.callback or nil,
+	setInspectedUserInfo = FFlagInspectAndBuyV2Enabled and t.callback or nil,
 })
 
 PlayerContextualMenuWrapper.defaultProps = {
@@ -442,7 +438,7 @@ function PlayerContextualMenuWrapper:getViewAvatarAction(localized, player)
 		text = localized.viewAvatar,
 		icon = Assets.Images.ViewAvatar,
 		onActivated = function()
-			if self.props.inspectAndBuyV2Enabled then
+			if FFlagInspectAndBuyV2Enabled then
 				self.props.setInspectedUserInfo(player.UserId, player.DisplayName)
 				self.props.openInspectAndBuyPage()
 			else
@@ -591,16 +587,6 @@ function PlayerContextualMenuWrapper:getUnfriendAction(localized, player, isFrie
 	}
 end
 
-if InspectAndBuyV2IXPTest.isEnabled() then
-	PlayerContextualMenuWrapper = RoactAppExperiment.connectUserLayer({
-		InspectAndBuyV2IXPTest.layer,
-	}, function(layerVariables, props)
-		return {
-			inspectAndBuyV2Enabled = InspectAndBuyV2IXPTest.isUserEnrolled(layerVariables),
-		}
-	end)(PlayerContextualMenuWrapper)
-end
-
 return RoactRodux.connect(function(state, props)
 	local canCaptureFocus = state.displayOptions.inputType == Constants.InputType.Gamepad
 		and not state.respawn.dialogOpen
@@ -625,10 +611,10 @@ end, function(dispatch)
 		unblockPlayer = function(player)
 			return dispatch(UnblockPlayer(player))
 		end,
-		openInspectAndBuyPage = InspectAndBuyV2IXPTest.isEnabled() and function()
+		openInspectAndBuyPage = FFlagInspectAndBuyV2Enabled and function()
 			return dispatch(SetCurrentPage(Constants.InspectAndBuyPageKey))
 		end or nil,
-		setInspectedUserInfo = InspectAndBuyV2IXPTest.isEnabled() and function(userId, displayName)
+		setInspectedUserInfo = FFlagInspectAndBuyV2Enabled and function(userId, displayName)
 			return dispatch(SetInspectedUserInfo(userId, displayName))
 		end or nil,
 	}

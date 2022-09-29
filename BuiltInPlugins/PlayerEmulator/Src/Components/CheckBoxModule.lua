@@ -13,23 +13,14 @@
 			Because the CheckBox in UILibrary doesn't take parameters,
 			but we need pass the checkbox status into callback for any meaning logic business
 ]]
+
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-
-local SharedFlags = Framework.SharedFlags
-local FFlagDevFrameworkMigrateCheckBox = SharedFlags.getFFlagDevFrameworkMigrateCheckBox()
-
-local UILibrary
-
-if not FFlagDevFrameworkMigrateCheckBox then
-	UILibrary = require(Plugin.Packages.UILibrary)
-end
-
-local UI = Framework.UI
-local CheckBox = if FFlagDevFrameworkMigrateCheckBox then UI.Checkbox else UILibrary.Component.CheckBox
+local UILibrary = require(Plugin.Packages.UILibrary)
+local CheckBox = UILibrary.Component.CheckBox
 
 local CheckBoxModule = Roact.PureComponent:extend("CheckBoxModule")
 
@@ -54,13 +45,7 @@ function CheckBoxModule:render()
 		Padding = Roact.createElement("UIPadding", {
 			PaddingLeft = theme.LISTITEM_INDENT_LEFT,
 		}),
-		CheckBox = Roact.createElement(CheckBox, if FFlagDevFrameworkMigrateCheckBox then {
-			Checked = selected,
-			Enabled = enabled,
-			Key = itemKey,
-			OnClick = self.onActivated,
-			Text = itemKey,
-		} else {
+		CheckBox = Roact.createElement(CheckBox, {
 			Title = itemKey,
 			Selected = selected,
 			Enabled = enabled,
@@ -75,8 +60,11 @@ function CheckBoxModule:render()
 	})
 end
 
+
 CheckBoxModule = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(CheckBoxModule)
+
+
 
 return CheckBoxModule

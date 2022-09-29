@@ -24,9 +24,6 @@ local GetFFlagUIBloxSystemBarBottomAlignedItems =
 local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 local GetFFlagUIBloxEnableReactTag = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableReactTag)
 
-local GetFFlagUIBloxEnableImageSetResolutionScaleFix =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableImageSetResolutionScaleFix)
-
 return {
 	useUpdatedCheckbox = true,
 	fixDropdownMenuListPositionAndSize = GetFFlagUIBloxFixDropdownMenuListPositionAndSize(),
@@ -53,8 +50,4 @@ return {
 	disableTooltipAnimation = GetFFlagUIBloxDisableTooltipAnimation(),
 
 	systemBarBottomAlignedItems = GetFFlagUIBloxSystemBarBottomAlignedItems(),
-
-	enableImageSetResolutionScaleFix = GetFFlagUIBloxEnableImageSetResolutionScaleFix(),
-
-	enableStandardButtonSizes = true,
 }
