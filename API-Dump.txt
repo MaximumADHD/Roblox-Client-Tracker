@@ -49,13 +49,15 @@ Class Accoutrement : Instance
 Class Accessory : Accoutrement
 	Property Enum.AccessoryType Accessory.AccessoryType {✏️NotAccessibleSecurity}
 Class Hat : Accoutrement [Deprecated]
-Class AdPortal : Instance [NotCreatable] [NotBrowsable]
-	Property Enum.AdPortalStatus AdPortal.PortalStatus [ReadOnly] [NotScriptable]
+Class AdPortal : Instance [NotBrowsable]
+	Property Enum.AdPortalStatus AdPortal.PortalStatus [ReadOnly]
 	Property Enum.AdPortalType AdPortal.PortalType
 	Property string AdPortal.PortalInvalidReason [ReadOnly] [NotScriptable]
 	Property int64 AdPortal.PortalVersion {RobloxScriptSecurity} [Hidden] [ReadOnly]
-Class AdService : Instance [NotCreatable] [Service] [Deprecated]
+Class AdService : Instance [NotCreatable] [Service]
 	Function void AdService:ShowVideoAd() [Deprecated]
+	Event AdService.AdTeleportEnded() {RobloxScriptSecurity}
+	Event AdService.AdTeleportInitiated() {RobloxScriptSecurity}
 	Event AdService.VideoAdClosed(bool adShown) [Deprecated]
 Class AdvancedDragger : Instance
 Class AnalyticsService : Instance [Service]
@@ -130,6 +132,7 @@ Class AnimationTrack : Instance [NotCreatable]
 	Event AnimationTrack.KeyframeReached(string keyframeName)
 	Event AnimationTrack.Stopped()
 Class Animator : Instance
+	Property bool Animator.PreferLodEnabled
 	Function void Animator:ApplyJointVelocities(Variant motors)
 	Function Array Animator:GetPlayingAnimationTracks()
 	Function Array Animator:GetPlayingAnimationTracksCoreScript() {RobloxScriptSecurity}
@@ -1131,6 +1134,7 @@ Class DraggerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Enum.DraggerMovementMode DraggerService.DraggerMovementMode [ReadOnly]
 	Property Color3 DraggerService.GeometrySnapColor [ReadOnly]
 	Property float DraggerService.HoverAnimateFrequency [ReadOnly]
+	Property int DraggerService.HoverLineThickness {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property float DraggerService.HoverThickness [ReadOnly]
 	Property bool DraggerService.JointsEnabled [ReadOnly]
 	Property bool DraggerService.LinearSnapEnabled [ReadOnly]
@@ -1150,6 +1154,11 @@ Class EventIngestService : Instance [NotCreatable] [Service]
 	Function void EventIngestService:SendEventImmediately(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
 	Function void EventIngestService:SetRBXEvent(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
 	Function void EventIngestService:SetRBXEventStream(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
+Class ExperienceInviteOptions : Instance [NotReplicated]
+	Property int ExperienceInviteOptions.InviteMessageId
+	Property int ExperienceInviteOptions.InviteUser
+	Property string ExperienceInviteOptions.LaunchData
+	Property string ExperienceInviteOptions.PromptMessage
 Class Explosion : Instance
 	Property float Explosion.BlastPressure
 	Property float Explosion.BlastRadius
@@ -1837,8 +1846,10 @@ Class Highlight : Instance
 	Property bool Highlight.Enabled
 	Property Color3 Highlight.FillColor
 	Property float Highlight.FillTransparency
+	Property int Highlight.LineThickness {RobloxScriptSecurity} [Hidden]
 	Property Color3 Highlight.OutlineColor
 	Property float Highlight.OutlineTransparency
+	Property Enum.ReservedHighlightId Highlight.ReservedId {RobloxScriptSecurity} [Hidden]
 Class Hopper : Instance [NotCreatable] [Service] [Deprecated]
 Class HttpRbxApiService : Instance [NotCreatable] [Service]
 	Function string HttpRbxApiService:GetAsync(string apiUrlPath, Enum.ThrottlingPriority priority = "Default", Enum.HttpRequestType httpRequestType = "Default") {RobloxScriptSecurity} [Yields]
@@ -1867,6 +1878,7 @@ Class HttpService : Instance [NotCreatable] [Service]
 Class Humanoid : Instance
 	Property bool Humanoid.BreakJointsOnDeath
 	Property Enum.HumanoidCollisionType Humanoid.CollisionType {✏️PluginSecurity} [Deprecated]
+	Property bool Humanoid.EvaluateStateMachine [NotBrowsable]
 	Property bool Humanoid.RequiresNeck
 	Property bool Humanoid.AutoRotate
 	Property Enum.Material Humanoid.FloorMaterial [ReadOnly]
@@ -2089,6 +2101,8 @@ Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property Enum.NormalId ImporterRootSettings.WorldForward
 	Property Enum.NormalId ImporterRootSettings.WorldUp
 Class IncrementalPatchBuilder : Instance [NotCreatable] [Service] [NotReplicated]
+	Property bool IncrementalPatchBuilder.HighCompression
+	Property bool IncrementalPatchBuilder.ZstdCompression
 Class InputObject : Instance [NotCreatable]
 	Property Vector3 InputObject.Delta
 	Property Enum.KeyCode InputObject.KeyCode
@@ -2248,7 +2262,6 @@ Class LocalizationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void LocalizationService:PromptExportToCSVs() {RobloxScriptSecurity} [Yields]
 	Function void LocalizationService:PromptImportFromCSVs() {RobloxScriptSecurity} [Yields]
 	Function Instance LocalizationService:PromptUploadCSVToGameTable() {RobloxScriptSecurity} [Yields]
-	Function void LocalizationService:SetExperienceSettingsLocaleId(string locale) {RobloxScriptSecurity}
 	Function void LocalizationService:SetRobloxLocaleId(string locale) {RobloxScriptSecurity}
 	Function void LocalizationService:StartTextScraper() {RobloxScriptSecurity}
 	Function void LocalizationService:StopTextScraper() {RobloxScriptSecurity}
@@ -2274,6 +2287,7 @@ Class LocalizationTable : Instance
 	Function void LocalizationTable:SetEntrySource(string key, string source, string context, string newSource)
 	Function void LocalizationTable:SetEntryValue(string key, string source, string context, string localeId, string text)
 	Function void LocalizationTable:SetIsExemptFromUGCAnalytics(bool value) {RobloxScriptSecurity}
+Class CloudLocalizationTable : LocalizationTable [NotCreatable] [NotReplicated]
 Class LodDataEntity : Instance [NotCreatable]
 	Property bool LodDataEntity.EntityLodEnabled [Hidden] [NotReplicated]
 Class LodDataService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -2536,6 +2550,7 @@ Class NetworkReplicator : Instance [NotCreatable] [NotReplicated]
 	Function Instance NetworkReplicator:GetPlayer()
 Class ClientReplicator : NetworkReplicator [NotCreatable] [NotReplicated]
 	Function void ClientReplicator:RequestRCCProfilerData(int frameRate, int timeFrame) {RobloxScriptSecurity}
+	Function void ClientReplicator:RequestServerScriptProfiling(bool start) {RobloxScriptSecurity}
 	Function void ClientReplicator:RequestServerStats(bool request) {RobloxScriptSecurity}
 	Event ClientReplicator.RCCProfilerDataComplete(bool success, string message) {RobloxScriptSecurity}
 	Event ClientReplicator.StatsReceived(Dictionary stats) {RobloxScriptSecurity}
@@ -3044,6 +3059,7 @@ Class Player : Instance
 	Property float Player.SimulationRadius {LocalUserSecurity} [Hidden]
 	Property bool Player.Teleported {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool Player.TeleportedIn {RobloxScriptSecurity} [Hidden]
+	Property bool Player.UnfilteredChat {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property int64 Player.UserId
 	Property string Player.VRDevice {RobloxScriptSecurity} [Hidden]
 	Property bool Player.Neutral
@@ -3349,6 +3365,8 @@ Class PublishService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RbxAnalyticsService : Instance [NotCreatable] [Service]
 	Function void RbxAnalyticsService:AddGlobalPointsField(string key, int value) {RobloxScriptSecurity}
 	Function void RbxAnalyticsService:AddGlobalPointsTag(string key, string value) {RobloxScriptSecurity}
+	Function void RbxAnalyticsService:DEPRECATED_TrackEvent(string category, string action, string label, int64 value = 0) {RobloxScriptSecurity}
+	Function void RbxAnalyticsService:DEPRECATED_TrackEventWithArgs(string category, string action, string label, Dictionary args, int64 value = 0) {RobloxScriptSecurity}
 	Function string RbxAnalyticsService:GetClientId() {RobloxScriptSecurity}
 	Function string RbxAnalyticsService:GetSessionId() {RobloxScriptSecurity}
 	Function void RbxAnalyticsService:ReleaseRBXEventStream(string target) {RobloxScriptSecurity}
@@ -3509,10 +3527,12 @@ Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool ScriptContext.ScriptsDisabled {LocalUserSecurity} [Hidden]
 	Function void ScriptContext:AddCoreScriptLocal(string name, Instance parent) {RobloxScriptSecurity}
 	Function void ScriptContext:ClearScriptProfilingData() {RobloxScriptSecurity}
+	Function Dictionary ScriptContext:DeserializeScriptProfilerString(string jsonString) {RobloxScriptSecurity} [CustomLuaState]
 	Function Array ScriptContext:GetCoverageStats() {RobloxScriptSecurity}
+	Function void ScriptContext:SaveScriptProfilingData(string filename) {RobloxScriptSecurity}
 	Function void ScriptContext:SetTimeout(double seconds) {PluginSecurity}
 	Function void ScriptContext:StartScriptProfiling() {RobloxScriptSecurity}
-	Function string ScriptContext:StopScriptProfiling() {RobloxScriptSecurity} [CustomLuaState]
+	Function Dictionary ScriptContext:StopScriptProfiling() {RobloxScriptSecurity} [CustomLuaState]
 	Event ScriptContext.Error(string message, string stackTrace, Instance script)
 	Event ScriptContext.ErrorDetailed(string message, string stackTrace, Instance script, string details, int securityLevel) {RobloxScriptSecurity}
 Class ScriptDebugger : Instance [NotCreatable]
@@ -3570,6 +3590,7 @@ Class ScriptRegistrationService : Instance [NotCreatable] [Service] [NotReplicat
 	Function LuaSourceContainer ScriptRegistrationService:GetSourceContainerByScriptGuid(string guid) {RobloxScriptSecurity}
 Class ScriptService : Instance [NotCreatable] [Service]
 Class Selection : Instance [NotCreatable] [Service]
+	Property int Selection.SelectionLineThickness [Hidden] [ReadOnly]
 	Property float Selection.SelectionThickness [ReadOnly]
 	Property Instance Selection.ActiveInstance {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function void Selection:Add(Objects instancesToAdd) {PluginSecurity}
@@ -4012,11 +4033,13 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Animate Hover Over
 	Property Enum.HoverAnimateSpeed Studio.Hover Animate Speed
 	Property float Studio.Hover Box Thickness {RobloxSecurity}
+	Property int Studio.Hover Line Thickness {RobloxSecurity}
 	Property Color3 Studio.Hover Over Color
 	Property bool Studio.Physical Draggers Select Scope By Default {RobloxScriptSecurity}
 	Property Color3 Studio.Pivot Snap To Geometry Color {RobloxSecurity}
 	Property Color3 Studio.Select Color
 	Property float Studio.Selection Highlight Thickness {RobloxSecurity}
+	Property int Studio.Selection Line Thickness {RobloxSecurity}
 	Property bool Studio.Show Hover Over
 	Property bool Studio.Use Bounding Box Move Handles {RobloxScriptSecurity}
 	Property Enum.RuntimeUndoBehavior Studio.RuntimeUndoBehavior
@@ -4156,6 +4179,7 @@ Class TeleportOptions : Instance
 	Function void TeleportOptions:SetTeleportData(Variant teleportData)
 Class TeleportService : Instance [NotCreatable] [Service]
 	Property bool TeleportService.CustomizedTeleportUI [<📁> LoadOnly] [NotReplicated] [Deprecated]
+	Function void TeleportService:Block() {RobloxScriptSecurity}
 	Function Instance TeleportService:GetArrivingTeleportGui()
 	Function Variant TeleportService:GetLocalPlayerTeleportData()
 	Function Tuple TeleportService:GetPlayerPlaceInstanceAsync(int64 userId) [Yields]
@@ -4170,6 +4194,7 @@ Class TeleportService : Instance [NotCreatable] [Service]
 	Function void TeleportService:TeleportToPlaceInstance(int64 placeId, string instanceId, Instance player = nil, string spawnName = "", Variant teleportData, Instance customLoadingScreen = nil)
 	Function void TeleportService:TeleportToPrivateServer(int64 placeId, string reservedServerAccessCode, Objects players, string spawnName = "", Variant teleportData, Instance customLoadingScreen = nil)
 	Function void TeleportService:TeleportToSpawnByName(int64 placeId, string spawnName, Instance player = nil, Variant teleportData, Instance customLoadingScreen = nil)
+	Function Tuple TeleportService:UnblockAsync() {RobloxScriptSecurity} [Yields]
 	Event TeleportService.LocalPlayerArrivedFromTeleport(Instance loadingGui, Variant dataTable)
 	Event TeleportService.MenuTeleportAttempt() {RobloxScriptSecurity}
 	Event TeleportService.TeleportInitFailed(Instance player, Enum.TeleportResult teleportResult, string errorMessage, int64 placeId, Instance teleportOptions)
@@ -4252,6 +4277,8 @@ Class ChatWindowConfiguration : TextChatConfigurations [NotCreatable]
 	Property Vector2 ChatWindowConfiguration.AbsolutePositionWrite {RobloxScriptSecurity} [Hidden]
 	Property Vector2 ChatWindowConfiguration.AbsoluteSize [ReadOnly] {🧬Unsafe}
 	Property Vector2 ChatWindowConfiguration.AbsoluteSizeWrite {RobloxScriptSecurity} [Hidden]
+	Property Enum.HorizontalAlignment ChatWindowConfiguration.HorizontalAlignment [<📁> LoadOnly] [NotReplicated] {🧬Unsafe}
+	Property Enum.VerticalAlignment ChatWindowConfiguration.VerticalAlignment [<📁> LoadOnly] [NotReplicated] {🧬Unsafe}
 Class TextChatMessage : Instance [NotCreatable]
 	Property string TextChatMessage.MessageId
 	Property string TextChatMessage.Metadata
@@ -4311,8 +4338,10 @@ Class TracerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string TracerService:StartSpan(string name, string parentId) {RobloxScriptSecurity}
 Class TrackerLodController : Instance [NotCreatable] [NotReplicated]
 	Property Enum.TrackerLodFlagMode TrackerLodController.AudioMode
+	Property Enum.TrackerExtrapolationFlagMode TrackerLodController.VideoExtrapolationMode
 	Property Enum.TrackerLodValueMode TrackerLodController.VideoLodMode
 	Property Enum.TrackerLodFlagMode TrackerLodController.VideoMode
+	Function int TrackerLodController:getExtrapolation() {RobloxScriptSecurity}
 	Function int TrackerLodController:getVideoLod() {RobloxScriptSecurity}
 	Function bool TrackerLodController:isAudioEnabled() {RobloxScriptSecurity}
 	Function bool TrackerLodController:isVideoEnabled() {RobloxScriptSecurity}
@@ -4368,6 +4397,11 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool UGCValidationService:ValidateMeshVertColors(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateTextureSize(string textureId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateUVSpace(string meshId) {RobloxScriptSecurity} [Yields]
+	Function Array UGCValidationService:validateCageMeshIntersection(string innerCageMeshId, string outerCageMeshId, string refMeshId) {RobloxScriptSecurity} [Yields]
+	Function Array UGCValidationService:validateCageNonManifoldAndHoles(string meshId) {RobloxScriptSecurity} [Yields]
+	Function bool UGCValidationService:validateFullBodyCageDeletion(string meshId) {RobloxScriptSecurity} [Yields]
+	Function bool UGCValidationService:validateMisMatchUV(string innerCageMeshId, string outerCageMeshId) {RobloxScriptSecurity} [Yields]
+	Function bool UGCValidationService:validateOverlappingVertices(string meshId) {RobloxScriptSecurity} [Yields]
 Class UIBase : Instance [NotCreatable]
 Class UIComponent : UIBase [NotCreatable]
 Class UIConstraint : UIComponent [NotCreatable]
@@ -5320,8 +5354,8 @@ Enum DebuggerEndReason
 	EnumItem DebuggerEndReason.RpcError : 7
 Enum DebuggerExceptionBreakMode
 	EnumItem DebuggerExceptionBreakMode.Never : 0
-	EnumItem DebuggerExceptionBreakMode.Unhandled : 1
-	EnumItem DebuggerExceptionBreakMode.Always : 2
+	EnumItem DebuggerExceptionBreakMode.Always : 1
+	EnumItem DebuggerExceptionBreakMode.Unhandled : 2
 Enum DebuggerFrameType
 	EnumItem DebuggerFrameType.C : 0
 	EnumItem DebuggerFrameType.Lua : 1
@@ -6228,6 +6262,10 @@ Enum ParticleFlipbookMode
 	EnumItem ParticleFlipbookMode.OneShot : 1
 	EnumItem ParticleFlipbookMode.PingPong : 2
 	EnumItem ParticleFlipbookMode.Random : 3
+Enum ParticleFlipbookTextureCompatible
+	EnumItem ParticleFlipbookTextureCompatible.NotCompatible : 0
+	EnumItem ParticleFlipbookTextureCompatible.Compatible : 1
+	EnumItem ParticleFlipbookTextureCompatible.Unknown : 2
 Enum ParticleOrientation
 	EnumItem ParticleOrientation.FacingCamera : 0
 	EnumItem ParticleOrientation.FacingCameraWorldUp : 1
@@ -6386,6 +6424,11 @@ Enum ReplicateInstanceDestroySetting
 Enum ResamplerMode
 	EnumItem ResamplerMode.Default : 0
 	EnumItem ResamplerMode.Pixelated : 1
+Enum ReservedHighlightId
+	EnumItem ReservedHighlightId.Standard : 0
+	EnumItem ReservedHighlightId.Selection : 32
+	EnumItem ReservedHighlightId.Hover : 64
+	EnumItem ReservedHighlightId.Active : 128
 Enum ReturnKeyType
 	EnumItem ReturnKeyType.Default : 0
 	EnumItem ReturnKeyType.Done : 1
@@ -6905,6 +6948,11 @@ Enum TrackerError
 	EnumItem TrackerError.NoAudio : 6
 	EnumItem TrackerError.AudioError : 7
 	EnumItem TrackerError.AudioNoPermission : 8
+Enum TrackerExtrapolationFlagMode
+	EnumItem TrackerExtrapolationFlagMode.ForceDisabled : 0
+	EnumItem TrackerExtrapolationFlagMode.ExtrapolateFacsAndPose : 1
+	EnumItem TrackerExtrapolationFlagMode.ExtrapolateFacsOnly : 2
+	EnumItem TrackerExtrapolationFlagMode.Auto : 3
 Enum TrackerLodFlagMode
 	EnumItem TrackerLodFlagMode.ForceFalse : 0
 	EnumItem TrackerLodFlagMode.ForceTrue : 1

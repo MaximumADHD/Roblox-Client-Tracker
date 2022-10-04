@@ -145,6 +145,7 @@ Studio.AnimationClipEditor.Menu.Load, ,Load
 Studio.AnimationClipEditor.Menu.Mouth, ,Mouth
 Studio.AnimationClipEditor.Menu.Movement, ,Movement
 Studio.AnimationClipEditor.Menu.New, ,New...
+Studio.AnimationClipEditor.Menu.OptimizeKeyframes, ,Optimize Keyframes
 Studio.AnimationClipEditor.Menu.Overwrite_Migrated, ,Do you want to overwrite existing animation {overwriteName}?
 Studio.AnimationClipEditor.Menu.PromoteToChannels, ,Promote to Channel Animation
 Studio.AnimationClipEditor.Menu.PublishToRoblox, ,Publish to Roblox
@@ -155,6 +156,7 @@ Studio.AnimationClipEditor.Menu.Save, ,Save
 Studio.AnimationClipEditor.Menu.SaveAs, ,Save As
 Studio.AnimationClipEditor.Menu.SetPriority, ,Set Animation Priority
 Studio.AnimationClipEditor.Menu.Tongue, ,Tongue
+Studio.AnimationClipEditor.OptimizeKeyframes.Keyframes, ,Keyframes:
 Studio.AnimationClipEditor.Plugin.Button, ,Animation Editor
 Studio.AnimationClipEditor.Plugin.Description, ,"Create, preview, and publish Animation clips"
 Studio.AnimationClipEditor.Plugin.Name, ,Animation Editor
@@ -228,6 +230,7 @@ Studio.AnimationClipEditor.Title.MinFPS, ,Minimum frame rate is 1 fps
 Studio.AnimationClipEditor.Title.MinPBSParam, ,Minimum playback speed is {speed}x
 Studio.AnimationClipEditor.Title.NewDuration, ,New Duration
 Studio.AnimationClipEditor.Title.NoAnimationExists_Migrated, ,"No animation exists for {rig}, please create one to start animating"
+Studio.AnimationClipEditor.Title.OptimizeKeyframes, ,Optimize Keyframes
 Studio.AnimationClipEditor.Title.Parameter, ,Parameter
 Studio.AnimationClipEditor.Title.ReduceKeyframes, ,Reduce Keyframes
 Studio.AnimationClipEditor.Title.ResetAll, ,Reset All

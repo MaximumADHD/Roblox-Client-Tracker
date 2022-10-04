@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <ParamsIBL.h>
 uniform vec4 CB2[4];
-uniform vec4 CB4[150];
+uniform vec4 CB4[60];
 uniform samplerCube envMapTexture;
 
 in vec3 VARYING1;
@@ -62,7 +62,7 @@ void main()
                     vec3 f22 = ((f9 * f16[f21]) + (f10 * f17[f21])) + (f1 * f18[f21]);
                     float f23 = f20[f21] * f7;
                     vec3 f24 = f22 / vec3(max(abs(f22.x), max(abs(f22.y), abs(f22.z))));
-                    float f25 = f19[f21] + (0.75 * log2(dot(f24, f24)));
+                    float f25 = min(5.0, f19[f21] + (0.75 * log2(dot(f24, f24))));
                     vec3 f26 = f12.xyz + (textureLod(envMapTexture, vec4(f24, f25).xyz, f25).xyz * f23);
                     vec4 f27 = f12;
                     f27.x = f26.x;

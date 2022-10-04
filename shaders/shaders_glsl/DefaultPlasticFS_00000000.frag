@@ -8,18 +8,17 @@ uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
 uniform sampler2D StudsMapTexture;
 
-varying vec2 VARYING1;
+varying vec3 VARYING1;
 varying vec4 VARYING2;
 varying vec4 VARYING3;
 varying vec4 VARYING4;
 varying vec4 VARYING5;
 varying vec4 VARYING6;
-varying float VARYING7;
 
 void main()
 {
-    vec2 f0 = VARYING1;
-    f0.y = (fract(VARYING1.y) + VARYING7) * 0.25;
+    vec2 f0 = VARYING1.xy;
+    f0.y = (fract(VARYING1.y) + VARYING1.z) * 0.25;
     vec4 f1 = vec4((VARYING2.xyz * texture2D(StudsMapTexture, f0).x) * 2.0, VARYING2.w);
     vec3 f2 = f1.xyz;
     vec3 f3 = f2 * f2;

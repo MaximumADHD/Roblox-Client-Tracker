@@ -182,6 +182,8 @@ Studio.App.BulkAudioImportRateLimiting.NoCapacity,,Audio uploads are temporarily
 Studio.App.BulkAudioImportRateLimiting.UploadsDefault2,,"You have %1 audio uploads per 30 days.
 (<a href=%2>Learn more</a>)","You have %1 audio uploads per 30 days.
 (<a href=%2>Learn more</a>)"
+Studio.App.BulkVideoImportErrors.UploadProgress1,Display the video uploading progress in percent.,Uploading: %1%,Uploading: %1%
+Studio.App.BulkVideoImportErrors.ProcessProgress1,Display the video processing progress in percent.,Processing: %1%,Processing: %1%
 Studio.App.BulkVideoImportErrors.UploadError,WIP feature: This error message will be revisited,An error occurred during video uploading.,An error occurred during video uploading.
 Studio.App.BulkVideoImportErrors.ProcessError,WIP feature: This error message will be revisited,An error occurred during video processing.,An error occurred during video processing.
 Studio.App.BulkVideoImportErrors.ValidationError,WIP feature: This error message will be revisited,The file does not meet our requirement.,The file does not meet our requirement.

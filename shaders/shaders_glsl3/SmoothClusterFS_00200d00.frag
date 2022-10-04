@@ -45,7 +45,7 @@ void main()
     vec4 f17 = mix(texture(LightMapTexture, f15), vec4(0.0), f16);
     vec4 f18 = mix(texture(LightGridSkylightTexture, f15), vec4(1.0), f16);
     vec4 f19 = texture(ShadowMapTexture, VARYING5.xy);
-    vec3 f20 = (min((f17.xyz * (f17.w * 120.0)) + (CB0[32].xyz + ((CB0[33].xyz * 1.0) * f18.x)), vec3(CB0[21].w)) + (VARYING6 * ((1.0 - ((step(f19.x, VARYING5.z) * clamp(CB0[29].z + (CB0[29].w * abs(VARYING5.z - 0.5)), 0.0, 1.0)) * f19.y)) * f18.y))) * (f13.xyz * f13.xyz);
+    vec3 f20 = (min((f17.xyz * (f17.w * 120.0)) + (CB0[32].xyz + (CB0[33].xyz * f18.x)), vec3(CB0[21].w)) + (VARYING6 * ((1.0 - ((step(f19.x, VARYING5.z) * clamp(CB0[29].z + (CB0[29].w * abs(VARYING5.z - 0.5)), 0.0, 1.0)) * f19.y)) * f18.y))) * (f13.xyz * f13.xyz);
     vec4 f21 = vec4(0.0);
     f21.x = f20.x;
     vec4 f22 = f21;

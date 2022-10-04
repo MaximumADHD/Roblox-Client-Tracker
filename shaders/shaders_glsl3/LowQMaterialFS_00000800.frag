@@ -47,7 +47,7 @@ void main()
     vec4 f16 = texture(ShadowMapTexture, f10.xy);
     float f17 = f10.z;
     float f18 = (1.0 - ((step(f16.x, f17) * clamp(CB0[29].z + (CB0[29].w * abs(f17 - 0.5)), 0.0, 1.0)) * f16.y)) * f15.y;
-    vec3 f19 = (((VARYING5.xyz * f18) + min((f14.xyz * (f14.w * 120.0)) + (CB0[32].xyz + ((CB0[33].xyz * 1.0) * f15.x)), vec3(CB0[21].w))) * f9.xyz) + ((CB0[15].xyz * mix(vec3(0.100000001490116119384765625), f9.xyz, vec3(VARYING6.w * CB0[31].w))) * (VARYING5.w * f18));
+    vec3 f19 = (((VARYING5.xyz * f18) + min((f14.xyz * (f14.w * 120.0)) + (CB0[32].xyz + (CB0[33].xyz * f15.x)), vec3(CB0[21].w))) * f9.xyz) + ((CB0[15].xyz * mix(vec3(0.100000001490116119384765625), f9.xyz, vec3(VARYING6.w * CB0[31].w))) * (VARYING5.w * f18));
     vec4 f20 = vec4(0.0);
     f20.x = f19.x;
     vec4 f21 = f20;
