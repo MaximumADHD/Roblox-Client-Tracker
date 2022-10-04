@@ -32,10 +32,10 @@ Studio.MaterialManager.CreateDialog.ErrorBaseMaterialNotSelected,No Base Materia
 Studio.MaterialManager.CreateDialog.ErrorFindUrl,Failed to find URL
 Studio.MaterialManager.CreateDialog.ErrorImportMap,Failed to import Texture Map
 Studio.MaterialManager.CreateDialog.ErrorNameExists,Name already exists
-Studio.MaterialManager.CreateDialog.ErrorNoName,Name required
 Studio.MaterialManager.CreateDialog.ErrorSelectMap,Failed to select Texture Map
 Studio.MaterialManager.CreateDialog.ErrorStudsPerTile,Studs Per Tile should be positive
 Studio.MaterialManager.CreateDialog.FailedToImportMap,Failed to import Texture Map
+Studio.MaterialManager.CreateDialog.FailedToInsertAssetManager,Failed to insert assetId to AssetManager
 Studio.MaterialManager.CreateDialog.FailedToUploadFromFileMap,Failed to upload
 Studio.MaterialManager.CreateDialog.FailedToUploadTooLarge,Failed to upload: file is too large
 Studio.MaterialManager.CreateDialog.FailedUrl,Failed to find URL
@@ -231,7 +231,7 @@ Studio.MaterialManager.TerrainDetails.Top,Top
 Studio.MaterialManager.TopBar.Apply,Apply to Selected Parts
 Studio.MaterialManager.TopBar.Create,Create Material Variant
 Studio.MaterialManager.TopBar.Filters,Filters
-Studio.MaterialManager.TopBar.MaterialAsTool,Use Material as Tool
+Studio.MaterialManager.TopBar.MaterialAsTool,Paint parts with selected material
 Studio.MaterialManager.TopBar.Search,Search Materials
 Studio.MaterialManager.TopBar.Show,Show in Explorer
 Studio.MaterialManager.ViewType.Grid,Grid

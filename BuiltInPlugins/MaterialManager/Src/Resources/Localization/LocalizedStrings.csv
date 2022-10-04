@@ -107,7 +107,6 @@ Studio.MaterialManager.Materials.Pavement,Pavement,Pavement
 Studio.MaterialManager.Materials.Pebble,Pebble,Pebble
 Studio.MaterialManager.Categories.Plastic,Plastic,Plastic
 Studio.MaterialManager.Materials.Plastic,Plastic,Plastic
-Studio.MaterialManager.TopBar.MaterialAsTool,Use Material as Tool,Use Material as Tool
 Studio.MaterialManager.Categories.Sand,Sand,Sand
 Studio.MaterialManager.Materials.Sand,Sand,Sand
 Studio.MaterialManager.Materials.Slate,Slate,Slate
@@ -201,6 +200,7 @@ Studio.MaterialManager.Materials.AirMaterial,Air Material,Air Material
 Studio.MaterialManager.Materials.BasaltMaterial,Basalt Material,Basalt Material
 Studio.MaterialManager.Materials.BrickMaterial,Brick Material,Brick Material
 Studio.MaterialManager.Materials.CobblestoneMaterial,Cobblestone Material,Cobblestone Material
+Studio.MaterialManager.CreateDialog.FailedToInsertAssetManager,Failed to insert assetId to AssetManager,Failed to insert assetId to AssetManager
 Studio.MaterialManager.Materials.ConcreteMaterial,Concrete Material,Concrete Material
 Studio.MaterialManager.Materials.CorrodedMetalMaterial,Corroded Metal Material,Corroded Metal Material
 Studio.MaterialManager.Materials.CrackedLavaMaterial,Cracked Lava Material,Cracked Lava Material
@@ -242,6 +242,7 @@ Studio.MaterialManager.Callout.MaterialManagerApplyDescription,Click here to app
 Studio.MaterialManager.MaterialPatterns.Regular,Regular,Regular
 Studio.MaterialManager.Categories.Special,Special,Special
 Studio.MaterialManager.ViewType.List,List,List
+Studio.MaterialManager.TopBar.MaterialAsTool,Paint parts with selected material,Paint parts with selected material
 Studio.MaterialManager.TerrainDetails.Bottom,Bottom,Bottom
 Studio.MaterialManager.MaterialInformation.Delete,Delete,Delete
 Studio.MaterialManager.TerrainDetails.Delete,Delete,Delete
@@ -258,3 +259,4 @@ Studio.MaterialManager.PhysicalProperties.Elasticity,Elasticity,Elasticity
 Studio.MaterialManager.PhysicalProperties.Friction,Friction,Friction
 Studio.MaterialManager.PhysicalProperties.Physics,Physics,Physics
 Studio.MaterialManager.TerrainDetails.TerrainDetails,Terrain Details,Terrain Details
+Studio.MaterialManager.MaterialOverrides.OverrideUnavailable,This Material doesn't support Variants,This Material doesn't support Variants
