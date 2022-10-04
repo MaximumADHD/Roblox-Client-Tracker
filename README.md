@@ -1,4 +1,4 @@
-﻿<p align="center">
+<p align="center">
 <img src="https://user-images.githubusercontent.com/3926900/106975524-55bb1000-671c-11eb-9b5c-e425c7ae6414.png">
 </p>
 
@@ -6,14 +6,14 @@
 
 # What is this?
 
-The **Roblox Client Tracker** is an unofficial change tracker for Roblox Studio which aims to provide detailed difflogs for changes to Roblox's engine. It generates information by datamining builds of Roblox Studio retrieved from Roblox's Amazon S3 deployment endpoints. The data that is analyzed and presented in this repository is generated using publicly known Roblox domains and reverse engineered file formats.
+The **Roblox Client Tracker** is an unofficial change tracker which aims to provide detailed difflogs for changes to Roblox's engine. It generates information by datamining builds of Roblox Studio retrieved from their CDN, using various publicly discovered developer channels of Roblox. The data that is analyzed and presented in this repository is generated using publicly reverse engineered Roblox protocols and file formats.
 
 # Comparison Links
 Use these links to compare development builds of Roblox Studio:
 
-* Compare [roblox->sitetest1](https://github.com/MaximumADHD/Roblox-Client-Tracker/compare/sitetest1.robloxlabs#files_bucket)
-* Compare [roblox->sitetest2](https://github.com/MaximumADHD/Roblox-Client-Tracker/compare/sitetest2.robloxlabs#files_bucket)
-* Compare [sitetest1->sitetest2](https://github.com/MaximumADHD/Roblox-Client-Tracker/compare/sitetest1.robloxlabs...sitetest2.robloxlabs)
+* Compare [roblox->zCanary](https://github.com/MaximumADHD/Roblox-Client-Tracker/compare/zCanary#files_bucket)
+* Compare [roblox->zIntegration](https://github.com/MaximumADHD/Roblox-Client-Tracker/compare/zIntegration#files_bucket)
+* Compare [zCanary->zIntegration](https://github.com/MaximumADHD/Roblox-Client-Tracker/compare/zCanary...zIntegration)
 
 # Source Code
 
@@ -23,8 +23,7 @@ https://github.com/MaximumADHD/RCT-Source
 # Specifications
 
 ## API-Dump.json
-This is a JSON version of Roblox's API Dump. It contains more data than the original API Dump and can be read into a data tree by most programming languages using a JSON parser.
-This file is extracted using `RobloxStudioBeta.exe -API API-Dump.json`
+This is a JSON version of Roblox's API Dump. It contains more data than the original API Dump and can be read into a data tree by most programming languages using a JSON parser. This file is extracted using:<br/>`RobloxStudioBeta.exe -API API-Dump.json`
 
 ## API-Dump.txt
 A readable version of Roblox's JSON API Dump. This file is generated from the [Roblox API Dump Tool](https://github.com/MaximumADHD/Roblox-API-Dump-Tool).
@@ -51,14 +50,16 @@ This CSV maps all of Roblox's known shaders, and which graphics APIs use them. E
 A file that describes (almost) every file that is expected to be extracted from the zip files specified in rbxPkgManifest.txt
 Every two lines of this file corresponds to a local file path, and the MD5 checksum expected of the file extracted to that path.
 
-This file can be fetched at:
-`http://s3.amazonaws.com/setup.roblox.com/{version-guid}-rbxManifest.txt`
+This file is fetched at:<br/>
+`https://setup.rbxcdn.com/{version-$guid}-rbxManifest.txt`<br/>
+`https://setup.rbxcdn.com/channel/{channelName}/{version-$guid}-rbxManifest.txt`
 
 ## rbxPkgManifest.txt
 A file that describes which zip files should be fetched from Roblox's Amazon S3 bucket.
 
-This file can be fetched at:
-`http://s3.amazonaws.com/setup.roblox.com/{version-guid}-rbxPkgManifest.txt`
+This file can be fetched at:<br/>
+`https://setup.rbxcdn.com/{version-$guid}-rbxPkgManifest.txt`<br/>
+`https://setup.rbxcdn.com/channel/{channelName}/{version-$guid}-rbxPkgManifest.txt`
 
 The file starts with a line describing the version for the package manifest schema.
 After the version, information about each file is listed sequentually as such:
@@ -70,8 +71,9 @@ Compressed Size
 Decompressed Size
 ```
 
-These files are fetched from Amazon S3 via:
-`http://s3.amazonaws.com/setup.roblox.com/{version-guid}-{File.ext}`<br/>
+These files are fetched at:<br/>
+`https://setup.rbxcdn.com/{version-$guid}-rbxPkgManifest.txt`<br/>
+`https://setup.rbxcdn.com/channel/{channelName}/{version-$guid}-{FileName}`
 
 ## rbxManifest.csv
 A CSV version of `rbxManifest.txt`, made to be easier to read from GitHub.
