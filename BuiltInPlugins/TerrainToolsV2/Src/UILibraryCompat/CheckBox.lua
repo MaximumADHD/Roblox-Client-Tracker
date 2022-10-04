@@ -8,6 +8,14 @@ local Plugin = script.Parent.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateCheckBox = SharedFlags.getFFlagDevFrameworkMigrateCheckBox()
+
+if FFlagDevFrameworkMigrateCheckBox then
+	return nil
+end
+
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)

@@ -87,6 +87,7 @@ function ListItemsModule:render()
 			}, {
 				Label = if FFlagDevFrameworkMigrateTextLabels then (
 					Roact.createElement(TextLabel, {
+						AutomaticSize = Enum.AutomaticSize.XY,
 						Text = labelText,
 						StyleModifier = if enabled then nil else StyleModifier.Disabled,
 					})

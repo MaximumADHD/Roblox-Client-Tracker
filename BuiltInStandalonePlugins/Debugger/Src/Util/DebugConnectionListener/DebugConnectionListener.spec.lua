@@ -19,7 +19,7 @@ local MockCrossDMScriptChangeListenerService = require(Mocks.MockCrossDMScriptCh
 
 local Constants = require(Plugin.Src.Util.Constants)
 
-local FFlagOnlyLoadOneCallstack = require(Plugin.Src.Flags.GetFFlagOnlyLoadOneCallstack)
+local FFlagStudioDebuggerOpenCorrectScriptOnPause = require(Plugin.Src.Flags.GetFFlagStudioDebuggerOpenCorrectScriptOnPause)
 
 return function()
 	local function setupFakeThread(mockConnection, fakeThreadId)
@@ -156,7 +156,16 @@ return function()
 		expect(state.Common.currentFrameMap[1][1]).to.be.ok()
 		expect(state.Common.currentFrameMap[1][2]).to.be.ok()
 
-		if FFlagOnlyLoadOneCallstack() then
+		if FFlagStudioDebuggerOpenCorrectScriptOnPause() then
+			-- finding threadState.ThreadId that equals pausedState.ThreadId in paused events now when choosing the callstack to load
+			expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(2)
+			expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[1][0].Script]).to.equal(
+				true
+			)
+			expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[2][0].Script]).to.equal(
+				true
+			)
+		else
 			expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(1)
 
 			-- only one script should be open at start
@@ -165,14 +174,6 @@ return function()
 			)
 			expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[2][0].Script]).to.equal(
 				nil
-			)
-		else
-			expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(2)
-			expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[1][0].Script]).to.equal(
-				true
-			)
-			expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[2][0].Script]).to.equal(
-				true
 			)
 		end
 
@@ -190,10 +191,12 @@ return function()
 		expect(state.Common.isPaused).to.equal(true)
 		expect(state.Common.currentFrameMap[1][1]).to.be.ok()
 		expect(state.Common.currentFrameMap[1][2]).to.be.ok()
-		if FFlagOnlyLoadOneCallstack() then
-			expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(1)
-		else
+
+		if FFlagStudioDebuggerOpenCorrectScriptOnPause() then
+			-- finding threadState.ThreadId that equals pausedState.ThreadId in paused events now when choosing the callstack to load
 			expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(2)
+		else
+			expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(1)
 		end
 
 		currentMockConnection.Resumed:Fire(testPausedState2)

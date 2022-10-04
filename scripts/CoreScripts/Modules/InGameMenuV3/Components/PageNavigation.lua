@@ -403,7 +403,6 @@ end, function(dispatch)
 		end,
 		setCurrentPage = function(pageKey)
 			dispatch(SetCurrentPage(pageKey))
-			SendAnalytics("open_" .. pageKey .. "_tab", Constants.AnalyticsMenuActionName, {})
 		end,
 		fetchShareInviteLink = if GetFFlagShareInviteLinkContextMenuV3Enabled()
 			then

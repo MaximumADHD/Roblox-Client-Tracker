@@ -4,8 +4,8 @@ return function()
 
 	local TestHelpers = require(Plugin.RhodiumTests.TestHelpers)
 	local TestPaths = require(Plugin.RhodiumTests.TestPaths)
-	local VirtualInput = require(Plugin.Rhodium.VirtualInput)
-	local Element = require(Plugin.Rhodium.Element)
+	local VirtualInput = require(Plugin.Packages.Dev.Rhodium).VirtualInput
+	local Element = require(Plugin.Packages.Dev.Rhodium).Element
 	local runTest = TestHelpers.runTest
 
 	local Templates = require(Plugin.Src.Util.Templates)
@@ -101,9 +101,9 @@ return function()
 			local testTrack = TestPaths.getTrack(container, "Track_Head")
 
 			TestHelpers.clickInstance(testTrack["1"])
-			VirtualInput.pressKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.pressKey(Enum.KeyCode.LeftControl)
 			TestHelpers.clickInstance(testTrack["2"])
-			VirtualInput.releaseKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.releaseKey(Enum.KeyCode.LeftControl)
 
 			local selectedKeyframes = store:getState().Status.SelectedKeyframes
 			expect(selectedKeyframes.Root).to.be.ok()
@@ -120,9 +120,9 @@ return function()
 			local summary = TestPaths.getTrack(container, "SummaryTrack")
 
 			TestHelpers.clickInstance(summary["1"])
-			VirtualInput.pressKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.pressKey(Enum.KeyCode.LeftControl)
 			TestHelpers.clickInstance(summary["2"])
-			VirtualInput.releaseKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.releaseKey(Enum.KeyCode.LeftControl)
 
 			local selectedKeyframes = store:getState().Status.SelectedKeyframes
 			expect(selectedKeyframes.Root).to.be.ok()
@@ -142,9 +142,9 @@ return function()
 			local testTrack = TestPaths.getTrack(container, "Track_Head")
 
 			TestHelpers.clickInstance(testTrack["1"])
-			VirtualInput.pressKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.pressKey(Enum.KeyCode.LeftControl)
 			TestHelpers.clickInstance(testTrack["1"])
-			VirtualInput.releaseKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.releaseKey(Enum.KeyCode.LeftControl)
 
 			local selectedKeyframes = store:getState().Status.SelectedKeyframes
 			expect(selectedKeyframes.Root).never.to.be.ok()
@@ -165,13 +165,13 @@ return function()
 			local bottomRight = trackElement2:getLocation() + trackElement2:getSize() - Vector2.new(3, 3)
 
 			VirtualInput.setCurrentWindow(container)
-			VirtualInput.mouseLeftDown(topLeft)
+			VirtualInput.Mouse.mouseLeftDown(topLeft)
 			TestHelpers.delay()
-			VirtualInput.mouseMove(trackElement:getCenter())
+			VirtualInput.Mouse.mouseMove(trackElement:getCenter())
 			TestHelpers.delay()
-			VirtualInput.mouseMove(bottomRight)
+			VirtualInput.Mouse.mouseMove(bottomRight)
 			TestHelpers.delay()
-			VirtualInput.mouseLeftUp(bottomRight)
+			VirtualInput.Mouse.mouseLeftUp(bottomRight)
 			TestHelpers.delay()
 
 			local selectedKeyframes = store:getState().Status.SelectedKeyframes
@@ -223,9 +223,9 @@ return function()
 			TestHelpers.delay()
 
 			TestHelpers.clickInstance(eventsTrack["1"])
-			VirtualInput.pressKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.pressKey(Enum.KeyCode.LeftControl)
 			TestHelpers.clickInstance(eventsTrack["2"])
-			VirtualInput.releaseKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.releaseKey(Enum.KeyCode.LeftControl)
 
 			local selectedEvents = store:getState().Status.SelectedEvents
 			expect(selectedEvents[0]).to.equal(true)
@@ -242,9 +242,9 @@ return function()
 			TestHelpers.delay()
 
 			TestHelpers.clickInstance(eventsTrack["1"])
-			VirtualInput.pressKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.pressKey(Enum.KeyCode.LeftControl)
 			TestHelpers.clickInstance(eventsTrack["1"])
-			VirtualInput.releaseKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.releaseKey(Enum.KeyCode.LeftControl)
 
 			local selectedEvents = store:getState().Status.SelectedEvents
 			expect(selectedEvents[0]).never.to.be.ok()
@@ -263,13 +263,13 @@ return function()
 			local bottomRight = trackElement:getLocation() + trackElement:getSize() - Vector2.new(3, 3)
 
 			VirtualInput.setCurrentWindow(container)
-			VirtualInput.mouseLeftDown(topLeft)
+			VirtualInput.Mouse.mouseLeftDown(topLeft)
 			TestHelpers.delay()
-			VirtualInput.mouseMove(trackElement:getCenter())
+			VirtualInput.Mouse.mouseMove(trackElement:getCenter())
 			TestHelpers.delay()
-			VirtualInput.mouseMove(bottomRight)
+			VirtualInput.Mouse.mouseMove(bottomRight)
 			TestHelpers.delay()
-			VirtualInput.mouseLeftUp(bottomRight)
+			VirtualInput.Mouse.mouseLeftUp(bottomRight)
 			TestHelpers.delay()
 
 			local selectedEvents = store:getState().Status.SelectedEvents

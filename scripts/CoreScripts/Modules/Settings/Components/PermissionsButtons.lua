@@ -110,7 +110,7 @@ function PermissionsButtons:init()
 
 	-- toggle video permissions
 	self.toggleVideo = function()
-		if not FaceAnimatorService or not FaceAnimatorService:IsStarted() then
+		if not FaceAnimatorService then
 			return
 		end
 

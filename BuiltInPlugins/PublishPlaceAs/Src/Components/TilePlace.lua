@@ -102,6 +102,7 @@ function TilePlace:render()
 				Roact.createElement(TextLabel, {
 					Text = name,
 					TextWrapped = true,
+					TextXAlignment = Enum.TextXAlignment.Left,
 				})
 			) else (
 				Roact.createElement("TextLabel", {

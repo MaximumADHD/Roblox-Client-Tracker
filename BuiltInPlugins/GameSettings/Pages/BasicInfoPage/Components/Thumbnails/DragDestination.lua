@@ -9,8 +9,6 @@
 		int LayoutOrder = The order in which this widget will appear in the set.
 ]]
 
-local BORDER = "rbxasset://textures/GameSettings/DottedBorder.png"
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
@@ -30,8 +28,11 @@ function DragDestination:render()
 		BackgroundTransparency = 0.85,
 		BackgroundColor3 = theme.thumbnailDrag.background,
 		ImageColor3 = theme.thumbnailDrag.border,
+		Image = theme.dottedBorder.image,
+		ResampleMode = Enum.ResamplerMode.Pixelated,
+		ScaleType = Enum.ScaleType.Slice,
+		SliceCenter = theme.dottedBorder.sliceCenter,
 		LayoutOrder = index,
-		Image = BORDER,
 	})
 end
 

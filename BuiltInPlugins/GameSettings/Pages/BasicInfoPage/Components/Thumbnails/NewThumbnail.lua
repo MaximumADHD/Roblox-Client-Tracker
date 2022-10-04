@@ -7,9 +7,6 @@
 ]]
 local FFlagGameSettingsEnableThumbnailAltText = game:GetFastFlag("GameSettingsEnableThumbnailAltText")
 
-local BORDER = "rbxasset://textures/GameSettings/DottedBorder.png"
-local PLUS = "rbxasset://textures/GameSettings/CenterPlus.png"
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
@@ -53,7 +50,10 @@ function NewThumbnail:render()
 		Size = if FFlagGameSettingsEnableThumbnailAltText then UDim2.new(1, 0, 0.5, 0) else UDim2.new(1, 0, 1, 0),
 		ImageColor3 = theme.newThumbnail.border,
 		LayoutOrder = self.props.LayoutOrder or 1,
-		Image = BORDER,
+		Image = theme.dottedBorder.image,
+		ResampleMode = Enum.ResamplerMode.Pixelated,
+		ScaleType = Enum.ScaleType.Slice,
+		SliceCenter = theme.dottedBorder.sliceCenter,
 
 		[Roact.Event.MouseEnter] = self.mouseEnter,
 		[Roact.Event.MouseLeave] = self.mouseLeave,
@@ -62,11 +62,14 @@ function NewThumbnail:render()
 	}, {
 		Plus = Roact.createElement("ImageLabel", {
 			BackgroundTransparency = 1,
+			Image = theme.plus.image,
 			ImageColor3 = theme.newThumbnail.plus,
 			ImageTransparency = 0.4,
-			Size = UDim2.new(1, 0, 1, 0),
-			Image = PLUS,
-			ScaleType = Enum.ScaleType.Stretch,
+			Size = UDim2.new(0, 24, 0, 24),
+			ImageRectSize = theme.plus.rectSize,
+			ImageRectOffset = theme.plus.rectOffset,
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+			AnchorPoint = Vector2.new(0.5, 0.5),
 			ZIndex = 2,
 		})
 	})

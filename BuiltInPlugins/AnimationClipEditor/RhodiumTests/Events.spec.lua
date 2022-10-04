@@ -9,7 +9,7 @@ return function()
 
 	local TestHelpers = require(Plugin.RhodiumTests.TestHelpers)
 	local TestPaths = require(Plugin.RhodiumTests.TestPaths)
-	local VirtualInput = require(Plugin.Rhodium.VirtualInput)
+	local VirtualInput = require(Plugin.Packages.Dev.Rhodium).VirtualInput
 	local runTest = TestHelpers.runTest
 
 	local Templates = require(Plugin.Src.Util.Templates)
@@ -53,9 +53,9 @@ return function()
 			local addEventEntry = TestPaths.getAddEventEntry(eventsDialog)
 			TestHelpers.clickInstance(addEventEntry)
 
-			VirtualInput.sendText("NewEvent")
+			VirtualInput.Text.sendText("NewEvent")
 			TestHelpers.delay()
-			VirtualInput.hitKey(Enum.KeyCode.Return)
+			VirtualInput.Keyboard.hitKey(Enum.KeyCode.Return)
 
 			TestHelpers.clickInstance(eventsDialog.FocusProvider.Buttons["2"])
 
@@ -124,9 +124,9 @@ return function()
 			local eventsTrack = TestPaths.getEventsTrack(container)
 			TestHelpers.delay()
 			TestHelpers.clickInstance(eventsTrack["1"])
-			VirtualInput.pressKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.pressKey(Enum.KeyCode.LeftControl)
 			TestHelpers.clickInstance(eventsTrack["2"])
-			VirtualInput.releaseKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.releaseKey(Enum.KeyCode.LeftControl)
 			store:dispatch(CopySelectedEvents())
 			store:dispatch(PasteEvents(1600))
 			TestHelpers.delay()

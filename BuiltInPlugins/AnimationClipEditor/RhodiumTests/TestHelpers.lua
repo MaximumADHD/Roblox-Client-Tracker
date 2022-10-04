@@ -5,7 +5,7 @@ local Workspace = game:GetService("Workspace")
 local Plugin = script.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
 local Analytics = Framework.ContextServices.Analytics
-local Element = require(Plugin.Rhodium.Element)
+local Element = require(Plugin.Packages.Dev.Rhodium).Element
 local Test = require(Plugin.RhodiumTests.Test)
 
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)

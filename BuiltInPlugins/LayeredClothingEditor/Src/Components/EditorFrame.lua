@@ -28,7 +28,6 @@ local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingMod
 
 local MeshPartTool = require(Plugin.Src.Components.MeshPartTool)
 local EditTransparencyView = require(Plugin.Src.Components.Editor.EditTransparencyView)
-local EditingModeFrame = require(Plugin.Src.Components.Editor.EditingModeFrame)
 local LuaMeshEditingModuleWrapper = require(Plugin.Src.Components.Draggers.LuaMeshEditingModuleWrapper)
 
 local SetToolMode = require(Plugin.Src.Actions.SetToolMode)
@@ -38,8 +37,7 @@ local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
 local EditorFrame = Roact.PureComponent:extend("EditorFrame")
 
-local TabsRibbon = require(Plugin.Src.Components.Editor.EditorTabsRibbon)
-local SettingView = require(Plugin.Src.Components.Editor.EditorSettingView)
+local WorkspaceEditorControls = require(Plugin.Src.Components.Editor.WorkspaceEditorControls)
 
 local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
@@ -79,41 +77,7 @@ function EditorFrame:render()
 		VerticalAlignment = Enum.VerticalAlignment.Top,
 		Spacing = theme.MainPadding,
 	}, {
-		EditingModeFrame = Roact.createElement(EditingModeFrame, {
-			LayoutOrder = orderIterator:getNextOrder(),
-			Size = UDim2.new(1, -theme.MainPadding, 0, theme.EditingModeHeight),
-		}),
-		TransparencyView = Roact.createElement(EditTransparencyView, {
-			LayoutOrder = orderIterator:getNextOrder(),
-		}),
-		TabsRibbon = not meshPartMode and Roact.createElement(TabsRibbon, {
-			LayoutOrder = orderIterator:getNextOrder(),
-			HasEditingCage = isEditing,
-			ToolMode = toolMode,
-			SetToolMode = self.onToolChange,
-		}),
-		MeshPartModeText = meshPartMode and Roact.createElement("TextLabel", {
-			BackgroundTransparency = 1,
-			Font = theme.Font,
-			TextSize = theme.TextSize,
-			TextColor3 = theme.TextColor,
-			TextXAlignment = Enum.TextXAlignment.Center,
-			TextYAlignment = Enum.TextYAlignment.Center,
-			Size = UDim2.new(1, 0, 0, theme.Height),
-			Text = meshPartModeText,
-			TextWrapped = true,
-			LayoutOrder = orderIterator:getNextOrder(),
-		}, {
-			UIPadding = Roact.createElement("UIPadding", {
-				PaddingRight = UDim.new(0, theme.MainPadding),
-				PaddingLeft = UDim.new(0, theme.MainPadding),
-			})
-		}),
-		SettingView = isEditing and Roact.createElement(SettingView, {
-			Size = UDim2.new(1, -theme.MainPadding, 0, theme.Height),
-			ToolMode = toolMode,
-			LayoutOrder = orderIterator:getNextOrder(),
-		}),
+		WorkspaceEditorControls = Roact.createElement(WorkspaceEditorControls),
 		MeshPartTool = meshPartMode and Roact.createElement(MeshPartTool),
 		LuaMeshEditingModuleWrapper = not isTesting and isEditing and Roact.createElement(LuaMeshEditingModuleWrapper) or nil,
 	})

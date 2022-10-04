@@ -13,8 +13,8 @@ return function()
 
 	local TestHelpers = require(Plugin.RhodiumTests.TestHelpers)
 	local TestPaths = require(Plugin.RhodiumTests.TestPaths)
-	local VirtualInput = require(Plugin.Rhodium.VirtualInput)
-	local Element = require(Plugin.Rhodium.Element)
+	local VirtualInput = require(Plugin.Packages.Dev.Rhodium).VirtualInput
+	local Element = require(Plugin.Packages.Dev.Rhodium).Element
 	local runTest = TestHelpers.runTest
 
 	local Templates = require(Plugin.Src.Util.Templates)
@@ -63,10 +63,10 @@ return function()
 			expect(trackList:WaitForChild("Head_Rotation")).to.be.ok()
 			local textBox = trackList.Head_Rotation.X_Entry.Border.TextBox.Border.Text
 			TestHelpers.clickInstance(textBox)
-			VirtualInput.hitKey(Enum.KeyCode.Backspace)
-			VirtualInput.sendText("45")
+			VirtualInput.Keyboard.hitKey(Enum.KeyCode.Backspace)
+			VirtualInput.Text.sendText("45")
 			TestHelpers.delay()
-			VirtualInput.hitKey(Enum.KeyCode.Return)
+			VirtualInput.Keyboard.hitKey(Enum.KeyCode.Return)
 			TestHelpers.delay()
 
 			local testTrack = TestPaths.getTrack(container, "Track_Head")
@@ -102,10 +102,10 @@ return function()
 			expect(trackList:WaitForChild("Head_Rotation")).to.be.ok()
 			local textBox = trackList.Head_Rotation.X_Entry.Border.TextBox.Border.Text
 			TestHelpers.clickInstance(textBox)
-			VirtualInput.hitKey(Enum.KeyCode.Backspace)
-			VirtualInput.sendText("45")
+			VirtualInput.Keyboard.hitKey(Enum.KeyCode.Backspace)
+			VirtualInput.Text.sendText("45")
 			TestHelpers.delay()
-			VirtualInput.hitKey(Enum.KeyCode.Return)
+			VirtualInput.Keyboard.hitKey(Enum.KeyCode.Return)
 			TestHelpers.delay()
 
 			animationData = store:getState().AnimationData
@@ -160,9 +160,9 @@ return function()
 
 			local summaryTrack = TestPaths.getTrack(container, "SummaryTrack")
 			TestHelpers.clickInstance(summaryTrack["1"])
-			VirtualInput.pressKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.pressKey(Enum.KeyCode.LeftControl)
 			TestHelpers.clickInstance(summaryTrack["2"])
-			VirtualInput.releaseKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.releaseKey(Enum.KeyCode.LeftControl)
 
 			local keyframeElement = Element.new(summaryTrack["1"])
 			local endPoint = keyframeElement:getCenter() + Vector2.new(20, 0)
@@ -171,13 +171,13 @@ return function()
 			-- trigger any mouse related callback in DopeSheetController. Is the
 			-- position correct?
 			VirtualInput.setCurrentWindow(container)
-			VirtualInput.mouseLeftDown(keyframeElement:getCenter())
+			VirtualInput.Mouse.mouseLeftDown(keyframeElement:getCenter())
 			TestHelpers.delay()
-			VirtualInput.mouseMove(keyframeElement:getCenter() + Vector2.new(10, 0))
+			VirtualInput.Mouse.mouseMove(keyframeElement:getCenter() + Vector2.new(10, 0))
 			TestHelpers.delay()
-			VirtualInput.mouseMove(endPoint)
+			VirtualInput.Mouse.mouseMove(endPoint)
 			TestHelpers.delay()
-			VirtualInput.mouseLeftUp(endPoint)
+			VirtualInput.Mouse.mouseLeftUp(endPoint)
 			TestHelpers.delay()
 
 			local animationData = store:getState().AnimationData
@@ -212,9 +212,9 @@ return function()
 
 			TestHelpers.clickInstance(summaryTrack["1"])
 			expect(dopeSheetContainer:FindFirstChild("ScaleControls")).never.to.be.ok()
-			VirtualInput.pressKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.pressKey(Enum.KeyCode.LeftControl)
 			TestHelpers.clickInstance(summaryTrack["2"])
-			VirtualInput.releaseKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.releaseKey(Enum.KeyCode.LeftControl)
 			expect(dopeSheetContainer:FindFirstChild("ScaleControls")).to.be.ok()
 
 			local scaleControls = dopeSheetContainer.ScaleControls
@@ -224,13 +224,13 @@ return function()
 			local endPoint = barElement:getCenter() + Vector2.new(20, 0)
 
 			VirtualInput.setCurrentWindow(container)
-			VirtualInput.mouseLeftDown(barElement:getCenter())
+			VirtualInput.Mouse.mouseLeftDown(barElement:getCenter())
 			TestHelpers.delay()
-			VirtualInput.mouseMove(barElement:getCenter() + Vector2.new(10, 0))
+			VirtualInput.Mouse.mouseMove(barElement:getCenter() + Vector2.new(10, 0))
 			TestHelpers.delay()
-			VirtualInput.mouseMove(endPoint)
+			VirtualInput.Mouse.mouseMove(endPoint)
 			TestHelpers.delay()
-			VirtualInput.mouseLeftUp(endPoint)
+			VirtualInput.Mouse.mouseLeftUp(endPoint)
 			TestHelpers.delay()
 
 			local animationData = store:getState().AnimationData

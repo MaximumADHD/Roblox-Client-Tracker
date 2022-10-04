@@ -16,13 +16,17 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
+local Framework = require(Packages.Framework)
 local Roact = require(Packages.Roact)
 local UILibrary = require(Packages.UILibrary)
-local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateScrollingFrame = SharedFlags.getFFlagDevFrameworkMigrateScrollingFrame()
+
+local UI = Framework.UI
+local ScrollingFrame = if FFlagDevFrameworkMigrateScrollingFrame then UI.ScrollingFrame else UILibrary.Component.StyledScrollingFrame
 
 local Util = Plugin.Src.Util
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
@@ -42,8 +46,7 @@ local COMMENT_HEIGHT = 80
 local PADDING = 24
 
 function PublishAsset:init(props)
-	self.state = {
-	}
+	self.state = {}
 
 	self.baseFrameRef = Roact.createRef()
 end
@@ -69,13 +72,14 @@ function PublishAsset:render()
 	local orderIterator = LayoutOrderIterator.new()
 
 	local publishAssetTheme = style.publishAsset
-	return Roact.createElement(StyledScrollingFrame, {
-		Size = Size,
-		BackgroundTransparency = 0,
-		BackgroundColor3 = publishAssetTheme.backgroundColor,
-		BorderSizePixel = 0,
+	return Roact.createElement(ScrollingFrame, {
+		AutomaticCanvasSize = if FFlagDevFrameworkMigrateScrollingFrame then Enum.AutomaticSize.Y else nil,
+		BackgroundTransparency = if FFlagDevFrameworkMigrateScrollingFrame then nil else 0,
+		BackgroundColor3 = if FFlagDevFrameworkMigrateScrollingFrame then nil else publishAssetTheme.backgroundColor,
+		BorderSizePixel = if FFlagDevFrameworkMigrateScrollingFrame then nil else 0,
 
 		LayoutOrder = LayoutOrder,
+		Size = Size,
 
 		[Roact.Ref] = self.baseFrameRef,
 	}, {

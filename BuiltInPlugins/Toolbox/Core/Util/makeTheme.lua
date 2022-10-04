@@ -1,7 +1,6 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
 local FFlagToolboxEnableAnnouncementsDialog = game:GetFastFlag("ToolboxEnableAnnouncementsDialog")
 local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
-local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
 local FFlagToolboxFixBreadcrumbColor = game:GetFastFlag("ToolboxFixBreadcrumbColor")
 local FFlagToolboxAddUnverifiedIcon = game:GetFastFlag("ToolboxAddUnverifiedIcon")
 local FFlagToolboxPackagesInAssetTile = game:GetFastFlag("ToolboxPackagesInAssetTile")
@@ -167,7 +166,7 @@ local makeTheme = function(themeExtension, themeClass)
 	if FFlagToolboxFixAssetConfigWarningIconColor then
 		warningColor = StyleKey.Toolbox_AssetWarningIcon
 	else
-		warningColor = if FFlagToolboxUseVerifiedIdAsDefault then Color3.fromHex("#FFAA21") else nil
+		warningColor = Color3.fromHex("#FFAA21")
 	end
 
 	styleRoot:extend({

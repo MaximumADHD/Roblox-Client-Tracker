@@ -2,7 +2,6 @@
 --[[
 	A view wrapper displaying a list of swimlanes.
 ]]
-local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
 
@@ -64,7 +63,6 @@ export type _ExternalProps = {
 
 export type _InternalProps = {
 	-- mapStateToProps
-	IncludeOnlyVerifiedCreators: boolean?, -- TODO: Remove with FFlagToolboxUseVerifiedIdAsDefault
 	IncludeUnverifiedCreators: boolean?,
 	-- withContext
 	Localization: any,
@@ -120,13 +118,8 @@ function SubcategoriesSwimlaneView:init()
 		local subcategoryDict = props.SubcategoryDict
 		local theme = props.Stylizer
 
-		local includeOnlyVerifiedCreators
-		local includeUnverifiedCreators
-		if FFlagToolboxUseVerifiedIdAsDefault then
-			includeUnverifiedCreators = props.IncludeUnverifiedCreators
-		else
-			includeOnlyVerifiedCreators = props.IncludeOnlyVerifiedCreators
-		end
+		local includeUnverifiedCreators = props.IncludeUnverifiedCreators
+
 		-- Props from AssetLogicWrapper
 		local canInsertAsset = props.CanInsertAsset
 		local tryInsert = props.TryInsert
@@ -163,12 +156,7 @@ function SubcategoriesSwimlaneView:init()
 				NetworkInterface = getNetwork(self),
 				SortName = sortName,
 				SearchTerm = subcategory.searchKeywords,
-				IncludeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
-					then nil
-					else includeOnlyVerifiedCreators,
-				IncludeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
-					then includeUnverifiedCreators
-					else nil,
+				IncludeUnverifiedCreators = includeUnverifiedCreators,
 				QueryParams = if FFlagToolboxUseQueryForCategories2 then subcategory.queryParams else nil,
 				InitialPageSize = INITIAL_PAGE_SIZE,
 				LayoutOrder = subcategory.index,
@@ -250,12 +238,7 @@ function mapStateToProps(state: any, props)
 	state = state or {}
 	local pageInfo = state.pageInfo or {}
 	return {
-		IncludeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
-			then nil
-			else pageInfo.includeOnlyVerifiedCreators,
-		IncludeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
-			then pageInfo.includeUnverifiedCreators
-			else nil,
+		IncludeUnverifiedCreators = pageInfo.includeUnverifiedCreators,
 	}
 end
 

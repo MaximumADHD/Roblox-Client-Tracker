@@ -10,14 +10,14 @@ return function()
 	local Reducer = require(Modules.InGameMenuV3.reducer)
 	local AssetDetailNotification = require(Modules.InGameMenuV3.Components.InspectAndBuyPage.AssetDetailNotification)
 
-	local FFlagInspectAndBuyV2Enabled = require(Modules.InGameMenuV3.Flags.FFlagInspectAndBuyV2Enabled)
+	local FFlagInspectAndBuyV2IXPEnabledForAll = require(Modules.InGameMenuV3.Flags.FFlagInspectAndBuyV2IXPEnabledForAll)
 
 	local props = {
 		noticeKey = "TestText"
 	}
 	local wrappedComponent = withInGameMenuV3Providers(AssetDetailNotification, props)
 
-	if FFlagInspectAndBuyV2Enabled then
+	if FFlagInspectAndBuyV2IXPEnabledForAll then
 		describe("AssetDetailNotification", function()
 			it("should mount", function()
 				withServices(function(path)

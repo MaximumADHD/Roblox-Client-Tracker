@@ -1,5 +1,4 @@
 --!strict
-local FFlagToolboxUseVerifiedIdAsDefault = game:GetFastFlag("ToolboxUseVerifiedIdAsDefault2")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
 local FFlagToolboxFixVerifyAndAnnouncementBugs = game:GetFastFlag("ToolboxFixVerifyAndAnnouncementBugs")
@@ -38,7 +37,6 @@ type AssetSwimlaneState = {
 export type AssetSwimlaneProps = Swimlane.SwimlaneProps & {
 	CanInsertAsset: () -> (),
 	CategoryName: string,
-	IncludeOnlyVerifiedCreators: boolean?, -- TODO: Remove with FFlagToolboxUseVerifiedIdAsDefault
 	IncludeUnverifiedCreators: boolean?,
 	InitialPageSize: number,
 	LayoutOrder: number,
@@ -172,10 +170,7 @@ function AssetSwimlane:render()
 	return ResultsFetcher.Generator({
 		networkInterface = networkInterface,
 		categoryName = categoryName,
-		includeOnlyVerifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault
-			then nil
-			else props.IncludeOnlyVerifiedCreators,
-		includeUnverifiedCreators = if FFlagToolboxUseVerifiedIdAsDefault then props.IncludeUnverifiedCreators else nil,
+		includeUnverifiedCreators = props.IncludeUnverifiedCreators,
 		sortName = sortName,
 		searchTerm = if FFlagToolboxUseQueryForCategories2 then nil else searchTerm,
 		queryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil,

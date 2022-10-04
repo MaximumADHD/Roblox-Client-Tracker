@@ -18,7 +18,7 @@ end
 
 local FFlagEnableSyncAudioWithVoiceChatMuteState = game:DefineFastFlag("EnableSyncAudioWithVoiceChatMuteState", false)
 
-local useEnableFlags = game:GetEngineFeature("FacialAnimationStreamingUseEnableFlags")
+local useEnableFlags = game:GetEngineFeature("FacialAnimationStreamingUseEnableFlags2")
 local FFlagEnableFacialAnimationKickPlayerWhenServerDisabled = game:DefineFastFlag("EnableFacialAnimationKickPlayerWhenServerDisabled", false)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
@@ -68,11 +68,9 @@ local function playerTrace(message, player)
 end
 
 local function isFacialAnimationStreamingEnabled()
-	if useEnableFlags then
-		return FacialAnimationStreamingService.EnableFlags == (Enum::any).FacialAnimationFlags.PlaceServer
-	else
-		return FacialAnimationStreamingService.Enabled
-	end
+	-- Check both old and new properties in case of client server version or FFlag state mismatch
+	return FacialAnimationStreamingService.EnableFlags == (Enum::any).FacialAnimationFlags.PlaceServer or
+		FacialAnimationStreamingService.Enabled
 end
 
 local function clearConnection(player, connectionType)
@@ -196,6 +194,7 @@ local function onAnimatorAdded(player, animator)
 		local playerAnimation = {}
 		playerAnimation.animation = Instance.new("TrackerStreamAnimation")
 		playerAnimation.animationTrack = animator:LoadStreamAnimation(playerAnimation.animation)
+		playerAnimation.animationTrack.Priority = Enum.AnimationPriority.Idle
 		playerAnimation.animationTrack:Play(0.1, 1)
 
 		playerAnimations[player.UserId] = playerAnimation
@@ -464,7 +463,7 @@ FacialAnimationStreamingService:GetPropertyChangedSignal("Enabled"):Connect(func
 	end
 end)
 
--- New initialization flow using enable flags
+-- New initialization flow using EnableFlags property
 local function updateByEnableFlags()
 	log:trace("updateByEnableFlags: {}", FacialAnimationStreamingService.EnableFlags)
 	if FacialAnimationStreamingService.EnableFlags == (Enum::any).FacialAnimationFlags.PlaceServer then

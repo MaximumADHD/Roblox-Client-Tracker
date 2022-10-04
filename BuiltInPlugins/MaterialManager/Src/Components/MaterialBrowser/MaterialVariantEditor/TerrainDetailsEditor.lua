@@ -100,26 +100,16 @@ function TerrainDetailsEditor:init()
 
 		props.dispatchSetExpandedPane(settingsNames.TerrainDetailsEditor[props.TerrainFace], not props.ExpandedPane)
 	end
-end
 
-function TerrainDetailsEditor:didUpdate(_, prevState)
-	if self.state.name ~= self.props.TerrainDetail.Name and prevState.name == self.state.name then
-		self:setState({
-			name = self.props.TerrainDetail.Name,
-		})
-	end
-end
+	self.headerComponent = function()
+		local props: _Props = self.props
+		local style: _Style = props.Stylizer.MaterialDetails
+		local localization = props.Localization
+		local layoutOrderIterator = LayoutOrderIterator.new()
 
-function TerrainDetailsEditor:render()
-	local props: _Props = self.props
-	local style: _Style = props.Stylizer.MaterialDetails
-	local localization = props.Localization
-	local layoutOrderIterator = LayoutOrderIterator.new()
-
-	local functionComponent = function()
 		return Roact.createElement(LabeledElement, {
 			LabelColumnWidth = style.LabelColumnWidth,
-			LayoutOrder = layoutOrderIterator:getNextOrder(),
+			LayoutOrder = 1,
 			Padding = 0,
 			Text = localization:getText("TerrainDetails", props.TerrainFace),
 			VerticalAlignment = Enum.VerticalAlignment.Center,
@@ -131,7 +121,7 @@ function TerrainDetailsEditor:render()
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 			}, {
 				Name = Roact.createElement(TruncatedTextLabel, {
-					LayoutOrder = 1,
+					LayoutOrder = layoutOrderIterator:getNextOrder(),
 					Size = style.NameLabelSize,
 					Text = self.state.name,
 					TextTruncate = Enum.TextTruncate.AtEnd,
@@ -139,7 +129,7 @@ function TerrainDetailsEditor:render()
 					TextYAlignment = Enum.TextYAlignment.Center,
 				}),
 				Delete = Roact.createElement(Button, {
-					LayoutOrder = 2,
+					LayoutOrder = layoutOrderIterator:getNextOrder(),
 					OnClick = props.OnDelete,
 					Size = style.ButtonSize,
 					Style = style.ButtonStyle,
@@ -156,6 +146,21 @@ function TerrainDetailsEditor:render()
 			}),
 		})
 	end
+end
+
+function TerrainDetailsEditor:didUpdate(_, prevState)
+	if self.state.name ~= self.props.TerrainDetail.Name and prevState.name == self.state.name then
+		self:setState({
+			name = self.props.TerrainDetail.Name,
+		})
+	end
+end
+
+function TerrainDetailsEditor:render()
+	local props: _Props = self.props
+	local style: _Style = props.Stylizer.MaterialDetails
+	local localization = props.Localization
+	local layoutOrderIterator = LayoutOrderIterator.new()
 
 	return Roact.createElement(ExpandablePane, {
 		ContentPadding = {
@@ -164,13 +169,13 @@ function TerrainDetailsEditor:render()
 		},
 		ContentSpacing = 5,
 		LayoutOrder = props.LayoutOrder,
-		HeaderComponent = functionComponent,
+		HeaderComponent = self.headerComponent,
 		Expanded = props.ExpandedPane,
 		OnExpandedChanged = self.onExpandedChanged,
 	}, {
 		Name = Roact.createElement(LabeledElement, {
 			LabelColumnWidth = style.LabelColumnWidth,
-			LayoutOrder = 1,
+			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			Text = localization:getText("CreateDialog", "NameVariant"),
 			StatusText = self.state.nameMessage,
 			Status = self.state.status,

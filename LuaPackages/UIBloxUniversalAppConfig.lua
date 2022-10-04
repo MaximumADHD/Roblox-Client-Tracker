@@ -24,8 +24,6 @@ local GetFFlagUIBloxFixDropdownMenuCellTextSize =
 local GetFFlagUIBloxEnableVirtualizedListForCarousel =
 	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableVirtualizedListForCarousel)
 local GetFFlagUIBloxEnableDynamicHeadIcon = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableDynamicHeadIcon)
-local FFlagSelectedSliderOverridesNextSelectionRightLeft =
-	require(CorePackages.UIBloxFlags.FFlagSelectedSliderOverridesNextSelectionRightLeft)
 local GetFFlagUIBloxEnableReactTag = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableReactTag)
 
 local GetFFlagUIBloxSystemBarBottomAlignedItems =
@@ -34,8 +32,13 @@ local GetFFlagUIBloxSystemBarBottomAlignedItems =
 local GetFFlagUIBloxFixHorizontalCarouselLayout =
 	require(CorePackages.UIBloxFlags.GetFFlagUIBloxFixHorizontalCarouselLayout)
 
+local GetFFlagUIBloxEnableImageSetResolutionScaleFix =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableImageSetResolutionScaleFix)
+
+local GetFFlagUIBloxAddViewabilityConfigCallbackPairs =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxAddViewabilityConfigCallbackPairs)
+
 return {
-	selectedSliderOverridesNextSelectionRightLeft = FFlagSelectedSliderOverridesNextSelectionRightLeft,
 	enableTileInsets = true,
 	enableAdjustableTextUnderTile = true,
 	enableSliderCustomization = true,
@@ -72,4 +75,8 @@ return {
 	devMode = ArgCheck.isEnabled(),
 
 	fixHorizontalCarouselLayout = GetFFlagUIBloxFixHorizontalCarouselLayout(),
+
+	enableImageSetResolutionScaleFix = GetFFlagUIBloxEnableImageSetResolutionScaleFix(),
+
+	addViewabilityConfigCallbackPairs = GetFFlagUIBloxAddViewabilityConfigCallbackPairs(),
 }

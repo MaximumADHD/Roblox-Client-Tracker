@@ -10,6 +10,8 @@ local Interactable = UIBlox.Core.Control.Interactable
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 local Images = UIBlox.App.ImageSet.Images
 
+local FlashingDot = require(script.Parent.FlashingDot)
+
 local IconButton = Roact.PureComponent:extend("IconButton")
 
 local BACKGROUND_SIZE = 32
@@ -19,6 +21,7 @@ local OVERLAY_ASSET = Images["component_assets/circle_17"]
 IconButton.validateProps = t.strictInterface({
 	icon = t.union(t.string, t.table),
 	iconSize = t.integer,
+	enableFlashingDot = t.optional(t.boolean),
 
 	onActivated = t.callback,
 	onHover = t.optional(t.callback),
@@ -74,6 +77,8 @@ function IconButton:render()
 				ImageTransparency = style.Theme.IconEmphasis.Transparency,
 				ZIndex = 1,
 			}),
+
+			FlashingDot = if self.props.enableFlashingDot then Roact.createElement(FlashingDot) else nil,
 
 			StateOverlay = Roact.createElement(ImageSetLabel, {
 				BackgroundTransparency = 1,

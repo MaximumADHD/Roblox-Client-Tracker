@@ -20,14 +20,15 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryLoadingIndicator = SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
+local FFlagDevFrameworkMigrateScrollingFrame = SharedFlags.getFFlagDevFrameworkMigrateScrollingFrame()
 
 local UI = Framework.UI
 local Container = UI.Container
 local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator then UI.LoadingIndicator else UILibrary.Component.LoadingIndicator
+local ScrollingFrame = if FFlagDevFrameworkMigrateScrollingFrame then UI.ScrollingFrame else UILibrary.Component.StyledScrollingFrame
 
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 local Header = require(Plugin.Src.Components.Header)
-local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
 local LoadFailedPage = require(Plugin.Src.Components.SettingsPages.LoadFailedPage)
 
 local LoadPageSettings = require(Plugin.Src.Thunks.LoadPageSettings)
@@ -104,8 +105,9 @@ function SettingsPage:render()
 			end,
 		})
 	elseif loadState == LoadState.Loaded then
-		return Roact.createElement(StyledScrollingFrame, {
-			Size = UDim2.new(1, 0, 1, 0),
+		return Roact.createElement(ScrollingFrame, {
+			AutomaticCanvasSize = if FFlagDevFrameworkMigrateScrollingFrame then Enum.AutomaticSize.Y else nil,
+			Size = if FFlagDevFrameworkMigrateScrollingFrame then nil else UDim2.new(1, 0, 1, 0),
 			[Roact.Ref] = self.scrollingFrameRef,
 		}, {
 			Layout = Roact.createElement("UIListLayout", {

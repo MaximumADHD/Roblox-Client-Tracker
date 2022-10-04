@@ -275,7 +275,7 @@ local style = {
 	dropDownEntry = {
 		background = StyleKey.MenuBarBackground,
 		hover = StyleKey.MenuEntryHover,
-		highlight =StyleKey.MenuEntryHighlight,
+		highlight = StyleKey.MenuEntryHighlight,
 		text = StyleKey.MainText,
 	},
 
@@ -304,6 +304,21 @@ local style = {
 	badgeIconThumbnail = {
 		loadingImage = "rbxasset://textures/StudioSharedUI/default_badge.png",
 		loadFailureImage = "rbxasset://textures/GameSettings/ModeratedAsset.jpg",
+	},
+
+	dottedBorder = {
+		image = "rbxasset://textures/GameSettings/DottedBorder.png",
+		sliceCenter = Rect.new(2, 2, 265, 148),
+		square = {
+			image = "rbxasset://textures/GameSettings/DottedBorder_Square.png",
+			sliceCenter = Rect.new(2, 2, 148, 148),
+		},
+	},
+
+	plus = {
+		image = "rbxasset://textures/GameSettings/CenterPlus.png",
+		rectOffset = Vector2.new(121, 63),
+		rectSize = Vector2.new(24, 24),
 	},
 
 	thumbnail = {

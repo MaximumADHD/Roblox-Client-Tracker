@@ -35,6 +35,7 @@ local MuteSelfButton = Roact.PureComponent:extend("MuteSelfButton")
 MuteSelfButton.validateProps = t.interface({
 	layoutOrder = t.integer,
 	backgroundColor = t.optional(t.string),
+	iconTransparency = t.optional(t.number),
 	backgroundTransparency = t.optional(t.number),
 })
 
@@ -100,6 +101,7 @@ function MuteSelfButton:render()
 			DisplayOrder = Constants.DisplayOrder.Tooltips,
 		}, function(triggerPointChanged, onStateChanged)
 			return Roact.createElement(IconButton, {
+				iconTransparency = self.props.iconTransparency,
 				backgroundTransparency = self.props.backgroundTransparency,
 				backgroundColor = self.props.backgroundColor,
 				showBackground = true,

@@ -8,7 +8,7 @@ return function()
 	local InspectAndBuyThunk = require(InGameMenu.InspectAndBuyThunk)
 	local GetAssetsFromHumanoidDescription = require(script.Parent.GetAssetsFromHumanoidDescription)
 
-	local FFlagInspectAndBuyV2Enabled = require(InGameMenu.Flags.FFlagInspectAndBuyV2Enabled)
+	local FFlagInspectAndBuyV2IXPEnabledForAll = require(InGameMenu.Flags.FFlagInspectAndBuyV2IXPEnabledForAll)
 
 	local function countKeys(t)
 		local count = 0
@@ -18,7 +18,7 @@ return function()
 		return count
 	end
 
-	if FFlagInspectAndBuyV2Enabled then
+	if FFlagInspectAndBuyV2IXPEnabledForAll then
 		it("should run without errors", function()
 			local store = Rodux.Store.new(Reducer)
 			local thunk = GetAssetsFromHumanoidDescription(Instance.new("HumanoidDescription"))

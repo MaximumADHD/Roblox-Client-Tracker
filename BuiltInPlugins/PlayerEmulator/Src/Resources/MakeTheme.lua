@@ -12,6 +12,9 @@ local createTheme = UILibrary.createTheme
 local StudioStyle = UILibrary.Studio.Style
 local Spritesheet = Framework.Util.Spritesheet
 
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
 local function getUILibraryTheme(theme, styleRoot)
 	local c = Enum.StudioStyleGuideColor
 	local m = Enum.StudioStyleGuideModifier
@@ -69,7 +72,7 @@ local function themeExtended()
 		MAINVIEW_PADDING_TOP = UDim.new(0, 15),
 		MAINVIEW_PADDING_LEFT = UDim.new(0, 10),
 		MAINSWITCH_LABEL_SIZE = UDim2.new(0, 150, 0, rowHeight),
-		SECTION_LABEL_SIZE = UDim2.new(0, 50, 0, rowHeight),
+		SECTION_LABEL_SIZE = if FFlagDevFrameworkMigrateTextLabels then nil else UDim2.new(0, 50, 0, rowHeight),
 		TEXT_INDENT_PADDING = UDim.new(0, 4),
 		HORIZONTAL_LISTLAYOUT_PADDING = UDim.new(0, 5),
 
@@ -86,7 +89,7 @@ local function themeExtended()
 		LOCALEID_TEXTBOX_SIZE = UDim2.new(0, 50, 0, rowHeight),
 
 		TOGGLE_ITEM_FRAME_SIZE = UDim2.new(0, sectionWidth, 0, rowHeight),
-		TOGGLE_ITEM_LABEL_SIZE = UDim2.new(0, 200, 0, rowHeight),
+		TOGGLE_ITEM_LABEL_SIZE = if FFlagDevFrameworkMigrateTextLabels then nil else UDim2.new(0, 200, 0, rowHeight),
 		TOGGLE_BUTTON_HEIGHT = 15,
 		TOGGLE_BUTTON_WIDTH = 25,
 		TOGGLE_BUTTON_OFFSET = 255,

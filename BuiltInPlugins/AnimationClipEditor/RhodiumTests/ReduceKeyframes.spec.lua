@@ -10,8 +10,8 @@ return function()
 
 	local TestHelpers = require(Plugin.RhodiumTests.TestHelpers)
 	local TestPaths = require(Plugin.RhodiumTests.TestPaths)
-	local VirtualInput = require(Plugin.Rhodium.VirtualInput)
-	local Element = require(Plugin.Rhodium.Element)
+	local VirtualInput = require(Plugin.Packages.Dev.Rhodium).VirtualInput
+	local Element = require(Plugin.Packages.Dev.Rhodium).Element
 
 	local runTest = TestHelpers.runTest
 
@@ -83,9 +83,9 @@ return function()
 		percentage = percentage or 0.5
 		local pos = left + (right - left) * percentage
 
-		VirtualInput.mouseLeftDown(pos)
+		VirtualInput.Mouse.mouseLeftDown(pos)
 		TestHelpers.delay()
-		VirtualInput.mouseLeftUp(pos)
+		VirtualInput.Mouse.mouseLeftUp(pos)
 		TestHelpers.delay()
 	end
 

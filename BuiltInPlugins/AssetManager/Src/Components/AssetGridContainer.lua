@@ -8,6 +8,7 @@
 local Plugin = script.Parent.Parent.Parent
 
 local InsertAsset = require(Plugin.Packages.InsertAsset)
+
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
@@ -21,13 +22,16 @@ local GetTextSize = Util.GetTextSize
 local StyleModifier = Util.StyleModifier
 local ui = Framework.Style.ComponentSymbols
 
+local UILibrary = require(Plugin.Packages.UILibrary)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateScrollingFrame = SharedFlags.getFFlagDevFrameworkMigrateScrollingFrame()
+
 local UI = Framework.UI
 local Button = UI.Button
 local HoverArea = UI.HoverArea
 local LoadingIndicator = UI.LoadingIndicator
-
-local UILibrary = require(Plugin.Packages.UILibrary)
-local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
+local ScrollingFrame = if FFlagDevFrameworkMigrateScrollingFrame then UI.ScrollingFrame else UILibrary.Component.InfiniteScrollingFrame
 
 local Screens = require(Plugin.Src.Util.Screens)
 local View = require(Plugin.Src.Util.View)
@@ -377,13 +381,15 @@ function AssetGridContainer:render()
 
 		BackgroundTransparency = 1,
 	}, {
-		AssetGrid = hasAssetsToDisplay and Roact.createElement(InfiniteScrollingFrame, {
-			Size = UDim2.new(1, 0, 1, 0),
+		AssetGrid = hasAssetsToDisplay and Roact.createElement(ScrollingFrame, {
+			AutomaticCanvasSize = if FFlagDevFrameworkMigrateScrollingFrame then Enum.AutomaticSize.Y else nil,
+			Size = if FFlagDevFrameworkMigrateScrollingFrame then nil else UDim2.new(1, 0, 1, 0),
 
-			BackgroundTransparency = 1,
+			BackgroundTransparency = if FFlagDevFrameworkMigrateScrollingFrame then nil else 1,
 
-			LayoutRef = layoutRef,
-			CanvasHeight = 200,
+			LayoutRef = if FFlagDevFrameworkMigrateScrollingFrame then nil else layoutRef,
+			
+			CanvasHeight = if FFlagDevFrameworkMigrateScrollingFrame then nil else 200,
 
 			NextPageRequestDistance = 100,
 			NextPageFunc = function()

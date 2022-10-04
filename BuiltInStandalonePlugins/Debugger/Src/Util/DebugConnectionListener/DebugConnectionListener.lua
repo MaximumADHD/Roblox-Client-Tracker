@@ -15,8 +15,8 @@ local DebuggerStateToken = require(Models.DebuggerStateToken)
 
 local Constants = require(Src.Util.Constants)
 
-local FFlagOnlyLoadOneCallstack = require(Src.Flags.GetFFlagOnlyLoadOneCallstack)
 local FFlagStudioBufferPauseEvents = require(Src.Flags.GetFFlagStudioBufferPauseEvents)
+local FFlagStudioDebuggerOpenCorrectScriptOnPause = require(Src.Flags.GetFFlagStudioDebuggerOpenCorrectScriptOnPause)
 
 local DebugConnectionListener = {}
 DebugConnectionListener.__index = DebugConnectionListener
@@ -31,7 +31,7 @@ function DebugConnectionListener:onExecutionPaused(
 	debuggerUIService,
 	scriptChangeService
 )
-	if FFlagStudioBufferPauseEvents then
+	if FFlagStudioBufferPauseEvents() then
 		-- buffer pause events to reduce roact re-renders when hitting simultaneous breakpoints
 		self.bufferedPauseEvents[debuggerPauseReason] = pausedState
 		wait(bufferDuration)
@@ -71,9 +71,7 @@ function DebugConnectionListener:onExecutionPaused(
 
 			local loadScriptData = function()
 				self.store:dispatch(LoadAllVariablesForThreadAndFrame(threadState.ThreadId, connection, 0, debuggerUIService))
-				if FFlagOnlyLoadOneCallstack() then
-					self.store:dispatch(SetCurrentThreadAction(threadState.ThreadId))
-				end
+				self.store:dispatch(SetCurrentThreadAction(threadState.ThreadId))
 				-- Open script at top of callstack
 				local topFrame = threadState:GetFrame(0)
 				debuggerUIService:SetScriptLineMarker(
@@ -85,36 +83,25 @@ function DebugConnectionListener:onExecutionPaused(
 				debuggerUIService:OpenScriptAtLine(topFrame.Script, common.currentDebuggerConnectionId, topFrame.Line, false)
 			end
 
-			if not FFlagOnlyLoadOneCallstack() then
-				if pausedState.ThreadId == threadState.ThreadId then
-					loadScriptData()
-				end
-			else
-				loadScriptData()
-			end
+			loadScriptData()
 		end
 		
 		local threadStates = threads:GetArg()
-		if FFlagOnlyLoadOneCallstack() then
-			for index, threadState in pairs(threadStates) do
-				self.store:dispatch(AddThreadId(threadState.ThreadId, threadState.ThreadName, dst))
+		local currThreadState = nil
+		for index, threadState in pairs(threadStates) do
+			self.store:dispatch(AddThreadId(threadState.ThreadId, threadState.ThreadName, dst))
+			if threadState.ThreadId == pausedState.ThreadId then
+				currThreadState = threadState
 			end
-			-- #threadStates can be 0 when pressing the pause button
-			if (#threadStates > 0) then
-				--[[
-					ThreadState at threadStates[1] may or may not correspond to the pauseState.threadID.
-					In the case of multiple bps from multiple scripts, it will be at the end
-					In the case of one bp from one script generating mutliple threads, it will be at the beginning.
-					Don't check pausestate.threadID == threadstate.threadID
-				]] 
-				local threadState = threadStates[1]
-				self.store:dispatch(PopulateCallstackThreadThunk(threadState, connection, dst, scriptChangeService, function()
-					loadThreadData(threadState)
+		end
+		-- #threadStates can be 0 when pressing the pause button
+		if (#threadStates > 0) then
+			if FFlagStudioDebuggerOpenCorrectScriptOnPause() then
+				self.store:dispatch(PopulateCallstackThreadThunk(currThreadState, connection, dst, scriptChangeService, function()
+					loadThreadData(currThreadState)
 				end))
-			end
-		else
-			for _, threadState in pairs(threadStates) do
-				self.store:dispatch(AddThreadId(threadState.ThreadId, threadState.ThreadName, dst))
+			else
+				local threadState = threadStates[1]
 				self.store:dispatch(PopulateCallstackThreadThunk(threadState, connection, dst, scriptChangeService, function()
 					loadThreadData(threadState)
 				end))

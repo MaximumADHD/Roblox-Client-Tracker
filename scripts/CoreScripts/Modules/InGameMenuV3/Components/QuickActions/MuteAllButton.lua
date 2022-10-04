@@ -28,6 +28,7 @@ local MuteAllButton = Roact.PureComponent:extend("MuteAllButton")
 
 MuteAllButton.validateProps = t.interface({
 	layoutOrder = t.integer,
+	iconTransparency = t.optional(t.number),
 	backgroundTransparency = t.optional(t.number),
 	backgroundColor = t.optional(t.string),
 })
@@ -77,7 +78,7 @@ function MuteAllButton:render()
 			DisplayOrder = Constants.DisplayOrder.Tooltips,
 		}, function(triggerPointChanged, onStateChanged)
 			return Roact.createElement(IconButton, {
-				iconTransparency = self.props.backgroundTransparency,
+				iconTransparency = self.props.iconTransparency,
 				backgroundTransparency = self.props.backgroundTransparency,
 				backgroundColor = self.props.backgroundColor,
 				showBackground = true,

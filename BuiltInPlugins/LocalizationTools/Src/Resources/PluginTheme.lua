@@ -18,6 +18,9 @@ local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
 local DarkTheme = FrameworkStyle.Themes.DarkTheme
 local createDefaultTheme = FrameworkStyle.createDefaultTheme
 
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
 local UI = Framework.UI
 local Decoration = UI.Decoration
 
@@ -65,6 +68,8 @@ return function(makeMock)
    ui:add("Collapsible")
    ui:add("EmbeddedTableSection")
    ui:add("UploadDialogContent")
+   ui:add("ErrorDialog")
+   ui:add("WarningDialog")
    ui:add("LabeledImageButton")
    ui:add("ImageLocalizationSection")
 
@@ -157,7 +162,7 @@ return function(makeMock)
          ButtonWidth = 100,
          ButtonHeight = 35,
          Height = 50,
-         LabelWidth = 210,
+         LabelWidth = if FFlagDevFrameworkMigrateTextLabels then 250 else 210,
          TextColor = StyleKey.BrightText,
          DisabledTextColor = StyleKey.DimmedText,
       },
@@ -206,6 +211,32 @@ return function(makeMock)
          TableContentPaddingLeft = 30,
          TableContentPaddingTop = 5,
          ThisPatchWIllFrameHeight = 130,
+         ButtonFrameHeight = 40,
+         ButtonWidth = 100,
+         ButtonHeight = 35,
+         BorderColor = StyleKey.Border,
+         MainBackground = StyleKey.MainBackground,
+         MainButton = StyleKey.MainButton,
+      },
+      [ui.ErrorDialog] = {
+         BrightText = StyleKey.BrightText,
+         DimmedText = StyleKey.DimmedText,
+         ErrorText = StyleKey.ErrorText,
+         WarningText = StyleKey.WarningText,
+         Padding = 15,
+         ButtonFrameHeight = 40,
+         ButtonWidth = 100,
+         ButtonHeight = 35,
+         BorderColor = StyleKey.Border,
+         MainBackground = StyleKey.MainBackground,
+         MainButton = StyleKey.MainButton,
+      },
+      [ui.WarningDialog] = {
+         BrightText = StyleKey.BrightText,
+         DimmedText = StyleKey.DimmedText,
+         ErrorText = StyleKey.ErrorText,
+         WarningText = StyleKey.WarningText,
+         Padding = 15,
          ButtonFrameHeight = 40,
          ButtonWidth = 100,
          ButtonHeight = 35,

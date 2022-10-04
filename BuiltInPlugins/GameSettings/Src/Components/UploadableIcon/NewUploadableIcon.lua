@@ -16,9 +16,6 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local BORDER = "rbxasset://textures/GameSettings/DottedBorder_Square.png"
-local PLUS = "rbxasset://textures/GameSettings/CenterPlus.png"
-
 local NewUploadableIcon = Roact.PureComponent:extend("NewUploadableIcon")
 
 function NewUploadableIcon:init()
@@ -52,7 +49,10 @@ function NewUploadableIcon:render()
 		BorderSizePixel = 0,
 		BackgroundColor3 = theme.newThumbnail.background,
 		ImageColor3 = theme.newThumbnail.border,
-		Image = BORDER,
+		Image = theme.dottedBorder.square.image,
+		ResampleMode = Enum.ResamplerMode.Pixelated,
+		ScaleType = Enum.ScaleType.Slice,
+		SliceCenter = theme.dottedBorder.sliceCenter,
 		Size = UDim2.new(0, 150, 0, 150),
 
 		[Roact.Event.MouseEnter] = self.mouseEnter,
@@ -62,12 +62,14 @@ function NewUploadableIcon:render()
 	}, {
 		Plus = Roact.createElement("ImageLabel", {
 			BackgroundTransparency = 1,
+			Image = theme.plus.image,
 			ImageColor3 = theme.newThumbnail.plus,
 			ImageTransparency = 0.4,
-			Size = UDim2.new(0, 267, 0, 150),
+			ImageRectSize = theme.plus.rectSize,
+			ImageRectOffset = theme.plus.rectOffset,
+			Size = UDim2.new(0, 24, 0, 24),
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
-			Image = PLUS,
 			ZIndex = 2,
 		})
 	})

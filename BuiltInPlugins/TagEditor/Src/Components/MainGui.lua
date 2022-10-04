@@ -5,6 +5,7 @@
 local Plugin = script.Parent.Parent.Parent
 local _Types = require(Plugin.Src.Types)
 local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
@@ -17,14 +18,27 @@ local Stylizer = Framework.Style.Stylizer
 local UI = Framework.UI
 local Pane = UI.Pane
 local SplitPane = UI.SplitPane
+local KeyboardListener = UI.KeyboardListener
 
+local Util = Framework.Util
+local LayoutOrderIterator = Util.LayoutOrderIterator
+
+local Action = require(Plugin.Src.Actions)
+-- local ColorPicker = require(script.Parent.ColorPicker)
+-- local IconPicker = require(script.Parent.IconPicker)
 local TagTopPane = require(script.Parent.TagTopPane)
 local TagSettingsPane = require(script.Parent.TagSettingsPane)
+local TagSettingsToggleButton = require(script.Parent.TagSettingsToggleButton)
 
-local PANE_MIN_HEIGHT = 38
-local PANE_MINIMIZED_MARGIN = 40
-
-export type Props = {}
+export type Props = {
+	colorPicker: string,
+	iconPicker: string,
+	minimizedSettingsPane: boolean,
+	tagMenu: string,
+	groupMenu: string,
+	moveTagSelectionUpOrDown: ((boolean) -> ()),
+	setRenaming: ((string, boolean) -> ()),
+}
 
 type _Props = Props & {
 	Analytics: any,
@@ -33,66 +47,93 @@ type _Props = Props & {
 }
 
 type _Style = {
-	SplitPaneSize: UDim2,
+	SplitPaneMinsizes: _Types.Array<UDim2>,
+	SplitPaneInitialSizes: _Types.Array<UDim2>,
+	SoloTopPaneSize: UDim2,
 }
 
 local MainGui = Roact.PureComponent:extend("MainGui")
 
 function MainGui:init()
-	self.paneRef = Roact.createRef()
-	self.state = {
-		sizes = {UDim.new(0.5, 0), UDim.new(0.5, 0)},
-		isSettingsPaneMinimized = false,
-	}
 	self.onSizesChange = function(sizes)
-		if self.paneRef ~= nil then
-			local paneHeight = self.paneRef:getValue().AbsoluteSize.Y
-			self:setState({
-				sizes = sizes,
-				isSettingsPaneMinimized = sizes[2].Scale <= (PANE_MINIMIZED_MARGIN / paneHeight),
-			})
-		end
-	end
-
-	self.onSettingsPaneToggle = function()
-		if self.paneRef ~= nil then
-			local paneHeight = self.paneRef:getValue().AbsoluteSize.Y
-			if self.state.isSettingsPaneMinimized then
-				self.onSizesChange(
-					{UDim.new(0.5, 0), UDim.new(0.5, 0)})
-			else
-				self.onSizesChange(
-					{UDim.new((paneHeight - PANE_MIN_HEIGHT) / paneHeight, 0), UDim.new(PANE_MIN_HEIGHT / paneHeight, 0)})
-			end
-		end
+		self:setState({
+			sizes = sizes,
+		})
 	end
 end
 
 function MainGui:render()
+	local props: _Props = self.props
+	local style: _Style = props.Stylizer.MainGui
+	local orderIterator = LayoutOrderIterator.new()
+
+	local _iconPickerToggled = false
+	local _colorPickerToggled = false
+	local splitPaneVisible = false
+	local soloTopPaneVisible = false
+
+	if props.iconPicker and props.iconPicker ~= "" then
+		_iconPickerToggled = true
+	elseif props.colorPicker and props.colorPicker ~= "" then
+		_colorPickerToggled = true
+	elseif not props.minimizedSettingsPane and props.tagMenu then
+		splitPaneVisible = true
+	else
+		soloTopPaneVisible = true
+	end
+
 	return Roact.createElement(Pane, {
 		Style = "Box",
-		ForwardRef = self.paneRef,
+		Layout = Enum.FillDirection.Vertical,
+		VerticalAlignment = Enum.VerticalAlignment.Top,
 	}, {
-		SplitPane = Roact.createElement(SplitPane, {
-			LayoutOrder = 2,
+		KeyboardListener = Roact.createElement(KeyboardListener, {
+			OnKeyPressed = function(input, keysHeld)
+				local isDown = keysHeld[Enum.KeyCode.Down]
+				local isUp = keysHeld[Enum.KeyCode.Up]
+				local isReturn = keysHeld[Enum.KeyCode.Return]
+				if isUp or isDown then
+					props.moveTagSelectionUpOrDown(isDown)
+				elseif isReturn then
+					props.setRenaming(props.tagMenu, true)
+				end
+			end,
+		}),
+		-- IconPicker = _iconPickerToggled and Roact.createElement(IconPicker),
+
+		-- ColorPicker = _colorPickerToggled and Roact.createElement(ColorPicker),
+
+		SplitPane = splitPaneVisible and Roact.createElement(SplitPane, {
+			LayoutOrder = orderIterator:getNextOrder(),
 			ClampSize = true,
 			UseScale = true,
 			Layout = Enum.FillDirection.Vertical,
 			Sizes = self.state.sizes,
-			MinSizes = {UDim.new(0, 100), UDim.new(0, PANE_MIN_HEIGHT)},
-			InitialSizes = {UDim.new(0.5, 0), UDim.new(0.5, 0)},
+			MinSizes = style.SplitPaneMinsizes,
 			OnSizesChange = self.onSizesChange,
 			BarStyle = "WStyle",
 		}, {
-			Roact.createElement(TagTopPane, {
-			}),
-			Roact.createElement(TagSettingsPane, {
-				OnSettingsPaneToggle = self.onSettingsPaneToggle,
-				IsSettingsPaneMinimized = self.state.isSettingsPaneMinimized,
-			}),
+			Roact.createElement(TagTopPane),
+			Roact.createElement(TagSettingsPane),
+		}),
+		SoloTopPane = soloTopPaneVisible and Roact.createElement(Pane, {
+			LayoutOrder = orderIterator:getNextOrder(),
+			Size = style.SoloTopPaneSize,
+		}, {
+			TopPane = Roact.createElement(TagTopPane),
+		}),
+		ShowTagSettingsButton = soloTopPaneVisible and Roact.createElement(TagSettingsToggleButton, {
+			LayoutOrder = orderIterator:getNextOrder(),
 		}),
 	})
 end
+
+function MainGui:didMount()
+	self:setState({
+		sizes = self.props.Stylizer.MainGui.SplitPaneInitialSizes,
+	})
+end
+
 
 MainGui = withContext({
 	Analytics = Analytics,
@@ -100,4 +141,27 @@ MainGui = withContext({
 	Stylizer = Stylizer,
 })(MainGui)
 
-return MainGui
+
+local function mapStateToProps(state, _)
+	return {
+		colorPicker = state.ColorPicker,
+		iconPicker = state.IconPicker,
+		minimizedSettingsPane = state.MinimizedSettingsPane,
+		tagMenu = state.TagMenu,
+		groupMenu = state.GroupMenu,
+	}
+end
+
+local function mapDispatchToProps(dispatch)
+	return {
+		moveTagSelectionUpOrDown = function(isDown)
+			dispatch(Action.MoveTagSelectionUpOrDown(isDown))
+		end,
+		setRenaming = function(tag, renaming)
+			dispatch(Action.SetRenaming(tag, renaming))
+		end,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(MainGui)
+

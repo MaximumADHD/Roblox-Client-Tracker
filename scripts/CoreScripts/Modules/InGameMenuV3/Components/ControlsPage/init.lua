@@ -15,6 +15,7 @@ local GamepadControls = require(script.ControlLayouts.GamepadControls)
 local TouchControls = require(script.ControlLayouts.TouchControls)
 
 local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
+local Constants = require(InGameMenu.Resources.Constants)
 
 local CLOSE_BUTTON_SELECTION_GROUP_NAME = "IGMControlsPage_CloseButtonSelectionGroup"
 
@@ -68,6 +69,6 @@ return RoactRodux.UNSTABLE_connect2(function(state)
 	return {
 		screenSize = state.screenSize,
 		controlLayout = controlLayout,
-		canCaptureFocus = state.menuPage == "Controls",
+		canCaptureFocus = state.menuPage == Constants.ControlsPageKey,
 	}
 end)(ControlsPage)

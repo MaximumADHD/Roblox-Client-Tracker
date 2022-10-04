@@ -28,6 +28,7 @@ local Constants = {
 	InspectAndBuyPageKey = "InspectAndBuy",
 	InspectAndBuyAssetDetailsPageKey = "InspectAndBuyAssetDetails",
 	InviteFriendsPageKey = "InviteFriends",
+	ControlsPageKey = "Controls",
 
 	AnalyticsTargetName = "client",
 	AnalyticsInGameMenuName = "ingame_menu",

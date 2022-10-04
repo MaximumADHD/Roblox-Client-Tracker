@@ -6,6 +6,7 @@
 
 ]]
 local FFlagPlacePublishManagementUI2 = game:GetFastFlag("PlacePublishManagementUI2")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -19,6 +20,7 @@ local withContext = ContextServices.withContext
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
 local FFlagRemoveUILibraryLoadingIndicator = SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
+local FFlagDevFrameworkMigrateScrollingFrame = SharedFlags.getFFlagDevFrameworkMigrateScrollingFrame()
 
 local Constants = require(Plugin.Src.Resources.Constants)
 
@@ -32,11 +34,12 @@ local Footer = require(Plugin.Src.Components.Footer)
 local TileGame = require(Plugin.Src.Components.TileGame)
 
 local StyledDropDown = UILibrary.Component.StyledDropdown
-local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
 
 local UI = Framework.UI
 local Button = if FFlagRemoveUILibraryButton then UI.Button else UILibrary.Component.RoundTextButton
 local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator then UI.LoadingIndicator else UILibrary.Component.LoadingIndicator
+local ScrollingFrame = if FFlagDevFrameworkMigrateScrollingFrame then UI.ScrollingFrame else UILibrary.Component.InfiniteScrollingFrame
+
 local SearchBar = Framework.StudioUI.SearchBar
 local Separator = Framework.UI.Separator
 
@@ -121,7 +124,7 @@ function ScreenChooseGame:render()
 	-- Replace this with layoutRef
 	-- Manually calculating CanvasHeight for now
 	local canvasSize = math.ceil((#components - 1)/5) * TILE_HEIGHT
-	-- Force atleast 3 rows to show up to force scroll to appear. Further search results can be taken care of by InfiniteScrollingFrame
+	-- Force atleast 3 rows to show up to force scroll to appear. Further search results can be taken care of by ScrollingFrame
 	-- nextPageFunc
 	if canvasSize < 3 * TILE_HEIGHT then
 		if nextPageCursor and SelectedItemType and SelectedItemKey then
@@ -183,13 +186,14 @@ function ScreenChooseGame:render()
 		}),
 
 		MainContentsSuccess = (props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS)
-			and Roact.createElement(InfiniteScrollingFrame, {
+			and Roact.createElement(ScrollingFrame, {
+				AutomaticCanvasSize = if FFlagDevFrameworkMigrateScrollingFrame then Enum.AutomaticSize.Y else nil,
 				Position = UDim2.new(0, 30, 0, 115),
 				Size = UDim2.new(0.95, 0, 0.7, 0),
-				BackgroundTransparency = 1,
-				-- TODO: replace manual calculation with self.layoutRef
-				-- LayoutRef = self.layoutRef,
-				CanvasHeight = canvasSize,
+				BackgroundTransparency = if FFlagDevFrameworkMigrateScrollingFrame then nil else 1,
+
+				CanvasHeight = if FFlagDevFrameworkMigrateScrollingFrame then nil else canvasSize,
+
 				NextPageRequestDistance = 100,
 				NextPageFunc = function()
 					if nextPageCursor and SelectedItemType and SelectedItemKey then

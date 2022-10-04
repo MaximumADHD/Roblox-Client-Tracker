@@ -15,8 +15,8 @@ return function()
 
 	local TestHelpers = require(Plugin.RhodiumTests.TestHelpers)
 	local TestPaths = require(Plugin.RhodiumTests.TestPaths)
-	local VirtualInput = require(Plugin.Rhodium.VirtualInput)
-	local Element = require(Plugin.Rhodium.Element)
+	local VirtualInput = require(Plugin.Packages.Dev.Rhodium).VirtualInput
+	local Element = require(Plugin.Packages.Dev.Rhodium).Element
 	local runTest = TestHelpers.runTest
 
 	local Templates = require(Plugin.Src.Util.Templates)
@@ -141,9 +141,9 @@ return function()
 			local summaryTrack = TestPaths.getTrack(container, "SummaryTrack")
 
 			TestHelpers.clickInstance(testTrack["1"])
-			VirtualInput.pressKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.pressKey(Enum.KeyCode.LeftControl)
 			TestHelpers.clickInstance(testTrack2["1"])
-			VirtualInput.releaseKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.releaseKey(Enum.KeyCode.LeftControl)
 			store:dispatch(DeleteSelectedKeyframes(analytics))
 			TestHelpers.delay()
 
@@ -185,9 +185,9 @@ return function()
 			local summaryTrack = TestPaths.getTrack(container, "SummaryTrack")
 
 			TestHelpers.clickInstance(summaryTrack["1"])
-			VirtualInput.pressKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.pressKey(Enum.KeyCode.LeftControl)
 			TestHelpers.clickInstance(summaryTrack["2"])
-			VirtualInput.releaseKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.releaseKey(Enum.KeyCode.LeftControl)
 			store:dispatch(CopySelectedKeyframes())
 			store:dispatch(PasteKeyframes(240, analytics))
 			TestHelpers.delay()
@@ -210,21 +210,21 @@ return function()
 			local endPoint = keyframeElement:getCenter() + Vector2.new(20, 0)
 
 			VirtualInput.setCurrentWindow(container)
-			VirtualInput.mouseLeftDown(keyframeElement:getCenter())
+			VirtualInput.Mouse.mouseLeftDown(keyframeElement:getCenter())
 			TestHelpers.delay()
-			VirtualInput.mouseMove(keyframeElement:getCenter() + Vector2.new(10, 0))
+			VirtualInput.Mouse.mouseMove(keyframeElement:getCenter() + Vector2.new(10, 0))
 			TestHelpers.delay()
-			VirtualInput.mouseMove(endPoint)
+			VirtualInput.Mouse.mouseMove(endPoint)
 			TestHelpers.delay()
 
 			-- Note: Extra jitter was required to get the keyframe to move.
 			-- This may be because the DragArea pops up once the mouse starts moving.
-			VirtualInput.mouseMove(keyframeElement:getCenter())
+			VirtualInput.Mouse.mouseMove(keyframeElement:getCenter())
 			TestHelpers.delay()
-			VirtualInput.mouseMove(endPoint)
+			VirtualInput.Mouse.mouseMove(endPoint)
 			TestHelpers.delay()
 
-			VirtualInput.mouseLeftUp(endPoint)
+			VirtualInput.Mouse.mouseLeftUp(endPoint)
 			TestHelpers.delay()
 
 			local selectedKeyframes = store:getState().Status.SelectedKeyframes
@@ -247,21 +247,21 @@ return function()
 			TestHelpers.loadAnimation(store, testAnimationData)
 			local summaryTrack = TestPaths.getTrack(container, "SummaryTrack")
 			TestHelpers.clickInstance(summaryTrack["1"])
-			VirtualInput.pressKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.pressKey(Enum.KeyCode.LeftControl)
 			TestHelpers.clickInstance(summaryTrack["2"])
-			VirtualInput.releaseKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.releaseKey(Enum.KeyCode.LeftControl)
 
 			local keyframeElement = Element.new(summaryTrack["1"])
 			local endPoint = keyframeElement:getCenter() + Vector2.new(20, 0)
 
 			VirtualInput.setCurrentWindow(container)
-			VirtualInput.mouseLeftDown(keyframeElement:getCenter())
+			VirtualInput.Mouse.mouseLeftDown(keyframeElement:getCenter())
 			TestHelpers.delay()
-			VirtualInput.mouseMove(keyframeElement:getCenter() + Vector2.new(10, 0))
+			VirtualInput.Mouse.mouseMove(keyframeElement:getCenter() + Vector2.new(10, 0))
 			TestHelpers.delay()
-			VirtualInput.mouseMove(endPoint)
+			VirtualInput.Mouse.mouseMove(endPoint)
 			TestHelpers.delay()
-			VirtualInput.mouseLeftUp(endPoint)
+			VirtualInput.Mouse.mouseLeftUp(endPoint)
 			TestHelpers.delay()
 
 			local selectedKeyframes = store:getState().Status.SelectedKeyframes
@@ -292,13 +292,13 @@ return function()
 			local endPoint = keyframeElement:getCenter() + Vector2.new(20, 0)
 
 			VirtualInput.setCurrentWindow(container)
-			VirtualInput.mouseLeftDown(keyframeElement:getCenter())
+			VirtualInput.Mouse.mouseLeftDown(keyframeElement:getCenter())
 			TestHelpers.delay()
-			VirtualInput.mouseMove(keyframeElement:getCenter() + Vector2.new(10, 0))
+			VirtualInput.Mouse.mouseMove(keyframeElement:getCenter() + Vector2.new(10, 0))
 			TestHelpers.delay()
-			VirtualInput.mouseMove(endPoint)
+			VirtualInput.Mouse.mouseMove(endPoint)
 			TestHelpers.delay()
-			VirtualInput.mouseLeftUp(endPoint)
+			VirtualInput.Mouse.mouseLeftUp(endPoint)
 			TestHelpers.delay()
 
 			local selectedKeyframes = store:getState().Status.SelectedKeyframes
@@ -317,9 +317,9 @@ return function()
 
 			TestHelpers.clickInstance(summaryTrack["1"])
 			expect(dopeSheetContainer:FindFirstChild("ScaleControls")).never.to.be.ok()
-			VirtualInput.pressKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.pressKey(Enum.KeyCode.LeftControl)
 			TestHelpers.clickInstance(summaryTrack["2"])
-			VirtualInput.releaseKey(Enum.KeyCode.LeftControl)
+			VirtualInput.Keyboard.releaseKey(Enum.KeyCode.LeftControl)
 			expect(dopeSheetContainer:FindFirstChild("ScaleControls")).to.be.ok()
 
 			local scaleControls = dopeSheetContainer.ScaleControls
@@ -331,11 +331,11 @@ return function()
 			VirtualInput.setCurrentWindow(container)
 			VirtualInput.mouseLeftDown(barElement:getCenter())
 			TestHelpers.delay()
-			VirtualInput.mouseMove(barElement:getCenter() + Vector2.new(10, 0))
+			VirtualInput.Mouse.mouseMove(barElement:getCenter() + Vector2.new(10, 0))
 			TestHelpers.delay()
-			VirtualInput.mouseMove(endPoint)
+			VirtualInput.Mouse.mouseMove(endPoint)
 			TestHelpers.delay()
-			VirtualInput.mouseLeftUp(endPoint)
+			VirtualInput.Mouse.mouseLeftUp(endPoint)
 			TestHelpers.delay()
 
 			local selectedKeyframes = store:getState().Status.SelectedKeyframes

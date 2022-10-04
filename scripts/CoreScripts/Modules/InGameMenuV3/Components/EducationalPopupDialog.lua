@@ -13,6 +13,8 @@ local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
 local GetFFlagLuaAppExitModal = require(InGameMenu.Flags.GetFFlagLuaAppExitModal)
+local Constants = require(InGameMenu.Resources.Constants)
+local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 
 local EDU_POPUP_CONFIRM_ACTION = "EducationalPopupConfirm"
 
@@ -77,6 +79,19 @@ function EducationalPopupDialog:render()
 					onDismiss = self.props.onDismiss,
 					onCancel = self.props.onCancel,
 					onConfirm = self.props.onConfirm,
+				}),
+				PageWatcher = Roact.createElement(PageNavigationWatcher, {
+					desiredPage = Constants.ControlsPageKey,
+					onNavigateTo = function()
+						self:setState({
+							controlsPageOpen = true
+						})
+					end,
+					onNavigateAway = function()
+						self:setState({
+							controlsPageOpen = Roact.None
+						})
+					end,
 				})
 			})
 		})
@@ -103,7 +118,8 @@ function EducationalPopupDialog:unbindActions()
 end
 
 function EducationalPopupDialog:updateBlur()
-	local shouldBlur = self.props.blurBackground and self.props.visible
+	local controlsPageOpen = self.state.controlsPageOpen or false
+	local shouldBlur = (self.props.blurBackground and self.props.visible) or controlsPageOpen
 	RunService:SetRobloxGuiFocused(shouldBlur)
 end
 
@@ -115,8 +131,10 @@ function EducationalPopupDialog:didMount()
 	end
 end
 
-function EducationalPopupDialog:didUpdate()
-	self:updateBlur()
+function EducationalPopupDialog:didUpdate(prevProps)
+	if prevProps.visible ~= self.props.visible then
+		self:updateBlur()
+	end
 
 	if self.props.visible then
 		self:bindActions()

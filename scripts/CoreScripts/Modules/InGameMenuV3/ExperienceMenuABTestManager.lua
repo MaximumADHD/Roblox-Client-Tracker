@@ -17,6 +17,8 @@ local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 local IsExperienceMenuABTestEnabled = require(script.Parent.IsExperienceMenuABTestEnabled)
 
+local GetFStringLuaAppExperienceMenuLayer = require(script.Parent.Parent.Flags.GetFStringLuaAppExperienceMenuLayer)
+
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_CSAT_QUALIFICATION = "ExperienceMenuCSATQualification"
 local ACTION_TRIGGER_THRESHOLD = 7
@@ -177,7 +179,7 @@ function ExperienceMenuABTestManager:initialize()
 
 	-- fetch variant from IXP
 	local layerFetchSuccess, layerData = pcall(function()
-		return self._ixpServiceWrapper:IsEnabled() and self._ixpServiceWrapper:GetLayerData("Experience.Menu") or {}
+		return self._ixpServiceWrapper:IsEnabled() and self._ixpServiceWrapper:GetLayerData(GetFStringLuaAppExperienceMenuLayer()) or {}
 	end)
 
 	-- bail if we aren't able to communicate with IXP service

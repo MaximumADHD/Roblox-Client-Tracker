@@ -4,10 +4,14 @@ local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
+local Players = game:GetService("Players")
 
 local VRService = game:GetService("VRService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -40,6 +44,8 @@ local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlag
 local EmotesMenu = Roact.PureComponent:extend("EmotesMenu")
 
 local KEYBINDS_PRIORITY = Enum.ContextActionPriority.High.Value
+
+local FFlagEmotesSelectedCoreObjectError = game:DefineFastFlag("EmotesSelectedCoreObjectError", false)
 
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 
@@ -138,10 +144,18 @@ end
 
 function EmotesMenu:resetSelectedObject()
 	if GuiService.SelectedCoreObject == nil then
-		GuiService.SelectedCoreObject = self.savedSelectedCoreObject
+		-- We want to reset the selected object if the saved version is either nil or a descendant of CoreGui
+		local isValid = (not FFlagEmotesSelectedCoreObjectError or self.savedSelectedCoreObject == nil or self.savedSelectedCoreObject:IsDescendantOf(CoreGui))
+		if isValid then
+			GuiService.SelectedCoreObject = self.savedSelectedCoreObject
+		end
 	end
 	if GuiService.SelectedObject == nil then
-		GuiService.SelectedObject = self.savedSelectedObject
+		-- We want to reset the selected object if the saved version is either nil or a descendant of PlayerGui
+		local isValid = (not FFlagEmotesSelectedCoreObjectError or self.savedSelectedObject == nil or self.savedSelectedObject:IsDescendantOf(PlayerGui))
+		if isValid then
+			GuiService.SelectedObject = self.savedSelectedObject
+		end
 	end
 end
 

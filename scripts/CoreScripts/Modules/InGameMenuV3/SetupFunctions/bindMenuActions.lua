@@ -161,7 +161,7 @@ local function bindMenuActions(store)
 
 	local function canBumperSwitch()
 		local state = store:getState()
-		return (state.menuPage ~= "Controls"
+		return (state.menuPage ~= Constants.ControlsPageKey
 			and state.isMenuOpen
 			and not state.respawn.dialogOpen)
 	end

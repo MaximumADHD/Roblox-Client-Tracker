@@ -8,6 +8,8 @@ return function()
 	local t = require(CorePackages.Packages.t)
 	local tutils = require(CorePackages.Packages.tutils)
 
+	local FFlagLuaAppFixMessageBusUnsubscribe = require(CorePackages.AppTempCommon.Flags.FFlagLuaAppFixMessageBusUnsubscribe)
+
 	local kTestJSON = "{\"A\":\"Hello\",\"B\":5,\"C\":true}"
 	local kTestValidator = t.strictInterface({
 		A = t.string,
@@ -208,5 +210,71 @@ return function()
 				subscriber:unsubscribe(kTestMessageMetadata)
 			end).to.throw()
 		end)
+
+		if FFlagLuaAppFixMessageBusUnsubscribe then
+			it("should not throw when resubscribing to a method request", function()
+				local subscriber = MessageBus.Subscriber.new()
+
+				local originalParams = HttpService:JSONDecode(kTestJSON)
+
+				local firstReceived = false
+				local secondReceived = false
+
+				subscriber:subscribeProtocolMethodRequest(kTestProtocolMethodMetadata, function()
+					firstReceived = true
+				end)
+
+				subscriber:subscribeProtocolMethodRequest(kTestProtocolMethodMetadata, function()
+					secondReceived = true
+				end)
+
+				expect(subscriber:getSubscriptionCount()).to.equal(1)
+				expect(firstReceived).to.equal(false)
+				expect(secondReceived).to.equal(false)
+
+				MessageBus.publishProtocolMethodRequest(kTestProtocolMethodMetadata, originalParams, {})
+
+				wait()
+
+				expect(firstReceived).to.equal(false)
+				expect(secondReceived).to.equal(true)
+
+				subscriber:unsubscribeToProtocolMethodRequest(kTestProtocolMethodMetadata)
+
+				expect(subscriber:getSubscriptionCount()).to.equal(0)
+			end)
+
+			it("should not throw when resubscribing to a method response", function()
+				local subscriber = MessageBus.Subscriber.new()
+
+				local originalParams = HttpService:JSONDecode(kTestJSON)
+
+				local firstReceived = false
+				local secondReceived = false
+
+				subscriber:subscribeProtocolMethodResponse(kTestProtocolMethodMetadata, function()
+					firstReceived = true
+				end)
+
+				subscriber:subscribeProtocolMethodResponse(kTestProtocolMethodMetadata, function()
+					secondReceived = true
+				end)
+
+				expect(subscriber:getSubscriptionCount()).to.equal(1)
+				expect(firstReceived).to.equal(false)
+				expect(secondReceived).to.equal(false)
+
+				MessageBus.publishProtocolMethodResponse(kTestProtocolMethodMetadata, originalParams, 0, {})
+
+				wait()
+
+				expect(firstReceived).to.equal(false)
+				expect(secondReceived).to.equal(true)
+
+				subscriber:unsubscribeToProtocolMethodResponse(kTestProtocolMethodMetadata)
+
+				expect(subscriber:getSubscriptionCount()).to.equal(0)
+			end)
+		end
 	end)
 end

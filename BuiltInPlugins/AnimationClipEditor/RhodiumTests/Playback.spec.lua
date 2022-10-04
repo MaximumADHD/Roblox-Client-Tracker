@@ -6,7 +6,7 @@ return function()
 
 	local TestHelpers = require(Plugin.RhodiumTests.TestHelpers)
 	local TestPaths = require(Plugin.RhodiumTests.TestPaths)
-	local VirtualInput = require(Plugin.Rhodium.VirtualInput)
+	local VirtualInput = require(Plugin.Packages.Dev.Rhodium).VirtualInput
 	local runTest = TestHelpers.runTest
 
 	local Templates = require(Plugin.Src.Util.Templates)
@@ -80,10 +80,10 @@ return function()
 			expect(trackList:WaitForChild("Head_Position")).to.be.ok()
 			local textBox = trackList.Head_Position.Y_Entry.Border.TextBox.Border.Text
 			TestHelpers.clickInstance(textBox)
-			VirtualInput.hitKey(Enum.KeyCode.Backspace)
-			VirtualInput.sendText("3")
+			VirtualInput.Keyboard.hitKey(Enum.KeyCode.Backspace)
+			VirtualInput.Text.sendText("3")
 			TestHelpers.delay()
-			VirtualInput.hitKey(Enum.KeyCode.Return)
+			VirtualInput.Keyboard.hitKey(Enum.KeyCode.Return)
 			TestHelpers.delay()
 
 			local rootInstance = store:getState().Status.RootInstance

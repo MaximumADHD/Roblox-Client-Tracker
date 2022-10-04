@@ -2,6 +2,12 @@ return function()
 	local Plugin = script.Parent.Parent.Parent
 	local Roact = require(Plugin.Packages.Roact)
 
+	local act = if game:GetFastFlag("9SliceEditorMigrateToRoact17")
+		then require(Plugin.Packages.ReactRoblox).act
+		else function(callback)
+			callback()
+		end
+
 	local TestHelper = require(Plugin.Src.Util.TestHelper)
 	local Rhodium = require(Plugin.Packages.Dev.Rhodium)
 	local withTestComponent = TestHelper.withTestComponent
@@ -144,11 +150,13 @@ return function()
 				local element = Rhodium.Element.new(textBox)
 				expect(element:getRbxInstance()).to.be.ok()
 
-				element:click() -- Focus on text box
-				textBox.Text = tostring(requestedOffsets[orientation])
-				wait()
-				element:sendKey(Enum.KeyCode.Return) -- Press enter
-				wait()
+				act(function()
+					element:click() -- Focus on text box
+					textBox.Text = tostring(requestedOffsets[orientation])
+					wait()
+					element:sendKey(Enum.KeyCode.Return) -- Press enter
+					wait()
+				end)
 				-- Text should be clamped
 				expect(textBox.Text).to.equal(tostring(expectedClampedOffsets[orientation]))
 			end
@@ -192,11 +200,13 @@ return function()
 				local element = Rhodium.Element.new(textBox)
 				expect(element:getRbxInstance()).to.be.ok()
 
-				element:click() -- Focus on text box
-				textBox.Text = tostring(requestedOffsets[orientation])
-				wait()
-				element:sendKey(Enum.KeyCode.Return) -- Press enter
-				wait()
+				act(function()
+					element:click() -- Focus on text box
+					textBox.Text = tostring(requestedOffsets[orientation])
+					wait()
+					element:sendKey(Enum.KeyCode.Return) -- Press enter
+					wait()
+				end)
 			end
 
 			local expectedSliceRect = TestHelper.getSliceRectFromOffsets(requestedOffsets, pixelDimensions)
