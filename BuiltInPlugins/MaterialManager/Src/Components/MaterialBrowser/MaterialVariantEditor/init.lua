@@ -17,9 +17,6 @@ local UI = Framework.UI
 local Pane = UI.Pane
 local ScrollingFrame = UI.ScrollingFrame
 
-local Actions = Plugin.Src.Actions
-local SetMode = require(Actions.SetMode)
-
 local MaterialVariantEditorComponent = Plugin.Src.Components.MaterialBrowser.MaterialVariantEditor
 local MaterialHeader = require(MaterialVariantEditorComponent.MaterialHeader)
 local MaterialInformation = require(MaterialVariantEditorComponent.MaterialInformation)
@@ -34,9 +31,7 @@ local PhysicalSettings = require(MaterialVariantEditorComponent.PhysicalSettings
 local getSupportedMaterials = require(Plugin.Src.Resources.Constants.getSupportedMaterials)
 local supportedMaterials = getSupportedMaterials()
 
-local getFFlagMaterialManagerTerrainDetails = require(
-	Plugin.Src.Flags.getFFlagMaterialManagerTerrainDetails
-)
+local getFFlagMaterialManagerTerrainDetails = require(Plugin.Src.Flags.getFFlagMaterialManagerTerrainDetails)
 local getFFlagMaterialVariantPhysicalPropertiesV2 = require(
 	Plugin.Src.Flags.getFFlagMaterialVariantPhysicalPropertiesV2
 )
@@ -51,7 +46,6 @@ export type Props = {
 
 type _Props = Props & {
 	Analytics: any,
-	dispatchSetMode: (mode: string) -> (),
 	Localization: any,
 	Material: _Types.Material?,
 	Stylizer: any,
@@ -60,15 +54,6 @@ type _Props = Props & {
 type _Style = {
 	CustomExpandablePane: any,
 }
-
-function MaterialVariantEditor:didMount()
-	local props: _Props = self.props
-	local material: _Types.Material? = props.Material
-
-	if material and material.MaterialVariant then
-		props.dispatchSetMode("Edit")
-	end
-end
 
 function MaterialVariantEditor:render()
 	local props: _Props = self.props
@@ -98,47 +83,47 @@ function MaterialVariantEditor:render()
 				MaterialInformation = Roact.createElement(MaterialInformation, {
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
 				}),
-				GeneralSettings = if materialVariant then 
-					Roact.createElement(GeneralSettings, {
+				GeneralSettings = if materialVariant
+					then Roact.createElement(GeneralSettings, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),
 						MaterialVariant = materialVariant,
-					}) else nil,
-				TextureSettings = if materialVariant then
-					Roact.createElement(TextureSettings, {
+					})
+					else nil,
+				TextureSettings = if materialVariant
+					then Roact.createElement(TextureSettings, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),
 						PBRMaterial = materialVariant,
 						Expandable = true,
 					})
 					else nil,
-				OverrideSettings = if materialVariant and overrideSupport then
-					Roact.createElement(OverrideSettings, {
+				OverrideSettings = if materialVariant and overrideSupport
+					then Roact.createElement(OverrideSettings, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),
 						MaterialVariant = materialVariant,
 					})
-				else 
-					Roact.createElement(MaterialOverrides, {
+					else Roact.createElement(MaterialOverrides, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),
 					}),
-				TilingSettings = if materialVariant then
-					Roact.createElement(TilingSettings, {
+				TilingSettings = if materialVariant
+					then Roact.createElement(TilingSettings, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),
 						PBRMaterial = materialVariant,
 						Expandable = true,
 					})
 					else nil,
-				TerrainDetailsSettings = if getFFlagMaterialManagerTerrainDetails() and materialVariant then
-					Roact.createElement(TerrainDetailsSettings, {
+				TerrainDetailsSettings = if getFFlagMaterialManagerTerrainDetails() and materialVariant
+					then Roact.createElement(TerrainDetailsSettings, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),
 						MaterialVariant = materialVariant,
 					})
 					else nil,
-				PhysicalSettings = if getFFlagMaterialVariantPhysicalPropertiesV2() and materialVariant then
-					Roact.createElement(PhysicalSettings, {
+				PhysicalSettings = if getFFlagMaterialVariantPhysicalPropertiesV2() and materialVariant
+					then Roact.createElement(PhysicalSettings, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),
 						MaterialVariant = materialVariant,
 					})
 					else nil,
-			})
+			}),
 		})
 	end
 end
@@ -151,15 +136,8 @@ MaterialVariantEditor = withContext({
 
 return RoactRodux.connect(
 	function(state, props)
-		return {
-			Material = props.MaterialMock or state.MaterialBrowserReducer.Material,
-		}
-	end,
-	function(dispatch)
-		return {
-			dispatchSetMode = function(mode: string)
-				dispatch(SetMode(mode))
-			end,
-		}
+	return {
+		Material = props.MaterialMock or state.MaterialBrowserReducer.Material,
+	}
 	end
 )(MaterialVariantEditor)

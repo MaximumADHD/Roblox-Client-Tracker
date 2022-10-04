@@ -24,6 +24,8 @@ local getCategories = require(Util.getCategories)
 local Controllers = Plugin.Src.Controllers
 local MaterialServiceController = require(Controllers.MaterialServiceController)
 
+local getFFlagMaterialManagerSidebarExpansion = require(Plugin.Src.Flags.getFFlagMaterialManagerSidebarExpansion)
+
 local SideBar = Roact.PureComponent:extend("SideBar")
 
 export type Props = {
@@ -142,6 +144,9 @@ function SideBar:didMount()
 		self.categories = getCategories(rootCategory, localization)
 		local allCategory = self.categories[1]
 		self:setState({
+			Expansion = if getFFlagMaterialManagerSidebarExpansion() then{
+				[allCategory] = true,
+			} else nil,
 			Selection = {
 				[allCategory] = true,
 			},

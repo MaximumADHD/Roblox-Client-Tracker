@@ -69,11 +69,6 @@ type _Style = {
 local PhysicalSettings = Roact.PureComponent:extend("PhysicalSettings")
 
 function PhysicalSettings:init()
-	self.state = {
-		name = self.props.MaterialVariant.Name,
-	}
-	self.baseMaterials = {}
-
 	self.setPhysicalProperty = function(property: string)
 		return function(value)
 			self.physicalProperties[property] = value
@@ -125,7 +120,6 @@ function PhysicalSettings:render()
 
 	return Roact.createElement(ExpandablePane, {
 		LayoutOrder = props.LayoutOrder,
-		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		ContentPadding = style.ContentPadding,
 		ContentSpacing = style.ItemSpacing,
 		Text = localization:getText("PhysicalProperties", "Physics"),

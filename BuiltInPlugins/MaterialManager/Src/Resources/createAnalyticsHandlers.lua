@@ -6,7 +6,9 @@ local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
 local HttpService = game:GetService("HttpService")
 
-local getFFlagMaterialManagerTextureMapDiverseErrors = require(Plugin.Src.Flags.getFFlagMaterialManagerTextureMapDiverseErrors)
+local getFFlagMaterialManagerTextureMapOverhaul = require(
+	Plugin.Src.Flags.getFFlagMaterialManagerTextureMapOverhaul
+)
 
 -- New Plugin Setup: Change this to the analytics context name for your plugin
 local pluginAnalyticsContext = "MaterialManager"
@@ -50,10 +52,6 @@ return function(analyticsService)
 	end
 
 	return {
-		newMaterialVariantCounter = function()
-			_reportCounter("NewMaterialVariant")
-		end,
-
 		newMaterialVariant = function(_, additionalArgs, throttlingPercent)
 			_reportInfluxSeries("BaseMaterialForVariant", additionalArgs, throttlingPercent)
 		end,
@@ -70,10 +68,18 @@ return function(analyticsService)
 			_reportCounter("UploadAssetIdTextureMap")
 		end,
 
+		-- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 		uploadTextureMap = function()
 			_reportCounter("UploadTextureMap")
 		end,
 
+		uploadTextureMapSuccess = if getFFlagMaterialManagerTextureMapOverhaul() then 
+			function()
+				_reportCounter("UploadTextureMapSuccess")
+			end
+		else nil,
+
+		-- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 		editMaterialVariantAndSave = function()
 			_reportCounter("EditMaterialVariantAndSave")
 		end,
@@ -111,18 +117,23 @@ return function(analyticsService)
 			_reportCounter("SelectFileTextureMapError")
 		end,
 
+		-- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 		uploadTextureMapError = function()
 			_reportCounter("UploadTextureMapError")
 		end,
+
+		uploadFromURLTextureMapError = if getFFlagMaterialManagerTextureMapOverhaul() then
+			function()
+				_reportCounter("UploadFromURLTextureMapError")
+			end
+		else nil,
 
 		uploadTextureMapFromFileError = function()
 			_reportCounter("UploadTextureMapFromFileError")
 		end,
 
-		uploadTextureMapGeneralError = if getFFlagMaterialManagerTextureMapDiverseErrors() then 
-			function()
-				_reportCounter("UploadTextureMapGeneralError")
-			end
-		else nil,
+		uploadTextureMapGeneralError = function()
+			_reportCounter("UploadTextureMapGeneralError")
+		end
 	}
 end

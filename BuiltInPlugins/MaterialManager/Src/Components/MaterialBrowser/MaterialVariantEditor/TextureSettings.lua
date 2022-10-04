@@ -19,7 +19,15 @@ local Actions = Plugin.Src.Actions
 local SetExpandedPane = require(Actions.SetExpandedPane)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
-local TextureMapSelector = require(Plugin.Src.Components.MaterialBrowser.MaterialVariantEditor.TextureMapSelector)
+local getFFlagMaterialManagerTextureMapOverhaul = require(
+	Plugin.Src.Flags.getFFlagMaterialManagerTextureMapOverhaul
+)
+
+local TextureMapSelector = if getFFlagMaterialManagerTextureMapOverhaul()
+	then 
+		require(Plugin.Src.Components.MaterialBrowser.MaterialVariantEditor.TextureMapSelector)
+	else 
+		require(Plugin.Src.Components.MaterialBrowser.MaterialVariantEditor.deprecatedTextureMapSelector)
 
 local Constants = Plugin.Src.Resources.Constants
 local getSettingsNames = require(Constants.getSettingsNames)
@@ -29,7 +37,6 @@ local TextureMaps = getTextureMapNames()
 local settingsNames = getSettingsNames()
 
 export type Props = {
-	LabelWidth: number?,
 	LayoutOrder: number?,
 	PBRMaterial: MaterialVariant | TerrainDetail,
 	Expandable: boolean?,
@@ -50,7 +57,6 @@ type _Style = {
 	ItemSpacing: number,
 	LabelColumnWidth: UDim,
 	LabelWidth: UDim,
-	TerrainDetailColumnWidth: number,
 }
 
 local TextureSettings = Roact.PureComponent:extend("TextureSettings")
@@ -74,54 +80,52 @@ function TextureSettings:render()
 	end
 
 	local layoutOrderIterator = LayoutOrderIterator.new()
-	local columnWidth = if props.Expandable then style.ColumnWidth else style.TerrainDetailColumnWidth
 
 	local children = {
 		ImportColorMap = Roact.createElement(TextureMapSelector, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			LabelColumnWidth = style.LabelColumnWidth,
-			LabelWidth = props.LabelWidth or style.LabelWidth,
+			LabelWidth = style.LabelWidth,
 			MapType = TextureMaps.ColorMap,
 			PreviewTitle = localization:getText("Import", "ColorMapPreview"),
 			Text = localization:getText("CreateDialog", "ImportColorMap"),
 			PBRMaterial = props.PBRMaterial,
-			ColumnWidth = columnWidth,
+			ColumnWidth = style.ColumnWidth,
 		}),
 		ImportMetalnessMap = Roact.createElement(TextureMapSelector, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			LabelColumnWidth = style.LabelColumnWidth,
-			LabelWidth = props.LabelWidth or style.LabelWidth,
+			LabelWidth = style.LabelWidth,
 			MapType = TextureMaps.MetalnessMap,
 			PreviewTitle = localization:getText("Import", "MetalnessMapPreview"),
 			Text = localization:getText("CreateDialog", "ImportMetalnessMap"),
 			PBRMaterial = props.PBRMaterial,
-			ColumnWidth = columnWidth,
+			ColumnWidth = style.ColumnWidth,
 		}),
 		ImportNormalMap = Roact.createElement(TextureMapSelector, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			LabelColumnWidth = style.LabelColumnWidth,
-			LabelWidth = props.LabelWidth or style.LabelWidth,
+			LabelWidth = style.LabelWidth,
 			MapType = TextureMaps.NormalMap,
 			PreviewTitle = localization:getText("Import", "NormalMapPreview"),
 			Text = localization:getText("CreateDialog", "ImportNormalMap"),
 			PBRMaterial = props.PBRMaterial,
-			ColumnWidth = columnWidth,
+			ColumnWidth = style.ColumnWidth,
 		}),
 		ImportRoughnessMap = Roact.createElement(TextureMapSelector, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			LabelColumnWidth = style.LabelColumnWidth,
-			LabelWidth = props.LabelWidth or style.LabelWidth,
+			LabelWidth = style.LabelWidth,
 			MapType = TextureMaps.RoughnessMap,
 			PreviewTitle = localization:getText("Import", "RoughnessMapPreview"),
 			Text = localization:getText("CreateDialog", "ImportRoughnessMap"),
 			PBRMaterial = props.PBRMaterial,
-			ColumnWidth = columnWidth,
+			ColumnWidth = style.ColumnWidth,
 		})
 	}
 
 	if props.Expandable then
 		return Roact.createElement(ExpandablePane, {
-			AutomaticSize = Enum.AutomaticSize.Y,
 			LayoutOrder = props.LayoutOrder,
 			ContentPadding = style.ContentPadding,
 			ContentSpacing = style.ItemSpacing,

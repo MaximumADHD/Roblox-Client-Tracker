@@ -13,8 +13,11 @@ local Analytics = ContextServices.Analytics
 local Localization = ContextServices.Localization
 
 local UI = Framework.UI
-local ExpandablePane = UI.ExpandablePane
 local Button = UI.Button
+local ExpandablePane = UI.ExpandablePane
+local Pane = UI.Pane
+
+local getTerrainDetails = require(Plugin.Src.Util.getTerrainDetails)
 
 local Actions = Plugin.Src.Actions
 local SetExpandedPane = require(Actions.SetExpandedPane)
@@ -22,7 +25,6 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local Controllers = Plugin.Src.Controllers
 local GeneralServiceController = require(Controllers.GeneralServiceController)
-local MaterialServiceController = require(Controllers.MaterialServiceController)
 
 local MaterialVariantEditorComponent = Plugin.Src.Components.MaterialBrowser.MaterialVariantEditor
 local LabeledElement = require(MaterialVariantEditorComponent.LabeledElement)
@@ -42,7 +44,7 @@ export type Props = {
 	MockMaterial: _Types.Material?,
 }
 
-type _Props = Props & { 
+type _Props = Props & {
 	Analytics: any,
 	dispatchSetExpandedPane: (paneName: string, expandedPaneState: boolean) -> (),
 	ExpandedPane: boolean,
@@ -66,21 +68,20 @@ local TerrainDetailsSettings = Roact.PureComponent:extend("TerrainDetailsSetting
 
 function TerrainDetailsSettings:init()
 	self.onClick = function(face: string)
-		self.props.MaterialServiceController:createTerrainDetail(self.props.MaterialVariant, face)
-	end
-
-	self.onDelete = function(face: string)
 		local props: _Props = self.props
 
-		local terrainDetail = props.Material["TerrainDetail" .. face]
-		if terrainDetail then
-			props.GeneralServiceController:destroyWithUndo(terrainDetail)
-		end
+		props.GeneralServiceController:createTerrainDetail(self.props.MaterialVariant, face)
+	end
+
+	self.onDelete = function(terrainDetail: TerrainDetail)
+		local props: _Props = self.props
+
+		props.GeneralServiceController:destroyWithUndo(terrainDetail)
 	end
 
 	self.onExpandedChanged = function()
 		local props: _Props = self.props
-		
+
 		props.dispatchSetExpandedPane(settingsNames.TerrainDetailsSettings, not props.ExpandedPane)
 	end
 end
@@ -90,11 +91,17 @@ function TerrainDetailsSettings:render()
 	local style: _Style = props.Stylizer.MaterialDetails
 	local localization = props.Localization
 	local layoutOrderIterator = LayoutOrderIterator.new()
+	local material = props.Material
 
+	if not material.MaterialVariant then
+		return Roact.createElement(Pane)
+	end
+
+	local terrainDetails = getTerrainDetails(material.MaterialVariant)
 	local children = {}
 	for _, terrainFace in ipairs(TerrainFaces) do
 		local face = getTerrainFaceName(terrainFace)
-		local terrainDetail = props.Material["TerrainDetail" .. face]
+		local terrainDetail = terrainDetails[terrainFace]
 		if terrainDetail then
 			children[face] = Roact.createElement(TerrainDetailsEditor, {
 				LabelColumnWidth = style.LabelColumnWidth,
@@ -102,8 +109,8 @@ function TerrainDetailsSettings:render()
 				TerrainDetail = terrainDetail,
 				TerrainFace = face,
 				OnDelete = function()
-					self.onDelete(face)
-				end
+					self.onDelete(terrainDetail)
+				end,
 			})
 		else
 			children[face] = Roact.createElement(LabeledElement, {
@@ -120,14 +127,13 @@ function TerrainDetailsSettings:render()
 						self.onClick(face)
 					end,
 					Style = "Round",
-				})
+				}),
 			})
 		end
 	end
 
 	return Roact.createElement(ExpandablePane, {
 		LayoutOrder = props.LayoutOrder,
-		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		ContentPadding = style.ContentPadding,
 		ContentSpacing = style.ItemSpacing,
 		Text = localization:getText("TerrainDetails", "TerrainDetails"),
@@ -140,7 +146,6 @@ end
 TerrainDetailsSettings = withContext({
 	Analytics = Analytics,
 	GeneralServiceController = GeneralServiceController,
-	MaterialServiceController = MaterialServiceController,
 	Localization = Localization,
 	Stylizer = Stylizer,
 })(TerrainDetailsSettings)

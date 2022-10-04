@@ -8,10 +8,14 @@ local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextItem = Framework.ContextServices.ContextItem
-local Promise = require(Plugin.Packages.Promise)
+local Promise = Framework.Util.Promise
 
-local getFFlagMaterialManagerVariantCreatorOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
-local getFFlagMaterialManagerTextureMapDiverseErrors = require(Plugin.Src.Flags.getFFlagMaterialManagerTextureMapDiverseErrors)
+local getFFlagMaterialManagerVariantCreatorOverhaul = require(
+	Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul
+)
+local getFFlagMaterialManagerTextureMapOverhaul = require(
+	Plugin.Src.Flags.getFFlagMaterialManagerTextureMapOverhaul
+)
 
 -- Pull the numeric part out of a content id (of form rbxasset://xyz or rbxtemp://xyz etc.)
 local function numericIdFromContentId(id)
@@ -38,10 +42,14 @@ function ImportAssetHandler.mock(imageUploader, userId)
 	return ImportAssetHandler.new(imageUploader, userId)
 end
 
-function ImportAssetHandler:handleAssetAsync(assetFile: File, onAssetUploading: () -> ()?)
+function ImportAssetHandler:handleAssetAsync(assetFile: File, onAssetUploading: (boolean?) -> ()?)
 	assert(assetFile, "ImportAssetHandler:handleAsset() requires an assetFile")
 	if getFFlagMaterialManagerVariantCreatorOverhaul() and onAssetUploading then
-		onAssetUploading()
+		if getFFlagMaterialManagerTextureMapOverhaul() then
+			onAssetUploading(true)
+		else
+			onAssetUploading()
+		end
 	end
 
 	local tempId = assetFile:GetTemporaryId()
@@ -49,10 +57,8 @@ function ImportAssetHandler:handleAssetAsync(assetFile: File, onAssetUploading: 
 	local success, response = pcall(function()
 		assetFileContents = assetFile:GetBinaryContents()
 	end)
-	if getFFlagMaterialManagerTextureMapDiverseErrors() and not success then
+	if not success then
 		return Promise.reject(response)
-	elseif not success then
-		return Promise.reject()
 	end
 	return self._imageUploader:upload(tempId, assetFile.Name, --[[description=]]"", assetFileContents):andThen(function(assetId)
 		local assetIdNumber = tonumber(assetId)

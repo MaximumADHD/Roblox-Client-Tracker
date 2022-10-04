@@ -26,9 +26,8 @@ local DarkTheme = Style.Themes.DarkTheme
 local LightTheme = Style.Themes.LightTheme
 local StyleKey = Style.StyleKey
 
-local getFFlagMaterialManagerVariantCreatorOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
-local getFFlagMaterialManagerExpandablePaneHeaderColor = require(
-	Plugin.Src.Flags.getFFlagMaterialManagerExpandablePaneHeaderColor
+local getFFlagMaterialManagerVariantCreatorOverhaul = require(
+	Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul
 )
 
 local devFrameworkRoundBox = getRawComponentStyle("RoundBox")
@@ -173,7 +172,7 @@ local function getPluginTheme()
 
 		CustomExpandablePane = Dash.joinDeep(expandablePane, {
 			Header = {
-				Background = if getFFlagMaterialManagerExpandablePaneHeaderColor() then StyleKey.Titlebar else nil,
+				Background = StyleKey.Titlebar,
 				Text = {
 					Font = ExpandablePaneFont,
 					TextSize = ExpandablePaneTextSize,
@@ -308,13 +307,12 @@ local function getPluginTheme()
 			ItemSpacing = LabeledItemSpacing,
 			ErrorOrWarningTextSize = LabeledErrorOrWarningTextSize,
 			ColumnWidth = ColumnWidth,
-			TerrainDetailColumnWidth = TerrainDetailColumnWidth,
 			DialogColumnSize = UDim2.new(0, ColumnWidth, 0, 25),
-			TerrainDetailDialogColumnSize = UDim2.new(0, TerrainDetailColumnWidth, 0, 25),
 			TerrainDetailLabelWidth = UDim.new(0, 85),
 			ContentPadding = ContentPadding,
 			TextureLabelSize = UDim.new(0, 69),
 			TilingLabelSize = UDim.new(0, 89),
+			NameLabelSize = UDim2.new(0, 110, 0, 20),
 		},
 
 		LabeledString = {

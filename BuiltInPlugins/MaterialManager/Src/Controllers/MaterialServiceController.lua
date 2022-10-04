@@ -4,7 +4,6 @@ local Framework = require(Plugin.Packages.Framework)
 
 local ContextItem = Framework.ContextServices.ContextItem
 local ServiceWrapper = Framework.TestHelpers.ServiceWrapper
-local join = Framework.Dash.join
 
 local MaterialBrowserReducer = require(Plugin.Src.Reducers.MaterialBrowserReducer)
 
@@ -21,23 +20,19 @@ local SetSearch = require(Actions.SetSearch)
 local SetUse2022Materials = require(Actions.SetUse2022Materials)
 
 local Constants = Plugin.Src.Resources.Constants
+local getCategoryDefault = require(Constants.getCategoryDefault)
 local getMaterialPath = require(Constants.getMaterialPath)
 local getMaterialType = require(Constants.getMaterialType)
 local getMaterialName = require(Constants.getMaterialName)
 local getSupportedMaterials = require(Constants.getSupportedMaterials)
-local getTerrainFaceName = require(Constants.getTerrainFaceName)
 
 local Util = Plugin.Src.Util
 local CheckMaterialName = require(Util.CheckMaterialName)
 local ContainsPath = require(Util.ContainsPath)
-local GenerateMaterialName = require(Util.GenerateMaterialName)
-local GenerateTerrainDetailName = require(Util.GenerateTerrainDetailName)
 local getMaterials = require(Util.getMaterials)
 local getOverrides = require(Util.getOverrides)
 
-local getFFlagMaterialManagerTerrainDetails = require(
-	Plugin.Src.Flags.getFFlagMaterialManagerTerrainDetails
-)
+local getFFlagMaterialManagerTerrainDetails = require(Plugin.Src.Flags.getFFlagMaterialManagerTerrainDetails)
 
 local supportedMaterials = getSupportedMaterials()
 
@@ -53,8 +48,6 @@ local MaterialServiceController = ContextItem:extend("MaterialServiceController"
 function MaterialServiceController.new(store: any, mock: boolean?)
 	local self = setmetatable({
 		_materialChangedListeners = {},
-		_terrainDetailAddedListeners = {},
-		_terrainDetailRemovedListeners = {},
 		_overrideChangedListeners = {},
 		_changeHistoryService = ServiceWrapper.new("ChangeHistoryService", mock),
 
@@ -73,17 +66,44 @@ function MaterialServiceController.new(store: any, mock: boolean?)
 		_mock = mock,
 	}, MaterialServiceController)
 
-	self._materialServiceAdded = self._materialServiceWrapper:asInstance().DescendantAdded:Connect(function(instance: Instance)
-		if instance:IsA("MaterialVariant") then
-			self:addMaterial(instance.BaseMaterial, instance, getMaterialPath(instance.BaseMaterial))
-		end
-	end)
+	self._materialServiceAdded = self._materialServiceWrapper
+		:asInstance().DescendantAdded
+		:Connect(function(instance: Instance)
+			if instance:IsA("MaterialVariant") then
+				self:addMaterial(instance.BaseMaterial, instance, getMaterialPath(instance.BaseMaterial))
+			elseif
+				getFFlagMaterialManagerTerrainDetails()
+				and instance:IsA("TerrainDetail")
+				and instance.Parent
+				and instance.Parent:IsA("MaterialVariant")
+			then
+				local materialVariant = instance.Parent
+				local materialWrapper = self:getMaterialWrapper(materialVariant.BaseMaterial, materialVariant)
+				self._materialChangedListeners[instance] = instance.Changed:Connect(function(property)
+					local materialWrapper = self:getMaterialWrapper(materialVariant.BaseMaterial, materialVariant)
+					self._store:dispatch(SetMaterialWrapper(materialWrapper))
+				end)
+				self._store:dispatch(SetMaterialWrapper(materialWrapper))
+			end
+		end)
 
-	self._materialServiceRemoved = self._materialServiceWrapper:asInstance().DescendantRemoving:Connect(function(instance: Instance)
-		if instance:IsA("MaterialVariant") then
-			self:removeMaterial(instance)
-		end
-	end)
+	self._materialServiceRemoved = self._materialServiceWrapper
+		:asInstance().DescendantRemoving
+		:Connect(function(instance: Instance)
+			if instance:IsA("MaterialVariant") then
+				self:removeMaterial(instance)
+			elseif
+				getFFlagMaterialManagerTerrainDetails()
+				and instance:IsA("TerrainDetail")
+				and instance.Parent
+				and instance.Parent:IsA("MaterialVariant")
+			then
+				local materialVariant = instance.Parent
+				local materialWrapper = self:getMaterialWrapper(materialVariant.BaseMaterial, materialVariant)
+				self._materialChangedListeners[instance] = nil
+				self._store:dispatch(SetMaterialWrapper(materialWrapper))
+			end
+		end)
 
 	self._materialServiceChanged = self._materialServiceWrapper:asInstance().Changed:Connect(function(property: string)
 		if self._nameToEnum[property] then
@@ -91,14 +111,21 @@ function MaterialServiceController.new(store: any, mock: boolean?)
 		end
 	end)
 
-	self._materialServiceStatus = self._materialServiceWrapper:asService().OverrideStatusChanged:Connect(function(material: Enum.Material)
-		self._store:dispatch(SetMaterialStatus(material, self._materialServiceWrapper:asService():GetOverrideStatus(material)))
-	end)
+	self._materialServiceStatus = self._materialServiceWrapper
+		:asService().OverrideStatusChanged
+		:Connect(function(material: Enum.Material)
+			self._store:dispatch(
+				SetMaterialStatus(material, self._materialServiceWrapper:asService():GetOverrideStatus(material))
+			)
+		end)
 
 	if not mock then
-		self._uses2022MaterialsChanged = self._materialServiceWrapper:asInstance():GetPropertyChangedSignal("Use2022Materials"):Connect(function()
-			self._store:dispatch(SetUse2022Materials(self._materialServiceWrapper:asService().Use2022Materials))
-		end)
+		self._uses2022MaterialsChanged = self._materialServiceWrapper
+			:asInstance()
+			:GetPropertyChangedSignal("Use2022Materials")
+			:Connect(function()
+				self._store:dispatch(SetUse2022Materials(self._materialServiceWrapper:asService().Use2022Materials))
+			end)
 
 		self._store:dispatch(SetUse2022Materials(self._materialServiceWrapper:asService().Use2022Materials))
 	end
@@ -106,9 +133,12 @@ function MaterialServiceController.new(store: any, mock: boolean?)
 	for material, isSupported in pairs(supportedMaterials) do
 		self:addMaterial(material, nil, getMaterialPath(material))
 		if isSupported then
-			self._overrideChangedListeners[material] = self._materialServiceWrapper:asService():GetMaterialOverrideChanged(material):Connect(function()
-				self:updateOverrides(material)
-			end)
+			self._overrideChangedListeners[material] = self._materialServiceWrapper
+				:asService()
+				:GetMaterialOverrideChanged(material)
+				:Connect(function()
+					self:updateOverrides(material)
+				end)
 		end
 	end
 
@@ -146,54 +176,22 @@ function MaterialServiceController:destroy()
 		self._materialChangedListeners[materialIndex]:Disconnect()
 		self._materialChangedListeners[materialIndex] = nil
 	end
-
-	for terrainDetailIndex, _ in ipairs(self._terrainDetailAddedListeners) do
-		self._terrainDetailAddedListeners[terrainDetailIndex]:Disconnect()
-		self._terrainDetailAddedListeners[terrainDetailIndex] = nil
-	end
-
-	for terrainDetailIndex, _ in ipairs(self._terrainDetailRemovedListeners) do
-		self._terrainDetailRemovedListeners[terrainDetailIndex]:Disconnect()
-		self._terrainDetailRemovedListeners[terrainDetailIndex] = nil
-	end
 end
 
 function MaterialServiceController:getRootCategory(): Category
 	return self._rootCategory
 end
 
-function MaterialServiceController:getMaterialWrapper(material: Enum.Material, materialVariant: MaterialVariant?): _Types.Material
-	if getFFlagMaterialManagerTerrainDetails() then
-		local materialWrapper = {
-			Material = material,
-			MaterialPath = getMaterialPath(material),
-			MaterialType = getMaterialType(material),
-			MaterialVariant = materialVariant,
-		}
-		if materialVariant then
-			local terrainDetailUpdate
-			for _, child in ipairs(materialVariant:GetChildren()) do
-				if child:IsA("TerrainDetail") then
-					local face = getTerrainFaceName(child.Face)
-					terrainDetailUpdate = "TerrainDetail" .. face
-					if not materialWrapper[terrainDetailUpdate] then
-						materialWrapper = join(materialWrapper, {
-							[terrainDetailUpdate] = child,
-						})
-					end
-				end
-			end
-		end
-		return materialWrapper
-	else
-		return {
-			Material = material,
-			MaterialPath = getMaterialPath(material),
-			MaterialType = getMaterialType(material),
-			MaterialVariant = materialVariant,
-		}
-	end
-
+function MaterialServiceController:getMaterialWrapper(
+	material: Enum.Material,
+	materialVariant: MaterialVariant?
+): _Types.Material
+	return {
+		Material = material,
+		MaterialPath = getMaterialPath(material),
+		MaterialType = getMaterialType(material),
+		MaterialVariant = materialVariant,
+	}
 end
 
 function MaterialServiceController:addCategory(path: _Types.Path, builtin: boolean): Category?
@@ -226,7 +224,11 @@ function MaterialServiceController:findCategory(path: _Types.Path, builtin: bool
 	return category
 end
 
-function MaterialServiceController:addMaterial(material: Enum.Material, materialVariant: MaterialVariant?, moving: boolean)
+function MaterialServiceController:addMaterial(
+	material: Enum.Material,
+	materialVariant: MaterialVariant?,
+	moving: boolean
+)
 	local path = getMaterialPath(material)
 	local materialWrapper = self:getMaterialWrapper(material, materialVariant)
 	local category = self:addCategory(path, not materialWrapper.MaterialVariant)
@@ -260,40 +262,10 @@ function MaterialServiceController:addMaterial(material: Enum.Material, material
 
 			self._store:dispatch(SetMaterialWrapper(materialWrapper))
 		end)
-
-		if getFFlagMaterialManagerTerrainDetails() then
-			assert(not self._terrainDetailAddedListeners[materialVariant], "Already connected to material child added")
-
-			self._terrainDetailAddedListeners[materialVariant] = materialVariant.ChildAdded:Connect(function(child)
-				if child:IsA("TerrainDetail") then
-					local materialWrapper = self:getMaterialWrapper(materialVariant.BaseMaterial, materialVariant)
-					self._store:dispatch(SetMaterialWrapper(materialWrapper))
-					
-					assert(not self._materialChangedListeners[child], "Already connected to material changed")
-
-					self._materialChangedListeners[child] = child.Changed:Connect(function(property)
-						local materialWrapper = self:getMaterialWrapper(materialVariant.BaseMaterial, materialVariant)
-						self._store:dispatch(SetMaterialWrapper(materialWrapper))
-					end)
-				end
-			end)
-		
-			assert(not self._terrainDetailRemovedListeners[materialVariant], "Already connected to material child removed")
-			
-			self._terrainDetailRemovedListeners[materialVariant] = materialVariant.ChildRemoved:Connect(function(child)
-				if child:IsA("TerrainDetail") then
-					local materialWrapper = self:getMaterialWrapper(materialVariant.BaseMaterial, materialVariant)
-					self._store:dispatch(SetMaterialWrapper(materialWrapper))
-					
-					if self._materialChangedListeners[child] then
-						self._materialChangedListeners[child]:Disconnect()
-						self._materialChangedListeners[child] = nil
-					end
-				end
-			end)
-		end
 	else
-		self._store:dispatch(SetMaterialStatus(material, self._materialServiceWrapper:asService():GetOverrideStatus(material)))
+		self._store:dispatch(
+			SetMaterialStatus(material, self._materialServiceWrapper:asService():GetOverrideStatus(material))
+		)
 	end
 
 	if supportedMaterials[material] then
@@ -326,17 +298,8 @@ function MaterialServiceController:removeMaterial(material: MaterialVariant, mov
 		self._materialChangedListeners[material]:Disconnect()
 		self._materialChangedListeners[material] = nil
 	end
-	
+
 	if getFFlagMaterialManagerTerrainDetails() then
-		-- Clear terrainDetail listeners
-		if self._terrainDetailAddedListeners[material] then
-			self._terrainDetailAddedListeners[material]:Disconnect()
-			self._terrainDetailAddedListeners[material] = nil
-		end
-		if self._terrainDetailRemovedListeners[material] then
-			self._terrainDetailRemovedListeners[material]:Disconnect()
-			self._terrainDetailRemovedListeners[material] = nil
-		end
 		for _, child in pairs(material:GetChildren()) do
 			if self._materialChangedListeners[child] then
 				self._materialChangedListeners[child]:Disconnect()
@@ -376,13 +339,20 @@ function MaterialServiceController:moveMaterial(material: _Types.Material)
 	self:updateOverrides(material.Material)
 
 	local currentPath = self._store:getState().MaterialBrowserReducer.Path
-	if ContainsPath(currentPath, path) or ContainsPath(self._materialPaths[material.MaterialVariant], material.MaterialPath) then
+	if
+		ContainsPath(currentPath, path)
+		or ContainsPath(self._materialPaths[material.MaterialVariant], material.MaterialPath)
+	then
 		self:updateMaterialList()
 	end
 end
 
 function MaterialServiceController:updateOverrides(material: Enum.Material)
-	local overrides, index = getOverrides(self._materialServiceWrapper:asService():GetBaseMaterialOverride(material), self:findCategory({}), material)
+	local overrides, index = getOverrides(
+		self._materialServiceWrapper:asService():GetBaseMaterialOverride(material),
+		self:findCategory({}),
+		material
+	)
 
 	self._store:dispatch(SetMaterialOverrides(material, overrides))
 	self._store:dispatch(SetMaterialOverride(material, index))
@@ -422,8 +392,8 @@ function MaterialServiceController:hasDefaultMaterial(material: Enum.Material, o
 		override = ""
 	end
 
-	return (getMaterialName(material) == override or override == "") and
-		not self._materialServiceWrapper:asService():GetMaterialVariant(material, override)
+	return (getMaterialName(material) == override or override == "")
+		and not self._materialServiceWrapper:asService():GetMaterialVariant(material, override)
 end
 
 function MaterialServiceController:checkMaterialName(name: string, baseMaterial: Enum.Material): boolean
@@ -434,31 +404,21 @@ function MaterialServiceController:checkMaterialName(name: string, baseMaterial:
 	return checkMaterialNameExists
 end
 
-function MaterialServiceController:createMaterialVariant(baseMaterial: Enum.Material?)
-	local category = self:findCategory({})
-	assert(category, "Tried to get materials for path which does not exist")
+function MaterialServiceController:getCategoryDefaultMaterial(path: _Types.Path)
 
-	local materialVariant = Instance.new("MaterialVariant")
-	local generativeName = "MaterialVariant"
-	materialVariant.Name = generativeName .. GenerateMaterialName(category, generativeName)
-	materialVariant.BaseMaterial = baseMaterial or Enum.Material.Plastic
-	materialVariant.StudsPerTile = 10
-	self:setPath(getMaterialPath(materialVariant.BaseMaterial))
-	materialVariant.Parent = game:GetService("MaterialService")
+	local defaultMaterial = getCategoryDefault(path)
 
-	self._changeHistoryService:asService():SetWaypoint("Create new Material Variant to" .. materialVariant.Name)
-	return materialVariant
-end
+	if not defaultMaterial then
+		local category = self:findCategory(path)
 
-function MaterialServiceController:createTerrainDetail(materialVariant: MaterialVariant, face: string)
-	local terrainDetail = Instance.new("TerrainDetail")
-	local generativeName = "TerrainDetail"
-	terrainDetail.Face = face
-	terrainDetail.Name = generativeName .. GenerateTerrainDetailName(materialVariant, generativeName)
-	terrainDetail.Parent = materialVariant
+		if #category.Materials > 0 then
+			defaultMaterial = category.Materials[1].Material
+		else
+			defaultMaterial = Enum.Material.Plastic
+		end
+	end
 
-	self._changeHistoryService:asService():SetWaypoint("Create new Terrain Detail to" .. terrainDetail.Name)
-	return terrainDetail
+	return defaultMaterial
 end
 
 return MaterialServiceController

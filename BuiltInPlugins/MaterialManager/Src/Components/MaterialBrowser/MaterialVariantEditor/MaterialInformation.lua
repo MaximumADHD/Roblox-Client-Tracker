@@ -19,18 +19,22 @@ local Tooltip = UI.Tooltip
 local TruncatedTextLabel = UI.TruncatedTextLabel
 
 local GeneralServiceController = require(Plugin.Src.Controllers.GeneralServiceController)
-local MaterialServiceController = require(Plugin.Src.Controllers.MaterialServiceController)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local Actions = Plugin.Src.Actions
 local SetMaterialVariant = require(Actions.SetMaterialVariant)
-local SetMode = require(Actions.SetMode)
 
 local Constants = Plugin.Src.Resources.Constants
 local getFullMaterialType = require(Constants.getFullMaterialType)
 local getMaterialName = require(Constants.getMaterialName)
 local getSupportedMaterials = require(Constants.getSupportedMaterials)
 
+local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt(
+	"InfluxReportMaterialManagerHundrethPercent2"
+)
+local getFFlagMaterialManagerTextureMapOverhaul = require(
+	Plugin.Src.Flags.getFFlagMaterialManagerTextureMapOverhaul
+)
 local supportedMaterials = getSupportedMaterials()
 
 export type Props = {
@@ -38,14 +42,12 @@ export type Props = {
 	MaterialMock: _Types.Material?,
 }
 
-type _Props = Props & { 
+type _Props = Props & {
 	Analytics: any,
-	dispatchSetMode: (mode: string) -> (),
 	dispatchSetMaterialVariant: (materialVariant: MaterialVariant) -> (),
 	GeneralServiceController: any,
 	Localization: any,
 	Material: _Types.Material?,
-	MaterialServiceController: any,
 	Stylizer: any,
 }
 
@@ -97,8 +99,13 @@ function MaterialInformation:init()
 		local material: _Types.Material? = props.Material
 
 		if material and not material.MaterialVariant then
-			props.dispatchSetMode("Create")
-			local materialVariant = props.MaterialServiceController:createMaterialVariant(material.Material)
+			local materialVariant = props.GeneralServiceController:createMaterialVariant(material.Material)
+			if getFFlagMaterialManagerTextureMapOverhaul() then
+				local args = {
+					["BaseMaterial"] = getMaterialName(material.Material),
+				}
+				props.Analytics:report("newMaterialVariant", args, FIntInfluxReportMaterialManagerHundrethPercent2)
+			end
 			props.dispatchSetMaterialVariant(materialVariant)
 		end
 	end
@@ -107,8 +114,10 @@ function MaterialInformation:init()
 		local props: _Props = self.props
 
 		if props.Material then
-			props.GeneralServiceController:ApplyToSelection(props.Material.Material,
-				if props.Material.MaterialVariant then props.Material.MaterialVariant.Name else nil)
+			props.GeneralServiceController:ApplyToSelection(
+				props.Material.Material,
+				if props.Material.MaterialVariant then props.Material.MaterialVariant.Name else nil
+			)
 			props.Analytics:report("applyToSelectionButton")
 		end
 	end
@@ -125,7 +134,9 @@ function MaterialInformation:render()
 	end
 
 	local isBuiltin = not material.MaterialVariant
-	local name = if isBuiltin then localization:getText("Materials", getMaterialName(material.Material)) else material.MaterialVariant.Name
+	local name = if isBuiltin
+		then localization:getText("Materials", getMaterialName(material.Material))
+		else material.MaterialVariant.Name
 
 	local fullMaterialType = getFullMaterialType(material, localization)
 	local path = material.MaterialPath
@@ -177,8 +188,8 @@ function MaterialInformation:render()
 					Text = localization:getText("TopBar", "Apply"),
 				}),
 			}),
-			CreateVariant = if isBuiltin and supportedMaterials[material.Material] then
-				Roact.createElement(Button, {
+			CreateVariant = if isBuiltin and supportedMaterials[material.Material]
+				then Roact.createElement(Button, {
 					LayoutOrder = 3,
 					OnClick = self.createVariant,
 					Size = style.ButtonSize,
@@ -190,11 +201,12 @@ function MaterialInformation:render()
 						Position = style.ImagePosition,
 					}),
 					Tooltip = Roact.createElement(Tooltip, {
-						Text = localization:getText("MaterialInformation", "CreateVariant")
+						Text = localization:getText("MaterialInformation", "CreateVariant"),
 					}),
-				}) else nil,
-			Delete = if not isBuiltin then
-				Roact.createElement(Button, {
+				})
+				else nil,
+			Delete = if not isBuiltin
+				then Roact.createElement(Button, {
 					LayoutOrder = 3,
 					OnClick = self.delete,
 					Size = style.ButtonSize,
@@ -206,9 +218,10 @@ function MaterialInformation:render()
 						Position = style.ImagePosition,
 					}),
 					Tooltip = Roact.createElement(Tooltip, {
-						Text = localization:getText("MaterialInformation", "Delete")
+						Text = localization:getText("MaterialInformation", "Delete"),
 					}),
-				}) else nil,
+				})
+				else nil,
 		}),
 		MaterialType = Roact.createElement(TruncatedTextLabel, {
 			LayoutOrder = 2,
@@ -228,22 +241,18 @@ end
 MaterialInformation = withContext({
 	Analytics = Analytics,
 	GeneralServiceController = GeneralServiceController,
-	MaterialServiceController = MaterialServiceController,
 	Localization = Localization,
 	Stylizer = Stylizer,
 })(MaterialInformation)
 
 return RoactRodux.connect(
 	function(state: MainReducer.State, props: Props)
-		return {
-			Material = props.MaterialMock or state.MaterialBrowserReducer.Material
-		}
+	return {
+		Material = props.MaterialMock or state.MaterialBrowserReducer.Material,
+	}
 	end,
 	function(dispatch)
 		return {
-			dispatchSetMode = function(mode: string)
-				dispatch(SetMode(mode))
-			end,
 			dispatchSetMaterialVariant = function(materialVariant: MaterialVariant)
 				dispatch(SetMaterialVariant(materialVariant))
 			end,

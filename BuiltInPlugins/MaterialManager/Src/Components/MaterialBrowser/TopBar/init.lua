@@ -33,14 +33,27 @@ local GeneralServiceController = require(Controllers.GeneralServiceController)
 local MaterialServiceController = require(Controllers.MaterialServiceController)
 local PluginController = require(Controllers.PluginController)
 
-local TopBarComponents = Plugin.Src.Components.MaterialBrowser.TopBar
+local Components = Plugin.Src.Components
+local MaterialVariantEditor = require(Components.MaterialBrowser.MaterialVariantEditor)
+
+local TopBarComponents = Components.MaterialBrowser.TopBar
 local ActionButton = require(TopBarComponents.ActionButton)
 local ViewTypeSelector = require(TopBarComponents.ViewTypeSelector)
 
-local MaterialVariantEditor = require(Plugin.Src.Components.MaterialBrowser.MaterialVariantEditor)
+local Constants = Plugin.Src.Resources.Constants
+local getMaterialName = require(Constants.getMaterialName)
+local getMaterialPath = require(Constants.getMaterialPath)
+local getSupportedMaterials = require(Constants.getSupportedMaterials)
 
 local getFFlagMaterialManagerVariantCreatorOverhaul = require(
-	Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
+	Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul
+)
+local getFFlagMaterialManagerTextureMapOverhaul = require(
+	Plugin.Src.Flags.getFFlagMaterialManagerTextureMapOverhaul
+)
+
+local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
+local supportedMaterials = getSupportedMaterials()
 
 local TopBar = Roact.PureComponent:extend("TopBar")
 
@@ -53,14 +66,16 @@ export type Props = {
 type _Props = Props & {
 	ActiveAsTool: boolean,
 	Analytics: any,
-	dispatchClearMaterialVariant: () -> (),  -- remove with FFlagMaterialManagerVariantCreatorOverhaul
+	dispatchClearMaterialVariant: () -> (), -- remove with FFlagMaterialManagerVariantCreatorOverhaul
 	dispatchSetMode: (mode: string) -> (),
 	dispatchSetMaterialVariant: (materialVariant: MaterialVariant) -> (),
 	GeneralServiceController: any,
 	Localization: any,
 	Material: _Types.Material?,
 	MaterialServiceController: any,
+	Path: _Types.Path,
 	PluginController: any,
+	Search: string,
 	Stylizer: any,
 	WrapperProps: any,
 	AbsoluteSize: Vector2,
@@ -97,9 +112,22 @@ function TopBar:init()
 		local props: _Props = self.props
 
 		if getFFlagMaterialManagerVariantCreatorOverhaul() then
-			local materialVariant = props.MaterialServiceController:createMaterialVariant()
+			local material = if props.Material
+				then props.Material.Material
+				else props.MaterialServiceController:getCategoryDefaultMaterial(props.Path)
+			material = if supportedMaterials[material] then material else Enum.Material.Plastic
+			local search = props.Search
+			local materialVariant = props.GeneralServiceController:createMaterialVariant(material, search)
+
+			if getFFlagMaterialManagerTextureMapOverhaul() then
+				local args = {
+					["BaseMaterial"] = getMaterialName(material),
+				}
+				props.Analytics:report("newMaterialVariant", args, FIntInfluxReportMaterialManagerHundrethPercent2)
+			end
+
+			props.MaterialServiceController:setPath(getMaterialPath(material))
 			props.dispatchSetMaterialVariant(materialVariant)
-			props.dispatchSetMode("Create")
 			MaterialVariantEditor = Roact.createElement(MaterialVariantEditor, {
 				LayoutOrder = 1,
 				Size = UDim2.fromScale(1, 1),
@@ -116,7 +144,7 @@ function TopBar:init()
 
 		if props.Material and props.Material.MaterialVariant then
 			props.GeneralServiceController:SetSelection({
-				props.Material.MaterialVariant
+				props.Material.MaterialVariant,
 			})
 			props.Analytics:report("showInExplorer")
 		end
@@ -170,54 +198,58 @@ function TopBar:render()
 	local isDisabledShowInExplorer = if not props.Material or not props.Material.MaterialVariant then true else false
 	local isPressed = props.ActiveAsTool
 
-	return Roact.createElement(Pane, join({
-		BackgroundColor = backgroundColor,
-		Layout = Enum.FillDirection.Horizontal,
-		HorizontalAlignment = Enum.HorizontalAlignment.Left,
-		LayoutOrder = layoutOrder,
-		Padding = padding,
-		Size = size,
-		Spacing = padding,
-	}, props.WrapperProps), {
-		CreateMaterialVariant = Roact.createElement(ActionButton, {
-			ImageStyle = createNewVariant,
-			IsDisabled = false,
-			LayoutOrder = layoutOrderIterator:getNextOrder(),
-			OnClick = self.createMaterialVariant,
-			TooltipText = localization:getText("TopBar", "Create"),
-		}),
-		ShowInExplorer = Roact.createElement(ActionButton, {
-			ImageStyle = showInExplorer,
-			IsDisabled = isDisabledShowInExplorer,
-			LayoutOrder = layoutOrderIterator:getNextOrder(),
-			OnClick = self.showInExplorer,
-			TooltipText = localization:getText("TopBar", "Show"),
-		}),
-		MaterialAsTool = Roact.createElement(ActionButton, {
-			ImageStyle = materialAsToolMouseIcon,
-			IsPressed = isPressed,
-			LayoutOrder = layoutOrderIterator:getNextOrder(),
-			OnClick = self.materialAsTool,
-			TooltipText = localization:getText("TopBar", "MaterialAsTool"),
-		}),
-		RestPane = Roact.createElement(Pane, {
-			Size = UDim2.new(1, - (BUTTON_COUNT * (buttonWidth + padding) + (viewTypeWidth + padding)), 1, 0),
-			LayoutOrder = layoutOrderIterator:getNextOrder(),
-		}, {
-			SearchBar = Roact.createElement(SearchBar, {
-				Position = UDim2.new(0.5, 0, 0, 0),
-				AnchorPoint = Vector2.new(0.5, 0),
-				OnSearchRequested = self.setSearch,
-				PlaceholderText = localization:getText("TopBar", "Search"),
-				ShowSearchButton = false,
-				ShowSearchIcon = true,
-				Size = UDim2.new(0, searchBarMaxWidth * percentage, 0, topBarButtonWidth),
+	return Roact.createElement(
+		Pane,
+		join({
+			BackgroundColor = backgroundColor,
+			Layout = Enum.FillDirection.Horizontal,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			LayoutOrder = layoutOrder,
+			Padding = padding,
+			Size = size,
+			Spacing = padding,
+		}, props.WrapperProps),
+		{
+			CreateMaterialVariant = Roact.createElement(ActionButton, {
+				ImageStyle = createNewVariant,
+				IsDisabled = false,
+				LayoutOrder = layoutOrderIterator:getNextOrder(),
+				OnClick = self.createMaterialVariant,
+				TooltipText = localization:getText("TopBar", "Create"),
 			}),
-		}),
-		ViewType = Roact.createElement(ViewTypeSelector, {
-			LayoutOrder = layoutOrderIterator:getNextOrder(),
-		}),
-	})
+			ShowInExplorer = Roact.createElement(ActionButton, {
+				ImageStyle = showInExplorer,
+				IsDisabled = isDisabledShowInExplorer,
+				LayoutOrder = layoutOrderIterator:getNextOrder(),
+				OnClick = self.showInExplorer,
+				TooltipText = localization:getText("TopBar", "Show"),
+			}),
+			MaterialAsTool = Roact.createElement(ActionButton, {
+				ImageStyle = materialAsToolMouseIcon,
+				IsPressed = isPressed,
+				LayoutOrder = layoutOrderIterator:getNextOrder(),
+				OnClick = self.materialAsTool,
+				TooltipText = localization:getText("TopBar", "MaterialAsTool"),
+			}),
+			RestPane = Roact.createElement(Pane, {
+				Size = UDim2.new(1, -(BUTTON_COUNT * (buttonWidth + padding) + (viewTypeWidth + padding)), 1, 0),
+				LayoutOrder = layoutOrderIterator:getNextOrder(),
+			}, {
+				SearchBar = Roact.createElement(SearchBar, {
+					Position = UDim2.new(0.5, 0, 0, 0),
+					AnchorPoint = Vector2.new(0.5, 0),
+					OnSearchRequested = self.setSearch,
+					PlaceholderText = localization:getText("TopBar", "Search"),
+					ShowSearchButton = false,
+					ShowSearchIcon = true,
+					Size = UDim2.new(0, searchBarMaxWidth * percentage, 0, topBarButtonWidth),
+				}),
+			}),
+			ViewType = Roact.createElement(ViewTypeSelector, {
+				LayoutOrder = layoutOrderIterator:getNextOrder(),
+			}),
+		}
+	)
 end
 
 TopBar = withContext({
@@ -231,15 +263,17 @@ TopBar = withContext({
 
 return RoactRodux.connect(
 	function(state: MainReducer.State)
-		return {
-			ActiveAsTool = state.MaterialBrowserReducer.ActiveAsTool,
-			Material = state.MaterialBrowserReducer.Material,
-		}
+	return {
+		ActiveAsTool = state.MaterialBrowserReducer.ActiveAsTool,
+		Material = state.MaterialBrowserReducer.Material,
+		Path = state.MaterialBrowserReducer.Path,
+		Search = state.MaterialBrowserReducer.Search,
+	}
 	end,
 	function(dispatch)
 		return {
 			dispatchClearMaterialVariant = function()  -- remove with FFlagMaterialManagerVariantCreatorOverhaul
-				dispatch(ClearMaterialVariant())
+		dispatch(ClearMaterialVariant())
 			end,
 			dispatchSetMode = function(mode: string)
 				dispatch(SetMode(mode))

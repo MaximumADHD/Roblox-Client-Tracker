@@ -17,10 +17,6 @@ local Stylizer = Framework.Style.Stylizer
 
 local StatusIcon = require(Plugin.Src.Components.StatusIcon)
 
-local getFFlagMaterialManagerExpandablePaneHeaderColor = require(
-	Plugin.Src.Flags.getFFlagMaterialManagerExpandablePaneHeaderColor
-)
-
 export type Props = {
 	FillDirection: Enum.FillDirection?,
 	Font: Enum.Font?,
@@ -77,7 +73,7 @@ function LabeledElement:render()
 	return Roact.createElement(Pane, {
 		AutomaticSize = Enum.AutomaticSize.Y,
 		HorizontalAlignment = Enum.HorizontalAlignment.Left,
-		VerticalAlignment = if getFFlagMaterialManagerExpandablePaneHeaderColor() then verticalAlignment or Enum.VerticalAlignment.Top else Enum.VerticalAlignment.Top,
+		VerticalAlignment = verticalAlignment or Enum.VerticalAlignment.Top,
 		Layout = Enum.FillDirection.Horizontal,
 		LayoutOrder = props.LayoutOrder,
 		Padding = padding,
@@ -90,16 +86,15 @@ function LabeledElement:render()
 				Status = status,
 			}) else nil,
 		LabeledElement = Roact.createElement(Pane, {
-			AutomaticSize = Enum.AutomaticSize.Y,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			Layout = fillDirection,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			Spacing = 2,
-			VerticalAlignment = if getFFlagMaterialManagerExpandablePaneHeaderColor() then verticalAlignment or Enum.VerticalAlignment.Top else Enum.VerticalAlignment.Top,
+			VerticalAlignment = verticalAlignment or Enum.VerticalAlignment.Top,
 		}, {
 			Label = Roact.createElement(TextLabel, {
 				AutomaticSize = Enum.AutomaticSize.Y,
-				Font = if getFFlagMaterialManagerExpandablePaneHeaderColor() then props.Font else nil,
+				Font = props.Font,
 				LayoutOrder = 1,
 				Size = labelSize,
 				Text = props.Text,
@@ -109,7 +104,7 @@ function LabeledElement:render()
 			ElementListItem = Roact.createElement(Pane, join({
 				LayoutOrder = 2,
 				AutomaticSize = Enum.AutomaticSize.XY,
-				VerticalAlignment = if getFFlagMaterialManagerExpandablePaneHeaderColor() then verticalAlignment else nil,
+				VerticalAlignment = verticalAlignment,
 			}, props.WrapperProps), (props:: any)[Roact.Children]),
 		})
 	})

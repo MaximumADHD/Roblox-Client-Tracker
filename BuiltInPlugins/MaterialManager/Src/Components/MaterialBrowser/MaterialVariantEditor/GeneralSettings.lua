@@ -99,7 +99,6 @@ function GeneralSettings:init()
 				self.setNameStatus(nil)
 			end
 		else
-			self.setNameStatus(localization:getText("CreateDialog", "ErrorNoName"), Enum.PropertyStatus.Warning)
 			self:setState({
 				name = props.MaterialVariant.Name,
 			})
@@ -168,7 +167,6 @@ function GeneralSettings:render()
 
 	return Roact.createElement(ExpandablePane, {
 		LayoutOrder = props.LayoutOrder,
-		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		ContentPadding = style.ContentPadding,
 		ContentSpacing = style.ItemSpacing,
 		Text = localization:getText("MaterialGeneral", "General"),

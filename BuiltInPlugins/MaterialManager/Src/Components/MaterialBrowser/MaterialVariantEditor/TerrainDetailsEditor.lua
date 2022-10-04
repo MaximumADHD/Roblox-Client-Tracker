@@ -18,7 +18,9 @@ local TextInput = UI.TextInput
 local ExpandablePane = UI.ExpandablePane
 local Pane = UI.Pane
 local Image = UI.Decoration.Image
+local Separator = UI.Separator
 local Tooltip = UI.Tooltip
+local TruncatedTextLabel = UI.TruncatedTextLabel
 
 local Actions = Plugin.Src.Actions
 local SetExpandedPane = require(Actions.SetExpandedPane)
@@ -31,10 +33,6 @@ local MaterialVariantEditorComponent = Plugin.Src.Components.MaterialBrowser.Mat
 local LabeledElement = require(MaterialVariantEditorComponent.LabeledElement)
 local TextureSettings = require(MaterialVariantEditorComponent.TextureSettings)
 local TilingSettings = require(MaterialVariantEditorComponent.TilingSettings)
-
-local getFFlagMaterialManagerExpandablePaneHeaderColor = require(
-	Plugin.Src.Flags.getFFlagMaterialManagerExpandablePaneHeaderColor
-)
 
 local Constants = Plugin.Src.Resources.Constants
 local getSettingsNames = require(Constants.getSettingsNames)
@@ -64,10 +62,12 @@ type _Style = {
 	CustomExpandablePane: any,
 	Delete: _Types.Image,
 	DialogColumnSize: UDim2,
+	ExpandablePaneButtonPosition: UDim2,
 	HeaderFont: Enum.Font,
 	ImagePosition: UDim2,
 	ImageSize: UDim2,
 	LabelColumnWidth: UDim,
+	NameLabelSize: UDim2,
 	TerrainDetailLabelWidth: UDim,
 	TextureLabelSize: UDim,
 	TilingLabelSize: UDim,
@@ -80,25 +80,15 @@ function TerrainDetailsEditor:init()
 		name = self.props.TerrainDetail.Name,
 	}
 
-	self.setNameStatus = function(message, status)
-		self:setState({
-			nameMessage = message or Roact.None,
-			status = if status then status else Enum.PropertyStatus.Ok,
-		})
-	end
-
 	self.onFocusLost = function(_, rbx)
 		local props: _Props = self.props
-		local localization = props.Localization
 
 		if rbx.Text and rbx.Text ~= "" then
 			self:setState({
 				name = rbx.Text,
 			})
 			props.GeneralServiceController:setTerrainDetailName(props.TerrainDetail, rbx.Text)
-			self.setNameStatus(nil)
 		else
-			self.setNameStatus(localization:getText("CreateDialog", "ErrorNoName"), Enum.PropertyStatus.Warning)
 			self:setState({
 				name = props.TerrainDetail.Name,
 			})
@@ -117,7 +107,6 @@ function TerrainDetailsEditor:didUpdate(_, prevState)
 		self:setState({
 			name = self.props.TerrainDetail.Name,
 		})
-		self.setNameStatus(nil)
 	end
 end
 
@@ -129,35 +118,25 @@ function TerrainDetailsEditor:render()
 
 	local functionComponent = function()
 		return Roact.createElement(LabeledElement, {
-			Font = if getFFlagMaterialManagerExpandablePaneHeaderColor() then style.HeaderFont else nil,
-			LabelColumnWidth = if getFFlagMaterialManagerExpandablePaneHeaderColor()
-				then style.TerrainDetailLabelWidth
-				else UDim.new(0, 55),
+			LabelColumnWidth = style.LabelColumnWidth,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
-			Padding = if getFFlagMaterialManagerExpandablePaneHeaderColor() then 0 else nil,
+			Padding = 0,
 			Text = localization:getText("TerrainDetails", props.TerrainFace),
-			StatusText = self.state.nameMessage,
-			Status = self.state.status,
-			VerticalAlignment = if getFFlagMaterialManagerExpandablePaneHeaderColor()
-				then Enum.VerticalAlignment.Center
-				else nil,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
 		}, {
 			Roact.createElement(Pane, {
-				Size = if getFFlagMaterialManagerExpandablePaneHeaderColor()
-					then UDim2.fromScale(1, 1)
-					else style.DialogColumnSize,
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
 				Layout = Enum.FillDirection.Horizontal,
-				VerticalAlignment = if getFFlagMaterialManagerExpandablePaneHeaderColor()
-					then Enum.VerticalAlignment.Center
-					else nil,
+				Size = UDim2.fromScale(1, 1),
+				HorizontalAlignment = Enum.HorizontalAlignment.Right,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
 			}, {
-				Name = Roact.createElement(TextInput, {
-					Style = "FilledRoundedBorder",
-					Size = UDim2.new(0, 135, 0, 25),
-					Text = self.state.name,
-					OnFocusLost = self.onFocusLost,
+				Name = Roact.createElement(TruncatedTextLabel, {
 					LayoutOrder = 1,
+					Size = style.NameLabelSize,
+					Text = self.state.name,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextYAlignment = Enum.TextYAlignment.Center,
 				}),
 				Delete = Roact.createElement(Button, {
 					LayoutOrder = 2,
@@ -177,29 +156,46 @@ function TerrainDetailsEditor:render()
 			}),
 		})
 	end
-	
+
 	return Roact.createElement(ExpandablePane, {
+		ContentPadding = {
+			Top = 5,
+			Bottom = 5,
+		},
+		ContentSpacing = 5,
 		LayoutOrder = props.LayoutOrder,
 		HeaderComponent = functionComponent,
-		Style = style.CustomExpandablePane,
 		Expanded = props.ExpandedPane,
 		OnExpandedChanged = self.onExpandedChanged,
-		Padding = if getFFlagMaterialManagerExpandablePaneHeaderColor() then nil else {
-			Left = 10,
-		}
 	}, {
+		Name = Roact.createElement(LabeledElement, {
+			LabelColumnWidth = style.LabelColumnWidth,
+			LayoutOrder = 1,
+			Text = localization:getText("CreateDialog", "NameVariant"),
+			StatusText = self.state.nameMessage,
+			Status = self.state.status,
+		}, {
+			Roact.createElement(TextInput, {
+				Style = "FilledRoundedBorder",
+				Size = style.DialogColumnSize,
+				Text = self.state.name,
+				OnFocusLost = self.onFocusLost,
+			}),
+		}),
 		TextureSettings = Roact.createElement(TextureSettings, {
-			LabelWidth = style.TextureLabelSize,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			PBRMaterial = props.TerrainDetail,
 			Expandable = false,
 		}),
 		TilingSettings = Roact.createElement(TilingSettings, {
-			LabelWidth = style.TilingLabelSize,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			PBRMaterial = props.TerrainDetail,
 			Expandable = false,
-		})
+		}),
+		Separator = if props.TerrainFace ~= "Bottom" then Roact.createElement(Separator, {
+			LayoutOrder = layoutOrderIterator:getNextOrder(),
+			DominantAxis = Enum.DominantAxis.Width
+		}) else nil,
 	})
 end
 
@@ -210,17 +206,14 @@ TerrainDetailsEditor = withContext({
 	Stylizer = Stylizer,
 })(TerrainDetailsEditor)
 
-return RoactRodux.connect(
-	function(state: MainReducer.State, props: _Props)
-		return {
-			ExpandedPane = state.MaterialBrowserReducer.ExpandedPane[settingsNames.TerrainDetailsEditor[props.TerrainFace]],
-		}
-	end,
-	function(dispatch)
-		return {
-			dispatchSetExpandedPane = function(paneName: string, expandedPaneState: boolean)
-				dispatch(SetExpandedPane(paneName, expandedPaneState))
-			end,
-		}
-	end
-)(TerrainDetailsEditor)
+return RoactRodux.connect(function(state: MainReducer.State, props: _Props)
+	return {
+		ExpandedPane = state.MaterialBrowserReducer.ExpandedPane[settingsNames.TerrainDetailsEditor[props.TerrainFace]],
+	}
+end, function(dispatch)
+	return {
+		dispatchSetExpandedPane = function(paneName: string, expandedPaneState: boolean)
+			dispatch(SetExpandedPane(paneName, expandedPaneState))
+		end,
+	}
+end)(TerrainDetailsEditor)

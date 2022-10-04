@@ -1,3 +1,5 @@
+-- Remove with FFlagMaterialManagerVariantCreatorOverhaul
+
 local Plugin = script.Parent.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util

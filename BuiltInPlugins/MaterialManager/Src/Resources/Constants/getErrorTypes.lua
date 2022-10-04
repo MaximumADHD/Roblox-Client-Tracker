@@ -9,6 +9,7 @@ local ErrorTypes: _Types.Map<string, ErrorType> = {
 	FailedToImportMap = "FailedToImportMap",
 	FailedToUploadFromFileMap = "FailedToUploadFromFileMap",
 	FailedToUploadTooLarge = "FailedToUploadTooLarge",
+	FailedToInsertAssetManager = "FailedToInsertAssetManager",
 	MissingMaterial = "MissingMaterial",
 	None = "None",
 }
