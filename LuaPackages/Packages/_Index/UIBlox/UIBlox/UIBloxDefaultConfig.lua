@@ -98,10 +98,6 @@ return {
 	-- always using Header2.
 	enableAdjustableTextUnderTile = false,
 
-	-- if true, when you select the knob in a generic slider, it sets NextSelectionRight/Left to
-	-- itself so that gamepad navigating right/left doesn't move off the slider.
-	selectedSliderOverridesNextSelectionRightLeft = false,
-
 	-- if true, the text component in DropdownMenuCell is truncated
 	-- otherwise it overflows the icon and the component boundaries if it's too long
 	fixDropdownMenuCellTextSize = false,

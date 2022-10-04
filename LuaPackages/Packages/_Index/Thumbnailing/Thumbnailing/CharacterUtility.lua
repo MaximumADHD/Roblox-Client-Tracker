@@ -3,8 +3,6 @@
 ]]
 local module = {}
 
-local FFlagCharacterUtilityClampsHeadExtentAtChin = game:DefineFastFlag("CharacterUtilityClampsHeadExtentAtChin", false)
-
 --[[
 	A map of names of all Attachment children of character's head.
 ]]
@@ -75,7 +73,7 @@ local function growExtentsToInclude(minExtent, maxExtent, part, cInverse, optYMi
 			for z = -1, 1, 2 do
 				corner = makeRotatedCorner(x, y, z, size, part.CFrame)
 
-				if FFlagCharacterUtilityClampsHeadExtentAtChin and optYMinCFrame and optYMin then
+				if optYMinCFrame and optYMin then
 					-- 'corner' is the position in space of this corner.
 					-- transform it back into the 'yMin' cframe, clamp y to be no less than
 					-- optYMin, and transform back.
@@ -172,12 +170,7 @@ module.CalculateHeadExtents = function(character, targetCFrame)
 				local attachment = handle:FindFirstChildWhichIsA("Attachment")
 				-- Legacy hat does not have attachment in it and should be considered
 				if not attachment or headAttachments[attachment.Name] then
-
-					if FFlagCharacterUtilityClampsHeadExtentAtChin then
 						minExtent, maxExtent = growExtentsToInclude(minExtent, maxExtent, handle, cInverse, head.CFrame, untransformedHeadYMin)
-					else
-						minExtent, maxExtent = growExtentsToInclude(minExtent, maxExtent, handle, cInverse)
-					end
 				end
 			end
 		end

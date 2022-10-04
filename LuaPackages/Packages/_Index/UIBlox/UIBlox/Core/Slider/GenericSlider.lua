@@ -508,12 +508,8 @@ function GenericSlider:render()
 
 			-- If Slider bar has an ancestor with NextSelectionRight/Left defined, we won't be able to use
 			-- gamepad to move thumb right or left: we need to override these values when knob is selected.
-			NextSelectionLeft = (UIBloxConfig.selectedSliderOverridesNextSelectionRightLeft and selectedKnob)
-					and self.rootRef
-				or nil,
-			NextSelectionRight = (UIBloxConfig.selectedSliderOverridesNextSelectionRightLeft and selectedKnob)
-					and self.rootRef
-				or nil,
+			NextSelectionLeft = selectedKnob and self.rootRef or nil,
+			NextSelectionRight = selectedKnob and self.rootRef or nil,
 
 			NextSelectionUp = not selectedKnob and self.props.NextSelectionUp or self.rootRef,
 			NextSelectionDown = not selectedKnob and self.props.NextSelectionDown or self.rootRef,

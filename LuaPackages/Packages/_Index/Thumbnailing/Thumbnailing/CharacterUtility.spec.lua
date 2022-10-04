@@ -1,7 +1,5 @@
 local CharacterUtility = require(script.Parent.CharacterUtility)
 
-local FFlagCharacterUtilityClampsHeadExtentAtChin = game:GetFastFlag("CharacterUtilityClampsHeadExtentAtChin")
-
 local function addHat(yOffset, hatSize, model, head)
 	local hatAccoutrement = Instance.new("Accoutrement")
 	hatAccoutrement.Name = "TestHat"
@@ -110,21 +108,12 @@ return function()
 
 			local minExtent, maxExtent = CharacterUtility.CalculateHeadExtents(model, CFrame.new())
 
-			if FFlagCharacterUtilityClampsHeadExtentAtChin then
-				expect(minExtent.X).to.equal(-2.5)
-				expect(minExtent.Y).to.equal(-1)
-				expect(minExtent.Z).to.equal(-2.5)
-				expect(maxExtent.X).to.equal(2.5)
-				expect(maxExtent.Y).to.equal(1.5)
-				expect(maxExtent.Z).to.equal(2.5)
-			else
-				expect(minExtent.X).to.equal(-2.5)
-				expect(minExtent.Y).to.equal(-3.5)
-				expect(minExtent.Z).to.equal(-2.5)
-				expect(maxExtent.X).to.equal(2.5)
-				expect(maxExtent.Y).to.equal(1.5)
-				expect(maxExtent.Z).to.equal(2.5)
-			end
+			expect(minExtent.X).to.equal(-2.5)
+			expect(minExtent.Y).to.equal(-1)
+			expect(minExtent.Z).to.equal(-2.5)
+			expect(maxExtent.X).to.equal(2.5)
+			expect(maxExtent.Y).to.equal(1.5)
+			expect(maxExtent.Z).to.equal(2.5)
 		end)
 
 		it("SHOULD properly calculate extents on a character with a head and hat that goes down even if head is rotated.", function()
@@ -142,21 +131,12 @@ return function()
 
 			local minExtent, maxExtent = CharacterUtility.CalculateHeadExtents(model, CFrame.new())
 
-			if FFlagCharacterUtilityClampsHeadExtentAtChin then
-				expect(minExtent.X).to.be.near(-2.5, 0.0001)
-				expect(minExtent.Y).to.be.near(-1.5, 0.0001)
-				expect(minExtent.Z).to.be.near(-2.5, 0.0001)
-				expect(maxExtent.X).to.be.near(2.5, 0.0001)
-				expect(maxExtent.Y).to.be.near(1.0, 0.0001)
-				expect(maxExtent.Z).to.be.near(2.5, 0.0001)
-			else
-				expect(minExtent.X).to.be.near(-2.5, 0.0001)
-				expect(minExtent.Y).to.be.near(-1.5, 0.0001)
-				expect(minExtent.Z).to.be.near(-2.5, 0.0001)
-				expect(maxExtent.X).to.be.near(2.5, 0.0001)
-				expect(maxExtent.Y).to.be.near(3.5, 0.0001)
-				expect(maxExtent.Z).to.be.near(2.5, 0.0001)
-			end
+			expect(minExtent.X).to.be.near(-2.5, 0.0001)
+			expect(minExtent.Y).to.be.near(-1.5, 0.0001)
+			expect(minExtent.Z).to.be.near(-2.5, 0.0001)
+			expect(maxExtent.X).to.be.near(2.5, 0.0001)
+			expect(maxExtent.Y).to.be.near(1.0, 0.0001)
+			expect(maxExtent.Z).to.be.near(2.5, 0.0001)
 		end)
 	end)
 end
