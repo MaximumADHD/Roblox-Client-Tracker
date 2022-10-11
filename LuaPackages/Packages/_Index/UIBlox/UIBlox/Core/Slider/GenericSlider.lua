@@ -81,16 +81,16 @@ GenericSlider.validateProps = t.strictInterface({
 	NextSelectionDown = t.optional(t.table),
 	focusController = t.optional(t.table),
 
-	customTrack = if UIBloxConfig.enableSliderCustomization then t.optional(t.table) else nil,
-	customKnobHeight = if UIBloxConfig.enableSliderCustomization then t.optional(t.number) else nil,
-	customKnobBorderColor = if UIBloxConfig.enableSliderCustomization then t.optional(t.Color3) else nil,
-	customKnobBorderSize = if UIBloxConfig.enableSliderCustomization then t.optional(t.number) else nil,
+	customTrack = t.optional(t.table),
+	customKnobHeight = t.optional(t.number),
+	customKnobBorderColor = t.optional(t.Color3),
+	customKnobBorderSize = t.optional(t.number),
 })
 
 GenericSlider.defaultProps = {
 	width = UDim.new(1, 0),
 	knobImagePadding = 0,
-	customKnobBorderColor = if UIBloxConfig.enableSliderCustomization then Color3.new(0, 0, 0) else nil,
+	customKnobBorderColor = Color3.new(0, 0, 0),
 }
 
 function GenericSlider:init()
@@ -112,7 +112,7 @@ function GenericSlider:init()
 end
 
 function GenericSlider:getKnobVisibleHeight()
-	if UIBloxConfig.enableSliderCustomization and self.props.customKnobHeight then
+	if self.props.customKnobHeight then
 		local scale = (DEFAULT_KNOB_HEIGHT - (self.props.knobImagePadding * 2)) / DEFAULT_KNOB_HEIGHT
 		return scale * self.props.customKnobHeight
 	else
@@ -121,7 +121,7 @@ function GenericSlider:getKnobVisibleHeight()
 end
 
 function GenericSlider:getKnobHeight()
-	if UIBloxConfig.enableSliderCustomization and self.props.customKnobHeight then
+	if self.props.customKnobHeight then
 		local scaleToActualeSize = DEFAULT_KNOB_HEIGHT / (DEFAULT_KNOB_HEIGHT - (self.props.knobImagePadding * 2))
 		local actualSize = scaleToActualeSize * self.props.customKnobHeight
 		return actualSize
@@ -264,7 +264,7 @@ function GenericSlider:processOneKnobGamepadInput(polarity, increments)
 end
 
 function GenericSlider:renderTrack(fillSize, isTwoKnobs, fillPercentLower)
-	if UIBloxConfig.enableSliderCustomization and self.props.customTrack then
+	if self.props.customTrack then
 		return self.props.customTrack
 	else
 		return Roact.createElement(ImageSetComponent.Label, {
@@ -316,11 +316,7 @@ function GenericSlider:renderUpperKnob(knobPositionUpper, knobIsSelected, isTwoK
 
 	local adjustedKnobHeight = self:getKnobHeight()
 	local knobPosition = knobPositionUpper
-	if
-		UIBloxConfig.enableSliderCustomization
-		and self.props.customKnobBorderSize
-		and self.props.customKnobBorderSize > 0
-	then
+	if self.props.customKnobBorderSize and self.props.customKnobBorderSize > 0 then
 		adjustedKnobHeight = adjustedKnobHeight - 2 * (self.props.customKnobBorderSize + 2)
 		knobPosition = UDim2.fromScale(0.5, 0.5)
 	end
@@ -376,11 +372,7 @@ function GenericSlider:renderUpperKnob(knobPositionUpper, knobIsSelected, isTwoK
 		},
 	})
 
-	if
-		UIBloxConfig.enableSliderCustomization
-		and self.props.customKnobBorderSize
-		and self.props.customKnobBorderSize > 0
-	then
+	if self.props.customKnobBorderSize and self.props.customKnobBorderSize > 0 then
 		return self:wrapKnobWithBorder(upperKnob, knobPositionUpper)
 	else
 		return upperKnob
@@ -390,11 +382,7 @@ end
 function GenericSlider:renderLowerKnob(knobPositionLower, knobIsSelected, isTwoKnobs, getSelectionCursor)
 	local adjustedKnobHeight = self:getKnobHeight()
 	local knobPosition = knobPositionLower
-	if
-		UIBloxConfig.enableSliderCustomization
-		and self.props.customKnobBorderSize
-		and self.props.customKnobBorderSize > 0
-	then
+	if self.props.customKnobBorderSize and self.props.customKnobBorderSize > 0 then
 		adjustedKnobHeight = adjustedKnobHeight - 2 * (self.props.customKnobBorderSize + 2)
 		knobPosition = UDim2.fromScale(0.5, 0.5)
 	end
@@ -449,11 +437,7 @@ function GenericSlider:renderLowerKnob(knobPositionLower, knobIsSelected, isTwoK
 		end,
 	})
 
-	if
-		UIBloxConfig.enableSliderCustomization
-		and self.props.customKnobBorderSize
-		and self.props.customKnobBorderSize > 0
-	then
+	if self.props.customKnobBorderSize and self.props.customKnobBorderSize > 0 then
 		return self:wrapKnobWithBorder(lowerKnob, knobPositionLower)
 	else
 		return lowerKnob

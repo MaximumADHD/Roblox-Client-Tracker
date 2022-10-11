@@ -54,6 +54,10 @@ function ErrorPrompt:getErrorMessage(locMap: {[string]: string}, errorType: any?
 		return locMap.thirdPartyDisabledText
 	elseif errorType == PurchaseErrorType.Under13 then
 		return locMap.under13Text
+	elseif errorType == PurchaseErrorType.PremiumPlatformUnavailable then
+		return locMap.premiumPlatformUnavailable
+	elseif errorType == PurchaseErrorType.AlreadyPremium then
+		return locMap.alreadyPremium
 	end
 	return locMap.unknownText
 end
@@ -99,6 +103,12 @@ function ErrorPrompt:render()
 			},
 			under13Text = {
 				key = LOC_KEY:format("Text.Under13")
+			},
+			premiumPlatformUnavailable = {
+				key = LOC_KEY:format("Text.PremiumPlatformUnavailable")
+			},
+			alreadyPremium = {
+				key = LOC_KEY:format("AlreadyPremium")
 			},
 		},
 		render = function(locMap: {[string]: string})

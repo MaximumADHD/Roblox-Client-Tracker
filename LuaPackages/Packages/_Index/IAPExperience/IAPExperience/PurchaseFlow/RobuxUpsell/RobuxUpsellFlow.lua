@@ -18,6 +18,9 @@ local TwoStepReqPrompt = require(IAPExperienceRoot.Generic.TwoStepReqPrompt)
 local RobuxUpsellSuccessPrompt = require(IAPExperienceRoot.ProductPurchaseRobuxUpsell.RobuxUpsellSuccessPrompt)
 local RobuxUpsellPrompt = require(IAPExperienceRoot.ProductPurchaseRobuxUpsell.RobuxUpsellPrompt)
 
+local getModalShownEventData = require(IAPExperienceRoot.Utility.getModalShownEventData)
+local getUserInputEventData = require(IAPExperienceRoot.Utility.getUserInputEventData)
+
 local RobuxUpsellFlow = Roact.Component:extend(script.Name)
 
 type Props = {
@@ -84,17 +87,7 @@ function RobuxUpsellFlow:reportModalShown()
 		return
 	end
 	
-	local purchaseFlowName = "RobuxUpsell"
-	if props.eventPrefix then
-		purchaseFlowName = props.eventPrefix..purchaseFlowName
-	end
-
-	local data = {
-		purchase_flow_uuid = state.analyticId,
-		purchase_flow = purchaseFlowName,
-		view_name = RobuxUpsellFlowState.toRawValue(props.purchaseState),
-		purchase_event_type = "ViewShown",
-	}
+	local data = getModalShownEventData(state.analyticId, props.eventPrefix, "RobuxUpsell", RobuxUpsellFlowState.toRawValue(props.purchaseState))
 
 	props.onAnalyticEvent("UserPurchaseFlow", data)
 end
@@ -107,18 +100,7 @@ function RobuxUpsellFlow:reportUserInput(inputType: string)
 		return
 	end
 	
-	local purchaseFlowName = "RobuxUpsell"
-	if props.eventPrefix then
-		purchaseFlowName = props.eventPrefix..purchaseFlowName
-	end
-
-	local data = {
-		purchase_flow_uuid = state.analyticId,
-		purchase_flow = purchaseFlowName,
-		view_name = RobuxUpsellFlowState.toRawValue(props.purchaseState),
-		purchase_event_type = "UserInput",
-		input_type = inputType,
-	}
+	local data = getUserInputEventData(state.analyticId, props.eventPrefix, "RobuxUpsell", RobuxUpsellFlowState.toRawValue(props.purchaseState), inputType)
 
 	props.onAnalyticEvent("UserPurchaseFlow", data)
 end

@@ -16,6 +16,8 @@ type Props = {
 	shouldAnimate: boolean,
 	shouldShow: boolean,
 
+	animateDown: boolean?,
+
 	onShown: ()->any?,
 	onHidden: ()->any?,
 
@@ -80,7 +82,11 @@ function Animator:render()
 			BorderSizePixel = 0,
 			BackgroundTransparency = 1,
 			Position = self.animationProgress:map(function(value)
-				return UDim2.new(0, 0, -1 * value, 0)
+				if props.animateDown then
+					return UDim2.new(0, 0, -1 * value, 0)
+				else
+					return UDim2.new(0, 0, 1 * value, 0)
+				end
 			end),
 		}, self.state.shouldRenderChildren and props.renderChildren() or nil)
 	else

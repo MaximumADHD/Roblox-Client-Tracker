@@ -6,4 +6,5 @@ return {
 	LightUtility = require(script.LightUtility),
 	VectorUtility = require(script.VectorUtility),
 	CharacterUtility = require(script.CharacterUtility),
+	ParticleUtility = require(script.ParticleUtility),
 }

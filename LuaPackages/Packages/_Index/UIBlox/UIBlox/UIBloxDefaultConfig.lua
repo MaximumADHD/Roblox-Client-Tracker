@@ -87,24 +87,13 @@ return {
 	-- indicate whether fix for tooltip color styles is enabled
 	enableTooltipColorStylesFix = false,
 
-	-- whether you can customize aspects of the slider: background, thumb, etc.
-	enableSliderCustomization = false,
-
 	-- if true, SliderTextInput will update its value whenever the text box loses focus,
 	-- otherwise it will only update when <enter> is pressed
 	sliderUpdateOnDismiss = false,
 
-	-- if true, you can customize Item Tiles with variable sized text underneath, instead of
-	-- always using Header2.
-	enableAdjustableTextUnderTile = false,
-
 	-- if true, the text component in DropdownMenuCell is truncated
 	-- otherwise it overflows the icon and the component boundaries if it's too long
 	fixDropdownMenuCellTextSize = false,
-
-	-- if true, you can customize Item Tiles with an 'inset' that goes over the tile itself (not
-	-- over any title/subtitles, if present).
-	enableTileInsets = false,
 
 	-- use VirtualizedList.BidirectionalFlatList in HorizontalCarousel component instead of InfiniteScroller
 	enableVirtualizedListForCarousel = false,
@@ -135,4 +124,7 @@ return {
 
 	-- Enable fix for the image set resolution scale
 	enableImageSetResolutionScaleFix = false,
+
+	-- Enable Button to take buttonType prop that is used in ActionBar to manually specify a button style
+	enableActionBarButtonTypeOverride = true,
 }

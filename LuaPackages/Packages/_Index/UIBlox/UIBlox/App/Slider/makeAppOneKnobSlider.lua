@@ -49,13 +49,12 @@ local function makeAppOneKnobSlider(trackFillThemeKey)
 		NextSelectionUp = t.optional(t.table),
 		NextSelectionDown = t.optional(t.table),
 
-		customTrack = UIBloxConfig.enableSliderCustomization and t.optional(t.table) or nil,
-		customKnobColorLower = UIBloxConfig.enableSliderCustomization and t.optional(t.Color3) or nil,
-		customPressedKnobShadowTransparencyLower = UIBloxConfig.enableSliderCustomization and t.optional(t.number)
-			or nil,
-		customKnobHeight = UIBloxConfig.enableSliderCustomization and t.optional(t.number) or nil,
-		customKnobBorderSize = UIBloxConfig.enableSliderCustomization and t.optional(t.number) or nil,
-		customKnobBorderColor = UIBloxConfig.enableSliderCustomization and t.optional(t.Color3) or nil,
+		customTrack = t.optional(t.table),
+		customKnobColorLower = t.optional(t.Color3),
+		customPressedKnobShadowTransparencyLower = t.optional(t.number),
+		customKnobHeight = t.optional(t.number),
+		customKnobBorderSize = t.optional(t.number),
+		customKnobBorderColor = t.optional(t.Color3),
 		--Internal Only - Don't Pass In
 		style = validateStyle,
 	})
@@ -82,14 +81,12 @@ local function makeAppOneKnobSlider(trackFillThemeKey)
 			forwardedRef = props.forwardedRef,
 			NextSelectionUp = props.NextSelectionUp,
 			NextSelectionDown = props.NextSelectionDown,
-			customTrack = UIBloxConfig.enableSliderCustomization and props.customTrack or nil,
-			customKnobHeight = UIBloxConfig.enableSliderCustomization and props.customKnobHeight or nil,
-			customKnobBorderColor = UIBloxConfig.enableSliderCustomization and props.customKnobBorderColor or nil,
-			customKnobBorderSize = UIBloxConfig.enableSliderCustomization and props.customKnobBorderSize or nil,
-			customKnobColorLower = UIBloxConfig.enableSliderCustomization and props.customKnobColorLower or nil,
-			customPressedKnobShadowTransparencyLower = UIBloxConfig.enableSliderCustomization
-					and props.customPressedKnobShadowTransparencyLower
-				or nil,
+			customTrack = props.customTrack,
+			customKnobHeight = props.customKnobHeight,
+			customKnobBorderColor = props.customKnobBorderColor,
+			customKnobBorderSize = props.customKnobBorderSize,
+			customKnobColorLower = props.customKnobColorLower,
+			customPressedKnobShadowTransparencyLower = props.customPressedKnobShadowTransparencyLower,
 		}
 
 		if not props.textInputEnabled then

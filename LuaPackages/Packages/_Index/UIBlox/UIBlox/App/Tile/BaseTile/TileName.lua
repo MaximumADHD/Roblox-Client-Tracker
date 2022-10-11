@@ -11,8 +11,10 @@ local withStyle = require(UIBlox.Core.Style.withStyle)
 local devOnly = require(UIBlox.Utility.devOnly)
 
 local Images = require(UIBlox.App.ImageSet.Images)
-local ImageTextLabel = require(UIBlox.Core.Text.ImageTextLabel.ImageTextLabel)
 local ShimmerPanel = require(UIBlox.App.Loading.ShimmerPanel)
+local ImageTextLabel = require(UIBlox.Core.Text.ImageTextLabel.ImageTextLabel)
+local EmojiTextLabel = require(UIBlox.Core.Text.EmojiTextLabel.EmojiTextLabel)
+local Emoji = require(UIBlox.Core.Emoji.Enum.Emoji)
 
 local ICON_PADDING = 4
 local LINE_PADDING = 4
@@ -32,13 +34,16 @@ local validateProps = devOnly(t.strictInterface({
 	-- Image information should be ImageSet compatible
 	titleIcon = t.optional(t.table),
 
+	-- Optional boolean to determine whether a VerifiedBadge is shown
+	hasVerifiedBadge = t.optional(t.boolean),
+
 	-- Optional height of the title area is set to the max
 	useMaxHeight = t.optional(t.boolean),
 	fluidSizing = t.optional(t.boolean),
 
 	-- Font style for header (Header2, Body, etc)
 	-- Defaults to Header2.
-	titleFontStyle = UIBloxConfig.enableAdjustableTextUnderTile and t.optional(t.table) or nil,
+	titleFontStyle = t.optional(t.table),
 }))
 
 function ItemTileName:render()
@@ -51,22 +56,33 @@ function ItemTileName:render()
 	local titleIcon = self.props.titleIcon
 	local useMaxHeight = self.props.useMaxHeight
 	local useFluidSizing = self.props.fluidSizing
+	local hasVerifiedBadge = self.props.hasVerifiedBadge
 
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
 		local font = stylePalette.Font
 
-		local textSize
-		local titleFontStyle
-		if UIBloxConfig.enableAdjustableTextUnderTile then
-			titleFontStyle = self.props.titleFontStyle or font.Header2
-			textSize = font.BaseSize * titleFontStyle.RelativeSize
-		else
-			titleFontStyle = font.Header2
-			textSize = font.BaseSize * font.Header2.RelativeSize
-		end
+		local titleFontStyle = self.props.titleFontStyle or font.Header2
+		local textSize = font.BaseSize * titleFontStyle.RelativeSize
 
 		if name ~= nil then
+			local maxSize = Vector2.new(maxWidth, maxHeight)
+
+			if hasVerifiedBadge then
+				return Roact.createElement(EmojiTextLabel, {
+					maxSize = maxSize,
+					fluidSizing = useFluidSizing,
+					emoji = Emoji.Verified,
+					fontStyle = titleFontStyle,
+					colorStyle = theme.TextEmphasis,
+					Text = name,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextYAlignment = Enum.TextYAlignment.Top,
+					LayoutOrder = layoutOrder,
+				})
+			end
+
 			local titleIconSize = titleIcon and titleIcon.ImageRectSize / Images.ImagesResolutionScale
 				or Vector2.new(0, 0)
 
@@ -94,7 +110,7 @@ function ItemTileName:render()
 					LayoutOrder = layoutOrder,
 				},
 
-				maxSize = Vector2.new(maxWidth, maxHeight),
+				maxSize = maxSize,
 				padding = ICON_PADDING,
 				useMaxHeight = useMaxHeight,
 			})

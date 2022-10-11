@@ -26,7 +26,7 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 		textInputEnabled = false,
 		stepInterval = 1,
 		width = UDim.new(1, 0),
-		customPressedKnobShadowTransparencyLower = UIBloxConfig.enableSliderCustomization and 1 or nil,
+		customPressedKnobShadowTransparencyLower = 1,
 	}
 
 	function appSliderComponent:init()
@@ -99,16 +99,8 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 			if values.disabled then
 				return 1
 			else
-				if UIBloxConfig.enableSliderCustomization then
-					local goalTransparency = self.props.customPressedKnobShadowTransparencyLower
-					return lerp(
-						values.style.Theme.DropShadow.Transparency,
-						goalTransparency,
-						values.pressedProgressLower
-					)
-				else
-					return lerp(values.style.Theme.DropShadow.Transparency, 1, values.pressedProgressLower)
-				end
+				local goalTransparency = self.props.customPressedKnobShadowTransparencyLower
+				return lerp(values.style.Theme.DropShadow.Transparency, goalTransparency, values.pressedProgressLower)
 			end
 		end)
 
@@ -161,12 +153,7 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 	function appSliderComponent:render()
 		local props = self.props
 
-		local knobColorLower
-		if UIBloxConfig.enableSliderCustomization then
-			knobColorLower = props.customKnobColorLower or self.knobColorLower
-		else
-			knobColorLower = self.knobColorLower
-		end
+		local knobColorLower = props.customKnobColorLower or self.knobColorLower
 
 		local sliderProps = {
 			min = props.min,
@@ -208,10 +195,10 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 			NextSelectionUp = props.NextSelectionUp,
 			NextSelectionDown = props.NextSelectionDown,
 			focusController = props.focusController,
-			customTrack = UIBloxConfig.enableSliderCustomization and props.customTrack or nil,
-			customKnobHeight = UIBloxConfig.enableSliderCustomization and props.customKnobHeight or nil,
-			customKnobBorderSize = UIBloxConfig.enableSliderCustomization and props.customKnobBorderSize or nil,
-			customKnobBorderColor = UIBloxConfig.enableSliderCustomization and props.customKnobBorderColor or nil,
+			customTrack = props.customTrack,
+			customKnobHeight = props.customKnobHeight,
+			customKnobBorderSize = props.customKnobBorderSize,
+			customKnobBorderColor = props.customKnobBorderColor,
 		}
 
 		if isTwoKnobs then

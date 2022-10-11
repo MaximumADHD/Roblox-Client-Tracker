@@ -64,6 +64,8 @@ return {
 			PurchaseErrorType.PremiumOnly,
 			PurchaseErrorType.ThirdPartyDisabled,
 			PurchaseErrorType.Under13,
+			PurchaseErrorType.PremiumPlatformUnavailable,
+			PurchaseErrorType.AlreadyPremium,
 		},
 		showController = true,
 	},

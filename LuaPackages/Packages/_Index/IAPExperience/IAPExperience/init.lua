@@ -5,6 +5,8 @@ return {
 	PurchaseFlow = {
 		RobuxUpsellFlow = require(script.PurchaseFlow.RobuxUpsell.RobuxUpsellFlow),
 		RobuxUpsellFlowState = require(script.PurchaseFlow.RobuxUpsell.RobuxUpsellFlowState),
+		PremiumUpsellFlow = require(script.PurchaseFlow.PremiumUpsell.PremiumUpsellFlow),
+		PremiumUpsellFlowState = require(script.PurchaseFlow.PremiumUpsell.PremiumUpsellFlowState),
 		PurchaseErrorType = require(script.Generic.PurchaseErrorType),
 		U13ConfirmType = require(script.Generic.U13ConfirmType),
 	},

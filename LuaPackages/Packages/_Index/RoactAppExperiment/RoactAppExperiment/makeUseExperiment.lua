@@ -4,10 +4,11 @@
 	useBrowserTrackerExperiment hooks.
 ]]
 
+local RoactAppExperiment = script:FindFirstAncestor("RoactAppExperiment")
+
 local IXPService = game:GetService("IXPService")
 
-local Packages = script:FindFirstAncestor("Packages")
-local React = require(Packages.React)
+local React = require(RoactAppExperiment.Parent.React)
 
 local usePrevious = require(script.Parent.usePrevious)
 local ExperimentContext = require(script.Parent.ExperimentContext)

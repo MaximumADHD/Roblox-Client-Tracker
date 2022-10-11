@@ -68,6 +68,16 @@ local rawKeyToRawValue = {
     The user is unable to purchase the item because they are under 13 and the item is restricted.
     ]]--
     Under13 = "Under13",
+
+    --[[ PurchaseErrorType.PremiumPlatformUnavailable
+    The user is attempting to purchase premium on a platorm that does not support it.
+    ]]--
+    PremiumPlatformUnavailable = "PremiumPlatformUnavailable",
+
+    --[[ PurchaseErrorType.AlreadyPremium
+    The user is being prompted to purchase premium but is already premium.
+    ]]--
+    AlreadyPremium = "AlreadyPremium"
 }
 
 -- The values here correspond to values in the requested web view.

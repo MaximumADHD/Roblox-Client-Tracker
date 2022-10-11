@@ -32,9 +32,19 @@ local function maxWidthValidator(value)
 		return value == nil
 	end
 end
+local function buttonType(value)
+	if UIBloxConfig.enableActionBarButtonTypeOverride then
+		return t.optional(t.userdata)(value)
+	else
+		return value == nil
+	end
+end
 
 return t.strictInterface({
 	[React.Tag] = isReactTagProp,
+
+	-- The type of the button
+	buttonType = buttonType,
 
 	-- The automatic size of the button
 	automaticSize = t.optional(t.EnumItem),

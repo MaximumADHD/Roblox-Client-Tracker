@@ -2,9 +2,9 @@
 	A hook that returns the value from the previous render (for comparison).
 ]]
 
-local Packages = script:FindFirstAncestor("Packages")
+local RoactAppExperiment = script:FindFirstAncestor("RoactAppExperiment")
 
-local React = require(Packages.React)
+local React = require(RoactAppExperiment.Parent.React)
 
 local function usePrevious<T>(value: T): T?
 	local ref = React.useRef(nil :: T?)

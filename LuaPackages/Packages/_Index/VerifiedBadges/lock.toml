@@ -9,7 +9,7 @@ dependencies = [
     "HttpRequest HttpRequest 1.1.1 url+https://github.com/roblox/http-request",
     "React <patched> ReactProxy ca3f651b git+https://github.com/roblox/roact-17-upgrade#main",
     "ReactRoblox <patched> ReactRobloxProxy ca3f651b git+https://github.com/roblox/roact-17-upgrade#main",
-    "RoactAppExperiment RoactAppExperiment 0.1.4 url+https://github.com/roblox/roact-app-experiment",
+    "RoactAppExperiment RoactAppExperiment 0.1.5 url+https://github.com/roblox/roact-app-experiment",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
     "RoduxNetworking RoduxNetworking 3.0.1 url+https://github.com/roblox/rodux-networking",
     "UsersNetworking NetworkingUsers 1.0.1 url+https://github.com/roblox/networking-users",

@@ -31,6 +31,8 @@ PlayerTile.validateProps = t.strictInterface({
 
 	subtitle = t.string,
 
+	hasVerifiedBadge = t.optional(t.boolean),
+
 	thumbnail = t.optional(t.union(t.string, t.table)),
 	thumbnailPadding = t.optional(t.number),
 
@@ -264,6 +266,7 @@ function PlayerTile:render()
 				innerPadding = OUTER_BUTTON_PADDING,
 				name = title,
 				subtitle = self.props.subtitle,
+				hasVerifiedBadge = self.props.hasVerifiedBadge,
 				titleTextLineCount = 1,
 				onActivated = onActivated,
 				thumbnail = thumbnail,

@@ -94,10 +94,10 @@ local itemTileInterface = t.strictInterface({
 
 	-- Font style for title (Header2, Caption, etc.)
 	-- If not set the underlying components will wind up using Header2.
-	titleFontStyle = UIBloxConfig.enableAdjustableTextUnderTile and t.optional(t.table) or nil,
+	titleFontStyle = t.optional(t.table),
 
 	-- An inset on the tile image.
-	renderTileInset = UIBloxConfig.enableTileInsets and t.optional(t.callback) or nil,
+	renderTileInset = t.optional(t.callback),
 })
 
 local function tileBannerUseValidator(props)
@@ -144,8 +144,8 @@ function ItemTile:render()
 	local useMaxTitleHeight = self.props.useMaxTitleHeight
 	local addSubtitleSpace = self.props.addSubtitleSpace
 	local Selectable = self.props.Selectable
-	local titleFontStyle = UIBloxConfig.enableAdjustableTextUnderTile and self.props.titleFontStyle or nil
-	local renderTileInset = UIBloxConfig.enableTileInsets and self.props.renderTileInset or nil
+	local titleFontStyle = self.props.titleFontStyle
+	local renderTileInset = self.props.renderTileInset
 
 	local hasOverlayComponents = false
 	local overlayComponents = {}
