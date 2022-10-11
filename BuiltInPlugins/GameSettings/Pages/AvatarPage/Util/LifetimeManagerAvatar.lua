@@ -45,7 +45,7 @@ create = function(templates)
 			end
 
 			if err then
-				warn (err)
+				warn(err)
 			end
 
 			ManagerAvatar.Loading = false
@@ -83,11 +83,11 @@ end
 positionRigInFrontOfCamera = function(self)
 	local camera = workspace.CurrentCamera
 	if camera then
-		local desiredRigPos = (camera.CFrame + (camera.CFrame.lookVector*8)).p
-		local desiredLookAtPoint = desiredRigPos-camera.CFrame.lookVector.Unit
+		local desiredRigPos = (camera.CFrame + (camera.CFrame.lookVector * 8)).p
+		local desiredLookAtPoint = desiredRigPos - camera.CFrame.lookVector.Unit
 		ManagerAvatar.Handle:setPosition(CFrame.new(desiredRigPos, desiredLookAtPoint))
 	else
-		local origin = CFrame.new(Vector3.new(0,0,0))
+		local origin = CFrame.new(Vector3.new(0, 0, 0))
 		self.Handle:setPosition(origin)
 	end
 end

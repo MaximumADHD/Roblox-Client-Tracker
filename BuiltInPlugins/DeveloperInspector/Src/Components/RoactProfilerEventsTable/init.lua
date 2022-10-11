@@ -31,25 +31,29 @@ local columns = {
 		Name = "At (s)",
 		Key = "startTime",
 		Width = UDim.new(0.1, 0),
-	}, {
+	},
+	{
 		Name = "Render Time (ms)",
 		Key = "renderTime",
 		Width = UDim.new(0.2, 0),
-	}, {
+	},
+	{
 		Name = "Deep Time (ms)",
 		Key = "time",
 		Width = UDim.new(0.2, 0),
-	}, {
+	},
+	{
 		Name = "Cause",
 		Key = "cause",
 		TooltipKey = "log",
 		Width = UDim.new(0.15, 0),
-	}, {
+	},
+	{
 		Name = "Details",
 		Key = "details",
 		TooltipKey = "detailsTip",
 		Width = UDim.new(0.35, 0),
-	}
+	},
 }
 
 function RoactProfilerEventsTable:init()
@@ -95,7 +99,7 @@ function RoactProfilerEventsTable:render()
 	local props = self.props
 	local profileData = props.ProfileData
 	local tableData = props.TableData
-	
+
 	return Roact.createElement(PaginatedTable, {
 		Columns = columns,
 		Rows = tableData.pageRows,
@@ -120,24 +124,21 @@ RoactProfilerEventsTable = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(RoactProfilerEventsTable)
 
-return RoactRodux.connect(
-	function(state)
-		return {
-			ProfileData = state.RoactInspector.profileData,
-			TableData = state.RoactInspector[TableIds.EVENTS],
-		}
-	end,
-	function(dispatch)
-		return {
-			setSort = function(index: number, order: Enum.SortDirection)
-				dispatch(SortProfileData(TableIds.EVENTS, index, order))
-			end,
-			setPageSize = function(pageSize: number)
-				dispatch(SetProfilePageSize(TableIds.EVENTS, pageSize))
-			end,
-			setPageIndex = function(pageIndex: number)
-				dispatch(SetProfilePageIndex(TableIds.EVENTS, pageIndex))
-			end,
-		}
-	end
-)(RoactProfilerEventsTable)
+return RoactRodux.connect(function(state)
+	return {
+		ProfileData = state.RoactInspector.profileData,
+		TableData = state.RoactInspector[TableIds.EVENTS],
+	}
+end, function(dispatch)
+	return {
+		setSort = function(index: number, order: Enum.SortDirection)
+			dispatch(SortProfileData(TableIds.EVENTS, index, order))
+		end,
+		setPageSize = function(pageSize: number)
+			dispatch(SetProfilePageSize(TableIds.EVENTS, pageSize))
+		end,
+		setPageIndex = function(pageIndex: number)
+			dispatch(SetProfilePageIndex(TableIds.EVENTS, pageIndex))
+		end,
+	}
+end)(RoactProfilerEventsTable)

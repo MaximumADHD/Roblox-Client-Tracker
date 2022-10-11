@@ -50,6 +50,16 @@ function Analytics.new(reportingService: RbxAnalyticsService?): Analytics
 	return self :: any
 end
 
+-- for a more useful mock, use
+-- `src/internal/LuaApp/Modules/LuaApp/TestHelpers/createRbxAnalyticsServiceMock.lua`
+-- It provides a RbxAnalyticsService mock that tracks each call made
+-- to the service. Then simply construct the Analytics object with it.
+-- ```
+-- local rbxAnalyticsService = createRbxAnalyticsServiceMock()
+-- local analytics = Analytics.new(rbxAnalyticsService)
+-- ... do something
+-- expect(rbxAnalyticsService.ReportCounter).toHaveBeenCalledWith(rbxAnalyticsService, ...)
+-- ```
 function Analytics.mock(): Analytics
 	-- create a reporting service that does not fire any requests out to the world
 	local fakeReportingService = {}

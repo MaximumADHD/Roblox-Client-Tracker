@@ -5,7 +5,7 @@
 	as well as the initial permissions that users set when publishing.
 ]]
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
-local StudioService = game:GetService("StudioService") 
+local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
@@ -24,10 +24,10 @@ function Analytics.reportSaveCancel(isPublish)
 
 	if StudioService:GetPlaceIsPersistedToCloud() then
 		args = Cryo.Dictionary.join(args, {
-			placeId = game.PlaceId
+			placeId = game.PlaceId,
 		})
 	end
-	
+
 	RbxAnalyticsService:SendEventDeferred(TARGET_STUDIO, CONTEXT_TEAMCREATE, eventName, args)
 end
 

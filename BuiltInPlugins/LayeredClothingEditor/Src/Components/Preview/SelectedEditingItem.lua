@@ -137,6 +137,8 @@ local function onMannequinChanged(self, regenerated)
 			connectCageDataChanged(self)
 		end
 
+		luaMeshEditingModuleContext:initContextsFromItem(displayItem)	
+
 		ChangeHistoryService:ResetWaypoints()
 	end)
 end

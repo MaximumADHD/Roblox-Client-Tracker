@@ -47,7 +47,7 @@ local function mockPlugin(container)
 	end
 	function plugin:CreatePluginAction()
 		return {
-			Triggered = Signal.new()
+			Triggered = Signal.new(),
 		}
 	end
 	return plugin
@@ -57,7 +57,7 @@ function MockPlugin:init(props)
 	self.plugin = mockPlugin(props.Container)
 	self.target = props.FocusTarget or mockFocus()
 	self.store = Rodux.Store.new(MainReducer, nil, {
-		Rodux.thunkMiddleware
+		Rodux.thunkMiddleware,
 	})
 end
 
@@ -69,7 +69,7 @@ function MockPlugin:render()
 			{
 				id = "rerunLastStory",
 				text = "MOCK",
-			}
+			},
 		}),
 		ContextServices.Mouse.new({}),
 		MakeTheme(true),

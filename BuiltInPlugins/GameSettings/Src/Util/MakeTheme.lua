@@ -78,7 +78,7 @@ local button = join(frameworkButton, {
 	}),
 	["&GameSettingsButton"] = join(frameworkButton["&Round"], {
 		TextSize = fontStyle.Normal.TextSize,
-	})
+	}),
 })
 
 local image = join(getRawComponentStyle("Image"), {
@@ -225,7 +225,7 @@ local style = {
 			background = "rbxasset://textures/GameSettings/RadioButton.png",
 			selected = StyleKey.RadioButtonImage,
 			selectedDisabled = StyleKey.RadioButtonDisabledImage,
-		}
+		},
 	},
 
 	radioButtonSet = {
@@ -235,7 +235,7 @@ local style = {
 		},
 
 		description = {
-			height = 25 
+			height = 25,
 		},
 		padding = 5,
 	},
@@ -247,7 +247,7 @@ local style = {
 
 	devProducts = {
 		headerPadding = 20,
-		titlePadding = 12
+		titlePadding = 12,
 	},
 
 	badges = {
@@ -256,7 +256,7 @@ local style = {
 		refreshButton = {
 			icon = StyleKey.RefreshImage,
 			offset = {
-				x = - 10,
+				x = -10,
 			},
 			size = 18,
 		},
@@ -269,7 +269,7 @@ local style = {
 		disabled = StyleKey.InputFieldBackgroundDisabled,
 		handle = StyleKey.MainText,
 		border = StyleKey.Border,
-		gradient = StyleKey.SubBackground2
+		gradient = StyleKey.SubBackground2,
 	},
 
 	dropDownEntry = {
@@ -365,7 +365,7 @@ local style = {
 			padding = 5,
 		},
 		icon = {
-			height = 40
+			height = 40,
 		},
 		menu = {
 			itemPadding = 30,
@@ -376,17 +376,17 @@ local style = {
 	},
 
 	toggleButton = {
-		height = 24
+		height = 24,
 	},
 
 	editButton = {
 		image = "rbxasset://textures/GameSettings/edit.png",
-		imageColor = StyleKey.MainText
+		imageColor = StyleKey.MainText,
 	},
 
 	copyButton = {
 		image = "rbxasset://textures/GameSettings/copy.png",
-		imageColor = StyleKey.MainText
+		imageColor = StyleKey.MainText,
 	},
 
 	uiListLayout = {
@@ -443,7 +443,7 @@ local style = {
 	placePage = {
 		textBox = {
 			length = 100,
-		}
+		},
 	},
 
 	requirementsLink = {
@@ -463,7 +463,7 @@ local style = {
 		Size = {
 			X = 500,
 			Y = 350,
-		}
+		},
 	},
 
 	optInWarning = {
@@ -493,7 +493,7 @@ local style = {
 			height = 50,
 		},
 		padding = 10,
-		width = 195
+		width = 195,
 	},
 
 	playabilityWidget = {
@@ -523,7 +523,9 @@ local lightThemeOverride = {
 }
 
 return function(mock: boolean?)
-	local baseTheme = if mock then StudioTheme.mock(darkThemeOverride, lightThemeOverride) else StudioTheme.new(darkThemeOverride, lightThemeOverride)
+	local baseTheme = if mock
+		then StudioTheme.mock(darkThemeOverride, lightThemeOverride)
+		else StudioTheme.new(darkThemeOverride, lightThemeOverride)
 	local theme = baseTheme:extend(style)
 	theme.getUILibraryTheme = getUILibraryTheme
 	return theme

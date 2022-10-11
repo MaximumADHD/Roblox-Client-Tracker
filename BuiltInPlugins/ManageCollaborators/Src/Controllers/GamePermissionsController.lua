@@ -1,5 +1,3 @@
-local FFlagManageCollaboratorsTelemetryEnabled = game:GetFastFlag("ManageCollaboratorsTelemetryEnabled")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
@@ -158,11 +156,7 @@ function GamePermissionsController:setPermissions(gameId, oldPermissions, newPer
 		self:permissionsBatchedV2DELETE(gameId, deletes):await()
 	end
 	
-	if FFlagManageCollaboratorsTelemetryEnabled then 
-		return adds, deletes
-	end
-
-	return
+	return adds, deletes
 end
 
 function GamePermissionsController:searchUsers(searchTerm)

@@ -56,13 +56,16 @@ function ButtonBar:render()
 			HorizontalAlignment = horizontalAlignment,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Horizontal,
-		}, children)
+		}, children),
 	}
 
 	if horizontalAlignment ~= Enum.HorizontalAlignment.Center then
-		table.insert(components, Roact.createElement("UIPadding", {
-			PaddingRight = UDim.new(0, BUTTON_BAR_EDGE_PADDING),
-		}))
+		table.insert(
+			components,
+			Roact.createElement("UIPadding", {
+				PaddingRight = UDim.new(0, BUTTON_BAR_EDGE_PADDING),
+			})
+		)
 	end
 
 	-- buttons
@@ -71,30 +74,38 @@ function ButtonBar:render()
 	-- 		Default
 	-- 		Value
 	for i, button in ipairs(buttons) do
-		table.insert(components, Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
-			OnClick = function()
-				buttonActivated(button.Value)
-			end,
-			LayoutOrder = i,
-			Size = UDim2.new(0, BUTTON_WIDTH, 1, 0),
-			Style = if button.Default then "RoundPrimary" else "Round",
-			StyleModifier = if button.Active == false then StyleModifier.Disabled else nil,
-			Text = localization:getText("FooterButton", button.Name),
-			ZIndex = ZIndex or 1,
-		} else {
-			LayoutOrder = i,
-			Style = button.Default and theme.defaultButton or theme.cancelButton,
-			BorderMatchesBackground = button.Default,
-			Size = UDim2.new(0, BUTTON_WIDTH, 1, 0),
-			Active = button.Active,
-			Name = localization:getText("FooterButton", button.Name),
-			ZIndex = ZIndex or 1,
-			TextSize = Constants.TEXT_SIZE,
+		table.insert(
+			components,
+			Roact.createElement(
+				Button,
+				if FFlagRemoveUILibraryButton
+					then {
+						OnClick = function()
+							buttonActivated(button.Value)
+						end,
+						LayoutOrder = i,
+						Size = UDim2.new(0, BUTTON_WIDTH, 1, 0),
+						Style = if button.Default then "RoundPrimary" else "Round",
+						StyleModifier = if button.Active == false then StyleModifier.Disabled else nil,
+						Text = localization:getText("FooterButton", button.Name),
+						ZIndex = ZIndex or 1,
+					}
+					else {
+						LayoutOrder = i,
+						Style = button.Default and theme.defaultButton or theme.cancelButton,
+						BorderMatchesBackground = button.Default,
+						Size = UDim2.new(0, BUTTON_WIDTH, 1, 0),
+						Active = button.Active,
+						Name = localization:getText("FooterButton", button.Name),
+						ZIndex = ZIndex or 1,
+						TextSize = Constants.TEXT_SIZE,
 
-			OnClicked = function()
-				buttonActivated(button.Value)
-			end,
-		}))
+						OnClicked = function()
+							buttonActivated(button.Value)
+						end,
+					}
+			)
+		)
 	end
 
 	return Roact.createElement("Frame", {

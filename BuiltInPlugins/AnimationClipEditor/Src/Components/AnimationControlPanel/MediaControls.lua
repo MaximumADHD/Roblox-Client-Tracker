@@ -64,19 +64,26 @@ function MediaControls:makeButton(image: string, onClick: () -> (), playbackThem
 			Style = style.MediaControl,
 		}, {
 			Image = Roact.createElement("ImageLabel", {
-					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 1, 0),
-					Image = image,
-					ImageColor3 = playbackTheme.iconColor,
-				}),
-				Tooltip = tooltipKey and Roact.createElement(Tooltip, {
-					TextKey = tooltipKey,
-				}),
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 1, 0),
+				Image = image,
+				ImageColor3 = playbackTheme.iconColor,
+			}),
+			Tooltip = tooltipKey and Roact.createElement(Tooltip, {
+				TextKey = tooltipKey,
+			}),
 		}),
 	})
 end
 
-function MediaControls:makeToggle(active: boolean, activeImage: string, inactiveImage: string, onClick: () -> (), playbackTheme: any, tooltipKey: string): (any)
+function MediaControls:makeToggle(
+	active: boolean,
+	activeImage: string,
+	inactiveImage: string,
+	onClick: () -> (),
+	playbackTheme: any,
+	tooltipKey: string
+): (any)
 	local style = GetFFlagExtendPluginTheme() and self.props.Stylizer.button or self.props.Stylizer.PluginTheme.button
 	return Roact.createElement("Frame", {
 		LayoutOrder = self.layoutOrderIterator:getNextOrder(),
@@ -102,7 +109,13 @@ function MediaControls:makeToggle(active: boolean, activeImage: string, inactive
 	})
 end
 
-function MediaControls:makePlayToggle_deprecated(active: boolean, image: string, playState: string, playbackTheme: any, tooltipKey: string): (any)
+function MediaControls:makePlayToggle_deprecated(
+	active: boolean,
+	image: string,
+	playState: string,
+	playbackTheme: any,
+	tooltipKey: string
+): (any)
 	local style = GetFFlagExtendPluginTheme() and self.props.Stylizer.button or self.props.Stylizer.PluginTheme.button
 	return Roact.createElement("Frame", {
 		LayoutOrder = self.layoutOrderIterator:getNextOrder(),
@@ -132,7 +145,15 @@ function MediaControls:makePlayToggle_deprecated(active: boolean, image: string,
 	})
 end
 
-function MediaControls:makePlayToggle(active: boolean, activeImage: string, inactiveImage: string, playState: string, playbackTheme: any, activeTooltipKey: string, inactiveTooltipKey): (any)
+function MediaControls:makePlayToggle(
+	active: boolean,
+	activeImage: string,
+	inactiveImage: string,
+	playState: string,
+	playbackTheme: any,
+	activeTooltipKey: string,
+	inactiveTooltipKey
+): (any)
 	local style = GetFFlagExtendPluginTheme() and self.props.Stylizer.button or self.props.Stylizer.PluginTheme.button
 	return Roact.createElement("Frame", {
 		LayoutOrder = self.layoutOrderIterator:getNextOrder(),
@@ -193,14 +214,35 @@ function MediaControls:render(): (any)
 		}),
 		GoToFirstFrame = self:makeButton(playbackTheme.goToFirstFrame, goToFirstFrame, playbackTheme, "GoToFirstFrame"),
 		SkipBackward = self:makeButton(playbackTheme.skipBackward, skipBackward, playbackTheme, "SkipBackward"),
-		Reverse = self:makePlayToggle(isReverse, playbackTheme.pause, playbackTheme.reverse,
-			Constants.PLAY_STATE.Reverse, playbackTheme, "Pause", "Reverse"),
-		Play = self:makePlayToggle(isPlaying, playbackTheme.pause, playbackTheme.play,
-			Constants.PLAY_STATE.Play, playbackTheme, "Pause", "Play"),
+		Reverse = self:makePlayToggle(
+			isReverse,
+			playbackTheme.pause,
+			playbackTheme.reverse,
+			Constants.PLAY_STATE.Reverse,
+			playbackTheme,
+			"Pause",
+			"Reverse"
+		),
+		Play = self:makePlayToggle(
+			isPlaying,
+			playbackTheme.pause,
+			playbackTheme.play,
+			Constants.PLAY_STATE.Play,
+			playbackTheme,
+			"Pause",
+			"Play"
+		),
 		SkipForward = self:makeButton(playbackTheme.skipForward, skipForward, playbackTheme, "SkipForward"),
 		GoToLastFrame = self:makeButton(playbackTheme.goToLastFrame, goToLastFrame, playbackTheme, "GoToLastFrame"),
 
-		Loop = self:makeToggle(isLooping, playbackTheme.loop, playbackTheme.loop, toggleLooping, playbackTheme, "ToggleLooping"),
+		Loop = self:makeToggle(
+			isLooping,
+			playbackTheme.loop,
+			playbackTheme.loop,
+			toggleLooping,
+			playbackTheme,
+			"ToggleLooping"
+		),
 	})
 end
 

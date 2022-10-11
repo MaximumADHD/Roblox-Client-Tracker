@@ -22,7 +22,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestWideScrollingFrame(), container)
 		local frame = container:FindFirstChildOfClass("Frame")

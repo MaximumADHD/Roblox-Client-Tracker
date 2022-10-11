@@ -11,7 +11,7 @@ return function()
 			SummaryTrack = Roact.createElement(SummaryTrack, {
 				Name = "TestTrack",
 				UnusedTracks = unusedTracks,
-			})
+			}),
 		})
 	end
 
@@ -21,7 +21,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestSummaryTrack(), container)
 		local frame = container:FindFirstChildOfClass("Frame")
@@ -32,14 +32,17 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render an AddTrackButton when there are unused tracks", function ()
+	it("should render an AddTrackButton when there are unused tracks", function()
 		local container = Instance.new("Folder")
-		local instance = Roact.mount(createTestSummaryTrack({
-			{
-				Name = "UnusedTrack",
-				Instance = "Root",
-			}
-		}), container)
+		local instance = Roact.mount(
+			createTestSummaryTrack({
+				{
+					Name = "UnusedTrack",
+					Instance = "Root",
+				},
+			}),
+			container
+		)
 		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame).to.be.ok()

@@ -29,7 +29,7 @@ local withContext = ContextServices.withContext
 
 local RoundTextBox
 if not FFlagRemoveUILibraryRoundTextBox then
-    local UILibrary = require(Plugin.Packages.UILibrary)
+	local UILibrary = require(Plugin.Packages.UILibrary)
 	RoundTextBox = UILibrary.Component.RoundTextBox
 end
 
@@ -39,139 +39,140 @@ local RadioButton = require(Plugin.Src.Components.RadioButton)
 local ServerFill = Roact.PureComponent:extend("ServerFill")
 
 function ServerFill:render()
-    local props = self.props
-    local localization = props.Localization
-    local theme = props.Stylizer
+	local props = self.props
+	local localization = props.Localization
+	local theme = props.Stylizer
 
-    local title = localization:getText("Places", "ServerFill")
-    local layoutOrder = props.LayoutOrder
+	local title = localization:getText("Places", "ServerFill")
+	local layoutOrder = props.LayoutOrder
 
-    local enabled = props.Enabled
-    local selected = props.Selected
+	local enabled = props.Enabled
+	local selected = props.Selected
 
-    local customSocialSlotsCount = props.CustomSocialSlotsCount
-    local errorMessage = props.ErrorMessage
-    local onSocialSlotTypeChanged = props.OnSocialSlotTypeChanged
-    local onCustomSocialSlotsCountChanged = props.OnCustomSocialSlotsCountChanged
+	local customSocialSlotsCount = props.CustomSocialSlotsCount
+	local errorMessage = props.ErrorMessage
+	local onSocialSlotTypeChanged = props.OnSocialSlotTypeChanged
+	local onCustomSocialSlotsCountChanged = props.OnCustomSocialSlotsCountChanged
 
-    local hasInputField = selected == "Custom"
+	local hasInputField = selected == "Custom"
 
-    local buttons = {
-        {
-            Id = "Automatic",
-            Title = localization:getText("Places", "OptimizedTitle"),
-            Description = localization:getText("Places", "OptimizedDescription"),
-        },
-        {
-            Id = "Empty",
-            Title = localization:getText("Places", "MaximumTitle"),
-            Description = localization:getText("Places", "MaximumWarning"),
-        },
-        {
-            Id = "Custom",
-            Title = localization:getText("Places", "CustomizeSlotsTitle"),
-            Description = localization:getText("Places", "CustomizeSlotsDescription"),
-            Children = {
-                ErrorMessage = errorMessage and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.SmallError, {
-                    Size = UDim2.new(1, 0, 0, theme.fontStyle.SmallError.Size),
+	local buttons = {
+		{
+			Id = "Automatic",
+			Title = localization:getText("Places", "OptimizedTitle"),
+			Description = localization:getText("Places", "OptimizedDescription"),
+		},
+		{
+			Id = "Empty",
+			Title = localization:getText("Places", "MaximumTitle"),
+			Description = localization:getText("Places", "MaximumWarning"),
+		},
+		{
+			Id = "Custom",
+			Title = localization:getText("Places", "CustomizeSlotsTitle"),
+			Description = localization:getText("Places", "CustomizeSlotsDescription"),
+			Children = {
+				ErrorMessage = errorMessage and Roact.createElement(
+					"TextLabel",
+					Cryo.Dictionary.join(theme.fontStyle.SmallError, {
+						Size = UDim2.new(1, 0, 0, theme.fontStyle.SmallError.Size),
 
-                    BackgroundTransparency = 1,
+						BackgroundTransparency = 1,
 
-                    Text = errorMessage,
+						Text = errorMessage,
 
-                    TextYAlignment = Enum.TextYAlignment.Center,
-                    TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Center,
+						TextXAlignment = Enum.TextXAlignment.Left,
 
-                    TextWrapped = true,
-                })),
-            }
-        },
-    }
+						TextWrapped = true,
+					})
+				),
+			},
+		},
+	}
 
-    return Roact.createElement(FitFrameOnAxis, {
-        axis = FitFrameOnAxis.Axis.Vertical,
-        minimumSize = UDim2.new(1, 0, 0, 0),
-        BackgroundTransparency = 1,
+	return Roact.createElement(FitFrameOnAxis, {
+		axis = FitFrameOnAxis.Axis.Vertical,
+		minimumSize = UDim2.new(1, 0, 0, 0),
+		BackgroundTransparency = 1,
 
-        LayoutOrder = layoutOrder,
-    }, {
-        ServerFillToggle = Roact.createElement(RadioButtonSet, {
-            Title = title,
+		LayoutOrder = layoutOrder,
+	}, {
+		ServerFillToggle = Roact.createElement(RadioButtonSet, {
+			Title = title,
 
-            Buttons = buttons,
+			Buttons = buttons,
 
-            Enabled = enabled,
-            Selected = selected,
+			Enabled = enabled,
+			Selected = selected,
 
-            RenderItem = function(index, button)
-                if button.Id == "Custom" then
-                    return Roact.createElement(FitFrameOnAxis, {
-                        axis = FitFrameOnAxis.Axis.Vertical,
-                        minimumSize = UDim2.new(1, 0, 0, 0),
-                        contentPadding = UDim.new(0, theme.radioButton.padding),
-                        BackgroundTransparency = 1,
-                        FillDirection = Enum.FillDirection.Horizontal,
+			RenderItem = function(index, button)
+				if button.Id == "Custom" then
+					return Roact.createElement(FitFrameOnAxis, {
+						axis = FitFrameOnAxis.Axis.Vertical,
+						minimumSize = UDim2.new(1, 0, 0, 0),
+						contentPadding = UDim.new(0, theme.radioButton.padding),
+						BackgroundTransparency = 1,
+						FillDirection = Enum.FillDirection.Horizontal,
 
-                        LayoutOrder = index,
-                    }, {
-                        RadioButton = Roact.createElement(RadioButton, {
-                            LayoutOrder = 1,
-                            Title = button.Title,
-                            Id = button.Id,
-                            Description = button.Description,
-                            Selected = (button.Id == selected) or (index == selected),
-                            Index = index,
-                            Enabled = props.Enabled,
-                            Children = button.Children,
-                            OnClicked = function()
-                                onSocialSlotTypeChanged(button)
-                            end,
-                        }),
+						LayoutOrder = index,
+					}, {
+						RadioButton = Roact.createElement(RadioButton, {
+							LayoutOrder = 1,
+							Title = button.Title,
+							Id = button.Id,
+							Description = button.Description,
+							Selected = (button.Id == selected) or (index == selected),
+							Index = index,
+							Enabled = props.Enabled,
+							Children = button.Children,
+							OnClicked = function()
+								onSocialSlotTypeChanged(button)
+							end,
+						}),
 
-                        InputField = hasInputField and (if FFlagRemoveUILibraryRoundTextBox then
-                            Roact.createElement(TextInput2, {
-                                ErrorText = errorMessage,
-                                LayoutOrder = 2,
-                                OnTextChanged = onCustomSocialSlotsCountChanged,
-                                Width = theme.placePage.textBox.length,
-                                Text = customSocialSlotsCount,
-                            })
-                        else
-                            Roact.createElement(RoundTextBox, {
-                                LayoutOrder = 2,
-                                Active = hasInputField,
-                                ShowToolTip = false,
-                                Size = UDim2.new(0, theme.placePage.textBox.length, 0, theme.textBox.height),
-                                Text = customSocialSlotsCount,
-                                ErrorMessage = errorMessage,
-                                TextSize = theme.fontStyle.Normal.TextSize,
+						InputField = hasInputField and (if FFlagRemoveUILibraryRoundTextBox
+							then Roact.createElement(TextInput2, {
+								ErrorText = errorMessage,
+								LayoutOrder = 2,
+								OnTextChanged = onCustomSocialSlotsCountChanged,
+								Width = theme.placePage.textBox.length,
+								Text = customSocialSlotsCount,
+							})
+							else Roact.createElement(RoundTextBox, {
+								LayoutOrder = 2,
+								Active = hasInputField,
+								ShowToolTip = false,
+								Size = UDim2.new(0, theme.placePage.textBox.length, 0, theme.textBox.height),
+								Text = customSocialSlotsCount,
+								ErrorMessage = errorMessage,
+								TextSize = theme.fontStyle.Normal.TextSize,
 
-                                SetText = onCustomSocialSlotsCountChanged,
-                            })
-                        ),
-                    })
-                else
-                    return Roact.createElement(RadioButton, {
-                        Title = button.Title,
-                        Id = button.Id,
-                        Description = button.Description,
-                        Selected = (button.Id == selected) or (index == selected),
-                        Index = index,
-                        Enabled = props.Enabled,
-                        LayoutOrder = index,
-                        OnClicked = function()
-                            onSocialSlotTypeChanged(button)
-                        end,
-                    })
-                end
-            end,
-        })
-    })
+								SetText = onCustomSocialSlotsCountChanged,
+							})),
+					})
+				else
+					return Roact.createElement(RadioButton, {
+						Title = button.Title,
+						Id = button.Id,
+						Description = button.Description,
+						Selected = (button.Id == selected) or (index == selected),
+						Index = index,
+						Enabled = props.Enabled,
+						LayoutOrder = index,
+						OnClicked = function()
+							onSocialSlotTypeChanged(button)
+						end,
+					})
+				end
+			end,
+		}),
+	})
 end
 
 ServerFill = withContext({
-    Localization = ContextServices.Localization,
-    Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
 })(ServerFill)
 
 return ServerFill

@@ -16,7 +16,7 @@ return function(newValues)
 		end
 
 		local newData = Cryo.Dictionary.join(animationData, {
-			Metadata = Cryo.Dictionary.join(animationData.Metadata, newValues)
+			Metadata = Cryo.Dictionary.join(animationData.Metadata, newValues),
 		})
 
 		store:dispatch(SetAnimationData(newData))

@@ -49,7 +49,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
+local FFlagMigrateDraftsWidgetList = SharedFlags.getFFlagMigrateDraftsWidgetList()
 local FFlagDevFrameworkMigrateContextMenu = SharedFlags.getFFlagDevFrameworkMigrateContextMenu()
 
 local ContextServices = Framework.ContextServices
@@ -58,7 +58,7 @@ local withContext = ContextServices.withContext
 local ContextMenus = UILibrary.Studio.ContextMenus
 
 local UI = Framework.UI
-local Button = if FFlagRemoveUILibraryButton then UI.Button else UILibrary.Component.Button
+local Button = if FFlagMigrateDraftsWidgetList then UI.Button else UILibrary.Component.Button
 
 local showContextMenu
 if FFlagDevFrameworkMigrateContextMenu then
@@ -266,7 +266,7 @@ function AbstractItemView:render()
 		existingIds[id] = true
 
 		local itemButton
-		if FFlagRemoveUILibraryButton then
+		if FFlagMigrateDraftsWidgetList then
 			itemButton = renderItem(id, {
 				Selected = selected,
 				OnPress = function(_props, _instance, inputObject)

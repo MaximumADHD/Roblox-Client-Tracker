@@ -67,6 +67,8 @@ local FFlagPPTwoFactorLogOutMessage = game:DefineFastFlag("PPTwoFactorLogOutMess
 local FFlagEnableLuobuWarningText = game:DefineFastFlag("EnableLuobuWarningText", false)
 local FFlagPauseGameExploitFix = game:DefineFastFlag("PauseGameExploitFix", false)
 
+local GetFFlagPPFixGamepadIcons = require(Root.Flags.GetFFlagPPFixGamepadIcons)
+
 local function isRelevantRequestType(requestType, purchaseFlow)
 	if purchaseFlow == PurchaseFlow.RobuxUpsellV2 then
 		return false
@@ -219,20 +221,44 @@ function ProductPurchaseContainer:init()
 end
 
 function ProductPurchaseContainer:didMount()
-	if self.props.windowState == WindowState.Shown then
-		self:setState({
-			isAnimating = true,
-		})
-		self.configContextActionService(self.props.windowState)
+	if GetFFlagPPFixGamepadIcons() then
+		local purchaseFlow = self.props.purchaseFlow
+		local requestType = self.props.requestType
+
+		if self.props.windowState == WindowState.Shown and isRelevantRequestType(requestType, purchaseFlow) then
+			self:setState({
+				isAnimating = true,
+			})
+			self.configContextActionService(self.props.windowState)
+		end
+	else
+		if self.props.windowState == WindowState.Shown then
+			self:setState({
+				isAnimating = true,
+			})
+			self.configContextActionService(self.props.windowState)
+		end
 	end
 end
 
 function ProductPurchaseContainer:didUpdate(prevProps, prevState)
-	if prevProps.windowState ~= self.props.windowState then
-		self:setState({
-			isAnimating = true,
-		})
-		self.configContextActionService(self.props.windowState)
+	if GetFFlagPPFixGamepadIcons() then
+		local purchaseFlow = self.props.purchaseFlow
+		local requestType = self.props.requestType
+
+		if prevProps.windowState ~= self.props.windowState and isRelevantRequestType(requestType, purchaseFlow) then
+			self:setState({
+				isAnimating = true,
+			})
+			self.configContextActionService(self.props.windowState)
+		end
+	else
+		if prevProps.windowState ~= self.props.windowState then
+			self:setState({
+				isAnimating = true,
+			})
+			self.configContextActionService(self.props.windowState)
+		end
 	end
 end
 

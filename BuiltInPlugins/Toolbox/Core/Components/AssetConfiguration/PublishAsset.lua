@@ -46,7 +46,6 @@
 		LayoutOrder, number, used by the layouter to set the position of the component.
 ]]
 local FFlagUnifyModelPackagePublish3 = game:GetFastFlag("UnifyModelPackagePublish3")
-local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
 local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -222,7 +221,7 @@ function PublishAsset:renderContent(theme, localizedContent)
 	local displaySharing = props.displaySharing
 
 	local allowedAssetTypesForRelease = if isPlugin then props.allowedAssetTypesForRelease else nil
-	local allowedAssetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then props.allowedAssetTypesForFree else nil
+	local allowedAssetTypesForFree = props.allowedAssetTypesForFree
 	local newAssetStatus = if isPlugin then props.newAssetStatus else nil
 	local currentAssetStatus = if isPlugin then props.currentAssetStatus else nil
 	local onStatusChange = if isPlugin then props.onStatusChange else nil
@@ -484,7 +483,7 @@ function PublishAsset:renderContent(theme, localizedContent)
 		PriceComponent = showPrice and Roact.createElement(PriceComponent, {
 			AssetTypeEnum = assetTypeEnum,
 			AllowedAssetTypesForRelease = allowedAssetTypesForRelease,
-			AllowedAssetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then allowedAssetTypesForFree else nil,
+			AllowedAssetTypesForFree = allowedAssetTypesForFree,
 			NewAssetStatus = newAssetStatus,
 
 			Price = price,

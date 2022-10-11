@@ -56,7 +56,7 @@ function CheckBoxModule:render()
 		}),
 		CheckBox = Roact.createElement(CheckBox, if FFlagDevFrameworkMigrateCheckBox then {
 			Checked = selected,
-			Enabled = enabled,
+			Disabled = not enabled,
 			Key = itemKey,
 			OnClick = self.onActivated,
 			Text = itemKey,

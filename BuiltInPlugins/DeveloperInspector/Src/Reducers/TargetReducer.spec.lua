@@ -20,15 +20,15 @@ local function getUniversalAppTargets()
 				id = "UniversalAppRoact",
 				name = "UniversalApp roact tree",
 				fromBridgeId = 20,
-				sourceName = "UniversalApp"
+				sourceName = "UniversalApp",
 			},
 			UniversalAppRodux = {
 				id = "UniversalAppRodux",
 				name = "UniversalApp rodux store",
 				fromBridgeId = 20,
-				sourceName = "UniversalApp"
-			}
-		}
+				sourceName = "UniversalApp",
+			},
+		},
 	}
 end
 
@@ -42,15 +42,15 @@ local function getToolboxTargets()
 				id = "ToolboxRoact",
 				name = "Toolbox roact tree",
 				fromBridgeId = 25,
-				sourceName = "Toolbox"
+				sourceName = "Toolbox",
 			},
 			ToolboxRodux = {
 				id = "ToolboxRodux",
 				name = "Toolbox rodux store",
 				fromBridgeId = 25,
-				sourceName = "Toolbox"
-			}
-		}
+				sourceName = "Toolbox",
+			},
+		},
 	}
 end
 
@@ -64,7 +64,8 @@ return function()
 			local store = Rodux.Store.new(TargetReducer)
 			local state = TargetReducer(store:getState(), AddTargets(getUniversalAppTargets()))
 			state = TargetReducer(state, AddTargets(getToolboxTargets()))
-			local serialized = pretty(state.targets, {depth = 100, multiline = true, omit = {"GetChildren", "GetDebugId"}})
+			local serialized =
+				pretty(state.targets, { depth = 100, multiline = true, omit = { "GetChildren", "GetDebugId" } })
 			expect(serialized).to.equal([[{
 	ToolboxRoact = {
 		Children = {},
@@ -99,7 +100,8 @@ return function()
 				local state = TargetReducer(store:getState(), AddTargets(getUniversalAppTargets()))
 				state = TargetReducer(state, AddTargets(getToolboxTargets()))
 				state = TargetReducer(state, ClearTargets())
-				local serialized = pretty(state.targets, {depth = 100, multiline = true, omit = {"GetChildren", "GetDebugId"}})
+				local serialized =
+					pretty(state.targets, { depth = 100, multiline = true, omit = { "GetChildren", "GetDebugId" } })
 				expect(serialized).to.equal([[{}]])
 			end)
 		end)

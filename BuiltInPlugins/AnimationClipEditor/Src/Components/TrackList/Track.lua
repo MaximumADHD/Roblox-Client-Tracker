@@ -130,17 +130,26 @@ function Track:render()
 	}
 
 	for index, item in ipairs(items) do
-		local colorName = Constants.TRACK_THEME_MAPPING[item.Type] and Constants.TRACK_THEME_MAPPING[item.Type][item.Name] or "Default"
+		local colorName = Constants.TRACK_THEME_MAPPING[item.Type]
+				and Constants.TRACK_THEME_MAPPING[item.Type][item.Name]
+			or "Default"
 		local color = theme.curveTheme[colorName]
 
-		local precision = if item.Type == Constants.TRACK_TYPES.Facs then Constants.NUMBER_FACS_PRECISION else Constants.NUMBER_PRECISION
+		local precision = if item.Type == Constants.TRACK_TYPES.Facs
+			then Constants.NUMBER_FACS_PRECISION
+			else Constants.NUMBER_PRECISION
 
 		children[item.Key .. "_Entry"] = Roact.createElement(NumberBox, {
 			Size = UDim2.new(0, Constants.NUMBERBOX_WIDTH, 1, -Constants.NUMBERBOX_PADDING),
-			Position = UDim2.new(1,
-				(index - #items - 1) * (Constants.NUMBERBOX_WIDTH + Constants.NUMBERBOX_PADDING) - Constants.TRACKLIST_BUTTON_SIZE - Constants.TRACKLIST_RIGHT_PADDING,
-				.5, 0),
-			AnchorPoint = Vector2.new(0, .5),
+			Position = UDim2.new(
+				1,
+				(index - #items - 1) * (Constants.NUMBERBOX_WIDTH + Constants.NUMBERBOX_PADDING)
+					- Constants.TRACKLIST_BUTTON_SIZE
+					- Constants.TRACKLIST_RIGHT_PADDING,
+				0.5,
+				0
+			),
+			AnchorPoint = Vector2.new(0, 0.5),
 
 			Number = item.Value,
 			Name = item.Name,

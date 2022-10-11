@@ -36,12 +36,20 @@ function LoadFailedPage:render()
 	local labelText = localization:getText("General", "SettingsFailedToLoad")
 	local buttonText = localization:getText("General", "ButtonRetry")
 	local maxLabelWidth = self.failurePageRef:getValue()
-		and self.failurePageRef:getValue().AbsoluteSize.X - theme.settingsPage.failLabelPaddingX
+			and self.failurePageRef:getValue().AbsoluteSize.X - theme.settingsPage.failLabelPaddingX
 		or math.huge
-	local labelTextExtents = TextService:GetTextSize(labelText, theme.fontStyle.Normal.TextSize,
-		theme.fontStyle.Normal.Font, Vector2.new(maxLabelWidth, math.huge))
-	local buttonTextExtents = TextService:GetTextSize(buttonText, theme.fontStyle.Normal.TextSize,
-		theme.fontStyle.Normal.Font, Vector2.new(math.huge, math.huge))
+	local labelTextExtents = TextService:GetTextSize(
+		labelText,
+		theme.fontStyle.Normal.TextSize,
+		theme.fontStyle.Normal.Font,
+		Vector2.new(maxLabelWidth, math.huge)
+	)
+	local buttonTextExtents = TextService:GetTextSize(
+		buttonText,
+		theme.fontStyle.Normal.TextSize,
+		theme.fontStyle.Normal.Font,
+		Vector2.new(math.huge, math.huge)
+	)
 
 	return Roact.createElement(Container, {
 		[Roact.Ref] = self.failurePageRef,
@@ -54,33 +62,41 @@ function LoadFailedPage:render()
 			Padding = UDim.new(0, theme.settingsPage.failPageListPaddingY),
 		}),
 
-		Label = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-			LayoutOrder = 1,
+		Label = Roact.createElement(
+			"TextLabel",
+			Cryo.Dictionary.join(theme.fontStyle.Normal, {
+				LayoutOrder = 1,
 
-			Text = labelText,
+				Text = labelText,
 
-			Size = UDim2.fromOffset(labelTextExtents.X, labelTextExtents.Y),
-			BackgroundTransparency = 1,
-		}), {
-			Padding = Roact.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, theme.settingsPage.failLabelPaddingX/2),
-				PaddingRight = UDim.new(0, theme.settingsPage.failLabelPaddingX/2),
+				Size = UDim2.fromOffset(labelTextExtents.X, labelTextExtents.Y),
+				BackgroundTransparency = 1,
 			}),
-		}),
+			{
+				Padding = Roact.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, theme.settingsPage.failLabelPaddingX / 2),
+					PaddingRight = UDim.new(0, theme.settingsPage.failLabelPaddingX / 2),
+				}),
+			}
+		),
 
 		PublishButton = Roact.createElement(Button, {
 			LayoutOrder = 2,
 			Style = "GameSettingsPrimaryButton",
 
 			Text = buttonText,
-			Size = UDim2.new(0, buttonTextExtents.X + theme.settingsPage.reloadButton.paddingX,
-				0, buttonTextExtents.Y + theme.settingsPage.reloadButton.paddingY),
+			Size = UDim2.new(
+				0,
+				buttonTextExtents.X + theme.settingsPage.reloadButton.paddingX,
+				0,
+				buttonTextExtents.Y + theme.settingsPage.reloadButton.paddingY
+			),
 
 			OnClick = function()
 				onRetry()
 			end,
 		}, {
-			Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
+			Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
 		}),
 	})
 end

@@ -19,8 +19,9 @@ local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
 
 local RoactStudioWidgets = Plugin.Packages.RoactStudioWidgets
-local ButtonBar = if FFlagRemoveUILibraryButton then require(RoactStudioWidgets.ButtonBar) else require(RoactStudioWidgets.ButtonBarWithToolTip)
-
+local ButtonBar = if FFlagRemoveUILibraryButton
+	then require(RoactStudioWidgets.ButtonBar)
+	else require(RoactStudioWidgets.ButtonBarWithToolTip)
 
 local PresetsBar = Roact.PureComponent:extend(script.Name)
 
@@ -47,7 +48,7 @@ function PresetsBar:render()
 					Walkspeed = 16,
 					MaxSlopeAngle = 89,
 				},
-			}
+			},
 		},
 		{
 			Name = localization:getText("General", "WorldPresetsRealistic"),
@@ -61,7 +62,7 @@ function PresetsBar:render()
 					JumpPower = 13,
 					Walkspeed = 16,
 				},
-			}
+			},
 		},
 		{
 			Name = localization:getText("General", "WorldPresetsAction"),
@@ -75,8 +76,8 @@ function PresetsBar:render()
 					JumpPower = 31,
 					Walkspeed = 18,
 				},
-			}
-		}
+			},
+		},
 	}
 
 	return Roact.createElement(ButtonBar, {
@@ -92,12 +93,9 @@ function PresetsBar:render()
 	})
 end
 
-
 PresetsBar = withContext({
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 })(PresetsBar)
-
-
 
 return PresetsBar

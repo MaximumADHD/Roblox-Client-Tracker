@@ -118,13 +118,12 @@ function RadioButtons:render()
 
 	local children = {}
 	for index, button in ipairs(buttons) do
-		children[button.Key] = self:createButton(button.Key, button.Text, index,
-			selected == button.Key, theme)
+		children[button.Key] = self:createButton(button.Key, button.Text, index, selected == button.Key, theme)
 	end
 
 	return Roact.createElement(fitToContent, {
 		BackgroundTransparency = 1,
-		LayoutOrder = layoutOrder
+		LayoutOrder = layoutOrder,
 	}, children)
 end
 

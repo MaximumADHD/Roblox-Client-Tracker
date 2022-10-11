@@ -10,7 +10,7 @@ return function()
 		return Roact.createElement(MockWrapper, {}, {
 			Menu = Roact.createElement(AnimationClipMenu, {
 				ShowMenu = false,
-			})
+			}),
 		})
 	end
 

@@ -59,7 +59,7 @@ function IKTreeView:init()
 	initExpandedItems[rootPart.Name] = true
 	self.state = {
 		expandedItems = initExpandedItems,
-		treeArray = {}
+		treeArray = {},
 	}
 
 	self.getChildren = function(partName)
@@ -74,7 +74,7 @@ function IKTreeView:init()
 
 	self.onInputBegan = function(input, element)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			self.props.SetSelectedTracks({{element}})
+			self.props.SetSelectedTracks({ { element } })
 		end
 	end
 
@@ -90,7 +90,7 @@ function IKTreeView:init()
 			for _, child in ipairs(children) do
 				if child == node then
 					if not forIK or self.props.Chain[child] then
-						table.insert(orderedChildren, {index = index, element = child})
+						table.insert(orderedChildren, { index = index, element = child })
 					end
 				end
 			end
@@ -103,7 +103,7 @@ function IKTreeView:init()
 			endIndex = orderedChildren[#orderedChildren].index
 		end
 		return (endIndex - startIndex) * Constants.TRACK_HEIGHT
-	end	
+	end
 
 	self.toggleExpanded = function(elementName)
 		self:setState(function(oldState)
@@ -133,7 +133,7 @@ function IKTreeView:init()
 		local rows = {}
 		self.contributeItem(RigUtils.findRootPart(self.props.RootInstance).Name, 0, rows)
 		self:setState({
-			treeArray = rows
+			treeArray = rows,
 		})
 		self.props.OnTreeUpdated(rows)
 	end
@@ -193,15 +193,15 @@ if not FFlagDevFrameworkList then
 			BorderSizePixel = 0,
 			OnClick = function()
 				togglePinnedPart(part)
-			end
-			}, {
-				Image = Roact.createElement("ImageLabel", {
-					BackgroundColor3 = selected and theme.ikTheme.selected or theme.backgroundColor,
-					BorderSizePixel = 0,
-					Size = UDim2.new(1, 0, 1, 0),
-					Image = theme.ikTheme.pinImage,
-					ImageColor3 = pinned and theme.ikTheme.pinHover or theme.ikTheme.iconColor,
-				}),
+			end,
+		}, {
+			Image = Roact.createElement("ImageLabel", {
+				BackgroundColor3 = selected and theme.ikTheme.selected or theme.backgroundColor,
+				BorderSizePixel = 0,
+				Size = UDim2.new(1, 0, 1, 0),
+				Image = theme.ikTheme.pinImage,
+				ImageColor3 = pinned and theme.ikTheme.pinHover or theme.ikTheme.iconColor,
+			}),
 		})
 	end
 
@@ -282,47 +282,50 @@ function IKTreeView:render()
 			RowComponent = if FFlagDevFrameworkList then IKTreeRow else nil,
 			RowHeight = if FFlagDevFrameworkList then Constants.TRACK_HEIGHT else nil,
 			GetRowProps = if FFlagDevFrameworkList then self.getRowProps else nil,
-			RenderRow = if FFlagDevFrameworkList then nil else function(elementProps)
-				-- exclude root
-				if elementProps.item == rootPart.Name then
-					return nil
-				end
+			RenderRow = if FFlagDevFrameworkList
+				then nil
+				else function(elementProps)
+					-- exclude root
+					if elementProps.item == rootPart.Name then
+						return nil
+					end
 
-				local isSelected = (selectedTrack and selectedTrack[1] == elementProps.item)
+					local isSelected = (selectedTrack and selectedTrack[1] == elementProps.item)
 
-				return Roact.createElement("ImageButton", {
-					Size = UDim2.new(1, -8, 0, Constants.TRACK_HEIGHT),
-					ImageTransparency = 1,
-					AutoButtonColor = false,
-					BackgroundColor3 = isSelected and theme.ikTheme.selected or theme.backgroundColor,
-					BorderSizePixel = 0,
-					ZIndex = 1,
-					LayoutOrder = iterator:getNextOrder(),
-					[Roact.Event.InputBegan] = function(rbx, input)
-						self.onInputBegan(input, elementProps.item)
-					end,
-				}, {
-					Pin = ikMode == Constants.IK_MODE.FullBody and self:renderPinButton(theme, elementProps, isSelected),
-
-					Container = Roact.createElement("Frame", {
-						BackgroundTransparency = 1,
-						Size = UDim2.new(1, 0, 1, 0),
+					return Roact.createElement("ImageButton", {
+						Size = UDim2.new(1, -8, 0, Constants.TRACK_HEIGHT),
+						ImageTransparency = 1,
+						AutoButtonColor = false,
+						BackgroundColor3 = isSelected and theme.ikTheme.selected or theme.backgroundColor,
+						BorderSizePixel = 0,
+						ZIndex = 1,
+						LayoutOrder = iterator:getNextOrder(),
+						[Roact.Event.InputBegan] = function(rbx, input)
+							self.onInputBegan(input, elementProps.item)
+						end,
 					}, {
-						Layout = Roact.createElement("UIListLayout", {
-							FillDirection = Enum.FillDirection.Horizontal,
-							HorizontalAlignment = Enum.HorizontalAlignment.Left,
-							SortOrder = Enum.SortOrder.LayoutOrder,
-							VerticalAlignment = Enum.VerticalAlignment.Center,
-						}),
+						Pin = ikMode == Constants.IK_MODE.FullBody
+							and self:renderPinButton(theme, elementProps, isSelected),
 
-						HierarchyLines = self:renderHierarchyLines(elementProps, isSelected),
-						Padding = self:renderPadding(),
-						TextLabel = self:renderJointLabel(theme, elementProps, isSelected),
+						Container = Roact.createElement("Frame", {
+							BackgroundTransparency = 1,
+							Size = UDim2.new(1, 0, 1, 0),
+						}, {
+							Layout = Roact.createElement("UIListLayout", {
+								FillDirection = Enum.FillDirection.Horizontal,
+								HorizontalAlignment = Enum.HorizontalAlignment.Left,
+								SortOrder = Enum.SortOrder.LayoutOrder,
+								VerticalAlignment = Enum.VerticalAlignment.Center,
+							}),
+
+							HierarchyLines = self:renderHierarchyLines(elementProps, isSelected),
+							Padding = self:renderPadding(),
+							TextLabel = self:renderJointLabel(theme, elementProps, isSelected),
+						}),
 					})
-				})
-			end,
+				end,
 			Style = "BorderBox",
-		})
+		}),
 	})
 end
 

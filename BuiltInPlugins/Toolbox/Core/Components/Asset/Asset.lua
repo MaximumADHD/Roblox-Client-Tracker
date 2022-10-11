@@ -17,7 +17,6 @@
 
 		number currentSoundId
 ]]
-local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
 local FFlagToolboxPackagesInAssetTile = game:GetFastFlag("ToolboxPackagesInAssetTile")
 local FFlagToolboxAddUnverifiedIcon = game:GetFastFlag("ToolboxAddUnverifiedIcon")
 
@@ -52,7 +51,7 @@ local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.P
 
 local GetOwnsAssetRequest = require(Plugin.Core.Networking.Requests.GetOwnsAssetRequest)
 local GetCanManageAssetRequest = require(Plugin.Core.Networking.Requests.GetCanManageAssetRequest)
-local GetVoteRequest = FFlagToolboxUseGetVote and require(Plugin.Core.Networking.Requests.GetVoteRequest)
+local GetVoteRequest = require(Plugin.Core.Networking.Requests.GetVoteRequest)
 
 local SetAssetPreview = require(Plugin.Core.Actions.SetAssetPreview)
 local NavigationContext = require(Plugin.Core.ContextServices.NavigationContext)
@@ -64,8 +63,7 @@ local FrameworkUtil = Framework.Util
 local formatVoteNumber = FrameworkUtil.formatVoteNumber
 local getTextSize = FrameworkUtil.GetTextSize
 
-local disableRatings = not FFlagToolboxUseGetVote and require(Plugin.Core.Util.ToolboxUtilities).disableRatings
-local ratingsDisabled = FFlagToolboxUseGetVote and require(Plugin.Core.Util.ToolboxUtilities).disableRatings
+local ratingsDisabled = require(Plugin.Core.Util.ToolboxUtilities).disableRatings
 
 local Types = if FFlagToolboxPackagesInAssetTile then Plugin.Core.Types else nil
 local Category = if FFlagToolboxPackagesInAssetTile
@@ -93,10 +91,10 @@ function Asset:init(props)
 	local canInsertAsset = props.canInsertAsset
 
 	-- showVotes in voting prop is set to true from the back end even when it shouldn't be -- e.g. for assets in the Inventory. So we'll set it to false by default and override it in render
-	self.showVotes = if FFlagToolboxUseGetVote then false else nil
+	self.showVotes = false
 	self.onMouseEntered = function(rbx, x, y)
 		self.props.onAssetHovered(self.props.assetId)
-		if FFlagToolboxUseGetVote and self.showVotes then
+		if self.showVotes then
 			local categoryNameEnum = Category.getCategoryByName(self.props.categoryName).assetType
 			props.getVote(getNetwork(self), self.props.assetId, Category.getAssetTypeByNumber(categoryNameEnum))
 		end
@@ -297,17 +295,11 @@ function Asset:renderContent(theme, DEPRECATED_localization, DEPRECATED_localize
 	local votingProps = props.voting or {}
 	local showVotes = votingProps.ShowVotes
 	local isCurrentlyCreationsTab = Category.getTabForCategoryName(props.categoryName) == Category.CREATIONS
-	local isMarketplaceTab = FFlagToolboxUseGetVote
-		and Category.getTabForCategoryName(props.categoryName) == Category.MARKETPLACE
-	if FFlagToolboxUseGetVote and (not isMarketplaceTab or showAudioLength or ratingsDisabled()) then
-		showVotes = false
-	elseif not FFlagToolboxUseGetVote and (isCurrentlyCreationsTab or showAudioLength or disableRatings()) then
+	local isMarketplaceTab = Category.getTabForCategoryName(props.categoryName) == Category.MARKETPLACE
+	if not isMarketplaceTab or showAudioLength or ratingsDisabled() then
 		showVotes = false
 	end
-	-- When removing this flag, make all of showVotes using self
-	if FFlagToolboxUseGetVote then
-		self.showVotes = showVotes
-	end
+	self.showVotes = showVotes
 
 	local showStatus = isCurrentlyCreationsTab
 
@@ -325,19 +317,12 @@ function Asset:renderContent(theme, DEPRECATED_localization, DEPRECATED_localize
 		and formatVoteNumber.hasEnoughRatings(votingProps.VoteCount)
 	showVoteCounts = showVotes and isHovered and hasEnoughRatings
 	showVoteButtons = showVotes and votingProps ~= nil and votingProps.showVoteButtons
-	showVoteLoading = FFlagToolboxUseGetVote
-		and showVotes
-		and isHovered
-		and votingProps ~= nil
-		and votingProps.VoteLoading
+	showVoteLoading = showVotes and isHovered and votingProps ~= nil and votingProps.VoteLoading
 	-- Once a user inserts an asset, VoteButtons show regardless of hovering but we only want to change the outline when hovered
-	if
-		(FFlagToolboxUseGetVote and showVoteButtons)
-		or (not FFlagToolboxUseGetVote and showVoteButtons and isHovered)
-	then
+	if showVoteButtons then
 		assetOutlineHeight = Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTE_BUTTONS_HOVERED
 		-- VoteCounts will only show when hovered, so we don't need to check for hover state like above
-	elseif showVoteCounts or (FFlagToolboxUseGetVote and showVoteLoading) then
+	elseif showVoteCounts or showVoteLoading then
 		-- Make the height with vote count what we use when loading since it's more likely that users will not have voted an asset (meaning we show vote count once finished loading) than if they have (meaning we show vote buttons)
 		-- Having the same height during loading and after creates a smoother UX
 		assetOutlineHeight = Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTING_COUNT
@@ -397,8 +382,7 @@ function Asset:renderContent(theme, DEPRECATED_localization, DEPRECATED_localize
 	if FFlagToolboxAddUnverifiedIcon then
 		backgroundColor = outlineTheme.backgroundColor
 	else
-		backgroundColor = isVerifiedCreator and outlineTheme.verifiedBackgroundColor
-			or outlineTheme.backgroundColor
+		backgroundColor = isVerifiedCreator and outlineTheme.verifiedBackgroundColor or outlineTheme.backgroundColor
 	end
 
 	local result = Roact.createElement("Frame", {
@@ -411,18 +395,19 @@ function Asset:renderContent(theme, DEPRECATED_localization, DEPRECATED_localize
 		ZIndex = isHovered and 2 or 1,
 		[Roact.Change.AbsolutePosition] = self.onAbsolutePositionChange,
 	}, {
-		DropShadow = isHovered and Roact.createElement(DropShadow, {
-			-- Copy the size and position of the outline but add a few pixels extra
-			AnchorPoint = Vector2.new(0.5, 0),
-			Position = UDim2.new(0.5, 0, 0, -(Constants.ASSET_OUTLINE_PADDING + dropShadowSize)),
-			Size = UDim2.new(
-				1,
-				2 * (Constants.ASSET_OUTLINE_PADDING + dropShadowSize),
-				1,
-				assetOutlineHeight + (2 * dropShadowSize)
-			),
-			ZIndex = -2, -- Ensure it's below the outline
-		}),
+		DropShadow = isHovered
+			and Roact.createElement(DropShadow, {
+				-- Copy the size and position of the outline but add a few pixels extra
+				AnchorPoint = Vector2.new(0.5, 0),
+				Position = UDim2.new(0.5, 0, 0, -(Constants.ASSET_OUTLINE_PADDING + dropShadowSize)),
+				Size = UDim2.new(
+					1,
+					2 * (Constants.ASSET_OUTLINE_PADDING + dropShadowSize),
+					1,
+					assetOutlineHeight + (2 * dropShadowSize)
+				),
+				ZIndex = -2, -- Ensure it's below the outline
+			}),
 
 		Outline = Roact.createElement("Frame", {
 			AnchorPoint = Vector2.new(0.5, 0),
@@ -542,33 +527,31 @@ function Asset:renderContent(theme, DEPRECATED_localization, DEPRECATED_localize
 
 				isVerifiedCreator = isVerifiedCreator,
 			}),
-
-			Voting = if FFlagToolboxUseGetVote
-					-- If an asset is hovered, show the vote counts and percentage. if an asset is inserted (making showvotebuttons true) then we want to show the vote buttons even after they hover.
-					-- If we're still fetching the vote, show the vote loading spinner.
-					-- The same component is used for vote bar, vote buttons, and vote loading, so we use this boolean to determine whether to show that component
-					and (showVoteCounts or showVoteButtons or showVoteLoading)
-				then
-					Roact.createElement(Voting, {
-						-- if we're showing buttons to vote, move them to before the creator name (layout order 25). But if we're showing the vote count or loading animation, keep it after (layout order 35).
-						LayoutOrder = if showVoteButtons then 25 else 35,
-						assetId = assetId,
-						voting = votingProps,
-						showBackgroundBox = isHovered,
-					})
+			-- If an asset is hovered, show the vote counts and percentage. if an asset is inserted (making showvotebuttons true) then we want to show the vote buttons even after they hover.
+			-- If we're still fetching the vote, show the vote loading spinner.
+			-- The same component is used for vote bar, vote buttons, and vote loading, so we use this boolean to determine whether to show that component
+			Voting = if showVoteCounts
+					or showVoteButtons
+					or showVoteLoading
+				then Roact.createElement(Voting, {
+					-- if we're showing buttons to vote, move them to before the creator name (layout order 25). But if we're showing the vote count or loading animation, keep it after (layout order 35).
+					LayoutOrder = if showVoteButtons then 25 else 35,
+					assetId = assetId,
+					voting = votingProps,
+					showBackgroundBox = isHovered,
+				})
 
 				elseif
-					showVoteCounts or showVoteButtons				-- if an asset is hovered, show the vote counts and percentage. if an asset is inserted (making showvotebuttons true) then we want to show the vote buttons even after they hover.
-				-- The same component is used for vote bar and vote buttons, so we use this boolean to determine whether to show that component
+					showVoteCounts
+					or showVoteButtons -- if an asset is hovered, show the vote counts and percentage. if an asset is inserted (making showvotebuttons true) then we want to show the vote buttons even after they hover.				-- The same component is used for vote bar and vote buttons, so we use this boolean to determine whether to show that component
 
-				then
-					Roact.createElement(Voting, {
-						-- if we're showing buttons to vote, move them to before the creator name (layout order 25). But if we're showing the vote count, keep it after (layout order 35).
-						LayoutOrder = if showVoteButtons then 25 else 35,
-						assetId = assetId,
-						voting = votingProps,
-						showBackgroundBox = isHovered,
-					})
+				then Roact.createElement(Voting, {
+					-- if we're showing buttons to vote, move them to before the creator name (layout order 25). But if we're showing the vote count, keep it after (layout order 35).
+					LayoutOrder = if showVoteButtons then 25 else 35,
+					assetId = assetId,
+					voting = votingProps,
+					showBackgroundBox = isHovered,
+				})
 				else nil,
 
 			AudioLength = isHovered and showAudioLength and Roact.createElement("TextLabel", {
@@ -586,75 +569,73 @@ function Asset:renderContent(theme, DEPRECATED_localization, DEPRECATED_localize
 			HasScripts = if isHovered
 					and hasScripts
 					and not isPackage
-				then
-					Roact.createElement("Frame", { -- isPackage check added with FFlagToolboxPackagesInAssetTile
+				then Roact.createElement("Frame", { -- isPackage check added with FFlagToolboxPackagesInAssetTile
+					BackgroundTransparency = 1,
+					LayoutOrder = 50,
+					Size = UDim2.new(1, 0, 0, Constants.PRICE_HEIGHT),
+				}, {
+					Layout = Roact.createElement("UIListLayout", {
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						FillDirection = Enum.FillDirection.Horizontal,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+						HorizontalAlignment = Enum.HorizontalAlignment.Left,
+						Padding = UDim.new(0, 4),
+					}),
+
+					ScriptIcon = Roact.createElement("ImageLabel", {
+						LayoutOrder = 1,
+						Image = Images.SCRIPT,
+						Size = Constants.Dialog.SCRIPT_SIZE,
 						BackgroundTransparency = 1,
-						LayoutOrder = 50,
-						Size = UDim2.new(1, 0, 0, Constants.PRICE_HEIGHT),
-					}, {
-						Layout = Roact.createElement("UIListLayout", {
-							SortOrder = Enum.SortOrder.LayoutOrder,
-							FillDirection = Enum.FillDirection.Horizontal,
-							VerticalAlignment = Enum.VerticalAlignment.Center,
-							HorizontalAlignment = Enum.HorizontalAlignment.Left,
-							Padding = UDim.new(0, 4),
-						}),
+					}),
 
-						ScriptIcon = Roact.createElement("ImageLabel", {
-							LayoutOrder = 1,
-							Image = Images.SCRIPT,
-							Size = Constants.Dialog.SCRIPT_SIZE,
-							BackgroundTransparency = 1,
-						}),
-
-						Text = Roact.createElement("TextLabel", {
-							LayoutOrder = 2,
-							BackgroundTransparency = 1,
-							Size = UDim2.new(1, -20, 0, Constants.PRICE_HEIGHT),
-							TextColor3 = theme.asset.textColor,
-							Font = Constants.FONT,
-							TextSize = Constants.STATUS_NAME_FONT_SIZE,
-							TextXAlignment = Enum.TextXAlignment.Left,
-							Text = DEPRECATED_localizedContent.HasScripts.HasScripts,
-							TextTruncate = Enum.TextTruncate.None,
-						}),
-					})
+					Text = Roact.createElement("TextLabel", {
+						LayoutOrder = 2,
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, -20, 0, Constants.PRICE_HEIGHT),
+						TextColor3 = theme.asset.textColor,
+						Font = Constants.FONT,
+						TextSize = Constants.STATUS_NAME_FONT_SIZE,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						Text = DEPRECATED_localizedContent.HasScripts.HasScripts,
+						TextTruncate = Enum.TextTruncate.None,
+					}),
+				})
 				else nil,
 
 			Package = if isHovered and isPackage
-				then
-					Roact.createElement("Frame", { -- added with FFlagToolboxPackagesInAssetTile
+				then Roact.createElement("Frame", { -- added with FFlagToolboxPackagesInAssetTile
+					BackgroundTransparency = 1,
+					LayoutOrder = 50,
+					Size = UDim2.new(1, 0, 0, Constants.PRICE_HEIGHT),
+				}, {
+					Layout = Roact.createElement("UIListLayout", {
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						FillDirection = Enum.FillDirection.Horizontal,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+						HorizontalAlignment = Enum.HorizontalAlignment.Left,
+						Padding = UDim.new(0, 4),
+					}),
+
+					PackageIcon = Roact.createElement("ImageLabel", {
+						LayoutOrder = 1,
+						Image = packagesTheme.packageImage,
+						Size = Constants.PACKAGE_DETAIL_SIZE,
 						BackgroundTransparency = 1,
-						LayoutOrder = 50,
-						Size = UDim2.new(1, 0, 0, Constants.PRICE_HEIGHT),
-					}, {
-						Layout = Roact.createElement("UIListLayout", {
-							SortOrder = Enum.SortOrder.LayoutOrder,
-							FillDirection = Enum.FillDirection.Horizontal,
-							VerticalAlignment = Enum.VerticalAlignment.Center,
-							HorizontalAlignment = Enum.HorizontalAlignment.Left,
-							Padding = UDim.new(0, 4),
-						}),
+					}),
 
-						PackageIcon = Roact.createElement("ImageLabel", {
-							LayoutOrder = 1,
-							Image = packagesTheme.packageImage,
-							Size = Constants.PACKAGE_DETAIL_SIZE,
-							BackgroundTransparency = 1,
-						}),
-
-						Text = Roact.createElement("TextLabel", {
-							LayoutOrder = 2,
-							BackgroundTransparency = 1,
-							Size = UDim2.new(1, -20, 0, Constants.PRICE_HEIGHT),
-							TextColor3 = theme.asset.textColor,
-							Font = Constants.FONT,
-							TextSize = Constants.STATUS_NAME_FONT_SIZE,
-							TextXAlignment = Enum.TextXAlignment.Left,
-							Text = localization:getText("General", "PackagesUpdateable"),
-							TextTruncate = Enum.TextTruncate.None,
-						}),
-					})
+					Text = Roact.createElement("TextLabel", {
+						LayoutOrder = 2,
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, -20, 0, Constants.PRICE_HEIGHT),
+						TextColor3 = theme.asset.textColor,
+						Font = Constants.FONT,
+						TextSize = Constants.STATUS_NAME_FONT_SIZE,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						Text = localization:getText("General", "PackagesUpdateable"),
+						TextTruncate = Enum.TextTruncate.None,
+					}),
+				})
 				else nil,
 
 			Status = isHovered and showStatus and Roact.createElement("TextLabel", {

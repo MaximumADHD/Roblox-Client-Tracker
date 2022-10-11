@@ -106,7 +106,7 @@ function FaceControlsEditorController:render()
 
 	local toggleShowFaceControlsEditorPanel = props.ToggleShowFaceControlsEditorPanel
 	local canUseFaceControlsEditor = RigUtils.canUseFaceControlsEditor(props.RootInstance)
-	
+
 	local titleText = localization:getText("Title", "FACE")
 	local titleTextFontSize = theme.ikTheme.textSize
 	local titleTextFont = theme.font
@@ -116,54 +116,61 @@ function FaceControlsEditorController:render()
 		titleTextFont,
 		Vector2.new(1000, 1000) --arbitrary large area
 	)
-	
-	local buttonUsedWidth = BUTTON_WIDTH
-	
-	if GetFFlagFacialAnimationRecordingInStudio() or GetFFlagFaceControlsEditorButtonAutosizing() then
-		buttonUsedWidth = titleTextSize.X + 2*BUTTON_WIDTH_MARGINS
-	end
-	
-	
-	return self.props.RootInstance and Roact.createElement("Frame", {
-		Position = props.Position,
-		Size = UDim2.new(0, buttonUsedWidth, 0, BUTTON_HEIGHT),
-		BackgroundTransparency = 1,
-		AnchorPoint = Vector2.new(0, 0.5),
-		LayoutOrder = 2,
-	}, {
-		FaceControlsEditorButton = props.RootInstance and canUseFaceControlsEditor and Roact.createElement(Button, {
-			Style = state.showFaceControlsEditorPanel and style.FaceControlsEditorActive or style.FaceControlsEditorDefault,
-			Size = UDim2.new(1, 0, 1, 0),
-			OnClick = toggleShowFaceControlsEditorPanel,
-		}, {
-			Label = Roact.createElement("TextLabel", {
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 1, 0),
-				TextYAlignment = Enum.TextYAlignment.Center,
-				TextSize = theme.ikTheme.textSize,
-				Text = localization:getText("Title", "FACE"),
-				Font = theme.font,
-				TextColor3 = theme.ikTheme.textColor,
-			},{
-				TeachingCallout = if GetFFlagFaceControlsEditorShowCallout() then Roact.createElement(TeachingCallout, {
-					Offset = Vector2.new(0, 6),
-					DefinitionId = "FaceControlsEditorCallout",
-					LocationId = "FaceControlsEditorButton",
-				}) else nil,
-			})			
-		}),
 
-		FaceControlsEditorWindow = props.ShowFaceControlsEditorPanel and state.showFaceControlsEditorPanel and Roact.createElement(FaceControlsEditorWindow, {
-			RootInstance = props.RootInstance,
-			FaceControlsEditorEnabled = props.FaceControlsEditorEnabled,
-			ShowFaceControlsEditorPanel = props.ShowFaceControlsEditorPanel,
-			SelectedTrack = selectedTrack,
-			SetSelectedTracks = props.SetSelectedTracks,
-			ToggleFaceControlsEditorEnabled = self.toggleFaceControlsEditorEnabledHandler,
-			SetShowFaceControlsEditorPanel = props.SetShowFaceControlsEditorPanel,
-			SetFaceControlsEditorEnabled = props.SetFaceControlsEditorEnabled,
-		}),
-	})
+	local buttonUsedWidth = BUTTON_WIDTH
+
+	if GetFFlagFacialAnimationRecordingInStudio() or GetFFlagFaceControlsEditorButtonAutosizing() then
+		buttonUsedWidth = titleTextSize.X + 2 * BUTTON_WIDTH_MARGINS
+	end
+
+	return self.props.RootInstance
+		and Roact.createElement("Frame", {
+			Position = props.Position,
+			Size = UDim2.new(0, buttonUsedWidth, 0, BUTTON_HEIGHT),
+			BackgroundTransparency = 1,
+			AnchorPoint = Vector2.new(0, 0.5),
+			LayoutOrder = 2,
+		}, {
+			FaceControlsEditorButton = props.RootInstance
+				and canUseFaceControlsEditor
+				and Roact.createElement(Button, {
+					Style = state.showFaceControlsEditorPanel and style.FaceControlsEditorActive
+						or style.FaceControlsEditorDefault,
+					Size = UDim2.new(1, 0, 1, 0),
+					OnClick = toggleShowFaceControlsEditorPanel,
+				}, {
+					Label = Roact.createElement("TextLabel", {
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 1, 0),
+						TextYAlignment = Enum.TextYAlignment.Center,
+						TextSize = theme.ikTheme.textSize,
+						Text = localization:getText("Title", "FACE"),
+						Font = theme.font,
+						TextColor3 = theme.ikTheme.textColor,
+					}, {
+						TeachingCallout = if GetFFlagFaceControlsEditorShowCallout()
+							then Roact.createElement(TeachingCallout, {
+								Offset = Vector2.new(0, 6),
+								DefinitionId = "FaceControlsEditorCallout",
+								LocationId = "FaceControlsEditorButton",
+							})
+							else nil,
+					}),
+				}),
+
+			FaceControlsEditorWindow = props.ShowFaceControlsEditorPanel
+				and state.showFaceControlsEditorPanel
+				and Roact.createElement(FaceControlsEditorWindow, {
+					RootInstance = props.RootInstance,
+					FaceControlsEditorEnabled = props.FaceControlsEditorEnabled,
+					ShowFaceControlsEditorPanel = props.ShowFaceControlsEditorPanel,
+					SelectedTrack = selectedTrack,
+					SetSelectedTracks = props.SetSelectedTracks,
+					ToggleFaceControlsEditorEnabled = self.toggleFaceControlsEditorEnabledHandler,
+					SetShowFaceControlsEditorPanel = props.SetShowFaceControlsEditorPanel,
+					SetFaceControlsEditorEnabled = props.SetFaceControlsEditorEnabled,
+				}),
+		})
 end
 
 FaceControlsEditorController = withContext({

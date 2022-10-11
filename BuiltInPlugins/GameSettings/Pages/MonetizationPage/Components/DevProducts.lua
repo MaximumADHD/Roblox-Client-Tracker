@@ -55,114 +55,124 @@ local TableWithMenu = require(Plugin.Src.Components.TableWithMenu)
 local DevProducts = Roact.PureComponent:extend(script.Name)
 
 function DevProducts:render()
-    local props = self.props
-    local theme = props.Stylizer
-    local localization = props.Localization
+	local props = self.props
+	local theme = props.Stylizer
+	local localization = props.Localization
 
-    local productsList = props.ProductList
-    local showTable = props.ShowTable
+	local productsList = props.ProductList
+	local showTable = props.ShowTable
 
-    local dispatchCreateNewDevProduct = props.CreateNewDevProduct
-    local dispatchSetEditDevProductId = props.OnEditDevProductClicked
-    local dispatchOnLoadMoreDevProducts = props.OnLoadMoreDevProducts
+	local dispatchCreateNewDevProduct = props.CreateNewDevProduct
+	local dispatchSetEditDevProductId = props.OnEditDevProductClicked
+	local dispatchOnLoadMoreDevProducts = props.OnLoadMoreDevProducts
 
-    local layoutOrder = props.LayoutOrder
+	local layoutOrder = props.LayoutOrder
 
-    local buttonText = localization:getText("General", "ButtonCreate")
-    local buttonTextExtents = GetTextSize(buttonText, theme.fontStyle.Normal.TextSize, theme.fontStyle.Normal.Font)
+	local buttonText = localization:getText("General", "ButtonCreate")
+	local buttonTextExtents = GetTextSize(buttonText, theme.fontStyle.Normal.TextSize, theme.fontStyle.Normal.Font)
 
-    local headers = {
-        localization:getText("Monetization", "ProductID"),
-        localization:getText("Monetization", "ProductName"),
-        localization:getText("Monetization", "PriceTitle"),
-    }
+	local headers = {
+		localization:getText("Monetization", "ProductID"),
+		localization:getText("Monetization", "ProductName"),
+		localization:getText("Monetization", "PriceTitle"),
+	}
 
-    local onItemClicked = function(key, id)
-        if key == (GetEditKeyName()) then
-            dispatchSetEditDevProductId(id)
-        elseif key == (GetCopyIdKeyName()) then
-            StudioService:CopyToClipboard(id)
-        else
-            error("Invalid Key")
-        end
-    end
+	local onItemClicked = function(key, id)
+		if key == (GetEditKeyName()) then
+			dispatchSetEditDevProductId(id)
+		elseif key == (GetCopyIdKeyName()) then
+			StudioService:CopyToClipboard(id)
+		else
+			error("Invalid Key")
+		end
+	end
 
-    local menuItems = {
-        {Key = GetEditKeyName(), Text = localization:getText("General", "ButtonEdit"),},
-        {Key = GetCopyIdKeyName(), Text = localization:getText("General", "CopyIDToClipboard"),}
-    }
+	local menuItems = {
+		{ Key = GetEditKeyName(), Text = localization:getText("General", "ButtonEdit") },
+		{ Key = GetCopyIdKeyName(), Text = localization:getText("General", "CopyIDToClipboard") },
+	}
 
-    return Roact.createElement(FitFrameOnAxis, {
-        axis = FitFrameOnAxis.Axis.Vertical,
-        minimumSize = UDim2.new(1, 0, 0, 0),
-        contentPadding = UDim.new(0, theme.devProducts.headerPadding),
+	return Roact.createElement(FitFrameOnAxis, {
+		axis = FitFrameOnAxis.Axis.Vertical,
+		minimumSize = UDim2.new(1, 0, 0, 0),
+		contentPadding = UDim.new(0, theme.devProducts.headerPadding),
 
-        BackgroundTransparency = 1,
+		BackgroundTransparency = 1,
 
-        LayoutOrder = layoutOrder,
-    }, {
-        DevProductsTitle = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
-            LayoutOrder = 1,
-            Title = localization:getText("Monetization", "DevProducts"),
-        } else {
-            Title = localization:getText("Monetization", "DevProducts"),
-            LayoutOrder = 1,
-            MaxHeight = theme.header.height,
-            TextSize = theme.fontStyle.Title.TextSize,
-        }, {
-            Padding = Roact.createElement("UIPadding", {
-                PaddingRight = UDim.new(0, theme.devProducts.titlePadding)
-            }),
+		LayoutOrder = layoutOrder,
+	}, {
+		DevProductsTitle = Roact.createElement(
+			TitledFrame,
+			if FFlagRemoveUILibraryTitledFrame
+				then {
+					LayoutOrder = 1,
+					Title = localization:getText("Monetization", "DevProducts"),
+				}
+				else {
+					Title = localization:getText("Monetization", "DevProducts"),
+					LayoutOrder = 1,
+					MaxHeight = theme.header.height,
+					TextSize = theme.fontStyle.Title.TextSize,
+				},
+			{
+				Padding = Roact.createElement("UIPadding", {
+					PaddingRight = UDim.new(0, theme.devProducts.titlePadding),
+				}),
 
-            Layout = Roact.createElement("UIListLayout", {
-                HorizontalAlignment = Enum.HorizontalAlignment.Right,
-                VerticalAlignment = Enum.VerticalAlignment.Center,
-            }),
+				Layout = Roact.createElement("UIListLayout", {
+					HorizontalAlignment = Enum.HorizontalAlignment.Right,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+				}),
 
-            CreateButton = Roact.createElement(Button, {
-                Style = "GameSettingsPrimaryButton",
-                Text = buttonText,
-                Size = UDim2.new(0, buttonTextExtents.X + theme.createButton.PaddingX,
-                0, buttonTextExtents.Y + theme.createButton.PaddingY),
-                LayoutOrder = 2,
-                OnClick = function()
-                    dispatchCreateNewDevProduct()
-                end,
-            }, {
-                Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
-            }),
-        }),
+				CreateButton = Roact.createElement(Button, {
+					Style = "GameSettingsPrimaryButton",
+					Text = buttonText,
+					Size = UDim2.new(
+						0,
+						buttonTextExtents.X + theme.createButton.PaddingX,
+						0,
+						buttonTextExtents.Y + theme.createButton.PaddingY
+					),
+					LayoutOrder = 2,
+					OnClick = function()
+						dispatchCreateNewDevProduct()
+					end,
+				}, {
+					Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
+				}),
+			}
+		),
 
-        DeveloperProductTable = showTable and Roact.createElement(TableWithMenu, {
-            Headers = headers,
-            Data = productsList,
-            MenuItems = menuItems,
+		DeveloperProductTable = showTable and Roact.createElement(TableWithMenu, {
+			Headers = headers,
+			Data = productsList,
+			MenuItems = menuItems,
 
-            MenuItemsFilterFunc = function(rowData, menuItems)
-                local id = rowData.row[1]
-                if not tonumber(id) then
-                    local indexToRemove
-                    for i,v in pairs(menuItems) do
-                        if v.Key == (GetCopyIdKeyName()) then
-                            indexToRemove = i
-                            break
-                        end
-                    end
+			MenuItemsFilterFunc = function(rowData, menuItems)
+				local id = rowData.row[1]
+				if not tonumber(id) then
+					local indexToRemove
+					for i, v in pairs(menuItems) do
+						if v.Key == (GetCopyIdKeyName()) then
+							indexToRemove = i
+							break
+						end
+					end
 
-                    menuItems[indexToRemove] = nil
-                end
-            end or nil,
+					menuItems[indexToRemove] = nil
+				end
+			end or nil,
 
-            OnItemClicked = onItemClicked,
-            LayoutOrder = 2,
-            NextPageFunc = dispatchOnLoadMoreDevProducts,
-        })
-    })
+			OnItemClicked = onItemClicked,
+			LayoutOrder = 2,
+			NextPageFunc = dispatchOnLoadMoreDevProducts,
+		}),
+	})
 end
 
 DevProducts = withContext({
-    Localization = ContextServices.Localization,
-    Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
 })(DevProducts)
 
 return DevProducts

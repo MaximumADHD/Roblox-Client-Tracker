@@ -42,7 +42,7 @@ end
 function MinHeap:remove(removed: Types.Triangle): ()
 	local index = removed._order
 	local element = table.remove(self.array)
-	if element and index ~= #self.array+1 then
+	if element and index ~= #self.array + 1 then
 		self.array[index] = element
 		element._order = index
 		if compare(element, removed) < 0 then

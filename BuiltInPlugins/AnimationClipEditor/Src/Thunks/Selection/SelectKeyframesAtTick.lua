@@ -24,7 +24,7 @@ return function(tck, multiSelect)
 
 		for instanceName, instance in pairs(animationData.Instances) do
 			for trackName, _ in pairs(instance.Tracks) do
-				store:dispatch(SelectKeyframeRange(instanceName, {trackName}, tck, tck, true))
+				store:dispatch(SelectKeyframeRange(instanceName, { trackName }, tck, tck, true))
 			end
 		end
 	end

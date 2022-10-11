@@ -29,7 +29,7 @@ function IKTreeRow:render()
 	local item = props.Item
 	local ikMode = props.IKMode
 	local isSelected = props.IsSelected
-	
+
 	return Roact.createElement("ImageButton", {
 		Position = props.Position,
 		Size = UDim2.new(1, -8, 0, Constants.TRACK_HEIGHT),
@@ -51,7 +51,7 @@ function IKTreeRow:render()
 		}, {
 			HierarchyLines = self:renderHierarchyLines(),
 			TextLabel = self:renderJointLabel(),
-		})
+		}),
 	})
 end
 
@@ -77,15 +77,15 @@ function IKTreeRow:renderPinButton()
 		BorderSizePixel = 0,
 		OnClick = function()
 			togglePinnedPart(part)
-		end
-		}, {
-			Image = Roact.createElement("ImageLabel", {
-				BackgroundColor3 = isSelected and theme.ikTheme.selected or theme.backgroundColor,
-				BorderSizePixel = 0,
-				Size = UDim2.fromScale(1, 1),
-				Image = theme.ikTheme.pinImage,
-				ImageColor3 = pinned and theme.ikTheme.pinHover or theme.ikTheme.iconColor,
-			}),
+		end,
+	}, {
+		Image = Roact.createElement("ImageLabel", {
+			BackgroundColor3 = isSelected and theme.ikTheme.selected or theme.backgroundColor,
+			BorderSizePixel = 0,
+			Size = UDim2.fromScale(1, 1),
+			Image = theme.ikTheme.pinImage,
+			ImageColor3 = pinned and theme.ikTheme.pinHover or theme.ikTheme.iconColor,
+		}),
 	})
 end
 
@@ -136,7 +136,6 @@ function IKTreeRow:renderJointLabel()
 		LayoutOrder = 3,
 	})
 end
-
 
 IKTreeRow = withContext({
 	Stylizer = ContextServices.Stylizer,

@@ -21,9 +21,8 @@ local isLayeredClothing = require(Util.isLayeredClothing)
 local fixMeshPartAccessory = require(Util.fixMeshPartAccessory)
 
 local ConfigureItemTagsRequest = require(Plugin.Core.Networking.Requests.ConfigureItemTagsRequest)
-local UploadCatalogItemMeshPartFormatRequest = require(
-	Plugin.Core.Networking.Requests.UploadCatalogItemMeshPartFormatRequest
-)
+local UploadCatalogItemMeshPartFormatRequest =
+	require(Plugin.Core.Networking.Requests.UploadCatalogItemMeshPartFormatRequest)
 
 local function createConfigDataTable(nameWithoutExtension, assetTypeId, description, groupId)
 	return {

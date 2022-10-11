@@ -20,7 +20,7 @@ local RoactInspectorView = Roact.PureComponent:extend("RoactInspectorView")
 function RoactInspectorView:render()
 	local props = self.props
 	local style = props.Stylizer
-	
+
 	return Roact.createElement(Pane, {
 		Layout = Enum.FillDirection.Horizontal,
 		Padding = style.Padding,
@@ -36,25 +36,24 @@ function RoactInspectorView:render()
 				LayoutOrder = 1,
 				Size = UDim2.new(1, 0, 1, -style.NodeListHeight),
 			}, {
-				RoactElementTree = Roact.createElement(RoactElementTree, {})
+				RoactElementTree = Roact.createElement(RoactElementTree, {}),
 			}),
 			ListContainer = Roact.createElement(Pane, {
 				LayoutOrder = 2,
 				Size = UDim2.new(1, 0, 0, style.NodeListHeight - style.Padding),
 			}, {
 				NodeList = Roact.createElement(NodeList, {
-					selectTarget = self.selectTarget
-				})
-			})
+					selectTarget = self.selectTarget,
+				}),
+			}),
 		}),
-		Right =  Roact.createElement(Pane, {
+		Right = Roact.createElement(Pane, {
 			LayoutOrder = 2,
 			Size = UDim2.fromScale(0.5, 1),
 		}, {
 			Child = Roact.createElement(FieldsTable, {}),
 		}),
 	})
-
 end
 
 RoactInspectorView = withContext({

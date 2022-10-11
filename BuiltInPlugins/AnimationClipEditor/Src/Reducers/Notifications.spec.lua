@@ -7,7 +7,7 @@ return function()
 	local SetNotification = require(Plugin.Src.Actions.SetNotification)
 
 	local function createTestStore()
-		local middlewares = {Rodux.thunkMiddleware}
+		local middlewares = { Rodux.thunkMiddleware }
 		local store = Rodux.Store.new(Notifications, nil, middlewares)
 		return store
 	end

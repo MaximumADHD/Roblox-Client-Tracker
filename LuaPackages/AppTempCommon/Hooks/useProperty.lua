@@ -1,7 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 
-local dependencyArray = require(CorePackages.AppTempCommon.Hooks.dependencyArray)
+local dependencyArray = require(script.Parent.dependencyArray)
 
 --[[
 	A hook that returns the latest value of a property and subscribes to changes in its value.

@@ -1,5 +1,3 @@
-local FFlagLocalizationToolsAllowUploadZhCjv = game:GetFastFlag("LocalizationToolsAllowUploadZhCjv")
-
 local function canonicalizeLocaleCode(code, localesToLanguages)
 	if localesToLanguages ~= nil and localesToLanguages[code] ~= nil then
 		return string.gsub(code, '-', '_')
@@ -38,61 +36,6 @@ local function MakeTranslationMapForEntry(entry)
 		translationMap[translation.locale] = translation.translationText
 	end
 	return translationMap
-end
-
---[[
-	Takes a before and after localization table entry (formatted the way the web expects):
-	Returns an patch object with:
-		Translations in originalEntry which are not in newEntry deleted
-		Tarnslations in newEntry which are not in (or differ from) originalEntry added
-]]
-local function DEPRECATED_MakePatchEntryToChangeRow(originalEntry, newEntry, patchInfo, includeDeletes)
-	local patchTranslations = {}
-
-	local newTranslationMap = MakeTranslationMapForEntry(newEntry)
-	local originalTranslationMap = MakeTranslationMapForEntry(originalEntry)
-
-	for _, translation in ipairs(originalEntry.translations) do
-		if newTranslationMap[translation.locale] == nil then
-			if includeDeletes then
-				table.insert(patchTranslations, {
-					locale = translation.locale,
-					translationText = translation.translationText,
-					delete = true,
-				})
-
-				patchInfo.numRemovedTranslations = patchInfo.numRemovedTranslations + 1
-			end
-		end
-	end
-
-	for _, translation in ipairs(newEntry.translations) do
-		local originalTranslation = originalTranslationMap[translation.locale]
-		if originalTranslation ~= translation.translationText then
-			table.insert(patchTranslations, {
-				locale = translation.locale,
-				translationText = translation.translationText,
-				delete = false,
-			})
-
-			if originalTranslation ~= nil then
-				patchInfo.numChangedTranslations = patchInfo.numChangedTranslations + 1
-			else
-				patchInfo.numAddedTranslations = patchInfo.numAddedTranslations + 1
-			end
-		end
-	end
-
-	return {
-		identifier = {
-			key = newEntry.identifier.key,
-			source = newEntry.identifier.source,
-			context = newEntry.identifier.context,
-		},
-		metadata = newEntry.metadata,
-		translations = patchTranslations,
-		delete = false,
-	}
 end
 
 local function MakePatchEntryToChangeRow(
@@ -182,53 +125,41 @@ local function MakePatchEntryToAddRow(entry, patchInfo, gameSourceLanguage, loca
 	local pendingLocaleTranslations = {}
 	local translatedLanguages = {}
 	for _, translation in ipairs(entry.translations) do
-		if FFlagLocalizationToolsAllowUploadZhCjv then
-			if localesToLanguages ~= nil and localesToLanguages[translation.locale] ~= nil and
-				localesToLanguages[translation.locale] ~= gameSourceLanguage then
-				-- add locale translation to a temp list in first pass
-				-- because we need verify the entry has its parent translation first
-				table.insert(pendingLocaleTranslations, translation)
-			else
-				table.insert(patchTranslations, {
-					locale = canonicalizeLocaleCode(translation.locale, localesToLanguages),
-					translationText = translation.translationText,
-					delete = false,
-				})
-
-				patchInfo.numAddedTranslations = patchInfo.numAddedTranslations + 1
-				translatedLanguages[translation.locale] = true
-			end
+		if localesToLanguages ~= nil and localesToLanguages[translation.locale] ~= nil and
+			localesToLanguages[translation.locale] ~= gameSourceLanguage then
+			-- add locale translation to a temp list in first pass
+			-- because we need verify the entry has its parent translation first
+			table.insert(pendingLocaleTranslations, translation)
 		else
 			table.insert(patchTranslations, {
-				locale = translation.locale,
+				locale = canonicalizeLocaleCode(translation.locale, localesToLanguages),
 				translationText = translation.translationText,
 				delete = false,
 			})
 
 			patchInfo.numAddedTranslations = patchInfo.numAddedTranslations + 1
+			translatedLanguages[translation.locale] = true
 		end
 	end
 
-	if FFlagLocalizationToolsAllowUploadZhCjv then
-		for _, translation in ipairs(pendingLocaleTranslations) do
-			local parentLanguage = localesToLanguages[translation.locale]
-			if translatedLanguages[parentLanguage] then
-				table.insert(patchTranslations, {
-					locale = canonicalizeLocaleCode(translation.locale, localesToLanguages),
-					translationText = translation.translationText,
-					delete = false,
-				})
+	for _, translation in ipairs(pendingLocaleTranslations) do
+		local parentLanguage = localesToLanguages[translation.locale]
+		if translatedLanguages[parentLanguage] then
+			table.insert(patchTranslations, {
+				locale = canonicalizeLocaleCode(translation.locale, localesToLanguages),
+				translationText = translation.translationText,
+				delete = false,
+			})
 
-				patchInfo.numAddedTranslations = patchInfo.numAddedTranslations + 1
-			else
-				warn(localization:getText("UploadDialogContent", "ParentLangaugeTranslationMissing", {
-					locale = "\"" .. translation.locale .. "\"",
-					language = "\"" .. parentLanguage .. "\"",
-					key = "\"" .. entry.identifier.key  .. "\"",
-					source = "\"" .. entry.identifier.source  .. "\"",
-					context = "\"" .. entry.identifier.context  .. "\"",
-				}))
-			end
+			patchInfo.numAddedTranslations = patchInfo.numAddedTranslations + 1
+		else
+			warn(localization:getText("UploadDialogContent", "ParentLangaugeTranslationMissing", {
+				locale = "\"" .. translation.locale .. "\"",
+				language = "\"" .. parentLanguage .. "\"",
+				key = "\"" .. entry.identifier.key  .. "\"",
+				source = "\"" .. entry.identifier.source  .. "\"",
+				context = "\"" .. entry.identifier.context  .. "\"",
+			}))
 		end
 	end
 
@@ -250,20 +181,12 @@ local function MakePatchEntryToDeleteRow(entry, patchInfo, localesToLanguages)
 	local patchTranslations = {}
 
 	for _, translation in ipairs(entry.translations) do
-		if FFlagLocalizationToolsAllowUploadZhCjv then
-			local code = canonicalizeLocaleCode(translation.locale, localesToLanguages)
-			table.insert(patchTranslations, {
-				locale = code,
-				translationText = translation.translationText,
-				delete = true,
-			})
-		else
-			table.insert(patchTranslations, {
-				locale = translation.locale,
-				translationText = translation.translationText,
-				delete = true,
-			})
-		end
+		local code = canonicalizeLocaleCode(translation.locale, localesToLanguages)
+		table.insert(patchTranslations, {
+			locale = code,
+			translationText = translation.translationText,
+			delete = true,
+		})
 
 		patchInfo.numRemovedTranslations = patchInfo.numRemovedTranslations + 1
 	end
@@ -338,22 +261,14 @@ local function DiffTables(
 			end
 		else
 			local patchEntry
-			if FFlagLocalizationToolsAllowUploadZhCjv then
-				patchEntry = MakePatchEntryToChangeRow(
-					originalEntry,
-					newTableData[indexInNewTable],
-					patchInfo,
-					includeDeletes,
-					gameSourceLanguage,
-					localesToLanguages,
-					localization)
-			else
-				patchEntry = DEPRECATED_MakePatchEntryToChangeRow(
-					originalEntry,
-					newTableData[indexInNewTable],
-					patchInfo,
-					includeDeletes)
-			end
+			patchEntry = MakePatchEntryToChangeRow(
+				originalEntry,
+				newTableData[indexInNewTable],
+				patchInfo,
+				includeDeletes,
+				gameSourceLanguage,
+				localesToLanguages,
+				localization)
 
 			if next(patchEntry.translations) ~= nil or
 				patchEntry.metadata.example ~= originalEntry.metadata.example

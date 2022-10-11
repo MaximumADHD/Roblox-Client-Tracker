@@ -19,7 +19,7 @@ return function()
 		},
 		Events = {
 			NamedKeyframes = {},
-			Keyframes = {0},
+			Keyframes = { 0 },
 			Data = {
 				[0] = {
 					TestEvent = "TestValue",
@@ -32,25 +32,25 @@ return function()
 				Tracks = {
 					["Head"] = {
 						Type = Constants.TRACK_TYPES.CFrame,
-						Keyframes = {0},
+						Keyframes = { 0 },
 						Data = {
 							[0] = {
 								Value = CFrame.new(0, 1, 0),
 								EasingStyle = Enum.PoseEasingStyle.Linear,
 								EasingDirection = Enum.PoseEasingDirection.In,
 							},
-						}
+						},
 					},
 					["UpperTorso"] = {
 						Type = Constants.TRACK_TYPES.CFrame,
-						Keyframes = {0},
+						Keyframes = { 0 },
 						Data = {
 							[0] = {
 								Value = CFrame.new(1, 0, 0),
 								EasingStyle = Enum.PoseEasingStyle.Linear,
 								EasingDirection = Enum.PoseEasingDirection.In,
 							},
-						}
+						},
 					},
 				},
 			},
@@ -165,11 +165,11 @@ return function()
 			Priority = Enum.AnimationPriority.Idle,
 		},
 		Events = {
-			Keyframes = {0, 1200},
+			Keyframes = { 0, 1200 },
 			Data = {
 				[0] = {
 					FooEvent = "FooValue1",
-					BarEvent = "BarValue"
+					BarEvent = "BarValue",
 				},
 				[1200] = {
 					FooEvent = "FooValue2",
@@ -188,7 +188,7 @@ return function()
 								Components = {
 									X = {
 										Type = Constants.TRACK_TYPES.Number,
-										Keyframes = {0, 1200, 2400},
+										Keyframes = { 0, 1200, 2400 },
 										Data = {
 											[0] = {
 												Value = 1,
@@ -205,12 +205,12 @@ return function()
 									},
 									Y = {
 										Type = Constants.TRACK_TYPES.Number,
-										Keyframes = {0, 2400},
+										Keyframes = { 0, 2400 },
 										Data = {
 											[0] = {
 												Value = 0,
 												InterpolationMode = Enum.KeyInterpolationMode.Cubic,
-												RightSlope = 1/2400,
+												RightSlope = 1 / 2400,
 											},
 											[2400] = {
 												Value = 1,
@@ -231,7 +231,7 @@ return function()
 								Components = {
 									X = {
 										Type = Constants.TRACK_TYPES.Angle,
-										Keyframes = {0},
+										Keyframes = { 0 },
 										Data = {
 											[0] = {
 												Value = 1.5,
@@ -245,7 +245,7 @@ return function()
 					},
 					["FACS"] = {
 						Type = Constants.TRACK_TYPES.Facs,
-						Keyframes = {0, 1200},
+						Keyframes = { 0, 1200 },
 						Data = {
 							[0] = {
 								Value = 50,
@@ -315,7 +315,7 @@ return function()
 	describe("getUnusedRigTracks", function()
 		it("should return a list of tracks which are unused", function()
 			local testRig = buildTestRig()
-			local tracks = {{Name = "HumanoidRootPart"}}
+			local tracks = { { Name = "HumanoidRootPart" } }
 			local unused = RigUtils.getUnusedRigTracks(testRig, tracks)
 
 			expect(unused).to.be.ok()
@@ -659,7 +659,6 @@ return function()
 				expect(metadata.AnimationRig.Name).to.equal("CurveAnimationRig")
 			end
 		end)
-
 	end)
 
 	describe("getRigInfo", function()
@@ -694,7 +693,6 @@ return function()
 			local canUseIK, emptyR15 = RigUtils.canUseIK(testRig)
 			expect(canUseIK).to.be.equal(true)
 			expect(emptyR15).to.be.equal(false)
-
 		end)
 	end)
 

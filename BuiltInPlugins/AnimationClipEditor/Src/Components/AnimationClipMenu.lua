@@ -45,7 +45,8 @@ local UpdateMetadata = require(Plugin.Src.Thunks.UpdateMetadata)
 local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
 
 local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
-local FFlagAnimationFromVideoCreatorServiceInAnimationEditor = game:DefineFastFlag("AnimationFromVideoCreatorServiceInAnimationEditor", false)
+local FFlagAnimationFromVideoCreatorServiceInAnimationEditor =
+	game:DefineFastFlag("AnimationFromVideoCreatorServiceInAnimationEditor", false)
 
 local AnimationClipMenu = Roact.PureComponent:extend("AnimationClipMenu")
 
@@ -53,8 +54,7 @@ function AnimationClipMenu:makeLoadMenu(localization, current)
 	local props = self.props
 	local onLoadRequested = props.OnLoadRequested
 	local saves = RigUtils.getAnimSaves(props.RootInstance)
-	local items = {
-	}
+	local items = {}
 
 	if #saves > 0 then
 		for _, save in ipairs(saves) do
@@ -71,7 +71,7 @@ function AnimationClipMenu:makeLoadMenu(localization, current)
 
 	return {
 		Name = localization:getText("Menu", "Load"),
-		Enabled = false
+		Enabled = false,
 	}
 end
 
@@ -115,14 +115,42 @@ function AnimationClipMenu:makePrioritySubMenu(localization, current)
 		Name = localization:getText("Menu", "SetPriority"),
 		CurrentValue = current,
 		Items = {
-			{Name = localization:getText("Menu", priority.Core.Name), Value = priority.Core, ItemSelected = setPriority},
-			{Name = localization:getText("Menu", priority.Idle.Name), Value = priority.Idle, ItemSelected = setPriority},
-			{Name = localization:getText("Menu", priority.Movement.Name), Value = priority.Movement, ItemSelected = setPriority},
-			{Name = localization:getText("Menu", priority.Action.Name), Value = priority.Action, ItemSelected = setPriority},
-			{Name = localization:getText("Menu", priority.Action2.Name), Value = priority.Action2, ItemSelected = setPriority},
-			{Name = localization:getText("Menu", priority.Action3.Name), Value = priority.Action3, ItemSelected = setPriority},
-			{Name = localization:getText("Menu", priority.Action4.Name), Value = priority.Action4, ItemSelected = setPriority},
-		}
+			{
+				Name = localization:getText("Menu", priority.Core.Name),
+				Value = priority.Core,
+				ItemSelected = setPriority,
+			},
+			{
+				Name = localization:getText("Menu", priority.Idle.Name),
+				Value = priority.Idle,
+				ItemSelected = setPriority,
+			},
+			{
+				Name = localization:getText("Menu", priority.Movement.Name),
+				Value = priority.Movement,
+				ItemSelected = setPriority,
+			},
+			{
+				Name = localization:getText("Menu", priority.Action.Name),
+				Value = priority.Action,
+				ItemSelected = setPriority,
+			},
+			{
+				Name = localization:getText("Menu", priority.Action2.Name),
+				Value = priority.Action2,
+				ItemSelected = setPriority,
+			},
+			{
+				Name = localization:getText("Menu", priority.Action3.Name),
+				Value = priority.Action3,
+				ItemSelected = setPriority,
+			},
+			{
+				Name = localization:getText("Menu", priority.Action4.Name),
+				Value = priority.Action4,
+				ItemSelected = setPriority,
+			},
+		},
 	}
 end
 
@@ -160,8 +188,7 @@ function AnimationClipMenu:makeMenuActions(localization)
 	local plugin = props.Plugin
 	local inRecordMode = props.PlayState == Constants.PLAY_STATE.Record
 
-	local currentPriority = animationData and animationData.Metadata
-		and animationData.Metadata.Priority
+	local currentPriority = animationData and animationData.Metadata and animationData.Metadata.Priority
 	local enableReduce = animationData
 		and animationData.Metadata
 		and animationData.Metadata.EndTick > 0
@@ -209,16 +236,18 @@ function AnimationClipMenu:render()
 	local props = self.props
 	local showMenu = props.ShowMenu
 
-	return showMenu and Roact.createElement(ContextMenu, {
-		Actions = self:makeMenuActions(localization),
-		OnMenuOpened = props.OnMenuOpened,
-	}) or nil
+	return showMenu
+			and Roact.createElement(ContextMenu, {
+				Actions = self:makeMenuActions(localization),
+				OnMenuOpened = props.OnMenuOpened,
+			})
+		or nil
 end
 
 AnimationClipMenu = withContext({
 	Localization = ContextServices.Localization,
 	Plugin = ContextServices.Plugin,
-	Analytics = ContextServices.Analytics
+	Analytics = ContextServices.Analytics,
 })(AnimationClipMenu)
 
 local function mapStateToProps(state, props)

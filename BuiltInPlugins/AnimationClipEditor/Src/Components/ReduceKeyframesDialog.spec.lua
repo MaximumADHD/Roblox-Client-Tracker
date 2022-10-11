@@ -11,7 +11,7 @@ return function()
 		}, {
 			ReduceKeyframesDialog = Roact.createElement(ReduceKeyframesDialog, {
 				OnClose = function() end,
-				Tracks = {}
+				Tracks = {},
 			}),
 		})
 	end

@@ -25,18 +25,18 @@ function NodeListRow:init()
 	self.containerRef = Roact.createRef()
 
 	self.state = {
-		isHovering = false
+		isHovering = false,
 	}
 
 	self.onMouseEnter = function()
 		self:setState({
-			isHovering = true
+			isHovering = true,
 		})
 	end
 
 	self.onMouseLeave = function()
 		self:setState({
-			isHovering = false
+			isHovering = false,
 		})
 	end
 
@@ -63,7 +63,7 @@ function NodeListRow:flash(heat: number)
 		return
 	end
 	-- Cancel a previous tween
-	if self.flashTween then 
+	if self.flashTween then
 		self.flashTween:Cancel()
 	end
 	if self.props.IsSelected then
@@ -72,7 +72,7 @@ function NodeListRow:flash(heat: number)
 	-- Create a new tween and animate the row background
 	local tweenInfo = TweenInfo.new(FLASH_DURATION_SECONDS, Enum.EasingStyle.Linear)
 	self.flashTween = TweenService:create(container, tweenInfo, {
-		BackgroundColor3 = self.props.Style.BackgroundColor
+		BackgroundColor3 = self.props.Style.BackgroundColor,
 	})
 	-- Change the green part of the color to make it look more "hot" for consecutive re-renders
 	local HEAT_INCREMENT = 10
@@ -97,7 +97,7 @@ function NodeListRow:render()
 
 	local textColor = isSelected and style.SelectedTextColor or nil
 	local linkStyle = join(style.Link, {
-		TextColor = textColor
+		TextColor = textColor,
 	})
 
 	return Roact.createElement(Pane, {
@@ -116,7 +116,7 @@ function NodeListRow:render()
 			ImageRectSize = iconInfo.ImageRectSize,
 			ImageRectOffset = iconInfo.ImageRectOffset,
 			Position = UDim2.new(0, padding, 0.5, 0),
-			AnchorPoint = Vector2.new(0, 0.5)
+			AnchorPoint = Vector2.new(0, 0.5),
 		}),
 		Text = Roact.createElement(TextLabel, {
 			Style = style.Text,
@@ -125,7 +125,7 @@ function NodeListRow:render()
 			Size = UDim2.new(1, 0, 0, style.RowHeight),
 			Position = UDim2.fromOffset(textOffset, 0),
 			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Center
+			TextYAlignment = Enum.TextYAlignment.Center,
 		}),
 		Link = Roact.createElement(LinkText, {
 			OnClick = self.onClick,
@@ -135,8 +135,8 @@ function NodeListRow:render()
 			Text = self.props.LinkText,
 			Size = UDim2.new(1, 0, 0, style.RowHeight),
 			TextXAlignment = Enum.TextXAlignment.Right,
-			TextYAlignment = Enum.TextYAlignment.Center
-		})
+			TextYAlignment = Enum.TextYAlignment.Center,
+		}),
 	})
 end
 

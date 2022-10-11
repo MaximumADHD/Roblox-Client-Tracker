@@ -39,9 +39,9 @@ return function(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAn
 		local isPackageAsset = Category.categoryIsPackage(categoryName)
 		if isPackageAsset then
 			local canEditPackage = (
-					currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey
-					or currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey
-				)
+				currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey
+				or currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey
+			)
 			showEditOption = canEditPackage
 		end
 

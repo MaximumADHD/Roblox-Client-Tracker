@@ -17,12 +17,13 @@ function StringUtils.getTextWidth(text, textSize, font)
 end
 
 function StringUtils.split(text, sep)
-   local _, fields = sep or ":", {}
-   local pattern = string.format("([^%s]+)", sep)
-   text:gsub(pattern, function(c) fields[#fields+1] = c end)
-   return fields
+	local _, fields = sep or ":", {}
+	local pattern = string.format("([^%s]+)", sep)
+	text:gsub(pattern, function(c)
+		fields[#fields + 1] = c
+	end)
+	return fields
 end
-
 
 function StringUtils.parseTime(text, frameRate)
 	local fields = StringUtils.split(text, ":")
@@ -59,12 +60,12 @@ function StringUtils.formatTime(tck, frameRate, asSeconds)
 	local frame = KeyframeUtils.getNearestTick(tck * frameRate / Constants.TICK_FREQUENCY)
 
 	if frameRate == 0 then
-		return tostring("0:" ..string.format("%02d", 0))
+		return tostring("0:" .. string.format("%02d", 0))
 	end
 
 	local seconds = math.floor(frame / frameRate)
 	local remainingFrames = frame - (seconds * frameRate)
-	return tostring(seconds ..":" ..string.format("%02d", remainingFrames))
+	return tostring(seconds .. ":" .. string.format("%02d", remainingFrames))
 end
 
 function StringUtils.formatTimeInSeconds(frame, frameRate)
@@ -72,7 +73,7 @@ function StringUtils.formatTimeInSeconds(frame, frameRate)
 		return tostring("0s")
 	end
 	local seconds = MathUtils.round(frame / frameRate, 2)
-	return tostring(seconds .."s")
+	return tostring(seconds .. "s")
 end
 
 function StringUtils.getMaxTextWidth(items, textSize, font)

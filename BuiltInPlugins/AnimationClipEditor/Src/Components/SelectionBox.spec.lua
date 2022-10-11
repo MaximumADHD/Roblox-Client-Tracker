@@ -12,7 +12,7 @@ return function()
 		}, {
 			SelectionBox = Roact.createElement(SelectionBox, {
 				SourceExtents = Rect.new(0, 0, 0, 0),
-			})
+			}),
 		})
 	end
 
@@ -22,7 +22,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestSelectionBox(container), container)
 

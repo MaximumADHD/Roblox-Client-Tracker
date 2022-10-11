@@ -37,7 +37,7 @@ function TrackColors:renderTracks(theme)
 		Layout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Vertical,
-		})
+		}),
 	}
 
 	for index = topTrackIndex, #tracks do
@@ -56,13 +56,16 @@ function TrackColors:renderTracks(theme)
 			if height > maxHeight then
 				break
 			end
-			table.insert(children, Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, Constants.TRACK_HEIGHT),
-				BackgroundColor3 = doShade and theme.trackTheme.shadedBackgroundColor
-					or theme.trackTheme.backgroundColor,
-				BorderSizePixel = 0,
-				LayoutOrder = trackNum,
-			}))
+			table.insert(
+				children,
+				Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, Constants.TRACK_HEIGHT),
+					BackgroundColor3 = doShade and theme.trackTheme.shadedBackgroundColor
+						or theme.trackTheme.backgroundColor,
+					BorderSizePixel = 0,
+					LayoutOrder = trackNum,
+				})
+			)
 			trackNum = trackNum + 1
 			height = height + Constants.TRACK_HEIGHT
 		end

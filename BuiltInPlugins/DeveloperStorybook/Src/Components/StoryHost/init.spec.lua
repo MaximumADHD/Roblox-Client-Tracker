@@ -8,7 +8,7 @@ return function()
 		local definition = {
 			story = function()
 				return Roact.createElement("TextLabel", {
-					Text = "Test"
+					Text = "Test",
 				})
 			end,
 			roact = Roact,
@@ -19,7 +19,6 @@ return function()
 				definition = definition,
 			},
 			ThemeName = "Light",
-
 		}
 	end
 
@@ -30,5 +29,4 @@ return function()
 		expect(container.Element.Contents.Name).to.be.ok()
 		Roact.unmount(instance)
 	end)
-
 end

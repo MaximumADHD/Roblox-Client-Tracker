@@ -69,7 +69,7 @@ function Keyframe:buildTooltip(): ()
 	local function addTangentInformation(labelId: string, slope: number?): string
 		local info = "\n" .. localization:getText("Curves", labelId) .. " "
 		if slope then
-			info = info .. localization:getText("Curves", "TangentValuePerSecond", {value = formatSlope(slope)})
+			info = info .. localization:getText("Curves", "TangentValuePerSecond", { value = formatSlope(slope) })
 		else
 			info = info .. localization:getText("Curves", "TangentAuto")
 		end
@@ -77,7 +77,8 @@ function Keyframe:buildTooltip(): ()
 	end
 
 	tooltipText = PathUtils.toString(props.Path or {}) .. "\n"
-	tooltipText = tooltipText .. localization:getText("Curves", "InterpolationMode2", {interpolationMode = props.InterpolationMode.Name})
+	tooltipText = tooltipText
+		.. localization:getText("Curves", "InterpolationMode2", { interpolationMode = props.InterpolationMode.Name })
 	if props.PrevInterpolationMode == Enum.KeyInterpolationMode.Cubic then
 		tooltipText = tooltipText .. addTangentInformation("LeftTangentLabel", props.LeftSlope)
 	end
@@ -124,7 +125,7 @@ function Keyframe:render(): ()
 		Tooltip = tooltipText and Roact.createElement(Tooltip, {
 			Text = tooltipText,
 			ShowDelay = 0,
-			TextXAlignment = Enum.TextXAlignment.Left
+			TextXAlignment = Enum.TextXAlignment.Left,
 		}),
 	})
 end

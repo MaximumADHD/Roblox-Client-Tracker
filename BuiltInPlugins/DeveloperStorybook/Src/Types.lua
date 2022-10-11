@@ -5,8 +5,8 @@
 ]]
 
 -- TODO #luau: support these internally
-export type Array<T> = {[number]: T}
-export type Record<K, V> = {[K]: V}
+export type Array<T> = { [number]: T }
+export type Record<K, V> = { [K]: V }
 export type AnyRecord = Record<any, any>
 
 -- TODO #lua-foundation: types for Roact & Rodux
@@ -52,9 +52,9 @@ export type Story = Instance | RoactComponent | RoactElement | DeprecatedLifecyc
 
 -- A sub-story is one of multiple examples displayed for a single story script
 export type SubStory = Story | {
-    name: string?,
-    summary: string?,
-    story: Story
+	name: string?,
+	summary: string?,
+	story: Story,
 }
 
 -- The StoryItem represents a single row in the story tree view
@@ -66,7 +66,7 @@ export type StoryItem = {
 	GetChildren: (StoryItem) -> Array<StoryItem>,
 	Storybook: Storybook?,
 	Script: ModuleScript?,
-	StorybookLoadError: string?
+	StorybookLoadError: string?,
 }
 
 -- The story props are passed to any ReactComponent stories

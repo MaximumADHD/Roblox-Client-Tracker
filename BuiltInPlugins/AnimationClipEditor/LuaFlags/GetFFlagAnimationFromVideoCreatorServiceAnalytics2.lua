@@ -1,5 +1,5 @@
 -- GetFFlagAnimationFromVideoCreatorServiceAnalytics2
--- flag defined in C++  
+-- flag defined in C++
 
 return function()
 	return game:GetFastFlag("AnimationFromVideoCreatorServiceAnalytics2")

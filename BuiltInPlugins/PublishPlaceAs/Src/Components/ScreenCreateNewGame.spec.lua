@@ -7,8 +7,7 @@ return function()
 
 	it("should create and destroy without errors", function()
 		local mockServiceWrapper = Roact.createElement(MockServiceWrapper, {}, {
-			ScreenCreateNewGame = Roact.createElement(ScreenCreateNewGame, {
-			}),
+			ScreenCreateNewGame = Roact.createElement(ScreenCreateNewGame, {}),
 		})
 		local instance = Roact.mount(mockServiceWrapper)
 		Roact.unmount(instance)

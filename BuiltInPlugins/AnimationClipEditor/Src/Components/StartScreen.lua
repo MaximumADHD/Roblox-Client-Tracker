@@ -38,26 +38,27 @@ function StartScreen:render()
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 	}, {
-		SelectScreen = rootInstance == nil and Roact.createElement("TextLabel", {
-			Size = UDim2.new(1, 0, 1, 0),
-			Text = localization:getText("Title", "SelectARig"),
-			Font = theme.font,
-			TextSize = startScreenTheme.textSize,
-			TextColor3 = startScreenTheme.textColor,
-			TextTruncate = Enum.TextTruncate.AtEnd,
-			BackgroundColor3 = theme.backgroundColor,
-		}, {
-			-- Prevent interaction with the editor until the user selects a rig.
-			CaptureFocus = Roact.createElement(CaptureFocus),
-		}),
+		SelectScreen = rootInstance == nil
+			and Roact.createElement("TextLabel", {
+				Size = UDim2.new(1, 0, 1, 0),
+				Text = localization:getText("Title", "SelectARig"),
+				Font = theme.font,
+				TextSize = startScreenTheme.textSize,
+				TextColor3 = startScreenTheme.textColor,
+				TextTruncate = Enum.TextTruncate.AtEnd,
+				BackgroundColor3 = theme.backgroundColor,
+			}, {
+				-- Prevent interaction with the editor until the user selects a rig.
+				CaptureFocus = Roact.createElement(CaptureFocus),
+			}),
 
 		CreateNewPrompt = rootInstance ~= nil and Roact.createElement(TextEntryPrompt, {
 			PromptText = localization:getText("Title", "CreateToStart"),
-			NoticeText = localization:getText("Title", "NoAnimationExists_Migrated", {rig = rootInstance.Name}),
+			NoticeText = localization:getText("Title", "NoAnimationExists_Migrated", { rig = rootInstance.Name }),
 			InputText = localization:getText("Dialog", "AnimationName"),
 			Text = localization:getText("Title", "DefaultAnimationName"),
 			Buttons = {
-				{Key = true, Text = localization:getText("Dialog", "Create"), Style = "RoundPrimary"},
+				{ Key = true, Text = localization:getText("Dialog", "Create"), Style = "RoundPrimary" },
 			},
 			OnTextSubmitted = onCreateAnimation,
 		}),

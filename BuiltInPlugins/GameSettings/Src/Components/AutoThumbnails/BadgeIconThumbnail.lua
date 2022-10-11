@@ -29,57 +29,57 @@ local AutoThumbnail = require(Plugin.Src.Components.AutoThumbnails.AutoThumbnail
 local BadgeIconThumbnail = Roact.Component:extend(script.Name)
 
 function BadgeIconThumbnail:getThumbnail(contentId, status)
-    local props = self.props
-    local theme = props.Stylizer
+	local props = self.props
+	local theme = props.Stylizer
 
-    if status == Enum.AssetFetchStatus.Success then
-        return contentId
-    elseif status == Enum.AssetFetchStatus.Failure then
-        return theme.badgeIconThumbnail.loadFailureImage
-    else
-        return theme.badgeIconThumbnail.loadingImage
-    end
+	if status == Enum.AssetFetchStatus.Success then
+		return contentId
+	elseif status == Enum.AssetFetchStatus.Failure then
+		return theme.badgeIconThumbnail.loadFailureImage
+	else
+		return theme.badgeIconThumbnail.loadingImage
+	end
 end
 
 function BadgeIconThumbnail:render()
-    local props = self.props
-    local id = props.Id
+	local props = self.props
+	local id = props.Id
 
-    assert(type(id) == "number")
+	assert(type(id) == "number")
 
-    local size = props.Size and props.Size or UDim2.fromScale(1, 1)
-    local position = props.Position
-    local anchorPoint = props.AnchorPoint
-    local layoutOrder = props.LayoutOrder
-    local zIndex = props.ZIndex
+	local size = props.Size and props.Size or UDim2.fromScale(1, 1)
+	local position = props.Position
+	local anchorPoint = props.AnchorPoint
+	local layoutOrder = props.LayoutOrder
+	local zIndex = props.ZIndex
 
-    return Roact.createElement("Frame", {
-        BackgroundTransparency = 1,
-        Size = size,
-        Position = position,
-        AnchorPoint = anchorPoint,
-        LayoutOrder = layoutOrder,
-        ZIndex = zIndex,
-    }, {
-        AutoThumbnail = Roact.createElement(AutoThumbnail, {
-            Id = id,
-            ThumbnailType = "BadgeIcon",
-            UseAssetThumbnailUrl = true,
-            RenderContents = function(contentId, status)
-                local thumbnail = self:getThumbnail(contentId, status)
+	return Roact.createElement("Frame", {
+		BackgroundTransparency = 1,
+		Size = size,
+		Position = position,
+		AnchorPoint = anchorPoint,
+		LayoutOrder = layoutOrder,
+		ZIndex = zIndex,
+	}, {
+		AutoThumbnail = Roact.createElement(AutoThumbnail, {
+			Id = id,
+			ThumbnailType = "BadgeIcon",
+			UseAssetThumbnailUrl = true,
+			RenderContents = function(contentId, status)
+				local thumbnail = self:getThumbnail(contentId, status)
 
-                return Roact.createElement("ImageLabel", {
-                    Size = UDim2.fromScale(1, 1),
-                    BackgroundTransparency = 1,
-                    Image = thumbnail,
-                })
-            end,
-        })
-    })
+				return Roact.createElement("ImageLabel", {
+					Size = UDim2.fromScale(1, 1),
+					BackgroundTransparency = 1,
+					Image = thumbnail,
+				})
+			end,
+		}),
+	})
 end
 
 BadgeIconThumbnail = withContext({
-    Stylizer = ContextServices.Stylizer,
+	Stylizer = ContextServices.Stylizer,
 })(BadgeIconThumbnail)
 
 return BadgeIconThumbnail

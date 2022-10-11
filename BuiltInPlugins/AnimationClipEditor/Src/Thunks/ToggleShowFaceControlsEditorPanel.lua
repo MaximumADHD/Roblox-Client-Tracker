@@ -11,7 +11,7 @@ return function()
 		if not rootInstance then
 			return
 		end
-		
+
 		if GetFFlagFaceControlsEditorUI() then
 			local showFaceControlsEditorPanel = not state.Status.ShowFaceControlsEditorPanel
 			store:dispatch(SetShowFaceControlsEditorPanel(showFaceControlsEditorPanel))

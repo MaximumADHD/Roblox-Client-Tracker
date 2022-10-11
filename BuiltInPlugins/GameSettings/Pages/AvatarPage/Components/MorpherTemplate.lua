@@ -48,32 +48,31 @@ function MorpherTemplate:render()
 	end
 
 	return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BorderSizePixel = 0,
-			BackgroundColor3 = StateInterfaceTheme.getBackgroundColor(self.props),
+		Size = UDim2.new(1, 0, 1, 0),
+		BorderSizePixel = 0,
+		BackgroundColor3 = StateInterfaceTheme.getBackgroundColor(self.props),
 
-			[Roact.Ref] = self.frameRef,
-		}, {
-			UIListLayoutVertical = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				FillDirection = Enum.FillDirection.Vertical,
-				Padding = ConstantLayout.VirticalPadding,
+		[Roact.Ref] = self.frameRef,
+	}, {
+		UIListLayoutVertical = Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			FillDirection = Enum.FillDirection.Vertical,
+			Padding = ConstantLayout.VirticalPadding,
 
-				[Roact.Change.AbsoluteContentSize] = function(rbx)
-					self.frameRef.current.Size = UDim2.new(1, 0, 0, rbx.AbsoluteContentSize.y)
-				end,
-			}),
+			[Roact.Change.AbsoluteContentSize] = function(rbx)
+				self.frameRef.current.Size = UDim2.new(1, 0, 0, rbx.AbsoluteContentSize.y)
+			end,
+		}),
 
-			PublishingHint = Roact.createElement(PublishingHint, getPropsForPublishingHint()),
-			PresetsPanel = Roact.createElement(PresetsPanel, getPropsForSubComponents()),
-			AvatarTypePanel = Roact.createElement(AvatarTypePanel, getPropsForSubComponents()),
-			AnimationPanel = Roact.createElement(AnimationPanel, getPropsForSubComponents()),
-			CollisionPanel = Roact.createElement(CollisionPanel, getPropsForSubComponents()),
-			ScalePanel = Roact.createElement(ScalePanel, getPropsForSubComponents()),
-			AssetsPanel = Roact.createElement(AssetsPanel, getPropsForSubComponents())
-		}
-	)
+		PublishingHint = Roact.createElement(PublishingHint, getPropsForPublishingHint()),
+		PresetsPanel = Roact.createElement(PresetsPanel, getPropsForSubComponents()),
+		AvatarTypePanel = Roact.createElement(AvatarTypePanel, getPropsForSubComponents()),
+		AnimationPanel = Roact.createElement(AnimationPanel, getPropsForSubComponents()),
+		CollisionPanel = Roact.createElement(CollisionPanel, getPropsForSubComponents()),
+		ScalePanel = Roact.createElement(ScalePanel, getPropsForSubComponents()),
+		AssetsPanel = Roact.createElement(AssetsPanel, getPropsForSubComponents()),
+	})
 end
 
 return MorpherTemplate

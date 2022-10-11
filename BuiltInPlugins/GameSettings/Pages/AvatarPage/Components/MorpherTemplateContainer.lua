@@ -16,7 +16,7 @@ function MorpherTemplateContainer:render()
 	children.UIListLayoutVertical = Roact.createElement("UIListLayout", {
 		[Roact.Change.AbsoluteContentSize] = function(rbx)
 			self.frameRef.current.Size = UDim2.new(1, 0, 0, rbx.AbsoluteContentSize.y)
-		end
+		end,
 	})
 
 	if self.props.StateTemplates and self.props.StateTemplates.templates then
@@ -39,14 +39,12 @@ function MorpherTemplateContainer:render()
 	end
 
 	return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BorderSizePixel = 0,
-			BackgroundTransparency = 1,
+		Size = UDim2.new(1, 0, 1, 0),
+		BorderSizePixel = 0,
+		BackgroundTransparency = 1,
 
-			[Roact.Ref] = self.frameRef,
-		},
-		children
-	)
+		[Roact.Ref] = self.frameRef,
+	}, children)
 end
 
 return MorpherTemplateContainer

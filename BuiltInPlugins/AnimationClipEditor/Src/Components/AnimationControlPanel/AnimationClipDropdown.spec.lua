@@ -10,7 +10,7 @@ return function()
 			AnimationClipDropdown = Roact.createElement(AnimationClipDropdown, {
 				AnimationName = "Test",
 				LayoutOrder = 0,
-			})
+			}),
 		})
 	end
 
@@ -20,7 +20,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestDropdownButton(), container)
 		local frame = container:FindFirstChildOfClass("ImageButton")

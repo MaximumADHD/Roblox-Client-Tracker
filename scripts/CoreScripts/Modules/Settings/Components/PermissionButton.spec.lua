@@ -8,7 +8,7 @@ return function()
 		local element = Roact.createElement(PermissionButton, {
 			LayoutOrder = 1,
 			callback = function() end,
-			image = ""
+			image = {}
 		})
 
 		local instance = Roact.mount(element)

@@ -27,15 +27,27 @@ function AnimationClipEditorDragger:render()
 
 	local handles = {}
 	if tool == Enum.RibbonTool.Move then
-		table.insert(handles, MoveHandles.new(
-			context,
-			nil,
-			DraggerSchema.TransformHandlesImplementation.new(context, ikTransformMoveHandler, Enum.RibbonTool.Move)))
+		table.insert(
+			handles,
+			MoveHandles.new(
+				context,
+				nil,
+				DraggerSchema.TransformHandlesImplementation.new(context, ikTransformMoveHandler, Enum.RibbonTool.Move)
+			)
+		)
 	elseif tool == Enum.RibbonTool.Rotate then
-		table.insert(handles, RotateHandles.new(
-			context,
-			nil,
-			DraggerSchema.TransformHandlesImplementation.new(context, ikTransformRotateHandler, Enum.RibbonTool.Rotate)))
+		table.insert(
+			handles,
+			RotateHandles.new(
+				context,
+				nil,
+				DraggerSchema.TransformHandlesImplementation.new(
+					context,
+					ikTransformRotateHandler,
+					Enum.RibbonTool.Rotate
+				)
+			)
+		)
 	end
 
 	local draggerSettings = {

@@ -41,7 +41,7 @@ local tablesDeepEqual = require(Plugin.Src.Util.tablesDeepEqual)
 local ContentProvider = game:GetService("ContentProvider")
 local HttpService = game:GetService("HttpService")
 
-local HTTP_VERBS = {"GET", "POST", "PUT", "PATCH", "DELETE"}
+local HTTP_VERBS = { "GET", "POST", "PUT", "PATCH", "DELETE" }
 
 local function parseBaseUrlInformation(baseUrl)
 	-- keep a copy of the base url and append a trailing slash if there isn't one
@@ -61,18 +61,18 @@ local function parseBaseUrlInformation(baseUrl)
 
 	-- remove trailing slash from base domain
 	if baseDomain[#baseDomain] == "/" then
-		baseDomain = baseDomain:sub(1, #baseDomain-1)
+		baseDomain = baseDomain:sub(1, #baseDomain - 1)
 	end
 
 	return baseUrl, basePrefix, baseDomain
 end
 
-local _,_,baseDomain = parseBaseUrlInformation(ContentProvider.BaseUrl)
+local _, _, baseDomain = parseBaseUrlInformation(ContentProvider.BaseUrl)
 local function constructUrl(subdomain, path, args)
-	assert(path:sub(1,1) == "/", "Path must begin with '/'")
+	assert(path:sub(1, 1) == "/", "Path must begin with '/'")
 
 	local fullUrl = Url.composeUrl(
-		"https://"..subdomain.."."..baseDomain,
+		"https://" .. subdomain .. "." .. baseDomain,
 		path:sub(2, -1), -- Fix DeveloperFramework automatically prepending path with / when it already exists
 		args
 	)
@@ -86,7 +86,7 @@ end
 
 local function deepJoin(t1, t2)
 	local override = {}
-	for k,v in pairs(t2) do
+	for k, v in pairs(t2) do
 		if typeof(v) == "table" and typeof(t1[k]) == "table" then
 			override[k] = deepJoin(t1[k], v)
 		else
@@ -111,10 +111,10 @@ function NetworkingImpl.new(options)
 		__baseImpl = Http.Networking.new(options),
 		__coalescedRequests = {
 			--[get][url] = { [uid] = {options=options, promise=promise}, [uid] = {options=options, promise=promise} }
-		}
+		},
 	}
 
-	for _,httpVerb in ipairs(HTTP_VERBS) do
+	for _, httpVerb in ipairs(HTTP_VERBS) do
 		self.__coalescedRequests[httpVerb] = {}
 	end
 
@@ -137,11 +137,15 @@ function NetworkingImpl:request(subdomain, path, options)
 end
 
 -- Generates NetworkingImpl:get(...), NetworkingImpl:post(...), etc
-for _,method in pairs(HTTP_VERBS) do
+for _, method in pairs(HTTP_VERBS) do
 	NetworkingImpl[method:lower()] = function(self, subdomain, path, options)
-		return self:request(subdomain, path, Cryo.Dictionary.join(options or {}, {
-			Method = method,
-		}))
+		return self:request(
+			subdomain,
+			path,
+			Cryo.Dictionary.join(options or {}, {
+				Method = method,
+			})
+		)
 	end
 end
 
@@ -166,7 +170,7 @@ function NetworkingImpl:__requestWithoutCoalesce(options)
 			Body = body,
 			Headers = Cryo.Dictionary.join({
 				["Content-Type"] = "application/json",
-			}, options.Headers or {})
+			}, options.Headers or {}),
 		})
 	end
 
@@ -223,7 +227,7 @@ function NetworkingImpl:__requestWithCoalesce(options)
 
 	-- Add to lookup so future duplicate requests can be coalesced
 	self.__coalescedRequests[method][url] = self.__coalescedRequests[method][url] or {}
-	self.__coalescedRequests[method][url][requestKey] = {promise=promise, options=options}
+	self.__coalescedRequests[method][url][requestKey] = { promise = promise, options = options }
 
 	return promise
 end
@@ -244,7 +248,7 @@ function NetworkingImpl:__getExistingRequest(options)
 	})
 
 	local matchingRequest
-	for _,existingRequest in pairs(existingRequests) do
+	for _, existingRequest in pairs(existingRequests) do
 		local existingOptions = Cryo.Dictionary.join(existingRequest.options, {
 			Body = Cryo.None,
 		})

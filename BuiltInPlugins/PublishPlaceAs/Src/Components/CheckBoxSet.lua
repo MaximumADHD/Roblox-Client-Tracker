@@ -54,7 +54,7 @@ function CheckBoxSet:render()
 		Layout = Roact.createElement("UIListLayout", {
 			Padding = UDim.new(0, CHECKBOX_PADDING),
 			SortOrder = Enum.SortOrder.LayoutOrder,
-		})
+		}),
 	}
 
 	local components
@@ -62,44 +62,54 @@ function CheckBoxSet:render()
 	if props.UseGridLayout then
 		components = {
 			Roact.createElement("UIGridLayout", {
-				CellSize = UDim2.new(0, theme.SCREEN_CHOOSE_GAME.ICON_SIZE, 0,
-					25),
+				CellSize = UDim2.new(0, theme.SCREEN_CHOOSE_GAME.ICON_SIZE, 0, 25),
 				CellPadding = UDim2.new(0, theme.SCREEN_CHOOSE_GAME.CELL_PADDING_X, 0, 2),
 				[Roact.Ref] = self.layoutRef,
-				FillDirectionMaxCells = 2
-			})
+				FillDirectionMaxCells = 2,
+			}),
 		}
-		
+
 		tableToInsert = components
 	end
 
 	for i, box in ipairs(boxes) do
-		table.insert(tableToInsert, Roact.createElement(CheckBox, if FFlagDevFrameworkMigrateCheckBox then {
-			Checked = box.Selected ~= nil and box.Selected,
-			Enabled = enabled,
-			Key = box.Id,
-			LayoutOrder = i,
-			OnClick = function()
-				entryClicked(box)
-			end,
-			Text = box.Title,
-		} else {
-			Title = box.Title,
-			Id = box.Id,
-			Height = CHECKBOX_SIZE,
-			TextSize = Constants.TEXT_SIZE,
-			Selected = box.Selected ~= nil and box.Selected,
-			Enabled = enabled,
-			LayoutOrder = i,
-			OnActivated = function()
-				entryClicked(box)
-			end,
-			Link = box.LinkTextFrame,
-		}, if FFlagDevFrameworkMigrateCheckBox then {
-			Link = box.LinkTextFrame,
-		} else nil))
+		table.insert(
+			tableToInsert,
+			Roact.createElement(
+				CheckBox,
+				if FFlagDevFrameworkMigrateCheckBox
+					then {
+						Checked = box.Selected ~= nil and box.Selected,
+						Disabled = not enabled,
+						Key = box.Id,
+						LayoutOrder = i,
+						OnClick = function()
+							entryClicked(box)
+						end,
+						Text = box.Title,
+					}
+					else {
+						Title = box.Title,
+						Id = box.Id,
+						Height = CHECKBOX_SIZE,
+						TextSize = Constants.TEXT_SIZE,
+						Selected = box.Selected ~= nil and box.Selected,
+						Enabled = enabled,
+						LayoutOrder = i,
+						OnActivated = function()
+							entryClicked(box)
+						end,
+						Link = box.LinkTextFrame,
+					},
+				if FFlagDevFrameworkMigrateCheckBox
+					then {
+						Link = box.LinkTextFrame,
+					}
+					else nil
+			)
+		)
 	end
-	
+
 	if props.UseGridLayout then
 		for i, child in ipairs(components) do
 			table.insert(children, child)
@@ -129,20 +139,26 @@ function CheckBoxSet:render()
 		maxHeight += props.MaxHeight
 	end
 
-	if props.AbsoluteMaxHeight then 
+	if props.AbsoluteMaxHeight then
 		maxHeight = props.AbsoluteMaxHeight
 	end
 
-	return Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
-		LayoutOrder = layoutOrder,
-		Title = title,
-	} else {
-		Title = title,
-		MaxHeight = maxHeight,
-		LayoutOrder = layoutOrder,
-		TextSize = Constants.TEXT_SIZE,
-		Tooltip = props.Tooltip,
-	}, children)
+	return Roact.createElement(
+		TitledFrame,
+		if FFlagRemoveUILibraryTitledFrame
+			then {
+				LayoutOrder = layoutOrder,
+				Title = title,
+			}
+			else {
+				Title = title,
+				MaxHeight = maxHeight,
+				LayoutOrder = layoutOrder,
+				TextSize = Constants.TEXT_SIZE,
+				Tooltip = props.Tooltip,
+			},
+		children
+	)
 end
 
 CheckBoxSet = withContext({

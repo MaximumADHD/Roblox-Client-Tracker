@@ -103,29 +103,29 @@ function NoticeToast:render()
 	local showingToast = state.showingToast
 	local fadeAmount = state.fadeAmount
 
-	local textWidth = StringUtils.getTextWidth(text, toastTheme.textSize, theme.font)
-			+ TEXT_PADDING * 2
+	local textWidth = StringUtils.getTextWidth(text, toastTheme.textSize, theme.font) + TEXT_PADDING * 2
 
-	return showingToast and Roact.createElement(BaseToast, {
-		AnchorPoint = Vector2.new(0.5, 1),
-		Size = UDim2.new(0, textWidth, 0, TOAST_HEIGHT),
-		Transparency = fadeAmount,
-	}, {
-		Text = Roact.createElement("TextLabel", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundTransparency = 1,
-			Text = text,
-			TextSize = toastTheme.textSize,
-			TextColor3 = toastTheme.textColor,
-			TextTransparency = fadeAmount,
-			Font = theme.font,
+	return showingToast
+		and Roact.createElement(BaseToast, {
+			AnchorPoint = Vector2.new(0.5, 1),
+			Size = UDim2.new(0, textWidth, 0, TOAST_HEIGHT),
+			Transparency = fadeAmount,
 		}, {
-			Padding = Roact.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, TEXT_PADDING),
-				PaddingRight = UDim.new(0, TEXT_PADDING),
-			})
-		}),
-	})
+			Text = Roact.createElement("TextLabel", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 1,
+				Text = text,
+				TextSize = toastTheme.textSize,
+				TextColor3 = toastTheme.textColor,
+				TextTransparency = fadeAmount,
+				Font = theme.font,
+			}, {
+				Padding = Roact.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, TEXT_PADDING),
+					PaddingRight = UDim.new(0, TEXT_PADDING),
+				}),
+			}),
+		})
 end
 
 NoticeToast = withContext({

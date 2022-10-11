@@ -8,7 +8,7 @@ local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 
 local StudioPublishService = game:GetService("StudioPublishService")
 
-local args : PluginLoaderBuilder.Args = {
+local args: PluginLoaderBuilder.Args = {
 	plugin = plugin,
 	pluginName = "PublishPlaceAs",
 	translationResourceTable = LocalizedStrings,
@@ -25,11 +25,11 @@ local args : PluginLoaderBuilder.Args = {
 		end,
 		["StudioPublishService.OnSaveOrPublishPlaceToRoblox"] = function()
 			return StudioPublishService.OnSaveOrPublishPlaceToRoblox
-		end
+		end,
 	},
 }
 
-local pluginLoaderContext : PluginLoaderBuilder.PluginLoaderContext = PluginLoaderBuilder.build(args)
+local pluginLoaderContext: PluginLoaderBuilder.PluginLoaderContext = PluginLoaderBuilder.build(args)
 local success = pluginLoaderContext.pluginLoader:waitForUserInteraction()
 if not success then
 	-- Plugin destroyed

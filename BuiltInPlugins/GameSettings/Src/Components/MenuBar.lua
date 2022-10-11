@@ -40,17 +40,16 @@ local warningsFromPage = {
 	},
 	[AVATAR] = {
 		universeAvatarType = true,
-	}
+	},
 }
 
 -- Fix errors not being assigned to a page
 errorsFromPage[BASIC_INFO].thumbnails = true
 errorsFromPage[BASIC_INFO].gameIcon = true
 
-
 if settings():GetFFlag("DeveloperSubscriptionsEnabled") then
 	errorsFromPage[MONETIZATION] = {
-		DeveloperSubscriptions = true
+		DeveloperSubscriptions = true,
 	}
 end
 
@@ -63,7 +62,7 @@ function MenuBar:render()
 	local menuEntries = {
 		Layout = Roact.createElement("UIListLayout", {
 			Padding = UDim.new(0, 1),
-		})
+		}),
 	}
 
 	for i, entryId in ipairs(props.Entries) do
@@ -87,17 +86,20 @@ function MenuBar:render()
 			end
 		end
 
-		table.insert(menuEntries, Roact.createElement(MenuEntry, {
-			Title = localization:getText("General", "Category"..entryId),
-			Selected = (props.Selected == i),
-			Index = i,
-			Error = errorHighlight,
-			Warning = warningHighlight,
+		table.insert(
+			menuEntries,
+			Roact.createElement(MenuEntry, {
+				Title = localization:getText("General", "Category" .. entryId),
+				Selected = (props.Selected == i),
+				Index = i,
+				Error = errorHighlight,
+				Warning = warningHighlight,
 
-			OnClicked = function()
-				props.SelectionChanged(i)
-			end,
-		}))
+				OnClicked = function()
+					props.SelectionChanged(i)
+				end,
+			})
+		)
 	end
 
 	return Roact.createElement("Frame", {
@@ -112,12 +114,12 @@ MenuBar = withContext({
 	Localization = ContextServices.Localization,
 })(MenuBar)
 
-return RoactRodux.connect(
-	function(state, props)
-		if not state then return end
-		return {
-			Errors = state.Settings.Errors,
-			Warnings = state.Settings.Warnings,
-		}
+return RoactRodux.connect(function(state, props)
+	if not state then
+		return
 	end
-)(MenuBar)
+	return {
+		Errors = state.Settings.Errors,
+		Warnings = state.Settings.Warnings,
+	}
+end)(MenuBar)

@@ -630,13 +630,14 @@ local function CreateSettingsHub()
 
 	local setVisibilityInternal = nil
 
-	local function createPermissionsButtons()
+	local function createPermissionsButtons(shouldFillScreen)
 		return Roact.createElement(PermissionsButtons, {
 			isTenFootInterface = isTenFootInterface,
 			isPortrait = utility:IsPortrait(),
 			isSmallTouchScreen = utility:IsSmallTouchScreen(),
 			ZIndex = this.Shield.ZIndex,
 			LayoutOrder = -1,
+			shouldFillScreen = shouldFillScreen,
 		})
 	end
 
@@ -989,7 +990,7 @@ local function CreateSettingsHub()
 		
 		if GetFFlagSelfViewSettingsEnabled() then
 			-- Create the settings buttons for audio/camera permissions.
-			this.permissionsButtonsRoot = Roact.mount(createPermissionsButtons(), this.MenuContainer, "PermissionsButtons")
+			this.permissionsButtonsRoot = Roact.mount(createPermissionsButtons(true), this.MenuContainer, "PermissionsButtons")
 		end
 
 		this.MenuListLayout = utility:Create'UIListLayout'
@@ -1290,7 +1291,7 @@ local function CreateSettingsHub()
 					if this.permissionsButtonsRoot then
 						Roact.unmount(this.permissionsButtonsRoot)
 					end
-					this.permissionsButtonsRoot = Roact.mount(createPermissionsButtons(), this.Shield, "PermissionsButtons")
+					this.permissionsButtonsRoot = Roact.mount(createPermissionsButtons(false), this.Shield, "PermissionsButtons")
 				end
 			end
 		end

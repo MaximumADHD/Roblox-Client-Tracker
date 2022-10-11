@@ -27,10 +27,15 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local UI = Framework.UI
+local Button = UI.Button
+local Pane = UI.Pane
+
 local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
 local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
 
 local SetControlsPanelBlockerActivity = require(Plugin.Src.Actions.SetControlsPanelBlockerActivity)
+local SetControlsPanelBlockerMessage = require(Plugin.Src.Actions.SetControlsPanelBlockerMessage)
 local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
 local FinishEditing = require(Plugin.Src.Thunks.FinishEditing)
 
@@ -38,52 +43,72 @@ local GenerateScreen = Roact.PureComponent:extend("GenerateScreen")
 
 local Util = Framework.Util
 local Typecheck = Util.Typecheck
+local StyleModifier = Util.StyleModifier
+local LayoutOrderIterator = Util.LayoutOrderIterator
 Typecheck.wrap(GenerateScreen, script)
 
 local GetFFlagAccessoryFittingToolAnalytics = require(Plugin.Src.Flags.GetFFlagAccessoryFittingToolAnalytics)
 
 function GenerateScreen:init()
 	self.onGenerateClicked = function()
-		self.props.SetControlsPanelBlockerActivity(true)
+		local props = self.props
+
+		local localization = props.Localization
+
+		self.generateClicked = true
+		props.SetControlsPanelBlockerMessage(localization:getText("Generate", "Wait"))
+		props.SetControlsPanelBlockerActivity(true)
 	end
 end
 
 function GenerateScreen:render()
 	local props = self.props
 
+	local inBounds = props.InBounds
 	local goToPrevious = props.GoToPrevious
 	local localization = props.Localization
-	local theme = props.Stylizer
+	local style = props.Stylizer
 
-	return Roact.createElement("Frame", {
+	local tooltip = localization:getText("Generate", "InvalidBounds")
+	local orderIterator = LayoutOrderIterator.new()
+
+	return Roact.createElement(Pane, {
 		Size = UDim2.new(1, 0, 1, 0),
-		BackgroundColor3 = theme.BackgroundColor,
-		BorderSizePixel = 0,
+		Layout = Enum.FillDirection.Horizontal,
+		HorizontalAlignment = Enum.HorizontalAlignment.Center,
+		VerticalAlignment = Enum.VerticalAlignment.Center,
+		Spacing = 10,	
 	}, {
-		Screen = Roact.createElement(FlowScreenLayout, {
-			Title = localization:getText("Editor", "Generate"),
-			PromptText = localization:getText("Generate", "Prompt"),
-			NextButtonText = localization:getText("Flow", "Generate"),
-			BackButtonText = localization:getText("Flow", "Back"),
-			NextButtonEnabled = true,
-			BackButtonEnabled = true,
-			HasBackButton = true,
-			GoToNext = self.onGenerateClicked,
-			GoToPrevious = goToPrevious,
+		BackButton = Roact.createElement(Button, {
+			Text = localization:getText("Flow", "Back"),
+			Style = "Round",
+			Size = UDim2.new(0, style.BackButtonWidth, 0, style.ButtonHeight),
+			OnClick = goToPrevious,
+			LayoutOrder = orderIterator:getNextOrder(),
 		}),
 
-		ControlsPanelBlocker = props.IsControlsPanelBlockerActive and Roact.createElement(InputBlocker,{
-			OnFocused = function() end,
-			Text = localization:getText("Generate", "Wait"),
+		NextButton = Roact.createElement(Button, {
+			Text = localization:getText("Flow", "Generate"),
+			Style = "RoundPrimary",
+			StyleModifier = if not inBounds then StyleModifier.Disabled else nil,
+			Size = UDim2.new(0, style.GenerateButtonWidth, 0, style.ButtonHeight),
+			OnClick = if inBounds then self.onGenerateClicked else function() end,
+			LayoutOrder = orderIterator:getNextOrder(),
+			Tooltip = if not inBounds then tooltip else nil,
 		}),
 	})
 end
 
 function GenerateScreen:didUpdate(prevProps)
 	if
+		-- Was IsControlsPanelBlockerActive changed to true as a result of the Generate Button being clicked?
 		self.props.IsControlsPanelBlockerActive ~= prevProps.IsControlsPanelBlockerActive
-		and self.props.IsControlsPanelBlockerActive
+		and self.props.IsControlsPanelBlockerActive 
+		and self.generateClicked
 	then
+		-- FinishEditing starts the process of publishing cages, which is blocking. If we don't 
+		-- delay here, then the InputBlocker doesn't have enough time to render as a result of 
+		-- IsControlsPanelBlockerActive being set to true.
 		task.delay(0, function()
 			local editingItem = self.props.EditingItemContext:getItem()
 			local sourceItem = self.props.EditingItemContext:getSourceItemWithUniqueDeformerNames()
@@ -100,6 +125,7 @@ function GenerateScreen:didUpdate(prevProps)
 			self.props.GoToNext()
 			self.props.ReleaseEditor()
 			self.props.EditingItemContext:setSourceItem(nil)
+			self.generateClicked = false
 		end)
 	end
 end
@@ -114,8 +140,10 @@ GenerateScreen = withContext({
 
 local function mapStateToProps(state, props)
 	local controlsPanelBlocker = state.controlsPanelBlocker
+	local selectItem = state.selectItem
 	return {
 		IsControlsPanelBlockerActive = controlsPanelBlocker.isActive,
+		InBounds = selectItem.inBounds,
 	}
 end
 
@@ -123,6 +151,10 @@ local function mapDispatchToProps(dispatch)
 	return {
 		SetControlsPanelBlockerActivity = function(isActive)
 			dispatch(SetControlsPanelBlockerActivity(isActive))
+		end,
+
+		SetControlsPanelBlockerMessage = function(message)
+			dispatch(SetControlsPanelBlockerMessage(message))
 		end,
 
 		FinishEditing = if GetFFlagAccessoryFittingToolAnalytics() 

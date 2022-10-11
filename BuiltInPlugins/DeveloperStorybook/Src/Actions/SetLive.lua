@@ -7,7 +7,7 @@ local Util = require(Main.Packages.Framework).Util
 local Action = Util.Action
 
 export type Props = {
-	live: boolean
+	live: boolean,
 }
 
 return Action(script.Name, function(live: boolean): Props

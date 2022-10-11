@@ -1,11 +1,7 @@
-local FFlagManageCollaboratorsGhostEditorsMessage = game:GetFastFlag("ManageCollaboratorsGhostEditorsMessage")
-
 local Plugin = script.Parent.Parent.Parent
 local PermissionsConstants = require(Plugin.Src.Util.PermissionsConstants)
 
 return function(state)
-	assert(FFlagManageCollaboratorsGhostEditorsMessage)
-	
 	local currentPermissions = state.Permissions.CurrentPermissions
 	local permissionsUsers = currentPermissions[PermissionsConstants.UserSubjectKey] or {}
 		

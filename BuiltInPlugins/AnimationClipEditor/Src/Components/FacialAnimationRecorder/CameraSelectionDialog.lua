@@ -53,7 +53,7 @@ end
 function CameraSelectionDialog:render()
 	local props = self.props
 	local localization = props.Localization
-	local title = props.Title or localization:getText("Dialog","DefaultTitle")
+	local title = props.Title or localization:getText("Dialog", "DefaultTitle")
 	local theme = props.Stylizer
 	local onClose = props.OnClose
 
@@ -71,32 +71,21 @@ function CameraSelectionDialog:render()
 		end
 		index += 1
 	end
-	
+
 	local mediumFontSize = 20
 
 	local titleText = localization:getText("FaceCapture", "CameraSelectionTitle")
 	local titleTextFontSize = mediumFontSize
 	local titleTextFont = Enum.Font.SourceSansBold
-	local titleTextSize = GetTextSize(
-		titleText,
-		titleTextFontSize,
-		titleTextFont,
-		Vector2.new(TEXT_WIDTH, 1000)
-	)
+	local titleTextSize = GetTextSize(titleText, titleTextFontSize, titleTextFont, Vector2.new(TEXT_WIDTH, 1000))
 
 	local bodyText = localization:getText("FaceCapture", "CameraSelectionBody")
 	local bodyTextFontSize = mediumFontSize
 	local bodyTextFont = Enum.Font.SourceSans
-	local bodyTextSize = GetTextSize(
-		bodyText,
-		bodyTextFontSize,
-		bodyTextFont,
-		Vector2.new(TEXT_WIDTH, 1000)
-	)
-	
-	
+	local bodyTextSize = GetTextSize(bodyText, bodyTextFontSize, bodyTextFont, Vector2.new(TEXT_WIDTH, 1000))
+
 	local usedItemsHeight = math.max(singleItemHeight * index, DEFAULT_CAMERA_SELECTINPUT_HEIGHT)
-	
+
 	local contentHeight = titleTextSize.Y + bodyTextSize.Y + 2 * CONTENT_SPACING + usedItemsHeight
 	local defaultSize = Vector2.new(TEXT_WIDTH, contentHeight)
 
@@ -106,12 +95,12 @@ function CameraSelectionDialog:render()
 		BorderPadding = BORDER_PADDING,
 		OnButtonPressed = self.onMessageBoxButtonClicked,
 		Buttons = {
-			{ Text = props.Localization:getText("Dialog","Confirm"), Key = MessageBoxConfirm, Style = "RoundPrimary"},
+			{ Text = props.Localization:getText("Dialog", "Confirm"), Key = MessageBoxConfirm, Style = "RoundPrimary" },
 		},
 		ButtonHorizontalAlignment = Enum.HorizontalAlignment.Center,
 		MinContentSize = defaultSize,
 		Modal = true,
-	},{
+	}, {
 		Content = Roact.createElement(Pane, {
 			Layout = Enum.FillDirection.Vertical,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
@@ -147,7 +136,7 @@ function CameraSelectionDialog:render()
 				LayoutOrder = 4,
 			}, {
 				CameraSelection = Roact.createElement(SelectInput, {
-					PlaceholderText = localization:getText("FaceCapture", "CameraSelectionPlaceholder"),	
+					PlaceholderText = localization:getText("FaceCapture", "CameraSelectionPlaceholder"),
 					Width = TEXT_WIDTH,
 					SelectedIndex = currentlySelectedIndex,
 					Items = dropdownItems,
@@ -157,12 +146,12 @@ function CameraSelectionDialog:render()
 						-- TODO: currently this view is being rerendered by the parrent view
 						-- in the future we should somehow trigger the render on the select input button click
 						self:setState({
-							selectedGuid = selectedGuid
+							selectedGuid = selectedGuid,
 						})
 					end,
 				}),
 			}),
-		})
+		}),
 	})
 end
 

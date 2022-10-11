@@ -1,6 +1,3 @@
-local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
-local FFlagToolboxFixAssetsNoVoteData2 = game:GetFastFlag("ToolboxFixAssetsNoVoteData2")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -128,28 +125,18 @@ end
 
 return Rodux.createReducer({}, {
 	[GetAssets.name] = function(state, action)
-		if FFlagToolboxFixAssetsNoVoteData2 then
-			return updateAssetVotes(state, action)
-		else
-			local newVoting = {}
-			for _, asset in ipairs(action.assets) do
-				newVoting[asset.Asset.Id] = asset.Voting
-			end
-			return Cryo.Dictionary.join(state, newVoting)
-		end
+		return updateAssetVotes(state, action)
 	end,
 
-	[GetAssetsVotingData.name] = if FFlagToolboxFixAssetsNoVoteData2
-		then function(state, action)
-			return updateAssetVotes(state, action)
-		end
-		else nil,
+	[GetAssetsVotingData.name] = function(state, action)
+		return updateAssetVotes(state, action)
+	end,
 
 	[PostInsertAsset.name] = function(state, action)
 		return setShowVoteButtons(state, action.assetId)
 	end,
 
-	[GetVote.name] = FFlagToolboxUseGetVote and function(state, action)
+	[GetVote.name] = function(state, action)
 		return handleGetVote(state, action.assetId, action.userVote)
 	end,
 
@@ -161,7 +148,7 @@ return Rodux.createReducer({}, {
 		return handleUnvoting(state, action.assetId)
 	end,
 
-	[SetVoteLoading.name] = FFlagToolboxUseGetVote and function(state, action)
+	[SetVoteLoading.name] = function(state, action)
 		return setVoteLoading(state, action.AssetId, action.VoteLoading, action.VoteFetchAttempted)
 	end,
 })

@@ -10,8 +10,8 @@ return function()
 		return Roact.createElement(MockWrapper, {}, {
 			Contents = Roact.createElement(ErrorDialogContents, {
 				ErrorType = "TestError",
-				Entries = {"TestEntry1", "TestEntry2"},
-			})
+				Entries = { "TestEntry1", "TestEntry2" },
+			}),
 		})
 	end
 

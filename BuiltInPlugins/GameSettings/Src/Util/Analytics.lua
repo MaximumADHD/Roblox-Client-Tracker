@@ -5,7 +5,6 @@
 	Allows for local logging to the console by modifying the constant value below.
 ]]
 
-
 local LOG_ANALYTICS_EVENTS = false
 
 local AnalyticsService = game:GetService("RbxAnalyticsService")
@@ -38,13 +37,13 @@ local Analytics = {}
 -- Logging
 function Analytics.print(reportType, counterName, num)
 	if LOG_ANALYTICS_EVENTS then
-		print(string.format("Game Settings Analytics: %s: \"%s\", %f", reportType, counterName, num))
+		print(string.format('Game Settings Analytics: %s: "%s", %f', reportType, counterName, num))
 	end
 end
 
 function Analytics.printTable(reportType, counterName, tab)
 	if LOG_ANALYTICS_EVENTS then
-		print(string.format("Game Settings Analytics: %s: \"%s\", %s", reportType, counterName, tab))
+		print(string.format('Game Settings Analytics: %s: "%s", %s', reportType, counterName, tab))
 	end
 end
 
@@ -187,10 +186,12 @@ end
 function Analytics.onNumCollaboratorsChanged(numCollaborators)
 	-- Averages can be misleading (e.g. 95% of games have < 10 collaborators, but 5% have 150 - avg is ~17)
 	-- So track how many games are getting closer to the max for the charts instead
-	local thresholds = {1.0, 0.75, 0.5, 0.25}
-	for _,threshold in pairs(thresholds) do
-		if numCollaborators >= threshold*FIntMaxAccessPermissionsCollaborators then
-			Analytics.reportCounter("GameSettings_AccessPermissions_NumCollaboratorThreshold_"..math.floor(threshold*100))
+	local thresholds = { 1.0, 0.75, 0.5, 0.25 }
+	for _, threshold in pairs(thresholds) do
+		if numCollaborators >= threshold * FIntMaxAccessPermissionsCollaborators then
+			Analytics.reportCounter(
+				"GameSettings_AccessPermissions_NumCollaboratorThreshold_" .. math.floor(threshold * 100)
+			)
 			break
 		end
 	end

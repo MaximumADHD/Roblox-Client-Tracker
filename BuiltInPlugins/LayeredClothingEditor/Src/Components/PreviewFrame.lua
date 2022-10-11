@@ -53,6 +53,10 @@ local PreviewFrame = Roact.PureComponent:extend("PreviewFrame")
 Typecheck.wrap(PreviewFrame, script)
 
 function PreviewFrame:init()
+	self.state = {
+		gridHeightOffset = 0,
+	}
+
 	self.previewFrameRef = Roact.createRef()
 
 	self.onCategoryChanged = function(tabKey, categoryFilter)
@@ -61,10 +65,21 @@ function PreviewFrame:init()
 		self.props.SetSelectedTab(tabKey)
 		self.props.SetCategoryFilter(categoryFilter)
 	end
+
+	self.onAbsoluteSizeChanged = function(rbx)
+		local props = self.props
+		local theme = props.Stylizer
+		local topBarHeight = rbx.PreviewTopBar.AbsoluteSize.Y
+		self:setState({
+			gridHeightOffset = topBarHeight + (2 * theme.MainPadding) + theme.SliderHeight
+		})
+	end
 end
 
 function PreviewFrame:render()
 	local props = self.props
+	local state = self.state
+
 	local size = props.Size
 	local layoutOrder = props.LayoutOrder
 	local theme = props.Stylizer
@@ -75,6 +90,8 @@ function PreviewFrame:render()
 	local trackLength = props.TrackLength
 	local setIsPlaying = props.SetIsPlaying
 	local setSliderPlayhead = props.SetSliderPlayhead
+
+	local gridHeightOffset = state.gridHeightOffset
 
 	local orderIterator = LayoutOrderIterator.new()
 
@@ -92,6 +109,7 @@ function PreviewFrame:render()
 		LayoutOrder = layoutOrder,
 
 		[Roact.Ref] = self.previewFrameRef,
+		[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChanged,
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,
@@ -104,6 +122,7 @@ function PreviewFrame:render()
 			LayoutOrder = orderIterator:getNextOrder(),
 		}),
 		GridContainer = Roact.createElement(Pane, {
+			Size = UDim2.new(1, 0, 1, -gridHeightOffset),
 			Layout = Enum.FillDirection.Horizontal,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			LayoutOrder = orderIterator:getNextOrder(),
@@ -118,11 +137,11 @@ function PreviewFrame:render()
 				UserAddedAssets = userAddedAssets
 			}),
 		}),
-		AnimPlaybackSliderContainer = Roact.createElement(Pane, {
+		AnimPlaybackSliderContainer = PreviewConstantsInterface.shouldTabShowPlaybackSlider(selectedTab) and Roact.createElement(Pane, {
 			Size = UDim2.new(1, -theme.MainPadding, 0, theme.SliderHeight),
 			LayoutOrder = orderIterator:getNextOrder(),
 		},{
-			AnimPlaybackSlider = PreviewConstantsInterface.shouldTabShowPlaybackSlider(selectedTab) and Roact.createElement(AnimationPlaybackSlider, {
+			AnimPlaybackSlider =  Roact.createElement(AnimationPlaybackSlider, {
 				IsPlaying = isPlaying,
 				Playhead = playhead,
 				OnSliderPlayheadChanged = setSliderPlayhead,
@@ -131,18 +150,6 @@ function PreviewFrame:render()
 				TrackLength = trackLength,
 			}),
 		}),
-		PreviewDockWidget = if FFlagEnablePreviewDockWidget
-			then
-				Roact.createElement(PreviewDockWidget, {
-					AnimationId = props.AnimationId,
-					IsPlaying = props.IsPlaying,
-					SliderPlayhead = props.SliderPlayhead,
-					SetPlayhead = props.SetPlayhead,
-					SetIsPlaying = props.SetIsPlaying,
-					SetTrackLength = props.SetTrackLength,
-				})
-			else
-				nil,
 	})
 end
 

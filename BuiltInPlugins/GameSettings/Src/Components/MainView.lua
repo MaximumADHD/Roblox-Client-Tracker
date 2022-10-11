@@ -50,7 +50,7 @@ function MainView:init()
 				break
 			end
 		end
-		assert(selectedPage, "There are no pages in PageManifest with LocalizationId \"" .. firstSelectedId .. "\"")
+		assert(selectedPage, 'There are no pages in PageManifest with LocalizationId "' .. firstSelectedId .. '"')
 	else
 		-- Entries may be false due to flagging instead of a valid page component, so skip them
 		local firstValidPage = nil
@@ -92,58 +92,70 @@ function MainView:render()
 	local children = {}
 	local menuEntries = {}
 	if isPublishedGame then
-		for i,pageComponent in ipairs(PageManifest) do
+		for i, pageComponent in ipairs(PageManifest) do
 			if pageComponent then
 				local loadState = pageLoadStates[pageComponent.LocalizationId]
 				menuEntries[i] = pageComponent.LocalizationId
-				children[tostring(pageComponent)] = (i == Selected or loadState ~= nil) and Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.fromScale(1, 1),
-					Visible = i == Selected,
-				}, {
-					PageContents = Roact.createElement(pageComponent),
-				})
+				children[tostring(pageComponent)] = (i == Selected or loadState ~= nil)
+					and Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.fromScale(1, 1),
+						Visible = i == Selected,
+					}, {
+						PageContents = Roact.createElement(pageComponent),
+					})
 			end
 		end
 	end
 
 	local publishText = localization:getText("General", "PublishText")
-    local buttonText = localization:getText("General", "ButtonPublish")
+	local buttonText = localization:getText("General", "ButtonPublish")
 	publishText = localization:getText("General", "SaveText")
 	buttonText = localization:getText("General", "ButtonSaveToRoblox")
-	local buttonTextExtents = TextService:GetTextSize(buttonText, theme.fontStyle.Normal.TextSize,
-		theme.fontStyle.Normal.Font, Vector2.new(math.huge, math.huge))
+	local buttonTextExtents = TextService:GetTextSize(
+		buttonText,
+		theme.fontStyle.Normal.TextSize,
+		theme.fontStyle.Normal.Font,
+		Vector2.new(math.huge, math.huge)
+	)
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundColor3 = theme.backgroundColor,
-	}, (not isPublishedGame) and {
-		UseText = Roact.createElement(FitTextLabel, Cryo.Dictionary.join(theme.fontStyle.Normal, {
-            Position = UDim2.new(0.5, 0, 0, theme.mainView.publishText.offset),
+	}, not isPublishedGame and {
+		UseText = Roact.createElement(
+			FitTextLabel,
+			Cryo.Dictionary.join(theme.fontStyle.Normal, {
+				Position = UDim2.new(0.5, 0, 0, theme.mainView.publishText.offset),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Text = publishText,
+
+				BackgroundTransparency = 1,
+
+				width = theme.mainView.publishText.width,
+			})
+		),
+
+		PublishButton = Roact.createElement(Button, {
+			Style = "GameSettingsPrimaryButton",
+
+			Text = buttonText,
+			Size = UDim2.new(
+				0,
+				buttonTextExtents.X + theme.mainView.publishButton.paddingX,
+				0,
+				buttonTextExtents.Y + theme.mainView.publishButton.paddingY
+			),
+			Position = UDim2.new(0.5, 0, 0, theme.mainView.publishButton.offset),
 			AnchorPoint = Vector2.new(0.5, 0.5),
-			Text = publishText,
 
-			BackgroundTransparency = 1,
-
-			width = theme.mainView.publishText.width,
-        })),
-
-        PublishButton = Roact.createElement(Button, {
-            Style = "GameSettingsPrimaryButton",
-
-            Text = buttonText,
-            Size = UDim2.new(0, buttonTextExtents.X + theme.mainView.publishButton.paddingX,
-                0, buttonTextExtents.Y + theme.mainView.publishButton.paddingY),
-            Position = UDim2.new(0.5, 0, 0, theme.mainView.publishButton.offset),
-            AnchorPoint = Vector2.new(0.5, 0.5),
-
-            OnClick = function()
-                StudioPublishService:ShowSaveOrPublishPlaceToRoblox(false, false, Enum.StudioCloseMode.None)
-                self.props.OnClose(false)
-            end,
-        }, {
-            Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
-        }),
+			OnClick = function()
+				StudioPublishService:ShowSaveOrPublishPlaceToRoblox(false, false, Enum.StudioCloseMode.None)
+				self.props.OnClose(false)
+			end,
+		}, {
+			Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
+		}),
 	} or {
 		Padding = Roact.createElement("UIPadding", {
 			PaddingTop = UDim.new(0, 5),
@@ -185,12 +197,14 @@ function MainView:render()
 
 				[Roact.Change.AbsolutePosition] = function(rbx)
 					local parent = rbx.Parent
-					if not parent then return end
+					if not parent then
+						return
+					end
 
 					local relativePosition = rbx.AbsolutePosition - parent.AbsolutePosition
 					self:setState({ PageContentOffset = relativePosition.X })
 				end,
-			}, children)
+			}, children),
 		}),
 
 		FooterContent = Roact.createElement(Container, {
@@ -201,7 +215,7 @@ function MainView:render()
 				OnClose = function(didSave, savePromise)
 					self.props.OnClose(didSave, savePromise)
 				end,
-			})
+			}),
 		}),
 	})
 end
@@ -211,13 +225,11 @@ MainView = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(MainView)
 
-MainView = RoactRodux.connect(
-	function(state, props)
-		return {
-			GameId = state.Metadata.gameId,
-			PageLoadStates = state.PageLoadState,
-		}
-	end
-)(MainView)
+MainView = RoactRodux.connect(function(state, props)
+	return {
+		GameId = state.Metadata.gameId,
+		PageLoadStates = state.PageLoadState,
+	}
+end)(MainView)
 
 return MainView

@@ -41,12 +41,12 @@ function CollaboratorsWidget:render()
 
 	local userChildren = {}
 	for i, userId in pairs(userCollaborators) do
-		userChildren["Separator"..i] = Roact.createElement(Separator, {
-			LayoutOrder = i*2 - 1,
+		userChildren["Separator" .. i] = Roact.createElement(Separator, {
+			LayoutOrder = i * 2 - 1,
 		})
 
-		userChildren["User"..userId] = Roact.createElement(UserCollaboratorItem, {
-			LayoutOrder = i*2,
+		userChildren["User" .. userId] = Roact.createElement(UserCollaboratorItem, {
+			LayoutOrder = i * 2,
 			Writable = writable,
 			Editable = editable,
 			Id = userId,
@@ -54,19 +54,19 @@ function CollaboratorsWidget:render()
 	end
 
 	userChildren.LastSeparator = Roact.createElement(Separator, {
-		LayoutOrder = #userCollaborators*2 + 1,
+		LayoutOrder = #userCollaborators * 2 + 1,
 	})
 
-	local groupLabelSpot = #userCollaborators*2 + 2
+	local groupLabelSpot = #userCollaborators * 2 + 2
 
 	local groupChildren = {}
 	for i, groupId in pairs(groupCollaborators) do
-		groupChildren["SeparatorGroup"..i] = Roact.createElement(Separator, {
-			LayoutOrder = groupLabelSpot + (i*2 - 1),
+		groupChildren["SeparatorGroup" .. i] = Roact.createElement(Separator, {
+			LayoutOrder = groupLabelSpot + (i * 2 - 1),
 		})
 
-		groupChildren["Group"..groupId] = Roact.createElement(GroupCollaboratorItem, {
-			LayoutOrder = groupLabelSpot + i*2,
+		groupChildren["Group" .. groupId] = Roact.createElement(GroupCollaboratorItem, {
+			LayoutOrder = groupLabelSpot + i * 2,
 			Writable = writable,
 			Id = groupId,
 			isOwner = false,
@@ -75,47 +75,49 @@ function CollaboratorsWidget:render()
 	end
 
 	groupChildren.LastSeparator = Roact.createElement(Separator, {
-		LayoutOrder = groupLabelSpot + #groupCollaborators*2 + 1,
+		LayoutOrder = groupLabelSpot + #groupCollaborators * 2 + 1,
 	})
 
 	local widgetChildren = {
-		UsersTitle = #userCollaborators > 0 and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
-			LayoutOrder = 0,
+		UsersTitle = #userCollaborators > 0 and Roact.createElement(
+			"TextLabel",
+			Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
+				LayoutOrder = 0,
 
-			Text = localization:getText(PERMISSIONS_ID, "UsersCollaboratorType"),
-			TextXAlignment = Enum.TextXAlignment.Left,
+				Text = localization:getText(PERMISSIONS_ID, "UsersCollaboratorType"),
+				TextXAlignment = Enum.TextXAlignment.Left,
 
-			Visible = #userCollaborators > 0,
-			BackgroundTransparency = 1,
-		})),
-
-		Users = #userCollaborators > 0 and (
-			Roact.createElement(Pane, {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-				Layout = Enum.FillDirection.Vertical,
-				LayoutOrder = 1,
-			}, userChildren)
+				Visible = #userCollaborators > 0,
+				BackgroundTransparency = 1,
+			})
 		),
 
-		GroupsTitle = #groupCollaborators > 0 and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
-			LayoutOrder = groupLabelSpot,
+		Users = #userCollaborators > 0 and (Roact.createElement(Pane, {
+			AutomaticSize = Enum.AutomaticSize.Y,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			Layout = Enum.FillDirection.Vertical,
+			LayoutOrder = 1,
+		}, userChildren)),
 
-			Text = localization:getText(PERMISSIONS_ID, "GroupsCollaboratorType"),
-			TextXAlignment = Enum.TextXAlignment.Left,
+		GroupsTitle = #groupCollaborators > 0 and Roact.createElement(
+			"TextLabel",
+			Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
+				LayoutOrder = groupLabelSpot,
 
-			Visible = #groupCollaborators > 0,
-			BackgroundTransparency = 1,
-		})),
+				Text = localization:getText(PERMISSIONS_ID, "GroupsCollaboratorType"),
+				TextXAlignment = Enum.TextXAlignment.Left,
 
-		Groups = #groupCollaborators > 0 and (
-			Roact.createElement(Pane, {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-				Layout = Enum.FillDirection.Vertical,
-				LayoutOrder = groupLabelSpot + 1,
-			}, groupChildren)
+				Visible = #groupCollaborators > 0,
+				BackgroundTransparency = 1,
+			})
 		),
+
+		Groups = #groupCollaborators > 0 and (Roact.createElement(Pane, {
+			AutomaticSize = Enum.AutomaticSize.Y,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			Layout = Enum.FillDirection.Vertical,
+			LayoutOrder = groupLabelSpot + 1,
+		}, groupChildren)),
 	}
 
 	return Roact.createElement(Pane, {
@@ -132,13 +134,11 @@ CollaboratorsWidget = withContext({
 	Localization = ContextServices.Localization,
 })(CollaboratorsWidget)
 
-CollaboratorsWidget = RoactRodux.connect(
-	function(state, props)
-		return {
-			UserCollaborators = GetUserCollaborators(state),
-			GroupCollaborators = GetGroupCollaborators(state),
-		}
-	end
-)(CollaboratorsWidget)
+CollaboratorsWidget = RoactRodux.connect(function(state, props)
+	return {
+		UserCollaborators = GetUserCollaborators(state),
+		GroupCollaborators = GetGroupCollaborators(state),
+	}
+end)(CollaboratorsWidget)
 
 return CollaboratorsWidget

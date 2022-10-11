@@ -28,7 +28,8 @@ local FIntStudioAudioDiscoveryMaxAssetIdsPerRequest = game:GetFastInt("StudioAud
 local FIntStudioAudioDiscoveryPerRequestCooldown = game:GetFastInt("StudioAudioDiscoveryPerRequestCooldown")
 local FIntStudioAudioDiscoveryCooldownAfterHttp429 = game:GetFastInt("StudioAudioDiscoveryCooldownAfterHttp429")
 local FIntStudioAudioDiscoveryMaxRecentRequests = game:GetFastInt("StudioAudioDiscoveryMaxRecentRequests")
-local FFlagDEBUG_StudioAudioDiscoveryPermissionCheckError = game:GetFastFlag("DEBUG_StudioAudioDiscoveryPermissionCheckErrors")
+local FFlagDEBUG_StudioAudioDiscoveryPermissionCheckError =
+	game:GetFastFlag("DEBUG_StudioAudioDiscoveryPermissionCheckErrors")
 local FFlagAddNonPermCase = game:GetFastFlag("AddNonPermCase")
 
 local Plugin = script.Parent.Parent.Parent
@@ -50,7 +51,7 @@ local Analytics = require(Plugin.Src.Util.Analytics)
 local SoundAssetChecker = {}
 SoundAssetChecker.__index = SoundAssetChecker
 
-function SoundAssetChecker.new(networking, timingOverride : {[string]: any}?)
+function SoundAssetChecker.new(networking, timingOverride: { [string]: any }?)
 	local self = {
 		-- Fires array of SoundDetails
 		soundsFound = Signal.new(),
@@ -73,10 +74,14 @@ function SoundAssetChecker.new(networking, timingOverride : {[string]: any}?)
 		-- How many network requests are currently in flight?
 		_batchRequestsInFlight = 0,
 
-		_maxAssetsPerRequest = (timingOverride and timingOverride.maxAssetsPerRequest) or FIntStudioAudioDiscoveryMaxAssetIdsPerRequest,
-		_perRequestCooldown = (timingOverride and timingOverride.perRequestCooldown) or FIntStudioAudioDiscoveryPerRequestCooldown,
-		_cooldownAfterHttp429 = (timingOverride and timingOverride.cooldownAfterHttp429) or FIntStudioAudioDiscoveryCooldownAfterHttp429,
-		_maxRecentRequests = (timingOverride and timingOverride.maxRecentRequests) or FIntStudioAudioDiscoveryMaxRecentRequests,
+		_maxAssetsPerRequest = (timingOverride and timingOverride.maxAssetsPerRequest)
+			or FIntStudioAudioDiscoveryMaxAssetIdsPerRequest,
+		_perRequestCooldown = (timingOverride and timingOverride.perRequestCooldown)
+			or FIntStudioAudioDiscoveryPerRequestCooldown,
+		_cooldownAfterHttp429 = (timingOverride and timingOverride.cooldownAfterHttp429)
+			or FIntStudioAudioDiscoveryCooldownAfterHttp429,
+		_maxRecentRequests = (timingOverride and timingOverride.maxRecentRequests)
+			or FIntStudioAudioDiscoveryMaxRecentRequests,
 
 		-- Track how long ago we sent each request
 		-- Counts down (i.e. once it hits zero, remove from this)
@@ -144,7 +149,7 @@ function SoundAssetChecker:_wakeUpHttpTask()
 	coroutine.resume(self._httpTask)
 end
 
-function SoundAssetChecker:addAssetId(assetId : number)
+function SoundAssetChecker:addAssetId(assetId: number)
 	if assetId == "" or assetId == 0 or assetId == "0" then
 		return
 	end
@@ -170,7 +175,6 @@ function SoundAssetChecker:flush()
 		self:_wakeUpHttpTask()
 	end
 end
-
 
 function SoundAssetChecker:resolved(id: string)
 	if not self._resolvedAssets[id] then
@@ -205,7 +209,7 @@ function SoundAssetChecker:_stepHttpTask()
 	coroutine.yield()
 end
 
-function SoundAssetChecker:_renderStepped(dt : number)
+function SoundAssetChecker:_renderStepped(dt: number)
 	if self._dead then
 		return
 	end
@@ -232,12 +236,12 @@ function SoundAssetChecker:_renderStepped(dt : number)
 	-- - Must have requests to send
 	-- - Can't have sent too many recently
 	-- - Must not have hit a 429 Too Many Requests recently
-	if self:_hasBatchesToSend() and self._hit429 <= 0 and  #self._lastSentRequests < self._maxRecentRequests then
+	if self:_hasBatchesToSend() and self._hit429 <= 0 and #self._lastSentRequests < self._maxRecentRequests then
 		self:_wakeUpHttpTask()
 	end
 end
 
-function SoundAssetChecker:_sendBatch(batch : {number})
+function SoundAssetChecker:_sendBatch(batch: { number })
 	local assetIdsString = table.concat(batch, ",")
 	local url = BaseUrl.composeUrl(BaseUrl.APIS_URL, "toolbox-service/v1/items/details", {
 		assetIds = assetIdsString,
@@ -260,14 +264,17 @@ function SoundAssetChecker:_sendBatch(batch : {number})
 			-- Sent too many requests
 			self._hit429 = self._cooldownAfterHttp429
 			table.insert(self._batchesToSend, batch)
-
 		elseif not (response.responseCode >= 400 and response.responseCode < 500) then
 			-- Same retry logic as dev framework
 			table.insert(self._batchesToSend, batch)
-
 		else
 			-- Request failed, not retrying, log error somehow
-			warn(("Fetching sound asset details failed: %d %s"):format(response.responseCode, response.responseBody.message))
+			warn(
+				("Fetching sound asset details failed: %d %s"):format(
+					response.responseCode,
+					response.responseBody.message
+				)
+			)
 		end
 	end)
 end
@@ -279,32 +286,32 @@ local MONSTERCAT_USER_ID = 1750384777
 -- Luau types for the response we get from the endpoint
 -- https://apis.roblox.com/toolbox-service/v1/items/details?assetIds=13579,24680,12345,67890
 type AssetDetails = {
-	id : number,
-	name : string,
-	typeId : number,
+	id: number,
+	name: string,
+	typeId: number,
 }
 
 type AssetCreator = {
-	id : number,
-	name : string,
-	type : number,
+	id: number,
+	name: string,
+	type: number,
 }
 
 type AssetAllDetails = {
-	asset : AssetDetails,
-	creator : AssetCreator,
+	asset: AssetDetails,
+	creator: AssetCreator,
 }
 
 type AssetDetailsResponseBody = {
-	data : {AssetAllDetails}
+	data: { AssetAllDetails },
 }
 
 type RequestedSet = {
-	assetId : boolean
+	assetId: boolean,
 }
 
 type SoundIdMap = {
-	assetId : {Types.SoundDetails}
+	assetId: { Types.SoundDetails },
 }
 
 local gameCreator = game.CreatorId
@@ -313,17 +320,21 @@ local gameType = game.CreatorType
 local ROBLOX_ID = 1
 
 function SoundAssetChecker:_checkSound(creatorId: number, creatorType: Enum.CreatorType)
-	return (creatorType == Enum.CreatorType.User and (creatorId == ROBLOX_ID or creatorId == MONSTERCAT_USER_ID)) or (gameCreator == creatorId and gameType == creatorType)
+	return (creatorType == Enum.CreatorType.User and (creatorId == ROBLOX_ID or creatorId == MONSTERCAT_USER_ID))
+		or (gameCreator == creatorId and gameType == creatorType)
 end
 
-function SoundAssetChecker:_onBatchCheckUniversePermissionResponse(responseBody, soundIdMap : SoundIdMap, requestOrderTable : {number})
+function SoundAssetChecker:_onBatchCheckUniversePermissionResponse(
+	responseBody,
+	soundIdMap: SoundIdMap,
+	requestOrderTable: { number }
+)
 	Analytics:reportPermissionCheck(responseBody)
 
-	local foundSounds : {Types.SoundDetails} = {}
+	local foundSounds: { Types.SoundDetails } = {}
 	local results = responseBody.responseBody.results
 
 	for idx, assetId in pairs(requestOrderTable) do
-
 		if FFlagAddNonPermCase then
 			if results[idx].value then
 				if results[idx].value.status == "HasPermission" then
@@ -356,7 +367,7 @@ function SoundAssetChecker:_onBatchCheckUniversePermissionResponse(responseBody,
 				self._badAssets += 1
 			end
 		end
-		
+
 		self._soundAssets[assetId] = soundIdMap[assetId]
 		table.insert(foundSounds, soundIdMap[assetId])
 	end
@@ -371,7 +382,7 @@ function SoundAssetChecker:_onBatchCheckUniversePermissionResponse(responseBody,
 	end
 end
 
-function SoundAssetChecker:_sendBatchCheckUniversePermission(soundIdMap : SoundIdMap)
+function SoundAssetChecker:_sendBatchCheckUniversePermission(soundIdMap: SoundIdMap)
 	local headers = {
 		["Content-Type"] = "application/json",
 	}
@@ -381,18 +392,23 @@ function SoundAssetChecker:_sendBatchCheckUniversePermission(soundIdMap : SoundI
 	local counter = 0
 	local _requests = {}
 	local requestOrder = {}
-	for id, soundDetail in pairs(soundIdMap) do 
+	for id, soundDetail in pairs(soundIdMap) do
 		if counter == batchSize then
-			local payload = HttpService:JSONEncode({requests = _requests})
+			local payload = HttpService:JSONEncode({ requests = _requests })
 
 			local httpPromise = self._networking:post(url, payload, headers)
 			local jsonPromise = self._networking:parseJson(httpPromise)
-		
+
 			jsonPromise:andThen(function(response)
 				self:_onBatchCheckUniversePermissionResponse(response, soundIdMap, requestOrder)
 			end, function(response)
-					-- Request failed, not retrying, log error somehow
-					warn(("Fetching sound asset permissions failed: %d %s"):format(response.responseCode, response.responseBody.message))
+				-- Request failed, not retrying, log error somehow
+				warn(
+					("Fetching sound asset permissions failed: %d %s"):format(
+						response.responseCode,
+						response.responseBody.message
+					)
+				)
 			end)
 
 			_requests = {}
@@ -402,10 +418,10 @@ function SoundAssetChecker:_sendBatchCheckUniversePermission(soundIdMap : SoundI
 			local request = {
 				subject = {
 					subjectType = "Universe",
-					subjectId = tostring(game.GameId) 
+					subjectId = tostring(game.GameId),
 				},
 				action = "use",
-				assetId = tostring(id)
+				assetId = tostring(id),
 			}
 			table.insert(_requests, request)
 			table.insert(requestOrder, id)
@@ -413,21 +429,26 @@ function SoundAssetChecker:_sendBatchCheckUniversePermission(soundIdMap : SoundI
 			counter = counter + 1
 		end
 	end
-	
-	local payload = HttpService:JSONEncode({requests = _requests})
+
+	local payload = HttpService:JSONEncode({ requests = _requests })
 
 	local httpPromise = self._networking:post(url, payload, headers)
 	local jsonPromise = self._networking:parseJson(httpPromise)
-	
+
 	jsonPromise:andThen(function(response)
 		self:_onBatchCheckUniversePermissionResponse(response, soundIdMap, requestOrder)
 	end, function(response)
 		-- Request failed, not retrying, log error somehow
-		warn(("Fetching sound asset permissions failed: %d %s"):format(response.responseCode, response.responseBody.message))
-	end)	
+		warn(
+			("Fetching sound asset permissions failed: %d %s"):format(
+				response.responseCode,
+				response.responseBody.message
+			)
+		)
+	end)
 end
 
-function SoundAssetChecker:_onBatchResponse(requestedBatch : {number}, responseBody : AssetDetailsResponseBody)
+function SoundAssetChecker:_onBatchResponse(requestedBatch: { number }, responseBody: AssetDetailsResponseBody)
 	-- Asset ids that aren't valid won't appear in the response
 	-- So track what we actually requested, so we can see which ones are missing
 	local requestedSet = {}
@@ -435,7 +456,7 @@ function SoundAssetChecker:_onBatchResponse(requestedBatch : {number}, responseB
 		requestedSet[assetId] = true
 	end
 
-	local foundSounds : {Types.SoundDetails} = {}
+	local foundSounds: { Types.SoundDetails } = {}
 
 	local soundIds = {}
 
@@ -447,12 +468,14 @@ function SoundAssetChecker:_onBatchResponse(requestedBatch : {number}, responseB
 		-- If this isn't a sound, then just cache that and bail early
 		if assetAllDetails.asset.typeId ~= AUDIO_TYPE_ID then
 			self._nonSoundAssetIds[assetId] = true
-			continue 
+			continue
 		else
-			local creatorType = if assetAllDetails.creator.type == USER_TYPE_ID then Enum.CreatorType.User else Enum.CreatorType.Group
+			local creatorType = if assetAllDetails.creator.type == USER_TYPE_ID
+				then Enum.CreatorType.User
+				else Enum.CreatorType.Group
 			local isGoodAsset = self:_checkSound(assetAllDetails.creator.id, creatorType)
 			local ok = if isGoodAsset then "ok" else "error"
-			
+
 			local soundDetails: Types.SoundDetails = {
 				OK = ok,
 				Id = tostring(assetId),
@@ -460,10 +483,10 @@ function SoundAssetChecker:_onBatchResponse(requestedBatch : {number}, responseB
 				CreatorId = assetAllDetails.creator.id,
 				CreatorType = if assetAllDetails.creator.type == USER_TYPE_ID then "User" else "Group",
 				Creator = assetAllDetails.creator.name,
-				Time = assetAllDetails.asset.duration	,
+				Time = assetAllDetails.asset.duration,
 			}
 			soundIds[assetId] = soundDetails
-			
+
 			if game.GameId == 0 then
 				if isGoodAsset then
 					self._goodAssets += 1
@@ -474,7 +497,6 @@ function SoundAssetChecker:_onBatchResponse(requestedBatch : {number}, responseB
 				self._soundAssets[assetId] = soundDetails
 				table.insert(foundSounds, soundDetails)
 			end
-			
 		end
 	end
 
@@ -489,7 +511,7 @@ function SoundAssetChecker:_onBatchResponse(requestedBatch : {number}, responseB
 		if #foundSounds > 0 then
 			self.soundsFound:Fire(foundSounds)
 		end
-	
+
 		if not self:_hasBatchesToSend() and self._batchRequestsInFlight == 0 then
 			-- Done sending batches, report the breakdown
 			Analytics:reportBreakdown(self._goodAssets, self._badAssets)

@@ -125,7 +125,7 @@ end
 AnimationEventsTrack = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
-	Mouse = ContextServices.Mouse
+	Mouse = ContextServices.Mouse,
 })(AnimationEventsTrack)
 
 return AnimationEventsTrack

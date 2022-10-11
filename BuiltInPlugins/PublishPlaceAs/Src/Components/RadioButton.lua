@@ -41,8 +41,13 @@ function RadioButton:render()
 	local description = props.Description and props.Description or nil
 	local titleTextSize = TextService:GetTextSize(title, FONT_SUBTEXT_TEXT_SIZE, style.font, Vector2.new())
 
-	local descriptionTextSize = props.Description and TextService:GetTextSize(description, FONT_SUBTEXT_TEXT_SIZE, style.font,
-		Vector2.new(RADIO_BUTTON_DESCRIPTION_WIDTH, math.huge))
+	local descriptionTextSize = props.Description
+		and TextService:GetTextSize(
+			description,
+			FONT_SUBTEXT_TEXT_SIZE,
+			style.font,
+			Vector2.new(RADIO_BUTTON_DESCRIPTION_WIDTH, math.huge)
+		)
 
 	local children = props.Children and props.Children or {}
 
@@ -52,7 +57,7 @@ function RadioButton:render()
 	local normalFontStyle = {
 		Font = style.font,
 		TextSize = 22,
-		TextColor3 = style.textColor
+		TextColor3 = style.textColor,
 	}
 
 	local subtextFontStyle = {
@@ -97,60 +102,68 @@ function RadioButton:render()
 			}),
 		}),
 
-
-		ContentAndChildren = Roact.createElement(FitFrameOnAxis,{
-			axis = FitFrameOnAxis.Axis.Vertical,
-			minimumSize = UDim2.new(0, minimumContentSize, 0, 0),
-			contentPadding = UDim.new(0, Constants.RADIO_BUTTON_PADDING),
-			BackgroundTransparency = 1,
-			FillDirection = Enum.FillDirection.Vertical,
-
-			LayoutOrder = 2,
-		},
-		Cryo.Dictionary.join({
-			TitleLabel = Roact.createElement("TextButton", Cryo.Dictionary.join(normalFontStyle, {
+		ContentAndChildren = Roact.createElement(
+			FitFrameOnAxis,
+			{
+				axis = FitFrameOnAxis.Axis.Vertical,
+				minimumSize = UDim2.new(0, minimumContentSize, 0, 0),
+				contentPadding = UDim.new(0, Constants.RADIO_BUTTON_PADDING),
 				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Size = UDim2.new(0, titleTextSize.X, 0, titleTextSize.Y),
+				FillDirection = Enum.FillDirection.Vertical,
 
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Center,
-				TextTransparency = self.props.Enabled and 0 or 0.5,
-				Text = title,
+				LayoutOrder = 2,
+			},
+			Cryo.Dictionary.join({
+				TitleLabel = Roact.createElement(
+					"TextButton",
+					Cryo.Dictionary.join(normalFontStyle, {
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+						Size = UDim2.new(0, titleTextSize.X, 0, titleTextSize.Y),
 
-				[Roact.Event.MouseEnter] = self.mouseEnter,
-				[Roact.Event.MouseLeave] = self.mouseLeave,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Center,
+						TextTransparency = self.props.Enabled and 0 or 0.5,
+						Text = title,
 
-				[Roact.Event.Activated] = function()
-					if self.props.Enabled then
-						self.props.OnClicked()
-					end
-				end,
+						[Roact.Event.MouseEnter] = self.mouseEnter,
+						[Roact.Event.MouseLeave] = self.mouseLeave,
 
-				LayoutOrder = -2,
-			})),
+						[Roact.Event.Activated] = function()
+							if self.props.Enabled then
+								self.props.OnClicked()
+							end
+						end,
 
-			DescriptionLabel = props.Description and Roact.createElement("TextButton", Cryo.Dictionary.join(subtextFontStyle, {
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Size = UDim2.new(0, descriptionTextSize.X, 0, descriptionTextSize.Y),
+						LayoutOrder = -2,
+					})
+				),
 
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Top,
-				Text = description,
-				TextWrapped = true,
-				[Roact.Event.MouseEnter] = self.mouseEnter,
-				[Roact.Event.MouseLeave] = self.mouseLeave,
+				DescriptionLabel = props.Description and Roact.createElement(
+					"TextButton",
+					Cryo.Dictionary.join(subtextFontStyle, {
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+						Size = UDim2.new(0, descriptionTextSize.X, 0, descriptionTextSize.Y),
 
-				[Roact.Event.Activated] = function()
-					if self.props.Enabled then
-						self.props.OnClicked()
-					end
-				end,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Top,
+						Text = description,
+						TextWrapped = true,
+						[Roact.Event.MouseEnter] = self.mouseEnter,
+						[Roact.Event.MouseLeave] = self.mouseLeave,
 
-				LayoutOrder = -1,
-			})),
-		}, children)),
+						[Roact.Event.Activated] = function()
+							if self.props.Enabled then
+								self.props.OnClicked()
+							end
+						end,
+
+						LayoutOrder = -1,
+					})
+				),
+			}, children)
+		),
 	})
 end
 

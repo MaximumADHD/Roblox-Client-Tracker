@@ -56,20 +56,21 @@ function PanelEntry:render()
 			Text = description,
 			TextWrapped = true,
 		}),
-		Content = hasChild and Roact.createElement(Pane, {
-			LayoutOrder = 3,
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			AutomaticSize = not size and Enum.AutomaticSize.Y or nil,
-			-- For a FixedSize panel, the content must fill the remaining space
-			-- AutomaticSize doesn't allow us to do this at time of writing,
-			-- so approximate the size.
-			Size = size and UDim2.new(1, 0, 1, -30),
-			Layout = Enum.FillDirection.Vertical,
-			Padding = {
-				Top = sizes.OuterPadding
-			},
-			Spacing = sizes.InnerPadding,
-		}, contentChildren)
+		Content = hasChild
+			and Roact.createElement(Pane, {
+				LayoutOrder = 3,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				AutomaticSize = not size and Enum.AutomaticSize.Y or nil,
+				-- For a FixedSize panel, the content must fill the remaining space
+				-- AutomaticSize doesn't allow us to do this at time of writing,
+				-- so approximate the size.
+				Size = size and UDim2.new(1, 0, 1, -30),
+				Layout = Enum.FillDirection.Vertical,
+				Padding = {
+					Top = sizes.OuterPadding,
+				},
+				Spacing = sizes.InnerPadding,
+			}, contentChildren),
 	}
 	return Roact.createElement(Pane, {
 		Style = "BorderBox",
@@ -83,11 +84,8 @@ function PanelEntry:render()
 	}, children)
 end
 
-
 PanelEntry = withContext({
-	Stylizer = ContextServices.Stylizer
+	Stylizer = ContextServices.Stylizer,
 })(PanelEntry)
-
-
 
 return PanelEntry

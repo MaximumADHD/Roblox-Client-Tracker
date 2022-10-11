@@ -102,11 +102,14 @@ function FilteringTextBox:render()
 		BackgroundTransparency = 1,
 		[Roact.Ref] = self.frameRef,
 	}, {
-		TextBox = Roact.createElement(TextBox, Cryo.Dictionary.join(props, {
-			Size = UDim2.new(1, 0, 1, 0),
-			FocusChanged = self.onFocusChanged,
-			TextChanged = self.updateText,
-		})),
+		TextBox = Roact.createElement(
+			TextBox,
+			Cryo.Dictionary.join(props, {
+				Size = UDim2.new(1, 0, 1, 0),
+				FocusChanged = self.onFocusChanged,
+				TextChanged = self.updateText,
+			})
+		),
 
 		Dropdown = #filteredItems > 0 and frameRef and Roact.createElement(DropdownMenu, {
 			OnItemClicked = self.onItemClicked,

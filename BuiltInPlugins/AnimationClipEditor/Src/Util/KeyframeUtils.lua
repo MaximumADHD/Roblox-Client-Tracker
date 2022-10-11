@@ -15,16 +15,10 @@ local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFla
 
 local KeyframeUtils = {}
 
-function KeyframeUtils.getDefaultValue(trackType: string) : (CFrame | Vector3 | number)
-	if
-		trackType == Constants.TRACK_TYPES.CFrame
-		or trackType == Constants.TRACK_TYPES.Quaternion
-	then
+function KeyframeUtils.getDefaultValue(trackType: string): (CFrame | Vector3 | number)
+	if trackType == Constants.TRACK_TYPES.CFrame or trackType == Constants.TRACK_TYPES.Quaternion then
 		return CFrame.new()
-	elseif
-		trackType == Constants.TRACK_TYPES.Position
-		or trackType == Constants.TRACK_TYPES.EulerAngles
-	then
+	elseif trackType == Constants.TRACK_TYPES.Position or trackType == Constants.TRACK_TYPES.EulerAngles then
 		return Vector3.new()
 	elseif
 		trackType == Constants.TRACK_TYPES.Number
@@ -225,12 +219,12 @@ function KeyframeUtils.getSlope(track, tck, side)
 
 		-- Helpers to navigate the keyframes
 		local function getPrevKeyframe()
-			local prevTick = track.Keyframes[keyIndex-1]
+			local prevTick = track.Keyframes[keyIndex - 1]
 			return prevTick, prevTick and track.Data[prevTick] or nil
 		end
 
 		local function getNextKeyframe()
-			local nextTick = track.Keyframes[keyIndex+1]
+			local nextTick = track.Keyframes[keyIndex + 1]
 			return nextTick, nextTick and track.Data[nextTick] or nil
 		end
 
@@ -241,15 +235,18 @@ function KeyframeUtils.getSlope(track, tck, side)
 			local nextTick, nextKeyframe = getNextKeyframe()
 			if prevTick and nextTick then
 				if track.Type == Constants.TRACK_TYPES.Quaternion then
-					return .5 * ((1 / (nextTick - tck)) + (1 / (tck - prevTick)))
+					return 0.5 * ((1 / (nextTick - tck)) + (1 / (tck - prevTick)))
 				else
 					local function clamp(x)
 						local factor = Constants.CLAMPED_AUTO_TANGENT_THRESHOLD
 						return math.max(0, math.min(x / factor, (1 - x) / factor, 1))
 					end
 
-					local fd = .5 * (((nextKeyframe.Value - keyframe.Value) / (nextTick - tck)) +
-									((prevKeyframe.Value - keyframe.Value) / (prevTick - tck)))
+					local fd = 0.5
+						* (
+							((nextKeyframe.Value - keyframe.Value) / (nextTick - tck))
+							+ ((prevKeyframe.Value - keyframe.Value) / (prevTick - tck))
+						)
 					fd *= clamp((keyframe.Value - prevKeyframe.Value) / (nextKeyframe.Value - prevKeyframe.Value))
 
 					return fd
@@ -333,7 +330,7 @@ function KeyframeUtils.getSlopes(track, tck)
 
 	if data[tck] then
 		return KeyframeUtils.getSlope(track, tck, Constants.SLOPES.Left),
-				KeyframeUtils.getSlope(track, tck, Constants.SLOPES.Right)
+			KeyframeUtils.getSlope(track, tck, Constants.SLOPES.Right)
 	end
 
 	local lowIndex, highIndex = KeyframeUtils.findNearestKeyframes(keyframes, tck)
@@ -370,28 +367,21 @@ function KeyframeUtils.getSlopes(track, tck)
 
 		local slope
 		if track.Type == Constants.TRACK_TYPES.Quaternion then
-			slope = g01 / deltaTick
-			+ g10 * lowSlope
-			+ g11 * highSlope
+			slope = g01 / deltaTick + g10 * lowSlope + g11 * highSlope
 
 			-- Scale the slope. We need to calculate the k used for the slerp at tick
 			local t2 = t * t
 			local h10 = ((t - 2) * t + 1) * t
 			local h01 = t2 * (3 - 2 * t)
 			local h11 = t2 * (t - 1)
-			local k = h10 * deltaTick * lowSlope
-				+ h01
-				+ h11 * deltaTick * highSlope
+			local k = h10 * deltaTick * lowSlope + h01 + h11 * deltaTick * highSlope
 			local sleft = slope / k
 			local sright = slope / (1 - k)
 			return sleft, sright
 		else
-			slope = (g00 * lowKey.Value + g01 * highKey.Value) / deltaTick
-				+ g10 * lowSlope
-				+ g11 * highSlope
+			slope = (g00 * lowKey.Value + g01 * highKey.Value) / deltaTick + g10 * lowSlope + g11 * highSlope
 			return slope, slope
 		end
-
 	end
 
 	return 0, 0
@@ -422,9 +412,7 @@ function KeyframeUtils.blendCurveKeyframes(track, tck, low, high)
 
 		if track.Type == Constants.TRACK_TYPES.Quaternion then
 			-- The curve describes how the lerp coefficient evolves (always between 0 and 1)
-			local k = h10 * deltaTick * lowSlope
-				+ h01
-				+ h11 * deltaTick * highSlope
+			local k = h10 * deltaTick * lowSlope + h01 + h11 * deltaTick * highSlope
 			return KeyframeUtils.interpolate(lowEntry.Value, highEntry.Value, k)
 		else
 			return h00 * lowEntry.Value
@@ -448,9 +436,11 @@ function KeyframeUtils.blendKeyframes(dataTable, tck, low, high)
 	elseif lowEntry.EasingStyle == Enum.PoseEasingStyle.Linear then
 		alpha = distance
 	else
-		alpha = TweenService:GetValue(distance,
+		alpha = TweenService:GetValue(
+			distance,
 			Enum.EasingStyle[lowEntry.EasingStyle.Name],
-			Enum.EasingDirection[lowEntry.EasingDirection.Name])
+			Enum.EasingDirection[lowEntry.EasingDirection.Name]
+		)
 	end
 
 	return KeyframeUtils.interpolate(lowEntry.Value, highEntry.Value, alpha)
@@ -461,9 +451,8 @@ end
 function KeyframeUtils.getValue(
 	track: Types.Track,
 	tck: number,
-	defaultEulerAnglesOrder: Enum.RotationOrder?)
-	: (CFrame | Vector3 | number)?
-
+	defaultEulerAnglesOrder: Enum.RotationOrder?
+): (CFrame | Vector3 | number)?
 	if track.Keyframes and not isEmpty(track.Keyframes) then
 		local keyframes = track.Keyframes
 		local lowIndex, highIndex = KeyframeUtils.findNearestKeyframes(keyframes, tck)
@@ -479,16 +468,35 @@ function KeyframeUtils.getValue(
 	end
 
 	if track.Type == Constants.TRACK_TYPES.CFrame then
-		local positionTrack = if ((not GetFFlagFacialAnimationRecordingInStudio()) or (track and track.Components)) then track.Components[Constants.PROPERTY_KEYS.Position] else nil
-		local rotationTrack = if ((not GetFFlagFacialAnimationRecordingInStudio()) or (track and track.Components)) then track.Components[Constants.PROPERTY_KEYS.Rotation] else nil
+		local positionTrack = if ((not GetFFlagFacialAnimationRecordingInStudio()) or (track and track.Components))
+			then track.Components[Constants.PROPERTY_KEYS.Position]
+			else nil
+		local rotationTrack = if ((not GetFFlagFacialAnimationRecordingInStudio()) or (track and track.Components))
+			then track.Components[Constants.PROPERTY_KEYS.Rotation]
+			else nil
 
-		local position = positionTrack and KeyframeUtils.getValue(positionTrack, tck, defaultEulerAnglesOrder)::Vector3? or Vector3.new()
+		local position = positionTrack
+				and KeyframeUtils.getValue(positionTrack, tck, defaultEulerAnglesOrder) :: Vector3?
+			or Vector3.new()
 
-		if ((not GetFFlagFacialAnimationRecordingInStudio()) or rotationTrack) and rotationTrack.Type == Constants.TRACK_TYPES.EulerAngles then
-			local rotation = rotationTrack and KeyframeUtils.getValue(rotationTrack, tck, defaultEulerAnglesOrder)::Vector3? or Vector3.new()
-			return CFrame.new(position) * CFrame.fromEulerAngles(rotation.X, rotation.Y, rotation.Z, rotationTrack.EulerAnglesOrder or defaultEulerAnglesOrder)
+		if
+			((not GetFFlagFacialAnimationRecordingInStudio()) or rotationTrack)
+			and rotationTrack.Type == Constants.TRACK_TYPES.EulerAngles
+		then
+			local rotation = rotationTrack
+					and KeyframeUtils.getValue(rotationTrack, tck, defaultEulerAnglesOrder) :: Vector3?
+				or Vector3.new()
+			return CFrame.new(position)
+				* CFrame.fromEulerAngles(
+					rotation.X,
+					rotation.Y,
+					rotation.Z,
+					rotationTrack.EulerAnglesOrder or defaultEulerAnglesOrder
+				)
 		else
-			local rotation = rotationTrack and KeyframeUtils.getValue(rotationTrack, tck, defaultEulerAnglesOrder)::CFrame? or CFrame.new()
+			local rotation = rotationTrack
+					and KeyframeUtils.getValue(rotationTrack, tck, defaultEulerAnglesOrder) :: CFrame?
+				or CFrame.new()
 			return CFrame.new(position) * rotation
 		end
 	elseif track.Type == Constants.TRACK_TYPES.Position or track.Type == Constants.TRACK_TYPES.EulerAngles then
@@ -496,9 +504,9 @@ function KeyframeUtils.getValue(
 		local YTrack = track.Components[Constants.PROPERTY_KEYS.Y]
 		local ZTrack = track.Components[Constants.PROPERTY_KEYS.Z]
 
-		local x = XTrack and KeyframeUtils.getValue(XTrack, tck, defaultEulerAnglesOrder)::number? or 0
-		local y = YTrack and KeyframeUtils.getValue(YTrack, tck, defaultEulerAnglesOrder)::number? or 0
-		local z = ZTrack and KeyframeUtils.getValue(ZTrack, tck, defaultEulerAnglesOrder)::number? or 0
+		local x = XTrack and KeyframeUtils.getValue(XTrack, tck, defaultEulerAnglesOrder) :: number? or 0
+		local y = YTrack and KeyframeUtils.getValue(YTrack, tck, defaultEulerAnglesOrder) :: number? or 0
+		local z = ZTrack and KeyframeUtils.getValue(ZTrack, tck, defaultEulerAnglesOrder) :: number? or 0
 
 		return Vector3.new(x, y, z)
 	else

@@ -28,7 +28,7 @@ return function()
 				MaxHeight = maxHeight or 1000,
 				TopTrackIndex = topIndex or 0,
 				Tracks = testTracks,
-			})
+			}),
 		})
 	end
 
@@ -38,7 +38,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestTrackColors(), container)
 		local frame = container:FindFirstChildOfClass("Frame")
@@ -52,7 +52,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should work with a TopTrackIndex other than 0", function ()
+	it("should work with a TopTrackIndex other than 0", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestTrackColors(2), container)
 		local frame = container:FindFirstChildOfClass("Frame")
@@ -63,7 +63,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should only display visible tracks", function ()
+	it("should only display visible tracks", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestTrackColors(0, 1), container)
 		local frame = container:FindFirstChildOfClass("Frame")

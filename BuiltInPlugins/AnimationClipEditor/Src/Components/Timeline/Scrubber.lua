@@ -37,21 +37,27 @@ function Scrubber:render()
 		children = {}
 	end
 	if showHead then
-		table.insert(children, Roact.createElement("ImageLabel", {
-			Image = theme.scrubberTheme.image,
-			ImageColor3 = theme.scrubberTheme.backgroundColor,
-			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 1, 0),
-		}))
+		table.insert(
+			children,
+			Roact.createElement("ImageLabel", {
+				Image = theme.scrubberTheme.image,
+				ImageColor3 = theme.scrubberTheme.backgroundColor,
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 1, 0),
+			})
+		)
 	end
 
-	table.insert(children, Roact.createElement("Frame", {
-		Position = UDim2.new(0.5, 0, 0, 0),
-		Size = UDim2.new(0, thickness, 0, height),
-		BackgroundColor3 = theme.scrubberTheme.backgroundColor,
-		AnchorPoint = Vector2.new(0.5, 0),
-		BorderSizePixel = 0,
-	}))
+	table.insert(
+		children,
+		Roact.createElement("Frame", {
+			Position = UDim2.new(0.5, 0, 0, 0),
+			Size = UDim2.new(0, thickness, 0, height),
+			BackgroundColor3 = theme.scrubberTheme.backgroundColor,
+			AnchorPoint = Vector2.new(0.5, 0),
+			BorderSizePixel = 0,
+		})
+	)
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,

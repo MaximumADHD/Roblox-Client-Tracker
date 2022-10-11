@@ -68,7 +68,7 @@ return function(instanceName, path, minTick, maxTick, multiSelect)
 		local selectedKeyframes = status.SelectedKeyframes
 		if not selectedKeyframes or not multiSelect then
 			selectedKeyframes = {
-				[instanceName] = {}
+				[instanceName] = {},
 			}
 		else
 			-- Make a shallow copy of selectedKeyframes and selectedKeyframes[instanceName]

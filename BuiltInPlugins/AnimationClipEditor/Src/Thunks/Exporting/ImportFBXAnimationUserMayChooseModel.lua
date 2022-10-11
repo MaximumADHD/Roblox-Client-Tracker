@@ -28,7 +28,8 @@ return function(plugin, animationClipDropdown, analytics)
 		end
 
 		local success, result = pcall(function()
-			return game:GetService("AvatarImportService"):ImportFBXAnimationUserMayChooseModel(rootInstance, userChooseModelThenImportCB)
+			return game:GetService("AvatarImportService")
+				:ImportFBXAnimationUserMayChooseModel(rootInstance, userChooseModelThenImportCB)
 		end)
 
 		if success then

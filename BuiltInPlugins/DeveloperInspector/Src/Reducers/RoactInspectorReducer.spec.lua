@@ -25,10 +25,10 @@ local function getRootPartial()
 			Name = "Test",
 			Children = {
 				MyChild = {
-					Name = "MyChild"
-				}
-			}
-		}
+					Name = "MyChild",
+				},
+			},
+		},
 	}
 end
 
@@ -38,10 +38,10 @@ local function getChildPartial()
 			Name = "MyChild",
 			Children = {
 				MyGrandChild = {
-					Name = "MyGrandChild"
-				}
-			}
-		}
+					Name = "MyGrandChild",
+				},
+			},
+		},
 	}
 end
 
@@ -54,7 +54,7 @@ return function()
 		it("should update the root instance", function()
 			local store = Rodux.Store.new(RoactInspectorReducer)
 			local state = RoactInspectorReducer(store:getState(), UpdateInstances({}, getRootPartial()))
-			local serialized = pretty(state.rootInstance, {multiline = true, depth = 100})
+			local serialized = pretty(state.rootInstance, { multiline = true, depth = 100 })
 			expect(serialized).to.equal([[{
 	Children = {
 		Test = {
@@ -72,8 +72,8 @@ return function()
 		it("should update a child of the root instance", function()
 			local store = Rodux.Store.new(RoactInspectorReducer)
 			local state = RoactInspectorReducer(store:getState(), UpdateInstances({}, getRootPartial()))
-			state = RoactInspectorReducer(state, UpdateInstances({"Test"}, getChildPartial()))
-			local serialized = pretty(state.rootInstance, {multiline = true, depth = 100})
+			state = RoactInspectorReducer(state, UpdateInstances({ "Test" }, getChildPartial()))
+			local serialized = pretty(state.rootInstance, { multiline = true, depth = 100 })
 			expect(serialized).to.equal([[{
 	Children = {
 		Test = {
@@ -96,8 +96,8 @@ return function()
 		it("should not update a missing nested root", function()
 			local store = Rodux.Store.new(RoactInspectorReducer)
 			local state = RoactInspectorReducer(store:getState(), UpdateInstances({}, getRootPartial()))
-			state = RoactInspectorReducer(state, UpdateInstances({"Test", "Missing"}, getChildPartial()))
-			local serialized = pretty(state.rootInstance, {multiline = true, depth = 100})
+			state = RoactInspectorReducer(state, UpdateInstances({ "Test", "Missing" }, getChildPartial()))
+			local serialized = pretty(state.rootInstance, { multiline = true, depth = 100 })
 			expect(serialized).to.equal([[{
 	Children = {
 		Test = {
@@ -111,19 +111,18 @@ return function()
 	}
 }]])
 		end)
-
 	end)
 	describe("UpdateBranch", function()
 		it("should update branch if path matches", function()
 			local store = Rodux.Store.new(RoactInspectorReducer)
-			local list = {1, 2, 3}
+			local list = { 1, 2, 3 }
 			local state = RoactInspectorReducer(store:getState(), UpdateBranch({}, list))
 			expect(state.nodes).to.equal(list)
 		end)
 		it("should not update the branch if path does not match", function()
 			local store = Rodux.Store.new(RoactInspectorReducer)
-			local list = {1, 2, 3}
-			local state = RoactInspectorReducer(store:getState(), UpdateBranch({"Toolbox"}, list))
+			local list = { 1, 2, 3 }
+			local state = RoactInspectorReducer(store:getState(), UpdateBranch({ "Toolbox" }, list))
 			expect(state.nodes).never.to.equal(list)
 		end)
 	end)
@@ -138,10 +137,10 @@ return function()
 		it("should update state as expected", function()
 			local store = Rodux.Store.new(RoactInspectorReducer)
 			local instance = {
-				Path = {"Example"}
+				Path = { "Example" },
 			}
 			local change = {
-				[instance] = true
+				[instance] = true,
 			}
 			local state = RoactInspectorReducer(store:getState(), SelectInstance(change))
 			expect(state.selectedInstances).to.equal(change)
@@ -152,18 +151,18 @@ return function()
 		it("should update state as expected", function()
 			local store = Rodux.Store.new(RoactInspectorReducer)
 			local instance = {
-				Path = {"Example"}
+				Path = { "Example" },
 			}
 			local change = {
-				[instance] = true
+				[instance] = true,
 			}
 			local state = RoactInspectorReducer(store:getState(), ToggleInstance(change))
 			expect(state.expandedInstances[instance]).to.equal(true)
 			local instance2 = {
-				Path = {"Example", "Child"}
+				Path = { "Example", "Child" },
 			}
 			local change2 = {
-				[instance2] = true
+				[instance2] = true,
 			}
 			state = RoactInspectorReducer(state, ToggleInstance(change2))
 			expect(state.expandedInstances[instance]).to.equal(true)
@@ -174,9 +173,9 @@ return function()
 		it("should update state as expected", function()
 			local store = Rodux.Store.new(RoactInspectorReducer)
 			local state = RoactInspectorReducer(store:getState(), UpdateInstances({}, getRootPartial()))
-			state = RoactInspectorReducer(store:getState(), UpdateInstances({"MyChild"}, getChildPartial()))
-			
-			local path = {"MyChild", "MyGrandChild"}
+			state = RoactInspectorReducer(store:getState(), UpdateInstances({ "MyChild" }, getChildPartial()))
+
+			local path = { "MyChild", "MyGrandChild" }
 			state = RoactInspectorReducer(state, PickInstance(path))
 			expect(state.selectedPath).to.equal(path)
 
@@ -189,17 +188,17 @@ return function()
 			local store = Rodux.Store.new(RoactInspectorReducer)
 			local children = {
 				A = {
-					Name = "A"
+					Name = "A",
 				},
 				B = {
-					Name = "B"
+					Name = "B",
 				},
 				C = {
-					Name = "C"
-				}
+					Name = "C",
+				},
 			}
-			local state = RoactInspectorReducer(store:getState(), UpdateFields({}, 0, {"props"}, children))
-			local serialized = pretty(state.fields, {multiline = true, depth = 100})
+			local state = RoactInspectorReducer(store:getState(), UpdateFields({}, 0, { "props" }, children))
+			local serialized = pretty(state.fields, { multiline = true, depth = 100 })
 			expect(serialized).to.equal([[{
 	Children = {
 		_context = {
@@ -238,13 +237,13 @@ return function()
 		end)
 		it("should not update the fields if path does not match", function()
 			local store = Rodux.Store.new(RoactInspectorReducer)
-			local list = {1, 2, 3}
-			local state = RoactInspectorReducer(store:getState(), UpdateFields({"Toolbox"}, 0, {}, list))
+			local list = { 1, 2, 3 }
+			local state = RoactInspectorReducer(store:getState(), UpdateFields({ "Toolbox" }, 0, {}, list))
 			expect(state.fields).never.to.equal(list)
 		end)
 		it("should not update the fields if index does not match", function()
 			local store = Rodux.Store.new(RoactInspectorReducer)
-			local list = {1, 2, 3}
+			local list = { 1, 2, 3 }
 			local state = RoactInspectorReducer(store:getState(), UpdateFields({}, 10, {}, list))
 			expect(state.fields).never.to.equal(list)
 		end)
@@ -253,10 +252,10 @@ return function()
 		it("should update state as expected", function()
 			local store = Rodux.Store.new(RoactInspectorReducer)
 			local instance = {
-				Path = {"Example"}
+				Path = { "Example" },
 			}
 			local change = {
-				[instance] = true
+				[instance] = true,
 			}
 			local state = RoactInspectorReducer(store:getState(), SelectField(change))
 			expect(state.selectedFields).to.equal(change)
@@ -266,18 +265,18 @@ return function()
 		it("should update state as expected", function()
 			local store = Rodux.Store.new(RoactInspectorReducer)
 			local instance = {
-				Path = {"Example"}
+				Path = { "Example" },
 			}
 			local change = {
-				[instance] = true
+				[instance] = true,
 			}
 			local state = RoactInspectorReducer(store:getState(), ToggleField(change))
 			expect(state.expandedFields[instance]).to.equal(true)
 			local instance2 = {
-				Path = {"Example", "Child"}
+				Path = { "Example", "Child" },
 			}
 			local change2 = {
-				[instance2] = true
+				[instance2] = true,
 			}
 			state = RoactInspectorReducer(state, ToggleField(change2))
 			expect(state.expandedFields[instance]).to.equal(true)

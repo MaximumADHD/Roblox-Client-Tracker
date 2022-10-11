@@ -29,7 +29,7 @@ return function()
 			Tracks = {
 				Head = {
 					Type = Constants.TRACK_TYPES.CFrame,
-					Keyframes = {0, 160},
+					Keyframes = { 0, 160 },
 					Data = {
 						[0] = {
 							Value = CFrame.new(),
@@ -41,7 +41,7 @@ return function()
 				},
 				UpperTorso = {
 					Type = Constants.TRACK_TYPES.CFrame,
-					Keyframes = {0, 160},
+					Keyframes = { 0, 160 },
 					Data = {
 						[0] = {
 							Value = CFrame.new(),
@@ -81,8 +81,8 @@ return function()
 			local container = test:getContainer()
 			local analytics = Analytics.mock()
 			TestHelpers.loadAnimation(store, emptyData)
-			store:dispatch(ValueChanged("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
-			store:dispatch(ValueChanged("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, 160, CFrame.new(), analytics))
+			store:dispatch(ValueChanged("Root", { "Head" }, Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
+			store:dispatch(ValueChanged("Root", { "Head" }, Constants.TRACK_TYPES.CFrame, 160, CFrame.new(), analytics))
 			TestHelpers.delay()
 
 			local testTrack = TestPaths.getTrack(container, "Track_Head")
@@ -99,8 +99,10 @@ return function()
 			local analytics = Analytics.mock()
 
 			TestHelpers.loadAnimation(store, emptyData)
-			store:dispatch(ValueChanged("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
-			store:dispatch(ValueChanged("Root", {"UpperTorso"}, Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
+			store:dispatch(ValueChanged("Root", { "Head" }, Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
+			store:dispatch(
+				ValueChanged("Root", { "UpperTorso" }, Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics)
+			)
 			TestHelpers.delay()
 
 			local testTrack = TestPaths.getTrack(container, "Track_Head")
@@ -312,8 +314,7 @@ return function()
 			local container = test:getContainer()
 			TestHelpers.loadAnimation(store, testAnimationData)
 			local summaryTrack = TestPaths.getTrack(container, "SummaryTrack")
-			local dopeSheetContainer = TestPaths.getDopeSheetController(container)
-				:WaitForChild("DopeSheetContainer")
+			local dopeSheetContainer = TestPaths.getDopeSheetController(container):WaitForChild("DopeSheetContainer")
 
 			TestHelpers.clickInstance(summaryTrack["1"])
 			expect(dopeSheetContainer:FindFirstChild("ScaleControls")).never.to.be.ok()

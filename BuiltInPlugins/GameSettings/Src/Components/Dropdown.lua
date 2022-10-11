@@ -12,6 +12,10 @@
 		function OpenChanged(isOpen) = Callback when the dropdown menu is opened or closed.
 		function HoverChanged(hovered) = Callback when the mouse enters or leaves the dropdown menu.
 ]]
+local FFlagDevFrameworkDropdownShowsLabel = game:GetFastFlag("DevFrameworkDropdownShowsLabel")
+if FFlagDevFrameworkDropdownShowsLabel then
+	return nil
+end
 
 local ENTRY_HEIGHT = 38
 local DEFAULT_SIZE = UDim2.new(0, 220, 0, ENTRY_HEIGHT)
@@ -154,19 +158,22 @@ function Dropdown:render()
 		Layout = Roact.createElement("UIListLayout", {
 			Padding = UDim.new(0, 0),
 			SortOrder = Enum.SortOrder.LayoutOrder,
-		})
+		}),
 	}
 	if showDropdown then
 		for _, entry in ipairs(entries) do
-			table.insert(dropdownEntries, Roact.createElement(DropdownEntry, {
-				Id = entry.Id,
-				Title = entry.Title,
-				Current = entry.Id == currentId,
-				OnClick = function()
-					self.props.CurrentChanged(entry.Id)
-					self:setOpen(false)
-				end
-			}))
+			table.insert(
+				dropdownEntries,
+				Roact.createElement(DropdownEntry, {
+					Id = entry.Id,
+					Title = entry.Title,
+					Current = entry.Id == currentId,
+					OnClick = function()
+						self.props.CurrentChanged(entry.Id)
+						self:setOpen(false)
+					end,
+				})
+			)
 		end
 	end
 
@@ -192,15 +199,18 @@ function Dropdown:render()
 				PaddingBottom = PADDING,
 			}),
 
-			Current = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-				Visible = active,
-				Size = UDim2.new(1, 0, 1, 0),
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				TextColor3 = theme.dropDown.text,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				Text = currentTitle or "",
-			})),
+			Current = Roact.createElement(
+				"TextLabel",
+				Cryo.Dictionary.join(theme.fontStyle.Normal, {
+					Visible = active,
+					Size = UDim2.new(1, 0, 1, 0),
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					TextColor3 = theme.dropDown.text,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					Text = currentTitle or "",
+				})
+			),
 
 			Arrow = Roact.createElement("ImageLabel", {
 				Visible = active,

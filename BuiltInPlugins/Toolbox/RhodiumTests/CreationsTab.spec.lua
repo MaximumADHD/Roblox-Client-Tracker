@@ -26,12 +26,10 @@ return function()
 	local CurrentSelectionGroupMeshesText = CurrentSelectionBasicText .. "GroupMeshes"
 	local CurrentSelectionGroupPluginsText = CurrentSelectionBasicText .. "GroupPlugins"
 
-	local DropdownIconPath = TestHelpers.getPathInTestToolbox(
-		"Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon"
-	)
-	local CurrentSelectionTextPath = TestHelpers.getPathInTestToolbox(
-		"Toolbox.Header.CategoryMenu.CurrentSelection.Border.CurrentSelectionLabel"
-	)
+	local DropdownIconPath =
+		TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon")
+	local CurrentSelectionTextPath =
+		TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.CurrentSelectionLabel")
 	local CreationsTabPath = TestHelpers.getPathInTestToolbox("Toolbox.Tabs.Creations")
 	local CreationsTabIconPath = TestHelpers.getPathInTestToolbox("Toolbox.Tabs.Creations.Content.Icon")
 
@@ -95,18 +93,16 @@ return function()
 
 			local DropdownScrollingFramePath =
 				game.CoreGui.ScreenGui.ClickEventDetectFrame.ScrollBlocker.StyledScrollingFrame.ScrollingFrame
-			local dropdownPluginPath = DropdownScrollingFramePath:FindFirstChild(
-				CurrentSelectionBasicText .. Category.CREATIONS_PLUGIN.name
-			)
+			local dropdownPluginPath =
+				DropdownScrollingFramePath:FindFirstChild(CurrentSelectionBasicText .. Category.CREATIONS_PLUGIN.name)
 			TestHelpers.clickInstanceWithXPath(dropdownPluginPath)
 			expect(currentSelection:getRbxInstance().Text).to.equal(CurrentSelectionPluginsText)
 
 			TestHelpers.clickInstanceWithXPath(DropdownIconPath)
 			local ClickEventScrollingFrame =
 				game.CoreGui.ScreenGui.ClickEventDetectFrame.ScrollBlocker.StyledScrollingFrame.ScrollingFrame
-			local dropdownModelsPath = ClickEventScrollingFrame:FindFirstChild(
-				CurrentSelectionBasicText .. Category.CREATIONS_MODELS.name
-			)
+			local dropdownModelsPath =
+				ClickEventScrollingFrame:FindFirstChild(CurrentSelectionBasicText .. Category.CREATIONS_MODELS.name)
 			TestHelpers.clickInstanceWithXPath(dropdownModelsPath)
 
 			expect(currentSelection:getRbxInstance().Text).to.equal(CurrentSelectionModelsText)
@@ -142,9 +138,8 @@ return function()
 
 				local DropdownScrollingFramePath =
 					game.CoreGui.ScreenGui.ClickEventDetectFrame.ScrollBlocker.StyledScrollingFrame.ScrollingFrame
-				local dropdownPath = DropdownScrollingFramePath:FindFirstChild(
-					CurrentSelectionBasicText .. testCases[i]
-				)
+				local dropdownPath =
+					DropdownScrollingFramePath:FindFirstChild(CurrentSelectionBasicText .. testCases[i])
 				TestHelpers.clickInstanceWithXPath(dropdownPath)
 
 				local currentSelection = Element.new(XPath.new(CurrentSelectionTextPath))

@@ -14,9 +14,6 @@ local Pane = UI.Pane
 local Image = UI.Decoration.Image
 local _TextLabel = UI.Decoration.TextLabel
 
--- local Icons = require(Plugin.Src.FamFamFam)
--- local Emoji = require(Plugin.Src.Emoji)
-
 local Icon = Roact.PureComponent:extend("Icon")
 
 export type Props = {
@@ -40,36 +37,14 @@ function Icon:render()
 	local style: _Style = props.Stylizer.Icon
 
 	local decoration
-
-	if props.Name:find("^rbxassetid://") or props.Name:find("^rbxasset://") then
-		decoration = Roact.createElement(Image, {
-			Size = style.Size,
-			Image = props.Name,
-			ImageColor3 = if props.Name:find("^rbxasset://") then style.IconColor else nil,
-		})
-	-- elseif props.Name:find("^emoji:") then
-	-- 	local text = props.Name:sub(7, -1)
-	-- 	local emoji = Emoji.getNamedEmoji(text)
-	-- 	if not emoji and not text:match("^[a-zA-Z%-_]+$") then
-	-- 		emoji = text
-	-- 	elseif not emoji then
-	-- 		emoji = "❌"
-	-- 	end
-	-- 	decoration = Roact.createElement(TextLabel, {
-	-- 		TextSize = style.TextSize,
-	-- 		Text = emoji,
-	-- 		Size = style.Size,
-	-- 	})
-	-- else --Icon from spritesheet
-	-- 	local imageProps = Icons.Lookup(props.Name) or Icons.Lookup("computer_error")
-	-- 	decoration = Roact.createElement(Image, {
-	-- 		Size = style.Size,
-	-- 		Image = imageProps.Image,
-	-- 		Style = {
-	-- 			ImageRectSize = imageProps.ImageRectSize,
-	-- 			ImageRectOffset = imageProps.ImageRectOffset,
-	-- 		},
-	-- 	})
+	if props.Name then
+		if props.Name:find("^rbxassetid://") or props.Name:find("^rbxasset://") then
+			decoration = Roact.createElement(Image, {
+				Size = style.Size,
+				Image = props.Name,
+				ImageColor3 = if props.Name:find("^rbxasset://") then style.IconColor else nil,
+			})
+		end
 	end
 
 	return Roact.createElement(Pane, {

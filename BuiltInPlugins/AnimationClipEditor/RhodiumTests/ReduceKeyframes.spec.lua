@@ -27,10 +27,10 @@ return function()
 	end
 
 	local function createAnimationData(
-		data: {[number]: {Value: number | CFrame}}?,
+		data: { [number]: { Value: number | CFrame } }?,
 		trackName: string?,
-		trackType: string?)
-	: Types.AnimationData
+		trackType: string?
+	): Types.AnimationData
 		if not data then
 			trackName = "ChinRaiser"
 			trackType = Constants.TRACK_TYPES.Facs
@@ -39,7 +39,7 @@ return function()
 				[200] = { Value = 0.2 },
 				[400] = { Value = 0.7 },
 				[600] = { Value = 0.6 },
-				[800] = { Value = 0 }
+				[800] = { Value = 0 },
 			}
 		else
 			trackName = trackName or "ChinRaiser"
@@ -122,17 +122,13 @@ return function()
 			local store = test:getStore()
 
 			-- Load animation
-			local testAnimationData = createAnimationData(
-				{
-					[0] = { Value = CFrame.Angles(1, 2, 3) },
-					[200] = { Value = CFrame.Angles(.5, 1, 1) },
-					[400] = { Value = CFrame.Angles(.5, .5, 2.5) },
-					[600] = { Value = CFrame.Angles(2., 1.5, 1) },
-					[800] = { Value = CFrame.Angles(1, 1, 1) },
-				},
-				"LeftHand",
-				Constants.TRACK_TYPES.CFrame
-			)
+			local testAnimationData = createAnimationData({
+				[0] = { Value = CFrame.Angles(1, 2, 3) },
+				[200] = { Value = CFrame.Angles(0.5, 1, 1) },
+				[400] = { Value = CFrame.Angles(0.5, 0.5, 2.5) },
+				[600] = { Value = CFrame.Angles(2., 1.5, 1) },
+				[800] = { Value = CFrame.Angles(1, 1, 1) },
+			}, "LeftHand", Constants.TRACK_TYPES.CFrame)
 			TestHelpers.loadAnimation(store, testAnimationData)
 
 			local KFRDialog = showDialogBox(test)
@@ -147,17 +143,15 @@ return function()
 			local store = test:getStore()
 
 			-- Load animation
-			local testAnimationData = createAnimationData(
-				{
-					[0] = { Value = 0 },
-					[200] = { Value = 0.2 },
-					[300] = { Value = 0.2 },
-					[400] = { Value = 0.2 },
-					[500] = { Value = 0.2 },
-					[600] = { Value = 0.2 },
-					[800] = { Value = 0.4 },
-				}
-			)
+			local testAnimationData = createAnimationData({
+				[0] = { Value = 0 },
+				[200] = { Value = 0.2 },
+				[300] = { Value = 0.2 },
+				[400] = { Value = 0.2 },
+				[500] = { Value = 0.2 },
+				[600] = { Value = 0.2 },
+				[800] = { Value = 0.4 },
+			})
 			TestHelpers.loadAnimation(store, testAnimationData)
 
 			-- Show the dialog box
@@ -184,7 +178,7 @@ return function()
 			local slider = TestPaths.getKFRSlider(KFRDialog)
 
 			-- Click the slider at 66%
-			clickElement(slider, 2/3)
+			clickElement(slider, 2 / 3)
 			local match = string.find(keyframesText.Text, "4 / 5")
 			local track = findTrack(store, "ChinRaiser")
 			expect(match).never.to.equal(nil)
@@ -192,10 +186,10 @@ return function()
 
 			-- Update the slider without moving it (test the early bail out in
 			-- VSW preview)
-			clickElement(slider, 2/3)
+			clickElement(slider, 2 / 3)
 
 			-- Click at 33%
-			clickElement(slider, 1/3)
+			clickElement(slider, 1 / 3)
 			local match = string.find(keyframesText.Text, "3 / 5")
 			local track = findTrack(store, "ChinRaiser")
 			expect(match).never.to.equal(nil)
@@ -217,7 +211,7 @@ return function()
 			local cancelButton = TestPaths.getKFRCancel(KFRDialog)
 
 			-- Click the slider at 66%
-			clickElement(slider, 2/3)
+			clickElement(slider, 2 / 3)
 			clickElement(cancelButton)
 			local track = findTrack(store, "ChinRaiser")
 			expect(track and track.Keyframes and #track.Keyframes).to.equal(5)
@@ -238,7 +232,7 @@ return function()
 			local okButton = TestPaths.getKFROk(KFRDialog)
 
 			-- Click the slider at 66%
-			clickElement(slider, 2/3)
+			clickElement(slider, 2 / 3)
 			clickElement(okButton)
 
 			local track = findTrack(store, "ChinRaiser")

@@ -1,4 +1,3 @@
-
 require(script.Parent.defineLuaFlags)
 
 local Plugin = script.Parent.Parent
@@ -20,7 +19,7 @@ local SourceStrings = Plugin.Src.Resources.SourceStrings
 local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 local StudioService = game:GetService("StudioService")
 
-local args : PluginLoaderBuilder.Args = {
+local args: PluginLoaderBuilder.Args = {
 	plugin = plugin,
 	pluginName = "GameSettings",
 	translationResourceTable = LocalizedStrings,
@@ -37,21 +36,23 @@ local args : PluginLoaderBuilder.Args = {
 		getDescription = function(getLocalizedText, namespace, pluginName)
 			return getLocalizedText(namespace, pluginName, "General", "PluginDescription")
 		end,
-		icon = if FFlagHighDpiIcons then "rbxlocaltheme://GameSettings" else "rbxasset://textures/GameSettings/ToolbarIcon.png",
+		icon = if FFlagHighDpiIcons
+			then "rbxlocaltheme://GameSettings"
+			else "rbxasset://textures/GameSettings/ToolbarIcon.png",
 		text = nil,
 		clickableWhenViewportHidden = true,
-		enabled = RunService:IsEdit()
+		enabled = RunService:IsEdit(),
 	},
 	-- This is a dialog plugin, no need to restore dockwidget
 	dockWidgetInfo = nil,
 	extraTriggers = {
 		["StudioService.OnOpenGameSettings"] = function()
 			return StudioService.OnOpenGameSettings
-		end
-	}
+		end,
+	},
 }
 
-local pluginLoaderContext : PluginLoaderBuilder.PluginLoaderContext = PluginLoaderBuilder.build(args)
+local pluginLoaderContext: PluginLoaderBuilder.PluginLoaderContext = PluginLoaderBuilder.build(args)
 local success = pluginLoaderContext.pluginLoader:waitForUserInteraction()
 if not success then
 	-- Plugin destroyed

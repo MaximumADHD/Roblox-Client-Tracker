@@ -91,10 +91,10 @@ function TextEntryPrompt:render()
 
 	local currentText = state.currentText
 
-	local inputTextWidth = inputText
-		and StringUtils.getTextWidth(inputText, dialogTheme.textSize, theme.font) or 0
+	local inputTextWidth = inputText and StringUtils.getTextWidth(inputText, dialogTheme.textSize, theme.font) or 0
 	local noticeTextHeight = noticeText
-		and TextService:GetTextSize(noticeText, dialogTheme.subTextSize, theme.font, WRAP_SIZE).Y or 0
+			and TextService:GetTextSize(noticeText, dialogTheme.subTextSize, theme.font, WRAP_SIZE).Y
+		or 0
 
 	local maxHeight = Constants.PROMPT_VERTICAL_PADDING * 3
 		+ VERTICAL_PADDING * 2

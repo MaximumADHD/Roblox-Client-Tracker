@@ -19,21 +19,21 @@ return function()
 					[24] = true,
 				},
 			},
-		}
+		},
 	}
 
 	local tracks = {
 		{
 			Instance = "Root",
 			Name = "TestTrack1",
-			Keyframes = {1, 2, 3, 18, 27},
+			Keyframes = { 1, 2, 3, 18, 27 },
 			Expanded = false,
 			Type = Constants.TRACK_TYPES.CFrame,
 		},
 		{
 			Instance = "Root",
 			Name = "TestTrack2",
-			Keyframes = {2, 7, 8, 10, 24},
+			Keyframes = { 2, 7, 8, 10, 24 },
 			Expanded = false,
 			Type = Constants.TRACK_TYPES.CFrame,
 		},
@@ -54,7 +54,7 @@ return function()
 				ZIndex = 2,
 				ShowSelectionArea = false,
 				TrackPadding = Constants.TRACK_PADDING_SMALL,
-			})
+			}),
 		})
 	end
 
@@ -64,7 +64,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestAddTrackButton(), container)
 		local frame = container:FindFirstChildOfClass("Frame")

@@ -24,10 +24,7 @@ function BoundingBoxUtils.computeBoundingBox(basisCFrame, allParts, allAttachmen
 
 			-- Calculation for bounding box in the space of basisCFrame1
 			local localCFrame1 = inverseBasis * cframe -- put cframe in our local basis
-			local _, _, _,
-				t00, t01, t02,
-				t10, t11, t12,
-				t20, t21, t22 = localCFrame1:components()
+			local _, _, _, t00, t01, t02, t10, t11, t12, t20, t21, t22 = localCFrame1:components()
 			local hw = 0.5 * (math.abs(sx * t00) + math.abs(sy * t01) + math.abs(sz * t02))
 			local hh = 0.5 * (math.abs(sx * t10) + math.abs(sy * t11) + math.abs(sz * t12))
 			local hd = 0.5 * (math.abs(sx * t20) + math.abs(sy * t21) + math.abs(sz * t22))
@@ -51,16 +48,8 @@ function BoundingBoxUtils.computeBoundingBox(basisCFrame, allParts, allAttachmen
 		zmax = math.max(zmax, z)
 	end
 
-	local boundingBoxOffset = Vector3.new(
-		0.5 * (xmin + xmax),
-		0.5 * (ymin + ymax),
-		0.5 * (zmin + zmax)
-	)
-	local boundingBoxSize = Vector3.new(
-		xmax - xmin,
-		ymax - ymin,
-		zmax - zmin
-	)
+	local boundingBoxOffset = Vector3.new(0.5 * (xmin + xmax), 0.5 * (ymin + ymax), 0.5 * (zmin + zmax))
+	local boundingBoxSize = Vector3.new(xmax - xmin, ymax - ymin, zmax - zmin)
 
 	return boundingBoxOffset, boundingBoxSize
 end
@@ -89,10 +78,7 @@ function BoundingBoxUtils.computeTwoBoundingBoxes(basisCFrame1, allParts, allAtt
 
 			-- Calculation for bounding box in the space of basisCFrame1
 			local localCFrame1 = inverseBasis1 * cframe -- put cframe in our local basis
-			local _, _, _,
-				t00, t01, t02,
-				t10, t11, t12,
-				t20, t21, t22 = localCFrame1:components()
+			local _, _, _, t00, t01, t02, t10, t11, t12, t20, t21, t22 = localCFrame1:components()
 			local hw1 = 0.5 * (math.abs(sx * t00) + math.abs(sy * t01) + math.abs(sz * t02))
 			local hh1 = 0.5 * (math.abs(sx * t10) + math.abs(sy * t11) + math.abs(sz * t12))
 			local hd1 = 0.5 * (math.abs(sx * t20) + math.abs(sy * t21) + math.abs(sz * t22))
@@ -105,10 +91,7 @@ function BoundingBoxUtils.computeTwoBoundingBoxes(basisCFrame1, allParts, allAtt
 			zmax1 = math.max(zmax1, z1 + hd1)
 
 			-- Calculation for the bounding box in the global coordinate space
-			_, _, _,
-				t00, t01, t02,
-				t10, t11, t12,
-				t20, t21, t22 = cframe:components()
+			_, _, _, t00, t01, t02, t10, t11, t12, t20, t21, t22 = cframe:components()
 			local hw2 = 0.5 * (math.abs(sx * t00) + math.abs(sy * t01) + math.abs(sz * t02))
 			local hh2 = 0.5 * (math.abs(sx * t10) + math.abs(sy * t11) + math.abs(sz * t12))
 			local hd2 = 0.5 * (math.abs(sx * t20) + math.abs(sy * t21) + math.abs(sz * t22))
@@ -142,30 +125,14 @@ function BoundingBoxUtils.computeTwoBoundingBoxes(basisCFrame1, allParts, allAtt
 		zmax2 = math.max(zmax2, globalZ)
 	end
 
-	local localBoundingBoxOffset = Vector3.new(
-		0.5 * (xmin1 + xmax1),
-		0.5 * (ymin1 + ymax1),
-		0.5 * (zmin1 + zmax1)
-	)
-	local localBoundingBoxSize = Vector3.new(
-		xmax1 - xmin1,
-		ymax1 - ymin1,
-		zmax1 - zmin1
-	)
+	local localBoundingBoxOffset = Vector3.new(0.5 * (xmin1 + xmax1), 0.5 * (ymin1 + ymax1), 0.5 * (zmin1 + zmax1))
+	local localBoundingBoxSize = Vector3.new(xmax1 - xmin1, ymax1 - ymin1, zmax1 - zmin1)
 
-	local globalBoundingBoxOffset = Vector3.new(
-		0.5 * (xmin2 + xmax2) - basisX,
-		0.5 * (ymin2 + ymax2) - basisY,
-		0.5 * (zmin2 + zmax2) - basisZ
-	)
-	local globalBoundingBoxSize = Vector3.new(
-		xmax2 - xmin2,
-		ymax2 - ymin2,
-		zmax2 - zmin2
-	)
+	local globalBoundingBoxOffset =
+		Vector3.new(0.5 * (xmin2 + xmax2) - basisX, 0.5 * (ymin2 + ymax2) - basisY, 0.5 * (zmin2 + zmax2) - basisZ)
+	local globalBoundingBoxSize = Vector3.new(xmax2 - xmin2, ymax2 - ymin2, zmax2 - zmin2)
 
-	return localBoundingBoxOffset, localBoundingBoxSize,
-		globalBoundingBoxOffset, globalBoundingBoxSize
+	return localBoundingBoxOffset, localBoundingBoxSize, globalBoundingBoxOffset, globalBoundingBoxSize
 end
 
 --[[
@@ -209,12 +176,10 @@ function BoundingBoxUtils.computeInfo(draggerContext, selectedObjects)
 
 	for _, instance in ipairs(selectedObjects) do
 		if instance:IsA("Model") then
-			local boundingBoxCFrame, boundingBoxSize =
-				instance:GetBoundingBox()
+			local boundingBoxCFrame, boundingBoxSize = instance:GetBoundingBox()
 			if boundingBoxSize ~= Vector3.new() then
 				basisCFrame = boundingBoxCFrame
 			end
-
 		elseif instance:IsA("BasePart") then
 			if not allPartSet[instance] and instance ~= terrain then
 				table.insert(allParts, instance)
@@ -318,11 +283,9 @@ function BoundingBoxUtils.computeInfo(draggerContext, selectedObjects)
 			BoundingBoxUtils.computeBoundingBox(localBasisCFrame, allParts, allAttachments)
 
 		chosenBasisCFrame = localBasisCFrame
-		chosenBoundingBoxOffset, chosenBoundingBoxSize =
-			localBoundingBoxOffset, localBoundingBoxSize
+		chosenBoundingBoxOffset, chosenBoundingBoxSize = localBoundingBoxOffset, localBoundingBoxSize
 	else
-		localBoundingBoxOffset, localBoundingBoxSize,
-			chosenBoundingBoxOffset, chosenBoundingBoxSize =
+		localBoundingBoxOffset, localBoundingBoxSize, chosenBoundingBoxOffset, chosenBoundingBoxSize =
 			BoundingBoxUtils.computeTwoBoundingBoxes(localBasisCFrame, allParts, allAttachments)
 
 		chosenBasisCFrame = CFrame.new(basisCFrame.Position)

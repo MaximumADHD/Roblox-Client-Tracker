@@ -43,10 +43,10 @@ function Footer:init()
 		local plugin = props.Plugin:get()
 		local source = props.SelectedStory.Script
 		plugin:OpenScript(source)
-		SelectionService:Set({source})
+		SelectionService:Set({ source })
 	end
 	self.explore = function()
-		SelectionService:Set({self.props.StoryRef.current})
+		SelectionService:Set({ self.props.StoryRef.current })
 	end
 	self.inspect = function()
 		-- TODO: RIDE-3410
@@ -91,15 +91,12 @@ function Footer:render()
 	})
 end
 
-
 Footer = withContext({
 	Inspector = InspectorContext,
 	Stylizer = ContextServices.Stylizer,
-	Plugin = ContextServices.Plugin
+	Plugin = ContextServices.Plugin,
 })(Footer)
 
-
- 
 return RoactRodux.connect(function(state: Types.RoduxStore)
 	return {
 		SelectedStory = state.Stories.selectedStory,

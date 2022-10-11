@@ -12,7 +12,7 @@ local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local UpdateRootInstance = require(Plugin.Src.Thunks.UpdateRootInstance)
 
 local TestHelpers = {
-	plugin = nil
+	plugin = nil,
 }
 
 function TestHelpers.init(plugin)

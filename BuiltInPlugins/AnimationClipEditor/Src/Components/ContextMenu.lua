@@ -16,7 +16,7 @@ local MakePluginMenu = require(Plugin.Src.Util.MakePluginMenu)
 
 export type MenuItem = {
 	Name: string,
-	Items: ({EnumItem} | {MenuItem})?,
+	Items: ({ EnumItem } | { MenuItem })?,
 	Value: any?,
 	CurrentValue: any?,
 	ItemSelected: ((MenuItem) -> ())?,
@@ -46,11 +46,8 @@ function ContextMenu:render()
 	return nil
 end
 
-
 ContextMenu = withContext({
 	Plugin = ContextServices.Plugin,
 })(ContextMenu)
-
-
 
 return ContextMenu

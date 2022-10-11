@@ -82,7 +82,7 @@ function WideScrollingFrame:init()
 
 	self.onDragEnded = function()
 		self:setState({
-			dragging = false
+			dragging = false,
 		})
 	end
 
@@ -184,7 +184,7 @@ function WideScrollingFrame:render()
 						self.scroll(rbx, input)
 					end
 				end,
-			},{
+			}, {
 				ScrollBar = Roact.createElement("Frame", {
 					Size = UDim2.new(width / canvasWidth, 0, 1, 0),
 					Position = UDim2.new(scrollPos / canvasWidth, 0, 0, 0),

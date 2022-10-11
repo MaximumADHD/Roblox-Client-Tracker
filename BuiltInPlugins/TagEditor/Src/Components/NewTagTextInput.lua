@@ -30,6 +30,8 @@ type _Props = Props & {
 }
 
 type _Style = {
+	Size: UDim2,
+	EditingSize: UDim2,
 	TextInputSize: UDim2,
 	Spacing: number,
 	IconColorHover: Color3,
@@ -79,9 +81,14 @@ function NewTagTextInput:render()
 	local localization = props.Localization
 	local orderIterator = LayoutOrderIterator.new()
 
+	local paneStyle = nil
+	if self.state.hovered and not self.state.editing then
+		paneStyle = "ButtonHover"
+	end
+
 	-- TODO STUDIOPLAT-28607 replace with TextInput2 when complete
 	return Roact.createElement(Pane, {
-		Size = props.Size,
+		Size = if self.state.editing then style.EditingSize else style.Size,
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		HoverArea = Roact.createElement(HoverArea, {
@@ -98,11 +105,12 @@ function NewTagTextInput:render()
 			end,
 		}),
 		Pane = Roact.createElement(Pane, {
-			Size = props.Size,
 			Layout = Enum.FillDirection.Horizontal,
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			OnClick = self.beginEditing,
 			Spacing = style.Spacing,
+			ClipsDescendants = true,
+			Style = paneStyle,
 		}, {
 			AddIcon = Roact.createElement(Image, {
 				LayoutOrder = orderIterator:getNextOrder(),
@@ -119,7 +127,6 @@ function NewTagTextInput:render()
 			}),
 			TextInput = self.state.editing and Roact.createElement(TextInput, {
 				Size = style.TextInputSize,
-				Style = "FilledRoundedBorder",
 				LayoutOrder = orderIterator:getNextOrder(),
 				TextWrapped = true,
 				ShouldFocus = true,

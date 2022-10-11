@@ -6,18 +6,18 @@ return function()
 			local ticks = VisvalingamWhyatt({})
 			expect(#ticks).to.equal(0)
 
-			ticks = VisvalingamWhyatt({{1, 2}})
+			ticks = VisvalingamWhyatt({ { 1, 2 } })
 			expect(#ticks).to.equal(1)
 			expect(ticks[1]).to.equal(1)
 
-			ticks = VisvalingamWhyatt({{1, 2}, {3, 4}})
+			ticks = VisvalingamWhyatt({ { 1, 2 }, { 3, 4 } })
 			expect(#ticks).to.equal(2)
 			expect(ticks[1]).to.equal(1)
 			expect(ticks[2]).to.equal(3)
 		end)
 
 		it("should reuse the previous point's area if needed", function()
-			local points = {{0, 0}, {6, 2}, {8, 7}, {10, 2}, {18, 0}}
+			local points = { { 0, 0 }, { 6, 2 }, { 8, 7 }, { 10, 2 }, { 18, 0 } }
 			local ticks = VisvalingamWhyatt(points)
 			expect(#ticks).to.equal(5)
 			expect(ticks[1]).to.equal(0)

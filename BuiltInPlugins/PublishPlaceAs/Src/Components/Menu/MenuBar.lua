@@ -32,22 +32,25 @@ function MenuBar:render()
 	local menuEntries = {
 		Layout = Roact.createElement("UIListLayout", {
 			Padding = UDim.new(0, 1),
-		})
+		}),
 	}
 
 	for i, entry in ipairs(entries) do
-		table.insert(menuEntries, Roact.createElement(MenuEntry, {
-			Title = localization:getText("MenuItem", entry),
-			Selected = (selected == i),
+		table.insert(
+			menuEntries,
+			Roact.createElement(MenuEntry, {
+				Title = localization:getText("MenuItem", entry),
+				Selected = (selected == i),
 
-			-- TODO (kstephan) 2019/08/01 Change error/warning status depending on Rodux state
-			ShowError = false,
-			ShowWarning = false,
+				-- TODO (kstephan) 2019/08/01 Change error/warning status depending on Rodux state
+				ShowError = false,
+				ShowWarning = false,
 
-			OnClicked = function()
-				selectionChanged(i)
-			end,
-		}))
+				OnClicked = function()
+					selectionChanged(i)
+				end,
+			})
+		)
 	end
 
 	return Roact.createElement("Frame", {

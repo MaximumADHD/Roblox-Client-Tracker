@@ -32,9 +32,6 @@ local getSupportedMaterials = require(Plugin.Src.Resources.Constants.getSupporte
 local supportedMaterials = getSupportedMaterials()
 
 local getFFlagMaterialManagerTerrainDetails = require(Plugin.Src.Flags.getFFlagMaterialManagerTerrainDetails)
-local getFFlagMaterialVariantPhysicalPropertiesV2 = require(
-	Plugin.Src.Flags.getFFlagMaterialVariantPhysicalPropertiesV2
-)
 
 local MaterialVariantEditor = Roact.PureComponent:extend("MaterialVariantEditor")
 
@@ -117,7 +114,7 @@ function MaterialVariantEditor:render()
 						MaterialVariant = materialVariant,
 					})
 					else nil,
-				PhysicalSettings = if getFFlagMaterialVariantPhysicalPropertiesV2() and materialVariant
+				PhysicalSettings = if materialVariant
 					then Roact.createElement(PhysicalSettings, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),
 						MaterialVariant = materialVariant,

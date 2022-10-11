@@ -1,5 +1,3 @@
-local FFlagLocalizationPageNullSourceLanguageFixEnabled = game:DefineFastFlag("LocalizationPageNullSourceLanguageFixEnabled", false)
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Promise = require(Plugin.Packages.Framework).Util.Promise
 
@@ -23,7 +21,7 @@ function LocalizationPageController:localeLocalesGET(displayValueLocale)
 	return networking:get("locale", "/v1/locales", {
 		Params = {
 			displayValueLocale = displayValueLocale,
-		}
+		},
 	})
 end
 
@@ -37,26 +35,32 @@ function LocalizationPageController:gameinternationalizationSourceLanguageGamesP
 	return networking:patch("gameinternationalization", "/v1/source-language/games/" .. gameId, {
 		Params = {
 			languageCode = sourceLanguage,
-		}
+		},
 	})
 end
 
 function LocalizationPageController:gameinternationalizationAutoLocalizationGamesAutoLocalizationTablePOST(gameId)
 	local networking = self.__networking
-	return networking:post("gameinternationalization",
-		"/v1/autolocalization/games/" .. gameId .. "/autolocalizationtable", {
-		Body = {},
-	})
+	return networking:post(
+		"gameinternationalization",
+		"/v1/autolocalization/games/" .. gameId .. "/autolocalizationtable",
+		{
+			Body = {},
+		}
+	)
 end
 
-function LocalizationPageController:gameinternationalizationAutoLocalizationGamesSettingsPATCH(gameId, autoTextCaptureEnabledValue, useTranslatedContentEnabledValue)
+function LocalizationPageController:gameinternationalizationAutoLocalizationGamesSettingsPATCH(
+	gameId,
+	autoTextCaptureEnabledValue,
+	useTranslatedContentEnabledValue
+)
 	local networking = self.__networking
-	return 	networking:patch("gameinternationalization",
-		"/v1/autolocalization/games/" .. gameId .. "/settings", {
+	return networking:patch("gameinternationalization", "/v1/autolocalization/games/" .. gameId .. "/settings", {
 		Body = {
 			isAutolocalizationEnabled = autoTextCaptureEnabledValue,
 			shouldUseLocalizationTable = useTranslatedContentEnabledValue,
-		}
+		},
 	})
 end
 
@@ -65,32 +69,49 @@ function LocalizationPageController:gameinternationalizationAutomaticTranslation
 	return networking:get("gameinternationalization", "/v1/automatic-translation/games/" .. gameId .. "/feature-status")
 end
 
-function LocalizationPageController:gameinternationalizationAutomaticTranslationLanguagesTargetLanguagesGET(sourceLanguage)
+function LocalizationPageController:gameinternationalizationAutomaticTranslationLanguagesTargetLanguagesGET(
+	sourceLanguage
+)
 	local networking = self.__networking
-	return networking:get("gameinternationalization",
-		"/v1/automatic-translation/languages/" .. sourceLanguage .. "/target-languages")
+	return networking:get(
+		"gameinternationalization",
+		"/v1/automatic-translation/languages/" .. sourceLanguage .. "/target-languages"
+	)
 end
 
 function LocalizationPageController:gameinternationalizationSupportedLanguagesGamesAutomaticTranslationStatusGET(gameId)
 	local networking = self.__networking
-	return networking:get("gameinternationalization", "/v1/supported-languages/games/" .. gameId .. "/automatic-translation-status")
+	return networking:get(
+		"gameinternationalization",
+		"/v1/supported-languages/games/" .. gameId .. "/automatic-translation-status"
+	)
 end
 
 function LocalizationPageController:gameinternationalizationSupportedLanguagesGamesPATCH(gameId, config)
 	local networking = self.__networking
 	return networking:patch("gameinternationalization", "/v1/supported-languages/games/" .. gameId, {
-		Body = config
+		Body = config,
 	})
 end
 
-function LocalizationPageController:gameinternationalizationSupportedLanguagesGamesLanguagesAutomaticTranslationStatusPATCH(gameId, config)
+function LocalizationPageController:gameinternationalizationSupportedLanguagesGamesLanguagesAutomaticTranslationStatusPATCH(
+	gameId,
+	config
+)
 	local networking = self.__networking
 	local requests = {}
 	for languageCode, enabled in pairs(config) do
-		local httpRequest = networking:patch("gameinternationalization",
-			"/v1/supported-languages/games/" .. gameId .. "/languages/" .. languageCode .. "/automatic-translation-status", {
-				Body = enabled
-			})
+		local httpRequest = networking:patch(
+			"gameinternationalization",
+			"/v1/supported-languages/games/"
+				.. gameId
+				.. "/languages/"
+				.. languageCode
+				.. "/automatic-translation-status",
+			{
+				Body = enabled,
+			}
+		)
 		table.insert(requests, httpRequest)
 	end
 	return requests
@@ -137,8 +158,16 @@ function LocalizationPageController:getAutoLocalizationSettings(gameId)
 	return body.isAutolocalizationEnabled, body.shouldUseLocalizationTable
 end
 
-function LocalizationPageController:setAutoLocalizationSettings(gameId, autoTextCaptureEnabledValue, useTranslatedContentEnabledValue)
-	self:gameinternationalizationAutoLocalizationGamesSettingsPATCH(gameId, autoTextCaptureEnabledValue, useTranslatedContentEnabledValue):await()
+function LocalizationPageController:setAutoLocalizationSettings(
+	gameId,
+	autoTextCaptureEnabledValue,
+	useTranslatedContentEnabledValue
+)
+	self:gameinternationalizationAutoLocalizationGamesSettingsPATCH(
+		gameId,
+		autoTextCaptureEnabledValue,
+		useTranslatedContentEnabledValue
+	):await()
 end
 
 function LocalizationPageController:getAutoTranslationFeatureStatus(gameId)
@@ -148,11 +177,12 @@ function LocalizationPageController:getAutoTranslationFeatureStatus(gameId)
 end
 
 function LocalizationPageController:getAutoTranslationTargetLanguages(sourceLanguage)
-	if FFlagLocalizationPageNullSourceLanguageFixEnabled and not sourceLanguage then
+	if not sourceLanguage then
 		return {}
 	end
 
-	local response = self:gameinternationalizationAutomaticTranslationLanguagesTargetLanguagesGET(sourceLanguage):await()
+	local response = self:gameinternationalizationAutomaticTranslationLanguagesTargetLanguagesGET(sourceLanguage)
+		:await()
 
 	local targetLanguages = {}
 	for _, item in pairs(response.responseBody.targetLanguages) do
@@ -178,13 +208,14 @@ function LocalizationPageController:setAutoTranslationSetings(gameId, config)
 			table.insert(addSupportedLanguagesBody, {
 				["languageCodeType"] = "Language",
 				["languageCode"] = languageCode,
-				["delete"] = false
+				["delete"] = false,
 			})
 		end
 	end
 	self:gameinternationalizationSupportedLanguagesGamesPATCH(gameId, addSupportedLanguagesBody):await()
 
-	local httpRequests = self:gameinternationalizationSupportedLanguagesGamesLanguagesAutomaticTranslationStatusPATCH(gameId, config)
+	local httpRequests =
+		self:gameinternationalizationSupportedLanguagesGamesLanguagesAutomaticTranslationStatusPATCH(gameId, config)
 	Promise.all(httpRequests):await()
 end
 

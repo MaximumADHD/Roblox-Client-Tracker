@@ -26,7 +26,6 @@ local ListDialog = require(Plugin.Src.Components.ListDialog)
 local PlatformSelect = Roact.PureComponent:extend("PlatformSelect")
 
 local SharedFlags = Framework.SharedFlags
-local FFlagDevFrameworkMigrateStyledDialog = SharedFlags.getFFlagDevFrameworkMigrateStyledDialog()
 
 function PlatformSelect:init()
 	self.state = {
@@ -69,15 +68,18 @@ function PlatformSelect:render()
 				Id = "Computer",
 				Title = localization:getText("Devices", "Computer"),
 				Selected = devices.Computer,
-			}, {
+			},
+			{
 				Id = "Phone",
 				Title = localization:getText("Devices", "Phone"),
 				Selected = devices.Phone,
-			}, {
+			},
+			{
 				Id = "Tablet",
 				Title = localization:getText("Devices", "Tablet"),
 				Selected = devices.Tablet,
-			}, {
+			},
+			{
 				Id = "Console",
 				Title = localization:getText("Devices", "Console"),
 				Selected = devices.Console,
@@ -104,12 +106,9 @@ function PlatformSelect:render()
 				localization:getText("General", "ContentDialogItem4"),
 				localization:getText("General", "ContentDialogItem5"),
 			},
-			Buttons = if FFlagDevFrameworkMigrateStyledDialog then {
+			Buttons = {
 				{ Key = "Disagree", Text = localization:getText("Button", "ReplyDisagree"), Style = "RoundLargeText" },
 				{ Key = "Agree", Text = localization:getText("Button", "ReplyAgree"), Style = "RoundLargeTextPrimary" },
-			} else {
-				{ Key = "Disagree", Text = localization:getText("Button", "ReplyDisagree") },
-				{ Key = "Agree", Text = localization:getText("Button", "ReplyAgree"), Style = "Primary" },
 			},
 			OnButtonClicked = function(key)
 				if key == "Agree" then

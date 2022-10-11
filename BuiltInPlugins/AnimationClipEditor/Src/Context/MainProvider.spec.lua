@@ -33,14 +33,14 @@ return function()
 			mouse = mouse,
 			store = store,
 		}, {
-			testFrame = Roact.createElement("Frame")
+			testFrame = Roact.createElement("Frame"),
 		})
 
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)
 	end)
 
-	it("should render its children if items are provided", function ()
+	it("should render its children if items are provided", function()
 		local analytics = Analytics.mock()
 		local focusGui = Instance.new("ScreenGui")
 		local localization = Localization.mock()
@@ -52,7 +52,7 @@ return function()
 			{
 				id = "rerunLastStory",
 				text = "MOCK",
-			}
+			},
 		})
 
 		local instance = Roact.createElement(MainProvider, {
@@ -65,7 +65,7 @@ return function()
 			store = store,
 			pluginActions = pluginActions,
 		}, {
-			Frame = Roact.createElement("Frame")
+			Frame = Roact.createElement("Frame"),
 		})
 
 		local container = Instance.new("Folder")

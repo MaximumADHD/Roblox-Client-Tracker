@@ -1,7 +1,7 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent.Parent
 	local Roact = require(Plugin.Packages.Roact)
-	local Constants = require(Plugin.Src.Util.Constants)	
+	local Constants = require(Plugin.Src.Util.Constants)
 	local RigTestHelper = require(script.Parent:WaitForChild("RigTestHelper"))
 
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
@@ -16,11 +16,9 @@ return function()
 				RootInstance = RigTestHelper.buildTestRig(),
 				FaceControlsEditorEnabled = FaceControlsEditorEnabled,
 				ShowFaceControlsEditorPanel = true,
-				SetShowFaceControlsEditorPanel = function()
-				end,
-				SetFaceControlsEditorEnabled = function()
-				end,
-				ToggleFaceControlsEditorEnabled = function () end,
+				SetShowFaceControlsEditorPanel = function() end,
+				SetFaceControlsEditorEnabled = function() end,
+				ToggleFaceControlsEditorEnabled = function() end,
 			}),
 		})
 	end

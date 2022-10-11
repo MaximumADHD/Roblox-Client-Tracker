@@ -9,13 +9,12 @@ return function()
 		local element = MockWrap(Roact.createElement(Controls, {
 			LayoutOrder = 1,
 			Controls = {
-				simpleToggle = true
+				simpleToggle = true,
 			},
 			ControlState = {
-				simpleToggle = true
+				simpleToggle = true,
 			},
-			SetControls = function()
-			end
+			SetControls = function() end,
 		}))
 		local instance = Roact.mount(element, container)
 		expect(container.Element.Contents.Content.Pane.simpleToggle).to.be.ok()

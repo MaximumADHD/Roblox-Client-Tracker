@@ -19,15 +19,7 @@ local Actions = Plugin.Src.Actions
 local SetExpandedPane = require(Actions.SetExpandedPane)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
-local getFFlagMaterialManagerTextureMapOverhaul = require(
-	Plugin.Src.Flags.getFFlagMaterialManagerTextureMapOverhaul
-)
-
-local TextureMapSelector = if getFFlagMaterialManagerTextureMapOverhaul()
-	then 
-		require(Plugin.Src.Components.MaterialBrowser.MaterialVariantEditor.TextureMapSelector)
-	else 
-		require(Plugin.Src.Components.MaterialBrowser.MaterialVariantEditor.deprecatedTextureMapSelector)
+local TextureMapSelector = require(Plugin.Src.Components.MaterialBrowser.MaterialVariantEditor.TextureMapSelector)
 
 local Constants = Plugin.Src.Resources.Constants
 local getSettingsNames = require(Constants.getSettingsNames)

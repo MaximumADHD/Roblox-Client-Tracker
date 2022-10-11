@@ -63,7 +63,7 @@ function MockWrapper.getMockGlobals(props)
 		{
 			id = "rerunLastStory",
 			text = "MOCK",
-		}
+		},
 	})
 
 	local signals = Signals.new(Constants.SIGNAL_KEYS)

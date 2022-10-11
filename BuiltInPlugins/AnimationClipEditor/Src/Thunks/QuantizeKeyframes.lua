@@ -64,8 +64,7 @@ return function()
 				local rights = rightCenters[instanceName][trackName]
 
 				lefts[baseFrame] = lefts[baseFrame] == nil and tck or lefts[baseFrame]
-				rights[baseFrame] = rights[baseFrame] == nil and tck
-					or math.max(rights[baseFrame], tck)
+				rights[baseFrame] = rights[baseFrame] == nil and tck or math.max(rights[baseFrame], tck)
 			end
 		end)
 
@@ -77,8 +76,11 @@ return function()
 				AnimationData.moveKeyframe(track, tck, baseFrame)
 				AnimationData.moveNamedKeyframe(newData, tck, baseFrame)
 				-- We've already moved the keyframe, so don't move it right if we would
-				if rightCenters[instanceName] and rightCenters[instanceName][trackName]
-					and rightCenters[instanceName][trackName][baseFrame] == tck then
+				if
+					rightCenters[instanceName]
+					and rightCenters[instanceName][trackName]
+					and rightCenters[instanceName][trackName][baseFrame] == tck
+				then
 					rightCenters[instanceName][trackName][baseFrame] = nil
 				end
 			end

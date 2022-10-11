@@ -23,7 +23,7 @@ local DebugFlags = {
 	RunRhodiumTests = defineFlag("RunRhodiumTests"),
 	LogRoduxEvents = defineFlag("LogRoduxEvents"),
 	LogAnalytics = defineFlag("LogAnalytics"),
-	RunningUnderCLI = defineFlag("RunningUnderCLI", inCLI)
+	RunningUnderCLI = defineFlag("RunningUnderCLI", inCLI),
 }
 
 return DebugFlags

@@ -18,8 +18,10 @@ local initialState = {
 
 return Rodux.createReducer(initialState, {
 	SetNotification = function(state, action)
-		assert(state[action.notification] ~= nil,
-			"Notification " .. action.notification .. " does not exist in Notifications.")
+		assert(
+			state[action.notification] ~= nil,
+			"Notification " .. action.notification .. " does not exist in Notifications."
+		)
 
 		local newState = Cryo.Dictionary.join(state, {
 			[action.notification] = action.value,

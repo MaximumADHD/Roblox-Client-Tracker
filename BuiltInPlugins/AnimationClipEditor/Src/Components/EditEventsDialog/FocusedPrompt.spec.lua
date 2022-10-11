@@ -13,7 +13,7 @@ return function()
 			FocusedPrompt = Roact.createElement(FocusedPrompt, {
 				PromptText = promptText,
 				Buttons = {
-					{Key = "Test", Text = "Test"},
+					{ Key = "Test", Text = "Test" },
 				},
 			}, children),
 		})

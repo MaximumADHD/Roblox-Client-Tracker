@@ -9,7 +9,7 @@ local function createKey(keyName)
 	local key = newproxy(true)
 
 	getmetatable(key).__tostring = function()
-		return "Symbol("..keyName..")"
+		return "Symbol(" .. keyName .. ")"
 	end
 
 	return key
@@ -55,7 +55,4 @@ local miscConstants = {
 	MaxSearchResultsPerSubjectTypeGroups = 2,
 }
 
-return Cryo.Dictionary.join(
-	uniqueIdentifiers,
-	miscConstants
-)
+return Cryo.Dictionary.join(uniqueIdentifiers, miscConstants)

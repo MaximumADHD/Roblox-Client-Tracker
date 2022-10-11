@@ -25,8 +25,7 @@ function LeftTruncateTextLabel:init()
 			return 0
 		end
 
-		return TextService:GetTextSize(text, textRef.TextSize, textRef.Font,
-			Vector2.new(math.huge, math.huge)).x
+		return TextService:GetTextSize(text, textRef.TextSize, textRef.Font, Vector2.new(math.huge, math.huge)).x
 	end
 
 	self.updateText = function()

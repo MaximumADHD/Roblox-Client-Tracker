@@ -5,7 +5,6 @@
 		the user performed a double click from that event.
 ]]
 
-
 local DOUBLE_CLICK_INTERVAL = 0.2
 
 local DoubleClickDetector = {}

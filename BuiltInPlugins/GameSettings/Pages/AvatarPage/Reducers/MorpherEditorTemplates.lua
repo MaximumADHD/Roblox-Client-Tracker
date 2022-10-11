@@ -5,7 +5,7 @@ local Rodux = require(Plugin.Packages.Rodux)
 
 local UtilityFunctionsTable = require(Page.Util.UtilityFunctionsTable)
 
-local DEFAULT_STATE = {templates = {}}
+local DEFAULT_STATE = { templates = {} }
 
 return Rodux.createReducer(DEFAULT_STATE, {
 	ResetStore = function(state, action)
@@ -21,7 +21,10 @@ return Rodux.createReducer(DEFAULT_STATE, {
 	TemplatesClobberTemplate = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			templates = UtilityFunctionsTable.immutableSetExistingDictionaryEntry(
-				state.templates, action.templateToClobber, action.newTemplateModel),
+				state.templates,
+				action.templateToClobber,
+				action.newTemplateModel
+			),
 		})
 	end,
 })

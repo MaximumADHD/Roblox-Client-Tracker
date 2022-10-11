@@ -13,7 +13,7 @@ return function()
 				Width = 100,
 				LayoutOrder = 0,
 				ZIndex = 0,
-			}, children)
+			}, children),
 		})
 	end
 
@@ -23,7 +23,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestBaseTrack(), container)
 		local frame = container:FindFirstChildOfClass("Frame")
@@ -34,11 +34,14 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render children inside KeyframeDisplayArea", function ()
+	it("should render children inside KeyframeDisplayArea", function()
 		local container = Instance.new("Folder")
-		local instance = Roact.mount(createTestBaseTrack({
-			ChildFrame = Roact.createElement("Frame"),
-		}), container)
+		local instance = Roact.mount(
+			createTestBaseTrack({
+				ChildFrame = Roact.createElement("Frame"),
+			}),
+			container
+		)
 		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame).to.be.ok()

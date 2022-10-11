@@ -22,7 +22,7 @@ local function showDialog(plugin, localization, stylizer, mouse, dialogName, pro
 		end
 	end
 
-    local function onButtonPressed(key)
+	local function onButtonPressed(key)
 		if handle then
 			Roact.unmount(handle)
 		end
@@ -36,18 +36,21 @@ local function showDialog(plugin, localization, stylizer, mouse, dialogName, pro
 	local dialogElement = ContextServices.provide({
 		Mouse = mouse,
 		Localization = localization,
-        Theme(), -- TODO: somehow pass the theme from stylizer (tried Stylizer.PluginTheme)
-		Plugin = plugin
-	},{
-	    Roact.createElement(dialogName, Cryo.Dictionary.join(props,{
-			OnClose = function()
-				closeDialog()
-			end,
-            OnButtonPressed = function(key)
-                onButtonPressed(key)
-            end
-		}))
-    })
+		Theme(), -- TODO: somehow pass the theme from stylizer (tried Stylizer.PluginTheme)
+		Plugin = plugin,
+	}, {
+		Roact.createElement(
+			dialogName,
+			Cryo.Dictionary.join(props, {
+				OnClose = function()
+					closeDialog()
+				end,
+				OnButtonPressed = function(key)
+					onButtonPressed(key)
+				end,
+			})
+		),
+	})
 	handle = Roact.mount(dialogElement)
 
 	return closeDialog

@@ -22,7 +22,7 @@ end
 function GameMetadataController:universesV1GET(gameId)
 	local networking = self.__networking
 
-	return networking:get("develop", "/v1/universes/"..gameId)
+	return networking:get("develop", "/v1/universes/" .. gameId)
 end
 
 function GameMetadataController:getUniverseMetadata(gameId)
@@ -36,7 +36,7 @@ function GameMetadataController:getUniverseMetadata(gameId)
 				rootPlaceId = metadata.rootPlaceId,
 				creatorId = metadata.creatorTargetId,
 				creatorName = metadata.creatorName,
-				creatorType = Enum.CreatorType[metadata.creatorType]
+				creatorType = Enum.CreatorType[metadata.creatorType],
 			}
 		end
 	end

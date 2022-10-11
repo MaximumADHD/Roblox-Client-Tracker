@@ -24,13 +24,21 @@ return function(name, analytics)
 		if animSaves then
 			local keyframeSequence = animSaves:FindFirstChild(name)
 			if keyframeSequence then
-				local newData, frameRate, numKeyframes, numPoses, numEvents = RigUtils.fromRigAnimation(keyframeSequence)
+				local newData, frameRate, numKeyframes, numPoses, numEvents =
+					RigUtils.fromRigAnimation(keyframeSequence)
 				store:dispatch(LoadAnimationData(newData, analytics))
 				store:dispatch(SetNotification("Loaded", name))
 				store:dispatch(SetIsDirty(false))
 				store:dispatch(SetFrameRate(frameRate))
 
-				analytics:report("onLoadAnimation", name, numKeyframes, numPoses, numEvents, Constants.ANIMATION_TYPE.KeyframeSequence)
+				analytics:report(
+					"onLoadAnimation",
+					name,
+					numKeyframes,
+					numPoses,
+					numEvents,
+					Constants.ANIMATION_TYPE.KeyframeSequence
+				)
 			end
 		end
 	end

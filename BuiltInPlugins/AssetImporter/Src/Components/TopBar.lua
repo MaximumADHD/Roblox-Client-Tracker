@@ -13,6 +13,8 @@ local Button = UI.Button
 local Pane = UI.Pane
 local TextInput2 = UI.TextInput2
 
+local getFFlagDevFrameworkTextInput2SizingChoice = require(Plugin.Src.Flags.getFFlagDevFrameworkTextInput2SizingChoice)
+
 local TopBar = Roact.PureComponent:extend("TopBar")
 
 function TopBar:render()
@@ -37,6 +39,7 @@ function TopBar:render()
 			OnClick = self.props.OnBrowse,
 		}),
 		TextInput = Roact.createElement(TextInput2, {
+			AutomaticSize = if getFFlagDevFrameworkTextInput2SizingChoice() then Enum.AutomaticSize.None else nil,
 			Disabled = true,
 			LayoutOrder = 2,
 			Size = UDim2.new(1, -offset, 1, 0),

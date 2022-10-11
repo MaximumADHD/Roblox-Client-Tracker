@@ -14,7 +14,8 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local UILibraryCompat = Plugin.Src.UILibraryCompat
 
-local RadioButtons = require(UILibraryCompat.RadioButtons)
+local RadioButtons = require(UILibraryCompat.RadioButtons) -- Remove with GetFFlagRetireUILibraryCompat
+local RadioButtonList = Framework.UI.RadioButtonList
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -22,7 +23,9 @@ local withContext = ContextServices.withContext
 local Constants = require(Plugin.Src.Util.Constants)
 
 local IKModeButtons = Roact.PureComponent:extend("IKModeButtons")
+
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local GetFFlagRetireUILibraryCompat = require(Plugin.LuaFlags.GetFFlagRetireUILibraryCompat)
 
 local LABEL_WIDTH = 64
 local GROUP_WIDTH = 186
@@ -65,19 +68,30 @@ function IKModeButtons:render()
 			Size = UDim2.new(0, GROUP_WIDTH, 0.5, 0),
 			LayoutOrder = 1,
 		}, {
-			RadioButtons = Roact.createElement(RadioButtons, {
-				Buttons = {
-					{Key = Constants.IK_MODE.BodyPart, Text = localization:getText("IKMenu", "BodyPart")},
-					{Key = Constants.IK_MODE.FullBody, Text = localization:getText("IKMenu", "FullBody")},
-				},
-				Selected = ikMode,
-				FillDirection = Enum.FillDirection.Horizontal,
-				LayoutOrder = 1,
-				onButtonClicked = function(key, index)
-					setIKMode(key)
-				end,
-			})
-		})
+			RadioButtons = Roact.createElement(
+				if GetFFlagRetireUILibraryCompat() then RadioButtonList else RadioButtons,
+				{
+					Buttons = {
+						{ Key = Constants.IK_MODE.BodyPart, Text = localization:getText("IKMenu", "BodyPart") },
+						{ Key = Constants.IK_MODE.FullBody, Text = localization:getText("IKMenu", "FullBody") },
+					},
+					Selected = if GetFFlagRetireUILibraryCompat() then nil else ikMode,
+					SelectedKey = if GetFFlagRetireUILibraryCompat() then ikMode else nil,
+					FillDirection = Enum.FillDirection.Horizontal,
+					LayoutOrder = 1,
+					onButtonClicked = if GetFFlagRetireUILibraryCompat()
+						then nil
+						else function(key, index)
+							setIKMode(key)
+						end,
+					OnClick = if GetFFlagRetireUILibraryCompat()
+						then function(key)
+							setIKMode(key)
+						end
+						else nil,
+				}
+			),
+		}),
 	})
 end
 

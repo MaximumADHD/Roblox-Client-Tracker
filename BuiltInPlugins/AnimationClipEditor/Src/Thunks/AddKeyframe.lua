@@ -39,7 +39,14 @@ return function(instanceName, path, trackType, tck, keyframeData, analytics)
 
 			store:dispatch(AddTrack(instanceName, path[1], topTrackType, rotationType, eulerAnglesOrder, analytics))
 
-			AnimationData.addTrack(tracks, path[1], topTrackType, AnimationData.isChannelAnimation(newData), rotationType, eulerAnglesOrder)
+			AnimationData.addTrack(
+				tracks,
+				path[1],
+				topTrackType,
+				AnimationData.isChannelAnimation(newData),
+				rotationType,
+				eulerAnglesOrder
+			)
 			track = AnimationData.getTrack(newData, instanceName, path)
 		end
 

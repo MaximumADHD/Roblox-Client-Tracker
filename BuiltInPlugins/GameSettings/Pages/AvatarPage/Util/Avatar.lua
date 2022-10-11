@@ -20,7 +20,7 @@ function Avatar.loadWithTemplates(r6Rig, r15Rig, arrayOfTemplates)
 		return
 	end
 
-	self.playerChoiceAvatarType = ConstantAvatar.AvatarType[self.avatarData['playerAvatarType']]
+	self.playerChoiceAvatarType = ConstantAvatar.AvatarType[self.avatarData["playerAvatarType"]]
 
 	self.characterManager = AvatarRigManager.new(r6Rig, r15Rig)
 	self:applyTemplates(arrayOfTemplates)
@@ -69,14 +69,12 @@ local function populatePlayerChoiceAssets(description, allAssets)
 				description.BackAccessory = description.BackAccessory .. "," .. tostring(asset.id)
 			elseif ConstantAvatar.AssetTypes.Waist == asset.assetType.id then
 				description.WaistAccessory = description.WaistAccessory .. "," .. tostring(asset.id)
-
 			elseif ConstantAvatar.AssetTypes.Shirt == asset.assetType.id then
 				description.Shirt = asset.id
 			elseif ConstantAvatar.AssetTypes.ShirtGraphic == asset.assetType.id then
 				description.GraphicTShirt = asset.id
 			elseif ConstantAvatar.AssetTypes.Pants == asset.assetType.id then
 				description.Pants = asset.id
-
 			elseif ConstantAvatar.AssetTypes.Face == asset.assetType.id then
 				description.Face = asset.id
 			elseif ConstantAvatar.AssetTypes.Head == asset.assetType.id then
@@ -98,28 +96,28 @@ end
 
 local function populatePlayerChoiceScaling(description, scaling)
 	if scaling then
-		description.HeightScale = scaling['height'] or description.HeightScale
-		description.WidthScale = scaling['width'] or description.WidthScale
-		description.HeadScale = scaling['head'] or description.HeadScale
-		description.DepthScale = scaling['depth'] or description.DepthScale
-		description.BodyTypeScale = scaling['bodyType'] or description.BodyTypeScale
-		description.ProportionScale = scaling['proportion'] or description.ProportionScale
+		description.HeightScale = scaling["height"] or description.HeightScale
+		description.WidthScale = scaling["width"] or description.WidthScale
+		description.HeadScale = scaling["head"] or description.HeadScale
+		description.DepthScale = scaling["depth"] or description.DepthScale
+		description.BodyTypeScale = scaling["bodyType"] or description.BodyTypeScale
+		description.ProportionScale = scaling["proportion"] or description.ProportionScale
 	end
 end
 
 local function populatePlayerChoiceColors(description, colors)
 	if colors then
-		description.HeadColor = colors['headColorId'] and BrickColor.new(colors['headColorId']).Color
+		description.HeadColor = colors["headColorId"] and BrickColor.new(colors["headColorId"]).Color
 			or description.HeadColor
-		description.TorsoColor = colors['torsoColorId'] and BrickColor.new(colors['torsoColorId']).Color
+		description.TorsoColor = colors["torsoColorId"] and BrickColor.new(colors["torsoColorId"]).Color
 			or description.TorsoColor
-		description.RightArmColor = colors['rightArmColorId'] and BrickColor.new(colors['rightArmColorId']).Color
+		description.RightArmColor = colors["rightArmColorId"] and BrickColor.new(colors["rightArmColorId"]).Color
 			or description.RightArmColor
-		description.LeftArmColor = colors['leftArmColorId'] and BrickColor.new(colors['leftArmColorId']).Color
+		description.LeftArmColor = colors["leftArmColorId"] and BrickColor.new(colors["leftArmColorId"]).Color
 			or description.LeftArmColor
-		description.RightLegColor = colors['rightLegColorId'] and BrickColor.new(colors['rightLegColorId']).Color
+		description.RightLegColor = colors["rightLegColorId"] and BrickColor.new(colors["rightLegColorId"]).Color
 			or description.RightLegColor
-		description.LeftLegColor = colors['rightLegColorId'] and BrickColor.new(colors['rightLegColorId']).Color
+		description.LeftLegColor = colors["rightLegColorId"] and BrickColor.new(colors["rightLegColorId"]).Color
 			or description.LeftLegColor
 	end
 end
@@ -127,9 +125,9 @@ end
 createPlayerChoiceDescription = function(self)
 	local description = Instance.new("HumanoidDescription")
 
-	populatePlayerChoiceAssets(description, self.avatarData['assets'])
-	populatePlayerChoiceScaling(description, self.avatarData['scales'])
-	populatePlayerChoiceColors(description, self.avatarData['bodyColors'])
+	populatePlayerChoiceAssets(description, self.avatarData["assets"])
+	populatePlayerChoiceScaling(description, self.avatarData["scales"])
+	populatePlayerChoiceColors(description, self.avatarData["bodyColors"])
 
 	return description
 end

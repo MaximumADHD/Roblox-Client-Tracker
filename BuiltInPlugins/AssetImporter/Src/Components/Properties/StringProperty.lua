@@ -10,6 +10,7 @@ local Tooltip = UI.Tooltip
 local TruncatedTextLabel = UI.TruncatedTextLabel
 
 local getFFlagAssetImportFixPropertyLength = require(Plugin.Src.Flags.getFFlagAssetImportFixPropertyLength)
+local getFFlagDevFrameworkTextInput2SizingChoice = require(Plugin.Src.Flags.getFFlagDevFrameworkTextInput2SizingChoice)
 
 local function StringProperty(props)
 	if props.Editable ~= nil and not props.Editable then
@@ -31,6 +32,7 @@ local function StringProperty(props)
 				LayoutOrder = props.LayoutOrder,
 			}, {
 				Roact.createElement(TextInput2, {
+					AutomaticSize = if getFFlagDevFrameworkTextInput2SizingChoice() then Enum.AutomaticSize.None else nil,
 					OnTextChanged = props.OnSetItem,
 					Text = props.Value,
 				})

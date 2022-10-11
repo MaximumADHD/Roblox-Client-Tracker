@@ -13,10 +13,17 @@ local SetAnimationImportStatus = require(Plugin.Src.Actions.SetAnimationImportSt
 local SetCreatingAnimationFromVideo = require(Plugin.Src.Actions.SetCreatingAnimationFromVideo)
 local SetAnimationFromVideoUploadStartTime = require(Plugin.Src.Actions.SetAnimationFromVideoUploadStartTime)
 local SetAnimationFromVideoErroredOut = require(Plugin.Src.Actions.SetAnimationFromVideoErroredOut)
-local GetFFlagAnimationFromVideoCreatorServiceAnalytics2 = require(Plugin.LuaFlags.GetFFlagAnimationFromVideoCreatorServiceAnalytics2)
+local GetFFlagAnimationFromVideoCreatorServiceAnalytics2 =
+	require(Plugin.LuaFlags.GetFFlagAnimationFromVideoCreatorServiceAnalytics2)
 
 -- this function is is a variation of : ImportFBXAnimationUserMayChooseModel function (but is provided with a fbxFilePath parameter)
-local function _ImportFBXAnimationFromFilePathUserMayChooseModel(store, fbxFilePath, plugin, animationClipDropdown, analytics)
+local function _ImportFBXAnimationFromFilePathUserMayChooseModel(
+	store,
+	fbxFilePath,
+	plugin,
+	animationClipDropdown,
+	analytics
+)
 	local state = store:getState()
 	local rootInstance = state.Status.RootInstance
 	if not rootInstance then
@@ -28,9 +35,9 @@ local function _ImportFBXAnimationFromFilePathUserMayChooseModel(store, fbxFileP
 	end
 
 	local success, result = pcall(function()
-		return game:GetService("AvatarImportService"):ImportFBXAnimationFromFilePathUserMayChooseModel(fbxFilePath, rootInstance, userChooseModelThenImportCB)
+		return game:GetService("AvatarImportService")
+			:ImportFBXAnimationFromFilePathUserMayChooseModel(fbxFilePath, rootInstance, userChooseModelThenImportCB)
 	end)
-
 
 	if success then
 		local newData = RigUtils.fromRigAnimation(result)
@@ -50,7 +57,6 @@ end
 
 return function(plugin, animationClipDropdown, analytics)
 	return function(store)
-
 		-- Do not allow more than one video to animation conversion at once.
 		if store:getState().Status.CreatingAnimationFromVideo then
 			return
@@ -72,7 +78,11 @@ return function(plugin, animationClipDropdown, analytics)
 
 		local startTime
 		local function progressCallback(progress: number, status: number)
-			if GetFFlagAnimationFromVideoCreatorServiceAnalytics2() and status == Constants.ANIMATION_FROM_VIDEO_STATUS.UploadingData and not startTime then
+			if
+				GetFFlagAnimationFromVideoCreatorServiceAnalytics2()
+				and status == Constants.ANIMATION_FROM_VIDEO_STATUS.UploadingData
+				and not startTime
+			then
 				startTime = os.clock()
 				store:dispatch(SetAnimationFromVideoUploadStartTime(startTime))
 			end
@@ -99,7 +109,6 @@ return function(plugin, animationClipDropdown, analytics)
 
 		-- Show errors or return if no file selected
 		if not success then
-
 			-- As we display the error information on the progress bar and dont really distinguish the errors from messages
 			-- we need the information if the whole flow failed
 			if GetFFlagAnimationFromVideoCreatorServiceAnalytics2() then
@@ -115,17 +124,21 @@ return function(plugin, animationClipDropdown, analytics)
 					animationClipDropdown:hideAnimationImportProgress()
 				end
 			end
-			
+
 			-- error occured during file upload, then we just display the error, but not hide the progress bar
-			if GetFFlagAnimationFromVideoCreatorServiceAnalytics2() and store:getState().Status.AnimationImportStatus == Constants.ANIMATION_FROM_VIDEO_STATUS.UploadingData then
+			if
+				GetFFlagAnimationFromVideoCreatorServiceAnalytics2()
+				and store:getState().Status.AnimationImportStatus
+					== Constants.ANIMATION_FROM_VIDEO_STATUS.UploadingData
+			then
 				store:dispatch(SetAnimationImportStatus(Constants.ANIMATION_FROM_VIDEO_STATUS.ErrorUploadingData))
 				store:dispatch(SetAnimationImportProgress(0))
 				result = result or "Error while uploading video" -- this is for analytics purposes (and changed only when we dont have any other result - like "Cancelled by user")
 			end
-			
+
 			if GetFFlagAnimationFromVideoCreatorServiceAnalytics2() then
 				analytics:report("onAnimationEditorImportVideoError", result, duration)
-			else 
+			else
 				analytics:report("onAnimationEditorImportVideoError", result)
 			end
 			warn(result)
@@ -136,7 +149,7 @@ return function(plugin, animationClipDropdown, analytics)
 
 		if GetFFlagAnimationFromVideoCreatorServiceAnalytics2() then
 			analytics:report("onAnimationEditorImportVideoUploadSucceed", duration)
-		else 
+		else
 			analytics:report("onAnimationEditorImportVideoUploadSucceed")
 		end
 
@@ -152,6 +165,5 @@ return function(plugin, animationClipDropdown, analytics)
 		end
 
 		_ImportFBXAnimationFromFilePathUserMayChooseModel(store, fbxFilePath, plugin, animationClipDropdown, analytics)
-
 	end
 end

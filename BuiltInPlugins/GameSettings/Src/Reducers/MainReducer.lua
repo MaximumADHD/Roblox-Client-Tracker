@@ -1,4 +1,3 @@
-  
 --[[
 	Reducer that combines the Settings and Status reducers.
 ]]
@@ -26,7 +25,7 @@ return Rodux.combineReducers({
 	PageLoadState = PageLoadState,
 	PageSaveState = PageSaveState,
 	Metadata = GameMetadata,
-    GameOwnerMetadata = GameOwnerMetadata,
-    EditAsset = EditAsset,
-    ComponentLoadState = ComponentLoadState,
+	GameOwnerMetadata = GameOwnerMetadata,
+	EditAsset = EditAsset,
+	ComponentLoadState = ComponentLoadState,
 })

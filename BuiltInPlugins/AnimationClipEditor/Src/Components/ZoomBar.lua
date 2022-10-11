@@ -69,7 +69,8 @@ function ZoomBar:init()
 	self.MaxValue = 1
 
 	self.updateMin = function(position)
-		local scaled = (position - self.props.Min - self.ClickOffset + Constants.SCROLL_BAR_SIZE) / self:getDraggableSize()
+		local scaled = (position - self.props.Min - self.ClickOffset + Constants.SCROLL_BAR_SIZE)
+			/ self:getDraggableSize()
 		self.MinValue = math.clamp(scaled, 0, self.MaxValue)
 	end
 
@@ -94,7 +95,7 @@ function ZoomBar:init()
 	self.onZoomBegan = function(rbx, input, zoomFunc)
 		if Enum.UserInputType.MouseButton1 == input.UserInputType then
 			self:setState({
-				Zooming = true
+				Zooming = true,
 			})
 			if self.props.Direction == ZoomBar.HORIZONTAL then
 				self.ClickOffset = input.Position.X - rbx.AbsolutePosition.X + Constants.SCROLL_BAR_SIZE * 2
@@ -108,7 +109,7 @@ function ZoomBar:init()
 	self.onScrollBegan = function(rbx, input)
 		if Enum.UserInputType.MouseButton1 == input.UserInputType then
 			self:setState({
-				Scrolling = true
+				Scrolling = true,
 			})
 			if self.props.Direction == ZoomBar.HORIZONTAL then
 				self.ClickOffset = input.Position.X - rbx.AbsolutePosition.X + Constants.SCROLL_BAR_SIZE * 2

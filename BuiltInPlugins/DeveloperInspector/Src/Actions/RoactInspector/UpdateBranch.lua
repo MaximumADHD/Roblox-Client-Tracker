@@ -9,6 +9,6 @@ local Action = Util.Action
 return Action(script.Name, function(path, branch)
 	return {
 		path = path,
-		branch = branch
+		branch = branch,
 	}
 end)

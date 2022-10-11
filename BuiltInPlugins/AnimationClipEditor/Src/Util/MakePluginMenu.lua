@@ -17,15 +17,18 @@ end
 -- Callbacks can either be defined on each item (called with the value), or on the
 -- parent menu (called with the item table).
 local function connectAction(connections, action, parent, item)
-	table.insert(connections, action.Triggered:Connect(function()
-		disconnectAll(connections)
+	table.insert(
+		connections,
+		action.Triggered:Connect(function()
+			disconnectAll(connections)
 
-		if parent.ItemSelected then
-			parent.ItemSelected(item)
-		elseif item.ItemSelected then
-			item.ItemSelected(item.Value ~= nil and item.Value or item.Name)
-		end
-	end))
+			if parent.ItemSelected then
+				parent.ItemSelected(item)
+			elseif item.ItemSelected then
+				item.ItemSelected(item.Value ~= nil and item.Value or item.Name)
+			end
+		end)
+	)
 end
 
 local function makePluginMenuInternal(plugin, parent, connections)
@@ -36,7 +39,7 @@ local function makePluginMenuInternal(plugin, parent, connections)
 	local menu = plugin:CreatePluginMenu(newId(), label)
 	for _, item in ipairs(items) do
 		if typeof(item) == "table" then
-			if item.Items then	-- item has items of its own, it's a submenu
+			if item.Items then -- item has items of its own, it's a submenu
 				local subMenu = makePluginMenuInternal(plugin, item, connections)
 				menu:AddMenu(subMenu)
 			else
@@ -61,7 +64,7 @@ local function makePluginMenuInternal(plugin, parent, connections)
 end
 
 local function makePluginMenu(plugin, items)
-	local rootItem = {Items = items}
+	local rootItem = { Items = items }
 	local connections = {}
 
 	local menu = makePluginMenuInternal(plugin, rootItem, connections)

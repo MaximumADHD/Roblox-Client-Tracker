@@ -12,7 +12,6 @@ local UpdateAssetConfigData = require(Actions.UpdateAssetConfigData)
 local NetworkError = require(Actions.NetworkError)
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
-
 local Packages = Plugin.Packages
 local Promise = require(Packages.Framework).Util.Promise
 

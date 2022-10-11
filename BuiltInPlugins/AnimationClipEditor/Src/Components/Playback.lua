@@ -61,8 +61,10 @@ function Playback:didMount()
 					newTick = newTick % endTick
 				else
 					newTick = math.clamp(newTick, 0, endTick)
-					if (newTick == endTick and props.PlayState == Constants.PLAY_STATE.Play) or
-						(newTick == 0 and props.PlayState == Constants.PLAY_STATE.Reverse) then
+					if
+						(newTick == endTick and props.PlayState == Constants.PLAY_STATE.Play)
+						or (newTick == 0 and props.PlayState == Constants.PLAY_STATE.Reverse)
+					then
 						if GetFFlagRetirePause() then
 							props.SetPlayState(Constants.PLAY_STATE.Pause)
 						else
@@ -111,9 +113,11 @@ local function mapDispatchToProps(dispatch)
 			dispatch(StepAnimation(tck))
 		end,
 
-		Pause = if not GetFFlagRetirePause() then function()
-			dispatch(Pause())
-		end else nil,
+		Pause = if not GetFFlagRetirePause()
+			then function()
+				dispatch(Pause())
+			end
+			else nil,
 
 		SetPlaybackStartInfo = function(playbackStartInfo)
 			dispatch(SetPlaybackStartInfo(playbackStartInfo))

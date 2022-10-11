@@ -19,7 +19,7 @@ local GroupRoles = {}
 
 function GroupRoles.Get(groupId)
 	local groupRoles = {}
-	
+
 	local requestInfo = {
 		Url = Http.BuildRobloxUrl(GROUP_ROLES_REQUEST_TYPE, GROUP_ROLES_URL, groupId),
 		Method = "GET",
@@ -28,7 +28,7 @@ function GroupRoles.Get(groupId)
 	return Http.Request(requestInfo):andThen(function(jsonResult)
 		local result = HttpService:JSONDecode(jsonResult)
 
-		for _,roleMetadata in pairs(result.roles) do
+		for _, roleMetadata in pairs(result.roles) do
 			table.insert(groupRoles, {
 				[webKeys.RoleName] = roleMetadata.name,
 				[webKeys.RoleId] = roleMetadata.id,

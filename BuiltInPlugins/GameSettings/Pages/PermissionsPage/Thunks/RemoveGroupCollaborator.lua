@@ -20,9 +20,12 @@ return function(groupId)
 		for roleId, roleData in pairs(newPermissions[PermissionsConstants.RoleSubjectKey]) do
 			if roleData[PermissionsConstants.GroupIdKey] == groupId then
 				newPermissions = Cryo.Dictionary.join(newPermissions, {
-				    [PermissionsConstants.RoleSubjectKey] = Cryo.Dictionary.join(newPermissions[PermissionsConstants.RoleSubjectKey], {
-				        [roleId] = Cryo.None,
-				    })
+					[PermissionsConstants.RoleSubjectKey] = Cryo.Dictionary.join(
+						newPermissions[PermissionsConstants.RoleSubjectKey],
+						{
+							[roleId] = Cryo.None,
+						}
+					),
 				})
 			end
 		end

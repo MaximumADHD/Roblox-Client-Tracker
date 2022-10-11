@@ -120,7 +120,9 @@ function DropdownItemsList:getScrollButtons(
 
 		maxWidth = math.max(
 			maxWidth,
-			getTextSize(itemName, fontSize, nil, Vector2.new(0, 0)).X + (textInset * 2) + Constants.SCROLLBAR_BACKGROUND_THICKNESS
+			getTextSize(itemName, fontSize, nil, Vector2.new(0, 0)).X
+				+ (textInset * 2)
+				+ Constants.SCROLLBAR_BACKGROUND_THICKNESS
 		)
 
 		scrollButtons[itemKey or itemName] = Roact.createElement("ImageButton", {

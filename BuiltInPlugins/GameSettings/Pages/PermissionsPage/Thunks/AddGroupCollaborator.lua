@@ -17,7 +17,7 @@ return function(groupId, newPermission)
 		local newGroupMetadata = deepJoin(oldGroupMetadata, {
 			[groupId] = {
 				Name = groupName,
-			}
+			},
 		})
 
 		local newPermissions = state.Settings.Changed.permissions or state.Settings.Current.permissions
@@ -30,8 +30,8 @@ return function(groupId, newPermission)
 						[PermissionsConstants.SubjectNameKey] = roleData.name,
 						[PermissionsConstants.SubjectRankKey] = roleData.rank,
 						[PermissionsConstants.ActionKey] = newPermission,
-					}
-				}
+					},
+				},
 			})
 		end
 		store:dispatch(AddChange("permissions", newPermissions))

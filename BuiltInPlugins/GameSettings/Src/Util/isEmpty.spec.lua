@@ -11,7 +11,7 @@ return function()
 
 	it("should return false when the table is not empty", function()
 		local notEmptyTable = {
-			Key = "value"
+			Key = "value",
 		}
 
 		expect(isEmpty(notEmptyTable)).to.equal(false)

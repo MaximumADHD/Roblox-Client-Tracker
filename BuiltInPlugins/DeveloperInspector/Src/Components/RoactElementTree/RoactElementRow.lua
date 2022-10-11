@@ -25,21 +25,21 @@ local FLASH_DURATION_SECONDS = 1
 
 function RoactElementRow:init()
 	self.state = {
-		isHovering = false
+		isHovering = false,
 	}
 
 	self.containerRef = Roact.createRef()
 
 	self.onMouseEnter = function()
 		self:setState({
-			isHovering = true
+			isHovering = true,
 		})
 		self.props.OnEnterRow(self.props.Row)
 	end
 
 	self.onMouseLeave = function()
 		self:setState({
-			isHovering = false
+			isHovering = false,
 		})
 		self.props.OnLeaveRow(self.props.Row)
 	end
@@ -79,13 +79,13 @@ function RoactElementRow:flash(heat: number)
 		return
 	end
 	-- Cancel a previous tween
-	if self.flashTween then 
+	if self.flashTween then
 		self.flashTween:Cancel()
 	end
 	-- Create a new tween and animate the row background
 	local tweenInfo = TweenInfo.new(FLASH_DURATION_SECONDS, Enum.EasingStyle.Linear)
 	self.flashTween = TweenService:create(container, tweenInfo, {
-		BackgroundColor3 = self.props.Style.BackgroundColor
+		BackgroundColor3 = self.props.Style.BackgroundColor,
 	})
 	-- Change the green part of the color to make it look more "hot" for consecutive re-renders
 	local HEAT_INCREMENT = 10
@@ -108,7 +108,7 @@ function RoactElementRow:render()
 	local arrowSize = style.Arrow.Size
 	local padding = style.IconPadding
 	local iconInfo = getInspectorIcon(item.Icon)
-	
+
 	-- Default iconSize to (0, 0) as ImageRectSize is unavailable in Roblox CLI
 	local iconSize = iconInfo.ImageRectSize or Vector2.new()
 	local labelOffset = indent + arrowSize + 2 * padding
@@ -130,7 +130,7 @@ function RoactElementRow:render()
 			ImageColor3 = style.Arrow.Color,
 			ImageRectSize = Vector2.new(arrowSize, arrowSize),
 			ImageRectOffset = isExpanded and style.Arrow.ExpandedOffset or style.Arrow.CollapsedOffset,
-			[Roact.Event.Activated] = self.onToggle
+			[Roact.Event.Activated] = self.onToggle,
 		}) or nil,
 		Label = Roact.createElement("Frame", {
 			AutomaticSize = if FFlagDevFrameworkList then Enum.AutomaticSize.X else nil,
@@ -150,7 +150,7 @@ function RoactElementRow:render()
 				ImageRectSize = iconSize,
 				ImageRectOffset = iconInfo.ImageRectOffset,
 				Position = UDim2.new(0, padding, 0.5, 0),
-				AnchorPoint = Vector2.new(0, 0.5)
+				AnchorPoint = Vector2.new(0, 0.5),
 			}),
 			Text = Roact.createElement(TextLabel, {
 				AutomaticSize = if FFlagDevFrameworkList then Enum.AutomaticSize.X else nil,
@@ -160,9 +160,9 @@ function RoactElementRow:render()
 				Size = if FFlagDevFrameworkList then UDim2.fromScale(0, 1) else UDim2.new(1, -textOffset, 1, 0),
 				Position = UDim2.new(0, textOffset, 0, 0),
 				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Center
-			})
-		})
+				TextYAlignment = Enum.TextYAlignment.Center,
+			}),
+		}),
 	})
 end
 

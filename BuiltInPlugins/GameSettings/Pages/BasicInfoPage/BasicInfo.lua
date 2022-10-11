@@ -26,9 +26,11 @@
 		altText: { ThumbnailId: string, Error: "Moderated" }
 ]]
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
+local FFlagStudioNewTemplatesAreTC = game:GetFastFlag("StudioNewTemplatesAreTC")
 
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
+local TeamCreateService = game:GetService("TeamCreateService")
 
 local LOCALIZATION_ID = script.Name
 
@@ -64,12 +66,15 @@ local Framework = require(Plugin.Packages.Framework)
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryRoundTextBox = SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
 local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
+local FFlagDevFrameworkDropdownShowsLabel = game:GetFastFlag("DevFrameworkDropdownShowsLabel")
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
-local UILibrary = if FFlagRemoveUILibraryTitledFrame and FFlagRemoveUILibraryRoundTextBox then nil else require(Plugin.Packages.UILibrary)
+local UILibrary = if FFlagRemoveUILibraryTitledFrame and FFlagRemoveUILibraryRoundTextBox
+	then nil
+	else require(Plugin.Packages.UILibrary)
 
 local UI = Framework.UI
 local MultiLineTextInput = UI.MultiLineTextInput
@@ -77,10 +82,13 @@ local Separator = UI.Separator
 local LinkText = UI.LinkText
 local Tooltip = UI.Tooltip
 local Image = UI.Decoration.Image
-local TextLabel = UI.Decoration.TextLabel
 local HoverArea = UI.HoverArea
-local TextWithInlineLink = UI.TextWithInlineLink
+local SelectInput = if FFlagDevFrameworkDropdownShowsLabel
+	then UI.SelectInput
+	else require(Plugin.Src.Components.Dropdown)
 local TextInput2 = UI.TextInput2
+local TextLabel = UI.Decoration.TextLabel
+local TextWithInlineLink = UI.TextWithInlineLink
 local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
 
 local RoundTextBox
@@ -94,7 +102,6 @@ local LayoutOrderIterator = Util.LayoutOrderIterator
 local deepJoin = Util.deepJoin
 
 local CheckBoxSet = require(Plugin.Src.Components.CheckBoxSet)
-local Dropdown = require(Plugin.Src.Components.Dropdown)
 local ThumbnailController = require(Page.Components.Thumbnails.ThumbnailController)
 local UploadableIconWidget = require(Plugin.Src.Components.UploadableIcon.UploadableIconWidget)
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
@@ -160,7 +167,7 @@ local function loadSettings(store, contextItems)
 			local devices = gameInfoController:getSupportedDevices(gameId)
 
 			local formatted = {}
-			for _,v in ipairs(devices) do
+			for _, v in ipairs(devices) do
 				formatted[v] = true
 			end
 
@@ -223,16 +230,15 @@ local function loadSettings(store, contextItems)
 						China = {
 							status = "Unknown",
 							selected = false,
-						}
+						},
 					}
 				else
-					for _,location in pairs(optInLocations) do
+					for _, location in pairs(optInLocations) do
 						transformedOptInLocations[location.region] = {
 							status = location.status,
-							selected = location.status ~= "Removed" and location.status ~= "Unknown"
+							selected = location.status ~= "Removed" and location.status ~= "Unknown",
 						}
 					end
-
 				end
 				loadedSettings[optInLocationsKey] = transformedOptInLocations
 			end
@@ -258,6 +264,15 @@ local function saveSettings(store, contextItems)
 
 	return {
 		function()
+			-- If the name has changed, we interpret this to mean the user wants to continue working on this universe
+			-- Ensure it is unarchived
+			if FFlagStudioNewTemplatesAreTC then
+				if state.Settings.Changed.name ~= nil then
+					TeamCreateService:SendUnarchiveUniverseAsync(game.GameId)
+				end
+			end
+		end,
+		function()
 			local changed = state.Settings.Changed.name
 
 			if changed ~= nil then
@@ -267,7 +282,7 @@ local function saveSettings(store, contextItems)
 
 				if not success then
 					if result == gameInfoController.NameModerated then
-						store:dispatch(AddErrors({name = "Moderated"}))
+						store:dispatch(AddErrors({ name = "Moderated" }))
 					end
 
 					error("Game name was moderated")
@@ -284,7 +299,7 @@ local function saveSettings(store, contextItems)
 
 				if not success then
 					if result == gameInfoController.DescriptionModerated then
-						store:dispatch(AddErrors({description = "Moderated"}))
+						store:dispatch(AddErrors({ description = "Moderated" }))
 					end
 
 					error("Game description was moderated")
@@ -303,7 +318,7 @@ local function saveSettings(store, contextItems)
 
 			if changed ~= nil then
 				local changedDevices = {}
-				for k,v in pairs(changed) do
+				for k, v in pairs(changed) do
 					if v then
 						table.insert(changedDevices, k)
 					end
@@ -346,8 +361,12 @@ local function saveSettings(store, contextItems)
 					if #thumbnailIdsToRemove > 0 then
 						pendingJobs = pendingJobs + 1
 						coroutine.wrap(function()
-							local success, result = pcall(function() gameInfoController:removeThumbnails(gameId, thumbnailIdsToRemove) end)
-							if not success then lastError = result end
+							local success, result = pcall(function()
+								gameInfoController:removeThumbnails(gameId, thumbnailIdsToRemove)
+							end)
+							if not success then
+								lastError = result
+							end
 							pendingJobs = pendingJobs - 1
 						end)()
 					end
@@ -355,9 +374,11 @@ local function saveSettings(store, contextItems)
 					if #thumbnailFilesToAdd > 0 then
 						pendingJobs = pendingJobs + 1
 						coroutine.wrap(function()
-							local success, result = pcall(function() return gameInfoController:addThumbnails(gameId, thumbnailFilesToAdd) end)
+							local success, result = pcall(function()
+								return gameInfoController:addThumbnails(gameId, thumbnailFilesToAdd)
+							end)
 							if success then
-								for thumbnailFile,thumbnailId in pairs(result) do
+								for thumbnailFile, thumbnailId in pairs(result) do
 									local id = thumbnailFile:GetTemporaryId()
 									local oldIndex = Cryo.List.find(changedOrder, id)
 									changedOrder = Cryo.Dictionary.join(changedOrder, { [oldIndex] = thumbnailId })
@@ -376,7 +397,9 @@ local function saveSettings(store, contextItems)
 						end)()
 					end
 
-					while pendingJobs > 0 do wait() end
+					while pendingJobs > 0 do
+						wait()
+					end
 
 					local thumbnailsWithFilteredAltText
 					for thumbnailId, altText in pairs(thumbnailAltTextsToUpdate) do
@@ -384,7 +407,9 @@ local function saveSettings(store, contextItems)
 
 						coroutine.wrap(function()
 							local thumbnailMediaItem = { MediaAssetId = thumbnailId, MediaAssetAltText = altText }
-							local success, result = pcall(function() return gameInfoController:updateThumbnailAltText(gameId, thumbnailMediaItem) end)
+							local success, result = pcall(function()
+								return gameInfoController:updateThumbnailAltText(gameId, thumbnailMediaItem)
+							end)
 
 							if success then
 								if result.MediaAssetAltText ~= altText then
@@ -396,11 +421,13 @@ local function saveSettings(store, contextItems)
 								end
 							else
 								if result == gameInfoController.AltTextModerated then
-									store:dispatch(AddErrors({altText = {
-										ThumbnailId = thumbnailId,
-										Error = "Moderated",
-									}}))
-		
+									store:dispatch(AddErrors({
+										altText = {
+											ThumbnailId = thumbnailId,
+											Error = "Moderated",
+										},
+									}))
+
 									lastError = "Thumbnail alt text was moderated"
 								end
 							end
@@ -408,7 +435,9 @@ local function saveSettings(store, contextItems)
 						end)()
 					end
 
-					while pendingJobs > 0 do wait() end
+					while pendingJobs > 0 do
+						wait()
+					end
 
 					if thumbnailsWithFilteredAltText ~= nil then
 						store:dispatch(AddChange("thumbnails", thumbnailsWithFilteredAltText))
@@ -416,7 +445,7 @@ local function saveSettings(store, contextItems)
 				end
 
 				if currentOrder ~= changedOrder and changedOrder ~= nil then
-					for index,thumbnailId in pairs(changedOrder) do
+					for index, thumbnailId in pairs(changedOrder) do
 						changedOrder = Cryo.Dictionary.join(changedOrder, { [index] = tonumber(thumbnailId) })
 					end
 					gameInfoController:setThumbnailsOrder(gameId, changedOrder)
@@ -441,7 +470,7 @@ local function saveSettings(store, contextItems)
 				if changed ~= nil then
 					local optInLocations = {}
 					local optOutLocations = {}
-					for region,values in pairs(changed) do
+					for region, values in pairs(changed) do
 						if values.selected then
 							table.insert(optInLocations, region)
 						else
@@ -480,7 +509,7 @@ local function loadValuesToProps(getValue, state)
 		AltTextError = errors.altText,
 		GameIconError = errors.gameIcon,
 
-		IsCurrentlyActive =  state.Settings.Current.isActive,
+		IsCurrentlyActive = state.Settings.Current.isActive,
 
 		OwnerId = state.GameOwnerMetadata.creatorId,
 		OwnerType = state.GameOwnerMetadata.creatorType,
@@ -492,7 +521,7 @@ end
 --Implements dispatch functions for when the user changes values
 local function dispatchChanges(setValue, dispatch)
 	local dispatchFuncs = {
-		ThumbnailsChanged =  function(thumbnails)
+		ThumbnailsChanged = function(thumbnails)
 			dispatch(DiscardError("altText"))
 			dispatch(AddChange("thumbnails", thumbnails))
 		end,
@@ -503,16 +532,16 @@ local function dispatchChanges(setValue, dispatch)
 			dispatch(AddChange("name", text))
 			local nameLength = utf8.len(text)
 			if nameLength == 0 or string.len((string.gsub(text, " ", ""))) == 0 then
-				dispatch(AddErrors({name = "Empty"}))
+				dispatch(AddErrors({ name = "Empty" }))
 			elseif nameLength > MAX_NAME_LENGTH then
-				dispatch(AddErrors({name = "TooLong"}))
+				dispatch(AddErrors({ name = "TooLong" }))
 			end
 		end,
 		DescriptionChanged = function(text)
 			dispatch(AddChange("description", text))
 			local descriptionLength = string.len(text)
 			if descriptionLength > MAX_DESCRIPTION_LENGTH then
-				dispatch(AddErrors({description = "TooLong"}))
+				dispatch(AddErrors({ description = "TooLong" }))
 			end
 		end,
 		DevicesChanged = function(devices)
@@ -522,7 +551,7 @@ local function dispatchChanges(setValue, dispatch)
 					return
 				end
 			end
-			dispatch(AddErrors({playableDevices = "NoDevices"}))
+			dispatch(AddErrors({ playableDevices = "NoDevices" }))
 		end,
 		OptInLocationsChanged = function(locations)
 			if shouldShowDevPublishLocations() then
@@ -547,14 +576,14 @@ local function dispatchChanges(setValue, dispatch)
 		dispatch(AddChange("thumbnailOrder", order))
 
 		if #order > DEPRECATED_Constants.MAX_THUMBNAILS then
-			dispatch(AddErrors({thumbnails = "TooMany"}))
+			dispatch(AddErrors({ thumbnails = "TooMany" }))
 		end
 	end
 
 	dispatchFuncs.ThumbnailOrderChanged = function(order)
 		dispatch(AddChange("thumbnailOrder", order))
 		if #order > DEPRECATED_Constants.MAX_THUMBNAILS then
-			dispatch(AddErrors({thumbnails = "TooMany"}))
+			dispatch(AddErrors({ thumbnails = "TooMany" }))
 		end
 	end
 
@@ -664,13 +693,14 @@ function BasicInfo:init()
 		local publishExists = publishedVersionExists(props.PublishedVersions)
 
 		-- Question: Is there a way for me to get the size and font type automagically from the LinkText Style "Body"?
-		local hyperLinkTextSize = calculateTextSize(localization:getText(optInLocationsKey, "RequirementsLinkText"), 14, "SourceSans")
+		local hyperLinkTextSize =
+			calculateTextSize(localization:getText(optInLocationsKey, "RequirementsLinkText"), 14, "SourceSans")
 
 		local boxes = {}
 
 		local showWarning = not publishExists
 
-		for region,values in pairs(optInLocations) do
+		for region, values in pairs(optInLocations) do
 			local status = values.status
 			local selected = values.selected
 
@@ -707,7 +737,16 @@ function BasicInfo:init()
 							BackgroundTransparency = 1,
 							Font = theme.fontStyle.Subtext.Font,
 							LayoutOrder = -1,
-							Size = UDim2.new(0, calculateTextSize(moderationStatus.statusText, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font).X, 0, theme.fontStyle.Subtext.TextSize),
+							Size = UDim2.new(
+								0,
+								calculateTextSize(
+									moderationStatus.statusText,
+									theme.fontStyle.Subtext.TextSize,
+									theme.fontStyle.Subtext.Font
+								).X,
+								0,
+								theme.fontStyle.Subtext.TextSize
+							),
 							Text = moderationStatus.statusText,
 							TextColor3 = moderationStatus.textColor,
 							TextSize = theme.fontStyle.Subtext.TextSize,
@@ -728,7 +767,7 @@ function BasicInfo:init()
 								TextXAlignment = Enum.TextXAlignment.Left,
 								TextYAlignment = Enum.TextYAlignment.Top,
 							}),
-				
+
 							RequirementsLinkText = Roact.createElement(LinkText, {
 								OnClick = self.getOptInLocationsRequirementsLink,
 								Size = UDim2.new(0, hyperLinkTextSize.X, 0, hyperLinkTextSize.Y),
@@ -756,7 +795,16 @@ function BasicInfo:init()
 							BackgroundTransparency = 1,
 							Font = theme.fontStyle.Smaller.Font,
 							LayoutOrder = layoutOrder3:getNextOrder(),
-							Size = UDim2.new(0, calculateTextSize(localization:getText(optInLocationsKey, "SavedGameWarning"), theme.fontStyle.Smaller.TextSize, theme.fontStyle.Smaller.Font).X, 0, theme.fontStyle.Smaller.TextSize),
+							Size = UDim2.new(
+								0,
+								calculateTextSize(
+									localization:getText(optInLocationsKey, "SavedGameWarning"),
+									theme.fontStyle.Smaller.TextSize,
+									theme.fontStyle.Smaller.Font
+								).X,
+								0,
+								theme.fontStyle.Smaller.TextSize
+							),
 							Text = localization:getText(optInLocationsKey, "SavedGameWarning"),
 							TextColor3 = theme.fontStyle.Header.TextColor3,
 							TextTransparency = theme.optInWarning.transparency,
@@ -764,7 +812,7 @@ function BasicInfo:init()
 							TextXAlignment = Enum.TextXAlignment.Left,
 						}),
 					}) or nil,
-				})
+				}),
 			})
 			showWarning = false
 		end
@@ -782,7 +830,7 @@ function BasicInfo:render()
 	local function createChildren()
 		if not self:hasPermissionToEdit() then
 			return {
-				InsufficientPermission = Roact.createElement(InsufficientPermissionsPage)
+				InsufficientPermission = Roact.createElement(InsufficientPermissionsPage),
 			}
 		end
 
@@ -801,22 +849,23 @@ function BasicInfo:render()
 			publishExists = publishedVersionExists(props.PublishedVersions)
 		end
 
+		local label = if FFlagDevFrameworkDropdownShowsLabel then "Label" else "Title"
 		local localizedGenreList = {
-			{Id = "All", Title = localization:getText("General", "GenreAll")},
-			{Id = "Adventure", Title = localization:getText("General", "GenreAdventure")},
-			{Id = "Tutorial", Title = localization:getText("General", "GenreBuilding")},
-			{Id = "Funny", Title = localization:getText("General", "GenreComedy")},
-			{Id = "Ninja", Title = localization:getText("General", "GenreFighting")},
-			{Id = "FPS", Title = localization:getText("General", "GenreFPS")},
-			{Id = "Scary", Title = localization:getText("General", "GenreHorror")},
-			{Id = "Fantasy", Title = localization:getText("General", "GenreMedieval")},
-			{Id = "War", Title = localization:getText("General", "GenreMilitary")},
-			{Id = "Pirate", Title = localization:getText("General", "GenreNaval")},
-			{Id = "RPG", Title = localization:getText("General", "GenreRPG")},
-			{Id = "SciFi", Title = localization:getText("General", "GenreSciFi")},
-			{Id = "Sports", Title = localization:getText("General", "GenreSports")},
-			{Id = "TownAndCity", Title = localization:getText("General", "GenreTownAndCity")},
-			{Id = "WildWest", Title = localization:getText("General", "GenreWestern")},
+			{ Id = "All", [label] = localization:getText("General", "GenreAll") },
+			{ Id = "Adventure", [label] = localization:getText("General", "GenreAdventure") },
+			{ Id = "Tutorial", [label] = localization:getText("General", "GenreBuilding") },
+			{ Id = "Funny", [label] = localization:getText("General", "GenreComedy") },
+			{ Id = "Ninja", [label] = localization:getText("General", "GenreFighting") },
+			{ Id = "FPS", [label] = localization:getText("General", "GenreFPS") },
+			{ Id = "Scary", [label] = localization:getText("General", "GenreHorror") },
+			{ Id = "Fantasy", [label] = localization:getText("General", "GenreMedieval") },
+			{ Id = "War", [label] = localization:getText("General", "GenreMilitary") },
+			{ Id = "Pirate", [label] = localization:getText("General", "GenreNaval") },
+			{ Id = "RPG", [label] = localization:getText("General", "GenreRPG") },
+			{ Id = "SciFi", [label] = localization:getText("General", "GenreSciFi") },
+			{ Id = "Sports", [label] = localization:getText("General", "GenreSports") },
+			{ Id = "TownAndCity", [label] = localization:getText("General", "GenreTownAndCity") },
+			{ Id = "WildWest", [label] = localization:getText("General", "GenreWestern") },
 		}
 
 		local nameError
@@ -851,70 +900,78 @@ function BasicInfo:render()
 		end
 
 		return {
-			Name = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
-				LayoutOrder = layoutOrder:getNextOrder(),
-				Title = localization:getText("General", "TitleName"),
-			} else {
-				Title = localization:getText("General", "TitleName"),
-				MaxHeight = 60,
-				LayoutOrder = layoutOrder:getNextOrder(),
-				TextSize = DEPRECATED_Constants.TEXT_SIZE,
-			}, {
-				TextBox = (if FFlagRemoveUILibraryRoundTextBox then
-					Roact.createElement(TextInput2, {
-						Disabled = props.Name == nil,
-						ErrorText = nameError,
-						MaxLength = MAX_NAME_LENGTH,
-						OnTextChanged = props.NameChanged,
-						Text = props.Name or "",
-					})
-				else
-					Roact.createElement(RoundTextBox, {
-						Active = props.Name ~= nil,
-						ErrorMessage = nameError,
-						MaxLength = MAX_NAME_LENGTH,
-						Text = props.Name or "",
+			Name = Roact.createElement(
+				TitledFrame,
+				if FFlagRemoveUILibraryTitledFrame
+					then {
+						LayoutOrder = layoutOrder:getNextOrder(),
+						Title = localization:getText("General", "TitleName"),
+					}
+					else {
+						Title = localization:getText("General", "TitleName"),
+						MaxHeight = 60,
+						LayoutOrder = layoutOrder:getNextOrder(),
 						TextSize = DEPRECATED_Constants.TEXT_SIZE,
+					},
+				{
+					TextBox = (if FFlagRemoveUILibraryRoundTextBox
+						then Roact.createElement(TextInput2, {
+							Disabled = props.Name == nil,
+							ErrorText = nameError,
+							MaxLength = MAX_NAME_LENGTH,
+							OnTextChanged = props.NameChanged,
+							Text = props.Name or "",
+						})
+						else Roact.createElement(RoundTextBox, {
+							Active = props.Name ~= nil,
+							ErrorMessage = nameError,
+							MaxLength = MAX_NAME_LENGTH,
+							Text = props.Name or "",
+							TextSize = DEPRECATED_Constants.TEXT_SIZE,
 
-						SetText = props.NameChanged,
-					})
-				),
-			}),
+							SetText = props.NameChanged,
+						})),
+				}
+			),
 
-			Description = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
-				LayoutOrder = layoutOrder:getNextOrder(),
-				Title = localization:getText("General", "TitleDescription"),
-			} else {
-				Title = localization:getText("General", "TitleDescription"),
-				MaxHeight = 150,
-				LayoutOrder = layoutOrder:getNextOrder(),
-				TextSize = DEPRECATED_Constants.TEXT_SIZE,
-			}, {
-				TextBox = (if FFlagRemoveUILibraryRoundTextBox then 
-					Roact.createElement(TextInput2, {
-						Disabled = props.Description == nil,
-						ErrorText = descriptionError,
-						MaxLength = MAX_DESCRIPTION_LENGTH,
-						MultiLine = true,
-						OnTextChanged = props.DescriptionChanged,
-						Height = 130,
-						Text = props.Description or "",
-					})
-				else
-					Roact.createElement(RoundTextBox, {
-						Height = 130,
-						Multiline = true,
-
-						Active = props.Description ~= nil,
-						ErrorMessage = descriptionError,
-						MaxLength = MAX_DESCRIPTION_LENGTH,
-						Text = props.Description or "",
+			Description = Roact.createElement(
+				TitledFrame,
+				if FFlagRemoveUILibraryTitledFrame
+					then {
+						LayoutOrder = layoutOrder:getNextOrder(),
+						Title = localization:getText("General", "TitleDescription"),
+					}
+					else {
+						Title = localization:getText("General", "TitleDescription"),
+						MaxHeight = 150,
+						LayoutOrder = layoutOrder:getNextOrder(),
 						TextSize = DEPRECATED_Constants.TEXT_SIZE,
+					},
+				{
+					TextBox = (if FFlagRemoveUILibraryRoundTextBox
+						then Roact.createElement(TextInput2, {
+							Disabled = props.Description == nil,
+							ErrorText = descriptionError,
+							MaxLength = MAX_DESCRIPTION_LENGTH,
+							MultiLine = true,
+							OnTextChanged = props.DescriptionChanged,
+							Height = 130,
+							Text = props.Description or "",
+						})
+						else Roact.createElement(RoundTextBox, {
+							Height = 130,
+							Multiline = true,
 
-						SetText = props.DescriptionChanged,
-					})
-				),
-			}),
+							Active = props.Description ~= nil,
+							ErrorMessage = descriptionError,
+							MaxLength = MAX_DESCRIPTION_LENGTH,
+							Text = props.Description or "",
+							TextSize = DEPRECATED_Constants.TEXT_SIZE,
+
+							SetText = props.DescriptionChanged,
+						})),
+				}
+			),
 
 			Separator = Roact.createElement(Separator, {
 				LayoutOrder = layoutOrder:getNextOrder(),
@@ -946,30 +1003,48 @@ function BasicInfo:render()
 				AltTextError = {
 					ThumbnailId = if props.AltTextError then props.AltTextError.ThumbnailId else nil,
 					ErrorMessage = altTextError,
-				}
+				},
 			}),
 
 			Separator4 = Roact.createElement(Separator, {
 				LayoutOrder = layoutOrder:getNextOrder(),
 			}),
 
-			Genre = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
-				LayoutOrder = layoutOrder:getNextOrder(),
-				Title = localization:getText("General", "TitleGenre"),
-			} else {
-				Title = localization:getText("General", "TitleGenre"),
-				MaxHeight = 38,
-				LayoutOrder = layoutOrder:getNextOrder(),
-				TextSize = DEPRECATED_Constants.TEXT_SIZE,
-				ZIndex = 3,
-			}, {
-				Selector = Roact.createElement(Dropdown, {
-					Entries = localizedGenreList,
-					Enabled = props.Genre ~= nil,
-					Current = props.Genre,
-					CurrentChanged = props.GenreChanged,
-				}),
-			}),
+			Genre = Roact.createElement(
+				TitledFrame,
+				if FFlagRemoveUILibraryTitledFrame
+					then {
+						LayoutOrder = layoutOrder:getNextOrder(),
+						Title = localization:getText("General", "TitleGenre"),
+					}
+					else {
+						Title = localization:getText("General", "TitleGenre"),
+						MaxHeight = 38,
+						LayoutOrder = layoutOrder:getNextOrder(),
+						TextSize = DEPRECATED_Constants.TEXT_SIZE,
+						ZIndex = 3,
+					},
+				{
+					Selector = Roact.createElement(
+						SelectInput,
+						if FFlagDevFrameworkDropdownShowsLabel
+							then {
+								Items = localizedGenreList,
+								Enabled = props.Genre ~= nil,
+								SelectedId = props.Genre,
+								OnItemActivated = function(item)
+									props.GenreChanged(item.Id)
+								end,
+							}
+							else {
+								Entries = localizedGenreList,
+								Enabled = props.Genre ~= nil,
+								Current = props.Genre,
+								CurrentChanged = props.GenreChanged,
+							}
+					),
+				}
+			),
 
 			Separator5 = Roact.createElement(Separator, {
 				LayoutOrder = layoutOrder:getNextOrder(),
@@ -978,22 +1053,26 @@ function BasicInfo:render()
 			Devices = Roact.createElement(CheckBoxSet, {
 				Title = localization:getText("General", "TitleDevices"),
 				LayoutOrder = layoutOrder:getNextOrder(),
-				Boxes = {{
+				Boxes = {
+					{
 						Id = "Computer",
 						Title = localization:getText("General", "DeviceComputer"),
-						Selected = devices and devices.Computer or false
-					}, {
+						Selected = devices and devices.Computer or false,
+					},
+					{
 						Id = "Phone",
 						Title = localization:getText("General", "DevicePhone"),
-						Selected = devices and devices.Phone or false
-					}, {
+						Selected = devices and devices.Phone or false,
+					},
+					{
 						Id = "Tablet",
 						Title = localization:getText("General", "DeviceTablet"),
-						Selected = devices and devices.Tablet or false
-					}, {
+						Selected = devices and devices.Tablet or false,
+					},
+					{
 						Id = "Console",
 						Title = localization:getText("General", "DeviceConsole"),
-						Selected = devices and devices.Console or false
+						Selected = devices and devices.Console or false,
 					},
 				},
 				Enabled = devices ~= nil,
@@ -1014,7 +1093,7 @@ function BasicInfo:render()
 							},
 							Buttons = {
 								localization:getText("General", "ReplyDisagree"),
-								localization:getText("General", "ReplyAgree")
+								localization:getText("General", "ReplyAgree"),
 							},
 						}
 						if not dialog.showDialog(ListDialog, dialogProps):await() then
@@ -1023,7 +1102,7 @@ function BasicInfo:render()
 					end
 
 					local newDevices = Cryo.Dictionary.join(devices, {
-						[box.Id] = (box.Selected) and Cryo.None or not box.Selected,
+						[box.Id] = box.Selected and Cryo.None or not box.Selected,
 					})
 					props.DevicesChanged(newDevices)
 				end,
@@ -1033,83 +1112,94 @@ function BasicInfo:render()
 				LayoutOrder = layoutOrder:getNextOrder(),
 			}) or nil,
 
-			OptInLocations = shouldShowDevPublishLocations() and Roact.createElement(CheckBoxSet, {
-				Title = localization:getText("General", "TitleOptInLocations"),
-				LayoutOrder = layoutOrder:getNextOrder(),
-				Boxes = self:createOptInLocationBoxes(layoutOrder),
-				ShowWarning = not publishExists,
-				Enabled = optInLocations ~= nil and publishExists,
-				--Functionality
-				EntryClicked = function(box)
-					local dialogProps = {
-						Size = Vector2.new(theme.dialog.size.width, theme.dialog.size.height),
-						Title = "",
-						Header = localization:getText("General", "TermsDialogHeader"),
-						Buttons = {
-							localization:getText("General", "ReplyOK"),
-						},
-						Body = Roact.createElement(TextWithInlineLink, {
-							OnLinkClicked = function()
-								local url = getPlayerAppDownloadLink(chinaKey)
-								GuiService:OpenBrowserWindow(url)
-							end,
-							Text = localization:getText("General", "TermsDialogBody"),
-							LinkText = localization:getText("General", "TermsDialogBodyLink"),
-							LinkPlaceholder = "[link]",
-							MaxWidth = theme.textWithInlineLink.maxWidth,
-							TextProps = Cryo.Dictionary.join(theme.fontStyle.Normal, {
-								BackgroundTransparency = 1,
-							}),
-						})
-					}
-					if not playerAcceptance then
-						dialog.showDialog(SimpleDialog, dialogProps):await()
-						local points = {
-							[buttonClickedKey] = true,
-						}
-						sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, termsOfUseDialogKey, points)
-					else
-						local newOptInLocations = deepJoin(optInLocations, {
-							[box.Id] = {
-								selected = not box.Selected,
+			OptInLocations = shouldShowDevPublishLocations()
+					and Roact.createElement(CheckBoxSet, {
+						Title = localization:getText("General", "TitleOptInLocations"),
+						LayoutOrder = layoutOrder:getNextOrder(),
+						Boxes = self:createOptInLocationBoxes(layoutOrder),
+						ShowWarning = not publishExists,
+						Enabled = optInLocations ~= nil and publishExists,
+						--Functionality
+						EntryClicked = function(box)
+							local dialogProps = {
+								Size = Vector2.new(theme.dialog.size.width, theme.dialog.size.height),
+								Title = "",
+								Header = localization:getText("General", "TermsDialogHeader"),
+								Buttons = {
+									localization:getText("General", "ReplyOK"),
+								},
+								Body = Roact.createElement(TextWithInlineLink, {
+									OnLinkClicked = function()
+										local url = getPlayerAppDownloadLink(chinaKey)
+										GuiService:OpenBrowserWindow(url)
+									end,
+									Text = localization:getText("General", "TermsDialogBody"),
+									LinkText = localization:getText("General", "TermsDialogBodyLink"),
+									LinkPlaceholder = "[link]",
+									MaxWidth = theme.textWithInlineLink.maxWidth,
+									TextProps = Cryo.Dictionary.join(theme.fontStyle.Normal, {
+										BackgroundTransparency = 1,
+									}),
+								}),
 							}
-						})
-						local points = {
-							[optInLocationsKey] = box.Id,
-							[selectedKey] = not box.Selected,
-						}
-						sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, checkboxToggleKey, points)
-						props.OptInLocationsChanged(newOptInLocations)
-					end
-				end,
-				Tooltip = Roact.createElement(Image, {
-					Size = UDim2.fromOffset(theme.tooltipIcon.size, theme.tooltipIcon.size),
-					Position = UDim2.new(0, theme.tooltipIcon.paddingX, 0, theme.tooltipIcon.paddingY),
-					Style = "TooltipStyle",
-					StyleModifier = self.state.StyleModifier,
-				}, {
-					Roact.createElement(Tooltip, {
-						Text = localization:getText(optInLocationsKey, "Tooltip"),
-					}),
-					Roact.createElement(HoverArea, {
-						Cursor = "PointingHand",
-						MouseEnter = self.onMouseEnter,
-						MouseLeave = self.onMouseLeave,
-					}),
-				}),
-			}) or nil,
+							if not playerAcceptance then
+								dialog.showDialog(SimpleDialog, dialogProps):await()
+								local points = {
+									[buttonClickedKey] = true,
+								}
+								sendAnalyticsToKibana(
+									seriesNameKey,
+									FIntLuobuDevPublishAnalyticsHundredthsPercentage,
+									termsOfUseDialogKey,
+									points
+								)
+							else
+								local newOptInLocations = deepJoin(optInLocations, {
+									[box.Id] = {
+										selected = not box.Selected,
+									},
+								})
+								local points = {
+									[optInLocationsKey] = box.Id,
+									[selectedKey] = not box.Selected,
+								}
+								sendAnalyticsToKibana(
+									seriesNameKey,
+									FIntLuobuDevPublishAnalyticsHundredthsPercentage,
+									checkboxToggleKey,
+									points
+								)
+								props.OptInLocationsChanged(newOptInLocations)
+							end
+						end,
+						Tooltip = Roact.createElement(Image, {
+							Size = UDim2.fromOffset(theme.tooltipIcon.size, theme.tooltipIcon.size),
+							Position = UDim2.new(0, theme.tooltipIcon.paddingX, 0, theme.tooltipIcon.paddingY),
+							Style = "TooltipStyle",
+							StyleModifier = self.state.StyleModifier,
+						}, {
+							Roact.createElement(Tooltip, {
+								Text = localization:getText(optInLocationsKey, "Tooltip"),
+							}),
+							Roact.createElement(HoverArea, {
+								Cursor = "PointingHand",
+								MouseEnter = self.onMouseEnter,
+								MouseLeave = self.onMouseLeave,
+							}),
+						}),
+					})
+				or nil,
 		}
 	end
 
 	return Roact.createElement(SettingsPage, {
 		SettingsLoadJobs = loadSettings,
 		SettingsSaveJobs = saveSettings,
-		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
+		Title = localization:getText("General", "Category" .. LOCALIZATION_ID),
 		PageId = LOCALIZATION_ID,
 		CreateChildren = createChildren,
 	})
 end
-
 
 BasicInfo = withContext({
 	Localization = ContextServices.Localization,
@@ -1118,30 +1208,26 @@ BasicInfo = withContext({
 	Mouse = ContextServices.Mouse,
 })(BasicInfo)
 
-
-
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
-BasicInfo = RoactRodux.connect(
-	function(state, props)
-		if not state then return end
-
-		local getValue = function(propName)
-			return settingFromState(state.Settings, propName)
-		end
-
-		return loadValuesToProps(getValue, state)
-	end,
-
-	function(dispatch)
-		local setValue = function(propName)
-			return function(value)
-				dispatch(AddChange(propName, value))
-			end
-		end
-
-		return dispatchChanges(setValue, dispatch)
+BasicInfo = RoactRodux.connect(function(state, props)
+	if not state then
+		return
 	end
-)(BasicInfo)
+
+	local getValue = function(propName)
+		return settingFromState(state.Settings, propName)
+	end
+
+	return loadValuesToProps(getValue, state)
+end, function(dispatch)
+	local setValue = function(propName)
+		return function(value)
+			dispatch(AddChange(propName, value))
+		end
+	end
+
+	return dispatchChanges(setValue, dispatch)
+end)(BasicInfo)
 
 BasicInfo.LocalizationId = LOCALIZATION_ID
 

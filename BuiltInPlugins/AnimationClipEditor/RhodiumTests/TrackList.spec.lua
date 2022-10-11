@@ -10,13 +10,15 @@ return function()
 
 	local Templates = require(Plugin.Src.Util.Templates)
 
+	local GetFFlagRetireUILibraryCompat = require(Plugin.LuaFlags.GetFFlagRetireUILibraryCompat)
+
 	local testAnimationData = Templates.animationData()
 	testAnimationData.Instances = {
 		Root = {
 			Tracks = {
 				Head = {
 					Type = Constants.TRACK_TYPES.CFrame,
-					Keyframes = {0},
+					Keyframes = { 0 },
 					Data = {
 						[0] = {
 							Value = CFrame.new(),
@@ -25,7 +27,7 @@ return function()
 				},
 				UpperTorso = {
 					Type = Constants.TRACK_TYPES.CFrame,
-					Keyframes = {0},
+					Keyframes = { 0 },
 					Data = {
 						[0] = {
 							Value = CFrame.new(),
@@ -146,7 +148,12 @@ return function()
 
 			TestHelpers.clickInstance(trackList:WaitForChild("Track_Head").Arrow)
 			expect(trackList:WaitForChild("Head_Rotation")).to.be.ok()
-			local textBox = trackList.Head_Rotation.X_Entry.Border.TextBox.Border.Text
+			local textBox
+			if GetFFlagRetireUILibraryCompat() then
+				textBox = trackList.Head_Rotation.X_Entry.Contents.TextBox.Contents.Text
+			else
+				textBox = trackList.Head_Rotation.X_Entry.Border.TextBox.Border.Text
+			end
 			TestHelpers.clickInstance(textBox)
 			VirtualInput.Keyboard.hitKey(Enum.KeyCode.Backspace)
 			VirtualInput.Text.sendText("45")

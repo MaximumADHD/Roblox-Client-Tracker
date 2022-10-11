@@ -110,12 +110,8 @@ function MessageBox:render()
 	local wrapInformativeTextWidth = 192
 
 	local textOneLineSize = GetTextSize(text, textFontSize, textFont, Vector2.new(0, 0))
-	local informativeOneLineTextSize = GetTextSize(
-		informativeText,
-		informativeTextFontSize,
-		informativeTextFont,
-		Vector2.new(0, 0)
-	)
+	local informativeOneLineTextSize =
+		GetTextSize(informativeText, informativeTextFontSize, informativeTextFont, Vector2.new(0, 0))
 
 	-- Wrap both texts, get the bigger of the 2
 	local textWidth = math.max(
@@ -139,18 +135,9 @@ function MessageBox:render()
 
 	local maxTextWidth = innerMaxWidth - fullIconWidth
 
-	local textSize = GetTextSize(
-		text,
-		textFontSize,
-		textFont,
-		Vector2.new(maxTextWidth, 1000)
-	)
-	local informativeTextSize = GetTextSize(
-		informativeText,
-		informativeTextFontSize,
-		informativeTextFont,
-		Vector2.new(maxTextWidth, 1000)
-	)
+	local textSize = GetTextSize(text, textFontSize, textFont, Vector2.new(maxTextWidth, 1000))
+	local informativeTextSize =
+		GetTextSize(informativeText, informativeTextFontSize, informativeTextFont, Vector2.new(maxTextWidth, 1000))
 
 	local textHeight = textSize.Y
 	local textToInformativeTextPadding = 8

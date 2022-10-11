@@ -63,19 +63,16 @@ return function(publishInfo)
 			Analytics.incrementUploadAssetFailure(publishInfo.assetType)
 		end
 
-		return SerializeInstances(publishInfo.instance, services.StudioAssetService):andThen(
-			function(fileDataString)
-				return publishInfo.networkInterface
-					:postUploadAnimation(
-						publishInfo.assetId,
-						publishInfo.name,
-						publishInfo.description,
-						publishInfo.groupId,
-						fileDataString
-					)
-					:andThen(onSuccess, onFail)
-			end,
-			onSerializeFail
-		)
+		return SerializeInstances(publishInfo.instance, services.StudioAssetService):andThen(function(fileDataString)
+			return publishInfo.networkInterface
+				:postUploadAnimation(
+					publishInfo.assetId,
+					publishInfo.name,
+					publishInfo.description,
+					publishInfo.groupId,
+					fileDataString
+				)
+				:andThen(onSuccess, onFail)
+		end, onSerializeFail)
 	end
 end

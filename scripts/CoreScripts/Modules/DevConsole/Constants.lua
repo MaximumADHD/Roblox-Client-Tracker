@@ -248,6 +248,13 @@ local Constants = {
 		InnerPaddingY = 0.1,
 		InnerScaleY = 0.8, -- should be 1 - (2 * innerPaddingY)
 		TextPadding = 10,
+	},
+
+	Tooltip = {
+		Padding = UDim.new(0, 6),
+		Offset = UDim2.fromOffset(12, 12),
+		MaxWidth = 300,
+		Delay = 0.35
 	}
 }
 

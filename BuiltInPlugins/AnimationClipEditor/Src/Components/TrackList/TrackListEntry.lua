@@ -46,7 +46,7 @@ function TrackListEntry:render()
 
 	local children = props[Roact.Children] or {}
 	children.Padding = Roact.createElement("UIPadding", {
-		PaddingLeft = UDim.new(0, Constants.INDENT_PADDING * indent)
+		PaddingLeft = UDim.new(0, Constants.INDENT_PADDING * indent),
 	})
 
 	return Roact.createElement("Frame", {

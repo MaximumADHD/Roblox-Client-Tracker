@@ -6,7 +6,9 @@ local ContextActionService = game:GetService("ContextActionService")
 local CorePackages = game:GetService("CorePackages")
 local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
-local Promise = PurchasePromptDeps.Promise
+
+local UIBlox = PurchasePromptDeps.UIBlox
+local Images = UIBlox.App.ImageSet.Images
 
 local IAPExperience = PurchasePromptDeps.IAPExperience
 local RobuxUpsellFlow =  IAPExperience.PurchaseFlow.RobuxUpsellFlow
@@ -14,8 +16,6 @@ local RobuxUpsellFlowState =  IAPExperience.PurchaseFlow.RobuxUpsellFlowState
 local U13ConfirmType =  IAPExperience.PurchaseFlow.U13ConfirmType
 local PurchaseErrorType =  IAPExperience.PurchaseFlow.PurchaseErrorType
 
-local PurchaseFlow = require(Root.Enums.PurchaseFlow)
-local RequestType = require(Root.Enums.RequestType)
 local PromptState = require(Root.Enums.PromptState)
 local PurchaseError = require(Root.Enums.PurchaseError)
 
@@ -23,6 +23,11 @@ local RobuxUpsellOverlay = Roact.PureComponent:extend(script.Name)
 
 local CONFIRM_BUTTON_BIND = "ProductPurchaseConfirmButtonBind"
 local CANCEL_BUTTON_BIND = "ProductPurchaseCancelButtonBind"
+
+local XBOX_A_ICON = "icons/controls/keys/xboxA"
+local XBOX_B_ICON = "icons/controls/keys/xboxB"
+
+local GetFFlagPPFixGamepadIcons = require(Root.Flags.GetFFlagPPFixGamepadIcons)
 
 local FLOW_NAME = "InGame"
 
@@ -250,8 +255,12 @@ function RobuxUpsellOverlay:render()
 		errorType = self:getErrorType(),
 		u13ConfirmType = self:getU13ConfirmType(),
 
-		acceptControllerIcon = nil,
-		cancelControllerIcon = nil,
+		acceptControllerIcon = if GetFFlagPPFixGamepadIcons() and props.isGamepadEnabled
+			then Images[XBOX_A_ICON]
+			else nil,
+		cancelControllerIcon = if GetFFlagPPFixGamepadIcons() and props.isGamepadEnabled
+			then Images[XBOX_B_ICON]
+			else nil,
 
 		purchaseRobux = self.dispatchFetchPurchaseWarning,
 		acceptPurchaseWarning = self.promptRobuxPurchase,

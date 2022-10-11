@@ -46,14 +46,14 @@ end
 function UniverseAvatarController:configurationV2GET(gameId)
 	local networking = self.__networking
 
-	return networking:get("develop", "/v2/universes/"..gameId.."/configuration")
+	return networking:get("develop", "/v2/universes/" .. gameId .. "/configuration")
 end
 
 function UniverseAvatarController:configurationV2PATCH(gameId, configuration)
 	local networking = self.__networking
 
-	return networking:patch("develop", "/v2/universes/"..gameId.."/configuration", {
-		Body = configuration
+	return networking:patch("develop", "/v2/universes/" .. gameId .. "/configuration", {
+		Body = configuration,
 	})
 end
 
@@ -104,7 +104,7 @@ function UniverseAvatarController:setAvatarType(game, avatarType)
 		else
 			webAvatarType = "PlayerChoice"
 		end
-		self:configurationV2PATCH(gameId, {universeAvatarType = webAvatarType}):await()
+		self:configurationV2PATCH(gameId, { universeAvatarType = webAvatarType }):await()
 	end
 end
 
@@ -127,7 +127,7 @@ function UniverseAvatarController:setAnimationType(game, animationType)
 	if gameId == 0 then
 		starterPlayer.AllowCustomAnimations = animationType == "Standard"
 	else
-		self:configurationV2PATCH(gameId, {universeAnimationType = animationType}):await()
+		self:configurationV2PATCH(gameId, { universeAnimationType = animationType }):await()
 	end
 end
 
@@ -150,7 +150,7 @@ function UniverseAvatarController:setCollisionType(game, collisionType)
 	if gameId == 0 then
 		starterPlayer.GameSettingsR15Collision = collisionType
 	else
-		self:configurationV2PATCH(gameId, {universeCollisionType = collisionType.Name}):await()
+		self:configurationV2PATCH(gameId, { universeCollisionType = collisionType.Name }):await()
 	end
 end
 
@@ -442,7 +442,7 @@ function UniverseAvatarController:setAssetOverrides(game, assetOverrides)
 	local gameId = game.GameId
 
 	if gameId == 0 then
-		for _,override in ipairs(assetOverrides) do
+		for _, override in ipairs(assetOverrides) do
 			local assetType = ASSET_TYPE_IDS[override.assetTypeID]
 			local assetId = override.assetID
 			local playerChoice = override.isPlayerChoice
@@ -452,7 +452,9 @@ function UniverseAvatarController:setAssetOverrides(game, assetOverrides)
 	else
 		if FFlagGameSettingsDynamicHeadAssetOverrideSupport then
 			local headOverrideIndex = Cryo.List.findWhere(assetOverrides, function(assetOverride)
-				return assetOverride.assetTypeID == Enum.AssetType.Head.Value and assetOverride.assetID ~= nil and assetOverride.assetID ~= 0
+				return assetOverride.assetTypeID == Enum.AssetType.Head.Value
+					and assetOverride.assetID ~= nil
+					and assetOverride.assetID ~= 0
 			end)
 
 			if headOverrideIndex ~= nil then
@@ -463,13 +465,14 @@ function UniverseAvatarController:setAssetOverrides(game, assetOverrides)
 					assetOverrides = Cryo.List.replaceIndex(
 						assetOverrides,
 						headOverrideIndex,
-							Cryo.Dictionary.join(assetOverrides[headOverrideIndex], {
+						Cryo.Dictionary.join(assetOverrides[headOverrideIndex], {
 							assetTypeID = assetTypeId,
 						})
 					)
 				end
 
-				local assetTypeToClear = assetTypeId == Enum.AssetType.DynamicHead.Value and Enum.AssetType.Head or Enum.AssetType.DynamicHead
+				local assetTypeToClear = assetTypeId == Enum.AssetType.DynamicHead.Value and Enum.AssetType.Head
+					or Enum.AssetType.DynamicHead
 
 				-- filter overrides to clear out any of the head type we are _not_ updating
 				assetOverrides = Cryo.List.filter(assetOverrides, function(assetOverride)
@@ -487,7 +490,7 @@ function UniverseAvatarController:setAssetOverrides(game, assetOverrides)
 			end
 		end
 
-		self:configurationV2PATCH(gameId, {universeAvatarAssetOverrides = assetOverrides}):await()
+		self:configurationV2PATCH(gameId, { universeAvatarAssetOverrides = assetOverrides }):await()
 	end
 end
 

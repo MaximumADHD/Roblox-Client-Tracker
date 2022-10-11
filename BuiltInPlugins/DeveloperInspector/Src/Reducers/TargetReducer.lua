@@ -42,7 +42,7 @@ local function createItem(name, className, children)
 		ClassName = className,
 		Children = children or {},
 		GetChildren = getChildren,
-		GetDebugId = getDebugId
+		GetDebugId = getDebugId,
 	}
 end
 
@@ -67,29 +67,29 @@ return Rodux.createReducer({
 }, {
 	[SetTab.name] = function(state, action)
 		return join(state, {
-			selectedTab = action.tab
+			selectedTab = action.tab,
 		})
 	end,
 	[ClearTargets.name] = function(state, action)
 		return join(state, {
 			targets = {},
 			expandedTargets = {},
-			selectedTarget = None
+			selectedTarget = None,
 		})
 	end,
 	[SelectTarget.name] = function(state, action)
 		return join(state, {
-			selectedTarget = action.target
+			selectedTarget = action.target,
 		})
 	end,
 	[CloseTarget.name] = function(state)
 		return join(state, {
-			selectedTarget = None
+			selectedTarget = None,
 		})
 	end,
 	[ToggleTarget.name] = function(state, action)
 		return joinDeep(state, {
-			expandedTargets = action.change
+			expandedTargets = action.change,
 		})
 	end,
 	[AddTargets.name] = function(state, action)
@@ -110,7 +110,7 @@ return Rodux.createReducer({
 			return target.id, item
 		end)
 		local newState = joinDeep(state, {
-			targets = targets
+			targets = targets,
 		})
 		return newState
 	end,

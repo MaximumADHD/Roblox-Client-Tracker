@@ -11,6 +11,7 @@ local Actions = {
 	SetRenamingGroup = require(script.SetRenamingGroup),
 	SetSearch = require(script.SetSearch),
 	SetTagData = require(script.SetTagData),
+	SetUIGroupCollapseState = require(script.SetUIGroupCollapseState),
 	SetUnknownTags = require(script.SetUnknownTags),
 	ToggleColorPicker = require(script.ToggleColorPicker),
 	ToggleIconPicker = require(script.ToggleIconPicker),

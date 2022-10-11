@@ -48,7 +48,7 @@ function Test:nextTestId()
 end
 
 function Test:createTestStore()
-	local middlewares = {Rodux.thunkMiddleware}
+	local middlewares = { Rodux.thunkMiddleware }
 	local store = Rodux.Store.new(MainReducer, nil, middlewares)
 	store:dispatch(SetSnapMode(Constants.SNAP_MODES.None))
 	return store
@@ -58,8 +58,7 @@ local function mockConnection()
 	local mockConnection = {}
 	function mockConnection:Connect()
 		local mockDisconnection = {}
-		function mockDisconnection:Disconnect()
-		end
+		function mockDisconnection:Disconnect() end
 		return mockDisconnection
 	end
 	return mockConnection
@@ -73,12 +72,10 @@ function Test:createMockPlugin(plugin)
 		return screen
 	end
 	return {
-		Activate = function(_, ...)
-		end,
+		Activate = function(_, ...) end,
 		Name = "MockPlugin",
 
-		Deactivate = function()
-		end,
+		Deactivate = function() end,
 
 		GetMouse = function()
 			local mouse = {}
@@ -95,7 +92,7 @@ function Test:createMockPlugin(plugin)
 		CreatePluginAction = function()
 			local signal = Signal.new()
 			return {
-				Triggered = signal
+				Triggered = signal,
 			}
 		end,
 
@@ -155,7 +152,8 @@ function Test.new(plugin)
 	self.mockPlugin = self:createMockPlugin(plugin)
 	self.container = self:makeContainer()
 	self.analytics = ContextServices.Analytics.mock()
-	self.pluginActions = ContextServices.PluginActions.new(self.mockPlugin, MakePluginActions(self.mockPlugin, self.localization))
+	self.pluginActions =
+		ContextServices.PluginActions.new(self.mockPlugin, MakePluginActions(self.mockPlugin, self.localization))
 	self.signals = Signals.new(Constants.SIGNAL_KEYS)
 	self.calloutController = CalloutController.new(ServiceWrapper.new("CalloutService", true):asService())
 

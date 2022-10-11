@@ -33,7 +33,7 @@ type Props = {
 	LayoutOrder: number,
 	Controls: Types.StoryControls,
 	ControlState: Types.StoryControls,
-	SetControls: (Types.StoryControls) -> ()
+	SetControls: (Types.StoryControls) -> (),
 }
 
 -- A toggle button for boolean values
@@ -43,7 +43,7 @@ local function getToggleButton(key: string, value: any, props: Props)
 		Text = key,
 		OnClick = function()
 			props.SetControls({
-				[key] = not value
+				[key] = not value,
 			})
 		end,
 	})
@@ -67,7 +67,7 @@ local function getTextInput(key: string, value: any, props: Props)
 					typedValue = tonumber(newValue) or 0
 				end
 				props.SetControls({
-					[key] = typedValue
+					[key] = typedValue,
 				})
 			end,
 			LayoutOrder = 2,
@@ -87,9 +87,9 @@ local function getSelectInput(key: string, value: any, props: Props)
 			SelectedIndex = index,
 			OnItemActivated = function(_value, index: number)
 				props.SetControls({
-					[key] = values[index]
+					[key] = values[index],
 				})
-			end
+			end,
 		}),
 	})
 end
@@ -116,7 +116,7 @@ local function Controls(props: Props)
 			LayoutOrder = index,
 			Spacing = 5,
 		}, {
-			Child = child
+			Child = child,
 		})
 		return key, element
 	end)
@@ -131,7 +131,7 @@ local function Controls(props: Props)
 			Layout = Enum.FillDirection.Horizontal,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			Spacing = 15,
-		}, controls)
+		}, controls),
 	})
 end
 

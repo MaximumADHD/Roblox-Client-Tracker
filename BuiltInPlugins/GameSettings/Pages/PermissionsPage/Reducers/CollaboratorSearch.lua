@@ -24,7 +24,7 @@ return Rodux.createReducer(DEFAULT_STATE, {
 		return Cryo.Dictionary.join(state, {
 			CachedSearchResults = Cryo.Dictionary.join(state.CachedSearchResults, {
 				[action.key] = action.success and action.results or nil,
-			})
+			}),
 		})
 	end,
 
@@ -32,7 +32,7 @@ return Rodux.createReducer(DEFAULT_STATE, {
 		return Cryo.Dictionary.join(state, {
 			CachedSearchResults = Cryo.Dictionary.join(state.CachedSearchResults, {
 				[action.searchTerm] = LOADING_IN_BACKGROUND,
-			})
+			}),
 		})
 	end,
 

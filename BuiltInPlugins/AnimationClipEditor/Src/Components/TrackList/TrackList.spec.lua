@@ -38,7 +38,7 @@ return function()
 				TopTrackIndex = topIndex or 1,
 				Tracks = testTracks,
 				RootName = "Root",
-			})
+			}),
 		})
 	end
 
@@ -48,7 +48,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestTrackList(), container)
 		local frame = container:FindFirstChildOfClass("Frame")
@@ -67,7 +67,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should work with a TopTrackIndex other than 1", function ()
+	it("should work with a TopTrackIndex other than 1", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestTrackList(2), container)
 		local frame = container:FindFirstChildOfClass("Frame")
@@ -83,7 +83,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should only display visible tracks", function ()
+	it("should only display visible tracks", function()
 		local container = Instance.new("Folder")
 		local size = UDim2.new(0, 400, 0, Constants.TRACK_HEIGHT + Constants.SCROLL_BAR_SIZE + 1)
 		local instance = Roact.mount(createTestTrackList(1, size), container)

@@ -25,13 +25,6 @@ return function(keyword, assetType, prefix, keyCount, delCount, autocompleteShow
 			toolboxTab = toolboxTab,
 		}
 
-		Analytics.marketplaceAutocompleteSearch(
-			keyword,
-			prefix,
-			keyCount,
-			delCount,
-			autocompleteShown,
-			searchInfo
-		)
+		Analytics.marketplaceAutocompleteSearch(keyword, prefix, keyCount, delCount, autocompleteShown, searchInfo)
 	end
 end

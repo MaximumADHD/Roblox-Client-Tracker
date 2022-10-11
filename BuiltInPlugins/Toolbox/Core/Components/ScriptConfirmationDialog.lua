@@ -29,6 +29,7 @@ local Dialog = require(Plugin.Core.Components.PluginWidget.Dialog)
 local MessageBoxButton = require(Plugin.Core.Components.MessageBox.MessageBoxButton)
 
 local ScriptConfirmationDialog = Roact.PureComponent:extend("ScriptConfirmationDialog")
+local FFlagToolboxCancelModelWithScriptsFix = game:GetFastFlag("ToolboxCancelModelWithScriptsFix")
 
 function ScriptConfirmationDialog:init(props)
 	-- If the owner of the message box calls setState() when the user clicks
@@ -107,6 +108,7 @@ function ScriptConfirmationDialog:renderContent(modalTarget, localization, local
 	local dontShowAgainTextFont = Constants.FONT
 
 	local okText = localizedContent.PurchaseFlow.OK
+	local cancelText = localizedContent.PurchaseFlow.Cancel
 	local titleText = localizedContent.ToolboxToolbarName
 
 	local buttonWidth = Constants.MESSAGE_BOX_BUTTON_WIDTH
@@ -116,24 +118,11 @@ function ScriptConfirmationDialog:renderContent(modalTarget, localization, local
 	-- Wrap the texts at the same point
 	local wrapTextWidth = 424
 
-	local detailTextOneLineSize = GetTextSize(
-		detailText,
-		detailTextFontSize,
-		detailTextFont,
-		Vector2.new(0, 0)
-	)
-	local instructionOneLineTextSize = GetTextSize(
-		instructionText,
-		instructionTextFontSize,
-		instructionTextFont,
-		Vector2.new(0, 0)
-	)
-	local dontShowAgainTextOneLineSize = GetTextSize(
-		dontShowAgainText,
-		dontShowAgainTextFontSize,
-		dontShowAgainTextFont,
-		Vector2.new(0, 0)
-	)
+	local detailTextOneLineSize = GetTextSize(detailText, detailTextFontSize, detailTextFont, Vector2.new(0, 0))
+	local instructionOneLineTextSize =
+		GetTextSize(instructionText, instructionTextFontSize, instructionTextFont, Vector2.new(0, 0))
+	local dontShowAgainTextOneLineSize =
+		GetTextSize(dontShowAgainText, dontShowAgainTextFontSize, dontShowAgainTextFont, Vector2.new(0, 0))
 
 	local checkboxIconPadding = 16
 	-- Wrap all texts, get the bigger of the 3
@@ -158,18 +147,9 @@ function ScriptConfirmationDialog:renderContent(modalTarget, localization, local
 
 	local maxTextWidth = innerMaxWidth - fullIconWidth
 
-	local detailTextSize = GetTextSize(
-		detailText,
-		detailTextFontSize,
-		detailTextFont,
-		Vector2.new(maxTextWidth, 1000)
-	)
-	local instructionTextSize = GetTextSize(
-		instructionText,
-		instructionTextFontSize,
-		instructionTextFont,
-		Vector2.new(maxTextWidth, 1000)
-	)
+	local detailTextSize = GetTextSize(detailText, detailTextFontSize, detailTextFont, Vector2.new(maxTextWidth, 1000))
+	local instructionTextSize =
+		GetTextSize(instructionText, instructionTextFontSize, instructionTextFont, Vector2.new(maxTextWidth, 1000))
 	local dontShowAgainTextSize = GetTextSize(
 		dontShowAgainText,
 		dontShowAgainTextFontSize,
@@ -195,6 +175,14 @@ function ScriptConfirmationDialog:renderContent(modalTarget, localization, local
 
 	local boxWidth = outerPadding + innerMaxWidth + outerPadding
 	local boxHeight = topPadding + topHeight + textToButtonsPadding + buttonsHeight + outerPadding
+
+	local CancelButton = nil
+	if FFlagToolboxCancelModelWithScriptsFix then
+		CancelButton = Roact.createElement(MessageBoxButton, {
+			Text = cancelText,
+			onButtonClicked = self.props.onCancel,
+		})
+	end
 
 	return Roact.createElement(Dialog, {
 		Name = props.Name,
@@ -314,8 +302,11 @@ function ScriptConfirmationDialog:renderContent(modalTarget, localization, local
 
 				OkButton = Roact.createElement(MessageBoxButton, {
 					Text = okText,
-					onButtonClicked = self.props.onClose,
+					onButtonClicked = if FFlagToolboxCancelModelWithScriptsFix
+						then self.props.onOkButtonClicked
+						else self.props.onClose,
 				}),
+				CancelButton = CancelButton,
 			}),
 		}),
 	})

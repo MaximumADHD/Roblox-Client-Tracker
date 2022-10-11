@@ -8,11 +8,11 @@ local Util = Framework.Util
 local Action = Util.Action
 
 export type Props = {
-	story: Types.StoryItem
+	story: Types.StoryItem,
 }
 
 return Action(script.Name, function(story: Types.StoryItem)
 	return {
-		story = story
+		story = story,
 	}
 end)

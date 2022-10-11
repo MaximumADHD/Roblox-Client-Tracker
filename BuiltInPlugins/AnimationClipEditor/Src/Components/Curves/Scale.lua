@@ -30,6 +30,7 @@ local withContext = ContextServices.withContext
 local Constants = require(Plugin.Src.Util.Constants)
 local ScaleTick = require(Plugin.Src.Components.Curves.ScaleTick)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local GetFFlagRetireWillUpdate = require(Plugin.LuaFlags.GetFFlagRetireWillUpdate)
 
 local Scale = Roact.PureComponent:extend("Scale")
 
@@ -53,7 +54,20 @@ export type Props = {
 	ZIndex: number,
 }
 
-function Scale:calculateIntervals(props: Props): ()
+function Scale:init(): ()
+	if GetFFlagRetireWillUpdate() then
+		self.state = {
+			majorInterval = 1,
+			minorInterval = 1,
+		}
+	end
+end
+
+function Scale:calculateIntervals(
+	properties: Props
+): () -- properties can be removed if GetFFlagRetireWillUpdate() is ON
+	local props = if GetFFlagRetireWillUpdate() then self.props else properties
+
 	local zoom = props.VerticalZoom
 	zoom = math.min(zoom, 0.99)
 
@@ -70,10 +84,19 @@ function Scale:calculateIntervals(props: Props): ()
 	-- space required to display SCALE_NUM_TICKS ticks
 	local mult = Constants.SCALE_NUM_TICKS * powTen
 
-	if scale < mult then
-		self.majorInterval, self.minorInterval = powTen, powTen / Constants.SCALE_NUM_TICKS
+	if GetFFlagRetireWillUpdate() then
+		local interval = if scale < mult then powTen else mult
+
+		self:setState({
+			majorInterval = interval,
+			minorInterval = interval / Constants.SCALE_NUM_TICKS,
+		})
 	else
-		self.majorInterval, self.minorInterval = mult, mult / Constants.SCALE_NUM_TICKS
+		if scale < mult then
+			self.majorInterval, self.minorInterval = powTen, powTen / Constants.SCALE_NUM_TICKS
+		else
+			self.majorInterval, self.minorInterval = mult, mult / Constants.SCALE_NUM_TICKS
+		end
 	end
 end
 
@@ -82,14 +105,15 @@ function Scale:scale(y: number): (number)
 
 	local minValue, maxValue = props.MinValue, props.MaxValue
 	local scroll, zoom = props.VerticalScroll, props.VerticalZoom
-	zoom = math.min(zoom, 0.99)					-- Avoid division by 0
+	zoom = math.min(zoom, 0.99) -- Avoid division by 0
 	local zoomFactor = 1 / (1 - zoom)
 
-	y = (maxValue - y) / (maxValue - minValue)	-- Normalize between 0 and 1. maxValue maps to 0, minValue to 1
-	y = y - (scroll * zoom)						-- Apply normalized scroll
-	y = y * zoomFactor							-- Apply zoom factor
+	y = (maxValue - y) / (maxValue - minValue) -- Normalize between 0 and 1. maxValue maps to 0, minValue to 1
+	y = y - (scroll * zoom) -- Apply normalized scroll
+	y = y * zoomFactor -- Apply zoom factor
 
-	y = y * props.ParentSize.Y * (1 - 2 * Constants.CURVE_CANVAS_PADDING) + (props.ParentSize.Y * Constants.CURVE_CANVAS_PADDING)
+	y = y * props.ParentSize.Y * (1 - 2 * Constants.CURVE_CANVAS_PADDING)
+		+ (props.ParentSize.Y * Constants.CURVE_CANVAS_PADDING)
 	return y
 end
 
@@ -100,10 +124,11 @@ function Scale:inverseScale(y: number): (number)
 
 	local minValue, maxValue = props.MinValue, props.MaxValue
 	local scroll, zoom = props.VerticalScroll, props.VerticalZoom
-	zoom = math.min(zoom, 0.99)					-- Avoid division by 0
+	zoom = math.min(zoom, 0.99) -- Avoid division by 0
 	local zoomFactor = 1 / (1 - zoom)
 
-	y = (y - (props.ParentSize.Y * Constants.CURVE_CANVAS_PADDING)) / (props.ParentSize.Y * (1 - 2 * Constants.CURVE_CANVAS_PADDING))
+	y = (y - (props.ParentSize.Y * Constants.CURVE_CANVAS_PADDING))
+		/ (props.ParentSize.Y * (1 - 2 * Constants.CURVE_CANVAS_PADDING))
 	y = y / zoomFactor
 	y = y + (scroll * zoom)
 	y = maxValue - (y * (maxValue - minValue))
@@ -111,27 +136,55 @@ function Scale:inverseScale(y: number): (number)
 	return y
 end
 
-function Scale:willUpdate(nextProps: Props): ()
-	local props = self.props
-	if nextProps.ParentSize.Y ~= props.ParentSize.Y
-		or nextProps.MinValue ~= props.MinValue or nextProps.MaxValue ~= props.MaxValue
-		or math.abs(nextProps.VerticalZoom - props.VerticalZoom) > 0.001 then
-		self:calculateIntervals(nextProps)
+function Scale:didMount(): ()
+	if GetFFlagRetireWillUpdate() then
+		self:calculateIntervals()
 	end
 end
 
-function Scale:renderTick(children: {any}, value: number, label: string, tickScale: number): ()
+function Scale:didUpdate(oldProps: Props): ()
+	if GetFFlagRetireWillUpdate() then
+		local props = self.props
+		if
+			oldProps.ParentSize.Y ~= props.ParentSize.Y
+			or oldProps.MinValue ~= props.MinValue
+			or oldProps.MaxValue ~= props.MaxValue
+			or math.abs(oldProps.VerticalZoom - props.VerticalZoom) > 0.001
+		then
+			self:calculateIntervals()
+		end
+	end
+end
+
+function Scale:willUpdate(nextProps: Props): ()
+	if not GetFFlagRetireWillUpdate() then
+		local props = self.props
+		if
+			nextProps.ParentSize.Y ~= props.ParentSize.Y
+			or nextProps.MinValue ~= props.MinValue
+			or nextProps.MaxValue ~= props.MaxValue
+			or math.abs(nextProps.VerticalZoom - props.VerticalZoom) > 0.001
+		then
+			self:calculateIntervals(nextProps)
+		end
+	end
+end
+
+function Scale:renderTick(children: { any }, value: number, label: string, tickScale: number): ()
 	local props = self.props
 	local width = props.Width
 	local scaleType = props.ScaleType
 
-	table.insert(children, Roact.createElement(ScaleTick, {
-		Value = label or "",
-		Width = width,
-		Position = UDim2.new(0, 0, 0, self:scale(value)),
-		TickWidthScale = tickScale,
-		ScaleType = scaleType,
-	}))
+	table.insert(
+		children,
+		Roact.createElement(ScaleTick, {
+			Value = label or "",
+			Width = width,
+			Position = UDim2.new(0, 0, 0, self:scale(value)),
+			TickWidthScale = tickScale,
+			ScaleType = scaleType,
+		})
+	)
 end
 
 function Scale:formatLabel(value: number): (string)
@@ -150,17 +203,32 @@ function Scale:render(): (any)
 
 	local children = {}
 
-	if self.majorInterval then
+	if GetFFlagRetireWillUpdate() then
 		-- Calculate the value range that is displayed. Round to the next majorInterval (we could round to the next minorInterval,
 		-- but then the check to see if we're rendering a major tick would be more complex)
 		local minValueDisplayed, maxValueDisplayed = self:inverseScale(props.ParentSize.Y), self:inverseScale(0)
-		minValueDisplayed = math.floor(minValueDisplayed / self.majorInterval) * self.majorInterval
-		maxValueDisplayed = math.ceil(maxValueDisplayed / self.majorInterval) * self.majorInterval
+		minValueDisplayed = math.floor(minValueDisplayed / self.state.majorInterval) * self.state.majorInterval
+		maxValueDisplayed = math.ceil(maxValueDisplayed / self.state.majorInterval) * self.state.majorInterval
 
-		for i = minValueDisplayed, maxValueDisplayed, self.majorInterval do
+		for i = minValueDisplayed, maxValueDisplayed, self.state.majorInterval do
 			self:renderTick(children, i, self:formatLabel(i), props.TickWidthScale)
 			for j = 1, 4 do
-				self:renderTick(children, i + j * self.minorInterval, "", props.SmallTickWidthScale)
+				self:renderTick(children, i + j * self.state.minorInterval, "", props.SmallTickWidthScale)
+			end
+		end
+	else
+		if self.majorInterval then
+			-- Calculate the value range that is displayed. Round to the next majorInterval (we could round to the next minorInterval,
+			-- but then the check to see if we're rendering a major tick would be more complex)
+			local minValueDisplayed, maxValueDisplayed = self:inverseScale(props.ParentSize.Y), self:inverseScale(0)
+			minValueDisplayed = math.floor(minValueDisplayed / self.majorInterval) * self.majorInterval
+			maxValueDisplayed = math.ceil(maxValueDisplayed / self.majorInterval) * self.majorInterval
+
+			for i = minValueDisplayed, maxValueDisplayed, self.majorInterval do
+				self:renderTick(children, i, self:formatLabel(i), props.TickWidthScale)
+				for j = 1, 4 do
+					self:renderTick(children, i + j * self.minorInterval, "", props.SmallTickWidthScale)
+				end
 			end
 		end
 	end

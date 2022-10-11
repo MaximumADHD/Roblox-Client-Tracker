@@ -190,7 +190,9 @@ local function visitInstance(
 			Name = instance.Name,
 			Icon = "Storybook",
 			Children = {},
-			GetChildren = function() return {} end,
+			GetChildren = function()
+				return {}
+			end,
 			StorybookLoadError = storybookLoadError,
 		}
 		insert(mut_missingItems, missingItem)
@@ -244,7 +246,11 @@ local function findStorybooks()
 
 	forEach(sources, function(source: Instance)
 		forEach(source:GetDescendants(), function(instance: Instance)
-			if index and source:IsA("Plugin") and (instance:GetFullName():find(".Packages") or instance:GetFullName():find(".Libs")) then
+			if
+				index
+				and source:IsA("Plugin")
+				and (instance:GetFullName():find(".Packages") or instance:GetFullName():find(".Libs"))
+			then
 				-- Skip library folders for plugins
 				return
 			end

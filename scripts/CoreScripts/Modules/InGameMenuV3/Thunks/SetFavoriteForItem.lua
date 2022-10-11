@@ -57,7 +57,7 @@ local function SetFavoriteForItem(itemId, itemType, shouldFavorite)
 				local asset = store:getState().inspectAndBuy.Assets[itemId]
 				favoriteCount = asset and asset.numFavorites or nil 
 			elseif itemType == Enum.AvatarItemType.Bundle then
-				local bundle = store:getState().inspectAndBuy.Bundles[itemId].numFavorites
+				local bundle = store:getState().inspectAndBuy.Bundles[itemId]
 				favoriteCount = bundle and bundle.numFavorites or nil
 			end
 			local analyticsFields = {

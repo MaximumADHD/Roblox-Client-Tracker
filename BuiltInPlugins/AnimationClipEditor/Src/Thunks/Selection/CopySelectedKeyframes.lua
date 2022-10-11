@@ -69,7 +69,7 @@ return function()
 						Type = dataTrack.Type,
 						RotationType = TrackUtils.getRotationType(topTrack),
 						EulerAnglesOrder = TrackUtils.getEulerAnglesOrder(topTrack),
-						Data = {}
+						Data = {},
 					}
 
 					for tck, _ in pairs(selectionTrack.Selection) do
@@ -91,7 +91,8 @@ return function()
 			StudioService:CopyToClipboard("")
 		end
 
-		local clipboardType = AnimationData.isChannelAnimation(animationData) and Constants.CLIPBOARD_TYPE.Channels or Constants.CLIPBOARD_TYPE.Keyframes
+		local clipboardType = AnimationData.isChannelAnimation(animationData) and Constants.CLIPBOARD_TYPE.Channels
+			or Constants.CLIPBOARD_TYPE.Keyframes
 		store:dispatch(SetClipboard(clipboard, clipboardType))
 	end
 end

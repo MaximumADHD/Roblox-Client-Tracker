@@ -185,7 +185,6 @@ local Constants = {
 	RIG_ERRORS_KEY = "RigErrors",
 	DIALOG_KEY = "Dialog",
 
-
 	TIMELINE_UNITS = {
 		Seconds = "Seconds",
 		Frames = "Frames",
@@ -196,7 +195,7 @@ local Constants = {
 		FPS_30 = 30,
 		FPS_60 = 60,
 		FPS_120 = 120,
-		CUSTOM = -1
+		CUSTOM = -1,
 	},
 
 	PLAYBACK_SPEEDS = {
@@ -205,7 +204,7 @@ local Constants = {
 		PBS_1 = 1,
 		PBS_2 = 2,
 		PBS_4 = 4,
-		CUSTOM = -1
+		CUSTOM = -1,
 	},
 
 	CLIPBOARD_TYPE = {
@@ -241,7 +240,7 @@ local Constants = {
 
 	SIGNAL_KEYS = {
 		SelectionChanged = "SelectionChanged",
-		ScrubberChanged = "ScrubberChanged"
+		ScrubberChanged = "ScrubberChanged",
 	},
 
 	R15_PARTS = {
@@ -291,7 +290,7 @@ local Constants = {
 			TwistLowerAngle = -3,
 			TwistUpperAngle = 3,
 			Axis = Vector3.new(0, -1, 0),
-			SecondaryAxis = Vector3.new(0, 0, 1)
+			SecondaryAxis = Vector3.new(0, 0, 1),
 		},
 
 		Waist = {
@@ -338,7 +337,7 @@ local Constants = {
 			UpperAngle = 30,
 			TwistLowerAngle = -70,
 			TwistUpperAngle = 70,
-		}
+		},
 	},
 
 	FACS_REGIONS = {
@@ -371,7 +370,7 @@ local Constants = {
 
 	DRAG_MODE = {
 		Keyframe = "Keyframe",
-		Tangent = "Tangent"
+		Tangent = "Tangent",
 	},
 
 	PLAY_STATE = {
@@ -386,22 +385,22 @@ local Constants = {
 		CurveCanvas = "CurveCanvas",
 	},
 
-	CURVE_WIDTH = 1,				-- Width (in pixels) of the curves in curve editor
-	CURVE_WIDTH_SELECTED = 2,		-- Width (in pixels) of the curves when selected
-	CURVE_RESOLUTION = 25,			-- When rendering a curve, this is the max number of pixels one segment can be before being split.
-	CURVE_REFINEMENT = 5,			-- When a curve reaches the RESOLUTION size, it is subdivided in REFINEMENT segments.
-	CURVE_INTERVAL = 5,				-- Horizontal size (in pixels) of each line segment when rendering a curve.
-	CURVE_CANVAS_PADDING = 0.10,	-- Percentage kept blank above max/below min value in the curve canvas when completely zoomed out.
-	CURVE_CANVAS_MIN_RANGE = 0.2,	-- Minimum range of values covered by the curve canvas when zoomed out.
-	TANGENT_CONTROL_LENGTH = 0.09,	-- Length of a tangent control. This is a percentage of the height of the canvas, and should be less
-									-- than CURVE_CANVAS_PADDING to ensure that the tangent is always entirely displayed
-	TANGENT_CONTROL_WIDTH = 1,		-- Width (in pixels) of the tangent controls
-	SCRUBBER_MARKER_WIDTH = 3,		-- Width (in pixels) of the scrubber markers following the curves (should be <= KEYFRAME_WIDTH)
+	CURVE_WIDTH = 1, -- Width (in pixels) of the curves in curve editor
+	CURVE_WIDTH_SELECTED = 2, -- Width (in pixels) of the curves when selected
+	CURVE_RESOLUTION = 25, -- When rendering a curve, this is the max number of pixels one segment can be before being split.
+	CURVE_REFINEMENT = 5, -- When a curve reaches the RESOLUTION size, it is subdivided in REFINEMENT segments.
+	CURVE_INTERVAL = 5, -- Horizontal size (in pixels) of each line segment when rendering a curve.
+	CURVE_CANVAS_PADDING = 0.10, -- Percentage kept blank above max/below min value in the curve canvas when completely zoomed out.
+	CURVE_CANVAS_MIN_RANGE = 0.2, -- Minimum range of values covered by the curve canvas when zoomed out.
+	TANGENT_CONTROL_LENGTH = 0.09, -- Length of a tangent control. This is a percentage of the height of the canvas, and should be less
+	-- than CURVE_CANVAS_PADDING to ensure that the tangent is always entirely displayed
+	TANGENT_CONTROL_WIDTH = 1, -- Width (in pixels) of the tangent controls
+	SCRUBBER_MARKER_WIDTH = 3, -- Width (in pixels) of the scrubber markers following the curves (should be <= KEYFRAME_WIDTH)
 
-	NUMBER_PRECISION = 1000,		-- Default precision of numbers in textboxes (position, rotation)
-	NUMBER_FACS_PRECISION = 100,	-- Precision for FACS values
+	NUMBER_PRECISION = 1000, -- Default precision of numbers in textboxes (position, rotation)
+	NUMBER_FACS_PRECISION = 100, -- Precision for FACS values
 
-	SCALE_TYPE = {					-- Type of scale to display in the Curve Editor (Number will be on the left, Angle will be on the right)
+	SCALE_TYPE = { -- Type of scale to display in the Curve Editor (Number will be on the left, Angle will be on the right)
 		Number = "Position",
 		Angle = "Angle",
 	},
@@ -604,57 +603,73 @@ Constants.FacsNames = {
 Constants.FacsCrossMappings = {
 	ChinRaiserUpperLip = {},
 	ChinRaiser = {},
-	FlatPucker = {},  --sideView
-	Funneler = {},  --sideView
-	LowerLipSuck = {},  --sideView
-	LipPresser = {},  --sideView
+	FlatPucker = {}, --sideView
+	Funneler = {}, --sideView
+	LowerLipSuck = {}, --sideView
+	LipPresser = {}, --sideView
 	LipsTogether = {},
-	MouthLeft = {sliderGroup = {Constants.FacsNames.MouthRight, Constants.FacsNames.MouthLeft}, indexInGroup = 2},
-	MouthRight = {sliderGroup = {Constants.FacsNames.MouthRight, Constants.FacsNames.MouthLeft}, indexInGroup = 1},
-	Pucker = {},  --sideView
-	UpperLipSuck = {},  --sideView
-	LeftCheekPuff = {symmetryPartner = Constants.FacsNames.RightCheekPuff},
-	LeftDimpler = {symmetryPartner = Constants.FacsNames.RightDimpler},
-	LeftLipCornerDown = {symmetryPartner = Constants.FacsNames.RightLipCornerDown},
-	LeftLowerLipDepressor = {symmetryPartner = Constants.FacsNames.RightLowerLipDepressor},
-	LeftLipCornerPuller = {symmetryPartner = Constants.FacsNames.RightLipCornerPuller},
-	LeftLipStretcher = {symmetryPartner = Constants.FacsNames.RightLipStretcher},
-	LeftUpperLipRaiser = {symmetryPartner = Constants.FacsNames.RightUpperLipRaiser},
-	RightCheekPuff = {symmetryPartner = Constants.FacsNames.LeftCheekPuff},
-	RightDimpler = {symmetryPartner = Constants.FacsNames.LeftDimpler},
-	RightLipCornerDown = {symmetryPartner = Constants.FacsNames.LeftLipCornerDown},
-	RightLowerLipDepressor = {symmetryPartner = Constants.FacsNames.LeftLowerLipDepressor},
-	RightLipCornerPuller = {symmetryPartner = Constants.FacsNames.LeftLipCornerPuller},
-	RightLipStretcher = {symmetryPartner = Constants.FacsNames.LeftLipStretcher},
-	RightUpperLipRaiser = {symmetryPartner = Constants.FacsNames.LeftUpperLipRaiser},
+	MouthLeft = { sliderGroup = { Constants.FacsNames.MouthRight, Constants.FacsNames.MouthLeft }, indexInGroup = 2 },
+	MouthRight = { sliderGroup = { Constants.FacsNames.MouthRight, Constants.FacsNames.MouthLeft }, indexInGroup = 1 },
+	Pucker = {}, --sideView
+	UpperLipSuck = {}, --sideView
+	LeftCheekPuff = { symmetryPartner = Constants.FacsNames.RightCheekPuff },
+	LeftDimpler = { symmetryPartner = Constants.FacsNames.RightDimpler },
+	LeftLipCornerDown = { symmetryPartner = Constants.FacsNames.RightLipCornerDown },
+	LeftLowerLipDepressor = { symmetryPartner = Constants.FacsNames.RightLowerLipDepressor },
+	LeftLipCornerPuller = { symmetryPartner = Constants.FacsNames.RightLipCornerPuller },
+	LeftLipStretcher = { symmetryPartner = Constants.FacsNames.RightLipStretcher },
+	LeftUpperLipRaiser = { symmetryPartner = Constants.FacsNames.RightUpperLipRaiser },
+	RightCheekPuff = { symmetryPartner = Constants.FacsNames.LeftCheekPuff },
+	RightDimpler = { symmetryPartner = Constants.FacsNames.LeftDimpler },
+	RightLipCornerDown = { symmetryPartner = Constants.FacsNames.LeftLipCornerDown },
+	RightLowerLipDepressor = { symmetryPartner = Constants.FacsNames.LeftLowerLipDepressor },
+	RightLipCornerPuller = { symmetryPartner = Constants.FacsNames.LeftLipCornerPuller },
+	RightLipStretcher = { symmetryPartner = Constants.FacsNames.LeftLipStretcher },
+	RightUpperLipRaiser = { symmetryPartner = Constants.FacsNames.LeftUpperLipRaiser },
 
-	JawDrop = {},  --sideView
-	JawLeft = {sliderGroup = {Constants.FacsNames.JawRight, Constants.FacsNames.JawLeft}, indexInGroup = 2},  --sideView
-	JawRight = {sliderGroup = {Constants.FacsNames.JawRight, Constants.FacsNames.JawLeft}, indexInGroup = 1},  --sideView
+	JawDrop = {}, --sideView
+	JawLeft = { sliderGroup = { Constants.FacsNames.JawRight, Constants.FacsNames.JawLeft }, indexInGroup = 2 }, --sideView
+	JawRight = { sliderGroup = { Constants.FacsNames.JawRight, Constants.FacsNames.JawLeft }, indexInGroup = 1 }, --sideView
 
 	Corrugator = {},
-	LeftBrowLowerer = {symmetryPartner = Constants.FacsNames.RightBrowLowerer},
-	LeftOuterBrowRaiser = {symmetryPartner = Constants.FacsNames.RightOuterBrowRaiser},
-	LeftNoseWrinkler = {symmetryPartner = Constants.FacsNames.RightNoseWrinkler},
-	LeftInnerBrowRaiser = {symmetryPartner = Constants.FacsNames.RightInnerBrowRaiser},
-	RightBrowLowerer = {symmetryPartner = Constants.FacsNames.LeftBrowLowerer},
-	RightOuterBrowRaiser = {symmetryPartner = Constants.FacsNames.LeftOuterBrowRaiser},
-	RightInnerBrowRaiser = {symmetryPartner = Constants.FacsNames.LeftInnerBrowRaiser},
-	RightNoseWrinkler = {symmetryPartner = Constants.FacsNames.LeftNoseWrinkler},
+	LeftBrowLowerer = { symmetryPartner = Constants.FacsNames.RightBrowLowerer },
+	LeftOuterBrowRaiser = { symmetryPartner = Constants.FacsNames.RightOuterBrowRaiser },
+	LeftNoseWrinkler = { symmetryPartner = Constants.FacsNames.RightNoseWrinkler },
+	LeftInnerBrowRaiser = { symmetryPartner = Constants.FacsNames.RightInnerBrowRaiser },
+	RightBrowLowerer = { symmetryPartner = Constants.FacsNames.LeftBrowLowerer },
+	RightOuterBrowRaiser = { symmetryPartner = Constants.FacsNames.LeftOuterBrowRaiser },
+	RightInnerBrowRaiser = { symmetryPartner = Constants.FacsNames.LeftInnerBrowRaiser },
+	RightNoseWrinkler = { symmetryPartner = Constants.FacsNames.LeftNoseWrinkler },
 
 	EyesLookDown = {},
 	EyesLookLeft = {},
 	EyesLookUp = {},
 	EyesLookRight = {},
-	LeftCheekRaiser = {symmetryPartner = Constants.FacsNames.RightCheekRaiser},
-	LeftEyeUpperLidRaiser = {sliderGroup = {Constants.FacsNames.LeftEyeClosed, Constants.FacsNames.LeftEyeUpperLidRaiser}, indexInGroup = 2, symmetryPartner = Constants.FacsNames.RightEyeUpperLidRaiser},
-	LeftEyeClosed = {sliderGroup = {Constants.FacsNames.LeftEyeClosed, Constants.FacsNames.LeftEyeUpperLidRaiser}, indexInGroup = 1, symmetryPartner = Constants.FacsNames.RightEyeClosed},
-	RightCheekRaiser = {symmetryPartner = Constants.FacsNames.LeftCheekRaiser},
-	RightEyeUpperLidRaiser = {sliderGroup = {Constants.FacsNames.RightEyeClosed, Constants.FacsNames.RightEyeUpperLidRaiser}, indexInGroup = 2, symmetryPartner = Constants.FacsNames.LeftEyeUpperLidRaiser},
-	RightEyeClosed = {sliderGroup = {Constants.FacsNames.RightEyeClosed, Constants.FacsNames.RightEyeUpperLidRaiser}, indexInGroup = 1, symmetryPartner = Constants.FacsNames.LeftEyeClosed},
+	LeftCheekRaiser = { symmetryPartner = Constants.FacsNames.RightCheekRaiser },
+	LeftEyeUpperLidRaiser = {
+		sliderGroup = { Constants.FacsNames.LeftEyeClosed, Constants.FacsNames.LeftEyeUpperLidRaiser },
+		indexInGroup = 2,
+		symmetryPartner = Constants.FacsNames.RightEyeUpperLidRaiser,
+	},
+	LeftEyeClosed = {
+		sliderGroup = { Constants.FacsNames.LeftEyeClosed, Constants.FacsNames.LeftEyeUpperLidRaiser },
+		indexInGroup = 1,
+		symmetryPartner = Constants.FacsNames.RightEyeClosed,
+	},
+	RightCheekRaiser = { symmetryPartner = Constants.FacsNames.LeftCheekRaiser },
+	RightEyeUpperLidRaiser = {
+		sliderGroup = { Constants.FacsNames.RightEyeClosed, Constants.FacsNames.RightEyeUpperLidRaiser },
+		indexInGroup = 2,
+		symmetryPartner = Constants.FacsNames.LeftEyeUpperLidRaiser,
+	},
+	RightEyeClosed = {
+		sliderGroup = { Constants.FacsNames.RightEyeClosed, Constants.FacsNames.RightEyeUpperLidRaiser },
+		indexInGroup = 1,
+		symmetryPartner = Constants.FacsNames.LeftEyeClosed,
+	},
 
-	TongueDown = {sliderGroup = {Constants.FacsNames.TongueUp, Constants.FacsNames.TongueDown}, indexInGroup = 2},
-	TongueUp = {sliderGroup = {Constants.FacsNames.TongueUp, Constants.FacsNames.TongueDown}, indexInGroup = 1},
+	TongueDown = { sliderGroup = { Constants.FacsNames.TongueUp, Constants.FacsNames.TongueDown }, indexInGroup = 2 },
+	TongueUp = { sliderGroup = { Constants.FacsNames.TongueUp, Constants.FacsNames.TongueDown }, indexInGroup = 1 },
 	TongueOut = {},
 }
 
@@ -678,19 +693,19 @@ end
 
 Constants.COMPONENT_TRACK_TYPES = {
 	[Constants.TRACK_TYPES.CFrame] = {
-		_Order = {Constants.PROPERTY_KEYS.Position, Constants.PROPERTY_KEYS.Rotation},
+		_Order = { Constants.PROPERTY_KEYS.Position, Constants.PROPERTY_KEYS.Rotation },
 		[Constants.PROPERTY_KEYS.Position] = Constants.TRACK_TYPES.Position,
-		[Constants.PROPERTY_KEYS.Rotation] = Constants.TRACK_TYPES.EulerAngles
+		[Constants.PROPERTY_KEYS.Rotation] = Constants.TRACK_TYPES.EulerAngles,
 	},
 	[Constants.TRACK_TYPES.Position] = {
-		_Order = {Constants.PROPERTY_KEYS.X, Constants.PROPERTY_KEYS.Y, Constants.PROPERTY_KEYS.Z},
+		_Order = { Constants.PROPERTY_KEYS.X, Constants.PROPERTY_KEYS.Y, Constants.PROPERTY_KEYS.Z },
 		[Constants.PROPERTY_KEYS.X] = Constants.TRACK_TYPES.Number,
 		[Constants.PROPERTY_KEYS.Y] = Constants.TRACK_TYPES.Number,
 		[Constants.PROPERTY_KEYS.Z] = Constants.TRACK_TYPES.Number,
 	},
 }
 Constants.COMPONENT_TRACK_TYPES[Constants.TRACK_TYPES.EulerAngles] = {
-	_Order = {Constants.PROPERTY_KEYS.X, Constants.PROPERTY_KEYS.Y, Constants.PROPERTY_KEYS.Z},
+	_Order = { Constants.PROPERTY_KEYS.X, Constants.PROPERTY_KEYS.Y, Constants.PROPERTY_KEYS.Z },
 	[Constants.PROPERTY_KEYS.X] = Constants.TRACK_TYPES.Angle,
 	[Constants.PROPERTY_KEYS.Y] = Constants.TRACK_TYPES.Angle,
 	[Constants.PROPERTY_KEYS.Z] = Constants.TRACK_TYPES.Angle,
@@ -727,12 +742,12 @@ Constants.TRACK_THEME_MAPPING = {
 		[Constants.PROPERTY_KEYS.X] = "rotationX",
 		[Constants.PROPERTY_KEYS.Y] = "rotationY",
 		[Constants.PROPERTY_KEYS.Z] = "rotationZ",
-	}
+	},
 }
 
 Constants.TICK_LABEL_POSITION = {
-	[Constants.SCALE_TYPE.Number] = UDim2.new(.3, 0, .5, 0),
-	[Constants.SCALE_TYPE.Angle] = UDim2.new(.7, 0, .5, 0),
+	[Constants.SCALE_TYPE.Number] = UDim2.new(0.3, 0, 0.5, 0),
+	[Constants.SCALE_TYPE.Angle] = UDim2.new(0.7, 0, 0.5, 0),
 }
 
 Constants.DEFAULT_ROTATION_TYPE = Constants.TRACK_TYPES.EulerAngles

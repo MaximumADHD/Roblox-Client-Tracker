@@ -37,8 +37,10 @@ return function(analytics)
 
 		-- If the old animation target is gone, reset to the start screen.
 		-- User deleted it or moved it into storage when the plugin was closed.
-		if (rootInstance == nil or rootInstance:FindFirstAncestorOfClass("Workspace") == nil)
-			or (rootInstance and RigUtils.rigHasErrors(rootInstance)) then
+		if
+			(rootInstance == nil or rootInstance:FindFirstAncestorOfClass("Workspace") == nil)
+			or (rootInstance and RigUtils.rigHasErrors(rootInstance))
+		then
 			store:dispatch(SetRootInstance(Cryo.None))
 			store:dispatch(SortAndSetTracks({}))
 			store:dispatch(SetSelectedKeyframes({}))
@@ -53,7 +55,9 @@ return function(analytics)
 				for trackName, track in pairs(instance.Tracks) do
 					local rotationType = TrackUtils.getRotationType(track)
 					local eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
-					store:dispatch(AddTrack(instanceName, trackName, track.Type, rotationType, eulerAnglesOrder, analytics))
+					store:dispatch(
+						AddTrack(instanceName, trackName, track.Type, rotationType, eulerAnglesOrder, analytics)
+					)
 				end
 			end
 		end

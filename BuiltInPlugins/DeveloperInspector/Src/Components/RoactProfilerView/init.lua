@@ -67,7 +67,7 @@ function RoactProfilerView:init()
 		local nextFilter = #filter > 0 and {} or {
 			"Consumer",
 			"Provider",
-			"RoduxConnection"
+			"RoduxConnection",
 		}
 		self.props.setProfileFilter(nextFilter)
 		local inspector = self.props.Inspector:get()
@@ -124,13 +124,13 @@ function RoactProfilerView:render()
 					OnClick = self.onToggleFilter,
 				}, {
 					Tooltip = Roact.createElement(Tooltip, {
-						Text = "Exclude higher-order components"
+						Text = "Exclude higher-order components",
 					}),
 					Icon = Roact.createElement(Image, {
 						Size = UDim2.fromOffset(style.IconSize, style.IconSize),
 						Position = UDim2.fromScale(0.5, 0.5),
 						AnchorPoint = Vector2.new(0.5, 0.5),
-						Image = "rbxasset://textures/DeveloperInspector/Filter.png"
+						Image = "rbxasset://textures/DeveloperInspector/Filter.png",
 					}),
 				}),
 				Clear = Roact.createElement(Button, {
@@ -140,13 +140,13 @@ function RoactProfilerView:render()
 					OnClick = self.onClearTable,
 				}, {
 					Tooltip = Roact.createElement(Tooltip, {
-						Text = "Clear the table"
+						Text = "Clear the table",
 					}),
 					Icon = Roact.createElement(Image, {
 						Size = UDim2.fromOffset(style.IconSize, style.IconSize),
 						Position = UDim2.fromScale(0.5, 0.5),
 						AnchorPoint = Vector2.new(0.5, 0.5),
-						Image = "rbxasset://textures/DeveloperInspector/Bin.png"
+						Image = "rbxasset://textures/DeveloperInspector/Bin.png",
 					}),
 				}),
 			}),
@@ -194,26 +194,23 @@ RoactProfilerView = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(RoactProfilerView)
 
-return RoactRodux.connect(
-	function(state)
-		return {
-			Tabs = state.Targets.tabs,
-			TableData = state.RoactInspector.profileComponents,
-			SearchTerm = state.RoactInspector.profileSearchTerm,
-			Filter = state.RoactInspector.profileFilter,
-		}
-	end,
-	function(dispatch)
-		return {
-			clearTable = function()
-				dispatch(ClearProfileData())
-			end,
-			setProfileSearchTerm = function(searchTerm: string)
-				dispatch(SetProfileSearchTerm(searchTerm))
-			end,
-			setProfileFilter = function(filter: string)
-				dispatch(SetProfileFilter(filter))
-			end,
-		}
-	end
-)(RoactProfilerView)
+return RoactRodux.connect(function(state)
+	return {
+		Tabs = state.Targets.tabs,
+		TableData = state.RoactInspector.profileComponents,
+		SearchTerm = state.RoactInspector.profileSearchTerm,
+		Filter = state.RoactInspector.profileFilter,
+	}
+end, function(dispatch)
+	return {
+		clearTable = function()
+			dispatch(ClearProfileData())
+		end,
+		setProfileSearchTerm = function(searchTerm: string)
+			dispatch(SetProfileSearchTerm(searchTerm))
+		end,
+		setProfileFilter = function(filter: string)
+			dispatch(SetProfileFilter(filter))
+		end,
+	}
+end)(RoactProfilerView)

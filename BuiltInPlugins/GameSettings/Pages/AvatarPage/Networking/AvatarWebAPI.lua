@@ -4,11 +4,11 @@ local ContentProvider = game:GetService("ContentProvider")
 local AvatarWebApi = {}
 
 local BASE_URL = ContentProvider.BaseUrl
-for _, word in pairs({"/", "www.", "https:", "http:" }) do
+for _, word in pairs({ "/", "www.", "https:", "http:" }) do
 	BASE_URL = string.gsub(BASE_URL, word, "")
 end
 
-local AVATAR_URL = "https://avatar." ..BASE_URL
+local AVATAR_URL = "https://avatar." .. BASE_URL
 
 AvatarWebApi.Status = {
 	PENDING = 0,

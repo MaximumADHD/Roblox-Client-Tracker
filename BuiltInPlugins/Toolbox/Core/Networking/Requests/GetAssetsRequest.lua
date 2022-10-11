@@ -69,12 +69,8 @@ local function dispatchGetAssets(store, pageInfo, creationDetailsTable, creatorN
 		return
 	end
 	local assetType = PageInfoHelper.getEngineAssetTypeForPageInfoCategory(pageInfo)
-	local assetResults = convertCreationsDetailsToResultsFormat(
-		creationDetailsTable,
-		assetType,
-		creatorName,
-		creatorType
-	)
+	local assetResults =
+		convertCreationsDetailsToResultsFormat(creationDetailsTable, assetType, creatorName, creatorType)
 
 	store:dispatch(GetAssets(assetResults, nil, nextCursor))
 	store:dispatch(SetCurrentPage(0))
@@ -95,7 +91,7 @@ return function(networkInterface, pageInfoOnStart)
 		local isCreatorSearchEmpty = pageInfoOnStart.creator and pageInfoOnStart.creator.Id == -1
 		local isCreationSearch = Category.getTabForCategoryName(pageInfoOnStart.categoryName) == Category.CREATIONS
 		local isGroupCreation = Category.categoryIsGroupAsset(pageInfoOnStart.categoryName)
-				and not Category.categoryIsAvatarAssetByCategoryName(pageInfoOnStart.categoryName)
+			and not Category.categoryIsAvatarAssetByCategoryName(pageInfoOnStart.categoryName)
 
 		local errorFunc = function(result)
 			if PageInfoHelper.isPageInfoStale(pageInfoOnStart, store) then
@@ -175,11 +171,8 @@ return function(networkInterface, pageInfoOnStart)
 									local newCreatorType = CreatorInfoHelper.getCreatorTypeValueFromName(
 										creationDetailsTable[1].creatorType
 									)
-									isCreatorInfoFetchRequired = not CreatorInfoHelper.isCached(
-										store,
-										newCreatorId,
-										newCreatorType
-									)
+									isCreatorInfoFetchRequired =
+										not CreatorInfoHelper.isCached(store, newCreatorId, newCreatorType)
 
 									if isCreatorInfoFetchRequired then
 										networkInterface

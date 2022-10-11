@@ -89,7 +89,7 @@ function FaceControlsEditorWindow:init()
 		treeArray = {},
 		showContextMenu = false,
 		currentlyEditedFacsProperties = {},
-		scaleFactor = 1
+		scaleFactor = 1,
 	}
 
 	self.onAbsoluteSizeChange = function(rbx)
@@ -97,21 +97,23 @@ function FaceControlsEditorWindow:init()
 		local panelHeight = rbx.AbsoluteSize.Y
 		--min and max clamped values are to not allow scaling the diagrams so small that one can't use the
 		--sliders well anymore, nor so big that the diagram images would become pixelated
-		local scaleFactor = math.clamp(panelWidth / Constants.faceControlsEditorOriginalWidth , 0.05, 1.65)
-		local defaultContentHeight = (Constants.faceControlsEditorDiagramPadding)
-			+ (Constants.faceControlsEditorFaceFrontDiagramHeight + Constants.faceControlsEditorFaceSideDiagramHeight) + Constants.faceControlsEditoSpacingBetweenDiagrams
+		local scaleFactor = math.clamp(panelWidth / Constants.faceControlsEditorOriginalWidth, 0.05, 1.65)
+		local defaultContentHeight = Constants.faceControlsEditorDiagramPadding
+			+ (Constants.faceControlsEditorFaceFrontDiagramHeight + Constants.faceControlsEditorFaceSideDiagramHeight)
+			+ Constants.faceControlsEditoSpacingBetweenDiagrams
 
-		local maxYScaleFactorAllowed = (panelHeight - (Constants.faceControlsEditorTogglesContainerHeight
-			+ (Constants.faceControlsEditorDiagramPadding * 2) ) ) / defaultContentHeight
+		local maxYScaleFactorAllowed = (
+			panelHeight
+			- (Constants.faceControlsEditorTogglesContainerHeight + (Constants.faceControlsEditorDiagramPadding * 2))
+		) / defaultContentHeight
 
 		scaleFactor = math.min(scaleFactor, maxYScaleFactorAllowed)
 		self:setState({
 			panelWidth = panelWidth,
 			panelHeight = panelHeight,
-			scaleFactor = scaleFactor
+			scaleFactor = scaleFactor,
 		})
 	end
-
 
 	self.showContextMenu = function()
 		self:setState({
@@ -172,8 +174,8 @@ function FaceControlsEditorWindow:init()
 		end
 
 		local newIndex = math.clamp(currentIndex + increment, 1, #treeArray)
-		local path = {treeArray[newIndex]}
-		SetSelectedTracks({path})
+		local path = { treeArray[newIndex] }
+		SetSelectedTracks({ path })
 	end
 end
 
@@ -224,7 +226,7 @@ function getFacsListData()
 		facsListData[facsName] = {
 			Name = facsName,
 			Instance = instanceForFacs,
-			Type = Constants.TRACK_TYPES.Facs
+			Type = Constants.TRACK_TYPES.Facs,
 		}
 	end
 
@@ -239,12 +241,12 @@ end
 
 function formatNumber(number)
 	local precision = Constants.NUMBER_PRECISION
-	return tostring(math.floor(.5 + number * precision) / precision)
+	return tostring(math.floor(0.5 + number * precision) / precision)
 end
 
 --prep right click reset value(s) context menu
 function prepAndTriggerSliderContextMenu(self, facs, props, crossMapping, symmetryPartner, sliderGroup)
-	local editedItemsTable = {facs.Name}
+	local editedItemsTable = { facs.Name }
 	if sliderGroup then
 		table.insert(editedItemsTable, sliderGroup[1])
 		table.insert(editedItemsTable, sliderGroup[2])
@@ -259,7 +261,6 @@ function prepAndTriggerSliderContextMenu(self, facs, props, crossMapping, symmet
 				table.insert(editedItemsTable, groupPartnerSymmetryPartner)
 			end
 		end
-
 	end
 	if props.SymmetryEnabled then
 		symmetryPartner = crossMapping.symmetryPartner
@@ -283,26 +284,35 @@ function getSliderTooltipText(facs, sliderProps)
 		if sliderProps.Tooltip and sliderProps.currentValue == sliderProps.defaultValue then
 			sliderNameLabel = sliderProps.Tooltip
 			displayValue = 0
-		elseif
-			sliderProps.currentValue < 0.5 then
+		elseif sliderProps.currentValue < 0.5 then
 			sliderNameLabel = sliderGroup[1]
-			displayValue = formatNumber(math.clamp(1- (sliderProps.currentValue * 2), 0, 1))
+			displayValue = formatNumber(math.clamp(1 - (sliderProps.currentValue * 2), 0, 1))
 		else
 			sliderNameLabel = sliderGroup[2]
-			displayValue = formatNumber( (sliderProps.currentValue - 0.5) * 2)
+			displayValue = formatNumber((sliderProps.currentValue - 0.5) * 2)
 		end
 	end
 
-	return sliderNameLabel..": "..displayValue
+	return sliderNameLabel .. ": " .. displayValue
 end
 
-function handleSliderOnValueChanged(self, facs, value, minValue, maxValue, sliderProps, crossMapping, sliderGroup, symmetryPartner, symmetryPartnerProps)
+function handleSliderOnValueChanged(
+	self,
+	facs,
+	value,
+	minValue,
+	maxValue,
+	sliderProps,
+	crossMapping,
+	sliderGroup,
+	symmetryPartner,
+	symmetryPartnerProps
+)
 	sliderProps.currentValue = value
-	self:setState(
-		{
-			Tooltip =  getSliderTooltipText(facs, sliderProps),
-			Value = math.clamp(sliderProps.currentValue, minValue, maxValue)
-		})
+	self:setState({
+		Tooltip = getSliderTooltipText(facs, sliderProps),
+		Value = math.clamp(sliderProps.currentValue, minValue, maxValue),
+	})
 	local trackName = facs.Name
 	local props = self.props
 
@@ -310,7 +320,6 @@ function handleSliderOnValueChanged(self, facs, value, minValue, maxValue, slide
 
 	--for sliders which control multiple facs properties handle setting value in second controlled facs prop
 	if sliderGroup and crossMapping.indexInGroup == 1 then
-
 		local groupPartnerName = nil
 		if crossMapping.indexInGroup == 1 then
 			groupPartnerName = sliderGroup[2]
@@ -324,15 +333,15 @@ function handleSliderOnValueChanged(self, facs, value, minValue, maxValue, slide
 
 		if value <= 0.5 then
 			--sliding leftwards from slider center -->affecting first facs property ++ and second is 0
-			targetFacsValue = math.clamp(1- (value * 2), 0, 1)
+			targetFacsValue = math.clamp(1 - (value * 2), 0, 1)
 			targetFacsValueGroupPartner = 0
 		else
 			--sliding rightwards from slider center -->affecting second facs property ++ and first is 0
 			targetFacsValue = 0
-			targetFacsValueGroupPartner =  (value-0.5) * 2
+			targetFacsValueGroupPartner = (value - 0.5) * 2
 		end
 
-		local sliderTargetValue = 0.5 + (targetFacsValueGroupPartner*0.5)
+		local sliderTargetValue = 0.5 + (targetFacsValueGroupPartner * 0.5)
 		sliderPropsGroupPartner.currentValue = sliderTargetValue
 
 		triggerValueChanged(props, groupPartnerName, targetFacsValueGroupPartner)
@@ -344,7 +353,8 @@ function handleSliderOnValueChanged(self, facs, value, minValue, maxValue, slide
 
 			groupPartnerSymmetryPartner = Constants.FacsCrossMappings[groupPartnerName].symmetryPartner
 			if groupPartnerSymmetryPartner then
-				groupPartnerSymmetryPartnerProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[groupPartnerSymmetryPartner]
+				groupPartnerSymmetryPartnerProps =
+					faceControlsMapping.FacsControlToFaceSliderInfoMap[groupPartnerSymmetryPartner]
 			end
 			if groupPartnerSymmetryPartnerProps then
 				groupPartnerSymmetryPartnerProps.currentValue = sliderTargetValue
@@ -355,7 +365,7 @@ function handleSliderOnValueChanged(self, facs, value, minValue, maxValue, slide
 		end
 	end
 	--set value in single prop slider or first item in group slider
-	if not sliderGroup or (sliderGroup and (crossMapping.indexInGroup == 1 )) then
+	if not sliderGroup or (sliderGroup and (crossMapping.indexInGroup == 1)) then
 		triggerValueChanged(props, trackName, targetFacsValue)
 	end
 	--and also in its symmetry partner
@@ -367,7 +377,7 @@ function handleSliderOnValueChanged(self, facs, value, minValue, maxValue, slide
 	end
 end
 
-function makeFacsOnFaceDiagramSliderUIItems (self, style, localization)
+function makeFacsOnFaceDiagramSliderUIItems(self, style, localization)
 	local children = {}
 
 	local theme = GetFFlagExtendPluginTheme() and self.props.Stylizer or self.props.Stylizer.PluginTheme
@@ -382,7 +392,6 @@ function makeFacsOnFaceDiagramSliderUIItems (self, style, localization)
 		local sliderGroup = crossMapping.sliderGroup
 
 		if sliderProps then
-
 			--a group slider controls multiple facs properties, for those we only create an own slider for the first item in the group
 			if not sliderGroup or (sliderGroup and crossMapping.indexInGroup == 1) then
 				local symmetryPartnerProps = nil
@@ -403,19 +412,24 @@ function makeFacsOnFaceDiagramSliderUIItems (self, style, localization)
 				local maxValue = 1
 				local value = math.clamp(sliderProps.currentValue, minValue, maxValue)
 				local fillFromCenter = (sliderGroup ~= nil)
-				local shouldUseBigKnobStyle = GetFFlagFaceControlsEditorUXImprovements() and theme.faceSliderMaxValueTheme and (value == minValue or value == maxValue or (fillFromCenter and value == 0.5))
+				local shouldUseBigKnobStyle = GetFFlagFaceControlsEditorUXImprovements()
+					and theme.faceSliderMaxValueTheme
+					and (value == minValue or value == maxValue or (fillFromCenter and value == 0.5))
 
-				children[name.."_rotatedSliderContainer"] = Roact.createElement("Frame", {
+				children[name .. "_rotatedSliderContainer"] = Roact.createElement("Frame", {
 					BorderSizePixel = 0,
 					BackgroundTransparency = 1,
-					Position = UDim2.new(sliderProps.position.X.Scale, sliderProps.position.X.Offset * self.state.scaleFactor, sliderProps.position.Y.Scale, sliderProps.position.Y.Offset * self.state.scaleFactor),
+					Position = UDim2.new(
+						sliderProps.position.X.Scale,
+						sliderProps.position.X.Offset * self.state.scaleFactor,
+						sliderProps.position.Y.Scale,
+						sliderProps.position.Y.Offset * self.state.scaleFactor
+					),
 					Size = UDim2.new(0, itemWidth * self.state.scaleFactor, 0, 2 * self.state.scaleFactor),
 					Rotation = sliderProps.rotation,
 					LayoutOrder = 2,
 					ZIndex = 100,
-				},
-
-				{
+				}, {
 					Scrubber = Roact.createElement(Slider, {
 						Style = if shouldUseBigKnobStyle then theme.faceSliderMaxValueTheme else theme.faceSliderTheme,
 						Disabled = false,
@@ -428,33 +442,54 @@ function makeFacsOnFaceDiagramSliderUIItems (self, style, localization)
 						FillFromCenter = fillFromCenter,
 
 						OnRightClick = function()
-							prepAndTriggerSliderContextMenu(self, facs, self.props, crossMapping, symmetryPartner, sliderGroup)
+							prepAndTriggerSliderContextMenu(
+								self,
+								facs,
+								self.props,
+								crossMapping,
+								symmetryPartner,
+								sliderGroup
+							)
 						end,
 						OnChangeBegan = function()
 							local props = self.props
 							props.AddWaypoint()
 
 							if GetFFlagFaceControlsEditorSelectTracks() then
-								local list = {{facs.Name}}
+								local list = { { facs.Name } }
 								if symmetryPartner then
-									table.insert(list, {symmetryPartner})
+									table.insert(list, { symmetryPartner })
 								end
 								if sliderGroup then
 									local groupPartnerName = sliderGroup[2]
-									table.insert(list, {groupPartnerName})
+									table.insert(list, { groupPartnerName })
 									if symmetryPartner then
-										table.insert(list, {Constants.FacsCrossMappings[groupPartnerName].symmetryPartner})
+										table.insert(
+											list,
+											{ Constants.FacsCrossMappings[groupPartnerName].symmetryPartner }
+										)
 									end
 								end
 								self.props.SetSelectedTracks(list)
 							end
 						end,
 						OnValueChanged = function(value)
-							handleSliderOnValueChanged(self, facs, value, minValue, maxValue, sliderProps, crossMapping, sliderGroup, symmetryPartner, symmetryPartnerProps)
+							handleSliderOnValueChanged(
+								self,
+								facs,
+								value,
+								minValue,
+								maxValue,
+								sliderProps,
+								crossMapping,
+								sliderGroup,
+								symmetryPartner,
+								symmetryPartnerProps
+							)
 						end,
 						Position = UDim2.new(0.5, 0, 0.5, 0),
 						Size = UDim2.new(1, 0, 0, 8),
-						AnchorPoint = Vector2.new(0.5,0.5),
+						AnchorPoint = Vector2.new(0.5, 0.5),
 					}),
 				})
 			end
@@ -465,12 +500,18 @@ end
 
 function triggerValueChanged(props, trackName, value)
 	if not (GetFFlagKeyframeReduction() and props.ReadOnly) then
-		props.ValueChanged(instanceForFacs, {trackName}, Constants.TRACK_TYPES.Facs, props.Playhead, value, props.Analytics)
+		props.ValueChanged(
+			instanceForFacs,
+			{ trackName },
+			Constants.TRACK_TYPES.Facs,
+			props.Playhead,
+			value,
+			props.Analytics
+		)
 	end
 end
 
-function makeEyesControlDragBox (self, style, localization)
-
+function makeEyesControlDragBox(self, style, localization)
 	local children = {}
 
 	local theme = GetFFlagExtendPluginTheme() and self.props.Stylizer or self.props.Stylizer.PluginTheme
@@ -481,68 +522,92 @@ function makeEyesControlDragBox (self, style, localization)
 	local maxXValue = 1
 	local minYValue = -1
 	local maxYValue = 1
-	local value = Vector2.new( math.clamp(sliderProps.currentValue.X, minXValue, maxXValue), math.clamp(sliderProps.currentValue.Y, minYValue, maxYValue))
-	local shouldUseBigKnobStyle =  value.X == minXValue or  value.X == maxXValue or value.Y == minYValue or value.Y == maxYValue or (value.X == -0 and value.Y == 0)
+	local value = Vector2.new(
+		math.clamp(sliderProps.currentValue.X, minXValue, maxXValue),
+		math.clamp(sliderProps.currentValue.Y, minYValue, maxYValue)
+	)
+	local shouldUseBigKnobStyle = value.X == minXValue
+		or value.X == maxXValue
+		or value.Y == minYValue
+		or value.Y == maxYValue
+		or (value.X == -0 and value.Y == 0)
 
 	--this window is never opened in actual usage when FFlagFaceControlsEditorUI is false,
 	--but we need this FFlagFaceControlsEditorUI check here to not make the all flags off test fail
-	children[eyesDragBoxControlName] = FFlagFaceControlsEditorUI and Roact.createElement(DragBox, {
-		Style = if GetFFlagFaceControlsEditorUXImprovements() and shouldUseBigKnobStyle then theme.faceDragBoxMaxValueTheme else theme.faceDragBoxTheme,
-		Disabled = false,
-		MinX = minXValue,
-		MaxX = maxXValue,
-		MinY = minYValue,
-		MaxY = maxYValue,
-		Tooltip = eyesDragBoxTooltipText,
-		Value = value,
-		OnRightClick = function()
-			local editedItemsTable = {}
-			table.insert(editedItemsTable, Constants.FacsNames.EyesLookLeft)
-			table.insert(editedItemsTable, Constants.FacsNames.EyesLookRight)
-			table.insert(editedItemsTable, Constants.FacsNames.EyesLookUp)
-			table.insert(editedItemsTable, Constants.FacsNames.EyesLookDown)
-			self.state.currentlyEditedFacsProperties = editedItemsTable
-			self.state.showContextMenu = true
-			self:showContextMenu()
-		end,
-		OnChangeBegan = function()
-			local props = self.props
-			props.AddWaypoint()
-			if GetFFlagFaceControlsEditorSelectTracks() then
-				self.props.SetSelectedTracks({{Constants.FacsNames.EyesLookLeft}, {Constants.FacsNames.EyesLookRight}, {Constants.FacsNames.EyesLookUp}, {Constants.FacsNames.EyesLookDown}})
-			end
-		end,
-		OnValueChanged = function(value)
-			sliderProps.currentValue = value
-			self:setState(
-				{
+	children[eyesDragBoxControlName] = FFlagFaceControlsEditorUI
+		and Roact.createElement(DragBox, {
+			Style = if GetFFlagFaceControlsEditorUXImprovements() and shouldUseBigKnobStyle
+				then theme.faceDragBoxMaxValueTheme
+				else theme.faceDragBoxTheme,
+			Disabled = false,
+			MinX = minXValue,
+			MaxX = maxXValue,
+			MinY = minYValue,
+			MaxY = maxYValue,
+			Tooltip = eyesDragBoxTooltipText,
+			Value = value,
+			OnRightClick = function()
+				local editedItemsTable = {}
+				table.insert(editedItemsTable, Constants.FacsNames.EyesLookLeft)
+				table.insert(editedItemsTable, Constants.FacsNames.EyesLookRight)
+				table.insert(editedItemsTable, Constants.FacsNames.EyesLookUp)
+				table.insert(editedItemsTable, Constants.FacsNames.EyesLookDown)
+				self.state.currentlyEditedFacsProperties = editedItemsTable
+				self.state.showContextMenu = true
+				self:showContextMenu()
+			end,
+			OnChangeBegan = function()
+				local props = self.props
+				props.AddWaypoint()
+				if GetFFlagFaceControlsEditorSelectTracks() then
+					self.props.SetSelectedTracks({
+						{ Constants.FacsNames.EyesLookLeft },
+						{ Constants.FacsNames.EyesLookRight },
+						{ Constants.FacsNames.EyesLookUp },
+						{ Constants.FacsNames.EyesLookDown },
+					})
+				end
+			end,
+			OnValueChanged = function(value)
+				sliderProps.currentValue = value
+				self:setState({
 					Tooltip = eyesDragBoxTooltipText,
-					Value = Vector2.new( math.clamp(sliderProps.currentValue.X, minXValue, maxXValue), math.clamp(sliderProps.currentValue.Y, minYValue, maxYValue))
+					Value = Vector2.new(
+						math.clamp(sliderProps.currentValue.X, minXValue, maxXValue),
+						math.clamp(sliderProps.currentValue.Y, minYValue, maxYValue)
+					),
 				})
-			local props = self.props
+				local props = self.props
 
-			local eyesLookRightValue = value.X <= 0 and -value.X or 0
-			local eyesLookLeftValue = value.X >= 0 and value.X or 0
+				local eyesLookRightValue = value.X <= 0 and -value.X or 0
+				local eyesLookLeftValue = value.X >= 0 and value.X or 0
 
-			local eyesLookUpValue = value.Y <= 0 and -value.Y or 0
-			local eyesLookDownValue = value.Y >= 0 and value.Y or 0
+				local eyesLookUpValue = value.Y <= 0 and -value.Y or 0
+				local eyesLookDownValue = value.Y >= 0 and value.Y or 0
 
-			triggerValueChanged(props, Constants.FacsNames.EyesLookRight, eyesLookRightValue)
-			triggerValueChanged(props, Constants.FacsNames.EyesLookLeft, eyesLookLeftValue)
-			triggerValueChanged(props, Constants.FacsNames.EyesLookUp, eyesLookUpValue)
-			triggerValueChanged(props, Constants.FacsNames.EyesLookDown, eyesLookDownValue)
-		end,
+				triggerValueChanged(props, Constants.FacsNames.EyesLookRight, eyesLookRightValue)
+				triggerValueChanged(props, Constants.FacsNames.EyesLookLeft, eyesLookLeftValue)
+				triggerValueChanged(props, Constants.FacsNames.EyesLookUp, eyesLookUpValue)
+				triggerValueChanged(props, Constants.FacsNames.EyesLookDown, eyesLookDownValue)
+			end,
 
-		Position = UDim2.new(sliderProps.position.X.Scale, sliderProps.position.X.Offset * self.state.scaleFactor, sliderProps.position.Y.Scale, sliderProps.position.Y.Offset * self.state.scaleFactor),
-		Size = UDim2.new(0, 36 * self.state.scaleFactor, 0, 28 * self.state.scaleFactor),
-		AnchorPoint = Vector2.new(0.5,0.5),
-	})
+			Position = UDim2.new(
+				sliderProps.position.X.Scale,
+				sliderProps.position.X.Offset * self.state.scaleFactor,
+				sliderProps.position.Y.Scale,
+				sliderProps.position.Y.Offset * self.state.scaleFactor
+			),
+			Size = UDim2.new(0, 36 * self.state.scaleFactor, 0, 28 * self.state.scaleFactor),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+		})
 
 	return Roact.createFragment(children)
 end
 
 function getTrackValuesForEyeDragBox(instance, playhead)
-	if not instance then return end
+	if not instance then
+		return
+	end
 
 	local trackEyesLookLeft = instance.Tracks[Constants.FacsNames.EyesLookLeft]
 	local trackEyesLookRight = instance.Tracks[Constants.FacsNames.EyesLookRight]
@@ -552,12 +617,13 @@ function getTrackValuesForEyeDragBox(instance, playhead)
 	local sliderProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[eyesDragBoxControlName]
 	if trackEyesLookLeft or trackEyesLookRight or trackEyesLookUp or trackEyesLookDown then
 		local currentValueEyesLookLeft = trackEyesLookLeft and KeyframeUtils.getValue(trackEyesLookLeft, playhead) or 0
-		local currentValueEyesLookRight = trackEyesLookRight and KeyframeUtils.getValue(trackEyesLookRight, playhead) or 0
+		local currentValueEyesLookRight = trackEyesLookRight and KeyframeUtils.getValue(trackEyesLookRight, playhead)
+			or 0
 		local currentValueEyesLookUp = trackEyesLookUp and KeyframeUtils.getValue(trackEyesLookUp, playhead) or 0
 		local currentValueEyesLookDown = trackEyesLookDown and KeyframeUtils.getValue(trackEyesLookDown, playhead) or 0
 
-		local targetValueX = currentValueEyesLookLeft ~=0 and currentValueEyesLookLeft or -currentValueEyesLookRight
-		local targetValueY = currentValueEyesLookUp ~=0 and -currentValueEyesLookUp or currentValueEyesLookDown
+		local targetValueX = currentValueEyesLookLeft ~= 0 and currentValueEyesLookLeft or -currentValueEyesLookRight
+		local targetValueY = currentValueEyesLookUp ~= 0 and -currentValueEyesLookUp or currentValueEyesLookDown
 
 		sliderProps.currentValue = Vector2.new(targetValueX, targetValueY)
 	else
@@ -587,7 +653,9 @@ function FaceControlsEditorWindow:getCurrentValues()
 	local animationData = props.AnimationData
 	local instance = animationData.Instances[instanceForFacs]
 
-	if instance == nil then return end
+	if instance == nil then
+		return
+	end
 
 	local playhead = props.Playhead
 
@@ -601,7 +669,9 @@ function FaceControlsEditorWindow:getCurrentValues()
 				local track = instance.Tracks[facsName]
 				if track == nil or track.Type ~= Constants.TRACK_TYPES.Facs then
 					faceControls[facsName] = 0
-					if sliderProps then sliderProps.currentValue = sliderProps.defaultValue end
+					if sliderProps then
+						sliderProps.currentValue = sliderProps.defaultValue
+					end
 				end
 			else
 				faceControls[facsName] = 0
@@ -611,7 +681,9 @@ function FaceControlsEditorWindow:getCurrentValues()
 
 	local tracks = instance.Tracks
 
-	if tracks == nil then return end
+	if tracks == nil then
+		return
+	end
 
 	--handle values coming in for eyesdragbox special case (4 facs controlled by one control)
 	getTrackValuesForEyeDragBox(instance, playhead)
@@ -624,7 +696,9 @@ function FaceControlsEditorWindow:getCurrentValues()
 		track.Instance = instanceForFacs
 		local currentValue = nil
 
-		if sliderProps == nil then continue end
+		if sliderProps == nil then
+			continue
+		end
 
 		local crossMapping = Constants.FacsCrossMappings[trackName]
 
@@ -633,7 +707,9 @@ function FaceControlsEditorWindow:getCurrentValues()
 		sliderProps.currentValue = sliderProps.defaultValue
 		currentValue = KeyframeUtils.getValue(currentTrack, playhead)
 
-		if currentValue == nil then continue end
+		if currentValue == nil then
+			continue
+		end
 
 		if sliderGroup then
 			--we have a slider which controls multiple facs properties, we have to map the value
@@ -646,14 +722,12 @@ function FaceControlsEditorWindow:getCurrentValues()
 			end
 
 			if crossMapping.indexInGroup == 1 then
-
-				sliderProps.currentValue =  math.clamp(0.5 - (currentValue * 0.5) , 0, 1)
+				sliderProps.currentValue = math.clamp(0.5 - (currentValue * 0.5), 0, 1)
 
 				local sliderPropsGroupPartner = faceControlsMapping.FacsControlToFaceSliderInfoMap[groupPartnerName]
 
 				--apply slider pos from group facs2
-				if  sliderPropsGroupPartner.currentValue>0.5 then
-
+				if sliderPropsGroupPartner.currentValue > 0.5 then
 					local currentFacsValueGroupPartner = 0
 					local currentTrackGroupPartner = instance.Tracks[groupPartnerName]
 
@@ -661,18 +735,17 @@ function FaceControlsEditorWindow:getCurrentValues()
 						currentFacsValueGroupPartner = KeyframeUtils.getValue(currentTrackGroupPartner, playhead)
 					end
 
-					local targetValue = 0.5+  (currentFacsValueGroupPartner * 0.5)
-					if currentFacsValueGroupPartner >0 then
+					local targetValue = 0.5 + (currentFacsValueGroupPartner * 0.5)
+					if currentFacsValueGroupPartner > 0 then
 						sliderProps.currentValue = targetValue
 					end
 				end
-
 			else
 				--value applied from num input for facs prop 2 in group to group slider
 				local sliderPropsGroupPartner = faceControlsMapping.FacsControlToFaceSliderInfoMap[groupPartnerName]
-				local targetValue = 0.5 +   (currentValue  * 0.5)
+				local targetValue = 0.5 + (currentValue * 0.5)
 
-				if currentValue >0 then
+				if currentValue > 0 then
 					sliderProps.currentValue = targetValue
 				end
 			end
@@ -686,7 +759,9 @@ function resetAllValuesInMapping()
 	local Facs = getFacsListData()
 	for _, facs in ipairs(Facs) do
 		local sliderProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[facs.Name]
-		if sliderProps then sliderProps.currentValue = sliderProps.defaultValue end
+		if sliderProps then
+			sliderProps.currentValue = sliderProps.defaultValue
+		end
 	end
 	local eyesDragBoxProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[eyesDragBoxControlName]
 	eyesDragBoxProps.currentValue = eyesDragBoxProps.defaultValue
@@ -703,7 +778,7 @@ function FaceControlsEditorWindow:willUpdate(nextProps)
 		resetAllValuesInMapping()
 		handleFocusFace(nextProps)
 	end
-	if nextProps.ShowFaceControlsEditorPanel  ~= self.ShowFaceControlsEditorPanel then
+	if nextProps.ShowFaceControlsEditorPanel ~= self.ShowFaceControlsEditorPanel then
 		if nextProps.ShowFaceControlsEditorPanel == true then
 			if GetFFlagFaceControlsEditorBugBash2Update() then
 				self.ShowFaceControlsEditorPanel = true
@@ -716,10 +791,14 @@ end
 function getFacsKeysWithNonZerovalueCount(animationData, playhead)
 	local count = 0
 
-	if not animationData then return count end
+	if not animationData then
+		return count
+	end
 
 	local instance = animationData.Instances[instanceForFacs]
-	if not instance then return count end
+	if not instance then
+		return count
+	end
 
 	for i, facsName in pairs(Constants.FacsNames) do
 		local track = instance.Tracks[facsName]
@@ -773,7 +852,7 @@ function FaceControlsEditorWindow:render()
 	local canUseFaceControlsEditor = RigUtils.canUseFaceControlsEditor(props.RootInstance)
 	--this if is to catch the case where a user had a compatible avatar selected for animating the face
 	--but then selects an incompatible avatar like an R6 so then we want to close the facs editor
-	if not canUseFaceControlsEditor  then
+	if not canUseFaceControlsEditor then
 		self.hideFaceControlsEditor()
 		return
 	end
@@ -803,7 +882,7 @@ function FaceControlsEditorWindow:render()
 	local facsKeysWithNonZerovalueCount = getFacsKeysWithNonZerovalueCount(animationData, playhead)
 	local resetAllButtonStyleModifier = nil
 	if facsKeysWithNonZerovalueCount == 0 then
-		resetAllButtonStyleModifier = StyleModifier.Disabled-- and  facsKeysCount == 0 or nil
+		resetAllButtonStyleModifier = StyleModifier.Disabled -- and  facsKeysCount == 0 or nil
 	end
 	-- create ui elements
 	return Roact.createElement(DockWidget, {
@@ -826,21 +905,29 @@ function FaceControlsEditorWindow:render()
 			BackgroundColor3 = theme.backgroundColor,
 			Size = UDim2.new(1, 0, 1, 0),
 			ZIndex = -2,
-			[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange
-		},
-		{
+			[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
+		}, {
 			--face front panel container
 			FaceFrontContainer = Roact.createElement("Frame", {
 				BorderSizePixel = 0,
 				BackgroundColor3 = theme.backgroundColor,
 				Size = UDim2.new(1, 0, 0, 213),
-				Position = UDim2.new(0, Constants.faceControlsEditorDiagramPadding, 0, Constants.faceControlsEditorDiagramPadding),
+				Position = UDim2.new(
+					0,
+					Constants.faceControlsEditorDiagramPadding,
+					0,
+					Constants.faceControlsEditorDiagramPadding
+				),
 				ZIndex = -1,
-			},
-			{
+			}, {
 				FaceFrontViewImage = Roact.createElement("ImageLabel", {
 					AnchorPoint = Vector2.new(0, 0),
-					Size = UDim2.new(0, Constants.faceControlsEditorFaceFrontDiagramWidth * self.state.scaleFactor, 0, Constants.faceControlsEditorFaceFrontDiagramHeight * self.state.scaleFactor),
+					Size = UDim2.new(
+						0,
+						Constants.faceControlsEditorFaceFrontDiagramWidth * self.state.scaleFactor,
+						0,
+						Constants.faceControlsEditorFaceFrontDiagramHeight * self.state.scaleFactor
+					),
 					Position = UDim2.new(0, 0, 0, 6),
 					Image = "rbxasset://textures/FaceControlsEditor/face_frontView.png",
 					BackgroundTransparency = 1,
@@ -860,13 +947,26 @@ function FaceControlsEditorWindow:render()
 				BorderSizePixel = 0,
 				BackgroundColor3 = theme.backgroundColor,
 				Size = UDim2.new(1, 0, 0, 213),
-				Position = UDim2.new(0, Constants.faceControlsEditorDiagramPadding, 0,  (Constants.faceControlsEditoSpacingBetweenDiagrams + Constants.faceControlsEditorFaceFrontDiagramHeight) * self.state.scaleFactor),
+				Position = UDim2.new(
+					0,
+					Constants.faceControlsEditorDiagramPadding,
+					0,
+					(
+						Constants.faceControlsEditoSpacingBetweenDiagrams
+						+ Constants.faceControlsEditorFaceFrontDiagramHeight
+					) * self.state.scaleFactor
+				),
 				BackgroundTransparency = 1,
-			},	{
+			}, {
 
 				SideviewImage = Roact.createElement("ImageLabel", {
 					AnchorPoint = Vector2.new(0, 0),
-					Size = UDim2.new(0, Constants.faceControlsEditorFaceSideDiagramWidth * self.state.scaleFactor, 0, Constants.faceControlsEditorFaceSideDiagramHeight * self.state.scaleFactor),
+					Size = UDim2.new(
+						0,
+						Constants.faceControlsEditorFaceSideDiagramWidth * self.state.scaleFactor,
+						0,
+						Constants.faceControlsEditorFaceSideDiagramHeight * self.state.scaleFactor
+					),
 					Position = UDim2.new(0, 0, 0, 0),
 					Image = "rbxasset://textures/FaceControlsEditor/face_sideView.png",
 					BackgroundTransparency = 1,
@@ -880,16 +980,14 @@ function FaceControlsEditorWindow:render()
 				OnMenuOpened = self.hideContextMenu,
 			}),
 
-
 			AdditionalControlsContainer = Roact.createElement("Frame", {
-				AnchorPoint = Vector2.new(0,0),
+				AnchorPoint = Vector2.new(0, 0),
 				BorderSizePixel = 0,
 				BackgroundTransparency = 1,
 				Position = UDim2.new(0, 10, 1, -Constants.faceControlsEditorTogglesContainerHeight),
 				Size = UDim2.new(0, 200, 0, Constants.faceControlsEditorTogglesContainerHeight),
 				ZIndex = 400,
-			},
-			{
+			}, {
 				CheckboxesList = Roact.createElement("UIListLayout", {
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					Padding = UDim.new(0, 5),
@@ -968,9 +1066,9 @@ function FaceControlsEditorWindow:render()
 							end
 						end
 					end,
-				})
-			})
-		})
+				}),
+			}),
+		}),
 	})
 end
 

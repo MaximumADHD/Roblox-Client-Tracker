@@ -14,7 +14,7 @@ local Item = ContextItem:extend(script.Name)
 
 function Item.new(...)
 	local self = {
-		impl = Impl.new(...)
+		impl = Impl.new(...),
 	}
 
 	return setmetatable(self, Item)

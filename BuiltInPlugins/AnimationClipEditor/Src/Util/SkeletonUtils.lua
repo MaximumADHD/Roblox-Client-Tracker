@@ -20,7 +20,7 @@ function SkeletonUtils.buildSkeletonHierarchy(names, parents)
 			if children[parentName] then
 				table.insert(children[parentName], bone)
 			else
-				children[parentName] = {bone}
+				children[parentName] = { bone }
 			end
 		end
 	end
@@ -28,7 +28,7 @@ function SkeletonUtils.buildSkeletonHierarchy(names, parents)
 	return {
 		[root] = buildHierarchy(root, function(bone)
 			return children[bone]
-		end)
+		end),
 	}
 end
 

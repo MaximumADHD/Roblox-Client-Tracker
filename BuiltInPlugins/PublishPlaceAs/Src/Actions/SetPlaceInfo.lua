@@ -32,6 +32,6 @@ return Action(script.Name, function(placeInfoArg)
 			nextPageCursor = nextPageCursor or Cryo.None,
 			previousPageCursor = previousPageCursor or Cryo.None,
 			parentGame = parentGame or Cryo.None,
-		}
+		},
 	}
 end)

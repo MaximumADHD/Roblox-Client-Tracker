@@ -23,11 +23,12 @@ return function()
 	it("should render ready content", function()
 		local storeState = {
 			PluginMetadata = {
-				DEPRECATED_AllLanguageCodes = {
+				AllLanguages = {
 					en = true,
-					es = true,
 				},
-				AllLanguages = {},
+				LocalesToLanguages = {
+					["en-us"] = "en",
+				},
 				CanManageTranslation = true,
 				CloudTableId = "some_id",
 			},
@@ -51,10 +52,6 @@ return function()
 	it("should render not ready content", function()
 		local storeState = {
 			PluginMetadata = {
-				DEPRECATED_AllLanguageCodes = {
-					en = true,
-					es = true,
-				},
 				AllLanguages = {},
 				CanManageTranslation = false,
 				CloudTableId = "",

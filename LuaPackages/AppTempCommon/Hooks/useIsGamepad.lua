@@ -6,7 +6,7 @@ local CorePackages = game:GetService("CorePackages")
 local UserInputService = game:GetService("UserInputService")
 
 local React = require(CorePackages.Packages.React)
-local useExternalEvent = require(CorePackages.AppTempCommon.Hooks.useExternalEvent)
+local useExternalEvent = require(script.Parent.useExternalEvent)
 
 
 --[[

@@ -11,19 +11,13 @@ local Constants = require(Plugin.Src.Util.Constants)
 local PathUtils = require(Plugin.Src.Util.PathUtils)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
-return function(
-		instanceName: string,
-		path: PathUtils.Path,
-		eulerAnglesOrder: Enum.RotationOrder
-	): ({[string]: any}) -> ()
-
+return function(instanceName: string, path: PathUtils.Path, eulerAnglesOrder: Enum.RotationOrder): ({ [string]: any }) -> ()
 	return function(store: { [string]: any }): ()
 		local animationData = store:getState().AnimationData
 
 		local track = AnimationData.getTrack(animationData, instanceName, path)
 		if
-			track
-			and (track.Type ~= Constants.TRACK_TYPES.EulerAngles or track.EulerAnglesOrder == eulerAnglesOrder)
+			track and (track.Type ~= Constants.TRACK_TYPES.EulerAngles or track.EulerAnglesOrder == eulerAnglesOrder)
 		then
 			return nil
 		end

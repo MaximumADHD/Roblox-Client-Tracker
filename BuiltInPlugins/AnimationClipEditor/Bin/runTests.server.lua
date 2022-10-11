@@ -18,7 +18,7 @@ local function runTests()
 
 	local reporter = getReporter()
 
-	TestBootstrap:run({tests}, reporter)
+	TestBootstrap:run({ tests }, reporter)
 end
 
 local function runRhodiumTests()
@@ -36,7 +36,7 @@ local function runRhodiumTests()
 	local reporter = getReporter()
 
 	TestHelpers.init(plugin)
-	TestBootstrap:run({tests}, reporter, false, true)
+	TestBootstrap:run({ tests }, reporter, false, true)
 	DummyRig:Destroy()
 end
 
@@ -45,13 +45,13 @@ local SHOULD_RUN_TESTS = DebugFlags.RunTests()
 local SHOULD_RUN_RHODIUM_TESTS = DebugFlags.RunRhodiumTests()
 
 if SHOULD_RUN_TESTS then
-	print("----- All " ..script.Parent.Parent.Name.. " Tests ------")
+	print("----- All " .. script.Parent.Parent.Name .. " Tests ------")
 	runTests()
 	print("----------------------------------")
 end
 
 if SHOULD_RUN_RHODIUM_TESTS then
-	print("----- All " ..script.Parent.Parent.Name.. " Rhodium Tests ------")
+	print("----- All " .. script.Parent.Parent.Name .. " Rhodium Tests ------")
 	runRhodiumTests()
 	print("----------------------------------")
 	if DebugFlags.RunningUnderCLI() then

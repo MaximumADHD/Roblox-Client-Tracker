@@ -16,7 +16,7 @@ local function makeInstanceHost(Roact)
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.fromScale(1, 1),
-			[Roact.Ref] = self.ref
+			[Roact.Ref] = self.ref,
 		})
 	end
 

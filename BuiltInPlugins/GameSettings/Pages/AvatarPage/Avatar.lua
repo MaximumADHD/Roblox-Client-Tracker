@@ -101,10 +101,10 @@ local function loadSettings(store, contextItems)
 				end),
 			}
 
-			for _,thread in ipairs(threads) do
+			for _, thread in ipairs(threads) do
 				thread:start()
 			end
-			for _,thread in ipairs(threads) do
+			for _, thread in ipairs(threads) do
 				thread:join()
 			end
 
@@ -163,10 +163,10 @@ local function loadSettings(store, contextItems)
 				end),
 			}
 
-			for _,thread in ipairs(threads) do
+			for _, thread in ipairs(threads) do
 				thread:start()
 			end
-			for _,thread in ipairs(threads) do
+			for _, thread in ipairs(threads) do
 				thread:join()
 			end
 
@@ -207,7 +207,7 @@ local function saveSettings(store, contextItems)
 			local changed = state.Settings.Changed.universeCollisionType
 
 			if changed ~= nil then
-				local collisionType =  Enum.R15CollisionType[changed]
+				local collisionType = Enum.R15CollisionType[changed]
 				universeAvatarController:setCollisionType(game, collisionType)
 			end
 		end,
@@ -228,31 +228,41 @@ local function saveSettings(store, contextItems)
 
 				local threads = {
 					Thread.new(function()
-						universeAvatarController:setHeightRange(game,
-							NumberRange.new(changedMinValues.height, changedMaxValues.height))
+						universeAvatarController:setHeightRange(
+							game,
+							NumberRange.new(changedMinValues.height, changedMaxValues.height)
+						)
 					end),
 					Thread.new(function()
-						universeAvatarController:setWidthRange(game,
-							NumberRange.new(changedMinValues.width, changedMaxValues.width))
+						universeAvatarController:setWidthRange(
+							game,
+							NumberRange.new(changedMinValues.width, changedMaxValues.width)
+						)
 					end),
 					Thread.new(function()
-						universeAvatarController:setHeadScaleRange(game,
-							NumberRange.new(changedMinValues.head, changedMaxValues.head))
+						universeAvatarController:setHeadScaleRange(
+							game,
+							NumberRange.new(changedMinValues.head, changedMaxValues.head)
+						)
 					end),
 					Thread.new(function()
-						universeAvatarController:setBodyTypeRange(game,
-							NumberRange.new(changedMinValues.bodyType, changedMaxValues.bodyType))
+						universeAvatarController:setBodyTypeRange(
+							game,
+							NumberRange.new(changedMinValues.bodyType, changedMaxValues.bodyType)
+						)
 					end),
 					Thread.new(function()
-						universeAvatarController:setProportionsRange(game,
-							NumberRange.new(changedMinValues.proportion, changedMaxValues.proportion))
+						universeAvatarController:setProportionsRange(
+							game,
+							NumberRange.new(changedMinValues.proportion, changedMaxValues.proportion)
+						)
 					end),
 				}
 
-				for _,thread in ipairs(threads) do
+				for _, thread in ipairs(threads) do
 					thread:start()
 				end
-				for _,thread in ipairs(threads) do
+				for _, thread in ipairs(threads) do
 					thread:join()
 				end
 			end
@@ -298,7 +308,7 @@ local function dispatchChanges(setValue, dispatch)
 			dispatch(AddChange("universeAvatarAssetOverrides", value))
 			local errors = AssetOverrides.getErrors(value)
 			if errors then
-				dispatch(AddErrors({universeAvatarAssetOverrides = errors}))
+				dispatch(AddErrors({ universeAvatarAssetOverrides = errors }))
 			end
 		end,
 
@@ -365,7 +375,7 @@ function Avatar:createChildren()
 			OnAvatarAssetOverridesChanged = props.AvatarAssetOverridesChanged,
 			OnAvatarScalingMinChanged = props.AvatarScalingMinChanged,
 			OnAvatarScalingMaxChanged = props.AvatarScalingMaxChanged,
-		})
+		}),
 	}
 end
 
@@ -379,9 +389,11 @@ function Avatar:render()
 	return Roact.createElement(SettingsPage, {
 		SettingsLoadJobs = loadSettings,
 		SettingsSaveJobs = saveSettings,
-		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
+		Title = localization:getText("General", "Category" .. LOCALIZATION_ID),
 		PageId = LOCALIZATION_ID,
-		CreateChildren = function() return self:createChildren() end,
+		CreateChildren = function()
+			return self:createChildren()
+		end,
 	})
 end
 
@@ -392,27 +404,25 @@ Avatar = withContext({
 })(Avatar)
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
-Avatar = RoactRodux.connect(
-	function(state, props)
-		if not state then return end
-
-		local getValue = function(propName)
-			return settingFromState(state.Settings, propName)
-		end
-
-		return loadValuesToProps(getValue, state)
-	end,
-
-	function(dispatch)
-		local setValue = function(propName)
-			return function(value)
-				dispatch(AddChange(propName, value))
-			end
-		end
-
-		return dispatchChanges(setValue, dispatch)
+Avatar = RoactRodux.connect(function(state, props)
+	if not state then
+		return
 	end
-)(Avatar)
+
+	local getValue = function(propName)
+		return settingFromState(state.Settings, propName)
+	end
+
+	return loadValuesToProps(getValue, state)
+end, function(dispatch)
+	local setValue = function(propName)
+		return function(value)
+			dispatch(AddChange(propName, value))
+		end
+	end
+
+	return dispatchChanges(setValue, dispatch)
+end)(Avatar)
 
 Avatar.LocalizationId = LOCALIZATION_ID
 

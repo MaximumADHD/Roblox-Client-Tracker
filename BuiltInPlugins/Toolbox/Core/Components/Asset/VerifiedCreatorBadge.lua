@@ -1,5 +1,6 @@
 local FFlagToolboxAddUnverifiedIcon = game:GetFastFlag("ToolboxAddUnverifiedIcon")
-local FFlagToolboxAddUnverifiedIconFollowUp = game:GetFastFlag("ToolboxAddUnverifiedIconFollowUp") and FFlagToolboxAddUnverifiedIcon
+local FFlagToolboxAddUnverifiedIconFollowUp = game:GetFastFlag("ToolboxAddUnverifiedIconFollowUp")
+	and FFlagToolboxAddUnverifiedIcon
 
 local GuiService = game:GetService("GuiService")
 
@@ -68,10 +69,8 @@ function VerifiedCreatorBadge:render()
 
 		local isHovered = self.state.isHovered
 
-		local canShowCurrentTooltip = modalStatus:canShowCurrentTooltip(
-			assetId,
-			Constants.TOOLTIP_TYPE.HIGH_QUALITY_BADGE
-		)
+		local canShowCurrentTooltip =
+			modalStatus:canShowCurrentTooltip(assetId, Constants.TOOLTIP_TYPE.HIGH_QUALITY_BADGE)
 
 		local image
 		local size
@@ -110,7 +109,9 @@ function VerifiedCreatorBadge:render()
 			Position = props.Position,
 			LayoutOrder = props.LayoutOrder,
 			BackgroundTransparency = 1,
-			Size = if FFlagToolboxAddUnverifiedIconFollowUp then UDim2.fromOffset(ICON_SIZE, ICON_SIZE) else UDim2.fromOffset(size, size),
+			Size = if FFlagToolboxAddUnverifiedIconFollowUp
+				then UDim2.fromOffset(ICON_SIZE, ICON_SIZE)
+				else UDim2.fromOffset(size, size),
 			Image = image,
 			ImageColor3 = if FFlagToolboxAddUnverifiedIcon then iconColor else nil,
 			ZIndex = 2,

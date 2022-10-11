@@ -72,7 +72,6 @@ function Footer:init()
 			return true
 		end
 		return false
-
 	end
 
 	self.state = {
@@ -113,8 +112,13 @@ function Footer:render()
 		SaveSettings = Roact.createElement(ButtonBar, {
 			ZIndex = 2,
 			Buttons = {
-				{Name = localization:getText("General", "ButtonCancel"), Active = cancelActive, Value = false},
-				{Name = localization:getText("General", "ButtonSave"), Default = true, Active = saveActive, Value = true},
+				{ Name = localization:getText("General", "ButtonCancel"), Active = cancelActive, Value = false },
+				{
+					Name = localization:getText("General", "ButtonSave"),
+					Default = true,
+					Active = saveActive,
+					Value = true,
+				},
 			},
 			HorizontalAlignment = Enum.HorizontalAlignment.Right,
 			ButtonClicked = function(userPressedSave)
@@ -136,28 +140,35 @@ function Footer:render()
 								assert(not self.props.ChangedOptInLocations[chinaKey][selectedKey])
 								points.selected = false
 							end
-							sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, footerKey, points)
+							sendAnalyticsToKibana(
+								seriesNameKey,
+								FIntLuobuDevPublishAnalyticsHundredthsPercentage,
+								footerKey,
+								points
+							)
 						end
 					end
 					self:saveAllSettings(userPressedSave)
 				end
 			end,
 		}, {
-			EmailDialog = Roact.createElement(TextInputDialog,
-			{
+			EmailDialog = Roact.createElement(TextInputDialog, {
 				Enabled = self.state.showEmailDialog,
 				Size = Vector2.new(theme.emailDialog.Size.X, theme.emailDialog.Size.Y),
 				Title = localization:getText(optInLocationsKey, "EmailDialogHeader"),
 				Header = localization:getText(optInLocationsKey, "EmailDialogHeader"),
 				Buttons = {
-					{Key = "Submit", Text = localization:getText("General", "ButtonSubmit")},
-					{Key = "Cancel", Text = localization:getText("General", "ButtonCancel")},
+					{ Key = "Submit", Text = localization:getText("General", "ButtonSubmit") },
+					{ Key = "Cancel", Text = localization:getText("General", "ButtonCancel") },
 				},
 				Body = localization:getText(optInLocationsKey, "EmailDialogBody"),
 				Description = localization:getText(optInLocationsKey, "EmailDialogDescription"),
 				TextInput = {
-					{PlaceholderText = localization:getText(optInLocationsKey, "EmailAddress"),},
-					{PlaceholderText = localization:getText(optInLocationsKey, "ConfirmEmailAddress"), BottomText = self.state.bottomText,},
+					{ PlaceholderText = localization:getText(optInLocationsKey, "EmailAddress") },
+					{
+						PlaceholderText = localization:getText(optInLocationsKey, "ConfirmEmailAddress"),
+						BottomText = self.state.bottomText,
+					},
 				},
 				OnClose = function()
 					self:setState({
@@ -174,7 +185,12 @@ function Footer:render()
 								[optInLocationsKey] = chinaKey,
 								[selectedKey] = true,
 							}
-							sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, footerKey, points)
+							sendAnalyticsToKibana(
+								seriesNameKey,
+								FIntLuobuDevPublishAnalyticsHundredthsPercentage,
+								footerKey,
+								points
+							)
 							local responseCode = postContactEmail(email1)
 							if not responseCode then
 								self:saveAllSettings(self.state.userPressedSave)
@@ -184,12 +200,13 @@ function Footer:render()
 									bottomText = "",
 								})
 							else
-								local message = localization:getText(optInLocationsKey, "EmailSubmitFailure") .. responseCode
+								local message = localization:getText(optInLocationsKey, "EmailSubmitFailure")
+									.. responseCode
 								warn(message)
 							end
 						else
 							self:setState({
-								bottomText = localization:getText(optInLocationsKey, "ErrorEmailNotEqual")
+								bottomText = localization:getText(optInLocationsKey, "ErrorEmailNotEqual"),
 							})
 						end
 					else
@@ -211,33 +228,32 @@ Footer = withContext({
 	Dialog = Dialog,
 })(Footer)
 
-Footer = RoactRodux.connect(
-	function(state, props)
-		if not state then return end
-		return {
-			SaveActive = not isEmpty(state.Settings.Changed)
-				and state.Status == CurrentStatus.Open
-				and isEmpty(state.Settings.Errors),
-			CancelActive = state.Status == CurrentStatus.Open,
-			CurrentOptInLocations = state.Settings.Current[optInLocationsKey],
-			ChangedOptInLocations = state.Settings.Changed[optInLocationsKey],
-		}
-	end,
-	function(dispatch)
-		return {
-			SaveAllSettings = function(userPressedSave, ...)
-				if userPressedSave then
-					return dispatch(ConfirmAndSaveChanges(...))
-				else
-					return Promise.resolve()
-				end
-			end,
-
-			PostContactEmail = function(contactEmail)
-				return dispatch(PostContactEmail(contactEmail))
-			end,
-		}
+Footer = RoactRodux.connect(function(state, props)
+	if not state then
+		return
 	end
-)(Footer)
+	return {
+		SaveActive = not isEmpty(state.Settings.Changed) and state.Status == CurrentStatus.Open and isEmpty(
+			state.Settings.Errors
+		),
+		CancelActive = state.Status == CurrentStatus.Open,
+		CurrentOptInLocations = state.Settings.Current[optInLocationsKey],
+		ChangedOptInLocations = state.Settings.Changed[optInLocationsKey],
+	}
+end, function(dispatch)
+	return {
+		SaveAllSettings = function(userPressedSave, ...)
+			if userPressedSave then
+				return dispatch(ConfirmAndSaveChanges(...))
+			else
+				return Promise.resolve()
+			end
+		end,
+
+		PostContactEmail = function(contactEmail)
+			return dispatch(PostContactEmail(contactEmail))
+		end,
+	}
+end)(Footer)
 
 return Footer

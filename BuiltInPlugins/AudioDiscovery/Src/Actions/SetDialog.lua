@@ -5,6 +5,6 @@ local Action = Util.Action
 
 return Action(script.Name, function(open: boolean)
 	return {
-		Open = open
+		Open = open,
 	}
 end)

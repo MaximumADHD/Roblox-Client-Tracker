@@ -24,7 +24,6 @@ return Action(script.Name, function(gameInfoArg)
 			queryState = Constants.QUERY_STATE.QUERY_STATE_SUCCESS,
 			nextPageCursor = nextPageCursor or Cryo.None,
 			previousPageCursor = previousPageCursor or Cryo.None,
-		}
+		},
 	}
-
 end)

@@ -7,7 +7,7 @@ local Rodux = require(Plugin.Packages.Rodux)
 local function getDefaultState()
 	return {
 		scaleBoundaries = {
-			boundaries = {}
+			boundaries = {},
 		},
 	}
 end
@@ -23,5 +23,5 @@ return Rodux.createReducer(getDefaultState(), {
 				boundaries = action.rulesData.scales,
 			}),
 		})
-	end
+	end,
 })

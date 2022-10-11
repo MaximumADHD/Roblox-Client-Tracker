@@ -183,8 +183,7 @@ TopBar = withContext({
 	Inspector = InspectorContext,
 })(TopBar)
 
-return RoactRodux.connect(
-	function(state)
+return RoactRodux.connect(function(state)
 	return {
 		Tabs = state.Targets.tabs,
 		SelectedTab = state.Targets.selectedTab,
@@ -192,23 +191,21 @@ return RoactRodux.connect(
 		IsPicking = state.RoactInspector.isPicking,
 		IsProfiling = state.RoactInspector.isProfiling,
 	}
-	end,
-	function(dispatch)
-		return {
-			-- FIXME STUDIOPLAT-28652: Export the types of tab directly in the init file
-			selectTab = function(tab)
-				dispatch(SetTab(tab))
-			end,
-			setPicking = function(isPicking: boolean)
-				dispatch(SetPicking(isPicking))
-			end,
-			setProfiling = function(isProfiling: boolean)
-				dispatch(SetProfiling(isProfiling))
-			end,
-			closeTarget = function()
-				dispatch(CloseTarget())
-				dispatch(Reset())
-			end
-		}
-	end
-)(TopBar)
+end, function(dispatch)
+	return {
+		-- FIXME STUDIOPLAT-28652: Export the types of tab directly in the init file
+		selectTab = function(tab)
+			dispatch(SetTab(tab))
+		end,
+		setPicking = function(isPicking: boolean)
+			dispatch(SetPicking(isPicking))
+		end,
+		setProfiling = function(isProfiling: boolean)
+			dispatch(SetProfiling(isProfiling))
+		end,
+		closeTarget = function()
+			dispatch(CloseTarget())
+			dispatch(Reset())
+		end,
+	}
+end)(TopBar)

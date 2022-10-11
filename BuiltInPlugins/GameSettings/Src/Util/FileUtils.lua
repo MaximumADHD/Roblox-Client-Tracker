@@ -12,13 +12,12 @@ local HttpService = game:GetService("HttpService")
 
 --multipart/form-data for uploading images to Roblox endpoints
 --Moderation occurs on the web
-local FORM_DATA =
-	"--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E\r\n" ..
-	"Content-Type: image/%s\r\n" ..
-	"Content-Disposition: form-data; filename=\"%s\"; name=\"request.files\"\r\n" ..
-	"\r\n" ..
-	"%s\r\n" ..
-	"--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E--\r\n"
+local FORM_DATA = "--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E\r\n"
+	.. "Content-Type: image/%s\r\n"
+	.. 'Content-Disposition: form-data; filename="%s"; name="request.files"\r\n'
+	.. "\r\n"
+	.. "%s\r\n"
+	.. "--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E--\r\n"
 
 local Plugin = script.Parent.Parent.Parent
 local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
@@ -47,7 +46,7 @@ local function showMultiImageFailedDialog(page, localized, showDialog, files)
 		Title = localized:getText("General", "MultiImageDialogHeader"),
 		Header = localized:getText("General", "MultiImageDialogBody", {
 			-- Convert to MB
-			maxThumbnailSize = (DFIntFileMaxSizeBytes / 10^6)
+			maxThumbnailSize = (DFIntFileMaxSizeBytes / 10 ^ 6),
 		}),
 		Entries = files,
 		Buttons = {
@@ -64,21 +63,31 @@ local function createConfigDataTable(nameWithoutExtension, assetTypeId, descript
 		[nameWithoutExtension] = {
 			type = assetTypeId.Name,
 			name = nameWithoutExtension,
-			description = description
-		}
+			description = description,
+		},
 	}
 end
 
 local function createFormDataBody(configDataJsonBlob, nameWithoutExtension, extension, fileDataBlob)
-	local result =	"--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E\r\n" ..
-		"Content-Type: application/json\r\n" ..
-		"Content-Disposition: form-data; name=\"config\"; filename=\"config.json\"\r\n" ..
-		"\r\n" .. configDataJsonBlob .. "\r\n" ..
-		"--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E\r\n" ..
-		"Content-Disposition: form-data; name=\"" .. nameWithoutExtension .. "\"; filename=\"" .. nameWithoutExtension .. "." .. extension .. "\"\r\n" ..
-		"Content-Type: application/octet-stream\r\n" ..
-		"\r\n" .. fileDataBlob .. "\r\n" ..
-		"--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E--\r\n"
+	local result = "--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E\r\n"
+		.. "Content-Type: application/json\r\n"
+		.. 'Content-Disposition: form-data; name="config"; filename="config.json"\r\n'
+		.. "\r\n"
+		.. configDataJsonBlob
+		.. "\r\n"
+		.. "--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E\r\n"
+		.. 'Content-Disposition: form-data; name="'
+		.. nameWithoutExtension
+		.. '"; filename="'
+		.. nameWithoutExtension
+		.. "."
+		.. extension
+		.. '"\r\n'
+		.. "Content-Type: application/octet-stream\r\n"
+		.. "\r\n"
+		.. fileDataBlob
+		.. "\r\n"
+		.. "--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E--\r\n"
 	return result
 end
 
@@ -131,7 +140,7 @@ function FileUtils.GetAssetPublishRequestInfo(asset, url)
 		CachePolicy = Enum.HttpCachePolicy.None,
 		Headers = {
 			["Content-Type"] = "multipart/form-data; boundary=EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E",
-		}
+		},
 	}
 
 	return requestInfo
@@ -142,7 +151,7 @@ function FileUtils.CreatePostV1AssetsUpload(asset, url, assetType)
 	local name = string.lower(asset.Name)
 	local index = string.find(name, ".", 1, true)
 	local extension = string.sub(name, index + 1)
-	local nameWithoutExtension = string.sub(asset.Name, 1, index-1)
+	local nameWithoutExtension = string.sub(asset.Name, 1, index - 1)
 
 	local configDataBlob = HttpService:JSONEncode(createConfigDataTable(nameWithoutExtension, Enum.AssetType.Image, ""))
 	local form = createFormDataBody(configDataBlob, nameWithoutExtension, extension, contents)
@@ -155,7 +164,7 @@ function FileUtils.CreatePostV1AssetsUpload(asset, url, assetType)
 		Body = form,
 		Headers = {
 			["Content-Type"] = "multipart/form-data; boundary=EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E",
-		}
+		},
 	}
 
 	return requestInfo

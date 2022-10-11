@@ -76,7 +76,7 @@ function LuaMeshEditingModuleWrapper:didMount()
 					return
 				end
 			else
-				self.props.LuaMeshEditingModuleContext:suspend()
+				self.props.LuaMeshEditingModuleContext:disableEditing()
 				self.props.SetControlsPanelBlockerMessage(self.props.Localization:getText("Editor", "ResumeEditing"))
 				self.props.SetControlsPanelBlockerActivity(true)
 			end

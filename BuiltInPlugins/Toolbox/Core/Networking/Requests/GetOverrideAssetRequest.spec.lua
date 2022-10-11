@@ -1,7 +1,7 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent.Parent
 	local Packages = Plugin.Packages
-	
+
 	local Rodux = require(Packages.Rodux)
 	local NetworkInterfaceMock = require(Plugin.Core.Networking.NetworkInterfaceMock)
 	local GetOverrideAssetRequest = require(Plugin.Core.Networking.Requests.GetOverrideAssetRequest)

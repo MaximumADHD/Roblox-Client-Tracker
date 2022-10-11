@@ -68,7 +68,7 @@ function VoteButtons:render()
 		BackgroundTransparency = if showBackgroundBox then 0.95 else 1,
 		BackgroundColor3 = if showBackgroundBox then votingTheme.votingButtonsBackgroundBoxColor else nil,
 		LayoutOrder = nil,
-		Size = UDim2.new(1, 0, 0, Constants.ASSET_VOTING_BUTTONS_HEIGHT)
+		Size = UDim2.new(1, 0, 0, Constants.ASSET_VOTING_BUTTONS_HEIGHT),
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
 			Padding = UDim.new(0, Constants.ASSET_VOTE_BUTTONS_HORIZONTAL_PADDING),

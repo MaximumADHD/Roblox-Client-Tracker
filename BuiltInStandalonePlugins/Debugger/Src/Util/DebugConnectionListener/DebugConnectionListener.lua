@@ -87,7 +87,7 @@ function DebugConnectionListener:onExecutionPaused(
 		end
 		
 		local threadStates = threads:GetArg()
-		local currThreadState = nil
+		local currThreadState = if #threadStates > 0 then threadStates[1] else nil
 		for index, threadState in pairs(threadStates) do
 			self.store:dispatch(AddThreadId(threadState.ThreadId, threadState.ThreadName, dst))
 			if threadState.ThreadId == pausedState.ThreadId then

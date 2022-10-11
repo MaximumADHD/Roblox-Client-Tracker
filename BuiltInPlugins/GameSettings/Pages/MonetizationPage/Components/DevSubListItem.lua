@@ -61,8 +61,7 @@ function DeveloperSubscriptionListItem:render()
 		ImageColor3 = theme.table.item.background,
 		ScaleType = Enum.ScaleType.Slice,
 		SliceCenter = DEPRECATED_Constants.ROUNDED_FRAME_SLICE,
-	},
-	{
+	}, {
 		DetailsFrame = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 1, 0),
@@ -119,27 +118,30 @@ function DeveloperSubscriptionListItem:render()
 
 					[Roact.Event.Activated] = onEditButtonActivated,
 				}, {
-					Dots = Roact.createElement(FitTextLabel,  Cryo.Dictionary.join(theme.fontStyle.Normal, {
-						Position = UDim2.new(0.5, 0, 0.5, 0),
-						AnchorPoint = Vector2.new(0.5, 0.5),
+					Dots = Roact.createElement(
+						FitTextLabel,
+						Cryo.Dictionary.join(theme.fontStyle.Normal, {
+							Position = UDim2.new(0.5, 0, 0.5, 0),
+							AnchorPoint = Vector2.new(0.5, 0.5),
 
-						Text = "...",
-						Font = Enum.Font.SourceSansBold,
+							Text = "...",
+							Font = Enum.Font.SourceSansBold,
 
-						BackgroundTransparency = 1,
+							BackgroundTransparency = 1,
 
-						width = theme.table.menu.buttonSize,
-					})),
+							width = theme.table.menu.buttonSize,
+						})
+					),
 
-					Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
+					Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
 				}),
-			})
+			}),
 		}),
 		ErrorIcon = self.props.HasError and Roact.createElement("ImageButton", {
 			BackgroundTransparency = 1,
 			Image = DEPRECATED_Constants.ERROR_IMAGE,
 			Size = UDim2.new(0, 16, 0, 16),
-			Position =  UDim2.new(1, -16, 0, 16),
+			Position = UDim2.new(1, -16, 0, 16),
 			AnchorPoint = Vector2.new(0.5, 0.5),
 		}),
 	})

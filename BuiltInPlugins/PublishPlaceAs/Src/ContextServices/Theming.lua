@@ -21,8 +21,6 @@ function PluginThemeProvider:render()
 	return Roact.oneChild(self.props[Roact.Children])
 end
 
-
-
 -- the consumer should complain if it doesn't have a theme
 local PluginThemeConsumer = Roact.PureComponent:extend("PluginThemeConsumer")
 function PluginThemeConsumer:init()
@@ -52,16 +50,13 @@ function PluginThemeConsumer:willUnmount()
 	end
 end
 
-
-
 -- withTheme should provide a simple way to style elements
 -- callback : function<RoactElement>(theme)
 local function withTheme(callback)
 	return Roact.createElement(PluginThemeConsumer, {
-		themedRender = callback
+		themedRender = callback,
 	})
 end
-
 
 return {
 	Provider = PluginThemeProvider,

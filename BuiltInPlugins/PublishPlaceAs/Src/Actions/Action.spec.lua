@@ -44,7 +44,7 @@ return function()
 	it("should set values", function()
 		local action = Action("foo", function(value)
 			return {
-				value = value
+				value = value,
 			}
 		end)
 

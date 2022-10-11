@@ -5,41 +5,41 @@ local sampleTracks = {
 	{
 		Name = "TestTrack",
 		Instance = "Root",
-		Keyframes = {1, 2, 5},
+		Keyframes = { 1, 2, 5 },
 		Data = {
-			[1] = {EasingStyle = Enum.PoseEasingStyle.Linear},
-			[2] = {EasingStyle = Enum.PoseEasingStyle.Linear},
-			[5] = {EasingStyle = Enum.PoseEasingStyle.Linear},
+			[1] = { EasingStyle = Enum.PoseEasingStyle.Linear },
+			[2] = { EasingStyle = Enum.PoseEasingStyle.Linear },
+			[5] = { EasingStyle = Enum.PoseEasingStyle.Linear },
 		},
 	},
 	{
 		Name = "TestTrack2",
 		Instance = "Root",
-		Keyframes = {2, 3, 4},
+		Keyframes = { 2, 3, 4 },
 		Data = {
-			[2] = {EasingStyle = Enum.PoseEasingStyle.Linear},
-			[3] = {EasingStyle = Enum.PoseEasingStyle.Linear},
-			[4] = {EasingStyle = Enum.PoseEasingStyle.Linear},
+			[2] = { EasingStyle = Enum.PoseEasingStyle.Linear },
+			[3] = { EasingStyle = Enum.PoseEasingStyle.Linear },
+			[4] = { EasingStyle = Enum.PoseEasingStyle.Linear },
 		},
 	},
 }
 
 local testPreviewKeyframes = {
 	Root = {
-		TestTrack = {4, 5},
-		TestTrack2 = {5, 6, 7},
+		TestTrack = { 4, 5 },
+		TestTrack2 = { 5, 6, 7 },
 	},
 }
 
 local testPreviewData = {
 	Root = {
 		TestTrack = {
-			{EasingStyle = Enum.PoseEasingStyle.Linear},
-			{EasingStyle = Enum.PoseEasingStyle.Linear},
+			{ EasingStyle = Enum.PoseEasingStyle.Linear },
+			{ EasingStyle = Enum.PoseEasingStyle.Linear },
 		},
 		TestTrack2 = {
-			{EasingStyle = Enum.PoseEasingStyle.Linear},
-			{EasingStyle = Enum.PoseEasingStyle.Linear},
+			{ EasingStyle = Enum.PoseEasingStyle.Linear },
+			{ EasingStyle = Enum.PoseEasingStyle.Linear },
 		},
 	},
 }
@@ -68,7 +68,7 @@ return function()
 				DoShade = true,
 				ShowCluster = showCluster or false,
 				ZIndex = 0,
-			})
+			}),
 		})
 	end
 
@@ -78,7 +78,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestSummaryTrack(), container)
 		local frame = container:FindFirstChildOfClass("Frame")
@@ -89,7 +89,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should add a keyframe for every entry in any track", function ()
+	it("should add a keyframe for every entry in any track", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestSummaryTrack(), container)
 		local frame = container:FindFirstChildOfClass("Frame")

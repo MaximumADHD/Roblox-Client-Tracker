@@ -16,8 +16,6 @@ local SetCreatorFriends = require(Plugin.Src.Actions.SetCreatorFriends)
 local SetGroupOwnerId = require(Plugin.Src.Actions.SetGroupOwnerId)
 local SetGroupRolePermissions = require(Plugin.Src.Actions.SetGroupRolePermissions)
 
-local FFlagManageCollaboratorsLoadRolePerms = game:GetFastFlag("ManageCollaboratorsLoadRolePerms")
-
 function GetLoadFriendsJob(store, contextItems)
 	local gameMetadataController = contextItems.gameMetadataController
 	local socialController = contextItems.socialController
@@ -63,7 +61,7 @@ function GetPermissionsLoadJobs(store, contextItems)
 				store:dispatch(SetGroupOwnerId(groupOwnerId))
 
 				-- We can only fetch permissions if this user is the owner
-				if FFlagManageCollaboratorsLoadRolePerms and groupOwnerId == StudioService:GetUserId() then
+				if groupOwnerId == StudioService:GetUserId() then
 					groupRolePermisionsController:clearCache()
 					local perms = groupRolePermisionsController:getGroupRolePermissions(groupId)
 

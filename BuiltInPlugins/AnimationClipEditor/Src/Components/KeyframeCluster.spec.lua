@@ -10,7 +10,7 @@ return function()
 		return Roact.createElement(MockWrapper, {}, {
 			Cluster = Roact.createElement(KeyframeCluster, {
 				Size = UDim2.new(),
-			})
+			}),
 		})
 	end
 
@@ -20,7 +20,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestKeyframeCluster(), container)
 		local frame = container:FindFirstChildOfClass("Frame")

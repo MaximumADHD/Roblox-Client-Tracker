@@ -26,9 +26,13 @@ local Constants = require(Plugin.Src.Resources.Constants)
 
 local UI = Framework.UI
 local Button = if FFlagRemoveUILibraryButton then UI.Button else UILibrary.Component.RoundTextButton
-local ScrollingFrame = if FFlagDevFrameworkMigrateScrollingFrame then UI.ScrollingFrame else UILibrary.Component.InfiniteScrollingFrame
+local ScrollingFrame = if FFlagDevFrameworkMigrateScrollingFrame
+	then UI.ScrollingFrame
+	else UILibrary.Component.InfiniteScrollingFrame
 
-local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator then UI.LoadingIndicator else UILibrary.Component.LoadingIndicator
+local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator
+	then UI.LoadingIndicator
+	else UILibrary.Component.LoadingIndicator
 local SearchBar = Framework.StudioUI.SearchBar
 local Separator = UI.Separator
 
@@ -82,14 +86,13 @@ function ScreenChoosePlace:init()
 
 	self.OnSearchRequested = function(searchTerm)
 		self:setState({
-			searchTerm = searchTerm
+			searchTerm = searchTerm,
 		})
 	end
 end
 
 function ScreenChoosePlace:didMount()
 	self.finishedConnection = StudioPublishService.GamePublishFinished:connect(function(success)
-
 		if self.state.selectedPlace == nil then
 			return
 		end
@@ -105,7 +108,9 @@ end
 function ScreenChoosePlace:willUnmount()
 	--Places shares the same address as the running table in the thunk. So we can clear it by
 	--removing all elements in places
-	for key, _ in pairs(self.props.Places) do self.props.Places[key] = nil end
+	for key, _ in pairs(self.props.Places) do
+		self.props.Places[key] = nil
+	end
 	if self.finishedConnection then
 		self.finishedConnection:disconnect()
 	end
@@ -128,7 +133,7 @@ function ScreenChoosePlace:render()
 	local dispatchLoadExistingPlaces = props.DispatchLoadExistingPlaces
 	local dispatchSetIsPublishing = props.dispatchSetIsPublishing
 	local openChooseGamePage = props.OpenChooseGamePage
-	local OpenPublishManagement =  FFlagPlacePublishManagementUI2 and props.OpenPublishManagement or nil
+	local OpenPublishManagement = FFlagPlacePublishManagementUI2 and props.OpenPublishManagement or nil
 
 	local newPlaceSelected = false
 	if self.state.selectedPlace ~= nil then
@@ -161,7 +166,7 @@ function ScreenChoosePlace:render()
 					LastItem = false,
 					OnActivated = function()
 						self:setState({
-							selectedPlace = place
+							selectedPlace = place,
 						})
 					end,
 				})
@@ -177,14 +182,16 @@ function ScreenChoosePlace:render()
 				self:setState({
 					selectedPlace = {
 						placeId = 0,
-						name = untitledGameText
-					}
+						name = untitledGameText,
+					},
 				})
 			end,
 		})
 	end
 
-	local showNextPublishManagemnt = FFlagPlacePublishManagementUI2 and shouldShowNextPublishManagemnt(props.OptInRegions, isPublish) and not newPlaceSelected
+	local showNextPublishManagemnt = FFlagPlacePublishManagementUI2
+		and shouldShowNextPublishManagemnt(props.OptInRegions, isPublish)
+		and not newPlaceSelected
 	local footerMainButtonName = newPlaceSelected and "Create" or (showNextPublishManagemnt and "Next" or "Overwrite")
 
 	local TILE_HEIGHT = 80
@@ -273,7 +280,7 @@ function ScreenChoosePlace:render()
 				Roact.createElement(LoadingIndicator, {
 					Position = UDim2.new(0.5, -100, 0, 115),
 					Size = UDim2.new(0, 200, 0, 50),
-				})
+				}),
 			}),
 
 		MainContentsFailed = (props.PlacesQueryState == Constants.QUERY_STATE.QUERY_STATE_FAILED)
@@ -281,40 +288,43 @@ function ScreenChoosePlace:render()
 				Position = UDim2.new(0, 30, 0, 115),
 				Size = UDim2.new(0.95, 0, 0.7, 0),
 				BackgroundColor3 = theme.backgroundColor,
-			},
-				{
-					Roact.createElement("TextLabel", {
-						Text = localization:getText("General", "FetchFailed"),
-						Position = UDim2.new(0.5, 0, 0, 50),
-						TextSize = 24,
-						BackgroundTransparency = 1,
-						TextXAlignment = Enum.TextXAlignment.Center,
-						TextColor3 = theme.failText.text,
-						Font = theme.failText.font,
-					}),
-					Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						OnClick = function()
-							dispatchLoadExistingPlaces(parentGame)
-						end,
-						Position = UDim2.new(0.5, 0, 0, 100),
-						Size = UDim2.new(0, 150, 0, 75),
-						Style = "Round",
-						Text = localization:getText("Button", "Retry"),
-					} else {
-						Position = UDim2.new(0.5, 0, 0, 100),
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						Style = theme.defaultButton,
-						Size = UDim2.new(0, 150, 0, 75),
-						Active = true,
-						Name = localization:getText("Button", "Retry"),
-						TextSize = Constants.TEXT_SIZE,
-						OnClicked = function()
-							dispatchLoadExistingPlaces(parentGame)
-						end
-					})
-				}
-			),
+			}, {
+				Roact.createElement("TextLabel", {
+					Text = localization:getText("General", "FetchFailed"),
+					Position = UDim2.new(0.5, 0, 0, 50),
+					TextSize = 24,
+					BackgroundTransparency = 1,
+					TextXAlignment = Enum.TextXAlignment.Center,
+					TextColor3 = theme.failText.text,
+					Font = theme.failText.font,
+				}),
+				Roact.createElement(
+					Button,
+					if FFlagRemoveUILibraryButton
+						then {
+							AnchorPoint = Vector2.new(0.5, 0.5),
+							OnClick = function()
+								dispatchLoadExistingPlaces(parentGame)
+							end,
+							Position = UDim2.new(0.5, 0, 0, 100),
+							Size = UDim2.new(0, 150, 0, 75),
+							Style = "Round",
+							Text = localization:getText("Button", "Retry"),
+						}
+						else {
+							Position = UDim2.new(0.5, 0, 0, 100),
+							AnchorPoint = Vector2.new(0.5, 0.5),
+							Style = theme.defaultButton,
+							Size = UDim2.new(0, 150, 0, 75),
+							Active = true,
+							Name = localization:getText("Button", "Retry"),
+							TextSize = Constants.TEXT_SIZE,
+							OnClicked = function()
+								dispatchLoadExistingPlaces(parentGame)
+							end,
+						}
+				),
+			}),
 
 		Footer = Roact.createElement(Footer, {
 			MainButton = {
@@ -334,7 +344,13 @@ function ScreenChoosePlace:render()
 						else
 							StudioPublishService:setUploadNames(self.state.selectedPlace.name, parentGame.name)
 						end
-						StudioPublishService:publishAs(parentGame.universeId, self.state.selectedPlace.placeId, 0, props.IsPublish, nil)
+						StudioPublishService:publishAs(
+							parentGame.universeId,
+							self.state.selectedPlace.placeId,
+							0,
+							props.IsPublish,
+							nil
+						)
 						dispatchSetIsPublishing(true)
 					end
 				end,
@@ -377,18 +393,24 @@ local function useDispatchForProps(dispatch)
 			dispatch(SetScreen(Constants.SCREENS.CHOOSE_GAME))
 		end,
 		OpenPublishSuccessfulPage = function(place, game)
-			dispatch(SetPublishInfo({ id = game.universeId, name = place.name, parentGameName = game.name, }))
+			dispatch(SetPublishInfo({ id = game.universeId, name = place.name, parentGameName = game.name }))
 			dispatch(SetScreen(Constants.SCREENS.PUBLISH_SUCCESSFUL))
 		end,
 		OpenPublishFailPage = function(place, game)
-			dispatch(SetPublishInfo({ id = place.placeId, name = place.name, parentGameName = game.name, parentGameId = game.universeId, failed = true }))
+			dispatch(SetPublishInfo({
+				id = place.placeId,
+				name = place.name,
+				parentGameName = game.name,
+				parentGameId = game.universeId,
+				failed = true,
+			}))
 			dispatch(SetScreen(Constants.SCREENS.PUBLISH_FAIL))
 		end,
 		ClearPlaces = function()
 			dispatch(SetPlaceInfo({ places = {} }))
 		end,
 		OpenPublishManagement = function(place, universe)
-			dispatch(SetPlaceInfo({ places = {place}, parentGame = universe }))
+			dispatch(SetPlaceInfo({ places = { place }, parentGame = universe }))
 			dispatch(SetScreen(Constants.SCREENS.PUBLISH_MANAGEMENT))
 		end,
 	}

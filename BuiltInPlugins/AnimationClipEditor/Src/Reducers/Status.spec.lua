@@ -42,7 +42,7 @@ return function()
 		TrackName = "Track1",
 		Tick = 15,
 		Track = {
-			Keyframes = {1, 15},
+			Keyframes = { 1, 15 },
 			Data = {
 				[1] = {
 					Value = CFrame.new(0, 1, 0),
@@ -54,12 +54,12 @@ return function()
 					EasingStyle = Enum.PoseEasingStyle.Linear,
 					EasingDirection = Enum.PoseEasingDirection.In,
 				},
-			}
-		}
+			},
+		},
 	}
 
 	local function createTestStore()
-		local middlewares = {Rodux.thunkMiddleware}
+		local middlewares = { Rodux.thunkMiddleware }
 		local store = Rodux.Store.new(Status, nil, middlewares)
 		return store
 	end
@@ -94,7 +94,7 @@ return function()
 			local selectedKeyframes = store:getState().SelectedKeyframes
 			expect(#selectedKeyframes).to.equal(0)
 
-			store:dispatch(SetSelectedKeyframes({TestKey = "TestValue"}))
+			store:dispatch(SetSelectedKeyframes({ TestKey = "TestValue" }))
 			selectedKeyframes = store:getState().SelectedKeyframes
 			expect(selectedKeyframes.TestKey).to.equal("TestValue")
 		end)
@@ -106,7 +106,7 @@ return function()
 			local selectedEvents = store:getState().SelectedEvents
 			expect(#selectedEvents).to.equal(0)
 
-			store:dispatch(SetSelectedEvents({TestKey = "TestValue"}))
+			store:dispatch(SetSelectedEvents({ TestKey = "TestValue" }))
 			selectedEvents = store:getState().SelectedEvents
 			expect(selectedEvents.TestKey).to.equal("TestValue")
 		end)
@@ -118,7 +118,7 @@ return function()
 			local clipboard = store:getState().Clipboard
 			expect(#clipboard).to.equal(0)
 
-			store:dispatch(SetClipboard({TestKey = "TestValue"}))
+			store:dispatch(SetClipboard({ TestKey = "TestValue" }))
 			clipboard = store:getState().Clipboard
 			expect(clipboard.TestKey).to.equal("TestValue")
 		end)
@@ -168,14 +168,14 @@ return function()
 	describe("SetTracks", function()
 		it("should replace the current Tracks table", function()
 			local store = createTestStore()
-			store:dispatch(SetTracks({TestKey = "TestValue"}))
+			store:dispatch(SetTracks({ TestKey = "TestValue" }))
 			local tracks = store:getState().Tracks
 			expect(tracks.TestKey).to.equal("TestValue")
 		end)
 
 		it("should replace the current UnusedTracks table", function()
 			local store = createTestStore()
-			store:dispatch(SetTracks({TestKey = "TestValue"}, {OtherKey = "OtherValue"}))
+			store:dispatch(SetTracks({ TestKey = "TestValue" }, { OtherKey = "OtherValue" }))
 			local unused = store:getState().UnusedTracks
 			expect(unused.OtherKey).to.equal("OtherValue")
 		end)
@@ -250,7 +250,7 @@ return function()
 					Part1 = part1,
 					C0 = CFrame.new(1, 0, 0),
 					C1 = CFrame.new(0, 1, 0),
-				}
+				},
 			}
 			store:dispatch(SetMotorData(testData))
 			local state = store:getState()
@@ -290,7 +290,7 @@ return function()
 	describe("SetSelectedTracks", function()
 		it("should set selectedTracks", function()
 			local store = createTestStore()
-			store:dispatch(SetSelectedTracks({{"TestTrack"}}))
+			store:dispatch(SetSelectedTracks({ { "TestTrack" } }))
 			local state = store:getState()
 			expect(state.SelectedTracks[1][1]).to.equal("TestTrack")
 
@@ -304,11 +304,11 @@ return function()
 		it("should move the selected track", function()
 			local store = createTestStore()
 			store:dispatch(SetTracks({
-				{ Name = "TestTrack1", },
-				{ Name = "TestTrack2", },
-				{ Name = "TestTrack3", },
+				{ Name = "TestTrack1" },
+				{ Name = "TestTrack2" },
+				{ Name = "TestTrack3" },
 			}))
-			store:dispatch(SetSelectedTracks({{"TestTrack1"}}))
+			store:dispatch(SetSelectedTracks({ { "TestTrack1" } }))
 			store:dispatch(MoveSelectedTrack(1))
 			local state = store:getState()
 			expect(state.SelectedTracks[1][1]).to.equal("TestTrack2")
@@ -320,11 +320,11 @@ return function()
 		it("should clamp the selection", function()
 			local store = createTestStore()
 			store:dispatch(SetTracks({
-				{ Name = "TestTrack1", },
-				{ Name = "TestTrack2", },
-				{ Name = "TestTrack3", },
+				{ Name = "TestTrack1" },
+				{ Name = "TestTrack2" },
+				{ Name = "TestTrack3" },
 			}))
-			store:dispatch(SetSelectedTracks({{"TestTrack1"}}))
+			store:dispatch(SetSelectedTracks({ { "TestTrack1" } }))
 
 			store:dispatch(MoveSelectedTrack(-1))
 			local state = store:getState()
@@ -367,7 +367,7 @@ return function()
 		it("should set pinned parts", function()
 			local part = Instance.new("Part")
 			local pinnedParts = {
-				[part] = true
+				[part] = true,
 			}
 			local store = createTestStore()
 			store:dispatch(SetPinnedParts(pinnedParts))
@@ -408,7 +408,7 @@ return function()
 	describe("SetStartingPose", function()
 		it("should set starting pose", function()
 			local store = createTestStore()
-			store:dispatch(SetStartingPose({["Part"] = CFrame.new()}))
+			store:dispatch(SetStartingPose({ ["Part"] = CFrame.new() }))
 			local state = store:getState()
 			expect(state.StartingPose["Part"]).to.be.ok()
 		end)

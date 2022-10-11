@@ -7,25 +7,25 @@ local LifetimeManagerAvatar = require(Page.Util.LifetimeManagerAvatar)
 local AvatarUpdater = Roact.Component:extend("ComponentAvatarUpdater")
 
 function AvatarUpdater:applyRigUpdates()
-    if self.props.StateTemplates and self.props.StateTemplates.templates then
-        LifetimeManagerAvatar.apply(self.props.StateTemplates.templates)
-    end
+	if self.props.StateTemplates and self.props.StateTemplates.templates then
+		LifetimeManagerAvatar.apply(self.props.StateTemplates.templates)
+	end
 end
 
 function AvatarUpdater:didMount()
-    self:applyRigUpdates()
+	self:applyRigUpdates()
 end
 
 function AvatarUpdater:render()
-    return nil
+	return nil
 end
 
 function AvatarUpdater:didUpdate()
-   self:applyRigUpdates()
+	self:applyRigUpdates()
 end
 
 function AvatarUpdater:willUnmount()
-    LifetimeManagerAvatar:destroy()
+	LifetimeManagerAvatar:destroy()
 end
 
 return AvatarUpdater

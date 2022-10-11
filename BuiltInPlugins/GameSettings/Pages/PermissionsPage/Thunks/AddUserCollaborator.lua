@@ -17,8 +17,8 @@ return function(userId, username, newPermission)
 					[PermissionsConstants.SubjectNameKey] = username,
 					[PermissionsConstants.SubjectIdKey] = userId,
 					[PermissionsConstants.ActionKey] = newPermission,
-				}
-			}
+				},
+			},
 		})
 
 		store:dispatch(AddChange("permissions", newPermissions))

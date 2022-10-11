@@ -61,8 +61,8 @@ function EventsController:init()
 
 		showContextMenu = false,
 		eventEditingTick = nil,
-		hasDragWaypoint = false,	-- True if a waypoint has already been created for
-									-- the current drag operation (move)
+		hasDragWaypoint = false, -- True if a waypoint has already been created for
+		-- the current drag operation (move)
 	}
 
 	self.selectDragStart, self.updateSelectDragStart = Roact.createBinding(nil)
@@ -79,7 +79,7 @@ function EventsController:init()
 		if not self.state.hasDragWaypoint then
 			self.props.AddWaypoint()
 			self:setState({
-				hasDragWaypoint = true
+				hasDragWaypoint = true,
 			})
 		end
 	end
@@ -383,7 +383,7 @@ function EventsController:render()
 			OnDragEnded = self.onSelectDragEnded,
 			SelectionStart = self.selectDragStart,
 			SelectionEnd = self.selectDragEnd,
-			SourceExtents = Rect.new(absolutePosition, absolutePosition + absoluteSize)
+			SourceExtents = Rect.new(absolutePosition, absolutePosition + absoluteSize),
 		}),
 
 		EventActions = active and animationData and Roact.createElement(EventActions, {
@@ -458,20 +458,18 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetPlayState(playState))
 		end,
 
-		Pause = if not GetFFlagRetirePause() then function()
-			dispatch(Pause())
-		end else nil,
+		Pause = if not GetFFlagRetirePause()
+			then function()
+				dispatch(Pause())
+			end
+			else nil,
 	}
 end
-
 
 EventsController = withContext({
 	Analytics = ContextServices.Analytics,
 })(EventsController)
 
-
-
-EventsController = RoactRodux.connect(mapStateToProps,
-	mapDispatchToProps)(EventsController)
+EventsController = RoactRodux.connect(mapStateToProps, mapDispatchToProps)(EventsController)
 
 return EventsController

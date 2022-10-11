@@ -42,17 +42,16 @@ function SelectionBox:render()
 				BackgroundColor3 = theme.selectionBox,
 				BackgroundTransparency = 0.8,
 				Position = selectionStart and selectionStart:map(function(value)
-					return UDim2.new(0, value.X - sourceExtents.Min.X,
-						0, value.Y - sourceExtents.Min.Y)
+					return UDim2.new(0, value.X - sourceExtents.Min.X, 0, value.Y - sourceExtents.Min.Y)
 				end),
-				Size = selectionStart and selectionEnd
-					and Roact.joinBindings({selectionStart, selectionEnd}):map(function(extents)
-					local selectionStart = extents[1]
-					local selectionEnd = extents[2]
-					local selectionExtents = selectionEnd - selectionStart
-					return UDim2.new(0, selectionExtents.X, 0, selectionExtents.Y)
-				end),
-			})
+				Size = selectionStart and selectionEnd and Roact.joinBindings({ selectionStart, selectionEnd })
+					:map(function(extents)
+						local selectionStart = extents[1]
+						local selectionEnd = extents[2]
+						local selectionExtents = selectionEnd - selectionStart
+						return UDim2.new(0, selectionExtents.X, 0, selectionExtents.Y)
+					end),
+			}),
 		}),
 	})
 end

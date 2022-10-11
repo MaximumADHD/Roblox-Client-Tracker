@@ -21,13 +21,13 @@ local RemoveUserCollaborator = require(Page.Thunks.RemoveUserCollaborator)
 local UserCollaboratorItem = Roact.PureComponent:extend("UserCollaboratorItem")
 
 local permissionLabelDescriptionShortNameForKey = {
-	[PermissionsConstants.OwnerKey] = {"Owner", "Owner"},
-	[PermissionsConstants.PlayKey] = {"Play", "Play"},
-	[PermissionsConstants.EditKey] = {"Edit", "Edit"},
-	[PermissionsConstants.NoEditMustBeFriendKey] = {"Edit", "NoEditMustBeFriend"},
-	[PermissionsConstants.NoUserEditGroupGameKey] = {"Edit", "NoUserEditGroupGame"},
-	[PermissionsConstants.NoAccessKey] = {"NoAccess", "NoAccess"},
-	[PermissionsConstants.AdminKey] = {"Admin", "Admin"}
+	[PermissionsConstants.OwnerKey] = { "Owner", "Owner" },
+	[PermissionsConstants.PlayKey] = { "Play", "Play" },
+	[PermissionsConstants.EditKey] = { "Edit", "Edit" },
+	[PermissionsConstants.NoEditMustBeFriendKey] = { "Edit", "NoEditMustBeFriend" },
+	[PermissionsConstants.NoUserEditGroupGameKey] = { "Edit", "NoUserEditGroupGame" },
+	[PermissionsConstants.NoAccessKey] = { "NoAccess", "NoAccess" },
+	[PermissionsConstants.AdminKey] = { "Admin", "Admin" },
 }
 
 local PERMISSIONS = "Permissions"
@@ -44,8 +44,11 @@ function UserCollaboratorItem:getPermissionForKey(key, isAllowed)
 	return {
 		Key = key,
 		Display = localization:getText(PERMISSIONS, permissionLabelDescriptionShortNameForKey[key][1] .. "Label"),
-		Description = localization:getText(PERMISSIONS, permissionLabelDescriptionShortNameForKey[key][2] .. "Description"),
-		IsEnabled = isAllowed
+		Description = localization:getText(
+			PERMISSIONS,
+			permissionLabelDescriptionShortNameForKey[key][2] .. "Description"
+		),
+		IsEnabled = isAllowed,
 	}
 end
 
@@ -61,13 +64,13 @@ function UserCollaboratorItem:getAvailablePermissions()
 	local editable = props.Editable
 
 	if isOwner then
-		return {self:getPermissionForKey(PermissionsConstants.OwnerKey, true),}
+		return { self:getPermissionForKey(PermissionsConstants.OwnerKey, true) }
 	elseif not editable then
 		-- if not editable, just show current permission
-		return {self:getPermissionForKey(self:getCurrentPermission(), true),}
+		return { self:getPermissionForKey(self:getCurrentPermission(), true) }
 	else
-		local permissions = {self:getPermissionForKey(PermissionsConstants.PlayKey, true)}
-		
+		local permissions = { self:getPermissionForKey(PermissionsConstants.PlayKey, true) }
+
 		if ownerType ~= Enum.CreatorType.User then
 			table.insert(permissions, self:getPermissionForKey(PermissionsConstants.NoUserEditGroupGameKey, false))
 		elseif not isOwnerFriend then
@@ -133,37 +136,31 @@ function UserCollaboratorItem:render()
 	})
 end
 
-
 UserCollaboratorItem = withContext({
 	Localization = ContextServices.Localization,
 })(UserCollaboratorItem)
 
+UserCollaboratorItem = RoactRodux.connect(function(state, props)
+	local currentPermission = GetUserPermission(state, props.Id)
 
-
-UserCollaboratorItem = RoactRodux.connect(
-	function(state, props)
-		local currentPermission = GetUserPermission(state, props.Id)
-
-		if currentPermission then
-			return {
-				OwnerType = state.GameOwnerMetadata.creatorType,
-				IsOwner = IsUserOwner(state, props.Id),
-				IsOwnerFriend = IsUserCreatorFriend(state, props.Id),
-				UserName = GetUserName(state, props.Id),
-				CurrentPermission = currentPermission,
-			}
-		end
-	end,
-	function(dispatch)
+	if currentPermission then
 		return {
-			SetUserPermission = function(...)
-				dispatch(SetUserPermission(...))
-			end,
-			RemoveUserCollaborator = function(...)
-				dispatch(RemoveUserCollaborator(...))
-			end,
+			OwnerType = state.GameOwnerMetadata.creatorType,
+			IsOwner = IsUserOwner(state, props.Id),
+			IsOwnerFriend = IsUserCreatorFriend(state, props.Id),
+			UserName = GetUserName(state, props.Id),
+			CurrentPermission = currentPermission,
 		}
 	end
-)(UserCollaboratorItem)
+end, function(dispatch)
+	return {
+		SetUserPermission = function(...)
+			dispatch(SetUserPermission(...))
+		end,
+		RemoveUserCollaborator = function(...)
+			dispatch(RemoveUserCollaborator(...))
+		end,
+	}
+end)(UserCollaboratorItem)
 
 return UserCollaboratorItem

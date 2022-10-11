@@ -6,7 +6,6 @@ return function()
 
 	local Analytics = Framework.ContextServices.Analytics
 
-
 	local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 	local SetRootInstance = require(Plugin.Src.Actions.SetRootInstance)
 	local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
@@ -19,8 +18,8 @@ return function()
 
 	local mockSkeleton = {
 		ClassName = "MockSkeleton",
-		Names = {"Hips", "Torso", "LeftArm", "RightArm", "LeftHand", "RightHand", "Neck", "Head"},
-		Parents = {0, 1, 2, 2, 3, 4, 2, 7},
+		Names = { "Hips", "Torso", "LeftArm", "RightArm", "LeftHand", "RightHand", "Neck", "Head" },
+		Parents = { 0, 1, 2, 2, 3, 4, 2, 7 },
 	}
 
 	local testAnimationData = Templates.animationData()
@@ -28,19 +27,19 @@ return function()
 	testAnimationData.Instances.Root.Tracks = {
 		Hips = {
 			Type = Constants.TRACK_TYPES.CFrame,
-			Keyframes = {0},
+			Keyframes = { 0 },
 		},
 	}
 
 	local function createEmptyStore()
-		local middlewares = {Rodux.thunkMiddleware}
+		local middlewares = { Rodux.thunkMiddleware }
 		local store = Rodux.Store.new(MainReducer, nil, middlewares)
 		return store
 	end
 
 	local function createTestStore()
 		local analytics = Analytics.mock()
-		local middlewares = {Rodux.thunkMiddleware}
+		local middlewares = { Rodux.thunkMiddleware }
 		local store = Rodux.Store.new(MainReducer, nil, middlewares)
 		store:dispatch(SetRootInstance(mockSkeleton))
 		store:dispatch(LoadAnimationData(testAnimationData, analytics))
@@ -64,8 +63,17 @@ return function()
 		it("should add a track to Tracks", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			store:dispatch(AddTrack("Root", "Neck", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, Enum.RotationOrder.XYZ, analytics))
-			
+			store:dispatch(
+				AddTrack(
+					"Root",
+					"Neck",
+					Constants.TRACK_TYPES.CFrame,
+					Constants.TRACK_TYPES.Quaternion,
+					Enum.RotationOrder.XYZ,
+					analytics
+				)
+			)
+
 			local found = false
 			local status = store:getState().Status
 			for _, track in ipairs(status.Tracks) do
@@ -81,8 +89,17 @@ return function()
 		it("should do nothing if a track already exists", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			store:dispatch(AddTrack("Root", "Hips", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, Enum.RotationOrder.XYZ, analytics))
-			
+			store:dispatch(
+				AddTrack(
+					"Root",
+					"Hips",
+					Constants.TRACK_TYPES.CFrame,
+					Constants.TRACK_TYPES.Quaternion,
+					Enum.RotationOrder.XYZ,
+					analytics
+				)
+			)
+
 			local found = 0
 			local status = store:getState().Status
 			for _, track in ipairs(status.Tracks) do
@@ -128,7 +145,7 @@ return function()
 		it("should set the Tracks", function()
 			local store = createEmptyStore()
 			store:dispatch(SortAndSetTracks({
-				{Name = "Track1"},
+				{ Name = "Track1" },
 			}))
 			local status = store:getState().Status
 			local tracks = status.Tracks
@@ -140,9 +157,9 @@ return function()
 		it("should sort alphabetically given no hierarchy", function()
 			local store = createEmptyStore()
 			store:dispatch(SortAndSetTracks({
-				{Name = "Track3"},
-				{Name = "Track2"},
-				{Name = "Track1"},
+				{ Name = "Track3" },
+				{ Name = "Track2" },
+				{ Name = "Track1" },
 			}))
 			local status = store:getState().Status
 			local tracks = status.Tracks
@@ -154,7 +171,7 @@ return function()
 		it("should set the Depth of flat tracks to 0", function()
 			local store = createEmptyStore()
 			store:dispatch(SortAndSetTracks({
-				{Name = "Track1"},
+				{ Name = "Track1" },
 			}))
 			local status = store:getState().Status
 			local tracks = status.Tracks
@@ -166,9 +183,9 @@ return function()
 			local store = createEmptyStore()
 			store:dispatch(SetRootInstance(mockSkeleton))
 			store:dispatch(SortAndSetTracks({
-				{Name = "LeftArm"},
-				{Name = "Torso"},
-				{Name = "LeftHand"},
+				{ Name = "LeftArm" },
+				{ Name = "Torso" },
+				{ Name = "LeftHand" },
 			}))
 			local status = store:getState().Status
 			local tracks = status.Tracks
@@ -181,9 +198,9 @@ return function()
 			local store = createEmptyStore()
 			store:dispatch(SetRootInstance(mockSkeleton))
 			store:dispatch(SortAndSetTracks({
-				{Name = "LeftArm"},
-				{Name = "Torso"},
-				{Name = "LeftHand"},
+				{ Name = "LeftArm" },
+				{ Name = "Torso" },
+				{ Name = "LeftHand" },
 			}))
 			local status = store:getState().Status
 			local tracks = status.Tracks
@@ -196,12 +213,12 @@ return function()
 			local store = createEmptyStore()
 			store:dispatch(SetRootInstance(mockSkeleton))
 			store:dispatch(SortAndSetTracks({
-				{Name = "Hips"},
-				{Name = "Torso"},
-				{Name = "LeftArm"},
-				{Name = "RightArm"},
-				{Name = "LeftHand"},
-				{Name = "RightHand"},
+				{ Name = "Hips" },
+				{ Name = "Torso" },
+				{ Name = "LeftArm" },
+				{ Name = "RightArm" },
+				{ Name = "LeftHand" },
+				{ Name = "RightHand" },
 			}))
 			local status = store:getState().Status
 			local unused = status.UnusedTracks
@@ -216,7 +233,7 @@ return function()
 		it("should add a track if the track does not exist", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			store:dispatch(AddKeyframe("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, 0, {}, analytics))
+			store:dispatch(AddKeyframe("Root", { "Head" }, Constants.TRACK_TYPES.CFrame, 0, {}, analytics))
 
 			local found = false
 			local status = store:getState().Status

@@ -7,8 +7,7 @@ return function()
 
 	it("should create and destroy without errors", function()
 		local mockServiceWrapper = Roact.createElement(MockServiceWrapper, {}, {
-			ScreenPublishManagement = Roact.createElement(ScreenPublishManagement, {
-			}),
+			ScreenPublishManagement = Roact.createElement(ScreenPublishManagement, {}),
 		})
 		local instance = Roact.mount(mockServiceWrapper)
 		Roact.unmount(instance)
@@ -21,20 +20,20 @@ return function()
 					id = 7884012802,
 					name = "Test",
 					parentGameId = 2,
-					parentGameName = "TestParent"
+					parentGameName = "TestParent",
 				},
 			},
 			ExistingGame = {
 				placeInfo = {
 					places = {},
 					parentGame = {
-						universeId = '2'
-					}
+						universeId = "2",
+					},
 				},
 				gameConfiguration = {
 					optInRegions = {},
-				}
-			}
+				},
+			},
 		}
 		local mockServiceWrapper = Roact.createElement(MockServiceWrapper, {
 			storeState = initial,

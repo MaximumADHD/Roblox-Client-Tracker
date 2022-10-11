@@ -7,7 +7,7 @@ return function()
 
 	describe("MinHeap", function()
 		it("should sort the elements in ascending order", function()
-			local values = {5, 1, 2, 2, 7, 3, 1, 4, 9, 10, 5, 12, 6, 6, 6, 0}
+			local values = { 5, 1, 2, 2, 7, 3, 1, 4, 9, 10, 5, 12, 6, 6, 6, 0 }
 			local heap = MinHeap.new()
 
 			for _, v in values do

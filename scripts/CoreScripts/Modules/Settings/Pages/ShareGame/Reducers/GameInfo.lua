@@ -1,10 +1,9 @@
 local CorePackages = game:GetService("CorePackages")
-local AppTempCommon = CorePackages.AppTempCommon
 
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
 
-local Immutable = require(AppTempCommon.Common.Immutable)
+local Immutable = require(CorePackages.Workspace.Packages.AppCommonLib).Immutable
 
 local SetGameInfoCreated = require(ShareGame.Actions.SetGameInfoCreated)
 

@@ -7,7 +7,6 @@ local Urls = require(Util.Urls)
 local DFIntFileMaxSizeBytes = tonumber(settings():GetFVariable("FileMaxSizeBytes"))
 
 local FFlagUseDefaultThumbnailForAnimation = game:GetFastFlag("UseDefaultThumbnailForAnimation")
-local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
 local StudioService = game:GetService("StudioService")
 
 local round = function(num, numDecimalPlaces)
@@ -37,11 +36,7 @@ end
 function AssetConfigUtil.calculatePotentialEarning(allowedAssetTypesForRelease, price, assetTypeEnum, minPrice)
 	price = tonumber(price)
 	if not price then
-		if FFlagToolboxAssetConfigurationMinPriceFloor2 then
-			return 0
-		else
-			return 0, 0
-		end
+		return 0
 	end
 	price = round(price)
 
@@ -51,11 +46,7 @@ function AssetConfigUtil.calculatePotentialEarning(allowedAssetTypesForRelease, 
 	local roundedPrice = round(price * scalar)
 	local marketPlaceFee = math.max(minPrice, roundedPrice)
 
-	if FFlagToolboxAssetConfigurationMinPriceFloor2 then
-		return math.max(0, price - marketPlaceFee)
-	else
-		return math.max(0, price - marketPlaceFee), marketPlaceFee or 0
-	end
+	return math.max(0, price - marketPlaceFee)
 end
 
 function AssetConfigUtil.getPriceRange(allowedAssetTypesForRelease, assetTypeEnum)
@@ -85,12 +76,8 @@ function AssetConfigUtil.getPriceInfo(allowedAssetTypesForRelease, assetTypeEnum
 		feeRate = tonumber(assetInfo.marketplaceFeesPercentage) or 0
 		-- This is V1 work around method for publishing free plugins.
 		-- In V2 we will be having an independent UI to set the "Free" status.
-		
-		if not FFlagToolboxAssetConfigurationMinPriceFloor2 and AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) then
-			minPrice = 0
-		else
-			minPrice = priceRange.minRobux and tonumber(priceRange.minRobux) or 0
-		end
+
+		minPrice = priceRange.minRobux and tonumber(priceRange.minRobux) or 0
 		maxPrice = priceRange.maxRobux and tonumber(priceRange.maxRobux) or 0
 	end
 
@@ -250,9 +237,14 @@ function AssetConfigUtil.isPackagePublishAllowed(instances, localization)
 		allowPublish = false
 	end
 
-	if rootInstance:IsA("Model") and rootInstance.PrimaryPart ~= nil and rootInstance.PrimaryPart.Archivable ~= true then
+	if
+		rootInstance:IsA("Model")
+		and rootInstance.PrimaryPart ~= nil
+		and rootInstance.PrimaryPart.Archivable ~= true
+	then
 		allowPublish = false
-		warningMessage = localization:getText("AssetConfigPackage", "CantConvertModelWithPrimaryPartNonArchivableWarning")
+		warningMessage =
+			localization:getText("AssetConfigPackage", "CantConvertModelWithPrimaryPartNonArchivableWarning")
 	end
 
 	if rootInstance:IsA("PVInstance") == false and rootInstance:FindFirstChildWhichIsA("PVInstance") ~= nil then
@@ -260,13 +252,17 @@ function AssetConfigUtil.isPackagePublishAllowed(instances, localization)
 	end
 
 	-- these strings are used in code to signal package modification and not surfaced to user
-	local modifiedUpdateString = "Changed + New Version Available" 
+	local modifiedUpdateString = "Changed + New Version Available"
 	local isModifiedString = "Changed"
 	for _, instance in pairs(rootInstance:GetDescendants()) do
 		if instance:IsA("PackageLink") and instance.Parent ~= rootInstance then
-			if instance.Status ~= nil and (instance.Status == isModifiedString or instance.Status == modifiedUpdateString) then
+			if
+				instance.Status ~= nil
+				and (instance.Status == isModifiedString or instance.Status == modifiedUpdateString)
+			then
 				allowPublish = false
-				warningMessage = localization:getText("AssetConfigPackage", "CantConvertIfChildPackageHasUnpublishedChangesWarning")
+				warningMessage =
+					localization:getText("AssetConfigPackage", "CantConvertIfChildPackageHasUnpublishedChangesWarning")
 			end
 		end
 	end

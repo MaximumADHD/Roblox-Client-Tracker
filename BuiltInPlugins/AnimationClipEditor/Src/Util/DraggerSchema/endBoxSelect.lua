@@ -7,6 +7,4 @@
 	since the box select started into an actual hard selection change, you would
 	put that promotion code here.
 ]]
-return function(draggerContext)
-
-end
+return function(draggerContext) end

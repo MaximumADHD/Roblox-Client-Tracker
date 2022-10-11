@@ -33,8 +33,10 @@ return function()
 						selectionTrack.Components = {}
 						for _, componentName in pairs(Constants.COMPONENT_TRACK_TYPES[dataTrack.Type]._Order) do
 							selectionTrack.Components[componentName] = {}
-							selectionTrack.Selection = Cryo.Dictionary.join(selectionTrack.Selection,
-								traverse(selectionTrack.Components[componentName], dataTrack.Components[componentName]))
+							selectionTrack.Selection = Cryo.Dictionary.join(
+								selectionTrack.Selection,
+								traverse(selectionTrack.Components[componentName], dataTrack.Components[componentName])
+							)
 						end
 					end
 

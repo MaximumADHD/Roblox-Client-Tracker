@@ -60,7 +60,7 @@ type Props = {
 }
 type State = {
 	storyError: string?,
-	storyProps: Types.StoryProps?
+	storyProps: Types.StoryProps?,
 }
 
 local FFlagEnableLoadModule = game:GetFastFlag("EnableLoadModule")
@@ -111,8 +111,8 @@ end
 function InfoPanel:setControls(changes: Types.StoryControls)
 	self:setState({
 		storyProps = joinDeep(self.state.storyProps, {
-			controls = changes
-		})
+			controls = changes,
+		}),
 	})
 end
 
@@ -201,7 +201,11 @@ end
 	@param storybook - a table implementing Storybook from the spec
 ]]
 
-function InfoPanel:getStoryDefinition(storyItem: Types.StoryItem, construct: Types.Story, storybook: Types.Storybook): Types.StoryDefinition
+function InfoPanel:getStoryDefinition(
+	storyItem: Types.StoryItem,
+	construct: Types.Story,
+	storybook: Types.Storybook
+): Types.StoryDefinition
 	local definition = {
 		name = storyItem.Name,
 		summary = "",
@@ -242,11 +246,11 @@ function InfoPanel:getStoryDefinition(storyItem: Types.StoryItem, construct: Typ
 						return {
 							name = key,
 							summary = "",
-							story = subComponent
+							story = subComponent,
 						}
 					else
 						return join(subStory, {
-							story = self:getRoactComponent(subStory.story, definition.roact)
+							story = self:getRoactComponent(subStory.story, definition.roact),
 						})
 					end
 				end)
@@ -292,7 +296,7 @@ function InfoPanel:getRoactComponent(input: Types.Story, roact: Types.Roact): Ty
 	if isInstance then
 		return function()
 			return roact.createElement(makeInstanceHost(roact), {
-				Instance = input
+				Instance = input,
 			})
 		end
 	elseif isRoactElement then
@@ -333,8 +337,8 @@ function InfoPanel:render()
 					TextWrapped = true,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					AutomaticSize = Enum.AutomaticSize.Y,
-				})
-			})
+				}),
+			}),
 		})
 	end
 
@@ -376,7 +380,7 @@ function InfoPanel:render()
 			Header = definition.name,
 			Description = definition.summary,
 			LayoutOrder = nextOrder(),
-		})
+		}),
 	}
 
 	if mapOne(definitelyStoryProps.controls) ~= nil then
@@ -386,7 +390,7 @@ function InfoPanel:render()
 			LayoutOrder = nextOrder(),
 			SetControls = function(changes)
 				self:setControls(changes)
-			end
+			end,
 		})
 	end
 
@@ -415,7 +419,7 @@ function InfoPanel:render()
 				LayoutOrder = nextOrder(),
 				StoryProps = join(definitelyStoryProps, {
 					story = self:getRoactComponent(subDefinition.story),
-					key = key
+					key = key,
 				}),
 				ThemeName = ThemeSwitcher.getThemeName(),
 			})
@@ -437,7 +441,7 @@ function InfoPanel:render()
 		Styles = docs and docs.Style and Roact.createElement(StylesList, {
 			Header = "Styles",
 			LayoutOrder = nextOrder(),
-			ComponentName = definition.name
+			ComponentName = definition.name,
 		}),
 		StyleValues = docs and docs.Style and Roact.createElement(PropsList, {
 			Header = "Style Values",
@@ -489,11 +493,11 @@ function InfoPanel:render()
 		Main = main,
 		Footer = isRunningAsPlugin and Roact.createElement(Pane, {
 			LayoutOrder = 2,
-			Size = UDim2.new(1, 0, 0, sizes.TopBar)
+			Size = UDim2.new(1, 0, 0, sizes.TopBar),
 		}, {
 			Content = Roact.createElement(Footer, {
-				StoryRef = self.storyRef
-			})
+				StoryRef = self.storyRef,
+			}),
 		}),
 		Dialog = Roact.createElement(StyledDialog, {
 			Style = "Alert",
@@ -511,35 +515,29 @@ function InfoPanel:render()
 				TextXAlignment = Enum.TextXAlignment.Left,
 				Text = "To use Live mode, please set FFlagEnableLoadModule to True in your local build.\n\nWhen Live mode is enabled, any changes you make to scripts in Studio are immediately reflected in Storybook without having to reload.",
 				Size = UDim2.fromScale(1, 1),
-				TextWrapped = true
+				TextWrapped = true,
 			}),
 		}),
 	})
 end
 
-
 InfoPanel = withContext({
 	Stylizer = ContextServices.Stylizer,
-	Plugin = ContextServices.Plugin
+	Plugin = ContextServices.Plugin,
 })(InfoPanel)
 
-
-
-InfoPanel = RoactRodux.connect(
-	function(state)
-		return {
-			CurrentTheme = state.Stories.theme,
-			SelectedStory = state.Stories.selectedStory,
-			Live = state.Stories.live,
-		}
-	end,
-	function(dispatch)
-		return {
-			disableLive = function()
-				dispatch(SetLive(false))
-			end
-		}
-	end
-)(InfoPanel)
+InfoPanel = RoactRodux.connect(function(state)
+	return {
+		CurrentTheme = state.Stories.theme,
+		SelectedStory = state.Stories.selectedStory,
+		Live = state.Stories.live,
+	}
+end, function(dispatch)
+	return {
+		disableLive = function()
+			dispatch(SetLive(false))
+		end,
+	}
+end)(InfoPanel)
 
 return InfoPanel

@@ -51,7 +51,7 @@ function ScreenPublishSuccessful:didMount()
 		local function setStatus(contentId, status)
 			if self.isMounted then
 				self:setState({
-					assetFetchStatus = status
+					assetFetchStatus = status,
 				})
 			end
 		end
@@ -127,26 +127,31 @@ function ScreenPublishSuccessful:render()
 			Font = theme.header.font,
 		}),
 
-		CloseButton = Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			OnClick = onClose,
-			Position = UDim2.new(0.5, 0, 0.9, 0),
-			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
-			Style = "Round",
-			Text = localization:getText("Button", "Close"),
-		} else {
-			Position = UDim2.new(0.5, 0, 0.9, 0),
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Style = theme.cancelButton,
-			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
-			Active = true,
-			Name = localization:getText("Button", "Close"),
-			TextSize = Constants.TEXT_SIZE,
+		CloseButton = Roact.createElement(
+			Button,
+			if FFlagRemoveUILibraryButton
+				then {
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					OnClick = onClose,
+					Position = UDim2.new(0.5, 0, 0.9, 0),
+					Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+					Style = "Round",
+					Text = localization:getText("Button", "Close"),
+				}
+				else {
+					Position = UDim2.new(0.5, 0, 0.9, 0),
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Style = theme.cancelButton,
+					Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+					Active = true,
+					Name = localization:getText("Button", "Close"),
+					TextSize = Constants.TEXT_SIZE,
 
-			OnClicked = function()
-				onClose()
-			end,
-		})
+					OnClicked = function()
+						onClose()
+					end,
+				}
+		),
 	})
 end
 
@@ -158,9 +163,9 @@ ScreenPublishSuccessful = withContext({
 local function mapStateToProps(state, props)
 	local publishInfo = state.PublishedPlace.publishInfo
 	return {
-        Id = publishInfo.id,
-        Name = publishInfo.name,
-        ParentGameName = publishInfo.parentGameName,
+		Id = publishInfo.id,
+		Name = publishInfo.name,
+		ParentGameName = publishInfo.parentGameName,
 	}
 end
 

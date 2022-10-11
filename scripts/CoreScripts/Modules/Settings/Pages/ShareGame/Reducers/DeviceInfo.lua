@@ -5,7 +5,7 @@ local AppTempCommon = CorePackages.AppTempCommon
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
 
-local Immutable = require(AppTempCommon.Common.Immutable)
+local Immutable = require(CorePackages.Workspace.Packages.AppCommonLib).Immutable
 local Constants = require(ShareGame.Constants)
 
 local SetDeviceLayout = require(ShareGame.Actions.SetDeviceLayout)

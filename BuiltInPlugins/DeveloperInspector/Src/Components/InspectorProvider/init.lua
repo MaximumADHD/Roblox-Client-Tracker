@@ -31,7 +31,7 @@ function InspectorProvider:init()
 				self.props.pickInstance(self.props.Tabs[1], instance)
 			end,
 			onUpdateProfileData = self.props.updateProfileData,
-		}
+		},
 	})
 	self.inspectorContext = InspectorContext.new(self.inspector)
 end
@@ -58,40 +58,37 @@ end
 
 function InspectorProvider:render()
 	return ContextServices.provide({
-		self.inspectorContext
+		self.inspectorContext,
 	}, self.props[Roact.Children])
 end
 
-return RoactRodux.connect(
-	function(state)
-		return {
-			Tabs = state.Targets.tabs
-		}
-	end,
-	function(dispatch)
-		return {
-			clearTargets = function()
-				dispatch(ClearTargets())
-			end,
-			addTargets = function(message)
-				dispatch(AddTargets(message))
-			end,
-			updateInstances = function(path, children, updatedIndexes)
-				dispatch(UpdateInstances(path, children, updatedIndexes))
-			end,
-			updateBranch = function(path, nodes)
-				dispatch(UpdateBranch(path, nodes))
-			end,
-			updateFields = function(path, nodeIndex, fieldPath, fields)
-				dispatch(UpdateFields(path, nodeIndex, fieldPath, fields))
-			end,
-			pickInstance = function(tab, instancePath)
-				dispatch(SetTab(tab))
-				dispatch(PickInstance(instancePath))
-			end,
-			updateProfileData = function(data)
-				dispatch(UpdateProfileData(data))
-			end
-		}
-	end
-)(InspectorProvider)
+return RoactRodux.connect(function(state)
+	return {
+		Tabs = state.Targets.tabs,
+	}
+end, function(dispatch)
+	return {
+		clearTargets = function()
+			dispatch(ClearTargets())
+		end,
+		addTargets = function(message)
+			dispatch(AddTargets(message))
+		end,
+		updateInstances = function(path, children, updatedIndexes)
+			dispatch(UpdateInstances(path, children, updatedIndexes))
+		end,
+		updateBranch = function(path, nodes)
+			dispatch(UpdateBranch(path, nodes))
+		end,
+		updateFields = function(path, nodeIndex, fieldPath, fields)
+			dispatch(UpdateFields(path, nodeIndex, fieldPath, fields))
+		end,
+		pickInstance = function(tab, instancePath)
+			dispatch(SetTab(tab))
+			dispatch(PickInstance(instancePath))
+		end,
+		updateProfileData = function(data)
+			dispatch(UpdateProfileData(data))
+		end,
+	}
+end)(InspectorProvider)

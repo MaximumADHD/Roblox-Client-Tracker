@@ -54,8 +54,8 @@ return function(signals)
 
 			-- Prune selected tracks, as some tracks might have disappeared
 			-- (Undoing a conversion from Quaternions to Euler's angles, for instance)
-			local newSelectedTracks, changed = TrackSelectionUtils.PruneSelectedTracks(
-				newState.AnimationData, selectedTracks)
+			local newSelectedTracks, changed =
+				TrackSelectionUtils.PruneSelectedTracks(newState.AnimationData, selectedTracks)
 			if changed then
 				store:dispatch(SetSelectedTracks(newSelectedTracks))
 			end

@@ -5,7 +5,7 @@ return function()
 
 	local testTrackData = {
 		Type = Constants.TRACK_TYPES.CFrame,
-		Keyframes = {2, 4, 5},
+		Keyframes = { 2, 4, 5 },
 		Data = {
 			[2] = {
 				Value = CFrame.new(0, 0, 0),
@@ -58,7 +58,7 @@ return function()
 		end)
 
 		it("should return the only keyframe if only one exists", function()
-			local keyframes = {1}
+			local keyframes = { 1 }
 			local index = KeyframeUtils.findNearestKeyframes(keyframes, 1)
 			expect(index).to.equal(1)
 			index = KeyframeUtils.findNearestKeyframes(keyframes, 0)
@@ -68,7 +68,7 @@ return function()
 		end)
 
 		it("should work for even and odd values", function()
-			local keyframes = {1, 3, 5}
+			local keyframes = { 1, 3, 5 }
 			local index = KeyframeUtils.findNearestKeyframes(keyframes, 3)
 			expect(index).to.equal(2)
 
@@ -76,7 +76,7 @@ return function()
 			expect(low).to.equal(1)
 			expect(high).to.equal(2)
 
-			keyframes = {2, 4, 6}
+			keyframes = { 2, 4, 6 }
 			index = KeyframeUtils.findNearestKeyframes(keyframes, 4)
 			expect(index).to.equal(2)
 

@@ -16,7 +16,7 @@ return function(userId, newPermission)
 		local newPermissions = Cryo.Dictionary.join(oldPermissions, {
 			[PermissionsConstants.UserSubjectKey] = Cryo.Dictionary.join(oldUserPermissions, {
 				[userId] = Cryo.None,
-			})
+			}),
 		})
 
 		store:dispatch(AddChange("permissions", newPermissions))

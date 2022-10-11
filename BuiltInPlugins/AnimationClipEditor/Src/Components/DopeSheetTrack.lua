@@ -44,15 +44,21 @@ local DopeSheetTrack = Roact.PureComponent:extend("DopeSheetTrack")
 
 function DopeSheetTrack:renderKeyframe(selected, xOffset, track, tck, override, data, filled)
 	local props = self.props
-	local path = props.Path or {track.Name}
+	local path = props.Path or { track.Name }
 
 	local tooltipText
 	if props.IsChannelAnimation then
-		tooltipText = data and data.InterpolationMode and data.InterpolationMode ~= Enum.KeyInterpolationMode.Linear
-			and data.InterpolationMode.Name or nil
+		tooltipText = data
+				and data.InterpolationMode
+				and data.InterpolationMode ~= Enum.KeyInterpolationMode.Linear
+				and data.InterpolationMode.Name
+			or nil
 	else
-		tooltipText = data and data.EasingStyle and data.EasingStyle ~= Enum.PoseEasingStyle.Linear
-			and (data.EasingStyle.Name .. ", " .. data.EasingDirection.Name) or nil
+		tooltipText = data
+				and data.EasingStyle
+				and data.EasingStyle ~= Enum.PoseEasingStyle.Linear
+				and (data.EasingStyle.Name .. ", " .. data.EasingDirection.Name)
+			or nil
 	end
 	return Roact.createElement(Keyframe, {
 		Selected = selected,
@@ -100,7 +106,7 @@ function DopeSheetTrack:renderKeyframes(keys)
 	local selectedKeyframes = props.SelectedKeyframes
 	local showCluster = props.ShowCluster
 	local isChannelAnimation = props.IsChannelAnimation
-	local path = props.Path or {track.Name}
+	local path = props.Path or { track.Name }
 
 	local keyframes = track.Keyframes
 	local trackData = track.Data
@@ -131,7 +137,8 @@ function DopeSheetTrack:renderKeyframes(keys)
 			local complete = not isChannelAnimation or info.Complete
 
 			if componentsInfo[tck].Complete then
-				override = isChannelAnimation and componentsInfo[tck].InterpolationMode or componentsInfo[tck].EasingStyle
+				override = isChannelAnimation and componentsInfo[tck].InterpolationMode
+					or componentsInfo[tck].EasingStyle
 			end
 
 			local xPos = TrackUtils.getScaledKeyframePosition(tck, startTick, endTick, width)

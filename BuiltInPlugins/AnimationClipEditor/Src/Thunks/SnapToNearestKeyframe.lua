@@ -68,7 +68,8 @@ return function(tck, trackWidth)
 			end
 
 			if closestKey >= range.Start and closestKey <= range.End then
-				local closestKeyPosition = TrackUtils.getScaledKeyframePosition(closestKey, range.Start, range.End, trackWidth)
+				local closestKeyPosition =
+					TrackUtils.getScaledKeyframePosition(closestKey, range.Start, range.End, trackWidth)
 				if math.abs(closestKeyPosition - framePosition) < Constants.SNAP_TO_KEYFRAME_THRESHOLD then
 					snapTick = closestKey
 					snapped = true

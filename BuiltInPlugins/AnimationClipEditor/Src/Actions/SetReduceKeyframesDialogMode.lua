@@ -11,7 +11,7 @@ local Action = require(script.Parent.Action)
 local Constants = require(script.Parent.Parent.Util.Constants)
 
 type Action = {
-	reduceKeyframesDialogMode: string
+	reduceKeyframesDialogMode: string,
 }
 
 return Action(script.Name, function(reduceKeyframesDialogMode: string?): Action

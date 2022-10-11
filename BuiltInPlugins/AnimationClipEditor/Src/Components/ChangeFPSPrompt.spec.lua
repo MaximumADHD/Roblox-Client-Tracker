@@ -8,8 +8,8 @@ return function()
 
 	local function createTestChangeFPSPrompt(container)
 		return Roact.createElement(MockWrapper, {
-				Container = container
-			}, {
+			Container = container,
+		}, {
 			ChangeFPSPrompt = Roact.createElement(ChangeFPSPrompt),
 		})
 	end
@@ -20,7 +20,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestChangeFPSPrompt(container), container)
 		local frame = container:FindFirstChildOfClass("ScreenGui")

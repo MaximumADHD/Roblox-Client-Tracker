@@ -13,7 +13,8 @@ return function()
 						Id = "SomeId",
 						Title = "Tiiiitle!",
 						Selected = true,
-					}, {
+					},
+					{
 						Id = "SomeId2",
 						Title = "Not a Title!",
 						Selected = false,

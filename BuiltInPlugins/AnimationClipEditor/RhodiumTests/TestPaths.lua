@@ -22,35 +22,43 @@ end
 
 function TestPaths.getEditorController(container)
 	return TestPaths.waitForDescendant(container, {
-		"AnimationClipEditor", "EditorController",
+		"AnimationClipEditor",
+		"EditorController",
 	})
 end
 
 function TestPaths.getDopeSheetController(container)
 	local editorController = TestPaths.getEditorController(container)
 	return TestPaths.waitForDescendant(editorController, {
-		"TrackEditor", "DopeSheetController",
+		"TrackEditor",
+		"DopeSheetController",
 	})
 end
 
 function TestPaths.getDopeSheet(container)
 	local controller = TestPaths.getDopeSheetController(container)
 	return TestPaths.waitForDescendant(controller, {
-		"DopeSheetContainer", "DopeSheet",
+		"DopeSheetContainer",
+		"DopeSheet",
 	})
 end
 
 function TestPaths.getTrack(container, trackName)
 	local dopeSheet = TestPaths.getDopeSheet(container)
 	return TestPaths.waitForDescendant(dopeSheet, {
-		trackName, "KeyframeDisplayArea",
+		trackName,
+		"KeyframeDisplayArea",
 	})
 end
 
 function TestPaths.getTrackList(container)
 	local base = TestPaths.getEditorController(container)
 	return TestPaths.waitForDescendant(base, {
-		"TrackListAndControlContainer", "EventsAndTracks", "TrackListAndScrollBar", "TrackList", "Canvas",
+		"TrackListAndControlContainer",
+		"EventsAndTracks",
+		"TrackListAndScrollBar",
+		"TrackList",
+		"Canvas",
 	})
 end
 
@@ -58,11 +66,16 @@ function TestPaths.getIKButton(container)
 	local base = TestPaths.getTrackList(container)
 	if GetFFlagFaceControlsEditorUI() then
 		return TestPaths.waitForDescendant(base, {
-			"SummaryTrack", "LeftButtonsListContainer", "IKController", "IKButton",
+			"SummaryTrack",
+			"LeftButtonsListContainer",
+			"IKController",
+			"IKButton",
 		})
 	else
 		return TestPaths.waitForDescendant(base, {
-			"SummaryTrack", "IKController", "IKButton",
+			"SummaryTrack",
+			"IKController",
+			"IKButton",
 		})
 	end
 end
@@ -76,50 +89,68 @@ end
 function TestPaths.getIKEnableButton(ikWindow)
 	local base = TestPaths.getIKWindow(ikWindow)
 	return TestPaths.waitForDescendant(base, {
-		"BottomFrame", "EnableIKButton",
+		"BottomFrame",
+		"EnableIKButton",
 	})
 end
 
 function TestPaths.getIKTreeView(ikWindow)
 	local base = TestPaths.getIKWindow(ikWindow)
 	return TestPaths.waitForDescendant(base, {
-		"TreeView", "TreeView",
+		"TreeView",
+		"TreeView",
 	})
 end
 
 function TestPaths.getTreeViewJoint(ikWindow, nodeName)
 	local base = TestPaths.getIKTreeView(ikWindow)
-	return TestPaths.waitForDescendant(base, if FFlagDevFrameworkList then {
-		"Contents", "List", nodeName,
-	} else {
-		"Contents", "ScrollingFrame", "Scroller", nodeName,
-	})
+	return TestPaths.waitForDescendant(
+		base,
+		if FFlagDevFrameworkList
+			then {
+				"Contents",
+				"List",
+				nodeName,
+			}
+			else {
+				"Contents",
+				"ScrollingFrame",
+				"Scroller",
+				nodeName,
+			}
+	)
 end
 
 function TestPaths.getTreeViewJointPin(ikWindow, nodeName)
 	local base = TestPaths.getTreeViewJoint(ikWindow, nodeName)
 	return TestPaths.waitForDescendant(base, {
-		"Pin"
+		"Pin",
 	})
 end
 
 function TestPaths.getEventsTitleTrack(container)
 	local base = TestPaths.getEditorController(container)
 	return TestPaths.waitForDescendant(base, {
-		"TrackListAndControlContainer", "EventsAndTracks", "EventsTitle",
+		"TrackListAndControlContainer",
+		"EventsAndTracks",
+		"EventsTitle",
 	})
 end
 
 function TestPaths.getEventsTrack(container)
 	local controller = TestPaths.getDopeSheetController(container)
 	return TestPaths.waitForDescendant(controller, {
-		"Events", "Track", "KeyframeDisplayArea",
+		"Events",
+		"Track",
+		"KeyframeDisplayArea",
 	})
 end
 
 function TestPaths.getEventsDialogContents(eventsDialog)
 	return TestPaths.waitForDescendant(eventsDialog, {
-		"FocusProvider", "Content", "Container",
+		"FocusProvider",
+		"Content",
+		"Container",
 	})
 end
 
@@ -133,39 +164,44 @@ end
 function TestPaths.getAddEventEntry(eventsDialog)
 	local contents = TestPaths.getEventsDialogContents(eventsDialog)
 	return TestPaths.waitForDescendant(contents, {
-		"AddNew", "AddEventEntry",
+		"AddNew",
+		"AddEventEntry",
 	})
 end
 
 function TestPaths.getStyledDialogContents(dialog)
 	return TestPaths.waitForDescendant(dialog, {
-		"SolidBackground", "Contents",
+		"SolidBackground",
+		"Contents",
 	})
 end
 
 function TestPaths.getKFRKeyframesText(dialog)
 	local contents = TestPaths.getStyledDialogContents(dialog)
 	return TestPaths.waitForDescendant(contents, {
-		"KeyframePane", "KeyframesText",
+		"KeyframePane",
+		"KeyframesText",
 	})
 end
 
 function TestPaths.getKFRSlider(dialog)
 	local contents = TestPaths.getStyledDialogContents(dialog)
 	return TestPaths.waitForDescendant(contents, {
-		"Slider"
+		"Slider",
 	})
 end
 
 function TestPaths.getKFRCancel(dialog)
 	return TestPaths.waitForDescendant(dialog, {
-		"SolidBackground", "ButtonContainer"
+		"SolidBackground",
+		"ButtonContainer",
 	})[1]
 end
 
 function TestPaths.getKFROk(dialog)
 	return TestPaths.waitForDescendant(dialog, {
-		"SolidBackground", "ButtonContainer"
+		"SolidBackground",
+		"ButtonContainer",
 	})[2]
 end
 

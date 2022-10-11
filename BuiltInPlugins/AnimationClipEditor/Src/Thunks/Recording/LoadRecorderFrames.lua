@@ -1,7 +1,8 @@
 -- LoadRecorderFrames
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local GetFFlagACEFaceRecorderRemoveBrokenFrameReduction = require(Plugin.LuaFlags.GetFFlagACEFaceRecorderRemoveBrokenFrameReduction)
+local GetFFlagACEFaceRecorderRemoveBrokenFrameReduction =
+	require(Plugin.LuaFlags.GetFFlagACEFaceRecorderRemoveBrokenFrameReduction)
 
 local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
 local SetHaveToSetBackToNotLooping = require(Plugin.Src.Actions.SetHaveToSetBackToNotLooping)
@@ -44,10 +45,12 @@ return function(props, recordedFrames, analytics)
 			-there is a previous existing (body) animation and it is a channel animation:
 				-in that case we convert our recording to a channel animation and add that to a copy of the previous animation and use that then
 		]]
-		local previousAnimationData = 	nil
-		if props.AnimationData ~= nil then previousAnimationData = deepCopy(props.AnimationData) end
+		local previousAnimationData = nil
+		if props.AnimationData ~= nil then
+			previousAnimationData = deepCopy(props.AnimationData)
+		end
 		local localization = props.Localization
-		local defaultFaceRecordingName =  localization:getText("FaceCapture", "DefaultFaceRecordingName")
+		local defaultFaceRecordingName = localization:getText("FaceCapture", "DefaultFaceRecordingName")
 		local newAnimationData = AnimationData.newRigAnimation(defaultFaceRecordingName)
 
 		local isChannelAnimation = false
@@ -71,11 +74,21 @@ return function(props, recordedFrames, analytics)
 					local track = tracks[trackName]
 					if track == nil then
 						if trackName == "Head" then
-							track = AnimationData.addTrack(tracks, trackName, Constants.TRACK_TYPES.CFrame,
-								false, Constants.TRACK_TYPES.Quaternion)
+							track = AnimationData.addTrack(
+								tracks,
+								trackName,
+								Constants.TRACK_TYPES.CFrame,
+								false,
+								Constants.TRACK_TYPES.Quaternion
+							)
 						else
-							track = AnimationData.addTrack(tracks, trackName, Constants.TRACK_TYPES.Facs,
-								false, Constants.TRACK_TYPES.Quaternion)
+							track = AnimationData.addTrack(
+								tracks,
+								trackName,
+								Constants.TRACK_TYPES.Facs,
+								false,
+								Constants.TRACK_TYPES.Quaternion
+							)
 						end
 					end
 					if FFlagFixFaceRecorderKeyframeInterpolation and isChannelAnimation then
@@ -131,14 +144,15 @@ return function(props, recordedFrames, analytics)
 		local past = history.Past
 
 		-- handling the case where there was a previous (body) animation and it is a channel animation,
-			--in that case we convert the new recorded face animation to a channel animation, too
-			--and then add it to a copy of the previous animation
+		--in that case we convert the new recorded face animation to a channel animation, too
+		--and then add it to a copy of the previous animation
 		if previousAnimationData and isChannelAnimation then
 			--convert face capture to channelanimation
 			local status = props.Status
 			local rotationType = status.DefaultRotationType
 			local eulerAnglesOrder = status.DefaultEulerAnglesOrder
-			local numTracks, numKeyframes = AnimationData.promoteToChannels(newAnimationData, rotationType, eulerAnglesOrder)
+			local numTracks, numKeyframes =
+				AnimationData.promoteToChannels(newAnimationData, rotationType, eulerAnglesOrder)
 
 			local instance = previousAnimationData.Instances["Root"]
 			local previousAnimationsTracks = instance.Tracks
@@ -169,7 +183,6 @@ return function(props, recordedFrames, analytics)
 		store:dispatch(SetPast(past))
 
 		store:dispatch(SetInReviewState(true))
-
 
 		--set looping on to play animation looped while in recording state.
 		--also noting haveToSetBackToNotLooping to set it back on exit review state

@@ -54,7 +54,7 @@ function BaseTrack:render()
 			Position = UDim2.new(0.5, 0, 0, 0),
 			Size = UDim2.new(0, width, 1, 0),
 			ZIndex = zIndex,
-		}, self.props[Roact.Children])
+		}, self.props[Roact.Children]),
 	})
 end
 

@@ -49,7 +49,7 @@ return function(trackName, analytics)
 			store:dispatch(SortAndSetTracks(newTracks))
 
 			local animationData = state.AnimationData
-			if not (animationData) then
+			if not animationData then
 				return
 			end
 

@@ -35,12 +35,13 @@ function Place.fromJsonData(placeJson)
 		return false, "Place.fromJsonData expects description to be a string"
 	end
 
-	return true, {
-		name = placeJson.name,
-		placeId = placeJson.id,
-		universeId = placeJson.universeId,
-		description = placeJson.description,
-	}
+	return true,
+		{
+			name = placeJson.name,
+			placeId = placeJson.id,
+			universeId = placeJson.universeId,
+			description = placeJson.description,
+		}
 end
 
 return Place

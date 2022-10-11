@@ -48,10 +48,6 @@ local getSupportedMaterials = require(Constants.getSupportedMaterials)
 local getFFlagMaterialManagerVariantCreatorOverhaul = require(
 	Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul
 )
-local getFFlagMaterialManagerTextureMapOverhaul = require(
-	Plugin.Src.Flags.getFFlagMaterialManagerTextureMapOverhaul
-)
-
 local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
 local supportedMaterials = getSupportedMaterials()
 
@@ -119,12 +115,10 @@ function TopBar:init()
 			local search = props.Search
 			local materialVariant = props.GeneralServiceController:createMaterialVariant(material, search)
 
-			if getFFlagMaterialManagerTextureMapOverhaul() then
-				local args = {
-					["BaseMaterial"] = getMaterialName(material),
-				}
-				props.Analytics:report("newMaterialVariant", args, FIntInfluxReportMaterialManagerHundrethPercent2)
-			end
+			local args = {
+				["BaseMaterial"] = getMaterialName(material),
+			}
+			props.Analytics:report("newMaterialVariant", args, FIntInfluxReportMaterialManagerHundrethPercent2)
 
 			props.MaterialServiceController:setPath(getMaterialPath(material))
 			props.dispatchSetMaterialVariant(materialVariant)

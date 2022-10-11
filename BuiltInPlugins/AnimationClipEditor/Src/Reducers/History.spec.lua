@@ -24,13 +24,13 @@ return function()
 	}
 
 	local function createTestHistory()
-		local middlewares = {Rodux.thunkMiddleware}
+		local middlewares = { Rodux.thunkMiddleware }
 		local store = Rodux.Store.new(History, nil, middlewares)
 		return store
 	end
 
 	local function createTestStore()
-		local middlewares = {Rodux.thunkMiddleware}
+		local middlewares = { Rodux.thunkMiddleware }
 		local store = Rodux.Store.new(MainReducer, nil, middlewares)
 		return store
 	end
@@ -39,7 +39,7 @@ return function()
 		it("should set the Past", function()
 			local store = createTestHistory()
 			store:dispatch(SetPast({
-				SomeKey = "SomeValue"
+				SomeKey = "SomeValue",
 			}))
 
 			local history = store:getState()
@@ -53,7 +53,7 @@ return function()
 		it("should set the Future", function()
 			local store = createTestHistory()
 			store:dispatch(SetFuture({
-				SomeKey = "SomeValue"
+				SomeKey = "SomeValue",
 			}))
 
 			local history = store:getState()

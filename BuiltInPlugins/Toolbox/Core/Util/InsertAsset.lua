@@ -9,7 +9,7 @@ local Urls = require(Plugin.Core.Util.Urls)
 
 local Libs = Plugin.Packages
 local Framework = require(Libs.Framework)
-local Dash = Framework.Dash
+local Promise = Framework.Util.Promise
 
 local Category = require(Plugin.Core.Types.Category)
 local AssetSubTypes = require(Plugin.Core.Types.AssetSubTypes)
@@ -18,6 +18,7 @@ local webKeys = require(Plugin.Core.Util.Permissions.Constants).webKeys
 
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 local FFlagToolboxInsertMaterialsInMS = game:GetFastFlag("ToolboxInsertMaterialsInMS")
+local FFlagToolboxCancelModelWithScriptsFix = game:GetFastFlag("ToolboxCancelModelWithScriptsFix")
 local FFlagToolboxFixInsertPackage = game:GetFastFlag("ToolboxFixInsertPackage")
 local FFlagToolboxFixPackageDragging = game:GetFastFlag("ToolboxFixPackageDragging")
 local FFlagToolboxUnifyModelPackageInsertion = game:DefineFastFlag("ToolboxUnifyModelPackageInsertion", false)
@@ -191,7 +192,12 @@ local function sanitizeMeshAsset(assetId, instances, localization)
 	return filtered
 end
 
+-- This is Deprecated in favor of doScriptConfirmationOrCancelIfContainsScripts.
+-- Once FFlagToolboxCancelModelWithScriptsFix is enabled and stable, remove this function and its usages
 local function doScriptConfirmationIfContainsScripts(assetName, instances, insertToolPromise)
+	if FFlagToolboxCancelModelWithScriptsFix then
+		error("TODO: Remove function when FFlagToolboxCancelModelWithScriptsFix is enabled")
+	end
 	if not instances then
 		return
 	end
@@ -217,10 +223,154 @@ local function doScriptConfirmationIfContainsScripts(assetName, instances, inser
 	insertToolPromise:promptScriptWarningAndWait({ assetName = assetName, numScripts = numScripts })
 end
 
+-- This function is a promise wrapper with "confirm" and "cancel" callbacks when a user inserts a model that has a script.
+-- We return a promise and:
+-- It resolves true when there are no scripts,
+-- OR the user hit ok in the ScriptConfirmationDialog
+-- OR the user had previously stated they didn't want to be warned about scripts in the ScriptConfirmationDialog.
+local function doScriptConfirmationOrCancelIfContainsScripts(assetName, instances, insertToolPromise)
+	return Promise.new(function(resolve, reject)
+		-- Callback when user "cancels" inserting a model with scripts
+		local cancel = function()
+			for _, instance in ipairs(instances) do
+				instance:Destroy()
+			end
+			resolve(false)
+		end
+		-- Callback when user "inserts" a model with scripts
+		local insert = function()
+			resolve(true)
+		end
+
+		if not instances then
+			-- there were no scripts on this model
+			resolve(true)
+		end
+		if not insertToolPromise then
+			resolve(true)
+		end
+
+		-- Note: instance:IsA("Script") covers both LocalScript and Script types.
+		local numScripts = 0
+		for _, instance in ipairs(instances) do
+			if instance:IsA("Script") then
+				numScripts = numScripts + 1
+			end
+			for _, descendant in ipairs(instance:GetDescendants()) do
+				if descendant:IsA("Script") then
+					numScripts = numScripts + 1
+				end
+			end
+		end
+		if numScripts < 1 then
+			resolve(true)
+		end
+
+		if numScripts >= 1 then
+			insertToolPromise:promptScriptWarningAndWait({
+				assetName = assetName,
+				numScripts = numScripts,
+				cancel = cancel,
+				insert = insert,
+			})
+		end
+	end)
+end
+
+-- Places Asset in correct service after insertion.
+local function placeAssetInCorrectService(insertToolPromise, model, assetInstance, assetSubTypes, newSelection)
+	for _, o in ipairs(assetInstance) do
+		if o:IsA("Sky") or o:IsA("Atmosphere") then
+			-- If it's a sky or atmosphere object, we will parent it to lighting.
+			-- No promise needed here.
+			o.Parent = Lighting
+		elseif
+			FFlagToolboxInsertMaterialsInMS and (AssetSubTypes.contains(assetSubTypes, AssetSubTypes.MaterialPack))
+		then
+			o.Parent = MaterialService
+		else
+			-- If it's a tool or hopperbin, then we should ask the
+			-- dev if they want to put it in the starterpack or not,
+			-- so we use a promise to get a response from the asset
+			local parentToUse = model
+
+			if o:IsA("Tool") or o:IsA("HopperBin") then
+				local result = insertToolPromise:promptAndWait()
+				if result == InsertToolPromise.INSERT_TO_WORKSPACE then
+					parentToUse = model
+				elseif result == InsertToolPromise.INSERT_TO_STARTER_PACK then
+					parentToUse = StarterPack
+				elseif result == InsertToolPromise.INSERT_CANCELLED then
+					parentToUse = nil
+				end
+			end
+
+			o.Parent = parentToUse
+			if not o.Parent then
+				o:Destroy()
+			end
+		end
+
+		newSelection[#newSelection + 1] = o
+	end
+end
+
+-- Moves model and camera to the the right position after asset insertion
+local function moveModelAndCameraToPosition(model, position)
+	if model then
+		if #model:GetChildren() > 0 then
+			model:MoveTo(position)
+			local modelCf, size = model:GetBoundingBox()
+
+			if size.Magnitude > 0 then
+				local camera = Workspace.CurrentCamera
+				local cameraCf = camera.CFrame
+
+				local cameraDistAway = size.Magnitude * INSERT_CAMERA_DIST_MULT
+				local dir = (cameraCf.p - modelCf.p).unit
+
+				camera.CFrame = CFrame.new(modelCf.p + (cameraDistAway * dir))
+				camera.Focus = CFrame.new(modelCf.p)
+			end
+
+			for _, o in ipairs(model:GetChildren()) do
+				o.Parent = model.Parent
+			end
+		end
+
+		model:Destroy()
+	end
+end
+
+-- side effects for after Asset Insertion. Does 2 things:
+-- 1. Places asset in the correct service (based on assetType).
+-- 2. Moves the camera to position itself focused on the newly inserted model
+local function doPostInsertSideEffects(
+	assetWasInserted,
+	insertToolPromise,
+	model,
+	assetInstance,
+	assetSubTypes,
+	insertPosition
+)
+	local newSelection = {}
+
+	if assetWasInserted then
+		placeAssetInCorrectService(insertToolPromise, model, assetInstance, assetSubTypes, newSelection)
+		moveModelAndCameraToPosition(model, insertPosition)
+	end
+
+	Selection:Set(newSelection)
+
+	return newSelection
+end
+
 local function insertAsset(assetId, assetName, insertToolPromise, assetTypeId, localization, assetSubTypes)
 	local targetParent = Workspace
 
-	local isPackage = if FFlagToolboxUnifyModelPackageInsertion then AssetSubTypes.contains(assetSubTypes, AssetSubTypes.Package) else nil
+	local isPackage = if FFlagToolboxUnifyModelPackageInsertion
+		then AssetSubTypes.contains(assetSubTypes, AssetSubTypes.Package)
+		else nil
 
 	local assetInstance = nil
 	local success, errorMessage = pcall(function()
@@ -235,14 +385,14 @@ local function insertAsset(assetId, assetName, insertToolPromise, assetTypeId, l
 				if DebugFlags.shouldDebugUrls() then
 					print(("Inserting asset %s"):format(url))
 				end
-		
+
 				assetInstance = game:InsertObjectsAndJoinIfLegacyAsync(url)
 			end
 		else
 			if DebugFlags.shouldDebugUrls() then
 				print(("Inserting asset %s"):format(url))
 			end
-	
+
 			assetInstance = game:InsertObjectsAndJoinIfLegacyAsync(url)
 		end
 	end)
@@ -265,72 +415,91 @@ local function insertAsset(assetId, assetName, insertToolPromise, assetTypeId, l
 		if assetTypeId == Enum.AssetType.MeshPart.Value then
 			assetInstance = sanitizeMeshAsset(assetId, assetInstance, localization)
 		end
-		doScriptConfirmationIfContainsScripts(assetName, assetInstance, insertToolPromise)
 
-		local newSelection = {}
-		for _, o in ipairs(assetInstance) do
-			if o:IsA("Sky") or o:IsA("Atmosphere") then
-				-- If it's a sky or atmosphere object, we will parent it to lighting.
-				-- No promise needed here.
-				o.Parent = Lighting
-			elseif
-				FFlagToolboxInsertMaterialsInMS
-				and (AssetSubTypes.contains(assetSubTypes, AssetSubTypes.MaterialPack))
-			then
-				o.Parent = MaterialService
-			else
-				-- If it's a tool or hopperbin, then we should ask the
-				-- dev if they want to put it in the starterpack or not,
-				-- so we use a promise to get a response from the asset
-				local parentToUse = model
+		if FFlagToolboxCancelModelWithScriptsFix then
+			return doScriptConfirmationOrCancelIfContainsScripts(assetName, assetInstance, insertToolPromise)
+				:andThen(function(assetWasInserted)
+					if DebugFlags.shouldDebugWarnings() then
+						print(("assetWasInserted: %s"):format(tostring(assetWasInserted)))
+					end
+					return doPostInsertSideEffects(
+						assetWasInserted,
+						insertToolPromise,
+						model,
+						assetInstance,
+						assetSubTypes,
+						insertPosition
+					)
+				end)
+				:await()
+		else
+			doScriptConfirmationIfContainsScripts(assetName, assetInstance, insertToolPromise)
 
-				if o:IsA("Tool") or o:IsA("HopperBin") then
-					local result = insertToolPromise:promptAndWait()
+			local newSelection = {}
+			for _, o in ipairs(assetInstance) do
+				if o:IsA("Sky") or o:IsA("Atmosphere") then
+					-- If it's a sky or atmosphere object, we will parent it to lighting.
+					-- No promise needed here.
+					o.Parent = Lighting
+				elseif
+					FFlagToolboxInsertMaterialsInMS
+					and (AssetSubTypes.contains(assetSubTypes, AssetSubTypes.MaterialPack))
+				then
+					o.Parent = MaterialService
+				else
+					-- If it's a tool or hopperbin, then we should ask the
+					-- dev if they want to put it in the starterpack or not,
+					-- so we use a promise to get a response from the asset
+					local parentToUse = model
 
-					if result == InsertToolPromise.INSERT_TO_WORKSPACE then
-						parentToUse = model
-					elseif result == InsertToolPromise.INSERT_TO_STARTER_PACK then
-						parentToUse = StarterPack
-					elseif result == InsertToolPromise.INSERT_CANCELLED then
-						parentToUse = nil
+					if o:IsA("Tool") or o:IsA("HopperBin") then
+						local result = insertToolPromise:promptAndWait()
+
+						if result == InsertToolPromise.INSERT_TO_WORKSPACE then
+							parentToUse = model
+						elseif result == InsertToolPromise.INSERT_TO_STARTER_PACK then
+							parentToUse = StarterPack
+						elseif result == InsertToolPromise.INSERT_CANCELLED then
+							parentToUse = nil
+						end
+					end
+
+					o.Parent = parentToUse
+					if not o.Parent then
+						o:Destroy()
 					end
 				end
 
-				o.Parent = parentToUse
-				if not o.Parent then
-					o:Destroy()
+				newSelection[#newSelection + 1] = o
+			end
+			if model then
+				if #model:GetChildren() > 0 then
+					model:MoveTo(insertPosition)
+					local modelCf, size = model:GetBoundingBox()
+
+					if size.Magnitude > 0 then
+						local camera = Workspace.CurrentCamera
+						local cameraCf = camera.CFrame
+
+						local cameraDistAway = size.Magnitude * INSERT_CAMERA_DIST_MULT
+						local dir = (cameraCf.p - modelCf.p).unit
+
+						camera.CFrame = CFrame.new(modelCf.p + (cameraDistAway * dir))
+						camera.Focus = CFrame.new(modelCf.p)
+					end
+
+					for _, o in ipairs(model:GetChildren()) do
+						o.Parent = model.Parent
+					end
 				end
+
+				model:Destroy()
 			end
 
-			newSelection[#newSelection + 1] = o
+			Selection:Set(newSelection)
+
+			return newSelection
 		end
-		if model then
-			if #model:GetChildren() > 0 then
-				model:MoveTo(insertPosition)
-				local modelCf, size = model:GetBoundingBox()
-
-				if size.Magnitude > 0 then
-					local camera = Workspace.CurrentCamera
-					local cameraCf = camera.CFrame
-
-					local cameraDistAway = size.Magnitude * INSERT_CAMERA_DIST_MULT
-					local dir = (cameraCf.p - modelCf.p).unit
-
-					camera.CFrame = CFrame.new(modelCf.p + (cameraDistAway * dir))
-					camera.Focus = CFrame.new(modelCf.p)
-				end
-
-				for _, o in ipairs(model:GetChildren()) do
-					o.Parent = model.Parent
-				end
-			end
-
-			model:Destroy()
-		end
-
-		Selection:Set(newSelection)
-
-		return newSelection
 	else
 		return nil, errorMessage
 	end
@@ -466,7 +635,9 @@ local function dispatchInsertAsset(options, insertToolPromise, networkInterface)
 			insertToolPromise,
 			options.assetTypeId,
 			options.localization,
-			if FFlagToolboxInsertMaterialsInMS or FFlagToolboxUnifyModelPackageInsertion then options.assetSubTypes else nil
+			if FFlagToolboxInsertMaterialsInMS or FFlagToolboxUnifyModelPackageInsertion
+				then options.assetSubTypes
+				else nil
 		)
 	end
 end
@@ -532,6 +703,7 @@ function InsertAsset.tryInsert(options, insertToolPromise, assetWasDragged, netw
 end
 
 --TODO: CLIDEVSRVS-1691: Replacing category index with assetTypeId for package insertion in lua toolbox
+-- Called when inserting via double click
 function InsertAsset.doInsertAsset(options, insertToolPromise, networkInterface)
 	local assetId = options.assetId
 	local assetName = options.assetName
@@ -655,12 +827,20 @@ function InsertAsset.registerProcessDragHandler(plugin)
 					end
 				end
 
-				-- Popup the script warning dialog if necessary
-				doScriptConfirmationIfContainsScripts(
-					activeDraggingState.assetName,
-					activeDraggingState.instances,
-					activeDraggingState.insertToolPromise
-				)
+				if FFlagToolboxCancelModelWithScriptsFix then
+					doScriptConfirmationOrCancelIfContainsScripts(
+						activeDraggingState.assetName,
+						activeDraggingState.instances,
+						activeDraggingState.insertToolPromise
+					)
+				else
+					-- Popup the script warning dialog if necessary
+					doScriptConfirmationIfContainsScripts(
+						activeDraggingState.assetName,
+						activeDraggingState.instances,
+						activeDraggingState.insertToolPromise
+					)
+				end
 
 				if
 					FFlagToolboxInsertMaterialsInMS

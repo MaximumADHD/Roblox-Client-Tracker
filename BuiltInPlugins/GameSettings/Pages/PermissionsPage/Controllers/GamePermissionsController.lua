@@ -24,13 +24,13 @@ end
 function GamePermissionsController:universesV1GET(gameId)
 	local networking = self.__networking
 
-	return networking:get("develop", "/v1/universes/"..gameId)
+	return networking:get("develop", "/v1/universes/" .. gameId)
 end
 
 function GamePermissionsController:universesActivateV1POST(gameId)
 	local networking = self.__networking
 
-	return networking:post("develop", "/v1/universes/"..gameId.."/activate", {
+	return networking:post("develop", "/v1/universes/" .. gameId .. "/activate", {
 		Body = {},
 	})
 end
@@ -38,7 +38,7 @@ end
 function GamePermissionsController:universesDeactivateV1POST(gameId)
 	local networking = self.__networking
 
-	return networking:post("develop", "/v1/universes/"..gameId.."/deactivate", {
+	return networking:post("develop", "/v1/universes/" .. gameId .. "/deactivate", {
 		Body = {},
 	})
 end
@@ -46,27 +46,27 @@ end
 function GamePermissionsController:configurationV2GET(gameId)
 	local networking = self.__networking
 
-	return networking:get("develop", "/v2/universes/"..gameId.."/configuration")
+	return networking:get("develop", "/v2/universes/" .. gameId .. "/configuration")
 end
 
 function GamePermissionsController:configurationV2PATCH(gameId, configuration)
 	local networking = self.__networking
 
-	return networking:patch("develop", "/v2/universes/"..gameId.."/configuration", {
-		Body = configuration
+	return networking:patch("develop", "/v2/universes/" .. gameId .. "/configuration", {
+		Body = configuration,
 	})
 end
 
 function GamePermissionsController:permissionsV2GET(gameId)
 	local networking = self.__networking
 
-	return networking:get("develop", "/v2/universes/"..gameId.."/permissions")
+	return networking:get("develop", "/v2/universes/" .. gameId .. "/permissions")
 end
 
 function GamePermissionsController:permissionsBatchedV2POST(gameId, adds)
 	local networking = self.__networking
 
-	return networking:post("develop", "/v2/universes/"..gameId.."/permissions_batched", {
+	return networking:post("develop", "/v2/universes/" .. gameId .. "/permissions_batched", {
 		Body = adds,
 	})
 end
@@ -74,7 +74,7 @@ end
 function GamePermissionsController:permissionsBatchedV2DELETE(gameId, deletes)
 	local networking = self.__networking
 
-	return networking:delete("develop", "/v2/universes/"..gameId.."/permissions_batched", {
+	return networking:delete("develop", "/v2/universes/" .. gameId .. "/permissions_batched", {
 		Body = deletes,
 	})
 end
@@ -86,7 +86,7 @@ function GamePermissionsController:wwwSearchUsers(searchTerm)
 		Params = {
 			keyword = searchTerm,
 			maxRows = PermissionsConstants.MaxSearchResultsPerSubjectType,
-		}
+		},
 	})
 end
 
@@ -96,7 +96,7 @@ function GamePermissionsController:apiGetByUsernameV1GET(username)
 	return networking:get("api", "/users/get-by-username", {
 		Params = {
 			username = username,
-		}
+		},
 	})
 end
 
@@ -107,7 +107,7 @@ function GamePermissionsController:searchGroupsV1GET(searchTerm)
 		Params = {
 			groupName = searchTerm,
 			maxRows = PermissionsConstants.MaxSearchResultsPerSubjectType,
-		}
+		},
 	})
 end
 
@@ -118,7 +118,7 @@ function GamePermissionsController:isFriendsOnly(gameId)
 end
 
 function GamePermissionsController:setFriendsOnly(gameId, isFriendsOnly)
-	self:configurationV2PATCH(gameId, {isFriendsOnly = isFriendsOnly}):await()
+	self:configurationV2PATCH(gameId, { isFriendsOnly = isFriendsOnly }):await()
 end
 
 function GamePermissionsController:isActive(gameId)
@@ -145,8 +145,8 @@ function GamePermissionsController:setPermissions(gameId, oldPermissions, newPer
 	local adds, deletes = SerializeForRequest.SerializePermissions(oldPermissions, newPermissions)
 	local numChanges = #adds + #deletes
 
-	if (numChanges > MAX_CHANGES) then
-		error("Too many changes ("..numChanges..") to permissions. Maximum at once is "+MAX_CHANGES)
+	if numChanges > MAX_CHANGES then
+		error("Too many changes (" .. numChanges .. ") to permissions. Maximum at once is " + MAX_CHANGES)
 	end
 
 	if #adds > 0 then
@@ -163,14 +163,14 @@ function GamePermissionsController:searchUsers(searchTerm)
 
 	if matches then
 		local users = {}
-		for _,webItem in pairs(matches) do
+		for _, webItem in pairs(matches) do
 			table.insert(users, {
 				[PermissionsConstants.SubjectNameKey] = webItem.Name,
 				[PermissionsConstants.SubjectIdKey] = webItem.UserId,
 			})
 		end
 
-		return {[PermissionsConstants.UserSubjectKey] = users}
+		return { [PermissionsConstants.UserSubjectKey] = users }
 	else
 		-- The filter has a propensity for false positives, so allow lookup by exact match if search fails
 		local result = self:apiGetByUsernameV1GET(searchTerm):await()
@@ -178,9 +178,9 @@ function GamePermissionsController:searchUsers(searchTerm)
 		if responseBody.success == false then
 			local errorMessage = responseBody.errorMessage
 			if errorMessage ~= "User not found" then
-				return error("Failed to find user: "..tostring(errorMessage))
+				return error("Failed to find user: " .. tostring(errorMessage))
 			else
-				return {[PermissionsConstants.UserSubjectKey] = {}}
+				return { [PermissionsConstants.UserSubjectKey] = {} }
 			end
 		else
 			return {
@@ -188,8 +188,8 @@ function GamePermissionsController:searchUsers(searchTerm)
 					{
 						[PermissionsConstants.SubjectNameKey] = responseBody.Username,
 						[PermissionsConstants.SubjectIdKey] = responseBody.Id,
-					}
-				}
+					},
+				},
 			}
 		end
 	end
@@ -203,11 +203,11 @@ function GamePermissionsController:searchGroups(searchTerm)
 	if matches then
 		local groups = {}
 
-		for _,webItem in pairs(matches) do
+		for _, webItem in pairs(matches) do
 			table.insert(groups, {
 				[PermissionsConstants.GroupNameKey] = webItem.name,
 				[PermissionsConstants.GroupIdKey] = webItem.id,
-				[PermissionsConstants.GroupMemberCountKey] = webItem.memberCount
+				[PermissionsConstants.GroupMemberCountKey] = webItem.memberCount,
 			})
 		end
 

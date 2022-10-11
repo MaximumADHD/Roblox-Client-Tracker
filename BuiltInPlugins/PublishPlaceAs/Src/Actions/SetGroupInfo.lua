@@ -11,11 +11,11 @@ return Action(script.Name, function(groupInfoArg)
 
 	local groups = groupInfo.groups
 
-    AssertType.assertType(groups, "table", "SetGroupInfo.groups")
+	AssertType.assertType(groups, "table", "SetGroupInfo.groups")
 
 	return {
 		groupInfo = {
 			groups = groups,
-		}
+		},
 	}
 end)

@@ -5,6 +5,6 @@ local Action = Util.Action
 
 return Action(script.Name, function(rowIndex: number)
 	return {
-		SelectedRow = rowIndex
+		SelectedRow = rowIndex,
 	}
 end)

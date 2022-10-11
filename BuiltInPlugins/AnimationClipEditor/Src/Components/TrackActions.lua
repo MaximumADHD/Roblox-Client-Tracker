@@ -114,8 +114,13 @@ function TrackActions:makeMenuActions(): { PluginAction }
 
 	local track = AnimationData.getTrack(animationData, instanceName, path)
 	local showEulerConversion = track ~= nil
-		and (track.Type == Constants.TRACK_TYPES.Quaternion
-			 or (track.Type == Constants.TRACK_TYPES.CFrame	and TrackUtils.getRotationType(track) == Constants.TRACK_TYPES.Quaternion))
+		and (
+			track.Type == Constants.TRACK_TYPES.Quaternion
+			or (
+				track.Type == Constants.TRACK_TYPES.CFrame
+				and TrackUtils.getRotationType(track) == Constants.TRACK_TYPES.Quaternion
+			)
+		)
 
 	local isTopLevel = not isChannelAnimation or (path ~= nil and #path <= 1)
 	local deleteAction = isTopLevel and "DeleteTrack" or "ClearTrack"
@@ -204,7 +209,7 @@ function TrackActions:didMount(): ()
 				local keyframeData = {
 					Value = value,
 					EasingStyle = Enum.PoseEasingStyle.Linear,
-					EasingDirection = Enum.PoseEasingDirection.In
+					EasingDirection = Enum.PoseEasingDirection.In,
 				}
 				props.AddKeyframe(instanceName, path, trackType, playhead, keyframeData, props.Analytics)
 			end
@@ -283,7 +288,7 @@ function TrackActions:render(): (any?)
 				local track = instance.Tracks[trackName]
 				local dumpTable = require(Plugin.Src.Util.Debug.dumpTable)
 				dumpTable(track)
-			end
+			end,
 		})
 
 		table.insert(menuActions, {
@@ -295,16 +300,17 @@ function TrackActions:render(): (any?)
 				local track = instance.Tracks[trackName]
 
 				local eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
-				dumpTrack(track, trackName,
-					eulerAnglesOrder or props.DefaultEulerAnglesOrder)
-			end
+				dumpTrack(track, trackName, eulerAnglesOrder or props.DefaultEulerAnglesOrder)
+			end,
 		})
 	end
 
-	return showMenu and Roact.createElement(ContextMenu, {
-		Actions = menuActions,
-		OnMenuOpened = props.OnMenuOpened,
-	}) or nil
+	return showMenu
+			and Roact.createElement(ContextMenu, {
+				Actions = menuActions,
+				OnMenuOpened = props.OnMenuOpened,
+			})
+		or nil
 end
 
 function TrackActions:willUnmount()
@@ -369,7 +375,11 @@ local function mapDispatchToProps(dispatch): { [string]: any }
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
-		SetTrackEulerAnglesOrder = function(instanceName: string, path: PathUtils.Path, eulerAnglesOrder: Enum.RotationOrder): ()
+		SetTrackEulerAnglesOrder = function(
+			instanceName: string,
+			path: PathUtils.Path,
+			eulerAnglesOrder: Enum.RotationOrder
+		): ()
 			dispatch(AddWaypoint())
 			dispatch(SetTrackEulerAnglesOrder(instanceName, path, eulerAnglesOrder))
 			dispatch(SetRightClickContextInfo({}))

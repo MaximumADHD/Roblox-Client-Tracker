@@ -26,9 +26,8 @@ local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
 
 local FFlagToolboxSwitchVerifiedEndpoint = require(Plugin.Core.Util.getFFlagToolboxSwitchVerifiedEndpoint)
 local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
-local FIntToolboxGrantUniverseAudioPermissionsTimeoutInMS = game:GetFastInt(
-	"ToolboxGrantUniverseAudioPermissionsTimeoutInMS"
-)
+local FIntToolboxGrantUniverseAudioPermissionsTimeoutInMS =
+	game:GetFastInt("ToolboxGrantUniverseAudioPermissionsTimeoutInMS")
 local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
 
 local NetworkInterface = {}
@@ -676,7 +675,6 @@ end
 if not FFlagToolboxSwitchVerifiedEndpoint then
 	-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
 	function NetworkInterface:getIsVerifiedCreator()
-
 		local targetUrl = Urls.constructIsVerifiedCreatorUrl()
 
 		printUrl("getIsVerifiedCreator", "GET", targetUrl)
@@ -908,7 +906,7 @@ end
 if FFlagToolboxEnableAssetConfigPhoneVerification or FFlagToolboxAssetConfigurationVerifiedPrice then
 	function NetworkInterface:getPublishingRequirements(
 		assetId: number,
-		assetType: Enum.AssetType?, 
+		assetType: Enum.AssetType?,
 		assetSubTypes -- TODO: When using FFlagToolboxFixSubtypeArray then use assetSubType: {AssetSubType.AssetSubType}?
 	)
 		local marketplaceType = "Creator"

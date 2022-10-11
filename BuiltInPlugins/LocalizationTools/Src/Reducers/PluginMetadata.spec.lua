@@ -4,7 +4,6 @@ local Rodux = require(Plugin.Packages.Rodux)
 local RecursiveEquals = require(Plugin.Src.Util.RecursiveEquals)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 
-local LoadAllLocales = require(Plugin.Src.Actions.DEPRECATED_LoadAllLocales)
 local LoadLanguagesAndLocalesInfo = require(Plugin.Src.Actions.LoadLanguagesAndLocalesInfo)
 local SetCloudTableId = require(Plugin.Src.Actions.SetCloudTableId)
 local LoadManageTranslationPermission =
@@ -17,34 +16,6 @@ return function()
 		local state = PluginMetadata(nil, {})
 		expect(type(state)).to.equal("table")
 		expect(state).to.be.ok()
-	end)
-
-	describe("DEPRECATED_LoadAllLocales", function()
-		it("should validate input", function()
-			expect(function()
-				LoadAllLocales(nil)
-			end).to.throw()
-			expect(function()
-				LoadAllLocales(true)
-			end).to.throw()
-			expect(function()
-				LoadAllLocales("")
-			end).to.throw()
-		end)
-
-		it("should set state", function()
-			local locales = {
-				en = true,
-				es = true,
-			}
-			local r = Rodux.Store.new(PluginMetadata)
-			local state = r:getState()
-			expect(type(state.DEPRECATED_AllLanguageCodes)).to.equal("table")
-			expect(isEmpty(state.DEPRECATED_AllLanguageCodes)).to.equal(true)
-
-			state = PluginMetadata(state, LoadAllLocales(locales))
-			expect(RecursiveEquals(state.DEPRECATED_AllLanguageCodes, locales)).to.equal(true)
-		end)
 	end)
 
 	describe("LoadLanguagesAndLocalesInfo", function()

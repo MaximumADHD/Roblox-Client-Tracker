@@ -1,4 +1,3 @@
-
 local main = script.Parent.Parent.Parent
 local Roact = require(main.Packages.Roact)
 local RoactRodux = require(main.Packages.RoactRodux)
@@ -31,12 +30,11 @@ local ToggleField = require(Actions.RoactInspector.ToggleField)
 local FieldsTable = Roact.PureComponent:extend("FieldsTable")
 
 function FieldsTable:init()
-
 	self.onToggleField = function(row)
 		local item = row.item
 		local isExpanded = not self.props.Expansion[item]
 		self.props.toggleField({
-			[item] = isExpanded
+			[item] = isExpanded,
 		})
 		if isExpanded then
 			local inspector = self.props.Inspector:get()
@@ -45,7 +43,6 @@ function FieldsTable:init()
 				-- Get the value of the item toggled
 				api:getFields(self.props.SelectedPath, self.props.SelectedNodeIndex, item.Path)
 			end
-
 		end
 	end
 	self.onSelectField = function(change)
@@ -76,7 +73,7 @@ function FieldsTable:init()
 				OnToggle = self.onToggleField,
 				IsExpanded = self.props.Expansion[row.item],
 				IsSelected = false,
-				Style = style
+				Style = style,
 			})
 		end
 	end
@@ -114,16 +111,16 @@ function FieldsTable:render()
 			{
 				Name = "State",
 				IsHeading = true,
-			}
+			},
 		},
 		getChildren(children.state),
 		{
 			{
 				Name = "Context",
 				IsHeading = true,
-			}
+			},
 		},
-		getChildren(children._context)
+		getChildren(children._context),
 	})
 
 	return Roact.createElement(TreeView, {
@@ -141,27 +138,24 @@ end
 
 FieldsTable = withContext({
 	Stylizer = ContextServices.Stylizer,
-	Inspector = InspectorContext
+	Inspector = InspectorContext,
 })(FieldsTable)
 
-return RoactRodux.connect(
-	function(state, props)
-		return {
-			SelectedPath = state.RoactInspector.selectedPath,
-			SelectedNodeIndex = state.RoactInspector.selectedNodeIndex,
-			Root = state.RoactInspector.fields,
-			Selection = state.RoactInspector.selectedFields,
-			Expansion = state.RoactInspector.expandedFields
-		}
-	end,
-	function(dispatch)
-		return {
-			selectField = function(change)
-				dispatch(SelectField(change))
-			end,
-			toggleField = function(change)
-				dispatch(ToggleField(change))
-			end,
-		}
-	end
-)(FieldsTable)
+return RoactRodux.connect(function(state, props)
+	return {
+		SelectedPath = state.RoactInspector.selectedPath,
+		SelectedNodeIndex = state.RoactInspector.selectedNodeIndex,
+		Root = state.RoactInspector.fields,
+		Selection = state.RoactInspector.selectedFields,
+		Expansion = state.RoactInspector.expandedFields,
+	}
+end, function(dispatch)
+	return {
+		selectField = function(change)
+			dispatch(SelectField(change))
+		end,
+		toggleField = function(change)
+			dispatch(ToggleField(change))
+		end,
+	}
+end)(FieldsTable)

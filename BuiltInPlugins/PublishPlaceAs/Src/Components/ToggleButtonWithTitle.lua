@@ -31,100 +31,102 @@ local TextWithInlineLink = Framework.UI.TextWithInlineLink
 local FrameworkUtil = Framework.Util
 local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
 
-local LayoutOrderIterator =  Framework.Util.LayoutOrderIterator
+local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 
 local ToggleButtonWithTitle = Roact.PureComponent:extend("ToggleButtonWithTitle")
 
 function ToggleButtonWithTitle:init()
-    self.state = {
-        descriptionWidth = 0,
-    }
+	self.state = {
+		descriptionWidth = 0,
+	}
 
-    self.descriptionRef = Roact.createRef()
+	self.descriptionRef = Roact.createRef()
 
-    self.onResize = function()
-        local descriptionWidthContainer = self.descriptionRef.current
-        if not descriptionWidthContainer then
-            return
-        end
+	self.onResize = function()
+		local descriptionWidthContainer = self.descriptionRef.current
+		if not descriptionWidthContainer then
+			return
+		end
 
-        self:setState({
-            descriptionWidth = descriptionWidthContainer.AbsoluteSize.X
-        })
-    end
+		self:setState({
+			descriptionWidth = descriptionWidthContainer.AbsoluteSize.X,
+		})
+	end
 end
 
 function ToggleButtonWithTitle:render()
-    local props = self.props
-    local theme = props.Stylizer
+	local props = self.props
+	local theme = props.Stylizer
 
-    local callout = props[Roact.Children].TeachingCallout
+	local callout = props[Roact.Children].TeachingCallout
 
-    local descriptionWidth = self.state.descriptionWidth
+	local descriptionWidth = self.state.descriptionWidth
 
-    local description = props.Description
-    local disabled = props.Disabled
-    local layoutOrder = props.LayoutOrder
-    local selected = props.Selected
-    local title = props.Title
-    local onClick = props.OnClick
-    local linkProps = props.LinkProps
+	local description = props.Description
+	local disabled = props.Disabled
+	local layoutOrder = props.LayoutOrder
+	local selected = props.Selected
+	local title = props.Title
+	local onClick = props.OnClick
+	local linkProps = props.LinkProps
 
-    local layoutIndex = LayoutOrderIterator.new()
+	local layoutIndex = LayoutOrderIterator.new()
 
-    return Roact.createElement(TitledFrame, {
-        LayoutOrder = layoutOrder,
-        Style = if FFlagRemoveUILibraryTitledFrame then nil else "Subtitle",
-        Title = title,
-    }, {
-        ToggleButton = Roact.createElement(ToggleButton, {
-            Disabled = disabled,
-            Selected = selected,
-            LayoutOrder = layoutIndex:getNextOrder(),
-            OnClick = onClick,
-            Size = UDim2.fromOffset(40, 24),
-        }, {
-            TeachingCallout = callout
-        }),
+	return Roact.createElement(TitledFrame, {
+		LayoutOrder = layoutOrder,
+		Style = if FFlagRemoveUILibraryTitledFrame then nil else "Subtitle",
+		Title = title,
+	}, {
+		ToggleButton = Roact.createElement(ToggleButton, {
+			Disabled = disabled,
+			Selected = selected,
+			LayoutOrder = layoutIndex:getNextOrder(),
+			OnClick = onClick,
+			Size = UDim2.fromOffset(40, 24),
+		}, {
+			TeachingCallout = callout,
+		}),
 
-        Description = props.Description and
-            Roact.createElement(FitTextLabel, {
-                BackgroundTransparency = 1,
-                LayoutOrder = layoutIndex:getNextOrder(),
-                TextTransparency = props.Disabled and 0.5 or 0,
-                TextXAlignment = Enum.TextXAlignment.Left,
-                TextYAlignment = Enum.TextYAlignment.Top,
-                Text = description,
-                TextWrapped = true,
-                width = UDim.new(0, descriptionWidth),
-                Font = Enum.Font.SourceSans,
-                TextSize = 16,
-                TextColor3 = theme.dimmerTextColor,
-            }),
+		Description = props.Description and Roact.createElement(FitTextLabel, {
+			BackgroundTransparency = 1,
+			LayoutOrder = layoutIndex:getNextOrder(),
+			TextTransparency = props.Disabled and 0.5 or 0,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Top,
+			Text = description,
+			TextWrapped = true,
+			width = UDim.new(0, descriptionWidth),
+			Font = Enum.Font.SourceSans,
+			TextSize = 16,
+			TextColor3 = theme.dimmerTextColor,
+		}),
 
-        LinkText = props.LinkProps and Roact.createElement(TextWithInlineLink, Cryo.Dictionary.join(linkProps, {
-            LinkPlaceholder = "[link]",
-            MaxWidth = math.max(descriptionWidth, theme.textWithInlineLink.maxWidth),
-            LayoutOrder = layoutIndex:getNextOrder(),
-            TextProps = Cryo.Dictionary.join(theme.fontStyle.Subtext, {
-                BackgroundTransparency = 1,
-                TextXAlignment = Enum.TextXAlignment.Left,
-            }),
-            HorizontalAlignment = Enum.HorizontalAlignment.Left,
-        })),
+		LinkText = props.LinkProps and Roact.createElement(
+			TextWithInlineLink,
+			Cryo.Dictionary.join(linkProps, {
+				LinkPlaceholder = "[link]",
+				MaxWidth = math.max(descriptionWidth, theme.textWithInlineLink.maxWidth),
+				LayoutOrder = layoutIndex:getNextOrder(),
+				TextProps = Cryo.Dictionary.join(theme.fontStyle.Subtext, {
+					BackgroundTransparency = 1,
+					TextXAlignment = Enum.TextXAlignment.Left,
+				}),
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			})
+		),
 
-        DescriptionWidth = Roact.createElement("Frame", {
-            BackgroundTransparency = 1,
-            LayoutOrder = layoutIndex:getNextOrder(),
-            Size = UDim2.new(1,0,0,0),
-            [Roact.Ref] = self.descriptionRef,
-            [Roact.Change.AbsoluteSize] = self.onResize,
-        }),
-    })
+		DescriptionWidth = Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Size = UDim2.new(1, 0, 0, 0),
+			[Roact.Ref] = self.descriptionRef,
+			[Roact.Change.AbsoluteSize] = self.onResize,
+		}),
+	})
 end
 
 ToggleButtonWithTitle = withContext({
-    Stylizer = ContextServices.Stylizer,
+	Stylizer = ContextServices.Stylizer,
 })(ToggleButtonWithTitle)
 
 return ToggleButtonWithTitle

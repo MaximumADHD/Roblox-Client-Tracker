@@ -123,6 +123,11 @@ function TagManager.new(store)
 
 	self:_updateStore()
 
+	self._maid:give(Selection.SelectionChanged:Connect(function()
+		self:_updateStore()
+		self:_updateUnknownTags()
+	end))
+
 	if self._defaultTagsFolder then
 		self:_watchFolder(self._defaultTagsFolder)
 	end
@@ -337,6 +342,7 @@ function TagManager:_doUpdateStore()
 		table.insert(groupList, name)
 	end
 	table.sort(groupList)
+	self.groups = groups
 
 	self.store:dispatch(Actions.SetGroupData(groupList))
 
@@ -478,11 +484,11 @@ function TagManager:ToggleGroupVisibility(groupName: string)
 				table.insert(tags, tag)
 				if not tag.Visible then
 					shouldEnable = true
-					tag.Visible = true
+					self:_setProp(tag.Name, "Visible", true)
 				end
 			else
 				-- if we know we're setting visible false, we can do it in this first loop
-				tag.Visible = true
+				self:_setProp(tag.Name, "Visible", true)
 			end
 		end
 	end
@@ -490,9 +496,13 @@ function TagManager:ToggleGroupVisibility(groupName: string)
 	-- if on our first loop, all the tags were visible, so we should set them all invisible
 	if not shouldEnable then
 		for _, tag in pairs(tags) do
-			tag.Visible = false
+			self:_setProp(tag.Name, "Visible", false)
 		end
 	end
+end
+
+function TagManager:GetGroups()
+	return self.groups
 end
 
 function TagManager:RenameGroup(oldName: string, newName: string)

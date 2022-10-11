@@ -56,7 +56,6 @@ function MockProvider:init()
 end
 
 function MockProvider:render()
-
 	return ContextServices.provide({
 		self.mockItems.plugin,
 		self.mockItems.mouse,
@@ -71,12 +70,13 @@ function MockProvider:render()
 end
 
 function MockProvider.createElementWithMockContext(component, props, children)
-	assert(type(component) == "function"
-		or (type(component) == "table" and type(component.render) == "function"),
-		"MockWrapper.createElementWithMockContext passed invalid component")
+	assert(
+		type(component) == "function" or (type(component) == "table" and type(component.render) == "function"),
+		"MockWrapper.createElementWithMockContext passed invalid component"
+	)
 
 	return Roact.createElement(MockProvider, {
-		MyComponent = Roact.createElement(component, props, children)
+		MyComponent = Roact.createElement(component, props, children),
 	})
 end
 

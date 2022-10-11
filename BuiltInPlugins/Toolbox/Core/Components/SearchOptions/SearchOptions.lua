@@ -105,7 +105,6 @@ function SearchOptions:init(initialProps)
 		self.searchTerm = searchTerm
 		self.extraSearchDetails = extraDetails
 
-		
 		if not self.props.isSearching then
 			local networkInterface = getNetwork(self)
 			self.props.userSearch(networkInterface, searchTerm, extraDetails)
@@ -340,7 +339,7 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 					AllViews = Roact.createElement(SearchOptionsEntry, {
 						Header = localizedContent.SearchOptions.AllViews,
 						LayoutOrder = self:nextLayout(),
-					}, {						
+					}, {
 						CheckboxAndDescriptionContainer = Roact.createElement(Pane, {
 							AutomaticSize = Enum.AutomaticSize.XY,
 							HorizontalAlignment = Enum.HorizontalAlignment.Left,
@@ -366,7 +365,7 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 									Left = VERIFIED_DESCRIPTION_INDENT,
 								},
 								Spacing = ICON_PADDING,
-								VerticalAlignment = Enum.VerticalAlignment.Top
+								VerticalAlignment = Enum.VerticalAlignment.Top,
 							}, {
 								Image = Roact.createElement(Image, {
 									AnchorPoint = Vector2.new(0, 0.5),
@@ -390,7 +389,7 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 									TextWrapped = true,
 									TextXAlignment = Enum.TextXAlignment.Left,
 								}),
-							})
+							}),
 						}),
 					}),
 
@@ -538,7 +537,7 @@ local mapDispatchToProps = function(dispatch)
 		userSearch = function(networkInterface, searchTerm)
 			dispatch(UserSearchRequest(networkInterface, searchTerm))
 		end,
-	
+
 		searchWithOptions = function(networkInterface, settings, options)
 			dispatch(SearchWithOptions(networkInterface, settings, options))
 		end,

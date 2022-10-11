@@ -17,7 +17,7 @@ end
 function PlacesController:placesV2GET(gameId, params)
 	local networking = self.__networking
 	return networking:get("develop", "/v2/universes/" .. gameId .. "/places", {
-		Params = params
+		Params = params,
 	})
 end
 
@@ -39,14 +39,13 @@ function PlacesController:getPlaces(gameId, cursor, index)
 		extendedSettings = true,
 	}
 
-	return Promise.resolve(self:placesV2GET(gameId, params))
-	:andThen(function(response)
+	return Promise.resolve(self:placesV2GET(gameId, params)):andThen(function(response)
 		local body = response.responseBody
 
 		for _, place in pairs(body.data) do
 			place.index = order
 			places[place.id] = place
-			order  = order  + 1
+			order = order + 1
 		end
 
 		local cursor = body.nextPageCursor
@@ -59,28 +58,28 @@ function PlacesController:getPlaces(gameId, cursor, index)
 end
 
 function PlacesController:setName(placeId, name)
-	self:placesV2PATCH(placeId, {name = name}):await()
+	self:placesV2PATCH(placeId, { name = name }):await()
 end
 
 function PlacesController:setMaxPlayerCount(placeId, maxPlayerCount)
-	self:placesV2PATCH(placeId, {maxPlayerCount = maxPlayerCount}):await()
+	self:placesV2PATCH(placeId, { maxPlayerCount = maxPlayerCount }):await()
 end
 
 function PlacesController:setAllowCopying(placeId, allowCopying)
-	self:placesV2PATCH(placeId, {allowCopying = allowCopying}):await()
+	self:placesV2PATCH(placeId, { allowCopying = allowCopying }):await()
 end
 
 function PlacesController:setSocialSlotType(placeId, socialSlotType)
-	self:placesV2PATCH(placeId, {socialSlotType = socialSlotType}):await()
+	self:placesV2PATCH(placeId, { socialSlotType = socialSlotType }):await()
 end
 
 function PlacesController:setCustomSocialSlotsCount(placeId, customSocialSlotsCount)
-	self:placesV2PATCH(placeId, {customSocialSlotsCount = customSocialSlotsCount}):await()
+	self:placesV2PATCH(placeId, { customSocialSlotsCount = customSocialSlotsCount }):await()
 end
 
 function PlacesController:assetPublishVersionV1GET(placeId)
 	local networking = self.__networking
-	return networking:get("develop", "/v1/assets/"..placeId.."/published-versions")
+	return networking:get("develop", "/v1/assets/" .. placeId .. "/published-versions")
 end
 
 function PlacesController:getAssetPublishedVersions(placeId)

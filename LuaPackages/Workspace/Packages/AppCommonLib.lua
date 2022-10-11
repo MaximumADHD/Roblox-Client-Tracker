@@ -5,4 +5,10 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["AppCommonLib"]["AppCommonLib"])
 
+export type SignalHandle = Package.SignalHandle
+export type SignalCallback = Package.SignalCallback
+export type Signal = Package.Signal
+export type SignalClass = Package.SignalClass
+
+
 return Package

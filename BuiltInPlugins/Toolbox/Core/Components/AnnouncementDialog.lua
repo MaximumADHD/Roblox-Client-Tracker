@@ -1,4 +1,5 @@
-local FFlagToolboxHideAnnouncementFromNewUsersAndAfterMonth = game:GetFastFlag("ToolboxHideAnnouncementFromNewUsersAndAfterMonth")
+local FFlagToolboxHideAnnouncementFromNewUsersAndAfterMonth =
+	game:GetFastFlag("ToolboxHideAnnouncementFromNewUsersAndAfterMonth")
 local FFlagToolboxFixVerifyAndAnnouncementBugs = game:GetFastFlag("ToolboxFixVerifyAndAnnouncementBugs")
 local FFlagToolboxAddAnnouncementAnalytics = game:GetFastFlag("ToolboxAddAnnouncementAnalytics")
 
@@ -117,7 +118,8 @@ function AnnouncementDialog:init(props: AnnouncementDialogProps)
 				isUserTooNew = getUserId() > latestUserId
 			end
 
-			return state.isEnabled and dateKey ~= ""
+			return state.isEnabled
+				and dateKey ~= ""
 				and lastAnnouncementViewed ~= dateKey
 				and not isExpired
 				and not isUserTooNew
@@ -273,7 +275,6 @@ function AnnouncementDialog:render()
 		imageLocation = announcementConfiguration.Image
 		linkTextKey = announcementConfiguration.LinkKey
 		linkLocation = announcementConfiguration.LinkLocation
-
 	else
 		local announcementConfiguration = ToolboxUtilities.getAnnouncementConfiguration()
 		buttonKey = announcementConfiguration.ButtonKey or DEFAULT_BUTTON_KEY

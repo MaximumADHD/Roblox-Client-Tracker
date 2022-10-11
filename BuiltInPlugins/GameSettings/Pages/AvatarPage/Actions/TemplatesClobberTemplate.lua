@@ -4,6 +4,6 @@ local Action = require(Plugin.Packages.Framework).Util.Action
 return Action(script.Name, function(templateId, model)
 	return {
 		templateToClobber = templateId,
-		newTemplateModel = model
+		newTemplateModel = model,
 	}
 end)

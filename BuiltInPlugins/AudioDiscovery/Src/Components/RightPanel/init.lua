@@ -30,13 +30,13 @@ local RightPanel = Roact.PureComponent:extend("RightPanel")
 function RightPanel:init()
 	self.state = {
 		sizes = {
-			UDim.new(1/3, 0),
-			UDim.new(2/3, 0),
+			UDim.new(1 / 3, 0),
+			UDim.new(2 / 3, 0),
 		},
 	}
-	self.onSizesChange = function(sizes: {UDim})
+	self.onSizesChange = function(sizes: { UDim })
 		self:setState({
-			sizes = sizes
+			sizes = sizes,
 		})
 	end
 end
@@ -48,13 +48,14 @@ function RightPanel:render()
 	local columns = {
 		{
 			Name = localization:getText("Table", "Instance"),
-		}, {
+		},
+		{
 			Name = localization:getText("Table", "Path"),
 		},
 	}
 	local columnsWithSizes = map(columns, function(column, index: number)
 		return join(column, {
-			Width = state.sizes[index]
+			Width = state.sizes[index],
 		})
 	end)
 	if props.Rows and #props.Rows > 0 then
@@ -71,7 +72,7 @@ function RightPanel:render()
 			CellComponent = RightCell,
 			OnSelectRow = function(row)
 				SelectionService:Set({
-					row.Instance
+					row.Instance,
 				})
 			end,
 		})
@@ -85,8 +86,8 @@ function RightPanel:render()
 				TextWrapped = true,
 				Size = UDim2.fromScale(1, 1),
 				RichText = true,
-				Text = localization:getText("Plugin", "Info")
-			})
+				Text = localization:getText("Plugin", "Info"),
+			}),
 		})
 	end
 end
@@ -96,20 +97,17 @@ RightPanel = withContext({
 	Stylizer = Stylizer,
 })(RightPanel)
 
-return RoactRodux.connect(
-	function(state, props)
-		local selectedRow = if state.Audio.SelectedRow then state.Audio.Rows[state.Audio.SelectedRow] else nil
-		return {
-			Rows = if selectedRow then state.Audio.Locations[selectedRow.Id] else {},
-			SortOrder = state.Audio.Right.SortOrder,
-			SortIndex = state.Audio.Right.SortIndex,
-		}
-	end,
-	function(dispatch)
-		return {
-			Sort = function(index: number, order: Enum.SortDirection)
-				dispatch(SortTable("Right", index, order))
-			end,
-		}
-	end
-)(RightPanel)
+return RoactRodux.connect(function(state, props)
+	local selectedRow = if state.Audio.SelectedRow then state.Audio.Rows[state.Audio.SelectedRow] else nil
+	return {
+		Rows = if selectedRow then state.Audio.Locations[selectedRow.Id] else {},
+		SortOrder = state.Audio.Right.SortOrder,
+		SortIndex = state.Audio.Right.SortIndex,
+	}
+end, function(dispatch)
+	return {
+		Sort = function(index: number, order: Enum.SortDirection)
+			dispatch(SortTable("Right", index, order))
+		end,
+	}
+end)(RightPanel)

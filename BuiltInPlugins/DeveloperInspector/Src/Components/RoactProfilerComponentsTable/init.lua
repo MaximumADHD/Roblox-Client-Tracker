@@ -34,23 +34,27 @@ local columns = {
 		Key = "instanceName",
 		TooltipKey = "pathString",
 		Width = UDim.new(0.3, 0),
-	}, {
+	},
+	{
 		Name = "Depth",
 		Key = "depth",
 		Width = UDim.new(0.15, 0),
-	}, {
+	},
+	{
 		Name = "Renders",
 		Key = "count",
 		Width = UDim.new(0.15, 0),
-	}, {
+	},
+	{
 		Name = "Render Time (ms)",
 		Key = "renderTime",
 		Width = UDim.new(0.2, 0),
-	}, {
+	},
+	{
 		Name = "Deep Time (ms)",
 		Key = "time",
 		Width = UDim.new(0.2, 0),
-	}
+	},
 }
 
 function RoactProfilerComponentsTable:init()
@@ -104,7 +108,7 @@ function RoactProfilerComponentsTable:init()
 			if not api.sortProfileData then
 				return
 			end
-			api:sortProfileData('profileComponents', index, order)
+			api:sortProfileData("profileComponents", index, order)
 			api:getProfileData()
 		end
 	end
@@ -165,29 +169,24 @@ RoactProfilerComponentsTable = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(RoactProfilerComponentsTable)
 
-return RoactRodux.connect(
-	function(state)
-		return {
-			ProfileData = state.RoactInspector.profileData,
-			TableData = state.RoactInspector[TableIds.COMPONENTS]
-		}
-	end,
-	function(dispatch)
-		return {
-			setSort = function(index: number, order: Enum.SortDirection)
-				dispatch(SortProfileData(TableIds.COMPONENTS, index, order))
-			end,
-			setPageSize = function(pageSize: number)
-				dispatch(SetProfilePageSize(TableIds.COMPONENTS, pageSize))
-			end,
-			setPageIndex = function(pageIndex: number)
-				dispatch(SetProfilePageIndex(TableIds.COMPONENTS, pageIndex))
-			end,
-			selectRow = function(selectedRow: number)
-				dispatch(SelectProfileRow(selectedRow))
-			end
-		}
-	end
-)(RoactProfilerComponentsTable)
-
-
+return RoactRodux.connect(function(state)
+	return {
+		ProfileData = state.RoactInspector.profileData,
+		TableData = state.RoactInspector[TableIds.COMPONENTS],
+	}
+end, function(dispatch)
+	return {
+		setSort = function(index: number, order: Enum.SortDirection)
+			dispatch(SortProfileData(TableIds.COMPONENTS, index, order))
+		end,
+		setPageSize = function(pageSize: number)
+			dispatch(SetProfilePageSize(TableIds.COMPONENTS, pageSize))
+		end,
+		setPageIndex = function(pageIndex: number)
+			dispatch(SetProfilePageIndex(TableIds.COMPONENTS, pageIndex))
+		end,
+		selectRow = function(selectedRow: number)
+			dispatch(SelectProfileRow(selectedRow))
+		end,
+	}
+end)(RoactProfilerComponentsTable)

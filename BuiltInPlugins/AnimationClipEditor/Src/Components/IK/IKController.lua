@@ -157,18 +157,19 @@ function IKController:render()
 	local oldStyling = state.showTree and style.IKActive or style.IKDefault
 	local newStyling = if state.showTree then "ACEHeaderButtonActive" else "ACEHeaderButtonDefault"
 
-	return self.props.RootInstance and Roact.createElement("Frame", {
-		Position = props.Position,
-		Size = UDim2.new(0, IK_BUTTON_WIDTH, 0, IK_BUTTON_HEIGHT),
-		BackgroundTransparency = 1,
-		AnchorPoint = Vector2.new(0, 0.5),
-	}, {
-		IKButton = props.RootInstance and canUseIK and Roact.createElement(Button, {
-			Style = if GetFFlagExtendPluginTheme() then newStyling else oldStyling,
-			Size = UDim2.new(1, 0, 1, 0),
-			OnClick = toggleShowTree,
+	return self.props.RootInstance
+		and Roact.createElement("Frame", {
+			Position = props.Position,
+			Size = UDim2.new(0, IK_BUTTON_WIDTH, 0, IK_BUTTON_HEIGHT),
+			BackgroundTransparency = 1,
+			AnchorPoint = Vector2.new(0, 0.5),
 		}, {
-			Label = Roact.createElement("TextLabel", {
+			IKButton = props.RootInstance and canUseIK and Roact.createElement(Button, {
+				Style = if GetFFlagExtendPluginTheme() then newStyling else oldStyling,
+				Size = UDim2.new(1, 0, 1, 0),
+				OnClick = toggleShowTree,
+			}, {
+				Label = Roact.createElement("TextLabel", {
 					BackgroundTransparency = 1,
 					Size = UDim2.new(1, 0, 1, 0),
 					TextYAlignment = Enum.TextYAlignment.Center,
@@ -176,30 +177,30 @@ function IKController:render()
 					Text = localization:getText("Title", "IK"),
 					Font = theme.font,
 					TextColor3 = theme.ikTheme.textColor,
-				})
-		}),
+				}),
+			}),
 
-		IKWindow = props.ShowTree and state.showTree and Roact.createElement(IKWindow, {
-			RootInstance = props.RootInstance,
-			PinnedParts = props.PinnedParts,
-			IKEnabled = props.IKEnabled,
-			ShowTree = props.ShowTree,
-			SelectedTrack = selectedTrack,
-			SetSelectedTracks = props.SetSelectedTracks,
-			ToggleIKEnabled = self.toggleIKEnabledHandler,
-			TogglePinnedPart = props.TogglePinnedPart,
-			SetShowTree = props.SetShowTree,
-			SetIKEnabled = props.SetIKEnabled,
-			SetIKMode = props.SetIKMode,
-			Chain = self.makeChains(),
-			IKMode = props.IKMode,
-			IsR15 = emptyR15,
-		}),
+			IKWindow = props.ShowTree and state.showTree and Roact.createElement(IKWindow, {
+				RootInstance = props.RootInstance,
+				PinnedParts = props.PinnedParts,
+				IKEnabled = props.IKEnabled,
+				ShowTree = props.ShowTree,
+				SelectedTrack = selectedTrack,
+				SetSelectedTracks = props.SetSelectedTracks,
+				ToggleIKEnabled = self.toggleIKEnabledHandler,
+				TogglePinnedPart = props.TogglePinnedPart,
+				SetShowTree = props.SetShowTree,
+				SetIKEnabled = props.SetIKEnabled,
+				SetIKMode = props.SetIKMode,
+				Chain = self.makeChains(),
+				IKMode = props.IKMode,
+				IsR15 = emptyR15,
+			}),
 
-		R15IKRig = props.IKEnabled and emptyR15 and Roact.createElement(R15IKRig, {
-			RootInstance = props.RootInstance,
+			R15IKRig = props.IKEnabled and emptyR15 and Roact.createElement(R15IKRig, {
+				RootInstance = props.RootInstance,
+			}),
 		})
-	})
 end
 
 IKController = withContext({

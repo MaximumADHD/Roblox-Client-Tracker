@@ -19,8 +19,8 @@ local UpdateLocations = require(Actions.UpdateLocations)
 local SortTable = require(Actions.SortTable)
 
 local columns = {
-	Left = {"OK", "Id", "Name", "Time", "Creator"},
-	Right = {"Instance", "Path"}
+	Left = { "OK", "Id", "Name", "Time", "Creator" },
+	Right = { "Instance", "Path" },
 }
 
 local function sanitize(columnName: string, row, locations)
@@ -85,7 +85,7 @@ return Rodux.createReducer({
 	end,
 	[Unpause.name] = function(state)
 		return join(state, {
-			Paused = false
+			Paused = false,
 		})
 	end,
 	[SelectRow.name] = function(state, action)
@@ -94,7 +94,7 @@ return Rodux.createReducer({
 			local assetId = state.Rows[state.SelectedRow].Id
 			local columnName = columns.Right[state.Right.SortIndex]
 			locations = join({}, state.Locations, {
-				[assetId] = sortRows(state.Locations[assetId], columnName, state.Right.SortOrder)
+				[assetId] = sortRows(state.Locations[assetId], columnName, state.Right.SortOrder),
 			})
 		end
 		return join(state, {
@@ -131,7 +131,7 @@ return Rodux.createReducer({
 		end
 		if action.TableName == "Right" and assetId then
 			locations = join({}, state.Locations, {
-				[assetId] = sortRows(state.Locations[assetId], columnName, action.SortOrder)
+				[assetId] = sortRows(state.Locations[assetId], columnName, action.SortOrder),
 			})
 		end
 		return join(state, {
@@ -141,7 +141,7 @@ return Rodux.createReducer({
 			[action.TableName] = {
 				SortIndex = action.SortIndex,
 				SortOrder = action.SortOrder,
-			}
+			},
 		})
-	end
+	end,
 })

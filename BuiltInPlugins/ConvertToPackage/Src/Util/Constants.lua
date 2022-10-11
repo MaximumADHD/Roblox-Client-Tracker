@@ -3,6 +3,9 @@ local wrapStrictTable = require(Plugin.Src.Util.wrapStrictTable)
 local convertArrayToTable = require(Plugin.Src.Util.convertArrayToTable)
 local getUserId = require(Plugin.Src.Util.getUserId)
 
+local FFlagDevFrameworkDropdownShowsLabel = game:GetFastFlag("DevFrameworkDropdownShowsLabel")
+local FFlagRemoveUILibraryStyledDropdown = game:GetFastFlag("RemoveUILibraryStyledDropdown")
+
 local Constants = {}
 
 Constants.FONT = Enum.Font.SourceSans
@@ -12,18 +15,21 @@ Constants.FONT_SIZE_MEDIUM = 16
 Constants.FONT_SIZE_LARGE = 18
 Constants.FONT_SIZE_TITLE = 22
 
-Constants.SCROLLBAR_THICKNESS = 8
-Constants.SCROLLBAR_PADDING = 2
-Constants.SCROLLBAR_BACKGROUND_THICKNESS = Constants.SCROLLBAR_THICKNESS + (2 * Constants.SCROLLBAR_PADDING)
+-- TODO: jbousellam - remove with FFlagRemoveUILibraryStyledDropdown
+if not FFlagRemoveUILibraryStyledDropdown or not FFlagDevFrameworkDropdownShowsLabel then
+	Constants.SCROLLBAR_THICKNESS = 8
+	Constants.SCROLLBAR_PADDING = 2
+	Constants.SCROLLBAR_BACKGROUND_THICKNESS = Constants.SCROLLBAR_THICKNESS + (2 * Constants.SCROLLBAR_PADDING)
 
-Constants.DROPDOWN_WIDTH = 80
-Constants.DROPDOWN_ITEM_WIDTH = 120
-Constants.DROPDOWN_HEIGHT = 25
+	Constants.DROPDOWN_WIDTH = 80
+	Constants.DROPDOWN_ITEM_WIDTH = 120
+	Constants.DROPDOWN_HEIGHT = 25
 
-Constants.DROPDOWN_SELECTED_BAR = 5
-Constants.DROPDOWN_TEXT_INSET = 3
-Constants.DROPDOWN_ICON_SIZE = 12
-Constants.DROPDOWN_ICON_FROM_RIGHT = 4
+	Constants.DROPDOWN_SELECTED_BAR = 5
+	Constants.DROPDOWN_TEXT_INSET = 3
+	Constants.DROPDOWN_ICON_SIZE = 12
+	Constants.DROPDOWN_ICON_FROM_RIGHT = 4
+end
 
 Constants.FOOTER_HEIGHT = 35
 
@@ -42,12 +48,12 @@ Constants.Images = {
 	TOGGLE_OFF_DARK = "rbxasset://textures/RoactStudioWidgets/toggle_off_dark.png",
 	TOGGLE_OFF_LIGHT = "rbxasset://textures/RoactStudioWidgets/toggle_off_light.png",
 	TOGGLE_DISABLE_DARK = "rbxasset://textures/RoactStudioWidgets/toggle_disable_dark.png",
-	TOGGLE_DISABLE_LIGHT	= "rbxasset://textures/RoactStudioWidgets/toggle_disable_light.png",
+	TOGGLE_DISABLE_LIGHT = "rbxasset://textures/RoactStudioWidgets/toggle_disable_light.png",
 }
 
 Constants.OWNER_TYPES = {
 	User = 1,
-	Group = 2
+	Group = 2,
 }
 
 Constants.CREATOR_ENUM_TO_OWNER_TYPE = {
@@ -63,8 +69,15 @@ Constants.SCREENS = convertArrayToTable({
 
 function Constants.getOwnerDropDownContent(groupsArray, localization)
 	local result = {
-		{name = localization:getText("General", "Me"), Text = localization:getText("General", "Me"), creatorType = "User", creatorId = getUserId(), Key = 1}
+		{
+			creatorId = getUserId(),
+			creatorType = "User",
+			Key = 1,
+			name = localization:getText("General", "Me"),
+			Text = localization:getText("General", "Me"),
+		},
 	}
+
 	local currentIndex = 2
 	if game.CreatorType == Enum.CreatorType.Group and next(groupsArray) == nil then
 		-- we haven't fetched groups yet, but we need to have the group owning this place as an option
@@ -87,7 +100,7 @@ function Constants.getOwnerDropDownContent(groupsArray, localization)
 			creatorType = "Group",
 			creatorId = groupData.id,
 			item = groupData,
-			Key = currentIndex
+			Key = currentIndex,
 		}
 
 		table.insert(result, newDropDownitem)

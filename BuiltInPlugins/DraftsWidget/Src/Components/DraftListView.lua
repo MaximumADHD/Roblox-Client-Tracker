@@ -17,6 +17,7 @@ local withContext = ContextServices.withContext
 
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
+local FFlagMigrateDraftsWidgetList = SharedFlags.getFFlagMigrateDraftsWidgetList()
 local FFlagDevFrameworkMigrateContextMenu = SharedFlags.getFFlagDevFrameworkMigrateContextMenu()
 
 local GetTextSize = Framework.Util.GetTextSize
@@ -348,7 +349,7 @@ function DraftListView:render()
 			LayoutOrder = 1,
 		}, {
 			ListItemView = Roact.createElement(ListItemView, {
-				ButtonStyle = if FFlagRemoveUILibraryButton then nil else "tableItemButton",
+				ButtonStyle = if FFlagMigrateDraftsWidgetList then nil else "tableItemButton",
 				Items = sortedDraftList,
 				ItemHeight = ITEM_HEIGHT,
 
@@ -360,11 +361,11 @@ function DraftListView:render()
 				RenderItem = function(draft, props)
 					return Roact.createElement(DraftListItem, {
 						Draft = draft,
-						PrimaryTextColor = if FFlagRemoveUILibraryButton then nil else props.textColor,
-						StatusTextColor = if FFlagRemoveUILibraryButton then nil else props.dimmedTextColor,
-						Font = if FFlagRemoveUILibraryButton then nil else props.font,
-						TextSize = if FFlagRemoveUILibraryButton then nil else props.textSize,
-						RowProps = if FFlagRemoveUILibraryButton then props else nil,
+						PrimaryTextColor = if FFlagMigrateDraftsWidgetList then nil else props.textColor,
+						StatusTextColor = if FFlagMigrateDraftsWidgetList then nil else props.dimmedTextColor,
+						Font = if FFlagMigrateDraftsWidgetList then nil else props.font,
+						TextSize = if FFlagMigrateDraftsWidgetList then nil else props.textSize,
+						RowProps = if FFlagMigrateDraftsWidgetList then props else nil,
 
 						IndicatorMargin = draftStatusSidebarEnabled and ITEM_HEIGHT or 0,
 					})

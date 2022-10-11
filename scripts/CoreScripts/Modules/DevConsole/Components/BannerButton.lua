@@ -22,6 +22,9 @@ function BannerButton:render()
 	local inset = self.props.inset or 0
 
 	local onButtonPress = self.props.onButtonPress
+	local onMouseEnter = self.props.onMouseEnter
+	local onMouseLeave = self.props.onMouseLeave
+	local onMouseMove = self.props.onMouseMove
 
 	local bannerElements = {
 		BannerButtonArrow = onButtonPress and Roact.createElement("ImageLabel", {
@@ -53,6 +56,9 @@ function BannerButton:render()
 		LayoutOrder = layoutOrder,
 
 		[Roact.Event.Activated] = onButtonPress,
+		[Roact.Event.MouseEnter] = onMouseEnter,
+		[Roact.Event.MouseLeave] = onMouseLeave,
+		[Roact.Event.MouseMoved] = onMouseMove
 	}, Immutable.JoinDictionaries(bannerElements, children))
 end
 

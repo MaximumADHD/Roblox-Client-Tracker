@@ -92,7 +92,7 @@ return Rodux.createReducer(getDefaultState(), {
 
 	AddErrors = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			Errors = Cryo.Dictionary.join(state.Errors, action.errors)
+			Errors = Cryo.Dictionary.join(state.Errors, action.errors),
 		})
 	end,
 
@@ -132,7 +132,7 @@ return Rodux.createReducer(getDefaultState(), {
 	AddWarning = function(state, action)
 		if not Cryo.List.find(state.Warnings, action.key) then
 			return Cryo.Dictionary.join(state, {
-				Warnings = Cryo.List.join(state.Warnings, {action.key})
+				Warnings = Cryo.List.join(state.Warnings, { action.key }),
 			})
 		else
 			return state
@@ -141,7 +141,7 @@ return Rodux.createReducer(getDefaultState(), {
 
 	DiscardWarning = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			Warnings = Cryo.List.removeValue(state.Warnings, action.key)
+			Warnings = Cryo.List.removeValue(state.Warnings, action.key),
 		})
 	end,
 })

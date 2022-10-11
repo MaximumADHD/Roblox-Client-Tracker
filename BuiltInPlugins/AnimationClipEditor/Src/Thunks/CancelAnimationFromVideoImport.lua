@@ -2,7 +2,7 @@
     CancelAnimationFromVideoImport
 
 	Cancels animation from video creation import.
-]] 
+]]
 
 local Plugin = script.Parent.Parent.Parent
 

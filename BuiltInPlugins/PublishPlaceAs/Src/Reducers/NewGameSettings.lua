@@ -22,7 +22,7 @@ local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtil
 
 local optInLocations
 if shouldShowDevPublishLocations() then
-    optInLocations = {}
+	optInLocations = {}
 end
 
 local function isEqualCheck(left, right)
@@ -51,7 +51,7 @@ local initial = {
 		creatorId = 0,
 		description = "",
 		genre = Constants.GENRE_IDS[1],
-		playableDevices = {Computer = true, Phone = true, Tablet = true,},
+		playableDevices = { Computer = true, Phone = true, Tablet = true },
 		teamCreateEnabled = true,
 		OptInLocations = optInLocations,
 		isActive = false,
@@ -82,7 +82,7 @@ return Rodux.createReducer(initial, {
 
 	AddErrors = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			errors = Cryo.Dictionary.join(state.errors, action.errors)
+			errors = Cryo.Dictionary.join(state.errors, action.errors),
 		})
 	end,
 
@@ -90,8 +90,7 @@ return Rodux.createReducer(initial, {
 		return Cryo.Dictionary.join(state, {
 			current = Cryo.Dictionary.join(state.current, action.current),
 			changed = Cryo.Dictionary.join(state.changed, action.changed),
-			errors = Cryo.Dictionary.join(state.errors, action.errors)
+			errors = Cryo.Dictionary.join(state.errors, action.errors),
 		})
 	end,
-
 })

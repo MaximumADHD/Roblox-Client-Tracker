@@ -73,7 +73,7 @@ function TimelineTick:render()
 			Tooltip = shouldShowToolTip and Roact.createElement(Tooltip, {
 				Text = timeInSeconds,
 				ShowDelay = 0,
-			})
+			}),
 		}),
 
 		LowerTick = Roact.createElement("Frame", {
@@ -82,7 +82,7 @@ function TimelineTick:render()
 			BorderSizePixel = 0,
 			BackgroundColor3 = timelineTheme.lineColor,
 			BackgroundTransparency = highlight and timelineTheme.lowerBrightTransparency
-				or timelineTheme.lowerTransparency
+				or timelineTheme.lowerTransparency,
 		}),
 	})
 end

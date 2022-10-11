@@ -18,9 +18,8 @@ local Analytics = require(Util.Analytics.Analytics)
 local createMultipartFormDataBody = require(Util.createMultipartFormDataBody)
 
 local ConfigureItemTagsRequest = require(Plugin.Core.Networking.Requests.ConfigureItemTagsRequest)
-local UploadCatalogItemMeshPartFormatRequest = require(
-	Plugin.Core.Networking.Requests.UploadCatalogItemMeshPartFormatRequest
-)
+local UploadCatalogItemMeshPartFormatRequest =
+	require(Plugin.Core.Networking.Requests.UploadCatalogItemMeshPartFormatRequest)
 
 local function createConfigDataTable(nameWithoutExtension, assetTypeId, description)
 	return {
@@ -131,9 +130,8 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 		end
 
 		return SerializeInstances(instances, services.StudioAssetService):andThen(function(fileDataString)
-			local configDataBlob = networkInterface:jsonEncode(
-				createConfigDataTable(nameWithoutExtension, assetTypeId, description)
-			)
+			local configDataBlob =
+				networkInterface:jsonEncode(createConfigDataTable(nameWithoutExtension, assetTypeId, description))
 
 			local formBodyData = createMultipartFormDataBody({
 				{

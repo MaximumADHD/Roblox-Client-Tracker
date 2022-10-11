@@ -10,7 +10,7 @@ local ArgCheck = require(CorePackages.ArgCheck)
 local RobloxLocaleIdKey = require(CorePackages.Localization.RobloxLocaleIdKey)
 local LocalizationRoactContext = require(CorePackages.Localization.LocalizationRoactContext)
 local localizeStrings = require(CorePackages.Localization.localizeStrings)
-local useSignal = require(CorePackages.AppTempCommon.Hooks.useSignal)
+local useSignal = require(script.Parent.useSignal)
 
 type FormatTable = {any}
 

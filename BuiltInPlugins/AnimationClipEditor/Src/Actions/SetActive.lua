@@ -10,6 +10,6 @@ local Action = require(script.Parent.Action)
 
 return Action(script.Name, function(active)
 	return {
-		active = active
+		active = active,
 	}
 end)

@@ -48,37 +48,25 @@ local MessageBoxConfirm = "Confirm"
 
 local Colors = Framework.Style.Colors
 
-function WarningDialog:init()
-
-end
+function WarningDialog:init() end
 
 function WarningDialog:render()
 	local props = self.props
 	local localization = props.Localization
-	local title = props.Title or localization:getText("Dialog","DefaultTitle")
+	local title = props.Title or localization:getText("Dialog", "DefaultTitle")
 	local theme = props.Stylizer
 
 	local mediumFontSize = 20
-	local learnMoreLabelText = props.learnMoreLabel or localization:getText("FaceCapture","DefaultLearnMoreLabel")
+	local learnMoreLabelText = props.learnMoreLabel or localization:getText("FaceCapture", "DefaultLearnMoreLabel")
 	local titleText = props.TitleText
 	local titleTextFontSize = mediumFontSize
 	local titleTextFont = Enum.Font.SourceSansBold
-	local titleTextSize = GetTextSize(
-		titleText,
-		titleTextFontSize,
-		titleTextFont,
-		Vector2.new(TEXT_WIDTH, 1000)
-	)
+	local titleTextSize = GetTextSize(titleText, titleTextFontSize, titleTextFont, Vector2.new(TEXT_WIDTH, 1000))
 
 	local bodyText = props.BodyText
 	local bodyTextFontSize = mediumFontSize
 	local bodyTextFont = Enum.Font.SourceSans
-	local bodyTextSize = GetTextSize(
-		bodyText,
-		bodyTextFontSize,
-		bodyTextFont,
-		Vector2.new(TEXT_WIDTH, 1000)
-	)
+	local bodyTextSize = GetTextSize(bodyText, bodyTextFontSize, bodyTextFont, Vector2.new(TEXT_WIDTH, 1000))
 
 	local contentHeight = titleTextSize.Y + CONTENT_SPACING + bodyTextSize.Y
 	local defaultSize = Vector2.new(TEXT_WIDTH, contentHeight)
@@ -92,7 +80,7 @@ function WarningDialog:render()
 		ButtonHorizontalAlignment = Enum.HorizontalAlignment.Right,
 		MinContentSize = defaultSize,
 		Modal = true,
-	},{
+	}, {
 		Content = Roact.createElement(Pane, {
 			Layout = Enum.FillDirection.Vertical,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
@@ -125,19 +113,19 @@ function WarningDialog:render()
 		}),
 		LinkText = props.learnMoreUrl and Roact.createElement(LinkText, {
 			LayoutOrder = 3,
-			Text = learnMoreLabelText,	
+			Text = learnMoreLabelText,
 			TextYAlignment = Enum.TextYAlignment.Bottom,
-			OnClick = function()					
+			OnClick = function()
 				GuiService:OpenBrowserWindow(props.learnMoreUrl)
 			end,
 			Style = {
 				Font = Enum.Font.SourceSans,
-				TextColor =  Colors.Blue,
+				TextColor = Colors.Blue,
 				TextSize = 20,
 				ShowUnderline = true,
-			},	
+			},
 			Position = UDim2.new(0, 0, 0, 157),
-		}),					
+		}),
 	})
 end
 

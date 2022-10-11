@@ -48,7 +48,7 @@ return function()
 				PinnedParts = {},
 				Chain = {},
 				TreeArray = {},
-				OnTreeUpdated = function () end,
+				OnTreeUpdated = function() end,
 			}),
 		})
 	end

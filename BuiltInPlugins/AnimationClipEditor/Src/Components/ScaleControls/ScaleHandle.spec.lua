@@ -7,7 +7,7 @@ return function()
 
 	local function createTestScaleHandle()
 		return Roact.createElement(MockWrapper, {}, {
-			ScaleHandle = Roact.createElement(ScaleHandle)
+			ScaleHandle = Roact.createElement(ScaleHandle),
 		})
 	end
 
@@ -17,7 +17,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestScaleHandle(), container)
 		local frame = container:FindFirstChildOfClass("Frame")

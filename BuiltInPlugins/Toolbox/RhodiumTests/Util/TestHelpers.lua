@@ -54,7 +54,7 @@ function TestHelpers.createTestAsset(container, name, asset, mockProps)
 
 	local element = Roact.createElement(MockWrapper, mockProps or {}, {
 		Asset = Roact.createElement(Asset, {
-			assetId =  assetId,
+			assetId = assetId,
 			assetData = myAsset,
 			LayoutOrder = 1,
 			Selected = false,

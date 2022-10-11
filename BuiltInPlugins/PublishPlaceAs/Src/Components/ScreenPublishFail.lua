@@ -62,7 +62,7 @@ function ScreenPublishFail:didMount()
 		local function setStatus(contentId, status)
 			if self.isMounted then
 				self:setState({
-					assetFetchStatus = status
+					assetFetchStatus = status,
 				})
 			end
 		end
@@ -130,7 +130,8 @@ function ScreenPublishFail:render()
 			Position = UDim2.new(0.5, 0, 0.2, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
-			Image = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success and self.thumbnailUrl or theme.icons.thumbnailPlaceHolder,
+			Image = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success and self.thumbnailUrl
+				or theme.icons.thumbnailPlaceHolder,
 			BorderSizePixel = 0,
 		}),
 
@@ -154,24 +155,29 @@ function ScreenPublishFail:render()
 			Font = theme.failText.font,
 		}),
 
-		Retry = Roact.createElement(Button, if FFlagRemoveUILibraryButton then {
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			OnClick = onClick,
-			Position = UDim2.new(0.5, 0, 0.8, 0),
-			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
-			Style = "Round",
-			StyleModifier = if isPublishing then StyleModifier.Disabled else nil,
-			Text = localization:getText("Button", "Retry"),
-		} else {
-			Position = UDim2.new(0.5, 0, 0.8, 0),
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Style = theme.defaultButton,
-			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
-			Active = not isPublishing,
-			Name = localization:getText("Button", "Retry"),
-			TextSize = Constants.TEXT_SIZE,
-			OnClicked = onClick,
-		})
+		Retry = Roact.createElement(
+			Button,
+			if FFlagRemoveUILibraryButton
+				then {
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					OnClick = onClick,
+					Position = UDim2.new(0.5, 0, 0.8, 0),
+					Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+					Style = "Round",
+					StyleModifier = if isPublishing then StyleModifier.Disabled else nil,
+					Text = localization:getText("Button", "Retry"),
+				}
+				else {
+					Position = UDim2.new(0.5, 0, 0.8, 0),
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Style = theme.defaultButton,
+					Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+					Active = not isPublishing,
+					Name = localization:getText("Button", "Retry"),
+					TextSize = Constants.TEXT_SIZE,
+					OnClicked = onClick,
+				}
+		),
 	})
 end
 
@@ -184,10 +190,10 @@ ScreenPublishFail = withContext({
 local function mapStateToProps(state, props)
 	local publishInfo = state.PublishedPlace.publishInfo
 	return {
-        Id = publishInfo.id,
-        Name = publishInfo.name,
-        ParentGameName = publishInfo.parentGameName,
-        ParentGameId = publishInfo.parentGameId,
+		Id = publishInfo.id,
+		Name = publishInfo.name,
+		ParentGameName = publishInfo.parentGameName,
+		ParentGameId = publishInfo.parentGameId,
 		Settings = publishInfo.settings,
 		IsPublishing = state.PublishedPlace.isPublishing,
 		PublishParameters = publishInfo.publishParameters,
@@ -197,7 +203,7 @@ end
 local function useDispatchForProps(dispatch)
 	return {
 		OpenPublishSuccessfulPage = function(id, name, parentGameName)
-			dispatch(SetPublishInfo({ id = id, name = name, parentGameName = parentGameName, }))
+			dispatch(SetPublishInfo({ id = id, name = name, parentGameName = parentGameName }))
 			dispatch(SetScreen(Constants.SCREENS.PUBLISH_SUCCESSFUL))
 		end,
 

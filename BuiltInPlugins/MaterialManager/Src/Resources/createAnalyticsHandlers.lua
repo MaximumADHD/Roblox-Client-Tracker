@@ -6,10 +6,6 @@ local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
 local HttpService = game:GetService("HttpService")
 
-local getFFlagMaterialManagerTextureMapOverhaul = require(
-	Plugin.Src.Flags.getFFlagMaterialManagerTextureMapOverhaul
-)
-
 -- New Plugin Setup: Change this to the analytics context name for your plugin
 local pluginAnalyticsContext = "MaterialManager"
 
@@ -73,11 +69,9 @@ return function(analyticsService)
 			_reportCounter("UploadTextureMap")
 		end,
 
-		uploadTextureMapSuccess = if getFFlagMaterialManagerTextureMapOverhaul() then 
-			function()
-				_reportCounter("UploadTextureMapSuccess")
-			end
-		else nil,
+		uploadTextureMapSuccess = function()
+			_reportCounter("UploadTextureMapSuccess")
+		end,
 
 		-- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 		editMaterialVariantAndSave = function()
@@ -122,11 +116,9 @@ return function(analyticsService)
 			_reportCounter("UploadTextureMapError")
 		end,
 
-		uploadFromURLTextureMapError = if getFFlagMaterialManagerTextureMapOverhaul() then
-			function()
-				_reportCounter("UploadFromURLTextureMapError")
-			end
-		else nil,
+		uploadFromURLTextureMapError = function()
+			_reportCounter("UploadFromURLTextureMapError")
+		end,
 
 		uploadTextureMapFromFileError = function()
 			_reportCounter("UploadTextureMapFromFileError")

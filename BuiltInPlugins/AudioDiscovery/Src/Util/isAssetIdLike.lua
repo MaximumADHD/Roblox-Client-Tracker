@@ -13,7 +13,7 @@ return function(assetId: string): boolean
 	end
 
 	local firstDigit = string.sub(assetId, 1, 1)
-	if not string.find(assetId, "[^"..firstDigit.."]") then
+	if not string.find(assetId, "[^" .. firstDigit .. "]") then
 		-- All same digit
 		return false
 	end

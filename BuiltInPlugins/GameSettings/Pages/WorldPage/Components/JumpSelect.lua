@@ -56,7 +56,7 @@ function JumpSelect:render()
 	local mouse = props.Mouse:get()
 	local worldRootPhysicsController = props.WorldRootPhysics:get()
 
-	local padding  = UDim.new(0, 10)
+	local padding = UDim.new(0, 10)
 	local rowHeight = 20
 
 	return Roact.createElement("Frame", {
@@ -66,10 +66,12 @@ function JumpSelect:render()
 	}, {
 		JumpSelect = Roact.createElement(StudioWidgetRadioButtonSet, {
 			Title = localization:getText("General", "TitleJump"),
-			Buttons = {{
+			Buttons = {
+				{
 					Id = false,
 					Title = localization:getText("General", "JumpHeight"),
-				}, {
+				},
+				{
 					Id = true,
 					Title = localization:getText("General", "JumpPower"),
 				},
@@ -83,7 +85,7 @@ function JumpSelect:render()
 		}),
 
 		JumpInput = Roact.createElement("Frame", {
-			Position = UDim2.new(0, TITLED_FRAME_GUTTER_WIDTH+INPUT_BOX_OFFSET, 0, 0),
+			Position = UDim2.new(0, TITLED_FRAME_GUTTER_WIDTH + INPUT_BOX_OFFSET, 0, 0),
 			BackgroundTransparency = 1,
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
@@ -91,8 +93,8 @@ function JumpSelect:render()
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 
-			JumpHeightInputBox = (if FFlagRemoveUILibraryRoundTextBox then
-				Roact.createElement(TextInput2, {
+			JumpHeightInputBox = (if FFlagRemoveUILibraryRoundTextBox
+				then Roact.createElement(TextInput2, {
 					Disabled = useJumpPower,
 					LayoutOrder = 1,
 					OnFocusLost = function()
@@ -106,8 +108,7 @@ function JumpSelect:render()
 					Size = UDim2.fromOffset(150, rowHeight),
 					Text = formatNumberForDisplay(jumpHeight),
 				})
-			else
-				Roact.createElement(StudioWidgetRoundTextBox, {
+				else Roact.createElement(StudioWidgetRoundTextBox, {
 					ShowToolTip = false,
 					Enabled = not useJumpPower,
 					ShowTextWhenDisabled = true,
@@ -131,11 +132,10 @@ function JumpSelect:render()
 						newValue = tonumber(newValue) or 0
 						setJumpHeight(newValue)
 					end,
-				})
-			),
+				})),
 
-			JumpPowerInputBox = (if FFlagRemoveUILibraryRoundTextBox then
-				Roact.createElement(TextInput2, {
+			JumpPowerInputBox = (if FFlagRemoveUILibraryRoundTextBox
+				then Roact.createElement(TextInput2, {
 					Disabled = not useJumpPower,
 					LayoutOrder = 2,
 					OnFocusLost = function()
@@ -149,8 +149,7 @@ function JumpSelect:render()
 					Size = UDim2.new(0, 150, 0, rowHeight),
 					Text = formatNumberForDisplay(jumpPower),
 				})
-			else
-				Roact.createElement(StudioWidgetRoundTextBox, {
+				else Roact.createElement(StudioWidgetRoundTextBox, {
 					ShowToolTip = false,
 					Enabled = useJumpPower,
 					ShowTextWhenDisabled = true,
@@ -174,12 +173,11 @@ function JumpSelect:render()
 						newValue = tonumber(newValue) or 0
 						setJumpPower(newValue)
 					end,
-				})
-			),
+				})),
 		}),
 
 		MetricLabels = Roact.createElement("Frame", {
-			Position = UDim2.new(0, TITLED_FRAME_GUTTER_WIDTH+INPUT_BOX_OFFSET+METRIC_LABEL_OFFSET, 0, 0),
+			Position = UDim2.new(0, TITLED_FRAME_GUTTER_WIDTH + INPUT_BOX_OFFSET + METRIC_LABEL_OFFSET, 0, 0),
 			BackgroundTransparency = 1,
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
@@ -190,20 +188,20 @@ function JumpSelect:render()
 			JumpHeightMetricLabel = Roact.createElement(StudioWidgetText, {
 				Enabled = not useJumpPower,
 				Size = UDim2.new(1, 0, 0, rowHeight),
-				Text = localization:getText("General", "UnitsMeters1",
-					{formatNumberForDisplay(worldRootPhysicsController.convertStudsToMeters(jumpHeight))})
-			})
+				Text = localization:getText(
+					"General",
+					"UnitsMeters1",
+					{ formatNumberForDisplay(worldRootPhysicsController.convertStudsToMeters(jumpHeight)) }
+				),
+			}),
 		}),
 	})
 end
-
 
 JumpSelect = withContext({
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 	WorldRootPhysics = WorldRootPhysics,
 })(JumpSelect)
-
-
 
 return JumpSelect

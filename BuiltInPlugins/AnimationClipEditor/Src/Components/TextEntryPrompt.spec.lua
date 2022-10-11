@@ -15,7 +15,7 @@ return function()
 				InputText = inputText,
 				NoticeText = noticeText,
 				Buttons = {
-					{Key = "Test", Text = "Test"},
+					{ Key = "Test", Text = "Test" },
 				},
 			}),
 		})

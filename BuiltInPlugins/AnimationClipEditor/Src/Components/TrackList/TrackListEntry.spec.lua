@@ -13,7 +13,7 @@ return function()
 				DoShade = false,
 				Expanded = false,
 				Height = 10,
-			}, children)
+			}, children),
 		})
 	end
 
@@ -23,7 +23,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestTrackListEntry(), container)
 		local frame = container:FindFirstChildOfClass("Frame")
@@ -33,11 +33,14 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render its children", function ()
+	it("should render its children", function()
 		local container = Instance.new("Folder")
-		local instance = Roact.mount(createTestTrackListEntry({
-			ChildFrame = Roact.createElement("Frame"),
-		}), container)
+		local instance = Roact.mount(
+			createTestTrackListEntry({
+				ChildFrame = Roact.createElement("Frame"),
+			}),
+			container
+		)
 		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame).to.be.ok()

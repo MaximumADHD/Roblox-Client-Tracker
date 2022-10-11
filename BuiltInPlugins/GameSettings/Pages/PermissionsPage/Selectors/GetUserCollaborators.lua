@@ -12,11 +12,11 @@ return function(state)
 		local userName = permission[PermissionsConstants.SubjectNameKey]
 
 		if not IsUserOwner(state, userId) then
-			table.insert(users, {Name = userName, Id = userId})
+			table.insert(users, { Name = userName, Id = userId })
 		end
 	end
 
-	table.sort(users, function(a,b)
+	table.sort(users, function(a, b)
 		return a.Name < b.Name
 	end)
 

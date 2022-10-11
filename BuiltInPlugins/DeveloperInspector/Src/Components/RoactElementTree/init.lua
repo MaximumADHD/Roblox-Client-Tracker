@@ -33,12 +33,11 @@ local ToggleInstance = require(Actions.RoactInspector.ToggleInstance)
 local RoactElementTree = Roact.PureComponent:extend("RoactElementTree")
 
 function RoactElementTree:init()
-
 	self.onToggleInstance = function(row)
 		local item = row.item
 		local shouldExpand = not self.props.Expansion[item]
 		self.props.toggleInstance({
-			[item] = shouldExpand
+			[item] = shouldExpand,
 		})
 		-- Get the latest children for the toggled node
 		if shouldExpand then
@@ -56,7 +55,7 @@ function RoactElementTree:init()
 			self.onToggleInstance(row)
 		end
 		self.props.selectInstance({
-			[item] = true
+			[item] = true,
 		})
 		-- Get the branch nodes for the selected one
 		local inspector = self.props.Inspector:get()
@@ -129,7 +128,7 @@ function RoactElementTree:init()
 				Flash = flash,
 				IsExpanded = self.props.Expansion[row.item],
 				IsSelected = self.props.Selection[row.item],
-				Style = style
+				Style = style,
 			})
 		end
 	end
@@ -161,27 +160,24 @@ end
 
 RoactElementTree = withContext({
 	Stylizer = ContextServices.Stylizer,
-	Inspector = InspectorContext
+	Inspector = InspectorContext,
 })(RoactElementTree)
 
-return RoactRodux.connect(
-	function(state, props)
-		return {
-			SelectedNodeIndex = state.RoactInspector.selectedNodeIndex,
-			RootInstance = state.RoactInspector.rootInstance,
-			Flash = state.RoactInspector.flashInstances,
-			Selection = state.RoactInspector.selectedInstances,
-			Expansion = state.RoactInspector.expandedInstances
-		}
-	end,
-	function(dispatch)
-		return {
-			selectInstance = function(change)
-				dispatch(SelectInstance(change))
-			end,
-			toggleInstance = function(change)
-				dispatch(ToggleInstance(change))
-			end,
-		}
-	end
-)(RoactElementTree)
+return RoactRodux.connect(function(state, props)
+	return {
+		SelectedNodeIndex = state.RoactInspector.selectedNodeIndex,
+		RootInstance = state.RoactInspector.rootInstance,
+		Flash = state.RoactInspector.flashInstances,
+		Selection = state.RoactInspector.selectedInstances,
+		Expansion = state.RoactInspector.expandedInstances,
+	}
+end, function(dispatch)
+	return {
+		selectInstance = function(change)
+			dispatch(SelectInstance(change))
+		end,
+		toggleInstance = function(change)
+			dispatch(ToggleInstance(change))
+		end,
+	}
+end)(RoactElementTree)

@@ -8,17 +8,17 @@ return function()
 	it("should create and destroy without errors", function()
 		local mockServiceWrapper = Roact.createElement(MockServiceWrapper, {}, {
 			RadioButtonSet = Roact.createElement(RadioButtonSet, {
-                Title = "testTitle",
-                Description = "testDesc",
-                LayoutOrder = 10,
-                Buttons = {
-                    {
-                        Id = "Test",
-                        Title = "Title",
-                        Description = "Desc",
-                    },
-                },
-                Enabled = true,
+				Title = "testTitle",
+				Description = "testDesc",
+				LayoutOrder = 10,
+				Buttons = {
+					{
+						Id = "Test",
+						Title = "Title",
+						Description = "Desc",
+					},
+				},
+				Enabled = true,
 			}),
 		})
 		local instance = Roact.mount(mockServiceWrapper)

@@ -8,7 +8,7 @@ return function()
 
 	it("should create and destroy without errors", function()
 		local element = provideMockContextForGameSettings(nil, {
-			table = Roact.createElement(TableWithMenu,{
+			table = Roact.createElement(TableWithMenu, {
 				Headers = {
 					"Company",
 					"Location",
@@ -23,11 +23,11 @@ return function()
 							"San Mateo",
 							"750",
 						},
-					}
+					},
 				},
 
 				MenuItems = {
-					{Key = "DetailsKey", Text = "View Details"},
+					{ Key = "DetailsKey", Text = "View Details" },
 				},
 			}),
 		})

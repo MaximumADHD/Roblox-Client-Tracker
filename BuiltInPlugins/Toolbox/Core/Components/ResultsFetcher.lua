@@ -2,7 +2,6 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
 local Packages = Plugin.Packages
 
-local FFlagToolboxFixAssetsNoVoteData2 = game:GetFastFlag("ToolboxFixAssetsNoVoteData2")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 
 local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
@@ -24,7 +23,7 @@ local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 
 local Actions = Plugin.Core.Actions
 local GetAssets = require(Actions.GetAssets)
-local GetAssetsVotingData = FFlagToolboxFixAssetsNoVoteData2 and require(Actions.GetAssetsVotingData)
+local GetAssetsVotingData = require(Actions.GetAssetsVotingData)
 
 local ResultsFetcher = Roact.PureComponent:extend("ResultsFetcher")
 
@@ -227,7 +226,7 @@ function ResultsFetcher:fetchResults(args: { pageSize: number?, initialPage: boo
 			stateUpdate.total = args.initialPage and assetIdsResponse.responseBody.totalResults or nil
 			stateUpdate.nextPageCursor = assetIdsResponse.responseBody.nextPageCursor
 			stateUpdate.fetchNextPage = self.fetchNextPage
-			if FFlagToolboxFixAssetsNoVoteData2 and self.props.dispatchGetAssetsVotingData then
+			if self.props.dispatchGetAssetsVotingData then
 				self.props.dispatchGetAssetsVotingData(stateUpdate.assets)
 			end
 
@@ -253,48 +252,32 @@ function ResultsFetcher:render()
 	return self.props.render(self.state)
 end
 
-if FFlagToolboxFixAssetsNoVoteData2 then
-	local ResultsFetcherRoduxWrapper = Roact.PureComponent:extend("ResultsFetcherRoduxWrapper")
+local ResultsFetcherRoduxWrapper = Roact.PureComponent:extend("ResultsFetcherRoduxWrapper")
 
-	function ResultsFetcherRoduxWrapper:render()
-		return Roact.createElement(ResultsFetcher, self.props)
-	end
+function ResultsFetcherRoduxWrapper:render()
+	return Roact.createElement(ResultsFetcher, self.props)
+end
 
-	local function mapDispatchToProps(dispatch)
-		return {
-			dispatchGetAssetsVotingData = function(assetResults)
-				dispatch(GetAssetsVotingData(assetResults))
-			end,
-		}
-	end
-
-	function TypedResultsFetcher(props: ResultsFetcherProps, children: any?)
-		return Roact.createElement(ResultsFetcherRoduxWrapper, props, children)
-	end
-
-	function NoRoduxTypedResultsFetcher(props: ResultsFetcherProps, children: any?)
-		return Roact.createElement(ResultsFetcher, props, children)
-	end
-
-	ResultsFetcherRoduxWrapper = RoactRodux.connect(nil, mapDispatchToProps)(ResultsFetcherRoduxWrapper)
-
+local function mapDispatchToProps(dispatch)
 	return {
-		Component = ResultsFetcher,
-		Generator = TypedResultsFetcher,
-		NoRoduxGenerator = NoRoduxTypedResultsFetcher,
-	}
-else
-	function NoRoduxTypedResultsFetcher(props: ResultsFetcherProps, children: any?)
-		return nil
-	end
-
-	function TypedResultsFetcher(props: ResultsFetcherProps, children: any?)
-		return Roact.createElement(ResultsFetcher, props, children)
-	end
-
-	return {
-		Component = ResultsFetcher,
-		Generator = TypedResultsFetcher,
-		NoRoduxGenerator = NoRoduxTypedResultsFetcher,
+		dispatchGetAssetsVotingData = function(assetResults)
+			dispatch(GetAssetsVotingData(assetResults))
+		end,
 	}
 end
+
+function TypedResultsFetcher(props: ResultsFetcherProps, children: any?)
+	return Roact.createElement(ResultsFetcherRoduxWrapper, props, children)
+end
+
+function NoRoduxTypedResultsFetcher(props: ResultsFetcherProps, children: any?)
+	return Roact.createElement(ResultsFetcher, props, children)
+end
+
+ResultsFetcherRoduxWrapper = RoactRodux.connect(nil, mapDispatchToProps)(ResultsFetcherRoduxWrapper)
+
+return {
+	Component = ResultsFetcher,
+	Generator = TypedResultsFetcher,
+	NoRoduxGenerator = NoRoduxTypedResultsFetcher,
+}

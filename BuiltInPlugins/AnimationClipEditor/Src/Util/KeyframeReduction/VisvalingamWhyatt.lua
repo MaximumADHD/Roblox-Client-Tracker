@@ -20,7 +20,7 @@ local Types = require(Parent.Types)
         area = <area of the triangle whose "central" summit is vertex
     }
 ]]
-return function(vertices: { Types.VectorN }): {number}
+return function(vertices: { Types.VectorN }): { number }
 	if #vertices < 3 then
 		local ticks = {}
 		for _, vertex in vertices do

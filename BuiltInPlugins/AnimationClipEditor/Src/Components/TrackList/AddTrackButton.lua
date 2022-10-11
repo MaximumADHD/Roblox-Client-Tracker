@@ -118,7 +118,7 @@ function AddTrackButton:makeFacialAnimationRegionSubMenu(localization)
 			if facsTree[region] then
 				table.insert(items, {
 					Name = localization:getText("Menu", region),
-					Items = self:makeFacialAnimationControlSubMenu(facsTree[region])
+					Items = self:makeFacialAnimationControlSubMenu(facsTree[region]),
 				})
 			end
 		end

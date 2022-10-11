@@ -5,15 +5,23 @@ local Framework = require(Plugin.Packages.Framework)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateExpandableList = SharedFlags.getFFlagDevFrameworkMigrateExpandableList()
+
+local UILibrary
+if not FFlagDevFrameworkMigrateExpandableList then
+	UILibrary = require(Plugin.Packages.UILibrary)
+end
 local UI = Framework.UI
+local ExpandablePane = if FFlagDevFrameworkMigrateExpandableList
+	then UI.ExpandablePane
+	else UILibrary.Component.ExpandableList
 local Pane = UI.Pane
 local Separator = UI.Separator
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local UILibrary = require(Plugin.Packages.UILibrary)
-local ExpandableList = UILibrary.Component.ExpandableList
 local Spritesheet = Framework.Util.Spritesheet
 
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
@@ -84,7 +92,7 @@ function GroupCollaboratorItem:getAvailablePermissions()
 				Key = PermissionsConstants.PlayKey,
 				Display = localization:getText(PERMISSIONS, "PlayLabel"),
 				Description = localization:getText(PERMISSIONS, "PlayDescription"),
-			}
+			},
 		}
 	end
 end
@@ -116,12 +124,12 @@ function GroupCollaboratorItem:render()
 
 	local children = {}
 	for i, rolesetId in ipairs(groupRolesets) do
-		children["Separator"..i] = Roact.createElement(Separator, {
-			LayoutOrder = i*2 - 1,
+		children["Separator" .. i] = Roact.createElement(Separator, {
+			LayoutOrder = i * 2 - 1,
 		})
 
-		children["RolesetCollaborator"..rolesetId] = Roact.createElement(RolesetCollaboratorItem, {
-			LayoutOrder = i*2,
+		children["RolesetCollaborator" .. rolesetId] = Roact.createElement(RolesetCollaboratorItem, {
+			LayoutOrder = i * 2,
 			Id = rolesetId,
 			Writable = writable,
 			CurrentPermission = DEFAULT_ROLESET_VALUE,
@@ -155,52 +163,77 @@ function GroupCollaboratorItem:render()
 		end,
 	})
 
-	return Roact.createElement(ExpandableList, {
-		LayoutOrder = layoutOrder,
+	return Roact.createElement(
+		ExpandablePane,
+		if FFlagDevFrameworkMigrateExpandableList
+			then {
+				Expanded = self.state.expanded and not isLoading,
+				HeaderComponent = function()
+					return groupCollaboratorItem
+				end,
+				LayoutOrder = layoutOrder,
+				OnExpandedChanged = function()
+					if isLoading then
+						return
+					end
+					self:setState({
+						expanded = not self.state.expanded,
+					})
+				end,
+			}
+			else {
+				LayoutOrder = layoutOrder,
 
-		TopLevelItem = {
-			Frame = Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				LayoutOrder = 0,
-				-- TODO (awarwick) 5/29/2019. We're using hardcoded sizes now because this design is a WIP
-				-- and we don't want to spend the engineering resources on somethat that could drastically change
-				Size = UDim2.new(1, 0, 0, 60),
-			}, {
-				CollapseArrow = Roact.createElement("ImageLabel", Cryo.Dictionary.join(arrowImageProps, {
-					Size = UDim2.new(0, arrowSize, 0, arrowSize),
-					AnchorPoint = Vector2.new(0, 0.5),
-					Position = UDim2.new(0, 0, 0.5, 0),
-					BackgroundTransparency = 1,
-					ImageColor3 = theme.collaboratorItem.collapseStateArrow,
-				})),
+				TopLevelItem = {
+					Frame = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						LayoutOrder = 0,
+						-- TODO (awarwick) 5/29/2019. We're using hardcoded sizes now because this design is a WIP
+						-- and we don't want to spend the engineering resources on somethat that could drastically change
+						Size = UDim2.new(1, 0, 0, 60),
+					}, {
+						CollapseArrow = Roact.createElement(
+							"ImageLabel",
+							Cryo.Dictionary.join(arrowImageProps, {
+								Size = UDim2.new(0, arrowSize, 0, arrowSize),
+								AnchorPoint = Vector2.new(0, 0.5),
+								Position = UDim2.new(0, 0, 0.5, 0),
+								BackgroundTransparency = 1,
+								ImageColor3 = theme.collaboratorItem.collapseStateArrow,
+							})
+						),
 
-				Frame = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.new(1, -collaboratorItemOffset, 1, 0),
-					Position = UDim2.new(0, collaboratorItemOffset, 0, 0),
-				}, {
-					GroupCollaborator = groupCollaboratorItem,
-				}),
-			}),
-		},
+						Frame = Roact.createElement("Frame", {
+							BackgroundTransparency = 1,
+							Size = UDim2.new(1, -collaboratorItemOffset, 1, 0),
+							Position = UDim2.new(0, collaboratorItemOffset, 0, 0),
+						}, {
+							GroupCollaborator = groupCollaboratorItem,
+						}),
+					}),
+				},
 
-		Content = {
-			RoleCollaborators = Roact.createElement(Pane, {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-				LayoutOrder = 1,
-				Layout = Enum.FillDirection.Vertical,
-			}, children)
-		},
+				Content = {
+					RoleCollaborators = Roact.createElement(Pane, {
+						AutomaticSize = Enum.AutomaticSize.Y,
+						HorizontalAlignment = Enum.HorizontalAlignment.Left,
+						LayoutOrder = 1,
+						Layout = Enum.FillDirection.Vertical,
+					}, children),
+				},
 
-		IsExpanded = self.state.expanded and not isLoading,
-		OnExpandedStateChanged = function()
-			if isLoading then return end
-			self:setState({
-				expanded = not self.state.expanded,
-			})
-		end,
-	})
+				IsExpanded = self.state.expanded and not isLoading,
+				OnExpandedStateChanged = function()
+					if isLoading then
+						return
+					end
+					self:setState({
+						expanded = not self.state.expanded,
+					})
+				end,
+			},
+		if FFlagDevFrameworkMigrateExpandableList then children else nil
+	)
 end
 
 GroupCollaboratorItem = withContext({
@@ -208,29 +241,26 @@ GroupCollaboratorItem = withContext({
 	Localization = ContextServices.Localization,
 })(GroupCollaboratorItem)
 
-GroupCollaboratorItem = RoactRodux.connect(
-	function(state, props)
-		local groupName = GetGroupName(state, props.Id)
+GroupCollaboratorItem = RoactRodux.connect(function(state, props)
+	local groupName = GetGroupName(state, props.Id)
 
-		if groupName then
-			return {
-				IsOwner = IsGroupOwner(state, props.Id),
-				GroupRolesets = GetGroupRolesets(state, props.Id),
-				GroupName = groupName,
-				CurrentPermission = GetGroupPermission(state, props.Id),
-			}
-		end
-	end,
-	function(dispatch)
+	if groupName then
 		return {
-			SetGroupPermission = function(...)
-				dispatch(SetGroupPermission(...))
-			end,
-			RemoveGroupCollaborator = function(...)
-				dispatch(RemoveGroupCollaborator(...))
-			end,
+			IsOwner = IsGroupOwner(state, props.Id),
+			GroupRolesets = GetGroupRolesets(state, props.Id),
+			GroupName = groupName,
+			CurrentPermission = GetGroupPermission(state, props.Id),
 		}
 	end
-)(GroupCollaboratorItem)
+end, function(dispatch)
+	return {
+		SetGroupPermission = function(...)
+			dispatch(SetGroupPermission(...))
+		end,
+		RemoveGroupCollaborator = function(...)
+			dispatch(RemoveGroupCollaborator(...))
+		end,
+	}
+end)(GroupCollaboratorItem)
 
 return GroupCollaboratorItem

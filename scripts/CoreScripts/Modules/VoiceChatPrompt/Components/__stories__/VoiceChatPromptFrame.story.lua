@@ -1,7 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 
 local Roact = require(CorePackages.Packages.Roact)
-local Signal = require(CorePackages.AppTempCommon.Common.Signal)
+local Signal = require(CorePackages.Workspace.Packages.AppCommonLib).Signal
 
 local VoiceChatPromptFrame = require(script.Parent.Parent.VoiceChatPromptFrame)
 local VoiceChatPromptType = require(script.Parent.Parent.Parent.PromptType)

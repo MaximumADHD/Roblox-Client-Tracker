@@ -20,7 +20,7 @@ return function(playbackSpeed)
 			if isPlaying then
 				local playbackStartInfo = {
 					startTime = tick(),
-					startPlayhead = store:getState().Status.Playhead
+					startPlayhead = store:getState().Status.Playhead,
 				}
 				store:dispatch(SetPlaybackStartInfo(playbackStartInfo))
 			end

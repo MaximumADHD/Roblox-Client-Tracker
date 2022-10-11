@@ -45,7 +45,7 @@ function AssetsPanel:render()
 
 		[Roact.Change.AbsoluteContentSize] = function(rbx)
 			self.frameRef.current.Size = UDim2.new(1, 0, 0, rbx.AbsoluteContentSize.y)
-		end
+		end,
 	})
 
 	local props = self.props
@@ -54,26 +54,21 @@ function AssetsPanel:render()
 	createRowsForBodyParts(self, children, layoutOrder, localization)
 	createRowsForClothes(self, children, layoutOrder, localization)
 	return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BorderSizePixel = 0,
-			BackgroundColor3 = StateInterfaceTheme.getBackgroundColor(self.props),
-			LayoutOrder = (function()
-				return self.props.LayoutOrder
-			end)(),
+		Size = UDim2.new(1, 0, 1, 0),
+		BorderSizePixel = 0,
+		BackgroundColor3 = StateInterfaceTheme.getBackgroundColor(self.props),
+		LayoutOrder = (function()
+			return self.props.LayoutOrder
+		end)(),
 
-			[Roact.Ref] = self.frameRef,
-		},
-		children
-	)
+		[Roact.Ref] = self.frameRef,
+	}, children)
 end
-
 
 AssetsPanel = withContext({
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 })(AssetsPanel)
-
-
 
 local createInputRow = function(self, label, assetTypeId, layoutOrderIterator)
 	local template = StateInterfaceTemplates.getStateModelTemplate(self.props)
@@ -90,7 +85,8 @@ local createInputRow = function(self, label, assetTypeId, layoutOrderIterator)
 		PlayerChoice = playerChoice,
 		IsEnabled = self.props.IsEnabled,
 		ErrorMessage = (function()
-			local errorLocalizationKey = self.props.AssetOverrideErrors and self.props.AssetOverrideErrors[assetTypeId] or nil
+			local errorLocalizationKey = self.props.AssetOverrideErrors and self.props.AssetOverrideErrors[assetTypeId]
+				or nil
 			return errorLocalizationKey and localization:getText("General", "Error" .. errorLocalizationKey)
 		end)(),
 		Mouse = self.props.Mouse,
@@ -111,12 +107,12 @@ local createInputRow = function(self, label, assetTypeId, layoutOrderIterator)
 			local newTemplateModel = StateModelTemplate.makeCopy(template)
 			newTemplateModel:setAsset(assetTypeId, nil, if FFlagDevFrameworkMigrateToggleButton then not val else val)
 			self.props.clobberTemplate(self.props.template, newTemplateModel)
-		end
+		end,
 	})
 end
 
 local function createRowsForAssets(self, tableToPopulate, layoutOrder, sectionTitle, inputRowsData)
-	tableToPopulate[sectionTitle.."Separator"] = Roact.createElement(DividerRow, {
+	tableToPopulate[sectionTitle .. "Separator"] = Roact.createElement(DividerRow, {
 		ThemeData = self.props.ThemeData,
 		LayoutOrder = layoutOrder:getNextOrder(),
 	})
@@ -144,7 +140,7 @@ createRowsForBodyParts = function(self, tableToPopulate, layoutOrder, localized)
 		{ localized:getText("General", "PartLeftArm"), ConstantAvatar.AssetTypes.LeftArm },
 		{ localized:getText("General", "PartRightArm"), ConstantAvatar.AssetTypes.RightArm },
 		{ localized:getText("General", "PartLeftLeg"), ConstantAvatar.AssetTypes.LeftLeg },
-		{ localized:getText("General", "PartRightLeg"), ConstantAvatar.AssetTypes.RightLeg }
+		{ localized:getText("General", "PartRightLeg"), ConstantAvatar.AssetTypes.RightLeg },
 	}
 
 	createRowsForAssets(self, tableToPopulate, layoutOrder, bodyPartsTitle, inputRowsData)
@@ -155,7 +151,7 @@ createRowsForClothes = function(self, tableToPopulate, layoutOrder, localized)
 	local inputRowsData = {
 		{ localized:getText("General", "ClothingTShirt"), ConstantAvatar.AssetTypes.ShirtGraphic },
 		{ localized:getText("General", "ClothingShirt"), ConstantAvatar.AssetTypes.Shirt },
-		{ localized:getText("General", "ClothingPants"), ConstantAvatar.AssetTypes.Pants }
+		{ localized:getText("General", "ClothingPants"), ConstantAvatar.AssetTypes.Pants },
 	}
 
 	createRowsForAssets(self, tableToPopulate, layoutOrder, clothingTitle, inputRowsData)

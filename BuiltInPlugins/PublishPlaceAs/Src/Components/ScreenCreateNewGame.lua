@@ -21,7 +21,9 @@ local FFlagDevFrameworkMigrateScrollingFrame = SharedFlags.getFFlagDevFrameworkM
 local UILibrary = require(Plugin.Packages.UILibrary)
 
 local UI = Framework.UI
-local ScrollingFrame = if FFlagDevFrameworkMigrateScrollingFrame then UI.ScrollingFrame else UILibrary.Component.StyledScrollingFrame
+local ScrollingFrame = if FFlagDevFrameworkMigrateScrollingFrame
+	then UI.ScrollingFrame
+	else UILibrary.Component.StyledScrollingFrame
 
 local SettingsImpl = require(Plugin.Src.Network.Requests.SettingsImpl)
 
@@ -93,7 +95,7 @@ end
 
 function ScreenCreateNewGame:didMount()
 	self.finishedConnection = StudioPublishService.GamePublishFinished:connect(function(success, gameId)
-		if success and gameId ~=0 then
+		if success and gameId ~= 0 then
 			self.props.OpenPublishSuccessfulPage(self.props.Changed)
 		else
 			self.props.OpenPublishFailPage(self.props.Changed)
@@ -128,7 +130,7 @@ function ScreenCreateNewGame:render()
 	local canScroll = false
 
 	local actionButtonLabel = nil
-	if isPublish then 
+	if isPublish then
 		actionButtonLabel = "Create"
 	else
 		actionButtonLabel = "Save"
@@ -148,26 +150,28 @@ function ScreenCreateNewGame:render()
 			DominantAxis = Enum.DominantAxis.Height,
 		}),
 
-		Page = if not canScroll then Roact.createElement("Frame", {
-			BackgroundTransparency = 1,
-			Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0, 0),
-			Size = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, -theme.FOOTER_HEIGHT)
-		}, {
-			Roact.createElement(BasicInfo, {
-				IsPublish = isPublish,
+		Page = if not canScroll
+			then Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0, 0),
+				Size = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, -theme.FOOTER_HEIGHT),
+			}, {
+				Roact.createElement(BasicInfo, {
+					IsPublish = isPublish,
+				}),
+			})
+			else Roact.createElement(ScrollingFrame, {
+				BackgroundTransparency = if FFlagDevFrameworkMigrateScrollingFrame then nil else 1,
+				Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0, 0),
+				Size = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, -theme.FOOTER_HEIGHT),
+				CanvasSize = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, 0),
+				AutomaticCanvasSize = Enum.AutomaticSize.Y,
+				[Roact.Ref] = self.scrollingFrameRef,
+			}, {
+				Roact.createElement(BasicInfo, {
+					IsPublish = isPublish,
+				}),
 			}),
-		}) else Roact.createElement(ScrollingFrame, {
-			BackgroundTransparency = if FFlagDevFrameworkMigrateScrollingFrame then nil else 1,
-			Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0, 0),
-			Size = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, -theme.FOOTER_HEIGHT),
-			CanvasSize = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, 0),
-			AutomaticCanvasSize = Enum.AutomaticSize.Y,
-			[Roact.Ref] = self.scrollingFrameRef,
-		}, {
-			Roact.createElement(BasicInfo, {
-				IsPublish = isPublish,
-			}),
-		}),
 
 		Footer = Roact.createElement(Footer, {
 			MainButton = {
@@ -185,7 +189,12 @@ function ScreenCreateNewGame:render()
 								[optInLocationsKey] = chinaKey,
 								[selectedKey] = false,
 							}
-							sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, createNewGameKey, points)
+							sendAnalyticsToKibana(
+								seriesNameKey,
+								FIntLuobuDevPublishAnalyticsHundredthsPercentage,
+								createNewGameKey,
+								points
+							)
 						end
 
 						dispatchSetIsPublishing(true)
@@ -198,21 +207,23 @@ function ScreenCreateNewGame:render()
 			NextScreenText = nextScreenText,
 			IsPublish = isPublish,
 		}, {
-			EmailDialog = Roact.createElement(TextInputDialog,
-			{
+			EmailDialog = Roact.createElement(TextInputDialog, {
 				Enabled = self.state.showEmailDialog,
 				Size = Vector2.new(theme.emailDialog.Size.X, theme.emailDialog.Size.Y),
 				Title = localization:getText(optInLocationsKey, "EmailDialogHeader"),
 				Header = localization:getText(optInLocationsKey, "EmailDialogHeader"),
 				Buttons = {
-					{Key = "Submit", Text = localization:getText("Button", "Submit")},
-					{Key = "Cancel", Text = localization:getText("Button", "Cancel")},
+					{ Key = "Submit", Text = localization:getText("Button", "Submit") },
+					{ Key = "Cancel", Text = localization:getText("Button", "Cancel") },
 				},
 				Body = localization:getText(optInLocationsKey, "EmailDialogBody"),
 				Description = localization:getText(optInLocationsKey, "EmailDialogDescription"),
 				TextInput = {
-					{PlaceholderText = localization:getText(optInLocationsKey, "EmailAddress"),},
-					{PlaceholderText = localization:getText(optInLocationsKey, "ConfirmEmailAddress"), BottomText = self.state.bottomText,},
+					{ PlaceholderText = localization:getText(optInLocationsKey, "EmailAddress") },
+					{
+						PlaceholderText = localization:getText(optInLocationsKey, "ConfirmEmailAddress"),
+						BottomText = self.state.bottomText,
+					},
 				},
 				OnClose = function()
 					self:setState({
@@ -227,7 +238,12 @@ function ScreenCreateNewGame:render()
 							[optInLocationsKey] = chinaKey,
 							[selectedKey] = true,
 						}
-						sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, createNewGameKey, points)
+						sendAnalyticsToKibana(
+							seriesNameKey,
+							FIntLuobuDevPublishAnalyticsHundredthsPercentage,
+							createNewGameKey,
+							points
+						)
 						if email1 == email2 then
 							self:setState({
 								showEmailDialog = false,
@@ -237,7 +253,7 @@ function ScreenCreateNewGame:render()
 							SettingsImpl.saveAll(changed, localization, apiImpl, email1, isPublish)
 						else
 							self:setState({
-								bottomText = localization:getText(optInLocationsKey, "ErrorEmailNotEqual")
+								bottomText = localization:getText(optInLocationsKey, "ErrorEmailNotEqual"),
 							})
 						end
 					else
@@ -255,7 +271,12 @@ function ScreenCreateNewGame:render()
 			BackgroundTransparency = 1,
 			Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0, 0),
 			Size = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, -theme.FOOTER_HEIGHT),
-			CanvasSize = UDim2.new(1, -theme.MENU_BAR_WIDTH, if FFlagDevFrameworkMigrateScrollingFrame then 0 else 1, 0),
+			CanvasSize = UDim2.new(
+				1,
+				-theme.MENU_BAR_WIDTH,
+				if FFlagDevFrameworkMigrateScrollingFrame then 0 else 1,
+				0
+			),
 			AutomaticCanvasSize = Enum.AutomaticSize.Y,
 			[Roact.Ref] = self.scrollingFrameRef,
 		}, {
@@ -294,7 +315,14 @@ local function useDispatchForProps(dispatch)
 			dispatch(SetScreen(Constants.SCREENS.PUBLISH_SUCCESSFUL))
 		end,
 		OpenPublishFailPage = function(settings)
-			dispatch(SetPublishInfo({ id = game.GameId, name = settings.name, parentGameName = settings.name, parentGameId = 0, settings = settings, failed = true }))
+			dispatch(SetPublishInfo({
+				id = game.GameId,
+				name = settings.name,
+				parentGameName = settings.name,
+				parentGameId = 0,
+				settings = settings,
+				failed = true,
+			}))
 			dispatch(SetScreen(Constants.SCREENS.PUBLISH_FAIL))
 		end,
 		DispatchLoadGroups = function()

@@ -4,10 +4,10 @@
 
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
-local Signal = require(CorePackages.AppTempCommon.Common.Signal)
-local dependencyArray = require(CorePackages.AppTempCommon.Hooks.dependencyArray)
+local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
+local dependencyArray = require(script.Parent.dependencyArray)
 
-type Signal = Signal.Signal
+type Signal = AppCommonLib.Signal
 
 local function useSignal(signal: Signal, callback: (...any) -> ())
 	React.useEffect(function()

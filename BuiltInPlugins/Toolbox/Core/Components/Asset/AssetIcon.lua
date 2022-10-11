@@ -70,7 +70,7 @@ function AssetIcon:init(props)
 			isHovered = false,
 		})
 	end
-	
+
 	self.onAssetPreviewButtonClicked = function()
 		self.props.onAssetPreviewButtonClicked()
 	end
@@ -130,11 +130,13 @@ function AssetIcon:render()
 				}),
 			}),
 
-			Badge = if isEndorsed or isPackage then Roact.createElement(AssetIconBadge, { -- isPackage added with FFlagToolboxPackagesInAssetTile
-				assetId = assetId,
-				isPackage = isPackage, -- added with FFlagToolboxPackagesInAssetTile
-				floatLeft = isAudioAsset,
-			}) else nil,
+			Badge = if isEndorsed or isPackage
+				then Roact.createElement(AssetIconBadge, { -- isPackage added with FFlagToolboxPackagesInAssetTile
+					assetId = assetId,
+					isPackage = isPackage, -- added with FFlagToolboxPackagesInAssetTile
+					floatLeft = isAudioAsset,
+				})
+				else nil,
 
 			PreviewAudioButton = isAudioAsset and Roact.createElement(AudioPreviewButton, {
 				ZIndex = 3,

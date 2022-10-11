@@ -53,7 +53,7 @@ local SetVerticalScrollZoom = require(Plugin.Src.Actions.SetVerticalScrollZoom)
 
 local CurveCanvas = require(Plugin.Src.Components.Curves.CurveCanvas)
 local KeyframeActions = require(Plugin.Src.Components.Curves.KeyframeActions)
-local TangentActions =require(Plugin.Src.Components.Curves.TangentActions)
+local TangentActions = require(Plugin.Src.Components.Curves.TangentActions)
 local EventsController = require(Plugin.Src.Components.EventsController)
 local Scale = require(Plugin.Src.Components.Curves.Scale)
 local ScaleControls = require(Plugin.Src.Components.ScaleControls.ScaleControls)
@@ -248,7 +248,15 @@ function CurveEditorController:init()
 		y = y - self.state.AbsolutePosition.Y
 
 		x = props.StartTick + x * (props.EndTick - props.StartTick) / self.state.CanvasSize.X
-		y = maxValue - ((maxValue - minValue) * ((scroll * zoom) + (y - (self.state.CanvasSize.Y * Constants.CURVE_CANVAS_PADDING)) / (self.state.CanvasSize.Y * (1 - 2 * Constants.CURVE_CANVAS_PADDING) * zoomFactor)))
+		y = maxValue
+			- (
+				(maxValue - minValue)
+				* (
+					(scroll * zoom)
+					+ (y - (self.state.CanvasSize.Y * Constants.CURVE_CANVAS_PADDING))
+						/ (self.state.CanvasSize.Y * (1 - 2 * Constants.CURVE_CANVAS_PADDING) * zoomFactor)
+				)
+			)
 		return Vector2.new(x, y)
 	end
 
@@ -256,7 +264,8 @@ function CurveEditorController:init()
 		self.setChangingDuration()
 		local newLength = StringUtils.parseTime(textInput, self.props.FrameRate)
 		if newLength ~= nil then
-			local earliest, latest = AnimationData.getSelectionBounds(self.props.AnimationData, self.props.SelectedKeyframes)
+			local earliest, latest =
+				AnimationData.getSelectionBounds(self.props.AnimationData, self.props.SelectedKeyframes)
 			local currentLength = latest - earliest
 			local scale = newLength / currentLength
 			self.props.ScaleSelectedKeyframes(earliest, scale)
@@ -267,7 +276,7 @@ function CurveEditorController:init()
 		if not self.state.HasDragWaypoint then
 			self.props.AddWaypoint()
 			self:setState({
-				HasDragWaypoint = true
+				HasDragWaypoint = true,
 			})
 		end
 	end
@@ -279,7 +288,7 @@ function CurveEditorController:init()
 		self:setState({
 			DraggingScale = true,
 			DragTick = tck,
-			HasDragWaypoint = false
+			HasDragWaypoint = false,
 		})
 	end
 
@@ -296,7 +305,7 @@ function CurveEditorController:init()
 			self.dragContext:scaleKeyframes(tck, self.props.StartTick)
 			self.props.ScaleSelectedKeyframes(self.dragContext.pivotTick, self.dragContext.scale, self.dragContext)
 			self:setState({
-				DragTick = tck
+				DragTick = tck,
 			})
 		end
 	end
@@ -324,10 +333,11 @@ function CurveEditorController:init()
 		end
 	end
 
-	self.onSetTangent = function(instanceName: string, path: PathUtils.Path, tck: number, side: string, slope: number): ()
-		self.props.AddWaypoint()
-		self.props.SetKeyframeTangent(instanceName, path, tck, side, slope or Cryo.None)
-	end
+	self.onSetTangent =
+		function(instanceName: string, path: PathUtils.Path, tck: number, side: string, slope: number): ()
+			self.props.AddWaypoint()
+			self.props.SetKeyframeTangent(instanceName, path, tck, side, slope or Cryo.None)
+		end
 
 	self.onSelectDragMoved = function(input: any): ()
 		local state = self.state
@@ -338,14 +348,16 @@ function CurveEditorController:init()
 		local tracks = state.Tracks
 
 		-- Find min and max times/values of the selected area. Note that Y is flipped, as a higher Y position means a lower value.
-		local minPos = self.toCurveSpace(Vector2.new(math.min(position.X, dragStart.X), math.max(position.Y, dragStart.Y)))
-		local maxPos = self.toCurveSpace(Vector2.new(math.max(position.X, dragStart.X), math.min(position.Y, dragStart.Y)))
+		local minPos =
+			self.toCurveSpace(Vector2.new(math.min(position.X, dragStart.X), math.max(position.Y, dragStart.Y)))
+		local maxPos =
+			self.toCurveSpace(Vector2.new(math.max(position.X, dragStart.X), math.min(position.Y, dragStart.Y)))
 
 		type Component = {
-			Selection: {[number]: boolean}?,
-			Components: {[string]: Component}?
+			Selection: { [number]: boolean }?,
+			Components: { [string]: Component }?,
 		}
-		local selection: {[string]: {[string]: Component}} = {}
+		local selection: { [string]: { [string]: Component } } = {}
 
 		for _, track in ipairs(tracks) do
 			local instance = track.Instance
@@ -361,7 +373,7 @@ function CurveEditorController:init()
 						selection[instance] = {}
 					end
 
-					local currentComponentArray: {[string]: Component}? = selection[instance]
+					local currentComponentArray: { [string]: Component }? = selection[instance]
 					local currentComponent: Component? = nil
 
 					for _, pathPart in ipairs(track.Path) do
@@ -380,7 +392,7 @@ function CurveEditorController:init()
 						if currentComponent.Selection then
 							currentComponent.Selection[tck] = true
 						else
-							currentComponent.Selection = {[tck] = true}
+							currentComponent.Selection = { [tck] = true }
 						end
 					end
 				end
@@ -442,9 +454,15 @@ function CurveEditorController:init()
 			if tck ~= dragContext.newTick or value ~= dragContext.newValue then
 				self.addDragWaypoint()
 				dragContext:moveKeyframes(tck, value)
-				self.props.MoveSelectedKeyframes(self.dragContext.pivotTick, self.dragContext.newTick, self.dragContext.pivotValue, self.dragContext.newValue, self.dragContext)
+				self.props.MoveSelectedKeyframes(
+					self.dragContext.pivotTick,
+					self.dragContext.newTick,
+					self.dragContext.pivotValue,
+					self.dragContext.newValue,
+					self.dragContext
+				)
 				self:setState({
-					DragTick = tck
+					DragTick = tck,
 				})
 			end
 		elseif dragContext.dragMode == Constants.DRAG_MODE.Tangent then
@@ -470,7 +488,13 @@ function CurveEditorController:init()
 
 			local slope = (value - refValue) / (tck - dragContext.tck)
 			self.addDragWaypoint()
-			self.props.SetKeyframeTangent(dragContext.instance, dragContext.path, dragContext.tck, dragContext.side, slope)
+			self.props.SetKeyframeTangent(
+				dragContext.instance,
+				dragContext.path,
+				dragContext.tck,
+				dragContext.side,
+				slope
+			)
 		end
 	end
 
@@ -491,24 +515,25 @@ function CurveEditorController:init()
 		self.showKeyframeMenu()
 	end
 
-	self.handleKeyframeInputBegan = function(instanceName: string, path: PathUtils.Path, tck: number, selected: boolean, input: any): ()
-		-- Select keyframe if not selected
-		if
-			not (GetFFlagKeyframeReduction() and self.props.ReadOnly)
-			and input.UserInputType == Enum.UserInputType.MouseButton1
-		then
-			self.mouseDown = true
+	self.handleKeyframeInputBegan =
+		function(instanceName: string, path: PathUtils.Path, tck: number, selected: boolean, input: any): ()
+			-- Select keyframe if not selected
+			if
+				not (GetFFlagKeyframeReduction() and self.props.ReadOnly)
+				and input.UserInputType == Enum.UserInputType.MouseButton1
+			then
+				self.mouseDown = true
 
-			if selected then
-				-- Deselect keyframe if it is clicked again when multi-selecting
-				if self.isMultiSelecting then
-					self.props.DeselectKeyframe(instanceName, path, tck)
+				if selected then
+					-- Deselect keyframe if it is clicked again when multi-selecting
+					if self.isMultiSelecting then
+						self.props.DeselectKeyframe(instanceName, path, tck)
+					end
+				else
+					self.props.SelectKeyframeRange(instanceName, path, tck, tck, self.isMultiSelecting)
 				end
-			else
-				self.props.SelectKeyframeRange(instanceName, path, tck, tck, self.isMultiSelecting)
 			end
 		end
-	end
 
 	self.handleKeyframeInputEnded = function(tck: number, value: number, selected: boolean, input: any): ()
 		-- Start dragging if the mouse drags outside the keyframe
@@ -530,7 +555,7 @@ function CurveEditorController:init()
 			InstanceName = instanceName,
 			Path = path,
 			Tick = tck,
-			Side = side
+			Side = side,
 		})
 		self.showTangentMenu()
 	end
@@ -544,19 +569,20 @@ function CurveEditorController:init()
 		end
 	end
 
-	self.handleTangentInputEnded = function(instanceName: string, path: PathUtils.Path, tck: number, side: string, input: any): ()
-		if input.UserInputType == Enum.UserInputType.MouseMovement then
-			if self.mouseDown then
-				self.onTangentDragStarted(instanceName, path, tck, side)
-				self.onDragMoved(input)
+	self.handleTangentInputEnded =
+		function(instanceName: string, path: PathUtils.Path, tck: number, side: string, input: any): ()
+			if input.UserInputType == Enum.UserInputType.MouseMovement then
+				if self.mouseDown then
+					self.onTangentDragStarted(instanceName, path, tck, side)
+					self.onDragMoved(input)
+					self.mouseDown = false
+				end
+			end
+
+			if input.UserInputType == Enum.UserInputType.MouseButton1 then
 				self.mouseDown = false
 			end
 		end
-
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			self.mouseDown = false
-		end
-	end
 end
 
 function CurveEditorController:updateCanvasExtents_deprecated(): ()
@@ -664,7 +690,7 @@ function CurveEditorController:updateTracks_deprecated(nextProps: Props): ()
 				local fullPath = Cryo.List.join(selectedTrack, path)
 				local fullPathName = table.concat(fullPath, ".")
 				if not addedTracks[fullPathName] then
-					table.insert(self.tracks, Cryo.Dictionary.join(t, {Path = fullPath, Instance = "Root"}))
+					table.insert(self.tracks, Cryo.Dictionary.join(t, { Path = fullPath, Instance = "Root" }))
 					addedTracks[fullPathName] = true
 				end
 			end, true)
@@ -689,7 +715,7 @@ function CurveEditorController:updateTracks(oldProps: Props): ()
 					local fullPath = Cryo.List.join(selectedTrack, path)
 					local fullPathName = table.concat(fullPath, ".")
 					if not addedTracks[fullPathName] then
-						table.insert(tracks, Cryo.Dictionary.join(t, {Path = fullPath, Instance = "Root"}))
+						table.insert(tracks, Cryo.Dictionary.join(t, { Path = fullPath, Instance = "Root" }))
 						addedTracks[fullPathName] = true
 					end
 				end, true)
@@ -861,12 +887,12 @@ function CurveEditorController:render(): (any)
 
 	local draggingSelection = state.DraggingSelection
 
-	local namedKeyframes = animationData and animationData.Events
-		and animationData.Events.NamedKeyframes or {}
+	local namedKeyframes = animationData and animationData.Events and animationData.Events.NamedKeyframes or {}
 
 	local currentDuration
 	if changingDuration then
-		local earliest, latest = AnimationData.getSelectionBounds(self.props.AnimationData, self.props.SelectedKeyframes)
+		local earliest, latest =
+			AnimationData.getSelectionBounds(self.props.AnimationData, self.props.SelectedKeyframes)
 		currentDuration = (latest - earliest) * frameRate / Constants.TICK_FREQUENCY
 	end
 
@@ -1016,22 +1042,26 @@ function CurveEditorController:render(): (any)
 				OnDragEnded = self.onSelectDragEnded,
 				SelectionStart = self.selectDragStart,
 				SelectionEnd = self.selectDragEnd,
-				SourceExtents = Rect.new(absolutePosition, absolutePosition + absoluteSize)
+				SourceExtents = Rect.new(absolutePosition, absolutePosition + absoluteSize),
 			}),
 
 			ChangeDurationPrompt = currentDuration and Roact.createElement(TextEntryPrompt, {
 				PromptText = localization:getText("Title", "ChangeDuration"),
 				InputText = localization:getText("Title", "NewDuration"),
-				NoticeText = localization:getText("Title", "CurrentDuration_Migrated", {currentDuration = currentDuration}),
+				NoticeText = localization:getText(
+					"Title",
+					"CurrentDuration_Migrated",
+					{ currentDuration = currentDuration }
+				),
 				Text = currentDuration,
 				Buttons = {
-					{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round"},
-					{Key = true, Text = localization:getText("Dialog", "Save"), Style = "RoundPrimary"},
+					{ Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round" },
+					{ Key = true, Text = localization:getText("Dialog", "Save"), Style = "RoundPrimary" },
 				},
 				OnTextSubmitted = self.setSelectedKeyframeDuration,
 				OnClose = self.setChangingDuration,
 			}),
-		})
+		}),
 	})
 end
 
@@ -1042,7 +1072,7 @@ CurveEditorController = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(CurveEditorController)
 
-local function mapStateToProps(state): ({[string]: any})
+local function mapStateToProps(state): ({ [string]: any })
 	local status = state.Status
 
 	local stateToProps = {
@@ -1060,20 +1090,22 @@ local function mapStateToProps(state): ({[string]: any})
 	return stateToProps
 end
 
-local function mapDispatchToProps(dispatch): ({[string]: any})
+local function mapDispatchToProps(dispatch): ({ [string]: any })
 	local dispatchToProps = {
 		AddWaypoint = function(): ()
 			dispatch(AddWaypoint())
 		end,
 
-		DeleteSelectedKeyframes = if not GetFFlagKeyframeReduction() then function(analytics: any): ()
-			dispatch(AddWaypoint())
-			dispatch(DeleteSelectedKeyframes(analytics))
-			dispatch(SetRightClickContextInfo({}))
-		end else nil,
+		DeleteSelectedKeyframes = if not GetFFlagKeyframeReduction()
+			then function(analytics: any): ()
+				dispatch(AddWaypoint())
+				dispatch(DeleteSelectedKeyframes(analytics))
+				dispatch(SetRightClickContextInfo({}))
+			end
+			else nil,
 
 		DeselectAllKeyframes = function(): ()
-			dispatch(SetSelectedKeyframes{})
+			dispatch(SetSelectedKeyframes({}))
 			dispatch(SetSelectedEvents({}))
 		end,
 
@@ -1088,19 +1120,33 @@ local function mapDispatchToProps(dispatch): ({[string]: any})
 			dispatch(GenerateCurve(easingStyle, easingDirection))
 		end,
 
-		MoveSelectedKeyframes = function(pivotTick: number, newTick: number, pivotValue: number, newValue: number, dragContext: any): ()
+		MoveSelectedKeyframes = function(
+			pivotTick: number,
+			newTick: number,
+			pivotValue: number,
+			newValue: number,
+			dragContext: any
+		): ()
 			dispatch(MoveSelectedKeyframes(pivotTick, newTick, pivotValue, newValue, dragContext))
 		end,
 
-		Pause = if not GetFFlagRetirePause() then function(): ()
-			dispatch(Pause())
-		end else nil,
+		Pause = if not GetFFlagRetirePause()
+			then function(): ()
+				dispatch(Pause())
+			end
+			else nil,
 
 		ScaleSelectedKeyframes = function(pivotTick: number, scale: number, dragContext: any): ()
 			dispatch(ScaleSelectedKeyframes(pivotTick, scale, dragContext))
 		end,
 
-		SelectKeyframeRange = function(instanceName: string, componentPath: PathUtils.Path, minTick: number, maxTick: number, multiSelect: boolean): ()
+		SelectKeyframeRange = function(
+			instanceName: string,
+			componentPath: PathUtils.Path,
+			minTick: number,
+			maxTick: number,
+			multiSelect: boolean
+		): ()
 			dispatch(SetSelectedEvents({}))
 			dispatch(SelectKeyframeRange(instanceName, componentPath, minTick, maxTick, multiSelect))
 		end,

@@ -15,12 +15,11 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local ExperienceChat = require(CorePackages.ExperienceChat)
 local FFlagEnableSetCoreGuiEnabledExpChat = game:DefineFastFlag("FFlagEnableSetCoreGuiEnabledExpChat", false)
-local GetFFlagUpgradeExpChatV3_0_0 = require(CorePackages.Flags.GetFFlagUpgradeExpChatV3_0_0)
 local GetFFlagDisableBubbleChatForExpChat = require(CorePackages.Flags.GetFFlagDisableBubbleChatForExpChat)
 
 local getIconVoiceIndicator
 local onClickedVoiceIndicator
-if GetFFlagUpgradeExpChatV3_0_0() and GetFFlagDisableBubbleChatForExpChat() then
+if GetFFlagDisableBubbleChatForExpChat() then
 	getIconVoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.getIconVoiceIndicator)
 	onClickedVoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.onClickedVoiceIndicator)
 end

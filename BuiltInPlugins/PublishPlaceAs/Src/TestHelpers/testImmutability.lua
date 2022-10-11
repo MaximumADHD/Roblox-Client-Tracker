@@ -40,7 +40,7 @@ local function allFieldsAreUnchanged(tableA, tableB)
 			allFieldsAreUnchanged(vA, vB)
 		else
 			if vA ~= vB then
-				error(string.format("the field \"%s\" no longer matches", key))
+				error(string.format('the field "%s" no longer matches', key))
 			end
 		end
 	end
@@ -53,7 +53,6 @@ local function allFieldsAreUnchanged(tableA, tableB)
 	-- if we've made it here, these tables are separate yet equal matches
 	return true
 end
-
 
 return function(reducer, action)
 	assert(type(reducer) == "function", "Expected a reducer to test")

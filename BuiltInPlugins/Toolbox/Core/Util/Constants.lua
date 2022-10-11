@@ -227,12 +227,8 @@ Constants.TREE_VIEW_INDENT = 20
 Constants.SEARCH_TAG_HEIGHT = 20
 
 Constants.CAPSULE_SLICE = 25
-Constants.CAPSULE_SLICE_CENTER = Rect.new(
-	Constants.CAPSULE_SLICE,
-	Constants.CAPSULE_SLICE,
-	Constants.CAPSULE_SLICE,
-	Constants.CAPSULE_SLICE
-)
+Constants.CAPSULE_SLICE_CENTER =
+	Rect.new(Constants.CAPSULE_SLICE, Constants.CAPSULE_SLICE, Constants.CAPSULE_SLICE, Constants.CAPSULE_SLICE)
 
 Constants.MODEL_PREVIEW_BG_COLOR = Color3.fromRGB(216, 216, 216)
 

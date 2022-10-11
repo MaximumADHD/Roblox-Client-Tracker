@@ -7,9 +7,10 @@ local Page = script.Parent.Parent
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
 local WebKeys = require(Page.Util.WebKeyConstants)
 
-local PERMISSION_HIERARCHY = {PermissionsConstants.NoAccessKey, PermissionsConstants.PlayKey, PermissionsConstants.EditKey}
+local PERMISSION_HIERARCHY =
+	{ PermissionsConstants.NoAccessKey, PermissionsConstants.PlayKey, PermissionsConstants.EditKey }
 local PERMISSION_HIERARCHY_POSITION = {}
-for i,v in pairs(PERMISSION_HIERARCHY) do
+for i, v in pairs(PERMISSION_HIERARCHY) do
 	PERMISSION_HIERARCHY_POSITION[v] = i
 end
 
@@ -22,7 +23,7 @@ local function getWebSubjectType(internalSubjectType)
 		return WebKeys.RoleSubject
 	else
 		-- not supported
-		error("Invalid SubjectType: "..tostring(internalSubjectType))
+		error("Invalid SubjectType: " .. tostring(internalSubjectType))
 	end
 end
 
@@ -37,7 +38,7 @@ local function getWebAction(internalAction)
 		return nil
 	else
 		-- not supported
-		error("Invalid Action: "..tostring(internalAction))
+		error("Invalid Action: " .. tostring(internalAction))
 	end
 end
 
@@ -46,11 +47,11 @@ local Serialize = {}
 function Serialize._getGroupsForRoles(current, changed)
 	local roleGroups = {}
 
-	for roleId,permission in pairs(current[PermissionsConstants.RoleSubjectKey]) do
+	for roleId, permission in pairs(current[PermissionsConstants.RoleSubjectKey]) do
 		roleGroups[roleId] = permission[PermissionsConstants.GroupIdKey]
 	end
 
-	for roleId,permission in pairs(changed[PermissionsConstants.RoleSubjectKey]) do
+	for roleId, permission in pairs(changed[PermissionsConstants.RoleSubjectKey]) do
 		roleGroups[roleId] = permission[PermissionsConstants.GroupIdKey]
 	end
 
@@ -62,21 +63,21 @@ function Serialize.diffPermissionChanges(current, changed)
 	local changes = {}
 
 	changes[PermissionsConstants.GroupSubjectKey] = {}
-	for subjectType,_ in pairs(current) do
+	for subjectType, _ in pairs(current) do
 		changes[subjectType] = {}
 	end
-	for subjectType,_ in pairs(changed) do
+	for subjectType, _ in pairs(changed) do
 		changes[subjectType] = {}
 	end
 
-	for subjectType,permissions in pairs(current) do
-		for subjectId,permission in pairs(permissions) do
-			changes[subjectType][subjectId] = {Current=permission[PermissionsConstants.ActionKey]}
+	for subjectType, permissions in pairs(current) do
+		for subjectId, permission in pairs(permissions) do
+			changes[subjectType][subjectId] = { Current = permission[PermissionsConstants.ActionKey] }
 		end
 	end
 
-	for subjectType,permissions in pairs(changed) do
-		for subjectId,permission in pairs(permissions) do
+	for subjectType, permissions in pairs(changed) do
+		for subjectId, permission in pairs(permissions) do
 			changes[subjectType][subjectId] = changes[subjectType][subjectId] or {}
 			changes[subjectType][subjectId].Changed = permission[PermissionsConstants.ActionKey]
 		end
@@ -92,27 +93,29 @@ end
 function Serialize._resolvePermissionChanges(changes, roleGroups)
 	local adds, deletes = {}, {}
 
-	for subjectType,subjectTypeChanges in pairs(changes) do
-		for subjectId,change in pairs(subjectTypeChanges) do
-			local currentPosition = PERMISSION_HIERARCHY_POSITION[change.Current] or PERMISSION_HIERARCHY_POSITION[PermissionsConstants.NoAccessKey]
-			local changedPosition = PERMISSION_HIERARCHY_POSITION[change.Changed] or PERMISSION_HIERARCHY_POSITION[PermissionsConstants.NoAccessKey]
+	for subjectType, subjectTypeChanges in pairs(changes) do
+		for subjectId, change in pairs(subjectTypeChanges) do
+			local currentPosition = PERMISSION_HIERARCHY_POSITION[change.Current]
+				or PERMISSION_HIERARCHY_POSITION[PermissionsConstants.NoAccessKey]
+			local changedPosition = PERMISSION_HIERARCHY_POSITION[change.Changed]
+				or PERMISSION_HIERARCHY_POSITION[PermissionsConstants.NoAccessKey]
 
 			if changedPosition > currentPosition then
 				-- From current permission (or lowest if there is none), add all permissions up to and including changed permission
-				for i=currentPosition+1, changedPosition do
+				for i = currentPosition + 1, changedPosition do
 					table.insert(adds, {
 						[WebKeys.SubjectType] = getWebSubjectType(subjectType),
 						[WebKeys.SubjectId] = subjectId,
-						[WebKeys.Action] = getWebAction(PERMISSION_HIERARCHY[i])
+						[WebKeys.Action] = getWebAction(PERMISSION_HIERARCHY[i]),
 					})
 				end
 			elseif changedPosition < currentPosition then
 				-- From current permission, remove all permissions down to but not including changed permission (or all if there is none)
-				for i=currentPosition, changedPosition+1, -1 do
+				for i = currentPosition, changedPosition + 1, -1 do
 					table.insert(deletes, {
 						[WebKeys.SubjectType] = getWebSubjectType(subjectType),
 						[WebKeys.SubjectId] = subjectId,
-						[WebKeys.Action] = getWebAction(PERMISSION_HIERARCHY[i])
+						[WebKeys.Action] = getWebAction(PERMISSION_HIERARCHY[i]),
 					})
 				end
 			end

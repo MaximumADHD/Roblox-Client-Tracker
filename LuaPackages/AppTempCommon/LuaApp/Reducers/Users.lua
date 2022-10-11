@@ -1,6 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 
-local Immutable = require(CorePackages.AppTempCommon.Common.Immutable)
+local Immutable = require(CorePackages.Workspace.Packages.AppCommonLib).Immutable
 
 local AddUser = require(CorePackages.AppTempCommon.LuaApp.Actions.AddUser)
 local AddUsers = require(CorePackages.AppTempCommon.LuaApp.Actions.AddUsers)

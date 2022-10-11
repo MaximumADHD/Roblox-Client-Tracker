@@ -21,11 +21,11 @@ return function()
 		store:dispatch(SetCurrentStatus(CurrentStatus.Working))
 
 		local state = store:getState()
-		for pageId,_ in pairs(state.PageSaveState) do
+		for pageId, _ in pairs(state.PageSaveState) do
 			store:dispatch(SetPageSaveState(pageId, SaveState.Pending))
 		end
 
-		for settingName,settingValue in pairs(state.Settings.Changed) do
+		for settingName, settingValue in pairs(state.Settings.Changed) do
 			Analytics.onSettingSaved(settingName, settingValue)
 		end
 
@@ -38,7 +38,7 @@ return function()
 					allSaved = true
 					allSuccessful = true
 
-					for pageId,saveState in pairs(store:getState().PageSaveState) do
+					for pageId, saveState in pairs(store:getState().PageSaveState) do
 						if saveState == SaveState.SaveFailed then
 							allSuccessful = false
 						end
@@ -53,7 +53,7 @@ return function()
 				end
 
 				local state = store:getState()
-				for pageId,saveState in pairs(state.PageSaveState) do
+				for pageId, saveState in pairs(state.PageSaveState) do
 					if saveState == SaveState.SaveFailed then
 						Analytics.onPageSaveError(pageId)
 					end

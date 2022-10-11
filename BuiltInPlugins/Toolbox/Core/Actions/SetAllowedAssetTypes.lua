@@ -50,21 +50,10 @@ local Packages = Plugin.Packages
 local Util = require(Packages.Framework).Util
 local Action = Util.Action
 
-local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
-
-if FFlagToolboxAssetConfigurationMinPriceFloor2 then
-	return Action(script.Name, function(forRelease, forUpload, forFree)
-		return {
-			allowedAssetTypesForRelease = forRelease,
-			allowedAssetTypesForUpload = forUpload,
-			allowedAssetTypesForFree = forFree,
-		}
-	end)
-else
-	return Action(script.Name, function(forRelease, forUpload)
-		return {
-			allowedAssetTypesForRelease = forRelease,
-			allowedAssetTypesForUpload = forUpload,
-		}
-	end)
-end
+return Action(script.Name, function(forRelease, forUpload, forFree)
+	return {
+		allowedAssetTypesForRelease = forRelease,
+		allowedAssetTypesForUpload = forUpload,
+		allowedAssetTypesForFree = forFree,
+	}
+end)

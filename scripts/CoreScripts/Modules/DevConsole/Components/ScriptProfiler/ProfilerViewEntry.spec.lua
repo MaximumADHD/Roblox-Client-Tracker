@@ -14,6 +14,7 @@ return function()
 			depth = 0,
 			data = {
 				TotalDuration = 5,
+				Duration = 1,
 				Name = "",
 			},
 			percentageRatio = nil

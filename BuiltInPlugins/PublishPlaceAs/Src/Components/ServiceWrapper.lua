@@ -46,12 +46,12 @@ function ServiceWrapper:render()
 		ContextServices.Store.new(store),
 		ContextServices.API.new(),
 		ContextServices.Mouse.new(mouse),
-		calloutController
+		calloutController,
 	}, {
 		-- UILibraryWrapper consumes theme, focus etc. so needs to be wrapped in these items for React.createContext to consume them.
 		UILibraryWrapper = ContextServices.provide({
-			uiLibraryWrapper
-		}, children)
+			uiLibraryWrapper,
+		}, children),
 	})
 end
 

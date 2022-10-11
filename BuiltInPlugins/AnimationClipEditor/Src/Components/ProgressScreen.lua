@@ -33,8 +33,10 @@ local VERTICAL_SIZE = 140
 	this will return "Initializing".
 ]]
 function ProgressScreen:statusCodeToKey(status)
-	for key,value in pairs(Constants.ANIMATION_FROM_VIDEO_STATUS) do
-		if value == status then return key end
+	for key, value in pairs(Constants.ANIMATION_FROM_VIDEO_STATUS) do
+		if value == status then
+			return key
+		end
 	end
 	return "Error"
 end
@@ -64,10 +66,10 @@ function ProgressScreen:render()
 	return Roact.createElement(FocusedPrompt, {
 		Size = UDim2.new(0, HORIZONTAL_SIZE, 0, VERTICAL_SIZE),
 		Buttons = {
-			{Key = false, Text = localization:getText("Dialog", "Cancel")},
+			{ Key = false, Text = localization:getText("Dialog", "Cancel") },
 		},
 		OnButtonClicked = onCancelled,
-		OnClose = onClose
+		OnClose = onClose,
 	}, {
 		Layout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
@@ -92,12 +94,11 @@ function ProgressScreen:render()
 			BorderSizePixel = 1,
 			Size = UDim2.new(1, 0, 0, Constants.TRACK_HEIGHT),
 			LayoutOrder = 2,
-		},
-		{
+		}, {
 			ProgressBar = Roact.createElement("Frame", {
 				BackgroundColor3 = progressBarTheme.backgroundColor,
 				Size = UDim2.new(progress, 0, 0, Constants.TRACK_HEIGHT),
-			})
+			}),
 		}),
 	})
 end

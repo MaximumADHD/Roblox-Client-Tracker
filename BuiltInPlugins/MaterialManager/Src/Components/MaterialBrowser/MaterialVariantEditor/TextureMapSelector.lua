@@ -95,47 +95,6 @@ function TextureMapSelector:init()
 		self.setUploading(false)
 	end
 
-	self.deprecatedUploadTextureMap = function(file: File)
-		local props: _Props = self.props
-		local assetHandler = props.ImportAssetHandler
-
-		local _promise = assetHandler
-			:handleAssetAsync(file, function()
-				self:setState({
-					uploading = true,
-				})
-			end)
-			:andThen(function(assetId)
-				local pbrMaterial = props.PBRMaterial :: any
-				props.GeneralServiceController:setTextureMap(pbrMaterial, props.MapType, assetId)
-				props.Analytics:report("uploadTextureMap")
-				self.errorMessage = nil
-
-				if not self._isMounted then
-					return
-				end
-				self:setState({
-					uploading = false,
-				})
-			end)
-			:catch(function(err)
-				self.clearTextureMap()
-				warn("Error uploading asset, responseCode " .. tostring(err.responseCode))
-				if not err or not err.responseCode or err.responseCode == -1 then
-					self.errorMessage = ErrorTypes.FailedToUploadTooLarge
-				else
-					self.errorMessage = ErrorTypes.FailedToUploadFromFileMap
-				end
-
-				if not self._isMounted then
-					return
-				end
-				self:setState({
-					uploading = false,
-				})
-			end)
-	end
-
 	self.promptSelection = function()
 		local props: _Props = self.props
 		local assetHandler = props.ImportAssetHandler
@@ -146,7 +105,6 @@ function TextureMapSelector:init()
 			assetHandler,
 			self.setUploading,
 			self.setImportAsset,
-			self.deprecatedUploadTextureMap,
 			self.updateTextureMap
 		)
 	end

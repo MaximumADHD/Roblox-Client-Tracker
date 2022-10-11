@@ -96,9 +96,8 @@ function Header:init()
 		-- Set up a delayed callback to check if an asset was inserted
 		self.mostRecentSearchRequestTime = tick()
 		local mySearchRequestTime = self.mostRecentSearchRequestTime
-		local StudioSearchWithoutInsertionTimeSeconds = globalSettings():GetFVariable(
-			"StudioSearchWithoutInsertionTimeSeconds"
-		)
+		local StudioSearchWithoutInsertionTimeSeconds =
+			globalSettings():GetFVariable("StudioSearchWithoutInsertionTimeSeconds")
 		delay(StudioSearchWithoutInsertionTimeSeconds, function()
 			-- Only use the callback for the most recent search
 			if mySearchRequestTime == self.mostRecentSearchRequestTime then

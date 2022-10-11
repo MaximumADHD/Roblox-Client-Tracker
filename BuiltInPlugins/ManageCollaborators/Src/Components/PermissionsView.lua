@@ -1,10 +1,9 @@
-local FFlagManageCollaboratorsGhostEditorsMessage = game:GetFastFlag("ManageCollaboratorsGhostEditorsMessage")
-local FFlagManageCollaboratorsTelemetryEnabled = game:GetFastFlag("ManageCollaboratorsTelemetryEnabled")
 local FFlagManageCollaboratorsDebugLogging = game:GetFastFlag("ManageCollaboratorsDebugLogging")
+local FFlagStudioNewTemplatesAreTC = game:GetFastFlag("StudioNewTemplatesAreTC")
 
 local StudioPublishService = game:GetService("StudioPublishService")
-
 local StudioService = game:GetService("StudioService")
+local TeamCreateService = game:GetService("TeamCreateService")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -46,7 +45,7 @@ local IsTeamCreateEnabled = require(Plugin.Src.Util.IsTeamCreateEnabled)
 local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
-local Analytics = if FFlagManageCollaboratorsTelemetryEnabled then require(Plugin.Src.Util.Analytics) else nil
+local Analytics = require(Plugin.Src.Util.Analytics)
 
 local PermissionsView = Roact.PureComponent:extend("PermissionsView")
 
@@ -90,12 +89,12 @@ function PermissionsView:onSavePressed()
 	local props = self.props
 	local savePermissionsFunction = props.SavePermissions
 
-	if FFlagManageCollaboratorsTelemetryEnabled then
-		savePermissionsFunction(self:isGroupGame())
-	else
-		savePermissionsFunction()
-	end
+	savePermissionsFunction(self:isGroupGame())
 	
+	if FFlagStudioNewTemplatesAreTC then
+		TeamCreateService:SendUnarchiveUniverseAsync(game.GameId)
+	end
+
 	if FFlagManageCollaboratorsDebugLogging then
 		Analytics.reportDebuggingCheckpoint("F")
 	end
@@ -117,9 +116,7 @@ function PermissionsView:onCancelPressed(hasUnsavedChanges)
 	local style = props.Stylizer
 	local closeWidgetFunction = props.CloseWidget
 
-	if FFlagManageCollaboratorsTelemetryEnabled then
-		Analytics.reportCancelPressed(self:isGroupGame())
-	end
+	Analytics.reportCancelPressed(self:isGroupGame())
 
 	if not hasUnsavedChanges then
 		closeWidgetFunction()
@@ -176,7 +173,7 @@ function PermissionsView:render()
 	
 	-- CurrentEditCollaborators are edit collaborators that are saved to the db (they're not local additions in the modal)
 	-- When these are present and TeamCreate is off, we want to show an explicit message saying that they dont have edit access unless TC is enabled 
-	local hasCurrentEditCollaborators = if FFlagManageCollaboratorsGhostEditorsMessage then props.HasCurrentEditCollaborators else nil
+	local hasCurrentEditCollaborators = props.HasCurrentEditCollaborators
 		
 	if saveState == SaveState.Saved then
 		props.CloseWidget()
@@ -207,18 +204,10 @@ function PermissionsView:render()
 	
 	local showPermissions = loadedPermissions and not loadOrSaveFailed
 	local isTeamCreateEnabled = IsTeamCreateEnabled()
-
-	local showSaveText 
-	local saveText
 	
-	if FFlagManageCollaboratorsGhostEditorsMessage then
-		showSaveText = showPermissions and not isTeamCreateEnabled and (hasCollaborators or hasCurrentEditCollaborators)
-		local saveTextTitle = if hasCurrentEditCollaborators then "SaveEnableTcCurrentEditors" else "SaveEnableTC" 
-		saveText = localization:getText("Description", saveTextTitle)
-	else
-		showSaveText = showPermissions and not isTeamCreateEnabled and hasCollaborators
-		saveText = localization:getText("Description", "SaveEnableTC")
-	end
+	local showSaveText = showPermissions and not isTeamCreateEnabled and (hasCollaborators or hasCurrentEditCollaborators)
+	local saveTextTitle = if hasCurrentEditCollaborators then "SaveEnableTcCurrentEditors" else "SaveEnableTC" 
+	local saveText = localization:getText("Description", saveTextTitle)
 			
 	local scrollingFrameHeight = style.footer.height
 	if showSaveText then
@@ -327,7 +316,7 @@ PermissionsView = RoactRodux.connect(
 			OwnerType = state.GameOwnerMetadata.creatorType,
 			GroupOwnerUserId = state.GameOwnerMetadata.groupOwnerId,
 			HasCollaborators = GetHasCollaborators(state),
-			HasCurrentEditCollaborators = if FFlagManageCollaboratorsGhostEditorsMessage then GetHasCurrentEditCollaborators(state) else nil,
+			HasCurrentEditCollaborators = GetHasCurrentEditCollaborators(state),
 			GroupRolePermissions = state.GroupRolePermissions.PermissionsByRole,
 		}
 	end,
@@ -337,11 +326,7 @@ PermissionsView = RoactRodux.connect(
 				dispatch(PermissionsLoader:LoadPermissions())
 			end,
 			SavePermissions = function(isGroupGame)
-				if FFlagManageCollaboratorsTelemetryEnabled then
-					dispatch(SavePermissions(isGroupGame))
-				else
-					dispatch(SavePermissions())
-				end
+				dispatch(SavePermissions(isGroupGame))
 			end,
 		}
 	end

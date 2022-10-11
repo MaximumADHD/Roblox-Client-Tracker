@@ -174,7 +174,7 @@ return Rodux.createReducer({
 			versionHistory = {
 				nextPageCursor = action.versionHistory.nextPageCursor,
 				data = Cryo.List.join(state.versionHistory.data, action.versionHistory.data),
-			}
+			},
 		})
 	end,
 
@@ -268,11 +268,13 @@ return Rodux.createReducer({
 		})
 	end,
 
-	[SetIsVerifiedCreator.name] = if not FFlagToolboxSwitchVerifiedEndpoint then function(state, action)
-		return Cryo.Dictionary.join(state, {
-			isVerifiedCreator = action.isVerifiedCreator,
-		})
-	end else nil,
+	[SetIsVerifiedCreator.name] = if not FFlagToolboxSwitchVerifiedEndpoint
+		then function(state, action)
+			return Cryo.Dictionary.join(state, {
+				isVerifiedCreator = action.isVerifiedCreator,
+			})
+		end
+		else nil,
 
 	[SetLoadingPage.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
@@ -467,9 +469,12 @@ return Rodux.createReducer({
 		})
 	end,
 
-	[SetPublishingRequirements.name] = if FFlagToolboxEnableAssetConfigPhoneVerification or FFlagToolboxAssetConfigurationVerifiedPrice then function(state, action)
-		return Cryo.Dictionary.join(state, {
-			publishingRequirements = action.publishingRequirements,
-		})
-	end else nil,
+	[SetPublishingRequirements.name] = if FFlagToolboxEnableAssetConfigPhoneVerification
+			or FFlagToolboxAssetConfigurationVerifiedPrice
+		then function(state, action)
+			return Cryo.Dictionary.join(state, {
+				publishingRequirements = action.publishingRequirements,
+			})
+		end
+		else nil,
 })

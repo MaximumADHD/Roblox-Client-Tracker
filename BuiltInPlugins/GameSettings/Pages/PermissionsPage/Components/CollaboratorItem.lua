@@ -1,5 +1,7 @@
-local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
-local FFlagCOLLAB2168FixPermissionsDropdownContrastIssue = game:DefineFastFlag("COLLAB2168FixPermissionsDropdownContrastIssue", false)
+local FFlagUXImprovementsShowUserPermsWhenCollaborator2 =
+	game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
+local FFlagCOLLAB2168FixPermissionsDropdownContrastIssue =
+	game:DefineFastFlag("COLLAB2168FixPermissionsDropdownContrastIssue", false)
 
 local ITEM_HEIGHT = 60
 local PADDING_Y = 20
@@ -29,7 +31,9 @@ local UILibraryButton = UILibrary.Component.Button
 
 local UI = Framework.UI
 local Button = UI.Button
-local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator then UI.LoadingIndicator else UILibrary.Component.LoadingIndicator
+local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator
+	then UI.LoadingIndicator
+	else UILibrary.Component.LoadingIndicator
 local SelectInput = UI.SelectInput
 local TextLabel = UI.Decoration.TextLabel
 
@@ -74,7 +78,7 @@ function DeleteButton:render()
 						ImageTransparency = enabled and 0 or 0.4,
 
 						BackgroundTransparency = 1,
-					})
+					}),
 				}
 			end,
 
@@ -110,7 +114,7 @@ function CollaboratorItem:DEPRECATED_getCurrentPermissionLabel()
 		return localization:getText("Permissions", "MultipleLabel")
 	end
 
-	for _,permission in ipairs(availablePermissions) do
+	for _, permission in ipairs(availablePermissions) do
 		if permission.Key == currentPermission then
 			return permission.Display
 		end
@@ -128,7 +132,7 @@ function CollaboratorItem:createTextLabel(text, style, height, padding, layoutOr
 		Text = text,
 		TextWrapped = true,
 		TextXAlignment = Enum.TextXAlignment.Left,
-	},	{
+	}, {
 		-- This padding ensures the text is not lined up right along the edge of the TextLabel
 		Padding = Roact.createElement("UIPadding", {
 			PaddingTop = UDim.new(0, padding),
@@ -167,8 +171,22 @@ function CollaboratorItem:init()
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					VerticalAlignment = Enum.VerticalAlignment.Top,
 				}),
-				MainTextLabel = self:createTextLabel(mainText, "Normal", theme.fontStyle.Normal.TextSize, theme.selectInput.padding, 0, isEnabled),
-				DescriptionTextLabel = self:createTextLabel(description, "SubText", theme.fontStyle.Subtext.TextSize, theme.selectInput.padding, 1, isEnabled),
+				MainTextLabel = self:createTextLabel(
+					mainText,
+					"Normal",
+					theme.fontStyle.Normal.TextSize,
+					theme.selectInput.padding,
+					0,
+					isEnabled
+				),
+				DescriptionTextLabel = self:createTextLabel(
+					description,
+					"SubText",
+					theme.fontStyle.Subtext.TextSize,
+					theme.selectInput.padding,
+					1,
+					isEnabled
+				),
 			})
 		end
 	else
@@ -198,9 +216,23 @@ function CollaboratorItem:init()
 					VerticalAlignment = Enum.VerticalAlignment.Top,
 				}),
 
-				MainTextLabel = self:createTextLabel(mainText, "Normal", theme.fontStyle.Normal.TextSize, theme.selectInput.padding, 0, isEnabled),
+				MainTextLabel = self:createTextLabel(
+					mainText,
+					"Normal",
+					theme.fontStyle.Normal.TextSize,
+					theme.selectInput.padding,
+					0,
+					isEnabled
+				),
 
-				DescriptionTextLabel = self:createTextLabel(description, "SubText", theme.fontStyle.Subtext.TextSize, theme.selectInput.padding, 1, isEnabled),
+				DescriptionTextLabel = self:createTextLabel(
+					description,
+					"SubText",
+					theme.fontStyle.Subtext.TextSize,
+					theme.selectInput.padding,
+					1,
+					isEnabled
+				),
 			})
 		end
 	end
@@ -230,7 +262,7 @@ function CollaboratorItem:render()
 	local permissionMetadata = props.AvailablePermissions
 	local selectedPermissionIndex = 1
 	local permissionItems = {}
-	
+
 	if FFlagCOLLAB2168FixPermissionsDropdownContrastIssue then
 		for index, permission in ipairs(permissionMetadata) do
 			table.insert(permissionItems, permission.Display)
@@ -250,10 +282,10 @@ function CollaboratorItem:render()
 		BorderSizePixel = 0,
 	}, {
 		Padding = Roact.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, PADDING_X/2),
-			PaddingRight = UDim.new(0, PADDING_X/2),
-			PaddingTop = UDim.new(0, PADDING_Y/2),
-			PaddingBottom = UDim.new(0, PADDING_Y/2),
+			PaddingLeft = UDim.new(0, PADDING_X / 2),
+			PaddingRight = UDim.new(0, PADDING_X / 2),
+			PaddingTop = UDim.new(0, PADDING_Y / 2),
+			PaddingBottom = UDim.new(0, PADDING_Y / 2),
 		}),
 
 		IconContainer = icon and Roact.createElement("Frame", {
@@ -264,61 +296,74 @@ function CollaboratorItem:render()
 			Icon = icon,
 		}),
 
-		CollaboratorName = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-			LayoutOrder = 1,
-			Size = icon and UDim2.new(1, -(LIST_PADDING*3 + CONTENT_HEIGHT + DROPDOWN_WIDTH), 0, CONTENT_HEIGHT)
-				or UDim2.new(1, -(LIST_PADDING*2 + DROPDOWN_WIDTH) + CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
-			Position = UDim2.new(0, icon and CONTENT_HEIGHT + LIST_PADDING or 0 , 0, 0),
-			BackgroundTransparency = 1,
+		CollaboratorName = Roact.createElement(
+			"TextLabel",
+			Cryo.Dictionary.join(theme.fontStyle.Normal, {
+				LayoutOrder = 1,
+				Size = icon and UDim2.new(1, -(LIST_PADDING * 3 + CONTENT_HEIGHT + DROPDOWN_WIDTH), 0, CONTENT_HEIGHT)
+					or UDim2.new(1, -(LIST_PADDING * 2 + DROPDOWN_WIDTH) + CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
+				Position = UDim2.new(0, icon and CONTENT_HEIGHT + LIST_PADDING or 0, 0, 0),
+				BackgroundTransparency = 1,
 
-			Text = name,
-			TextXAlignment = Enum.TextXAlignment.Left,
-		})),
+				Text = name,
+				TextXAlignment = Enum.TextXAlignment.Left,
+			})
+		),
 
 		PermissionEditor = Roact.createElement("Frame", {
 			LayoutOrder = 2,
 			BackgroundTransparency = 1,
 
 			Size = UDim2.new(0, theme.selectInput.width, 0, CONTENT_HEIGHT),
-			Position = UDim2.new(1, -(CONTENT_HEIGHT+LIST_PADDING), 0, 0),
+			Position = UDim2.new(1, -(CONTENT_HEIGHT + LIST_PADDING), 0, 0),
 			AnchorPoint = Vector2.new(1, 0),
 		}, {
 			LoadingIndicator = loading and Roact.createElement(LoadingIndicator, {
 				Size = UDim2.fromScale(1, 1),
 			}),
 
-			PermissionsDropdown = not loading and Roact.createElement(SelectInput, if FFlagCOLLAB2168FixPermissionsDropdownContrastIssue then {
-				AnchorPoint = if FFlagRemoveUILibraryButton then Vector2.new(0, 0.5) else nil,
-				Enabled = writable and #permissionItems > 1,
-				Items = permissionItems,
-				Position = if FFlagRemoveUILibraryButton then UDim2.fromScale(0, 0.5) else nil,
-				SelectedIndex = selectedPermissionIndex,
-				OnItemActivated = self.onItemActivated,
-				OnRenderItem = self.onRenderItem,
-				Width = theme.selectInput.width,
-			} else {
-				Enabled = writable and #DEPRECATED_availablePermissions > 1,
-				Items = DEPRECATED_availablePermissions,
-				OnItemActivated = self.onItemActivated,
-				OnRenderItem = self.onRenderItem,
-				PlaceholderText = self:DEPRECATED_getCurrentPermissionLabel(),
-				Width = theme.selectInput.width,
-			}) or nil,
+			PermissionsDropdown = not loading and Roact.createElement(
+				SelectInput,
+				if FFlagCOLLAB2168FixPermissionsDropdownContrastIssue
+					then {
+						AnchorPoint = if FFlagRemoveUILibraryButton then Vector2.new(0, 0.5) else nil,
+						Enabled = writable and #permissionItems > 1,
+						Items = permissionItems,
+						Position = if FFlagRemoveUILibraryButton then UDim2.fromScale(0, 0.5) else nil,
+						SelectedIndex = selectedPermissionIndex,
+						OnItemActivated = self.onItemActivated,
+						OnRenderItem = self.onRenderItem,
+						Width = theme.selectInput.width,
+					}
+					else {
+						Enabled = writable and #DEPRECATED_availablePermissions > 1,
+						Items = DEPRECATED_availablePermissions,
+						OnItemActivated = self.onItemActivated,
+						OnRenderItem = self.onRenderItem,
+						PlaceholderText = self:DEPRECATED_getCurrentPermissionLabel(),
+						Width = theme.selectInput.width,
+					}
+			) or nil,
 		}),
 
-		Delete = FFlagUXImprovementsShowUserPermsWhenCollaborator2 and writable and removable and Roact.createElement(DeleteButton, {
-			LayoutOrder = 3,
-			Enabled = writable and not loading,
+		Delete = FFlagUXImprovementsShowUserPermsWhenCollaborator2 and writable and removable and Roact.createElement(
+			DeleteButton,
+			{
+				LayoutOrder = 3,
+				Enabled = writable and not loading,
 
-			OnClicked = onRemoved,
-		}),
+				OnClicked = onRemoved,
+			}
+		),
 
-		DEPRECATED_Delete = not FFlagUXImprovementsShowUserPermsWhenCollaborator2 and removable and Roact.createElement(DeleteButton, {
-			LayoutOrder = 3,
-			Enabled = writable and not loading,
+		DEPRECATED_Delete = not FFlagUXImprovementsShowUserPermsWhenCollaborator2
+			and removable
+			and Roact.createElement(DeleteButton, {
+				LayoutOrder = 3,
+				Enabled = writable and not loading,
 
-			OnClicked = onRemoved,
-		}),
+				OnClicked = onRemoved,
+			}),
 	})
 end
 

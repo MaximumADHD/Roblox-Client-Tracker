@@ -25,32 +25,36 @@ return function()
 			end).to.throw()
 
 			expect(function()
-				SetGroupInfo({ groups = "yeet", })
+				SetGroupInfo({ groups = "yeet" })
 			end).to.throw()
-
 		end)
 
 		it("should not mutate the state", function()
 			testImmutability(Reducer, SetGroupInfo({ groups = {} }))
-			testImmutability(Reducer, SetGroupInfo({
-				groups = { {groupId = 1337, name = "yeet"} }
-			}))
-        end)
-        
-        it("should set groups", function()
+			testImmutability(
+				Reducer,
+				SetGroupInfo({
+					groups = { { groupId = 1337, name = "yeet" } },
+				})
+			)
+		end)
+
+		it("should set groups", function()
 			local state = Reducer(nil, {})
 			expect(Cryo.isEmpty(state.groupInfo.groups)).to.equal(true)
 
-			state = Reducer(state, SetGroupInfo({
-				groups = { {groupId = 1337, name = "yeet"} }
-            }))
-            expect(#state.groupInfo.groups).to.equal(1)
-            expect(state.groupsInfo.groups.groupId).to.equal(1337)
-            expect(state.groupsInfo.groups.name).to.equal("yeet")
+			state = Reducer(
+				state,
+				SetGroupInfo({
+					groups = { { groupId = 1337, name = "yeet" } },
+				})
+			)
+			expect(#state.groupInfo.groups).to.equal(1)
+			expect(state.groupsInfo.groups.groupId).to.equal(1337)
+			expect(state.groupsInfo.groups.name).to.equal("yeet")
 
 			state = Reducer(state, SetGroupInfo())
 			expect(Cryo.isEmpty(state.groupInfo.groups)).to.equal(true)
-        end)       
+		end)
 	end)
-
 end

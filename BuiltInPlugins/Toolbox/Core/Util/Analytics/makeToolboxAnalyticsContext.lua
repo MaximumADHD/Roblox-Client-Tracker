@@ -1,6 +1,5 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
-
 local Packages = Plugin.Packages
 local Framework = require(Packages.Framework)
 local Analytics = Framework.ContextServices.Analytics

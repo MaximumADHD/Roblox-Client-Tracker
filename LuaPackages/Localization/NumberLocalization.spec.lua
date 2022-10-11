@@ -1,7 +1,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
     local Logging = require(CorePackages.Logging)
-	local NumberLocalization = require(CorePackages.Localization.NumberLocalization)
+	local NumberLocalization = require(script.Parent.NumberLocalization)
 
 	local RoundingBehaviour = require(script.Parent.RoundingBehaviour)
 

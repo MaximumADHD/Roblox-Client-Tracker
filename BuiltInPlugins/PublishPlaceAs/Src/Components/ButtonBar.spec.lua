@@ -9,8 +9,8 @@ return function()
 		local mockServiceWrapper = Roact.createElement(MockServiceWrapper, {}, {
 			ButtonBar = Roact.createElement(ButtonBar, {
 				Buttons = {
-					{ Name = "a name", },
-					{ Name = "not a name", },
+					{ Name = "a name" },
+					{ Name = "not a name" },
 				},
 			}),
 		})

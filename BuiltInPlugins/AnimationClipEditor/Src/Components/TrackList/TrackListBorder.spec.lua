@@ -8,7 +8,7 @@ return function()
 
 	local function createTestTrackListBorder()
 		return Roact.createElement(MockWrapper, {}, {
-			TrackListBorder = Roact.createElement(TrackListBorder)
+			TrackListBorder = Roact.createElement(TrackListBorder),
 		})
 	end
 
@@ -18,7 +18,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestTrackListBorder(), container)
 		local frame = container:FindFirstChildOfClass("Frame")

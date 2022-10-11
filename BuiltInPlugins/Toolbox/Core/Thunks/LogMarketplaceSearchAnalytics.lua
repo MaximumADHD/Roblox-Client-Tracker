@@ -13,7 +13,8 @@ local UpdateLastLoggedSearchId = require(Plugin.Core.Actions.UpdateLastLoggedSea
 local Category = require(Plugin.Core.Types.Category)
 
 if not FFlagToolboxAddVerifiedCreatorToAnalytics then
-	local LogMarketplaceSearchAnalytics_DEPRECATED = require(Plugin.Core.Thunks.LogMarketplaceSearchAnalytics_DEPRECATED)
+	local LogMarketplaceSearchAnalytics_DEPRECATED =
+		require(Plugin.Core.Thunks.LogMarketplaceSearchAnalytics_DEPRECATED)
 	return LogMarketplaceSearchAnalytics_DEPRECATED
 end
 
@@ -35,7 +36,7 @@ return function(keyword: string, isTopKeyword: boolean?)
 			assetType = Enum.AssetType.Image
 		end
 		local assetTypeName = string.lower(assetType.Name)
-	
+
 		local lastLoggedSearchId = pageInfo.lastLoggedSearchId
 		if lastLoggedSearchId == searchId then
 			if DebugFlags.shouldDebugWarnings() then
@@ -54,11 +55,7 @@ return function(keyword: string, isTopKeyword: boolean?)
 			includeOnlyVerifiedCreators = not includeUnverifiedCreators,
 		}
 
-		Analytics.marketplaceSearch(
-			keyword,
-			isTopKeyword or false,
-			searchInfo
-		)
+		Analytics.marketplaceSearch(keyword, isTopKeyword or false, searchInfo)
 
 		store:dispatch(UpdateLastLoggedSearchId(searchId))
 	end

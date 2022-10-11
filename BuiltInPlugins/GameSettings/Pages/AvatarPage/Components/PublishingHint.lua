@@ -24,7 +24,7 @@ function PublishingHint:render()
 
 	local function calculateTextSize(text, textSize, font)
 		local hugeFrameSizeNoTextWrapping = Vector2.new(5000, 5000)
-		return game:GetService('TextService'):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
+		return game:GetService("TextService"):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
 	end
 
 	local linkText = localization:getText("General", "PublishingHintLink")
@@ -33,7 +33,7 @@ function PublishingHint:render()
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, hyperLinkTextSize.Y),
 		BackgroundTransparency = 1,
-		LayoutOrder = props.LayoutOrder
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		HyperLink = Roact.createElement(Hyperlink, {
 			Text = linkText,
@@ -43,18 +43,20 @@ function PublishingHint:render()
 
 			OnClick = function()
 				StudioService:ShowPublishToRoblox()
-			end
+			end,
 		}),
 		TextLabel = Roact.createElement("TextLabel", {
 			BackgroundTransparency = 1,
 			Position = UDim2.new(0, hyperLinkTextSize.X, 0, 0),
 			Size = UDim2.new(1, 0, 1, 0),
-			TextColor3 = if StateInterfaceTheme.getRadioButtonTextColor(props) then StateInterfaceTheme.getRadioButtonTextColor(props) else theme.fontStyle.Header.TextColor3,
+			TextColor3 = if StateInterfaceTheme.getRadioButtonTextColor(props)
+				then StateInterfaceTheme.getRadioButtonTextColor(props)
+				else theme.fontStyle.Header.TextColor3,
 			Font = Enum.Font.SourceSans,
 			TextSize = 22,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			Text = localization:getText("General", "PublishingHintLinkExplanation"),
-		})
+		}),
 	})
 end
 

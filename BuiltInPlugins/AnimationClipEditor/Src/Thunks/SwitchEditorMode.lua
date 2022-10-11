@@ -11,7 +11,7 @@ local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
 local Types = require(Plugin.Src.Types)
 
 return function(newMode: string, analytics: any): (Types.Store) -> ()
-	return function(store: {[string]: any}): ()
+	return function(store: { [string]: any }): ()
 		local state = store:getState()
 
 		local oldMode = state.Status.EditorMode

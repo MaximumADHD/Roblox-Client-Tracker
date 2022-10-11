@@ -69,14 +69,14 @@ function MainPlugin:init(props)
 
 	self.setEnabled = function(enabled: boolean)
 		self:setState({
-			enabled = enabled
+			enabled = enabled,
 		})
 	end
 
 	local middleware = {
 		ThunkWithArgsMiddleware({
 			SoundAssetChecker = props.SoundAssetChecker,
-		})
+		}),
 	}
 
 	self.store = Rodux.Store.new(MainReducer, nil, middleware, nil)

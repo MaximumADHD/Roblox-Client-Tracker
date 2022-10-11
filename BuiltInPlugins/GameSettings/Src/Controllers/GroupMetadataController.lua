@@ -34,13 +34,13 @@ end
 function GroupMetadataController:groupsV1GET(groupId)
 	local networking = self.__networking
 
-	return networking:get("groups", "/v1/groups/"..groupId)
+	return networking:get("groups", "/v1/groups/" .. groupId)
 end
 
 function GroupMetadataController:groupsRolesV1GET(groupId)
 	local networking = self.__networking
 
-	return networking:get("groups", "/v1/groups/"..groupId.."/roles")
+	return networking:get("groups", "/v1/groups/" .. groupId .. "/roles")
 end
 
 function GroupMetadataController:getGroupMetadata(groupId)
@@ -72,7 +72,7 @@ function GroupMetadataController:getRolesetMetadata(groupId)
 			local metadata = response.responseBody
 			local cacheEntry = {}
 
-			for _,roleset in ipairs(metadata.roles) do
+			for _, roleset in ipairs(metadata.roles) do
 				cacheEntry[roleset.id] = {
 					name = roleset.name,
 					rank = roleset.rank,

@@ -62,17 +62,17 @@ export type Props = {
 	ShowTooltips: boolean,
 	Size: UDim2?,
 	StartTick: number,
-	Tracks: {any},
+	Tracks: { any },
 	VerticalScroll: number,
 	VerticalZoom: number,
 	ZIndex: number?,
 
-	OnKeyInputBegan: (string, {string}, number, number, boolean, any) -> (),
+	OnKeyInputBegan: (string, { string }, number, number, boolean, any) -> (),
 	OnKeyInputEnded: (number, boolean, any) -> (),
-	OnKeyRightClick: (string, {string}, number, boolean) -> (),
-	OnTangentInputBegan: (string, {string}, number, string, any) -> (),
+	OnKeyRightClick: (string, { string }, number, boolean) -> (),
+	OnTangentInputBegan: (string, { string }, number, string, any) -> (),
 	OnTangentInputEnded: (number, boolean, any) -> (),
-	OnTangentRightClick: (string, {string}, number, string) -> (),
+	OnTangentRightClick: (string, { string }, number, string) -> (),
 }
 
 function CurveCanvas:Init(): ()
@@ -85,12 +85,15 @@ function CurveCanvas:renderXAxis(): ()
 
 	local xAxis = self:toCanvasSpace(Vector2.new())
 
-	table.insert(self.children, Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 0, 1),
-		Position = UDim2.new(0, 0, 0, xAxis.Y),
-		BackgroundColor3 = theme.curveTheme.xAxis,
-		BorderSizePixel = 0,
-	}))
+	table.insert(
+		self.children,
+		Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, 1),
+			Position = UDim2.new(0, 0, 0, xAxis.Y),
+			BackgroundColor3 = theme.curveTheme.xAxis,
+			BorderSizePixel = 0,
+		})
+	)
 end
 
 -- Rescale x, y to absolute positions in pixels
@@ -100,14 +103,15 @@ function CurveCanvas:toCanvasSpace(position: Vector2): Vector2
 	local minValue, maxValue = props.MinValue, props.MaxValue
 	local scroll, zoom = props.VerticalScroll, props.VerticalZoom
 
-	zoom = math.min(zoom, 0.99)  -- Avoid division by zero by restricting the zoom factor
+	zoom = math.min(zoom, 0.99) -- Avoid division by zero by restricting the zoom factor
 	local zoomFactor = 1 / (1 - zoom)
 
-	local x = (position.X - props.StartTick) * (props.AbsoluteSize.X) / (props.EndTick - props.StartTick)  -- Scale to viewport
-	local y = (maxValue - position.Y) / (maxValue - minValue)  -- Normalize between 0 and 1. maxValue maps to 0, minValue to 1
-	y = y - (scroll * zoom)  -- Apply normalized scroll
-	y = y * zoomFactor  -- Apply zoom factor
-	y = (props.AbsoluteSize.Y * Constants.CURVE_CANVAS_PADDING) + y * props.AbsoluteSize.Y * (1 - 2 * Constants.CURVE_CANVAS_PADDING)  -- Scale to viewport
+	local x = (position.X - props.StartTick) * props.AbsoluteSize.X / (props.EndTick - props.StartTick) -- Scale to viewport
+	local y = (maxValue - position.Y) / (maxValue - minValue) -- Normalize between 0 and 1. maxValue maps to 0, minValue to 1
+	y = y - (scroll * zoom) -- Apply normalized scroll
+	y = y * zoomFactor -- Apply zoom factor
+	y = (props.AbsoluteSize.Y * Constants.CURVE_CANVAS_PADDING)
+		+ y * props.AbsoluteSize.Y * (1 - 2 * Constants.CURVE_CANVAS_PADDING) -- Scale to viewport
 	return Vector2.new(x, y)
 end
 
@@ -137,7 +141,8 @@ function CurveCanvas:renderCurve(track): ()
 	local trackName = track.Path[#track.Path]
 	local pathName = table.concat(track.Path, "_")
 
-	local colorName = Constants.TRACK_THEME_MAPPING[track.Type] and Constants.TRACK_THEME_MAPPING[track.Type][trackName] or "Default"
+	local colorName = Constants.TRACK_THEME_MAPPING[track.Type] and Constants.TRACK_THEME_MAPPING[track.Type][trackName]
+		or "Default"
 	local color = theme.curveTheme[colorName]
 
 	local cur, curB, prev
@@ -150,7 +155,7 @@ function CurveCanvas:renderCurve(track): ()
 
 	-- Display a small dot on the scrubber
 	local playhead = self.props.Playhead
-	local value = KeyframeUtils.getValue(track, playhead)::number
+	local value = KeyframeUtils.getValue(track, playhead) :: number
 	if track.Type == Constants.TRACK_TYPES.Facs then
 		value = math.clamp(value, 0, 1)
 	end
@@ -204,7 +209,8 @@ function CurveCanvas:renderCurve(track): ()
 			cur = self:toCanvasSpace(Vector2.new(curTick, curKeyframe.Value))
 		end
 
-		local curveSelected = prevSelected or (curSelected and prevKeyframe and prevKeyframe.InterpolationMode ~= Enum.KeyInterpolationMode.Constant)
+		local curveSelected = prevSelected
+			or (curSelected and prevKeyframe and prevKeyframe.InterpolationMode ~= Enum.KeyInterpolationMode.Constant)
 		local curveColor = curveSelected and theme.curveTheme.selected or color
 
 		local curveName = string.format("%s_Curve_%d", pathName, keyframeIndex)
@@ -265,15 +271,21 @@ function CurveCanvas:renderCurve(track): ()
 					ShowTooltip = showTooltips,
 					Selected = curSelected,
 					ZIndex = 4,
-					OnRightClick = if props.OnKeyRightClick then function(_, input)
-						props.OnKeyRightClick(track.Instance, track.Path, curTick, curSelected)
-					end else nil,
-					OnInputBegan = if props.OnKeyInputBegan then function(_, input)
-						props.OnKeyInputBegan(track.Instance, track.Path, curTick, curSelected, input)
-					end else nil,
-					OnInputEnded = if props.OnKeyInputEnded then function(_, input)
-						props.OnKeyInputEnded(curTick, curKeyframe.Value, curSelected, input)
-					end else nil,
+					OnRightClick = if props.OnKeyRightClick
+						then function(_, input)
+							props.OnKeyRightClick(track.Instance, track.Path, curTick, curSelected)
+						end
+						else nil,
+					OnInputBegan = if props.OnKeyInputBegan
+						then function(_, input)
+							props.OnKeyInputBegan(track.Instance, track.Path, curTick, curSelected, input)
+						end
+						else nil,
+					OnInputEnded = if props.OnKeyInputEnded
+						then function(_, input)
+							props.OnKeyInputEnded(curTick, curKeyframe.Value, curSelected, input)
+						end
+						else nil,
 				})
 			end
 
@@ -291,15 +303,21 @@ function CurveCanvas:renderCurve(track): ()
 					ShowTooltip = showTooltips,
 					Selected = curSelected,
 					ZIndex = 4,
-					OnRightClick = if props.OnKeyRightClick then function(_, input)
-						props.OnKeyRightClick(track.Instance, track.Path, curTick, curSelected)
-					end else nil,
-					OnInputBegan = if props.OnKeyInputBegan then function(_, input)
-						props.OnKeyInputBegan(track.Instance, track.Path, curTick, curSelected, input)
-					end else nil,
-					OnInputEnded = if props.OnKeyInputEnded then function(_, input)
-						props.OnKeyInputEnded(curTick, curKeyframe.Value, curSelected, input)
-					end else nil,
+					OnRightClick = if props.OnKeyRightClick
+						then function(_, input)
+							props.OnKeyRightClick(track.Instance, track.Path, curTick, curSelected)
+						end
+						else nil,
+					OnInputBegan = if props.OnKeyInputBegan
+						then function(_, input)
+							props.OnKeyInputBegan(track.Instance, track.Path, curTick, curSelected, input)
+						end
+						else nil,
+					OnInputEnded = if props.OnKeyInputEnded
+						then function(_, input)
+							props.OnKeyInputEnded(curTick, curKeyframe.Value, curSelected, input)
+						end
+						else nil,
 				})
 			end
 
@@ -310,13 +328,16 @@ function CurveCanvas:renderCurve(track): ()
 					self.children[tangentName] = Roact.createElement(TangentControl, {
 						Position = UDim2.new(0, cur.X, 0, cur.Y),
 						Slope = leftSlope,
-						Auto = prevKeyframe and prevKeyframe.InterpolationMode ~= Enum.KeyInterpolationMode.Cubic or curKeyframe.LeftSlope == nil,
+						Auto = prevKeyframe and prevKeyframe.InterpolationMode ~= Enum.KeyInterpolationMode.Cubic
+							or curKeyframe.LeftSlope == nil,
 						Length = tangentLength,
 						Side = Constants.SLOPES.Left,
 						ZIndex = 3,
-						OnRightClick = if props.OnTangentRightClick then function(_, input)
-							props.OnTangentRightClick(track.Instance, track.Path, curTick, Constants.SLOPES.Left)
-						end else nil,
+						OnRightClick = if props.OnTangentRightClick
+							then function(_, input)
+								props.OnTangentRightClick(track.Instance, track.Path, curTick, Constants.SLOPES.Left)
+							end
+							else nil,
 						OnInputBegan = function(_, input)
 							props.OnTangentInputBegan(input)
 						end,
@@ -338,18 +359,27 @@ function CurveCanvas:renderCurve(track): ()
 					self.children[tangentName] = Roact.createElement(TangentControl, {
 						Position = position,
 						Slope = rightSlope,
-						Auto = curKeyframe.InterpolationMode ~= Enum.KeyInterpolationMode.Cubic or curKeyframe.RightSlope == nil,
+						Auto = curKeyframe.InterpolationMode ~= Enum.KeyInterpolationMode.Cubic
+							or curKeyframe.RightSlope == nil,
 						Length = tangentLength,
 						Side = Constants.SLOPES.Right,
 						ZIndex = 3,
-						OnRightClick = if props.OnTangentRightClick then function(_, input)
-							props.OnTangentRightClick(track.Instance, track.Path, curTick, Constants.SLOPES.Right)
-						end else nil,
+						OnRightClick = if props.OnTangentRightClick
+							then function(_, input)
+								props.OnTangentRightClick(track.Instance, track.Path, curTick, Constants.SLOPES.Right)
+							end
+							else nil,
 						OnInputBegan = function(_, input)
 							props.OnTangentInputBegan(input)
 						end,
 						OnInputEnded = function(_, input)
-							props.OnTangentInputEnded(track.Instance, track.Path, curTick, Constants.SLOPES.Right, input)
+							props.OnTangentInputEnded(
+								track.Instance,
+								track.Path,
+								curTick,
+								Constants.SLOPES.Right,
+								input
+							)
 						end,
 					})
 				end

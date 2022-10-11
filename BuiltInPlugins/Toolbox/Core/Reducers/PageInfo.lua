@@ -183,9 +183,11 @@ return Rodux.createReducer({
 		return newState
 	end,
 
-	[UpdateLastLoggedSearchId.name] = if FFlagToolboxAddVerifiedCreatorToAnalytics then function(state, action)
-		return Cryo.Dictionary.join(state, {
-			lastLoggedSearchId = action.searchId,
-		})
-	end else nil,
+	[UpdateLastLoggedSearchId.name] = if FFlagToolboxAddVerifiedCreatorToAnalytics
+		then function(state, action)
+			return Cryo.Dictionary.join(state, {
+				lastLoggedSearchId = action.searchId,
+			})
+		end
+		else nil,
 })

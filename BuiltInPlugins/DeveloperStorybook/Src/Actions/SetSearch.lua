@@ -7,7 +7,7 @@ local Util = require(Main.Packages.Framework).Util
 local Action = Util.Action
 
 export type Props = {
-	searchFilter: string
+	searchFilter: string,
 }
 
 return Action(script.Name, function(searchFilter: string): Props

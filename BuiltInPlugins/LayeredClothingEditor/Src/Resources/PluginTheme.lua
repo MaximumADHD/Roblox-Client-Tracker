@@ -112,20 +112,19 @@ local function createValuesInternal(mock)
 	})
 
 	local EditorScreen = {
-		EditHeight = 350,
-		EditAndPreviewHeight = 175,
 		PreviewHeight = 350,
+		GenerateHeight = 56,
+	}
+
+	local GenerateScreen = {
+		GenerateButtonWidth = 150,
+		BackButtonWidth = 96,
+		ButtonHeight = 48,
 	}
 
 	local SelectFrame = {
 		TextBoxHeight = 24,
 		LabelWidth = 64,
-	}
-
-	local EditorFrame = {
-		Height = 140,
-		EditingModeHeight = 36,
-		CageRowTextLabelSize = 0.3,
 	}
 
 	local LatticeToolSettings = {
@@ -240,6 +239,10 @@ local function createValuesInternal(mock)
 		Padding = 8,
 	}
 
+	local PreviewFrame = {
+		Height = 350,
+	}
+
 	local PreviewGrid = {
 		TileSize = UDim2.new(0, 140, 0, 160),
 		TileInnerBorder = Vector2.new(10, 10),
@@ -315,13 +318,15 @@ local function createValuesInternal(mock)
 		ScrollBarThickness = 8,
 		TabHeight = 32,
 		BorderSize = 1,
+		PreviewViewportFrameHeight = 250,
 	}
 
 	local componentThemes = {
 		CageControls = CageControls,
 		VisibilityControls = VisibilityControls,
 		EditorScreen = EditorScreen,
-		EditorFrame = EditorFrame,
+		GenerateScreen = GenerateScreen,
+		PreviewFrame = PreviewFrame,
 		DeformerDropdownMenu = DeformerDropdownMenu,
 		LatticeToolSettings = LatticeToolSettings,
 		AddItemFromExplorerButton = AddItemFromExplorerButton,

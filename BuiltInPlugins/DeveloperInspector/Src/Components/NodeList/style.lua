@@ -24,5 +24,5 @@ return {
 	HoverColor = StyleKey.ButtonHover,
 	SelectedColor = StyleKey.DialogMainButton,
 	SelectedTextColor = StyleKey.DialogMainButtonText,
-	Link = deepCopy(LinkText)
+	Link = deepCopy(LinkText),
 }

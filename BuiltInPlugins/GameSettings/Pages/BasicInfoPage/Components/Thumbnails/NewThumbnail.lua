@@ -71,14 +71,14 @@ function NewThumbnail:render()
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			ZIndex = 2,
-		})
+		}),
 	})
 
 	if FFlagGameSettingsEnableThumbnailAltText then
 		return Roact.createElement(Pane, {
 			LayoutOrder = self.props.LayoutOrder or 1,
 		}, {
-			thumbnailButton
+			thumbnailButton,
 		})
 	else
 		return thumbnailButton

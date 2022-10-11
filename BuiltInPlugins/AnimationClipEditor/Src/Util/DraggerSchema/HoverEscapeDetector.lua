@@ -28,8 +28,6 @@ function HoverEscapeDetector.new(draggerContext, hoveredItem, onEscaped)
 	}, HoverEscapeDetector)
 end
 
-function HoverEscapeDetector:destroy()
-
-end
+function HoverEscapeDetector:destroy() end
 
 return HoverEscapeDetector

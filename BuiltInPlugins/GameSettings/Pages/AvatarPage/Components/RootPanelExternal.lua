@@ -16,7 +16,7 @@ function RootPanelExternal:init()
 end
 
 function RootPanelExternal:render()
-	local templates = {templates={StateModelTemplate.fromUniverseData(self.props)}}
+	local templates = { templates = { StateModelTemplate.fromUniverseData(self.props) } }
 	local themeInfo = self.props.ThemeData
 
 	return Roact.createElement("Frame", {
@@ -25,15 +25,15 @@ function RootPanelExternal:render()
 		end),
 
 		BorderSizePixel = 0,
-		BackgroundTransparency = 1
+		BackgroundTransparency = 1,
 	}, {
 		Roact.createElement("UIListLayout", {
 			[Roact.Change.AbsoluteContentSize] = function(rbx)
 				self.updateAbsoluteSizeChange(rbx.AbsoluteContentSize.y)
-			end
+			end,
 		}),
 		Roact.createElement(MorpherTemplateContainer, {
-			ThemeData = {theme=themeInfo},
+			ThemeData = { theme = themeInfo },
 			StateTemplates = templates,
 			IsEnabled = self.props.IsEnabled,
 
@@ -48,8 +48,8 @@ function RootPanelExternal:render()
 			end,
 		}),
 		Roact.createElement(AvatarUpdater, {
-			StateTemplates = templates
-		})
+			StateTemplates = templates,
+		}),
 	})
 end
 

@@ -48,7 +48,6 @@ function ScaleTick:render(): (any)
 	local tickWidthScale = props.TickWidthScale
 	local labelPosition = Constants.TICK_LABEL_POSITION[scaleType]
 
-
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(0, width, 0, width),
 		Position = position,
@@ -56,20 +55,22 @@ function ScaleTick:render(): (any)
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 	}, {
-		TimeLabel = if value ~= "" then Roact.createElement("TextLabel", {
-			Position = labelPosition,
-			Size = labelSize,
-			AnchorPoint = Vector2.new(.5, .5),
-			TextColor3 = timelineTheme.textColor,
-			BorderSizePixel = 0,
-			BackgroundTransparency = 1,
-			TextSize = timelineTheme.textSize,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Center,
-			Font = theme.font,
-			Text = value,
-			Rotation = -90,
-		}) else nil,
+		TimeLabel = if value ~= ""
+			then Roact.createElement("TextLabel", {
+				Position = labelPosition,
+				Size = labelSize,
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				TextColor3 = timelineTheme.textColor,
+				BorderSizePixel = 0,
+				BackgroundTransparency = 1,
+				TextSize = timelineTheme.textSize,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				Font = theme.font,
+				Text = value,
+				Rotation = -90,
+			})
+			else nil,
 
 		Tick = Roact.createElement("Frame", {
 			AnchorPoint = Vector2.new(leftScale and 1 or 0, 0),
@@ -85,7 +86,7 @@ function ScaleTick:render(): (any)
 			AnchorPoint = Vector2.new(0, 0),
 			BorderSizePixel = 0,
 			BackgroundColor3 = timelineTheme.lineColor,
-			BackgroundTransparency = timelineTheme.lowerTransparency
+			BackgroundTransparency = timelineTheme.lowerTransparency,
 		}) or nil,
 	})
 end

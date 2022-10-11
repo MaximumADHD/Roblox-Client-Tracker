@@ -5,35 +5,15 @@
 local Plugin = script.Parent.Parent.Parent
 local Http = require(Plugin.Packages.Framework).Http
 
-local LoadAllLocales = require(Plugin.Src.Actions.DEPRECATED_LoadAllLocales)
 local LoadLanguagesAndLocalesInfo = require(Plugin.Src.Actions.LoadLanguagesAndLocalesInfo)
 local LoadManageTranslationPermission = require(Plugin.Src.Actions.LoadManageTranslationPermission)
 local SetCloudTableId = require(Plugin.Src.Actions.SetCloudTableId)
-
-local FFlagLocalizationToolsAllowUploadZhCjv = game:GetFastFlag("LocalizationToolsAllowUploadZhCjv")
 
 local ACCEPTED_ROLES = {
 	owner = true,
 	collaborator = true,
 	translator = true,
 }
-
-local function getAllLanguageCodes(api, localization)
-	return function(store)
-		local request = api.Locale.V1.locales()
-		request:makeRequest():andThen(
-			function(response)
-				local allLanguageCodes = {}
-				for _, localeInfo in ipairs(response.responseBody.data) do
-					allLanguageCodes[localeInfo.locale.language.languageCode] = true
-				end
-				store:dispatch(LoadAllLocales(allLanguageCodes))
-			end,
-			function()
-				warn(localization:getText("PluginMetadata", "GetAllLocalesFailed"))
-			end)
-	end
-end
 
 local function getLanguagesAndLocalesInfo(api, localization)
 	return function(store)
@@ -112,11 +92,7 @@ end
 
 local function getAll(api, localization)
 	return function(store)
-		if FFlagLocalizationToolsAllowUploadZhCjv then
-			store:dispatch(getLanguagesAndLocalesInfo(api, localization))
-		else
-			store:dispatch(getAllLanguageCodes(api, localization))
-		end
+		store:dispatch(getLanguagesAndLocalesInfo(api, localization))
 		if game.GameId ~= 0 then
 			store:dispatch(
 				getManageTranslationPermission(api, localization))

@@ -10,7 +10,6 @@ local getUserId = require(Plugin.Core.Util.getUserId)
 
 local FFlagToolboxAddVerifiedCreatorToAnalytics = game:GetFastFlag("ToolboxAddVerifiedCreatorToAnalytics")
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
-local FFlagToolboxTrackHidden = game:GetFastFlag("ToolboxTrackHidden")
 local FFlagToolboxAddAnnouncementAnalytics = game:GetFastFlag("ToolboxAddAnnouncementAnalytics")
 
 local getPlaceId = require(Plugin.Core.Util.getPlaceId)
@@ -250,14 +249,12 @@ function Analytics.onToolboxDisplayed()
 	})
 end
 
-if FFlagToolboxTrackHidden then
-	function Analytics.onToolboxHidden()
-		AnalyticsSenders.sendEventDeferred("studio", "Marketplace", "MarketplaceHidden", {
-			userId = getUserId(),
-			placeId = getPlaceId(),
-			isEditMode = getIsEditMode(),
-		})
-	end
+function Analytics.onToolboxHidden()
+	AnalyticsSenders.sendEventDeferred("studio", "Marketplace", "MarketplaceHidden", {
+		userId = getUserId(),
+		placeId = getPlaceId(),
+		isEditMode = getIsEditMode(),
+	})
 end
 
 function Analytics.onContextMenuClicked(eventName, assetId, assetTypeId, currentCategory)
@@ -313,11 +310,7 @@ function Analytics.onIdVerificationIconClicked(assetId)
 end
 
 if FFlagToolboxAddVerifiedCreatorToAnalytics then
-	function Analytics.marketplaceSearch(
-		keyword,
-		isTopKeyword: boolean,
-		searchInfo: AnalyticsTypes.SearchInfo
-	)
+	function Analytics.marketplaceSearch(keyword, isTopKeyword: boolean, searchInfo: AnalyticsTypes.SearchInfo)
 		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "MarketplaceSearch", {
 			studioSid = getStudioSessionId(),
 			clientID = getClientId(),
@@ -355,13 +348,13 @@ if FFlagToolboxAddVerifiedCreatorToAnalytics then
 			userID = getUserId(),
 			ptid = getPlatformId(),
 			placeID = getPlaceId(),
-	
+
 			searchKeyword = keyword,
 			autocompletePrefix = prefix,
 			autocompleteKeyCount = keyCount,
 			autocompleteDeleteCount = delCount,
 			autocompleteShown = autocompleteShown,
-		
+
 			assetType = searchInfo.assetType,
 			searchByCreatorID = searchInfo.creatorID,
 			searchID = searchInfo.searchId,
@@ -369,7 +362,6 @@ if FFlagToolboxAddVerifiedCreatorToAnalytics then
 			toolboxTab = searchInfo.toolboxTab,
 		})
 	end
-
 else
 	function Analytics.marketplaceSearch_DEPRECATED(
 		keyword,

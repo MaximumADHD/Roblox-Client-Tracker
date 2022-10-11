@@ -25,7 +25,7 @@ return function(plugin, useFbxModel, analytics)
 			end
 
 			analytics:report("onImportFbxAnimation")
-			if (useFbxModel) then
+			if useFbxModel then
 				analytics:report("onUserChoseFBXModelForAnimImport")
 			else
 				analytics:report("onUserChoseSelectedModelForAnimImport")

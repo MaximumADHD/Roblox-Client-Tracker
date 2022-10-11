@@ -47,7 +47,7 @@ function ActionToast:renderButton(index, button, textSize)
 		Text = button.Text,
 		OnClick = function()
 			props.OnButtonClicked(button.Key)
-		end
+		end,
 	})
 end
 

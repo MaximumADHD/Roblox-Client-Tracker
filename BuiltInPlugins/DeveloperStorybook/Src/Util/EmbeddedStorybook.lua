@@ -36,9 +36,9 @@ function Window:init()
 		paneSizes = {
 			UDim.new(0, 300),
 			UDim.new(1, -300),
-		}
+		},
 	}
-	self.onPaneSizesChange = function(paneSizes: {UDim})
+	self.onPaneSizesChange = function(paneSizes: { UDim })
 		self:setState({
 			paneSizes = paneSizes,
 		})
@@ -67,7 +67,6 @@ end
 local EmbeddedStorybook = {}
 
 function EmbeddedStorybook.start(storybookGui: ScreenGui, player: Player)
-
 	local store = Rodux.Store.new(MainReducer, {}, {
 		Rodux.thunkMiddleware,
 	})
@@ -89,7 +88,7 @@ function EmbeddedStorybook.start(storybookGui: ScreenGui, player: Player)
 		Focus.new(storybookGui),
 		Plugin.new(MockPlugin.new()),
 		Mouse.new(player:GetMouse()),
-		Analytics.mock()
+		Analytics.mock(),
 	}
 	local Screen = function()
 		return ContextServices.provide(contextItems, {

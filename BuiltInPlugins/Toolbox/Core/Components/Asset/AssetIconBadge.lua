@@ -71,10 +71,8 @@ function AssetIconBadge:render()
 
 			local isHovered = self.state.isHovered
 
-			local canShowCurrentTooltip = modalStatus:canShowCurrentTooltip(
-				assetId,
-				Constants.TOOLTIP_TYPE.HIGH_QUALITY_BADGE
-			)
+			local canShowCurrentTooltip =
+				modalStatus:canShowCurrentTooltip(assetId, Constants.TOOLTIP_TYPE.HIGH_QUALITY_BADGE)
 
 			local edgeOffset = 0.06
 
@@ -119,10 +117,8 @@ if FFlagToolboxPackagesInAssetTile then
 
 		local isHovered = self.state.isHovered
 
-		local canShowCurrentTooltip = modalStatus:canShowCurrentTooltip(
-			assetId,
-			Constants.TOOLTIP_TYPE.HIGH_QUALITY_BADGE
-		)
+		local canShowCurrentTooltip =
+			modalStatus:canShowCurrentTooltip(assetId, Constants.TOOLTIP_TYPE.HIGH_QUALITY_BADGE)
 
 		local edgeOffset = 0.06
 

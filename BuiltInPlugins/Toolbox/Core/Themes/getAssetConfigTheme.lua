@@ -227,7 +227,7 @@ return function()
 				ButtonSpacing = 8,
 			},
 		}),
-			
+
 		[ui.RadioButton] = Cryo.Dictionary.join(radioButton, {
 			["&AssetConfigRadioButton"] = {
 				TextSize = Constants.FONT_SIZE_ASSET_CONFIG_INPUT,
@@ -236,11 +236,14 @@ return function()
 					BackgroundStyle = Cryo.Dictionary.join(radioButton.BackgroundStyle.BackgroundStyle, {
 						Color = StyleKey.InputFieldBackground,
 					}),
-					
+
 					[StyleModifier.Selected] = Cryo.Dictionary.join(radioButton.BackgroundStyle[StyleModifier.Selected], {
-						BackgroundStyle = Cryo.Dictionary.join(radioButton.BackgroundStyle[StyleModifier.Selected].BackgroundStyle, {
-							Color = StyleKey.InputFieldBackground,
-						}),
+						BackgroundStyle = Cryo.Dictionary.join(
+							radioButton.BackgroundStyle[StyleModifier.Selected].BackgroundStyle,
+							{
+								Color = StyleKey.InputFieldBackground,
+							}
+						),
 					}),
 				}),
 			},

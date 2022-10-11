@@ -14,7 +14,7 @@ return function()
 				ShowHead = showHead,
 				AnchorPoint = Vector2.new(0.5, 0),
 				Thickness = 1,
-			})
+			}),
 		})
 	end
 
@@ -23,7 +23,6 @@ return function()
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)
 	end)
-
 
 	describe("should render correctly", function()
 		it("should render with head correctly", function()

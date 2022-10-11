@@ -3,10 +3,10 @@ return function()
 
 	it("should build a hierarchy table", function()
 		local children = {
-			Root = {"LeftArm", "RightArm", "Neck", "LeftLeg", "RightLeg"},
-			Neck = {"Head"},
-			LeftArm = {"LeftHand"},
-			RightArm = {"RightHand"},
+			Root = { "LeftArm", "RightArm", "Neck", "LeftLeg", "RightLeg" },
+			Neck = { "Head" },
+			LeftArm = { "LeftHand" },
+			RightArm = { "RightHand" },
 		}
 		local firstNode = "Root"
 		local hierarchy = buildHierarchy(firstNode, function(node)

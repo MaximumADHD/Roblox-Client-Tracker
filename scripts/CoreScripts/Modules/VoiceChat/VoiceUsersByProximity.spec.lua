@@ -17,13 +17,13 @@ return function()
 	local VoiceChatServiceManager
 	beforeAll(function(c)
 		c.fflagClearUserFromRecentVoiceDataOnLeave = game:SetFastFlagForTesting("ClearUserFromRecentVoiceDataOnLeave", false)
-		c.fflagVoiceAbuseReportsEnabled = game:SetFastFlagForTesting("VoiceAbuseReportsEnabledV2", true)
+		c.fflagVoiceAbuseReportsEnabled = game:SetFastFlagForTesting("VoiceAbuseReportsEnabledV3", true)
 		c.fintVoiceUsersInteractionExpiryTimeSeconds = game:SetFastIntForTesting("VoiceUsersInteractionExpiryTimeSeconds", 600)
 	end)
 
 	afterAll(function(c)
 		game:SetFastFlagForTesting("ClearUserFromRecentVoiceDataOnLeave", c.fflagClearUserFromRecentVoiceDataOnLeave)
-		game:SetFastFlagForTesting("VoiceAbuseReportsEnabledV2", c.fflagVoiceAbuseReportsEnabled)
+		game:SetFastFlagForTesting("VoiceAbuseReportsEnabledV3", c.fflagVoiceAbuseReportsEnabled)
 		game:SetFastIntForTesting("VoiceUsersInteractionExpiryTimeSeconds", c.fintVoiceUsersInteractionExpiryTimeSeconds)
 	end)
 

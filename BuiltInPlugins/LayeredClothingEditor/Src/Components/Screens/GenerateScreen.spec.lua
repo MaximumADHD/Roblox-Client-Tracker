@@ -23,18 +23,10 @@ return function()
 			createGenerateScreen(),
 			function(container)
 				local frame = container:FindFirstChildOfClass("Frame")
-				local screen = frame.Screen
-				local content = screen.Content
-
-				local prompt = content.Prompt
-				local nextBackButtonContainer = content.NextAndBackButtonContainer
-				local nextButton = nextBackButtonContainer.NextButton
-				local backButton = nextBackButtonContainer.BackButton
+				local nextButton = frame.NextButton
+				local backButton = frame.BackButton
 
 				expect(frame).to.be.ok()
-				expect(screen).to.be.ok()
-				expect(content).to.be.ok()
-				expect(prompt).to.be.ok()
 				expect(nextButton).to.be.ok()
 				expect(backButton).to.be.ok()
 			end

@@ -46,8 +46,8 @@ return function()
 			-- Prune selected tracks, as some tracks might have disappeared
 			-- This use case does not happen for now, but it might in the future.
 			-- This is added to mirror the behavior of Undo
-			local newSelectedTracks, changed = TrackSelectionUtils.PruneSelectedTracks(
-				newState.AnimationData, selectedTracks)
+			local newSelectedTracks, changed =
+				TrackSelectionUtils.PruneSelectedTracks(newState.AnimationData, selectedTracks)
 			if changed then
 				store:dispatch(SetSelectedTracks(newSelectedTracks))
 			end

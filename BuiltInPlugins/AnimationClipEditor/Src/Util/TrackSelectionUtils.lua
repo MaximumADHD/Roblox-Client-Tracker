@@ -13,7 +13,10 @@ local TrackSelectionUtils = {}
 
 -- Given a track selection and animationData, prune selected tracks that are not present in the data anymore.
 -- The second parameters tells if the selection has changed because of that pruning.
-function TrackSelectionUtils.PruneSelectedTracks(animationData: AnimationData.AnimationData, selectedTracks: {PathUtils.Path}?): ({PathUtils.Path}, boolean)
+function TrackSelectionUtils.PruneSelectedTracks(
+	animationData: AnimationData.AnimationData,
+	selectedTracks: { PathUtils.Path }?
+): ({ PathUtils.Path }, boolean)
 	local newSelectedTracks = {}
 	local changed = false
 

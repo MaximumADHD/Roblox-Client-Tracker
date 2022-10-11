@@ -1,6 +1,6 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
-	local Immutable = require(CorePackages.AppTempCommon.Common.Immutable)
+	local Immutable = require(CorePackages.Workspace.Packages.AppCommonLib).Immutable
 	local User = require(CorePackages.AppTempCommon.LuaApp.Models.User)
 
 	it("should detect if provided users are identical", function()

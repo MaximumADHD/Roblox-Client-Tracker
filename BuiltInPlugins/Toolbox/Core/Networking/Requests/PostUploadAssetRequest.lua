@@ -95,7 +95,7 @@ return function(publishInfo)
 			Analytics.incrementUploadAssetFailure(publishInfo.assetType)
 		end
 
-		if FFlagUnifyModelPackagePublish3 and publishInfo.packageOn then 
+		if FFlagUnifyModelPackagePublish3 and publishInfo.packageOn then
 			for _, instance in pairs(publishInfo.sourceInstances) do
 				if not instance:isDescendantOf(game) then
 					warn("Failed to convert to Package: the original instance was deleted")
@@ -115,14 +115,13 @@ return function(publishInfo)
 			)
 
 			local function onConvertToPackageResult(result, errorMessage)
-
 				local convertedResponse = {
 					["url"] = url,
 					["responseCode"] = result and 200 or -1,
-					["responseBody"] = errorMessage
+					["responseBody"] = errorMessage,
 				}
 				sendResultToKibana(convertedResponse)
-				
+
 				if result == false then
 					store:dispatch(NetworkError(errorMessage, "uploadRequest"))
 					store:dispatch(UploadResult(false))
@@ -134,7 +133,7 @@ return function(publishInfo)
 					-- No matter what, save the new assetID first.
 					store:dispatch(SetAssetId(newAssetId))
 					store:dispatch(SetIsPackage(true))
-					
+
 					Analytics.incrementUploadAssetSuccess(publishInfo.assetType)
 
 					-- Then for sales status, no matter if the user is whitelisted or not. As long as it's buyable
@@ -151,7 +150,7 @@ return function(publishInfo)
 						-- Then we will try to set the price once' the asset is uploaded.
 						store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
 						store:dispatch(UploadResult(true))
-					end 
+					end
 				end
 			end
 
@@ -161,7 +160,6 @@ return function(publishInfo)
 		end
 
 		return SerializeInstances(publishInfo.instances, services.StudioAssetService):andThen(function(fileDataString)
-
 			return publishInfo.networkInterface
 				:postUploadAsset(
 					publishInfo.assetId,

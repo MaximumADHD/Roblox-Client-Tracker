@@ -32,9 +32,6 @@ local getSupportedMaterials = require(Constants.getSupportedMaterials)
 local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt(
 	"InfluxReportMaterialManagerHundrethPercent2"
 )
-local getFFlagMaterialManagerTextureMapOverhaul = require(
-	Plugin.Src.Flags.getFFlagMaterialManagerTextureMapOverhaul
-)
 local supportedMaterials = getSupportedMaterials()
 
 export type Props = {
@@ -100,12 +97,10 @@ function MaterialInformation:init()
 
 		if material and not material.MaterialVariant then
 			local materialVariant = props.GeneralServiceController:createMaterialVariant(material.Material)
-			if getFFlagMaterialManagerTextureMapOverhaul() then
-				local args = {
-					["BaseMaterial"] = getMaterialName(material.Material),
-				}
-				props.Analytics:report("newMaterialVariant", args, FIntInfluxReportMaterialManagerHundrethPercent2)
-			end
+			local args = {
+				["BaseMaterial"] = getMaterialName(material.Material),
+			}
+			props.Analytics:report("newMaterialVariant", args, FIntInfluxReportMaterialManagerHundrethPercent2)
 			props.dispatchSetMaterialVariant(materialVariant)
 		end
 	end

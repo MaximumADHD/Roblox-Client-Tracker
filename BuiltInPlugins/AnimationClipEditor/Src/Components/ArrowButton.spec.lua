@@ -18,7 +18,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestArrowButton(), container)
 		local button = container:FindFirstChildOfClass("ImageButton")

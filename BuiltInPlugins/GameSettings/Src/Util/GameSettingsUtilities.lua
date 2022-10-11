@@ -13,7 +13,7 @@ local contextKey = KeyProvider.getContextKeyName()
 local pluginKey = KeyProvider.getPluginKeyName()
 local gameSettingsKey = KeyProvider.getGameSettingsKeyName()
 
-local GameSettingsUtilities =  {}
+local GameSettingsUtilities = {}
 
 function GameSettingsUtilities.getAutoTranslationAllowed()
 	return GameSettingsPolicy["AutoTranslationAllowed"]
@@ -69,7 +69,7 @@ end
 
 function GameSettingsUtilities.calculateTextSize(text, textSize, font)
 	local hugeFrameSizeNoTextWrapping = Vector2.new(5000, 5000)
-	return game:GetService('TextService'):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
+	return game:GetService("TextService"):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
 end
 
 return GameSettingsUtilities

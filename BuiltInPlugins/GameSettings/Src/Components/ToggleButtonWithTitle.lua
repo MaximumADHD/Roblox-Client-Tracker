@@ -55,7 +55,7 @@ function ToggleButtonWithTitle:init()
 		end
 
 		self:setState({
-			descriptionWidth = descriptionWidthContainer.AbsoluteSize.X
+			descriptionWidth = descriptionWidthContainer.AbsoluteSize.X,
 		})
 	end
 end
@@ -89,8 +89,9 @@ function ToggleButtonWithTitle:render()
 			Size = theme.settingsPage.toggleButtonSize,
 		}),
 
-		Description = props.Description and
-			Roact.createElement(if FFlagRemoveUILibraryTitledFrame then TextLabel else FitTextLabel, Cryo.Dictionary.join(showWarning and theme.fontStyle.SmallError or theme.fontStyle.Subtext, {
+		Description = props.Description and Roact.createElement(
+			if FFlagRemoveUILibraryTitledFrame then TextLabel else FitTextLabel,
+			Cryo.Dictionary.join(showWarning and theme.fontStyle.SmallError or theme.fontStyle.Subtext, {
 				AutomaticSize = if FFlagRemoveUILibraryTitledFrame then Enum.AutomaticSize.XY else nil,
 				BackgroundTransparency = 1,
 				LayoutOrder = layoutIndex:getNextOrder(),
@@ -100,23 +101,27 @@ function ToggleButtonWithTitle:render()
 				Text = description,
 				TextWrapped = true,
 				width = UDim.new(0, descriptionWidth),
-			})),
+			})
+		),
 
-		LinkText = props.LinkProps and Roact.createElement(TextWithInlineLink, Cryo.Dictionary.join(linkProps, {
-			LinkPlaceholder = "[link]",
-			MaxWidth = descriptionWidth,
-			LayoutOrder = layoutIndex:getNextOrder(),
-			TextProps = Cryo.Dictionary.join(theme.fontStyle.Subtext, {
-				BackgroundTransparency = 1,
-				TextXAlignment = Enum.TextXAlignment.Left,
-			}),
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-		})),
+		LinkText = props.LinkProps and Roact.createElement(
+			TextWithInlineLink,
+			Cryo.Dictionary.join(linkProps, {
+				LinkPlaceholder = "[link]",
+				MaxWidth = descriptionWidth,
+				LayoutOrder = layoutIndex:getNextOrder(),
+				TextProps = Cryo.Dictionary.join(theme.fontStyle.Subtext, {
+					BackgroundTransparency = 1,
+					TextXAlignment = Enum.TextXAlignment.Left,
+				}),
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			})
+		),
 
 		DescriptionWidth = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			LayoutOrder = layoutIndex:getNextOrder(),
-			Size = UDim2.new(1,0,0,0),
+			Size = UDim2.new(1, 0, 0, 0),
 			[Roact.Ref] = self.descriptionRef,
 			[Roact.Change.AbsoluteSize] = self.onResize,
 		}),

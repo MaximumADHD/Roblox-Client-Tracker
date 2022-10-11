@@ -32,6 +32,7 @@ local getFFlagAssetImportUsePropertyFactories = require(Plugin.Src.Flags.getFFla
 local FFlagLCQualityCageNamingChecks = game:GetFastFlag("LCQualityCageNamingChecks")
 local FFlagAssetImportPassLocalizationAllContextMixins = require(Plugin.Src.Flags.getFFlagAssetImportPassLocalizationAllContextMixins)
 local getFFlagAssetImportGlobalStatusFix = require(Plugin.Src.Flags.getFFlagAssetImportGlobalStatusFix)
+local getFFlagAssetImportUpdatePropertySpacing = require(Plugin.Src.Flags.getFFlagAssetImportUpdatePropertySpacing)
 
 local statusBucketToType = {
 	["Errors"] = StatusLevel.Error,
@@ -286,7 +287,7 @@ function PropertyListView:render()
 			Pane = Roact.createElement(Pane, {
 				Layout = Enum.FillDirection.Vertical,
 				LayoutOrder = props.LayoutOrder,
-				Size = UDim2.new(1, -10, 1, 0),
+				Size = if getFFlagAssetImportUpdatePropertySpacing() then UDim2.new(1, 0, 1, 0) else UDim2.new(1, -10, 1, 0),
 				VerticalAlignment = Enum.VerticalAlignment.Top,
 			}, sections)
 		})

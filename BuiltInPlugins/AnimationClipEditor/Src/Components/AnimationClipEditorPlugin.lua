@@ -49,20 +49,29 @@ local AnalyticsHandlers = require(Plugin.Src.Resources.AnalyticsHandlers)
 local AnimationClipEditorPlugin = Roact.PureComponent:extend("AnimationClipEditorPlugin")
 
 local FStringFaceControlsEditorLink = game:GetFastString("FaceControlsEditorLink")
-local FStringCurveEditorLink = game:DefineFastString("ACECurveEditorLink", "https://create.roblox.com/docs/building-and-visuals/animation/curve-editor")
+local FStringCurveEditorLink = game:DefineFastString(
+	"ACECurveEditorLink",
+	"https://create.roblox.com/docs/building-and-visuals/animation/curve-editor"
+)
 --TODO: FStringFaceRecorderLink: replace link string once we get the url to use!
-local FStringFaceRecorderLink = game:DefineFastString("ACEFaceRecorderLink", "https://create.roblox.com/docs/building-and-visuals/animation/face-recorder")
+local FStringFaceRecorderLink = game:DefineFastString(
+	"ACEFaceRecorderLink",
+	"https://create.roblox.com/docs/building-and-visuals/animation/face-recorder"
+)
 
 local GetFFlagFaceControlsEditorBugBash3Update = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorBugBash3Update)
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
 
 function AnimationClipEditorPlugin:handleButtonClick(plugin)
 	if RunService:IsRunning() then
-		showBlockingDialog(plugin, Roact.createElement(ErrorDialogContents, {
-			ErrorType = Constants.EDITOR_ERRORS.OpenedWhileRunning,
-			ErrorKey = Constants.EDITOR_ERRORS_KEY,
-			ErrorHeader = Constants.EDITOR_ERRORS_HEADER_KEY,
-		}))
+		showBlockingDialog(
+			plugin,
+			Roact.createElement(ErrorDialogContents, {
+				ErrorType = Constants.EDITOR_ERRORS.OpenedWhileRunning,
+				ErrorKey = Constants.EDITOR_ERRORS_KEY,
+				ErrorHeader = Constants.EDITOR_ERRORS_HEADER_KEY,
+			})
+		)
 	else
 		self:setState(function(state)
 			return {
@@ -80,7 +89,7 @@ end
 function AnimationClipEditorPlugin:init(initialProps)
 	assert(initialProps.plugin ~= nil, "AnimationClipEditorPlugin requires a Plugin.")
 
-	local middlewares = {Rodux.thunkMiddleware}
+	local middlewares = { Rodux.thunkMiddleware }
 	if DebugFlags.LogRoduxEvents() then
 		table.insert(middlewares, Rodux.loggerMiddleware)
 	end
@@ -123,7 +132,10 @@ function AnimationClipEditorPlugin:init(initialProps)
 		)
 	end
 
-	self.actions = ContextServices.PluginActions.new(initialProps.plugin, MakePluginActions(initialProps.plugin, self.localization))
+	self.actions = ContextServices.PluginActions.new(
+		initialProps.plugin,
+		MakePluginActions(initialProps.plugin, self.localization)
+	)
 
 	self.state = {
 		enabled = false,
@@ -161,11 +173,12 @@ function AnimationClipEditorPlugin:init(initialProps)
 	-- Use it to switch the current tool.
 	self.onToolSelected = function(tool)
 		local plugin = initialProps.plugin
-		if tool == Enum.RibbonTool.Select
+		if
+			tool == Enum.RibbonTool.Select
 			or tool == Enum.RibbonTool.Rotate
 			or tool == Enum.RibbonTool.Move
-			or tool == Enum.RibbonTool.Scale then
-
+			or tool == Enum.RibbonTool.Scale
+		then
 			if self.state.enabled then
 				local heartbeat
 				heartbeat = RunService.Heartbeat:Connect(function()
@@ -246,9 +259,10 @@ function AnimationClipEditorPlugin:getPluginSettings()
 	end
 
 	local eulerAnglesOrder = plugin:GetSetting(Constants.SETTINGS.EulerAnglesOrder)
-	self.store:dispatch(SetDefaultEulerAnglesOrder(if eulerAnglesOrder
-		then Enum.RotationOrder[eulerAnglesOrder]
-		else Enum.RotationOrder.XYZ)
+	self.store:dispatch(
+		SetDefaultEulerAnglesOrder(
+			if eulerAnglesOrder then Enum.RotationOrder[eulerAnglesOrder] else Enum.RotationOrder.XYZ
+		)
 	)
 end
 
@@ -319,7 +333,7 @@ function AnimationClipEditorPlugin:render()
 		}, {
 			AnimationClipEditor = Roact.createElement(AnimationClipEditor),
 			Dragger = Roact.createElement(DraggerWrapper),
-		})
+		}),
 	})
 end
 

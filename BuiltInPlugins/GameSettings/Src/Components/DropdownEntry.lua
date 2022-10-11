@@ -10,6 +10,10 @@
 		int LayoutOrder = The order in which this entry appears in the Dropdown.
 		function OnClick = Callback when this entry is clicked by the user.
 ]]
+local FFlagDevFrameworkDropdownShowsLabel = game:GetFastFlag("DevFrameworkDropdownShowsLabel")
+if FFlagDevFrameworkDropdownShowsLabel then
+	return nil
+end
 
 local DEFAULT_SIZE = UDim2.new(0, 220, 0, 38)
 
@@ -57,7 +61,7 @@ function DropdownEntry:render()
 	local currentFont = current and Enum.Font.SourceSansSemibold or Enum.Font.SourceSans
 
 	local highlightVisible = current
-	
+
 	return Roact.createElement("ImageButton", {
 		Size = DEFAULT_SIZE,
 		BorderSizePixel = 0,
@@ -72,7 +76,7 @@ function DropdownEntry:render()
 			self:mouseHoverChanged(false)
 		end,
 
-		[Roact.Event.Activated] = self.props.OnClick
+		[Roact.Event.Activated] = self.props.OnClick,
 	}, {
 		Main = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 1, 0),
@@ -89,16 +93,19 @@ function DropdownEntry:render()
 				BackgroundColor3 = theme.dropDownEntry.highlight,
 			}),
 
-			Title = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-				Size = UDim2.new(1, -12, 1, 0),
-				Position = UDim2.new(0, 12, 0, 0),
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Font = currentFont,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				Text = title or "",
-				ZIndex = 5,
-			})),
+			Title = Roact.createElement(
+				"TextLabel",
+				Cryo.Dictionary.join(theme.fontStyle.Normal, {
+					Size = UDim2.new(1, -12, 1, 0),
+					Position = UDim2.new(0, 12, 0, 0),
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					Font = currentFont,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					Text = title or "",
+					ZIndex = 5,
+				})
+			),
 		}),
 	})
 end

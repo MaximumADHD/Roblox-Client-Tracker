@@ -8,11 +8,11 @@ local Util = Framework.Util
 local Action = Util.Action
 
 export type Props = {
-	change: {[Types.StoryItem]: boolean}
+	change: { [Types.StoryItem]: boolean },
 }
 
-return Action(script.Name, function(change: {[Types.StoryItem]: boolean})
+return Action(script.Name, function(change: { [Types.StoryItem]: boolean })
 	return {
-		change = change
+		change = change,
 	}
 end)

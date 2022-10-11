@@ -16,7 +16,7 @@ local AnimationPanel = Roact.Component:extend("ComponentAnimationPanel")
 function AnimationPanel:render()
 	local animationTypeSetFunctions = {
 		[ConstantTemplate.AnimationStandard] = StateModelTemplate.setAnimationStandard,
-		[ConstantTemplate.PlayerChoice] = StateModelTemplate.setAnimationPlayerChoice
+		[ConstantTemplate.PlayerChoice] = StateModelTemplate.setAnimationPlayerChoice,
 	}
 
 	local props = self.props
@@ -25,10 +25,12 @@ function AnimationPanel:render()
 
 	return Roact.createElement(RadioButtonSetPanel, {
 		Title = localization:getText("General", "TitleAnimation"),
-		Buttons = {{
+		Buttons = {
+			{
 				Id = ConstantTemplate.AnimationStandard,
 				Title = localization:getText("General", "AnimationStandard"),
-			}, {
+			},
+			{
 				Id = ConstantTemplate.PlayerChoice,
 				Title = localization:getText("General", "AnimationPlayerChoice"),
 			},
@@ -45,12 +47,9 @@ function AnimationPanel:render()
 	})
 end
 
-
 AnimationPanel = withContext({
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 })(AnimationPanel)
-
-
 
 return AnimationPanel

@@ -23,7 +23,9 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UI = Framework.UI
-local ToggleButton = if FFlagDevFrameworkMigrateToggleButton then UI.ToggleButton else require(RoactStudioWidgets.ToggleButton)
+local ToggleButton = if FFlagDevFrameworkMigrateToggleButton
+	then UI.ToggleButton
+	else require(RoactStudioWidgets.ToggleButton)
 local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else require(RoactStudioWidgets.TitledFrame)
 local TextInput2 = UI.TextInput2
 
@@ -72,33 +74,41 @@ function AssetInput:render()
 	local customItemText = localization:getText("General", "AvatarOverrideItem")
 	local customItemTextSize = calculateTextSize(customItemText, 22, Enum.Font.SourceSans)
 
-	local INPUT_BOX_HORIZONTAL_POSITION = CUSTOM_ITEM_LABEL_HORIZONTAL_POSITION + customItemTextSize.X
+	local INPUT_BOX_HORIZONTAL_POSITION = CUSTOM_ITEM_LABEL_HORIZONTAL_POSITION
+		+ customItemTextSize.X
 		+ INPUT_BOX_HORIZONTAL_OFFSET
 
 	local children = {
-		ToggleButton = Roact.createElement(ToggleButton, if FFlagDevFrameworkMigrateToggleButton then {
-			Enabled = self.props.IsEnabled,
-			OnClick = self.props.SetPlayerChoiceValue,
-			Selected = not self.props.PlayerChoice,
-		} else {
-			Size = UDim2.new(0, TOGGLE_BUTTON_WIDTH, 0, TOGGLE_BUTTON_HEIGHT),
-			Enabled = self.props.IsEnabled,
-			IsOn = not self.props.PlayerChoice,
-			Mouse = mouse,
+		ToggleButton = Roact.createElement(
+			ToggleButton,
+			if FFlagDevFrameworkMigrateToggleButton
+				then {
+					Enabled = self.props.IsEnabled,
+					OnClick = self.props.SetPlayerChoiceValue,
+					Selected = not self.props.PlayerChoice,
+				}
+				else {
+					Size = UDim2.new(0, TOGGLE_BUTTON_WIDTH, 0, TOGGLE_BUTTON_HEIGHT),
+					Enabled = self.props.IsEnabled,
+					IsOn = not self.props.PlayerChoice,
+					Mouse = mouse,
 
-			OnClickedOn = function()
-				self.props.SetPlayerChoiceValue(false)
-			end,
+					OnClickedOn = function()
+						self.props.SetPlayerChoiceValue(false)
+					end,
 
-			OnClickedOff = function()
-				self.props.SetPlayerChoiceValue(true)
-			end
-		}),
+					OnClickedOff = function()
+						self.props.SetPlayerChoiceValue(true)
+					end,
+				}
+		),
 		CustomItemLabel = Roact.createElement("TextLabel", {
 			Position = UDim2.new(0, CUSTOM_ITEM_LABEL_HORIZONTAL_POSITION, 0, 0),
 			Size = UDim2.new(0, customItemTextSize.X, 0, TOGGLE_BUTTON_HEIGHT),
 			BackgroundTransparency = 1,
-			TextColor3 = if StateInterfaceTheme.getRadioButtonTextColor(self.props) then StateInterfaceTheme.getRadioButtonTextColor(self.props) else theme.fontStyle.Header.TextColor3,
+			TextColor3 = if StateInterfaceTheme.getRadioButtonTextColor(self.props)
+				then StateInterfaceTheme.getRadioButtonTextColor(self.props)
+				else theme.fontStyle.Header.TextColor3,
 			TextTransparency = (self.props.IsEnabled and not self.props.PlayerChoice) and 0 or 0.5,
 			Font = Enum.Font.SourceSans,
 			TextSize = 22,
@@ -106,8 +116,8 @@ function AssetInput:render()
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Center,
 		}),
-		InputBox = (if FFlagRemoveUILibraryRoundTextBox then
-			Roact.createElement(TextInput2, {
+		InputBox = (if FFlagRemoveUILibraryRoundTextBox
+			then Roact.createElement(TextInput2, {
 				Disabled = not self.props.IsEnabled,
 				ErrorText = self.props.ErrorMessage,
 				OnTextChanged = self.onTextChanged,
@@ -118,8 +128,7 @@ function AssetInput:render()
 				Width = INPUT_BOX_WIDTH,
 				Text = self.currentTextInputBoxText,
 			})
-		else
-			Roact.createElement(RoundTextBox, {
+			else Roact.createElement(RoundTextBox, {
 				Enabled = self.props.IsEnabled,
 				PlaceholderText = localization:getText("General", "AvatarOverrideId"),
 				MaxLength = 100,
@@ -141,19 +150,24 @@ function AssetInput:render()
 					if not hasFocus and self.props.SetValue then
 						self.props.SetValue(self.currentTextInputBoxText)
 					end
-				end
-			})
-		),
+				end,
+			})),
 	}
 
-	return Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
-		LayoutOrder = self.props.LayoutOrder or 1,
-		Title = self.props.Title,
-	} else {
-		Title = self.props.Title,
-		MaxHeight = WIDGET_HEIGHT,
-		LayoutOrder = self.props.LayoutOrder or 1,
-	}, children)
+	return Roact.createElement(
+		TitledFrame,
+		if FFlagRemoveUILibraryTitledFrame
+			then {
+				LayoutOrder = self.props.LayoutOrder or 1,
+				Title = self.props.Title,
+			}
+			else {
+				Title = self.props.Title,
+				MaxHeight = WIDGET_HEIGHT,
+				LayoutOrder = self.props.LayoutOrder or 1,
+			},
+		children
+	)
 end
 
 AssetInput = withContext({
@@ -164,7 +178,7 @@ AssetInput = withContext({
 
 calculateTextSize = function(text, textSize, font)
 	local hugeFrameSizeNoTextWrapping = Vector2.new(5000, 5000)
-	return game:GetService('TextService'):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
+	return game:GetService("TextService"):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
 end
 
 getText = function(self)

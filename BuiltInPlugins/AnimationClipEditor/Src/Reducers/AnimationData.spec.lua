@@ -21,18 +21,18 @@ return function()
 
 	local testAnimationData = makeAnimationData({
 		["TestTrack"] = {
-			Keyframes = {1, 2, 3},
+			Keyframes = { 1, 2, 3 },
 			Data = {
 				[1] = {},
 				[2] = {},
 				[3] = {},
-			}
+			},
 		},
 		["OtherTrack"] = {
-			Keyframes = {1},
+			Keyframes = { 1 },
 			Data = {
 				[1] = {},
-			}
+			},
 		},
 	})
 
@@ -41,12 +41,12 @@ return function()
 	local testBadAnimationData = makeAnimationData({
 		["BadTrack"] = {
 			Keyframes = {},
-			Data = {}
+			Data = {},
 		},
 	})
 
 	local function createTestStore(animData)
-		local middlewares = {Rodux.thunkMiddleware}
+		local middlewares = { Rodux.thunkMiddleware }
 		local store = Rodux.Store.new(AnimationData, {
 			AnimationData = animData or testAnimationData,
 		}, middlewares)
@@ -70,7 +70,7 @@ return function()
 
 	describe("SetAnimationData", function()
 		it("should set the animation data to the new data", function()
-			local middlewares = {Rodux.thunkMiddleware}
+			local middlewares = { Rodux.thunkMiddleware }
 			local store = Rodux.Store.new(AnimationData, nil, middlewares)
 			store:dispatch(SetAnimationData(testAnimationData))
 			local state = store:getState()
@@ -83,7 +83,9 @@ return function()
 	describe("AddKeyframe", function()
 		it("should add a keyframe at the given frame", function()
 			local store = createTestStore()
-			store:dispatch(AddKeyframe("Root", {"TestTrack"}, Constants.TRACK_TYPES.CFrame, 4, { Value = CFrame.new() }))
+			store:dispatch(
+				AddKeyframe("Root", { "TestTrack" }, Constants.TRACK_TYPES.CFrame, 4, { Value = CFrame.new() })
+			)
 			local state = store:getState()
 			local track = state.Instances.Root.Tracks.TestTrack
 
@@ -98,7 +100,9 @@ return function()
 
 		it("should add a new track if it does not exist", function()
 			local store = createTestStore()
-			store:dispatch(AddKeyframe("Root", {"NewTrack"}, Constants.TRACK_TYPES.CFrame, 1, { Value = CFrame.new() }))
+			store:dispatch(
+				AddKeyframe("Root", { "NewTrack" }, Constants.TRACK_TYPES.CFrame, 1, { Value = CFrame.new() })
+			)
 			local state = store:getState()
 			local track = state.Instances.Root.Tracks.NewTrack
 
@@ -107,7 +111,9 @@ return function()
 
 		it("should preserve the other keyframes", function()
 			local store = createTestStore()
-			store:dispatch(AddKeyframe("Root", {"TestTrack"}, Constants.TRACK_TYPES.CFrame, 4, { Value = CFrame.new() }))
+			store:dispatch(
+				AddKeyframe("Root", { "TestTrack" }, Constants.TRACK_TYPES.CFrame, 4, { Value = CFrame.new() })
+			)
 
 			local state = store:getState()
 			local track = state.Instances.Root.Tracks.TestTrack
@@ -126,7 +132,9 @@ return function()
 
 		it("should preserve the other tracks", function()
 			tracksPreservedTest(function(store)
-				store:dispatch(AddKeyframe("Root", {"TestTrack"}, Constants.TRACK_TYPES.CFrame, 4, { Value = CFrame.new() }))
+				store:dispatch(
+					AddKeyframe("Root", { "TestTrack" }, Constants.TRACK_TYPES.CFrame, 4, { Value = CFrame.new() })
+				)
 			end)
 		end)
 	end)
@@ -134,7 +142,7 @@ return function()
 	describe("SetKeyframeData", function()
 		it("should set a keyframe's EasingDirection", function()
 			local store = createTestStore()
-			store:dispatch(SetKeyframeData("Root", {"TestTrack"}, 1, {
+			store:dispatch(SetKeyframeData("Root", { "TestTrack" }, 1, {
 				EasingDirection = Enum.PoseEasingDirection.In,
 			}))
 
@@ -145,10 +153,9 @@ return function()
 
 		it("should set a keyframe's EasingStyle", function()
 			local store = createTestStore()
-			store:dispatch(SetKeyframeData("Root", {"TestTrack"}, 1, {
+			store:dispatch(SetKeyframeData("Root", { "TestTrack" }, 1, {
 				EasingStyle = Enum.PoseEasingStyle.Linear,
 			}))
-
 
 			local state = store:getState()
 			local track = state.Instances.Root.Tracks.TestTrack
@@ -157,8 +164,8 @@ return function()
 
 		it("should set a keyframe's Value", function()
 			local store = createTestStore()
-			store:dispatch(SetKeyframeData("Root", {"TestTrack"}, 1, {
-				Value = CFrame.new(1, 0, 0)
+			store:dispatch(SetKeyframeData("Root", { "TestTrack" }, 1, {
+				Value = CFrame.new(1, 0, 0),
 			}))
 
 			local state = store:getState()

@@ -40,9 +40,9 @@ local function buttonStyle(image)
 		[StyleModifier.Disabled] = {
 			BackgroundStyle = Cryo.Dictionary.join(roundBox, {
 				Color = StyleKey.ButtonDisabled,
-				Transparency = 0.5
+				Transparency = 0.5,
 			}),
-		}
+		},
 	}
 end
 
@@ -53,10 +53,10 @@ return {
 			Top = 5,
 			Left = 11,
 			Bottom = 11,
-			Right = 11
+			Right = 11,
 		},
 
 		PauseButton = buttonStyle("rbxasset://textures/DeveloperFramework/MediaPlayerControls/pause_button.png"),
 		PlayButton = buttonStyle("rbxasset://textures/DeveloperFramework/MediaPlayerControls/play_button.png"),
-	}
+	},
 }

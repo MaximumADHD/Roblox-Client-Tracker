@@ -47,7 +47,8 @@ return function(pivot, newTick, dragContext)
 				if snapMode ~= Constants.SNAP_MODES.None then
 					insertTick = KeyframeUtils.getNearestFrame(insertTick, frameRate)
 				end
-				insertTick = math.clamp(insertTick, tck - earliestTick, Constants.MAX_ANIMATION_LENGTH - (latestTick - tck))
+				insertTick =
+					math.clamp(insertTick, tck - earliestTick, Constants.MAX_ANIMATION_LENGTH - (latestTick - tck))
 				AnimationData.moveEvents(events, tck, insertTick)
 
 				newSelectedEvents[tck] = nil
@@ -61,7 +62,8 @@ return function(pivot, newTick, dragContext)
 				if snapMode ~= Constants.SNAP_MODES.None then
 					insertTick = KeyframeUtils.getNearestFrame(insertTick, frameRate)
 				end
-				insertTick = math.clamp(insertTick, tck - earliestTick, Constants.MAX_ANIMATION_LENGTH - (latestTick - tck))
+				insertTick =
+					math.clamp(insertTick, tck - earliestTick, Constants.MAX_ANIMATION_LENGTH - (latestTick - tck))
 				AnimationData.moveEvents(events, tck, insertTick)
 
 				newSelectedEvents[tck] = nil

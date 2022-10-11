@@ -13,10 +13,10 @@ return function()
 			ActionToast = Roact.createElement(ActionToast, {
 				Text = "TestText",
 				Buttons = {
-					{Key = "Test1", Text = "Text1"},
-					{Key = "Test2", Text = "Test2"},
+					{ Key = "Test1", Text = "Text1" },
+					{ Key = "Test2", Text = "Test2" },
 				},
-			}, children)
+			}, children),
 		})
 	end
 

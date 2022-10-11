@@ -32,6 +32,13 @@ local StyleModifier = Framework.Util.StyleModifier
 
 local DropdownModule = Roact.PureComponent:extend("DropdownModule")
 
+local FFlagRemoveUILibraryDropdownMenu = game:GetFastFlag("RemoveUILibraryDropdownMenu")
+local FFlagDevFrameworkDropdownShowsLabel = game:GetFastFlag("DevFrameworkDropdownShowsLabel")
+
+if FFlagRemoveUILibraryDropdownMenu and FFlagDevFrameworkDropdownShowsLabel then
+	return {}
+end
+
 function DropdownModule:init()
 	self.state = {
 		buttonExtents = Rect.new(),
@@ -77,41 +84,40 @@ function DropdownModule:render()
 	local layoutOrder = props.LayoutOrder
 
 	local dropdownButton = Roact.createElement("TextButton", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BorderColor3 = theme.BorderColor,
-			BackgroundColor3 = theme.ButtonColor,
-			Text = "",
-			Active = enabled,
-			AutoButtonColor = enabled,
+		Size = UDim2.new(1, 0, 1, 0),
+		BorderColor3 = theme.BorderColor,
+		BackgroundColor3 = theme.ButtonColor,
+		Text = "",
+		Active = enabled,
+		AutoButtonColor = enabled,
 
-			[Roact.Event.Activated] = self.setOpen,
-		}, {
-			Indent = Roact.createElement("UIPadding", {
-				PaddingLeft = theme.TEXT_INDENT_PADDING,
-			}),
-			Label = if FFlagDevFrameworkMigrateTextLabels then (
-				Roact.createElement(TextLabel, {
-					Text = currentSelected or localization:getText("LanguageSection", "CustomLanguageDisplayText"),
-					StyleModifier = if enabled then nil else StyleModifier.Disabled,
-				})
-			) else (
-				Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, 0, 1, 0),
-					Text = currentSelected or localization:getText("LanguageSection", "CustomLanguageDisplayText"),
-					TextColor3 = enabled and theme.TextColor or theme.DisabledColor,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					BackgroundTransparency = 1,
-				})
-			),
-			Arrow = Roact.createElement("ImageLabel", {
-				Position = theme.DROPDOWN_ARROW_POSITION,
-				Size = theme.DROPDOWN_ARROW_SIZE,
+		[Roact.Event.Activated] = self.setOpen,
+	}, {
+		Indent = Roact.createElement("UIPadding", {
+			PaddingLeft = theme.TEXT_INDENT_PADDING,
+		}),
+		Label = if FFlagDevFrameworkMigrateTextLabels
+			then (Roact.createElement(TextLabel, {
+				Text = currentSelected or localization:getText("LanguageSection", "CustomLanguageDisplayText"),
+				StyleModifier = if enabled then nil else StyleModifier.Disabled,
+			}))
+			else (Roact.createElement("TextLabel", {
+				Size = UDim2.new(1, 0, 1, 0),
+				Text = currentSelected or localization:getText("LanguageSection", "CustomLanguageDisplayText"),
+				TextColor3 = enabled and theme.TextColor or theme.DisabledColor,
+				TextXAlignment = Enum.TextXAlignment.Left,
 				BackgroundTransparency = 1,
-				Image = theme.DROPDOWN_ARROW_IMAGE,
-			}),
-		})
+			})),
+		Arrow = Roact.createElement("ImageLabel", {
+			Position = theme.DROPDOWN_ARROW_POSITION,
+			Size = theme.DROPDOWN_ARROW_SIZE,
+			BackgroundTransparency = 1,
+			Image = theme.DROPDOWN_ARROW_IMAGE,
+		}),
+	})
 
-	local dropdownFrame = isOpen and Roact.createElement("Frame", {
+	local dropdownFrame = isOpen
+		and Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,
 			[Roact.Change.AbsoluteSize] = self.updateExtents,
@@ -128,7 +134,8 @@ function DropdownModule:render()
 				ScrollBarPadding = 0,
 				RenderItem = function(item, index, activated)
 					local displayText = item.displayText
-						or item.isCustom and localization:getText(item.displayTextSectionKey, item.displayTextStringKey)
+						or item.isCustom
+							and localization:getText(item.displayTextSectionKey, item.displayTextStringKey)
 
 					return Roact.createElement("TextButton", {
 						Size = UDim2.new(0, 160, 0, 25),
@@ -146,23 +153,21 @@ function DropdownModule:render()
 							PaddingLeft = theme.TEXT_INDENT_PADDING,
 						}),
 
-						Label = if FFlagDevFrameworkMigrateTextLabels then (
-							Roact.createElement(TextLabel, {
+						Label = if FFlagDevFrameworkMigrateTextLabels
+							then (Roact.createElement(TextLabel, {
 								TextXAlignment = Enum.TextXAlignment.Left,
 								Text = displayText,
-							})
-						) else (
-							Roact.createElement("TextLabel", {
+							}))
+							else (Roact.createElement("TextLabel", {
 								Size = UDim2.new(1, 0, 1, 0),
 								TextColor3 = theme.TextColor,
 								TextXAlignment = Enum.TextXAlignment.Left,
 								Text = displayText,
 								BackgroundTransparency = 1,
-							})
-						)
+							})),
 					})
 				end,
-			})
+			}),
 		})
 
 	return Roact.createElement("Frame", {
@@ -175,12 +180,9 @@ function DropdownModule:render()
 	})
 end
 
-
 DropdownModule = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 })(DropdownModule)
-
-
 
 return DropdownModule

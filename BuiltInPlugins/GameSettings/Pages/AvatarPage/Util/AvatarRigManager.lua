@@ -2,7 +2,7 @@ local Page = script.Parent.Parent
 
 local ConstantAvatar = require(Page.Util.ConstantAvatar)
 
-local ReplicatedStorage = game:GetService('ReplicatedStorage')
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local RigManager = {}
 RigManager.__index = RigManager
@@ -15,7 +15,7 @@ function RigManager.new(r6, r15)
 	self.r6.Archivable = false
 	self.r15 = r15:clone()
 	self.r15.Archivable = false
-	self.rigs = {[ConstantAvatar.AvatarType.R6] = self.r6, [ConstantAvatar.AvatarType.R15] = self.r15}
+	self.rigs = { [ConstantAvatar.AvatarType.R6] = self.r6, [ConstantAvatar.AvatarType.R15] = self.r15 }
 	self.currentCharacter = self.r15
 
 	self.characterRoot = Instance.new("Folder")
@@ -49,7 +49,6 @@ function RigManager:updateAvatarType(newAvatarType)
 	local isNewAvatarTypeAvailable = nil ~= self.rigs[newAvatarType]
 	local isAvatarTheWrongType = self.rigs[newAvatarType] ~= self.currentCharacter
 	if isAvatarTheWrongType and isNewAvatarTypeAvailable then
-
 		local currentCharacter, oldCharacter
 		if newAvatarType == ConstantAvatar.AvatarType.R6 then
 			currentCharacter = self.r6

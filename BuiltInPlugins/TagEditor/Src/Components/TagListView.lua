@@ -8,6 +8,8 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 
+local Dash = require(Plugin.Packages.Dash)
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Analytics = ContextServices.Analytics
@@ -18,14 +20,16 @@ local Stylizer = Framework.Style.Stylizer
 local UI = Framework.UI
 local ScrollingFrame = UI.ScrollingFrame
 
+local Actions = require(Plugin.Src.Actions)
 local TagListRow = require(script.Parent.TagListRow)
-local TagListGroupRow = require(script.Parent.TagListGroupRow)
 
 export type Props = {
 	LayoutOrder: number,
 	tags: _Types.Array<_Types.Tag>,
 	searchTerm: string,
+	uiGroupCollapseState: _Types.Table<string, boolean>,
 	unknownTags: _Types.Array<string>,
+	setUIGroupCollapseState: ((_Types.Table<string, boolean>) -> ()),
 }
 
 type _Props = Props & {
@@ -36,16 +40,28 @@ type _Props = Props & {
 
 type _Style = {
 	Size: UDim2,
+	Spacing: UDim,
 	CanvasYPadding: number,
 }
+
+local UNKNOWN_TAGS_HIDE = "UnknownTagsHide"
 
 local TagListView = Roact.PureComponent:extend("TagListView")
 
 function TagListView:init()
 	self.toggleGroup = function(group: string)
-		self:setState({
-			["Hide" .. group] = not self.state["Hide" .. group],
-		})
+		local groupIdentifier = "Hide" .. group
+		self.setCollapseState(groupIdentifier, not self.props.uiGroupCollapseState[groupIdentifier])
+	end
+	self.toggleUnknownGroup = function()
+		self.setCollapseState(UNKNOWN_TAGS_HIDE, not self.props.uiGroupCollapseState[UNKNOWN_TAGS_HIDE])
+	end
+
+	self.setCollapseState = function(identifier: string, enabled: boolean)
+		local props: _Props = self.props
+		props.setUIGroupCollapseState(Dash.join(props.uiGroupCollapseState, {
+			[identifier] = enabled,
+		}))
 	end
 end
 
@@ -69,15 +85,15 @@ function TagListView:render()
 		if groupName ~= lastGroup then
 			numRows += 1
 			lastGroup = groupName
-			rows[numRows] = Roact.createElement(TagListGroupRow, {
+			rows[numRows] = Roact.createElement(TagListRow, {
 				LayoutOrder = numRows,
 				GroupName = groupName,
-				IsGroupCollapsed = self.state["Hide" .. groupName],
+				IsGroupCollapsed = props.uiGroupCollapseState["Hide" .. groupName],
 				IsVisibleToggled = true,
 				ToggleGroup = self.toggleGroup,
 			})
 		end
-		if not self.state["Hide" .. groupName] then
+		if not props.uiGroupCollapseState["Hide" .. groupName] then
 			numRows += 1
 			rows[numRows] = Roact.createElement(TagListRow, {
 				LayoutOrder = numRows,
@@ -94,18 +110,18 @@ function TagListView:render()
 	i = 0
 	if #unknownTags > 0 then
 		numRows += 1
-		rows[numRows] = Roact.createElement(TagListGroupRow, {
+		rows[numRows] = Roact.createElement(TagListRow, {
 			LayoutOrder = numRows,
 			GroupName = localization:getText("Groups", "UnknownTags"),
 			Disabled = true,
-			IsGroupCollapsed = self.state["UnknownTagsHide"],
-			 -- state pattern intentionally differs to avoid issues if user names a group "Unknown Tags"
+			IsGroupCollapsed = props.uiGroupCollapseState[UNKNOWN_TAGS_HIDE],
+			ToggleGroup = self.toggleUnknownGroup,
 		})
 	end
 	while i < #unknownTags do
 		i += 1
 		local unknownTagName = unknownTags[i]
-		if not self.state["UnknownTagsHide"] then
+		if not props.uiGroupCollapseState[UNKNOWN_TAGS_HIDE] then
 			numRows += 1
 			rows[numRows] = Roact.createElement(TagListRow, {
 				LayoutOrder = numRows,
@@ -121,6 +137,7 @@ function TagListView:render()
 		Size = style.Size,
 		CanvasSize = UDim2.new(1, 0, 0, canvasHeight),
 		Layout = Enum.FillDirection.Vertical,
+		Spacing = style.Spacing,
 	}, rows)
 end
 
@@ -151,12 +168,16 @@ local function mapStateToProps(state, _)
 	return {
 		tags = tags,
 		searchTerm = state.Search,
+		uiGroupCollapseState = state.UIGroupCollapseState,
 		unknownTags = unknownTags,
 	}
 end
 
 local function mapDispatchToProps(dispatch)
 	return {
+		setUIGroupCollapseState = function(data: _Types.Table<string, boolean>)
+			dispatch(Actions.SetUIGroupCollapseState(data))
+		end,
 	}
 end
 

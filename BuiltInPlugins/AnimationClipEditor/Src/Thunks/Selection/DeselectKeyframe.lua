@@ -16,7 +16,10 @@ local PathUtils = require(Plugin.Src.Util.PathUtils)
 
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 
-local function findTrack(selectedInstance: SelectionUtils.SelectedComponents, path: PathUtils.Path): (SelectionUtils.SelectedTrack?)
+local function findTrack(
+	selectedInstance: SelectionUtils.SelectedComponents,
+	path: PathUtils.Path
+): (SelectionUtils.SelectedTrack?)
 	local tracks = selectedInstance
 	local currentTrack
 
@@ -38,8 +41,8 @@ local function findTrack(selectedInstance: SelectionUtils.SelectedComponents, pa
 end
 
 local function isTrackEmpty(track: SelectionUtils.SelectedTrack): (boolean)
-	return (track.Components == nil or isEmpty(track.Components)) and
-		(track.Selection == nil or isEmpty(track.Selection))
+	return (track.Components == nil or isEmpty(track.Components))
+		and (track.Selection == nil or isEmpty(track.Selection))
 end
 
 return function(instanceName: string, path: PathUtils.Path, tck: number): ((any) -> ())
@@ -49,7 +52,7 @@ return function(instanceName: string, path: PathUtils.Path, tck: number): ((any)
 
 		-- Before we start deepcopying selection data, we need to make sure that
 		-- we are have something to deselect
-		local status: {SelectedKeyframes: SelectionUtils.Selection?} = state.Status or {}
+		local status: { SelectedKeyframes: SelectionUtils.Selection? } = state.Status or {}
 		local selectedKeyframes: SelectionUtils.Selection = status.SelectedKeyframes or {}
 		local selectedInstance = selectedKeyframes[instanceName] or {}
 
@@ -85,24 +88,34 @@ return function(instanceName: string, path: PathUtils.Path, tck: number): ((any)
 		local topTrack = newSelectedKeyframes[instanceName][path[1]]
 
 		local topDataTrack = animationData.Instances[instanceName].Tracks[path[1]]
-		SelectionUtils.traverse(topTrack, topDataTrack, function(track: SelectionUtils.SelectedTrack, dataTrack: any, relPath): ()
-			-- If the datatrack has a keyframe for the tick, but the selectedTrack has no selection, or at least not for that tick
-			if dataTrack and dataTrack.Data and dataTrack.Data[tck] and (not track.Selection or not track.Selection[tck]) then
-				local currentTrack = topTrack
-				for _, pathPart in ipairs(relPath) do
-					if currentTrack then
-						if currentTrack.Selection then
-							currentTrack.Selection[tck] = nil
+		SelectionUtils.traverse(
+			topTrack,
+			topDataTrack,
+			function(track: SelectionUtils.SelectedTrack, dataTrack: any, relPath): ()
+				-- If the datatrack has a keyframe for the tick, but the selectedTrack has no selection, or at least not for that tick
+				if
+					dataTrack
+					and dataTrack.Data
+					and dataTrack.Data[tck]
+					and (not track.Selection or not track.Selection[tck])
+				then
+					local currentTrack = topTrack
+					for _, pathPart in ipairs(relPath) do
+						if currentTrack then
+							if currentTrack.Selection then
+								currentTrack.Selection[tck] = nil
+							end
+							currentTrack = currentTrack.Components[pathPart]
 						end
-						currentTrack = currentTrack.Components[pathPart]
 					end
 				end
+			end,
+			function(track: SelectionUtils.SelectedTrack): ()
+				if track.Selection and isEmpty(track.Selection) then
+					track.Selection = nil
+				end
 			end
-		end, function(track: SelectionUtils.SelectedTrack): ()
-			if track.Selection and isEmpty(track.Selection) then
-				track.Selection = nil
-			end
-		end)
+		)
 
 		-- Traverse it again to prune components that have no selection or components of their own.
 		-- Prune the top level track.

@@ -2,7 +2,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
-	local Signal = require(CorePackages.AppTempCommon.Common.Signal)
+	local Signal = require(CorePackages.Workspace.Packages.AppCommonLib).Signal
 	local React = require(CorePackages.Packages.React)
 	local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 	local useSignal = require(script.Parent.useSignal)

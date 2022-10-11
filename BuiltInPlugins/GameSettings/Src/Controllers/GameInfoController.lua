@@ -27,26 +27,26 @@ end
 function GameInfoController:configurationV2GET(gameId)
 	local networking = self.__networking
 
-	return networking:get("develop", "/v2/universes/"..gameId.."/configuration")
+	return networking:get("develop", "/v2/universes/" .. gameId .. "/configuration")
 end
 
 function GameInfoController:iconV1GET(gameId)
 	local networking = self.__networking
 
-	return networking:get("develop", "/v1/universes/"..gameId.."/icon")
+	return networking:get("develop", "/v1/universes/" .. gameId .. "/icon")
 end
 
 function GameInfoController:thumbnailsV2GET(gameId)
 	local networking = self.__networking
 
-	return networking:get("games", "/v1/games/"..gameId.."/media")
+	return networking:get("games", "/v1/games/" .. gameId .. "/media")
 end
 
 function GameInfoController:configurationV2PATCH(gameId, configuration)
 	local networking = self.__networking
 
-	return networking:patch("develop", "/v2/universes/"..gameId.."/configuration", {
-		Body = configuration
+	return networking:patch("develop", "/v2/universes/" .. gameId .. "/configuration", {
+		Body = configuration,
 	})
 end
 
@@ -56,7 +56,7 @@ function GameInfoController:iconV1POST(gameId, icon)
 	local options = FileUtils.GetAssetPublishRequestInfo(icon)
 	options.Method = nil
 
-	return networking:post("publish", "/v1/games/"..gameId.."/icon", options)
+	return networking:post("publish", "/v1/games/" .. gameId .. "/icon", options)
 end
 
 function GameInfoController:thumbnailV1POST(gameId, thumbnail)
@@ -65,19 +65,19 @@ function GameInfoController:thumbnailV1POST(gameId, thumbnail)
 	local options = FileUtils.GetAssetPublishRequestInfo(thumbnail)
 	options.Method = nil
 
-	return networking:post("publish", "/v1/games/"..gameId.."/thumbnail/image", options)
+	return networking:post("publish", "/v1/games/" .. gameId .. "/thumbnail/image", options)
 end
 
 function GameInfoController:thumbnailV1DELETE(gameId, thumbnailId)
 	local networking = self.__networking
 
-	return networking:delete("develop", "/v1/universes/"..gameId.."/thumbnails/"..thumbnailId)
+	return networking:delete("develop", "/v1/universes/" .. gameId .. "/thumbnails/" .. thumbnailId)
 end
 
 function GameInfoController:thumbnailOrderV1POST(gameId, thumbnailsOrder)
 	local networking = self.__networking
 
-	return networking:post("develop", "/v1/universes/"..gameId.."/thumbnails/order", {
+	return networking:post("develop", "/v1/universes/" .. gameId .. "/thumbnails/order", {
 		Body = {
 			thumbnailIds = thumbnailsOrder,
 		},
@@ -87,7 +87,7 @@ end
 function GameInfoController:thumbnailAltTextV1POST(gameId, mediaItem)
 	local networking = self.__networking
 
-	return networking:post("develop", "/v1/universes/"..gameId.."/thumbnails/alt-text", {
+	return networking:post("develop", "/v1/universes/" .. gameId .. "/thumbnails/alt-text", {
 		Body = mediaItem,
 	})
 end
@@ -99,15 +99,17 @@ end
 
 function GameInfoController:setName(gameId, name)
 	local returnError
-	self:configurationV2PATCH(gameId, {name = name}):catch(function(response)
-		if response.responseCode == 400 then
-			for _,err in ipairs(response.responseBody.errors) do
-				if err.code == 7 then
-					returnError = GameInfoController.NameModerated
+	self:configurationV2PATCH(gameId, { name = name })
+		:catch(function(response)
+			if response.responseCode == 400 then
+				for _, err in ipairs(response.responseBody.errors) do
+					if err.code == 7 then
+						returnError = GameInfoController.NameModerated
+					end
 				end
 			end
-		end
-	end):await()
+		end)
+		:await()
 
 	if returnError then
 		error(returnError)
@@ -122,7 +124,7 @@ function GameInfoController:getDescription(gameId)
 end
 
 function GameInfoController:setDescription(gameId, description)
-	self:configurationV2PATCH(gameId, {description = description}):await()
+	self:configurationV2PATCH(gameId, { description = description }):await()
 end
 
 function GameInfoController:getGenre(gameId)
@@ -131,7 +133,7 @@ function GameInfoController:getGenre(gameId)
 end
 
 function GameInfoController:setGenre(gameId, genre)
-	self:configurationV2PATCH(gameId, {genre = genre}):await()
+	self:configurationV2PATCH(gameId, { genre = genre }):await()
 end
 
 function GameInfoController:getSupportedDevices(gameId)
@@ -142,7 +144,7 @@ function GameInfoController:getSupportedDevices(gameId)
 end
 
 function GameInfoController:setSupportedDevices(gameId, supportedDevices)
-	self:configurationV2PATCH(gameId, {playableDevices = supportedDevices}):await()
+	self:configurationV2PATCH(gameId, { playableDevices = supportedDevices }):await()
 end
 
 function GameInfoController:getThumbnails(gameId)
@@ -155,11 +157,14 @@ function GameInfoController:addThumbnails(gameId, thumbnailFiles)
 	local addRequests = {}
 	local newIds = {}
 
-	for _,thumbnailFile in ipairs(thumbnailFiles) do
-		table.insert(addRequests, self:thumbnailV1POST(gameId, thumbnailFile):andThen(function(response)
-			local uploadedId = response.responseBody.targetId
-			newIds[thumbnailFile] = uploadedId
-		end))
+	for _, thumbnailFile in ipairs(thumbnailFiles) do
+		table.insert(
+			addRequests,
+			self:thumbnailV1POST(gameId, thumbnailFile):andThen(function(response)
+				local uploadedId = response.responseBody.targetId
+				newIds[thumbnailFile] = uploadedId
+			end)
+		)
 	end
 
 	Promise.all(addRequests):await()
@@ -169,7 +174,7 @@ end
 
 function GameInfoController:removeThumbnails(gameId, thumbnailIds)
 	local deleteRequests = {}
-	for _,thumbnailId in ipairs(thumbnailIds) do
+	for _, thumbnailId in ipairs(thumbnailIds) do
 		table.insert(deleteRequests, self:thumbnailV1DELETE(gameId, thumbnailId))
 	end
 
@@ -179,24 +184,27 @@ end
 function GameInfoController:updateThumbnailAltText(gameId, thumbnailMediaItem)
 	local responseObject
 	local returnError
-	self:thumbnailAltTextV1POST(gameId, thumbnailMediaItem):andThen(function(response)
-		responseObject = response.responseBody
-	end):catch(function(response)
-		if response.responseCode == 400 then
-			for _,err in ipairs(response.responseBody.errors) do
-				if err.code == 19 then
-					returnError = GameInfoController.AltTextModerated
+	self:thumbnailAltTextV1POST(gameId, thumbnailMediaItem)
+		:andThen(function(response)
+			responseObject = response.responseBody
+		end)
+		:catch(function(response)
+			if response.responseCode == 400 then
+				for _, err in ipairs(response.responseBody.errors) do
+					if err.code == 19 then
+						returnError = GameInfoController.AltTextModerated
+					end
 				end
 			end
-		end
-	end):await()
+		end)
+		:await()
 
 	if returnError then
 		error(returnError)
 	elseif responseObject ~= nil then
 		-- Return the response object in case the alt text was partially filtered
 		return responseObject
-	end	
+	end
 end
 
 function GameInfoController:setThumbnailsOrder(gameId, thumbnailsOrder)
@@ -208,7 +216,7 @@ function GameInfoController:getIcon(gameId)
 	local iconAssetId = response.responseBody.imageId
 	local isApproved = response.responseBody.isApproved
 
-	return iconAssetId and "rbxassetid://"..iconAssetId or nil, isApproved
+	return iconAssetId and "rbxassetid://" .. iconAssetId or nil, isApproved
 end
 
 function GameInfoController:setIcon(gameId, icon)

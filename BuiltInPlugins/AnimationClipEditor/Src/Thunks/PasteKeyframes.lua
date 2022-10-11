@@ -42,16 +42,30 @@ return function(tck: number, analytics: any): (any) -> ()
 		for instanceName, instance in pairs(clipboard) do
 			local dataInstance = newData.Instances[instanceName]
 			for _, track in ipairs(instance) do
-				local path = Cryo.List.join({track.TopTrackName}, track.RelPath)
+				local path = Cryo.List.join({ track.TopTrackName }, track.RelPath)
 
 				-- Try to find the top track. If it's not there, we need to create it,
 				-- as well as all the required components
-				local topTrack = AnimationData.getTrack(newData, instanceName, {track.TopTrackName})
+				local topTrack = AnimationData.getTrack(newData, instanceName, { track.TopTrackName })
 				if topTrack == nil then
-					AnimationData.addTrack(dataInstance.Tracks, track.TopTrackName, track.TopTrackType,
-						isChannelAnimation, track.RotationType, track.EulerAnglesOrder)
-					store:dispatch(AddTrack(instanceName, track.TopTrackName, track.TopTrackType,
-						track.RotationType, track.EulerAnglesOrder, analytics))
+					AnimationData.addTrack(
+						dataInstance.Tracks,
+						track.TopTrackName,
+						track.TopTrackType,
+						isChannelAnimation,
+						track.RotationType,
+						track.EulerAnglesOrder
+					)
+					store:dispatch(
+						AddTrack(
+							instanceName,
+							track.TopTrackName,
+							track.TopTrackType,
+							track.RotationType,
+							track.EulerAnglesOrder,
+							analytics
+						)
+					)
 				end
 				local dataTrack = AnimationData.getTrack(newData, instanceName, path)
 				-- dataTrack is missing if we try to paste an Euler Angle track

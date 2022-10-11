@@ -3,7 +3,7 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 
 	local Rodux = require(CorePackages.Rodux)
-	local Immutable = require(CorePackages.AppTempCommon.Common.Immutable)
+	local Immutable = require(CorePackages.Workspace.Packages.AppCommonLib).Immutable
 
 	local UpdateUsers = require(CorePackages.AppTempCommon.LuaApp.Thunks.UpdateUsers)
 

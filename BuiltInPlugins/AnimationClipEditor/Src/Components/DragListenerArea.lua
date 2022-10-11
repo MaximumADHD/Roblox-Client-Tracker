@@ -29,7 +29,7 @@ function DragListenerArea:init()
 	}
 
 	self.onMouseEnter = function()
-		if self.props.Mouse then 
+		if self.props.Mouse then
 			self.props.Mouse:__pushCursor(self.props.Cursor)
 		end
 	end
@@ -45,7 +45,7 @@ function DragListenerArea:init()
 			self.props.OnDragBegan()
 		end
 		self:setState({
-			Dragging = true
+			Dragging = true,
 		})
 	end
 
@@ -61,7 +61,7 @@ function DragListenerArea:didMount()
 	self.stopDragging = function()
 		Mouse:__resetCursor()
 		self:setState({
-			Dragging = false
+			Dragging = false,
 		})
 		if self.props.OnDragEnded then
 			self.props.OnDragEnded()
@@ -98,11 +98,8 @@ function DragListenerArea:render()
 	})
 end
 
-
 DragListenerArea = withContext({
 	Mouse = ContextServices.Mouse,
 })(DragListenerArea)
-
-
 
 return DragListenerArea

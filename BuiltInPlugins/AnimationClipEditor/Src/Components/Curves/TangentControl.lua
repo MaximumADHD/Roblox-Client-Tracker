@@ -77,7 +77,7 @@ function TangentControl:render(): (any)
 		Roact.createElement("ImageButton", {
 			Size = UDim2.new(0, controlSize, 0, controlSize),
 			AnchorPoint = Vector2.new(if left then 1 else 0, 0.5),
-			Position = UDim2.new(if left then 0 else 1, 0, .5, 0),
+			Position = UDim2.new(if left then 0 else 1, 0, 0.5, 0),
 			Image = if auto then theme.curveTheme.tangentAutoButton else theme.curveTheme.tangentDefinedButton,
 			ImageColor3 = theme.curveTheme.tangentControlColor,
 
@@ -92,7 +92,7 @@ function TangentControl:render(): (any)
 			[Roact.Event.MouseButton2Click] = props.OnRightClick,
 			[Roact.Event.InputBegan] = props.OnInputBegan,
 			[Roact.Event.InputEnded] = props.OnInputEnded,
-		})
+		}),
 	})
 end
 

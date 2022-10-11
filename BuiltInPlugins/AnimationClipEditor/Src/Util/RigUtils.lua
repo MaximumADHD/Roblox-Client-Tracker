@@ -42,7 +42,7 @@ local function getDescendants(descendants, model)
 	return descendants
 end
 
-function RigUtils.getDescendants(descendants,  model)
+function RigUtils.getDescendants(descendants, model)
 	getDescendants(descendants, model)
 end
 
@@ -102,7 +102,7 @@ local function createBoneLink(bone, folder, visualizeBones, boneLinks)
 			local nodePosition = RigUtils.getBoneCFrame(bone).p
 			local nextNodePosition = RigUtils.getBoneCFrame(child).p
 			local length = (nextNodePosition - nodePosition).Magnitude
-			local linkName = bone.Name .."To" ..child.Name
+			local linkName = bone.Name .. "To" .. child.Name
 			local boneLink = folder:FindFirstChild(linkName)
 			if not boneLink then
 				boneLink = Instance.new("Part", folder)
@@ -125,7 +125,7 @@ end
 
 local function createBoneNode(bone, folder, visualizeBones, boneLinks)
 	local nodePosition = RigUtils.getBoneCFrame(bone).p
-	local nodeName = bone.Name .."Node"
+	local nodeName = bone.Name .. "Node"
 	local boneNode = folder:FindFirstChild(nodeName)
 	if not boneNode then
 		boneNode = Instance.new("Part", folder)
@@ -446,7 +446,8 @@ function RigUtils.buildR15Constraints(rig)
 	local constraints = {}
 	for name, config in pairs(Constants.PartToConstraintConfigMap) do
 		local props = {}
-		props.Attachment0, props.Attachment1 = RigUtils.findMatchingAttachments(motorMap[name].Part0, motorMap[name].Part1)
+		props.Attachment0, props.Attachment1 =
+			RigUtils.findMatchingAttachments(motorMap[name].Part0, motorMap[name].Part1)
 
 		local constraintName = string.gsub(props.Attachment0.Name, "Attachment", "")
 
@@ -487,7 +488,8 @@ function RigUtils.canUseIK(rig)
 	for childPart, parentPart in pairs(Constants.R15links) do
 		local motor = motorMap[childPart]
 		if motor then
-			local attachment0, attachment1 = RigUtils.findMatchingAttachments(rig:FindFirstChild(childPart), rig:FindFirstChild(parentPart))
+			local attachment0, attachment1 =
+				RigUtils.findMatchingAttachments(rig:FindFirstChild(childPart), rig:FindFirstChild(parentPart))
 			if attachment0 == nil or attachment1 == nil or motor.Part0.Name ~= parentPart then
 				return false, false
 			end
@@ -498,7 +500,6 @@ function RigUtils.canUseIK(rig)
 
 	return true, true
 end
-
 
 function RigUtils.canUseFaceControlsEditor(rig)
 	if not rig then
@@ -516,7 +517,6 @@ function RigUtils.canUseFaceControlsEditor(rig)
 
 	return true
 end
-
 
 function RigUtils.getPartByName(rig, name)
 	local _, motorMap = RigUtils.getRigInfo(rig)
@@ -559,7 +559,7 @@ function RigUtils.getJoints(parts, rootInstance)
 				Part0 = partNameToMotorMap[trackName].Part0,
 				Part1 = partNameToMotorMap[trackName].Part1,
 				C0 = partNameToMotorMap[trackName].C0,
-				C1 = partNameToMotorMap[trackName].C1
+				C1 = partNameToMotorMap[trackName].C1,
 			})
 		elseif boneMap[trackName] then
 			table.insert(joints, {
@@ -593,7 +593,7 @@ function RigUtils.buildRigHierarchy(rig)
 				end
 			end
 			return children
-		end)
+		end),
 	}
 end
 
@@ -794,7 +794,7 @@ function RigUtils.ikDragStart(rig, part, limbMode, startingPose, pinnedParts)
 			if not visited[item] then
 				priorityTable[#priorityTable + 1] = {
 					Item = item,
-					Priority = distance
+					Priority = distance,
 				}
 				visited[item] = true
 			end
@@ -816,7 +816,9 @@ function RigUtils.ikDragStart(rig, part, limbMode, startingPose, pinnedParts)
 		end
 	end
 
-	table.sort(priorityTable, function(a, b) return a.Priority > b.Priority end)
+	table.sort(priorityTable, function(a, b)
+		return a.Priority > b.Priority
+	end)
 
 	for i = 1, #priorityTable do
 		local currentItem = priorityTable[i].Item
@@ -997,7 +999,7 @@ local function AddAnimationRigToAnimationClip(animationData, model, parentClip)
 		-- but the lua reflection c++ code does not seem to support that
 		local animationRig = Instance.new("AnimationRigData", parentClip)
 		local builtOk = animationRig:LoadFromHumanoid(humanoid)
-		if (not builtOk) then
+		if not builtOk then
 			animationRig:Destroy()
 		else
 			animationRig.Name = model.Name .. "AnimationRigData"
@@ -1081,10 +1083,10 @@ local function createPathMap(tracks, partsToMotors, boneMap)
 			-- FACS tracks are children of the HEAD part. We will need to
 			-- revisit this when we add support for multiple heads.
 			if pathToHead == nil then
-				pathToHead = Cryo.List.join(getPartPath(Constants.R15_PARTS.Head), {Constants.R15_PARTS.Head})
+				pathToHead = Cryo.List.join(getPartPath(Constants.R15_PARTS.Head), { Constants.R15_PARTS.Head })
 			end
 			-- Facs are supposed to be in a FaceControls folder
-			pathMap[trackName] = Cryo.List.join(pathToHead, {Constants.FACE_CONTROLS_FOLDER})
+			pathMap[trackName] = Cryo.List.join(pathToHead, { Constants.FACE_CONTROLS_FOLDER })
 		end
 	end
 
@@ -1115,8 +1117,13 @@ function RigUtils.fillFloatCurve(track, curve)
 		for _, tck in ipairs(track.Keyframes) do
 			local keyframe = track.Data[tck]
 			local time = tck / Constants.TICK_FREQUENCY
-			local key = FloatCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode or Enum.KeyInterpolationMode.Cubic)
-			if prevKeyframe and prevKeyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic and keyframe.LeftSlope then
+			local key =
+				FloatCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode or Enum.KeyInterpolationMode.Cubic)
+			if
+				prevKeyframe
+				and prevKeyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic
+				and keyframe.LeftSlope
+			then
 				key.LeftTangent = keyframe.LeftSlope * Constants.TICK_FREQUENCY
 			else
 				key.LeftTangent = nil
@@ -1137,7 +1144,11 @@ function RigUtils.fillQuaternionCurve(track, curve)
 		local keyframe = track.Data[tck]
 		local time = tck / Constants.TICK_FREQUENCY
 		local key = RotationCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode)
-		if prevKeyframe and prevKeyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic and keyframe.LeftSlope then
+		if
+			prevKeyframe
+			and prevKeyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic
+			and keyframe.LeftSlope
+		then
 			key.LeftTangent = keyframe.LeftSlope * Constants.TICK_FREQUENCY
 		else
 			key.LeftTangent = nil
@@ -1202,7 +1213,10 @@ end
 
 -- Exporting to CurveAnimation animation requires a dummy rig so that we
 -- can determine which parts are connected to other parts to build a pose chain.
-function RigUtils.toCurveAnimation(animationData: Types.AnimationData, rig: Instance): (CurveAnimation, number, number, number)
+function RigUtils.toCurveAnimation(
+	animationData: Types.AnimationData,
+	rig: Instance
+): (CurveAnimation, number, number, number)
 	assert(animationData ~= nil, "No data table was provided.")
 	assert(rig ~= nil, "Exporting to CurveAnimation requires a reference rig.")
 	local metadata = animationData.Metadata
@@ -1257,8 +1271,8 @@ function RigUtils.toCurveAnimation(animationData: Types.AnimationData, rig: Inst
 	-- KeyframeSequence Events, which are all merged into the Events table.
 	-- We split them by name here, and then export them as separate marker channels
 	-- in the asset.
-	type MarkerChannel = {[number]: string}
-	local markerChannels: {[string]: MarkerChannel} = {}
+	type MarkerChannel = { [number]: string }
+	local markerChannels: { [string]: MarkerChannel } = {}
 	local animationEvents: Types.AnimationEvents = animationData.Events
 
 	for eventTick: number, events: Types.Events in pairs(animationEvents.Data) do
@@ -1298,10 +1312,10 @@ function RigUtils.readCurve(track, curve, trackType)
 	-- We are at the bottom of the components hierarchy (Number or Angle).
 	-- This is where we read all the keys and fill the track data
 	if
-		trackType == Constants.TRACK_TYPES.Number or
-		trackType == Constants.TRACK_TYPES.Angle or
-		trackType == Constants.TRACK_TYPES.Facs or
-		trackType == Constants.TRACK_TYPES.Quaternion
+		trackType == Constants.TRACK_TYPES.Number
+		or trackType == Constants.TRACK_TYPES.Angle
+		or trackType == Constants.TRACK_TYPES.Facs
+		or trackType == Constants.TRACK_TYPES.Quaternion
 	then
 		track.Keyframes = {}
 		track.Data = {}
@@ -1319,7 +1333,7 @@ function RigUtils.readCurve(track, curve, trackType)
 				Value = key.Value,
 				InterpolationMode = key.Interpolation,
 				LeftSlope = leftSlope,
-				RightSlope = rightSlope
+				RightSlope = rightSlope,
 			}
 			AnimationData.addKeyframe(track, tck, keyframeData)
 		end
@@ -1382,9 +1396,8 @@ function RigUtils.readFacsCurves(tracks, faceControlsFolder)
 end
 
 function RigUtils.fromCurveAnimation(curveAnimation: CurveAnimation)
-	assert(curveAnimation ~= nil
-		and typeof(curveAnimation) == "Instance"
-		and curveAnimation.ClassName == "CurveAnimation",
+	assert(
+		curveAnimation ~= nil and typeof(curveAnimation) == "Instance" and curveAnimation.ClassName == "CurveAnimation",
 		"Expected a CurveAnimation for the AnimationData."
 	)
 
@@ -1414,7 +1427,8 @@ function RigUtils.fromCurveAnimation(curveAnimation: CurveAnimation)
 						rotationType = Constants.TRACK_TYPES.EulerAngles
 					end
 				end
-				local track = AnimationData.addTrack(tracks, folder.Name, Constants.TRACK_TYPES.CFrame, true, rotationType)
+				local track =
+					AnimationData.addTrack(tracks, folder.Name, Constants.TRACK_TYPES.CFrame, true, rotationType)
 				lastTick = RigUtils.readCurve(track, folder, Constants.TRACK_TYPES.CFrame)
 				numTracks += 1
 				numKeyframes += TrackUtils.countKeyframes(track)
@@ -1516,10 +1530,10 @@ function RigUtils.toRigAnimation(animationData, rig)
 		for name, value in pairs(data) do
 			local time = tck / Constants.TICK_FREQUENCY
 			local keyframeInstance = kfsByTick[tck]
-				if not keyframeInstance then
-					keyframeInstance = createKeyframeInstance(keyframeSequence, time)
-					kfsByTick[tck] = keyframeInstance
-				end
+			if not keyframeInstance then
+				keyframeInstance = createKeyframeInstance(keyframeSequence, time)
+				kfsByTick[tck] = keyframeInstance
+			end
 			local marker = Instance.new("KeyframeMarker", keyframeInstance)
 			marker.Name = name
 			marker.Value = value
@@ -1548,21 +1562,24 @@ function RigUtils.filterKeyframes(keyframes)
 end
 
 function RigUtils.calculateFrameRate(keyframeSequence)
-	assert(keyframeSequence ~= nil
-		and typeof(keyframeSequence) == "Instance"
-		and keyframeSequence.ClassName == "KeyframeSequence",
+	assert(
+		keyframeSequence ~= nil
+			and typeof(keyframeSequence) == "Instance"
+			and keyframeSequence.ClassName == "KeyframeSequence",
 		"Expected a KeyframeSequence for the AnimationData."
 	)
 
 	local keyframes = keyframeSequence:GetKeyframes()
-	table.sort(keyframes, function(a, b) return a.Time < b.Time end)
+	table.sort(keyframes, function(a, b)
+		return a.Time < b.Time
+	end)
 
 	local minDelta
 	local previousTime = 0
 
 	for _, keyframe in pairs(keyframes) do
 		local delta = keyframe.Time - previousTime
-		if delta ~=0 then
+		if delta ~= 0 then
 			if not minDelta or minDelta > delta then
 				minDelta = delta
 			end
@@ -1572,7 +1589,7 @@ function RigUtils.calculateFrameRate(keyframeSequence)
 
 	local fps = Constants.DEFAULT_FRAMERATE
 	if minDelta and minDelta > 0 then
-		fps = MathUtils.round(1/minDelta)
+		fps = MathUtils.round(1 / minDelta)
 	end
 
 	-- check all keyframes can align with frames at 30/24/60 fps first
@@ -1590,9 +1607,10 @@ end
 
 -- Importing a R15 animation from a KeyframeSequence and its children
 function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
-	assert(keyframeSequence ~= nil
-		and typeof(keyframeSequence) == "Instance"
-		and keyframeSequence.ClassName == "KeyframeSequence",
+	assert(
+		keyframeSequence ~= nil
+			and typeof(keyframeSequence) == "Instance"
+			and keyframeSequence.ClassName == "KeyframeSequence",
 		"Expected a KeyframeSequence for the AnimationData."
 	)
 
@@ -1627,7 +1645,7 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 				local keyframeData = {
 					Value = pose:IsA("Pose") and pose.CFrame or pose.Value,
 					EasingStyle = pose.EasingStyle,
-					EasingDirection = pose.EasingDirection
+					EasingDirection = pose.EasingDirection,
 				}
 				AnimationData.addKeyframe(track, tck, keyframeData)
 				numPoses = numPoses + 1
@@ -1662,7 +1680,8 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 			AnimationData.addKeyframe(track, endTick, {
 				Value = lastValue,
 				EasingStyle = Enum.PoseEasingStyle.Linear,
-				EasingDirection = Enum.PoseEasingDirection.In })
+				EasingDirection = Enum.PoseEasingDirection.In,
+			})
 		end
 	end
 
@@ -1683,7 +1702,9 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 end
 
 function RigUtils.resetAllFacsValuesInFaceControls(rig)
-	if not RigUtils.canUseFaceControlsEditor(rig) then return end
+	if not RigUtils.canUseFaceControlsEditor(rig) then
+		return
+	end
 
 	local faceControls = RigUtils.getFaceControls(rig)
 	if faceControls ~= nil then
@@ -1710,7 +1731,7 @@ function RigUtils.stepRigAnimation(rig, instance, tck)
 	end
 
 	local faceControls = RigUtils.getFaceControls(rig)
-	if  GetFFlagFaceControlsEditorUI() then
+	if GetFFlagFaceControlsEditorUI() then
 		if faceControls ~= nil then
 			--looping through the facs instead of looping through tracks
 			--so we also handle cases like a track was deleted
@@ -1803,14 +1824,15 @@ function RigUtils.focusCamera(rig)
 end
 
 function RigUtils.focusCameraOnFace(rootInstance)
-	if not rootInstance then return end
+	if not rootInstance then
+		return
+	end
 	local currentCamera = workspace.CurrentCamera
 	local faceControls = RigUtils.getFaceControls(rootInstance)
 	if faceControls ~= nil then
 		local head = faceControls.Parent
 		local connectingPart = nil
 		if GetFFlagFixFocusOnFaceForDifferentRigSetup() then
-
 			--support custom setup characters by searching for the Neck joint and then getting Part0 rather than hardcoded "UpperTorso":
 			local neck = head:FindFirstChild("Neck")
 			if neck and neck:IsA("Motor6D") and neck.Part1 == head then
@@ -1827,8 +1849,8 @@ function RigUtils.focusCameraOnFace(rootInstance)
 					--try to still find a connectingPart
 					if connectingPart == nil then
 						if head.Parent and head.Parent ~= Workspace then
-						--if still couldn't find a part connected to the head,
-						--try to look through all the motor6ds to check if any is connected to the head
+							--if still couldn't find a part connected to the head,
+							--try to look through all the motor6ds to check if any is connected to the head
 							local descendants = head.Parent:GetDescendants()
 
 							for index, descendant in pairs(descendants) do

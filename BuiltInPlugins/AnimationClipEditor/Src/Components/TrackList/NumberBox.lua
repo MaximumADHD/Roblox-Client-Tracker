@@ -39,11 +39,13 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UILibraryCompat = Plugin.Src.UILibraryCompat
-local RoundFrame = require(UILibraryCompat.RoundFrame)
+local RoundFrame = require(UILibraryCompat.RoundFrame) -- Remove with GetFFlagRetireUILibraryCompat
+local Pane = Framework.UI.Pane
 
 local TextBox = require(Plugin.Src.Components.TextBox)
 
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local GetFFlagRetireUILibraryCompat = require(Plugin.LuaFlags.GetFFlagRetireUILibraryCompat)
 
 local NumberBox = Roact.PureComponent:extend("NumberBox")
 
@@ -96,7 +98,7 @@ end
 
 function NumberBox:formatNumber(number)
 	local precision = self.props.Precision or Constants.NUMBER_PRECISION
-	return tostring(math.floor(.5 + number * precision) / precision)
+	return tostring(math.floor(0.5 + number * precision) / precision)
 end
 
 function NumberBox:render()
@@ -121,7 +123,8 @@ function NumberBox:render()
 	local borderColor = focused and textBoxTheme.focusedBorder or textBoxTheme.defaultBorder
 	local nameWidth = self.getTextWidth(name, theme) + PADDING
 
-	return Roact.createElement(RoundFrame, {
+	return Roact.createElement(if GetFFlagRetireUILibraryCompat() then Pane else RoundFrame, {
+		Style = if GetFFlagRetireUILibraryCompat() then "BorderBox" else nil,
 		Size = size,
 		Position = position,
 		ZIndex = 2,
@@ -135,7 +138,8 @@ function NumberBox:render()
 			FillDirection = Enum.FillDirection.Horizontal,
 		}),
 
-		LabelFrame = Roact.createElement(RoundFrame, {
+		LabelFrame = Roact.createElement(if GetFFlagRetireUILibraryCompat() then Pane else RoundFrame, {
+			Style = if GetFFlagRetireUILibraryCompat() then "BorderBox" else nil,
 			Size = UDim2.new(0, nameWidth, 1, 0),
 			BackgroundColor3 = trackTheme.shadedBackgroundColor,
 			BorderColor3 = borderColor,
@@ -185,7 +189,7 @@ function NumberBox:render()
 			LayoutOrder = 2,
 			ClearTextOnFocus = false,
 			FocusChanged = self.focusChanged,
-		})
+		}),
 	})
 end
 

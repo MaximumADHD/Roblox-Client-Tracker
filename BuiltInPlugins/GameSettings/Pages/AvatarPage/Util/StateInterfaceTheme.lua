@@ -61,7 +61,9 @@ function Theme.getBorderColor(props)
 end
 
 function Theme.getRadioButtonTextColor(props)
-	return if (getThemeData(props) and getThemeData(props).radioButton) then getThemeData(props).radioButton.title else nil
+	return if (getThemeData(props) and getThemeData(props).radioButton)
+		then getThemeData(props).radioButton.title
+		else nil
 end
 
 getThemeData = function(props)

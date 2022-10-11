@@ -67,8 +67,8 @@ function ServiceWrapper:render()
 	-- UILibraryWrapper consumes theme, focus etc. so needs to be wrapped in these items for React.createContext to consume them.
 	return ContextServices.provide(contextItems, {
 		UILibraryWrapper = ContextServices.provide({
-			ContextServices.UILibraryWrapper.new(UILibrary)
-		}, children)
+			ContextServices.UILibraryWrapper.new(UILibrary),
+		}, children),
 	})
 end
 

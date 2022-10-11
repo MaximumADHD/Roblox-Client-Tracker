@@ -18,7 +18,7 @@ local provideMockContext = Framework.TestHelpers.provideMockContext
 local MakeTheme = require(Plugin.Src.Util.MakeTheme)
 
 local middlewares = {
-    Rodux.thunkMiddleware,
+	Rodux.thunkMiddleware,
 }
 
 if LOG_STORE_STATE_AND_EVENTS then
@@ -26,38 +26,37 @@ if LOG_STORE_STATE_AND_EVENTS then
 end
 
 return function(props, children)
-    if not props then
-        props = {}
-    end
+	if not props then
+		props = {}
+	end
 
-    local contextItems = {}
+	local contextItems = {}
 
-    local showDialog = props.ShowDialog
-    if not showDialog then
-        showDialog = function()
-        end
-        table.insert(contextItems, Dialog.new(showDialog))
-    end
+	local showDialog = props.ShowDialog
+	if not showDialog then
+		showDialog = function() end
+		table.insert(contextItems, Dialog.new(showDialog))
+	end
 
-    local store = props.Store
-    if not store then
-        store = Rodux.Store.new(MainReducer, nil, middlewares)
-    else
-        table.insert(contextItems, store)
-    end
+	local store = props.Store
+	if not store then
+		store = Rodux.Store.new(MainReducer, nil, middlewares)
+	else
+		table.insert(contextItems, store)
+	end
 
-    local themeContext = props.Theme
-    if not themeContext then
-        themeContext = MakeTheme(true)
-        table.insert(contextItems, themeContext)
-    end
+	local themeContext = props.Theme
+	if not themeContext then
+		themeContext = MakeTheme(true)
+		table.insert(contextItems, themeContext)
+	end
 
-    local uiLibWrapper = props.UILibraryWrapper
-    if not uiLibWrapper then
-        uiLibWrapper = UILibraryWrapper.new(UILibrary)
-    end
+	local uiLibWrapper = props.UILibraryWrapper
+	if not uiLibWrapper then
+		uiLibWrapper = UILibraryWrapper.new(UILibrary)
+	end
 
-    return provideMockContext(contextItems, {
-        UILibraryWrapper = ContextServices.provide({uiLibWrapper}, children)
-    })
+	return provideMockContext(contextItems, {
+		UILibraryWrapper = ContextServices.provide({ uiLibWrapper }, children),
+	})
 end

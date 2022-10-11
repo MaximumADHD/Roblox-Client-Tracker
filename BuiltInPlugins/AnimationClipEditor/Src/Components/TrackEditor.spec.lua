@@ -18,7 +18,7 @@ return function()
 				LastTick = Constants.TICK_FREQUENCY * 2,
 				Playhead = 0,
 				FrameRate = Constants.DEFAULT_FRAMERATE,
-			})
+			}),
 		})
 	end
 

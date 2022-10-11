@@ -50,7 +50,7 @@ local function getUILibraryTheme()
 					backgroundColor = isDark and theme:GetColor(c.MainButton) or theme:GetColor(c.CurrentMarker),
 					borderColor = theme:GetColor(c.Border),
 				},
-			}
+			},
 		},
 		button = {
 			Default = {
@@ -80,7 +80,7 @@ local function getUILibraryTheme()
 		},
 		checkBox = {
 			selectedImage = isDark and "rbxasset://textures/GameSettings/CheckedBoxDark.png"
-				or "rbxasset://textures/GameSettings/CheckedBoxLight.png"
+				or "rbxasset://textures/GameSettings/CheckedBoxLight.png",
 		},
 	}
 

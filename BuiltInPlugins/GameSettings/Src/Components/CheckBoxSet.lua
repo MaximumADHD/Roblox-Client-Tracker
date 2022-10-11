@@ -45,69 +45,78 @@ function CheckBoxSet:render()
 		Layout = Roact.createElement("UIListLayout", {
 			Padding = UDim.new(0, DEPRECATED_Constants.CHECKBOX_PADDING),
 			SortOrder = Enum.SortOrder.LayoutOrder,
-		})
+		}),
 	}
 
 	for i, box in ipairs(boxes) do
-		table.insert(children, if FFlagDevFrameworkMigrateCheckBox then
-			Roact.createElement(Checkbox, {
-				Checked = box.Selected ~= nil and box.Selected,
-				Enabled = props.Enabled,
-				Key = box.Id,
-				LayoutOrder = i,
-				OnClick = function()
-					props.EntryClicked(box)
-				end,
-				Text = box.Title,
-			}, {
-				Link = box.LinkTextFrame,
-			})
-		else
-			Roact.createElement(Checkbox, {
-				Title = box.Title,
-				Id = box.Id,
-				Height = DEPRECATED_Constants.CHECKBOX_SIZE,
-				TextSize = theme.fontStyle.Smaller.TextSize,
-				Description = box.Description,
-				Selected = box.Selected,
-				Enabled = props.Enabled,
-				LayoutOrder = i,
-				OnActivated = function()
-					props.EntryClicked(box)
-				end,
-				Link = box.LinkTextFrame,
-			})
+		table.insert(
+			children,
+			if FFlagDevFrameworkMigrateCheckBox
+				then Roact.createElement(Checkbox, {
+					Checked = box.Selected ~= nil and box.Selected,
+					Disabled = not props.Enabled,
+					Key = box.Id,
+					LayoutOrder = i,
+					OnClick = function()
+						props.EntryClicked(box)
+					end,
+					Text = box.Title,
+				}, {
+					Link = box.LinkTextFrame,
+				})
+				else Roact.createElement(Checkbox, {
+					Title = box.Title,
+					Id = box.Id,
+					Height = DEPRECATED_Constants.CHECKBOX_SIZE,
+					TextSize = theme.fontStyle.Smaller.TextSize,
+					Description = box.Description,
+					Selected = box.Selected,
+					Enabled = props.Enabled,
+					LayoutOrder = i,
+					OnActivated = function()
+						props.EntryClicked(box)
+					end,
+					Link = box.LinkTextFrame,
+				})
 		)
 	end
 
 	if errorState then
-		children.Error = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.SmallError, {
-			LayoutOrder = numBoxes + 1,
-			Size = UDim2.new(1, 0, 0, DEPRECATED_Constants.CHECKBOX_SIZE),
-			BackgroundTransparency = 1,
-			Text = props.ErrorMessage,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Center,
-		}))
+		children.Error = Roact.createElement(
+			"TextLabel",
+			Cryo.Dictionary.join(theme.fontStyle.SmallError, {
+				LayoutOrder = numBoxes + 1,
+				Size = UDim2.new(1, 0, 0, DEPRECATED_Constants.CHECKBOX_SIZE),
+				BackgroundTransparency = 1,
+				Text = props.ErrorMessage,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Center,
+			})
+		)
 	end
 
-	local maxHeight = numBoxes * DEPRECATED_Constants.CHECKBOX_SIZE
-		+ numBoxes * DEPRECATED_Constants.CHECKBOX_PADDING
+	local maxHeight = numBoxes * DEPRECATED_Constants.CHECKBOX_SIZE + numBoxes * DEPRECATED_Constants.CHECKBOX_PADDING
 
 	if props.ShowWarning then
 		maxHeight = maxHeight * 3
 	end
 
-	return Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
-		LayoutOrder = props.LayoutOrder or 1,
-		Title = props.Title,
-	} else {
-		Title = props.Title,
-		MaxHeight = maxHeight,
-		LayoutOrder = props.LayoutOrder or 1,
-		TextSize = theme.fontStyle.Title.TextSize,
-		Tooltip = props.Tooltip,
-	}, children)
+	return Roact.createElement(
+		TitledFrame,
+		if FFlagRemoveUILibraryTitledFrame
+			then {
+				LayoutOrder = props.LayoutOrder or 1,
+				Title = props.Title,
+			}
+			else {
+				Title = props.Title,
+				MaxHeight = maxHeight,
+				LayoutOrder = props.LayoutOrder or 1,
+				TextSize = theme.fontStyle.Title.TextSize,
+				Tooltip = props.Tooltip,
+			},
+		children
+	)
 end
 
 CheckBoxSet = withContext({

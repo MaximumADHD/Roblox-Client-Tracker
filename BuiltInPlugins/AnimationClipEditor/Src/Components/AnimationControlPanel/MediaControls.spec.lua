@@ -11,12 +11,12 @@ return function()
 				isPlaying = false,
 				isLooping = false,
 				layoutOrder = 0,
-				SkipBackward = function () end,
-				SkipForward = function () end,
-				ToggleLooping = function () end,
-				GoToFirstFrame = function () end,
-				GoToLastFrame = function () end,
-			})
+				SkipBackward = function() end,
+				SkipForward = function() end,
+				ToggleLooping = function() end,
+				GoToFirstFrame = function() end,
+				GoToLastFrame = function() end,
+			}),
 		})
 	end
 
@@ -26,7 +26,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestMediaControls(), container)
 		local frame = container:FindFirstChildOfClass("Frame")

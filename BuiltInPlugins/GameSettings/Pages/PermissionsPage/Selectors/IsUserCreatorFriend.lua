@@ -3,7 +3,7 @@ return function(state, userId)
 	local ownerFriends = state.GameOwnerMetadata.creatorFriends
 
 	if ownerType == Enum.CreatorType.User then
-		for _,friendId in ipairs(ownerFriends) do
+		for _, friendId in ipairs(ownerFriends) do
 			if friendId == userId then
 				return true
 			end

@@ -5,7 +5,6 @@ local Cryo = require(Plugin.Packages.Cryo)
 local testImmutability = require(script.Parent.testImmutability)
 local Action = require(Plugin.Src.Actions.Action)
 
-
 return function()
 	it("should error on invalid input", function()
 		-- expected fields
@@ -48,9 +47,9 @@ return function()
 			setValue = function(state, action)
 				local newValue = action.value
 				return Cryo.Dictionary.join(state, {
-					value = newValue
+					value = newValue,
 				})
-			end
+			end,
 		})
 		local setValueAction = Action("setValue", function(v)
 			return { value = v }
@@ -79,7 +78,7 @@ return function()
 				local newValue = action.value
 				state.value = newValue
 				return state
-			end
+			end,
 		})
 		local setValueAction = Action("setValue", function(v)
 			return { value = v }
@@ -105,7 +104,7 @@ return function()
 				-- erroneously mutate the old data
 				newValue.value.children[1] = "fooo"
 				return newValue
-			end
+			end,
 		})
 		local setChildrenAction = Action("setChildren", function()
 			return {}
@@ -118,7 +117,9 @@ return function()
 
 	describe("Tables", function()
 		it("should return true when the result is two empty tables", function()
-			local emptyAction = Action("emptyAction", function() return {} end)
+			local emptyAction = Action("emptyAction", function()
+				return {}
+			end)
 			local testReducer = Rodux.createReducer({
 				tA = {},
 				tB = {},

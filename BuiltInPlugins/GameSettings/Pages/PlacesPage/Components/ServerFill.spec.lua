@@ -7,28 +7,25 @@ local provideMockContextForGameSettings = require(Plugin.Src.Components.provideM
 local ServerFill = require(Page.Components.ServerFill)
 
 return function()
-    it("should construct and destroy without errors", function()
-        local ServerFill = provideMockContextForGameSettings(nil, {
-            element = Roact.createElement(ServerFill, {
-            Title = "Server Fill",
+	it("should construct and destroy without errors", function()
+		local ServerFill = provideMockContextForGameSettings(nil, {
+			element = Roact.createElement(ServerFill, {
+				Title = "Server Fill",
 
-            LayoutOrder = 1,
-            Enabled = true,
-            CustomSocialSlotsCount = 10,
-			Selected = "Automatic",
-			ErrorState = "Error",
+				LayoutOrder = 1,
+				Enabled = true,
+				CustomSocialSlotsCount = 10,
+				Selected = "Automatic",
+				ErrorState = "Error",
 
-			OnSocialSlotTypeChanged = function(button)
+				OnSocialSlotTypeChanged = function(button) end,
+				OnCustomSocialSlotsCountChanged = function(customSocialSlotsCount) end,
+			}),
+		})
 
-			end,
-			OnCustomSocialSlotsCountChanged = function(customSocialSlotsCount)
-
-			end,
-        })})
-
-        local handle = Roact.mount(ServerFill)
-        expect(ServerFill).to.be.ok()
-        expect(handle).to.be.ok()
-        Roact.unmount(handle)
-    end)
+		local handle = Roact.mount(ServerFill)
+		expect(ServerFill).to.be.ok()
+		expect(handle).to.be.ok()
+		Roact.unmount(handle)
+	end)
 end

@@ -44,7 +44,7 @@ local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContext
 local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
-local SetTool = require	(Plugin.Src.Actions.SetTool)
+local SetTool = require(Plugin.Src.Actions.SetTool)
 
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
 
@@ -140,7 +140,7 @@ function TimelineActions:makeGenerateCurveMenu(localization)
 			Items = Enum.PoseEasingDirection:GetEnumItems(),
 			ItemSelected = function(easingDirection)
 				props.OnGenerateCurve(easingStyle, easingDirection)
-			end
+			end,
 		}
 	end
 
@@ -148,8 +148,8 @@ function TimelineActions:makeGenerateCurveMenu(localization)
 		Name = localization:getText("ContextMenu", "GenerateCurve"),
 		Items = {
 			makeSubmenu(Enum.PoseEasingStyle.Bounce),
-			makeSubmenu(Enum.PoseEasingStyle.Elastic)
-		}
+			makeSubmenu(Enum.PoseEasingStyle.Elastic),
+		},
 	}
 end
 
@@ -186,17 +186,35 @@ function TimelineActions:makeMenuActions(localization)
 		-- EasingStyle and EasingDirection customization
 		table.insert(actions, Constants.MENU_SEPARATOR)
 		if isChannelAnimation then
-			table.insert(actions, self:makeSelectionSubMenu("KeyInterpolationMode", "InterpolationMode",
-				localization:getText("ContextMenu", "InterpolationMode")))
+			table.insert(
+				actions,
+				self:makeSelectionSubMenu(
+					"KeyInterpolationMode",
+					"InterpolationMode",
+					localization:getText("ContextMenu", "InterpolationMode")
+				)
+			)
 			table.insert(actions, pluginActions:get("ClearBothTangents"))
 			if self:multipleSelected() then
 				table.insert(actions, self:makeGenerateCurveMenu(localization))
 			end
 		else
-			table.insert(actions, self:makeSelectionSubMenu("PoseEasingStyle", "EasingStyle",
-				localization:getText("ContextMenu", "EasingStyle")))
-			table.insert(actions, self:makeSelectionSubMenu("PoseEasingDirection", "EasingDirection",
-				localization:getText("ContextMenu", "EasingDirection")))
+			table.insert(
+				actions,
+				self:makeSelectionSubMenu(
+					"PoseEasingStyle",
+					"EasingStyle",
+					localization:getText("ContextMenu", "EasingStyle")
+				)
+			)
+			table.insert(
+				actions,
+				self:makeSelectionSubMenu(
+					"PoseEasingDirection",
+					"EasingDirection",
+					localization:getText("ContextMenu", "EasingDirection")
+				)
+			)
 		end
 	else
 		table.insert(actions, pluginActions:get("AddResetKeyframe"))
@@ -257,7 +275,7 @@ function TimelineActions:didMount()
 				local keyframeData = {
 					Value = value,
 					EasingStyle = Enum.PoseEasingStyle.Linear,
-					EasingDirection = Enum.PoseEasingDirection.In
+					EasingDirection = Enum.PoseEasingDirection.In,
 				}
 				props.AddKeyframe(instanceName, path, trackType, tck, keyframeData, props.Analytics)
 			end
@@ -272,7 +290,7 @@ function TimelineActions:didMount()
 			for instanceName, instance in pairs(props.AnimationData.Instances) do
 				for _, openTrack in pairs(tracks) do
 					local trackName = openTrack.Name
-					addKeyframe(instanceName, {trackName})
+					addKeyframe(instanceName, { trackName })
 				end
 			end
 		end
@@ -307,9 +325,16 @@ function TimelineActions:didMount()
 						local keyframeData = {
 							Value = value,
 							EasingStyle = Enum.PoseEasingStyle.Linear,
-							EasingDirection = Enum.PoseEasingDirection.In
+							EasingDirection = Enum.PoseEasingDirection.In,
 						}
-						props.AddKeyframe(instanceName, selectedTrack, trackType, playhead, keyframeData, props.Analytics)
+						props.AddKeyframe(
+							instanceName,
+							selectedTrack,
+							trackType,
+							playhead,
+							keyframeData,
+							props.Analytics
+						)
 					end
 				end
 			end
@@ -334,7 +359,7 @@ function TimelineActions:didMount()
 					value = KeyframeUtils.getDefaultValue(componentType)
 					local keyframeData = {
 						Value = value,
-						InterpolationMode = Enum.KeyInterpolationMode.Cubic
+						InterpolationMode = Enum.KeyInterpolationMode.Cubic,
 					}
 					props.AddKeyframe(instanceName, componentPath, componentType, tck, keyframeData, props.Analytics)
 				end, rotationType)
@@ -343,7 +368,7 @@ function TimelineActions:didMount()
 				local keyframeData = {
 					Value = value,
 					EasingStyle = Enum.PoseEasingStyle.Linear,
-					EasingDirection = Enum.PoseEasingDirection.In
+					EasingDirection = Enum.PoseEasingDirection.In,
 				}
 				props.AddKeyframe(instanceName, path, trackType, tck, keyframeData, props.Analytics)
 			end
@@ -360,18 +385,19 @@ function TimelineActions:didMount()
 					if isChannelAnimation then
 						if track then
 							trackType = track.Type
-							local rotationTrack = track.Components and track.Components[Constants.PROPERTY_KEYS.Rotation]
+							local rotationTrack = track.Components
+								and track.Components[Constants.PROPERTY_KEYS.Rotation]
 							rotationType = rotationTrack and rotationTrack.Type or nil
 						else
 							trackType = TrackUtils.getTrackTypeFromName(trackName, tracks)
 							rotationType = TrackUtils.getRotationTypeFromName(trackName, tracks)
 						end
 						TrackUtils.traverseComponents(trackType, function(componentType, relPath)
-							local path = Cryo.List.join({trackName}, relPath)
+							local path = Cryo.List.join({ trackName }, relPath)
 							newValue = KeyframeUtils.getDefaultValue(componentType)
 							local keyframeData = {
 								Value = newValue,
-								InterpolationMode = Enum.KeyInterpolationMode.Cubic
+								InterpolationMode = Enum.KeyInterpolationMode.Cubic,
 							}
 							props.AddKeyframe(instanceName, path, componentType, tck, keyframeData, props.Analytics)
 						end, rotationType)
@@ -381,9 +407,9 @@ function TimelineActions:didMount()
 						local keyframeData = {
 							Value = newValue,
 							EasingStyle = Enum.PoseEasingStyle.Linear,
-							EasingDirection = Enum.PoseEasingDirection.In
+							EasingDirection = Enum.PoseEasingDirection.In,
 						}
-						props.AddKeyframe(instanceName, {trackName}, trackType, tck, keyframeData, props.Analytics)
+						props.AddKeyframe(instanceName, { trackName }, trackType, tck, keyframeData, props.Analytics)
 					end
 				end
 			end
@@ -433,7 +459,6 @@ function TimelineActions:didMount()
 		return self.props.Undo(self.props.Signals)
 	end
 
-
 	self:addAction(actions:get("CopySelected"), self.props.CopySelectedKeyframes)
 	self:addAction(actions:get("DeleteSelected"), deleteSelectedKeyframesWrapper)
 	self:addAction(actions:get("ResetSelected"), self.props.ResetSelectedKeyframes)
@@ -475,7 +500,8 @@ function TimelineActions:render()
 		--     bounce/elastic interpolation to curves, with additional keys
 		-- Channel -> Keyframe: We need to evaluate the value for the channels that are not copied to
 		--     create full CFrames (for instance, if we only copy the Position.X channel)
-		local expectedClipboardType = isChannelAnimation and Constants.CLIPBOARD_TYPE.Channels or Constants.CLIPBOARD_TYPE.Keyframes
+		local expectedClipboardType = isChannelAnimation and Constants.CLIPBOARD_TYPE.Channels
+			or Constants.CLIPBOARD_TYPE.Keyframes
 		if clipboard and not isEmpty(clipboard) and clipboardType == expectedClipboardType then
 			pluginActions:get("PasteKeyframes").Enabled = not (GetFFlagKeyframeReduction() and readOnly)
 		end
@@ -521,10 +547,13 @@ function TimelineActions:render()
 	end
 
 	local localization = self.props.Localization
-	return showMenu and (not GetFFlagKeyframeReduction() or not readOnly) and Roact.createElement(ContextMenu, {
-		Actions = self:makeMenuActions(localization),
-		OnMenuOpened = props.OnMenuOpened,
-	}) or nil
+	return showMenu
+			and (not GetFFlagKeyframeReduction() or not readOnly)
+			and Roact.createElement(ContextMenu, {
+				Actions = self:makeMenuActions(localization),
+				OnMenuOpened = props.OnMenuOpened,
+			})
+		or nil
 end
 
 function TimelineActions:willUnmount()
@@ -574,14 +603,14 @@ local function mapStateToProps(state, props)
 end
 
 local function mapDispatchToProps(dispatch)
-	return{
+	return {
 		SelectAllKeyframes = function()
 			dispatch(SelectAllKeyframes())
 			dispatch(SetSelectedEvents({}))
 		end,
 
 		DeselectAllKeyframes = function()
-			dispatch(SetSelectedKeyframes{})
+			dispatch(SetSelectedKeyframes({}))
 			dispatch(SetSelectedEvents({}))
 		end,
 

@@ -18,15 +18,15 @@ end
 local function applyParamsToUrl(requestInfo)
 	local params = requestInfo.Params
 	requestInfo.Params = nil -- HttpRbxApiService doesn't know what this is, so remove it before we give it requestInfo
-	
+
 	if params then
 		local paramList = {}
-		
-		for paramName,paramValue in pairs(params) do
-			local paramPair = HttpService:UrlEncode(paramName).."="..HttpService:UrlEncode(paramValue)
-		table.insert(paramList, paramPair)
+
+		for paramName, paramValue in pairs(params) do
+			local paramPair = HttpService:UrlEncode(paramName) .. "=" .. HttpService:UrlEncode(paramValue)
+			table.insert(paramList, paramPair)
 		end
-		
+
 		requestInfo.Url = requestInfo.Url .. "?" .. table.concat(paramList, "&")
 	end
 end
@@ -39,12 +39,11 @@ end
 
 function Http.Request(requestInfo)
 	applyParamsToUrl(requestInfo)
-			
+
 	return Promise.new(function(resolve, reject)
 		-- Prevent yielding
 		spawn(function()
-			local ok, result = pcall(HttpRbxApiService.RequestAsync,
-				HttpRbxApiService, requestInfo)
+			local ok, result = pcall(HttpRbxApiService.RequestAsync, HttpRbxApiService, requestInfo)
 
 			if ok then
 				resolve(result)
@@ -57,19 +56,19 @@ end
 
 function Http.RequestInternal(requestInfo)
 	applyParamsToUrl(requestInfo)
-	
+
 	return Promise.new(function(resolve, reject)
 		-- Prevent yielding
 		spawn(function()
 			HttpService:RequestInternal(requestInfo):Start(function(success, response)
 				if success then
 					if response.StatusCode >= DEPRECATED_Constants.BAD_REQUEST then
-						reject("HTTP error: "..tostring(response.StatusCode))
+						reject("HTTP error: " .. tostring(response.StatusCode))
 					else
 						resolve(response.Body)
 					end
 				else
-					reject("HTTP error: "..tostring(response.HttpError))
+					reject("HTTP error: " .. tostring(response.HttpError))
 				end
 			end)
 		end)

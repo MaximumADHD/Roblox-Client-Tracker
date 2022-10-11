@@ -120,11 +120,11 @@ return function(plugin, pluginLoaderContext)
 		makePluginGui()
 		pluginLoaderContext.signals["StudioPublishService.OnSaveOrPublishPlaceToRoblox"]:Connect(
 			function(showGameSelect, isPublish, closeMode)
-					if isPublish then
-						pluginGui.Title = localization:getText("General", "PublishGame")
-					else
-						pluginGui.Title = localization:getText("General", "SaveGame")
-					end
+				if isPublish then
+					pluginGui.Title = localization:getText("General", "PublishGame")
+				else
+					pluginGui.Title = localization:getText("General", "SaveGame")
+				end
 				openPluginWindow(showGameSelect, isPublish, closeMode)
 			end
 		)
@@ -132,7 +132,6 @@ return function(plugin, pluginLoaderContext)
 		pluginLoaderContext.signals["StudioPublishService.GamePublishFinished"]:Connect(function(success)
 			dataStore:dispatch(SetIsPublishing(false))
 		end)
-
 
 		pluginLoaderContext.signals["StudioPublishService.GamePublishCancelled"]:Connect(function()
 			StudioPublishService:clearUploadNames()

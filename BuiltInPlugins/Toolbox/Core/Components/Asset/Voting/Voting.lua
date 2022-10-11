@@ -28,8 +28,6 @@ local VoteBar = require(Plugin.Core.Components.Asset.Voting.VoteBar)
 local VoteButtons = require(Plugin.Core.Components.Asset.Voting.VoteButtons)
 local LoadingIndicator = Framework.UI.LoadingIndicator
 
-local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
-
 local function Voting(props)
 	local layoutOrder = props.LayoutOrder or 0
 	local showVotes = props.voting.ShowVotes
@@ -38,7 +36,7 @@ local function Voting(props)
 
 	local children = {}
 	if showVotes then
-		if FFlagToolboxUseGetVote and showVoteLoading then
+		if showVoteLoading then
 			children.VoteLoading = Roact.createElement(LoadingIndicator, { Size = UDim2.new(0.333, 0, 0.333, 0) })
 			children.UIListLayout = Roact.createElement("UIListLayout", {
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,

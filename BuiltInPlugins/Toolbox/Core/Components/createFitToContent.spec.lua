@@ -3,7 +3,7 @@ return function()
 	local Plugin = script.Parent.Parent.Parent
 	local Packages = Plugin.Packages
 	local Roact = require(Packages.Roact)
-	
+
 	local createFitToContent = require(Plugin.Core.Components.createFitToContent)
 
 	it("should create and destroy without errors", function()

@@ -18,8 +18,11 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UILibraryCompat = Plugin.Src.UILibraryCompat
-local RoundFrame = require(UILibraryCompat.RoundFrame)
+local RoundFrame = require(UILibraryCompat.RoundFrame) -- Remove with GetFFlagRetireUILibraryCompat
+local Pane = Framework.UI.Pane
+
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local GetFFlagRetireUILibraryCompat = require(Plugin.LuaFlags.GetFFlagRetireUILibraryCompat)
 
 local TimeTag = Roact.PureComponent:extend("TimeTag")
 
@@ -32,7 +35,8 @@ function TimeTag:render()
 	local time = props.Time
 	local zIndex = props.ZIndex
 
-	return Roact.createElement(RoundFrame, {
+	return Roact.createElement(if GetFFlagRetireUILibraryCompat() then Pane else RoundFrame, {
+		Style = if GetFFlagRetireUILibraryCompat() then "BorderBox" else nil,
 		BackgroundColor3 = theme.scaleControlsTheme.mainColor,
 		BorderSizePixel = 0,
 		AnchorPoint = anchorPoint,
@@ -51,7 +55,7 @@ function TimeTag:render()
 			TextColor3 = theme.scaleControlsTheme.textColor,
 			TextSize = theme.scaleControlsTheme.textSize,
 			Font = theme.font,
-		})
+		}),
 	})
 end
 

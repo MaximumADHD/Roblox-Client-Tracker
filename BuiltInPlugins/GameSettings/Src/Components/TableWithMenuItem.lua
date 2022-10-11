@@ -42,7 +42,9 @@ local TableWithMenuItem = Roact.PureComponent:extend("TableWithMenuItem")
 local function createRowLabelsWithIcon(theme, rowData, icon)
 	local rowLabels = {}
 	local width = 1 / (#rowData + 1) -- +1 because the icon takes a column and is not included in #rowData
-	for col = (0), #rowData do -- iteration 0 adds column with icon
+	-- iteration 0 adds column with icon
+	local START = 0
+	for col = START, #rowData do
 		local cellData = rowData[col]
 		local cell
 		if col == 0 then
@@ -60,34 +62,42 @@ local function createRowLabelsWithIcon(theme, rowData, icon)
 				Icon = iconContainer,
 			})
 		elseif col ~= #rowData then
-			cell = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Smaller, {
-				Size = UDim2.new(width, 0, 0, theme.table.item.height),
-				LayoutOrder = col,
-				Text = cellData,
-				BackgroundTransparency = 1,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-			}), {
-				Tooltip = Roact.createElement(Tooltip, {
+			cell = Roact.createElement(
+				"TextLabel",
+				Cryo.Dictionary.join(theme.fontStyle.Smaller, {
+					Size = UDim2.new(width, 0, 0, theme.table.item.height),
+					LayoutOrder = col,
 					Text = cellData,
-					Enabled = true,
+					BackgroundTransparency = 1,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextTruncate = Enum.TextTruncate.AtEnd,
 				}),
-			})
+				{
+					Tooltip = Roact.createElement(Tooltip, {
+						Text = cellData,
+						Enabled = true,
+					}),
+				}
+			)
 		else
 			-- leave room for button
-			cell = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Smaller, {
-				Size = UDim2.new(width, -theme.table.menu.buttonSize, 0, theme.table.item.height),
-				LayoutOrder = col,
-				Text = cellData,
-				BackgroundTransparency = 1,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-			}), {
-				Tooltip = Roact.createElement(Tooltip, {
+			cell = Roact.createElement(
+				"TextLabel",
+				Cryo.Dictionary.join(theme.fontStyle.Smaller, {
+					Size = UDim2.new(width, -theme.table.menu.buttonSize, 0, theme.table.item.height),
+					LayoutOrder = col,
 					Text = cellData,
-					Enabled = true,
+					BackgroundTransparency = 1,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextTruncate = Enum.TextTruncate.AtEnd,
 				}),
-			})
+				{
+					Tooltip = Roact.createElement(Tooltip, {
+						Text = cellData,
+						Enabled = true,
+					}),
+				}
+			)
 		end
 		rowLabels[col] = cell
 	end
@@ -96,45 +106,53 @@ local function createRowLabelsWithIcon(theme, rowData, icon)
 end
 
 local function createRowLabels(theme, rowData)
-	local rowLabels = { }
+	local rowLabels = {}
 	for col = 1, #rowData do
 		local cellData = rowData[col]
 		local cell
 		if col ~= #rowData then
-			cell = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Smaller, {
-				Size = UDim2.new(1 / #rowData, 0, 0, theme.table.item.height),
-				LayoutOrder = col,
+			cell = Roact.createElement(
+				"TextLabel",
+				Cryo.Dictionary.join(theme.fontStyle.Smaller, {
+					Size = UDim2.new(1 / #rowData, 0, 0, theme.table.item.height),
+					LayoutOrder = col,
 
-				Text = cellData,
-
-				BackgroundTransparency = 1,
-
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-			}), {
-				Tooltip = Roact.createElement(Tooltip, {
 					Text = cellData,
-					Enabled = true,
+
+					BackgroundTransparency = 1,
+
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextTruncate = Enum.TextTruncate.AtEnd,
 				}),
-			})
+				{
+					Tooltip = Roact.createElement(Tooltip, {
+						Text = cellData,
+						Enabled = true,
+					}),
+				}
+			)
 		else
 			-- leave room for button
-			cell = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Smaller, {
-				Size = UDim2.new(1 / #rowData, -theme.table.menu.buttonSize, 0, theme.table.item.height),
-				LayoutOrder = col,
+			cell = Roact.createElement(
+				"TextLabel",
+				Cryo.Dictionary.join(theme.fontStyle.Smaller, {
+					Size = UDim2.new(1 / #rowData, -theme.table.menu.buttonSize, 0, theme.table.item.height),
+					LayoutOrder = col,
 
-				Text = cellData,
-
-				BackgroundTransparency = 1,
-
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-			}), {
-				Tooltip = Roact.createElement(Tooltip, {
 					Text = cellData,
-					Enabled = true,
+
+					BackgroundTransparency = 1,
+
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextTruncate = Enum.TextTruncate.AtEnd,
 				}),
-			})
+				{
+					Tooltip = Roact.createElement(Tooltip, {
+						Text = cellData,
+						Enabled = true,
+					}),
+				}
+			)
 		end
 		rowLabels[col] = cell
 	end
@@ -188,8 +206,12 @@ function TableWithMenuItem:renderMenuItem(item, index, activated, theme, maxWidt
 	local displayText = item.Text
 	local isHovered = self.state.menuItem == key
 
-	local displayTextBound = TextService:GetTextSize(displayText,
-		theme.fontStyle.Normal.TextSize, theme.fontStyle.Normal.Font, Vector2.new(maxWidth, math.huge))
+	local displayTextBound = TextService:GetTextSize(
+		displayText,
+		theme.fontStyle.Normal.TextSize,
+		theme.fontStyle.Normal.Font,
+		Vector2.new(maxWidth, math.huge)
+	)
 
 	local itemColor = theme.dropDownEntry.background
 	if isHovered then
@@ -210,16 +232,19 @@ function TableWithMenuItem:renderMenuItem(item, index, activated, theme, maxWidt
 			self.onMenuItemLeave(key)
 		end,
 	}, {
-		Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
+		Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
 
-		Label = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Smaller, {
-			Size = UDim2.new(1, 0, 0, displayTextBound.Y),
-			Position = UDim2.new(0, theme.table.textPadding, 0.5, 0),
-			AnchorPoint = Vector2.new(0, 0.5),
-			Text = displayText,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			BackgroundTransparency = 1,
-		})),
+		Label = Roact.createElement(
+			"TextLabel",
+			Cryo.Dictionary.join(theme.fontStyle.Smaller, {
+				Size = UDim2.new(1, 0, 0, displayTextBound.Y),
+				Position = UDim2.new(0, theme.table.textPadding, 0.5, 0),
+				AnchorPoint = Vector2.new(0, 0.5),
+				Text = displayText,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				BackgroundTransparency = 1,
+			})
+		),
 	})
 end
 
@@ -240,8 +265,12 @@ function TableWithMenuItem:render()
 
 	local maxWidth = 0
 	for _, data in ipairs(menuItems) do
-		local textBound = TextService:GetTextSize(data.Text,
-			theme.fontStyle.Normal.TextSize, theme.fontStyle.Normal.Font, Vector2.new(math.huge, math.huge))
+		local textBound = TextService:GetTextSize(
+			data.Text,
+			theme.fontStyle.Normal.TextSize,
+			theme.fontStyle.Normal.Font,
+			Vector2.new(math.huge, math.huge)
+		)
 
 		local itemWidth = textBound.X + theme.table.menu.itemPadding
 		maxWidth = math.max(maxWidth, itemWidth)
@@ -261,17 +290,20 @@ function TableWithMenuItem:render()
 			PaddingBottom = UDim.new(0, theme.table.item.padding),
 		}),
 
-		Dots = Roact.createElement(FitTextLabel,  Cryo.Dictionary.join(theme.fontStyle.Normal, {
-			Position = UDim2.new(0.5, 0, 0.5, 0),
-			AnchorPoint = Vector2.new(0.5, 0.5),
+		Dots = Roact.createElement(
+			FitTextLabel,
+			Cryo.Dictionary.join(theme.fontStyle.Normal, {
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				AnchorPoint = Vector2.new(0.5, 0.5),
 
-			Text = "...",
-			Font = Enum.Font.SourceSansBold,
+				Text = "...",
+				Font = Enum.Font.SourceSansBold,
 
-			BackgroundTransparency = 1,
+				BackgroundTransparency = 1,
 
-			width = theme.table.menu.buttonSize,
-		})),
+				width = theme.table.menu.buttonSize,
+			})
+		),
 
 		Menu = Roact.createElement(DropdownMenu, {
 			Hide = not showMenu,
@@ -284,32 +316,36 @@ function TableWithMenuItem:render()
 			Width = maxWidth,
 		}),
 
-		Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
+		Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
 	})
 
 	local iconOffset = 10
 	local height = (icon and theme.table.icon.height + iconOffset) or theme.table.item.height
 
-	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 0, height),
+	return Roact.createElement(
+		"Frame",
+		{
+			Size = UDim2.new(1, 0, 0, height),
 
-		BackgroundColor3 = theme.table.item.background,
-		BorderSizePixel = 0,
+			BackgroundColor3 = theme.table.item.background,
+			BorderSizePixel = 0,
 
-		LayoutOrder = layoutOrder,
-	}, Cryo.Dictionary.join({
-		RowLayout = Roact.createElement("UIListLayout", {
-			FillDirection = Enum.FillDirection.Horizontal,
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			VerticalAlignment = Enum.VerticalAlignment.Center,
-			SortOrder = Enum.SortOrder.LayoutOrder,
-		}),
+			LayoutOrder = layoutOrder,
+		},
+		Cryo.Dictionary.join({
+			RowLayout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Horizontal,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
 
-		Padding = Roact.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, theme.table.textPadding),
-			PaddingRight = UDim.new(0, theme.table.textPadding),
-		}),
-	}, row))
+			Padding = Roact.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, theme.table.textPadding),
+				PaddingRight = UDim.new(0, theme.table.textPadding),
+			}),
+		}, row)
+	)
 end
 
 TableWithMenuItem = withContext({

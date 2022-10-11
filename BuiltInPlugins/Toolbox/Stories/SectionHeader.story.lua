@@ -19,7 +19,7 @@ return {
 				end,
 				Position = UDim2.new(0, 0, 0, 0),
 				Title = "This is a test",
-			})
-		})
-	})
+			}),
+		}),
+	}),
 }

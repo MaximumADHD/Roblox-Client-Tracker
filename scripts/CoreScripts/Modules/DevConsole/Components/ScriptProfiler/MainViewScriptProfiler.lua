@@ -5,6 +5,7 @@ local ScriptContext = game:GetService("ScriptContext")
 local HttpService = game:GetService("HttpService")
 
 local Components = script.Parent.Parent.Parent.Components
+local DataConsumer = require(Components.DataConsumer)
 local UtilAndTab = require(Components.UtilAndTab)
 local BoxButton = require(Components.BoxButton)
 local ProfilerView = require(script.Parent.ProfilerView)
@@ -16,6 +17,8 @@ local TESTING_DATA = nil -- Assign this to override the data for testing
 
 local MainViewScriptProfiler = Roact.PureComponent:extend("MainViewScriptProfiler")
 
+local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientReplicator)
+
 function MainViewScriptProfiler:init()
 
 	self.onUtilTabHeightChanged = function(utilTabHeight)
@@ -25,17 +28,40 @@ function MainViewScriptProfiler:init()
 	end
 
 	self.onBeginProfile = function ()
-		ScriptContext:StartScriptProfiling()
-		self:setState({
-			isProfiling = true
-		})
+		if self.state.isClientView then
+			ScriptContext:StartScriptProfiling()
+			self:setState({
+				clientIsProfiling = true
+			})
+		else
+			local clientReplicator = getClientReplicator()
+			if clientReplicator then
+				clientReplicator:RequestServerScriptProfiling(true)
+			end
+
+			self:setState({
+				serverIsProfiling = true
+			})
+		end
 	end
 
 	self.onEndProfile = function ()
-		self:setState({
-			profilingData = ScriptContext:StopScriptProfiling(),
-			isProfiling = false
-		})
+		if self.state.isClientView then
+			self:setState({
+				clientProfilingData = ScriptContext:StopScriptProfiling(),
+				clientIsProfiling = false
+			})
+		else
+			local clientReplicator = getClientReplicator()
+			if clientReplicator then
+				clientReplicator:RequestServerScriptProfiling(false)
+			end
+
+			self:setState({
+				serverProfilingData = nil,
+				serverIsProfiling = false
+			})
+		end
 	end
 
 	self.toggleUnits = function ()
@@ -46,20 +72,17 @@ function MainViewScriptProfiler:init()
 		end)
 	end
 
-	-- TODO: Implement these when we support server profiling
-	-- self.onClientButton = function()
-	-- 	self:setState({
-	-- 		profilingData = Roact.None,
-	-- 		isClientView = true
-	-- 	})
-	-- end
+	self.onClientButton = function()
+		self:setState({
+			isClientView = true
+		})
+	end
 
-	-- self.onServerButton = function()
-	-- 	self:setState({
-	-- 		profilingData = Roact.None,
-	-- 		isClientView = false
-	-- 	})
-	-- end
+	self.onServerButton = function()
+		self:setState({
+			isClientView = false
+		})
+	end
 
 	-- TODO: Add support for searching the script profiler
 	-- self.onSearchTermChanged = function(newSearchTerm)
@@ -71,9 +94,11 @@ function MainViewScriptProfiler:init()
 	self.state = {
 		utilTabHeight = 0,
 		isClientView = true,
-		isProfiling = false,
+		clientIsProfiling = false,
+		serverIsProfiling = false,
 		usePercentages = false,
-		profilingData = TESTING_DATA,
+		clientProfilingData = TESTING_DATA,
+		serverProfilingData = TESTING_DATA,
 	}
 end
 
@@ -82,6 +107,17 @@ function MainViewScriptProfiler:didMount()
 	self:setState({
 		utilTabHeight = utilSize.Y.Offset
 	})
+
+	self.statsConnector = self.props.ServerProfilingData:Signal():Connect(function(data)
+		self:setState({
+			serverProfilingData = data,
+		})
+	end)
+end
+
+function MainViewScriptProfiler:willUnmount()
+	self.statsConnector:Disconnect()
+	self.statsConnector = nil
 end
 
 function MainViewScriptProfiler:didUpdate()
@@ -99,9 +135,17 @@ function MainViewScriptProfiler:render()
 	local tabList = self.props.tabList
 	local scriptFilters = self.props.serverTypeFilters
 
-	local isProfiling = self.state.isProfiling
 	local isClientView = self.state.isClientView
-	local profilingData = self.state.profilingData
+
+	local isProfiling
+	local profilingData
+	if isClientView then
+		isProfiling = self.state.clientIsProfiling
+		profilingData = self.state.clientProfilingData
+	else
+		isProfiling = self.state.serverIsProfiling
+		profilingData = self.state.serverProfilingData
+	end
 
 	local utilTabHeight = self.state.utilTabHeight
 	local searchTerm =  self.props.serverSearchTerm
@@ -127,9 +171,8 @@ function MainViewScriptProfiler:render()
 			refForParent = self.utilRef,
 			onHeightChanged = self.onUtilTabHeightChanged,
 
-			-- TODO: Implement these when we support server profiling
-			-- onClientButton = self.onClientButton,
-			-- onServerButton = self.onServerButton,
+			onClientButton = self.onClientButton,
+			onServerButton = self.onServerButton,
 
 			-- TODO: Add support for searching the script profiler
 			-- onSearchTermChanged = self.onSearchTermChanged,
@@ -158,4 +201,4 @@ function MainViewScriptProfiler:render()
 	})
 end
 
-return MainViewScriptProfiler
+return DataConsumer(MainViewScriptProfiler, "ServerProfilingData")

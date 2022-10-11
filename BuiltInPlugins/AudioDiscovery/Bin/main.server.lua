@@ -52,16 +52,16 @@ end
 
 local function init()
 	plugin.Name = main.Name
-	
+
 	local networking = Networking.new({
 		isInternal = true,
 	})
 	soundAssetChecker = SoundAssetChecker.new(networking)
 	soundAssetChecker:start()
-	
+
 	local mainPlugin = Roact.createElement(MainPlugin, {
 		Plugin = plugin,
-		SoundAssetChecker = soundAssetChecker
+		SoundAssetChecker = soundAssetChecker,
 	})
 
 	handle = Roact.mount(mainPlugin)
@@ -76,7 +76,7 @@ plugin.Unloading:Connect(function()
 		soundAssetChecker:destroy()
 		soundAssetChecker = nil
 	end
-	
+
 	if inspector then
 		inspector:destroy()
 	end

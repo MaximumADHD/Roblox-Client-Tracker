@@ -1,4 +1,3 @@
-
 local Plugin = script.Parent.Parent.Parent
 
 local Action = require(Plugin.Src.Actions.Action)
@@ -12,6 +11,6 @@ return Action(script.Name, function(screen)
 	assert(Constants.SCREENS[screen] ~= nil, string.format(errmsg, screen))
 
 	return {
-		screen = screen
+		screen = screen,
 	}
 end)

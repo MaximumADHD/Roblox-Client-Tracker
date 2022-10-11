@@ -11,6 +11,9 @@ return function()
 	local function createTestElement(props: {}?)
 		local MainGuiProps: MainGui.Props = join({
 			-- If there are any props required for this component, add defaults for them here
+			colorPicker = "",
+			iconPicker = "",
+
 		}, props or {})
 
 		return mockContext({

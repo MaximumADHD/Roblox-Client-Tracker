@@ -1,6 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 
-local Immutable = require(CorePackages.AppTempCommon.Common.Immutable)
+local Immutable = require(CorePackages.Workspace.Packages.AppCommonLib).Immutable
 local ReceivedPlacesInfos = require(CorePackages.AppTempCommon.LuaApp.Actions.ReceivedPlacesInfos)
 
 local LuaAppFlags = CorePackages.AppTempCommon.LuaApp.Flags

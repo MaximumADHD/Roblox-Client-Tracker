@@ -7,6 +7,7 @@
 		callback SelectEditingCage: callback to set current cage. Comes from mapDispatchToProps
 		callback SetToolMode: callback to change what tool is being used. Comes from mapDispatchToProps.
 		table Signals: A Signals ContextItem, which is provided via withContext.
+		table EditingItemContext: A EditingItemContext ContextItem, which is provided via withContext.
 		table LuaMeshEditingModuleContext: A LuaMeshEditingModuleContext ContextItem, which is provided via withContext.
 		table Localization: A Localization ContextItem, which is provided via withContext.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
@@ -19,8 +20,11 @@ local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
 local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
 local SignalsContext = AvatarToolsShared.Contexts.Signals
+local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
 
 local DropdownMenuButton = AvatarToolsShared.Components.DropdownMenuButton
+
+local AvatarUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared.AvatarUtil
 
 local SelectEditingCage = require(Plugin.Src.Thunks.SelectEditingCage)
 local SetToolMode = require(Plugin.Src.Actions.SetToolMode)
@@ -69,7 +73,16 @@ function CageControls:init()
 		self.menuOptionFunctions[index]()
 	end
 
-	self.bringMannequinToView = function() end
+	self.bringMannequinToView = function() 
+		local props = self.props
+		local editingItem = props.EditingItemContext:getItem()
+		local luaMeshEditingModuleContext = props.LuaMeshEditingModuleContext
+		if editingItem and editingItem.Parent then
+			AvatarUtil:bringAvatarToView(editingItem.Parent, function()
+				luaMeshEditingModuleContext:initContextsFromItem(editingItem)
+			end)
+		end
+	end
 
 	self.resetPoints = function()
 		local context = self.props.LuaMeshEditingModuleContext
@@ -243,6 +256,7 @@ end
 CageControls = withContext({
 	Signals = SignalsContext,
 	Localization = ContextServices.Localization,
+	EditingItemContext = EditingItemContext,
 	LuaMeshEditingModuleContext = LuaMeshEditingModuleContext,
 	Stylizer = ContextServices.Stylizer,
 })(CageControls)

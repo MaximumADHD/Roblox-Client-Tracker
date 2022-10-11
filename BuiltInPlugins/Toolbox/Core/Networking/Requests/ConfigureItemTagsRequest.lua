@@ -4,7 +4,6 @@ local NetworkError = require(Plugin.Core.Actions.NetworkError)
 local UploadResult = require(Plugin.Core.Actions.UploadResult)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
-
 local Packages = Plugin.Packages
 local Promise = require(Packages.Framework).Util.Promise
 

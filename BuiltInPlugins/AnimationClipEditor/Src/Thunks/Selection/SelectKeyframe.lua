@@ -63,7 +63,7 @@ return function(instanceName, trackName, tck, multiSelect)
 					store:dispatch(SetSelectedKeyframes(Cryo.Dictionary.join(selectedKeyframes, {
 						[instanceName] = Cryo.Dictionary.join(newInstance, {
 							[trackName] = newKeyframes,
-						})
+						}),
 					})))
 				end
 			end

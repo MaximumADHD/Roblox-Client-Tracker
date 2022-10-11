@@ -65,15 +65,12 @@ function RoundArrowButton:render()
 			MouseLeave = function()
 				self:mouseHoverChanged(false)
 			end,
-		})
+		}),
 	})
 end
-
 
 RoundArrowButton = withContext({
 	Mouse = ContextServices.Mouse,
 })(RoundArrowButton)
-
-
 
 return RoundArrowButton

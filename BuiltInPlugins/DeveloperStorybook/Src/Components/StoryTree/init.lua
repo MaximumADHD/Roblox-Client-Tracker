@@ -39,7 +39,7 @@ function StoryTree:init()
 	if not FFlagDevFrameworkList then
 		self.toggleRow = function(row)
 			local newExpansion = {
-				[row.item] = not self.props.Expansion[row.item]
+				[row.item] = not self.props.Expansion[row.item],
 			}
 			self.props.toggleStory(newExpansion)
 		end
@@ -57,7 +57,7 @@ function StoryTree:init()
 				isSelected = isSelected,
 				isExpanded = isExpanded,
 				onToggled = self.toggleRow,
-				onSelected = self.selectRow
+				onSelected = self.selectRow,
 			})
 		end
 	end
@@ -80,15 +80,15 @@ end
 
 function StoryTree:render()
 	local props = self.props
-	return Roact.createElement(Container, {},
-	{
+	return Roact.createElement(Container, {}, {
 		Tree = Roact.createElement(TreeView, {
 			RowProps = {
 				GetContents = function(item)
-					return item.Name, {
-						Size = UDim2.fromOffset(16, 16),
-						Image = ("rbxasset://textures/DeveloperStorybook/%s.png"):format(item.Icon)
-					}
+					return item.Name,
+						{
+							Size = UDim2.fromOffset(16, 16),
+							Image = ("rbxasset://textures/DeveloperStorybook/%s.png"):format(item.Icon),
+						}
 				end,
 			},
 			LayoutOrder = props.LayoutOrder,
@@ -102,7 +102,7 @@ function StoryTree:render()
 			Size = UDim2.fromScale(1, 1),
 			Expansion = props.Expansion,
 			Style = "BorderBox",
-		})
+		}),
 	})
 end
 
@@ -110,25 +110,23 @@ StoryTree = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(StoryTree)
 
-return RoactRodux.connect(
-	function(state, props)
-		return {
-			Stories = #state.Stories.searchFilter > 0 and state.Stories.searchStories or state.Stories.stories,
-			Selection = state.Stories.selectedStory and {[state.Stories.selectedStory] = true} or {},
-			Expansion = #state.Stories.searchFilter > 0 and state.Stories.expandedSearchStories or state.Stories.expandedStories
-		}
-	end,
-	function(dispatch)
-		return {
-			selectStory = function(story)
-				dispatch(SelectStory(story))
-			end,
-			toggleStory = function(change)
-				dispatch(ToggleStory(change))
-			end,
-			getStories = function()
-				dispatch(GetStories())
-			end,
-		}
-	end
-)(StoryTree)
+return RoactRodux.connect(function(state, props)
+	return {
+		Stories = #state.Stories.searchFilter > 0 and state.Stories.searchStories or state.Stories.stories,
+		Selection = state.Stories.selectedStory and { [state.Stories.selectedStory] = true } or {},
+		Expansion = #state.Stories.searchFilter > 0 and state.Stories.expandedSearchStories
+			or state.Stories.expandedStories,
+	}
+end, function(dispatch)
+	return {
+		selectStory = function(story)
+			dispatch(SelectStory(story))
+		end,
+		toggleStory = function(change)
+			dispatch(ToggleStory(change))
+		end,
+		getStories = function()
+			dispatch(GetStories())
+		end,
+	}
+end)(StoryTree)

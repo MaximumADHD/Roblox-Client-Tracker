@@ -17,7 +17,10 @@ return function(parentGame, pageCursor)
 			prevPageCursor = pageCursor
 
 			assert(type(parentGame.name) == "string", "LoadExistingPlaces.parentGame must have a string name")
-			assert(type(parentGame.universeId) == "number", "LoadExistingPlaces.parentGame must have a number universeId")
+			assert(
+				type(parentGame.universeId) == "number",
+				"LoadExistingPlaces.parentGame must have a number universeId"
+			)
 
 			store:dispatch(SetSelectedGame(parentGame))
 			-- only display the loading screen if we are loading for the first time
@@ -25,7 +28,7 @@ return function(parentGame, pageCursor)
 				store:dispatch(SetChoosePlaceQueryState(Constants.QUERY_STATE.QUERY_STATE_QUERYING))
 			end
 
-			local query = ApiFetchPlacesByUniverseId({universeId = parentGame.universeId}, {cursor = pageCursor})
+			local query = ApiFetchPlacesByUniverseId({ universeId = parentGame.universeId }, { cursor = pageCursor })
 
 			query:andThen(function(resp)
 				resp.parentGame = parentGame

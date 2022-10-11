@@ -45,7 +45,7 @@ function ErrorDialogContents:render()
 		Layout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Vertical,
-			Padding = UDim.new(0, PADDING)
+			Padding = UDim.new(0, PADDING),
 		}),
 
 		Header = Roact.createElement("Frame", {
@@ -82,7 +82,7 @@ function ErrorDialogContents:render()
 			TextYAlignment = Enum.TextYAlignment.Top,
 			TextWrapped = true,
 			TextTruncate = Enum.TextTruncate.AtEnd,
-			Text = localization:getText(errorKey, errorType, {entries = entryList}),
+			Text = localization:getText(errorKey, errorType, { entries = entryList }),
 		}),
 	})
 end

@@ -21,7 +21,7 @@ local TitleBar = Roact.Component:extend("ComponentTitleBar")
 
 local function calculateTextSize(text, textSize, font)
 	local hugeFrameSizeNoTextWrapping = Vector2.new(5000, 5000)
-	return game:GetService('TextService'):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
+	return game:GetService("TextService"):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
 end
 
 function TitleBar:render()
@@ -38,22 +38,30 @@ function TitleBar:render()
 			BorderSizePixel = 0,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Top,
-			TextColor3 = if StateInterfaceTheme.getRadioButtonTextColor(self.props) then StateInterfaceTheme.getRadioButtonTextColor(self.props) else theme.fontStyle.Header.TextColor3,
+			TextColor3 = if StateInterfaceTheme.getRadioButtonTextColor(self.props)
+				then StateInterfaceTheme.getRadioButtonTextColor(self.props)
+				else theme.fontStyle.Header.TextColor3,
 			Font = Enum.Font.SourceSans,
 			TextSize = 22,
 			Text = localization:getText("General", "AvatarOverridePrompt"),
 		})
 	end
 
-	return Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
-		LayoutOrder = self.props.LayoutOrder or 1,
-		Title = self.props.Text,
-	} else {
-		Title = self.props.Text,
-		MaxHeight = textSize.Y,
-		LayoutOrder = self.props.LayoutOrder or 1,
-		Font = ConstantFonts.TitleText.Type
-	}, children)
+	return Roact.createElement(
+		TitledFrame,
+		if FFlagRemoveUILibraryTitledFrame
+			then {
+				LayoutOrder = self.props.LayoutOrder or 1,
+				Title = self.props.Text,
+			}
+			else {
+				Title = self.props.Text,
+				MaxHeight = textSize.Y,
+				LayoutOrder = self.props.LayoutOrder or 1,
+				Font = ConstantFonts.TitleText.Type,
+			},
+		children
+	)
 end
 
 TitleBar = withContext({

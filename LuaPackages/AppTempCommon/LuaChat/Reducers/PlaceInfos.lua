@@ -1,11 +1,10 @@
 local CorePackages = game:GetService("CorePackages")
 
-local Common = CorePackages.AppTempCommon.Common
 local LuaChat = CorePackages.AppTempCommon.LuaChat
 
 local ReceivedMultiplePlaceInfos = require(LuaChat.Actions.ReceivedMultiplePlaceInfos)
 
-local Immutable = require(Common.Immutable)
+local Immutable = require(CorePackages.Workspace.Packages.AppCommonLib).Immutable
 
 -- FIXME: any type Rodux
 return function(state: any?, action: any)

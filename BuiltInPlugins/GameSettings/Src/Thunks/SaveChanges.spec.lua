@@ -1,6 +1,6 @@
 return function()
 	SKIP()
-	
+
 	local Plugin = script.Parent.Parent.Parent
 
 	local Rodux = require(Plugin.Packages.Rodux)
@@ -15,11 +15,7 @@ return function()
 	local settingsImpl = SettingsImpl_mock.new()
 
 	it("should return a Promise", function()
-		local store = Rodux.Store.new(
-			SettingsReducer,
-			nil,
-			{Rodux.thunkMiddleware}
-		)
+		local store = Rodux.Store.new(SettingsReducer, nil, { Rodux.thunkMiddleware })
 
 		local result = store:dispatch(SaveChanges()(settingsImpl))
 		expect(Promise.is(result)).to.equal(true)
@@ -28,15 +24,11 @@ return function()
 	it("should not modify the store", function()
 		local startState = {
 			Current = {
-				SomeKey = "SomeValue"
+				SomeKey = "SomeValue",
 			},
 			Changed = {},
 		}
-		local store = Rodux.Store.new(
-			SettingsReducer,
-			startState,
-			{Rodux.thunkMiddleware}
-		)
+		local store = Rodux.Store.new(SettingsReducer, startState, { Rodux.thunkMiddleware })
 
 		expect(store:getState()).to.equal(startState)
 

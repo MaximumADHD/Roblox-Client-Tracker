@@ -52,7 +52,7 @@ function FloorGrid:renderLines(gridTheme, rootInstance, adornee)
 
 	for index = -EXTENTS, EXTENTS do
 		local cframe = CFrame.new(floorCenter + Vector3.new(width / 2, 0, index * spacing))
-			* CFrame.Angles(0, math.pi/2, 0)
+			* CFrame.Angles(0, math.pi / 2, 0)
 		table.insert(lines, self:renderLine(gridTheme, adornee, cframe, width))
 	end
 
@@ -73,7 +73,7 @@ function FloorGrid:render()
 		return Roact.createElement(Roact.Portal, {
 			target = container,
 		}, {
-			GridLines = Roact.createElement("Folder", {}, gridLines)
+			GridLines = Roact.createElement("Folder", {}, gridLines),
 		})
 	end
 end

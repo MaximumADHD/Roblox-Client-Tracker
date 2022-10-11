@@ -45,7 +45,7 @@ return function(instanceName, trackName, trackType, rotationType, eulerAnglesOrd
 			TrackUtils.createTrackListEntryComponents(newTrack, instanceName, rotationType, eulerAnglesOrder)
 		end
 
-		local newTracks = Cryo.List.join(tracks, {newTrack})
+		local newTracks = Cryo.List.join(tracks, { newTrack })
 
 		store:dispatch(SortAndSetTracks(newTracks))
 		if analytics then

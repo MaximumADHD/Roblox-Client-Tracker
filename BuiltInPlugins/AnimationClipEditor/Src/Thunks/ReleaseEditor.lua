@@ -37,9 +37,13 @@ return function(analytics)
 		end
 
 		-- Autosave if there was an existing animation
-		if animationData.Metadata and animationData.Instances and animationData.Instances.Root
+		if
+			animationData.Metadata
+			and animationData.Instances
+			and animationData.Instances.Root
 			and animationData.Instances.Root.Type == Constants.INSTANCE_TYPES.Rig
-			and state.Status.IsDirty then
+			and state.Status.IsDirty
+		then
 			store:dispatch(SaveAnimation(Constants.DEFAULT_AUTOSAVE_NAME, analytics))
 		end
 

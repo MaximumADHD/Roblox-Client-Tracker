@@ -16,7 +16,7 @@ return function()
 	local testAnimationData = Templates.animationData()
 
 	testAnimationData.Events = {
-		Keyframes = {0, 800},
+		Keyframes = { 0, 800 },
 		Data = {
 			[0] = {
 				TestEvent = "TestValue",
@@ -24,7 +24,6 @@ return function()
 			[800] = {
 				OtherEvent = "OtherValue",
 			},
-
 		},
 	}
 

@@ -13,11 +13,10 @@ local RadioButtonSetPanel = require(Page.Components.RadioButtonSetPanel)
 
 local CollisionPanel = Roact.Component:extend("ComponentCollisionPanel")
 
-
 function CollisionPanel:render()
 	local collisionTypeSetFunctions = {
 		[ConstantTemplate.OuterCollision] = StateModelTemplate.setCollisionOuterBox,
-		[ConstantTemplate.InnerCollision] = StateModelTemplate.setCollisionInnerBox
+		[ConstantTemplate.InnerCollision] = StateModelTemplate.setCollisionInnerBox,
 	}
 
 	local props = self.props
@@ -26,10 +25,12 @@ function CollisionPanel:render()
 
 	return Roact.createElement(RadioButtonSetPanel, {
 		Title = localization:getText("General", "TitleCollision"),
-		Buttons = {{
+		Buttons = {
+			{
 				Id = ConstantTemplate.OuterCollision,
 				Title = localization:getText("General", "CollisionOuterBox"),
-			}, {
+			},
+			{
 				Id = ConstantTemplate.InnerCollision,
 				Title = localization:getText("General", "CollisionInnerBox"),
 			},
@@ -46,12 +47,9 @@ function CollisionPanel:render()
 	})
 end
 
-
 CollisionPanel = withContext({
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 })(CollisionPanel)
-
-
 
 return CollisionPanel

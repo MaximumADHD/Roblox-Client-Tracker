@@ -11,13 +11,15 @@ function SecurityController.new(networking)
 end
 
 function SecurityController:configurationV2GET(gameId)
-	return self.__networking:get("develop", "/v2/universes/"..gameId.."/configuration"):await()
+	return self.__networking:get("develop", "/v2/universes/" .. gameId .. "/configuration"):await()
 end
 
 function SecurityController:configurationV2PATCH(gameId, configuration)
-	return self.__networking:patch("develop", "/v2/universes/"..gameId.."/configuration", {
-		Body = configuration
-	}):await()
+	return self.__networking
+		:patch("develop", "/v2/universes/" .. gameId .. "/configuration", {
+			Body = configuration,
+		})
+		:await()
 end
 
 function SecurityController:GetPermission(gameId, permissionKey)
@@ -29,8 +31,8 @@ end
 function SecurityController:SetChangedPermissions(gameId, permissionKey, changedValue)
 	return self:configurationV2PATCH(gameId, {
 		permissions = {
-			[permissionKey] = changedValue
-		}
+			[permissionKey] = changedValue,
+		},
 	})
 end
 

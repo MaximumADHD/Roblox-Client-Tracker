@@ -18,7 +18,7 @@ local Signals = ContextItem:extend("Signals")
 
 function Signals.new(signalIDs)
 	local self = {
-		signals = Signals:__mapSignalIDs(signalIDs)
+		signals = Signals:__mapSignalIDs(signalIDs),
 	}
 
 	setmetatable(self, Signals)
@@ -26,7 +26,7 @@ function Signals.new(signalIDs)
 end
 
 function Signals:__mapSignalIDs(signalIDs)
-    local signals = {}
+	local signals = {}
 
 	for _, signalID in pairs(signalIDs) do
 		assert(signals[signalID] == nil, "Duplicate action, ID: " .. signalID)

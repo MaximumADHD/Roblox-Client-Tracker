@@ -225,7 +225,7 @@ function MainViewHeader:render()
 					})
 				end
 			end
-			
+
 			local canInsertUnverifiedTag = if FFlagToolboxFixUnverifiedSearchTagBugs
 				then includeUnverifiedCreators or creatorName or audioTime
 				else includeUnverifiedCreators and (creatorName or audioTime)

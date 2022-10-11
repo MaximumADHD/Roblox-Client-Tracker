@@ -14,7 +14,7 @@ return function()
 				Text = "TestText",
 				ShowTime = 5,
 				FadeTime = 1,
-			}, children)
+			}, children),
 		})
 	end
 

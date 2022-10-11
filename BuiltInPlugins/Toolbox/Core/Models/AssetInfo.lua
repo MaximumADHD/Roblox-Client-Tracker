@@ -99,7 +99,9 @@ function AssetInfo.fromItemDetailsRequest(data): AssetInfo
 			Name = data.asset.name,
 			TypeId = data.asset.typeId,
 			AssetGenres = data.asset.assetGenres,
-			AssetSubTypes = if FFlagToolboxPackagesInAssetTile or FFlagToolboxInsertMaterialsInMS then data.asset.assetSubTypes else nil,
+			AssetSubTypes = if FFlagToolboxPackagesInAssetTile or FFlagToolboxInsertMaterialsInMS
+				then data.asset.assetSubTypes
+				else nil,
 			IsEndorsed = data.asset.isEndorsed,
 			Description = data.asset.description,
 			Duration = data.asset.duration,

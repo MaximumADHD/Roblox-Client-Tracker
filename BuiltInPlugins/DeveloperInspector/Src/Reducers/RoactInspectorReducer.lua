@@ -46,20 +46,20 @@ local function getFields()
 		Children = {
 			props = {
 				Name = "props",
-				Path = {"props"},
-				Children = {}
+				Path = { "props" },
+				Children = {},
 			},
 			state = {
 				Name = "state",
-				Path = {"state"},
-				Children = {}
+				Path = { "state" },
+				Children = {},
 			},
 			_context = {
 				Name = "_context",
-				Path = {"_context"},
-				Children = {}
-			}
-		}
+				Path = { "_context" },
+				Children = {},
+			},
+		},
 	}
 end
 
@@ -87,7 +87,7 @@ local function getDefaultState()
 			-- Set to false when the user changes a table view (sort, page change etc.)
 			cached = false,
 		},
-		profileSearchTerm = '',
+		profileSearchTerm = "",
 		profileFilter = {},
 		-- State for the profiler components table
 		profileComponents = {
@@ -124,7 +124,7 @@ return Rodux.createReducer(getDefaultState(), {
 	[UpdateBranch.name] = function(state, action)
 		if shallowEqual(action.path, state.selectedPath) then
 			return join(state, {
-				nodes = action.branch
+				nodes = action.branch,
 			})
 		else
 			return state
@@ -159,7 +159,7 @@ return Rodux.createReducer(getDefaultState(), {
 				flashInstances[action.path] = {
 					time = os.clock(),
 					heat = 0,
-					indexSet = indexSet
+					indexSet = indexSet,
 				}
 			end
 		end
@@ -168,13 +168,13 @@ return Rodux.createReducer(getDefaultState(), {
 			selected = state.selectedInstances,
 			expanded = state.expandedInstances,
 			children = action.children,
-			path = action.path
+			path = action.path,
 		})
 		return join(state, {
 			rootInstance = update.root,
 			selectedInstances = update.selected,
 			expandedInstances = update.expanded,
-			flashInstances = flashInstances
+			flashInstances = flashInstances,
 		})
 	end,
 	[SelectInstance.name] = function(state, action)
@@ -191,7 +191,7 @@ return Rodux.createReducer(getDefaultState(), {
 	end,
 	[ToggleInstance.name] = function(state, action)
 		return joinDeep(state, {
-			expandedInstances = action.change
+			expandedInstances = action.change,
 		})
 	end,
 	[PickInstance.name] = function(state, action)
@@ -215,7 +215,7 @@ return Rodux.createReducer(getDefaultState(), {
 			selectedInstances = selectedInstances,
 			-- All other ids should be expanded
 			expandedInstances = join(state.expandedInstances, expandedInstances),
-			isPicking = false
+			isPicking = false,
 		})
 	end,
 	[UpdateFields.name] = function(state, action)
@@ -228,12 +228,12 @@ return Rodux.createReducer(getDefaultState(), {
 			selected = state.selectedFields,
 			expanded = state.expandedFields,
 			children = action.fields,
-			path = action.fieldPath
+			path = action.fieldPath,
 		})
 		return join(state, {
 			fields = update.root,
 			selectedFields = update.selected,
-			expandedFields = update.expanded
+			expandedFields = update.expanded,
 		})
 	end,
 	[SelectField.name] = function(state, action)
@@ -243,17 +243,17 @@ return Rodux.createReducer(getDefaultState(), {
 	end,
 	[ToggleField.name] = function(state, action)
 		return joinDeep(state, {
-			expandedFields = action.change
+			expandedFields = action.change,
 		})
 	end,
 	[SetPicking.name] = function(state, action)
 		return joinDeep(state, {
-			isPicking = action.isPicking
+			isPicking = action.isPicking,
 		})
 	end,
 	[SetProfiling.name] = function(state, action)
 		return joinDeep(state, {
-			isProfiling = action.isProfiling
+			isProfiling = action.isProfiling,
 		})
 	end,
 	[ClearProfileData.name] = function(state)
@@ -322,12 +322,12 @@ return Rodux.createReducer(getDefaultState(), {
 	end,
 	[SetProfileSearchTerm.name] = function(state, action)
 		return updateStateAndInvalidateProfileData(state, {
-			profileSearchTerm = action.searchTerm
+			profileSearchTerm = action.searchTerm,
 		})
 	end,
 	[SetProfileFilter.name] = function(state, action)
 		return updateStateAndInvalidateProfileData(state, {
-			profileFilter = action.filter
+			profileFilter = action.filter,
 		})
 	end,
 	[SelectProfileRow.name] = function(state, action)
@@ -339,5 +339,5 @@ return Rodux.createReducer(getDefaultState(), {
 				selectedRow = action.selectedRow,
 			}),
 		})
-	end
+	end,
 })

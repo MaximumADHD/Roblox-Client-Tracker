@@ -12,7 +12,7 @@ local RootApp = Roact.Component:extend("ComponentRootApp")
 
 function RootApp:init()
 	self.state = {
-		store = Rodux.Store.new(ReducerRoot, nil, {Rodux.thunkMiddleware})
+		store = Rodux.Store.new(ReducerRoot, nil, { Rodux.thunkMiddleware }),
 	}
 end
 
@@ -21,8 +21,8 @@ function RootApp:render()
 		store = self.state.store,
 	}, {
 		Roact.createElement(RootPanel, {
-			Mouse = self.props.Mouse
-		})
+			Mouse = self.props.Mouse,
+		}),
 	})
 end
 

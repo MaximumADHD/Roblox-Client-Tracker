@@ -3,7 +3,7 @@ local FFlagPlacePublishManagementUI2 = game:GetFastFlag("PlacePublishManagementU
 
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local PublishPlaceAsPolicy = game:GetService("PluginPolicyService"):getPluginPolicy("PublishPlaceAs")
-local RunService = (FFlagPlacePublishManagementUI2) and game:GetService("RunService") or nil
+local RunService = FFlagPlacePublishManagementUI2 and game:GetService("RunService") or nil
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -17,14 +17,14 @@ local publishPlaceAsKey = KeyProvider.getPublishPlaceAsKeyName()
 local regionKey = KeyProvider.getRegionKeyName()
 local statusKey = KeyProvider.getStatusKeyName()
 
-local PublishPlaceAsUtilities =  {}
+local PublishPlaceAsUtilities = {}
 
 function PublishPlaceAsUtilities.shouldShowDevPublishLocations()
 	return PublishPlaceAsPolicy["ShowOptInLocations"]
 end
 
 function PublishPlaceAsUtilities.getIsOptInChina(optInRegions)
-    --[[
+	--[[
         Endpoint returns optInLocations in the following format:
             [
                 {
@@ -34,22 +34,22 @@ function PublishPlaceAsUtilities.getIsOptInChina(optInRegions)
             ]
     ]]
 
-    if optInRegions == nil then
-        return false
-    end
+	if optInRegions == nil then
+		return false
+	end
 
-    for _,optInRegion in pairs(optInRegions) do
-        local region = optInRegion[regionKey]
-        local status = optInRegion[statusKey]
-        if region == "China" and status == "Approved" then
-            return true
-        end
-    end
-    return false
+	for _, optInRegion in pairs(optInRegions) do
+		local region = optInRegion[regionKey]
+		local status = optInRegion[statusKey]
+		if region == "China" and status == "Approved" then
+			return true
+		end
+	end
+	return false
 end
 
 function PublishPlaceAsUtilities.isTeamCreateEnabled()
-    assert(FFlagPlacePublishManagementUI2)
+	assert(FFlagPlacePublishManagementUI2)
 	-- In non-TC games you are running both client/server in Edit, but in
 	-- TC you are only running the client. The server is run by RCC
 	return RunService:IsEdit() and not RunService:IsServer()
@@ -78,7 +78,7 @@ end
 
 function PublishPlaceAsUtilities.calculateTextSize(text, textSize, font)
 	local hugeFrameSizeNoTextWrapping = Vector2.new(5000, 5000)
-	return game:GetService('TextService'):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
+	return game:GetService("TextService"):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
 end
 
 return PublishPlaceAsUtilities

@@ -17,7 +17,8 @@ return PluginWidget("DockWidget", function(self, id)
 		props.Size.X,
 		props.Size.Y,
 		props.MinSize.X,
-		props.MinSize.Y)
+		props.MinSize.Y
+	)
 
 	return plugin:CreateDockWidgetPluginGui(id, dwpgi)
 end)

@@ -132,7 +132,8 @@ return function()
 			TestHelpers.clickInstanceWithXPath(ApplyButtonPath)
 			TestHelpers.clickInstanceWithXPath(ApplyButtonPath)
 
-			local mainViewSearchTag = game.CoreGui.ScreenGui.ToolboxComponent.Toolbox.MainView.ScrollingFrame.Header.SearchTags.Tags
+			local mainViewSearchTag =
+				game.CoreGui.ScreenGui.ToolboxComponent.Toolbox.MainView.ScrollingFrame.Header.SearchTags.Tags
 
 			local searchTag = mainViewSearchTag:GetChildren()[2].Border.NameLabel
 			expect(searchTag.Text).to.equal(TEST_CREATOR_NAME)

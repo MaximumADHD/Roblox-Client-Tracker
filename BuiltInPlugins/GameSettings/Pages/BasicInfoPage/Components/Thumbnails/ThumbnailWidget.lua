@@ -45,7 +45,7 @@ local DragGhostThumbnail = require(Page.Components.Thumbnails.DragGhostThumbnail
 
 local BulletPoint
 if not FFlagRemoveUILibraryBulletPoint then
-    BulletPoint = UILibrary.Component.BulletPoint
+	BulletPoint = UILibrary.Component.BulletPoint
 end
 
 local getSocialMediaReferencesAllowed = require(Plugin.Src.Util.GameSettingsUtilities).getSocialMediaReferencesAllowed
@@ -62,8 +62,16 @@ function ThumbnailWidget:init()
 
 	self.heightChanged = function(newheight)
 		local frame = self.frameRef.current
-		frame.Size = UDim2.new(1, 0, 0, newheight + DEPRECATED_Constants.FRAME_PADDING
-			+ DEPRECATED_Constants.ELEMENT_PADDING + DEPRECATED_Constants.HEADER_HEIGHT + DEPRECATED_Constants.ELEMENT_PADDING)
+		frame.Size = UDim2.new(
+			1,
+			0,
+			0,
+			newheight
+				+ DEPRECATED_Constants.FRAME_PADDING
+				+ DEPRECATED_Constants.ELEMENT_PADDING
+				+ DEPRECATED_Constants.HEADER_HEIGHT
+				+ DEPRECATED_Constants.ELEMENT_PADDING
+		)
 	end
 
 	self.startDragging = function(dragInfo)
@@ -157,26 +165,27 @@ function ThumbnailWidget:render()
 	else
 		countTextColor = theme.thumbnail.count
 	end
-	
+
 	local notes
-	
+
 	if FFlagRemoveUILibraryBulletPoint then
-        notes = Roact.createElement(BulletList, {
-            TextTruncate = Enum.TextTruncate.AtEnd,
-            Items = {
-				if getSocialMediaReferencesAllowed() then localization:getText("General", "ThumbnailsLimit", {
-					maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS,
-				})
-				else localization:getText("General", "ThumbnailsLimitLuobu", {
-					maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS,
-				}),
+		notes = Roact.createElement(BulletList, {
+			TextTruncate = Enum.TextTruncate.AtEnd,
+			Items = {
+				if getSocialMediaReferencesAllowed()
+					then localization:getText("General", "ThumbnailsLimit", {
+						maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS,
+					})
+					else localization:getText("General", "ThumbnailsLimitLuobu", {
+						maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS,
+					}),
 				localization:getText("General", "ThumbnailsHint", {
 					fileTypes = table.concat(DEPRECATED_Constants.IMAGE_TYPES, ", "),
 				}),
 				localization:getText("General", "ThumbnailsModeration"),
-			}
-        })
-    else
+			},
+		})
+	else
 		notes = Roact.createElement("Frame", {
 			LayoutOrder = 1,
 			BackgroundTransparency = 1,
@@ -191,8 +200,7 @@ function ThumbnailWidget:render()
 				LayoutOrder = 1,
 				Text = getSocialMediaReferencesAllowed() and localization:getText("General", "ThumbnailsLimit", {
 					maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS,
-				})
-				or localization:getText("General", "ThumbnailsLimitLuobu", {
+				}) or localization:getText("General", "ThumbnailsLimitLuobu", {
 					maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS,
 				}),
 			}),
@@ -221,16 +229,19 @@ function ThumbnailWidget:render()
 			}),
 		}),
 
-		Title = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-			LayoutOrder = 0,
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			Size = UDim2.new(1, 0, 0, 16),
+		Title = Roact.createElement(
+			"TextLabel",
+			Cryo.Dictionary.join(theme.fontStyle.Normal, {
+				LayoutOrder = 0,
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				Size = UDim2.new(1, 0, 0, 16),
 
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Top,
-			Text = localization:getText("General", "TitleThumbnails"),
-		})),
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Top,
+				Text = localization:getText("General", "TitleThumbnails"),
+			})
+		),
 
 		Notes = notes,
 
@@ -261,19 +272,26 @@ function ThumbnailWidget:render()
 		-- Placed in a folder to prevent this component from being part
 		-- of the LayoutOrder and receiving padding above and below
 		CountFolder = Roact.createElement("Folder", {}, {
-			Count = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Smaller, {
-				Visible = active,
-				Size = UDim2.new(1, 0, 0, 20),
-				Position = UDim2.new(0, 0, 1, DEPRECATED_Constants.ELEMENT_PADDING),
-				AnchorPoint = Vector2.new(0, 1),
-				BackgroundTransparency = 1,
-				TextColor3 = countTextColor,
-				Text = errorMessage
-					or numThumbnails > 0 and (numThumbnails .. "/" .. DEPRECATED_Constants.MAX_THUMBNAILS)
-					or localization:getText("General", "ThumbnailsCount", {maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS}),
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Center,
-			})),
+			Count = Roact.createElement(
+				"TextLabel",
+				Cryo.Dictionary.join(theme.fontStyle.Smaller, {
+					Visible = active,
+					Size = UDim2.new(1, 0, 0, 20),
+					Position = UDim2.new(0, 0, 1, DEPRECATED_Constants.ELEMENT_PADDING),
+					AnchorPoint = Vector2.new(0, 1),
+					BackgroundTransparency = 1,
+					TextColor3 = countTextColor,
+					Text = errorMessage
+						or numThumbnails > 0 and (numThumbnails .. "/" .. DEPRECATED_Constants.MAX_THUMBNAILS)
+						or localization:getText(
+							"General",
+							"ThumbnailsCount",
+							{ maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS }
+						),
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextYAlignment = Enum.TextYAlignment.Center,
+				})
+			),
 		}),
 	}
 

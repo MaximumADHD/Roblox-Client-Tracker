@@ -27,7 +27,7 @@ return function(instanceName, path, trackType, tck, value, analytics)
 				else Constants.TRACK_TYPES.CFrame
 			store:dispatch(AddTrack(instanceName, topTrackName, newTrackType, nil, nil, analytics))
 			local keyframeData = {
-				Value = value
+				Value = value,
 			}
 			if AnimationData.isChannelAnimation(animationData) then
 				keyframeData.InterpolationMode = Enum.KeyInterpolationMode.Cubic
@@ -45,7 +45,7 @@ return function(instanceName, path, trackType, tck, value, analytics)
 				}))
 			else
 				local keyframeData = {
-					Value = value
+					Value = value,
 				}
 				if track.IsCurveTrack then
 					keyframeData.InterpolationMode = Enum.KeyInterpolationMode.Cubic

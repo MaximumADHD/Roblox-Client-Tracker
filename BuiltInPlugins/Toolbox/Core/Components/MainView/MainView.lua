@@ -104,7 +104,9 @@ function MainView:render()
 
 		local allAssetCount = props.allAssetCount
 		local assetCount = props.allAssetCount
-		local includeUnverifiedCreators = if FFlagToolboxFixUnverifiedSearchTagBugs then props.includeUnverifiedCreators else nil
+		local includeUnverifiedCreators = if FFlagToolboxFixUnverifiedSearchTagBugs
+			then props.includeUnverifiedCreators
+			else nil
 
 		local lowerIndexToRender = state.lowerIndexToRender or 0
 
@@ -231,7 +233,9 @@ local function mapStateToProps(state, props)
 		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
 		searchTerm = pageInfo.searchTerm or "",
 		creator = pageInfo.creator,
-		includeUnverifiedCreators = if FFlagToolboxFixUnverifiedSearchTagBugs then pageInfo.includeUnverifiedCreators else nil,
+		includeUnverifiedCreators = if FFlagToolboxFixUnverifiedSearchTagBugs
+			then pageInfo.includeUnverifiedCreators
+			else nil,
 	}
 end
 

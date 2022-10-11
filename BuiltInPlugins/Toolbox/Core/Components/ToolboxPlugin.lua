@@ -1,5 +1,3 @@
-local FFlagToolboxTrackHidden = game:GetFastFlag("ToolboxTrackHidden")
-
 local StudioService = game:GetService("StudioService")
 local MemStorageService = game:GetService("MemStorageService")
 
@@ -72,7 +70,7 @@ function ToolboxPlugin:init(props)
 
 		if self.dockWidget.Enabled then
 			Analytics.onToolboxDisplayed()
-		elseif FFlagToolboxTrackHidden then
+		else
 			Analytics.onToolboxHidden()
 		end
 	end
@@ -116,13 +114,12 @@ function ToolboxPlugin:didMount()
 		pluginGui = self.dockWidget,
 	})
 
-	self._showPluginsConnection =
-		self.props.pluginLoaderContext.signals["MemStorageService." .. SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT]:Connect(
-			function()
-				self.dockWidget.Enabled = true
-				self.dockWidget:RequestRaise()
-			end
-		)
+	self._showPluginsConnection = self.props.pluginLoaderContext.signals["MemStorageService." .. SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT]:Connect(
+		function()
+			self.dockWidget.Enabled = true
+			self.dockWidget:RequestRaise()
+		end
+	)
 end
 
 function ToolboxPlugin:willUnmount()
@@ -176,28 +173,29 @@ function ToolboxPlugin:render()
 		[Roact.Change.Enabled] = self.onDockWidgetEnabledChanged,
 		[Roact.Event.AncestryChanged] = self.onAncestryChanged,
 	}, {
-		Toolbox = pluginGuiLoaded and ContextServices.provide({
-			ContextServices.Focus.new(self.state.pluginGui),
-			NavigationContext.new(), -- create a no-op version of navigation
-		}, {
-			Roact.createElement(ExternalServicesWrapper, {
-				plugin = plugin,
-				pluginGui = pluginGui,
-				theme = theme,
-				networkInterface = networkInterface,
-				localization = localization,
+		Toolbox = pluginGuiLoaded
+			and ContextServices.provide({
+				ContextServices.Focus.new(self.state.pluginGui),
+				NavigationContext.new(), -- create a no-op version of navigation
 			}, {
-				Roact.createElement(Toolbox, {
-					initialWidth = initialWidth,
-					backgrounds = backgrounds,
-					suggestions = suggestions,
-					tryOpenAssetConfig = tryOpenAssetConfig,
+				Roact.createElement(ExternalServicesWrapper, {
+					plugin = plugin,
 					pluginGui = pluginGui,
-					pluginLoaderContext = props.pluginLoaderContext,
-					onMouseEnter = self.onDockWidgetInteraction,
+					theme = theme,
+					networkInterface = networkInterface,
+					localization = localization,
+				}, {
+					Roact.createElement(Toolbox, {
+						initialWidth = initialWidth,
+						backgrounds = backgrounds,
+						suggestions = suggestions,
+						tryOpenAssetConfig = tryOpenAssetConfig,
+						pluginGui = pluginGui,
+						pluginLoaderContext = props.pluginLoaderContext,
+						onMouseEnter = self.onDockWidgetInteraction,
+					}),
 				}),
 			}),
-		}),
 	})
 end
 

@@ -11,7 +11,7 @@ return function()
 			Tooltip = Roact.createElement(Tooltip, {
 				Text = text,
 				TextKey = textKey,
-			})
+			}),
 		})
 	end
 

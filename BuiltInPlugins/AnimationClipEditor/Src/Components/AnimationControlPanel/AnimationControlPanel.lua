@@ -88,7 +88,7 @@ function AnimationControlPanel:render()
 	local showAnimationImportProgress = props.ShowAnimationImportProgress -- delete with AnimationFromVideoCreatorServiceAnalytics2 flag and all references
 	local hideAnimationImportProgress = props.HideAnimationImportProgress -- delete with AnimationFromVideoCreatorServiceAnalytics2 flag and all references
 	local readOnly = props.ReadOnly
-	
+
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, Constants.TIMELINE_HEIGHT),
 		BorderSizePixel = 1,
@@ -116,8 +116,7 @@ function AnimationControlPanel:render()
 
 		MediaControls = Roact.createElement(MediaControls, {
 			PlayState = playState,
-			IsLooping = animationData and animationData.Metadata
-				and animationData.Metadata.Looping or false,
+			IsLooping = animationData and animationData.Metadata and animationData.Metadata.Looping or false,
 			SkipBackward = self.skipBackwardWrapper,
 			SkipForward = self.skipForwardWrapper,
 			TogglePlay = self.togglePlayWrapper,
@@ -146,7 +145,7 @@ end
 
 AnimationControlPanel = withContext({
 	Stylizer = ContextServices.Stylizer,
-	Analytics = ContextServices.Analytics
+	Analytics = ContextServices.Analytics,
 })(AnimationControlPanel)
 
 local function mapStateToProps(state)
@@ -155,7 +154,6 @@ local function mapStateToProps(state)
 		PlayState = state.Status.PlayState,
 		ReadOnly = state.Status.ReadOnly,
 		RootInstance = state.Status.RootInstance,
-
 	}
 end
 

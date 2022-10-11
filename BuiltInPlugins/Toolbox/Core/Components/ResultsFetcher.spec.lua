@@ -1,7 +1,6 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
 
-local FFlagToolboxFixAssetsNoVoteData2 = game:GetFastFlag("ToolboxFixAssetsNoVoteData2")
 local Packages = Plugin.Packages
 local Framework = require(Packages.Framework)
 local Sort = require(Plugin.Core.Types.Sort)
@@ -119,11 +118,7 @@ local function createResultsFetcher(networkInterfaceMock, props: any?)
 		end,
 	}, props)
 
-	if FFlagToolboxFixAssetsNoVoteData2 then
-		return ResultsFetcher.NoRoduxGenerator(finalProps)
-	else
-		return ResultsFetcher.Generator(finalProps)
-	end
+	return ResultsFetcher.NoRoduxGenerator(finalProps)
 end
 
 local function renderResultsFetcher(networkInterfaceMock: any?, props: any?)
@@ -352,10 +347,8 @@ return function()
 
 	it("should send section when available", function()
 		local networkInterfaceMock = buildNetworkInterfaceMock()
-		local roactState = renderResultsFetcher(
-			networkInterfaceMock,
-			{ sectionName = "trending", sortName = Dash.None }
-		)
+		local roactState =
+			renderResultsFetcher(networkInterfaceMock, { sectionName = "trending", sortName = Dash.None })
 		wait()
 		expect(networkInterfaceMock.getToolboxItems).toHaveBeenCalledWith(
 			networkInterfaceMock, -- because we're calling it as an instance method

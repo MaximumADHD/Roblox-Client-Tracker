@@ -46,7 +46,7 @@ type UpdateTreeProps = {
 	-- Current expanded row map
 	selected: { [any]: boolean },
 	-- Current root
-	root: {any},
+	root: { any },
 	-- New children
 	children: { [string]: any },
 	-- Path to insert new children at
@@ -63,7 +63,7 @@ local function updateTree(options)
 	end)
 	local root
 	if #options.path == 0 then
-		root = {Children = options.children}
+		root = { Children = options.children }
 	else
 		-- Build a new tree with the new children inserted at the path provided.
 		root = copy(options.root)
@@ -100,7 +100,7 @@ local function updateTree(options)
 	return {
 		root = root,
 		selected = selected,
-		expanded = expanded
+		expanded = expanded,
 	}
 end
 

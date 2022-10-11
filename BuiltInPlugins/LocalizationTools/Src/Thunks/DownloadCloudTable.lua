@@ -11,10 +11,6 @@ local SetIsBusy = require(Plugin.Src.Actions.SetIsBusy)
 local SetMessage = require(Plugin.Src.Actions.SetMessage)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 
-local FFlagLocalizationToolsAllowUploadZhCjv = game:GetFastFlag("LocalizationToolsAllowUploadZhCjv")
-local FFlagLocalizationToolsPrintErrorMessageOnDownload = game:DefineFastFlag("LocalizationToolsPrintErrorMessageOnDownload", false)
-local FFlagLocalizationToolsFixExampleNotDownloaded = game:GetFastFlag("LocalizationToolsFixExampleNotDownloaded")
-
 local function makeDispatchErrorMessageFunc(store, localization)
 	return function()
 		store:dispatch(SetIsBusy(false))
@@ -35,11 +31,7 @@ local function updateWebEntries(data, webEntries)
 		entry.Source = item.identifier.source or ""
 		entry.Context = item.identifier.context or ""
 
-		if FFlagLocalizationToolsFixExampleNotDownloaded then
-			entry.Example = item.metadata and item.metadata.example or ""
-		else
-			entry.Exmple = item.metadata and item.metadata.example or ""
-		end
+		entry.Example = item.metadata and item.metadata.example or ""
 
 		if not isEmpty(item.translations) then
 			for _, translation in ipairs(item.translations) do
@@ -85,11 +77,7 @@ local function download(api, localization, tableId)
 		localizationTable:SetEntries(webEntries)
 	end)
 	if not success then
-		if FFlagLocalizationToolsPrintErrorMessageOnDownload then
-			warn(localization:getText("DownloadTable", "SetEntriesFailedWithErrorMessage") .. " " .. errorMsg)
-		else
-			warn(localization:getText("DownloadTable", "SetEntriesFailed"))
-		end
+		warn(localization:getText("DownloadTable", "SetEntriesFailedWithErrorMessage") .. " " .. errorMsg)
 		return
 	else
 		return localizationTable
@@ -128,11 +116,8 @@ local function downloadAndSave(api, localization, analytics, tableId)
 
 		store:dispatch(SetIsBusy(false))
 		store:dispatch(SetMessage(localization:getText("MessageFrame", "TableWrittenToFileMessage")))
-		if FFlagLocalizationToolsAllowUploadZhCjv then
-			analytics:reportDownloadTable(cloudTable, "download", curState.PluginMetadata.AllLanguages, curState.PluginMetadata.LocalesToLanguages)
-		else
-			analytics:reportDownloadTable(cloudTable, "download", curState.PluginMetadata.DEPRECATED_AllLanguageCodes)
-		end
+		analytics:reportDownloadTable(
+			cloudTable, "download", curState.PluginMetadata.AllLanguages, curState.PluginMetadata.LocalesToLanguages)
 		return
 	end
 end

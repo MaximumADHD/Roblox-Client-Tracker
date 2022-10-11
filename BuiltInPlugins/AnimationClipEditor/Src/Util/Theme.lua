@@ -201,7 +201,7 @@ local textBoxTheme = {
 
 local settingsButtonTheme = {
 	image = "rbxasset://textures/AnimationEditor/btn_manage.png",
-	imageColor = StyleKey.MainText
+	imageColor = StyleKey.MainText,
 }
 
 local keyframeTheme = {
@@ -224,12 +224,12 @@ local checkBoxTheme = {
 	selectedImage = "rbxasset://textures/GameSettings/CheckedBoxLight.png",
 }
 
-
-
-local faceSliderBarHeight  = 1
+local faceSliderBarHeight = 1
 local faceSliderBarSliceCenter = Rect.new(3, 0, 4, 6)
 local faceSliderHandleSize = 6
-if GetFFlagFaceControlsEditorUXImprovements() then faceSliderHandleSize = 6.5 end
+if GetFFlagFaceControlsEditorUXImprovements() then
+	faceSliderHandleSize = 6.5
+end
 local faceSliderLargeHandleSize = 9
 local faceSliderKnobColor = Colors.White
 
@@ -254,33 +254,33 @@ local knobMaxValueStyle = {
 }
 
 local faceSliderTheme = {
-		KnobSize = Vector2.new(18, 18),
-		Background = Decoration.Image,
-		BackgroundStyle = {
-			AnchorPoint = Vector2.new(0, 0.5),
-			Color = Color3.fromRGB(87, 87, 87),
-			Image = "rbxasset://textures/DeveloperFramework/slider_bg.png",
-			Position = UDim2.new(0, 0, 0.5, 0),
-			ScaleType = Enum.ScaleType.Slice,
-			Size = UDim2.new(UDim.new(1, 0), UDim.new(0, faceSliderBarHeight)),
-			SliceCenter = faceSliderBarSliceCenter,
+	KnobSize = Vector2.new(18, 18),
+	Background = Decoration.Image,
+	BackgroundStyle = {
+		AnchorPoint = Vector2.new(0, 0.5),
+		Color = Color3.fromRGB(87, 87, 87),
+		Image = "rbxasset://textures/DeveloperFramework/slider_bg.png",
+		Position = UDim2.new(0, 0, 0.5, 0),
+		ScaleType = Enum.ScaleType.Slice,
+		Size = UDim2.new(UDim.new(1, 0), UDim.new(0, faceSliderBarHeight)),
+		SliceCenter = faceSliderBarSliceCenter,
+	},
+	Foreground = Decoration.Image,
+	ForegroundStyle = {
+		AnchorPoint = Vector2.new(0, 0.5),
+		Image = "rbxasset://textures/DeveloperFramework/slider_bg.png",
+		Color = StyleKey.DialogMainButton,
+		ScaleType = Enum.ScaleType.Slice,
+		Size = UDim2.new(UDim.new(1, 0), UDim.new(0, faceSliderBarHeight)),
+		SliceCenter = faceSliderBarSliceCenter,
+		[StyleModifier.Disabled] = {
+			Color = StyleKey.Button,
 		},
-		Foreground = Decoration.Image,
-		ForegroundStyle = {
-			AnchorPoint = Vector2.new(0, 0.5),
-			Image = "rbxasset://textures/DeveloperFramework/slider_bg.png",
-			Color = StyleKey.DialogMainButton,
-			ScaleType = Enum.ScaleType.Slice,
-			Size = UDim2.new(UDim.new(1, 0), UDim.new(0, faceSliderBarHeight)),
-			SliceCenter = faceSliderBarSliceCenter,
-			[StyleModifier.Disabled] = {
-				Color = StyleKey.Button,
-			},
-		},
-		LowerKnobBackground = Decoration.Image,
-		LowerKnobBackgroundStyle = knobStyle,
-		UpperKnobBackground = Decoration.Image,
-		UpperKnobBackgroundStyle = knobStyle,
+	},
+	LowerKnobBackground = Decoration.Image,
+	LowerKnobBackgroundStyle = knobStyle,
+	UpperKnobBackground = Decoration.Image,
+	UpperKnobBackgroundStyle = knobStyle,
 }
 
 local faceSliderMaxValueTheme = {
@@ -388,7 +388,7 @@ local buttonTheme = {
 		Background = Decoration.Box,
 		BackgroundStyle = {
 			Color = StyleKey.MainBackground,
-			BorderColor =  StyleKey.Border,
+			BorderColor = StyleKey.Border,
 			BorderSize = 1,
 		},
 		[StyleModifier.Hover] = {
@@ -404,7 +404,7 @@ local buttonTheme = {
 		Background = Decoration.Box,
 		BackgroundStyle = {
 			Color = StyleKey.DialogMainButton,
-			BorderColor =  StyleKey.DialogMainButton,
+			BorderColor = StyleKey.DialogMainButton,
 			BorderSize = 1,
 		},
 		[StyleModifier.Hover] = {
@@ -430,7 +430,7 @@ local buttonTheme = {
 
 	FaceControlsEditorDefault = {
 		Background = Decoration.RoundBox,
-	}
+	},
 }
 
 local frameworkButton = getRawComponentStyle("Button")
@@ -438,8 +438,7 @@ local button = join(frameworkButton, {
 	["&ACEHeaderButtonDefault"] = join(frameworkButton["&Round"], {
 		Background = Decoration.RoundBox,
 	}),
-	["&ACEHeaderButtonActive"] = join(frameworkButton["&RoundPrimary"], {
-	}),
+	["&ACEHeaderButtonActive"] = join(frameworkButton["&RoundPrimary"], {}),
 })
 
 local eventMarker = {
@@ -706,7 +705,9 @@ local UILibraryOverrides = {
 
 return function(createMock: boolean?)
 	if GetFFlagExtendPluginTheme() then
-		local baseTheme = if createMock then StudioTheme.mock(overridedDarkTheme, overridedLightTheme) else StudioTheme.new(overridedDarkTheme, overridedLightTheme)
+		local baseTheme = if createMock
+			then StudioTheme.mock(overridedDarkTheme, overridedLightTheme)
+			else StudioTheme.new(overridedDarkTheme, overridedLightTheme)
 		local theme = baseTheme:extend(PluginTheme)
 		return theme
 	else

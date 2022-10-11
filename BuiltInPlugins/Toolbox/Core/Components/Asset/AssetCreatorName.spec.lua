@@ -31,7 +31,9 @@ return function()
 		local instance = Roact.mount(element, container, "AssetCreatorName")
 		local assetCreatorName = container.AssetCreatorName
 		-- Use match to handle localization ( remove comment with FFlagToolboxAddUnverifiedIcon )
-		local text = if FFlagToolboxAddUnverifiedIcon then assetCreatorName.Text.Text else assetCreatorName:GetChildren()[1].Text
+		local text = if FFlagToolboxAddUnverifiedIcon
+			then assetCreatorName.Text.Text
+			else assetCreatorName:GetChildren()[1].Text
 		expect(text:match(creatorNameString)).to.be.ok()
 		Roact.unmount(instance)
 	end)

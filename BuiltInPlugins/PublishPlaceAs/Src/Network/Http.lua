@@ -21,8 +21,8 @@ local function applyParamsToUrl(requestInfo)
 	if params then
 		local paramList = {}
 
-		for paramName,paramValue in pairs(params) do
-			local paramPair = HttpService:UrlEncode(paramName).."="..HttpService:UrlEncode(paramValue)
+		for paramName, paramValue in pairs(params) do
+			local paramPair = HttpService:UrlEncode(paramName) .. "=" .. HttpService:UrlEncode(paramValue)
 			table.insert(paramList, paramPair)
 		end
 
@@ -42,8 +42,7 @@ function Http.Request(requestInfo)
 	return Promise.new(function(resolve, reject)
 		-- Prevent yielding
 		spawn(function()
-			local ok, result = pcall(HttpRbxApiService.RequestAsync,
-				HttpRbxApiService, requestInfo)
+			local ok, result = pcall(HttpRbxApiService.RequestAsync, HttpRbxApiService, requestInfo)
 			if ok then
 				resolve(result)
 			else
@@ -62,12 +61,12 @@ function Http.RequestInternal(requestInfo)
 			HttpService:RequestInternal(requestInfo):Start(function(success, response)
 				if success then
 					if response.StatusCode >= BAD_REQUEST then
-						reject("HTTP error: "..tostring(response.StatusCode))
+						reject("HTTP error: " .. tostring(response.StatusCode))
 					else
 						resolve(response.Body)
 					end
 				else
-					reject("HTTP error: "..tostring(response.HttpError))
+					reject("HTTP error: " .. tostring(response.HttpError))
 				end
 			end)
 		end)

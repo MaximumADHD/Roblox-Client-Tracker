@@ -9,7 +9,7 @@ local AnimationData = require(Plugin.Src.Util.AnimationData)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local SetKeyframeData = require(Plugin.Src.Thunks.SetKeyframeData)
 
-return function(instanceName: string, path: {string}, tck: number, side: string, slope: number): (any) -> ()
+return function(instanceName: string, path: { string }, tck: number, side: string, slope: number): (any) -> ()
 	return function(store: any): ()
 		local animationData = store:getState().AnimationData
 		if not animationData then
@@ -29,11 +29,11 @@ return function(instanceName: string, path: {string}, tck: number, side: string,
 		local data = {}
 
 		if side == Constants.SLOPES.Left then
-			local _, prevIndex, _ = KeyframeUtils.findNearestKeyframesProperly(track.Keyframes, tck-1)
+			local _, prevIndex, _ = KeyframeUtils.findNearestKeyframesProperly(track.Keyframes, tck - 1)
 			if prevIndex then
 				local prevTick = track.Keyframes[prevIndex]
 				local prevData = {
-					InterpolationMode = Enum.KeyInterpolationMode.Cubic
+					InterpolationMode = Enum.KeyInterpolationMode.Cubic,
 				}
 				store:dispatch(SetKeyframeData(instanceName, path, prevTick, prevData))
 			end

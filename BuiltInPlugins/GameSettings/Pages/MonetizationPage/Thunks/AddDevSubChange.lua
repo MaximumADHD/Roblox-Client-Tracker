@@ -10,7 +10,7 @@ return function(devSubId, devSub)
 
 		local oldSubs = state.Settings.Changed.DeveloperSubscriptions or state.Settings.Current.DeveloperSubscriptions
 		local newSubs = deepJoin(oldSubs, {
-			[devSubId] = devSub
+			[devSubId] = devSub,
 		})
 
 		store:dispatch(AddChange("DeveloperSubscriptions", newSubs))

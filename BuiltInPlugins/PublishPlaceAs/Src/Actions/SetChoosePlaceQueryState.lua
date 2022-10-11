@@ -8,8 +8,8 @@ local Action = require(script.Parent.Action)
 return Action(script.Name, function(queryStateArg)
 	AssertType.assertNullableType(queryStateArg, "string", "SetChoosePlaceQuery arg")
 	return {
-    placeInfo = {
-			queryState = queryStateArg
-		}
+		placeInfo = {
+			queryState = queryStateArg,
+		},
 	}
 end)

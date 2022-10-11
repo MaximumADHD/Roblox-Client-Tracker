@@ -11,7 +11,7 @@ return Action(script.Name, function(publishInfoArg)
 	AssertType.assertNullableType(publishInfoArg, "table", "SetPublishInfo arg")
 	local publishInfo = publishInfoArg or {}
 
-    local id = publishInfo.id
+	local id = publishInfo.id
 	local name = publishInfo.name
 	local parentGameId = publishInfo.parentGameId
 	local parentGameName = publishInfo.parentGameName
@@ -25,9 +25,17 @@ return Action(script.Name, function(publishInfoArg)
 	AssertType.assertType(parentGameName, "string", "SetPublishInfo.parentGameName")
 	AssertType.assertNullableType(parentGameId, "number", "SetPublishInfo.parentGameId")
 	if shouldShowDevPublishLocations() then
-		AssertType.assertNullableType(settings, "table", "SetPublishInfo.settings { name : String, description : String, genre : String, playableDevices : table, OptInLocations : table }")
+		AssertType.assertNullableType(
+			settings,
+			"table",
+			"SetPublishInfo.settings { name : String, description : String, genre : String, playableDevices : table, OptInLocations : table }"
+		)
 	else
-		AssertType.assertNullableType(settings, "table", "SetPublishInfo.settings { name : String, description : String, genre : String, playableDevices : table }")
+		AssertType.assertNullableType(
+			settings,
+			"table",
+			"SetPublishInfo.settings { name : String, description : String, genre : String, playableDevices : table }"
+		)
 	end
 
 	if settings ~= nil then
@@ -50,6 +58,6 @@ return Action(script.Name, function(publishInfoArg)
 			parentGameName = parentGameName,
 			settings = settings,
 			publishParameters = publishParameters,
-		}
+		},
 	}
 end)

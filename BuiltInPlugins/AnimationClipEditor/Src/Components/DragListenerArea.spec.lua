@@ -8,7 +8,7 @@ return function()
 
 	local function createTestDragListenerArea()
 		return Roact.createElement(MockWrapper, {}, {
-			DragListenerArea = Roact.createElement(DragListenerArea)
+			DragListenerArea = Roact.createElement(DragListenerArea),
 		})
 	end
 
@@ -18,7 +18,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestDragListenerArea(), container)
 		local frame = container:FindFirstChildOfClass("ImageButton")

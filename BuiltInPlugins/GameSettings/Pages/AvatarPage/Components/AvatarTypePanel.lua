@@ -17,7 +17,7 @@ function AvatarTypePanel:render()
 	local rigTypeSetFunctions = {
 		[ConstantTemplate.R6] = StateModelTemplate.setRigTypeR6,
 		[ConstantTemplate.R15] = StateModelTemplate.setRigTypeR15,
-		[ConstantTemplate.PlayerChoice] = StateModelTemplate.setRigTypePlayerChoice
+		[ConstantTemplate.PlayerChoice] = StateModelTemplate.setRigTypePlayerChoice,
 	}
 
 	local props = self.props
@@ -26,13 +26,16 @@ function AvatarTypePanel:render()
 
 	return Roact.createElement(RadioButtonSetPanel, {
 		Title = localization:getText("General", "TitleAvatarType"),
-		Buttons = {{
+		Buttons = {
+			{
 				Id = ConstantTemplate.R6,
 				Title = localization:getText("General", "AvatarTypeR6"),
-			}, {
+			},
+			{
 				Id = ConstantTemplate.R15,
 				Title = localization:getText("General", "AvatarTypeR15"),
-			}, {
+			},
+			{
 				Id = ConstantTemplate.PlayerChoice,
 				Title = localization:getText("General", "AvatarTypePlayerChoice"),
 			},
@@ -53,12 +56,9 @@ function AvatarTypePanel:render()
 	})
 end
 
-
 AvatarTypePanel = withContext({
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 })(AvatarTypePanel)
-
-
 
 return AvatarTypePanel

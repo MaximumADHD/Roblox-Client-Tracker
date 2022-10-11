@@ -7,22 +7,21 @@ return function()
 
 	it("should create and destroy without errors", function()
 		local mockServiceWrapper = Roact.createElement(MockServiceWrapper, {}, {
-			ScreenPublishSuccessful = Roact.createElement(ScreenPublishSuccessful, {
-			}),
+			ScreenPublishSuccessful = Roact.createElement(ScreenPublishSuccessful, {}),
 		})
 		local instance = Roact.mount(mockServiceWrapper)
 		Roact.unmount(instance)
-    end)
-    
-    it("should create and destroy with published place without errors", function()
+	end)
+
+	it("should create and destroy with published place without errors", function()
 		local initial = {
 			PublishedPlace = {
 				publishInfo = {
-                    id = 12,
-                    name = "yeet",
-                    parentGameName = "yote",
-				}
-			}
+					id = 12,
+					name = "yeet",
+					parentGameName = "yote",
+				},
+			},
 		}
 		local mockServiceWrapper = Roact.createElement(MockServiceWrapper, {
 			storeState = initial,

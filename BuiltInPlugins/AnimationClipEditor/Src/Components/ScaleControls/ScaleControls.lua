@@ -93,7 +93,7 @@ function ScaleControls:init()
 						for _, componentName in ipairs(Constants.COMPONENT_TRACK_TYPES[track.Type]._Order) do
 							local component = track.Components and track.Components[componentName]
 							if component then
-								traverse(component, Cryo.List.join(path, {componentName}))
+								traverse(component, Cryo.List.join(path, { componentName }))
 							end
 						end
 					else
@@ -119,8 +119,18 @@ function ScaleControls:init()
 
 		if props.UseFullHeight then
 			return {
-				left = TrackUtils.getScaledKeyframePosition(selectionData.earliestKeyframe, startTick, endTick, trackWidth),
-				right = TrackUtils.getScaledKeyframePosition(selectionData.latestKeyframe, startTick, endTick, trackWidth),
+				left = TrackUtils.getScaledKeyframePosition(
+					selectionData.earliestKeyframe,
+					startTick,
+					endTick,
+					trackWidth
+				),
+				right = TrackUtils.getScaledKeyframePosition(
+					selectionData.latestKeyframe,
+					startTick,
+					endTick,
+					trackWidth
+				),
 			}
 		else
 			local topLine, bottomLine = self.getSelectionChannelExtents(selectionData)
@@ -129,8 +139,18 @@ function ScaleControls:init()
 				return {
 					top = Constants.SUMMARY_TRACK_HEIGHT + (topLine - 1) * Constants.TRACK_HEIGHT,
 					bottom = Constants.SUMMARY_TRACK_HEIGHT + bottomLine * Constants.TRACK_HEIGHT,
-					left = TrackUtils.getScaledKeyframePosition(selectionData.earliestKeyframe, startTick, endTick, trackWidth),
-					right = TrackUtils.getScaledKeyframePosition(selectionData.latestKeyframe, startTick, endTick, trackWidth),
+					left = TrackUtils.getScaledKeyframePosition(
+						selectionData.earliestKeyframe,
+						startTick,
+						endTick,
+						trackWidth
+					),
+					right = TrackUtils.getScaledKeyframePosition(
+						selectionData.latestKeyframe,
+						startTick,
+						endTick,
+						trackWidth
+					),
 				}
 			else
 				return nil
@@ -170,7 +190,7 @@ function ScaleControls:init()
 				end
 			end
 			for componentName, component in pairs(track.Components or {}) do
-				local componentPath = Cryo.List.join(path, {componentName})
+				local componentPath = Cryo.List.join(path, { componentName })
 				traverse(component, trackIndex, componentPath)
 			end
 		end
@@ -228,13 +248,20 @@ function ScaleControls:render()
 	if useFullHeight then
 		timeTagYOffset = Constants.SUMMARY_TRACK_HEIGHT + (Constants.SUMMARY_TRACK_HEIGHT - TIME_TAG_HEIGHT) / 2
 	else
-		timeTagYOffset = Constants.SUMMARY_TRACK_HEIGHT - extents.top + (Constants.SUMMARY_TRACK_HEIGHT - TIME_TAG_HEIGHT) / 2
+		timeTagYOffset = Constants.SUMMARY_TRACK_HEIGHT
+			- extents.top
+			+ (Constants.SUMMARY_TRACK_HEIGHT - TIME_TAG_HEIGHT) / 2
 	end
-	
+
 	return Roact.createElement("Frame", {
 		BackgroundColor3 = theme.selectionBox,
 		BackgroundTransparency = showSelectionArea and 0.8 or 1,
-		Position = UDim2.new(0, (props.TrackPadding / 2) + extents.left - (PADDING / 2), 0, if useFullHeight then 0 else extents.top),
+		Position = UDim2.new(
+			0,
+			(props.TrackPadding / 2) + extents.left - (PADDING / 2),
+			0,
+			if useFullHeight then 0 else extents.top
+		),
 		Size = UDim2.new(width, height),
 		ZIndex = zIndex,
 	}, {

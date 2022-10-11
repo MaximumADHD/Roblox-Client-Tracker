@@ -33,7 +33,7 @@ return function(plugin, analytics)
 				plugin:get():SaveSelectedToRoblox()
 			end)
 
-			Selection:Set({exported})
+			Selection:Set({ exported })
 
 			local hasFacs = false
 			local animationType

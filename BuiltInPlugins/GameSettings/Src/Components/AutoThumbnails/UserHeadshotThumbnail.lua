@@ -74,16 +74,23 @@ end
 function UserHeadshotThumbnail:didMount()
 	local function colorChanged()
 		local mask = self.maskRef:getValue()
-		if not mask then return end
+		if not mask then
+			return
+		end
 		mask.ImageColor3 = self.maskBackgroundParent.BackgroundColor3
 	end
 	local function parentChanged()
 		local mask = self.maskRef:getValue()
-		if not mask then return end
+		if not mask then
+			return
+		end
 		self.maskBackgroundParent = self.getBackgroundParent(mask.Parent)
-		if self.colorChanged then self.colorChanged:Disconnect() end
+		if self.colorChanged then
+			self.colorChanged:Disconnect()
+		end
 		if self.maskBackgroundParent then
-			self.colorChanged = self.maskBackgroundParent:GetPropertyChangedSignal("BackgroundColor3"):Connect(colorChanged)
+			self.colorChanged =
+				self.maskBackgroundParent:GetPropertyChangedSignal("BackgroundColor3"):Connect(colorChanged)
 			colorChanged()
 		end
 	end
@@ -143,7 +150,7 @@ function UserHeadshotThumbnail:render()
 					}),
 				})
 			end,
-		})
+		}),
 	})
 end
 

@@ -10,11 +10,11 @@ return function(state)
 		local groupName = metadata.Name
 
 		if not IsGroupOwner(state, groupId) then
-			table.insert(groups, {Name = groupName, Id = groupId})
+			table.insert(groups, { Name = groupName, Id = groupId })
 		end
 	end
 
-	table.sort(groups, function(a,b)
+	table.sort(groups, function(a, b)
 		return a.Name < b.Name
 	end)
 

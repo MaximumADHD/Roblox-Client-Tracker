@@ -62,9 +62,11 @@ local args: PluginLoaderBuilder.Args = {
 		zIndexBehavior = Enum.ZIndexBehavior.Sibling,
 	},
 	extraTriggers = {
-		["StudioAssetService.OnSaveToRoblox"] = if FFlagUnifyModelPackagePublish3 then function()
-			return StudioAssetService.OnSaveToRoblox
-		end else nil,
+		["StudioAssetService.OnSaveToRoblox"] = if FFlagUnifyModelPackagePublish3
+			then function()
+				return StudioAssetService.OnSaveToRoblox
+			end
+			else nil,
 		["StudioService.OnSaveToRoblox"] = function()
 			return StudioService.OnSaveToRoblox
 		end,

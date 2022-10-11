@@ -10,6 +10,6 @@ return Action(script.Name, function(path, children, updatedIndexes)
 	return {
 		path = path,
 		children = children,
-		updatedIndexes = updatedIndexes
+		updatedIndexes = updatedIndexes,
 	}
 end)

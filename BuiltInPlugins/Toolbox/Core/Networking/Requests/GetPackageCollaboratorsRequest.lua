@@ -84,8 +84,12 @@ local function deserializeResponse(responseBody)
 				local subjectId = webItem[webKeys.SubjectId]
 				if subjectId and subjectId ~= "" then
 					local collaborator = collaborators[PermissionsConstants.RoleSubjectKey][tonumber(subjectId)]
-					collaborator[PermissionsConstants.PermissionLevelKey] = webItem[webKeys.PermissionLevel] and KeyConverter.getPermissionLevel(webItem[webKeys.PermissionLevel]) or nil
-					collaborator[PermissionsConstants.PermissionSourceKey] = webItem[webKeys.PermissionSource] and KeyConverter.getPermissionSource(webItem[webKeys.PermissionSource]) or nil
+					collaborator[PermissionsConstants.PermissionLevelKey] = webItem[webKeys.PermissionLevel]
+							and KeyConverter.getPermissionLevel(webItem[webKeys.PermissionLevel])
+						or nil
+					collaborator[PermissionsConstants.PermissionSourceKey] = webItem[webKeys.PermissionSource]
+							and KeyConverter.getPermissionSource(webItem[webKeys.PermissionSource])
+						or nil
 				end
 			end
 		end

@@ -1,4 +1,5 @@
 local FFlagToolboxFixVideoEditFlow = game:GetFastFlag("ToolboxFixVideoEditFlow")
+local FFlagToolboxFixAssetConfigConstants = game:GetFastFlag("ToolboxFixAssetConfigConstants")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -104,10 +105,7 @@ end
 
 AssetConfigConstants.ASSET_TYPE_INFO = {
 	-- catalog assets
-	catalogAssetInfo(
-		Enum.AssetType.Hat, --[[ isUploadable = ]]
-		true
-	),
+	catalogAssetInfo(Enum.AssetType.Hat, --[[ isUploadable = ]] true),
 	catalogAssetInfo(Enum.AssetType.TShirt),
 	catalogAssetInfo(Enum.AssetType.Shirt),
 	catalogAssetInfo(Enum.AssetType.Pants),
@@ -135,22 +133,27 @@ AssetConfigConstants.ASSET_TYPE_INFO = {
 	marketplaceAssetInfo(Enum.AssetType.MeshPart),
 	marketplaceAssetInfo(Enum.AssetType.Audio),
 	marketplaceAssetInfo(Enum.AssetType.Animation),
-	if FFlagToolboxFixVideoEditFlow then marketplaceAssetInfo(Enum.AssetType.Video) else nil,
-	marketplaceAssetInfo(
-		Enum.AssetType.Plugin, --[[ isBuyable = ]]
-		true
-	),
+	if FFlagToolboxFixVideoEditFlow
+		then marketplaceAssetInfo(Enum.AssetType.Video)
+		elseif FFlagToolboxFixAssetConfigConstants then {}
+		else nil,
+	marketplaceAssetInfo(Enum.AssetType.Plugin, --[[ isBuyable = ]] true),
+	-- Be careful about adding nil to this list (e.g. for when a flag is false). Due to how ipairs works, that will cause all the list items after nil to be ignored in the mapping in the loop below.
+	-- If you need a potentially nil value, use table.insert to only insert when not nil or use {} instead of nil
 }
 
 -- allow lookup by Enum.AssetType
 for _, info in ipairs(AssetConfigConstants.ASSET_TYPE_INFO) do
-	if info.isCatalog and info.isMarketplace then
-		error(tostring(info.type) .. " cannot be both a catalog and marketplace asset")
+	local infoHasContent = next(info) ~= nil
+	if not FFlagToolboxFixAssetConfigConstants or (FFlagToolboxFixAssetConfigConstants and infoHasContent) then
+		if info.isCatalog and info.isMarketplace then
+			error(tostring(info.type) .. " cannot be both a catalog and marketplace asset")
+		end
+		if AssetConfigConstants.ASSET_TYPE_INFO[info.type] then
+			error("AssetConfigConstants.ASSET_TYPE_INFO contains a duplicate of " .. tostring(info.type))
+		end
+		AssetConfigConstants.ASSET_TYPE_INFO[info.type] = info
 	end
-	if AssetConfigConstants.ASSET_TYPE_INFO[info.type] then
-		error("AssetConfigConstants.ASSET_TYPE_INFO contains a duplicate of " .. tostring(info.type))
-	end
-	AssetConfigConstants.ASSET_TYPE_INFO[info.type] = info
 end
 
 AssetConfigConstants.developCategoryType = convertArrayToTable({

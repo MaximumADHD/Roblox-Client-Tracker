@@ -28,7 +28,6 @@ return function()
 				local gridContainer = frame.GridContainer
 				local grid = gridContainer.Grid
 				local categoryList = gridContainer.CategoryList
-				local animPlaybackSliderContainer = frame.AnimPlaybackSliderContainer
 
 				expect(frame).to.be.ok()
 				expect(uiListLayout).to.be.ok()
@@ -36,7 +35,6 @@ return function()
 				expect(gridContainer).to.be.ok()
 				expect(grid).to.be.ok()
 				expect(categoryList).to.be.ok()
-				expect(animPlaybackSliderContainer).to.be.ok()
 			end
 		)
 	end)

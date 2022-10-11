@@ -13,7 +13,7 @@ return function()
 				ContainerSize = Vector2.new(1000, 24),
 				Scroll = 0,
 				Zoom = 0,
-			})
+			}),
 		})
 	end
 
@@ -23,7 +23,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestZoomBar(), container)
 		local button = container:FindFirstChildOfClass("ImageButton")
@@ -36,6 +36,5 @@ return function()
 		expect(button.ScrollControl).to.be.ok()
 
 		Roact.unmount(instance)
-
 	end)
 end

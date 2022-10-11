@@ -38,18 +38,14 @@ local FFlagVRAvatarGestures = game:DefineFastFlag("VRAvatarGestures", false)
 local FFlagUseRoactGlobalConfigInCoreScripts = require(RobloxGui.Modules.Flags.FFlagUseRoactGlobalConfigInCoreScripts)
 local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
 
-local GetFFlagScreenTime = require(CorePackages.Regulations.ScreenTime.GetFFlagScreenTime)
-
 local GetFFlagScreenshotHudApi = require(RobloxGui.Modules.Flags.GetFFlagScreenshotHudApi)
 
 local GetFFlagEnableVoiceDefaultChannel = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceDefaultChannel)
 
-local GetFFlagStartScreenTimeUsingGuacEnabled
-	= require(CorePackages.Regulations.ScreenTime.GetFFlagStartScreenTimeUsingGuacEnabled)
-
 local GetFFlagEnableIXPInGame = require(CoreGuiModules.Common.Flags.GetFFlagEnableIXPInGame)
 
-local GetFFlagShareInviteLinkContextMenuV1ABTestEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1ABTestEnabled)
+local GetFFlagShareInviteLinkContextMenuV1ABTestEnabled =
+	require(RobloxGui.Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1ABTestEnabled)
 local ShareInviteLinkABTestManager = require(RobloxGui.Modules.Settings.ShareInviteLinkABTestManager)
 local IsExperienceMenuABTestEnabled = require(CoreGuiModules.InGameMenuV3.IsExperienceMenuABTestEnabled)
 local ExperienceMenuABTestManager = require(CoreGuiModules.InGameMenuV3.ExperienceMenuABTestManager)
@@ -68,7 +64,8 @@ game:DefineFastFlag("MoodsEmoteFix3", false)
 game:DefineFastFlag("SelfieViewFeature", false)
 
 local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
-local FFlagRoactGamepadFixDelayedRefFocusLost = require(CorePackages.AppTempCommon.Flags.FFlagRoactGamepadFixDelayedRefFocusLost)
+local FFlagRoactGamepadFixDelayedRefFocusLost =
+	require(CorePackages.AppTempCommon.Flags.FFlagRoactGamepadFixDelayedRefFocusLost)
 RoactGamepad.Config.TempFixDelayedRefFocusLost = FFlagRoactGamepadFixDelayedRefFocusLost
 
 local UIBlox = require(CorePackages.UIBlox)
@@ -138,16 +135,7 @@ if game:GetEngineFeature("ProximityPrompts") then
 end
 
 coroutine.wrap(function() -- this is the first place we call, which can yield so wrap in coroutine
-	if GetFFlagStartScreenTimeUsingGuacEnabled() then
-		ScriptContext:AddCoreScriptLocal("CoreScripts/ScreenTimeInGame", RobloxGui)
-	else
-		if PolicyService:IsSubjectToChinaPolicies() then
-			ScriptContext:AddCoreScriptLocal("CoreScripts/AntiAddictionPrompt", RobloxGui)
-			if GetFFlagScreenTime() then
-				ScriptContext:AddCoreScriptLocal("CoreScripts/ScreenTimeInGame", RobloxGui)
-			end
-		end
-	end
+	ScriptContext:AddCoreScriptLocal("CoreScripts/ScreenTimeInGame", RobloxGui)
 end)()
 
 if FFlagEnableLuobuWarningToast then
@@ -172,7 +160,8 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/PlayerRagdoll", RobloxGui)
 coroutine.wrap(safeRequire)(RobloxGui.Modules.ChatSelector)
 coroutine.wrap(safeRequire)(RobloxGui.Modules.PlayerList.PlayerListManager)
 
-local UserRoactBubbleChatBeta do
+local UserRoactBubbleChatBeta
+do
 	local success, value = pcall(function()
 		return UserSettings():IsUserFeatureEnabled("UserRoactBubbleChatBeta")
 	end)
@@ -282,7 +271,7 @@ if game:GetEngineFeature("FacialAnimationStreaming") then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/FacialAnimationStreaming", script.Parent)
 	if game:GetFastFlag("SelfieViewFeature") then
 		ScriptContext:AddCoreScriptLocal("CoreScripts/FaceChatSelfieView", RobloxGui)
-	end	
+	end
 	if game:GetEngineFeature("TrackerLodControllerDebugUI") then
 		ScriptContext:AddCoreScriptLocal("CoreScripts/TrackerLodControllerDebugUI", script.Parent)
 	end
@@ -294,4 +283,8 @@ end
 
 if game:GetEngineFeature("NewMoodAnimationTypeApiEnabled") and game:GetFastFlag("MoodsEmoteFix3") then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/AvatarMood", script.Parent)
+end
+
+if game:GetEngineFeature("AdPortal") then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/TeleportEffectsRunner", RobloxGui)
 end

@@ -52,7 +52,7 @@ function CollaboratorSearchWidget:isFriend(userId)
 	-- For group games the ownerType will be Enum.CreatorType.Group. So isFriend will always return false for group games.
 	if ownerType == Enum.CreatorType.User then
 		-- Linear search here should be fine since friends are capped so it shouldn't take too long to go through all of them.
-		for _,friendId in ipairs(ownerFriends) do
+		for _, friendId in ipairs(ownerFriends) do
 			if friendId == userId then
 				return true
 			end
@@ -73,7 +73,7 @@ function CollaboratorSearchWidget:getMatches()
 	local searchTerm = searchData.SearchText
 
 	local userCollaboratorLookup = {}
-	for _,userId in ipairs(userCollaborators) do
+	for _, userId in ipairs(userCollaborators) do
 		userCollaboratorLookup[userId] = true
 	end
 	local function userAlreadyCollaborator(userId)
@@ -81,7 +81,7 @@ function CollaboratorSearchWidget:getMatches()
 	end
 
 	local groupCollaboratorLookup = {}
-	for _,groupId in ipairs(groupCollaborators) do
+	for _, groupId in ipairs(groupCollaborators) do
 		groupCollaboratorLookup[groupId] = true
 	end
 	local function groupAlreadyCollaborator(groupId)
@@ -94,7 +94,7 @@ function CollaboratorSearchWidget:getMatches()
 		local rawGroupMatches = cachedSearchResults[searchTerm][PermissionsConstants.GroupSubjectKey]
 
 		local userMatches = {}
-		for _,v in pairs(rawUserMatches) do
+		for _, v in pairs(rawUserMatches) do
 			local subjectId = v[PermissionsConstants.SubjectIdKey]
 			if not userAlreadyCollaborator(subjectId) then
 				table.insert(userMatches, v)
@@ -102,7 +102,7 @@ function CollaboratorSearchWidget:getMatches()
 		end
 
 		local groupMatches = {}
-		for _,v in pairs(rawGroupMatches) do
+		for _, v in pairs(rawGroupMatches) do
 			local groupId = v[PermissionsConstants.GroupIdKey]
 			if not groupAlreadyCollaborator(groupId) then
 				table.insert(groupMatches, v)
@@ -141,17 +141,21 @@ function CollaboratorSearchWidget:getResults()
 	local usersRemaining = PermissionsConstants.MaxSearchResultsPerSubjectTypeUsers - #matches.Users
 	local groupsRemaining = PermissionsConstants.MaxSearchResultsPerSubjectTypeGroups - #matches.Groups
 	if groupsRemaining > 0 then
-		maxUserResultsAfterAdjustment = groupsRemaining > 0 and PermissionsConstants.MaxSearchResultsPerSubjectTypeUsers + groupsRemaining
+		maxUserResultsAfterAdjustment = groupsRemaining > 0
+			and PermissionsConstants.MaxSearchResultsPerSubjectTypeUsers + groupsRemaining
 	end
 	if usersRemaining > 0 then
-		maxGroupResultsAfterAdjustment = usersRemaining > 0 and PermissionsConstants.MaxSearchResultsPerSubjectTypeGroups + usersRemaining
+		maxGroupResultsAfterAdjustment = usersRemaining > 0
+			and PermissionsConstants.MaxSearchResultsPerSubjectTypeGroups + usersRemaining
 	end
 
-	if #matches.Users > 0  then
+	if #matches.Users > 0 then
 		local userResults = {}
 
 		for _, user in pairs(matches.Users) do
-			if #userResults + 1 > maxUserResultsAfterAdjustment then break end
+			if #userResults + 1 > maxUserResultsAfterAdjustment then
+				break
+			end
 
 			table.insert(userResults, {
 				Icon = Roact.createElement(UserHeadshotThumbnail, {
@@ -162,7 +166,7 @@ function CollaboratorSearchWidget:getResults()
 				Key = {
 					Type = PermissionsConstants.UserSubjectKey,
 					Id = user[PermissionsConstants.SubjectIdKey],
-					Name = user[PermissionsConstants.SubjectNameKey]
+					Name = user[PermissionsConstants.SubjectNameKey],
 				},
 			})
 		end
@@ -173,11 +177,12 @@ function CollaboratorSearchWidget:getResults()
 	end
 
 	if #matches.Groups > 0 and not isGroupGame then
-
 		local groupResults = {}
 
 		for _, group in pairs(matches.Groups) do
-			if #groupResults + 1 > maxGroupResultsAfterAdjustment then break end
+			if #groupResults + 1 > maxGroupResultsAfterAdjustment then
+				break
+			end
 			table.insert(groupResults, {
 				Icon = Roact.createElement(GroupIconThumbnail, {
 					Id = group[PermissionsConstants.GroupIdKey],
@@ -187,7 +192,7 @@ function CollaboratorSearchWidget:getResults()
 				Key = {
 					Type = PermissionsConstants.GroupSubjectKey,
 					Id = group[PermissionsConstants.GroupIdKey],
-					Name = group[PermissionsConstants.GroupNameKey]
+					Name = group[PermissionsConstants.GroupNameKey],
 				},
 			})
 		end
@@ -221,20 +226,23 @@ function CollaboratorSearchWidget:render()
 	local maxCollaborators = game:GetFastInt("MaxAccessPermissionsCollaborators")
 	local tooManyCollaborators = numCollaborators >= maxCollaborators
 
-	local tooManyCollaboratorsText = localization:getText(PERMISSIONS_ID, "CollaboratorSearchbarTooManyText1",{
+	local tooManyCollaboratorsText = localization:getText(PERMISSIONS_ID, "CollaboratorSearchbarTooManyText1", {
 		maxNumCollaborators = maxCollaborators,
 	})
 
 	local children = {
-		Title = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
-			AutomaticSize = Enum.AutomaticSize.XY,
-			LayoutOrder = 0,
+		Title = Roact.createElement(
+			"TextLabel",
+			Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
+				AutomaticSize = Enum.AutomaticSize.XY,
+				LayoutOrder = 0,
 
-			Text = localization:getText("General", "TitleCollaborators"),
-			TextXAlignment = Enum.TextXAlignment.Left,
+				Text = localization:getText("General", "TitleCollaborators"),
+				TextXAlignment = Enum.TextXAlignment.Left,
 
-			BackgroundTransparency = 1,
-		})),
+				BackgroundTransparency = 1,
+			})
+		),
 
 		Searchbar = Roact.createElement(Searchbar, {
 			LayoutOrder = 1,
@@ -288,30 +296,27 @@ CollaboratorSearchWidget = withContext({
 	Mouse = ContextServices.Mouse,
 })(CollaboratorSearchWidget)
 
-CollaboratorSearchWidget = RoactRodux.connect(
-	function(state, props)
-		return {
-			IsGroupGame = IsGroupGame(state),
-			UserCollaborators = GetUserCollaborators(state),
-			GroupCollaborators = GetGroupCollaborators(state),
-			SearchData = state.CollaboratorSearch,
-			ownerType = state.GameOwnerMetadata.creatorType,
-			ownerFriends = state.GameOwnerMetadata.creatorFriends,
-		}
-	end,
-	function(dispatch)
-		return {
-			AddUserCollaborator = function(...)
-				dispatch(AddUserCollaborator(...))
-			end,
-			AddGroupCollaborator = function(...)
-				dispatch(AddGroupCollaborator(...))
-			end,
-			SearchCollaborators = function(...)
-				dispatch(SearchCollaborators(...))
-			end,
-		}
-	end
-)(CollaboratorSearchWidget)
+CollaboratorSearchWidget = RoactRodux.connect(function(state, props)
+	return {
+		IsGroupGame = IsGroupGame(state),
+		UserCollaborators = GetUserCollaborators(state),
+		GroupCollaborators = GetGroupCollaborators(state),
+		SearchData = state.CollaboratorSearch,
+		ownerType = state.GameOwnerMetadata.creatorType,
+		ownerFriends = state.GameOwnerMetadata.creatorFriends,
+	}
+end, function(dispatch)
+	return {
+		AddUserCollaborator = function(...)
+			dispatch(AddUserCollaborator(...))
+		end,
+		AddGroupCollaborator = function(...)
+			dispatch(AddGroupCollaborator(...))
+		end,
+		SearchCollaborators = function(...)
+			dispatch(SearchCollaborators(...))
+		end,
+	}
+end)(CollaboratorSearchWidget)
 
 return CollaboratorSearchWidget

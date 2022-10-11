@@ -24,7 +24,7 @@ local VALID_SIZES = {
 		Vector2.new(60, 60),
 		Vector2.new(150, 150),
 	},
-    Avatar = {
+	Avatar = {
 		Vector2.new(100, 100),
 		Vector2.new(352, 352),
 		Vector2.new(720, 720),
@@ -60,7 +60,7 @@ local function getRbxthumbSize(thumbnailType, elementAbsoluteSize)
 	local validSizes = VALID_SIZES[thumbnailType]
 	local closestSize = validSizes[1]
 
-	for i=2, #validSizes do
+	for i = 2, #validSizes do
 		local thisSize = validSizes[i]
 		local closestDistance = math.abs(elementAbsoluteSize.Magnitude - closestSize.Magnitude)
 		local thisDistance = math.abs(elementAbsoluteSize.Magnitude - thisSize.Magnitude)
@@ -73,11 +73,16 @@ local function getRbxthumbSize(thumbnailType, elementAbsoluteSize)
 end
 
 local function getRbxthumbUrl(thumbnailType, id, size)
-	return "rbxthumb://type="..thumbnailType.."&id="..id.."&w="..size.X.."&h="..size.Y
+	return "rbxthumb://type=" .. thumbnailType .. "&id=" .. id .. "&w=" .. size.X .. "&h=" .. size.Y
 end
 
-local function getAssetThumbnailUrl(id, size)    
-    return "https://www.roblox.com/asset-thumbnail/image?width="..size.X.."&height="..size.Y.."&format=png&assetId="..id
+local function getAssetThumbnailUrl(id, size)
+	return "https://www.roblox.com/asset-thumbnail/image?width="
+		.. size.X
+		.. "&height="
+		.. size.Y
+		.. "&format=png&assetId="
+		.. id
 end
 
 local AutoThumbnail = Roact.Component:extend(script.Name)
@@ -101,7 +106,9 @@ function AutoThumbnail:init()
 
 		local ref = self.ref
 
-		if not ref:getValue() then return end
+		if not ref:getValue() then
+			return
+		end
 
 		local absoluteSize = ref:getValue().AbsoluteSize
 		local thumbnailSize = getRbxthumbSize(thumbnailType, absoluteSize)
@@ -128,7 +135,9 @@ function AutoThumbnail:init()
 	end
 
 	self.loadThumbnail = function(contentId)
-		if contentId == self.fetchingContentId then return end
+		if contentId == self.fetchingContentId then
+			return
+		end
 
 		self.fetchingContentId = contentId
 
@@ -180,7 +189,7 @@ function AutoThumbnail:render()
 		[Roact.Ref] = self.ref,
 		[Roact.Change.AbsoluteSize] = self.updateThumbnail,
 	}, {
-		Thumbnail = renderContents(contentId, fetchStatus)
+		Thumbnail = renderContents(contentId, fetchStatus),
 	})
 end
 

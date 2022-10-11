@@ -65,9 +65,10 @@ function BlockingDialog:render()
 		OnButtonPressed = props.OnButtonClicked,
 	})
 	newProps.MinContentSize = newProps.Size or DEFAULT_DIALOG_SIZE
-	newProps.Buttons = newProps.Buttons or {
-		{Key = true, Text = localization:getText("Dialog", "Ok"), Style = "Round"},
-	}
+	newProps.Buttons = newProps.Buttons
+		or {
+			{ Key = true, Text = localization:getText("Dialog", "Ok"), Style = "Round" },
+		}
 
 	return Roact.createElement(MainProvider, {
 		theme = theme,

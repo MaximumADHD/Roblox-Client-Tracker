@@ -7,14 +7,14 @@ SelectionInfo.__index = SelectionInfo
 
 function SelectionInfo.new(draggerContext, selection)
 	local self = setmetatable(BoundingBoxUtils.computeInfo(draggerContext, selection), SelectionInfo)
-	self.joints = self.draggerContext.RootInstance and RigUtils.getJoints(self.parts, self.draggerContext.RootInstance) or nil
+	self.joints = self.draggerContext.RootInstance and RigUtils.getJoints(self.parts, self.draggerContext.RootInstance)
+		or nil
 	return self
 end
 
 function SelectionInfo:isEmpty()
 	return #self.parts == 0 and #self.attachments == 0 and #self.bones == 0
 end
-
 
 function SelectionInfo:getBoundingBox()
 	local useLocalSpace = self.draggerContext:shouldUseLocalSpace()
@@ -25,7 +25,7 @@ function SelectionInfo:getBoundingBox()
 		local lastSelection = currSelection[#currSelection]
 		if not selectParts then
 			if useLocalSpace then
-				return (lastSelection.TransformedWorldCFrame), Vector3.new(), Vector3.new()
+				return lastSelection.TransformedWorldCFrame, Vector3.new(), Vector3.new()
 			else
 				return CFrame.new((lastSelection.TransformedWorldCFrame).Position), Vector3.new(), Vector3.new()
 			end
@@ -33,7 +33,9 @@ function SelectionInfo:getBoundingBox()
 			if useLocalSpace then
 				return (lastSelection.Part1.CFrame * lastSelection.C1), Vector3.new(), Vector3.new()
 			else
-				return CFrame.new((lastSelection.Part1.CFrame * lastSelection.C1).Position), Vector3.new(), Vector3.new()
+				return CFrame.new((lastSelection.Part1.CFrame * lastSelection.C1).Position),
+					Vector3.new(),
+					Vector3.new()
 			end
 		end
 	end

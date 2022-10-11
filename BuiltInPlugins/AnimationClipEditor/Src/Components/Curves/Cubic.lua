@@ -42,44 +42,47 @@ function Cubic:render(): (any)
 		local h01 = t2 * (3 - 2 * t)
 		local h11 = t2 * (t - 1)
 
-		local curY = h00 * a.Y
-			+ h10 * (b.X - a.X) * props.ASlope
-			+ h01 * b.Y
-			+ h11 * (b.X - a.X) * props.BSlope
+		local curY = h00 * a.Y + h10 * (b.X - a.X) * props.ASlope + h01 * b.Y + h11 * (b.X - a.X) * props.BSlope
 
 		if self.props.MinClamp and self.props.MaxClamp then
 			curY = math.clamp(curY, self.props.MinClamp, self.props.MaxClamp)
 		end
 
 		if prevX and prevX < props.FrameWidth and curX > 0 then
-			table.insert(children, Roact.createElement(Line, {
-				A = Vector2.new(prevX, prevY),
-				B = Vector2.new(curX, curY),
-				Color = props.Color,
-				Width = props.Width,
-				Transparency = props.Transparency,
-				ZIndex = props.ZIndex,
-			}))
+			table.insert(
+				children,
+				Roact.createElement(Line, {
+					A = Vector2.new(prevX, prevY),
+					B = Vector2.new(curX, curY),
+					Color = props.Color,
+					Width = props.Width,
+					Transparency = props.Transparency,
+					ZIndex = props.ZIndex,
+				})
+			)
 		end
 
 		prevX, prevY = curX, curY
 	end
 
-	table.insert(children, Roact.createElement(Line, {
-		A = if prevX then Vector2.new(prevX, prevY) else a,
-		B = b,
-		Color = props.Color,
-		Width = props.Width,
-		Transparency = props.Transparency,
-		ZIndex = props.ZIndex,
-	}))
+	table.insert(
+		children,
+		Roact.createElement(Line, {
+			A = if prevX then Vector2.new(prevX, prevY) else a,
+			B = b,
+			Color = props.Color,
+			Width = props.Width,
+			Transparency = props.Transparency,
+			ZIndex = props.ZIndex,
+		})
+	)
 
 	return Roact.createElement("Frame", {
 		Position = UDim2.new(0, 0, 0, 0),
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
-		ZIndex = props.ZIndex
+		ZIndex = props.ZIndex,
 	}, children)
 end
 

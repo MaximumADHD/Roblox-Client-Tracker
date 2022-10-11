@@ -38,7 +38,7 @@ local function init()
 	plugin.Name = "DeveloperInspector"
 
 	local mainPlugin = Roact.createElement(MainPlugin, {
-		Plugin = plugin
+		Plugin = plugin,
 	})
 
 	handle = Roact.mount(mainPlugin)

@@ -7,8 +7,7 @@ return function()
 
 	it("should create and destroy without errors", function()
 		local mockServiceWrapper = Roact.createElement(MockServiceWrapper, {}, {
-			ScreenChooseGame = Roact.createElement(ScreenChooseGame, {
-			}),
+			ScreenChooseGame = Roact.createElement(ScreenChooseGame, {}),
 		})
 		local instance = Roact.mount(mockServiceWrapper)
 		Roact.unmount(instance)
@@ -19,12 +18,12 @@ return function()
 			ExistingGame = {
 				gameInfo = {
 					games = {
-						{name = "Game 1"},
-						{name = "Not a game!"},
+						{ name = "Game 1" },
+						{ name = "Not a game!" },
 					},
 					nextPageCursor = "024891203183",
-				}
-			}
+				},
+			},
 		}
 		local mockServiceWrapper = Roact.createElement(MockServiceWrapper, {
 			storeState = initial,

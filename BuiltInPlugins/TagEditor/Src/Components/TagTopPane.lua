@@ -26,6 +26,7 @@ local StudioUI = Framework.StudioUI
 local SearchBar = StudioUI.SearchBar
 
 local Actions = require(Plugin.Src.Actions)
+local GetUniqueGroupName = require(Plugin.Src.Util.GetUniqueGroupName)
 local TagManager = require(Plugin.Src.TagManager)
 
 local NewTagTextInput = require(script.Parent.NewTagTextInput)
@@ -34,9 +35,12 @@ local TagListView = require(script.Parent.TagListView)
 export type Props = {
 	tagMenu: string,
 	groupMenu: string,
+	worldView: boolean,
+	groupData: _Types.Array<string>,
 	setSearch: ((string) -> ()),
 	openTagMenu: ((string) -> ()),
 	openGroupMenu: ((string) -> ()),
+	setWorldView: ((boolean) -> ()),
 }
 
 type _Props = Props & {
@@ -48,6 +52,8 @@ type _Props = Props & {
 type _Style = {
 	SearchBarPaneSize: UDim2,
 	SearchBarSize: UDim2,
+	NewTagRowSize: UDim2,
+	WorldViewButtonSize: UDim2,
 	ButtonSize: UDim2,
 	Padding: _Types.Table<string, number>,
 	RowSpacing: number,
@@ -73,11 +79,17 @@ function TagTopPane:init()
 		end
 	end
 
-	self.onNewGroupClicked = function()
+	self.onNewGroupClicked = function(localization: any)
 		local props: _Props = self.props
 		if props.tagMenu ~= nil then
-			TagManager.Get():SetGroup(props.tagMenu, props.tagMenu .. " Group")
+			local newGroupName = GetUniqueGroupName(localization:getText("Info", "NewGroup"))
+			TagManager.Get():SetGroup(props.tagMenu, newGroupName)
 		end
+	end
+
+	self.onWorldViewButtonClicked = function()
+		local props: _Props = self.props
+		props.setWorldView(not props.worldView)
 	end
 end
 
@@ -87,8 +99,16 @@ function TagTopPane:render()
 	local style: _Style = props.Stylizer.TagTopPane
 	local orderIterator = LayoutOrderIterator.new()
 	local searchRowOrderIterator = LayoutOrderIterator.new()
+	local newTagRowOrderIterator = LayoutOrderIterator.new()
 
-	local newGroupTooltipText = if props.tagMenu then localization:getText("Tooltip", "NewGroupEnabled") else localization:getText("Tooltip", "NewGroupDisabled")
+	local visibleIcon = props.Stylizer.VisibleIcon
+	local visibleOffIcon = props.Stylizer.VisibleOffIcon
+
+	local newGroupButtonDisabled = props.groupMenu or not props.tagMenu
+	local deleteButtonDisabled = not props.tagMenu and not props.groupMenu
+
+	local newGroupTooltipText = if newGroupButtonDisabled then localization:getText("Tooltip", "NewGroupDisabled") else localization:getText("Tooltip", "NewGroupEnabled")
+	local deleteTooltipText = if deleteButtonDisabled then localization:getText("Tooltip", "DeleteDisabled") else localization:getText("Tooltip", "DeleteDisabled")
 
 	return Roact.createElement(Pane, {
 		Layout = Enum.FillDirection.Vertical,
@@ -108,33 +128,48 @@ function TagTopPane:render()
 				ShowSearchIcon = true,
 				LayoutOrder = searchRowOrderIterator:getNextOrder(),
 				OnSearchRequested = self.onSearchRequested,
+				Style = "Compact",
 			}),
 			NewGroupButton = Roact.createElement(IconButton, {
-				BackgroundStyle = "None",
+				BackgroundStyle = "RoundBox",
 				LeftIcon = style.NewGroupIcon,
-				OnClick = self.onNewGroupClicked,
+				OnClick = function()
+					self.onNewGroupClicked(localization)
+				end,
 				LayoutOrder = searchRowOrderIterator:getNextOrder(),
-				Disabled = props.groupMenu or not props.tagMenu,
+				Style = newGroupButtonDisabled and "Disabled",
+				Disabled = newGroupButtonDisabled,
 				TooltipText = newGroupTooltipText,
 			}),
 			DeleteButton = Roact.createElement(IconButton, {
-				BackgroundStyle = "None",
+				BackgroundStyle = "RoundBox",
 				LeftIcon = style.DeleteIcon,
 				OnClick = self.onDeleteClicked,
 				LayoutOrder = searchRowOrderIterator:getNextOrder(),
+				Style = deleteButtonDisabled and "Disabled",
+				Disabled = deleteButtonDisabled,
+				TooltipText = deleteTooltipText,
 			}),
 		}),
 		NewTagRowPane = Roact.createElement(Pane, {
-			Size = style.SearchBarPaneSize,
+			Size = style.NewTagRowSize,
 			LayoutOrder = orderIterator:getNextOrder(),
 			Layout = Enum.FillDirection.Horizontal,
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
-			Spacing = style.RowSpacing,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		}, {
-
 			NewTagTextInput =  Roact.createElement(NewTagTextInput, {
-				Size = style.SearchBarPaneSize,
-				LayoutOrder = 1,
+				LayoutOrder = newTagRowOrderIterator:getNextOrder(),
+			}),
+			ToggleWorldViewButton = Roact.createElement(IconButton, {
+				BackgroundStyle = "RoundBox",
+				LeftIcon = if props.worldView then visibleIcon else visibleOffIcon,
+				Padding = 0,
+				Spacing = 4,
+				Text = localization:getText("Info", "WorldView"),
+				OnClick = self.onWorldViewButtonClicked,
+				LayoutOrder = newTagRowOrderIterator:getNextOrder(),
+				Size = style.WorldViewButtonSize,
+				TooltipText = localization:getText("Tooltip", "WorldView"),
 			}),
 		}),
 		TagListView = Roact.createElement(TagListView, {
@@ -153,6 +188,8 @@ local function mapStateToProps(state, _)
 	return {
 		tagMenu = state.TagMenu,
 		groupMenu = state.GroupMenu,
+		worldView = state.WorldView,
+		groupData = state.GroupData,
 	}
 end
 
@@ -166,6 +203,9 @@ local function mapDispatchToProps(dispatch)
 		end,
 		openGroupMenu = function(group: string)
 			dispatch(Actions.OpenGroupMenu(group))
+		end,
+		setWorldView = function(enabled: boolean)
+			dispatch(Actions.ToggleWorldView(enabled))
 		end,
 	}
 end

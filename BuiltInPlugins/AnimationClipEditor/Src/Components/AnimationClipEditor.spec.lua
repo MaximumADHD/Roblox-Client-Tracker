@@ -8,7 +8,7 @@ return function()
 
 	local function createTestEditor()
 		return Roact.createElement(MockWrapper, {}, {
-			Editor = Roact.createElement(AnimationClipEditor)
+			Editor = Roact.createElement(AnimationClipEditor),
 		})
 	end
 
@@ -18,7 +18,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestEditor(), container)
 		local frame = container:FindFirstChildOfClass("Frame")

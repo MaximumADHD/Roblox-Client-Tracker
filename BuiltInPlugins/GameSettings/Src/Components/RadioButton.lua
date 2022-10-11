@@ -56,10 +56,16 @@ function RadioButton:render()
 
 	local title = self.props.Title
 	local description = props.Description and props.Description or nil
-	local titleTextSize = TextService:GetTextSize(title, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font, Vector2.new())
+	local titleTextSize =
+		TextService:GetTextSize(title, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font, Vector2.new())
 
-	local descriptionTextSize = props.Description and TextService:GetTextSize(description, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font,
-		Vector2.new(theme.radioButton.descriptionWidth, math.huge))
+	local descriptionTextSize = props.Description
+		and TextService:GetTextSize(
+			description,
+			theme.fontStyle.Subtext.TextSize,
+			theme.fontStyle.Subtext.Font,
+			Vector2.new(theme.radioButton.descriptionWidth, math.huge)
+		)
 
 	local children = props.Children and props.Children or {}
 
@@ -98,62 +104,74 @@ function RadioButton:render()
 				Position = UDim2.new(0.5, 0, 0.5, 0),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Visible = self.props.Selected,
-				Image = (self.props.Enabled and theme.radioButton.image.selected or theme.radioButton.image.selectedDisabled),
+				Image = (
+					self.props.Enabled and theme.radioButton.image.selected or theme.radioButton.image.selectedDisabled
+				),
 			}),
 		}),
 
-		ContentAndChildren = Roact.createElement(FitFrameOnAxis,{
-			axis = FitFrameOnAxis.Axis.Vertical,
-			minimumSize = UDim2.new(0, minimumContentSize, 0, 0),
-			contentPadding = UDim.new(0, theme.radioButton.padding),
-			BackgroundTransparency = 1,
-			FillDirection = Enum.FillDirection.Vertical,
-
-			LayoutOrder = 2,
-		}, Cryo.Dictionary.join({
-			TitleLabel = Roact.createElement("TextButton", Cryo.Dictionary.join(theme.fontStyle.Normal, {
+		ContentAndChildren = Roact.createElement(
+			FitFrameOnAxis,
+			{
+				axis = FitFrameOnAxis.Axis.Vertical,
+				minimumSize = UDim2.new(0, minimumContentSize, 0, 0),
+				contentPadding = UDim.new(0, theme.radioButton.padding),
 				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Size = UDim2.new(0, titleTextSize.X, 0, titleTextSize.Y),
+				FillDirection = Enum.FillDirection.Vertical,
 
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Center,
-				TextTransparency = self.props.Enabled and 0 or 0.5,
-				Text = title,
+				LayoutOrder = 2,
+			},
+			Cryo.Dictionary.join({
+				TitleLabel = Roact.createElement(
+					"TextButton",
+					Cryo.Dictionary.join(theme.fontStyle.Normal, {
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+						Size = UDim2.new(0, titleTextSize.X, 0, titleTextSize.Y),
 
-				[Roact.Event.MouseEnter] = self.mouseEnter,
-				[Roact.Event.MouseLeave] = self.mouseLeave,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Center,
+						TextTransparency = self.props.Enabled and 0 or 0.5,
+						Text = title,
 
-				[Roact.Event.Activated] = function()
-					if self.props.Enabled then
-						self.props.OnClicked()
-					end
-				end,
+						[Roact.Event.MouseEnter] = self.mouseEnter,
+						[Roact.Event.MouseLeave] = self.mouseLeave,
 
-				LayoutOrder = -2,
-			})),
+						[Roact.Event.Activated] = function()
+							if self.props.Enabled then
+								self.props.OnClicked()
+							end
+						end,
 
-			DescriptionLabel = props.Description and Roact.createElement("TextButton", Cryo.Dictionary.join(theme.fontStyle.Subtext,{
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Size = UDim2.new(0, descriptionTextSize.X, 0, descriptionTextSize.Y),
+						LayoutOrder = -2,
+					})
+				),
 
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Top,
-				Text = description,
-				TextWrapped = true,
-				[Roact.Event.MouseEnter] = self.mouseEnter,
-				[Roact.Event.MouseLeave] = self.mouseLeave,
+				DescriptionLabel = props.Description and Roact.createElement(
+					"TextButton",
+					Cryo.Dictionary.join(theme.fontStyle.Subtext, {
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+						Size = UDim2.new(0, descriptionTextSize.X, 0, descriptionTextSize.Y),
 
-				[Roact.Event.Activated] = function()
-					if self.props.Enabled then
-						self.props.OnClicked()
-					end
-				end,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Top,
+						Text = description,
+						TextWrapped = true,
+						[Roact.Event.MouseEnter] = self.mouseEnter,
+						[Roact.Event.MouseLeave] = self.mouseLeave,
 
-				LayoutOrder = -1,
-			})),
-		}, children)),
+						[Roact.Event.Activated] = function()
+							if self.props.Enabled then
+								self.props.OnClicked()
+							end
+						end,
+
+						LayoutOrder = -1,
+					})
+				),
+			}, children)
+		),
 	})
 end
 

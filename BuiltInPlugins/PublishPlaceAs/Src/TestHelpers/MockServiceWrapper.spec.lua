@@ -12,7 +12,7 @@ local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
 return function()
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(MockServiceWrapper, {}, {
-			TestElement = Roact.createElement("Frame")
+			TestElement = Roact.createElement("Frame"),
 		})
 
 		local container = Instance.new("Folder")
@@ -35,8 +35,8 @@ return function()
 
 			function testElement:render()
 				local localization = self.props.Localization
-				return Roact.createElement("TextLabel",{
-					Text = localization:getText("test", "Hello World")
+				return Roact.createElement("TextLabel", {
+					Text = localization:getText("test", "Hello World"),
 				})
 			end
 
@@ -49,7 +49,7 @@ return function()
 
 		it("should supply a functional localization object to its children", function()
 			local element = Roact.createElement(MockServiceWrapper, {}, {
-				TestElement = Roact.createElement(createTestLocalizedElement())
+				TestElement = Roact.createElement(createTestLocalizedElement()),
 			})
 
 			local container = Instance.new("Folder")
@@ -75,12 +75,12 @@ return function()
 				return Roact.createElement("Frame")
 			end
 			local function mapStateToProps(state, props)
-				return {S = state,}
+				return { S = state }
 			end
 			TestElement = RoactRodux.connect(mapStateToProps)(TestElement)
 
 			local element = Roact.createElement(MockServiceWrapper, {}, {
-				TestElement = Roact.createElement(TestElement)
+				TestElement = Roact.createElement(TestElement),
 			})
 			local container = Instance.new("Folder")
 			local instance = Roact.mount(element, container)
@@ -97,10 +97,10 @@ return function()
 						assert(type(theme) == "table", string.format(errmsg, type(theme)))
 
 						return Roact.createElement("Frame", {
-							BackgroundColor3 = theme.backgroundColor
+							BackgroundColor3 = theme.backgroundColor,
 						})
 					end)
-				end)
+				end),
 			})
 			local container = Instance.new("Folder")
 			local instance = Roact.mount(element, container)

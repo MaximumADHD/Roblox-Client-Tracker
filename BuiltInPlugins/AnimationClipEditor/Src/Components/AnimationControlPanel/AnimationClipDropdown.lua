@@ -43,14 +43,18 @@ local LoadAnimation = require(Plugin.Src.Thunks.Exporting.LoadAnimation)
 local SaveAnimation = require(Plugin.Src.Thunks.Exporting.SaveAnimation)
 local ImportKeyframeSequence = require(Plugin.Src.Thunks.Exporting.ImportKeyframeSequence)
 local ImportFBXAnimationUserMayChooseModel = require(Plugin.Src.Thunks.Exporting.ImportFBXAnimationUserMayChooseModel)
-local CreateFromVideoAndImportFBXAnimationUserMayChooseModel = require(Plugin.Src.Thunks.Exporting.CreateFromVideoAndImportFBXAnimationUserMayChooseModel)
+local CreateFromVideoAndImportFBXAnimationUserMayChooseModel =
+	require(Plugin.Src.Thunks.Exporting.CreateFromVideoAndImportFBXAnimationUserMayChooseModel)
 local ImportLoadedFBXAnimation = require(Plugin.Src.Thunks.Exporting.ImportLoadedFBXAnimation)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
-local GetFFlagCreateAnimationFromVideoAgeGateSizeFix = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAgeGateSizeFix)
-local GetFFlagCreateAnimationFromVideoSaveWhenOverwritingDialog = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoSaveWhenOverwritingDialog)
-local GetFFlagAnimationFromVideoCreatorServiceAnalytics2 = require(Plugin.LuaFlags.GetFFlagAnimationFromVideoCreatorServiceAnalytics2)
+local GetFFlagCreateAnimationFromVideoAgeGateSizeFix =
+	require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAgeGateSizeFix)
+local GetFFlagCreateAnimationFromVideoSaveWhenOverwritingDialog =
+	require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoSaveWhenOverwritingDialog)
+local GetFFlagAnimationFromVideoCreatorServiceAnalytics2 =
+	require(Plugin.LuaFlags.GetFFlagAnimationFromVideoCreatorServiceAnalytics2)
 local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
 local GetFFlagFixFaceRecorderFlow = require(Plugin.LuaFlags.GetFFlagFixFaceRecorderFlow)
 local GetFFlagRetirePause = require(Plugin.LuaFlags.GetFFlagRetirePause)
@@ -124,13 +128,17 @@ function AnimationClipDropdown:init()
 		})
 	end
 
-	self.showAnimationImportProgress = not GetFFlagAnimationFromVideoCreatorServiceAnalytics2() and function()
-		self.props.ShowAnimationImportProgress()
-	end or nil
+	self.showAnimationImportProgress = not GetFFlagAnimationFromVideoCreatorServiceAnalytics2()
+			and function()
+				self.props.ShowAnimationImportProgress()
+			end
+		or nil
 
-	self.hideAnimationImportProgress = not GetFFlagAnimationFromVideoCreatorServiceAnalytics2() and function()
-		self.props.HideAnimationImportProgress()
-	end or nil
+	self.hideAnimationImportProgress = not GetFFlagAnimationFromVideoCreatorServiceAnalytics2()
+			and function()
+				self.props.HideAnimationImportProgress()
+			end
+		or nil
 
 	self.showReduceKeyframesDialog = function()
 		self.props.SetReduceKeyframesDialogMode(Constants.REDUCE_KEYFRAMES_DIALOG_MODE.FromMenu)
@@ -271,8 +279,10 @@ function AnimationClipDropdown:init()
 				props.ImportKeyframeSequence(plugin, props.Analytics)
 			elseif loadingName == IMPORT_FBX_KEY then
 				props.ImportFBXAnimationUserMayChooseModel(plugin, self, props.Analytics)
-			elseif GetFFlagCreateAnimationFromVideoSaveWhenOverwritingDialog() and loadingName == IMPORT_FROM_VIDEO_KEY then
-                self.startAnimationFromVideoFlow()
+			elseif
+				GetFFlagCreateAnimationFromVideoSaveWhenOverwritingDialog() and loadingName == IMPORT_FROM_VIDEO_KEY
+			then
+				self.startAnimationFromVideoFlow()
 			else
 				props.LoadAnimation(loadingName, props.Analytics)
 			end
@@ -286,9 +296,11 @@ function AnimationClipDropdown:init()
 			elseif loadingName == IMPORT_FBX_KEY then
 				self.hideLoadNewPrompt()
 				props.ImportFBXAnimationUserMayChooseModel(plugin, self, props.Analytics)
-            elseif GetFFlagCreateAnimationFromVideoSaveWhenOverwritingDialog() and loadingName == IMPORT_FROM_VIDEO_KEY then
-                self.hideLoadNewPrompt()
-                self.startAnimationFromVideoFlow()
+			elseif
+				GetFFlagCreateAnimationFromVideoSaveWhenOverwritingDialog() and loadingName == IMPORT_FROM_VIDEO_KEY
+			then
+				self.hideLoadNewPrompt()
+				self.startAnimationFromVideoFlow()
 			else
 				props.LoadAnimation(loadingName, props.Analytics)
 				self.hideLoadNewPrompt()
@@ -296,7 +308,6 @@ function AnimationClipDropdown:init()
 		end
 	end
 end
-
 
 function AnimationClipDropdown:render()
 	local localization = self.props.Localization
@@ -324,7 +335,8 @@ function AnimationClipDropdown:render()
 	if showCreateAnimationFromVideoTutorial then
 		-- Before showing the create animation from video tutorial, check the age
 		-- restriction and display that instead if required.
-		isCreateAnimationFromVideoAgeRestricted = game:GetService("AnimationFromVideoCreatorStudioService"):IsAgeRestricted()
+		isCreateAnimationFromVideoAgeRestricted = game:GetService("AnimationFromVideoCreatorStudioService")
+			:IsAgeRestricted()
 		if isCreateAnimationFromVideoAgeRestricted then
 			showCreateAnimationFromVideoTutorial = false
 		end
@@ -383,8 +395,8 @@ function AnimationClipDropdown:render()
 			InputText = localization:getText("Dialog", "AnimationName"),
 			Text = localization:getText("Title", "DefaultAnimationName"),
 			Buttons = {
-				{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round"},
-				{Key = true, Text = localization:getText("Dialog", "Create"), Style = "RoundPrimary"},
+				{ Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round" },
+				{ Key = true, Text = localization:getText("Dialog", "Create"), Style = "RoundPrimary" },
 			},
 			OnTextSubmitted = function(text)
 				self.hideCreateNewPrompt()
@@ -402,8 +414,8 @@ function AnimationClipDropdown:render()
 			NoticeText = localization:getText("Dialog", "SaveLocation"),
 			Text = animationName,
 			Buttons = {
-				{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round"},
-				{Key = true, Text = localization:getText("Dialog", "Save"), Style = "RoundPrimary"},
+				{ Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round" },
+				{ Key = true, Text = localization:getText("Dialog", "Save"), Style = "RoundPrimary" },
 			},
 			OnTextSubmitted = function(text)
 				self.hideSaveAsPrompt()
@@ -416,8 +428,8 @@ function AnimationClipDropdown:render()
 			Text = localization:getText("Toast", "AnimationImportModelsDiffer"),
 			ButtonWidth = Constants.PROMPT_BUTTON_SIZE.X * 1.5,
 			Buttons = {
-				{Key = true, Text = localization:getText("Toast", "AnimationImportUseFBX"), Style = "Round"},
-				{Key = false, Text = localization:getText("Toast", "AnimationImportUseSelected"), Style = "Round"},
+				{ Key = true, Text = localization:getText("Toast", "AnimationImportUseFBX"), Style = "Round" },
+				{ Key = false, Text = localization:getText("Toast", "AnimationImportUseSelected"), Style = "Round" },
 			},
 			OnButtonClicked = function(useFBXModel)
 				self.hideImportAnimModelChoicePrompt()
@@ -426,10 +438,10 @@ function AnimationClipDropdown:render()
 		}),
 
 		OverwritePrompt = overwriteName and Roact.createElement(FocusedPrompt, {
-			PromptText = localization:getText("Menu", "Overwrite_Migrated", {overwriteName = overwriteName}),
+			PromptText = localization:getText("Menu", "Overwrite_Migrated", { overwriteName = overwriteName }),
 			Buttons = {
-				{Key = false, Text = localization:getText("Dialog", "No"), Style = "Round"},
-				{Key = true, Text = localization:getText("Dialog", "Yes"), Style = "RoundPrimary"},
+				{ Key = false, Text = localization:getText("Dialog", "No"), Style = "Round" },
+				{ Key = true, Text = localization:getText("Dialog", "Yes"), Style = "RoundPrimary" },
 			},
 			OnButtonClicked = function(didSave)
 				self.hideOverwritePrompt()
@@ -443,8 +455,8 @@ function AnimationClipDropdown:render()
 		PromotePrompt = showPromotePrompt and Roact.createElement(FocusedPrompt, {
 			PromptText = localization:getText("Dialog", "PromotePrompt"),
 			Buttons = {
-				{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round"},
-				{Key = true, Text = localization:getText("Dialog", "Confirm"), Style = "RoundPrimary"},
+				{ Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round" },
+				{ Key = true, Text = localization:getText("Dialog", "Confirm"), Style = "RoundPrimary" },
 			},
 			OnButtonClicked = function(didPromote)
 				self.hidePromotePrompt()
@@ -452,7 +464,7 @@ function AnimationClipDropdown:render()
 					props.PromoteKeyframeSequence(props.Analytics)
 				end
 			end,
-			OnClose = self.hidePromotePrompt
+			OnClose = self.hidePromotePrompt,
 		}) or nil,
 
 		LoadNewPrompt = loadingName and Roact.createElement(TextEntryPrompt, {
@@ -461,9 +473,9 @@ function AnimationClipDropdown:render()
 			NoticeText = localization:getText("Dialog", "SaveLocation"),
 			Text = animationName,
 			Buttons = {
-				{Key = "Delete", Text = localization:getText("Dialog", "Delete"), Style = "Round"},
-				{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round"},
-				{Key = true, Text = localization:getText("Dialog", "Save"), Style = "RoundPrimary"},
+				{ Key = "Delete", Text = localization:getText("Dialog", "Delete"), Style = "Round" },
+				{ Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round" },
+				{ Key = true, Text = localization:getText("Dialog", "Save"), Style = "RoundPrimary" },
 			},
 			OnButtonClicked = function(text)
 				if text == "Delete" then
@@ -477,36 +489,44 @@ function AnimationClipDropdown:render()
 			OnClose = self.hideLoadNewPrompt,
 		}),
 
-		CreateAnimationFromVideoTutorial = showCreateAnimationFromVideoTutorial and Roact.createElement(FocusedPrompt, {
-			PromptText = localization:getText("AnimationFromVideo", "TutorialText"),
-			Buttons = {
-				{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round"},
-				{Key = true, Text = localization:getText("AnimationFromVideo", "ChooseVideo"), Style = "RoundPrimary"},
-			},
-			OnButtonClicked = function(shouldContinue)
-				self.setShowCreateAnimationFromVideoTutorial(false)
-				if shouldContinue then
-					self.continueAfterCreateAnimationFromVideoTutorial()
-				end
-			end,
-			OnClose = function()
-				self.setShowCreateAnimationFromVideoTutorial(false)
-			end
-		}),
+		CreateAnimationFromVideoTutorial = showCreateAnimationFromVideoTutorial
+			and Roact.createElement(FocusedPrompt, {
+				PromptText = localization:getText("AnimationFromVideo", "TutorialText"),
+				Buttons = {
+					{ Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round" },
+					{
+						Key = true,
+						Text = localization:getText("AnimationFromVideo", "ChooseVideo"),
+						Style = "RoundPrimary",
+					},
+				},
+				OnButtonClicked = function(shouldContinue)
+					self.setShowCreateAnimationFromVideoTutorial(false)
+					if shouldContinue then
+						self.continueAfterCreateAnimationFromVideoTutorial()
+					end
+				end,
+				OnClose = function()
+					self.setShowCreateAnimationFromVideoTutorial(false)
+				end,
+			}),
 
-		CreateAnimationFromVideoAgeGate = isCreateAnimationFromVideoAgeRestricted and Roact.createElement(FocusedPrompt, {
-			Size = GetFFlagCreateAnimationFromVideoAgeGateSizeFix() and UDim2.new(0, Constants.PROMPT_SIZE.Width.Offset, 0, 180) or nil,
-			PromptText = localization:getText("AnimationFromVideo", "AgeRestricted"),
-			Buttons = {
-				{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round"},
-			},
-			OnButtonClicked = function()
-				self.setShowCreateAnimationFromVideoTutorial(false)
-			end,
-			OnClose = function()
-				self.setShowCreateAnimationFromVideoTutorial(false)
-			end
-		}),
+		CreateAnimationFromVideoAgeGate = isCreateAnimationFromVideoAgeRestricted
+			and Roact.createElement(FocusedPrompt, {
+				Size = GetFFlagCreateAnimationFromVideoAgeGateSizeFix()
+						and UDim2.new(0, Constants.PROMPT_SIZE.Width.Offset, 0, 180)
+					or nil,
+				PromptText = localization:getText("AnimationFromVideo", "AgeRestricted"),
+				Buttons = {
+					{ Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round" },
+				},
+				OnButtonClicked = function()
+					self.setShowCreateAnimationFromVideoTutorial(false)
+				end,
+				OnClose = function()
+					self.setShowCreateAnimationFromVideoTutorial(false)
+				end,
+			}),
 	})
 end
 
@@ -539,9 +559,11 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SaveAnimation(name, analytics))
 		end,
 
-		Pause = if not GetFFlagRetirePause() then function()
-			dispatch(Pause())
-		end else nil,
+		Pause = if not GetFFlagRetirePause()
+			then function()
+				dispatch(Pause())
+			end
+			else nil,
 
 		ImportKeyframeSequence = function(plugin, analytics)
 			dispatch(ImportKeyframeSequence(plugin, analytics))

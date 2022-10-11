@@ -8,7 +8,7 @@ return function()
 	it("should create and destroy without errors", function()
 		local mockServiceWrapper = Roact.createElement(MockServiceWrapper, {}, {
 			ListDialog = Roact.createElement(ListDialog, {
-                Buttons = {Key = "Test", Text = "Test"}
+				Buttons = { Key = "Test", Text = "Test" },
 			}),
 		})
 		local instance = Roact.mount(mockServiceWrapper)

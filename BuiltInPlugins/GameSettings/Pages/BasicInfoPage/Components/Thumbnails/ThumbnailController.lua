@@ -117,17 +117,17 @@ function ThumbnailController:openPreviewDialog(thumbnailId)
 end
 
 function ThumbnailController:render()
-	return Roact.createElement(ThumbnailWidget, Cryo.Dictionary.join(self.props, {
-		ThumbnailAction = self.dispatchAction,
-	}))
+	return Roact.createElement(
+		ThumbnailWidget,
+		Cryo.Dictionary.join(self.props, {
+			ThumbnailAction = self.dispatchAction,
+		})
+	)
 end
-
 
 ThumbnailController = withContext({
 	Localization = ContextServices.Localization,
-	Dialog = Dialog
+	Dialog = Dialog,
 })(ThumbnailController)
-
-
 
 return ThumbnailController

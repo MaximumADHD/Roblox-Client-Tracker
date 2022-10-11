@@ -23,21 +23,24 @@ function InsufficientPermissionsPage:render()
 	local theme = props.Stylizer
 	local localization = props.Localization
 
-	return Roact.createElement(Container, {
-	}, {
-		Label = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-			LayoutOrder = 1,
+	return Roact.createElement(Container, {}, {
+		Label = Roact.createElement(
+			"TextLabel",
+			Cryo.Dictionary.join(theme.fontStyle.Normal, {
+				LayoutOrder = 1,
 
-			Text = localization:getText("General", "SettingsInsufficientPermission"),
+				Text = localization:getText("General", "SettingsInsufficientPermission"),
 
-			Size = UDim2.fromScale(1, 1),
-			BackgroundTransparency = 1,
-		}), {
-			Padding = Roact.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, theme.settingsPage.failLabelPaddingX/2),
-				PaddingRight = UDim.new(0, theme.settingsPage.failLabelPaddingX/2),
+				Size = UDim2.fromScale(1, 1),
+				BackgroundTransparency = 1,
 			}),
-		}),
+			{
+				Padding = Roact.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, theme.settingsPage.failLabelPaddingX / 2),
+					PaddingRight = UDim.new(0, theme.settingsPage.failLabelPaddingX / 2),
+				}),
+			}
+		),
 	})
 end
 

@@ -7,6 +7,6 @@ return Action(script.Name, function(gameConfigurationArg)
 	local gameConfiguration = gameConfigurationArg or {}
 	local optInRegions = gameConfigurationArg.optInRegions or {}
 	return {
-		gameConfiguration = { optInRegions = optInRegions }
+		gameConfiguration = { optInRegions = optInRegions },
 	}
 end)

@@ -5,6 +5,6 @@ return Action(script.Name, function(editPlaceId)
 	assert(type(editPlaceId) == "number", string.format("SetAssets requires a number, not %s", type(editPlaceId)))
 
 	return {
-		editPlaceId = editPlaceId
+		editPlaceId = editPlaceId,
 	}
 end)

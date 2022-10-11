@@ -223,7 +223,8 @@ function AnimationData.moveNamedKeyframe(data, oldTick, newTick)
 			local oldName = namedKeyframes[oldTick]
 			local shouldMove = true
 			for _, instance in pairs(data.Instances) do
-				local summaryKeyframes = TrackUtils.getSummaryKeyframes(instance.Tracks, data.Metadata.StartTick, data.Metadata.EndTick)
+				local summaryKeyframes =
+					TrackUtils.getSummaryKeyframes(instance.Tracks, data.Metadata.StartTick, data.Metadata.EndTick)
 				for _, tck in ipairs(summaryKeyframes) do
 					if tck == oldTick then
 						shouldMove = false
@@ -285,7 +286,8 @@ function AnimationData.validateKeyframeNames(data)
 		if namedKeyframes and not isEmpty(namedKeyframes) then
 			local validTicks = {}
 			for _, instance in pairs(data.Instances) do
-				local summaryKeyframes = TrackUtils.getSummaryKeyframes(instance.Tracks, data.Metadata.StartTick, data.Metadata.EndTick)
+				local summaryKeyframes =
+					TrackUtils.getSummaryKeyframes(instance.Tracks, data.Metadata.StartTick, data.Metadata.EndTick)
 				for _, tck in ipairs(summaryKeyframes) do
 					validTicks[tck] = true
 				end
@@ -442,7 +444,10 @@ function AnimationData.promoteToChannels(data, rotationType, eulerAnglesOrder): 
 		for _, track in pairs(instance.Tracks) do
 			TrackUtils.splitTrackComponents(track, Constants.TRACK_TYPES.Quaternion)
 			if track.Type == Constants.TRACK_TYPES.CFrame and rotationType == Constants.TRACK_TYPES.EulerAngles then
-				TrackUtils.convertTrackToEulerAngles(track.Components[Constants.PROPERTY_KEYS.Rotation], eulerAnglesOrder)
+				TrackUtils.convertTrackToEulerAngles(
+					track.Components[Constants.PROPERTY_KEYS.Rotation],
+					eulerAnglesOrder
+				)
 			end
 		end
 	end
@@ -506,8 +511,8 @@ end
 
 -- Helper to compare two CFrames with a fuzzyEq method
 local function fuzzyCFrameEq(A: CFrame, B: CFrame): boolean
-	local aComp = {A:GetComponents()}
-	local bComp = {B:GetComponents()}
+	local aComp = { A:GetComponents() }
+	local bComp = { B:GetComponents() }
 
 	for i = 1, 12 do
 		if not MathUtils.fuzzyEq(aComp[i], bComp[i]) then
@@ -524,7 +529,7 @@ end
 -- last) and those keys have the default value, then the track is cleared.
 local function clearSequences(track: Types.Track): boolean
 	local fuzzyEq
-	if (track.Type == Constants.TRACK_TYPES.CFrame or track.Type == Constants.TRACK_TYPES.Quaternion) then
+	if track.Type == Constants.TRACK_TYPES.CFrame or track.Type == Constants.TRACK_TYPES.Quaternion then
 		fuzzyEq = fuzzyCFrameEq
 	else
 		fuzzyEq = MathUtils.fuzzyEq
@@ -578,10 +583,7 @@ local function clearSequences(track: Types.Track): boolean
 	if #track.Keyframes == 2 then
 		local firstValue = KeyframeUtils.getValue(track, track.Keyframes[1])
 		local lastValue = KeyframeUtils.getValue(track, track.Keyframes[2])
-		if
-			fuzzyEq(firstValue, lastValue)
-			and fuzzyEq(firstValue, KeyframeUtils.getDefaultValue(track.Type))
-		then
+		if fuzzyEq(firstValue, lastValue) and fuzzyEq(firstValue, KeyframeUtils.getDefaultValue(track.Type)) then
 			track.Data = {}
 			track.Keyframes = {}
 			hasChanges = true
@@ -606,9 +608,9 @@ function AnimationData.clearTrackSequences(data: AnimationData?): boolean
 			end, true)
 
 			if
-				(track.Type == Constants.TRACK_TYPES.CFrame
-					or track.Type == Constants.TRACK_TYPES.Facs)
-				and track.Keyframes and isEmpty(track.Keyframes)
+				(track.Type == Constants.TRACK_TYPES.CFrame or track.Type == Constants.TRACK_TYPES.Facs)
+				and track.Keyframes
+				and isEmpty(track.Keyframes)
 			then
 				instance.Tracks[trackName] = nil
 			end
@@ -625,7 +627,8 @@ function AnimationData.getKeyframeCount(data: AnimationData?): boolean
 
 	local allTicks = {}
 	for _, instance in pairs(data.Instances) do
-		local keyframes = Cryo.TrackUtils.getSummaryKeyframes(instance.Tracks, data.Metadata.StartTick, data.Metadata.EndTick)
+		local keyframes =
+			Cryo.TrackUtils.getSummaryKeyframes(instance.Tracks, data.Metadata.StartTick, data.Metadata.EndTick)
 		for _, keyframe in keyframes do
 			allTicks[keyframe] = true
 		end

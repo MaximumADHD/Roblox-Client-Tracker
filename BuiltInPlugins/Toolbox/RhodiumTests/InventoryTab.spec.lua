@@ -23,14 +23,12 @@ return function()
 	local CurrentSelectionPackagesText = CurrentSelectionBasicText .. Category.MY_PACKAGES.name
 	local CurrentSelectionPluginsText = CurrentSelectionBasicText .. Category.MY_PLUGINS.name
 
-	local DropdownIconPath = TestHelpers.getPathInTestToolbox(
-		"Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon"
-	)
+	local DropdownIconPath =
+		TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon")
 	local DropdownScrollingFramePath =
 		"game.CoreGui.ScreenGui.ClickEventDetectFrame.ScrollBlocker.StyledScrollingFrame.ScrollingFrame."
-	local CurrentSelectionTextPath = TestHelpers.getPathInTestToolbox(
-		"Toolbox.Header.CategoryMenu.CurrentSelection.Border.CurrentSelectionLabel"
-	)
+	local CurrentSelectionTextPath =
+		TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.CurrentSelectionLabel")
 	local InventoryTabPath = TestHelpers.getPathInTestToolbox("Toolbox.Tabs.Inventory")
 	local InventoryTabIconPath = TestHelpers.getPathInTestToolbox("Toolbox.Tabs.Inventory.Content.Icon")
 

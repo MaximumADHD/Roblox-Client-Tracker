@@ -19,11 +19,11 @@ local ServiceList = {
 
 type AssetId = string
 type ClassName = string
-type HandlerFunc = (Instance) -> {AssetId}?
+type HandlerFunc = (Instance) -> { AssetId }?
 
 -- A set of handler functions which return know how to find SoundIds contained
 -- in a given type of Instance
-local Handlers = {} :: {[ClassName]: HandlerFunc}
+local Handlers = {} :: { [ClassName]: HandlerFunc }
 function Handlers.Sound(instance)
 	local soundId = (instance :: Sound).SoundId
 
@@ -66,7 +66,7 @@ end
 -- This is non-trivial because we want all things which :IsA(FooClass) to be
 -- handled by the handler for FooClass. To do this we dynamically build a class
 -- mapping as we go through the objects.
-local ClassToBaseMapping = {} :: {[ClassName]: ClassName}
+local ClassToBaseMapping = {} :: { [ClassName]: ClassName }
 local function getHandlerFunc(instance: Instance): HandlerFunc?
 	local baseClass = ClassToBaseMapping[instance.ClassName]
 	if not baseClass then
@@ -86,7 +86,7 @@ end
 -- Find all of the soundIds in the DataModel, and return what Instances include
 -- references to a given soundId. Return only the numeric part of the soundId,
 -- but still as a string, since it will be consumed as a string.
-local function findAllAssetIds(): {[AssetId]: {Instance}}
+local function findAllAssetIds(): { [AssetId]: { Instance } }
 	local instancesForId = {}
 	local totalCount = 0
 	for _, container in ipairs(ServiceList) do
@@ -100,7 +100,7 @@ local function findAllAssetIds(): {[AssetId]: {Instance}}
 						if instanceList then
 							table.insert(instanceList, descendant)
 						else
-							instancesForId[assetId] = {descendant}
+							instancesForId[assetId] = { descendant }
 							totalCount += 1
 						end
 					end

@@ -7,11 +7,11 @@ local Util = require(Main.Packages.Framework).Util
 local Action = Util.Action
 
 export type Props = {
-	stories: Types.Array<Types.StoryItem>
+	stories: Types.Array<Types.StoryItem>,
 }
 
 return Action(script.Name, function(stories: Types.Array<Types.StoryItem>): Props
 	return {
-		stories = stories
+		stories = stories,
 	}
 end)

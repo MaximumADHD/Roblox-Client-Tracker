@@ -27,7 +27,9 @@ return function(plugin, pluginLoaderContext)
 		handle = Roact.mount(mainPlugin)
 
 		-- StudioService isn't always available, so ignore if an error is thrown trying to access
-		local ok, hasInternalPermission = pcall(function() return game:GetService("StudioService"):HasInternalPermission() end)
+		local ok, hasInternalPermission = pcall(function()
+			return game:GetService("StudioService"):HasInternalPermission()
+		end)
 
 		if ok and hasInternalPermission then
 			inspector = Framework.DeveloperTools.forPlugin("AnimationClipEditor", plugin)

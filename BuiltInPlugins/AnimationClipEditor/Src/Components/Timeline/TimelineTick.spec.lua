@@ -13,7 +13,7 @@ return function()
 				TextSize = 15,
 				Position = UDim2.new(),
 				Height = 24,
-			})
+			}),
 		})
 	end
 
@@ -23,7 +23,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestTimelineTick(), container)
 		local frame = container:FindFirstChildOfClass("Frame")

@@ -11,6 +11,6 @@ return Action(script.Name, function(path, nodeIndex, fieldPath, fields)
 		path = path,
 		nodeIndex = nodeIndex,
 		fieldPath = fieldPath,
-		fields = fields
+		fields = fields,
 	}
 end)

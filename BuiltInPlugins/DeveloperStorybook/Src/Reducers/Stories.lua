@@ -43,7 +43,7 @@ local function applySearch(children: Types.Array<Types.StoryItem>, filter: strin
 end
 
 -- Outputs an expansion set into result of all the descendents of children, fully expanding the tree
-local function expandAll(children: Types.Array<Types.StoryItem>, mut_result: {[Types.StoryItem]: boolean})
+local function expandAll(children: Types.Array<Types.StoryItem>, mut_result: { [Types.StoryItem]: boolean })
 	forEach(children, function(child)
 		mut_result[child] = true
 		expandAll(child.Children, mut_result)
@@ -54,10 +54,10 @@ export type State = {
 	embedded: boolean,
 	searchFilter: string,
 	searchStories: Types.Array<Types.StoryItem>,
-	expandedSearchStories: {[Types.StoryItem]: boolean},
+	expandedSearchStories: { [Types.StoryItem]: boolean },
 	stories: Types.Array<Types.StoryItem>,
 	selectedStory: Types.StoryItem?,
-	expandedStories: {[Types.StoryItem]: boolean},
+	expandedStories: { [Types.StoryItem]: boolean },
 }
 
 return Rodux.createReducer({
@@ -78,7 +78,7 @@ return Rodux.createReducer({
 	[SetStories.name] = function(state: State, action: SetStories.Props): State
 		return join(state, {
 			stories = action.stories,
-			searchStories = applySearch(action.stories, state.searchFilter)
+			searchStories = applySearch(action.stories, state.searchFilter),
 		})
 	end,
 	[SetSearch.name] = function(state: State, action: SetSearch.Props): State
@@ -88,35 +88,38 @@ return Rodux.createReducer({
 		return join(state, {
 			searchFilter = action.searchFilter,
 			searchStories = searchStories,
-			expandedSearchStories = expandedSearchStories
+			expandedSearchStories = expandedSearchStories,
 		})
 	end,
 	[SelectStory.name] = function(state: State, action: SelectStory.Props): State
 		local isSearching = #state.searchFilter > 0
 		local keyName = isSearching and "expandedSearchStories" or "expandedStories"
-		return joinDeep(join(state, {
-			selectedStory = action.story
-		}), {
-			[keyName] = {
-				[action.story] = not state[keyName][action.story]
+		return joinDeep(
+			join(state, {
+				selectedStory = action.story,
+			}),
+			{
+				[keyName] = {
+					[action.story] = not state[keyName][action.story],
+				},
 			}
-		})
+		)
 	end,
 	[ToggleStory.name] = function(state: State, action: ToggleStory.Props): State
 		local isSearching = #state.searchFilter > 0
 		local keyName = isSearching and "expandedSearchStories" or "expandedStories"
 		return joinDeep(state, {
-			[keyName] = action.change
+			[keyName] = action.change,
 		})
 	end,
 	[CollapseTree.name] = function(state: State): State
 		return join(state, {
-			expandedStories = {}
+			expandedStories = {},
 		})
 	end,
 	[SelectTheme.name] = function(state: State, action: SelectTheme.Props): State
 		return join(state, {
-			theme = action.theme
+			theme = action.theme,
 		})
 	end,
 	[SetLive.name] = function(state: State, action: SetLive.Props): State

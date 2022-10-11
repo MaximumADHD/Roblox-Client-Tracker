@@ -27,7 +27,7 @@ local assetCategories = {
 	ConstantAvatar.AssetTypes.RightLeg,
 	ConstantAvatar.AssetTypes.Shirt,
 	ConstantAvatar.AssetTypes.Pants,
-	ConstantAvatar.AssetTypes.ShirtGraphic
+	ConstantAvatar.AssetTypes.ShirtGraphic,
 }
 
 function Template.new(boundaries)
@@ -37,16 +37,40 @@ function Template.new(boundaries)
 
 	local depthDefault = 0
 	if boundaries then
-		self.ScalesMin = createScalesTable(boundaries.height.min, boundaries.width.min, boundaries.head.min,
-			boundaries.bodyType.min, boundaries.proportion.min, depthDefault)
-		self.ScalesMax = createScalesTable(boundaries.height.max, boundaries.width.max, boundaries.head.max,
-			boundaries.bodyType.max, boundaries.proportion.max, depthDefault)
+		self.ScalesMin = createScalesTable(
+			boundaries.height.min,
+			boundaries.width.min,
+			boundaries.head.min,
+			boundaries.bodyType.min,
+			boundaries.proportion.min,
+			depthDefault
+		)
+		self.ScalesMax = createScalesTable(
+			boundaries.height.max,
+			boundaries.width.max,
+			boundaries.head.max,
+			boundaries.bodyType.max,
+			boundaries.proportion.max,
+			depthDefault
+		)
 	else
 		boundaries = ConstantScaleBoundaries
-		self.ScalesMin = createScalesTable(boundaries.Height.min, boundaries.Width.min, boundaries.Head.min,
-			boundaries.BodyType.min, boundaries.Proportion.min, depthDefault)
-		self.ScalesMax = createScalesTable(boundaries.Height.max, boundaries.Width.max, boundaries.Head.max,
-			boundaries.BodyType.max, boundaries.Proportion.max, depthDefault)
+		self.ScalesMin = createScalesTable(
+			boundaries.Height.min,
+			boundaries.Width.min,
+			boundaries.Head.min,
+			boundaries.BodyType.min,
+			boundaries.Proportion.min,
+			depthDefault
+		)
+		self.ScalesMax = createScalesTable(
+			boundaries.Height.max,
+			boundaries.Width.max,
+			boundaries.Head.max,
+			boundaries.BodyType.max,
+			boundaries.Proportion.max,
+			depthDefault
+		)
 	end
 
 	self.CollisionValue = ConstantTemplate.OuterCollision
@@ -63,12 +87,14 @@ function Template.makeCopy(toCopy)
 	local specialCopyFunctions = {
 		AssetsOverrides = makeAssetsOverridesCopy,
 		ScalesMin = makeScalesCopy,
-		ScalesMax = makeScalesCopy
+		ScalesMax = makeScalesCopy,
 	}
 
 	if toCopy then
 		for key, value in pairs(toCopy) do
-			local copyFunc = specialCopyFunctions[key] or function(input) return input end
+			local copyFunc = specialCopyFunctions[key] or function(input)
+				return input
+			end
 			self[key] = copyFunc(value)
 		end
 	end
@@ -91,16 +117,16 @@ function Template.fromUniverseData(initialization)
 end
 
 function Template:apply(playerChoiceDescription)
-	playerChoiceDescription.HeightScale = math.clamp(playerChoiceDescription.HeightScale,
-		self.ScalesMin.height, self.ScalesMax.height)
-	playerChoiceDescription.WidthScale = math.clamp(playerChoiceDescription.WidthScale,
-		self.ScalesMin.width, self.ScalesMax.width)
-	playerChoiceDescription.HeadScale = math.clamp(playerChoiceDescription.HeadScale,
-		self.ScalesMin.head, self.ScalesMax.head)
-	playerChoiceDescription.BodyTypeScale = math.clamp( playerChoiceDescription.BodyTypeScale,
-		self.ScalesMin.bodyType, self.ScalesMax.bodyType)
-	playerChoiceDescription.ProportionScale = math.clamp(playerChoiceDescription.ProportionScale,
-		self.ScalesMin.proportion, self.ScalesMax.proportion)
+	playerChoiceDescription.HeightScale =
+		math.clamp(playerChoiceDescription.HeightScale, self.ScalesMin.height, self.ScalesMax.height)
+	playerChoiceDescription.WidthScale =
+		math.clamp(playerChoiceDescription.WidthScale, self.ScalesMin.width, self.ScalesMax.width)
+	playerChoiceDescription.HeadScale =
+		math.clamp(playerChoiceDescription.HeadScale, self.ScalesMin.head, self.ScalesMax.head)
+	playerChoiceDescription.BodyTypeScale =
+		math.clamp(playerChoiceDescription.BodyTypeScale, self.ScalesMin.bodyType, self.ScalesMax.bodyType)
+	playerChoiceDescription.ProportionScale =
+		math.clamp(playerChoiceDescription.ProportionScale, self.ScalesMin.proportion, self.ScalesMax.proportion)
 
 	local assetCategoriesToHumanoidDescriptionPropNames = {
 		[ConstantAvatar.AssetTypes.Face] = "Face",
@@ -112,11 +138,14 @@ function Template:apply(playerChoiceDescription)
 		[ConstantAvatar.AssetTypes.RightLeg] = "RightLeg",
 		[ConstantAvatar.AssetTypes.Shirt] = "Shirt",
 		[ConstantAvatar.AssetTypes.Pants] = "Pants",
-		[ConstantAvatar.AssetTypes.ShirtGraphic] = "GraphicTShirt"
+		[ConstantAvatar.AssetTypes.ShirtGraphic] = "GraphicTShirt",
 	}
 
 	for assetCategory, humanoidDescriptionPropName in pairs(assetCategoriesToHumanoidDescriptionPropNames) do
-		if not self.AssetsOverrides[assetCategory].isPlayerChoice and 0 ~= self.AssetsOverrides[assetCategory].assetID then
+		if
+			not self.AssetsOverrides[assetCategory].isPlayerChoice
+			and 0 ~= self.AssetsOverrides[assetCategory].assetID
+		then
 			playerChoiceDescription[humanoidDescriptionPropName] = self.AssetsOverrides[assetCategory].assetID
 		end
 	end
@@ -126,7 +155,7 @@ function Template:extractAssetOverridesForSaving()
 	local result = {}
 	for _, typeId in ipairs(assetCategories) do
 		local assetValue, assetPlayerChoiceValue = self:getAsset(typeId)
-		result[#result + 1] = {assetTypeID=typeId, assetID=assetValue, isPlayerChoice=assetPlayerChoiceValue}
+		result[#result + 1] = { assetTypeID = typeId, assetID = assetValue, isPlayerChoice = assetPlayerChoiceValue }
 	end
 	return result
 end
@@ -308,7 +337,7 @@ function Template:getScaleProportionMin()
 end
 
 function Template:getScaleHeightMax()
-    return self.ScalesMax.height
+	return self.ScalesMax.height
 end
 
 function Template:getScaleWidthMax()
@@ -350,7 +379,7 @@ end
 createAssetsTable = function(self)
 	self.AssetsOverrides = {}
 	for _, assetTypeID in ipairs(assetCategories) do
-		self.AssetsOverrides[assetTypeID] = {assetID=0, isPlayerChoice=true}
+		self.AssetsOverrides[assetTypeID] = { assetID = 0, isPlayerChoice = true }
 	end
 end
 
@@ -361,7 +390,7 @@ createScalesTable = function(heightVal, widthVal, headVal, bodyTypeVal, proporti
 		head = headVal,
 		bodyType = bodyTypeVal,
 		proportion = proportionVal,
-		depth = depthVal
+		depth = depthVal,
 	}
 end
 
@@ -375,22 +404,34 @@ end
 
 initializeScalingMin = function(self, scaling)
 	if scaling then
-		self.ScalesMin = createScalesTable(scaling.height, scaling.width, scaling.head,
-			scaling.bodyType, scaling.proportion, scaling.depth)
+		self.ScalesMin = createScalesTable(
+			scaling.height,
+			scaling.width,
+			scaling.head,
+			scaling.bodyType,
+			scaling.proportion,
+			scaling.depth
+		)
 	end
 end
 
 initializeScalingMax = function(self, scaling)
 	if scaling then
-		self.ScalesMax = createScalesTable(scaling.height, scaling.width, scaling.head,
-			scaling.bodyType, scaling.proportion, scaling.depth)
+		self.ScalesMax = createScalesTable(
+			scaling.height,
+			scaling.width,
+			scaling.head,
+			scaling.bodyType,
+			scaling.proportion,
+			scaling.depth
+		)
 	end
 end
 
 makeAssetsOverridesCopy = function(assetsOverrides)
 	local result = {}
 	for typeId, data in pairs(assetsOverrides) do
-		result[typeId] = {assetID=data.assetID, isPlayerChoice=data.isPlayerChoice}
+		result[typeId] = { assetID = data.assetID, isPlayerChoice = data.isPlayerChoice }
 	end
 	return result
 end

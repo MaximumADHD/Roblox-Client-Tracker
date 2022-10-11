@@ -25,15 +25,18 @@ function Header:render()
 	local calculatedTextSize = GetTextSize(props.Title, theme.fontStyle.Header.TextSize, theme.fontStyle.Header.Font)
 	textSize = UDim2.new(0, calculatedTextSize.X, 0, calculatedTextSize.Y)
 
-	return Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Header, {
-		Size = textSize,
-		Text = props.Title,
-		BackgroundTransparency = 1,
-		BorderSizePixel = 0,
-		TextXAlignment = Enum.TextXAlignment.Left,
-		TextYAlignment = Enum.TextYAlignment.Bottom,
-		LayoutOrder = props.LayoutOrder or 1,
-	}))
+	return Roact.createElement(
+		"TextLabel",
+		Cryo.Dictionary.join(theme.fontStyle.Header, {
+			Size = textSize,
+			Text = props.Title,
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Bottom,
+			LayoutOrder = props.LayoutOrder or 1,
+		})
+	)
 end
 
 Header = withContext({

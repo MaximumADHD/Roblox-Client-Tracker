@@ -7,19 +7,19 @@ local function normalizeAssetId(assetString: string): string?
 	if matchStart then
 		return assetString:sub(matchEnd + 1)
 	end
-	
+
 	matchStart, matchEnd = string.find(assetString, OldAssetIdString)
 	if matchStart then
 		return assetString:sub(matchEnd + 1)
 	end
-	
+
 	matchStart, matchEnd = string.find(assetString, OldGameAssetString, 1, true)
 	if matchStart then
 		-- TODO: What to do with these? We can probably disregard them because
 		-- they have to be owned by the place owner.
 		return nil
 	end
-	
+
 	return nil
 end
 

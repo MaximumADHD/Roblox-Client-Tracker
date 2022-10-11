@@ -14,20 +14,20 @@ return function(networkInterface, assetId)
 		local state = store:getState()
 		local permissionsTable = state.descendantPermissions
 		return networkInterface:getAssetPermissions(assetId):andThen(function(result)
-				local response = result.responseBody
-				if response and response.results then
-					permissionsTable = Cryo.Dictionary.join(permissionsTable, {
-							[assetId] = response.results[1]
-					})
-					store:dispatch(SetDescendantPermissions(permissionsTable))
-				else
-					warn("Fetching asset permissions response body empty")
-				end
-			end, function(result)
-				if DebugFlags.shouldDebugWarnings() then
-					warn("Fetching asset permissions unsuccessful")
-				end
-				store:dispatch(NetworkError(result))
+			local response = result.responseBody
+			if response and response.results then
+				permissionsTable = Cryo.Dictionary.join(permissionsTable, {
+					[assetId] = response.results[1],
+				})
+				store:dispatch(SetDescendantPermissions(permissionsTable))
+			else
+				warn("Fetching asset permissions response body empty")
+			end
+		end, function(result)
+			if DebugFlags.shouldDebugWarnings() then
+				warn("Fetching asset permissions unsuccessful")
+			end
+			store:dispatch(NetworkError(result))
 		end)
 	end
 end

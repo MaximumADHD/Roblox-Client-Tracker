@@ -22,6 +22,6 @@ return function(analytics)
 		else
 			analytics:report("onFaceControlsEditorDisabled", os.time() - state.Status.FaceControlsEditorOpenedTimestamp)
 			state.Status.FaceControlsEditorOpenedTimestamp = nil
-		end			
+		end
 	end
 end

@@ -179,7 +179,9 @@ return function()
 			assetAnalytics = AssetAnalytics.mock()
 
 			local stubSenders: any = assetAnalytics.senders
-			sendCalls = if FFlagToolboxImmediateEvents then stubSenders.sendEventImmediatelyCalls else stubSenders.sendEventDeferredCalls
+			sendCalls = if FFlagToolboxImmediateEvents
+				then stubSenders.sendEventImmediatelyCalls
+				else stubSenders.sendEventDeferredCalls
 
 			stubInstance = Instance.new("Part")
 			stubParent = Instance.new("Model")
@@ -214,7 +216,7 @@ return function()
 			beforeEach(function()
 				local stubPageInfo = getStubPageInfo()
 				local assets = getStubAssets()
-				
+
 				asset = assets[1]
 			end)
 
@@ -229,7 +231,6 @@ return function()
 			it("logs insert and schedules and logs remains events", function()
 				local stubAnalyticsContextInfo = getStubAnalyticsContextInfo()
 				assetAnalytics:logInsert(asset, insertionMethod, stubInstance, stubAnalyticsContextInfo)
-
 
 				expect(#sendCalls).to.equal(1)
 				expect(sendCalls[1][1]).to.equal("studio")

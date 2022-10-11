@@ -7,7 +7,6 @@ local initial = {
 	publishInfo = { id = 0, name = "", parentGameName = "", parentGameId = 0, settings = {}, publishParameters = {} },
 }
 
-
 return Rodux.createReducer(initial, {
 	SetIsPublishing = function(state, action)
 		return Cryo.Dictionary.join(state, {
@@ -17,7 +16,7 @@ return Rodux.createReducer(initial, {
 
 	SetPublishInfo = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			publishInfo = Cryo.Dictionary.join(state.publishInfo, action.publishInfo)
+			publishInfo = Cryo.Dictionary.join(state.publishInfo, action.publishInfo),
 		})
 	end,
 

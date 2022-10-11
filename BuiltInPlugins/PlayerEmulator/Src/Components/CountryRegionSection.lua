@@ -36,18 +36,26 @@ local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
 local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+local FFlagRemoveUILibraryDropdownMenu = game:GetFastFlag("RemoveUILibraryDropdownMenu")
+local FFlagDevFrameworkDropdownShowsLabel = game:GetFastFlag("DevFrameworkDropdownShowsLabel")
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local NetworkingContext = require(Plugin.Src.ContextServices.NetworkingContext)
 
-local DropdownModule = require(Plugin.Src.Components.DropdownModule)
+local DropdownModule = if FFlagRemoveUILibraryDropdownMenu and FFlagDevFrameworkDropdownShowsLabel
+	then nil
+	else require(Plugin.Src.Components.DropdownModule)
 local GetCountryRegion = require(Plugin.Src.Networking.Requests.GetCountryRegion)
 local Constants = require(Plugin.Src.Util.Constants)
 local OnEmulatedCountryRegionChanged = require(Plugin.Src.Actions.OnEmulatedCountryRegionChanged)
 
 local UI = Framework.UI
+local SelectInput = UI.SelectInput
 local TextLabel = UI.Decoration.TextLabel
+
+local Dash = Framework.Dash
+local map = Dash.map
 
 local StyleModifier = Framework.Util.StyleModifier
 
@@ -83,14 +91,31 @@ end
 
 function CountryRegionSection:init()
 	self.signalTokens = {}
+
+	self.createCountryRegionListForSelectInput = if FFlagRemoveUILibraryDropdownMenu
+			and FFlagDevFrameworkDropdownShowsLabel
+		then function(item)
+			return {
+				Id = item.displayText,
+				Label = item.displayText,
+				code = item.code,
+			}
+		end
+		else nil
+
+	self.onItemClicked = if FFlagRemoveUILibraryDropdownMenu and FFlagDevFrameworkDropdownShowsLabel
+		then function(item)
+			SetEmulatedCountryRegionCode(item.code)
+		end
+		else nil
 end
 
 function CountryRegionSection:didMount()
 	local plugin = self.props.Plugin:get()
 	local networkingImpl = self.props.Networking:get()
 
-	local countryRegionChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal(
-		"EmulatedCountryCode"):Connect(function()
+	local countryRegionChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal("EmulatedCountryCode")
+		:Connect(function()
 			self:updateCountryRegionSetting(GetEmulatedCountryRegionCode())
 		end)
 	table.insert(self.signalTokens, countryRegionChangedSignal)
@@ -126,15 +151,14 @@ function CountryRegionSection:render()
 			Padding = theme.HORIZONTAL_LISTLAYOUT_PADDING,
 		}),
 
-		Label = if FFlagDevFrameworkMigrateTextLabels then (
-			Roact.createElement(TextLabel, {
+		Label = if FFlagDevFrameworkMigrateTextLabels
+			then (Roact.createElement(TextLabel, {
 				AutomaticSize = Enum.AutomaticSize.XY,
 				StyleModifier = if mainSwitchEnabled then nil else StyleModifier.Disabled,
 				Text = localization:getText("CountryRegionSection", "LabelText"),
 				LayoutOrder = 1,
-			})
-		) else (
-			Roact.createElement("TextLabel", {
+			}))
+			else (Roact.createElement("TextLabel", {
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Center,
 				TextColor3 = mainSwitchEnabled and theme.TextColor or theme.DisabledColor,
@@ -142,21 +166,31 @@ function CountryRegionSection:render()
 				Text = localization:getText("CountryRegionSection", "LabelText"),
 				BackgroundTransparency = 1,
 				LayoutOrder = 1,
-			})
-		),
+			})),
 
-		Dropdown = Roact.createElement(DropdownModule, {
-			LayoutOrder = 2,
-			Enabled = mainSwitchEnabled,
-			CurrentSelected = self:getCurrentCountryRegionText(userCountryRegionCode),
-			Items = countryRegionList,
-			OnItemClicked = function(item)
-				SetEmulatedCountryRegionCode(item.code)
-			end,
-		})
+		Dropdown = if not FFlagRemoveUILibraryDropdownMenu or not FFlagDevFrameworkDropdownShowsLabel
+			then Roact.createElement(DropdownModule, {
+				LayoutOrder = 2,
+				Enabled = mainSwitchEnabled,
+				CurrentSelected = self:getCurrentCountryRegionText(userCountryRegionCode),
+				Items = countryRegionList,
+				OnItemClicked = function(item)
+					SetEmulatedCountryRegionCode(item.code)
+				end,
+			})
+			else nil,
+
+		CountryRegionDropdown = if FFlagRemoveUILibraryDropdownMenu and FFlagDevFrameworkDropdownShowsLabel
+			then Roact.createElement(SelectInput, {
+				Items = map(countryRegionList, self.createCountryRegionListForSelectInput),
+				LayoutOrder = 2,
+				OnItemActivated = self.onItemClicked,
+				SelectedId = self:getCurrentCountryRegionText(userCountryRegionCode),
+				Enabled = mainSwitchEnabled,
+			})
+			else nil,
 	})
 end
-
 
 CountryRegionSection = withContext({
 	Stylizer = ContextServices.Stylizer,
@@ -165,14 +199,12 @@ CountryRegionSection = withContext({
 	Plugin = ContextServices.Plugin,
 })(CountryRegionSection)
 
-
-
 local function mapStateToProps(state, _)
 	return {
 		mainSwitchEnabled = state.MainSwitch.mainSwitchEnabled,
 		countryRegionTable = state.CountryRegion.countryRegionTable,
 		countryRegionList = state.CountryRegion.countryRegionList,
-		userCountryRegionCode = state.CountryRegion.userCountryRegionCode
+		userCountryRegionCode = state.CountryRegion.userCountryRegionCode,
 	}
 end
 

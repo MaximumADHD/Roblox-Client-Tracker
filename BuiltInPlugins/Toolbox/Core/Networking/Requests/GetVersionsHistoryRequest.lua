@@ -18,7 +18,7 @@ export type VersionHistoryResponseItem = {
 
 export type VersionHistoryResponse = {
 	nextPageCursor: string?,
-	data: {VersionHistoryResponseItem},
+	data: { VersionHistoryResponseItem },
 }
 
 return function(networkInterface, assetId)

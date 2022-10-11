@@ -5,13 +5,11 @@ local PermissionTypes = require(Plugin.Core.Types.PermissionTypes)
 
 local AssetPermissionUtil = {}
 
-function AssetPermissionUtil.isAssetPublic(assetPermissions : PermissionTypes.PermissionResultList)
+function AssetPermissionUtil.isAssetPublic(assetPermissions: PermissionTypes.PermissionResultList)
 	local isPublic = false
 	if assetPermissions then
 		for _, webItem in pairs(assetPermissions) do
-			if webItem[webKeys.SubjectType] == webKeys.All
-			and webItem[webKeys.Action] == webKeys.UseAction
-			then
+			if webItem[webKeys.SubjectType] == webKeys.All and webItem[webKeys.Action] == webKeys.UseAction then
 				isPublic = true
 				break
 			end

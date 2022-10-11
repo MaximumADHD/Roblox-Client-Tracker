@@ -26,7 +26,6 @@ local LocalizedStrings = main.Src.Resources.Localization.LocalizedStrings
 local SetGridLock = require(main.Src.Actions.SetGridLock)
 
 local Components = main.Src.Components
-local DEPRECATED_MaterialBrowser = require(Components.DEPRECATED_MaterialBrowser)
 local MaterialBrowser = require(Components.MaterialBrowser)
 local MaterialPrompt = require(Components.MaterialPrompt) -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 
@@ -39,7 +38,6 @@ local MaterialServiceController = require(Controllers.MaterialServiceController)
 local PluginController = require(Controllers.PluginController)
 
 local getFFlagMaterialManagerReducerImprovements = require(main.Src.Flags.getFFlagMaterialManagerReducerImprovements)
-local getFFlagMaterialBrowserOverhaul2 = require(main.Src.Flags.getFFlagMaterialBrowserOverhaul2)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -195,7 +193,7 @@ function MainPlugin:render()
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
 		}, {
-			Roact.createElement(if getFFlagMaterialBrowserOverhaul2() then MaterialBrowser else DEPRECATED_MaterialBrowser, {
+			Roact.createElement(MaterialBrowser, {
 				OpenPrompt = self.openPrompt,
 			}),
 		}),

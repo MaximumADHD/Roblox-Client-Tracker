@@ -38,10 +38,10 @@ local GetFFlagUIBloxEnableImageSetResolutionScaleFix =
 local GetFFlagUIBloxAddViewabilityConfigCallbackPairs =
 	require(CorePackages.UIBloxFlags.GetFFlagUIBloxAddViewabilityConfigCallbackPairs)
 
+local GetFFlagUIBloxEnableActionBarButtonTypeOverride =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableActionBarButtonTypeOverride)
+
 return {
-	enableTileInsets = true,
-	enableAdjustableTextUnderTile = true,
-	enableSliderCustomization = true,
 	useNewUICornerRoundedCorners = true,
 	genericSliderFilterOldTouchInputs = true,
 	allowSystemBarToAcceptString = true,
@@ -79,4 +79,6 @@ return {
 	enableImageSetResolutionScaleFix = GetFFlagUIBloxEnableImageSetResolutionScaleFix(),
 
 	addViewabilityConfigCallbackPairs = GetFFlagUIBloxAddViewabilityConfigCallbackPairs(),
+
+	enableActionBarButtonTypeOverride = GetFFlagUIBloxEnableActionBarButtonTypeOverride()
 }

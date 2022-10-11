@@ -20,16 +20,21 @@ local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
 local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+local FFlagDevFrameworkMigrateExpandableList = SharedFlags.getFFlagDevFrameworkMigrateExpandableList()
+
+local UILibrary
+if not FFlagDevFrameworkMigrateExpandableList then
+	UILibrary = require(Plugin.Packages.UILibrary)
+end
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local UILibrary = require(Plugin.Packages.UILibrary)
-local ExpandableList = UILibrary.Component.ExpandableList
 
 local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
 
 local UI = Framework.UI
+local ExpandablePane = if FFlagDevFrameworkMigrateExpandableList then UI.ExpandablePane else UILibrary.Component.ExpandableList
 local TextLabel = UI.Decoration.TextLabel
 
 local CheckBoxModule = require(Plugin.Src.Components.CheckBoxModule)
@@ -79,7 +84,11 @@ function ListItemsModule:render()
 
 	local arrowImageProps = expanded and theme.Arrow.downArrowImage or theme.Arrow.rightArrowImage
 
-	return getSocialMediaReferencesAllowed() and Roact.createElement(ExpandableList, {
+	return getSocialMediaReferencesAllowed() and Roact.createElement(ExpandablePane, if FFlagDevFrameworkMigrateExpandableList then {
+		Expanded = expanded,
+		OnExpandedChanged = self.onExpandedStateChanged,
+		Text = labelText,
+	} else {
 		TopLevelItem = {
 			Frame = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, 25),
@@ -112,7 +121,7 @@ function ListItemsModule:render()
 		Content = itemElements,
 		IsExpanded = expanded,
 		OnExpandedStateChanged = self.onExpandedStateChanged,
-	}) or nil
+	}, if FFlagDevFrameworkMigrateExpandableList then itemElements else nil) or nil
 end
 
 

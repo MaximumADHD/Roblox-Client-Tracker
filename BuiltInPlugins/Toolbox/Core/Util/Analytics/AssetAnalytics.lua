@@ -47,7 +47,7 @@ export type AssetData = {
 	Context: AssetContext,
 	Creator: {
 		IsVerifiedCreator: boolean,
-	}
+	},
 }
 
 type PageInfo = {
@@ -101,11 +101,11 @@ function AssetAnalytics.mock()
 			table.insert(sendEventDeferredCalls, { ... })
 		end,
 		sendEventImmediatelyCalls = sendEventImmediatelyCalls,
-		sendEventImmediately = if FFlagToolboxImmediateEvents then function(...)
-			table.insert(sendEventImmediatelyCalls, { ... })
-		end
-
-		else nil,
+		sendEventImmediately = if FFlagToolboxImmediateEvents
+			then function(...)
+				table.insert(sendEventImmediatelyCalls, { ... })
+			end
+			else nil,
 	}
 	return AssetAnalytics.new(stubSenders)
 end
@@ -176,7 +176,7 @@ function AssetAnalytics.getTrackingAttributes(assetData: AssetData, assetAnalyti
 	if FFlagFFlagToolboxAddAssetSubTypesToAnalytics then
 		local assetSubTypes = assetData.Asset.AssetSubTypes
 		if assetSubTypes then
-			assetSubTypesCSV = table.concat(assetSubTypes,",")
+			assetSubTypesCSV = table.concat(assetSubTypes, ",")
 		end
 	end
 
@@ -305,9 +305,19 @@ function AssetAnalytics:logRemainsOrDeleted(delay: number, insertionAttributes: 
 	local eventNameStem = (insertedInstance and insertedInstance.Parent) and "InsertRemains" or "InsertDeleted"
 
 	if FFlagToolboxImmediateEvents then
-		self.senders.sendEventImmediately(EVENT_TARGET, EVENT_CONTEXT, eventNameStem .. tostring(delay), insertionAttributes)
+		self.senders.sendEventImmediately(
+			EVENT_TARGET,
+			EVENT_CONTEXT,
+			eventNameStem .. tostring(delay),
+			insertionAttributes
+		)
 	else
-		self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, eventNameStem .. tostring(delay), insertionAttributes)
+		self.senders.sendEventDeferred(
+			EVENT_TARGET,
+			EVENT_CONTEXT,
+			eventNameStem .. tostring(delay),
+			insertionAttributes
+		)
 	end
 end
 
@@ -316,7 +326,7 @@ function AssetAnalytics:logNavigationButtonInteraction(
 	searchID: string,
 	searchCategory: string,
 	subcategoryName: string?,
-	navBreadcrumbs: {string}?,
+	navBreadcrumbs: { string }?,
 	toolboxTab: string,
 	assetType: number
 )
@@ -334,7 +344,7 @@ function AssetAnalytics:logPageView(
 	searchID: string,
 	searchCategory: string,
 	subcategoryName: string?,
-	navBreadcrumbs: {string},
+	navBreadcrumbs: { string },
 	toolboxTab: string,
 	assetType: number
 )
@@ -353,7 +363,7 @@ function AssetAnalytics:logGoBack(
 	searchID: string,
 	searchCategory: string,
 	subcategoryName: string?,
-	navBreadcrumbs: {string},
+	navBreadcrumbs: { string },
 	toolboxTab: string,
 	assetType: number
 )

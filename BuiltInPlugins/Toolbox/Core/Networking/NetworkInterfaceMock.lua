@@ -157,21 +157,19 @@ function NetworkInterfaceMock:postAssetCheckPermissions(actions, assetIds)
 end
 
 -- Intentionally ignoring that the real method has parameters because they are not used in this mock
-function NetworkInterfaceMock:getToolboxItems(
-	args: {
-		categoryName: string,
-		sortType: string?,
-		keyword: string?,
-		cursor: string?,
-		limit: number?,
-		ownerId: number?,
-		creatorType: string?,
-		creatorTargetId: number?,
-		minDuration: number?,
-		maxDuration: number?,
-		includeOnlyVerifiedCreators: boolean?,
-	}
-)
+function NetworkInterfaceMock:getToolboxItems(args: {
+	categoryName: string,
+	sortType: string?,
+	keyword: string?,
+	cursor: string?,
+	limit: number?,
+	ownerId: number?,
+	creatorType: string?,
+	creatorTargetId: number?,
+	minDuration: number?,
+	maxDuration: number?,
+	includeOnlyVerifiedCreators: boolean?,
+})
 	local categoryName = args.categoryName
 	local sortType = args.sortType
 
@@ -290,7 +288,7 @@ end
 
 function NetworkInterfaceMock:getVote(assetId: number, assetType)
 	local fakeResponse = {
-		userVote = true
+		userVote = true,
 	}
 	return Promise.resolve(fakeResponse)
 end

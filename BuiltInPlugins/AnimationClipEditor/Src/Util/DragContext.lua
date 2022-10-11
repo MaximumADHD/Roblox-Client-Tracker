@@ -21,7 +21,8 @@ function DragContext.new(animationData, selectedKeyframes, pivotTick, pivotValue
 	animationData.Instances = Cryo.Dictionary.join({}, animationData.Instances)
 	for instanceName, instance in pairs(selectedKeyframes) do
 		animationData.Instances[instanceName] = Cryo.Dictionary.join({}, animationData.Instances[instanceName])
-		animationData.Instances[instanceName].Tracks = Cryo.Dictionary.join({}, animationData.Instances[instanceName].Tracks)
+		animationData.Instances[instanceName].Tracks =
+			Cryo.Dictionary.join({}, animationData.Instances[instanceName].Tracks)
 		local dataInstance = animationData.Instances[instanceName]
 
 		for trackName, _ in pairs(instance) do

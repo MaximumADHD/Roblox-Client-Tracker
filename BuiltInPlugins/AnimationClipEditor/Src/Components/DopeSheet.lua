@@ -95,7 +95,7 @@ function DopeSheet:renderTrackHierarchy(components, track, showClusters, trackCo
 
 	local width = props.ParentSize.X - padding
 
-	path = Cryo.List.join(path or {}, {track.Name})
+	path = Cryo.List.join(path or {}, { track.Name })
 
 	local name = "Track_" .. table.concat(path, "_")
 	trackCount = trackCount or 0
@@ -121,7 +121,8 @@ function DopeSheet:renderTrackHierarchy(components, track, showClusters, trackCo
 
 	if track.Expanded then
 		for _, componentName in ipairs(Constants.COMPONENT_TRACK_TYPES[track.Type]._Order) do
-			trackCount = self:renderTrackHierarchy(components, track.Components[componentName], showClusters, trackCount, path)
+			trackCount =
+				self:renderTrackHierarchy(components, track.Components[componentName], showClusters, trackCount, path)
 		end
 	end
 
@@ -244,7 +245,7 @@ function DopeSheet:render()
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			VerticalAlignment = Enum.VerticalAlignment.Top,
-		})
+		}),
 	}
 
 	self:renderSummaryTrack(components, topTrackIndex, endIndex, showKeyframeClusters)

@@ -7,7 +7,7 @@ local Util = require(Main.Packages.Framework).Util
 local Action = Util.Action
 
 export type Props = {
-	theme: string
+	theme: string,
 }
 
 return Action(script.Name, function(theme: string): Props

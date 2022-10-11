@@ -70,9 +70,8 @@ local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
-local FFlagToolboxAssetPreviewProtectAgainstNilAssetData = game:GetFastFlag(
-	"ToolboxAssetPreviewProtectAgainstNilAssetData"
-)
+local FFlagToolboxAssetPreviewProtectAgainstNilAssetData =
+	game:GetFastFlag("ToolboxAssetPreviewProtectAgainstNilAssetData")
 
 local disableRatings = require(Plugin.Core.Util.ToolboxUtilities).disableRatings
 

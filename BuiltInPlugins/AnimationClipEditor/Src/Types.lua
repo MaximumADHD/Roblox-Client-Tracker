@@ -1,9 +1,9 @@
-export type Store = {[string]: any}
+export type Store = { [string]: any }
 
-export type Events = {[string]: string}
+export type Events = { [string]: string }
 
 export type AnimationEvents = {
-	Data: {[number]: Events}
+	Data: { [number]: Events },
 }
 
 export type Keyframe = {
@@ -11,18 +11,18 @@ export type Keyframe = {
 }
 
 export type Track = {
-	Components: {[string]: Track}?,
-	Data: {Keyframe}?,
+	Components: { [string]: Track }?,
+	Data: { Keyframe }?,
 	Instance: string,
 	IsCurveTrack: boolean?,
-	Keyframes: {number}?,
+	Keyframes: { number }?,
 	Name: string?,
 	Type: string?,
 	EulerAnglesOrder: Enum.RotationOrder?,
 }
 
-export type Marker = {Time: number, Value: string}
+export type Marker = { Time: number, Value: string }
 
-export type AnimationData = {[string]: any}
+export type AnimationData = { [string]: any }
 
 return nil

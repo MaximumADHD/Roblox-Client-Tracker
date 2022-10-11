@@ -54,11 +54,9 @@ return function()
 				Chain = {},
 				IKMode = Constants.IK_MODE.FullBody,
 				IsR15 = false,
-				SetShowTree = function()
-				end,
-				SetIKEnabled = function()
-				end,
-				ToggleIKEnabled = function () end,
+				SetShowTree = function() end,
+				SetIKEnabled = function() end,
+				ToggleIKEnabled = function() end,
 			}),
 		})
 	end

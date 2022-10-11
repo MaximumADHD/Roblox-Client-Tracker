@@ -8,7 +8,7 @@ local Rodux = require(Main.Packages.Rodux)
 local Stories = require(Main.Src.Reducers.Stories)
 
 export type State = {
-	Stories: Stories.State
+	Stories: Stories.State,
 }
 
 return Rodux.combineReducers({

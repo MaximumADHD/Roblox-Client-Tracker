@@ -21,7 +21,6 @@ local getPlaceId = require(Plugin.Core.Util.getPlaceId)
 local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
 local FFlagInfiniteScrollerForVersions2 = game:getFastFlag("InfiniteScrollerForVersions2")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
-local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
 local FFlagToolboxSwitchVerifiedEndpoint = require(Plugin.Core.Util.getFFlagToolboxSwitchVerifiedEndpoint)
 local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
 
@@ -107,7 +106,7 @@ local TOOLBOX_SERVICE_URL = Url.APIS_URL .. "toolbox-service/v1"
 local GET_TOOLBOX_ITEMS = Url.APIS_URL .. "toolbox-service/v1/%s?"
 local GET_ITEM_DETAILS = Url.APIS_URL .. "toolbox-service/v1/items/details?"
 
-local GET_VOTE = FFlagToolboxUseGetVote and TOOLBOX_SERVICE_URL .. "/voting/vote?"
+local GET_VOTE = TOOLBOX_SERVICE_URL .. "/voting/vote?"
 
 local AVATAR_ASSETS_GET_UPLOAD_FEE = Url.ITEM_CONFIGURATION_URL .. "v1/avatar-assets/%s/get-upload-fee"
 local AVATAR_ASSETS_UPLOAD = Url.ITEM_CONFIGURATION_URL .. "v1/avatar-assets/%s/upload"
@@ -527,7 +526,7 @@ function Urls.constructGetGroupRoleInfoUrl(groupId)
 end
 
 function Urls.constructCanManageAssetUrl(assetId: number, userId: number)
-    return CAN_MANAGE_ASSET_DEVELOP_URL:format(userId, assetId)
+	return CAN_MANAGE_ASSET_DEVELOP_URL:format(userId, assetId)
 end
 
 function Urls.constructAssetPurchaseUrl(productId)
@@ -609,7 +608,7 @@ if FFlagToolboxEnableAssetConfigPhoneVerification or FFlagToolboxAssetConfigurat
 	function Urls.constructPublishingRequirementsUrl(
 		assetId: number,
 		assetType: Enum.AssetType?,
-		assetSubTypes,  -- TODO: When using FFlagToolboxFixSubtypeArray then use assetSubType: {AssetSubType.AssetSubType}?
+		assetSubTypes, -- TODO: When using FFlagToolboxFixSubtypeArray then use assetSubType: {AssetSubType.AssetSubType}?
 		marketplaceType: string?
 	)
 		return PUBLISHING_REQUIREMENTS_URL

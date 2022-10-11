@@ -24,7 +24,7 @@ local contextItemsList = {
 	getTheme(),
 }
 
-return function (story)
+return function(story)
 	assert(type(story) == "table", "Expected story to be a table")
 
 	return TestHelpers.provideMockContext(contextItemsList, story)

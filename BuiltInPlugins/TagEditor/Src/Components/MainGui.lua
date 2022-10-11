@@ -24,7 +24,7 @@ local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local Action = require(Plugin.Src.Actions)
--- local ColorPicker = require(script.Parent.ColorPicker)
+local ColorPicker = require(script.Parent.ColorPicker)
 -- local IconPicker = require(script.Parent.IconPicker)
 local TagTopPane = require(script.Parent.TagTopPane)
 local TagSettingsPane = require(script.Parent.TagSettingsPane)
@@ -68,14 +68,12 @@ function MainGui:render()
 	local orderIterator = LayoutOrderIterator.new()
 
 	local _iconPickerToggled = false
-	local _colorPickerToggled = false
+	local colorPickerToggled = false
 	local splitPaneVisible = false
 	local soloTopPaneVisible = false
 
-	if props.iconPicker and props.iconPicker ~= "" then
-		_iconPickerToggled = true
-	elseif props.colorPicker and props.colorPicker ~= "" then
-		_colorPickerToggled = true
+	if props.colorPicker and props.colorPicker ~= "" then
+		colorPickerToggled = true
 	elseif not props.minimizedSettingsPane and props.tagMenu then
 		splitPaneVisible = true
 	else
@@ -99,9 +97,7 @@ function MainGui:render()
 				end
 			end,
 		}),
-		-- IconPicker = _iconPickerToggled and Roact.createElement(IconPicker),
-
-		-- ColorPicker = _colorPickerToggled and Roact.createElement(ColorPicker),
+		ColorPicker = colorPickerToggled and Roact.createElement(ColorPicker),
 
 		SplitPane = splitPaneVisible and Roact.createElement(SplitPane, {
 			LayoutOrder = orderIterator:getNextOrder(),

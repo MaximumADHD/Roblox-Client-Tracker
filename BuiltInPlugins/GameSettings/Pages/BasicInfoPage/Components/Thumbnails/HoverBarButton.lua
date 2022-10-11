@@ -68,15 +68,12 @@ function HoverBarButton:render()
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 1, 0),
 			Image = image,
-		})
+		}),
 	})
 end
-
 
 HoverBarButton = withContext({
 	Mouse = ContextServices.Mouse,
 })(HoverBarButton)
-
-
 
 return HoverBarButton

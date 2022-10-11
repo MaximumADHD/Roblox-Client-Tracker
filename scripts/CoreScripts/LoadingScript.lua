@@ -18,17 +18,28 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Modules = RobloxGui:WaitForChild("Modules")
 local Common = Modules:WaitForChild("Common")
 local CorePackages = game:GetService("CorePackages")
+
+local FFlagInitifyScriptsInLoadingScript = game:DefineFastFlag("InitifyScriptsInLoadingScript", false)
+
+if FFlagInitifyScriptsInLoadingScript then
+	local initify = require(CorePackages.initify)
+
+	initify(CorePackages)
+	initify(Modules)
+end
+
 local create = require(RobloxGui:WaitForChild("Modules"):WaitForChild("Common"):WaitForChild("Create"))
 local PolicyService = require(RobloxGui.Modules.Common:WaitForChild("PolicyService"))
 local LoadingScreen = require(Modules.LoadingScreen.LoadingScreen)
 local LoadingScreenReducer = require(Modules.LoadingScreen.Reducers.LoadingScreenReducer)
 local IXPServiceWrapper = require(Modules.Common.IXPServiceWrapper)
+local LoggingProtocol = require(CorePackages.UniversalApp.Logging.LoggingProtocol)
 --FFlags
 local FFlagLoadingScreenShowBlankUntilPolicyServiceReturns = game:DefineFastFlag("LoadingScreenShowBlankUntilPolicyServiceReturns", false)
 local FFlagLoadingRemoveRemoteCallErrorPrint = game:DefineFastFlag("LoadingRemoveRemoteCallErrorPrint", false)
 
 local FFlagLoadingScreenRevamp = game:DefineFastFlag("LoadingScreenRevamp3", false)
-
+local FFlagReportFirstGameInteractive = game:DefineFastFlag("ReportFirstGameInteractive", false)
 
 local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCode")
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
@@ -884,6 +895,7 @@ local function fadeAndDestroyBlackFrame(blackFrame)
 				lastUpdateTime = newTime
 			end
 		end
+
 		if blackFrame ~= nil then
 			stopListeningToRenderingStep()
 			blackFrame:Destroy()
@@ -968,6 +980,12 @@ local function handleRemoveDefaultLoadingGui(instant)
 		destroyLoadingElements(instant)
 	end
 	ReplicatedFirst:SetDefaultLoadingGuiRemoved()
+
+	-- When the loading screen completely fades away and the user sees the experience,
+	-- we want to send the first_experience_interactive
+	if FFlagReportFirstGameInteractive then
+		LoggingProtocol.default:logEventOnce("first_experience_interactive")
+	end
 end
 
 local function handleFinishedReplicating()

@@ -14,6 +14,7 @@ local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local StarterGui = game:GetService("StarterGui")
+local TextChatService = game:GetService("TextChatService")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 
@@ -45,7 +46,6 @@ local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFF
 local GetFFlagDisableBubbleChatForExpChat = require(CorePackages.Flags.GetFFlagDisableBubbleChatForExpChat)
 local FFlagExperienceChatBubbleUseSending = game:DefineFastFlag("ExperienceChatBubbleUseSending", false)
 local FFlagFixMessageReceivedEventLeak = game:DefineFastFlag("FixMessageReceivedEventLeak", false)
-local GetFFlagUpgradeExpChatV3_0_0 = require(CorePackages.Flags.GetFFlagUpgradeExpChatV3_0_0)
 
 local ExperienceChat = require(CorePackages.ExperienceChat)
 local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
@@ -57,7 +57,7 @@ local MALFORMED_DATA_WARNING = "Malformed message data sent to chat event %q. If
 	"check what you are firing to this event"
 
 local chatStore
-if GetFFlagUpgradeExpChatV3_0_0() and GetFFlagDisableBubbleChatForExpChat() then
+if GetFFlagDisableBubbleChatForExpChat() then
 	local SPY_ACTION_WHITELIST = {
 		[VoiceEnabledChanged.name] = function(action)
 			ExperienceChat.Events.VoiceEnabledChanged(action.enabled)
@@ -97,9 +97,33 @@ else
 	})
 end
 
-Roact.mount(Roact.createElement(App, {
-	store = chatStore
-}), CoreGui, "BubbleChat")
+local gameLoadedConn
+if GetFFlagDisableBubbleChatForExpChat() then
+	local function isTextChatServiceOn()
+		return TextChatService.ChatVersion == Enum.ChatVersion.TextChatService
+	end
+	if game:IsLoaded() and isTextChatServiceOn() then
+		-- If TextChatService is enabled, do not mount legacy BubbleChat
+		return
+	else
+		gameLoadedConn = game.Loaded:Connect(function()
+			if game:IsLoaded() then
+				gameLoadedConn:Disconnect()
+				if isTextChatServiceOn() then
+					return
+				else
+					Roact.mount(Roact.createElement(App, {
+						store = chatStore
+					}), CoreGui, "BubbleChat")
+				end
+			end
+		end)
+	end
+else
+	Roact.mount(Roact.createElement(App, {
+		store = chatStore
+	}), CoreGui, "BubbleChat")
+end
 
 local function validateMessageWithWarning(eventName, message)
 	local ok, length = validateMessage(message)

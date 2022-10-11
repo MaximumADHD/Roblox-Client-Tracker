@@ -29,8 +29,8 @@ local BETWEEN_DOT_PADDING_RATIO = 1.5
 local MARGIN_RATIO = 0.25
 local ANIMATION_SPEED = 5
 
-local DOT_WIDTH = 1 / (DOT_COUNT +
-	(DOT_COUNT * BETWEEN_DOT_PADDING_RATIO) - BETWEEN_DOT_PADDING_RATIO + (2 * MARGIN_RATIO))
+local DOT_WIDTH = 1
+	/ (DOT_COUNT + (DOT_COUNT * BETWEEN_DOT_PADDING_RATIO) - BETWEEN_DOT_PADDING_RATIO + (2 * MARGIN_RATIO))
 local DOT_PADDING = DOT_WIDTH * BETWEEN_DOT_PADDING_RATIO
 
 function FlashingDot:init()
@@ -57,7 +57,6 @@ end
 	Uses math.sin(time) to smoothly interpolate between the start and end colors.
 ]]
 function FlashingDot:updateAnimation(timeDelta)
-
 	self:setState(function(prevState, props)
 		local sinTime = prevState.sinTime
 
@@ -81,7 +80,7 @@ function FlashingDot:updateAnimation(timeDelta)
 end
 
 function lerpNum(a, b, t)
-	return a+(b-a)*t
+	return a + (b - a) * t
 end
 
 function FlashingDot:render()
@@ -127,9 +126,8 @@ function FlashingDot:render()
 			LayoutOrder = i,
 			BorderSizePixel = 0,
 			BackgroundColor3 = baseColor,
-			BackgroundTransparency = 1
-		},		
-		{
+			BackgroundTransparency = 1,
+		}, {
 			Image = Roact.createElement("ImageLabel", {
 				AnchorPoint = Vector2.new(0, 0.5),
 				BackgroundTransparency = 1,
@@ -137,10 +135,9 @@ function FlashingDot:render()
 				Position = UDim2.new(0, paddingLeft, 0.5, 0),
 				Image = "rbxasset://textures/AnimationEditor/FaceCaptureUI/FlashingDot.png",
 				ImageTransparency = transparency,
-				LayoutOrder = 2,						
-			})		
-		}		
-		)	
+				LayoutOrder = 2,
+			}),
+		})
 	end
 
 	return Roact.createElement("Frame", {

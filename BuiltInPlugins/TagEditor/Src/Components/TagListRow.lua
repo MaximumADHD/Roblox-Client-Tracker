@@ -20,6 +20,7 @@ local TagManager = require(Plugin.Src.TagManager)
 
 local UI = Framework.UI
 local Checkbox = UI.Checkbox
+local HoverArea = UI.HoverArea
 local IconButton = UI.IconButton
 local Pane = UI.Pane
 local TextLabel = UI.TextLabel
@@ -32,6 +33,7 @@ local Icon = require(script.Parent.Icon)
 local TagRenameTextInput = require(script.Parent.TagRenameTextInput)
 
 export type Props = {
+	Disabled: boolean?,
 	LayoutOrder: number,
 	TagName: string,
 	TagIcon: string,
@@ -39,11 +41,19 @@ export type Props = {
 	IsTagAssignedToSome: boolean,
 	IsTagAssignedToAll: boolean,
 	IsVisibleToggled: boolean,
+	GroupName: string,
+	IsGroupCollapsed: boolean,
+	ToggleGroup: ((string) -> ()),
 	assigningGroup: string,
 	tagMenu: string,
 	renamingTag: string,
+	groupMenu: string,
+	renamingGroup: string,
 	openTagMenu: ((string) -> ()),
 	setRenaming: ((string, boolean) -> ()),
+	setAssigningGroup: ((string) -> ()),
+	setRenamingGroup: ((string, boolean) -> ()),
+	openGroupMenu: ((string) -> ()),
 }
 
 type _Props = Props & {
@@ -55,15 +65,20 @@ type _Props = Props & {
 type _Style = {
 	CheckboxSize: UDim2,
 	Size: UDim2,
+	Spacing: number,
 	TextSize: UDim2,
-	VisibleIcon: string,
-	VisibleOffIcon: string,
+	GroupTextSize: UDim2,
 	AssignIcon: string,
 	AssignIconColor:Color3,
 	UnassignIcon: string,
 	UnassignIconColor: Color3,
 	PaddingIndented: _Types.Table<string, number>,
 	PaddingUnindented: number,
+	EditAssignmentsIcon: string,
+	StopAssigningIcon: string,
+	ArrowColor: Color3,
+	ClosedArrowImage: string,
+	OpenArrowImage: string,
 }
 
 local TagListRow = Roact.PureComponent:extend("TagListRow")
@@ -71,9 +86,16 @@ local TagListRow = Roact.PureComponent:extend("TagListRow")
 function TagListRow:init()
 	self.onPress = function()
 		local props: _Props = self.props
+		local isGroup = props.GroupName and props.GroupName ~= ""
+		local enabled = not props.Disabled
 		-- This logic needs to be within OnPress in order for clicking elsewhere on the pane to sucessfully dismiss
 		-- the renaming textinput due to a race condition if the dismiss logic is in onclick
-		if props.tagMenu ~= nil and props.tagMenu == props.TagName then
+		if isGroup then
+			if enabled and props.groupMenu ~= nil and props.groupMenu == props.GroupName then
+				local renaming = props.renamingGroup ~= props.GroupName
+				props.setRenamingGroup(props.GroupName, renaming)
+			end
+		elseif props.tagMenu ~= nil and props.tagMenu == props.TagName then
 			local renaming = props.renamingTag ~= props.TagName
 			props.setRenaming(props.TagName, renaming)
 		end
@@ -81,7 +103,15 @@ function TagListRow:init()
 
 	self.onClick = function()
 		local props: _Props = self.props
-		if props.tagMenu == nil or props.tagMenu ~= props.TagName then
+		local isGroup = props.GroupName and props.GroupName ~= ""
+		local enabled = not props.Disabled
+		if isGroup then
+			if enabled then
+				if props.groupMenu == nil or props.groupMenu ~= props.GroupName then
+					props.openGroupMenu(props.GroupName)
+				end
+			end
+		elseif props.tagMenu == nil or props.tagMenu ~= props.TagName then
 			props.openTagMenu(props.TagName)
 		end
 	end
@@ -99,7 +129,28 @@ function TagListRow:init()
 
 	self.toggleVisible = function()
 		local props: _Props = self.props
-		TagManager.Get():SetVisible(props.TagName, not props.IsVisibleToggled)
+
+		if props.GroupName and props.GroupName ~= "" then
+			TagManager.Get():ToggleGroupVisibility(self.props.GroupName)
+		else
+			TagManager.Get():SetVisible(props.TagName, not props.IsVisibleToggled)
+		end
+
+	end
+
+	self.toggleGroup = function()
+		local props: _Props = self.props
+		props.ToggleGroup(props.GroupName)
+	end
+
+	self.editGroupMembership = function()
+		local props: _Props = self.props
+		local isAssigningThis = props.GroupName == props.assigningGroup
+
+		if not isAssigningThis then
+			props.openGroupMenu(props.GroupName)
+		end
+		props.setAssigningGroup(if isAssigningThis then "" else props.GroupName)
 	end
 end
 
@@ -109,72 +160,127 @@ function TagListRow:render()
 	local style: _Style = props.Stylizer.TagListRow
 	local orderIterator = LayoutOrderIterator.new()
 
+	local visibleIcon = props.Stylizer.VisibleIcon
+	local visibleOffIcon = props.Stylizer.VisibleOffIcon
+
+	local isGroup = props.GroupName and props.GroupName ~= ""
+
+	local enabled = not props.Disabled
 	local isAssigning = props.assigningGroup ~= nil and props.assigningGroup ~= ""
 	local isInAssigningGroup = props.TagGroup == props.assigningGroup
+	local isAssigningThis = props.GroupName == props.assigningGroup
+	local isAssigningAnotherGroup = isAssigning and not isAssigningThis
+
+	local showArrow = isGroup
+	local showCheckbox = not isGroup
+	local showImage = not isGroup
+	local showEditGroupButton = isGroup and not isAssigningAnotherGroup
+	local showVisibleButton = not isAssigning
 
 	local showRenameTextInput = false
-	if props.renamingTag ~= nil and props.renamingTag == props.TagName then
+	if props.renamingGroup ~= nil and props.renamingGroup == props.GroupName then
+		showRenameTextInput = true
+	elseif props.renamingTag ~= nil and props.renamingTag == props.TagName then
 		showRenameTextInput = true
 	end
 
 	local groupMembershipTooltipText = if isInAssigningGroup then localization:getText("Tooltip", "UnassignFromGroup") else localization:getText("Tooltip", "AssignToGroup")
 	local assignTooltipText = if props.IsTagAssignedToAll then localization:getText("Tooltip", "RemoveTag") else localization:getText("Tooltip", "ApplyTag")
 
+	local paneStyle = nil
+	if props.tagMenu == props.TagName then
+		paneStyle = "SelectedTag"
+	elseif self.state.hovered then
+		paneStyle = "PaneHover"
+	end
+	local iconStyle = paneStyle or "None"
+
 	return Roact.createElement(Pane, {
 		LayoutOrder = props.LayoutOrder,
 		Size = style.Size,
-		Layout = Enum.FillDirection.Horizontal,
-		HorizontalAlignment = Enum.HorizontalAlignment.Left,
-		Spacing = 9,
-		Padding = if props.TagGroup == "" then style.PaddingUnindented else style.PaddingIndented,
-		Style = if props.tagMenu == props.TagName then "SelectedTag" else nil,
-		OnPress = self.onPress,
-		OnClick = self.onClick,
 	}, {
-
-		CheckboxPane = Roact.createElement(Pane, {
-			LayoutOrder = orderIterator:getNextOrder(),
-			Size = style.CheckboxSize,
-			Layout = Enum.FillDirection.Horizontal,
-		}, {
-			ToggleGroupMembershipButton = isAssigning and Roact.createElement(IconButton, {
-				BackgroundStyle = "None",
-				LeftIcon = if isInAssigningGroup then style.UnassignIcon else style.AssignIcon,
-				OnClick = self.toggleGroupMembership,
-				IconColor = if isInAssigningGroup then style.UnassignIconColor else style.AssignIconColor,
-				TooltipText = groupMembershipTooltipText,
-			}),
-			 Checkbox = not isAssigning and Roact.createElement(Checkbox, {
-				Checked = if props.IsTagAssignedToSome then Checkbox.Indeterminate else props.IsTagAssignedToAll,
-				OnClick = self.toggleAssignment,
-			}, {
-				Tooltip = Roact.createElement(Tooltip, {
-					Text = assignTooltipText,
+		HoverArea = Roact.createElement(HoverArea, {
+			Cursor = "PointingHand",
+			MouseEnter = function()
+				self:setState({
+					hovered = true,
 				})
+			end,
+			MouseLeave = function()
+				self:setState({
+					hovered = false,
+				})
+			end,
+		}),
+
+		RootPane = Roact.createElement(Pane, {
+			Layout = Enum.FillDirection.Horizontal,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			Spacing = style.Spacing,
+			Padding = if isGroup or props.TagGroup == "" then style.PaddingUnindented else style.PaddingIndented,
+			Style = paneStyle,
+			OnPress = self.onPress,
+			OnClick = self.onClick,
+		}, {
+			ArrowImage = showArrow and Roact.createElement(IconButton, {
+				BackgroundStyle = iconStyle,
+				LeftIcon = if props.IsGroupCollapsed then style.ClosedArrowImage else style.OpenArrowImage,
+				OnClick = self.toggleGroup,
+				LayoutOrder = orderIterator:getNextOrder(),
 			}),
-		}),
-		TagImage = Roact.createElement(Icon, {
-			Name = props.TagIcon,
-			OnClick = self.OnButtonClicked,
-			LayoutOrder = orderIterator:getNextOrder(),
-		}),
-		NameText = not showRenameTextInput and Roact.createElement(TextLabel, {
-			LayoutOrder = orderIterator:getNextOrder(),
-			Text = props.TagName,
-			Size = style.TextSize,
-			TextXAlignment = Enum.TextXAlignment.Left,
-		}),
-		RenameTextInput = showRenameTextInput and Roact.createElement(TagRenameTextInput, {
-			LayoutOrder = orderIterator:getNextOrder(),
-			Size = style.TextSize,
-		}),
-		VisibleToggleButton = not isAssigning and Roact.createElement(IconButton, {
-			BackgroundStyle = "None",
-			LeftIcon = if props.IsVisibleToggled then style.VisibleIcon else style.VisibleOffIcon,
-			OnClick = self.toggleVisible,
-			LayoutOrder = orderIterator:getNextOrder(),
-			TooltipText = localization:getText("Tooltip", "ToggleVisibility")
-		}),
+			CheckboxPane = showCheckbox and Roact.createElement(Pane, {
+				LayoutOrder = orderIterator:getNextOrder(),
+				Size = style.CheckboxSize,
+				Layout = Enum.FillDirection.Horizontal,
+			}, {
+				ToggleGroupMembershipButton = isAssigning and Roact.createElement(IconButton, {
+					BackgroundStyle = iconStyle,
+					LeftIcon = if isInAssigningGroup then style.UnassignIcon else style.AssignIcon,
+					OnClick = self.toggleGroupMembership,
+					IconColor = if isInAssigningGroup then style.UnassignIconColor else style.AssignIconColor,
+					TooltipText = groupMembershipTooltipText,
+				}),
+				 Checkbox = not isAssigning and Roact.createElement(Checkbox, {
+					Checked = if props.IsTagAssignedToSome then Checkbox.Indeterminate else props.IsTagAssignedToAll,
+					OnClick = self.toggleAssignment,
+				}, {
+					Tooltip = Roact.createElement(Tooltip, {
+						Text = assignTooltipText,
+					})
+				}),
+			}),
+			TagImage = showImage and Roact.createElement(Icon, {
+				Name = props.TagIcon,
+				OnClick = self.OnButtonClicked,
+				LayoutOrder = orderIterator:getNextOrder(),
+			}),
+			NameText = not showRenameTextInput and Roact.createElement(TextLabel, {
+				LayoutOrder = orderIterator:getNextOrder(),
+				Text = if isGroup then props.GroupName else props.TagName,
+				Size = if isGroup then style.GroupTextSize else style.TextSize,
+				TextXAlignment = Enum.TextXAlignment.Left,
+			}),
+			RenameTextInput = showRenameTextInput and Roact.createElement(TagRenameTextInput, {
+				LayoutOrder = orderIterator:getNextOrder(),
+				Size = if isGroup then style.GroupTextSize else style.TextSize,
+			}),
+			EditGroupMembership = showEditGroupButton and Roact.createElement(IconButton, {
+				BackgroundStyle = iconStyle,
+				LeftIcon = if enabled and not isAssigningAnotherGroup then
+					if isAssigningThis then style.StopAssigningIcon else style.EditAssignmentsIcon
+					else nil,
+				OnClick = self.editGroupMembership,
+				LayoutOrder = orderIterator:getNextOrder(),
+				TooltipText = if isAssigningThis then localization:getText("Tooltip", "EndGroupAssignment") else localization:getText("Tooltip", "StartGroupAssignment"),
+			}),
+			VisibleToggleButton = showVisibleButton and Roact.createElement(IconButton, {
+				BackgroundStyle = iconStyle,
+				LeftIcon = if props.IsVisibleToggled then visibleIcon else visibleOffIcon,
+				OnClick = self.toggleVisible,
+				LayoutOrder = orderIterator:getNextOrder(),
+				TooltipText = localization:getText("Tooltip", "ToggleVisibility")
+			}),
+		})
 	})
 end
 
@@ -187,6 +293,8 @@ TagListRow = withContext({
 local function mapStateToProps(state, _)
 	return {
 		assigningGroup = state.AssigningGroup,
+		groupMenu = state.GroupMenu,
+		renamingGroup = state.RenamingGroup,
 		tagMenu = state.TagMenu,
 		renamingTag = state.RenamingTag,
 	}
@@ -199,6 +307,15 @@ local function mapDispatchToProps(dispatch)
 		end,
 		setRenaming = function(tag: string, renaming: boolean)
 			dispatch(Actions.SetRenaming(tag, renaming))
+		end,
+		setAssigningGroup = function(group: string)
+			dispatch(Actions.SetAssigningGroup(group))
+		end,
+		setRenamingGroup = function(group: string, renaming: boolean)
+			dispatch(Actions.SetRenamingGroup(group, renaming))
+		end,
+		openGroupMenu = function(group: string)
+			dispatch(Actions.OpenGroupMenu(group))
 		end,
 	}
 end

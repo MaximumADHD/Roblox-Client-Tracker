@@ -39,7 +39,7 @@ function ScreenPublishManagement:init()
 		toggleDescriptionWidth = 500,
 		showLearnMoreLink = string.len(FStringPlacePublishRollbackLearnMoreLink) > 0,
 	}
-	
+
 	self.finishedConnection = nil
 	self.descriptionRef = Roact.createRef()
 	self.publishParameters = nil
@@ -51,7 +51,7 @@ function ScreenPublishManagement:init()
 		end
 
 		self:setState({
-			toggleDescriptionWidth = descriptionWidthContainer.AbsoluteSize.X
+			toggleDescriptionWidth = descriptionWidthContainer.AbsoluteSize.X,
 		})
 	end
 end
@@ -61,7 +61,12 @@ function ScreenPublishManagement:didMount()
 		if success then
 			self.props.OpenPublishSuccessfulPage(self.props.PlaceId, self.props.Name, self.props.ParentGame)
 		else
-			self.props.OpenPublishFailPage(self.props.PlaceId, self.props.Name, self.props.ParentGame, self.publishParameters)
+			self.props.OpenPublishFailPage(
+				self.props.PlaceId,
+				self.props.Name,
+				self.props.ParentGame,
+				self.publishParameters
+			)
 		end
 	end)
 
@@ -90,7 +95,7 @@ function ScreenPublishManagement:render()
 	local openChoosePlacePage = props.OpenChoosePlacePage
 
 	local gameName = parentGame and parentGame.name or ""
-	local headerText = localization:getText("ScreenHeader", "PublishManagement", {name, gameName}) --"How would you like to release the overwrite to {name} under {gameName}?"
+	local headerText = localization:getText("ScreenHeader", "PublishManagement", { name, gameName }) --"How would you like to release the overwrite to {name} under {gameName}?"
 	local rolloutOptionsText = localization:getText("General", "RolloutOption") --"RolloutOption"
 	local footerMainButtonName = "Overwrite"
 	local toggleDescriptionWidth = self.state.toggleDescriptionWidth
@@ -126,7 +131,7 @@ function ScreenPublishManagement:render()
 			VerticalAlignment = Enum.VerticalAlignment.Top,
 			Padding = 10,
 			Spacing = 10,
-			Layout = Enum.FillDirection.Vertical
+			Layout = Enum.FillDirection.Vertical,
 		}, {
 			Back = Roact.createElement(Pane, {
 				Padding = 10,
@@ -144,7 +149,7 @@ function ScreenPublishManagement:render()
 					[Roact.Event.Activated] = function()
 						openChoosePlacePage(parentGame)
 					end,
-				})
+				}),
 			}),
 
 			Separator1 = Roact.createElement(Separator, {
@@ -184,11 +189,11 @@ function ScreenPublishManagement:render()
 					SelectionChanged = function(button)
 						if button.Id == ROLLOUT_OPTION_DEFAULT then
 							self:setState({
-								rolloutOption = ROLLOUT_OPTION_DEFAULT
+								rolloutOption = ROLLOUT_OPTION_DEFAULT,
 							})
 						elseif button.Id == ROLLOUT_OPTION_FORCE then
 							self:setState({
-								rolloutOption = ROLLOUT_OPTION_FORCE
+								rolloutOption = ROLLOUT_OPTION_FORCE,
 							})
 						end
 					end,
@@ -196,69 +201,72 @@ function ScreenPublishManagement:render()
 				}),
 			}),
 
-			RollbackOptions = isOptInChina and Roact.createElement(Pane, {
-				Padding = 10,
-				AutomaticSize = Enum.AutomaticSize.Y,
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-				VerticalAlignment = Enum.VerticalAlignment.Top,
-				LayoutOrder = 5,
-			}, {
-				Roact.createElement(TitledFrame, {
-					Font = theme.header.font,
-					TextSize = 20,
-					Title = localization:getText("General", "RollbackToggleTitle"), --'Enable Rollback to Previous Version',
-					LayoutOrder = layoutOrder:getNextOrder(),
+			RollbackOptions = isOptInChina
+				and Roact.createElement(Pane, {
+					Padding = 10,
+					AutomaticSize = Enum.AutomaticSize.Y,
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
+					VerticalAlignment = Enum.VerticalAlignment.Top,
+					LayoutOrder = 5,
 				}, {
-					Layout = Roact.createElement("UIListLayout", {
-						FillDirection = Enum.FillDirection.Vertical,
-						HorizontalAlignment = Enum.HorizontalAlignment.Left,
-						VerticalAlignment = Enum.VerticalAlignment.Top,
-						SortOrder = Enum.SortOrder.LayoutOrder,
-						Padding = UDim.new(0, 10),
-					}),
-
-					ToggleButton = Roact.createElement(ToggleButton, {
-						Size = UDim2.new(0, theme.toggleButton.width, 0, theme.toggleButton.height),
-						Selected = self.state.isRollBackAllowed,
-						OnClick = function ()
-							self:setState({
-								isRollBackAllowed = not self.state.isRollBackAllowed
-							})
-							print('toggle Enable Rollback to Previous Version')
-						end,
+					Roact.createElement(TitledFrame, {
+						Font = theme.header.font,
+						TextSize = 20,
+						Title = localization:getText("General", "RollbackToggleTitle"), --'Enable Rollback to Previous Version',
 						LayoutOrder = layoutOrder:getNextOrder(),
-					}),
+					}, {
+						Layout = Roact.createElement("UIListLayout", {
+							FillDirection = Enum.FillDirection.Vertical,
+							HorizontalAlignment = Enum.HorizontalAlignment.Left,
+							VerticalAlignment = Enum.VerticalAlignment.Top,
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							Padding = UDim.new(0, 10),
+						}),
 
-					LinkText = Roact.createElement(TextWithInlineLink, {
-						LinkText = self.state.showLearnMoreLink and localization:getText("General", "RollbackToggleDesclinkText") or "", --"Learn more"
-						Text = localization:getText("General", "RollbackToggleDesc"), --"Enabling rollback to previous version if the overwrite is rejected {link}",
-						LinkPlaceholder = "[link]",
-						MaxWidth = toggleDescriptionWidth,
-						LayoutOrder = layoutOrder:getNextOrder(),
-						TextProps = {
+						ToggleButton = Roact.createElement(ToggleButton, {
+							Size = UDim2.new(0, theme.toggleButton.width, 0, theme.toggleButton.height),
+							Selected = self.state.isRollBackAllowed,
+							OnClick = function()
+								self:setState({
+									isRollBackAllowed = not self.state.isRollBackAllowed,
+								})
+								print("toggle Enable Rollback to Previous Version")
+							end,
+							LayoutOrder = layoutOrder:getNextOrder(),
+						}),
+
+						LinkText = Roact.createElement(TextWithInlineLink, {
+							LinkText = self.state.showLearnMoreLink
+									and localization:getText("General", "RollbackToggleDesclinkText")
+								or "", --"Learn more"
+							Text = localization:getText("General", "RollbackToggleDesc"), --"Enabling rollback to previous version if the overwrite is rejected {link}",
+							LinkPlaceholder = "[link]",
+							MaxWidth = toggleDescriptionWidth,
+							LayoutOrder = layoutOrder:getNextOrder(),
+							TextProps = {
+								BackgroundTransparency = 1,
+								Font = theme.header.font,
+								TextSize = 16,
+								TextXAlignment = Enum.TextXAlignment.Left,
+							},
+							HorizontalAlignment = Enum.HorizontalAlignment.Left,
+							OnLinkClicked = function()
+								if not self.state.showLearnMoreLink then
+									return
+								end
+								GuiService:OpenBrowserWindow(FStringPlacePublishRollbackLearnMoreLink)
+							end,
+						}),
+
+						ToggleDescriptionWidth = Roact.createElement("Frame", {
 							BackgroundTransparency = 1,
-							Font = theme.header.font,
-							TextSize = 16,
-							TextXAlignment = Enum.TextXAlignment.Left,
-						},
-						HorizontalAlignment = Enum.HorizontalAlignment.Left,
-						OnLinkClicked = function()
-							if not self.state.showLearnMoreLink then 
-								return
-							end
-							GuiService:OpenBrowserWindow(FStringPlacePublishRollbackLearnMoreLink)
-						end,
-					}),
-
-					ToggleDescriptionWidth = Roact.createElement("Frame", {
-						BackgroundTransparency = 1,
-						LayoutOrder = layoutOrder:getNextOrder(),
-						Size = UDim2.new(1,0,0,0),
-						[Roact.Ref] = self.descriptionRef,
-						[Roact.Change.AbsoluteSize] = self.onResize,
-					}),
-				}) -- title frame
-			}) --rollout options pane
+							LayoutOrder = layoutOrder:getNextOrder(),
+							Size = UDim2.new(1, 0, 0, 0),
+							[Roact.Ref] = self.descriptionRef,
+							[Roact.Change.AbsoluteSize] = self.onResize,
+						}),
+					}), -- title frame
+				}), --rollout options pane
 		}), -- frame
 
 		Footer = Roact.createElement(Footer, {
@@ -312,11 +320,18 @@ local function useDispatchForProps(dispatch)
 			dispatch(SetScreen(Constants.SCREENS.CHOOSE_PLACE))
 		end,
 		OpenPublishSuccessfulPage = function(placeId, placeName, game)
-			dispatch(SetPublishInfo({ id = placeId, name = placeName, parentGameName = game.name, }))
+			dispatch(SetPublishInfo({ id = placeId, name = placeName, parentGameName = game.name }))
 			dispatch(SetScreen(Constants.SCREENS.PUBLISH_SUCCESSFUL))
 		end,
 		OpenPublishFailPage = function(placeId, placeName, game, publishParameters)
-			dispatch(SetPublishInfo({ id = placeId, name = placeName, parentGameName = game.name, parentGameId = game.universeId, failed = true, publishParameters = publishParameters }))
+			dispatch(SetPublishInfo({
+				id = placeId,
+				name = placeName,
+				parentGameName = game.name,
+				parentGameId = game.universeId,
+				failed = true,
+				publishParameters = publishParameters,
+			}))
 			dispatch(SetScreen(Constants.SCREENS.PUBLISH_FAIL))
 		end,
 		DispatchLoadGameConfiguration = function(universeId, apiImpl)

@@ -97,12 +97,12 @@ function KeyProvider.getFooterKeyName()
 	return "Footer"
 end
 
-function KeyProvider.getScriptCollaborationEnabledOnServerKeyName()    
-    return "ScriptCollaborationEnabledOnServer"
+function KeyProvider.getScriptCollaborationEnabledOnServerKeyName()
+	return "ScriptCollaborationEnabledOnServer"
 end
 
 function KeyProvider.getTeamCreateEnabledKeyName()
-    return "TeamCreateEnabled"
+	return "TeamCreateEnabled"
 end
 
 return KeyProvider

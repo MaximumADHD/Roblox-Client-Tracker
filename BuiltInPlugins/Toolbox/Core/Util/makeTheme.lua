@@ -1,7 +1,6 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
 local FFlagToolboxEnableAnnouncementsDialog = game:GetFastFlag("ToolboxEnableAnnouncementsDialog")
 local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
-local FFlagToolboxFixBreadcrumbColor = game:GetFastFlag("ToolboxFixBreadcrumbColor")
 local FFlagToolboxAddUnverifiedIcon = game:GetFastFlag("ToolboxAddUnverifiedIcon")
 local FFlagToolboxPackagesInAssetTile = game:GetFastFlag("ToolboxPackagesInAssetTile")
 local FFlagToolboxFixAssetConfigWarningIconColor = game:GetFastFlag("ToolboxFixAssetConfigWarningIconColor")
@@ -462,7 +461,7 @@ local makeTheme = function(themeExtension, themeClass)
 		searchTag = {
 			backgroundColor = StyleKey.Toolbox_SearchTagBackgroundColor,
 			borderColor = StyleKey.Border,
-			textColor = if FFlagToolboxFixBreadcrumbColor then StyleKey.BrightText else ColorSystem.Black[0],
+			textColor = StyleKey.BrightText,
 			clearAllText = StyleKey.LinkText,
 		},
 

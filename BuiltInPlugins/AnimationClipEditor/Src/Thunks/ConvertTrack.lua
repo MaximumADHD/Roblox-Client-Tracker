@@ -17,8 +17,8 @@ local PathUtils = require(Plugin.Src.Util.PathUtils)
 local Templates = require(Plugin.Src.Util.Templates)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
-return function(instanceName: string, path: PathUtils.Path, newType: string, analytics: any): ({[string]: any}) -> ()
-	return function(store: {[string]: any}): ()
+return function(instanceName: string, path: PathUtils.Path, newType: string, analytics: any): ({ [string]: any }) -> ()
+	return function(store: { [string]: any }): ()
 		local state = store:getState()
 		local animationData = state.AnimationData
 		if not animationData or not animationData.Instances[instanceName] then
@@ -40,7 +40,7 @@ return function(instanceName: string, path: PathUtils.Path, newType: string, ana
 		if track ~= nil and track.Data ~= nil then
 			if track.Type == Constants.TRACK_TYPES.Quaternion and newType == Constants.TRACK_TYPES.EulerAngles then
 				TrackUtils.convertTrackToEulerAngles(track, eulerAnglesOrder)
-				
+
 				trackEntry.Type = Constants.TRACK_TYPES.EulerAngles
 				trackEntry.EulerAnglesOrder = eulerAnglesOrder
 				TrackUtils.createTrackListEntryComponents(

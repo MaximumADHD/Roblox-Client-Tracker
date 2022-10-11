@@ -88,13 +88,13 @@ function TrackList:init()
 
 	self.onTrackExpandToggled = function(trackPath, newExpandedState)
 		if self.props.ToggleTrackExpanded then
-			self.props.ToggleTrackExpanded({trackPath}, newExpandedState)
+			self.props.ToggleTrackExpanded({ trackPath }, newExpandedState)
 		end
 	end
 
 	self.onTrackExpandToggled_deprecated = function(track, newExpandedState)
 		if self.props.ToggleTrackExpanded then
-			self.props.ToggleTrackExpanded({track.Name}, newExpandedState)
+			self.props.ToggleTrackExpanded({ track.Name }, newExpandedState)
 		end
 	end
 
@@ -154,18 +154,18 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 	local playhead = props.Playhead
 	local isPlaying = self.props.PlayState ~= Constants.PLAY_STATE.Pause
 
-	local nameWidth = math.max(self.getTextWidth(properties.Position, theme),
-		self.getTextWidth(properties.Rotation, theme))
+	local nameWidth =
+		math.max(self.getTextWidth(properties.Position, theme), self.getTextWidth(properties.Rotation, theme))
 	local trackWidth = self.getTrackWidth(indent, nameWidth)
 
 	local currentValue = TrackUtils.getCurrentValue(track, playhead, animationData, props.DefaultEulerAnglesOrder)
 	local items = TrackUtils.getItemsForProperty(track, currentValue, nil, props.DefaultEulerAnglesOrder)
-	trackWidth = trackWidth + #items.Position
-		* (Constants.NUMBERBOX_WIDTH + Constants.NUMBERTRACK_PADDING * 2)
+	trackWidth = trackWidth + #items.Position * (Constants.NUMBERBOX_WIDTH + Constants.NUMBERTRACK_PADDING * 2)
 
 	self.maxTrackWidth = math.max(self.maxTrackWidth, trackWidth)
 
-	local dragMultiplier = if track.Type == Constants.TRACK_TYPES.Facs then Constants.NUMBERBOX_FACS_DRAG_MULTIPLIER
+	local dragMultiplier = if track.Type == Constants.TRACK_TYPES.Facs
+		then Constants.NUMBERBOX_FACS_DRAG_MULTIPLIER
 		else Constants.NUMBERBOX_DRAG_MULTIPLIER
 
 	local function makeNumberTrack(name, targetProperty)
@@ -180,7 +180,7 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 			DragMultiplier = dragMultiplier,
 			OnItemChanged = function(key, value)
 				if track.Type == Constants.TRACK_TYPES.Facs then
-					value = math.clamp(math.floor(.5 + value * 100) / 100, 0, 1)
+					value = math.clamp(math.floor(0.5 + value * 100) / 100, 0, 1)
 				end
 				for _, item in ipairs(items[targetProperty]) do
 					if item.Key == key then
@@ -188,7 +188,7 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 					end
 				end
 				local newValue = TrackUtils.getPropertyForItems(track, items, props.DefaultEulerAnglesOrder)
-				self.onValueChanged(instance, {name}, track.Type, playhead, newValue)
+				self.onValueChanged(instance, { name }, track.Type, playhead, newValue)
 				return value
 			end,
 			OnChangeBegan = props.OnChangeBegan,
@@ -257,16 +257,25 @@ function TrackList:renderTrack(track, children, theme, parentPath, parentType)
 	end
 
 	local nameWidth = self.getTextWidth(name, theme)
-	local trackWidth = self.getTrackWidth(0, nameWidth) + (Constants.NUMBERBOX_WIDTH + Constants.NUMBERTRACK_PADDING * 2)
+	local trackWidth = self.getTrackWidth(0, nameWidth)
+		+ (Constants.NUMBERBOX_WIDTH + Constants.NUMBERTRACK_PADDING * 2)
 
-	local path = Cryo.List.join(parentPath or {}, {name})
+	local path = Cryo.List.join(parentPath or {}, { name })
 	local pathName = table.concat(path, "_")
 
 	local items
 	-- CFrame tracks never show a value. Don't spend time evaluating it
 	if trackType ~= Constants.TRACK_TYPES.CFrame then
-		local currentValue = TrackUtils.getCurrentValueForPath(path, instance, playhead, animationData, trackType, props.DefaultEulerAnglesOrder)
-		items = (isChannelAnimation and expanded) and {} or TrackUtils.getItemsForProperty(track, currentValue, name, props.DefaultEulerAnglesOrder)
+		local currentValue = TrackUtils.getCurrentValueForPath(
+			path,
+			instance,
+			playhead,
+			animationData,
+			trackType,
+			props.DefaultEulerAnglesOrder
+		)
+		items = (isChannelAnimation and expanded) and {}
+			or TrackUtils.getItemsForProperty(track, currentValue, name, props.DefaultEulerAnglesOrder)
 	else
 		items = {}
 	end
@@ -275,7 +284,8 @@ function TrackList:renderTrack(track, children, theme, parentPath, parentType)
 
 	self.maxTrackWidth = math.max(self.maxTrackWidth, trackWidth)
 
-	local dragMultiplier = if track.Type == Constants.TRACK_TYPES.Facs then Constants.NUMBERBOX_FACS_DRAG_MULTIPLIER
+	local dragMultiplier = if track.Type == Constants.TRACK_TYPES.Facs
+		then Constants.NUMBERBOX_FACS_DRAG_MULTIPLIER
 		else Constants.NUMBERBOX_DRAG_MULTIPLIER
 
 	children["Track_" .. pathName] = Roact.createElement(Track, {

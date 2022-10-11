@@ -12,4 +12,3 @@ return Rodux.combineReducers({
 	Targets = TargetReducer,
 	RoactInspector = RoactInspectorReducer,
 })
-

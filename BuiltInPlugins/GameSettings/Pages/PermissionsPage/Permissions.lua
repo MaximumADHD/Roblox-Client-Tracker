@@ -1,4 +1,5 @@
-local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
+local FFlagUXImprovementsShowUserPermsWhenCollaborator2 =
+	game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
 
 local StudioService = game:GetService("StudioService")
 
@@ -11,7 +12,6 @@ local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local Cryo = require(Plugin.Packages.Cryo)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -36,7 +36,6 @@ local SetGroupOwnerName = require(Page.Actions.SetGroupOwnerName)
 local SetCreatorFriends = require(Plugin.Src.Actions.SetCreatorFriends)
 
 local isTeamCreateEnabled = require(Plugin.Src.Util.GameSettingsUtilities).isTeamCreateEnabled
-
 
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 local GetIsFriendsOnlyKeyName = KeyProvider.getIsFriendOnlyKeyName
@@ -99,7 +98,8 @@ local function loadSettings(store, contextItems)
 			local ownerId = gameMetadataController:getCreatorId(gameId)
 			local ownerType = gameMetadataController:getCreatorType(gameId)
 
-			local permissions, groupMetadata = gamePermissionsController:getPermissions(gameId, ownerName, ownerId, ownerType)
+			local permissions, groupMetadata =
+				gamePermissionsController:getPermissions(gameId, ownerName, ownerId, ownerType)
 			loadedSettings["permissions"] = permissions
 			loadedSettings["groupMetadata"] = groupMetadata
 		end,
@@ -151,7 +151,6 @@ local function saveSettings(store, contextItems)
 	}
 end
 
-
 --Loads settings values into props by key
 local function loadValuesToProps(getValue, state)
 	local loadedProps = {
@@ -164,8 +163,12 @@ local function loadValuesToProps(getValue, state)
 		IsMonetized = getValue(GetIsForSaleKeyName()) or getValue(GetVipServersIsEnabledKeyName()),
 
 		-- To allow players with games already saved in this error state (notPublic and isMonetized) have the ability to change the setting. Once allowed states are saved the error state will not be selectable.
-		IsInitiallyEnabled = (not state.Settings.Current[GetIsActiveKeyName()] or state.Settings.Current[GetIsFriendsOnlyKeyName()])
-							and (state.Settings.Current[GetIsForSaleKeyName()] or state.Settings.Current[GetVipServersIsEnabledKeyName()]),
+		IsInitiallyEnabled = (
+			not state.Settings.Current[GetIsActiveKeyName()] or state.Settings.Current[GetIsFriendsOnlyKeyName()]
+		)
+			and (
+				state.Settings.Current[GetIsForSaleKeyName()] or state.Settings.Current[GetVipServersIsEnabledKeyName()]
+			),
 
 		-- Metadata
 		OwnerId = state.GameOwnerMetadata.creatorId,
@@ -250,14 +253,16 @@ function Permissions:render()
 		end
 
 		-- once user changes to public and has monetize enabled the playability button will be disabled
-		local playabilityEnabled = (self:isLoggedInUserGameOwner() or self:isGroupGame()) and (not isPublic and isInitiallyEnabled or not isMonetized)
+		local playabilityEnabled = (self:isLoggedInUserGameOwner() or self:isGroupGame())
+			and (not isPublic and isInitiallyEnabled or not isMonetized)
 		local playabilityButtons = {
 			{
 				Description = localization:getText("General", "PlayabilityPublicDesc"),
 				Disabled = not playabilityEnabled,
 				Key = true,
 				Text = localization:getText("General", "PlayabilityPublic"),
-			}, {
+			},
+			{
 				Description = localization:getText("General", "PlayabilityPrivateDesc"),
 				Disabled = not playabilityEnabled,
 				Key = false,
@@ -266,18 +271,20 @@ function Permissions:render()
 		}
 		if not self:isGroupGame() then
 			table.insert(playabilityButtons, 1, {
-					Description = localization:getText("General", "PlayabilityFriendsDesc"),
-					Disabled = not playabilityEnabled,
-					Key = "Friends",
-					Text = localization:getText("General", "PlayabilityFriends"),
+				Description = localization:getText("General", "PlayabilityFriendsDesc"),
+				Disabled = not playabilityEnabled,
+				Key = "Friends",
+				Text = localization:getText("General", "PlayabilityFriends"),
 			})
 		end
 
 		local teamCreateWarningVisible
 		if FFlagUXImprovementsShowUserPermsWhenCollaborator2 then
-			teamCreateWarningVisible = self:isLoggedInUserGameOwner() and (not isTeamCreateEnabled()) and (not self:isGroupGame())
+			teamCreateWarningVisible = self:isLoggedInUserGameOwner()
+				and (not isTeamCreateEnabled())
+				and (not self:isGroupGame())
 		else
-			teamCreateWarningVisible = (not canUserEditCollaborators) and (not self:isGroupGame())
+			teamCreateWarningVisible = not canUserEditCollaborators and (not self:isGroupGame())
 		end
 
 		local playabilityWarningVisible = not playabilityEnabled
@@ -289,8 +296,8 @@ function Permissions:render()
 				Layout = Enum.FillDirection.Vertical,
 				Spacing = theme.playabilityWidget.spacing,
 			}, {
-				TitlePane = (if FFlagRemoveUILibraryTitledFrame then
-					Roact.createElement(TitledFrame, {
+				TitlePane = (if FFlagRemoveUILibraryTitledFrame
+					then Roact.createElement(TitledFrame, {
 						LayoutOrder = 1,
 						Title = localization:getText("General", "TitlePlayability"),
 					}, {
@@ -320,8 +327,7 @@ function Permissions:render()
 							}),
 						}),
 					})
-				else
-					Roact.createElement(Pane, {
+					else Roact.createElement(Pane, {
 						AutomaticSize = Enum.AutomaticSize.Y,
 						HorizontalAlignment = Enum.HorizontalAlignment.Left,
 						Layout = Enum.FillDirection.Horizontal,
@@ -329,6 +335,7 @@ function Permissions:render()
 						VerticalAlignment = Enum.VerticalAlignment.Top,
 					}, {
 						Title = Roact.createElement(TextLabel, {
+							AutomaticSize = Enum.AutomaticSize.XY,
 							Style = "SubText",
 							Text = localization:getText("General", "TitlePlayability"),
 							TextSize = theme.fontStyle.Subtitle.TextSize,
@@ -344,6 +351,7 @@ function Permissions:render()
 							Spacing = theme.playabilityWidget.buttonPane.spacing,
 						}, {
 							Header = Roact.createElement(TextLabel, {
+								AutomaticSize = Enum.AutomaticSize.XY,
 								LayoutOrder = 0,
 								Style = "Title",
 								Text = localization:getText("General", "PlayabilityHeader"),
@@ -373,10 +381,10 @@ function Permissions:render()
 									MainText = theme.fontStyle.Normal.TextSize,
 								},
 							}),
-						})
-					})
-				),
+						}),
+					})),
 				PlayabilityWarning = playabilityWarningVisible and Roact.createElement(TextLabel, {
+					AutomaticSize = Enum.AutomaticSize.XY,
 					LayoutOrder = 15,
 					Style = "SubText",
 					Text = localization:getText("AccessPermissions", "PlayabilityWarning"),
@@ -385,29 +393,13 @@ function Permissions:render()
 					TextXAlignment = Enum.TextXAlignment.Left,
 				}),
 			}),
-
-			Separator1 = Roact.createElement(Separator, {
-				LayoutOrder = 20,
-			}),
-
-			CollaboratorsMessage = Roact.createElement(TextLabel, Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
-				Text = localization:getText(LOCALIZATION_ID, "CollaborateButtonMessage"),
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextColor = theme.warningColor,
-				LayoutOrder = 45,
-			}), {
-				Padding = Roact.createElement("UIPadding", {
-					PaddingRight = UDim.new(0, 10)
-				})
-			}),
-
 		}
 	end
 
 	return Roact.createElement(SettingsPage, {
 		SettingsLoadJobs = loadSettings,
 		SettingsSaveJobs = saveSettings,
-		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
+		Title = localization:getText("General", "Category" .. LOCALIZATION_ID),
 		PageId = LOCALIZATION_ID,
 		CreateChildren = createChildren,
 	})
@@ -419,27 +411,25 @@ Permissions = withContext({
 })(Permissions)
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
-Permissions = RoactRodux.connect(
-	function(state, props)
-		if not state then return end
-
-		local getValue = function(propName)
-			return settingFromState(state.Settings, propName)
-		end
-
-		return loadValuesToProps(getValue, state)
-	end,
-
-	function(dispatch)
-		local setValue = function(propName)
-			return function(value)
-				dispatch(AddChange(propName, value))
-			end
-		end
-
-		return dispatchChanges(setValue, dispatch)
+Permissions = RoactRodux.connect(function(state, props)
+	if not state then
+		return
 	end
-)(Permissions)
+
+	local getValue = function(propName)
+		return settingFromState(state.Settings, propName)
+	end
+
+	return loadValuesToProps(getValue, state)
+end, function(dispatch)
+	local setValue = function(propName)
+		return function(value)
+			dispatch(AddChange(propName, value))
+		end
+	end
+
+	return dispatchChanges(setValue, dispatch)
+end)(Permissions)
 
 Permissions.LocalizationId = LOCALIZATION_ID
 

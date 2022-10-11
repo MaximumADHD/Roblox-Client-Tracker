@@ -32,7 +32,7 @@ local function installGui()
 	gui.IgnoreGuiInset = true
 	gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	gui.Parent = StarterGui
-	
+
 	local frame = Instance.new("Frame")
 	frame.BackgroundTransparency = 0.5
 	frame.BorderSizePixel = 0
@@ -52,7 +52,8 @@ local function installGui()
 	title.AnchorPoint = Vector2.new(0.5, 1)
 
 	local subtitle = Instance.new("TextLabel")
-	subtitle.Text = "Hit Play to view Storybook in this place.\nPlease avoid publishing this place as storybook is currently internal."
+	subtitle.Text =
+		"Hit Play to view Storybook in this place.\nPlease avoid publishing this place as storybook is currently internal."
 	subtitle.Parent = frame
 	subtitle.Name = "Subtitle"
 	subtitle.Font = Enum.Font.Gotham
@@ -72,17 +73,17 @@ local function installStorybookEmbed(parent: Instance)
 	local root = Instance.new("LocalScript")
 	root.Name = "RunStorybook"
 	root.Source = Main.Src.Util.RunStorybook.Source
-	
+
 	installGui()
-	
+
 	Framework.Util.Embed.install(root, Main.Packages)
 	Framework.Util.Embed.installPeerDependencies(root, Main.Packages)
 
-	local StorybookFolder = getDeepFolder({"Packages", "DeveloperStorybook"}, root)
+	local StorybookFolder = getDeepFolder({ "Packages", "DeveloperStorybook" }, root)
 	local SrcFolder = Main.Src:Clone()
 	SrcFolder.Name = "Src"
 	SrcFolder.Parent = StorybookFolder
-	local SrcPackages = getDeepFolder({"Packages"}, StorybookFolder)
+	local SrcPackages = getDeepFolder({ "Packages" }, StorybookFolder)
 	createPackageLink("Cryo", SrcPackages)
 	createPackageLink("Framework", SrcPackages)
 	createPackageLink("ReactIs", SrcPackages)

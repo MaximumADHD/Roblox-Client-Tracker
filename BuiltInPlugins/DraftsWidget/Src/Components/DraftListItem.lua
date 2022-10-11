@@ -21,7 +21,7 @@ local DraftStatusIndicator = require(Plugin.Src.Components.DraftStatusIndicator)
 
 local SharedFlags = Framework.SharedFlags
 local FFlagDevFrameworkMigrateTooltip = Framework.SharedFlags.getFFlagDevFrameworkMigrateTooltip()
-local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
+local FFlagMigrateDraftsWidgetList = SharedFlags.getFFlagMigrateDraftsWidgetList()
 
 local UI = Framework.UI
 local TextLabel = UI.Decoration.TextLabel
@@ -130,7 +130,7 @@ function DraftListItem:render()
 	local text = self.getLabelText()
 	local statusText = self.getStatusText()
 
-	if FFlagRemoveUILibraryButton then
+	if FFlagMigrateDraftsWidgetList then
 
 		local rowProps = self.props.RowProps
 		return Roact.createElement(TreeViewRow, {

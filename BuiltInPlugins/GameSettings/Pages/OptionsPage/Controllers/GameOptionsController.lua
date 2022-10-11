@@ -20,8 +20,8 @@ function GameOptionsController:universesShutdownV2POST(gameId)
 		but it can't explicitly provide it here because of a blacklist for requestInternal.
 		An empty body is used to automatically get a Content-Length header added to the request.
 	]]
-	return networking:post("develop", "/v2/universes/"..gameId.."/shutdown", {
-		Body = {}
+	return networking:post("develop", "/v2/universes/" .. gameId .. "/shutdown", {
+		Body = {},
 	})
 end
 
@@ -29,37 +29,37 @@ function GameOptionsController:voiceUniverseSettingsPOST(gameId, optIn)
 	local networking = self.__networking
 
 	return networking:post("voice", "/v1/settings/universe/" .. gameId, {
-        Body = {
+		Body = {
 			optIn = optIn,
 		},
 	})
 end
 
 function GameOptionsController:voiceUniverseSettingsGET(gameId)
-    local networking = self.__networking
-    return networking:get("voice", "/v1/settings/universe/" .. gameId)
+	local networking = self.__networking
+	return networking:get("voice", "/v1/settings/universe/" .. gameId)
 end
 
-function GameOptionsController:getScriptCollaborationEnabledOnServer(game)    
-    if not isTeamCreateEnabled() then
-        return false
-    end
-    
-    local versionControlService = game:GetService("VersionControlService")
+function GameOptionsController:getScriptCollaborationEnabledOnServer(game)
+	if not isTeamCreateEnabled() then
+		return false
+	end
 
-    return versionControlService.ScriptCollabEnabled
+	local versionControlService = game:GetService("VersionControlService")
+
+	return versionControlService.ScriptCollabEnabled
 end
 
 function GameOptionsController:getScriptCollaborationEnabled(game)
-    local StudioData = game:GetService("StudioData")
+	local StudioData = game:GetService("StudioData")
 
-    return StudioData.EnableScriptCollabByDefaultOnLoad
+	return StudioData.EnableScriptCollabByDefaultOnLoad
 end
 
 function GameOptionsController:setScriptCollaborationEnabled(game, enabled)
-    local StudioData = game:GetService("StudioData")
+	local StudioData = game:GetService("StudioData")
 
-    StudioData.EnableScriptCollabByDefaultOnLoad = enabled
+	StudioData.EnableScriptCollabByDefaultOnLoad = enabled
 end
 
 function GameOptionsController:shutdownAllServers(gameId)
@@ -67,12 +67,12 @@ function GameOptionsController:shutdownAllServers(gameId)
 end
 
 function GameOptionsController:getVoiceChatEnabled(gameId)
-    local response = self:voiceUniverseSettingsGET(gameId):await()
+	local response = self:voiceUniverseSettingsGET(gameId):await()
 	return response.responseBody.isUniverseEnabledForVoice
 end
 
 function GameOptionsController:setVoiceChatEnabled(gameId, optIn)
-    self:voiceUniverseSettingsPOST(gameId, optIn):await()
+	self:voiceUniverseSettingsPOST(gameId, optIn):await()
 end
 
 function GameOptionsController:getIsTeamCreateEnabled()
@@ -80,4 +80,3 @@ function GameOptionsController:getIsTeamCreateEnabled()
 end
 
 return GameOptionsController
-

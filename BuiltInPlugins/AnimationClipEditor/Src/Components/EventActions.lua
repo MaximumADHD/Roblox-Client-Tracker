@@ -107,8 +107,7 @@ function EventActions:render()
 			action.Enabled = false
 		end
 
-		if clipboard and not isEmpty(clipboard)
-			and clipboardType == Constants.CLIPBOARD_TYPE.Events then
+		if clipboard and not isEmpty(clipboard) and clipboardType == Constants.CLIPBOARD_TYPE.Events then
 			pluginActions:get("PasteEvents").Enabled = true
 		end
 
@@ -122,10 +121,12 @@ function EventActions:render()
 		end
 	end
 
-	return showMenu and Roact.createElement(ContextMenu, {
-		Actions = self:makeMenuActions(),
-		OnMenuOpened = onMenuOpened,
-	}) or nil
+	return showMenu
+			and Roact.createElement(ContextMenu, {
+				Actions = self:makeMenuActions(),
+				OnMenuOpened = onMenuOpened,
+			})
+		or nil
 end
 
 function EventActions:willUnmount()
@@ -142,12 +143,9 @@ function EventActions:willUnmount()
 	end
 end
 
-
 EventActions = withContext({
 	PluginActions = ContextServices.PluginActions,
 })(EventActions)
-
-
 
 local function mapStateToProps(state, props)
 	local status = state.Status

@@ -14,9 +14,9 @@ return function(userId, newPermission)
 		local newPermissions = deepJoin(oldPermissions, {
 			[PermissionsConstants.UserSubjectKey] = {
 				[userId] = {
-					[PermissionsConstants.ActionKey] = newPermission
-				}
-			}
+					[PermissionsConstants.ActionKey] = newPermission,
+				},
+			},
 		})
 
 		store:dispatch(AddChange("permissions", newPermissions))

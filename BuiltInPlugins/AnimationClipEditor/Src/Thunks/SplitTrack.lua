@@ -39,7 +39,7 @@ return function(instanceName, path, trackType, tck, analytics)
 			local value = KeyframeUtils.getDefaultValue(trackType)
 			keyframeData = {
 				Value = value,
-				InterpolationMode = Enum.KeyInterpolationMode.Cubic
+				InterpolationMode = Enum.KeyInterpolationMode.Cubic,
 			}
 		else
 			local value = KeyframeUtils.getValue(track, tck)
@@ -56,7 +56,7 @@ return function(instanceName, path, trackType, tck, analytics)
 				Value = value,
 				InterpolationMode = interpolationMode,
 				LeftSlope = leftSlope,
-				RightSlope = rightSlope
+				RightSlope = rightSlope,
 			}
 		end
 

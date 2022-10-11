@@ -9,6 +9,6 @@ local Action = Util.Action
 -- FIXME STUDIOPLAT-28652: Export the types of tab directly in the init file
 return Action(script.Name, function(tab)
 	return {
-		tab = tab
+		tab = tab,
 	}
 end)

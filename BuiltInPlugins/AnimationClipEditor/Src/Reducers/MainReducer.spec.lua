@@ -61,7 +61,7 @@ return function()
 		},
 		Events = {
 			NamedKeyframes = {},
-			Keyframes = {1, 2, 3},
+			Keyframes = { 1, 2, 3 },
 			Data = {
 				[1] = {
 					TestEvent = "TestValue",
@@ -82,7 +82,7 @@ return function()
 				Tracks = {
 					["TestTrack"] = {
 						Type = Constants.TRACK_TYPES.Facs,
-						Keyframes = {1, 2, 3},
+						Keyframes = { 1, 2, 3 },
 						Data = {
 							[1] = {
 								Value = 1,
@@ -93,11 +93,11 @@ return function()
 							[3] = {
 								Value = 3,
 							},
-						}
+						},
 					},
 					["OtherTrack"] = {
 						Type = Constants.TRACK_TYPES.Facs,
-						Keyframes = {1, 4, 6, 8},
+						Keyframes = { 1, 4, 6, 8 },
 						Data = {
 							[1] = {
 								Value = 1,
@@ -111,15 +111,15 @@ return function()
 							[8] = {
 								Value = 8,
 							},
-						}
-					}
+						},
+					},
 				},
 			},
 		},
 	}
 
 	local function createTestStore()
-		local middlewares = {Rodux.thunkMiddleware}
+		local middlewares = { Rodux.thunkMiddleware }
 		local store = Rodux.Store.new(MainReducer, nil, middlewares)
 		store:dispatch(SetAnimationData(deepCopy(testAnimationData)))
 		store:dispatch(SetActive(true))
@@ -194,9 +194,9 @@ return function()
 	describe("DeselectKeyframe", function()
 		it("should deselect a keyframe", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 2, 2, true))
-			store:dispatch(DeselectKeyframe("Root", {"TestTrack"}, 1))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 1, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 2, 2, true))
+			store:dispatch(DeselectKeyframe("Root", { "TestTrack" }, 1))
 
 			local status = store:getState().Status
 			local testTrack = status.SelectedKeyframes.Root.TestTrack
@@ -206,9 +206,9 @@ return function()
 
 		it("should remove a track if no keyframes are selected", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
-			store:dispatch(SelectKeyframeRange("Root", {"OtherTrack"}, 1, 1, true))
-			store:dispatch(DeselectKeyframe("Root", {"TestTrack"}, 1))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 1, true))
+			store:dispatch(SelectKeyframeRange("Root", { "OtherTrack" }, 1, 1, true))
+			store:dispatch(DeselectKeyframe("Root", { "TestTrack" }, 1))
 
 			local status = store:getState().Status
 			local root = status.SelectedKeyframes.Root
@@ -218,8 +218,8 @@ return function()
 
 		it("should remove an instance if no tracks are selected", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
-			store:dispatch(DeselectKeyframe("Root", {"TestTrack"}, 1))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 1, true))
+			store:dispatch(DeselectKeyframe("Root", { "TestTrack" }, 1))
 
 			local status = store:getState().Status
 			local root = status.SelectedKeyframes.Root
@@ -231,7 +231,7 @@ return function()
 	describe("SetSelectedKeyframeData", function()
 		it("should set all selected keyframes' EasingDirections", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 1, true))
 			store:dispatch(SetSelectedKeyframeData({
 				EasingDirection = Enum.PoseEasingDirection.In,
 			}))
@@ -243,7 +243,7 @@ return function()
 
 		it("should set all selected keyframes' EasingStyles", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 1, true))
 			store:dispatch(SetSelectedKeyframeData({
 				EasingStyle = Enum.PoseEasingStyle.Linear,
 			}))
@@ -257,9 +257,9 @@ return function()
 			local store = createTestStore()
 			local value = 5
 
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 1, true))
 			store:dispatch(SetSelectedKeyframeData({
-				Value = value
+				Value = value,
 			}))
 
 			local data = store:getState().AnimationData
@@ -273,7 +273,7 @@ return function()
 			local store = createTestStore()
 
 			local analytics = Analytics.mock()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 1, true))
 			store:dispatch(CopySelectedKeyframes())
 			store:dispatch(PasteKeyframes(4, analytics))
 
@@ -289,7 +289,7 @@ return function()
 		it("should replace an old keyframe if one existed", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 1, true))
 			store:dispatch(CopySelectedKeyframes())
 			store:dispatch(PasteKeyframes(3, analytics))
 
@@ -303,8 +303,8 @@ return function()
 		it("should paste all keyframes if multiple were copied", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
-			store:dispatch(SelectKeyframeRange("Root", {"OtherTrack"}, 1, 1, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 2, true))
+			store:dispatch(SelectKeyframeRange("Root", { "OtherTrack" }, 1, 1, true))
 			store:dispatch(CopySelectedKeyframes())
 			store:dispatch(PasteKeyframes(4, analytics))
 
@@ -354,7 +354,7 @@ return function()
 
 		it("should add to current selection if multi-selecting", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 3, 3))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 3, 3))
 			local status = store:getState().Status
 
 			local testTrack = status.SelectedKeyframes.Root.TestTrack
@@ -428,7 +428,7 @@ return function()
 	describe("CopySelectedKeyframes", function()
 		it("should copy the keyframes in the selection to the clipboard", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 2, true))
 			store:dispatch(CopySelectedKeyframes())
 
 			local status = store:getState().Status
@@ -444,9 +444,9 @@ return function()
 
 		it("should replace the old clipboard", function()
 			local store = createTestStore()
-			store:dispatch(SetClipboard({TestKey = "TestValue"}))
+			store:dispatch(SetClipboard({ TestKey = "TestValue" }))
 
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 1, true))
 			store:dispatch(CopySelectedKeyframes())
 
 			local status = store:getState().Status
@@ -458,7 +458,7 @@ return function()
 		it("should delete all selected keyframes", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 2, true))
 			store:dispatch(DeleteSelectedKeyframes(analytics))
 
 			local animationData = store:getState().AnimationData
@@ -474,7 +474,7 @@ return function()
 	describe("ResetSelectedKeyframes", function()
 		it("should reset all selected keyframes to the base pose", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 2, true))
 			store:dispatch(ResetSelectedKeyframes())
 
 			local animationData = store:getState().AnimationData
@@ -487,7 +487,7 @@ return function()
 	describe("MoveSelectedKeyframes", function()
 		it("should move the selected keyframes", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 2, true))
 			store:dispatch(MoveSelectedKeyframes(1, 4))
 
 			local animationData = store:getState().AnimationData
@@ -501,7 +501,7 @@ return function()
 
 		it("should move relative to the pivot", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 2, true))
 			store:dispatch(MoveSelectedKeyframes(2, 5))
 
 			local animationData = store:getState().AnimationData
@@ -514,7 +514,7 @@ return function()
 
 		it("should not clobber keyframes that are being moved forward", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 3, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 3, true))
 			store:dispatch(MoveSelectedKeyframes(1, 2))
 
 			local animationData = store:getState().AnimationData
@@ -527,7 +527,7 @@ return function()
 
 		it("should not clobber keyframes that are being moved backward", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 3, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 3, true))
 			store:dispatch(MoveSelectedKeyframes(3, 2))
 
 			local animationData = store:getState().AnimationData
@@ -540,7 +540,7 @@ return function()
 
 		it("should clobber existing keyframes that are overlapped", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 2, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 2, true))
 			store:dispatch(MoveSelectedKeyframes(1, 2))
 
 			local animationData = store:getState().AnimationData
@@ -554,7 +554,7 @@ return function()
 	describe("ScaleSelectedKeyframes", function()
 		it("should scale the selected keyframes", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 3, 3, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 3, 3, true))
 			store:dispatch(ScaleSelectedKeyframes(0, 2))
 
 			local animationData = store:getState().AnimationData
@@ -565,7 +565,7 @@ return function()
 
 		it("should scale relative to the pivot", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 3, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 3, true))
 			store:dispatch(ScaleSelectedKeyframes(2, 2))
 
 			local animationData = store:getState().AnimationData
@@ -578,7 +578,7 @@ return function()
 
 		it("should not clobber keyframes when scaling up", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 3, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 3, true))
 			store:dispatch(ScaleSelectedKeyframes(0, 2))
 
 			local animationData = store:getState().AnimationData
@@ -589,7 +589,7 @@ return function()
 			expect(testTrack.Keyframes[3]).to.equal(6)
 
 			store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 3, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 3, true))
 			store:dispatch(ScaleSelectedKeyframes(3, 2))
 
 			animationData = store:getState().AnimationData
@@ -602,7 +602,7 @@ return function()
 
 		it("should not clobber keyframes when scaling down", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"OtherTrack"}, 4, 8, true))
+			store:dispatch(SelectKeyframeRange("Root", { "OtherTrack" }, 4, 8, true))
 			store:dispatch(ScaleSelectedKeyframes(8, 0.5))
 
 			local animationData = store:getState().AnimationData
@@ -614,7 +614,7 @@ return function()
 			expect(otherTrack.Keyframes[4]).to.equal(8)
 
 			store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"OtherTrack"}, 4, 8, true))
+			store:dispatch(SelectKeyframeRange("Root", { "OtherTrack" }, 4, 8, true))
 			store:dispatch(ScaleSelectedKeyframes(4, 0.5))
 
 			animationData = store:getState().AnimationData
@@ -628,7 +628,7 @@ return function()
 
 		it("should clobber existing keyframes that are overlapped", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 1, true))
 			store:dispatch(ScaleSelectedKeyframes(0, 2))
 
 			local animationData = store:getState().AnimationData
@@ -640,7 +640,7 @@ return function()
 
 		it("should not place a keyframe between frames", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 1, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 1, true))
 			store:dispatch(ScaleSelectedKeyframes(0, 1.5))
 
 			local animationData = store:getState().AnimationData
@@ -652,7 +652,7 @@ return function()
 
 		it("should do nothing if scale is 1", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframeRange("Root", {"TestTrack"}, 1, 3, true))
+			store:dispatch(SelectKeyframeRange("Root", { "TestTrack" }, 1, 3, true))
 			store:dispatch(ScaleSelectedKeyframes(0, 1))
 
 			local animationData = store:getState().AnimationData
@@ -824,7 +824,7 @@ return function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
 			store:dispatch(SetEvents({
-				Keyframes = {1},
+				Keyframes = { 1 },
 				Data = {
 					[1] = {
 						TestEvent2 = "TestValue2",
@@ -897,8 +897,26 @@ return function()
 		it("should skip the playhead to the previous summary keyframe", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			store:dispatch(AddTrack("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, Enum.RotationOrder.XYZ, analytics))
-			store:dispatch(AddTrack("Root", "OtherTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, Enum.RotationOrder.XYZ, analytics))
+			store:dispatch(
+				AddTrack(
+					"Root",
+					"TestTrack",
+					Constants.TRACK_TYPES.CFrame,
+					Constants.TRACK_TYPES.Quaternion,
+					Enum.RotationOrder.XYZ,
+					analytics
+				)
+			)
+			store:dispatch(
+				AddTrack(
+					"Root",
+					"OtherTrack",
+					Constants.TRACK_TYPES.CFrame,
+					Constants.TRACK_TYPES.Quaternion,
+					Enum.RotationOrder.XYZ,
+					analytics
+				)
+			)
 			store:dispatch(SetPlayhead(3))
 			store:dispatch(SetRootInstance({}))
 			store:dispatch(SkipAnimation(false, analytics))
@@ -913,8 +931,18 @@ return function()
 		it("should skip the playhead to the next summary keyframe", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			store:dispatch(AddTrack("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, analytics))
-			store:dispatch(AddTrack("Root", "OtherTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, analytics))
+			store:dispatch(
+				AddTrack("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, analytics)
+			)
+			store:dispatch(
+				AddTrack(
+					"Root",
+					"OtherTrack",
+					Constants.TRACK_TYPES.CFrame,
+					Constants.TRACK_TYPES.Quaternion,
+					analytics
+				)
+			)
 			store:dispatch(SetPlayhead(3))
 			store:dispatch(SetRootInstance({}))
 			store:dispatch(SkipAnimation(true, analytics))

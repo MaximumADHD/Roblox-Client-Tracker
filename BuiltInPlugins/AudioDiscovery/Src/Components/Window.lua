@@ -27,7 +27,7 @@ function Window:render()
 	local localization = props.Localization
 
 	local TOP_BAR_HEIGHT = 34
-	
+
 	local pane = Roact.createElement(Pane, {
 		LayoutOrder = 2,
 		Size = UDim2.new(1, 0, 1, 0),
@@ -150,11 +150,10 @@ function Window:render()
 								Style = "Round",
 							}),
 						}),
-					})
-				})
+					}),
+				}),
 			}),
 		})
-
 	elseif props.Dialog then
 		return Roact.createElement(Pane, {
 			Style = "Box",
@@ -205,8 +204,8 @@ function Window:render()
 								Style = "Round",
 							}),
 						}),
-					})
-				})
+					}),
+				}),
 			}),
 		})
 	else
@@ -215,29 +214,26 @@ function Window:render()
 end
 
 Window = withContext({
-	Localization = Localization
+	Localization = Localization,
 })(Window)
 
-return RoactRodux.connect(
-	function(state, props)
-		return {
-			Paused = state.Audio.Paused,
-			Dialog = state.Audio.Dialog,
-			Rows = state.Audio.Rows,
-		}
-	end,
-	function(dispatch)
-		return {
-			Refresh = function()
-				dispatch(DiscoverAudio())
-			end,
-			CloseDialog = function()
-				dispatch(SetDialog(false))
-			end,
-			Unpause = function()
-				dispatch(Unpause())
-				dispatch(DiscoverAudio())
-			end
-		}
-	end
-)(Window)
+return RoactRodux.connect(function(state, props)
+	return {
+		Paused = state.Audio.Paused,
+		Dialog = state.Audio.Dialog,
+		Rows = state.Audio.Rows,
+	}
+end, function(dispatch)
+	return {
+		Refresh = function()
+			dispatch(DiscoverAudio())
+		end,
+		CloseDialog = function()
+			dispatch(SetDialog(false))
+		end,
+		Unpause = function()
+			dispatch(Unpause())
+			dispatch(DiscoverAudio())
+		end,
+	}
+end)(Window)

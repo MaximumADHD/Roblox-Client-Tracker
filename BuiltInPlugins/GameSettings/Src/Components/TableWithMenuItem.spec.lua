@@ -16,7 +16,7 @@ return function()
 				},
 
 				MenuItems = {
-					{Key = "DetailsKey", Text = "View Details"},
+					{ Key = "DetailsKey", Text = "View Details" },
 				},
 			}),
 		})

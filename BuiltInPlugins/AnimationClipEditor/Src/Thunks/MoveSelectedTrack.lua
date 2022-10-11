@@ -67,7 +67,7 @@ return function(movement)
 
 		local newSelectedTracks = {}
 		for selectedTrackName, _ in pairs(newSelectedTracksMap) do
-			table.insert(newSelectedTracks, {selectedTrackName})
+			table.insert(newSelectedTracks, { selectedTrackName })
 		end
 		store:dispatch(SetSelectedTracks(newSelectedTracks))
 	end

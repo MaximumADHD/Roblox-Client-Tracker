@@ -33,9 +33,9 @@ end
 
 function R15IKRig:render()
 	return Roact.createElement(Roact.Portal, {
-		target = Workspace
+		target = Workspace,
 	}, {
-		[Constants.TEMPORARY_CONSTRAINTS] = Roact.createElement("Folder", {}, self:buildConstraints())
+		[Constants.TEMPORARY_CONSTRAINTS] = Roact.createElement("Folder", {}, self:buildConstraints()),
 	})
 end
 

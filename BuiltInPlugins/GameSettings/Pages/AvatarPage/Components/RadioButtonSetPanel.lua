@@ -23,7 +23,7 @@ function RadioButtonSetPanel:render()
 		Selected = self.props.Selected,
 		SubDescription = self.props.SubDescription,
 		SelectionChanged = self.props.SelectionChanged,
-		Mouse = self.props.Mouse
+		Mouse = self.props.Mouse,
 	})
 end
 

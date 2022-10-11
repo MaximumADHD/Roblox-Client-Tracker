@@ -216,6 +216,9 @@ function PreviewGrid:didMount()
 	local arrayOfAssetIds = PreviewConstantsInterface.getAllAssetIds()
 	local arrayOfBundleIds = PreviewConstantsInterface.getAllBundleIds()
 	self.props.GetPrebuiltAssetsInfo(API, assetService, arrayOfAssetIds, arrayOfBundleIds)
+
+	-- will select a default avatar if there are none selected
+	self.props.UpdatePreviewAssetsSelected()
 end
 
 PreviewGrid = withContext({

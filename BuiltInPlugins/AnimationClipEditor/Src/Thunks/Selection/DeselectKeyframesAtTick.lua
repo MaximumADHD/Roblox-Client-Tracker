@@ -23,7 +23,7 @@ return function(tck, multiSelect)
 
 		for instanceName, instance in pairs(animationData.Instances) do
 			for trackName, _ in pairs(instance.Tracks) do
-				store:dispatch(DeselectKeyframe(instanceName, {trackName}, tck))
+				store:dispatch(DeselectKeyframe(instanceName, { trackName }, tck))
 			end
 		end
 	end

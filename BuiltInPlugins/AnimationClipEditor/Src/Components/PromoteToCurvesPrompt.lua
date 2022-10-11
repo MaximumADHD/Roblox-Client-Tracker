@@ -39,8 +39,8 @@ function PromoteToCurvesPrompt:render(): (any)
 		PromptText = localization:getText("Dialog", "PromotePrompt1"),
 		Size = UDim2.new(0, Constants.PROMPT_SIZE.Width.Offset, 0, 180),
 		Buttons = {
-			{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round"},
-			{Key = true, Text = localization:getText("Dialog", "Confirm"), Style = "RoundPrimary"},
+			{ Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round" },
+			{ Key = true, Text = localization:getText("Dialog", "Confirm"), Style = "RoundPrimary" },
 		},
 		OnButtonClicked = function(didPromote)
 			self.onClose()
@@ -48,7 +48,7 @@ function PromoteToCurvesPrompt:render(): (any)
 				self.onPromote()
 			end
 		end,
-		OnClose = self.onClose
+		OnClose = self.onClose,
 	})
 end
 

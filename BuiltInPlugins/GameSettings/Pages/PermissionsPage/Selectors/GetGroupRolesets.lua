@@ -11,11 +11,11 @@ return function(state, groupId)
 		local rolesetRank = permission[PermissionsConstants.SubjectRankKey]
 
 		if groupId == rolesetGroup then
-			table.insert(rolesets, {Rank = rolesetRank, Id = rolesetId})
+			table.insert(rolesets, { Rank = rolesetRank, Id = rolesetId })
 		end
 	end
 
-	table.sort(rolesets, function(a,b)
+	table.sort(rolesets, function(a, b)
 		return a.Rank > b.Rank
 	end)
 

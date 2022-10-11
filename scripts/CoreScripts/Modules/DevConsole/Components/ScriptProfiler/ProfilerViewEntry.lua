@@ -4,6 +4,7 @@ local Roact = require(CorePackages.Roact)
 local Components = script.Parent.Parent.Parent.Components
 local CellLabel = require(Components.CellLabel)
 local BannerButton = require(Components.BannerButton)
+local Tooltip = require(Components.Tooltip)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local LINE_WIDTH = Constants.GeneralFormatting.LineWidth
@@ -15,8 +16,12 @@ local VALUE_CELL_WIDTH = Constants.ScriptProfilerFormatting.ValueCellWidth
 local CELL_PADDING = Constants.ScriptProfilerFormatting.CellPadding
 local VALUE_PADDING = Constants.ScriptProfilerFormatting.ValuePadding
 
-local MS_FORMAT = "%.8f"
+local MS_FORMAT = "%.3f"
 local PERCENT_FORMAT = "%.3f%%"
+local TOOLTIP_FORMAT = "%s:%s"
+
+local ROOT_LABEL = "<root>"
+local ANON_LABEL = "<anonymous>"
 
 local ProfilerViewEntry = Roact.PureComponent:extend("ProfilerViewEntry")
 
@@ -46,7 +51,9 @@ end
 function ProfilerViewEntry:init()
 
 	self.state = {
-		expanded = false
+		expanded = false,
+		showTooltip = false,
+		tooltipPos = UDim2.fromOffset(0, 0)
 	}
 
 	self.onButtonPress = function ()
@@ -55,6 +62,26 @@ function ProfilerViewEntry:init()
 				expanded = not self.state.expanded
 			}
 		end)
+	end
+
+	self.onMouseEnter = function (_, x, y)
+		self:setState({
+			showTooltip = true,
+			tooltipPos = UDim2.fromOffset(x, y)
+		})
+	end
+
+	self.onMouseMove = function (_, x, y)
+		self:setState({
+			showTooltip = true,
+			tooltipPos = UDim2.fromOffset(x, y)
+		})
+	end
+
+	self.onMouseLeave = function ()
+		self:setState({
+			showTooltip = false
+		})
 	end
 
 end
@@ -118,11 +145,7 @@ function ProfilerViewEntry:render()
 	local data = props.data
 	local childData = self:standardizeChildren(data)
 	local totalDuration = data.TotalDuration
-	local selfDuration = data.TotalDuration
-
-	for _, child in pairs(childData) do
-		selfDuration -= child.TotalDuration
-	end
+	local selfDuration = data.Duration
 
 	if percentageRatio then
 		if percentageRatio == 0 then
@@ -133,18 +156,23 @@ function ProfilerViewEntry:render()
 			selfDuration = string.format(PERCENT_FORMAT, selfDuration / percentageRatio)
 		end
 	else
-		totalDuration = string.format(MS_FORMAT, totalDuration)
-		selfDuration = string.format(MS_FORMAT, selfDuration)
+		-- ScriptProfiler returns duration in seconds, convert to milliseconds
+		totalDuration = string.format(MS_FORMAT, totalDuration * 1000)
+		selfDuration = string.format(MS_FORMAT, selfDuration * 1000)
 	end
 
 	local values = {totalDuration, selfDuration}
 
-	local defaultName = if depth == 0
-		then "<root>"
-		else "<unknown>"
-	local name = if not data.Name or #data.Name == 0
-		then defaultName
-		else data.Name
+	local defaultName = if depth == 0 then ROOT_LABEL else ANON_LABEL
+	local name = if not data.Name or #data.Name == 0 then defaultName else data.Name
+	local sourceName = if not data.Source or #data.Source == 0 then name else data.Source
+
+	local hoverText = sourceName
+	local lineNumber = data.Line
+	if lineNumber and lineNumber >= 1 then
+		hoverText = string.format(TOOLTIP_FORMAT, sourceName, tostring(lineNumber))
+	end
+
 	local nameWidth = UDim.new(1 - VALUE_CELL_WIDTH * #values, -offset)
 
 	return Roact.createElement("Frame", {
@@ -153,6 +181,11 @@ function ProfilerViewEntry:render()
 		LayoutOrder = layoutOrder,
 		AutomaticSize = Enum.AutomaticSize.Y
 	}, {
+
+		tooltip = if self.state.showTooltip then Roact.createElement(Tooltip, {
+			text = hoverText,
+			pos = self.state.tooltipPos
+		}) else nil,
 
 		layout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,
@@ -166,6 +199,9 @@ function ProfilerViewEntry:render()
 			isExpanded = self.state.expanded,
 			isExpandable = next(childData) ~= nil,
 			onButtonPress = self.onButtonPress,
+			onMouseEnter = self.onMouseEnter,
+			onMouseLeave = self.onMouseLeave,
+			onMouseMove = self.onMouseMove,
 			layoutOrder = -1, -- Ensures it is always displayed first
 		}, {
 			name = Roact.createElement(CellLabel, {

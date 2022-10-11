@@ -22,18 +22,19 @@ return function()
 			function(container)
 				local frame = container:FindFirstChildOfClass("Frame")
 				local mainFrame = frame.MainFrame
-				local layout = mainFrame.UIListLayout
-				local editAndPreviewContainer = mainFrame.EditAndPreviewContainer
-				local editAndPreviewFrame = editAndPreviewContainer.EditAndPreviewFrame
-				local editSwizzle = mainFrame.EditSwizzle
-				local previewSwizzle = mainFrame.PreviewSwizzle
+				local scroller = mainFrame.Scroller
+				local previewViewportFrameContainer = frame.PreviewViewportFrameContainer
+				local generateContainer = scroller.GenerateContainer
+				local generateScreen = generateContainer.GenerateScreen
+				local previewFrame = scroller.PreviewFrame
 
 				expect(frame).to.be.ok()
-				expect(layout).to.be.ok()
-				expect(editAndPreviewContainer).to.be.ok()
-				expect(editAndPreviewFrame).to.be.ok()
-				expect(editSwizzle).to.be.ok()
-				expect(previewSwizzle).to.be.ok()
+				expect(mainFrame).to.be.ok()
+				expect(scroller).to.be.ok()
+				expect(previewViewportFrameContainer).to.be.ok()
+				expect(generateContainer).to.be.ok()
+				expect(generateScreen).to.be.ok()
+				expect(previewFrame).to.be.ok()
 			end
 		)
 	end)

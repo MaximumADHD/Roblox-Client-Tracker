@@ -24,7 +24,7 @@ if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
 
 	print("----- All " .. Plugin.Name .. " Tests ------")
 	require(script.Parent.defineLuaFlags)
-	TestBootstrap:run({TestsFolderPlugin}, reporter, testOptions)
+	TestBootstrap:run({ TestsFolderPlugin }, reporter, testOptions)
 	print("----------------------------------")
 
 	if DebugFlags.RunDeveloperFrameworkTests() then

@@ -46,17 +46,20 @@ function ListDialog:render()
 	local theme = props.Stylizer
 
 	local children = {
-		Header = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.SemiBold, {
-			AnchorPoint = if FFlagRemoveUILibraryBulletPoint then nil else Vector2.new(0.5, 0),
-			AutomaticSize = if FFlagRemoveUILibraryBulletPoint then Enum.AutomaticSize.Y else nil,
+		Header = Roact.createElement(
+			"TextLabel",
+			Cryo.Dictionary.join(theme.fontStyle.SemiBold, {
+				AnchorPoint = if FFlagRemoveUILibraryBulletPoint then nil else Vector2.new(0.5, 0),
+				AutomaticSize = if FFlagRemoveUILibraryBulletPoint then Enum.AutomaticSize.Y else nil,
 				-- TODO STUDIOPLAT-27986 Remove Size when migrating to Dev Framework StyledDialog and use a layout with padding instead.
-			Size = if FFlagRemoveUILibraryBulletPoint then UDim2.new(1, -60, 0, 0) else UDim2.new(1, -60, 0, 80),
-			Position = if FFlagRemoveUILibraryBulletPoint then nil else UDim2.new(0.5, 0, 0, 10),
-			BackgroundTransparency = 1,
-			Text = header,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextWrapped = true,
-		})),
+				Size = if FFlagRemoveUILibraryBulletPoint then UDim2.new(1, -60, 0, 0) else UDim2.new(1, -60, 0, 80),
+				Position = if FFlagRemoveUILibraryBulletPoint then nil else UDim2.new(0.5, 0, 0, 10),
+				BackgroundTransparency = 1,
+				Text = header,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextWrapped = true,
+			})
+		),
 	}
 
 	if FFlagRemoveUILibraryBulletPoint then
@@ -75,12 +78,15 @@ function ListDialog:render()
 		}
 
 		for i, item in ipairs(entries) do
-			table.insert(entryList, Roact.createElement(BulletPoint, {
-				LayoutOrder = i,
-				Text = item,
-				TextWrapped = props.Wrapped,
-				TextTruncate = props.Truncate,
-			}))
+			table.insert(
+				entryList,
+				Roact.createElement(BulletPoint, {
+					LayoutOrder = i,
+					Text = item,
+					TextWrapped = props.Wrapped,
+					TextTruncate = props.Truncate,
+				})
+			)
 		end
 
 		children.Entries = Roact.createElement("Frame", {

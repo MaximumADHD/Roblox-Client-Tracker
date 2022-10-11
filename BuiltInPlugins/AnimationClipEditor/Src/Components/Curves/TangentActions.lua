@@ -32,7 +32,7 @@ local TangentActions = Roact.PureComponent:extend("TangentActions")
 export type Props = {
 	-- State/Context
 	InstanceName: string,
-	Path: {string},
+	Path: { string },
 	PluginActions: any,
 	Side: string,
 	Tick: number,
@@ -43,7 +43,7 @@ export type Props = {
 	OnSetTangent: () -> (),
 }
 
-function TangentActions:makeMenuActions(): {any}
+function TangentActions:makeMenuActions(): { any }
 	local pluginActions = self.props.PluginActions
 
 	return {
@@ -91,10 +91,12 @@ function TangentActions:render(): (any)
 		pluginActions:get("ZeroTangent").Enabled = true
 	end
 
-	return showMenu and Roact.createElement(ContextMenu, {
-		Actions = self:makeMenuActions(),
-		OnMenuOpened = props.OnMenuOpened,
-	}) or nil
+	return showMenu
+			and Roact.createElement(ContextMenu, {
+				Actions = self:makeMenuActions(),
+				OnMenuOpened = props.OnMenuOpened,
+			})
+		or nil
 end
 
 function TangentActions:willUnmount(): ()
@@ -115,7 +117,7 @@ TangentActions = withContext({
 	PluginActions = ContextServices.PluginActions,
 })(TangentActions)
 
-local function mapStateToProps(state): ({[string]: any})
+local function mapStateToProps(state): ({ [string]: any })
 	local status = state.Status
 
 	return {
@@ -126,7 +128,7 @@ local function mapStateToProps(state): ({[string]: any})
 	}
 end
 
-local function mapDispatchToProps(): ({[string]: any})
+local function mapDispatchToProps(): ({ [string]: any })
 	return {}
 end
 

@@ -7,11 +7,10 @@ return function(plugin, pluginLoaderContext)
 
 	local Plugin = script.Parent.Parent
 	local Util = Plugin.Core.Util
-	
+
 	local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
 	local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
 	local FFlagUnifyModelPackagePublish3 = game:GetFastFlag("UnifyModelPackagePublish3")
-	local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
 	local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
 
 	local isCli = require(Util.isCli)
@@ -168,7 +167,7 @@ return function(plugin, pluginLoaderContext)
 	-- assetTypeEnum Enum.AssetType, some asset like places, need to use the parameter to
 	--				set the assetType of the Asset, and skip the assetTypeSelection.
 	--				default to nil
-	-- sourceInstances instances, Will be used during package publishing, this reference 
+	-- sourceInstances instances, Will be used during package publishing, this reference
 	--              will be used to swap out with the published package. This is to remove
 	--              any changes that might've been added during publish. default to nil
 	local function createAssetConfig(assetId, flowType, clonedInstances, assetTypeEnum, sourceInstances)
@@ -178,7 +177,7 @@ return function(plugin, pluginLoaderContext)
 
 		local assetTypesForRelease = {}
 		local assetTypesForUpload = {}
-		local assetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then {} else nil
+		local assetTypesForFree = {}
 		local packagePermissions = {}
 
 		local isItemTagsFeatureEnabled = false
@@ -188,7 +187,7 @@ return function(plugin, pluginLoaderContext)
 		if toolboxStore then
 			assetTypesForRelease = toolboxStore:getState().roles.allowedAssetTypesForRelease
 			assetTypesForUpload = toolboxStore:getState().roles.allowedAssetTypesForUpload
-			assetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then toolboxStore:getState().roles.allowedAssetTypesForFree else nil
+			assetTypesForFree = toolboxStore:getState().roles.allowedAssetTypesForFree
 			packagePermissions = toolboxStore:getState().packages.permissionsTable
 			isItemTagsFeatureEnabled = toolboxStore:getState().itemTags.isItemTagsFeatureEnabled
 			enabledAssetTypesForItemTags = toolboxStore:getState().itemTags.enabledAssetTypesForItemTags
@@ -218,7 +217,7 @@ return function(plugin, pluginLoaderContext)
 			sourceInstances = FFlagUnifyModelPackagePublish3 and sourceInstances or nil,
 			allowedAssetTypesForRelease = assetTypesForRelease,
 			allowedAssetTypesForUpload = assetTypesForUpload,
-			allowedAssetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then assetTypesForFree else nil,
+			allowedAssetTypesForFree = assetTypesForFree,
 			isItemTagsFeatureEnabled = isItemTagsFeatureEnabled,
 			enabledAssetTypesForItemTags = enabledAssetTypesForItemTags,
 			maximumItemTagsPerItem = maximumItemTagsPerItem,
@@ -365,11 +364,19 @@ return function(plugin, pluginLoaderContext)
 							Enum.AssetType.Animation
 						)
 					else
-						createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances, nil, instances)
+						createAssetConfig(
+							nil,
+							AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW,
+							clonedInstances,
+							nil,
+							instances
+						)
 					end
 				end
 				if FFlagDebugToolboxGetRolesRequest then
-					toolboxStore:dispatch(GetRolesDebugRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
+					toolboxStore
+						:dispatch(GetRolesDebugRequest(networkInterface))
+						:andThen(proceedToUpload, proceedToUpload)
 				else
 					toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
 				end
@@ -386,11 +393,19 @@ return function(plugin, pluginLoaderContext)
 							Enum.AssetType.Animation
 						)
 					else
-						createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances, nil, instances)
+						createAssetConfig(
+							nil,
+							AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW,
+							clonedInstances,
+							nil,
+							instances
+						)
 					end
 				end
 				if FFlagDebugToolboxGetRolesRequest then
-					toolboxStore:dispatch(GetRolesDebugRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
+					toolboxStore
+						:dispatch(GetRolesDebugRequest(networkInterface))
+						:andThen(proceedToUpload, proceedToUpload)
 				else
 					toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
 				end
@@ -418,7 +433,9 @@ return function(plugin, pluginLoaderContext)
 				end
 
 				if FFlagDebugToolboxGetRolesRequest then
-					toolboxStore:dispatch(GetRolesDebugRequest(networkInterface)):andThen(proceedToPublish, proceedToPublish)
+					toolboxStore
+						:dispatch(GetRolesDebugRequest(networkInterface))
+						:andThen(proceedToPublish, proceedToPublish)
 				else
 					toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToPublish, proceedToPublish)
 				end

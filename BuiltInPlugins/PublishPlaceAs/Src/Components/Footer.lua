@@ -71,8 +71,8 @@ function Footer:render()
 		SaveSettings = Roact.createElement(ButtonBar, {
 			ZIndex = 2,
 			Buttons = {
-				{Name = "Cancel", Active = true, Value = false},
-				{Name = mainButton.Name, Default = true, Active = mainButton.Active, Value = true},
+				{ Name = "Cancel", Active = true, Value = false },
+				{ Name = mainButton.Name, Default = true, Active = mainButton.Active, Value = true },
 			},
 			HorizontalAlignment = Enum.HorizontalAlignment.Right,
 			buttonActivated = function(isMain)
@@ -86,7 +86,7 @@ function Footer:render()
 		}, children),
 
 		GotoNextScreen = nextScreen ~= nil and Roact.createElement("TextButton", {
-			Size = UDim2.new(0.15,0,0.5,0),
+			Size = UDim2.new(0.15, 0, 0.5, 0),
 			Position = UDim2.new(0.13, 0, 0.5, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			BorderSizePixel = 3,

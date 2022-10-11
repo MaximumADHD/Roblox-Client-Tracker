@@ -125,7 +125,7 @@ function AssetSwimlane:render()
 
 		local isHovered
 		if FFlagToolboxFixVerifyAndAnnouncementBugs then
-			local modal = getModal(self)			
+			local modal = getModal(self)
 			isHovered = state.hoveredAssetId == assetId and modal.canHoverAsset()
 		else
 			isHovered = state.hoveredAssetId == assetId

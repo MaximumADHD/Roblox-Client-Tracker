@@ -22,7 +22,7 @@ export type Props = {
 	Width: number?,
 	Color: Color3,
 	Transparency: number?,
-	ZIndex: number?
+	ZIndex: number?,
 }
 
 function Line:render(): (any)
@@ -40,7 +40,7 @@ function Line:render(): (any)
 	local position = UDim2.new(0, (a.X + b.X) / 2, 0, (a.Y + b.Y) / 2)
 	local length = math.sqrt((b.X - a.X) * (b.X - a.X) + (b.Y - a.Y) * (b.Y - a.Y))
 
-	local size = UDim2.new(0, length+1, 0, props.Width or 1)
+	local size = UDim2.new(0, length + 1, 0, props.Width or 1)
 	local angle = math.atan2(b.Y - a.Y, b.X - a.X)
 
 	return Roact.createElement("Frame", {

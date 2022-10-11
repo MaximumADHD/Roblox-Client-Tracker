@@ -10,29 +10,33 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 
-local Modules = CoreGui.RobloxGui.Modules
-
 local Roact = require(CorePackages.Roact)
 local UIBlox = require(CorePackages.UIBlox)
+local Cryo = require(CorePackages.Cryo)
 local t = require(CorePackages.Packages.t)
+local PermissionsProtocol = require(CorePackages.UniversalApp.Permissions.PermissionsProtocol).default
 
 local ExternalEventConnection = UIBlox.Utility.ExternalEventConnection
+local Images = UIBlox.App.ImageSet.Images
 
+local Modules = CoreGui.RobloxGui.Modules
 local PermissionButton = require(Modules.Settings.Components.PermissionButton)
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
 
-local SpringAnimatedItem = UIBlox.Utility.SpringAnimatedItem
-
 local PermissionsButtons = Roact.PureComponent:extend("PermissionsButtons")
 
-local BUTTON_SIZE = 32
 local PADDING_SIZE = 24
 local DIVIDER_HEIGHT = 24
 local Y_HEIGHT = 38
-local ANIMATION_SPRING_SETTINGS = {
-	dampingRatio = 1,
-	frequency = 2.5,
-}
+
+local VIDEO_IMAGE = Images["icons/controls/video"]
+local VIDEO_OFF_IMAGE = Images["icons/controls/videoOff"]
+local MIC_IMAGE = Images["icons/controls/microphone"]
+local MIC_OFF_IMAGE = Images["icons/controls/microphoneMute"]
+local SELF_VIEW_IMAGE = Images["icons/controls/selfie"]
+local SELF_VIEW_OFF_IMAGE = Images["icons/controls/selfieOff"]
+local MUTE_ALL_IMAGE = Images["icons/controls/headphone"]
+local UNMUTE_ALL_IMAGE = Images["icons/controls/headphoneDeafen"]
 
 PermissionsButtons.validateProps = t.strictInterface({
 	isPortrait = t.boolean,
@@ -40,14 +44,8 @@ PermissionsButtons.validateProps = t.strictInterface({
 	isTenFootInterface = t.boolean,
 	ZIndex = t.number,
 	LayoutOrder = t.number,
+	shouldFillScreen = t.boolean,
 })
-
-local function mapValuesToProps(values)
-	return {
-		Size = UDim2.new(0, values.width, 0, Y_HEIGHT),
-		BackgroundTransparency = 1,
-	}
-end
 
 local function createDivider(layoutOrder)
 	return Roact.createElement("Frame", {
@@ -62,24 +60,14 @@ local function createDivider(layoutOrder)
 	})
 end
 
--- Numbers are obtained from SettingsHub.lua for the existing in game settings menu.
-local function getSize(props)
-	if props.isPortrait then
-		return UDim2.new(1, -20, 0, Y_HEIGHT)
-	else
-		if props.isSmallTouchScreen then
-			return UDim2.new(1, -10, 0, Y_HEIGHT)
-		else
-			return UDim2.new(0, 800, 0, Y_HEIGHT)
-		end
-	end
-end
-
 function PermissionsButtons:init()
 	self:setState({
 		allPlayersMuted = false,
 		microphoneEnabled = not VoiceChatServiceManager.localMuted or false,
 		cameraEnabled = if FaceAnimatorService then FaceAnimatorService.VideoAnimationEnabled else false,
+		selfViewEnabled = false, -- TODO Update once API is available for toggling self view.
+		hasCameraPermissions = false,
+		hasMicPermissions = false,
 	})
 
 	-- Mute all players in the lobby
@@ -121,6 +109,11 @@ function PermissionsButtons:init()
 		})
 	end
 
+	-- toggle self view visibility
+	self.toggleSelfView = function()
+		-- TODO Update once Self View API is approved and submitted.
+	end
+
 	self.muteChangedEvent = function(muted)
 		-- updateIcon() --TODO Update Icon
 
@@ -136,25 +129,45 @@ function PermissionsButtons:init()
 	end
 end
 
--- TODO AVBURST-10065 Update Icons for permission buttons when applicable.
+--[[
+	Check if Roblox has permissions for camera/mic access.
+]]
+function PermissionsButtons:getPermissions()
+	return PermissionsProtocol:hasPermissions({
+		PermissionsProtocol.Permissions.CAMERA_ACCESS,
+		PermissionsProtocol.Permissions.MICROPHONE_ACCESS,
+	}):andThen(function (permissionResponse)
+		self:setState({
+			hasCameraPermissions = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
+				or not Cryo.List.find(permissionResponse.missingPermissions, PermissionsProtocol.Permissions.CAMERA_ACCESS),
+			hasMicPermissions = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
+				or not Cryo.List.find(permissionResponse.missingPermissions, PermissionsProtocol.Permissions.MICROPHONE_ACCESS),
+		})
+	end)
+end
+
+function PermissionsButtons:didMount()
+	self:getPermissions()
+end
+
 function PermissionsButtons:render()
-	local shouldDisplayCamera = self.state.microphoneEnabled
-	local numItems = shouldDisplayCamera and 3 or 2
-	local width = BUTTON_SIZE * numItems + (PADDING_SIZE * (numItems - 1))
+	local shouldShowMicButtons = self.state.hasMicPermissions
+	local shouldShowCameraButtons = self.state.hasCameraPermissions
 	local isTopCloseButton = not self.props.isPortrait and not self.props.isTenFootInterface and not self.props.isSmallTouchScreen
 
 	return Roact.createElement("Frame", {
-		AutomaticSize = Enum.AutomaticSize.X,
+		AutomaticSize = Enum.AutomaticSize.XY,
 		ZIndex = self.props.ZIndex,
 		BackgroundTransparency = 1,
 		Position = UDim2.new(0, 0, 0, 0),
-		Size = getSize(self.props),
+		Size = UDim2.new(self.props.shouldFillScreen and 1 or 0, 0, 0, 0),
 		AnchorPoint = if isTopCloseButton then Vector2.new(0, 0) else Vector2.new(0.5, 0.5),
 		LayoutOrder = self.props.LayoutOrder,
 		Visible = not self.props.isTenFootInterface, -- Not Visible on Xbox
 	}, {
 		UIPaddingPermissionsContainer = Roact.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, 74), -- Close Button location
+			PaddingTop = UDim.new(0, 4), -- Top Padding from button to edge of screen
 		}),
 		UIListLayout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
@@ -164,20 +177,12 @@ function PermissionsButtons:render()
 			Padding = UDim.new(0, PADDING_SIZE),
 		}),
 		Divider1 = createDivider(1),
-		Container = Roact.createElement(SpringAnimatedItem.AnimatedFrame, {
-			regularProps = {
-				Size = UDim2.new(0, 0, 0, Y_HEIGHT),
-				BackgroundTransparency = 1,
-				ClipsDescendants = true,
-				LayoutOrder = 2,
-			},
-
-			animatedValues = {
-				width = width,
-			},
-
-			mapValuesToProps = mapValuesToProps,
-			springOptions = ANIMATION_SPRING_SETTINGS,
+		Container = Roact.createElement("Frame", {
+			AutomaticSize = Enum.AutomaticSize.X,
+			Size = UDim2.fromOffset(0, Y_HEIGHT),
+			BackgroundTransparency = 1,
+			ClipsDescendants = true,
+			LayoutOrder = 2,
 		}, {
 			UIListLayoutPermissionsContainer = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Horizontal,
@@ -186,20 +191,25 @@ function PermissionsButtons:render()
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				Padding = UDim.new(0, PADDING_SIZE),
 			}),
-			MuteAllButton = Roact.createElement(PermissionButton, {
+			MuteAllButton = shouldShowMicButtons and Roact.createElement(PermissionButton, {
 				LayoutOrder = 1,
-				image = "rbxasset://textures/ui/Settings/MenuBarIcons/HomeTab.png",
+				image = if self.state.allPlayersMuted then MUTE_ALL_IMAGE else UNMUTE_ALL_IMAGE,
 				callback = self.toggleMuteAll,
 			}),
-			ToggleMicButton = Roact.createElement(PermissionButton, {
+			ToggleMicButton = shouldShowMicButtons and Roact.createElement(PermissionButton, {
 				LayoutOrder = 2,
-				image = "rbxasset://textures/ui/Settings/MenuBarIcons/HomeTab.png",
+				image = if self.state.microphoneEnabled then MIC_IMAGE else MIC_OFF_IMAGE,
 				callback = self.toggleMic,
 			}),
-			EnableVideoButton = Roact.createElement(PermissionButton, {
+			EnableVideoButton = shouldShowCameraButtons and Roact.createElement(PermissionButton, {
 				LayoutOrder = 3,
-				image = "rbxasset://textures/ui/Settings/MenuBarIcons/HomeTab.png",
+				image = if self.state.cameraEnabled then VIDEO_IMAGE else VIDEO_OFF_IMAGE,
 				callback = self.toggleVideo,
+			}),
+			EnableSelfViewButton = Roact.createElement(PermissionButton, {
+				LayoutOrder = 4,
+				image = if self.state.selfViewEnabled then SELF_VIEW_IMAGE else SELF_VIEW_OFF_IMAGE,
+				callback = self.toggleSelfView,
 			}),
 		}),
 		Divider2 = createDivider(3),

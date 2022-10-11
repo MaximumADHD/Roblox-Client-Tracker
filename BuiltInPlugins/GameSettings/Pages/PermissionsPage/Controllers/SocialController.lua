@@ -12,7 +12,7 @@ end
 function SocialController:friendsV1GET(userId)
 	local networking = self.__networking
 
-	return networking:get("friends", "/v1/users/"..userId.."/friends")
+	return networking:get("friends", "/v1/users/" .. userId .. "/friends")
 end
 
 function SocialController:getUserFriends(userId)
@@ -20,7 +20,7 @@ function SocialController:getUserFriends(userId)
 	local friends = response.responseBody.data
 
 	local friendIds = {}
-	for _,friend in ipairs(friends) do
+	for _, friend in ipairs(friends) do
 		table.insert(friendIds, friend.id)
 	end
 

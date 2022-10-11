@@ -9,7 +9,7 @@ return function()
 
 	local AnimationData = require(script.Parent.AnimationData)
 
-	local bones = {"TestTrack", "OtherTrack"}
+	local bones = { "TestTrack", "OtherTrack" }
 	local testAnimationData = {
 		Metadata = {
 			Name = "Test Animation",
@@ -23,7 +23,7 @@ return function()
 				Tracks = {
 					["TestTrack"] = {
 						Type = Constants.TRACK_TYPES.CFrame,
-						Keyframes = {1, 2, 3},
+						Keyframes = { 1, 2, 3 },
 						Data = {
 							[1] = {
 								Value = CFrame.new(0, 1, 0),
@@ -40,11 +40,11 @@ return function()
 								EasingStyle = Enum.PoseEasingStyle.Linear,
 								EasingDirection = Enum.PoseEasingDirection.In,
 							},
-						}
+						},
 					},
 					["OtherTrack"] = {
 						Type = Constants.TRACK_TYPES.CFrame,
-						Keyframes = {1, 2, 3},
+						Keyframes = { 1, 2, 3 },
 						Data = {
 							[1] = {
 								Value = CFrame.new(1, 1, 0),
@@ -61,8 +61,8 @@ return function()
 								EasingStyle = Enum.PoseEasingStyle.Linear,
 								EasingDirection = Enum.PoseEasingDirection.In,
 							},
-						}
-					}
+						},
+					},
 				},
 			},
 		},
@@ -108,7 +108,7 @@ return function()
 		end)
 
 		it("should make an empty array for a track that doesn't exist", function()
-			local moreBones = {"TestTrack", "OtherTrack", "NoTrack"}
+			local moreBones = { "TestTrack", "OtherTrack", "NoTrack" }
 			local poses = AnimationData.toCFrameArray(moreBones, testAnimationData)
 			expect(#poses).to.equal(3)
 			expect(#poses[3]).to.equal(0)
@@ -213,7 +213,7 @@ return function()
 
 		it("should not create a track for an empty keyframe set", function()
 			local metadata = testAnimationData.Metadata
-			local moreBones = {"TestTrack", "OtherTrack", "NoTrack"}
+			local moreBones = { "TestTrack", "OtherTrack", "NoTrack" }
 			local poses = AnimationData.toCFrameArray(moreBones, testAnimationData)
 			local newAnimData = AnimationData.fromCFrameArray(bones, poses, metadata.Name, Constants.TICK_FREQUENCY)
 
@@ -285,7 +285,7 @@ return function()
 		it("should preserve the old keyframes", function()
 			local track = {
 				Type = Constants.TRACK_TYPES.CFrame,
-				Keyframes = {1},
+				Keyframes = { 1 },
 				Data = {
 					[1] = {},
 				},
@@ -298,7 +298,7 @@ return function()
 		it("should sort the Keyframes table after adding", function()
 			local track = {
 				Type = Constants.TRACK_TYPES.CFrame,
-				Keyframes = {1, 3},
+				Keyframes = { 1, 3 },
 				Data = {
 					[1] = {},
 					[3] = {},
@@ -315,7 +315,7 @@ return function()
 		it("should move a keyframe", function()
 			local track = {
 				Type = Constants.TRACK_TYPES.CFrame,
-				Keyframes = {1},
+				Keyframes = { 1 },
 				Data = {
 					[1] = {},
 				},
@@ -330,7 +330,7 @@ return function()
 		it("should preserve the old keyframes", function()
 			local track = {
 				Type = Constants.TRACK_TYPES.CFrame,
-				Keyframes = {1, 2},
+				Keyframes = { 1, 2 },
 				Data = {
 					[1] = {},
 					[2] = {},
@@ -344,7 +344,7 @@ return function()
 		it("should clobber a keyframe if another is moved onto it", function()
 			local track = {
 				Type = Constants.TRACK_TYPES.CFrame,
-				Keyframes = {1, 2},
+				Keyframes = { 1, 2 },
 				Data = {
 					[1] = {
 						Value = "KeepThis",
@@ -362,7 +362,7 @@ return function()
 		it("should sort the Keyframes table after moving", function()
 			local track = {
 				Type = Constants.TRACK_TYPES.CFrame,
-				Keyframes = {2, 3},
+				Keyframes = { 2, 3 },
 				Data = {
 					[2] = {},
 					[3] = {},
@@ -378,7 +378,7 @@ return function()
 		it("should delete a keyframe", function()
 			local track = {
 				Type = Constants.TRACK_TYPES.CFrame,
-				Keyframes = {1, 2},
+				Keyframes = { 1, 2 },
 				Data = {
 					[1] = {},
 					[2] = {},
@@ -392,7 +392,7 @@ return function()
 		it("should preserve the old keyframes", function()
 			local track = {
 				Type = Constants.TRACK_TYPES.CFrame,
-				Keyframes = {1, 2},
+				Keyframes = { 1, 2 },
 				Data = {
 					[1] = {},
 					[2] = {},
@@ -407,7 +407,7 @@ return function()
 		it("should set a keyframe's data", function()
 			local track = {
 				Type = Constants.TRACK_TYPES.CFrame,
-				Keyframes = {1},
+				Keyframes = { 1 },
 				Data = {
 					[1] = {},
 				},
@@ -426,10 +426,10 @@ return function()
 		it("should merge with the keyframe's existing data", function()
 			local track = {
 				Type = Constants.TRACK_TYPES.CFrame,
-				Keyframes = {1},
+				Keyframes = { 1 },
 				Data = {
 					[1] = {
-						Value = CFrame.new()
+						Value = CFrame.new(),
 					},
 				},
 			}
@@ -494,7 +494,7 @@ return function()
 	describe("removeEvent", function()
 		it("should remove an event from the Events table", function()
 			local events = {
-				Keyframes = {1},
+				Keyframes = { 1 },
 				Data = {
 					[1] = {
 						TestEvent = "SomeValue",
@@ -510,7 +510,7 @@ return function()
 	describe("moveEvents", function()
 		it("should move all events at the old frame to the new frame", function()
 			local events = {
-				Keyframes = {1},
+				Keyframes = { 1 },
 				Data = {
 					[1] = {
 						TestEvent = "SomeValue",
@@ -529,7 +529,7 @@ return function()
 
 		it("should clobber existing events that are beneath moved events", function()
 			local events = {
-				Keyframes = {1},
+				Keyframes = { 1 },
 				Data = {
 					[1] = {
 						TestEvent = "SomeValue",
@@ -550,7 +550,7 @@ return function()
 	describe("deleteEvents", function()
 		it("should delete all events at the given frame", function()
 			local events = {
-				Keyframes = {1},
+				Keyframes = { 1 },
 				Data = {
 					[1] = {
 						TestEvent = "SomeValue",
@@ -567,7 +567,7 @@ return function()
 	describe("setEventValue", function()
 		it("should set the value of the event at the given frame and name", function()
 			local events = {
-				Keyframes = {1},
+				Keyframes = { 1 },
 				Data = {
 					[1] = {
 						TestEvent = "SomeValue",
@@ -591,7 +591,7 @@ return function()
 					Root = {
 						Tracks = {
 							["TestTrack"] = {
-								Keyframes = {1, 2, 2.1, 3},
+								Keyframes = { 1, 2, 2.1, 3 },
 							},
 						},
 					},
@@ -641,7 +641,7 @@ return function()
 					Root = {
 						Tracks = {
 							TestTrack = {
-								Keyframes = {1},
+								Keyframes = { 1 },
 							},
 						},
 					},
@@ -667,7 +667,7 @@ return function()
 					Root = {
 						Tracks = {
 							TestTrack = {
-								Keyframes = {2},
+								Keyframes = { 2 },
 							},
 						},
 					},
@@ -697,7 +697,7 @@ return function()
 					Root = {
 						Tracks = {
 							TestTrack = {
-								Keyframes = {1, 2, 3},
+								Keyframes = { 1, 2, 3 },
 							},
 						},
 					},
@@ -742,12 +742,12 @@ return function()
 					Root = {
 						Tracks = {
 							TestTrack1 = {
-								Keyframes = {1, 2, 3},
+								Keyframes = { 1, 2, 3 },
 							},
 							TestTrack2 = {
 								Components = {
 									Component = {
-										Keyframes = {1},
+										Keyframes = { 1 },
 									},
 								},
 							},
@@ -755,9 +755,9 @@ return function()
 					},
 				},
 			}
-			expect(AnimationData.getTrack(data, "Root", {"TestTrack1"})).to.be.ok()
-			expect(AnimationData.getTrack(data, "Root", {"TestTrack2"})).to.be.ok()
-			expect(AnimationData.getTrack(data, "Root", {"TestTrack2", "Component"})).to.be.ok()
+			expect(AnimationData.getTrack(data, "Root", { "TestTrack1" })).to.be.ok()
+			expect(AnimationData.getTrack(data, "Root", { "TestTrack2" })).to.be.ok()
+			expect(AnimationData.getTrack(data, "Root", { "TestTrack2", "Component" })).to.be.ok()
 		end)
 
 		it("should handle non existing tracks", function()
@@ -766,12 +766,12 @@ return function()
 					Root = {
 						Tracks = {
 							TestTrack1 = {
-								Keyframes = {1, 2, 3},
+								Keyframes = { 1, 2, 3 },
 							},
 							TestTrack2 = {
 								Components = {
 									Component = {
-										Keyframes = {1},
+										Keyframes = { 1 },
 									},
 								},
 							},
@@ -780,14 +780,14 @@ return function()
 				},
 			}
 
-			expect(AnimationData.getTrack(nil, "Root", {"TestTrack1"})).never.to.be.ok()
-			expect(AnimationData.getTrack(data, "Foo", {"TestTrack1"})).never.to.be.ok()
-			expect(AnimationData.getTrack(data, "Foo", {"TestTrack1", "Component"})).never.to.be.ok()
+			expect(AnimationData.getTrack(nil, "Root", { "TestTrack1" })).never.to.be.ok()
+			expect(AnimationData.getTrack(data, "Foo", { "TestTrack1" })).never.to.be.ok()
+			expect(AnimationData.getTrack(data, "Foo", { "TestTrack1", "Component" })).never.to.be.ok()
 			expect(AnimationData.getTrack(data, "Root", {})).never.to.be.ok()
-			expect(AnimationData.getTrack(data, "Root", {"TestTrack3"})).never.to.be.ok()
-			expect(AnimationData.getTrack(data, "Root", {"Component"})).never.to.be.ok()
-			expect(AnimationData.getTrack(data, "Root", {"TestTrack2", "Foo"})).never.to.be.ok()
-			expect(AnimationData.getTrack(data, "Root", {"TestTrack2", "Component", "Foo"})).never.to.be.ok()
+			expect(AnimationData.getTrack(data, "Root", { "TestTrack3" })).never.to.be.ok()
+			expect(AnimationData.getTrack(data, "Root", { "Component" })).never.to.be.ok()
+			expect(AnimationData.getTrack(data, "Root", { "TestTrack2", "Foo" })).never.to.be.ok()
+			expect(AnimationData.getTrack(data, "Root", { "TestTrack2", "Component", "Foo" })).never.to.be.ok()
 		end)
 	end)
 
@@ -795,14 +795,14 @@ return function()
 		local function makeTrack(type: string, value: CFrame | number): Types.Track
 			return {
 				Type = type,
-				Keyframes = {100, 200, 300, 400, 500},
+				Keyframes = { 100, 200, 300, 400, 500 },
 				Data = {
 					[100] = { Value = value },
 					[200] = { Value = value },
 					[300] = { Value = value },
 					[400] = { Value = value },
 					[500] = { Value = value },
-				}
+				},
 			}
 		end
 
@@ -818,13 +818,13 @@ return function()
 							Head = {},
 							LowerTorso = {
 								Keyframes = {},
-								Data = {}
+								Data = {},
 							},
 							UpperTorso = {
 								Keyframes = { 100 },
-								Data = {}
-							}
-						}
+								Data = {},
+							},
+						},
 					},
 				},
 			}
@@ -838,7 +838,7 @@ return function()
 						Tracks = {
 							Head = {
 								Type = Constants.TRACK_TYPES.Facs,
-								Keyframes = {100, 200, 300, 400, 500, 600, 700, 800},
+								Keyframes = { 100, 200, 300, 400, 500, 600, 700, 800 },
 								Data = {
 									[100] = { Value = 0.5 },
 									[200] = { Value = 0.5 },
@@ -848,9 +848,9 @@ return function()
 									[600] = { Value = 0.7 },
 									[700] = { Value = 0.7 },
 									[800] = { Value = 0.9 },
-								}
+								},
 							},
-						}
+						},
 					},
 				},
 			}
@@ -887,7 +887,7 @@ return function()
 									X = makeTrack(Constants.TRACK_TYPES.Number, 0.2),
 									Y = makeTrack(Constants.TRACK_TYPES.Number, 0.3),
 									Z = makeTrack(Constants.TRACK_TYPES.Number, 0.4),
-								}
+								},
 							},
 							RotationTrack = {
 								Type = Constants.TRACK_TYPES.EulerAngles,
@@ -896,9 +896,9 @@ return function()
 									X = makeTrack(Constants.TRACK_TYPES.Number, 0.2),
 									Y = makeTrack(Constants.TRACK_TYPES.Number, 0.3),
 									Z = makeTrack(Constants.TRACK_TYPES.Number, 0.4),
-								}
+								},
 							},
-						}
+						},
 					},
 				},
 			}
@@ -946,7 +946,7 @@ return function()
 									X = makeTrack(Constants.TRACK_TYPES.Number, 0),
 									Y = makeTrack(Constants.TRACK_TYPES.Number, 0),
 									Z = makeTrack(Constants.TRACK_TYPES.Number, 0),
-								}
+								},
 							},
 							RotationTrack = {
 								Type = Constants.TRACK_TYPES.EulerAngles,
@@ -955,9 +955,9 @@ return function()
 									X = makeTrack(Constants.TRACK_TYPES.Number, 0),
 									Y = makeTrack(Constants.TRACK_TYPES.Number, 0),
 									Z = makeTrack(Constants.TRACK_TYPES.Number, 0),
-								}
+								},
 							},
-						}
+						},
 					},
 				},
 			}

@@ -13,10 +13,20 @@ while not runService:IsRunning() do
 end
 
 --[[ Services ]]--
+local CorePackages = game:GetService("CorePackages")
 local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
 local ScriptContext = game:GetService('ScriptContext')
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
+
+local FFlagInitifyScriptsInServerStarterScript = game:DefineFastFlag("InitifyScriptsInServerStarterScript", false)
+
+if FFlagInitifyScriptsInServerStarterScript then
+	local initify = require(CorePackages.initify)
+
+	initify(CorePackages)
+	initify(RobloxGui.Modules)
+end
 
 --[[ Add Server CoreScript ]]--
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerInGameMenu", script.Parent)
@@ -93,8 +103,6 @@ require(game:GetService("CoreGui").RobloxGui.Modules.Server.ServerSound.SoundDis
 local TextChatService = game:GetService("TextChatService")
 local chatVersion = TextChatService.ChatVersion
 if chatVersion == Enum.ChatVersion.TextChatService then
-	local CorePackages = game:GetService("CorePackages")
-
 	-- initialize UIBlox here since requiring ExperienceChat will otherwise trigger a UIBlox config error...
 	local UIBlox = require(CorePackages.UIBlox)
 	UIBlox.init()

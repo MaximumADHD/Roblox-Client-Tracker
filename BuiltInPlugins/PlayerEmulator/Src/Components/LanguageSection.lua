@@ -37,6 +37,8 @@ local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
 local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+local FFlagRemoveUILibraryDropdownMenu = game:GetFastFlag("RemoveUILibraryDropdownMenu")
+local FFlagDevFrameworkDropdownShowsLabel = game:GetFastFlag("DevFrameworkDropdownShowsLabel")
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -45,12 +47,16 @@ local Constants = require(Plugin.Src.Util.Constants)
 local getStudioLocaleId = require(Plugin.Src.Util.PlayerEmulatorUtilities).getStudioLocaleId
 
 local UI = Framework.UI
+local SelectInput = UI.SelectInput
 local TextInput = UI.TextInput2
 local TextLabel = UI.Decoration.TextLabel
 
+local Dash = Framework.Dash
+local map = Dash.map
+
 local StyleModifier = Framework.Util.StyleModifier
 
-local DropdownModule = require(Plugin.Src.Components.DropdownModule)
+local DropdownModule = if FFlagRemoveUILibraryDropdownMenu and FFlagDevFrameworkDropdownShowsLabel then nil else require(Plugin.Src.Components.DropdownModule)
 local GetLanguages = require(Plugin.Src.Networking.Requests.GetLanguages)
 
 local function GetLocaleId()
@@ -71,7 +77,7 @@ LocalizationService.RobloxForcePlayModeRobloxLocaleId = getStudioLocaleId()
 local LanguageSection = Roact.PureComponent:extend("LanguageSection")
 
 function LanguageSection:getCurrentLanguageName()
-	local localeId = string.gsub(self.state.localeId, '-', '_')
+	local localeId = string.gsub(self.state.localeId, "-", "_")
 	local languagesTable = self.props.languagesTable
 
 	if localeId ~= "" and languagesTable[localeId] then
@@ -81,7 +87,7 @@ end
 
 function LanguageSection:getTestLangInstructionText()
 	local localization = self.props.Localization
-	local localeId = string.gsub(self.state.localeId, '-', '_')
+	local localeId = string.gsub(self.state.localeId, "-", "_")
 	local languagesTable = self.props.languagesTable
 	if localeId ~= "" and languagesTable[localeId] then
 		return string.format(
@@ -123,7 +129,7 @@ end
 
 function LanguageSection:init()
 	self.state = {
-		localeId = GetLocaleId()
+		localeId = GetLocaleId(),
 	}
 
 	self.textBoxRef = Roact.createRef()
@@ -137,14 +143,29 @@ function LanguageSection:init()
 			SetLocaleId(item.localeId)
 		end
 	end
+
+	self.createLanguageListForSelectInput = if FFlagRemoveUILibraryDropdownMenu and FFlagDevFrameworkDropdownShowsLabel
+		then function(item)
+			local list = {}
+			if item.displayText ~= nil then
+				list.Id = item.displayText
+				list.Label = item.displayText
+				list.localeId = item.localeId
+			elseif item.displayTextStringKey ~= nil then
+				list.Id = self.props.Localization:getText(item.displayTextSectionKey, item.displayTextStringKey)
+				list.Label = self.props.Localization:getText(item.displayTextSectionKey, item.displayTextStringKey)
+			end
+			return list
+		end
+		else nil
 end
 
 function LanguageSection:didMount()
 	local networkingImpl = self.props.Networking:get()
 	self.props.loadLanguages(networkingImpl)
 
-	local localeIdChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal(
-		"EmulatedGameLocale"):Connect(function()
+	local localeIdChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal("EmulatedGameLocale")
+		:Connect(function()
 			self:onRobloxForcePlayModeRobloxLocaleIdChanged()
 		end)
 
@@ -175,22 +196,21 @@ function LanguageSection:render()
 		Size = theme.SELECTOR_SIZE,
 		BackgroundTransparency = 1,
 		LayoutOrder = 1,
-	},{
+	}, {
 		Layout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Horizontal,
 			Padding = theme.HORIZONTAL_LISTLAYOUT_PADDING,
 		}),
 
-		Label = if FFlagDevFrameworkMigrateTextLabels then (
-			Roact.createElement(TextLabel, {
+		Label = if FFlagDevFrameworkMigrateTextLabels
+			then (Roact.createElement(TextLabel, {
 				AutomaticSize = Enum.AutomaticSize.XY,
 				LayoutOrder = 1,
 				StyleModifier = if mainSwitchEnabled then nil else StyleModifier.Disabled,
 				Text = localization:getText("LanguageSection", "LabelText"),
-			})
-		) else (
-			Roact.createElement("TextLabel", {
+			}))
+			else (Roact.createElement("TextLabel", {
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Center,
 				TextColor3 = mainSwitchEnabled and theme.TextColor or theme.DisabledColor,
@@ -198,16 +218,28 @@ function LanguageSection:render()
 				Text = localization:getText("LanguageSection", "LabelText"),
 				BackgroundTransparency = 1,
 				LayoutOrder = 1,
-			})
-		),
+			})),
 
-		Dropdown = Roact.createElement(DropdownModule, {
-			LayoutOrder = 2,
-			Enabled = mainSwitchEnabled,
-			CurrentSelected = self:getCurrentLanguageName(),
-			Items = languagesList,
-			OnItemClicked = self.onItemClicked,
-		}),
+		Dropdown = if not FFlagRemoveUILibraryDropdownMenu or not FFlagDevFrameworkDropdownShowsLabel
+			then Roact.createElement(DropdownModule, {
+				LayoutOrder = 2,
+				Enabled = mainSwitchEnabled,
+				CurrentSelected = self:getCurrentLanguageName(),
+				Items = languagesList,
+				OnItemClicked = self.onItemClicked,
+			})
+			else nil,
+
+		LanguageDropdown = if FFlagRemoveUILibraryDropdownMenu and FFlagDevFrameworkDropdownShowsLabel
+			then Roact.createElement(SelectInput, {
+				Items = map(languagesList, self.createLanguageListForSelectInput),
+				LayoutOrder = 2,
+				OnItemActivated = self.onItemClicked,
+				SelectedId = self:getCurrentLanguageName()
+					or localization:getText("LanguageSection", "CustomLanguageDisplayText"),
+				Enabled = mainSwitchEnabled,
+			})
+			else nil,
 
 		LocaleIdTextBox = Roact.createElement("Frame", {
 			Size = theme.LOCALEID_TEXTBOX_SIZE,
@@ -219,8 +251,8 @@ function LanguageSection:render()
 				PaddingLeft = theme.TEXT_INDENT_PADDING,
 			}),
 
-			TextBox = if FFlagDevFrameworkMigrateTextLabels then (
-				Roact.createElement(TextInput, {
+			TextBox = if FFlagDevFrameworkMigrateTextLabels
+				then (Roact.createElement(TextInput, {
 					OnFocusLost = function()
 						if self.textBoxRef.current then
 							SetLocaleId(self.textBoxRef.current.Text)
@@ -229,9 +261,8 @@ function LanguageSection:render()
 					Disabled = not mainSwitchEnabled,
 					Text = localeId,
 					[Roact.Ref] = self.textBoxRef,
-				})
-			) else (
-				mainSwitchEnabled and Roact.createElement("TextBox", {
+				}))
+				else (mainSwitchEnabled and Roact.createElement("TextBox", {
 					Size = UDim2.new(1, 0, 1, 0),
 					Text = localeId,
 					TextXAlignment = Enum.TextXAlignment.Left,
@@ -245,21 +276,20 @@ function LanguageSection:render()
 						if self.textBoxRef.current then
 							SetLocaleId(self.textBoxRef.current.Text)
 						end
-					end
-				})
-			),
+					end,
+				})),
 
 			-- 'Active' doesn't work for TextBox. Replace it with a TextLabel if enabled
-			TextLabel = if FFlagDevFrameworkMigrateTextLabels then nil else (
-				not mainSwitchEnabled and Roact.createElement("TextLabel", {
+			TextLabel = if FFlagDevFrameworkMigrateTextLabels
+				then nil
+				else (not mainSwitchEnabled and Roact.createElement("TextLabel", {
 					Size = UDim2.new(1, 0, 1, 0),
 					Text = localeId,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextColor3 = theme.DisabledColor,
 					BackgroundTransparency = 1,
-				})
-			)
-		})
+				})),
+		}),
 	})
 
 	local textModule = Roact.createElement("Frame", {
@@ -270,23 +300,21 @@ function LanguageSection:render()
 		Padding = Roact.createElement("UIPadding", {
 			PaddingLeft = theme.TEXT_INDENT_PADDING,
 		}),
-		TextLabel = if FFlagDevFrameworkMigrateTextLabels then (
-			Roact.createElement(TextLabel, {
+		TextLabel = if FFlagDevFrameworkMigrateTextLabels
+			then (Roact.createElement(TextLabel, {
 				Size = theme.LANGUAGE_INSTRUCTION_SIZE,
 				StyleModifier = if mainSwitchEnabled then nil else StyleModifier.Disabled,
 				Text = self:getTestLangInstructionText(),
 				TextXAlignment = Enum.TextXAlignment.Left,
-			})
-		) else (
-			Roact.createElement("TextLabel", {
+			}))
+			else (Roact.createElement("TextLabel", {
 				Text = self:getTestLangInstructionText(),
 				Size = theme.LANGUAGE_INSTRUCTION_SIZE,
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextColor3 = mainSwitchEnabled and theme.TextColor or theme.DisabledColor,
-			})
-		),
+			})),
 	})
 
 	return Roact.createElement("Frame", {
@@ -303,15 +331,12 @@ function LanguageSection:render()
 	})
 end
 
-
 LanguageSection = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Networking = NetworkingContext,
 	Plugin = ContextServices.Plugin,
 })(LanguageSection)
-
-
 
 local function mapStateToProps(state, _)
 	return {

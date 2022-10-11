@@ -50,7 +50,7 @@ local RadioButtonSet = Roact.PureComponent:extend("RadioButtonSet")
 
 function RadioButtonSet:init()
 	self.state = {
-		maxHeight = 0
+		maxHeight = 0,
 	}
 
 	self.layoutRef = Roact.createRef()
@@ -62,7 +62,7 @@ function RadioButtonSet:init()
 		end
 
 		self:setState({
-			maxHeight = currentLayout.AbsoluteContentSize.Y
+			maxHeight = currentLayout.AbsoluteContentSize.Y,
 		})
 	end
 end
@@ -90,7 +90,7 @@ function RadioButtonSet:render()
 
 			[Roact.Change.AbsoluteContentSize] = self.onResize,
 			[Roact.Ref] = self.layoutRef,
-		})
+		}),
 	}
 
 	for i, button in ipairs(buttons) do
@@ -109,24 +109,29 @@ function RadioButtonSet:render()
 				end,
 
 				Children = button.Children,
-			})
+			}),
 		})
 	end
 
-	local maxHeight = numButtons * Constants.RADIO_BUTTON_SIZE * 2
-		+ numButtons * Constants.RADIO_BUTTON_PADDING
+	local maxHeight = numButtons * Constants.RADIO_BUTTON_SIZE * 2 + numButtons * Constants.RADIO_BUTTON_PADDING
 
 	maxHeight = math.max(self.state.maxHeight, maxHeight)
 
-	return Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
-		LayoutOrder = props.LayoutOrder or 1,
-		Title = props.Title,
-	} else {
-		Title = props.Title,
-		MaxHeight = maxHeight,
-		LayoutOrder = props.LayoutOrder or 1,
-		TextSize = Constants.TEXT_SIZE,
-	}, children)
+	return Roact.createElement(
+		TitledFrame,
+		if FFlagRemoveUILibraryTitledFrame
+			then {
+				LayoutOrder = props.LayoutOrder or 1,
+				Title = props.Title,
+			}
+			else {
+				Title = props.Title,
+				MaxHeight = maxHeight,
+				LayoutOrder = props.LayoutOrder or 1,
+				TextSize = Constants.TEXT_SIZE,
+			},
+		children
+	)
 end
 
 RadioButtonSet = withContext({

@@ -28,9 +28,7 @@ local MainView = Roact.PureComponent:extend("MainView")
 
 function MainView:render()
 	local props = self.props
-	return props.SelectedTarget
-		and self:renderTarget(props)
-		or self:renderSelectTarget(props)
+	return props.SelectedTarget and self:renderTarget(props) or self:renderSelectTarget(props)
 end
 
 function MainView:renderSelectTarget(props)
@@ -53,11 +51,10 @@ function MainView:renderSelectTarget(props)
 			Size = UDim2.new(1, 0, 1, -style.HeaderHeight),
 		}, {
 			Child = Roact.createElement(TargetTree, {
-				selectTarget = self.selectTarget
+				selectTarget = self.selectTarget,
 			}),
 		}),
 	})
-
 end
 
 function MainView:renderTarget(props)
@@ -70,7 +67,7 @@ function MainView:renderTarget(props)
 	else
 		error({
 			name = "Missing tab",
-			tab = props.SelectedTab
+			tab = props.SelectedTab,
 		})
 	end
 	return Roact.createElement(Pane, {
@@ -82,7 +79,7 @@ function MainView:renderTarget(props)
 		}),
 		Content = Roact.createElement(Pane, {
 			LayoutOrder = 2,
-			Size = UDim2.new(1, 0, 1, - style.HeaderHeight),
+			Size = UDim2.new(1, 0, 1, -style.HeaderHeight),
 		}, {
 			Child = content,
 		}),
@@ -93,11 +90,9 @@ MainView = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(MainView)
 
-return RoactRodux.connect(
-	function(state, props)
-		return {
-			SelectedTab = state.Targets.selectedTab,
-			SelectedTarget = state.Targets.selectedTarget,
-		}
-	end
-)(MainView)
+return RoactRodux.connect(function(state, props)
+	return {
+		SelectedTab = state.Targets.selectedTab,
+		SelectedTarget = state.Targets.selectedTarget,
+	}
+end)(MainView)

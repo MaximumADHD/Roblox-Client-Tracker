@@ -3,6 +3,7 @@ return function()
 	local Roact = require(CorePackages.Roact)
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local Store = require(CorePackages.Rodux).Store
+	local DataProvider = require(script.Parent.Parent.DataProvider)
 
 	local MainViewScriptProfiler = require(script.Parent.MainViewScriptProfiler)
 
@@ -21,9 +22,11 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			MainViewScriptProfiler = Roact.createElement(MainViewScriptProfiler, {
-				size = UDim2.new(),
-				tabList = {},
+			DataProvider = Roact.createElement(DataProvider, {}, {
+				MainViewScriptProfiler = Roact.createElement(MainViewScriptProfiler, {
+					size = UDim2.new(),
+					tabList = {},
+				})
 			})
 		})
 

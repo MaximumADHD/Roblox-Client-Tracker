@@ -39,28 +39,34 @@ function ButtonBar:render()
 			HorizontalAlignment = horizontalAlignment,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Horizontal,
-		}, children)
+		}, children),
 	}
 
 	if horizontalAlignment ~= Enum.HorizontalAlignment.Center then
-		table.insert(components, Roact.createElement("UIPadding", {
-			PaddingRight = UDim.new(0, BUTTON_BAR_EDGE_PADDING),
-		}))
+		table.insert(
+			components,
+			Roact.createElement("UIPadding", {
+				PaddingRight = UDim.new(0, BUTTON_BAR_EDGE_PADDING),
+			})
+		)
 	end
 
 	for i, button in ipairs(buttons) do
-		table.insert(components, Roact.createElement(Button, {
-			LayoutOrder = i,
-			Style = if button.Default then "GameSettingsPrimaryButton" else "GameSettingsButton",
-			Size = UDim2.new(0, DEPRECATED_Constants.BUTTON_WIDTH, 1, 0),
-			StyleModifier = if button.Active then nil else StyleModifier.Disabled,
-			Text = button.Name,
-			OnClick = function()
-				if button.Active then
-					props.ButtonClicked(button.Value)
-				end
-			end,
-		}))
+		table.insert(
+			components,
+			Roact.createElement(Button, {
+				LayoutOrder = i,
+				Style = if button.Default then "GameSettingsPrimaryButton" else "GameSettingsButton",
+				Size = UDim2.new(0, DEPRECATED_Constants.BUTTON_WIDTH, 1, 0),
+				StyleModifier = if button.Active then nil else StyleModifier.Disabled,
+				Text = button.Name,
+				OnClick = function()
+					if button.Active then
+						props.ButtonClicked(button.Value)
+					end
+				end,
+			})
+		)
 	end
 
 	return Roact.createElement("Frame", {

@@ -29,14 +29,17 @@ function GameOwnerWidget:render()
 	local localization = props.Localization
 
 	local children = {
-		Title = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
-			LayoutOrder = 0,
+		Title = Roact.createElement(
+			"TextLabel",
+			Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
+				LayoutOrder = 0,
 
-			Text = localization:getText("General", "TitleGameOwner"),
-			TextXAlignment = Enum.TextXAlignment.Left,
+				Text = localization:getText("General", "TitleGameOwner"),
+				TextXAlignment = Enum.TextXAlignment.Left,
 
-			BackgroundTransparency = 1,
-		})),
+				BackgroundTransparency = 1,
+			})
+		),
 
 		UserOwner = (ownerType == Enum.CreatorType.User) and Roact.createElement(UserCollaboratorItem, {
 			LayoutOrder = 1,
@@ -50,9 +53,9 @@ function GameOwnerWidget:render()
 
 			Id = ownerId,
 			Writable = writable,
-		})
+		}),
 	}
-	
+
 	return Roact.createElement(Pane, {
 		AutomaticSize = Enum.AutomaticSize.Y,
 		HorizontalAlignment = Enum.HorizontalAlignment.Left,
@@ -67,13 +70,11 @@ GameOwnerWidget = withContext({
 	Localization = ContextServices.Localization,
 })(GameOwnerWidget)
 
-GameOwnerWidget = RoactRodux.connect(
-	function(state, props)
-		return {
-			OwnerId = state.GameOwnerMetadata.creatorId,
-			OwnerType = state.GameOwnerMetadata.creatorType,
-		}
-	end
-)(GameOwnerWidget)
+GameOwnerWidget = RoactRodux.connect(function(state, props)
+	return {
+		OwnerId = state.GameOwnerMetadata.creatorId,
+		OwnerType = state.GameOwnerMetadata.creatorType,
+	}
+end)(GameOwnerWidget)
 
 return GameOwnerWidget

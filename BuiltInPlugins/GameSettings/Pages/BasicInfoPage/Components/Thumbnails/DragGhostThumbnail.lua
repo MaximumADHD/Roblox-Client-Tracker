@@ -31,10 +31,7 @@ function DragGhostThumbnail:init()
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			local image = self.imageRef.current
 			local offset = rbx.AbsolutePosition
-			image.Position = UDim2.new(
-				0, input.Position.x - offset.x,
-				0, input.Position.y - offset.y
-			)
+			image.Position = UDim2.new(0, input.Position.x - offset.x, 0, input.Position.y - offset.y)
 		end
 	end
 

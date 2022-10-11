@@ -8,30 +8,30 @@ local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtil
 
 local optInLocations
 if shouldShowDevPublishLocations() then
-    optInLocations = {}
+	optInLocations = {}
 end
 
 return Action(script.Name, function(localizedDefaultName, isOverwritePublish)
-    local initialScreen = Constants.SCREENS.CREATE_NEW_GAME
-    if isOverwritePublish then
-        initialScreen = Constants.SCREENS.CHOOSE_GAME
-    end
+	local initialScreen = Constants.SCREENS.CREATE_NEW_GAME
+	if isOverwritePublish then
+		initialScreen = Constants.SCREENS.CHOOSE_GAME
+	end
 
 	return {
-		placeInfo = { places = {}, parentGame = {}, },
-        gameInfo = { games = {}, },
-        groupInfo = { groups = {} },
-        current = {},
-        changed = {
-            name = localizedDefaultName,
-            description = "",
-            genre = Constants.GENRE_IDS[1],
-            playableDevices = {Computer = true, Phone = true, Tablet = true,},
-            OptInLocations = optInLocations,
-        },
-        errors = {},
-        publishInfo = { id = 0, name = "", parentGameName = "", parentGameId = 0, settings = {}, },
-        isPublishing = false,
-        screen = initialScreen,
+		placeInfo = { places = {}, parentGame = {} },
+		gameInfo = { games = {} },
+		groupInfo = { groups = {} },
+		current = {},
+		changed = {
+			name = localizedDefaultName,
+			description = "",
+			genre = Constants.GENRE_IDS[1],
+			playableDevices = { Computer = true, Phone = true, Tablet = true },
+			OptInLocations = optInLocations,
+		},
+		errors = {},
+		publishInfo = { id = 0, name = "", parentGameName = "", parentGameId = 0, settings = {} },
+		isPublishing = false,
+		screen = initialScreen,
 	}
 end)

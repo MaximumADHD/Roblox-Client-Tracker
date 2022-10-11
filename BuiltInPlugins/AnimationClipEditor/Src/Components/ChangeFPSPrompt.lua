@@ -78,8 +78,8 @@ function ChangeFPSPrompt:render()
 		HasError = hasNoticeText,
 		Text = frameRate,
 		Buttons = {
-			{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round"},
-			{Key = true, Text = localization:getText("Dialog", "Confirm"), Style = "RoundPrimary"},
+			{ Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round" },
+			{ Key = true, Text = localization:getText("Dialog", "Confirm"), Style = "RoundPrimary" },
 		},
 		OnTextSubmitted = function(text)
 			return self.setFrameRate(text, localization)

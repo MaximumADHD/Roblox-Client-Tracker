@@ -1,12 +1,11 @@
 --!nonstrict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
-local AppTempCommon = CorePackages.AppTempCommon
 
 local Modules = CoreGui.RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
 
-local Immutable = require(AppTempCommon.Common.Immutable)
+local Immutable = require(CorePackages.Workspace.Packages.AppCommonLib).Immutable
 
 local ClosePage = require(ShareGame.Actions.ClosePage)
 local SetSearchAreaActive = require(ShareGame.Actions.SetSearchAreaActive)

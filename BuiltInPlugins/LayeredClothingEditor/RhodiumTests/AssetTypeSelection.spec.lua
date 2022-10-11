@@ -127,7 +127,7 @@ return function()
 		end)
 	end)
 
-	it("Should remember chosen asset type if you go back", function()
+	itSKIP("Should remember chosen asset type if you go back", function()
 		runRhodiumTest(function()
 			TestHelper.goToEditScreenFromStart(false, false)
 
@@ -143,7 +143,7 @@ return function()
 		end)
 	end)
 
-	it("Selection should be cleared if new editing item is chosen", function()
+	itSKIP("Selection should be cleared if new editing item is chosen", function()
 		runRhodiumTest(function()
 			TestHelper.goToEditScreenFromStart(false, false)
 

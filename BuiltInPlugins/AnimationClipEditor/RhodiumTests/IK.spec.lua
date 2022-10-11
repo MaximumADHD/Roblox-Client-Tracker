@@ -272,7 +272,6 @@ return function()
 			local store = test:getStore()
 			local analytics = Analytics.mock()
 
-
 			local spider = makeSpider()
 			setupInstance(store, spider)
 

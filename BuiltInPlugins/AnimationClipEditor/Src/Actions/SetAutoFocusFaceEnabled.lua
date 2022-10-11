@@ -9,6 +9,6 @@ local Action = require(script.Parent.Action)
 
 return Action(script.Name, function(autoFocusFaceEnabled)
 	return {
-		autoFocusFaceEnabled = autoFocusFaceEnabled
+		autoFocusFaceEnabled = autoFocusFaceEnabled,
 	}
 end)

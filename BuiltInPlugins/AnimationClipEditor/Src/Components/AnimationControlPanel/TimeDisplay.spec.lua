@@ -13,7 +13,7 @@ return function()
 				Playhead = Constants.TICK_FREQUENCY / 2,
 				EditingLength = Constants.TICK_FREQUENCY,
 				FrameRate = Constants.DEFAULT_FRAMERATE,
-			})
+			}),
 		})
 	end
 
@@ -23,7 +23,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestTimeDisplay(), container)
 		local frame = container:FindFirstChildOfClass("Frame")

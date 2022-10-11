@@ -8,6 +8,6 @@ local Action = Util.Action
 
 return Action(script.Name, function(isProfiling: boolean)
 	return {
-		isProfiling = isProfiling
+		isProfiling = isProfiling,
 	}
 end)

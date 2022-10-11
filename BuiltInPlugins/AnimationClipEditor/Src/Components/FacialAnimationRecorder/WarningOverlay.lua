@@ -30,52 +30,50 @@ local LoadingIndicator = UI.LoadingIndicator
 
 local WarningOverlay = Roact.PureComponent:extend("WarningOverlay")
 
-function WarningOverlay:init()
-end
+function WarningOverlay:init() end
 
 function WarningOverlay:render()
-    local props = self.props
-    local titleText = props.TitleText
-    local anchorPoint = props.AnchorPoint
-    local image = props.Image
-    local position = props.Position
-    local layoutOrder = props.LayoutOrder
-        
-    return Roact.createElement(Pane, {
-        AutomaticSize = Enum.AutomaticSize.XY,
-        Position = position,
-        AnchorPoint = anchorPoint,
-        Padding = {
-            Left = 10,
-            Right = 10,
-            Top = 5,
-            Bottom = 5,
-        },
-        Layout = Enum.FillDirection.Horizontal,
-        Spacing = 8,
-        VerticalAlignment = Enum.VerticalAlignment.Center,
-        ZIndex = 1,
-        Style = "RoundBox",
-        ImageTransparency = 0.10,
-        LayoutOrder = layoutOrder,
-    }, {
-		Image = image ~= nil and image ~= "" and Roact.createElement("ImageLabel", {
-            BackgroundTransparency = 1,
-            Size = UDim2.new(0, 15, 0, 15),
-            Position = UDim2.new(0, 19, 0, 5),
-            Image = image,
-        }),
-        Message = Roact.createElement(TextLabel, {
-            AutomaticSize = Enum.AutomaticSize.XY,
-            TextXAlignment = Enum.TextXAlignment.Left,
-            Text = titleText,
-            BackgroundTransparency = 1.0,
-            TextWrapped = true,
-            LayoutOrder = 1,
-        }),
-    })
-end
+	local props = self.props
+	local titleText = props.TitleText
+	local anchorPoint = props.AnchorPoint
+	local image = props.Image
+	local position = props.Position
+	local layoutOrder = props.LayoutOrder
 
+	return Roact.createElement(Pane, {
+		AutomaticSize = Enum.AutomaticSize.XY,
+		Position = position,
+		AnchorPoint = anchorPoint,
+		Padding = {
+			Left = 10,
+			Right = 10,
+			Top = 5,
+			Bottom = 5,
+		},
+		Layout = Enum.FillDirection.Horizontal,
+		Spacing = 8,
+		VerticalAlignment = Enum.VerticalAlignment.Center,
+		ZIndex = 1,
+		Style = "RoundBox",
+		ImageTransparency = 0.10,
+		LayoutOrder = layoutOrder,
+	}, {
+		Image = image ~= nil and image ~= "" and Roact.createElement("ImageLabel", {
+			BackgroundTransparency = 1,
+			Size = UDim2.new(0, 15, 0, 15),
+			Position = UDim2.new(0, 19, 0, 5),
+			Image = image,
+		}),
+		Message = Roact.createElement(TextLabel, {
+			AutomaticSize = Enum.AutomaticSize.XY,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			Text = titleText,
+			BackgroundTransparency = 1.0,
+			TextWrapped = true,
+			LayoutOrder = 1,
+		}),
+	})
+end
 
 WarningOverlay = withContext({
 	Stylizer = ContextServices.Stylizer,

@@ -1,9 +1,15 @@
 local Plugin = script.Parent.Parent.Parent
 
-local Roact =require(Plugin.Packages.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local MockServiceWrapper = require(Plugin.Src.TestHelpers.MockServiceWrapper)
+local FFlagRemoveUILibraryDropdownMenu = game:GetFastFlag("RemoveUILibraryDropdownMenu")
+local FFlagDevFrameworkDropdownShowsLabel = game:GetFastFlag("DevFrameworkDropdownShowsLabel")
 
 local DropdownModule = require(Plugin.Src.Components.DropdownModule)
+
+if FFlagRemoveUILibraryDropdownMenu and FFlagDevFrameworkDropdownShowsLabel then
+	return function() end
+end
 
 local mockItemList = {
 	{ displayText = "Item1" },
@@ -14,7 +20,7 @@ local mockItemList = {
 return function()
 	it("should create and destroy without errors", function()
 		local mockServiceWrapper = Roact.createElement(MockServiceWrapper, {}, {
-			DropdownModule = Roact.createElement(DropdownModule)
+			DropdownModule = Roact.createElement(DropdownModule),
 		})
 
 		local instance = Roact.mount(mockServiceWrapper)
@@ -28,7 +34,7 @@ return function()
 				Items = mockItemList,
 				CurrentSelected = "Current Selected",
 				OnItemClicked = function() end,
-			})
+			}),
 		})
 
 		local instance = Roact.mount(mockServiceWrapper)

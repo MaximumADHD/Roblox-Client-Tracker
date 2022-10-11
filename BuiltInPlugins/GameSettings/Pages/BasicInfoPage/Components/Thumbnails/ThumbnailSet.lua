@@ -83,7 +83,7 @@ function ThumbnailSet:render()
 
 					AltText = thumbnail.altText,
 					AltTextChanged = self.props.UpdateAltText,
-					AltTextErrorMessage = altTextErrorMessage
+					AltTextErrorMessage = altTextErrorMessage,
 				})
 			end
 		end
@@ -96,7 +96,9 @@ function ThumbnailSet:render()
 
 	children.Layout = Roact.createElement("UIGridLayout", {
 		CellPadding = THUMBNAIL_PADDING,
-		CellSize = if FFlagGameSettingsEnableThumbnailAltText then DEPRECATED_Constants.THUMBNAIL_CONTAINER_SIZE else DEPRECATED_Constants.THUMBNAIL_SIZE,
+		CellSize = if FFlagGameSettingsEnableThumbnailAltText
+			then DEPRECATED_Constants.THUMBNAIL_CONTAINER_SIZE
+			else DEPRECATED_Constants.THUMBNAIL_SIZE,
 		FillDirection = Enum.FillDirection.Horizontal,
 		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		SortOrder = Enum.SortOrder.LayoutOrder,

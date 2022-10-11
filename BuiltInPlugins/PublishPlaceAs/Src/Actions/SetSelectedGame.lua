@@ -10,6 +10,6 @@ return Action(script.Name, function(selectedGame)
 	AssertType.assertNullableType(selectedGame, "table", "SetSelectedGame arg")
 
 	return {
-		selectedGame = selectedGame
+		selectedGame = selectedGame,
 	}
 end)

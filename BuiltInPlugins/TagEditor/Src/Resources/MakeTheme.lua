@@ -11,56 +11,138 @@ local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Dash = require(Plugin.Packages.Dash)
+local join = Dash.join
 
 local Style = Framework.Style
 local StudioTheme = Style.Themes.StudioTheme
+local DarkTheme = Style.Themes.DarkTheme
+local LightTheme = Style.Themes.LightTheme
 local BaseTheme = Style.Themes.BaseTheme
 local _StyleKey = Style.StyleKey
 local ui = Style.ComponentSymbols
 
 local PluginTheme = {
-	[ui.Pane] = Dash.join(BaseTheme[ui.Pane], {
-		["&ColorTextInput"] = Dash.join(BaseTheme[ui.Pane]["&BorderBox"]),
-		["&WStyle"] = Dash.join(BaseTheme[ui.Pane]["&BorderBox"], {
+	[ui.Pane] = join(BaseTheme[ui.Pane], {
+		["&ColorTextInput"] = join(BaseTheme[ui.Pane]["&BorderBox"]),
+		["&WStyle"] = join(BaseTheme[ui.Pane]["&BorderBox"], {
 			Background = _StyleKey.SubBackground,
 			Border = {
 				Color = _StyleKey.SubBackground,
 			}
 		}),
 
-		["&SelectedTag"] =  Dash.join(BaseTheme[ui.Pane], {
+		["&PaneHover"] =  join(BaseTheme[ui.Pane], {
+			Background = _StyleKey.SubBackground,
+		}),
+
+		["&SelectedTag"] =  join(BaseTheme[ui.Pane], {
 			Background = _StyleKey.ActionSelected,
+		}),
+
+		["&ButtonHover"] = join(BaseTheme[ui.Pane], {
+			Background = _StyleKey.ButtonHover,
 		}),
 	}),
 
-	[ui.IconButton] = Dash.join(BaseTheme[ui.IconButton], {
+	[ui.IconButton] = join(BaseTheme[ui.IconButton], {
 		IconColor = _StyleKey.TextPrimary,
-		BackgroundStyle = "None",
+		Background = _StyleKey.ForegroundMain,
 		Size = UDim2.fromOffset(24, 24),
+
+		["&Disabled"] = join(BaseTheme[ui.IconButton], {
+			IconColor = _StyleKey.ButtonDisabled,
+			BackgroundStyle = "None",
+			Size = UDim2.fromOffset(24, 24),
+		}),
+
+		["&ToggledOff"] = join(BaseTheme[ui.IconButton], {
+			TextColor = _StyleKey.DimmedText,
+			IconColor = _StyleKey.TextPrimary,
+			Size = UDim2.fromOffset(24, 24),
+		}),
 	}),
 
-	[ui.Checkbox] = Dash.join(BaseTheme[ui.Checkbox], {
+	[ui.Checkbox] = join(BaseTheme[ui.Checkbox], {
 		Spacing = 8,
 	}),
 
-	[ui.TextInput2] = Dash.join(BaseTheme[ui.TextInput2], {
-		["&ColorTextInput"] = Dash.join(BaseTheme[ui.TextInput2], {
+	[ui.SearchBar] = join(BaseTheme[ui.SearchBar], {
+		["&Compact"] = {
+			Padding = {
+				Top = -1,
+				Left = 5,
+				Bottom = -1,
+				Right = 5,
+			},
+		},
+	}),
+
+	[ui.TextInput2] = join(BaseTheme[ui.TextInput2], {
+		["&ColorTextInput"] = join(BaseTheme[ui.TextInput2], {
 			BottomTextSpacing = -2,
 		}),
 	}),
 
-	[ui.TextLabel] = Dash.join(BaseTheme[ui.TextLabel], {
-		["&ButtonText"] = Dash.join(BaseTheme[ui.TextLabel], {
+	[ui.TextLabel] = join(BaseTheme[ui.TextLabel], {
+		["&ButtonText"] = join(BaseTheme[ui.TextLabel], {
 			TextColor = _StyleKey.TextSecondary,
 		}),
-		["&ButtonTextHover"] = Dash.join(BaseTheme[ui.TextLabel], {
+		["&ButtonTextHover"] = join(BaseTheme[ui.TextLabel], {
 			TextColor = _StyleKey.TextPrimary,
 		}),
 	}),
 
-	[ui.Tooltip] = Dash.join(BaseTheme[ui.Tooltip], {
+	[ui.Tooltip] = join(BaseTheme[ui.Tooltip], {
 		ShowDelay = 0.7,
 	}),
+
+	ColorPicker = {
+		Padding = 10,
+		Spacing = 8,
+		BodySize = UDim2.new(1, 0, 1, -80),
+		BodySpacing = 8,
+		PickerSize = UDim2.new(0.5, 0, 1, 0),
+	},
+	ColorPropertiesPanel = {
+		Size = UDim2.new(0.5, 0, 0, 96),
+		Spacing = 7,
+		TextInputSize = UDim2.new(1, 0, 0, 24),
+	},
+
+	ColorPickerTopControls = {
+		Size = UDim2.new(1, 0, 0, 72),
+		Spacing = 5,
+		TitleTextSize = UDim2.new(1, -48, 0, 24),
+		ButtonsPaneSize = UDim2.new(1, 0, 0, 24),
+		ButtonsPaneSpacing = 10,
+		ButtonsPanePadding = 8,
+		CancelButtonSize = UDim2.new(0.5, 0, 0, 24),
+		SubmitButtonSize = UDim2.new(0.5, 0, 0, 24),
+		ColorPaneSize = UDim2.new(1, 0, 0, 26),
+		ColorPaneSpacing = 10,
+		ColorPanePadding = 2,
+		ColorPreviewSize = UDim2.new(0.5, 0, 0, 24),
+		PreviewTitleSize = UDim2.new(0.5, 0, 0, 24),
+	},
+
+	ColorValueSlider = {
+		Size = UDim2.new(1, -4, 0, 25),
+		Black = Color3.fromRGB(0, 0, 0),
+		White = Color3.fromRGB(1, 1, 1),
+		GradientImage = "rbxasset://textures/TagEditor/lineargradient.png",
+		PositionIndicatorSize = UDim2.new(0, 8, 0, 5),
+		PositionIndicatorAnchor = Vector2.new(0.5, 0),
+		PositionIndicatorImage = "rbxasset://textures/TagEditor/trianglesmall.png",
+	},
+
+	HueSaturationPicker = {
+		Size = UDim2.new(1, -4, 1, -50),
+		Black = Color3.fromRGB(1, 1, 1),
+		GradientImage = "rbxasset://textures/TagEditor/huesatgradient.png",
+		PositionIndicatorSize = UDim2.new(0, 8, 0, 5),
+		PositionIndicatorAnchor = Vector2.new(0.5, 1),
+		PositionIndicatorImage = "rbxasset://textures/TagEditor/trianglesmall.png",
+	},
 
 	Icon = {
 		Size = UDim2.fromOffset(16, 16),
@@ -75,6 +157,8 @@ local PluginTheme = {
 	},
 
 	NewTagTextInput = {
+		Size = UDim2.new(1, -98, 0, 30),
+		EditingSize = UDim2.new(1, 0, 0, 30),
 		TextInputSize = UDim2.new(1, -30, 0, 30),
 		Spacing = 9,
 		IconColorHover = _StyleKey.ActionEnabled,
@@ -83,8 +167,10 @@ local PluginTheme = {
 	},
 
 	TagTopPane = {
-		SearchBarPaneSize = UDim2.new(1, -24, 0, 30),
+		SearchBarPaneSize = UDim2.new(1, -8, 0, 30),
 		SearchBarSize = UDim2.new(1, -60, 0, 30),
+		NewTagRowSize = UDim2.new(1, -8, 0, 30),
+		WorldViewButtonSize = UDim2.fromOffset(98, 30),
 		ButtonSize = UDim2.fromOffset(24, 24),
 		Padding = {
 			Top = 5,
@@ -99,15 +185,17 @@ local PluginTheme = {
 
 	TagListView = {
 		Size = UDim2.new(1, 0, 1, -60),
+		Spacing = UDim.new(0, 1),
 		CanvasYPadding = 14,
 	},
 
 	TagListRow = {
 		CheckboxSize = UDim2.fromOffset(24, 24),
 		Size = UDim2.new(1, 0 , 0 , 24),
+		Spacing = 9,
 		TextSize = UDim2.new(1, -100, 0, 24),
-		VisibleIcon = "rbxasset://textures/TagEditor/Visibility.png",
-		VisibleOffIcon = "rbxasset://textures/TagEditor/VisibilityOff.png",
+		GroupTextSize = UDim2.new(1, -108, 0, 24),
+
 		AssignIcon = "rbxasset://textures/TagEditor/Add.png",
 		AssignIconColor = _StyleKey.PrimaryMain,
 		UnassignIcon = "rbxasset://textures/TagEditor/Remove.png",
@@ -119,6 +207,11 @@ local PluginTheme = {
 			Right = 0,
 		},
 		PaddingUnindented = 0,
+		EditAssignmentsIcon = "rbxasset://textures/TagEditor/Compose.png",
+		StopAssigningIcon = "rbxasset://textures/TagEditor/Close.png",
+		ArrowColor = _StyleKey.TextPrimary,
+		ClosedArrowImage = "rbxassetid://2606412312",
+		OpenArrowImage = "rbxasset://textures/StudioToolbox/ArrowDownIconWhite.png",
 	},
 
 	TagListGroupRow = {
@@ -128,12 +221,10 @@ local PluginTheme = {
 		TextSize = UDim2.new(1, -108, 0, 24),
 		IconColorActive = _StyleKey.TextContrast,
 		IconColorInactive = _StyleKey.ActionEnabled,
-		VisibleIcon = "rbxasset://textures/TagEditor/Visibility.png",
-		VisibleOffIcon = "rbxasset://textures/TagEditor/VisibilityOff.png",
 		EditAssignmentsIcon = "rbxasset://textures/TagEditor/Compose.png",
 		StopAssigningIcon = "rbxasset://textures/TagEditor/Close.png",
 		ArrowColor = _StyleKey.TextPrimary,
-		ClosedArrowImage = "rbxassetid://2606412312",
+		ClosedArrowImage = "rbxasset://textures/TagEditor/rightarrow.png",
 		OpenArrowImage = "rbxasset://textures/StudioToolbox/ArrowDownIconWhite.png",
 	},
 
@@ -163,9 +254,9 @@ local PluginTheme = {
 
 		GroupRow = {
 			Size = UDim2.fromOffset(24, 24),
-			Icon = "rbxassetid://2606412312",
-			UnassignIcon = "rbxassetid://2606412312",
-			NewGroupIcon = "rbxassetid://2606412312",
+			Icon = "rbxasset://textures/TagEditor/rightarrow.png",
+			UnassignIcon = "rbxasset://textures/TagEditor/Remove.png",
+			NewGroupIcon = "rbxasset://textures/TagEditor/Add.png",
 			DropDownWidth = 170,
 			ItemHeight = 30,
 			MaxHeight = 150,
@@ -178,7 +269,7 @@ local PluginTheme = {
 			MaxHeight = 150,
 		},
 		TaggedInstancesRow = {
-			Icon = "rbxassetid://2606412312",
+			Icon = "rbxasset://textures/TagEditor/rightarrow.png",
 			Size = UDim2.fromOffset(24, 24),
 		},
 		AlwaysOnTopRow = {
@@ -201,7 +292,7 @@ local PluginTheme = {
 	},
 
 	TagSettingsToggleButton = {
-		ClosedArrowImage = "rbxassetid://2606412312",
+		ClosedArrowImage = "rbxasset://textures/TagEditor/rightarrow.png",
 		OpenArrowImage = "rbxasset://textures/StudioToolbox/ArrowDownIconWhite.png",
 		Size = UDim2.new(1, 0, 0, 30),
 		Spacing = 10,
@@ -210,10 +301,19 @@ local PluginTheme = {
 
 return function(createMock: boolean?)
 	local styleRoot
+	local overridedDarkTheme = join(DarkTheme, {
+		VisibleIcon = "rbxasset://textures/TagEditor/VisibilityOnDarkTheme.png",
+		VisibleOffIcon = "rbxasset://textures/TagEditor/VisibilityOffDarkTheme.png",
+	})
+	local overridedLightTheme = join(LightTheme, {
+		VisibleIcon = "rbxasset://textures/TagEditor/VisibilityOnLightTheme.png",
+		VisibleOffIcon = "rbxasset://textures/TagEditor/VisibilityOffLightTheme.png",
+	})
+
 	if createMock then
-		styleRoot = StudioTheme.mock()
+		styleRoot = StudioTheme.mock(overridedDarkTheme, overridedLightTheme)
 	else
-		styleRoot = StudioTheme.new()
+		styleRoot = StudioTheme.new(overridedDarkTheme, overridedLightTheme)
 	end
 
 	return styleRoot:extend(PluginTheme)

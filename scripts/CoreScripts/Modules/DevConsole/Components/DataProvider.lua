@@ -15,6 +15,7 @@ local ServerStatsData = require(Components.ServerStats.ServerStatsData)
 local ActionBindingsData = require(Components.ActionBindings.ActionBindingsData)
 local ServerJobsData = require(Components.ServerJobs.ServerJobsData)
 local DebugVisualizationsData = require(Components.DebugVisualizations.DebugVisualizationsData)
+local ServerProfilingData = require(Components.ScriptProfiler.ServerProfilingData)
 local DataContext = require(Components.DataContext)
 
 local DataProvider = Roact.Component:extend("DataProvider")
@@ -34,6 +35,7 @@ function DataProvider:init()
 			ActionBindingsData = ActionBindingsData.new(),
 			ServerJobsData = ServerJobsData.new(),
 			DebugVisualizationsData = DebugVisualizationsData.new(),
+			ServerProfilingData = ServerProfilingData.new();
 		},
 	})
 end

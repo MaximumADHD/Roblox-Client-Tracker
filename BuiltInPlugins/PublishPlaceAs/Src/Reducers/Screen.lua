@@ -10,13 +10,13 @@ local initial = {
 return Rodux.createReducer(initial, {
 	SetScreen = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			screen = action.screen
+			screen = action.screen,
 		})
 	end,
 
 	ResetInfo = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			screen = action.screen
+			screen = action.screen,
 		})
 	end,
 })

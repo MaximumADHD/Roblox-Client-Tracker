@@ -1,4 +1,3 @@
-local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
 local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
@@ -60,10 +59,8 @@ Category.AssetType.SOUND_EFFECT = 301
 Category.AssetType.UNKNOWN_AUDIO = 302
 
 Category.AssetTypeInverted = {}
-if FFlagToolboxUseGetVote then
-	for assetType, val in pairs(Category.AssetType) do
-		Category.AssetTypeInverted[val] = assetType
-	end
+for assetType, val in pairs(Category.AssetType) do
+	Category.AssetTypeInverted[val] = assetType
 end
 
 Category.MUSIC = {
@@ -801,10 +798,8 @@ function Category.getCategoryIndex(categoryName, roles)
 	return 1
 end
 
-if FFlagToolboxUseGetVote then
-	function Category.getAssetTypeByNumber(assetTypeNumber: number)
-		return Category.AssetTypeInverted[assetTypeNumber]
-	end
+function Category.getAssetTypeByNumber(assetTypeNumber: number)
+	return Category.AssetTypeInverted[assetTypeNumber]
 end
 
 function Category.categoryIsPackage(categoryName)

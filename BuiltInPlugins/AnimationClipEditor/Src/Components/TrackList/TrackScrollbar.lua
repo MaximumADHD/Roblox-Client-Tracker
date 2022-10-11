@@ -42,7 +42,7 @@ function TrackScrollbar:init()
 
 	self.onDragEnded = function()
 		self:setState({
-			dragging = false
+			dragging = false,
 		})
 	end
 
@@ -123,7 +123,7 @@ function TrackScrollbar:render()
 					props.OnScroll(input.Position.Z)
 				end
 			end,
-		},{
+		}, {
 			ScrollBar = canShowScrollbar and Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1 / scrollRange, 0),
 				Position = UDim2.new(0, 0, (topTrackIndex - 1) / scrollRange, 0),
@@ -138,7 +138,7 @@ function TrackScrollbar:render()
 						self.onDragStarted()
 					end
 				end,
-			})
+			}),
 		}),
 
 		UpButton = canShowScrollbar and Roact.createElement(ArrowButton, {

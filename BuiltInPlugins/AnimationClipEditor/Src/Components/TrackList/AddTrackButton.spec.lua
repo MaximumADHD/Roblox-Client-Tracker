@@ -9,7 +9,7 @@ return function()
 		return Roact.createElement(MockWrapper, {}, {
 			AddTrackButton = Roact.createElement(AddTrackButton, {
 				Tracks = {},
-			})
+			}),
 		})
 	end
 
@@ -19,7 +19,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestAddTrackButton(), container)
 		local frame = container:FindFirstChildOfClass("ImageButton")

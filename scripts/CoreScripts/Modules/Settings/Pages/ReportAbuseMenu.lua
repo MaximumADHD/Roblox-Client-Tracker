@@ -470,10 +470,15 @@ local function Initialize()
 				if layerData then
 					inSortingExperiment = layerData.VoiceAbuseReportProximitySort
 					inEntryExperiment = layerData.VoiceAbuseReportSmartEntry
-					voiceChatEnabled = not layerData.VoiceAbuseReportDisabled -- Using a negative here so it can be turned ON by default if IXP ever goes down
+
+					if layerData.VoiceAbuseReportDisabled == nil then
+						voiceChatEnabled = false
+					else
+						voiceChatEnabled = not layerData.VoiceAbuseReportDisabled
+					end
 				else
-					-- We default to showing the method of abuse if IXP is down and everything else is working
-					voiceChatEnabled = true
+					-- We default to NOT showing the method of abuse if IXP is down and everything else is working
+					voiceChatEnabled = false
 				end
 				log:debug("Voice Chat {}. In Sorting Experiment {}, In Entry Experiment {}.", voiceChatEnabled, inSortingExperiment, inEntryExperiment)
 				this:updateVoiceLayout()

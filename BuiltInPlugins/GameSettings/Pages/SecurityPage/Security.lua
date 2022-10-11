@@ -58,7 +58,7 @@ local function saveSettings(store, contextItems)
 	local state = store:getState()
 	local gameId = state.Metadata.gameId
 	local universePermissionsController = contextItems.universePermissionsController
-	
+
 	return {
 		createSaveSettingIfChangedHandler(state, "HttpEnabled", function(changedValue)
 			universePermissionsController:SetHttpEnabled(game, changedValue)
@@ -138,6 +138,7 @@ function Security:render()
 				}),
 
 				Description = Roact.createElement(TextLabel, {
+					AutomaticSize = Enum.AutomaticSize.XY,
 					LayoutOrder = layoutOrder:getNextOrder(),
 					Style = "SubText",
 					Text = localization:getText("Security", "InsecureWarning"),
@@ -145,7 +146,7 @@ function Security:render()
 					TextColor = theme.warningColor,
 					TextSize = theme.fontStyle.Subtitle.TextSize,
 				}),
-			}),			
+			}),
 
 			HttpEnabled = Roact.createElement(ToggleButtonWithTitle, {
 				Description = localization:getText("General", "HttpDesc"),
@@ -196,7 +197,7 @@ function Security:render()
 	return Roact.createElement(SettingsPage, {
 		SettingsLoadJobs = loadSettings,
 		SettingsSaveJobs = saveSettings,
-		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
+		Title = localization:getText("General", "Category" .. LOCALIZATION_ID),
 		PageId = LOCALIZATION_ID,
 		CreateChildren = createChildren,
 	})
@@ -208,31 +209,29 @@ Security = withContext({
 })(Security)
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
-Security = RoactRodux.connect(
-	function(state, props)
-		if not state then return end
-
-		local getValue = function(propName)
-			return settingFromState(state.Settings, propName)
-		end
-
-		local isChanged = function(propName)
-			return state.Settings.Changed[propName] ~= nil
-		end
-
-		return loadValuesToProps(getValue, isChanged)
-	end,
-
-	function(dispatch)
-		local setValue = function(propName)
-			return function(value)
-				dispatch(AddChange(propName, value))
-			end
-		end
-
-		return dispatchChanges(setValue, dispatch)
+Security = RoactRodux.connect(function(state, props)
+	if not state then
+		return
 	end
-)(Security)
+
+	local getValue = function(propName)
+		return settingFromState(state.Settings, propName)
+	end
+
+	local isChanged = function(propName)
+		return state.Settings.Changed[propName] ~= nil
+	end
+
+	return loadValuesToProps(getValue, isChanged)
+end, function(dispatch)
+	local setValue = function(propName)
+		return function(value)
+			dispatch(AddChange(propName, value))
+		end
+	end
+
+	return dispatchChanges(setValue, dispatch)
+end)(Security)
 
 Security.LocalizationId = LOCALIZATION_ID
 

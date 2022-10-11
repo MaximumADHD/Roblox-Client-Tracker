@@ -83,7 +83,11 @@ return function(pivotTick, newTick, pivotValue, newValue, dragContext)
 						if snapMode ~= Constants.SNAP_MODES.None then
 							insertTick = KeyframeUtils.getNearestFrame(insertTick, frameRate)
 						end
-						insertTick = math.clamp(insertTick, oldTick - earliestTick, Constants.MAX_ANIMATION_LENGTH - (latestTick - oldTick))
+						insertTick = math.clamp(
+							insertTick,
+							oldTick - earliestTick,
+							Constants.MAX_ANIMATION_LENGTH - (latestTick - oldTick)
+						)
 						if dataTrack.Keyframes then
 							AnimationData.moveKeyframe(dataTrack, oldTick, insertTick)
 							AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
@@ -92,7 +96,11 @@ return function(pivotTick, newTick, pivotValue, newValue, dragContext)
 									if dataTrack.Type == Constants.TRACK_TYPES.Facs then
 										newValue = math.clamp(newValue, 0, 1)
 									end
-									AnimationData.setKeyframeData(dataTrack, insertTick, { Value = dataTrack.Data[insertTick].Value - pivotValue + newValue })
+									AnimationData.setKeyframeData(
+										dataTrack,
+										insertTick,
+										{ Value = dataTrack.Data[insertTick].Value - pivotValue + newValue }
+									)
 								end
 							end
 						end

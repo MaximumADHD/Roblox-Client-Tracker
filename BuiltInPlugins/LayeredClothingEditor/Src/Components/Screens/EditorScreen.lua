@@ -14,7 +14,6 @@
 	Optional Props:
 		enum EditingCage: Cage type identifier, Inner/Outer, provided via mapStateToProps
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
-		table Localization: A Localization ContextItem, which is provided via withContext.
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -26,6 +25,7 @@ local FFlagEnablePreviewDockWidget = require(Plugin.Src.Flags.GetFFlagEnablePrev
 
 local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
 local PreviewContext = AvatarToolsShared.Contexts.PreviewContext
+local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
 
 local Components = AvatarToolsShared.Components
 local InputBlocker = Components.InputBlocker
@@ -38,12 +38,14 @@ local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local UI = Framework.UI
-local SimpleExpandablePane = UI.SimpleExpandablePane
 local Pane = UI.Pane
+local ScrollingFrame = UI.ScrollingFrame
+local ScrollingFrame = UI.ScrollingFrame
 
-local EditAndPreviewFrame = require(Plugin.Src.Components.EditAndPreviewFrame)
-local EditorFrame = require(Plugin.Src.Components.EditorFrame)
+local GenerateScreen = require(Plugin.Src.Components.Screens.GenerateScreen)
+local EditorToolsManager = require(Plugin.Src.Components.EditorToolsManager)
 local PreviewFrame = require(Plugin.Src.Components.PreviewFrame)
+local PreviewViewportFrameContainer = require(Plugin.Src.Components.Preview.PreviewViewportFrameContainer)
 local ExplorerPreviewInstances = require(Plugin.Src.Components.Preview.ExplorerPreviewInstances)
 local AnimationPlaybackWrapper = require(Plugin.Src.Components.AnimationPlayback.AnimationPlaybackWrapper)
 
@@ -64,8 +66,10 @@ function EditorScreen:init()
 	self.finishSelectingFromExplorer = function()
 		local props = self.props
 		local context = self.props.LuaMeshEditingModuleContext
-		if context then
-			context:resume()
+		local editingItem = self.props.EditingItemContext:getItem()
+		if context and editingItem then
+			context:enableEditing()
+			context:initContextsFromItem(editingItem)
 		end
 		self.props.FinishSelectingFromExplorer()
 	end
@@ -85,89 +89,46 @@ function EditorScreen:render()
 	local props = self.props
 
 	local userAddedAssets = props.UserAddedAssets
-	local editingCage = props.EditingCage
 	local theme = props.Stylizer
 	local addUserAddedAssetForPreview = props.AddUserAddedAssetForPreview
-	local localization = props.Localization
 
 	local orderIterator = LayoutOrderIterator.new()
-
-	local isRigidMode = editingCage == Constants.EDIT_MODE.Mesh
-	local promptText = localization:getText("EditAndPreview", "PromptCage")
-	if isRigidMode then
-		promptText = localization:getText("EditAndPreview", "PromptNoCage")
-	end
 
 	return ContextServices.provide({
 		PreviewContext.new(),
 	}, {
 		Container = Roact.createElement(Pane, {
 			BackgroundColor3 = theme.BackgroundColor,
+			Layout = Enum.FillDirection.Vertical,
+			VerticalAlignment = Enum.VerticalAlignment.Top,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 		}, {
-			MainFrame = Roact.createElement("ScrollingFrame", {
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				ScrollBarThickness = theme.ScrollBarThickness,
-				ScrollBarImageColor3 = theme.ScrollBarColor,
-				Size = UDim2.new(1, 0, 1, 0),
-				CanvasSize = UDim2.new(0, 0, 0, 0),
-				VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar,
-				AutomaticCanvasSize = Enum.AutomaticSize.Y,
-			}, {
-				UIListLayout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Vertical,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-				}),
+			EditorToolsManager = Roact.createElement(EditorToolsManager),
 
-				EditAndPreviewContainer = Roact.createElement(Pane, {
-					Size = UDim2.new(1, 0, 0, theme.EditAndPreviewHeight),
+			PreviewViewportFrameContainer = Roact.createElement(PreviewViewportFrameContainer, {
+				LayoutOrder = orderIterator:getNextOrder(),
+			}),
+
+			MainFrame = Roact.createElement(ScrollingFrame, {
+				Size = UDim2.new(1, 0, 1, -theme.PreviewViewportFrameHeight),
+				AutomaticCanvasSize = Enum.AutomaticSize.XY,
+				Layout = Enum.FillDirection.Vertical,
+				LayoutOrder = orderIterator:getNextOrder(),
+			}, {
+				PreviewFrame = Roact.createElement(PreviewFrame, {
+					Size = UDim2.new(1, 0, 1, -theme.GenerateHeight),
+					UserAddedAssets = userAddedAssets,
+					UpdateUserAddedAssets = addUserAddedAssetForPreview,
+					LayoutOrder = orderIterator:getNextOrder(),
+				}),
+			
+				GenerateContainer = Roact.createElement(Pane, {
+					Size = UDim2.new(1, 0, 0, theme.GenerateHeight),
 					LayoutOrder = orderIterator:getNextOrder(),
 				}, {
-					EditAndPreviewFrame = Roact.createElement(EditAndPreviewFrame, {
-						PromptText = promptText,
+					GenerateScreen = Roact.createElement(GenerateScreen, {
 						GoToNext = self.onNext,
 						GoToPrevious = self.onPrevious,
-					}),
-				}),
-
-				EditSwizzle = Roact.createElement(SimpleExpandablePane, {
-					Text = localization:getText("Editor", "Edit"),
-					LayoutOrder = orderIterator:getNextOrder(),
-					Style = "Section",
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-					Expanded = true,
-					ContentPadding = {
-						Left = 0,
-						Top = 0,
-						Right = 0,
-						Bottom = 0,
-					},
-				}, {
-					EditorFrame = Roact.createElement(EditorFrame, {
-						Size = UDim2.new(1, 0, 0, theme.EditHeight),
-						LayoutOrder = orderIterator:getNextOrder(),
-					}),
-				}),
-
-				PreviewSwizzle = Roact.createElement(SimpleExpandablePane, {
-					Text = localization:getText("Editor", "Preview"),
-					LayoutOrder = orderIterator:getNextOrder(),
-					Style = "Section",
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-					Expanded = true,
-					ContentPadding = {
-						Left = 0,
-						Top = 0,
-						Right = 0,
-						Bottom = 0,
-					},
-				}, {
-					PreviewFrame = Roact.createElement(PreviewFrame, {
-						Size = UDim2.new(1, 0, 0, theme.PreviewHeight),
-						UserAddedAssets = userAddedAssets,
-						UpdateUserAddedAssets = addUserAddedAssetForPreview,
 					}),
 				}),
 			}),
@@ -176,11 +137,9 @@ function EditorScreen:render()
 				OnFocused = self.finishSelectingFromExplorer,
 				Text = props.ControlsPanelBlockerMessage,
 			}),
-			AnimationPlaybackWrapper = if not FFlagEnablePreviewDockWidget
-				then
-					Roact.createElement(AnimationPlaybackWrapper)
-				else
-					nil,
+
+			AnimationPlaybackWrapper = Roact.createElement(AnimationPlaybackWrapper),
+
 			ExplorerPreviewInstances = Roact.createElement(ExplorerPreviewInstances, {
 				UserAddedAssets = userAddedAssets,
 			}),
@@ -198,7 +157,6 @@ local function mapStateToProps(state, props)
 	local previewStatus = state.previewStatus
 	local selectItem = state.selectItem
 	return {
-		EditingCage = selectItem.editingCage,
 		IsControlsPanelBlockerActive = controlsPanelBlocker.isActive,
 		ControlsPanelBlockerMessage = controlsPanelBlocker.message,
 		UserAddedAssets = previewStatus.userAddedAssets,
@@ -228,8 +186,8 @@ end
 
 EditorScreen = withContext({
 	Stylizer = ContextServices.Stylizer,
+	EditingItemContext = EditingItemContext,
 	LuaMeshEditingModuleContext = LuaMeshEditingModuleContext,
-	Localization = ContextServices.Localization,
 })(EditorScreen)
 
 

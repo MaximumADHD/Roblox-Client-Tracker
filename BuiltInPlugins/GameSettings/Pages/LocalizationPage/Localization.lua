@@ -1,4 +1,3 @@
-
 --[[
 	Settings page for Localization settings.
 		- Source language
@@ -25,6 +24,7 @@ local Framework = require(Plugin.Packages.Framework)
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 local FFlagDevFrameworkMigrateToggleButton = SharedFlags.getFFlagDevFrameworkMigrateToggleButton()
+local FFlagDevFrameworkDropdownShowsLabel = game:GetFastFlag("DevFrameworkDropdownShowsLabel")
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -34,6 +34,9 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local UI = Framework.UI
 local LinkText = UI.LinkText
 local Pane = UI.Pane
+local SelectInput = if FFlagDevFrameworkDropdownShowsLabel
+	then UI.SelectInput
+	else require(Plugin.Src.Components.Dropdown)
 local Separator = UI.Separator
 local TextLabel = UI.Decoration.TextLabel
 local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
@@ -42,7 +45,6 @@ local ToggleButton = if FFlagDevFrameworkMigrateToggleButton then UI.ToggleButto
 local FrameworkUtil = Framework.Util
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 
-local Dropdown = require(Plugin.Src.Components.Dropdown)
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
@@ -52,7 +54,6 @@ local calculateTextSize = require(Plugin.Src.Util.GameSettingsUtilities).calcula
 local getAutoTranslationAllowed = require(Plugin.Src.Util.GameSettingsUtilities).getAutoTranslationAllowed
 local getAutoTranslatedLanguages = require(Plugin.Src.Util.GameSettingsUtilities).getAutoTranslatedLanguages
 local OpenLocalizationSettings = require(Plugin.Src.Util.BrowserUtils).OpenLocalizationSettings
-
 
 local LocalizationPage = Roact.PureComponent:extend(script.Name)
 
@@ -64,7 +65,7 @@ local function formatDropdownTable(input, translatedLanguageNames)
 	for langCode, _ in pairs(input) do
 		table.insert(output, {
 			Id = langCode,
-			Title = translatedLanguageNames[langCode],
+			[if FFlagDevFrameworkDropdownShowsLabel then "Label" else "Title"] = translatedLanguageNames[langCode],
 		})
 	end
 	return output
@@ -81,7 +82,8 @@ local function loadSettings(store, contextItems)
 			loadedSettings["SupportedLanguages"] = supportedLanguages
 		end,
 		function(loadedSettings)
-			local languageCodeToNames = localizationPageController:getLanguageCodeToNames(StudioService["StudioLocaleId"])
+			local languageCodeToNames =
+				localizationPageController:getLanguageCodeToNames(StudioService["StudioLocaleId"])
 			loadedSettings["LanguageCodeToNames"] = languageCodeToNames
 		end,
 		function(loadedSettings)
@@ -90,13 +92,15 @@ local function loadSettings(store, contextItems)
 
 			local autoTranslationTargetLanguages = getAutoTranslatedLanguages()[sourceLanguage]
 			if not autoTranslationTargetLanguages then
-				autoTranslationTargetLanguages = localizationPageController:getAutoTranslationTargetLanguages(sourceLanguage)
+				autoTranslationTargetLanguages =
+					localizationPageController:getAutoTranslationTargetLanguages(sourceLanguage)
 			end
 
 			loadedSettings["AutoTranslationTargetLanguages"] = autoTranslationTargetLanguages
 		end,
 		function(loadedSettings)
-			local autoTextCaptureEnabled, useTranslatedContentEnabled = localizationPageController:getAutoLocalizationSettings(gameId)
+			local autoTextCaptureEnabled, useTranslatedContentEnabled =
+				localizationPageController:getAutoLocalizationSettings(gameId)
 			loadedSettings["AutoTextCaptureEnabled"] = autoTextCaptureEnabled
 			loadedSettings["UseTranslatedContentEnabled"] = useTranslatedContentEnabled
 		end,
@@ -141,7 +145,11 @@ local function saveSettings(store, contextItems)
 					useTranslatedContentEnabledValue = state.Settings.Current.UseTranslatedContentEnabled
 				end
 
-				localizationPageController:setAutoLocalizationSettings(gameId, autoTextCaptureEnabledValue, useTranslatedContentEnabledValue)
+				localizationPageController:setAutoLocalizationSettings(
+					gameId,
+					autoTextCaptureEnabledValue,
+					useTranslatedContentEnabledValue
+				)
 			end
 		end,
 		function()
@@ -171,25 +179,42 @@ local function getAutomaticTranslationEntries(props, theme)
 		local layoutIndex = LayoutOrderIterator.new()
 		for languageCode, autoTranslationEnabled in pairs(targetLanguages) do
 			if autoTranslationEnabled then
-				children[languageCode] = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
-					LayoutOrder = layoutIndex:getNextOrder(),
-					Title = props.LanguageCodeToNames[languageCode],
-				} else {
-					LayoutOrder = layoutIndex:getNextOrder(),
-					Title = props.LanguageCodeToNames[languageCode],
-					MaxHeight = 36,
-					CenterGutter = CENTER_GUTTER,
-					TextSize = theme.fontStyle.Smaller.TextSize,
-				}, {
-					ToggleButton = Roact.createElement(ToggleButton, if FFlagDevFrameworkMigrateToggleButton then {
-						OnClick = props.AutoTranslationSettingChanged(props.AutoTranslationSettings, languageCode),
-						Selected = props.AutoTranslationSettings[languageCode] or false,
-					} else {
-						Enabled = true,
-						IsOn = props.AutoTranslationSettings[languageCode] or false,
-						onToggle = props.AutoTranslationSettingChanged(props.AutoTranslationSettings, languageCode),
-					}),
-				})
+				children[languageCode] = Roact.createElement(
+					TitledFrame,
+					if FFlagRemoveUILibraryTitledFrame
+						then {
+							LayoutOrder = layoutIndex:getNextOrder(),
+							Title = props.LanguageCodeToNames[languageCode],
+						}
+						else {
+							LayoutOrder = layoutIndex:getNextOrder(),
+							Title = props.LanguageCodeToNames[languageCode],
+							MaxHeight = 36,
+							CenterGutter = CENTER_GUTTER,
+							TextSize = theme.fontStyle.Smaller.TextSize,
+						},
+					{
+						ToggleButton = Roact.createElement(
+							ToggleButton,
+							if FFlagDevFrameworkMigrateToggleButton
+								then {
+									OnClick = props.AutoTranslationSettingChanged(
+										props.AutoTranslationSettings,
+										languageCode
+									),
+									Selected = props.AutoTranslationSettings[languageCode] or false,
+								}
+								else {
+									Enabled = true,
+									IsOn = props.AutoTranslationSettings[languageCode] or false,
+									onToggle = props.AutoTranslationSettingChanged(
+										props.AutoTranslationSettings,
+										languageCode
+									),
+								}
+						),
+					}
+				)
 			end
 		end
 		if next(children) ~= nil then
@@ -210,142 +235,197 @@ local function displayLocalizationSettingsPage(props, localization, theme)
 	local gameId = props.GameId
 
 	-- Question: Is there a way for me to get the size and font type automagically from the LinkText Style "Body"?
-	local hyperLinkTextSize = calculateTextSize(localization:getText("General", "LocalizationSettingsLinkText"), 14, "SourceSans")
+	local hyperLinkTextSize =
+		calculateTextSize(localization:getText("General", "LocalizationSettingsLinkText"), 14, "SourceSans")
 
 	return {
-		SourceLanguage = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
-			LayoutOrder = layoutIndex:getNextOrder(),
-			Title = localization:getText("General", "SourceLanguageTitle"),
-		} else {
-			LayoutOrder = layoutIndex:getNextOrder(),
-			Title = localization:getText("General", "SourceLanguageTitle"),
-			MaxHeight = 50,
-			CenterGutter = CENTER_GUTTER,
-			TextSize = theme.fontStyle.Subtitle.TextSize,
-			ZIndex = 3,
-		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, theme.uiListLayout.padding),
-			}),
-			Selector = Roact.createElement(Dropdown, {
-				LayoutOrder = 1,
-				Entries = dropdownLanguages,
-				Enabled = next(dropdownLanguages) ~= nil,
-				Current = props.SourceLanguage,
-				CurrentChanged = props.SourceLanguageChanged,
-			}),
-			Description = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtext, {
-				LayoutOrder = 2,
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Size = UDim2.new(1, 0, 0, theme.fontStyle.Subtitle.TextSize),
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Top,
-				Text = localization:getText("General", "SourceLanguageDesc"),
-			})),
-		}),
+		SourceLanguage = Roact.createElement(
+			TitledFrame,
+			if FFlagRemoveUILibraryTitledFrame
+				then {
+					LayoutOrder = layoutIndex:getNextOrder(),
+					Title = localization:getText("General", "SourceLanguageTitle"),
+				}
+				else {
+					LayoutOrder = layoutIndex:getNextOrder(),
+					Title = localization:getText("General", "SourceLanguageTitle"),
+					MaxHeight = 50,
+					CenterGutter = CENTER_GUTTER,
+					TextSize = theme.fontStyle.Subtitle.TextSize,
+					ZIndex = 3,
+				},
+			{
+				Layout = Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, theme.uiListLayout.padding),
+				}),
+				Selector = Roact.createElement(
+					SelectInput,
+					if FFlagDevFrameworkDropdownShowsLabel
+						then {
+							LayoutOrder = 1,
+							Items = dropdownLanguages,
+							Enabled = next(dropdownLanguages) ~= nil,
+							SelectedId = props.SourceLanguage,
+							OnItemActivated = function(item)
+								props.SourceLanguageChanged(item.Id)
+							end,
+						}
+						else {
+							LayoutOrder = 1,
+							Entries = dropdownLanguages,
+							Enabled = next(dropdownLanguages) ~= nil,
+							Current = props.SourceLanguage,
+							CurrentChanged = props.SourceLanguageChanged,
+						}
+				),
+				Description = Roact.createElement(
+					"TextLabel",
+					Cryo.Dictionary.join(theme.fontStyle.Subtext, {
+						LayoutOrder = 2,
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+						Size = UDim2.new(1, 0, 0, theme.fontStyle.Subtitle.TextSize),
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Top,
+						Text = localization:getText("General", "SourceLanguageDesc"),
+					})
+				),
+			}
+		),
 		Separator1 = Roact.createElement(Separator, {
 			LayoutOrder = layoutIndex:getNextOrder(),
 		}),
-		AutoTextCapture = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
-			LayoutOrder = layoutIndex:getNextOrder(),
-			Title = localization:getText("General", "AutoTextCaptureTitle"),
-		} else {
-			LayoutOrder = layoutIndex:getNextOrder(),
-			Title = localization:getText("General", "AutoTextCaptureTitle"),
-			MaxHeight = 36,
-			CenterGutter = CENTER_GUTTER,
-			TextSize = theme.fontStyle.Subtitle.TextSize,
-		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, theme.uiListLayout.padding),
-			}),
-			ToggleButton = Roact.createElement(ToggleButton, if FFlagDevFrameworkMigrateToggleButton then {
-				Disabled = props.AutoTextCaptureEnabled == nil,
-				LayoutOrder = 1,
-				OnClick = props.AutoTextCaptureEnabledChanged,
-				Selected = props.AutoTextCaptureEnabled,
-			} else {
-				LayoutOrder = 1,
-				Enabled = props.AutoTextCaptureEnabled ~= nil,
-				IsOn = props.AutoTextCaptureEnabled,
+		AutoTextCapture = Roact.createElement(
+			TitledFrame,
+			if FFlagRemoveUILibraryTitledFrame
+				then {
+					LayoutOrder = layoutIndex:getNextOrder(),
+					Title = localization:getText("General", "AutoTextCaptureTitle"),
+				}
+				else {
+					LayoutOrder = layoutIndex:getNextOrder(),
+					Title = localization:getText("General", "AutoTextCaptureTitle"),
+					MaxHeight = 36,
+					CenterGutter = CENTER_GUTTER,
+					TextSize = theme.fontStyle.Subtitle.TextSize,
+				},
+			{
+				Layout = Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, theme.uiListLayout.padding),
+				}),
+				ToggleButton = Roact.createElement(
+					ToggleButton,
+					if FFlagDevFrameworkMigrateToggleButton
+						then {
+							Disabled = props.AutoTextCaptureEnabled == nil,
+							LayoutOrder = 1,
+							OnClick = props.AutoTextCaptureEnabledChanged,
+							Selected = props.AutoTextCaptureEnabled,
+						}
+						else {
+							LayoutOrder = 1,
+							Enabled = props.AutoTextCaptureEnabled ~= nil,
+							IsOn = props.AutoTextCaptureEnabled,
 
-				onToggle = props.AutoTextCaptureEnabledChanged,
-			}),
-			Description = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtext, {
-				LayoutOrder = 2,
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Size = UDim2.new(1, 0, 0, theme.fontStyle.Subtitle.TextSize),
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Top,
-				Text = localization:getText("General", "AutoTextCaptureDesc"),
-			})),
-		}),
+							onToggle = props.AutoTextCaptureEnabledChanged,
+						}
+				),
+				Description = Roact.createElement(
+					"TextLabel",
+					Cryo.Dictionary.join(theme.fontStyle.Subtext, {
+						LayoutOrder = 2,
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+						Size = UDim2.new(1, 0, 0, theme.fontStyle.Subtitle.TextSize),
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Top,
+						Text = localization:getText("General", "AutoTextCaptureDesc"),
+					})
+				),
+			}
+		),
 		Separator2 = Roact.createElement(Separator, {
 			LayoutOrder = layoutIndex:getNextOrder(),
 		}),
-		UseTranslatedContent = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
-			LayoutOrder = layoutIndex:getNextOrder(),
-			Title = localization:getText("General", "UseTranslatedContentTitle"),
-		} else {
-			LayoutOrder = layoutIndex:getNextOrder(),
-			Title = localization:getText("General", "UseTranslatedContentTitle"),
-			MaxHeight = 36,
-			CenterGutter = CENTER_GUTTER,
-			TextSize = theme.fontStyle.Subtitle.TextSize,
-		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, theme.uiListLayout.padding),
-			}),
-			ToggleButton = Roact.createElement(ToggleButton, if FFlagDevFrameworkMigrateToggleButton then {
-				Disabled = props.UseTranslatedContentEnabled == nil,
-				LayoutOrder = 1,
-				OnClick = props.UseTranslatedContentEnabledChanged,
-				Selected = props.UseTranslatedContentEnabled,
-			} else {
-				LayoutOrder = 1,
-				Enabled = props.UseTranslatedContentEnabled ~= nil,
-				IsOn = props.UseTranslatedContentEnabled,
+		UseTranslatedContent = Roact.createElement(
+			TitledFrame,
+			if FFlagRemoveUILibraryTitledFrame
+				then {
+					LayoutOrder = layoutIndex:getNextOrder(),
+					Title = localization:getText("General", "UseTranslatedContentTitle"),
+				}
+				else {
+					LayoutOrder = layoutIndex:getNextOrder(),
+					Title = localization:getText("General", "UseTranslatedContentTitle"),
+					MaxHeight = 36,
+					CenterGutter = CENTER_GUTTER,
+					TextSize = theme.fontStyle.Subtitle.TextSize,
+				},
+			{
+				Layout = Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, theme.uiListLayout.padding),
+				}),
+				ToggleButton = Roact.createElement(
+					ToggleButton,
+					if FFlagDevFrameworkMigrateToggleButton
+						then {
+							Disabled = props.UseTranslatedContentEnabled == nil,
+							LayoutOrder = 1,
+							OnClick = props.UseTranslatedContentEnabledChanged,
+							Selected = props.UseTranslatedContentEnabled,
+						}
+						else {
+							LayoutOrder = 1,
+							Enabled = props.UseTranslatedContentEnabled ~= nil,
+							IsOn = props.UseTranslatedContentEnabled,
 
-				onToggle = props.UseTranslatedContentEnabledChanged,
-			}),
-			Description = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtext, {
-				LayoutOrder = 2,
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Size = UDim2.new(1, 0, 0, theme.fontStyle.Subtitle.TextSize),
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Top,
-				Text = localization:getText("General", "UseTranslatedContentDesc"),
-			})),
-		}),
+							onToggle = props.UseTranslatedContentEnabledChanged,
+						}
+				),
+				Description = Roact.createElement(
+					"TextLabel",
+					Cryo.Dictionary.join(theme.fontStyle.Subtext, {
+						LayoutOrder = 2,
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+						Size = UDim2.new(1, 0, 0, theme.fontStyle.Subtitle.TextSize),
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Top,
+						Text = localization:getText("General", "UseTranslatedContentDesc"),
+					})
+				),
+			}
+		),
 		Separator3 = Roact.createElement(Separator, {
 			LayoutOrder = layoutIndex:getNextOrder(),
 		}),
-		AutoTranslationTitle = showAutoTranslationTitle and Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
-			LayoutOrder = layoutIndex:getNextOrder(),
-			Title = localization:getText("General", "AutoTranslationTitle"),
-		} else {
-			LayoutOrder = layoutIndex:getNextOrder(),
-			Title = localization:getText("General", "AutoTranslationTitle"),
-			MaxHeight = 22,
-			CenterGutter = CENTER_GUTTER,
-			TextSize = theme.fontStyle.Subtitle.TextSize,
-		}),
-		AutoTranslationOptions = showAutoTranslationOptions and (
-			Roact.createElement(Pane, {
-				Layout = Enum.FillDirection.Vertical,
-				LayoutOrder = layoutIndex:getNextOrder(),
-				AutomaticSize = Enum.AutomaticSize.Y,
-				Spacing = UDim.new(0, 10),
-			}, autoTranslationChildren)
+		AutoTranslationTitle = showAutoTranslationTitle and Roact.createElement(
+			TitledFrame,
+			if FFlagRemoveUILibraryTitledFrame
+				then {
+					LayoutOrder = layoutIndex:getNextOrder(),
+					Title = localization:getText("General", "AutoTranslationTitle"),
+				}
+				else {
+					LayoutOrder = layoutIndex:getNextOrder(),
+					Title = localization:getText("General", "AutoTranslationTitle"),
+					MaxHeight = 22,
+					CenterGutter = CENTER_GUTTER,
+					TextSize = theme.fontStyle.Subtitle.TextSize,
+				}
 		),
-		AutoTranlsationUnavailable = showAutoTranlsationUnavailable and
-			Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtext, {
+		AutoTranslationOptions = showAutoTranslationOptions and (Roact.createElement(Pane, {
+			Layout = Enum.FillDirection.Vertical,
+			LayoutOrder = layoutIndex:getNextOrder(),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			Spacing = UDim.new(0, 10),
+		}, autoTranslationChildren)),
+		AutoTranlsationUnavailable = showAutoTranlsationUnavailable and Roact.createElement(
+			"TextLabel",
+			Cryo.Dictionary.join(theme.fontStyle.Subtext, {
 				LayoutOrder = layoutIndex:getNextOrder(),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
@@ -353,7 +433,8 @@ local function displayLocalizationSettingsPage(props, localization, theme)
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Top,
 				Text = localization:getText("General", "AutoTranslationOnlyAvailableForEnMessage"),
-			})),
+			})
+		),
 		Separator4 = showAutoTranslationTitle and Roact.createElement(Separator, {
 			LayoutOrder = layoutIndex:getNextOrder(),
 		}),
@@ -377,7 +458,7 @@ local function displayLocalizationSettingsPage(props, localization, theme)
 				Style = "Body",
 				Text = localization:getText("General", "LocalizationSettingsLinkText"),
 			}),
-		})
+		}),
 	}
 end
 
@@ -389,7 +470,7 @@ function LocalizationPage:render()
 	return Roact.createElement(SettingsPage, {
 		SettingsLoadJobs = loadSettings,
 		SettingsSaveJobs = saveSettings,
-		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
+		Title = localization:getText("General", "Category" .. LOCALIZATION_ID),
 		PageId = script.Name,
 		CreateChildren = function()
 			return displayLocalizationSettingsPage(props, localization, theme)
@@ -443,27 +524,25 @@ LocalizationPage = withContext({
 })(LocalizationPage)
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
-LocalizationPage = RoactRodux.connect(
-	function(state, _)
-		if not state then return end
-
-		local getValue = function(propName)
-			return settingFromState(state.Settings, propName)
-		end
-
-		return loadValuesToProps(getValue, state)
-	end,
-
-	function(dispatch)
-		local setValue = function(propName)
-			return function(value)
-				dispatch(AddChange(propName, value))
-			end
-		end
-
-		return dispatchChanges(setValue, dispatch)
+LocalizationPage = RoactRodux.connect(function(state, _)
+	if not state then
+		return
 	end
-)(LocalizationPage)
+
+	local getValue = function(propName)
+		return settingFromState(state.Settings, propName)
+	end
+
+	return loadValuesToProps(getValue, state)
+end, function(dispatch)
+	local setValue = function(propName)
+		return function(value)
+			dispatch(AddChange(propName, value))
+		end
+	end
+
+	return dispatchChanges(setValue, dispatch)
+end)(LocalizationPage)
 
 LocalizationPage.LocalizationId = LOCALIZATION_ID
 

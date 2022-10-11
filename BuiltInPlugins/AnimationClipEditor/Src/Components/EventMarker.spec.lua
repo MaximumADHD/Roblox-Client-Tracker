@@ -11,7 +11,7 @@ return function()
 			EventMarker = Roact.createElement(EventMarker, {
 				Selected = selected,
 				ZIndex = 0,
-			})
+			}),
 		})
 	end
 
@@ -21,7 +21,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestEventMarker(), container)
 		local frame = container:FindFirstChildOfClass("ImageButton")
@@ -32,7 +32,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render a border when selected", function ()
+	it("should render a border when selected", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestEventMarker(true), container)
 		local frame = container:FindFirstChildOfClass("ImageButton")

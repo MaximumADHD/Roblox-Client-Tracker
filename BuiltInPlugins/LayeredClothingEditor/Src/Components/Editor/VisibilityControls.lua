@@ -3,6 +3,7 @@
 
 	Props:
 		string ToolMode: Determines what tool (Point, Lattice, etc) the plugin is using. Comes from mapStateToProps
+		table EditingItemContext: A EditingItemContext ContextItem, which is provided via withContext.
 		table Localization: A Localization ContextItem, which is provided via withContext.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
@@ -11,6 +12,10 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
+
+local AvatarUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared.AvatarUtil
 
 local DropdownMenuButton = AvatarToolsShared.Components.DropdownMenuButton
 
@@ -66,6 +71,14 @@ function VisibilityControls:init()
 		self:setState({
 			isCageSlider = icons[index] == style.CageVisibilityIcon
 		})
+	end
+
+	self.onFocusMannequinClicked = function()
+		local props = self.props
+		local editingItem = props.EditingItemContext:getItem()
+		if editingItem and editingItem.Parent then
+			AvatarUtil:focusCameraOnAvatar(editingItem.Parent)
+		end
 	end
 end
 
@@ -127,7 +140,7 @@ function VisibilityControls:render()
 			Style = "Round",
 			Size = UDim2.fromOffset(buttonSize, buttonSize),
 			LayoutOrder = orderIterator:getNextOrder(),
-			OnClick = function() end, -- TODO: AVBURST-9546
+			OnClick = self.onFocusMannequinClicked,
 			Tooltip = localization:getText("Preview", "FocusCamera"),
 		}, {
 			Settings = Roact.createElement(Image, {
@@ -138,6 +151,7 @@ function VisibilityControls:render()
 end
 
 VisibilityControls = withContext({
+	EditingItemContext = EditingItemContext,
 	Localization = ContextServices.Localization,
 	Stylizer = ContextServices.Stylizer,
 })(VisibilityControls)

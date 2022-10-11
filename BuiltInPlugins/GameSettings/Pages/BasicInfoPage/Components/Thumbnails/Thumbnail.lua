@@ -122,18 +122,22 @@ function Thumbnail:render()
 			})
 		end,
 	}, {
-		InfoText = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-			Visible = (review or preview) and not (hoverBarEnabled and hover),
-			BackgroundTransparency = 0.3,
-			BorderSizePixel = 0,
-			BackgroundColor3 = DEPRECATED_Constants.BLACK,
-			TextColor3 = DEPRECATED_Constants.WHITE,
-			Size = UDim2.new(1, 0, 0, 30),
-			Position = UDim2.new(0, 0, 1, 0),
-			AnchorPoint = Vector2.new(0, 1),
+		InfoText = Roact.createElement(
+			"TextLabel",
+			Cryo.Dictionary.join(theme.fontStyle.Normal, {
+				Visible = (review or preview) and not (hoverBarEnabled and hover),
+				BackgroundTransparency = 0.3,
+				BorderSizePixel = 0,
+				BackgroundColor3 = DEPRECATED_Constants.BLACK,
+				TextColor3 = DEPRECATED_Constants.WHITE,
+				Size = UDim2.new(1, 0, 0, 30),
+				Position = UDim2.new(0, 0, 1, 0),
+				AnchorPoint = Vector2.new(0, 1),
 
-			Text = preview and localization:getText("General", "ImagePreview") or localization:getText("General", "ImageReview"),
-		})),
+				Text = preview and localization:getText("General", "ImagePreview")
+					or localization:getText("General", "ImageReview"),
+			})
+		),
 
 		TitleFrame = Roact.createElement("Frame", {
 			Visible = videoTitle ~= nil,
@@ -142,60 +146,67 @@ function Thumbnail:render()
 			BackgroundColor3 = DEPRECATED_Constants.BLACK,
 			Size = UDim2.new(1, 0, 0, 30),
 		}, {
-			TitleText = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, -20, 1, 0),
-				Position = UDim2.new(0.5, 0, 0, 0),
-				AnchorPoint = Vector2.new(0.5, 0),
+			TitleText = Roact.createElement(
+				"TextLabel",
+				Cryo.Dictionary.join(theme.fontStyle.Normal, {
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, -20, 1, 0),
+					Position = UDim2.new(0.5, 0, 0, 0),
+					AnchorPoint = Vector2.new(0.5, 0),
 
-				Text = videoTitle,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-				TextXAlignment = Enum.TextXAlignment.Left,
-			})),
+					Text = videoTitle,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextXAlignment = Enum.TextXAlignment.Left,
+				})
+			),
 		}),
 
 		HoverBar = Roact.createElement(ThumbnailHoverBar, {
 			Enabled = hoverBarEnabled and hover,
 			ButtonPressed = self.buttonPressed,
-		})
+		}),
 	})
 
-	return if FFlagGameSettingsEnableThumbnailAltText then Roact.createElement(Pane, {
-		AutomaticSize = Enum.AutomaticSize.XY,
-		Layout = Enum.FillDirection.Vertical,
-		VerticalAlignment = Enum.VerticalAlignment.Top,
-		LayoutOrder = index,
-	}, {
-		ImageButton,
-
-		AltText = Roact.createElement(Pane, {
-			Size = DEPRECATED_Constants.THUMBNAIL_SIZE,
+	return if FFlagGameSettingsEnableThumbnailAltText
+		then Roact.createElement(Pane, {
 			AutomaticSize = Enum.AutomaticSize.XY,
 			Layout = Enum.FillDirection.Vertical,
 			VerticalAlignment = Enum.VerticalAlignment.Top,
-			LayoutOrder = 2,
+			LayoutOrder = index,
 		}, {
-			Title = Roact.createElement(TextLabel, {
-				Style = "SubText",
-				Text = localization:getText("General", "TitleAltText"),
-				Size = UDim2.new(1, 0, 0, DEPRECATED_Constants.TEXT_SIZE),
-				TextXAlignment = Enum.TextXAlignment.Left
-			}),
+			ImageButton,
 
-			TextBox = Roact.createElement(TextInput, {
-				Height = DEPRECATED_Constants.THUMBNAIL_SIZE.Y.Offset - DEPRECATED_Constants.TEXT_SIZE - ALT_TEXT_INPUT_HEIGHT,
-				MultiLine = true,
-
-				MaxLength = MAX_ALT_TEXT_LENGTH,
-				Text = altText,
-				TextSize = DEPRECATED_Constants.TEXT_SIZE,
+			AltText = Roact.createElement(Pane, {
+				Size = DEPRECATED_Constants.THUMBNAIL_SIZE,
+				AutomaticSize = Enum.AutomaticSize.XY,
+				Layout = Enum.FillDirection.Vertical,
+				VerticalAlignment = Enum.VerticalAlignment.Top,
 				LayoutOrder = 2,
+			}, {
+				Title = Roact.createElement(TextLabel, {
+					Style = "SubText",
+					Text = localization:getText("General", "TitleAltText"),
+					Size = UDim2.new(1, 0, 0, DEPRECATED_Constants.TEXT_SIZE),
+					TextXAlignment = Enum.TextXAlignment.Left,
+				}),
 
-				ErrorText = altTextErrorMessage,
-				OnTextChanged = self.altTextChanged,
+				TextBox = Roact.createElement(TextInput, {
+					Height = DEPRECATED_Constants.THUMBNAIL_SIZE.Y.Offset
+						- DEPRECATED_Constants.TEXT_SIZE
+						- ALT_TEXT_INPUT_HEIGHT,
+					MultiLine = true,
+
+					MaxLength = MAX_ALT_TEXT_LENGTH,
+					Text = altText,
+					TextSize = DEPRECATED_Constants.TEXT_SIZE,
+					LayoutOrder = 2,
+
+					ErrorText = altTextErrorMessage,
+					OnTextChanged = self.altTextChanged,
+				}),
 			}),
-		}),
-	}) else ImageButton
+		})
+		else ImageButton
 end
 
 Thumbnail = withContext({

@@ -21,8 +21,8 @@ return function()
 							name = "place 1",
 							universeId = 201,
 							index = 1,
-						}
-					}
+						},
+					},
 				},
 				Changed = {},
 				Warnings = {},
@@ -30,15 +30,11 @@ return function()
 			}
 		end
 
-		local settingsStore = Rodux.Store.new(
-			MainReducer,
-			{Settings = startState},
-			{Rodux.thunkMiddleware}
-		)
+		local settingsStore = Rodux.Store.new(MainReducer, { Settings = startState }, { Rodux.thunkMiddleware })
 
-        return provideMockContextForGameSettings({
-            Store = ContextServices.Store.new(settingsStore)
-        } , {
+		return provideMockContextForGameSettings({
+			Store = ContextServices.Store.new(settingsStore),
+		}, {
 			place = Roact.createElement(Places),
 		})
 	end

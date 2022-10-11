@@ -147,7 +147,7 @@ function Timeline:render()
 		local onInterval = frameNo % majorInterval == 0
 		local seconds = math.floor(frameNo / frameRate)
 		local frames = frameNo - (seconds * frameRate)
-		local time = tostring(seconds ..":" ..string.format("%02d", frames))
+		local time = tostring(seconds .. ":" .. string.format("%02d", frames))
 
 		children[frameNo] = Roact.createElement(TimelineTick, {
 			Time = showAsTime and time or frameNo,
@@ -160,14 +160,15 @@ function Timeline:render()
 			TickHeightScale = onInterval and tickHeightScale or smallTickHeightScale,
 			ShowTime = onInterval,
 			PastEnd = frameNo > lastTick,
-			TimeInSeconds = StringUtils.formatTimeInSeconds(frames, frameRate)
+			TimeInSeconds = StringUtils.formatTimeInSeconds(frames, frameRate),
 		})
 	end
 
-	children.DragTarget = state.Dragging and Roact.createElement(DragTarget, {
-		OnDragMoved = self.onDragMoved,
-		OnDragEnded = self.onDragEnded,
-	})
+	children.DragTarget = state.Dragging
+		and Roact.createElement(DragTarget, {
+			OnDragMoved = self.onDragMoved,
+			OnDragEnded = self.onDragEnded,
+		})
 
 	local innerWidth
 	if lastTick then

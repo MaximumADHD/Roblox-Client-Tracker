@@ -9,6 +9,6 @@ local Action = Util.Action
 
 return Action(script.Name, function(isPicking: boolean)
 	return {
-		isPicking = isPicking
+		isPicking = isPicking,
 	}
 end)

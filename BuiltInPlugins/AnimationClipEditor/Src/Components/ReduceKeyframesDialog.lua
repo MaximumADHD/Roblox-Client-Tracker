@@ -73,15 +73,19 @@ function ReduceKeyframesDialog:init(): ()
 			local beforeKeyframes = if self.state.ticks then #self.state.ticks else 0
 			local afterKeyframes = self.state.keyframes
 
-			props.Analytics:report("onKeyframeReductionApply",
-				tracks, isChannelAnimation, beforeKeyframes, afterKeyframes)
+			props.Analytics:report(
+				"onKeyframeReductionApply",
+				tracks,
+				isChannelAnimation,
+				beforeKeyframes,
+				afterKeyframes
+			)
 
 			-- If the user decides to apply the changes, we need to create a
 			-- waypoint to undo to
 			props.AddWaypoint(self.animationBackup)
 		else
-			props.Analytics:report("onKeyframeReductionCancel",
-				tracks, isChannelAnimation)
+			props.Analytics:report("onKeyframeReductionCancel", tracks, isChannelAnimation)
 		end
 
 		self.props.OnClose()
@@ -99,7 +103,7 @@ end
 
 -- Fill a map between a part name and its parent name (either through
 -- Motor6D or Bone)
-local function getParents(targetInstance: Instance): {[string]: string}
+local function getParents(targetInstance: Instance): { [string]: string }
 	local _, motorMap, _, boneMap = RigUtils.getRigInfo(targetInstance)
 	local parents = {}
 	for k, v in pairs(motorMap) do
@@ -128,7 +132,8 @@ local function calculateOrientation(
 			else CFrame.new()
 
 		if parents[trackName] then
-			orientations[trackName] = calculateOrientation(tracks, orientations, parents, parents[trackName], tck) * orientations[trackName]
+			orientations[trackName] = calculateOrientation(tracks, orientations, parents, parents[trackName], tck)
+				* orientations[trackName]
 		end
 	end
 
@@ -149,15 +154,15 @@ local function calculateAngle(P: CFrame, Q: CFrame): number
 
 	-- Clamp the cosine to avoid rounding errors
 	if trace >= 3 then
-		return math.pi/2
+		return math.pi / 2
 	elseif trace <= -1 then
-		return -math.pi/2
+		return -math.pi / 2
 	else
 		return math.acos((trace - 1) / 2)
 	end
 end
 
-function ReduceKeyframesDialog:calculateVisvalingamWhyatt(): {number}
+function ReduceKeyframesDialog:calculateVisvalingamWhyatt(): { number }
 	local animationData = self.sourceData
 	local rootInstance = self.props.RootInstance
 	local tracks = animationData.Instances.Root.Tracks
@@ -167,8 +172,8 @@ function ReduceKeyframesDialog:calculateVisvalingamWhyatt(): {number}
 	local rootPartTrack = tracks[rootPartName]
 
 	-- Find all ticks
-	local ticks = TrackUtils.getSummaryKeyframes(tracks,
-		animationData.Metadata.StartTick, animationData.Metadata.EndTick)
+	local ticks =
+		TrackUtils.getSummaryKeyframes(tracks, animationData.Metadata.StartTick, animationData.Metadata.EndTick)
 	table.sort(ticks)
 
 	local parents = getParents(rootInstance)
@@ -261,9 +266,9 @@ function ReduceKeyframesDialog:didMount(): ()
 	local props = self.props
 
 	if props.Tracks == nil or isEmpty(props.Tracks) then
-	-- There is no active track. Either no track has been added in the ACE,
-	-- or the user loaded an animation that does not match the rig. In
-	-- either case, there isn't much we can do.
+		-- There is no active track. Either no track has been added in the ACE,
+		-- or the user loaded an animation that does not match the rig. In
+		-- either case, there isn't much we can do.
 		self.onClose(false)
 		return
 	end
@@ -348,8 +353,8 @@ function ReduceKeyframesDialog:render(): any
 	end
 
 	local buttons = {
-		{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round"},
-		{Key = true, Text = localization:getText("Dialog", "Ok"), Style = "RoundPrimary"},
+		{ Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round" },
+		{ Key = true, Text = localization:getText("Dialog", "Ok"), Style = "RoundPrimary" },
 	}
 
 	return Roact.createElement(StyledDialog, {
@@ -396,7 +401,7 @@ function ReduceKeyframesDialog:render(): any
 	})
 end
 
-local function mapStateToProps(state): {[string]: any}
+local function mapStateToProps(state): { [string]: any }
 	return {
 		AnimationData = state.AnimationData,
 		Tracks = state.Status.Tracks,
@@ -405,7 +410,7 @@ local function mapStateToProps(state): {[string]: any}
 	}
 end
 
-local function mapDispatchToProps(dispatch): {[string]: (any) -> ()}
+local function mapDispatchToProps(dispatch): { [string]: (any) -> () }
 	return {
 		AddWaypoint = function(data: Types.AnimationData): ()
 			dispatch(AddWaypoint(data))

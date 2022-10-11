@@ -16,6 +16,7 @@ local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioG
 local FFlagToolboxLocalizeInsertTool2 = game:GetFastFlag("ToolboxLocalizeInsertTool2")
 local FFlagToolboxInsertMaterialsInMS = game:GetFastFlag("ToolboxInsertMaterialsInMS")
 local FFlagToolboxFixInsertPackage = game:GetFastFlag("ToolboxFixInsertPackage")
+local FFlagToolboxCancelModelWithScriptsFix = game:GetFastFlag("ToolboxCancelModelWithScriptsFix")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -172,11 +173,22 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			})
 		end
 
-		self.onScriptWarningBoxClosed = function()
+		self.onScriptWarningBoxConfirmed = function()
 			self:setState({
 				isShowingScriptWarningMessageBox = false,
 			})
 			self.insertToolPromise:dismissWarningPrompt()
+			if FFlagToolboxCancelModelWithScriptsFix then
+				self.state.scriptWarningInfo.insert()
+			end
+		end
+
+		self.onScriptWarningBoxCanceled = function()
+			self:setState({
+				isShowingScriptWarningMessageBox = false,
+			})
+			self.insertToolPromise:dismissWarningPrompt()
+			self.state.scriptWarningInfo.cancel()
 		end
 
 		self.onInsertScriptWarningPrompt = function(info)
@@ -242,7 +254,9 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			local assetId = asset.Id
 			local assetName = asset.Name
 			local assetTypeId = asset.TypeId
-			local assetSubTypes = if FFlagToolboxInsertMaterialsInMS or FFlagToolboxFixInsertPackage then asset.AssetSubTypes else nil
+			local assetSubTypes = if FFlagToolboxInsertMaterialsInMS or FFlagToolboxFixInsertPackage
+				then asset.AssetSubTypes
+				else nil
 
 			local currentProps = self.props
 			local categoryName = currentProps._categoryName
@@ -259,7 +273,9 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 				plugin = plugin,
 				assetId = assetId,
 				assetName = assetName,
-				assetSubTypes = if FFlagToolboxInsertMaterialsInMS or FFlagToolboxFixInsertPackage then assetSubTypes else nil,
+				assetSubTypes = if FFlagToolboxInsertMaterialsInMS or FFlagToolboxFixInsertPackage
+					then assetSubTypes
+					else nil,
 				assetTypeId = assetTypeId,
 				onSuccess = function(assetId, insertedInstance)
 					self.props._postInsertAssetRequest(getNetwork(self), assetId)
@@ -347,19 +363,25 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 		})
 
 		return Roact.createFragment({
-			ToolScriptWarningMessageBox = isShowingScriptWarningMessageBox and Roact.createElement(
-				ScriptConfirmationDialog,
-				{
+			ToolScriptWarningMessageBox = isShowingScriptWarningMessageBox
+				and Roact.createElement(ScriptConfirmationDialog, {
 					Name = string.format("ToolboxToolScriptWarningMessageBox-%s", HttpService:GenerateGUID()),
 
 					Info = scriptWarningInfo,
 					Icon = Images.INFO_ICON,
 
-					onClose = self.onScriptWarningBoxClosed,
-					onButtonClicked = self.onScriptWarningBoxClosed,
+					onClose = if FFlagToolboxCancelModelWithScriptsFix
+						then self.onScriptWarningBoxCanceled
+						else self.onScriptWarningBoxConfirmed,
+					onCancel = if FFlagToolboxCancelModelWithScriptsFix then self.onScriptWarningBoxCanceled else nil,
+					onOkButtonClicked = if FFlagToolboxCancelModelWithScriptsFix
+						then self.onScriptWarningBoxConfirmed
+						else nil,
+					onButtonClicked = if FFlagToolboxCancelModelWithScriptsFix
+						then nil
+						else self.onScriptWarningBoxConfirmed,
 					onChangeShowDialog = self.onScriptWarningBoxToggleShow,
-				}
-			),
+				}),
 
 			GrantPermissionsMessageBox = isShowingGrantPermissionsMessageBox and Roact.createElement(MessageBox, {
 				Name = string.format("ToolboxPermissionsMessageBox-%s", HttpService:GenerateGUID()),
@@ -392,8 +414,12 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			ToolMessageBox = isShowingToolMessageBox and Roact.createElement(MessageBox, {
 				Name = string.format("ToolboxToolMessageBox-%s", HttpService:GenerateGUID()),
 
-				Title = if FFlagToolboxLocalizeInsertTool2 then localization:getText("InsertTool", "DialogTitle") else "Insert Tool",
-				Text = if FFlagToolboxLocalizeInsertTool2 then localization:getText("InsertTool", "DialogText") else "Put this tool into the starter pack?",
+				Title = if FFlagToolboxLocalizeInsertTool2
+					then localization:getText("InsertTool", "DialogTitle")
+					else "Insert Tool",
+				Text = if FFlagToolboxLocalizeInsertTool2
+					then localization:getText("InsertTool", "DialogText")
+					else "Put this tool into the starter pack?",
 				Icon = Images.INFO_ICON,
 
 				onClose = self.onMessageBoxClosed,

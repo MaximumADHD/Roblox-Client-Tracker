@@ -24,7 +24,7 @@ return function()
 			end
 		else
 			local root = installStorybookEmbed(StarterPlayer.StarterPlayerScripts)
-			demoteScripts(root)	
+			demoteScripts(root)
 		end
 		store:dispatch(ToggleEmbedded())
 	end

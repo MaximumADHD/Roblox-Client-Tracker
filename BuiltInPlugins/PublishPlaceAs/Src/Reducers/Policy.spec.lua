@@ -21,7 +21,7 @@ return function()
 			end).to.throw()
 
 			expect(function()
-				SetPlayerAcceptance({ key = "value", })
+				SetPlayerAcceptance({ key = "value" })
 			end).to.throw()
 
 			expect(function()

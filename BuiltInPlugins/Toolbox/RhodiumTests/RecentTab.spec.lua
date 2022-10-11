@@ -21,14 +21,12 @@ return function()
 	local CurrentSelectionMeshesText = CurrentSelectionBasicText .. Category.RECENT_MESHES.name
 	local CurrentSelectionVideosText = CurrentSelectionBasicText .. "RecentVideos"
 
-	local DropdownIconPath = TestHelpers.getPathInTestToolbox(
-		"Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon"
-	)
+	local DropdownIconPath =
+		TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon")
 	local DropdownScrollingFramePath =
 		"game.CoreGui.ScreenGui.ClickEventDetectFrame.ScrollBlocker.StyledScrollingFrame.ScrollingFrame."
-	local CurrentSelectionTextPath = TestHelpers.getPathInTestToolbox(
-		"Toolbox.Header.CategoryMenu.CurrentSelection.Border.CurrentSelectionLabel"
-	)
+	local CurrentSelectionTextPath =
+		TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.CurrentSelectionLabel")
 	local RecentTabPath = TestHelpers.getPathInTestToolbox("Toolbox.Tabs.Recent")
 	local RecentTabIconPath = TestHelpers.getPathInTestToolbox("Toolbox.Tabs.Recent.Content.Icon")
 

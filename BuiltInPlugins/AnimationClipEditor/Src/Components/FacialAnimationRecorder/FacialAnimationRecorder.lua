@@ -20,14 +20,17 @@ local WarningOverlay = require(Plugin.Src.Components.FacialAnimationRecorder.War
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
 local GetFFlagFaceAnimatorFixFacsHFlip2 = require(Plugin.LuaFlags.GetFFlagFaceAnimatorFixFacsHFlip2)
-local GetFFlagFacialAnimationRecordingResetPoseDuringRecording = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingResetPoseDuringRecording)
+local GetFFlagFacialAnimationRecordingResetPoseDuringRecording =
+	require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingResetPoseDuringRecording)
 local GetFacialAnimationRecordingAnalytics1 = require(Plugin.LuaFlags.GetFacialAnimationRecordingAnalytics1)
 local RunService = game:GetService("RunService")
 local VideoCaptureService = game:GetService("VideoCaptureService")
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local FacialAnimationRecorder = Roact.PureComponent:extend("FacialAnimationRecorder")
-local FIntFacialAnimationRecorderMaxRecordingTimeInSeconds = game:DefineFastInt("FacialAnimationRecorderMaxRecordingTimeInSeconds", 60)
-local FStringFaceRecorderBiometricsLearnMoreLink = game:DefineFastString("ACEFaceRecorderBiometricsLink", "https://en.help.roblox.com/hc/articles/8064749848980")
+local FIntFacialAnimationRecorderMaxRecordingTimeInSeconds =
+	game:DefineFastInt("FacialAnimationRecorderMaxRecordingTimeInSeconds", 60)
+local FStringFaceRecorderBiometricsLearnMoreLink =
+	game:DefineFastString("ACEFaceRecorderBiometricsLink", "https://en.help.roblox.com/hc/articles/8064749848980")
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 local Framework = require(Plugin.Packages.Framework)
 local StyleModifier = Framework.Util.StyleModifier
@@ -69,13 +72,15 @@ function FacialAnimationRecorder:init()
 		end
 
 		self:setState({
-			isRecording = true
+			isRecording = true,
 		})
 	end
 
-	self.resetLooping = function ()
+	self.resetLooping = function()
 		local props = self.props
-		if not props.haveToSetBackToNotLooping then return end
+		if not props.haveToSetBackToNotLooping then
+			return
+		end
 		props.haveToSetBackToNotLooping = false
 		local animationData = props.AnimationData
 		if animationData then
@@ -92,15 +97,18 @@ function FacialAnimationRecorder:init()
 		local props = self.props
 		local analytics = props.Analytics
 		if GetFacialAnimationRecordingAnalytics1() then
-			analytics:report("onFacialAnimationRecordingEndRecording",self.timeAtStartOfRecording and (self.timeAtEndOfRecording - self.timeAtStartOfRecording) or 0)
+			analytics:report(
+				"onFacialAnimationRecordingEndRecording",
+				self.timeAtStartOfRecording and (self.timeAtEndOfRecording - self.timeAtStartOfRecording) or 0
+			)
 		end
 
 		props.SetInReviewState(true)
 
 		self:setState({
-			isRecording = false
+			isRecording = false,
 		})
-		
+
 		previousAnimationHadFacsTracks = AnimationData.hasFacsData(self.props.AnimationData)
 
 		props.LoadRecorderFrames(props, self.RecordedFrames, props.Analytics)
@@ -111,7 +119,7 @@ function FacialAnimationRecorder:init()
 		self:disconnect()
 
 		--move playhead to beginning of animation:
-		props.StepAnimation(0)		
+		props.StepAnimation(0)
 
 		--play the recording
 		props.SetPlayState(Constants.PLAY_STATE.Play)
@@ -121,18 +129,18 @@ function FacialAnimationRecorder:init()
 		selectionChanged = Selection.SelectionChanged:Connect(function(selected)
 			selectionChanged:Disconnect()
 			props.SetInReviewState(false)
-		end)					
+		end)
 	end
 
 	self.showCameraSelectionDialog = function()
 		self:setState({
-			shouldShowCameraSelectionDialog = true
+			shouldShowCameraSelectionDialog = true,
 		})
 	end
 
 	self.hideCameraSelectionDialog = function()
 		self:setState({
-			shouldShowCameraSelectionDialog = false
+			shouldShowCameraSelectionDialog = false,
 		})
 	end
 
@@ -168,11 +176,11 @@ function FacialAnimationRecorder:init()
 		if GetFacialAnimationRecordingAnalytics1() then
 			analytics:report("onFacialAnimationRecordingReRecordPressed")
 		end
-		
+
 		cameHereFromPressingReRecord = true
 		self.resetLooping()
 		props.SetPlayState(Constants.PLAY_STATE.Pause)
-		self.movePlayheadToBeginning()	
+		self.movePlayheadToBeginning()
 		self.props.SetInReviewState(false)
 		self.props.SetFacialRecordingMode(true)
 		self:InitializeRecordingMode()
@@ -182,14 +190,18 @@ function FacialAnimationRecorder:init()
 		local props = self.props
 		local localization = props.Localization
 		self:setState({
-			isAgeRestricted = true
+			isAgeRestricted = true,
 		})
 		ShowStyledDialog(props.Plugin, props.Localization, props.Stylizer, props.Mouse, WarningDialog, {
 			Title = localization:getText("FaceCapture", "WarningTitle"),
 			TitleText = localization:getText("FaceCapture", "AgeRestrictedTitle"),
 			BodyText = localization:getText("FaceCapture", "AgeRestrictedBody"),
 			Buttons = {
-				{Key = "Ok", Text = props.Localization:getText("FaceCapture","WarningDialogOk"), Style = "RoundPrimary"},
+				{
+					Key = "Ok",
+					Text = props.Localization:getText("FaceCapture", "WarningDialogOk"),
+					Style = "RoundPrimary",
+				},
 			},
 			OnButtonPressed = self.dismissSelf,
 			OnClose = self.dismissSelf,
@@ -207,14 +219,22 @@ function FacialAnimationRecorder:init()
 			TitleText = localization:getText("FaceCapture", "BioDataCollectionTitle"),
 			BodyText = localization:getText("FaceCapture", "BioDataCollectionBody"),
 			Buttons = {
-				{Key = "Disagree", Text = localization:getText("FaceCapture", "BioDataCollectionDisagree"), Style = "Round"},
-				{Key = agreeKey, Text = localization:getText("FaceCapture", "BioDataCollectionAgree"), Style = "Round"},
+				{
+					Key = "Disagree",
+					Text = localization:getText("FaceCapture", "BioDataCollectionDisagree"),
+					Style = "Round",
+				},
+				{
+					Key = agreeKey,
+					Text = localization:getText("FaceCapture", "BioDataCollectionAgree"),
+					Style = "Round",
+				},
 			},
 			OnButtonPressed = function(key)
 				if key == agreeKey then
 					FacialAnimationRecordingService.BiometricDataConsent = true
 					self:StartupInitialize()
-				else 
+				else
 					self.dismissSelf()
 				end
 			end,
@@ -225,9 +245,11 @@ function FacialAnimationRecorder:init()
 	end
 
 	self.numberOfCameras = function()
-		local cameraDevicesList = VideoCaptureService:GetCameraDevices()		
+		local cameraDevicesList = VideoCaptureService:GetCameraDevices()
 		local numberOfCameras = 0
-		for _ in pairs(cameraDevicesList) do numberOfCameras += 1 end
+		for _ in pairs(cameraDevicesList) do
+			numberOfCameras += 1
+		end
 		return numberOfCameras
 	end
 
@@ -235,7 +257,7 @@ function FacialAnimationRecorder:init()
 		local numberOfCameras = self.numberOfCameras()
 		local shouldShowNoCamerasWarning = numberOfCameras == 0
 		self:setState({
-			shouldShowNoCamerasWarning = shouldShowNoCamerasWarning
+			shouldShowNoCamerasWarning = shouldShowNoCamerasWarning,
 		})
 	end
 
@@ -252,13 +274,13 @@ function FacialAnimationRecorder:init()
 
 		if not success then
 			return
-		end 
+		end
 
 		local permissionResponseStatus = result
 
 		local permissionDenied = permissionResponseStatus == cameraPermissionStatus.DENIED
 		self:setState({
-			deniedCameraPermission = permissionDenied
+			deniedCameraPermission = permissionDenied,
 		})
 	end
 end
@@ -315,7 +337,7 @@ function FacialAnimationRecorder:InitializeRecordingMode()
 		-- TODO: change to seconds (maybe based on summing deltas)
 		if math.fmod(self.HeartbeatCount, 30) == 0 then
 			self.checkAndShowCameraWarning()
-		end 
+		end
 
 		self:updateAvatarData()
 
@@ -324,13 +346,13 @@ function FacialAnimationRecorder:InitializeRecordingMode()
 		self.Animator:StepAnimations(delta)
 		local facsWeights, neckRotationCFrame, timeStamp = self.track:GetTrackerData()
 
-		-- TODO: better way of checking if the data is comming from the tracker 
+		-- TODO: better way of checking if the data is comming from the tracker
 		-- timestamp > 0 is a heuristic to check if timeStamp has been properly initialized
 		local isCameraReady = timeStamp > 0
 		local shouldGatherFrames = isRecording
 
 		self:setState({
-			isCameraReady = isCameraReady
+			isCameraReady = isCameraReady,
 		})
 
 		if shouldGatherFrames and isCameraReady then
@@ -359,7 +381,7 @@ function FacialAnimationRecorder:InitializeRecordingMode()
 			local remainingSeconds = math.floor(remainingTime)
 			if self.state.remainingSeconds ~= remainingSeconds then
 				self:setState({
-					remainingSeconds = remainingSeconds
+					remainingSeconds = remainingSeconds,
 				})
 			end
 		end
@@ -413,212 +435,237 @@ function FacialAnimationRecorder:render()
 	local reRecordButtonImage = "rbxasset://textures/AnimationEditor/FaceCaptureUI/ReRecordButton.png"
 	local errorIcon = theme.faceCaptureTheme.errorIcon
 	local style = props.Stylizer
-	local textColor = style.TextColor	
-	local currentTime = os.clock()	
-	local shouldShowPreviousFacsWillBeOverWrittenMessage = (not cameHereFromPressingReRecord) and previousAnimationHadFacsTracks  and self.timeAtEndOfRecording and ((currentTime - self.timeAtEndOfRecording) <= DISPLAY_DURATION_FOR_OVERWRITING_INFO)
+	local textColor = style.TextColor
+	local currentTime = os.clock()
+	local shouldShowPreviousFacsWillBeOverWrittenMessage = not cameHereFromPressingReRecord
+		and previousAnimationHadFacsTracks
+		and self.timeAtEndOfRecording
+		and ((currentTime - self.timeAtEndOfRecording) <= DISPLAY_DURATION_FOR_OVERWRITING_INFO)
 
 	return ContextServices.provide({
-		self.focus
+		self.focus,
 	}, {
-		RecordingPanelPortal = not isAgeRestricted and Roact.createElement(Roact.Portal, {
-			target = self.presentationGui
-		}, {
-			RecordingPanelContainer = Roact.createElement(Container, {
-				Size = UDim2.new(0, 160, 0, 38),
-				Position = UDim2.new(0.5, 0, 1.0, -5),
-				AnchorPoint = Vector2.new(0.5, 1),
-				Padding = {
-					Left = 5,
-					Right = 5,
-				},
+		RecordingPanelPortal = not isAgeRestricted
+			and Roact.createElement(Roact.Portal, {
+				target = self.presentationGui,
 			}, {
-				RecordingPanel = Roact.createElement(Pane, {
-					Size = UDim2.new(1.0, 0, 1.0, 0),
+				RecordingPanelContainer = Roact.createElement(Container, {
+					Size = UDim2.new(0, 160, 0, 38),
+					Position = UDim2.new(0.5, 0, 1.0, -5),
+					AnchorPoint = Vector2.new(0.5, 1),
 					Padding = {
-						Left = 40,
-						Right = 40,
+						Left = 5,
+						Right = 5,
 					},
-					Layout = Enum.FillDirection.Horizontal,
-					Spacing = 3,
+				}, {
+					RecordingPanel = Roact.createElement(Pane, {
+						Size = UDim2.new(1.0, 0, 1.0, 0),
+						Padding = {
+							Left = 40,
+							Right = 40,
+						},
+						Layout = Enum.FillDirection.Horizontal,
+						Spacing = 3,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+						ZIndex = 1,
+						Style = "RoundBox",
+						Image = "",
+						BackgroundColor3 = props.Stylizer.Color,
+						BackgroundTransparency = 0.1,
+						ImageTransparency = 0.1,
+					}, {
+						Corner = Roact.createElement("UICorner", {
+							CornerRadius = UDim.new(0, 8),
+						}),
+						RecordButton = not inReviewState
+							and Roact.createElement(Button, {
+								Size = UDim2.new(0, 30, 0, 30),
+								Position = UDim2.new(0, 0, 0, 0),
+								ImageTransparency = 1,
+								BackgroundTransparency = 0.5,
+								BorderSizePixel = 1,
+								OnClick = self.toggleRecording,
+								Text = "",
+								LayoutOrder = 1,
+								Style = {
+									BackgroundTransparency = 1,
+									BorderSizePixel = 0,
+								},
+								StyleModifier = not isCameraReady and StyleModifier.Disabled or nil,
+							}, {
+								Image = Roact.createElement("ImageLabel", {
+									BackgroundTransparency = 1,
+									Size = UDim2.new(0, 30, 0, 30),
+									Position = UDim2.new(0, 0, 0, 0),
+									Image = isRecording and stopRecordingImage or recordingImage,
+								}),
+								Tooltip = Roact.createElement(Tooltip, {
+									Text = isRecording and localization:getText("FaceCapture", "TooltipStopRecording")
+										or localization:getText("FaceCapture", "TooltipStartRecording"),
+								}),
+								Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
+							}),
+						ReRecordButton = inReviewState and Roact.createElement(Button, {
+							Size = UDim2.new(0, 30, 0, 30),
+							Position = UDim2.new(0, 0, 0, 0),
+							ImageTransparency = 1,
+							BackgroundTransparency = 0.5,
+							BorderSizePixel = 1,
+							OnClick = self.triggerReRecording,
+							Text = "",
+							LayoutOrder = 1,
+							Style = {
+								BackgroundTransparency = 1,
+								BorderSizePixel = 0,
+							},
+							StyleModifier = not isCameraReady and StyleModifier.Disabled or nil,
+						}, {
+							Image = Roact.createElement("ImageLabel", {
+								BackgroundTransparency = 1,
+								Size = UDim2.new(0, 30, 0, 30),
+								Position = UDim2.new(0, 0, 0, 0),
+								Image = reRecordButtonImage,
+								ImageColor3 = iconColor,
+							}),
+							Tooltip = Roact.createElement(Tooltip, {
+								Text = localization:getText("FaceCapture", "TooltipReRecording"),
+							}),
+							Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
+						}),
+						FlashingDot = isRecording and Roact.createElement(FlashingDot, {
+							Size = UDim2.new(0, 20, 0, 7),
+							PaddingLeft = 30,
+							LayoutOrder = 2,
+						}),
+						TextLabelButton = isCameraReady and Roact.createElement(Button, {
+							Size = (isRecording and remainingSeconds) and UDim2.new(0, 68, 1, 0)
+								or UDim2.new(0, 60, 1, 0),
+							Position = UDim2.new(0, 0, 0, 0),
+							ImageTransparency = 1,
+							BackgroundTransparency = 0.5,
+							BorderSizePixel = 1,
+							OnClick = (inReviewState and self.triggerReRecording)
+								or (not inReviewState and not isRecording and self.toggleRecording)
+								or (not inReviewState and isRecording and self.toggleRecording),
+							TextXAlignment = Enum.TextXAlignment.Center,
+							TextTruncate = Enum.TextTruncate.None,
+							TextSize = 15,
+							Text = (inReviewState and localization:getText("FaceCapture", "PanelReRecording"))
+								or (
+									not inReviewState
+									and (
+										isRecording and remainingSeconds .. " sec   "
+										or localization:getText("FaceCapture", "PanelReady")
+									)
+								),
+							LayoutOrder = 3,
+							Style = {
+								BackgroundTransparency = 1,
+								BorderSizePixel = 0,
+								TextColor = textColor,
+							},
+						}),
+						LoadingIndicator = not inReviewState
+							and not isCameraReady
+							and Roact.createElement(LoadingIndicator, {
+								Size = UDim2.new(0, 60, 0, 15),
+								LayoutOrder = 2,
+							}),
+						CameraSelectionButton = not inReviewState
+							and not isRecording
+							and Roact.createElement(Button, {
+								Size = UDim2.fromOffset(30, 30),
+								Style = {
+									BackgroundTransparency = 1,
+									BorderSizePixel = 0,
+								},
+								Text = "",
+								TextSize = 30, -- TODO: if we stick with unicode text we should fix Text sizing
+								OnClick = self.showCameraSelectionDialog,
+								LayoutOrder = 4,
+							}, {
+								Image = Roact.createElement("ImageLabel", {
+									BackgroundTransparency = 1,
+									Size = UDim2.new(0, 30, 0, 30),
+									Position = UDim2.new(0, 0, 0, 0),
+									Image = moreButtonImage,
+									ImageColor3 = iconColor,
+								}),
+								Tooltip = Roact.createElement(Tooltip, {
+									Text = localization:getText("FaceCapture", "TooltipCameraSettings"),
+									Position = UDim2.new(0, 50, 0, 50),
+								}),
+								Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
+							}),
+					}),
+					DismissButton = Roact.createElement(Button, {
+						Style = {
+							BackgroundTransparency = 1,
+							BorderSizePixel = 0,
+						},
+						Size = UDim2.new(0, 16, 0, 16),
+						Position = UDim2.new(1.0, 0, 0, 0),
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						ZIndex = 10,
+						OnClick = function()
+							self.dismissSelf()
+						end,
+					}, {
+						Image = Roact.createElement("ImageLabel", {
+							BackgroundTransparency = 1,
+							Size = UDim2.new(0, 16, 0, 16),
+							Image = "rbxasset://textures/AnimationEditor/FaceCaptureUI/CloseButton.png",
+						}),
+					}),
+				}),
+
+				WarningsPane = Roact.createElement(Pane, {
+					AutomaticSize = Enum.AutomaticSize.XY,
+					Position = UDim2.new(0.5, 0, 1.0, -50),
+					AnchorPoint = Vector2.new(0.5, 1),
+					Layout = Enum.FillDirection.Vertical,
+					Spacing = 8,
 					VerticalAlignment = Enum.VerticalAlignment.Center,
 					ZIndex = 1,
 					Style = "RoundBox",
-					Image = "",
-					BackgroundColor3 =  props.Stylizer.Color,
-					BackgroundTransparency = 0.1,
-					ImageTransparency = 0.1,
-				}, 				
-				{
-					Corner = Roact.createElement("UICorner", {
-						CornerRadius = UDim.new(0, 8),
-					}),				
-					RecordButton = not inReviewState and Roact.createElement(Button, {
-						Size = UDim2.new(0, 30, 0, 30),
-						Position = UDim2.new(0, 0, 0, 0),
-						ImageTransparency = 1,
-						BackgroundTransparency = 0.5,
-						BorderSizePixel = 1,						
-						OnClick = self.toggleRecording,
-						Text = "",
-						LayoutOrder = 1,
-						Style = {
-							BackgroundTransparency = 1,
-							BorderSizePixel = 0,	
-						},
-						StyleModifier = not isCameraReady and StyleModifier.Disabled or nil,
-					},				
-					{
-						Image = Roact.createElement("ImageLabel", {
-							BackgroundTransparency = 1,
-							Size = UDim2.new(0, 30, 0, 30),
-							Position = UDim2.new(0, 0, 0, 0),
-							Image = isRecording and stopRecordingImage or recordingImage,
-						}),
-						Tooltip = Roact.createElement(Tooltip, {
-							Text = isRecording and localization:getText("FaceCapture", "TooltipStopRecording") or localization:getText("FaceCapture", "TooltipStartRecording"),
-						}),
-						Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
-					}),
-					ReRecordButton = inReviewState and Roact.createElement(Button, {
-						Size = UDim2.new(0, 30, 0, 30),
-						Position = UDim2.new(0, 0, 0, 0),
-						ImageTransparency = 1,
-						BackgroundTransparency = 0.5,
-						BorderSizePixel = 1,						
-						OnClick = self.triggerReRecording,
-						Text = "",
-						LayoutOrder = 1,
-						Style = {
-							BackgroundTransparency = 1,
-							BorderSizePixel = 0,	
-						},
-						StyleModifier = not isCameraReady and StyleModifier.Disabled or nil,
-					},				
-					{
-						Image = Roact.createElement("ImageLabel", {
-							BackgroundTransparency = 1,
-							Size = UDim2.new(0, 30, 0, 30),
-							Position = UDim2.new(0, 0, 0, 0),
-							Image = reRecordButtonImage,
-							ImageColor3 = iconColor,
-						}),
-						Tooltip = Roact.createElement(Tooltip, {
-							Text = localization:getText("FaceCapture", "TooltipReRecording"),
-						}),
-						Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
-					}),						
-					FlashingDot = isRecording and Roact.createElement(FlashingDot, {
-						Size = UDim2.new(0, 20, 0, 7),
-						PaddingLeft = 30,
-						LayoutOrder = 2
-					}),							
-					TextLabelButton = isCameraReady and Roact.createElement(Button, {					
-						Size = (isRecording and remainingSeconds) and UDim2.new(0, 68, 1, 0) or UDim2.new(0, 60, 1, 0),
-						Position = UDim2.new(0, 0, 0, 0),
-						ImageTransparency = 1,
-						BackgroundTransparency = 0.5,
-						BorderSizePixel = 1,						
-						OnClick = (inReviewState and self.triggerReRecording) or (not inReviewState and not isRecording and self.toggleRecording)  or (not inReviewState and isRecording and self.toggleRecording),
-						TextXAlignment = Enum.TextXAlignment.Center,
-						TextTruncate = Enum.TextTruncate.None,
-						TextSize = 15,
-						Text = (inReviewState and localization:getText("FaceCapture", "PanelReRecording") ) or ((not inReviewState) and (isRecording and remainingSeconds .. " sec   " or localization:getText("FaceCapture", "PanelReady"))),					
-						LayoutOrder = 3,
-						Style = {
-							BackgroundTransparency = 1,
-							BorderSizePixel = 0,	
-							TextColor = textColor,
-
-						},						
-					}),										
-					LoadingIndicator = (not inReviewState) and (not isCameraReady) and Roact.createElement(LoadingIndicator, {
-						Size = UDim2.new(0, 60, 0, 15),
-						LayoutOrder = 2
-					}),		
-					CameraSelectionButton = (not inReviewState) and (not isRecording) and Roact.createElement(Button, {
-						Size = UDim2.fromOffset(30, 30), 
-						Style = {
-							BackgroundTransparency = 1,
-							BorderSizePixel = 0,	
-						},
-						Text = "",
-						TextSize = 30, -- TODO: if we stick with unicode text we should fix Text sizing
-						OnClick = self.showCameraSelectionDialog,
-						LayoutOrder = 4,
-					},				
-					{
-						Image = Roact.createElement("ImageLabel", {
-							BackgroundTransparency = 1,
-							Size = UDim2.new(0, 30, 0, 30),
-							Position = UDim2.new(0, 0, 0, 0),
-							Image = moreButtonImage,
-							ImageColor3 = iconColor,
-						}),
-						Tooltip = Roact.createElement(Tooltip, {
-							Text = localization:getText("FaceCapture", "TooltipCameraSettings"),
-							Position = UDim2.new(0, 50, 0, 50),
-						}),
-						Roact.createElement(HoverArea, {Cursor = "PointingHand"}),	
-					}),
-				}),
-				DismissButton = Roact.createElement(Button, {
-					Style = {
-						BackgroundTransparency = 1,
-						BorderSizePixel = 0,	
-					},
-					Size =  UDim2.new(0, 16, 0, 16),
-					Position = UDim2.new(1.0, 0, 0, 0),
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					ZIndex = 10,
-					OnClick = function()
-						self.dismissSelf()
-					end,
+					ImageTransparency = 1,
 				}, {
-					Image = Roact.createElement("ImageLabel", {
-						BackgroundTransparency = 1,
-						Size = UDim2.new(0, 16, 0, 16),
-						Image = "rbxasset://textures/AnimationEditor/FaceCaptureUI/CloseButton.png",
+					NoCameraWarningOverlay = shouldShowNoCamerasWarning and Roact.createElement(WarningOverlay, {
+						TitleText = localization:getText("FaceCapture", "NoCameraWarningText"),
+						Image = errorIcon,
+						LayoutOrder = 1,
 					}),
-				})
+					CameraPermissionDeniedWarningOverlay = deniedCameraPermission
+						and Roact.createElement(WarningOverlay, {
+							TitleText = localization:getText("FaceCapture", "CameraPermissionDeniedWarningText"),
+							Image = errorIcon,
+							LayoutOrder = 2,
+						}),
+					--Detecting camera overlay
+					DetectingCameraOverlay = not inReviewState
+						and not isCameraReady
+						and not isRecording
+						and not shouldShowNoCamerasWarning
+						and not deniedCameraPermission
+						and Roact.createElement(WarningOverlay, {
+							TitleText = localization:getText("FaceCapture", "DetectingCameraTitle"),
+							Image = "",
+							LayoutOrder = 3,
+						}),
+					--overwriting existing face tracks info message
+					PreviousFacsWillBeOverwrittenInfoOverlay = inReviewState
+						and isCameraReady
+						and not isRecording
+						and shouldShowPreviousFacsWillBeOverWrittenMessage
+						and Roact.createElement(WarningOverlay, {
+							TitleText = localization:getText("FaceCapture", "OverwritingPreviousFacsTracksBody"),
+							Image = "",
+							LayoutOrder = 4,
+						}),
+				}),
 			}),
-
-			WarningsPane = Roact.createElement(Pane, {
-				AutomaticSize = Enum.AutomaticSize.XY,
-				Position = UDim2.new(0.5, 0, 1.0, -50),
-				AnchorPoint = Vector2.new(0.5, 1),
-				Layout = Enum.FillDirection.Vertical,
-				Spacing = 8,
-				VerticalAlignment = Enum.VerticalAlignment.Center,
-				ZIndex = 1,
-				Style = "RoundBox",
-				ImageTransparency = 1,
-			}, {
-				NoCameraWarningOverlay = shouldShowNoCamerasWarning and Roact.createElement(WarningOverlay, { 
-					TitleText =  localization:getText("FaceCapture", "NoCameraWarningText"),
-					Image = errorIcon,
-					LayoutOrder = 1,
-				}),
-				CameraPermissionDeniedWarningOverlay = deniedCameraPermission and Roact.createElement(WarningOverlay, {
-					TitleText =  localization:getText("FaceCapture", "CameraPermissionDeniedWarningText"),
-					Image = errorIcon,
-					LayoutOrder = 2,
-				}),
-				--Detecting camera overlay
-				DetectingCameraOverlay = (not inReviewState) and (not isCameraReady) and (not isRecording) and (not shouldShowNoCamerasWarning)  and (not deniedCameraPermission) and Roact.createElement(WarningOverlay, {
-					TitleText =  localization:getText("FaceCapture", "DetectingCameraTitle"),
-					Image = "",
-					LayoutOrder = 3,
-				}),
-				--overwriting existing face tracks info message
-				PreviousFacsWillBeOverwrittenInfoOverlay = (inReviewState) and (isCameraReady) and (not isRecording) and (shouldShowPreviousFacsWillBeOverWrittenMessage) and Roact.createElement(WarningOverlay, {
-					TitleText =  localization:getText("FaceCapture", "OverwritingPreviousFacsTracksBody"),
-					Image = "",
-					LayoutOrder = 4,
-				}),
-			})
-		}),
 		CameraSelectionDialog = shouldShowCameraSelectionDialog and Roact.createElement(CameraSelectionDialog, {
-			OnClose = self.hideCameraSelectionDialog
+			OnClose = self.hideCameraSelectionDialog,
 		}),
 	})
 end
@@ -634,7 +681,7 @@ function FacialAnimationRecorder:disconnect()
 
 	if self.Animator then
 		self.Animator:StepAnimations(0)
-	end	
+	end
 end
 
 function FacialAnimationRecorder:willUnmount()
@@ -652,14 +699,14 @@ FacialAnimationRecorder = withContext({
 	Plugin = ContextServices.Plugin,
 })(FacialAnimationRecorder)
 
-local function mapStateToProps(state, props)	
+local function mapStateToProps(state, props)
 	return {
 		AnimationData = state.AnimationData,
 		PlayState = state.Status.PlayState,
 		RootInstance = state.Status.RootInstance,
 		Status = state.Status,
 		inReviewState = state.Status.inReviewState,
-		haveToSetBackToNotLooping = state.Status.haveToSetBackToNotLooping
+		haveToSetBackToNotLooping = state.Status.haveToSetBackToNotLooping,
 	}
 end
 
@@ -680,8 +727,8 @@ local function mapDispatchToProps(dispatch)
 		end,
 		StepAnimation = function(tck)
 			dispatch(StepAnimation(tck))
-		end,	
-		SetHaveToSetBackToNotLooping = function (newState)
+		end,
+		SetHaveToSetBackToNotLooping = function(newState)
 			dispatch(SetHaveToSetBackToNotLooping(newState))
 		end,
 		SetAnimationData = function(props, animationData)

@@ -13,7 +13,7 @@ return function()
 			BaseToast = Roact.createElement(BaseToast, {
 				AnchorPoint = Vector2.new(),
 				Size = UDim2.new(0, 300, 0, 300),
-			}, children)
+			}, children),
 		})
 	end
 
@@ -45,7 +45,7 @@ return function()
 		local container = Instance.new("Folder")
 
 		local element = createTestBaseToast(container, {
-			ChildFrame = Roact.createElement("Frame")
+			ChildFrame = Roact.createElement("Frame"),
 		})
 
 		local instance = Roact.mount(element, container)

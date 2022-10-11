@@ -1,5 +1,5 @@
-game:DefineFastFlag("StudioDebuggerOpenCorrectScriptOnPause", false)
+game:DefineFastFlag("StudioDebuggerOpenCorrectScriptOnPause2", false)
 
 return function()
-	return game:GetFastFlag("StudioDebuggerOpenCorrectScriptOnPause")
+	return game:GetFastFlag("StudioDebuggerOpenCorrectScriptOnPause2")
 end

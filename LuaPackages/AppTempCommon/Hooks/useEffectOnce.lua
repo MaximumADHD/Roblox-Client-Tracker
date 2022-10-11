@@ -4,7 +4,7 @@
 
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
-local dependencyArray = require(CorePackages.AppTempCommon.Hooks.dependencyArray)
+local dependencyArray = require(script.Parent.dependencyArray)
 
 return function(callback: () -> (), when: any)
 	local hasRunEver = React.useRef(false)

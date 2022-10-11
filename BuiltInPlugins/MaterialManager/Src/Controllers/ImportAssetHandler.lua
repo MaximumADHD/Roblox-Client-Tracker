@@ -13,9 +13,6 @@ local Promise = Framework.Util.Promise
 local getFFlagMaterialManagerVariantCreatorOverhaul = require(
 	Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul
 )
-local getFFlagMaterialManagerTextureMapOverhaul = require(
-	Plugin.Src.Flags.getFFlagMaterialManagerTextureMapOverhaul
-)
 
 -- Pull the numeric part out of a content id (of form rbxasset://xyz or rbxtemp://xyz etc.)
 local function numericIdFromContentId(id)
@@ -45,11 +42,7 @@ end
 function ImportAssetHandler:handleAssetAsync(assetFile: File, onAssetUploading: (boolean?) -> ()?)
 	assert(assetFile, "ImportAssetHandler:handleAsset() requires an assetFile")
 	if getFFlagMaterialManagerVariantCreatorOverhaul() and onAssetUploading then
-		if getFFlagMaterialManagerTextureMapOverhaul() then
-			onAssetUploading(true)
-		else
-			onAssetUploading()
-		end
+		onAssetUploading(true)
 	end
 
 	local tempId = assetFile:GetTemporaryId()

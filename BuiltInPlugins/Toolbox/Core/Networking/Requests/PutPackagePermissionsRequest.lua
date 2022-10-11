@@ -91,9 +91,8 @@ local function serializeForRevokeAssetPermissionRequest(changedPermissions, grou
 	local requests = filteredPermissions[webKeys.Requests]
 
 	for _, originalPermission in pairs(originalPermissions) do
-		originalSubjectIdActionMap[originalPermission[webKeys.SubjectId]] = KeyConverter.getAssetPermissionAction(
-			originalPermission[webKeys.Action]
-		)
+		originalSubjectIdActionMap[originalPermission[webKeys.SubjectId]] =
+			KeyConverter.getAssetPermissionAction(originalPermission[webKeys.Action])
 	end
 
 	for _, permission in pairs(permissions) do
@@ -120,10 +119,8 @@ return function(networkInterface, assetId, assetVersionNumber)
 		if changeTable and next(changeTable) ~= nil then
 			local originalCollaborators = store:getState().originalCollaborators
 
-			local grantRequest = serializeForGrantAssetPermissionRequest(
-				changeTable.permissions,
-				changeTable.groupMetadata
-			)
+			local grantRequest =
+				serializeForGrantAssetPermissionRequest(changeTable.permissions, changeTable.groupMetadata)
 			local revokeRequest = serializeForRevokeAssetPermissionRequest(
 				changeTable.permissions,
 				changeTable.groupMetadata,

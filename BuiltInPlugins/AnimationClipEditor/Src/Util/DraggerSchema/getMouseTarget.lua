@@ -10,29 +10,50 @@ local function isValidJoint(rootInstance, joint, partsToMotors)
 end
 
 local function hitTestEachBoneLink(boneLinkInstance, mouseRay)
-	if boneLinkInstance:FindFirstChild("Cone") then 
-		local hasIntersection, hitDistance = Math.intersectRayRay(boneLinkInstance.CFrame.Position, boneLinkInstance.CFrame.LookVector, mouseRay.Origin, mouseRay.Direction.Unit)
+	if boneLinkInstance:FindFirstChild("Cone") then
+		local hasIntersection, hitDistance = Math.intersectRayRay(
+			boneLinkInstance.CFrame.Position,
+			boneLinkInstance.CFrame.LookVector,
+			mouseRay.Origin,
+			mouseRay.Direction.Unit
+		)
 
 		if not hasIntersection then
 			return nil
 		end
 		-- Must have an intersection if the above intersect did
-		local _, distAlongMouseRay = Math.intersectRayRay(mouseRay.Origin, mouseRay.Direction.Unit, boneLinkInstance.CFrame.Position, boneLinkInstance.CFrame.LookVector)
+		local _, distAlongMouseRay = Math.intersectRayRay(
+			mouseRay.Origin,
+			mouseRay.Direction.Unit,
+			boneLinkInstance.CFrame.Position,
+			boneLinkInstance.CFrame.LookVector
+		)
 
-		local hitRadius =
-			((boneLinkInstance.CFrame.Position + boneLinkInstance.CFrame.LookVector * hitDistance) -
-			(mouseRay.Origin + mouseRay.Direction.Unit * distAlongMouseRay)).Magnitude
+		local hitRadius = (
+			(boneLinkInstance.CFrame.Position + boneLinkInstance.CFrame.LookVector * hitDistance)
+			- (mouseRay.Origin + mouseRay.Direction.Unit * distAlongMouseRay)
+		).Magnitude
 
-		if boneLinkInstance:FindFirstChild("Cone") and hitRadius < boneLinkInstance.Cone.Radius and hitDistance > 0 and hitDistance < boneLinkInstance.Cone.Height then
+		if
+			boneLinkInstance:FindFirstChild("Cone")
+			and hitRadius < boneLinkInstance.Cone.Radius
+			and hitDistance > 0
+			and hitDistance < boneLinkInstance.Cone.Height
+		then
 			return distAlongMouseRay
-		else 
+		else
 			return nil
 		end
-	elseif boneLinkInstance:FindFirstChild("Sphere") then 
-		local hasIntersection, hitDistance = Math.intersectRaySphere(mouseRay.Origin, mouseRay.Direction.Unit, boneLinkInstance.CFrame.Position, boneLinkInstance.Sphere.Radius)
-		if hasIntersection then 
+	elseif boneLinkInstance:FindFirstChild("Sphere") then
+		local hasIntersection, hitDistance = Math.intersectRaySphere(
+			mouseRay.Origin,
+			mouseRay.Direction.Unit,
+			boneLinkInstance.CFrame.Position,
+			boneLinkInstance.Sphere.Radius
+		)
+		if hasIntersection then
 			return hitDistance
-		else 
+		else
 			return nil
 		end
 	else
@@ -44,11 +65,11 @@ local function hitTestAllBoneLinks(mouseRay, folder)
 	local closestBoneLink, closestBoneDistance = nil, math.huge
 	local boneLinks = folder:GetChildren()
 	for _, boneLink in pairs(boneLinks) do
-		if boneLink:FindFirstChild("Cone") and boneLink.Cone.Color3 ~= Constants.BONE_COLOR_SELECTED then 
+		if boneLink:FindFirstChild("Cone") and boneLink.Cone.Color3 ~= Constants.BONE_COLOR_SELECTED then
 			boneLink.Cone.Color3 = Constants.BONE_COLOR_DEFAULT
 			boneLink.Cone.Transparency = Constants.BONE_TRANSPARENCY_DEFAULT
 		end
-		if boneLink:FindFirstChild("Sphere") and boneLink.Sphere.Color3 ~= Constants.BONE_COLOR_SELECTED then 
+		if boneLink:FindFirstChild("Sphere") and boneLink.Sphere.Color3 ~= Constants.BONE_COLOR_SELECTED then
 			boneLink.Sphere.Color3 = Constants.BONE_COLOR_DEFAULT
 			boneLink.Sphere.Transparency = Constants.BONE_TRANSPARENCY_DEFAULT
 		end
@@ -62,14 +83,14 @@ local function hitTestAllBoneLinks(mouseRay, folder)
 end
 
 return function(draggerContext, mouseRay, currentSelection)
-	if not draggerContext.RootInstance then 
+	if not draggerContext.RootInstance then
 		return nil
 	end
 
 	local hitItem, hitDistance = nil
 	local params = RaycastParams.new()
 	params.FilterType = Enum.RaycastFilterType.Blacklist
-	params.FilterDescendantsInstances = {RigUtils.findRootPart(draggerContext.RootInstance)}
+	params.FilterDescendantsInstances = { RigUtils.findRootPart(draggerContext.RootInstance) }
 	params.BruteForceAllSlow = true
 	local result = Workspace:Raycast(mouseRay.Origin, mouseRay.Direction, params)
 
@@ -92,31 +113,31 @@ return function(draggerContext, mouseRay, currentSelection)
 		end
 	end
 
-	local gizmoResult = draggerContext:gizmoRaycast(
-		mouseRay.Origin, mouseRay.Direction, RaycastParams.new())
-	if gizmoResult and
-		(draggerContext:shouldDrawConstraintsOnTop() or (result and gizmoResult.Distance < result.Distance)) then
+	local gizmoResult = draggerContext:gizmoRaycast(mouseRay.Origin, mouseRay.Direction, RaycastParams.new())
+	if
+		gizmoResult
+		and (draggerContext:shouldDrawConstraintsOnTop() or (result and gizmoResult.Distance < result.Distance))
+	then
 		hitItem = gizmoResult.Instance
 		hitDistance = gizmoResult.Distance
 	end
 
-	if draggerContext.VisualizeBones then 
+	if draggerContext.VisualizeBones then
 		local _, partNameToMotorMap, _, boneMap = RigUtils.getRigInfo(draggerContext.RootInstance)
 		local folder = RigUtils.getOrCreateMicroboneFolder()
 		local boneLink, boneDistance = hitTestAllBoneLinks(mouseRay, folder)
 
-		if boneLink then 
+		if boneLink then
 			return boneLink, boneLink, boneDistance
 		end
 	end
-
 
 	if hitItem then -- raycasts have hit any part or gizmo
 		local hitSelectable = hitItem
 		local _, partNameToMotorMap, _, boneMap = RigUtils.getRigInfo(draggerContext.RootInstance)
 		-- prioritize joints
 		local isValidSelectable = isValidJoint(draggerContext.RootInstance, hitSelectable, partNameToMotorMap)
-		if hitSelectable and isValidSelectable then 
+		if hitSelectable and isValidSelectable then
 			return hitSelectable, hitItem, hitDistance
 		end
 	else

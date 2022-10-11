@@ -17,8 +17,7 @@ end
 
 function BoundsChangedTracker:install()
 	-- Begin watching the items for changes:
-	self._scrubberChangedConnection = 
-		self._draggerContext.ScrubberSignal:Connect(self._boundsChanged)
+	self._scrubberChangedConnection = self._draggerContext.ScrubberSignal:Connect(self._boundsChanged)
 end
 
 function BoundsChangedTracker:uninstall()

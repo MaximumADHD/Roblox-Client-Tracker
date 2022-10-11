@@ -10,7 +10,7 @@ local InspectorIcons = {
 }
 
 local function getClassIcon(className: string)
-	local StudioService  = game:GetService("StudioService")
+	local StudioService = game:GetService("StudioService")
 	return StudioService:GetClassIcon(className)
 end
 
@@ -19,7 +19,7 @@ local function getInspectorIcon(icon: string)
 		return {
 			Image = "rbxassetid://" .. InspectorIcons[icon],
 			ImageRectSize = Vector2.new(24, 24),
-			ImageRectOffset = Vector2.new(0, 0)
+			ImageRectOffset = Vector2.new(0, 0),
 		}
 	else
 		local ok, info = pcall(function()

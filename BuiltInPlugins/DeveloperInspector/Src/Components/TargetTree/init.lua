@@ -67,24 +67,21 @@ function TargetTree:render()
 end
 
 TargetTree = withContext({
-	Inspector = InspectorContext
+	Inspector = InspectorContext,
 })(TargetTree)
 
-return RoactRodux.connect(
-	function(state, props)
-		return {
-			Instances = state.Targets.targets,
-			Expansion = state.Targets.expandedTargets
-		}
-	end,
-	function(dispatch)
-		return {
-			selectTarget = function(target)
-				dispatch(SelectTarget(target))
-			end,
-			toggleTarget = function(change)
-				dispatch(ToggleTarget(change))
-			end,
-		}
-	end
-)(TargetTree)
+return RoactRodux.connect(function(state, props)
+	return {
+		Instances = state.Targets.targets,
+		Expansion = state.Targets.expandedTargets,
+	}
+end, function(dispatch)
+	return {
+		selectTarget = function(target)
+			dispatch(SelectTarget(target))
+		end,
+		toggleTarget = function(change)
+			dispatch(ToggleTarget(change))
+		end,
+	}
+end)(TargetTree)

@@ -25,16 +25,19 @@ function DeveloperSubscriptionListItemText:render()
 	local alignment = self.props.Alignment
 	local theme = self.props.Stylizer
 
-	return Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-		Size = size,
-		Text = text,
-		LayoutOrder = layoutOrder,
+	return Roact.createElement(
+		"TextLabel",
+		Cryo.Dictionary.join(theme.fontStyle.Normal, {
+			Size = size,
+			Text = text,
+			LayoutOrder = layoutOrder,
 
-		TextXAlignment = alignment,
+			TextXAlignment = alignment,
 
-		BackgroundTransparency = 1,
-		BorderSizePixel = 0,
-	}))
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+		})
+	)
 end
 
 DeveloperSubscriptionListItemText = withContext({

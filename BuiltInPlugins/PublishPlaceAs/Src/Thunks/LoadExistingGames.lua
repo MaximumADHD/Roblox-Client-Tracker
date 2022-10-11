@@ -12,7 +12,6 @@ local prevPageCursor = nil
 return function(type, id, pageCursor)
 	return function(store)
 		if pageCursor ~= prevPageCursor or not pageCursor then
-
 			-- only display the loading screen if we are loading for the first time
 			if not pageCursor then
 				store:dispatch(SetChooseGameQueryState(Constants.QUERY_STATE.QUERY_STATE_QUERYING))
@@ -26,7 +25,7 @@ return function(type, id, pageCursor)
 				currentGroup = id
 			end
 
-			local query = ApiFetchGames({type = type, id = id, cursor = pageCursor, limit = limit})
+			local query = ApiFetchGames({ type = type, id = id, cursor = pageCursor, limit = limit })
 
 			query:andThen(function(resp)
 				-- Concatenating gamesTable and resp.games

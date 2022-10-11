@@ -116,32 +116,26 @@ function RolesetCollaboratorItem:render()
 	})
 end
 
-
 RolesetCollaboratorItem = withContext({
 	Localization = ContextServices.Localization,
 })(RolesetCollaboratorItem)
 
+RolesetCollaboratorItem = RoactRodux.connect(function(state, props)
+	local currentPermission = GetRolesetPermission(state, props.Id)
 
-
-RolesetCollaboratorItem = RoactRodux.connect(
-	function(state, props)	
-		local currentPermission = GetRolesetPermission(state, props.Id)
-		
-		if currentPermission then
-			return {
-				IsRolesetOwner = IsRolesetOwner(state, props.Id),
-				RolesetName = GetRolesetName(state, props.Id),
-				CurrentPermission = currentPermission,
-			}
-		end
-	end,
-	function(dispatch)
+	if currentPermission then
 		return {
-			SetRolesetPermission = function(...)
-				dispatch(SetRolesetPermission(...))
-			end,
+			IsRolesetOwner = IsRolesetOwner(state, props.Id),
+			RolesetName = GetRolesetName(state, props.Id),
+			CurrentPermission = currentPermission,
 		}
 	end
-)(RolesetCollaboratorItem)
+end, function(dispatch)
+	return {
+		SetRolesetPermission = function(...)
+			dispatch(SetRolesetPermission(...))
+		end,
+	}
+end)(RolesetCollaboratorItem)
 
 return RolesetCollaboratorItem

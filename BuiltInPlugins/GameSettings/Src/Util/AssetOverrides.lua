@@ -2,7 +2,7 @@
 	functionality associated with the asset overrides data structure
 ]]
 
-local AssetOverrides = { }
+local AssetOverrides = {}
 
 local function createTypeKeyedAssetOverridesTable(overrides)
 	local result = {}
@@ -18,10 +18,13 @@ local function forEachAssetOverrideChange(current, changed, func)
 	local currentKeyed = createTypeKeyedAssetOverridesTable(current)
 	local changedKeyed = createTypeKeyedAssetOverridesTable(changed)
 
-	local defaultSubTab = { assetID=0, isPlayerChoice=true }
+	local defaultSubTab = { assetID = 0, isPlayerChoice = true }
 	for key, changedSubTab in pairs(changedKeyed) do
 		local currentSubTab = currentKeyed[changedSubTab.assetTypeID] or defaultSubTab
-		if changedSubTab.assetID ~= currentSubTab.assetID or changedSubTab.isPlayerChoice ~= currentSubTab.isPlayerChoice then
+		if
+			changedSubTab.assetID ~= currentSubTab.assetID
+			or changedSubTab.isPlayerChoice ~= currentSubTab.isPlayerChoice
+		then
 			if not func(changedSubTab) then
 				return
 			end
@@ -32,7 +35,7 @@ end
 function AssetOverrides.isEqual(current, changed)
 	local equal = true
 	forEachAssetOverrideChange(current, changed, function()
-		equal = false;
+		equal = false
 		return false
 	end)
 	return equal
@@ -51,7 +54,10 @@ function AssetOverrides.getErrors(assetOverridesData)
 	local result = nil
 	for _, subTab in pairs(assetOverridesData) do
 		if not subTab.isPlayerChoice then
-			local isAssetIDSpecified = nil ~= subTab.assetID and 0 ~= subTab.assetID and "0" ~= subTab.assetID and string.len((string.gsub(subTab.assetID, " ", ""))) > 0
+			local isAssetIDSpecified = nil ~= subTab.assetID
+				and 0 ~= subTab.assetID
+				and "0" ~= subTab.assetID
+				and string.len((string.gsub(subTab.assetID, " ", ""))) > 0
 			if not isAssetIDSpecified then
 				result = result or {}
 				result[subTab.assetTypeID] = "OverrideEmpty" -- OverrideEmpty is a key into a localization table

@@ -18,14 +18,12 @@ local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 local UpdateEditingLength = require(Plugin.Src.Thunks.UpdateEditingLength)
 local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
 local SwitchEditorMode = require(Plugin.Src.Thunks.SwitchEditorMode)
-local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
 local SetInReviewState = require(Plugin.Src.Actions.SetInReviewState)
 local SetLastSelectedPath = require(Plugin.Src.Actions.SetLastSelectedPath)
 
 local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
-local GetFFlagFixTrackListSelection = require(Plugin.LuaFlags.GetFFlagFixTrackListSelection)
 local GetFFlagFixFaceRecorderFlow = require(Plugin.LuaFlags.GetFFlagFixFaceRecorderFlow)
 
 return function(animationData, analytics)
@@ -36,9 +34,7 @@ return function(animationData, analytics)
 
 		-- Reset all hanging data
 		store:dispatch(SetSelectedTracks({}))
-		if GetFFlagFixTrackListSelection() then
-			store:dispatch(SetLastSelectedPath(nil))
-		end
+		store:dispatch(SetLastSelectedPath(nil))
 		store:dispatch(SetRightClickContextInfo({}))
 		store:dispatch(SetSelectedKeyframes({}))
 		store:dispatch(SortAndSetTracks({}))

@@ -69,6 +69,7 @@ function TagSettingRow:render()
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			Spacing = style.Spacing,
 			OnClick = props.OnClick,
+			Style = self.state.hovered and "PaneHover",
 		}, {
 			RowText = Roact.createElement(TextLabel, {
 				Size = TextSize,

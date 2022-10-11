@@ -81,7 +81,7 @@ function RoundFrame:render()
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = ROUNDED_FRAME_SLICE,
 			SliceScale = borderSize,
-		}, props[Roact.Children])
+		}, props[Roact.Children]),
 	})
 end
 

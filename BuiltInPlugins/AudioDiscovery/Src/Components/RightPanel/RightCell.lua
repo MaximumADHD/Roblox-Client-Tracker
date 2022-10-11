@@ -29,7 +29,7 @@ function RightCell:getIcon()
 		ImageRectSize = iconSize,
 		ImageRectOffset = icon.ImageRectOffset,
 		Position = UDim2.new(0, padding, 0.5, 0),
-		AnchorPoint = Vector2.new(0, 0.5)
+		AnchorPoint = Vector2.new(0, 0.5),
 	})
 end
 
@@ -39,7 +39,7 @@ function RightCell:render()
 	local backgroundColor = if (props.RowIndex % 2) == 1 then style.BackgroundOdd else style.BackgroundEven
 	local width = props.Width or UDim.new(1 / #props.Columns, 0)
 	local tooltipText = if props.Value then tostring(props.Value) else nil
-	
+
 	local icon = self:getIcon()
 	local iconWidth = 24
 
@@ -87,7 +87,5 @@ function RightCell:render()
 		}),
 	})
 end
-
-
 
 return RightCell

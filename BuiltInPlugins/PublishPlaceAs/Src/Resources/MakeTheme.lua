@@ -45,8 +45,8 @@ local image = join(getRawComponentStyle("Image"), {
 		Color = StyleKey.SubText,
 		[StyleModifier.Hover] = {
 			Color = StyleKey.MainTextHover,
-		}
-	}
+		},
+	},
 })
 
 local style = {
@@ -100,7 +100,7 @@ local style = {
 		Size = {
 			X = 500,
 			Y = 350,
-		}
+		},
 	},
 	selectInput = {
 		button = {
@@ -156,7 +156,7 @@ local style = {
 		font = {
 			selected = Enum.Font.SourceSansSemibold,
 			unselected = Enum.Font.SourceSans,
-		}
+		},
 	},
 	footer = {
 		gradient = StyleKey.MainText,
@@ -171,7 +171,7 @@ local style = {
 	checkboxset = {
 		font = Enum.Font.SourceSans,
 		error = StyleKey.ErrorText,
-		maxHeight = 65
+		maxHeight = 65,
 	},
 	listDialog = {
 		font = Enum.Font.SourceSansSemibold,
@@ -189,7 +189,7 @@ local style = {
 		text = StyleKey.ErrorText,
 	},
 	pageText = {
-		font = Enum.Font.SourceSansLight
+		font = Enum.Font.SourceSansLight,
 	},
 	radioButton = {
 		font = Enum.Font.SourceSans,
@@ -211,7 +211,7 @@ local style = {
 		TILE_FOOTER_SIZE = 35,
 		FRAME_BUTTON_SIZE = 32,
 		CELL_PADDING_X = 30,
-		CELL_PADDING_Y = 40
+		CELL_PADDING_Y = 40,
 	},
 
 	isDarkerTheme = isDark,

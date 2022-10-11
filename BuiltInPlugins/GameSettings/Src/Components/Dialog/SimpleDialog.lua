@@ -32,13 +32,16 @@ function SimpleDialog:render()
 		Buttons = buttons,
 		OnResult = props.OnResult,
 	}, {
-		Header = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Title, {
-			AutomaticSize = Enum.AutomaticSize.Y,
-			Size = UDim2.new(1, 0, 0, 0),
-			BackgroundTransparency = 1,
-			Text = header,
-			TextWrapped = true,
-		})),
+		Header = Roact.createElement(
+			"TextLabel",
+			Cryo.Dictionary.join(theme.fontStyle.Title, {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Size = UDim2.new(1, 0, 0, 0),
+				BackgroundTransparency = 1,
+				Text = header,
+				TextWrapped = true,
+			})
+		),
 
 		Body = body,
 	})

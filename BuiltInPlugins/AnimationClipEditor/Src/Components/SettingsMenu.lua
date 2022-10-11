@@ -67,8 +67,8 @@ function SettingsMenu:makeTimelineUnitMenu(): (ContextMenu.MenuItem)
 	return {
 		Name = localization:getText("Settings", "TimelineUnit"),
 		Items = {
-			{Name = localization:getText("Settings", "Seconds"), Value = Constants.TIMELINE_UNITS.Seconds},
-			{Name = localization:getText("Settings", "Frames"), Value = Constants.TIMELINE_UNITS.Frames},
+			{ Name = localization:getText("Settings", "Seconds"), Value = Constants.TIMELINE_UNITS.Seconds },
+			{ Name = localization:getText("Settings", "Frames"), Value = Constants.TIMELINE_UNITS.Frames },
 		},
 		CurrentValue = props.ShowAsSeconds and Constants.TIMELINE_UNITS.Seconds or Constants.TIMELINE_UNITS.Frames,
 		ItemSelected = function(item: ContextMenu.MenuItem): ()
@@ -94,14 +94,19 @@ function SettingsMenu:makePlaybackSpeedMenu(): (ContextMenu.MenuItem)
 	end
 
 	return {
-		Name = localization:getText("Settings", "PlaybackSpeed") ..": " ..string.format("%.2f", playbackSpeed):gsub("%.?0+$", "") .."x",
+		Name = localization:getText("Settings", "PlaybackSpeed") .. ": " .. string
+			.format("%.2f", playbackSpeed)
+			:gsub("%.?0+$", "") .. "x",
 		Items = {
-			{Name = localization:getText("Settings", "025x"), Value = Constants.PLAYBACK_SPEEDS.PBS_025},
-			{Name = localization:getText("Settings", "05x"), Value = Constants.PLAYBACK_SPEEDS.PBS_05},
-			{Name = localization:getText("Settings", "1x"), Value = Constants.PLAYBACK_SPEEDS.PBS_1},
-			{Name = localization:getText("Settings", "2x"), Value = Constants.PLAYBACK_SPEEDS.PBS_2},
-			{Name = localization:getText("Settings", "4x"), Value = Constants.PLAYBACK_SPEEDS.PBS_4},
-			{Name = localization:getText("Settings", "CustomPlaybackSpeed") .."...", Value = Constants.PLAYBACK_SPEEDS.CUSTOM},
+			{ Name = localization:getText("Settings", "025x"), Value = Constants.PLAYBACK_SPEEDS.PBS_025 },
+			{ Name = localization:getText("Settings", "05x"), Value = Constants.PLAYBACK_SPEEDS.PBS_05 },
+			{ Name = localization:getText("Settings", "1x"), Value = Constants.PLAYBACK_SPEEDS.PBS_1 },
+			{ Name = localization:getText("Settings", "2x"), Value = Constants.PLAYBACK_SPEEDS.PBS_2 },
+			{ Name = localization:getText("Settings", "4x"), Value = Constants.PLAYBACK_SPEEDS.PBS_4 },
+			{
+				Name = localization:getText("Settings", "CustomPlaybackSpeed") .. "...",
+				Value = Constants.PLAYBACK_SPEEDS.CUSTOM,
+			},
 		},
 
 		CurrentValue = isPresetPlaybackSpeed and playbackSpeed or Constants.PLAYBACK_SPEEDS.CUSTOM,
@@ -136,13 +141,13 @@ function SettingsMenu:makeFrameRateMenu(): (ContextMenu.MenuItem)?
 	end
 
 	return {
-		Name = localization:getText("Settings", "FrameRate") ..": " ..currentFPS .." fps",
+		Name = localization:getText("Settings", "FrameRate") .. ": " .. currentFPS .. " fps",
 		Items = {
-			{Name = localization:getText("Settings", "24FPS"), Value = Constants.FRAMERATES.FPS_24},
-			{Name = localization:getText("Settings", "30FPS"), Value = Constants.FRAMERATES.FPS_30},
-			{Name = localization:getText("Settings", "60FPS"), Value = Constants.FRAMERATES.FPS_60},
-			{Name = localization:getText("Settings", "120FPS"), Value = Constants.FRAMERATES.FPS_120},
-			{Name = localization:getText("Settings", "CustomFPS") .."...", Value = Constants.FRAMERATES.CUSTOM},
+			{ Name = localization:getText("Settings", "24FPS"), Value = Constants.FRAMERATES.FPS_24 },
+			{ Name = localization:getText("Settings", "30FPS"), Value = Constants.FRAMERATES.FPS_30 },
+			{ Name = localization:getText("Settings", "60FPS"), Value = Constants.FRAMERATES.FPS_60 },
+			{ Name = localization:getText("Settings", "120FPS"), Value = Constants.FRAMERATES.FPS_120 },
+			{ Name = localization:getText("Settings", "CustomFPS") .. "...", Value = Constants.FRAMERATES.CUSTOM },
 		},
 
 		CurrentValue = isPresetFrameRate and currentFPS or Constants.FRAMERATES.CUSTOM,
@@ -167,9 +172,9 @@ function SettingsMenu:makeSnapMenu(): (ContextMenu.MenuItem)
 	return {
 		Name = localization:getText("Settings", "SnapMode"),
 		Items = {
-			{Name = localization:getText("Settings", "SnapKeyframes"), Value = Constants.SNAP_MODES.Keyframes},
-			{Name = localization:getText("Settings", "SnapFrames"), Value = Constants.SNAP_MODES.Frames},
-			{Name = localization:getText("Settings", "SnapNone"), Value = Constants.SNAP_MODES.None},
+			{ Name = localization:getText("Settings", "SnapKeyframes"), Value = Constants.SNAP_MODES.Keyframes },
+			{ Name = localization:getText("Settings", "SnapFrames"), Value = Constants.SNAP_MODES.Frames },
+			{ Name = localization:getText("Settings", "SnapNone"), Value = Constants.SNAP_MODES.None },
 		},
 
 		CurrentValue = snapMode,
@@ -189,8 +194,8 @@ function SettingsMenu:makeDefaultRotationTypeMenu(): (ContextMenu.MenuItem)
 	return {
 		Name = localization:getText("Settings", "DefaultRotationType"),
 		Items = {
-			{Name = localization:getText("Settings", "EulerAngles"), Value = Constants.TRACK_TYPES.EulerAngles},
-			{Name = localization:getText("Settings", "Quaternions"), Value = Constants.TRACK_TYPES.Quaternion},
+			{ Name = localization:getText("Settings", "EulerAngles"), Value = Constants.TRACK_TYPES.EulerAngles },
+			{ Name = localization:getText("Settings", "Quaternions"), Value = Constants.TRACK_TYPES.Quaternion },
 		},
 		CurrentValue = rotationType,
 		ItemSelected = function(item: ContextMenu.MenuItem): ()
@@ -209,12 +214,12 @@ function SettingsMenu:makeEulerAnglesOrderMenu(): (ContextMenu.MenuItem)
 	return {
 		Name = localization:getText("Settings", "DefaultEulerAnglesOrder"),
 		Items = {
-			{Name = localization:getText("Settings", "XYZ"), Value = Enum.RotationOrder.XYZ},
-			{Name = localization:getText("Settings", "XZY"), Value = Enum.RotationOrder.XZY},
-			{Name = localization:getText("Settings", "YXZ"), Value = Enum.RotationOrder.YXZ},
-			{Name = localization:getText("Settings", "YZX"), Value = Enum.RotationOrder.YZX},
-			{Name = localization:getText("Settings", "ZXY"), Value = Enum.RotationOrder.ZXY},
-			{Name = localization:getText("Settings", "ZYX"), Value = Enum.RotationOrder.ZYX},
+			{ Name = localization:getText("Settings", "XYZ"), Value = Enum.RotationOrder.XYZ },
+			{ Name = localization:getText("Settings", "XZY"), Value = Enum.RotationOrder.XZY },
+			{ Name = localization:getText("Settings", "YXZ"), Value = Enum.RotationOrder.YXZ },
+			{ Name = localization:getText("Settings", "YZX"), Value = Enum.RotationOrder.YZX },
+			{ Name = localization:getText("Settings", "ZXY"), Value = Enum.RotationOrder.ZXY },
+			{ Name = localization:getText("Settings", "ZYX"), Value = Enum.RotationOrder.ZYX },
 		},
 		CurrentValue = eulerAnglesOrder,
 		ItemSelected = function(item: ContextMenu.MenuItem): ()
@@ -237,7 +242,7 @@ function SettingsMenu:makeShowEvents(): (ContextMenu.MenuItem)
 	}
 end
 
-function SettingsMenu:makeMenuActions(): ({string | ContextMenu.MenuItem})
+function SettingsMenu:makeMenuActions(): ({ string | ContextMenu.MenuItem })
 	local actions = {}
 
 	table.insert(actions, self:makeTimelineUnitMenu())
@@ -259,13 +264,15 @@ function SettingsMenu:render(): (any?)
 	local props = self.props
 	local showMenu = props.ShowMenu
 
-	return showMenu and Roact.createElement(ContextMenu, {
-		Actions = self:makeMenuActions(),
-		OnMenuOpened = props.OnMenuOpened,
-	}) or nil
+	return showMenu
+			and Roact.createElement(ContextMenu, {
+				Actions = self:makeMenuActions(),
+				OnMenuOpened = props.OnMenuOpened,
+			})
+		or nil
 end
 
-local function mapStateToProps(state): {[string]: any}
+local function mapStateToProps(state): { [string]: any }
 	local status = state.Status
 
 	local stateToProps = {
@@ -283,7 +290,7 @@ local function mapStateToProps(state): {[string]: any}
 	return stateToProps
 end
 
-local function mapDispatchToProps(dispatch): {[string]: any}
+local function mapDispatchToProps(dispatch): { [string]: any }
 	local dispatchToProps = {
 		SetDefaultEulerAnglesOrder = function(eulerAnglesOrder: string): ()
 			dispatch(SetDefaultEulerAnglesOrder(eulerAnglesOrder))

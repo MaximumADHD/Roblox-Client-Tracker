@@ -51,11 +51,8 @@ function Tooltip:render()
 	})
 end
 
-
 Tooltip = withContext({
 	Localization = ContextServices.Localization,
 })(Tooltip)
-
-
 
 return Tooltip

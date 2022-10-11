@@ -23,7 +23,7 @@ return function()
 			end).to.throw()
 
 			expect(function()
-				SetIsPublishing({ key = "value", })
+				SetIsPublishing({ key = "value" })
 			end).to.throw()
 
 			expect(function()
@@ -41,8 +41,8 @@ return function()
 			local state = r:getState()
 			expect(state.isPublishing).to.equal(false)
 
-            state = PublishedPlace(state, SetIsPublishing(true))
-            expect(state.isPublishing).to.equal(true)
+			state = PublishedPlace(state, SetIsPublishing(true))
+			expect(state.isPublishing).to.equal(true)
 		end)
 	end)
 
@@ -59,86 +59,108 @@ return function()
 			end).to.throw()
 
 			expect(function()
-				SetPublishInfo({ id = "wow", })
+				SetPublishInfo({ id = "wow" })
 			end).to.throw()
 
 			expect(function()
-				SetPublishInfo({ name = {}, })
+				SetPublishInfo({ name = {} })
 			end).to.throw()
 
 			expect(function()
-				SetPublishInfo({ parentGameId = {}, })
+				SetPublishInfo({ parentGameId = {} })
 			end).to.throw()
 
 			expect(function()
-				SetPublishInfo({ parentGameName = 3, })
+				SetPublishInfo({ parentGameName = 3 })
 			end).to.throw()
 
 			expect(function()
-				SetPublishInfo({ settings = "oof", })
+				SetPublishInfo({ settings = "oof" })
 			end).to.throw()
 
 			expect(function()
-				SetPublishInfo({ settings = {}, })
+				SetPublishInfo({ settings = {} })
 			end).to.throw()
 
 			expect(function()
-				SetPublishInfo({ settings = {name = 3, description = 3, genre = 3, playableDevices = {} }, })
+				SetPublishInfo({ settings = { name = 3, description = 3, genre = 3, playableDevices = {} } })
 			end).to.throw()
 
 			expect(function()
-				SetPublishInfo({ settings = {name = "yeet", description = "yeet", genre = "yeet", playableDevices = {} }, })
+				SetPublishInfo({
+					settings = { name = "yeet", description = "yeet", genre = "yeet", playableDevices = {} },
+				})
 			end).to.throw()
 		end)
 
 		it("should not mutate the state", function()
-			local immutabilityPreserved = testImmutability(PublishedPlace, SetPublishInfo({ id = 0, name = ""}))
+			local immutabilityPreserved = testImmutability(PublishedPlace, SetPublishInfo({ id = 0, name = "" }))
 			expect(immutabilityPreserved).to.equal(true)
-			immutabilityPreserved = testImmutability(PublishedPlace, SetPublishInfo({
-				id = 12,
-				name = "yeet",
-				parentGameName = "yote",
-			}))
+			immutabilityPreserved = testImmutability(
+				PublishedPlace,
+				SetPublishInfo({
+					id = 12,
+					name = "yeet",
+					parentGameName = "yote",
+				})
+			)
 			expect(immutabilityPreserved).to.equal(true)
-			immutabilityPreserved = testImmutability(PublishedPlace, SetPublishInfo({
-				id = 35,
-				name = "yeet",
-				parentGameName = "yote",
-				parentGameId = 12,
-			}))
+			immutabilityPreserved = testImmutability(
+				PublishedPlace,
+				SetPublishInfo({
+					id = 35,
+					name = "yeet",
+					parentGameName = "yote",
+					parentGameId = 12,
+				})
+			)
 			expect(immutabilityPreserved).to.equal(true)
-			immutabilityPreserved = testImmutability(PublishedPlace, SetPublishInfo({
-				id = 0,
-				name = "yeet",
-				parentGameName = "yote",
-				parentGameId = 0,
-				settings = {name = "yeet", description = "yeet", genre = "yeet", playableDevices = { Computer = true, } },
-			}))
+			immutabilityPreserved = testImmutability(
+				PublishedPlace,
+				SetPublishInfo({
+					id = 0,
+					name = "yeet",
+					parentGameName = "yote",
+					parentGameId = 0,
+					settings = {
+						name = "yeet",
+						description = "yeet",
+						genre = "yeet",
+						playableDevices = { Computer = true },
+					},
+				})
+			)
 			expect(immutabilityPreserved).to.equal(true)
-        end)
-        
+		end)
+
 		it("should set id", function()
 			local r = Rodux.Store.new(PublishedPlace)
 			local state = r:getState()
 			expect(state.publishInfo.id).to.equal(0)
 
-			state = PublishedPlace(state, SetPublishInfo({
-				id = 12,
-			}))
+			state = PublishedPlace(
+				state,
+				SetPublishInfo({
+					id = 12,
+				})
+			)
 			expect(state.publishInfo.id).to.equal(12)
 
 			state = PublishedPlace(state, SetPublishInfo())
 			expect(state.publishInfo.id).to.equal(0)
-        end)
-        
-        it("should set the name", function()
+		end)
+
+		it("should set the name", function()
 			local r = Rodux.Store.new(PublishedPlace)
 			local state = r:getState()
 			expect(state.publishInfo.id).to.equal(0)
 
-			state = PublishedPlace(state, SetPublishInfo({
-				name = "name",
-			}))
+			state = PublishedPlace(
+				state,
+				SetPublishInfo({
+					name = "name",
+				})
+			)
 			expect(state.publishInfo.name).to.equal("name")
 
 			state = PublishedPlace(state, SetPublishInfo())
@@ -150,23 +172,29 @@ return function()
 			local state = r:getState()
 			expect(state.publishInfo.parentGameId).to.equal(0)
 
-			state = PublishedPlace(state, SetPublishInfo({
-				parentGameId = 12,
-			}))
+			state = PublishedPlace(
+				state,
+				SetPublishInfo({
+					parentGameId = 12,
+				})
+			)
 			expect(state.publishInfo.parentGameId).to.equal(12)
 
 			state = PublishedPlace(state, SetPublishInfo())
 			expect(state.publishInfo.parentGameId).to.equal(0)
-        end)
+		end)
 
 		it("should set the parentGameName", function()
 			local r = Rodux.Store.new(PublishedPlace)
 			local state = r:getState()
 			expect(state.publishInfo.id).to.equal(0)
 
-			state = PublishedPlace(state, SetPublishInfo({
-				parentGameName = "name",
-			}))
+			state = PublishedPlace(
+				state,
+				SetPublishInfo({
+					parentGameName = "name",
+				})
+			)
 			expect(state.publishInfo.parentGameName).to.equal("name")
 
 			state = PublishedPlace(state, SetPublishInfo())
@@ -178,9 +206,17 @@ return function()
 			local state = r:getState()
 			expect(state.publishInfo.id).to.equal(0)
 
-			state = PublishedPlace(state, SetPublishInfo({
-				settings = {name = "yeet", description = "yeet", genre = "yeet", playableDevices = { Computer = true, } },
-			}))
+			state = PublishedPlace(
+				state,
+				SetPublishInfo({
+					settings = {
+						name = "yeet",
+						description = "yeet",
+						genre = "yeet",
+						playableDevices = { Computer = true },
+					},
+				})
+			)
 			expect(state.publishInfo.settings.name).to.equal("yeet")
 			expect(state.publishInfo.settings.description).to.equal("yeet")
 			expect(state.publishInfo.settings.genre).to.equal("yeet")
@@ -189,8 +225,5 @@ return function()
 			state = PublishedPlace(state, SetPublishInfo())
 			expect(state.publishInfo.settings).to.equal(nil)
 		end)
-
-		
 	end)
-
 end

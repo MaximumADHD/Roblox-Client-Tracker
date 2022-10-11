@@ -47,7 +47,7 @@ local SetEventEditingTick = require(Plugin.Src.Actions.SetEventEditingTick)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
 local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
-local SetTool = require	(Plugin.Src.Actions.SetTool)
+local SetTool = require(Plugin.Src.Actions.SetTool)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -77,7 +77,7 @@ export type Props = {
 	Tool: Enum.RibbonTool,
 
 	-- Actions/Thunks
-	AddKeyframe: (string, {string}, string, number, any, any) -> (),
+	AddKeyframe: (string, { string }, string, number, any, any) -> (),
 	CopySelectedKeyframes: () -> (),
 	DeleteSelectedKeyframes: (any) -> (),
 	DeselectAllKeyframes: () -> (),
@@ -86,7 +86,7 @@ export type Props = {
 	ResetSelectedKeyframes: () -> (),
 	SelectAllKeyframes: () -> (),
 	SetTool: (Enum.RibbonTool) -> (),
-	SplitTrack: (string, {string}, string, number, any) -> (),
+	SplitTrack: (string, { string }, string, number, any) -> (),
 	ToggleBoneVisibility: () -> (),
 	TogglePlay: (analytics: any) -> (),
 	Undo: (signals: any) -> (),
@@ -114,23 +114,29 @@ function KeyframeActions:getSharedPropertyValue(key: string): any
 	for instanceName, instance in pairs(selectedKeyframes) do
 		local dataInstance = animationData.Instances[instanceName]
 		for trackName, selectionTrack in pairs(instance) do
-			SelectionUtils.traverse(selectionTrack, dataInstance.Tracks[trackName], function(selTrack: any, dataTrack: any): ()
-				if not selTrack.Selection or not dataTrack.Data or foundMismatch then
-					return
-				end
-				for keyframe, _ in pairs(selTrack.Selection) do
-					local pose = dataTrack.Data[keyframe]
-					if pose then
-						if sharedPropertyValue == nil then
-							sharedPropertyValue = pose[key]
-						elseif sharedPropertyValue ~= pose[key] then
-							sharedPropertyValue = nil
-							foundMismatch = true -- Immediately bail out when processing the rest of the traversal
-							break
+			SelectionUtils.traverse(
+				selectionTrack,
+				dataInstance.Tracks[trackName],
+				function(selTrack: any, dataTrack: any): ()
+					if not selTrack.Selection or not dataTrack.Data or foundMismatch then
+						return
+					end
+					for keyframe, _ in pairs(selTrack.Selection) do
+						local pose = dataTrack.Data[keyframe]
+						if pose then
+							if sharedPropertyValue == nil then
+								sharedPropertyValue = pose[key]
+							elseif sharedPropertyValue ~= pose[key] then
+								sharedPropertyValue = nil
+								foundMismatch = true -- Immediately bail out when processing the rest of the traversal
+								break
+							end
 						end
 					end
-				end
-			end, nil, nil)
+				end,
+				nil,
+				nil
+			)
 		end
 	end
 	return if sharedPropertyValue then sharedPropertyValue.Value else nil
@@ -157,7 +163,7 @@ function KeyframeActions:makeGenerateCurveMenu(localization: any): any
 			Items = Enum.PoseEasingDirection:GetEnumItems(),
 			ItemSelected = function(easingDirection)
 				props.OnGenerateCurve(easingStyle, easingDirection)
-			end
+			end,
 		}
 	end
 
@@ -165,8 +171,8 @@ function KeyframeActions:makeGenerateCurveMenu(localization: any): any
 		Name = localization:getText("ContextMenu", "GenerateCurve"),
 		Items = {
 			makeSubmenu(Enum.PoseEasingStyle.Bounce),
-			makeSubmenu(Enum.PoseEasingStyle.Elastic)
-		}
+			makeSubmenu(Enum.PoseEasingStyle.Elastic),
+		},
 	}
 end
 
@@ -240,7 +246,7 @@ function KeyframeActions:didMount(): ()
 
 					local rotationType = track and TrackUtils.getRotationType(track) or props.DefaultRotationType
 
-					TrackUtils.traverseComponents(trackType, function(componentType: string, relPath: {string})
+					TrackUtils.traverseComponents(trackType, function(componentType: string, relPath: { string })
 						local componentPath = Cryo.List.join(selectedTrack, relPath)
 						props.SplitTrack(instanceName, componentPath, componentType, playhead, props.Analytics)
 					end, rotationType)
@@ -361,10 +367,12 @@ function KeyframeActions:render(): any
 	end
 
 	local localization = self.props.Localization
-		return showMenu and Roact.createElement(ContextMenu, {
-			Actions = self:makeMenuActions(localization),
-			OnMenuOpened = props.OnMenuOpened,
-		}) or nil
+	return showMenu
+			and Roact.createElement(ContextMenu, {
+				Actions = self:makeMenuActions(localization),
+				OnMenuOpened = props.OnMenuOpened,
+			})
+		or nil
 end
 
 function KeyframeActions:willUnmount(): ()
@@ -388,7 +396,7 @@ KeyframeActions = withContext({
 	Signals = SignalsContext,
 })(KeyframeActions)
 
-local function mapStateToProps(state): {[string]: any}
+local function mapStateToProps(state): { [string]: any }
 	local status = state.Status
 
 	return {
@@ -405,9 +413,16 @@ local function mapStateToProps(state): {[string]: any}
 	}
 end
 
-local function mapDispatchToProps(dispatch): {[string]: any}
+local function mapDispatchToProps(dispatch): { [string]: any }
 	return {
-		AddKeyframe = function(instanceName: string, path: {string}, trackType: string, tck: number, keyframeData: any, analytics: any): ()
+		AddKeyframe = function(
+			instanceName: string,
+			path: { string },
+			trackType: string,
+			tck: number,
+			keyframeData: any,
+			analytics: any
+		): ()
 			dispatch(AddWaypoint())
 			dispatch(AddKeyframe(instanceName, path, trackType, tck, keyframeData, analytics))
 			dispatch(SetRightClickContextInfo({}))
@@ -425,7 +440,7 @@ local function mapDispatchToProps(dispatch): {[string]: any}
 		end,
 
 		DeselectAllKeyframes = function(): ()
-			dispatch(SetSelectedKeyframes{})
+			dispatch(SetSelectedKeyframes({}))
 			dispatch(SetSelectedEvents({}))
 		end,
 
@@ -459,7 +474,7 @@ local function mapDispatchToProps(dispatch): {[string]: any}
 			dispatch(SetTool(tool))
 		end,
 
-		SplitTrack = function(instanceName: string, path: {string}, trackType: string, tck: number, analytics: any): ()
+		SplitTrack = function(instanceName: string, path: { string }, trackType: string, tck: number, analytics: any): ()
 			dispatch(AddWaypoint())
 			dispatch(SplitTrack(instanceName, path, trackType, tck, analytics))
 			dispatch(SetRightClickContextInfo({}))

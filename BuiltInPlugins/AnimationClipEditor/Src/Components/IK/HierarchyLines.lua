@@ -113,9 +113,9 @@ function HierarchyLines:render()
 			AnchorPoint = Vector2.new(0, 0.5),
 			AutoButtonColor = false,
 			ZIndex = 4,
-			[Roact.Event.MouseButton1Click] = function ()
+			[Roact.Event.MouseButton1Click] = function()
 				props.ToggleExpanded(props.Element)
-			end
+			end,
 		}),
 	})
 end

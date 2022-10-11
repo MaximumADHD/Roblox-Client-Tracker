@@ -95,8 +95,8 @@ function IKWindow:init()
 		end
 
 		local newIndex = math.clamp(currentIndex + increment, 1, #treeArray)
-		local path = {treeArray[newIndex]}
-		SetSelectedTracks({path})
+		local path = { treeArray[newIndex] }
+		SetSelectedTracks({ path })
 	end
 
 	self.onInputBegan = function(rbx, input)
@@ -204,19 +204,19 @@ function IKWindow:render()
 					Size = UDim2.new(1, -PADDING, 0, RADIO_BUTTON_GROUP_HEIGHT),
 					OnClick = toggleIKEnabled,
 				}, {
-						TextLabel = Roact.createElement("TextLabel", {
-							BackgroundTransparency = 1,
-							Size = UDim2.new(1, 0, 1, 0),
-							TextYAlignment = Enum.TextYAlignment.Center,
-							TextSize = theme.ikTheme.textSize,
-							Text = ikEnabled and localization:getText("IKMenu", "DisableIK")
-								or localization:getText("IKMenu", "EnableIK"),
-							Font = theme.font,
-							TextColor3 = theme.ikTheme.textColor,
-						})
-				})
-			})
-		})
+					TextLabel = Roact.createElement("TextLabel", {
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 1, 0),
+						TextYAlignment = Enum.TextYAlignment.Center,
+						TextSize = theme.ikTheme.textSize,
+						Text = ikEnabled and localization:getText("IKMenu", "DisableIK")
+							or localization:getText("IKMenu", "EnableIK"),
+						Font = theme.font,
+						TextColor3 = theme.ikTheme.textColor,
+					}),
+				}),
+			}),
+		}),
 	})
 end
 

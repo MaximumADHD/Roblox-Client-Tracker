@@ -53,8 +53,7 @@ function BaseToast:render()
 		yPadding = 0
 	end
 
-	local shadowTransparency = toastTheme.shadowTransparency
-		+ (1 - toastTheme.shadowTransparency) * transparency
+	local shadowTransparency = toastTheme.shadowTransparency + (1 - toastTheme.shadowTransparency) * transparency
 
 	return Roact.createElement(ShowOnTop, {
 		Priority = -1,
@@ -65,7 +64,7 @@ function BaseToast:render()
 			Position = UDim2.new(anchorPoint.X, xPadding, anchorPoint.Y, yPadding),
 			BackgroundTransparency = 1,
 		}, {
-			Background =  Roact.createElement("Frame", {
+			Background = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundColor3 = theme.backgroundColor,
 				BackgroundTransparency = transparency,
@@ -78,7 +77,7 @@ function BaseToast:render()
 					Radius = toastTheme.shadowSize,
 					Offset = Vector2.new(),
 				}, props[Roact.Children]),
-			})
+			}),
 		}),
 	})
 end

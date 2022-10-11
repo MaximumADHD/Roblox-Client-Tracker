@@ -28,7 +28,8 @@ local MAX_NAME_LENGTH = 50
 local MAX_DESCRIPTION_LENGTH = 1000
 local TEAM_CREATE_ENABLED = "teamCreateEnabled"
 
-local FFlagCOLLAB734FixPublishPlaceAsDropdownContrastIssue = game:DefineFastFlag("COLLAB734FixPublishPlaceAsDropdownContrastIssue", false);
+local FFlagCOLLAB734FixPublishPlaceAsDropdownContrastIssue =
+	game:DefineFastFlag("COLLAB734FixPublishPlaceAsDropdownContrastIssue", false)
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 local FStringTeamCreateLearnMoreLink = game:GetFastString("TeamCreateLink")
 
@@ -41,7 +42,9 @@ local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryRoundTextBox = SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
 local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
-local UILibrary = if FFlagRemoveUILibraryTitledFrame and FFlagRemoveUILibraryRoundTextBox then nil else require(Plugin.Packages.UILibrary)
+local UILibrary = if FFlagRemoveUILibraryTitledFrame and FFlagRemoveUILibraryRoundTextBox
+	then nil
+	else require(Plugin.Packages.UILibrary)
 
 local RoundTextBox
 if not FFlagRemoveUILibraryRoundTextBox then
@@ -82,7 +85,8 @@ local createMenuPage = require(Plugin.Src.Components.createMenuPage)
 local GuiService = game:GetService("GuiService")
 
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
-local getOptInLocationsRequirementsLink = require(Plugin.Src.Util.PublishPlaceAsUtilities).getOptInLocationsRequirementsLink
+local getOptInLocationsRequirementsLink =
+	require(Plugin.Src.Util.PublishPlaceAsUtilities).getOptInLocationsRequirementsLink
 local sendAnalyticsToKibana = require(Plugin.Src.Util.PublishPlaceAsUtilities).sendAnalyticsToKibana
 local getPlayerAppDownloadLink = require(Plugin.Src.Util.PublishPlaceAsUtilities).getPlayerAppDownloadLink
 local calculateTextSize = require(Plugin.Src.Util.PublishPlaceAsUtilities).calculateTextSize
@@ -106,7 +110,7 @@ local function PaddedTextLabel(props)
 		Text = props.Text,
 		TextWrapped = true,
 		TextXAlignment = Enum.TextXAlignment.Left,
-	},	{
+	}, {
 		-- This padding ensures the text is not lined up right along the edge of the TextLabel
 		Padding = Roact.createElement("UIPadding", {
 			PaddingTop = UDim.new(0, props.Padding),
@@ -173,7 +177,8 @@ local function displayContents(parent)
 			end
 		end
 
-		local creatorItemsMetadata = { { Key = 0, Type = Constants.SUBJECT_TYPE.USER, Text = localization:getText("GroupDropdown", "Me") } }
+		local creatorItemsMetadata =
+			{ { Key = 0, Type = Constants.SUBJECT_TYPE.USER, Text = localization:getText("GroupDropdown", "Me") } }
 		selectedCreatorIndex = 1
 
 		selectCreator = function(_, index)
@@ -183,7 +188,10 @@ local function displayContents(parent)
 
 		if groups and next(groups) ~= nil then
 			for _, group in pairs(groups) do
-				table.insert(creatorItemsMetadata, { Key = group.groupId, Type = Constants.SUBJECT_TYPE.GROUP, Text = group.name })
+				table.insert(
+					creatorItemsMetadata,
+					{ Key = group.groupId, Type = Constants.SUBJECT_TYPE.GROUP, Text = group.name }
+				)
 			end
 			if not groupsLoaded then
 				groupsLoaded = true
@@ -204,16 +212,20 @@ local function displayContents(parent)
 		end
 	else
 		DEPRECATED_genres = Cryo.List.map(Constants.GENRE_IDS, function(name)
-			return {Key = name, Text = localization:getText("Genre", name)}
+			return { Key = name, Text = localization:getText("Genre", name) }
 		end)
 
-		DEPRECATED_dropdownItems = { { Type = Constants.SUBJECT_TYPE.USER, Key = 0, Text = localization:getText("GroupDropdown", "Me"), }, }
+		DEPRECATED_dropdownItems =
+			{ { Type = Constants.SUBJECT_TYPE.USER, Key = 0, Text = localization:getText("GroupDropdown", "Me") } }
 
 		DEPRECATED_creatorItem = DEPRECATED_dropdownItems[1]
 
 		if groups and next(groups) ~= nil then
 			for _, group in pairs(groups) do
-				table.insert(DEPRECATED_dropdownItems, { Type = Constants.SUBJECT_TYPE.GROUP, Key = group.groupId, Text = group.name, })
+				table.insert(
+					DEPRECATED_dropdownItems,
+					{ Type = Constants.SUBJECT_TYPE.GROUP, Key = group.groupId, Text = group.name }
+				)
 			end
 			if not groupsLoaded then
 				groupsLoaded = true
@@ -238,179 +250,226 @@ local function displayContents(parent)
 	local layoutOrder = LayoutOrderIterator.new()
 
 	-- Question: Is there a way for me to get the size and font type automagically from the LinkText Style "Body"?
-	local hyperLinkTextSize = calculateTextSize(localization:getText(optInLocationsKey, "RequirementsLinkText"), 14, "SourceSans")
-	
+	local hyperLinkTextSize =
+		calculateTextSize(localization:getText(optInLocationsKey, "RequirementsLinkText"), 14, "SourceSans")
+
 	local displayResult = {
 		Header = Roact.createElement(Header, {
 			Title = localization:getText("MenuItem", "BasicInfo"),
 			LayoutOrder = layoutOrder:getNextOrder(),
 		}),
 
-		Name = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
-			LayoutOrder = layoutOrder:getNextOrder(),
-			Title = localization:getText("PageTitle", "Name"),
-		} else {
-			Title = localization:getText("PageTitle", "Name"),
-			MaxHeight = 60,
-			LayoutOrder = layoutOrder:getNextOrder(),
-			TextSize = Constants.TEXT_SIZE,
-		}, {
-			TextBox = (if FFlagRemoveUILibraryRoundTextBox then
-				Roact.createElement(TextInput2,  {
-					ErrorText = nameError and localization:getText("Error", nameError, { tostring(nameLength), tostring(MAX_NAME_LENGTH) }),
-					MaxLength = MAX_NAME_LENGTH,
-					OnTextChanged = nameChanged,
-					Text = name,
-				})
-			else
-				Roact.createElement(RoundTextBox, {
-					Active = true,
-					ErrorMessage = nameError and localization:getText("Error", nameError, { tostring(nameLength), tostring(MAX_NAME_LENGTH) }),
-					MaxLength = MAX_NAME_LENGTH,
-					Text = name,
+		Name = Roact.createElement(
+			TitledFrame,
+			if FFlagRemoveUILibraryTitledFrame
+				then {
+					LayoutOrder = layoutOrder:getNextOrder(),
+					Title = localization:getText("PageTitle", "Name"),
+				}
+				else {
+					Title = localization:getText("PageTitle", "Name"),
+					MaxHeight = 60,
+					LayoutOrder = layoutOrder:getNextOrder(),
 					TextSize = Constants.TEXT_SIZE,
-					SetText = nameChanged,
-				})
-			),
-		}),
+				},
+			{
+				TextBox = (if FFlagRemoveUILibraryRoundTextBox
+					then Roact.createElement(TextInput2, {
+						ErrorText = nameError and localization:getText(
+							"Error",
+							nameError,
+							{ tostring(nameLength), tostring(MAX_NAME_LENGTH) }
+						),
+						MaxLength = MAX_NAME_LENGTH,
+						OnTextChanged = nameChanged,
+						Text = name,
+					})
+					else Roact.createElement(RoundTextBox, {
+						Active = true,
+						ErrorMessage = nameError and localization:getText(
+							"Error",
+							nameError,
+							{ tostring(nameLength), tostring(MAX_NAME_LENGTH) }
+						),
+						MaxLength = MAX_NAME_LENGTH,
+						Text = name,
+						TextSize = Constants.TEXT_SIZE,
+						SetText = nameChanged,
+					})),
+			}
+		),
 
-		Description = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
-			LayoutOrder = layoutOrder:getNextOrder(),
-			Title = localization:getText("PageTitle", "Description"),
-		} else {
-			Title = localization:getText("PageTitle", "Description"),
-			MaxHeight = theme.descriptionBox.maxHeight,
-			LayoutOrder = layoutOrder:getNextOrder(),
-			TextSize = Constants.TEXT_SIZE,
-		}, {
-			TextBox = (if FFlagRemoveUILibraryRoundTextBox then
-				Roact.createElement(TextInput2, {
-					ErrorText = descriptionError and localization:getText("Error", descriptionError, { tostring(descriptionLength), tostring(MAX_DESCRIPTION_LENGTH) }),
-					Height = theme.descriptionBox.textBoxHeight,
-					MaxLength = MAX_DESCRIPTION_LENGTH,
-					MultiLine = true,
-					OnTextChanged = descriptionChanged,
-					Text = description,
-				})
-			else
-				Roact.createElement(RoundTextBox, {
-					Active = true,
-					Height = theme.descriptionBox.textBoxHeight,
-					Multiline = true,
-					MaxLength = MAX_DESCRIPTION_LENGTH,
-					Text = description,
+		Description = Roact.createElement(
+			TitledFrame,
+			if FFlagRemoveUILibraryTitledFrame
+				then {
+					LayoutOrder = layoutOrder:getNextOrder(),
+					Title = localization:getText("PageTitle", "Description"),
+				}
+				else {
+					Title = localization:getText("PageTitle", "Description"),
+					MaxHeight = theme.descriptionBox.maxHeight,
+					LayoutOrder = layoutOrder:getNextOrder(),
 					TextSize = Constants.TEXT_SIZE,
-					SetText = descriptionChanged,
-					ErrorMessage = descriptionError and localization:getText("Error", descriptionError, { tostring(descriptionLength), tostring(MAX_DESCRIPTION_LENGTH) }),
-				})
-			),
-		}),
+				},
+			{
+				TextBox = (if FFlagRemoveUILibraryRoundTextBox
+					then Roact.createElement(TextInput2, {
+						ErrorText = descriptionError and localization:getText(
+							"Error",
+							descriptionError,
+							{ tostring(descriptionLength), tostring(MAX_DESCRIPTION_LENGTH) }
+						),
+						Height = theme.descriptionBox.textBoxHeight,
+						MaxLength = MAX_DESCRIPTION_LENGTH,
+						MultiLine = true,
+						OnTextChanged = descriptionChanged,
+						Text = description,
+					})
+					else Roact.createElement(RoundTextBox, {
+						Active = true,
+						Height = theme.descriptionBox.textBoxHeight,
+						Multiline = true,
+						MaxLength = MAX_DESCRIPTION_LENGTH,
+						Text = description,
+						TextSize = Constants.TEXT_SIZE,
+						SetText = descriptionChanged,
+						ErrorMessage = descriptionError and localization:getText(
+							"Error",
+							descriptionError,
+							{ tostring(descriptionLength), tostring(MAX_DESCRIPTION_LENGTH) }
+						),
+					})),
+			}
+		),
 
 		Separator1 = Roact.createElement(Separator, {
 			LayoutOrder = layoutOrder:getNextOrder(),
 		}),
 
-		Creator = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
-			LayoutOrder = layoutOrder:getNextOrder(),
-			Title = localization:getText("PageTitle", "Creator"),
-		} else {
-			Title = localization:getText("PageTitle", "Creator"),
-			MaxHeight = 38,
-			TextSize = Constants.TEXT_SIZE,
-			ZIndex = 2,
-			LayoutOrder = layoutOrder:getNextOrder(),
-		}, {
-			Selector = Roact.createElement(SelectInput, if FFlagCOLLAB734FixPublishPlaceAsDropdownContrastIssue then {
-				Items = creatorItems,
-				SelectedIndex = selectedCreatorIndex,
-				OnItemActivated = selectCreator,
-				Width = theme.selectInput.width.creator,
-			} else {
-				Items = DEPRECATED_dropdownItems,
-				OnItemActivated = function(item)
-					creatorChanged(item.Key)
-				end,
-				OnRenderItem = function(item, index, activated)
-					local mainText = item.Text
+		Creator = Roact.createElement(
+			TitledFrame,
+			if FFlagRemoveUILibraryTitledFrame
+				then {
+					LayoutOrder = layoutOrder:getNextOrder(),
+					Title = localization:getText("PageTitle", "Creator"),
+				}
+				else {
+					Title = localization:getText("PageTitle", "Creator"),
+					MaxHeight = 38,
+					TextSize = Constants.TEXT_SIZE,
+					ZIndex = 2,
+					LayoutOrder = layoutOrder:getNextOrder(),
+				},
+			{
+				Selector = Roact.createElement(
+					SelectInput,
+					if FFlagCOLLAB734FixPublishPlaceAsDropdownContrastIssue
+						then {
+							Items = creatorItems,
+							SelectedIndex = selectedCreatorIndex,
+							OnItemActivated = selectCreator,
+							Width = theme.selectInput.width.creator,
+						}
+						else {
+							Items = DEPRECATED_dropdownItems,
+							OnItemActivated = function(item)
+								creatorChanged(item.Key)
+							end,
+							OnRenderItem = function(item, index, activated)
+								local mainText = item.Text
 
-					return Roact.createElement(Button, {
-						OnClick = activated,
-						LayoutOrder = index,
-						Size = UDim2.new(1, 0, 0, theme.selectInput.button.height),
-					}, {
-						UILayout = Roact.createElement("UIListLayout", {
-							FillDirection = Enum.FillDirection.Vertical,
-							Padding = UDim.new(0, 0),
-							SortOrder = Enum.SortOrder.LayoutOrder,
-							VerticalAlignment = Enum.VerticalAlignment.Top,
-						}),
+								return Roact.createElement(Button, {
+									OnClick = activated,
+									LayoutOrder = index,
+									Size = UDim2.new(1, 0, 0, theme.selectInput.button.height),
+								}, {
+									UILayout = Roact.createElement("UIListLayout", {
+										FillDirection = Enum.FillDirection.Vertical,
+										Padding = UDim.new(0, 0),
+										SortOrder = Enum.SortOrder.LayoutOrder,
+										VerticalAlignment = Enum.VerticalAlignment.Top,
+									}),
 
-						MainTextLabel = Roact.createElement(PaddedTextLabel, {
-							Height = theme.selectInput.fontStyle.Normal.TextSize,
-							LayoutOrder = 0,
-							Padding = theme.selectInput.padding,
-							Style = "Normal",
-							Text = mainText,
-						}),
-					})
-				end,
-				PlaceholderText = DEPRECATED_creatorItem.Text,
-				Width = theme.selectInput.width.creator,
-			}),
-		}),
+									MainTextLabel = Roact.createElement(PaddedTextLabel, {
+										Height = theme.selectInput.fontStyle.Normal.TextSize,
+										LayoutOrder = 0,
+										Padding = theme.selectInput.padding,
+										Style = "Normal",
+										Text = mainText,
+									}),
+								})
+							end,
+							PlaceholderText = DEPRECATED_creatorItem.Text,
+							Width = theme.selectInput.width.creator,
+						}
+				),
+			}
+		),
 
 		Separator2 = Roact.createElement(Separator, {
 			LayoutOrder = layoutOrder:getNextOrder(),
 		}),
 
-		Genre = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
-			LayoutOrder = layoutOrder:getNextOrder(),
-			Title = localization:getText("PageTitle", "Genre"),
-		} else {
-			Title = localization:getText("PageTitle", "Genre"),
-			MaxHeight = 38,
-			TextSize = Constants.TEXT_SIZE,
-			ZIndex = 2,
-			LayoutOrder = layoutOrder:getNextOrder(),
-		}, {
-			Selector = Roact.createElement(SelectInput, if FFlagCOLLAB734FixPublishPlaceAsDropdownContrastIssue then {
-				Items = genreItems,
-				SelectedIndex = selectedGenreIndex,
-				OnItemActivated = selectGenre,
-				Width = theme.selectInput.width.genre,
-			} else {
-				Items = DEPRECATED_genres,
-				OnItemActivated = function(item)
-					genreChanged(item.Key)
-				end,
-				OnRenderItem = function(item, index, activated)
-					local mainText = item.Text
+		Genre = Roact.createElement(
+			TitledFrame,
+			if FFlagRemoveUILibraryTitledFrame
+				then {
+					LayoutOrder = layoutOrder:getNextOrder(),
+					Title = localization:getText("PageTitle", "Genre"),
+				}
+				else {
+					Title = localization:getText("PageTitle", "Genre"),
+					MaxHeight = 38,
+					TextSize = Constants.TEXT_SIZE,
+					ZIndex = 2,
+					LayoutOrder = layoutOrder:getNextOrder(),
+				},
+			{
+				Selector = Roact.createElement(
+					SelectInput,
+					if FFlagCOLLAB734FixPublishPlaceAsDropdownContrastIssue
+						then {
+							Items = genreItems,
+							SelectedIndex = selectedGenreIndex,
+							OnItemActivated = selectGenre,
+							Width = theme.selectInput.width.genre,
+						}
+						else {
+							Items = DEPRECATED_genres,
+							OnItemActivated = function(item)
+								genreChanged(item.Key)
+							end,
+							OnRenderItem = function(item, index, activated)
+								local mainText = item.Text
 
-					return Roact.createElement(Button, {
-						OnClick = activated,
-						LayoutOrder = index,
-						Size = UDim2.new(1, 0, 0, theme.selectInput.button.height),
-					}, {
-						UILayout = Roact.createElement("UIListLayout", {
-							FillDirection = Enum.FillDirection.Vertical,
-							Padding = UDim.new(0, 0),
-							SortOrder = Enum.SortOrder.LayoutOrder,
-							VerticalAlignment = Enum.VerticalAlignment.Top,
-						}),
+								return Roact.createElement(Button, {
+									OnClick = activated,
+									LayoutOrder = index,
+									Size = UDim2.new(1, 0, 0, theme.selectInput.button.height),
+								}, {
+									UILayout = Roact.createElement("UIListLayout", {
+										FillDirection = Enum.FillDirection.Vertical,
+										Padding = UDim.new(0, 0),
+										SortOrder = Enum.SortOrder.LayoutOrder,
+										VerticalAlignment = Enum.VerticalAlignment.Top,
+									}),
 
-						MainTextLabel = Roact.createElement(PaddedTextLabel, {
-							Height = theme.selectInput.fontStyle.Normal.TextSize,
-							LayoutOrder = 0,
-							Padding = theme.selectInput.padding,
-							Style = "Normal",
-							Text = mainText,
-						}),
-					})
-				end,
-				PlaceholderText = localization:getText("Genre", genre),
-				Width = theme.selectInput.width.genre,
-			}),
-		}),
+									MainTextLabel = Roact.createElement(PaddedTextLabel, {
+										Height = theme.selectInput.fontStyle.Normal.TextSize,
+										LayoutOrder = 0,
+										Padding = theme.selectInput.padding,
+										Style = "Normal",
+										Text = mainText,
+									}),
+								})
+							end,
+							PlaceholderText = localization:getText("Genre", genre),
+							Width = theme.selectInput.width.genre,
+						}
+				),
+			}
+		),
 
 		Separator4 = Roact.createElement(Separator, {
 			LayoutOrder = layoutOrder:getNextOrder(),
@@ -450,8 +509,9 @@ local function displayContents(parent)
 		}, {
 			TeachingCallout = Roact.createElement(TeachingCallout, {
 				DefinitionId = "PublishPlaceAsTeamCreateToggleCallout",
-				LocationId = "TeamCreateToggle", }),
+				LocationId = "TeamCreateToggle",
 			}),
+		}),
 	}
 
 	if props.IsPublish then
@@ -464,35 +524,37 @@ local function displayContents(parent)
 				Title = localization:getText(optInLocationsKey, "TitleOptInLocations"),
 				LayoutOrder = layoutOrder:getNextOrder(),
 				MaxHeight = theme.optInLocations.height,
-				Boxes = {{
-					Id = chinaKey,
-					Title = localization:getText(optInLocationsKey, chinaKey),
-					Selected = optInLocations and optInLocations.China or false,
-					LinkTextFrame = Roact.createElement("Frame", {
-						BackgroundTransparency = 1,
-						Size = UDim2.new(0, theme.requirementsLink.length, 0, theme.requirementsLink.height),
-						Position = UDim2.new(0, 0, 0, theme.requirementsLink.paddingY),
-					}, {
-						LinkTextLabel = Roact.createElement(TextLabel, {
-							Position = UDim2.new(0, hyperLinkTextSize.X, 0, 0),
-							Size = UDim2.new(1, -hyperLinkTextSize.X, 1, 0),
-							Style = "Body",
-							Text = localization:getText(optInLocationsKey, "ChinaRequirements"),
-							TextXAlignment = Enum.TextXAlignment.Left,
-							TextYAlignment = Enum.TextYAlignment.Top,
-						}),
+				Boxes = {
+					{
+						Id = chinaKey,
+						Title = localization:getText(optInLocationsKey, chinaKey),
+						Selected = optInLocations and optInLocations.China or false,
+						LinkTextFrame = Roact.createElement("Frame", {
+							BackgroundTransparency = 1,
+							Size = UDim2.new(0, theme.requirementsLink.length, 0, theme.requirementsLink.height),
+							Position = UDim2.new(0, 0, 0, theme.requirementsLink.paddingY),
+						}, {
+							LinkTextLabel = Roact.createElement(TextLabel, {
+								Position = UDim2.new(0, hyperLinkTextSize.X, 0, 0),
+								Size = UDim2.new(1, -hyperLinkTextSize.X, 1, 0),
+								Style = "Body",
+								Text = localization:getText(optInLocationsKey, "ChinaRequirements"),
+								TextXAlignment = Enum.TextXAlignment.Left,
+								TextYAlignment = Enum.TextYAlignment.Top,
+							}),
 
-						LinkText = Roact.createElement(LinkText, {
-							OnClick = function()
-								local url = getOptInLocationsRequirementsLink(chinaKey)
-								GuiService:OpenBrowserWindow(url)
-							end,
-							Size = UDim2.new(0, hyperLinkTextSize.X, 0, hyperLinkTextSize.Y),
-							Style = "Body",
-							Text = localization:getText(optInLocationsKey, "RequirementsLinkText"),
+							LinkText = Roact.createElement(LinkText, {
+								OnClick = function()
+									local url = getOptInLocationsRequirementsLink(chinaKey)
+									GuiService:OpenBrowserWindow(url)
+								end,
+								Size = UDim2.new(0, hyperLinkTextSize.X, 0, hyperLinkTextSize.Y),
+								Style = "Body",
+								Text = localization:getText(optInLocationsKey, "RequirementsLinkText"),
+							}),
 						}),
-					}),
-				}},
+					},
+				},
 				Enabled = optInLocations ~= nil,
 				EntryClicked = function(box)
 					if not playerAcceptance then
@@ -501,13 +563,18 @@ local function displayContents(parent)
 						})
 					else
 						local newLocations = Cryo.Dictionary.join(optInLocations, {
-							[box.Id] = (box.Selected) and Cryo.None or not box.Selected,
+							[box.Id] = box.Selected and Cryo.None or not box.Selected,
 						})
 						local points = {
 							[optInLocationsKey] = box.Id,
 							[selectedKey] = not box.Selected,
 						}
-						sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, checkboxToggleKey, points)
+						sendAnalyticsToKibana(
+							seriesNameKey,
+							FIntLuobuDevPublishAnalyticsHundredthsPercentage,
+							checkboxToggleKey,
+							points
+						)
 						optInLocationsChanged(newLocations)
 					end
 				end,
@@ -534,7 +601,7 @@ local function displayContents(parent)
 				Title = "",
 				MinContentSize = Vector2.new(theme.dialog.minSize.width, theme.dialog.minSize.height),
 				Buttons = {
-					{ Key = "OK", Text = localization:getText("General", "ReplyOK") }
+					{ Key = "OK", Text = localization:getText("General", "ReplyOK") },
 				},
 				OnButtonPressed = function()
 					parent:setState({
@@ -543,16 +610,26 @@ local function displayContents(parent)
 					local points = {
 						[buttonClickedKey] = "OK",
 					}
-					sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, termsOfUseDialogKey, points)
+					sendAnalyticsToKibana(
+						seriesNameKey,
+						FIntLuobuDevPublishAnalyticsHundredthsPercentage,
+						termsOfUseDialogKey,
+						points
+					)
 				end,
 				OnClose = function()
 					parent:setState({
-						showDialog = false
+						showDialog = false,
 					})
 					local points = {
 						[buttonClickedKey] = "Close",
 					}
-					sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, termsOfUseDialogKey, points)
+					sendAnalyticsToKibana(
+						seriesNameKey,
+						FIntLuobuDevPublishAnalyticsHundredthsPercentage,
+						termsOfUseDialogKey,
+						points
+					)
 				end,
 				ButtonHorizontalAlignment = Enum.HorizontalAlignment.Center,
 			}, {
@@ -563,14 +640,17 @@ local function displayContents(parent)
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 
-				Header = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Title, {
-					Position = UDim2.new(0.5, 0, 0, 45),
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Size = UDim2.new(1, 0, 0, 60),
-					BackgroundTransparency = 1,
-					Text = localization:getText("General", "TermsDialogHeader"),
-					TextWrapped = true,
-				})),
+				Header = Roact.createElement(
+					"TextLabel",
+					Cryo.Dictionary.join(theme.fontStyle.Title, {
+						Position = UDim2.new(0.5, 0, 0, 45),
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Size = UDim2.new(1, 0, 0, 60),
+						BackgroundTransparency = 1,
+						Text = localization:getText("General", "TermsDialogHeader"),
+						TextWrapped = true,
+					})
+				),
 
 				Body = Roact.createElement(TextWithInlineLink, {
 					OnLinkClicked = function()
@@ -581,10 +661,10 @@ local function displayContents(parent)
 					LinkText = localization:getText("General", "TermsDialogBodyLink"),
 					LinkPlaceholder = "[link]",
 					MaxWidth = theme.textWithInlineLink.maxWidth,
-					TextProps = Cryo.Dictionary.join(theme.fontStyle.Normal,{
+					TextProps = Cryo.Dictionary.join(theme.fontStyle.Normal, {
 						BackgroundTransparency = 1,
 					}),
-				})
+				}),
 			})
 		end
 	end
@@ -631,9 +711,9 @@ local function dispatchForProps(setValue, dispatch)
 			local nameLength = utf8.len(text)
 			local whitespaceTrimmedString, _ = string.gsub(text, " ", "")
 			if nameLength == 0 or string.len(whitespaceTrimmedString) == 0 then
-				dispatch(AddErrors({name = "NameEmpty"}))
+				dispatch(AddErrors({ name = "NameEmpty" }))
 			elseif nameLength > MAX_NAME_LENGTH then
-				dispatch(AddErrors({name = "NameTooLong"}))
+				dispatch(AddErrors({ name = "NameTooLong" }))
 			end
 		end,
 
@@ -641,7 +721,7 @@ local function dispatchForProps(setValue, dispatch)
 			dispatch(AddChange("description", text))
 			local descriptionLength = utf8.len(text)
 			if descriptionLength > MAX_DESCRIPTION_LENGTH then
-				dispatch(AddErrors({description = "DescriptionTooLong"}))
+				dispatch(AddErrors({ description = "DescriptionTooLong" }))
 			end
 		end,
 
@@ -652,7 +732,7 @@ local function dispatchForProps(setValue, dispatch)
 					return
 				end
 			end
-			dispatch(AddErrors({playableDevices = "NoDevices"}))
+			dispatch(AddErrors({ playableDevices = "NoDevices" }))
 		end,
 
 		OptInLocationsChanged = function(locations)

@@ -8,6 +8,6 @@ local Action = Util.Action
 
 return Action(script.Name, function(target)
 	return {
-		target = target
+		target = target,
 	}
 end)

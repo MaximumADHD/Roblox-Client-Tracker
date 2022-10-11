@@ -1,4 +1,3 @@
-
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
@@ -27,7 +26,6 @@ local Button = UI.Button
 local HoverArea = UI.HoverArea
 local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
 
-
 local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 
@@ -36,7 +34,8 @@ local ShutdownAllServers = require(Page.Thunks.ShutdownAllServers)
 
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 
-local FStringSpatialVoiceChatLink = game:DefineFastString("SpatialVoiceChatLink", "https://developer.roblox.com/articles/spatial-voice")
+local FStringSpatialVoiceChatLink =
+	game:DefineFastString("SpatialVoiceChatLink", "https://developer.roblox.com/articles/spatial-voice")
 
 local GuiService = game:GetService("GuiService")
 
@@ -70,10 +69,10 @@ local function loadSettings(store, contextItems)
 
 			loadedSettings[voiceChatEnabledKey] = optIn
 		end,
-		
+
 		function(loadedSettings)
 			local enabled = gameOptionsController:getScriptCollaborationEnabledOnServer(game)
-								
+
 			loadedSettings[scriptCollaborationEnabledOnServerKey] = enabled
 		end,
 
@@ -112,16 +111,16 @@ end
 --Loads settings values into props by key
 local function loadValuesToProps(getValue, state)
 	local scriptCollabEnabledOnServer = state.Settings.Current.ScriptCollaborationEnabledOnServer
-		
+
 	local loadedProps = {
 		ScriptCollabEnabled = getValue("ScriptCollabEnabled"),
 		CurrentScriptCollabEnabled = state.Settings.Current.ScriptCollabEnabled,
 		VoiceChatEnabled = getValue(voiceChatEnabledKey),
 		TeamCreateEnabled = state.Settings.Current.TeamCreateEnabled or nil,
 		-- This value holds the server value (which cannot be changed during session). Used to display warning about needing to restart
-		ScriptCollabEnabledOnServer = scriptCollabEnabledOnServer
+		ScriptCollabEnabledOnServer = scriptCollabEnabledOnServer,
 	}
-	
+
 	return loadedProps
 end
 
@@ -146,22 +145,27 @@ function Options:render()
 	local theme = props.Stylizer
 	local localization = props.Localization
 
-	local shutdownButtonText = localization:getText("General","ButtonShutdownAllServers")
+	local shutdownButtonText = localization:getText("General", "ButtonShutdownAllServers")
 	local shutdownButtonFrameSize = Vector2.new(math.huge, theme.button.height)
-	local shutdownButtonTextExtents = GetTextSize(shutdownButtonText, theme.fontStyle.Header.TextSize,
-		theme.fontStyle.Header.Font, shutdownButtonFrameSize)
+	local shutdownButtonTextExtents = GetTextSize(
+		shutdownButtonText,
+		theme.fontStyle.Header.TextSize,
+		theme.fontStyle.Header.Font,
+		shutdownButtonFrameSize
+	)
 	local shutdownButtonButtonWidth = math.max(shutdownButtonTextExtents.X, theme.button.width)
 	local shutdownButtonPaddingY = theme.button.height - shutdownButtonTextExtents.Y
-	local shutDownButtonSize = UDim2.new(0, shutdownButtonButtonWidth,
-		0, shutdownButtonTextExtents.Y + shutdownButtonPaddingY)
+	local shutDownButtonSize =
+		UDim2.new(0, shutdownButtonButtonWidth, 0, shutdownButtonTextExtents.Y + shutdownButtonPaddingY)
 
 	local dispatchShutdownAllServers = props.dispatchShutdownAllServers
 
 	local TeamCreateEnabled = props.TeamCreateEnabled or false
-	
+
 	local layoutIndex = LayoutOrderIterator.new()
 	-- Display warning to user that collab editing change will only take affect if the server restarts
-	local shouldDisplayScriptCollabWarning = TeamCreateEnabled and (props.ScriptCollabEnabledOnServer ~= props.ScriptCollabEnabled)
+	local shouldDisplayScriptCollabWarning = TeamCreateEnabled
+		and (props.ScriptCollabEnabledOnServer ~= props.ScriptCollabEnabled)
 
 	-- Prioritized EnableTeamCreateForCollabEditingText here since if TC is off that text should always show
 	local toggleButtonDescriptionText
@@ -191,55 +195,64 @@ function Options:render()
 				end,
 			}),
 
-			ShutdownAllServers = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
-				LayoutOrder = layoutIndex:getNextOrder(),
-				Title = localization:getText("General", "TitleShutdownAllServers"),
-			} else {
-				Title = localization:getText("General", "TitleShutdownAllServers"),
-				MaxHeight = 60,
-				LayoutOrder = layoutIndex:getNextOrder(),
-				TextSize = theme.fontStyle.Normal.TextSize,
-			}, {
-				VerticalLayout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Vertical,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-				}),
-				ShutdownButton = Roact.createElement(Button, {
-					Style = "GameSettingsButton",
-					Text = shutdownButtonText,
-					Size = shutDownButtonSize,
-					LayoutOrder = 1,
-					OnClick = function()
-						local dialogProps = {
-							Size = Vector2.new(343, 145),
-							Title = localization:getText("General", "ShutdownDialogHeader"),
-							Header = localization:getText("General", "ShutdownDialogBody"),
-							Buttons = {
-								localization:getText("General", "ReplyNo"),
-								localization:getText("General", "ReplyYes"),
-							},
-						}
+			ShutdownAllServers = Roact.createElement(
+				TitledFrame,
+				if FFlagRemoveUILibraryTitledFrame
+					then {
+						LayoutOrder = layoutIndex:getNextOrder(),
+						Title = localization:getText("General", "TitleShutdownAllServers"),
+					}
+					else {
+						Title = localization:getText("General", "TitleShutdownAllServers"),
+						MaxHeight = 60,
+						LayoutOrder = layoutIndex:getNextOrder(),
+						TextSize = theme.fontStyle.Normal.TextSize,
+					},
+				{
+					VerticalLayout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Vertical,
+						HorizontalAlignment = Enum.HorizontalAlignment.Left,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+					}),
+					ShutdownButton = Roact.createElement(Button, {
+						Style = "GameSettingsButton",
+						Text = shutdownButtonText,
+						Size = shutDownButtonSize,
+						LayoutOrder = 1,
+						OnClick = function()
+							local dialogProps = {
+								Size = Vector2.new(343, 145),
+								Title = localization:getText("General", "ShutdownDialogHeader"),
+								Header = localization:getText("General", "ShutdownDialogBody"),
+								Buttons = {
+									localization:getText("General", "ReplyNo"),
+									localization:getText("General", "ReplyYes"),
+								},
+							}
 
-						local confirmed = dialog.showDialog(SimpleDialog, dialogProps):await()
-						if confirmed then
-							dispatchShutdownAllServers()
-						end
-					end,
-				}, {
-					Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
-				}),
+							local confirmed = dialog.showDialog(SimpleDialog, dialogProps):await()
+							if confirmed then
+								dispatchShutdownAllServers()
+							end
+						end,
+					}, {
+						Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
+					}),
 
-				ShutdownButtonDescription = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtext, {
-					Size = UDim2.new(1, 0, 0, shutdownButtonTextExtents.Y + theme.shutdownButton.PaddingY),
-					LayoutOrder = 2,
-					BackgroundTransparency = 1,
-					Text = localization:getText("General", "StudioShutdownAllServicesDesc"),
-					TextYAlignment = Enum.TextYAlignment.Center,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextWrapped = true,
-				})),
-			}),
+					ShutdownButtonDescription = Roact.createElement(
+						"TextLabel",
+						Cryo.Dictionary.join(theme.fontStyle.Subtext, {
+							Size = UDim2.new(1, 0, 0, shutdownButtonTextExtents.Y + theme.shutdownButton.PaddingY),
+							LayoutOrder = 2,
+							BackgroundTransparency = 1,
+							Text = localization:getText("General", "StudioShutdownAllServicesDesc"),
+							TextYAlignment = Enum.TextYAlignment.Center,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							TextWrapped = true,
+						})
+					),
+				}
+			),
 
 			EnableVoiceChat = Roact.createElement(ToggleButtonWithTitle, {
 				Title = localization:getText("General", "VoiceChatTitle"),
@@ -263,12 +276,11 @@ function Options:render()
 	return Roact.createElement(SettingsPage, {
 		SettingsLoadJobs = loadSettings,
 		SettingsSaveJobs = saveSettings,
-		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
+		Title = localization:getText("General", "Category" .. LOCALIZATION_ID),
 		PageId = LOCALIZATION_ID,
 		CreateChildren = createChildren,
 	})
 end
-
 
 Options = withContext({
 	Stylizer = ContextServices.Stylizer,
@@ -276,29 +288,26 @@ Options = withContext({
 	Dialog = Dialog,
 })(Options)
 
-
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
-Options = RoactRodux.connect(
-	function(state, props)
-		if not state then return end
-
-		local getValue = function(propName)
-			return settingFromState(state.Settings, propName)
-		end
-
-		return loadValuesToProps(getValue, state)
-	end,
-
-	function(dispatch)
-		local setValue = function(propName)
-			return function(value)
-				dispatch(AddChange(propName, value))
-			end
-		end
-
-		return dispatchChanges(setValue, dispatch)
+Options = RoactRodux.connect(function(state, props)
+	if not state then
+		return
 	end
-)(Options)
+
+	local getValue = function(propName)
+		return settingFromState(state.Settings, propName)
+	end
+
+	return loadValuesToProps(getValue, state)
+end, function(dispatch)
+	local setValue = function(propName)
+		return function(value)
+			dispatch(AddChange(propName, value))
+		end
+	end
+
+	return dispatchChanges(setValue, dispatch)
+end)(Options)
 
 Options.LocalizationId = LOCALIZATION_ID
 

@@ -83,7 +83,7 @@ function AudioTable:init()
 			self.props.OnSelectRow(rowProps.Row, rowProps.RowIndex)
 		end
 	end
-	
+
 	self.onDoubleClick = function(rowProps)
 		if self.props.OnDoubleClick then
 			self.props.OnDoubleClick(rowProps.Row, rowProps.RowIndex)
@@ -166,27 +166,35 @@ function AudioTable:renderResizableHeadings()
 	local minSizes = map(props.Columns, function(column: Column)
 		return column.MinWidth or DEFAULT_COLUMN_MIN_WIDTH
 	end)
-	return Roact.createElement(SplitPane, {
-		UseScale = props.UseScale,
-		ClampSize = props.ClampSize,
-		Sizes = sizes,
-		MinSizes = minSizes,
-		OnSizesChange = props.OnColumnSizesChange,
-	}, map(props.Columns, function(column: Column, index: number)
-		local order = props.SortIndex == index and props.SortOrder or nil
-		return Roact.createElement(TableHeaderCell, {
-			Name = column.Name,
-			Order = order,
-			Width = UDim.new(1, 0),
-			ColumnIndex = index,
-			Style = style,
-			OnPress = self.props.OnSortChange and function()
-				-- Swap to ascending or use descending
-				local nextOrder = if order == Enum.SortDirection.Descending then Enum.SortDirection.Ascending else Enum.SortDirection.Descending
-				self.props.OnSortChange(index, nextOrder)
-			end or nil
-		})
-	end))
+	return Roact.createElement(
+		SplitPane,
+		{
+			UseScale = props.UseScale,
+			ClampSize = props.ClampSize,
+			Sizes = sizes,
+			MinSizes = minSizes,
+			OnSizesChange = props.OnColumnSizesChange,
+		},
+		map(props.Columns, function(column: Column, index: number)
+			local order = props.SortIndex == index and props.SortOrder or nil
+			return Roact.createElement(TableHeaderCell, {
+				Name = column.Name,
+				Order = order,
+				Width = UDim.new(1, 0),
+				ColumnIndex = index,
+				Style = style,
+				OnPress = self.props.OnSortChange
+						and function()
+							-- Swap to ascending or use descending
+							local nextOrder = if order == Enum.SortDirection.Descending
+								then Enum.SortDirection.Ascending
+								else Enum.SortDirection.Descending
+							self.props.OnSortChange(index, nextOrder)
+						end
+					or nil,
+			})
+		end)
+	)
 end
 
 function AudioTable:renderFixedHeadings()
@@ -201,11 +209,14 @@ function AudioTable:renderFixedHeadings()
 			Width = width,
 			ColumnIndex = index,
 			Style = style,
-			OnPress = self.props.OnSortChange and function()
-				-- Swap to ascending or use descending
-				local nextOrder = order == Enum.SortDirection.Descending and Enum.SortDirection.Ascending or Enum.SortDirection.Descending
-				self.props.OnSortChange(index, nextOrder)
-			end or nil
+			OnPress = self.props.OnSortChange
+					and function()
+						-- Swap to ascending or use descending
+						local nextOrder = order == Enum.SortDirection.Descending and Enum.SortDirection.Ascending
+							or Enum.SortDirection.Descending
+						self.props.OnSortChange(index, nextOrder)
+					end
+				or nil,
 		})
 	end)
 end
@@ -230,8 +241,8 @@ function AudioTable:renderScroll()
 			Layout = Enum.FillDirection.Vertical,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		}, {
-			Children = self:renderRows()
-		})
+			Children = self:renderRows(),
+		}),
 	})
 end
 
@@ -242,7 +253,7 @@ function AudioTable:renderRows()
 			LayoutOrder = index,
 			AutomaticSize = Enum.AutomaticSize.XY,
 		}, {
-			Row = self.onRenderRow(row)
+			Row = self.onRenderRow(row),
 		})
 	end)
 	return Roact.createFragment(rows)
@@ -264,14 +275,15 @@ function AudioTable:render()
 	local footerHeight = showFooter and style.FooterHeight or 0
 	local child = props.Scroll and self:renderScroll() or self:renderRows()
 
-	local header = showHeader and Roact.createElement(Pane, {
-		Layout = Enum.FillDirection.Horizontal,
-		LayoutOrder = 1,
-		Size = UDim2.new(1, -8, 0, headerHeight),
-		Style = "SubtleBox",
-		BorderColor3 = style.Border,
-		BorderSizePixel = 1,
-	}, headings)
+	local header = showHeader
+		and Roact.createElement(Pane, {
+			Layout = Enum.FillDirection.Horizontal,
+			LayoutOrder = 1,
+			Size = UDim2.new(1, -8, 0, headerHeight),
+			Style = "SubtleBox",
+			BorderColor3 = style.Border,
+			BorderSizePixel = 1,
+		}, headings)
 
 	local useVariableWidth = props.OnColumnSizesChange and not props.UseScale and not props.ClampSize
 	local width = 0
@@ -296,7 +308,7 @@ function AudioTable:render()
 		Size = size,
 		[Roact.Event.MouseLeave] = props.OnMouseLeave,
 	}, {
-		Child = child
+		Child = child,
 	})
 
 	local top

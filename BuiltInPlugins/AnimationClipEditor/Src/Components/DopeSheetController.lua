@@ -78,8 +78,8 @@ function DopeSheetController:init()
 		showContextMenu = false,
 		renamingKeyframe = nil,
 		changingDuration = nil,
-		hasDragWaypoint = false,	-- True if a waypoint has already been created for
-									-- the current drag operation (move/scale)
+		hasDragWaypoint = false, -- True if a waypoint has already been created for
+		-- the current drag operation (move/scale)
 	}
 
 	self.DragContext = nil
@@ -135,7 +135,7 @@ function DopeSheetController:init()
 		if not self.state.hasDragWaypoint then
 			self.props.AddWaypoint()
 			self:setState({
-				hasDragWaypoint = true
+				hasDragWaypoint = true,
 			})
 		end
 	end
@@ -147,7 +147,7 @@ function DopeSheetController:init()
 		self:setState({
 			draggingScale = true,
 			dragTick = tck,
-			hasDragWaypoint = false
+			hasDragWaypoint = false,
 		})
 	end
 
@@ -170,7 +170,7 @@ function DopeSheetController:init()
 			self.DragContext:scaleKeyframes(tck, self.props.StartTick)
 			self.props.ScaleSelectedKeyframes(self.DragContext.pivotTick, self.DragContext.scale, self.DragContext)
 			self:setState({
-				dragTick = tck
+				dragTick = tck,
 			})
 		end
 	end
@@ -182,7 +182,7 @@ function DopeSheetController:init()
 			self.DragContext:moveKeyframes(tck)
 			self.props.MoveSelectedKeyframes(self.DragContext.pivotTick, self.DragContext.newTick, self.DragContext)
 			self:setState({
-				dragTick = tck
+				dragTick = tck,
 			})
 		end
 	end
@@ -244,9 +244,10 @@ function DopeSheetController:init()
 		local lastMaxTick = self.lastMaxTick or maxTick
 		local lastMaxTrack = self.lastMaxTrack or maxTrack
 
-		if not isEmpty(selectedKeyframes)
-			and (minTick > lastMinTick or minTrack > lastMinTrack
-			or maxTick < lastMaxTick or maxTrack < lastMaxTrack) then
+		if
+			not isEmpty(selectedKeyframes)
+			and (minTick > lastMinTick or minTrack > lastMinTrack or maxTick < lastMaxTick or maxTrack < lastMaxTrack)
+		then
 			props.DeselectAllKeyframes()
 		end
 
@@ -266,7 +267,7 @@ function DopeSheetController:init()
 				end)
 			else
 				if trackIndex >= minTrack and trackIndex <= maxTrack then
-					props.SelectKeyframeRange(track.Instance, {track.Name}, minTick, maxTick, true)
+					props.SelectKeyframeRange(track.Instance, { track.Name }, minTick, maxTick, true)
 				end
 			end
 		end
@@ -354,7 +355,8 @@ function DopeSheetController:init()
 		self.setChangingDuration()
 		local newLength = StringUtils.parseTime(textInput, self.props.FrameRate)
 		if newLength ~= nil then
-			local earliest, latest = AnimationData.getSelectionBounds(self.props.AnimationData, self.props.SelectedKeyframes)
+			local earliest, latest =
+				AnimationData.getSelectionBounds(self.props.AnimationData, self.props.SelectedKeyframes)
 			local currentLength = latest - earliest
 			local scale = newLength / currentLength
 			self.props.ScaleSelectedKeyframes(earliest, scale)
@@ -399,10 +401,8 @@ function DopeSheetController:handleTimelineInputEnded(input)
 		if Input.isMultiSelectKey(input.KeyCode) then
 			self.isMultiSelecting = false
 		end
-
 	elseif input.UserInputType == Enum.UserInputType.MouseButton1 then
 		self.mouseDownInTimeline = false
-
 	elseif input.UserInputType == Enum.UserInputType.MouseButton2 then
 		local path
 		local track, trackIndex, trackType, rotationType
@@ -415,7 +415,7 @@ function DopeSheetController:handleTimelineInputEnded(input)
 			trackIndex = self.getTrackFromPosition(input.Position)
 			track = self.tracks[trackIndex]
 			if track then
-				path = {track.Name}
+				path = { track.Name }
 				trackType = track.Type
 				rotationType = TrackUtils.getRotationType(track)
 			end
@@ -574,8 +574,7 @@ function DopeSheetController:render()
 	local colorsPosition = self.props.ColorsPosition or 0
 	local tracks = self.props.Tracks
 
-	local namedKeyframes = animationData and animationData.Events
-		and animationData.Events.NamedKeyframes or {}
+	local namedKeyframes = animationData and animationData.Events and animationData.Events.NamedKeyframes or {}
 
 	local quantizeWarningText = localization:getText("Toast", "QuantizeWarning")
 
@@ -591,7 +590,8 @@ function DopeSheetController:render()
 	local multipleSelected = self:hasSelectedKeyframes() and self:multipleFramesSelected()
 	local currentDuration
 	if changingDuration then
-		local earliest, latest = AnimationData.getSelectionBounds(self.props.AnimationData, self.props.SelectedKeyframes)
+		local earliest, latest =
+			AnimationData.getSelectionBounds(self.props.AnimationData, self.props.SelectedKeyframes)
 		currentDuration = (latest - earliest) * props.FrameRate / Constants.TICK_FREQUENCY
 	end
 
@@ -684,29 +684,30 @@ function DopeSheetController:render()
 					OnDragEnded = self.onSelectDragEnded,
 					SelectionStart = self.selectDragStart,
 					SelectionEnd = self.selectDragEnd,
-					SourceExtents = Rect.new(absolutePosition, absolutePosition + absoluteSize)
+					SourceExtents = Rect.new(absolutePosition, absolutePosition + absoluteSize),
 				}),
 
-				TimelineActions = active and Roact.createElement(TimelineActions, {
-					ShowMenu = showContextMenu,
-					MultipleSelected = multipleSelected,
-					IsChannelAnimation = isChannelAnimation,
-					OnMenuOpened = self.hideMenu,
-					OnItemSelected = self.onEasingItemSelected,
-					OnClearTangentsSelected = self.onClearTangentsSelected,
-					OnGenerateCurve = self.props.GenerateCurve,
-					OnRenameKeyframe = function(tck)
-						-- The prompt was sometimes not displaying when not using spawn
-						spawn(function()
-							self.setRenamingKeyframe(tck)
-						end)
-					end,
-					OnChangeDuration = function()
-						spawn(function()
-							self.setChangingDuration(true)
-						end)
-					end,
-				}),
+				TimelineActions = active
+					and Roact.createElement(TimelineActions, {
+						ShowMenu = showContextMenu,
+						MultipleSelected = multipleSelected,
+						IsChannelAnimation = isChannelAnimation,
+						OnMenuOpened = self.hideMenu,
+						OnItemSelected = self.onEasingItemSelected,
+						OnClearTangentsSelected = self.onClearTangentsSelected,
+						OnGenerateCurve = self.props.GenerateCurve,
+						OnRenameKeyframe = function(tck)
+							-- The prompt was sometimes not displaying when not using spawn
+							spawn(function()
+								self.setRenamingKeyframe(tck)
+							end)
+						end,
+						OnChangeDuration = function()
+							spawn(function()
+								self.setChangingDuration(true)
+							end)
+						end,
+					}),
 
 				ScaleControls = multipleSelected and not draggingSelection and Roact.createElement(ScaleControls, {
 					SelectedKeyframes = selectedKeyframes,
@@ -732,9 +733,9 @@ function DopeSheetController:render()
 					InputText = localization:getText("Menu", "RenameKeyframePrompt"),
 					Text = namedKeyframes[renamingKeyframe] or Constants.DEFAULT_KEYFRAME_NAME,
 					Buttons = {
-						{Key = "Delete", Text = localization:getText("Dialog", "Delete"), Style = "Round"},
-						{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round"},
-						{Key = true, Text = localization:getText("Dialog", "Save"), Style = "RoundPrimary"},
+						{ Key = "Delete", Text = localization:getText("Dialog", "Delete"), Style = "Round" },
+						{ Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round" },
+						{ Key = true, Text = localization:getText("Dialog", "Save"), Style = "RoundPrimary" },
 					},
 					OnButtonClicked = function(key)
 						if key == "Delete" then
@@ -752,11 +753,15 @@ function DopeSheetController:render()
 				ChangeDurationPrompt = currentDuration and Roact.createElement(TextEntryPrompt, {
 					PromptText = localization:getText("Title", "ChangeDuration"),
 					InputText = localization:getText("Title", "NewDuration"),
-					NoticeText = localization:getText("Title", "CurrentDuration_Migrated", {currentDuration = currentDuration}),
+					NoticeText = localization:getText(
+						"Title",
+						"CurrentDuration_Migrated",
+						{ currentDuration = currentDuration }
+					),
 					Text = currentDuration,
 					Buttons = {
-						{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round"},
-						{Key = true, Text = localization:getText("Dialog", "Save"), Style = "RoundPrimary"},
+						{ Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round" },
+						{ Key = true, Text = localization:getText("Dialog", "Save"), Style = "RoundPrimary" },
 					},
 					OnTextSubmitted = self.setSelectedKeyframeDuration,
 					OnClose = self.setChangingDuration,
@@ -768,19 +773,19 @@ function DopeSheetController:render()
 				}),
 
 				SavedToast = savedAnimName and Roact.createElement(NoticeToast, {
-					Text = localization:getText("Toast", "Saved_Migrated", {savedAnimName = savedAnimName}),
+					Text = localization:getText("Toast", "Saved_Migrated", { savedAnimName = savedAnimName }),
 					OnClose = props.CloseSavedToast,
 				}),
 
 				LoadedToast = showLoadToast and loadedAnimName and Roact.createElement(NoticeToast, {
-					Text = localization:getText("Toast", "Loaded_Migrated", {loadedAnimName = loadedAnimName}),
+					Text = localization:getText("Toast", "Loaded_Migrated", { loadedAnimName = loadedAnimName }),
 					OnClose = props.CloseLoadedToast,
 				}),
 
 				InvalidId = showInvalidIdWarning and Roact.createElement(NoticeToast, {
 					Text = localization:getText("Toast", "InvalidAnimation"),
 					OnClose = props.CloseInvalidAnimationToast,
-				})
+				}),
 			}),
 
 			IgnoreLayout = Roact.createElement("Folder", {}, {
@@ -789,8 +794,8 @@ function DopeSheetController:render()
 					TopTrackIndex = topTrackIndex,
 					Position = UDim2.new(0, 0, 0, colorsPosition),
 					MaxHeight = absoluteSize.Y - colorsPosition,
-				})
-			 }),
+				}),
+			}),
 		})
 	else
 		return Roact.createElement("Frame", {
@@ -804,7 +809,7 @@ end
 
 DopeSheetController = withContext({
 	Localization = ContextServices.Localization,
-	Analytics = ContextServices.Analytics
+	Analytics = ContextServices.Analytics,
 })(DopeSheetController)
 
 local function mapStateToProps(state, props)
@@ -862,15 +867,17 @@ local function mapDispatchToProps(dispatch)
 		end,
 
 		DeselectAllKeyframes = function()
-			dispatch(SetSelectedKeyframes{})
+			dispatch(SetSelectedKeyframes({}))
 			dispatch(SetSelectedEvents({}))
 		end,
 
-		DeleteSelectedKeyframes = if not GetFFlagKeyframeReduction() then function(analytics)
-			dispatch(AddWaypoint())
-			dispatch(DeleteSelectedKeyframes(analytics))
-			dispatch(SetRightClickContextInfo({}))
-		end else nil,
+		DeleteSelectedKeyframes = if not GetFFlagKeyframeReduction()
+			then function(analytics)
+				dispatch(AddWaypoint())
+				dispatch(DeleteSelectedKeyframes(analytics))
+				dispatch(SetRightClickContextInfo({}))
+			end
+			else nil,
 
 		SetRightClickContextInfo = function(info)
 			dispatch(SetRightClickContextInfo(info))
@@ -903,9 +910,11 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetNotification("Loaded", false))
 		end,
 
-		Pause = if not GetFFlagRetirePause() then function()
-			dispatch(Pause())
-		end else nil,
+		Pause = if not GetFFlagRetirePause()
+			then function()
+				dispatch(Pause())
+			end
+			else nil,
 
 		CloseClippedToast = function()
 			dispatch(SetNotification("ClippedWarning", false))

@@ -13,7 +13,7 @@ local Group = {}
 
 function Group.mock()
 	return {
-        groupId = 12341234,
+		groupId = 12341234,
 		name = "yeet",
 	}
 end

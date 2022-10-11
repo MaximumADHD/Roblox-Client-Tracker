@@ -151,10 +151,12 @@ function SubcategoriesView:render()
 		ScrollingFrame = Roact.createElement(ScrollingFrame, {
 			AutoSizeCanvas = true,
 			AutomaticCanvasSize = if FFlagToolboxFixSubcategoryScrolling then Enum.AutomaticSize.Y else nil,
-			AutoSizeLayoutOptions = if FFlagToolboxFixSubcategoryScrolling then nil else {
-				Padding = UDim.new(0, SPACING),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-			},
+			AutoSizeLayoutOptions = if FFlagToolboxFixSubcategoryScrolling
+				then nil
+				else {
+					Padding = UDim.new(0, SPACING),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				},
 			CanvasSize = UDim2.new(1, 0, 0, 0),
 			Layout = if FFlagToolboxFixSubcategoryScrolling then Enum.FillDirection.Vertical else nil,
 			LayoutOrder = if FFlagToolboxFixSubcategoryScrolling then Enum.SortOrder.LayoutOrder else nil,

@@ -8,13 +8,11 @@ function Input.isControl(keyCode)
 end
 
 function Input.isShift(keyCode)
-	return keyCode == Enum.KeyCode.LeftShift
-		or keyCode == Enum.KeyCode.RightShift
+	return keyCode == Enum.KeyCode.LeftShift or keyCode == Enum.KeyCode.RightShift
 end
 
 function Input.isDeleteKey(keyCode)
-	return keyCode == Enum.KeyCode.Backspace
-		or keyCode == Enum.KeyCode.Delete
+	return keyCode == Enum.KeyCode.Backspace or keyCode == Enum.KeyCode.Delete
 end
 
 function Input.isMultiSelectKey(keyCode)
@@ -56,6 +54,5 @@ end
 function Input.isRightBracket(keyCode)
 	return keyCode == Enum.KeyCode.RightBracket
 end
-
 
 return Input

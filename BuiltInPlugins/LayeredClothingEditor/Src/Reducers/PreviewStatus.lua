@@ -9,6 +9,7 @@ local PreviewConstants = AccessoryAndBodyToolSharedUtil.PreviewConstants
 return Rodux.createReducer({
 	categoryFilter = "",
 	searchFilter = "",
+	docked = true,
 	selectedTab = PreviewConstants.TABS_KEYS.None,
 	selectedAssets = {}, --saved which assets are selected for previewing, maps tabs -> { ids }
 	userAddedAssets = {},
@@ -22,6 +23,12 @@ return Rodux.createReducer({
 	SetSearchFilter = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			searchFilter = action.searchFilter,
+		})
+	end,
+
+	SetDocked = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			docked = action.docked,
 		})
 	end,
 

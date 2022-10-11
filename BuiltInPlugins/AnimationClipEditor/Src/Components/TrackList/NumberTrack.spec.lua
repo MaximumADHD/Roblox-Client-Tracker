@@ -14,7 +14,7 @@ return function()
 				Indent = 0,
 				DoShade = false,
 				Items = items or {},
-			})
+			}),
 		})
 	end
 
@@ -24,7 +24,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestNumberTrack(), container)
 		local frame = container:FindFirstChildOfClass("Frame")
@@ -38,20 +38,23 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render its items", function ()
+	it("should render its items", function()
 		local container = Instance.new("Folder")
-		local instance = Roact.mount(createTestNumberTrack({
-			{
-				Name = "TestName",
-				Key = "Item1",
-				Value = 1,
-			},
-			{
-				Name = "OtherName",
-				Key = "Item2",
-				Value = 2,
-			},
-		}), container)
+		local instance = Roact.mount(
+			createTestNumberTrack({
+				{
+					Name = "TestName",
+					Key = "Item1",
+					Value = 1,
+				},
+				{
+					Name = "OtherName",
+					Key = "Item2",
+					Value = 2,
+				},
+			}),
+			container
+		)
 		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame).to.be.ok()

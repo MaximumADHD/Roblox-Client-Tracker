@@ -1,5 +1,3 @@
-local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -12,11 +10,9 @@ local Action = Util.Action
 	We could just use voteLoading as a tri-state boolean and exclude voteFetchAttempted, but that's less intuitive
 --]]
 return Action(script.Name, function(assetId: number, voteLoading: boolean, voteFetchAttempted: boolean)
-	if FFlagToolboxUseGetVote then
-		return {
-			AssetId = assetId,
-			VoteLoading = voteLoading,
-			VoteFetchAttempted = voteFetchAttempted,
-		}
-	end
+	return {
+		AssetId = assetId,
+		VoteLoading = voteLoading,
+		VoteFetchAttempted = voteFetchAttempted,
+	}
 end)

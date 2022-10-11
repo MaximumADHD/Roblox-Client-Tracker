@@ -24,8 +24,11 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local UILibraryCompat = Plugin.Src.UILibraryCompat
-local RoundFrame = require(UILibraryCompat.RoundFrame)
+local RoundFrame = require(UILibraryCompat.RoundFrame) -- Remove with GetFFlagRetireUILibraryCompat
+local Pane = Framework.UI.Pane
+
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local GetFFlagRetireUILibraryCompat = require(Plugin.LuaFlags.GetFFlagRetireUILibraryCompat)
 
 local TextBox = Roact.PureComponent:extend("TextBox")
 
@@ -97,7 +100,8 @@ function TextBox:render()
 		clearTextOnFocus = true
 	end
 
-	return Roact.createElement(RoundFrame, {
+	return Roact.createElement(if GetFFlagRetireUILibraryCompat() then Pane else RoundFrame, {
+		Style = if GetFFlagRetireUILibraryCompat() then "BorderBox" else nil,
 		Size = size,
 		BackgroundColor3 = textBoxTheme.backgroundColor,
 		BorderColor3 = borderColor,
@@ -152,12 +156,9 @@ function TextBox:render()
 	})
 end
 
-
 TextBox = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Mouse = ContextServices.Mouse,
 })(TextBox)
-
-
 
 return TextBox

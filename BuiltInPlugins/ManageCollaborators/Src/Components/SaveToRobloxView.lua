@@ -1,5 +1,3 @@
-local FFlagManageCollaboratorsTelemetryEnabled = game:GetFastFlag("ManageCollaboratorsTelemetryEnabled")
-
 local TextService = game:GetService("TextService")
 
 local StudioPublishService = game:GetService("StudioPublishService")
@@ -15,7 +13,7 @@ local withContext = ContextServices.withContext
 local Stylizer = Framework.Style.Stylizer
 local Localization = ContextServices.Localization
 
-local Analytics = if FFlagManageCollaboratorsTelemetryEnabled then require(Plugin.Src.Util.Analytics) else nil
+local Analytics = require(Plugin.Src.Util.Analytics)
 
 local SaveToRobloxView = Roact.PureComponent:extend("SaveToRobloxView")
 
@@ -52,9 +50,7 @@ function SaveToRobloxView:render()
 			Position = UDim2.new(0.5, 0, 0, style.saveToRobloxView.publishButton.offset),
 			AnchorPoint = Vector2.new(.5, .5),
 			OnClick = function()
-				if FFlagManageCollaboratorsTelemetryEnabled then
-					Analytics.reportSaveToRobloxPressed()
-				end
+				Analytics.reportSaveToRobloxPressed()
 				StudioPublishService:ShowSaveOrPublishPlaceToRoblox(false, false, Enum.StudioCloseMode.None)
 				closeWidget()
 			end

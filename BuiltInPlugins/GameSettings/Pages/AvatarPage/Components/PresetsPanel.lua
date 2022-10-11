@@ -121,11 +121,41 @@ function PresetsPanel:render()
 	return Roact.createElement(ButtonBar, {
 		Padding = 10,
 		Buttons = {
-			{ Name=localization:getText("General", "PresetDefault"), Enabled=isEnabled, Value=self.createDefaultModel, ShowPressed=true, Mouse=mouse },
-			{ Name=localization:getText("General", "PresetClassicScale"), Enabled=isEnabled, Value=self.createClassicModel1, ShowPressed=true, Mouse=mouse },
-			{ Name=localization:getText("General", "PresetFullClassic"), Enabled=isEnabled, Value=self.createClassicModel2, ShowPressed=true, Mouse=mouse },
-			{ Name=localization:getText("General", "PresetRthro"), Enabled=isEnabled, Value=self.createRthroModel, ShowPressed=true, Mouse=mouse },
-			{ Name=localization:getText("General", "PresetPlayerChoice"), Enabled=isEnabled, Value=self.createPlayerChoiceModel, ShowPressed=true, Mouse=mouse }
+			{
+				Name = localization:getText("General", "PresetDefault"),
+				Enabled = isEnabled,
+				Value = self.createDefaultModel,
+				ShowPressed = true,
+				Mouse = mouse,
+			},
+			{
+				Name = localization:getText("General", "PresetClassicScale"),
+				Enabled = isEnabled,
+				Value = self.createClassicModel1,
+				ShowPressed = true,
+				Mouse = mouse,
+			},
+			{
+				Name = localization:getText("General", "PresetFullClassic"),
+				Enabled = isEnabled,
+				Value = self.createClassicModel2,
+				ShowPressed = true,
+				Mouse = mouse,
+			},
+			{
+				Name = localization:getText("General", "PresetRthro"),
+				Enabled = isEnabled,
+				Value = self.createRthroModel,
+				ShowPressed = true,
+				Mouse = mouse,
+			},
+			{
+				Name = localization:getText("General", "PresetPlayerChoice"),
+				Enabled = isEnabled,
+				Value = self.createPlayerChoiceModel,
+				ShowPressed = true,
+				Mouse = mouse,
+			},
 		},
 		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		Title = localization:getText("General", "TitlePresets"),
@@ -137,20 +167,15 @@ function PresetsPanel:render()
 	})
 end
 
-
 PresetsPanel = withContext({
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 })(PresetsPanel)
 
-
-
-PresetsPanel = RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		return {
-			boundaries = state.MorpherEditorRoot.StateMorpher.StateSettings.scaleBoundaries.boundaries
-		}
-	end
-)(PresetsPanel)
+PresetsPanel = RoactRodux.UNSTABLE_connect2(function(state, props)
+	return {
+		boundaries = state.MorpherEditorRoot.StateMorpher.StateSettings.scaleBoundaries.boundaries,
+	}
+end)(PresetsPanel)
 
 return PresetsPanel

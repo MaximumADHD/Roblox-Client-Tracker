@@ -17,7 +17,7 @@ return function()
 				TextXAlignment = Enum.TextXAlignment.Left,
 				Items = items or {},
 				MaxItems = 1,
-			})
+			}),
 		})
 	end
 
@@ -27,7 +27,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestFilteringTextBox(), container)
 		local frame = container:FindFirstChildOfClass("Frame")
@@ -41,10 +41,10 @@ return function()
 	it("should render a dropdown when items are given", function()
 		local container = Instance.new("Folder")
 
-		local element = createTestFilteringTextBox({"Item1", "Item2"}, container)
+		local element = createTestFilteringTextBox({ "Item1", "Item2" }, container)
 
 		local instance = Roact.mount(element, container)
-		Roact.update(instance, createTestFilteringTextBox({"Item1", "Item2"}, container))
+		Roact.update(instance, createTestFilteringTextBox({ "Item1", "Item2" }, container))
 
 		local gui = container:FindFirstChildOfClass("ScreenGui")
 		local main = gui.TopLevelDetector.ScrollBlocker
@@ -56,10 +56,10 @@ return function()
 	it("should filter the dropdown items based on text", function()
 		local container = Instance.new("Folder")
 
-		local element = createTestFilteringTextBox({"Test", "Other"}, container)
+		local element = createTestFilteringTextBox({ "Test", "Other" }, container)
 
 		local instance = Roact.mount(element, container)
-		Roact.update(instance, createTestFilteringTextBox({"Test", "Other"}, container, "Te"))
+		Roact.update(instance, createTestFilteringTextBox({ "Test", "Other" }, container, "Te"))
 
 		local gui = container:FindFirstChildOfClass("ScreenGui")
 		local main = gui.TopLevelDetector.ScrollBlocker

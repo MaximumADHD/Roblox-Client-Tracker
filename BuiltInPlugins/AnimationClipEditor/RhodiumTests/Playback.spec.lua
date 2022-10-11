@@ -16,7 +16,7 @@ return function()
 			Type = Constants.INSTANCE_TYPES.Rig,
 			Tracks = {
 				Head = {
-					Keyframes = {0, 4},
+					Keyframes = { 0, 4 },
 					Data = {
 						[0] = {
 							EasingStyle = Enum.PoseEasingStyle.Linear,

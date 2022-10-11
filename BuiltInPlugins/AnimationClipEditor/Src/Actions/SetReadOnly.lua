@@ -9,8 +9,8 @@
 
 local Action = require(script.Parent.Action)
 
-return Action(script.Name, function(readOnly: boolean): {readOnly: boolean}
+return Action(script.Name, function(readOnly: boolean): { readOnly: boolean }
 	return {
-		readOnly = readOnly
+		readOnly = readOnly,
 	}
 end)

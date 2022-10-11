@@ -1,5 +1,4 @@
 local DownloadCloudTable = require(script.Parent.DownloadCloudTable)
-local FFlagLocalizationToolsFixExampleNotDownloaded = game:GetFastFlag("LocalizationToolsFixExampleNotDownloaded")
 local Plugin = script.Parent.Parent.Parent
 
 local Http = require(Plugin.Packages.Framework).Http
@@ -147,9 +146,7 @@ return function()
 		 	expect(firstEntry.Key).to.equal(goodItem.identifier.key)
 		 	expect(firstEntry.Source).to.equal(goodItem.identifier.source)
 		 	expect(firstEntry.Context).to.equal(goodItem.identifier.context)
-		 	if FFlagLocalizationToolsFixExampleNotDownloaded then
-				expect(firstEntry.Example).to.equal(goodItem.metadata.example)
-		 	end
+			expect(firstEntry.Example).to.equal(goodItem.metadata.example)
 		 	local firstExpectedTranslation = goodItem.translations[1]
 		 	expect(firstEntry.Values[firstExpectedTranslation.locale]).to.equal(firstExpectedTranslation.translationText)
 		 end)

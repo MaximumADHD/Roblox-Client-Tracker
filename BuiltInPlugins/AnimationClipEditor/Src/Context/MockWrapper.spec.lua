@@ -13,7 +13,7 @@ local withContext = ContextServices.withContext
 return function()
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(MockWrapper, {}, {
-			TestElement = Roact.createElement("Frame")
+			TestElement = Roact.createElement("Frame"),
 		})
 
 		local container = Instance.new("Folder")
@@ -42,7 +42,7 @@ return function()
 				end
 				TestElement = RoactRodux.connect(function(store)
 					return {
-						abc = store.abc
+						abc = store.abc,
 					}
 				end)(TestElement)
 
@@ -52,11 +52,11 @@ return function()
 			local TestElement = createTestElementWithStore()
 
 			local testReducer = Rodux.createReducer({
-				abc = "123"
-			},{
+				abc = "123",
+			}, {
 				["TestAction"] = function(state, action)
 					return {
-						abc = action.abc
+						abc = action.abc,
 					}
 				end,
 			})
@@ -65,7 +65,7 @@ return function()
 			local element = Roact.createElement(MockWrapper, {
 				store = roduxStore,
 			}, {
-				TestElement = Roact.createElement(TestElement)
+				TestElement = Roact.createElement(TestElement),
 			})
 			local container = Instance.new("Folder")
 			local instance = Roact.mount(element, container)
@@ -79,8 +79,8 @@ return function()
 
 			function testThemedElement:render()
 				local theme = GetFFlagExtendPluginTheme() and self.props.Stylizer or self.props.Stylizer.PluginTheme
-				return Roact.createElement("Frame",{
-					BackgroundColor3 = theme.BackgroundColor
+				return Roact.createElement("Frame", {
+					BackgroundColor3 = theme.BackgroundColor,
 				})
 			end
 
@@ -95,7 +95,7 @@ return function()
 			local testThemedElement = createTestThemedElement()
 
 			local element = Roact.createElement(MockWrapper, {}, {
-				TestElement = Roact.createElement(testThemedElement)
+				TestElement = Roact.createElement(testThemedElement),
 			})
 
 			local container = Instance.new("Folder")

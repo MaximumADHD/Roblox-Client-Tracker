@@ -5,12 +5,11 @@ local Constants = require(Plugin.Src.Resources.Constants)
 
 return function(universeId, apiImpl)
 	return function(store)
-        apiImpl.Develop.V2.Universes.configuration(universeId):makeRequest()
-        :andThen(function(response)
-            local configuration = response.responseBody
-            store:dispatch(SetGameConfiguration(configuration))
-        end, function(err)
-            store:dispatch(SetChooseGameQueryState(Constants.QUERY_STATE.QUERY_STATE_FAILED))
-        end)
+		apiImpl.Develop.V2.Universes.configuration(universeId):makeRequest():andThen(function(response)
+			local configuration = response.responseBody
+			store:dispatch(SetGameConfiguration(configuration))
+		end, function(err)
+			store:dispatch(SetChooseGameQueryState(Constants.QUERY_STATE.QUERY_STATE_FAILED))
+		end)
 	end
 end

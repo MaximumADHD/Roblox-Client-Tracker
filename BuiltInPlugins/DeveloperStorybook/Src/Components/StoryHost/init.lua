@@ -44,14 +44,14 @@ type Props = {
 }
 
 type State = {
-	storyError: string?
+	storyError: string?,
 }
 
 function StoryHost:init()
 	self.paneRef = Roact.createRef()
 	self.handle = nil
 	self.state = {
-		storyError = nil
+		storyError = nil,
 	} :: State
 	self.mounted = false
 end
@@ -67,7 +67,7 @@ function StoryHost:didMount()
 	end)
 	if not ok then
 		self:setState({
-			storyError = result
+			storyError = result,
 		})
 	end
 end
@@ -98,7 +98,7 @@ function StoryHost:_mountInspector(currentHost: Instance)
 	local name = props.Name or "Story"
 	local pluginGui = currentHost:FindFirstAncestorWhichIsA("PluginGui")
 	local frameName = props.Name and "Story " .. name or "Story"
-	local reversePrefix = {frameName}
+	local reversePrefix = { frameName }
 	local parent = currentHost
 	while parent ~= pluginGui do
 		insert(reversePrefix, parent.Name)
@@ -109,7 +109,7 @@ function StoryHost:_mountInspector(currentHost: Instance)
 		self.inspector = Framework.DeveloperTools.forLibrary("DeveloperStorybook", {
 			rootInstance = pluginGui,
 			rootPrefix = reverse(reversePrefix),
-			pickerParent = currentHost:FindFirstAncestor("InfoPanel")
+			pickerParent = currentHost:FindFirstAncestor("InfoPanel"),
 		})
 		self.inspector:addRoactTree(name, self.handle, Roact)
 	end)
@@ -151,7 +151,7 @@ function StoryHost:didUpdate(prevProps: Props)
 	end)
 	if ok then
 		self:setState({
-			storyError = Roact.None
+			storyError = Roact.None,
 		})
 	else
 		if self.handle ~= nil then
@@ -165,7 +165,7 @@ function StoryHost:didUpdate(prevProps: Props)
 			self.handle = nil
 		end
 		self:setState({
-			storyError = result
+			storyError = result,
 		})
 	end
 end
@@ -221,7 +221,7 @@ function StoryHost:render()
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			AutomaticSize = not props.FixedSize and Enum.AutomaticSize.Y or nil,
 			[Roact.Ref] = self.paneRef,
-		}, children)
+		}, children),
 	})
 end
 

@@ -67,7 +67,7 @@ function TrackEditor:init()
 		local trackLeft = self.state.AbsolutePosition.X
 
 		if input.UserInputType == Enum.UserInputType.MouseWheel then
-			local xPos = (input.Position.X  - trackLeft) / trackWidth
+			local xPos = (input.Position.X - trackLeft) / trackWidth
 			local newScroll = (xPos - scroll) * (1 - zoom)
 			newScroll = math.clamp(scroll + newScroll, 0, 1)
 
@@ -81,7 +81,7 @@ function TrackEditor:init()
 				props.OnScroll(input.Position.Z)
 			end
 		elseif input.UserInputType == Enum.UserInputType.MouseMovement and self.dragging then
-			local xDelta = (-input.Delta.X) / trackWidth
+			local xDelta = -input.Delta.X / trackWidth
 			local newScroll = xDelta * (1 / math.max(0.01, zoom))
 			newScroll = math.clamp(scroll + newScroll, 0, 1)
 			props.SetHorizontalScrollZoom(newScroll, zoom)
@@ -100,11 +100,13 @@ function TrackEditor:init()
 		local props = self.props
 		local absoluteSize = self.state.AbsoluteSize or Vector2.new()
 		local playhead = props.Playhead
-		return (self.getTrackPadding() * 0.5) + TrackUtils.getScaledKeyframePosition(
-			playhead,
-			props.StartTick,
-			props.EndTick,
-			absoluteSize.X - self.getTrackPadding())
+		return (self.getTrackPadding() * 0.5)
+			+ TrackUtils.getScaledKeyframePosition(
+				playhead,
+				props.StartTick,
+				props.EndTick,
+				absoluteSize.X - self.getTrackPadding()
+			)
 	end
 
 	self.stepAnimation = function(tck)
@@ -122,8 +124,10 @@ function TrackEditor:init()
 	end
 
 	self.inputEnded = function(_, input)
-		if self.props.Mouse and self.dragging and input.UserInputType == Enum.UserInputType.MouseMovement
-			or input.UserInputType == Enum.UserInputType.MouseButton3 then
+		if
+			self.props.Mouse and self.dragging and input.UserInputType == Enum.UserInputType.MouseMovement
+			or input.UserInputType == Enum.UserInputType.MouseButton3
+		then
 			self.props.Mouse:__popCursor()
 			self.stopDragging()
 		end
@@ -295,13 +299,24 @@ function TrackEditor:render()
 			}),
 
 			VerticalZoomBar = showCurveCanvas and Roact.createElement(ZoomBar, {
-				Size = UDim2.new(0, Constants.SCROLL_BAR_SIZE,
-					0, absoluteSize.Y - Constants.SCROLL_BAR_SIZE - Constants.SCROLL_BAR_PADDING - Constants.TIMELINE_HEIGHT + 1),
+				Size = UDim2.new(
+					0,
+					Constants.SCROLL_BAR_SIZE,
+					0,
+					absoluteSize.Y
+						- Constants.SCROLL_BAR_SIZE
+						- Constants.SCROLL_BAR_PADDING
+						- Constants.TIMELINE_HEIGHT
+						+ 1
+				),
 				Position = UDim2.new(1, 0, 0, Constants.TIMELINE_HEIGHT),
 				Direction = ZoomBar.VERTICAL,
 				ZIndex = 4,
 				LayoutOrder = 2,
-				ContainerSize = Vector2.new(absoluteSize.X, absoluteSize.Y - Constants.SCROLL_BAR_SIZE - Constants.TIMELINE_HEIGHT),
+				ContainerSize = Vector2.new(
+					absoluteSize.X,
+					absoluteSize.Y - Constants.SCROLL_BAR_SIZE - Constants.TIMELINE_HEIGHT
+				),
 				AdjustScrollZoom = props.SetVerticalScrollZoom,
 				Scroll = verticalScroll,
 				Zoom = verticalZoom,

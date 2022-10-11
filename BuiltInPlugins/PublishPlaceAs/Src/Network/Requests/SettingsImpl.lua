@@ -114,24 +114,21 @@ local function saveAll(state, localization, apiImpl, email, isPublish)
 		configuration.OptInLocations = nil
 	end
 
-	apiImpl.Develop.V2.Universes.configuration(gameId, configuration):makeRequest()
-	:andThen(function()
+	apiImpl.Develop.V2.Universes.configuration(gameId, configuration):makeRequest():andThen(function()
 		StudioPublishService:SetUniverseDisplayName(configuration.name)
 		StudioPublishService:RefreshDocumentDisplayName()
 		StudioPublishService:EmitPlacePublishedSignal()
 	end, function(response)
-		parseErrorMessages(response, localization:getText("Error","SetConfiguration"))
+		parseErrorMessages(response, localization:getText("Error", "SetConfiguration"))
 	end)
 
 	if universeActivate.isActive then
-		apiImpl.Develop.V1.Universes.activate(gameId):makeRequest()
-		:catch(function(response)
-			parseErrorMessages(response, localization:getText("Error","ActivatingUniverse"))
+		apiImpl.Develop.V1.Universes.activate(gameId):makeRequest():catch(function(response)
+			parseErrorMessages(response, localization:getText("Error", "ActivatingUniverse"))
 		end)
 	else
-		apiImpl.Develop.V1.Universes.deactivate(gameId):makeRequest()
-		:catch(function(response)
-			parseErrorMessages(response, localization:getText("Error","DeactivatingUniverse"))
+		apiImpl.Develop.V1.Universes.deactivate(gameId):makeRequest():catch(function(response)
+			parseErrorMessages(response, localization:getText("Error", "DeactivatingUniverse"))
 		end)
 	end
 end

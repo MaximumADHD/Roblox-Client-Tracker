@@ -19,7 +19,7 @@ local screenMap = {
 	[Constants.SCREENS.PUBLISH_FAIL] = require(Plugin.Src.Components.ScreenPublishFail),
 	[Constants.SCREENS.PUBLISH_MANAGEMENT] = require(Plugin.Src.Components.ScreenPublishManagement),
 }
-for screen,_ in pairs(Constants.SCREENS) do
+for screen, _ in pairs(Constants.SCREENS) do
 	assert(screenMap[screen] ~= nil, string.format("ScreenSelect.lua does not handle screen %s", screen))
 end
 

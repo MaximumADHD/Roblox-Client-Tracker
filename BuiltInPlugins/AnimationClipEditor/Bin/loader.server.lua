@@ -14,7 +14,7 @@ local SourceStrings = Plugin.Src.Resources.SourceStrings
 local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 local PluginLoaderBuilder = require(Plugin.PluginLoader.PluginLoaderBuilder)
 
-local args : PluginLoaderBuilder.Args = {
+local args: PluginLoaderBuilder.Args = {
 	plugin = plugin,
 	pluginName = Constants.PLUGIN_NAME,
 	translationResourceTable = LocalizedStrings,
@@ -31,8 +31,8 @@ local args : PluginLoaderBuilder.Args = {
 		getDescription = function(getLocalizedText, namespace, pluginName)
 			return getLocalizedText(namespace, pluginName, "Plugin", "Description")
 		end,
-		icon =  if FFlagHighDpiIcons then Constants.PLUGIN_ICON else Constants.DEPRECATED_PLUGIN_BUTTON_IMAGE,
-		text = nil
+		icon = if FFlagHighDpiIcons then Constants.PLUGIN_ICON else Constants.DEPRECATED_PLUGIN_BUTTON_IMAGE,
+		text = nil,
 	},
 	dockWidgetInfo = {
 		dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(
@@ -44,15 +44,15 @@ local args : PluginLoaderBuilder.Args = {
 			Constants.MAIN_MINIMUM_SIZE.X, --minSize.X,
 			Constants.MAIN_MINIMUM_SIZE.Y --minSize.Y
 		),
-		getDockTitle =  function(getLocalizedText, namespace, pluginName)
+		getDockTitle = function(getLocalizedText, namespace, pluginName)
 			return getLocalizedText(namespace, pluginName, "Plugin", "Name")
 		end,
 		name = "AnimationClipEditor",
 		zIndexBehavior = Enum.ZIndexBehavior.Sibling,
-	}
+	},
 }
 
-local pluginLoaderContext : PluginLoaderBuilder.PluginLoaderContext = PluginLoaderBuilder.build(args)
+local pluginLoaderContext: PluginLoaderBuilder.PluginLoaderContext = PluginLoaderBuilder.build(args)
 local success = pluginLoaderContext.pluginLoader:waitForUserInteraction()
 if not success then
 	-- Plugin destroyed

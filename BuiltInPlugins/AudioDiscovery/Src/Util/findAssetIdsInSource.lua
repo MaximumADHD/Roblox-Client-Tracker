@@ -3,10 +3,10 @@ local isAssetIdLike = require(script.Parent.isAssetIdLike)
 local NewAssetIdString = "rbxassetid://"
 local NewAssetIdStringLength = #NewAssetIdString
 
-local function findAssetIdsInSource(source: string): {string}
+local function findAssetIdsInSource(source: string): { string }
 	local assetIds = {}
 	local alreadyAddedAssetIdSet = {}
-	
+
 	local init = 1
 	while true do
 		local matchStart, matchEnd = string.find(source, "%d+", init)

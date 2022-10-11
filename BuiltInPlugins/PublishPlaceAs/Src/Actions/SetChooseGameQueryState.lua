@@ -5,13 +5,12 @@ local AssertType = require(Plugin.Src.Util.AssertType)
 
 local Action = require(script.Parent.Action)
 
-
 return Action(script.Name, function(queryStateArg)
 	AssertType.assertNullableType(queryStateArg, "string", "SetChooseGameQuery arg")
 
 	return {
-    gameInfo = {
-			queryState = queryStateArg
-		}
+		gameInfo = {
+			queryState = queryStateArg,
+		},
 	}
 end)

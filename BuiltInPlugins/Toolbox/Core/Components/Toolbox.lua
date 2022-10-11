@@ -328,7 +328,9 @@ function Toolbox:render()
 		[Roact.Change.AbsoluteSize] = onAbsoluteSizeChange,
 		[Roact.Event.MouseEnter] = props.onMouseEnter,
 	}, {
-		AnnouncementDialogContainer = if FFlagToolboxEnableAnnouncementsDialog then Roact.createElement(AnnouncementDialog) else nil,
+		AnnouncementDialogContainer = if FFlagToolboxEnableAnnouncementsDialog
+			then Roact.createElement(AnnouncementDialog)
+			else nil,
 
 		Tabs = Roact.createElement(TabSet, {
 			Size = UDim2.new(1, 0, 0, Constants.TAB_WIDGET_HEIGHT),
@@ -423,9 +425,11 @@ local function mapDispatchToProps(dispatch)
 			dispatch(GetToolboxManageableGroupsRequest(networkInterface, settings, newPageInfo))
 		end,
 
-		logSearchAnalytics = if FFlagToolboxAddVerifiedCreatorToAnalytics then function(keyword)
-			return dispatch(LogMarketplaceSearchAnalytics(keyword, false))
-		end else nil,
+		logSearchAnalytics = if FFlagToolboxAddVerifiedCreatorToAnalytics
+			then function(keyword)
+				return dispatch(LogMarketplaceSearchAnalytics(keyword, false))
+			end
+			else nil,
 	}
 end
 

@@ -43,7 +43,7 @@ function MainPlugin:init(props)
 		UDim.new(0, 300),
 		UDim.new(1, -300),
 	}
-	self.onPaneSizesChange = function(paneSizes: {UDim})
+	self.onPaneSizesChange = function(paneSizes: { UDim })
 		self:setState({
 			paneSizes = paneSizes,
 		})
@@ -158,7 +158,7 @@ function MainPlugin:render()
 			}, {
 				Roact.createElement(StoryTree),
 				Roact.createElement(InfoPanel),
-			})
+			}),
 		}),
 	})
 end

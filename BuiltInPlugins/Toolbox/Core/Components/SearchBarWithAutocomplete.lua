@@ -264,18 +264,35 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		logAutocompleteSearchAnalytics = if FFlagToolboxAddVerifiedCreatorToAnalytics then function(keyword, assetType, prefix, keyCount, delCount, autocompleteShown)
-			dispatch(
-				LogMarketplaceAutocompleteSearchAnalytics(keyword, assetType, prefix, keyCount, delCount, autocompleteShown, false)
-			)
-		end else nil,
-
-		logSearchAnalytics = if FFlagToolboxAddVerifiedCreatorToAnalytics then
-			nil
-		else
-			function(keyword, assetType, prefix, keyCount, delCount, autocompleteShown)
+		logAutocompleteSearchAnalytics = if FFlagToolboxAddVerifiedCreatorToAnalytics
+			then function(keyword, assetType, prefix, keyCount, delCount, autocompleteShown)
 				dispatch(
-					LogMarketplaceSearchAnalytics(keyword, assetType, prefix, keyCount, delCount, autocompleteShown, false)
+					LogMarketplaceAutocompleteSearchAnalytics(
+						keyword,
+						assetType,
+						prefix,
+						keyCount,
+						delCount,
+						autocompleteShown,
+						false
+					)
+				)
+			end
+			else nil,
+
+		logSearchAnalytics = if FFlagToolboxAddVerifiedCreatorToAnalytics
+			then nil
+			else function(keyword, assetType, prefix, keyCount, delCount, autocompleteShown)
+				dispatch(
+					LogMarketplaceSearchAnalytics(
+						keyword,
+						assetType,
+						prefix,
+						keyCount,
+						delCount,
+						autocompleteShown,
+						false
+					)
 				)
 			end,
 

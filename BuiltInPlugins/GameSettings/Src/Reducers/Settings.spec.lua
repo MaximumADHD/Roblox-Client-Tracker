@@ -29,11 +29,7 @@ return function()
 				Changed = {},
 				Errors = {},
 			}
-			local store = Rodux.Store.new(
-				SettingsReducer,
-				startState,
-				{Rodux.thunkMiddleware}
-			)
+			local store = Rodux.Store.new(SettingsReducer, startState, { Rodux.thunkMiddleware })
 
 			store:dispatch(AddChange("SomeKey", "SomeValue"))
 
@@ -51,11 +47,7 @@ return function()
 				},
 				Errors = {},
 			}
-			local store = Rodux.Store.new(
-				SettingsReducer,
-				startState,
-				{Rodux.thunkMiddleware}
-			)
+			local store = Rodux.Store.new(SettingsReducer, startState, { Rodux.thunkMiddleware })
 
 			store:dispatch(AddChange("SomeKey", "SomeValue"))
 
@@ -74,11 +66,7 @@ return function()
 					SomeKey = "SomeError",
 				},
 			}
-			local store = Rodux.Store.new(
-				SettingsReducer,
-				startState,
-				{Rodux.thunkMiddleware}
-			)
+			local store = Rodux.Store.new(SettingsReducer, startState, { Rodux.thunkMiddleware })
 
 			store:dispatch(AddChange("SomeKey", "OtherValue2"))
 
@@ -95,13 +83,9 @@ return function()
 					ExistingKey = "ExistingError",
 				},
 			}
-			local store = Rodux.Store.new(
-				SettingsReducer,
-				startState,
-				{Rodux.thunkMiddleware}
-			)
+			local store = Rodux.Store.new(SettingsReducer, startState, { Rodux.thunkMiddleware })
 
-			store:dispatch(AddErrors({NewKey = "NewError"}))
+			store:dispatch(AddErrors({ NewKey = "NewError" }))
 
 			expect(store:getState().Errors.ExistingKey).to.equal("ExistingError")
 			expect(store:getState().Errors.NewKey).to.equal("NewError")
@@ -115,13 +99,9 @@ return function()
 					ExistingKey = "ExistingError",
 				},
 			}
-			local store = Rodux.Store.new(
-				SettingsReducer,
-				startState,
-				{Rodux.thunkMiddleware}
-			)
+			local store = Rodux.Store.new(SettingsReducer, startState, { Rodux.thunkMiddleware })
 
-			store:dispatch(AddErrors({ExistingKey = "NewError"}))
+			store:dispatch(AddErrors({ ExistingKey = "NewError" }))
 
 			expect(store:getState().Errors.ExistingKey).to.equal("NewError")
 		end)
@@ -136,11 +116,7 @@ return function()
 				},
 				Errors = {},
 			}
-			local store = Rodux.Store.new(
-				SettingsReducer,
-				startState,
-				{Rodux.thunkMiddleware}
-			)
+			local store = Rodux.Store.new(SettingsReducer, startState, { Rodux.thunkMiddleware })
 
 			store:dispatch(DiscardChanges())
 
@@ -158,11 +134,7 @@ return function()
 					OtherKey = "OtherValue",
 				},
 			}
-			local store = Rodux.Store.new(
-				SettingsReducer,
-				startState,
-				{Rodux.thunkMiddleware}
-			)
+			local store = Rodux.Store.new(SettingsReducer, startState, { Rodux.thunkMiddleware })
 
 			store:dispatch(DiscardError("SomeKey"))
 
@@ -180,11 +152,7 @@ return function()
 					OtherKey = "OtherValue",
 				},
 			}
-			local store = Rodux.Store.new(
-				SettingsReducer,
-				startState,
-				{Rodux.thunkMiddleware}
-			)
+			local store = Rodux.Store.new(SettingsReducer, startState, { Rodux.thunkMiddleware })
 
 			store:dispatch(DiscardErrors())
 
@@ -202,11 +170,7 @@ return function()
 				},
 				Errors = {},
 			}
-			local store = Rodux.Store.new(
-				SettingsReducer,
-				startState,
-				{Rodux.thunkMiddleware}
-			)
+			local store = Rodux.Store.new(SettingsReducer, startState, { Rodux.thunkMiddleware })
 
 			store:dispatch(SetCurrentSettings({}))
 
@@ -217,13 +181,9 @@ return function()
 			local startState = {
 				Current = {},
 				Changed = {},
-				Errors = {SomeKey = "SomeError",},
+				Errors = { SomeKey = "SomeError" },
 			}
-			local store = Rodux.Store.new(
-				SettingsReducer,
-				startState,
-				{Rodux.thunkMiddleware}
-			)
+			local store = Rodux.Store.new(SettingsReducer, startState, { Rodux.thunkMiddleware })
 
 			store:dispatch(SetCurrentSettings({}))
 
@@ -240,11 +200,7 @@ return function()
 				SomeKey = "SomeValue",
 				OtherKey = "OtherValue",
 			}
-			local store = Rodux.Store.new(
-				SettingsReducer,
-				startState,
-				{Rodux.thunkMiddleware}
-			)
+			local store = Rodux.Store.new(SettingsReducer, startState, { Rodux.thunkMiddleware })
 
 			store:dispatch(SetCurrentSettings(newState))
 
@@ -257,11 +213,7 @@ return function()
 			local startState = {
 				Warnings = {},
 			}
-			local store = Rodux.Store.new(
-				SettingsReducer,
-				startState,
-				{Rodux.thunkMiddleware}
-			)
+			local store = Rodux.Store.new(SettingsReducer, startState, { Rodux.thunkMiddleware })
 
 			store:dispatch(AddWarning("Warning"))
 
@@ -272,13 +224,9 @@ return function()
 	describe("DiscardWarning", function()
 		it("should remove an entry from the Warnings list", function()
 			local startState = {
-				Warnings = {"Warning"},
+				Warnings = { "Warning" },
 			}
-			local store = Rodux.Store.new(
-				SettingsReducer,
-				startState,
-				{Rodux.thunkMiddleware}
-			)
+			local store = Rodux.Store.new(SettingsReducer, startState, { Rodux.thunkMiddleware })
 
 			store:dispatch(DiscardWarning("Warning"))
 

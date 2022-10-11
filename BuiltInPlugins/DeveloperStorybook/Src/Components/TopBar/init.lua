@@ -1,4 +1,3 @@
-
 local Main = script.Parent.Parent.Parent
 local Roact = require(Main.Packages.Roact)
 local RoactRodux = require(Main.Packages.RoactRodux)
@@ -78,7 +77,7 @@ function TopBar:render()
 				ShowSearchButton = false,
 				ShowSearchIcon = true,
 				OnTextChanged = props.setSearch,
-			})
+			}),
 		}),
 		Collapse = Roact.createElement(Button, {
 			Style = "Round",
@@ -88,14 +87,14 @@ function TopBar:render()
 			OnClick = props.getStories,
 		}, {
 			Tooltip = Roact.createElement(Tooltip, {
-				Text = "Collapse all stories"
+				Text = "Collapse all stories",
 			}),
 			Icon = Roact.createElement(Decoration.Image, {
 				Size = UDim2.fromOffset(24, 24),
 				Position = UDim2.fromScale(0.5, 0.5),
 				AnchorPoint = Vector2.new(0.5, 0.5),
-				Image = "rbxasset://textures/DeveloperStorybook/Collapse.png"
-			})
+				Image = "rbxasset://textures/DeveloperStorybook/Collapse.png",
+			}),
 		}),
 		Embed = Roact.createElement(Button, {
 			StyleModifier = isEmbedded and StyleModifier.Disabled or nil,
@@ -106,14 +105,14 @@ function TopBar:render()
 			OnClick = self.onEmbedStorybook,
 		}, {
 			Tooltip = Roact.createElement(Tooltip, {
-				Text = "Embed Storybook in the place"
+				Text = "Embed Storybook in the place",
 			}),
 			Icon = Roact.createElement(Decoration.Image, {
 				Size = UDim2.fromOffset(24, 24),
 				Position = UDim2.fromScale(0.5, 0.5),
 				AnchorPoint = Vector2.new(0.5, 0.5),
-				Image = "rbxasset://textures/DeveloperStorybook/Embed.png"
-			})
+				Image = "rbxasset://textures/DeveloperStorybook/Embed.png",
+			}),
 		}),
 		Live = Roact.createElement(Checkbox, {
 			LayoutOrder = 5,
@@ -139,44 +138,38 @@ function TopBar:render()
 				end) or 1,
 				Items = THEMES,
 				OnItemActivated = props.selectTheme,
-			})
-		})
+			}),
+		}),
 	})
 end
-
 
 TopBar = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(TopBar)
 
-
-
-return RoactRodux.connect(
-	function(state, props)
-		return {
-			Embedded = state.Stories.embedded,
-			CurrentTheme = state.Stories.theme,
-			Live = state.Stories.live,
-		}
-	end,
-	function(dispatch)
-		return {
-			selectTheme = function(theme)
-				ThemeSwitcher.setTheme(theme)
-				dispatch(SelectTheme(theme))
-			end,
-			setSearch = function(text: string)
-				dispatch(SetSearch(text))
-			end,
-			setLive = function(live: boolean)
-				dispatch(SetLive(live))
-			end,
-			embedStorybook = function()
-				dispatch(EmbedStorybook())
-			end,
-			getStories = function()
-				dispatch(GetStories())
-			end,
-		}
-	end
-)(TopBar)
+return RoactRodux.connect(function(state, props)
+	return {
+		Embedded = state.Stories.embedded,
+		CurrentTheme = state.Stories.theme,
+		Live = state.Stories.live,
+	}
+end, function(dispatch)
+	return {
+		selectTheme = function(theme)
+			ThemeSwitcher.setTheme(theme)
+			dispatch(SelectTheme(theme))
+		end,
+		setSearch = function(text: string)
+			dispatch(SetSearch(text))
+		end,
+		setLive = function(live: boolean)
+			dispatch(SetLive(live))
+		end,
+		embedStorybook = function()
+			dispatch(EmbedStorybook())
+		end,
+		getStories = function()
+			dispatch(GetStories())
+		end,
+	}
+end)(TopBar)

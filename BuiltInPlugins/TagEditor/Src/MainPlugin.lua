@@ -29,7 +29,6 @@ local Plugin = ContextServices.Plugin
 local Mouse = ContextServices.Mouse
 local Store = ContextServices.Store
 
-local Actions = require(main.Src.Actions)
 local Reducers = require(main.Src.Reducers)
 local MakeTheme = require(main.Src.Resources.MakeTheme)
 local InitialStoreState = require(main.Src.InitialStoreState)
@@ -42,13 +41,13 @@ local createAnalyticsHandlers = require(main.Src.Util.createAnalyticsHandlers)
 
 local Components = main.Src.Components
 local MainGui = require(Components.MainGui)
+local WorldView = require(Components.WorldView)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
 function MainPlugin:init(props)
 	self.state = {
 		enabled = false,
-		worldView = false,
 	}
 
 	self.store = Rodux.Store.new(Reducers, InitialStoreState, {
@@ -63,16 +62,6 @@ function MainPlugin:init(props)
 			local initiatedByUser = true
 			self:setEnabled(newEnabled, initiatedByUser)
 		end)
-	end
-
-	self.toggleWorldView = function()
-		local store = self.store
-		local state = store:getState()
-		local newValue = not state.WorldView
-		store:dispatch(Actions.ToggleWorldView(newValue))
-		self:setState({
-			worldView = newValue,
-		})
 	end
 
 	self.onClose = function()
@@ -179,6 +168,8 @@ function MainPlugin:render()
 		}, {
 			MainGui = Roact.createElement(MainGui),
 		}),
+
+		WorldView = Roact.createElement(WorldView),
 	})
 end
 

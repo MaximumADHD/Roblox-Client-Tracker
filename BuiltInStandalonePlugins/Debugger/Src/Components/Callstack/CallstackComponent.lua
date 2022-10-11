@@ -47,6 +47,7 @@ local MakePluginActions = if FFlagDevFrameworkMigrateContextMenu
 	then require(UtilFolder.MakePluginActions) 
 	else require(UtilFolder.DEPRECATED_MakePluginActions)
 
+local FFlagStudioUseCorrectFrameIdForContextInDebuggerV2 = game:GetFastFlag("StudioUseCorrectFrameIdForContextInDebuggerV2")
 local Models = PluginFolder.Src.Models
 local CallstackRow = require(Models.Callstack.CallstackRow)
 
@@ -228,11 +229,16 @@ function CallstackComponent:init()
 			local threadId = props.CurrentThreadId
 			local frameNumber = rowInfo.frameColumn
 			props.setCurrentFrameNumber(threadId, frameNumber)
+			
+			local DebuggerUIService = game:GetService("DebuggerUIService")
+
+			if FFlagStudioUseCorrectFrameIdForContextInDebuggerV2 then
+				DebuggerUIService:SetCurrentFrameId(threadId, frameNumber - 1) -- -1 for transfer from Lua to C++ indexing
+			end
 
 			self.props.Analytics:report(AnalyticsEventNames.CallstackChangeFrame, "CallstackComponent")
 
 			if rowInfo.scriptGUID ~= "" and rowInfo.sourceColumn ~= "" and rowInfo.lineColumn ~= "" and frameNumber then
-				local DebuggerUIService = game:GetService("DebuggerUIService")
 
 				-- If we click the top frame (the one with the yellow arrow), then we remove any curved blue arrows we are showing.
 				if frameNumber > 1 then

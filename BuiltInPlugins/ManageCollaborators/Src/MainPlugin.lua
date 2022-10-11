@@ -12,8 +12,6 @@
 		into *PR*, and then *PR* into master.
 
 ]]
-local FFlagManageCollaboratorsTelemetryEnabled = game:GetFastFlag("ManageCollaboratorsTelemetryEnabled")
-
 local main = script.Parent.Parent
 -- local _Types = require(main.Src.Types) -- uncomment to use types
 local Roact = require(main.Packages.Roact)
@@ -53,7 +51,7 @@ local SocialController = require(main.Src.Controllers.SocialController)
 
 local ResetStore = require(main.Src.Actions.ResetStore)
 
-local Analytics = if FFlagManageCollaboratorsTelemetryEnabled then require(main.Src.Util.Analytics) else nil
+local Analytics = require(main.Src.Util.Analytics)
 
 function MainPlugin:init(props)
 	self.plugin = Plugin.new(props.Plugin)
@@ -123,9 +121,7 @@ function MainPlugin:init(props)
 	end, {})
 
 	TeamCreateService.ToggleManageCollaborators:Connect(function()
-		if FFlagManageCollaboratorsTelemetryEnabled then
-			Analytics.reportCollaborateButtonPressed()
-		end
+		Analytics.reportCollaborateButtonPressed()
 		
 		self.toggleEnabled()
 	end)

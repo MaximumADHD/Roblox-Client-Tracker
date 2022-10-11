@@ -76,12 +76,20 @@ return function(easingStyle, easingDirection)
 					end
 
 					-- Generate new keyframes
-					local newKeyframes = CurveUtils.generateCurve(dataTrack.Type, easingStyle, easingDirection,
-						earliest, dataTrack.Data[earliest], latest, dataTrack.Data[latest])
+					local newKeyframes = CurveUtils.generateCurve(
+						dataTrack.Type,
+						easingStyle,
+						easingDirection,
+						earliest,
+						dataTrack.Data[earliest],
+						latest,
+						dataTrack.Data[latest]
+					)
 
 					if newKeyframes and not isEmpty(newKeyframes) then
 						-- Merge the new keys with the ones remaining on the track.
-						dataTrack.Keyframes = Cryo.List.join(Cryo.Dictionary.keys(dataTrack.Data), Cryo.Dictionary.keys(newKeyframes))
+						dataTrack.Keyframes =
+							Cryo.List.join(Cryo.Dictionary.keys(dataTrack.Data), Cryo.Dictionary.keys(newKeyframes))
 						table.sort(dataTrack.Keyframes)
 						dataTrack.Data = Cryo.Dictionary.join(dataTrack.Data, newKeyframes)
 					end

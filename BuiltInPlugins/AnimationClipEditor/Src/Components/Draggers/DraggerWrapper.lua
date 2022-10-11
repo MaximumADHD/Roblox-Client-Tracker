@@ -22,21 +22,37 @@ local DraggerSchema = require(Plugin.Src.Util.DraggerSchema.DraggerSchema)
 local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackInstances)
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
+local GetFFlagRetireWillUpdate = require(Plugin.LuaFlags.GetFFlagRetireWillUpdate)
 
 local DraggerWrapper = Roact.PureComponent:extend("DraggerWrapper")
 
 function DraggerWrapper:init()
-	self.state = {
-		selection = nil,
-	}
+	if not GetFFlagRetireWillUpdate() then
+		self.state = {
+			selection = nil,
+		}
+	end
+end
+
+function DraggerWrapper:didUpdate(oldProps)
+	if GetFFlagRetireWillUpdate() then
+		local props = self.props
+		if self.selection and props.SelectedTrackInstances ~= oldProps.SelectedTrackInstances then
+			self.selection.selectedTrackInstances = props.SelectedTrackInstances
+			local selectionSignal = self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged)
+			selectionSignal:Fire()
+		end
+	end
 end
 
 function DraggerWrapper:willUpdate(nextProps)
-	local props = self.props
-	if self.selection and props.SelectedTrackInstances ~= nextProps.SelectedTrackInstances then
-		self.selection.selectedTrackInstances = nextProps.SelectedTrackInstances
-		local selectionSignal = self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged)
-		selectionSignal:Fire()
+	if not GetFFlagRetireWillUpdate() then
+		local props = self.props
+		if self.selection and props.SelectedTrackInstances ~= nextProps.SelectedTrackInstances then
+			self.selection.selectedTrackInstances = nextProps.SelectedTrackInstances
+			local selectionSignal = self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged)
+			selectionSignal:Fire()
+		end
 	end
 end
 
@@ -58,9 +74,16 @@ local function mapDraggerContextToProps(draggerContext, props)
 		end
 
 		for trackName, value in pairs(values) do
-			local path = {trackName}
+			local path = { trackName }
 			if not AnimationData.isChannelAnimation(props.AnimationData) then
-				props.ValueChanged(instanceName, path, Constants.TRACK_TYPES.CFrame, props.Playhead, value, props.Analytics)
+				props.ValueChanged(
+					instanceName,
+					path,
+					Constants.TRACK_TYPES.CFrame,
+					props.Playhead,
+					value,
+					props.Analytics
+				)
 			else
 				local rotationType
 				local eulerAnglesOrder = props.DefaultEulerAnglesOrder
@@ -71,7 +94,14 @@ local function mapDraggerContextToProps(draggerContext, props)
 				end
 				-- Change the value of all tracks
 				TrackUtils.traverseValue(Constants.TRACK_TYPES.CFrame, value, function(_trackType, relPath, _value)
-					props.ValueChanged(instanceName, Cryo.List.join(path, relPath), _trackType, props.Playhead, _value, props.Analytics)
+					props.ValueChanged(
+						instanceName,
+						Cryo.List.join(path, relPath),
+						_trackType,
+						props.Playhead,
+						_value,
+						props.Analytics
+					)
 				end, rotationType, eulerAnglesOrder)
 			end
 		end
@@ -100,9 +130,11 @@ function DraggerWrapper:render()
 	if not self.draggerContext then
 		if props.AnimationData ~= nil then
 			self.selection, self.draggerContext = setUpDraggerContext(props)
-			self:setState({
-				selection = self.selection,
-			})
+			if not GetFFlagRetireWillUpdate() then
+				self:setState({
+					selection = self.selection,
+				})
+			end
 		else
 			return
 		end
@@ -158,7 +190,6 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-
 DraggerWrapper = withContext({
 	Plugin = ContextServices.Plugin,
 	PluginActions = ContextServices.PluginActions,
@@ -166,7 +197,5 @@ DraggerWrapper = withContext({
 	Mouse = ContextServices.Mouse,
 	Analytics = ContextServices.Analytics,
 })(DraggerWrapper)
-
-
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(DraggerWrapper)

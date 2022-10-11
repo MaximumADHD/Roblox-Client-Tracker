@@ -34,7 +34,7 @@ function TrackUtils.traverseTracks(trackName, track, func, leavesOnly)
 	local function traverse(track, trackName, path)
 		if track ~= nil then
 			if trackName then
-				path = Cryo.List.join(path, {trackName})
+				path = Cryo.List.join(path, { trackName })
 			end
 
 			local isLeaf = track.Components == nil or isEmpty(track.Components)
@@ -77,7 +77,7 @@ function TrackUtils.getNextKeyframe(tracks, playhead)
 	for trackName, track in pairs(tracks) do
 		TrackUtils.traverseTracks(nil, track, function(track)
 			local keyframes = track.Keyframes
-			local exactIndex, _, nextIndex = KeyframeUtils.findNearestKeyframesProperly(keyframes, playhead+1)
+			local exactIndex, _, nextIndex = KeyframeUtils.findNearestKeyframesProperly(keyframes, playhead + 1)
 			nextIndex = exactIndex or nextIndex
 			local nextFrame = nextIndex and keyframes[nextIndex] or nil
 			if nextFrame then
@@ -94,7 +94,7 @@ function TrackUtils.getPreviousKeyframe(tracks, playhead)
 	for trackName, track in pairs(tracks) do
 		TrackUtils.traverseTracks(nil, track, function(track)
 			local keyframes = track.Keyframes
-			local exactIndex, prevIndex = KeyframeUtils.findNearestKeyframesProperly(keyframes, playhead-1)
+			local exactIndex, prevIndex = KeyframeUtils.findNearestKeyframesProperly(keyframes, playhead - 1)
 			prevIndex = exactIndex or prevIndex
 			local prevFrame = prevIndex and keyframes[prevIndex] or nil
 			if prevFrame and prevFrame < playhead then
@@ -122,14 +122,14 @@ function TrackUtils.getSummaryKeyframes(tracks, startTick, endTick, selectedKeyf
 
 			local selectedTrack = selectedKeyframes and selectedKeyframes[instance] or nil
 			for _, part in ipairs(path) do
-				selectedTrack = selectedTrack and (selectedTrack.Components and selectedTrack.Components[part] or selectedTrack[part])
+				selectedTrack = selectedTrack
+						and (selectedTrack.Components and selectedTrack.Components[part] or selectedTrack[part])
 					or nil
 			end
 
 			local selection = selectedTrack and selectedTrack.Selection or {}
 			if keyframes and not isEmpty(keyframes) then
 				TrackUtils.traverseKeyframeRange(keyframes, startTick, endTick, function(tck)
-
 					foundTicks[tck] = true
 					if selection[tck] then
 						selectedTicks[tck] = true
@@ -248,8 +248,7 @@ function TrackUtils.getEulerAnglesOrder(track: Types.Track?): (Enum.RotationOrde
 			return nil
 		end
 
-		return TrackUtils.getEulerAnglesOrder(
-			track.Components[Constants.PROPERTY_KEYS.Rotation])
+		return TrackUtils.getEulerAnglesOrder(track.Components[Constants.PROPERTY_KEYS.Rotation])
 	end
 
 	if track.Type == Constants.TRACK_TYPES.EulerAngles then
@@ -330,7 +329,8 @@ function TrackUtils.getTrackInfoFromPosition(tracks, topTrackIndex, yPos)
 			for _, componentName in ipairs(Constants.COMPONENT_TRACK_TYPES[track.Type]._Order) do
 				local resPath, trackType
 				if track.Components[componentName] then
-					resPath, y, trackType = recurse(track.Components[componentName], y, Cryo.List.join(path, {componentName}))
+					resPath, y, trackType =
+						recurse(track.Components[componentName], y, Cryo.List.join(path, { componentName }))
 					if resPath then
 						return resPath, y, trackType, nil
 					end
@@ -346,7 +346,7 @@ function TrackUtils.getTrackInfoFromPosition(tracks, topTrackIndex, yPos)
 	for index, track in ipairs(tracks) do
 		if index >= topTrackIndex then
 			local relPath
-			relPath, yPos, trackType, rotationType = recurse(track, yPos, {track.Name})
+			relPath, yPos, trackType, rotationType = recurse(track, yPos, { track.Name })
 			trackIndex = trackIndex + 1
 
 			if relPath then
@@ -387,9 +387,8 @@ function TrackUtils.getCurrentValue(
 	track: Types.Track,
 	tck: number,
 	animationData: Types.AnimationData,
-	defaultEulerAnglesOrder: Enum.RotationOrder)
-	: (CFrame | Vector3 | number)?
-
+	defaultEulerAnglesOrder: Enum.RotationOrder
+): (CFrame | Vector3 | number)?
 	local name = track.Name
 	local instance = track.Instance
 
@@ -413,9 +412,8 @@ function TrackUtils.getCurrentValueForPath(
 	tck: number,
 	animationData: any,
 	trackType: string,
-	defaultEulerAnglesOrder: Enum.RotationOrder)
-	: ()
-
+	defaultEulerAnglesOrder: Enum.RotationOrder
+): ()
 	local currentTrack = animationData.Instances[instance]
 
 	-- Follow the path, through Tracks for the first part, or through Components for the next parts
@@ -458,16 +456,20 @@ function TrackUtils.getItemsForProperty(track, value, name, defaultEAO)
 	elseif trackType == Constants.TRACK_TYPES.Position then
 		items = makeVectorItems(value.X, value.Y, value.Z, Constants.TRACK_TYPES.Number)
 	elseif trackType == Constants.TRACK_TYPES.EulerAngles then
-		items = makeVectorItems(removeNegativeZero(math.deg(value.X)),
+		items = makeVectorItems(
+			removeNegativeZero(math.deg(value.X)),
 			removeNegativeZero(math.deg(value.Y)),
 			removeNegativeZero(math.deg(value.Z)),
-			Constants.TRACK_TYPES.Angle)
+			Constants.TRACK_TYPES.Angle
+		)
 	elseif trackType == Constants.TRACK_TYPES.Quaternion then
 		local xRot, yRot, zRot = value:ToEulerAngles(eulerAnglesOrder)
-		items = makeVectorItems(removeNegativeZero(math.deg(xRot)),
+		items = makeVectorItems(
+			removeNegativeZero(math.deg(xRot)),
 			removeNegativeZero(math.deg(yRot)),
 			removeNegativeZero(math.deg(zRot)),
-			Constants.TRACK_TYPES.Angle)
+			Constants.TRACK_TYPES.Angle
+		)
 	elseif trackType == Constants.TRACK_TYPES.Facs then
 		items = {
 			{
@@ -518,7 +520,12 @@ function TrackUtils.getPropertyForItems(track, items, defaultEAO)
 	elseif trackType == Constants.TRACK_TYPES.EulerAngles then
 		value = Vector3.new(math.rad(items[1].Value), math.rad(items[2].Value), math.rad(items[3].Value))
 	elseif trackType == Constants.TRACK_TYPES.Quaternion then
-		value = CFrame.fromEulerAngles(math.rad(items[1].Value), math.rad(items[2].Value), math.rad(items[3].Value), eulerAnglesOrder)
+		value = CFrame.fromEulerAngles(
+			math.rad(items[1].Value),
+			math.rad(items[2].Value),
+			math.rad(items[3].Value),
+			eulerAnglesOrder
+		)
 	elseif trackType == Constants.TRACK_TYPES.Number then
 		value = items[1].Value
 	elseif trackType == Constants.TRACK_TYPES.Angle then
@@ -562,10 +569,11 @@ function TrackUtils.adjustCurves(track)
 		local easingDirection = data.EasingDirection
 
 		if index < #keyframesCopy then
-			local nextTick = keyframesCopy[index+1]
+			local nextTick = keyframesCopy[index + 1]
 			local nextData = track.Data[nextTick]
 
-			local newKeyframes = CurveUtils.generateCurve(track.Type, easingStyle, easingDirection, tck, data, nextTick, nextData)
+			local newKeyframes =
+				CurveUtils.generateCurve(track.Type, easingStyle, easingDirection, tck, data, nextTick, nextData)
 			if newKeyframes and not isEmpty(newKeyframes) then
 				track.Keyframes = Cryo.List.join(track.Keyframes, Cryo.Dictionary.keys(newKeyframes))
 				track.Data = Cryo.Dictionary.join(track.Data, newKeyframes)
@@ -625,7 +633,8 @@ function TrackUtils.splitTrackComponents(track, rotationType, eulerAnglesOrder)
 				local rotationTrack = track.Components.Rotation
 
 				for _, componentName in ipairs(Constants.COMPONENT_TRACK_TYPES[Constants.TRACK_TYPES.Position]._Order) do
-					positionTrack.Components[componentName].Data[tck] = Cryo.Dictionary.join(track.Data[tck], { Value = position[componentName] })
+					positionTrack.Components[componentName].Data[tck] =
+						Cryo.Dictionary.join(track.Data[tck], { Value = position[componentName] })
 				end
 
 				rotationTrack.Data[tck] = Cryo.Dictionary.join(track.Data[tck], { Value = quaternion })
@@ -639,7 +648,7 @@ function TrackUtils.splitTrackComponents(track, rotationType, eulerAnglesOrder)
 
 					for grandchildName, grandchild in pairs(componentTrack.Components) do
 						grandchild.Data[tck] = Cryo.Dictionary.join(track.Data[tck], {
-							Value = values[grandchildName]
+							Value = values[grandchildName],
 						})
 					end
 					componentTrack.Keyframes = nil
@@ -670,9 +679,8 @@ function TrackUtils.createTrackListEntryComponents(
 	track: Track,
 	instanceName: string,
 	rotationType: string,
-	eulerAnglesOrder: string)
-	: ()
-
+	eulerAnglesOrder: string
+): ()
 	local componentTypes = Constants.COMPONENT_TRACK_TYPES[track.Type]
 	track.Instance = instanceName
 
@@ -699,7 +707,8 @@ function TrackUtils.createTrackListEntryComponents(
 				track.Components[componentName],
 				instanceName,
 				rotationType,
-				eulerAnglesOrder)
+				eulerAnglesOrder
+			)
 		end
 	end
 end
@@ -736,7 +745,7 @@ function TrackUtils.getComponentsInfo(track: any, startTick: number, endTick: nu
 							Count = 1,
 							Complete = expectedComponents == 1,
 							EasingStyle = data.EasingStyle,
-							InterpolationMode = data.InterpolationMode
+							InterpolationMode = data.InterpolationMode,
 						}
 					end
 				end
@@ -782,7 +791,6 @@ end
 -- such as EulerCFrame and QuaternionCFrame, for the top level track.
 function TrackUtils.traverseComponents(trackType, func, rotationType)
 	local function recurse(_trackType, relPath)
-
 		local compTypes = Constants.COMPONENT_TRACK_TYPES[_trackType]
 		if compTypes then
 			for _, compName in ipairs(compTypes._Order) do
@@ -790,7 +798,7 @@ function TrackUtils.traverseComponents(trackType, func, rotationType)
 				if compName == Constants.PROPERTY_KEYS.Rotation then
 					compType = rotationType
 				end
-				recurse(compType, Cryo.List.join(relPath, {compName}))
+				recurse(compType, Cryo.List.join(relPath, { compName }))
 			end
 		else
 			func(_trackType, relPath)
@@ -808,21 +816,25 @@ function TrackUtils.traverseValue(trackType, value, func, rotationType, eulerAng
 	local function recurse(_trackType, relPath, _value)
 		if _trackType == Constants.TRACK_TYPES.CFrame then
 			local position = _value.Position
-			recurse(Constants.TRACK_TYPES.Position, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Position}), position)
+			recurse(
+				Constants.TRACK_TYPES.Position,
+				Cryo.List.join(relPath, { Constants.PROPERTY_KEYS.Position }),
+				position
+			)
 
 			local rotation = if rotationType == Constants.TRACK_TYPES.Quaternion
-			then _value - position
-			else Vector3.new(_value:ToEulerAngles(eulerAnglesOrder))
+				then _value - position
+				else Vector3.new(_value:ToEulerAngles(eulerAnglesOrder))
 
-			recurse(rotationType, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Rotation}), rotation)
+			recurse(rotationType, Cryo.List.join(relPath, { Constants.PROPERTY_KEYS.Rotation }), rotation)
 		elseif _trackType == Constants.TRACK_TYPES.Position then
-			recurse(Constants.TRACK_TYPES.Number, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.X}), _value.X)
-			recurse(Constants.TRACK_TYPES.Number, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Y}), _value.Y)
-			recurse(Constants.TRACK_TYPES.Number, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Z}), _value.Z)
+			recurse(Constants.TRACK_TYPES.Number, Cryo.List.join(relPath, { Constants.PROPERTY_KEYS.X }), _value.X)
+			recurse(Constants.TRACK_TYPES.Number, Cryo.List.join(relPath, { Constants.PROPERTY_KEYS.Y }), _value.Y)
+			recurse(Constants.TRACK_TYPES.Number, Cryo.List.join(relPath, { Constants.PROPERTY_KEYS.Z }), _value.Z)
 		elseif _trackType == Constants.TRACK_TYPES.EulerAngles then
-			recurse(Constants.TRACK_TYPES.Angle, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.X}), _value.X)
-			recurse(Constants.TRACK_TYPES.Angle, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Y}), _value.Y)
-			recurse(Constants.TRACK_TYPES.Angle, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Z}), _value.Z)
+			recurse(Constants.TRACK_TYPES.Angle, Cryo.List.join(relPath, { Constants.PROPERTY_KEYS.X }), _value.X)
+			recurse(Constants.TRACK_TYPES.Angle, Cryo.List.join(relPath, { Constants.PROPERTY_KEYS.Y }), _value.Y)
+			recurse(Constants.TRACK_TYPES.Angle, Cryo.List.join(relPath, { Constants.PROPERTY_KEYS.Z }), _value.Z)
 		else
 			func(_trackType, relPath, _value)
 		end
@@ -844,27 +856,51 @@ end
 
 function TrackUtils.convertTrackToEulerAngles(track: Track, eulerAnglesOrder: Enum.RotationOrder): ()
 	-- This abstracts the euler angles order.
-	local toAngles: {[Enum.RotationOrder]: (Vector3) -> (number, number, number)} = {
-		[Enum.RotationOrder.XYZ] = function(v) return v.Z, v.Y, v.X end,
-		[Enum.RotationOrder.XZY] = function(v) return v.Y, v.Z, v.X end,
-		[Enum.RotationOrder.YXZ] = function(v) return v.Z, v.X, v.Y end,
-		[Enum.RotationOrder.YZX] = function(v) return v.X, v.Z, v.Y end,
-		[Enum.RotationOrder.ZXY] = function(v) return v.Y, v.X, v.Z end,
-		[Enum.RotationOrder.ZYX] = function(v) return v.X, v.Y, v.Z end,
+	local toAngles: { [Enum.RotationOrder]: (Vector3) -> (number, number, number) } = {
+		[Enum.RotationOrder.XYZ] = function(v)
+			return v.Z, v.Y, v.X
+		end,
+		[Enum.RotationOrder.XZY] = function(v)
+			return v.Y, v.Z, v.X
+		end,
+		[Enum.RotationOrder.YXZ] = function(v)
+			return v.Z, v.X, v.Y
+		end,
+		[Enum.RotationOrder.YZX] = function(v)
+			return v.X, v.Z, v.Y
+		end,
+		[Enum.RotationOrder.ZXY] = function(v)
+			return v.Y, v.X, v.Z
+		end,
+		[Enum.RotationOrder.ZYX] = function(v)
+			return v.X, v.Y, v.Z
+		end,
 	}
 
-	local fromAngles: {[Enum.RotationOrder]: (number, number, number) -> (Vector3)} = {
-		[Enum.RotationOrder.XYZ] = function(a, b, c) return Vector3.new(c, b, a) end,
-		[Enum.RotationOrder.XZY] = function(a, b, c) return Vector3.new(c, a, b) end,
-		[Enum.RotationOrder.YXZ] = function(a, b, c) return Vector3.new(b, c, a) end,
-		[Enum.RotationOrder.YZX] = function(a, b, c) return Vector3.new(a, c, b) end,
-		[Enum.RotationOrder.ZXY] = function(a, b, c) return Vector3.new(b, a, c) end,
-		[Enum.RotationOrder.ZYX] = function(a, b, c) return Vector3.new(a, b, c) end,
+	local fromAngles: { [Enum.RotationOrder]: (number, number, number) -> (Vector3) } = {
+		[Enum.RotationOrder.XYZ] = function(a, b, c)
+			return Vector3.new(c, b, a)
+		end,
+		[Enum.RotationOrder.XZY] = function(a, b, c)
+			return Vector3.new(c, a, b)
+		end,
+		[Enum.RotationOrder.YXZ] = function(a, b, c)
+			return Vector3.new(b, c, a)
+		end,
+		[Enum.RotationOrder.YZX] = function(a, b, c)
+			return Vector3.new(a, c, b)
+		end,
+		[Enum.RotationOrder.ZXY] = function(a, b, c)
+			return Vector3.new(b, a, c)
+		end,
+		[Enum.RotationOrder.ZYX] = function(a, b, c)
+			return Vector3.new(a, b, c)
+		end,
 	}
 
 	-- Given a set of three previous angles and a new CFrame, find the Euler
 	-- decomposition that best fits the previous angles.
-	local function findClosestAngles(prevAngles: Vector3, value:CFrame): Vector3
+	local function findClosestAngles(prevAngles: Vector3, value: CFrame): Vector3
 		local angles = Vector3.new(value:ToEulerAngles(eulerAnglesOrder))
 
 		if not prevAngles then
@@ -898,13 +934,13 @@ function TrackUtils.convertTrackToEulerAngles(track: Track, eulerAnglesOrder: En
 		gamma = reduceFullCircles(prevGamma, gamma)
 		gamma2 = reduceFullCircles(prevGamma, gamma2)
 
-		local dist = ((prevAlpha-alpha) * (prevAlpha-alpha))
-			+ ((prevBeta-beta) * (prevBeta-beta))
-			+ ((prevGamma-gamma) * (prevGamma-gamma))
+		local dist = ((prevAlpha - alpha) * (prevAlpha - alpha))
+			+ ((prevBeta - beta) * (prevBeta - beta))
+			+ ((prevGamma - gamma) * (prevGamma - gamma))
 
-		local dist2 = ((prevAlpha-alpha2) * (prevAlpha-alpha2))
-			+ ((prevBeta-beta2) * (prevBeta-beta2))
-			+ ((prevGamma-gamma2) * (prevGamma-gamma2))
+		local dist2 = ((prevAlpha - alpha2) * (prevAlpha - alpha2))
+			+ ((prevBeta - beta2) * (prevBeta - beta2))
+			+ ((prevGamma - gamma2) * (prevGamma - gamma2))
 
 		-- Pick the best option
 		if dist <= dist2 then
@@ -949,8 +985,8 @@ function TrackUtils.convertTrackToEulerAngles(track: Track, eulerAnglesOrder: En
 		local componentTrack = track.Components[componentName]
 
 		for index, tck in ipairs(track.Keyframes) do
-			local prevTick = track.Keyframes[index-1]
-			local nextTick = track.Keyframes[index+1]
+			local prevTick = track.Keyframes[index - 1]
+			local nextTick = track.Keyframes[index + 1]
 			local parentKeyframe = track.Data[tck]
 
 			local keyframe = componentTrack.Data[tck]

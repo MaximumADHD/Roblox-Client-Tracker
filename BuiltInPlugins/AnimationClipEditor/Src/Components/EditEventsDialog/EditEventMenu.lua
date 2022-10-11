@@ -41,17 +41,16 @@ function EditEventMenu:render()
 	local props = self.props
 	local showMenu = props.ShowMenu
 
-	return showMenu and Roact.createElement(ContextMenu, {
-		Actions = self:makeMenuActions(localization),
-		OnMenuOpened = props.OnMenuOpened,
-	}) or nil
+	return showMenu
+			and Roact.createElement(ContextMenu, {
+				Actions = self:makeMenuActions(localization),
+				OnMenuOpened = props.OnMenuOpened,
+			})
+		or nil
 end
 
-
 EditEventMenu = withContext({
-	Localization = ContextServices.Localization
+	Localization = ContextServices.Localization,
 })(EditEventMenu)
-
-
 
 return EditEventMenu

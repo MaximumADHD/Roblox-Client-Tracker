@@ -27,14 +27,12 @@ return function()
 	local _PluginsCategoryName = Category.WHITELISTED_PLUGINS.name
 	local _CurrentSelectionPluginsText = CurrentSelectionBasicText .. _PluginsCategoryName
 
-	local DropdownIconPath = TestHelpers.getPathInTestToolbox(
-		"Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon"
-	)
+	local DropdownIconPath =
+		TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon")
 	local DropdownScrollingFramePath =
 		"game.CoreGui.ScreenGui.ClickEventDetectFrame.ScrollBlocker.StyledScrollingFrame.ScrollingFrame."
-	local CurrentSelectionTextPath = TestHelpers.getPathInTestToolbox(
-		"Toolbox.Header.CategoryMenu.CurrentSelection.Border.CurrentSelectionLabel"
-	)
+	local CurrentSelectionTextPath =
+		TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.CurrentSelectionLabel")
 	local MarketplaceTabIconPath = TestHelpers.getPathInTestToolbox("Toolbox.Tabs.Marketplace.Content.Icon")
 
 	--local JestRoblox = require(Plugin.Packages.Dev.JestRoblox)

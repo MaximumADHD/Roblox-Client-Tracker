@@ -9,7 +9,7 @@ return function()
 		return Roact.createElement(MockWrapper, {
 			Container = container,
 		}, {
-			StartScreen = Roact.createElement(StartScreen, props)
+			StartScreen = Roact.createElement(StartScreen, props),
 		})
 	end
 
@@ -19,7 +19,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestStartScreen(), container)
 		local frame = container:FindFirstChildOfClass("Frame")

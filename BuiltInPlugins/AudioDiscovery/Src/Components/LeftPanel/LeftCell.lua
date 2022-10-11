@@ -28,9 +28,11 @@ function LeftCell:getContent()
 		if typeof(props.Value) == "number" then
 			value = tostring(value)
 			-- More accurate duration stored in Sound instance
-			local sound = if locations then mapOne(locations, function(location)
-				return if location.Instance.ClassName == "Sound" then location.Instance else nil
-			end) else nil
+			local sound = if locations
+				then mapOne(locations, function(location)
+					return if location.Instance.ClassName == "Sound" then location.Instance else nil
+				end)
+				else nil
 			if sound then
 				value = tostring(sound.TimeLength)
 			end
@@ -54,7 +56,7 @@ function LeftCell:getContent()
 		end
 		return Roact.createElement(Image, {
 			Size = UDim2.fromOffset(24, 24),
-			Image = ("rbxasset://textures/AudioDiscovery/%s.png"):format(ok)
+			Image = ("rbxasset://textures/AudioDiscovery/%s.png"):format(ok),
 		})
 	end
 end
@@ -115,4 +117,3 @@ end
 return withContext({
 	Localization = Localization,
 })(LeftCell)
-

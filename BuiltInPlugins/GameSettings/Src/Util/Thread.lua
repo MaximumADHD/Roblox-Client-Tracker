@@ -8,19 +8,21 @@ function Thread.new(callback)
 		__success = nil,
 		__results = nil,
 		__callback = callback,
-		__event = Instance.new("BindableEvent")
+		__event = Instance.new("BindableEvent"),
 	}
 
 	return setmetatable(self, Thread)
 end
 
 function Thread:start(...)
-	if self.__running or self.__finished then return end
+	if self.__running or self.__finished then
+		return
+	end
 	self.__running = true
 
-	local args = {...}
+	local args = { ... }
 	coroutine.wrap(function()
-		local results = {pcall(self.__callback, unpack(args))}
+		local results = { pcall(self.__callback, unpack(args)) }
 		self.__success = results[1]
 		self.__results = table.move(results, 2, #results, 1, {})
 		self.__running = false
@@ -35,7 +37,7 @@ function Thread:start(...)
 end
 
 function Thread:join()
-	if (not self.__finished) and (not self.__running) then
+	if not self.__finished and not self.__running then
 		error("Attempt to join on unstarted thread", 2)
 	end
 	if not self.__finished then

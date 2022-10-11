@@ -24,7 +24,7 @@ return function(localization, dialog)
 
 		local warningDialogProps = {
 			isActive = {
-				Title = localized:getText("General", "PrivateDialogHeader") ,
+				Title = localized:getText("General", "PrivateDialogHeader"),
 				Header = localized:getText("General", "PrivateDialogPrompt"),
 				Description = localized:getText("General", "PrivateDialogBody"),
 				Buttons = {
@@ -33,19 +33,19 @@ return function(localization, dialog)
 				},
 			},
 			universeAvatarType = {
-				Title = localized:getText("General", "AvatarDialogHeader") ,
+				Title = localized:getText("General", "AvatarDialogHeader"),
 				Header = localized:getText("General", "AvatarDialogPrompt"),
 				Description = localized:getText("General", "AvatarDialogBody"),
 				Buttons = {
 					localized:getText("General", "ReplyNo"),
 					localized:getText("General", "ReplyYes"),
 				},
-			}
+			},
 		}
 
 		local errorDialogProps = {
 			Size = Vector2.new(343, 145),
-			Title = localized:getText("General", "ErrorsOnSaveHeader") ,
+			Title = localized:getText("General", "ErrorsOnSaveHeader"),
 			Header = localized:getText("General", "ErrorsOnSaveBody"),
 			Buttons = {
 				localized:getText("General", "ReplyOK"),
@@ -62,16 +62,15 @@ return function(localization, dialog)
 				resolve()
 			end)
 		end)
-		:andThen(function()
-			return store:dispatch(SaveChanges())
-			:catch(function(errors)
-				dialog.showDialog(SimpleDialog, errorDialogProps):catch(function()
-					--do nothing
+			:andThen(function()
+				return store:dispatch(SaveChanges()):catch(function(errors)
+					dialog.showDialog(SimpleDialog, errorDialogProps):catch(function()
+						--do nothing
+					end)
 				end)
 			end)
-		end)
-		:andThen(function(resolved)
-			return resolved
-		end)
+			:andThen(function(resolved)
+				return resolved
+			end)
 	end
 end

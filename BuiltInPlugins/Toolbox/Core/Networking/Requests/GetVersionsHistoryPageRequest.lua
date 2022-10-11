@@ -19,7 +19,7 @@ export type VersionHistoryPageResponseItem = {
 export type VersionHistoryPageResponse = {
 	previousPageCursor: string?,
 	nextPageCursor: string?,
-	data: {VersionHistoryPageResponseItem},
+	data: { VersionHistoryPageResponseItem },
 }
 
 return function(networkInterface, assetId, pageCursor)

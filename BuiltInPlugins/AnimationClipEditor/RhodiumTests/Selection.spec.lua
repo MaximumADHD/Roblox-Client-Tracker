@@ -15,14 +15,14 @@ return function()
 		Root = {
 			Tracks = {
 				Head = {
-					Keyframes = {320, 640},
+					Keyframes = { 320, 640 },
 					Data = {
 						[320] = {},
 						[640] = {},
 					},
 				},
 				UpperTorso = {
-					Keyframes = {320, 640, 960},
+					Keyframes = { 320, 640, 960 },
 					Data = {
 						[320] = {},
 						[640] = {},
@@ -33,7 +33,7 @@ return function()
 		},
 	}
 	testAnimationData.Events = {
-		Keyframes = {0, 320},
+		Keyframes = { 0, 320 },
 		Data = {
 			[0] = {
 				TestEvent = "TestValue",

@@ -54,7 +54,7 @@ function PropsList:renderProp(name: string, type: string, comment: string, index
 				BackgroundTransparency = 1,
 				LayoutOrder = 1,
 			}),
-	
+
 			Name = Roact.createElement("TextLabel", {
 				AutomaticSize = Enum.AutomaticSize.XY,
 				Text = name,
@@ -98,11 +98,8 @@ function PropsList:render()
 	}, children)
 end
 
-
 PropsList = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(PropsList)
-
-
 
 return PropsList

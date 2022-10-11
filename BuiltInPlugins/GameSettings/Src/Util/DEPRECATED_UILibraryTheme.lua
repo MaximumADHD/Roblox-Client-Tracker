@@ -32,7 +32,7 @@ local function getThemeHelpers()
 			StyleColor = setmetatable({}, {
 				__index = function()
 					return Color3.new()
-				end
+				end,
 			}),
 			StyleModifier = {
 				Default = "Default",
@@ -52,7 +52,6 @@ local function getThemeHelpers()
 		}
 	end
 end
-
 
 local function getUILibraryTheme()
 	local helpers = getThemeHelpers()
@@ -89,7 +88,7 @@ local function getUILibraryTheme()
 			disabled = theme:getColor(StyleColor.Tab),
 			handle = theme:getColor(StyleColor.MainText),
 			border = theme:getColor(StyleColor.Border),
-			gradient = theme:getColor(StyleColor.Dark)
+			gradient = theme:getColor(StyleColor.Dark),
 		},
 
 		textBox = {
@@ -104,12 +103,13 @@ local function getUILibraryTheme()
 		textEntry = {
 			textTransparency = {
 				enabled = 0,
-				disabled = 0.5
-			}
+				disabled = 0.5,
+			},
 		},
 
 		scrollingFrame = {
-			backgroundColor = isDark and theme:getColor(StyleColor.InputFieldBackground) or Color3.fromRGB(245, 245, 245),
+			backgroundColor = isDark and theme:getColor(StyleColor.InputFieldBackground)
+				or Color3.fromRGB(245, 245, 245),
 		},
 
 		toggleButton = {

@@ -9,13 +9,13 @@ local initial = {
 return Rodux.createReducer(initial, {
 	SetGroupInfo = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			groupInfo = Cryo.Dictionary.join(state.groupInfo, action.groupInfo)
+			groupInfo = Cryo.Dictionary.join(state.groupInfo, action.groupInfo),
 		})
 	end,
 
 	ResetInfo = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			groupInfo = Cryo.Dictionary.join(state.groupInfo, action.groupInfo)
+			groupInfo = Cryo.Dictionary.join(state.groupInfo, action.groupInfo),
 		})
 	end,
 })

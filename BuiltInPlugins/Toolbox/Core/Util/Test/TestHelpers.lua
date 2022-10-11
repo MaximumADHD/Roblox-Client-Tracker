@@ -32,16 +32,16 @@ function TestHelpers.pollAssertionUntil(fn: () -> boolean, stopAfterSeconds: num
 	local lastError
 
 	return pollUntil(function()
-		local ok, err = pcall(fn)
+			local ok, err = pcall(fn)
 
-		if ok then
-			lastError = nil
-			return true
-		else
-			lastError = err
-			return false
-		end
-	end, stopAfterSeconds)
+			if ok then
+				lastError = nil
+				return true
+			else
+				lastError = err
+				return false
+			end
+		end, stopAfterSeconds)
 		:catch(function()
 			error(string.format("pollAssertionUntil failed after %ds:\n%s", stopAfterSeconds or 1, tostring(lastError)))
 		end)

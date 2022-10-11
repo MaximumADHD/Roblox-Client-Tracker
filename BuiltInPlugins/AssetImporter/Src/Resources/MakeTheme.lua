@@ -31,6 +31,7 @@ local PluginTheme = {
 	PropertyView = {
 		IconSize = 20,
 		Spacing = 4,
+		ScrollBarOffset = 10,
 	},
 
 	TopBar = {

@@ -82,26 +82,30 @@ return function(loadValuesToProps, dispatchForProps)
 		local addLayout = props.AddLayout
 		local contentHeightChanged = props.ContentHeightChanged
 
-		return Roact.createElement("Frame", {
-			AutomaticSize = Enum.AutomaticSize.Y,
-			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 1, 0),
-			LayoutOrder = layoutOrder,
-		}, Cryo.Dictionary.join(children, {
-			Padding = Roact.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, 20),
-				PaddingRight = UDim.new(0, 20),
-			}),
-			Layout = addLayout and Roact.createElement("UIListLayout", {
-				Padding = UDim.new(0, ELEMENT_PADDING),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				[Roact.Change.AbsoluteContentSize] = function(rbx)
-					if contentHeightChanged then
-						contentHeightChanged(rbx.AbsoluteContentSize.y)
-					end
-				end,
+		return Roact.createElement(
+			"Frame",
+			{
+				AutomaticSize = Enum.AutomaticSize.Y,
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 1, 0),
+				LayoutOrder = layoutOrder,
+			},
+			Cryo.Dictionary.join(children, {
+				Padding = Roact.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, 20),
+					PaddingRight = UDim.new(0, 20),
+				}),
+				Layout = addLayout and Roact.createElement("UIListLayout", {
+					Padding = UDim.new(0, ELEMENT_PADDING),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					[Roact.Change.AbsoluteContentSize] = function(rbx)
+						if contentHeightChanged then
+							contentHeightChanged(rbx.AbsoluteContentSize.y)
+						end
+					end,
+				}),
 			})
-		}))
+		)
 	end
 
 	Page = withContext({

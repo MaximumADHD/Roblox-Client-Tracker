@@ -51,12 +51,8 @@ function PurchaseDialog:renderContent(theme, localizedContent)
 
 	theme = self.props.Stylizer
 
-	local textWidth = GetTextSize(
-		localizedContent.PurchaseFlow.CurrentBalance,
-		Constants.FONT_SIZE_MEDIUM,
-		nil,
-		Vector2.new(0, 0)
-	).X
+	local textWidth =
+		GetTextSize(localizedContent.PurchaseFlow.CurrentBalance, Constants.FONT_SIZE_MEDIUM, nil, Vector2.new(0, 0)).X
 
 	local width = Dialog.IMAGE_SIZE.X.Offset + Dialog.PROMPT_SIZE.X.Offset
 	local height = Dialog.PROMPT_SIZE.Y.Offset + Dialog.BALANCE_SIZE.Y.Offset

@@ -7,7 +7,7 @@ return function()
 	local EventTrack = require(script.Parent.EventTrack)
 
 	local sampleEvents = {
-		Keyframes = {1, 2, 5, 6},
+		Keyframes = { 1, 2, 5, 6 },
 		Data = {
 			[1] = {},
 			[2] = {},
@@ -15,8 +15,8 @@ return function()
 			[6] = {},
 		},
 	}
-	local testSelectedEvents = {1, 2}
-	local testPreviewEvents = {1, 2}
+	local testSelectedEvents = { 1, 2 }
+	local testPreviewEvents = { 1, 2 }
 
 	local function createTestEventTrack(selectedEvents, previewEvents)
 		return Roact.createElement(MockWrapper, {}, {
@@ -30,7 +30,7 @@ return function()
 				StartTick = 0,
 				EndTick = 26,
 				ZIndex = 0,
-			})
+			}),
 		})
 	end
 
@@ -40,7 +40,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestEventTrack(), container)
 		local frame = container:FindFirstChildOfClass("Frame")
@@ -54,7 +54,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should have proper number of events", function ()
+	it("should have proper number of events", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestEventTrack(), container)
 		local frame = container:FindFirstChildOfClass("Frame")

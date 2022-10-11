@@ -85,19 +85,23 @@ function UploadableIcon:render()
 			Size = UDim2.new(1, 0, 1, 0),
 		}),
 
-		InfoText = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-			Visible = review or preview,
-			BackgroundTransparency = 0.3,
-			BorderSizePixel = 0,
-			BackgroundColor3 = DEPRECATED_Constants.BLACK,
-			TextColor3 = DEPRECATED_Constants.WHITE,
-			Size = UDim2.new(1, 0, 0, 30),
-			Position = UDim2.new(0, 0, 1, 0),
-			AnchorPoint = Vector2.new(0, 1),
-			ZIndex = 3,
+		InfoText = Roact.createElement(
+			"TextLabel",
+			Cryo.Dictionary.join(theme.fontStyle.Normal, {
+				Visible = review or preview,
+				BackgroundTransparency = 0.3,
+				BorderSizePixel = 0,
+				BackgroundColor3 = DEPRECATED_Constants.BLACK,
+				TextColor3 = DEPRECATED_Constants.WHITE,
+				Size = UDim2.new(1, 0, 0, 30),
+				Position = UDim2.new(0, 0, 1, 0),
+				AnchorPoint = Vector2.new(0, 1),
+				ZIndex = 3,
 
-			Text = preview and localization:getText("General", "ImagePreview") or localization:getText("General", "ImageReview"),
-		})),
+				Text = preview and localization:getText("General", "ImagePreview")
+					or localization:getText("General", "ImageReview"),
+			})
+		),
 
 		Change = Roact.createElement("ImageButton", {
 			Visible = hover and not review,
@@ -113,15 +117,18 @@ function UploadableIcon:render()
 
 			[Roact.Event.Activated] = self.props.OnClick,
 		}, {
-			Text = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 0, 30),
-				Position = UDim2.new(0, 0, 1, -15),
-				AnchorPoint = Vector2.new(0, 1),
+			Text = Roact.createElement(
+				"TextLabel",
+				Cryo.Dictionary.join(theme.fontStyle.Normal, {
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, 0, 0, 30),
+					Position = UDim2.new(0, 0, 1, -15),
+					AnchorPoint = Vector2.new(0, 1),
 
-				Text = localization:getText("General", "GameIconChange"),
-				ZIndex = 5,
-			})),
+					Text = localization:getText("General", "GameIconChange"),
+					ZIndex = 5,
+				})
+			),
 		}),
 	})
 end

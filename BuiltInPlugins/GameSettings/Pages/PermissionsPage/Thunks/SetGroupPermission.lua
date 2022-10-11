@@ -17,9 +17,9 @@ return function(groupId, newPermission)
 				newPermissions = deepJoin(newPermissions, {
 					[PermissionsConstants.RoleSubjectKey] = {
 						[roleId] = {
-							[PermissionsConstants.ActionKey] = newPermission
-						}
-					}
+							[PermissionsConstants.ActionKey] = newPermission,
+						},
+					},
 				})
 			end
 		end

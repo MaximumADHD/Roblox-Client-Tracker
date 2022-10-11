@@ -1,4 +1,3 @@
-local FFlagManageCollaboratorsTelemetryEnabled = game:GetFastFlag("ManageCollaboratorsTelemetryEnabled")
 local FFlagManageCollaboratorsDebugLogging = game:GetFastFlag("ManageCollaboratorsDebugLogging")
 
 local Plugin = script.Parent.Parent.Parent
@@ -34,8 +33,6 @@ function Analytics.reportDebuggingCheckpoint(checkpoint)
 end
 
 function Analytics.reportCollaborateButtonPressed()
-	assert(FFlagManageCollaboratorsTelemetryEnabled)
-	
 	local eventName = "CollaborateButtonPressed"
 	
 	local args = getCommonArgs()
@@ -45,8 +42,6 @@ function Analytics.reportCollaborateButtonPressed()
 end
 
 function Analytics.reportSaveToRobloxPressed()
-	assert(FFlagManageCollaboratorsTelemetryEnabled)
-	
 	local eventName = "SaveToRobloxPressed"
 	
 	local args = getCommonArgs()
@@ -54,8 +49,6 @@ function Analytics.reportSaveToRobloxPressed()
 end
 
 function Analytics.reportCancelPressed(isGroupGame)
-	assert(FFlagManageCollaboratorsTelemetryEnabled)
-	
 	local eventName = "CancelButtonPressed"
 	
 	local args = getCommonArgs()
@@ -66,8 +59,6 @@ function Analytics.reportCancelPressed(isGroupGame)
 end
 
 function Analytics.reportSaveCollaboratorsPressed(isGroupGame, adds, deletes)	
-	assert(FFlagManageCollaboratorsTelemetryEnabled)
-		
 	local eventName = "SaveCollaboratorsButtonPressed"
 	local actions = ""
 	local ids = ""

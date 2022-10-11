@@ -72,7 +72,6 @@ local MAX_SCREEN_PERCENTAGE = 0.75
 local GAMEPAD_MENU_KEY = "GamepadMenu"
 
 local LocalPlayer = Players.LocalPlayer
-local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
 local GamepadMenu = Roact.PureComponent:extend("GamepadMenu")
 local GetFFlagQuickMenuControllerBarRefactor = require(RobloxGui.Modules.Flags.GetFFlagQuickMenuControllerBarRefactor)

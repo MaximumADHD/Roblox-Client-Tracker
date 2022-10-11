@@ -27,6 +27,7 @@ local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local Action = require(Plugin.Src.Actions)
+local GetUniqueGroupName = require(Plugin.Src.Util.GetUniqueGroupName)
 local Icon = require(script.Parent.Icon)
 local TagManager = require(Plugin.Src.TagManager)
 local TagSettingRow = require(script.Parent.TagSettingRow)
@@ -179,7 +180,8 @@ function TagSettingsListView:render()
 					if item == noneString then
 						TagManager.Get():SetGroup(tag.Name, "")
 					elseif item == newGroupString then
-						TagManager.Get():SetGroup(tag.Name, tag.Name .. " " .. localization:getText("Info", "Group"))
+						local newGroupName = GetUniqueGroupName(localization:getText("Info", "NewGroup"))
+						TagManager.Get():SetGroup(tag.Name, newGroupName)
 					else
 						TagManager.Get():SetGroup(tag.Name, item)
 					end

@@ -19,10 +19,6 @@ local getMaterialPatternName = require(Constants.getMaterialPatternName)
 local getErrorTypes = require(Constants.getErrorTypes)
 local ErrorTypes = getErrorTypes()
 
-local getFFlagDevFrameworkAssetManagerServiceToMock = require(
-	Plugin.Src.Flags.getFFlagDevFrameworkAssetManagerServiceToMock
-)
-
 local GeneralServiceController = ContextItem:extend("GeneralServiceController")
 
 function GeneralServiceController.new(mock: boolean?)
@@ -176,7 +172,6 @@ function GeneralServiceController:setTextureMapFromFile(
 	assetHandler: any,
 	setUploading: (boolean) -> (),
 	setImportAsset: (File?, string?) -> (),
-	deprecatedUploadTextureMap: (file: File) -> (),
 	updateTextureMap: (string, string, string?) -> ()
 )
 	updateTextureMap("", "importTextureMap", nil)
@@ -185,18 +180,14 @@ function GeneralServiceController:setTextureMapFromFile(
 	if success then
 		if file then
 			local tempId = file:GetTemporaryId()
-			if getFFlagDevFrameworkAssetManagerServiceToMock() then
-				self:uploadTextureMap(
-					pbrMaterial,
-					textureMap,
-					assetHandler, 
-					file, 
-					setUploading,
-					updateTextureMap
-				)
-			else
-				deprecatedUploadTextureMap(file)
-			end
+			self:uploadTextureMap(
+				pbrMaterial,
+				textureMap,
+				assetHandler, 
+				file, 
+				setUploading,
+				updateTextureMap
+			)
 			setImportAsset(file, tempId)
 		end
 	else

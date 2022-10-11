@@ -3,10 +3,10 @@
 ]]
 return function(contactEmail)
 	return function(store, contextItems)
-        local policyInfoController = contextItems.policyInfoController
+		local policyInfoController = contextItems.policyInfoController
 
-        local universeId = game.GameId
+		local universeId = game.GameId
 
-        return policyInfoController:postContactEmail(universeId, contactEmail)
+		return policyInfoController:postContactEmail(universeId, contactEmail)
 	end
 end

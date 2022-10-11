@@ -38,12 +38,18 @@ end
 local function getValues(track, timestamp, defaultEAO)
 	local values = {}
 	if track.Type == Constants.TRACK_TYPES.Facs then
-		values = {format(KeyframeUtils.getValue(track, timestamp, defaultEAO))}
+		values = { format(KeyframeUtils.getValue(track, timestamp, defaultEAO)) }
 	elseif track.Type == Constants.TRACK_TYPES.CFrame then
 		local cFrame = KeyframeUtils.getValue(track, timestamp, defaultEAO)
 		local rX, rY, rZ = cFrame:ToEulerAnglesXYZ()
-		values = {format(cFrame.X), format(cFrame.Y), format(cFrame.Z),
-			format(math.deg(rX)), format(math.deg(rY)), format(math.deg(rZ))}
+		values = {
+			format(cFrame.X),
+			format(cFrame.Y),
+			format(cFrame.Z),
+			format(math.deg(rX)),
+			format(math.deg(rY)),
+			format(math.deg(rZ)),
+		}
 	end
 	return values
 end
@@ -60,9 +66,9 @@ local function dump(track, trackName, defaultEulerAnglesOrder)
 
 	local headers
 	if track.Type == Constants.TRACK_TYPES.Facs then
-		headers = {trackName or "FACS", "Value"}
+		headers = { trackName or "FACS", "Value" }
 	else
-		headers = {trackName or "CFrame", "Px1", "Py1", "Pz1", "Rx1", "Ry1", "Rz1"}
+		headers = { trackName or "CFrame", "Px1", "Py1", "Pz1", "Rx1", "Ry1", "Rz1" }
 	end
 
 	local s = "\n" .. table.concat(headers, ",") .. "\n"

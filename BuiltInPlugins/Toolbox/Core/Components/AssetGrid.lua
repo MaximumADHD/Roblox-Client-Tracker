@@ -233,12 +233,8 @@ function AssetGrid:init(props: AssetGridProps)
 		local showPrices = Category.shouldShowPrices(props.categoryName)
 		local cellSize
 		if showPrices then
-			cellSize = UDim2.new(
-				0,
-				Constants.ASSET_WIDTH_NO_PADDING,
-				0,
-				Constants.ASSET_HEIGHT + Constants.PRICE_HEIGHT
-			)
+			cellSize =
+				UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0, Constants.ASSET_HEIGHT + Constants.PRICE_HEIGHT)
 		else
 			cellSize = UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0, Constants.ASSET_HEIGHT)
 		end

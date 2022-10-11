@@ -24,25 +24,25 @@ return function()
 		Root = {
 			Tracks = {
 				Head = {
-					Keyframes = {0, 160},
+					Keyframes = { 0, 160 },
 					Data = {
 						[0] = {
 							Value = CFrame.new(),
 						},
 						[160] = {
 							Value = CFrame.new(),
-						}
+						},
 					},
 				},
 				UpperTorso = {
-					Keyframes = {0, 160},
+					Keyframes = { 0, 160 },
 					Data = {
 						[0] = {
 							Value = CFrame.new(),
 						},
 						[160] = {
 							Value = CFrame.new(),
-						}
+						},
 					},
 				},
 			},
@@ -207,8 +207,7 @@ return function()
 			local container = test:getContainer()
 			TestHelpers.loadAnimation(store, testAnimationData)
 			local summaryTrack = TestPaths.getTrack(container, "SummaryTrack")
-			local dopeSheetContainer = TestPaths.getDopeSheetController(container)
-				:WaitForChild("DopeSheetContainer")
+			local dopeSheetContainer = TestPaths.getDopeSheetController(container):WaitForChild("DopeSheetContainer")
 
 			TestHelpers.clickInstance(summaryTrack["1"])
 			expect(dopeSheetContainer:FindFirstChild("ScaleControls")).never.to.be.ok()

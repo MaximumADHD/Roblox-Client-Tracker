@@ -4,7 +4,6 @@ local Roact = require(Plugin.Packages.Roact)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Theming = require(Plugin.Src.ContextServices.Theming)
 
-
 local UILibraryProvider = Roact.PureComponent:extend("UILibraryProvider")
 
 function UILibraryProvider:render()
@@ -19,11 +18,10 @@ function UILibraryProvider:render()
 			plugin = plugin,
 			theme = theme,
 			focusGui = focusGui,
-		},{
-			Roact.oneChild(self.props[Roact.Children])
+		}, {
+			Roact.oneChild(self.props[Roact.Children]),
 		})
 	end)
 end
-
 
 return UILibraryProvider

@@ -151,7 +151,7 @@ function EditEventsDialog:init(initialProps)
 			renameAllNames = {
 				Name = name,
 				NewName = newName,
-			}
+			},
 		})
 	end
 
@@ -183,7 +183,6 @@ end
 function EditEventsDialog:didMount()
 	self.props.Mouse:__resetCursor()
 end
-
 
 -- Makes a TextLabel with the props we want
 function EditEventsDialog:makeText(theme, text, color, center)
@@ -288,7 +287,7 @@ function EditEventsDialog:addNewEventRow(theme, localization)
 			PaddingLeft = UDim.new(0, EDGE_PADDING),
 			PaddingRight = UDim.new(0, CENTER_PADDING),
 			OnAddEvent = self.onAddEvent,
-		})
+		}),
 	})
 end
 
@@ -330,10 +329,10 @@ function EditEventsDialog:renderDeleteAllPrompt(theme, localization)
 
 	return Roact.createElement(FocusedPrompt, {
 		Buttons = {
-			{Key = false, Text = localization:getText("Dialog", "No"), Style = "Round"},
-			{Key = true, Text = localization:getText("Dialog", "Yes"), Style = "RoundPrimary"},
+			{ Key = false, Text = localization:getText("Dialog", "No"), Style = "Round" },
+			{ Key = true, Text = localization:getText("Dialog", "Yes"), Style = "RoundPrimary" },
 		},
-		PromptText = localization:getText("Dialog", "DeleteAllPrompt_Migrated", {name = name}),
+		PromptText = localization:getText("Dialog", "DeleteAllPrompt_Migrated", { name = name }),
 		OnButtonClicked = function(doDeleteAll)
 			if doDeleteAll then
 				self.onDeleteAllEvents(name)
@@ -351,10 +350,10 @@ function EditEventsDialog:renderRenameAllPrompt(theme, localization)
 
 	return Roact.createElement(FocusedPrompt, {
 		Buttons = {
-			{Key = false, Text = localization:getText("Dialog", "ChangeThis"), Style = "Round"},
-			{Key = true, Text = localization:getText("Dialog", "ChangeAll"), Style = "Round"},
+			{ Key = false, Text = localization:getText("Dialog", "ChangeThis"), Style = "Round" },
+			{ Key = true, Text = localization:getText("Dialog", "ChangeAll"), Style = "Round" },
 		},
-		PromptText = localization:getText("Dialog", "RenameAllPrompt_Migrated",	{name = name, newName = newName}),
+		PromptText = localization:getText("Dialog", "RenameAllPrompt_Migrated", { name = name, newName = newName }),
 		OnButtonClicked = function(doRenameAll)
 			if doRenameAll then
 				self.onRenameAllEvents(name, newName)
@@ -379,8 +378,8 @@ function EditEventsDialog:render()
 	local showRenameAllPrompt = state.renameAllNames ~= nil
 
 	local buttons = {
-		{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round"},
-		{Key = true, Text = localization:getText("Dialog", "Save"), Style = "RoundPrimary"},
+		{ Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round" },
+		{ Key = true, Text = localization:getText("Dialog", "Save"), Style = "RoundPrimary" },
 	}
 
 	local contents = {
@@ -422,7 +421,7 @@ function EditEventsDialog:render()
 			Size = UDim2.new(1, 0, 1, -BOTTOM_PADDING),
 			ScrollBarThickness = 8,
 			CanvasSize = UDim2.new(0, 0, 0, innerHeight),
-		}, contents)
+		}, contents),
 	})
 end
 

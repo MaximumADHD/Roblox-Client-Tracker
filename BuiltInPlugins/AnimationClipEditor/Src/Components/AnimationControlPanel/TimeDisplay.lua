@@ -69,7 +69,8 @@ function TimeDisplay:init()
 			local endTick = animationData.Metadata.EndTick
 
 			local newLength = StringUtils.parseTime(rbx.Text, frameRate) or 0
-			newLength = math.clamp(newLength, math.max(endTick, Constants.TICK_FREQUENCY), Constants.MAX_ANIMATION_LENGTH)
+			newLength =
+				math.clamp(newLength, math.max(endTick, Constants.TICK_FREQUENCY), Constants.MAX_ANIMATION_LENGTH)
 			rbx.Text = StringUtils.formatTime(newLength, frameRate, showAsTime)
 			updateEditingLength(newLength)
 		end

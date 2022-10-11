@@ -6,7 +6,7 @@ local StudioStyle = UILibrary.Studio.Style
 
 local Framework = require(Plugin.Packages.Framework)
 local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
+local FFlagMigrateDraftsWidgetList = SharedFlags.getFFlagMigrateDraftsWidgetList()
 
 local isCli, _ = pcall(function()
 	return game:GetService("ProcessService")
@@ -70,7 +70,7 @@ local function getUILibraryTheme()
 
 	local UILibraryOverrides
 
-	if FFlagRemoveUILibraryButton then
+	if FFlagMigrateDraftsWidgetList then
 		UILibraryOverrides = {}
 	else
 		-- define any custom changes to UILibrary elements, use UILibrary's createTheme path syntax

@@ -82,10 +82,11 @@ local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFla
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
 local GetFFlagFaceControlsEditorFixNonChannelPath = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorFixNonChannelPath)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
-local GetFFlagFixTrackListSelection = require(Plugin.LuaFlags.GetFFlagFixTrackListSelection)
-local GetFFlagAnimationFromVideoCreatorServiceAnalytics2 = require(Plugin.LuaFlags.GetFFlagAnimationFromVideoCreatorServiceAnalytics2)
+local GetFFlagAnimationFromVideoCreatorServiceAnalytics2 =
+	require(Plugin.LuaFlags.GetFFlagAnimationFromVideoCreatorServiceAnalytics2)
 local GetFFlagKeyframeReduction = require(Plugin.LuaFlags.GetFFlagKeyframeReduction)
 local GetFFlagRetirePause = require(Plugin.LuaFlags.GetFFlagRetirePause)
+local GetFFlagRetireWillUpdate = require(Plugin.LuaFlags.GetFFlagRetireWillUpdate)
 
 local EditorController = Roact.PureComponent:extend("EditorController")
 
@@ -134,7 +135,7 @@ function EditorController:init()
 		local tracks = self.props.Tracks
 		if #tracks > 0 then
 			self:setState({
-				TopTrackIndex = math.clamp(index, 1, #tracks)
+				TopTrackIndex = math.clamp(index, 1, #tracks),
 			})
 		end
 	end
@@ -145,8 +146,7 @@ function EditorController:init()
 	end
 
 	self.onSizeUpdate = function(rbx)
-		local trackListWidth = math.min(self.state.TrackListWidth,
-			rbx.AbsoluteSize.X - Constants.TIMELINE_MIN_WIDTH)
+		local trackListWidth = math.min(self.state.TrackListWidth, rbx.AbsoluteSize.X - Constants.TIMELINE_MIN_WIDTH)
 		self:setState({
 			AbsoluteSize = rbx.AbsoluteSize,
 			TrackListWidth = trackListWidth,
@@ -209,8 +209,8 @@ function EditorController:init()
 
 	self.updateTrackListWidth = function(input)
 		local xPos = input.Position.X
-		local trackListWidth = math.clamp(xPos, Constants.TRACK_LIST_MIN_WIDTH,
-			self.state.AbsoluteSize.X - Constants.TIMELINE_MIN_WIDTH)
+		local trackListWidth =
+			math.clamp(xPos, Constants.TRACK_LIST_MIN_WIDTH, self.state.AbsoluteSize.X - Constants.TIMELINE_MIN_WIDTH)
 		self:setState({
 			TrackListWidth = trackListWidth,
 		})
@@ -224,11 +224,7 @@ function EditorController:init()
 		if selectedTracks and PathUtils.findPath(selectedTracks, path) then
 			setSelectedTracks(PathUtils.removePath(selectedTracks, path))
 		else
-			if GetFFlagFixTrackListSelection() then
-				props.SetLastSelectedPath(path)
-			else
-				self.lastSelected = path
-			end
+			props.SetLastSelectedPath(path)
 			setSelectedTracks(Cryo.List.join(selectedTracks or {}, { path }))
 		end
 	end
@@ -241,10 +237,7 @@ function EditorController:init()
 		local currentSelectedIndex, lastSelectedIndex
 		local lastSelectedPath = self.props.LastSelectedPath
 		for index, track in ipairs(tracks) do
-			if
-				(GetFFlagFixTrackListSelection() and lastSelectedPath and track.Name == lastSelectedPath[1])
-				or (not GetFFlagFixTrackListSelection() and track.Name == self.lastSelected[1])
-			then
+			if lastSelectedPath and track.Name == lastSelectedPath[1] then
 				lastSelectedIndex = index
 			elseif track.Name == path[1] then
 				currentSelectedIndex = index
@@ -255,16 +248,12 @@ function EditorController:init()
 			local endIndex = math.max(currentSelectedIndex, lastSelectedIndex)
 			local newSelectedTracks = {}
 			for i = startIndex, endIndex do
-				table.insert(newSelectedTracks, {tracks[i].Name})
+				table.insert(newSelectedTracks, { tracks[i].Name })
 			end
 			setSelectedTracks(newSelectedTracks)
 		else
-			if GetFFlagFixTrackListSelection() then
-				self.props.SetLastSelectedPath(path)
-			else
-				self.lastSelected = path
-			end
-			setSelectedTracks({path})
+			self.props.SetLastSelectedPath(path)
+			setSelectedTracks({ path })
 		end
 	end
 
@@ -305,14 +294,10 @@ function EditorController:init()
 		elseif not AnimationData.isChannelAnimation(animationData) and self.shiftDown then
 			self.shiftSelectTrack(path)
 		else
-			if GetFFlagFixTrackListSelection() then
-				props.SetLastSelectedPath(path)
-			else
-				self.lastSelected = path
-			end
+			props.SetLastSelectedPath(path)
 			setSelectedTracks({ path })
 		end
-		self.findCurrentParts({path}, props.RootInstance)
+		self.findCurrentParts({ path }, props.RootInstance)
 		props.Analytics:report("onTrackSelected", path[1], "TrackList", editorMode)
 	end
 
@@ -327,11 +312,7 @@ function EditorController:init()
 				return
 			end
 		end
-		if GetFFlagFixTrackListSelection() then
-			props.SetLastSelectedPath(path)
-		else
-			self.lastSelected = path
-		end
+		props.SetLastSelectedPath(path)
 		setSelectedTracks({ path })
 	end
 
@@ -348,13 +329,12 @@ function EditorController:init()
 	end
 
 	self.applyValueToFacsSliderPartners = function(instanceName, path, trackType, tck, value)
+		if not GetFFlagFaceControlsEditorUI() then
+			return
+		end
 
-		if not GetFFlagFaceControlsEditorUI() then return end
-
-		if GetFFlagFaceControlsEditorFixNonChannelPath() then
-			if trackType ~= Constants.TRACK_TYPES.Facs then return end
-		else
-			if (not trackType) == Constants.TRACK_TYPES.Facs then return end
+		if trackType ~= Constants.TRACK_TYPES.Facs then
+			return
 		end
 
 		local facsName = path[1]
@@ -363,13 +343,41 @@ function EditorController:init()
 		--for eyesdragbox we set the counter direction to 0
 		if value ~= 0 then
 			if facsName == Constants.FacsNames.EyesLookLeft then
-				self.props.ValueChanged(instanceName, {Constants.FacsNames.EyesLookRight}, trackType, tck, 0, self.props.Analytics)
+				self.props.ValueChanged(
+					instanceName,
+					{ Constants.FacsNames.EyesLookRight },
+					trackType,
+					tck,
+					0,
+					self.props.Analytics
+				)
 			elseif facsName == Constants.FacsNames.EyesLookRight then
-				self.props.ValueChanged(instanceName, {Constants.FacsNames.EyesLookLeft}, trackType, tck, 0, self.props.Analytics)
+				self.props.ValueChanged(
+					instanceName,
+					{ Constants.FacsNames.EyesLookLeft },
+					trackType,
+					tck,
+					0,
+					self.props.Analytics
+				)
 			elseif facsName == Constants.FacsNames.EyesLookUp then
-				self.props.ValueChanged(instanceName, {Constants.FacsNames.EyesLookDown}, trackType, tck, 0, self.props.Analytics)
+				self.props.ValueChanged(
+					instanceName,
+					{ Constants.FacsNames.EyesLookDown },
+					trackType,
+					tck,
+					0,
+					self.props.Analytics
+				)
 			elseif facsName == Constants.FacsNames.EyesLookDown then
-				self.props.ValueChanged(instanceName, {Constants.FacsNames.EyesLookUp}, trackType, tck, 0, self.props.Analytics)
+				self.props.ValueChanged(
+					instanceName,
+					{ Constants.FacsNames.EyesLookUp },
+					trackType,
+					tck,
+					0,
+					self.props.Analytics
+				)
 			end
 		end
 		if crossMapping ~= nil or not GetFFlagFaceControlsEditorFixNonChannelPath() then
@@ -378,7 +386,7 @@ function EditorController:init()
 			--the other side gets set to 0
 			local sliderGroup = crossMapping.sliderGroup
 			if sliderGroup then
-				if value >0 then
+				if value > 0 then
 					local groupPartnerName = nil
 					if crossMapping.indexInGroup == 1 then
 						groupPartnerName = sliderGroup[2]
@@ -386,7 +394,7 @@ function EditorController:init()
 						groupPartnerName = sliderGroup[1]
 					end
 
-					self.props.ValueChanged(instanceName, {groupPartnerName}, trackType, tck, 0, self.props.Analytics)
+					self.props.ValueChanged(instanceName, { groupPartnerName }, trackType, tck, 0, self.props.Analytics)
 				end
 			end
 
@@ -401,13 +409,17 @@ function EditorController:init()
 	end
 
 	self.applyValueToSymmetryPartner = function(instanceName, symmetryPartner, trackType, tck, value)
-		self.props.ValueChanged(instanceName, {symmetryPartner}, trackType, tck, value, self.props.Analytics)
+		self.props.ValueChanged(instanceName, { symmetryPartner }, trackType, tck, value, self.props.Analytics)
 		--if the symmetry partner controls multiple facs, too,
 		--if value >0 for the symmetry partner set the value of the group partner to 0
-		if value == nil or value <= 0 then return end
+		if value == nil or value <= 0 then
+			return
+		end
 		local crossMappingSymmetryPartner = Constants.FacsCrossMappings[symmetryPartner]
 		local sliderGroup = crossMappingSymmetryPartner.sliderGroup
-		if not sliderGroup then return end
+		if not sliderGroup then
+			return
+		end
 		local groupPartnerName = nil
 		if crossMappingSymmetryPartner.indexInGroup == 1 then
 			groupPartnerName = sliderGroup[2]
@@ -415,7 +427,7 @@ function EditorController:init()
 			groupPartnerName = sliderGroup[1]
 		end
 
-		self.props.ValueChanged(instanceName, {groupPartnerName}, trackType, tck, 0, self.props.Analytics)
+		self.props.ValueChanged(instanceName, { groupPartnerName }, trackType, tck, 0, self.props.Analytics)
 	end
 
 	self.onValueChanged = function(instanceName, path, trackType, tck, value)
@@ -426,7 +438,7 @@ function EditorController:init()
 			local rotationType = self.props.DefaultRotationType
 			local eulerAnglesOrder = self.props.DefaultEulerAnglesOrder
 			local trackName = path[1]
-			local track = AnimationData.getTrack(animationData, instanceName, {trackName})
+			local track = AnimationData.getTrack(animationData, instanceName, { trackName })
 			if track and track.Components and track.Components[Constants.PROPERTY_KEYS.Rotation] then
 				rotationType = track.Components[Constants.PROPERTY_KEYS.Rotation].Type
 				if rotationType == Constants.TRACK_TYPES.EulerAngles then
@@ -436,7 +448,14 @@ function EditorController:init()
 
 			-- Change the value of all tracks
 			TrackUtils.traverseValue(trackType, value, function(_trackType, relPath, _value)
-				self.props.ValueChanged(instanceName, Cryo.List.join(path, relPath), _trackType, tck, _value, self.props.Analytics)
+				self.props.ValueChanged(
+					instanceName,
+					Cryo.List.join(path, relPath),
+					_trackType,
+					tck,
+					_value,
+					self.props.Analytics
+				)
 			end, rotationType, eulerAnglesOrder)
 		end
 		if GetFFlagFaceControlsEditorUI() then
@@ -452,21 +471,49 @@ function EditorController:init()
 	end
 end
 
-function EditorController:willUpdate(nextProps)
-	if (nextProps.RootInstance ~= self.props.RootInstance or next(self.nameToPart) == nil) and nextProps.RootInstance ~= nil then
-		self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(nextProps.RootInstance)
-		for _, part in ipairs(self.KinematicParts) do
-			self.nameToPart[part.Name] = part
+function EditorController:didUpdate(oldProps)
+	if GetFFlagRetireWillUpdate() then
+		if
+			(oldProps.RootInstance ~= self.props.RootInstance or next(self.nameToPart) == nil)
+			and self.props.RootInstance ~= nil
+		then
+			self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(self.props.RootInstance)
+			for _, part in ipairs(self.KinematicParts) do
+				self.nameToPart[part.Name] = part
+			end
+		end
+
+		-- if the selected tracks has changed, update the selected track instances
+		if oldProps.SelectedTracks ~= self.props.SelectedTracks then
+			self.findCurrentParts(self.props.SelectedTracks, self.props.RootInstance)
+		end
+
+		if oldProps.Playhead ~= self.props.Playhead then
+			self.props.Signals:get(Constants.SIGNAL_KEYS.ScrubberChanged):Fire()
 		end
 	end
+end
 
-	-- if the selected tracks has changed, update the selected track instances
-	if nextProps.SelectedTracks ~= self.props.SelectedTracks then
-		self.findCurrentParts(nextProps.SelectedTracks, nextProps.RootInstance)
-	end
+function EditorController:willUpdate(nextProps)
+	if not GetFFlagRetireWillUpdate() then
+		if
+			(nextProps.RootInstance ~= self.props.RootInstance or next(self.nameToPart) == nil)
+			and nextProps.RootInstance ~= nil
+		then
+			self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(nextProps.RootInstance)
+			for _, part in ipairs(self.KinematicParts) do
+				self.nameToPart[part.Name] = part
+			end
+		end
 
-	if nextProps.Playhead ~= self.props.Playhead then
-		self.props.Signals:get(Constants.SIGNAL_KEYS.ScrubberChanged):Fire()
+		-- if the selected tracks has changed, update the selected track instances
+		if nextProps.SelectedTracks ~= self.props.SelectedTracks then
+			self.findCurrentParts(nextProps.SelectedTracks, nextProps.RootInstance)
+		end
+
+		if nextProps.Playhead ~= self.props.Playhead then
+			self.props.Signals:get(Constants.SIGNAL_KEYS.ScrubberChanged):Fire()
+		end
 	end
 end
 
@@ -580,9 +627,7 @@ function EditorController:render()
 				LayoutOrder = 1,
 				[Roact.Event.Activated] = function()
 					props.SetSelectedTracks({})
-					if GetFFlagFixTrackListSelection() then
-						props.SetLastSelectedPath(nil)
-					end
+					props.SetLastSelectedPath(nil)
 					props.SetSelectedTrackInstances({})
 				end,
 			}, {
@@ -636,10 +681,9 @@ function EditorController:render()
 							NumTracks = tracks and #tracks or 0,
 							SetTopTrackIndex = self.setTopTrackIndex,
 							OnScroll = self.onScroll,
-						})
+						}),
 					}),
 				}),
-
 
 				KeyboardListener = Roact.createElement(KeyboardListener, {
 					OnKeyPressed = function(input)
@@ -730,13 +774,19 @@ function EditorController:render()
 			LayoutOrder = 2,
 			OnCreateAnimation = self.createAnimationWrapper,
 			PlayState = props.PlayState,
-			inReviewState = props.inReviewState
+			inReviewState = props.inReviewState,
 		}),
 
 		Playback = active and showEditor and Roact.createElement(Playback),
 		-- TODO: Maybe we can just put all of the screens in the FacialAnimationRecorder and present them through Portals
-		FacialAnimationRecorder = active and GetFFlagFacialAnimationRecordingInStudio() and (isInRecordMode or inReviewState) and Roact.createElement(FacialAnimationRecorder),
-		RecordingModeCover = active and GetFFlagFacialAnimationRecordingInStudio() and isInRecordMode and Roact.createElement(RecordingModeCover),
+		FacialAnimationRecorder = active
+			and GetFFlagFacialAnimationRecordingInStudio()
+			and (isInRecordMode or inReviewState)
+			and Roact.createElement(FacialAnimationRecorder),
+		RecordingModeCover = active
+			and GetFFlagFacialAnimationRecordingInStudio()
+			and isInRecordMode
+			and Roact.createElement(RecordingModeCover),
 		InstanceSelector = active and Roact.createElement(InstanceSelector),
 
 		FloorGrid = active and showEditor and Roact.createElement(FloorGrid, {
@@ -921,9 +971,11 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetFrameRate(frameRate))
 		end,
 
-		Pause = if not GetFFlagRetirePause() then function()
-			dispatch(Pause())
-		end else nil,
+		Pause = if not GetFFlagRetirePause()
+			then function()
+				dispatch(Pause())
+			end
+			else nil,
 
 		SetPlaybackSpeed = function(playbackSpeed)
 			dispatch(SetPlaybackSpeed(playbackSpeed))

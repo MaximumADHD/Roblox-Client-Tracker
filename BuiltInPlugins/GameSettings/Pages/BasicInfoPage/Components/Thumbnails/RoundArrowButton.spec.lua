@@ -19,7 +19,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function ()
+	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestRoundArrowButton(), container)
 		local button = container.ImageButton
@@ -29,7 +29,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should hide when not visible", function ()
+	it("should hide when not visible", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestRoundArrowButton(), container)
 
@@ -43,7 +43,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should turn over when flipped", function ()
+	it("should turn over when flipped", function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestRoundArrowButton(true, false), container)
 

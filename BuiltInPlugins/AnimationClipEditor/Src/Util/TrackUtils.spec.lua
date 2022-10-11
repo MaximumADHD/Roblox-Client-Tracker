@@ -7,28 +7,28 @@ return function()
 		{
 			Instance = "Root",
 			Name = "TestTrack1",
-			Keyframes = {1, 2, 3, 4, 5},
+			Keyframes = { 1, 2, 3, 4, 5 },
 			Expanded = false,
 			Type = Constants.TRACK_TYPES.CFrame,
 		},
 		{
 			Instance = "Root",
 			Name = "TestTrack2",
-			Keyframes = {2, 7, 8, 10},
+			Keyframes = { 2, 7, 8, 10 },
 			Expanded = false,
 			Type = Constants.TRACK_TYPES.CFrame,
 		},
 		{
 			Instance = "Root",
 			Name = "TestTrack3",
-			Keyframes = {1},
+			Keyframes = { 1 },
 			Expanded = true,
 			Type = Constants.TRACK_TYPES.CFrame,
 		},
 		{
 			Instance = "Root",
 			Name = "TestTrack4",
-			Keyframes = {1},
+			Keyframes = { 1 },
 			Expanded = false,
 			Type = Constants.TRACK_TYPES.CFrame,
 		},
@@ -113,7 +113,7 @@ return function()
 
 	describe("traverseKeyframeRange", function()
 		it("should visit the keyframes within the provided range", function()
-			local keyframes = {1, 2, 3, 3.5, 4, 5, 6}
+			local keyframes = { 1, 2, 3, 3.5, 4, 5, 6 }
 			local visited = {}
 			TrackUtils.traverseKeyframeRange(keyframes, 3, 5, function(frame)
 				table.insert(visited, frame)

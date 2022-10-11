@@ -72,7 +72,7 @@ function GroupIconThumbnail:render()
 					Image = thumbnail,
 				})
 			end,
-		})
+		}),
 	})
 end
 

@@ -84,10 +84,13 @@ function InstanceSelector:showErrorDialogs(plugin, errorList)
 		for index, dataEntry in ipairs(data) do
 			names[index] = dataEntry.Name
 		end
-		showBlockingDialog(plugin, Roact.createElement(ErrorDialogContents, {
-			ErrorType = errorEntry.ID,
-			Entries = names,
-		}))
+		showBlockingDialog(
+			plugin,
+			Roact.createElement(ErrorDialogContents, {
+				ErrorType = errorEntry.ID,
+				Entries = names,
+			})
+		)
 	end
 end
 
@@ -95,11 +98,11 @@ function InstanceSelector:init()
 	self.wasUnmounted = false
 
 	self.state = {
-		HoverPart = nil
+		HoverPart = nil,
 	}
 
 	self.selectInstance = function(instance)
-		Selection:Set({instance})
+		Selection:Set({ instance })
 	end
 
 	self.deselect = function()
@@ -173,61 +176,59 @@ function InstanceSelector:render()
 	local children = {}
 	local folder = RigUtils.getOrCreateMicroboneFolder()
 
-	if visualizeBones then 
+	if visualizeBones then
 		local boneLinks = folder:GetChildren()
 		for _, boneLink in pairs(boneLinks) do
-			if boneLink:FindFirstChild("Cone") and boneLink.Cone.Color3 == Constants.BONE_COLOR_SELECTED then 
+			if boneLink:FindFirstChild("Cone") and boneLink.Cone.Color3 == Constants.BONE_COLOR_SELECTED then
 				boneLink.Cone.Color3 = Constants.BONE_COLOR_DEFAULT
 				boneLink.Cone.Transparency = Constants.BONE_TRANSPARENCY_DEFAULT
 			end
-			if boneLink:FindFirstChild("Sphere") and boneLink.Sphere.Color3 == Constants.BONE_COLOR_SELECTED then 
+			if boneLink:FindFirstChild("Sphere") and boneLink.Sphere.Color3 == Constants.BONE_COLOR_SELECTED then
 				boneLink.Sphere.Color3 = Constants.BONE_COLOR_DEFAULT
 				boneLink.Sphere.Transparency = Constants.BONE_TRANSPARENCY_DEFAULT
-
 			end
 		end
 	end
 	if props.SelectedTrackInstances then
 		for index, part in ipairs(props.SelectedTrackInstances) do
-			if visualizeBones then 
-				if part.Parent == nil or part.Parent.Name ~=  "RBX_MICROBONE_NODES" then 
-					children["SelectionBox" ..index] = Roact.createElement("SelectionBox", {
+			if visualizeBones then
+				if part.Parent == nil or part.Parent.Name ~= "RBX_MICROBONE_NODES" then
+					children["SelectionBox" .. index] = Roact.createElement("SelectionBox", {
 						Archivable = false,
 						Adornee = part,
 						LineThickness = 0.01,
 						Transparency = 0.5,
 						SurfaceTransparency = 0.8,
 					})
-				else 
-					if part and part:FindFirstChild("Cone") then 
+				else
+					if part and part:FindFirstChild("Cone") then
 						part.Cone.Color3 = Constants.BONE_COLOR_SELECTED
 					end
-				
-					if part and part:FindFirstChild("Sphere") then 
+
+					if part and part:FindFirstChild("Sphere") then
 						part.Sphere.Color3 = Constants.BONE_COLOR_SELECTED
 					end
 
 					local boneName = props.BoneLinksToBone[part.Name]
 					--if this is a bone link highlight bonenode
-					if boneName then 
+					if boneName then
 						local boneNameNode = folder:FindFirstChild(boneName .. "Node")
-						if boneNameNode then 
+						if boneNameNode then
 							boneNameNode.Sphere.Color3 = Constants.BONE_COLOR_SELECTED
 						end
 					-- next check if this is a bone node and then highlight the respective bone links
-					else 				
+					else
 						local bone = RigUtils.getBoneFromBoneNode(part.Name)
 						for boneLinkName, correspondingBone in pairs(props.BoneLinksToBone) do
-							if correspondingBone == bone then 
+							if correspondingBone == bone then
 								local boneLink = folder:FindFirstChild(boneLinkName)
 								boneLink.Cone.Color3 = Constants.BONE_COLOR_SELECTED
 							end
 						end
-						
 					end
 				end
-			else 
-				children["SelectionBox" ..index] = Roact.createElement("SelectionBox", {
+			else
+				children["SelectionBox" .. index] = Roact.createElement("SelectionBox", {
 					Archivable = false,
 					Adornee = part,
 					LineThickness = 0.01,
@@ -238,11 +239,12 @@ function InstanceSelector:render()
 		end
 	end
 
-	children["HoverBox"] =  hoverPart and Roact.createElement("SelectionBox", {
-		Archivable = false,
-		Adornee = hoverPart,
-		LineThickness = 0.1,
-	})
+	children["HoverBox"] = hoverPart
+		and Roact.createElement("SelectionBox", {
+			Archivable = false,
+			Adornee = hoverPart,
+			LineThickness = 0.1,
+		})
 
 	return Roact.createElement(Roact.Portal, {
 		target = container,
@@ -272,15 +274,12 @@ function InstanceSelector:willUnmount()
 	end
 end
 
-
 InstanceSelector = withContext({
 	Plugin = ContextServices.Plugin,
 	Mouse = ContextServices.Mouse,
 	Analytics = ContextServices.Analytics,
 	Signals = SignalsContext,
 })(InstanceSelector)
-
-
 
 local function mapStateToProps(state, props)
 	return {
@@ -296,7 +295,7 @@ local function mapDispatchToProps(dispatch)
 		SetSelectedTrackInstances = function(tracks)
 			local trackNames = {}
 			for index, track in pairs(tracks) do
-				trackNames[index] = {track.Name}
+				trackNames[index] = { track.Name }
 			end
 			dispatch(SetSelectedTrackInstances(tracks))
 			dispatch(SetSelectedTracks(trackNames))

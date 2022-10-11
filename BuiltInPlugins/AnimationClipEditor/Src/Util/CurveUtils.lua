@@ -26,7 +26,16 @@ function CurveUtils.makeCubic(easingDirection, tickA, keyframeA, tickB, keyframe
 	return {}
 end
 
-function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyframeB, isQuaternionTrack, elasticity, count)
+function CurveUtils.makeBounce(
+	easingDirection,
+	tickA,
+	keyframeA,
+	tickB,
+	keyframeB,
+	isQuaternionTrack,
+	elasticity,
+	count
+)
 	local keyframes = {}
 	local dt = tickB - tickA
 	local dv = isQuaternionTrack and 1 or (keyframeB.Value - keyframeA.Value)
@@ -138,7 +147,16 @@ function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyfram
 	return keyframes
 end
 
-function CurveUtils.makeElastic(easingDirection, tickA, keyframeA, tickB, keyframeB, isQuaternionTrack, frequency, dampening)
+function CurveUtils.makeElastic(
+	easingDirection,
+	tickA,
+	keyframeA,
+	tickB,
+	keyframeB,
+	isQuaternionTrack,
+	frequency,
+	dampening
+)
 	local keyframes = {}
 	local dt = tickB - tickA
 	local dv = isQuaternionTrack and 1 or (keyframeB.Value - keyframeA.Value)
@@ -148,7 +166,7 @@ function CurveUtils.makeElastic(easingDirection, tickA, keyframeA, tickB, keyfra
 	-- is always expected to go from (0, 0) to (1, 1), as it is used in a lerp going from a key value to the next.
 
 	-- Put in default values that produce the legacy bounce interpolation
-	frequency = frequency or (10/3)
+	frequency = frequency or (10 / 3)
 	dampening = dampening or 10
 
 	-- There is an abominable value in the equation for the extrema, but amazingly enough that value is constant.
@@ -156,7 +174,7 @@ function CurveUtils.makeElastic(easingDirection, tickA, keyframeA, tickB, keyfra
 	local magic = math.atan(-dampening * math.log(2) / TwoPiFrequency) / TwoPiFrequency
 	for n = 1, 2 * frequency do
 		local x = magic + n / (2 * frequency)
-		local y = 1 - math.pow(2, -dampening * x) * math.cos(TwoPiFrequency	* x)
+		local y = 1 - math.pow(2, -dampening * x) * math.cos(TwoPiFrequency * x)
 
 		-- Invert position and slope if we're dealing with EasingIn
 		if easingDirection == Enum.PoseEasingDirection.In then
@@ -204,9 +222,10 @@ function CurveUtils.generateCurve(trackType, easingStyle, easingDirection, tickA
 	keyframeA.EasingStyle = nil
 	keyframeA.EasingDirection = nil
 
-	if easingDirection == Enum.PoseEasingDirection.InOut
-		and (easingStyle ~= Enum.PoseEasingStyle.Constant and easingStyle ~= Enum.PoseEasingStyle.Linear) then
-
+	if
+		easingDirection == Enum.PoseEasingDirection.InOut
+		and (easingStyle ~= Enum.PoseEasingStyle.Constant and easingStyle ~= Enum.PoseEasingStyle.Linear)
+	then
 		-- For InOut easing, and unless we're dealing with Constant or Linear easing for which InOut is meaningless,
 		-- we need to create a keyframe half way between the ends, and apply the easing In on the first half, and
 		-- the easing Out on the second half.
@@ -219,8 +238,24 @@ function CurveUtils.generateCurve(trackType, easingStyle, easingDirection, tickA
 			keyframe.Value = (keyframeA.Value + keyframeB.Value) * 0.5
 		end
 
-		local keyframesA = CurveUtils.generateCurve(trackType, easingStyle, Enum.PoseEasingDirection.In, tickA, keyframeA, tck, keyframe)
-		local keyframesB = CurveUtils.generateCurve(trackType, easingStyle, Enum.PoseEasingDirection.Out, tck, keyframe, tickB, keyframeB)
+		local keyframesA = CurveUtils.generateCurve(
+			trackType,
+			easingStyle,
+			Enum.PoseEasingDirection.In,
+			tickA,
+			keyframeA,
+			tck,
+			keyframe
+		)
+		local keyframesB = CurveUtils.generateCurve(
+			trackType,
+			easingStyle,
+			Enum.PoseEasingDirection.Out,
+			tck,
+			keyframe,
+			tickB,
+			keyframeB
+		)
 
 		local keyframes = Cryo.Dictionary.join(keyframesA, keyframesB)
 
@@ -243,10 +278,13 @@ end
 -- Find the min and max Y of a track between two consecutive keyframes.
 -- See https://www.desmos.com/calculator/zpiscuiegt
 function CurveUtils.getYExtents(
-		tckA: number, valueA: number, slopeA: number,
-		tckB: number, valueB: number, slopeB: number
-	): (number, number)
-
+	tckA: number,
+	valueA: number,
+	slopeA: number,
+	tckB: number,
+	valueB: number,
+	slopeB: number
+): (number, number)
 	local ax, ay = tckA, valueA
 	local fx, fy = tckB, valueB
 

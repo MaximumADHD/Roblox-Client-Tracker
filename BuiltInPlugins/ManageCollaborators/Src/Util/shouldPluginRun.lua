@@ -4,10 +4,5 @@ return function()
 		return false
 	end
 
-
-	if not game:GetFastFlag("ManageCollaboratorsPluginEnabled") then
-		return false
-	end
-
 	return true
 end

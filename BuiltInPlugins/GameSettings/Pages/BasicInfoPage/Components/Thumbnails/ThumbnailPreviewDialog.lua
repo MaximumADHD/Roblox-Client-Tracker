@@ -144,16 +144,19 @@ function ThumbnailPreviewDialog:render()
 				BackgroundColor3 = BLACK,
 				Size = UDim2.new(1, 0, 0, 30),
 			}, {
-				TitleText = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-					BackgroundTransparency = 1,
-					Size = UDim2.new(1, -20, 1, 0),
-					Position = UDim2.new(0.5, 0, 0, 0),
-					AnchorPoint = Vector2.new(0.5, 0),
+				TitleText = Roact.createElement(
+					"TextLabel",
+					Cryo.Dictionary.join(theme.fontStyle.Normal, {
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, -20, 1, 0),
+						Position = UDim2.new(0.5, 0, 0, 0),
+						AnchorPoint = Vector2.new(0.5, 0),
 
-					Text = videoTitle,
-					TextTruncate = Enum.TextTruncate.AtEnd,
-					TextXAlignment = Enum.TextXAlignment.Left,
-				})),
+						Text = videoTitle,
+						TextTruncate = Enum.TextTruncate.AtEnd,
+						TextXAlignment = Enum.TextXAlignment.Left,
+					})
+				),
 			}),
 
 			VideoWarning = Roact.createElement("Frame", {
@@ -165,25 +168,34 @@ function ThumbnailPreviewDialog:render()
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				BackgroundColor3 = BLACK,
 			}, {
-				Message = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-					Size = UDim2.new(1, 0, 0.5, 0),
-					BackgroundTransparency = 1,
-					Text = localization:getText("General", "PreviewDialogBody"),
-				})),
+				Message = Roact.createElement(
+					"TextLabel",
+					Cryo.Dictionary.join(theme.fontStyle.Normal, {
+						Size = UDim2.new(1, 0, 0.5, 0),
+						BackgroundTransparency = 1,
+						Text = localization:getText("General", "PreviewDialogBody"),
+					})
+				),
 
-				Link = Roact.createElement("TextButton", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-					Size = UDim2.new(1, 0, 0.5, 0),
-					Position = UDim2.new(0, 0, 0.5, 0),
-					BackgroundTransparency = 1,
-					Text = getSocialMediaReferencesAllowed() and localization:getText("General", "PreviewDialogLink") or nil,
-					TextColor3 = theme.hyperlink,
+				Link = Roact.createElement(
+					"TextButton",
+					Cryo.Dictionary.join(theme.fontStyle.Normal, {
+						Size = UDim2.new(1, 0, 0.5, 0),
+						Position = UDim2.new(0, 0, 0.5, 0),
+						BackgroundTransparency = 1,
+						Text = getSocialMediaReferencesAllowed()
+								and localization:getText("General", "PreviewDialogLink")
+							or nil,
+						TextColor3 = theme.hyperlink,
 
-					[Roact.Event.Activated] = function()
-						BrowserUtils.OpenVideo(videoHash)
-					end,
-				}), {
-					Roact.createElement(HoverArea, {Cursor = "PointingHand"})
-				}),
+						[Roact.Event.Activated] = function()
+							BrowserUtils.OpenVideo(videoHash)
+						end,
+					}),
+					{
+						Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
+					}
+				),
 			}),
 		}),
 	})

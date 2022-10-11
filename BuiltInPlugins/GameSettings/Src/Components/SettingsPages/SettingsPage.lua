@@ -24,8 +24,12 @@ local FFlagDevFrameworkMigrateScrollingFrame = SharedFlags.getFFlagDevFrameworkM
 
 local UI = Framework.UI
 local Container = UI.Container
-local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator then UI.LoadingIndicator else UILibrary.Component.LoadingIndicator
-local ScrollingFrame = if FFlagDevFrameworkMigrateScrollingFrame then UI.ScrollingFrame else UILibrary.Component.StyledScrollingFrame
+local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator
+	then UI.LoadingIndicator
+	else UILibrary.Component.LoadingIndicator
+local ScrollingFrame = if FFlagDevFrameworkMigrateScrollingFrame
+	then UI.ScrollingFrame
+	else UILibrary.Component.StyledScrollingFrame
 
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 local Header = require(Plugin.Src.Components.Header)
@@ -47,7 +51,8 @@ function SettingsPage:init()
 		if scrollingFrame then
 			local theme = self.props.Stylizer
 			-- TODO remove the + settingPadding and replace with UIPadding once UISYS-469 is fixed
-			scrollingFrame.CanvasSize = UDim2.new(1, 0, 0, rbx.AbsoluteContentSize.Y + theme.settingsPage.settingPadding)
+			scrollingFrame.CanvasSize =
+				UDim2.new(1, 0, 0, rbx.AbsoluteContentSize.Y + theme.settingsPage.settingPadding)
 		end
 	end
 end
@@ -96,7 +101,7 @@ function SettingsPage:render()
 			Loading = Roact.createElement(LoadingIndicator, {
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(0.5, 0.5),
-			})
+			}),
 		})
 	elseif loadState == LoadState.LoadFailed then
 		return Roact.createElement(LoadFailedPage, {
@@ -144,28 +149,24 @@ SettingsPage = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(SettingsPage)
 
-SettingsPage = RoactRodux.connect(
-	function(state, props)
-		local pageId = props.PageId
-		return {
-			LoadState = state.PageLoadState[pageId] or LoadState.Unloaded,
-			SaveState = state.PageSaveState[pageId]
-		}
-	end,
-
-	function(dispatch)
-		return {
-			LoadPageSettings = function(pageId, settingsJobs)
-				dispatch(LoadPageSettings(pageId, settingsJobs))
-			end,
-			SavePageSettings = function(pageId, saveJobs)
-				dispatch(SavePageSettings(pageId, saveJobs))
-			end,
-			SetPageSaveState = function(pageId, saveState)
-				dispatch(SetPageSaveState(pageId, saveState))
-			end,
-		}
-	end
-)(SettingsPage)
+SettingsPage = RoactRodux.connect(function(state, props)
+	local pageId = props.PageId
+	return {
+		LoadState = state.PageLoadState[pageId] or LoadState.Unloaded,
+		SaveState = state.PageSaveState[pageId],
+	}
+end, function(dispatch)
+	return {
+		LoadPageSettings = function(pageId, settingsJobs)
+			dispatch(LoadPageSettings(pageId, settingsJobs))
+		end,
+		SavePageSettings = function(pageId, saveJobs)
+			dispatch(SavePageSettings(pageId, saveJobs))
+		end,
+		SetPageSaveState = function(pageId, saveState)
+			dispatch(SetPageSaveState(pageId, saveState))
+		end,
+	}
+end)(SettingsPage)
 
 return SettingsPage

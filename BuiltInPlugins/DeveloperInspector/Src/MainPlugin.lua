@@ -30,7 +30,6 @@ local MainView = require(Components.MainView)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
-
 function MainPlugin:init()
 	self.state = {
 		enabled = false,
@@ -52,13 +51,13 @@ function MainPlugin:init()
 
 	self.onRestore = function(enabled)
 		self:setState({
-			enabled = enabled
+			enabled = enabled,
 		})
 	end
 
 	self.onWidgetEnabledChanged = function(widget)
 		self:setState({
-			enabled = widget.Enabled
+			enabled = widget.Enabled,
 		})
 	end
 
@@ -136,12 +135,12 @@ function MainPlugin:render()
 			OnWidgetRestored = self.onRestore,
 		}, {
 			InspectorProvider = Roact.createElement(InspectorProvider, {
-				Active = enabled
+				Active = enabled,
 			}, {
 				MainView = Roact.createElement(MainView, {
-					Active = enabled
-				})
-			})
+					Active = enabled,
+				}),
+			}),
 		}),
 	})
 end

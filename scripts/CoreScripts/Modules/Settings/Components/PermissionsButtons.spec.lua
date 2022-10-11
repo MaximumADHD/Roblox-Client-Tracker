@@ -11,6 +11,7 @@ return function()
 			isTenFootInterface = false,
 			ZIndex = -1,
 			LayoutOrder = 1,
+			shouldFillScreen = true,
 		})
 
 		local instance = Roact.mount(element)

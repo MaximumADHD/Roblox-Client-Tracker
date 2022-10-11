@@ -80,7 +80,6 @@ function AssetPreviewFooter:render()
 				TextSize = 14,
 			}),
 		})
-
 	end
 end
 

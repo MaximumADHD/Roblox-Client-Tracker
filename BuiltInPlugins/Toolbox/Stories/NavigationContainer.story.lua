@@ -10,6 +10,6 @@ return {
 	name = "NavigationContainer",
 	summary = "A container that hosts all of the navigation routes.",
 	story = Roact.createElement(ToolboxStoryWrapper, {}, {
-		Container = Roact.createElement(NavigationContainer)
+		Container = Roact.createElement(NavigationContainer),
 	}),
 }

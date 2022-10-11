@@ -36,9 +36,9 @@ function NodeList:init()
 		local inspector = self.props.Inspector:get()
 		local api = inspector:getTargetApi()
 		if RoactInspectorApi.isInstance(api) then
-			api:getFields(self.props.SelectedPath, nodeIndex, {"props"})
-			api:getFields(self.props.SelectedPath, nodeIndex, {"state"})
-			api:getFields(self.props.SelectedPath, nodeIndex, {"_context"})
+			api:getFields(self.props.SelectedPath, nodeIndex, { "props" })
+			api:getFields(self.props.SelectedPath, nodeIndex, { "state" })
+			api:getFields(self.props.SelectedPath, nodeIndex, { "_context" })
 		end
 	end
 end
@@ -67,24 +67,25 @@ end
 function NodeList:render()
 	local props = self.props
 	local style = props.Stylizer
-	
+
 	local flash = self:getFlash()
 
 	local children = collect(props.Nodes, function(index: number, item)
 		local hasFlash = flash and flash.indexSet[index]
-		return "Item " .. index, Roact.createElement(NodeListRow, {
-			Index = index,
-			Icon = item.Icon,
-			Name = item.Name,
-			Flash = hasFlash and flash or nil,
-			LinkText = item.Link,
-			IsSelected = index == props.SelectedIndex,
-			OnSelect = self.onSelectNode,
-			OnClickLink = function()
-				self:onSelectLink(item.Source)
-			end,
-			Style = style
-		})
+		return "Item " .. index,
+			Roact.createElement(NodeListRow, {
+				Index = index,
+				Icon = item.Icon,
+				Name = item.Name,
+				Flash = hasFlash and flash or nil,
+				LinkText = item.Link,
+				IsSelected = index == props.SelectedIndex,
+				OnSelect = self.onSelectNode,
+				OnClickLink = function()
+					self:onSelectLink(item.Source)
+				end,
+				Style = style,
+			})
 	end)
 
 	return Roact.createElement(Container, {
@@ -98,32 +99,29 @@ function NodeList:render()
 			Style = style.ScrollingFrame,
 			AutoSizeCanvas = true,
 			AutoSizeLayoutOptions = {
-				SortOrder = Enum.SortOrder.LayoutOrder
-			}
-		}, children)
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			},
+		}, children),
 	})
 end
 
 NodeList = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Plugin = ContextServices.Plugin,
-	Inspector = InspectorContext
+	Inspector = InspectorContext,
 })(NodeList)
 
-return RoactRodux.connect(
-	function(state, props)
-		return {
-			Flash = state.RoactInspector.flashInstances,
-			Nodes = state.RoactInspector.nodes,
-			SelectedPath = state.RoactInspector.selectedPath,
-			SelectedIndex = state.RoactInspector.selectedNodeIndex
-		}
-	end,
-	function(dispatch)
-		return {
-			selectNode = function(nodeIndex)
-				dispatch(SelectNode(nodeIndex))
-			end,
-		}
-	end
-)(NodeList)
+return RoactRodux.connect(function(state, props)
+	return {
+		Flash = state.RoactInspector.flashInstances,
+		Nodes = state.RoactInspector.nodes,
+		SelectedPath = state.RoactInspector.selectedPath,
+		SelectedIndex = state.RoactInspector.selectedNodeIndex,
+	}
+end, function(dispatch)
+	return {
+		selectNode = function(nodeIndex)
+			dispatch(SelectNode(nodeIndex))
+		end,
+	}
+end)(NodeList)

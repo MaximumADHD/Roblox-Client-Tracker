@@ -74,8 +74,7 @@ function ContextMenuHelper.tryCreateContextMenu(
 	local localize = localizedContent
 
 	-- add an action to view an asset in browser
-	menu
-		:AddNewAction(string.format("OpenInBrowser-%s", instanceGuid), localize.RightClickMenu.ViewInBrowser).Triggered
+	menu:AddNewAction(string.format("OpenInBrowser-%s", instanceGuid), localize.RightClickMenu.ViewInBrowser).Triggered
 		:connect(function()
 			local targetUrl
 			local baseUrl = ToolboxUtilities.getCreatorMarketplaceWebBaseUrl()
@@ -102,8 +101,7 @@ function ContextMenuHelper.tryCreateContextMenu(
 
 	if not showEditOption and creatorId ~= 1 then
 		-- User should only be able to report assets they can't edit
-		menu
-			:AddNewAction(string.format("Report-%s", instanceGuid), localize.RightClickMenu.Report).Triggered
+		menu:AddNewAction(string.format("Report-%s", instanceGuid), localize.RightClickMenu.Report).Triggered
 			:connect(function()
 				Analytics.reportAssetClicked(assetId, assetTypeId)
 
@@ -120,31 +118,23 @@ function ContextMenuHelper.tryCreateContextMenu(
 			trueAssetId = getImageIdFromDecalId(assetId)
 		end
 
-		menu
-			:AddNewAction(string.format("CopyAssetIdToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyAssetID).Triggered
+		menu:AddNewAction(string.format("CopyAssetIdToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyAssetID).Triggered
 			:connect(function()
 				Analytics.onContextMenuClicked("CopyAssetId", assetId, assetTypeId, currentCategory)
 				StudioService:CopyToClipboard(trueAssetId)
 			end)
 
 		if assetTypeId == Enum.AssetType.MeshPart.Value then
-			local meshIdSuccess, meshId = pcall(
-				AssetManagerService.GetMeshIdFromAssetId,
-				AssetManagerService,
-				trueAssetId
-			)
-			local textureIdSuccess, textureId = pcall(
-				AssetManagerService.GetTextureIdFromAssetId,
-				AssetManagerService,
-				trueAssetId
-			)
+			local meshIdSuccess, meshId =
+				pcall(AssetManagerService.GetMeshIdFromAssetId, AssetManagerService, trueAssetId)
+			local textureIdSuccess, textureId =
+				pcall(AssetManagerService.GetTextureIdFromAssetId, AssetManagerService, trueAssetId)
 
 			if meshIdSuccess then
-				menu
-					:AddNewAction(
-						string.format("CopyMeshIdToClipboard-%s", instanceGuid),
-						localize.RightClickMenu.CopyMeshID
-					).Triggered
+				menu:AddNewAction(
+					string.format("CopyMeshIdToClipboard-%s", instanceGuid),
+					localize.RightClickMenu.CopyMeshID
+				).Triggered
 					:connect(function()
 						Analytics.onContextMenuClicked("CopyMeshId", assetId, assetTypeId, currentCategory)
 						StudioService:CopyToClipboard(meshId)
@@ -155,11 +145,10 @@ function ContextMenuHelper.tryCreateContextMenu(
 
 			-- do not display warning for texture ids because meshes can be valid without a texture
 			if textureIdSuccess then
-				menu
-					:AddNewAction(
-						string.format("CopyTextureIdToClipboard-%s", instanceGuid),
-						localize.RightClickMenu.CopyTextureID
-					).Triggered
+				menu:AddNewAction(
+					string.format("CopyTextureIdToClipboard-%s", instanceGuid),
+					localize.RightClickMenu.CopyTextureID
+				).Triggered
 					:connect(function()
 						Analytics.onContextMenuClicked("CopyTextureId", assetId, assetTypeId, currentCategory)
 						StudioService:CopyToClipboard(textureId)
@@ -170,11 +159,10 @@ function ContextMenuHelper.tryCreateContextMenu(
 
 	if showEditOption and editAssetFunc then
 		if isPackageAsset then
-			menu
-				:AddNewAction(
-					string.format("PackageDetails-%s", instanceGuid),
-					localize.PackagePermissions.RightClickMenu.PackageDetails
-				).Triggered
+			menu:AddNewAction(
+				string.format("PackageDetails-%s", instanceGuid),
+				localize.PackagePermissions.RightClickMenu.PackageDetails
+			).Triggered
 				:connect(function()
 					editAssetFunc(
 						assetId,
@@ -184,8 +172,7 @@ function ContextMenuHelper.tryCreateContextMenu(
 					)
 				end)
 		else
-			menu
-				:AddNewAction(string.format("EditAsset-%s", instanceGuid), localize.RightClickMenu.EditAsset).Triggered
+			menu:AddNewAction(string.format("EditAsset-%s", instanceGuid), localize.RightClickMenu.EditAsset).Triggered
 				:connect(function()
 					editAssetFunc(
 						assetId,

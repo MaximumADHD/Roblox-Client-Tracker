@@ -45,7 +45,7 @@ function FocusedPrompt:renderButton(index, button, textSize)
 			props.OnButtonClicked(button.Key)
 		end,
 	})
-	end
+end
 
 function FocusedPrompt:render()
 	local props = self.props
@@ -70,7 +70,7 @@ function FocusedPrompt:render()
 				Font = theme.font,
 				Text = promptText,
 				TextWrapped = true,
-			})
+			}),
 		}
 	else
 		contents = self.props[Roact.Children]

@@ -6,6 +6,6 @@ local StateModelTemplate = require(Page.Util.StateModelTemplate)
 
 return Action(script.Name, function()
 	return {
-		templatesArrayToAdd = {StateModelTemplate.new()},
+		templatesArrayToAdd = { StateModelTemplate.new() },
 	}
 end)

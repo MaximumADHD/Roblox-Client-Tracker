@@ -13,5 +13,4 @@ game:DefineFastInt("StudioAudioDiscoveryPermissionCheckAnalyticsThrottle", 1000)
 game:DefineFastFlag("DEBUG_StudioAudioDiscoveryPermissionCheckErrors", false)
 game:DefineFastFlag("AddNonPermCase", false)
 
-
 return nil

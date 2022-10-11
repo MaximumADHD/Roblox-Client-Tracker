@@ -25,7 +25,7 @@ else
 	showPluginDebug = settings().Studio["PluginDebuggingEnabled"]
 end
 
-return function (source)
+return function(source)
 	local instance = nil
 	local lineNumber = 0
 	local parts = string.split(source, ":")
@@ -72,7 +72,7 @@ return function (source)
 		return nil, nil
 	end
 
-	for i=TAIL_INDEX, #pathArray do
+	for i = TAIL_INDEX, #pathArray do
 		instance = instance:FindFirstChild(pathArray[i], true)
 	end
 

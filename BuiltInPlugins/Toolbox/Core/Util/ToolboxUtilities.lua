@@ -5,7 +5,8 @@ local FFlagToolboxEnableAnnouncementsDialog = game:GetFastFlag("ToolboxEnableAnn
 local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
 local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
 local FFlagToolboxAddUnverifiedIcon = game:GetFastFlag("ToolboxAddUnverifiedIcon")
-local FFlagToolboxAddUnverifiedIconFollowUp = game:GetFastFlag("ToolboxAddUnverifiedIconFollowUp") and FFlagToolboxAddUnverifiedIcon
+local FFlagToolboxAddUnverifiedIconFollowUp = game:GetFastFlag("ToolboxAddUnverifiedIconFollowUp")
+	and FFlagToolboxAddUnverifiedIcon
 local FFlagHideAssetConfigLearnMoreForLuobu = game:GetFastFlag("HideAssetConfigLearnMoreForLuobu")
 
 local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
@@ -32,9 +33,8 @@ if isCli() then
 			Image = "rbxasset://textures/StudioToolbox/announcementConstruction.png",
 			LinkKey = "LinkText_Default",
 			LinkLocation = "https://roblox.com",
-		}
+		},
 	}
-	
 else
 	ToolboxPolicy = game:GetService("PluginPolicyService"):getPluginPolicy("Toolbox")
 end
@@ -156,7 +156,11 @@ if FFlagToolboxEnableAnnouncementsDialog then
 	end
 end
 
-if FFlagToolboxEnableAssetConfigPhoneVerification or FFlagToolboxAssetConfigurationVerifiedPrice or FFlagToolboxAddUnverifiedIconFollowUp then
+if
+	FFlagToolboxEnableAssetConfigPhoneVerification
+	or FFlagToolboxAssetConfigurationVerifiedPrice
+	or FFlagToolboxAddUnverifiedIconFollowUp
+then
 	function ToolboxUtilities.getVerificationDocumentationUrl(): string?
 		return ToolboxPolicy["VerificationDocumentationUrl"]
 	end

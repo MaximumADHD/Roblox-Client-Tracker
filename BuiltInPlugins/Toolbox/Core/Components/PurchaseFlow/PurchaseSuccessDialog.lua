@@ -45,12 +45,8 @@ function PurchaseDialog:renderContent(theme, localization, localizedContent)
 
 	theme = self.props.Stylizer
 
-	local textWidth = GetTextSize(
-		localizedContent.PurchaseFlow.CurrentBalance,
-		Constants.FONT_SIZE_MEDIUM,
-		nil,
-		Vector2.new(0, 0)
-	).X
+	local textWidth =
+		GetTextSize(localizedContent.PurchaseFlow.CurrentBalance, Constants.FONT_SIZE_MEDIUM, nil, Vector2.new(0, 0)).X
 
 	local title = isFree and localizedContent.PurchaseFlow.FreeTitle or localizedContent.PurchaseFlow.BuyTitle
 	local header = isFree and localizedContent.PurchaseFlow.FreeSuccessHeader

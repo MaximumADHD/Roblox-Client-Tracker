@@ -39,15 +39,18 @@ function WarningDialog:render()
 		Buttons = buttons,
 		OnResult = props.OnResult,
 	}, {
-		Header = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Title, {
-			AutomaticSize = Enum.AutomaticSize.Y,
-			Size = UDim2.new(1, theme.warningDialog.headerOffset, 0, 0),
-			AnchorPoint = Vector2.new(0.5, 0),
-			LayoutOrder = layoutOrder:getNextOrder(),
-			BackgroundTransparency = 1,
-			Text = header,
-			TextXAlignment = Enum.TextXAlignment.Left,
-		})),
+		Header = Roact.createElement(
+			"TextLabel",
+			Cryo.Dictionary.join(theme.fontStyle.Title, {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Size = UDim2.new(1, theme.warningDialog.headerOffset, 0, 0),
+				AnchorPoint = Vector2.new(0.5, 0),
+				LayoutOrder = layoutOrder:getNextOrder(),
+				BackgroundTransparency = 1,
+				Text = header,
+				TextXAlignment = Enum.TextXAlignment.Left,
+			})
+		),
 
 		WarningDescription = Roact.createElement("Frame", {
 			AutomaticSize = Enum.AutomaticSize.XY,
@@ -69,15 +72,18 @@ function WarningDialog:render()
 				Size = UDim2.new(0, theme.warningDialog.icon.size, 0, theme.warningDialog.icon.size),
 			}),
 
-			Description = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Warning, {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				LayoutOrder = layoutOrder:getNextOrder(),
-				Size = UDim2.new(0, theme.warningDialog.description.length, 0, 0),
-				BackgroundTransparency = 1,
-				Text = description,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextWrapped = true,
-			})),
+			Description = Roact.createElement(
+				"TextLabel",
+				Cryo.Dictionary.join(theme.fontStyle.Warning, {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					LayoutOrder = layoutOrder:getNextOrder(),
+					Size = UDim2.new(0, theme.warningDialog.description.length, 0, 0),
+					BackgroundTransparency = 1,
+					Text = description,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextWrapped = true,
+				})
+			),
 		}),
 	})
 end

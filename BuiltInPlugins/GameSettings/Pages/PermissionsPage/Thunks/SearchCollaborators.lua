@@ -14,7 +14,9 @@ return function(searchText, requestSearch)
 		local gamePermissionsController = contextItems.gamePermissionsController
 
 		store:dispatch(CollaboratorSearchActions.SearchTextChanged(searchText))
-		if searchText == "" or not requestSearch then return end
+		if searchText == "" or not requestSearch then
+			return
+		end
 
 		if not state.CollaboratorSearch.CachedSearchResults[searchText] then
 			store:dispatch(CollaboratorSearchActions.LoadingWebResults(searchText))

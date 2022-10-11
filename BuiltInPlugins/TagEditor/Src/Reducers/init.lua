@@ -11,6 +11,7 @@ local RenamingTag = require(script.RenamingTag)
 local Search = require(script.Search)
 local TagData = require(script.TagData)
 local TagMenu = require(script.TagMenu)
+local UIGroupCollapseState = require(script.UIGroupCollapseState)
 local UnknownTags = require(script.UnknownTags)
 local WorldView = require(script.WorldView)
 
@@ -30,6 +31,7 @@ return function(state: any, action: any)
 		Search = Search(state.Search, action),
 		TagData = TagData(state.TagData, action),
 		TagMenu = TagMenu(state, action),
+		UIGroupCollapseState = UIGroupCollapseState(state.UIGroupCollapseState, action),
 		UnknownTags = UnknownTags(state.UnknownTags, action),
 		WorldView = WorldView(state.WorldView, action),
 	}

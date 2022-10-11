@@ -16,15 +16,15 @@ return Rodux.createReducer(DEFAULT_STATE, {
 		return DEFAULT_STATE
 	end,
 
-    SetEditPlaceId = function(state, action)
-        return Cryo.Dictionary.join(state, {
+	SetEditPlaceId = function(state, action)
+		return Cryo.Dictionary.join(state, {
 			editPlaceId = action.editPlaceId,
 		})
 	end,
 
 	SetEditDevProductId = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			editDevProductId = (action.editDevProductId ~= nil) and action.editDevProductId or Cryo.None
+			editDevProductId = (action.editDevProductId ~= nil) and action.editDevProductId or Cryo.None,
 		})
 	end,
 })

@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local AppTempCommon = CorePackages.AppTempCommon
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -7,7 +6,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Roact = require(CorePackages.Roact)
 
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
-local Immutable = require(AppTempCommon.Common.Immutable)
+local Immutable = require(CorePackages.Workspace.Packages.AppCommonLib).Immutable
 local Constants = require(ShareGame.Constants)
 local RectangleButton = require(ShareGame.Components.RectangleButton)
 

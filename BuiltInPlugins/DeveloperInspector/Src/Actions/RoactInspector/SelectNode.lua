@@ -8,6 +8,6 @@ local Action = Util.Action
 
 return Action(script.Name, function(nodeIndex)
 	return {
-		nodeIndex = nodeIndex
+		nodeIndex = nodeIndex,
 	}
 end)

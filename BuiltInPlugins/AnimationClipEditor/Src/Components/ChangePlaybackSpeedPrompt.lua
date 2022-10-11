@@ -48,10 +48,14 @@ function ChangePlaybackSpeedPrompt:init()
 			if status and result ~= nil then
 				result = math.floor(result * 100) / 100
 				if result < Constants.MIN_PLAYBACK_SPEED then
-					self.setNotice(localization:getText("Title", "MinPBSParam", {speed = tostring(Constants.MIN_PLAYBACK_SPEED)}))
+					self.setNotice(
+						localization:getText("Title", "MinPBSParam", { speed = tostring(Constants.MIN_PLAYBACK_SPEED) })
+					)
 					return false
 				elseif result > Constants.MAX_PLAYBACK_SPEED then
-					self.setNotice(localization:getText("Title", "MaxPBSParam", {speed = tostring(Constants.MAX_PLAYBACK_SPEED)}))
+					self.setNotice(
+						localization:getText("Title", "MaxPBSParam", { speed = tostring(Constants.MAX_PLAYBACK_SPEED) })
+					)
 					return false
 				else
 					self.props.SetPlaybackSpeed(result)
@@ -80,8 +84,8 @@ function ChangePlaybackSpeedPrompt:render()
 		HasError = hasNoticeText,
 		Text = playbackSpeed,
 		Buttons = {
-			{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round"},
-			{Key = true, Text = localization:getText("Dialog", "Confirm"), Style = "RoundPrimary"},
+			{ Key = false, Text = localization:getText("Dialog", "Cancel"), Style = "Round" },
+			{ Key = true, Text = localization:getText("Dialog", "Confirm"), Style = "RoundPrimary" },
 		},
 		OnTextSubmitted = function(text)
 			return self.setPlaybackSpeed(text, localization)

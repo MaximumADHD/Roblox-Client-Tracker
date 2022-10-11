@@ -14,7 +14,7 @@ return function()
 	local SetIsControllerMode = require(LuaApp.Actions.SetIsControllerMode)
 	local GetGuiServiceSelectEnabled = require(script.Parent.GetGuiServiceSelectEnabled)
 	local GetFFlagLuaAppAddSignalToFocusArea = require(LuaApp.Flags.GetFFlagLuaAppAddSignalToFocusArea)
-	local Signal = require(LuaApp.Parent.Common.Signal)
+	local Signal = require(CorePackages.Workspace.Packages.AppCommonLib).Signal
 
 	local guiServiceSelectEnabled
 

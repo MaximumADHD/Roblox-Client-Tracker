@@ -13,7 +13,7 @@ return function()
 				Active = true,
 				Size = UDim2.new(0, 1000, 0, 500),
 				AnimationData = animationData,
-			})
+			}),
 		})
 	end
 

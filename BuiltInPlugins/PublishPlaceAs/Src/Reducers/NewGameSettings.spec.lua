@@ -35,14 +35,14 @@ return function()
 		end)
 
 		it("should only set changed if it will be different than current", function()
-			local key1 = {"create new keys to make sure changed works"}
-			local val1 = {"changed only holds hav"}
-			local key2 = {"another pair"}
-			local val2 = {"to test"}
-			local val3 = {"third val"}
+			local key1 = { "create new keys to make sure changed works" }
+			local val1 = { "changed only holds hav" }
+			local key2 = { "another pair" }
+			local val2 = { "to test" }
+			local val3 = { "third val" }
 
 			local state = Reducer(nil, {})
-			state = Cryo.Dictionary.join(state, { current = { [key1] = val1, }})
+			state = Cryo.Dictionary.join(state, { current = { [key1] = val1 } })
 			expect(state.current[key1]).to.equal(val1)
 			expect(Cryo.isEmpty(state.changed)).to.equal(false)
 			expect(state.changed.playableDevices.Computer).to.equal(true)
@@ -92,26 +92,23 @@ return function()
 
 		it("should not mutate the state", function()
 			testImmutability(Reducer, AddErrors({}))
-			testImmutability(Reducer, AddErrors({ a = "setting"}))
-			testImmutability(Reducer, AddErrors({ cat = "horse"}))
+			testImmutability(Reducer, AddErrors({ a = "setting" }))
+			testImmutability(Reducer, AddErrors({ cat = "horse" }))
 		end)
 
 		it("should replace the current errors", function()
 			local state = Reducer(nil, {})
 			expect(Cryo.isEmpty(state.errors)).to.equal(true)
 
-			state = Reducer(state, AddErrors({first = "asdf"}))
+			state = Reducer(state, AddErrors({ first = "asdf" }))
 			expect(state.errors.first).to.equal("asdf")
 
-			local key1 = {'new key'}
-			local val1 = {'new val'}
+			local key1 = { "new key" }
+			local val1 = { "new val" }
 			state = Reducer(state, AddErrors({ [key1] = val1 }))
 
-			for k,v in pairs(state.errors) do
-				expect(
-					(k == "first" and v == "asdf") or
-					(k == key1 and v == val1)
-				).to.equal(true)
+			for k, v in pairs(state.errors) do
+				expect((k == "first" and v == "asdf") or (k == key1 and v == val1)).to.equal(true)
 			end
 
 			state = Reducer(state, AddErrors({ [key1] = Cryo.None }))
@@ -119,5 +116,4 @@ return function()
 			expect(state.errors[key1]).to.equal(nil)
 		end)
 	end)
-
 end

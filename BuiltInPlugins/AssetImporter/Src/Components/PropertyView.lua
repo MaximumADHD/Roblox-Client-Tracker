@@ -26,6 +26,7 @@ local VectorProperty = require(Properties.VectorProperty)
 
 local getFFlagAssetImportSessionCleanup = require(Plugin.Src.Flags.getFFlagAssetImportSessionCleanup)
 local getFFlagAssetImportUsePropertyFactories = require(Plugin.Src.Flags.getFFlagAssetImportUsePropertyFactories)
+local getFFlagAssetImportUpdatePropertySpacing = require(Plugin.Src.Flags.getFFlagAssetImportUpdatePropertySpacing)
 
 local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
 local UpdatePreviewInstance = require(Plugin.Src.Thunks.UpdatePreviewInstance)
@@ -209,7 +210,12 @@ function PropertyView:render()
 
 	local iconSize = style.PropertyView.IconSize
 	local spacing = style.PropertyView.Spacing
+	local scrollBarOffset = 0
 	local labelOffset = iconSize + spacing
+
+	if getFFlagAssetImportUpdatePropertySpacing() then
+		scrollBarOffset = style.PropertyView.ScrollBarOffset
+	end
 
 	return Roact.createElement(Pane, {
 		LayoutOrder = props.LayoutOrder,
@@ -249,7 +255,7 @@ function PropertyView:render()
 			OnSelectItem = self.onSelectItem,
 			OnSetItem = self.onSetItem,
 			OnToggleItem = self.onToggleItem,
-			Size = UDim2.new(0.5, 0, 0, 24),
+			Size = UDim2.new(0.5, -scrollBarOffset, 0, 24),
 			Value = value,
 			Localization = localization,
 			PropertyMetadata = propertyMetadata,

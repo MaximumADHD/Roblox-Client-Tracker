@@ -27,7 +27,11 @@ function TeachingCallout:didMount()
 		end
 
 		self._attachedDefinitionId = self.props.DefinitionId
-		self.props.CalloutController:attachCallout(self._attachedDefinitionId , self.props.LocationId, self.targetRef.current)
+		self.props.CalloutController:attachCallout(
+			self._attachedDefinitionId,
+			self.props.LocationId,
+			self.targetRef.current
+		)
 	end)
 end
 

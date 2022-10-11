@@ -49,13 +49,14 @@ function Game.fromJsonData(gameJson)
 		return false, "Game.fromJsonData expects privacyType to be a string"
 	end
 
-	return true, {
-		creatorId = gameJson.creatorTargetId,
-		rootPlaceId = gameJson.rootPlaceId,
-		name = gameJson.name,
-		universeId = gameJson.id,
-		privacyType = gameJson.privacyType,
-	}
+	return true,
+		{
+			creatorId = gameJson.creatorTargetId,
+			rootPlaceId = gameJson.rootPlaceId,
+			name = gameJson.name,
+			universeId = gameJson.id,
+			privacyType = gameJson.privacyType,
+		}
 end
 
 return Game

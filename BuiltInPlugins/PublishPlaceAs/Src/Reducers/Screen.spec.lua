@@ -21,7 +21,7 @@ return function()
 			end).to.throw()
 
 			expect(function()
-				SetScreen({ key = "value", })
+				SetScreen({ key = "value" })
 			end).to.throw()
 
 			expect(function()
@@ -30,7 +30,7 @@ return function()
 		end)
 
 		it("should not mutate the state", function()
-			for k,v in pairs(Constants.SCREENS) do
+			for k, v in pairs(Constants.SCREENS) do
 				testImmutability(Reducer, SetScreen(k))
 				testImmutability(Reducer, SetScreen(v))
 			end
@@ -40,12 +40,10 @@ return function()
 			local state = Reducer(nil, {})
 			expect(state.screen).to.equal(Constants.SCREENS.CREATE_NEW_GAME)
 
-			for k,v in pairs(Constants.SCREENS) do
+			for k, v in pairs(Constants.SCREENS) do
 				state = Reducer(state, SetScreen(k))
 				expect(state.screen).to.equal(v)
 			end
-
 		end)
 	end)
-
 end

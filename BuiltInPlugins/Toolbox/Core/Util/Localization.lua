@@ -5,8 +5,6 @@
 local Plugin = script.Parent.Parent.Parent
 
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
-local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
-local FFlagToolboxAssetConfigurationMaxPrice = game:GetFastFlag("ToolboxAssetConfigurationMaxPrice")
 local FFlagToolboxAddUnverifiedIcon = game:GetFastFlag("ToolboxAddUnverifiedIcon")
 
 local Packages = Plugin.Packages
@@ -127,42 +125,6 @@ if not FFlagToolboxAddUnverifiedIcon then
 	end
 end
 
-if FFlagToolboxAssetConfigurationMinPriceFloor2 and not FFlagToolboxAssetConfigurationMaxPrice then
-	function Localization:getLocalizedMinimumPrice(minPrice)
-		return self:_safeLocalize("Studio.Toolbox.General.SalesMinimumPrice", {
-			minPrice = tostring(minPrice),
-		})
-	end
-
-	function Localization:getLocalizedCreatorEarnings(earningsPercent)
-		return self:_safeLocalize("Studio.Toolbox.General.SalesCreatorEarnings", {
-			earningsPercent = tostring(earningsPercent),
-		})
-	end
-else
-	function Localization:getLocalizedEarningText(earning)
-		return self:_safeLocalize("Studio.Toolbox.General.SalesEarning", { -- unused, remove translation with FFlagToolboxAssetConfigurationMinPriceFloor2
-			earning = tostring(earning),
-		})
-	end
-
-	-- percent, string, from 0 to 100
-	function Localization:getLocalizedFee(percent)
-		return self:_safeLocalize("Studio.Toolbox.General.Fee", { -- deprecated, remove translation with FFlagToolboxAssetConfigurationMinPriceFloor2
-			percent = percent,
-		})
-	end
-end
-
-if not FFlagToolboxAssetConfigurationMaxPrice then
-	function Localization:getLocalizedPriceRangeText(minPrice, maxPrice)
-		return self:_safeLocalize("Studio.Toolbox.General.SalesPriceRange", {
-			minPrice = tostring(minPrice),
-			maxPrice = tostring(maxPrice),
-		})
-	end
-end
-
 function Localization:getLocalizedAssetIDText(assetId)
 	return self:_safeLocalize("Studio.Toolbox.General.PreviewAreaAssetID", {
 		assetId = tostring(assetId),
@@ -274,7 +236,7 @@ end
 function Localization:getGroupPermissionLockedTooltip(roleName)
 	assert(FFlagLimitGroupRoleSetPermissionsInGui)
 	return self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.LockedGroup", {
-		roleName = roleName
+		roleName = roleName,
 	})
 end
 
@@ -656,14 +618,7 @@ function Localization:_recalculateContent()
 		Sales = {
 			Sale = self:_safeLocalize("Studio.Toolbox.General.SalesSale"),
 			Onsale = self:_safeLocalize("Studio.Toolbox.General.SalesOnsale"),
-			OnsaleApplyToSave = if FFlagToolboxAssetConfigurationMinPriceFloor2 then nil else self:_safeLocalize("Studio.Toolbox.General.SalesOnsaleApplyToSave"), -- unused, remove translation with FFlagToolboxAssetConfigurationMinPriceFloor2
 			Offsale = self:_safeLocalize("Studio.Toolbox.General.SalesOffsale"),
-			OffsaleApplyToSave = if FFlagToolboxAssetConfigurationMinPriceFloor2 then nil else self:_safeLocalize("Studio.Toolbox.General.SalesOffsaleApplyToSave"), -- unused, remove translation with FFlagToolboxAssetConfigurationMinPriceFloor2
-			ItemCannotBeSold = if FFlagToolboxAssetConfigurationMinPriceFloor2 then nil else self:_safeLocalize("Studio.Toolbox.General.SalesItemCannotBeSold"), -- unused, remove translation with FFlagToolboxAssetConfigurationMinPriceFloor2
-			Price = if FFlagToolboxAssetConfigurationMaxPrice then nil else self:_safeLocalize("Studio.Toolbox.General.SalesPrice"),
-			ServiceFee = if FFlagToolboxAssetConfigurationMinPriceFloor2 then nil else self:_safeLocalize("Studio.Toolbox.General.SalesServiceFee"), -- unused, remove translation with FFlagToolboxAssetConfigurationMinPriceFloor2
-			Earn = if FFlagToolboxAssetConfigurationMinPriceFloor2 then nil else self:_safeLocalize("Studio.Toolbox.General.Earn"), -- deprecated, remove translation with FFlagToolboxAssetConfigurationMinPriceFloor2
-			FreePrice = if FFlagToolboxAssetConfigurationMinPriceFloor2 and not FFlagToolboxAssetConfigurationMaxPrice then self:_safeLocalize("Studio.Toolbox.General.SalesFreePrice") else nil,
 			PremiumBenefits = self:_safeLocalize("Studio.Toolbox.General.PremiumBenefits"),
 		},
 
@@ -674,10 +629,12 @@ function Localization:_recalculateContent()
 				EditLabel = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.EditLabel"),
 				OwnerLabel = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.OwnerLabel"),
 				MultipleLabel = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabel"),
-				MultipleLabelTooltip = if FFlagLimitGroupRoleSetPermissionsInGui then
-				                       self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabelTooltip") else nil,
-				GroupOwnedTooltip = if FFlagLimitGroupRoleSetPermissionsInGui then
-				                    self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedTooltip") else nil,
+				MultipleLabelTooltip = if FFlagLimitGroupRoleSetPermissionsInGui
+					then self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabelTooltip")
+					else nil,
+				GroupOwnedTooltip = if FFlagLimitGroupRoleSetPermissionsInGui
+					then self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedTooltip")
+					else nil,
 
 				NoAccessDescription = self:_safeLocalize(
 					"Studio.Toolbox.AssetConfigPackagePermissions.NoAccessDescription"
@@ -714,12 +671,16 @@ function Localization:_recalculateContent()
 			},
 
 			Warning = {
-				UserOwned = self:_safeLocalize(if FFlagLimitGroupRoleSetPermissionsInGui then
-				                               "Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarningAllVersions" else
-											   "Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarning"),
-				GroupOwned = self:_safeLocalize(if FFlagLimitGroupRoleSetPermissionsInGui then
-												"Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarningAllVersions" else
-												"Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarning"),
+				UserOwned = self:_safeLocalize(
+					if FFlagLimitGroupRoleSetPermissionsInGui
+						then "Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarningAllVersions"
+						else "Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarning"
+				),
+				GroupOwned = self:_safeLocalize(
+					if FFlagLimitGroupRoleSetPermissionsInGui
+						then "Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarningAllVersions"
+						else "Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarning"
+				),
 			},
 
 			RightClickMenu = {
@@ -734,7 +695,8 @@ function Localization:_recalculateContent()
 				Ownership = self:_safeLocalize("Studio.Toolbox.General.Ownership"),
 				Genre = self:_safeLocalize("Studio.Toolbox.General.Genre"),
 				Copy = self:_safeLocalize("Studio.Toolbox.General.Copy"),
-				Package = FFlagUnifyModelPackagePublish3 and self:_safeLocalize("Studio.Toolbox.General.Package") or nil,
+				Package = FFlagUnifyModelPackagePublish3 and self:_safeLocalize("Studio.Toolbox.General.Package")
+					or nil,
 				Comments = self:_safeLocalize("Studio.Toolbox.General.Comments"),
 				DistributeOnMarketplace = self:_safeLocalize("Studio.Toolbox.General.DistributeOnMarketplace"),
 				LearnMore = self:_safeLocalize("Studio.Toolbox.General.LearnMore"),

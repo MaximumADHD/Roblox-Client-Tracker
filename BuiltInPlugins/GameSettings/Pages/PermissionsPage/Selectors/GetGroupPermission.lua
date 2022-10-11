@@ -7,10 +7,16 @@ return function(state, groupId)
 	local allPlay = true
 	local allNoAccess = true
 	for _, rolesetData in pairs(permissions[PermissionsConstants.RoleSubjectKey]) do
-		if rolesetData[PermissionsConstants.ActionKey] ~= PermissionsConstants.PlayKey and rolesetData[PermissionsConstants.GroupIdKey] == groupId then
+		if
+			rolesetData[PermissionsConstants.ActionKey] ~= PermissionsConstants.PlayKey
+			and rolesetData[PermissionsConstants.GroupIdKey] == groupId
+		then
 			allPlay = false
 		end
-		if rolesetData[PermissionsConstants.ActionKey] ~= PermissionsConstants.NoAccessKey and rolesetData[PermissionsConstants.GroupIdKey] == groupId then
+		if
+			rolesetData[PermissionsConstants.ActionKey] ~= PermissionsConstants.NoAccessKey
+			and rolesetData[PermissionsConstants.GroupIdKey] == groupId
+		then
 			allNoAccess = false
 		end
 	end

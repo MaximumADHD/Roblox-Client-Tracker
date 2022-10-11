@@ -8,9 +8,8 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
-local FFlagToolboxEditDialogUseMPRS = game:GetFastFlag("ToolboxEditDialogUseMPRS")
+local FFlagToolboxEditDialogUseMPRS = game:GetFastFlag("ToolboxEditDialogUseMPRS2")
 local FFlagUnifyModelPackagePublish3 = game:GetFastFlag("UnifyModelPackagePublish3")
-local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
 local FFlagToolboxAssetConfigurationVerifiedPrice = game:GetFastFlag("ToolboxAssetConfigurationVerifiedPrice")
 local FFlagToolboxFixSubtypeArray = game:GetFastFlag("ToolboxFixSubtypeArray")
 local FFlagToolboxSwitchVerifiedEndpoint = require(Plugin.Core.Util.getFFlagToolboxSwitchVerifiedEndpoint)
@@ -716,7 +715,7 @@ function AssetConfig:didUpdate(prevProps, prevState)
 				description = assetConfigData.Description,
 				owner = assetConfigData.Creator,
 				genres = assetConfigData.Genres,
-				allowCopy = if FFlagToolboxEditDialogUseMPRS then allowCopy else assetConfigData.IsPublicDomainEnabled,
+				allowCopy = if FFlagToolboxEditDialogUseMPRS then isCopyingAllowed or allowCopy else assetConfigData.IsPublicDomainEnabled,
 				copyOn = isCopyingAllowed,
 				copyOnOriginalValue = isCopyingAllowed,
 				commentOn = assetConfigData.EnableComments,
@@ -866,11 +865,7 @@ local function validatePrice(text, minPrice, maxPrice, assetStatus)
 		if isInt then
 			local num = tonumber(text)
 			if num then
-				if FFlagToolboxAssetConfigurationMinPriceFloor2 then
-					result = num == 0 or num >= minPrice and num <= maxPrice
-				else
-					result = num >= minPrice and num <= maxPrice
-				end
+				result = num == 0 or num >= minPrice and num <= maxPrice
 			end
 		end
 	end
@@ -1006,7 +1001,7 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 	local screenFlowType = props.screenFlowType
 	local changeTable = props.changeTable or {}
 	local allowedAssetTypesForRelease = props.allowedAssetTypesForRelease
-	local allowedAssetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then props.allowedAssetTypesForFree else nil
+	local allowedAssetTypesForFree = props.allowedAssetTypesForFree
 	local isPackageMarketplacePublishAllowed = if FFlagUnifyModelPackagePublish3 then props.isPackageMarketplacePublishAllowed else nil
 
 	local currentAssetStatus = newAssetStatus or AssetConfigConstants.ASSET_STATUS.Unknown
@@ -1236,7 +1231,7 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 				maximumItemTagsPerItem = props.maximumItemTagsPerItem,
 
 				allowedAssetTypesForRelease = if isPlugin then allowedAssetTypesForRelease else nil,
-				allowedAssetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then allowedAssetTypesForFree else nil,
+				allowedAssetTypesForFree = allowedAssetTypesForFree,
 				newAssetStatus = if isPlugin then newAssetStatus else nil,
 				currentAssetStatus = if isPlugin then currentAssetStatus else nil,
 
@@ -1342,10 +1337,10 @@ local function mapStateToProps(state, props)
 		sourceInstances = if FFlagUnifyModelPackagePublish3 then state.sourceInstances else nil,
 		allowedAssetTypesForRelease = state.allowedAssetTypesForRelease,
 		allowedAssetTypesForUpload = state.allowedAssetTypesForUpload,
-		allowedAssetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then state.allowedAssetTypesForFree else nil,
+		allowedAssetTypesForFree = state.allowedAssetTypesForFree,
 		currentTab = state.currentTab,
 		isVerifiedCreator = isVerifiedCreator, -- remove with FFlagUnifyModelPackagePublish3
-		isPublishingAllowed = if FFlagUnifyModelPackagePublish3 then publishing.isAllowed or false else false,
+		isPublishingAllowed = if FFlagUnifyModelPackagePublish3 or FFlagToolboxEditDialogUseMPRS then publishing.isAllowed or false else false,
 		isPackageMarketplacePublishAllowed = isPackageMarketplacePublishAllowed,
 		networkError = state.networkError,
 		networkErrorAction = state.networkErrorAction or {},

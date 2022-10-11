@@ -21,7 +21,7 @@ local SetTracks = require(Plugin.Src.Actions.SetTracks)
 local function setTrackDepth(track, depth)
 	track.Depth = depth
 	for _, tr in pairs(track.Components or {}) do
-		setTrackDepth(tr, depth+1)
+		setTrackDepth(tr, depth + 1)
 	end
 end
 
@@ -90,8 +90,10 @@ return function(newTracks)
 					end
 					hierarchy = SkeletonUtils.buildSkeletonHierarchy(names, parents)
 					unusedTracks = SkeletonUtils.getUnusedSkeletonTracks(names, newTracks)
-				elseif root.ClassName == "Model" and root:FindFirstChildOfClass("Humanoid")
-					or root:FindFirstChildOfClass("AnimationController") then
+				elseif
+					root.ClassName == "Model" and root:FindFirstChildOfClass("Humanoid")
+					or root:FindFirstChildOfClass("AnimationController")
+				then
 					hierarchy = RigUtils.buildRigHierarchy(root)
 					unusedTracks = RigUtils.getUnusedRigTracks(root, newTracks)
 				end

@@ -1,7 +1,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 	local InviteToGameAnalytics = require(script.Parent.InviteToGameAnalytics)
-	local Signal = require(CorePackages.AppTempCommon.Common.Signal)
+	local Signal = require(CorePackages.Workspace.Packages.AppCommonLib).Signal
 
 	local function createMockEventStream()
 		local eventStream = {

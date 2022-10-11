@@ -9,7 +9,7 @@ return function()
 		return Roact.createElement(MockWrapper, {}, {
 			ProgressScreen = Roact.createElement(ProgressScreen, {
 				Progress = 0.0,
-			})
+			}),
 		})
 	end
 

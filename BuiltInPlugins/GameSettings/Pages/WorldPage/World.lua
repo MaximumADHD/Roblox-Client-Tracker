@@ -149,7 +149,7 @@ local function loadValuesToProps(getValue, state)
 		WorkspaceJumpHeight = getValue("workspaceJumpHeight"),
 		WorkspaceGravity = getValue("workspaceGravity"),
 		WorkspaceWalkSpeed = getValue("workspaceWalkSpeed"),
-		WorkspaceMaxSlopeAngle = getValue("workspaceMaxSlopeAngle")
+		WorkspaceMaxSlopeAngle = getValue("workspaceMaxSlopeAngle"),
 	}
 end
 
@@ -161,7 +161,7 @@ local function dispatchChanges(setValue)
 		WorkspaceJumpHeightChanged = setValue("workspaceJumpHeight"),
 		WorkspaceGravityChanged = setValue("workspaceGravity"),
 		WorkspaceWalkSpeedChanged = setValue("workspaceWalkSpeed"),
-		WorkspaceMaxSlopeAngleChanged = setValue("workspaceMaxSlopeAngle")
+		WorkspaceMaxSlopeAngleChanged = setValue("workspaceMaxSlopeAngle"),
 	}
 end
 
@@ -235,7 +235,11 @@ function World:render()
 					end
 				end,
 				UnitsFormatFunction = function(inputNumber)
-					return localization:getText("General", "UnitsMetersPerSecondSquared1", {formatNumberForDisplay(inputNumber)})
+					return localization:getText(
+						"General",
+						"UnitsMetersPerSecondSquared1",
+						{ formatNumberForDisplay(inputNumber) }
+					)
 				end,
 			}),
 
@@ -269,45 +273,60 @@ function World:render()
 				MaxValue = math.huge,
 				OnUpdate = setWalkspeed,
 				UnitsFormatFunction = function(inputNumber)
-					return localization:getText("General", "UnitsMetersPerSecond1", {formatNumberForDisplay(inputNumber)})
+					return localization:getText(
+						"General",
+						"UnitsMetersPerSecond1",
+						{ formatNumberForDisplay(inputNumber) }
+					)
 				end,
 			}),
 
-			JumpDistance = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
-				LayoutOrder = 7,
-				Title = "",
-			} else {
-				Title = "",
-				MaxHeight = 10,
-				TitleTextYAlignment = Enum.TextYAlignment.Center
-			}, {
-				Layout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = Enum.FillDirection.Horizontal,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-				}),
-				JumpDistanceLabel = Roact.createElement(StudioWidgetText, {
-					LayoutOrder = 1,
-					Enabled = true,
-					Size = UDim2.new(0, INPUT_BOX_OFFSET, 0, ROW_HEIGHT),
-					Text = localization:getText("General", "JumpDistance"),
-				}),
-				JumpDistanceValue = Roact.createElement(StudioWidgetText, {
-					LayoutOrder = 2,
-					Enabled = true,
-					Size = UDim2.new(0, METRIC_LABEL_OFFSET, 0, ROW_HEIGHT),
-					Text = formatNumberForDisplay(worldRootPhysicsController.calculateJumpDistance(gravity, jumpPower, walkspeed)),
-				}),
-				JumpDistanceMetricValue = Roact.createElement(StudioWidgetText, {
-					LayoutOrder = 3,
-					Enabled = true,
-					Size = UDim2.new(1, -(METRIC_LABEL_OFFSET+INPUT_BOX_OFFSET), 0, ROW_HEIGHT),
-					Text = localization:getText("General", "UnitsMeters1", {
-						formatNumberForDisplay(worldRootPhysicsController.convertStudsToMeters(
-							worldRootPhysicsController.calculateJumpDistance(gravity, jumpPower, walkspeed)))
+			JumpDistance = Roact.createElement(
+				TitledFrame,
+				if FFlagRemoveUILibraryTitledFrame
+					then {
+						LayoutOrder = 7,
+						Title = "",
+					}
+					else {
+						Title = "",
+						MaxHeight = 10,
+						TitleTextYAlignment = Enum.TextYAlignment.Center,
+					},
+				{
+					Layout = Roact.createElement("UIListLayout", {
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						FillDirection = Enum.FillDirection.Horizontal,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
 					}),
-				}),
-			}),
+					JumpDistanceLabel = Roact.createElement(StudioWidgetText, {
+						LayoutOrder = 1,
+						Enabled = true,
+						Size = UDim2.new(0, INPUT_BOX_OFFSET, 0, ROW_HEIGHT),
+						Text = localization:getText("General", "JumpDistance"),
+					}),
+					JumpDistanceValue = Roact.createElement(StudioWidgetText, {
+						LayoutOrder = 2,
+						Enabled = true,
+						Size = UDim2.new(0, METRIC_LABEL_OFFSET, 0, ROW_HEIGHT),
+						Text = formatNumberForDisplay(
+							worldRootPhysicsController.calculateJumpDistance(gravity, jumpPower, walkspeed)
+						),
+					}),
+					JumpDistanceMetricValue = Roact.createElement(StudioWidgetText, {
+						LayoutOrder = 3,
+						Enabled = true,
+						Size = UDim2.new(1, -(METRIC_LABEL_OFFSET + INPUT_BOX_OFFSET), 0, ROW_HEIGHT),
+						Text = localization:getText("General", "UnitsMeters1", {
+							formatNumberForDisplay(
+								worldRootPhysicsController.convertStudsToMeters(
+									worldRootPhysicsController.calculateJumpDistance(gravity, jumpPower, walkspeed)
+								)
+							),
+						}),
+					}),
+				}
+			),
 
 			MaxSlopeAngle = Roact.createElement(NumberInputRow, {
 				LayoutOrder = 8,
@@ -326,41 +345,36 @@ function World:render()
 	return Roact.createElement(SettingsPage, {
 		SettingsLoadJobs = loadSettings,
 		SettingsSaveJobs = saveSettings,
-		Title = localization:getText("General", "Category"..LOCALIZATION_ID),
+		Title = localization:getText("General", "Category" .. LOCALIZATION_ID),
 		PageId = LOCALIZATION_ID,
 		CreateChildren = createChildren,
 	})
 end
-
 
 World = withContext({
 	Localization = ContextServices.Localization,
 	WorldRootPhysics = WorldRootPhysics,
 })(World)
 
-
-
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
-World = RoactRodux.connect(
-	function(state, props)
-		if not state then return end
-		local getValue = function(propName)
-			return settingFromState(state.Settings, propName)
-		end
-
-		return loadValuesToProps(getValue, state)
-	end,
-
-	function(dispatch)
-		local setValue = function(propName)
-			return function(value)
-				dispatch(AddChange(propName, value))
-			end
-		end
-
-		return dispatchChanges(setValue)
+World = RoactRodux.connect(function(state, props)
+	if not state then
+		return
 	end
-)(World)
+	local getValue = function(propName)
+		return settingFromState(state.Settings, propName)
+	end
+
+	return loadValuesToProps(getValue, state)
+end, function(dispatch)
+	local setValue = function(propName)
+		return function(value)
+			dispatch(AddChange(propName, value))
+		end
+	end
+
+	return dispatchChanges(setValue)
+end)(World)
 
 World.LocalizationId = LOCALIZATION_ID
 

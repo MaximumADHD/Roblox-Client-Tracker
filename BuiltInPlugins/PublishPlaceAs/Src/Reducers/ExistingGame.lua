@@ -11,33 +11,33 @@ local initial = {
 }
 
 return Rodux.createReducer(initial, {
-	SetChooseGameQueryState = function (state, action)
+	SetChooseGameQueryState = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			gameInfo = Cryo.Dictionary.join(state.gameInfo, action.gameInfo)
+			gameInfo = Cryo.Dictionary.join(state.gameInfo, action.gameInfo),
 		})
 	end,
 
-	SetSelectedGame = function (state, action)
+	SetSelectedGame = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			selectedGame = action.selectedGame
+			selectedGame = action.selectedGame,
 		})
 	end,
 
 	SetGameInfo = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			gameInfo = Cryo.Dictionary.join(state.gameInfo, action.gameInfo)
+			gameInfo = Cryo.Dictionary.join(state.gameInfo, action.gameInfo),
 		})
 	end,
 
 	SetPlaceInfo = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			placeInfo = Cryo.Dictionary.join(state.placeInfo, action.placeInfo)
+			placeInfo = Cryo.Dictionary.join(state.placeInfo, action.placeInfo),
 		})
 	end,
 
-	SetChoosePlaceQueryState = function (state, action)
+	SetChoosePlaceQueryState = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			placeInfo = Cryo.Dictionary.join(state.placeInfo, action.placeInfo)
+			placeInfo = Cryo.Dictionary.join(state.placeInfo, action.placeInfo),
 		})
 	end,
 

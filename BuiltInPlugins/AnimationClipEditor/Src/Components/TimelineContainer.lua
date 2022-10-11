@@ -73,11 +73,10 @@ function TimelineContainer:init()
 				self.props.StartTick,
 				self.props.EndTick,
 				self.props.ParentPosition.X + (self.props.TrackPadding / 2),
-				self.props.ParentSize.X - self.props.TrackPadding)
+				self.props.ParentSize.X - self.props.TrackPadding
+			)
 
-			tck = math.clamp(tck,
-				self.props.StartTick,
-				self.props.EndTick)
+			tck = math.clamp(tck, self.props.StartTick, self.props.EndTick)
 			self.moveToTick(tck)
 		end
 	end
@@ -90,17 +89,13 @@ function TimelineContainer:init()
 
 	self.moveScrubberForward = function()
 		local tck = self.props.Playhead + 5
-		tck = math.clamp(tck,
-			self.props.StartTick,
-			self.props.EndTick)
+		tck = math.clamp(tck, self.props.StartTick, self.props.EndTick)
 		self.moveToTick(tck)
 	end
 
-	self.moveScrubberBackward= function()
+	self.moveScrubberBackward = function()
 		local tck = self.props.Playhead - 5
-		tck = math.clamp(tck,
-			self.props.StartTick,
-			self.props.EndTick)
+		tck = math.clamp(tck, self.props.StartTick, self.props.EndTick)
 		self.moveToTick(tck)
 	end
 end
@@ -123,10 +118,7 @@ function TimelineContainer:render()
 	endTick = endTick * frameRate / Constants.TICK_FREQUENCY
 	lastTick = lastTick and (lastTick * frameRate / Constants.TICK_FREQUENCY) or nil
 
-	local majorInterval, minorInterval = calculateIntervals(
-		parentSize.X - self.props.TrackPadding,
-		startTick,
-		endTick)
+	local majorInterval, minorInterval = calculateIntervals(parentSize.X - self.props.TrackPadding, startTick, endTick)
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, Constants.TIMELINE_HEIGHT + 1),
@@ -155,27 +147,27 @@ function TimelineContainer:render()
 			ZIndex = 2,
 		}),
 		ToggleEditorButton = Roact.createElement(Button, {
-				ZIndex = 1,
-				Size = UDim2.new(0, self.props.TrackPadding / 2, 0, Constants.TIMELINE_HEIGHT),
-				Style = theme.button.MediaControl,
-				OnClick = props.OnToggleEditorClicked,
-			}, {
-				Image = Roact.createElement("ImageLabel", {
-					BackgroundTransparency = 1,
-					Size = UDim2.new(0, Constants.TOGGLE_EDITOR_BUTTON_WIDTH, 0, Constants.TOGGLE_EDITOR_BUTTON_HEIGHT),
-					Position = UDim2.new(.5, 0, .5, 0),
-					AnchorPoint = Vector2.new(.5, .5),
-					Image = if isCurveCanvas then theme.curveTheme.dopesheetButton else theme.curveTheme.curveEditorButton,
-					ImageColor3 = theme.playbackTheme.iconColor,
-				}),
-				Tooltip = Roact.createElement(Tooltip, {
-					TextKey = if isCurveCanvas then "GoToDopesheetEditor" else "GoToCurveEditor",
-				}),
-				TeachingCallout = Roact.createElement(TeachingCallout, {
-					Offset = Vector2.new(0, 6),
-					DefinitionId = "CurveEditorCallout",
-					LocationId = "ToggleEditorButton"
-				}),
+			ZIndex = 1,
+			Size = UDim2.new(0, self.props.TrackPadding / 2, 0, Constants.TIMELINE_HEIGHT),
+			Style = theme.button.MediaControl,
+			OnClick = props.OnToggleEditorClicked,
+		}, {
+			Image = Roact.createElement("ImageLabel", {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(0, Constants.TOGGLE_EDITOR_BUTTON_WIDTH, 0, Constants.TOGGLE_EDITOR_BUTTON_HEIGHT),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Image = if isCurveCanvas then theme.curveTheme.dopesheetButton else theme.curveTheme.curveEditorButton,
+				ImageColor3 = theme.playbackTheme.iconColor,
+			}),
+			Tooltip = Roact.createElement(Tooltip, {
+				TextKey = if isCurveCanvas then "GoToDopesheetEditor" else "GoToCurveEditor",
+			}),
+			TeachingCallout = Roact.createElement(TeachingCallout, {
+				Offset = Vector2.new(0, 6),
+				DefinitionId = "CurveEditorCallout",
+				LocationId = "ToggleEditorButton",
+			}),
 		}),
 		KeyboardListener = Roact.createElement(KeyboardListener, {
 			OnKeyPressed = function(input)

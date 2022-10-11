@@ -8,7 +8,7 @@ if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
 	_G.__DEV__ = true
 	_G.__ROACT_17_MOCK_SCHEDULER__ = true
 	_G.__ROACT_17_INLINE_ACT__ = true
-	
+
 	local TestEZ = require(main.Packages.Dev.TestEZ)
 	local TestBootstrap = TestEZ.TestBootstrap
 
@@ -22,7 +22,7 @@ if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
 
 	print("----- All " .. script.Parent.Parent.Name .. " Tests ------")
 	require(script.Parent.defineLuaFlags)
-	TestBootstrap:run({main.Src}, reporter)
+	TestBootstrap:run({ main.Src }, reporter)
 	print("----------------------------------")
 end
 

@@ -11,7 +11,7 @@ return function()
 			FloorGrid = Roact.createElement(FloorGrid, {
 				Container = container,
 				RootInstance = rootInstance,
-			})
+			}),
 		})
 	end
 

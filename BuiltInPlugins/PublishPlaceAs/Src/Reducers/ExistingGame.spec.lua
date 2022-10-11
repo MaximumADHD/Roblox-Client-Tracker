@@ -28,34 +28,40 @@ return function()
 			end).to.throw()
 
 			expect(function()
-				SetGameInfo({ games = true, })
+				SetGameInfo({ games = true })
 			end).to.throw()
 
 			expect(function()
-				SetGameInfo({ previousPageCursor = {}, })
+				SetGameInfo({ previousPageCursor = {} })
 			end).to.throw()
 
 			expect(function()
-				SetGameInfo({ nextPageCursor = {}, })
+				SetGameInfo({ nextPageCursor = {} })
 			end).to.throw()
 		end)
 
 		it("should not mutate the state", function()
 			testImmutability(Reducer, SetGameInfo({ games = {} }))
-			testImmutability(Reducer, SetGameInfo({
-				games = { {name = "a"}, { name = "b", }},
-				nextPageCursor = "not actually a cursor?",
-				previousPageCursor = "goto magick",
-			}))
+			testImmutability(
+				Reducer,
+				SetGameInfo({
+					games = { { name = "a" }, { name = "b" } },
+					nextPageCursor = "not actually a cursor?",
+					previousPageCursor = "goto magick",
+				})
+			)
 		end)
 
 		it("should set games", function()
 			local state = Reducer(nil, {})
 			expect(Cryo.isEmpty(state.gameInfo.games)).to.equal(true)
 
-			state = Reducer(state, SetGameInfo({
-				games = { { name = "game 1", }},
-			}))
+			state = Reducer(
+				state,
+				SetGameInfo({
+					games = { { name = "game 1" } },
+				})
+			)
 			expect(#state.gameInfo.games).to.equal(1)
 			expect(state.gameInfo.games[1].name == "game 1").to.equal(true)
 
@@ -69,14 +75,17 @@ return function()
 
 			local a = tostring(math.random())
 			local b = tostring(math.random())
-			state = Reducer(state, SetGameInfo({
-				nextPageCursor = a,
-				previousPageCursor = b,
-			}))
+			state = Reducer(
+				state,
+				SetGameInfo({
+					nextPageCursor = a,
+					previousPageCursor = b,
+				})
+			)
 			expect(state.gameInfo.nextPageCursor).to.equal(a)
 			expect(state.gameInfo.previousPageCursor).to.equal(b)
 
-			state = Reducer(state, SetGameInfo({games = { "some random value", },}))
+			state = Reducer(state, SetGameInfo({ games = { "some random value" } }))
 			expect(state.gameInfo.nextPageCursor).to.equal(nil)
 			expect(state.gameInfo.previousPageCursor).to.equal(nil)
 		end)
@@ -95,50 +104,59 @@ return function()
 			end).to.throw()
 
 			expect(function()
-				SetPlaceInfo({ places = true, })
+				SetPlaceInfo({ places = true })
 			end).to.throw()
 
 			expect(function()
-				SetPlaceInfo({ previousPageCursor = {}, })
+				SetPlaceInfo({ previousPageCursor = {} })
 			end).to.throw()
 
 			expect(function()
-				SetPlaceInfo({ nextPageCursor = {}, })
+				SetPlaceInfo({ nextPageCursor = {} })
 			end).to.throw()
 
 			expect(function()
-				SetPlaceInfo({ parentGame = {}, })
+				SetPlaceInfo({ parentGame = {} })
 			end).to.throw()
 
 			expect(function()
-				SetPlaceInfo({ parentGame = { universeId = 10 }, })
+				SetPlaceInfo({ parentGame = { universeId = 10 } })
 			end).to.throw()
 
 			expect(function()
-				SetPlaceInfo({ parentGame = 3, })
+				SetPlaceInfo({ parentGame = 3 })
 			end).to.throw()
 		end)
 
 		it("should not mutate the state", function()
 			testImmutability(Reducer, SetPlaceInfo({ places = {} }))
-			testImmutability(Reducer, SetPlaceInfo({
-				places = { {name = "a"}, { name = "b", }},
-				parentGame = { name = "asdf", universeId = 24, },
-			}))
-			testImmutability(Reducer, SetPlaceInfo({
-				places = { {name = "a"}, { name = "b", }},
-				nextPageCursor = "not actually a cursor?",
-				previousPageCursor = "goto magick",
-			}))
+			testImmutability(
+				Reducer,
+				SetPlaceInfo({
+					places = { { name = "a" }, { name = "b" } },
+					parentGame = { name = "asdf", universeId = 24 },
+				})
+			)
+			testImmutability(
+				Reducer,
+				SetPlaceInfo({
+					places = { { name = "a" }, { name = "b" } },
+					nextPageCursor = "not actually a cursor?",
+					previousPageCursor = "goto magick",
+				})
+			)
 		end)
 
 		it("should set the parentGame source", function()
 			local state = Reducer(nil, {})
 			expect(Cryo.isEmpty(state.placeInfo.places)).to.equal(true)
 
-			state = Reducer(state, SetPlaceInfo({
-				parentGame = { name = "asd", universeId = 13, }
-			}))
+			state = Reducer(
+				state,
+				SetPlaceInfo({
+					parentGame = { name = "asd", universeId = 13 },
+				})
+			)
 			expect(state.placeInfo.parentGame.name).to.equal("asd")
 			expect(state.placeInfo.parentGame.universeId).to.equal(13)
 
@@ -150,9 +168,12 @@ return function()
 			local state = Reducer(nil, {})
 			expect(Cryo.isEmpty(state.placeInfo.places)).to.equal(true)
 
-			state = Reducer(state, SetPlaceInfo({
-				places = { { name = "place 1", }},
-			}))
+			state = Reducer(
+				state,
+				SetPlaceInfo({
+					places = { { name = "place 1" } },
+				})
+			)
 			expect(#state.placeInfo.places).to.equal(1)
 			expect(state.placeInfo.places[1].name == "place 1").to.equal(true)
 
@@ -166,17 +187,19 @@ return function()
 
 			local a = tostring(math.random())
 			local b = tostring(math.random())
-			state = Reducer(state, SetPlaceInfo({
-				nextPageCursor = a,
-				previousPageCursor = b,
-			}))
+			state = Reducer(
+				state,
+				SetPlaceInfo({
+					nextPageCursor = a,
+					previousPageCursor = b,
+				})
+			)
 			expect(state.placeInfo.nextPageCursor).to.equal(a)
 			expect(state.placeInfo.previousPageCursor).to.equal(b)
 
-			state = Reducer(state, SetPlaceInfo({places = { "some random value", },}))
+			state = Reducer(state, SetPlaceInfo({ places = { "some random value" } }))
 			expect(state.placeInfo.nextPageCursor).to.equal(nil)
 			expect(state.placeInfo.previousPageCursor).to.equal(nil)
 		end)
 	end)
-
 end

@@ -21,7 +21,6 @@ local PanelEntry = require(Main.Src.Components.PanelEntry)
 local FrameworkStyle = require(Main.Packages.Framework).Style
 local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
 
-
 local StylesList = Roact.PureComponent:extend("StylesList")
 
 local SUMMARY = [[In addition to Default, these Styles are defined for this component:]]
@@ -38,7 +37,7 @@ function StylesList:render()
 	local componentName = props.ComponentName
 	local componentStyle = getRawComponentStyle(componentName)
 	if componentStyle then
-		for name,_ in pairs(componentStyle) do
+		for name, _ in pairs(componentStyle) do
 			if typeof(name) == "string" and name:sub(1, 1) == "&" then
 				local nameWithoutAmpersand = name:sub(2)
 				table.insert(stylesList, nameWithoutAmpersand)
@@ -67,11 +66,8 @@ function StylesList:render()
 	})
 end
 
-
 StylesList = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(StylesList)
-
-
 
 return StylesList

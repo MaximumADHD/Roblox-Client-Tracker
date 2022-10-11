@@ -10,49 +10,49 @@ return function()
 		{
 			Name = "Track1",
 			Instance = "Root",
-			Keyframes = {1},
+			Keyframes = { 1 },
 			Data = {
-				[1] = {EasingStyle = Enum.PoseEasingStyle.Linear},
+				[1] = { EasingStyle = Enum.PoseEasingStyle.Linear },
 			},
 		},
 		{
 			Name = "Track2",
 			Instance = "Root",
-			Keyframes = {1},
+			Keyframes = { 1 },
 			Data = {
-				[1] = {EasingStyle = Enum.PoseEasingStyle.Linear},
+				[1] = { EasingStyle = Enum.PoseEasingStyle.Linear },
 			},
 		},
 		{
 			Name = "Track3",
 			Instance = "Root",
-			Keyframes = {1},
+			Keyframes = { 1 },
 			Data = {
-				[1] = {EasingStyle = Enum.PoseEasingStyle.Linear},
+				[1] = { EasingStyle = Enum.PoseEasingStyle.Linear },
 			},
 		},
 		{
 			Name = "Track4",
 			Instance = "Root",
-			Keyframes = {1},
+			Keyframes = { 1 },
 			Data = {
-				[1] = {EasingStyle = Enum.PoseEasingStyle.Linear},
+				[1] = { EasingStyle = Enum.PoseEasingStyle.Linear },
 			},
 		},
 		{
 			Name = "Track5",
 			Instance = "Root",
-			Keyframes = {1},
+			Keyframes = { 1 },
 			Data = {
-				[1] = {EasingStyle = Enum.PoseEasingStyle.Linear},
+				[1] = { EasingStyle = Enum.PoseEasingStyle.Linear },
 			},
 		},
 		{
 			Name = "Track6",
 			Instance = "Root",
-			Keyframes = {1},
+			Keyframes = { 1 },
 			Data = {
-				[1] = {EasingStyle = Enum.PoseEasingStyle.Linear},
+				[1] = { EasingStyle = Enum.PoseEasingStyle.Linear },
 			},
 		},
 	}
@@ -73,7 +73,7 @@ return function()
 				Position = UDim2.new(),
 				Size = UDim2.new(0, 1000, 0, 60),
 				ParentSize = Vector2.new(1000, 60),
-			})
+			}),
 		})
 	end
 

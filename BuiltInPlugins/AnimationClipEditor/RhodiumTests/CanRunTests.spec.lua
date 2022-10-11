@@ -5,7 +5,6 @@ return function()
 	local runTest = TestHelpers.runTest
 
 	it("should be able to run Rhodium tests", function()
-		runTest(function()
-		end)
+		runTest(function() end)
 	end)
 end
