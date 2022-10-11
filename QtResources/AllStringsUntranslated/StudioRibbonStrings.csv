@@ -152,7 +152,7 @@ Studio.App.RobloxRibbonMainWindow.BulkCreateAccessories,,Bulk Create Accessories
 Studio.App.RobloxRibbonMainWindow.BulkCreateAccessoriesTooltip,,Bulk Create Accessories from Imported Model,Bulk Create Accessories from Imported Model
 Studio.App.RobloxRibbonMainWindow.AvatarImporter,,Avatar Importer,Avatar Importer
 Studio.App.RobloxRibbonMainWindow.AvatarImporterTooltip,,Import an Avatar with a .fbx file,Import an Avatar with a .fbx file
-Studio.App.RobloxRibbonMainWindow.MeshImporter,,Mesh Importer,Mesh Importer
+Studio.App.RobloxRibbonMainWindow.Import3D,,Import 3D,Import 3D
 Studio.App.RobloxRibbonMainWindow.MeshImporterTooltip,,Import a mesh rig or avatar from a file using the import UI.,Import a mesh rig or avatar from a file using the import UI.
 Studio.App.RobloxRibbonMainWindow.RigBuilder,,Rig Builder,Rig Builder
 Studio.App.RobloxRibbonMainWindow.RigBuilderTooltip,,Insert rigs to animate,Insert rigs to animate
@@ -288,7 +288,6 @@ Studio.App.RobloxRibbonMainWindow.InternalFeaturesAreEnabled,,Internal Features 
 Studio.Common.Action.Back,,Back,Back
 Studio.Common.Action.Clear,,Clear,Clear
 Studio.Common.Action.Accessory,,Accessory,Accessory
-Studio.Common.Action.Import,,Import,Import
 Studio.Common.Action.Rig,,Rig,Rig
 Studio.Common.Action.Animation,,Animation,Animation
 Studio.Common.Action.File,,File,File

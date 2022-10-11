@@ -22,6 +22,8 @@ Studio.AssetImporter.EnumItem.Stud,Stud
 Studio.AssetImporter.EnumItem.Top,Top
 Studio.AssetImporter.Error.Default,Status: {type}
 Studio.AssetImporter.Error.DefaultNoStatus,Import failed
+Studio.AssetImporter.Error.FileEmptyError,File has no importable content (at least one mesh must exist).
+Studio.AssetImporter.Error.FileOpenError,Could not open. File may be corrupted.
 Studio.AssetImporter.Error.Header,Failed to open the selected file.
 Studio.AssetImporter.Error.WindowTitle,Error
 Studio.AssetImporter.HttpError.422,Name was moderated. Please rename and try again.

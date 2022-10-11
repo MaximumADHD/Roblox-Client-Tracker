@@ -1227,6 +1227,7 @@
         {
             "GameWidget": {
                 "background": "#FFFFFF",
+                "backgroundSelected": "#00A2FF",
                 "border": "#E3E3E3",
                 "subText": "#B8B8B8",
                 "messageText": "#191919",

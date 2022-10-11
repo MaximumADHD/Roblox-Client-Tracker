@@ -6,9 +6,11 @@ Studio.TagEditor.Plugin.Toolbar,TagEditor,TagEditor
 Studio.TagEditor.Plugin.Button,Toggle,Toggle
 Studio.TagEditor.Tooltip.ApplyTag,Apply this tag to all selected Instances,Apply this tag to all selected Instances
 Studio.TagEditor.Groups.NewGroup,New Group,New Group
+Studio.TagEditor.Info.NewGroup,New Group,New Group
 Studio.TagEditor.ColorPicker.Hex,Hex,Hex
 Studio.TagEditor.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.
 Studio.TagEditor.Info.SelectTaggedInstances,Select Tagged Instances,Select Tagged Instances
+Studio.TagEditor.General.Apply,Apply,Apply
 Studio.TagEditor.Info.SelectedColor,Selected Color:,Selected Color:
 Studio.TagEditor.General.Cancel,Cancel,Cancel
 Studio.TagEditor.Info.SelectInExplorer,Select In Explorer,Select In Explorer
@@ -31,7 +33,6 @@ Studio.TagEditor.Tooltip.StartGroupAssignment,Edit group membership,Edit group m
 Studio.TagEditor.Tooltip.AlwaysOnTop,If checked the visual for this tag will draw above everything else.,If checked the visual for this tag will draw above everything else.
 Studio.TagEditor.Info.ColorPickerTitle,Changing Color for: ,Changing Color for: 
 Studio.TagEditor.Tooltip.ColorPicker,Change the visualization color for this tag.,Change the visualization color for this tag.
-Studio.TagEditor.Info.CreateNewTag,Create a new tag...,Create a new tag...
 Studio.TagEditor.Tooltip.GroupPicker,Change the group this tag belongs to.,Change the group this tag belongs to.
 Studio.TagEditor.Tooltip.IconPicker,The change the icon that shows within the tag editor and the icon draw type,The change the icon that shows within the tag editor and the icon draw type
 Studio.TagEditor.Tooltip.SelectInExplorer,Select all instances with this tag in the explorer.,Select all instances with this tag in the explorer.
@@ -42,12 +43,18 @@ Studio.TagEditor.VisualizeOptions.Text,Text,Text
 Studio.TagEditor.Tooltip.AssignToGroup,Assign to group,Assign to group
 Studio.TagEditor.Tooltip.UnassignFromGroup,Unassign from group,Unassign from group
 Studio.TagEditor.Tooltip.RemoveTag,Remove this tag from all selected instances,Remove this tag from all selected instances
+Studio.TagEditor.Tooltip.DeleteDisabled,Select a tag or group first to delete it.,Select a tag or group first to delete it.
 Studio.TagEditor.ColorPicker.SelectedColor,SelectedColor:,SelectedColor:
 Studio.TagEditor.Tooltip.NewGroupEnabled,New group with selected tag,New group with selected tag
 Studio.TagEditor.ColorPicker.HSV,HSV,HSV
 Studio.TagEditor.Groups.UnknownTags,Unknown Tags,Unknown Tags
 Studio.TagEditor.VisualizeOptions.Box,Box,Box
 Studio.TagEditor.VisualizeOptions.Outline,Outline,Outline
+Studio.TagEditor.Info.SettingsFor,Settings for:,Settings for:
 Studio.TagEditor.Info.SettingsForTag,Settings for:,Settings for:
 Studio.TagEditor.ColorPicker.RGB,RGB,RGB
 Studio.TagEditor.ColorPicker.ChangingColorForTag,Changing Color for Tag:,Changing Color for Tag:
+Studio.TagEditor.Info.CreateNewTag,New Tag,New Tag
+Studio.TagEditor.Tooltip.WorldView,Toggle the tag visualizations in the world view. Helps find tagged instances in the world.,Toggle the tag visualizations in the world view. Helps find tagged instances in the world.
+Studio.TagEditor.Tooltip.DeleteEnabled,Delete the selected Tag or Group,Delete the selected Tag or Group
+Studio.TagEditor.Info.WorldView,World View,World View

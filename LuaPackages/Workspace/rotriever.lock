@@ -7,11 +7,31 @@ name = "AppCommonLib"
 version = "0.1.0"
 
 [[package]]
+name = "CollisionMatchers2D"
+version = "0.1.0"
+
+[[package]]
+name = "Cryo"
+version = "0.1.0"
+
+[[package]]
 name = "Dash"
 version = "0.1.0"
 
 [[package]]
+name = "HttpRequest"
+version = "0.1.0"
+
+[[package]]
 name = "JestGlobals"
+version = "0.1.0"
+
+[[package]]
+name = "NetworkingFriends"
+version = "0.1.0"
+
+[[package]]
+name = "NetworkingUsers"
 version = "0.1.0"
 
 [[package]]
@@ -27,6 +47,18 @@ name = "ReactRoblox"
 version = "0.1.0"
 
 [[package]]
+name = "Rhodium"
+version = "0.1.0"
+
+[[package]]
+name = "RoactAppExperiment"
+version = "0.1.0"
+
+[[package]]
+name = "RoactCompat"
+version = "0.1.0"
+
+[[package]]
 name = "RoactNavigation"
 version = "0.1.0"
 
@@ -39,5 +71,27 @@ name = "Rodux"
 version = "0.1.0"
 
 [[package]]
+name = "RoduxNetworking"
+version = "0.1.0"
+
+[[package]]
 name = "TemplatePackage"
 version = "0.1.0"
+
+[[package]]
+name = "VerifiedBadges"
+version = "0.8.1"
+dependencies = [
+    "CollisionMatchers2D CollisionMatchers2D 0.1.0",
+    "Cryo Cryo 0.1.0",
+    "FriendsNetworking NetworkingFriends 0.1.0",
+    "HttpRequest HttpRequest 0.1.0",
+    "JestGlobals JestGlobals 0.1.0",
+    "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "Rhodium Rhodium 0.1.0",
+    "RoactCompat RoactCompat 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "RoduxNetworking RoduxNetworking 0.1.0",
+    "UsersNetworking NetworkingUsers 0.1.0",
+]

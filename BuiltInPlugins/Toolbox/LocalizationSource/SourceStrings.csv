@@ -86,7 +86,8 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.CategoryRecentVideos,Recent 
  ,Squeaks,Studio.Toolbox.General.SortByText,Sort by:
  ,Sort by:,Studio.Toolbox.Audio.SoundEffect.Category.crunches,Crunches
  ,Crunches,Studio.Toolbox.General.CategoryRecentModels,Recent Models
- ,Recent Models,Studio.Toolbox.General.CategoryRecentMeshes,Recent Meshes
+ ,Recent Models,Studio.Toolbox.Audio.SoundEffect.Category.motors,Motors
+ ,Motors,Studio.Toolbox.General.CategoryRecentMeshes,Recent Meshes
  ,Recent Meshes,Studio.Toolbox.Announcement.Button_Default,Got it!
  ,Got it!,Studio.Toolbox.General.CategoryRecentAnimations,Recent Animations
  ,Recent Animations,Studio.Toolbox.General.Package,Convert to Package
@@ -106,11 +107,11 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.CategoryRecentVideos,Recent 
  ,Choose an asset to import.,Studio.Toolbox.Audio.Music.Genre.world-beat,World Beat
  ,World Beat,Studio.Toolbox.Audio.SoundEffect.Category.explosions,Explosions
  ,Explosions,Studio.Toolbox.General.SortByMostTaken,Most Taken
- ,Most Taken,Studio.Toolbox.HomeView.Results,{total} Results
+ ,Most Taken,Studio.Toolbox.General.SearchBarDefaultText,Search
+ ,Search,Studio.Toolbox.Audio.SoundEffect.Category.misc,Misc
+ ,Misc,Studio.Toolbox.HomeView.Results,{total} Results
  ,{total} Results,Studio.Toolbox.Audio.SoundEffect.Category.fight,Fight
- ,Fight,Studio.Toolbox.Audio.SoundEffect.Category.misc,Misc
- ,Misc,Studio.Toolbox.General.SearchBarDefaultText,Search
- ,Search,Studio.Toolbox.General.SearchBarIdVerified,Show ID verified creators only
+ ,Fight,Studio.Toolbox.General.SearchBarIdVerified,Show ID verified creators only
  ,Show ID verified creators only,Studio.Toolbox.General.ShowMore,Show more
  ,Show more,Studio.Toolbox.AudioView.Type,Type
  ,Type,Studio.Toolbox.Audio.SoundEffect.Category.plumbing,Plumbing
@@ -174,8 +175,7 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.CategoryRecentVideos,Recent 
  ,Animations,Studio.Toolbox.General.CategoryCreationsCatalogSectionDivider,Avatar assets
  ,Avatar assets,Studio.Toolbox.AssetConfigFooter.NewAsset,Save as a new asset...
  ,Save as a new asset...,Studio.Toolbox.Purchase.BuyRobux,Buy Robux
- ,Buy Robux,Studio.Toolbox.General.SalesServiceFee,Service fee will be collected upon sale
- ,Service fee will be collected upon sale,Studio.Toolbox.AssetConfigSharing.SubTitle,Who can use this asset?
+ ,Buy Robux,Studio.Toolbox.AssetConfigSharing.SubTitle,Who can use this asset?
  ,Who can use this asset?,Studio.Toolbox.General.CategoryCreationsTeeShirts,T-Shirts
  ,T-Shirts,Studio.Toolbox.General.CategoryCreationsShirts,Shirts
  ,Shirts,Studio.Toolbox.General.AssetTypePants,Pants
@@ -215,7 +215,8 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.CategoryRecentVideos,Recent 
  ,Waist Accessory,Studio.Toolbox.Audio.SoundEffect.Category.bullets,Bullets
  ,Bullets,Studio.Toolbox.General.CategoryCreationsGroupShoulderAccessory,Group Shoulder Accessories
  ,Group Shoulder Accessories,Studio.Toolbox.General.AssetTypeRightShoeAccessory,Right Shoe Accessory
- ,Right Shoe Accessory,Studio.Toolbox.General.CategoryCreationsGroupFrontAccessory,Group Front Accessories
+ ,Right Shoe Accessory,Studio.Toolbox.Audio.SoundEffect.Category.motorboats,Motorboats
+ ,Motorboats,Studio.Toolbox.General.CategoryCreationsGroupFrontAccessory,Group Front Accessories
  ,Group Front Accessories,Studio.Toolbox.Audio.SoundEffect.Category.bodyfalls,Bodyfalls
  ,Bodyfalls,Studio.Toolbox.Audio.SoundEffect.Category.drawers,Drawers
  ,Drawers,Studio.Toolbox.General.CategoryCreationsGroupBackAccessory,Group Back Accessories
@@ -305,18 +306,12 @@ Studio.Toolbox.General.AssetType,Asset type, ,Asset type
 Studio.Toolbox.Audio.SoundEffect.Category.gliders,Gliders, ,Gliders
 Studio.Toolbox.General.SalesSale,Sale, ,Sale
 Studio.Toolbox.General.SalesMinimumPrice,The minimum price for this item type is {minPrice}., ,The minimum price for this item type is {minPrice}.
-Studio.Toolbox.General.SalesOnsaleApplyToSave,Onsale (apply to save changes), ,Onsale (apply to save changes)
-Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaInfoLink,How many assets can I publish to the Creator Marketplace?, ,How many assets can I publish to the Creator Marketplace?
-Studio.Toolbox.General.SalesOffsaleApplyToSave,Offsale (apply to save changes), ,Offsale (apply to save changes)
-Studio.Toolbox.General.SalesItemCannotBeSold,This item cannot be sold right now, ,This item cannot be sold right now
-Studio.Toolbox.Audio.SoundEffect.Category.dirt,Dirt, ,Dirt
 Studio.Toolbox.General.SalesPrice,Price, ,Price
 Studio.Toolbox.Audio.SoundEffect.Category.insects,Insects, ,Insects
 Studio.Toolbox.General.SalesPriceRange,Price range: {minPrice} - {maxPrice}, ,Price range: {minPrice} - {maxPrice}
-Studio.Toolbox.ScriptWarning.DontShowAgain,Don't show this again., ,Don't show this again.
-Studio.Toolbox.General.SalesEarning,You earn: {earning}, ,You earn: {earning}
-Studio.Toolbox.General.SalesVerification,Your account must be verified in order to set a price for your plugin., ,Your account must be verified in order to set a price for your plugin.
 Studio.Toolbox.General.SalesMaxPrice,The maximum price for this item type is {maxPrice}, ,The maximum price for this item type is {maxPrice}
+Studio.Toolbox.ScriptWarning.DontShowAgain,Don't show this again., ,Don't show this again.
+Studio.Toolbox.General.SalesVerification,Your account must be verified in order to set a price for your plugin., ,Your account must be verified in order to set a price for your plugin.
 Studio.Toolbox.AssetConfigFooter.Override,Overwrite an existing asset..., ,Overwrite an existing asset...
 Studio.Toolbox.General.SideTabVersions,Versions, ,Versions
 Studio.Toolbox.General.SideTabGeneral,General, ,General
@@ -381,6 +376,7 @@ Studio.Toolbox.AssetConfigSharing.VerificationNotice,"To make audio assets publi
 Studio.Toolbox.General.CategoryVideos,Videos, ,Videos
 Studio.Toolbox.AssetConfigSharing.VerificationAction,ID Verify your account, ,ID Verify your account
 Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaUnused2,Share up to {capacity} assets per {days} days., ,Share up to {capacity} assets per {days} days.
+Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaInfoLink,How many assets can I publish to the Creator Marketplace?, ,How many assets can I publish to the Creator Marketplace?
 Studio.Toolbox.General.NoPluginsFound.TextLine2,"For more plugins, try searching in the {link} on our website.", ,"For more plugins, try searching in the {link} on our website."
 Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaExhausted1,Sharing limit exceeded. Try again on {dateTime}., ,Sharing limit exceeded. Try again on {dateTime}.
 Studio.Toolbox.AssetConfigSharing.VerifyYourAccount,Verify your account, ,Verify your account
@@ -444,9 +440,6 @@ Studio.Toolbox.Audio.SoundEffect.Category.glass,Glass, ,Glass
 Studio.Toolbox.Purchase.BuyTitle,Buy & Install Plugin, ,Buy & Install Plugin
 Studio.Toolbox.Purchase.FailedHeader,Purchase failed, ,Purchase failed
 Studio.Toolbox.Purchase.Free,FREE, ,FREE
-Studio.Toolbox.General.Fee,After {percent}% fee:, ,After {percent}% fee:
-Studio.Toolbox.Audio.SoundEffect.Category.blood,Blood, ,Blood
-Studio.Toolbox.General.Earn,You earn:, ,You earn:
 Studio.Toolbox.Audio.SoundEffect.Category.room-tone,Room Tone, ,Room Tone
 Studio.Toolbox.AssetConfigSales.Target,"By enabling it, this asset will be put in {market} and available for any Roblox {user}.", ,"By enabling it, this asset will be put in {market} and available for any Roblox {user}."
 Studio.Toolbox.Audio.SoundEffect.Category.glassware,Glassware, ,Glassware
@@ -489,8 +482,8 @@ Studio.Toolbox.Audio.SoundEffect.Category.chops,Chops, ,Chops
 Studio.Toolbox.AudioView.Artist,Artist, ,Artist
 Studio.Toolbox.AudioView.Length,Length, ,Length
 Studio.Toolbox.Audio.SoundEffect.Category.swishes,Swishes, ,Swishes
-Studio.Toolbox.Audio.SoundEffect.Category.motorcycles,Motorcycles, ,Motorcycles
 Studio.Toolbox.AudioView.Duration,Duration, ,Duration
+Studio.Toolbox.Audio.SoundEffect.Category.motorcycles,Motorcycles, ,Motorcycles
 Studio.Toolbox.AudioView.Category,Category, ,Category
 Studio.Toolbox.Audio.SoundEffect.Category.artillery,Artillery, ,Artillery
 Studio.Toolbox.Audio.SoundEffect.Category.hum,Hum, ,Hum
@@ -511,13 +504,14 @@ Studio.Toolbox.Audio.SoundEffect.Category.rope,Rope, ,Rope
 Studio.Toolbox.Audio.Music.Genre.kitsch-retro,Kitsch & Retro, ,Kitsch & Retro
 Studio.Toolbox.Audio.Music.Genre.latin,Latin, ,Latin
 Studio.Toolbox.Audio.SoundEffect.Category.tonalities,Tonalities, ,Tonalities
-Studio.Toolbox.Audio.SoundEffect.Category.modern-cars,Modern Cars, ,Modern Cars
 Studio.Toolbox.Audio.Music.Genre.marches-military,Marches & Military, ,Marches & Military
 Studio.Toolbox.Audio.SoundEffect.Category.laughter,Laughter, ,Laughter
+Studio.Toolbox.Audio.SoundEffect.Category.modern-cars,Modern Cars, ,Modern Cars
 Studio.Toolbox.Audio.SoundEffect.Category.footsteps,Footsteps, ,Footsteps
 Studio.Toolbox.Audio.Music.Genre.pop,Pop, ,Pop
 Studio.Toolbox.Audio.SoundEffect.Category.boats,Boats, ,Boats
 Studio.Toolbox.Audio.Music.Genre.religious,Religious, ,Religious
+Studio.Toolbox.Audio.SoundEffect.Category.microphone,Microphone, ,Microphone
 Studio.Toolbox.Audio.Music.Genre.scores-orchestral,Scores & Orchestral, ,Scores & Orchestral
 Studio.Toolbox.Audio.SoundEffect,Sound Effect, ,Sound Effect
 Studio.Toolbox.Audio.SoundEffect.Category.acid,Acid, ,Acid
@@ -534,6 +528,7 @@ Studio.Toolbox.Audio.SoundEffect.Category.babies,Babies, ,Babies
 Studio.Toolbox.Audio.SoundEffect.Category.beeps,Beeps, ,Beeps
 Studio.Toolbox.Audio.SoundEffect.Category.bells,Bells, ,Bells
 Studio.Toolbox.Audio.SoundEffect.Category.birds,Birds, ,Birds
+Studio.Toolbox.Audio.SoundEffect.Category.blood,Blood, ,Blood
 Studio.Toolbox.Audio.SoundEffect.Category.blow,Blow, ,Blow
 Studio.Toolbox.Audio.SoundEffect.Category.carts,Carts, ,Carts
 Studio.Toolbox.Audio.SoundEffect.Category.clicks,Clicks, ,Clicks
@@ -548,6 +543,7 @@ Studio.Toolbox.Audio.SoundEffect.Category.clocks,Clocks, ,Clocks
 Studio.Toolbox.Audio.SoundEffect.Category.cooking,Cooking, ,Cooking
 Studio.Toolbox.Audio.SoundEffect.Category.creaks,Creaks, ,Creaks
 Studio.Toolbox.Audio.SoundEffect.Category.debris,Debris, ,Debris
+Studio.Toolbox.Audio.SoundEffect.Category.dirt,Dirt, ,Dirt
 Studio.Toolbox.Audio.SoundEffect.Category.doors,Doors, ,Doors
 Studio.Toolbox.Audio.SoundEffect.Category.drips,Drips, ,Drips
 Studio.Toolbox.Audio.SoundEffect.Category.earthquakes,Earthquakes, ,Earthquakes
@@ -577,10 +573,7 @@ Studio.Toolbox.Audio.SoundEffect.Category.knives-swords,Knives & Swords, ,Knives
 Studio.Toolbox.Audio.SoundEffect.Category.land,Land, ,Land
 Studio.Toolbox.Audio.SoundEffect.Category.props,Props, ,Props
 Studio.Toolbox.Audio.SoundEffect.Category.liquid-fx,Liquid FX, ,Liquid FX
-Studio.Toolbox.Audio.SoundEffect.Category.microphone,Microphone, ,Microphone
 Studio.Toolbox.Audio.SoundEffect.Category.military,Military, ,Military
-Studio.Toolbox.Audio.SoundEffect.Category.motorboats,Motorboats, ,Motorboats
-Studio.Toolbox.Audio.SoundEffect.Category.motors,Motors, ,Motors
 Studio.Toolbox.Audio.SoundEffect.Category.musical,Musical, ,Musical
 Studio.Toolbox.Audio.SoundEffect.Category.nautical,Nautical, ,Nautical
 Studio.Toolbox.Audio.SoundEffect.Category.pops,Pops, ,Pops

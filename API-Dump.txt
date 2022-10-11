@@ -979,7 +979,7 @@ Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function GlobalDataStore DataStoreService:GetGlobalDataStore()
 	Function OrderedDataStore DataStoreService:GetOrderedDataStore(string name, string scope = "global")
 	Function int DataStoreService:GetRequestBudgetForRequestType(Enum.DataStoreRequestType requestType)
-	Function DataStoreListingPages DataStoreService:ListDataStoresAsync(string prefix = "", int pageSize = 0) [Yields]
+	Function DataStoreListingPages DataStoreService:ListDataStoresAsync(string prefix = "", int pageSize = 0, string cursor = "") [Yields]
 Class DataStoreSetOptions : Instance [NotReplicated]
 	Function Dictionary DataStoreSetOptions:GetMetadata()
 	Function void DataStoreSetOptions:SetMetadata(Dictionary attributes)
@@ -1067,6 +1067,7 @@ Class DebuggerUIService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void DebuggerUIService:Pause() {RobloxScriptSecurity}
 	Function void DebuggerUIService:RemoveScriptLineMarkers(int debuggerConnectionId, bool allMarkers) {RobloxScriptSecurity}
 	Function void DebuggerUIService:Resume() {RobloxScriptSecurity}
+	Function void DebuggerUIService:SetCurrentFrameId(int debuggerThreadId, int debuggerFrameId) {RobloxScriptSecurity}
 	Function void DebuggerUIService:SetCurrentThreadId(int debuggerThreadId) {RobloxScriptSecurity}
 	Function void DebuggerUIService:SetScriptLineMarker(string guid, int debuggerConnectionId, int line, bool lineMarkerType) {RobloxScriptSecurity}
 	Event DebuggerUIService.ExpressionAdded(string expression) {RobloxScriptSecurity}
@@ -1269,6 +1270,7 @@ Class Fire : Instance
 	Property Color3 Fire.SecondaryColor
 	Property float Fire.Size [<📁> LoadOnly] [NotReplicated]
 	Property float Fire.TimeScale
+	Function void Fire:FastForward(int numFrames) {RobloxScriptSecurity}
 Class FlagStandService : Instance [NotCreatable] [Service]
 Class FloatCurve : Instance
 	Property int FloatCurve.Length [ReadOnly]
@@ -1323,7 +1325,7 @@ Class GlobalDataStore : Instance [NotCreatable] [NotReplicated]
 	Function Tuple GlobalDataStore:UpdateAsync(string key, Function transformFunction) [Yields]
 Class DataStore : GlobalDataStore [NotCreatable] [NotReplicated]
 	Function Tuple DataStore:GetVersionAsync(string key, string version) [Yields]
-	Function DataStoreKeyPages DataStore:ListKeysAsync(string prefix = "", int pageSize = 0) [Yields]
+	Function DataStoreKeyPages DataStore:ListKeysAsync(string prefix = "", int pageSize = 0, string cursor = "") [Yields]
 	Function DataStoreVersionPages DataStore:ListVersionsAsync(string key, Enum.SortDirection sortDirection = "Ascending", int64 minDate = 0, int64 maxDate = 0, int pageSize = 0) [Yields]
 	Function void DataStore:RemoveVersionAsync(string key, string version) [Yields]
 Class OrderedDataStore : GlobalDataStore [NotCreatable] [NotReplicated]
@@ -2023,10 +2025,12 @@ Class HumanoidDescription : Instance
 	Event HumanoidDescription.EmotesChanged(Dictionary newEmotes)
 	Event HumanoidDescription.EquippedEmotesChanged(Array newEquippedEmotes)
 Class IKControl : Instance [NotBrowsable]
+	Property CFrame IKControl.AlignmentOffset
 	Property Instance IKControl.ChainRoot
 	Property bool IKControl.Enabled
 	Property Instance IKControl.EndEffector
 	Property CFrame IKControl.Offset
+	Property Instance IKControl.Pole
 	Property int IKControl.Priority
 	Property Instance IKControl.Target
 	Property Enum.IKControlType IKControl.Type
@@ -2038,6 +2042,7 @@ Class IXPService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Enum.IXPLoadingStatus IXPService:GetBrowserTrackerLayerLoadingStatus() {LocalUserSecurity}
 	Function Dictionary IXPService:GetBrowserTrackerLayerVariables(string layerName) {LocalUserSecurity}
 	Function Enum.IXPLoadingStatus? IXPService:GetBrowserTrackerStatusForLayer(string layerName) {LocalUserSecurity}
+	Function Dictionary IXPService:GetRegisteredUserLayersToStatus() {LocalUserSecurity}
 	Function Enum.IXPLoadingStatus IXPService:GetUserLayerLoadingStatus() {LocalUserSecurity}
 	Function Dictionary IXPService:GetUserLayerVariables(string layerName) {LocalUserSecurity}
 	Function Enum.IXPLoadingStatus? IXPService:GetUserStatusForLayer(string layerName) {LocalUserSecurity}
@@ -2790,6 +2795,7 @@ Class VehicleSeat : BasePart
 	Function void VehicleSeat:Sit(Instance humanoid)
 Class Model : PVInstance
 	Property Enum.ModelLevelOfDetail Model.LevelOfDetail {PluginSecurity}
+	Property Enum.ModelStreamingMode Model.ModelStreamingMode
 	Property BasePart Model.PrimaryPart
 	Property Vector3 Model.World Pivot Orientation [NotReplicated] [NotScriptable]
 	Property Vector3 Model.World Pivot Position [NotReplicated] [NotScriptable]
@@ -2850,7 +2856,6 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property bool Workspace.StreamingEnabled {✏️PluginSecurity}
 	Property Enum.StreamingIntegrityMode Workspace.StreamingIntegrityMode [NotScriptable]
 	Property int Workspace.StreamingMinRadius [NotScriptable]
-	Property Enum.StreamingPauseMode Workspace.StreamingPauseMode [NotScriptable]
 	Property int Workspace.StreamingTargetRadius [NotScriptable]
 	Function void Workspace:BreakJoints(Objects objects) {PluginSecurity}
 	Function float Workspace:CalculateJumpDistance(float gravity, float jumpPower, float walkSpeed) {RobloxScriptSecurity}
@@ -2868,6 +2873,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Function void Workspace:SetPhysicsThrottleEnabled(bool value) {LocalUserSecurity}
 	Function void Workspace:UnjoinFromOutsiders(Objects objects)
 	Function void Workspace:ZoomToExtents() {PluginSecurity}
+	Event Workspace.PersistentLoaded(Player player)
 Class WorldModel : WorldRoot
 Class PackageLink : Instance [NotCreatable] [NotBrowsable]
 	Property string PackageLink.Creator [ReadOnly] [NotScriptable]
@@ -2891,7 +2897,9 @@ Class Pages : Instance [NotCreatable] [NotReplicated]
 	Function Array Pages:GetCurrentPage()
 Class CatalogPages : Pages [NotCreatable] [NotReplicated]
 Class DataStoreKeyPages : Pages [NotCreatable] [NotReplicated]
+	Property string DataStoreKeyPages.Cursor [ReadOnly]
 Class DataStoreListingPages : Pages [NotCreatable] [NotReplicated]
+	Property string DataStoreListingPages.Cursor [ReadOnly]
 Class DataStorePages : Pages [NotCreatable] [NotReplicated]
 Class DataStoreVersionPages : Pages [NotCreatable] [NotReplicated]
 Class FriendPages : Pages [NotCreatable] [NotReplicated]
@@ -3498,10 +3506,10 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void RunService:UnbindFromRenderStep(string name)
 	Function void RunService:setThrottleFramerateEnabled(bool enable) {RobloxScriptSecurity}
 	Event RunService.Heartbeat(double deltaTime)
-	Event RunService.PostSimulation(double deltaTime)
-	Event RunService.PreAnimation(double deltaTime)
-	Event RunService.PreRender(double deltaTime)
-	Event RunService.PreSimulation(double deltaTime)
+	Event RunService.PostSimulation(double deltaTimeSim)
+	Event RunService.PreAnimation(double deltaTimeSim)
+	Event RunService.PreRender(double deltaTimeRender)
+	Event RunService.PreSimulation(double deltaTimeSim)
 	Event RunService.RenderStepped(double deltaTime)
 	Event RunService.Stepped(double time, double deltaTime)
 Class RuntimeScriptService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -3704,6 +3712,7 @@ Class Smoke : Instance
 	Property float Smoke.RiseVelocity [<📁> LoadOnly] [NotReplicated]
 	Property float Smoke.Size [<📁> LoadOnly] [NotReplicated]
 	Property float Smoke.TimeScale
+	Function void Smoke:FastForward(int numFrames) {RobloxScriptSecurity}
 Class SnippetService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool SocialService:CanSendGameInviteAsync(Instance player) [Yields]
@@ -3816,6 +3825,7 @@ Class Sparkles : Instance
 	Property bool Sparkles.Enabled
 	Property Color3 Sparkles.SparkleColor
 	Property float Sparkles.TimeScale
+	Function void Sparkles:FastForward(int numFrames) {RobloxScriptSecurity}
 Class SpawnerService : Instance [NotCreatable] [Service]
 Class Speaker : Instance [Deprecated]
 	Property int Speaker.ChannelCount [ReadOnly] [NotBrowsable] [Deprecated]
@@ -3915,6 +3925,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Enable Http Sandboxing
 	Property bool Studio.Enable Internal Beta Features
 	Property bool Studio.Enable Internal Features
+	Property bool Studio.File > New creates a place with Team Create off
 	Property bool Studio.Respect Studio shortcuts when game has focus
 	Property bool Studio.Search Content For Core Scripts
 	Property bool Studio.Set Pivot of Imported Parts
@@ -4164,6 +4175,7 @@ Class Team : Instance
 	Event Team.PlayerAdded(Player player)
 	Event Team.PlayerRemoved(Player player)
 Class TeamCreateService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void TeamCreateService:SendUnarchiveUniverseAsync(int64 universeId) {RobloxScriptSecurity}
 	Event TeamCreateService.ToggleManageCollaborators() {RobloxScriptSecurity}
 Class Teams : Instance [NotCreatable] [Service]
 	Function Objects Teams:GetTeams()
@@ -4393,15 +4405,15 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Vector2 UGCValidationService:GetTextureSizeSync(string textureId) {RobloxScriptSecurity}
 	Function void UGCValidationService:ResetCollisionFidelity(Instance meshPart) {RobloxScriptSecurity}
 	Function void UGCValidationService:SetMeshIdBlocking(Instance meshPart, string meshId) {RobloxScriptSecurity}
+	Function Tuple UGCValidationService:ValidateCageMeshIntersection(string innerCageMeshId, string outerCageMeshId, string refMeshId) {RobloxScriptSecurity} [Yields]
+	Function Tuple UGCValidationService:ValidateCageNonManifoldAndHoles(string meshId) {RobloxScriptSecurity} [Yields]
+	Function bool UGCValidationService:ValidateFullBodyCageDeletion(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateMeshTriangles(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateMeshVertColors(string meshId) {RobloxScriptSecurity} [Yields]
+	Function bool UGCValidationService:ValidateMisMatchUV(string innerCageMeshId, string outerCageMeshId) {RobloxScriptSecurity} [Yields]
+	Function bool UGCValidationService:ValidateOverlappingVertices(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateTextureSize(string textureId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateUVSpace(string meshId) {RobloxScriptSecurity} [Yields]
-	Function Array UGCValidationService:validateCageMeshIntersection(string innerCageMeshId, string outerCageMeshId, string refMeshId) {RobloxScriptSecurity} [Yields]
-	Function Array UGCValidationService:validateCageNonManifoldAndHoles(string meshId) {RobloxScriptSecurity} [Yields]
-	Function bool UGCValidationService:validateFullBodyCageDeletion(string meshId) {RobloxScriptSecurity} [Yields]
-	Function bool UGCValidationService:validateMisMatchUV(string innerCageMeshId, string outerCageMeshId) {RobloxScriptSecurity} [Yields]
-	Function bool UGCValidationService:validateOverlappingVertices(string meshId) {RobloxScriptSecurity} [Yields]
 Class UIBase : Instance [NotCreatable]
 Class UIComponent : UIBase [NotCreatable]
 Class UIConstraint : UIComponent [NotCreatable]
@@ -4626,6 +4638,8 @@ Class VRService : Instance [NotCreatable] [Service]
 	Function Enum.VRTouchpadMode VRService:GetTouchpadMode(Enum.VRTouchpad pad)
 	Function CFrame VRService:GetUserCFrame(Enum.UserCFrame type)
 	Function bool VRService:GetUserCFrameEnabled(Enum.UserCFrame type)
+	Function bool VRService:IsMaquettes() {RobloxScriptSecurity}
+	Function bool VRService:IsVRAppBuild() {RobloxScriptSecurity}
 	Function void VRService:RecenterUserHeadCFrame()
 	Function void VRService:RequestNavigation(CFrame cframe, Enum.UserCFrame inputUserCFrame)
 	Function void VRService:SetTouchpadMode(Enum.VRTouchpad pad, Enum.VRTouchpadMode mode)
@@ -5321,6 +5335,7 @@ Enum CoreGuiType
 	EnumItem CoreGuiType.Chat : 3
 	EnumItem CoreGuiType.All : 4
 	EnumItem CoreGuiType.EmotesMenu : 5
+	EnumItem CoreGuiType.SelfView : 6
 Enum CreateOutfitFailure
 	EnumItem CreateOutfitFailure.InvalidName : 1
 	EnumItem CreateOutfitFailure.OutfitLimitReached : 2
@@ -6177,6 +6192,9 @@ Enum ModelLevelOfDetail
 	EnumItem ModelLevelOfDetail.Automatic : 0
 	EnumItem ModelLevelOfDetail.StreamingMesh : 1
 	EnumItem ModelLevelOfDetail.Disabled : 2
+Enum ModelStreamingMode
+	EnumItem ModelStreamingMode.Default : 0
+	EnumItem ModelStreamingMode.Atomic : 1
 Enum ModifierKey
 	EnumItem ModifierKey.Shift : 0
 	EnumItem ModifierKey.Ctrl : 1
@@ -6584,10 +6602,11 @@ Enum StreamingIntegrityMode
 	EnumItem StreamingIntegrityMode.Default : 0
 	EnumItem StreamingIntegrityMode.Disabled : 1
 	EnumItem StreamingIntegrityMode.MinimumRadiusPause : 2
-Enum StreamingPauseMode
-	EnumItem StreamingPauseMode.Default : 0
-	EnumItem StreamingPauseMode.Disabled : 1
-	EnumItem StreamingPauseMode.ClientPhysicsPause : 2
+	EnumItem StreamingIntegrityMode.PauseOutsideLoadedArea : 3
+Enum StreamingPauseMode [Deprecated]
+	EnumItem StreamingPauseMode.Default : 0 [Deprecated]
+	EnumItem StreamingPauseMode.Disabled : 1 [Deprecated]
+	EnumItem StreamingPauseMode.ClientPhysicsPause : 2 [Deprecated]
 Enum StudioCloseMode
 	EnumItem StudioCloseMode.None : 0
 	EnumItem StudioCloseMode.CloseStudio : 1

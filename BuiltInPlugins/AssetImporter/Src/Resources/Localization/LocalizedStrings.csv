@@ -194,3 +194,5 @@ Studio.AssetImporter.Statuses.FacsNoAnimationStackError,No animation timeline fo
 Studio.AssetImporter.Statuses.FacsNoJointsErrors1,No joints were found under "{JointName}".,No joints were found under "{JointName}".
 Studio.AssetImporter.Statuses.FacsNearNeutralWarning1,Control {FacsControlName} is nearly identical to Neutral.,Control {FacsControlName} is nearly identical to Neutral.
 Studio.AssetImporter.Statuses.FacsIncompletePosesWarning1,Found only {Size} base poses. You character may not be able to express itself.,Found only {Size} base poses. You character may not be able to express itself.
+Studio.AssetImporter.Error.FileOpenError,Could not open. File may be corrupted.,Could not open. File may be corrupted.
+Studio.AssetImporter.Error.FileEmptyError,File has no importable content (at least one mesh must exist).,File has no importable content (at least one mesh must exist).

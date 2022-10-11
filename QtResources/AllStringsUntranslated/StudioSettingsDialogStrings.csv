@@ -243,6 +243,7 @@ Studio.App.Property.SchedulerRate,,Scheduler Rate,Scheduler Rate
 Studio.App.Property.SchedulerDutyCycle,,Scheduler Duty Cycle,Scheduler Duty Cycle
 Studio.App.SettingsCategory.TaskSchedulerConfiguration,,Configuration,Configuration
 Studio.App.Property.ThreadPoolConfig,,Thread Pool Config,Thread Pool Config
+Studio.App.Property.NewUniversesTeamCreateDisabled,,File > New creates a place with Team Create off,File > New creates a place with Team Create off
 Studio.App.PropertyTooltip.Rulers,,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.
 Studio.App.PropertyTooltip.ShowWhitespace,,Visibly display spaces and tabs.,Visibly display spaces and tabs.
 Studio.App.PropertyTooltip.ScrollPastLastLine,,Allow script editor to scroll past the last line.,Allow script editor to scroll past the last line.

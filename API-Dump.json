@@ -18433,6 +18433,14 @@
                                 "Category": "Primitive",
                                 "Name": "int"
                             }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "cursor",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
                         }
                     ],
                     "ReturnType": {
@@ -20143,6 +20151,32 @@
                     "MemberType": "Function",
                     "Name": "Resume",
                     "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetCurrentFrameId",
+                    "Parameters": [
+                        {
+                            "Name": "debuggerThreadId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "debuggerFrameId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
@@ -23970,6 +24004,25 @@
                         "Category": "Primitive",
                         "Name": "float"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "FastForward",
+                    "Parameters": [
+                        {
+                            "Name": "numFrames",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -24941,6 +24994,14 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "int"
+                            }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "cursor",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
                             }
                         }
                     ],
@@ -37824,6 +37885,24 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
+                    "Name": "AlignmentOffset",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
                     "Name": "ChainRoot",
                     "Security": {
                         "Read": "None",
@@ -37891,6 +37970,24 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "CFrame"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "Pole",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "Instance"
                     }
                 },
                 {
@@ -38056,6 +38153,18 @@
                     "ReturnType": {
                         "Category": "Enum",
                         "Name": "IXPLoadingStatus?"
+                    },
+                    "Security": "LocalUserSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetRegisteredUserLayersToStatus",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
                     },
                     "Security": "LocalUserSecurity",
                     "ThreadSafety": "Unsafe"
@@ -52995,6 +53104,24 @@
                     }
                 },
                 {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "ModelStreamingMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "ModelStreamingMode"
+                    }
+                },
+                {
                     "Category": "Pivot",
                     "MemberType": "Property",
                     "Name": "PrimaryPart",
@@ -53679,7 +53806,7 @@
                             }
                         },
                         {
-                            "Default": "OverlapParams{MaxParts=false, BruteForceAllSlow=false, CollisionGroup=Default, FilterDescendantsInstances={}}",
+                            "Default": "OverlapParams{MaxParts=false, BruteForceAllSlow=false, RespectCanCollide=false, CollisionGroup=Default, FilterDescendantsInstances={}}",
                             "Name": "overlapParams",
                             "Type": {
                                 "Category": "DataType",
@@ -53713,7 +53840,7 @@
                             }
                         },
                         {
-                            "Default": "OverlapParams{MaxParts=false, BruteForceAllSlow=false, CollisionGroup=Default, FilterDescendantsInstances={}}",
+                            "Default": "OverlapParams{MaxParts=false, BruteForceAllSlow=false, RespectCanCollide=false, CollisionGroup=Default, FilterDescendantsInstances={}}",
                             "Name": "overlapParams",
                             "Type": {
                                 "Category": "DataType",
@@ -53740,7 +53867,7 @@
                             }
                         },
                         {
-                            "Default": "OverlapParams{MaxParts=false, BruteForceAllSlow=false, CollisionGroup=Default, FilterDescendantsInstances={}}",
+                            "Default": "OverlapParams{MaxParts=false, BruteForceAllSlow=false, RespectCanCollide=false, CollisionGroup=Default, FilterDescendantsInstances={}}",
                             "Name": "overlapParams",
                             "Type": {
                                 "Category": "DataType",
@@ -53883,7 +54010,7 @@
                             }
                         },
                         {
-                            "Default": "RaycastParams{IgnoreWater=false, BruteForceAllSlow=false, CollisionGroup=Default, FilterDescendantsInstances={}}",
+                            "Default": "RaycastParams{IgnoreWater=false, BruteForceAllSlow=false, RespectCanCollide=false, CollisionGroup=Default, FilterDescendantsInstances={}}",
                             "Name": "raycastParams",
                             "Type": {
                                 "Category": "DataType",
@@ -54423,27 +54550,6 @@
                 {
                     "Category": "Streaming",
                     "MemberType": "Property",
-                    "Name": "StreamingPauseMode",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "NotScriptable"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "StreamingPauseMode"
-                    }
-                },
-                {
-                    "Category": "Streaming",
-                    "MemberType": "Property",
                     "Name": "StreamingTargetRadius",
                     "Security": {
                         "Read": "None",
@@ -54814,6 +54920,21 @@
                         "Name": "void"
                     },
                     "Security": "PluginSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PersistentLoaded",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Player"
+                            }
+                        }
+                    ],
+                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 }
             ],
@@ -55252,6 +55373,28 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Cursor",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                }
             ],
             "MemoryCategory": "Instances",
             "Name": "DataStoreKeyPages",
@@ -55263,6 +55406,28 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Cursor",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                }
             ],
             "MemoryCategory": "Instances",
             "Name": "DataStoreListingPages",
@@ -66718,7 +66883,7 @@
                     "Name": "PostSimulation",
                     "Parameters": [
                         {
-                            "Name": "deltaTime",
+                            "Name": "deltaTimeSim",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "double"
@@ -66733,7 +66898,7 @@
                     "Name": "PreAnimation",
                     "Parameters": [
                         {
-                            "Name": "deltaTime",
+                            "Name": "deltaTimeSim",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "double"
@@ -66748,7 +66913,7 @@
                     "Name": "PreRender",
                     "Parameters": [
                         {
-                            "Name": "deltaTime",
+                            "Name": "deltaTimeRender",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "double"
@@ -66763,7 +66928,7 @@
                     "Name": "PreSimulation",
                     "Parameters": [
                         {
-                            "Name": "deltaTime",
+                            "Name": "deltaTimeSim",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "double"
@@ -70661,6 +70826,25 @@
                         "Category": "Primitive",
                         "Name": "float"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "FastForward",
+                    "Parameters": [
+                        {
+                            "Name": "numFrames",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -72580,6 +72764,25 @@
                         "Category": "Primitive",
                         "Name": "float"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "FastForward",
+                    "Parameters": [
+                        {
+                            "Name": "numFrames",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -75301,6 +75504,24 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Advanced",
+                    "MemberType": "Property",
+                    "Name": "File > New creates a place with Team Create off",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -78226,7 +78447,7 @@
                             }
                         },
                         {
-                            "Default": "RaycastParams{IgnoreWater=false, BruteForceAllSlow=false, CollisionGroup=Default, FilterDescendantsInstances={}}",
+                            "Default": "RaycastParams{IgnoreWater=false, BruteForceAllSlow=false, RespectCanCollide=false, CollisionGroup=Default, FilterDescendantsInstances={}}",
                             "Name": "raycastParams",
                             "Type": {
                                 "Category": "DataType",
@@ -79030,6 +79251,25 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "SendUnarchiveUniverseAsync",
+                    "Parameters": [
+                        {
+                            "Name": "universeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
                 {
                     "MemberType": "Event",
                     "Name": "ToggleManageCollaborators",
@@ -83363,6 +83603,86 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "ValidateCageMeshIntersection",
+                    "Parameters": [
+                        {
+                            "Name": "innerCageMeshId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "outerCageMeshId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "refMeshId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ValidateCageNonManifoldAndHoles",
+                    "Parameters": [
+                        {
+                            "Name": "meshId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ValidateFullBodyCageDeletion",
+                    "Parameters": [
+                        {
+                            "Name": "meshId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "ValidateMeshTriangles",
                     "Parameters": [
                         {
@@ -83407,6 +83727,57 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "ValidateMisMatchUV",
+                    "Parameters": [
+                        {
+                            "Name": "innerCageMeshId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "outerCageMeshId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ValidateOverlappingVertices",
+                    "Parameters": [
+                        {
+                            "Name": "meshId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "ValidateTextureSize",
                     "Parameters": [
                         {
@@ -83430,137 +83801,6 @@
                 {
                     "MemberType": "Function",
                     "Name": "ValidateUVSpace",
-                    "Parameters": [
-                        {
-                            "Name": "meshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "validateCageMeshIntersection",
-                    "Parameters": [
-                        {
-                            "Name": "innerCageMeshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "outerCageMeshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "refMeshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Array"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "validateCageNonManifoldAndHoles",
-                    "Parameters": [
-                        {
-                            "Name": "meshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Array"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "validateFullBodyCageDeletion",
-                    "Parameters": [
-                        {
-                            "Name": "meshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "validateMisMatchUV",
-                    "Parameters": [
-                        {
-                            "Name": "innerCageMeshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "outerCageMeshId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "validateOverlappingVertices",
                     "Parameters": [
                         {
                             "Name": "meshId",
@@ -87694,6 +87934,30 @@
                         "Name": "bool"
                     },
                     "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "IsMaquettes",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "IsVRAppBuild",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -93039,6 +93303,10 @@
                 {
                     "Name": "EmotesMenu",
                     "Value": 5
+                },
+                {
+                    "Name": "SelfView",
+                    "Value": 6
                 }
             ],
             "Name": "CoreGuiType"
@@ -96664,6 +96932,19 @@
         {
             "Items": [
                 {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Atomic",
+                    "Value": 1
+                }
+            ],
+            "Name": "ModelStreamingMode"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Alt",
                     "Value": 2
                 },
@@ -98459,6 +98740,10 @@
                 {
                     "Name": "MinimumRadiusPause",
                     "Value": 2
+                },
+                {
+                    "Name": "PauseOutsideLoadedArea",
+                    "Value": 3
                 }
             ],
             "Name": "StreamingIntegrityMode"
@@ -98467,14 +98752,23 @@
             "Items": [
                 {
                     "Name": "Default",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "Value": 0
                 },
                 {
                     "Name": "Disabled",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "Value": 1
                 },
                 {
                     "Name": "ClientPhysicsPause",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "Value": 2
                 }
             ],

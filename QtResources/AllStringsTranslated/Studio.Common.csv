@@ -38,7 +38,7 @@ Studio.Common.Action.Share,,,Share,Share,Teilen,Compartir,Partager,,Condividi,�
 Studio.Common.Action.Stop,,,Stop,Stop,Stoppen,Detener,Arrêter,,Interrompi,停止,중지,Parar,Остановить,,,,停止,停止,停止
 Studio.Common.Action.Yes,,,Yes,Yes,Ja,Sí,Oui,,Sì,はい,예,Sim,Да,,,,是,是,是
 Studio.Common.Action.Continue,,,Continue,Continue,Fortsetzen,Continuar,Continuer,,Continua,続ける,계속,Continuar,Продолжить,,,,继续,继续,繼續
-Studio.Common.Action.Redo,,,Redo,Redo,Wiederholen,Rehacer,Refaire,,Ripeti,やり直し,다시 실행,Refazer,Вернуть,,,,恢复,恢复,重做
+Studio.Common.Action.Redo,,,Redo,Redo,Wiederholen,Rehacer,Refaire,,Ripeti,やり直す,다시 실행,Refazer,Вернуть,,,,恢复,恢复,重做
 Studio.Common.Action.Undo,,,Undo,Undo,Rückgängig,Deshacer,Annuler,,Annulla,元に戻す,실행 취소,Desfazer,Отменить,,,,撤消,撤消,復原
 Studio.Common.Action.Update,,,Update,Update,Aktualisieren,Actualizar,Mettre à jour,,Aggiorna,アップデート,업데이트,Atualizar,Обновить,,,,更新,更新,更新
 Studio.Common.Action.Reset,,,Reset,Reset,Zurücksetzen,Restablecer,Réinitialiser,,Reimposta,再設定,재설정,Reiniciar,Сброс,,,,重置,重置,重置
@@ -50,10 +50,10 @@ Studio.Common.Action.Error,,,Error,Error,Fehler,Error,Erreur,,Errore,エラー,�
 Studio.Common.Action.Height,,,Height,Height,Höhe,Altura,Hauteur,,Altezza,高さ,높이,Altura,Высота,,,,高度,高度,高度：
 Studio.Common.Action.LabelWithColon1,,,%1:,%1:,,%1:,%1 :,,%1:,%1:,%1:,%1:,%1:,,,,%1,%1,%1：
 Studio.Common.Action.Name,,,Name,Name,,Nombre,Nom,,Nome,名前,이름,Nome,Имя,,,,名称,名称,名稱
-Studio.Common.Action.Search,,,Search,Search,Suchen,Buscar,Rechercher,,Cerca,検索,검색,Pesquisar,Поиск,,,,搜索,搜索,搜尋
+Studio.Common.Action.Search,,,Search,Search,Suchen,Buscar,Rechercher,,Cerca,サーチ,검색,Pesquisar,Поиск,,,,搜索,搜索,搜尋
 Studio.Common.Action.Value,,,Value,Value,Wert,Valor,Valeur,,Valore,値,값,Valor,Значение,,,,值,值,值
 Studio.Common.Action.Warning,,,Warning,Warning,Warnung,Advertencia,Avertissement,,Attenzione,警告,경고,Aviso,Предупреждение,,,,警告,警告,警告
-Studio.Common.Action.Width,,,Width,Width,Breite,Ancho,Largeur,,Larghezza,幅,넓이,Largura,Ширина,,,,宽度,宽度,寬度
+Studio.Common.Action.Width,,,Width,Width,Breite,Ancho,Largeur,,Larghezza,幅,너비,Largura,Ширина,,,,宽度,宽度,寬度
 Studio.Common.Action.Submit,,,Submit,Submit,,Enviar,Soumettre,,Invia,送信,제출,Enviar,Завершить,,,,提交,提交,提交
 Studio.Common.Action.Install,,,Install,Install,,Instalar,Installer,,Installa,インストール,설치,Instalar,Установить,,,,安装,安装,安裝
 Studio.Common.Action.Installed,,,Installed,Installed,,Instalado,Installé,,Installazione riuscita,インストール済み,설치됨,Instalado,Установлено,,,,已安装,已安装,已安裝

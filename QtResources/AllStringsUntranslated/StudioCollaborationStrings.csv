@@ -1,4 +1,7 @@
 Key,Context,Source,en-us
+Studio.App.Collaboration.FailedToArchiveNewGame,,Failed to archive new game.,Failed to archive new game.
+Studio.App.Collaboration.FailedToUnarchive,,Failed to remove game from archive.,Failed to remove game from archive.
+Studio.App.Collaboration.FailedToUnarchiveGame,,Failed to remove game from archive.,Failed to remove game from archive.
 Studio.App.IdeDoc.TeamTest,Roblox IDE Doc,Team Test,Team Test
 Studio.App.MainWindow.CloseStudio,Main Window,Close Studio,Close Studio
 Studio.App.MainWindow.ConnectionLostLocalFileNotRecoverable,Main Window,Internal Error: Connection was lost and local file was not recoverable. Contact Customer support if the error persists,Internal Error: Connection was lost and local file was not recoverable. Contact Customer support if the error persists

@@ -135,6 +135,7 @@ Existing data has not been overwritten. New data is temporarily saved in '%2'."
 Studio.App.IDEPermissionsResolutionLinkDefinition.ExperienceSuccessMessage1,Message that's output after user sucessfully grants their experience permission to use asset,Successfully granted the experience permission to use asset %1,Successfully granted the experience permission to use asset %1
 Studio.App.LocalPlacePublishRequestMediator.Saving,,saving,saving
 Studio.App.LocalPlacePublishRequestMediator.SentMessageToServerToPublish,,Sent message to server to publish.,Sent message to server to publish.
+Studio.App.LocalPlacePublishRequestMediator.Unarchiving1,,"""%1"" has been moved to your game list.”","""%1"" has been moved to your game list.”"
 Studio.App.LocalPlacePublishRequestMediator.ErrorWhileSaving1,,Error while publishing: %1,Error while publishing: %1
 Studio.App.LocalPlacePublishRequestMediator.PublishInProgress,,A Place Publish / Save is already in progress,A Place Publish / Save is already in progress
 Studio.App.LocalPlacePublishRequestMediator.FetchActivePlayersInTCFailureTitle,Title of the pop up dialog,Overwrite Place,Overwrite Place

@@ -2524,6 +2524,15 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
+            <string name="Name">PlaybackSpeed</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">20</double>
+            <double name="UINumTicks">1000</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
             <string name="Name">ChannelCount</string>
             <bool name="FFlag">EnableAudioChannelCountProperty</bool>
           </Properties>

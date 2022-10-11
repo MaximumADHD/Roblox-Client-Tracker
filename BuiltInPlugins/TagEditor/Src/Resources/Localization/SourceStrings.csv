@@ -1,7 +1,9 @@
 Key,Source,Context,en-us
 Studio.TagEditor.Tooltip.ApplyTag,Apply this tag to all selected Instances, ,Apply this tag to all selected Instances
+Studio.TagEditor.Info.NewGroup,New Group, ,New Group
 Studio.TagEditor.Groups.NewGroup,New Group,Action for creating a new group,New Group
 Studio.TagEditor.Info.SelectedColor,Selected Color:, ,Selected Color:
+Studio.TagEditor.General.Apply,Apply, ,Apply
 Studio.TagEditor.General.Cancel,Cancel, ,Cancel
 Studio.TagEditor.Tooltip.ToggleVisibility,Toggle Visibility, ,Toggle Visibility
 Studio.TagEditor.Groups.None,None,Indicating no group is assigned,None
@@ -13,7 +15,6 @@ Studio.TagEditor.VisualizeOptions.Sphere,Sphere,Label for a specific visualize d
 Studio.TagEditor.Info.Color,Color,Label for the color attribute for a tag,Color
 Studio.TagEditor.Info.Group,Group,Label for a group that's assigned,Group
 Studio.TagEditor.Info.VisualizeAs,Visualize as,Label for the visualize as attribute for a tag,Visualize as
-Studio.TagEditor.General.Save,Save, ,Save
 Studio.TagEditor.Plugin.EditorWindowButton,Tag Editor Window, ,Tag Editor Window
 Studio.TagEditor.Tooltip.RegisterTag,Register this tag,Describing the action of reigstering an unknown tag for use in the tag editor,Register this tag
 Studio.TagEditor.Info.TagSettings,Tag Settings,Label for the setting pane when no tag is selected,Tag Settings
@@ -27,7 +28,6 @@ Studio.TagEditor.Tooltip.StartGroupAssignment,Edit group membership, ,Edit group
 Studio.TagEditor.Tooltip.AlwaysOnTop,If checked the visual for this tag will draw above everything else., ,If checked the visual for this tag will draw above everything else.
 Studio.TagEditor.Info.ColorPickerTitle,Changing Color for: , ,Changing Color for: 
 Studio.TagEditor.Tooltip.ColorPicker,Change the visualization color for this tag., ,Change the visualization color for this tag.
-Studio.TagEditor.Info.CreateNewTag,Create a new tag...,Placeholder text for the new tag text input,Create a new tag...
 Studio.TagEditor.Tooltip.GroupPicker,Change the group this tag belongs to., ,Change the group this tag belongs to.
 Studio.TagEditor.Tooltip.IconPicker,The change the icon that shows within the tag editor and the icon draw type, ,The change the icon that shows within the tag editor and the icon draw type
 Studio.TagEditor.Tooltip.SelectInExplorer,Select all instances with this tag in the explorer., ,Select all instances with this tag in the explorer.
@@ -37,13 +37,18 @@ Studio.TagEditor.VisualizeOptions.Text,Text,Label for a specific visualize draw 
 Studio.TagEditor.Tooltip.AssignToGroup,Assign to group, ,Assign to group
 Studio.TagEditor.Tooltip.UnassignFromGroup,Unassign from group, ,Unassign from group
 Studio.TagEditor.Tooltip.RemoveTag,Remove this tag from all selected instances, ,Remove this tag from all selected instances
+Studio.TagEditor.Tooltip.DeleteDisabled,Select a tag or group first to delete it., ,Select a tag or group first to delete it.
 Studio.TagEditor.ColorPicker.SelectedColor,SelectedColor:,Label for the indicator showing the current color,SelectedColor:
 Studio.TagEditor.Tooltip.NewGroupEnabled,New group with selected tag, ,New group with selected tag
 Studio.TagEditor.ColorPicker.HSV,HSV,"Abbreviation for hue saturation value, a color format",HSV
 Studio.TagEditor.Groups.UnknownTags,Unknown Tags, ,Unknown Tags
 Studio.TagEditor.VisualizeOptions.Box,Box,Label for a specific visualize draw type for a tag,Box
 Studio.TagEditor.VisualizeOptions.Outline,Outline,Label for a specific visualize draw type for a tag,Outline
-Studio.TagEditor.Info.SettingsForTag,Settings for:,Label for the settings pane indicating which tag it is for,Settings for:
+Studio.TagEditor.Info.SettingsFor,Settings for:,Label for the settings pane indicating which tag it is for,Settings for:
 Studio.TagEditor.ColorPicker.RGB,RGB,"Abbreviation for red green blue, a color format",RGB
 Studio.TagEditor.ColorPicker.ChangingColorForTag,Changing Color for Tag:, ,Changing Color for Tag:
 Studio.TagEditor.ColorPicker.Hex,Hex,"Abbreviation for hexidecimal, a color format",Hex
+Studio.TagEditor.Info.CreateNewTag,New Tag,Placeholder text for the new tag text input,New Tag
+Studio.TagEditor.Tooltip.WorldView,Toggle the tag visualizations in the world view. Helps find tagged instances in the world., ,Toggle the tag visualizations in the world view. Helps find tagged instances in the world.
+Studio.TagEditor.Tooltip.DeleteEnabled,Delete the selected Tag or Group, ,Delete the selected Tag or Group
+Studio.TagEditor.Info.WorldView,World View, ,World View

@@ -60,6 +60,8 @@ Studio.App.BetaFeatures.ParticleFlipbooksTitle,,Particle Flipbooks,Particle Flip
 Studio.App.BetaFeatures.ParticlFlipbooksDescription,,"Enables the new particle flipbook feature, allowing the use of animated textures on particles (needing a 1024x1024 grid-layout texture of individiual frames).","Enables the new particle flipbook feature, allowing the use of animated textures on particles (needing a 1024x1024 grid-layout texture of individiual frames)."
 Studio.App.BetaFeatures.NewCharacterControllerTitle,,New Character Controller,New Character Controller
 Studio.App.BetaFeatures.NewCharacterControllerDescription,,Enables trying the ControllerManager and Controller instances for better simulated character movement and customization.,Enables trying the ControllerManager and Controller instances for better simulated character movement and customization.
+Studio.App.BetaFeatures.NewExperiencesEnableTeamCreate,,New experiences enable Team Create,New experiences enable Team Create
+Studio.App.BetaFeatures.NewExperiencesEnableTeamCreateDesc,,"New experiences in Studio are immediately saved to Roblox and enable Team Create by default.,","New experiences in Studio are immediately saved to Roblox and enable Team Create by default.,"
 Studio.App.BetaFeatures.ScriptProfilerTitle,,Script Profiler,Script Profiler
 Studio.App.BetaFeatures.ScriptProfilerDescription,,Enables the new sampling profiler feature for Dev Console.,Enables the new sampling profiler feature for Dev Console.
 Studio.App.RobloxInputConfigDialog.Shift,"The name of the Shift key, as it would appear on the user's keyboard.",Shift,Shift

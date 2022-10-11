@@ -1,22 +1,22 @@
-#version 150
+#version 110
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 uniform vec4 CB0[58];
 uniform vec4 CB2[74];
 uniform vec4 CB1[1];
-in vec4 POSITION;
-in vec4 NORMAL;
-in vec4 TEXCOORD0;
-in vec4 TEXCOORD1;
-out vec4 VARYING0;
-out vec3 VARYING1;
-out vec2 VARYING2;
-out vec2 VARYING3;
-out vec2 VARYING4;
-out vec3 VARYING5;
-out vec4 VARYING6;
-out vec4 VARYING7;
+attribute vec4 POSITION;
+attribute vec4 NORMAL;
+attribute vec4 TEXCOORD0;
+attribute vec4 TEXCOORD1;
+varying vec4 VARYING0;
+varying vec3 VARYING1;
+varying vec2 VARYING2;
+varying vec2 VARYING3;
+varying vec2 VARYING4;
+varying vec3 VARYING5;
+varying vec4 VARYING6;
+varying vec4 VARYING7;
 
 void main()
 {
@@ -39,15 +39,23 @@ void main()
     v12.z = v3.z;
     vec4 v13 = v12;
     v13.w = dot(v3, TEXCOORD0.xyz) * 0.0039215688593685626983642578125;
-    bvec3 v14 = greaterThan(TEXCOORD1.xyz, vec3(7.5));
+    vec4 v14 = vec4(0.0);
+    v14.x = v1.x;
+    vec4 v15 = v14;
+    v15.y = v1.y;
+    vec4 v16 = v15;
+    v16.z = v1.z;
+    vec4 v17 = v16;
+    v17.w = clamp(exp2((CB0[18].z * length(v6)) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
+    bvec3 v18 = greaterThan(TEXCOORD1.xyz, vec3(7.5));
     gl_Position = v5;
     VARYING0 = v13;
-    VARYING1 = vec3(v14.x ? vec3(1.0).x : vec3(0.0).x, v14.y ? vec3(1.0).y : vec3(0.0).y, v14.z ? vec3(1.0).z : vec3(0.0).z);
+    VARYING1 = vec3(v18.x ? vec3(1.0).x : vec3(0.0).x, v18.y ? vec3(1.0).y : vec3(0.0).y, v18.z ? vec3(1.0).z : vec3(0.0).z);
     VARYING2 = (vec2(dot(v0, CB2[v7 * 1 + 0].xyz), dot(v0, CB2[(18 + v7) * 1 + 0].xyz)) * 0.0500000007450580596923828125) + (vec2(NORMAL.w, floor(NORMAL.w * 2.6651442050933837890625)) * 0.100000001490116119384765625);
     VARYING3 = (vec2(dot(v0, CB2[v8 * 1 + 0].xyz), dot(v0, CB2[(18 + v8) * 1 + 0].xyz)) * 0.0500000007450580596923828125) + (vec2(TEXCOORD0.w, floor(TEXCOORD0.w * 2.6651442050933837890625)) * 0.100000001490116119384765625);
     VARYING4 = (vec2(dot(v0, CB2[v9 * 1 + 0].xyz), dot(v0, CB2[(18 + v9) * 1 + 0].xyz)) * 0.0500000007450580596923828125) + (vec2(TEXCOORD1.w, floor(TEXCOORD1.w * 2.6651442050933837890625)) * 0.100000001490116119384765625);
     VARYING5 = ((v0 + (v1 * 6.0)).yxz * CB0[21].xyz) + CB0[22].xyz;
-    VARYING6 = vec4(v1, clamp(exp2((CB0[18].z * length(v6)) + CB0[18].x) - CB0[18].w, 0.0, 1.0));
+    VARYING6 = v17;
     VARYING7 = vec4(v6, v4.w);
 }
 

@@ -109,3 +109,4 @@ Studio.AccessoryFittingTool.Preview.Default,Default,Default
 Studio.AccessoryFittingTool.Preview.Custom,Custom,Custom
 Studio.AccessoryFittingTool.Preview.FocusCamera,Focus camera on Mannequin,Focus camera on Mannequin
 Studio.AccessoryFittingTool.EditingMode.AutoWeight,Automatically generate skinning weights for mesh,Automatically generate skinning weights for mesh
+Studio.AccessoryFittingTool.Generate.InvalidBounds,Item is not within the acceptable bounds for moderation. Please scale/position the item till it fits into the blue bounding box.,Item is not within the acceptable bounds for moderation. Please scale/position the item till it fits into the blue bounding box.

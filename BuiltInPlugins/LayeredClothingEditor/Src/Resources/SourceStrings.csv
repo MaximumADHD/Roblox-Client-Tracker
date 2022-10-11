@@ -63,6 +63,7 @@ Studio.AccessoryFittingTool.EditorErrors.OpenedWhileRunning,Layered Clothing Edi
 Studio.AccessoryFittingTool.Flow.Back,Back
 Studio.AccessoryFittingTool.Flow.Generate,Generate
 Studio.AccessoryFittingTool.Flow.Next,Next
+Studio.AccessoryFittingTool.Generate.InvalidBounds,Item is not within the acceptable bounds for moderation. Please scale/position the item till it fits into the blue bounding box.
 Studio.AccessoryFittingTool.Generate.Prompt,The asset is ready.
 Studio.AccessoryFittingTool.Generate.Wait,Please wait while the asset is being generated...
 Studio.AccessoryFittingTool.LatticeTool.GenerateMessageBoxText,The previous lattice on this deformer will be replaced. Any transformations on the lattice will be overwritten. Proceed?

@@ -405,6 +405,7 @@ ParticleCurveCrazyFS,Fragment
 ParticleCurveCrazySparklesFS,Fragment
 ParticleCurveModulateFS,Fragment
 ParticleCurveVS,Vertex
+ParticleCustomClampVS,Vertex
 ParticleCustomFS,Fragment
 ParticleCustomVS,Vertex
 ParticleLightingFS,Fragment
@@ -519,7 +520,7 @@ SmoothWaterHQVS_00000000,Vertex
 SmoothWaterHQVS_00000008,Vertex
 SmoothWaterSuperHQFS_00000000,Fragment
 SmoothWaterSuperHQFS_00000008,Fragment
-SmoothWaterVS,Vertex
+SmoothWaterVS_00000000,Vertex
 SpecularConvFS,Fragment
 SpecularConvVS,Vertex
 SRGBToLinearFS,Fragment

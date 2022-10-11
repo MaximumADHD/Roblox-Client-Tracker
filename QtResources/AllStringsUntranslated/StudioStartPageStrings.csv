@@ -18,6 +18,9 @@ Go to File > Publish to Roblox","Publish your game and make it public to share i
 Go to File > Publish to Roblox"
 Studio.App.StartPage.ShareYourGame,,Share your game,Share your game
 Studio.App.StartPage.ClickShareIcon,,Click the share icon to share your game with Roblox friends or on social media,Click the share icon to share your game with Roblox friends or on social media
+Studio.App.StartPage.CreateNew,,Create new,Create new
+Studio.App.StartPage.Owner,,Owner,Owner
+Studio.App.StartPage.OwnerMe,,Me,Me
 Studio.App.StartPage.GotIt,,Got it,Got it
 Studio.App.StartPage.By1,The game was written by whom?,By %1,By %1
 Studio.App.StartPage.MakingPublic,,Making public,Making public
