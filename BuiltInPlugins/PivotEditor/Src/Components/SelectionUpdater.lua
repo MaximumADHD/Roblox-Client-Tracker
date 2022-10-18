@@ -1,4 +1,3 @@
-
 local Plugin = script.Parent.Parent.Parent
 
 local Selection = game:GetService("Selection")
@@ -8,8 +7,7 @@ local Roact = require(Plugin.Packages.Roact)
 local StatusMessage = require(Plugin.Src.Utility.StatusMessage)
 
 local function isValidTarget(instance)
-	return instance and instance:IsA("PVInstance") and instance ~= Workspace
-		and instance ~= Workspace.Terrain
+	return instance and instance:IsA("PVInstance") and instance ~= Workspace and instance ~= Workspace.Terrain
 end
 
 local SelectionUpdater = Roact.PureComponent:extend("SelectionUpdater")
@@ -30,8 +28,7 @@ function SelectionUpdater:willUnmount()
 	self._connection:Disconnect()
 end
 
-function SelectionUpdater:render()
-end
+function SelectionUpdater:render() end
 
 function SelectionUpdater:_update()
 	local selection = Selection:Get()

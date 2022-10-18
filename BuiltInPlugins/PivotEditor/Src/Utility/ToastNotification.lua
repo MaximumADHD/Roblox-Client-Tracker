@@ -19,7 +19,7 @@ function ToastNotification.new(notificationService)
 	end
 
 	return setmetatable({
-		_notificationService = notificationService
+		_notificationService = notificationService,
 	}, ToastNotification)
 end
 

@@ -24,7 +24,6 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryRoundTextBox = SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
-local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -33,7 +32,7 @@ local RoactStudioWidgets = Plugin.Packages.RoactStudioWidgets
 
 local UI = Framework.UI
 local TextInput2 = UI.TextInput2
-local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else require(RoactStudioWidgets.TitledFrame)
+local TitledFrame = UI.TitledFrame
 
 local StudioWidgetRoundTextBox
 if not FFlagRemoveUILibraryRoundTextBox then
@@ -89,72 +88,61 @@ function NumberInputRow:render()
 	local mouse = props.Mouse:get()
 	local worldRootPhysicsController = props.WorldRootPhysics:get()
 
-	return Roact.createElement(
-		TitledFrame,
-		if FFlagRemoveUILibraryTitledFrame
-			then {
-				LayoutOrder = layoutOrder,
-				Title = title,
-			}
-			else {
-				Title = title,
-				MaxHeight = ROW_HEIGHT,
-				LayoutOrder = layoutOrder,
-				TitleTextYAlignment = Enum.TextYAlignment.Center,
-			},
-		{
-			Label = Roact.createElement(StudioWidgetText, {
+	return Roact.createElement(TitledFrame, {
+		LayoutOrder = layoutOrder,
+		Title = title,
+	}, {
+		Label = Roact.createElement(StudioWidgetText, {
+			Enabled = true,
+			Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
+			Position = if FFlagRemoveUILibraryRoundTextBox then nil else UDim2.new(0, 0, 0.5, 0),
+			AnchorPoint = if FFlagRemoveUILibraryRoundTextBox then nil else Vector2.new(0, 0.5),
+			Text = label,
+		}),
+
+		InputBox = (if FFlagRemoveUILibraryRoundTextBox
+			then Roact.createElement(TextInput2, {
+				OnFocusLost = self.onFocusLost,
+				OnTextChanged = self.onTextChanged,
+				OnValidateText = self.onValidateText,
+				Position = UDim2.new(0, INPUT_BOX_OFFSET, 0, 0),
+				Width = 150,
+				Text = formatNumberForDisplay(value),
+			})
+			else Roact.createElement(StudioWidgetRoundTextBox, {
 				Enabled = true,
-				Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
-				Position = if FFlagRemoveUILibraryRoundTextBox then nil else UDim2.new(0, 0, 0.5, 0),
-				AnchorPoint = if FFlagRemoveUILibraryRoundTextBox then nil else Vector2.new(0, 0.5),
-				Text = label,
-			}),
-
-			InputBox = (if FFlagRemoveUILibraryRoundTextBox
-				then Roact.createElement(TextInput2, {
-					OnFocusLost = self.onFocusLost,
-					OnTextChanged = self.onTextChanged,
-					OnValidateText = self.onValidateText,
-					Position = UDim2.new(0, INPUT_BOX_OFFSET, 0, 0),
-					Width = 150,
-					Text = formatNumberForDisplay(value),
-				})
-				else Roact.createElement(StudioWidgetRoundTextBox, {
-					Enabled = true,
-					ShowToolTip = false,
-					Text = formatNumberForDisplay(value),
-					MaxLength = 100,
-					Position = UDim2.new(0, INPUT_BOX_OFFSET, 0.5, 0),
-					AnchorPoint = Vector2.new(0, 0.5),
-					Width = 150,
-					Height = ROW_HEIGHT,
-					PaddingBottom = UDim.new(0, 0),
-					PaddingTop = UDim.new(0, 0),
-					Mouse = mouse,
-
-					FocusChanged = function(focused)
-						if not focused then
-							local newValue = math.clamp(value, minValue, maxValue)
-							onUpdate(newValue)
-						end
-					end,
-
-					SetText = function(newValue)
-						newValue = tonumber(newValue) or minValue
-						onUpdate(newValue)
-					end,
-				})),
-
-			MetricLabel = unitsFormatFunction and Roact.createElement(StudioWidgetText, {
-				Enabled = true,
-				Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
-				Position = UDim2.new(0, INPUT_BOX_OFFSET + METRIC_LABEL_OFFSET, 0.5, 0),
+				ShowToolTip = false,
+				Text = formatNumberForDisplay(value),
+				MaxLength = 100,
+				Position = UDim2.new(0, INPUT_BOX_OFFSET, 0.5, 0),
 				AnchorPoint = Vector2.new(0, 0.5),
-				Text = unitsFormatFunction(worldRootPhysicsController.convertStudsToMeters(value)),
-			}),
-		}
-	)
+				Width = 150,
+				Height = ROW_HEIGHT,
+				PaddingBottom = UDim.new(0, 0),
+				PaddingTop = UDim.new(0, 0),
+				Mouse = mouse,
+
+				FocusChanged = function(focused)
+					if not focused then
+						local newValue = math.clamp(value, minValue, maxValue)
+						onUpdate(newValue)
+					end
+				end,
+
+				SetText = function(newValue)
+					newValue = tonumber(newValue) or minValue
+					onUpdate(newValue)
+				end,
+			})),
+
+		MetricLabel = unitsFormatFunction and Roact.createElement(StudioWidgetText, {
+			Enabled = true,
+			Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
+			Position = UDim2.new(0, INPUT_BOX_OFFSET + METRIC_LABEL_OFFSET, 0.5, 0),
+			AnchorPoint = Vector2.new(0, 0.5),
+			Text = unitsFormatFunction(worldRootPhysicsController.convertStudsToMeters(value)),
+		}),
+	})
 end
 
 NumberInputRow = withContext({

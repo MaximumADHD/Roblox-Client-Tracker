@@ -22,9 +22,7 @@ local Framework = require(Packages.Framework)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
-local ContextHelper = require(Util.ContextHelper)
 
-local withTheme = ContextHelper.withTheme
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -40,8 +38,10 @@ function AssetTypeSelector:init(props)
 		})
 
 		-- For now, only plugin will skip assetTypeSelection
-		if (self.props.assetTypeEnum == Enum.AssetType.Plugin or
-			self.props.assetTypeEnum == Enum.AssetType.Animation) then
+		if
+			self.props.assetTypeEnum == Enum.AssetType.Plugin
+			or self.props.assetTypeEnum == Enum.AssetType.Animation
+		then
 			if self.props.onAssetTypeSelected then
 				self.props.onAssetTypeSelected(self.props.assetTypeEnum)
 			end
@@ -89,7 +89,7 @@ function AssetTypeSelector:render()
 		}),
 
 		Dropdown = Roact.createElement(DropdownMenu, {
-			Position = UDim2.new(0.5, -props.width/2, 0, 0),
+			Position = UDim2.new(0.5, -props.width / 2, 0, 0),
 			Size = UDim2.new(1, 0, 1, 0),
 			selectedDropDownIndex = state.dropDownIndex,
 			visibleDropDOwnCount = 5,

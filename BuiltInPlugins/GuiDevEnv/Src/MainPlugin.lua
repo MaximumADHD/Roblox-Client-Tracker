@@ -9,14 +9,11 @@ local DockWidget = StudioUI.DockWidget
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
 function MainPlugin:init(props)
-	self.onClose = function()
-	end
+	self.onClose = function() end
 
-	self.onRestore = function(enabled)
-	end
+	self.onRestore = function(enabled) end
 
 	self.mouse = self.props.plugin:GetMouse()
-
 end
 
 function MainPlugin:render()
@@ -26,7 +23,7 @@ function MainPlugin:render()
 	return ContextServices.provide({
 		Plugin.new(plugin),
 	}, {
-		
+
 		MainWidget = Roact.createElement(DockWidget, {
 			Enabled = false,
 			Title = plugin.Name,

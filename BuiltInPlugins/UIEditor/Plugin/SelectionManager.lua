@@ -12,7 +12,6 @@ local Utility = require(script.Parent.Utility)
 local SelectionService = game:GetService("Selection")
 
 local FFlagFixStarterGuiErrors = game:DefineFastFlag("FixStarterGuiErrors", false)
-local FFlagAddUiComponentToGuiFilter = game:DefineFastFlag("AddUiComponentToGuiFilter", false)
 
 --filtered selection
 --when selection changes register to changed event on new items
@@ -30,12 +29,10 @@ local m_filteredSelectionChangedListeners = {}
 local m_suppressFilteredSelectionChanged = false
 
 local function onChangedEvent(instance, property)
-
 	for k, v in pairs(m_changedEventCallbacks) do
 		v(instance, property)
 	end
 end
-
 
 local function disconnectChangedEvents()
 	for i = 1, #m_filteredSelection do
@@ -45,17 +42,17 @@ end
 
 local function connectChangedEvents()
 	for i = 1, #m_filteredSelection do
-		m_changedEvents[m_filteredSelection[i]] = m_filteredSelection[i].Changed:connect(
-			function(property) onChangedEvent(m_filteredSelection[i], property) end)
+		m_changedEvents[m_filteredSelection[i]] = m_filteredSelection[i].Changed:connect(function(property)
+			onChangedEvent(m_filteredSelection[i], property)
+		end)
 	end
 end
 
 local function ancestorExistsInList(instance, list)
-	if (not instance or
-		not instance:IsA("GuiBase2d")) then
+	if not instance or not instance:IsA("GuiBase2d") then
 		return false
 	end
-	if (Utility:findItemInTable(instance, list) ~= 0) then
+	if Utility:findItemInTable(instance, list) ~= 0 then
 		return true
 	end
 	return ancestorExistsInList(instance.Parent, list)
@@ -66,13 +63,15 @@ local SelectionManager = {}
 function SelectionManager:connectSelectionInstancesChanged(func)
 	m_callbackIdentifier = m_callbackIdentifier + 1
 	m_changedEventCallbacks[m_callbackIdentifier] = func
-	
+
 	return m_callbackIdentifier
 end
 
 function SelectionManager:disconnectSelectionInstancesChanged(identifier)
-	if not identifier then return nil end
-		
+	if not identifier then
+		return nil
+	end
+
 	m_changedEventCallbacks[identifier] = nil
 	return nil
 end
@@ -106,10 +105,7 @@ end
 
 -- Returns true if the instance is GUI-related
 local function isGui(instance)
-	if FFlagAddUiComponentToGuiFilter then
-		return instance:isA("GuiObject") or instance:isA("UIComponent")
-	end
-	return instance:isA("GuiObject")
+	return instance:isA("GuiObject") or instance:isA("UIComponent")
 end
 
 -- Returns true if the object is a GuiObject and all of the ancestors
@@ -139,10 +135,10 @@ local function areAllAncestorsGuiBase2dToStarterGui(guiObject)
 				break
 			end
 		end
-		
-		ancestor = ancestor.Parent 
+
+		ancestor = ancestor.Parent
 	end
-	
+
 	return purebredGui
 end
 
@@ -166,13 +162,13 @@ function SelectionManager:passesGuiFilter(instance)
 	-- Also make sure that at least one of the ancestors are a ScreenGui, otherwise
 	-- we can't show it in the 3D view.
 	local hasScreenGuiAncestor = isDescendantOfScreenGui(instance)
-	
+
 	return purebredGui and hasScreenGuiAncestor
 end
 
 -- void SelectionManager:onDescendantAddedToStarterGui(Instance child)
 function SelectionManager:onDescendantAddedToStarterGui(child)
-	if SelectionManager:passesGuiFilter(child) and child:isA("GuiObject")then
+	if SelectionManager:passesGuiFilter(child) and child:isA("GuiObject") then
 		-- There is a new GUI object in StaterGui so it should
 		-- be added to the filtered selection.
 		SelectionManager:onSelectionChanged()
@@ -191,26 +187,26 @@ end
 
 function SelectionManager:onSelectionChanged()
 	disconnectChangedEvents()
-	
+
 	local selection = SelectionService:Get()
-	
+
 	m_rawSelection = selection
 	m_filteredSelection = {}
 	m_filteredSelectionAncestors = {}
 	for i = 1, #m_rawSelection do
 		local instance = m_rawSelection[i]
 
-        if SelectionManager:passesGuiFilter(instance) and instance:isA("GuiObject") then
-            table.insert(m_filteredSelection, instance)
-        end
-	end
-	
-	for i = 1, #m_filteredSelection do
-		if (not ancestorExistsInList(selection[i].Parent, selection)) then
-            table.insert(m_filteredSelectionAncestors, m_filteredSelection[i])
+		if SelectionManager:passesGuiFilter(instance) and instance:isA("GuiObject") then
+			table.insert(m_filteredSelection, instance)
 		end
 	end
-	
+
+	for i = 1, #m_filteredSelection do
+		if not ancestorExistsInList(selection[i].Parent, selection) then
+			table.insert(m_filteredSelectionAncestors, m_filteredSelection[i])
+		end
+	end
+
 	connectChangedEvents()
 	if not m_suppressFilteredSelectionChanged then
 		notifyFilteredSelectionChanged()
@@ -218,15 +214,15 @@ function SelectionManager:onSelectionChanged()
 end
 
 function SelectionManager:getRawSelection()
-	return {unpack(m_rawSelection)}
+	return { unpack(m_rawSelection) }
 end
 
 function SelectionManager:getFilteredSelection()
-	return {unpack(m_filteredSelection)}
+	return { unpack(m_filteredSelection) }
 end
 
 function SelectionManager:getFilteredSelectionCommonAncestors()
-	return {unpack(m_filteredSelectionAncestors)}
+	return { unpack(m_filteredSelectionAncestors) }
 end
 
 function SelectionManager:hasSelection()
@@ -238,7 +234,9 @@ function SelectionManager:hasFilteredSelection()
 end
 
 function SelectionManager:setSelection(selection)
-	if (Utility:tablesAreEquivalent(m_rawSelection, selection)) then return false end
+	if Utility:tablesAreEquivalent(m_rawSelection, selection) then
+		return false
+	end
 
 	SelectionService:Set(selection)
 	return true
@@ -250,19 +248,19 @@ end
 --
 -- The listeners are notified of the filtered selection change when the
 -- suppression is turned off.
--- 
+--
 -- void SelectionManager:setSuppressFilteredSelectionChanged(bool suppress)
 function SelectionManager:setSuppressFilteredSelectionChanged(suppress)
 	-- Don't do anything if the value didn't change
 	if m_suppressFilteredSelectionChanged == suppress then
 		return
 	end
-	
-	m_suppressFilteredSelectionChanged = suppress	
-	
+
+	m_suppressFilteredSelectionChanged = suppress
+
 	if not suppress then
 		-- Notify listeners of any changes that might have happened
-		-- while the filtered selection changes were suppressed. 
+		-- while the filtered selection changes were suppressed.
 		notifyFilteredSelectionChanged()
 	end
 end

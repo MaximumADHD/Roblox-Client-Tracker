@@ -129,11 +129,8 @@ function EditPivotPlugin:render()
 	})
 end
 
-
 EditPivotPlugin = withContext({
 	Plugin = ContextServices.Plugin,
 })(EditPivotPlugin)
-
-
 
 return EditPivotPlugin

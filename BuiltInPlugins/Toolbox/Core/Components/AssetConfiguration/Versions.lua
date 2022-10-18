@@ -27,9 +27,8 @@ local VersionItem = require(AssetConfiguration.VersionItem)
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local ContextGetter = require(Util.ContextGetter)
-local Constants= require(Util.Constants)
+local Constants = require(Util.Constants)
 
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -72,7 +71,7 @@ local function renderItem(props, isCurrent)
 	return Roact.createElement(VersionItem, props)
 end
 
--- Stubs to redirect with additional 
+-- Stubs to redirect with additional
 local function renderCurrentItem(props)
 	return renderItem(props, true)
 end
@@ -94,7 +93,7 @@ function Versions:init(props)
 
 		-- Infinite scrolling grid requires that the underlying item table is
 		-- persistent (creating new tables every time we extend the data causes
-	    -- the canvas position to reset). Therefore, we put the version data for
+		-- the canvas position to reset). Therefore, we put the version data for
 		-- the *previous* versions in the state to persist.
 		-- We've chosen to do self.state.previousVersions instead of
 		-- self.previousVersions. By doing it in state, we can check strictly
@@ -120,13 +119,13 @@ function Versions:init(props)
 			self.props.makeChangeRequest("VersionItemSelect", currentAssetVersion, newAssetVersion)
 
 			self:setState({
-				selectVersion = newAssetVersion
+				selectVersion = newAssetVersion,
 			})
 		else
 			self.props.makeChangeRequest("VersionItemSelect", newAssetVersion, newAssetVersion)
 
 			self:setState({
-				selectVersion = 0
+				selectVersion = 0,
 			})
 		end
 	end
@@ -189,14 +188,14 @@ function Versions:didUpdate(previousProps, previousState)
 		if versionHistory then
 			if (not next(currentItem)) and versionHistory.data then
 				self:setState({
-					currentItem = extractFirstVersionItem(versionHistory.data)
+					currentItem = extractFirstVersionItem(versionHistory.data),
 				})
 			end
 		end
 	else
 		if (not next(currentItem)) and versionHistory then
 			self:setState({
-				currentItem = extractFirstVersionItem(versionHistory)
+				currentItem = extractFirstVersionItem(versionHistory),
 			})
 		end
 	end
@@ -212,7 +211,10 @@ function Versions:didUpdate(previousProps, previousState)
 	-- bail out.
 	if FFlagInfiniteScrollerForVersions2 and self.loadingPage and versionHistory then
 		local loadedInitialPage = (self.loadingPage == INITIAL_PAGE)
-		local loadedNextPage = (previousProps.versionHistory and previousProps.versionHistory.nextPageCursor ~= versionHistory.nextPageCursor)
+		local loadedNextPage = (
+			previousProps.versionHistory
+			and previousProps.versionHistory.nextPageCursor ~= versionHistory.nextPageCursor
+		)
 		if loadedInitialPage or loadedNextPage then
 			self.loadingPage = nil
 			-- We've completed reading in new data. That means we need to read
@@ -226,12 +228,11 @@ function Versions:didUpdate(previousProps, previousState)
 			-- table for the grid's sake.
 			copyPreviousVersions(versionHistory.data, self.state.previousVersions)
 			self:setState({
-				previousVersions = self.state.previousVersions
+				previousVersions = self.state.previousVersions,
 			})
 		end
 	end
 end
-
 
 local createItemList
 if not FFlagInfiniteScrollerForVersions2 then
@@ -265,7 +266,7 @@ if not FFlagInfiniteScrollerForVersions2 then
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 
-			LayoutOrder = props.LayoutOrder
+			LayoutOrder = props.LayoutOrder,
 		}, itemList)
 	end
 end
@@ -319,7 +320,7 @@ function Versions:renderContent(theme, localization, localizedContent)
 				BackgroundTransparency = 1,
 				LayoutOrder = 1,
 				Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
-			},{
+			}, {
 				VersionsLabel = Roact.createElement("TextLabel", {
 					BackgroundTransparency = 1,
 					Font = Constants.FONT_BOLD,
@@ -338,7 +339,7 @@ function Versions:renderContent(theme, localization, localizedContent)
 				Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
 			}),
 
-			PreviousVersion = hasPreviousVersions and Roact.createElement("Frame",{
+			PreviousVersion = hasPreviousVersions and Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				LayoutOrder = 3,
 				Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
@@ -355,39 +356,49 @@ function Versions:renderContent(theme, localization, localizedContent)
 				}),
 			}),
 
-			PreviousScroll = hasPreviousVersions and Roact.createElement("Frame", {
-				-- The previous elements include two titles and one item. For unknown reasons
-				-- we also have to account for the height of the button bar at the bottom
-				-- of the dialog. This shouldn't be the case, but leaving out the magic
-				-- number, the scrolling contents roll over the buttons.
-				BackgroundTransparency = 1,
-				LayoutOrder = 4,
-				Size = UDim2.new(1, 0, 1, -2 * TITLE_HEIGHT - ITEM_HEIGHT - 70),
-			}, {
-				InfiniteScroll = Roact.createElement(InfiniteScrollingGrid, {
-					AbsoluteMax = #previousVersions,
+			PreviousScroll = hasPreviousVersions
+				and Roact.createElement("Frame", {
+					-- The previous elements include two titles and one item. For unknown reasons
+					-- we also have to account for the height of the button bar at the bottom
+					-- of the dialog. This shouldn't be the case, but leaving out the magic
+					-- number, the scrolling contents roll over the buttons.
 					BackgroundTransparency = 1,
-					CellPadding = UDim2.new(0, 0, 0, 0),
-					-- A CellSize width of 100% confuses the grid algorithm. Reduce
-					-- it by a pixel to keep things well behaved.
-					CellSize = UDim2.new(1, -1, 0, ITEM_HEIGHT),
-					GetItemKey = self.GetItemKey,
-					Items = previousVersions,
-					LoadRange = function(offset, count)
-						-- InfiniteScrollingGrid will invoke this callback *all the time*! We don't want
-						-- to actually pull the next page of data until we know we have to:
-						--    - The range requested goes beyond our current count of versions
-						--    - We're not currently loading data
-						--    - There is actually a next page to load
-						--    - We actually have a version history from which we can get the necessary asset id.
-						if (offset + count > #previousVersions and not self.loadingPage and nextPageCursor ~= nil and versionHistoryData[1]) then
-							self.loadingPage = nextPageCursor
-							props.getVersionHistoryPage(getNetwork(self), versionHistoryData[1].assetId, nextPageCursor)
-						end
-					end,
-					RenderItem = self.RenderItem,
-				})
-			})
+					LayoutOrder = 4,
+					Size = UDim2.new(1, 0, 1, -2 * TITLE_HEIGHT - ITEM_HEIGHT - 70),
+				}, {
+					InfiniteScroll = Roact.createElement(InfiniteScrollingGrid, {
+						AbsoluteMax = #previousVersions,
+						BackgroundTransparency = 1,
+						CellPadding = UDim2.new(0, 0, 0, 0),
+						-- A CellSize width of 100% confuses the grid algorithm. Reduce
+						-- it by a pixel to keep things well behaved.
+						CellSize = UDim2.new(1, -1, 0, ITEM_HEIGHT),
+						GetItemKey = self.GetItemKey,
+						Items = previousVersions,
+						LoadRange = function(offset, count)
+							-- InfiniteScrollingGrid will invoke this callback *all the time*! We don't want
+							-- to actually pull the next page of data until we know we have to:
+							--    - The range requested goes beyond our current count of versions
+							--    - We're not currently loading data
+							--    - There is actually a next page to load
+							--    - We actually have a version history from which we can get the necessary asset id.
+							if
+								offset + count > #previousVersions
+								and not self.loadingPage
+								and nextPageCursor ~= nil
+								and versionHistoryData[1]
+							then
+								self.loadingPage = nextPageCursor
+								props.getVersionHistoryPage(
+									getNetwork(self),
+									versionHistoryData[1].assetId,
+									nextPageCursor
+								)
+							end
+						end,
+						RenderItem = self.RenderItem,
+					}),
+				}),
 		})
 	else
 		local versionHistory = props.versionHistory
@@ -420,7 +431,7 @@ function Versions:renderContent(theme, localization, localizedContent)
 				BorderSizePixel = 0,
 
 				LayoutOrder = 1,
-			},{
+			}, {
 				VersionsLabel = Roact.createElement("TextLabel", {
 					Position = UDim2.new(0, 10, 0, 0),
 					Size = UDim2.new(0, 50, 0, TITLE_HEIGHT),
@@ -444,7 +455,7 @@ function Versions:renderContent(theme, localization, localizedContent)
 				LayoutOrder = 2,
 			}),
 
-			PreviousVersion = Roact.createElement("Frame",{
+			PreviousVersion = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
 
 				BackgroundTransparency = 1,
@@ -467,20 +478,21 @@ function Versions:renderContent(theme, localization, localizedContent)
 				}),
 			}),
 
-			ItemList = versionHistory and Roact.createElement(createItemList, {
-				Size = UDim2.new(1, 0, 1, -TITLE_HEIGHT * 2 - ITEM_HEIGHT),
+			ItemList = versionHistory
+				and Roact.createElement(createItemList, {
+					Size = UDim2.new(1, 0, 1, -TITLE_HEIGHT * 2 - ITEM_HEIGHT),
 
-				SelectVersion = selectVersion,
+					SelectVersion = selectVersion,
 
-				-- The itemInfor need to be ordered
-				-- I am expecting assetVersionNumber here, by checking assetVersionNumber I should be able to
-				-- tell if this item is current version or not.
-				ItemSize = UDim2.new(1, 0, 0, ITEM_HEIGHT),
-				ItemListInfo = versionHistory,
-				ItemClickCallBack = self.OnItemClicked,
+					-- The itemInfor need to be ordered
+					-- I am expecting assetVersionNumber here, by checking assetVersionNumber I should be able to
+					-- tell if this item is current version or not.
+					ItemSize = UDim2.new(1, 0, 0, ITEM_HEIGHT),
+					ItemListInfo = versionHistory,
+					ItemClickCallBack = self.OnItemClicked,
 
-				LayoutOrder = 4,
-			})
+					LayoutOrder = 4,
+				}),
 		})
 	end
 end

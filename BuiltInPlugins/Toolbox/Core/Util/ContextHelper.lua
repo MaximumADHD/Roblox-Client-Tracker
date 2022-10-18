@@ -11,7 +11,6 @@ local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
 local LocalizationConsumer = require(Consumers.LocalizationConsumer)
 local ModalConsumer = require(Consumers.ModalConsumer)
-local ThemeConsumer = require(Consumers.ThemeConsumer)
 
 local ContextHelper = {}
 
@@ -23,13 +22,6 @@ end
 
 function ContextHelper.withModal(callback)
 	return Roact.createElement(ModalConsumer, {
-		render = callback,
-	})
-end
-
-function ContextHelper.withTheme(callback)
-	-- TODO: Remove when non-devframework Theme is removed
-	return Roact.createElement(ThemeConsumer, {
 		render = callback,
 	})
 end

@@ -46,7 +46,7 @@ Constants.IMAGES = {
 			NORMAL = TexturePath .. "Dragger2Bottom.png",
 			OUTLINED = TexturePath .. "Dragger2OutlinedBottom.png",
 		},
-	}
+	},
 }
 
 Constants.MOUSE_CURSORS = {
@@ -58,7 +58,9 @@ Constants.MOUSE_CURSORS = {
 -- TextEditor/TextOffset Constants
 Constants.TEXTIMAGE_PADDING = 70
 Constants.TEXTEDITOR_YOFFSET = 116
-Constants.TEXTEDITOR_XOFFSET =  Constants.BACKGROUND_SIZE + Constants.BACKGROUND_FROMEDGE_PADDING + Constants.TEXTIMAGE_PADDING
+Constants.TEXTEDITOR_XOFFSET = Constants.BACKGROUND_SIZE
+	+ Constants.BACKGROUND_FROMEDGE_PADDING
+	+ Constants.TEXTIMAGE_PADDING
 Constants.TEXTEDITOR_XSIZE = 110
 Constants.TEXTEDITOR_YSIZE = 140
 Constants.TEXTSIZE = 18

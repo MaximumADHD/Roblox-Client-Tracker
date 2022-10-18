@@ -12,6 +12,8 @@ local StyleModifier = Framework.Util.StyleModifier
 
 local Constants = require(script.Parent.Parent.Constants)
 
+local FFlagCGERemoveDefaultTranslation = game:GetFastFlag("CGERemoveDefaultTranlsation")
+
 local AddGroup = Roact.PureComponent:extend("AddGroup")
 
 function AddGroup:init()
@@ -77,9 +79,18 @@ function AddGroup:render()
 				-- So we should strip a leading newline from the input if one is present
 				text = string.gsub(text, "^%s+", "")
 
-				if enterPressed and text ~= "" and
-				 text ~= " " and
-				 text ~= localization:getText("Groups", "DefaultGroupName") then
+				local isDefault = false
+				if FFlagCGERemoveDefaultTranslation then
+					isDefault = text == "Default"
+				else
+					isDefault = text == localization:getText("Groups", "DefaultGroupName")
+				end
+
+				if
+					enterPressed
+					and text ~= ""
+					and not isDefault
+				then
 					props.OnGroupAdded(text)
 					if self.textBoxRef:getValue() ~= nil then
 						self.textBoxRef:getValue():CaptureFocus()

@@ -35,6 +35,7 @@ return function(plugin, pluginLoaderContext)
 	local GroupMetadataController = require(Plugin.Src.Controllers.GroupMetadataController)
 	local GamePermissionsController = require(Plugin.Pages.PermissionsPage.Controllers.GamePermissionsController)
 	local GameOptionsController = require(Plugin.Pages.OptionsPage.Controllers.GameOptionsController)
+	local CommunicationController = require(Plugin.Pages.CommunicationPage.Controllers.CommunicationController)
 	local MonetizationController = require(Plugin.Pages.MonetizationPage.Controllers.MonetizationController)
 	local DevSubsController = require(Plugin.Pages.MonetizationPage.Controllers.DevSubsController)
 	local PlacesController = require(Plugin.Pages.PlacesPage.Controllers.PlacesController)
@@ -72,6 +73,7 @@ return function(plugin, pluginLoaderContext)
 	local monetizationController = MonetizationController.new(networking:get())
 	local devSubsController = FFlagDeveloperSubscriptionsEnabled and DevSubsController.new(networking:get()) or nil
 	local gameOptionsController = GameOptionsController.new(networking:get())
+	local communicationController = CommunicationController.new(networking:get())
 	local universePermissionsController = SecurityController.new(networking:get())
 	local socialController = SocialController.new(networking:get())
 	local universeAvatarController = UniverseAvatarController.new(networking:get())
@@ -86,6 +88,7 @@ return function(plugin, pluginLoaderContext)
 	thunkContextItems.groupMetadataController = groupMetadataController
 	thunkContextItems.gamePermissionsController = gamePermissionsController
 	thunkContextItems.gameOptionsController = gameOptionsController
+	thunkContextItems.communicationController = communicationController
 	thunkContextItems.monetizationController = monetizationController
 	thunkContextItems.devSubsController = devSubsController
 	thunkContextItems.universePermissionsController = universePermissionsController

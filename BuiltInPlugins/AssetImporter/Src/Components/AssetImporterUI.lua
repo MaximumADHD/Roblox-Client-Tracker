@@ -30,7 +30,6 @@ local ShowImportPrompt = require(Plugin.Src.Thunks.ShowImportPrompt)
 local Images = require(Plugin.Src.Utility.Images)
 local GetLocalizedString = require(Plugin.Src.Utility.GetLocalizedString)
 
-local getFFlagAssetImportSessionCleanup = require(Plugin.Src.Flags.getFFlagAssetImportSessionCleanup)
 local getFFlagAssetImportResetMaterialCam = require(Plugin.Src.Flags.getFFlagAssetImportResetMaterialCam)
 
 local SEPARATOR_WEIGHT = 1
@@ -40,20 +39,6 @@ local CAMERA_FOCUS_DIR = Vector3.new(-1, 1, -1)
 local AssetImporterUI = Roact.PureComponent:extend("AssetImporterUI")
 
 local emptyModel = Instance.new("Model")
-
-local function getRenderModelDeprecated(instanceMap, selectedInstance)
-	local object = nil
-	if instanceMap and selectedInstance then
-		object = instanceMap[selectedInstance.Id]
-	end
-	if object == nil then
-		return emptyModel
-	end
-	local object = object:Clone()
-	local wrapper = Instance.new("Model")
-	object.Parent = wrapper
-	return wrapper
-end
 
 local function getRenderModel(previewInstance)
 	if previewInstance == nil then
@@ -76,12 +61,7 @@ end
 function AssetImporterUI:init()
 	self.camera = Instance.new("Camera")
 	self.centerCamera = function()
-		local size
-		if getFFlagAssetImportSessionCleanup() then
-			size = getRenderModel(self.props.PreviewInstance):GetExtentsSize()
-		else
-			size = getRenderModelDeprecated(self.props.InstanceMap, self.props.SelectedSettingsItem):GetExtentsSize()
-		end
+		local size = getRenderModel(self.props.PreviewInstance):GetExtentsSize()
 		local cameraDistAway = size.Magnitude * INSERT_CAMERA_DIST_MULT
 		local dir = CAMERA_FOCUS_DIR.Unit
 		self.camera.Focus = CFrame.new()
@@ -123,12 +103,7 @@ function AssetImporterUI:render()
 	local recenterCamera = false
 	local recenterModel = true
 
-	local model
-	if getFFlagAssetImportSessionCleanup() then
-		model = getRenderModel(props.PreviewInstance)
-	else
-		model = getRenderModelDeprecated(props.InstanceMap, props.SelectedSettingsItem)
-	end
+	local model = getRenderModel(props.PreviewInstance)
 
 	return Roact.createElement(Pane, {
 		Layout = Enum.FillDirection.Vertical,
@@ -251,7 +226,6 @@ local function mapStateToProps(state)
 		AssetImportSession = state.assetImportSession,
 		AssetSettings = state.assetSettings,
 		Filename = state.filename,
-		InstanceMap = state.instanceMap,
 		PreviewInstance = state.previewInstance,
 		SelectedSettingsItem = state.selectedSettingsItem,
 	}

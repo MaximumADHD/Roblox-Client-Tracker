@@ -16,10 +16,8 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryLoadingIndicator = SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
 local FFlagRemoveUILibraryRoundFrame = SharedFlags.getFFlagRemoveUILibraryRoundFrame()
 local FFlagRemoveUILibraryRoundTextBox = SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
-local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
 local Util = Framework.Util
 local ContextServices = Framework.ContextServices
@@ -40,13 +38,11 @@ local UI = Framework.UI
 local Container = UI.Container
 local HoverArea = UI.HoverArea
 local Image = UI.Decoration.Image
-local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator
-	then UI.LoadingIndicator
-	else UILibrary.Component.LoadingIndicator
+local LoadingIndicator = UI.LoadingIndicator
 local Pane = if FFlagRemoveUILibraryRoundFrame then UI.Pane else UILibrary.Component.RoundFrame
 local Separator = UI.Separator
 local TextInput2 = UI.TextInput2
-local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
+local TitledFrame = UI.TitledFrame
 
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
@@ -89,7 +85,6 @@ local BADGES = "Badges"
 --[[
     TODO 7/16/2020 Fetch these values from the BE so we don't need to keep syncing with BE whenever they change
 ]]
-
 local priceErrors = {
 	BelowMin = "ErrorPriceBelowMin",
 	AboveMax = "ErrorPriceAboveMax",
@@ -952,134 +947,112 @@ local function displayEditDevProductsPage(props)
 			}),
 		}),
 
-		Name = Roact.createElement(
-			TitledFrame,
-			if FFlagRemoveUILibraryTitledFrame
-				then {
-					LayoutOrder = layoutIndex:getNextOrder(),
-					Title = localization:getText("General", "TitleName"),
-				}
-				else {
-					Title = localization:getText("General", "TitleName"),
-					MaxHeight = 60,
-					LayoutOrder = layoutIndex:getNextOrder(),
+		Name = Roact.createElement(TitledFrame, {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("General", "TitleName"),
+		}, {
+			TextBox = (if FFlagRemoveUILibraryRoundTextBox
+				then Roact.createElement(TextInput2, {
+					ErrorText = dpNameError,
+					MaxLength = FIntMaxNameLength,
+					OnTextChanged = onTextChanged,
+					Text = productTitle,
+				})
+				else Roact.createElement(RoundTextBox, {
+					Active = true,
+					MaxLength = FIntMaxNameLength,
+					Text = productTitle,
 					TextSize = theme.fontStyle.Normal.TextSize,
-				},
-			{
-				TextBox = (if FFlagRemoveUILibraryRoundTextBox
-					then Roact.createElement(TextInput2, {
-						ErrorText = dpNameError,
-						MaxLength = FIntMaxNameLength,
-						OnTextChanged = onTextChanged,
-						Text = productTitle,
-					})
-					else Roact.createElement(RoundTextBox, {
-						Active = true,
-						MaxLength = FIntMaxNameLength,
-						Text = productTitle,
-						TextSize = theme.fontStyle.Normal.TextSize,
 
-						ErrorMessage = dpNameError,
+					ErrorMessage = dpNameError,
 
-						SetText = onTextChanged,
-					})),
-			}
-		),
+					SetText = onTextChanged,
+				})),
+		}),
 
-		Price = Roact.createElement(
-			TitledFrame,
-			if FFlagRemoveUILibraryTitledFrame
-				then {
-					LayoutOrder = layoutIndex:getNextOrder(),
-					Title = localization:getText("Monetization", "PriceTitle"),
-				}
-				else {
-					Title = localization:getText("Monetization", "PriceTitle"),
-					MaxHeight = 150,
-					LayoutOrder = layoutIndex:getNextOrder(),
-					TextSize = theme.fontStyle.Normal.TextSize,
-				},
-			{
-				VerticalLayout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = Enum.FillDirection.Vertical,
-				}),
+		Price = Roact.createElement(TitledFrame, {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("Monetization", "PriceTitle"),
+		}, {
+			VerticalLayout = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Vertical,
+			}),
 
-				PriceFrame = if FFlagRemoveUILibraryRoundTextBox
-					then Roact.createElement(TextInput2, {
-						OnTextChanged = onPriceTextChanged,
-						Size = UDim2.new(0, 200, 0, 32),
-						Text = productPrice,
-						LeadingComponent = Image,
-						LeadingComponentProps = {
-							Size = UDim2.new(0, theme.robuxFeeBase.icon.size, 0, theme.robuxFeeBase.icon.size),
-							ImageColor3 = theme.robuxFeeBase.icon.imageColor,
-							Image = theme.robuxFeeBase.icon.image,
-						},
-					})
-					else Roact.createElement(Pane, {
-						Size = UDim2.new(0, theme.robuxFeeBase.priceField.width, 0, theme.rowHeight),
+			PriceFrame = if FFlagRemoveUILibraryRoundTextBox
+				then Roact.createElement(TextInput2, {
+					OnTextChanged = onPriceTextChanged,
+					Size = UDim2.new(0, 200, 0, 32),
+					Text = productPrice,
+					LeadingComponent = Image,
+					LeadingComponentProps = {
+						Size = UDim2.new(0, theme.robuxFeeBase.icon.size, 0, theme.robuxFeeBase.icon.size),
+						ImageColor3 = theme.robuxFeeBase.icon.imageColor,
+						Image = theme.robuxFeeBase.icon.image,
+					},
+				})
+				else Roact.createElement(Pane, {
+					Size = UDim2.new(0, theme.robuxFeeBase.priceField.width, 0, theme.rowHeight),
 
-						BorderColor3 = theme.textBox.borderDefault,
-						BorderSizePixel = 1,
-						BackgroundColor3 = theme.textBox.background,
+					BorderColor3 = theme.textBox.borderDefault,
+					BorderSizePixel = 1,
+					BackgroundColor3 = theme.textBox.background,
 
-						LayoutOrder = 1,
-					}, {
-						HorizontalLayout = Roact.createElement("UIListLayout", {
-							FillDirection = Enum.FillDirection.Horizontal,
-							SortOrder = Enum.SortOrder.LayoutOrder,
-							VerticalAlignment = Enum.VerticalAlignment.Center,
-						}),
-
-						RobuxIcon = Roact.createElement("ImageLabel", {
-							AnchorPoint = Vector2.new(0, 0.5),
-							Size = UDim2.new(0, theme.robuxFeeBase.icon.size, 0, theme.robuxFeeBase.icon.size),
-
-							ImageColor3 = theme.robuxFeeBase.icon.imageColor,
-							Image = theme.robuxFeeBase.icon.image,
-
-							BackgroundTransparency = 1,
-						}),
-
-						PriceTextBox = Roact.createElement(
-							TextEntry,
-							Cryo.Dictionary.join(theme.fontStyle.Normal, {
-								Size = UDim2.new(1, -theme.robuxFeeBase.icon.size, 1, 0),
-								Visible = true,
-
-								Text = productPrice,
-								PlaceholderText = "",
-								Enabled = true,
-
-								SetText = onPriceTextChanged,
-
-								FocusChanged = function() end,
-
-								HoverChanged = function() end,
-							})
-						),
+					LayoutOrder = 1,
+				}, {
+					HorizontalLayout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Horizontal,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
 					}),
 
-				ErrorMessage = dpPriceError and Roact.createElement(
-					"TextLabel",
-					Cryo.Dictionary.join(theme.fontStyle.SmallError, {
-						Size = UDim2.new(0, dpPriceErrorSize.X, 0, dpPriceErrorSize.Y),
+					RobuxIcon = Roact.createElement("ImageLabel", {
+						AnchorPoint = Vector2.new(0, 0.5),
+						Size = UDim2.new(0, theme.robuxFeeBase.icon.size, 0, theme.robuxFeeBase.icon.size),
+
+						ImageColor3 = theme.robuxFeeBase.icon.imageColor,
+						Image = theme.robuxFeeBase.icon.image,
 
 						BackgroundTransparency = 1,
+					}),
 
-						Text = dpPriceError,
+					PriceTextBox = Roact.createElement(
+						TextEntry,
+						Cryo.Dictionary.join(theme.fontStyle.Normal, {
+							Size = UDim2.new(1, -theme.robuxFeeBase.icon.size, 1, 0),
+							Visible = true,
 
-						TextYAlignment = Enum.TextYAlignment.Center,
-						TextXAlignment = Enum.TextXAlignment.Left,
+							Text = productPrice,
+							PlaceholderText = "",
+							Enabled = true,
 
-						TextWrapped = true,
+							SetText = onPriceTextChanged,
 
-						LayoutOrder = 2,
-					})
-				),
-			}
-		),
+							FocusChanged = function() end,
+
+							HoverChanged = function() end,
+						})
+					),
+				}),
+
+			ErrorMessage = dpPriceError and Roact.createElement(
+				"TextLabel",
+				Cryo.Dictionary.join(theme.fontStyle.SmallError, {
+					Size = UDim2.new(0, dpPriceErrorSize.X, 0, dpPriceErrorSize.Y),
+
+					BackgroundTransparency = 1,
+
+					Text = dpPriceError,
+
+					TextYAlignment = Enum.TextYAlignment.Center,
+					TextXAlignment = Enum.TextXAlignment.Left,
+
+					TextWrapped = true,
+
+					LayoutOrder = 2,
+				})
+			),
+		}),
 	}
 end
 

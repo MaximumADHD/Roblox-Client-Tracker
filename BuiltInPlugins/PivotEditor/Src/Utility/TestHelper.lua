@@ -56,7 +56,6 @@ function TestHelper.getTempScreenGui()
 	return tempScreenGui
 end
 
-
 function TestHelper.createInstance(name)
 	local tempInstancesFolder = TestHelper.getTempInstancesFolder()
 	local instance = Instance.new(name)
@@ -70,7 +69,7 @@ function TestHelper.createTestDraggerContext(guiTarget)
 end
 
 function TestHelper.createTestStore()
-	local middlewares = {Rodux.thunkMiddleware}
+	local middlewares = { Rodux.thunkMiddleware }
 	return Rodux.Store.new(MainReducer, nil, middlewares)
 end
 

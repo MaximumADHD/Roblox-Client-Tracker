@@ -10,8 +10,6 @@ local AddRootVariables = require(Actions.Watch.AddRootVariables)
 local AddChildVariables = require(Actions.Watch.AddChildVariables)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local FFlagStudioDebuggerExpandVariables = require(Plugin.Src.Flags.GetFFlagStudioDebuggerExpandVariables)
-
 local addChildVariableRowsForDebuggerVariable, addRootVariableRowChildren
 
 function addChildVariableRowsForDebuggerVariable(store, stepStateBundle, debuggerVar, scope, debuggerConnection, parentPrefix)
@@ -28,32 +26,22 @@ function addChildVariableRowsForDebuggerVariable(store, stepStateBundle, debugge
 	end
 
 	-- the parentrow table we pass in here is used to pass in columns from a parent VariableRow that we use to make the child row
-	if FFlagStudioDebuggerExpandVariables() then
-		local parentName = if parentPrefix == "" then debuggerVar.Name else (parentPrefix .. Constants.SeparationToken .. debuggerVar.Name)
-		local flattenedTree = state.Watch.stateTokenToFlattenedTree[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber]
-		parentRow = flattenedTree.Variables[parentName]
-	else
-		parentRow = VariableRow.fromData({ ["path"] = tostring(debuggerVar.VariableId), ["scope"] = scope})
-	end
+	local parentName = if parentPrefix == "" then debuggerVar.Name else (parentPrefix .. Constants.SeparationToken .. debuggerVar.Name)
+	local flattenedTree = state.Watch.stateTokenToFlattenedTree[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber]
+	parentRow = flattenedTree.Variables[parentName]
 
 	for _, child in ipairs(children) do
 		local childVar = VariableRow.fromInstance(child, parentRow, nil, filterText, listOfEnabledScopes)
-		if FFlagStudioDebuggerExpandVariables() and state.Watch.pathToExpansionState[parentRow.pathColumn] then
+		if state.Watch.pathToExpansionState[parentRow.pathColumn] then
 			--parent was expanded, so the children will be visible and need its children loaded
 			table.insert(visibleChildren, child)
 		end
 		table.insert(toReturn, childVar)
 	end
-	if FFlagStudioDebuggerExpandVariables() then 
-		store:dispatch(AddChildVariables(stepStateBundle, parentRow.pathColumn, toReturn))
-	else
-		store:dispatch(AddChildVariables(stepStateBundle, tostring(debuggerVar.VariableId), toReturn))
-	end
+	store:dispatch(AddChildVariables(stepStateBundle, parentRow.pathColumn, toReturn))
 
-	if FFlagStudioDebuggerExpandVariables() then
-		-- Load the children variables whose parents where previously expanded
-		addRootVariableRowChildren(store, stepStateBundle, debuggerConnection, visibleChildren, scope, parentRow.pathColumn)
-	end
+	-- Load the children variables whose parents were previously expanded
+	addRootVariableRowChildren(store, stepStateBundle, debuggerConnection, visibleChildren, scope, parentRow.pathColumn)
 end
 
 function addRootVariableRowChildren(store, stepStateBundle, debuggerConnection, debuggerVarList, scope, parentPrefix)

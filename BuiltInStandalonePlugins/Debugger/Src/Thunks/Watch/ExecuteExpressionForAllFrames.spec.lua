@@ -20,8 +20,6 @@ local Thunks = Plugin.Src.Thunks
 local ExecuteExpressionForAllFrames = require(Thunks.Watch.ExecuteExpressionForAllFrames)
 local PopulateCallstackThreadThunk = require(Thunks.Callstack.PopulateCallstackThreadThunk)
 
-local FFlagStudioDebuggerExpandVariables = require(Plugin.Src.Flags.GetFFlagStudioDebuggerExpandVariables)
-
 return function()
 	it("should evaluate expressions correctly", function()
 		local store = Rodux.Store.new(MainReducer, nil, MainMiddleware)
@@ -36,21 +34,20 @@ return function()
 		local expressionString = "Alex"
 		
 		local checkResults = function()
-			local path = if FFlagStudioDebuggerExpandVariables() then "Alex" else "1"
 			store:dispatch(ExecuteExpressionForAllFrames(expressionString, currentMockConnection, dst, 2))
 			state = store:getState()
 			expect(state.Watch.stateTokenToFlattenedTree).to.be.ok()
 			expect(state.Watch.stateTokenToFlattenedTree[dst][2][1]).to.be.ok()
-			expect(state.Watch.stateTokenToFlattenedTree[dst][2][1].Watches[path].expressionColumn).to.be.equal(
+			expect(state.Watch.stateTokenToFlattenedTree[dst][2][1].Watches["Alex"].expressionColumn).to.be.equal(
 				expressionString
 			)
-			expect(state.Watch.stateTokenToFlattenedTree[dst][2][1].Watches[path].valueColumn).to.be.equal("Instance")
+			expect(state.Watch.stateTokenToFlattenedTree[dst][2][1].Watches["Alex"].valueColumn).to.be.equal("Instance")
 			expect(state.Watch.stateTokenToFlattenedTree).to.be.ok()
 			expect(state.Watch.stateTokenToFlattenedTree[dst][2][2]).to.be.ok()
-			expect(state.Watch.stateTokenToFlattenedTree[dst][2][2].Watches[path].expressionColumn).to.be.equal(
+			expect(state.Watch.stateTokenToFlattenedTree[dst][2][2].Watches["Alex"].expressionColumn).to.be.equal(
 				expressionString
 			)
-			expect(state.Watch.stateTokenToFlattenedTree[dst][2][2].Watches[path].valueColumn).to.be.equal("Instance")
+			expect(state.Watch.stateTokenToFlattenedTree[dst][2][2].Watches["Alex"].valueColumn).to.be.equal("Instance")
 		end
 		
 		store:dispatch(PopulateCallstackThreadThunk(mockThreadState, currentMockConnection, dst, MockCrossDMScriptChangeListenerService.new(), checkResults))

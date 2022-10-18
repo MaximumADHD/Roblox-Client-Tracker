@@ -1,4 +1,3 @@
-
 local Workspace = game:GetService("Workspace")
 
 local Plugin = script.Parent.Parent.Parent
@@ -71,8 +70,7 @@ end
 
 function FreeformDragger:_selectedIsActive()
 	if self._draggerContext:shouldShowActiveInstanceHighlight() then
-		local activeInstance =
-			self._draggerToolModel:getSelectionWrapper():getActiveSelectable()
+		local activeInstance = self._draggerToolModel:getSelectionWrapper():getActiveSelectable()
 		return self._pivotOwner == activeInstance
 	else
 		return false
@@ -127,8 +125,13 @@ function FreeformDragger:rotate(axis)
 	self._tiltRotate = DragHelper.updateTiltRotate(
 		self._draggerToolModel._draggerContext:getCameraCFrame(),
 		self._draggerToolModel._draggerContext:getMouseRay(),
-		{}, mainCFrame, lastTargetMatrix,
-		self._tiltRotate, axis, shouldAlignDraggedObjects)
+		{},
+		mainCFrame,
+		lastTargetMatrix,
+		self._tiltRotate,
+		axis,
+		shouldAlignDraggedObjects
+	)
 end
 
 function FreeformDragger:_updateNoSnap()
@@ -153,7 +156,8 @@ function FreeformDragger:_updateNoSnap()
 		ZERO_VECTOR,
 		self._tiltRotate,
 		lastTargetMatrix,
-		shouldAlignDraggedObjects)
+		shouldAlignDraggedObjects
+	)
 
 	if dragTarget then
 		self._lastDragTarget = dragTarget
@@ -175,7 +179,8 @@ function FreeformDragger:_recomputeSnapPoints()
 	-- even when it is covered by another object in the scene by holding
 	-- alt/option.
 	local selectSubPartShouldFavorSelection = true
-	local useBoundsOf = draggerSchema.getMouseTarget(self._draggerContext, ray, selection, selectSubPartShouldFavorSelection)
+	local useBoundsOf =
+		draggerSchema.getMouseTarget(self._draggerContext, ray, selection, selectSubPartShouldFavorSelection)
 
 	if useBoundsOf then
 		if useBoundsOf == self._pivotOwner then
@@ -197,8 +202,7 @@ function FreeformDragger:_snapToSnapPoints()
 	local closestSnap = nil
 	local closestDistance = math.huge
 	for _, snapPoint in ipairs(self._snapPoints) do
-		local screenPosition, onScreen =
-			self._draggerContext:worldToViewportPoint(snapPoint.Position)
+		local screenPosition, onScreen = self._draggerContext:worldToViewportPoint(snapPoint.Position)
 		if onScreen then
 			local screenLocation = Vector2.new(screenPosition.X, screenPosition.Y)
 			local distance = (screenLocation - mouseLocation).Magnitude

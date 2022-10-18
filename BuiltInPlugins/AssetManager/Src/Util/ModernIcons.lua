@@ -45,8 +45,8 @@ ModernIcons.HighDpiAssetManagerIconsWithTheme1 = {
 	[ModernIcons.IconEnums.ArrowRight] = NavigationIcons .. ModernIcons.IconEnums.ArrowRight .. ".png",
 	[ModernIcons.IconEnums.More] = NavigationIcons .. ModernIcons.IconEnums.More .. ".png",
 	[ModernIcons.IconEnums.Zoom] = NavigationIcons .. ModernIcons.IconEnums.Zoom .. ".png",
-	[ModernIcons.IconEnums.Scripts] = AssetManagerIcons .. ModernIcons.IconEnums.Scripts .. ".png",
-	[ModernIcons.IconEnums.Spawn] = AssetManagerIcons .. ModernIcons.IconEnums.Spawn .. ".png",
+	[ModernIcons.IconEnums.Scripts] = InsertableObjectIcons .. ModernIcons.IconEnums.Scripts .. ".png",
+	[ModernIcons.IconEnums.Spawn] = InsertableObjectIcons .. ModernIcons.IconEnums.Spawn .. ".png",
 }
 
 ModernIcons.getIconForCurrentTheme = function(IconEnum)

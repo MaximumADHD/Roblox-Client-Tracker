@@ -17,6 +17,7 @@ local Constants = require(Src.Util.Constants)
 
 local FFlagStudioBufferPauseEvents = require(Src.Flags.GetFFlagStudioBufferPauseEvents)
 local FFlagStudioDebuggerOpenCorrectScriptOnPause = require(Src.Flags.GetFFlagStudioDebuggerOpenCorrectScriptOnPause)
+local FFlagStudioDebuggerFixStepButtonsOnError = require(Src.Flags.GetFFlagStudioDebuggerFixStepButtonsOnError)
 
 local DebugConnectionListener = {}
 DebugConnectionListener.__index = DebugConnectionListener
@@ -56,7 +57,8 @@ function DebugConnectionListener:onExecutionPaused(
 		return dst == self.store:getState().Common.debuggerConnectionIdToDST[dst.debuggerConnectionId]
 	end
 
-	self.store:dispatch(SimPaused(dst, pausedState.ThreadId))
+	local hitException = if FFlagStudioDebuggerFixStepButtonsOnError() then tostring(debuggerPauseReason) == Constants.DebuggerPauseReason.Exception else false
+	self.store:dispatch(SimPaused(dst, pausedState.ThreadId, hitException))
 
 	-- thread info is retrieved here; you cannot call GetThreadById before calling GetThreads
 	connection:GetThreads(function(threads)

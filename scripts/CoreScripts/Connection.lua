@@ -27,6 +27,8 @@ local fflagPredictedOOMKeepPlayingExit = game:DefineFastFlag("PredictedOOMKeepPl
 local fflagSanitizeKickMessageInDisconnectPrompt = game:DefineFastFlag("SanitizeKickMessageInDisconnectPrompt", false)
 local fintMaxKickMessageLength = game:DefineFastInt("MaxKickMessageLength", 200)
 
+local FFlagRefactorReconnectUnblockTeleport = game:DefineFastFlag("RefactorReconnectUnblockTeleport", false)
+
 local coreGuiOverflowDetection = game:GetEngineFeature("CoreGuiOverflowDetection")
 
 local LEAVE_GAME_FRAME_WAITS = 2
@@ -36,6 +38,8 @@ local DEFAULT_ERROR_PROMPT_KEY = "ErrorPrompt"
 local noHardcodedStringInLuaKickMessage = game:GetEngineFeature("NoHardcodedStringInLuaKickMessage")
 
 local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagCoreScriptShowTeleportPrompt)
+
+local enableUserPrivacyUnauthorizedMessage = game:GetEngineFeature("EnableUserPrivacyUnauthorizedMessageEngineFeatureFlag")
 
 local function safeGetFInt(name, defaultValue)
 	local success, result = pcall(function()
@@ -177,7 +181,11 @@ local reconnectFunction = function()
 	end
 
 	if FFlagCoreScriptShowTeleportPrompt then
-		GuiService:SetMenuIsOpen(false, DEFAULT_ERROR_PROMPT_KEY)
+		if FFlagRefactorReconnectUnblockTeleport then
+			TeleportService:UnblockAsync()
+		else
+			GuiService:SetMenuIsOpen(false, DEFAULT_ERROR_PROMPT_KEY)
+		end
 	end
 end
 
@@ -220,6 +228,11 @@ if coreGuiOverflowDetection then
 	-- Older versions of the engine don't have this variant, using subscript
 	-- syntax instead avoids a possible type error.
 	reconnectDisabledList[Enum.ConnectionError["DisconnectClientFailure"]] = true
+end
+
+if enableUserPrivacyUnauthorizedMessage then
+	-- adding this within engine-feature flag
+	reconnectDisabledList[Enum.ConnectionError.PlacelaunchUserPrivacyUnauthorized] = true
 end
 
 local ButtonList = {

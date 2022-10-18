@@ -35,8 +35,6 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
-local UILibrary = if FFlagRemoveUILibraryTitledFrame then nil else require(Plugin.Packages.UILibrary)
 
 local Util = Framework.Util
 local GetTextSize = Util.GetTextSize
@@ -44,7 +42,7 @@ local GetTextSize = Util.GetTextSize
 local UI = Framework.UI
 local Button = UI.Button
 local HoverArea = UI.HoverArea
-local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
+local TitledFrame = UI.TitledFrame
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -101,47 +99,36 @@ function DevProducts:render()
 
 		LayoutOrder = layoutOrder,
 	}, {
-		DevProductsTitle = Roact.createElement(
-			TitledFrame,
-			if FFlagRemoveUILibraryTitledFrame
-				then {
-					LayoutOrder = 1,
-					Title = localization:getText("Monetization", "DevProducts"),
-				}
-				else {
-					Title = localization:getText("Monetization", "DevProducts"),
-					LayoutOrder = 1,
-					MaxHeight = theme.header.height,
-					TextSize = theme.fontStyle.Title.TextSize,
-				},
-			{
-				Padding = Roact.createElement("UIPadding", {
-					PaddingRight = UDim.new(0, theme.devProducts.titlePadding),
-				}),
+		DevProductsTitle = Roact.createElement(TitledFrame, {
+			LayoutOrder = 1,
+			Title = localization:getText("Monetization", "DevProducts"),
+		}, {
+			Padding = Roact.createElement("UIPadding", {
+				PaddingRight = UDim.new(0, theme.devProducts.titlePadding),
+			}),
 
-				Layout = Roact.createElement("UIListLayout", {
-					HorizontalAlignment = Enum.HorizontalAlignment.Right,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-				}),
+			Layout = Roact.createElement("UIListLayout", {
+				HorizontalAlignment = Enum.HorizontalAlignment.Right,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+			}),
 
-				CreateButton = Roact.createElement(Button, {
-					Style = "GameSettingsPrimaryButton",
-					Text = buttonText,
-					Size = UDim2.new(
-						0,
-						buttonTextExtents.X + theme.createButton.PaddingX,
-						0,
-						buttonTextExtents.Y + theme.createButton.PaddingY
-					),
-					LayoutOrder = 2,
-					OnClick = function()
-						dispatchCreateNewDevProduct()
-					end,
-				}, {
-					Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
-				}),
-			}
-		),
+			CreateButton = Roact.createElement(Button, {
+				Style = "GameSettingsPrimaryButton",
+				Text = buttonText,
+				Size = UDim2.new(
+					0,
+					buttonTextExtents.X + theme.createButton.PaddingX,
+					0,
+					buttonTextExtents.Y + theme.createButton.PaddingY
+				),
+				LayoutOrder = 2,
+				OnClick = function()
+					dispatchCreateNewDevProduct()
+				end,
+			}, {
+				Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
+			}),
+		}),
 
 		DeveloperProductTable = showTable and Roact.createElement(TableWithMenu, {
 			Headers = headers,

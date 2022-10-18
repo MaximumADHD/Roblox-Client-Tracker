@@ -59,7 +59,7 @@ local function getLabelForAction(localized, action)
 	elseif action == PermissionsConstants.NoneKey then
 		return ""
 	else
-		error("Unsupported Action: "..tostring(action))
+		error("Unsupported Action: " .. tostring(action))
 		return ""
 	end
 end
@@ -86,7 +86,7 @@ local function getLevelForRoleset(props, rolesetProps)
 end
 
 -- if RoleSubjectKey doesn't exist then there was a problem, so NoneKey is returned.
--- but if RoleSubjectKey is Okay, but the roleset.id doesn't exist, 
+-- but if RoleSubjectKey is Okay, but the roleset.id doesn't exist,
 -- then that roleset hasn't had it's permission set in the past, so it should be no access.
 local function getActionForRoleset(props, rolesetProps)
 	if not props.Permissions[PermissionsConstants.RoleSubjectKey] then
@@ -101,18 +101,23 @@ local function getActionForRoleset(props, rolesetProps)
 end
 
 local function getRolesetItems(props, localized)
-	if next(props.Items) == nil then return {} end
+	if next(props.Items) == nil then
+		return {}
+	end
 
-	local permissions = Cryo.List.join(
-		{Cryo.Dictionary.join({Key = PermissionsConstants.NoAccessKey, Display = localized.PackagePermissions.ActionDropdown.NoAccessLabel, Description = localized.PackagePermissions.ActionDropdown.NoAccessDescription})},
-		props.Items
-	)
+	local permissions = Cryo.List.join({
+		Cryo.Dictionary.join({
+			Key = PermissionsConstants.NoAccessKey,
+			Display = localized.PackagePermissions.ActionDropdown.NoAccessLabel,
+			Description = localized.PackagePermissions.ActionDropdown.NoAccessDescription,
+		}),
+	}, props.Items)
 
 	return permissions
 end
 
 local function permissionLocked(currentPermission, assignablePermissions)
-	for _,v in pairs(assignablePermissions) do
+	for _, v in pairs(assignablePermissions) do
 		if v.Key == currentPermission then
 			return false
 		end
@@ -130,7 +135,9 @@ function GroupCollaboratorItem:init()
 	}
 
 	self.onClick = function()
-		if not self.props.Enabled then return end
+		if not self.props.Enabled then
+			return
+		end
 		self:setState({
 			expanded = not self.state.expanded,
 		})
@@ -149,7 +156,7 @@ function GroupCollaboratorItem:renderContent(theme, localization, localized)
 	local rolesetCollaboratorItems = {
 		UIListLayout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
-		})
+		}),
 	}
 
 	local anyLocked = false
@@ -157,11 +164,13 @@ function GroupCollaboratorItem:renderContent(theme, localization, localized)
 
 	local layoutOrder = props.LayoutOrder
 	local rolesets = self.props.GroupData and self.props.GroupData.Roles or {}
-	table.sort(rolesets, function(a,b) return b.Rank < a.Rank end)
+	table.sort(rolesets, function(a, b)
+		return b.Rank < a.Rank
+	end)
 
 	local rolesetItems = getRolesetItems(props, localized)
 	local collaboratorItemOffset = props.Enabled and ARROW_SIZE + ARROW_PADDING or 0
-	for i,rolesetProps in pairs(rolesets) do
+	for i, rolesetProps in pairs(rolesets) do
 		local action = getActionForRoleset(props, rolesetProps)
 		if i == 1 then
 			sameAction = action
@@ -218,14 +227,16 @@ function GroupCollaboratorItem:renderContent(theme, localization, localized)
 			}),
 		})
 
-		rolesetCollaboratorItems["Roleset"..i] = collaboratorItem
+		rolesetCollaboratorItems["Roleset" .. i] = collaboratorItem
 	end
 
 	local arrowImageProps = self.state.expanded and downArrowProps or rightArrowProps
 
 	local groupHeaderTooltipText = nil
 	if FFlagLimitGroupRoleSetPermissionsInGui then
-		groupHeaderTooltipText = localized.PackagePermissions.ActionDropdown.GroupOwnedTooltip .. " " .. (not sameAction and localized.PackagePermissions.ActionDropdown.MultipleLabelTooltip or "")
+		groupHeaderTooltipText = localized.PackagePermissions.ActionDropdown.GroupOwnedTooltip
+			.. " "
+			.. (not sameAction and localized.PackagePermissions.ActionDropdown.MultipleLabelTooltip or "")
 	end
 
 	return Roact.createElement(ExpandablePane, {
@@ -241,11 +252,15 @@ function GroupCollaboratorItem:renderContent(theme, localization, localized)
 
 			CollaboratorName = props.GroupData.Name,
 			CollaboratorId = props.GroupData.Id,
-			CollaboratorIcon = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["GroupIcon"], props.GroupData.Id,
-				AssetConfigConstants.rbxThumbSizes.GroupIconImageSize),
+			CollaboratorIcon = Urls.constructRBXThumbUrl(
+				AssetConfigConstants.rbxThumbTypes["GroupIcon"],
+				props.GroupData.Id,
+				AssetConfigConstants.rbxThumbSizes.GroupIconImageSize
+			),
 			UseMask = false,
 
-			Action = sameAction and getLabelForAction(localized, sameAction) or localized.PackagePermissions.ActionDropdown.MultipleLabel,
+			Action = sameAction and getLabelForAction(localized, sameAction)
+				or localized.PackagePermissions.ActionDropdown.MultipleLabel,
 			Items = anyLocked and {} or props.Items,
 
 			SecondaryText = props.SecondaryText,
@@ -253,7 +268,7 @@ function GroupCollaboratorItem:renderContent(theme, localization, localized)
 			Removed = props.Removed,
 
 			IsLoading = #rolesets == 0,
-			TooltipText = groupHeaderTooltipText
+			TooltipText = groupHeaderTooltipText,
 		},
 	}, rolesetCollaboratorItems)
 end

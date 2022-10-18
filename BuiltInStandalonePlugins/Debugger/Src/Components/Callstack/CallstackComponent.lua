@@ -48,6 +48,9 @@ local MakePluginActions = if FFlagDevFrameworkMigrateContextMenu
 	else require(UtilFolder.DEPRECATED_MakePluginActions)
 
 local FFlagStudioUseCorrectFrameIdForContextInDebuggerV2 = game:GetFastFlag("StudioUseCorrectFrameIdForContextInDebuggerV2")
+local FFlagSaveSelectedCallstackFrameInConnection = game:GetFastFlag("SaveSelectedCallstackFrameInConnection")
+local FFlagStudioDebuggerFixStepButtonsOnError = require(PluginFolder.Src.Flags.GetFFlagStudioDebuggerFixStepButtonsOnError)
+
 local Models = PluginFolder.Src.Models
 local CallstackRow = require(Models.Callstack.CallstackRow)
 
@@ -567,7 +570,7 @@ function CallstackComponent:render()
 					LeftIcon = "rbxasset://textures/Debugger/Step-In.png",
 					TooltipText = localization:getText("Common", "stepIntoActionV2"),
 					OnClick = self.onStepInto,
-					Disabled = self.props.CurrentThreadId == nil,
+					Disabled = self.props.CurrentThreadId == nil or self.props.HitException,
 				}),
 				StepOverButton = Roact.createElement(IconButton, {
 					Size = UDim2.new(0, Constants.BUTTON_SIZE, 0, Constants.BUTTON_SIZE),
@@ -575,7 +578,7 @@ function CallstackComponent:render()
 					LeftIcon = "rbxasset://textures/Debugger/Step-Over.png",
 					TooltipText = localization:getText("Common", "stepOverActionV2"),
 					OnClick = self.onStepOver,
-					Disabled = self.props.CurrentThreadId == nil,
+					Disabled = self.props.CurrentThreadId == nil or self.props.HitException,
 				}),
 				StepOutButton = Roact.createElement(IconButton, {
 					Size = UDim2.new(0, Constants.BUTTON_SIZE, 0, Constants.BUTTON_SIZE),
@@ -583,7 +586,7 @@ function CallstackComponent:render()
 					LeftIcon = "rbxasset://textures/Debugger/Step-Out.png",
 					TooltipText = localization:getText("Common", "stepOutActionV2"),
 					OnClick = self.onStepOut,
-					Disabled = self.props.CurrentThreadId == nil,
+					Disabled = self.props.CurrentThreadId == nil or self.props.HitException,
 				}),
 			}),
 			ColContainer = Roact.createElement(Pane, {
@@ -675,6 +678,7 @@ CallstackComponent = RoactRodux.connect(function(state, props)
 			ColumnFilter = deepCopy(callstack.listOfEnabledColumns),
 			CurrentDebuggerConnectionId = common.currentDebuggerConnectionId,
 			CurrentDST = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId],
+			HitException = if FFlagStudioDebuggerFixStepButtonsOnError() and currentThreadId then common.hitException[currentThreadId] else false,
 		}
 	end
 end, function(dispatch)
@@ -686,6 +690,9 @@ end, function(dispatch)
 			local debuggerUIService = game:GetService("DebuggerUIService")
 			local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
 			local connection = debuggerConnectionManager:GetConnectionById(currentDebuggerConnectionId)
+			if FFlagSaveSelectedCallstackFrameInConnection and connection ~= nil then
+				connection:UpdateSelectedFrame(threadId, frameNumber)
+			end
 			return dispatch(LoadAllVariablesForThreadAndFrame(threadId, connection, frameNumber-1, debuggerUIService))
 		end,
 		onPopulateCallstackThreadThunk = function(threadState, connection, currentDST, scriptChangeService, callBack)

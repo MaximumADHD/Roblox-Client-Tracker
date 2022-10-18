@@ -26,7 +26,6 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 local getNetwork = require(Util.ContextGetter).getNetwork
 local ContextHelper = require(Util.ContextHelper)
 local withLocalization = ContextHelper.withLocalization
-local withTheme = ContextHelper.withTheme
 
 local PermissionsDirectory = Plugin.Core.Components.AssetConfiguration.Permissions
 local CollaboratorSearchBar = require(PermissionsDirectory.CollaboratorSearchBar)
@@ -46,7 +45,7 @@ local MY_FRIENDS_KEY = nil
 local function getMatchesFromTable(text, t)
 	local matches = {}
 
-	for _,v in pairs(t) do
+	for _, v in pairs(t) do
 		-- The variable "text" is user-input, so match it literally rather than as a pattern
 		if v[PermissionsConstants.SubjectNameKey]:lower():find(text:lower(), 1, true) then
 			table.insert(matches, v)
@@ -60,37 +59,51 @@ local function getIsLoading(searchData)
 end
 
 local function getMatches(searchData, permissions, groupMetadata)
-
 	local cachedSearchResults = searchData.cachedSearchResults
 	local searchTerm = searchData.searchText
 
-	local function compare(a,b)
-		local a,b = a[PermissionsConstants.SubjectNameKey]:lower(), b[PermissionsConstants.SubjectNameKey]:lower()
+	local function compare(a, b)
+		local a, b = a[PermissionsConstants.SubjectNameKey]:lower(), b[PermissionsConstants.SubjectNameKey]:lower()
 
-		if a == b then return false end
-		if a == searchTerm:lower() then return true end
-		if b == searchTerm:lower() then return false end
+		if a == b then
+			return false
+		end
+		if a == searchTerm:lower() then
+			return true
+		end
+		if b == searchTerm:lower() then
+			return false
+		end
 
 		return a < b
 	end
 
-	local matches = {Users={}}
+	local matches = { Users = {} }
 
 	local matchedUsers = {}
 	local userMatches = {}
 
-	local rawFriendMatches = typeof(searchData.localUserFriends) == "table" and getMatchesFromTable(searchTerm, searchData.localUserFriends) or {}
+	local rawFriendMatches = typeof(searchData.localUserFriends) == "table"
+			and getMatchesFromTable(searchTerm, searchData.localUserFriends)
+		or {}
 	table.sort(rawFriendMatches, compare)
 
 	-- Insert friends after exact match (if it exists), but before the rest of the web results (if they exist)
-	local firstUserIsExactMatch = #matchedUsers > 0 and matchedUsers[1][PermissionsConstants.SubjectNameKey]:lower() == searchTerm:lower()
+	local firstUserIsExactMatch = #matchedUsers > 0
+		and matchedUsers[1][PermissionsConstants.SubjectNameKey]:lower() == searchTerm:lower()
 	local position = math.min(firstUserIsExactMatch and 1 or 2, #userMatches + 1)
-	for _,v in pairs(rawFriendMatches) do
+	for _, v in pairs(rawFriendMatches) do
 		local subjectId = v[PermissionsConstants.SubjectIdKey]
-		if not ((permissions 
-		and permissions[PermissionsConstants.UserSubjectKey][subjectId] 
-		and permissions[PermissionsConstants.UserSubjectKey][subjectId][PermissionsConstants.ActionKey] ~= PermissionsConstants.NoAccessKey) 
-		or matchedUsers[subjectId]) then
+		if
+			not (
+				(
+					permissions
+					and permissions[PermissionsConstants.UserSubjectKey][subjectId]
+					and permissions[PermissionsConstants.UserSubjectKey][subjectId][PermissionsConstants.ActionKey]
+						~= PermissionsConstants.NoAccessKey
+				) or matchedUsers[subjectId]
+			)
+		then
 			table.insert(userMatches, position, v)
 			position = position + 1
 		end
@@ -106,23 +119,34 @@ local function getResults(searchTerm, matches, localized)
 	if searchTerm == "" then
 		return {}
 	else
-		results = {Users={LayoutOrder=0}}
+		results = { Users = { LayoutOrder = 0 } }
 		for _, user in pairs(matches.Users) do
-			if #results.Users + 1 > PermissionsConstants.MaxSearchResultsPerSubjectType then break end
+			if #results.Users + 1 > PermissionsConstants.MaxSearchResultsPerSubjectType then
+				break
+			end
 
 			table.insert(results.Users, {
 				Icon = Roact.createElement(CollaboratorThumbnail, {
-					Image = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["AvatarHeadShot"], user[PermissionsConstants.SubjectIdKey], AssetConfigConstants.rbxThumbSizes.AvatarHeadshotImageSize),
+					Image = Urls.constructRBXThumbUrl(
+						AssetConfigConstants.rbxThumbTypes["AvatarHeadShot"],
+						user[PermissionsConstants.SubjectIdKey],
+						AssetConfigConstants.rbxThumbSizes.AvatarHeadshotImageSize
+					),
 					Size = UDim2.new(1, 0, 1, 0),
 					UseMask = true,
 				}),
 				Name = user[PermissionsConstants.SubjectNameKey],
-				Key = {Type=PermissionsConstants.UserSubjectKey, Id=user[PermissionsConstants.SubjectIdKey], Name=user[PermissionsConstants.SubjectNameKey]},
+				Key = {
+					Type = PermissionsConstants.UserSubjectKey,
+					Id = user[PermissionsConstants.SubjectIdKey],
+					Name = user[PermissionsConstants.SubjectNameKey],
+				},
 			})
 		end
 
 		results = {
-			[localized.PackagePermissions.Collaborators.UsersCollaboratorType] = #results.Users > 0 and results.Users or nil,
+			[localized.PackagePermissions.Collaborators.UsersCollaboratorType] = #results.Users > 0 and results.Users
+				or nil,
 		}
 	end
 
@@ -148,14 +172,14 @@ function CollaboratorSearchWidget:renderContent(theme, localization, localized)
 	local isLoading = getIsLoading(searchData)
 
 	local numCollaborators = -1 -- Offset and don't count the owner
-	if (props.GroupMetadata) then
-		for _,_ in pairs(props.GroupMetadata) do
+	if props.GroupMetadata then
+		for _, _ in pairs(props.GroupMetadata) do
 			numCollaborators = numCollaborators + 1
 		end
 	end
 
-	if (props.Permissions[PermissionsConstants.UserSubjectKey]) then
-		for _,_ in pairs(props.Permissions[PermissionsConstants.UserSubjectKey]) do
+	if props.Permissions[PermissionsConstants.UserSubjectKey] then
+		for _, _ in pairs(props.Permissions[PermissionsConstants.UserSubjectKey]) do
 			numCollaborators = numCollaborators + 1
 		end
 	end
@@ -177,13 +201,13 @@ function CollaboratorSearchWidget:renderContent(theme, localization, localized)
 						[PermissionsConstants.SubjectNameKey] = collaboratorName,
 						[PermissionsConstants.SubjectIdKey] = collaboratorId,
 						[PermissionsConstants.ActionKey] = action,
-					}
-				})
+					},
+				}),
 			})
 		elseif collaboratorType == PermissionsConstants.GroupSubjectKey then
 			props.GroupCollaboratorAdded(collaboratorId, collaboratorName, action)
 		else
-			error("Unsupported type: "..tostring(collaboratorType))
+			error("Unsupported type: " .. tostring(collaboratorType))
 		end
 
 		if newPermissions then
@@ -249,11 +273,11 @@ end
 
 local function mapStateToProps(state, props)
 	return {
-        SearchData = {
-            searchText = state.searchText,
-            cachedSearchResults = state.cachedSearchResults,
-            localUserFriends = state.localUserFriends,
-        },
+		SearchData = {
+			searchText = state.searchText,
+			cachedSearchResults = state.cachedSearchResults,
+			localUserFriends = state.localUserFriends,
+		},
 	}
 end
 

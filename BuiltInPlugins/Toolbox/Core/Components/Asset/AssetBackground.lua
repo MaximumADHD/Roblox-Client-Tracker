@@ -5,13 +5,6 @@ local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
 local Framework = require(Packages.Framework)
 
-local ContextHelper = require(Plugin.Core.Util.ContextHelper)
-
-local Background = require(Plugin.Core.Types.Background)
-
-local Images = require(Plugin.Core.Util.Images)
-
-local withTheme = ContextHelper.withTheme
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 

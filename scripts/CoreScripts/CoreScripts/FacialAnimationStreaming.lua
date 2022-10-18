@@ -7,7 +7,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
-if game:GetEngineFeature("FacialAnimationStreaming") and game:GetFastFlag("SelfieViewFeature") then
+if game:GetEngineFeature("FacialAnimationStreaming") and game:GetFastFlag("SelfieViewFeature2") then
 	FaceAnimatorService.VideoAnimationEnabled = true
 end
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingService")
@@ -32,6 +32,9 @@ local playerJoinedGame = {}
 
 local playerAnimations = {}
 local playerConnections = {}
+
+local streamingStats = require(RobloxGui.Modules.FacialAnimationStreaming.FacialAnimationStreamingStats)
+game:DefineFastFlag("AvatarChatSubsessionAnalyticsLua", false)
 
 local Connections = {
 	CharacterAdded = "CharacterAdded",
@@ -357,7 +360,11 @@ local function ConnectStateChangeCallback()
 	end
 	Players.PlayerRemoving:Connect(function(player)
 		playerTrace("Player leaving game", player)
-
+		if game:GetFastFlag("AvatarChatSubsessionAnalyticsLua") then
+			if player.UserId == Players.LocalPlayer.UserId then
+				streamingStats.endTracking()
+			end
+		end
 		playerJoinedGame[player.UserId] = nil
 		playerUpdate(player)
 	end)
@@ -388,6 +395,9 @@ function InitializeVoiceChatServices()
 		end):finally(function()
 			JoinAllExistingPlayers()
 			ConnectStateChangeCallback()
+			if game:GetFastFlag("AvatarChatSubsessionAnalyticsLua") then
+				streamingStats.startTracking()
+			end
 		end)
 
 		if FFlagEnableSyncAudioWithVoiceChatMuteState then

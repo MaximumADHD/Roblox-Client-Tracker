@@ -1,22 +1,20 @@
-
-
 -----------------------------------
 --------------MODULES--------------
 -----------------------------------
-local AdornmentModule		= require(script.Parent.AdornmentModule)
-local Analytics				= require(script.Parent.Analytics)
-local Convert				= require(script.Parent.Convert)
-local Extents2D				= require(script.Parent.Extents2D)
-local FFlag					= require(script.Parent.FFlag)
-local GlobalValues			= require(script.Parent.GlobalValues)
-local MouseIconManager		= require(script.Parent.MouseIconManager)
-local RotateUtility			= require(script.Parent.RotateUtility)
-local Select 				= require(script.Parent.Select)
-local SelectionManager		= require(script.Parent.SelectionManager)
-local SnappingPointManager	= require(script.Parent.SnappingPointManager)
-local Utility				= require(script.Parent.Utility)
+local AdornmentModule = require(script.Parent.AdornmentModule)
+local Analytics = require(script.Parent.Analytics)
+local Convert = require(script.Parent.Convert)
+local Extents2D = require(script.Parent.Extents2D)
+local FFlag = require(script.Parent.FFlag)
+local GlobalValues = require(script.Parent.GlobalValues)
+local MouseIconManager = require(script.Parent.MouseIconManager)
+local RotateUtility = require(script.Parent.RotateUtility)
+local Select = require(script.Parent.Select)
+local SelectionManager = require(script.Parent.SelectionManager)
+local SnappingPointManager = require(script.Parent.SnappingPointManager)
+local Utility = require(script.Parent.Utility)
 
-local SnappingType 			= require(script.Parent.Enum.SnappingType)
+local SnappingType = require(script.Parent.Enum.SnappingType)
 
 -----------------------------------
 --------------SERVICES-------------
@@ -24,7 +22,8 @@ local SnappingType 			= require(script.Parent.Enum.SnappingType)
 local UserInputService = game:GetService("UserInputService")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 
-local FFlagStudioUIEditorSelectGuiObjectsInFolders = game:DefineFastFlag("StudioUIEditorSelectGuiObjectsInFolders", false)
+local FFlagStudioUIEditorSelectGuiObjectsInFolders =
+	game:DefineFastFlag("StudioUIEditorSelectGuiObjectsInFolders", false)
 
 -----------------------------------
 -------------VARIABLES-------------
@@ -73,22 +72,26 @@ end
 local function dragElementsBy(vector)
 	for i = 1, #m_originalSelectionData do
 		local element = m_originalSelectionData[i][DATA_INSTANCE]
-		
+
 		if FFlagStudioUIEditorSelectGuiObjectsInFolders then
 			local effectiveParent: Instance? = findFirstAncestorNotOfType(element, "Folder")
 			if effectiveParent and effectiveParent:IsA("GuiBase2d") then
-				local shouldUseScalePosition = Utility:isOnlyScaleUDim2(m_originalSelectionData[i][DATA_POSITION]) or 
-										(not Utility:isOnlyOffsetUDim2(m_originalSelectionData[i][DATA_POSITION]) and
-										GlobalValues:isScale())
-											
+				local shouldUseScalePosition = Utility:isOnlyScaleUDim2(m_originalSelectionData[i][DATA_POSITION])
+					or (
+						not Utility:isOnlyOffsetUDim2(m_originalSelectionData[i][DATA_POSITION])
+						and GlobalValues:isScale()
+					)
+
 				local padding: UIPadding? = effectiveParent:FindFirstChildWhichIsA("UIPadding")
 				local paddingTL = Vector2.new(0, 0)
 				local paddingBR = Vector2.new(0, 0)
 				if padding then
 					paddingTL = Vector2.new(padding.PaddingLeft.Offset, padding.PaddingTop.Offset)
-						+ Vector2.new(padding.PaddingLeft.Scale, padding.PaddingTop.Scale) * effectiveParent.AbsoluteSize
+						+ Vector2.new(padding.PaddingLeft.Scale, padding.PaddingTop.Scale)
+							* effectiveParent.AbsoluteSize
 					paddingBR = Vector2.new(padding.PaddingRight.Offset, padding.PaddingBottom.Offset)
-						+ Vector2.new(padding.PaddingRight.Scale, padding.PaddingBottom.Scale) * effectiveParent.AbsoluteSize
+						+ Vector2.new(padding.PaddingRight.Scale, padding.PaddingBottom.Scale)
+							* effectiveParent.AbsoluteSize
 				end
 
 				if shouldUseScalePosition then
@@ -98,11 +101,17 @@ local function dragElementsBy(vector)
 					-- to get accurate scale for position when dragging
 					if effectiveParent:IsA("ScrollingFrame") then
 						-- bug in quantum gui, should use scrolling frame's parent size
-						if (effectiveParent.CanvasSize.X.Scale >= 1) then
-							scale = Vector2.new(vector.X / (effectiveParent.AbsoluteCanvasSize.X - paddingTL.X - paddingBR.X), scale.Y)
+						if effectiveParent.CanvasSize.X.Scale >= 1 then
+							scale = Vector2.new(
+								vector.X / (effectiveParent.AbsoluteCanvasSize.X - paddingTL.X - paddingBR.X),
+								scale.Y
+							)
 						end
-						if (effectiveParent.CanvasSize.Y.Scale >= 1) then
-							scale = Vector2.new(scale.X , vector.Y / (effectiveParent.AbsoluteCanvasSize.Y - paddingTL.Y - paddingBR.Y))
+						if effectiveParent.CanvasSize.Y.Scale >= 1 then
+							scale = Vector2.new(
+								scale.X,
+								vector.Y / (effectiveParent.AbsoluteCanvasSize.Y - paddingTL.Y - paddingBR.Y)
+							)
 						end
 					end
 					element.Position = m_originalSelectionData[i][DATA_POSITION] + UDim2.new(scale.X, 0, scale.Y, 0)
@@ -111,33 +120,43 @@ local function dragElementsBy(vector)
 				end
 			end
 		else
-			if (element.Parent and element.Parent:IsA("GuiBase2d")) then
-				local shouldUseScalePosition = Utility:isOnlyScaleUDim2(m_originalSelectionData[i][DATA_POSITION]) or 
-										(not Utility:isOnlyOffsetUDim2(m_originalSelectionData[i][DATA_POSITION]) and
-										GlobalValues:isScale())
-											
+			if element.Parent and element.Parent:IsA("GuiBase2d") then
+				local shouldUseScalePosition = Utility:isOnlyScaleUDim2(m_originalSelectionData[i][DATA_POSITION])
+					or (
+						not Utility:isOnlyOffsetUDim2(m_originalSelectionData[i][DATA_POSITION])
+						and GlobalValues:isScale()
+					)
+
 				local padding = element.parent:FindFirstChildWhichIsA("UIPadding")
 				local paddingTL = Vector2.new(0, 0)
 				local paddingBR = Vector2.new(0, 0)
 				if padding then
 					paddingTL = Vector2.new(padding.PaddingLeft.Offset, padding.PaddingTop.Offset)
-						+ Vector2.new(padding.PaddingLeft.Scale, padding.PaddingTop.Scale) * element.parent.AbsoluteSize
+						+ Vector2.new(padding.PaddingLeft.Scale, padding.PaddingTop.Scale)
+							* element.parent.AbsoluteSize
 					paddingBR = Vector2.new(padding.PaddingRight.Offset, padding.PaddingBottom.Offset)
-						+ Vector2.new(padding.PaddingRight.Scale, padding.PaddingBottom.Scale) * element.parent.AbsoluteSize
+						+ Vector2.new(padding.PaddingRight.Scale, padding.PaddingBottom.Scale)
+							* element.parent.AbsoluteSize
 				end
 
-				if (shouldUseScalePosition) then
+				if shouldUseScalePosition then
 					local scale = vector / (element.Parent.AbsoluteSize - paddingTL - paddingBR)
 					-- divide by AbsoluteWindowSize to get Frame without scrollbars and further divide
 					-- scale by CanvasSize scale since that represents the entire area of ScrollFrame
 					-- to get accurate scale for position when dragging
-					if (element.Parent:IsA("ScrollingFrame")) then
+					if element.Parent:IsA("ScrollingFrame") then
 						-- bug in quantum gui, should use scrolling frame's parent size
-						if (element.Parent.CanvasSize.X.Scale >= 1) then
-							scale = Vector2.new(vector.X / (element.Parent.AbsoluteCanvasSize.X - paddingTL.X - paddingBR.X), scale.Y)
+						if element.Parent.CanvasSize.X.Scale >= 1 then
+							scale = Vector2.new(
+								vector.X / (element.Parent.AbsoluteCanvasSize.X - paddingTL.X - paddingBR.X),
+								scale.Y
+							)
 						end
-						if (element.Parent.CanvasSize.Y.Scale >= 1) then
-							scale = Vector2.new(scale.X , vector.Y / (element.Parent.AbsoluteCanvasSize.Y - paddingTL.Y - paddingBR.Y))
+						if element.Parent.CanvasSize.Y.Scale >= 1 then
+							scale = Vector2.new(
+								scale.X,
+								vector.Y / (element.Parent.AbsoluteCanvasSize.Y - paddingTL.Y - paddingBR.Y)
+							)
 						end
 					end
 					element.Position = m_originalSelectionData[i][DATA_POSITION] + UDim2.new(scale.X, 0, scale.Y, 0)
@@ -147,25 +166,24 @@ local function dragElementsBy(vector)
 			end
 		end
 	end
-	
 end
 
 local function dragElements(location)
-    dragElementsBy(location - m_originalMousePosition)
+	dragElementsBy(location - m_originalMousePosition)
 end
 
 local function directionToDirectionVector(direction)
-	if (direction == UP) then
+	if direction == UP then
 		return Vector2.new(0, -1)
-	elseif (direction == DOWN) then
+	elseif direction == DOWN then
 		return Vector2.new(0, 1)
-	elseif (direction == LEFT) then
+	elseif direction == LEFT then
 		return Vector2.new(-1, 0)
-	elseif (direction == RIGHT) then
+	elseif direction == RIGHT then
 		return Vector2.new(1, 0)
 	end
-	
-	--assert	
+
+	--assert
 	return Vector2.new(0, -1)
 end
 
@@ -173,11 +191,11 @@ local function getFirstAncestorOfType(instance, objectType)
 	if not instance or not instance.Parent then
 		return nil
 	end
-	
-	if (instance.Parent:IsA(objectType)) then
+
+	if instance.Parent:IsA(objectType) then
 		return instance.Parent
 	end
-	
+
 	return getFirstAncestorOfType(instance.Parent, objectType)
 end
 
@@ -208,8 +226,8 @@ end
 --]]
 
 local function isDescendantOf(item, potentialAncestor)
-	while (item and item.Parent) do
-		if (item.Parent == potentialAncestor) then 
+	while item and item.Parent do
+		if item.Parent == potentialAncestor then
 			return true
 		end
 		item = item.Parent
@@ -217,35 +235,33 @@ local function isDescendantOf(item, potentialAncestor)
 	return false
 end
 
-
 function getHighestZIndexOfSelfAndDescendants(instance, original)
-	
-	if instance == original then return 0 end
-	
-	local zIndex = 0
-	
-	if (instance:IsA("GuiObject")) then
-		
-		zIndex = instance.ZIndex		
+	if instance == original then
+		return 0
 	end
-	
+
+	local zIndex = 0
+
+	if instance:IsA("GuiObject") then
+		zIndex = instance.ZIndex
+	end
+
 	local children = instance:GetChildren()
-	
+
 	for i = 1, #children do
 		zIndex = math.max(zIndex, getHighestZIndexOfSelfAndDescendants(children[i], original))
 	end
-	
+
 	return zIndex
 end
 
 function incrementZIndexOfSelfAndDescendantsBy(instance, number)
-
-	if (instance:IsA("GuiObject")) then
-		instance.ZIndex = instance.zIndex + number	
+	if instance:IsA("GuiObject") then
+		instance.ZIndex = instance.zIndex + number
 	end
-	
+
 	local children = instance:GetChildren()
-	
+
 	for i = 1, #children do
 		incrementZIndexOfSelfAndDescendantsBy(children[i], number)
 	end
@@ -257,22 +273,26 @@ function Move:isDragInProgress()
 	return m_draggingStarted
 end
 
-
 --void Move:startDrag(Vector2 location)
 function Move:startDrag(location)
 	m_originalSelectionData = {}
 	local draggableElements = SelectionManager:getFilteredSelectionCommonAncestors()
-	
+
 	for i = 1, #draggableElements do
-		table.insert(m_originalSelectionData, {draggableElements[i], draggableElements[i].AbsolutePosition, draggableElements[i].Position})
+		table.insert(
+			m_originalSelectionData,
+			{ draggableElements[i], draggableElements[i].AbsolutePosition, draggableElements[i].Position }
+		)
 	end
-	
-	if (#m_originalSelectionData == 0) then return end	
-	
+
+	if #m_originalSelectionData == 0 then
+		return
+	end
+
 	m_originalMousePosition = location
 	m_draggingStarted = true
 	m_currentlyDragging = false
-	
+
 	m_originalExtents = Extents2D:getExtentsFromGuis(draggableElements)
 	MouseIconManager:setToMoveIcon()
 	AdornmentModule:createSelectionAdorns()
@@ -281,17 +301,17 @@ end
 
 --void Move:finishDrag(Vector2 location)
 function Move:finishDrag(location)
-	if (m_currentlyDragging) then
+	if m_currentlyDragging then
 		Analytics:reportEvent("Move")
 		ChangeHistoryService:SetWaypoint("Translate Objects (better tt needed)")
 	end
-	
+
 	m_draggingStarted = false
-	
+
 	m_originalMousePosition = nil
-	
+
 	AdornmentModule:hideSnappingLines()
-	
+
 	--[[ Commenting out reparenting functionality until we have better flow
 	if (#m_originalSelectionData == 1 and m_currentlyDragging) then
 		local guiObject = m_originalSelectionData[1][DATA_INSTANCE]
@@ -301,9 +321,9 @@ function Move:finishDrag(location)
 		acceptReparent(guiObject, guiObjectsAtPoint[1])
 	end
 	--]]
-	
+
 	m_currentlyDragging = false
-	
+
 	MouseIconManager:setToDefaultIcon()
 	AdornmentModule:deleteSelectionAdorns()
 	m_actionMediator:onMoveEnded(location)
@@ -311,37 +331,39 @@ end
 
 -- void Move:updateDrag(Vector2 location)
 function Move:updateDrag(location)
-	if not m_currentlyDragging and Utility:manhattanDistance(location - m_originalMousePosition) <= MANHATTAN_DRAG_START_DELTA then
+	if
+		not m_currentlyDragging
+		and Utility:manhattanDistance(location - m_originalMousePosition) <= MANHATTAN_DRAG_START_DELTA
+	then
 		return
 	end
 
 	m_currentlyDragging = true
-	
+
 	AdornmentModule:hideSnappingLines()
-	
+
 	local snapType = SnappingType.MoveXY
-	
-	if (UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or UserInputService:IsKeyDown(Enum.KeyCode.RightShift)) then
+
+	if UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or UserInputService:IsKeyDown(Enum.KeyCode.RightShift) then
 		local distanceToXAxis = math.abs(location.Y - m_originalMousePosition.Y)
 		local distanceToYAxis = math.abs(location.X - m_originalMousePosition.X)
-		
-		if (distanceToXAxis < distanceToYAxis) then
+
+		if distanceToXAxis < distanceToYAxis then
 			location = Vector2.new(location.X, m_originalMousePosition.Y)
 		else
 			location = Vector2.new(m_originalMousePosition.X, location.Y)
 		end
 	end
-	
+
 	local extents = Extents2D:translate(m_originalExtents, location - m_originalMousePosition)
 	local snappingLines
-	
+
 	extents, snappingLines = SnappingPointManager:snapExtents(extents, SnappingType.MoveXY)
-	
-	
+
 	for i = 1, #snappingLines do
 		AdornmentModule:showSnappingLine(snappingLines[i])
 	end
-	
+
 	local positionOffset
 	-- The extents centers can be non-integers. Floor them so we always have a consistent
 	-- center. We had an issue with frames with an odd size would snap on different sides
@@ -358,7 +380,7 @@ function Move:updateDrag(location)
 		offerReparent(guiObject, guiObjectsAtPoint[1])			
 	end
 	--]]
-	
+
 	AdornmentModule:updateSelectionAdorns(extents)
 	m_actionMediator:onMoveChanged(location)
 end
@@ -369,8 +391,7 @@ end
 	move the cursor out of 3D view.
 --]]
 function Move:onSelectionChanged()
-
-	if (not SelectionManager:hasFilteredSelection()) then
+	if not SelectionManager:hasFilteredSelection() then
 		AdornmentModule:hideSelection()
 		MouseIconManager:setToDefaultIcon()
 	else
@@ -381,8 +402,8 @@ function Move:onSelectionChanged()
 end
 
 function Move:bump(direction)
-	Move:startDrag(Vector2.new(0,0))
-    dragElementsBy(directionToDirectionVector(direction))
+	Move:startDrag(Vector2.new(0, 0))
+	dragElementsBy(directionToDirectionVector(direction))
 	Move:finishDrag(direction)
 end
 

@@ -73,14 +73,15 @@ function InstanceUnderEditManager:init(props)
 		self.imageUnderEditConnections = {}
 	end
 
-	self.getOffsetsForResizedImage = function(oldOffsets: Types.SliceOffsetsType, newSize: Vector2): Types.SliceOffsetsType
-		local offsets = {}
-		offsets[LEFT] = math.clamp(oldOffsets[LEFT], 0, newSize.X)
-		offsets[RIGHT] = math.clamp(oldOffsets[RIGHT], 0, math.max(0, newSize.X - offsets[LEFT]))
-		offsets[TOP] = math.clamp(oldOffsets[TOP], 0, newSize.Y)
-		offsets[BOTTOM] = math.clamp(oldOffsets[BOTTOM], 0, math.max(0, newSize.Y - offsets[TOP]))
-		return offsets
-	end
+	self.getOffsetsForResizedImage =
+		function(oldOffsets: Types.SliceOffsetsType, newSize: Vector2): Types.SliceOffsetsType
+			local offsets = {}
+			offsets[LEFT] = math.clamp(oldOffsets[LEFT], 0, newSize.X)
+			offsets[RIGHT] = math.clamp(oldOffsets[RIGHT], 0, math.max(0, newSize.X - offsets[LEFT]))
+			offsets[TOP] = math.clamp(oldOffsets[TOP], 0, newSize.Y)
+			offsets[BOTTOM] = math.clamp(oldOffsets[BOTTOM], 0, math.max(0, newSize.Y - offsets[TOP]))
+			return offsets
+		end
 
 	self.getImageDimensionsForInstance = function(instance: Types.GuiImageInstance): Vector2
 		if instance.ImageRectSize.X > 0 and instance.ImageRectSize.Y > 0 then
@@ -115,10 +116,12 @@ function InstanceUnderEditManager:init(props)
 	end
 
 	self.clampSliceCenterToDimensions = function(sliceCenter: Rect, dimensions: Vector2): Rect
-		return Rect.new(math.clamp(sliceCenter.Min.X, 0, dimensions.X),
+		return Rect.new(
+			math.clamp(sliceCenter.Min.X, 0, dimensions.X),
 			math.clamp(sliceCenter.Min.Y, 0, dimensions.Y),
 			math.clamp(sliceCenter.Max.X, 0, dimensions.X),
-			math.clamp(sliceCenter.Max.Y, 0, dimensions.Y))
+			math.clamp(sliceCenter.Max.Y, 0, dimensions.Y)
+		)
 	end
 
 	self.onImageRectSizeChanged = function()
@@ -150,8 +153,8 @@ function InstanceUnderEditManager:init(props)
 		self.clearCurrentImageUnderEdit()
 
 		local pixelSize = Vector2.new(0, 0)
-		local sliceRect = {0, 0, 0, 0}
-		local revertSliceRect = {0, 0, 0, 0}
+		local sliceRect = { 0, 0, 0, 0 }
+		local revertSliceRect = { 0, 0, 0, 0 }
 		local title = self.props.Localization:getText("Plugin", "Name")
 		local info = {
 			title = title,
@@ -170,11 +173,26 @@ function InstanceUnderEditManager:init(props)
 			end
 
 			-- Connect to changed events from this instance:
-			table.insert(self.imageUnderEditConnections, instance:GetPropertyChangedSignal("SliceCenter"):Connect(self.onSliceCenterChanged))
-			table.insert(self.imageUnderEditConnections, instance:GetPropertyChangedSignal("ImageRectOffset"):Connect(self.onImageRectOffsetChanged))
-			table.insert(self.imageUnderEditConnections, instance:GetPropertyChangedSignal("ImageRectSize"):Connect(self.onImageRectSizeChanged))
-			table.insert(self.imageUnderEditConnections, instance:GetPropertyChangedSignal("ImageColor3"):Connect(self.onImageColor3Changed))
-			table.insert(self.imageUnderEditConnections, instance:GetPropertyChangedSignal("ResampleMode"):Connect(self.onResampleModeChanged))
+			table.insert(
+				self.imageUnderEditConnections,
+				instance:GetPropertyChangedSignal("SliceCenter"):Connect(self.onSliceCenterChanged)
+			)
+			table.insert(
+				self.imageUnderEditConnections,
+				instance:GetPropertyChangedSignal("ImageRectOffset"):Connect(self.onImageRectOffsetChanged)
+			)
+			table.insert(
+				self.imageUnderEditConnections,
+				instance:GetPropertyChangedSignal("ImageRectSize"):Connect(self.onImageRectSizeChanged)
+			)
+			table.insert(
+				self.imageUnderEditConnections,
+				instance:GetPropertyChangedSignal("ImageColor3"):Connect(self.onImageColor3Changed)
+			)
+			table.insert(
+				self.imageUnderEditConnections,
+				instance:GetPropertyChangedSignal("ResampleMode"):Connect(self.onResampleModeChanged)
+			)
 
 			sliceRect = SliceRectUtil.getSliceRectFromSliceCenter(instance.SliceCenter)
 			revertSliceRect = SliceRectUtil.copySliceRect(sliceRect)
@@ -249,7 +267,7 @@ function InstanceUnderEditManager:init(props)
 
 	self.createAndRunPromiseForImageLoaded = function(inst: Instance, shouldResetSliceCenter: boolean)
 		self.disconnectImageChangedConnection()
-		
+
 		local promise = self.createPromiseForImageLoaded(inst)
 
 		local resolveCallback = function(instance)
@@ -264,7 +282,8 @@ function InstanceUnderEditManager:init(props)
 				if self.lastSliceOffsets ~= nil then
 					local imageDimensions = self.getImageDimensionsForInstance(instance) -- cropped
 					local newOffsets = self.getOffsetsForResizedImage(self.lastSliceOffsets, imageDimensions)
-					local sliceRect: Types.SliceRectType = SliceRectUtil.getSliceRectFromOffsets(newOffsets, imageDimensions)
+					local sliceRect: Types.SliceRectType =
+						SliceRectUtil.getSliceRectFromOffsets(newOffsets, imageDimensions)
 					instance.SliceCenter = SliceRectUtil.getSliceCenterFromSliceRect(sliceRect)
 				else
 					instance.SliceCenter = Rect.new(0, 0, 0, 0)
@@ -280,7 +299,7 @@ function InstanceUnderEditManager:init(props)
 				-- This was an old request, ignore it.
 				return
 			end
-			
+
 			if not self._isMounted then
 				return
 			end
@@ -369,7 +388,7 @@ function InstanceUnderEditManager:init(props)
 			self.showAlertDialog("ErrorMessageTitle", "InvalidInstanceErrorMessage")
 			return
 		end
-	
+
 		if not selectedInstance.IsLoaded then
 			self.showAlertDialog("ErrorMessageTitle", "ImageLoadedErrorMessage", {
 				contentId = selectedInstance.Image,
@@ -433,7 +452,7 @@ function InstanceUnderEditManager:render()
 			TitleKey = state.showingAlertTitleKey,
 			MessageKey = state.showingAlertMessageKey,
 			MessageKeyFormatTable = state.showingAlertMessageReplacements,
-			OnClose = self.closeAlertDialog, 
+			OnClose = self.closeAlertDialog,
 		})
 	end
 

@@ -24,6 +24,8 @@ local RoduxShareLinks = dependencies.RoduxShareLinks
 local RoduxNetworking = dependencies.RoduxNetworking
 local NetworkStatus = RoduxNetworking.Enum.NetworkStatus
 
+local GetFFlagLuaAppNewShareSheet = require(CorePackages.UniversalApp.ExternalContentSharing.Flags.GetFFlagLuaAppNewShareSheet)
+
 local ShareInviteLink = Roact.PureComponent:extend("ShareInviteLink")
 
 local CONTENTS_LEFT_RIGHT_PADDING = 12
@@ -44,10 +46,17 @@ function ShareInviteLink:init()
 	self.showSharesheet = function(linkId, linkType)
 		local url = UrlBuilder.sharelinks.appsflyer(linkId, linkType)
 		if ExternalContentSharingProtocol then
-			ExternalContentSharingProtocol:shareText({
-				text = url,
-				context = "V1Menu"
-			})
+			if GetFFlagLuaAppNewShareSheet() then
+				ExternalContentSharingProtocol:shareUrl({
+					url = url,
+					context = "V1Menu"
+				})
+			else
+				ExternalContentSharingProtocol:shareText({
+					text = url,
+					context = "V1Menu"
+				})
+			end
 
 			if isDesktopClient then
 				self:setState({ show_copied_text = true })

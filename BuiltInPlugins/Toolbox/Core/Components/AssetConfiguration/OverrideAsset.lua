@@ -58,7 +58,7 @@ local TOOL_TIP_HEIGHT = 20
 
 function OverrideAsset:init(props)
 	self.dropdownContent = {
-		{name = "Me", creatorType = "User", creatorId = getUserId()}
+		{ name = "Me", creatorType = "User", creatorId = getUserId() },
 	}
 	self.groupAdded = false
 
@@ -93,7 +93,13 @@ function OverrideAsset:init(props)
 
 	self.getOverrideAssetsFunc = function(targetPage)
 		local selectItem = self.state.selectItem
-		self.props.getOverrideAssets(getNetwork(self), self.props.assetTypeEnum, selectItem.creatorType, selectItem.creatorId, targetPage)
+		self.props.getOverrideAssets(
+			getNetwork(self),
+			self.props.assetTypeEnum,
+			selectItem.creatorType,
+			selectItem.creatorId,
+			targetPage
+		)
 	end
 end
 
@@ -151,7 +157,7 @@ function OverrideAsset:renderContent(theme, localization, localizedContent)
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 
-		LayoutOrder = LayoutOrder
+		LayoutOrder = LayoutOrder,
 	}, {
 		UIPadding = Roact.createElement("UIPadding", {
 			PaddingBottom = UDim.new(0, 46),
@@ -174,7 +180,8 @@ function OverrideAsset:renderContent(theme, localization, localizedContent)
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 
-			Text = isDownloadFlow and localizedContent.AssetConfig.Import.Title or localizedContent.AssetConfig.Override.Title,
+			Text = isDownloadFlow and localizedContent.AssetConfig.Import.Title
+				or localizedContent.AssetConfig.Override.Title,
 			Font = Constants.FONT,
 			TextSize = Constants.FONT_SIZE_LARGE,
 			TextColor3 = assetConfigTheme.textColor,
@@ -209,7 +216,7 @@ function OverrideAsset:renderContent(theme, localization, localizedContent)
 				LayoutOrder = 1,
 			}),
 
-			AnimationIdFilter = (not isDownloadFlow) and Roact.createElement("Frame", {
+			AnimationIdFilter = not isDownloadFlow and Roact.createElement("Frame", {
 				Size = UDim2.new(1, -DROPDOWN_WIDTH, 0, FILTER_HEIGHT),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
@@ -218,7 +225,12 @@ function OverrideAsset:renderContent(theme, localization, localizedContent)
 				TextField = Roact.createElement(TextInput, {
 					OnTextChanged = self.onFilterIDChanged,
 					PlaceholderText = localizedContent.AssetConfig.Override.FilterID,
-					Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, FILTER_HEIGHT - TITLE_HEIGHT - TOOL_TIP_HEIGHT),
+					Size = UDim2.new(
+						1,
+						-AssetConfigConstants.TITLE_GUTTER_WIDTH,
+						0,
+						FILTER_HEIGHT - TITLE_HEIGHT - TOOL_TIP_HEIGHT
+					),
 					Style = textOverMaxCount and "FilledRoundedRedBorder" or "FilledRoundedBorder",
 					Text = textboxText,
 				}),
@@ -238,7 +250,7 @@ function OverrideAsset:renderContent(theme, localization, localizedContent)
 		}),
 
 		ScrollingItems = Roact.createElement(OverrideAssetView, {
-			Size = UDim2.new(1, 0, 1, - TITLE_HEIGHT - 40),
+			Size = UDim2.new(1, 0, 1, -TITLE_HEIGHT - 40),
 
 			assetTypeEnum = assetTypeEnum,
 			instances = instances,
@@ -248,7 +260,7 @@ function OverrideAsset:renderContent(theme, localization, localizedContent)
 			filterID = state.filterID,
 
 			LayoutOrder = 3,
-		})
+		}),
 	})
 end
 

@@ -57,8 +57,7 @@ function AssetUpload:render()
 	local previewType = AssetConfigUtil.getPreviewType(props.assetTypeEnum, props.instances)
 
 	local showViewport = previewType == PreviewTypes.ModelPreview
-	local showThumbnail = previewType == PreviewTypes.Thumbnail
-			or previewType == PreviewTypes.ImagePicker
+	local showThumbnail = previewType == PreviewTypes.Thumbnail or previewType == PreviewTypes.ImagePicker
 
 	return Roact.createElement("Frame", {
 		BackgroundColor3 = theme.typeValidation.background,
@@ -70,19 +69,13 @@ function AssetUpload:render()
 			title = props.assetName,
 			titleHeight = PREVIEW_TITLE_HEIGHT,
 			titlePadding = PREVIEW_TITLE_PADDING,
-			Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
-			Size = UDim2.new(
-				0, PREVIEW_SIZE,
-				0, PREVIEW_SIZE + PREVIEW_TITLE_PADDING + PREVIEW_TITLE_HEIGHT
-			),
+			Position = UDim2.new(0.5, -PREVIEW_SIZE / 2, 0, PREVIEW_PADDING),
+			Size = UDim2.new(0, PREVIEW_SIZE, 0, PREVIEW_SIZE + PREVIEW_TITLE_PADDING + PREVIEW_TITLE_HEIGHT),
 		}),
 
 		ThumbnailPreview = showThumbnail and Roact.createElement("ImageLabel", {
-			Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
-			Size = UDim2.new(
-				0, PREVIEW_SIZE,
-				0, PREVIEW_SIZE
-			),
+			Position = UDim2.new(0.5, -PREVIEW_SIZE / 2, 0, PREVIEW_PADDING),
+			Size = UDim2.new(0, PREVIEW_SIZE, 0, PREVIEW_SIZE),
 			Image = AssetConfigUtil.getResultThumbnail(props.assetId, props.iconFile),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
@@ -93,7 +86,7 @@ function AssetUpload:render()
 			loadingTime = LOADING_TIME,
 			holdPercent = LOADING_PERCENT,
 			Size = UDim2.new(0, LOADING_BAR_WIDTH, 0, LOADING_BAR_HEIGHT),
-			Position = UDim2.new(0.5, -LOADING_BAR_WIDTH/2, 0, LOADING_BAR_Y_POS),
+			Position = UDim2.new(0.5, -LOADING_BAR_WIDTH / 2, 0, LOADING_BAR_Y_POS),
 			onFinish = props.uploadSucceeded ~= nil and props.onNext or nil,
 		}),
 	})

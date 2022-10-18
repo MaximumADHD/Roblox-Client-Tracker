@@ -43,9 +43,9 @@ local function checkEqualSlices(slice1, slice2)
 	-- checks if values in slice1 == values in slice2
 	return
 		slice1[LEFT] == slice2[LEFT]
-		and slice1[RIGHT] == slice2[RIGHT]
-		and slice1[TOP] == slice2[TOP]
-		and slice1[BOTTOM] == slice2[BOTTOM]
+			and slice1[RIGHT] == slice2[RIGHT]
+			and slice1[TOP] == slice2[TOP]
+			and slice1[BOTTOM] == slice2[BOTTOM]
 end
 
 function SliceEditor:init(props)
@@ -61,7 +61,8 @@ function SliceEditor:init(props)
 
 		sliceRect will be stored as { Min.X, Min.Y, Max.X, Max.Y } or { left, right, top, bottom }
 		order to align with offsets order and use the SliceCenter coordinate system of calculating from (0, 0)
-	]]--
+	]]
+	--
 	self.getImageDimensions = function(): Vector2
 		local imageRectSize: Vector2? = self.props.imageRectSize
 		if imageRectSize and imageRectSize.X > 0 and imageRectSize.Y > 0 then
@@ -89,7 +90,8 @@ function SliceEditor:init(props)
 		end
 
 		if self.props.selectedObject then
-			self.props.selectedObject.SliceCenter = Rect.new(newValue[LEFT], newValue[TOP], newValue[RIGHT], newValue[BOTTOM])
+			self.props.selectedObject.SliceCenter =
+				Rect.new(newValue[LEFT], newValue[TOP], newValue[RIGHT], newValue[BOTTOM])
 		end
 		ChangeHistoryService:SetWaypoint("9SliceEditor changed SliceCenter")
 	end
@@ -183,7 +185,12 @@ function SliceEditor:render()
 			}),
 			TextEditorComponent = Roact.createElement(TextEditor, {
 				layoutOrder = 2,
-				size = UDim2.new(style.TextAreaXWindowScaleFactor, style.TextAreaSize.X.Offset, 0, style.TextAreaSize.Y.Offset),
+				size = UDim2.new(
+					style.TextAreaXWindowScaleFactor,
+					style.TextAreaSize.X.Offset,
+					0,
+					style.TextAreaSize.Y.Offset
+				),
 				pixelDimensions = pixelDimensions,
 				setSliceRect = setSliceRect,
 				sliceRect = sliceRect,
@@ -210,11 +217,11 @@ function SliceEditor:render()
 				OnClick = self.onRevert,
 				Size = buttonStyle.Size,
 				Style = buttonStyle.Style,
-				StyleModifier = (not revertEnabled) and StyleModifier.Disabled or nil,
+				StyleModifier = not revertEnabled and StyleModifier.Disabled or nil,
 				LayoutOrder = 2,
 				Text = localization:getText("SliceEditor", "RevertButton"),
 			}),
-		})
+		}),
 	})
 end
 

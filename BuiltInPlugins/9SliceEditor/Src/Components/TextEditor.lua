@@ -70,7 +70,7 @@ function TextEditor:render()
 
 	local size = props.size
 
-	local imageSizeText = localization:getText("ImageEditor", "ImageSize")	
+	local imageSizeText = localization:getText("ImageEditor", "ImageSize")
 	local pixelDimensions = props.pixelDimensions
 	if pixelDimensions then
 		imageSizeText = imageSizeText .. (":\n%d x %d px"):format(pixelDimensions.X, pixelDimensions.Y)

@@ -35,7 +35,7 @@ end
 
 -- Turns the RotationBox off and performs de-initialization.
 function RotationBox:Off()
-	m_valueBox:Destroy()	
+	m_valueBox:Destroy()
 	m_valueBox = nil
 end
 

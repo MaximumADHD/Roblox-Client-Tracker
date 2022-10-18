@@ -16,7 +16,7 @@ local validateProps = t.strictInterface({
 	Size = t.optional(t.UDim2),
 	Position = t.optional(t.UDim2),
 	AnchorPoint = t.optional(t.Vector2),
-	LayoutOrder = t.optional(t.integer),
+	LayoutOrder = t.union(t.integer, t.table),
 	Visible = t.optional(t.boolean),
 	theme = t.optional(t.string),
 })

@@ -21,8 +21,6 @@ local Roact = require(Packages.Roact)
 
 local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
-local ContextHelper = require(Plugin.Core.Util.ContextHelper)
-local withTheme = ContextHelper.withTheme
 local Constants = require(Plugin.Core.Util.Constants)
 local RoundFrame = require(Plugin.Core.Components.RoundFrame)
 

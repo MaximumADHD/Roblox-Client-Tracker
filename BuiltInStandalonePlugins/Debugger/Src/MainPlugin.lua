@@ -23,6 +23,9 @@ local Rodux = require(main.Packages.Rodux)
 
 local Framework = require(main.Packages.Framework)
 
+local isHighDpiEnabled = Framework.Util.isHighDpiEnabled
+local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and isHighDpiEnabled()
+
 local StudioUI = Framework.StudioUI
 
 local PluginToolbar = StudioUI.PluginToolbar
@@ -185,7 +188,7 @@ function MainPlugin:renderButtons(toolbar)
 			Active = callstackWindowEnabled,
 			Title = CALLSTACK_META_NAME,
 			Tooltip = "",
-			Icon = "rbxasset://textures/Debugger/callStack.png",
+			icon = if FFlagHighDpiIcons then "rbxlocaltheme://CallStack" else "rbxasset://textures/Debugger/callStack.png",
 			OnClick = function()
 				self.toggleWidgetEnabled("callstackWindow")
 			end,
@@ -197,7 +200,7 @@ function MainPlugin:renderButtons(toolbar)
 			Active = breakpointsWindowEnabled,
 			Title = BREAKPOINTS_META_NAME,
 			Tooltip = "",
-			Icon = "rbxasset://textures/Debugger/Breakpoint.png",
+			icon = if FFlagHighDpiIcons then "rbxlocaltheme://Breakpoint" else "rbxasset://textures/Debugger/Breakpoint.png",
 			OnClick = function()
 				self.toggleWidgetEnabled("breakpointsWindow")
 			end,
@@ -209,7 +212,7 @@ function MainPlugin:renderButtons(toolbar)
 			Active = watchWindowEnabled,
 			Title = WATCH_META_NAME,
 			Tooltip = "",
-			Icon = "rbxasset://textures/Debugger/Watch-Window.png",
+			icon = if FFlagHighDpiIcons then "rbxlocaltheme://Watch" else "rbxasset://textures/Debugger/Watch-Window.png",
 			OnClick = function()
 				self.toggleWidgetEnabled("watchWindow")
 			end,

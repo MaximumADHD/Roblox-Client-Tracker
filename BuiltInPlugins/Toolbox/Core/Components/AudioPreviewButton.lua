@@ -18,7 +18,6 @@ local RoactRodux = require(Packages.RoactRodux)
 
 local LoadingIndicator = Framework.UI.LoadingIndicator
 
-local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Images = require(Plugin.Core.Util.Images)
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextServices = Framework.ContextServices
@@ -30,8 +29,6 @@ local Actions = Plugin.Core.Actions
 local PlayPreviewSound = require(Actions.PlayPreviewSound)
 local PausePreviewSound = require(Actions.PausePreviewSound)
 local ResumePreviewSound = require(Actions.ResumePreviewSound)
-
-local withTheme = ContextHelper.withTheme
 
 local AudioPreviewButton = Roact.PureComponent:extend("AudioPreviewButton")
 

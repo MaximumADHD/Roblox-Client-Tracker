@@ -38,6 +38,8 @@ export type Props = {
 	groupMenu: string,
 	moveTagSelectionUpOrDown: ((boolean) -> ()),
 	setRenaming: ((string, boolean) -> ()),
+	setRenamingGroup: ((string, boolean) -> ()),
+	setAssigningGroup: ((string) -> ()),
 }
 
 type _Props = Props & {
@@ -90,10 +92,17 @@ function MainGui:render()
 				local isDown = keysHeld[Enum.KeyCode.Down]
 				local isUp = keysHeld[Enum.KeyCode.Up]
 				local isReturn = keysHeld[Enum.KeyCode.Return]
+				local isEscape = keysHeld[Enum.KeyCode.Escape]
 				if isUp or isDown then
 					props.moveTagSelectionUpOrDown(isDown)
 				elseif isReturn then
-					props.setRenaming(props.tagMenu, true)
+					if props.tagMenu and props.tagMenu ~= "" then
+						props.setRenaming(props.tagMenu, true)
+					else
+						props.setRenamingGroup(props.groupMenu, true)
+					end
+				elseif isEscape then
+					props.setAssigningGroup("")
 				end
 			end,
 		}),
@@ -155,6 +164,12 @@ local function mapDispatchToProps(dispatch)
 		end,
 		setRenaming = function(tag, renaming)
 			dispatch(Action.SetRenaming(tag, renaming))
+		end,
+		setRenamingGroup = function(group, renaming)
+			dispatch(Action.SetRenamingGroup(group, renaming))
+		end,
+		setAssigningGroup = function(name)
+			dispatch(Action.SetAssigningGroup(name))
 		end,
 	}
 end

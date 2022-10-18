@@ -7,7 +7,6 @@ local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local DevConsoleMaster = require(Modules.DevConsoleMaster)
-local IsDeveloperConsoleEnabled = require(Modules.DevConsole.IsDeveloperConsoleEnabled)
 local act = require(Modules.act)
 
 local Rhodium = require(CorePackages.Rhodium)
@@ -151,38 +150,36 @@ return function()
 		end)
 
 		it("should open and close the dev console", function(c)
-			if IsDeveloperConsoleEnabled() then
-				local function signalDummyUser()
-					-- The dev console waits for this event to be fired, so we need to
-					-- simulate it being fired on dummy user data for it to finish initializing
-					local NewPlayerCanManageDetails = RobloxReplicatedStorage:FindFirstChild("NewPlayerCanManageDetails")
-					NewPlayerCanManageDetails:FireAllClients(12345678, true)
-				end
-
-				local store = c.store
-				act(wait)
-
-				expect(store:getState().isMenuOpen).to.equal(true)
-				expect(DevConsoleMaster:GetVisibility()).to.equal(false)
-
-				c.gamepadInput(Enum.KeyCode.DPadDown)
-				c.gamepadInput(Enum.KeyCode.DPadDown)
-				c.gamepadInput(Enum.KeyCode.ButtonA)
-
-				signalDummyUser()
-				act(function()
-					VirtualInput.waitForInputEventsProcessed()
-					wait()
-				end)
-
-				expect(store:getState().isMenuOpen).to.equal(false)
-				expect(DevConsoleMaster:GetVisibility()).to.equal(true)
-
-				c.gamepadInput(Enum.KeyCode.ButtonB)
-
-				expect(store:getState().isMenuOpen).to.equal(false)
-				expect(DevConsoleMaster:GetVisibility()).to.equal(false)
+			local function signalDummyUser()
+				-- The dev console waits for this event to be fired, so we need to
+				-- simulate it being fired on dummy user data for it to finish initializing
+				local NewPlayerCanManageDetails = RobloxReplicatedStorage:FindFirstChild("NewPlayerCanManageDetails")
+				NewPlayerCanManageDetails:FireAllClients(12345678, true)
 			end
+
+			local store = c.store
+			act(wait)
+
+			expect(store:getState().isMenuOpen).to.equal(true)
+			expect(DevConsoleMaster:GetVisibility()).to.equal(false)
+
+			c.gamepadInput(Enum.KeyCode.DPadDown)
+			c.gamepadInput(Enum.KeyCode.DPadDown)
+			c.gamepadInput(Enum.KeyCode.ButtonA)
+
+			signalDummyUser()
+			act(function()
+				VirtualInput.waitForInputEventsProcessed()
+				wait()
+			end)
+
+			expect(store:getState().isMenuOpen).to.equal(false)
+			expect(DevConsoleMaster:GetVisibility()).to.equal(true)
+
+			c.gamepadInput(Enum.KeyCode.ButtonB)
+
+			expect(store:getState().isMenuOpen).to.equal(false)
+			expect(DevConsoleMaster:GetVisibility()).to.equal(false)
 		end)
 
 		it("should switch between the page and SideNavigation", function(c)

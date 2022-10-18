@@ -25,7 +25,7 @@ local function createScreenGui(name, parent)
 end
 
 local function getMainFolder()
-	if (not m_mainFolder) then
+	if not m_mainFolder then
 		m_mainFolder = createFolder("RobloxGUIEditor", CoreGui)
 	end
 	return m_mainFolder
@@ -35,7 +35,7 @@ local CoreGuiManager = {}
 
 function CoreGuiManager:findOrCreateFolder(name)
 	local folder = getMainFolder():FindFirstChild(name)
-	if (not folder) then
+	if not folder then
 		folder = createFolder(name, getMainFolder())
 	end
 	return folder
@@ -43,7 +43,7 @@ end
 
 function CoreGuiManager:findOrCreateScreenGui(name)
 	local sg = getMainFolder():FindFirstChild(name)
-	if (not sg) then
+	if not sg then
 		sg = createScreenGui(name, getMainFolder())
 	end
 	return sg

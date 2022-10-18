@@ -12,9 +12,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 
-local ContextHelper = require(Plugin.Core.Util.ContextHelper)
-local withTheme = ContextHelper.withTheme
-
 local Constants = require(Plugin.Core.Util.Constants)
 local TimeTextBox = require(Plugin.Core.Components.SearchOptions.TimeTextBox)
 

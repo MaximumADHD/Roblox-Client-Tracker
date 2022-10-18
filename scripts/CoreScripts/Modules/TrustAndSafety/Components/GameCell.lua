@@ -21,7 +21,7 @@ local GameCell = Roact.PureComponent:extend("GameCell")
 
 GameCell.validateProps = t.strictInterface({
 	gameId = t.number,
-	layoutOrder = t.optional(t.integer),
+	layoutOrder = t.optional(t.union(t.integer, t.table)),
 	onActivated = t.optional(t.callback),
 })
 

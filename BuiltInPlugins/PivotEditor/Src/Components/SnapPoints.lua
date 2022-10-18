@@ -30,7 +30,7 @@ return function(props)
 		if distanceToClosest > totalSize or distanceToClosest < EQUAL_POINTS_THRESHOLD then
 			continue
 		end
-		
+
 		-- Frac ranges between 1.8 and 0.2 depending on the distance
 		local frac = 1.8 - 1.6 * (distanceToClosest / totalSize) ^ 0.5
 		scale *= frac

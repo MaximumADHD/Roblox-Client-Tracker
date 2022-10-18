@@ -26,7 +26,6 @@ local Constants = require(Util.Constants)
 local Urls = require(Util.Urls)
 local Colors = require(Util.Colors)
 
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -36,7 +35,7 @@ local ImagePicker = Roact.PureComponent:extend("ImagePicker")
 local PREVIEW_HEIGHT = 40
 -- Preview size is unique to preview.
 local PREVIEW_FONT_SIZE = Constants.FONT_SIZE_MEDIUM
-local HOVER_RECT =  Vector2.new(512, 256)
+local HOVER_RECT = Vector2.new(512, 256)
 
 function ImagePicker:init(props)
 	self.state = {
@@ -102,9 +101,11 @@ function ImagePicker:renderContent(theme, localization, localizedContent)
 	if iconFile then
 		tempId = iconFile:GetTemporaryId()
 	elseif assetId then
-		tempId = Urls.constructAssetThumbnailUrl(assetId,
+		tempId = Urls.constructAssetThumbnailUrl(
+			assetId,
 			Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE,
-			Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE)
+			Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE
+		)
 	end
 
 	return Roact.createElement("ImageButton", {
@@ -115,7 +116,7 @@ function ImagePicker:renderContent(theme, localization, localizedContent)
 		BorderSizePixel = 0,
 		ClipsDescendants = true,
 
-		Image  = tempId,
+		Image = tempId,
 
 		[Roact.Event.Activated] = chooseThumbnail,
 		[Roact.Event.MouseEnter] = self.onMouseEnter,
@@ -134,24 +135,25 @@ function ImagePicker:renderContent(theme, localization, localizedContent)
 			ImageRectSize = HOVER_RECT,
 		}),
 
-		StatusFrame = showStatus and Roact.createElement("Frame", {
-			Position = UDim2.new(0, 0, 1, - PREVIEW_HEIGHT),
-			Size = UDim2.new(1, 0, 0, PREVIEW_HEIGHT),
-			BackgroundColor3 = Color3.new(0, 0, 0),
-			BackgroundTransparency = 0.5,
-		}, {
-			Status = Roact.createElement("TextLabel", {
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Size = UDim2.new(1, 0, 1, 0),
-				Position = UDim2.new(0.5, 0, 0.5, 0),
-				Text = status,
-				-- Confirm theme color
-				TextColor3 = Colors.WHITE,
-				TextSize = PREVIEW_FONT_SIZE,
-				Font = Constants.FONT,
-				BackgroundTransparency = 1,
+		StatusFrame = showStatus
+			and Roact.createElement("Frame", {
+				Position = UDim2.new(0, 0, 1, -PREVIEW_HEIGHT),
+				Size = UDim2.new(1, 0, 0, PREVIEW_HEIGHT),
+				BackgroundColor3 = Color3.new(0, 0, 0),
+				BackgroundTransparency = 0.5,
+			}, {
+				Status = Roact.createElement("TextLabel", {
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Size = UDim2.new(1, 0, 1, 0),
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					Text = status,
+					-- Confirm theme color
+					TextColor3 = Colors.WHITE,
+					TextSize = PREVIEW_FONT_SIZE,
+					Font = Constants.FONT,
+					BackgroundTransparency = 1,
+				}),
 			}),
-		}),
 
 		ChangeLabel = hovered and Roact.createElement("TextLabel", {
 			AnchorPoint = Vector2.new(0, 1),

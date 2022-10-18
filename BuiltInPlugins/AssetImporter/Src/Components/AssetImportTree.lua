@@ -24,13 +24,10 @@ local TreeViewToolbar = require(Plugin.Src.Components.TreeViewToolbar)
 
 local SetSelectedSettingsItem = require(Plugin.Src.Actions.SetSelectedSettingsItem)
 local SetTreeExpansion = require(Plugin.Src.Actions.SetTreeExpansion)
-local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
 local UpdateChecked = require(Plugin.Src.Thunks.UpdateChecked)
 local UpdatePreviewInstance = require(Plugin.Src.Thunks.UpdatePreviewInstance)
 local StatusLevel = require(Plugin.Src.Utility.StatusLevel)
 local trimFilename = require(Plugin.Src.Utility.trimFilename)
-
-local getFFlagAssetImportSessionCleanup = require(Plugin.Src.Flags.getFFlagAssetImportSessionCleanup)
 
 local SEPARATOR_WEIGHT = 1
 local ICON_DIMENSION = 20
@@ -185,26 +182,19 @@ function AssetImportTree:init()
 		local props = self.props
 		props.SetChecked(checked)
 
-		if getFFlagAssetImportSessionCleanup() then
-			if props.SelectedSettingsItem then
-				local instance = props.AssetImportSession:GetInstance(props.SelectedSettingsItem.Id)
-				props.UpdatePreviewInstance(instance)
-			end
-		else
-			local instanceMap = props.AssetImportSession:GetCurrentImportMap()
-			props.SetInstanceMap(instanceMap)
+		if props.SelectedSettingsItem then
+			local instance = props.AssetImportSession:GetInstance(props.SelectedSettingsItem.Id)
+			props.UpdatePreviewInstance(instance)
 		end
 	end
 
 	self.SelectItem = function(newSelection)
 		local item = next(newSelection)
 		self.props.SetSelectedSettingsItem(item)
-		if getFFlagAssetImportSessionCleanup() then
-			if item then
-				self.props.UpdatePreviewInstance(self.props.AssetImportSession:GetInstance(item.Id))
-			else
-				self.props.UpdatePreviewInstance(nil)
-			end
+		if item then
+			self.props.UpdatePreviewInstance(self.props.AssetImportSession:GetInstance(item.Id))
+		else
+			self.props.UpdatePreviewInstance(nil)
 		end
 	end
 
@@ -309,9 +299,6 @@ local function mapDispatchToProps(dispatch)
 		end,
 		SetChecked = function(checked)
 			dispatch(UpdateChecked(checked))
-		end,
-		SetInstanceMap = function(instanceMap)
-			dispatch(SetInstanceMap(instanceMap))
 		end,
 		UpdatePreviewInstance = function(instance)
 			dispatch(UpdatePreviewInstance(instance))

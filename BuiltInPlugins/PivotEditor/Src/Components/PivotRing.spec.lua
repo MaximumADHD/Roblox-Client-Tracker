@@ -21,12 +21,10 @@ return function()
 	end)
 
 	it("should create and destroy without errors", function()
-		runComponentTest(
-			Roact.createElement(PivotRing, {
-				DraggerContext = draggerContext,
-				Pivot = CFrame.new(),
-			})
-		)
+		runComponentTest(Roact.createElement(PivotRing, {
+			DraggerContext = draggerContext,
+			Pivot = CFrame.new(),
+		}))
 	end)
 
 	it("should render correctly", function()

@@ -6,7 +6,7 @@
 ]]
 local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
-local memoize = require(CorePackages.AppTempCommon.Common.memoize)
+local memoize = require(CorePackages.Workspace.Packages.AppCommonLib).memoize
 
 local getPurchaseInfoHelper = memoize(function(asset, bundles)
 	local itemInfo = asset

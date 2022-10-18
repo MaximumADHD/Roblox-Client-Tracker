@@ -21,8 +21,11 @@ local SetCurrentFrameNumberAction = require(Actions.Callstack.SetCurrentFrameNum
 local Models = Plugin.Src.Models
 local DebuggerStateToken = require(Models.DebuggerStateToken)
 
+local FFlagStudioDebuggerFixStepButtonsOnError = require(Plugin.Src.Flags.GetFFlagStudioDebuggerFixStepButtonsOnError)
+
 local defaultNewNum = 1
 local defaultDebuggerToken = DebuggerStateToken.fromData({ debuggerConnectionId = 1 })
+local defaultThreadId = 1
 
 return function()
 	it("should return its expected default state", function()
@@ -100,7 +103,7 @@ return function()
 	describe(SimPaused.name, function()
 		it("should set the CurrentFrameNumber", function()
 			local prepState = CommonReducer(nil, SetFocusedDebuggerConnection(1))
-			local state = CommonReducer(prepState, SimPaused(defaultDebuggerToken))
+			local state = CommonReducer(prepState, SimPaused(defaultDebuggerToken, defaultThreadId, true))
 
 			expect(state).to.be.ok()
 			expect(state.debuggerConnectionIdToDST).to.be.ok()
@@ -108,12 +111,16 @@ return function()
 			expect(state.currentFrameMap).to.be.ok()
 			expect(state.debuggerConnectionIdToCurrentThreadId).to.be.ok()
 			expect(state.isPaused).to.equal(true)
+			if FFlagStudioDebuggerFixStepButtonsOnError() then
+				expect(state.hitException).to.be.ok()
+				expect(state.hitException[defaultThreadId]).to.equal(true)
+			end
 			expect(state.pausedDebuggerConnectionIds[defaultDebuggerToken.debuggerConnectionId]).to.equal(1)
 		end)
 
 		it("should preserve immutability", function()
 			local prepState = CommonReducer(nil, SetFocusedDebuggerConnection(1))
-			local immutabilityPreserved = testImmutability(CommonReducer, SimPaused(defaultDebuggerToken), prepState)
+			local immutabilityPreserved = testImmutability(CommonReducer, SimPaused(defaultDebuggerToken, defaultThreadId, false), prepState)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
@@ -142,7 +149,8 @@ return function()
 	describe(ClearConnectionData.name, function()
 		it("should set the CurrentFrameNumber", function()
 			local prepState = CommonReducer(nil, SetFocusedDebuggerConnection(1))
-			local state = CommonReducer(prepState, SimPaused(defaultDebuggerToken))
+			local state = CommonReducer(prepState, SimPaused(defaultDebuggerToken, defaultThreadId, false))
+			state = CommonReducer(state, AddThreadIdAction(defaultThreadId, "TestScript.Lua", defaultDebuggerToken))
 			state = CommonReducer(state, ClearConnectionData(defaultDebuggerToken))
 			expect(state).to.be.ok()
 			expect(state.debuggerConnectionIdToDST).to.be.ok()
@@ -150,12 +158,16 @@ return function()
 			expect(state.currentFrameMap).to.be.ok()
 			expect(state.debuggerConnectionIdToCurrentThreadId).to.be.ok()
 			expect(state.isPaused).to.equal(false)
+			if FFlagStudioDebuggerFixStepButtonsOnError() then
+				expect(state.hitException).to.be.ok()
+				expect(state.hitException[defaultThreadId]).to.equal(nil)
+			end
 			expect(state.pausedDebuggerConnectionIds[defaultDebuggerToken.debuggerConnectionId]).to.equal(nil)
 		end)
 
 		it("should preserve immutability", function()
 			local prepState = CommonReducer(nil, SetFocusedDebuggerConnection(1))
-			prepState = CommonReducer(prepState, SimPaused(defaultDebuggerToken))
+			prepState = CommonReducer(prepState, SimPaused(defaultDebuggerToken, defaultThreadId, false))
 			local immutabilityPreserved = testImmutability(
 				CommonReducer,
 				ClearConnectionData(defaultDebuggerToken),
@@ -187,7 +199,7 @@ return function()
 	describe(AddThreadIdAction.name, function()
 		it("should set the CurrentFrameNumber", function()
 			local prepState = CommonReducer(nil, SetFocusedDebuggerConnection(1))
-			local prepState2 = CommonReducer(prepState, SimPaused(defaultDebuggerToken))
+			local prepState2 = CommonReducer(prepState, SimPaused(defaultDebuggerToken, defaultThreadId, false))
 			local state = CommonReducer(prepState2, AddThreadIdAction(123, "TestScript.Lua", defaultDebuggerToken))
 
 			expect(state).to.be.ok()
@@ -199,7 +211,7 @@ return function()
 
 		it("should preserve immutability", function()
 			local prepState = CommonReducer(nil, SetFocusedDebuggerConnection(1))
-			local prepState2 = CommonReducer(prepState, SimPaused(defaultDebuggerToken))
+			local prepState2 = CommonReducer(prepState, SimPaused(defaultDebuggerToken, defaultThreadId, false))
 			local immutabilityPreserved = testImmutability(
 				CommonReducer,
 				AddThreadIdAction(123, "TestScript.Lua", defaultDebuggerToken),

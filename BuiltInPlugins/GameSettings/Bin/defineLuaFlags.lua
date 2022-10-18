@@ -4,5 +4,6 @@
 game:DefineFastFlag("UXImprovementsShowUserPermsWhenCollaborator2", false)
 game:DefineFastFlag("GameSettingsEnableThumbnailAltText", false)
 game:DefineFastFlag("GameSettingsDynamicHeadAssetOverrideSupport", false)
+game:DefineFastFlag("GameSettingsEnableThumbnailFrameworkDialogs", false)
 
 return nil

@@ -8,17 +8,14 @@
 --]]
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryBulletPoint = SharedFlags.getFFlagRemoveUILibraryBulletPoint()
 local FFlagDevFrameworkMigrateScrollingFrame = SharedFlags.getFFlagDevFrameworkMigrateScrollingFrame()
 
 local UI = Framework.UI
 local BulletList = UI.BulletList
-local Pane = UI.Pane
 
 local Dash = Framework.Dash
 local map = Dash.map
@@ -26,17 +23,11 @@ local map = Dash.map
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local BulletPoint
-if not FFlagRemoveUILibraryBulletPoint then
-    BulletPoint = UILibrary.Component.BulletPoint
-end
-
 local StyledDialog = UI.StyledDialog
 local StyledScrollingFrame = UI.ScrollingFrame
 local TextLabel = UI.TextLabel
 
 local HEADER_TEXT_SIZE = 22
-local BULLET_TEXT_SIZE = 18
 
 local DIALOG_SIZE = Vector2.new(430, 200)
 local DIALOG_CONTENTS_PADDING = UDim.new(0, 32)
@@ -59,38 +50,26 @@ function DraftDiscardDialog:render()
 	local drafts = self.props.Drafts
 	local choiceSelected = self.props.ChoiceSelected
 
-	local bullets
-	if FFlagRemoveUILibraryBulletPoint then
-		bullets = Roact.createElement(BulletList, {
-			TextTruncate = Enum.TextTruncate.AtEnd,
-			Items = map(drafts, function(draft)
-				return draft.Name
-			end)
-		})
-	else
-		bullets = {}
-		for i,draft in ipairs(drafts) do
-			bullets[draft] = Roact.createElement(BulletPoint, {
-				Text = draft.Name,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-				TextSize = BULLET_TEXT_SIZE,
-
-				LayoutOrder = i,
-			})
-		end
-	end
+	local bullets = Roact.createElement(BulletList, {
+		TextTruncate = Enum.TextTruncate.AtEnd,
+		Items = map(drafts, function(draft)
+			return draft.Name
+		end),
+	})
 
 	return Roact.createElement(StyledDialog, {
 		Title = localization:getText("DiscardDialog", "Title"),
 		Modal = true,
 
 		Buttons = {
-			{Key = true, Text = localization:getText("Dialog", "Yes"), Style = "RoundLargeText" },
-			{Key = false, Text = localization:getText("Dialog", "No"), Style = "RoundLargeTextPrimary"},
+			{ Key = true, Text = localization:getText("Dialog", "Yes"), Style = "RoundLargeText" },
+			{ Key = false, Text = localization:getText("Dialog", "No"), Style = "RoundLargeTextPrimary" },
 		},
 		ButtonHorizontalAlignment = Enum.HorizontalAlignment.Center,
 		OnButtonPressed = choiceSelected,
-		OnClose = function() choiceSelected(false) end,
+		OnClose = function()
+			choiceSelected(false)
+		end,
 
 		MinContentSize = DIALOG_SIZE,
 	}, {
@@ -122,14 +101,8 @@ function DraftDiscardDialog:render()
 			AutomaticCanvasSize = if FFlagDevFrameworkMigrateScrollingFrame then Enum.AutomaticSize.Y else nil,
 			LayoutOrder = 2,
 		}, {
-			Bullets = if FFlagRemoveUILibraryBulletPoint then bullets else (
-				Roact.createElement(Pane, {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					Layout = Enum.FillDirection.Vertical,
-				}, bullets)
-			)
-		})
+			Bullets = bullets,
+		}),
 	})
 end
 

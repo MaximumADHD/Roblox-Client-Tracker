@@ -10,7 +10,7 @@ local SETTINGS_HUB_INVITE_RELEASE_STREAM_TIME = 10
 
 local getPlatformTarget = nil
 if GetFFlagShareGetPlatformTargetImpl() then
-	getPlatformTarget = require(CorePackages.Analytics.getPlatformTarget)
+	getPlatformTarget = require(CorePackages.Workspace.Packages.Analytics).getPlatformTarget
 else
 	function getPlatformTarget()
 		local platformTarget = "unknownLua"

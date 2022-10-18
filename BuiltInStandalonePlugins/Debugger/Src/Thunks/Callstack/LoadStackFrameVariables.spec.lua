@@ -26,8 +26,6 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local LoadStackFrameVariables = require(script.Parent.LoadStackFrameVariables)
 
-local FFlagStudioDebuggerExpandVariables = require(Plugin.Src.Flags.GetFFlagStudioDebuggerExpandVariables)
-
 return function()
 	it("should load variables mocks", function()
 		local store = Rodux.Store.new(MainReducer, nil, MainMiddleware)
@@ -60,11 +58,7 @@ return function()
 		local state = store:getState()
 		expect(state.Watch.stateTokenToFlattenedTree).to.be.ok()
 		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1]).to.be.ok()
-		if FFlagStudioDebuggerExpandVariables() then
-			expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["testName"].nameColumn).to.be.equal(variableTestName)
-			expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["testName"].idColumn).to.be.equal(1)
-		else
-			expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["1"].nameColumn).to.be.equal(variableTestName)
-		end
+		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["testName"].nameColumn).to.be.equal(variableTestName)
+		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["testName"].idColumn).to.be.equal(1)
 	end)
 end

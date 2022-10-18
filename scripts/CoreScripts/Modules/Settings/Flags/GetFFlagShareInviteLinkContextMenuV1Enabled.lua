@@ -3,7 +3,7 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 
 local Modules = CoreGui.RobloxGui.Modules
-local ThrottleUserId = require(CorePackages.AppTempCommon.LuaApp.Utils.ThrottleUserId)
+local ThrottleUserId = require(CorePackages.Workspace.Packages.AppCommonLib).ThrottleUserId
 local ShareInviteLinkABTestManager = require(Modules.Settings.ShareInviteLinkABTestManager)
 
 local GetFFlagShareInviteLinkContextMenuV1ABTestEnabled = require(Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1ABTestEnabled)

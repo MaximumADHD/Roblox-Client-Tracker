@@ -66,7 +66,7 @@ return function()
 		checkDesktopUpsell(Enum.Platform.OSX)
 	end)
 
-	local function checkMobileUpsell(platform)
+	local function checkMobileUpsell(platform, fflags)
 		local store = Rodux.Store.new(Reducer, getDefaultState())
 
 		local analytics = MockAnalytics.new()
@@ -76,7 +76,7 @@ return function()
 			[Analytics] = analytics.mockService,
 			[Network] = MockNetwork.new(),
 			[PlatformInterface] = platformInterface.mockService,
-			[ExternalSettings] = MockExternalSettings.new(false, false, {}, platform)
+			[ExternalSettings] = MockExternalSettings.new(false, false, fflags or {}, platform)
 		})
 
 		local state = store:getState()
@@ -98,7 +98,11 @@ return function()
 		checkMobileUpsell(Enum.Platform.UWP)
 	end)
 
-	it("should run without errors on XBoxOne", function()
+	it("should run without errors on XBoxOne (FFlagPPXboxPromptNative: true)", function()
+		checkMobileUpsell(Enum.Platform.XBoxOne, { PPXboxPromptNative = true })
+	end)
+
+	it("should run without errors on XBoxOne (FFlagPPXboxPromptNative: false)", function()
 		local store = Rodux.Store.new(Reducer, getDefaultState())
 
 		local analytics = MockAnalytics.new()
@@ -129,7 +133,7 @@ return function()
 		expect(analytics.spies.signalXboxInGamePurchaseSuccess.callCount).to.equal(1)
 	end)
 
-	it("should run without errors on XBoxOne when the purchase is cancelled", function()
+	it("should run without errors on XBoxOne when the purchase is cancelled (FFlagPPXboxPromptNative: false)", function()
 		local store = Rodux.Store.new(Reducer, getDefaultState())
 
 		local analytics = MockAnalytics.new()
@@ -159,7 +163,7 @@ return function()
 		expect(analytics.spies.signalXboxInGamePurchaseCanceled.callCount).to.equal(1)
 	end)
 
-	it("should run without errors on XBoxOne when the purchase errored", function()
+	it("should run without errors on XBoxOne when the purchase errored (FFlagPPXboxPromptNative: false)", function()
 		local store = Rodux.Store.new(Reducer, getDefaultState())
 
 		local analytics = MockAnalytics.new()

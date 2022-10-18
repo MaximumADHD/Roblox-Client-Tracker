@@ -41,7 +41,6 @@ local SetTabList = require(Actions.SetTabList)
 local MiddleWare = DevConsole.MiddleWare
 local DevConsoleAnalytics = require(MiddleWare.DevConsoleAnalytics)
 
-local IsDeveloperConsoleEnabled = require(DevConsole.IsDeveloperConsoleEnabled)
 local PlayerPermissionsModule = require(CoreGui.RobloxGui.Modules.PlayerPermissionsModule)
 
 local FFlagEnableDevConsoleDebugVisualizations = require(CoreGui.RobloxGui.Modules.Common.Flags.GetFFlagEnableDevConsoleDebugVisualizations)
@@ -236,10 +235,6 @@ function DevConsoleMaster:Start()
 end
 
 function DevConsoleMaster:ToggleVisibility()
-	if not IsDeveloperConsoleEnabled() then
-		return
-	end
-
 	if not self.init then
 		master:Start()
 	end
@@ -249,10 +244,6 @@ function DevConsoleMaster:ToggleVisibility()
 end
 
 function DevConsoleMaster:GetVisibility()
-	if not IsDeveloperConsoleEnabled() then
-		return false
-	end
-
 	if not self.init then
 		return false
 	end
@@ -268,10 +259,6 @@ function DevConsoleMaster:GetVisibility()
 end
 
 function DevConsoleMaster:SetVisibility(value)
-	if not IsDeveloperConsoleEnabled() then
-		return
-	end
-
 	if type(value) == "boolean" then
 		if not self.init and value then
 			master:Start()
@@ -282,20 +269,12 @@ function DevConsoleMaster:SetVisibility(value)
 end
 
 StarterGui:RegisterGetCore("DevConsoleVisible", function()
-	if not IsDeveloperConsoleEnabled() then
-		return false
-	end
-
 	return master:GetVisibility()
 end)
 
 StarterGui:RegisterSetCore("DevConsoleVisible", function(visible)
-	if (type(visible) ~= "boolean") then
+	if type(visible) ~= "boolean" then
 		error("DevConsoleVisible must be given a boolean value.")
-	end
-
-	if not IsDeveloperConsoleEnabled() then
-		return
 	end
 
 	master:SetVisibility(visible)

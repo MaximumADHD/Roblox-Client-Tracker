@@ -24,7 +24,6 @@ local map = Dash.map
 
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
-local FFlagRemoveUILibraryLoadingIndicator = SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
 local FFlagDevFrameworkMigrateScrollingFrame = SharedFlags.getFFlagDevFrameworkMigrateScrollingFrame()
 
 local Constants = require(Plugin.Src.Resources.Constants)
@@ -44,9 +43,7 @@ local StyledDropDown = if not FFlagRemoveUILibraryStyledDropdown or not FFlagDev
 
 local UI = Framework.UI
 local Button = if FFlagRemoveUILibraryButton then UI.Button else UILibrary.Component.RoundTextButton
-local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator
-	then UI.LoadingIndicator
-	else UILibrary.Component.LoadingIndicator
+local LoadingIndicator = UI.LoadingIndicator
 local ScrollingFrame = if FFlagDevFrameworkMigrateScrollingFrame
 	then UI.ScrollingFrame
 	else UILibrary.Component.InfiniteScrollingFrame
@@ -66,8 +63,8 @@ function ScreenChooseGame:init()
 	}
 	self.props.DispatchLoadExistingGames(SelectedItemType, SelectedItemKey)
 	self.props.DispatchLoadGroups()
-	--self.layoutRef = Roact.createRef()
 
+	--self.layoutRef = Roact.createRef()
 	self.createContentForSelectInput = if FFlagRemoveUILibraryStyledDropdown
 			and FFlagDevFrameworkDropdownShowsLabel
 		then function(item)
@@ -163,11 +160,9 @@ function ScreenChooseGame:render()
 		end
 	end
 
-	local TILE_HEIGHT = (
-		theme.SCREEN_CHOOSE_GAME.ICON_SIZE
+	local TILE_HEIGHT = theme.SCREEN_CHOOSE_GAME.ICON_SIZE
 		+ theme.SCREEN_CHOOSE_GAME.TILE_FOOTER_SIZE
 		+ theme.SCREEN_CHOOSE_GAME.CELL_PADDING_Y
-	)
 
 	-- TODO: (smallick) 2020/07/27
 	-- Replace this with layoutRef

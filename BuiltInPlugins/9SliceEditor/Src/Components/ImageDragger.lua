@@ -72,14 +72,22 @@ function ImageDragger:init(props)
 		draggerWidth = Constants.DRAGGER_CLICK_WINDOW_WIDTH
 		-- Settle case of exactly overlapping draggers
 		adjacentOffset = (orientation == RIGHT or orientation == BOTTOM) and 0.01 or 0
-		
+
 		if orientation == LEFT or orientation == RIGHT then
-			distance = math.abs(draggerInstance.AbsolutePosition.X + adjacentOffset + draggerWidth/2 - input.Position.X)
+			distance =
+				math.abs(draggerInstance.AbsolutePosition.X + adjacentOffset + draggerWidth / 2 - input.Position.X)
 		elseif orientation == TOP or orientation == BOTTOM then
-			distance = math.abs(draggerInstance.AbsolutePosition.Y + adjacentOffset + draggerWidth/2 - input.Position.Y)
+			distance =
+				math.abs(draggerInstance.AbsolutePosition.Y + adjacentOffset + draggerWidth / 2 - input.Position.Y)
 		end
 
-		self.props.addDragCandidateWithId(obj, self.props.orientation, distance, draggerInstance, self.selectionPriority)
+		self.props.addDragCandidateWithId(
+			obj,
+			self.props.orientation,
+			distance,
+			draggerInstance,
+			self.selectionPriority
+		)
 	end
 
 	self.onInputBeganOnLowPriorityHandles = function(obj, input)
@@ -145,9 +153,7 @@ function ImageDragger:render()
 	local showOutline = isHovering and not props.isDragging
 
 	local sliceValue = math.round(sliceRect[orientation])
-	local draggerImage, draggerPosition, draggerSize,
-		handle1Position, handle2Position, handleSize,
-		draggerClickWindowSize, sliceCenter, draggerImageOffset
+	local draggerImage, draggerPosition, draggerSize, handle1Position, handle2Position, handleSize, draggerClickWindowSize, sliceCenter, draggerImageOffset
 
 	if orientation == LEFT or orientation == RIGHT then
 		local sideOffset = sliceValue / pixelDimensions.X
@@ -158,12 +164,14 @@ function ImageDragger:render()
 		local draggerImageRoot
 		if orientation == LEFT then
 			draggerImageRoot = Constants.IMAGES.DRAGGER_V2.LEFT
-			draggerImageOffset = UDim2.fromOffset(Constants.DRAGGER_CLICK_WINDOW_WIDTH/2
-				- Constants.DRAGGER_WIDTH_V2 + Constants.DRAGGER_CENTER_INSETPX, 0)
+			draggerImageOffset = UDim2.fromOffset(
+				Constants.DRAGGER_CLICK_WINDOW_WIDTH / 2 - Constants.DRAGGER_WIDTH_V2 + Constants.DRAGGER_CENTER_INSETPX,
+				0
+			)
 		elseif orientation == RIGHT then
 			draggerImageRoot = Constants.IMAGES.DRAGGER_V2.RIGHT
-			draggerImageOffset = UDim2.fromOffset(Constants.DRAGGER_CLICK_WINDOW_WIDTH/2
-				- Constants.DRAGGER_CENTER_INSETPX, 0)
+			draggerImageOffset =
+				UDim2.fromOffset(Constants.DRAGGER_CLICK_WINDOW_WIDTH / 2 - Constants.DRAGGER_CENTER_INSETPX, 0)
 		end
 
 		handle1Position = UDim2.new(0.5, 0, 0, style.EdgeHandleInsetPx)
@@ -172,8 +180,8 @@ function ImageDragger:render()
 		sliceCenter = Rect.new(0, 8, 8, 8)
 
 		draggerSize = UDim2.new(0, Constants.DRAGGER_WIDTH_V2, 1, 0)
-		draggerClickWindowSize = UDim2.new(0, Constants.DRAGGER_CLICK_WINDOW_WIDTH, 1, Constants.DRAGGER_HANDLE_SIZE*2)
-
+		draggerClickWindowSize =
+			UDim2.new(0, Constants.DRAGGER_CLICK_WINDOW_WIDTH, 1, Constants.DRAGGER_HANDLE_SIZE * 2)
 	elseif orientation == TOP or orientation == BOTTOM then
 		local sideOffset = sliceValue / pixelDimensions.Y
 		sideOffset = math.clamp(sideOffset, 0, 1)
@@ -184,12 +192,14 @@ function ImageDragger:render()
 		local draggerImageRoot
 		if orientation == TOP then
 			draggerImageRoot = Constants.IMAGES.DRAGGER_V2.TOP
-			draggerImageOffset = UDim2.fromOffset(0, Constants.DRAGGER_CLICK_WINDOW_WIDTH/2
-				- Constants.DRAGGER_WIDTH_V2 + Constants.DRAGGER_CENTER_INSETPX)
+			draggerImageOffset = UDim2.fromOffset(
+				0,
+				Constants.DRAGGER_CLICK_WINDOW_WIDTH / 2 - Constants.DRAGGER_WIDTH_V2 + Constants.DRAGGER_CENTER_INSETPX
+			)
 		elseif orientation == BOTTOM then
 			draggerImageRoot = Constants.IMAGES.DRAGGER_V2.BOTTOM
-			draggerImageOffset = UDim2.fromOffset(0, Constants.DRAGGER_CLICK_WINDOW_WIDTH/2
-				- Constants.DRAGGER_CENTER_INSETPX)
+			draggerImageOffset =
+				UDim2.fromOffset(0, Constants.DRAGGER_CLICK_WINDOW_WIDTH / 2 - Constants.DRAGGER_CENTER_INSETPX)
 		end
 
 		handle1Position = UDim2.new(0, style.EdgeHandleInsetPx, 0.5, 0)
@@ -198,7 +208,8 @@ function ImageDragger:render()
 		sliceCenter = Rect.new(8, 0, 8, 8)
 
 		draggerSize = UDim2.new(1, 0, 0, Constants.DRAGGER_WIDTH_V2)
-		draggerClickWindowSize = UDim2.new(1, Constants.DRAGGER_HANDLE_SIZE*2, 0, Constants.DRAGGER_CLICK_WINDOW_WIDTH)
+		draggerClickWindowSize =
+			UDim2.new(1, Constants.DRAGGER_HANDLE_SIZE * 2, 0, Constants.DRAGGER_CLICK_WINDOW_WIDTH)
 	end
 
 	local hoverColor = Color3.fromRGB(255, 131, 131)

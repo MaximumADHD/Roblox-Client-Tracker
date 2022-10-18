@@ -70,15 +70,9 @@ end
 local function main()
 	plugin.Name = PLUGIN_NAME
 	local toolbar = plugin:CreateToolbar(TOOLBAR_NAME)
-	toolButton = toolbar:CreateButton(
-		DRAGGER_TOOL_NAME,
-		"Select an Object",
-		"",
-		"Select"
-	)
+	toolButton = toolbar:CreateButton(DRAGGER_TOOL_NAME, "Select an Object", "", "Select")
 
-	draggerContext = DraggerContext_PluginImpl.new(
-		plugin, game, settings(), DraggerSchema.Selection.new())
+	draggerContext = DraggerContext_PluginImpl.new(plugin, game, settings(), DraggerSchema.Selection.new())
 
 	plugin.Deactivation:connect(function()
 		if pluginEnabled then

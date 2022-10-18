@@ -31,8 +31,7 @@ function PivotHandle:shouldBiasTowardsObjects()
 end
 
 function PivotHandle:hitTest(mouseRay, ignoreExtraThreshold)
-	local screenPoint, onScreen =
-		self._draggerContext:worldToViewportPoint(self._originalPivot.Position)
+	local screenPoint, onScreen = self._draggerContext:worldToViewportPoint(self._originalPivot.Position)
 	if onScreen then
 		local mouseLocation = self._draggerContext:getMouseLocation()
 		local screenLocation = Vector2.new(screenPoint.X, screenPoint.Y)
@@ -46,8 +45,7 @@ end
 
 function PivotHandle:_selectedIsActive()
 	if self._draggerContext:shouldShowActiveInstanceHighlight() then
-		local activeInstance =
-			self._draggerToolModel:getSelectionWrapper():getActiveSelectable()
+		local activeInstance = self._draggerToolModel:getSelectionWrapper():getActiveSelectable()
 		return self._pivotOwner == activeInstance
 	else
 		return false
@@ -87,8 +85,7 @@ function PivotHandle:mouseDown(mouseRay, handleId)
 			ClickedSelectable = self._pivotOwner,
 			HandleId = "Pivot",
 		}
-		self._freeformDrag = FreeformDragger.new(
-			self._draggerContext, self._draggerToolModel, dragInfo)
+		self._freeformDrag = FreeformDragger.new(self._draggerContext, self._draggerToolModel, dragInfo)
 		self._freeformDrag:update()
 	end
 end

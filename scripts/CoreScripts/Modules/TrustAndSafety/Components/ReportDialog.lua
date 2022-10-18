@@ -17,7 +17,8 @@ local UIBloxInGameConfig = require(Dependencies.UIBloxInGameConfig)
 local withLocalization = require(Dependencies.withLocalization)
 local playerInterface = require(Dependencies.playerInterface)
 
-local CloseReportDialog = require(TnsModule.Actions.CloseReportDialog)
+local NavigateBack = require(TnsModule.Actions.NavigateBack)
+local EndReportFlow = require(TnsModule.Actions.EndReportFlow)
 local Constants = require(TnsModule.Resources.Constants)
 local SendReport = require(TnsModule.Thunks.SendReport)
 local TextEntryField = require(TnsModule.Components.TextEntryField)
@@ -29,6 +30,20 @@ local ButtonStack = UIBlox.App.Button.ButtonStack
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local Colors = UIBlox.App.Style.Colors
 local DropdownMenu = UIBlox.App.Menu.DropdownMenu
+
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicatorFunc)
+local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
+local React = require(CorePackages.Packages.React)
+local VoiceIndicatorWrapper = function(props)
+	local voiceServiceState = React.useContext(VoiceStateContext.Context)
+	if not voiceServiceState.voiceEnabled then
+		return nil
+	end
+	return React.createElement(VoiceIndicator, Cryo.Dictionary.join(props, {}))
+end
 
 local REPORT_REASONS = {
 	"Swearing",
@@ -70,9 +85,11 @@ ReportDialog.validateProps = t.strictInterface({
 	targetPlayer = t.optional(playerInterface),
 	placeName = t.string,
 	screenSize = t.Vector2,
-	closeDialog = t.callback,
+	navigateBack = t.optional(t.callback),
+	canNavigateBack = t.optional(t.boolean),
 	sendReport = t.callback,
-	onGoBack = t.optional(t.callback),
+	closeDialog = t.optional(t.callback),
+	reportCategory = t.optional(t.string),
 })
 
 function ReportDialog:init()
@@ -96,7 +113,6 @@ function ReportDialog:init()
 	self.onReport = function()
 		local reason = self:getReason()
 		self.props.sendReport(self.props.reportType, self.props.targetPlayer, reason, self.state.descriptionText)
-		self.props.closeDialog()
 	end
 	-- Press the "Cancel" button or transparent background.
 	self.onCancel = function()
@@ -122,12 +138,16 @@ function ReportDialog:canReport()
 end
 
 function ReportDialog:renderPlayerInfo()
+	local voiceReportFlow = self.props.reportCategory == Constants.Category.Voice;
+
 	return withStyle(function(style)
 		-- override cell style
 		local cellTheme = Cryo.Dictionary.join(style.Theme, CELL_THEME_OVERRIDES)
 		local cellStyle = Cryo.Dictionary.join(style, {
 			Theme = cellTheme,
 		})
+		local memoKey = 0
+		if voiceReportFlow and self.props.isReportDialogOpen then memoKey += 1 end
 		return Roact.createElement(StyleProvider, {
 			style = cellStyle,
 		}, {
@@ -135,9 +155,21 @@ function ReportDialog:renderPlayerInfo()
 				userId = self.props.targetPlayer.UserId,
 				username = self.props.targetPlayer.Name,
 				displayName = self.props.targetPlayer.DisplayName,
-				isOnline = false,
+				isOnline = true,
 				isSelected = false,
 				LayoutOrder = 1,
+				key = tostring(self.props.targetPlayer.UserId),
+				memoKey = memoKey,
+			}, {
+				VoiceIndicator = voiceReportFlow and self.props.isReportDialogOpen and Roact.createElement(VoiceIndicatorWrapper, {
+					userId = tostring(self.props.targetPlayer.UserId),
+					hideOnError = true,
+					iconStyle = "SpeakerLight",
+					size = UDim2.fromOffset(36, 36),
+					onClicked = function()
+						VoiceChatServiceManager:ToggleMutePlayer(self.props.targetPlayer.UserId)
+					end,
+				}) or nil,
 			})
 		})
 	end)
@@ -184,8 +216,7 @@ function ReportDialog:renderDropDownMenu()
 			return Roact.createElement(DropdownMenu, {
 				placeholder = localized.placeHolderText,
 				onChange = onDropDownChanged,
-				size = (not UIBloxInGameConfig.fixDropdownMenuListPositionAndSize) and UDim2.new(1, 0, 0, 48) or nil,
-				height = UIBloxInGameConfig.fixDropdownMenuListPositionAndSize and UDim.new(0, 48) or nil,
+				height = UDim.new(0, 48),
 				screenSize = self.props.screenSize,
 				cellDatas = cellDatas,
 				showDropShadow = true,
@@ -271,20 +302,23 @@ function ReportDialog:renderContents()
 	end
 end
 
-function ReportDialog:getBackButtonCallback()
-	if self.props.onGoBack ~= nil then
-		return function()
-			self.props.closeDialog()
-			self.props.onGoBack()
-		end
-	else
-		return nil
+local categoryTitles = {
+	[Constants.Category.Voice] = "CoreScripts.InGameMenu.Report.Title.VoiceChat",
+	[Constants.Category.Text] = "CoreScripts.InGameMenu.Report.Title.TextChat",
+	[Constants.Category.Other] = "CoreScripts.InGameMenu.Report.Title.Other",
+	[Constants.Category.Experience] = "CoreScripts.InGameMenu.Report.Title.Experience",
+}
+
+function ReportDialog:categoryTitle()
+	if self.props.reportType == Constants.ReportType.Place then
+		return categoryTitles[Constants.Category.Experience]
 	end
+	return categoryTitles[self.props.reportCategory] or "CoreScripts.InGameMenu.Report.ReportTitle"
 end
 
 function ReportDialog:render()
 	return withLocalization({
-		titleText = "CoreScripts.InGameMenu.Report.ReportTitle",
+		titleText = self:categoryTitle(),
 		cancelText = "CoreScripts.InGameMenu.Cancel",
 		reportText = "CoreScripts.InGameMenu.Report.SendReport",
 	})(function(localized)
@@ -320,7 +354,7 @@ function ReportDialog:render()
 				}}
 			}),
 			onDismiss = self.onCancel,
-			onBackButtonActivated = self:getBackButtonCallback(),
+			onBackButtonActivated = if self.props.canNavigateBack then self.props.navigateBack else nil,
 		})
 	end)
 end
@@ -338,18 +372,22 @@ end
 return RoactRodux.UNSTABLE_connect2(
 	function(state, props)
 		return {
-			isReportDialogOpen = state.report.isReportDialogOpen,
+			reportCategory = state.report.reportCategory,
+			isReportDialogOpen = state.report.currentPage == Constants.Page.ReportForm,
 			reportType = state.report.reportType,
 			targetPlayer = state.report.targetPlayer,
-			onGoBack = state.report.onGoBackFromReportDialog,
+			canNavigateBack = #state.report.history > 1,
 			placeName = state.placeInfo.name,
 			screenSize = state.displayOptions.screenSize,
 		}
 	end,
 	function(dispatch)
 		return {
+			navigateBack = function()
+				dispatch(NavigateBack())
+			end,
 			closeDialog = function()
-				dispatch(CloseReportDialog())
+				dispatch(EndReportFlow())
 			end,
 			sendReport = function(reportType, targetPlayer, reason, description)
 				dispatch(SendReport(reportType, targetPlayer, reason, description))

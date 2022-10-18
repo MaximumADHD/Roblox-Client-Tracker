@@ -38,8 +38,8 @@ function PivotRing:render()
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					Position = UDim2.new(0, screenPosition.X + 0.5, 0, screenPosition.Y + 0.5),
 					BackgroundTransparency = 1,
-				})
-			})
+				}),
+			}),
 		})
 	else
 		return nil

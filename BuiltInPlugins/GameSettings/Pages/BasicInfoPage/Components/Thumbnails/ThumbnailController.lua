@@ -36,6 +36,8 @@ local ThumbnailPreviewDialog = require(Page.Components.Thumbnails.ThumbnailPrevi
 local ThumbnailWidget = require(Page.Components.Thumbnails.ThumbnailWidget)
 local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
 
+local FFlagGameSettingsEnableThumbnailFrameworkDialogs = game:GetFastFlag("GameSettingsEnableThumbnailFrameworkDialogs")
+
 local ThumbnailController = Roact.PureComponent:extend("ThumbnailController")
 
 function ThumbnailController:init()
@@ -59,20 +61,22 @@ function ThumbnailController:addNew()
 end
 
 function ThumbnailController:deleteThumbnail(thumbnailId)
-	local localization = self.props.Localization
-	local dialog = self.props.Dialog
-	local dialogProps = {
-		Size = Vector2.new(368, 145),
-		Title = localization:getText("General", "DeleteDialogHeader"),
-		Header = localization:getText("General", "DeleteDialogBody"),
-		Buttons = {
-			localization:getText("General", "ReplyNo"),
-			localization:getText("General", "ReplyYes"),
-		},
-	}
+	if not FFlagGameSettingsEnableThumbnailFrameworkDialogs then
+		local localization = self.props.Localization
+		local dialog = self.props.Dialog
+		local dialogProps = {
+			Size = Vector2.new(368, 145),
+			Title = localization:getText("General", "DeleteDialogHeader"),
+			Header = localization:getText("General", "DeleteDialogBody"),
+			Buttons = {
+				localization:getText("General", "ReplyNo"),
+				localization:getText("General", "ReplyYes"),
+			},
+		}
 
-	if not dialog.showDialog(SimpleDialog, dialogProps):await() then
-		return
+		if not dialog.showDialog(SimpleDialog, dialogProps):await() then
+			return
+		end
 	end
 
 	self.props.ThumbnailsChanged(Cryo.Dictionary.join(self.props.Thumbnails, {
@@ -100,20 +104,22 @@ function ThumbnailController:moveToIndex(thumbnailId, index)
 end
 
 function ThumbnailController:openPreviewDialog(thumbnailId)
-	local dialogProps = {
-		Title = self.props.Localization:getText("General", "PreviewDialogHeader"),
-		Size = Vector2.new(660, 380),
-		Thumbnails = self.props.Thumbnails,
-		Order = self.props.Order,
-		StartId = thumbnailId,
-	}
+	if not FFlagGameSettingsEnableThumbnailFrameworkDialogs then
+		local dialogProps = {
+			Title = self.props.Localization:getText("General", "PreviewDialogHeader"),
+			Size = Vector2.new(660, 380),
+			Thumbnails = self.props.Thumbnails,
+			Order = self.props.Order,
+			StartId = thumbnailId,
+		}
 
-	local promise = self.props.Dialog.showDialog(ThumbnailPreviewDialog, dialogProps)
+		local promise = self.props.Dialog.showDialog(ThumbnailPreviewDialog, dialogProps)
 
-	promise:catch(function()
-		-- Nothing to catch when window is closed;
-		-- It's just a non-interactable preview window.
-	end)
+		promise:catch(function()
+			-- Nothing to catch when window is closed;
+			-- It's just a non-interactable preview window.
+		end)
+	end
 end
 
 function ThumbnailController:render()

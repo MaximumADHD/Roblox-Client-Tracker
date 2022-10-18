@@ -28,12 +28,12 @@ local AlertDialog = Roact.PureComponent:extend("AlertDialog")
 
 function AlertDialog:init(props)
 	self:setState({
-		enabled = props.Enabled
+		enabled = props.Enabled,
 	})
 
 	self.closeDialog = function()
 		self:setState({
-			enabled = false
+			enabled = false,
 		})
 		self.props.OnClose()
 	end

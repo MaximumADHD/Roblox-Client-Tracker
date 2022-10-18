@@ -28,7 +28,7 @@ local GetFFlagEnableNewInviteMenu = require(Modules.Flags.GetFFlagEnableNewInvit
 
 local User = require(AppTempCommon.LuaApp.Models.User)
 local httpRequest = require(AppTempCommon.Temp.httpRequest)
-local memoize = require(AppTempCommon.Common.memoize)
+local memoize = require(CorePackages.Workspace.Packages.AppCommonLib).memoize
 
 local RetrievalStatus = require(CorePackages.AppTempCommon.LuaApp.Enum.RetrievalStatus)
 

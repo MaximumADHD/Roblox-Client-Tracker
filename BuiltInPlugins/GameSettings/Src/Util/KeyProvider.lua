@@ -49,6 +49,14 @@ function KeyProvider.getVoiceChatEnabledKeyName()
 	return "VoiceChatEnabled"
 end
 
+function KeyProvider.getAvatarChatAudioEnabledKeyName()
+	return "AvatarChatAudioEnabled"
+end
+
+function KeyProvider.getAvatarChatVideoEnabledKeyName()
+	return "AvatarChatVideoEnabled"
+end
+
 function KeyProvider.getApprovedKeyName()
 	return "Approved"
 end

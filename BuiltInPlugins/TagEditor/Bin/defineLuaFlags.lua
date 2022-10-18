@@ -4,7 +4,7 @@
 -- And then error when trying to use flags that aren't yet defined
 -- In most circumstances flags should be initialized to false
 
-game:DefineFastFlag("EnableTagEditorPlugin5", false)
-game:DefineFastInt("ReportTagEditorEventsThrottleHundrethsPercent", 0)
+game:DefineFastFlag("EnableTagEditorPlugin6", false)
+game:DefineFastInt("ReportTagEditorEventsThrottleHundrethsPercent2", 0)
 
 return nil

@@ -20,6 +20,7 @@ local MockCrossDMScriptChangeListenerService = require(Mocks.MockCrossDMScriptCh
 local Constants = require(Plugin.Src.Util.Constants)
 
 local FFlagStudioDebuggerOpenCorrectScriptOnPause = require(Plugin.Src.Flags.GetFFlagStudioDebuggerOpenCorrectScriptOnPause)
+local FFlagStudioDebuggerFixStepButtonsOnError = require(Plugin.Src.Flags.GetFFlagStudioDebuggerFixStepButtonsOnError)
 
 return function()
 	local function setupFakeThread(mockConnection, fakeThreadId)
@@ -115,6 +116,37 @@ return function()
 		expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[1][0].Script]).to.equal(
 			true
 		)
+		mainConnectionManager.ConnectionEnded:Fire(currentMockConnection)
+		mainListener:destroy()
+	end)
+
+	it("should pause DebugConnections on Error", function()
+		if not FFlagStudioDebuggerFixStepButtonsOnError() then
+			return
+		end
+
+		local mainStore = Rodux.Store.new(MainReducer, nil, MainMiddleware)
+		local mainConnectionManager = MockDebuggerConnectionManager.new()
+		local debuggerUIService = MockDebuggerUIService.new()
+		local mockCrossDMScriptChangeListenerService = MockCrossDMScriptChangeListenerService.new()
+
+		local mainListener = DebugConnectionListener.new(
+			mainStore,
+			mainConnectionManager,
+			debuggerUIService,
+			mockCrossDMScriptChangeListenerService
+		)
+		local currentMockConnection = MockDebuggerConnection.new(1)
+
+		setupFakeThread(currentMockConnection, 1)
+
+		local testPausedState1 = mockPausedState.new(Constants.DebuggerPauseReason.Exception, 1, true)
+
+		mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
+		currentMockConnection.Paused:Fire(testPausedState1, testPausedState1.Reason)
+		local state = mainStore:getState()
+		expect(state.Common.isPaused).to.equal(true)
+		expect(state.Common.hitException[1]).to.equal(true)
 		mainConnectionManager.ConnectionEnded:Fire(currentMockConnection)
 		mainListener:destroy()
 	end)

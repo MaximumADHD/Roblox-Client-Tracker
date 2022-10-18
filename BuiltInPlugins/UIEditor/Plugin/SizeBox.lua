@@ -33,10 +33,12 @@ local function calcSizeBoxPosition(object)
 
 	-- Use max x so that when an object is very narrow the SizeBox always appears to the
 	-- right of the left side.
-	local newX = math.max(objectPosition.X + objectSize.X - valueBoxSize.X.Offset - VALUE_BOX_MARGIN.X, 
-		objectPosition.X + VALUE_BOX_MARGIN.X)
+	local newX = math.max(
+		objectPosition.X + objectSize.X - valueBoxSize.X.Offset - VALUE_BOX_MARGIN.X,
+		objectPosition.X + VALUE_BOX_MARGIN.X
+	)
 	local newY = objectPosition.Y + objectSize.Y + VALUE_BOX_MARGIN.Y
-	
+
 	return UDim2.new(0, newX, 0, newY)
 end
 
@@ -52,7 +54,7 @@ function SizeBox:update()
 	local objectSize = m_selectedObject.AbsoluteSize
 	local newText = ("%d x %d"):format(objectSize.X, objectSize.Y)
 	m_valueBox:setText(newText)
-	
+
 	SizeBox:updatePosition()
 end
 
@@ -62,8 +64,8 @@ end
 function SizeBox:setVisible(visible)
 	if not m_selectedObject then
 		return
-	end	
-	
+	end
+
 	m_valueBox:setVisible(visible)
 end
 
@@ -86,7 +88,7 @@ function SizeBox:updatePosition()
 	if not m_selectedObject then
 		return
 	end
-	
+
 	local newPosition = calcSizeBoxPosition(m_selectedObject)
 	m_valueBox:setPosition(newPosition)
 end
@@ -97,9 +99,9 @@ function SizeBox:On()
 end
 
 -- Turns the SizeBox off and performs de-initialization. Called when the plugin is turned off.
-function SizeBox:Off()	
+function SizeBox:Off()
 	m_selectedObject = nil
-	m_valueBox:Destroy()	
+	m_valueBox:Destroy()
 	m_valueBox = nil
 end
 

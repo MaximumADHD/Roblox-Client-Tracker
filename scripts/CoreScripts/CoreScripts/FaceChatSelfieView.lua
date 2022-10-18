@@ -1,19 +1,24 @@
 --!nonstrict
 --[[
 *current requirements for showing Self View:
-	-avatar with Head and Animator. Head can be either an object inside body with FaceControls or an object called "Head".
+	-player has to have an avatar with Head and Animator. Head can be either an object inside body with FaceControls or an object called "Head".
 	-avatar parent not nil
+	-CoreGuiType.SelfView is not set to false. 
+	It gets set to false when either calling SetCoreGuiEnabled(CoreGuiType.CoreGuiType.SelfView), false
+	or SetCoreGuiEnabled(CoreGuiType.All, false)
+	the later is the case in many experiences
+	(in that case the developer would have to call SetCoreGuiEnabled(CoreGuiType.CoreGuiType.SelfView), true)
+	then if they want to disable all toggleable CoreGuiTypes but then enable just Self View)
 
 *currently the Self View gets hidden if no usable head found, this may be changed based on feedback from Product
 
 TODO: this is just an in between state checkin for MVP preview
 this will see major refactors over the next PRs before MVP release
 bigger changes before mvp release next up:
--bigger changes to UI and whole flow
 -test print messages cleanup before MVP release
 
 *bigger changes before full version release:
--add tracking calls
+-add more analytics tracking calls
 -improve cam framing in viewportframe further
 (-add new SelfViewService for further customization (position, size, color, override head name (so it can use a head not named "Head", lighting settings etc))
 -potentially changing this to do the ui in roact (pros/ cons to evaluate)
@@ -30,8 +35,13 @@ function debugPrint(text)
 	end
 end
 
-debugPrint("Self View 10-04-2022__1")
+debugPrint("Self View 10-13-2022__1")
 
+local EngineFeatureFacialAnimationStreamingServiceUseV2 = game:GetEngineFeature("FacialAnimationStreamingServiceUseV2")
+local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
+
+local CorePackages = game:GetService("CorePackages")
+local Promise = require(CorePackages.Promise)
 local CoreGui = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -41,18 +51,28 @@ local UserInputService = game:GetService("UserInputService")
 local AppStorageService = game:GetService("AppStorageService")
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local FaceAnimatorService = game:FindService("FaceAnimatorService")
+local VideoCaptureService = game:FindService("VideoCaptureService")
+local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 local DEFAULT_POSITION = UDim2.fromOffset(15, 25)
-local DEFAULT_SIZE = UDim2.fromOffset(150, 180)
+local DEFAULT_SIZE = UDim2.new(0.15, 0, 0.4, 0)
 local DEFAULT_BUTTONS_BAR_HEIGHT = 36
 local DEFAULT_SELF_VIEW_FRAME_COLOR = Color3.new(1, 1, 1)
 local BACKGROUND_TRANSPARENCY = 0.65
 local SCREEN_BORDER_OFFSET = 3
 local SELF_VIEW_NAME = "SelfView"
-local MIC_ICON_ENABLED = "rbxasset://textures/SelfView/SelfView_icon_mic_enabled.png"
-local MIC_ICON_DISABLED = "rbxasset://textures/SelfView/SelfView_icon_mic_disabled.png"
-local CAM_ICON_ENABLED = "rbxasset://textures/SelfView/SelfView_icon_camera_enabled.png"
-local CAM_ICON_DISABLED = "rbxasset://textures/SelfView/SelfView_icon_camera_disabled.png"
+local IS_STUDIO = RunService:IsStudio()
+local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSignal)
+local selfViewCloseButtonSignal = require(RobloxGui.Modules.SelfView.selfViewCloseButtonSignal)
+local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
+
+local UIBlox = require(CorePackages.UIBlox)
+local Images = UIBlox.App.ImageSet.Images
+local VIDEO_IMAGE = Images["icons/controls/video"]
+local VIDEO_OFF_IMAGE = Images["icons/controls/videoOff"]
+local MIC_IMAGE = Images["icons/controls/microphone"]
+local MIC_OFF_IMAGE = Images["icons/controls/microphoneMute"]
+
 local DEFAULT_SELF_VIEW_CAM_OFFSET = Vector3.new(0,0.105,-0.25)
 local cloneCharacterName = "SelfAvatar"
 -- seconds to wait to update the clone after something in the original has changed
@@ -62,9 +82,13 @@ local updateCloneCurrentCoolDown = 0
 local renderSteppedConnection = nil
 local playerCharacterAddedConnection
 local playerCharacterRemovingConnection
+local serviceStateSingalConnection = nil
 local trackStoppedConnections = {}
 local videoAnimationPropertyChangedSingalConnection = nil
 local audioAnimationPropertyChangedSingalConnection = nil
+local videoCaptureServiceStartedConnection = nil
+local videoCaptureServiceStoppedConnection = nil
+local videoCaptureServiceDevicesChangedConnection = nil
 
 local cloneAnimator = nil
 local cloneAnimationTracks = {}
@@ -96,7 +120,17 @@ local foundStreamTrack = nil
 local gotUsableClone = false
 local initialized = false
 local cloneCamUpdateCounter = 0
-local cloneCamUpdatePosEvery = 2
+local selfViewSessionStarted = false
+local cachedViewSessionStarted = false
+--TODO: increase cloneCamUpdatePosEvery once we add easing to the cam framing code
+local cloneCamUpdatePosEvery = 1
+local hasCameraPermissions = false
+local hasMicPermissions = false
+local cachedHasCameraPermissions = false
+local cachedHasMicPermissions = false
+local lastReportedMicState = false
+local lastReportedCamState = false
+local toggleSelfViewSignalConnection
 
 local observerInstances = {}
 local Observer = {
@@ -110,9 +144,28 @@ local Observer = {
 	CharacterRemoving = "CharacterRemoving"
 }
 
+function startSelfViewSession()
+	Analytics:reportSelfViewSessionStarted(math.floor(frame.AbsolutePosition.X), math.floor(frame.AbsolutePosition.Y), math.floor(frame.AbsoluteSize.X), math.floor(frame.AbsoluteSize.Y))
+end
+
+function stopSelfViewSession()
+	Analytics:reportSelfViewSessionStopped()
+end
+
 function getShouldBeEnabledCoreGuiSetting()
 	--debugPrint("Self View: getShouldBeEnabledCoreGuiSetting(): StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView): "..tostring(StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)))
 	return (StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.All) or StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView))
+end
+
+-- Check that the user's device has given Roblox mic and camera permissions.
+function getPermissions()
+	debugPrint("Self View: getPermissions()")
+
+	local callback = function(response)
+		hasCameraPermissions = response.hasCameraPermissions
+		hasMicPermissions = response.hasMicPermissions
+	end
+	getCamMicPermissions(callback)
 end
 
 local function removeChild(model, childName)
@@ -123,7 +176,7 @@ local function removeChild(model, childName)
 end
 
 function setCloneDirty(dirty)
-	debugPrint("Self View: setCloneDirty(), dirty: "..tostring(dirty))
+	--debugPrint("Self View: setCloneDirty(), dirty: "..tostring(dirty))
 	if dirty then
 		updateCloneCurrentCoolDown = UPDATE_CLONE_CD
 	else
@@ -165,6 +218,14 @@ local function processDrag(frame, inputPosition, dragStartPosition, frameStartPo
 	-- Constrain the location to the screen.
 	local screenSize = frame.Parent.AbsoluteSize
 	frame.Position = constrainTargetPositionToScreen(frame, screenSize, newPosition)
+end
+
+function getRelativePosition(uiObject)
+	if not uiObject.Parent then
+		return uiObject.Size
+	end
+	local screenSize = uiObject.Parent.AbsoluteSize
+	return UDim2.new(frame.AbsolutePosition.X  / screenSize.X, 0, frame.AbsolutePosition.Y /screenSize.Y, 0)
 end
 
 -- Listen for drag input from the user
@@ -213,6 +274,8 @@ local function inputBegan(frame, inputObj)
 		dragging = false
 
 		disconnectListeners()
+		
+		frame.Position = getRelativePosition(frame)
 
 		local value = frame.AbsolutePosition.X .."," ..frame.AbsolutePosition.Y
 		AppStorageService:SetItem("SelfViewPosition", value)
@@ -225,6 +288,18 @@ local function inputBegan(frame, inputObj)
 	table.insert(connections, focusLostConnection)
 end
 -- END DRAGGING --
+
+function createCloneAnchor()
+	if cloneAnchor ~= nil then
+		cloneAnchor:Destroy()
+		cloneAnchor = nil
+	end
+
+	local worldModel = Instance.new("WorldModel")
+	worldModel.Parent = viewportFrame
+	-- define clone anchor
+	cloneAnchor = worldModel
+end
 
 local function createViewport()
 	--TODO: this UI setup could be changed to roact setup before MVP release, to evaluate pros/ cons
@@ -239,9 +314,12 @@ local function createViewport()
 	frame = Instance.new("Frame")
 	frame.Name = SELF_VIEW_NAME
 	frame.Parent = RobloxGui
+	--setting frame active so one doesn't accidentally use mobile touch dpad or cam controls on mobile while dragging Self View around
+	frame.Active = true
 	--setting frame size before setting it's position since the size is used in dragging position restrict to screen size evaluation
 	frame.Size = DEFAULT_SIZE
 	local position = DEFAULT_POSITION
+	
 	-- Remove pcall when the key SelfViewPosition is in AppStorageService.
 	pcall(function()
 		local savedPosition = AppStorageService:GetItem("SelfViewPosition")
@@ -257,6 +335,7 @@ local function createViewport()
 		end
 	end)
 	frame.Position = position
+	frame.Position = getRelativePosition(frame)
 	frame.BackgroundTransparency = 1
 	frame.InputBegan:Connect(function(input)
 		inputBegan(frame, input)
@@ -264,10 +343,22 @@ local function createViewport()
 	-- TODO AVBURST-10067 Disconnect event when applicable.
 	--gets enabled once we have a usable avatar
 	frame.Visible = false
+	
+	local aspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+	aspectRatioConstraint.Parent = frame
+	aspectRatioConstraint.AspectRatio = 0.833
+	aspectRatioConstraint.AspectType = "ScaleWithParentSize"
+	aspectRatioConstraint.DominantAxis = "Width"
+	
+	local sizeConstraint = Instance.new("UISizeConstraint")
+	sizeConstraint.Parent = frame
+	sizeConstraint.MaxSize = Vector2.new(140, 140)
+	sizeConstraint.MinSize = Vector2.new(95, 95)
+
 
 	local bottomButtonsFrame = Instance.new("Frame")
 	bottomButtonsFrame.Name = "BottomButtonsFrame"
-	bottomButtonsFrame.Position = UDim2.new(0, 0, 1, -DEFAULT_BUTTONS_BAR_HEIGHT)
+	bottomButtonsFrame.Position = UDim2.new(0, 0, 1, -(DEFAULT_BUTTONS_BAR_HEIGHT-1))
 	bottomButtonsFrame.Size = UDim2.new(1, 0, 0, DEFAULT_BUTTONS_BAR_HEIGHT)
 	bottomButtonsFrame.BackgroundColor3 = DEFAULT_SELF_VIEW_FRAME_COLOR
 	bottomButtonsFrame.BackgroundTransparency = 0
@@ -302,8 +393,8 @@ local function createViewport()
 	micButton.ZIndex = 2
 	micButton.Activated:Connect(function()
 		local voiceService = VoiceChatServiceManager:getService()
-		debugPrint("Self View: micButton.Activated(), voiceService:"..tostring(voiceService))
-		if voiceService then
+		debugPrint("Self View: micButton.Activated(), voiceService:"..tostring(voiceService)..",hasMicPermissions:"..tostring(hasMicPermissions))
+		if voiceService and hasMicPermissions then
 			VoiceChatServiceManager:ToggleMic()
 		else
 			updateAudioButton(false)
@@ -324,10 +415,16 @@ local function createViewport()
 	camButton.LayoutOrder = 1
 	camButton.ZIndex = 3
 	camButton.Activated:Connect(function()
-		if not FaceAnimatorService or not FaceAnimatorService:IsStarted() then
-			return
+		debugPrint("Self View: camButton.Activated(), hasCameraPermissions:"..tostring(hasCameraPermissions))
+		if hasCameraPermissions then
+			if not FaceAnimatorService or not FaceAnimatorService:IsStarted() then
+				updateVideoButton(false)
+				return
+			end
+			FaceAnimatorService.VideoAnimationEnabled = not FaceAnimatorService.VideoAnimationEnabled
+		else
+			updateVideoButton(false)
 		end
-		FaceAnimatorService.VideoAnimationEnabled = not FaceAnimatorService.VideoAnimationEnabled
 	end)
 
 	uiCorner = Instance.new("UICorner")
@@ -339,7 +436,9 @@ local function createViewport()
 	micIcon.AnchorPoint = Vector2.new(0.5, 0.5)
 	micIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
 	micIcon.Size = UDim2.new(0, 32, 0, 32)
-	micIcon.Image = MIC_ICON_DISABLED
+	micIcon.Image = MIC_OFF_IMAGE.Image
+	micIcon.ImageRectOffset = MIC_OFF_IMAGE.ImageRectOffset
+	micIcon.ImageRectSize = MIC_OFF_IMAGE.ImageRectSize
 	micIcon.BackgroundTransparency = 1
 	micIcon.ZIndex = 2	
 
@@ -349,7 +448,9 @@ local function createViewport()
 	camIcon.AnchorPoint = Vector2.new(0.5, 0.5)
 	camIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
 	camIcon.Size = UDim2.new(0, 32, 0, 32)
-	camIcon.Image = CAM_ICON_DISABLED
+	camIcon.Image = VIDEO_OFF_IMAGE.Image
+	camIcon.ImageRectOffset = VIDEO_OFF_IMAGE.ImageRectOffset
+	camIcon.ImageRectSize = VIDEO_OFF_IMAGE.ImageRectSize
 	camIcon.BackgroundTransparency = 1
 	camIcon.ZIndex = 2
 
@@ -419,14 +520,35 @@ local function createViewport()
 	faceIcon.Visible = false	
 	faceIcon.Parent = closeButton
 
-	closeButton.Activated:Connect(function()
-		setIsOpen(not isOpen)
+	local function setButtonButtonsVisibility()
+		if isOpen then
+			micButton.Visible = true
+			camButton.Visible = true
+			closeButton.Visible = true
+		--[[
+			Allow for debugging in studio. This shows the mic option when
+			studio normally does not have this option.
+		]]
+		elseif IS_STUDIO and debug then
+			micButton.Visible = true
+			camButton.Visible = true
+			closeButton.Visible = true
+		else
+			micButton.Visible = false
+			camButton.Visible = false
+			closeButton.Visible = false
+		end
+	end
 
-		selfViewFrame.Visible = isOpen
-		bottomButtonsFrame.Visible = isOpen
-		closeButtonIcon.Visible = isOpen
-		faceIcon.Visible = not isOpen
-		closeButton.BackgroundTransparency = isOpen and 1 or 0.5
+	local function showSelfView(newState)
+		setIsOpen(newState)
+		setButtonButtonsVisibility()
+
+		selfViewFrame.Visible = newState
+		bottomButtonsFrame.Visible = newState
+		closeButtonIcon.Visible = newState
+		faceIcon.Visible = not newState
+		closeButton.BackgroundTransparency = newState and 1 or 0.5
 
 		if isOpen then
 			micButton.Position = UDim2.new(0, 0, 0, 0)
@@ -454,6 +576,18 @@ local function createViewport()
 
 		bottomButtonsFrame.Visible = isOpen
 
+	end	
+
+	closeButton.Activated:Connect(function()
+		selfViewCloseButtonSignal:fire()
+		showSelfView(not isOpen)
+	end)
+
+	if toggleSelfViewSignalConnection then
+		toggleSelfViewSignalConnection:disconnect()
+	end
+	toggleSelfViewSignalConnection = toggleSelfViewSignal:connect(function()
+		showSelfView(not isOpen)
 	end)
 
 	uiCorner = Instance.new("UICorner")
@@ -475,34 +609,36 @@ local function createViewport()
 	uiStroke.Thickness = 2.5
 	uiStroke.Color = DEFAULT_SELF_VIEW_FRAME_COLOR
 
-	local worldModel = Instance.new("WorldModel")
-	worldModel.Parent = viewportFrame
+	createCloneAnchor()
 
 	viewportCamera = Instance.new("Camera")
 	--FoV smaller is closer up
 	viewportCamera.FieldOfView = 55
 	viewportFrame.CurrentCamera = viewportCamera
-	viewportCamera.Parent = worldModel
+	viewportCamera.Parent = viewportFrame
 
-	-- define clone anchor
-	cloneAnchor = worldModel
 end
 
 function toggleIndicator(mode)
-	debugPrint("Self View: toggleIndicator(), mode: "..tostring(mode))
+	debugPrint("Self View: toggleIndicator(), mode: "..tostring(mode)..",hasMicPermissions:"..tostring(hasMicPermissions)..",hasCameraPermissions:"..tostring(hasCameraPermissions))
 	if indicatorCircle then 
-		indicatorCircle.Visible = mode ~= nil and mode ~= Enum.TrackerMode.None
+		indicatorCircle.Visible = ((mode == Enum.TrackerMode.Audio or mode == Enum.TrackerMode.AudioVideo) and hasMicPermissions and (debug or frame.Visible))
+			or ((mode == Enum.TrackerMode.Video or mode == Enum.TrackerMode.AudioVideo) and hasCameraPermissions )
 	end
 end
 
 function updateAudioButton(enabled)
 	if enabled then
 		if micIcon then 
-			micIcon.Image = MIC_ICON_ENABLED
+			micIcon.Image = MIC_IMAGE.Image
+			micIcon.ImageRectOffset = MIC_IMAGE.ImageRectOffset
+			micIcon.ImageRectSize = MIC_IMAGE.ImageRectSize
 		end
 	else
 		if micIcon then 
-			micIcon.Image = MIC_ICON_DISABLED
+			micIcon.Image = MIC_OFF_IMAGE.Image
+			micIcon.ImageRectOffset = MIC_OFF_IMAGE.ImageRectOffset
+			micIcon.ImageRectSize = MIC_OFF_IMAGE.ImageRectSize
 		end
 	end
 
@@ -512,11 +648,15 @@ end
 function updateVideoButton(enabled)
 	if enabled then
 		if camIcon then 
-			camIcon.Image = CAM_ICON_ENABLED
+			camIcon.Image = VIDEO_IMAGE.Image
+			camIcon.ImageRectOffset = VIDEO_IMAGE.ImageRectOffset
+			camIcon.ImageRectSize = VIDEO_IMAGE.ImageRectSize
 		end
 	else
 		if camIcon then 
-			camIcon.Image = CAM_ICON_DISABLED
+			camIcon.Image = VIDEO_OFF_IMAGE.Image
+			camIcon.ImageRectOffset = VIDEO_OFF_IMAGE.ImageRectOffset
+			camIcon.ImageRectSize = VIDEO_OFF_IMAGE.ImageRectSize
 		end
 	end
 
@@ -534,14 +674,50 @@ local onUpdateTrackerMode = function()
 	end
 	debugPrint("Self View: onUpdateTrackerMode(), currentTrackerMode: "..tostring(currentTrackerMode)..",cachedMode:"..tostring(cachedMode))
 
-	updateVideoButton(currentTrackerMode == Enum.TrackerMode.AudioVideo or currentTrackerMode == Enum.TrackerMode.Video)
+	updateVideoButton((currentTrackerMode == Enum.TrackerMode.AudioVideo or currentTrackerMode == Enum.TrackerMode.Video) and hasCameraPermissions)
 
 	toggleIndicator(currentTrackerMode)
+
+	local cameraPermissionsChanged = false
+	local modeChanged = false
 
 	--if clone was setup with no streamtrack but now currentTrackerMode changed to one of the modes which could deliver a stream track, queue refresh of Self View
 	if not foundStreamTrack and  ( cachedMode == Enum.TrackerMode.None and currentTrackerMode ~=  Enum.TrackerMode.None) then
 		setCloneDirty(true)
 	end
+	if cachedHasCameraPermissions ~= hasCameraPermissions or cachedHasMicPermissions ~= hasMicPermissions then
+		debugPrint("Self View: cachedHasCameraPermissions ~= hasCameraPermissions or cachedHasMicPermissions ~= hasMicPermissions")
+		if cachedHasCameraPermissions ~= hasCameraPermissions then
+			cameraPermissionsChanged = true
+		end
+
+		debugPrint("Self View: permissions changed, triggering clone refresh in case we get a streamtrack")
+		setCloneDirty(true)
+	end
+
+	if cachedMode ~= currentTrackerMode then
+		modeChanged = true
+	end
+
+	if modeChanged or cameraPermissionsChanged then
+		local newReportedCamState = false
+
+		if hasCameraPermissions and (currentTrackerMode == Enum.TrackerMode.Video or currentTrackerMode == Enum.TrackerMode.AudioVideo) then
+			newReportedCamState = true
+		end
+
+		if not hasCameraPermissions or (currentTrackerMode ~= Enum.TrackerMode.Video and currentTrackerMode ~= Enum.TrackerMode.AudioVideo) then
+			newReportedCamState = false
+		end
+
+		if newReportedCamState ~= lastReportedCamState then
+			Analytics:reportCamState(newReportedCamState)
+			lastReportedCamState = newReportedCamState
+		end
+	end
+
+	cachedHasCameraPermissions = hasCameraPermissions
+	cachedHasMicPermissions = hasMicPermissions
 	cachedMode = currentTrackerMode
 end
 
@@ -567,12 +743,14 @@ function clearCloneCharacter()
 	if clone then
 		clone:Destroy()
 		clone = nil
-	end	
-	
+	end
+
 	local noRefClone = cloneAnchor:FindFirstChild(cloneCharacterName)
 	if noRefClone then
 		noRefClone:Destroy()
 	end
+
+	createCloneAnchor()
 end
 
 local function clearClone()
@@ -590,6 +768,22 @@ local function clearClone()
 		audioAnimationPropertyChangedSingalConnection:Disconnect()
 		audioAnimationPropertyChangedSingalConnection = nil
 	end
+
+	if videoCaptureServiceStartedConnection then
+		videoCaptureServiceStartedConnection:Disconnect()
+		videoCaptureServiceStartedConnection = nil
+	end
+
+	if videoCaptureServiceStoppedConnection then
+		videoCaptureServiceStoppedConnection:Disconnect()
+		videoCaptureServiceStoppedConnection = nil
+	end
+
+	if videoCaptureServiceDevicesChangedConnection then
+		videoCaptureServiceDevicesChangedConnection:Disconnect()
+		videoCaptureServiceDevicesChangedConnection = nil
+	end	
+
 	foundStreamTrack = nil
 	cachedAudioEnabled = nil
 	cachedMode = nil
@@ -607,9 +801,9 @@ local function syncTrack(animator, track)
 	-- create the track
 	local cloneTrack = nil
 	if track.Animation:IsA("Animation") then
-	--	cloneTrack = animator:LoadAnimation(track.Animation)
-	--	cloneTrack.TimePosition = track.TimePosition
-	--	cloneTrack:AdjustSpeed(track.Speed)
+		--	cloneTrack = animator:LoadAnimation(track.Animation)
+		--	cloneTrack.TimePosition = track.TimePosition
+		--	cloneTrack:AdjustSpeed(track.Speed)
 	elseif track.Animation:IsA("TrackerStreamAnimation") then
 		cloneTrack = animator:LoadStreamAnimation(track.Animation)
 		foundStreamTrack = true
@@ -734,19 +928,19 @@ local function updateClone(player)
 
 	--need to wait here for character else sometimes error on respawn
 	local character = player.Character or player.CharacterAdded:Wait()
-	
-	clearCloneCharacter()
 
 	debugPrint("Self View: updateClone(): character:"..tostring(character))
 
 	local animator = getAnimator(character, 10)
+
+	clearCloneCharacter()
 
 	-- create clone
 	local previousArchivableValue = character.Archivable
 	character.Archivable = true
 	clone = character:Clone()
 	clone.Name = cloneCharacterName
-	
+
 	-- remove unneeded cloned assets
 	--(removing these already here as otherwise on fast respawn the Animate script in the clone can execute some stuff already before removal)
 	removeChild(clone, "Animate")
@@ -876,7 +1070,7 @@ local function characterAdded(character)
 
 	-- listen for updates on the original character's structure
 	observerInstances[Observer.DescendantAdded] = character.DescendantAdded:Connect(function(descendant)
-		debugPrint("Self View: descendant added,descendant.Name: "..descendant.Name)
+		--debugPrint("Self View: descendant added,descendant.Name: "..descendant.Name)
 		if descendant.Name == "Head" then
 			headRef = getHead(character)
 			if headRef then
@@ -1005,10 +1199,45 @@ function prepMicAndCamPropertyChangedSignalHandler()
 			onUpdateTrackerMode()
 		end)
 	end
+
+	if not videoCaptureServiceStartedConnection then
+		videoCaptureServiceStartedConnection = VideoCaptureService.Started:Connect(function()
+			getPermissions()
+			onUpdateTrackerMode()
+		end)
+	end
+
+	if not videoCaptureServiceStoppedConnection then
+		videoCaptureServiceStoppedConnection = VideoCaptureService.Stopped:Connect(function()
+			getPermissions()
+			onUpdateTrackerMode()
+		end)
+	end	
+
+
+	if not videoCaptureServiceDevicesChangedConnection then
+		videoCaptureServiceDevicesChangedConnection = VideoCaptureService.DevicesChanged:Connect(function()
+			getPermissions()
+			onUpdateTrackerMode()
+		end)
+	end
 end
 
 function lerp(a, b, t)
 	return a + (b - a) * t
+end
+
+function trackSelfViewSessionAsNeeded()
+	if frame then
+		selfViewSessionStarted = frame.Visible and isOpen
+		if selfViewSessionStarted and cachedViewSessionStarted ~= selfViewSessionStarted then
+			startSelfViewSession()
+		end
+		if not selfViewSessionStarted and cachedViewSessionStarted ~= selfViewSessionStarted then
+			stopSelfViewSession()
+		end
+		cachedViewSessionStarted = selfViewSessionStarted
+	end
 end
 
 function startRenderStepped(player)
@@ -1030,6 +1259,12 @@ function startRenderStepped(player)
 			audioEnabled = not VoiceChatServiceManager.localMuted
 
 			if cachedAudioEnabled ~= audioEnabled then
+				local newReportedMicState = audioEnabled
+				if lastReportedMicState ~= newReportedMicState then
+					Analytics:reportMicState(newReportedMicState)
+					lastReportedMicState = newReportedMicState
+				end
+
 				updateAudioButton(audioEnabled)
 				cachedAudioEnabled = audioEnabled
 			end
@@ -1129,24 +1364,24 @@ function startRenderStepped(player)
 				end
 
 				if viewportCamera and headClone then
-
 					local center = headClone.Position
 					local centerLowXimpact = headClone.Position
 
 					local headDuringAnimCFrame = headClone.CFrame
 
 					if headCloneNeck then
-
 						local PartParent = headCloneNeck.Part0
 						local PartChild = headCloneNeck.Part1
 						local CParent = headCloneNeck.C0
 						local Child = headCloneNeck.C1
 						local Transform = headCloneNeck.Transform
 
-						headDuringAnimCFrame = PartParent.CFrame * CParent * Transform * Child:Inverse()
+						if PartParent and CParent then
+							headDuringAnimCFrame = PartParent.CFrame * CParent * Transform * Child:Inverse()
 
-						centerLowXimpact = (Vector3.new(  headDuringAnimCFrame.Position.X * 0.05,  (headClone.CFrame.Position.Y + headDuringAnimCFrame.Position.Y+ (headDuringAnimCFrame.Position.Y*0.75)) * 0.33333, (headDuringAnimCFrame.Position.Z)) ) 
-						center = (Vector3.new(  headDuringAnimCFrame.Position.X * 0.5,  (headClone.CFrame.Position.Y + headDuringAnimCFrame.Position.Y+ (headDuringAnimCFrame.Position.Y*0.75)) * 0.33333, (headDuringAnimCFrame.Position.Z)) ) 
+							centerLowXimpact = (Vector3.new(  headDuringAnimCFrame.Position.X * 0.25,  (headClone.CFrame.Position.Y + headDuringAnimCFrame.Position.Y+ (headDuringAnimCFrame.Position.Y*0.75)) * 0.33333, (headDuringAnimCFrame.Position.Z)) ) 
+							center = (Vector3.new(  headDuringAnimCFrame.Position.X * 0.6,  (headClone.CFrame.Position.Y + headDuringAnimCFrame.Position.Y+ (headDuringAnimCFrame.Position.Y*0.75)) * 0.33333, (headDuringAnimCFrame.Position.Z)) ) 
+						end
 					else
 						debugPrint("Self View: no neck found")
 					end
@@ -1172,6 +1407,10 @@ function startRenderStepped(player)
 			end
 		end
 
+		if cachedHasCameraPermissions ~= hasCameraPermissions or cachedHasMicPermissions ~= hasMicPermissions then
+			onUpdateTrackerMode()
+		end
+
 		if updateCloneCurrentCoolDown > 0 then
 			updateCloneCurrentCoolDown = updateCloneCurrentCoolDown - step
 			if updateCloneCurrentCoolDown <= 0 then
@@ -1186,12 +1425,70 @@ function startRenderStepped(player)
 			if frame.Visible ~= gotUsableClone or frame.Visible ~= shouldBeEnabledCoreGuiSetting then
 				frame.Visible = gotUsableClone and shouldBeEnabledCoreGuiSetting
 			end
+
+			trackSelfViewSessionAsNeeded()
 		end
+
+		--debugPrint("Self View: renderstepped, hasCameraPermissions: "..tostring(hasCameraPermissions)..",hasMicPermissions:"..tostring(hasMicPermissions))
+
 	end)
 end
 
+if EngineFeatureFacialAnimationStreamingServiceUseV2 then	
+	function triggerAnalyticsReportExperienceSettings(serviceState)
+		local experienceSettings_placeEnabled = FacialAnimationStreamingService:IsPlaceEnabled(serviceState)
+		--local experienceSettings_serverEnabled = FacialAnimationStreamingService:IsServerEnabled(serviceState) --this one is only for throttling, won't send for now
+		local experienceSettings_videoEnabled = FacialAnimationStreamingService:IsVideoEnabled(serviceState)
+		local experienceSettings_audioEnabled = FacialAnimationStreamingService:IsAudioEnabled(serviceState)
+
+		Analytics:reportExperienceSettings(experienceSettings_placeEnabled, experienceSettings_videoEnabled, experienceSettings_audioEnabled)
+		
+		--[[
+		--TODO: product decision to be made whether we won't show Self View if not voice or video on for experience, if so, comment this in
+		if EngineFeatureFacialAnimationStreamingServiceUseV2 then	
+			if not experienceSettings_placeEnabled and not experienceSettings_videoEnabled and not experienceSettings_audioEnabled and not IS_STUDIO and not debug then
+				showSelfView(false)
+			end
+		end
+		]]
+	end
+
+	function triggerAnalyticsReportUserAccountSettings(userId)
+		return Promise.new(function(resolve, reject)
+			local ok, state = pcall(FacialAnimationStreamingService.ResolveStateForUser, FacialAnimationStreamingService, userId)
+
+			if ok then
+
+				local userAccount_videoEnabled = FacialAnimationStreamingService:IsVideoEnabled(state)
+				local userAccount_audioEnabled = FacialAnimationStreamingService:IsAudioEnabled(state)
+
+				Analytics:reportUserAccountSettings(userAccount_videoEnabled, userAccount_audioEnabled)
+			end
+		end)
+	end
+end
+
 function Initialize(player)
-	if not getShouldBeEnabledCoreGuiSetting() then return end
+
+	local shouldBeEnabledCoreGuiSetting = getShouldBeEnabledCoreGuiSetting()
+
+	Analytics:reportSelfViewEnabledInCoreGuiState(shouldBeEnabledCoreGuiSetting)	
+
+	if not shouldBeEnabledCoreGuiSetting and not debug then return end
+
+	if EngineFeatureFacialAnimationStreamingServiceUseV2 then	
+		-- Listen for service state (info whether enabled for place/experience)
+		serviceStateSingalConnection = FacialAnimationStreamingService:GetPropertyChangedSignal("ServiceState"):Connect(function()
+			triggerAnalyticsReportExperienceSettings(FacialAnimationStreamingService.ServiceState)
+		end)
+		triggerAnalyticsReportExperienceSettings(FacialAnimationStreamingService.ServiceState)
+
+		triggerAnalyticsReportUserAccountSettings(player.UserId)
+	end	
+
+
+
+	getPermissions()
 	createViewport()
 
 	playerAdded(player)
@@ -1202,6 +1499,7 @@ function Initialize(player)
 			clearObserver(Observer.CharacterAdded)
 			clearObserver(Observer.CharacterRemoving)
 			clearClone()
+			if serviceStateSingalConnection then serviceStateSingalConnection:Disconnect() end
 		end
 	end)
 
@@ -1227,6 +1525,10 @@ function setIsOpen(shouldBeOpen)
 		clearClone()
 
 		prepMicAndCamPropertyChangedSignalHandler()
+
+		indicatorCircle.Visible = debug
+
+		trackSelfViewSessionAsNeeded()
 	end
 end
 
@@ -1237,6 +1539,9 @@ end
 StarterGui.CoreGuiChangedSignal:Connect(function(coreGuiType, newState)
 	if coreGuiType == Enum.CoreGuiType.All or (coreGuiType == Enum.CoreGuiType.SelfView) then
 		local shouldBeEnabledCoreGuiSetting = getShouldBeEnabledCoreGuiSetting()
+
+		Analytics:reportSelfViewEnabledInCoreGuiState(shouldBeEnabledCoreGuiSetting)
+
 		debugPrint("Self View: CoreGuiChangedSignal: shouldBeEnabledCoreGuiSetting: "..tostring(shouldBeEnabledCoreGuiSetting))
 		--when disable call comes in we always do it, when enable call comes in only if not visible already
 		if not newState or frame.Visible ~= newState then

@@ -48,7 +48,7 @@ end
 -- Get the first selectable associated any of the candidateParts
 -- A loop is required because this may be non-trivial in the case where some of
 -- the parts have Locked = true.
-local function findSelectable(candidateParts: {BasePart}): PVInstance?
+local function findSelectable(candidateParts: { BasePart }): PVInstance?
 	for _, part in ipairs(candidateParts) do
 		local candidateSelectable = getSelectableWithCache(part, false, {})
 		if candidateSelectable then
@@ -67,7 +67,7 @@ function MoveHandlesImplementation:_findNewSnapTargetImpl(smallTestPart: BasePar
 			return
 		end
 	end
-	
+
 	-- Not colliding with anything in the current snap target, find a new one.
 	local newCandidate = findSelectable(hitParts)
 	if newCandidate then

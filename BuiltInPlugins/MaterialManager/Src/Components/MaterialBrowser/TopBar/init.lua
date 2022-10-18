@@ -49,6 +49,7 @@ local getFFlagMaterialManagerVariantCreatorOverhaul = require(
 	Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul
 )
 local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
+local getFFlagMaterialManagerAddAnalyticsCategories = require(Plugin.Src.Flags.getFFlagMaterialManagerAddAnalyticsCategories)
 local supportedMaterials = getSupportedMaterials()
 
 local TopBar = Roact.PureComponent:extend("TopBar")
@@ -119,6 +120,9 @@ function TopBar:init()
 				["BaseMaterial"] = getMaterialName(material),
 			}
 			props.Analytics:report("newMaterialVariant", args, FIntInfluxReportMaterialManagerHundrethPercent2)
+			if getFFlagMaterialManagerAddAnalyticsCategories() then
+				props.Analytics:report("newMaterialVariantCounter")
+			end
 
 			props.MaterialServiceController:setPath(getMaterialPath(material))
 			props.dispatchSetMaterialVariant(materialVariant)

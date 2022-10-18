@@ -18,7 +18,6 @@ local Image = UI.Decoration.Image
 local LoadingImage = require(Plugin.Src.Components.LoadingImage)
 
 local getFFlagMaterialManagerVariantCreatorOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
-local getFFlagDevFrameworkSelectableTextLabel = require(Plugin.Src.Flags.getFFlagDevFrameworkSelectableTextLabel)
 
 type Array<T> = { [number]: T }
 
@@ -107,7 +106,7 @@ function PreviewDialog:render()
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			Size = UDim2.new(1, 0, 0, style.TextHeight),
 			Text = text,
-			TextSelectable = if getFFlagDevFrameworkSelectableTextLabel() then true else nil,
+			TextSelectable = true,
 			TextSize = style.TextHeight,
 			TextXAlignment = Enum.TextXAlignment.Left,
 		})

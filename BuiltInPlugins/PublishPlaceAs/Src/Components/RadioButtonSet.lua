@@ -30,17 +30,14 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local UILibrary = if FFlagRemoveUILibraryTitledFrame then nil else require(Plugin.Packages.UILibrary)
-
 local RadioButton = require(Plugin.Src.Components.RadioButton)
 
 local UI = Framework.UI
-local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
+local TitledFrame = UI.TitledFrame
 
 local Constants = require(Plugin.Src.Resources.Constants)
 
@@ -117,21 +114,10 @@ function RadioButtonSet:render()
 
 	maxHeight = math.max(self.state.maxHeight, maxHeight)
 
-	return Roact.createElement(
-		TitledFrame,
-		if FFlagRemoveUILibraryTitledFrame
-			then {
-				LayoutOrder = props.LayoutOrder or 1,
-				Title = props.Title,
-			}
-			else {
-				Title = props.Title,
-				MaxHeight = maxHeight,
-				LayoutOrder = props.LayoutOrder or 1,
-				TextSize = Constants.TEXT_SIZE,
-			},
-		children
-	)
+	return Roact.createElement(TitledFrame, {
+		LayoutOrder = props.LayoutOrder or 1,
+		Title = props.Title,
+	}, children)
 end
 
 RadioButtonSet = withContext({

@@ -63,9 +63,11 @@ export type TryOpenAssetConfigFn = ((
 	assetTypeEnum: Enum.AssetType
 ) -> ())
 
+export type OnAssetPreviewButtonClickedFn = ((assetData: any) -> ())
+
 export type AssetLogicWrapperProps = {
 	CanInsertAsset: (() -> boolean)?,
-	OnAssetPreviewButtonClicked: ((assetData: any) -> ()),
+	OnAssetPreviewButtonClicked: OnAssetPreviewButtonClickedFn,
 	TryInsert: ((assetData: any, assetWasDragged: boolean, insertionMethod: string) -> any),
 	TryOpenAssetConfig: TryOpenAssetConfigFn,
 }

@@ -38,7 +38,7 @@ local LoggingProtocol = require(CorePackages.UniversalApp.Logging.LoggingProtoco
 local FFlagLoadingScreenShowBlankUntilPolicyServiceReturns = game:DefineFastFlag("LoadingScreenShowBlankUntilPolicyServiceReturns", false)
 local FFlagLoadingRemoveRemoteCallErrorPrint = game:DefineFastFlag("LoadingRemoveRemoteCallErrorPrint", false)
 
-local FFlagLoadingScreenRevamp = game:DefineFastFlag("LoadingScreenRevamp3", false)
+local FFlagLoadingScreenRevamp = game:DefineFastFlag("LoadingScreenRevamp4", false)
 local FFlagReportFirstGameInteractive = game:DefineFastFlag("ReportFirstGameInteractive", false)
 
 local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCode")

@@ -3,7 +3,7 @@ return function()
 
 	local Packages = Plugin.Packages
 	local Roact = require(Packages.Roact)
-	
+
 	local AssetConfigTheme = require(Plugin.Core.Util.AssetConfigTheme)
 	local MockWrapper = require(Plugin.Core.Util.MockWrapper)
 
@@ -21,21 +21,20 @@ return function()
 					[1] = {
 						name = "Test1",
 						response = {
-							responseBody = "Test reason 1"
+							responseBody = "Test reason 1",
 						},
 					},
 					[2] = {
 						name = "Test2",
 						response = {
-							responseBody = "Test reason 2"
+							responseBody = "Test reason 2",
 						},
-					}
+					},
 				},
-			})
+			}),
 		})
 
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)
 	end)
-
 end

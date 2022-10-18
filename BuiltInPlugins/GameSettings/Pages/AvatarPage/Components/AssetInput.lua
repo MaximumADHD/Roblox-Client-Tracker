@@ -16,7 +16,6 @@ local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
-local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 local FFlagDevFrameworkMigrateToggleButton = SharedFlags.getFFlagDevFrameworkMigrateToggleButton()
 
 local ContextServices = Framework.ContextServices
@@ -26,7 +25,7 @@ local UI = Framework.UI
 local ToggleButton = if FFlagDevFrameworkMigrateToggleButton
 	then UI.ToggleButton
 	else require(RoactStudioWidgets.ToggleButton)
-local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else require(RoactStudioWidgets.TitledFrame)
+local TitledFrame = UI.TitledFrame
 local TextInput2 = UI.TextInput2
 
 local StateInterfaceTheme = require(Page.Util.StateInterfaceTheme)
@@ -154,20 +153,10 @@ function AssetInput:render()
 			})),
 	}
 
-	return Roact.createElement(
-		TitledFrame,
-		if FFlagRemoveUILibraryTitledFrame
-			then {
-				LayoutOrder = self.props.LayoutOrder or 1,
-				Title = self.props.Title,
-			}
-			else {
-				Title = self.props.Title,
-				MaxHeight = WIDGET_HEIGHT,
-				LayoutOrder = self.props.LayoutOrder or 1,
-			},
-		children
-	)
+	return Roact.createElement(TitledFrame, {
+		LayoutOrder = self.props.LayoutOrder or 1,
+		Title = self.props.Title,
+	}, children)
 end
 
 AssetInput = withContext({

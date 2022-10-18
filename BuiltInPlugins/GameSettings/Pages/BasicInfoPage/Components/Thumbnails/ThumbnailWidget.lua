@@ -25,11 +25,8 @@ local Page = script.Parent.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
-local UILibrary = require(Plugin.Packages.UILibrary)
 local Framework = require(Plugin.Packages.Framework)
-
-local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryBulletPoint = SharedFlags.getFFlagRemoveUILibraryBulletPoint()
+local FFlagGameSettingsEnableThumbnailFrameworkDialogs = game:GetFastFlag("GameSettingsEnableThumbnailFrameworkDialogs")
 
 local UI = Framework.UI
 local BulletList = UI.BulletList
@@ -42,11 +39,8 @@ local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local ThumbnailSet = require(Page.Components.Thumbnails.ThumbnailSet)
 local DragGhostThumbnail = require(Page.Components.Thumbnails.DragGhostThumbnail)
-
-local BulletPoint
-if not FFlagRemoveUILibraryBulletPoint then
-	BulletPoint = UILibrary.Component.BulletPoint
-end
+local DeleteThumbnailDialog = require(Page.Components.Thumbnails.DeleteThumbnailDialog)
+local PreviewThumbnailDialog = require(Page.Components.Thumbnails.PreviewThumbnailDialog)
 
 local getSocialMediaReferencesAllowed = require(Plugin.Src.Util.GameSettingsUtilities).getSocialMediaReferencesAllowed
 
@@ -58,6 +52,8 @@ function ThumbnailWidget:init()
 		dragId = nil,
 		dragIndex = nil,
 		oldIndex = nil,
+		deleteThumbnailInfo = nil,
+		previewThumbnailInfo = nil,
 	}
 
 	self.heightChanged = function(newheight)
@@ -107,6 +103,26 @@ function ThumbnailWidget:init()
 			end
 		end
 	end
+
+	self.promptDeleteThumbnail = function(info)
+		if FFlagGameSettingsEnableThumbnailFrameworkDialogs then
+			self:setState({
+				deleteThumbnailInfo = info,
+			})
+		else
+			self.props.ThumbnailAction("Delete", info)
+		end
+	end
+
+	self.promptPreviewThumbnail = function(info)
+		if FFlagGameSettingsEnableThumbnailFrameworkDialogs then
+			self:setState({
+				previewThumbnailInfo = info,
+			})
+		else
+			self.props.ThumbnailAction("Zoom", info)
+		end
+	end
 end
 
 function ThumbnailWidget:didUpdate(nextProps)
@@ -133,6 +149,8 @@ function ThumbnailWidget:render()
 	local order = self.props.Order or {}
 	local numThumbnails = #order or 0
 	local errorMessage = self.props.ErrorMessage
+	local deleteThumbnailInfo = self.state.deleteThumbnailInfo
+	local previewThumbnailInfo = self.state.previewThumbnailInfo
 
 	local dragId = self.state.dragId
 	local dragIndex = self.state.dragIndex
@@ -166,56 +184,22 @@ function ThumbnailWidget:render()
 		countTextColor = theme.thumbnail.count
 	end
 
-	local notes
-
-	if FFlagRemoveUILibraryBulletPoint then
-		notes = Roact.createElement(BulletList, {
-			TextTruncate = Enum.TextTruncate.AtEnd,
-			Items = {
-				if getSocialMediaReferencesAllowed()
-					then localization:getText("General", "ThumbnailsLimit", {
-						maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS,
-					})
-					else localization:getText("General", "ThumbnailsLimitLuobu", {
-						maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS,
-					}),
-				localization:getText("General", "ThumbnailsHint", {
-					fileTypes = table.concat(DEPRECATED_Constants.IMAGE_TYPES, ", "),
-				}),
-				localization:getText("General", "ThumbnailsModeration"),
-			},
-		})
-	else
-		notes = Roact.createElement("Frame", {
-			LayoutOrder = 1,
-			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, 72),
-			Position = UDim2.new(0, 0, 0, 0),
-		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				Padding = UDim.new(0, 4),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-			}),
-			LimitHint = Roact.createElement(BulletPoint, {
-				LayoutOrder = 1,
-				Text = getSocialMediaReferencesAllowed() and localization:getText("General", "ThumbnailsLimit", {
+	local notes = Roact.createElement(BulletList, {
+		TextTruncate = Enum.TextTruncate.AtEnd,
+		Items = {
+			if getSocialMediaReferencesAllowed()
+				then localization:getText("General", "ThumbnailsLimit", {
 					maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS,
-				}) or localization:getText("General", "ThumbnailsLimitLuobu", {
+				})
+				else localization:getText("General", "ThumbnailsLimitLuobu", {
 					maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS,
 				}),
+			localization:getText("General", "ThumbnailsHint", {
+				fileTypes = table.concat(DEPRECATED_Constants.IMAGE_TYPES, ", "),
 			}),
-			FileHint = Roact.createElement(BulletPoint, {
-				LayoutOrder = 2,
-				Text = localization:getText("General", "ThumbnailsHint", {
-					fileTypes = table.concat(DEPRECATED_Constants.IMAGE_TYPES, ", "),
-				}),
-			}),
-			ModerationHint = Roact.createElement(BulletPoint, {
-				LayoutOrder = 3,
-				Text = localization:getText("General", "ThumbnailsModeration"),
-			}),
-		})
-	end
+			localization:getText("General", "ThumbnailsModeration"),
+		},
+	})
 
 	local children = {
 		-- Placed in a folder to prevent this component from being part
@@ -259,14 +243,12 @@ function ThumbnailWidget:render()
 			DragMove = self.dragMove,
 
 			ButtonPressed = self.props.ThumbnailAction,
+			PromptPreviewThumbnail = self.promptPreviewThumbnail,
+			PromptDeleteThumbnail = self.promptDeleteThumbnail,
+
 			AddNew = function()
 				self.props.ThumbnailAction("AddNew")
 			end,
-
-			UpdateAltText = function(info)
-				self.props.ThumbnailAction("UpdateAltText", info)
-			end,
-			AltTextError = self.props.AltTextError,
 		}),
 
 		-- Placed in a folder to prevent this component from being part
@@ -293,6 +275,38 @@ function ThumbnailWidget:render()
 				})
 			),
 		}),
+
+		DeleteDialog = if FFlagGameSettingsEnableThumbnailFrameworkDialogs
+			then Roact.createElement(DeleteThumbnailDialog, {
+				Enabled = deleteThumbnailInfo ~= nil,
+				OnClose = function()
+					self:setState({
+						deleteThumbnailInfo = Roact.None,
+					})
+				end,
+				DeleteThumbnail = function()
+					self.props.ThumbnailAction("Delete", deleteThumbnailInfo)
+				end,
+			})
+			else nil,
+
+		PreviewDialog = if FFlagGameSettingsEnableThumbnailFrameworkDialogs
+			then Roact.createElement(PreviewThumbnailDialog, {
+				Enabled = previewThumbnailInfo ~= nil,
+				OnClose = function()
+					self:setState({
+						previewThumbnailInfo = Roact.None,
+					})
+				end,
+				Thumbnails = thumbnails,
+				Order = order,
+				StartThumbnailInfo = previewThumbnailInfo,
+				AltTextChanged = function(info)
+					self.props.ThumbnailAction("UpdateAltText", info)
+				end,
+				AltTextError = self.props.AltTextError,
+			})
+			else nil,
 	}
 
 	return Roact.createElement(Pane, {

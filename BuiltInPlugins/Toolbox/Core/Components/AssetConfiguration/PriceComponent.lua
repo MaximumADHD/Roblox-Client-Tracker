@@ -45,7 +45,7 @@ local ToolboxUtilities = if FFlagToolboxAssetConfigurationVerifiedPrice then req
 
 local ROW_HEIGHT = 24
 local TEXT_INPUT_BOX_HEIGHT = 40
-local SHALLOW_ROW_HEIGHT = ROW_HEIGHT*0.75
+local SHALLOW_ROW_HEIGHT = ROW_HEIGHT * 0.75
 local INPUT_BOX_WIDTH = 225
 
 local GuiService = if FFlagToolboxAssetConfigurationVerifiedPrice then game:GetService("GuiService") else nil
@@ -87,12 +87,13 @@ function PriceComponent:render()
 	local order = props.LayoutOrder
 
 	local orderIterator = LayoutOrderIterator.new()
-	local finalPrice = AssetConfigUtil.calculatePotentialEarning(allowedAssetTypesForRelease, price, assetTypeEnum, minPrice)
+	local finalPrice =
+		AssetConfigUtil.calculatePotentialEarning(allowedAssetTypesForRelease, price, assetTypeEnum, minPrice)
 
 	local assetConfigTheme = theme.assetConfig
 	local publishAssetTheme = if FFlagToolboxAssetConfigurationVerifiedPrice then theme.publishAsset else nil
 
-	local componentHeight = TEXT_INPUT_BOX_HEIGHT+ROW_HEIGHT+SHALLOW_ROW_HEIGHT
+	local componentHeight = TEXT_INPUT_BOX_HEIGHT + ROW_HEIGHT + SHALLOW_ROW_HEIGHT
 
 	local creatorEarningsPercent = math.max(100 - feeRate, 0)
 	-- Clamp the earnings and fee to make sure it's within the max and min price range.
@@ -102,14 +103,17 @@ function PriceComponent:render()
 
 	local finalPriceString = tostring(finalPrice)
 
-	local canBeSetAsFree = if allowedAssetTypesForFree then Dash.find(allowedAssetTypesForFree, function(assetType)
-		return assetType == assetTypeEnum.Name
-	end) else nil
+	local canBeSetAsFree = if allowedAssetTypesForFree
+		then Dash.find(allowedAssetTypesForFree, function(assetType)
+			return assetType == assetTypeEnum.Name
+		end)
+		else nil
 	local numberPrice = tonumber(price)
 	local isOverMaxPrice = if numberPrice then numberPrice > maxPrice else nil
 
 	local UntypedVector2 = Vector2
-	local inputBoxSize = FFlagPriceComponentTextSize and Vector2.new(INPUT_BOX_WIDTH, ROW_HEIGHT) or UntypedVector2.new(0, INPUT_BOX_WIDTH, 0, ROW_HEIGHT)
+	local inputBoxSize = FFlagPriceComponentTextSize and Vector2.new(INPUT_BOX_WIDTH, ROW_HEIGHT)
+		or UntypedVector2.new(0, INPUT_BOX_WIDTH, 0, ROW_HEIGHT)
 	local earnVector = GetTextSize(finalPriceString, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
 
 	local textboxText = tostring(price or "")
@@ -120,10 +124,16 @@ function PriceComponent:render()
 	local subTextColor = if isPriceValid then assetConfigTheme.labelTextColor else assetConfigTheme.errorColor
 
 	local publishingRequirements = props.publishingRequirements
-	local isVerified = if FFlagToolboxAssetConfigurationVerifiedPrice then publishingRequirements and publishingRequirements.verification and publishingRequirements.verification.isVerified else nil
+	local isVerified = if FFlagToolboxAssetConfigurationVerifiedPrice
+		then publishingRequirements
+		and publishingRequirements.verification
+		and publishingRequirements.verification.isVerified
+		else nil
 
 	-- show price input if we did not retrieve any publishing requirements (non-creator marketplace asset) or if they are verified already
-	local showPriceInput = if FFlagToolboxAssetConfigurationVerifiedPrice then publishingRequirements == nil or isVerified else true
+	local showPriceInput = if FFlagToolboxAssetConfigurationVerifiedPrice
+		then publishingRequirements == nil or isVerified
+		else true
 
 	if not showPriceInput then
 		return Roact.createElement(TitledFrame, {
@@ -161,8 +171,8 @@ function PriceComponent:render()
 					OnClick = self.onClickLearnMore,
 					Size = UDim2.new(1, 0, 0, 0),
 					Text = localization:getText("General", "LearnMore"),
-				})
-			})
+				}),
+			}),
 		})
 	end
 
@@ -171,7 +181,9 @@ function PriceComponent:render()
 		LayoutOrder = order,
 	}, {
 		InputRow = Roact.createElement("Frame", {
-			Size = if canBeSetAsFree then UDim2.new(1, 0, 0, componentHeight - 15) else UDim2.new(1, 0, 0, componentHeight - 30),
+			Size = if canBeSetAsFree
+				then UDim2.new(1, 0, 0, componentHeight - 15)
+				else UDim2.new(1, 0, 0, componentHeight - 30),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			LayoutOrder = orderIterator:getNextOrder(),
@@ -197,7 +209,7 @@ function PriceComponent:render()
 					Padding = UDim.new(0, 10),
 				}),
 
-				RobuxIcon = Roact.createElement("ImageLabel",{
+				RobuxIcon = Roact.createElement("ImageLabel", {
 					Size = Constants.Dialog.ROBUX_SIZE,
 
 					Image = Images.ROBUX_SMALL,
@@ -208,8 +220,9 @@ function PriceComponent:render()
 				RoundTextBox = Roact.createElement(TextInput, {
 					Enabled = AssetConfigUtil.isOnSale(assetStatus),
 					OnTextChanged = self.onPriceChange,
-					Size = UDim2.new(0.9, 0 ,1, 0),
-					Style = (textOverMaxCount or not isPriceValid) and "FilledRoundedRedBorder" or "FilledRoundedBorder",
+					Size = UDim2.new(0.9, 0, 1, 0),
+					Style = (textOverMaxCount or not isPriceValid) and "FilledRoundedRedBorder"
+						or "FilledRoundedBorder",
 					Text = textboxText,
 				}),
 			}),
@@ -227,71 +240,80 @@ function PriceComponent:render()
 					PaddingLeft = UDim.new(0, 26),
 				}),
 
-				UIListLayout = if canBeSetAsFree then Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = Enum.FillDirection.Vertical,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-					Padding = UDim.new(0, 0),
-				}) else nil,
+				UIListLayout = if canBeSetAsFree
+					then Roact.createElement("UIListLayout", {
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						FillDirection = Enum.FillDirection.Vertical,
+						HorizontalAlignment = Enum.HorizontalAlignment.Left,
+						VerticalAlignment = Enum.VerticalAlignment.Top,
+						Padding = UDim.new(0, 0),
+					})
+					else nil,
 
-				MinimumPriceLabel = if canBeSetAsFree and not isOverMaxPrice then Roact.createElement(TextLabel, {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					LayoutOrder = 1,
-					LineHeight = 1.5,
-					Size = UDim2.new(1, 0, 0, 0),
+				MinimumPriceLabel = if canBeSetAsFree and not isOverMaxPrice
+					then Roact.createElement(TextLabel, {
+						AutomaticSize = Enum.AutomaticSize.Y,
+						LayoutOrder = 1,
+						LineHeight = 1.5,
+						Size = UDim2.new(1, 0, 0, 0),
 
-					Text = localization:getText("General", "SalesMinimumPrice", {
-						minPrice = tostring(minPrice),
-					}),
-					TextColor = subTextColor,
-					TextSize = Constants.FONT_SIZE_SMALL,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Center,
-				}) else nil,
+						Text = localization:getText("General", "SalesMinimumPrice", {
+							minPrice = tostring(minPrice),
+						}),
+						TextColor = subTextColor,
+						TextSize = Constants.FONT_SIZE_SMALL,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Center,
+					})
+					else nil,
 
-				FreePriceLabel = if canBeSetAsFree and not isOverMaxPrice then Roact.createElement(TextLabel, {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					LayoutOrder = 2,
-					LineHeight = 1.5,
-					Size = UDim2.new(1, 0, 0, 0),
+				FreePriceLabel = if canBeSetAsFree and not isOverMaxPrice
+					then Roact.createElement(TextLabel, {
+						AutomaticSize = Enum.AutomaticSize.Y,
+						LayoutOrder = 2,
+						LineHeight = 1.5,
+						Size = UDim2.new(1, 0, 0, 0),
 
-					Text = localization:getText("General", "SalesFreePrice"),
-					TextColor = subTextColor,
-					TextSize = Constants.FONT_SIZE_SMALL,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Center,
-				}) else nil,
+						Text = localization:getText("General", "SalesFreePrice"),
+						TextColor = subTextColor,
+						TextSize = Constants.FONT_SIZE_SMALL,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Center,
+					})
+					else nil,
 
-				MaxPriceLabel = if canBeSetAsFree and isOverMaxPrice then Roact.createElement(TextLabel, {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					LayoutOrder = 1,
-					LineHeight = 1.5,
-					Size = UDim2.new(1, 0, 0, 0),
+				MaxPriceLabel = if canBeSetAsFree and isOverMaxPrice
+					then Roact.createElement(TextLabel, {
+						AutomaticSize = Enum.AutomaticSize.Y,
+						LayoutOrder = 1,
+						LineHeight = 1.5,
+						Size = UDim2.new(1, 0, 0, 0),
 
-					Text = localization:getText("General", "SalesMaxPrice", {
-						maxPrice = tostring(maxPrice),
-					}),
-					TextColor = subTextColor,
-					TextSize = Constants.FONT_SIZE_SMALL,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Center,
+						Text = localization:getText("General", "SalesMaxPrice", {
+							maxPrice = tostring(maxPrice),
+						}),
+						TextColor = subTextColor,
+						TextSize = Constants.FONT_SIZE_SMALL,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Center,
+					})
+					else nil,
 
-				}) else nil,
+				PriceRangeLabel = if not canBeSetAsFree
+					then Roact.createElement(TextLabel, {
+						LayoutOrder = 1,
+						Size = UDim2.new(1, INPUT_BOX_WIDTH, 0, 0),
 
-				PriceRangeLabel = if not canBeSetAsFree then Roact.createElement(TextLabel, {
-					LayoutOrder = 1,
-					Size = UDim2.new(1, INPUT_BOX_WIDTH, 0, 0),
-
-					Text = localization:getText("General", "SalesPriceRange", {
-						minPrice = tostring(minPrice),
-						maxPrice = tostring(maxPrice),
-					}),
-					TextColor = subTextColor,
-					TextSize = Constants.FONT_SIZE_SMALL,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Center,
-				}) else nil,
+						Text = localization:getText("General", "SalesPriceRange", {
+							minPrice = tostring(minPrice),
+							maxPrice = tostring(maxPrice),
+						}),
+						TextColor = subTextColor,
+						TextSize = Constants.FONT_SIZE_SMALL,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Center,
+					})
+					else nil,
 			}),
 		}),
 
@@ -312,7 +334,7 @@ function PriceComponent:render()
 				Size = UDim2.new(1, 0, 1, 0),
 
 				Text = localization:getText("General", "SalesCreatorEarnings", {
-					earningsPercent = tostring(creatorEarningsPercent)
+					earningsPercent = tostring(creatorEarningsPercent),
 				}),
 				TextColor = assetConfigTheme.textColor,
 				TextSize = Constants.FONT_SIZE_MEDIUM,
@@ -354,11 +376,10 @@ function PriceComponent:render()
 					TextSize = Constants.FONT_SIZE_LARGE,
 					TextXAlignment = Enum.TextXAlignment.Right,
 				}),
-			})
+			}),
 		}),
 	})
 end
-
 
 local function mapStateToProps(state)
 	if not FFlagToolboxAssetConfigurationVerifiedPrice then

@@ -30,10 +30,12 @@
 			end)
 --]]
 
+local DEFAULT_STATE = game:GetEngineFeature("VoiceChatSupported") and (Enum::any).VoiceChatState.Ended or nil
+
 -- Shape of context value
 local DEFAULT_VALUE = {
 	voiceEnabled = false,
-	voiceState = game:GetEngineFeature("VoiceChatSupported") and (Enum::any).VoiceChatState.Ended or nil,
+	voiceState = DEFAULT_STATE,
 }
 
 local CorePackages = game:GetService("CorePackages")
@@ -71,7 +73,7 @@ local VoiceStateProvider = function(props)
 					end
 				end
 			end):catch(function()
-				print("Failed to init VoiceChatServiceManager")
+				updateVoiceState(nil ,DEFAULT_STATE)
 			end)
 		end
 

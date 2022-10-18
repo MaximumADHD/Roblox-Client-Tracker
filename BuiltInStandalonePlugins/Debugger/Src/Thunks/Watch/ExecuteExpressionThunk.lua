@@ -6,8 +6,6 @@ local StepStateBundle = require(Models.StepStateBundle)
 local WatchRow = require(Models.Watch.WatchRow)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local FFlagStudioDebuggerExpandVariables = require(Plugin.Src.Flags.GetFFlagStudioDebuggerExpandVariables)
-
 local addChildVariableRowsForExpression, addRootVariableRowChildren
 
 function addChildVariableRowsForExpression(store, stepStateBundle, debuggerConnection, debuggerVar, parentPrefix)
@@ -22,30 +20,20 @@ function addChildVariableRowsForExpression(store, stepStateBundle, debuggerConne
 
 	for _, child in ipairs(children) do
 		-- the table we pass in here is used to pass in columns from a parent VariableRow that we use to make the child row
-		local childVar = nil
-		if FFlagStudioDebuggerExpandVariables() then
-			parentPath = if parentPrefix == "" then debuggerVar.Name else (parentPrefix .. Constants.SeparationToken .. debuggerVar.Name)			
-			childVar = WatchRow.fromChildInstance(child, parentPath)
-			if state.Watch.expressionToExpansionState[parentPath] then
-				--parent was expanded, so the children will be visible and need its children loaded
-				table.insert(visibleChildren, child)
-			end
-		else
-			childVar = WatchRow.fromChildInstance(child, tostring(debuggerVar.VariableId))
+		parentPath = if parentPrefix == "" then debuggerVar.Name else (parentPrefix .. Constants.SeparationToken .. debuggerVar.Name)			
+		local childVar = WatchRow.fromChildInstance(child, parentPath)
+		if state.Watch.expressionToExpansionState[parentPath] then
+			--parent was expanded, so the children will be visible and need its children loaded
+			table.insert(visibleChildren, child)
 		end
 		table.insert(toReturn, childVar)
 	end
-	if FFlagStudioDebuggerExpandVariables() then
-		store:dispatch(AddChildExpression(stepStateBundle, parentPath, toReturn))
-	else
-		store:dispatch(AddChildExpression(stepStateBundle, tostring(debuggerVar.VariableId), toReturn))
-	end
 
-	if FFlagStudioDebuggerExpandVariables() then
-		-- Load the children variables whos parents where previously expanded
-		for _, childVar in ipairs(visibleChildren) do
-			addRootVariableRowChildren(store, stepStateBundle, debuggerConnection, childVar, parentPath)
-		end
+	store:dispatch(AddChildExpression(stepStateBundle, parentPath, toReturn))
+
+	-- Load the children variables whose parents were previously expanded
+	for _, childVar in ipairs(visibleChildren) do
+		addRootVariableRowChildren(store, stepStateBundle, debuggerConnection, childVar, parentPath)
 	end
 end
 

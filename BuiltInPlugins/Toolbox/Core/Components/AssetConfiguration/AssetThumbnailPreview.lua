@@ -26,9 +26,7 @@ local Framework = require(Packages.Framework)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
-local ContextHelper = require(Util.ContextHelper)
 
-local withTheme = ContextHelper.withTheme
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -58,9 +56,9 @@ local function setDefaultCameraView(camera, model)
 	local modelCF = model:GetModelCFrame()
 	camera:SetImageServerView(modelCF)
 
-	local radius = model:GetExtentsSize().magnitude/2
-	local halfFov = math.rad(camera.FieldOfView)/2
-	local depth = radius/math.tan(halfFov)
+	local radius = model:GetExtentsSize().magnitude / 2
+	local halfFov = math.rad(camera.FieldOfView) / 2
+	local depth = radius / math.tan(halfFov)
 
 	-- 1. remove translation
 	-- 2. move to model position
@@ -102,18 +100,18 @@ function AssetThumbnailPreview:didMount()
 
 		stopSoundsPlaying(model)
 
-		local instance = #self.props.instances == 1
-			and self.props.instances[1]
-			or model
+		local instance = #self.props.instances == 1 and self.props.instances[1] or model
 		local thumbnailConfiguration = instance:FindFirstChild("ThumbnailConfiguration")
 		local thumbnailCamera = instance:FindFirstChild("ThumbnailCamera")
 		if thumbnailConfiguration and thumbnailConfiguration:IsA("Configuration") then
 			local thumbnailCameraTarget = thumbnailConfiguration:FindFirstChild("ThumbnailCameraTarget")
 			local thumbnailCameraValue = thumbnailConfiguration:FindFirstChild("ThumbnailCameraValue")
-			if thumbnailCameraTarget
+			if
+				thumbnailCameraTarget
 				and thumbnailCameraTarget:IsA("ObjectValue")
 				and thumbnailCameraValue
-				and thumbnailCameraValue:IsA("CFrameValue") then
+				and thumbnailCameraValue:IsA("CFrameValue")
+			then
 				local target = thumbnailCameraTarget.Value
 				if target and target:IsA("BasePart") then
 					camera.CFrame = target.CFrame:toWorldSpace(thumbnailCameraValue.Value)
@@ -153,7 +151,7 @@ function AssetThumbnailPreview:render()
 		Size = props.Size,
 		Position = position,
 
-		LayoutOrder = layoutOrder
+		LayoutOrder = layoutOrder,
 	}, {
 		PreviewFrame = Roact.createElement(RoundFrame, {
 			BackgroundColor3 = theme.thumbnailPreview.background,
@@ -175,7 +173,7 @@ function AssetThumbnailPreview:render()
 			Position = UDim2.new(0, 0, 1, -titleHeight),
 			Size = UDim2.new(1, 0, 0, titleHeight),
 			BackgroundTransparency = 1,
-		})
+		}),
 	})
 end
 

@@ -87,7 +87,7 @@ local function launchRobuxUpsell()
 			end
 			store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 
-		elseif upsellFlow == UpsellFlow.Mobile then
+		elseif upsellFlow == UpsellFlow.Mobile or (externalSettings.FFlagPPXboxPromptNative() and upsellFlow == UpsellFlow.Xbox) then
 			local nativeProductId = state.nativeUpsell.robuxProductId
 			local productId = state.productInfo.productId
 			local requestType = state.requestType
@@ -96,7 +96,7 @@ local function launchRobuxUpsell()
 			platformInterface.promptNativePurchase(Players.LocalPlayer, nativeProductId)
 			store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 
-		elseif upsellFlow == UpsellFlow.Xbox then
+		elseif upsellFlow == UpsellFlow.Xbox and not externalSettings.FFlagPPXboxPromptNative() then
 			local nativeProductId = state.nativeUpsell.robuxProductId
 			local productId = state.productInfo.productId
 			local requestType = state.requestType
@@ -109,52 +109,30 @@ local function launchRobuxUpsell()
 				local platformPurchaseResult = nil
 				local purchaseCallSuccess = nil
 				local purchaseErrorMsg = nil
-				if externalSettings.FFlagPurchasePromptUpsellXboxFix() then
-					purchaseCallSuccess, purchaseErrorMsg = pcall(function()
-						platformPurchaseResult = platformInterface.beginPlatformStorePurchase(nativeProductId)
-					end)
-				else
+				purchaseCallSuccess, purchaseErrorMsg = pcall(function()
 					platformPurchaseResult = platformInterface.beginPlatformStorePurchase(nativeProductId)
-				end
+				end)
 				
-				if not externalSettings.FFlagPurchasePromptUpsellXboxFix() then
-					if platformPurchaseResult == Constants.PlatformPurchaseResult.PurchaseResult_UserCancelled then
+				if purchaseCallSuccess then
+					resolve(platformPurchaseResult)
+				else
+					reject(purchaseErrorMsg)
+				end
+			end)
+				:andThen(function(result)
+					if result == Constants.PlatformPurchaseResult.PurchaseResult_Success then
+						analytics.signalXboxInGamePurchaseSuccess(productId, requestType, nativeProductId)
+					elseif result == Constants.PlatformPurchaseResult.PurchaseResult_UserCancelled then
 						analytics.signalXboxInGamePurchaseCanceled(productId, requestType, nativeProductId)
 					else
 						analytics.signalXboxInGamePurchaseFailure(productId, requestType, nativeProductId)
 					end
-				end
 
-				if externalSettings.FFlagPurchasePromptUpsellXboxFix() then
-					if purchaseCallSuccess then
-						resolve(platformPurchaseResult)
+					if result == Constants.PlatformPurchaseResult.PurchaseResult_Success
+							or result == Constants.PlatformPurchaseResult.PurchaseResult_RobuxUpdated then
+						return store:dispatch(retryAfterUpsell())
 					else
-						reject(purchaseErrorMsg)
-					end
-				else
-					Promise.resolve(platformPurchaseResult)
-				end
-			end)
-				:andThen(function(result)
-					if externalSettings.FFlagPurchasePromptUpsellXboxFix() then
-						if result == Constants.PlatformPurchaseResult.PurchaseResult_Success then
-							analytics.signalXboxInGamePurchaseSuccess(productId, requestType, nativeProductId)
-						elseif result == Constants.PlatformPurchaseResult.PurchaseResult_UserCancelled then
-							analytics.signalXboxInGamePurchaseCanceled(productId, requestType, nativeProductId)
-						else
-							analytics.signalXboxInGamePurchaseFailure(productId, requestType, nativeProductId)
-						end
-
-						if result == Constants.PlatformPurchaseResult.PurchaseResult_Success
-								or result == Constants.PlatformPurchaseResult.PurchaseResult_RobuxUpdated then
-							return store:dispatch(retryAfterUpsell())
-						else
-							return store:dispatch(ErrorOccurred(PurchaseError.UnknownFailure))
-						end
-					else
-						if result ~= 0 then
-							return store:dispatch(retryAfterUpsell)
-						end
+						return store:dispatch(ErrorOccurred(PurchaseError.UnknownFailure))
 					end
 				end)
 		elseif upsellFlow == UpsellFlow.Unavailable then

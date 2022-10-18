@@ -32,7 +32,7 @@ function SliceEditorTestWrapper:didMount()
 	local instanceUnderEdit = self.props.selectedObject
 	self.sliceCenterChangedSignal = instanceUnderEdit:GetPropertyChangedSignal("SliceCenter"):Connect(function()
 		self:setState({
-			sliceRect = SliceRectUtil.getSliceRectFromSliceCenter(instanceUnderEdit.SliceCenter)
+			sliceRect = SliceRectUtil.getSliceRectFromSliceCenter(instanceUnderEdit.SliceCenter),
 		})
 	end)
 end
@@ -51,8 +51,7 @@ function SliceEditorTestWrapper:render()
 	return Roact.createElement(SliceEditor, {
 		selectedObject = props.selectedObject,
 		pixelDimensions = props.pixelDimensions,
-		onClose = function()
-		end,
+		onClose = function() end,
 		sliceRect = state.sliceRect,
 		revertSliceRect = props.sliceRect,
 	})
@@ -64,6 +63,5 @@ SliceEditorTestWrapper = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Mouse = ContextServices.Mouse,
 })(SliceEditorTestWrapper)
-
 
 return SliceEditorTestWrapper

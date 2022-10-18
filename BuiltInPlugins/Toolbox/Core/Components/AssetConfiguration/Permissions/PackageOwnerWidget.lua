@@ -37,10 +37,16 @@ local FrameworkUtil = require(Packages.Framework).Util
 local deepJoin = FrameworkUtil.deepJoin
 
 local function getGroupOwnerPermissions(props, localized)
-	if not props.CanManage then return {} end
+	if not props.CanManage then
+		return {}
+	end
 
 	local permissions = {
-		{Key = PermissionsConstants.EditKey, Display = localized.PackagePermissions.ActionDropdown.EditLabel, Description = localized.PackagePermissions.ActionDropdown.EditDescription},
+		{
+			Key = PermissionsConstants.EditKey,
+			Display = localized.PackagePermissions.ActionDropdown.EditLabel,
+			Description = localized.PackagePermissions.ActionDropdown.EditDescription,
+		},
 	}
 
 	return permissions
@@ -60,8 +66,8 @@ function PackageOwnerWidget:init()
 			[PermissionsConstants.RoleSubjectKey] = {
 				[roleId] = {
 					[PermissionsConstants.ActionKey] = newPermission,
-				}
-			}
+				},
+			},
 		})
 
 		props.PermissionsChanged(newPermissions)
@@ -88,11 +94,14 @@ function PackageOwnerWidget:renderContent(theme, localized)
 
 			CollaboratorName = props.OwnerName,
 			CollaboratorId = props.OwnerId,
-			CollaboratorIcon = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["AvatarHeadShot"], props.OwnerId,
-				AssetConfigConstants.rbxThumbSizes.AvatarHeadshotImageSize),
+			CollaboratorIcon = Urls.constructRBXThumbUrl(
+				AssetConfigConstants.rbxThumbTypes["AvatarHeadShot"],
+				props.OwnerId,
+				AssetConfigConstants.rbxThumbSizes.AvatarHeadshotImageSize
+			),
 			UseMask = true,
 
-			Action =  localized.PackagePermissions.ActionDropdown.OwnerLabel,
+			Action = localized.PackagePermissions.ActionDropdown.OwnerLabel,
 			Enabled = props.Enabled,
 
 			Items = getUserOwnerPermissions(),

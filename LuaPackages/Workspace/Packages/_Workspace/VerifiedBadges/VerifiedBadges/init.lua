@@ -14,6 +14,7 @@ local constants = require(script.constants)
 
 return {
 	EmojiWrapper = require(script.Components.EmojiWrapper),
+	AboutVerifiedBadgeModal = require(script.Components.AboutVerifiedBadgeModal),
 
 	installReducer = require(script.installReducer),
 

@@ -6,13 +6,12 @@ local RoactStudioWidgets = Plugin.Packages.RoactStudioWidgets
 local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UI = Framework.UI
-local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else require(RoactStudioWidgets.TitledFrame)
+local TitledFrame = UI.TitledFrame
 
 local ConstantFonts = require(Page.Util.ConstantFonts)
 local StateInterfaceTheme = require(Page.Util.StateInterfaceTheme)
@@ -47,21 +46,10 @@ function TitleBar:render()
 		})
 	end
 
-	return Roact.createElement(
-		TitledFrame,
-		if FFlagRemoveUILibraryTitledFrame
-			then {
-				LayoutOrder = self.props.LayoutOrder or 1,
-				Title = self.props.Text,
-			}
-			else {
-				Title = self.props.Text,
-				MaxHeight = textSize.Y,
-				LayoutOrder = self.props.LayoutOrder or 1,
-				Font = ConstantFonts.TitleText.Type,
-			},
-		children
-	)
+	return Roact.createElement(TitledFrame, {
+		LayoutOrder = self.props.LayoutOrder or 1,
+		Title = self.props.Text,
+	}, children)
 end
 
 TitleBar = withContext({

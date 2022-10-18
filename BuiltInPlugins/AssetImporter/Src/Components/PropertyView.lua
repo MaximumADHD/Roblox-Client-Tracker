@@ -24,11 +24,9 @@ local StringProperty = require(Properties.StringProperty)
 local PathProperty = require(Properties.PathProperty)
 local VectorProperty = require(Properties.VectorProperty)
 
-local getFFlagAssetImportSessionCleanup = require(Plugin.Src.Flags.getFFlagAssetImportSessionCleanup)
 local getFFlagAssetImportUsePropertyFactories = require(Plugin.Src.Flags.getFFlagAssetImportUsePropertyFactories)
 local getFFlagAssetImportUpdatePropertySpacing = require(Plugin.Src.Flags.getFFlagAssetImportUpdatePropertySpacing)
 
-local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
 local UpdatePreviewInstance = require(Plugin.Src.Thunks.UpdatePreviewInstance)
 
 
@@ -97,10 +95,6 @@ function PropertyView:init()
 	local function updatePreviewInstance()
 		self.props.UpdatePreviewInstance(self.props.AssetImportSession:GetInstance(self.props.Instance.Id))
 	end
-	self.updateInstanceMap = function()
-		local instanceMap = self.props.AssetImportSession:GetCurrentImportMap()
-		self.props.SetInstanceMap(instanceMap)
-	end
 	self.onToggleItem = function()
 		if getFFlagAssetImportUsePropertyFactories() then
 			local propertyMetadata = self.props.PropertyMetadata
@@ -108,11 +102,8 @@ function PropertyView:init()
 		else
 			self.props.Instance[self.props.PropertyName] = not self.props.Instance[self.props.PropertyName]
 		end
-		if getFFlagAssetImportSessionCleanup() then
-			updatePreviewInstance()
-		else
-			self.updateInstanceMap()
-		end
+
+		updatePreviewInstance()
 	end
 	self.onSetItem = function(newText)
 		if getFFlagAssetImportUsePropertyFactories() then
@@ -129,11 +120,8 @@ function PropertyView:init()
 		else
 			self.props.Instance[self.props.PropertyName] = self.props.Instance[self.props.PropertyName].EnumType[itemName]
 		end
-		if getFFlagAssetImportSessionCleanup() then
-			updatePreviewInstance()
-		else
-			self.updateInstanceMap()
-		end
+
+		updatePreviewInstance()
 	end
 end
 
@@ -278,9 +266,6 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		SetInstanceMap = function(instanceMap)
-			dispatch(SetInstanceMap(instanceMap))
-		end,
 		UpdatePreviewInstance = function(previewInstance)
 			dispatch(UpdatePreviewInstance(previewInstance))
 		end,

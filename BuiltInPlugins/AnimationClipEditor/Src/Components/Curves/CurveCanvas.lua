@@ -75,7 +75,7 @@ export type Props = {
 	OnTangentRightClick: (string, { string }, number, string) -> (),
 }
 
-function CurveCanvas:Init(): ()
+function CurveCanvas:init(): ()
 	self.children = {}
 end
 

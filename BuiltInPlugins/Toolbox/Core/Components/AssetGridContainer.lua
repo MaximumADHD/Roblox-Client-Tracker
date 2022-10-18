@@ -13,6 +13,8 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagToolboxAudioAssetPreview = game:GetFastFlag("ToolboxAudioAssetPreview")
+
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
@@ -174,7 +176,11 @@ function AssetGridContainer:render()
 					Position = position,
 					FetchNextPage = self.requestNextPage,
 					Size = size,
-					tryOpenAssetConfig = props.TryOpenAssetConfig,
+					tryOpenAssetConfig = if FFlagToolboxAudioAssetPreview then nil else props.TryOpenAssetConfig,
+					TryOpenAssetConfig = if FFlagToolboxAudioAssetPreview then props.TryOpenAssetConfig else nil,
+					OnAssetPreviewButtonClicked = if FFlagToolboxAudioAssetPreview
+						then props.OnAssetPreviewButtonClicked
+						else nil,
 				})
 			end
 		end

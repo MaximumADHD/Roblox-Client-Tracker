@@ -9,12 +9,16 @@
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
+local StarterGui = game:GetService("StarterGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Roact)
 local UIBlox = require(CorePackages.UIBlox)
-local Cryo = require(CorePackages.Cryo)
 local t = require(CorePackages.Packages.t)
-local PermissionsProtocol = require(CorePackages.UniversalApp.Permissions.PermissionsProtocol).default
+
+local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSignal)
+local selfViewCloseButtonSignal = require(RobloxGui.Modules.SelfView.selfViewCloseButtonSignal)
+local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 
 local ExternalEventConnection = UIBlox.Utility.ExternalEventConnection
 local Images = UIBlox.App.ImageSet.Images
@@ -45,6 +49,7 @@ PermissionsButtons.validateProps = t.strictInterface({
 	ZIndex = t.number,
 	LayoutOrder = t.number,
 	shouldFillScreen = t.boolean,
+	selfViewEnabled = t.boolean,
 })
 
 local function createDivider(layoutOrder)
@@ -65,10 +70,17 @@ function PermissionsButtons:init()
 		allPlayersMuted = false,
 		microphoneEnabled = not VoiceChatServiceManager.localMuted or false,
 		cameraEnabled = if FaceAnimatorService then FaceAnimatorService.VideoAnimationEnabled else false,
-		selfViewEnabled = false, -- TODO Update once API is available for toggling self view.
+		selfViewEnabled = self.props.selfViewEnabled,
+		showSelfView = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView),
 		hasCameraPermissions = false,
 		hasMicPermissions = false,
 	})
+
+	self.selfViewCloseButtonSignal = selfViewCloseButtonSignal:connect(function()
+		self:setState({
+			selfViewEnabled = not self.state.selfViewEnabled,
+		})
+	end)
 
 	-- Mute all players in the lobby
 	self.toggleMuteAll = function()
@@ -92,7 +104,7 @@ function PermissionsButtons:init()
 
 		self:setState({
 			cameraEnabled = FaceAnimatorService.VideoAnimationEnabled,
-			microphoneEnabled = not VoiceChatServiceManager.localMuted
+			microphoneEnabled = not VoiceChatServiceManager.localMuted,
 		})
 	end
 
@@ -111,12 +123,13 @@ function PermissionsButtons:init()
 
 	-- toggle self view visibility
 	self.toggleSelfView = function()
-		-- TODO Update once Self View API is approved and submitted.
+		toggleSelfViewSignal:fire()
+		self:setState({
+			selfViewEnabled = not self.state.selfViewEnabled,
+		})
 	end
 
 	self.muteChangedEvent = function(muted)
-		-- updateIcon() --TODO Update Icon
-
 		-- Video is tied to audio being enabled.
 		if muted and FaceAnimatorService.VideoAnimationEnabled then
 			FaceAnimatorService.VideoAnimationEnabled = false
@@ -127,23 +140,28 @@ function PermissionsButtons:init()
 			microphoneEnabled = not muted
 		})
 	end
+
+	self.onCoreGuiChanged = function()
+		local coreGuiState = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
+		if self.state.showSelfView ~= coreGuiState then
+			self:setState({
+				showSelfView = coreGuiState
+			})
+		end
+	end
 end
 
 --[[
 	Check if Roblox has permissions for camera/mic access.
 ]]
 function PermissionsButtons:getPermissions()
-	return PermissionsProtocol:hasPermissions({
-		PermissionsProtocol.Permissions.CAMERA_ACCESS,
-		PermissionsProtocol.Permissions.MICROPHONE_ACCESS,
-	}):andThen(function (permissionResponse)
+	local callback = function(response)
 		self:setState({
-			hasCameraPermissions = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
-				or not Cryo.List.find(permissionResponse.missingPermissions, PermissionsProtocol.Permissions.CAMERA_ACCESS),
-			hasMicPermissions = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
-				or not Cryo.List.find(permissionResponse.missingPermissions, PermissionsProtocol.Permissions.MICROPHONE_ACCESS),
+			hasCameraPermissions = response.hasCameraPermissions,
+			hasMicPermissions = response.hasMicPermissions,
 		})
-	end)
+	end
+	getCamMicPermissions(callback)
 end
 
 function PermissionsButtons:didMount()
@@ -206,7 +224,7 @@ function PermissionsButtons:render()
 				image = if self.state.cameraEnabled then VIDEO_IMAGE else VIDEO_OFF_IMAGE,
 				callback = self.toggleVideo,
 			}),
-			EnableSelfViewButton = Roact.createElement(PermissionButton, {
+			EnableSelfViewButton = self.state.showSelfView and Roact.createElement(PermissionButton, {
 				LayoutOrder = 4,
 				image = if self.state.selfViewEnabled then SELF_VIEW_IMAGE else SELF_VIEW_OFF_IMAGE,
 				callback = self.toggleSelfView,
@@ -217,7 +235,17 @@ function PermissionsButtons:render()
 			event = VoiceChatServiceManager.muteChanged.Event,
 			callback = self.muteChangedEvent,
 		}),
+		SelfViewChangedEvent = Roact.createElement(ExternalEventConnection, {
+			event = StarterGui.CoreGuiChangedSignal,
+			callback = self.onCoreGuiChanged,
+		}),
 	})
+end
+
+function PermissionsButtons:willUnmount()
+	if self.selfViewCloseButtonSignal then
+		self.selfViewCloseButtonSignal:disconnect()
+	end
 end
 
 return PermissionsButtons

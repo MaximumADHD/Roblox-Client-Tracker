@@ -4,7 +4,7 @@
 --]]
 
 -- Module scripts
-local FFlag	= require(script.Parent.FFlag)
+local FFlag = require(script.Parent.FFlag)
 local InstanceInfo = require(script.Parent.InstanceInfo)
 local Utility = require(script.Parent.Utility)
 local Select = require(script.Parent.Select)
@@ -13,37 +13,37 @@ local Select = require(script.Parent.Select)
 
 -- void refreshData(table(mt Extents2D)& extents)
 local function refreshData(extents)
-	
 	-- We use extents.hidden.TopLeft and extents.hidden.BottomRight as
 	-- the source of truth for data. Everything else is derived from those
 	-- two points.
 	extents.Center = (extents.hidden.TopLeft + extents.hidden.BottomRight) * 0.5
-	
+
 	extents.hidden.Left = extents.hidden.TopLeft.X
 	extents.hidden.Right = extents.hidden.BottomRight.X
 	extents.hidden.Top = extents.hidden.TopLeft.Y
 	extents.hidden.Bottom = extents.hidden.BottomRight.Y
 	extents.hidden.TopRight = Vector2.new(extents.Right, extents.Top)
 	extents.hidden.BottomLeft = Vector2.new(extents.Left, extents.Bottom)
-	
+
 	extents.Width = extents.hidden.Right - extents.hidden.Left
 	extents.Height = extents.hidden.Bottom - extents.hidden.Top
-	
+
 	extents.Size = Vector2.new(extents.Width, extents.Height)
-	
 end
 
 -- bool isPointVisible(Instance instance, Vector2 point, bool function canSeeThrough(Instance))
 local function isPointVisible(instance, point, canSeeThrough)
-	if (not instance) then return true end
+	if not instance then
+		return true
+	end
 	local guis = Select:getGuiObjectsAtPoint(point)
-		
+
 	for i = 1, #guis do
-		if (guis[i] == instance) then
+		if guis[i] == instance then
 			return true
 		end
-		
-		if (not canSeeThrough(guis[i])) then
+
+		if not canSeeThrough(guis[i]) then
 			return false
 		end
 	end
@@ -52,15 +52,17 @@ end
 
 -- bool isPointVisible(Instance instance, Vector2 point)
 local function DEPRECATED_isPointVisible(instance, point)
-	if (not instance) then return true end
+	if not instance then
+		return true
+	end
 	local guis = Select:getGuiObjectsAtPoint(point)
-		
+
 	for i = 1, #guis do
-		if (guis[i] == instance) then
+		if guis[i] == instance then
 			return true
 		end
-		
-		if (not InstanceInfo:canSeeThrough(guis[i])) then
+
+		if not InstanceInfo:canSeeThrough(guis[i]) then
 			return false
 		end
 	end
@@ -87,30 +89,29 @@ end
 
 -- void extend(table(mt Extents2D)& extents, Vector2 ...)
 local function extend(extents, ...)
-	local args = {...}
-	
+	local args = { ... }
+
 	for i = 1, #args do
 		extents.hidden.TopLeft = Utility:minVector2(extents.hidden.TopLeft, args[i])
 		extents.hidden.BottomRight = Utility:maxVector2(extents.hidden.BottomRight, args[i])
 	end
-	
+
 	refreshData(extents)
 end
 
 -- void set(table(mt Extents2D)& extents, Vector2 ...)
 local function set(extents, ...)
-	local args = {...}
-	if (#args > 0) then
+	local args = { ... }
+	if #args > 0 then
 		extents.hidden.TopLeft = args[1]
 		extents.hidden.BottomRight = args[1]
-		
+
 		table.remove(args, 1)
-		
+
 		extend(extents, unpack(args))
 	else
 		refreshData(extents)
 	end
-	
 end
 
 -- void Extents2D:translate(table(mt Extents2D)& extents, Vector2 offset)
@@ -127,12 +128,12 @@ function resize(extents, size)
 end
 
 -- void Extents2D:extendFromCenter(table(mt Extents2D)& extents, Vector2 offset)
-function expandFromCenter(extents, sizeOffset)	
+function expandFromCenter(extents, sizeOffset)
 	local offset = sizeOffset * 0.5
-	
+
 	extents.TopLeft = extents.TopLeft - offset
 	extents.BottomRight = extents.BottomRight + offset
-	
+
 	refreshData(extents)
 end
 
@@ -144,15 +145,15 @@ function Extents2D.new(...)
 	extents.map = {}
 	extents.mt = {}
 	extents.hidden = {}
-	extents.hidden.TopLeft = Vector2.new(0,0)
-	extents.hidden.BottomRight = Vector2.new(0,0)
-	
+	extents.hidden.TopLeft = Vector2.new(0, 0)
+	extents.hidden.BottomRight = Vector2.new(0, 0)
+
 	set(extents, ...)
-	local function canSeeThrough(instance) 
+	local function canSeeThrough(instance)
 		return InstanceInfo:canSeeThrough(instance)
 	end
 	refreshVisibility(extents, nil, canSeeThrough)
-	
+
 	function extents.mt.__index(t, k)
 		if k == "extend" then
 			return extend
@@ -161,11 +162,11 @@ function Extents2D.new(...)
 		elseif k == "TopLeft" then
 			return t.hidden.TopLeft
 		elseif k == "BottomRight" then
-			return t.hidden.BottomRight	
+			return t.hidden.BottomRight
 		elseif k == "TopRight" then
 			return t.hidden.TopRight
 		elseif k == "BottomLeft" then
-			return t.hidden.BottomLeft		
+			return t.hidden.BottomLeft
 		elseif k == "Top" then
 			return t.hidden.Top
 		elseif k == "Bottom" then
@@ -174,7 +175,6 @@ function Extents2D.new(...)
 			return t.hidden.Left
 		elseif k == "Right" then
 			return t.hidden.Right
-			
 		elseif k == "TopLeftVisible" then
 			return extents.hidden.TopLeftVisible
 		elseif k == "TopRightVisible" then
@@ -193,7 +193,6 @@ function Extents2D.new(...)
 			return extents.hidden.TopRightVisible or extents.hidden.BottomRightVisible
 		elseif k == "CenterVisible" then
 			return extents.hidden.CenterVisible
-			
 		elseif k == "translate" then
 			return translate
 		elseif k == "resize" then
@@ -204,7 +203,7 @@ function Extents2D.new(...)
 			return refreshVisibility
 		end
 	end
-	
+
 	function extents.mt.__newindex(t, k, v)
 		if k == "TopLeft" then
 			t.hidden.TopLeft = v
@@ -227,8 +226,8 @@ function Extents2D.new(...)
 		end
 		refreshData(t)
 	end
-	
-	setmetatable(extents, extents.mt)	
+
+	setmetatable(extents, extents.mt)
 	return extents
 end
 
@@ -257,21 +256,23 @@ end
 function Extents2D:getExtentsFromGui(guiObject)
 	local extents = Extents2D.new(Vector2.new(0, 0))
 	set(extents, guiObject.AbsolutePosition, guiObject.AbsolutePosition + guiObject.AbsoluteSize)
-	
+
 	return extents
 end
 
 -- table(mt Extents2D) Extents2D:getExtentsFromGuis(table(GuiBase2d) guiObjects)
 function Extents2D:getExtentsFromGuis(guiObjects)
-	if (#guiObjects == 0) then return nil end
-	
+	if #guiObjects == 0 then
+		return nil
+	end
+
 	local extents = Extents2D.new(Vector2.new(0, 0))
 	set(extents, guiObjects[1].AbsolutePosition, guiObjects[1].AbsolutePosition + guiObjects[1].AbsoluteSize)
-	
+
 	for i = 2, #guiObjects do
 		extend(extents, guiObjects[i].AbsolutePosition, guiObjects[i].AbsolutePosition + guiObjects[i].AbsoluteSize)
-	end		
-	
+	end
+
 	return extents
 end
 

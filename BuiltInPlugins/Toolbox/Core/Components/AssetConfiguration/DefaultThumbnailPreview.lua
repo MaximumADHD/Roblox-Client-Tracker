@@ -27,9 +27,7 @@ local Framework = require(Packages.Framework)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
-local ContextHelper = require(Util.ContextHelper)
 
-local withTheme = ContextHelper.withTheme
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -39,7 +37,6 @@ local RoundFrame = require(Components.RoundFrame)
 local ImageWithDefault = require(Plugin.Core.Components.ImageWithDefault)
 
 local DefaultThumbnailPreview = Roact.PureComponent:extend("DefaultThumbnailPreview")
-
 
 function DefaultThumbnailPreview:getName()
 	if self.props.instances and #self.props.instances > 0 then
@@ -67,7 +64,7 @@ function DefaultThumbnailPreview:render()
 		Size = props.Size,
 		Position = position,
 
-		LayoutOrder = layoutOrder
+		LayoutOrder = layoutOrder,
 	}, {
 		PreviewFrame = Roact.createElement(RoundFrame, {
 			BackgroundColor3 = theme.thumbnailPreview.background,
@@ -89,7 +86,7 @@ function DefaultThumbnailPreview:render()
 			Position = UDim2.new(0, 0, 1, -titleHeight),
 			Size = UDim2.new(1, 0, 0, titleHeight),
 			BackgroundTransparency = 1,
-		})
+		}),
 	})
 end
 

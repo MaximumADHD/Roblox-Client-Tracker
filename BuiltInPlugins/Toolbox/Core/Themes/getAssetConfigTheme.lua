@@ -1,6 +1,5 @@
 --[[
 	Gets the new Stylizer-compatible AssetConfigTheme
-	This should replace AssetConfigTheme once UILibrary and withTheme are completely removed.
 ]]
 local Plugin = script.Parent.Parent.Parent
 

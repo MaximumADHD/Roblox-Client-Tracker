@@ -67,7 +67,8 @@ function ConfigPackage:renderContent()
 	local publishAssetTheme = theme.publishAsset
 
 	local localization = props.Localization
-	local informationText = localization:getText("AssetConfigPackage", if FFlagToolboxUpdatePackageString then "HelpTextV2" else "HelpText")
+	local informationText =
+		localization:getText("AssetConfigPackage", if FFlagToolboxUpdatePackageString then "HelpTextV2" else "HelpText")
 	local ThreeDWarning = localization:getText("AssetConfigPackage", "Non3DRoot3DDescendentsWarning")
 
 	local showWarningText = props.PackageWarningText ~= nil
@@ -79,7 +80,7 @@ function ConfigPackage:renderContent()
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 
-		LayoutOrder = LayoutOrder
+		LayoutOrder = LayoutOrder,
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
@@ -151,10 +152,12 @@ function ConfigPackage:renderContent()
 						LayoutOrder = 2,
 						BackgroundTransparency = 1,
 						Font = Constants.FONT,
-						Size = UDim2.new(1,  -(TOGGLE_BUTTON_WIDTH+ERROR_TEXT_SPACING), 0, 0),
+						Size = UDim2.new(1, -(TOGGLE_BUTTON_WIDTH + ERROR_TEXT_SPACING), 0, 0),
 						Text = PackageWarningText,
 						TextWrapped = true,
-						TextColor = if PackageWarningText == ThreeDWarning then theme.assetConfig.warningColor else theme.assetConfig.errorColor,
+						TextColor = if PackageWarningText == ThreeDWarning
+							then theme.assetConfig.warningColor
+							else theme.assetConfig.errorColor,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextYAlignment = Enum.TextYAlignment.Center,
 						TextSize = Constants.FONT_SIZE_LARGE,
@@ -174,17 +177,14 @@ function ConfigPackage:renderContent()
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Center,
 				TextSize = Constants.FONT_SIZE_LARGE,
-
 			}),
 		}),
 	})
 end
 
-
 ConfigPackage = withContext({
 	Localization = ContextServices.Localization,
 	Stylizer = ContextServices.Stylizer,
 })(ConfigPackage)
-
 
 return ConfigPackage

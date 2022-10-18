@@ -13,7 +13,7 @@ local function createKey(keyName)
 	local key = newproxy(true)
 
 	getmetatable(key).__tostring = function()
-		return "Symbol("..keyName..")"
+		return "Symbol(" .. keyName .. ")"
 	end
 
 	return key
@@ -34,11 +34,11 @@ local uniqueIdentifiers = {
 	EditKey = createKey("EditPermission"),
 	RevokedKey = createKey("RevokedPermission"),
 	OwnKey = createKey("OwnPermisison"),
-	
+
 	UserSubjectKey = createKey("UserSubjectType"),
 	GroupSubjectKey = createKey("GroupSubjectType"),
 	RoleSubjectKey = createKey("RoleSubjectType"),
-	
+
 	ActionKey = createKey("Action"),
 	PermissionLevelKey = FFlagLimitGroupRoleSetPermissionsInGui and createKey("PermissionLevel") or nil,
 	PermissionSourceKey = FFlagLimitGroupRoleSetPermissionsInGui and createKey("PermissionSource") or nil,
@@ -64,7 +64,4 @@ local miscConstants = {
 	MaxPackageAssetIdsForHighestPermissionsRequest = 100,
 }
 
-return Cryo.Dictionary.join(
-	uniqueIdentifiers,
-	miscConstants
-)
+return Cryo.Dictionary.join(uniqueIdentifiers, miscConstants)

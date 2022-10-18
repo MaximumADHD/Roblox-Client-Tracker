@@ -37,17 +37,17 @@ end
 
 -- Returns the painted size of the text label's text in pixels.
 --
--- Vector2 calcTextSize(TextLabel textLabel) 
+-- Vector2 calcTextSize(TextLabel textLabel)
 local function calcTextSize(textLabel)
 	return TextService:GetTextSize(textLabel.Text, textLabel.TextSize, textLabel.Font, Vector2.new(0, 0))
 end
 
--- Sets the text and updates the size of the ValueBox. 
+-- Sets the text and updates the size of the ValueBox.
 function ValueBox:setText(text)
 	local screenGui = CoreGuiManager:findOrCreateScreenGui("ValueBoxes")
 
 	self.m_textLabel.Text = text
-	
+
 	-- Update text size according to resolution.
 	local targetTextSize = TEXT_SIZE_TARGET_RATIO * screenGui.AbsoluteSize.Y
 	targetTextSize = math.clamp(targetTextSize, TEXT_SIZE_MIN, TEXT_SIZE_MAX)
@@ -61,8 +61,8 @@ function ValueBox:setText(text)
 	local yMargin = xMargin / IMAGE_LABEL_PADDING.X * IMAGE_LABEL_PADDING.Y
 
 	self.m_textLabel.Size = UDim2.new(0, textSize.X, 0, textSize.Y)
-	local newWidth = textSize.X + 2*xMargin
-	local newHeight = textSize.Y + 2*yMargin
+	local newWidth = textSize.X + 2 * xMargin
+	local newHeight = textSize.Y + 2 * yMargin
 	self.m_imageLabel.Size = UDim2.new(0, newWidth, 0, newHeight)
 end
 
@@ -84,13 +84,13 @@ local function createImageLabel()
 	imageLabel.Parent = screenGui
 	imageLabel.BackgroundTransparency = 1.0
 	imageLabel.Image = "rbxasset://textures/StudioUIEditor/valueBoxRoundedRectangle.png"
-        imageLabel.ImageColor3 = Color3.fromRGB(255, 205, 0)
+	imageLabel.ImageColor3 = Color3.fromRGB(255, 205, 0)
 	-- The m_imageLabel uses a 9-patch image to make the corners round. The Enum.ScaleType.Slice
 	-- makes it slice the image into 9 parts.
 	imageLabel.ScaleType = Enum.ScaleType.Slice
-	 -- Image is 16x16 with border-radius 3, so the end corner is at 16-3 = 13
+	-- Image is 16x16 with border-radius 3, so the end corner is at 16-3 = 13
 	imageLabel.SliceCenter = Rect.new(3, 3, 13, 13)
-	
+
 	return imageLabel
 end
 
@@ -113,12 +113,12 @@ local function createTextLabel()
 	textLabel.AnchorPoint = Vector2.new(0.5, 0.5)
 	textLabel.Position = UDim2.new(0.5, 0, 0.5, offCenterYPaddingFix)
 
-	return textLabel	
+	return textLabel
 end
 
 function ValueBox.new(parent)
-	local newValueBox = {}	
-	
+	local newValueBox = {}
+
 	-- The ValueBox consists of an ImageLabel and a TextLabel. The ImageLabel draws the rounded corners
 	-- and the TextLabel draws the text.
 	newValueBox.m_imageLabel = createImageLabel()
@@ -127,7 +127,7 @@ function ValueBox.new(parent)
 	end
 	newValueBox.m_textLabel = createTextLabel()
 	newValueBox.m_textLabel.Parent = newValueBox.m_imageLabel
-	
+
 	return setmetatable(newValueBox, ValueBox)
 end
 ValueBox.__index = ValueBox

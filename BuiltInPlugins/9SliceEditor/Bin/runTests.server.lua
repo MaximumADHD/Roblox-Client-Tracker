@@ -28,8 +28,8 @@ if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
 
 	print("----- All " .. Plugin.Name .. " Tests ------")
 	local startt = tick()
-	TestBootstrap:run({TestsFolderPlugin}, reporter)
-	print(string.format("Completed in %.3f s", tick()-startt))
+	TestBootstrap:run({ TestsFolderPlugin }, reporter)
+	print(string.format("Completed in %.3f s", tick() - startt))
 	print("----------------------------------")
 
 	if DebugFlags.RunDeveloperFrameworkTests() then

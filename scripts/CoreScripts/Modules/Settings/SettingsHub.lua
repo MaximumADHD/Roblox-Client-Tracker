@@ -25,7 +25,6 @@ local VRHub = require(RobloxGui.Modules.VR.VRHub)
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
-local IsDeveloperConsoleEnabled = require(RobloxGui.Modules.DevConsole.IsDeveloperConsoleEnabled)
 local isSubjectToDesktopPolicies = require(RobloxGui.Modules.InGameMenu.isSubjectToDesktopPolicies)
 
 --[[ CONSTANTS ]]
@@ -108,6 +107,8 @@ local connectedServerVersion = nil
 
 local SettingsFullScreenTitleBar = require(RobloxGui.Modules.Settings.Components.SettingsFullScreenTitleBar)
 local PermissionsButtons = require(RobloxGui.Modules.Settings.Components.PermissionsButtons)
+local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSignal)
+local selfViewCloseButtonSignal = require(RobloxGui.Modules.SelfView.selfViewCloseButtonSignal)
 
 local ShareGameDirectory = CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame
 local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
@@ -219,6 +220,20 @@ local function CreateSettingsHub()
 	this.SettingsShowSignal = utility:CreateSignal()
 	this.OpenStateChangedCount = 0
 	this.BottomButtonFrame = nil
+
+	--[[
+		Keep the status of whether the user has enabled Self View or not. This is used
+		to keep track of the self view button state.
+	]]
+	if GetFFlagSelfViewSettingsEnabled() then
+		this.selfViewEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
+		this.toggleSelfViewSignal = toggleSelfViewSignal:connect(function()
+			this.selfViewEnabled = not this.selfViewEnabled
+		end)
+		this.selfViewCloseButtonSignal = selfViewCloseButtonSignal:connect(function()
+			this.selfViewEnabled = not this.selfViewEnabled
+		end)
+	end
 
 	local pageChangeCon = nil
 
@@ -638,6 +653,7 @@ local function CreateSettingsHub()
 			ZIndex = this.Shield.ZIndex,
 			LayoutOrder = -1,
 			shouldFillScreen = shouldFillScreen,
+			selfViewEnabled = this.selfViewEnabled,
 		})
 	end
 
@@ -2214,25 +2230,21 @@ local function CreateSettingsHub()
 		end
 	end)
 
-	local shouldShowDevConsole = IsDeveloperConsoleEnabled()
+	-- Dev Console Connections
+	ContextActionService:BindCoreAction(DEV_CONSOLE_ACTION_NAME,
+		toggleDevConsole,
+		false,
+		Enum.KeyCode.F9
+	)
 
-	if shouldShowDevConsole then
-		-- Dev Console Connections
-		ContextActionService:BindCoreAction(DEV_CONSOLE_ACTION_NAME,
-			toggleDevConsole,
-			false,
-			Enum.KeyCode.F9
-		)
-
-		-- Quick Profiler connections
-		-- Note: it's actually Ctrl-F7.	We don't have a nice way of
-		-- making that explicit here, so we check it inside toggleQuickProfilerFromHotkey.
-		ContextActionService:BindCoreAction(QUICK_PROFILER_ACTION_NAME,
-			toggleQuickProfilerFromHotkey,
-			false,
-			Enum.KeyCode.F7
-		)
-	end
+	-- Quick Profiler connections
+	-- Note: it's actually Ctrl-F7.	We don't have a nice way of
+	-- making that explicit here, so we check it inside toggleQuickProfilerFromHotkey.
+	ContextActionService:BindCoreAction(QUICK_PROFILER_ACTION_NAME,
+		toggleQuickProfilerFromHotkey,
+		false,
+		Enum.KeyCode.F7
+	)
 
 	-- Keyboard control
 	UserInputService.InputBegan:connect(function(input)

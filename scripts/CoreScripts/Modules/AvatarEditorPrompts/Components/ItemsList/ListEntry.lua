@@ -8,7 +8,7 @@ local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 local AvatarExperienceDeps = require(CorePackages.AvatarExperienceDeps)
-local Text = require(CorePackages.AppTempCommon.Common.Text)
+local Text = require(CorePackages.Workspace.Packages.AppCommonLib).Text
 
 local RoactFitComponents = AvatarExperienceDeps.RoactFitComponents
 local FitTextLabel = RoactFitComponents.FitTextLabel

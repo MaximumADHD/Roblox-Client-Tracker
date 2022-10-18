@@ -51,6 +51,8 @@ local NetworkStatus = RoduxNetworking.Enum.NetworkStatus
 local NetworkingShareLinks = SocialDependencies.NetworkingShareLinks
 local GetFFlagShareInviteLinkContextMenuV3Enabled =
 	require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
+local GetFFlagLuaAppNewShareSheet = require(CorePackages.UniversalApp.ExternalContentSharing.Flags.GetFFlagLuaAppNewShareSheet)
+
 
 local NAV_BUTTON_HEIGHT = 56
 
@@ -117,10 +119,17 @@ if GetFFlagShareInviteLinkContextMenuV3Enabled() then
 	function openShareSheet(linkId: string)
 		local linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue()
 		local url = UrlBuilder.sharelinks.appsflyer(linkId, linkType)
-		ExternalContentSharingProtocol:shareText({
-			text = url,
-			context = Constants.ShareLinksAnalyticsExternalContentSharingGameDetailsContextName
-		})
+		if GetFFlagLuaAppNewShareSheet() then
+			ExternalContentSharingProtocol:shareUrl({
+				url = url,
+				context = Constants.ShareLinksAnalyticsExternalContentSharingGameDetailsContextName
+			})
+		else
+			ExternalContentSharingProtocol:shareText({
+				text = url,
+				context = Constants.ShareLinksAnalyticsExternalContentSharingGameDetailsContextName
+			})
+		end
 	end
 
 	function PageNavigation:didUpdate(prevProps)

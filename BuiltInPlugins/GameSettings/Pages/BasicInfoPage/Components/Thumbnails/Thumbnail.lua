@@ -12,9 +12,10 @@
 
 		function StartDragging = A callback for when the user starts dragging this Thumbnail.
 		function DragMove = A callback for when the user drags a Thumbnail over this Thumbnail.
-		function ButtonPressed = A callback for when the user interacts with this Thumbnail.
+		function ButtonPressed = A callback for when the user interacts with this Thumbnail. (Remove with GameSettingsEnableThumbnailFrameworkDialogs)
+		function PromptPreviewThumbnail = A callback for when the user attempts to preview this thumbnail.
+		function PromptDeleteThumbail = A callback for when the user attempts to delete this thumbnail.
 ]]
-local FFlagGameSettingsEnableThumbnailAltText = game:GetFastFlag("GameSettingsEnableThumbnailAltText")
 
 local Page = script.Parent.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -22,17 +23,9 @@ local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 
-local UI = Framework.UI
-local TextInput = UI.TextInput2
-local Separator = UI.Separator
-local Pane = UI.Pane
-local TextLabel = UI.TextLabel
-
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local MAX_ALT_TEXT_LENGTH = 1000
-local ALT_TEXT_INPUT_HEIGHT = 50
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local ThumbnailHoverBar = require(Page.Components.Thumbnails.ThumbnailHoverBar)
@@ -44,19 +37,13 @@ function Thumbnail:init()
 		Hovering = false,
 	}
 
+	-- Remove with GameSettingsEnableThumbnailFrameworkDialogs
 	self.buttonPressed = function(button)
 		self.props.ButtonPressed(button, {
 			index = self.props.LayoutOrder or 1,
 			thumbnailId = self.props.Id,
 			videoHash = self.props.VideoHash,
 			image = self.props.Image,
-		})
-	end
-
-	self.altTextChanged = function(newAltText)
-		self.props.AltTextChanged({
-			thumbnailId = self.props.Id,
-			altText = newAltText,
 		})
 	end
 end
@@ -88,15 +75,13 @@ function Thumbnail:render()
 	local preview = self.props.Preview or false
 	local hover = self.state.Hovering
 	local index = self.props.LayoutOrder or 1
-	local Id = self.props.Id
+	local id = self.props.Id
 	local hoverBarEnabled = self.props.HoverBarEnabled
-	local altText = self.props.AltText or ""
-	local altTextErrorMessage = self.props.AltTextErrorMessage
 
-	local ImageButton = Roact.createElement("ImageButton", {
+	return Roact.createElement("ImageButton", {
 		Size = DEPRECATED_Constants.THUMBNAIL_SIZE,
 		BackgroundTransparency = 1,
-		LayoutOrder = if FFlagGameSettingsEnableThumbnailAltText then 1 else index,
+		LayoutOrder = index,
 		Image = videoHash ~= nil and DEPRECATED_Constants.VIDEO_PLACEHOLDER or image,
 		ImageColor3 = videoHash ~= nil and theme.thumbnail.background or nil,
 		ScaleType = Enum.ScaleType.Fit,
@@ -107,7 +92,7 @@ function Thumbnail:render()
 			self:mouseHoverChanged(true)
 			self.props.DragMove({
 				index = index,
-				thumbnailId = Id,
+				thumbnailId = id,
 			})
 		end,
 
@@ -118,7 +103,7 @@ function Thumbnail:render()
 		[Roact.Event.MouseButton1Down] = function()
 			self.props.StartDragging({
 				index = index,
-				thumbnailId = Id,
+				thumbnailId = id,
 			})
 		end,
 	}, {
@@ -163,50 +148,22 @@ function Thumbnail:render()
 
 		HoverBar = Roact.createElement(ThumbnailHoverBar, {
 			Enabled = hoverBarEnabled and hover,
-			ButtonPressed = self.buttonPressed,
+			ButtonPressed = self.buttonPressed, -- Remove with GameSettingsEnableThumbnailFrameworkDialogs
+			PromptPreviewThumbnail = function()
+				self.props.PromptPreviewThumbnail({
+					index = index,
+					thumbnailId = id,
+					videoHash = videoHash,
+					image = image,
+				})
+			end,
+			PromptDeleteThumbnail = function()
+				self.props.PromptDeleteThumbnail({
+					thumbnailId = id,
+				})
+			end,
 		}),
 	})
-
-	return if FFlagGameSettingsEnableThumbnailAltText
-		then Roact.createElement(Pane, {
-			AutomaticSize = Enum.AutomaticSize.XY,
-			Layout = Enum.FillDirection.Vertical,
-			VerticalAlignment = Enum.VerticalAlignment.Top,
-			LayoutOrder = index,
-		}, {
-			ImageButton,
-
-			AltText = Roact.createElement(Pane, {
-				Size = DEPRECATED_Constants.THUMBNAIL_SIZE,
-				AutomaticSize = Enum.AutomaticSize.XY,
-				Layout = Enum.FillDirection.Vertical,
-				VerticalAlignment = Enum.VerticalAlignment.Top,
-				LayoutOrder = 2,
-			}, {
-				Title = Roact.createElement(TextLabel, {
-					Style = "SubText",
-					Text = localization:getText("General", "TitleAltText"),
-					Size = UDim2.new(1, 0, 0, DEPRECATED_Constants.TEXT_SIZE),
-					TextXAlignment = Enum.TextXAlignment.Left,
-				}),
-
-				TextBox = Roact.createElement(TextInput, {
-					Height = DEPRECATED_Constants.THUMBNAIL_SIZE.Y.Offset
-						- DEPRECATED_Constants.TEXT_SIZE
-						- ALT_TEXT_INPUT_HEIGHT,
-					MultiLine = true,
-
-					MaxLength = MAX_ALT_TEXT_LENGTH,
-					Text = altText,
-					TextSize = DEPRECATED_Constants.TEXT_SIZE,
-					LayoutOrder = 2,
-
-					ErrorText = altTextErrorMessage,
-					OnTextChanged = self.altTextChanged,
-				}),
-			}),
-		})
-		else ImageButton
 end
 
 Thumbnail = withContext({

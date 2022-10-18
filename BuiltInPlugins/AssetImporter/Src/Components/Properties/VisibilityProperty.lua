@@ -1,4 +1,3 @@
-local FFlagDevFrameworkToggleAllowOtherIcons = game:GetFastFlag("DevFrameworkToggleAllowOtherIcons")
 local FFlagDevFrameworkToggleAllowEyeIcon = game:GetFastFlag("DevFrameworkToggleAllowEyeIcon")
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -14,7 +13,7 @@ local UI = Framework.UI
 local ToggleButton = UI.ToggleButton
 
 local function VisibilityProperty(props)
-	if FFlagDevFrameworkToggleAllowOtherIcons and FFlagDevFrameworkToggleAllowEyeIcon then
+	if FFlagDevFrameworkToggleAllowEyeIcon then
 		return Roact.createElement(ToggleButton, {
 			OnClick = props.OnToggleItem,
 			Size = props.Size,

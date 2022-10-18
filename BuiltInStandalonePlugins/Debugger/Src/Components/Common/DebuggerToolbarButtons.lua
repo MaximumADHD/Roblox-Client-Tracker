@@ -5,6 +5,9 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local StudioUI = Framework.StudioUI
 
+local isHighDpiEnabled = Framework.Util.isHighDpiEnabled
+local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and isHighDpiEnabled()
+
 local ContextServices = Framework.ContextServices
 local Analytics = ContextServices.Analytics
 local PluginActions = ContextServices.PluginActions
@@ -17,7 +20,11 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local SetPausedState = require(Plugin.Src.Actions.Common.SetPausedState)
 
+local FFlagStudioDebuggerFixStepButtonsOnError = require(Plugin.Src.Flags.GetFFlagStudioDebuggerFixStepButtonsOnError)
+
 local DebuggerToolbarButtons = Roact.PureComponent:extend("DebuggerToolbarButtons")
+
+local FFlagStudioClearThreadIdOnStepping = game:GetFastFlag("StudioClearThreadIdOnStepping")
 
 -- these strings need to correspond to strings in StudioPluginHost.cpp
 local RESUME_META_NAME = "Resume"
@@ -50,7 +57,13 @@ function DebuggerToolbarButtons:init(props)
 		if self.props.CurrentThreadId == nil or connection == nil then
 			return
 		end
-		connection:Step(self.getThreadForStepping(connection), function() end)
+
+		local thread = self.getThreadForStepping(connection)
+		connection:Step(thread, function() end)
+
+		if FFlagStudioClearThreadIdOnStepping then
+			self.props.onSetPausedState(false)
+		end
 
 		self.props.Analytics:report(AnalyticsEventNames.CallstackStepOver, actionSource)
 	end
@@ -61,7 +74,13 @@ function DebuggerToolbarButtons:init(props)
 		if self.props.CurrentThreadId == nil or connection == nil then
 			return
 		end
-		connection:StepIn(self.getThreadForStepping(connection), function() end)
+
+		local thread = self.getThreadForStepping(connection)
+		connection:StepIn(thread, function() end)
+
+		if FFlagStudioClearThreadIdOnStepping then
+			self.props.onSetPausedState(false)
+		end
 
 		self.props.Analytics:report(AnalyticsEventNames.CallstackStepInto, actionSource)
 	end
@@ -72,7 +91,13 @@ function DebuggerToolbarButtons:init(props)
 		if self.props.CurrentThreadId == nil or connection == nil then
 			return
 		end
-		connection:StepOut(self.getThreadForStepping(connection), function() end)
+
+		local thread = self.getThreadForStepping(connection)
+		connection:StepOut(thread, function()	end)
+
+		if FFlagStudioClearThreadIdOnStepping then
+			self.props.onSetPausedState(false)
+		end
 
 		self.props.Analytics:report(AnalyticsEventNames.CallstackStepOut, actionSource)
 	end
@@ -108,6 +133,7 @@ function DebuggerToolbarButtons:renderButtons(toolbar)
 		connectionForPlayDataModel = uiService:IsConnectionForPlayDataModel(self.props.CurrentConnectionId)
 	end
 	local isPaused = self.props.IsPaused
+	local hitException = self.props.HitException
 
 	return {
 		ResumeButton = Roact.createElement(PluginButton, {
@@ -117,7 +143,7 @@ function DebuggerToolbarButtons:renderButtons(toolbar)
 			Enabled = isPaused,
 			Title = RESUME_META_NAME,
 			Tooltip = "", --todo we have this
-			Icon = "rbxasset://textures/Debugger/Resume.png",
+			icon = if FFlagHighDpiIcons then "rbxlocaltheme://Resume" else "rbxasset://textures/Debugger/Resume.png",
 			OnClick = self.onResume,
 			ClickableWhenViewportHidden = true,
 		}),
@@ -128,7 +154,7 @@ function DebuggerToolbarButtons:renderButtons(toolbar)
 			Enabled = (not isPaused and connectionForPlayDataModel),
 			Title = PAUSE_META_NAME,
 			Tooltip = "",
-			Icon = "rbxasset://textures/Debugger/Pause.png",
+			icon = if FFlagHighDpiIcons then "rbxlocaltheme://Pause" else "rbxasset://textures/Debugger/Pause.png",
 			OnClick = self.onPause,
 			ClickableWhenViewportHidden = true,
 		}),
@@ -136,10 +162,10 @@ function DebuggerToolbarButtons:renderButtons(toolbar)
 			Name = "stepOverActionV2",
 			Toolbar = toolbar,
 			Active = false,
-			Enabled = self.props.CurrentThreadId ~= nil,
+			Enabled = self.props.CurrentThreadId ~= nil and not hitException,
 			Title = STEPOVER_META_NAME,
 			Tooltip = "",
-			Icon = "rbxasset://textures/Debugger/Step-Over.png",
+			icon = if FFlagHighDpiIcons then "rbxlocaltheme://StepOver" else "rbxasset://textures/Debugger/Step-Over.png",
 			OnClick = function()
 				self.onStepOver("ToolbarButton")
 			end,
@@ -149,10 +175,10 @@ function DebuggerToolbarButtons:renderButtons(toolbar)
 			Name = "stepIntoActionV2",
 			Toolbar = toolbar,
 			Active = false,
-			Enabled = self.props.CurrentThreadId ~= nil,
+			Enabled = self.props.CurrentThreadId ~= nil and not hitException,
 			Title = STEPINTO_META_NAME,
 			Tooltip = "",
-			Icon = "rbxasset://textures/Debugger/Step-In.png",
+			icon = if FFlagHighDpiIcons then "rbxlocaltheme://StepInto" else "rbxasset://textures/Debugger/Step-In.png",
 			OnClick = function()
 				self.onStepInto("ToolbarButton")
 			end,
@@ -162,10 +188,10 @@ function DebuggerToolbarButtons:renderButtons(toolbar)
 			Name = "stepOutActionV2",
 			Toolbar = toolbar,
 			Active = false,
-			Enabled = self.props.CurrentThreadId ~= nil,
+			Enabled = self.props.CurrentThreadId ~= nil and not hitException,
 			Title = STEPOUT_META_NAME,
 			Tooltip = "",
-			Icon = "rbxasset://textures/Debugger/Step-Out.png",
+			icon = if FFlagHighDpiIcons then "rbxlocaltheme://StepOut" else "rbxasset://textures/Debugger/Step-Out.png",
 			OnClick = function()
 				self.onStepOut("ToolbarButton")
 			end,
@@ -204,6 +230,7 @@ DebuggerToolbarButtons = RoactRodux.connect(function(state, props)
 		IsPaused = isPaused,
 		CurrentThreadId = currentThreadId,
 		CurrentConnectionId = currentConnectionId,
+		HitException = if FFlagStudioDebuggerFixStepButtonsOnError() and currentThreadId then common.hitException[currentThreadId] else false,
 	}
 end, function(dispatch)
 	return {

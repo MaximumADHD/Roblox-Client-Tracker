@@ -14,7 +14,7 @@ local PlayersService = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
 local MarketplaceService = game:GetService("MarketplaceService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
-local Analytics = require(CorePackages.Analytics.Analytics).new(AnalyticsService)
+local Analytics = require(CorePackages.Workspace.Packages.Analytics).Analytics.new(AnalyticsService)
 local Workspace = game:GetService("Workspace")
 
 local Settings = script:FindFirstAncestor("Settings")
@@ -40,6 +40,7 @@ local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.
 local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
 local GetFFlagVoiceARCantSelectVoiceAfterTextFix = require(RobloxGui.Modules.Flags.GetFFlagVoiceARCantSelectVoiceAfterTextFix)
 local GetFFlagHideMOAOnExperience = require(RobloxGui.Modules.Flags.GetFFlagHideMOAOnExperience)
+local GetFFlagAddVoiceTagsToAllARSubmissionsEnabled = require(RobloxGui.Modules.Flags.GetFFlagAddVoiceTagsToAllARSubmissionsEnabled)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 
 local ABUSE_TYPES_PLAYER = {
@@ -594,6 +595,7 @@ local function Initialize()
 
 		local function onReportSubmitted()
 			local abuseReason = nil
+			local methodOfAbuse = nil
 			local reportSucceeded = false
 			local isReportSentEnabled = false
 			local showReportSentAlert = false
@@ -615,7 +617,6 @@ local function Initialize()
 
 					if GetFFlagVoiceAbuseReportsEnabled() and this.MethodOfAbuseMode then
 						local currentIndex = this.MethodOfAbuseMode.CurrentIndex
-						local methodOfAbuse
 
 						if not this:isVoiceReportMethodActive() then
 							currentIndex += 1
@@ -624,7 +625,7 @@ local function Initialize()
 						if currentIndex == 1 then
 							methodOfAbuse = "Voice"
 						elseif currentIndex == 2 then
-							methodOfAbuse = "Text"
+							methodOfAbuse = "Chat"
 						else
 							methodOfAbuse = "Other"
 						end
@@ -638,7 +639,7 @@ local function Initialize()
 						reportAnalytics("user", currentAbusingPlayer.UserId)
 					end
 
-					if GetFFlagVoiceAbuseReportsEnabled() and this:isVoiceReportSelected() then
+					if GetFFlagVoiceAbuseReportsEnabled() and ((GetFFlagAddVoiceTagsToAllARSubmissionsEnabled() and this.MethodOfAbuseMode) or this:isVoiceReportSelected()) then
 						pcall(function()
 							task.spawn(function()
 								local request = createVoiceAbuseReportRequest(PlayersService, VoiceChatServiceManager, {
@@ -648,8 +649,8 @@ local function Initialize()
 									abuseReason = abuseReason,
 									inExpMenuOpenedUnixMilli = math.floor(this:getReportTimestamp()*1000), --milliseconds conversion
 									sortedPlayerListUserIds = sortedUserIds,
+									abuseVector = methodOfAbuse,
 								})
-
 								if game:GetEngineFeature("AbuseReportV3") then
 									PlayersService:ReportAbuseV3(PlayersService.LocalPlayer, request)
 								else

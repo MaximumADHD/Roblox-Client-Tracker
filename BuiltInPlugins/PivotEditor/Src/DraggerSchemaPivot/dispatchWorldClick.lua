@@ -12,8 +12,7 @@ return function(draggerContext, draggerToolModel, event)
 		and event.SelectionNowContainsSelectable
 		and event.ClickedSelectable:IsA("PVInstance")
 	then
-		return "FreeformSelectionDrag",
-			buildFreeformDragInfo(draggerContext, draggerToolModel, event)
+		return "FreeformSelectionDrag", buildFreeformDragInfo(draggerContext, draggerToolModel, event)
 	else
 		return "Ready"
 	end

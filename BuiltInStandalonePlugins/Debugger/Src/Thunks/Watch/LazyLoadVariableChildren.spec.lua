@@ -14,10 +14,8 @@ local MockDebuggerConnection = require(Mocks.MockDebuggerConnection)
 local Models = Plugin.Src.Models
 local StepStateBundle = require(Models.StepStateBundle)
 
-local LazyLoadVariable = require(script.Parent.LazyLoadVariable)
 local LazyLoadVariableChildren = require(script.Parent.LazyLoadVariableChildren)
 
-local FFlagStudioDebuggerExpandVariables = require(Plugin.Src.Flags.GetFFlagStudioDebuggerExpandVariables)
 
 return function()
 	it("should load variables mocks", function()
@@ -29,34 +27,13 @@ return function()
 		local threadID = state.Common.debuggerConnectionIdToCurrentThreadId[1]
 
 		local stepStateBundle = StepStateBundle.ctor(dst, threadID, 1)
-
-		if FFlagStudioDebuggerExpandVariables() then
-			expect(#state.Watch.stateTokenToFlattenedTree[dst][threadID][1].Variables["UnitedStates_Wisconsin"].childPaths).to.be.equal(1)
-			expect(state.Watch.stateTokenToFlattenedTree[dst][threadID][1].Variables["UnitedStates_Wisconsin_Madison"]).to.equal(nil)
-			-- child data should load from DebuggerVariable mock data in MockDebuggerConnection, adding the Madison child to UnitedStates_Wisconsin
-			store:dispatch(LazyLoadVariableChildren("UnitedStates", 2, stepStateBundle, true, currentMockConnection))
-			state = store:getState()
-			expect(#state.Watch.stateTokenToFlattenedTree[dst][threadID][1].Variables["UnitedStates_Wisconsin"].childPaths).to.be.equal(2)
-			expect(state.Watch.stateTokenToFlattenedTree[dst][threadID][1].Variables["UnitedStates_Wisconsin"].childPaths[2]).to.be.equal("UnitedStates_Wisconsin_Madison")
-			expect(state.Watch.stateTokenToFlattenedTree[dst][threadID][1].Variables["UnitedStates_Wisconsin_Madison"]).to.be.ok()
-
-		else
-			store:dispatch(LazyLoadVariable("2", stepStateBundle, true, currentMockConnection))
-			state = store:getState()
-
-			expect(state.Watch.stateTokenToFlattenedTree).to.be.ok()
-			expect(state.Watch.stateTokenToFlattenedTree[dst][threadID][1]).to.be.ok()
-
-			-- child data is loaded from DebuggerVariable mock data in MockDebuggerConnection
-			expect(#state.Watch.stateTokenToFlattenedTree[dst][threadID][1].Variables["2"].childPaths).to.be.equal(2)
-			expect(state.Watch.stateTokenToFlattenedTree[dst][threadID][1].Variables["2"].childPaths[2]).to.be.equal("2_4")
-			expect(#state.Watch.stateTokenToFlattenedTree[dst][threadID][1].Variables["2_4"].childPaths).to.be.equal(0)
-
-			store:dispatch(LazyLoadVariableChildren("2", nil, stepStateBundle, true, currentMockConnection))
-			state = store:getState()
-
-			expect(#state.Watch.stateTokenToFlattenedTree[dst][threadID][1].Variables["2_4"].childPaths).to.be.equal(1)
-			expect(state.Watch.stateTokenToFlattenedTree[dst][threadID][1].Variables["2_4"].childPaths[1]).to.be.equal("2_4_5")
-		end
+		expect(#state.Watch.stateTokenToFlattenedTree[dst][threadID][1].Variables["UnitedStates_Wisconsin"].childPaths).to.be.equal(1)
+		expect(state.Watch.stateTokenToFlattenedTree[dst][threadID][1].Variables["UnitedStates_Wisconsin_Madison"]).to.equal(nil)
+		-- child data should load from DebuggerVariable mock data in MockDebuggerConnection, adding the Madison child to UnitedStates_Wisconsin
+		store:dispatch(LazyLoadVariableChildren("UnitedStates", 2, stepStateBundle, true, currentMockConnection))
+		state = store:getState()
+		expect(#state.Watch.stateTokenToFlattenedTree[dst][threadID][1].Variables["UnitedStates_Wisconsin"].childPaths).to.be.equal(2)
+		expect(state.Watch.stateTokenToFlattenedTree[dst][threadID][1].Variables["UnitedStates_Wisconsin"].childPaths[2]).to.be.equal("UnitedStates_Wisconsin_Madison")
+		expect(state.Watch.stateTokenToFlattenedTree[dst][threadID][1].Variables["UnitedStates_Wisconsin_Madison"]).to.be.ok()
 	end)
 end

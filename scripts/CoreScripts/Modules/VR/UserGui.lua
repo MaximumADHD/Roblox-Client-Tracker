@@ -6,10 +6,12 @@ local GuiService = game:GetService("GuiService")
 local GamepadService = game:GetService("GamepadService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui.RobloxGui
+local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
 local VRKeyboard = require(RobloxGui.Modules.VR.VirtualKeyboard)
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
+local FFlagVRLetRaycastsThroughUI = require(CoreGuiModules.Flags.FFlagVRLetRaycastsThroughUI)
 
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
@@ -33,6 +35,9 @@ local vrMenuOpen = false
 
 local userGuiPanel = Panel3D.Get(UserGuiModule.ModuleName)
 userGuiPanel:SetType(Panel3D.Type.NewStandard)
+if FFlagVRLetRaycastsThroughUI then
+	userGuiPanel:GetPart().CanQuery = false
+end
 
 if EngineFeatureEnableVRUpdate2 then
 	-- this matches the core ui rect in ScreenGui
@@ -54,7 +59,12 @@ local plPanel = nil
 if EngineFeatureEnableVRUpdate3 then
 	plPanel = Panel3D.Get("PositionLocked")
 	plPanel:SetType(Panel3D.Type.PositionLocked)
-	
+	if FFlagVRLetRaycastsThroughUI then
+		-- This panel doesn't use a SurfaceGui, so it doesn't need raycasts to interact with it.
+		-- We don't want to potentially block any developer raycasts, so opt out of raycasts and other spatial queries.
+		plPanel:GetPart().CanQuery = false
+	end
+		
 	local headScale = workspace.CurrentCamera and workspace.CurrentCamera.HeadScale or 1
 	plPanel:ResizeStuds(newPanelSize.x * headScale, newPanelSize.y * headScale, 128)
 	plPanel:SetVisible(false)

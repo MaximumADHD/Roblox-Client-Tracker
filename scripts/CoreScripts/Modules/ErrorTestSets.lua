@@ -1,3 +1,26 @@
+local enableUserPrivacyUnauthorizedMessage = game:GetEngineFeature("EnableUserPrivacyUnauthorizedMessageEngineFeatureFlag")
+
+local placeLaunchErrors = {
+	Enum.ConnectionError.PlacelaunchCustomMessage,
+	Enum.ConnectionError.PlacelaunchDisabled,
+	Enum.ConnectionError.PlacelaunchError,
+	Enum.ConnectionError.PlacelaunchFlooded,
+	Enum.ConnectionError.PlacelaunchGameEnded,
+	Enum.ConnectionError.PlacelaunchGameFull,
+	Enum.ConnectionError.PlacelaunchHashException,
+	Enum.ConnectionError.PlacelaunchHashExpired,
+	Enum.ConnectionError.PlacelaunchHttpError,
+	Enum.ConnectionError.PlacelaunchOtherError,
+	Enum.ConnectionError.PlacelaunchPartyCannotFit,
+	Enum.ConnectionError.PlacelaunchRestricted,
+	Enum.ConnectionError.PlacelaunchUnauthorized,
+	Enum.ConnectionError.PlacelaunchUserLeft,
+}
+
+if enableUserPrivacyUnauthorizedMessage then 
+	table.insert(placeLaunchErrors, Enum.ConnectionError.PlacelaunchUserPrivacyUnauthorized)
+end
+
 -- all connection errors
 return {
 	[Enum.ConnectionError.DisconnectErrors] = {
@@ -28,22 +51,7 @@ return {
 		Enum.ConnectionError.DisconnectTimeout,
 		Enum.ConnectionError.DisconnectWrongVersion
 	},
-	[Enum.ConnectionError.PlacelaunchErrors] = {
-		Enum.ConnectionError.PlacelaunchCustomMessage,
-		Enum.ConnectionError.PlacelaunchDisabled,
-		Enum.ConnectionError.PlacelaunchError,
-		Enum.ConnectionError.PlacelaunchFlooded,
-		Enum.ConnectionError.PlacelaunchGameEnded,
-		Enum.ConnectionError.PlacelaunchGameFull,
-		Enum.ConnectionError.PlacelaunchHashException,
-		Enum.ConnectionError.PlacelaunchHashExpired,
-		Enum.ConnectionError.PlacelaunchHttpError,
-		Enum.ConnectionError.PlacelaunchOtherError,
-		Enum.ConnectionError.PlacelaunchPartyCannotFit,
-		Enum.ConnectionError.PlacelaunchRestricted,
-		Enum.ConnectionError.PlacelaunchUnauthorized,
-		Enum.ConnectionError.PlacelaunchUserLeft	
-	},
+	[Enum.ConnectionError.PlacelaunchErrors] = placeLaunchErrors,
 	[Enum.ConnectionError.TeleportErrors] = {
 		Enum.ConnectionError.TeleportFailure,
 		Enum.ConnectionError.TeleportFlooded,

@@ -66,8 +66,9 @@ function VoiceIndicator:init()
 	end)
 
 	self.levelIcon = Roact.joinBindings({ self.voiceState, self.level }):map(function(values)
-		local voiceState = values[1]
-		local level = values[2]
+		-- ROBLOX FIXME Luau: Luau cannot infer that values is a heterogeneous tuple.
+		local voiceState = values[1] :: string
+		local level = values[2] :: number
 
 		if GetFFlagEnableVoiceChatLocalMuteUI() then
 			if voiceState == Constants.VOICE_STATE.MUTED or voiceState == Constants.VOICE_STATE.LOCAL_MUTED then

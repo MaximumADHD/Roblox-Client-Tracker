@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local AppTempCommon = CorePackages.AppTempCommon
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -11,7 +10,7 @@ local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local SearchBox = require(ShareGame.Components.SearchBox)
 local IconButton = require(ShareGame.Components.IconButton)
 local Constants = require(ShareGame.Constants)
-local Text = require(AppTempCommon.Common.Text)
+local Text = require(CorePackages.Workspace.Packages.AppCommonLib).Text
 
 local SetSearchAreaActive = require(ShareGame.Actions.SetSearchAreaActive)
 local SetSearchText = require(ShareGame.Actions.SetSearchText)

@@ -27,8 +27,6 @@ local AddChildVariables = require(Actions.Watch.AddChildVariables)
 local DebugConnectionListener = require(Src.Util.DebugConnectionListener.DebugConnectionListener)
 local Constants = require(Src.Util.Constants)
 
-local FFlagStudioDebuggerExpandVariables = require(Src.Flags.GetFFlagStudioDebuggerExpandVariables)
-
 return function(store)
 	local expressionData1 = {
 		expression = "Expression 1",
@@ -45,7 +43,7 @@ return function(store)
 
 	local varData1Child1 = {
 		name = "Heesoo",
-		path = if FFlagStudioDebuggerExpandVariables() then "Alex_Heesoo" else "1_1",
+		path = "Alex_Heesoo",
 		scope = ScopeEnum.Local,
 		value = "somePreview",
 		dataType = "map",
@@ -53,7 +51,7 @@ return function(store)
 
 	local varData1Child2 = {
 		name = "Austin",
-		path = if FFlagStudioDebuggerExpandVariables() then "Alex_Austin" else "1_2",
+		path = "Alex_Austin",
 		scope = ScopeEnum.Local,
 		value = "somePreview",
 		dataType = "string",
@@ -61,7 +59,7 @@ return function(store)
 
 	local varData1Child11 = {
 		name = "Raul",
-		path = if FFlagStudioDebuggerExpandVariables() then "Alex_Heesoo_Raul" else "1_1_1",
+		path = "Alex_Heesoo_Raul",
 		scope = ScopeEnum.Local,
 		value = "somePreview",
 		dataType = "string",
@@ -69,7 +67,7 @@ return function(store)
 
 	local varData1Child21 = {
 		name = "Karan",
-		path = if FFlagStudioDebuggerExpandVariables() then "Alex_Austin_Karan" else "1_2_1",
+		path = "Alex_Austin_Karan",
 		scope = ScopeEnum.Local,
 		value = "somePreview",
 		dataType = "string",
@@ -79,7 +77,7 @@ return function(store)
 
 	local varData2Child1 = {
 		name = "Wisconsin",
-		path = if FFlagStudioDebuggerExpandVariables() then "UnitedStates_Wisconsin" else "2_1",
+		path = "UnitedStates_Wisconsin",
 		scope = ScopeEnum.Local,
 		value = "somePreview2",
 		dataType = "map",
@@ -87,7 +85,7 @@ return function(store)
 
 	local varData2Child11 = {
 		name = "GreenBay",
-		path = if FFlagStudioDebuggerExpandVariables() then "UnitedStates_Wisconsin_GreenBay" else "2_1_1",
+		path = "UnitedStates_Wisconsin_GreenBay",
 		scope = ScopeEnum.Local,
 		value = "somePreview2",
 		dataType = "string",
@@ -160,18 +158,10 @@ return function(store)
 		store:dispatch(AddBreakpoint(123, MetaBreakpointModel.mockMetaBreakpoint({ isEnabled = (i >= 6) }, uniqueId)))
 		i = i + 1
 	end
-	if FFlagStudioDebuggerExpandVariables() then
-		store:dispatch(AddChildVariables(stepStateBundle1, "Alex", { variableRow1Child1, variableRow1Child2 }))
-		store:dispatch(AddChildVariables(stepStateBundle1, "Alex_Heesoo", { variableRow1Child11 }))
-		store:dispatch(AddChildVariables(stepStateBundle1, "Alex_Austin", { variableRow1Child21 }))
-		store:dispatch(AddChildVariables(stepStateBundle1, "UnitedStates", { variableRow2Child1 }))
-		store:dispatch(AddChildVariables(stepStateBundle1, "UnitedStates_Wisconsin", { variableRow2Child11 }))
-	else
-		store:dispatch(AddChildVariables(stepStateBundle1, "1", { variableRow1Child1, variableRow1Child2 }))
-		store:dispatch(AddChildVariables(stepStateBundle1, "1_1", { variableRow1Child11 }))
-		store:dispatch(AddChildVariables(stepStateBundle1, "1_2", { variableRow1Child21 }))
-		store:dispatch(AddChildVariables(stepStateBundle1, "2", { variableRow2Child1 }))
-		store:dispatch(AddChildVariables(stepStateBundle1, "2_1", { variableRow2Child11 }))
-	end
+	store:dispatch(AddChildVariables(stepStateBundle1, "Alex", { variableRow1Child1, variableRow1Child2 }))
+	store:dispatch(AddChildVariables(stepStateBundle1, "Alex_Heesoo", { variableRow1Child11 }))
+	store:dispatch(AddChildVariables(stepStateBundle1, "Alex_Austin", { variableRow1Child21 }))
+	store:dispatch(AddChildVariables(stepStateBundle1, "UnitedStates", { variableRow2Child1 }))
+	store:dispatch(AddChildVariables(stepStateBundle1, "UnitedStates_Wisconsin", { variableRow2Child11 }))
 	return store
 end

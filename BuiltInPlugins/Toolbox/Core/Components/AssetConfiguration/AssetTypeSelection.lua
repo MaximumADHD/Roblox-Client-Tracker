@@ -117,7 +117,8 @@ function AssetTypeSelection:renderContent(theme, localization, localizedContent)
 	local props = self.props
 	theme = props.Stylizer
 
-	local shouldShowDefaultThumbnailForAnimation = FFlagUseDefaultThumbnailForAnimation and self.props.assetTypeEnum == Enum.AssetType.Animation
+	local shouldShowDefaultThumbnailForAnimation = FFlagUseDefaultThumbnailForAnimation
+		and self.props.assetTypeEnum == Enum.AssetType.Animation
 
 	return Roact.createElement("Frame", {
 		BackgroundColor3 = theme.typeSelection.background,
@@ -125,24 +126,20 @@ function AssetTypeSelection:renderContent(theme, localization, localizedContent)
 		BorderSizePixel = 0,
 		Size = props.Size,
 	}, {
-		AssetThumbnailPreview = not shouldShowDefaultThumbnailForAnimation and Roact.createElement(AssetThumbnailPreview, {
-			Size = UDim2.new(
-				0, PREVIEW_SIZE,
-				0, PREVIEW_SIZE + PREVIEW_TITLE_PADDING + PREVIEW_TITLE_HEIGHT
-			),
-			Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
-			titleHeight = PREVIEW_TITLE_HEIGHT,
-			titlePadding = PREVIEW_TITLE_PADDING,
-		}),
-		DefaultThumbnailPreview = shouldShowDefaultThumbnailForAnimation and Roact.createElement(DefaultThumbnailPreview, {
-			Size = UDim2.new(
-				0, PREVIEW_SIZE,
-				0, PREVIEW_SIZE + PREVIEW_TITLE_PADDING + PREVIEW_TITLE_HEIGHT
-			),
-			Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
-		}),
+		AssetThumbnailPreview = not shouldShowDefaultThumbnailForAnimation
+			and Roact.createElement(AssetThumbnailPreview, {
+				Size = UDim2.new(0, PREVIEW_SIZE, 0, PREVIEW_SIZE + PREVIEW_TITLE_PADDING + PREVIEW_TITLE_HEIGHT),
+				Position = UDim2.new(0.5, -PREVIEW_SIZE / 2, 0, PREVIEW_PADDING),
+				titleHeight = PREVIEW_TITLE_HEIGHT,
+				titlePadding = PREVIEW_TITLE_PADDING,
+			}),
+		DefaultThumbnailPreview = shouldShowDefaultThumbnailForAnimation
+			and Roact.createElement(DefaultThumbnailPreview, {
+				Size = UDim2.new(0, PREVIEW_SIZE, 0, PREVIEW_SIZE + PREVIEW_TITLE_PADDING + PREVIEW_TITLE_HEIGHT),
+				Position = UDim2.new(0.5, -PREVIEW_SIZE / 2, 0, PREVIEW_PADDING),
+			}),
 		AssetTypeSelector = Roact.createElement(AssetTypeSelector, {
-			Position = UDim2.new(0.5, -SELECTOR_WIDTH/2, 0, SELECTOR_Y_POS),
+			Position = UDim2.new(0.5, -SELECTOR_WIDTH / 2, 0, SELECTOR_Y_POS),
 			height = SELECTOR_HEIGHT,
 			width = SELECTOR_WIDTH,
 			assetTypeEnum = self.props.assetTypeEnum,

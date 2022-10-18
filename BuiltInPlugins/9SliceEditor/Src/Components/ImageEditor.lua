@@ -41,7 +41,7 @@ function ImageEditor:init(props)
 	self:setState({
 		hoveringDraggerOrientation = -1,
 	})
-	
+
 	if math.max(props.pixelDimensions.X, props.pixelDimensions.Y) <= 0 then
 		self.leftPos = 0
 		self.rightPos = 1
@@ -54,9 +54,9 @@ function ImageEditor:init(props)
 
 		local sliceRect = props.sliceRect
 		self.leftPos = math.clamp(sliceRect[LEFT] / pixelDimensions.X, 0, 1)
-		self.rightPos =  math.clamp(sliceRect[RIGHT] / pixelDimensions.X, 0, 1)
+		self.rightPos = math.clamp(sliceRect[RIGHT] / pixelDimensions.X, 0, 1)
 		self.topPos = math.clamp(sliceRect[TOP] / pixelDimensions.Y, 0, 1)
-		self.bottomPos =  math.clamp(sliceRect[BOTTOM] / pixelDimensions.Y, 0, 1)
+		self.bottomPos = math.clamp(sliceRect[BOTTOM] / pixelDimensions.Y, 0, 1)
 	end
 
 	self.backgroundImageRef = Roact.createRef()
@@ -119,23 +119,20 @@ function ImageEditor:init(props)
 		local slice = self.props.sliceRect
 		local pixelDimensions = self.props.pixelDimensions
 
-		if (input.UserInputType == Enum.UserInputType.MouseButton1) then
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			local newSliceRect
 			if self.dragOrientation == LEFT then
 				local newSliceValue = math.round(self.leftPos * pixelDimensions.X)
-				newSliceRect = {newSliceValue, slice[RIGHT], slice[TOP], slice[BOTTOM]}
-
+				newSliceRect = { newSliceValue, slice[RIGHT], slice[TOP], slice[BOTTOM] }
 			elseif self.dragOrientation == RIGHT then
 				local newSliceValue = math.round(self.rightPos * pixelDimensions.X)
-				newSliceRect = {slice[LEFT], newSliceValue, slice[TOP], slice[BOTTOM]}
-
+				newSliceRect = { slice[LEFT], newSliceValue, slice[TOP], slice[BOTTOM] }
 			elseif self.dragOrientation == TOP then
 				local newSliceValue = math.round(self.topPos * pixelDimensions.Y)
-				newSliceRect = {slice[LEFT], slice[RIGHT], newSliceValue, slice[BOTTOM]}
-
+				newSliceRect = { slice[LEFT], slice[RIGHT], newSliceValue, slice[BOTTOM] }
 			elseif self.dragOrientation == BOTTOM then
 				local newSliceValue = math.round(self.bottomPos * pixelDimensions.Y)
-				newSliceRect = {slice[LEFT], slice[RIGHT], slice[TOP], newSliceValue}
+				newSliceRect = { slice[LEFT], slice[RIGHT], slice[TOP], newSliceValue }
 			end
 
 			if newSliceRect then
@@ -148,7 +145,7 @@ function ImageEditor:init(props)
 			self.updateHoverDragger()
 			MouseCursorManager.setLocked(self.props.Mouse, false)
 		end
-		
+
 		self.draggerHandlingMovement = false
 	end
 
@@ -242,7 +239,7 @@ function ImageEditor:init(props)
 			distance = distance,
 			instance = instance,
 			orientation = draggerOrientation,
-			priority = priority or 0
+			priority = priority or 0,
 		}
 		self.updateHoverDragger()
 	end
@@ -290,17 +287,14 @@ function ImageEditor:init(props)
 			local upperBound = slice[RIGHT] / pixelDimensions.X
 			self.leftPos = math.clamp(self.newPosition.X, 0, upperBound)
 			self.obj.Position = UDim2.fromScale(self.leftPos, self.obj.Position.Y.Scale)
-
 		elseif self.dragOrientation == RIGHT then
 			local lowerBound = slice[LEFT] / pixelDimensions.X
 			self.rightPos = math.clamp(self.newPosition.X, lowerBound, 1)
 			self.obj.Position = UDim2.fromScale(self.rightPos, self.obj.Position.Y.Scale)
-
 		elseif self.dragOrientation == TOP then
 			local upperBound = slice[BOTTOM] / pixelDimensions.Y
 			self.topPos = math.clamp(self.newPosition.Y, 0, upperBound)
 			self.obj.Position = UDim2.fromScale(self.obj.Position.X.Scale, self.topPos)
-
 		elseif self.dragOrientation == BOTTOM then
 			local lowerBound = slice[TOP] / pixelDimensions.Y
 			self.bottomPos = math.clamp(self.newPosition.Y, lowerBound, 1)
@@ -325,7 +319,7 @@ function ImageEditor:init(props)
 	self.setMostRecentMouseMoveInputObject = function(inputObj: InputObject)
 		self.lastMouseMoveInputObject = inputObj
 	end
-	
+
 	self.onFitImageSizeChanged = function(inst: ImageButton)
 		local pixelDimensions: Vector2 = self.props.pixelDimensions
 
@@ -344,21 +338,21 @@ end
 function ImageEditor:createDragger(orientation)
 	-- Helper function for creating the four ImageDraggers
 	return Roact.createElement(ImageDragger, {
-			orientation = orientation,
-			pixelDimensions = self.props.pixelDimensions,
-			sliceRect = self.props.sliceRect,
-			onDragBegin = self.onDragBegin,
-			onDragging = self.onDragging,
-			onDragEnd = self.onDragEnd,
-			addDragCandidateWithId = self.addDragCandidateWithId,
-			removeDragCandidateWithId = self.removeDragCandidateWithId,
-			isHovering = (self.state.hoveringDraggerOrientation == orientation),
-			isDragging = self.state.dragging,
-			addPriorityDragCandidate = self.addPriorityDragCandidate,
-			removePriorityDragCandidate = self.removePriorityDragCandidate,
-			startUncertainDrag = self.startUncertainDrag,
-			setMostRecentMouseMoveInputObject = self.setMostRecentMouseMoveInputObject,
-		})
+		orientation = orientation,
+		pixelDimensions = self.props.pixelDimensions,
+		sliceRect = self.props.sliceRect,
+		onDragBegin = self.onDragBegin,
+		onDragging = self.onDragging,
+		onDragEnd = self.onDragEnd,
+		addDragCandidateWithId = self.addDragCandidateWithId,
+		removeDragCandidateWithId = self.removeDragCandidateWithId,
+		isHovering = (self.state.hoveringDraggerOrientation == orientation),
+		isDragging = self.state.dragging,
+		addPriorityDragCandidate = self.addPriorityDragCandidate,
+		removePriorityDragCandidate = self.removePriorityDragCandidate,
+		startUncertainDrag = self.startUncertainDrag,
+		setMostRecentMouseMoveInputObject = self.setMostRecentMouseMoveInputObject,
+	})
 end
 
 function ImageEditor:didMount()

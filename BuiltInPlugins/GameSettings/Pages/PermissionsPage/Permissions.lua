@@ -9,7 +9,6 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local ContextServices = Framework.ContextServices
@@ -296,93 +295,36 @@ function Permissions:render()
 				Layout = Enum.FillDirection.Vertical,
 				Spacing = theme.playabilityWidget.spacing,
 			}, {
-				TitlePane = (if FFlagRemoveUILibraryTitledFrame
-					then Roact.createElement(TitledFrame, {
-						LayoutOrder = 1,
-						Title = localization:getText("General", "TitlePlayability"),
+				TitlePane = (Roact.createElement(TitledFrame, {
+					LayoutOrder = 1,
+					Title = localization:getText("General", "TitlePlayability"),
+				}, {
+					Roact.createElement(TitledFrame, {
+						Title = localization:getText("General", "PlayabilityHeader"),
+						Style = "Subtitle",
 					}, {
-						Roact.createElement(TitledFrame, {
-							Title = localization:getText("General", "PlayabilityHeader"),
-							Style = "Subtitle",
-						}, {
-							List = Roact.createElement(RadioButtonList, {
-								Buttons = playabilityButtons,
-								OnClick = function(key)
-									if key == "Friends" then
-										isFriendsOnlyChanged(true)
-										isActiveChanged(true, false)
-									else
-										isFriendsOnlyChanged(false)
-										local willShutdown = (function()
-											return isCurrentlyActive and not key
-										end)()
-										isActiveChanged(key, willShutdown)
-									end
-								end,
-								SelectedKey = isFriendsOnly and "Friends" or isActive,
-								TextSize = {
-									Description = theme.fontStyle.Subtext.TextSize,
-									MainText = theme.fontStyle.Normal.TextSize,
-								},
-							}),
-						}),
-					})
-					else Roact.createElement(Pane, {
-						AutomaticSize = Enum.AutomaticSize.Y,
-						HorizontalAlignment = Enum.HorizontalAlignment.Left,
-						Layout = Enum.FillDirection.Horizontal,
-						Spacing = theme.playabilityWidget.titlePane.spacing,
-						VerticalAlignment = Enum.VerticalAlignment.Top,
-					}, {
-						Title = Roact.createElement(TextLabel, {
-							AutomaticSize = Enum.AutomaticSize.XY,
-							Style = "SubText",
-							Text = localization:getText("General", "TitlePlayability"),
-							TextSize = theme.fontStyle.Subtitle.TextSize,
-							TextXAlignment = Enum.TextXAlignment.Left,
-						}),
-						ButtonsFrame = Roact.createElement(Pane, {
-							AutomaticSize = Enum.AutomaticSize.Y,
-							HorizontalAlignment = Enum.HorizontalAlignment.Left,
-							Layout = Enum.FillDirection.Vertical,
-							Padding = {
-								Left = theme.playabilityWidget.buttonPane.padding,
+						List = Roact.createElement(RadioButtonList, {
+							Buttons = playabilityButtons,
+							OnClick = function(key)
+								if key == "Friends" then
+									isFriendsOnlyChanged(true)
+									isActiveChanged(true, false)
+								else
+									isFriendsOnlyChanged(false)
+									local willShutdown = (function()
+										return isCurrentlyActive and not key
+									end)()
+									isActiveChanged(key, willShutdown)
+								end
+							end,
+							SelectedKey = isFriendsOnly and "Friends" or isActive,
+							TextSize = {
+								Description = theme.fontStyle.Subtext.TextSize,
+								MainText = theme.fontStyle.Normal.TextSize,
 							},
-							Spacing = theme.playabilityWidget.buttonPane.spacing,
-						}, {
-							Header = Roact.createElement(TextLabel, {
-								AutomaticSize = Enum.AutomaticSize.XY,
-								LayoutOrder = 0,
-								Style = "Title",
-								Text = localization:getText("General", "PlayabilityHeader"),
-								TextColor = playabilityWarningVisible and theme.fontStyle.Subtitle.TextColor3 or nil,
-								TextSize = theme.fontStyle.Subtitle.TextSize,
-								TextXAlignment = Enum.TextXAlignment.Left,
-							}),
-							VerticalList = Roact.createElement(RadioButtonList, {
-								Buttons = playabilityButtons,
-								FillDirection = Enum.FillDirection.Vertical,
-								LayoutOrder = 1,
-								OnClick = function(key)
-									if key == "Friends" then
-										isFriendsOnlyChanged(true)
-										isActiveChanged(true, false)
-									else
-										isFriendsOnlyChanged(false)
-										local willShutdown = (function()
-											return isCurrentlyActive and not key
-										end)()
-										isActiveChanged(key, willShutdown)
-									end
-								end,
-								SelectedKey = isFriendsOnly and "Friends" or isActive,
-								TextSize = {
-									Description = theme.fontStyle.Subtext.TextSize,
-									MainText = theme.fontStyle.Normal.TextSize,
-								},
-							}),
 						}),
-					})),
+					}),
+				})),
 				PlayabilityWarning = playabilityWarningVisible and Roact.createElement(TextLabel, {
 					AutomaticSize = Enum.AutomaticSize.XY,
 					LayoutOrder = 15,

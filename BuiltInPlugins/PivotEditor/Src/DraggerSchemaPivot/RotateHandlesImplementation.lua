@@ -93,8 +93,7 @@ function RotateHandlesImplementation:beginDrag(selection, initialSelectionInfo)
 	self._lastPivot = self._initialPivot
 	self._primaryObject = initialSelectionInfo:getPrimaryObject()
 	self._snapPoints = computeSnapPointsForInstance(self._primaryObject)
-	self._initialRelativePosition, self._initialRelativeRotation = 
-		self:_getRelativeLocationInBoundingBox()
+	self._initialRelativePosition, self._initialRelativeRotation = self:_getRelativeLocationInBoundingBox()
 end
 
 function RotateHandlesImplementation:updateDrag(globalTransform)

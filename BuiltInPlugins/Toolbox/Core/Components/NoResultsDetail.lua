@@ -6,11 +6,8 @@ local Cryo = require(Packages.Cryo)
 local t = require(Packages.Framework).Util.Typecheck.t
 
 local Constants = require(Plugin.Core.Util.Constants)
-local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 
 local TextWithInlineLink = require(Packages.Framework).UI.TextWithInlineLink
-
-local withTheme = ContextHelper.withTheme
 
 local Framework = require(Packages.Framework)
 local ContextServices = Framework.ContextServices

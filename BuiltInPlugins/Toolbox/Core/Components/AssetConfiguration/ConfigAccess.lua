@@ -13,7 +13,7 @@ local Framework = require(Packages.Framework)
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
-local ContextGetter =require (Util.ContextGetter)
+local ContextGetter = require(Util.ContextGetter)
 local Constants = require(Util.Constants)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local getUserId = require(Util.getUserId)
@@ -28,7 +28,6 @@ local GetGroupMetadata = require(Plugin.Core.Thunks.GetGroupMetadata)
 
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -73,8 +72,7 @@ function ConfigAccess:renderContent(theme, localization, localizedContent)
 	-- User is 0, howerver in source code, User is 1.
 	-- TODO: Notice UX to change the website.
 	local ownerIndex = (owner.typeId or 1)
-	local groups = AssetConfigUtil.isCatalogAsset(props.assetTypeEnum)
-		and props.assetTypeAgents
+	local groups = AssetConfigUtil.isCatalogAsset(props.assetTypeEnum) and props.assetTypeAgents
 		or props.manageableGroups
 	self.dropdownContent = AssetConfigUtil.getOwnerDropDownContent(groups, localizedContent)
 
@@ -83,7 +81,7 @@ function ConfigAccess:renderContent(theme, localization, localizedContent)
 	local publishAssetTheme = theme.publishAsset
 
 	local ownerName = ""
-	if (not self.allowOwnerEdit) and owner.typeId then
+	if not self.allowOwnerEdit and owner.typeId then
 		if owner.typeId == ConfigTypes.OWNER_TYPES.User then
 			if owner.targetId ~= getUserId() then
 				ownerName = owner.username
@@ -105,7 +103,7 @@ function ConfigAccess:renderContent(theme, localization, localizedContent)
 		BackgroundColor3 = Color3.fromRGB(227, 227, 227),
 		BorderSizePixel = 0,
 
-		LayoutOrder = LayoutOrder
+		LayoutOrder = LayoutOrder,
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
@@ -128,7 +126,6 @@ function ConfigAccess:renderContent(theme, localization, localizedContent)
 			TextColor3 = publishAssetTheme.titleTextColor,
 			Font = Constants.FONT,
 
-
 			LayoutOrder = 1,
 		}),
 
@@ -144,7 +141,7 @@ function ConfigAccess:renderContent(theme, localization, localizedContent)
 			LayoutOrder = 2,
 		}),
 
-		OwnerType = (not self.allowOwnerEdit) and Roact.createElement("TextLabel", {
+		OwnerType = not self.allowOwnerEdit and Roact.createElement("TextLabel", {
 			Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, Constants.FONT_SIZE_TITLE),
 
 			BackgroundTransparency = 1,
@@ -165,7 +162,8 @@ end
 local function mapStateToProps(state, props)
 	state = state or {}
 
-	local assetGroupData = (props.owner and state[props.owner.targetId] and state[props.owner.targetId].groupMetadata) or props.assetGroupData
+	local assetGroupData = (props.owner and state[props.owner.targetId] and state[props.owner.targetId].groupMetadata)
+		or props.assetGroupData
 	local owner = (state.assetConfigData and state.assetConfigData.Creator) or props.owner
 
 	return {

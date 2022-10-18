@@ -22,7 +22,11 @@ local TrustAndSafetyAppPolicy = require(script.TrustAndSafetyAppPolicy)
 
 local OpenReportDialog = require(script.Actions.OpenReportDialog)
 local OpenReportMenu = require(script.Actions.OpenReportMenu)
+local BeginReportFlow = require(script.Actions.BeginReportFlow)
+local SetVoiceReportingFlow = require(script.Actions.SetVoiceReportingFlow)
+
 local FetchPlaceInfo = require(script.Thunks.FetchPlaceInfo)
+local GetFFlagEnableNewVoiceReportFlows = require(script.Flags.GetFFlagEnableNewVoiceReportFlows)
 
 local TrustAndSafety = {}
 
@@ -49,6 +53,8 @@ function TrustAndSafety:initialize()
 
 	self.store = self:createStore()
 	self.store:dispatch(FetchPlaceInfo(game.GameId))
+	self.store:dispatch(SetVoiceReportingFlow(GetFFlagEnableNewVoiceReportFlows()))
+
 	self.localization = self:createLocalization()
 
 	self.root = Roact.createElement(RoactRodux.StoreProvider, {
@@ -87,16 +93,16 @@ function TrustAndSafety:createLocalization()
 		local localeId = LocalizationService.RobloxLocaleId
 		localization:SetLocale(localeId)
 	end)
-	
+
 	return localization
 end
 
 function TrustAndSafety:openReportDialog(reportType, targetPlayer)
-	self.store:dispatch(OpenReportDialog(reportType, targetPlayer))
+	self.store:dispatch(BeginReportFlow(reportType, targetPlayer))
 end
 
 function TrustAndSafety:openReportMenu()
-	self.store:dispatch(OpenReportMenu())
+	self.store:dispatch(BeginReportFlow())
 end
 
 return {

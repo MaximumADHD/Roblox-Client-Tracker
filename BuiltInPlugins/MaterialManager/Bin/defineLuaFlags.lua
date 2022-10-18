@@ -4,5 +4,6 @@ game:DefineFastFlag("MaterialManagerTextureMapUploadFix", false)
 game:DefineFastFlag("MaterialManagerDisableSelectionOnTool", false)
 game:DefineFastFlag("MaterialManagerReducerImprovements", false)
 game:DefineFastFlag("MaterialManagerSidebarExpansion", false)
+game:DefineFastFlag("MaterialManagerAddAnalyticsCategories", false)
 
 return nil

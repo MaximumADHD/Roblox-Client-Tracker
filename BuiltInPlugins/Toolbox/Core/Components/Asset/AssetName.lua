@@ -24,7 +24,6 @@ local withContext = ContextServices.withContext
 
 local getModal = ContextGetter.getModal
 local withModal = ContextHelper.withModal
-local withTheme = ContextHelper.withTheme
 
 local TooltipWrapper = require(Plugin.Core.Components.TooltipWrapper)
 

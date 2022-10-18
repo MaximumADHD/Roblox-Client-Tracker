@@ -23,10 +23,11 @@
 		name: "Empty", "TooLong"
 		description: "TooLong"
 		devices: "NoDevices",
-		altText: { ThumbnailId: string, Error: "Moderated" }
+		altText: { ThumbnailId: string, Error: "Moderated", "TooLong" }
 ]]
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 local FFlagStudioNewTemplatesAreTC = game:GetFastFlag("StudioNewTemplatesAreTC")
+local FFlagGameSettingsEnableThumbnailAltText = game:GetFastFlag("GameSettingsEnableThumbnailAltText")
 
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
@@ -36,6 +37,7 @@ local LOCALIZATION_ID = script.Name
 
 local MAX_NAME_LENGTH = 50
 local MAX_DESCRIPTION_LENGTH = 1000
+local MAX_ALT_TEXT_LENGTH = 1000
 
 local nameErrors = {
 	Moderated = "ErrorNameModerated",
@@ -65,16 +67,13 @@ local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryRoundTextBox = SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
-local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 local FFlagDevFrameworkDropdownShowsLabel = game:GetFastFlag("DevFrameworkDropdownShowsLabel")
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
-local UILibrary = if FFlagRemoveUILibraryTitledFrame and FFlagRemoveUILibraryRoundTextBox
-	then nil
-	else require(Plugin.Packages.UILibrary)
+local UILibrary = if FFlagRemoveUILibraryRoundTextBox then nil else require(Plugin.Packages.UILibrary)
 
 local UI = Framework.UI
 local MultiLineTextInput = UI.MultiLineTextInput
@@ -89,7 +88,7 @@ local SelectInput = if FFlagDevFrameworkDropdownShowsLabel
 local TextInput2 = UI.TextInput2
 local TextLabel = UI.Decoration.TextLabel
 local TextWithInlineLink = UI.TextWithInlineLink
-local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
+local TitledFrame = UI.TitledFrame
 
 local RoundTextBox
 if not FFlagRemoveUILibraryRoundTextBox then
@@ -221,7 +220,6 @@ local function loadSettings(store, contextItems)
 							}
 						}
 				]]
-
 				local optInLocations = gameInfoController:getOptInLocations(gameId)
 
 				local transformedOptInLocations = {}
@@ -412,7 +410,7 @@ local function saveSettings(store, contextItems)
 							end)
 
 							if success then
-								if result.MediaAssetAltText ~= altText then
+								if result ~= nil and result.MediaAssetAltText ~= altText then
 									if thumbnailsWithFilteredAltText == nil then
 										thumbnailsWithFilteredAltText = table.clone(state.Settings.Changed.thumbnails)
 									end
@@ -524,6 +522,18 @@ local function dispatchChanges(setValue, dispatch)
 		ThumbnailsChanged = function(thumbnails)
 			dispatch(DiscardError("altText"))
 			dispatch(AddChange("thumbnails", thumbnails))
+			if FFlagGameSettingsEnableThumbnailAltText then
+				for id, thumbnail in pairs(thumbnails) do
+					if thumbnail.altText and string.len(thumbnail.altText) > MAX_ALT_TEXT_LENGTH then
+						dispatch(AddErrors({
+							altText = {
+								ThumbnailId = id,
+								Error = "TooLong",
+							},
+						}))
+					end
+				end
+			end
 		end,
 
 		GenreChanged = setValue("genre"),
@@ -900,78 +910,56 @@ function BasicInfo:render()
 		end
 
 		return {
-			Name = Roact.createElement(
-				TitledFrame,
-				if FFlagRemoveUILibraryTitledFrame
-					then {
-						LayoutOrder = layoutOrder:getNextOrder(),
-						Title = localization:getText("General", "TitleName"),
-					}
-					else {
-						Title = localization:getText("General", "TitleName"),
-						MaxHeight = 60,
-						LayoutOrder = layoutOrder:getNextOrder(),
+			Name = Roact.createElement(TitledFrame, {
+				LayoutOrder = layoutOrder:getNextOrder(),
+				Title = localization:getText("General", "TitleName"),
+			}, {
+				TextBox = (if FFlagRemoveUILibraryRoundTextBox
+					then Roact.createElement(TextInput2, {
+						Disabled = props.Name == nil,
+						ErrorText = nameError,
+						MaxLength = MAX_NAME_LENGTH,
+						OnTextChanged = props.NameChanged,
+						Text = props.Name or "",
+					})
+					else Roact.createElement(RoundTextBox, {
+						Active = props.Name ~= nil,
+						ErrorMessage = nameError,
+						MaxLength = MAX_NAME_LENGTH,
+						Text = props.Name or "",
 						TextSize = DEPRECATED_Constants.TEXT_SIZE,
-					},
-				{
-					TextBox = (if FFlagRemoveUILibraryRoundTextBox
-						then Roact.createElement(TextInput2, {
-							Disabled = props.Name == nil,
-							ErrorText = nameError,
-							MaxLength = MAX_NAME_LENGTH,
-							OnTextChanged = props.NameChanged,
-							Text = props.Name or "",
-						})
-						else Roact.createElement(RoundTextBox, {
-							Active = props.Name ~= nil,
-							ErrorMessage = nameError,
-							MaxLength = MAX_NAME_LENGTH,
-							Text = props.Name or "",
-							TextSize = DEPRECATED_Constants.TEXT_SIZE,
 
-							SetText = props.NameChanged,
-						})),
-				}
-			),
+						SetText = props.NameChanged,
+					})),
+			}),
 
-			Description = Roact.createElement(
-				TitledFrame,
-				if FFlagRemoveUILibraryTitledFrame
-					then {
-						LayoutOrder = layoutOrder:getNextOrder(),
-						Title = localization:getText("General", "TitleDescription"),
-					}
-					else {
-						Title = localization:getText("General", "TitleDescription"),
-						MaxHeight = 150,
-						LayoutOrder = layoutOrder:getNextOrder(),
+			Description = Roact.createElement(TitledFrame, {
+				LayoutOrder = layoutOrder:getNextOrder(),
+				Title = localization:getText("General", "TitleDescription"),
+			}, {
+				TextBox = (if FFlagRemoveUILibraryRoundTextBox
+					then Roact.createElement(TextInput2, {
+						Disabled = props.Description == nil,
+						ErrorText = descriptionError,
+						MaxLength = MAX_DESCRIPTION_LENGTH,
+						MultiLine = true,
+						OnTextChanged = props.DescriptionChanged,
+						Height = 130,
+						Text = props.Description or "",
+					})
+					else Roact.createElement(RoundTextBox, {
+						Height = 130,
+						Multiline = true,
+
+						Active = props.Description ~= nil,
+						ErrorMessage = descriptionError,
+						MaxLength = MAX_DESCRIPTION_LENGTH,
+						Text = props.Description or "",
 						TextSize = DEPRECATED_Constants.TEXT_SIZE,
-					},
-				{
-					TextBox = (if FFlagRemoveUILibraryRoundTextBox
-						then Roact.createElement(TextInput2, {
-							Disabled = props.Description == nil,
-							ErrorText = descriptionError,
-							MaxLength = MAX_DESCRIPTION_LENGTH,
-							MultiLine = true,
-							OnTextChanged = props.DescriptionChanged,
-							Height = 130,
-							Text = props.Description or "",
-						})
-						else Roact.createElement(RoundTextBox, {
-							Height = 130,
-							Multiline = true,
 
-							Active = props.Description ~= nil,
-							ErrorMessage = descriptionError,
-							MaxLength = MAX_DESCRIPTION_LENGTH,
-							Text = props.Description or "",
-							TextSize = DEPRECATED_Constants.TEXT_SIZE,
-
-							SetText = props.DescriptionChanged,
-						})),
-				}
-			),
+						SetText = props.DescriptionChanged,
+					})),
+			}),
 
 			Separator = Roact.createElement(Separator, {
 				LayoutOrder = layoutOrder:getNextOrder(),
@@ -1010,41 +998,29 @@ function BasicInfo:render()
 				LayoutOrder = layoutOrder:getNextOrder(),
 			}),
 
-			Genre = Roact.createElement(
-				TitledFrame,
-				if FFlagRemoveUILibraryTitledFrame
-					then {
-						LayoutOrder = layoutOrder:getNextOrder(),
-						Title = localization:getText("General", "TitleGenre"),
-					}
-					else {
-						Title = localization:getText("General", "TitleGenre"),
-						MaxHeight = 38,
-						LayoutOrder = layoutOrder:getNextOrder(),
-						TextSize = DEPRECATED_Constants.TEXT_SIZE,
-						ZIndex = 3,
-					},
-				{
-					Selector = Roact.createElement(
-						SelectInput,
-						if FFlagDevFrameworkDropdownShowsLabel
-							then {
-								Items = localizedGenreList,
-								Enabled = props.Genre ~= nil,
-								SelectedId = props.Genre,
-								OnItemActivated = function(item)
-									props.GenreChanged(item.Id)
-								end,
-							}
-							else {
-								Entries = localizedGenreList,
-								Enabled = props.Genre ~= nil,
-								Current = props.Genre,
-								CurrentChanged = props.GenreChanged,
-							}
-					),
-				}
-			),
+			Genre = Roact.createElement(TitledFrame, {
+				LayoutOrder = layoutOrder:getNextOrder(),
+				Title = localization:getText("General", "TitleGenre"),
+			}, {
+				Selector = Roact.createElement(
+					SelectInput,
+					if FFlagDevFrameworkDropdownShowsLabel
+						then {
+							Items = localizedGenreList,
+							Enabled = props.Genre ~= nil,
+							SelectedId = props.Genre,
+							OnItemActivated = function(item)
+								props.GenreChanged(item.Id)
+							end,
+						}
+						else {
+							Entries = localizedGenreList,
+							Enabled = props.Genre ~= nil,
+							Current = props.Genre,
+							CurrentChanged = props.GenreChanged,
+						}
+				),
+			}),
 
 			Separator5 = Roact.createElement(Separator, {
 				LayoutOrder = layoutOrder:getNextOrder(),
@@ -1057,22 +1033,22 @@ function BasicInfo:render()
 					{
 						Id = "Computer",
 						Title = localization:getText("General", "DeviceComputer"),
-						Selected = devices and devices.Computer or false,
+						Selected = if devices then devices.Computer else false,
 					},
 					{
 						Id = "Phone",
 						Title = localization:getText("General", "DevicePhone"),
-						Selected = devices and devices.Phone or false,
+						Selected = if devices then devices.Phone else false,
 					},
 					{
 						Id = "Tablet",
 						Title = localization:getText("General", "DeviceTablet"),
-						Selected = devices and devices.Tablet or false,
+						Selected = if devices then devices.Tablet else false,
 					},
 					{
 						Id = "Console",
 						Title = localization:getText("General", "DeviceConsole"),
-						Selected = devices and devices.Console or false,
+						Selected = if devices then devices.Console else false,
 					},
 				},
 				Enabled = devices ~= nil,

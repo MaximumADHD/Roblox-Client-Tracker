@@ -47,8 +47,8 @@ function MainPlugin:init(props)
 
 		-- Image under edit
 		pixelDimensions = Vector2.new(0, 0),
-		sliceRect = {0, 0, 0, 0},
-		revertSliceRect = {0, 0, 0, 0},
+		sliceRect = { 0, 0, 0, 0 },
+		revertSliceRect = { 0, 0, 0, 0 },
 		imageRectSize = Vector2.new(),
 		imageRectOffset = Vector2.new(),
 		imageColor3 = Color3.new(),
@@ -80,7 +80,7 @@ function MainPlugin:init(props)
 		})
 	end
 
-	self.onInstanceUnderEditChanged = function(instance: Instance?, newState: {[string]: any})
+	self.onInstanceUnderEditChanged = function(instance: Instance?, newState: { [string]: any })
 		if not self.state.enabled then
 			self.reportOpen()
 		end
@@ -107,7 +107,7 @@ function MainPlugin:init(props)
 
 	self.onLoadingChanged = function(loading: boolean)
 		self:setState({
-			loading = loading
+			loading = loading,
 		})
 	end
 
@@ -182,7 +182,6 @@ function MainPlugin:render()
 				resampleMode = state.resampleMode,
 			}),
 		}),
-
 	})
 end
 

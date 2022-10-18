@@ -4,8 +4,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local ArgCheck = require(CorePackages.ArgCheck)
 
-local GetFFlagUIBloxFixDropdownMenuListPositionAndSize =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuListPositionAndSize)
 local GetFFlagUIBloxGenericButtonInputChangesInGame =
 	require(CorePackages.UIBloxFlags.GetFFlagUIBloxGenericButtonInputChangesInGame)
 local GetFFlagUIBloxUseNewGenericTextLabelProps =
@@ -29,7 +27,6 @@ local GetFFlagUIBloxEnableImageSetResolutionScaleFix =
 
 return {
 	useUpdatedCheckbox = true,
-	fixDropdownMenuListPositionAndSize = GetFFlagUIBloxFixDropdownMenuListPositionAndSize(),
 	fixDropdownMenuCellTextSize = GetFFlagUIBloxFixDropdownMenuCellTextSize(),
 	useNewGenericTextLabelProps = GetFFlagUIBloxUseNewGenericTextLabelProps(),
 	useAnimatedXboxCursors = true,

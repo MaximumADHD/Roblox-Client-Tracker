@@ -20,4 +20,8 @@ local pages = {
 	Options,
 }
 
+if game:DefineFastFlag("AvatarChatSettingsEnabled", false) then
+	pages[#pages + 1] = require(script.Parent.CommunicationPage.Communication)
+end
+
 return pages

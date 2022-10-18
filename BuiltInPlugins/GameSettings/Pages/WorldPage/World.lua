@@ -22,7 +22,6 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -40,7 +39,7 @@ local RoactStudioWidgets = Plugin.Packages.RoactStudioWidgets
 local StudioWidgetText = require(RoactStudioWidgets.Text)
 
 local UI = Framework.UI
-local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else require(RoactStudioWidgets.TitledFrame)
+local TitledFrame = UI.TitledFrame
 local Separator = UI.Separator
 
 local INPUT_BOX_OFFSET = 160
@@ -281,52 +280,42 @@ function World:render()
 				end,
 			}),
 
-			JumpDistance = Roact.createElement(
-				TitledFrame,
-				if FFlagRemoveUILibraryTitledFrame
-					then {
-						LayoutOrder = 7,
-						Title = "",
-					}
-					else {
-						Title = "",
-						MaxHeight = 10,
-						TitleTextYAlignment = Enum.TextYAlignment.Center,
-					},
-				{
-					Layout = Roact.createElement("UIListLayout", {
-						SortOrder = Enum.SortOrder.LayoutOrder,
-						FillDirection = Enum.FillDirection.Horizontal,
-						VerticalAlignment = Enum.VerticalAlignment.Center,
-					}),
-					JumpDistanceLabel = Roact.createElement(StudioWidgetText, {
-						LayoutOrder = 1,
-						Enabled = true,
-						Size = UDim2.new(0, INPUT_BOX_OFFSET, 0, ROW_HEIGHT),
-						Text = localization:getText("General", "JumpDistance"),
-					}),
-					JumpDistanceValue = Roact.createElement(StudioWidgetText, {
-						LayoutOrder = 2,
-						Enabled = true,
-						Size = UDim2.new(0, METRIC_LABEL_OFFSET, 0, ROW_HEIGHT),
-						Text = formatNumberForDisplay(
-							worldRootPhysicsController.calculateJumpDistance(gravity, jumpPower, walkspeed)
+			JumpDistance = Roact.createElement(TitledFrame, {
+				LayoutOrder = 7,
+				Title = "",
+			}, {
+				Layout = Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					FillDirection = Enum.FillDirection.Horizontal,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+				}),
+				JumpDistanceLabel = Roact.createElement(StudioWidgetText, {
+					LayoutOrder = 1,
+					Enabled = true,
+					Size = UDim2.new(0, INPUT_BOX_OFFSET, 0, ROW_HEIGHT),
+					Text = localization:getText("General", "JumpDistance"),
+				}),
+				JumpDistanceValue = Roact.createElement(StudioWidgetText, {
+					LayoutOrder = 2,
+					Enabled = true,
+					Size = UDim2.new(0, METRIC_LABEL_OFFSET, 0, ROW_HEIGHT),
+					Text = formatNumberForDisplay(
+						worldRootPhysicsController.calculateJumpDistance(gravity, jumpPower, walkspeed)
+					),
+				}),
+				JumpDistanceMetricValue = Roact.createElement(StudioWidgetText, {
+					LayoutOrder = 3,
+					Enabled = true,
+					Size = UDim2.new(1, -(METRIC_LABEL_OFFSET + INPUT_BOX_OFFSET), 0, ROW_HEIGHT),
+					Text = localization:getText("General", "UnitsMeters1", {
+						formatNumberForDisplay(
+							worldRootPhysicsController.convertStudsToMeters(
+								worldRootPhysicsController.calculateJumpDistance(gravity, jumpPower, walkspeed)
+							)
 						),
 					}),
-					JumpDistanceMetricValue = Roact.createElement(StudioWidgetText, {
-						LayoutOrder = 3,
-						Enabled = true,
-						Size = UDim2.new(1, -(METRIC_LABEL_OFFSET + INPUT_BOX_OFFSET), 0, ROW_HEIGHT),
-						Text = localization:getText("General", "UnitsMeters1", {
-							formatNumberForDisplay(
-								worldRootPhysicsController.convertStudsToMeters(
-									worldRootPhysicsController.calculateJumpDistance(gravity, jumpPower, walkspeed)
-								)
-							),
-						}),
-					}),
-				}
-			),
+				}),
+			}),
 
 			MaxSlopeAngle = Roact.createElement(NumberInputRow, {
 				LayoutOrder = 8,

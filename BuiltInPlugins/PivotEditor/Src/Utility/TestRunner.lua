@@ -25,7 +25,7 @@ function TestRunner.runComponentTest(component, testRunner, store)
 	local container = TestHelper.getTempScreenGui()
 	local contextItems, storeObject = createContextItems(store)
 	local element = provideMockContext(contextItems, {
-		test = component
+		test = component,
 	})
 	local handle = Roact.mount(element, container)
 

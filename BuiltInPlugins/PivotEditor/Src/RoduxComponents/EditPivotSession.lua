@@ -71,8 +71,7 @@ function EditPivotSession:render()
 	local mouse = pluginInstance:GetMouse()
 	self._draggerContext = self.props.DraggerContext
 	if not self._draggerContext then
-		self._draggerContext = DraggerContext_Pivot.new(
-			pluginInstance, game, settings(), DraggerSchema.Selection.new())
+		self._draggerContext = DraggerContext_Pivot.new(pluginInstance, game, settings(), DraggerSchema.Selection.new())
 	end
 
 	if editingMode == EditingMode.Transform or editingMode == EditingMode.None then

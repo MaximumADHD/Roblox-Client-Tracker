@@ -69,7 +69,9 @@ function ReasonFrame:init(props)
 			end
 		end
 
-		if not canvasHeight then canvasHeight = DEFAULT_CANVAS_HEIGHT end
+		if not canvasHeight then
+			canvasHeight = DEFAULT_CANVAS_HEIGHT
+		end
 		if scrollingFrame then
 			scrollingFrame.CanvasSize = UDim2.new(1, 0, 0, canvasHeight)
 		end
@@ -95,7 +97,7 @@ function ReasonFrame:init(props)
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				LayoutOrder = 0,
-			})
+			}),
 		}
 
 		for index, reason in pairs(reasons) do

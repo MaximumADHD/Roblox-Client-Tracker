@@ -67,14 +67,14 @@ function TangentControl:render(): (any)
 		-- positions of the control buttons based on the slope, rather than
 		-- calling atan2.
 
-		Roact.createElement("Frame", {
+		Line = Roact.createElement("Frame", {
 			Position = UDim2.new(if left then 0 else 0.5, 0, 0.5, 0),
 			Size = UDim2.new(0, length, 0, 1),
 			BorderSizePixel = 0,
 			BackgroundTransparency = 0,
 			BackgroundColor3 = theme.curveTheme.tangentControlColor,
 		}),
-		Roact.createElement("ImageButton", {
+		Control = Roact.createElement("ImageButton", {
 			Size = UDim2.new(0, controlSize, 0, controlSize),
 			AnchorPoint = Vector2.new(if left then 1 else 0, 0.5),
 			Position = UDim2.new(if left then 0 else 1, 0, 0.5, 0),

@@ -36,6 +36,7 @@ local MaterialVariantCreator = require(Plugin.Src.Components.MaterialPrompt.Mate
 
 local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
 local getFFlagMaterialManagerTextureMapUploadFix = require(Plugin.Src.Flags.getFFlagMaterialManagerTextureMapUploadFix)
+local getFFlagMaterialManagerAddAnalyticsCategories = require(Plugin.Src.Flags.getFFlagMaterialManagerAddAnalyticsCategories)
 
 export type Props = {
 	PromptClosed: () -> (),
@@ -169,6 +170,9 @@ function MaterialPrompt:init()
 				["BaseMaterial"] = getMaterialName(baseMaterial),
 			}
 			props.Analytics:report("newMaterialVariant", args, FIntInfluxReportMaterialManagerHundrethPercent2)
+			if getFFlagMaterialManagerAddAnalyticsCategories() then
+				props.Analytics:report("newMaterialVariantCounter")
+			end
 		elseif props.Mode == "Edit" then
 			props.Analytics:report("editMaterialVariantAndSave")
 		end

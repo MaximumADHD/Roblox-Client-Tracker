@@ -49,8 +49,6 @@ local Framework = require(Packages.Framework)
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local Images = require(Util.Images)
-local ContextHelper = require(Util.ContextHelper)
-local withTheme = ContextHelper.withTheme
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -136,9 +134,10 @@ function CollaboratorSearchBar:init()
 				end
 			end)
 
-			local textBound = TextService:GetTextSize(text, textBox.TextSize, textBox.Font, Vector2.new(math.huge, math.huge))
+			local textBound =
+				TextService:GetTextSize(text, textBox.TextSize, textBox.Font, Vector2.new(math.huge, math.huge))
 			if textBound.x > textBox.AbsoluteSize.x then
-				textBox.TextXAlignment = Enum.TextXAlignment.Right 
+				textBox.TextXAlignment = Enum.TextXAlignment.Right
 			else
 				textBox.TextXAlignment = Enum.TextXAlignment.Left
 			end
@@ -191,7 +190,6 @@ function CollaboratorSearchBar:init()
 		textBox:CaptureFocus()
 		textBox.TextXAlignment = Enum.TextXAlignment.Left
 
-
 		-- Stop hovering on the clear button so that when it reappears,
 		-- it doesn't start in a hover state
 		self.onClearButtonHoverEnded()
@@ -234,12 +232,16 @@ function CollaboratorSearchBar:mergeResultsTable(results)
 		end
 	else
 		local keys = {}
-		for key,_ in pairs(results) do table.insert(keys, key) end
-		table.sort(keys, function(a,b) return results[a].LayoutOrder < results[b].LayoutOrder end)
+		for key, _ in pairs(results) do
+			table.insert(keys, key)
+		end
+		table.sort(keys, function(a, b)
+			return results[a].LayoutOrder < results[b].LayoutOrder
+		end)
 
-		for _,key in ipairs(keys) do
+		for _, key in ipairs(keys) do
 			table.insert(mergedTable, key)
-			for _,item in ipairs(results[key]) do
+			for _, item in ipairs(results[key]) do
 				table.insert(mergedTable, item)
 			end
 		end
@@ -449,7 +451,7 @@ function CollaboratorSearchBar:render()
 				[Roact.Change.Text] = self.onTextChanged,
 				[Roact.Event.Focused] = self.onTextBoxFocused,
 				[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
-			} , {
+			}, {
 				TextPadding = Roact.createElement("UIPadding", {
 					PaddingLeft = UDim.new(0, textPadding),
 				}),
@@ -469,9 +471,8 @@ function CollaboratorSearchBar:render()
 			ClearButtonFrame = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				LayoutOrder = orderIterator:getNextOrder(),
-				Size = UDim2.new(0, SEARCH_BAR_HEIGHT,
-					0, SEARCH_BAR_HEIGHT),
-			} , {
+				Size = UDim2.new(0, SEARCH_BAR_HEIGHT, 0, SEARCH_BAR_HEIGHT),
+			}, {
 				ClearButton = Roact.createElement("ImageButton", {
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					Position = UDim2.new(0.5, 0, 0.5, 0),
@@ -491,14 +492,12 @@ function CollaboratorSearchBar:render()
 			ImageFrame = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				LayoutOrder = orderIterator:getNextOrder(),
-				Size = UDim2.new(0, SEARCH_BAR_HEIGHT,
-					0, SEARCH_BAR_HEIGHT),
-			} , {
+				Size = UDim2.new(0, SEARCH_BAR_HEIGHT, 0, SEARCH_BAR_HEIGHT),
+			}, {
 				Image = Roact.createElement("ImageLabel", {
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					Position = UDim2.new(0.5, 0, 0.5, 0),
-					Size = UDim2.new(0, SEARCH_BAR_BUTTON_ICON_SIZE,
-						0, SEARCH_BAR_BUTTON_ICON_SIZE),
+					Size = UDim2.new(0, SEARCH_BAR_BUTTON_ICON_SIZE, 0, SEARCH_BAR_BUTTON_ICON_SIZE),
 					BackgroundTransparency = 1,
 					Image = Images.SEARCH_ICON,
 					ImageColor3 = theme.assetConfig.packagePermissions.searchBar.searchIcon,

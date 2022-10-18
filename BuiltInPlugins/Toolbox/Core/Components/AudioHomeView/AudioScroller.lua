@@ -1,6 +1,9 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
 
+local FFlagToolboxAudioAssetPreview = game:GetFastFlag("ToolboxAudioAssetPreview")
+local FFLagToolboxFixAudioScroll = FFlagToolboxAudioAssetPreview and game:GetFastFlag("ToolboxFixAudioScroll")
+
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
@@ -42,7 +45,12 @@ type _ExternalAudioScrollerProps = {
 	AudioType: string?,
 	FetchNextPage: ((pageSize: number) -> ())?,
 	LogImpression: (asset: AssetInfo.AssetInfo) -> ()?,
-	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn,
+	-- Remove with removal of FFlagToolboxAudioAssetPreview
+	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn?,
+	-- Make required with removal of  FFlagToolboxAudioAssetPreview
+	TryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn?,
+	-- Make required with removal of  FFlagToolboxAudioAssetPreview
+	OnAssetPreviewButtonClicked: AssetLogicWrapper.OnAssetPreviewButtonClickedFn?,
 }
 type AudioScrollerProps = _InteralAudioScrollerProps & _ExternalAudioScrollerProps
 
@@ -66,7 +74,10 @@ function AudioScroller:init(props: AudioScrollerProps)
 		local assetCount = #self.props.Assets
 		local loadingIndicatorHeight = if self.props.Loading then 60 else 0
 		local topContentHeight = if self.props.RenderTopContent then 30 else 0
-		return Constants.AUDIO_ROW.ROW_HEIGHT * assetCount + loadingIndicatorHeight + topContentHeight
+		return Constants.AUDIO_ROW.ROW_HEIGHT * assetCount
+			+ loadingIndicatorHeight
+			+ topContentHeight
+			+ if FFLagToolboxFixAudioScroll then Constants.AUDIO_ROW.EXPANDED_ROW_HEIGHT else 0
 	end
 
 	self.calculateRenderBounds = function(forceUpdate)
@@ -178,7 +189,11 @@ function AudioScroller:render()
 				CanInsertAsset = canInsertAsset,
 				LayoutOrder = 2,
 				LogImpression = logImpression,
-				tryOpenAssetConfig = props.tryOpenAssetConfig,
+				tryOpenAssetConfig = if FFlagToolboxAudioAssetPreview then nil else props.tryOpenAssetConfig,
+				TryOpenAssetConfig = if FFlagToolboxAudioAssetPreview then props.TryOpenAssetConfig else nil,
+				OnAssetPreviewButtonClicked = if FFlagToolboxAudioAssetPreview
+					then props.OnAssetPreviewButtonClicked
+					else nil,
 			}),
 			LoadingIndicator = loading and Roact.createElement("Frame", {
 				BackgroundColor3 = theme.backgroundColor,

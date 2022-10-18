@@ -11,7 +11,7 @@ local useSelector = require(CorePackages.AppTempCommon.Hooks.RoactRodux.useSelec
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEventConnection)
-local Analytics = require(CorePackages.Analytics.Analytics)
+local Analytics = require(CorePackages.Workspace.Packages.Analytics).Analytics
 
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local Images = UIBlox.App.ImageSet.Images

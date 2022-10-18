@@ -1,4 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -12,9 +14,12 @@ local TnsModule = script.Parent.Parent
 local SetScreenSize = require(TnsModule.Actions.SetScreenSize)
 local ReportMenu = require(TnsModule.Components.ReportMenu)
 local ReportDialog = require(TnsModule.Components.ReportDialog)
+local ReportCategoryDialog = require(TnsModule.Components.ReportCategoryDialog)
+
 local ReportSentDialog = require(TnsModule.Components.ReportSentDialog)
 local BlockPlayerDialog = require(TnsModule.Components.BlockPlayerDialog)
 local Toast = require(TnsModule.Components.Toast)
+local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
 
 local TrustAndSafetyApp = Roact.PureComponent:extend("TrustAndSafetyApp")
 
@@ -35,23 +40,26 @@ function TrustAndSafetyApp:render()
 	return Roact.createElement(UIBlox.Core.Style.Provider, {
 		style = self.appStyle,
 	}, {
-		Gui = Roact.createElement("ScreenGui", {
-			AutoLocalize = false,
-			DisplayOrder = DISPLAY_ORDER,
-			IgnoreGuiInset = true,
-			OnTopOfCoreBlur = true,
-			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			[Roact.Change.AbsoluteSize] = self.props.setScreenSize
-		}, {
-			Content = Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 1, 0),
+		VoiceStateContextProvider = Roact.createElement(VoiceStateContext.Provider, {}, {
+			Gui = Roact.createElement("ScreenGui", {
+				AutoLocalize = false,
+				DisplayOrder = DISPLAY_ORDER,
+				IgnoreGuiInset = true,
+				OnTopOfCoreBlur = true,
+				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+				[Roact.Change.AbsoluteSize] = self.props.setScreenSize
 			}, {
-				ReportMenu = Roact.createElement(ReportMenu),
-				ReportDialog = Roact.createElement(ReportDialog),
-				ReportSentDialog = Roact.createElement(ReportSentDialog),
-				BlockPlayerDialog = Roact.createElement(BlockPlayerDialog),
-				Toast = Roact.createElement(Toast),
+				Content = Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, 0, 1, 0),
+				}, {
+					ReportCategoryDialog = Roact.createElement(ReportCategoryDialog),
+					ReportMenu = Roact.createElement(ReportMenu),
+					ReportDialog = Roact.createElement(ReportDialog),
+					ReportSentDialog = Roact.createElement(ReportSentDialog),
+					BlockPlayerDialog = Roact.createElement(BlockPlayerDialog),
+					Toast = Roact.createElement(Toast),
+				})
 			})
 		})
 	})

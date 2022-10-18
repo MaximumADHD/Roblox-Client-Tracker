@@ -46,7 +46,7 @@ function LoadingBarWrapper:loadUntil(percent)
 		local newTime = self.state.time + dt
 		self:setState({
 			time = newTime,
-			progress = newTime/self.props.loadingTime
+			progress = newTime / self.props.loadingTime,
 		})
 	end
 end

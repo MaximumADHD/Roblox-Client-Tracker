@@ -33,7 +33,8 @@ function CollaboratorSearchItem:render()
 	-- setting offset for textbox to be icon frame or icon frame and enter icon frame if hovered and if showRibbon is true
 	local iconOffset = isHovered and itemHeight * 2 or itemHeight
 	local textLabelOffset = -iconOffset
-	local backgroundColor = isHovered and searchBarTheme.dropDown.hovered.backgroundColor or searchBarTheme.dropDown.backgroundColor
+	local backgroundColor = isHovered and searchBarTheme.dropDown.hovered.backgroundColor
+		or searchBarTheme.dropDown.backgroundColor
 
 	return Roact.createElement(Button, {
 		Size = size,
@@ -44,7 +45,7 @@ function CollaboratorSearchItem:render()
 			AutomaticSize = Enum.AutomaticSize.X,
 			LayoutOrder = 0,
 			BackgroundTransparency = 1,
-		} , {
+		}, {
 			UIListLayout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				FillDirection = Enum.FillDirection.Horizontal,
@@ -82,15 +83,12 @@ function CollaboratorSearchItem:render()
 					PaddingLeft = UDim.new(0, textPadding),
 				}),
 			}),
-		})
+		}),
 	})
 end
-
 
 CollaboratorSearchItem = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(CollaboratorSearchItem)
-
-
 
 return CollaboratorSearchItem

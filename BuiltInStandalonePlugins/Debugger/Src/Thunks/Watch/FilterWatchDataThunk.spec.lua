@@ -11,8 +11,6 @@ local TestStore = require(Util.TestStore)
 local FilterWatchDataThunk = require(script.Parent.FilterWatchDataThunk)
 local filterText = "Karan"
 
-local FFlagStudioDebuggerExpandVariables = require(Plugin.Src.Flags.GetFFlagStudioDebuggerExpandVariables)
-
 return function()
 	it("should filter roots that don't match", function()
 		local store = Rodux.Store.new(MainReducer, nil, MainMiddleware)
@@ -28,25 +26,10 @@ return function()
 
 		expect(watch.stateTokenToFlattenedTree).to.be.ok()
 		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1]).to.be.ok()
-		if FFlagStudioDebuggerExpandVariables() then
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["Alex"].textFilteredOut).to.be.equal(false)
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["UnitedStates"].textFilteredOut).to.be.equal(true)
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["Alex_Austin_Karan"].scopeFilteredOut).to.be.equal(false)
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["Alex_Austin_Karan"].textFilteredOut).to.be.equal(false)
-		else
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["1"].textFilteredOut).to.be.equal(
-				false
-			)
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["2"].textFilteredOut).to.be.equal(
-				true
-			)
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["1_2_1"].scopeFilteredOut).to.be.equal(
-				false
-			)
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["1_2_1"].textFilteredOut).to.be.equal(
-				false
-			)
-		end
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["Alex"].textFilteredOut).to.be.equal(false)
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["UnitedStates"].textFilteredOut).to.be.equal(true)
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["Alex_Austin_Karan"].scopeFilteredOut).to.be.equal(false)
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["Alex_Austin_Karan"].textFilteredOut).to.be.equal(false)
 	end)
 
 	it("should filter roots that don't match regardless of filter case", function()
@@ -64,25 +47,10 @@ return function()
 
 		expect(watch.stateTokenToFlattenedTree).to.be.ok()
 		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1]).to.be.ok()
-		if FFlagStudioDebuggerExpandVariables() then
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["Alex"].textFilteredOut).to.be.equal(false)
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["UnitedStates"].textFilteredOut).to.be.equal(true)
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["Alex_Austin_Karan"].scopeFilteredOut).to.be.equal(false)
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["Alex_Austin_Karan"].textFilteredOut).to.be.equal(false)
-		else
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["1"].textFilteredOut).to.be.equal(
-				false
-			)
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["2"].textFilteredOut).to.be.equal(
-				true
-			)
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["1_2_1"].scopeFilteredOut).to.be.equal(
-				false
-			)
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["1_2_1"].textFilteredOut).to.be.equal(
-				false
-			)
-		end
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["Alex"].textFilteredOut).to.be.equal(false)
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["UnitedStates"].textFilteredOut).to.be.equal(true)
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["Alex_Austin_Karan"].scopeFilteredOut).to.be.equal(false)
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["Alex_Austin_Karan"].textFilteredOut).to.be.equal(false)
 
 		-- set the filter text to all lowercase and see that the results are identical
 		store:dispatch(FilterWatchDataThunk(filterText:lower()))
@@ -95,25 +63,10 @@ return function()
 
 		expect(watch.stateTokenToFlattenedTree).to.be.ok()
 		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1]).to.be.ok()
-		if FFlagStudioDebuggerExpandVariables() then
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["Alex"].textFilteredOut).to.be.equal(false)
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["UnitedStates"].textFilteredOut).to.be.equal(true)
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["Alex_Austin_Karan"].scopeFilteredOut).to.be.equal(false)
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["Alex_Austin_Karan"].textFilteredOut).to.be.equal(false)
-		else
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["1"].textFilteredOut).to.be.equal(
-				false
-			)
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["2"].textFilteredOut).to.be.equal(
-				true
-			)
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["1_2_1"].scopeFilteredOut).to.be.equal(
-				false
-			)
-			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["1_2_1"].textFilteredOut).to.be.equal(
-				false
-			)
-		end
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["Alex"].textFilteredOut).to.be.equal(false)
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["UnitedStates"].textFilteredOut).to.be.equal(true)
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["Alex_Austin_Karan"].scopeFilteredOut).to.be.equal(false)
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["Alex_Austin_Karan"].textFilteredOut).to.be.equal(false)
 	end)
 
 	it(
@@ -133,19 +86,11 @@ return function()
 
 			expect(watch.stateTokenToFlattenedTree).to.be.ok()
 			expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1]).to.be.ok()
-			if FFlagStudioDebuggerExpandVariables() then
-				expect(watch.pathToExpansionState["Alex"]).to.be.equal(true)
-				expect(watch.pathToExpansionState["Alex_Austin"]).to.be.equal(true)
-				expect(watch.pathToExpansionState["Alex_Austin_Karan"]).to.be.equal(true)
-				expect(watch.pathToExpansionState["Alex_Heesoo"]).to.be.equal(false)
-				expect(watch.pathToExpansionState["Alex_Heesoo_Raul"]).to.be.equal(false)
-			else
-				expect(watch.pathToExpansionState["1"]).to.be.equal(true)
-				expect(watch.pathToExpansionState["1_2"]).to.be.equal(true)
-				expect(watch.pathToExpansionState["1_2_1"]).to.be.equal(true)
-				expect(watch.pathToExpansionState["1_1"]).to.be.equal(false)
-				expect(watch.pathToExpansionState["1_1_1"]).to.be.equal(false)
-			end
+			expect(watch.pathToExpansionState["Alex"]).to.be.equal(true)
+			expect(watch.pathToExpansionState["Alex_Austin"]).to.be.equal(true)
+			expect(watch.pathToExpansionState["Alex_Austin_Karan"]).to.be.equal(true)
+			expect(watch.pathToExpansionState["Alex_Heesoo"]).to.be.equal(false)
+			expect(watch.pathToExpansionState["Alex_Heesoo_Raul"]).to.be.equal(false)
 		end
 	)
 end

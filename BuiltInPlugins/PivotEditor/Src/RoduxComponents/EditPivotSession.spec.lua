@@ -10,10 +10,8 @@ return function()
 	local EditPivotSession = require(Plugin.Src.RoduxComponents.EditPivotSession)
 
 	it("should create and destroy without errors", function()
-		runComponentTest(
-			Roact.createElement(EditPivotSession, {
-				DraggerContext = TestHelper.createTestDraggerContext(),
-			})
-		)
+		runComponentTest(Roact.createElement(EditPivotSession, {
+			DraggerContext = TestHelper.createTestDraggerContext(),
+		}))
 	end)
 end

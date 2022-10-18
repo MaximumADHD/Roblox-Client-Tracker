@@ -30,7 +30,7 @@ local function main()
 	local roactHandle = Roact.mount(ContextServices.provide({
 		ContextServices.Plugin.new(plugin),
 		ContextServices.Mouse.new(plugin:GetMouse()),
-		ContextServices.Store.new(Rodux.Store.new(MainReducer, nil, {Rodux.thunkMiddleware})),
+		ContextServices.Store.new(Rodux.Store.new(MainReducer, nil, { Rodux.thunkMiddleware })),
 		ContextServices.Localization.new(localizationProps),
 		ToastNotification.new(),
 	}, {

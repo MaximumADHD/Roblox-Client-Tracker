@@ -16,21 +16,19 @@ return function()
 	local SliceRectUtil = require(Plugin.Src.Util.SliceRectUtil)
 	local Orientation = require(Plugin.Src.Util.Orientation)
 	local Constants = require(Plugin.Src.Util.Constants)
-	
+
 	local SliceEditorTestWrapper = require(Plugin.Src.TestComponents.SliceEditorTestWrapper)
-	
+
 	it("should create and destroy without errors", function()
 		local instance = Instance.new("ImageLabel")
 		local sliceRect = SliceRectUtil.getSliceRectFromSliceCenter(instance.SliceCenter)
 		withTestComponent(SliceEditor, {
 			selectedObject = instance,
 			pixelDimensions = Vector2.new(100, 100),
-			onClose = function()
-			end,
+			onClose = function() end,
 			sliceRect = sliceRect,
 			revertSliceRect = SliceRectUtil.copySliceRect(sliceRect),
-		}, function()
-		end)
+		}, function() end)
 	end)
 
 	-- Get a table of the 4 text input components
@@ -49,7 +47,7 @@ return function()
 		local pixelDimensions = Vector2.new(100, 100)
 		local sliceRect = TestHelper.getSliceRectFromSliceCenterRect(sliceCenter)
 		local offsets = TestHelper.getOffsetsFromSliceRect(sliceRect, pixelDimensions)
-		
+
 		local imageLabel = Instance.new("ImageLabel")
 		imageLabel.ScaleType = Enum.ScaleType.Slice
 		imageLabel.SliceCenter = sliceCenter
@@ -61,8 +59,7 @@ return function()
 				SliceEditor = Roact.createElement(SliceEditor, {
 					selectedObject = imageLabel,
 					pixelDimensions = pixelDimensions,
-					onClose = function()
-					end,
+					onClose = function() end,
 					sliceRect = sliceRect,
 					revertSliceRect = SliceRectUtil.copySliceRect(sliceRect),
 				}),
@@ -78,54 +75,55 @@ return function()
 				local textBox = TestHelper.findFirstDescendantWhichIsA(component, "TextBox")
 				expect(textBox).to.be.ok()
 				expect(textBox.Text).to.equal(tostring(offsets[orientation]))
-				
 			end
 		end)
 	end)
 
 	-- This behavior is to keep backwards compatability for sliceCenter functionality
-	it("if initial sliceCenter exceeds image rect bounds, opening/closing 9 Slice Editor shouldn't clamp sliceCenter", function()
-		local sliceCenter = Rect.new(-25, -70, 294, 407)
-		local pixelDimensions = Vector2.new(50, 50)
-		
-		local imageLabel = Instance.new("ImageLabel")
-		imageLabel.ScaleType = Enum.ScaleType.Slice
-		imageLabel.SliceCenter = sliceCenter
-		local sliceRect = SliceRectUtil.getSliceRectFromSliceCenter(imageLabel.SliceCenter)
+	it(
+		"if initial sliceCenter exceeds image rect bounds, opening/closing 9 Slice Editor shouldn't clamp sliceCenter",
+		function()
+			local sliceCenter = Rect.new(-25, -70, 294, 407)
+			local pixelDimensions = Vector2.new(50, 50)
 
-		-- Mounts and unmounts 9 slice editor
-		withTestComponent("Frame", {
-			Position = UDim2.fromOffset(100, 100),
-			Size = UDim2.fromOffset(Constants.WIDGET_SIZE.x, Constants.WIDGET_SIZE.y),
-			[Roact.Children] = {
-				SliceEditor = Roact.createElement(SliceEditor, {
-					selectedObject = imageLabel,
-					pixelDimensions = pixelDimensions,
-					onClose = function()
-					end,
-					sliceRect = sliceRect,
-					revertSliceRect = SliceRectUtil.copySliceRect(sliceRect),
-				}),
-			},
-		}, function(container)
-			wait()
-		end)
+			local imageLabel = Instance.new("ImageLabel")
+			imageLabel.ScaleType = Enum.ScaleType.Slice
+			imageLabel.SliceCenter = sliceCenter
+			local sliceRect = SliceRectUtil.getSliceRectFromSliceCenter(imageLabel.SliceCenter)
 
-		-- Check unclamped sliceCenter was unchanged
-		expect(imageLabel.SliceCenter).to.equal(sliceCenter)
-	end)
+			-- Mounts and unmounts 9 slice editor
+			withTestComponent("Frame", {
+				Position = UDim2.fromOffset(100, 100),
+				Size = UDim2.fromOffset(Constants.WIDGET_SIZE.x, Constants.WIDGET_SIZE.y),
+				[Roact.Children] = {
+					SliceEditor = Roact.createElement(SliceEditor, {
+						selectedObject = imageLabel,
+						pixelDimensions = pixelDimensions,
+						onClose = function() end,
+						sliceRect = sliceRect,
+						revertSliceRect = SliceRectUtil.copySliceRect(sliceRect),
+					}),
+				},
+			}, function(container)
+				wait()
+			end)
+
+			-- Check unclamped sliceCenter was unchanged
+			expect(imageLabel.SliceCenter).to.equal(sliceCenter)
+		end
+	)
 
 	it("modifying text in editor should correctly update the original instance's SliceCenter property", function()
 		local pixelDimensions = Vector2.new(100, 100)
 		local sliceCenter = Rect.new(10, 10, 90, 90)
-		
+
 		local imageLabel = Instance.new("ImageLabel")
 		imageLabel.ScaleType = Enum.ScaleType.Slice
 		imageLabel.SliceCenter = sliceCenter
 		local sliceRect = SliceRectUtil.getSliceRectFromSliceCenter(imageLabel.SliceCenter)
 
-		local requestedOffsets = {22, -43, 40, 507}
-		local expectedClampedOffsets = {22, 0, 40, 60}
+		local requestedOffsets = { 22, -43, 40, 507 }
+		local expectedClampedOffsets = { 22, 0, 40, 60 }
 
 		withTestComponent("Frame", {
 			Position = UDim2.fromOffset(100, 100),
@@ -170,12 +168,12 @@ return function()
 	it("clicking 'revert' button should revert the changes to sliceCenter", function()
 		local pixelDimensions = Vector2.new(100, 100)
 		local sliceCenter = Rect.new(1, 1, 90, 90)
-		
+
 		local imageLabel = Instance.new("ImageLabel")
 		imageLabel.ScaleType = Enum.ScaleType.Slice
 		imageLabel.SliceCenter = sliceCenter
 		local sliceRect = SliceRectUtil.getSliceRectFromSliceCenter(imageLabel.SliceCenter)
-		local requestedOffsets = {22, 11, 15, 20}
+		local requestedOffsets = { 22, 11, 15, 20 }
 
 		withTestComponent("Frame", {
 			Position = UDim2.fromOffset(100, 100),
@@ -223,8 +221,4 @@ return function()
 			expect(imageLabel.SliceCenter).to.equal(sliceCenter)
 		end)
 	end)
-
-
-	
-
 end

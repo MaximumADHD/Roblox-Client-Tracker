@@ -34,6 +34,7 @@ local openSecuritySettings = require(Root.Thunks.openSecuritySettings)
 local initiatePurchasePrecheck = require(Root.Thunks.initiatePurchasePrecheck)
 local isMockingPurchases = require(Root.Utils.isMockingPurchases)
 local connectToStore = require(Root.connectToStore)
+local sendEvent = require(Root.Thunks.sendEvent)
 
 local PurchasePromptPolicy = require(Root.Components.Connection.PurchasePromptPolicy)
 local ExternalEventConnection = require(Root.Components.Connection.ExternalEventConnection)
@@ -62,10 +63,10 @@ local XBOX_B_ICON = "icons/controls/keys/xboxB"
 
 local DELAYED_INPUT_SEC = 2.5
 
-local FFlagPurchasePromptDelayedInStudio = game:DefineFastFlag("PurchasePromptDelayedInStudio", false)
 local FFlagPPTwoFactorLogOutMessage = game:DefineFastFlag("PPTwoFactorLogOutMessage", false)
 local FFlagEnableLuobuWarningText = game:DefineFastFlag("EnableLuobuWarningText", false)
 local FFlagPauseGameExploitFix = game:DefineFastFlag("PauseGameExploitFix", false)
+local FFlagPurchaseWithGamePausedFix = game:DefineFastFlag("PurchaseWithGamePausedFix", false)
 
 local GetFFlagPPFixGamepadIcons = require(Root.Flags.GetFFlagPPFixGamepadIcons)
 
@@ -102,12 +103,10 @@ function ProductPurchaseContainer:init()
 	end
 
 	self.hasDelayedInput = function()
-		if FFlagPurchasePromptDelayedInStudio then
-			-- No delayed input on test purchases (helps testing in studio)
-			local isTestPurchase = self.props.isTestPurchase
-			if isTestPurchase then
-				return false
-			end
+		-- No delayed input on test purchases (helps testing in studio)
+		local isTestPurchase = self.props.isTestPurchase
+		if isTestPurchase then
+			return false
 		end
 
 		local promptState = self.props.promptState
@@ -242,6 +241,13 @@ function ProductPurchaseContainer:didMount()
 end
 
 function ProductPurchaseContainer:didUpdate(prevProps, prevState)
+	-- Game unpause and purchase workflow could be triggered at the same time by doing some hack.
+	-- The fix is to check the game pause status in didUpdate(), and close ourchase prompt if in game pause.
+	-- More details in https://jira.rbx.com/browse/CLI-59903.
+	if FFlagPurchaseWithGamePausedFix and Players.LocalPlayer.GameplayPaused then
+		self.props.onAnalyticEvent("PurchasePromptGamePausedDetected", { game.PlaceId })
+		self.props.hideWindow()
+	end
 	if GetFFlagPPFixGamepadIcons() then
 		local purchaseFlow = self.props.purchaseFlow
 		local requestType = self.props.requestType
@@ -548,7 +554,10 @@ local function mapDispatchToProps(dispatch)
 		end,
 		completeRequest = function()
 			dispatch(completeRequest())
-		end
+		end,
+		onAnalyticEvent = function(name, data)
+			dispatch(sendEvent(name, data))
+		end,
 	}
 end
 

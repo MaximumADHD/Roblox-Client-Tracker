@@ -33,7 +33,6 @@ local ViewTypes = getViewTypes()
 
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerVariantCreatorOverhaul = require(Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
-local getFFlagMaterialManagerDisableSelectionOnTool = require(Flags.getFFlagMaterialManagerDisableSelectionOnTool)
 
 export type Props = {
 	OpenPrompt: (type: _Types.MaterialPromptType) -> (),
@@ -279,7 +278,7 @@ MaterialBrowser = withContext({
 return RoactRodux.connect(
 	function(state, props)
 		return {
-			ActiveAsTool = if getFFlagMaterialManagerDisableSelectionOnTool() then state.MaterialBrowserReducer.ActiveAsTool else false,
+			ActiveAsTool = state.MaterialBrowserReducer.ActiveAsTool,
 			Material = state.MaterialBrowserReducer.Material,
 			MaterialBrowserLayout = state.MaterialBrowserReducer.MaterialBrowserLayout,
 			MaterialTileSize = state.MaterialBrowserReducer.MaterialTileSize,

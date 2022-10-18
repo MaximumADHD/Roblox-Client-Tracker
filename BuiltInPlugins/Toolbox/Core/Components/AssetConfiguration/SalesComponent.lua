@@ -47,9 +47,8 @@ function SalesComponent:init(props)
 		local onStatusChange = props.OnStatusChange
 
 		if canChangeSalesStatus then
-			local newStatus = AssetConfigUtil.isOnSale(currentAssetStatus) and
-				AssetConfigConstants.ASSET_STATUS.OffSale or
-				AssetConfigConstants.ASSET_STATUS.OnSale
+			local newStatus = AssetConfigUtil.isOnSale(currentAssetStatus) and AssetConfigConstants.ASSET_STATUS.OffSale
+				or AssetConfigConstants.ASSET_STATUS.OnSale
 			onStatusChange(newStatus)
 		end
 	end
@@ -108,15 +107,13 @@ function SalesComponent:renderContent(theme, localization, localizedContent)
 			Text = subText,
 			TextXAlignment = Enum.TextXAlignment.Left,
 
-			LayoutOrder = orderIterator:getNextOrder()
-		})
+			LayoutOrder = orderIterator:getNextOrder(),
+		}),
 	})
 end
-
 
 SalesComponent = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(SalesComponent)
-
 
 return SalesComponent

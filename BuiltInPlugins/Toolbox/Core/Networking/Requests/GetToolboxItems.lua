@@ -1,4 +1,3 @@
-local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
 local FFlagToolboxAudioSearchOptions2 = game:GetFastFlag("ToolboxAudioSearchOptions2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -102,7 +101,7 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 				album = if FFlagToolboxAudioSearchOptions2 then additionalAudioSearchInfo.albumn else nil,
 				tags = if FFlagToolboxAudioSearchOptions2 then tags else nil,
 				includeOnlyVerifiedCreators = not includeUnverifiedCreators,
-				searchSource = if FFlagToolboxIncludeSearchSource then pageInfo.searchSource else nil,
+				searchSource = pageInfo.searchSource,
 			})
 
 			return getRequest:andThen(function(result)

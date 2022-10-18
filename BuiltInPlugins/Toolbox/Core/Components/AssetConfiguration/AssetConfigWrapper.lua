@@ -51,7 +51,6 @@ function AssetConfigWrapper:init(props)
 		self.popUpGuiRef = ref
 	end
 
-
 	self.onClose = function(rbx)
 		if self.props.onAssetConfigDestroy then
 			self.props.onAssetConfigDestroy()
@@ -61,7 +60,7 @@ end
 
 function AssetConfigWrapper:didMount()
 	self:setState({
-		popUpGui = self.popUpGuiRef
+		popUpGui = self.popUpGuiRef,
 	})
 end
 
@@ -100,10 +99,10 @@ function AssetConfigWrapper:render()
 				theme = theme,
 			}, {
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
-					localization = localization
+					localization = localization,
 				}, {
 					NetworkProvider = Roact.createElement(NetworkProvider, {
-						networkInterface = networkInterface
+						networkInterface = networkInterface,
 					}, {
 						ModalProvider = Roact.createElement(ModalProvider, {
 							pluginGui = state.popUpGui,
@@ -115,12 +114,12 @@ function AssetConfigWrapper:render()
 								onClose = self.onClose,
 
 								pluginGui = state.popUpGui,
-							})
-						})
-					})
-				})
-			})
-		})
+							}),
+						}),
+					}),
+				}),
+			}),
+		}),
 	})
 end
 

@@ -6,9 +6,9 @@ local getMaxAudioLength = require(Plugin.Core.Util.ToolboxUtilities).getMaxAudio
 
 local StudioService = game:GetService("StudioService")
 
-local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
 local FFlagToolboxPackagesInAssetTile = game:GetFastFlag("ToolboxPackagesInAssetTile")
 local FFlagToolboxAudioSearchOptions2 = game:GetFastFlag("ToolboxAudioSearchOptions2")
+local FFlagToolboxAudioAssetPreview = game:GetFastFlag("ToolboxAudioAssetPreview")
 
 local Category = require(Plugin.Core.Types.Category)
 
@@ -276,12 +276,10 @@ Constants.Dialog = {
 Constants.MIN_AUDIO_SEARCH_DURATION = 0
 Constants.MAX_AUDIO_SEARCH_DURATION = 420
 
-if FFlagToolboxIncludeSearchSource then
-	Constants.SEARCH_SOURCE = {
-		KEYWORD = "keyword",
-		CATEGORY = "category",
-	}
-end
+Constants.SEARCH_SOURCE = {
+	KEYWORD = "keyword",
+	CATEGORY = "category",
+}
 
 if showRobloxCreatedAssets() then
 	Constants.MAX_AUDIO_SEARCH_DURATION = getMaxAudioLength()
@@ -305,9 +303,10 @@ Constants.AUDIO_ROW = {
 	},
 	ICON_SIZE = 18,
 	ROW_HEIGHT = 30,
-	EXPANDED_MUSIC_ROW_HEIGHT = 121,
-	EXPANDED_SOUND_EFFECT_ROW_HEIGHT = 108,
-	EXPANDED_UNCATEGORIZED_ROW_HEIGHT = 56,
+	EXPANDED_ROW_HEIGHT = 121,
+	EXPANDED_MUSIC_ROW_HEIGHT = if FFlagToolboxAudioAssetPreview then nil else 121,
+	EXPANDED_SOUND_EFFECT_ROW_HEIGHT = if FFlagToolboxAudioAssetPreview then nil else 108,
+	EXPANDED_UNCATEGORIZED_ROW_HEIGHT = if FFlagToolboxAudioAssetPreview then nil else 56,
 	LEFT_RIGHT_PADDING = 10,
 	TOP_BUTTON_PADDING = 6,
 	BORDER_SIZE = 2,

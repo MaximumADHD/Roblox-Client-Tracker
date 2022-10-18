@@ -10,7 +10,6 @@
 		PrevInterpolationMode: Interpolation mode of the curve leading to this keyframe, if any
 		RightSlope: Right slope of this keyframe. Nil if auto-tangent
 		Selected: Whether this keyframe is selected
-		ShowTooltip: Whether the tooltip should be displayed (deactivated when the key is moving, for instance)
 		Path: Full path of the track this keyframe belongs to
 		Width: Size of the keyframe
 		ZIndex: Display index of this component
@@ -48,7 +47,6 @@ export type Props = {
 	PrevInterpolationMode: Enum.KeyInterpolationMode,
 	RightSlope: number?,
 	Selected: boolean,
-	ShowTooltip: boolean,
 	Width: number?,
 	ZIndex: number?,
 
@@ -96,7 +94,6 @@ function Keyframe:render(): ()
 	local color = props.Color
 	local selected = props.Selected
 	local zIndex = props.ZIndex
-	local showTooltip = props.ShowTooltip
 
 	local tooltipText = self:buildTooltip()
 

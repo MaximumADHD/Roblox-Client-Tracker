@@ -7,9 +7,9 @@ local LocalizationService = game:GetService("LocalizationService")
 
 local React = require(CorePackages.Packages.React)
 local ArgCheck = require(CorePackages.ArgCheck)
-local RobloxLocaleIdKey = require(CorePackages.Localization.RobloxLocaleIdKey)
-local LocalizationRoactContext = require(CorePackages.Localization.LocalizationRoactContext)
-local localizeStrings = require(CorePackages.Localization.localizeStrings)
+local RobloxLocaleIdKey = require(CorePackages.Workspace.Packages.Localization).RobloxLocaleIdKey
+local LocalizationRoactContext = require(CorePackages.Workspace.Packages.Localization).LocalizationRoactContext
+local localizeStrings = require(CorePackages.Workspace.Packages.Localization).localizeStrings
 local useSignal = require(script.Parent.useSignal)
 
 type FormatTable = {any}

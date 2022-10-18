@@ -56,29 +56,32 @@ return function()
 
 	describe("multi user invite prompt", function()
 		it("should display custom text when prop is provided", function()
-			local oldFlagValue = game:SetFastFlagForTesting("EnableNewInviteMenuDev", true)
-			
+			local oldFlagValue = game:SetFastFlagForTesting("EnableNewInviteMenuStyle", true)
+
 			local folder = Instance.new("Folder")
-			local instance = Roact.mount(Roact.createElement(FullModalShareGameComponent, {
-				store = createStore(),
-				isVisible = true,
-				promptMessage = "Custom",
-			}), folder)
+			local instance = Roact.mount(
+				Roact.createElement(FullModalShareGameComponent, {
+					store = createStore(),
+					isVisible = true,
+					promptMessage = "Custom",
+				}),
+				folder
+			)
 
 			expect(instance).to.be.ok()
 			expect(folder:FindFirstChild("CustomText", true).Text).to.equal("Custom")
 
-			game:SetFastFlagForTesting("EnableNewInviteMenuDev", oldFlagValue)
+			game:SetFastFlagForTesting("EnableNewInviteMenuStyle", oldFlagValue)
 		end)
 	end)
 
 	describe("single user invite prompt", function()
 		beforeAll(function(c)
-			c.oldFlagValue = game:SetFastFlagForTesting("EnableNewInviteMenuDev", true)
+			c.oldFlagValue = game:SetFastFlagForTesting("EnableNewInviteMenuStyle", true)
 		end)
 
 		afterAll(function(c)
-			game:SetFastFlagForTesting("EnableNewInviteMenuDev", c.oldFlagValue)
+			game:SetFastFlagForTesting("EnableNewInviteMenuStyle", c.oldFlagValue)
 		end)
 
 		it("should show display name in default prompt", function()

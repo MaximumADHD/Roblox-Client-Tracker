@@ -26,26 +26,22 @@ local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
 local VersionDivider = require(AssetConfiguration.VersionDivider)
 
 local Util = Plugin.Core.Util
-local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
 local Urls = require(Util.Urls)
 local Images = require(Util.Images)
-
-local withTheme = ContextHelper.withTheme
 
 local VersionItem = Roact.PureComponent:extend("VersionItem")
 
 local IITEM_CONTENT_HEIGHT = 20
 
 local VERSION_ITEM_STATE = {
-	CURRENT = 1,	-- hide the click button
-	SELECTED = 2, 	-- change color
-	DEFAULT = 3 	-- clickable, default color
+	CURRENT = 1, -- hide the click button
+	SELECTED = 2, -- change color
+	DEFAULT = 3, -- clickable, default color
 }
 
 function VersionItem:init(props)
-	self.state = {
-	}
+	self.state = {}
 end
 
 function VersionItem:render()
@@ -80,9 +76,11 @@ function VersionItem:render()
 		end
 	end
 
-	local thumbnailUrl = Urls.constructAssetThumbnailUrl(ItemInfo.assetId,
+	local thumbnailUrl = Urls.constructAssetThumbnailUrl(
+		ItemInfo.assetId,
 		Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE,
-		Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE)
+		Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE
+	)
 
 	local versionsTheme = theme.versions
 	-- The only difference between the current item and itemList in the
@@ -127,24 +125,24 @@ function VersionItem:render()
 			BorderSizePixel = 0,
 		}),
 
-		SelectButton = (buttonState ~= VERSION_ITEM_STATE.CURRENT) and Roact.createElement("ImageButton", {
-			AnchorPoint = Vector2.new(1, 0.5),
-			-- Better number in the future
-			Position = UDim2.new(1, -160, 0.5, 0),
-			Size = UDim2.new(0, 28, 0, 28),
+		SelectButton = (buttonState ~= VERSION_ITEM_STATE.CURRENT)
+			and Roact.createElement("ImageButton", {
+				AnchorPoint = Vector2.new(1, 0.5),
+				-- Better number in the future
+				Position = UDim2.new(1, -160, 0.5, 0),
+				Size = UDim2.new(0, 28, 0, 28),
 
-			Image = Images.MAKE_CURRENT_VERSION,
-			BackgroundTransparency = 1,
-			ImageColor3 = buttonState == VERSION_ITEM_STATE.DEFAULT
-				and versionsTheme.buttonDefaultColor
-				or versionsTheme.buttonSelectedColor,
+				Image = Images.MAKE_CURRENT_VERSION,
+				BackgroundTransparency = 1,
+				ImageColor3 = buttonState == VERSION_ITEM_STATE.DEFAULT and versionsTheme.buttonDefaultColor
+					or versionsTheme.buttonSelectedColor,
 
-			[Roact.Event.Activated] = function(rbx)
-				props.ItemClickCallBack(ItemInfo)
-			end,
+				[Roact.Event.Activated] = function(rbx)
+					props.ItemClickCallBack(ItemInfo)
+				end,
 
-			BorderSizePixel = 0,
-		}),
+				BorderSizePixel = 0,
+			}),
 
 		Divider = Roact.createElement(VersionDivider, {
 			AnchorPoint = props.DividerAnchorPoint,
@@ -152,7 +150,7 @@ function VersionItem:render()
 			Size = props.DividerSize,
 
 			BorderSizePixel = 0,
-		})
+		}),
 	})
 end
 

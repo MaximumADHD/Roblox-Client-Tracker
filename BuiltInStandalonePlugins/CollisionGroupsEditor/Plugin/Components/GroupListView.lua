@@ -10,6 +10,8 @@ local TextLabel = UI.Decoration.TextLabel
 
 local Constants = require(script.Parent.Parent.Constants)
 
+local FFlagCGERemoveDefaultTranslation = game:GetFastFlag("CGERemoveDefaultTranlsation")
+
 local GroupListView = Roact.Component:extend("GroupListView")
 
 function GroupListView.getSelectedGroup(Groups)
@@ -49,7 +51,7 @@ function GroupListView:render()
 		local key = group.Name
 		local text = group.Name
 
-		if text == "Default" then
+		if not FFlagCGERemoveDefaultTranslation and text == "Default" then
 			text = localization:getText("Groups", "DefaultGroupName")
 		end
 

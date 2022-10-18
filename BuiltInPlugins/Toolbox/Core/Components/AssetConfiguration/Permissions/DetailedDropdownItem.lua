@@ -82,11 +82,8 @@ function DetailedDropdownItem:render()
 	})
 end
 
-
 DetailedDropdownItem = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(DetailedDropdownItem)
-
-
 
 return DetailedDropdownItem

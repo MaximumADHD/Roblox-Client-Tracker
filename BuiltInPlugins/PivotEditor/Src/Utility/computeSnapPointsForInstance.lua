@@ -44,7 +44,7 @@ local function computeSnapPointsForBounds(cframe: CFrame, size: Vector3)
 	return newSnapPoints
 end
 
-return function(instance: Instance?): {CFrame}
+return function(instance: Instance?): { CFrame }
 	if not instance then
 		return {}
 	elseif instance:IsA("BasePart") then

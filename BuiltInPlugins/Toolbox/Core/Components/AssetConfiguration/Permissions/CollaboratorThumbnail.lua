@@ -16,9 +16,7 @@ local Framework = require(Packages.Framework)
 
 local Util = Plugin.Core.Util
 local Images = require(Util.Images)
-local ContextHelper = require(Util.ContextHelper)
 
-local withTheme = ContextHelper.withTheme
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -36,22 +34,27 @@ function CollaboratorThumbnail:init()
 	local function colorChanged()
 		local collaboratorThumbnail = self.ref.current
 
-		if collaboratorThumbnail == nil then return end
+		if collaboratorThumbnail == nil then
+			return
+		end
 
-		self:setState({backgroundColor = collaboratorThumbnail.Parent.BackgroundColor3})
+		self:setState({ backgroundColor = collaboratorThumbnail.Parent.BackgroundColor3 })
 	end
-	
+
 	self.parentChanged = function()
 		local collaboratorThumbnail = self.ref.current
 
-		if collaboratorThumbnail == nil then return end
+		if collaboratorThumbnail == nil then
+			return
+		end
 
-		if self.colorChanged then 
+		if self.colorChanged then
 			self.colorChanged:Disconnect()
 			self.colorChanged = nil
 		end
 		if collaboratorThumbnail.Parent then
-			self.colorChanged = collaboratorThumbnail.Parent:GetPropertyChangedSignal("BackgroundColor3"):Connect(colorChanged)
+			self.colorChanged =
+				collaboratorThumbnail.Parent:GetPropertyChangedSignal("BackgroundColor3"):Connect(colorChanged)
 			colorChanged()
 		end
 	end
@@ -65,7 +68,9 @@ function CollaboratorThumbnail:didMount()
 	-- dropdown's state (e.g. is it hovered?). The only other option is to pass construction parameters
 	-- to the dropdown, which is pretty hacky, so we used a ref instead
 	local collaboratorThumbnail = self.ref.current
-	self.parentChangedSignal = collaboratorThumbnail:GetPropertyChangedSignal("Parent"):Connect(function() self.parentChanged() end)
+	self.parentChangedSignal = collaboratorThumbnail:GetPropertyChangedSignal("Parent"):Connect(function()
+		self.parentChanged()
+	end)
 	self.parentChanged()
 end
 
@@ -92,23 +97,28 @@ function CollaboratorThumbnail:render()
 		Stylizer = Cryo.None,
 	})
 
-	return Roact.createElement("ImageLabel", Cryo.Dictionary.join(imageProps, {
-		[Roact.Ref] = self.ref,
+	return Roact.createElement(
+		"ImageLabel",
+		Cryo.Dictionary.join(imageProps, {
+			[Roact.Ref] = self.ref,
 
-		ImageColor3 = isLoadedThumbnail and Color3.new(1,1,1) or theme.assetConfig.packagePermissions.subjectThumbnail.defaultImageColor,
-		ImageTransparency = 0,
-		BackgroundColor3 = theme.assetConfig.packagePermissions.subjectThumbnail.backgroundColor,
-		BackgroundTransparency = useMask and 0 or 1,
-		BorderSizePixel = 0,
-	}), {
-		Mask = useMask and Roact.createElement("ImageLabel", {
-			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 1, 0),
-
-			Image = Images.AVATAR_MASK,
-			ImageColor3 = self.state.backgroundColor,
+			ImageColor3 = isLoadedThumbnail and Color3.new(1, 1, 1)
+				or theme.assetConfig.packagePermissions.subjectThumbnail.defaultImageColor,
+			ImageTransparency = 0,
+			BackgroundColor3 = theme.assetConfig.packagePermissions.subjectThumbnail.backgroundColor,
+			BackgroundTransparency = useMask and 0 or 1,
+			BorderSizePixel = 0,
 		}),
-	})
+		{
+			Mask = useMask and Roact.createElement("ImageLabel", {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 1, 0),
+
+				Image = Images.AVATAR_MASK,
+				ImageColor3 = self.state.backgroundColor,
+			}),
+		}
+	)
 end
 
 CollaboratorThumbnail = withContext({

@@ -18,7 +18,7 @@ local withLocalization = require(Dependencies.withLocalization)
 local PrimarySystemButton = UIBlox.App.Button.PrimarySystemButton
 
 local BlockPlayerItem = require(TnsModule.Components.BlockPlayerItem)
-local CloseReportSentDialog = require(TnsModule.Actions.CloseReportSentDialog)
+local EndReportFlow = require(TnsModule.Actions.EndReportFlow)
 local OpenBlockPlayerDialog = require(TnsModule.Actions.OpenBlockPlayerDialog)
 local Constants = require(TnsModule.Resources.Constants)
 local ModalDialog = require(TnsModule.Components.ModalDialog)
@@ -49,10 +49,12 @@ function ReportSentDialog:init()
 	end
 	-- Press the "Done" button.
 	self.onConfirm = function()
-		if self:isReportingPlayer() and self.state.isCheckBoxSelected then
+		local playerReport = self:isReportingPlayer()
+		if playerReport and self.state.isCheckBoxSelected then
 			self.props.openBlockPlayerDialog(self.props.targetPlayer)
+		elseif not playerReport then
+			self.props.closeDialog()
 		end
-		self.props.closeDialog()
 		self:clearState()
 	end
 	-- Press the transparent background.
@@ -191,7 +193,7 @@ end
 
 return RoactRodux.UNSTABLE_connect2(function(state, props)
 	return {
-		isReportSentOpen = state.report.isReportSentOpen,
+		isReportSentOpen = state.report.currentPage == Constants.Page.ReportSent,
 		reportType = state.report.reportType,
 		targetPlayer = state.report.targetPlayer,
 		screenSize = state.displayOptions.screenSize,
@@ -200,7 +202,7 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 end, function(dispatch)
 	return {
 		closeDialog = function()
-			dispatch(CloseReportSentDialog())
+			dispatch(EndReportFlow())
 		end,
 		openBlockPlayerDialog = function(player)
 			dispatch(OpenBlockPlayerDialog(player))

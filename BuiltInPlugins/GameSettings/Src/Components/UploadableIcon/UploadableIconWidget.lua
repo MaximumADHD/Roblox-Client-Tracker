@@ -20,22 +20,11 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 
-local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryBulletPoint = SharedFlags.getFFlagRemoveUILibraryBulletPoint()
-local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
-
 local Cryo = require(Plugin.Packages.Cryo)
-local UILibrary = if FFlagRemoveUILibraryTitledFrame and FFlagRemoveUILibraryBulletPoint
-	then nil
-	else require(Plugin.Packages.UILibrary)
 
 local UI = Framework.UI
 local BulletList = UI.BulletList
-local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
-local BulletPoint
-if not FFlagRemoveUILibraryBulletPoint then
-	BulletPoint = UILibrary.Component.BulletPoint
-end
+local TitledFrame = UI.TitledFrame
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
@@ -92,107 +81,69 @@ function UploadableIconWidget:render()
 		preview = false
 	end
 
-	local notes
-	if FFlagRemoveUILibraryBulletPoint then
-		notes = Roact.createElement(BulletList, {
-			Items = {
-				localization:getText("General", "GameIconHint", {
-					fileTypes = table.concat(DEPRECATED_Constants.IMAGE_TYPES, ", "),
-					newline = "\n",
-				}),
-				localization:getText("General", "GameIconModeration"),
-			},
-			Position = NOTES_POSITION,
-			Size = NOTES_SIZE,
-			TextWrapped = true,
-		})
-	else
-		notes = Roact.createElement("Frame", {
-			BackgroundTransparency = 1,
-			Position = NOTES_POSITION,
-			Size = NOTES_SIZE,
-		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				Padding = UDim.new(0, 4),
-				SortOrder = Enum.SortOrder.LayoutOrder,
+	local notes = Roact.createElement(BulletList, {
+		Items = {
+			localization:getText("General", "GameIconHint", {
+				fileTypes = table.concat(DEPRECATED_Constants.IMAGE_TYPES, ", "),
+				newline = "\n",
 			}),
-			FileHint = Roact.createElement(BulletPoint, {
-				LayoutOrder = 1,
+			localization:getText("General", "GameIconModeration"),
+		},
+		Position = NOTES_POSITION,
+		Size = NOTES_SIZE,
+		TextWrapped = true,
+	})
+
+	return Roact.createElement(TitledFrame, {
+		LayoutOrder = self.props.LayoutOrder or 1,
+		Title = title,
+	}, {
+		Icon = Roact.createElement(UploadableIcon, {
+			Visible = active and icon ~= "None" or preview,
+			Preview = preview,
+			Image = icon,
+			OnClick = self.props.AddIcon,
+		}),
+
+		NewIcon = Roact.createElement(NewUploadableIcon, {
+			Visible = active and icon == "None" and not preview,
+			OnClick = self.props.AddIcon,
+		}),
+
+		Notes = notes,
+
+		NewNote = tutorialEnabled and Roact.createElement(
+			"TextButton",
+			Cryo.Dictionary.join(theme.fontStyle.Smaller, {
+				BackgroundTransparency = 1,
+				Text = localization:getText("General", "GameIconTutorial"),
+				TextColor3 = theme.hyperlink,
+				Size = UDim2.new(1, 0, 0, 18),
+				Position = UDim2.new(0, 180, 0, 92),
+				TextXAlignment = Enum.TextXAlignment.Left,
+
+				[Roact.Event.MouseEnter] = self.mouseEnter,
+				[Roact.Event.MouseLeave] = self.mouseLeave,
+
+				[Roact.Event.Activated] = function()
+					GuiService:OpenBrowserWindow(TUTORIAL_URL)
+				end,
+			})
+		),
+
+		ErrorMessage = errorMessage and Roact.createElement(
+			"TextLabel",
+			Cryo.Dictionary.join(theme.fontStyle.Error, {
+				Size = UDim2.new(1, -180, 0, 40),
+				Position = UDim2.new(0, 180, 0, 122),
+				BackgroundTransparency = 1,
+				Text = errorMessage,
 				TextWrapped = true,
-				Text = localization:getText("General", "GameIconHint", {
-					fileTypes = table.concat(DEPRECATED_Constants.IMAGE_TYPES, ", "),
-					newline = "\n",
-				}),
-			}),
-			ModerationHint = Roact.createElement(BulletPoint, {
-				LayoutOrder = 2,
-				TextWrapped = true,
-				Text = localization:getText("General", "GameIconModeration"),
-			}),
-		})
-	end
-
-	return Roact.createElement(
-		TitledFrame,
-		if FFlagRemoveUILibraryTitledFrame
-			then {
-				LayoutOrder = self.props.LayoutOrder or 1,
-				Title = title,
-			}
-			else {
-				Title = title,
-				MaxHeight = 150,
-				LayoutOrder = self.props.LayoutOrder or 1,
-				TextSize = theme.fontStyle.Title.TextSize,
-			},
-		{
-			Icon = Roact.createElement(UploadableIcon, {
-				Visible = active and icon ~= "None" or preview,
-				Preview = preview,
-				Image = icon,
-				OnClick = self.props.AddIcon,
-			}),
-
-			NewIcon = Roact.createElement(NewUploadableIcon, {
-				Visible = active and icon == "None" and not preview,
-				OnClick = self.props.AddIcon,
-			}),
-
-			Notes = notes,
-
-			NewNote = tutorialEnabled and Roact.createElement(
-				"TextButton",
-				Cryo.Dictionary.join(theme.fontStyle.Smaller, {
-					BackgroundTransparency = 1,
-					Text = localization:getText("General", "GameIconTutorial"),
-					TextColor3 = theme.hyperlink,
-					Size = UDim2.new(1, 0, 0, 18),
-					Position = UDim2.new(0, 180, 0, 92),
-					TextXAlignment = Enum.TextXAlignment.Left,
-
-					[Roact.Event.MouseEnter] = self.mouseEnter,
-					[Roact.Event.MouseLeave] = self.mouseLeave,
-
-					[Roact.Event.Activated] = function()
-						GuiService:OpenBrowserWindow(TUTORIAL_URL)
-					end,
-				})
-			),
-
-			ErrorMessage = errorMessage and Roact.createElement(
-				"TextLabel",
-				Cryo.Dictionary.join(theme.fontStyle.Error, {
-					Size = UDim2.new(1, -180, 0, 40),
-					Position = UDim2.new(0, 180, 0, 122),
-					BackgroundTransparency = 1,
-					Text = errorMessage,
-					TextWrapped = true,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Center,
-				})
-			),
-		}
-	)
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Center,
+			})
+		),
+	})
 end
 
 UploadableIconWidget = withContext({

@@ -2,6 +2,7 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
 
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
+local FFlagToolboxAudioAssetPreview = game:GetFastFlag("ToolboxAudioAssetPreview")
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
@@ -79,7 +80,12 @@ type _ExternalAudioRowProps = {
 	CanInsertAsset: () -> boolean,
 	TryInsert: ((assetData: any, assetWasDragged: boolean, insertionMethod: string?) -> any),
 	LogPageView: ((searchCategory: string, pathName: string?) -> nil),
-	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn,
+	-- Remove with removal of FFlagToolboxAudioAssetPreview
+	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn?,
+	-- Make required with removal of  FFlagToolboxAudioAssetPreview
+	TryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn?,
+	-- Make required with removal of  FFlagToolboxAudioAssetPreview
+	OnAssetPreviewButtonClicked: AssetLogicWrapper.OnAssetPreviewButtonClickedFn?,
 }
 
 type AudioWrapperProps = _InteralAudioWrapperProps & _ExternalAudioRowProps & AssetLogicWrapper.AssetLogicWrapperProps
@@ -286,7 +292,11 @@ function AudioWrapper:render()
 					RenderTopContent = self.renderTopContent,
 					AudioType = selectedTab,
 					LogImpression = self.logImpression,
-					tryOpenAssetConfig = props.tryOpenAssetConfig,
+					tryOpenAssetConfig = if FFlagToolboxAudioAssetPreview then nil else props.tryOpenAssetConfig,
+					TryOpenAssetConfig = if FFlagToolboxAudioAssetPreview then props.TryOpenAssetConfig else nil,
+					OnAssetPreviewButtonClicked = if FFlagToolboxAudioAssetPreview
+						then props.OnAssetPreviewButtonClicked
+						else nil,
 				})
 			end,
 		}),

@@ -89,7 +89,8 @@ local Header = require(AssetConfiguration.Header)
 local PriceComponent = require(AssetConfiguration.PriceComponent)
 
 local SetFieldError = require(Plugin.Core.Actions.SetFieldError)
-local GetPublishingRequirementsRequest = if FFlagToolboxAssetConfigurationVerifiedPrice then nil
+local GetPublishingRequirementsRequest = if FFlagToolboxAssetConfigurationVerifiedPrice
+	then nil
 	else require(Plugin.Core.Networking.Requests.GetPublishingRequirementsRequest) -- unused, remove with FFlagToolboxAssetConfigurationVerifiedPrice
 
 local PublishAsset = Roact.PureComponent:extend("PublishAsset")
@@ -100,7 +101,7 @@ local ACCESS_HEIGHT = 70
 local GENRE_HEIGHT = 70
 local COPY_HEIGHT = 80
 local COMMENT_HEIGHT = 80
-local PACKAGE_HEIGHT = 80  --added with FFlagUnifyModelPackagePublish3
+local PACKAGE_HEIGHT = 80 --added with FFlagUnifyModelPackagePublish3
 local PADDING = 24
 local HEIGHT_FOR_ACCOUNT_SETTING_TEXT = 60
 local DIVIDER_BASE_HEIGHT = 20
@@ -240,7 +241,7 @@ function PublishAsset:renderContent(theme, localizedContent)
 	local copyWarning -- remove with FFlagUnifyModelPackagePublish3
 	local modelPublishWarningText
 	local localization = props.Localization
-	if isAudio and not isAssetPublic and copyOn and not FFlagUnifyModelPackagePublish3 then  -- remove clause with FFlagUnifyModelPackagePublish3
+	if isAudio and not isAssetPublic and copyOn and not FFlagUnifyModelPackagePublish3 then -- remove clause with FFlagUnifyModelPackagePublish3
 		copyWarning = localization:getText("AssetConfigCopy", "MustShare")
 	end
 
@@ -263,16 +264,20 @@ function PublishAsset:renderContent(theme, localizedContent)
 		LayoutOrder = LayoutOrder,
 		[Roact.Ref] = self.baseFrameRef,
 	}
-	
+
 	local showPrice
 	if FFlagToolboxAssetConfigurationVerifiedPrice then
 		local publishingRequirements = props.publishingRequirements
 		local verification = if publishingRequirements then publishingRequirements.verification else nil
-		local isVerificationSupported = if verification and verification.supportedTypes then #verification.supportedTypes ~= 0 else nil
+		local isVerificationSupported = if verification and verification.supportedTypes
+			then #verification.supportedTypes ~= 0
+			else nil
 
 		-- If the asset is a plugin and (is unverified but can be verified or can sell marketplace assets), we show the price component.
 		-- Otherwise, the user can only toggle on/off "Distribute on Marketplace".
-		showPrice = if isPlugin then isVerificationSupported or allowedAssetTypesForRelease[assetTypeEnum.Name] else false
+		showPrice = if isPlugin
+			then isVerificationSupported or allowedAssetTypesForRelease[assetTypeEnum.Name]
+			else false
 	else
 		-- If the asset is a plugin, buyable on the marketplace, and the user is whitelisted, we show the price.
 		-- The copy option will only be able to toggle between Free and OffSale.
@@ -497,18 +502,20 @@ function PublishAsset:renderContent(theme, localizedContent)
 			LayoutOrder = orderIterator:getNextOrder(),
 		}),
 
-		Package = if FFlagUnifyModelPackagePublish3 and displayPackage then Roact.createElement(ConfigPackage, {
-			Title = publishAssetLocalized.Package,
+		Package = if FFlagUnifyModelPackagePublish3 and displayPackage
+			then Roact.createElement(ConfigPackage, {
+				Title = publishAssetLocalized.Package,
 
-			TotalHeight = PACKAGE_HEIGHT,
-			PackageEnabled = allowPackage,
-			PackageOn = packageOn,
-			PackageWarningText = packageWarningText,
+				TotalHeight = PACKAGE_HEIGHT,
+				PackageEnabled = allowPackage,
+				PackageOn = packageOn,
+				PackageWarningText = packageWarningText,
 
-			ToggleCallback = togglePackage,
+				ToggleCallback = togglePackage,
 
-			LayoutOrder = orderIterator:getNextOrder(),
-		}) else nil,
+				LayoutOrder = orderIterator:getNextOrder(),
+			})
+			else nil,
 
 		Comment = displayComment and Roact.createElement(ConfigComment, {
 			Title = publishAssetLocalized.Comments,

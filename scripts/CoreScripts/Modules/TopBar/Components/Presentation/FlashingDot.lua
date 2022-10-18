@@ -15,6 +15,7 @@ local ExternalEventConnection = UIBlox.Utility.ExternalEventConnection
 
 local Modules = CoreGui.RobloxGui.Modules
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
+local getCamMicPermissions = require(Modules.Settings.getCamMicPermissions)
 
 local ANIMATION_SPEED = 3
 local FLASHING_DOT = "rbxasset://textures/AnimationEditor/FaceCaptureUI/FlashingDot.png"
@@ -30,6 +31,8 @@ FlashingDot.validateProps = t.strictInterface({})
 function FlashingDot:init()
 	self:setState({
 		Visible = false,
+		hasMicPermissions = false,
+		hasCameraPermissions = false,
 	})
 
 	self.prevTime = math.pi / 2
@@ -37,7 +40,10 @@ function FlashingDot:init()
 	self.transparencyBinding, self.updateTransparencyBinding = Roact.createBinding(0)
 
 	self.checkNewVisibility = function()
-		local newVisible = not VoiceChatServiceManager.localMuted or FaceAnimatorService.VideoAnimationEnabled
+		local isUsingMic = self.state.hasMicPermissions and VoiceChatServiceManager.localMuted ~= nil and not VoiceChatServiceManager.localMuted
+		local isUsingCamera = self.state.hasCameraPermissions and FaceAnimatorService.VideoAnimationEnabled
+		local newVisible = isUsingMic or isUsingCamera
+
 		if self.state.Visible ~= newVisible then
 			self:setState({
 				Visible = newVisible
@@ -58,7 +64,25 @@ function FlashingDot:init()
 end
 
 function FlashingDot:didMount()
+	self.isMounted = true
+	local callback = function(response)
+		if not self.isMounted then
+			return
+		end
+
+		self:setState({
+			hasCameraPermissions = response.hasCameraPermissions,
+			hasMicPermissions = response.hasMicPermissions,
+		})
+	end
+	getCamMicPermissions(callback)
 	self.checkNewVisibility()
+end
+
+function FlashingDot:didUpdate(prevProps, prevState)
+	if self.state.hasMicPermissions ~= prevProps.hasMicPermissions or self.state.hasCameraPermissions ~= prevProps.hasCameraPermissions then
+		self.checkNewVisibility()
+	end
 end
 
 function FlashingDot:render()
@@ -91,6 +115,10 @@ function FlashingDot:render()
 			callback = self.animationConnection,
 		}) else nil,
 	})
+end
+
+function FlashingDot:willUnmount()
+	self.isMounted = false
 end
 
 return FlashingDot

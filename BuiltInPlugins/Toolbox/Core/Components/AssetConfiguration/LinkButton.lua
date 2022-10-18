@@ -31,18 +31,18 @@ local LinkButton = Roact.PureComponent:extend("LinkButton")
 
 function LinkButton:init(props)
 	self.state = {
-		hovered = false
+		hovered = false,
 	}
 
 	self.onMouseEnter = function(rbx, x, y)
 		self:setState({
-			hovered = true
+			hovered = true,
 		})
 	end
 
 	self.onMouseLeave = function(rbx, x, y)
 		self:setState({
-			hovered = false
+			hovered = false,
 		})
 	end
 
@@ -88,15 +88,14 @@ function LinkButton:render()
 			[Roact.Event.MouseLeave] = self.onMouseLeave,
 			[Roact.Event.Activated] = self.onActivated,
 		}, {
-			UnderLine = state.hovered and Roact.createElement("Frame",
-			{
+			UnderLine = state.hovered and Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(0, 1),
 				Position = UDim2.new(0, 0, 1, 0),
 				Size = UDim2.new(0, textSize.X, 0, 1),
 				BackgroundColor3 = linkButtonTheme.textColor,
 				BorderSizePixel = 0,
-			})
-		})
+			}),
+		}),
 	})
 end
 

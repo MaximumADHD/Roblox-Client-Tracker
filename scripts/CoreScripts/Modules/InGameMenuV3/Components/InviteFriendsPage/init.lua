@@ -52,6 +52,7 @@ local SearchBar = require(script.Parent.SearchBar)
 local Flags = InGameMenu.Flags
 local GetFFlagUsePageSearchAnimation = require(Flags.GetFFlagUsePageSearchAnimation)
 local GetFFlagShareInviteLinkContextMenuV3Enabled = require(Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
+local GetFFlagLuaAppNewShareSheet = require(CorePackages.UniversalApp.ExternalContentSharing.Flags.GetFFlagLuaAppNewShareSheet)
 
 local ACTIONS_ICON_PADDING = 10
 
@@ -144,10 +145,17 @@ function InviteFriendsPage:init()
 
 		self.showSharesheet = function(linkId)
 			local url = UrlBuilder.sharelinks.appsflyer(linkId, RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue())
-			ExternalContentSharingProtocol:shareText({
-				text = url,
-				context = Constants.ShareLinksAnalyticsExternalContentSharingInviteFriendsContextName
-			})
+			if GetFFlagLuaAppNewShareSheet() then
+				ExternalContentSharingProtocol:shareUrl({
+					url = url,
+					context = Constants.ShareLinksAnalyticsExternalContentSharingInviteFriendsContextName
+				})
+			else
+				ExternalContentSharingProtocol:shareText({
+					text = url,
+					context = Constants.ShareLinksAnalyticsExternalContentSharingInviteFriendsContextName
+				})
+			end
 		end
 	end
 end

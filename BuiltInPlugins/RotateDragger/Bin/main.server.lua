@@ -39,7 +39,7 @@ local function openPlugin()
 
 	local rotateHandlesEnabledFunction
 	if getFFlagDraggerHandlesIsEnabledFunction() then
-		rotateHandlesEnabledFunction = function (selectionInfo)
+		rotateHandlesEnabledFunction = function(selectionInfo)
 			if selectionInfo and selectionInfo.basisObject then
 				return true
 			else
@@ -63,9 +63,9 @@ local function openPlugin()
 				RotateHandles.new(draggerContext, {
 					ShowBoundingBox = true,
 					Summonable = true,
-					IsEnabledFunction = getFFlagDraggerHandlesIsEnabledFunction() and rotateHandlesEnabledFunction or nil,
-				}, DraggerSchema.TransformHandlesImplementation.new(
-					draggerContext, ikTransformRotateHandler)),
+					IsEnabledFunction = getFFlagDraggerHandlesIsEnabledFunction() and rotateHandlesEnabledFunction
+						or nil,
+				}, DraggerSchema.TransformHandlesImplementation.new(draggerContext, ikTransformRotateHandler)),
 			},
 		},
 	}))
@@ -83,15 +83,9 @@ end
 local function main()
 	plugin.Name = PLUGIN_NAME
 	local toolbar = plugin:CreateToolbar(TOOLBAR_NAME)
-	toolButton = toolbar:CreateButton(
-		DRAGGER_TOOL_NAME,
-		"Rotate an Object",
-		"",
-		"Rotate"
-	)
+	toolButton = toolbar:CreateButton(DRAGGER_TOOL_NAME, "Rotate an Object", "", "Rotate")
 
-	draggerContext = DraggerContext_PluginImpl.new(
-		plugin, game, settings(), DraggerSchema.Selection.new())
+	draggerContext = DraggerContext_PluginImpl.new(plugin, game, settings(), DraggerSchema.Selection.new())
 
 	plugin.Deactivation:connect(function()
 		if pluginEnabled then

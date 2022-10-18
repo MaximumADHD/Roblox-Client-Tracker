@@ -31,15 +31,14 @@ local Constants = require(Util.Constants)
 local ContextHelper = require(Util.ContextHelper)
 local ContextGetter = require(Util.ContextGetter)
 local Urls = require(Util.Urls)
-local Images = require(Util.Images)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 
 local ImageWithDefault = require(Plugin.Core.Components.ImageWithDefault)
 
-local GetAssetConfigThumbnailStatusRequest = require(Plugin.Core.Networking.Requests.GetAssetConfigThumbnailStatusRequest)
+local GetAssetConfigThumbnailStatusRequest =
+	require(Plugin.Core.Networking.Requests.GetAssetConfigThumbnailStatusRequest)
 
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -71,9 +70,11 @@ end
 function PreviewArea:didMount()
 	-- We only try to fetch the thumbnail status in edit flow.
 	local props = self.props
-	if 	props.ScreenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW and
-		props.PreviewType == AssetConfigConstants.PreviewTypes.ImagePicker then
-			props.getThumbnailStatus(getNetwork(self), props.AssetId)
+	if
+		props.ScreenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW
+		and props.PreviewType == AssetConfigConstants.PreviewTypes.ImagePicker
+	then
+		props.getThumbnailStatus(getNetwork(self), props.AssetId)
 	end
 end
 
@@ -117,11 +118,14 @@ function PreviewArea:renderContent(theme, localization, localizedContent)
 	if currentLayouter then
 		preTabHeight = currentLayouter.AbsoluteContentSize.Y
 	end
-	local formatText = localization:getLocalizedImageFormat(AssetConfigUtil.getImageFormatString(), MAX_IMAGE_X, MAX_IMAGE_Y)
+	local formatText =
+		localization:getLocalizedImageFormat(AssetConfigUtil.getImageFormatString(), MAX_IMAGE_X, MAX_IMAGE_Y)
 
 	local orderIterator = LayoutOrderIterator.new()
 
-	local shouldShowDefaultThumbnail = FFlagUseDefaultThumbnailForAnimation and assetTypeEnum == Enum.AssetType.Animation and not thumbnailUrl
+	local shouldShowDefaultThumbnail = FFlagUseDefaultThumbnailForAnimation
+		and assetTypeEnum == Enum.AssetType.Animation
+		and not thumbnailUrl
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(0, totalWidth, 1, 0),
@@ -151,32 +155,36 @@ function PreviewArea:renderContent(theme, localization, localizedContent)
 			[Roact.Ref] = self.layouterRef,
 		}),
 
-		ImagePicker = previewType == AssetConfigConstants.PreviewTypes.ImagePicker and Roact.createElement(ImagePicker, {
-			Size = UDim2.new(0, THUMBNAIL_WIDTH, 0, thunmbnailHeight),
-			AssetId = assetId,
-			ThumbnailStatus = thumbnailStatus,
-			ChooseThumbnail = chooseThumbnail,
-			IconFile = iconFile,
-			LayoutOrder = orderIterator:getNextOrder(),
-		}),
+		ImagePicker = previewType == AssetConfigConstants.PreviewTypes.ImagePicker
+			and Roact.createElement(ImagePicker, {
+				Size = UDim2.new(0, THUMBNAIL_WIDTH, 0, thunmbnailHeight),
+				AssetId = assetId,
+				ThumbnailStatus = thumbnailStatus,
+				ChooseThumbnail = chooseThumbnail,
+				IconFile = iconFile,
+				LayoutOrder = orderIterator:getNextOrder(),
+			}),
 
-		Thumbnail = previewType == AssetConfigConstants.PreviewTypes.Thumbnail and Roact.createElement(ImageWithDefault, {
-			Size = UDim2.new(0, THUMBNAIL_WIDTH, 0, thunmbnailHeight),
-			BackgroundTransparency = 1,
-			LayoutOrder = orderIterator:getNextOrder(),
-			Image = (shouldShowDefaultThumbnail and "rbxasset://textures/StudioToolbox/Animation.png") or thumbnailUrl,
-			defaultImage = "",
-		}),
+		Thumbnail = previewType == AssetConfigConstants.PreviewTypes.Thumbnail
+			and Roact.createElement(ImageWithDefault, {
+				Size = UDim2.new(0, THUMBNAIL_WIDTH, 0, thunmbnailHeight),
+				BackgroundTransparency = 1,
+				LayoutOrder = orderIterator:getNextOrder(),
+				Image = (shouldShowDefaultThumbnail and "rbxasset://textures/StudioToolbox/Animation.png")
+					or thumbnailUrl,
+				defaultImage = "",
+			}),
 
-		AssetThumbnailPreview = previewType == AssetConfigConstants.PreviewTypes.ModelPreview and Roact.createElement(AssetThumbnailPreview, {
-			Size = UDim2.new(0, THUMBNAIL_WIDTH, 0, thunmbnailHeight),
-			ShowTitle = false,
+		AssetThumbnailPreview = previewType == AssetConfigConstants.PreviewTypes.ModelPreview
+			and Roact.createElement(AssetThumbnailPreview, {
+				Size = UDim2.new(0, THUMBNAIL_WIDTH, 0, thunmbnailHeight),
+				ShowTitle = false,
 
-			LayoutOrder = orderIterator:getNextOrder()
-		}),
+				LayoutOrder = orderIterator:getNextOrder(),
+			}),
 
 		AssetInfo = (previewType ~= AssetConfigConstants.PreviewTypes.ImagePicker) and Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, TITLE_HEIGHT*2),
+			Size = UDim2.new(1, 0, 0, TITLE_HEIGHT * 2),
 			BackgroundTransparency = 1,
 			LayoutOrder = orderIterator:getNextOrder(),
 		}, {
@@ -195,21 +203,22 @@ function PreviewArea:renderContent(theme, localization, localizedContent)
 				TextYAlignment = Enum.TextYAlignment.Center,
 			}),
 
-			AssetStatusLabel = (nil ~= assetStatus and AssetConfigConstants.ASSET_STATUS.Unknown ~= assetStatus) and Roact.createElement("TextLabel", {
-				Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
-				Position = UDim2.new(0, 0, 0, TITLE_HEIGHT),
+			AssetStatusLabel = (nil ~= assetStatus and AssetConfigConstants.ASSET_STATUS.Unknown ~= assetStatus)
+				and Roact.createElement("TextLabel", {
+					Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
+					Position = UDim2.new(0, 0, 0, TITLE_HEIGHT),
 
-				BackgroundTransparency = 1,
+					BackgroundTransparency = 1,
 
-				TextColor3 = previewAreaTheme.textColor,
-				Text = localization:getLocalizedStatusText(localizedContent.Status[assetStatus]),
-				Font = Constants.FONT,
-				TextSize = Constants.FONT_SIZE_MEDIUM,
-				TextWrapped = false,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-				TextXAlignment = Enum.TextXAlignment.Center,
-				TextYAlignment = Enum.TextYAlignment.Top,
-			}),
+					TextColor3 = previewAreaTheme.textColor,
+					Text = localization:getLocalizedStatusText(localizedContent.Status[assetStatus]),
+					Font = Constants.FONT,
+					TextSize = Constants.FONT_SIZE_MEDIUM,
+					TextWrapped = false,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextXAlignment = Enum.TextXAlignment.Center,
+					TextYAlignment = Enum.TextYAlignment.Top,
+				}),
 		}),
 
 		Guide = (previewType == AssetConfigConstants.PreviewTypes.ImagePicker) and Roact.createElement("Frame", {
@@ -275,13 +284,13 @@ function PreviewArea:renderContent(theme, localization, localizedContent)
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Center,
 					LayoutOrder = 2,
-				})
+				}),
 			}),
 		}),
 
 		-- We need to the base frame here for selction bar so we can ignore the padding
 		TabArea = showSideTabs and Roact.createElement("Frame", {
-			Size = UDim2.new(1, 10, 1, -thunmbnailHeight -TITLE_HEIGHT*2),
+			Size = UDim2.new(1, 10, 1, -thunmbnailHeight - TITLE_HEIGHT * 2),
 
 			BackgroundTransparency = 1,
 
@@ -294,7 +303,7 @@ function PreviewArea:renderContent(theme, localization, localizedContent)
 				CurrentTab = currentTab,
 				ItemClickCallBack = onTabSelect,
 				SelectParentRef = self.baseFrameRef,
-			})
+			}),
 		}),
 	})
 end

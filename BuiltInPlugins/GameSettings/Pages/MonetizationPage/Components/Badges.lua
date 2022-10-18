@@ -8,14 +8,11 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
 local UI = Framework.UI
 local Button = UI.Button
 local HoverArea = UI.HoverArea
-
-local UILibrary = if FFlagRemoveUILibraryTitledFrame then nil else require(Plugin.Packages.UILibrary)
-local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
+local TitledFrame = UI.TitledFrame
 
 local TextService = game:GetService("TextService")
 local StudioService = game:GetService("StudioService")
@@ -70,51 +67,40 @@ function Badges:render()
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 	}, {
-		BadgesTitle = Roact.createElement(
-			TitledFrame,
-			if FFlagRemoveUILibraryTitledFrame
-				then {
-					LayoutOrder = 1,
-					Title = localization:getText("Monetization", "Badges"),
-				}
-				else {
-					Title = localization:getText("Monetization", "Badges"),
-					LayoutOrder = 1,
-					MaxHeight = theme.header.height,
-					TextSize = theme.fontStyle.Title.TextSize,
-				},
-			{
-				Padding = Roact.createElement("UIPadding", {
-					PaddingRight = UDim.new(0, theme.badges.titlePadding),
-				}),
+		BadgesTitle = Roact.createElement(TitledFrame, {
+			LayoutOrder = 1,
+			Title = localization:getText("Monetization", "Badges"),
+		}, {
+			Padding = Roact.createElement("UIPadding", {
+				PaddingRight = UDim.new(0, theme.badges.titlePadding),
+			}),
 
-				Layout = Roact.createElement("UIListLayout", {
-					HorizontalAlignment = Enum.HorizontalAlignment.Right,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-				}),
+			Layout = Roact.createElement("UIListLayout", {
+				HorizontalAlignment = Enum.HorizontalAlignment.Right,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+			}),
 
-				CreateButton = Roact.createElement(Button, {
-					Style = "GameSettingsPrimaryButton",
-					Text = buttonText,
-					Size = UDim2.new(
-						0,
-						buttonTextExtents.X + theme.createButton.PaddingX,
-						0,
-						buttonTextExtents.Y + theme.createButton.PaddingY
-					),
-					OnClick = function()
-						local url = StudioService:GetBadgeUploadUrl()
-						if url and string.len(url) > 0 then
-							GuiService:OpenBrowserWindow(url)
-						else
-							error("Failed to open Badge Creation page")
-						end
-					end,
-				}, {
-					Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
-				}),
-			}
-		),
+			CreateButton = Roact.createElement(Button, {
+				Style = "GameSettingsPrimaryButton",
+				Text = buttonText,
+				Size = UDim2.new(
+					0,
+					buttonTextExtents.X + theme.createButton.PaddingX,
+					0,
+					buttonTextExtents.Y + theme.createButton.PaddingY
+				),
+				OnClick = function()
+					local url = StudioService:GetBadgeUploadUrl()
+					if url and string.len(url) > 0 then
+						GuiService:OpenBrowserWindow(url)
+					else
+						error("Failed to open Badge Creation page")
+					end
+				end,
+			}, {
+				Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
+			}),
+		}),
 
 		BadgesTable = Roact.createElement(TableWithMenu, {
 			Headers = headers,

@@ -9,7 +9,6 @@ local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local ContextHelper = require(Util.ContextHelper)
 
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
 local ContextServices = require(Packages.Framework).ContextServices
@@ -25,16 +24,15 @@ local FRAME_HEIGHT = 24
 local CONFIRM_POS = FRAME_WIDTH + PADDING
 local CONFIRM_SIZE = 64
 
-
 function CopyID:init()
 	self.state = {
-		copied = false
+		copied = false,
 	}
 
 	self.onCopyClicked = function(rbx)
 		StudioService:CopyToClipboard(tostring(self.props.AssetId))
 		self:setState({
-			copied = true
+			copied = true,
 		})
 	end
 end
@@ -78,7 +76,7 @@ function CopyID:renderContent(theme, localizedContent)
 			IDLabel = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
 				Font = Constants.FONT,
-				Text = "ID: " ..assetID,
+				Text = "ID: " .. assetID,
 				TextColor3 = theme.uploadResult.idText,
 				TextSize = Constants.FONT_SIZE_MEDIUM,
 				Size = UDim2.new(0, LABEL_WIDTH, 1, 0),

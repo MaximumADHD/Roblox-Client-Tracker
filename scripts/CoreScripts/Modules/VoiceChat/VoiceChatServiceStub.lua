@@ -21,7 +21,8 @@ local VoiceChatServiceStub = {
 	SubscribePauseAllCB = noop,
 	groupId = 10000,
 	publishPaused = false,
-	available = true
+	available = true,
+	joinCalled = false,
 }
 
 local function makeMockUser(userId, isMutedLocally)
@@ -44,6 +45,7 @@ function VoiceChatServiceStub:IsPublishPaused()
 	return self.publishPaused
 end
 function VoiceChatServiceStub:JoinByGroupIdToken()
+	self.joinCalled = true
 	return true
 end
 
@@ -95,6 +97,8 @@ function VoiceChatServiceStub:resetMocks()
 	self.LocalPlayerModerated = LocalPlayerModeratedMock.Event
 	self.ParticipantsStateChanged = ParticipantsStateChangedMock.Event
 	self.StateChanged = StateChangedMock.Event
+	
+	self.joinCalled = false
 end
 
 return {

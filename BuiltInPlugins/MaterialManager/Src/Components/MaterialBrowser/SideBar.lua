@@ -25,6 +25,7 @@ local Controllers = Plugin.Src.Controllers
 local MaterialServiceController = require(Controllers.MaterialServiceController)
 
 local getFFlagMaterialManagerSidebarExpansion = require(Plugin.Src.Flags.getFFlagMaterialManagerSidebarExpansion)
+local getFFlagMaterialManagerAddAnalyticsCategories = require(Plugin.Src.Flags.getFFlagMaterialManagerAddAnalyticsCategories)
 
 local SideBar = Roact.PureComponent:extend("SideBar")
 
@@ -121,7 +122,9 @@ function SideBar:init()
 		for key, value in pairs(newSelection) do
 			props.MaterialServiceController:setPath(key.path)
 		end
-
+		if getFFlagMaterialManagerAddAnalyticsCategories() then
+			props.Analytics:report("clickOnCategoriesOpen")
+		end
 		self:setState({
 			Selection = newSelection,
 		})

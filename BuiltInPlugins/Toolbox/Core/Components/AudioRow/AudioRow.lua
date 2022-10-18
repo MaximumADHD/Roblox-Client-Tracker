@@ -2,6 +2,7 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
 
 local FFlagToolboxAudioSearchOptions2 = game:GetFastFlag("ToolboxAudioSearchOptions2")
+local FFlagToolboxAudioAssetPreview = game:GetFastFlag("ToolboxAudioAssetPreview")
 local FFlagToolboxAudioUIPolish = game:GetFastFlag("ToolboxAudioUIPolish")
 
 local Packages = Plugin.Packages
@@ -28,6 +29,7 @@ local GetCanManageAssetRequest = require(Plugin.Core.Networking.Requests.GetCanM
 local AssetAnalyticsContextItem = require(Util.Analytics.AssetAnalyticsContextItem)
 local SearchWithOptions = require(Plugin.Core.Networking.Requests.SearchWithOptions)
 local Settings = require(Plugin.Core.ContextServices.Settings)
+local PopUpWrapperButton = require(Plugin.Core.Components.Asset.Preview.PopUpWrapperButton)
 local LinkText = Framework.UI.LinkText
 
 local Images = require(Plugin.Core.Util.Images)
@@ -70,7 +72,12 @@ type _ExternalAudioRowProps = {
 	InsertAsset: (assetWasDragged: boolean) -> nil,
 	OnExpanded: (assetId: number) -> nil,
 	LogImpression: (asset: AssetInfo.AssetInfo) -> ()?,
-	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn,
+	-- Remove with removal of FFlagToolboxAudioAssetPreview
+	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn?,
+	-- Make required with removal of  FFlagToolboxAudioAssetPreview
+	TryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn?,
+	-- Make required with removal of  FFlagToolboxAudioAssetPreview
+	OnAssetPreviewButtonClicked: AssetLogicWrapper.OnAssetPreviewButtonClickedFn?,
 	-- Make required with removal of FFlagToolboxAudioUIPolish
 	width: number?,
 }
@@ -205,6 +212,14 @@ function AudioRow:init(props: AudioRowProps)
 			})
 		end
 	end
+
+	if FFlagToolboxAudioAssetPreview then
+		self.onAssetPreviewButtonClicked = function()
+			local assetInfo = self.props.AssetInfo
+			self.stopPlaying()
+			self.props.OnAssetPreviewButtonClicked(assetInfo)
+		end
+	end
 end
 
 function AudioRow:didUpdate(prevProps: AudioRowProps, prevState: AudioRowState)
@@ -292,7 +307,9 @@ function AudioRow:renderContent(localizedContent: any)
 		local props: AudioRowProps = self.props
 		local assetInfo = props.AssetInfo
 		local plugin = props.Plugin:get()
-		local tryOpenAssetConfig = props.tryOpenAssetConfig
+		local tryOpenAssetConfig = if FFlagToolboxAudioAssetPreview
+			then props.TryOpenAssetConfig
+			else props.tryOpenAssetConfig
 
 		local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
 		local assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
@@ -338,10 +355,15 @@ function AudioRow:renderContent(localizedContent: any)
 		iconProps.Image = if isSoundEffectType then Images.SOUND_EFFECT_ICON else Images.MUSIC_ICON
 	end
 
-	local expandedHeight = if isSoundEffectType
-		then Constants.AUDIO_ROW.EXPANDED_SOUND_EFFECT_ROW_HEIGHT
-		elseif isMusicType then Constants.AUDIO_ROW.EXPANDED_MUSIC_ROW_HEIGHT
-		else Constants.AUDIO_ROW.EXPANDED_UNCATEGORIZED_ROW_HEIGHT
+	local expandedHeight
+	if FFlagToolboxAudioAssetPreview then
+		expandedHeight = Constants.AUDIO_ROW.EXPANDED_ROW_HEIGHT
+	else
+		expandedHeight = if isSoundEffectType
+			then Constants.AUDIO_ROW.EXPANDED_SOUND_EFFECT_ROW_HEIGHT
+			elseif isMusicType then Constants.AUDIO_ROW.EXPANDED_MUSIC_ROW_HEIGHT
+			else Constants.AUDIO_ROW.EXPANDED_UNCATEGORIZED_ROW_HEIGHT
+	end
 
 	local textButtonUIPadding
 	if FFlagToolboxAudioSearchOptions2 then
@@ -539,133 +561,179 @@ function AudioRow:renderContent(localizedContent: any)
 					}),
 				}),
 			}),
-			AudioPlayerFrame = isExpanded and Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, 26),
-				BackgroundTransparency = 1,
-				LayoutOrder = 2,
-			}, {
-				Layout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-				}),
-				UIPadding = Roact.createElement("UIPadding", {
-					PaddingLeft = UDim.new(0, 4),
-				}),
-				AudioPlayerWrapper = Roact.createElement("Frame", {
+			AudioPlayerFrame = if isExpanded
+				then Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, 26),
 					BackgroundTransparency = 1,
-					Size = UDim2.new(1, if isUncategorized then -50 else 0, 0, 26),
+					LayoutOrder = 2,
 				}, {
-					UIPadding = Roact.createElement("UIPadding", {
-						PaddingRight = UDim.new(0, Constants.AUDIO_ROW.LEFT_RIGHT_PADDING),
-					}),
 					Layout = Roact.createElement("UIListLayout", {
 						FillDirection = Enum.FillDirection.Horizontal,
 						VerticalAlignment = Enum.VerticalAlignment.Center,
 					}),
-					AudioPlayer = Roact.createElement(AudioPlayer, {
-						SoundId = asset.Id,
-						IsPlaying = isPlaying,
-						OnEnd = self.stopPlaying,
+					UIPadding = Roact.createElement("UIPadding", {
+						PaddingLeft = UDim.new(0, 4),
 					}),
-				}),
+					AudioPlayerWrapper = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.new(
+							1,
+							if isUncategorized and not FFlagToolboxAudioAssetPreview then -50 else 0,
+							0,
+							26
+						),
+					}, {
+						UIPadding = Roact.createElement("UIPadding", {
+							PaddingRight = UDim.new(0, Constants.AUDIO_ROW.LEFT_RIGHT_PADDING),
+						}),
+						Layout = Roact.createElement("UIListLayout", {
+							FillDirection = Enum.FillDirection.Horizontal,
+							VerticalAlignment = Enum.VerticalAlignment.Center,
+						}),
+						AudioPlayer = Roact.createElement(AudioPlayer, {
+							SoundId = asset.Id,
+							IsPlaying = isPlaying,
+							OnEnd = self.stopPlaying,
+						}),
+					}),
 
-				Insert = isUncategorized and Roact.createElement(AudioRowInsertButton, {
+					Insert = if isUncategorized and not FFlagToolboxAudioAssetPreview
+						then Roact.createElement(AudioRowInsertButton, {
+							LayoutOrder = 3,
+							OnClick = self.onClick,
+						})
+						else nil,
+				})
+				else nil,
+			AdditionalSoundEffectDetails = if not FFlagToolboxAudioAssetPreview
+					and isExpanded
+					and isSoundEffectType
+				then Roact.createElement("Frame", {
+					Size = UDim2.new(1, -20, 0, 52),
+					BackgroundTransparency = 1,
 					LayoutOrder = 3,
-					OnClick = self.onClick,
-				}),
-			}),
-			AdditionalSoundEffectDetails = isExpanded and isSoundEffectType and Roact.createElement("Frame", {
-				Size = UDim2.new(1, -20, 0, 52),
-				BackgroundTransparency = 1,
-				LayoutOrder = 3,
-			}, {
-				Layout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, 10),
-				}),
-				Description = Roact.createElement(AudioRowMetadata, {
-					Size = UDim2.new(0.5, Constants.AUDIO_ROW.ICON_SIZE, 1, 0),
-					BackgroundTransparency = 1,
-					HeaderText = localization:getText("General", "Description"):upper(),
-					Text = description,
-					LayoutOrder = 1,
-				}),
-				UploadBy = Roact.createElement(AudioRowMetadata, {
-					Size = UDim2.new(0.5, -68, 1, 0),
-					BackgroundTransparency = 1,
-					LayoutOrder = 2,
-					HeaderText = localization:getText("AudioView", "UploadedBy"):upper(),
-					Text = creatorName,
-				}),
-				Insert = Roact.createElement(AudioRowInsertButton, {
-					LayoutOrder = 3,
-					OnClick = self.onClick,
-				}),
-			}),
-			AdditionalMusicDetails = isExpanded and isMusicType and Roact.createElement("Frame", {
-				Size = UDim2.new(1, -10, 0, 60),
-				BackgroundTransparency = 1,
-				LayoutOrder = 3,
-			}, {
-				Layout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Vertical,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-				}),
-				Roact.createElement("Frame", {
-					Size = UDim2.new(1, -10, 0, 26),
-					BackgroundTransparency = 1,
 				}, {
 					Layout = Roact.createElement("UIListLayout", {
 						FillDirection = Enum.FillDirection.Horizontal,
 						SortOrder = Enum.SortOrder.LayoutOrder,
 						Padding = UDim.new(0, 10),
 					}),
-
-					Description = Roact.createElement("TextLabel", {
-						Size = UDim2.new(1, -50, 1, 0),
+					Description = Roact.createElement(AudioRowMetadata, {
+						Size = UDim2.new(0.5, Constants.AUDIO_ROW.ICON_SIZE, 1, 0),
 						BackgroundTransparency = 1,
-						LayoutOrder = 2,
+						HeaderText = localization:getText("General", "Description"):upper(),
 						Text = description,
-						TextColor3 = theme.textColor,
-						Font = Constants.FONT,
-						TextSize = Constants.FONT_SIZE_MEDIUM,
-						TextWrapped = true,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						TextYAlignment = Enum.TextYAlignment.Top,
-						TextTruncate = Enum.TextTruncate.AtEnd,
-					}),
-					Insert = Roact.createElement(AudioRowInsertButton, {
-						LayoutOrder = 3,
-						OnClick = self.onClick,
-					}),
-				}),
-				Roact.createElement("Frame", {
-					Size = UDim2.new(1, -20, 0, 34),
-					BackgroundTransparency = 1,
-				}, {
-					Layout = Roact.createElement("UIListLayout", {
-						FillDirection = Enum.FillDirection.Horizontal,
-						SortOrder = Enum.SortOrder.LayoutOrder,
-						Padding = UDim.new(0, 10),
-					}),
-					AlbumArist = Roact.createElement(AudioRowMetadata, {
-						Size = UDim2.new(0.5, 0, 1, 0),
-						BackgroundTransparency = 1,
 						LayoutOrder = 1,
-						HeaderText = localization:getText("AudioView", "AlbumArtist"):upper(),
-						Text = albumArtist,
-						OnClick = if FFlagToolboxAudioSearchOptions2 then self.onSearchByAlbum else nil,
 					}),
 					UploadBy = Roact.createElement(AudioRowMetadata, {
-						Size = UDim2.new(0.5, 0, 1, 0),
+						Size = UDim2.new(0.5, -68, 1, 0),
 						BackgroundTransparency = 1,
 						LayoutOrder = 2,
 						HeaderText = localization:getText("AudioView", "UploadedBy"):upper(),
 						Text = creatorName,
 					}),
-				}),
-			}),
+					Insert = Roact.createElement(AudioRowInsertButton, {
+						LayoutOrder = 3,
+						OnClick = self.onClick,
+					}),
+				})
+				else nil,
+			AdditionalMusicDetails = if isExpanded and (isMusicType or FFlagToolboxAudioAssetPreview)
+				then Roact.createElement("Frame", {
+					Size = UDim2.new(1, -10, 0, 60),
+					BackgroundTransparency = 1,
+					LayoutOrder = 3,
+				}, {
+					Layout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Vertical,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+					}),
+					Roact.createElement("Frame", {
+						Size = UDim2.new(1, -10, 0, 26),
+						BackgroundTransparency = 1,
+					}, {
+						Layout = Roact.createElement("UIListLayout", {
+							FillDirection = Enum.FillDirection.Horizontal,
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							Padding = UDim.new(0, 10),
+						}),
+
+						Description = Roact.createElement("TextLabel", {
+							Size = UDim2.new(1, if FFlagToolboxAudioAssetPreview then -80 else -50, 1, 0),
+							BackgroundTransparency = 1,
+							LayoutOrder = 2,
+							Text = description,
+							TextColor3 = theme.textColor,
+							Font = Constants.FONT,
+							TextSize = Constants.FONT_SIZE_MEDIUM,
+							TextWrapped = true,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							TextYAlignment = Enum.TextYAlignment.Center,
+							TextTruncate = Enum.TextTruncate.AtEnd,
+						}),
+						AssetPreview = if FFlagToolboxAudioAssetPreview
+							then Roact.createElement("Frame", {
+								LayoutOrder = 3,
+								Size = UDim2.new(0, 26, 0, 26),
+								BackgroundTransparency = 1,
+							}, {
+								Roact.createElement(PopUpWrapperButton, {
+									ShowIcon = true,
+									onClick = self.onAssetPreviewButtonClicked,
+									Size = UDim2.new(0, 20, 0, 20),
+									HoverSize = UDim2.new(0, 26, 0, 26),
+								}),
+								Layout = Roact.createElement("UIListLayout", {
+									FillDirection = Enum.FillDirection.Vertical,
+									HorizontalAlignment = Enum.HorizontalAlignment.Center,
+									VerticalAlignment = Enum.VerticalAlignment.Center,
+								}),
+							})
+							else nil,
+						Insert = Roact.createElement(AudioRowInsertButton, {
+							LayoutOrder = if FFlagToolboxAudioAssetPreview then 4 else 3,
+							OnClick = self.onClick,
+						}),
+					}),
+					Roact.createElement("Frame", {
+						Size = UDim2.new(1, -20, 0, 34),
+						BackgroundTransparency = 1,
+					}, {
+						Layout = Roact.createElement("UIListLayout", {
+							FillDirection = Enum.FillDirection.Horizontal,
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							Padding = UDim.new(0, 10),
+						}),
+						AlbumArist = if isMusicType
+							then Roact.createElement(AudioRowMetadata, {
+								Size = UDim2.new(0.5, 0, 1, 0),
+								BackgroundTransparency = 1,
+								LayoutOrder = 1,
+								HeaderText = localization:getText("AudioView", "AlbumArtist"):upper(),
+								Text = albumArtist,
+								OnClick = if FFlagToolboxAudioSearchOptions2 then self.onSearchByAlbum else nil,
+							})
+							else nil,
+						Category = if isSoundEffectType
+							then Roact.createElement(AudioRowMetadata, {
+								Size = UDim2.new(0.5, 0, 1, 0),
+								BackgroundTransparency = 1,
+								LayoutOrder = 1,
+								HeaderText = localization:getText("AudioView", "Category"):upper(),
+								Text = category,
+								OnClick = if FFlagToolboxAudioSearchOptions2 then self.onSearchByCategories else nil,
+							})
+							else nil,
+						UploadBy = Roact.createElement(AudioRowMetadata, {
+							Size = UDim2.new(0.5, 0, 1, 0),
+							BackgroundTransparency = 1,
+							LayoutOrder = 2,
+							HeaderText = localization:getText("AudioView", "UploadedBy"):upper(),
+							Text = creatorName,
+						}),
+					}),
+				})
+				else nil,
 		}),
 	})
 end

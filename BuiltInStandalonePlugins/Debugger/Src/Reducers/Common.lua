@@ -20,6 +20,9 @@ local deepCopy = Util.deepCopy
 
 local DebuggerStateToken = require(Plugin.Src.Models.DebuggerStateToken)
 
+local FFlagStudioClearThreadIdOnStepping = game:GetFastFlag("StudioClearThreadIdOnStepping")
+local FFlagStudioDebuggerFixStepButtonsOnError = require(Plugin.Src.Flags.GetFFlagStudioDebuggerFixStepButtonsOnError)
+
 type ThreadId = number
 type FrameNumber = number
 type DebuggerConnectionId = number
@@ -35,6 +38,7 @@ type CommonStore = {
 	currentFrameMap: { [DebuggerConnectionId]: ThreadIdToFrameMap },
 	currentBreakpointId: number,
 	isPaused: boolean,
+	hitException: { [ThreadId]: boolean },
 	pausedDebuggerConnectionIds: { [DebuggerConnectionId]: DebuggerConnectionId },
 }
 
@@ -45,6 +49,7 @@ local productionStartStore = {
 	currentFrameMap = {},
 	currentBreakpointId = nil,
 	isPaused = false,
+	hitException = {},
 	pausedDebuggerConnectionIds = {},
 }
 
@@ -79,6 +84,7 @@ return Rodux.createReducer(productionStartStore, {
 			debuggerConnectionIdToCurrentThreadId = {},
 			currentFrameMap = {},
 			isPaused = false,
+			hitException = {},
 			pausedDebuggerConnectionIds = Cryo.Dictionary.join(
 				state.pausedDebuggerConnectionIds,
 				{ [action.debuggerStateToken.debuggerConnectionId] = Cryo.None }
@@ -101,6 +107,15 @@ return Rodux.createReducer(productionStartStore, {
 		if next(newPausedDebuggerConnectionIds) == nil then
 			shouldBePaused = false
 		end
+	
+		local hitExceptionVal = deepCopy(state.hitException)
+		-- clear all threadIds from hitException corresponding to the removedConnectionId
+		if FFlagStudioDebuggerFixStepButtonsOnError() and state.currentFrameMap[removedConnectionId] then
+			for threadID, _ in pairs(state.currentFrameMap[removedConnectionId]) do 
+				hitExceptionVal = Cryo.Dictionary.join(hitExceptionVal, { [threadID] = Cryo.None })
+			end
+		end
+
 		return Cryo.Dictionary.join(state, {
 			debuggerConnectionIdToDST = Cryo.Dictionary.join(
 				state.debuggerConnectionIdToDST,
@@ -113,6 +128,7 @@ return Rodux.createReducer(productionStartStore, {
 			),
 			currentFrameMap = Cryo.List.removeValue(state.currentFrameMap, removedConnectionId),
 			isPaused = shouldBePaused,
+			hitException = hitExceptionVal,
 			pausedDebuggerConnectionIds = newPausedDebuggerConnectionIds,
 		})
 	end,
@@ -125,6 +141,10 @@ return Rodux.createReducer(productionStartStore, {
 				{ [action.debuggerStateToken.debuggerConnectionId] = action.debuggerStateToken }
 			),
 			isPaused = true,
+			hitException = if FFlagStudioDebuggerFixStepButtonsOnError() then Cryo.Dictionary.join(
+				state.hitException,
+				{ [action.threadId] = action.hitException }
+			) else state.hitException,
 			pausedDebuggerConnectionIds = Cryo.Dictionary.join(
 				state.pausedDebuggerConnectionIds,
 				{ [pausedConnectionId] = pausedConnectionId }
@@ -142,7 +162,15 @@ return Rodux.createReducer(productionStartStore, {
 	end,
 
 	[SetPausedState.name] = function(state: CommonStore, action: SetPausedState.Props)
-		return Cryo.Dictionary.join(state, { isPaused = action.pause })
+		if FFlagStudioClearThreadIdOnStepping then
+			if action.pause then
+				return Cryo.Dictionary.join(state, { isPaused = action.pause})
+			else
+				return Cryo.Dictionary.join(state, { isPaused = action.pause, debuggerConnectionIdToCurrentThreadId = {}})
+			end
+		else
+			return Cryo.Dictionary.join(state, { isPaused = action.pause})
+		end
 	end,
 
 	[AddThreadIdAction.name] = function(state: CommonStore, action: AddThreadIdAction.Props)

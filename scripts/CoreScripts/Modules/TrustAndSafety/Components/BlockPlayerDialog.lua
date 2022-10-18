@@ -7,12 +7,13 @@ local UIBlox = require(CorePackages.UIBlox)
 local t = require(CorePackages.Packages.t)
 
 local TnsModule = script.Parent.Parent
+local Constants = require(TnsModule.Resources.Constants)
 local Dependencies = require(TnsModule.Dependencies)
 local playerInterface = require(Dependencies.playerInterface)
 local ThemedTextLabel = require(Dependencies.ThemedTextLabel)
 local withLocalization = require(Dependencies.withLocalization)
 
-local CloseBlockPlayerDialog = require(TnsModule.Actions.CloseBlockPlayerDialog)
+local EndReportFlow = require(TnsModule.Actions.EndReportFlow)
 local BlockPlayer = require(TnsModule.Thunks.BlockPlayer)
 local ModalDialog = require(TnsModule.Components.ModalDialog)
 
@@ -116,14 +117,14 @@ end
 
 return RoactRodux.UNSTABLE_connect2(function(state, props)
 	return {
-		isBlockPlayerOpen = state.report.isBlockPlayerOpen,
+		isBlockPlayerOpen = state.report.currentPage == Constants.Page.PlayerBlocking,
 		targetPlayer = state.report.targetPlayer,
 		screenSize = state.displayOptions.screenSize,
 	}
 end, function(dispatch)
 	return {
 		closeDialog = function()
-			dispatch(CloseBlockPlayerDialog())
+			dispatch(EndReportFlow())
 		end,
 		blockPlayer = function(player, doneToastText)
 			dispatch(BlockPlayer(player, doneToastText))

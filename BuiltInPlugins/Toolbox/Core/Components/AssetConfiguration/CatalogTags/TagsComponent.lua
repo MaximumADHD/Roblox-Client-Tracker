@@ -190,7 +190,7 @@ function TagsComponent:getDropdownItems()
 	for _, suggestion in pairs(self.props.suggestions) do
 		table.insert(result, {
 			name = suggestion.localizedDisplayName,
-			selectable = true
+			selectable = true,
 		})
 	end
 	return result
@@ -199,7 +199,6 @@ end
 function TagsComponent:clearSuggestions()
 	self.props.clearSuggestions()
 end
-
 
 function TagsComponent:didMount()
 	if self.textFieldRef.current then
@@ -246,12 +245,8 @@ function TagsComponent:renderContents(theme, localization, localizedContent)
 	for i = 1, #props.tags do
 		local tag = props.tags[i]
 
-		local textSize = GetTextSize(
-			tag.localizedDisplayName,
-			Constants.FONT_SIZE_TITLE,
-			Constants.FONT,
-			Vector2.new(0, 0)
-		)
+		local textSize =
+			GetTextSize(tag.localizedDisplayName, Constants.FONT_SIZE_TITLE, Constants.FONT, Vector2.new(0, 0))
 
 		local sizeX = TAG_PADDING + textSize.X + TAG_PADDING + CLOSE_BUTTON_SIZE + TAG_PADDING
 		local sizeY = TAG_PADDING + textSize.Y + TAG_PADDING
@@ -292,9 +287,7 @@ function TagsComponent:renderContents(theme, localization, localizedContent)
 	})
 
 	local prefix = trimString(self.lastText)
-	local noTagFound = #prefix > 0
-		and #props.suggestions == 0
-		and prefix == props.latestTagSearchQuery
+	local noTagFound = #prefix > 0 and #props.suggestions == 0 and prefix == props.latestTagSearchQuery
 
 	local descriptionColor
 	local descriptionText
@@ -306,7 +299,7 @@ function TagsComponent:renderContents(theme, localization, localizedContent)
 		descriptionText = localization:getMaxTags(props.maximumItemTagsPerItem)
 	end
 
-	local contentHeight = PADDING + LINE_HEIGHT + line*(PADDING + LINE_HEIGHT) + PADDING + DESCRIPTION_HEIGHT
+	local contentHeight = PADDING + LINE_HEIGHT + line * (PADDING + LINE_HEIGHT) + PADDING + DESCRIPTION_HEIGHT
 
 	return Roact.createElement("Frame", {
 		Active = true,
@@ -350,11 +343,13 @@ function TagsComponent:renderContents(theme, localization, localizedContent)
 				[Roact.Change.AbsoluteSize] = self.onTextFieldAbsoluteSizeChanged,
 				[Roact.Change.AbsolutePosition] = self.onTextFieldAbsolutePositionChanged,
 				[Roact.Ref] = self.textFieldRef,
-			},{
+			}, {
 				Textfield = Roact.createElement(RoundBox, {
 					Style = noTagFound and "TagsComponentError" or "TagsComponent",
-					StyleModifier = (not self:canAddTags() and StyleModifier.Disabled) or (state.active and StyleModifier.Selected) or nil,
-				}, tagElements)
+					StyleModifier = (not self:canAddTags() and StyleModifier.Disabled)
+						or (state.active and StyleModifier.Selected)
+						or nil,
+				}, tagElements),
 			}),
 
 			Description = Roact.createElement("TextLabel", {
@@ -368,34 +363,37 @@ function TagsComponent:renderContents(theme, localization, localizedContent)
 			}),
 		}),
 
-		Suggestions = state.active and self:canAddTags() and #props.suggestions > 0 and Roact.createElement(DropdownItemsList, {
-			items = self:getDropdownItems(),
+		Suggestions = state.active and self:canAddTags() and #props.suggestions > 0 and Roact.createElement(
+			DropdownItemsList,
+			{
+				items = self:getDropdownItems(),
 
-			onItemClicked = function(index)
-				self.lastText = TEXT_FIELD_BUFFER
-				self:addTag(props.suggestions[index])
-				self.props.clearSuggestions()
-				if self.textBoxRef and self.textBoxRef.current then
-					self.textBoxRef.current:CaptureFocus()
-				end
-			end,
+				onItemClicked = function(index)
+					self.lastText = TEXT_FIELD_BUFFER
+					self:addTag(props.suggestions[index])
+					self.props.clearSuggestions()
+					if self.textBoxRef and self.textBoxRef.current then
+						self.textBoxRef.current:CaptureFocus()
+					end
+				end,
 
-			closeDropdown = function()
-				self:setState({ active = false })
-				if self.textBoxRef and self.textBoxRef.current then
-					self.textBoxRef.current:ReleaseFocus()
-				end
-			end,
+				closeDropdown = function()
+					self:setState({ active = false })
+					if self.textBoxRef and self.textBoxRef.current then
+						self.textBoxRef.current:ReleaseFocus()
+					end
+				end,
 
-			dropDownWidth = state.textFieldSize.X,
-			top = state.textFieldPosition.Y + state.textFieldSize.Y,
-			left = state.textFieldPosition.X,
+				dropDownWidth = state.textFieldSize.X,
+				top = state.textFieldPosition.Y + state.textFieldSize.Y,
+				left = state.textFieldPosition.X,
 
-			windowPosition = state.textFieldPosition,
-			windowSize = state.textFieldSize,
+				windowPosition = state.textFieldPosition,
+				windowSize = state.textFieldSize,
 
-			setDropdownHeight = props.setDropdownHeight,
-		}),
+				setDropdownHeight = props.setDropdownHeight,
+			}
+		),
 	})
 end
 
@@ -420,10 +418,8 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-
 TagsComponent = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(TagsComponent)
-
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(TagsComponent)

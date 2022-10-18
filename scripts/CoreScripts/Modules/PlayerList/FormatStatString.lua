@@ -1,8 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
 
-local NumberLocalization = require(CorePackages.Localization.NumberLocalization)
-local RoundingBehaviour = require(CorePackages.Localization.RoundingBehaviour)
+local NumberLocalization = require(CorePackages.Workspace.Packages.Localization).NumberLocalization
+local RoundingBehaviour = require(CorePackages.Workspace.Packages.Localization).RoundingBehaviour
 
 local ABBREVIATE_LENGTH = 7
 

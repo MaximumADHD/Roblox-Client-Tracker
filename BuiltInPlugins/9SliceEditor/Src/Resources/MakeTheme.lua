@@ -68,10 +68,11 @@ local PluginTheme = {
 
 	[ui.SliceEditor] = {
 		TextAreaSize = UDim2.fromOffset(Constants.TEXTEDITOR_XSIZE, Constants.TEXTEDITOR_YSIZE + 60),
-		ImageAreaSize = UDim2.fromOffset(Constants.BACKGROUND_SIZE + 10 + Constants.TEXTEDITOR_XSIZE,
-			Constants.BACKGROUND_SIZE + Constants.TEXTSIZE + 10),
-		ButtonsAreaSize = UDim2.fromOffset(Constants.BACKGROUND_SIZE + 10 + Constants.TEXTEDITOR_XSIZE + 10,
-			42),
+		ImageAreaSize = UDim2.fromOffset(
+			Constants.BACKGROUND_SIZE + 10 + Constants.TEXTEDITOR_XSIZE,
+			Constants.BACKGROUND_SIZE + Constants.TEXTSIZE + 10
+		),
+		ButtonsAreaSize = UDim2.fromOffset(Constants.BACKGROUND_SIZE + 10 + Constants.TEXTEDITOR_XSIZE + 10, 42),
 		ButtonsSpacing = UDim.new(0, 10),
 		VerticalSpacing = UDim.new(0, 5),
 		HorizontalSpacing = UDim.new(0, 5),

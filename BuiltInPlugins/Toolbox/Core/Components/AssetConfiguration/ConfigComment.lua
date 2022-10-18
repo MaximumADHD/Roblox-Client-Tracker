@@ -55,7 +55,7 @@ function ConfigComment:renderContent()
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 
-		LayoutOrder = LayoutOrder
+		LayoutOrder = LayoutOrder,
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
@@ -91,10 +91,8 @@ function ConfigComment:renderContent()
 	})
 end
 
-
 ConfigComment = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(ConfigComment)
-
 
 return ConfigComment

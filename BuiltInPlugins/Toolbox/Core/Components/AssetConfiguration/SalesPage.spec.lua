@@ -24,7 +24,7 @@ return function()
 				assetTypeEnum = Enum.AssetType.Hat,
 
 				allowedAssetTypesForRelease = {
-					[Enum.AssetType.Hat.Name] = {}
+					[Enum.AssetType.Hat.Name] = {},
 				},
 				currentAssetStatus = status,
 				newAssetStatus = status,
@@ -41,7 +41,6 @@ return function()
 			}),
 		})
 	end
-
 
 	it("should create and destroy without errors", function()
 		local element = createSales()
@@ -75,7 +74,9 @@ return function()
 
 		local page = container:FindFirstChild("SalesPage", true)
 
-		expect(page.PriceComponent.Content.InputRow.TextInputBox.RoundTextBox.Contents.TextBox.Text).to.equal(tostring(price))
+		expect(page.PriceComponent.Content.InputRow.TextInputBox.RoundTextBox.Contents.TextBox.Text).to.equal(
+			tostring(price)
+		)
 
 		Roact.unmount(instance)
 	end)

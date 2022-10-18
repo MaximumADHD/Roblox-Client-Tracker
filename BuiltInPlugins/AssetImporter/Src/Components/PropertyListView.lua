@@ -31,7 +31,6 @@ local GetLocalizedString = require(Plugin.Src.Utility.GetLocalizedString)
 local getFFlagAssetImportUsePropertyFactories = require(Plugin.Src.Flags.getFFlagAssetImportUsePropertyFactories)
 local FFlagLCQualityCageNamingChecks = game:GetFastFlag("LCQualityCageNamingChecks")
 local FFlagAssetImportPassLocalizationAllContextMixins = require(Plugin.Src.Flags.getFFlagAssetImportPassLocalizationAllContextMixins)
-local getFFlagAssetImportGlobalStatusFix = require(Plugin.Src.Flags.getFFlagAssetImportGlobalStatusFix)
 local getFFlagAssetImportUpdatePropertySpacing = require(Plugin.Src.Flags.getFFlagAssetImportUpdatePropertySpacing)
 
 local statusBucketToType = {
@@ -155,29 +154,15 @@ function PropertyListView:render()
 				else
 					text = getLocalizedStatusMessage(localization, status.StatusType, statusBucketType)
 				end
-				if getFFlagAssetImportGlobalStatusFix() then
-					table.insert(sectionStatuses, Roact.createElement(TextLabel, {
-						AutomaticSize = Enum.AutomaticSize.XY,
-						LayoutOrder = #sectionStatuses,
-						Size = UDim2.fromOffset(statusMaxWidth, 0),
-						Style = statusStyle,
-						Text = text,
-						TextWrapped = true,
-						TextXAlignment = Enum.TextXAlignment.Left,
-					}))
-				else
-					table.insert(sectionStatuses, Roact.createElement(TextLabel, {
-						FitMaxWidth = if FFlagDevFrameworkRemoveFitFrame then nil else statusMaxWidth,
-						FitWidth = if FFlagDevFrameworkRemoveFitFrame then nil else true,
-						Size = if FFlagDevFrameworkRemoveFitFrame then UDim2.fromOffset(statusMaxWidth, 0) else nil,
-						AutomaticSize = if FFlagDevFrameworkRemoveFitFrame then Enum.AutomaticSize.XY else nil,
-						LayoutOrder = #sectionStatuses,
-						Style = statusStyle,
-						Text = text,
-						TextSize = 18,
-						TextXAlignment = Enum.TextXAlignment.Left,
-					}))
-				end
+				table.insert(sectionStatuses, Roact.createElement(TextLabel, {
+					AutomaticSize = Enum.AutomaticSize.XY,
+					LayoutOrder = #sectionStatuses,
+					Size = UDim2.fromOffset(statusMaxWidth, 0),
+					Style = statusStyle,
+					Text = text,
+					TextWrapped = true,
+					TextXAlignment = Enum.TextXAlignment.Left,
+				}))
 			end
 		end
 

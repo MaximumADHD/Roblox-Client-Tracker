@@ -1,6 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
-local ThrottleUserId = require(CorePackages.AppTempCommon.LuaApp.Utils.ThrottleUserId)
+local ThrottleUserId = require(CorePackages.Workspace.Packages.AppCommonLib).ThrottleUserId
 
 return function()
     return ThrottleUserId(

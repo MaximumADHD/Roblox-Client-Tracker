@@ -158,7 +158,7 @@ return{
 	["CoreScripts.InGameMenu.Action.Restart"] = [[Reiniciar]],
 	["CoreScripts.InGameMenu.Message.RestartApp"] = [[Reinicia la aplicación para seguir disfrutando de la experiencia.]],
 	["CoreScripts.InGameMenu.Heading.VRDisconnected"] = [[Casco desconectado]],
-	["CoreScripts.InGameMenu.ExitModal.Title"] = [[Novedades en la app de Roblox]],
+	["CoreScripts.InGameMenu.ExitModal.Title"] = [[Nuevo en la app de Roblox]],
 	["CoreScripts.InGameMenu.ExitModal.Subtitle"] = [[Descubre nuevas experiencias sin salir de la aplicación]],
 	["CoreScripts.InGameMenu.ExitModal.BodyTextOpenMenu"] = [[Abre el menú de Roblox]],
 	["CoreScripts.InGameMenu.ExitModal.BodyTextClickHome"] = [[Haz clic en el ícono de Inicio]],

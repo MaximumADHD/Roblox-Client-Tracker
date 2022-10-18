@@ -4,7 +4,9 @@
 
 	Props:
 		bool Enabled = Whether this bar is visible over a Thumbnail.
-		function ButtonPressed = A callback for when the user presses a button.
+		function ButtonPressed = A callback for when the user presses a button. (Remove with GameSettingsEnableThumbnailFrameworkDialog)
+		function PromptPreviewThumbnail = A callback for when the user previews a thumbnail.
+		function PromptDeleteThumbnail = A callback for when the user deletes a thumbnail.
 ]]
 
 local PADDING = UDim.new(0, 6)
@@ -16,6 +18,8 @@ local Page = script.Parent.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
+
+local FFlagGameSettingsEnableThumbnailFrameworkDialogs = game:GetFastFlag("GameSettingsEnableThumbnailFrameworkDialogs")
 
 local HoverBarButton = require(Page.Components.Thumbnails.HoverBarButton)
 
@@ -43,9 +47,11 @@ local function ThumbnailHoverBar(props)
 			AnchorPoint = Vector2.new(0, 0.5),
 			Image = ZOOM_IMAGE,
 
-			ButtonPressed = function()
-				props.ButtonPressed("Zoom")
-			end,
+			ButtonPressed = if FFlagGameSettingsEnableThumbnailFrameworkDialogs
+				then props.PromptPreviewThumbnail
+				else function()
+					props.ButtonPressed("Zoom")
+				end,
 		}),
 
 		Delete = Roact.createElement(HoverBarButton, {
@@ -53,9 +59,11 @@ local function ThumbnailHoverBar(props)
 			AnchorPoint = Vector2.new(1, 0.5),
 			Image = DELETE_IMAGE,
 
-			ButtonPressed = function()
-				props.ButtonPressed("Delete")
-			end,
+			ButtonPressed = if FFlagGameSettingsEnableThumbnailFrameworkDialogs
+				then props.PromptDeleteThumbnail
+				else function()
+					props.ButtonPressed("Delete")
+				end,
 		}),
 	})
 end

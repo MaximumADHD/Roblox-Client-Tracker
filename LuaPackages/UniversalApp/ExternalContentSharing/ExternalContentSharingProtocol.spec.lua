@@ -43,5 +43,23 @@ return function()
 			wait()
 			jestExpect(didSucceed).toBe(true)
 		end)
+
+		it("should share external content with url", function(context)
+			local didSucceed = false
+			context.ExternalContentSharingProtocol:shareUrl({
+				url = "www.roblox.com",
+				context = "testContext",
+			})
+
+			context.subscriber:subscribe(
+				ExternalContentSharingProtocol.EXTERNAL_CONTENT_SHARING_SHARE_URL_DESCRIPTOR,
+				function(params)
+					jestExpect(params.url).toBe("www.roblox.com")
+					didSucceed = true
+				end
+			)
+			wait()
+			jestExpect(didSucceed).toBe(true)
+		end)
 	end)
 end

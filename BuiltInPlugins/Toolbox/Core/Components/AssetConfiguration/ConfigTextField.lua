@@ -41,14 +41,14 @@ local TOOL_TIP_HEIGHT = 20
 
 function ConfigTextField:init(props)
 	self.state = {
-		currentContent = nil
+		currentContent = nil,
 	}
 
 	self.hasError = false
 
 	self.onTextChanged = function(newText)
 		self:setState({
-			currentContent = newText
+			currentContent = newText,
 		})
 
 		self.props.TextChangeCallBack(newText)
@@ -128,33 +128,46 @@ function ConfigTextField:renderContent(theme, localization, localizedContent)
 			LayoutOrder = 1,
 		}),
 
-		TextField = Roact.createElement(TextInput, if FFlagRemoveUILibraryRoundTextBox then {
-			BottomText = countText,
-			LayoutOrder = 2,
-			MultiLine = isMultiLine,
-			OnTextChanged = self.onTextChanged,
-			Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, TotalHeight - TITLE_HEIGHT - TOOL_TIP_HEIGHT),
-			StyleModifier = if textOverMaxCount then StyleModifier.Error else nil,
-			Text = currentContent,
-		} else {
-			BottomText = countText,
-			LayoutOrder = 2,
-			Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, TotalHeight - TITLE_HEIGHT - TOOL_TIP_HEIGHT),
-			Style = textOverMaxCount and "Error" or nil,
-			TextInputProps = {
-				Enabled = true,
-				MultiLine = isMultiLine,
-				OnTextChanged = self.onTextChanged,
-				Text = currentContent,
-			},
-		}),
+		TextField = Roact.createElement(
+			TextInput,
+			if FFlagRemoveUILibraryRoundTextBox
+				then {
+					BottomText = countText,
+					LayoutOrder = 2,
+					MultiLine = isMultiLine,
+					OnTextChanged = self.onTextChanged,
+					Size = UDim2.new(
+						1,
+						-AssetConfigConstants.TITLE_GUTTER_WIDTH,
+						0,
+						TotalHeight - TITLE_HEIGHT - TOOL_TIP_HEIGHT
+					),
+					StyleModifier = if textOverMaxCount then StyleModifier.Error else nil,
+					Text = currentContent,
+				}
+				else {
+					BottomText = countText,
+					LayoutOrder = 2,
+					Size = UDim2.new(
+						1,
+						-AssetConfigConstants.TITLE_GUTTER_WIDTH,
+						0,
+						TotalHeight - TITLE_HEIGHT - TOOL_TIP_HEIGHT
+					),
+					Style = textOverMaxCount and "Error" or nil,
+					TextInputProps = {
+						Enabled = true,
+						MultiLine = isMultiLine,
+						OnTextChanged = self.onTextChanged,
+						Text = currentContent,
+					},
+				}
+		),
 	})
 end
-
 
 ConfigTextField = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(ConfigTextField)
-
 
 return ConfigTextField

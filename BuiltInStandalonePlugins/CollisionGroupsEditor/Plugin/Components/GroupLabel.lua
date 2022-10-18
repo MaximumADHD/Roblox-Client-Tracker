@@ -15,6 +15,8 @@ local Constants = require(script.Parent.Parent.Constants)
 local GroupRenameTextBox = require(script.Parent.GroupRenameTextBox)
 local GroupButton = require(script.Parent.GroupButton)
 
+local FFlagCGERemoveDefaultTranslation = game:GetFastFlag("CGERemoveDefaultTranlsation")
+
 local GroupLabel = Roact.PureComponent:extend("GroupLabel")
 
 function GroupLabel:init()
@@ -59,8 +61,10 @@ function GroupLabel:render()
 	end
 
 	local groupName = props.Group.Name
-	if groupName == "Default" then
-		groupName = localization:getText("Groups", "DefaultGroupName")
+	if not FFlagCGERemoveDefaultTranslation then
+		if groupName == "Default" then
+			groupName = localization:getText("Groups", "DefaultGroupName")
+		end
 	end
 
 	return Roact.createElement(Pane, {

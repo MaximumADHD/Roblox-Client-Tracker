@@ -3,8 +3,7 @@ return function(instance, worldPivot)
 		instance.PivotOffset = instance.CFrame:ToObjectSpace(worldPivot)
 	elseif instance:IsA("Model") then
 		if instance.PrimaryPart then
-			instance.PrimaryPart.PivotOffset =
-				instance.PrimaryPart.CFrame:ToObjectSpace(worldPivot)
+			instance.PrimaryPart.PivotOffset = instance.PrimaryPart.CFrame:ToObjectSpace(worldPivot)
 		end
 		instance.WorldPivot = worldPivot
 	else

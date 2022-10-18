@@ -4,8 +4,6 @@ local CorePackages = game:GetService("CorePackages")
 
 local ArgCheck = require(CorePackages.ArgCheck)
 
-local GetFFlagUIBloxFixDropdownMenuListPositionAndSize =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuListPositionAndSize)
 local GetFFlagUIBloxEnableSubtitleOnTile = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableSubtitleOnTile)
 local GetFFlagUIBloxUseNewGenericTextLabelProps =
 	require(CorePackages.UIBloxFlags.GetFFlagUIBloxUseNewGenericTextLabelProps)
@@ -49,7 +47,6 @@ return {
 	useTileThumbnailV2 = true,
 	useAnimatedXboxCursors = true,
 	useUpdatedCheckbox = true,
-	fixDropdownMenuListPositionAndSize = GetFFlagUIBloxFixDropdownMenuListPositionAndSize(),
 	enableSubtitleOnTile = GetFFlagUIBloxEnableSubtitleOnTile(),
 	enableGamepadKeyCodeSupportForKeyLabel = true,
 	useNewGenericTextLabelProps = GetFFlagUIBloxUseNewGenericTextLabelProps(),

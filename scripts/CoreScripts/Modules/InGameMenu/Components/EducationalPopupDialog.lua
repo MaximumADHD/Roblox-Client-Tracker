@@ -13,6 +13,7 @@ local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
 local GetFFlagLuaAppExitModal = require(InGameMenu.Flags.GetFFlagLuaAppExitModal)
+local FFlagFixExitDialogBlockVRView = require(script.Parent.Parent.Flags.FFlagFixExitDialogBlockVRView)
 
 local EDU_POPUP_CONFIRM_ACTION = "EducationalPopupConfirm"
 
@@ -104,6 +105,10 @@ end
 
 function EducationalPopupDialog:updateBlur()
 	local shouldBlur = self.props.blurBackground and self.props.visible
+	if FFlagFixExitDialogBlockVRView then
+		-- APPFDN-986: We need to fix the overall overlay indexing issue.
+		shouldBlur = shouldBlur and not game:GetService("VRService").VREnabled
+	end
 	RunService:SetRobloxGuiFocused(shouldBlur)
 end
 

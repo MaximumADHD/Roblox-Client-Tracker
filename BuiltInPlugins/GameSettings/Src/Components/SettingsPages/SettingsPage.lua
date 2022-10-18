@@ -19,14 +19,11 @@ local Util = Framework.Util
 local UILibrary = require(Plugin.Packages.UILibrary)
 
 local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryLoadingIndicator = SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
 local FFlagDevFrameworkMigrateScrollingFrame = SharedFlags.getFFlagDevFrameworkMigrateScrollingFrame()
 
 local UI = Framework.UI
 local Container = UI.Container
-local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator
-	then UI.LoadingIndicator
-	else UILibrary.Component.LoadingIndicator
+local LoadingIndicator = UI.LoadingIndicator
 local ScrollingFrame = if FFlagDevFrameworkMigrateScrollingFrame
 	then UI.ScrollingFrame
 	else UILibrary.Component.StyledScrollingFrame
@@ -94,7 +91,7 @@ function SettingsPage:render()
 	local loadState = props.LoadState
 	local settingsLoadJobs = props.SettingsLoadJobs
 	local pageId = props.PageId
-	local showHeader = props.ShowHeader == nil and true or props.ShowHeader
+	local showHeader = props.ShowHeader == nil or props.ShowHeader
 
 	if loadState <= LoadState.Loading then
 		return Roact.createElement(Container, {}, {

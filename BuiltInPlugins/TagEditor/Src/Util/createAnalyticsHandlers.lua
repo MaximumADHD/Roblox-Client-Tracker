@@ -2,18 +2,18 @@ local Plugin = script.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
 
-local TAG_EDITOR_EVENT_NAME = "TagEditorUsage_"
+local TAG_EDITOR_EVENT_NAME = "TagEditorUsage"
 
 return function(analyticsService)
     local function sendPoint(pointName, additionalArgs)
-        local eventName = TAG_EDITOR_EVENT_NAME .. pointName
         additionalArgs = additionalArgs or {}
 
         local args = Cryo.Dictionary.join({
             placeId = game.PlaceId,
+            calledFrom = pointName
         }, additionalArgs)
 
-        analyticsService:ReportInfluxSeries(eventName, args, game:GetFastInt("ReportTagEditorEventsThrottleHundrethsPercent")) 
+        analyticsService:ReportInfluxSeries(TAG_EDITOR_EVENT_NAME, args, game:GetFastInt("ReportTagEditorEventsThrottleHundrethsPercent2")) 
     end
 
     local function reportCounter(counterName)

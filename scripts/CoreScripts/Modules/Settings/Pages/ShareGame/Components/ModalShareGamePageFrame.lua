@@ -13,7 +13,7 @@ local Header = require(ShareGame.Components.Header)
 local ConversationList = require(ShareGame.Components.ConversationList)
 local ToasterComponent = require(ShareGame.Components.ErrorToaster)
 local BackButton = require(ShareGame.Components.BackButton)
-local Text = require(CorePackages.AppTempCommon.Common.Text)
+local Text = require(CorePackages.Workspace.Packages.AppCommonLib).Text
 
 local GetFFlagEnableNewInviteMenu = require(Modules.Flags.GetFFlagEnableNewInviteMenu)
 

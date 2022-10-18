@@ -35,7 +35,7 @@ local function openPlugin()
 
 	local scaleHandlesEnabledFunction
 	if getFFlagDraggerHandlesIsEnabledFunction() then
-		scaleHandlesEnabledFunction = function (selectionInfo)
+		scaleHandlesEnabledFunction = function(selectionInfo)
 			if selectionInfo and selectionInfo.basisObject then
 				return true
 			else
@@ -59,7 +59,8 @@ local function openPlugin()
 				ExtrudeHandles.new(draggerContext, {
 					ShowBoundingBox = true,
 					Summonable = true,
-					IsEnabledFunction = getFFlagDraggerHandlesIsEnabledFunction() and scaleHandlesEnabledFunction or nil,
+					IsEnabledFunction = getFFlagDraggerHandlesIsEnabledFunction() and scaleHandlesEnabledFunction
+						or nil,
 				}, DraggerSchema.ExtrudeHandlesImplementation.new(draggerContext)),
 			},
 		},
@@ -78,15 +79,9 @@ end
 local function main()
 	plugin.Name = PLUGIN_NAME
 	local toolbar = plugin:CreateToolbar(TOOLBAR_NAME)
-	toolButton = toolbar:CreateButton(
-		DRAGGER_TOOL_NAME,
-		"Scale an Object",
-		"",
-		"Scale"
-	)
+	toolButton = toolbar:CreateButton(DRAGGER_TOOL_NAME, "Scale an Object", "", "Scale")
 
-	draggerContext = DraggerContext_PluginImpl.new(
-		plugin, game, settings(), DraggerSchema.Selection.new())
+	draggerContext = DraggerContext_PluginImpl.new(plugin, game, settings(), DraggerSchema.Selection.new())
 
 	plugin.Deactivation:Connect(function()
 		if pluginEnabled then

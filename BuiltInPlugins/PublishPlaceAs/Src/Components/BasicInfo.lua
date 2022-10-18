@@ -40,11 +40,8 @@ local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryRoundTextBox = SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
-local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
-local UILibrary = if FFlagRemoveUILibraryTitledFrame and FFlagRemoveUILibraryRoundTextBox
-	then nil
-	else require(Plugin.Packages.UILibrary)
+local UILibrary = if FFlagRemoveUILibraryRoundTextBox then nil else require(Plugin.Packages.UILibrary)
 
 local RoundTextBox
 if not FFlagRemoveUILibraryRoundTextBox then
@@ -65,7 +62,7 @@ local TextLabel = UI.Decoration.TextLabel
 local TextInput2 = UI.TextInput2
 local TextWithInlineLink = UI.TextWithInlineLink
 local Tooltip = UI.Tooltip
-local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
+local TitledFrame = UI.TitledFrame
 
 local TeachingCallout = require(Plugin.Src.Components.TeachingCallout)
 
@@ -259,217 +256,171 @@ local function displayContents(parent)
 			LayoutOrder = layoutOrder:getNextOrder(),
 		}),
 
-		Name = Roact.createElement(
-			TitledFrame,
-			if FFlagRemoveUILibraryTitledFrame
-				then {
-					LayoutOrder = layoutOrder:getNextOrder(),
-					Title = localization:getText("PageTitle", "Name"),
-				}
-				else {
-					Title = localization:getText("PageTitle", "Name"),
-					MaxHeight = 60,
-					LayoutOrder = layoutOrder:getNextOrder(),
+		Name = Roact.createElement(TitledFrame, {
+			LayoutOrder = layoutOrder:getNextOrder(),
+			Title = localization:getText("PageTitle", "Name"),
+		}, {
+			TextBox = (if FFlagRemoveUILibraryRoundTextBox
+				then Roact.createElement(TextInput2, {
+					ErrorText = nameError and localization:getText(
+						"Error",
+						nameError,
+						{ tostring(nameLength), tostring(MAX_NAME_LENGTH) }
+					),
+					MaxLength = MAX_NAME_LENGTH,
+					OnTextChanged = nameChanged,
+					Text = name,
+				})
+				else Roact.createElement(RoundTextBox, {
+					Active = true,
+					ErrorMessage = nameError and localization:getText(
+						"Error",
+						nameError,
+						{ tostring(nameLength), tostring(MAX_NAME_LENGTH) }
+					),
+					MaxLength = MAX_NAME_LENGTH,
+					Text = name,
 					TextSize = Constants.TEXT_SIZE,
-				},
-			{
-				TextBox = (if FFlagRemoveUILibraryRoundTextBox
-					then Roact.createElement(TextInput2, {
-						ErrorText = nameError and localization:getText(
-							"Error",
-							nameError,
-							{ tostring(nameLength), tostring(MAX_NAME_LENGTH) }
-						),
-						MaxLength = MAX_NAME_LENGTH,
-						OnTextChanged = nameChanged,
-						Text = name,
-					})
-					else Roact.createElement(RoundTextBox, {
-						Active = true,
-						ErrorMessage = nameError and localization:getText(
-							"Error",
-							nameError,
-							{ tostring(nameLength), tostring(MAX_NAME_LENGTH) }
-						),
-						MaxLength = MAX_NAME_LENGTH,
-						Text = name,
-						TextSize = Constants.TEXT_SIZE,
-						SetText = nameChanged,
-					})),
-			}
-		),
+					SetText = nameChanged,
+				})),
+		}),
 
-		Description = Roact.createElement(
-			TitledFrame,
-			if FFlagRemoveUILibraryTitledFrame
-				then {
-					LayoutOrder = layoutOrder:getNextOrder(),
-					Title = localization:getText("PageTitle", "Description"),
-				}
-				else {
-					Title = localization:getText("PageTitle", "Description"),
-					MaxHeight = theme.descriptionBox.maxHeight,
-					LayoutOrder = layoutOrder:getNextOrder(),
+		Description = Roact.createElement(TitledFrame, {
+			LayoutOrder = layoutOrder:getNextOrder(),
+			Title = localization:getText("PageTitle", "Description"),
+		}, {
+			TextBox = (if FFlagRemoveUILibraryRoundTextBox
+				then Roact.createElement(TextInput2, {
+					ErrorText = descriptionError and localization:getText(
+						"Error",
+						descriptionError,
+						{ tostring(descriptionLength), tostring(MAX_DESCRIPTION_LENGTH) }
+					),
+					Height = theme.descriptionBox.textBoxHeight,
+					MaxLength = MAX_DESCRIPTION_LENGTH,
+					MultiLine = true,
+					OnTextChanged = descriptionChanged,
+					Text = description,
+				})
+				else Roact.createElement(RoundTextBox, {
+					Active = true,
+					Height = theme.descriptionBox.textBoxHeight,
+					Multiline = true,
+					MaxLength = MAX_DESCRIPTION_LENGTH,
+					Text = description,
 					TextSize = Constants.TEXT_SIZE,
-				},
-			{
-				TextBox = (if FFlagRemoveUILibraryRoundTextBox
-					then Roact.createElement(TextInput2, {
-						ErrorText = descriptionError and localization:getText(
-							"Error",
-							descriptionError,
-							{ tostring(descriptionLength), tostring(MAX_DESCRIPTION_LENGTH) }
-						),
-						Height = theme.descriptionBox.textBoxHeight,
-						MaxLength = MAX_DESCRIPTION_LENGTH,
-						MultiLine = true,
-						OnTextChanged = descriptionChanged,
-						Text = description,
-					})
-					else Roact.createElement(RoundTextBox, {
-						Active = true,
-						Height = theme.descriptionBox.textBoxHeight,
-						Multiline = true,
-						MaxLength = MAX_DESCRIPTION_LENGTH,
-						Text = description,
-						TextSize = Constants.TEXT_SIZE,
-						SetText = descriptionChanged,
-						ErrorMessage = descriptionError and localization:getText(
-							"Error",
-							descriptionError,
-							{ tostring(descriptionLength), tostring(MAX_DESCRIPTION_LENGTH) }
-						),
-					})),
-			}
-		),
+					SetText = descriptionChanged,
+					ErrorMessage = descriptionError and localization:getText(
+						"Error",
+						descriptionError,
+						{ tostring(descriptionLength), tostring(MAX_DESCRIPTION_LENGTH) }
+					),
+				})),
+		}),
 
 		Separator1 = Roact.createElement(Separator, {
 			LayoutOrder = layoutOrder:getNextOrder(),
 		}),
 
-		Creator = Roact.createElement(
-			TitledFrame,
-			if FFlagRemoveUILibraryTitledFrame
-				then {
-					LayoutOrder = layoutOrder:getNextOrder(),
-					Title = localization:getText("PageTitle", "Creator"),
-				}
-				else {
-					Title = localization:getText("PageTitle", "Creator"),
-					MaxHeight = 38,
-					TextSize = Constants.TEXT_SIZE,
-					ZIndex = 2,
-					LayoutOrder = layoutOrder:getNextOrder(),
-				},
-			{
-				Selector = Roact.createElement(
-					SelectInput,
-					if FFlagCOLLAB734FixPublishPlaceAsDropdownContrastIssue
-						then {
-							Items = creatorItems,
-							SelectedIndex = selectedCreatorIndex,
-							OnItemActivated = selectCreator,
-							Width = theme.selectInput.width.creator,
-						}
-						else {
-							Items = DEPRECATED_dropdownItems,
-							OnItemActivated = function(item)
-								creatorChanged(item.Key)
-							end,
-							OnRenderItem = function(item, index, activated)
-								local mainText = item.Text
+		Creator = Roact.createElement(TitledFrame, {
+			LayoutOrder = layoutOrder:getNextOrder(),
+			Title = localization:getText("PageTitle", "Creator"),
+		}, {
+			Selector = Roact.createElement(
+				SelectInput,
+				if FFlagCOLLAB734FixPublishPlaceAsDropdownContrastIssue
+					then {
+						Items = creatorItems,
+						SelectedIndex = selectedCreatorIndex,
+						OnItemActivated = selectCreator,
+						Width = theme.selectInput.width.creator,
+					}
+					else {
+						Items = DEPRECATED_dropdownItems,
+						OnItemActivated = function(item)
+							creatorChanged(item.Key)
+						end,
+						OnRenderItem = function(item, index, activated)
+							local mainText = item.Text
 
-								return Roact.createElement(Button, {
-									OnClick = activated,
-									LayoutOrder = index,
-									Size = UDim2.new(1, 0, 0, theme.selectInput.button.height),
-								}, {
-									UILayout = Roact.createElement("UIListLayout", {
-										FillDirection = Enum.FillDirection.Vertical,
-										Padding = UDim.new(0, 0),
-										SortOrder = Enum.SortOrder.LayoutOrder,
-										VerticalAlignment = Enum.VerticalAlignment.Top,
-									}),
+							return Roact.createElement(Button, {
+								OnClick = activated,
+								LayoutOrder = index,
+								Size = UDim2.new(1, 0, 0, theme.selectInput.button.height),
+							}, {
+								UILayout = Roact.createElement("UIListLayout", {
+									FillDirection = Enum.FillDirection.Vertical,
+									Padding = UDim.new(0, 0),
+									SortOrder = Enum.SortOrder.LayoutOrder,
+									VerticalAlignment = Enum.VerticalAlignment.Top,
+								}),
 
-									MainTextLabel = Roact.createElement(PaddedTextLabel, {
-										Height = theme.selectInput.fontStyle.Normal.TextSize,
-										LayoutOrder = 0,
-										Padding = theme.selectInput.padding,
-										Style = "Normal",
-										Text = mainText,
-									}),
-								})
-							end,
-							PlaceholderText = DEPRECATED_creatorItem.Text,
-							Width = theme.selectInput.width.creator,
-						}
-				),
-			}
-		),
+								MainTextLabel = Roact.createElement(PaddedTextLabel, {
+									Height = theme.selectInput.fontStyle.Normal.TextSize,
+									LayoutOrder = 0,
+									Padding = theme.selectInput.padding,
+									Style = "Normal",
+									Text = mainText,
+								}),
+							})
+						end,
+						PlaceholderText = DEPRECATED_creatorItem.Text,
+						Width = theme.selectInput.width.creator,
+					}
+			),
+		}),
 
 		Separator2 = Roact.createElement(Separator, {
 			LayoutOrder = layoutOrder:getNextOrder(),
 		}),
 
-		Genre = Roact.createElement(
-			TitledFrame,
-			if FFlagRemoveUILibraryTitledFrame
-				then {
-					LayoutOrder = layoutOrder:getNextOrder(),
-					Title = localization:getText("PageTitle", "Genre"),
-				}
-				else {
-					Title = localization:getText("PageTitle", "Genre"),
-					MaxHeight = 38,
-					TextSize = Constants.TEXT_SIZE,
-					ZIndex = 2,
-					LayoutOrder = layoutOrder:getNextOrder(),
-				},
-			{
-				Selector = Roact.createElement(
-					SelectInput,
-					if FFlagCOLLAB734FixPublishPlaceAsDropdownContrastIssue
-						then {
-							Items = genreItems,
-							SelectedIndex = selectedGenreIndex,
-							OnItemActivated = selectGenre,
-							Width = theme.selectInput.width.genre,
-						}
-						else {
-							Items = DEPRECATED_genres,
-							OnItemActivated = function(item)
-								genreChanged(item.Key)
-							end,
-							OnRenderItem = function(item, index, activated)
-								local mainText = item.Text
+		Genre = Roact.createElement(TitledFrame, {
+			LayoutOrder = layoutOrder:getNextOrder(),
+			Title = localization:getText("PageTitle", "Genre"),
+		}, {
+			Selector = Roact.createElement(
+				SelectInput,
+				if FFlagCOLLAB734FixPublishPlaceAsDropdownContrastIssue
+					then {
+						Items = genreItems,
+						SelectedIndex = selectedGenreIndex,
+						OnItemActivated = selectGenre,
+						Width = theme.selectInput.width.genre,
+					}
+					else {
+						Items = DEPRECATED_genres,
+						OnItemActivated = function(item)
+							genreChanged(item.Key)
+						end,
+						OnRenderItem = function(item, index, activated)
+							local mainText = item.Text
 
-								return Roact.createElement(Button, {
-									OnClick = activated,
-									LayoutOrder = index,
-									Size = UDim2.new(1, 0, 0, theme.selectInput.button.height),
-								}, {
-									UILayout = Roact.createElement("UIListLayout", {
-										FillDirection = Enum.FillDirection.Vertical,
-										Padding = UDim.new(0, 0),
-										SortOrder = Enum.SortOrder.LayoutOrder,
-										VerticalAlignment = Enum.VerticalAlignment.Top,
-									}),
+							return Roact.createElement(Button, {
+								OnClick = activated,
+								LayoutOrder = index,
+								Size = UDim2.new(1, 0, 0, theme.selectInput.button.height),
+							}, {
+								UILayout = Roact.createElement("UIListLayout", {
+									FillDirection = Enum.FillDirection.Vertical,
+									Padding = UDim.new(0, 0),
+									SortOrder = Enum.SortOrder.LayoutOrder,
+									VerticalAlignment = Enum.VerticalAlignment.Top,
+								}),
 
-									MainTextLabel = Roact.createElement(PaddedTextLabel, {
-										Height = theme.selectInput.fontStyle.Normal.TextSize,
-										LayoutOrder = 0,
-										Padding = theme.selectInput.padding,
-										Style = "Normal",
-										Text = mainText,
-									}),
-								})
-							end,
-							PlaceholderText = localization:getText("Genre", genre),
-							Width = theme.selectInput.width.genre,
-						}
-				),
-			}
-		),
+								MainTextLabel = Roact.createElement(PaddedTextLabel, {
+									Height = theme.selectInput.fontStyle.Normal.TextSize,
+									LayoutOrder = 0,
+									Padding = theme.selectInput.padding,
+									Style = "Normal",
+									Text = mainText,
+								}),
+							})
+						end,
+						PlaceholderText = localization:getText("Genre", genre),
+						Width = theme.selectInput.width.genre,
+					}
+			),
+		}),
 
 		Separator4 = Roact.createElement(Separator, {
 			LayoutOrder = layoutOrder:getNextOrder(),
@@ -528,7 +479,7 @@ local function displayContents(parent)
 					{
 						Id = chinaKey,
 						Title = localization:getText(optInLocationsKey, chinaKey),
-						Selected = optInLocations and optInLocations.China or false,
+						Selected = if optInLocations then optInLocations.China else false,
 						LinkTextFrame = Roact.createElement("Frame", {
 							BackgroundTransparency = 1,
 							Size = UDim2.new(0, theme.requirementsLink.length, 0, theme.requirementsLink.height),

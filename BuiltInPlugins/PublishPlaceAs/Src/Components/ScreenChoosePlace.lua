@@ -19,7 +19,6 @@ local withContext = ContextServices.withContext
 
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
-local FFlagRemoveUILibraryLoadingIndicator = SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
 local FFlagDevFrameworkMigrateScrollingFrame = SharedFlags.getFFlagDevFrameworkMigrateScrollingFrame()
 
 local Constants = require(Plugin.Src.Resources.Constants)
@@ -30,9 +29,7 @@ local ScrollingFrame = if FFlagDevFrameworkMigrateScrollingFrame
 	then UI.ScrollingFrame
 	else UILibrary.Component.InfiniteScrollingFrame
 
-local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator
-	then UI.LoadingIndicator
-	else UILibrary.Component.LoadingIndicator
+local LoadingIndicator = UI.LoadingIndicator
 local SearchBar = Framework.StudioUI.SearchBar
 local Separator = UI.Separator
 

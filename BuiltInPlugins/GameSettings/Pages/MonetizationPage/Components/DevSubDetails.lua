@@ -37,7 +37,6 @@ local Framework = require(Plugin.Packages.Framework)
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryButton = SharedFlags.getFFlagRemoveUILibraryButton()
 local FFlagRemoveUILibraryRoundTextBox = SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
-local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 local FFlagDevFrameworkDropdownShowsLabel = game:GetFastFlag("DevFrameworkDropdownShowsLabel")
 
 local RoundTextBox
@@ -58,7 +57,7 @@ local SelectInput = if FFlagDevFrameworkDropdownShowsLabel
 	then UI.SelectInput
 	else require(Plugin.Src.Components.Dropdown)
 local TextInput2 = UI.TextInput2
-local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
+local TitledFrame = UI.TitledFrame
 
 local Util = Framework.Util
 local GetTextSize = Util.GetTextSize
@@ -282,86 +281,64 @@ function DeveloperSubscriptionDetails:render()
 			),
 		}),
 
-		IdFrame = not isNew and Roact.createElement(
-			TitledFrame,
-			if FFlagRemoveUILibraryTitledFrame
-				then {
-					LayoutOrder = layoutIndex:getNextOrder(),
-					Title = localization:getText("General", "DevSubsId"),
-				}
-				else {
-					Title = localization:getText("General", "DevSubsId"),
-					LayoutOrder = layoutIndex:getNextOrder(),
-					MaxHeight = 42,
-					TextSize = theme.fontStyle.Normal.TextSize,
-				},
-			{
-				Layout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = Enum.FillDirection.Horizontal,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-				}),
+		IdFrame = not isNew and Roact.createElement(TitledFrame, {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("General", "DevSubsId"),
+		}, {
+			Layout = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Horizontal,
+				VerticalAlignment = Enum.VerticalAlignment.Top,
+			}),
 
-				Text = Roact.createElement(DevSubListItemText, {
-					Text = developerSubscription.Id,
-					Size = UDim2.new(0, idTextSize.X, 0.5, 0),
-					Alignment = Enum.TextXAlignment.Left,
-					LayoutOrder = 1,
-				}),
+			Text = Roact.createElement(DevSubListItemText, {
+				Text = developerSubscription.Id,
+				Size = UDim2.new(0, idTextSize.X, 0.5, 0),
+				Alignment = Enum.TextXAlignment.Left,
+				LayoutOrder = 1,
+			}),
 
-				Button = Roact.createElement("ImageButton", {
-					BackgroundTransparency = 1,
-					Image = theme.copyButton.image,
-					ImageColor3 = theme.copyButton.imageColor,
-					Size = UDim2.new(0, 16, 0, 16),
-					SizeConstraint = Enum.SizeConstraint.RelativeYY,
-					LayoutOrder = 2,
-					[Roact.Event.Activated] = function()
-						StudioService:CopyToClipboard(developerSubscription.Id)
-					end,
-				}),
-			}
-		),
+			Button = Roact.createElement("ImageButton", {
+				BackgroundTransparency = 1,
+				Image = theme.copyButton.image,
+				ImageColor3 = theme.copyButton.imageColor,
+				Size = UDim2.new(0, 16, 0, 16),
+				SizeConstraint = Enum.SizeConstraint.RelativeYY,
+				LayoutOrder = 2,
+				[Roact.Event.Activated] = function()
+					StudioService:CopyToClipboard(developerSubscription.Id)
+				end,
+			}),
+		}),
 
-		NameFrame = Roact.createElement(
-			TitledFrame,
-			if FFlagRemoveUILibraryTitledFrame
-				then {
-					LayoutOrder = layoutIndex:getNextOrder(),
-					Title = localization:getText("General", "DevSubsName"),
-				}
-				else {
-					Title = localization:getText("General", "DevSubsName"),
-					LayoutOrder = layoutIndex:getNextOrder(),
-					MaxHeight = 64,
-					TextSize = theme.fontStyle.Normal.TextSize,
-				},
-			{
-				TextBox = (if FFlagRemoveUILibraryRoundTextBox
-					then Roact.createElement(TextInput2, {
-						Disabled = not canEdit,
-						ErrorText = nameError,
+		NameFrame = Roact.createElement(TitledFrame, {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("General", "DevSubsName"),
+		}, {
+			TextBox = (if FFlagRemoveUILibraryRoundTextBox
+				then Roact.createElement(TextInput2, {
+					Disabled = not canEdit,
+					ErrorText = nameError,
+					MaxLength = 32,
+					OnTextChanged = self.onNameChanged,
+					OnFocusLost = self.onNameFocusChanged,
+					Text = developerSubscription.Name or "",
+				})
+				else Roact.createElement(
+					RoundTextBox,
+					Cryo.Dictionary.join(theme.fontStyle.Normal, {
+						Active = true,
+						Enabled = canEdit,
+						ShowTextWhenDisabled = true,
 						MaxLength = 32,
-						OnTextChanged = self.onNameChanged,
-						OnFocusLost = self.onNameFocusChanged,
+						Multiline = false,
 						Text = developerSubscription.Name or "",
+						ErrorMessage = nameError,
+						SetText = self.onNameChanged,
+						FocusChanged = self.onNameFocusChanged,
 					})
-					else Roact.createElement(
-						RoundTextBox,
-						Cryo.Dictionary.join(theme.fontStyle.Normal, {
-							Active = true,
-							Enabled = canEdit,
-							ShowTextWhenDisabled = true,
-							MaxLength = 32,
-							Multiline = false,
-							Text = developerSubscription.Name or "",
-							ErrorMessage = nameError,
-							SetText = self.onNameChanged,
-							FocusChanged = self.onNameFocusChanged,
-						})
-					)),
-			}
-		),
+				)),
+		}),
 
 		Image = canEdit and Roact.createElement(UploadableIconWidget, {
 			Title = localization:getText("General", "DevSubsImage"),
@@ -372,40 +349,22 @@ function DeveloperSubscriptionDetails:render()
 			ErrorMessage = imageError,
 
 			AddIcon = self.setImage,
-		}) or Roact.createElement(
-			TitledFrame,
-			if FFlagRemoveUILibraryTitledFrame
-				then {
-					LayoutOrder = layoutIndex:getNextOrder(),
-					Title = localization:getText("General", "DevSubsImage"),
-				}
-				else {
-					Title = localization:getText("General", "DevSubsImage"),
-					MaxHeight = 150,
-					LayoutOrder = 3,
-					TextSize = theme.fontStyle.Normal.TextSize,
-				},
-			{
-				Image = Roact.createElement("ImageLabel", {
-					Image = developerSubscription.Image,
-					Size = UDim2.new(0, 150, 0, 150),
-				}),
-			}
-		),
+		}) or Roact.createElement(TitledFrame, {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("General", "DevSubsImage"),
+		}, {
+			Image = Roact.createElement("ImageLabel", {
+				Image = developerSubscription.Image,
+				Size = UDim2.new(0, 150, 0, 150),
+			}),
+		}),
 
 		PriceFrame = Roact.createElement(
 			TitledFrame,
-			if FFlagRemoveUILibraryTitledFrame
-				then {
-					LayoutOrder = layoutIndex:getNextOrder(),
-					Title = localization:getText("General", "DevSubsPrice"),
-				}
-				else {
-					Title = localization:getText("General", "DevSubsPrice"),
-					LayoutOrder = layoutIndex:getNextOrder(),
-					MaxHeight = 64,
-					TextSize = theme.fontStyle.Normal.TextSize,
-				},
+			{
+				LayoutOrder = layoutIndex:getNextOrder(),
+				Title = localization:getText("General", "DevSubsPrice"),
+			},
 			if FFlagRemoveUILibraryRoundTextBox
 				then {
 					Input = Roact.createElement(TextInput2, {
@@ -461,62 +420,40 @@ function DeveloperSubscriptionDetails:render()
 				}
 		),
 
-		PrepaidFrame = Roact.createElement(
-			TitledFrame,
-			if FFlagRemoveUILibraryTitledFrame
-				then {
-					LayoutOrder = layoutIndex:getNextOrder(),
-					Title = localization:getText("General", "DevSubsDuration"),
-				}
-				else {
-					Title = localization:getText("General", "DevSubsDuration"),
-					LayoutOrder = layoutIndex:getNextOrder(),
-					MaxHeight = 42,
-					TextSize = theme.fontStyle.Normal.TextSize,
-				},
-			{
-				Selector = Roact.createElement(
-					SelectInput,
-					if FFlagDevFrameworkDropdownShowsLabel
-						then {
-							Items = prepaidEntries,
-							Enabled = developerSubscription.Prepaid ~= nil,
-							SelectedId = developerSubscription.Prepaid,
-							OnItemActivated = function(item)
-								self.onPrepaidChanged(item.Id)
-							end,
-						}
-						else {
-							Entries = prepaidEntries,
-							Enabled = developerSubscription.Prepaid ~= nil,
-							Current = developerSubscription.Prepaid,
-							CurrentChanged = self.onPrepaidChanged,
-						}
-				),
-			}
-		),
+		PrepaidFrame = Roact.createElement(TitledFrame, {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("General", "DevSubsDuration"),
+		}, {
+			Selector = Roact.createElement(
+				SelectInput,
+				if FFlagDevFrameworkDropdownShowsLabel
+					then {
+						Items = prepaidEntries,
+						Enabled = developerSubscription.Prepaid ~= nil,
+						SelectedId = developerSubscription.Prepaid,
+						OnItemActivated = function(item)
+							self.onPrepaidChanged(item.Id)
+						end,
+					}
+					else {
+						Entries = prepaidEntries,
+						Enabled = developerSubscription.Prepaid ~= nil,
+						Current = developerSubscription.Prepaid,
+						CurrentChanged = self.onPrepaidChanged,
+					}
+			),
+		}),
 
-		EarningFrame = not isNew and Roact.createElement(
-			TitledFrame,
-			if FFlagRemoveUILibraryTitledFrame
-				then {
-					LayoutOrder = layoutIndex:getNextOrder(),
-					Title = localization:getText("General", "DevSubsPendingEarning"),
-				}
-				else {
-					Title = localization:getText("General", "DevSubsPendingEarning"),
-					LayoutOrder = layoutIndex:getNextOrder(),
-					MaxHeight = 42,
-					TextSize = theme.fontStyle.Normal.TextSize,
-				},
-			{
-				Text = Roact.createElement(DevSubListItemText, {
-					Text = tostring(developerSubscription.PendingEarning),
-					Size = UDim2.new(1, 0, 0.5, 0),
-					Alignment = Enum.TextXAlignment.Left,
-				}),
-			}
-		),
+		EarningFrame = not isNew and Roact.createElement(TitledFrame, {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("General", "DevSubsPendingEarning"),
+		}, {
+			Text = Roact.createElement(DevSubListItemText, {
+				Text = tostring(developerSubscription.PendingEarning),
+				Size = UDim2.new(1, 0, 0.5, 0),
+				Alignment = Enum.TextXAlignment.Left,
+			}),
+		}),
 	}
 
 	return Roact.createElement(Pane, {

@@ -18,8 +18,6 @@ game:DefineFastFlag("ToolboxEditDialogUseMPRS2", false)
 
 game:DefineFastFlag("ToolboxSwitchVerifiedEndpoint", false)
 
-game:DefineFastFlag("ToolboxAllowDisablingCopyingAtQuota", false)
-
 game:DefineFastFlag("ToolboxHideAnnouncementFromNewUsersAndAfterMonth", false)
 
 game:DefineFastFlag("ToolboxFixVerifyAndAnnouncementBugs", false)
@@ -59,6 +57,10 @@ game:DefineFastFlag("ToolboxFixAssetConfigWarningIconColor", false)
 game:DefineFastFlag("ToolboxFixVideoEditFlow", false)
 
 game:DefineFastFlag("ToolboxRemoveDefaultToolboxSearchStringValue", false)
+
+game:DefineFastFlag("ToolboxAudioAssetPreview", false)
+
+game:DefineFastFlag("ToolboxFixAudioScroll", false)
 
 game:DefineFastFlag("HideAssetConfigLearnMoreForLuobu", false)
 

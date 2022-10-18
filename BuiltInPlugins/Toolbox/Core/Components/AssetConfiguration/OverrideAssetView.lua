@@ -57,7 +57,7 @@ function OverrideAssetView:init(props)
 
 	self.newAssetInfo = {
 		assetTypeEnum = props.assetTypeEnum,
-		instances = props.instances
+		instances = props.instances,
 	}
 
 	self.layouterRef = Roact.createRef()
@@ -85,7 +85,7 @@ function OverrideAssetView:init(props)
 
 		-- For UI
 		self:setState({
-			selectedAssetId = assetId
+			selectedAssetId = assetId,
 		})
 	end
 
@@ -100,7 +100,7 @@ function OverrideAssetView:init(props)
 		props.getOverrideAssets(targetPage)
 		if self.state.pageIndex ~= targetPage then
 			self:setState({
-				pageIndex = targetPage
+				pageIndex = targetPage,
 			})
 		end
 	end
@@ -138,87 +138,87 @@ function OverrideAssetView:createAssets(resultsArray, theme)
 	local selectedAssetId = self.state.selectedAssetId
 	for index, asset in pairs(resultsArray) do
 		local assetId = asset.Asset.Id
-		local thumbnailUrl = Urls.constructAssetThumbnailUrl(assetId,
-			Constants.THUMBNAIL_SIZE_LARGE,
-			Constants.THUMBNAIL_SIZE_LARGE)
+		local thumbnailUrl =
+			Urls.constructAssetThumbnailUrl(assetId, Constants.THUMBNAIL_SIZE_LARGE, Constants.THUMBNAIL_SIZE_LARGE)
 		local selected = selectedAssetId == assetId
 
 		local inFilter = true
 		inFilter = filterID == "" or tostring(assetId):find(filterID, 1, true)
 
-		itemList[assetId] = inFilter and Roact.createElement("TextButton", {
-			Size = AssetConfigConstants.OverrideAssetItemSize,
-
-			BorderSizePixel = 0,
-			BackgroundTransparency = 1,
-			Text = "",
-			Font = Constants.FONT,
-			TextSize = Constants.FONT_SIZE_MEDIUM,
-
-			[Roact.Event.Activated] = function(rbx)
-				self.onAssetActivated(asset)
-			end,
-
-			LayoutOrder = index,
-		}, {
-			UIListLayout = Roact.createElement("UIListLayout"),
-
-			Border = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 1, -TITLE_HEIGHT),
-
-				BackgroundTransparency = 0,
-				BackgroundColor3 = Colors.WHITE, -- need to match the background to fake transparency
-				BorderSizePixel = 1,
-				BorderColor3 = selected and Colors.BLUE_PRIMARY or Colors.GRAY_3,
-
-				LayoutOrder = 1,
-			}, {
-				ThumbNail = Roact.createElement("ImageLabel", {
-					Size = UDim2.new(1, 0, 1, 0),
-					Position = UDim2.new(0, 0, 0, 0),
-
-					BorderSizePixel = 1,
-					BackgroundTransparency = 1,
-					Image = thumbnailUrl,
-				}),
-
-				CheckedIcon = selected and Roact.createElement("ImageLabel", {
-					Position = UDim2.new(0, CHECK_ICON_OFFSET, 0, CHECK_ICON_OFFSET),
-					Size = UDim2.new(0, CHECK_ICON_SIZE, 0, CHECK_ICON_SIZE),
-
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
-
-					Image = Images.SELECTED_CHECK,
-					ImageColor3 = Colors.BLUE_PRIMARY
-				}),
-
-				-- The tooltip needs to be attached to the icon and text separately to layout correctly
-				Tooltip = Roact.createElement(Tooltip, {
-					Text = asset.Asset.Name,
-				}) or nil,
-			}),
-
-			Title = Roact.createElement("TextLabel", {
-				Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
-
-				Text = asset.Asset.Name,
-				Font = Constants.FONT,
-				TextColor3 = assetConfigTheme.textColor,
-				TextSize = Constants.FONT_SIZE_MEDIUM,
-				TextTruncate = Enum.TextTruncate.AtEnd,
+		itemList[assetId] = inFilter
+			and Roact.createElement("TextButton", {
+				Size = AssetConfigConstants.OverrideAssetItemSize,
 
 				BorderSizePixel = 0,
 				BackgroundTransparency = 1,
+				Text = "",
+				Font = Constants.FONT,
+				TextSize = Constants.FONT_SIZE_MEDIUM,
 
-				LayoutOrder = 2,
+				[Roact.Event.Activated] = function(rbx)
+					self.onAssetActivated(asset)
+				end,
+
+				LayoutOrder = index,
 			}, {
-				-- The tooltip needs to be attached to the icon and text separately to layout correctly
-				Tooltip = Roact.createElement(Tooltip, {
+				UIListLayout = Roact.createElement("UIListLayout"),
+
+				Border = Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 1, -TITLE_HEIGHT),
+
+					BackgroundTransparency = 0,
+					BackgroundColor3 = Colors.WHITE, -- need to match the background to fake transparency
+					BorderSizePixel = 1,
+					BorderColor3 = selected and Colors.BLUE_PRIMARY or Colors.GRAY_3,
+
+					LayoutOrder = 1,
+				}, {
+					ThumbNail = Roact.createElement("ImageLabel", {
+						Size = UDim2.new(1, 0, 1, 0),
+						Position = UDim2.new(0, 0, 0, 0),
+
+						BorderSizePixel = 1,
+						BackgroundTransparency = 1,
+						Image = thumbnailUrl,
+					}),
+
+					CheckedIcon = selected and Roact.createElement("ImageLabel", {
+						Position = UDim2.new(0, CHECK_ICON_OFFSET, 0, CHECK_ICON_OFFSET),
+						Size = UDim2.new(0, CHECK_ICON_SIZE, 0, CHECK_ICON_SIZE),
+
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+
+						Image = Images.SELECTED_CHECK,
+						ImageColor3 = Colors.BLUE_PRIMARY,
+					}),
+
+					-- The tooltip needs to be attached to the icon and text separately to layout correctly
+					Tooltip = Roact.createElement(Tooltip, {
+						Text = asset.Asset.Name,
+					}) or nil,
+				}),
+
+				Title = Roact.createElement("TextLabel", {
+					Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
+
 					Text = asset.Asset.Name,
-				}) or nil,
-			}),
-		})
+					Font = Constants.FONT,
+					TextColor3 = assetConfigTheme.textColor,
+					TextSize = Constants.FONT_SIZE_MEDIUM,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+
+					BorderSizePixel = 0,
+					BackgroundTransparency = 1,
+
+					LayoutOrder = 2,
+				}, {
+					-- The tooltip needs to be attached to the icon and text separately to layout correctly
+					Tooltip = Roact.createElement(Tooltip, {
+						Text = asset.Asset.Name,
+					}) or nil,
+				}),
+			})
 	end
 
 	return itemList
@@ -260,10 +260,8 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-
 OverrideAssetView = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(OverrideAssetView)
-
 
 return RoactRodux.connect(nil, mapDispatchToProps)(OverrideAssetView)

@@ -3,6 +3,7 @@ local VerifiedBadges = script:FindFirstAncestor("VerifiedBadges")
 local Cryo = require(VerifiedBadges.Parent.Cryo)
 local React = require(VerifiedBadges.Parent.React)
 local ReactRoblox = require(VerifiedBadges.Parent.ReactRoblox)
+local getFFlagReturnChildFromWrapper = require(VerifiedBadges.Flags.getFFlagReturnChildFromWrapper)
 
 local defaultProps = {
 	anchorPoint = Vector2.new(),
@@ -88,6 +89,10 @@ local function EmojiWrapper(props: Props)
 
 	if joinedProps.children then
 		assert(React.Children.count(joinedProps.children) <= 1, "EmojiWrapper can only contain one child")
+	end
+
+	if getFFlagReturnChildFromWrapper() and joinedProps.emoji == "" then
+		return joinedProps.children
 	end
 
 	local emojiSize, setEmojiSize = React.useState(0)

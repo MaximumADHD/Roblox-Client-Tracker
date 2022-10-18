@@ -4,8 +4,6 @@ local Packages = Plugin.Packages
 
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 
-local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
-
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
 local Framework = require(Packages.Framework)
@@ -140,7 +138,7 @@ function ResultsFetcher:fetchResults(args: { pageSize: number?, initialPage: boo
 				limit = pageSize,
 				includeOnlyVerifiedCreators = not includeUnverifiedCreators,
 				queryParams = if FFlagToolboxUseQueryForCategories2 then props.queryParams else nil,
-				searchSource = if FFlagToolboxIncludeSearchSource then props.searchSource else nil,
+				searchSource = props.searchSource,
 			})
 			:catch(function(error: HttpResponse.HttpResponse)
 				promiseError = true

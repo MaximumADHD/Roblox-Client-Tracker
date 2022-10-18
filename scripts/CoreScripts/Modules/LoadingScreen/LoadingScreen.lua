@@ -34,11 +34,16 @@ local GAME_ICON_URL = "rbxthumb://type=GameIcon&id=%d&w=256&h=256"
 local GAME_THUMBNAIL_URL = "rbxthumb://type=GameThumbnail&id=%d&w=768&h=432"
 
 local BASE_SCREEN_ORDER = 7
+game:DefineFastFlag("IncreaseLoadingScreenOrder", false)
+if game:GetFastFlag("IncreaseLoadingScreenOrder") then
+	BASE_SCREEN_ORDER = 8
+end
+
 local THUMBNAIL_SIZE = Vector2.new(768, 432)
 local THUMBNAIL_TO_SCREEN_WIDTH_RATIO = 1.5
 local GAME_ICON_FALLBACK_COLOR = Color3.fromRGB(101, 102, 104)
-local INFO_FRAME_TRANSPARENCY = 0.8
-local SHIMMER_SPEED = 3
+local INFO_FRAME_TRANSPARENCY = 0.2
+local SHIMMER_SPEED = 1
 local CLOSE_BTN_SHOW_TIMER = 5
 local PADDING = {
 	MOBILE_PORTRAIT = { TOP = 44, BOTTOM = 44, LEFT = 24, RIGHT = 24},
@@ -46,14 +51,14 @@ local PADDING = {
 	DESKTOP = { TOP = 24, BOTTOM = 24, LEFT = 24, RIGHT = 24},
 	CONSOLE = { TOP = 64, BOTTOM = 64, LEFT = 64, RIGHT = 64},
 }
-local TENFOOT_CANCEL_BTN_OFFSET = 48
 
 local isTenFootInterface = GuiService:IsTenFootInterface()
 local platform = UserInputService:GetPlatform()
 local isMobilePlatform = platform == Enum.Platform.IOS or platform == Enum.Platform.Android
 local debugMode = false
 
-local ICON_SIZE_FOR_SCREEN = isTenFootInterface and 256 or 150
+local ICON_SIZE_BREAKPOINT = 1024
+local ICON_SIZE_RANGE = {150, 256}
 
 local connectionHealthCloseEvent = nil
 local numberOfTaps = 0
@@ -80,97 +85,63 @@ end
 
 local ANIMATIONS = {
 	FadeIn = function(timeElapsed, animationProps, updateBindings, endCallback)
-		local AnimationSteps = {
-			AnimateIconThumbnail = 1,
-			AnimateUniverseText = 2,
-			AnimateCreatorText = 3,
-		}
-		local AnimationLength = {
-			 [AnimationSteps.AnimateIconThumbnail] = 1,
-			 [AnimationSteps.AnimateUniverseText] = 0.5,
-			 [AnimationSteps.AnimateCreatorText] = 0.5,
-		}
+		local fadeInTime = 0.6
 
-		local iconSizeRange = {0.5, 1.0}
+		local sizeRange = {1.0, 1.0}
 		local transparencyRange = {1.0, 0.0}
-		local currentStepLength = 0
-		local step = 0
-		for i = 1, #AnimationLength do
-			currentStepLength = currentStepLength + AnimationLength[i]
-			if timeElapsed <= currentStepLength then
-				step = i
-				break
-			end
-		end
-		-- no animation for info frame but the value needs to be set
-		updateBindings.infoFrameTransparency(INFO_FRAME_TRANSPARENCY)
-		if step == AnimationSteps.AnimateIconThumbnail then
-			local t = 1.0 - ((currentStepLength - timeElapsed) / AnimationLength[step])
+		local infoframeTransparencyRange = {1.0, INFO_FRAME_TRANSPARENCY}
+		if timeElapsed <= fadeInTime then
+			local t = timeElapsed / fadeInTime
 			updateBindings.iconTransparency(lerp(transparencyRange, t))
-			updateBindings.iconSize(lerp(iconSizeRange, t))
+			updateBindings.iconSize(lerp(sizeRange, t))
+			updateBindings.infoFrameTransparency(lerp(infoframeTransparencyRange, t))
 			updateBindings.thumbnailTransparency(lerp(transparencyRange, t))
-		elseif step == AnimationSteps.AnimateUniverseText then
-			local t = 1.0 - ((currentStepLength - timeElapsed) / AnimationLength[step])
 			updateBindings.placeTextTransparency(lerp(transparencyRange, t))
-		elseif step == AnimationSteps.AnimateCreatorText then
-			local t = 1.0 - ((currentStepLength - timeElapsed) / AnimationLength[step])
+			updateBindings.placeTextSize(lerp(sizeRange, t))
 			updateBindings.creatorTextTransparency(lerp(transparencyRange, t))
+			updateBindings.creatorTextSize(lerp(sizeRange, t))
 		else
 			-- force set values in case the system is skipping frames
 			updateBindings.iconTransparency(lerp(transparencyRange, 1.0))
-			updateBindings.iconSize(lerp(iconSizeRange, 1.0))
+			updateBindings.iconSize(lerp(sizeRange, 1.0))
+			updateBindings.infoFrameTransparency(lerp(infoframeTransparencyRange, 1.0))
 			updateBindings.thumbnailTransparency(lerp(transparencyRange, 1.0))
 			updateBindings.placeTextTransparency(lerp(transparencyRange, 1.0))
+			updateBindings.placeTextSize(lerp(sizeRange, 1.0))
 			updateBindings.creatorTextTransparency(lerp(transparencyRange, 1.0))
+			updateBindings.creatorTextSize(lerp(sizeRange, 1.0))
 			endCallback()
 		end
 	end,
 	FadeOut = function(timeElapsed, animationProps, updateBindings, endCallback)
-		local AnimationSteps = {
-			AnimateCreatorText = 1,
-			AnimateUniverseText = 2,
-			AnimateIconThumbnail = 3,
-		}
-		local AnimationLength = {
-			 [AnimationSteps.AnimateIconThumbnail] = 0.5,
-			 [AnimationSteps.AnimateUniverseText] = 0.5,
-			 [AnimationSteps.AnimateCreatorText] = 0.5,
-		}
 
-		local iconSizeRange = {1.0, 0.0}
+		local fadeOutTime = 0.6
+
+		local sizeRange = {1.0, 0.6}
 		local transparencyRange = {0.0, 1.0}
 		local infoframeTransparencyRange = {INFO_FRAME_TRANSPARENCY, 1.0}
-		local currentStepLength = 0
-		local step = 0
-		for i = 1, #AnimationLength do
-			currentStepLength = currentStepLength + AnimationLength[i]
-			if timeElapsed <= currentStepLength then
-				step = i
-				break
-			end
-		end
 
-		if step == AnimationSteps.AnimateIconThumbnail then
-			local t = 1.0 - ((currentStepLength - timeElapsed) / AnimationLength[step])
+		if timeElapsed <= fadeOutTime then
+			local t = timeElapsed / fadeOutTime
 			updateBindings.iconTransparency(lerp(transparencyRange, t))
-			updateBindings.iconSize(lerp(iconSizeRange, t))
-			updateBindings.thumbnailTransparency(lerp(transparencyRange, t))
-		elseif step == AnimationSteps.AnimateUniverseText then
-			local t = 1.0 - ((currentStepLength - timeElapsed) / AnimationLength[step])
-			updateBindings.placeTextTransparency(lerp(transparencyRange, t))
+			updateBindings.iconSize(lerp(sizeRange, t))
 			updateBindings.infoFrameTransparency(lerp(infoframeTransparencyRange, t))
-		elseif step == AnimationSteps.AnimateCreatorText then
-			local t = 1.0 - ((currentStepLength - timeElapsed) / AnimationLength[step])
+			updateBindings.thumbnailTransparency(lerp(transparencyRange, t))
+			updateBindings.placeTextTransparency(lerp(transparencyRange, t))
+			updateBindings.placeTextSize(lerp(sizeRange, t))
 			updateBindings.creatorTextTransparency(lerp(transparencyRange, t))
+			updateBindings.creatorTextSize(lerp(sizeRange, t))
 		else
 			RunService:SetRobloxGuiFocused(false)
 			-- force set values in case the system is skipping frames
 			updateBindings.iconTransparency(lerp(transparencyRange, 1.0))
-			updateBindings.iconSize(lerp(iconSizeRange, 1.0))
+			updateBindings.iconSize(lerp(sizeRange, 1.0))
 			updateBindings.infoFrameTransparency(lerp(infoframeTransparencyRange, 1.0))
 			updateBindings.thumbnailTransparency(lerp(transparencyRange, 1.0))
 			updateBindings.placeTextTransparency(lerp(transparencyRange, 1.0))
+			updateBindings.placeTextSize(lerp(sizeRange, 1.0))
 			updateBindings.creatorTextTransparency(lerp(transparencyRange, 1.0))
+			updateBindings.creatorTextSize(lerp(sizeRange, 1.0))
 			endCallback()
 		end
 	end,
@@ -269,13 +240,14 @@ end
 
 function LoadingScreen:renderPlaceIcon()
 	local shimPos = self.state.shimPos
+	local shimTransparency = self.bindings.iconTransparency:getValue()
 	local iconURL = ""
 	if self.props.universeId and self.props.universeId > 0 then
 		iconURL = GAME_ICON_URL:format(self.props.universeId)
 	end
 	return Roact.createElement("Frame", {
 		Name = "IconFrame",
-		BackgroundTransparency = 0,
+		BackgroundTransparency = self.bindings.iconTransparency,
 		BackgroundColor3 = GAME_ICON_FALLBACK_COLOR,
 		BorderSizePixel = 0,
 		Size = self.bindings.iconSize,
@@ -299,9 +271,9 @@ function LoadingScreen:renderPlaceIcon()
 					ColorSequenceKeypoint.new(1.0, Color3.new(0.5, 0.5, 0.5)),
 				}),
 				Transparency = NumberSequence.new({
-					NumberSequenceKeypoint.new(0, 0.7),
-					NumberSequenceKeypoint.new(0.5, 0.3),
-					NumberSequenceKeypoint.new(1, 0.7),
+					NumberSequenceKeypoint.new(0, lerp({0.7, 1.0}, shimTransparency)),
+					NumberSequenceKeypoint.new(0.5, lerp({0.3, 1.0}, shimTransparency)),
+					NumberSequenceKeypoint.new(1, lerp({0.7, 1.0}, shimTransparency)),
 				}),
 				Offset = Vector2.new(shimPos, 0),
 			}),
@@ -328,37 +300,41 @@ function LoadingScreen:renderInfoFrame(style)
 	local productInfo = self.props.productInfo
 	local placeName = productInfo and productInfo.Name or ""
 	local creatorName = productInfo and productInfo.Creator.Name or ""
-
+	local t = math.max(self.state.absoluteSize.X, self.state.absoluteSize.Y) / ICON_SIZE_BREAKPOINT
+	local iconSizeOnScreen = math.clamp(t * ICON_SIZE_RANGE[1], ICON_SIZE_RANGE[1], ICON_SIZE_RANGE[2])
 	return Roact.createElement("Frame", {
 		Name = "InfoFrame",
-		BackgroundColor3 = style.Theme.BackgroundUIDefault.Color,
+		BackgroundColor3 = style.Theme.BackgroundMuted.Color,
 		BackgroundTransparency = self.bindings.infoFrameTransparency,
 		BorderSizePixel = 0,
 		AnchorPoint = Vector2.new(0.5, 0.5),
+		AutomaticSize = Enum.AutomaticSize.Y,
 		Position = UDim2.fromScale(0.5, 0.5),
-		Size = self.isPortrait and UDim2.fromScale(0.8, 0.2) or UDim2.fromScale(0.6, 0.4),
+		Size = self.isPortrait and UDim2.fromScale(1.0, 0) or UDim2.fromScale(0.6, 0),
 		Active = true,
 	}, {
 		PlaceIcon = self:renderPlaceIcon(),
 		TextLayoutFrame = Roact.createElement("Frame", {
 			Name = "TextLayout",
-			BackgroundColor3 = style.Theme.BackgroundUIDefault.Color,
+			BackgroundColor3 = style.Theme.BackgroundMuted.Color,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			AnchorPoint = Vector2.new(0.5, 0),
-			Position = UDim2.new(0.5, 0, 0, ICON_SIZE_FOR_SCREEN / 2),
-			Size = UDim2.new(1.0, 0, 1.0, - ICON_SIZE_FOR_SCREEN / 2),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			Position = UDim2.new(0.5, 0, 0, iconSizeOnScreen / 2),
+			Size = UDim2.fromScale(1.0, 0),
 			Active = true,
 		}, {
 			PlaceLabel = Roact.createElement("TextLabel", {
 				Name = 'PlaceLabel',
 				BackgroundTransparency = 1,
 				TextTransparency = self.bindings.placeTextTransparency,
-				Size = UDim2.fromScale(0.8, 0.5),
+				Size = UDim2.fromScale(0.8, 0),
 				AnchorPoint = Vector2.new(0.5, 0.0),
-				Font = style.Font.Header1.Font,
-				TextSize = 24,
-				TextScaled = true,
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Font = style.Font.Title.Font,
+				TextSize = self.bindings.placeTextSize,
+				TextScaled = false,
 				TextWrapped = true,
 				TextColor3 = style.Theme.TextEmphasis.Color,
 				TextStrokeTransparency = 1,
@@ -368,23 +344,20 @@ function LoadingScreen:renderInfoFrame(style)
 				ZIndex = 2,
 				LayoutOrder = 1,
 				TextTruncate = Enum.TextTruncate.AtEnd,
-			}, {
-				UITextSizeConstraint = Roact.createElement("UITextSizeConstraint", {
-					MaxTextSize = 48,
-					MinTextSize = 12,
-				})
+				RichText = false,
 			}),
 			CreatorLabel = Roact.createElement("TextLabel", {
 				Name = 'CreatorLabel',
 				BackgroundTransparency = 1,
 				TextTransparency = self.bindings.creatorTextTransparency,
-				Size = UDim2.fromScale(0.6, 0.3),
+				Size = UDim2.fromScale(0.6, 0),
 				AnchorPoint = Vector2.new(0.5, 1.0),
-				Font = style.Font.SubHeader1.Font,
-				TextSize = 12,
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Font = style.Font.CaptionBody.Font,
+				TextSize = self.bindings.creatorTextSize,
 				TextWrapped = true,
-				TextScaled = true,
-				TextColor3 = style.Theme.TextEmphasis.Color,
+				TextScaled = false,
+				TextColor3 = style.Theme.TextDefault.Color,
 				TextStrokeTransparency = 1,
 				Text = creatorName,
 				TextXAlignment = Enum.TextXAlignment.Center,
@@ -392,21 +365,18 @@ function LoadingScreen:renderInfoFrame(style)
 				ZIndex = 2,
 				LayoutOrder = 2,
 				TextTruncate = Enum.TextTruncate.AtEnd,
-			}, {
-				UITextSizeConstraint = Roact.createElement("UITextSizeConstraint", {
-					MaxTextSize = 24,
-					MinTextSize = 12,
-				})
+				RichText = false,
 			}),
 			UIListLayout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
 				VerticalAlignment = Enum.VerticalAlignment.Center,
-				Padding = UDim.new(0, 2),
+				Padding = UDim.new(0, isMobilePlatform and 12 or 36),
 			}),
-		}),
-		UISizeConstraint = Roact.createElement("UISizeConstraint", {
-			MinSize = Vector2.new(200, 125),
+			Padding = Roact.createElement("UIPadding", {
+				PaddingTop = UDim.new(0, isMobilePlatform and 12 or 36),
+				PaddingBottom = UDim.new(0, isMobilePlatform and 12 or 36),
+			}),
 		}),
 		Corner = Roact.createElement("UICorner"),
 	})
@@ -465,7 +435,7 @@ function LoadingScreen:renderCloseBtn(style)
 		Image = 'rbxasset://textures/loading/cancelButton.png',
 		ImageTransparency = 0,
 		BackgroundTransparency = 1,
-		Position = UDim2.new(1, -37, 0, 5),
+		Position = UDim2.fromOffset(0, 0),
 		Size = UDim2.fromOffset(32, 32),
 		Active = false,
 		ZIndex = 10,
@@ -478,6 +448,8 @@ end
 function LoadingScreen:renderServerFrame(style)
 	local serverStatusText =  self.state.serverStatusText
 	local showPolicyText = self.props.isSubjectToChinaPolicies
+	local serverLabelSize = isTenFootInterface and 16 or 12
+	local policyLabelSize = isTenFootInterface and 16 or 12
 	return Roact.createElement("Frame", {
 		Name = "ServerFrame",
 		BackgroundTransparency = 1,
@@ -493,10 +465,10 @@ function LoadingScreen:renderServerFrame(style)
 			Size = UDim2.new(1, 0, 0, 20),
 			Position = UDim2.fromScale(0, 0.5),
 			Font = style.Font.Footer.Font,
-			TextSize = isTenFootInterface and 20 or 10,
+			TextSize = policyLabelSize,
 			TextWrapped = true,
 			TextScaled = true,
-			TextColor3 = style.Theme.TextEmphasis.Color,
+			TextColor3 = style.Theme.TextDefault.Color,
 			TextStrokeTransparency = 1,
 			Text = CoreScriptTranslator:FormatByKey("Authentication.Login.WeChat.AntiAddictionText"),
 			TextXAlignment = Enum.TextXAlignment.Center,
@@ -506,10 +478,10 @@ function LoadingScreen:renderServerFrame(style)
 		JoinServerLabel = Roact.createElement("TextLabel", {
 			Name = 'JoinText',
 			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, 12),
+			Size = UDim2.new(1, 0, 0, - serverLabelSize),
 			Position = UDim2.fromScale(0, 1),
 			Font = style.Font.Footer.Font,
-			TextSize = isTenFootInterface and 24 or 12,
+			TextSize = serverLabelSize,
 			TextWrapped = true,
 			TextScaled = true,
 			TextColor3 = style.Theme.TextDefault.Color,
@@ -528,9 +500,9 @@ function LoadingScreen:renderTenFootCancelBtn(style)
 		Name = "TenfootCancelFrame",
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
-		AnchorPoint = Vector2.new(1, 0),
-		Position = UDim2.new(1, TENFOOT_CANCEL_BTN_OFFSET, 0, -TENFOOT_CANCEL_BTN_OFFSET),
-		Size = UDim2.fromOffset(150, TENFOOT_CANCEL_BTN_OFFSET),
+		AnchorPoint = Vector2.new(0, 1),
+		Position = UDim2.fromScale(0, 1),
+		Size = UDim2.fromOffset(150, 48),
 		Active = true,
 	}, {
 		CancelIcon = Roact.createElement("ImageLabel", {
@@ -551,7 +523,7 @@ function LoadingScreen:renderTenFootCancelBtn(style)
 			TextWrapped = true,
 			TextColor3 = style.Theme.TextEmphasis.Color,
 			TextStrokeTransparency = 1,
-			Text = CoreScriptTranslator:FormatByKey("Feature.SettingsHub.Action.Cancel"),
+			Text = CoreScriptTranslator:FormatByKey("CoreScripts.TopBar.Back"),
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Center,
 			ZIndex = 2,
@@ -596,6 +568,7 @@ function LoadingScreen:init()
 			absoluteSize = frame.AbsoluteSize,
 		})
 		self.isPortrait = frame.AbsoluteSize.X < frame.AbsoluteSize.Y
+		self.updateBindings.iconSize(1.0)
 	end
 
 	-- auto unmount
@@ -616,17 +589,27 @@ function LoadingScreen:init()
 	local iconTransparency, updateIconTransparency = Roact.createBinding(1)
 	local iconSize, updateIconSize = Roact.createBinding(0)
 	local placeTextTransparency, updatePlaceTextTransparency = Roact.createBinding(1)
+	local placeTextSize, updatePlaceTextSize = Roact.createBinding(0)
 	local creatorTextTransparency, updateCreatorTextTransparency = Roact.createBinding(1)
-	local infoFrameTransparency, updateInfoFrameTransparency = Roact.createBinding(INFO_FRAME_TRANSPARENCY)
+	local creatorTextSize, updateCreatorTextSize = Roact.createBinding(0)
+	local infoFrameTransparency, updateInfoFrameTransparency = Roact.createBinding(1)
 
 	self.bindings = {
 		thumbnailTransparency = thumbnailTransparency,
 		iconTransparency = iconTransparency,
 		iconSize = iconSize:map(function(size)
-			return UDim2.fromOffset(ICON_SIZE_FOR_SCREEN * size, ICON_SIZE_FOR_SCREEN * size)
+			local t = math.max(self.state.absoluteSize.X, self.state.absoluteSize.Y) / ICON_SIZE_BREAKPOINT
+			local iconSizeOnScreen = math.clamp(t * ICON_SIZE_RANGE[1], ICON_SIZE_RANGE[1], ICON_SIZE_RANGE[2])
+			return UDim2.fromOffset(iconSizeOnScreen * size, iconSizeOnScreen * size)
 		end),
 		placeTextTransparency = placeTextTransparency,
+		placeTextSize = placeTextSize:map(function(size)
+			return (isMobilePlatform and 20 or 36) * size
+		end),
 		creatorTextTransparency = creatorTextTransparency,
+		creatorTextSize = creatorTextSize:map(function(size)
+			return 20 * size
+		end),
 		infoFrameTransparency = infoFrameTransparency,
 	}
 
@@ -635,7 +618,9 @@ function LoadingScreen:init()
 		iconTransparency = updateIconTransparency,
 		iconSize = updateIconSize,
 		placeTextTransparency = updatePlaceTextTransparency,
+		placeTextSize = updatePlaceTextSize,
 		creatorTextTransparency = updateCreatorTextTransparency,
+		creatorTextSize = updateCreatorTextSize,
 		infoFrameTransparency = updateInfoFrameTransparency,
 	}
 

@@ -6,7 +6,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxUseExpandableTopSearch = game:GetFastFlag("ToolboxUseExpandableTopSearch") -- TODO: Flip when UISYS-1334 is ready
 local FintToolboxHomeViewInitialPageSize = game:GetFastInt("ToolboxHomeViewInitialPageSize")
-local FFlagToolboxFixMissingCategories = game:GetFastFlag("ToolboxFixMissingCategories")
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 local FFlagToolboxAddVerifiedCreatorToAnalytics = game:GetFastFlag("ToolboxAddVerifiedCreatorToAnalytics")
 
@@ -342,7 +341,7 @@ function HomeView:init()
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			VerticalAlignment = Enum.VerticalAlignment.Top,
 		}, {
-			SubcategorySwimlane = if not FFlagToolboxFixMissingCategories or subcategoryCount > 0
+			SubcategorySwimlane = if subcategoryCount > 0
 				then Roact.createElement(Swimlane, {
 					Data = subcategoryDict,
 					LayoutOrder = orderIterator:getNextOrder(),
@@ -435,26 +434,15 @@ function HomeView:render()
 	local subcategoryDict = props.SubcategoryDict
 	local sectionName = assetSections[#assetSections] and assetSections[#assetSections].name or nil
 
-	local hideTopContent
+	local hasSubcategories = next(subcategoryDict) ~= nil
 
-	if FFlagToolboxFixMissingCategories then
-		local hasSubcategories = next(subcategoryDict) ~= nil
-
-		-- If there is only a single swimlane defined, it has no subcategories, and there are no top keywords, we hide the top content
-		hideTopContent = #assetSections == 1
-			and not hasSubcategories
-			and assetSections[#assetSections]
-			and not assetSections[#assetSections].subcategory
-			and props.TopKeywords
-			and #props.TopKeywords == 0
-	else
-		-- If there is only a single swimlane defined, it has no subcategories, and there are no top keywords, we hide the top content
-		hideTopContent = #assetSections == 1
-			and assetSections[#assetSections]
-			and not assetSections[#assetSections].subcategory
-			and props.TopKeywords
-			and #props.TopKeywords == 0
-	end
+	-- If there is only a single swimlane defined, it has no subcategories, and there are no top keywords, we hide the top content
+	local hideTopContent = #assetSections == 1
+		and not hasSubcategories
+		and assetSections[#assetSections]
+		and not assetSections[#assetSections].subcategory
+		and props.TopKeywords
+		and #props.TopKeywords == 0
 
 	-- Props from AssetLogicWrapper
 	local canInsertAsset = props.CanInsertAsset

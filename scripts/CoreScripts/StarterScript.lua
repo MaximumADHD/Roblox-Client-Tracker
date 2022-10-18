@@ -61,7 +61,7 @@ local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
 local GetFFlagEnableKeyboardUINavigation = require(RobloxGui.Modules.Flags.GetFFlagEnableKeyboardUINavigation)
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
-game:DefineFastFlag("SelfieViewFeature", false)
+game:DefineFastFlag("SelfieViewFeature2", false)
 
 local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 local FFlagRoactGamepadFixDelayedRefFocusLost =
@@ -268,8 +268,12 @@ if GetFFlagRtMessaging() then
 end
 
 if game:GetEngineFeature("FacialAnimationStreaming") then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/FacialAnimationStreaming", script.Parent)
-	if game:GetFastFlag("SelfieViewFeature") then
+	if game:GetEngineFeature("FacialAnimationStreamingServiceUseV2") then
+		ScriptContext:AddCoreScriptLocal("CoreScripts/FacialAnimationStreamingV2", script.Parent)
+	else
+		ScriptContext:AddCoreScriptLocal("CoreScripts/FacialAnimationStreaming", script.Parent)
+	end
+	if game:GetFastFlag("SelfieViewFeature2") then
 		ScriptContext:AddCoreScriptLocal("CoreScripts/FaceChatSelfieView", RobloxGui)
 	end
 	if game:GetEngineFeature("TrackerLodControllerDebugUI") then
@@ -286,5 +290,5 @@ if game:GetEngineFeature("NewMoodAnimationTypeApiEnabled") and game:GetFastFlag(
 end
 
 if game:GetEngineFeature("AdPortal") then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/TeleportEffectsRunner", RobloxGui)
+	ScriptContext:AddCoreScriptLocal("CoreScripts/PortalTeleportGUI", RobloxGui)
 end

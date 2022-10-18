@@ -5,15 +5,12 @@
 	ToggleCallback, function, will return current selected statue if toggled.
 ]]
 local FFlagToolboxEnableAssetConfigPhoneVerification = game:GetFastFlag("ToolboxEnableAssetConfigPhoneVerification")
-local FStringToolboxAssetConfigDisabledAudioSharingLearnMoreLink = game:GetFastString(
-	"ToolboxAssetConfigDisabledAudioSharingLearnMoreLink"
-)
-local FStringToolboxAssetConfigEnabledAudioSharingLearnMoreLink = game:GetFastString(
-	"ToolboxAssetConfigEnabledAudioSharingLearnMoreLink"
-)
+local FStringToolboxAssetConfigDisabledAudioSharingLearnMoreLink =
+	game:GetFastString("ToolboxAssetConfigDisabledAudioSharingLearnMoreLink")
+local FStringToolboxAssetConfigEnabledAudioSharingLearnMoreLink =
+	game:GetFastString("ToolboxAssetConfigEnabledAudioSharingLearnMoreLink")
 
 local FFlagUnifyModelPackagePublish3 = game:GetFastFlag("UnifyModelPackagePublish3")
-local FFlagToolboxAllowDisablingCopyingAtQuota = game:GetFastFlag("ToolboxAllowDisablingCopyingAtQuota")
 
 local FFlagHideAssetConfigLearnMoreForLuobu = game:GetFastFlag("HideAssetConfigLearnMoreForLuobu")
 
@@ -140,7 +137,7 @@ function ConfigCopy:init(props)
 
 		GuiService:OpenBrowserWindow(quotaPolicyForAssetType.link)
 	end
-	
+
 	if FFlagToolboxEnableAssetConfigPhoneVerification then
 		self.onClickVerifyLink = function()
 			GuiService:OpenBrowserWindow(ToolboxUtilities.getVerificationDocumentationUrl())
@@ -152,7 +149,7 @@ function ConfigCopy:init(props)
 			local publishAssetTheme = theme.publishAsset
 
 			local list = {}
-			for i,text in ipairs(textList) do
+			for i, text in ipairs(textList) do
 				list[text] = Roact.createElement(Pane, {
 					AutomaticSize = Enum.AutomaticSize.XY,
 					HorizontalAlignment = Enum.HorizontalAlignment.Left,
@@ -186,7 +183,9 @@ function ConfigCopy:didMount(prevProps, prevState)
 		local timeSignal = game:GetService("RunService").Heartbeat
 		self.connection = timeSignal:connect(function(dt)
 			self:setState(function(state)
-				local copyWarning = if FFlagToolboxEnableAssetConfigPhoneVerification then state.copyWarning else self.copyWarning
+				local copyWarning = if FFlagToolboxEnableAssetConfigPhoneVerification
+					then state.copyWarning
+					else self.copyWarning
 				if copyWarning ~= Cryo.None then
 					self.warningCountdown -= dt
 					if self.warningCountdown <= 0 then
@@ -232,7 +231,12 @@ function ConfigCopy:didUpdate(prevProps, prevState)
 				return nil
 			end
 		end)
-	elseif props.AssetType == Enum.AssetType.Model and FFlagUnifyModelPackagePublish3 and not props.isPackageAsset and not props.isPackageMarketplacePublishAllowed then
+	elseif
+		props.AssetType == Enum.AssetType.Model
+		and FFlagUnifyModelPackagePublish3
+		and not props.isPackageAsset
+		and not props.isPackageMarketplacePublishAllowed
+	then
 		-- We only need to show warning if we're trying to publish a new instance as a package to marketplace, but we don't have permission to do so
 		self:setState(function(state)
 			if state.copyWarning ~= packageWarningText and props.PackageOn and not prevProps.PackageOn then
@@ -332,24 +336,16 @@ function ConfigCopy:getDistributionQuotaStatus(showVerifiedText)
 			publishingEnabled = false
 			local formattedDateTime = formatLocalDateTime(expirationTime, "MMM D, h:mmA", localeId)
 			quotaMessageText =
-				props.Localization:getText(
-					"AssetConfigSharing",
-					"DistributeMarketplaceQuotaExhausted1",
-					{
-						dateTime = formattedDateTime,
-					}
-				)
+				props.Localization:getText("AssetConfigSharing", "DistributeMarketplaceQuotaExhausted1", {
+					dateTime = formattedDateTime,
+				})
 		elseif usage > 0 then
 			local formattedDate = formatLocalDateTime(expirationTime, "MMM D", localeId)
 			quotaMessageText =
-				props.Localization:getText(
-					"AssetConfigSharing",
-					"DistributeMarketplaceQuotaRemaining2",
-					{
-						remaining = string.format("%d", capacity - usage),
-						date = formattedDate,
-					}
-				)
+				props.Localization:getText("AssetConfigSharing", "DistributeMarketplaceQuotaRemaining2", {
+					remaining = string.format("%d", capacity - usage),
+					date = formattedDate,
+				})
 		end
 		if not FFlagToolboxEnableAssetConfigPhoneVerification and quotaPolicyForAssetType.link then
 			quotaLinkText = props.Localization:getText("AssetConfigSharing", "DistributeMarketplaceQuotaInfoShortLink")
@@ -387,15 +383,18 @@ function ConfigCopy:render()
 
 	if assetType and CopyEnabled then
 		local publishingEnabled
-		publishingEnabled, quotaMessageText, quotaLinkText, showVerifiedText = self:getDistributionQuotaStatus(showVerifiedText)
+		publishingEnabled, quotaMessageText, quotaLinkText, showVerifiedText =
+			self:getDistributionQuotaStatus(showVerifiedText)
 
 		if not publishingEnabled then
 			-- Allow un-publishing, but not publishing
-			CopyEnabled = if FFlagToolboxAllowDisablingCopyingAtQuota then CopyOn else false
+			CopyEnabled = CopyOn
 		end
 	end
 
-	local showSharesLeftAlone = if FFlagToolboxEnableAssetConfigPhoneVerification then quotaMessageText and quotaMessageText ~= "" else nil
+	local showSharesLeftAlone = if FFlagToolboxEnableAssetConfigPhoneVerification
+		then quotaMessageText and quotaMessageText ~= ""
+		else nil
 	local verifyHeaderText
 	local verifyReasonList
 	local currentLimitText
@@ -438,7 +437,7 @@ function ConfigCopy:render()
 	end
 
 	local rightFrameLayoutOrder = LayoutOrderIterator.new()
-	
+
 	return Roact.createElement("Frame", {
 		AutomaticSize = Enum.AutomaticSize.Y,
 		BackgroundTransparency = 1,
@@ -530,16 +529,16 @@ function ConfigCopy:render()
 					else nil,
 			}),
 
-			VerifyNotice = if FFlagToolboxEnableAssetConfigPhoneVerification and showVerifiedText then
-				Roact.createElement(Pane, {
+			VerifyNotice = if FFlagToolboxEnableAssetConfigPhoneVerification and showVerifiedText
+				then Roact.createElement(Pane, {
 					AutomaticSize = Enum.AutomaticSize.XY,
-						HorizontalAlignment = Enum.HorizontalAlignment.Left,
-						Layout = Enum.FillDirection.Vertical,
-						LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
-						Padding = {
-							Top = 5,
-							Bottom = 5,
-						},
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
+					Layout = Enum.FillDirection.Vertical,
+					LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
+					Padding = {
+						Top = 5,
+						Bottom = 5,
+					},
 				}, {
 					VerifyNoticeHeader = Roact.createElement(LinkText, {
 						Text = verifyHeaderText,
@@ -558,25 +557,27 @@ function ConfigCopy:render()
 						},
 					}, verifyReasonList),
 
-					CurrentLimitText = if quotaMessageText then Roact.createElement(Pane, {
-						AutomaticSize = Enum.AutomaticSize.XY,
-						LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
-						Padding = {
-							Left = CURRENT_LIMIT_INDENTATION,
-						},
-					}, {
-						Text = Roact.createElement(TextLabel, {
+					CurrentLimitText = if quotaMessageText
+						then Roact.createElement(Pane, {
 							AutomaticSize = Enum.AutomaticSize.XY,
-							RichText = true,
-							Text = currentLimitText,
-							TextColor = publishAssetTheme.verifyTextColor,
-							TextSize = Constants.FONT_SIZE_LARGE,
-						}),
-					}) else nil,
+							LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
+							Padding = {
+								Left = CURRENT_LIMIT_INDENTATION,
+							},
+						}, {
+							Text = Roact.createElement(TextLabel, {
+								AutomaticSize = Enum.AutomaticSize.XY,
+								RichText = true,
+								Text = currentLimitText,
+								TextColor = publishAssetTheme.verifyTextColor,
+								TextSize = Constants.FONT_SIZE_LARGE,
+							}),
+						})
+						else nil,
 				})
-			else nil,
+				else nil,
 
-				QuotaInfo = if quotaMessageText or quotaLinkText
+			QuotaInfo = if quotaMessageText or quotaLinkText
 				then Roact.createElement(Pane, {
 					AutomaticSize = Enum.AutomaticSize.XY,
 					Layout = Enum.FillDirection.Vertical,
@@ -624,13 +625,14 @@ function ConfigCopy:render()
 				LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
 			}),
 
-			LinkButton = if not FFlagHideAssetConfigLearnMoreForLuobu or not ToolboxUtilities.hideAssetConfigDistributeLearnMoreLink()
+			LinkButton = if not FFlagHideAssetConfigLearnMoreForLuobu
+					or not ToolboxUtilities.hideAssetConfigDistributeLearnMoreLink()
 				then Roact.createElement(LinkText, {
 					LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
 					OnClick = self.onLearnMoreActivated,
 					Text = learnMoreText,
 				})
-			else nil,
+				else nil,
 		}),
 	})
 end
@@ -648,9 +650,12 @@ if FFlagToolboxEnableAssetConfigPhoneVerification then
 		local verification = publishingRequirements.verification or {}
 
 		local publishing = publishingRequirements.publishing or {}
-		local allowedSubTypesForPublish = if FFlagUnifyModelPackagePublish3 then publishing.allowedSubTypes or {} else {}
-		local isPackageMarketplacePublishAllowed = AssetSubTypes.contains(allowedSubTypesForPublish, AssetSubTypes.Package)
-		
+		local allowedSubTypesForPublish = if FFlagUnifyModelPackagePublish3
+			then publishing.allowedSubTypes or {}
+			else {}
+		local isPackageMarketplacePublishAllowed =
+			AssetSubTypes.contains(allowedSubTypesForPublish, AssetSubTypes.Package)
+
 		return {
 			isVerified = if verification then verification.isVerified else false,
 			verificationSupportedTypes = if verification then verification.supportedTypes or {} else {},

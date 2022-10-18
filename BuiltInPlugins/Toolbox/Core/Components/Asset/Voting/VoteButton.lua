@@ -4,13 +4,10 @@ local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 
 local Constants = require(Plugin.Core.Util.Constants)
-local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Images = require(Plugin.Core.Util.Images)
 
 local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
-
-local withTheme = ContextHelper.withTheme
 
 local VoteButton = Roact.PureComponent:extend("VoteButton")
 

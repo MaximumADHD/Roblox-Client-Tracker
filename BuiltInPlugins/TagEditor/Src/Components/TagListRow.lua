@@ -188,7 +188,15 @@ function TagListRow:render()
 	local assignTooltipText = if props.IsTagAssignedToAll then localization:getText("Tooltip", "RemoveTag") else localization:getText("Tooltip", "ApplyTag")
 
 	local paneStyle = nil
-	if props.tagMenu == props.TagName then
+
+	local isSelected = false
+	if isGroup then
+		isSelected = props.groupMenu == props.GroupName
+	else
+		isSelected = props.tagMenu == props.TagName
+	end
+
+	if isSelected then
 		paneStyle = "SelectedTag"
 	elseif self.state.hovered then
 		paneStyle = "PaneHover"

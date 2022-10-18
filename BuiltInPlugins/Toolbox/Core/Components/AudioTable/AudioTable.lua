@@ -1,6 +1,8 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
 
+local FFlagToolboxAudioAssetPreview = game:GetFastFlag("ToolboxAudioAssetPreview")
+
 local FFlagToolboxAudioUIPolish = game:GetFastFlag("ToolboxAudioUIPolish")
 
 local Packages = Plugin.Packages
@@ -39,7 +41,12 @@ type _ExternalAudioTableProps = {
 	CanInsertAsset: () -> boolean,
 	LayoutOrder: number?,
 	LogImpression: (asset: AssetInfo.AssetInfo) -> ()?,
-	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn,
+	-- Remove with removal of FFlagToolboxAudioAssetPreview
+	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn?,
+	-- Make required with removal of  FFlagToolboxAudioAssetPreview
+	TryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn?,
+	-- Make required with removal of  FFlagToolboxAudioAssetPreview
+	OnAssetPreviewButtonClicked: AssetLogicWrapper.OnAssetPreviewButtonClickedFn?,
 }
 
 type AudioTableProps = _ExternalAudioTableProps & {
@@ -131,8 +138,12 @@ if FFlagToolboxAudioUIPolish then
 				IsExpanded = assetInfo.Asset and assetInfo.Asset.Id == expandedAssetId,
 				LayoutOrder = rowsOrderIterator:getNextOrder() + 1,
 				LogImpression = logImpression,
-				tryOpenAssetConfig = tryOpenAssetConfig,
 				OnExpanded = self.setExpandedAssetId,
+				tryOpenAssetConfig = if FFlagToolboxAudioAssetPreview then nil else props.tryOpenAssetConfig,
+				TryOpenAssetConfig = if FFlagToolboxAudioAssetPreview then props.TryOpenAssetConfig else nil,
+				OnAssetPreviewButtonClicked = if FFlagToolboxAudioAssetPreview
+					then props.OnAssetPreviewButtonClicked
+					else nil,
 				width = width,
 			})
 		end)

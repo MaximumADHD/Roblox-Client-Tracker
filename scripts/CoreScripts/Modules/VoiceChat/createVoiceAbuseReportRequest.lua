@@ -16,6 +16,7 @@ export type VoiceAbuseReportData = {
 	abuseReason: string,
 	inExpMenuOpenedUnixMilli: number,
 	sortedPlayerListUserIds: { [number]: number },
+	abuseVector: string,
 }
 
 return function(
@@ -120,7 +121,7 @@ return function(
 
 			REPORTED_ABUSE_VECTOR = {
 				valueList = {
-					{ data = "voice" },
+					{ data = reportData.abuseVector },
 				}
 			},
 		}

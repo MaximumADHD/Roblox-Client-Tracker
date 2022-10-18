@@ -7,19 +7,15 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-
-local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryLoadingIndicator = SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
 
 local DraftListView = require(Plugin.Src.Components.DraftListView)
 local FeatureDisabledPage = require(Plugin.Src.Components.FeatureDisabledPage)
 
 local UI = Framework.UI
-local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator then UI.LoadingIndicator else UILibrary.Component.LoadingIndicator
+local LoadingIndicator = UI.LoadingIndicator
 
 local MainView = Roact.Component:extend("MainView")
 

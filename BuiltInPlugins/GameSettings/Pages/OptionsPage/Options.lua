@@ -6,7 +6,6 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -15,8 +14,6 @@ local ToggleButtonWithTitle = require(Plugin.Src.Components.ToggleButtonWithTitl
 
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
 
-local UILibrary = if FFlagRemoveUILibraryTitledFrame then nil else require(Plugin.Packages.UILibrary)
-
 local Util = Framework.Util
 local GetTextSize = Util.GetTextSize
 local LayoutOrderIterator = Util.LayoutOrderIterator
@@ -24,7 +21,7 @@ local LayoutOrderIterator = Util.LayoutOrderIterator
 local UI = Framework.UI
 local Button = UI.Button
 local HoverArea = UI.HoverArea
-local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
+local TitledFrame = UI.TitledFrame
 
 local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
@@ -47,6 +44,8 @@ local scriptCollaborationEnabledOnServerKey = GetScriptCollaborationEnabledOnSer
 
 local teamCreateEnabledKey = KeyProvider.getTeamCreateEnabledKeyName()
 
+local FFlagAvatarChatSettingsEnabled = game:DefineFastFlag("AvatarChatSettingsEnabled", false)
+
 -- TODO: When removing FFlagGameSettingsRenameOptions, rename `OptionsPage` and `Options.lua` to `OtherPage` and `Other.lua`
 game:GetFastFlag("GameSettingsRenameOptions")
 local LOCALIZATION_ID = if game:GetFastFlag("GameSettingsRenameOptions") then "Other" else script.Name
@@ -57,17 +56,11 @@ local function loadSettings(store, contextItems)
 	local gameId = state.Metadata.gameId
 	local gameOptionsController = contextItems.gameOptionsController
 
-	return {
+	local loader = {
 		function(loadedSettings)
 			local enabled = gameOptionsController:getScriptCollaborationEnabled(game)
 
 			loadedSettings["ScriptCollabEnabled"] = enabled
-		end,
-
-		function(loadedSettings)
-			local optIn = gameOptionsController:getVoiceChatEnabled(gameId)
-
-			loadedSettings[voiceChatEnabledKey] = optIn
 		end,
 
 		function(loadedSettings)
@@ -82,6 +75,16 @@ local function loadSettings(store, contextItems)
 			loadedSettings[teamCreateEnabledKey] = enabled
 		end,
 	}
+
+	if false == FFlagAvatarChatSettingsEnabled then
+		loader[#loader + 1] = function(loadedSettings)
+			local optIn = gameOptionsController:getVoiceChatEnabled(gameId)
+
+			loadedSettings[voiceChatEnabledKey] = optIn
+		end
+	end
+
+	return loader
 end
 
 local function saveSettings(store, contextItems)
@@ -90,7 +93,7 @@ local function saveSettings(store, contextItems)
 	local gameId = state.Metadata.gameId
 	local gameOptionsController = contextItems.gameOptionsController
 
-	return {
+	local saver = {
 		function()
 			local changed = state.Settings.Changed.ScriptCollabEnabled
 
@@ -98,14 +101,19 @@ local function saveSettings(store, contextItems)
 				gameOptionsController:setScriptCollaborationEnabled(game, changed)
 			end
 		end,
-		function()
+	}
+
+	if false == FFlagAvatarChatSettingsEnabled then
+		saver[#saver + 1] = function()
 			local changed = state.Settings.Changed.VoiceChatEnabled
 
 			if changed ~= nil then
 				gameOptionsController:setVoiceChatEnabled(gameId, changed)
 			end
-		end,
-	}
+		end
+	end
+
+	return saver
 end
 
 --Loads settings values into props by key
@@ -115,11 +123,14 @@ local function loadValuesToProps(getValue, state)
 	local loadedProps = {
 		ScriptCollabEnabled = getValue("ScriptCollabEnabled"),
 		CurrentScriptCollabEnabled = state.Settings.Current.ScriptCollabEnabled,
-		VoiceChatEnabled = getValue(voiceChatEnabledKey),
 		TeamCreateEnabled = state.Settings.Current.TeamCreateEnabled or nil,
 		-- This value holds the server value (which cannot be changed during session). Used to display warning about needing to restart
 		ScriptCollabEnabledOnServer = scriptCollabEnabledOnServer,
 	}
+
+	if false == FFlagAvatarChatSettingsEnabled then
+		loadedProps["VoiceChatEnabled"] = getValue(voiceChatEnabledKey)
+	end
 
 	return loadedProps
 end
@@ -131,8 +142,11 @@ local function dispatchChanges(setValue, dispatch)
 		dispatchShutdownAllServers = function()
 			dispatch(ShutdownAllServers())
 		end,
-		VoiceChatEnabledChanged = setValue(voiceChatEnabledKey),
 	}
+
+	if false == FFlagAvatarChatSettingsEnabled then
+		dispatchFuncs["VoiceChatEnabledChanged"] = setValue(voiceChatEnabledKey)
+	end
 
 	return dispatchFuncs
 end
@@ -182,7 +196,7 @@ function Options:render()
 
 		local localization = props.Localization
 
-		return {
+		local children = {
 			EnableScriptCollab = Roact.createElement(ToggleButtonWithTitle, {
 				Title = localization:getText("General", "TitleScriptCollab"),
 				Description = toggleButtonDescriptionText,
@@ -195,66 +209,57 @@ function Options:render()
 				end,
 			}),
 
-			ShutdownAllServers = Roact.createElement(
-				TitledFrame,
-				if FFlagRemoveUILibraryTitledFrame
-					then {
-						LayoutOrder = layoutIndex:getNextOrder(),
-						Title = localization:getText("General", "TitleShutdownAllServers"),
-					}
-					else {
-						Title = localization:getText("General", "TitleShutdownAllServers"),
-						MaxHeight = 60,
-						LayoutOrder = layoutIndex:getNextOrder(),
-						TextSize = theme.fontStyle.Normal.TextSize,
-					},
-				{
-					VerticalLayout = Roact.createElement("UIListLayout", {
-						FillDirection = Enum.FillDirection.Vertical,
-						HorizontalAlignment = Enum.HorizontalAlignment.Left,
-						SortOrder = Enum.SortOrder.LayoutOrder,
-					}),
-					ShutdownButton = Roact.createElement(Button, {
-						Style = "GameSettingsButton",
-						Text = shutdownButtonText,
-						Size = shutDownButtonSize,
-						LayoutOrder = 1,
-						OnClick = function()
-							local dialogProps = {
-								Size = Vector2.new(343, 145),
-								Title = localization:getText("General", "ShutdownDialogHeader"),
-								Header = localization:getText("General", "ShutdownDialogBody"),
-								Buttons = {
-									localization:getText("General", "ReplyNo"),
-									localization:getText("General", "ReplyYes"),
-								},
-							}
+			ShutdownAllServers = Roact.createElement(TitledFrame, {
+				LayoutOrder = layoutIndex:getNextOrder(),
+				Title = localization:getText("General", "TitleShutdownAllServers"),
+			}, {
+				VerticalLayout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				}),
+				ShutdownButton = Roact.createElement(Button, {
+					Style = "GameSettingsButton",
+					Text = shutdownButtonText,
+					Size = shutDownButtonSize,
+					LayoutOrder = 1,
+					OnClick = function()
+						local dialogProps = {
+							Size = Vector2.new(343, 145),
+							Title = localization:getText("General", "ShutdownDialogHeader"),
+							Header = localization:getText("General", "ShutdownDialogBody"),
+							Buttons = {
+								localization:getText("General", "ReplyNo"),
+								localization:getText("General", "ReplyYes"),
+							},
+						}
 
-							local confirmed = dialog.showDialog(SimpleDialog, dialogProps):await()
-							if confirmed then
-								dispatchShutdownAllServers()
-							end
-						end,
-					}, {
-						Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
-					}),
+						local confirmed = dialog.showDialog(SimpleDialog, dialogProps):await()
+						if confirmed then
+							dispatchShutdownAllServers()
+						end
+					end,
+				}, {
+					Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
+				}),
 
-					ShutdownButtonDescription = Roact.createElement(
-						"TextLabel",
-						Cryo.Dictionary.join(theme.fontStyle.Subtext, {
-							Size = UDim2.new(1, 0, 0, shutdownButtonTextExtents.Y + theme.shutdownButton.PaddingY),
-							LayoutOrder = 2,
-							BackgroundTransparency = 1,
-							Text = localization:getText("General", "StudioShutdownAllServicesDesc"),
-							TextYAlignment = Enum.TextYAlignment.Center,
-							TextXAlignment = Enum.TextXAlignment.Left,
-							TextWrapped = true,
-						})
-					),
-				}
-			),
+				ShutdownButtonDescription = Roact.createElement(
+					"TextLabel",
+					Cryo.Dictionary.join(theme.fontStyle.Subtext, {
+						Size = UDim2.new(1, 0, 0, shutdownButtonTextExtents.Y + theme.shutdownButton.PaddingY),
+						LayoutOrder = 2,
+						BackgroundTransparency = 1,
+						Text = localization:getText("General", "StudioShutdownAllServicesDesc"),
+						TextYAlignment = Enum.TextYAlignment.Center,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextWrapped = true,
+					})
+				),
+			}),
+		}
 
-			EnableVoiceChat = Roact.createElement(ToggleButtonWithTitle, {
+		if false == FFlagAvatarChatSettingsEnabled then
+			children["EnableVoiceChat"] = Roact.createElement(ToggleButtonWithTitle, {
 				Title = localization:getText("General", "VoiceChatTitle"),
 				LinkProps = {
 					Text = localization:getText("General", "VoiceChatBody"),
@@ -269,8 +274,10 @@ function Options:render()
 				OnClick = function()
 					props.VoiceChatEnabledChanged(not props.VoiceChatEnabled)
 				end,
-			}),
-		}
+			})
+		end
+
+		return children
 	end
 
 	return Roact.createElement(SettingsPage, {

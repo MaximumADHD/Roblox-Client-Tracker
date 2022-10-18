@@ -1,5 +1,5 @@
-game:DefineFastFlag("EnableNewInviteMenuIXP", false)
+game:DefineFastFlag("EnableNewInviteMenuIXP2", false)
 
 return function()
-	return game:GetFastFlag("EnableNewInviteMenuIXP")
+	return game:GetFastFlag("EnableNewInviteMenuIXP2")
 end

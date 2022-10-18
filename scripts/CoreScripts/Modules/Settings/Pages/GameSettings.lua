@@ -83,7 +83,6 @@ local utility = require(RobloxGui.Modules.Settings.Utility)
 local Constants = require(RobloxGui:WaitForChild("Modules"):WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
 local CoreUtility = require(RobloxGui.Modules.CoreUtility)
-local IsDeveloperConsoleEnabled = require(RobloxGui.Modules.DevConsole.IsDeveloperConsoleEnabled)
 
 local PlayerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModule)
 local GetHasGuiHidingPermission = require(RobloxGui.Modules.Common.GetHasGuiHidingPermission)
@@ -177,8 +176,8 @@ local function reportSettingsForAnalytics()
 end
 
 --------------- FLAGS ----------------
-game:DefineFastInt("V1MenuLanguageSelectionFeaturePerMillageRollout", 999)
-game:DefineFastString("V1MenuLanguageSelectionFeatureForcedUserIds", "31415926535")
+game:DefineFastInt("V1MenuLanguageSelectionFeaturePerMillageRollout", 0)
+game:DefineFastString("V1MenuLanguageSelectionFeatureForcedUserIds", "")
 
 ----------- CLASS DECLARATION --------------
 
@@ -697,7 +696,7 @@ local function Initialize()
 
 					-- Try poll every 0.1 seconds until 3 seconds passed
 					local tryPollCount = 30
-					while(tryPollCount >= 1) do
+					while tryPollCount >= 1 do
 						if tryContentLabel() then
 							break
 						end
@@ -2421,12 +2420,8 @@ local function Initialize()
 		createOverscanOption()
 	end
 
-	local canShowDevConsole = IsDeveloperConsoleEnabled()
-
-	if canShowDevConsole then
-		-- dev console option only shows for place/group place owners
-		createDeveloperConsoleOption()
-	end
+	-- dev console option only shows for place/group place owners
+	createDeveloperConsoleOption()
 
 	GetHasGuiHidingPermission(RunService:IsStudio(), LocalPlayer, PlayerPermissionsModule):andThen(function(hasPermission)
 		if hasPermission then

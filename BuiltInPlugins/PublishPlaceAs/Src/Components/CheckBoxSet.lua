@@ -16,11 +16,10 @@ local Constants = require(Plugin.Src.Resources.Constants)
 local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 local FFlagDevFrameworkMigrateCheckBox = SharedFlags.getFFlagDevFrameworkMigrateCheckBox()
 
 local UILibrary
-if not FFlagRemoveUILibraryTitledFrame or not FFlagDevFrameworkMigrateCheckBox then
+if not FFlagDevFrameworkMigrateCheckBox then
 	UILibrary = require(Plugin.Packages.UILibrary)
 end
 
@@ -28,7 +27,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UI = Framework.UI
-local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
+local TitledFrame = UI.TitledFrame
 local CheckBox = if FFlagDevFrameworkMigrateCheckBox then UI.Checkbox else UILibrary.Component.CheckBox
 
 local CHECKBOX_SIZE = 20
@@ -44,7 +43,7 @@ function CheckBoxSet:render()
 	local layoutOrder = props.LayoutOrder or 1
 	local boxes = props.Boxes
 
-	local enabled = props.Enabled == nil and true or props.Enabled
+	local enabled = if props.Enabled == nil then true else props.Enabled
 	local entryClicked = props.EntryClicked
 	local errorMessage = props.ErrorMessage
 
@@ -143,22 +142,10 @@ function CheckBoxSet:render()
 		maxHeight = props.AbsoluteMaxHeight
 	end
 
-	return Roact.createElement(
-		TitledFrame,
-		if FFlagRemoveUILibraryTitledFrame
-			then {
-				LayoutOrder = layoutOrder,
-				Title = title,
-			}
-			else {
-				Title = title,
-				MaxHeight = maxHeight,
-				LayoutOrder = layoutOrder,
-				TextSize = Constants.TEXT_SIZE,
-				Tooltip = props.Tooltip,
-			},
-		children
-	)
+	return Roact.createElement(TitledFrame, {
+		LayoutOrder = layoutOrder,
+		Title = title,
+	}, children)
 end
 
 CheckBoxSet = withContext({

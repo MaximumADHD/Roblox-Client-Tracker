@@ -1,6 +1,5 @@
 --!strict
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
-local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
 local FFlagToolboxIncludeSearchSourceForLight = game:GetFastFlag("ToolboxIncludeSearchSourceForLight")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
@@ -244,9 +243,7 @@ local navigationRoutes = {
 							SearchTerm = if FFlagToolboxUseQueryForCategories2 then nil else searchTerm,
 							SectionName = sectionName,
 							SortName = mySortName,
-							SearchSource = if FFlagToolboxIncludeSearchSource
-								then Constants.SEARCH_SOURCE.CATEGORY
-								else nil,
+							SearchSource = Constants.SEARCH_SOURCE.CATEGORY,
 							QueryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil,
 						})
 					)
@@ -281,9 +278,7 @@ local navigationRoutes = {
 							CategoryName = myCategoryName,
 							SearchTerm = searchTerm,
 							SortName = mySortName,
-							SearchSource = if FFlagToolboxIncludeSearchSource
-								then Constants.SEARCH_SOURCE.CATEGORY
-								else nil,
+							SearchSource = Constants.SEARCH_SOURCE.CATEGORY,
 							QueryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil,
 						})
 					)
@@ -301,7 +296,7 @@ local navigationRoutes = {
 		local sectionName = params and params.SectionName
 		local searchTerm = params and params.SearchTerm
 		local sortName = params and params.SortName
-		local searchSource = FFlagToolboxIncludeSearchSource and params and params.SearchSource
+		local searchSource = params and params.SearchSource
 		local queryParams = if FFlagToolboxUseQueryForCategories2 and params then params.QueryParams else nil
 
 		return Roact.createElement(

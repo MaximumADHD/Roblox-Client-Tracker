@@ -567,6 +567,7 @@ function BreakpointsTable:render()
 					LeftIcon = "rbxasset://textures/Debugger/Breakpoints/disable_all@2x.png",
 					TooltipText = toggleButtonText,
 					OnClick = self.toggleEnabledAll,
+					Disabled = #props.Breakpoints == 0,
 				}),
 				DeleteAllBreakpointButton = Roact.createElement(IconButton, {
 					Size = UDim2.new(0, Constants.BUTTON_SIZE, 0, Constants.BUTTON_SIZE),
@@ -574,6 +575,7 @@ function BreakpointsTable:render()
 					LeftIcon = "rbxasset://textures/Debugger/Breakpoints/delete_all@2x.png",
 					TooltipText = localization:getText("BreakpointsWindow", "DeleteAll"),
 					OnClick = self.displayDeleteAllBreakpointsPopup,
+					Disabled = #props.Breakpoints == 0,
 				}),
 			}),
 			DropdownContainer = Roact.createElement(Pane, {

@@ -30,7 +30,6 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 local FFlagDevFrameworkMigrateToggleButton = SharedFlags.getFFlagDevFrameworkMigrateToggleButton()
 
 local Util = Framework.Util
@@ -41,12 +40,12 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UILibrary
-if not FFlagDevFrameworkMigrateToggleButton or not FFlagRemoveUILibraryTitledFrame then
+if not FFlagDevFrameworkMigrateToggleButton then
 	UILibrary = require(Plugin.Packages.UILibrary)
 end
 
 local UI = Framework.UI
-local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
+local TitledFrame = UI.TitledFrame
 local ToggleButton = if FFlagDevFrameworkMigrateToggleButton then UI.ToggleButton else UILibrary.Component.ToggleButton
 
 local RobuxFeeBase = require(Page.Components.RobuxFeeBase)
@@ -102,97 +101,73 @@ function PaidAccess:render()
 
 		LayoutOrder = layoutOrder,
 	}, {
-		ToggleAndSubscriptionsAndTotal = Roact.createElement(
-			TitledFrame,
-			if FFlagRemoveUILibraryTitledFrame
-				then {
-					LayoutOrder = 1,
-					Title = title,
-				}
-				else {
-					Title = title,
-					TextSize = theme.fontStyle.Title.TextSize,
+		ToggleAndSubscriptionsAndTotal = Roact.createElement(TitledFrame, {
+			LayoutOrder = 1,
+			Title = title,
+		}, {
+			UIListLayout = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Vertical,
+			}),
 
-					MaxHeight = theme.toggleButton.height + offSubTextSize.Y,
+			ToggleButton = Roact.createElement(
+				ToggleButton,
+				if FFlagDevFrameworkMigrateToggleButton
+					then {
+						Disabled = not enabled,
+						LayoutOrder = 1,
+						OnClick = onButtonToggled,
+						Selected = selected,
+					}
+					else {
+						Enabled = enabled,
+						IsOn = selected,
+						Mouse = mouse:get(),
 
-					LayoutOrder = 1,
-				},
-			{
-				UIListLayout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = Enum.FillDirection.Vertical,
-				}),
+						onToggle = function(value)
+							if enabled then
+								onButtonToggled(value)
+							end
+						end,
 
-				ToggleButton = Roact.createElement(
-					ToggleButton,
-					if FFlagDevFrameworkMigrateToggleButton
-						then {
-							Disabled = not enabled,
-							LayoutOrder = 1,
-							OnClick = onButtonToggled,
-							Selected = selected,
-						}
-						else {
-							Enabled = enabled,
-							IsOn = selected,
-							Mouse = mouse:get(),
+						LayoutOrder = 1,
+					}
+			),
 
-							onToggle = function(value)
-								if enabled then
-									onButtonToggled(value)
-								end
-							end,
+			SubText = not selected and Roact.createElement(
+				"TextLabel",
+				Cryo.Dictionary.join(theme.fontStyle.Subtext, {
+					Size = UDim2.new(0, math.ceil(offSubTextSize.X), 0, offSubTextSize.Y),
 
-							LayoutOrder = 1,
-						}
-				),
+					BackgroundTransparency = 1,
 
-				SubText = not selected and Roact.createElement(
-					"TextLabel",
-					Cryo.Dictionary.join(theme.fontStyle.Subtext, {
-						Size = UDim2.new(0, math.ceil(offSubTextSize.X), 0, offSubTextSize.Y),
+					Text = offSubtext,
 
-						BackgroundTransparency = 1,
+					TextYAlignment = Enum.TextYAlignment.Center,
+					TextXAlignment = Enum.TextXAlignment.Left,
 
-						Text = offSubtext,
+					TextWrapped = true,
 
-						TextYAlignment = Enum.TextYAlignment.Center,
-						TextXAlignment = Enum.TextXAlignment.Left,
-
-						TextWrapped = true,
-
-						LayoutOrder = 2,
-					})
-				),
-			}
-		),
-
-		PriceConfigPaidOnly = selected and Roact.createElement(
-			TitledFrame,
-			if FFlagRemoveUILibraryTitledFrame
-				then {
 					LayoutOrder = 2,
-					Title = priceTitle,
-				}
-				else {
-					Title = priceTitle,
+				})
+			),
+		}),
 
-					TextSize = theme.fontStyle.Normal.TextSize,
-					LayoutOrder = 2,
-				},
-			{
-				RobuxFeeBase = Roact.createElement(RobuxFeeBase, {
-					Price = price,
-					TaxRate = taxRate,
-					MinimumFee = minimumFee,
-					SubText = subText,
+		PriceConfigPaidOnly = selected and Roact.createElement(TitledFrame, {
+			LayoutOrder = 2,
+			Title = priceTitle,
+		}, {
+			RobuxFeeBase = Roact.createElement(RobuxFeeBase, {
+				Price = price,
+				TaxRate = taxRate,
+				MinimumFee = minimumFee,
+				SubText = subText,
 
-					Enabled = enabled,
+				Enabled = enabled,
 
-					OnPriceChanged = onPaidAccessPriceChanged,
-				}),
-			}
-		),
+				OnPriceChanged = onPaidAccessPriceChanged,
+			}),
+		}),
 	})
 end
 

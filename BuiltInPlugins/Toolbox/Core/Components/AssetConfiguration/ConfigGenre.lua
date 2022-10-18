@@ -89,7 +89,7 @@ function ConfigGenre:render()
 			setDropdownHeight = setDropdownHeight,
 
 			LayoutOrder = 2,
-		})
+		}),
 	})
 end
 

@@ -3,7 +3,6 @@
 	A view wrapper displaying a list of swimlanes.
 ]]
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
-local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
 local Packages = Plugin.Packages
@@ -168,7 +167,7 @@ function SubcategoriesSwimlaneView:init()
 				TryInsert = tryInsert,
 				TryOpenAssetConfig = tryOpenAssetConfig,
 				ZIndex = assetSectionCount - subcategory.index,
-				searchSource = if FFlagToolboxIncludeSearchSource then Constants.SEARCH_SOURCE.CATEGORY else nil,
+				searchSource = Constants.SEARCH_SOURCE.CATEGORY,
 			})
 		end
 		return assetSectionsElems

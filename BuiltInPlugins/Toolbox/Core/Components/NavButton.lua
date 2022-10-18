@@ -18,10 +18,7 @@ local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
 
 local Util = Plugin.Core.Util
-local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
-
-local withTheme = ContextHelper.withTheme
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext

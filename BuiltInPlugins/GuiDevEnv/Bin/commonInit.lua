@@ -19,7 +19,7 @@ return function()
 		Roact.setGlobalConfig({
 			elementTracing = true,
 			propValidation = true,
-			typeChecks = true
+			typeChecks = true,
 		})
 	end
 end

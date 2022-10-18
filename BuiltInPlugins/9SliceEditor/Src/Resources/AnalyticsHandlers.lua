@@ -1,4 +1,5 @@
-local FInt9SliceEditorAnalyticsReportingHundrethsPercent = game:GetFastInt("9SliceEditorAnalyticsReportingHundrethsPercent")
+local FInt9SliceEditorAnalyticsReportingHundrethsPercent =
+	game:GetFastInt("9SliceEditorAnalyticsReportingHundrethsPercent")
 
 return function(analyticsService: RbxAnalyticsService)
 	local rand = Random.new()
@@ -26,10 +27,10 @@ return function(analyticsService: RbxAnalyticsService)
 
 		sliceEditorImageLoadedIntoEditor = function()
 			report1Count("Studio9SliceEditorImageLoadedIntoEditor")
-		end,		
+		end,
 
 		sliceEditorOpenTime = function(handlerName: string, seconds: number)
 			reportStat("Studio9SliceEditorOpenTime", seconds)
 		end,
-    }
+	}
 end

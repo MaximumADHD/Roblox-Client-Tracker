@@ -11,7 +11,7 @@ local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
 local t = require(CorePackages.Packages.t)
-local NumberLocalization = require(CorePackages.Localization.NumberLocalization)
+local NumberLocalization = require(CorePackages.Workspace.Packages.Localization).NumberLocalization
 
 local withStyle = UIBlox.Style.withStyle
 local Images = UIBlox.App.ImageSet.Images

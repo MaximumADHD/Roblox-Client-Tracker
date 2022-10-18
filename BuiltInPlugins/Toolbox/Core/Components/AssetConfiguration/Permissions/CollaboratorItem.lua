@@ -61,7 +61,6 @@ local function CollaboratorIcon(props)
 	})
 end
 
-
 function CollaboratorItem:init()
 	self.state = {
 		assetFetchStatus = nil,
@@ -114,7 +113,7 @@ function CollaboratorItem:didMount()
 		local function setStatus(contentId, status)
 			if self.isMounted then
 				self:setState({
-					assetFetchStatus = status
+					assetFetchStatus = status,
 				})
 			end
 		end
@@ -171,7 +170,7 @@ function CollaboratorItem:render()
 				IsLoadedThumbnail = isLoadedThumbnail,
 			}),
 			Labels = Roact.createElement("Frame", {
-				Size = UDim2.new(1, -(LIST_PADDING*4 + CONTENT_HEIGHT + DROPDOWN_WIDTH), 0, CONTENT_HEIGHT),
+				Size = UDim2.new(1, -(LIST_PADDING * 4 + CONTENT_HEIGHT + DROPDOWN_WIDTH), 0, CONTENT_HEIGHT),
 				Position = UDim2.new(0, CONTENT_HEIGHT + LIST_PADDING, 0, 0),
 				LayoutOrder = props.LayoutOrder or 0,
 				BackgroundTransparency = 1,
@@ -190,15 +189,17 @@ function CollaboratorItem:render()
 				}),
 			}),
 
-			DropdownFrame = Roact.createElement("Frame",{
+			DropdownFrame = Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(1, 0),
 				BackgroundTransparency = 1,
-				Position = UDim2.new(1, -(CONTENT_HEIGHT+LIST_PADDING), 0, 0),
+				Position = UDim2.new(1, -(CONTENT_HEIGHT + LIST_PADDING), 0, 0),
 				Size = UDim2.new(0, DROPDOWN_WIDTH, 0, CONTENT_HEIGHT),
 			}, {
 				Dropdown = Roact.createElement(DropdownMenu, {
-					Hide = (not (props.Enabled and #props.Items > 0)) or (not self.state.showDropdown),
-					OnFocusLost = function() self.closeDropdown() end,
+					Hide = not (props.Enabled and #props.Items > 0) or not self.state.showDropdown,
+					OnFocusLost = function()
+						self.closeDropdown()
+					end,
 					Items = props.Items,
 					OnItemActivated = self.onItemActivated,
 					OnRenderItem = self.onDropdownRenderItem,
@@ -209,9 +210,11 @@ function CollaboratorItem:render()
 				Disabled = not (props.Enabled and #props.Items > 0),
 				RightIcon = "rbxasset://textures/StudioToolbox/ArrowDownIconWhite.png",
 				Text = props.Action,
-				OnClick = function() self.openDropdown() end,
+				OnClick = function()
+					self.openDropdown()
+				end,
 				AnchorPoint = Vector2.new(1, 0),
-				Position = UDim2.new(1, -(CONTENT_HEIGHT+LIST_PADDING), 0, 0),
+				Position = UDim2.new(1, -(CONTENT_HEIGHT + LIST_PADDING), 0, 0),
 				Size = UDim2.new(0, DROPDOWN_WIDTH, 0, CONTENT_HEIGHT),
 			}, {
 				TextPadding = Roact.createElement("UIPadding", {
@@ -229,7 +232,7 @@ function CollaboratorItem:render()
 			}),
 			Tooltip = props.TooltipText and Roact.createElement(Tooltip, {
 				Text = props.TooltipText,
-			})
+			}),
 		}),
 	})
 end

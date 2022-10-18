@@ -10,20 +10,17 @@ return function()
 		withTestComponent(TextEditor, {
 			orientation = Orientation.Left.rawValue(),
 			pixelDimensions = Vector2.new(100, 100),
-			sliceRect = {10, 90, 10, 90},
-			setSliceRect = function()
-			end,
-		}, function()
-		end)
+			sliceRect = { 10, 90, 10, 90 },
+			setSliceRect = function() end,
+		}, function() end)
 	end)
 
 	it("should create 4 TextOffsets", function()
 		withTestComponent(TextEditor, {
 			orientation = Orientation.Left.rawValue(),
 			pixelDimensions = Vector2.new(100, 100),
-			sliceRect = {10, 90, 10, 90},
-			setSliceRect = function()
-			end,
+			sliceRect = { 10, 90, 10, 90 },
+			setSliceRect = function() end,
 		}, function(container)
 			expect(container:FindFirstChild("LeftInput", true)).to.be.ok()
 			expect(container:FindFirstChild("RightInput", true)).to.be.ok()

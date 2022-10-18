@@ -14,6 +14,18 @@ return {
 			Size = UDim2.fromOffset(getIconSize(IconSize.Medium), getIconSize(IconSize.Medium)),
 			Image = UIBloxImages["icons/actions/block"],
 		},
+		VoiceChatIcon = {
+			Size = UDim2.fromOffset(getIconSize(IconSize.Medium), getIconSize(IconSize.Medium)),
+			Image = "rbxasset://textures/ui/VoiceChat/SpeakerLight/Unmuted0.png",
+		},
+		TextChatIcon = {
+			Size = UDim2.fromOffset(getIconSize(IconSize.Medium), getIconSize(IconSize.Medium)),
+			Image = "rbxasset://textures/ui/TopBar/chatOff.png",
+		},
+		OtherIcon = {
+			Size = UDim2.fromOffset(getIconSize(IconSize.Medium), getIconSize(IconSize.Medium)),
+			Image = UIBloxImages["icons/menu/help"],
+		},
 		RoundedRect = {
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = Rect.new(8, 8, 9, 9),

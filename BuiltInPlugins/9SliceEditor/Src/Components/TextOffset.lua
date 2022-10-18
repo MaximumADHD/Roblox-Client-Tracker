@@ -38,11 +38,11 @@ local BOTTOM = Orientation.Bottom.rawValue()
 
 local FFlag9SliceEditorLeftAlignOffsetTextInputs = game:GetFastFlag("9SliceEditorLeftAlignOffsetTextInputs")
 
-local function SliceToOffset (slice, pixelSize)
+local function SliceToOffset(slice, pixelSize)
 	--[[
 		given the pixelDimensions of the image and a slice = {X0, Y0, X1, Y1}
 		returns corresponding rect of offsets = {left, right, top, bottom}
-	]]--
+	]]
 	local LEFT = Orientation.Left.rawValue()
 	local RIGHT = Orientation.Right.rawValue()
 	local TOP = Orientation.Top.rawValue()
@@ -52,7 +52,7 @@ local function SliceToOffset (slice, pixelSize)
 	local right = pixelSize.X - slice[RIGHT]
 	local top = slice[TOP]
 	local bottom = pixelSize.Y - slice[BOTTOM]
-	return {left, right, top, bottom}
+	return { left, right, top, bottom }
 end
 
 function TextOffset:init(props)
@@ -67,7 +67,7 @@ function TextOffset:init(props)
 		if numberInput then -- check that input is a number
 			local newText = math.clamp(numberInput, 0, sliceRect[RIGHT])
 			newText = math.round(newText)
-			local slice = {newText, sliceRect[RIGHT], sliceRect[TOP], sliceRect[BOTTOM]}
+			local slice = { newText, sliceRect[RIGHT], sliceRect[TOP], sliceRect[BOTTOM] }
 			setSliceRect(slice, true)
 			textBox.Text = ("%d"):format(newText)
 		else
@@ -87,7 +87,7 @@ function TextOffset:init(props)
 			local newText = math.clamp(numberInput, 0, pixelDimensions.X - sliceRect[LEFT])
 			newText = math.round(newText)
 			local sliceValue = pixelDimensions.X - newText
-			local slice = {sliceRect[LEFT], sliceValue, sliceRect[TOP], sliceRect[BOTTOM]}
+			local slice = { sliceRect[LEFT], sliceValue, sliceRect[TOP], sliceRect[BOTTOM] }
 			setSliceRect(slice, true)
 			textBox.Text = ("%d"):format(newText)
 		else
@@ -106,7 +106,7 @@ function TextOffset:init(props)
 		if numberInput then
 			local newText = math.clamp(numberInput, 0, sliceRect[BOTTOM])
 			newText = math.round(newText)
-			local slice = {sliceRect[LEFT], sliceRect[RIGHT], newText, sliceRect[BOTTOM]}
+			local slice = { sliceRect[LEFT], sliceRect[RIGHT], newText, sliceRect[BOTTOM] }
 			setSliceRect(slice, true)
 			textBox.Text = ("%d"):format(newText)
 		else
@@ -126,7 +126,7 @@ function TextOffset:init(props)
 			local newText = math.clamp(numberInput, 0, pixelDimensions.Y - sliceRect[TOP])
 			newText = math.round(newText)
 			local sliceValue = pixelDimensions.Y - newText
-			local slice = {sliceRect[LEFT], sliceRect[RIGHT], sliceRect[TOP], sliceValue}
+			local slice = { sliceRect[LEFT], sliceRect[RIGHT], sliceRect[TOP], sliceValue }
 			setSliceRect(slice, true)
 			textBox.Text = ("%d"):format(newText)
 		else
@@ -176,7 +176,9 @@ function TextOffset:render()
 			Position = UDim2.fromOffset(TextInputStyle.LabelXWidth + TextInputStyle.LabelTextBoxSpacing, 0),
 			Style = TextInputStyle.Style,
 			Text = ("%d"):format(offsetValue),
-			TextXAlignment = if FFlag9SliceEditorLeftAlignOffsetTextInputs then Enum.TextXAlignment.Left else Enum.TextXAlignment.Center,
+			TextXAlignment = if FFlag9SliceEditorLeftAlignOffsetTextInputs
+				then Enum.TextXAlignment.Left
+				else Enum.TextXAlignment.Center,
 			OnFocusLost = onFocusLost,
 		}),
 	})

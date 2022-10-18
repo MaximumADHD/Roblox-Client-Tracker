@@ -10,7 +10,7 @@ return function()
 		return false
 	end
 
-	if not game:GetFastFlag("EnableTagEditorPlugin5") then
+	if not game:GetFastFlag("EnableTagEditorPlugin6") then
 		return false
 	end
 

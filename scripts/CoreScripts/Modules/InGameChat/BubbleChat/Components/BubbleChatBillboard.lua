@@ -11,25 +11,35 @@ local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local StarterGui = game:GetService("StarterGui")
 
 local log = require(script.Parent.Parent.Logger)(script.Name)
 
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local t = require(CorePackages.Packages.t)
 local Otter = require(CorePackages.Packages.Otter)
+local PermissionsProtocol = require(CorePackages.UniversalApp.Permissions.PermissionsProtocol).default
+local Cryo = require(CorePackages.Cryo)
+
 local BubbleChatList = require(script.Parent.BubbleChatList)
 local ChatBubbleDistant = require(script.Parent.ChatBubbleDistant)
 local VoiceBubble = require(script.Parent.VoiceBubble)
+local ControlsBubble = require(script.Parent.ControlsBubble)
 local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicator)
 local Types = require(script.Parent.Parent.Types)
 local Constants = require(script.Parent.Parent.Constants)
 local getSettingsForMessage = require(script.Parent.Parent.Helpers.getSettingsForMessage)
 
+local ExternalEventConnection = UIBlox.Utility.ExternalEventConnection
+
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local GetFFlagEnableVoiceChatSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatSpeakerIcons)
 local GetFFlagEnableVoiceChatManualReconnect = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatManualReconnect)
 local GetFFlagBubbleChatInexistantAdorneeFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatInexistantAdorneeFix)
+local GetFFlagSelfViewSettingsEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagSelfViewSettingsEnabled)
+local GetFFlagBubbleChatAddCamera = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatAddCamera)
 
 local FIntBubbleVoiceTimeoutMillis = game:DefineFastInt("BubbleVoiceTimeoutMillis", 1000)
 
@@ -62,6 +72,7 @@ function BubbleChatBillboard:init()
 		voiceTimedOut = false,
 		voiceStateCounter = 0,
 		lastVoiceState = nil,
+		selfViewOpen = if GetFFlagSelfViewSettingsEnabled() then StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.All) or StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView) else nil
 	})
 
 	self.isMounted = false
@@ -120,6 +131,15 @@ function BubbleChatBillboard:init()
 
 		self.insertSize = Vector2.new(28, 28)
 	end
+
+	self.onCoreGuiChanged = function()
+		local coreGuiState = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
+		if self.state.selfViewOpen ~= coreGuiState then
+			self:setState({
+				selfViewOpen = coreGuiState
+			})
+		end
+	end
 end
 
 function BubbleChatBillboard:checkCounterForTimeout(lastCounter)
@@ -152,6 +172,10 @@ function BubbleChatBillboard:didMount()
 	local initialOffset = self:getVerticalOffset(adornee)
 	self.offsetGoal = initialOffset
 	self.offsetMotor:setGoal(Otter.instant(initialOffset))
+
+	if GetFFlagBubbleChatAddCamera() then
+		self:getPermissions()
+	end
 
 	-- When the character respawns, we need to update the adornee
 	local player
@@ -343,6 +367,35 @@ function BubbleChatBillboard:getAdorneeInstance(adornee)
 	end
 end
 
+--[[
+	Check that the user's device has given Roblox camera permission.
+]]
+function BubbleChatBillboard:getPermissions()
+	return PermissionsProtocol:hasPermissions({
+		PermissionsProtocol.Permissions.CAMERA_ACCESS,
+		PermissionsProtocol.Permissions.MICROPHONE_ACCESS,
+	}):andThen(function (permissionResponse)
+		self:setState({
+			hasCameraPermissions = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
+				or not Cryo.List.find(permissionResponse.missingPermissions, PermissionsProtocol.Permissions.CAMERA_ACCESS),
+			hasMicPermissions = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
+				or not Cryo.List.find(permissionResponse.missingPermissions, PermissionsProtocol.Permissions.MICROPHONE_ACCESS),
+		})
+	end)
+end
+
+--[[
+	Depending on a combination of account and device permissions, we
+	show or hide the bubble to toggle mic/camera.
+]]
+function BubbleChatBillboard:shouldShowControlBubble()
+	if GetFFlagBubbleChatAddCamera() then
+		return self.state.hasMicPermissions or self.state.hasCameraPermissions
+	else
+		return false
+	end
+end
+
 function BubbleChatBillboard:render()
 	local adorneeInstance = self:getAdorneeInstance(self.state.adornee)
 	local isLocalPlayer = self.props.userId == tostring(Players.LocalPlayer.UserId)
@@ -365,20 +418,45 @@ function BubbleChatBillboard:render()
 	local children = {}
 	local active = nil
 	local showVoiceIndicator = self.props.voiceEnabled and not self.state.voiceTimedOut
+	
+	if GetFFlagSelfViewSettingsEnabled() then
+		showVoiceIndicator = showVoiceIndicator and not self.state.selfViewOpen
+	end
 
-	-- If neither bubble chat nor voice is on, this whole component shouldn't be rendered.
-	if showVoiceIndicator and (
-		not self.props.bubbleChatEnabled 
-		or not self.props.messageIds
-		or #self.props.messageIds == 0)
-	then
-		-- Render the VoiceBubble if neither of the other two should render.
-		children.VoiceBubble = Roact.createElement(VoiceBubble, {
+	if GetFFlagBubbleChatAddCamera() then
+		children.VoiceAndCameraBubble = Roact.createElement(ControlsBubble, {
 			chatSettings = chatSettings,
-			renderInsert = self.renderInsert,
-			insertSize = self.insertSize,
-			isDistant = not self.state.isInsideMaximizeDistance,
+			isInsideMaximizeDistance = self.state.isInsideMaximizeDistance,
+			LayoutOrder = 2,
+			isLocalPlayer = isLocalPlayer,
+			hasCameraPermissions = self.state.hasCameraPermissions,
+			hasMicPermissions = self.state.hasMicPermissions,
+			userId = self.props.userId,
 		})
+		children.listLayout = Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			VerticalAlignment = Enum.VerticalAlignment.Bottom,
+			Padding = UDim.new(0, 8),
+		})
+		children.padding = Roact.createElement("UIPadding", {
+			PaddingBottom = UDim.new(0, 8),
+		})
+	else
+		-- If neither bubble chat nor voice is on, this whole component shouldn't be rendered.
+		if showVoiceIndicator and (
+			not self.props.bubbleChatEnabled 
+			or not self.props.messageIds
+			or #self.props.messageIds == 0)
+		then
+			-- Render the VoiceBubble if neither of the other two should render.
+			children.VoiceBubble = Roact.createElement(VoiceBubble, {
+				chatSettings = chatSettings,
+				renderInsert = self.renderInsert,
+				insertSize = self.insertSize,
+				isDistant = not self.state.isInsideMaximizeDistance,
+			})
+		end
 	end
 
 	if self.state.hasMessage then
@@ -400,6 +478,13 @@ function BubbleChatBillboard:render()
 				insertSize = self.insertSize,
 			})
 		end
+	end
+
+	if GetFFlagSelfViewSettingsEnabled() then
+		children.SelfViewListener = Roact.createElement(ExternalEventConnection, {
+			event = StarterGui.CoreGuiChangedSignal,
+			callback = self.onCoreGuiChanged,
+		})
 	end
 
 	active = showVoiceIndicator

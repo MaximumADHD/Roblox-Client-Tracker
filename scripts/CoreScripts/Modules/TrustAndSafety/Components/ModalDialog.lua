@@ -12,7 +12,7 @@ local Assets = require(TnsModule.Resources.Assets)
 local Dependencies = require(TnsModule.Dependencies)
 local Divider = require(Dependencies.Divider)
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.Button
 local withStyle = UIBlox.Core.Style.withStyle
 local IconButton = UIBlox.App.Button.IconButton
 local HeaderBar = UIBlox.App.Bar.HeaderBar
@@ -26,7 +26,7 @@ local CONTENT_HEIGHT = 230
 local ACTION_BAR_HEIGHT = 96
 local MODAL_DISMISS_ACTION = "ModalDialogDismiss"
 
-local ModalDialog = Roact.PureComponent:extend("ModalDialog")
+local ModalDialog = Roact.Component:extend("ModalDialog")
 
 ModalDialog.validateProps = t.strictInterface({
 	visible = t.boolean,
@@ -36,7 +36,7 @@ ModalDialog.validateProps = t.strictInterface({
 	headerBar = t.optional(t.table),
 	contents = t.optional(t.table),
 	actionButtons = t.optional(t.table),
-	onDismiss = t.callback,
+	onDismiss = t.optional(t.callback),
 	onBackButtonActivated = t.optional(t.callback),
 })
 

@@ -122,8 +122,8 @@ function SalesPage:renderContent(theme, localization, localizedContent)
 		[Roact.Ref] = self.frameRef,
 	}, {
 		Padding = Roact.createElement("UIPadding", {
-			PaddingTop = UDim.new(0, TOTAL_VERTICAL_PADDING*0.5),
-			PaddingBottom = UDim.new(0, TOTAL_VERTICAL_PADDING*0.5),
+			PaddingTop = UDim.new(0, TOTAL_VERTICAL_PADDING * 0.5),
+			PaddingBottom = UDim.new(0, TOTAL_VERTICAL_PADDING * 0.5),
 			PaddingLeft = UDim.new(0, 30),
 			PaddingRight = UDim.new(0, 30),
 		}),
@@ -137,9 +137,10 @@ function SalesPage:renderContent(theme, localization, localizedContent)
 
 			[Roact.Change.AbsoluteContentSize] = function(rbx)
 				if self.frameRef.current then
-					self.frameRef.current.CanvasSize = UDim2.new(size.X.Scale, size.X.Offset, 0, rbx.AbsoluteContentSize.y + TOTAL_VERTICAL_PADDING)
+					self.frameRef.current.CanvasSize =
+						UDim2.new(size.X.Scale, size.X.Offset, 0, rbx.AbsoluteContentSize.y + TOTAL_VERTICAL_PADDING)
 				end
-			end
+			end,
 		}),
 
 		SalesStatus = Roact.createElement(SalesComponent, {
@@ -173,25 +174,25 @@ function SalesPage:renderContent(theme, localization, localizedContent)
 			LayoutOrder = orderIterator:getNextOrder(),
 		}),
 
-		Separator2 = AssetConfigUtil.isCatalogAsset(props.assetTypeEnum)
-			and Roact.createElement(Separator, {
-				LayoutOrder = orderIterator:getNextOrder(),
-			}) or nil,
+		Separator2 = AssetConfigUtil.isCatalogAsset(props.assetTypeEnum) and Roact.createElement(Separator, {
+			LayoutOrder = orderIterator:getNextOrder(),
+		}) or nil,
 
 		PremiumBenefitsLink = AssetConfigUtil.isCatalogAsset(props.assetTypeEnum)
-			and Roact.createElement("TextButton", {
-				LayoutOrder = orderIterator:getNextOrder(),
-				BackgroundTransparency = 1,
-				Font = Constants.FONT,
-				Text = localizedContent.Sales.PremiumBenefits,
-				Size = UDim2.fromOffset(premiumBenefitsSize.X, premiumBenefitsSize.Y),
-				TextColor3 = theme.link,
-				TextSize = Constants.FONT_SIZE_MEDIUM,
-				TextYAlignment = Enum.TextYAlignment.Center,
-				[Roact.Event.Activated] = function()
-					GuiService:OpenBrowserWindow(premiumBenefitsLink)
-				end,
-			}) or nil,
+				and Roact.createElement("TextButton", {
+					LayoutOrder = orderIterator:getNextOrder(),
+					BackgroundTransparency = 1,
+					Font = Constants.FONT,
+					Text = localizedContent.Sales.PremiumBenefits,
+					Size = UDim2.fromOffset(premiumBenefitsSize.X, premiumBenefitsSize.Y),
+					TextColor3 = theme.link,
+					TextSize = Constants.FONT_SIZE_MEDIUM,
+					TextYAlignment = Enum.TextYAlignment.Center,
+					[Roact.Event.Activated] = function()
+						GuiService:OpenBrowserWindow(premiumBenefitsLink)
+					end,
+				})
+			or nil,
 	})
 end
 
@@ -214,10 +215,8 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-
 SalesPage = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(SalesPage)
-
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SalesPage)

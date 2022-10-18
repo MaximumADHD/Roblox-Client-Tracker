@@ -50,10 +50,10 @@ end
 
 local function rectUtilityTestSuite()
 	Log:log("Running RectUtilityTest")
-	
+
 	testPointIsInsideInMiddle()
 	testPointIsOnTopSide()
-	
+
 	testPointIsOutsideAtOrigin()
 	testPointIsOutsideOnTop()
 	testPointIsOutsideBelow()

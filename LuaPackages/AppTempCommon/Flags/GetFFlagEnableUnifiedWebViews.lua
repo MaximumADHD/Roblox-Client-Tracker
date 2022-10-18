@@ -1,5 +1,5 @@
-game:DefineFastFlag("DevelopmentEnableUnifiedWebViews", false)
+game:DefineFastFlag("EnableUnifiedWebViews", false)
 
 return function()
-	return game:GetFastFlag("DevelopmentEnableUnifiedWebViews")
+	return game:GetFastFlag("EnableUnifiedWebViews")
 end

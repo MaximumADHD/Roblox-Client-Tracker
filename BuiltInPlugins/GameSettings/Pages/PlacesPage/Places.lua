@@ -30,7 +30,6 @@ local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
-local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -41,9 +40,7 @@ local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 local GetTextSize = Util.GetTextSize
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
-local UILibrary = if FFlagRemoveUILibraryTitledFrame and FFlagRemoveUILibraryRoundTextBox
-	then nil
-	else require(Plugin.Packages.UILibrary)
+local UILibrary = if FFlagRemoveUILibraryRoundTextBox then nil else require(Plugin.Packages.UILibrary)
 
 local UI = Framework.UI
 local Button = UI.Button
@@ -51,7 +48,7 @@ local HoverArea = UI.HoverArea
 local Separator = UI.Separator
 local LinkText = UI.LinkText
 local TextInput2 = UI.TextInput2
-local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
+local TitledFrame = UI.TitledFrame
 
 local RoundTextBox
 if not FFlagRemoveUILibraryRoundTextBox then
@@ -313,51 +310,50 @@ local function displayPlaceListPage(props, localization)
 	local places = props.Places and props.Places or {}
 	local placesData = createPlaceTableData(places)
 
-	return
-		{
-			CreateButton = Roact.createElement(Button, {
-				Style = "GameSettingsPrimaryButton",
-				Text = buttonText,
-				Size = UDim2.new(
-					0,
-					buttonTextExtents.X + theme.createButton.PaddingX,
-					0,
-					buttonTextExtents.Y + theme.createButton.PaddingY
-				),
-				LayoutOrder = layoutIndex:getNextOrder(),
-				OnClick = function()
-					-- method already handles printing error message
-					local success, _ = pcall(function()
-						AssetManagerService:AddNewPlace()
-					end)
-					if success then
-						dispatchReloadPlaces(true)
-					end
-				end,
-			}, {
-				Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
-			}),
+	return {
+		CreateButton = Roact.createElement(Button, {
+			Style = "GameSettingsPrimaryButton",
+			Text = buttonText,
+			Size = UDim2.new(
+				0,
+				buttonTextExtents.X + theme.createButton.PaddingX,
+				0,
+				buttonTextExtents.Y + theme.createButton.PaddingY
+			),
+			LayoutOrder = layoutIndex:getNextOrder(),
+			OnClick = function()
+				-- method already handles printing error message
+				local success, _ = pcall(function()
+					AssetManagerService:AddNewPlace()
+				end)
+				if success then
+					dispatchReloadPlaces(true)
+				end
+			end,
+		}, {
+			Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
+		}),
 
-			PlacesTable = Roact.createElement(TableWithMenu, {
-				LayoutOrder = layoutIndex:getNextOrder(),
-				Headers = placeTableHeaders,
-				Data = placesData,
-				MenuItems = {
-					{ Key = GetEditKeyName(), Text = localization:getText("Places", "ConfigurePlace") },
-					{ Key = GetVersionHistoryKeyName(), Text = localization:getText("Places", "VersionHistory") },
-				},
-				OnItemClicked = function(key, id)
-					if key == (GetEditKeyName()) then
-						props.dispatchSetEditPlaceId(id)
-					elseif key == (GetVersionHistoryKeyName()) then
-						StudioService:ShowPlaceVersionHistoryDialog(id)
-					end
-				end,
-				NextPageFunc = function()
-					dispatchReloadPlaces()
-				end,
-			}),
-		}
+		PlacesTable = Roact.createElement(TableWithMenu, {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Headers = placeTableHeaders,
+			Data = placesData,
+			MenuItems = {
+				{ Key = GetEditKeyName(), Text = localization:getText("Places", "ConfigurePlace") },
+				{ Key = GetVersionHistoryKeyName(), Text = localization:getText("Places", "VersionHistory") },
+			},
+			OnItemClicked = function(key, id)
+				if key == (GetEditKeyName()) then
+					props.dispatchSetEditPlaceId(id)
+				elseif key == (GetVersionHistoryKeyName()) then
+					StudioService:ShowPlaceVersionHistoryDialog(id)
+				end
+			end,
+			NextPageFunc = function()
+				dispatchReloadPlaces()
+			end,
+		}),
+	}
 end
 
 local function displayEditPlacePage(props, localization)
@@ -456,104 +452,82 @@ local function displayEditPlacePage(props, localization)
 			}),
 		}),
 
-		Name = Roact.createElement(
-			TitledFrame,
-			if FFlagRemoveUILibraryTitledFrame
-				then {
-					LayoutOrder = layoutIndex:getNextOrder(),
-					Title = localization:getText("General", "TitleName"),
-				}
-				else {
-					Title = localization:getText("General", "TitleName"),
-					MaxHeight = 60,
-					LayoutOrder = layoutIndex:getNextOrder(),
+		Name = Roact.createElement(TitledFrame, {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("General", "TitleName"),
+		}, {
+			TextBox = (if FFlagRemoveUILibraryRoundTextBox
+				then Roact.createElement(TextInput2, {
+					ErrorText = placeNameError,
+					MaxLength = MAX_NAME_LENGTH,
+					OnTextChanged = function(name)
+						dispatchSetPlaceName(places, editPlaceId, name)
+					end,
+					Text = placeName,
+				})
+				else Roact.createElement(RoundTextBox, {
+					Active = true,
+					MaxLength = MAX_NAME_LENGTH,
+					ErrorMessage = placeNameError,
+					Text = placeName,
 					TextSize = theme.fontStyle.Normal.TextSize,
-				},
-			{
-				TextBox = (if FFlagRemoveUILibraryRoundTextBox
-					then Roact.createElement(TextInput2, {
-						ErrorText = placeNameError,
-						MaxLength = MAX_NAME_LENGTH,
-						OnTextChanged = function(name)
-							dispatchSetPlaceName(places, editPlaceId, name)
-						end,
-						Text = placeName,
-					})
-					else Roact.createElement(RoundTextBox, {
-						Active = true,
-						MaxLength = MAX_NAME_LENGTH,
-						ErrorMessage = placeNameError,
-						Text = placeName,
-						TextSize = theme.fontStyle.Normal.TextSize,
-						SetText = function(name)
-							dispatchSetPlaceName(places, editPlaceId, name)
-						end,
-					})),
-			}
-		),
+					SetText = function(name)
+						dispatchSetPlaceName(places, editPlaceId, name)
+					end,
+				})),
+		}),
 
-		MaxPlayers = Roact.createElement(
-			TitledFrame,
-			if FFlagRemoveUILibraryTitledFrame
-				then {
-					LayoutOrder = layoutIndex:getNextOrder(),
-					Title = localization:getText("Places", "MaxPlayers"),
-				}
-				else {
-					Title = localization:getText("Places", "MaxPlayers"),
-					MaxHeight = 60,
-					LayoutOrder = layoutIndex:getNextOrder(),
+		MaxPlayers = Roact.createElement(TitledFrame, {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("Places", "MaxPlayers"),
+		}, {
+			HeaderLayout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+
+			TextBox = (if FFlagRemoveUILibraryRoundTextBox
+				then Roact.createElement(TextInput2, {
+					LayoutOrder = 1,
+					Text = maxPlayerCount,
+					ErrorText = placePlayerCountError,
+					OnTextChanged = function(playerCount: number)
+						dispatchSetPlaceMaxPlayerCount(places, editPlaceId, playerCount)
+					end,
+					Width = theme.placePage.textBox.length,
+				})
+				else Roact.createElement(RoundTextBox, {
+					Active = true,
+					LayoutOrder = 1,
+					ShowToolTip = if placePlayerCountError then true else false,
+					Size = UDim2.new(0, theme.placePage.textBox.length, 0, theme.textBox.height),
+					Text = maxPlayerCount,
+					ErrorMessage = placePlayerCountError,
 					TextSize = theme.fontStyle.Normal.TextSize,
-				},
-			{
-				HeaderLayout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Vertical,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-				}),
 
-				TextBox = (if FFlagRemoveUILibraryRoundTextBox
-					then Roact.createElement(TextInput2, {
-						LayoutOrder = 1,
-						Text = maxPlayerCount,
-						ErrorText = placePlayerCountError,
-						OnTextChanged = function(playerCount: number)
-							dispatchSetPlaceMaxPlayerCount(places, editPlaceId, playerCount)
-						end,
-						Width = theme.placePage.textBox.length,
-					})
-					else Roact.createElement(RoundTextBox, {
-						Active = true,
-						LayoutOrder = 1,
-						ShowToolTip = placePlayerCountError and true or false,
-						Size = UDim2.new(0, theme.placePage.textBox.length, 0, theme.textBox.height),
-						Text = maxPlayerCount,
-						ErrorMessage = placePlayerCountError,
-						TextSize = theme.fontStyle.Normal.TextSize,
+					SetText = function(playerCount)
+						dispatchSetPlaceMaxPlayerCount(places, editPlaceId, playerCount)
+					end,
+				})),
 
-						SetText = function(playerCount)
-							dispatchSetPlaceMaxPlayerCount(places, editPlaceId, playerCount)
-						end,
-					})),
+			MaxPlayersSubText = not placePlayerCountError and Roact.createElement(
+				"TextLabel",
+				Cryo.Dictionary.join(theme.fontStyle.Subtext, {
+					Size = UDim2.new(1, 0, 0, maxPlayersSubTextSize.Y),
+					LayoutOrder = 2,
 
-				MaxPlayersSubText = not placePlayerCountError and Roact.createElement(
-					"TextLabel",
-					Cryo.Dictionary.join(theme.fontStyle.Subtext, {
-						Size = UDim2.new(1, 0, 0, maxPlayersSubTextSize.Y),
-						LayoutOrder = 2,
+					BackgroundTransparency = 1,
 
-						BackgroundTransparency = 1,
+					Text = maxPlayersSubText,
 
-						Text = maxPlayersSubText,
+					TextYAlignment = Enum.TextYAlignment.Center,
+					TextXAlignment = Enum.TextXAlignment.Left,
 
-						TextYAlignment = Enum.TextYAlignment.Center,
-						TextXAlignment = Enum.TextXAlignment.Left,
-
-						TextWrapped = true,
-					})
-				),
-			}
-		),
+					TextWrapped = true,
+				})
+			),
+		}),
 
 		ServerFill = Roact.createElement(ServerFill, {
 			LayoutOrder = layoutIndex:getNextOrder(),
@@ -603,33 +577,22 @@ local function displayEditPlacePage(props, localization)
 			end,
 		}),
 
-		VersionHistory = Roact.createElement(
-			TitledFrame,
-			if FFlagRemoveUILibraryTitledFrame
-				then {
-					LayoutOrder = layoutIndex:getNextOrder(),
-					Title = localization:getText("Places", "VersionHistory"),
-				}
-				else {
-					Title = localization:getText("Places", "VersionHistory"),
-					MaxHeight = 60,
-					LayoutOrder = layoutIndex:getNextOrder(),
-					TextSize = theme.fontStyle.Normal.TextSize,
-				},
-			{
-				ViewButton = Roact.createElement(Button, {
-					Style = "GameSettingsButton",
-					Text = viewButtonText,
-					Size = viewButtonSize,
-					LayoutOrder = layoutIndex:getNextOrder(),
-					OnClick = function()
-						StudioService:ShowPlaceVersionHistoryDialog(editPlaceId)
-					end,
-				}, {
-					Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
-				}),
-			}
-		),
+		VersionHistory = Roact.createElement(TitledFrame, {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("Places", "VersionHistory"),
+		}, {
+			ViewButton = Roact.createElement(Button, {
+				Style = "GameSettingsButton",
+				Text = viewButtonText,
+				Size = viewButtonSize,
+				LayoutOrder = layoutIndex:getNextOrder(),
+				OnClick = function()
+					StudioService:ShowPlaceVersionHistoryDialog(editPlaceId)
+				end,
+			}, {
+				Roact.createElement(HoverArea, { Cursor = "PointingHand" }),
+			}),
+		}),
 	}
 end
 

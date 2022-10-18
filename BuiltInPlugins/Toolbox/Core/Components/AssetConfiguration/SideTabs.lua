@@ -34,7 +34,6 @@ local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
 local Images = require(Util.Images)
 
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -45,24 +44,32 @@ local SIDE_TAB_SELECT_WIDTH = 4
 
 function SideTabs:init(props)
 	self.state = {
-		hoveredIndex = 0
+		hoveredIndex = 0,
 	}
 
 	self.onItemEntered = function(index)
 		self:setState({
-			hoveredIndex = index
+			hoveredIndex = index,
 		})
 	end
 
 	self.onItemLeft = function(index)
 		self:setState({
-			hoveredIndex = 0
+			hoveredIndex = 0,
 		})
 	end
 end
 
-function SideTabs:createSideButtons(items, currentTab, ItemHeight, theme, localizedContent, selectParentRef, sideTabTheme)
-	local iconSize = ItemHeight*ICON_SCALE
+function SideTabs:createSideButtons(
+	items,
+	currentTab,
+	ItemHeight,
+	theme,
+	localizedContent,
+	selectParentRef,
+	sideTabTheme
+)
+	local iconSize = ItemHeight * ICON_SCALE
 
 	local children = {
 		UIListLayout = Roact.createElement("UIListLayout", {
@@ -108,7 +115,7 @@ function SideTabs:createSideButtons(items, currentTab, ItemHeight, theme, locali
 			}),
 
 			Text = Roact.createElement("TextButton", {
-				Position = UDim2.new(0, iconSize*2, 0, 0),
+				Position = UDim2.new(0, iconSize * 2, 0, 0),
 				Size = UDim2.new(1, -iconSize, 1, 0),
 				BackgroundTransparency = 1,
 
@@ -144,13 +151,13 @@ function SideTabs:createSideButtons(items, currentTab, ItemHeight, theme, locali
 					BackgroundTransparency = sideTabTheme.selecteIndicatorTrans,
 					BackgroundColor3 = sideTabTheme.selecteIndicatorColor,
 					BorderSizePixel = 0,
-				})
+				}),
 			}),
 
 			Error = self.props.tabHasErrors(item.name) and Roact.createElement("ImageButton", {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(0, ERROR_ICON_SIZE, 0, ERROR_ICON_SIZE),
-				Position = UDim2.new(1, -ERROR_ICON_SIZE, 0.5, -ERROR_ICON_SIZE/2),
+				Position = UDim2.new(1, -ERROR_ICON_SIZE, 0.5, -ERROR_ICON_SIZE / 2),
 				Image = Images.ERROR_ICON,
 
 				[Roact.Event.Activated] = function(rbx)
@@ -185,7 +192,8 @@ function SideTabs:renderContent(theme, localization, localizedContent)
 
 	local sideTabTheme = theme.sideTab
 
-	local children = self:createSideButtons(Items, currentTab, ItemHeight, theme, localizedContent, selectParentRef, sideTabTheme)
+	local children =
+		self:createSideButtons(Items, currentTab, ItemHeight, theme, localizedContent, selectParentRef, sideTabTheme)
 
 	return Roact.createElement("Frame", {
 		Position = Position,
@@ -194,7 +202,7 @@ function SideTabs:renderContent(theme, localization, localizedContent)
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 
-		LayoutOrder = LayoutOrder
+		LayoutOrder = LayoutOrder,
 	}, children)
 end
 

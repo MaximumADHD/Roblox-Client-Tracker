@@ -55,7 +55,7 @@ function CatalogTag:renderContents(theme)
 			Image = Images.CLOSE_BUTTON,
 			Size = UDim2.new(0, CLOSE_BUTTON_SIZE, 0, CLOSE_BUTTON_SIZE),
 			ImageColor3 = theme.tags.textColor,
-			Position = UDim2.new(0, TAG_PADDING + props.textSize.X + TAG_PADDING, 0.5, -CLOSE_BUTTON_SIZE/2),
+			Position = UDim2.new(0, TAG_PADDING + props.textSize.X + TAG_PADDING, 0.5, -CLOSE_BUTTON_SIZE / 2),
 
 			[Roact.Event.MouseButton1Click] = props.onClose,
 		}),
@@ -69,10 +69,8 @@ function CatalogTag:renderContents(theme)
 	}, contents)
 end
 
-
 CatalogTag = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(CatalogTag)
-
 
 return CatalogTag

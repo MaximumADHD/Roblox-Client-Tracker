@@ -16,7 +16,7 @@ local DraggerSchema = {
 	MoveHandlesImplementation = require(script.Parent.MoveHandlesImplementation),
 	RotateHandlesImplementation = require(script.Parent.RotateHandlesImplementation),
 	FreeformDragger = require(script.Parent.FreeformDragger),
-	
+
 	isExclusiveSelectable = DraggerSchemaCore.isExclusiveSelectable,
 	getMouseTarget = DraggerSchemaCore.getMouseTarget,
 	getNextSelectables = DraggerSchemaCore.getNextSelectables,

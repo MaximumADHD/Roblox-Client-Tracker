@@ -1,17 +1,7 @@
-
-
-
 local SCALE = 1
 local OFFSET = 2
 
 local m_gridType = SCALE
-
-
-
-
-
-
-
 
 local GlobalValues = {}
 
@@ -19,9 +9,8 @@ function GlobalValues:isScale()
 	return m_gridType == SCALE
 end
 
-
 function GlobalValues:toggleGridType()
-	if (GlobalValues:isScale()) then
+	if GlobalValues:isScale() then
 		m_gridType = OFFSET
 		print("Setting Grid mode: Offset")
 	else

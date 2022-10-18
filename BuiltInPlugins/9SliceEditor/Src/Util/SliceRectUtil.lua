@@ -11,7 +11,7 @@ local TOP = Orientation.Top.rawValue()
 local BOTTOM = Orientation.Bottom.rawValue()
 
 function SliceRectUtil.getSliceRectFromSliceCenter(sliceCenter: Rect): Types.SliceRectType
-	return {sliceCenter.Min.X, sliceCenter.Max.X, sliceCenter.Min.Y, sliceCenter.Max.Y}
+	return { sliceCenter.Min.X, sliceCenter.Max.X, sliceCenter.Min.Y, sliceCenter.Max.Y }
 end
 
 function SliceRectUtil.getSliceCenterFromSliceRect(sliceRect: Types.SliceRectType): Rect
@@ -19,17 +19,26 @@ function SliceRectUtil.getSliceCenterFromSliceRect(sliceRect: Types.SliceRectTyp
 end
 
 function SliceRectUtil.copySliceRect(sliceRect: Types.SliceRectType): Types.SliceRectType
-    return Cryo.Dictionary.join(sliceRect)
+	return Cryo.Dictionary.join(sliceRect)
 end
 
-function SliceRectUtil.getOffsetsFromSliceRect(sliceRect: Types.SliceRectType, pixelDimensions: Vector2): Types.SliceOffsetsType
-	return {sliceRect[LEFT], pixelDimensions.X - sliceRect[RIGHT],
-		sliceRect[TOP], pixelDimensions.Y - sliceRect[BOTTOM]}
+function SliceRectUtil.getOffsetsFromSliceRect(
+	sliceRect: Types.SliceRectType,
+	pixelDimensions: Vector2
+): Types.SliceOffsetsType
+	return {
+		sliceRect[LEFT],
+		pixelDimensions.X - sliceRect[RIGHT],
+		sliceRect[TOP],
+		pixelDimensions.Y - sliceRect[BOTTOM],
+	}
 end
 
-function SliceRectUtil.getSliceRectFromOffsets(offsets: Types.SliceOffsetsType, pixelDimensions: Vector2): Types.SliceRectType
-	return {offsets[LEFT], pixelDimensions.X - offsets[RIGHT],
-		offsets[TOP], pixelDimensions.Y - offsets[BOTTOM]}
+function SliceRectUtil.getSliceRectFromOffsets(
+	offsets: Types.SliceOffsetsType,
+	pixelDimensions: Vector2
+): Types.SliceRectType
+	return { offsets[LEFT], pixelDimensions.X - offsets[RIGHT], offsets[TOP], pixelDimensions.Y - offsets[BOTTOM] }
 end
 
 return SliceRectUtil

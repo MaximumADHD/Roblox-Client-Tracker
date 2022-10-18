@@ -18,13 +18,20 @@ local SearchBar = require(Dependencies.SearchBar)
 local ThemedTextLabel = require(Dependencies.ThemedTextLabel)
 local withLocalization = require(Dependencies.withLocalization)
 
-local CloseReportMenu = require(TnsModule.Actions.CloseReportMenu)
-local OpenReportDialog = require(TnsModule.Actions.OpenReportDialog)
-local OpenReportMenu = require(TnsModule.Actions.OpenReportMenu)
+local NavigateBack = require(TnsModule.Actions.NavigateBack)
+local EndReportFlow = require(TnsModule.Actions.EndReportFlow)
+local SelectReportListing = require(TnsModule.Actions.SelectReportListing)
 local Assets = require(TnsModule.Resources.Assets)
 local Constants = require(TnsModule.Resources.Constants)
 local ModalDialog = require(TnsModule.Components.ModalDialog)
 local GameCell = require(TnsModule.Components.GameCell)
+
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicatorFunc)
+local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
+local React = require(CorePackages.Packages.React)
 
 local Colors = UIBlox.App.Style.Colors
 
@@ -46,11 +53,23 @@ local CELL_HEIGHT = 72
 
 local ReportMenu = Roact.PureComponent:extend("ReportMenu")
 
+
+local VoiceIndicatorWrapper = function(props)
+	local voiceServiceState = React.useContext(VoiceStateContext.Context)
+	if not voiceServiceState.voiceEnabled then
+		return nil
+	end
+	return React.createElement(VoiceIndicator, Cryo.Dictionary.join(props, {}))
+end
+
 ReportMenu.validateProps = t.strictInterface({
 	isReportMenuOpen = t.boolean,
 	screenSize = t.Vector2,
 	closeDialog = t.callback,
 	openReportDialog = t.callback,
+	canNavigateBack = t.boolean,
+	reportCategory = t.optional(t.string),
+	navigateBack = t.optional(t.callback),
 })
 
 function ReportMenu:init()
@@ -87,11 +106,44 @@ function ReportMenu:init()
 			scrollingFrame:scrollToTop()
 		end
 	end
+
+	self.layoutBindings = {}
+	self.getLayoutBinding = function(id, layoutOrder)
+		local layoutBinding = self.layoutBindings[id]
+		if not layoutBinding then
+			local valueBinding, setLayout = Roact.createBinding(layoutOrder)
+			layoutBinding = {
+				valueBinding = valueBinding,
+				setValue = setLayout,
+				value = layoutOrder,
+			}
+			self.layoutBindings[id] = layoutBinding
+		end
+
+		if layoutBinding.value ~= layoutOrder then
+			layoutBinding.value = layoutOrder
+			layoutBinding.setValue(layoutOrder)
+		end
+
+		return layoutBinding.valueBinding
+	end
+
+	self.playerIsVoiceActive = function(userId: number)
+		return VoiceChatServiceManager.participants[tostring(userId)] ~= nil
+	end
+
+	self.sortedUserIds = {}
+end
+
+local function sortPlayers(p1, p2)
+	return p1.DisplayName:lower() < p2.DisplayName:lower()
 end
 
 function ReportMenu:getPlayerList()
 	local list = {}
-	for _, player in ipairs(Players:GetPlayers()) do
+	local players = Cryo.List.sort(Players:GetPlayers(), sortPlayers)
+
+	for _, player in ipairs(players) do
 		if player == Players.LocalPlayer then
 			-- Don't show the user him/herself.
 		elseif not self.state.isFilterMode then
@@ -109,21 +161,40 @@ function ReportMenu:getPlayerList()
 	return sorted
 end
 
+
+local categoryTitles = {
+	[Constants.Category.Voice] = "CoreScripts.InGameMenu.Report.Title.VoiceChat",
+	[Constants.Category.Text] = "CoreScripts.InGameMenu.Report.Title.TextChat",
+	[Constants.Category.Other] = "CoreScripts.InGameMenu.Report.Title.Other",
+}
+
+function ReportMenu:categoryTitle()
+	return categoryTitles[self.props.reportCategory] or "CoreScripts.InGameMenu.Report.MenuTitle"
+end
+
 function ReportMenu:renderHeaderBar()
+
+	local leftButton;
+	if self.props.canNavigateBack then
+		leftButton = HeaderBar.renderLeft.backButton(self.props.navigateBack);
+	else
+		leftButton = function()
+			return Roact.createElement(IconButton, {
+				iconSize = IconSize.Medium,
+				icon = UIBloxImages["icons/navigation/close"],
+				onActivated = self.props.closeDialog,
+			})
+		end
+	end
+
 	if not self.state.isFilterMode then
 		return withLocalization({
-			titleText = "CoreScripts.InGameMenu.Report.MenuTitle",
+			titleText = self:categoryTitle(),
 		})(function(localized)
 			return Roact.createElement(HeaderBar, {
 				backgroundTransparency = 1,
 				barHeight = 48,
-				renderLeft = function()
-					return Roact.createElement(IconButton, {
-						iconSize = IconSize.Medium,
-						icon = UIBloxImages["icons/navigation/close"],
-						onActivated = self.props.closeDialog,
-					})
-				end,
+				renderLeft = leftButton,
 				renderRight = function()
 					return Roact.createElement(IconButton, {
 						iconSize = IconSize.Medium,
@@ -154,6 +225,9 @@ end
 
 function ReportMenu:renderContents()
 	local props = self.props
+	local voiceReportFlow = self.props.reportCategory == Constants.Category.Voice;
+
+	local itemsLen = 0
 	local items = {
 		ListLayout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,
@@ -161,37 +235,76 @@ function ReportMenu:renderContents()
 		})
 	}
 	-- game
-	if not self.state.isFilterMode then
+	if not self.state.isFilterMode and self.props.reportCategory == Constants.Category.None then
 		-- Don't show "Report Experience" in filter mode.
-		table.insert(items, Roact.createElement(GameCell, {
+		items["GameCell"] =  Roact.createElement(GameCell, {
 			gameId = game.GameId,
-			layoutOrder = #items + 1,
+			layoutOrder = self.getLayoutBinding("GameCell", itemsLen),
 			onActivated = function()
 				props.openReportDialog(Constants.ReportType.Place, nil)
 			end,
-		}))
+		})
 	end
+	itemsLen += 1;
 	local canvasHeight = CELL_HEIGHT
 	-- players
 	local players = self:getPlayerList()
-	for _, player in pairs(players) do
-		table.insert(items, Roact.createElement(Divider, {
-			LayoutOrder = #items + 1,
+	local voiceActiveUsers = {}
+	if voiceReportFlow then
+		voiceActiveUsers = VoiceChatServiceManager:getRecentUsersInteractionData()
+	end
+
+	self.sortedUserIds = {}
+
+	for idx, player in pairs(players) do
+		local pid = tostring(player.UserId);
+
+		if voiceReportFlow and not voiceActiveUsers[tostring(player.UserId)] then
+			continue
+		end
+		table.insert(self.sortedUserIds, player.UserId)
+
+		local memoKey = 0;
+		if voiceReportFlow then memoKey += 1 end
+		if self.props.isReportMenuOpen  then memoKey += 2 end
+		items["Divider"..pid] = Roact.createElement(Divider, {
+			LayoutOrder = self.getLayoutBinding("Divider"..pid, itemsLen),
 			Size = UDim2.new(1, 0, 0, 1),
-		}))
-		table.insert(items, Roact.createElement(PlayerCell, {
+		})
+		itemsLen += 1;
+
+		items["PlayerCell"..pid] = Roact.createElement(PlayerCell, {
 			userId = player.UserId,
 			username = player.Name,
 			displayName = player.DisplayName,
 			isOnline = true,
 			isSelected = false,
-			LayoutOrder = #items + 1,
+			LayoutOrder = self.getLayoutBinding("PlayerCell"..pid, itemsLen),
 			onActivated = function()
 				props.openReportDialog(Constants.ReportType.Player, player)
 			end,
-		}))
+			memoKey = memoKey,
+		}, {
+			VoiceIndicator = voiceReportFlow and self.props.isReportMenuOpen and Roact.createElement(VoiceIndicatorWrapper, {
+				userId = tostring(player.UserId),
+				hideOnError = true,
+				iconStyle = "SpeakerLight",
+				size = UDim2.fromOffset(36, 36),
+				onClicked = function()
+					VoiceChatServiceManager:ToggleMutePlayer(player.UserId)
+				end,
+			}) or nil,
+		})
+		itemsLen += 1;
+
 		canvasHeight += CELL_HEIGHT + 1
 	end
+	items["DividerEnd"] = Roact.createElement(Divider, {
+		LayoutOrder = self.getLayoutBinding("DividerEnd", itemsLen),
+		Size = UDim2.new(1, 0, 0, 1),
+	})
+	itemsLen += 1;
+
 	-- override cell style
 	return withStyle(function(style)
 		local cellTheme = Cryo.Dictionary.join(style.Theme, CELL_THEME_OVERRIDES)
@@ -211,12 +324,14 @@ function ReportMenu:renderContents()
 end
 
 function ReportMenu:render()
+	local backButton = self.props.reportCategory ~= nil;
+
 	return Roact.createFragment({
 		ModalDialog = Roact.createElement(ModalDialog, {
 			visible = self.props.isReportMenuOpen,
 			screenSize = self.props.screenSize,
 			headerBar = self:renderHeaderBar(),
-			showCloseButton = true,
+			showCloseButton = not backButton,
 			contents = self:renderContents(),
 			onDismiss = self.props.closeDialog,
 		}),
@@ -240,19 +355,22 @@ end
 
 return RoactRodux.UNSTABLE_connect2(function(state, props)
 	return {
-		isReportMenuOpen = state.report.isReportMenuOpen,
+		isReportMenuOpen = state.report.currentPage == Constants.Page.Listing,
 		screenSize = state.displayOptions.screenSize,
+		reportCategory = state.report.reportCategory,
+		canNavigateBack = #state.report.history > 1,
 		--TODO: integrate inputType
 	}
 end, function(dispatch)
 	return {
-		closeDialog = function()
-			dispatch(CloseReportMenu())
+		navigateBack = function()
+			dispatch(NavigateBack())
 		end,
-		openReportDialog = function(reportType, targetPlayer)
-			dispatch(OpenReportDialog(reportType, targetPlayer, function()
-				dispatch(OpenReportMenu())
-			end))
+		closeDialog = function()
+			dispatch(EndReportFlow())
+		end,
+		openReportDialog = function(reportType, targetPlayer, sortedUserIds)
+			dispatch(SelectReportListing(reportType, targetPlayer, sortedUserIds))
 		end,
 	}
 end)(ReportMenu)

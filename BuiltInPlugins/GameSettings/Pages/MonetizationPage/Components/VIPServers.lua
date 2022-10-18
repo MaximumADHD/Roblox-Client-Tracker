@@ -39,7 +39,6 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 local FFlagDevFrameworkMigrateToggleButton = SharedFlags.getFFlagDevFrameworkMigrateToggleButton()
 
 local Util = Framework.Util
@@ -54,12 +53,12 @@ local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local RobuxFeeBase = require(Page.Components.RobuxFeeBase)
 
 local UILibrary
-if not FFlagDevFrameworkMigrateToggleButton or not FFlagRemoveUILibraryTitledFrame then
+if not FFlagDevFrameworkMigrateToggleButton then
 	UILibrary = require(Plugin.Packages.UILibrary)
 end
 
 local UI = Framework.UI
-local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
+local TitledFrame = UI.TitledFrame
 local ToggleButton = if FFlagDevFrameworkMigrateToggleButton then UI.ToggleButton else UILibrary.Component.ToggleButton
 
 local shouldDisablePrivateServersAndPaidAccess =
@@ -194,101 +193,88 @@ function VIPServers:render()
 
 		LayoutOrder = layoutOrder,
 	}, {
-		ToggleAndSubscriptionsAndTotal = Roact.createElement(
-			TitledFrame,
-			if FFlagRemoveUILibraryTitledFrame
-				then {
-					LayoutOrder = 1,
-					Title = title,
-				}
-				else {
-					Title = title,
-					TextSize = theme.fontStyle.Title.TextSize,
+		ToggleAndSubscriptionsAndTotal = Roact.createElement(TitledFrame, {
+			LayoutOrder = 1,
+			Title = title,
+		}, {
+			UIListLayout = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Vertical,
+			}),
 
-					MaxHeight = maxToggleHeight,
+			ToggleButton = Roact.createElement(
+				ToggleButton,
+				if FFlagDevFrameworkMigrateToggleButton
+					then {
+						Disabled = not enabled,
+						Selected = selected,
+						OnClick = onVipServersToggled,
+						LayoutOrder = 1,
+					}
+					else {
+						Enabled = enabled,
+						IsOn = selected,
+						Mouse = mouse:get(),
 
-					LayoutOrder = 1,
-				},
-			{
-				UIListLayout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = Enum.FillDirection.Vertical,
-				}),
+						onToggle = function(value)
+							if enabled then
+								onVipServersToggled(value)
+							end
+						end,
 
-				ToggleButton = Roact.createElement(
-					ToggleButton,
-					if FFlagDevFrameworkMigrateToggleButton
-						then {
-							Disabled = not enabled,
-							Selected = selected,
-							OnClick = onVipServersToggled,
-							LayoutOrder = 1,
-						}
-						else {
-							Enabled = enabled,
-							IsOn = selected,
-							Mouse = mouse:get(),
+						LayoutOrder = 1,
+					}
+			),
 
-							onToggle = function(value)
-								if enabled then
-									onVipServersToggled(value)
-								end
-							end,
+			SubText = showToggleSubText and Roact.createElement(
+				"TextLabel",
+				Cryo.Dictionary.join(toggleSubTextTheme, {
+					Size = UDim2.new(0, math.ceil(toggleSubTextSize.X), 0, toggleSubTextSize.Y),
 
-							LayoutOrder = 1,
-						}
-				),
-
-				SubText = showToggleSubText and Roact.createElement(
-					"TextLabel",
-					Cryo.Dictionary.join(toggleSubTextTheme, {
-						Size = UDim2.new(0, math.ceil(toggleSubTextSize.X), 0, toggleSubTextSize.Y),
-
-						BackgroundTransparency = 1,
-
-						Text = toggleSubText,
-
-						TextYAlignment = Enum.TextYAlignment.Center,
-						TextXAlignment = Enum.TextXAlignment.Left,
-
-						TextWrapped = true,
-
-						LayoutOrder = 2,
-					})
-				),
-
-				Subscriptions = selected and Roact.createElement("TextLabel", {
-					Font = theme.fontStyle.Normal.Font,
-					TextSize = theme.fontStyle.Normal.TextSize,
-					TextColor3 = selected and theme.fontStyle.Normal.TextColor3 or theme.fontStyle.Subtext.TextColor3,
-
-					Text = subscriptionsText,
-					Size = UDim2.new(1, 0, 0, theme.rowHeight),
 					BackgroundTransparency = 1,
 
-					TextXAlignment = Enum.TextXAlignment.Left,
+					Text = toggleSubText,
+
 					TextYAlignment = Enum.TextYAlignment.Center,
-					TextTransparency = transparency,
+					TextXAlignment = Enum.TextXAlignment.Left,
+
+					TextWrapped = true,
 
 					LayoutOrder = 2,
-				}),
+				})
+			),
 
-				TotalVIPServers = selected and Roact.createElement("TextLabel", {
-					Font = theme.fontStyle.Normal.Font,
-					TextSize = theme.fontStyle.Normal.TextSize,
-					TextColor3 = selected and theme.fontStyle.Normal.TextColor3 or theme.fontStyle.Subtext.TextColor3,
-					Text = totalVIPServersText,
-					Size = UDim2.new(1, 0, 0, theme.rowHeight),
-					BackgroundTransparency = 1,
+			Subscriptions = selected and Roact.createElement("TextLabel", {
+				Font = theme.fontStyle.Normal.Font,
+				TextSize = theme.fontStyle.Normal.TextSize,
+				TextColor3 = selected and theme.fontStyle.Normal.TextColor3 or theme.fontStyle.Subtext.TextColor3,
 
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Center,
-					TextTransparency = transparency,
+				Text = subscriptionsText,
+				Size = UDim2.new(1, 0, 0, theme.rowHeight),
+				BackgroundTransparency = 1,
 
-					LayoutOrder = 3,
-				}),
-			}
-		),
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				TextTransparency = transparency,
+
+				LayoutOrder = 2,
+			}),
+
+			TotalVIPServers = selected and Roact.createElement("TextLabel", {
+				Font = theme.fontStyle.Normal.Font,
+				TextSize = theme.fontStyle.Normal.TextSize,
+				TextColor3 = selected and theme.fontStyle.Normal.TextColor3 or theme.fontStyle.Subtext.TextColor3,
+				Text = totalVIPServersText,
+				Size = UDim2.new(1, 0, 0, theme.rowHeight),
+				BackgroundTransparency = 1,
+
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				TextTransparency = transparency,
+
+				LayoutOrder = 3,
+			}),
+		}),
 		PriceConfig = selected and Roact.createElement(RadioButtonSet, {
 			Title = priceTitle,
 

@@ -1,6 +1,5 @@
 --!strict
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
-local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
 local FFlagToolboxFixVerifyAndAnnouncementBugs = game:GetFastFlag("ToolboxFixVerifyAndAnnouncementBugs")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -177,7 +176,7 @@ function AssetSwimlane:render()
 		sectionName = sectionName,
 		initialPageSize = initialPageSize,
 		render = renderSwimlane,
-		searchSource = if FFlagToolboxIncludeSearchSource then props.searchSource else nil,
+		searchSource = props.searchSource,
 	})
 end
 

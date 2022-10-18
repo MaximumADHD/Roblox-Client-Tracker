@@ -13,6 +13,8 @@ local StyleModifier = Framework.Util.StyleModifier
 local Constants = require(script.Parent.Parent.Constants)
 local GroupCountDisplay = require(script.Parent.GroupCountDisplay)
 
+local FFlagCGERemoveDefaultTranslation = game:GetFastFlag("CGERemoveDefaultTranlsation")
+
 local TableHeader = Roact.Component:extend("TableHeader")
 
 function TableHeader:render()
@@ -24,7 +26,7 @@ function TableHeader:render()
 
 	for index, group in ipairs(props.Groups) do
 		local text = group.Name
-		if text == "Default" then
+		if not FFlagCGERemoveDefaultTranslation and text == "Default" then
 			text = localization:getText("Groups", "DefaultGroupName")
 		end
 

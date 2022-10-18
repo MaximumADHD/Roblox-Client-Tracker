@@ -2,7 +2,6 @@
 	A view wrapper displaying a back button and a grid of assets based on prop filters.
 ]]
 local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
-local FFlagToolboxIncludeSearchSource = game:GetFastFlag("ToolboxIncludeSearchSource")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
 local Packages = Plugin.Packages
@@ -112,7 +111,7 @@ function ResultsView:render()
 	local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
 	local tryInsert = props.TryInsert
 	local tryOpenAssetConfig = props.TryOpenAssetConfig
-	local searchSource = if FFlagToolboxIncludeSearchSource then props.SearchSource else nil
+	local searchSource = props.SearchSource
 
 	-- NOTE: We must call createTopContent here to prevent ResultsFetcher from
 	-- being called multiple times on AssetGrid re-render.

@@ -11,12 +11,6 @@ local AddChildVariables = require(Actions.Watch.AddChildVariables)
 
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
-local WatchHelperFunctions = require(Util.WatchHelperFunctions)
-
--- Remove with FFlagStudioDebuggerExpandVariables
-local DEPRECATED_LazyLoadVariableThunk = require(Plugin.Src.Thunks.Watch.LazyLoadVariable)
-
-local FFlagStudioDebuggerExpandVariables = require(Plugin.Src.Flags.GetFFlagStudioDebuggerExpandVariables)
 
 local LazyLoadChildrenVars, LazyLoadVar
 
@@ -85,25 +79,14 @@ function LazyLoadChildrenVars(variablePath, stepStateBundle, isVariablesTab, deb
 	if not debuggerConnection then
 		return
 	end
-	local targetVar = nil
-	if FFlagStudioDebuggerExpandVariables() then
-		targetVar = debuggerConnection:GetVariableById(idColumn)
-	else
-		targetVar = WatchHelperFunctions.getDebuggerVariableFromSplitPath(variablePath, debuggerConnection)
-	end
+	local targetVar = debuggerConnection:GetVariableById(idColumn)
 	if not targetVar then
 		return
 	end
 	for _, childVar in ipairs(targetVar:GetChildren()) do
 		if childVar.VariableId ~= 0 and not childVar.Populated then
-			local childPath = nil
-			if FFlagStudioDebuggerExpandVariables() then
-				childPath = variablePath .. Constants.SeparationToken .. tostring(childVar.Name)
-				LazyLoadVar(childPath, stepStateBundle, isVariablesTab, debuggerConnection, childVar.VariableId, store)
-			else
-				childPath = variablePath .. Constants.SeparationToken .. tostring(childVar.VariableId)
-				store:dispatch(DEPRECATED_LazyLoadVariableThunk(childPath, stepStateBundle, isVariablesTab, debuggerConnection))
-			end
+			local childPath = variablePath .. Constants.SeparationToken .. tostring(childVar.Name)
+			LazyLoadVar(childPath, stepStateBundle, isVariablesTab, debuggerConnection, childVar.VariableId, store)
 		end
 	end
 end

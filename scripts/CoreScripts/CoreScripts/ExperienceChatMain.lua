@@ -15,6 +15,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local ExperienceChat = require(CorePackages.ExperienceChat)
 local FFlagEnableSetCoreGuiEnabledExpChat = game:DefineFastFlag("FFlagEnableSetCoreGuiEnabledExpChat", false)
+local FFlagExpChatAddNewCallbacks = game:DefineFastFlag("ExpChatAddNewCallbacks", false)
 local GetFFlagDisableBubbleChatForExpChat = require(CorePackages.Flags.GetFFlagDisableBubbleChatForExpChat)
 
 local getIconVoiceIndicator
@@ -22,6 +23,15 @@ local onClickedVoiceIndicator
 if GetFFlagDisableBubbleChatForExpChat() then
 	getIconVoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.getIconVoiceIndicator)
 	onClickedVoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.onClickedVoiceIndicator)
+end
+
+local onClickedCameraIndicator
+local getPermissions
+local selfViewListenerChanged
+if FFlagExpChatAddNewCallbacks then
+	onClickedCameraIndicator = require(RobloxGui.Modules.VoiceChat.Components.onClickedCameraIndicator)
+	getPermissions = require(RobloxGui.Modules.VoiceChat.Components.getPermissions)
+	selfViewListenerChanged = require(RobloxGui.Modules.VoiceChat.Components.selfViewListenerChanged)
 end
 
 local screenGui = Instance.new("ScreenGui")
@@ -52,6 +62,9 @@ local createdDefaultChannels = TextChatService.CreateDefaultTextChannels
 ExperienceChat.mountClientApp({
 	getIconVoiceIndicator = if getIconVoiceIndicator then getIconVoiceIndicator else nil,
 	onClickedVoiceIndicator = if onClickedVoiceIndicator then onClickedVoiceIndicator else nil,
+	onClickedCameraIndicator = if onClickedCameraIndicator then onClickedCameraIndicator else nil,
+	getPermissions = if getPermissions then getPermissions else nil,
+	selfViewListenerChanged = if selfViewListenerChanged then selfViewListenerChanged else nil,
 	defaultTargetTextChannel = if createdDefaultChannels then findTextChannel("RBXGeneral") else nil,
 	defaultSystemTextChannel = if createdDefaultChannels then findTextChannel("RBXSystem") else nil,
 	translator = RobloxTranslator :: any,

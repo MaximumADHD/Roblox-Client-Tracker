@@ -1,4 +1,5 @@
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
+local FFlagAddSuccessWarningErrorTextColors = game:GetFastFlag("AddSuccessWarningErrorTextColors")
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
@@ -55,8 +56,10 @@ function VoteBar:renderContent(theme, DEPRECATED_localization)
 
 			IncludeVoteCount = true,
 			VoteCountHeight = Constants.ASSET_VOTE_COUNT_HEIGHT,
-			VoteCountColor = votingTheme.voteCountColor,
-			LowConfidencePercentageColor = votingTheme.lowConfidencePercentageColor,
+			VoteCountColor = if FFlagAddSuccessWarningErrorTextColors then nil else votingTheme.voteCountColor,
+			LowConfidencePercentageColor = if FFlagAddSuccessWarningErrorTextColors
+				then nil
+				else votingTheme.lowConfidencePercentageColor,
 		}),
 	})
 end

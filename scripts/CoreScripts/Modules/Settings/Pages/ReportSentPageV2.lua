@@ -7,7 +7,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxGuiModules = RobloxGui:WaitForChild("Modules")
 
 local AnalyticsService = game:GetService("RbxAnalyticsService")
-local Analytics = require(CorePackages.Analytics.Analytics).new(AnalyticsService)
+local Analytics = require(CorePackages.Workspace.Packages.Analytics).Analytics.new(AnalyticsService)
 local Roact = require(CorePackages.Roact)
 local Settings = script:FindFirstAncestor("Settings")
 local settingsPageFactory = require(RobloxGuiModules.Settings.SettingsPageFactory)

@@ -33,7 +33,6 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
-local UIBloxConfig = require(InGameMenu.Parent.UIBloxInGameConfig)
 
 local MOVEMENT_MODE_LOCALIZATION_KEYS = {
 	[Enum.ComputerMovementMode.KeyboardMouse] = "CoreScripts.InGameMenu.GameSettings.ComputerMoveModeKeyboardMouse",
@@ -285,8 +284,7 @@ function MovementModeEntry:render()
 						})
 					end,
 					placeholder = disabled and placeholderText or localized[selectedIndex],
-					size = (not UIBloxConfig.fixDropdownMenuListPositionAndSize) and UDim2.new(1, 0, 0, 44) or nil,
-					height = UIBloxConfig.fixDropdownMenuListPositionAndSize and UDim.new(0,44) or nil,
+					height = UDim.new(0,44),
 					screenSize = self.props.screenSize,
 					cellDatas = optionTexts,
 					isDisabled = disabled,

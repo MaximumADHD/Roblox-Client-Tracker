@@ -12,10 +12,10 @@
 		function StartDragging = A callback for when the user starts dragging a Thumbnail.
 		function DragMove = A callback for when the user drags a Thumbnail over another slot.
 		function ButtonPressed = A callback for when the user interacts with a Thumbnail.
+		function PromptPreviewThumbnail = A callback for when the user attempts to preview a Thumbnail.
+		function PromptDeleteThumbnail = A callback for when the user attempts to delete a Thumbnail.
 		function AddNew = A callback for when the user wants to add a new Thumbnail.
-		function UpdateAltText = A callback for when the user wants to change the alt text of a thumbnail.
 ]]
-local FFlagGameSettingsEnableThumbnailAltText = game:GetFastFlag("GameSettingsEnableThumbnailAltText")
 
 local THUMBNAIL_PADDING = UDim2.new(0, 30, 0, 30)
 
@@ -80,10 +80,8 @@ function ThumbnailSet:render()
 
 					HoverBarEnabled = hoverBarsEnabled,
 					ButtonPressed = self.props.ButtonPressed,
-
-					AltText = thumbnail.altText,
-					AltTextChanged = self.props.UpdateAltText,
-					AltTextErrorMessage = altTextErrorMessage,
+					PromptPreviewThumbnail = self.props.PromptPreviewThumbnail,
+					PromptDeleteThumbnail = self.props.PromptDeleteThumbnail,
 				})
 			end
 		end
@@ -96,9 +94,7 @@ function ThumbnailSet:render()
 
 	children.Layout = Roact.createElement("UIGridLayout", {
 		CellPadding = THUMBNAIL_PADDING,
-		CellSize = if FFlagGameSettingsEnableThumbnailAltText
-			then DEPRECATED_Constants.THUMBNAIL_CONTAINER_SIZE
-			else DEPRECATED_Constants.THUMBNAIL_SIZE,
+		CellSize = DEPRECATED_Constants.THUMBNAIL_SIZE,
 		FillDirection = Enum.FillDirection.Horizontal,
 		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		SortOrder = Enum.SortOrder.LayoutOrder,

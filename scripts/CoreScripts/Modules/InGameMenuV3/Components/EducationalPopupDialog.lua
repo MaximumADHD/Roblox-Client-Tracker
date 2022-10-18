@@ -15,6 +15,7 @@ local InGameMenu = script.Parent.Parent
 local GetFFlagLuaAppExitModal = require(InGameMenu.Flags.GetFFlagLuaAppExitModal)
 local Constants = require(InGameMenu.Resources.Constants)
 local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
+local FFlagFixExitDialogBlockVRView = require(script.Parent.Parent.Flags.FFlagFixExitDialogBlockVRView)
 
 local EDU_POPUP_CONFIRM_ACTION = "EducationalPopupConfirm"
 
@@ -29,6 +30,8 @@ EducationalPopupDialog.validateProps = t.strictInterface({
 	})),
 	cancelText = t.string,
 	confirmText = t.string,
+	hasDoNotShow = t.optional(t.boolean),
+	doNotShowText = t.optional(t.string),
 	titleText = t.optional(t.string),
 	titleBackgroundImageProps = t.strictInterface({
 		image = t.string,
@@ -73,6 +76,8 @@ function EducationalPopupDialog:render()
 					bodyContents = self.props.bodyContents,
 					cancelText = self.props.cancelText,
 					confirmText = self.props.confirmText,
+					hasDoNotShow = self.props.hasDoNotShow,
+					doNotShowText = self.props.doNotShowText,
 					titleText = self.props.titleText,
 					titleBackgroundImageProps = self.props.titleBackgroundImageProps,
 					screenSize = self.props.screenSize,
@@ -120,6 +125,10 @@ end
 function EducationalPopupDialog:updateBlur()
 	local controlsPageOpen = self.state.controlsPageOpen or false
 	local shouldBlur = (self.props.blurBackground and self.props.visible) or controlsPageOpen
+	if FFlagFixExitDialogBlockVRView then
+		-- APPFDN-986: We need to fix the overall overlay indexing issue.
+		shouldBlur = shouldBlur and not game:GetService("VRService").VREnabled
+	end
 	RunService:SetRobloxGuiFocused(shouldBlur)
 end
 

@@ -22,7 +22,7 @@ local m_yDistanceLine = nil
 -- void doDeselect(void)
 local function doDeselect()
 	DistanceLinesManager:setVisible(false)
-	
+
 	m_selectedObject = nil
 end
 
@@ -36,14 +36,14 @@ function DistanceLinesManager:onSelectionChanged()
 	end
 	local selectedObject = filteredSelection[1]
 	local parent = selectedObject.Parent
-	
+
 	-- The parent must have absolute position, rotation and size to determine the
-	-- distance from the selected object to the parent. 
+	-- distance from the selected object to the parent.
 	if not parent:IsA("GuiBase2d") then
 		doDeselect()
 		return
 	end
-	
+
 	-- We can potentially draw the distance lines of the selected object
 	m_selectedObject = selectedObject
 	DistanceLinesManager:update()
@@ -58,13 +58,13 @@ function DistanceLinesManager:On()
 	m_yDistanceLine = DistanceLine.new(Axis.Y)
 end
 
--- Peforms clean-up when the UI Editor plugin is turned off. 
+-- Peforms clean-up when the UI Editor plugin is turned off.
 --
 -- void DistanceLinesManager:Off()
 function DistanceLinesManager:Off()
 	m_xDistanceLine:destroy()
 	m_yDistanceLine:destroy()
-	
+
 	m_xDistanceLine = nil
 	m_yDistanceLine = nil
 end
@@ -76,7 +76,7 @@ function DistanceLinesManager:update()
 	if m_selectedObject == nil then
 		return
 	end
-	
+
 	m_xDistanceLine:update(m_selectedObject)
 	m_yDistanceLine:update(m_selectedObject)
 end
@@ -84,19 +84,19 @@ end
 function DistanceLinesManager:setVisible(visible)
 	if not m_selectedObject then
 		return
-	end	
-	
+	end
+
 	-- We dont support showing the distance lines when there is a rotation
- 	-- because we haven't specified what the distance to the parent edge
+	-- because we haven't specified what the distance to the parent edge
 	-- means in that case.
-	local minimumRotation = 0.001	 
+	local minimumRotation = 0.001
 	local isRotated = math.abs(m_selectedObject.AbsoluteRotation) >= minimumRotation
 	if visible and isRotated then
 		m_xDistanceLine:setVisible(false)
 		m_yDistanceLine:setVisible(false)
 		return
 	end
-	
+
 	m_xDistanceLine:setVisible(visible)
 	m_yDistanceLine:setVisible(visible)
 end

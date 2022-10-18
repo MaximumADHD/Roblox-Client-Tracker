@@ -41,31 +41,25 @@ return function()
 	describe("Initialization", function()
 		it("should update when mounted", function()
 			local a = TestHelper.createInstance("Part")
-			Selection:Set({a})
+			Selection:Set({ a })
 
 			local element, calls = createTestElement()
-			runComponentTest(
-				element,
-				function()
-					expect(calls.selectObjectForEditing).to.equal(1)
-					expect(calls.selectObjectForEditingArg).to.equal(a)
-					expect(calls.selectInvalidSelection).to.equal(0)
-				end
-			)
+			runComponentTest(element, function()
+				expect(calls.selectObjectForEditing).to.equal(1)
+				expect(calls.selectObjectForEditingArg).to.equal(a)
+				expect(calls.selectInvalidSelection).to.equal(0)
+			end)
 		end)
 
 		it("should not update if the state is already up to date", function()
 			local a = TestHelper.createInstance("Part")
-			Selection:Set({a})
+			Selection:Set({ a })
 
 			local element, calls = createTestElement(a)
-			runComponentTest(
-				element,
-				function()
-					expect(calls.selectObjectForEditing).to.equal(0)
-					expect(calls.selectInvalidSelection).to.equal(0)
-				end
-			)
+			runComponentTest(element, function()
+				expect(calls.selectObjectForEditing).to.equal(0)
+				expect(calls.selectInvalidSelection).to.equal(0)
+			end)
 		end)
 
 		it("should clear the state if nothing is selected", function()
@@ -73,62 +67,50 @@ return function()
 			Selection:Set({})
 
 			local element, calls = createTestElement(a)
-			runComponentTest(
-				element,
-				function()
-					expect(calls.selectObjectForEditing).to.equal(0)
-					expect(calls.selectInvalidSelection).to.equal(1)
-				end
-			)
+			runComponentTest(element, function()
+				expect(calls.selectObjectForEditing).to.equal(0)
+				expect(calls.selectInvalidSelection).to.equal(1)
+			end)
 		end)
 
 		it("should clear the state if too many objects are selected", function()
 			local a = TestHelper.createInstance("Part")
 			local b = TestHelper.createInstance("Part")
-			Selection:Set({a, b})
+			Selection:Set({ a, b })
 
 			local element, calls = createTestElement(a)
-			runComponentTest(
-				element,
-				function()
-					expect(calls.selectObjectForEditing).to.equal(0)
-					expect(calls.selectInvalidSelection).to.equal(1)
-				end
-			)
+			runComponentTest(element, function()
+				expect(calls.selectObjectForEditing).to.equal(0)
+				expect(calls.selectInvalidSelection).to.equal(1)
+			end)
 		end)
 	end)
 
 	describe("Selection Changes", function()
 		it("should clear the selection when nothing becomes selected", function()
 			local a = TestHelper.createInstance("Part")
-			Selection:Set({a})
+			Selection:Set({ a })
 
 			local element, calls = createTestElement(a)
-			runComponentTest(
-				element,
-				function()
-					Selection:Set({})
-					expect(calls.selectObjectForEditing).to.equal(0)
-					expect(calls.selectInvalidSelection).to.equal(1)
-				end
-			)
+			runComponentTest(element, function()
+				Selection:Set({})
+				expect(calls.selectObjectForEditing).to.equal(0)
+				expect(calls.selectInvalidSelection).to.equal(1)
+			end)
 		end)
 
 		it("should set the selection when a valid selection becomes selected", function()
 			local a = TestHelper.createInstance("Part")
 			local b = TestHelper.createInstance("Part")
-			Selection:Set({a})
+			Selection:Set({ a })
 
 			local element, calls = createTestElement()
-			runComponentTest(
-				element,
-				function()
-					Selection:Set({b})
-					expect(calls.selectObjectForEditing).to.equal(2)
-					expect(calls.selectObjectForEditingArg).to.equal(b)
-					expect(calls.selectInvalidSelection).to.equal(0)
-				end
-			)
+			runComponentTest(element, function()
+				Selection:Set({ b })
+				expect(calls.selectObjectForEditing).to.equal(2)
+				expect(calls.selectObjectForEditingArg).to.equal(b)
+				expect(calls.selectInvalidSelection).to.equal(0)
+			end)
 		end)
 	end)
 end

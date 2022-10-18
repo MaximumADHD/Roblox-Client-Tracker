@@ -12,7 +12,6 @@
 		boolean Selected: whether the button should be on or off.
 		boolean ShowWarning: whether the description text is shown as warning text
 ]]
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
@@ -22,7 +21,6 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
 local TitledFrame = Framework.StudioUI.TitledFrame
 local ToggleButton = Framework.UI.ToggleButton
@@ -74,7 +72,6 @@ function ToggleButtonWithTitle:render()
 
 	return Roact.createElement(TitledFrame, {
 		LayoutOrder = layoutOrder,
-		Style = if FFlagRemoveUILibraryTitledFrame then nil else "Subtitle",
 		Title = title,
 	}, {
 		ToggleButton = Roact.createElement(ToggleButton, {

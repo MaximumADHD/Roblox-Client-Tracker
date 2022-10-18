@@ -52,8 +52,16 @@ return function(analyticsService)
 			_reportInfluxSeries("BaseMaterialForVariant", additionalArgs, throttlingPercent)
 		end,
 
+		newMaterialVariantCounter = function()
+			_reportCounter("NewMaterialVariantCounter")
+		end,
+
 		showInExplorer = function()
 			_reportCounter("ShowInExplorer")
+		end,
+
+		clickOnCategoriesOpen = function()
+			_reportCounter("ClickOnCategoriesOpen")
 		end,
 
 		importTextureMap = function()

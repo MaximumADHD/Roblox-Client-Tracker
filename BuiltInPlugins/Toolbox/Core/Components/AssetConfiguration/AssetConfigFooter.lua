@@ -99,7 +99,8 @@ function AssetConfigFooter:shouldUpdate(nextProps, nextState)
 		if nextState.animationId == "" then
 			self.hideInvalidAnimationID = true
 		else
-			self.hideInvalidAnimationID = nextProps.validateAnimationSucceeded or tostring(nextProps.AssetId) == nextState.animationId
+			self.hideInvalidAnimationID = nextProps.validateAnimationSucceeded
+				or tostring(nextProps.AssetId) == nextState.animationId
 		end
 
 		-- In case the prop doesn't change (ie. invalid -> invalid) but we still need to update since empty field shouldn't show invalid
@@ -176,7 +177,9 @@ function AssetConfigFooter:renderContent(theme, localization, localizedContent)
 	end
 
 	local publishText = localizedContent.AssetConfig.Apply
-	if screenFlowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW and AssetConfigUtil.isCatalogAsset(assetTypeEnum) then
+	if
+		screenFlowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW and AssetConfigUtil.isCatalogAsset(assetTypeEnum)
+	then
 		if props.isUploadFeeEnabled then
 			publishText = localization:getUploadWithFee(props.uploadFee)
 			if not props.canAffordUploadFee then
@@ -213,32 +216,33 @@ function AssetConfigFooter:renderContent(theme, localization, localizedContent)
 			Padding = UDim.new(0, PADDING),
 		}),
 
-		AnimationIdBox = isDownloadFlow and Roact.createElement("Frame", {
-			Size = UDim2.new(0, IMPORT_BOX_WIDTH, 0, BUTTON_HEIGHT),
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			LayoutOrder = 3,
-		}, {
-			TextField = Roact.createElement(TextInput, {
-				ForceOnTextChange = true,
-				OnTextChanged = self.onAnimationIDChanged,
-				PlaceholderText = localizedContent.AssetConfig.Override.AnimationID,
-				Size = UDim2.new(1, 0, 1, 0),
-				Style = animationTextOverMaxCount and "FilledRoundedRedBorder" or "FilledRoundedBorder",
-				Text = animationText and tostring(animationText) or nil, -- NOTE: animationText is sometimes a number type, but TextInput expects a string or nil
+		AnimationIdBox = isDownloadFlow
+			and Roact.createElement("Frame", {
+				Size = UDim2.new(0, IMPORT_BOX_WIDTH, 0, BUTTON_HEIGHT),
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				LayoutOrder = 3,
+			}, {
+				TextField = Roact.createElement(TextInput, {
+					ForceOnTextChange = true,
+					OnTextChanged = self.onAnimationIDChanged,
+					PlaceholderText = localizedContent.AssetConfig.Override.AnimationID,
+					Size = UDim2.new(1, 0, 1, 0),
+					Style = animationTextOverMaxCount and "FilledRoundedRedBorder" or "FilledRoundedBorder",
+					Text = animationText and tostring(animationText) or nil, -- NOTE: animationText is sometimes a number type, but TextInput expects a string or nil
+				}),
 			}),
-		}),
 
 		InvalidAnimationLabel = isDownloadFlow and not hideInvalidAnimationID and Roact.createElement("TextLabel", {
 			BackgroundTransparency = 1,
 			Font = Constants.FONT,
-			Text =  localizedContent.AssetConfig.Override.InvalidAnimationID,
+			Text = localizedContent.AssetConfig.Override.InvalidAnimationID,
 			TextColor3 = theme.redText,
 			TextSize = Constants.FONT_SIZE_MEDIUM,
 			Size = UDim2.new(0, INVALID_ID_SIZE, 1, 0),
 			TextYAlignment = Enum.TextYAlignment.Center,
 			TextXAlignment = Enum.TextXAlignment.Center,
-			LayoutOrder = 2
+			LayoutOrder = 2,
 		}),
 
 		CancelButton = Roact.createElement(Button, {
@@ -257,20 +261,20 @@ function AssetConfigFooter:renderContent(theme, localization, localizedContent)
 				end
 			end,
 			Style = "RoundPrimary",
-			StyleModifier = (not publishActive) and StyleModifier.Disabled or nil,
+			StyleModifier = not publishActive and StyleModifier.Disabled or nil,
 			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
 			Text = publishText,
 		}),
 
 		ToggleOverrideButton = showOverride and Roact.createElement(LinkButton, {
-			Size = UDim2.new(1, - BUTTON_WIDTH  * 2 - PADDING * 2, 0, LINK_BUTTON_HEIGHT),
+			Size = UDim2.new(1, -BUTTON_WIDTH * 2 - PADDING * 2, 0, LINK_BUTTON_HEIGHT),
 			Text = overrideText,
 			TextSize = Constants.FONT_SIZE_MEDIUM,
 			Font = Constants.FONT,
 			onActivated = self.onFlowButtonActivated,
 
 			LayoutOrder = 1,
-		})
+		}),
 	})
 end
 
@@ -307,10 +311,8 @@ local function mapDispatchToProps(dispatch)
 	return dispatchToProps
 end
 
-
 AssetConfigFooter = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(AssetConfigFooter)
-
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetConfigFooter)

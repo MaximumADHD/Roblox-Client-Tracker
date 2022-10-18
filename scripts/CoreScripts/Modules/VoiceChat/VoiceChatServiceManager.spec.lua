@@ -101,10 +101,17 @@ return function()
 	end
 
 	beforeEach(function(context)
+		context.RobloxEventReceived = Instance.new("BindableEvent")
+		context.RobloxConnectionChanged = Instance.new("BindableEvent")
+		local NotificationMock = {
+			RobloxEventReceived = context.RobloxEventReceived.Event,
+			RobloxConnectionChanged = context.RobloxConnectionChanged.Event,
+		}
+
 		BlockMock = Instance.new("BindableEvent")
 		HTTPServiceStub.GetAsyncFullUrlCB = noop
 		VoiceChatServiceStub:resetMocks()
-		VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, nil, nil, BlockMock.Event)
+		VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, nil, nil, BlockMock.Event, nil, NotificationMock)
 		VoiceChatServiceManager:SetupParticipantListeners()
 	end)
 
@@ -473,6 +480,154 @@ return function()
 				{}
 			)).toBe(true)
 			game:SetFastFlagForTesting("ClearVoiceStateOnRejoin", ClearStateOnRejoinOld)
+		end)
+	end)
+
+	describe("VoiceChatServiceManager SignalR watcher", function()
+		describe("checkAndUpdateSequence", function()
+			it("should return true if a sequence increments normally", function()
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(true)
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(true)
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 103)).toBe(true)
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 104)).toBe(true)
+			end)
+
+			it("should return true if a sequence number repeats", function()
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(true)
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(true)
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(true)
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(true)
+			end)
+
+			it("should return false if it skips a number", function()
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(true)
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 103)).toBe(false)
+			end)
+
+			it("should return true if two sequences increment on their own", function()
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 101)).toBe(true)
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 201)).toBe(true)
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 202)).toBe(true)
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 102)).toBe(true)
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 103)).toBe(true)
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 203)).toBe(true)
+			end)
+
+			it("should return false if either sequence skips", function()
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 101)).toBe(true)
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 201)).toBe(true)
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 103)).toBe(false)
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 202)).toBe(true)
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 104)).toBe(true)
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 204)).toBe(false)
+			end)
+
+			it("should ignore nil values", function()
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(true)
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", nil)).toBe(true)
+				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(true)
+			end)
+		end)
+
+		describe("watchSignalR", function()
+			local function makeEventMessage(namespace, seqNum)
+				return {
+					namespace = namespace,
+					detail = HttpService:JSONEncode({SequenceNumber = seqNum}),
+					detailType = "",
+				}
+			end
+
+			it("should ignore missed sequence numbers in other namespaces", function(context)
+				VoiceChatServiceManager:watchSignalR()
+
+				context.RobloxEventReceived:Fire(makeEventMessage("NotVoiceNotifications", 1))
+				context.RobloxEventReceived:Fire(makeEventMessage("NotVoiceNotifications", 2))
+				context.RobloxEventReceived:Fire(makeEventMessage("NotVoiceNotifications", 4))
+
+				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
+			end)
+
+			it("should call join if VoiceNotifications missed a sequence number", function(context)
+				VoiceChatServiceManager:watchSignalR()
+
+				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 1))
+				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 2))
+				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 4))
+
+				jestExpect(VoiceChatServiceStub.joinCalled).toBe(true)
+			end)
+
+			it("should not call join if VoiceNotifications did not miss a sequence number", function(context)
+				VoiceChatServiceManager:watchSignalR()
+
+				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 1))
+				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 2))
+				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 3))
+
+				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
+			end)
+
+			it("should not call join on first connect", function(context)
+				-- Note that join is called on first connect, but that's handled elsewhere
+				VoiceChatServiceManager:watchSignalR()
+
+				context.RobloxConnectionChanged:Fire(
+					"signalR", Enum.ConnectionState.Connected, 101, '{"VoiceNotifications":101}')
+
+				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
+			end)
+
+			it("should not call join if no sequence numbers were missed", function(context)
+				VoiceChatServiceManager:watchSignalR()
+
+				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 1))
+				context.RobloxConnectionChanged:Fire(
+					"signalR", Enum.ConnectionState.Disconnected, 101, "")
+				context.RobloxConnectionChanged:Fire(
+					"signalR", Enum.ConnectionState.Connected, 101, '{"VoiceNotifications":2}')
+					
+				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
+			end)
+
+			it("should call join if a sequence number was missed on reconnect", function(context)
+				VoiceChatServiceManager:watchSignalR()
+
+				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 1))
+				context.RobloxConnectionChanged:Fire(
+					"signalR", Enum.ConnectionState.Disconnected, 101, "")
+				context.RobloxConnectionChanged:Fire(
+					"signalR", Enum.ConnectionState.Connected, 101, '{"VoiceNotifications":3}')
+					
+				jestExpect(VoiceChatServiceStub.joinCalled).toBe(true)
+			end)
+
+			it("should ignore sequence numbers from other namespaces", function(context)
+				VoiceChatServiceManager:watchSignalR()
+
+				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 1))
+				context.RobloxEventReceived:Fire(makeEventMessage("OtherNotifications", 1))
+				context.RobloxConnectionChanged:Fire(
+					"signalR", Enum.ConnectionState.Disconnected, 101, "")
+				context.RobloxConnectionChanged:Fire(
+					"signalR", Enum.ConnectionState.Connected, 101, '{"VoiceNotifications":2, "OtherNotifications":3}')
+					
+				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
+			end)
+
+			it("should ignore bad JSON responses", function(context)
+				VoiceChatServiceManager:watchSignalR()
+
+				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 1))
+				context.RobloxConnectionChanged:Fire(
+					"signalR", Enum.ConnectionState.Disconnected, 101, "")
+				context.RobloxConnectionChanged:Fire(
+					"signalR", Enum.ConnectionState.Connected, 101, "INVALID JSON")
+				context.RobloxConnectionChanged:Fire(
+					"signalR", Enum.ConnectionState.Connected, 101, '{"VoiceNotifications":2}')
+						
+				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
+			end)
 		end)
 	end)
 end

@@ -137,8 +137,7 @@ function AssetUploadResult:renderContent(theme, localizedContent)
 	local previewType = AssetConfigUtil.getPreviewType(props.assetTypeEnum, props.instances)
 
 	local showViewport = previewType == PreviewTypes.ModelPreview
-	local showThumbnail = previewType == PreviewTypes.Thumbnail
-			or previewType == PreviewTypes.ImagePicker
+	local showThumbnail = previewType == PreviewTypes.Thumbnail or previewType == PreviewTypes.ImagePicker
 	local reasons = getReasonArray(props.networkTable)
 
 	local showSuccess = props.uploadSucceeded
@@ -160,19 +159,13 @@ function AssetUploadResult:renderContent(theme, localizedContent)
 			title = props.assetName or nil,
 			titleHeight = PREVIEW_TITLE_HEIGHT,
 			titlePadding = PREVIEW_TITLE_PADDING,
-			Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
-			Size = UDim2.new(
-				0, PREVIEW_SIZE,
-				0, PREVIEW_SIZE + PREVIEW_TITLE_PADDING + PREVIEW_TITLE_HEIGHT
-			),
+			Position = UDim2.new(0.5, -PREVIEW_SIZE / 2, 0, PREVIEW_PADDING),
+			Size = UDim2.new(0, PREVIEW_SIZE, 0, PREVIEW_SIZE + PREVIEW_TITLE_PADDING + PREVIEW_TITLE_HEIGHT),
 		}),
 
 		ThumbnailPreview = showThumbnail and Roact.createElement("ImageLabel", {
-			Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
-			Size = UDim2.new(
-				0, PREVIEW_SIZE,
-				0, PREVIEW_SIZE
-			),
+			Position = UDim2.new(0.5, -PREVIEW_SIZE / 2, 0, PREVIEW_PADDING),
+			Size = UDim2.new(0, PREVIEW_SIZE, 0, PREVIEW_SIZE),
 			Image = AssetConfigUtil.getResultThumbnail(props.assetId, props.iconFile),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
@@ -198,7 +191,7 @@ function AssetUploadResult:renderContent(theme, localizedContent)
 
 			Title = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
-				Position = UDim2.new(0.5, -TITLE_WIDTH/2, 0, 0),
+				Position = UDim2.new(0.5, -TITLE_WIDTH / 2, 0, 0),
 				Size = UDim2.new(0, TITLE_WIDTH, 0, TITLE_HEIGHT),
 				Text = (props.uploadSucceeded and "Successfully submitted!" or "Submission failed"),
 				Font = Constants.FONT,
@@ -210,7 +203,7 @@ function AssetUploadResult:renderContent(theme, localizedContent)
 			}),
 
 			ReasonFrame = showReasons and Roact.createElement(ReasonFrame, {
-				Position = UDim2.new(0.5, -REASON_WIDTH/2, 0, TITLE_HEIGHT + REASON_PADDING),
+				Position = UDim2.new(0.5, -REASON_WIDTH / 2, 0, TITLE_HEIGHT + REASON_PADDING),
 				Size = UDim2.new(0, REASON_WIDTH, 0, REASON_HEIGHT),
 				Reasons = reasons,
 				LayoutOrder = 2,
@@ -219,7 +212,7 @@ function AssetUploadResult:renderContent(theme, localizedContent)
 			Rows = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(0, REASON_WIDTH, 0, REASON_HEIGHT),
-				Position = UDim2.new(0.5, -REASON_WIDTH/2, 0, TITLE_HEIGHT + REASON_PADDING),
+				Position = UDim2.new(0.5, -REASON_WIDTH / 2, 0, TITLE_HEIGHT + REASON_PADDING),
 				LayoutOrder = 3,
 			}, {
 				UIListLayout = Roact.createElement("UIListLayout", {
@@ -259,7 +252,7 @@ function AssetUploadResult:renderContent(theme, localizedContent)
 						GuiService:OpenBrowserWindow(url)
 					end,
 				}),
-			})
+			}),
 		}),
 
 		LoadingResultFailure = showFail and Roact.createElement("Frame", {
@@ -270,7 +263,7 @@ function AssetUploadResult:renderContent(theme, localizedContent)
 			Title = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
 				Font = Constants.FONT,
-				Position = UDim2.new(0.5, -TITLE_WIDTH/2, 0, 0),
+				Position = UDim2.new(0.5, -TITLE_WIDTH / 2, 0, 0),
 				Size = UDim2.new(0, TITLE_WIDTH, 0, TITLE_HEIGHT),
 				Text = "Submission failed",
 				TextColor3 = theme.uploadResult.redText,
@@ -282,7 +275,7 @@ function AssetUploadResult:renderContent(theme, localizedContent)
 			Reason = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
 				Font = Constants.FONT,
-				Position = UDim2.new(0.5, -REASON_WIDTH/2, 0, TITLE_HEIGHT + REASON_PADDING),
+				Position = UDim2.new(0.5, -REASON_WIDTH / 2, 0, TITLE_HEIGHT + REASON_PADDING),
 				Size = UDim2.new(0, REASON_WIDTH, 0, REASON_HEIGHT),
 				Text = networkError and networkError.responseBody,
 				TextWrapped = true,
@@ -313,11 +306,13 @@ function AssetUploadResult:renderContent(theme, localizedContent)
 				Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
 			}),
 
-			LinkText = if not isPackageAsset then Roact.createElement(LinkText, {
-				LayoutOrder = 1,
-				OnClick = self.clickBackLink,
-				Text = localizedContent.AssetConfig.UploadResult.Back,
-			}) else nil,
+			LinkText = if not isPackageAsset
+				then Roact.createElement(LinkText, {
+					LayoutOrder = 1,
+					OnClick = self.clickBackLink,
+					Text = localizedContent.AssetConfig.UploadResult.Back,
+				})
+				else nil,
 		}),
 	})
 end

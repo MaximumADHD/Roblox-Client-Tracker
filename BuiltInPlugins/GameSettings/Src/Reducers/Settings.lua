@@ -12,6 +12,8 @@
 	When saving changes, only settings in the Changed table are saved.
 	When discarding changes, the Changed table is deleted.
 ]]
+local FFlagGameSettingsEnableThumbnailAltText = game:GetFastFlag("GameSettingsEnableThumbnailAltText")
+
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local Rodux = require(Plugin.Packages.Rodux)
@@ -28,6 +30,10 @@ local equalityCheckFunctions = {
 	universeAvatarMaxScales = Scales.isEqual,
 	OptInLocations = deepEqual,
 }
+
+if FFlagGameSettingsEnableThumbnailAltText then
+	equalityCheckFunctions["thumbnails"] = deepEqual
+end
 
 local function isEqualCheck(current, changed)
 	if current == nil or changed == nil then

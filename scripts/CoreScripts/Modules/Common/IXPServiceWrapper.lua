@@ -11,6 +11,7 @@ local RunService = game:GetService("RunService")
 local IXPService = game:GetService("IXPService")
 
 local GetFFlagEnableIXPInGame = require(script.Parent.Flags.GetFFlagEnableIXPInGame)
+local GetIXPServiceWrapperWaitRefactor = require(script.Parent.Flags.GetIXPServiceWrapperWaitRefactor)
 
 local ModuleTable = {}
 
@@ -41,16 +42,36 @@ function ModuleTable:InitializeAsync(userId, userLayers)
 		end
 		IXPService:RegisterUserLayers(userLayers)
 		IXPService:InitializeUserLayers(userId)
-		local status = IXPService:GetUserLayerLoadingStatus()
-		while status == Enum.IXPLoadingStatus.None or status == Enum.IXPLoadingStatus.Pending do
-			IXPService.OnUserLayerLoadingStatusChanged:Wait()
-			status = IXPService:GetUserLayerLoadingStatus()
-		end
+		if GetIXPServiceWrapperWaitRefactor() then
+			return self:WaitForInitialization()
+		else
+			local status = IXPService:GetUserLayerLoadingStatus()
+			while status == Enum.IXPLoadingStatus.None or status == Enum.IXPLoadingStatus.Pending do
+				IXPService.OnUserLayerLoadingStatusChanged:Wait()
+				status = IXPService:GetUserLayerLoadingStatus()
+			end
 
-		return status
+			return status
+		end
 	end)
 
 	return success, result
+end
+
+--[[
+	Yields until IXP is initialized
+
+	returns IXPLoadingStatus
+	-- The status of IXP after initalization
+--]]
+function ModuleTable:WaitForInitialization()
+	local status = IXPService:GetUserLayerLoadingStatus()
+	while status == Enum.IXPLoadingStatus.None or status == Enum.IXPLoadingStatus.Pending do
+		IXPService.OnUserLayerLoadingStatusChanged:Wait()
+		status = IXPService:GetUserLayerLoadingStatus()
+	end
+
+	return status
 end
 
 --[[

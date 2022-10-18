@@ -54,7 +54,7 @@ local function createDistanceFrame(axis)
 	distanceFrame.BackgroundColor3 = LINE_COLOR
 	distanceFrame.Visible = false
 	distanceFrame.Parent = CoreGuiManager:findOrCreateScreenGui("DistanceLines")
-	
+
 	-- This is the small end mark at the border of viewport.
 	-- It's parented to distanceFrame because it needs to be updated together
 	-- with distanceFrame. Parenting to distanceFrame also helps so that
@@ -65,13 +65,13 @@ local function createDistanceFrame(axis)
 	endFrame.BackgroundColor3 = LINE_COLOR
 	endFrame.Visible = true
 	endFrame.Parent = distanceFrame
-	
+
 	local endSize = {
 		UDim2.new(0, LINE_WIDTH, 0, LINEEND_WIDTH),
-		UDim2.new(0, LINEEND_WIDTH, 0, LINE_WIDTH)
+		UDim2.new(0, LINEEND_WIDTH, 0, LINE_WIDTH),
 	}
 	endFrame.Size = endSize[axis]
-	
+
 	-- The AnchorPoint and Position of end mark are always opposite to the distanceFrame
 	-- Whenever AnchorPoint of distanceFrame changes, we update endFrame and move it
 	-- to the other end of distance line
@@ -94,7 +94,7 @@ local function createDistanceFrame(axis)
 			end
 		end
 	end)
-	
+
 	return distanceFrame
 end
 
@@ -104,12 +104,12 @@ end
 local function createDistanceBox(axis, parent)
 	local positions = {
 		UDim2.new(0.5, 0, 0, 0),
-		UDim2.new(0, 0, 0.5, 0)
-	}	
-	
+		UDim2.new(0, 0, 0.5, 0),
+	}
+
 	local distanceBox = ValueBox.new(parent)
 	distanceBox.Name = "DistanceBox"
- 
+
 	distanceBox:setAnchorPoint(Vector2.new(0.5, 0.5))
 	distanceBox:setPosition(positions[axis])
 	if parent ~= nil then
@@ -124,9 +124,9 @@ end
 --
 -- DistanceLine DistanceLine.new(Axis axis)
 function DistanceLine.new(axis)
-	local newDistanceLine = {}	
-	
-	newDistanceLine.m_axis = axis	
+	local newDistanceLine = {}
+
+	newDistanceLine.m_axis = axis
 	-- A frame is used for drawing the distance line. It's a thin frame.
 	newDistanceLine.m_distanceFrame = createDistanceFrame(axis)
 	-- The distance box displays how far away the parent's side it is. The box
@@ -135,7 +135,7 @@ function DistanceLine.new(axis)
 	newDistanceLine.m_distanceBox = createDistanceBox(axis, newDistanceLine.m_distanceFrame)
 	-- If child object is very far outside its parent then we can't show the distance line.
 	newDistanceLine.m_canShow = false
-	
+
 	return setmetatable(newDistanceLine, DistanceLine)
 end
 DistanceLine.__index = DistanceLine
@@ -146,7 +146,7 @@ DistanceLine.__index = DistanceLine
 function DistanceLine:destroy()
 	self.m_distanceBox:Destroy()
 	self.m_distanceFrame:Destroy()
-	
+
 	self.m_distanceBox = nil
 	self.m_distanceFrame = nil
 end
@@ -187,7 +187,6 @@ local function calcBottomDistance(object, parent)
 	return parentBottom - objectBottom
 end
 
-
 local function updateDistanceBoxText(self, distance)
 	-- The specification calls for also being able to display the distance
 	-- as Offset and Scale but that will be implemented in a later story.
@@ -204,17 +203,21 @@ local function updateX(self, selectedObject, parent)
 	-- Determine if the mid points are inside the parent. Floor center values
 	-- otherwise the line will appear to jerk for objects with odd sizes.
 	local parentRect = Rect.new(parent.AbsolutePosition, parent.AbsolutePosition + parent.AbsoluteSize)
-	local leftMidPoint = Vector2.new(selectedObject.AbsolutePosition.X,
-									  math.floor(selectedObject.AbsolutePosition.Y + selectedObject.AbsoluteSize.Y/2.0))
-	local rightMidPoint = Vector2.new(selectedObject.AbsolutePosition.X + selectedObject.AbsoluteSize.X,
-									   math.floor(selectedObject.AbsolutePosition.Y + selectedObject.AbsoluteSize.Y/2.0))
+	local leftMidPoint = Vector2.new(
+		selectedObject.AbsolutePosition.X,
+		math.floor(selectedObject.AbsolutePosition.Y + selectedObject.AbsoluteSize.Y / 2.0)
+	)
+	local rightMidPoint = Vector2.new(
+		selectedObject.AbsolutePosition.X + selectedObject.AbsoluteSize.X,
+		math.floor(selectedObject.AbsolutePosition.Y + selectedObject.AbsoluteSize.Y / 2.0)
+	)
 	local leftMidPointInside = RectUtility:containsPoint(parentRect, leftMidPoint)
 	local rightMidPointInside = RectUtility:containsPoint(parentRect, rightMidPoint)
-	
+
 	-- The anchor coordinates are in the space of the frame
 	local leftAnchor = Vector2.new(1.0, 0.5) -- Draw from the left side of the selected object and to the left
 	local rightAnchor = Vector2.new(0.0, 0.5) -- Draw from the right side of the selected object and to the right
-	
+
 	local distance
 	if leftMidPointInside and rightMidPointInside then
 		-- Both mid points are inside the parent. It just needs to draw the distance
@@ -251,7 +254,7 @@ local function updateX(self, selectedObject, parent)
 	end
 
 	self.m_canShow = true
-	
+
 	updateDistanceBoxText(self, distance)
 end
 
@@ -261,21 +264,25 @@ end
 -- void updateY(DistanceLine self, GuiBase2d selectedObject, GuiBase2d parent)
 local function updateY(self, selectedObject, parent)
 	local distanceFrame = self.m_distanceFrame
-	
+
 	-- Determine if the mid points are inside the parent. Floor center values
 	-- otherwise the line will appear to jerk for objects with odd sizes.
 	local parentRect = Rect.new(parent.AbsolutePosition, parent.AbsolutePosition + parent.AbsoluteSize)
-	local topMidPoint = Vector2.new(math.floor(selectedObject.AbsolutePosition.X + selectedObject.AbsoluteSize.X/2.0),
-									selectedObject.AbsolutePosition.Y)
-	local bottomMidPoint = Vector2.new(math.floor(selectedObject.AbsolutePosition.X + selectedObject.AbsoluteSize.X/2.0),
-									   selectedObject.AbsolutePosition.Y + selectedObject.AbsoluteSize.Y)
+	local topMidPoint = Vector2.new(
+		math.floor(selectedObject.AbsolutePosition.X + selectedObject.AbsoluteSize.X / 2.0),
+		selectedObject.AbsolutePosition.Y
+	)
+	local bottomMidPoint = Vector2.new(
+		math.floor(selectedObject.AbsolutePosition.X + selectedObject.AbsoluteSize.X / 2.0),
+		selectedObject.AbsolutePosition.Y + selectedObject.AbsoluteSize.Y
+	)
 	local topMidPointInside = RectUtility:containsPoint(parentRect, topMidPoint)
 	local bottomMidPointInside = RectUtility:containsPoint(parentRect, bottomMidPoint)
-	
+
 	-- The anchor coordinates are in the space of the frame
 	local topAnchor = Vector2.new(0.5, 1.0) -- Draw from the top side of the selected object and to the top
-	local bottomAnchor = Vector2.new(0.5, 0.0) -- Draw from the bottom side of the selected object and to the bottom	
-	
+	local bottomAnchor = Vector2.new(0.5, 0.0) -- Draw from the bottom side of the selected object and to the bottom
+
 	local distance
 	if topMidPointInside and bottomMidPointInside then
 		-- Both mid points are inside the parent. We just need to draw the distance
@@ -290,11 +297,11 @@ local function updateY(self, selectedObject, parent)
 		else
 			distanceFrame.AnchorPoint = bottomAnchor
 			distanceFrame.Position = UDim2.new(0, bottomMidPoint.X, 0, bottomMidPoint.Y)
-		end	
+		end
 	elseif topMidPointInside then
 		-- The top mid point is inside but the bottom is outside. The closest parent
 		-- side should be the parent's top side.
-		distanceFrame.Visible = true		
+		distanceFrame.Visible = true
 		distanceFrame.AnchorPoint = topAnchor
 		distanceFrame.Position = UDim2.new(0, topMidPoint.X, 0, topMidPoint.Y)
 		distance = calcTopDistance(selectedObject, parent)
@@ -302,7 +309,7 @@ local function updateY(self, selectedObject, parent)
 	elseif bottomMidPointInside then
 		-- The bottom mid point is inside but the top is outside. The closest parent
 		-- side should be the parent's bottom side.
-		distanceFrame.Visible = true		
+		distanceFrame.Visible = true
 		distanceFrame.AnchorPoint = bottomAnchor
 		distanceFrame.Position = UDim2.new(0, bottomMidPoint.X, 0, bottomMidPoint.Y)
 		distance = calcBottomDistance(selectedObject, parent)
@@ -311,10 +318,10 @@ local function updateY(self, selectedObject, parent)
 		-- The mid points are both outside the parent. This will be handled in a later story.
 		self.m_canShow = false
 		return
-	end	
-	
-	self.m_canShow = true	
-	
+	end
+
+	self.m_canShow = true
+
 	-- Update y distance box
 	updateDistanceBoxText(self, distance)
 end

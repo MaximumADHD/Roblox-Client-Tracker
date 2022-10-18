@@ -25,8 +25,6 @@ local content = ExpandablePaneStyle.Content
 local Dash = Framework.Dash
 local join = Dash.join
 
-local getFFlagAssetImportGlobalStatusFix = require(Plugin.Src.Flags.getFFlagAssetImportGlobalStatusFix)
-
 local PluginTheme = {
 	PropertyView = {
 		IconSize = 20,
@@ -102,12 +100,12 @@ local PluginTheme = {
 	ErrorStatus = {
 		TextColor = Color3.fromRGB(255, 85, 85),
 		TextXAlignment = Enum.TextXAlignment.Left,
-		TextSize = if getFFlagAssetImportGlobalStatusFix() then 10 else nil,
+		TextSize = 10,
 	},
 	WarningStatus = {
 		TextColor = Color3.fromRGB(255, 170, 33),
 		TextXAlignment = Enum.TextXAlignment.Left,
-		TextSize = if getFFlagAssetImportGlobalStatusFix() then 10 else nil,
+		TextSize = 10,
 	},
 
 	[ui.ExpandablePane] = join(BaseTheme[ui.ExpandablePane], {

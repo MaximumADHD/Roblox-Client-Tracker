@@ -4,18 +4,18 @@ function UniqueArrayMap.new()
 	local setTable = {}
 	setTable.map = {}
 	setTable.mt = {}
-	
+
 	function setTable.mt.__index(t, k)
 		if k == "insert" then
 			return function(key, value)
-				if (not t.map[key]) then
-					table.insert(t, {key, value})
+				if not t.map[key] then
+					table.insert(t, { key, value })
 					t.map[key] = #t
 				end
 			end
 		elseif k == "remove" then
 			return function(key, value)
-				if (t.map[key]) then
+				if t.map[key] then
 					local index = t.map[key]
 					table.remove(setTable, index)
 					for i = index, #t do
@@ -36,8 +36,8 @@ function UniqueArrayMap.new()
 			end
 		end
 	end
-	
-	setmetatable(setTable, setTable.mt)	
+
+	setmetatable(setTable, setTable.mt)
 	return setTable
 end
 

@@ -10,8 +10,6 @@ local DebuggerLuaResponse = require(script.Parent.MockDebuggerLuaResponse)
 local Constants = require(script.Parent.Parent.Util.Constants)
 local Promise = Framework.Util.Promise
 
-local FFlagStudioDebuggerExpandVariables = require(main.Src.Flags.GetFFlagStudioDebuggerExpandVariables)
-
 local MockDebuggerConnection = {}
 MockDebuggerConnection.__index = MockDebuggerConnection
 
@@ -21,9 +19,9 @@ function MockDebuggerConnection.new(mockID)
 	local rootVariable = DebuggerVariable.new(1, "Alex", "Instance", "Map")
 	local rootVariable3 = DebuggerVariable.new(3, "Alex2", "somePreview", "map")
 	rootVariable:MockSetChildren({ rootVariable3 })
-	local rootVariable2 = DebuggerVariable.new(2, if FFlagStudioDebuggerExpandVariables() then "UnitedStates" else "UnitedStatesMockDebugger", "Instance", "Map")
-	local rootVariable4 = DebuggerVariable.new(4, if FFlagStudioDebuggerExpandVariables() then "Wisconsin" else "TexasMockDebugger", "Instance", "Map")
-	local rootVariable5 = DebuggerVariable.new(5, if FFlagStudioDebuggerExpandVariables() then "Madison" else "PlanoMockDebugger", "somePreview", "map")
+	local rootVariable2 = DebuggerVariable.new(2, "UnitedStates", "Instance", "Map")
+	local rootVariable4 = DebuggerVariable.new(4, "Wisconsin", "Instance", "Map")
+	local rootVariable5 = DebuggerVariable.new(5, "Madison", "somePreview", "map")
 	rootVariable4:MockSetChildren({ rootVariable5 })
 	rootVariable2:MockSetChildren({ rootVariable4 })
 

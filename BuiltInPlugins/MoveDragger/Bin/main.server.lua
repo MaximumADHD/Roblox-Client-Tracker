@@ -39,7 +39,7 @@ local function openPlugin()
 
 	local moveHandlesEnabledFunction
 	if getFFlagDraggerHandlesIsEnabledFunction() then
-		moveHandlesEnabledFunction = function (selectionInfo)
+		moveHandlesEnabledFunction = function(selectionInfo)
 			if selectionInfo and selectionInfo.basisObject then
 				return true
 			else
@@ -72,8 +72,7 @@ local function openPlugin()
 					Summonable = true,
 					Outset = 0.3,
 					IsEnabledFunction = getFFlagDraggerHandlesIsEnabledFunction() and moveHandlesEnabledFunction or nil,
-				}, DraggerSchema.TransformHandlesImplementation.new(
-					draggerContext, ikTransformMoveHandler)),
+				}, DraggerSchema.TransformHandlesImplementation.new(draggerContext, ikTransformMoveHandler)),
 			},
 		},
 	}))
@@ -91,15 +90,9 @@ end
 local function main()
 	plugin.Name = PLUGIN_NAME
 	local toolbar = plugin:CreateToolbar(TOOLBAR_NAME)
-	toolButton = toolbar:CreateButton(
-		DRAGGER_TOOL_NAME,
-		"Move an Object",
-		"",
-		"Move"
-	)
+	toolButton = toolbar:CreateButton(DRAGGER_TOOL_NAME, "Move an Object", "", "Move")
 
-	draggerContext = DraggerContext_PluginImpl.new(
-		plugin, game, settings(), DraggerSchema.Selection.new())
+	draggerContext = DraggerContext_PluginImpl.new(plugin, game, settings(), DraggerSchema.Selection.new())
 
 	plugin.Deactivation:Connect(function()
 		if pluginEnabled then

@@ -4,7 +4,7 @@
 --]]
 
 -- Module scripts
-local FFlag	= require(script.Parent.FFlag)
+local FFlag = require(script.Parent.FFlag)
 
 -- Services
 local CoreGuiManager = require(script.Parent.CoreGuiManager)
@@ -31,7 +31,7 @@ end
 
 local function createRubberband()
 	m_selectionScreenGui = Instance.new("ScreenGui", CoreGuiManager:findOrCreateFolder("Rubberband"))
-	
+
 	for i = 1, 4 do
 		m_rubberbandFrames[i] = createFrame(m_selectionScreenGui, 0, RUBBERBAND_COLOR)
 	end
@@ -43,25 +43,27 @@ function Rubberband:startRubberbandDrag(location)
 	m_rubberbandDragInProgress = true
 	m_selectionBoxStart = location
 	m_selectionBoxEnd = location
-	
-	if (not m_selectionScreenGui) then
+
+	if not m_selectionScreenGui then
 		createRubberband()
 	end
-	
+
 	m_actionMediator:onRubberbandBegan(location)
 end
 
 function Rubberband:updateRubberband(location)
-	if (not m_rubberbandDragInProgress) then return end
-	
-	m_selectionBoxEnd = location	
+	if not m_rubberbandDragInProgress then
+		return
+	end
+
+	m_selectionBoxEnd = location
 	local size = m_selectionBoxEnd - m_selectionBoxStart
-	
+
 	m_rubberbandFrames[1].Size = UDim2.new(0, RUBBERBAND_BORDER_SIZE, 0, size.Y + RUBBERBAND_BORDER_SIZE)
 	m_rubberbandFrames[2].Size = UDim2.new(0, RUBBERBAND_BORDER_SIZE, 0, size.Y + RUBBERBAND_BORDER_SIZE)
 	m_rubberbandFrames[3].Size = UDim2.new(0, size.X + RUBBERBAND_BORDER_SIZE, 0, RUBBERBAND_BORDER_SIZE)
 	m_rubberbandFrames[4].Size = UDim2.new(0, size.X + RUBBERBAND_BORDER_SIZE, 0, RUBBERBAND_BORDER_SIZE)
-	
+
 	m_rubberbandFrames[1].Position = UDim2.new(0, m_selectionBoxStart.X, 0, m_selectionBoxStart.Y)
 	m_rubberbandFrames[2].Position = UDim2.new(0, m_selectionBoxStart.X + size.X, 0, m_selectionBoxStart.Y)
 	m_rubberbandFrames[3].Position = UDim2.new(0, m_selectionBoxStart.X, 0, m_selectionBoxStart.Y)
@@ -69,22 +71,24 @@ function Rubberband:updateRubberband(location)
 end
 
 function Rubberband:finishRubberbandDrag()
-	if (not m_rubberbandDragInProgress) then return end
-	
+	if not m_rubberbandDragInProgress then
+		return
+	end
+
 	m_rubberbandDragInProgress = false
 	m_selectionBoxStart = nil
-	
-	if (m_selectionScreenGui) then
+
+	if m_selectionScreenGui then
 		m_selectionScreenGui:Destroy()
 		m_selectionScreenGui = nil
 		m_rubberbandFrames = {}
 	end
-	
+
 	m_actionMediator:onRubberbandEnded()
 end
 
 function Rubberband:isDragInProgress()
-	return m_rubberbandDragInProgress-- and m_selectionBoxStart ~= m_selectionBoxEnd
+	return m_rubberbandDragInProgress -- and m_selectionBoxStart ~= m_selectionBoxEnd
 end
 
 function Rubberband:getBounds()

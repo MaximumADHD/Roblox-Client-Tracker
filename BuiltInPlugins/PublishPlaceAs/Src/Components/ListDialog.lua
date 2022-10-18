@@ -26,21 +26,12 @@ local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 
-local SharedFlags = Framework.SharedFlags
-local FFlagRemoveUILibraryBulletPoint = SharedFlags.getFFlagRemoveUILibraryBulletPoint()
-
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local BulletList = UI.BulletList
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
-
-local UILibrary = require(Plugin.Packages.UILibrary)
-local BulletPoint
-if not FFlagRemoveUILibraryBulletPoint then
-	BulletPoint = UILibrary.Component.BulletPoint
-end
 local StyledDialog = UI.StyledDialog
 
 local ListDialog = Roact.PureComponent:extend("ListDialog")
@@ -72,7 +63,7 @@ function ListDialog:render()
 
 		Header = Roact.createElement("TextLabel", {
 			LayoutOrder = layoutIndex:getNextOrder(),
-			AutomaticSize = if FFlagRemoveUILibraryBulletPoint then Enum.AutomaticSize.XY else nil,
+			AutomaticSize = Enum.AutomaticSize.XY,
 			BackgroundTransparency = 1,
 			Text = header,
 			TextXAlignment = Enum.TextXAlignment.Left,
@@ -82,41 +73,11 @@ function ListDialog:render()
 			TextColor3 = theme.listDialog.textColor,
 		}),
 	}
-
-	if FFlagRemoveUILibraryBulletPoint then
-		children.List = Roact.createElement(BulletList, {
-			Items = entries,
-			LayoutOrder = layoutIndex:getNextOrder(),
-			TextTruncate = Enum.TextTruncate.AtEnd,
-		})
-	else
-		local entryList = {
-			Layout = Roact.createElement("UIListLayout", {
-				Padding = UDim.new(0, 4),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-			}),
-		}
-
-		for i, item in ipairs(entries) do
-			table.insert(
-				entryList,
-				Roact.createElement(BulletPoint, {
-					LayoutOrder = i,
-					Text = item,
-					TextWrapped = props.Wrapped,
-					TextTruncate = props.Truncate,
-				})
-			)
-		end
-
-		children.Entries = Roact.createElement("Frame", {
-			LayoutOrder = layoutIndex:getNextOrder(),
-			BackgroundTransparency = 1,
-			Size = UDim2.new(1, -60, 0, 120),
-			AnchorPoint = Vector2.new(0.5, 0),
-			Position = UDim2.new(0.5, 0, 0, 100),
-		}, entryList)
-	end
+	children.List = Roact.createElement(BulletList, {
+		Items = entries,
+		LayoutOrder = layoutIndex:getNextOrder(),
+		TextTruncate = Enum.TextTruncate.AtEnd,
+	})
 
 	return Roact.createElement(StyledDialog, {
 		Title = title,

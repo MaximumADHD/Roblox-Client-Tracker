@@ -17,7 +17,7 @@
 local ActionMediator = {}
 
 -- Module scripts
-local FFlag	= require(script.Parent.FFlag)
+local FFlag = require(script.Parent.FFlag)
 
 -- Variables
 local m_move = nil
@@ -47,14 +47,13 @@ end
 -- void ActionMediator:onMoveEnded(Vector2 location)
 function ActionMediator:onMoveEnded(location)
 	m_resize:updatePosition()
-	m_resize:show()	
+	m_resize:show()
 	m_sizeBox:updatePosition()
 	m_sizeBox:setVisible(true)
 end
 
 -- void ActionMediator:onResizeBegan(Vector2 location)
-function ActionMediator:onResizeBegan(location)
-end
+function ActionMediator:onResizeBegan(location) end
 
 -- void ActionMediator:onResizeChanged(Vector2 location)
 function ActionMediator:onResizeChanged(location)
@@ -63,8 +62,7 @@ function ActionMediator:onResizeChanged(location)
 end
 
 -- void ActionMediator:onResizeEnded(Vector2 location)
-function ActionMediator:onResizeEnded(location)
-end
+function ActionMediator:onResizeEnded(location) end
 
 -- void ActionMediator:onRotateBegan(Vector2 location)
 function ActionMediator:onRotateBegan(location)
@@ -157,12 +155,12 @@ end
 
 -- For setting the SizeBox module
 function ActionMediator:setSizeBox(sizeBox)
-	m_sizeBox = sizeBox	
+	m_sizeBox = sizeBox
 end
 
 -- For setting the SelectionManager module
 function ActionMediator:setSelectionManager(selectionManager)
-	m_selectionManager = selectionManager	
+	m_selectionManager = selectionManager
 end
 
 return ActionMediator

@@ -15,11 +15,11 @@ local RectUtility = {}
 -- number RectUtility:pointOnSideOfLine(Vector2 a, Vector2 b, Vector2 p)
 function RectUtility:pointOnSideOfLine(a, b, p)
 	-- See https://math.stackexchange.com/questions/274712/calculate-on-which-side-of-a-straight-line-is-a-given-point-located
-	local d = (p.X - a.X)*(b.Y - a.Y) - (p.Y - a.Y)*(b.X - a.X)
+	local d = (p.X - a.X) * (b.Y - a.Y) - (p.Y - a.Y) * (b.X - a.X)
 	return d
 end
 
--- Returns true if the a point is inside or on the sides of a rectangle. 
+-- Returns true if the a point is inside or on the sides of a rectangle.
 --
 -- Assumes that the Rect is axis aligned.
 --
@@ -29,7 +29,7 @@ function RectUtility:containsPoint(rectangle, point)
 	local topRightPoint = Vector2.new(topLeftPoint.X + rectangle.Width, topLeftPoint.Y)
 	local bottomRightPoint = rectangle.Max
 	local bottomLeftPoint = Vector2.new(bottomRightPoint.X - rectangle.Width, bottomRightPoint.Y)
-	
+
 	local top = RectUtility:pointOnSideOfLine(topLeftPoint, topRightPoint, point)
 	local right = RectUtility:pointOnSideOfLine(topRightPoint, bottomRightPoint, point)
 	local bottom = RectUtility:pointOnSideOfLine(bottomRightPoint, bottomLeftPoint, point)
@@ -38,7 +38,7 @@ function RectUtility:containsPoint(rectangle, point)
 	-- If the point is on the right side of all the sides of the rectangle
 	-- then it's inside the rectangle. Notice that the winding order matters.
 	local isInside = top <= 0 and right <= 0 and bottom <= 0 and left <= 0
-	
+
 	return isInside
 end
 

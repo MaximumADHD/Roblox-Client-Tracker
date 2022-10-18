@@ -10,11 +10,13 @@ local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local Players = game:GetService("Players")
 local Utility = require(RobloxGui.Modules.Settings.Utility)
 local GamepadService = game:GetService("GamepadService")
 
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
+local FFlagVRLetRaycastsThroughUI = require(CoreGuiModules.Flags.FFlagVRLetRaycastsThroughUI)
 
 --Panel3D State variables
 local renderStepName = "Panel3DRenderStep-" .. game:GetService("HttpService"):GenerateGUID()
@@ -245,6 +247,7 @@ function Panel:GetPart()
 			Transparency = 1,
 
 			CanCollide = false,
+			CanTouch = if FFlagVRLetRaycastsThroughUI then false else nil,
 			Anchored = true,
 
 			Size = Vector3.new(1, 1, partThickness),
