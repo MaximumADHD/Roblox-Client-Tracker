@@ -1,5 +1,11 @@
 --!strict
--- upstream: https://github.com/graphql/graphql-js/blob/1611bbb08a88f734e9490b14cfe6afea11a838e0/src/__tests__/starWarsData.js
+--[[
+ * Copyright (c) GraphQL Contributors
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+]]
+-- ROBLOX upstream: https://github.com/graphql/graphql-js/blob/1611bbb08a88f734e9490b14cfe6afea11a838e0/src/__tests__/starWarsData.js
 local rootWorkspace = script.Parent.Parent
 local Packages = rootWorkspace.Parent
 

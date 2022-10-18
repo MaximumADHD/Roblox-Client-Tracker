@@ -1,4 +1,10 @@
--- upstream: https://github.com/graphql/graphql-js/blob/1951bce42092123e844763b6a8e985a8a3327511/src/language/tokenKind.js
+--[[
+ * Copyright (c) GraphQL Contributors
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+]]
+-- ROBLOX upstream: https://github.com/graphql/graphql-js/blob/1951bce42092123e844763b6a8e985a8a3327511/src/language/tokenKind.js
 local exports = {}
 
 -- ROBLOX FIXME Luau: this gross workaround is becaus string literals don't automatically express as the singleton type yet

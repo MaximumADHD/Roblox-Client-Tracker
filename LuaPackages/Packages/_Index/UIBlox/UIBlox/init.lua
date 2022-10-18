@@ -84,6 +84,8 @@ local function initializeLibrary(configs)
 		InfiniteScroller = strict(require(Packages.InfiniteScroller)),
 
 		Hooks = strict({
+			useExternalEvent = require(script.Utility.useExternalEvent),
+			useIsGamepad = require(script.Utility.useIsGamepad),
 			useLazyRef = require(script.Utility.useLazyRef),
 			useInitializedValue = require(script.Utility.useInitializedValue),
 		}),

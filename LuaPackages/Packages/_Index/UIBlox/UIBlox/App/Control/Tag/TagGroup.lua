@@ -24,6 +24,7 @@ local IconButton = require(UIBlox.App.Button.IconButton)
 local InputButton = require(UIBlox.Core.InputButton.InputButton)
 local isCallable = require(UIBlox.Utility.isCallable)
 local useInitializedValue = require(UIBlox.Utility.useInitializedValue)
+local useIsGamepad = require(UIBlox.Utility.useIsGamepad)
 
 -- Signature for callback invoked when tag selection changes
 export type OnSelectionChanged = (selectedTags: { string }) -> ()
@@ -81,6 +82,8 @@ local function shouldShowGradientForScrollingFrame(scrollingFrame: ScrollingFram
 end
 
 local function TagGroup(props: Props)
+	local isGamepad = useIsGamepad()
+
 	local gradientFrameRef = React.useRef(nil)
 	local scrollingFrameRef = React.useRef(nil)
 
@@ -133,12 +136,14 @@ local function TagGroup(props: Props)
 			icon = Images["icons/actions/reject"],
 			onActivated = clearTags,
 			key = "0",
-			ref = tagRefs[0],
+			buttonRef = tagRefs[0],
 			NextSelectionRight = tagRefs[1],
 		}) or nil,
 	}
 	local nextSelectionLeft = nil
 	local nextSelectionRight = nil
+
+	local allTagsLoading = props.isLoading
 
 	for i, tag in sortedTags do
 		local function onActivated()
@@ -156,6 +161,10 @@ local function TagGroup(props: Props)
 
 		local isSelected = i <= #selectedTags
 
+		if isSelected then
+			allTagsLoading = false
+		end
+
 		children[i] = React.createElement(Focusable[Tag], {
 			layoutOrder = i + 1,
 			key = tostring(i),
@@ -166,6 +175,17 @@ local function TagGroup(props: Props)
 			NextSelectionLeft = if i > 1 or showClearButton then tagRefs[i - 1] else nil,
 			NextSelectionRight = if i < #sortedTags then tagRefs[i + 1] else nil,
 			onActivated = onActivated,
+		})
+	end
+
+	if allTagsLoading and isGamepad then
+		-- If using gamepad navigation, create a dummy tag to hold focus
+		-- for the brief time when no active tags are visible
+		children[1] = React.createElement(Focusable[Tag], {
+			layoutOrder = 2,
+			key = "1",
+			ref = tagRefs[1],
+			text = "",
 		})
 	end
 

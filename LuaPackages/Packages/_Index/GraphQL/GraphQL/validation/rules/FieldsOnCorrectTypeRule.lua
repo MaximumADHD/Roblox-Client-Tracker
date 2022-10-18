@@ -1,3 +1,9 @@
+--[[
+ * Copyright (c) GraphQL Contributors
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+]]
 -- ROBLOX upstream: https://github.com/graphql/graphql-js/blob/687d209245b4603f56514c44e7b1517c8be8f46f/src/validation/rules/FieldsOnCorrectTypeRule.js
 
 local root = script.Parent.Parent.Parent

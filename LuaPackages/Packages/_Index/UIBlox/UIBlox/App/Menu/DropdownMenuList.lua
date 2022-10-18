@@ -14,8 +14,6 @@ local withStyle = require(UIBlox.Core.Style.withStyle)
 local BaseMenu = require(script.Parent.BaseMenu)
 local validateButtonProps = require(script.Parent.validateButtonProps)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local dropdownMenuListComponent = Roact.PureComponent:extend("DropdownMenuList")
 
 dropdownMenuListComponent.validateProps = t.strictInterface({
@@ -93,9 +91,7 @@ function dropdownMenuListComponent:render()
 				-self.props.buttonSize.X.Scale / 2,
 				-absolutePosition.X + self.props.screenSize.X / 2 - self.props.buttonSize.X.Offset / 2,
 				0,
-				UIBloxConfig.fixDropdownMenuListPositionAndSize
-						and (self.props.screenSize.Y - absolutePosition.Y - bottomCornerInset.Y - 24)
-					or (self.props.screenSize.Y - absolutePosition.Y - 24)
+				self.props.screenSize.Y - absolutePosition.Y - bottomCornerInset.Y - 24
 			)
 		end
 
@@ -105,10 +101,7 @@ function dropdownMenuListComponent:render()
 		end
 
 		return Roact.createElement("Frame", {
-			Size = UIBloxConfig.fixDropdownMenuListPositionAndSize and UDim2.fromScale(1, 1) or UDim2.fromOffset(
-				self.props.screenSize.X,
-				self.props.screenSize.Y
-			),
+			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
 			Visible = self.state.visible,
 			ZIndex = self.props.zIndex,

@@ -16,7 +16,6 @@ export type MatchedContact = {
 export type DeviceContact = {
 	id: string,
 	phoneNumbers: { number },
-	matchedContactIds: { string },
 } & RootContact
 
 return {}

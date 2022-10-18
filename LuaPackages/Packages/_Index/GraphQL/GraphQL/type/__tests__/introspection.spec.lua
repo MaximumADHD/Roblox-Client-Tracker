@@ -1,4 +1,10 @@
--- upstream: https://github.com/graphql/graphql-js/blob/01bcc7d9be982226bcf56b8f983f38fd89dced1b/src/type/__tests__/introspection-test.js
+--[[
+ * Copyright (c) GraphQL Contributors
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+]]
+-- ROBLOX upstream: https://github.com/graphql/graphql-js/blob/01bcc7d9be982226bcf56b8f983f38fd89dced1b/src/type/__tests__/introspection-test.js
 
 return function()
 	local root = script.Parent.Parent.Parent

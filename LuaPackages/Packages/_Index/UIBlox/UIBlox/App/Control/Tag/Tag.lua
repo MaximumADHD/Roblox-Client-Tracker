@@ -154,7 +154,12 @@ local function Tag(props: Props)
 		SelectionImageObject = selectionCursor,
 		[React.Event.Activated] = if not isLoading then onActivated else nil,
 		onStateChanged = onStateChanged,
+
 		ref = props.controlRef,
+		NextSelectionLeft = props.NextSelectionLeft,
+		NextSelectionRight = props.NextSelectionRight,
+		NextSelectionUp = props.NextSelectionUp,
+		NextSelectionDown = props.NextSelectionDown,
 	}, {
 		UIListLayout = React.createElement("UIListLayout", {
 			Padding = UDim.new(0, 0),

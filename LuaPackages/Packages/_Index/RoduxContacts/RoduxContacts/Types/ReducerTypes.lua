@@ -6,6 +6,10 @@ export type ByContactId = {
 	},
 }
 
+export type DeviceContactToRobloxContact = {
+	[string]: { [string]: true },
+}
+
 export type ByDeviceContactId = {
 	[string]: ContactTypes.DeviceContact,
 }
@@ -18,6 +22,7 @@ export type Reducer = {
 	byContactId: ByContactId,
 	byDeviceContactId: ByDeviceContactId,
 	hasSentRequest: HasSentRequest,
+	deviceContactToRobloxContact: DeviceContactToRobloxContact,
 }
 
 return {}

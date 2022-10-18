@@ -4,7 +4,7 @@ local App = TileRoot.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
-local Roact = require(Packages.Roact)
+local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 
@@ -18,10 +18,10 @@ local ItemTileEnums = require(TileRoot.Enum.ItemTileEnums)
 local ItemIcon = require(ItemTileRoot.ItemIcon)
 local Tile = require(TileRoot.BaseTile.Tile)
 
-local ItemTile = Roact.PureComponent:extend("ItemTile")
+local ItemTile = React.PureComponent:extend("ItemTile")
 
 local itemTileInterface = t.strictInterface({
-	-- The footer Roact element.
+	-- The footer React element.
 	footer = t.optional(t.table),
 
 	-- The item's name that will show a loading state if nil
@@ -98,6 +98,9 @@ local itemTileInterface = t.strictInterface({
 
 	-- An inset on the tile image.
 	renderTileInset = t.optional(t.callback),
+
+	-- Pass through React.Tag
+	[React.Tag] = t.optional(t.string),
 })
 
 local function tileBannerUseValidator(props)
@@ -153,7 +156,7 @@ function ItemTile:render()
 	if itemIconType then
 		hasOverlayComponents = true
 
-		overlayComponents.ItemIconType = Roact.createElement(ItemIcon, {
+		overlayComponents.ItemIconType = React.createElement(ItemIcon, {
 			itemIconType = itemIconType,
 		})
 	end
@@ -161,7 +164,7 @@ function ItemTile:render()
 	if restrictionTypes then
 		hasOverlayComponents = true
 
-		overlayComponents.RestrictionStatus = Roact.createElement(ItemRestrictionStatus, {
+		overlayComponents.RestrictionStatus = React.createElement(ItemRestrictionStatus, {
 			restrictionInfo = restrictionInfo,
 			restrictionTypes = restrictionTypes,
 		})
@@ -170,13 +173,13 @@ function ItemTile:render()
 	if statusText then
 		hasOverlayComponents = true
 
-		overlayComponents.Status = Roact.createElement(ItemTileStatus, {
+		overlayComponents.Status = React.createElement(ItemTileStatus, {
 			statusStyle = statusStyle,
 			statusText = statusText,
 		})
 	end
 
-	return Roact.createElement(Tile, {
+	return React.createElement(Tile, {
 		bannerText = bannerText,
 		footer = footer,
 		hasRoundedCorners = hasRoundedCorners,
@@ -202,12 +205,13 @@ function ItemTile:render()
 		NextSelectionUp = self.props.NextSelectionUp,
 		NextSelectionDown = self.props.NextSelectionDown,
 		textButtonRef = self.props.textButtonRef,
-		[Roact.Ref] = self.props.thumbnailRef,
+		ref = self.props.thumbnailRef,
+		[React.Tag] = self.props[React.Tag],
 	})
 end
 
-return Roact.forwardRef(function(props, ref)
-	return Roact.createElement(
+return React.forwardRef(function(props, ref)
+	return React.createElement(
 		ItemTile,
 		Cryo.Dictionary.join(props, {
 			thumbnailRef = ref,

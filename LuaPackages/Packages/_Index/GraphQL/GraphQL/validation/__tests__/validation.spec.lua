@@ -1,3 +1,9 @@
+--[[
+ * Copyright (c) GraphQL Contributors
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+]]
 -- ROBLOX upstream: https://github.com/graphql/graphql-js/blob/1611bbb08a88f734e9490b14cfe6afea11a838e0/src/validation/__tests__/validation-test.js
 local validationWorkspace = script.Parent.Parent
 local srcWorkspace = validationWorkspace.Parent

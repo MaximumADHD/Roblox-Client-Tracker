@@ -7,6 +7,11 @@
 ]]
 local AnimationClipProvider = game:GetService("AnimationClipProvider")
 local InsertService = game:GetService("InsertService")
+local FFlagEmoteUtilityHandleGetAnimationClipError = game:DefineFastFlag("EmoteUtilityHandleGetAnimationClipError", false)
+local FFlagEmoteUtilityClearFaceBeforeApplyingMood = game:DefineFastFlag("EmoteUtilityClearFaceBeforeApplyingMood", false)
+local FFlagEmoteUtilityClearFaceBeforeApplyingEmote = game:DefineFastFlag("EmoteUtilityClearFaceBeforeApplyingEmote", false)
+local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
+local RunService = game:GetService("RunService")
 
 local module = {}
 
@@ -62,12 +67,40 @@ local function getPoseAsset(poseAssetIdOrUrl)
 end
 
 -- Note, this is a yielding function.
+-- May return nil if we have problems fetching animation clip.
 local function getAnimationClip(animationClipId)
 	if animationClipId == cachedAnimationClipId then
 		return cachedAnimationClip
 	end
 
-	local animationClip = AnimationClipProvider:GetAnimationClipAsync(animationClipId)
+	local animationClip
+	if FFlagEmoteUtilityHandleGetAnimationClipError then
+		local success
+		success, animationClip = pcall(function()
+			return AnimationClipProvider:GetAnimationClipAsync(animationClipId)
+		end)
+		if not success then
+			local targetName
+			local counterName
+			if RunService:IsServer() and not RunService:IsClient() then
+				targetName = "RCC"
+				counterName = "RCCEmoteUtilityFailedToLoadAnimationClip"
+			else
+				targetName = "Client"
+				counterName = "UAEmoteUtilityFailedToLoadAnimationClip"
+			end
+			local eventCtx = "EmoteUtility_GetAnimationClip"
+			local eventName = "EmoteUtility_GetAnimationClip_GetAnimationClipAsyncFailed"
+			RbxAnalyticsService:SendEventDeferred(targetName, eventCtx, eventName, {
+				animationClipId = animationClipId,
+			})
+			RbxAnalyticsService:ReportCounter(counterName)
+
+			return nil
+		end
+	else
+		animationClip = AnimationClipProvider:GetAnimationClipAsync(animationClipId)
+	end
 	cachedAnimationClipId = animationClipId
 	cachedAnimationClip = animationClip
 	return animationClip
@@ -126,6 +159,31 @@ local function applyControlsFolder(character, parentPose, folder)
 end
 
 --[[
+	Does this poseKeyframe pose the face?
+]]
+module.PoseKeyframeHasFaceAnimtion = function (poseKeyframe)
+	local function recurHasFaceAnimation(poseObject)
+		if poseObject:IsA("Folder") then
+			return true
+		else
+			for _, subPose in poseObject:GetChildren() do
+				if recurHasFaceAnimation(subPose) then
+					return true
+				end
+			end
+		end
+		return false
+	end
+
+	for _, poseObj in pairs(poseKeyframe:GetPoses()) do
+		if recurHasFaceAnimation(poseObj) then
+			return true
+		end
+	end
+	return false
+end
+
+--[[
 	When applying a pose to a character, we may want to add to a 'blacklist': any joints
 	posed by the keyframe are added to the blacklist.
 	Subsequent calls to ApplyPose may opt to 'respect blacklist'.  In that case
@@ -172,6 +230,7 @@ module.GetNumberValueWithDefault = function(poseAsset, name, defaultValue)
 end
 
 -- Note, this is a yielding function.
+-- May return nil if we have problems fetching animation clip.
 module.GetEmoteAnimationClip = function(poseAsset)
 	-- Just a heads-up: currently the poseAsset is a keyframe sequence iff the user did not make
 	-- an explicit "I want this emote" choice, and we are falling back to a pose based on user's
@@ -407,6 +466,7 @@ end
 	number value in the pose asset and use that to rotate the avatar.
 
 	Return the keyframe and a bool on whether or not this trumps tools suggestions.
+	May return nil for keyframe.
 ]]
 local function getMainThumbnailKeyframe(character, poseAssetIdOrUrl, useRotationInPoseAsset)
 	local thumbnailKeyframe
@@ -440,16 +500,18 @@ local function getMainThumbnailKeyframe(character, poseAssetIdOrUrl, useRotation
 		end
 
 		local emoteAnimationClip = module.GetEmoteAnimationClip(poseAsset)
-		if emoteAnimationClip:IsA("KeyframeSequence") then
-			thumbnailKeyframe = module.GetThumbnailKeyframe(thumbnailKeyframeNumber,
-				emoteAnimationClip,
-				rotationDegrees)
-		elseif emoteAnimationClip:IsA("CurveAnimation") then
-			thumbnailKeyframe = module.GetThumbnailKeyframeFromCurve(thumbnailTime,
-				emoteAnimationClip,
-				rotationDegrees)
-		else
-			error("Unsupported Animation type:", emoteAnimationClip.ClassName)
+		if emoteAnimationClip then
+			if emoteAnimationClip:IsA("KeyframeSequence") then
+				thumbnailKeyframe = module.GetThumbnailKeyframe(thumbnailKeyframeNumber,
+					emoteAnimationClip,
+					rotationDegrees)
+			elseif emoteAnimationClip:IsA("CurveAnimation") then
+				thumbnailKeyframe = module.GetThumbnailKeyframeFromCurve(thumbnailTime,
+					emoteAnimationClip,
+					rotationDegrees)
+			else
+				error("Unsupported Animation type:", emoteAnimationClip.ClassName)
+			end
 		end
 	else
 		local poseAnimationId = FALLBACK_POSE_ANIMATION_ID
@@ -465,7 +527,7 @@ local function getMainThumbnailKeyframe(character, poseAssetIdOrUrl, useRotation
 		end
 
 		local poseKeyframeSequence = getAnimationClip(poseAnimationId)
-		thumbnailKeyframe = poseKeyframeSequence:GetKeyframes()[1]
+		thumbnailKeyframe = if poseKeyframeSequence then poseKeyframeSequence:GetKeyframes()[1] else nil
 	end
 
 	return thumbnailKeyframe, givenPoseTrumpsToolPose
@@ -504,6 +566,11 @@ local function getToolKeyframes(character, givenPoseTrumpsToolPose)
 		local toolHoldAnimationObject = character.Animate.toolnone.ToolNoneAnim
 		if toolHoldAnimationObject then
 			local toolKeyframeSequence = module.GetEmoteAnimationClip(toolHoldAnimationObject)
+			if not toolKeyframeSequence then
+				-- We couldn't load the animation clip.
+				-- Just proceed like there's no tool.
+				return nil, nil, nil
+			end
 			assert(toolKeyframeSequence:IsA("KeyframeSequence"), "ToolNoneAnim must be a KeyframeSequence")
 			defaultToolKeyframe = module.GetThumbnailKeyframe(nil, toolKeyframeSequence, 0)
 
@@ -521,6 +588,25 @@ local function getToolKeyframes(character, givenPoseTrumpsToolPose)
 	return tool, defaultToolKeyframe, suggestedKeyframeFromTool
 end
 
+--[[
+	Reset character FaceControls to neutral state.
+]]
+module.ClearPlayerCharacterFace = function(character)
+	-- There doesn't seem to be a simple one-step for this analogous to humanoid:BuildRigFromAttachments()
+	-- for resetting the body.  Best suggestion I got was to destroy and replace FaceControls.
+	-- I am assuming here that there's only zero or one FaceControls instance.
+	local deadMeatFaceControls = character:FindFirstChildWhichIsA("FaceControls", true)
+	if deadMeatFaceControls then
+		local parent = deadMeatFaceControls.Parent
+		local children = deadMeatFaceControls:GetChildren()
+		local newFaceControls = Instance.new("FaceControls")
+		newFaceControls.Parent = parent
+		for _, child in children do
+			child.Parent = newFaceControls
+		end
+		deadMeatFaceControls:Destroy()
+	end
+end
 
 --[[
 	Pose the given character based on the given asset id.
@@ -575,6 +661,11 @@ module.SetPlayerCharacterPose = function(character,
 		thumbnailKeyframe, givenPoseTrumpsToolPose =
 			getMainThumbnailKeyframe(character, poseAssetId, not ignoreRotationInPoseAsset)
 
+		-- If that fails, just quit.  No posing.
+		if not thumbnailKeyframe then
+			return
+		end
+
 		-- Get the thumbnails related to the tool.
 		local tool, defaultToolKeyframe, suggestedKeyframeFromTool = getToolKeyframes(character, givenPoseTrumpsToolPose)
 
@@ -586,6 +677,15 @@ module.SetPlayerCharacterPose = function(character,
 
 		-- Un-pose to stock 'at attention' stance.
 		humanoid:BuildRigFromAttachments()
+		-- Iff this is going to pose the face, first unpose the face.
+		-- (If it's not going to pose the face then leave it alone, we may have already moved
+		-- face into a pose we like)
+		if FFlagEmoteUtilityClearFaceBeforeApplyingEmote then
+			if module.PoseKeyframeHasFaceAnimtion(thumbnailKeyframe) then
+				module.ClearPlayerCharacterFace(character)
+			end
+		end
+
 		if tool then
 			doR15ToolPose(character, humanoid, tool, poseAssetId, thumbnailKeyframe, defaultToolKeyframe, suggestedKeyframeFromTool)
 		else
@@ -613,10 +713,20 @@ module.SetPlayerCharacterFace = function(character, poseAssetIdOrUrl, confirmPro
 	-- Get the thumbnails suggested by poseAssetIdOrUrl.
 	local thumbnailKeyframe = getMainThumbnailKeyframe(character, poseAssetIdOrUrl, true)
 
+	-- If that fails, just quit.  No posing.
+	if not thumbnailKeyframe then
+		return
+	end
+
 	-- We have called some yielding functions (and now we are done, no more yielding functions).
 	-- Do we still want to do this?
 	if confirmProceedAfterYield and not confirmProceedAfterYield(poseAssetIdOrUrl) then
 		return
+	end
+
+	-- Before applying the pose, clear out any previous face pose (otherwise we get some hybrid of previous & mood)
+	if FFlagEmoteUtilityClearFaceBeforeApplyingMood then
+		module.ClearPlayerCharacterFace(character)
 	end
 
 	module.ApplyPose(character, thumbnailKeyframe, false, false)

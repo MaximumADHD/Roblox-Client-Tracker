@@ -1,4 +1,10 @@
--- upstream: https://github.com/graphql/graphql-js/blob/1951bce42092123e844763b6a8e985a8a3327511/src/language/printer.js
+--[[
+ * Copyright (c) GraphQL Contributors
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+]]
+-- ROBLOX upstream: https://github.com/graphql/graphql-js/blob/1951bce42092123e844763b6a8e985a8a3327511/src/language/printer.js
 --!strict
 local srcWorkspace = script.Parent.Parent
 local Packages = srcWorkspace.Parent
@@ -215,7 +221,7 @@ printDocASTReducer = {
 		local value = node.value
 		return value
 	end,
-	StringValue = function(_self, node, key: StringValueNode)
+	StringValue = function(_self, node: StringValueNode, key: string)
 		local value = node.value
 		local isBlockingString = node.block
 		return if isBlockingString
@@ -230,7 +236,7 @@ printDocASTReducer = {
 			return "false"
 		end
 	end,
-	NullValue = function(_self: NullValueNode)
+	NullValue = function(_self, _node: NullValueNode)
 		return "null"
 	end,
 	EnumValue = function(_self, node: EnumValueNode)

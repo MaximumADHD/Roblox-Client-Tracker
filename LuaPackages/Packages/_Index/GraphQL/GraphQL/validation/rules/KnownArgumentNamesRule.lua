@@ -1,3 +1,9 @@
+--[[
+ * Copyright (c) GraphQL Contributors
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+]]
 -- ROBLOX upstream: https://github.com/graphql/graphql-js/blob/fe27912e56dc257eca720e07fc84a4370236dd9d/src/validation/rules/KnownArgumentNamesRule.js
 
 local root = script.Parent.Parent.Parent

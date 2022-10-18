@@ -5,6 +5,10 @@ local Roact = dependencies.Roact
 local withStyle = dependencies.UIBlox.Style.withStyle
 local TextService = game:GetService("TextService")
 
+game:DefineFastFlag("FixPlainTextAutomaticSizeClippingText", false)
+
+local fFlagFixPlainTextAutomaticSizeClippingText = game:GetFastFlag("FixPlainTextAutomaticSizeClippingText")
+
 local defaultProps = {
 	text = "",
 	maxWidth = 0,
@@ -45,15 +49,17 @@ local function PlainText(props)
 				AutomaticSize = Enum.AutomaticSize.XY,
 				Font = font,
 				TextSize = textSize,
-				Size = UDim2.new(0, textBounds.X, 0, textBounds.Y),
+				Size = fFlagFixPlainTextAutomaticSizeClippingText
+						and UDim2.fromOffset(math.ceil(textBounds.X), math.ceil(textBounds.Y))
+					or UDim2.new(0, textBounds.X, 0, textBounds.Y),
 				TextTransparency = props.isPending and style.Theme.TextMuted.Transparency or 0,
 				TextYAlignment = Enum.TextYAlignment.Top,
 				TextWrapped = true,
 			}, {
 				SizeConstraint = Roact.createElement("UISizeConstraint", {
 					MaxSize = Vector2.new(contentMaxWidth or maxWidth, math.huge),
-				})
-			})
+				}),
+			}),
 		})
 	end)
 end

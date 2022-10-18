@@ -7,7 +7,7 @@ local Packages = UIBlox.Parent
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local RoactGamepad = require(Packages.RoactGamepad)
 
-local Roact = require(Packages.Roact)
+local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
@@ -26,10 +26,10 @@ local Images = require(UIBlox.App.ImageSet.Images)
 
 local ICON_PADDING = 4
 
-local Tile = Roact.PureComponent:extend("Tile")
+local Tile = React.PureComponent:extend("Tile")
 
 local tileInterface = t.strictInterface({
-	-- The footer Roact element.
+	-- The footer React element.
 	footer = t.optional(t.table),
 
 	-- The item's name that will show a loading state if nil
@@ -87,7 +87,7 @@ local tileInterface = t.strictInterface({
 	-- Image information should be ImageSet compatible
 	titleIcon = t.optional(t.table),
 
-	-- Optional Roact elements that are overlayed over the thumbnail component
+	-- Optional React elements that are overlayed over the thumbnail component
 	thumbnailOverlayComponents = t.optional(t.table),
 
 	-- optional parameters for RoactGamepad
@@ -110,6 +110,9 @@ local tileInterface = t.strictInterface({
 
 	-- An inset on the tile image.
 	renderTileInset = t.optional(t.callback),
+
+	-- Pass through React.Tag
+	[React.Tag] = t.optional(t.string),
 })
 
 local function tileBannerUseValidator(props)
@@ -232,22 +235,22 @@ function Tile:render()
 			local renderTileInset = self.props.renderTileInset
 
 			-- TODO: use generic/state button from UIBlox
-			return Roact.createElement("TextButton", {
+			return React.createElement("TextButton", {
 				Text = "",
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
 				Selectable = self.props.Selectable,
-				[Roact.Event.Activated] = not isDisabled and onActivated or nil,
-				[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
-				[Roact.Ref] = self.props.textButtonRef,
+				[React.Event.Activated] = not isDisabled and onActivated or nil,
+				[React.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
+				ref = self.props.textButtonRef,
 				SelectionImageObject = getSelectionCursor(CursorKind.RoundedRectNoInset),
 			}, {
-				UIListLayout = Roact.createElement("UIListLayout", {
+				UIListLayout = React.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Vertical,
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					Padding = UDim.new(0, innerPadding),
 				}),
-				Thumbnail = Roact.createElement(RoactGamepad.Focusable.Frame, {
+				Thumbnail = React.createElement(RoactGamepad.Focusable.Frame, {
 					Size = UDim2.new(1, 0, 1, 0),
 					SizeConstraint = Enum.SizeConstraint.RelativeXX,
 					BackgroundTransparency = 1,
@@ -257,13 +260,14 @@ function Tile:render()
 					NextSelectionRight = self.props.NextSelectionRight,
 					NextSelectionUp = self.props.NextSelectionUp,
 					NextSelectionDown = self.props.NextSelectionDown,
-					[Roact.Ref] = self.props.thumbnailRef,
+					ref = self.props.thumbnailRef,
+					[React.Tag] = self.props[React.Tag],
 					SelectionImageObject = getSelectionCursor(CursorKind.RoundedRectNoInset),
 					inputBindings = (not isDisabled and onActivated) and {
 						Activate = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, onActivated),
 					} or nil,
 				}, {
-					Image = Roact.createElement(TileThumbnail, {
+					Image = React.createElement(TileThumbnail, {
 						Image = thumbnail,
 						hasRoundedCorners = hasRoundedCorners,
 						isSelected = isSelected,
@@ -276,17 +280,17 @@ function Tile:render()
 					}),
 					TileInset = renderTileInset and renderTileInset() or nil,
 				}),
-				TitleArea = UIBloxConfig.enableSubtitleOnTile and Roact.createElement("Frame", {
+				TitleArea = UIBloxConfig.enableSubtitleOnTile and React.createElement("Frame", {
 					Size = UDim2.new(1, 0, 0, titleTextSize.Y + subtitleTextHeight),
 					BackgroundTransparency = 1,
 					LayoutOrder = 2,
 				}, {
-					UIListLayout = Roact.createElement("UIListLayout", {
+					UIListLayout = React.createElement("UIListLayout", {
 						FillDirection = Enum.FillDirection.Vertical,
 						SortOrder = Enum.SortOrder.LayoutOrder,
 						Padding = UDim.new(0, 0),
 					}),
-					Name = (titleTextLineCount > 0 and tileWidth > 0) and Roact.createElement(TileName, {
+					Name = (titleTextLineCount > 0 and tileWidth > 0) and React.createElement(TileName, {
 						titleIcon = titleIcon,
 						name = name,
 						hasVerifiedBadge = hasVerifiedBadge,
@@ -296,7 +300,7 @@ function Tile:render()
 						useMaxHeight = useMaxTitleHeight,
 						titleFontStyle = titleFontStyle,
 					}),
-					Subtitle = (subtitle ~= "" and subtitle ~= nil) and Roact.createElement(StyledTextLabel, {
+					Subtitle = (subtitle ~= "" and subtitle ~= nil) and React.createElement(StyledTextLabel, {
 						size = UDim2.new(1, 0, 0, subtitleTextHeight),
 						text = subtitle,
 						colorStyle = theme.TextDefault,
@@ -307,7 +311,7 @@ function Tile:render()
 						richText = false,
 						lineHeight = 1,
 					}),
-				}) or (titleTextLineCount > 0 and tileWidth > 0) and Roact.createElement(TileName, {
+				}) or (titleTextLineCount > 0 and tileWidth > 0) and React.createElement(TileName, {
 					titleIcon = titleIcon,
 					name = name,
 					hasVerifiedBadge = hasVerifiedBadge,
@@ -317,12 +321,12 @@ function Tile:render()
 					useMaxHeight = useMaxTitleHeight,
 					titleFontStyle = titleFontStyle,
 				}),
-				FooterContainer = hasFooter and Roact.createElement("Frame", {
+				FooterContainer = hasFooter and React.createElement("Frame", {
 					Size = UDim2.new(1, 0, 0, footerHeight),
 					BackgroundTransparency = 1,
 					LayoutOrder = 3,
 				}, {
-					Banner = bannerText and Roact.createElement(TileBanner, {
+					Banner = bannerText and React.createElement(TileBanner, {
 						bannerText = bannerText,
 					}),
 					Footer = not bannerText and footer,
@@ -332,8 +336,8 @@ function Tile:render()
 	end)
 end
 
-return Roact.forwardRef(function(props, ref)
-	return Roact.createElement(
+return React.forwardRef(function(props, ref)
+	return React.createElement(
 		Tile,
 		Cryo.Dictionary.join(props, {
 			thumbnailRef = ref,

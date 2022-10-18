@@ -28,10 +28,6 @@ return {
 	-- selection cursor.
 	useUpdatedCheckbox = false,
 
-	-- fixDropdownMenuListPositionAndSize: Uses the bottom inset for positioning the dropdown menu list for
-	-- mobile view, allows sizing relative to parent container size, and limits dropdown width for wide view.
-	fixDropdownMenuListPositionAndSize = false,
-
 	-- enableSubtitleOnTile: Enables a subtitle label positioned below the title
 	-- that can be passed in as a prop.
 	enableSubtitleOnTile = false,
@@ -126,5 +122,5 @@ return {
 	enableImageSetResolutionScaleFix = false,
 
 	-- Enable Button to take buttonType prop that is used in ActionBar to manually specify a button style
-	enableActionBarButtonTypeOverride = true,
+	enableActionBarButtonTypeOverride = false,
 }

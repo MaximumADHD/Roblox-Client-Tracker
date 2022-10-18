@@ -97,7 +97,7 @@ local function VerticalTile(props: Props)
 	local aspectRatio = if showHoverState and hasWideHover then WIDE_ASPECT_RATIO else SQUARE_ASPECT_RATIO
 	local contentPadding = if showHoverState and hasBackground then HOVER_PADDING else STANDARD_PADDING
 	local panelHeight = getPanelHeight(footerHeight, titleText, isHovered)
-	local hasPinnedFooter = not isHovered and footer ~= nil and hasBackground
+	local hasPinnedFooter = not isHovered and footer ~= nil
 
 	local stylePalette = useStyle()
 	local theme = stylePalette.Theme
@@ -119,7 +119,7 @@ local function VerticalTile(props: Props)
 			BackgroundTransparency = tileBackgroundTransparency,
 			[React.Event.MouseEnter] = if isHoverEnabled then onHoverChanged(true) else nil,
 			[React.Event.MouseLeave] = if isHoverEnabled then onHoverChanged(false) else nil,
-			ClipsDescendants = true,
+			ClipsDescendants = false,
 			ZIndex = 1,
 		}, {
 			UICorner = React.createElement("UICorner", {

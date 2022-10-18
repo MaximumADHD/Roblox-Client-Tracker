@@ -13,8 +13,6 @@ local ControlState = require(UIBlox.Core.Control.Enum.ControlState)
 local DropdownMenuList = require(UIBlox.App.Menu.DropdownMenuList)
 local DropdownMenuCell = require(UIBlox.App.Menu.DropdownMenuCell)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local BUTTON_IMAGE = "component_assets/circle_17_stroke_1"
 local COLLAPSE_IMAGE = "truncate_arrows/actions_truncationCollapse"
 local EXPAND_IMAGE = "truncate_arrows/actions_truncationExpand"
@@ -30,11 +28,8 @@ DropdownMenuComponent.validateProps = t.strictInterface({
 	-- The callback function when a value is selected, passing the selected value as the parameter.
 	onChange = t.callback,
 
-	-- Size of the DropdownCell.
-	size = not UIBloxConfig.fixDropdownMenuListPositionAndSize and t.UDim2 or nil,
-
 	-- Height of the DropdownCell.
-	height = UIBloxConfig.fixDropdownMenuListPositionAndSize and t.UDim or nil,
+	height = t.UDim,
 
 	-- Size of the display area, used to determine the position for dropdown menu and the size of dismiss layer.
 	screenSize = t.Vector2,
@@ -100,7 +95,7 @@ function DropdownMenuComponent:init()
 	self:setState({
 		menuOpen = false,
 		selectedValue = self.props.placeholder,
-		absoluteSize = UIBloxConfig.fixDropdownMenuListPositionAndSize and Vector2.new(0, 0) or nil,
+		absoluteSize = Vector2.new(0, 0),
 	})
 
 	self.openMenu = function()
@@ -150,7 +145,7 @@ function DropdownMenuComponent:render()
 	local textState = "TextEmphasis"
 
 	local absoluteSize = self.state.absoluteSize
-	local limitMenuWidth = UIBloxConfig.fixDropdownMenuListPositionAndSize and absoluteSize.X > 640
+	local limitMenuWidth = absoluteSize.X > 640
 
 	if self.state.menuOpen then
 		hoverState = defaultState
@@ -162,11 +157,10 @@ function DropdownMenuComponent:render()
 	end
 
 	return Roact.createElement("Frame", {
-		Size = UIBloxConfig.fixDropdownMenuListPositionAndSize and UDim2.new(UDim.new(1, 0), self.props.height)
-			or UDim2.fromScale(1, 1),
+		Size = UDim2.new(UDim.new(1, 0), self.props.height),
 		BackgroundTransparency = 1,
-		[Roact.Change.AbsoluteSize] = UIBloxConfig.fixDropdownMenuListPositionAndSize and self.onResize or nil,
-	}, UIBloxConfig.fixDropdownMenuListPositionAndSize and {
+		[Roact.Change.AbsoluteSize] = self.onResize,
+	}, {
 		InnerFrame = Roact.createElement("Frame", {
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
@@ -208,40 +202,6 @@ function DropdownMenuComponent:render()
 				MaxSize = Vector2.new(DROPDOWN_MENU_MAX_WIDTH, math.huge),
 			}) or nil,
 		}) or nil,
-	} or {
-		SpawnButton = Roact.createElement(DropdownMenuCell, {
-			Size = self.props.size,
-			buttonImage = Images[BUTTON_IMAGE],
-			buttonStateColorMap = {
-				[ControlState.Default] = defaultState,
-				[ControlState.Hover] = hoverState,
-			},
-			contentStateColorMap = {
-				[ControlState.Default] = textState,
-			},
-			icon = self.state.menuOpen and Images[COLLAPSE_IMAGE] or Images[EXPAND_IMAGE],
-			text = self.state.selectedValue,
-			isDisabled = self.props.isDisabled,
-			isLoading = false,
-			isActivated = self.state.menuOpen,
-			hasContent = self.state.selectedValue ~= self.props.placeholder,
-			userInteractionEnabled = true,
-			onActivated = self.openMenu,
-		}),
-		DropdownMenuList = Roact.createElement(DropdownMenuList, {
-			buttonProps = functionalCells,
-
-			zIndex = 2,
-			open = self.state.menuOpen,
-			openPositionY = UDim.new(0, 12),
-			buttonSize = self.props.size,
-
-			closeBackgroundVisible = false,
-			screenSize = self.props.screenSize,
-			showDropShadow = self.props.showDropShadow,
-
-			onDismiss = self.closeMenu,
-		}),
 	})
 end
 

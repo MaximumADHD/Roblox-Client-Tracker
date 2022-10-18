@@ -18,6 +18,10 @@ export type GetContactEntitiesByContactIdSucceeded = {
 	},
 }
 
+export type UploadContactsByUser = {
+	responseBody: { matchedContactFields: { [number]: { idAssignedByFE: string, userContactId: string } } },
+}
+
 export type RequestSent = {
 	id: string,
 }

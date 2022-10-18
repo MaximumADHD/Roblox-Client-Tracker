@@ -1,3 +1,9 @@
+--[[
+ * Copyright (c) GraphQL Contributors
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+]]
 -- ROBLOX upstream: https://github.com/graphql/graphql-js/blob/05b8d0716ea513a7efc88cd173a2a15a8aba5bbc/src/validation/rules/OverlappingFieldsCanBeMergedRule.js
 
 local root = script.Parent.Parent.Parent

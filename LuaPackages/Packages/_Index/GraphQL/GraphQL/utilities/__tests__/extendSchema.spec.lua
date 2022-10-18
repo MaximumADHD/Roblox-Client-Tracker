@@ -1,4 +1,10 @@
--- upstream: https://github.com/graphql/graphql-js/blob/056fac955b7172e55b33e0a1b35b4ddb8951a99c/src/utilities/__tests__/extendSchema-test.js
+--[[
+ * Copyright (c) GraphQL Contributors
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+]]
+-- ROBLOX upstream: https://github.com/graphql/graphql-js/blob/056fac955b7172e55b33e0a1b35b4ddb8951a99c/src/utilities/__tests__/extendSchema-test.js
 
 return function()
 	local srcWorkspace = script.Parent.Parent.Parent

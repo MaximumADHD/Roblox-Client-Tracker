@@ -12,7 +12,6 @@ function DeviceContact.new(contact: ContactTypes.DeviceContact)
 	local self = {
 		id = contact.id,
 		phoneNumbers = contact.phoneNumbers,
-		matchedContactIds = contact.matchedContactIds,
 		contactName = contact.contactName,
 	}
 
@@ -24,7 +23,6 @@ end
 function DeviceContact.mock(mergeTable: {
 	id: string?,
 	phoneNumbers: { number }?,
-	matchedContactIds: { string }?,
 	contactName: string?,
 }?)
 	local mockName = getMockName()
@@ -32,7 +30,6 @@ function DeviceContact.mock(mergeTable: {
 		id = mockName,
 		contactName = mockName,
 		phoneNumbers = { 123456 },
-		matchedContactIds = {},
 	}
 	local mergedValues = Dash.join(defaultValues, mergeTable)
 
@@ -44,7 +41,6 @@ function DeviceContact.formatFromDevice(contact: { firstname: string, lastname: 
 		id = DeviceContact.generateId(contact),
 		contactName = contact.firstname .. " " .. contact.lastname,
 		phoneNumbers = contact.phonenumber,
-		matchedContactIds = {},
 	})
 end
 
