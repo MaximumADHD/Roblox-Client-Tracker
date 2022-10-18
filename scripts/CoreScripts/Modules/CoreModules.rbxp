@@ -37,6 +37,12 @@
             "Experiment": {
                 "$path": "Experiment"
             },
+            "FacialAnimationStreaming": {
+                "$path": "FacialAnimationStreaming",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
             "Flags": {
                 "$path": "Flags"
             },
@@ -75,6 +81,12 @@
             },
             "Stats": {
                 "$path": "Stats"
+            },
+			"SelfView": {
+                "$path": "SelfView",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
             },
             "Tracker": {
                 "$path": "Tracker"

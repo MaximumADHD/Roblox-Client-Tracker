@@ -32,10 +32,12 @@ Clouds2dFS,Fragment
 CloudsClearToSkyColorFS,Fragment
 CloudsCompFS,Fragment
 CloudsFS,Fragment
+CloudsGenReflectionMapFS,Fragment
 CloudsUpsampleNoHistoryFS,Fragment
 CloudsVS,Vertex
 CloudsWind2dFS,Fragment
 CloudsWindFS,Fragment
+CloudsWindGenReflectionMapFS,Fragment
 CopyGuiVS,Vertex
 DefaultDepthFS,Fragment
 DefaultDepthVS_00000000,Vertex

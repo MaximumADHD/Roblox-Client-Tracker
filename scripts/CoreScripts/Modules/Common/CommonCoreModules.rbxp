@@ -7,6 +7,12 @@
                     "$path": ".robloxrc"
                 }
             },
+            "AvatarChatConstants": {
+                "$path": "AvatarChatConstants.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
             "GetDefaultQualityLevel": {
                 "$path": "GetDefaultQualityLevel.lua",
                 ".robloxrc": {

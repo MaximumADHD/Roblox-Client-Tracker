@@ -121,7 +121,6 @@ Studio.App.FindAllDialog.OpenScriptsUndo,,Undo is not supported by Replace All u
 Studio.App.FindAllDialog.EnableScriptsUndo,,"To enable Undo, select the following option:","To enable Undo, select the following option:"
 Studio.App.FindAllDialog.UndoSelectOption,,Replace All will open all files with changes for editing.,Replace All will open all files with changes for editing.
 Studio.App.FindAllDialog.ReplaceAllContinue,,Do you want to continue with Replace All?,Do you want to continue with Replace All?
-Studio.App.LoginManager.CaptchaError,,Error displaying captcha,Error displaying captcha
 Studio.App.LoginManager.ToSMessage3,,"By clicking ""%1"", you are agreeing to the <a href='%2'>Terms of Use</a> and <a href='%3'>Privacy Policy</a>.","By clicking ""%1"", you are agreeing to the <a href='%2'>Terms of Use</a> and <a href='%3'>Privacy Policy</a>."
 Studio.App.LoginManager.LocaleFetchError1,,Failed to fetch account locale: %1,Failed to fetch account locale: %1
 Studio.App.LoginManager.TermsOfService,,Terms Of Use,Terms Of Use
@@ -137,9 +136,6 @@ Are you sure ?","Turning off team create may result in loss of work.
 Are you sure ?"
 Studio.App.TeamCreate.FailedToTurnOnTeamCreate,,Failed to turn on Team Create.,Failed to turn on Team Create.
 Studio.App.TeamCreate.PermissionsMovedMessage1,,"We've moved permissions management to <a href=""%1"">Home &gt; Game Settings &gt; Permissions.</a>","We've moved permissions management to <a href=""%1"">Home &gt; Game Settings &gt; Permissions.</a>"
-Studio.App.StartPageLogin.TwoStepVerificationTitle,,2-Step Verification,2-Step Verification
-Studio.App.StartPageLogin.TwoStepVerificationEmailInstruction,,Enter the code we just sent to you via email,Enter the code we just sent to you via email
-Studio.App.StartPageLogin.TwoStepVerificationSmsInstruction,,Enter the code we just sent to you via sms,Enter the code we just sent to you via sms
 Studio.App.RobloxSettingsDialog.SettingsModificationWarning,,<p>Changing settings may make Roblox unstable.</p><p>We recommend that you don't change any non-Studio settings unless instructed to do so by a Roblox engineer.</p>,<p>Changing settings may make Roblox unstable.</p><p>We recommend that you don't change any non-Studio settings unless instructed to do so by a Roblox engineer.</p>
 Studio.App.ScriptingCmd.SHOWFINDREPLACEWINDOW,,Show Find / Replace All window,Show Find / Replace All window
 Studio.App.ScriptingCmd.RESETCURSORTooltip,,Clear text selection and dismiss floating widgets,Clear text selection and dismiss floating widgets

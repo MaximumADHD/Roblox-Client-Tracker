@@ -2,13 +2,15 @@ Key,Context,Source,en-us
 Studio.Auth.EmbeddedAuthorizationDialog.LaunchFailed,Title for the error dialog when Studio fails to launch,Launch Failed,Launch Failed
 Studio.Auth.EmbeddedAuthorizationDialog.InvalidWebView2Fmt1,Error message is shown when the user doesn't have WebView2 installed. WebView2 is required for Studio to load the login page correctly.,WebView2 installation required to launch Studio. Click <a href='%1'>here</a> for installation details.,WebView2 installation required to launch Studio. Click <a href='%1'>here</a> for installation details.
 Studio.Auth.AccountInfo.Mismatch,Error when web credentials don't match Studio's existing credentials,Studio failed to open because your web account credentials do not match the current Studio account credentials.,Studio failed to open because your web account credentials do not match the current Studio account credentials.
-Studio.Auth.Launch.Failed,This is shown as a header for an error dialog when Studio failes to launch,Launch Failed,Launch Failed
+Studio.Auth.Launch.Failed,This is shown as a header for an error dialog when Studio fails to launch,Launch Failed,Launch Failed
 Studio.Auth.AuthDialog.LoadError,Error message is shown when Studio fails to load WebView dialog for multiple times due to unexpected error,An error occurred while launching Studio login. Please login on the website or try again later.,An error occurred while launching Studio login. Please login on the website or try again later.
-Studio.Auth.Login.Failed,This is shown as a header for an error dialog when Studio failes to launch,Login Failed,Login Failed
+Studio.Auth.Login.Failed,This is shown as a header for an error dialog when Studio fails to launch,Login Failed,Login Failed
 Studio.Auth.AuthDialog.LoginError,Error message is shown when Studio fails to load WebView dialog for multiple times due to unexpected error,An error occurred while logging into Studio. Please login on the website or try again later.,An error occurred while logging into Studio. Please login on the website or try again later.
+Studio.Auth.Login.Continue,This is shown as a header for a dialog when Studio fails to login automatically from web due to lack of matching local credential,Login to continue in Studio,Login to continue in Studio
 Studio.Auth.AuthDialog.RetryExternalBrowser,The text of the button for retrying the external login,Retry Browser Login,Retry Browser Login
 Studio.Auth.External.Login,The text for the external login button,Login via Browser,Login via Browser
 Studio.Auth.Try.Again,The text for retrying launching Studio login,Try Again,Try Again
+Studio.Auth.Studio.Login,The text for offering the user to login Studio using embedded PKCE flow when launching from web but lack of matching local credential,Login via Studio,Login via Studio
 Studio.Auth.Original.Studio.Not.Found,Error message is shown when the original instance of Studio cannot be found during the external login flow,An error occurred while logging into Studio. Please do not close Studio during login.,An error occurred while logging into Studio. Please do not close Studio during login.
 Studio.App.StartPage.MyGames,Look at all my published games,My Games,My Games
 Studio.App.StartPage.Recent,Look at recent games,Recent,Recent
@@ -140,7 +142,6 @@ Studio.App.Authenticator.TwoStepFailedParse,,"An error occurred while reading th
 Studio.App.LoginRequest.NetworkConnection,Start page login,Could not connect to the server. Please check your internet connection and try again later.,Could not connect to the server. Please check your internet connection and try again later.
 Studio.App.LoginRequest.ParseError,Start page login,Could not read response from server. Please try again later.,Could not read response from server. Please try again later.
 Studio.App.LoginRequest.NullPasswordError,Start page login,Unable to log in via username / password. Please use your WeChat / QQ account to log in.,Unable to log in via username / password. Please use your WeChat / QQ account to log in.
-Studio.App.LoginRequest.CaptchaError,Start page login,Please complete the Captcha in order to log in.,Please complete the Captcha in order to log in.
 Studio.App.LoginRequest.PasswordResetRequiredError,Start page login,Account has been locked. Please request a password reset.,Account has been locked. Please request a password reset.
 Studio.App.LoginRequest.TwoStepVerificationFailureError,Start page login,Account issue encountered. Please contact <a href='https://www.roblox.com/support'>support</a>,Account issue encountered. Please contact <a href='https://www.roblox.com/support'>support</a>
 Studio.App.LoginRequest.TwoStepVerificationFloodedError,Start page login,Too many attempts. Please try again later.,Too many attempts. Please try again later.

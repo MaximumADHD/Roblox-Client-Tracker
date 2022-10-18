@@ -3,8 +3,13 @@
 lockfile_format_version = 4
 
 [[package]]
+name = "Analytics"
+version = "0.1.0"
+
+[[package]]
 name = "AppCommonLib"
 version = "0.1.0"
+dependencies = ["JestGlobals JestGlobals 0.1.0"]
 
 [[package]]
 name = "CollisionMatchers2D"
@@ -27,12 +32,21 @@ name = "JestGlobals"
 version = "0.1.0"
 
 [[package]]
+name = "Localization"
+version = "0.1.0"
+
+[[package]]
 name = "NetworkingFriends"
 version = "0.1.0"
 
 [[package]]
 name = "NetworkingUsers"
 version = "0.1.0"
+
+[[package]]
+name = "PeekView"
+version = "0.1.0"
+dependencies = ["AppCommonLib AppCommonLib 0.1.0"]
 
 [[package]]
 name = "Promise"
@@ -75,13 +89,22 @@ name = "RoduxNetworking"
 version = "0.1.0"
 
 [[package]]
+name = "SharedFlags"
+version = "0.1.0"
+
+[[package]]
 name = "TemplatePackage"
+version = "0.1.0"
+
+[[package]]
+name = "UniversalAppPolicy"
 version = "0.1.0"
 
 [[package]]
 name = "VerifiedBadges"
 version = "0.8.1"
 dependencies = [
+    "AppCommonLib AppCommonLib 0.1.0",
     "CollisionMatchers2D CollisionMatchers2D 0.1.0",
     "Cryo Cryo 0.1.0",
     "FriendsNetworking NetworkingFriends 0.1.0",

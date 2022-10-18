@@ -1136,6 +1136,15 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">AnimationConstraint</string>
+        <string name="ClassCategory">Constraints</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="PreferredParent">BasePart</string>
+        <bool name="FFlag">SimAnimationConstraint</bool>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">VectorForce</string>
         <string name="ClassCategory">Constraints</string>
         <string name="ExplorerOrder">30</string>
@@ -1750,7 +1759,7 @@
         <string name="ExplorerOrder">200</string>
         <string name="ExplorerImageIndex">145</string>
         <string name="PreferredParent">GuiBase2d</string>
-        <bool name="FFlag">AdGuiEnabled</bool>
+        <bool name="FFlag">AdGuiEnabled2</bool>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -1760,7 +1769,7 @@
         <string name="ExplorerOrder">200</string>
         <string name="ExplorerImageIndex">146</string>
         <string name="PreferredParent">Part</string>
-        <bool name="FFlag">AdPortalEnabled</bool>
+        <bool name="FFlag">AdPortalEnabled2</bool>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -2537,6 +2546,12 @@
             <bool name="FFlag">EnableAudioChannelCountProperty</bool>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PlaybackRegionsEnabled</string>
+            <bool name="FFlag">SoundLoopPointApi</bool>
+          </Properties>
+        </Item>
       </Item>
     </Item>
 
@@ -3017,6 +3032,14 @@
         <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">79</string>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">HumanoidStateMachineMode</string>
+            <string name="FFlag">EnableStateMachineModes</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -6610,7 +6633,23 @@
         <string name="ExplorerImageIndex">47</string>
         <string name="PreferredParent">BasePlayerGui</string>
       </Properties>
+
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">SafeAreaCompatibility</string>
+            <string name="FFlag">GuiObjectSafeAreaBackgroundExtension</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ClipToDeviceSafeArea</string>
+            <string name="FFlag">GuiObjectSafeAreaBackgroundExtension</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
+
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">FunctionalTest</string>
@@ -7604,7 +7643,6 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
-        <string name="FFlag">WireframeHandleEnable</string>
         <string name="Name">WireframeHandleAdornment</string>
         <string name="ClassCategory">Adornments</string>
         <string name="ExplorerOrder">205</string>

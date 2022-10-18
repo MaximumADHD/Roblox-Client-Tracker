@@ -85,7 +85,7 @@
             <addaction name="PartLargeAction" text="Studio.App.RobloxRibbonMainWindow.Block" value="Part" tooltip="Studio.App.RobloxRibbonMainWindow.InsertBlockPart" icon=":/RibbonBar/images/RibbonIcons/Insert/Part.png" modernIcon="Part_Block" width="32" height="32" />
             <addaction name="SphereLargeAction" text="Studio.App.Shapes.Sphere" value="Sphere" tooltip="Studio.App.RobloxRibbonMainWindow.InsertSpherePart" icon=":/RibbonBar/images/RibbonIcons/Insert/Sphere.png" modernIcon="Part_Sphere" width="32" height="32" />
             <addaction name="WedgeLargeAction" text="Studio.App.RobloxRibbonMainWindow.Wedge" value="WedgePart" tooltip="Studio.App.RobloxRibbonMainWindow.InsertWedgePart" icon=":/RibbonBar/images/RibbonIcons/Insert/Wedge.png" modernIcon="Part_Wedge" width="32" height="32" />
-            <addaction name="CornerWedgeLargeAction" text="Studio.App.Shapes.CornerWedge" value="CornerWedgePart" tooltip="Studio.App.RobloxRibbonMainWindow.InsertCornerWedge" icon=":/RibbonBar/images/RibbonIcons/Insert/CornerWedge.png" width="32" height="32" />
+            <addaction name="CornerWedgeLargeAction" text="Studio.App.Shapes.CornerWedge" value="CornerWedgePart" tooltip="Studio.App.RobloxRibbonMainWindow.InsertCornerWedge" icon=":/RibbonBar/images/RibbonIcons/Insert/CornerWedge.png" modernIcon="Part_CornerWedge" width="32" height="32" />
             <addaction name="CylinderLargeAction" text="Studio.App.Shapes.Cylinder" value="Cylinder" tooltip="Studio.App.RobloxRibbonMainWindow.InsertCylinderPart" icon=":/RibbonBar/images/RibbonIcons/Insert/Cylinder.png" modernIcon="Part_Cylinder" width="32" height="32" />
           </ActionGroup>
           <Gallery fflag="RibbonBarGalleryDropdown" galleryColumns="3">
@@ -93,7 +93,7 @@
               <addaction name="PartLargeAction" text="Studio.App.RobloxRibbonMainWindow.Block" value="Part" tooltip="Studio.App.RobloxRibbonMainWindow.InsertBlockPart" icon=":/RibbonBar/images/RibbonIcons/Insert/Part.png" modernIcon="Part_Block" width="32" height="32" />
               <addaction name="SphereLargeAction" text="Studio.App.Shapes.Sphere" value="Sphere" tooltip="Studio.App.RobloxRibbonMainWindow.InsertSpherePart" icon=":/RibbonBar/images/RibbonIcons/Insert/Sphere.png" modernIcon="Part_Sphere" width="32" height="32" />
               <addaction name="WedgeLargeAction" text="Studio.App.RobloxRibbonMainWindow.Wedge" value="WedgePart" tooltip="Studio.App.RobloxRibbonMainWindow.InsertWedgePart" icon=":/RibbonBar/images/RibbonIcons/Insert/Wedge.png" modernIcon="Part_Wedge" width="32" height="32" />
-              <addaction name="CornerWedgeLargeAction" text="Studio.App.Shapes.CornerWedge" value="CornerWedgePart" tooltip="Studio.App.RobloxRibbonMainWindow.InsertCornerWedge" icon=":/RibbonBar/images/RibbonIcons/Insert/CornerWedge.png" width="32" height="32" />
+              <addaction name="CornerWedgeLargeAction" text="Studio.App.Shapes.CornerWedge" value="CornerWedgePart" tooltip="Studio.App.RobloxRibbonMainWindow.InsertCornerWedge" icon=":/RibbonBar/images/RibbonIcons/Insert/CornerWedge.png" modernIcon="Part_CornerWedge" width="32" height="32" />
               <addaction name="CylinderLargeAction" text="Studio.App.Shapes.Cylinder" value="Cylinder" tooltip="Studio.App.RobloxRibbonMainWindow.InsertCylinderPart" icon=":/RibbonBar/images/RibbonIcons/Insert/Cylinder.png" modernIcon="Part_Cylinder" width="32" height="32" />
             </ActionGroup>
           </Gallery>
@@ -193,7 +193,7 @@
             <addaction name="PartLargeAction" text="Studio.App.RobloxRibbonMainWindow.Block" value="Part" tooltip="Studio.App.RobloxRibbonMainWindow.InsertBlockPart" icon=":/RibbonBar/images/RibbonIcons/Insert/Part.png" modernIcon="Part_Block" width="32" height="32" />
             <addaction name="SphereLargeAction" text="Studio.App.Shapes.Sphere" value="Sphere" tooltip="Studio.App.RobloxRibbonMainWindow.InsertSpherePart" icon=":/RibbonBar/images/RibbonIcons/Insert/Sphere.png" modernIcon="Part_Sphere" width="32" height="32" />
             <addaction name="WedgeLargeAction" text="Studio.App.RobloxRibbonMainWindow.Wedge" value="WedgePart" tooltip="Studio.App.RobloxRibbonMainWindow.InsertWedgePart" icon=":/RibbonBar/images/RibbonIcons/Insert/Wedge.png" modernIcon="Part_Wedge" width="32" height="32" />
-            <addaction name="CornerWedgeLargeAction" text="Studio.App.Shapes.CornerWedge" value="CornerWedgePart" tooltip="Studio.App.RobloxRibbonMainWindow.InsertCornerWedge" icon=":/RibbonBar/images/RibbonIcons/Insert/CornerWedge.png" width="32" height="32" />
+            <addaction name="CornerWedgeLargeAction" text="Studio.App.Shapes.CornerWedge" value="CornerWedgePart" tooltip="Studio.App.RobloxRibbonMainWindow.InsertCornerWedge" icon=":/RibbonBar/images/RibbonIcons/Insert/CornerWedge.png" modernIcon="Part_CornerWedge" width="32" height="32" />
             <addaction name="CylinderLargeAction" text="Studio.App.Shapes.Cylinder" value="Cylinder" tooltip="Studio.App.RobloxRibbonMainWindow.InsertCylinderPart" icon=":/RibbonBar/images/RibbonIcons/Insert/Cylinder.png" modernIcon="Part_Cylinder" width="32" height="32" />
           </ActionGroup>
           <Gallery fflag="RibbonBarGalleryDropdown" galleryColumns="3">
@@ -201,13 +201,13 @@
               <addaction name="PartLargeAction" text="Studio.App.RobloxRibbonMainWindow.Block" value="Part" tooltip="Studio.App.RobloxRibbonMainWindow.InsertBlockPart" icon=":/RibbonBar/images/RibbonIcons/Insert/Part.png" modernIcon="Part_Block" width="32" height="32" />
               <addaction name="SphereLargeAction" text="Studio.App.Shapes.Sphere" value="Sphere" tooltip="Studio.App.RobloxRibbonMainWindow.InsertSpherePart" icon=":/RibbonBar/images/RibbonIcons/Insert/Sphere.png" modernIcon="Part_Sphere" width="32" height="32" />
               <addaction name="WedgeLargeAction" text="Studio.App.RobloxRibbonMainWindow.Wedge" value="WedgePart" tooltip="Studio.App.RobloxRibbonMainWindow.InsertWedgePart" icon=":/RibbonBar/images/RibbonIcons/Insert/Wedge.png" modernIcon="Part_Wedge" width="32" height="32" />
-              <addaction name="CornerWedgeLargeAction" text="Studio.App.Shapes.CornerWedge" value="CornerWedgePart" tooltip="Studio.App.RobloxRibbonMainWindow.InsertCornerWedge" icon=":/RibbonBar/images/RibbonIcons/Insert/CornerWedge.png" width="32" height="32" />
+              <addaction name="CornerWedgeLargeAction" text="Studio.App.Shapes.CornerWedge" value="CornerWedgePart" tooltip="Studio.App.RobloxRibbonMainWindow.InsertCornerWedge" icon=":/RibbonBar/images/RibbonIcons/Insert/CornerWedge.png" modernIcon="Part_CornerWedge" width="32" height="32" />
               <addaction name="CylinderLargeAction" text="Studio.App.Shapes.Cylinder" value="Cylinder" tooltip="Studio.App.RobloxRibbonMainWindow.InsertCylinderPart" icon=":/RibbonBar/images/RibbonIcons/Insert/Cylinder.png" modernIcon="Part_Cylinder" width="32" height="32" />
             </ActionGroup>
           </Gallery>
         </MenuPopupButton>
         <addseparator fflag="RibbonBarGalleryDropdown" visible="false"/>
-        <addaction name="materialManagerAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.MaterialManager" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" modernIcon="MaterialManager" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.MaterialManagerToolTip" width="32" height="32" />
+        <addaction name="materialManagerAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.MaterialManager" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" modernIcon="Material" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.MaterialManagerToolTip" width="32" height="32" />
         <addseparator fflag="RibbonBarGalleryDropdown" visible="false"/>
         <ColorPicker name="actionColorSelector" style="textundericon" ischeckable="true" type="color" text="Studio.App.RobloxRibbonMainWindow.Color" icon=":/RibbonBar/images/RibbonIcons/Home/Color.png" modernIcon="ColorPicker" tooltip="Studio.App.RobloxRibbonMainWindow.SelectColorAndApplyToParts" width="32" height="32"/>
         <addseparator visible="false"/>

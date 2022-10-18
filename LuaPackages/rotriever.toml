@@ -34,8 +34,8 @@ Lumberyak = { git = "https://github.com/Roblox/lumberyak" }
 StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
 FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
-ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.0.0" }
-ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.1.0" }
+ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.1.0" }
+ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.2.1" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
 React = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactProxy"}
 ReactIs = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactIsProxy"}
@@ -50,7 +50,7 @@ NetworkingVirtualEvents = "github.com/Roblox/lua-app-networking@1.1.0"
 NetworkingFriends = "github.com/Roblox/networking-friends@2.4.1"
 NetworkingUsers = "github.com/Roblox/networking-users@1.0.1"
 HttpRequest = "github.com/Roblox/http-request@1.1.1"
-ApolloClient = "github.com/Roblox/apollo-client-lua@0.3.1"
+ApolloClient = "github.com/Roblox/apollo-client-lua@0.3.2"
 
 # The following packages were ported from AppTempCommon
 Result = { git = "https://github.com/Roblox/lua-result" }

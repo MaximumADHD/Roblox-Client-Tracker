@@ -8,8 +8,6 @@ Studio.App.BetaFeatures.SomethingChangedPrompt,,Would you like to restart Studio
 Studio.App.BetaFeatures.RestartWarning,,Beta features will not be activated until you restart Studio,Beta features will not be activated until you restart Studio
 Studio.App.BetaFeatures.AudioVolumetricSoundsTitle,,Volumetric Sounds,Volumetric Sounds
 Studio.App.BetaFeatures.AudioVolumetricSoundsDescription,,"Enables Sound Instances that are children of Cylinder, Block, and Ball parts to emit audio from every point on the surface of the part, rather than only the center.","Enables Sound Instances that are children of Cylinder, Block, and Ball parts to emit audio from every point on the surface of the part, rather than only the center."
-Studio.App.BetaFeatures.NewFontUITitle,,New Font Picker UI,New Font Picker UI
-Studio.App.BetaFeatures.NewFontUIDescription,,Enables a new UI for selecting fonts which supports previews and provides access to more weights and styles than before.,Enables a new UI for selecting fonts which supports previews and provides access to more weights and styles than before.
 Studio.App.BetaFeatures.SelectionImprovementsTitle,,Selection Improvements,Selection Improvements
 Studio.App.BetaFeatures.SelectionImprovementsDescription,,"Enables a new selection outline style, the ability to select objects that are behind other objects, a new option for showing bounding boxes, and a context menu item for selecting parents of objects.","Enables a new selection outline style, the ability to select objects that are behind other objects, a new option for showing bounding boxes, and a context menu item for selecting parents of objects."
 Studio.App.Settings.FolderSelectionDialogTitle,,Select folder to save Roblox documents,Select folder to save Roblox documents
@@ -61,7 +59,7 @@ Studio.App.BetaFeatures.ParticlFlipbooksDescription,,"Enables the new particle f
 Studio.App.BetaFeatures.NewCharacterControllerTitle,,New Character Controller,New Character Controller
 Studio.App.BetaFeatures.NewCharacterControllerDescription,,Enables trying the ControllerManager and Controller instances for better simulated character movement and customization.,Enables trying the ControllerManager and Controller instances for better simulated character movement and customization.
 Studio.App.BetaFeatures.NewExperiencesEnableTeamCreate,,New experiences enable Team Create,New experiences enable Team Create
-Studio.App.BetaFeatures.NewExperiencesEnableTeamCreateDesc,,"New experiences in Studio are immediately saved to Roblox and enable Team Create by default.,","New experiences in Studio are immediately saved to Roblox and enable Team Create by default.,"
+Studio.App.BetaFeatures.NewExperiencesEnableTeamCreateDescNew,,New experiences created in Studio are immediately saved to Roblox and have Team Create enabled by default.,New experiences created in Studio are immediately saved to Roblox and have Team Create enabled by default.
 Studio.App.BetaFeatures.ScriptProfilerTitle,,Script Profiler,Script Profiler
 Studio.App.BetaFeatures.ScriptProfilerDescription,,Enables the new sampling profiler feature for Dev Console.,Enables the new sampling profiler feature for Dev Console.
 Studio.App.RobloxInputConfigDialog.Shift,"The name of the Shift key, as it would appear on the user's keyboard.",Shift,Shift
