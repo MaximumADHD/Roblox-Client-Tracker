@@ -57,7 +57,6 @@ AA61B3A2068118C14FDE5E01E7934
 AAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWWWWWWWWWWWWWWWWWWWWWWWWNNNNNNNNN
 AAACertificateServices.crl0
-AAACertificateServices.crl04
 AAACertificateServices.crl06
 AAAEB11E38B9D871882A8E559
 AAAEC11E38B9D871882A8E559
@@ -788,7 +787,6 @@ AimdRateControl
 AinDisableReportErrorTelemetry
 AinPointsThrottleValue
 AirController
-AjSI89T785mFntyF1U1QM1OxkTUkNlKao4T8v5iFEdE99ZUAhOcCAwEAAQ
 Aktivieren
 Aktivierung
 Aktivierungs
@@ -808,8 +806,6 @@ Alfabetico
 AlgorithmID
 Algorithms
 AliasRequestResult
-ALIGN_ORIENTATION_CONSTRAINT
-ALIGN_POSITION_CONSTRAINT
 ALIGN_TYPE
 AlignDraggedObjects
 AlignDraggedObjectsAction
@@ -1110,7 +1106,6 @@ AngleSnapEnabled
 AngleSnapIncrement
 Angrenzende
 AngsanaUPC
-ANGULAR_VELOCITY_CONSTRAINT
 AngularActuatorType
 AngularLH9
 AngularLimits
@@ -1140,7 +1135,6 @@ AnimateR15Moods.rbxm
 AnimateR15Moods_Deprecated.rbxm
 AnimateR15Strafing.rbxm
 AnimateScript
-ANIMATION_DYNAMIC_CONSTRAINT
 Animation1
 Animation2
 Animation3
@@ -1669,6 +1663,7 @@ AstExprVarargs
 AstStatFor
 AstStatFunction
 AstTypePack
+AStudio.App.Tooltip.Variadic
 AsusROG71OSD.dll
 AsusStrixOSD.dll
 AsusU7MKIIOSD.dll
@@ -2294,7 +2289,6 @@ AUTHORITY_INFO_ACCESS
 AUTHORITY_KEYID
 Authority0
 Authority0v0
-Authority1
 AuthorityId
 AuthorityText
 AuthorityUrl
@@ -7216,7 +7210,6 @@ Ball_count
 BallInSocketConstraintAction
 BallOnAxisAction
 BallSocket
-BALLSOCKET_CONSTRAINT
 BallSocketConstraint
 Balthazar.json
 Baltimore1
@@ -7404,7 +7397,6 @@ Berechtigungen
 Berechtigungsfehlers
 Berechtigungsstufe
 Bereinigung
-BErTd2KrUK
 Beschreibung
 Beschriftung
 BestFitProximityPrompts
@@ -8400,6 +8392,7 @@ Ccircumflex
 CCJJAAJJCCmcckkccmCCJJAAJJC
 CCPPhotoshop
 CCx[66[xCCx[6L
+Cd2L4SP7sHv3heKEYNDetyPv
 CD583B11E29A3DBD856014A660
 CDA22142068118C14FDE5E01E7934
 CDAC09CD62068118083FFBB091BBC13
@@ -9795,6 +9788,7 @@ CmdUpdateBuffer
 CmdWaitEvents
 CmdWriteBufferMarkerAMD
 CmdWriteTimestamp
+CMISuUUFCsy
 Cmn.frame_length
 Cmn.fs_kHz
 Cmn.inputBufIx
@@ -10689,8 +10683,8 @@ Corporation
 Corporation.
 Corporation\Roblox
 Corporation\Roblox\FilteredExceptionCrash
-CORPORATION0
-CORPORATION1
+Corporation0
+Corporation1
 Corporation1402
 CorrectCreationOfConnections
 Correction
@@ -13049,6 +13043,7 @@ DF41709311E28987EB530EBA4742
 DF42709311E28987EB530EBA4742
 DFbxAMatrix
 DFbxMatrix
+DFdV54TcxtWgtTN34ug
 DFIntGameNetLocalSpaceMaxSendIndex
 DfNfXfbftf
 DFPUYYZ___hhhhhmmpr
@@ -13147,6 +13142,15 @@ DiffuseFilePath
 DigestAlgorithm_find_ctx
 DigestAlgorithm_init_bio
 DigestedData_do_final
+DigiCertAssuredIDRootCA.crl0
+DigiCertAssuredIDRootCA.crt0E
+DigiCertEVCodeSigningCA
+DigiCertHighAssuranceEVRootCA.crl0
+DigiCertHighAssuranceEVRootCA.crt0
+DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crl0
+DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crt0
+DigiCertTrustedRootG4.crl0
+DigiCertTrustedRootG4.crt0C
 DigitalSignature
 DilateTemporalFS
 DilleniaUPC
@@ -13529,7 +13533,6 @@ DPERF_EndEvent
 DPERF_GetStatus
 DPOLY1305_ASM
 Dqlqlqlqlql
-DQQb3JvFIgL5NznZ
 DraftAdded
 DraftCommitted
 DraftOutdated
@@ -14649,7 +14652,6 @@ EphemeralStat
 EphemeralStatsInfluxReportingEnabled
 EphemeralStatsInfluxReportingPriorityHundredthsPercent
 EphemeralStatsInfluxReportingThrottleHundredthsPercent
-EPXmt8fOFXnpGjGO22lIsmMWx
 EqDelayHistogramWebRTC
 EqualizerSoundEffect
 Equipamento
@@ -14755,6 +14757,7 @@ EvAudioVideoInput
 EvAV2CFaceIsOccluded
 EvAV2CFaceNotFound
 EvAV2CHasTrackingError
+EVCodeSigningSHA2
 Event.button
 Event.clientX
 Event.clientY
@@ -14946,6 +14949,7 @@ ExistingStage
 ExitAction
 ExitMessage
 ExitProcess
+ExMs6nHO9jH8GAjtTV3X7xKs1NdaKlxKsuXhAUqrESu6tm506FyI
 EXPAND_ONLY
 ExpandCodeSampleButton
 ExpandCodeSampleLabel
@@ -15437,7 +15441,6 @@ FCCBB74B0BF11E395B6E5DB6211F344
 FCDAAED11E38B9D871882A8E559
 FCEntityTransformMerge2
 FCIgnoreClumps
-FcIn4iqFkXguaM
 FcStallingDuration
 FD_ACCEPT_BIT
 FD_CLOSE_BIT
@@ -16377,6 +16380,7 @@ FrustumOrdered
 FrustumQuery
 FrustumRenderQueue
 FtHpJpLpNpPbR
+FTPEBvCtUL0kzD5dh3HD6UGakk9YI
 Fulfillment
 Fulfillments
 FullABTracker
@@ -18188,7 +18192,6 @@ Herramientas
 Herunterfahren
 HeuristicMask
 Hexadecimal
-Hfkha1JYAR
 HHAEBVQModelIndex
 HHHHHAEBVQString
 HHHHHHHHHHHHHHHHHHHHHHHHHHHHH
@@ -18257,7 +18260,6 @@ HighVelocityContactThresholdHundredth
 HighwayGothic
 HighwayGothic.json
 Hineinspringen
-HINGE_CONSTRAINT
 HingeConstraint
 HingeConstraintAction
 HintChanged
@@ -18286,6 +18288,7 @@ HitConditionalBreakpoints
 HitLocationPartFilterDescendents
 HitTestFilter
 HJJ```mooooooowwzzzzz
+HJvzTDza6LCHHJC
 HKEY_CLASSES_ROOT
 HKEY_CURRENT_CONFIG
 HKEY_CURRENT_USER
@@ -18301,7 +18304,6 @@ HL_GPU_DEVICE
 HL_NUM_THREADS
 HL_NUMTHREADS
 HL_TRACE_FILE
-HLiDlqYCxSkr20E
 HLNlRtVlZt^lbtfljtnprxvtzx
 HlsAdaptionLogic
 HlsFixSlowNetworkCrash
@@ -18833,7 +18835,6 @@ Id_Terrain
 Id_Transparent
 Id_TransparentCasters
 ID3D11Texture2D
-ID62AoKBJPT4F1Zg9UzP1FBSobdhiBFmdvEqAbU0KqlWxkz
 IDATHKcTUU
 IDATHKETYSZ[
 IDebuggerCloneTracker
@@ -18856,6 +18857,7 @@ IDirectInputDevice8
 IdleAnimation
 Idotaccent
 Idotaccent.a
+IDQCpDxWtFDu7bpyNPvIW36kf
 IDraftsServiceHost
 IdsOrRanges
 IdStringToLanguage
@@ -19775,6 +19777,7 @@ IPTypeAndDataCenter
 IPublishedGamesStore
 IPV6_V6ONLY
 IPv6Default
+IpVf4wgL3HIMIg
 IRestartController
 IRobloxDoc
 IRobloxDocManager
@@ -19953,6 +19956,7 @@ IsVoiceEnabledForUserIdAsync
 IsVRAppBuild
 IsWatchingScriptLine
 IsWebLaunch
+IT4IeQwOq1ZD5NvkUWup
 ITALIC_ANGLE
 ItalicAngle
 ItemActivated
@@ -20188,6 +20192,7 @@ JW4InfoType
 JW4TextChatMessageStatus
 JW4TextFilterContext
 JW4ThumbnailType
+JWuyj9plgWrkm
 K\7IxU..UxI7\K
 K_Key_dn.png
 KaiTi_GB2312
@@ -20305,9 +20310,11 @@ Kopplungsbeschr
 Korrodiertes
 KPEAVICHull
 KPEBDPEBDH
+KqUTK2q3xjv3p5chFYUYUCAwEAAQ
 Kugelverbindung
 Kundendienst.
 Kundensupport.
+KwkwZU8k9qrEQs6Iss3fkLTSm2XCe
 KYULPhCBFoD3mw5mygYqAeFlHdSL2k3MnDG
 L^N6LfN6LlN6LdN6Ly
 LA_SHAPE_MAX
@@ -20637,8 +20644,6 @@ LimitsEnH9
 LimitTextRenderSize
 LimitToBeImposed
 LimitToolActions
-LINE_FORCE_CONSTRAINT
-LINEAR_VELOCITY_CONSTRAINT
 LinearizeDepthAAFS
 LinearizeDepthBufferFS
 LinearizeDepthFS
@@ -21172,7 +21177,6 @@ LowQMaterialDetiledNewFS_
 LowQMaterialFS_
 LowQMaterialWangFallbackFS
 LowQMaterialWangFS
-LpAH4eLEfr6hQxP
 LRakRecvToAppPop
 LSCReplacer
 LSCReplacerLog
@@ -21184,6 +21188,7 @@ LSPService
 LSPWarning
 LSRegExErrorHundredthsPercentage
 LTAnalyticsDontMoveName
+LtR2EFzc2WI34krlqUiix9lc2cSi4dWPHxsrK5zum3UjpmeuzJBDM0EOS05sX8
 LUA_ERRRUN
 LUA_ERRSYNTAX
 LUA_UNAUTHORIZED_LOG_OUT
@@ -22286,7 +22291,6 @@ MFCreateMemoryBuffer
 MFCreateSample
 MFPlat.DLL
 MHapV7R8MxA953
-MhxspDCkpCSQ
 Michroma.json
 MICROPHONE_ACCESS
 MicrophoneIsInitialized
@@ -22316,7 +22320,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEA3BHsT3EqbBJ5PU0yafD0LZkDoo5hw356SHd6
+MIICCgKCAgEAw8USC6u2IOPKctTclXCWArFTBpm9BHzgld10kWJrgSSTG4M20cNu
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -22386,6 +22390,7 @@ Mitglieder
 Mitteilungen
 Mitwirkender
 MixLevelsOutput
+MJFsWJoCQTjy71oPMTmx94k3dJ
 MkvStreamWriter
 MLineIndex
 MMDeviceEnumerator
@@ -23234,7 +23239,6 @@ NinjaMask.mesh
 NLSF_mu_Q20
 NLSFInterpCoef_Q2
 NMMMMW4Priority
-Nmq7rov8ybVZF3
 NNN___aahjjjjj
 NNNNNNNNNNNNNNNNNNNNNN
 NNNNNNNSSSSSSSSSSSSSSSSSSSSSS
@@ -23509,7 +23513,6 @@ NW4ActionType
 NW4HintingPreference
 NW4PenStyle
 NW4UserInputType
-NzQbtzfRO6g
 Oacutesmall
 OAEPEncryptionSET
 OAuth2Config.json
@@ -23683,7 +23686,6 @@ OgreWidgetForGameState
 OgreWidgetShowEvent
 Ohungarumlaut
 OiCCPPhotoshop
-OkpGf1ojuDEcf3zGUmJdESCqLE
 OldActiveElement
 OldBinaryStringLength
 OldDOFDownSampleAndComputeFarCoCHorizontal4xFS
@@ -23986,6 +23988,7 @@ OrFetchPlugin
 OrFirstTier
 Organizaci
 Organization
+Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -25965,7 +25968,6 @@ PlaceVersionHistoryDetailsFetcher
 PlaceVersionHistoryDialog
 PlaceVersionHistoryItems
 PlaceVersionNumber
-PLANE_CONSTRAINT
 PlaneConstraint
 PlaneConstraintAction
 PlaneEffect
@@ -26916,7 +26918,6 @@ PutCursorInParens
 PVAdornment
 PVInstance
 PVK_header
-PXforHhBoJ67mSIh5QN7ywlRzywtAlxleR32h
 PxnhPiraCmahCilaKcpeLicyLidyLkclOgnjRruaSdnuSiiaVtsvAumaBpygEimrAilhPitrPavaJihtKusiLietMbraShkrOrmaSanaLtvaTktaBharBdnaMmkaCcreMoreMdrlPdrhSaroSrkaTssaBbhgAlpuDablEnarGjohKdniSaniLjhaMinaMdneMidoMoorMtabNbraNmrePgnmHmlaPcuaPplhPddiShriTaraWmohAwulHrtaHtluMgn
 PyJlf7IHZQpFHohBe
 QAbstractAnimation
@@ -27607,6 +27608,7 @@ QTStudioWinCrashCaughtCrashRecorded
 QTStudioWinCrashHangRecorded
 QTStudioWinOtherCrashRecorded
 QTStudioWinRegistryErrorCrashRecorded
+QTXdBEkjl2usCRPN3zmFLnQNbTnHqmpEk
 QTypedArrayData
 QUAD_WIDTH
 QualityH9H
@@ -29595,7 +29597,6 @@ RightUpperLipRaiser
 RightVector
 RightWrist
 RightWristRigAttachment
-RIGID_CONSTRAINT
 RigidAccessories
 RigidAutoSkinTransfer
 RigidBodyCountDataAvgPerBatch
@@ -29616,7 +29617,6 @@ Ripristino
 RiseVelocity
 Risoluzione
 Rj0isQcnqX
-RmkmKuYIpgaxYgUlYeGNlBB3
 ROBLOSECURITY
 Roblox.Hybrid
 Roblox.Hybrid.Bridge.emitEvent
@@ -29772,7 +29772,6 @@ RobuxUpsellStarted
 Rocket.png
 RocketBoots.png
 RocketPropulsion
-ROD_CONSTRAINT
 RodConstraint
 RodConstraintAction
 RojoProjectParser
@@ -29810,7 +29809,6 @@ RootPartL9
 RootPlaceId
 RootPriority
 RootRigAttachment
-ROPE_CONSTRAINT
 RopeConstraint
 RopeConstraintAction
 Rotate.png
@@ -29851,7 +29849,6 @@ RowsToContents
 RowsToRemove
 RowStretch
 RowVisibilityChanged
-RP5juHPN2zMMAf
 RPC_E_CHANGED_MODE
 RpcEptMapper
 RPCServers
@@ -30064,7 +30061,6 @@ RxIgnoredBytes
 RxIgnoredPackets
 RxQueueSize
 RxRlReport
-RzlDd2zPPt
 RzV\XNZz^pbPf2h
 S_Key_dn.png
 SA_KPEAPEBVfacet
@@ -30747,10 +30743,6 @@ SecondaryFilterValue
 SecondaryTangentAxis
 SecondsBetweenDynamicVariableReloading
 SecondsPerBatchAwardPointsCall
-SectigoPublicCodeSigningCAR36.crl0y
-SectigoPublicCodeSigningCAR36.crt0
-SectigoPublicCodeSigningRootR46.crl0
-SectigoPublicCodeSigningRootR46.p7c0
 SectionClicked
 SectionResizeMode
 SectionsClickable
@@ -32095,8 +32087,6 @@ SliderReleased
 SliderScaling
 SliderValueDecreaseButtonClicked
 SliderValueIncreaseButtonClicked
-SLIDING_CYLINDRICAL_CONSTRAINT
-SLIDING_PRISMATIC_CONSTRAINT
 SlidingBallConstraint
 SlidingWindowMinFilter
 Slingshot.png
@@ -32164,6 +32154,7 @@ SmoothWaterSuperHQFS_
 SmoothWaterVS_
 SmoothWindow
 SnapAttachmentsVerb
+SNenX5UabhILK67zOwKR1JfnGpOPwnjqh2P
 Snippet...
 SnippetCodeEditor
 SnippetCodeSampleView
@@ -32410,7 +32401,6 @@ SplittingCanceled
 SpotLightAction
 SpreadAngle
 Sprechblasen
-SPRING_CONSTRAINT
 SpringConstraint
 SpringConstraintAction
 Spritesheet.png
@@ -36584,7 +36574,6 @@ Studio.App.TemplatesPage.AllTemplates
 Studio.App.Theme.InvalidGetThemeApi
 Studio.App.ToastNotificationService.NotAvailable
 Studio.App.Tooltip.GoToSource
-Studio.App.Tooltip.Variadic
 Studio.App.TwoStepVerificationPage.Enter6DigitCode
 Studio.App.TwoStepVerificationPage.NeedHelpContact
 Studio.App.TwoStepVerificationPage.RobloxSupport
@@ -38802,6 +38791,7 @@ TimeSpentRemoving
 TimesReplicatedNeverReplicate
 TimesReplicatedNeverReplicatedPerInterval
 Timestamping
+TimeStamping
 TimestampStart
 TimestepArbiterAccelerationModelFactorThou
 TimestepArbiterAngAccelerationThresholdThou
@@ -39200,9 +39190,7 @@ ToRestoreDockPanel
 ToRestoreLayout
 ToRobloxAction
 ToRobloxAsAction
-TORQUE_CONSTRAINT
 TorqueAction
-TORSION_SPRING_CONSTRAINT
 TorsionSpringConstraint
 TorsionSpringConstraintAction
 TorsoColor
@@ -40206,7 +40194,6 @@ UniquePackagesPerAssetId
 UnitTestHelpers
 Universais
 Universal.png
-UNIVERSAL_CONSTRAINT
 UNIVERSAL_FRIENDS
 UniversalAppAuthFailureDialogAndReport
 UniversalAppConfiguration
@@ -41514,7 +41501,6 @@ VDuplicateRowData
 VDurationLogger
 VDynamicRotate
 VEchoSoundEffect
-VECTOR_FORCE_CONSTRAINT
 Vector2.new
 Vector2int16
 Vector2PropertyItem
@@ -42154,6 +42140,7 @@ Vinvalid_config_file_syntax
 Vinvalid_option_value
 VInventoryPages
 VIPluginFileController
+VipQJOP5iJHX47Jo3DvIb
 VIPropertyDescriptor
 VIPServerId
 VIPServerOwnerId
@@ -42424,6 +42411,7 @@ VNumberRange
 VNumberSequence
 VNumberSequenceKeypoint
 VNumHandler
+VnwdKDJSImdJyW
 VObjectValue
 VOcclusionHandler
 VogpHgQ70F57MdFiBApyJwNSBk
@@ -44063,7 +44051,6 @@ XBoxOneMemoryLimitPercentageEstimateOther
 XboxPresencePolling
 XboxSaleAvatarPackageIds
 XboxUseNewValidUsernameCheck2
-XEnJ74lbJJRLwScDn5OwXI
 XFbxAMatrix
 XFREE86_GLYPH_RANGES
 XHW4Status_e
@@ -44073,7 +44060,6 @@ XInputGetCapabilities
 XInputGetState
 XInputSetState
 Xinvalid_argument
-XKwBwZIGR6Hg4sAeMatM6Hq4qu9F8mq26Ix3RwuOvhWJuEgJ3dTP811DP0XZwQP
 Xlength_error
 Xout_of_range
 XP6AXAEBVQString
@@ -44312,8 +44298,8 @@ YieldEvent
 YieldFuncDesc
 YieldFunction
 YResolution
-YVJLfiISRr
 YwBBvY55YvBBwY5
+YxrLSSc4Sq06kI0NBZXMUdtQn8l0wQ6
 YYYYYYYYYYYYYYYYYYYYYYYYY
 YYYYYYYYzzzzzzzzzzzzzzzzzz
 Z_KPEBDPEBDH
@@ -44343,6 +44329,7 @@ ZPu4fE9Z`u
 ZRZZZbZt[.[
 ZstdCompression
 Zusammenfassung
+ZUxGMhc3IWAPFuP5SFxz1aG
 ZVLocalTouchedSignal
 ZVspecial_equipped_signal
 ZVTouchedSignal
