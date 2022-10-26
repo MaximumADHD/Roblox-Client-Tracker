@@ -62,14 +62,11 @@ DefaultDepthVS_00001000,Vertex
 DefaultDepthVS_00001002,Vertex
 DefaultDepthVS_00001006,Vertex
 DefaultDepthVS_00100001,Vertex
+DefaultDepthVS_00800000,Vertex
 DefaultDetiledHQFS_00000000,Fragment
 DefaultDetiledHQFS_00000008,Fragment
 DefaultDetiledHQFS_00000018,Fragment
 DefaultDetiledHQFS_00000218,Fragment
-DefaultDetiledNewHQFS_00000000,Fragment
-DefaultDetiledNewHQFS_00000008,Fragment
-DefaultDetiledNewHQFS_00000018,Fragment
-DefaultDetiledNewHQFS_00000218,Fragment
 DefaultForceFieldFS,Fragment
 DefaultForceFieldHQFS_00000000,Fragment
 DefaultForceFieldHQFS_00000008,Fragment
@@ -107,6 +104,10 @@ DefaultForceFieldHQVS_00100001,Vertex
 DefaultForceFieldHQVS_00100009,Vertex
 DefaultForceFieldHQVS_00100019,Vertex
 DefaultForceFieldHQVS_00100219,Vertex
+DefaultForceFieldHQVS_00800000,Vertex
+DefaultForceFieldHQVS_00800008,Vertex
+DefaultForceFieldHQVS_00800018,Vertex
+DefaultForceFieldHQVS_00800218,Vertex
 DefaultForceFieldSHQFS_00000000,Fragment
 DefaultForceFieldSHQFS_00000008,Fragment
 DefaultForceFieldSHQFS_00000018,Fragment
@@ -127,6 +128,8 @@ DefaultForceFieldVS_00001402,Vertex
 DefaultForceFieldVS_00001406,Vertex
 DefaultForceFieldVS_00100001,Vertex
 DefaultForceFieldVS_00100401,Vertex
+DefaultForceFieldVS_00800000,Vertex
+DefaultForceFieldVS_00800400,Vertex
 DefaultGlassHQFS_00000000,Fragment
 DefaultGlassHQFS_00000008,Fragment
 DefaultGlassHQFS_00000018,Fragment
@@ -143,6 +146,7 @@ DefaultHighlightAlphaTestVS_00001000,Vertex
 DefaultHighlightAlphaTestVS_00001002,Vertex
 DefaultHighlightAlphaTestVS_00001006,Vertex
 DefaultHighlightAlphaTestVS_00100001,Vertex
+DefaultHighlightAlphaTestVS_00800000,Vertex
 DefaultHighlightVS_00000000,Vertex
 DefaultHighlightVS_00000001,Vertex
 DefaultHighlightVS_00000002,Vertex
@@ -151,6 +155,7 @@ DefaultHighlightVS_00001000,Vertex
 DefaultHighlightVS_00001002,Vertex
 DefaultHighlightVS_00001006,Vertex
 DefaultHighlightVS_00100001,Vertex
+DefaultHighlightVS_00800000,Vertex
 DefaultHQVS_00000000,Vertex
 DefaultHQVS_00000001,Vertex
 DefaultHQVS_00000002,Vertex
@@ -183,6 +188,10 @@ DefaultHQVS_00100001,Vertex
 DefaultHQVS_00100009,Vertex
 DefaultHQVS_00100019,Vertex
 DefaultHQVS_00100219,Vertex
+DefaultHQVS_00800000,Vertex
+DefaultHQVS_00800008,Vertex
+DefaultHQVS_00800018,Vertex
+DefaultHQVS_00800218,Vertex
 DefaultModelLodFS,Fragment
 DefaultModelLodVS,Vertex
 DefaultNeonFS_00000000,Fragment
@@ -213,6 +222,8 @@ DefaultNewShadowVS_00001042,Vertex
 DefaultNewShadowVS_00001046,Vertex
 DefaultNewShadowVS_00100001,Vertex
 DefaultNewShadowVS_00100041,Vertex
+DefaultNewShadowVS_00800000,Vertex
+DefaultNewShadowVS_00800040,Vertex
 DefaultOpaqueFS_00000000,Fragment
 DefaultOpaqueFS_00000800,Fragment
 DefaultOpaqueHQFS_00000000,Fragment
@@ -247,6 +258,8 @@ DefaultReflectionVS_00001402,Vertex
 DefaultReflectionVS_00001406,Vertex
 DefaultReflectionVS_00100001,Vertex
 DefaultReflectionVS_00100401,Vertex
+DefaultReflectionVS_00800000,Vertex
+DefaultReflectionVS_00800400,Vertex
 DefaultShadowFS,Fragment
 DefaultShadowGeomVS_00000000,Vertex
 DefaultShadowGeomVS_00000001,Vertex
@@ -256,6 +269,7 @@ DefaultShadowGeomVS_00001000,Vertex
 DefaultShadowGeomVS_00001002,Vertex
 DefaultShadowGeomVS_00001006,Vertex
 DefaultShadowGeomVS_00100001,Vertex
+DefaultShadowGeomVS_00800000,Vertex
 DefaultSurfaceAppearanceDitheredDepthFS,Fragment
 DefaultSurfaceAppearanceDitheredDepthFS_00000000,Fragment
 DefaultSurfaceAppearanceDitheredDepthVS_00000000,Vertex
@@ -266,6 +280,7 @@ DefaultSurfaceAppearanceDitheredDepthVS_00001000,Vertex
 DefaultSurfaceAppearanceDitheredDepthVS_00001002,Vertex
 DefaultSurfaceAppearanceDitheredDepthVS_00001006,Vertex
 DefaultSurfaceAppearanceDitheredDepthVS_00100001,Vertex
+DefaultSurfaceAppearanceDitheredDepthVS_00800000,Vertex
 DefaultSurfaceAppearanceDitheredFS_00000000,Fragment
 DefaultSurfaceAppearanceDitheredFS_00000800,Fragment
 DefaultSurfaceAppearanceDitheredHQFS_00000000,Fragment
@@ -310,6 +325,10 @@ DefaultSurfaceHQVS_00100001,Vertex
 DefaultSurfaceHQVS_00100009,Vertex
 DefaultSurfaceHQVS_00100019,Vertex
 DefaultSurfaceHQVS_00100219,Vertex
+DefaultSurfaceHQVS_00800000,Vertex
+DefaultSurfaceHQVS_00800008,Vertex
+DefaultSurfaceHQVS_00800018,Vertex
+DefaultSurfaceHQVS_00800218,Vertex
 DefaultTiledEmissiveHideDiffuseRepHQFS_00000000,Fragment
 DefaultTiledEmissiveHideDiffuseRepHQFS_00000008,Fragment
 DefaultTiledEmissiveHideDiffuseRepHQFS_00000018,Fragment
@@ -352,6 +371,8 @@ DefaultVS_00001402,Vertex
 DefaultVS_00001406,Vertex
 DefaultVS_00100001,Vertex
 DefaultVS_00100401,Vertex
+DefaultVS_00800000,Vertex
+DefaultVS_00800400,Vertex
 DefaultWangHQFS_00000000,Fragment
 DefaultWangHQFS_00000008,Fragment
 DefaultWangHQFS_00000018,Fragment
@@ -409,6 +430,8 @@ GlassVS_00001402,Vertex
 GlassVS_00001406,Vertex
 GlassVS_00100001,Vertex
 GlassVS_00100401,Vertex
+GlassVS_00800000,Vertex
+GlassVS_00800400,Vertex
 GrassFS,Fragment
 GrassHQFS,Fragment
 GrassHQFSShadowed,Fragment
@@ -465,12 +488,18 @@ GridVS_00100001,Vertex
 GridVS_00100009,Vertex
 GridVS_00100019,Vertex
 GridVS_00100219,Vertex
+GridVS_00800000,Vertex
+GridVS_00800008,Vertex
+GridVS_00800018,Vertex
+GridVS_00800218,Vertex
 HbaoCompositFS,Fragment
 HBAODepthDownFS,Fragment
 HbaoFS,Fragment
 HighlightInPlaceFS_00000000,Fragment
 HighlightPostprocessAlphaTestFS_00000000,Fragment
 HighlightPostprocessFS_00000000,Fragment
+HighlightStudioSelectionAlphaTestFS_00000000,Fragment
+HighlightStudioSelectionFS_00000000,Fragment
 IBLDebugFS,Fragment
 IBLDebugVS,Vertex
 ImageProcessAlphaFS,Fragment
@@ -495,6 +524,9 @@ ImGuiCubeFS,Fragment
 ImGuiFS,Fragment
 ImGuiTexVS,Vertex
 ImGuiVS,Vertex
+InstancedCopy,Compute
+InstancedUploadCFrame,Compute
+InstancedUploadFull,Compute
 LightGridCullAccumAndCreateMaskCS,Compute
 LightGridCullClearCS,Compute
 LightGridCullCountOffsetCS,Compute
@@ -507,7 +539,7 @@ LinearizeDepthAAFS,Fragment
 LinearizeDepthBufferFS,Fragment
 LinearizeDepthFS,Fragment
 LowQGlassFS,Fragment
-LowQMaterialDetiledNewFS_00000000,Fragment
+LowQMaterialDetiledFS_00000000,Fragment
 LowQMaterialFS_00000000,Fragment
 LowQMaterialFS_00000800,Fragment
 LowQMaterialWangFallbackFS,Fragment
@@ -564,6 +596,9 @@ ProfilerFS,Fragment
 ProfilerVS,Vertex
 RadialBlurFS,Fragment
 ReprojectFilterFS,Fragment
+SelectionOutlineHorizFS,Fragment
+SelectionOutlineHorizQuadFetchFS,Fragment
+SelectionOutlineVerticalFS,Fragment
 ShadowBlurFS,Fragment
 ShadowBlurMarkFS,Fragment
 ShadowBlurMarkVS,Vertex

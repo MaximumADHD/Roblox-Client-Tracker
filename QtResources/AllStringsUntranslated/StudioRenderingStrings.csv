@@ -1,9 +1,0 @@
-Key,Context,Source,en-us
-Studio.App.MainWindow.FatalErrorDialog1,"Message shown when Studio experiences an error that it can't recover from, and must exit. %1 is the message for the error that occurred.",Studio encountered an unrecoverable error and must shut down: %1,Studio encountered an unrecoverable error and must shut down: %1
-Studio.App.RenderScheduler.FailedCreateGameWindow,,Failed to Create Game Window.  A key file may have gotten Corrupted.  Please try to reInstall Roblox Studio.  If the issue persists make sure your drivers are up to date http://www.roblox.com/drivers or Contact Customer support,Failed to Create Game Window.  A key file may have gotten Corrupted.  Please try to reInstall Roblox Studio.  If the issue persists make sure your drivers are up to date http://www.roblox.com/drivers or Contact Customer support
-Studio.App.RenderScheduler.NoRenderBackend,,"Your computer's graphics card is not compatible with Roblox's minimum system requirements.
-
-Visit https://www.roblox.com/drivers for more information.","Your computer's graphics card is not compatible with Roblox's minimum system requirements.
-
-Visit https://www.roblox.com/drivers for more information."
-Studio.App.RenderScheduler.FailedToBindToWorkspace,,Failed to Bind to Workspace. Please restart Studio in order to resolve the issue.,Failed to Bind to Workspace. Please restart Studio in order to resolve the issue.

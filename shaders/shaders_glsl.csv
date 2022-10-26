@@ -47,7 +47,6 @@ DefaultDepthVS_00001000,Vertex
 DefaultDepthVS_00001002,Vertex
 DefaultDepthVS_00001006,Vertex
 DefaultDetiledHQFS_00000000,Fragment
-DefaultDetiledNewHQFS_00000000,Fragment
 DefaultForceFieldFS,Fragment
 DefaultForceFieldHQFS_00000000,Fragment
 DefaultForceFieldHQVS_00000000,Vertex
@@ -196,6 +195,8 @@ GridVS_00001006,Vertex
 HighlightInPlaceFS_00000000,Fragment
 HighlightPostprocessAlphaTestFS_00000000,Fragment
 HighlightPostprocessFS_00000000,Fragment
+HighlightStudioSelectionAlphaTestFS_00000000,Fragment
+HighlightStudioSelectionFS_00000000,Fragment
 ImageProcessAlphaFS,Fragment
 ImageProcessBloomFS,Fragment
 ImageProcessBloomLinearFS,Fragment
@@ -222,7 +223,7 @@ LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
 LinearizeDepthFS,Fragment
 LowQGlassFS,Fragment
-LowQMaterialDetiledNewFS_00000000,Fragment
+LowQMaterialDetiledFS_00000000,Fragment
 LowQMaterialFS_00000000,Fragment
 LowQMaterialWangFallbackFS,Fragment
 LowQMaterialWangFS,Fragment
@@ -251,6 +252,8 @@ ProcessGuiFS,Fragment
 ProfilerFS,Fragment
 ProfilerVS,Vertex
 RadialBlurFS,Fragment
+SelectionOutlineHorizFS,Fragment
+SelectionOutlineVerticalFS,Fragment
 ShadowBlurFS,Fragment
 ShadowBlurMarkFS,Fragment
 ShadowBlurMarkVS,Vertex

@@ -11,32 +11,33 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec4 f0 = vec4(0.0);
-    f0.w = VARYING2.w;
-    vec4 f1 = f0;
-    f1.x = VARYING2.x;
+    float f0 = length(VARYING4.xyz);
+    vec4 f1 = vec4(0.0);
+    f1.w = VARYING2.w;
     vec4 f2 = f1;
-    f2.y = VARYING2.y;
+    f2.x = VARYING2.x;
     vec4 f3 = f2;
-    f3.z = VARYING2.z;
-    float f4 = clamp(exp2((CB0[18].z * length(VARYING4.xyz)) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
-    vec3 f5 = textureLod(PrefilteredEnvTexture, vec4(-VARYING4.xyz, 0.0).xyz, max(CB0[18].y, f4) * 5.0).xyz;
-    bvec3 f6 = bvec3(!(CB0[18].w == 0.0));
-    vec3 f7 = mix(vec3(f6.x ? CB0[19].xyz.x : f5.x, f6.y ? CB0[19].xyz.y : f5.y, f6.z ? CB0[19].xyz.z : f5.z), f3.xyz, vec3(f4));
-    vec4 f8 = f3;
-    f8.x = f7.x;
-    vec4 f9 = f8;
-    f9.y = f7.y;
+    f3.y = VARYING2.y;
+    vec4 f4 = f3;
+    f4.z = VARYING2.z;
+    float f5 = clamp(exp2((CB0[18].z * f0) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
+    vec3 f6 = textureLod(PrefilteredEnvTexture, vec4(-(VARYING4.xyz / vec3(f0)), 0.0).xyz, max(CB0[18].y, f5) * 5.0).xyz;
+    bvec3 f7 = bvec3(!(CB0[18].w == 0.0));
+    vec3 f8 = mix(vec3(f7.x ? CB0[19].xyz.x : f6.x, f7.y ? CB0[19].xyz.y : f6.y, f7.z ? CB0[19].xyz.z : f6.z), f4.xyz, vec3(f5));
+    vec4 f9 = f4;
+    f9.x = f8.x;
     vec4 f10 = f9;
-    f10.z = f7.z;
-    vec3 f11 = max(vec3(0.0), f10.xyz);
-    vec4 f12 = f10;
-    f12.x = f11.x;
-    vec4 f13 = f12;
-    f13.y = f11.y;
+    f10.y = f8.y;
+    vec4 f11 = f10;
+    f11.z = f8.z;
+    vec3 f12 = max(vec3(0.0), f11.xyz);
+    vec4 f13 = f11;
+    f13.x = f12.x;
     vec4 f14 = f13;
-    f14.z = f11.z;
-    _entryPointOutput = f14;
+    f14.y = f12.y;
+    vec4 f15 = f14;
+    f15.z = f12.z;
+    _entryPointOutput = f15;
 }
 
 //$$PrefilteredEnvTexture=s15

@@ -1,3 +1,0 @@
-Key,Context,Example,Source,en-us,de-de,es-es,fr-fr,id-id,it-it,ja-jp,ko-kr,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
-Studio.Auth.EmbeddedAuthorizationDialog.LaunchFailed,,,Launch Failed,Launch Failed,,,,,,,,,,,,,,,
-Studio.Auth.EmbeddedAuthorizationDialog.InvalidWebView2Fmt1,,,WebView2 installation required to launch Studio. Click <a href='%1'>here</a> for installation details.,WebView2 installation required to launch Studio. Click <a href='%1'>here</a> for installation details.,,,,,,,,,,,,,,,

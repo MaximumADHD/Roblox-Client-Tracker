@@ -9,7 +9,11 @@ version = "0.1.0"
 [[package]]
 name = "AppCommonLib"
 version = "0.1.0"
-dependencies = ["JestGlobals JestGlobals 0.1.0"]
+dependencies = [
+    "JestGlobals JestGlobals 0.1.0",
+    "LuauPolyfill LuauPolyfill 0.1.0",
+    "Promise Promise 0.1.0",
+]
 
 [[package]]
 name = "CollisionMatchers2D"
@@ -24,6 +28,10 @@ name = "Dash"
 version = "0.1.0"
 
 [[package]]
+name = "Http"
+version = "0.1.0"
+
+[[package]]
 name = "HttpRequest"
 version = "0.1.0"
 
@@ -33,6 +41,10 @@ version = "0.1.0"
 
 [[package]]
 name = "Localization"
+version = "0.1.0"
+
+[[package]]
+name = "LuauPolyfill"
 version = "0.1.0"
 
 [[package]]
@@ -81,6 +93,11 @@ name = "RoactRodux"
 version = "0.1.0"
 
 [[package]]
+name = "RoactUtils"
+version = "0.1.0"
+dependencies = ["JestGlobals JestGlobals 0.1.0"]
+
+[[package]]
 name = "Rodux"
 version = "0.1.0"
 
@@ -90,6 +107,10 @@ version = "0.1.0"
 
 [[package]]
 name = "SharedFlags"
+version = "0.1.0"
+
+[[package]]
+name = "Style"
 version = "0.1.0"
 
 [[package]]

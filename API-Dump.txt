@@ -111,7 +111,6 @@ Class AnimationStreamTrack : Instance [NotCreatable] [NotReplicated]
 	Function Tuple AnimationStreamTrack:GetTrackerData() {RobloxScriptSecurity}
 	Function void AnimationStreamTrack:Play(float fadeTime = 0.100000001, float weight = 1) {RobloxScriptSecurity}
 	Function void AnimationStreamTrack:Stop(float fadeTime = 0.100000001) {RobloxScriptSecurity}
-	Event AnimationStreamTrack.Stopped() {RobloxScriptSecurity}
 Class AnimationTrack : Instance [NotCreatable]
 	Property Animation AnimationTrack.Animation [ReadOnly]
 	Property bool AnimationTrack.IsPlaying [ReadOnly]
@@ -129,6 +128,7 @@ Class AnimationTrack : Instance [NotCreatable]
 	Function void AnimationTrack:Play(float fadeTime = 0.100000001, float weight = 1, float speed = 1)
 	Function void AnimationTrack:Stop(float fadeTime = 0.100000001)
 	Event AnimationTrack.DidLoop()
+	Event AnimationTrack.Ended()
 	Event AnimationTrack.KeyframeReached(string keyframeName)
 	Event AnimationTrack.Stopped()
 Class Animator : Instance
@@ -223,27 +223,27 @@ Class Atmosphere : Instance
 	Property float Atmosphere.Haze
 Class Attachment : Instance
 	Property bool Attachment.Visible
-	Property CFrame Attachment.CFrame
-	Property Vector3 Attachment.Orientation [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 Attachment.Position [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 Attachment.Rotation [Hidden] [NotReplicated] [Deprecated]
 	Property Vector3 Attachment.Axis [<📁> LoadOnly] [NotReplicated]
 	Property Vector3 Attachment.SecondaryAxis [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 Attachment.WorldRotation [Hidden] [ReadOnly] [Deprecated]
 	Property Vector3 Attachment.WorldAxis [<📁> LoadOnly] [NotReplicated]
 	Property CFrame Attachment.WorldCFrame [<📁> LoadOnly] [NotReplicated]
 	Property Vector3 Attachment.WorldOrientation [<📁> LoadOnly] [NotReplicated]
 	Property Vector3 Attachment.WorldPosition [<📁> LoadOnly] [NotReplicated]
+	Property Vector3 Attachment.WorldRotation [Hidden] [ReadOnly] [Deprecated]
 	Property Vector3 Attachment.WorldSecondaryAxis [<📁> LoadOnly] [NotReplicated]
+	Property CFrame Attachment.CFrame
+	Property Vector3 Attachment.Orientation [<📁> LoadOnly] [NotReplicated]
+	Property Vector3 Attachment.Position [<📁> LoadOnly] [NotReplicated]
+	Property Vector3 Attachment.Rotation [Hidden] [NotReplicated] [Deprecated]
 	Function Vector3 Attachment:GetAxis() [Deprecated]
 	Function Vector3 Attachment:GetSecondaryAxis() [Deprecated]
 	Function void Attachment:SetAxis(Vector3 axis) [Deprecated]
 	Function void Attachment:SetSecondaryAxis(Vector3 axis) [Deprecated]
 Class Bone : Attachment
 	Property bool Bone.IsCFrameDriven {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Property CFrame Bone.Transform [<📁> LoadOnly] [NotReplicated]
-	Property CFrame Bone.TransformedCFrame [ReadOnly]
+	Property CFrame Bone.TransformedCFrame [Hidden] [ReadOnly]
 	Property CFrame Bone.TransformedWorldCFrame [ReadOnly] {🧬Unsafe}
+	Property CFrame Bone.Transform [<📁> LoadOnly] [NotReplicated]
 Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function HumanoidDescription AvatarEditorService:CheckApplyDefaultClothing(HumanoidDescription humanoidDescription) [Yields]
 	Function HumanoidDescription AvatarEditorService:ConformToAvatarRules(HumanoidDescription humanoidDescription) [Yields]
@@ -254,10 +254,8 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function InventoryPages AvatarEditorService:GetInventory(Array assetTypes) [Yields]
 	Function Dictionary AvatarEditorService:GetItemDetails(int64 itemId, Enum.AvatarItemType itemType) [Yields]
 	Function OutfitPages AvatarEditorService:GetOutfits(Enum.OutfitSource outfitSource = "All", Enum.OutfitType outfitType = "All") [Yields]
-	Function Array AvatarEditorService:GetRecommendedAssets(Enum.AvatarAssetType assetType, int64 contextAssetId = 0) [Yields] [Deprecated]
-	Function Array AvatarEditorService:GetRecommendedAssetsV2(Enum.AvatarAssetType assetType, int64 assetId, int numItems, bool includeDetails) [Yields]
-	Function Array AvatarEditorService:GetRecommendedBundles(int64 bundleId) [Yields] [Deprecated]
-	Function Array AvatarEditorService:GetRecommendedBundlesV2(Enum.BundleType bundleType, int64 bundleId, int numItems, bool includeDetails) [Yields]
+	Function Array AvatarEditorService:GetRecommendedAssets(Enum.AvatarAssetType assetType, int64 contextAssetId = 0) [Yields]
+	Function Array AvatarEditorService:GetRecommendedBundles(int64 bundleId) [Yields]
 	Function bool AvatarEditorService:NoPromptCreateOutfit(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType, string name) {RobloxScriptSecurity}
 	Function bool AvatarEditorService:NoPromptDeleteOutfit(int64 outfitId) {RobloxScriptSecurity}
 	Function bool AvatarEditorService:NoPromptRenameOutfit(int64 outfitId, string name) {RobloxScriptSecurity}
@@ -322,16 +320,16 @@ Class HopperBin : BackpackItem [Deprecated]
 	Event HopperBin.Deselected() [Deprecated]
 	Event HopperBin.Selected(Instance mouse) [Deprecated]
 Class Tool : BackpackItem
-	Property CFrame Tool.Grip
-	Property Vector3 Tool.GripForward [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 Tool.GripPos [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 Tool.GripRight [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 Tool.GripUp [<📁> LoadOnly] [NotReplicated]
 	Property string Tool.ToolTip
 	Property bool Tool.CanBeDropped
 	Property bool Tool.ManualActivationOnly
 	Property bool Tool.RequiresHandle
 	Property bool Tool.Enabled
+	Property CFrame Tool.Grip
+	Property Vector3 Tool.GripForward [<📁> LoadOnly] [NotReplicated]
+	Property Vector3 Tool.GripPos [<📁> LoadOnly] [NotReplicated]
+	Property Vector3 Tool.GripRight [<📁> LoadOnly] [NotReplicated]
+	Property Vector3 Tool.GripUp [<📁> LoadOnly] [NotReplicated]
 	Function void Tool:Activate()
 	Function void Tool:Deactivate()
 	Event Tool.Activated()
@@ -1154,6 +1152,7 @@ Class DraggerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DraggerService.PivotSnapToGeometry {RobloxScriptSecurity} [ReadOnly]
 	Property bool DraggerService.ShowHover [ReadOnly]
 	Property bool DraggerService.ShowPivotIndicator [NotReplicated]
+Class DynamicTextureAlpha : Instance [NotCreatable] [NotReplicated]
 Class EulerRotationCurve : Instance
 	Property Enum.RotationOrder EulerRotationCurve.RotationOrder
 	Function Array EulerRotationCurve:GetAnglesAtTime(float time)
@@ -1166,9 +1165,10 @@ Class EventIngestService : Instance [NotCreatable] [Service]
 	Function void EventIngestService:SendEventImmediately(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
 	Function void EventIngestService:SetRBXEvent(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
 	Function void EventIngestService:SetRBXEventStream(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
+Class ExperienceAuthService : Instance [NotCreatable] [Service]
 Class ExperienceInviteOptions : Instance [NotReplicated]
-	Property int ExperienceInviteOptions.InviteMessageId
-	Property int ExperienceInviteOptions.InviteUser
+	Property int64 ExperienceInviteOptions.InviteMessageId
+	Property int64 ExperienceInviteOptions.InviteUser
 	Property string ExperienceInviteOptions.LaunchData
 	Property string ExperienceInviteOptions.PromptMessage
 Class Explosion : Instance
@@ -2614,8 +2614,10 @@ Class NotificationService : Instance [NotCreatable] [Service]
 	Event NotificationService.RobloxConnectionChanged(string connectionName, Enum.ConnectionState connectionState, string sequenceNumber, string namespaceSequenceNumbers) {RobloxScriptSecurity}
 	Event NotificationService.RobloxEventReceived(Map eventData) {RobloxScriptSecurity}
 Class PVInstance : Instance [NotCreatable] [NotBrowsable]
+	Property CFrame PVInstance.Pivot Offset [NotReplicated] [NotScriptable]
 	Property Vector3 PVInstance.Pivot Offset Orientation [NotReplicated] [NotScriptable]
 	Property Vector3 PVInstance.Pivot Offset Position [NotReplicated] [NotScriptable]
+	Property CFrame PVInstance.Origin [NotReplicated] [NotScriptable]
 	Property Vector3 PVInstance.Origin Orientation [NotReplicated] [NotScriptable]
 	Property Vector3 PVInstance.Origin Position [NotReplicated] [NotScriptable]
 	Function CFrame PVInstance:GetPivot()
@@ -2656,6 +2658,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property bool BasePart.Massless
 	Property float BasePart.ReceiveAge [Hidden] [ReadOnly]
 	Property int BasePart.RootPriority
+	Property CFrame BasePart.PivotOffset
 	Property Enum.SurfaceType BasePart.BackSurface
 	Property Enum.SurfaceType BasePart.BottomSurface
 	Property Enum.SurfaceType BasePart.FrontSurface
@@ -2681,8 +2684,9 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property float BasePart.TopParamB [Hidden] [Deprecated]
 	Property Enum.InputType BasePart.TopSurfaceInput [Hidden] [Deprecated]
 	Property CFrame BasePart.CFrame
+	Property CFrame BasePart.ExtentsCFrame [ReadOnly]
+	Property Vector3 BasePart.ExtentsSize [ReadOnly]
 	Property Vector3 BasePart.Orientation [<📁> LoadOnly] [NotReplicated]
-	Property CFrame BasePart.PivotOffset
 	Property Vector3 BasePart.Position [<📁> LoadOnly] [NotReplicated]
 	Property Vector3 BasePart.Size [<📁> LoadOnly] [NotReplicated]
 	Function void BasePart:ApplyAngularImpulse(Vector3 impulse)
@@ -3473,7 +3477,7 @@ Class RenderSettings : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property Enum.QualityLevel RenderSettings.QualityLevel
 	Function int RenderSettings:GetMaxQualityLevel()
 Class RenderingTest : Instance
-	Property CFrame RenderingTest.CFrame
+	Property CFrame RenderingTest.CFrame [<📁> LoadOnly] [NotReplicated]
 	Property int RenderingTest.ComparisonDiffThreshold
 	Property Enum.RenderingTestComparisonMethod RenderingTest.ComparisonMethod
 	Property float RenderingTest.ComparisonPsnrThreshold
@@ -3740,9 +3744,9 @@ Class SnippetService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool SocialService:CanSendGameInviteAsync(Instance player, int64 recipientId = 0) [Yields]
 	Function void SocialService:InvokeGameInvitePromptClosed(Instance player, Array recipientIds) {RobloxScriptSecurity}
-	Function void SocialService:PromptGameInvite(Instance player)
+	Function void SocialService:PromptGameInvite(Instance player, Instance experienceInviteOptions = nil)
 	Event SocialService.GameInvitePromptClosed(Instance player, Array recipientIds)
-	Event SocialService.PromptInviteRequested(Instance player) {RobloxScriptSecurity}
+	Event SocialService.PromptInviteRequested(Instance player, Instance experienceInviteOptions) {RobloxScriptSecurity}
 Class Sound : Instance
 	Property bool Sound.PlayOnRemove
 	Property Enum.UsageContext Sound.UsageContextPermission {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -3836,12 +3840,15 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Property Enum.VolumetricAudio SoundService.VolumetricAudio [NotScriptable]
 	Function bool SoundService:BeginRecording() {RobloxScriptSecurity}
 	Function Dictionary SoundService:EndRecording() {RobloxScriptSecurity} [Yields]
+	Function Tuple SoundService:GetInputDevice() {RobloxScriptSecurity}
+	Function Tuple SoundService:GetInputDevices() {RobloxScriptSecurity}
 	Function Tuple SoundService:GetListener()
 	Function Tuple SoundService:GetOutputDevice() {RobloxScriptSecurity}
 	Function Tuple SoundService:GetOutputDevices() {RobloxScriptSecurity}
 	Function Dictionary SoundService:GetRecordingDevices() {RobloxScriptSecurity} [Yields]
 	Function Dictionary SoundService:GetSoundMemoryData() {RobloxScriptSecurity}
 	Function void SoundService:PlayLocalSound(Instance sound)
+	Function void SoundService:SetInputDevice(string name, string guid) {RobloxScriptSecurity}
 	Function void SoundService:SetListener(Enum.ListenerType listenerType, Tuple listener)
 	Function void SoundService:SetOutputDevice(string name, string guid) {RobloxScriptSecurity}
 	Function bool SoundService:SetRecordingDevice(int deviceIndex) {RobloxScriptSecurity}
@@ -4663,6 +4670,7 @@ Class VRService : Instance [NotCreatable] [Service]
 	Property bool VRService.VRDeviceAvailable {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property string VRService.VRDeviceName {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool VRService.VREnabled [ReadOnly]
+	Property Enum.VRSessionState VRService.VRSessionState {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function Enum.VRTouchpadMode VRService:GetTouchpadMode(Enum.VRTouchpad pad)
 	Function CFrame VRService:GetUserCFrame(Enum.UserCFrame type)
 	Function bool VRService:GetUserCFrameEnabled(Enum.UserCFrame type)
@@ -4776,6 +4784,7 @@ Class VirtualUser : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void VirtualUser:StartRecording() {LocalUserSecurity}
 	Function string VirtualUser:StopRecording() {LocalUserSecurity}
 	Function void VirtualUser:TypeKey(string key) {LocalUserSecurity}
+Class VisibilityCheckDispatcher : Instance [NotCreatable] [Service]
 Class VisibilityService : Instance [NotCreatable] [Service]
 Class Visit : Instance [NotCreatable] [Service] [NotReplicated]
 Class VoiceChannel : Instance
@@ -5320,6 +5329,7 @@ Enum ConnectionError
 	EnumItem ConnectionError.DisconnectModeratedGame : 287
 	EnumItem ConnectionError.DisconnectOutOfMemoryExitContinue : 288
 	EnumItem ConnectionError.DisconnectOutOfMemoryKeepPlayingExit : 289
+	EnumItem ConnectionError.ReplicatorTimeout : 290
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516
@@ -5529,6 +5539,7 @@ Enum EnviromentalPhysicsThrottle
 	EnumItem EnviromentalPhysicsThrottle.Skip4 : 4
 	EnumItem EnviromentalPhysicsThrottle.Skip8 : 5
 	EnumItem EnviromentalPhysicsThrottle.Skip16 : 6
+Enum ExperienceAuthScope
 Enum ExplosionType
 	EnumItem ExplosionType.NoCraters : 0
 	EnumItem ExplosionType.Craters : 1
@@ -6484,9 +6495,9 @@ Enum ResamplerMode
 	EnumItem ResamplerMode.Pixelated : 1
 Enum ReservedHighlightId
 	EnumItem ReservedHighlightId.Standard : 0
-	EnumItem ReservedHighlightId.Selection : 32
-	EnumItem ReservedHighlightId.Hover : 64
-	EnumItem ReservedHighlightId.Active : 128
+	EnumItem ReservedHighlightId.Active : 131072
+	EnumItem ReservedHighlightId.Hover : 262144
+	EnumItem ReservedHighlightId.Selection : 524288
 Enum ReturnKeyType
 	EnumItem ReturnKeyType.Default : 0
 	EnumItem ReturnKeyType.Done : 1
@@ -6585,6 +6596,7 @@ Enum ScaleType
 	EnumItem ScaleType.Tile : 2
 	EnumItem ScaleType.Fit : 3
 	EnumItem ScaleType.Crop : 4
+Enum ScopeCheckResult
 Enum ScreenOrientation
 	EnumItem ScreenOrientation.LandscapeLeft : 0
 	EnumItem ScreenOrientation.LandscapeRight : 1
@@ -7080,6 +7092,11 @@ Enum UserInputType
 	EnumItem UserInputType.TextInput : 20
 	EnumItem UserInputType.InputMethod : 21
 	EnumItem UserInputType.None : 22
+Enum VRSessionState
+	EnumItem VRSessionState.Idle : 0
+	EnumItem VRSessionState.Visible : 1
+	EnumItem VRSessionState.Focused : 2
+	EnumItem VRSessionState.Undefined : 3
 Enum VRTouchpad
 	EnumItem VRTouchpad.Left : 0
 	EnumItem VRTouchpad.Right : 1

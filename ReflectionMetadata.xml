@@ -438,6 +438,12 @@
             <string name="Name">SecondaryWorldAxis</string>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">WorldCFrame</string>
+            <string name="PropertyOrder">1000</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
 
@@ -1759,7 +1765,7 @@
         <string name="ExplorerOrder">200</string>
         <string name="ExplorerImageIndex">145</string>
         <string name="PreferredParent">GuiBase2d</string>
-        <bool name="FFlag">AdGuiEnabled2</bool>
+        <bool name="FFlag">AdGuiEnabled3</bool>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -1769,7 +1775,7 @@
         <string name="ExplorerOrder">200</string>
         <string name="ExplorerImageIndex">146</string>
         <string name="PreferredParent">Part</string>
-        <bool name="FFlag">AdPortalEnabled2</bool>
+        <bool name="FFlag">AdPortalEnabled3</bool>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">

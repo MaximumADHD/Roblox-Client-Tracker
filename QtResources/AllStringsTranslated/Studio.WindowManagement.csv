@@ -1,7 +1,0 @@
-Key,Context,Example,Source,en-us,de-de,es-es,fr-fr,id-id,it-it,ja-jp,ko-kr,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
-Studio.WindowManagement.DockPanelAction.Close,,,Close,Close,,,,,,,,,,,,,,,
-Studio.WindowManagement.DockPanelAction.Expand,,,Expand,Expand,,,,,,,,,,,,,,,
-Studio.WindowManagement.DockPanelAction.Collapse,,,Collapse,Collapse,,,,,,,,,,,,,,,
-Studio.WindowManagement.DockPanelAction.WindowPosition,,,Window Position,Window Position,,,,,,,,,,,,,,,
-Studio.WindowManagement.DockPanelAction.Float,,,Float,Float,,,,,,,,,,,,,,,
-Studio.WindowManagement.DockPanelAction.Dock,,,Dock,Dock,,,,,,,,,,,,,,,
