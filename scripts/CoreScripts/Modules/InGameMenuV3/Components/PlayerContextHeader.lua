@@ -14,7 +14,12 @@ local Images = UIBlox.App.ImageSet.Images
 
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
+local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
+local isPlayerVerified = VerifiedBadges.isPlayerVerified
+
 local PlayerContextHeader = Roact.PureComponent:extend("PlayerContextHeader")
+
+local FFlagVerifiedBadgeEnabled = require(script.Parent.Parent.Flags.GetFFlagShowVerifiedBadgePlayerContextHeader)
 
 PlayerContextHeader.validateProps = t.strictInterface({
 	player = t.union(
@@ -33,6 +38,7 @@ function PlayerContextHeader:render()
 	local userId = self.props.player.UserId or self.props.player.Id
 	local username = self.props.player.Name or self.props.player.Username
 	local displayName = self.props.player.DisplayName
+	local hasVerifiedBadge = isPlayerVerified(self.props.player)
 
 	return withStyle(function(style)
 		-- TODO: Switch to using icon from UIBlox. Managing rounded corners will be a challenge.
@@ -65,18 +71,41 @@ function PlayerContextHeader:render()
 						VerticalAlignment = Enum.VerticalAlignment.Center,
 					}),
 
-					DisplayName = Roact.createElement(StyledTextLabel, {
-						layoutOrder = 1,
-						size = UDim2.new(1, 0, 0, 20),
-						text = displayName,
-						fontStyle = style.Font.Header2,
-						colorStyle = style.Theme.TextEmphasis,
-						textTruncate = Enum.TextTruncate.AtEnd,
-						fluidSizing = false,
-						richText = false,
-						lineHeight = 1,
-					}),
-
+					DisplayName = if FFlagVerifiedBadgeEnabled()
+						then Roact.createElement(
+							VerifiedBadges.EmojiWrapper,
+							{
+								emoji = if hasVerifiedBadge then VerifiedBadges.emoji.verified else "",
+								size = UDim2.new(1, 0, 0, 20),
+								automaticSize = Enum.AutomaticSize.None,
+							},
+							{
+								DisplayNameText = Roact.createElement(StyledTextLabel, {
+									layoutOrder = 1,
+									size = UDim2.new(1, 0, 0, 20),
+									text = displayName,
+									fontStyle = style.Font.Header2,
+									colorStyle = style.Theme.TextEmphasis,
+									textTruncate = Enum.TextTruncate.AtEnd,
+									automaticSize = if hasVerifiedBadge then Enum.AutomaticSize.XY else Enum.AutomaticSize.None,
+									fluidSizing = false,
+									richText = false,
+									lineHeight = 1,
+								}),
+							}
+						)
+						else
+							Roact.createElement(StyledTextLabel, {
+								layoutOrder = 1,
+								size = UDim2.new(1, 0, 0, 20),
+								text = displayName,
+								fontStyle = style.Font.Header2,
+								colorStyle = style.Theme.TextEmphasis,
+								textTruncate = Enum.TextTruncate.AtEnd,
+								fluidSizing = false,
+								richText = false,
+								lineHeight = 1,
+							}),
 					PlayerName = Roact.createElement(StyledTextLabel, {
 						layoutOrder = 2,
 						size = UDim2.new(1, 0, 0, 14),

@@ -5,6 +5,7 @@ local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local LoggingProtocol = require(CorePackages.UniversalApp.Logging.LoggingProtocol).default
 
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local VideoCaptureService = game:GetService("VideoCaptureService")
@@ -15,6 +16,8 @@ local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamin
 
 local EngineFeatureFacialAnimationStreamingServiceUseV2 = game:GetEngineFeature("FacialAnimationStreamingServiceUseV2")
 local RunService = game:GetService("RunService")
+local avatarChatSubsessionStatsConfig = require(script.Parent.RobloxTelemetryConfigs.AvatarChatSubsessionStats)
+local avatarChatSubsessionInputConfig = require(script.Parent.RobloxTelemetryConfigs.AvatarChatSubsessionInput)
 
 local environment = "client"
 if RunService:IsStudio() then
@@ -123,7 +126,7 @@ function FacialAnimationStreamingStats.trackRemainingFacs()
 	end
 
 	if trackingFacsSent and trackingFacsReceivedCount > 0 then
-		trackingFacsSentAndReceivedElapsedTime = now - facsSentAndReceivedTimerStart
+		trackingFacsSentAndReceivedElapsedTime += now - facsSentAndReceivedTimerStart
 		facsSentAndReceivedTimerStart = now
 	end
 
@@ -131,13 +134,13 @@ function FacialAnimationStreamingStats.trackRemainingFacs()
 end
 
 function fireAvatarChatSubsessionInput()
-	local now = os.clock()
+	local now = os.time()
 	local boolPlayerMicOn = playerMicOn[Players.LocalPlayer.userId]
 	if boolPlayerMicOn == nil then
 		boolPlayerMicOn = false
 	end
 
-	AnalyticsService:sendEventDeferred(environment, "avatarChat", "avatarChatSubsessionInput", {
+	local customFields = {
 		pid = tostring(game.PlaceId),
 		sessionid = AnalyticsService:GetSessionId(),
 		userid = tostring(Players.LocalPlayer.UserId),
@@ -150,13 +153,17 @@ function fireAvatarChatSubsessionInput()
 		gameMicAllowed = tostring(placeAudioEnabled),
 		userAcctMicAllowed = tostring(userAccountAudioEnabled),
 		userAcctCamAllowed = tostring(userAccountVideoEnabled),
-	})
+	}
+
+	LoggingProtocol:logRobloxTelemetryEvent(avatarChatSubsessionInputConfig, nil, customFields)
+
 	stateStartedTimeStamp = now
 end
 
 function fireAvatarChatSubsessionStats()
 	FacialAnimationStreamingStats.trackRemainingFacs()
-	AnalyticsService:sendEventDeferred(environment, "avatarChat", "avatarChatSubsessionStats", {
+
+	local customFields = {
 		pid = tostring(game.PlaceId),
 		sessionid = AnalyticsService:GetSessionId(),
 		userid = tostring(Players.LocalPlayer.UserId),
@@ -165,7 +172,9 @@ function fireAvatarChatSubsessionStats()
 		facsReceivedSec = tostring(trackingFacsReceivedElapsedTime),
 		facsSentReceivedSec = tostring(trackingFacsSentAndReceivedElapsedTime),
 		sessionTimeSec = tostring(sessionTotalElapsedTime)
-	})
+	}
+
+	LoggingProtocol:logRobloxTelemetryEvent(avatarChatSubsessionStatsConfig, nil, customFields)
 end
 
 local function trackFacsSending(isTransmittingFacs, now)
@@ -421,9 +430,8 @@ function FacialAnimationStreamingStats.startTracking()
 	connectPlayerAddedAndRemovedCallbacks()
 	ConnectStreamingAnalyticsCallbacks()
 	updateFacsCanBeReceived()
-	local now = os.clock()
-	stateStartedTimeStamp = now
-	sessionStartTime = now
+	stateStartedTimeStamp = os.time()
+	sessionStartTime = os.clock()
 	trackingStarted = true
 end
 

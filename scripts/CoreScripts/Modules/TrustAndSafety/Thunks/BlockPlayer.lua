@@ -5,11 +5,11 @@ local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 local TnsModule = script.Parent.Parent
 local ShowToast = require(TnsModule.Actions.ShowToast)
 
-local function BlockPlayer(player, doneToastText)
+local function BlockPlayer(player, successToastTitle, successToastDescription)
 	return function(store)
 		coroutine.wrap(function()
 			if BlockingUtility:BlockPlayerAsync(player) then
-				store:dispatch(ShowToast(doneToastText))
+				store:dispatch(ShowToast(successToastTitle, successToastDescription))
 			end
 		end)()
 	end

@@ -10,7 +10,7 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
 local t = require(CorePackages.Packages.t)
 local tutils = require(CorePackages.tutils)
-local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEventConnection)
+local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 local AvatarExperienceDeps = require(CorePackages.AvatarExperienceDeps)
 local RoactFitComponents = AvatarExperienceDeps.RoactFitComponents
 

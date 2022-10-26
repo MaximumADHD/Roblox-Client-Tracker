@@ -28,7 +28,7 @@
 	are stripped.
 ]]
 local function captureSize(...)
-	return {...}, select("#", ...)
+	return { ... }, select("#", ...)
 end
 
 local function memoize(func)
@@ -47,7 +47,7 @@ local function memoize(func)
 		end
 
 		if numArgs ~= lastNumArgs then
-			lastArgs = {...}
+			lastArgs = { ... }
 			lastNumArgs = numArgs
 			lastOutput, lastNumOutput = captureSize(func(...))
 			return unpack(lastOutput, 1, lastNumOutput)
@@ -55,7 +55,7 @@ local function memoize(func)
 
 		for i = 1, lastNumArgs do
 			if select(i, ...) ~= lastArgs[i] then
-				lastArgs = {...}
+				lastArgs = { ... }
 				lastOutput, lastNumOutput = captureSize(func(...))
 				break
 			end

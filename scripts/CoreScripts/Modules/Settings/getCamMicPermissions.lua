@@ -14,9 +14,13 @@
 	}
 ]]
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 
 local Cryo = require(CorePackages.Cryo)
 local PermissionsProtocol = require(CorePackages.UniversalApp.Permissions.PermissionsProtocol).default
+
+local Modules = CoreGui.RobloxGui.Modules
+local FFlagSelfViewFixes = require(Modules.Flags.FFlagSelfViewFixes)
 
 local hasCameraPermissions
 local hasMicPermissions
@@ -32,6 +36,9 @@ return function(callback)
 		}
 
 		callback(response)
+		if FFlagSelfViewFixes then
+			return
+		end
 	end
 
 	-- A request is already in progress, add the callback to the queue.
@@ -43,30 +50,71 @@ return function(callback)
 	inProgress = true
 	table.insert(callbackQueue, callback)
 
-	-- Obtain the permissions for camera and mic.
-	PermissionsProtocol:hasPermissions({
-		PermissionsProtocol.Permissions.CAMERA_ACCESS,
-		PermissionsProtocol.Permissions.MICROPHONE_ACCESS,
-	}):andThen(function (permissionResponse)
-		local hasCameraPermissionsResponse = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
-			or not Cryo.List.find(permissionResponse.missingPermissions, PermissionsProtocol.Permissions.CAMERA_ACCESS)
-		local hasMicPermissionsResponse = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
-			or not Cryo.List.find(permissionResponse.missingPermissions, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
+	if FFlagSelfViewFixes then
+		-- Obtain the permissions for camera and mic.
+		PermissionsProtocol:hasPermissions({
+			PermissionsProtocol.Permissions.CAMERA_ACCESS,
+			PermissionsProtocol.Permissions.MICROPHONE_ACCESS,
+		}):andThen(function (permissionResponse)
+			-- If permissions were different
+			if typeof(permissionResponse) == "table" then
+				local hasCameraPermissionsResponse = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
+					or not Cryo.List.find(permissionResponse.missingPermissions, PermissionsProtocol.Permissions.CAMERA_ACCESS)
+				local hasMicPermissionsResponse = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
+					or not Cryo.List.find(permissionResponse.missingPermissions, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
 
-		hasCameraPermissions = hasCameraPermissionsResponse
-		hasMicPermissions = hasMicPermissionsResponse
+				hasCameraPermissions = hasCameraPermissionsResponse
+				hasMicPermissions = hasMicPermissionsResponse
+			else
+				-- If all permissions were authorized
+				if permissionResponse == PermissionsProtocol.Status.AUTHORIZED then
+					hasCameraPermissions = true
+					hasMicPermissions = true
+				else
+					-- Fall back to denied
+					hasCameraPermissions = false
+					hasMicPermissions = false
+				end
+			end
 
-		local response = {
-			hasCameraPermissions = hasCameraPermissions,
-			hasMicPermissions = hasMicPermissions,
-		}
+			local response = {
+				hasCameraPermissions = hasCameraPermissions,
+				hasMicPermissions = hasMicPermissions,
+			}
 
-		-- Notify all callback listeners of the result.
-		for _, callback in callbackQueue do
-			callback(response)
-		end
+			-- Notify all callback listeners of the result.
+			for _, callback in callbackQueue do
+				callback(response)
+			end
 
-		callbackQueue = {}
-		inProgress = false
-	end)
+			callbackQueue = {}
+			inProgress = false
+		end)
+	else
+		PermissionsProtocol:hasPermissions({
+			PermissionsProtocol.Permissions.CAMERA_ACCESS,
+			PermissionsProtocol.Permissions.MICROPHONE_ACCESS,
+		}):andThen(function (permissionResponse)
+			local hasCameraPermissionsResponse = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
+				or not Cryo.List.find(permissionResponse.missingPermissions, PermissionsProtocol.Permissions.CAMERA_ACCESS)
+			local hasMicPermissionsResponse = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
+				or not Cryo.List.find(permissionResponse.missingPermissions, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
+
+			hasCameraPermissions = hasCameraPermissionsResponse
+			hasMicPermissions = hasMicPermissionsResponse
+
+			local response = {
+				hasCameraPermissions = hasCameraPermissions,
+				hasMicPermissions = hasMicPermissions,
+			}
+	
+			-- Notify all callback listeners of the result.
+			for _, callback in callbackQueue do
+				callback(response)
+			end
+	
+			callbackQueue = {}
+			inProgress = false
+		end)
+	end
 end

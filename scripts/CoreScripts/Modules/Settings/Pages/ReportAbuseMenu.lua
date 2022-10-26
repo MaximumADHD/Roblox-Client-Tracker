@@ -23,6 +23,7 @@ local enumerate = require(CorePackages.enumerate)
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
 local Cryo = require(CorePackages.Cryo)
+local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
 
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
@@ -40,6 +41,7 @@ local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.
 local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
 local GetFFlagVoiceARCantSelectVoiceAfterTextFix = require(RobloxGui.Modules.Flags.GetFFlagVoiceARCantSelectVoiceAfterTextFix)
 local GetFFlagHideMOAOnExperience = require(RobloxGui.Modules.Flags.GetFFlagHideMOAOnExperience)
+local GetFFlagShowVerifiedBadgeInReportMenu = require(RobloxGui.Modules.Settings.Flags.GetFFlagShowVerifiedBadgeInReportMenu)
 local GetFFlagAddVoiceTagsToAllARSubmissionsEnabled = require(RobloxGui.Modules.Flags.GetFFlagAddVoiceTagsToAllARSubmissionsEnabled)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 
@@ -154,7 +156,11 @@ local function Initialize()
 	end
 
 	function this:GetPlayerNameText(player)
-		return player.DisplayName .. " [@" .. player.Name .. "]"
+		if GetFFlagShowVerifiedBadgeInReportMenu() and VerifiedBadges.isPlayerVerified(player) then
+			return player.DisplayName .. VerifiedBadges.emoji.verified .. "  [@" .. player.Name .. "]"
+		else
+			return player.DisplayName .. " [@" .. player.Name .. "]"
+		end
 	end
 
 	function this:GetPlayerFromIndex(index)

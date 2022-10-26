@@ -24,6 +24,9 @@ local Constants = require(InGameMenu.Resources.Constants)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
 
+local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
+local isPlayerVerified = VerifiedBadges.isPlayerVerified
+
 local Divider = require(InGameMenu.Components.Divider)
 local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
 local RootedConnection = require(InGameMenu.Components.Connection.RootedConnection)
@@ -190,6 +193,7 @@ function InviteFriendsList:renderListEntries()
 				username = playerInfo.Username,
 				displayName = playerInfo.DisplayName,
 				userId = playerInfo.Id,
+				hasVerifiedBadge = isPlayerVerified(playerInfo),
 				isOnline = playerInfo.IsOnline,
 				isSelected = self.state.selectedPlayer and self.state.selectedPlayer.UserId == playerInfo.Id or nil,
 				LayoutOrder = self.getLayoutBinding(playerInfo.Id, layoutOrder),

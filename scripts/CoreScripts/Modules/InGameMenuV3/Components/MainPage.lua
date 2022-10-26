@@ -69,6 +69,12 @@ MainPage.validateProps = t.strictInterface({
 })
 
 function MainPage:init()
+	self:setState({
+		heightOffset = 0,
+	})
+	self.scrollingThread = nil
+	self.scrollingDown = nil
+
 	self.mainPageFirstButtonRef = Roact.createRef()
 	self.scrollingFrameRef = Roact.createRef()
 
@@ -106,6 +112,7 @@ function MainPage:render()
 
 	return PageUtils.withScrollDownState(function(onScroll, scrollingDown)
 		return withStyle(function(style)
+			self:updateHeightOffset(scrollingDown)
 			return Roact.createElement("TextButton", {
 				Size = UDim2.new(0, MAIN_PAGE_WIDTH, 1, 0),
 				BackgroundColor3 = style.Theme.BackgroundDefault.Color,
@@ -132,7 +139,7 @@ function MainPage:render()
 					direction = Direction.Left,
 				}),
 				PageContents = Roact.createElement(VerticalScrollViewWithIndicator, {
-					size = UDim2.new(1, 0, 1, 0),
+					size = UDim2.new(1, 0, 1, self.state.heightOffset),
 					useAutomaticCanvasSize = true,
 					canvasSizeY = UDim.new(0, 0),  -- no minmum size
 					scrollingFrameRef = self.scrollingFrameRef,
@@ -183,6 +190,28 @@ function MainPage:render()
 			})
 		end)
 	end)
+end
+
+function MainPage:updateHeightOffset(scrollingDown)
+	if self.scrollingDown ~= scrollingDown then
+		self.scrollingDown = scrollingDown
+
+		if self.scrollingThread then
+			task.cancel(self.scrollingThread)
+		end
+
+		if scrollingDown then
+			self:setState({
+				heightOffset = 0,
+			})
+		else
+			self.scrollingThread = task.delay(Constants.LeaveButtonTweenTime, function()
+				self:setState({
+					heightOffset = -Constants.LeaveButtonContainerHeight,
+				})
+			end)
+		end
+	end
 end
 
 function MainPage:didMount()

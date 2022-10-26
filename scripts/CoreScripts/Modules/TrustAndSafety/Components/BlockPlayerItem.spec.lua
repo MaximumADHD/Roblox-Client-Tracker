@@ -1,8 +1,8 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
-	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
-	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 	local Roact = require(CorePackages.Roact)
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local Rodux = require(CorePackages.Rodux)
@@ -22,6 +22,9 @@ return function()
 			BlockPlayerItem = Roact.createElement(BlockPlayerItem, {
 				size = UDim2.new(0, 492, 0, 56),
 				text = "test",
+				icon = "fakeicon",
+				iconSize = UDim2.new(0, 24, 0, 24),
+				description = "test description",
 				isCheckBoxSelected = true,
 				onCheckBoxActivated = function(selected) end,
 			}),

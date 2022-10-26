@@ -49,8 +49,8 @@ local Images = UIBlox.App.ImageSet.Images
 local StyleProvider = UIBlox.Core.Style.Provider
 local EducationalModal = UIBlox.App.Dialog.Modal.EducationalModal
 
-local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
-local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
 ------------ VARIABLES -------------------
 

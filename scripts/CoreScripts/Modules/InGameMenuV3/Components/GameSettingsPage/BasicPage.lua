@@ -87,7 +87,10 @@ function BasicPage:init()
 		vrActive = GetFFlagInGameMenuVRToggle() and self.props.vrService.VREnabled or nil,
 		vrEnabled = UserGameSettings.VREnabled,
 		voiceChatEnabled = false,
+		heightOffset = 0,
 	})
+	self.scrollingThread = nil
+	self.scrollingDown = nil
 
 	self.cameraModeButton = Roact.createRef() -- reference to the cameramode button at the top of the page
 	self.volumeButton = Roact.createRef() -- reference to the slider button at the top of the page in vr
@@ -117,6 +120,8 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 	local dividerSize = UDim2.new(1, -24, 0, 1)
 
 	return PageUtils.withScrollDownState(function(onScroll, scrollingDown)
+		self:updateHeightOffset(scrollingDown)
+
 		return Roact.createElement(Page, {
 			useLeaveButton = true,
 			scrollingDown = scrollingDown,
@@ -139,7 +144,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 			}),
 			PageContents = Roact.createElement(VerticalScrollViewWithIndicator, {
 				position = self.props.position,
-				size = UDim2.new(1, 0, 1, 0),
+				size = UDim2.new(1, 0, 1, self.state.heightOffset),
 				useAutomaticCanvasSize = true,
 				canvasSizeY = UDim.new(0, 0), -- no minmum size
 				scrollingFrameRef = self.scrollingFrameRef,
@@ -361,6 +366,28 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 			}),
 		})
 	end)
+end
+
+function BasicPage:updateHeightOffset(scrollingDown)
+	if self.scrollingDown ~= scrollingDown then
+		self.scrollingDown = scrollingDown
+
+		if self.scrollingThread then
+			task.cancel(self.scrollingThread)
+		end
+
+		if scrollingDown then
+			self:setState({
+				heightOffset = 0,
+			})
+		else
+			self.scrollingThread = task.delay(Constants.LeaveButtonTweenTime, function()
+				self:setState({
+					heightOffset = -Constants.LeaveButtonContainerHeight,
+				})
+			end)
+		end
+	end
 end
 
 function BasicPage:render()

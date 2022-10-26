@@ -1,7 +1,7 @@
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local SetUniverseId = require(CoreGui.RobloxGui.Modules.LoadingScreen.Actions.SetUniverseId)
-local Url = require(CorePackages.AppTempCommon.LuaApp.Http.Url)
+local Url = require(CorePackages.Workspace.Packages.Http).Url
 
 return function(networking, placeId)
 

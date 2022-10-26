@@ -17,8 +17,8 @@ return function()
 	local InGameMenu = script.Parent.Parent.Parent
 	local reducer = require(InGameMenu.reducer)
 	local UIBlox = InGameMenuDependencies.UIBlox
-	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
-	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 	local Players = game:GetService("Players")
 	local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 	local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)

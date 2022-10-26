@@ -3,10 +3,42 @@
 --	// Written by: TheGamer101
 --	// Description: Create a message label for a standard chat message.
 
+local PlayersService = game:GetService("Players")
+
 local clientChatModules = script.Parent.Parent
 local ChatSettings = require(clientChatModules:WaitForChild("ChatSettings"))
 local ChatConstants = require(clientChatModules:WaitForChild("ChatConstants"))
 local util = require(script.Parent:WaitForChild("Util"))
+
+local VERIFIED_EMOJI = utf8.char(0xE000)
+
+local FFlagUserShowVerifiedBadgeInLegacyChat
+do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserShowVerifiedBadgeInLegacyChat")
+	end)
+	if success then
+		FFlagUserShowVerifiedBadgeInLegacyChat = value
+	end
+end
+
+function IsPlayerVerified(userId)
+	local player = PlayersService:GetPlayerByUserId(userId)
+
+	if not player then
+		return false
+	end
+
+	local success, value = pcall(function()
+		return player.HasVerifiedBadge
+	end)
+
+	return if success then value else false
+end
+
+function AppendVerifiedBadge(str)
+	return str .. VERIFIED_EMOJI
+end
 
 function CreateMessageLabel(messageData, channelName)
 
@@ -17,6 +49,11 @@ function CreateMessageLabel(messageData, channelName)
 		speakerName = messageData.SpeakerDisplayName
 	else
 		speakerName = fromSpeaker
+	end
+	
+	local speakerUserId = messageData.SpeakerUserId
+	if FFlagUserShowVerifiedBadgeInLegacyChat and IsPlayerVerified(speakerUserId) then
+		speakerName = AppendVerifiedBadge(speakerName)
 	end
 
 	local message = messageData.Message

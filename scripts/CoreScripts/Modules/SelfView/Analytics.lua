@@ -7,7 +7,7 @@ function debugPrint(text)
 	end
 end
 
-debugPrint("Self View Analytics 10-12-2022__2")
+debugPrint("Self View Analytics 10-19-2022__1")
 
 local EngineFeatureFacialAnimationStreamingServiceUseV2 = game:GetEngineFeature("FacialAnimationStreamingServiceUseV2")
 
@@ -53,7 +53,7 @@ type AnalyticsWrapperMeta = {
 	reportMicState: (AnalyticsWrapper, boolean, string, string, string, string) -> (),
 	reportCamState: (AnalyticsWrapper, boolean, string, string, string, string) -> (),
 	reportSelfViewEnabledInCoreGuiState: (AnalyticsWrapper, boolean, string, string, string) -> (),
-	reportSelfViewSessionStarted: (AnalyticsWrapper, string, string, string, string, string, string, string) -> (),
+	reportSelfViewSessionStarted: (AnalyticsWrapper, string, string, string, string, string, string, string, string, string, string, string) -> (),
 	reportSelfViewSessionStopped: (AnalyticsWrapper, string, string, string) -> (),
 	reportUserAccountSettings: (AnalyticsWrapper, string, string, string, string, string) -> (),
 	reportExperienceSettings: (AnalyticsWrapper, string, string, string, string, string, string) -> (),
@@ -147,8 +147,8 @@ function Analytics:reportSelfViewEnabledInCoreGuiState(isOn)
 	})
 end
 
-function Analytics:reportSelfViewSessionStarted(x, y, width, height)
-	debugPrint("Self View: Analytics:reportSelfViewSessionStarted,universeid: "..tostring(game.GameId)..",pid: "..tostring(game.PlaceId)..",sessionid: "..tostring(self._impl:GetSessionId())..",x: "..tostring(x)..",y: "..tostring(y)..",width: "..tostring(width)..",height: "..tostring(height)     )
+function Analytics:reportSelfViewSessionStarted(x, y, width, height, x_relative, y_relative, width_relative, height_relative)
+	debugPrint("Self View: Analytics:reportSelfViewSessionStarted,universeid: "..tostring(game.GameId)..",pid: "..tostring(game.PlaceId)..",sessionid: "..tostring(self._impl:GetSessionId())..",x: "..tostring(x)..",y: "..tostring(y)..",width: "..tostring(width)..",height: "..tostring(height) ..",x_relative: "..tostring(x_relative) ..",y_relative: "..tostring(y_relative)  ..",width_relative: "..tostring(width_relative) ..",height_relative: "..tostring(height_relative))
 	self:_report("SelfView", "sessionStarted", "true", {
 		universeid = tostring(game.GameId),
 		pid = tostring(game.PlaceId),
@@ -157,6 +157,10 @@ function Analytics:reportSelfViewSessionStarted(x, y, width, height)
 		y = tostring(y),
 		width = tostring(width),
 		height = tostring(height),
+		x_relative = tostring(x_relative),
+		y_relative = tostring(y_relative),
+		width_relative = tostring(width_relative),
+		height_relative = tostring(height_relative),
 	})
 end
 

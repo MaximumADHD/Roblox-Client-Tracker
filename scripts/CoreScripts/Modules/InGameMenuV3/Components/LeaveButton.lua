@@ -29,7 +29,6 @@ local LEAVE_GAME_KEY_CODE_LABEL = {
 	[Constants.InputType.Gamepad] = Enum.KeyCode.ButtonX,
 }
 
-local TWEEN_TIME = 0.208
 local TWEEN_EASE_RAMP = Enum.EasingDirection.InOut
 local TWEEN_EASE_CURVE = Enum.EasingStyle.Sine
 
@@ -150,7 +149,7 @@ function LeaveButtonAnimationWrapper(props)
 					UDim2.new(0, 0, 1, pos),
 					TWEEN_EASE_RAMP,
 					TWEEN_EASE_CURVE,
-					TWEEN_TIME,
+					Constants.LeaveButtonTweenTime,
 					true,
 					function(status)
 						if props.hidden and status == Enum.TweenStatus.Completed then

@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["roblox_t"]["t"])
+local Package = require(PackageIndex["t"]["t"])
 
 return Package

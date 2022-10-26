@@ -12,8 +12,8 @@ local InspectAndBuyInstanceHandle = nil
 
 local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyModules.Flags.GetFFlagUseInspectAndBuyControllerBar)
 
-local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
-local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
 local TopBar = require(RobloxGui.Modules.TopBar)
 

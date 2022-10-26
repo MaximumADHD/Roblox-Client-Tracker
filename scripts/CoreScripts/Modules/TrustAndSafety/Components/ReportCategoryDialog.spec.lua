@@ -15,8 +15,8 @@ return function()
 	local SetVoiceReportingFlow = require(TnsModule.Actions.SetVoiceReportingFlow)
 	local BeginReportFlow = require(TnsModule.Actions.BeginReportFlow)
 
-	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
-	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
 	local appStyle = {
 		Theme = AppDarkTheme,

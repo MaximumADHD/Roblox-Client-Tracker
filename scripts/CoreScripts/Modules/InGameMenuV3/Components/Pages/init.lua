@@ -15,6 +15,11 @@ local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 local GetFFlagShareInviteLinkContextMenuV3Enabled = require(
 	InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled
 )
+
+local InGameMenuV3LanguageSwitcherEnabled = require(
+	InGameMenu.Flags.InGameMenuV3LanguageSwitcherEnabled
+)
+
 local InspectAndBuyV2IXPTest = require(InGameMenu.Flags.InspectAndBuyV2IXPTest)
 
 
@@ -131,6 +136,15 @@ local pages = {
 		isSecondaryPage = true,
 		navigationDepth = 2,
 		parentPage = Constants.GameSettingsPageKey,
+	},
+	{
+		key = "LanguageSelectionSettings",
+		title = "CoreScripts.InGameMenu.PageTitle.LanguageSelection",
+		icon = Images["icons/controls/language"],
+		component = script.Parent.LanguageSettingsPage.BasicPage,
+		isSecondaryPage = true,
+		navigationDepth = 2,
+		parentPage = InGameMenuV3LanguageSwitcherEnabled() and Constants.MainPagePageKey or nil,
 	},
 	{
 		key = Constants.LeaveToAppPromptPageKey,

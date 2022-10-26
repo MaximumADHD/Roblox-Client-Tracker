@@ -23,8 +23,8 @@ return function()
 	local MockUserGameSettings = require(InGameMenu.Mocks.MockUserGameSettings)
 	local GetFFlagFullscreenTitleBarInjectGameServices = require(InGameMenu.Flags.GetFFlagFullscreenTitleBarInjectGameServices)
 
-	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
-	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
 	local TITLE_BAR_OFF_POS = UDim2.new(0, 0, 0, -88)
 	local TITLE_BAR_ON_POS = UDim2.fromOffset(0, 0)

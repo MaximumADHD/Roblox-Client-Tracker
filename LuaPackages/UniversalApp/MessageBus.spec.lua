@@ -8,7 +8,7 @@ return function()
 	local t = require(CorePackages.Packages.t)
 	local tutils = require(CorePackages.Packages.tutils)
 
-	local FFlagLuaAppFixMessageBusUnsubscribe = require(CorePackages.AppTempCommon.Flags.FFlagLuaAppFixMessageBusUnsubscribe)
+	local FFlagLuaAppFixMessageBusUnsubscribe = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppFixMessageBusUnsubscribe
 
 	local kTestJSON = "{\"A\":\"Hello\",\"B\":5,\"C\":true}"
 	local kTestValidator = t.strictInterface({

@@ -7,6 +7,9 @@ local GamepadService = game:GetService("GamepadService")
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
+local UIBlox = require(CorePackages.UIBlox)
+local withTooltip = UIBlox.App.Dialog.TooltipV2.withTooltip
+local TooltipOrientation = UIBlox.App.Dialog.Enum.TooltipOrientation
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
@@ -14,13 +17,13 @@ local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
-local InGameMenuConstants = require(RobloxGui.Modules.InGameMenu.Resources.Constants)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
 
 local isSubjectToDesktopPolicies = require(RobloxGui.Modules.InGameMenu.isSubjectToDesktopPolicies)
 
-local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEventConnection)
+local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
 local Components = script.Parent.Parent
 local Actions = Components.Parent.Actions
@@ -37,6 +40,9 @@ local MenuIcon = Roact.PureComponent:extend("MenuIcon")
 
 local BACKGROUND_SIZE = 32
 local ICON_SIZE = 24
+local DEFAULT_DELAY_TIME = 0.4
+
+local MENU_HOTKEYS = { Enum.KeyCode.Escape }
 
 local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
@@ -50,9 +56,15 @@ MenuIcon.validateProps = t.strictInterface({
 function MenuIcon:init()
 	self:setState({
 		vrShowMenuIcon = VRService.VREnabled and ((EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBar) or GamepadService.GamepadCursorEnabled) and not EngineFeatureEnableVRUpdate3,
+		showTooltip = false,
+		isHovering = false,
 	})
 
 	self.menuIconActivated = function()
+		self:setState({
+			showTooltip = false,
+			isHovering = false,
+		})
 
 		if VRService.VREnabled and ((EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBar) or GamepadService.GamepadCursorEnabled) then
 			-- in the new VR System, the menu icon opens the gamepad menu instead
@@ -94,6 +106,21 @@ function MenuIcon:init()
 		end
 	end
 	self.menuIconOnHover = function()
+		local v3Menu = isNewInGameMenuEnabled() and EnableInGameMenuV3()
+		if v3Menu and not InGameMenu.getOpen() then
+			self:setState({
+				isHovering = true,
+			})
+
+			delay(DEFAULT_DELAY_TIME, function()
+				if self.state.isHovering then
+					self:setState({
+						showTooltip = true,
+					})
+				end
+			end)
+		end
+
 		if isNewInGameMenuEnabled() and not EnableInGameMenuV3()  then
 			-- Disable Menu Icon hovering if not on DUA
 			if not isSubjectToDesktopPolicies() then
@@ -102,6 +129,13 @@ function MenuIcon:init()
 			InGameMenu.openInGameMenu(InGameMenuConstants.InitalPageKey)
 			InGameMenu.setMenuIconTooltipOpen(false)
 		end
+	end
+
+	self.menuIconOnHoverEnd = function()
+		self:setState({
+			showTooltip = false,
+			isHovering = false,
+		})
 	end
 
 	self.showTopBarCallback = function()
@@ -119,17 +153,66 @@ function MenuIcon:render()
 	local v3Menu = isNewInGameMenuEnabled() and EnableInGameMenuV3()
 	local visible = (not VRService.VREnabled or self.state.vrShowMenuIcon)
 
-	return Roact.createElement("Frame", {
-		Visible = visible,
-		BackgroundTransparency = 1,
-		Size = UDim2.new(0, BACKGROUND_SIZE, 1, 0),
-		LayoutOrder = self.props.layoutOrder
-	}, {
-		ExtendedHitArea = v3Menu and Roact.createElement("ImageButton", {
-			Size = UDim2.new(1, 20, 1, 8),
-			Position = UDim2.new(0, -16, 0, -4),
+	if v3Menu then
+		local tooltipText = "Roblox Menu"
+		pcall(function()
+			tooltipText = RobloxTranslator:FormatByKey("CoreScripts.TopBar.RobloxMenu")
+	   	end)
+		local tooltipProps = {
+			textAlignment = Enum.TextXAlignment.Center,
+			headerText = tooltipText,
+			hotkeyCodes = MENU_HOTKEYS,
+		}
+		local tooltipOptions = {
+			active = self.state.showTooltip,
+			guiTarget = CoreGui,
+			preferredOrientation = TooltipOrientation.Bottom,
+			DisplayOrder = InGameMenuConstants.DisplayOrder.Tooltips,
+		}
+
+		return withTooltip(tooltipProps, tooltipOptions, function(triggerPointChanged)
+			return Roact.createElement("Frame", {
+				Visible = visible,
+				BackgroundTransparency = 1,
+				Size = UDim2.new(0, BACKGROUND_SIZE, 1, 0),
+				LayoutOrder = self.props.layoutOrder,
+
+				[Roact.Change.AbsoluteSize] = triggerPointChanged,
+				[Roact.Change.AbsolutePosition] = triggerPointChanged,
+			}, {
+				ExtendedHitArea = Roact.createElement("ImageButton", {
+					Size = UDim2.new(1, 20, 1, 8),
+					Position = UDim2.new(0, -16, 0, -4),
+					BackgroundTransparency = 1,
+					[Roact.Event.Activated] = self.menuIconActivated,
+				}),
+				Background = Roact.createElement(IconButton, {
+						icon = "rbxasset://textures/ui/TopBar/coloredlogo.png",
+						iconSize = ICON_SIZE,
+
+						onActivated = self.menuIconActivated,
+						onHover = self.menuIconOnHover,
+						onHoverEnd = self.menuIconOnHoverEnd,
+						enableFlashingDot = GetFFlagSelfViewSettingsEnabled(),
+				}),
+				ShowTopBarListener = (not EngineFeatureEnableVRUpdate2 or GamepadService) and Roact.createElement(ExternalEventConnection, {
+					event = EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBarChanged.Event or GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"),
+					callback = self.showTopBarCallback,
+				})
+			})
+		end)
+	else
+		return Roact.createElement("Frame", {
+			Visible = visible,
 			BackgroundTransparency = 1,
-			[Roact.Event.Activated] = self.menuIconActivated,
+			Size = UDim2.new(0, BACKGROUND_SIZE, 1, 0),
+			LayoutOrder = self.props.layoutOrder
+		}, {
+			ExtendedHitArea = v3Menu and Roact.createElement("ImageButton", {
+				Size = UDim2.new(1, 20, 1, 8),
+				Position = UDim2.new(0, -16, 0, -4),
+				BackgroundTransparency = 1,
+				[Roact.Event.Activated] = self.menuIconActivated,
 		}) or nil,
 		Background = Roact.createElement(IconButton, {
 			icon = "rbxasset://textures/ui/TopBar/coloredlogo.png",
@@ -144,6 +227,7 @@ function MenuIcon:render()
 			callback = self.showTopBarCallback,
 		})
 	})
+	end
 end
 
 function MenuIcon:willUnmount()

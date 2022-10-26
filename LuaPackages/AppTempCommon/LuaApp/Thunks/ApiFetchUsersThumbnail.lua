@@ -7,8 +7,8 @@ local Actions = CorePackages.AppTempCommon.LuaApp.Actions
 local TableUtilities = require(CorePackages.AppTempCommon.LuaApp.TableUtilities)
 local PromiseUtilities = require(CorePackages.AppTempCommon.LuaApp.PromiseUtilities)
 
-local ThumbnailsGetAvatar = require(CorePackages.AppTempCommon.LuaApp.Http.Requests.ThumbnailsGetAvatar)
-local ThumbnailsGetAvatarHeadshot = require(CorePackages.AppTempCommon.LuaApp.Http.Requests.ThumbnailsGetAvatarHeadshot)
+local ThumbnailsGetAvatar = require(CorePackages.Workspace.Packages.Http).Requests.ThumbnailsGetAvatar
+local ThumbnailsGetAvatarHeadshot = require(CorePackages.Workspace.Packages.Http).Requests.ThumbnailsGetAvatarHeadshot
 
 local AvatarThumbnailTypes = require(CorePackages.AppTempCommon.LuaApp.Enum.AvatarThumbnailTypes)
 

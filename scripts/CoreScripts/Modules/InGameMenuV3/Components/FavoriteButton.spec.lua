@@ -11,8 +11,8 @@ return function()
 	local Localization = require(InGameMenu.Localization.Localization)
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 
-	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
-	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
 	local FavoriteButton = require(script.Parent.FavoriteButton)
 	local SetGameFavorite = require(InGameMenu.Actions.SetGameFavorite)

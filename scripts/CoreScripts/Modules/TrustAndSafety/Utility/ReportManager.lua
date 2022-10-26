@@ -9,18 +9,18 @@ local Dash = require(CorePackages.Packages.Dash)
 
 local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
-local ReportAbuseLogic = require(RobloxGui.Modules.VoiceChat.ReportAbuseLogic)
 local createVoiceAbuseReportRequest = require(RobloxGui.Modules.VoiceChat.createVoiceAbuseReportRequest)
 local Url = require(RobloxGui.Modules.Common.Url)
 
 local TnsModule = script.Parent.Parent
+local Constants = require(TnsModule.Resources.Constants)
 local Dependencies = require(TnsModule.Dependencies)
 local SendAnalytics = Dependencies.SendAnalytics
 
 local ANALYTICS_REPORT_SUBMITTED_NAME = "ingame_menu_report_submitted"
 
 type UserAbuseReport = {
-	methodOfAbuse: ReportAbuseLogic.MethodOfAbuse?,
+	reportCategory: string,
 	reason: string,
 	comment: string,
 	abusingPlayer: Player,
@@ -46,17 +46,17 @@ function sendAnalytics(reportType: string, entityId: number)
 	SendAnalytics(ANALYTICS_REPORT_SUBMITTED_NAME, infoString, {})
 end
 
-function getAbuseVectorFromMethodOfAbuse(methodOfAbuse: ReportAbuseLogic.MethodOfAbuse?): string
-	if methodOfAbuse == ReportAbuseLogic.MethodsOfAbuse.voice then
+function getAbuseVectorFromReportCategory(reportCategory: string): string
+	if reportCategory == Constants.Category.Voice then
 		return "Voice"
-	elseif methodOfAbuse == ReportAbuseLogic.MethodsOfAbuse.text then
+	elseif reportCategory == Constants.Category.Text then
 		return "Chat"
 	end
 	return "Other"
 end
 
 function submitUserAbuseReport(report: UserAbuseReport, onSubmitted: Dash.AnyFunction)
-	local isVoiceReport = report.methodOfAbuse == ReportAbuseLogic.MethodsOfAbuse.voice
+	local isVoiceReport = report.reportCategory == Constants.Category.Voice
 	local localPlayer = PlayersService.LocalPlayer
 	if localPlayer then
 		pcall(function()
@@ -69,7 +69,7 @@ function submitUserAbuseReport(report: UserAbuseReport, onSubmitted: Dash.AnyFun
 						abuseReason = report.reason,
 						inExpMenuOpenedUnixMilli = math.floor(report.beginningTimestamp * 1000), --milliseconds conversion
 						sortedPlayerListUserIds = report.sortedUserIds,
-						abuseVector = getAbuseVectorFromMethodOfAbuse(report.methodOfAbuse),
+						abuseVector = getAbuseVectorFromReportCategory(report.reportCategory),
 					})
 
 					if game:GetEngineFeature("AbuseReportV3") then

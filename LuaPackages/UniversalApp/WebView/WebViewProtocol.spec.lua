@@ -6,7 +6,7 @@ return function()
 
 	local MessageBus = require(CorePackages.UniversalApp.MessageBus)
 	local WebViewProtocol = require(CorePackages.UniversalApp.WebView.WebViewProtocol)
-	local GetFFlagEnableUnifiedWebViews = require(CorePackages.AppTempCommon.Flags.GetFFlagEnableUnifiedWebViews)
+	local GetFFlagEnableUnifiedWebViews = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableUnifiedWebViews
 
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jest = JestGlobals.jest

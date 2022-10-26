@@ -13,7 +13,6 @@ local OpenCategoryMenu = require(TnsModule.Actions.OpenCategoryMenu)
 local SelectReportCategory = require(TnsModule.Actions.SelectReportCategory)
 local OpenReportSentDialog = require(TnsModule.Actions.OpenReportSentDialog)
 local CloseReportSentDialog = require(TnsModule.Actions.CloseReportSentDialog)
-local OpenBlockPlayerDialog = require(TnsModule.Actions.OpenBlockPlayerDialog)
 local SelectReportListing = require(TnsModule.Actions.SelectReportListing)
 local SetVoiceReportingFlow = require(TnsModule.Actions.SetVoiceReportingFlow)
 local BeginReportFlow = require(TnsModule.Actions.BeginReportFlow)
@@ -133,12 +132,6 @@ return Rodux.createReducer({
 			targetPlayer = action.targetPlayer or Cryo.None,
 		})
 	end,
-	[OpenBlockPlayerDialog.name] = function(state, action)
-		return Cryo.Dictionary.join(state, {
-			currentPage = Constants.Page.PlayerBlocking,
-		})
-	end,
-
 	[SetVoiceReportingFlow.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			voiceReportingFlowEnabled = action.enable,

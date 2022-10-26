@@ -7,24 +7,26 @@ local ReportAbuseLogic = require(RobloxGui.Modules.VoiceChat.ReportAbuseLogic)
 
 local TnsModule = script.Parent.Parent
 local Constants = require(TnsModule.Resources.Constants)
+local ShowToast = require(TnsModule.Actions.ShowToast)
 local OpenReportSentDialog = require(TnsModule.Actions.OpenReportSentDialog)
+local EndReportFlow = require(TnsModule.Actions.EndReportFlow)
 local ReportManager = require(TnsModule.Utility.ReportManager)
 
-return function(reportType, targetPlayer, reason, description)
+return function(reportType, targetPlayer, reason, description, reportCategory, toastTitle, toastSubtitle)
 	return function(store)
+		local state = store:getState()
 		if reportType == Constants.ReportType.Player then
 			ReportManager.submitUserAbuseReport({
-				methodOfAbuse = ReportAbuseLogic.MethodsOfAbuse.text, -- TODO depending on the method
+				reportCategory = reportCategory,
 				abusingPlayer = targetPlayer,
 				reason = reason,
 				comment = description,
-				beginningTimestamp = 0, -- TODO add correct timestamp of when the report page opened to the user
-				sortedUserIds = {}, -- TODO correct with the actual sorted list of reportable player Ids,
+				beginningTimestamp = state.report.beginningTimestamp,
+				sortedUserIds = state.report.sortedUserIds,
 			}, function()
 				store:dispatch(OpenReportSentDialog(reportType, targetPlayer))
 			end)
 		elseif reportType == Constants.ReportType.Place then
-			local state = store:getState()
 			ReportManager.submitPlaceAbuseReport({
 				placeId = game.PlaceId,
 				placeName = state.placeInfo.name,
@@ -32,8 +34,9 @@ return function(reportType, targetPlayer, reason, description)
 				reason = reason,
 				comment = description,
 			}, function()
-				store:dispatch(OpenReportSentDialog(reportType))
+				store:dispatch(ShowToast(toastTitle, toastSubtitle))
 			end)
+			store:dispatch(EndReportFlow())
 		end
 	end
 end

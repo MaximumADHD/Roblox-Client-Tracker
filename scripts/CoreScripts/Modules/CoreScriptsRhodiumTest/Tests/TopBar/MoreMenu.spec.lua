@@ -19,8 +19,8 @@ local RoactAct = require(Modules.act)
 
 local RobloxTranslator = require(Modules.RobloxTranslator)
 
-local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
-local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
 local EmotesMenuMaster = require(Modules.EmotesMenu.EmotesMenuMaster)
 

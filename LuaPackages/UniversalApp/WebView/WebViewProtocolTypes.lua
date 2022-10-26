@@ -1,7 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local Types = require(CorePackages.UniversalApp.MessageBusTypes)
 
-local AsyncQueueTypes = require(CorePackages.AppTempCommon.Common.AsyncQueue.AsyncQueueTypes)
+local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 
 export type OptionalParams = {
 	url: string?,
@@ -31,7 +31,7 @@ export type WebViewProtocolInterface<Impl> = {
 
 	stopListening: (Impl) -> (),
 
-	request: (Impl, AsyncQueueTypes.AcquireFn) -> AsyncQueueTypes.ReleaseFn,
+	request: (Impl, AppCommonLib.AsyncQueueAcquireFnType) -> AppCommonLib.AsyncQueueReleaseFnType,
 
 	isEnabled: () -> boolean,
 }

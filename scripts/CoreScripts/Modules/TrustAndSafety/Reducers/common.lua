@@ -8,11 +8,13 @@ local TnsModule = script.Parent.Parent
 local ShowToast = require(TnsModule.Actions.ShowToast)
 
 return Rodux.createReducer({
-	toastText = nil,
+	toastTitle = nil,
+	toastSubtitle = nil,
 }, {
 	[ShowToast.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			toastText = action.toastText,
+			toastTitle = action.toastTitle,
+			toastSubtitle = action.toastSubtitle,
 		})
 	end,
 })

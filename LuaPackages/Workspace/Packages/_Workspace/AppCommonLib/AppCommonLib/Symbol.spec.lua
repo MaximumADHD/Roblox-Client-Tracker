@@ -1,8 +1,9 @@
 return function()
+	local AppCommonLib = script:FindFirstAncestor("AppCommonLib")
+	local Packages = AppCommonLib.Parent
+
 	local Symbol = require(script.Parent.Symbol)
-	local Packages = script.Parent.Parent
-	local JestGlobals = require(Packages.Dev.JestGlobals)
-	local jestExpect = JestGlobals.expect
+	local jestExpect = require(Packages.Dev.JestGlobals).expect
 
 	describe("named", function()
 		it("should give an opaque object", function()

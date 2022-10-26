@@ -11,11 +11,12 @@ local UIBloxImages = UIBlox.App.ImageSet.Images
 local Toast = Roact.PureComponent:extend("Toast")
 
 Toast.validateProps = t.strictInterface({
-	toastText = t.optional(t.string),
+	toastTitle = t.optional(t.string),
+	toastSubtitle = t.optional(t.string),
 })
 
 function Toast:render()
-	if not self.props.toastText then
+	if not self.props.toastTitle then
 		return nil
 	end
 	return Roact.createElement("Frame", {
@@ -27,7 +28,8 @@ function Toast:render()
 			duration = 3,
 			toastContent = {
 				iconImage = UIBloxImages["icons/status/success"],
-				toastTitle = self.props.toastText,
+				toastTitle = self.props.toastTitle,
+				toastSubtitle = self.props.toastSubtitle,
 			},
 		}),
 	})
@@ -35,6 +37,7 @@ end
 
 return RoactRodux.UNSTABLE_connect2(function(state, props)
 	return {
-		toastText = state.common.toastText,
+		toastTitle = state.common.toastTitle,
+		toastSubtitle = state.common.toastSubtitle,
 	}
 end, nil)(Toast)

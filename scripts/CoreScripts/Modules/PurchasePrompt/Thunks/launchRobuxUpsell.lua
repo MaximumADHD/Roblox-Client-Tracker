@@ -91,9 +91,14 @@ local function launchRobuxUpsell()
 			local nativeProductId = state.nativeUpsell.robuxProductId
 			local productId = state.productInfo.productId
 			local requestType = state.requestType
+			local player = Players.LocalPlayer
 
 			analytics.signalProductPurchaseUpsellConfirmed(productId, requestType, nativeProductId)
-			platformInterface.promptNativePurchase(Players.LocalPlayer, nativeProductId)
+			if game:GetEngineFeature("NativePurchaseWithLocalPlayer") then
+				platformInterface.promptNativePurchaseWithLocalPlayer(nativeProductId)
+			else
+				platformInterface.promptNativePurchase(player, nativeProductId)
+			end
 			store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 
 		elseif upsellFlow == UpsellFlow.Xbox and not externalSettings.FFlagPPXboxPromptNative() then
@@ -112,7 +117,7 @@ local function launchRobuxUpsell()
 				purchaseCallSuccess, purchaseErrorMsg = pcall(function()
 					platformPurchaseResult = platformInterface.beginPlatformStorePurchase(nativeProductId)
 				end)
-				
+
 				if purchaseCallSuccess then
 					resolve(platformPurchaseResult)
 				else

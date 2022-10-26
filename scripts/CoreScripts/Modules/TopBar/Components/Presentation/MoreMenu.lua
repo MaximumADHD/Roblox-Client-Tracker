@@ -41,7 +41,7 @@ local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local FFlagMobilePlayerList = require(RobloxGui.Modules.Flags.FFlagMobilePlayerList)
 local GetFFlagNewEmotesInGame = require(RobloxGui.Modules.Flags.GetFFlagNewEmotesInGame)
 
-local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEventConnection)
+local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
 local MORE_BUTTON_SIZE = 32
 local ICON_SIZE = 24

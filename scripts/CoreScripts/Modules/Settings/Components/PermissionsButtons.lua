@@ -17,8 +17,10 @@ local UIBlox = require(CorePackages.UIBlox)
 local t = require(CorePackages.Packages.t)
 
 local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSignal)
+local selfViewVisibilityUpdatedSignal = require(RobloxGui.Modules.SelfView.selfViewVisibilityUpdatedSignal)
 local selfViewCloseButtonSignal = require(RobloxGui.Modules.SelfView.selfViewCloseButtonSignal)
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
+local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
 
 local ExternalEventConnection = UIBlox.Utility.ExternalEventConnection
 local Images = UIBlox.App.ImageSet.Images
@@ -26,6 +28,8 @@ local Images = UIBlox.App.ImageSet.Images
 local Modules = CoreGui.RobloxGui.Modules
 local PermissionButton = require(Modules.Settings.Components.PermissionButton)
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
+
+local FFlagSelfViewFixes = require(RobloxGui.Modules.Flags.FFlagSelfViewFixes)
 
 local PermissionsButtons = Roact.PureComponent:extend("PermissionsButtons")
 
@@ -49,7 +53,7 @@ PermissionsButtons.validateProps = t.strictInterface({
 	ZIndex = t.number,
 	LayoutOrder = t.number,
 	shouldFillScreen = t.boolean,
-	selfViewEnabled = t.boolean,
+	selfViewOpen = t.boolean,
 })
 
 local function createDivider(layoutOrder)
@@ -70,17 +74,19 @@ function PermissionsButtons:init()
 		allPlayersMuted = false,
 		microphoneEnabled = not VoiceChatServiceManager.localMuted or false,
 		cameraEnabled = if FaceAnimatorService then FaceAnimatorService.VideoAnimationEnabled else false,
-		selfViewEnabled = self.props.selfViewEnabled,
+		selfViewOpen = self.props.selfViewOpen,
 		showSelfView = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView),
 		hasCameraPermissions = false,
 		hasMicPermissions = false,
 	})
 
-	self.selfViewCloseButtonSignal = selfViewCloseButtonSignal:connect(function()
-		self:setState({
-			selfViewEnabled = not self.state.selfViewEnabled,
-		})
-	end)
+	if not FFlagSelfViewFixes then
+		self.selfViewCloseButtonSignal = selfViewCloseButtonSignal:connect(function()
+			self:setState({
+				selfViewOpen = not self.state.selfViewOpen,
+			})
+		end)
+	end
 
 	-- Mute all players in the lobby
 	self.toggleMuteAll = function()
@@ -125,7 +131,7 @@ function PermissionsButtons:init()
 	self.toggleSelfView = function()
 		toggleSelfViewSignal:fire()
 		self:setState({
-			selfViewEnabled = not self.state.selfViewEnabled,
+			selfViewOpen = not self.state.selfViewOpen,
 		})
 	end
 
@@ -138,6 +144,12 @@ function PermissionsButtons:init()
 		self:setState({
 			cameraEnabled = FaceAnimatorService.VideoAnimationEnabled,
 			microphoneEnabled = not muted
+		})
+	end
+
+	self.onSelfViewVisibilityUpdated = function()
+		self:setState({
+			selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible()
 		})
 	end
 
@@ -226,7 +238,7 @@ function PermissionsButtons:render()
 			}),
 			EnableSelfViewButton = self.state.showSelfView and Roact.createElement(PermissionButton, {
 				LayoutOrder = 4,
-				image = if self.state.selfViewEnabled then SELF_VIEW_IMAGE else SELF_VIEW_OFF_IMAGE,
+				image = if self.state.selfViewOpen then SELF_VIEW_IMAGE else SELF_VIEW_OFF_IMAGE,
 				callback = self.toggleSelfView,
 			}),
 		}),
@@ -239,11 +251,15 @@ function PermissionsButtons:render()
 			event = StarterGui.CoreGuiChangedSignal,
 			callback = self.onCoreGuiChanged,
 		}),
+		SelfViewVisbilityChangedEvent = FFlagSelfViewFixes and Roact.createElement(ExternalEventConnection, {
+			event = selfViewVisibilityUpdatedSignal,
+			callback = self.onSelfViewVisibilityUpdated,
+		}) or nil,
 	})
 end
 
 function PermissionsButtons:willUnmount()
-	if self.selfViewCloseButtonSignal then
+	if not FFlagSelfViewFixes and self.selfViewCloseButtonSignal then
 		self.selfViewCloseButtonSignal:disconnect()
 	end
 end

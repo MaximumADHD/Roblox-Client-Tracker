@@ -13,7 +13,7 @@
 *currently the Self View gets hidden if no usable head found, this may be changed based on feedback from Product
 
 TODO: this is just an in between state checkin for MVP preview
-this will see major refactors over the next PRs before MVP release
+this will see further refactors over the next PRs before MVP release
 bigger changes before mvp release next up:
 -test print messages cleanup before MVP release
 
@@ -35,7 +35,7 @@ function debugPrint(text)
 	end
 end
 
-debugPrint("Self View 10-13-2022__1")
+debugPrint("Self View 10-19-2022__1")
 
 local EngineFeatureFacialAnimationStreamingServiceUseV2 = game:GetEngineFeature("FacialAnimationStreamingServiceUseV2")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
@@ -65,6 +65,9 @@ local IS_STUDIO = RunService:IsStudio()
 local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSignal)
 local selfViewCloseButtonSignal = require(RobloxGui.Modules.SelfView.selfViewCloseButtonSignal)
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
+local selfViewPublicApi = require(RobloxGui.Modules.SelfView.publicApi)
+
+local FFlagSelfViewFixes = require(RobloxGui.Modules.Flags.FFlagSelfViewFixes)
 
 local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
@@ -144,12 +147,35 @@ local Observer = {
 	CharacterRemoving = "CharacterRemoving"
 }
 
+function getRelativePosition(uiObject)
+	if not uiObject.Parent then
+		return uiObject.Size
+	end
+	local screenSize = uiObject.Parent.AbsoluteSize
+	return UDim2.new(uiObject.AbsolutePosition.X  / screenSize.X, 0, uiObject.AbsolutePosition.Y / screenSize.Y, 0)
+end
+
+function getRelativeSize(uiObject)
+	if not uiObject.Parent then
+		return uiObject.Size
+	end
+	local screenSize = uiObject.Parent.AbsoluteSize
+	debugPrint("uiObject.AbsoluteSize.X:"..tostring(uiObject.AbsoluteSize.X)..",uiObject.AbsoluteSize.Y:"..tostring(uiObject.AbsoluteSize.Y)..",screenSize.X:"..tostring(screenSize.X)..",screenSize.Y:"..tostring(screenSize.Y))
+	return UDim2.new(uiObject.AbsoluteSize.X  / screenSize.X, 0, uiObject.AbsoluteSize.Y / screenSize.Y, 0)
+end
+
 function startSelfViewSession()
-	Analytics:reportSelfViewSessionStarted(math.floor(frame.AbsolutePosition.X), math.floor(frame.AbsolutePosition.Y), math.floor(frame.AbsoluteSize.X), math.floor(frame.AbsoluteSize.Y))
+	selfViewPublicApi.setSelfViewIsOpenAndVisible(true)
+	local relativePosition = getRelativePosition(frame)
+	local relativeSize = getRelativeSize(frame)
+	Analytics:reportSelfViewSessionStarted(math.floor(frame.AbsolutePosition.X), math.floor(frame.AbsolutePosition.Y), math.floor(frame.AbsoluteSize.X), math.floor(frame.AbsoluteSize.Y),relativePosition.X, relativePosition.Y, relativeSize.X, relativeSize.Y)
+	debugPrint("selfViewPublicApi.getSelfViewIsOpenAndVisible(): "..tostring(selfViewPublicApi.getSelfViewIsOpenAndVisible()))	
 end
 
 function stopSelfViewSession()
+	selfViewPublicApi.setSelfViewIsOpenAndVisible(false)
 	Analytics:reportSelfViewSessionStopped()
+	debugPrint("selfViewPublicApi.getSelfViewIsOpenAndVisible(): "..tostring(selfViewPublicApi.getSelfViewIsOpenAndVisible()))	
 end
 
 function getShouldBeEnabledCoreGuiSetting()
@@ -218,14 +244,6 @@ local function processDrag(frame, inputPosition, dragStartPosition, frameStartPo
 	-- Constrain the location to the screen.
 	local screenSize = frame.Parent.AbsoluteSize
 	frame.Position = constrainTargetPositionToScreen(frame, screenSize, newPosition)
-end
-
-function getRelativePosition(uiObject)
-	if not uiObject.Parent then
-		return uiObject.Size
-	end
-	local screenSize = uiObject.Parent.AbsoluteSize
-	return UDim2.new(frame.AbsolutePosition.X  / screenSize.X, 0, frame.AbsolutePosition.Y /screenSize.Y, 0)
 end
 
 -- Listen for drag input from the user
@@ -579,7 +597,9 @@ local function createViewport()
 	end	
 
 	closeButton.Activated:Connect(function()
-		selfViewCloseButtonSignal:fire()
+		if not FFlagSelfViewFixes then
+			selfViewCloseButtonSignal:fire()
+		end
 		showSelfView(not isOpen)
 	end)
 

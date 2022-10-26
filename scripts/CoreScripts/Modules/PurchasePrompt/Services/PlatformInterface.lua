@@ -56,6 +56,10 @@ function PlatformInterface.new()
 		GuiService:OpenBrowserWindow(url)
 	end
 
+	function service.promptNativePurchaseWithLocalPlayer(mobileProductId)
+		return MarketplaceService:PromptNativePurchaseWithLocalPlayer(mobileProductId)
+	end
+
 	function service.promptNativePurchase(player, mobileProductId)
 		return MarketplaceService:PromptNativePurchase(player, mobileProductId)
 	end

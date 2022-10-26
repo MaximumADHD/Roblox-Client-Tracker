@@ -12,7 +12,7 @@ local RunService = game:GetService('RunService')
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
-local Color = require(CorePackages.AppTempCommon.Common.Color)
+local Color = require(CorePackages.Workspace.Packages.AppCommonLib).Color
 local InGameMenu = script.Parent.Parent.Parent
 local CharacterModelPool = require(InGameMenu.Utility.CharacterModelPool)
 

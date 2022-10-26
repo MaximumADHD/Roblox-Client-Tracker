@@ -87,6 +87,7 @@ local Constants = {
 	AnalyticsLeavePromptSource = "leave_prompt",
 	AnalyticsExperienceMenuTest = "experience_menu_test",
 	AnalyticsExperienceMenuTestCsatQualificationField = "csat_qualification_field",
+	AnalyticsInvalidUTF8 = "invalid_utf8",
 	ShareLinksAnalyticsName = "shareLinks",
 	ShareLinksAnalyticsLinkGeneratedName = "linkGenerated",
 	ShareLinksAnalyticsButtonClickName = "buttonClick",
@@ -108,6 +109,9 @@ local Constants = {
 	SideNavigationWidth = 64,
 
 	MenuOpenTweenTime = 0.192,
+
+	LeaveButtonContainerHeight = 61,
+	LeaveButtonTweenTime = 0.208,
 
 	DisplayOrder = {
 		-- Fullscreen Title Bar should be on top of Topbar (DisplayOrder = 6)

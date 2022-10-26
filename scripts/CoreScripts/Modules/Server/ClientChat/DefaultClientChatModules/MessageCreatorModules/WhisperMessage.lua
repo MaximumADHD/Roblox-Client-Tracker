@@ -15,14 +15,56 @@ local ChatSettings = require(clientChatModules:WaitForChild("ChatSettings"))
 local ChatConstants = require(clientChatModules:WaitForChild("ChatConstants"))
 local util = require(script.Parent:WaitForChild("Util"))
 
+local VERIFIED_EMOJI = utf8.char(0xE000)
+
 local ChatLocalization = nil
 -- ROBLOX FIXME: Can we define ClientChatModules statically in the project config
 pcall(function() ChatLocalization = require((game:GetService("Chat") :: any).ClientChatModules.ChatLocalization :: any) end)
 
+local FFlagUserShowVerifiedBadgeInLegacyChat
+do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserShowVerifiedBadgeInLegacyChat")
+	end)
+	if success then
+		FFlagUserShowVerifiedBadgeInLegacyChat = value
+	end
+end
+
+function IsPlayerVerified(userId)
+	local player = PlayersService:GetPlayerByUserId(userId)
+
+	if not player then
+		return false
+	end
+
+	local success, value = pcall(function()
+		return player.HasVerifiedBadge
+	end)
+
+	return if success then value else false
+end
+
+function AppendVerifiedBadge(str)
+	return str .. VERIFIED_EMOJI
+end
+
 function CreateMessageLabel(messageData, channelName)
 
 	local fromSpeaker = messageData.FromSpeaker
-	local speakerDisplayName = messageData.SpeakerDisplayName
+	
+	local speakerName
+	if ChatSettings.PlayerDisplayNamesEnabled and messageData.SpeakerDisplayName then
+		speakerName = messageData.SpeakerDisplayName
+	else
+		speakerName = fromSpeaker
+	end
+
+	local speakerUserId = messageData.SpeakerUserId
+	if FFlagUserShowVerifiedBadgeInLegacyChat and IsPlayerVerified(speakerUserId) then
+		speakerName = AppendVerifiedBadge(speakerName)
+	end
+	
 	local message = messageData.Message
 
 	local extraData = messageData.ExtraData or {}
@@ -32,14 +74,8 @@ function CreateMessageLabel(messageData, channelName)
 	local useChatColor = extraData.ChatColor or ChatSettings.DefaultMessageColor
 	local useChannelColor = extraData.ChannelColor or useChatColor
 
-	local formatUseName
 
-	if ChatSettings.PlayerDisplayNamesEnabled and messageData.SpeakerDisplayName then
-		formatUseName = string.format("[%s]:", speakerDisplayName)
-	else
-		formatUseName = string.format("[%s]:", fromSpeaker)
-	end
-
+	local formatUseName = string.format("[%s]:", speakerName)
 	local speakerNameSize = util:GetStringTextBounds(formatUseName, useFont, useTextSize)
 	local numNeededSpaces = util:GetNumberOfSpaces(formatUseName, useFont, useTextSize) + 1
 

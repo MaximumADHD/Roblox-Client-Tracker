@@ -29,7 +29,7 @@ local OpenPlayerDropDown = require(PlayerList.Actions.OpenPlayerDropDown)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
-local validatePropsWithForwardRef = require(CorePackages.validatePropsWithForwardRef)
+local validatePropsWithForwardRef = require(CorePackages.Workspace.Packages.RoactUtils).validatePropsWithForwardRef
 
 local PlayerEntry = Roact.PureComponent:extend("PlayerEntry")
 

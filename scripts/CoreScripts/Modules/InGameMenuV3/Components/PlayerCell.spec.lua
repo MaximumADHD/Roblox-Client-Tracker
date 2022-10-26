@@ -13,8 +13,8 @@ return function()
 	local Localization = require(InGameMenu.Localization.Localization)
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 
-	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
-	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
 	local appStyle = {
 		Theme = AppDarkTheme,
@@ -48,6 +48,7 @@ return function()
 				isSelected = false,
 				LayoutOrder = 1,
 				Visible = true,
+				hasVerifiedBadge = false,
 
 				onActivated = function()
 					print("clicked")
@@ -74,6 +75,7 @@ return function()
 				isSelected = false,
 				LayoutOrder = 1,
 				Visible = true,
+				hasVerifiedBadge = false,
 			}),
 			PlayerCell2 = Roact.createElement(PlayerCell, {
 				userId = 2231222,
@@ -83,6 +85,7 @@ return function()
 				isSelected = false,
 				LayoutOrder = 1,
 				Visible = true,
+				hasVerifiedBadge = false,
 			}),
 		})
 
@@ -121,6 +124,7 @@ return function()
 				isSelected = false,
 				LayoutOrder = 1,
 				Visible = true,
+				hasVerifiedBadge = false,
 
 				forwardRef = ref,
 
@@ -153,6 +157,7 @@ return function()
 				isSelected = false,
 				LayoutOrder = 1,
 				Visible = true,
+				hasVerifiedBadge = false,
 			}),
 			PlayerCell2 = Roact.createElement(PlayerCell, {
 				userId = 2231222,
@@ -162,6 +167,7 @@ return function()
 				isSelected = false,
 				LayoutOrder = 1,
 				Visible = true,
+				hasVerifiedBadge = false,
 			}),
 		})
 
@@ -182,5 +188,62 @@ return function()
 		validatePlayer("PlayerCell2", PLAYER2_ONLINE_STATUS)
 
 		Roact.unmount(players)
+	end)
+
+	describe("Verified Badges", function()
+		it("Should show the verified badge when a user is verified and hide it when they are not", function()
+			game:SetFastFlagForTesting("ShowVerifiedBadgeOnPlayerCell", true)
+			game:SetFastFlagForTesting("ReturnChildFromWrapper", true)
+
+			local PLAYER1_USERNAME = "TheGamer101"
+			local PLAYER1_DISPLAYNAME = "TheGamer101"
+			local PLAYER2_USERNAME = "mcfly1985"
+			local PLAYER2_DISPLAYNAME = "Marty"
+			local PLAYER1_VERIFIEDBADGE_STATUS = true
+			local PLAYER2_VERIFIEDBADGE_STATUS = false
+
+			local element = getMountableTreeAndStore({
+				PlayerCell1 = Roact.createElement(PlayerCell, {
+					userId = 2231221,
+					username = PLAYER1_USERNAME,
+					displayName = PLAYER1_DISPLAYNAME,
+					isOnline = true,
+					isSelected = false,
+					LayoutOrder = 1,
+					Visible = true,
+					hasVerifiedBadge = PLAYER1_VERIFIEDBADGE_STATUS,
+				}),
+				PlayerCell2 = Roact.createElement(PlayerCell, {
+					userId = 2231222,
+					username = PLAYER2_USERNAME,
+					displayName = PLAYER2_DISPLAYNAME,
+					isOnline = true,
+					isSelected = false,
+					LayoutOrder = 1,
+					Visible = true,
+					hasVerifiedBadge = PLAYER2_VERIFIEDBADGE_STATUS,
+				}),
+			})
+
+			local instance = Instance.new("Frame")
+			local players = Roact.mount(element, instance)
+
+			local validatePlayer = function(playerName, expectedVerifiedBadgeStatus)
+				local cell = instance:FindFirstChild(playerName, true)
+				local verifiedBadge = cell:FindFirstChild("Emoji", true)
+				if expectedVerifiedBadgeStatus then
+					expect(verifiedBadge).never.to.equal(nil)
+				else
+					expect(verifiedBadge).to.equal(nil)
+				end
+			end
+
+			validatePlayer("PlayerCell1", PLAYER1_VERIFIEDBADGE_STATUS)
+			validatePlayer("PlayerCell2", PLAYER2_VERIFIEDBADGE_STATUS)
+
+			game:SetFastFlagForTesting("ShowVerifiedBadgeOnPlayerCell", false)
+			game:SetFastFlagForTesting("ReturnChildFromWrapper", false)
+			Roact.unmount(players)
+		end)
 	end)
 end

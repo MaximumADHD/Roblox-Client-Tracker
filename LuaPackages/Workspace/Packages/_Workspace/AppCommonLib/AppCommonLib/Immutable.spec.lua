@@ -16,12 +16,12 @@ return function()
 			local a = {
 				[1] = 1,
 				[2] = 2,
-				[3] = 3
+				[3] = 3,
 			}
 
 			local b = {
 				[1] = 11,
-				[2] = 22
+				[2] = 22,
 			}
 
 			local c = Immutable.JoinDictionaries(a, b)
@@ -34,12 +34,12 @@ return function()
 		it("should merge dictionary values correctly", function()
 			local a = {
 				hello = "world",
-				foo = "bar"
+				foo = "bar",
 			}
 
 			local b = {
 				foo = "baz",
-				tux = "penguin"
+				tux = "penguin",
 			}
 
 			local c = Immutable.JoinDictionaries(a, b)
@@ -51,15 +51,15 @@ return function()
 
 		it("should merge multiple dictionaries", function()
 			local a = {
-				foo = "yes"
+				foo = "yes",
 			}
 
 			local b = {
-				bar = "yup"
+				bar = "yup",
 			}
 
 			local c = {
-				baz = "sure"
+				baz = "sure",
 			}
 
 			local d = Immutable.JoinDictionaries(a, b, c)
@@ -82,8 +82,8 @@ return function()
 		end)
 
 		it("should treat list-like values correctly", function()
-			local a = {1, 2, 3}
-			local b = {4, 5, 6}
+			local a = { 1, 2, 3 }
+			local b = { 4, 5, 6 }
 
 			local c = Immutable.JoinLists(a, b)
 
@@ -95,9 +95,9 @@ return function()
 		end)
 
 		it("should merge multiple lists", function()
-			local a = {1, 2}
-			local b = {3, 4}
-			local c = {5, 6}
+			local a = { 1, 2 }
+			local b = { 3, 4 }
+			local c = { 5, 6 }
 
 			local d = Immutable.JoinLists(a, b, c)
 
@@ -119,7 +119,7 @@ return function()
 		end)
 
 		it("should treat numeric keys normally", function()
-			local a = {1, 2, 3}
+			local a = { 1, 2, 3 }
 
 			local b = Immutable.Set(a, 2, 4)
 
@@ -131,7 +131,7 @@ return function()
 		it("should overwrite dictionary-like keys", function()
 			local a = {
 				foo = "bar",
-				baz = "qux"
+				baz = "qux",
 			}
 
 			local b = Immutable.Set(a, "foo", "hello there")
@@ -151,7 +151,7 @@ return function()
 		end)
 
 		it("should append values", function()
-			local a = {1, 2, 3}
+			local a = { 1, 2, 3 }
 			local b = Immutable.Append(a, 4, 5)
 
 			expect(#b).to.equal(5)
@@ -188,14 +188,14 @@ return function()
 
 	describe("RemoveFromList", function()
 		it("should preserve immutability", function()
-			local a = {1, 2, 3}
+			local a = { 1, 2, 3 }
 			local b = Immutable.RemoveFromList(a, 2)
 
 			expect(b).never.to.equal(a)
 		end)
 
 		it("should remove elements from the list", function()
-			local a = {1, 2, 3}
+			local a = { 1, 2, 3 }
 			local b = Immutable.RemoveFromList(a, 2)
 
 			expect(b[1]).to.equal(1)
@@ -206,14 +206,14 @@ return function()
 
 	describe("RemoveRangeFromList", function()
 		it("should preserve immutability", function()
-			local a = {1, 2, 3}
+			local a = { 1, 2, 3 }
 			local b = Immutable.RemoveRangeFromList(a, 2, 1)
 
 			expect(b).never.to.equal(a)
 		end)
 
 		it("should remove elements properly from the list 1", function()
-			local a = {1, 2, 3}
+			local a = { 1, 2, 3 }
 			local b = Immutable.RemoveRangeFromList(a, 2, 1)
 
 			expect(b[1]).to.equal(1)
@@ -222,7 +222,7 @@ return function()
 		end)
 
 		it("should remove elements properly from the list 2", function()
-			local a = {1, 2, 3, 4, 5, 6}
+			local a = { 1, 2, 3, 4, 5, 6 }
 			local b = Immutable.RemoveRangeFromList(a, 1, 4)
 
 			expect(b[1]).to.equal(5)
@@ -231,7 +231,7 @@ return function()
 		end)
 
 		it("should remove elements properly from the list 3", function()
-			local a = {1, 2, 3, 4, 5, 6}
+			local a = { 1, 2, 3, 4, 5, 6 }
 			local b = Immutable.RemoveRangeFromList(a, 2, 4)
 
 			expect(b[1]).to.equal(1)
@@ -240,7 +240,7 @@ return function()
 		end)
 
 		it("should remove elements properly from the list 4", function()
-			local a = {1, 2, 3, 4, 5, 6, 7}
+			local a = { 1, 2, 3, 4, 5, 6, 7 }
 			local b = Immutable.RemoveRangeFromList(a, 4, 4)
 
 			expect(b[1]).to.equal(1)
@@ -250,7 +250,7 @@ return function()
 		end)
 
 		it("should not remove any elements when count is 0 or less", function()
-			local a = {1, 2, 3}
+			local a = { 1, 2, 3 }
 			local b = Immutable.RemoveRangeFromList(a, 2, 0)
 
 			expect(b[1]).to.equal(1)
@@ -266,14 +266,14 @@ return function()
 
 	describe("RemoveValueFromList", function()
 		it("should preserve immutability", function()
-			local a = {1, 1, 1}
+			local a = { 1, 1, 1 }
 			local b = Immutable.RemoveValueFromList(a, 1)
 
 			expect(b).never.to.equal(a)
 		end)
 
 		it("should remove all elements from the list", function()
-			local a = {1, 2, 2, 3}
+			local a = { 1, 2, 2, 3 }
 			local b = Immutable.RemoveValueFromList(a, 2)
 
 			expect(b[1]).to.equal(1)

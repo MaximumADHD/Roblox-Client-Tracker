@@ -8,7 +8,9 @@ local getPlaceIds = require(ChatUtils.getFriendsActiveGamesPlaceIdsFromUsersPres
 local receiveUsersPresence = require(ChatUtils.receiveUsersPresence)
 
 local ApiFetchGamesDataByPlaceIds = require(LuaApp.Thunks.ApiFetchGamesDataByPlaceIds)
-local UsersGetPresence = require(LuaApp.Http.Requests.UsersGetPresence)
+
+local Requests = require(CorePackages.Workspace.Packages.Http).Requests
+local UsersGetPresence = Requests.UsersGetPresence
 
 return function(networkImpl, userIds)
 	return function(store)

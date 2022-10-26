@@ -1,0 +1,58 @@
+return function()
+	local CorePackages = game:GetService("CorePackages")
+	local UIBlox = require(CorePackages.UIBlox)
+	local StylePalette = require(script.Parent.StylePalette)
+	local validateStye = UIBlox.Style.Validator.validateStyle
+
+	it("should be able to create a style palette", function()
+		local stylePalette = StylePalette.new()
+		stylePalette:updateTheme("dark")
+		stylePalette:updateFont("gotham")
+		local appStyle = stylePalette:currentStyle()
+		expect(validateStye(appStyle)).equal(true)
+	end)
+
+	it("should be able to create a style palette and be able to update theme 1", function()
+		local stylePalette = StylePalette.new()
+		stylePalette:updateTheme("dark")
+		stylePalette:updateFont("gotham")
+		local appStyle = stylePalette:currentStyle()
+		expect(validateStye(appStyle)).equal(true)
+
+		stylePalette:updateTheme("light")
+		local newAppStyle = stylePalette:currentStyle()
+		expect(validateStye(newAppStyle)).equal(true)
+	end)
+
+	it("should be able to create a style palette and be able to update theme 2", function()
+		local stylePalette = StylePalette.new()
+		stylePalette:updateTheme("dark")
+		stylePalette:updateFont("gotham")
+		local appStyle = stylePalette:currentStyle()
+		expect(validateStye(appStyle)).equal(true)
+
+		stylePalette:updateFont("gotham")
+		local newAppStyle = stylePalette:currentStyle()
+		expect(validateStye(newAppStyle)).equal(true)
+	end)
+
+	it("should be able to create a style palette and be able to merge an old one in", function()
+		local stylePalette = StylePalette.new()
+		stylePalette:updateTheme("dark")
+		stylePalette:updateFont("gotham")
+		local appStyle = stylePalette:currentStyle()
+		expect(validateStye(appStyle)).equal(true)
+
+		local newstylePalette = StylePalette.new(stylePalette)
+		local newAppStyle = newstylePalette:currentStyle()
+		expect(validateStye(newAppStyle)).equal(true)
+	end)
+
+	it("should be able to create a empty style palette", function()
+		local stylePalette = StylePalette.new()
+		local appStyle = stylePalette:currentStyle()
+		expect(appStyle.Font).equal(nil)
+		expect(appStyle.Theme).equal(nil)
+		expect(validateStye(appStyle)).equal(false)
+	end)
+end

@@ -2,17 +2,17 @@
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 
-local Requests = CorePackages.AppTempCommon.LuaApp.Http.Requests
+local Requests = require(CorePackages.Workspace.Packages.Http).Requests
 
-local ChatSendMessage = require(Requests.ChatSendMessage)
-local ChatStartOneToOneConversation = require(Requests.ChatStartOneToOneConversation)
+local ChatSendMessage = Requests.ChatSendMessage
+local ChatStartOneToOneConversation = Requests.ChatStartOneToOneConversation
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 
-local ChatSendGameLinkMessage = require(Requests.ChatSendGameLinkMessage)
+local ChatSendGameLinkMessage = Requests.ChatSendGameLinkMessage
 
 return function(networkImpl, userId, placeInfo)
 	local clientId = Players.LocalPlayer.UserId

@@ -2,7 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local AppTempCommon = CorePackages.AppTempCommon
 local Promise = require(AppTempCommon.LuaApp.Promise)
 local ApiFetchThumbnails = require(AppTempCommon.LuaApp.Utils.ApiFetchThumbnails)
-local GamesGetIcons = require(AppTempCommon.LuaApp.Http.Requests.GamesGetIcons)
+local GamesGetIcons = require(CorePackages.Workspace.Packages.Http).Requests.GamesGetIcons
 local SetGameIcons = require(AppTempCommon.LuaApp.Actions.SetGameIcons)
 
 local DEFAULT_ICON_SIZE = "150x150"

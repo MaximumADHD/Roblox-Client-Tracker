@@ -9,8 +9,8 @@ return function()
 	local UIBlox = InGameMenuDependencies.UIBlox
 	local Cryo = require(CorePackages.Packages.Cryo)
 
-	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
-	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
 	local InGameMenu = script.Parent.Parent
 	local Flags = InGameMenu.Flags

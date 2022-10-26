@@ -39,7 +39,7 @@ local noHardcodedStringInLuaKickMessage = game:GetEngineFeature("NoHardcodedStri
 
 local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagCoreScriptShowTeleportPrompt)
 
-local enableUserPrivacyUnauthorizedMessage = game:GetEngineFeature("EnableUserPrivacyUnauthorizedMessageEngineFeatureFlag")
+local enableUserPrivacyUnauthorizedMessage = game:GetEngineFeature("EnableUserPrivacyUnauthorizedMessage")
 
 local function safeGetFInt(name, defaultValue)
 	local success, result = pcall(function()

@@ -6,7 +6,7 @@ local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 local t = require(CorePackages.Packages.t)
-local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEventConnection)
+local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
 local Connection = require(script.Parent.Connection)
 

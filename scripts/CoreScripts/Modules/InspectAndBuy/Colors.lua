@@ -1,5 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
-local Color = require(CorePackages.AppTempCommon.Common.Color)
+local Color = require(CorePackages.Workspace.Packages.AppCommonLib).Color
 
 local Colors = {
 	Obsidian = Color.Color3FromHex(0x18191B),

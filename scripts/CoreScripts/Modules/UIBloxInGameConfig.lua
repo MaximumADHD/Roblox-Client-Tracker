@@ -25,6 +25,11 @@ local GetFFlagUIBloxEnableReactTag = require(CorePackages.UIBloxFlags.GetFFlagUI
 local GetFFlagUIBloxEnableImageSetResolutionScaleFix =
 	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableImageSetResolutionScaleFix)
 
+local GetFFlagLuaAppUseUIBloxColorPalettes =
+	require(CorePackages.AppTempCommon.LuaApp.Flags.GetFFlagLuaAppUseUIBloxColorPalettes)
+local GetUIBloxUseNewThemeColorPalettes =
+	require(CorePackages.UIBloxFlags.GetUIBloxUseNewThemeColorPalettes)
+
 return {
 	useUpdatedCheckbox = true,
 	fixDropdownMenuCellTextSize = GetFFlagUIBloxFixDropdownMenuCellTextSize(),
@@ -54,4 +59,6 @@ return {
 	enableImageSetResolutionScaleFix = GetFFlagUIBloxEnableImageSetResolutionScaleFix(),
 
 	enableStandardButtonSizes = true,
+
+	useNewThemeColorPalettes = GetFFlagLuaAppUseUIBloxColorPalettes() and GetUIBloxUseNewThemeColorPalettes(),
 }

@@ -8,7 +8,7 @@ local MarketplaceService = game:GetService("MarketplaceService")
 local Players = game:GetService("Players")
 local HttpService = game:GetService("HttpService")
 local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
-local Url = require(CorePackages.AppTempCommon.LuaApp.Http.Url)
+local Url = require(CorePackages.Workspace.Packages.Http).Url
 
 --[[
 	Expects a Promise. Hits the url given and resolves/rejects appropriately.

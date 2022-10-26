@@ -1,9 +1,9 @@
 local CorePackages = game:GetService("CorePackages")
 
 local Actions = CorePackages.AppTempCommon.LuaApp.Actions
-local Requests = CorePackages.AppTempCommon.LuaApp.Http.Requests
+local Requests = require(CorePackages.Workspace.Packages.Http).Requests
 
-local UsersGetFriendCount = require(Requests.UsersGetFriendCount)
+local UsersGetFriendCount = Requests.UsersGetFriendCount
 local SetFriendCount = require(Actions.SetFriendCount)
 
 local isNewFriendsEndpointsEnabled = require(CorePackages.AppTempCommon.LuaChat.Flags.isNewFriendsEndpointsEnabled)

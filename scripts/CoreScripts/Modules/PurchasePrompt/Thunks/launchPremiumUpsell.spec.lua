@@ -89,7 +89,11 @@ return function()
 
 		local state = store:getState()
 		expect(mockAnalytics.spies.signalPremiumUpsellConfirmed.callCount).to.equal(1)
-		expect(platformInterface.spies.promptNativePurchase.callCount).to.equal(1)
+		if game:GetEngineFeature("NativePurchaseWithLocalPlayer") then
+			expect(platformInterface.spies.promptNativePurchaseWithLocalPlayer.callCount).to.equal(1)
+		else
+			expect(platformInterface.spies.promptNativePurchase.callCount).to.equal(1)
+		end
 		expect(platformInterface.spies.signalMockPurchasePremium.callCount).to.equal(0)
 		expect(state.promptState).to.equal(PromptState.UpsellInProgress)
 	end)

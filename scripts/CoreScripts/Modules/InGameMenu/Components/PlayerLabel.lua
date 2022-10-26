@@ -40,7 +40,7 @@ local iconPos = {
 	Size = UDim2.new(0, PLAYER_ICON_SIZE, 0, PLAYER_ICON_SIZE),
 }
 
-local validatePropsWithForwardRef = require(CorePackages.validatePropsWithForwardRef)
+local validatePropsWithForwardRef = require(CorePackages.Workspace.Packages.RoactUtils).validatePropsWithForwardRef
 
 local PlayerLabel = Roact.PureComponent:extend("PlayerLabel")
 

@@ -52,8 +52,12 @@ local function launchPremiumUpsell()
 
 		elseif upsellFlow == UpsellFlow.Mobile then
 			local nativeProductId = premiumProductInfo.mobileProductId
-
-			platformInterface.promptNativePurchase(Players.LocalPlayer, nativeProductId)
+			local player = Players.LocalPlayer
+			if game:GetEngineFeature("NativePurchaseWithLocalPlayer") then
+				platformInterface.promptNativePurchaseWithLocalPlayer(nativeProductId)
+			else
+				platformInterface.promptNativePurchase(player, nativeProductId)
+			end
 			store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 			store:dispatch(hideWindow())
 

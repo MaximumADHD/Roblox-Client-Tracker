@@ -25,6 +25,7 @@ IconButton.validateProps = t.strictInterface({
 
 	onActivated = t.callback,
 	onHover = t.optional(t.callback),
+	onHoverEnd = t.optional(t.callback),
 })
 
 function IconButton:init()
@@ -35,6 +36,8 @@ function IconButton:init()
 	self.controlStateUpdated = function(oldControlState, newControlState)
 		if self.props.onHover and newControlState == ControlState.Hover then
 			self.props.onHover()
+		elseif self.props.onHoverEnd and oldControlState == ControlState.Hover and newControlState ~= ControlState.Hover then
+			self.props.onHoverEnd()
 		end
 		self:setState({
 			controlState = newControlState,

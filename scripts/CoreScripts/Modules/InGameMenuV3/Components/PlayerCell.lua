@@ -3,6 +3,8 @@ local CorePackages = game:GetService("CorePackages")
 local UserInputService = game:GetService("UserInputService")
 local React = require(CorePackages.Packages.React)
 
+local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
+
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
@@ -34,6 +36,7 @@ local BUTTONS_PADDING = 5
 local NAME_PADDING = 15
 
 local FFlagPlayerCellHandleTouchTap = game:DefineFastFlag("PlayerCellHandleTouchTap", false)
+local FFlagVerifiedBadgeEnabled = require(InGameMenu.Flags.GetFFlagShowVerifiedBadgeOnPlayerCell)
 
 local PlayerCell = Roact.PureComponent:extend("PlayerCell")
 
@@ -41,6 +44,7 @@ PlayerCell.validateProps = t.strictInterface({
 	userId = t.number,
 	username = t.string,
 	displayName = t.optional(t.string),
+	hasVerifiedBadge = t.optional(t.boolean),
 	isOnline = t.optional(t.boolean),
 	isSelected = t.optional(t.boolean),
 	LayoutOrder = t.union(t.integer, t.table),
@@ -209,18 +213,40 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 					NamePadding = Roact.createElement("UIPadding", {
 						PaddingLeft = UDim.new(0, 6),
 					}),
-					DisplayNameLabel = Roact.createElement(ThemedTextLabel, {
-						fontKey = "CaptionHeader",
-						themeKey = "TextEmphasis",
-						BackgroundTransparency = 1,
-						AnchorPoint = Vector2.new(0, 0.5),
-						Size = UDim2.new(1, 0, 0, DISPLAYNAME_HEIGHT),
-						Text = displayName or props.username,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						TextTruncate = Enum.TextTruncate.AtEnd,
-						LayoutOrder = 1,
-					}),
-
+					DisplayNameLabel = if FFlagVerifiedBadgeEnabled()
+						then Roact.createElement(
+							VerifiedBadges.EmojiWrapper,
+							{
+								emoji = if props.hasVerifiedBadge then VerifiedBadges.emoji.verified else "",
+								automaticSize = Enum.AutomaticSize.None,
+								size = UDim2.new(1, -(2 * DISPLAYNAME_HEIGHT), 0, DISPLAYNAME_HEIGHT)
+							},
+							{
+								DisplayNameLabel = Roact.createElement(ThemedTextLabel, {
+									fontKey = "CaptionHeader",
+									themeKey = "TextEmphasis",
+									BackgroundTransparency = 1,
+									Text = displayName or props.username,
+									Size = UDim2.new(1, 0, 0, DISPLAYNAME_HEIGHT),
+									AutomaticSize = if props.hasVerifiedBadge then Enum.AutomaticSize.XY else Enum.AutomaticSize.None,
+									TextXAlignment = Enum.TextXAlignment.Left,
+									TextTruncate = Enum.TextTruncate.AtEnd,
+									LayoutOrder = 1,
+								}),
+							}
+						)
+						else
+							Roact.createElement(ThemedTextLabel, {
+								fontKey = "CaptionHeader",
+								themeKey = "TextEmphasis",
+								BackgroundTransparency = 1,
+								Size = UDim2.new(1, 0, 0, DISPLAYNAME_HEIGHT),
+								AnchorPoint = Vector2.new(0, 0.5),
+								Text = displayName or props.username,
+								TextXAlignment = Enum.TextXAlignment.Left,
+								TextTruncate = Enum.TextTruncate.AtEnd,
+								LayoutOrder = 1,
+							}),
 					UsernameLabel = Roact.createElement(ThemedTextLabel, {
 						fontKey = "Footer",
 						themeKey = "TextDefault",

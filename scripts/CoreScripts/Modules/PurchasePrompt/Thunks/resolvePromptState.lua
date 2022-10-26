@@ -30,6 +30,7 @@ local meetsPrerequisites = require(Root.Utils.meetsPrerequisites)
 local getPlayerProductInfoPrice = require(Root.Utils.getPlayerProductInfoPrice)
 local getPaymentFromPlatform = require(Root.Utils.getPaymentFromPlatform)
 local getHasAmazonUserAgent = require(Root.Utils.getHasAmazonUserAgent)
+local hasPendingRequest = require(Root.Utils.hasPendingRequest)
 
 local Thunk = require(Root.Thunk)
 
@@ -37,7 +38,8 @@ local GetFFlagPPUpsellEndpoint = require(Root.Flags.GetFFlagPPUpsellEndpoint)
 local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
 local GetFFlagRobuxUpsellIXP = require(Root.Flags.GetFFlagRobuxUpsellIXP)
 local GetFFlagRobuxUpsellV2 = require(Root.Flags.GetFFlagRobuxUpsellV2)
-local GetFStringRobuxUpsellIxpLayer = require(CorePackages.AppTempCommon.Flags.GetFStringRobuxUpsellIxpLayer)
+local GetFStringRobuxUpsellIxpLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringRobuxUpsellIxpLayer
+local GetFFlagRobuxUpsellRaceCondition = require(Root.Flags.GetFFlagRobuxUpsellRaceCondition)
 
 local requiredServices = {
 	ABTest,
@@ -58,11 +60,12 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 		store:dispatch(AccountInfoReceived(accountInfo))
 		store:dispatch(BalanceInfoRecieved(balanceInfo))
 
-		local restrictThirdParty =
-			(not externalSettings.getFlagBypassThirdPartySettingForRobloxPurchase() or not isRobloxPurchase)
-			and (externalSettings.getLuaUseThirdPartyPermissions() or externalSettings.getFlagRestrictSales2())
+		local restrictThirdParty = (
+			not externalSettings.getFlagBypassThirdPartySettingForRobloxPurchase() or not isRobloxPurchase
+		) and (externalSettings.getLuaUseThirdPartyPermissions() or externalSettings.getFlagRestrictSales2())
 
-		local canPurchase, failureReason = meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty, externalSettings)
+		local canPurchase, failureReason =
+			meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty, externalSettings)
 		if not canPurchase then
 			if not externalSettings.isStudio() and failureReason == PurchaseError.ThirdPartyDisabled then
 				-- Do not annoy player with 3rd party failure notifications.
@@ -77,7 +80,6 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 		local platform = UserInputService:GetPlatform()
 
 		if price > robuxBalance then
-
 			if externalSettings.getFFlagDisableRobuxUpsell() then
 				return store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxNoUpsell))
 			end
@@ -96,23 +98,42 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 				local isLuobu = GetFFlagEnableLuobuInGameUpsell()
 				local paymentPlatform = getPaymentFromPlatform(platform, isLuobu, isAmazon)
 
-				return getRobuxUpsellProduct(network, price, robuxBalance, paymentPlatform)
-					:andThen(function(product: RobuxUpsell.Product)
+				return getRobuxUpsellProduct(network, price, robuxBalance, paymentPlatform):andThen(
+					function(product: RobuxUpsell.Product)
+						if GetFFlagRobuxUpsellRaceCondition() then
+							-- Check if the user cancel the purchase before this could return
+							if not hasPendingRequest(store:getState()) then
+								return
+							end
+						end
+
 						analytics.signalProductPurchaseUpsellShown(product.id, state.requestType, product.providerId)
 						store:dispatch(PromptNativeUpsell(product.providerId, product.id, product.robuxAmount))
-					end, function()
+					end,
+					function()
+						if GetFFlagRobuxUpsellRaceCondition() then
+							-- Check if the user cancel the purchase before this could return
+							if not hasPendingRequest(store:getState()) then
+								return
+							end
+						end
+
 						-- No upsell item will provide sufficient funds to make this purchase
 						store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
-					end)
+					end
+				)
 			else
-				return selectRobuxProduct(platform, price - robuxBalance, isPlayerPremium)
-					:andThen(function(product)
-						analytics.signalProductPurchaseUpsellShown(productInfo.productId, state.requestType, product.productId)
-						store:dispatch(PromptNativeUpsell(product.productId, nil, product.robuxValue))
-					end, function()
-						-- No upsell item will provide sufficient funds to make this purchase
-						store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
-					end)
+				return selectRobuxProduct(platform, price - robuxBalance, isPlayerPremium):andThen(function(product)
+					analytics.signalProductPurchaseUpsellShown(
+						productInfo.productId,
+						state.requestType,
+						product.productId
+					)
+					store:dispatch(PromptNativeUpsell(product.productId, nil, product.robuxValue))
+				end, function()
+					-- No upsell item will provide sufficient funds to make this purchase
+					store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
+				end)
 			end
 		end
 

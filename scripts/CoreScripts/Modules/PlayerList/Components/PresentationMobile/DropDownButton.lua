@@ -15,7 +15,7 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local IconButton = require(Components.PresentationCommon.IconButton)
 
-local Colors = require(CorePackages.AppTempCommon.LuaApp.Style.Colors)
+local Colors = require(CorePackages.Workspace.Packages.Style).Colors
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local Images = UIBlox.App.ImageSet.Images

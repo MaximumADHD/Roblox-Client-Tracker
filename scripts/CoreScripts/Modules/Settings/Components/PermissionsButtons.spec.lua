@@ -16,7 +16,7 @@ return function()
 				ZIndex = -1,
 				LayoutOrder = 1,
 				shouldFillScreen = true,
-				selfViewEnabled = true,
+				selfViewOpen = true,
 			})
 
 			local instance = Roact.mount(element)

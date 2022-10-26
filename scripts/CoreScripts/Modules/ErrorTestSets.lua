@@ -1,4 +1,4 @@
-local enableUserPrivacyUnauthorizedMessage = game:GetEngineFeature("EnableUserPrivacyUnauthorizedMessageEngineFeatureFlag")
+local enableUserPrivacyUnauthorizedMessage = game:GetEngineFeature("EnableUserPrivacyUnauthorizedMessage")
 
 local placeLaunchErrors = {
 	Enum.ConnectionError.PlacelaunchCustomMessage,

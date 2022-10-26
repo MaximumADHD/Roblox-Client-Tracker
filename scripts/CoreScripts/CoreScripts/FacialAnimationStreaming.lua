@@ -34,7 +34,7 @@ local playerAnimations = {}
 local playerConnections = {}
 
 local streamingStats = require(RobloxGui.Modules.FacialAnimationStreaming.FacialAnimationStreamingStats)
-game:DefineFastFlag("AvatarChatSubsessionAnalyticsLua", false)
+game:DefineFastFlag("AvatarChatSubsessionAnalyticsLua2", false)
 
 local Connections = {
 	CharacterAdded = "CharacterAdded",
@@ -360,7 +360,7 @@ local function ConnectStateChangeCallback()
 	end
 	Players.PlayerRemoving:Connect(function(player)
 		playerTrace("Player leaving game", player)
-		if game:GetFastFlag("AvatarChatSubsessionAnalyticsLua") then
+		if game:GetFastFlag("AvatarChatSubsessionAnalyticsLua2") then
 			if player.UserId == Players.LocalPlayer.UserId then
 				streamingStats.endTracking()
 			end
@@ -395,7 +395,7 @@ function InitializeVoiceChatServices()
 		end):finally(function()
 			JoinAllExistingPlayers()
 			ConnectStateChangeCallback()
-			if game:GetFastFlag("AvatarChatSubsessionAnalyticsLua") then
+			if game:GetFastFlag("AvatarChatSubsessionAnalyticsLua2") then
 				streamingStats.startTracking()
 			end
 		end)

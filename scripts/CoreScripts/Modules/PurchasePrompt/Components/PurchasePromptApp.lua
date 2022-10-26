@@ -30,8 +30,8 @@ local ProductPurchaseContainer = require(script.Parent.ProductPurchase.ProductPu
 local RobuxUpsellContainer = require(script.Parent.RobuxUpsell.RobuxUpsellContainer)
 local PremiumUpsellContainer = require(script.Parent.PremiumUpsell.PremiumUpsellContainer)
 
-local DarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
-local Gotham = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+local DarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+local Gotham = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
 local InGameMenu = script.Parent.Parent.Parent.InGameMenuV3
 local InGameMenuConstants = require(InGameMenu.Resources.Constants)

@@ -50,8 +50,8 @@ function Text.Truncate(text, font, fontSize, widthInPixels, overflowMarker)
 end
 
 function Text.TruncateTextLabel(textLabel, overflowMarker)
-	textLabel.Text = Text.Truncate(textLabel.Text, textLabel.Font,
-			textLabel.TextSize, textLabel.AbsoluteSize.X, overflowMarker)
+	textLabel.Text =
+		Text.Truncate(textLabel.Text, textLabel.Font, textLabel.TextSize, textLabel.AbsoluteSize.X, overflowMarker)
 end
 
 -- Remove whitespace from the beginning and end of the string
@@ -83,7 +83,7 @@ function Text.SpaceNormalize(str)
 	if type(str) ~= "string" then
 		error(string.format("Text.SpaceNormalize called on non-string type %s.", type(str)), 2)
 	end
-	return (str:gsub("%s+", " "):gsub("^%s+" , ""):gsub("%s+$" , ""))
+	return (str:gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", ""))
 end
 
 -- Splits a string by the provided pattern into a table. The pattern is interpreted as plain text.
@@ -101,7 +101,9 @@ function Text.Split(str, pattern)
 
 	while true do
 		local patternStart, patternEnd = string.find(str, pattern, currentPosition, true)
-		if not patternStart or not patternEnd then break end
+		if not patternStart or not patternEnd then
+			break
+		end
 		table.insert(result, string.sub(str, currentPosition, patternStart - 1))
 		currentPosition = patternEnd + 1
 	end

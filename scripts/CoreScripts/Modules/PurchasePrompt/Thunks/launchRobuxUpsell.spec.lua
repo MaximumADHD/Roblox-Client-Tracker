@@ -82,7 +82,11 @@ return function()
 		local state = store:getState()
 
 		expect(analytics.spies.signalProductPurchaseUpsellConfirmed.callCount).to.equal(1)
-		expect(platformInterface.spies.promptNativePurchase.callCount).to.equal(1)
+		if game:GetEngineFeature("NativePurchaseWithLocalPlayer") then
+			expect(platformInterface.spies.promptNativePurchaseWithLocalPlayer.callCount).to.equal(1)
+		else
+			expect(platformInterface.spies.promptNativePurchase.callCount).to.equal(1)
+		end
 		expect(state.promptState).to.equal(PromptState.UpsellInProgress)
 	end
 
@@ -218,23 +222,23 @@ return function()
 			local defaultState = getDefaultState()
 			defaultState.promptState = promptState
 			local store = Rodux.Store.new(Reducer, defaultState)
-	
+
 			local analytics = MockAnalytics.new()
 			local platformInterface = MockPlatformInterface.new()
-	
+
 			Thunk.test(launchRobuxUpsell(), store, {
 				[Analytics] = analytics.mockService,
 				[Network] = MockNetwork.new(),
 				[PlatformInterface] = platformInterface.mockService,
 				[ExternalSettings] = MockExternalSettings.new(false, false, {}, Enum.Platform.Windows)
 			})
-	
+
 			local state = store:getState()
-	
+
 			expect(analytics.spies.signalScaryModalConfirmed.callCount).to.equal(1)
 			expect(state.promptState).to.equal(PromptState.UpsellInProgress)
 		end
-	
+
 
 		it("should signal for U13PaymentModal", function()
 			checkScaryModalConfirmed(PromptState.U13PaymentModal)

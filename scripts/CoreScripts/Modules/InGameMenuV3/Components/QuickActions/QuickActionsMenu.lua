@@ -14,6 +14,7 @@ local withHoverTooltip = UIBlox.App.Dialog.TooltipV2.withHoverTooltip
 local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
 local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
@@ -51,8 +52,12 @@ local HIGHLIGHT_TWEEN_INFO = TweenInfo.new(HIGHLIGHT_ANIMATION_SPEED, Enum.Easin
 -- https://jira.rbx.com/browse/APPEXP-476
 local REPORT_HOTKEYS = nil -- { Enum.KeyCode.LeftControl, Enum.KeyCode.R }
 local SCREENSHOT_HOTKEYS = nil -- { Enum.KeyCode.S }
-local FULLSCREEN_HOTKEYS = { Enum.KeyCode.F11 }
 local RESPAWN_HOTKEYS = { Enum.KeyCode.R }
+
+local FULLSCREEN_HOTKEYS = { Enum.KeyCode.F11 }
+if UserInputService:GetPlatform() == Enum.Platform.OSX then
+	FULLSCREEN_HOTKEYS = { Enum.KeyCode.LeftControl, Enum.KeyCode.LeftSuper, Enum.KeyCode.F }
+end
 
 QuickActionsMenu.validateProps = t.strictInterface({
 	layoutOrder = t.number,

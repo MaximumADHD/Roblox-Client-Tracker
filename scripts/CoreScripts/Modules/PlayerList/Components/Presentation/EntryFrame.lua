@@ -1,5 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
-local validatePropsWithForwardRef = require(CorePackages.validatePropsWithForwardRef)
+local validatePropsWithForwardRef = require(CorePackages.Workspace.Packages.RoactUtils).validatePropsWithForwardRef
 
 local Cryo = require(CorePackages.Cryo)
 local Roact = require(CorePackages.Roact)

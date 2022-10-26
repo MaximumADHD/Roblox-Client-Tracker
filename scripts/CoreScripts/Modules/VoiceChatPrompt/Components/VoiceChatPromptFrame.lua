@@ -6,9 +6,9 @@ local ContextActionService = game:GetService("ContextActionService")
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
 
-local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
-local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
-local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEventConnection)
+local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
 local UIBlox = require(CorePackages.UIBlox)
 local SlideFromTopToast = UIBlox.App.Dialog.Toast

@@ -1,5 +1,9 @@
 --!nonstrict
 return function()
+	local CorePackages = game:GetService("CorePackages")
+	local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
+	local act = ReactRoblox.act
+
 	local InviteToGamePrompt = require(script.Parent.InviteToGamePrompt)
 
 	describe("new", function()
@@ -69,7 +73,9 @@ return function()
 
 			expect(prompt.instance).to.never.be.ok()
 
-			prompt:show()
+			act(function()
+				prompt:show()
+			end)
 
 			expect(prompt.instance).to.be.ok()
 
@@ -81,7 +87,9 @@ return function()
 			local folder = Instance.new("Folder")
 			local prompt = InviteToGamePrompt.new(folder)
 
-			prompt:show()
+			act(function()
+				prompt:show()
+			end)
 
 			local screenGui = folder:FindFirstChildOfClass("ScreenGui", true)
 			expect(screenGui).to.be.ok()
@@ -95,8 +103,12 @@ return function()
 			local folder = Instance.new("Folder")
 			local prompt = InviteToGamePrompt.new(folder)
 
-			prompt:show()
-			prompt:show()
+			act(function()
+				prompt:show()
+			end)
+			act(function()
+				prompt:show()
+			end)
 
 			local screenGui = folder:FindFirstChildOfClass("ScreenGui", true)
 			expect(screenGui).to.be.ok()
@@ -112,8 +124,12 @@ return function()
 			local folder = Instance.new("Folder")
 			local prompt = InviteToGamePrompt.new(folder)
 
-			prompt:hide()
-			prompt:hide()
+			act(function()
+				prompt:hide()
+			end)
+			act(function()
+				prompt:hide()
+			end)
 
 			expect(prompt.instance).to.never.be.ok()
 
@@ -126,8 +142,12 @@ return function()
 		local folder = Instance.new("Folder")
 		local prompt = InviteToGamePrompt.new(folder)
 
-		prompt:show()
-		prompt:hide()
+		act(function()
+			prompt:show()
+		end)
+		act(function()
+			prompt:hide()
+		end)
 
 		expect(prompt.instance).to.be.ok()
 		local screenGui = folder:FindFirstChildOfClass("ScreenGui", true)
@@ -155,8 +175,12 @@ return function()
 		local prompt = InviteToGamePrompt.new(folder)
 			:withSocialServiceAndLocalPlayer(mockSocialService, mockLocalPlayer)
 
-		prompt:show()
-		prompt:hide(mockSentUserIds)
+		act(function()
+			prompt:show()
+		end)
+		act(function()
+			prompt:hide(mockSentUserIds)
+		end)
 
 		expect(lastSentLocalPlayer).to.equal(mockLocalPlayer)
 		-- lastSentUserIds should always be an empty array
@@ -184,7 +208,9 @@ return function()
 			:withSocialServiceAndLocalPlayer(mockSocialService, mockLocalPlayer)
 
 		-- intentionally do not show
-		prompt:hide(mockSentUserIds)
+		act(function()
+			prompt:hide(mockSentUserIds)
+		end)
 
 		expect(lastSentLocalPlayer).to.equal(nil)
 		expect(lastSentUserIds).to.equal(nil)

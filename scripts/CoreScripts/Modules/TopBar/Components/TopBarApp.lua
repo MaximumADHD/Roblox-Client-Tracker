@@ -10,7 +10,7 @@ local React = require(CorePackages.Packages.React)
 local useSelector = require(CorePackages.AppTempCommon.Hooks.RoactRodux.useSelector)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
-local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEventConnection)
+local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 local Analytics = require(CorePackages.Workspace.Packages.Analytics).Analytics
 
 local ImageSetButton = UIBlox.Core.ImageSet.Button
@@ -37,7 +37,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local GetFFlagEnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
-local GetFFlagEnableVoiceBetaBadge = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceBetaBadge)
 local GameSettings = settings():FindFirstChild("Game Options") or error("Game Options does not exist", 0)
 local FFlagRecordRecording = require(RobloxGui.Modules.Flags.GetFFlagRecordRecording)
 local FFlagEnableInGameMenuV3 = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuV3)
@@ -210,9 +209,7 @@ function TopBarApp:render()
 					Padding = UDim.new(0, Constants.Padding),
 					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					VerticalAlignment = if GetFFlagEnableVoiceBetaBadge()
-						then Enum.VerticalAlignment.Top
-						else Enum.VerticalAlignment.Center,
+					VerticalAlignment =  Enum.VerticalAlignment.Top,
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 
@@ -224,7 +221,7 @@ function TopBarApp:render()
 					layoutOrder = 2,
 				}),
 
-				VoiceBetaBadge = GetFFlagEnableVoiceBetaBadge() and Roact.createElement(VoiceBetaBadge, {
+				VoiceBetaBadge = Roact.createElement(VoiceBetaBadge, {
 					layoutOrder = 3,
 					Analytics = Analytics.new()
 				}),

@@ -19,7 +19,7 @@ local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
-local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEventConnection)
+local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
 local VoiceBetaBadge = Roact.PureComponent:extend("MenuIcon")
 

@@ -14,14 +14,14 @@ local Modules = RobloxGui:WaitForChild("Modules")
 local InGameMenuDependencies = require(CorePackages:WaitForChild("InGameMenuDependencies"))
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
-local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEventConnection)
+local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 local GetGameProductInfo = require(Modules.LoadingScreen.Thunks.GetGameProductInfo)
 local GetIsSubjectToChinaPolicies = require(Modules.LoadingScreen.Thunks.GetIsSubjectToChinaPolicies)
 local GetUniverseId = require(Modules.LoadingScreen.Thunks.GetUniverseId)
 
 local AppTempCommon = CorePackages:WaitForChild("AppTempCommon")
-local AppDarkTheme = require(AppTempCommon.LuaApp.Style.Themes.DarkTheme)
-local AppFont = require(AppTempCommon.LuaApp.Style.Fonts.Gotham)
+local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 local AppStyle = {
 	Theme = AppDarkTheme,
 	Font = AppFont,

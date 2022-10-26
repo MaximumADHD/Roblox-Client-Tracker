@@ -1,6 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local HttpService = game:GetService("HttpService")
-local Url = require(CorePackages.AppTempCommon.LuaApp.Http.Url)
+local Url = require(CorePackages.Workspace.Packages.Http).Url
 
 --[[
 	Documentation of endpoint:

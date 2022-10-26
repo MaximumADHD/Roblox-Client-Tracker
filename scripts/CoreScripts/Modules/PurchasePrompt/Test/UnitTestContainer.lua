@@ -22,8 +22,8 @@ local getLocalizationContext = require(Root.Localization.getLocalizationContext)
 local Reducer = require(Root.Reducers.Reducer)
 local LayoutValues = require(Root.Services.LayoutValues)
 
-local DarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
-local Gotham = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+local DarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+local Gotham = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
 local UnitTestContainer = Roact.Component:extend("UnitTestContainer")
 

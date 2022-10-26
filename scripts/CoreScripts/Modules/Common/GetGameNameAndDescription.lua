@@ -1,7 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 
 local Promise = require(CorePackages.Promise)
-local Url = require(CorePackages.AppTempCommon.LuaApp.Http.Url)
+local Url = require(CorePackages.Workspace.Packages.Http).Url
 
 local Modules = script.Parent.Parent
 local EnableInGameMenuV3 = require(Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)

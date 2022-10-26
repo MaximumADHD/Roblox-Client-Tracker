@@ -1,7 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 
-local Functional = require(CorePackages.AppTempCommon.Common.Functional)
-local GetPlaceInfos = require(CorePackages.AppTempCommon.LuaApp.Http.Requests.GetPlaceInfos)
+local Functional = require(CorePackages.Workspace.Packages.AppCommonLib).Functional
+local GetPlaceInfos = require(CorePackages.Workspace.Packages.Http).Requests.GetPlaceInfos
 
 -- LuaChat
 local PlaceInfoModel = require(CorePackages.AppTempCommon.LuaChat.Models.PlaceInfoModel)

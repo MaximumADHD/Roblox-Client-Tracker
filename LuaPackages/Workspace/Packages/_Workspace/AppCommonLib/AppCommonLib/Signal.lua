@@ -22,7 +22,7 @@ export type Signal = {
 }
 
 export type SignalClass = {
-	new: () -> Signal
+	new: () -> Signal,
 }
 
 local Signal: any = {}
@@ -31,7 +31,7 @@ Signal.__index = Signal
 
 function Signal.new()
 	local self = {
-		_listeners = {}
+		_listeners = {},
 	}
 
 	setmetatable(self, Signal)
@@ -53,10 +53,12 @@ function Signal:connect(callback)
 
 	return {
 		Disconnect = function()
-			warn(string.format(
-				"Connection:Disconnect() has been deprecated, use Connection:disconnect()\n%s]",
-				debug.traceback()
-			))
+			warn(
+				string.format(
+					"Connection:Disconnect() has been deprecated, use Connection:disconnect()\n%s]",
+					debug.traceback()
+				)
+			)
 			disconnect()
 		end,
 		disconnect = disconnect,
@@ -72,20 +74,13 @@ function Signal:fire(...)
 end
 
 function Signal:Connect(...)
-	warn(string.format(
-		"Signal:Connect() has been deprecated, use Signal:connect()\n%s]",
-		debug.traceback()
-	))
+	warn(string.format("Signal:Connect() has been deprecated, use Signal:connect()\n%s]", debug.traceback()))
 	return self:connect(...)
 end
 
 function Signal:Fire(...)
-	warn(string.format(
-		"Signal:Fire() has been deprecated, use Signal:fire()\n%s]",
-		debug.traceback()
-	))
+	warn(string.format("Signal:Fire() has been deprecated, use Signal:fire()\n%s]", debug.traceback()))
 	self:fire(...)
 end
-
 
 return Signal :: SignalClass

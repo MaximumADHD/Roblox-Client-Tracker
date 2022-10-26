@@ -1,10 +1,12 @@
 local CorePackages = game:GetService("CorePackages")
 local LuaApp = CorePackages.AppTempCommon.LuaApp
 
-local GamesGetThumbnails = require(LuaApp.Http.Requests.GamesGetThumbnails)
+local Requests = require(CorePackages.Workspace.Packages.Http).Requests
+local GamesGetThumbnails = Requests.GamesGetThumbnails
+
 local SetGameThumbnails = require(LuaApp.Actions.SetGameThumbnails)
 
-local Functional = require(CorePackages.AppTempCommon.Common.Functional)
+local Functional = require(CorePackages.Workspace.Packages.AppCommonLib).Functional
 local Promise = require(LuaApp.Promise)
 local Result = require(LuaApp.Result)
 

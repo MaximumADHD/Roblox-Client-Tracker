@@ -1,5 +1,9 @@
 local Signal = require(script.Signal)
 local Immutable = require(script.Immutable)
+local Color = require(script.Color)
+local Functional = require(script.Functional)
+local AsyncQueue = require(script.AsyncQueue.AsyncQueue)
+local AsyncQueueTypes = require(script.AsyncQueue.AsyncQueueTypes)
 local IsVRAppBuild = require(script.IsVRAppBuild)
 local memoize = require(script.memoize)
 local Text = require(script.Text)
@@ -12,13 +16,20 @@ export type SignalCallback = Signal.SignalCallback
 export type Signal = Signal.Signal
 export type SignalClass = Signal.SignalClass
 
+export type AsyncQueueType = AsyncQueueTypes.AsyncQueue
+export type AsyncQueueAcquireFnType = AsyncQueueTypes.AcquireFn
+export type AsyncQueueReleaseFnType = AsyncQueueTypes.ReleaseFn
+
 return {
 	Signal = Signal,
 	Immutable = Immutable,
 	IsVRAppBuild = IsVRAppBuild,
+	Color = Color,
+	Functional = Functional,
 	memoize = memoize,
 	Text = Text,
 	Symbol = Symbol,
 	ThrottleUserId = ThrottleUserId,
+	AsyncQueue = AsyncQueue,
 	Utils = Utils,
 }

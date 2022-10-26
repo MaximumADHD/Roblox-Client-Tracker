@@ -29,7 +29,7 @@ local GetFFlagDeferredBlockStatusChange = require(RobloxGui.Modules.Flags.GetFFl
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
 local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
 local GetFFlagClearVoiceStateOnRejoin = require(RobloxGui.Modules.Flags.GetFFlagClearVoiceStateOnRejoin)
-local GetFFlagSkipRedundantVoiceCheck = require(CorePackages.AppTempCommon.Flags.GetFFlagSkipRedundantVoiceCheck)
+local GetFFlagSkipRedundantVoiceCheck = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSkipRedundantVoiceCheck
 local GetFFlagEnableVoiceRccCheck = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceRccCheck)
 local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
 local GetFFlagClearUserFromRecentVoiceDataOnLeave = require(RobloxGui.Modules.Flags.GetFFlagClearUserFromRecentVoiceDataOnLeave)
@@ -695,18 +695,20 @@ function VoiceChatServiceManager:_updateRecentUsersInteractionData()
 	local currentTime = os.time()
 	local userIdsToRemove = {}
 
-	for userId, interactionData in pairs(self.recentUsersInteractionData) do
-		local participant = self.participants[userId]
-		local clearOnLeave = GetFFlagClearUserFromRecentVoiceDataOnLeave() and not PlayersService:GetPlayerByUserId(tonumber(userId))
-		local clearOnInactive = (currentTime-interactionData.lastHeardTime) >= GetFIntVoiceUsersInteractionExpiryTimeSeconds()
-		local isCurrentlyMuted = if not participant then true else participant.isMuted
+	if self.recentUsersInteractionData then
+		for userId, interactionData in pairs(self.recentUsersInteractionData) do
+			local participant = self.participants[userId]
+			local clearOnLeave = GetFFlagClearUserFromRecentVoiceDataOnLeave() and not PlayersService:GetPlayerByUserId(tonumber(userId))
+			local clearOnInactive = (currentTime-interactionData.lastHeardTime) >= GetFIntVoiceUsersInteractionExpiryTimeSeconds()
+			local isCurrentlyMuted = if not participant then true else participant.isMuted
 
-		if (clearOnInactive and isCurrentlyMuted) or clearOnLeave then
-			userIdsToRemove[userId] = Cryo.None
+			if (clearOnInactive and isCurrentlyMuted) or clearOnLeave then
+				userIdsToRemove[userId] = Cryo.None
+			end
 		end
-	end
 
-	self.recentUsersInteractionData = Cryo.Dictionary.join(self.recentUsersInteractionData, userIdsToRemove)
+		self.recentUsersInteractionData = Cryo.Dictionary.join(self.recentUsersInteractionData, userIdsToRemove)
+	end
 end
 
 function VoiceChatServiceManager:SetupParticipantListeners()

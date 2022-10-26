@@ -4,8 +4,8 @@ local GetFFlagShareInviteLinkContextMenuV1ABTestEnabled = require(script.Parent.
 local GetFFlagEnableNewInviteMenuIXP = require(script.Parent.Parent.Flags.GetFFlagEnableNewInviteMenuIXP)
 local GetFFlagEnableIXPInGame = require(script.Parent.Parent.Common.Flags.GetFFlagEnableIXPInGame)
 local GetFFlagLoadingScreenUseIXP = require(script.Parent.Parent.Flags.GetFFlagLoadingScreenUseIXP)
-local GetFStringLoadingScreenIxpLayer = require(CorePackages.AppTempCommon.Flags.GetFStringLoadingScreenIxpLayer)
-local GetFStringRobuxUpsellIxpLayer = require(CorePackages.AppTempCommon.Flags.GetFStringRobuxUpsellIxpLayer)
+local GetFStringLoadingScreenIxpLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringLoadingScreenIxpLayer
+local GetFStringRobuxUpsellIxpLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringRobuxUpsellIxpLayer
 local GetFStringLuaAppExperienceMenuLayer = require(script.Parent.Parent.Flags.GetFStringLuaAppExperienceMenuLayer)
 
 return function()

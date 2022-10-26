@@ -65,7 +65,7 @@ game:DefineFastFlag("SelfieViewFeature2", false)
 
 local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 local FFlagRoactGamepadFixDelayedRefFocusLost =
-	require(CorePackages.AppTempCommon.Flags.FFlagRoactGamepadFixDelayedRefFocusLost)
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagRoactGamepadFixDelayedRefFocusLost
 RoactGamepad.Config.TempFixDelayedRefFocusLost = FFlagRoactGamepadFixDelayedRefFocusLost
 
 local UIBlox = require(CorePackages.UIBlox)

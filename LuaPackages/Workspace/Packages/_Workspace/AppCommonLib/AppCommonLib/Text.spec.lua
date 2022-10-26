@@ -1,7 +1,9 @@
 return function()
-	local Text = require(script.Parent.Text)
+	local AppCommonLib = script:FindFirstAncestor("AppCommonLib")
+	local Packages = AppCommonLib.Parent
 
-	local jestExpect = require(script.Parent.Parent.Dev.JestGlobals).expect
+	local Text = require(script.Parent.Text)
+	local jestExpect = require(Packages.Dev.JestGlobals).expect
 
 	describe("GetTextBounds", function()
 		it("should return a bounds of padding width and font-size height when the string is empty", function()
@@ -49,13 +51,22 @@ return function()
 
 		it("should truncate with ...", function()
 			local reallyLongQuery = Text.Truncate(
-				"One Two Three Four Five Six Seven Eight Nine Ten Eleven Twelve", Enum.Font.SourceSans, 18, 100, "...")
+				"One Two Three Four Five Six Seven Eight Nine Ten Eleven Twelve",
+				Enum.Font.SourceSans,
+				18,
+				100,
+				"..."
+			)
 			jestExpect(reallyLongQuery).toBe("One Two Thre...")
 		end)
 
 		it("should truncate without a ...", function()
 			local reallyLongQueryNoOverflowMarker = Text.Truncate(
-				"One Two Three Four Five Six Seven Eight Nine Ten Eleven Twelve", Enum.Font.SourceSans, 18, 100)
+				"One Two Three Four Five Six Seven Eight Nine Ten Eleven Twelve",
+				Enum.Font.SourceSans,
+				18,
+				100
+			)
 			jestExpect(reallyLongQueryNoOverflowMarker).toBe("One Two Three ")
 		end)
 
@@ -83,18 +94,15 @@ return function()
 			-- 11-byte rainbow flag grapheme
 			-- Flag, zero-space-joiner, rainbow
 			local rainbowFlag = utf8.char(127987) .. utf8.char(8205) .. utf8.char(127752)
-			local oneFlagWithinLimit = Text.Truncate(
-				rainbowFlag, Enum.Font.SourceSans, 18, 100, "...")
+			local oneFlagWithinLimit = Text.Truncate(rainbowFlag, Enum.Font.SourceSans, 18, 100, "...")
 			jestExpect(oneFlagWithinLimit).toBe(rainbowFlag)
 
 			local twoRainbowFlags = rainbowFlag .. rainbowFlag
-			local twoFlagsAreFine = Text.Truncate(
-				twoRainbowFlags, Enum.Font.SourceSans, 18, 100, "...")
+			local twoFlagsAreFine = Text.Truncate(twoRainbowFlags, Enum.Font.SourceSans, 18, 100, "...")
 			jestExpect(twoFlagsAreFine).toBe(twoRainbowFlags)
 
 			local fourRainbowFlags = twoRainbowFlags .. twoRainbowFlags
-			local fourFlagsIsTooLong = Text.Truncate(
-				fourRainbowFlags, Enum.Font.SourceSans, 18, 100, "...")
+			local fourFlagsIsTooLong = Text.Truncate(fourRainbowFlags, Enum.Font.SourceSans, 18, 100, "...")
 			jestExpect(fourFlagsIsTooLong).toBe(twoRainbowFlags .. "...") -- With --fflags==true fails because of truncation
 		end)
 	end)
@@ -113,7 +121,6 @@ return function()
 			jestExpect(textLabel.Text).toBe("One Two Three ")
 		end)
 	end)
-
 
 	describe("TrimString", function()
 		it("Should trim the string properly 1", function()
@@ -163,7 +170,6 @@ return function()
 		end)
 	end)
 
-
 	describe("RightTrimString", function()
 		it("Should right trim the string properly 1", function()
 			local trimmedInput = Text.RightTrim("")
@@ -206,12 +212,12 @@ return function()
 			jestExpect(trimmedInput).toBe(expected)
 		end)
 		it("Should right trim the string properly 8", function()
-			local trimmedInput = Text.RightTrim("\n    😤👩🏼‍🏫😭ぼ😀 \nで😹🤕あ👩🏻‍🎓    \n")
+			local trimmedInput =
+				Text.RightTrim("\n    😤👩🏼‍🏫😭ぼ😀 \nで😹🤕あ👩🏻‍🎓    \n")
 			local expected = "\n    😤👩🏼‍🏫😭ぼ😀 \nで😹🤕あ👩🏻‍🎓"
 			jestExpect(trimmedInput).toBe(expected)
 		end)
 	end)
-
 
 	describe("LeftTrimString", function()
 		it("Should left trim the string properly 1", function()
@@ -255,12 +261,12 @@ return function()
 			jestExpect(trimmedInput).toBe(expected)
 		end)
 		it("Should left trim the string properly", function()
-			local trimmedInput = Text.LeftTrim("\n    😤👩🏼‍🏫😭ぼ😀 \nで😹🤕あ👩🏻‍🎓    \n")
+			local trimmedInput =
+				Text.LeftTrim("\n    😤👩🏼‍🏫😭ぼ😀 \nで😹🤕あ👩🏻‍🎓    \n")
 			local expected = "😤👩🏼‍🏫😭ぼ😀 \nで😹🤕あ👩🏻‍🎓    \n"
 			jestExpect(trimmedInput).toBe(expected)
 		end)
 	end)
-
 
 	describe("SpaceNormalize", function()
 		it("should remove multiple spaces between words", function()
@@ -302,7 +308,6 @@ return function()
 		end)
 	end)
 
-
 	describe("Split", function()
 		it("should return the correct table for your standard use case", function()
 			local a = "this,is,comma,separated"
@@ -342,10 +347,10 @@ return function()
 			}
 			local expectedC = {
 				[1] = "Notyour",
-				[2] = "normalstring.Thisisasecondsentence."
+				[2] = "normalstring.Thisisasecondsentence.",
 			}
 			local expectedD = {
-				[1] = "Notyour^%s+normalstring.Thisisasecondsentence."
+				[1] = "Notyour^%s+normalstring.Thisisasecondsentence.",
 			}
 
 			jestExpect(Text.Split(a, b)).toEqual(expectedB)

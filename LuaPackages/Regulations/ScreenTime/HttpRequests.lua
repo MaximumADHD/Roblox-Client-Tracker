@@ -3,7 +3,7 @@
 ]]
 
 local CorePackages = game:GetService("CorePackages")
-local Url = require(CorePackages.AppTempCommon.LuaApp.Http.Url)
+local Url = require(CorePackages.Workspace.Packages.Http).Url
 local UrlBuilder = require(CorePackages.Packages.UrlBuilder).UrlBuilder
 local Logging = require(CorePackages.Logging)
 local ArgCheck = require(CorePackages.ArgCheck)

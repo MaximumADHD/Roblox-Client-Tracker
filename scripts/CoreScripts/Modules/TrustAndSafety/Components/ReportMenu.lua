@@ -42,6 +42,9 @@ local StyleProvider = UIBlox.Core.Style.Provider
 local UIBloxImages = UIBlox.App.ImageSet.Images
 local withStyle = UIBlox.Core.Style.withStyle
 
+local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
+local isPlayerVerified = VerifiedBadges.isPlayerVerified
+
 local CELL_THEME_OVERRIDES = {
 	-- transparent background for cell
 	BackgroundDefault = {
@@ -277,6 +280,7 @@ function ReportMenu:renderContents()
 			userId = player.UserId,
 			username = player.Name,
 			displayName = player.DisplayName,
+			hasVerifiedBadge = isPlayerVerified(player),
 			isOnline = true,
 			isSelected = false,
 			LayoutOrder = self.getLayoutBinding("PlayerCell"..pid, itemsLen),

@@ -33,7 +33,7 @@ export type Subscriber = Types.Subscriber
 local LuaAppFixMessageBusServiceCase = game:DefineFastFlag("LuaAppFixMessageBusServiceCase", false)
 
 local CorePackages = game:GetService("CorePackages")
-local FFlagLuaAppFixMessageBusUnsubscribe = require(CorePackages.AppTempCommon.Flags.FFlagLuaAppFixMessageBusUnsubscribe)
+local FFlagLuaAppFixMessageBusUnsubscribe = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppFixMessageBusUnsubscribe
 
 local MessageBus: MessageBus = {} :: MessageBus
 (MessageBus :: any).__index = MessageBus

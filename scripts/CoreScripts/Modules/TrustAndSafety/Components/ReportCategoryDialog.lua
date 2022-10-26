@@ -178,10 +178,13 @@ function ReportCategoryDialog:renderContents(voiceEnabled, localized)
 	local canvasHeight = CELL_HEIGHT
 
 	local canShowVoiceCategory = voiceEnabled
-	if self.props.playerFocusedFlow then
-		if self.props.targetPlayer then
-			local voiceActiveUsers = VoiceChatServiceManager:getRecentUsersInteractionData()
-			canShowVoiceCategory = voiceActiveUsers[tostring(self.props.targetPlayer.UserId)] ~= nil
+
+	if voiceEnabled then
+		local voiceActiveUsers = VoiceChatServiceManager:getRecentUsersInteractionData()
+		if voiceActiveUsers and not Cryo.isEmpty(voiceActiveUsers) then
+			if self.props.playerFocusedFlow then
+				canShowVoiceCategory = self.props.targetPlayer and voiceActiveUsers[tostring(self.props.targetPlayer.UserId)] ~= nil
+			end
 		else
 			canShowVoiceCategory = false
 		end

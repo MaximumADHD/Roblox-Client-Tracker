@@ -9,6 +9,7 @@ local userPlayEmoteByIdAnimTrackReturn = game:GetEngineFeature("PlayEmoteAndGetA
 game:DefineFastFlag("EmoteTriggeredSignalEnabledLua2", false)
 game:DefineFastFlag("MoodsHeadRemovedFix", false)
 game:DefineFastFlag("SetDefaultMoodNeutralLua", false)
+game:DefineFastFlag("MoodsRemoveWaitForChild", false)
 
 local FFlagSwitchMoodPriorityWhileStreaming = game:DefineFastFlag("SwitchMoodPriorityWhileStreaming", false)
 
@@ -47,6 +48,8 @@ local Connection = {
 	AnimateScriptMoodRemoved = "animateScriptMoodRemoved",
 	MoodChildAdded = "moodChildAdded",
 	HeadChildAdded = "headChildAdded",
+	CharacterHumanoidAdded = "characterHumanoidAdded",
+	HumanoidAnimatorAdded = "humanoidAnimatorAdded",
 	CharacterChildAdded = "characterChildAdded",
 	CharacterChildRemoved = "characterChildRemoved",
 	DescendantAdded = "DescendantAdded",
@@ -162,13 +165,13 @@ local function checkEmotePlaying(humanoid)
 	return emoteIsPlaying
 end
 
-emoteChattedConnection = LocalPlayer.Chatted:connect(function(msg)
+emoteChattedConnection = LocalPlayer.Chatted:Connect(function(msg)
 	if not moodCoreScriptEnabled or currentMoodTrack == nil then
 		return
 	end
 
 	if LocalPlayer.Character then
-		local humanoid = LocalPlayer.Character:FindFirstChild("Humanoid")
+		local humanoid = LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
 		if humanoid then
 			local emote = ""
 			if (string.sub(msg, 1, 3) == "/e ") then
@@ -202,24 +205,7 @@ local function stopAndDestroyCurrentMoodTrackConnections()
 	currentMoodAnimationInstance = nil
 end
 
-local function updateCharacterMood(character, moodAnimation)
-	if character == nil or moodAnimation == nil or not moodCoreScriptEnabled then
-		return
-	end
-
-	if connections[Connection.AnimationInstanceChanged] then
-		disconnectAndRemoveConnection(Connection.AnimationInstanceChanged)
-	end
-
-	local humanoid = character:WaitForChild("Humanoid")
-	local animator = humanoid:WaitForChild("Animator")
-	stopAndDestroyCurrentMoodTrack()
-
-	currentMoodAnimationInstance = moodAnimation
-	connections[Connection.AnimationInstanceChanged] = currentMoodAnimationInstance.Changed:connect(function(property)
-		updateCharacterMood(character, moodAnimation)
-	end)
-
+local function updateCharacterMoodOnAnimatorAdded(character, moodAnimation, humanoid, animator)
 	-- play mood animation
 	currentMoodTrack = animator:LoadAnimation(currentMoodAnimationInstance)
 	if FFlagSwitchMoodPriorityWhileStreaming then
@@ -238,6 +224,87 @@ local function updateCharacterMood(character, moodAnimation)
 
 		if game:GetFastFlag("EmoteTriggeredSignalEnabledLua2") then
 			connections[Connection.EmoteTriggered] = humanoid.EmoteTriggered:Connect(onEmoteTriggered)
+		end
+	end
+end
+
+local function updateCharacterMoodOnHumanoidAdded(character, moodAnimation, humanoid)
+	local animator = humanoid:FindFirstChild("Animator")
+	if animator then
+		updateCharacterMoodOnAnimatorAdded(character, moodAnimation, humanoid, animator)
+	end
+
+	if connections[Connection.HumanoidAnimatorAdded] then
+		disconnectAndRemoveConnection(Connection.HumanoidAnimatorAdded)
+	end
+
+	connections[Connection.HumanoidAnimatorAdded] = humanoid.ChildAdded:Connect(function(child)
+		if child.Name == "Animator" then
+			updateCharacterMoodOnAnimatorAdded(character, moodAnimation, humanoid, animator)
+		end
+	end)
+end
+
+local function updateCharacterMood(character, moodAnimation)
+	if character == nil or moodAnimation == nil or not moodCoreScriptEnabled then
+		return
+	end
+
+	if connections[Connection.AnimationInstanceChanged] then
+		disconnectAndRemoveConnection(Connection.AnimationInstanceChanged)
+	end
+
+	if game:GetFastFlag("MoodsRemoveWaitForChild") then
+		if connections[Connection.CharacterHumanoidAdded] then
+			disconnectAndRemoveConnection(Connection.CharacterHumanoidAdded)
+		end
+	
+		stopAndDestroyCurrentMoodTrack()
+
+		currentMoodAnimationInstance = moodAnimation
+		connections[Connection.AnimationInstanceChanged] = currentMoodAnimationInstance.Changed:Connect(function(property)
+			updateCharacterMood(character, moodAnimation)
+		end)
+	
+		local humanoid = character:FindFirstChildWhichIsA("Humanoid")
+		if humanoid then
+			updateCharacterMoodOnHumanoidAdded(character, moodAnimation, humanoid)
+		end 
+	
+		connections[Connection.CharacterHumanoidAdded] = character.ChildAdded:Connect(function(child)
+			if child:IsA("Humanoid") then
+				updateCharacterMoodOnHumanoidAdded(character, moodAnimation, humanoid)
+			end
+		end)	
+	else
+		local humanoid = character:WaitForChild("Humanoid")
+		local animator = humanoid:WaitForChild("Animator")
+		stopAndDestroyCurrentMoodTrack()
+	
+		currentMoodAnimationInstance = moodAnimation
+		connections[Connection.AnimationInstanceChanged] = currentMoodAnimationInstance.Changed:Connect(function(property)
+			updateCharacterMood(character, moodAnimation)
+		end)
+	
+		-- play mood animation
+		currentMoodTrack = animator:LoadAnimation(currentMoodAnimationInstance)
+		if FFlagSwitchMoodPriorityWhileStreaming then
+			currentMoodTrack.Priority = currentMoodTrackPriority
+		else
+			currentMoodTrack.Priority = Enum.AnimationPriority.Core
+		end
+	
+		if currentEmoteTrack == nil then
+			currentMoodTrack:Play()
+		end
+	
+		if userPlayEmoteByIdAnimTrackReturn then
+			-- listen for emotes
+			disconnectAndRemoveConnection(Connection.EmoteTriggered)
+	
+			if game:GetFastFlag("EmoteTriggeredSignalEnabledLua2") then
+				connections[Connection.EmoteTriggered] = humanoid.EmoteTriggered:Connect(onEmoteTriggered)
+			end
 		end
 	end
 end

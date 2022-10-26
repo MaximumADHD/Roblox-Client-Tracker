@@ -19,14 +19,14 @@ local ScriptContext = game:GetService('ScriptContext')
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 
-local FFlagInitifyScriptsInServerStarterScript = game:DefineFastFlag("InitifyScriptsInServerStarterScript", false)
-
-if FFlagInitifyScriptsInServerStarterScript then
-	local initify = require(CorePackages.initify)
-
-	initify(CorePackages)
-	initify(RobloxGui.Modules)
-end
+--[[
+	NOTE: We need to initify the instance hierarchy as early as possible
+	to avoid spurious require errors. Only call require() and
+	AddCoreScriptLocal() AFTER this block.
+]]
+local initify = require(CorePackages.initify)
+initify(CorePackages)
+initify(RobloxGui.Modules)
 
 --[[ Add Server CoreScript ]]--
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerInGameMenu", script.Parent)

@@ -7,6 +7,7 @@ local Package = require(PackageIndex["NetworkingVirtualEvents"]["NetworkingVirtu
 
 export type EventStatus = Package.EventStatus
 export type HostType = Package.HostType
+export type RsvpStatus = Package.RsvpStatus
 export type EventTime = Package.EventTime
 export type EventTimeUtc = Package.EventTimeUtc
 export type Host = Package.Host

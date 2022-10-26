@@ -54,6 +54,9 @@ local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndic
 local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
+local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
+local isPlayerVerified = VerifiedBadges.isPlayerVerified
+
 local DIVIDER_INDENT = 0
 local DIVIDER_HEIGHT = 1
 local LIST_HEADER_HEIGHT = 24
@@ -147,7 +150,10 @@ function PlayersPage:init()
 		firstPlayerRef = nil,
 		isFilteringMode = false,
 		searchText = "",
+		heightOffset = 0,
 	})
+	self.scrollingThread = nil
+	self.scrollingDown = nil
 
 	self.pageHeaderActivated = function()
 		local scrollingFrame = self.scrollingFrameRef:getValue()
@@ -410,6 +416,7 @@ function PlayersPage:renderListEntries(style, localized, players)
 				listComponents["incoming_request_player_" .. id] = Roact.createElement(PlayerCell, {
 					username = player.Name,
 					displayName = player.DisplayName,
+					hasVerifiedBadge = isPlayerVerified(player),
 					userId = player.UserId,
 					isOnline = true,
 					isSelected = self.state.selectedPlayer == player,
@@ -532,6 +539,7 @@ function PlayersPage:renderListEntries(style, localized, players)
 				username = player.Name,
 				displayName = player.DisplayName,
 				userId = player.UserId,
+				hasVerifiedBadge = isPlayerVerified(player),
 				isOnline = online,
 				isSelected = self.state.selectedPlayer == player,
 				LayoutOrder = self.getLayoutBinding(id, layoutOrder),
@@ -667,12 +675,13 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, get
 		or nil
 
 	local listEntries = self:renderListEntries(style, localized, self.props.players)
+
 	local getChildren = function(onScroll)
 		return {
 			PlayerListContent = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				Size = UDim2.new(1, 0, 1, 0),
+				Size = UDim2.new(1, 0, 1, self.state.heightOffset),
 			}, {
 				PlayerList = Roact.createElement(VerticalScrollViewWithIndicator, {
 					position = UDim2.new(0, 0, 0, 0),
@@ -708,6 +717,8 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, get
 	end
 
 	return PageUtils.withScrollDownState(function(onScroll, scrollingDown)
+		self:updateHeightOffset(scrollingDown)
+
 		if GetFFlagUsePageSearchAnimation() then
 			return Roact.createElement(PageWithSearch, {
 				useLeaveButton = true,
@@ -747,6 +758,28 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, get
 			onHeaderActivated = self.pageHeaderActivated,
 		}, getChildren(onScroll))
 	end)
+end
+
+function PlayersPage:updateHeightOffset(scrollingDown)
+	if self.scrollingDown ~= scrollingDown then
+		self.scrollingDown = scrollingDown
+
+		if self.scrollingThread then
+			task.cancel(self.scrollingThread)
+		end
+
+		if scrollingDown then
+			self:setState({
+				heightOffset = 0,
+			})
+		else
+			self.scrollingThread = task.delay(Constants.LeaveButtonTweenTime, function()
+				self:setState({
+					heightOffset = -Constants.LeaveButtonContainerHeight,
+				})
+			end)
+		end
+	end
 end
 
 function PlayersPage:renderWithLocalized(style, localized)

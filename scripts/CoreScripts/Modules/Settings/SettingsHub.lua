@@ -109,6 +109,8 @@ local SettingsFullScreenTitleBar = require(RobloxGui.Modules.Settings.Components
 local PermissionsButtons = require(RobloxGui.Modules.Settings.Components.PermissionsButtons)
 local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSignal)
 local selfViewCloseButtonSignal = require(RobloxGui.Modules.SelfView.selfViewCloseButtonSignal)
+local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
+local selfViewVisibilityUpdatedSignal = require(RobloxGui.Modules.SelfView.selfViewVisibilityUpdatedSignal)
 
 local ShareGameDirectory = CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame
 local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
@@ -121,7 +123,7 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 local GetFFlagEnableVoiceChatPlayersList = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatPlayersList)
 local GetFFlagOldMenuNewIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuNewIcons)
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
-
+local FFlagSelfViewFixes = require(RobloxGui.Modules.Flags.FFlagSelfViewFixes)
 
 local MuteStatusIcons = {
 	MicOn = "rbxasset://textures/ui/Settings/Players/Unmute@2x.png",
@@ -226,13 +228,21 @@ local function CreateSettingsHub()
 		to keep track of the self view button state.
 	]]
 	if GetFFlagSelfViewSettingsEnabled() then
-		this.selfViewEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
+		this.selfViewOpen = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
 		this.toggleSelfViewSignal = toggleSelfViewSignal:connect(function()
-			this.selfViewEnabled = not this.selfViewEnabled
+			this.selfViewOpen = not this.selfViewOpen
 		end)
-		this.selfViewCloseButtonSignal = selfViewCloseButtonSignal:connect(function()
-			this.selfViewEnabled = not this.selfViewEnabled
-		end)
+		if not FFlagSelfViewFixes then
+			this.selfViewCloseButtonSignal = selfViewCloseButtonSignal:connect(function()
+				this.selfViewOpen = not this.selfViewOpen
+			end)
+		end
+		if FFlagSelfViewFixes then
+			this.selfViewOpen = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView) and SelfViewAPI.getSelfViewIsOpenAndVisible()
+			this.selfViewVisibilitySignal = selfViewVisibilityUpdatedSignal:connect(function()
+				this.selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible()
+			end)
+		end
 	end
 
 	local pageChangeCon = nil
@@ -653,7 +663,7 @@ local function CreateSettingsHub()
 			ZIndex = this.Shield.ZIndex,
 			LayoutOrder = -1,
 			shouldFillScreen = shouldFillScreen,
-			selfViewEnabled = this.selfViewEnabled,
+			selfViewOpen = this.selfViewOpen,
 		})
 	end
 
@@ -2166,7 +2176,7 @@ local function CreateSettingsHub()
 			-- This is accomplished via a Roact Portal into the ShareGame page frame
 			local CorePackages = game:GetService("CorePackages")
 			local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
-			local Diag = require(CorePackages.AppTempCommon.AnalyticsReporters.Diag)
+			local Diag = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.Diag
 
 			local eventStream = EventStream.new()
 			local inviteToGameAnalytics = InviteToGameAnalytics.new()

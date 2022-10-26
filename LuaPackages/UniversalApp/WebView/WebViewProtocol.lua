@@ -18,9 +18,10 @@ local DefaultBrowserService = game:GetService("BrowserService")
 local MessageBus = require(CorePackages.UniversalApp.MessageBus)
 local t = require(CorePackages.Packages.t)
 
-local AsyncQueue = require(CorePackages.AppTempCommon.Common.AsyncQueue.AsyncQueue)
+local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
+local AsyncQueue = AppCommonLib.AsyncQueue
 
-local GetFFlagEnableUnifiedWebViews = require(CorePackages.AppTempCommon.Flags.GetFFlagEnableUnifiedWebViews)
+local GetFFlagEnableUnifiedWebViews = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableUnifiedWebViews
 
 local Types = require(script.Parent.WebViewProtocolTypes)
 
@@ -51,7 +52,7 @@ type WebViewProtocolImpl = WebViewProtocolInterface<WebViewProtocolImpl> & {
 	javaScriptConnection: RBXScriptConnection?,
 
 	subscriber: Subscriber,
-	queue: AsyncQueue.AsyncQueue,
+	queue: AppCommonLib.AsyncQueueType,
 
 	new: (MessageBus?, BrowserService?) -> WebViewProtocol,
 	default: WebViewProtocol,

@@ -21,7 +21,6 @@ local GetFFlagUIBloxFixDropdownMenuCellTextSize =
 
 local GetFFlagUIBloxEnableVirtualizedListForCarousel =
 	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableVirtualizedListForCarousel)
-local GetFFlagUIBloxEnableDynamicHeadIcon = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableDynamicHeadIcon)
 local GetFFlagUIBloxEnableReactTag = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableReactTag)
 
 local GetFFlagUIBloxSystemBarBottomAlignedItems =
@@ -38,6 +37,11 @@ local GetFFlagUIBloxAddViewabilityConfigCallbackPairs =
 
 local GetFFlagUIBloxEnableActionBarButtonTypeOverride =
 	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableActionBarButtonTypeOverride)
+
+local GetFFlagLuaAppUseUIBloxColorPalettes =
+	require(CorePackages.AppTempCommon.LuaApp.Flags.GetFFlagLuaAppUseUIBloxColorPalettes)
+local GetUIBloxUseNewThemeColorPalettes =
+	require(CorePackages.UIBloxFlags.GetUIBloxUseNewThemeColorPalettes)
 
 return {
 	useNewUICornerRoundedCorners = true,
@@ -66,7 +70,7 @@ return {
 	enableVirtualizedListForCarousel = GetFFlagUIBloxEnableVirtualizedListForCarousel(),
 
 	fixDropdownMenuCellTextSize = GetFFlagUIBloxFixDropdownMenuCellTextSize(),
-	useDynamicHeadIcon = GetFFlagUIBloxEnableDynamicHeadIcon(),
+	useDynamicHeadIcon = true,
 
 	systemBarBottomAlignedItems = GetFFlagUIBloxSystemBarBottomAlignedItems(),
 	devMode = ArgCheck.isEnabled(),
@@ -77,5 +81,9 @@ return {
 
 	addViewabilityConfigCallbackPairs = GetFFlagUIBloxAddViewabilityConfigCallbackPairs(),
 
-	enableActionBarButtonTypeOverride = GetFFlagUIBloxEnableActionBarButtonTypeOverride()
+	enableActionBarButtonTypeOverride = GetFFlagUIBloxEnableActionBarButtonTypeOverride(),
+
+	useNewThemeColorPalettes = GetFFlagLuaAppUseUIBloxColorPalettes() and GetUIBloxUseNewThemeColorPalettes(),
+
+	detailsTemplateUseNewGradientHeader = game:DefineFastFlag("UIBloxDetailsTemplateUseNewGradient", false),
 }

@@ -3,14 +3,17 @@ local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
+local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
 
-local Components = script.Parent.Parent
-local Connection = Components.Connection
+local PlayerList = script.Parent.Parent.Parent
+local Connection = PlayerList.Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
+
+local FFlagShowVerifiedBadgeOnPlayerList = require(PlayerList.Flags.FFlagShowVerifiedBadgeOnPlayerList)
 
 local PlayerNameTag = Roact.PureComponent:extend("PlayerNameTag")
 
@@ -46,6 +49,9 @@ function PlayerNameTag:render()
 
 		local playerNameChildren = {}
 		local platformName = self.props.player.PlatformName
+
+		local showVerifiedBadgeOnPlayerList = FFlagShowVerifiedBadgeOnPlayerList()
+		local hasVerifiedBadge = if showVerifiedBadgeOnPlayerList then VerifiedBadges.isPlayerVerified(self.props.player) else false
 
 		if layoutValues.IsTenFoot and platformName ~= "" then
 			playerNameChildren["VerticalLayout"] = Roact.createElement("UIListLayout", {
@@ -91,7 +97,7 @@ function PlayerNameTag:render()
 					LayoutOrder = 1,
 				}),
 
-				PlayerName = Roact.createElement("TextLabel", {
+				PlayerName = not showVerifiedBadgeOnPlayerList and Roact.createElement("TextLabel", {
 					Size = UDim2.new(1, -30, 1, 0),
 					TextXAlignment = Enum.TextXAlignment.Left,
 					Font = playerNameFont,
@@ -104,29 +110,88 @@ function PlayerNameTag:render()
 					Text = self.props.player.Name,
 					ClipsDescendants = false,
 					LayoutOrder = 2,
-				})
+				}),
+
+				PlayerNameContainer = showVerifiedBadgeOnPlayerList
+					and Roact.createElement(VerifiedBadges.EmojiWrapper, {
+						emoji = if hasVerifiedBadge then VerifiedBadges.emoji.verified else "",
+						layoutOrder = 2,
+						mockIsEnrolled = true,
+						size = UDim2.new(1, -30, 0, 0),
+						automaticSize = Enum.AutomaticSize.Y,
+						verticalAlignment = Enum.VerticalAlignment.Center,
+					}, {
+						PlayerName = Roact.createElement("TextLabel", {
+							AutomaticSize = Enum.AutomaticSize.X,
+							ClipsDescendants = false,
+							Size = UDim2.fromScale(0, 1),
+							Font = playerNameFont,
+							Text = self.props.player.Name,
+							TextSize = textSize,
+							TextColor3 = self.props.textStyle.Color,
+							TextTransparency = self.props.textStyle.Transparency,
+							TextStrokeColor3 = self.props.textStyle.StrokeColor,
+							TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
+							TextTruncate = Enum.TextTruncate.AtEnd,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							BackgroundTransparency = 1,
+						}),
+					}),
 			})
 		else
-			playerNameChildren["PlayerName"] = Roact.createElement("TextLabel", {
-				Position = UDim2.new(0, 0, 0.28, 0),
-				Size = UDim2.new(1, 0, 0.44, 0),
-				TextXAlignment = Enum.TextXAlignment.Left,
-				Font = playerNameFont,
-				TextSize = textSize,
-				TextColor3 = self.props.textStyle.Color,
-				TextTransparency = self.props.textStyle.Transparency,
-				TextStrokeColor3 = self.props.textStyle.StrokeColor,
-				TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
-				BackgroundTransparency = 1,
-				Text = self.props.player.DisplayName,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-				TextScaled = true,
-			}, {
-				SizeConstraint = Roact.createElement("UITextSizeConstraint", {
-					MaxTextSize = textSize,
-					MinTextSize = minTextSize,
-				}),
-			})
+			playerNameChildren["PlayerName"] = not showVerifiedBadgeOnPlayerList
+				and Roact.createElement("TextLabel", {
+					Position = UDim2.new(0, 0, 0.28, 0),
+					Size = UDim2.new(1, 0, 0.44, 0),
+					TextXAlignment = Enum.TextXAlignment.Left,
+					Font = playerNameFont,
+					TextSize = textSize,
+					TextColor3 = self.props.textStyle.Color,
+					TextTransparency = self.props.textStyle.Transparency,
+					TextStrokeColor3 = self.props.textStyle.StrokeColor,
+					TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
+					BackgroundTransparency = 1,
+					Text = self.props.player.DisplayName,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextScaled = true,
+				}, {
+					SizeConstraint = Roact.createElement("UITextSizeConstraint", {
+						MaxTextSize = textSize,
+						MinTextSize = minTextSize,
+					}),
+				})
+
+			playerNameChildren["PlayerNameContainer"] = showVerifiedBadgeOnPlayerList
+				and Roact.createElement(VerifiedBadges.EmojiWrapper, {
+					emoji = if hasVerifiedBadge then VerifiedBadges.emoji.verified else "",
+					anchorPoint = Vector2.new(0, 0.5),
+					position = UDim2.fromScale(0, 0.5),
+					mockIsEnrolled = true,
+					verticalAlignment = Enum.VerticalAlignment.Center,
+					automaticSize = Enum.AutomaticSize.X,
+					size = UDim2.new(0, 0, 0, textSize),
+				}, {
+					PlayerName = Roact.createElement("TextLabel", {
+						AutomaticSize = Enum.AutomaticSize.X,
+						Size = UDim2.fromScale(0, 1),
+						Font = playerNameFont,
+						Text = self.props.player.DisplayName,
+						TextSize = textSize,
+						TextColor3 = self.props.textStyle.Color,
+						TextTransparency = self.props.textStyle.Transparency,
+						TextTruncate = Enum.TextTruncate.AtEnd,
+						TextScaled = true,
+						TextStrokeColor3 = self.props.textStyle.StrokeColor,
+						TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						BackgroundTransparency = 1,
+					}, {
+						SizeConstraint = Roact.createElement("UITextSizeConstraint", {
+							MaxTextSize = textSize,
+							MinTextSize = minTextSize,
+						}),
+					}),
+				})
 		end
 
 		return Roact.createElement("Frame", {

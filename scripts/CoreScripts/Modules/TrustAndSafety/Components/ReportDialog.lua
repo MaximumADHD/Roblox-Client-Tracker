@@ -31,6 +31,9 @@ local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local Colors = UIBlox.App.Style.Colors
 local DropdownMenu = UIBlox.App.Menu.DropdownMenu
 
+local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
+local isPlayerVerified = VerifiedBadges.isPlayerVerified
+
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
@@ -110,9 +113,9 @@ function ReportDialog:init()
 		})
 	end
 	-- Press the "Report" button.
-	self.onReport = function()
+	self.onReport = function(toastTitle, toastDescription)
 		local reason = self:getReason()
-		self.props.sendReport(self.props.reportType, self.props.targetPlayer, reason, self.state.descriptionText)
+		self.props.sendReport(self.props.reportType, self.props.targetPlayer, reason, self.state.descriptionText, self.state.reportCategory, toastTitle, toastDescription)
 	end
 	-- Press the "Cancel" button or transparent background.
 	self.onCancel = function()
@@ -155,6 +158,7 @@ function ReportDialog:renderPlayerInfo()
 				userId = self.props.targetPlayer.UserId,
 				username = self.props.targetPlayer.Name,
 				displayName = self.props.targetPlayer.DisplayName,
+				hasVerifiedBadge = isPlayerVerified(self.props.targetPlayer),
 				isOnline = true,
 				isSelected = false,
 				LayoutOrder = 1,
@@ -321,6 +325,8 @@ function ReportDialog:render()
 		titleText = self:categoryTitle(),
 		cancelText = "CoreScripts.InGameMenu.Cancel",
 		reportText = "CoreScripts.InGameMenu.Report.SendReport",
+		toastDefaultTitle = "CoreScripts.InGameMenu.Report.Confirmation.ThanksForReport",
+		toastDefaultDescription = "CoreScripts.InGameMenu.Report.Confirmation.ThanksForReportDescription",
 	})(function(localized)
 		return Roact.createElement(ModalDialog, {
 			visible = self.props.isReportDialogOpen,
@@ -348,7 +354,9 @@ function ReportDialog:render()
 					buttonType = ButtonType.PrimarySystem,
 					props = {
 						isDisabled = not self:canReport(),
-						onActivated = self.onReport,
+						onActivated = function()
+							return self.onReport(localized.toastDefaultTitle, localized.toastDefaultDescription)
+						end,
 						text = localized.reportText,
 					},
 				}}
@@ -389,8 +397,8 @@ return RoactRodux.UNSTABLE_connect2(
 			closeDialog = function()
 				dispatch(EndReportFlow())
 			end,
-			sendReport = function(reportType, targetPlayer, reason, description)
-				dispatch(SendReport(reportType, targetPlayer, reason, description))
+			sendReport = function(reportType, targetPlayer, reason, description, reportCategory, toastTitle, toastDescription)
+				dispatch(SendReport(reportType, targetPlayer, reason, description, reportCategory, toastTitle, toastDescription))
 			end
 		}
 	end

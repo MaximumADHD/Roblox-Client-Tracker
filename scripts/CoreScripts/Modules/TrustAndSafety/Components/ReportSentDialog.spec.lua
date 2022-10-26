@@ -15,8 +15,8 @@ return function()
 	local Reducers = require(TnsModule.Reducers)
 	local OpenReportSentDialog = require(TnsModule.Actions.OpenReportSentDialog)
 
-	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
-	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
 	local appStyle = {
 		Theme = AppDarkTheme,
@@ -50,7 +50,7 @@ return function()
 					}),
 				}),
 			})
-			
+
 			local instance = Roact.mount(element)
 			Roact.unmount(instance)
 		end)

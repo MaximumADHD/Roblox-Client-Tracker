@@ -19,13 +19,27 @@ local Modules = RobloxGui:WaitForChild("Modules")
 local Common = Modules:WaitForChild("Common")
 local CorePackages = game:GetService("CorePackages")
 
-local FFlagInitifyScriptsInLoadingScript = game:DefineFastFlag("InitifyScriptsInLoadingScript", false)
+--[[
+	NOTE: We need to initify the instance hierarchy as early as possible
+	to avoid spurious require errors. Only call require() and
+	AddCoreScriptLocal() AFTER this block.
+]]
+local initify = require(CorePackages.initify)
+initify(CorePackages)
+initify(Modules)
 
-if FFlagInitifyScriptsInLoadingScript then
-	local initify = require(CorePackages.initify)
-
-	initify(CorePackages)
-	initify(Modules)
+local GetFFlagLuaAppUseUIBloxColorPalettes = require(CorePackages.AppTempCommon.LuaApp.Flags.GetFFlagLuaAppUseUIBloxColorPalettes)
+if GetFFlagLuaAppUseUIBloxColorPalettes() then
+	-- With flag on, styles from UIBlox in LoadingScreen (required below)
+	-- are being used prior to UIBlox initialization which is in
+	-- StarterScript. So add one more initialization here to make
+	-- LoadingScreen being required correctly.
+	-- UIBlox can be initialized only once and later initialization will
+	-- do nothing but output warnings. So it is safe to have one more
+	-- initialization.
+	local UIBlox = require(CorePackages.UIBlox)
+	local uiBloxConfig = require(Modules.UIBloxInGameConfig)
+	UIBlox.init(uiBloxConfig)
 end
 
 local create = require(RobloxGui:WaitForChild("Modules"):WaitForChild("Common"):WaitForChild("Create"))
@@ -45,8 +59,8 @@ local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCod
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
 
 local GetFFlagLoadingScreenUseIXP = require(RobloxGui.Modules.Flags.GetFFlagLoadingScreenUseIXP)
-local AppTempCommon = CorePackages:WaitForChild("AppTempCommon")
-local GetFStringLoadingScreenIxpLayer = require(AppTempCommon.Flags.GetFStringLoadingScreenIxpLayer)
+local AppTempCommon = CorePackages.AppTempCommon
+local GetFStringLoadingScreenIxpLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringLoadingScreenIxpLayer
 
 local antiAddictionNoticeStringEn = "Boycott bad games, refuse pirated games. Be aware of self-defense and being deceived. Playing games is good for your brain, but too much game play can harm your health. Manage your time well and enjoy a healthy lifestyle."
 local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)

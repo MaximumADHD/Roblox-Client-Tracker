@@ -27,7 +27,7 @@ local PromptWithTextField = require(Components.Prompts.PromptWithTextField)
 local SignalCreateOutfitPermissionDenied = require(AvatarEditorPrompts.Thunks.SignalCreateOutfitPermissionDenied)
 local PerformCreateOutfit = require(AvatarEditorPrompts.Thunks.PerformCreateOutfit)
 
-local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEventConnection)
+local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
 local EngineFeatureAESMoreOutfitMethods = game:GetEngineFeature("AESMoreOutfitMethods2")
 

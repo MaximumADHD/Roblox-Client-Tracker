@@ -10,6 +10,10 @@ local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 
 return {
 	Images = {
+		MuteIcon = {
+			Size = UDim2.fromOffset(getIconSize(IconSize.Medium), getIconSize(IconSize.Medium)),
+			Image = "rbxasset://textures/ui/VoiceChat/SpeakerLight/Unmuted0.png",
+		},
 		BlockIcon = {
 			Size = UDim2.fromOffset(getIconSize(IconSize.Medium), getIconSize(IconSize.Medium)),
 			Image = UIBloxImages["icons/actions/block"],

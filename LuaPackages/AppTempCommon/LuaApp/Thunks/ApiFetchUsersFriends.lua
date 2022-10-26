@@ -1,10 +1,10 @@
 local CorePackages = game:GetService("CorePackages")
-local Requests = CorePackages.AppTempCommon.LuaApp.Http.Requests
+local Requests = require(CorePackages.Workspace.Packages.Http).Requests
 
 local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 local ApiFetchUsersPresences = require(CorePackages.AppTempCommon.LuaApp.Thunks.ApiFetchUsersPresences)
 local ApiFetchUsersThumbnail = require(CorePackages.AppTempCommon.LuaApp.Thunks.ApiFetchUsersThumbnail)
-local UsersGetFriends = require(Requests.UsersGetFriends)
+local UsersGetFriends = Requests.UsersGetFriends
 
 local FetchUserFriendsStarted = require(CorePackages.AppTempCommon.LuaApp.Actions.FetchUserFriendsStarted)
 local FetchUserFriendsFailed = require(CorePackages.AppTempCommon.LuaApp.Actions.FetchUserFriendsFailed)

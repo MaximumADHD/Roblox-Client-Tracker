@@ -7,8 +7,8 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
 local t = require(CorePackages.Packages.t)
 
-local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
-local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
 local TnsModule = script.Parent.Parent
 local SetScreenSize = require(TnsModule.Actions.SetScreenSize)
@@ -17,7 +17,6 @@ local ReportDialog = require(TnsModule.Components.ReportDialog)
 local ReportCategoryDialog = require(TnsModule.Components.ReportCategoryDialog)
 
 local ReportSentDialog = require(TnsModule.Components.ReportSentDialog)
-local BlockPlayerDialog = require(TnsModule.Components.BlockPlayerDialog)
 local Toast = require(TnsModule.Components.Toast)
 local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
 
@@ -57,7 +56,6 @@ function TrustAndSafetyApp:render()
 					ReportMenu = Roact.createElement(ReportMenu),
 					ReportDialog = Roact.createElement(ReportDialog),
 					ReportSentDialog = Roact.createElement(ReportSentDialog),
-					BlockPlayerDialog = Roact.createElement(BlockPlayerDialog),
 					Toast = Roact.createElement(Toast),
 				})
 			})

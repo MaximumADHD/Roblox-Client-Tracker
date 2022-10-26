@@ -203,26 +203,4 @@ return function()
 			expect(newState.currentPage).to.equal(Constants.Page.None)
 		end)
 	end)
-
-	describe("BlockPlayerDialog", function()
-		it("should open", function()
-			local oldState = report(nil, {})
-			oldState = report(oldState, SetVoiceReportingFlow(false));
-
-			local newState = report(oldState, OpenBlockPlayerDialog())
-			expect(oldState).to.never.equal(newState)
-			expect(newState.currentPage).to.equal(Constants.Page.PlayerBlocking)
-		end)
-
-		it("should close", function()
-			local oldState = report(nil, {})
-			oldState = report(oldState, SetVoiceReportingFlow(false));
-
-			oldState = report(oldState, BeginReportFlow())
-
-			local newState = report(oldState, EndReportFlow())
-			expect(oldState).to.never.equal(newState)
-			expect(newState.currentPage).to.equal(Constants.Page.None)
-		end)
-	end)
 end

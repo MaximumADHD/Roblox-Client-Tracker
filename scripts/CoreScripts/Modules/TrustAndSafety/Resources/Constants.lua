@@ -26,7 +26,6 @@ local Constants = {
 		Listing = "Listing",
 		ReportForm = "ReportForm",
 		ReportSent = "ReportSent",
-		PlayerBlocking = "PlayerBlocking",
 	},
 }
 

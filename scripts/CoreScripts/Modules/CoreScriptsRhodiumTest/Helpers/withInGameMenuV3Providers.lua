@@ -7,8 +7,8 @@ local CorePackages = game:GetService("CorePackages")
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
 local Roact = require(CorePackages.Roact)
-local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
-local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 local UIBlox = require(CorePackages.UIBlox)
 local Localization = require(Modules.InGameMenuV3.Localization.Localization)
 local LocalizationProvider = require(Modules.InGameMenuV3.Localization.LocalizationProvider)

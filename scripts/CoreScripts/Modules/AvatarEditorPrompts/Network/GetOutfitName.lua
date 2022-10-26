@@ -3,7 +3,7 @@ local CorePackages = game:GetService("CorePackages")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 
 local httpRequest = require(CorePackages.AppTempCommon.Temp.httpRequest)
-local Url = require(CorePackages.AppTempCommon.LuaApp.Http.Url)
+local Url = require(CorePackages.Workspace.Packages.Http).Url
 
 local httpImpl = httpRequest(HttpRbxApiService)
 

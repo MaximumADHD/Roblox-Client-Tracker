@@ -23,6 +23,7 @@ local IncrementControllerBar = require(InGameMenu.Actions.IncrementControllerBar
 
 local educationalTooltip = require(script.educationalTooltip)
 local navigationReducer = require(script.navigationReducer)
+local languageSelectionReducer = require(script.languageSelectionReducer)
 local respawn = require(script.respawn)
 local invites = require(script.invites)
 local gameInfo = require(script.gameInfo)
@@ -156,6 +157,7 @@ local function reducer(state, action)
 			invites = invites(nil, action),
 			respawn = respawn(nil, action),
 			gameInfo = gameInfo(nil, action),
+			languageSelectionReducer = languageSelectionReducer(nil, action),
 			friends = friends(nil, action),
 			inviteFriends = inviteFriends(nil, action),
 			quickActions = quickActions(nil, action),
@@ -181,6 +183,7 @@ local function reducer(state, action)
 	end
 	state = navigationReducer(state, action)
 
+	state.languageSelectionReducer = languageSelectionReducer(state.languageSelectionReducer, action)
 	state.respawn = respawn(state.respawn, action)
 	state.invites = invites(state.invites, action)
 	state.gameInfo = gameInfo(state.gameInfo, action)
