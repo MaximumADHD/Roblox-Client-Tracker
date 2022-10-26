@@ -80,7 +80,6 @@ local function ExperienceTile(props: Props)
 		actionRowHeight = ACTION_ROW_HEIGHT,
 		footer = footer,
 		footerHeight = footerHeight,
-		minTileSize = Vector2.new(MIN_WIDTH, MIN_HEIGHT),
 		hasBackground = hasBackground,
 		hasOutline = hasOutline,
 		hasWideHover = if hasBackground then true else false,

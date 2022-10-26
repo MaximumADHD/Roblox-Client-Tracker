@@ -273,12 +273,22 @@ local function initializeLibrary(configs)
 		Style = strict({
 			Validator = strict({
 				validateFont = require(script.App.Style.Validator.validateFont),
-				validateTheme = require(script.App.Style.Validator.validateTheme),
+				validateTheme = if configs.useNewThemeColorPalettes
+					then require(script.App.Style.Validator.validateThemeNew)
+					else require(script.App.Style.Validator.validateTheme),
 				validateStyle = require(script.App.Style.Validator.validateStyle),
 			}),
 			AppStyleProvider = require(script.App.Style.AppStyleProvider),
 			Colors = require(script.App.Style.Colors),
 			Constants = require(script.App.Style.Constants),
+			Themes = {
+				DarkTheme = if configs.useNewThemeColorPalettes
+					then require(script.App.Style.Themes.DarkThemeNew)
+					else require(script.App.Style.Themes.DarkTheme),
+				LightTheme = if configs.useNewThemeColorPalettes
+					then require(script.App.Style.Themes.LightThemeNew)
+					else require(script.App.Style.Themes.LightTheme),
+			},
 		}),
 
 		Indicator = strict({
@@ -367,7 +377,9 @@ local function initializeLibrary(configs)
 			validateStyle = require(script.Style.Validator.validateStyle),
 			validateFont = require(script.Style.Validator.validateFont),
 			validateFontInfo = require(script.Style.Validator.validateFontInfo),
-			validateTheme = require(script.Style.Validator.validateTheme),
+			validateTheme = if configs.useNewThemeColorPalettes
+				then require(script.App.Style.Validator.validateThemeNew)
+				else require(script.Style.Validator.validateTheme),
 			validateColorInfo = require(script.Style.Validator.validateColorInfo),
 		},
 		-- Used for updating the style in consumer who would have previously

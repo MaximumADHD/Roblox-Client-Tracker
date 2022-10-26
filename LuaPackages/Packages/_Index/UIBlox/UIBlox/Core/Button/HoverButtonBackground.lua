@@ -9,6 +9,8 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local withStyle = require(Core.Style.withStyle)
 
+local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
+
 local CORNER_RADIUS = 8
 
 local HoverButtonBackground = Roact.PureComponent:extend("HoverButtonBackground")
@@ -21,6 +23,7 @@ function HoverButtonBackground:render()
 			Size = UDim2.fromScale(1, 1),
 			BackgroundColor3 = backgroundHover.Color,
 			BackgroundTransparency = backgroundHover.Transparency,
+			ZIndex = if UIBloxConfig.useNewThemeColorPalettes then -1 else nil,
 		}, {
 			corner = Roact.createElement("UICorner", {
 				CornerRadius = UDim.new(0, CORNER_RADIUS),

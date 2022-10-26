@@ -13,6 +13,7 @@ local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local devOnly = require(UIBlox.Utility.devOnly)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local ItemTileEnums = require(Tile.Enum.ItemTileEnums)
 
@@ -48,6 +49,12 @@ local function getAdditionalText(restrictionTypes, restrictionInfo)
 end
 
 local function getRestrictionIcon(restrictionTypes)
+	if UIBloxConfig.enableCollectibleItemRestriction then
+		if restrictionTypes[ItemTileEnums.Restriction.Collectible] then
+			return Images["icons/placeholder/placeholderOn_small"]
+		end
+	end
+
 	if
 		restrictionTypes[ItemTileEnums.Restriction.Limited]
 		or restrictionTypes[ItemTileEnums.Restriction.LimitedUnique]

@@ -3,11 +3,12 @@ export type Config = {
 }
 
 export type EventStatus = "unpublished" | "active" | "cancelled"
+export type RsvpStatus = "none" | "going" | "maybeGoing" | "notGoing"
 export type HostType = "user" | "group"
 
 export type EventTime = {
-	startTime: string,
-	endTime: string,
+	startTime: DateTime,
+	endTime: DateTime,
 }
 
 export type EventTimeUtc = {
@@ -30,6 +31,7 @@ export type VirtualEventResponse = {
 	eventStatus: EventStatus,
 	createdUtc: string,
 	updatedUtc: string,
+	userRsvpStatus: RsvpStatus,
 }
 
 type PaginatedResponse<T> = {

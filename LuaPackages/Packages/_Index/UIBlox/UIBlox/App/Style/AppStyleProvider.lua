@@ -14,6 +14,7 @@ local devOnly = require(UIBlox.Utility.devOnly)
 local getThemeFromName = require(Style.Themes.getThemeFromName)
 local getFontFromName = require(Style.Fonts.getFontFromName)
 local Constants = require(Style.Constants)
+local Themes = require(script.Parent.Themes)
 
 local DEFAULT_FONT = Constants.FontName.Gotham
 local FONT_MAP = {
@@ -22,8 +23,8 @@ local FONT_MAP = {
 
 local DEFAULT_THEME = Constants.ThemeName.Light
 local THEME_MAP = {
-	[Constants.ThemeName.Dark] = require(script.Parent.Themes.DarkTheme),
-	[Constants.ThemeName.Light] = require(script.Parent.Themes.LightTheme),
+	[Constants.ThemeName.Dark] = Themes.DarkTheme,
+	[Constants.ThemeName.Light] = Themes.LightTheme,
 }
 
 local AppStyleProvider = Roact.Component:extend("AppStyleProvider")

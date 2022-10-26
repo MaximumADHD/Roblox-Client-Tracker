@@ -7,13 +7,17 @@ return function(roduxNetworking)
 	local UpdateVirtualEvent = roduxNetworking.POST(
 		script,
 		function(requestBuilder, eventId: number, payload: types.UpdateVirtualEventRequest)
+			local eventTime = payload.eventTime
+
 			return requestBuilder(constants.API_URL):path("v1"):path("virtual-events"):id(eventId):body({
 				title = payload.title,
 				description = payload.description,
-				eventTime = {
-					startTime = payload.eventTime.startTime:ToIsoDate(),
-					endTime = payload.eventTime.endTime:ToIsoDate(),
-				},
+				eventTime = if eventTime
+					then {
+						startTime = eventTime.startTime:ToIsoDate(),
+						endTime = eventTime.endTime:ToIsoDate(),
+					}
+					else nil,
 				universeId = payload.universeId,
 			})
 		end

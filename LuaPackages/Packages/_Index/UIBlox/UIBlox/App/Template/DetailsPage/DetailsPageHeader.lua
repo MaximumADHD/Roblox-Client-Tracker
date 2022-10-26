@@ -22,11 +22,14 @@ local DetailsPageTitleContent = require(DetailsPage.DetailsPageTitleContent)
 local DROP_SHADOW_IMAGE = "component_assets/dropshadow_thumbnail_28"
 local DROP_SHADOW_HEIGHT = 28
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local DetailsPageHeader = Roact.PureComponent:extend("DetailsPageHeader")
 
 local BOTTOM_MARGIN = 16
 local INNER_PADDING = 16
 local ITEM_PADDING = 24
+local BASE_GRADIENT = 44
 local ImageHeight = {
 	Desktop = 200,
 	Mobile = 100,
@@ -158,6 +161,9 @@ function DetailsPageHeader:render()
 
 	local backgroundBarHeight = Constants.HeaderBarBackgroundHeight[displayMode]
 	local gradientHeight = (ImageHeight[displayMode] + BOTTOM_MARGIN) - backgroundBarHeight
+	if UIBloxConfig.detailsTemplateUseNewGradientHeader then
+		gradientHeight += BASE_GRADIENT
+	end
 
 	return withStyle(function(style)
 		local theme = style.Theme
@@ -181,10 +187,16 @@ function DetailsPageHeader:render()
 			}, {
 				Gradient = Roact.createElement("UIGradient", {
 					Rotation = 270,
-					Transparency = NumberSequence.new({
-						NumberSequenceKeypoint.new(0, 0.25),
-						NumberSequenceKeypoint.new(1, 0.9999),
-					}),
+					Transparency = if UIBloxConfig.detailsTemplateUseNewGradientHeader
+						then NumberSequence.new({
+							NumberSequenceKeypoint.new(0, 0),
+							NumberSequenceKeypoint.new(0.5, 0.25),
+							NumberSequenceKeypoint.new(1, 1),
+						})
+						else NumberSequence.new({
+							NumberSequenceKeypoint.new(0, 0.25),
+							NumberSequenceKeypoint.new(1, 0.9999),
+						}),
 				}),
 			}),
 			BackgroundBar = Roact.createElement("Frame", {

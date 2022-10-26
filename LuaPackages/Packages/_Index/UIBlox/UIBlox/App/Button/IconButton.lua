@@ -211,7 +211,7 @@ function IconButton:renderWithProviders(style, getSelectionCursor)
 			Size = UDim2.fromScale(1, 1),
 			BackgroundColor3 = backgroundColor.Color,
 			BackgroundTransparency = self.props.backgroundTransparency or backgroundColor.Transparency,
-			ZIndex = 0,
+			ZIndex = if UIBloxConfig.useNewThemeColorPalettes then -10 else 0,
 		}, {
 			corner = Roact.createElement("UICorner", {
 				CornerRadius = UDim.new(0, 8),

@@ -87,12 +87,15 @@ IABottomBar.validateProps = t.strictInterface({
 	tooltipDisplayOrder = t.optional(t.number),
 	-- children are placed in a Frame occupying the safe area
 	[Roact.Children] = t.optional(t.any),
+	-- option to display title for each item
+	showTitle = t.optional(t.boolean),
 })
 
 IABottomBar.defaultProps = {
 	showNumberedBadge = false,
 	tooltipDisplayOrder = 10,
 	height = Consts.DEFAULT_NAV_HEIGHT,
+	showTitle = true,
 }
 
 function IABottomBar:getRippleState() -- get values for ripple animation depending on current value in self.state
@@ -239,7 +242,7 @@ function IABottomBar:renderIconWithText(item, state, selected)
 					ZIndex = 2,
 				}),
 				Ripple = Ripple(item, rippleState),
-				IconText = Roact.createElement("TextLabel", {
+				IconText = self.props.showTitle and Roact.createElement("TextLabel", {
 					Text = item.title,
 					TextColor3 = selected and theme.TextEmphasis.Color or theme.TextDefault.Color,
 					-- absolutely place the text to the bottom of the Frame
@@ -254,7 +257,7 @@ function IABottomBar:renderIconWithText(item, state, selected)
 					TextTransparency = selected and theme.TextEmphasis.Transparency or theme.TextDefault.Transparency,
 					Visible = self.state.isTextVisible,
 					BorderSizePixel = 0, -- remove dot placed on text normally
-				}),
+				}) or nil,
 			})
 		end)
 	end)

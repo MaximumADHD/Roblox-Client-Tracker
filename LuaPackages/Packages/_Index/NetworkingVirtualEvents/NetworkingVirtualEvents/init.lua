@@ -2,6 +2,7 @@ local types = require(script.types)
 
 export type EventStatus = types.EventStatus
 export type HostType = types.HostType
+export type RsvpStatus = types.RsvpStatus
 export type EventTime = types.EventTime
 export type EventTimeUtc = types.EventTimeUtc
 export type Host = types.Host

@@ -34,7 +34,12 @@ return function(initializeLibrary, name, defaultConfig)
 		end
 
 		local firstInitTraceback = trimTrailingNewline(debug.traceback())
-		Library.init = function()
+		Library.init = function(newConfig)
+			if newConfig == config then
+				-- No need for a warning, the library has been init twice with the same config
+				return
+			end
+
 			local currentInitTraceback = trimTrailingNewline(debug.traceback())
 			warn(
 				string.format(

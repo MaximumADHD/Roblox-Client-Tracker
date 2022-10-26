@@ -123,4 +123,16 @@ return {
 
 	-- Enable Button to take buttonType prop that is used in ActionBar to manually specify a button style
 	enableActionBarButtonTypeOverride = false,
+
+	-- Enable support for the new Collectible/Limited 2.0 item restriction type
+	enableCollectibleItemRestriction = false,
+
+	-- New color palettes of color system 1.1
+	useNewThemeColorPalettes = false,
+
+	detailsTemplateUseNewGradientHeader = false,
+
+	-- support updating DropdownMenu selectedValue from placeholder when the new cellDatas does not
+	-- contain the current selecteValue
+	enableDropdownMenuUpdateSelectedValueFromPlaceholder = false,
 }

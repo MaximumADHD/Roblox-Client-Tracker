@@ -23,14 +23,25 @@ else
 	})
 end
 
+local Restriction
+if UIBloxConfig.enableCollectibleItemRestriction then
+	Restriction = enumerate("Restriction", {
+		"Limited",
+		"LimitedUnique",
+		"Collectible",
+	})
+else
+	Restriction = enumerate("Restriction", {
+		"Limited",
+		"LimitedUnique",
+	})
+end
+
 return strict({
 	ItemIconType = ItemIconType,
 	StatusStyle = enumerate("StatusStyle", {
 		"Alert",
 		"Info",
 	}),
-	Restriction = enumerate("Restriction", {
-		"Limited",
-		"LimitedUnique",
-	}),
+	Restriction = Restriction,
 }, script.Name)

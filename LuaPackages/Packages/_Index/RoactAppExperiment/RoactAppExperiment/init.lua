@@ -17,9 +17,11 @@ local IXPService = game:GetService("IXPService")
 local Roact = require(script.Parent.Roact)
 local t = require(script.Parent.t)
 local Cryo = require(script.Parent.Cryo)
+local Symbol = require(script.Symbol)
 
-local FFlagDebugUnmuteLuaErrors = false -- = require(Modules.LuaApp.Flags.FFlagDebugUnmuteLuaErrors)
 local ExperimentContext = require(script.ExperimentContext)
+local IxpServiceProp = Symbol.named("IxpServiceProp")
+local getFFlagLuaAppIxpServicePropFix = require(script.Flags.getFFlagLuaAppIxpServicePropFix)
 
 --[=[
 	Only user layers can be registered from lua; browser-tracker layers need to
@@ -30,7 +32,7 @@ local ExperimentContext = require(script.ExperimentContext)
 local function registerUserLayers(userLayers: { [string]: string })
 	assert(t.table(userLayers))
 	if IXPService ~= nil then
-		if RunService:IsStudio() or FFlagDebugUnmuteLuaErrors then
+		if RunService:IsStudio() then
 			IXPService:ClearUserLayers()
 		end
 
@@ -121,11 +123,14 @@ local function connect(
 				}
 
 				self.updateStateLayerData = function(status)
-					if self.props.ixpService ~= nil then
+					local ixpService = if getFFlagLuaAppIxpServicePropFix()
+						then self.props[IxpServiceProp]
+						else self.props.ixpService
+
+					if ixpService ~= nil then
 						local layerToVariables = {}
 						for _, layerName in ipairs(layerNames) do
-							layerToVariables[layerName] =
-								self.props.ixpService[getLayerVariables](self.props.ixpService, layerName)
+							layerToVariables[layerName] = ixpService[getLayerVariables](ixpService, layerName)
 						end
 
 						self:setState({
@@ -136,46 +141,62 @@ local function connect(
 				end
 
 				self.logAllLayersExposure = function(status)
-					if
-						self.props.ixpService ~= nil
-						and status == Enum.IXPLoadingStatus.Initialized
-						and recordExposureOnMount
-					then
+					local ixpService = if getFFlagLuaAppIxpServicePropFix()
+						then self.props[IxpServiceProp]
+						else self.props.ixpService
+
+					if ixpService ~= nil and status == Enum.IXPLoadingStatus.Initialized and recordExposureOnMount then
 						for _, layerName in ipairs(layerNames) do
-							local layerStatus =
-								self.props.ixpService[getStatusForLayer](self.props.ixpService, layerName)
+							local layerStatus = ixpService[getStatusForLayer](ixpService, layerName)
 							if layerStatus == Enum.IXPLoadingStatus.Initialized then
-								self.props.ixpService[logLayerExposure](self.props.ixpService, layerName)
+								ixpService[logLayerExposure](ixpService, layerName)
 							end
 						end
 					end
 				end
 
-				if self.props.ixpService ~= nil then
-					local loadingStatus = self.props.ixpService[getLayerLoadingStatus](self.props.ixpService)
-					self.updateStateLayerData(loadingStatus)
+				do
+					local ixpService = if getFFlagLuaAppIxpServicePropFix()
+						then self.props[IxpServiceProp]
+						else self.props.ixpService
+
+					if ixpService ~= nil then
+						local loadingStatus = ixpService[getLayerLoadingStatus](ixpService)
+						self.updateStateLayerData(loadingStatus)
+					end
 				end
 			end
 
 			function Connection:render()
-				local componentProps = Cryo.Dictionary.join(self.props, {
-					ixpService = Cryo.None,
-				})
+				local componentProps
+				if getFFlagLuaAppIxpServicePropFix() then
+					componentProps = Cryo.Dictionary.join(self.props, {
+						[IxpServiceProp] = Cryo.None,
+					})
+				else
+					componentProps = Cryo.Dictionary.join(self.props, {
+						ixpService = Cryo.None,
+					})
+				end
 				local layerProps = mapLayersToProps(self.state.layerToVariables, componentProps)
 				local newProps = Cryo.Dictionary.join(componentProps, layerProps)
 				return Roact.createElement(innerComponent, newProps)
 			end
 
 			function Connection:didMount()
-				if self.props.ixpService ~= nil then
-					self.onLoadingStatusChangeConnection = self.props.ixpService[onLayerLoadingStatusChanged]:Connect(
+				local ixpService = if getFFlagLuaAppIxpServicePropFix()
+					then self.props[IxpServiceProp]
+					else self.props.ixpService
+
+				if ixpService ~= nil then
+					self.onLoadingStatusChangeConnection = ixpService[onLayerLoadingStatusChanged]:Connect(
 						function(_status)
 							-- Always retrieve the latest status and update with it; the status parameter passed in
 							-- is the status it was changing to when the changed signal was raised, which is not always
 							-- the latest status, since multiple changes could be queued before this callback is run.
 							-- Since we only really care if the state is Initialized or not, we can bypass any other state
 							-- changes, and that keeps the status consistent with the actual layer variable data.
-							local currentStatus = self.props.ixpService[getLayerLoadingStatus](self.props.ixpService)
+							local currentStatus = ixpService[getLayerLoadingStatus](ixpService)
 							if self.state.layerLoadingStatus ~= currentStatus then
 								self.updateStateLayerData(currentStatus, getLayerVariables)
 								self.logAllLayersExposure(currentStatus)
@@ -183,7 +204,7 @@ local function connect(
 						end
 					)
 
-					local loadingStatus = self.props.ixpService[getLayerLoadingStatus](self.props.ixpService)
+					local loadingStatus = ixpService[getLayerLoadingStatus](ixpService)
 					if self.state.layerLoadingStatus ~= loadingStatus then
 						self.updateStateLayerData(loadingStatus, getLayerVariables)
 					end
@@ -201,9 +222,20 @@ local function connect(
 			return function(props)
 				return Roact.createElement(ExperimentContext.Consumer, {
 					render = function(ixpService)
-						local newProps = Cryo.Dictionary.join(props, {
-							ixpService = ixpService,
-						})
+						local newProps
+						if getFFlagLuaAppIxpServicePropFix() then
+							assert(
+								props[IxpServiceProp] == nil,
+								"Symbol 'IxpServiceProp' should never exist in the incoming props."
+							)
+							newProps = Cryo.Dictionary.join(props, {
+								[IxpServiceProp] = ixpService,
+							})
+						else
+							newProps = Cryo.Dictionary.join(props, {
+								ixpService = ixpService,
+							})
+						end
 						return Roact.createElement(Connection, newProps)
 					end,
 				})

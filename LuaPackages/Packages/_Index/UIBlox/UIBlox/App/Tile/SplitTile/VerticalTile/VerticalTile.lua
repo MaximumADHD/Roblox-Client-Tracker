@@ -152,7 +152,7 @@ local function VerticalTile(props: Props)
 			}),
 			PinnedFooter = if hasPinnedFooter
 				then React.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0, footerHeight + (contentPadding * 2)),
+					Size = UDim2.new(1, 0, 0, footerHeight + if hasBackground then (contentPadding * 2) else 0),
 					Position = UDim2.new(0, 0, 1, 0),
 					AnchorPoint = Vector2.new(0, 1),
 					BackgroundTransparency = 1,

@@ -1,7 +1,10 @@
 local Themes = script.Parent
 local Style = Themes.Parent
 
-local validateTheme = require(Style.Validator.validateTheme)
+local UIBloxConfig = require(Style.Parent.Parent.UIBloxConfig)
+local validateTheme = if UIBloxConfig.useNewThemeColorPalettes
+	then require(Style.Validator.validateThemeNew)
+	else require(Style.Validator.validateTheme)
 
 return function(themeName, defaultTheme, themeMap)
 	local mappedTheme

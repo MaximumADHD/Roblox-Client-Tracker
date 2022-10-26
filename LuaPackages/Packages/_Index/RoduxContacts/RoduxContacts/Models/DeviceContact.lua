@@ -36,16 +36,20 @@ function DeviceContact.mock(mergeTable: {
 	return DeviceContact.new(mergedValues)
 end
 
-function DeviceContact.formatFromDevice(contact: { firstname: string, lastname: string, phonenumber: { number } })
+function DeviceContact.formatFromDevice(contact: { firstname: string?, lastname: string?, phonenumber: { number } })
+	local firstName = contact.firstname or ""
+	local lastName = contact.lastname or ""
 	return DeviceContact.new({
 		id = DeviceContact.generateId(contact),
-		contactName = contact.firstname .. " " .. contact.lastname,
+		contactName = firstName .. " " .. lastName,
 		phoneNumbers = contact.phonenumber,
 	})
 end
 
-function DeviceContact.generateId(contact: { firstname: string, lastname: string, phonenumber: { number } })
-	return contact.firstname .. contact.lastname .. tostring(contact.phonenumber[1])
+function DeviceContact.generateId(contact: { firstname: string?, lastname: string?, phonenumber: { number } })
+	local firstName = contact.firstname or ""
+	local lastName = contact.lastname or ""
+	return firstName .. lastName .. tostring(contact.phonenumber[1])
 end
 
 return DeviceContact

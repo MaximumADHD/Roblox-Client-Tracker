@@ -1,3 +1,10 @@
+local Validator = script.Parent
+local Style = Validator.Parent
+local UIBlox = Style.Parent
+local Packages = UIBlox.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local Cryo = require(Packages.Cryo)
+
 local color = {
 	Color = Color3.fromRGB(0, 0, 0),
 	Transparency = 0,
@@ -63,6 +70,30 @@ local testTheme = {
 	PlayerBackgroundDefault = themedBackgroundImage,
 	ItemBackgroundDefault = themedBackgroundImage,
 }
+
+if UIBloxConfig.useNewThemeColorPalettes then
+	local gradient = {
+		Color = ColorSequence.new({
+			ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 0, 0)),
+			ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0)),
+		}),
+		Transparency = NumberSequence.new({
+			NumberSequenceKeypoint.new(0, 1),
+			NumberSequenceKeypoint.new(1, 0),
+		}),
+		Rotation = 0,
+	}
+
+	testTheme = Cryo.Dictionary.join(testTheme, {
+		MenuOnHover = color,
+		CellOnHover = color,
+		TextOnHover = color,
+		Loading = gradient,
+		Caution = color,
+	})
+
+	testTheme.SelectionCursor.Rotation = 0
+end
 
 local font = {
 	Font = Enum.Font.GothamMedium,

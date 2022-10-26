@@ -13,6 +13,8 @@ local ControlState = require(UIBlox.Core.Control.Enum.ControlState)
 local DropdownMenuList = require(UIBlox.App.Menu.DropdownMenuList)
 local DropdownMenuCell = require(UIBlox.App.Menu.DropdownMenuCell)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local BUTTON_IMAGE = "component_assets/circle_17_stroke_1"
 local COLLAPSE_IMAGE = "truncate_arrows/actions_truncationCollapse"
 local EXPAND_IMAGE = "truncate_arrows/actions_truncationExpand"
@@ -134,6 +136,26 @@ function DropdownMenuComponent:init()
 			absoluteSize = rbx.AbsoluteSize,
 		})
 	end
+end
+
+function DropdownMenuComponent.getDerivedStateFromProps(nextProps, lastState)
+	if UIBloxConfig.enableDropdownMenuUpdateSelectedValueFromPlaceholder then
+		local found = false
+		for i, v in nextProps.cellDatas do
+			if v.text == lastState.selectedValue then
+				found = true
+				break
+			end
+		end
+
+		if not found then
+			return {
+				selectedValue = nextProps.placeholder,
+			}
+		end
+	end
+
+	return nil
 end
 
 function DropdownMenuComponent:render()
