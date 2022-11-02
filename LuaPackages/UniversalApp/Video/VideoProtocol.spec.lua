@@ -1,6 +1,7 @@
 --!nonstrict
 return function()
-	local Types = require(script.Parent.Parent.MessageBusTypes)
+	local CorePackages = game:GetService("CorePackages")
+	local Types = require(CorePackages.Workspace.Packages.MessageBus)
 
 	local MockMessageBus = {}
 	MockMessageBus.__index = MockMessageBus

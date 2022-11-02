@@ -19,6 +19,8 @@ local Modules = RobloxGui:WaitForChild("Modules")
 local Common = Modules:WaitForChild("Common")
 local CorePackages = game:GetService("CorePackages")
 
+local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
+
 --[[
 	NOTE: We need to initify the instance hierarchy as early as possible
 	to avoid spurious require errors. Only call require() and
@@ -65,6 +67,8 @@ local GetFStringLoadingScreenIxpLayer = require(CorePackages.Workspace.Packages.
 local antiAddictionNoticeStringEn = "Boycott bad games, refuse pirated games. Be aware of self-defense and being deceived. Playing games is good for your brain, but too much game play can harm your health. Manage your time well and enjoy a healthy lifestyle."
 local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
 local loadErrorHandlerFromEngine = game:GetEngineFeature("LoadErrorHandlerFromEngine")
+
+local FFlagShowVerifiedBadgeOnLoadingScreen = require(RobloxGui.Modules.Flags.FFlagShowVerifiedBadgeOnLoadingScreen)
 
 local debugMode = false
 
@@ -139,7 +143,18 @@ if not UseNewVersionLoadingScreen then
 
 	function InfoProvider:GetCreatorName()
 		if GameAssetInfo ~= nil then
-			return GameAssetInfo.Creator.Name
+			if FFlagShowVerifiedBadgeOnLoadingScreen() then
+				-- Determine whether a VerifiedBadge should be shown
+				local creatorName = GameAssetInfo.Creator.Name
+				local isCreatorVerified = GameAssetInfo.Creator.HasVerifiedBadge
+
+				if isCreatorVerified then
+					creatorName = VerifiedBadges.appendVerifiedBadge(creatorName)
+				end
+				return creatorName
+			else
+				return GameAssetInfo.Creator.Name
+			end
 		else
 			return ''
 		end

@@ -1,8 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
-local MessageBus = require(CorePackages.UniversalApp.MessageBus)
+local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
 local t = require(CorePackages.Packages.t)
 local ExternalContentSharingProtocolTypes = require(script.Parent.ExternalContentSharingProtocolTypes)
-local MessageBusTypes = require(CorePackages.UniversalApp.MessageBusTypes)
+local MessageBusTypes = require(CorePackages.Workspace.Packages.MessageBus)
 
 type MessageBus = MessageBusTypes.MessageBus
 type ExternalContentSharingProtocol = ExternalContentSharingProtocolTypes.ExternalContentSharingProtocol

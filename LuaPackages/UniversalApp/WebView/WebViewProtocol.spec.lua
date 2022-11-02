@@ -4,7 +4,7 @@ return function()
 	local HttpService = game:GetService("HttpService")
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
-	local MessageBus = require(CorePackages.UniversalApp.MessageBus)
+	local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
 	local WebViewProtocol = require(CorePackages.UniversalApp.WebView.WebViewProtocol)
 	local GetFFlagEnableUnifiedWebViews = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableUnifiedWebViews
 

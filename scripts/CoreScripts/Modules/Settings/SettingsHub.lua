@@ -18,6 +18,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
 local Roact = require(CorePackages.Roact)
+local Otter = require(CorePackages.Otter)
 
 --[[ UTILITIES ]]
 local utility = require(RobloxGui.Modules.Settings.Utility)
@@ -36,6 +37,7 @@ local SETTINGS_BASE_ZINDEX = 2
 local DEV_CONSOLE_ACTION_NAME = "Open Dev Console"
 local QUICK_PROFILER_ACTION_NAME = "Show Quick Profiler"
 local SETTINGS_HUB_MENU_KEY = "SettingsHub"
+local VOICE_RECORDING_INDICATOR_FADE_TIME = 5
 
 local SETTINGS_HUB_MOUSE_OVERRIDE_KEY = Symbol.named("SettingsHubCursorOverride")
 
@@ -46,7 +48,6 @@ local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsL
 local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
 
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
-local FFlagShowInGameReportingLuobu = require(RobloxGui.Modules.Flags.FFlagShowInGameReportingLuobu)
 local FFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)()
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
@@ -66,6 +67,7 @@ local FFlagInGameMenuV1ExitModal = game:DefineFastFlag("InGameMenuV1ExitModal", 
 local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
 local GetFFlagShareInviteLinkContextMenuV1Enabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
 local GetFFlagSelfViewSettingsEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagSelfViewSettingsEnabled)
+local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -139,10 +141,18 @@ if GetFFlagOldMenuNewIcons() then
 	PlayerMuteStatusIcons = VoiceChatServiceManager.PlayerMuteStatusIcons
 end
 
+local SPRING_PARAMS = {}
+if GetFFlagVoiceRecordingIndicatorsEnabled() then
+	SPRING_PARAMS = {
+		frequency = 4,
+		dampingRatio = 1,
+	}
+end
+
 --[[ Localization Fixes for Version Labels]]
 local shouldTryLocalizeVersionLabels = FFlagLocalizeVersionLabels or shouldLocalize
 local RobloxTranslator = nil
-if shouldTryLocalizeVersionLabels or FFlagUpdateSettingsHubGameText then
+if shouldTryLocalizeVersionLabels or FFlagUpdateSettingsHubGameText or GetFFlagVoiceRecordingIndicatorsEnabled() then
 	RobloxTranslator = require(RobloxGui.Modules:WaitForChild("RobloxTranslator"))
 end
 local function tryTranslate(key, defaultString)
@@ -222,6 +232,11 @@ local function CreateSettingsHub()
 	this.SettingsShowSignal = utility:CreateSignal()
 	this.OpenStateChangedCount = 0
 	this.BottomButtonFrame = nil
+
+	if GetFFlagVoiceRecordingIndicatorsEnabled() then
+		this.isMuted = nil
+		this.lastVoiceRecordingIndicatorTextUpdated = nil
+	end
 
 	--[[
 		Keep the status of whether the user has enabled Self View or not. This is used
@@ -552,6 +567,13 @@ local function CreateSettingsHub()
 						renderSteppedConnected = false
 						RunService:UnbindFromRenderStep(renderStepName)
 					end
+
+					if GetFFlagVoiceRecordingIndicatorsEnabled() then
+						if isOpen then
+							this.lastVoiceRecordingIndicatorTextUpdated = tick()
+							this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
+						end
+					end
 				end)
 			end
 		end
@@ -575,11 +597,24 @@ local function CreateSettingsHub()
 		voiceChatServiceConnected = true
 		VoiceChatServiceManager:asyncInit():andThen(function()
 			voiceEnabled = true
+			if GetFFlagVoiceRecordingIndicatorsEnabled() then
+				this.VoiceRecordingText.Visible = true
+			end
 			VoiceChatServiceManager:SetupParticipantListeners()
 			addMuteButtonToBar()
 			if GetFFlagMuteButtonRaceConditionFix() then
 				VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
 					updateIcon()
+					if GetFFlagVoiceRecordingIndicatorsEnabled() then
+						this.isMuted = muted	
+						this.lastVoiceRecordingIndicatorTextUpdated = tick()
+						this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
+						if this.isMuted then
+							this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOff", "Mic Off")
+						else
+							this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOnRecording", "Mic On (recording audio)")
+						end
+					end
 				end)
 
 				if GetFFlagPlayerListAnimateMic() then
@@ -599,6 +634,13 @@ local function CreateSettingsHub()
 						elseif renderSteppedConnected then
 							renderSteppedConnected = false
 							RunService:UnbindFromRenderStep(renderStepName)
+						end
+
+						if GetFFlagVoiceRecordingIndicatorsEnabled() then
+							if isOpen then
+								this.lastVoiceRecordingIndicatorTextUpdated = tick()
+								this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
+							end
 						end
 					end)
 				end
@@ -1003,8 +1045,8 @@ local function CreateSettingsHub()
 		if not isTenFootInterface then
 			local topCornerInset = GuiService:GetGuiInset()
 			local paddingTop = topCornerInset.Y
-			if GetFFlagSelfViewSettingsEnabled() then
-				-- Audio/Video permissions bar takes up the padding
+			if GetFFlagSelfViewSettingsEnabled() or GetFFlagVoiceRecordingIndicatorsEnabled() then
+				-- Audio/Video permissions bar or voice recording indicator takes up the padding
 				paddingTop = 0
 			end
 			this.MenuContainerPadding = utility:Create'UIPadding'
@@ -1017,6 +1059,49 @@ local function CreateSettingsHub()
 		if GetFFlagSelfViewSettingsEnabled() then
 			-- Create the settings buttons for audio/camera permissions.
 			this.permissionsButtonsRoot = Roact.mount(createPermissionsButtons(true), this.MenuContainer, "PermissionsButtons")
+		end
+
+		this.VoiceRecordingIndicatorFrame = if GetFFlagVoiceRecordingIndicatorsEnabled() then utility:Create'Frame'
+		{
+			Size = UDim2.new(1,0,0,GuiService:GetGuiInset().Y),
+			Parent = this.MenuContainer,
+			BackgroundTransparency = 1,
+		} else nil
+
+		this.VoiceRecordingText = if GetFFlagVoiceRecordingIndicatorsEnabled() then utility:Create'TextLabel'
+		{
+			Parent = this.VoiceRecordingIndicatorFrame,
+			Text = "",
+			Visible = false,
+			Position = UDim2.new(0,60,0,0),
+			TextSize = 12,
+			Font = Enum.Font.GothamMedium,
+			Size = UDim2.fromScale(1, 1),
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Center,
+			TextColor3 = Color3.fromRGB(255,255,255),
+			BackgroundTransparency = 1,
+		} else nil
+
+		if GetFFlagVoiceRecordingIndicatorsEnabled() then
+			this.voiceRecordingIndicatorTextMotor = Otter.createSingleMotor(0)
+			this.voiceRecordingIndicatorTextMotor:onStep(function(value)
+				this.VoiceRecordingText.TextTransparency = value
+			end)
+		end
+
+		if GetFFlagVoiceRecordingIndicatorsEnabled() then
+			spawn(function()
+				RunService:BindToRenderStep("VoiceRecordingIndicator", 1, function()
+					if this.isMuted ~= nil and this.lastVoiceRecordingIndicatorTextUpdated ~= nil then
+						local timeDiff = tick() - this.lastVoiceRecordingIndicatorTextUpdated
+						if timeDiff >= VOICE_RECORDING_INDICATOR_FADE_TIME and this.isMuted then
+							this.voiceRecordingIndicatorTextMotor:setGoal(Otter.spring(1, SPRING_PARAMS))
+							this.voiceRecordingIndicatorTextMotor:start()
+						end
+					end
+				end)
+			end)
 		end
 
 		this.MenuListLayout = utility:Create'UIListLayout'
@@ -2125,21 +2210,17 @@ local function CreateSettingsHub()
 	this.GameSettingsPage = require(RobloxGui.Modules.Settings.Pages.GameSettings)
 	this.GameSettingsPage:SetHub(this)
 
-	local shouldShowReport = not PolicyService:IsSubjectToChinaPolicies() or FFlagShowInGameReportingLuobu
+	this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
+	this.ReportAbusePage:SetHub(this)
 
-	if shouldShowReport then
-		this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
-		this.ReportAbusePage:SetHub(this)
+	if GetFFlagAbuseReportEnableReportSentPage() then
+		this.ReportSentPage = require(RobloxGui.Modules.Settings.Pages.ReportSentPage)
+		this.ReportSentPage:SetHub(this)
+	end
 
-		if GetFFlagAbuseReportEnableReportSentPage() then
-			this.ReportSentPage = require(RobloxGui.Modules.Settings.Pages.ReportSentPage)
-			this.ReportSentPage:SetHub(this)
-		end
-
-		if GetFFlagVoiceAbuseReportsEnabled() then
-			this.ReportSentPageV2 = require(RobloxGui.Modules.Settings.Pages.ReportSentPageV2)
-			this.ReportSentPageV2:SetHub(this)
-		end
+	if GetFFlagVoiceAbuseReportsEnabled() then
+		this.ReportSentPageV2 = require(RobloxGui.Modules.Settings.Pages.ReportSentPageV2)
+		this.ReportSentPageV2:SetHub(this)
 	end
 
 	this.HelpPage = require(RobloxGui.Modules.Settings.Pages.Help)

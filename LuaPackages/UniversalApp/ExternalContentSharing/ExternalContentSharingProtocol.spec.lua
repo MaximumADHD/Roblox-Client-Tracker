@@ -3,7 +3,7 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jestExpect = JestGlobals.expect
-	local MessageBus = require(CorePackages.UniversalApp.MessageBus)
+	local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
 	local ExternalContentSharingProtocol =
 		require(CorePackages.UniversalApp.ExternalContentSharing.ExternalContentSharingProtocol)
 	local tutils = require(CorePackages.Packages.tutils)

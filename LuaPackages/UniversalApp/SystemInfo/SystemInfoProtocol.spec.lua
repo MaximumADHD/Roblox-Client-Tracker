@@ -1,6 +1,7 @@
 --!nonstrict
 return function()
-	local Types = require(script.Parent.Parent.MessageBusTypes)
+	local CorePackages = game:GetService("CorePackages")
+	local Types = require(CorePackages.Workspace.Packages.MessageBus)
 
 	local MockMessageBus = {}
 	MockMessageBus.__index = MockMessageBus
@@ -8,7 +9,7 @@ return function()
 	function MockMessageBus.call(desc: Types.FunctionDescriptor, params: any): any
 		assert(desc.validateParams(params))
 		if desc.fid == "SystemInfo.getSystemInfo" then
-			-- Simulate the basic behavior of a call to 
+			-- Simulate the basic behavior of a call to
 			local result = {}
 			for _index, name in ipairs(params) do
 				result[name] = name .. "-value"

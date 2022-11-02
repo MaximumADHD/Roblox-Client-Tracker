@@ -12,6 +12,7 @@ game:DefineFastFlag("SetDefaultMoodNeutralLua", false)
 game:DefineFastFlag("MoodsRemoveWaitForChild", false)
 
 local FFlagSwitchMoodPriorityWhileStreaming = game:DefineFastFlag("SwitchMoodPriorityWhileStreaming", false)
+local animationStreamTrackPlayedSignal = game:GetEngineFeature("AnimationStreamTrackPlayedSignalApiEnabled")
 
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
@@ -55,6 +56,7 @@ local Connection = {
 	DescendantAdded = "DescendantAdded",
 	DescendantRemoving = "DescendantRemoving",
 	AnimationPlayedCoreScript = "AnimationPlayedCoreScript",
+	AnimationStreamTrackPlayed = "AnimationStreamTrackPlayed",
 	StreamTrackStopped = "StreamTrackStopped"
 }
 
@@ -426,11 +428,18 @@ local function onAnimatorAdded(animator)
 	-- disconnect any previous animator listener
 	disconnectAndRemoveConnection(Connection.AnimationPlayedCoreScript)
 	-- listen for animations played on this animator
-	connections[Connection.AnimationPlayedCoreScript] = animator.AnimationPlayedCoreScript:Connect(function(track)
-		if track:IsA("AnimationStreamTrack") then
+
+	if animationStreamTrackPlayedSignal then
+		connections[Connection.AnimationStreamTrackPlayed] = animator.AnimationStreamTrackPlayed:Connect(function(track)
 			syncWithStreamTrack(track)
-		end
-	end)
+		end)
+	else
+		connections[Connection.AnimationPlayedCoreScript] = animator.AnimationPlayedCoreScript:Connect(function(track)
+			if track:IsA("AnimationStreamTrack") then
+				syncWithStreamTrack(track)
+			end
+		end)	
+	end
 
 	-- check if streaming animation is already playing
 	local coreTracks = animator:GetPlayingAnimationTracksCoreScript()

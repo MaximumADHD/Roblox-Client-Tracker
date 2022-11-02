@@ -19,6 +19,9 @@ local LaserPointer = require(RobloxGui.Modules.VR.LaserPointer)
 
 local VRControllerModel = require(RobloxGui.Modules.VR.VRControllerModel)
 
+local SafetyBubble = require(script.Parent.SafetyBubble)
+local SafetyBubbleEnabled = require(RobloxGui.Modules.Flags.FFlagSafetyBubbleEnabled)
+
 local VRHub = {}
 local RegisteredModules = {}
 local OpenModules = {}
@@ -32,6 +35,7 @@ VRHub.ControllerModelsEnabled = false
 VRHub.LeftControllerModel = nil
 VRHub.RightControllerModel = nil
 
+VRHub.SafetyBubble = nil
 -- TODO: AvatarGestures cannot be turned on until this is implemented
 VRHub.IsFirstPerson = false
 
@@ -91,6 +95,10 @@ local function onRenderSteppedLast()
 	if VRHub.RightControllerModel then
 		VRHub.RightControllerModel:update(dt)
 	end
+
+	if VRHub.SafetyBubble then
+		VRHub.SafetyBubble:update(dt)
+	end
 end
 
 local function onVREnabled(property)
@@ -123,6 +131,8 @@ local function onVREnabled(property)
 			VRHub.LaserPointer:setForcePointer(true)
 		end
 		UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
+		
+		VRHub.SafetyBubble = SafetyBubbleEnabled and SafetyBubble.new() or nil
 	else
 		if VRHub.LaserPointer then
 			VRHub.LaserPointer:setMode(LaserPointer.Mode.Disabled)
@@ -201,10 +211,21 @@ VRHub.ShowTopBarChanged = Util:Create "BindableEvent" {
 	Name = "ShowTopBarChanged"
 }
 
+VRHub.SafetyBubbleToggled = Util:Create "BindableEvent" {
+	Name = "SafetyBubbleToggled"
+}
+
 function VRHub:SetShowTopBar(showTopBar)
 	if VRHub.ShowTopBar ~= showTopBar then
 		VRHub.ShowTopBar = showTopBar
 		VRHub.ShowTopBarChanged:Fire()
+	end
+end
+
+function VRHub:ToggleSafetyBubble()
+	if VRHub.SafetyBubble then
+		VRHub.SafetyBubble:ToggleEnabled()
+		VRHub.SafetyBubbleToggled:Fire()
 	end
 end
 

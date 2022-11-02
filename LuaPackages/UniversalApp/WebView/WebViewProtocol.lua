@@ -15,7 +15,8 @@ local HttpService = game:GetService("HttpService")
 
 local DefaultBrowserService = game:GetService("BrowserService")
 
-local MessageBus = require(CorePackages.UniversalApp.MessageBus)
+local MessageBusPackage = require(CorePackages.Workspace.Packages.MessageBus)
+local MessageBus = MessageBusPackage.MessageBus
 local t = require(CorePackages.Packages.t)
 
 local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
@@ -25,10 +26,10 @@ local GetFFlagEnableUnifiedWebViews = require(CorePackages.Workspace.Packages.Sh
 
 local Types = require(script.Parent.WebViewProtocolTypes)
 
-type MessageBus = MessageBus.MessageBus
-type Subscriber = MessageBus.Subscriber
-type MessageDescriptor = MessageBus.MessageDescriptor
-type Table = MessageBus.Table
+type MessageBus = MessageBusPackage.MessageBus
+type Subscriber = MessageBusPackage.Subscriber
+type MessageDescriptor = MessageBusPackage.MessageDescriptor
+type Table = MessageBusPackage.Table
 
 type WebViewProtocolInterface<Impl> = Types.WebViewProtocolInterface<Impl>
 

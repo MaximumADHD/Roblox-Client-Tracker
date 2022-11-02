@@ -24,9 +24,6 @@ local LocalPlayer = Players.LocalPlayer
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
-local FFlagShowInGameBlockingLuobu = require(RobloxGui.Modules.Flags.FFlagShowInGameBlockingLuobu)
-local FFlagShowInGameReportingLuobu = require(RobloxGui.Modules.Flags.FFlagShowInGameReportingLuobu)
-
 local Images = UIBlox.App.ImageSet.Images
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
@@ -196,18 +193,11 @@ function PlayerDropDown:render()
 				dropDownHeight = dropDownHeight + layoutValues.DropDownButtonPadding + layoutValues.DropDownButtonSizeY
 			end
 
-			local showPlayerBlocking = not self.props.subjectToChinaPolicies or FFlagShowInGameBlockingLuobu
-			local showPlayerReporting = not self.props.subjectToChinaPolicies or FFlagShowInGameReportingLuobu
+			dropDownButtons["BlockButton"] = self:createBlockButton(playerRelationship)
+			dropDownHeight = dropDownHeight + layoutValues.DropDownButtonPadding + layoutValues.DropDownButtonSizeY
 
-			if showPlayerBlocking then
-				dropDownButtons["BlockButton"] = self:createBlockButton(playerRelationship)
-				dropDownHeight = dropDownHeight + layoutValues.DropDownButtonPadding + layoutValues.DropDownButtonSizeY
-			end
-
-			if showPlayerReporting then
-				dropDownButtons["ReportButton"] = self:createReportButton()
-				dropDownHeight = dropDownHeight + layoutValues.DropDownButtonPadding + layoutValues.DropDownButtonSizeY
-			end
+			dropDownButtons["ReportButton"] = self:createReportButton()
+			dropDownHeight = dropDownHeight + layoutValues.DropDownButtonPadding + layoutValues.DropDownButtonSizeY
 		end
 
 		if self.props.inspectMenuEnabled then

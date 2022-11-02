@@ -1,5 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
-local Types = require(CorePackages.UniversalApp.MessageBusTypes)
+local Types = require(CorePackages.Workspace.Packages.MessageBus)
 
 type Table = Types.Table
 type Array<T> = Types.Array<T>
@@ -12,7 +12,7 @@ export type PermissionsProtocol = {
 		LOCAL_NETWORK: "LOCAL_NETWORK",
 		CONTACTS_ACCESS: "CONTACTS_ACCESS",
 		WRITE_MEDIA_STORAGE: "WRITE_MEDIA_STORAGE",
-	},	
+	},
 	Status: {
 		AUTHORIZED: "AUTHORIZED",
 		DENIED: "DENIED",

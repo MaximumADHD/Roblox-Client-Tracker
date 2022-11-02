@@ -35,7 +35,6 @@ local CORNER_RADIUS = UDim.new(0, PLAYER_ICON_SIZE / 2)
 local BUTTONS_PADDING = 5
 local NAME_PADDING = 15
 
-local FFlagPlayerCellHandleTouchTap = game:DefineFastFlag("PlayerCellHandleTouchTap", false)
 local FFlagVerifiedBadgeEnabled = require(InGameMenu.Flags.GetFFlagShowVerifiedBadgeOnPlayerCell)
 
 local PlayerCell = Roact.PureComponent:extend("PlayerCell")
@@ -68,12 +67,6 @@ function PlayerCell:init()
 	self.onActivated = function()
 		if self.props.onActivated and self.props.userId then
 			self.props.onActivated(self.props.userId)
-		end
-	end
-
-	self.onActivatedOverride = function()
-		if not self.props.UserInputService.TouchEnabled then
-			self.onActivated()
 		end
 	end
 end
@@ -119,10 +112,7 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 				BackgroundColor3 = bgColor,
 				BackgroundTransparency = backgroundStyle.Transparency,
 			}) or nil,
-
-			onActivated = FFlagPlayerCellHandleTouchTap and self.onActivatedOverride or self.onActivated,
-			onTouchTapped = FFlagPlayerCellHandleTouchTap and self.onActivated or nil,
-
+			onActivated = self.onActivated,
 			[Roact.Change.AbsolutePosition] = self.props[Roact.Change.AbsolutePosition],
 			[Roact.Ref] = self.props.forwardRef or nil,
 			SelectionImageObject = getSelectionCursor(CursorKind.Square),

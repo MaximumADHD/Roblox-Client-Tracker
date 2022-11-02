@@ -18,6 +18,7 @@ local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUti
 local GetGameProductInfo = require(Modules.LoadingScreen.Thunks.GetGameProductInfo)
 local GetIsSubjectToChinaPolicies = require(Modules.LoadingScreen.Thunks.GetIsSubjectToChinaPolicies)
 local GetUniverseId = require(Modules.LoadingScreen.Thunks.GetUniverseId)
+local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
 
 local AppTempCommon = CorePackages:WaitForChild("AppTempCommon")
 local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
@@ -29,6 +30,8 @@ local AppStyle = {
 local CoreScriptTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
 local httpRequest = require(AppTempCommon.Temp.httpRequest)
 local networking = httpRequest(HttpRbxApiService)
+-- FFlags
+local FFlagShowVerifiedBadgeOnNewLoadingScreen = require(RobloxGui.Modules.Flags.FFlagShowVerifiedBadgeOnNewLoadingScreen)
 -- Constants
 local GAME_ICON_URL = "rbxthumb://type=GameIcon&id=%d&w=256&h=256"
 local GAME_THUMBNAIL_URL = "rbxthumb://type=GameThumbnail&id=%d&w=768&h=432"
@@ -245,6 +248,7 @@ function LoadingScreen:renderPlaceIcon()
 	if self.props.universeId and self.props.universeId > 0 then
 		iconURL = GAME_ICON_URL:format(self.props.universeId)
 	end
+
 	return Roact.createElement("Frame", {
 		Name = "IconFrame",
 		BackgroundTransparency = self.bindings.iconTransparency,
@@ -300,6 +304,15 @@ function LoadingScreen:renderInfoFrame(style)
 	local productInfo = self.props.productInfo
 	local placeName = productInfo and productInfo.Name or ""
 	local creatorName = productInfo and productInfo.Creator.Name or ""
+
+	-- Determine whether a VerifiedBadge should be shown
+	if FFlagShowVerifiedBadgeOnNewLoadingScreen() then
+		local isCreatorVerified = productInfo and productInfo.Creator.HasVerifiedBadge
+		if isCreatorVerified then
+			creatorName = VerifiedBadges.appendVerifiedBadge(creatorName)
+		end
+	end
+
 	local t = math.max(self.state.absoluteSize.X, self.state.absoluteSize.Y) / ICON_SIZE_BREAKPOINT
 	local iconSizeOnScreen = math.clamp(t * ICON_SIZE_RANGE[1], ICON_SIZE_RANGE[1], ICON_SIZE_RANGE[2])
 	return Roact.createElement("Frame", {

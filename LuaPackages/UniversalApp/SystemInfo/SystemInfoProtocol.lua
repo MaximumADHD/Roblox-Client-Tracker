@@ -1,11 +1,12 @@
 local CorePackages = game:GetService("CorePackages")
-local MessageBus = require(CorePackages.UniversalApp.MessageBus)
+local MessageBusPackage = require(CorePackages.Workspace.Packages.MessageBus)
+local MessageBus = MessageBusPackage.MessageBus
 local t = require(CorePackages.Packages.t)
 
 local Types = require(script.Parent.SystemInfoProtocolTypes)
 
-type MessageBus = MessageBus.MessageBus
-type Array<T> = MessageBus.Array<T>
+type MessageBus = MessageBusPackage.MessageBus
+type Array<T> = MessageBusPackage.Array<T>
 
 export type SystemInfo = Types.SystemInfo
 export type SystemInfoProtocol = Types.SystemInfoProtocol

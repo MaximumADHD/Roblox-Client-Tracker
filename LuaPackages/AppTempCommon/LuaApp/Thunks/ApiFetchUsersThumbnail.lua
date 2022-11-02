@@ -10,7 +10,7 @@ local PromiseUtilities = require(CorePackages.AppTempCommon.LuaApp.PromiseUtilit
 local ThumbnailsGetAvatar = require(CorePackages.Workspace.Packages.Http).Requests.ThumbnailsGetAvatar
 local ThumbnailsGetAvatarHeadshot = require(CorePackages.Workspace.Packages.Http).Requests.ThumbnailsGetAvatarHeadshot
 
-local AvatarThumbnailTypes = require(CorePackages.AppTempCommon.LuaApp.Enum.AvatarThumbnailTypes)
+local AvatarThumbnailTypes = require(CorePackages.Workspace.Packages.UserLib).Enum.AvatarThumbnailTypes
 
 local SetUserThumbnail = require(Actions.SetUserThumbnail)
 local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)

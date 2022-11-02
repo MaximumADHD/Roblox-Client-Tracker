@@ -15,7 +15,7 @@ return function()
 	describe("WHEN called", function()
 		describe("WHEN all FFlags are disabled", function()
 			beforeAll(function(context)
-				game:SetFastFlagForTesting("ShareInviteLinkContextMenuV3Enabled_v2", false)
+				game:SetFastFlagForTesting("ShareInviteLinkContextMenuV3Enabled_v3", false)
 			end)
 
 			it("SHOULD return a dictionary without throwing", function(context)
@@ -27,7 +27,7 @@ return function()
 
 		describe("WHEN ShareInviteLinkContextMenuV3Enabled FFlag is enabled", function()
 			beforeAll(function(context)
-				game:SetFastFlagForTesting("ShareInviteLinkContextMenuV3Enabled_v2", true)
+				game:SetFastFlagForTesting("ShareInviteLinkContextMenuV3Enabled_v3", true)
 			end)
 
 			it("SHOULD return a dictionary without throwing", function(context)

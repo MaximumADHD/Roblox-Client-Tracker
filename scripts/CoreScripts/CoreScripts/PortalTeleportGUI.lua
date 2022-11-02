@@ -20,6 +20,10 @@ local colorCorrection = nil
 local runCount = 0
 local pi = math.pi
 
+-- Modules
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+
 -- UI objects
 local teleportEffectGui = Instance.new("ScreenGui")
 teleportEffectGui.Name = "TeleportEffectGui"
@@ -69,7 +73,7 @@ spinnerAspectRatio.AspectRatio = 1
 spinnerAspectRatio.Parent = spinner
 
 local textLabel = Instance.new("TextLabel")
-textLabel.Text = "Teleporting..."  -- TODO luke localization https://jira.rbx.com/browse/SOCIALAPP-3081
+textLabel.Text = RobloxTranslator:FormatByKey("CoreScripts.Ads.Label.Teleporting")
 textLabel.TextColor3 = Color3.new(1, 1, 1)
 textLabel.TextTransparency = 1
 textLabel.BackgroundTransparency = 1

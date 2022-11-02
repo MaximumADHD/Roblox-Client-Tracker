@@ -44,9 +44,9 @@ local GetFFlagEnableVoiceDefaultChannel = require(RobloxGui.Modules.Flags.GetFFl
 
 local GetFFlagEnableIXPInGame = require(CoreGuiModules.Common.Flags.GetFFlagEnableIXPInGame)
 
-local GetFFlagShareInviteLinkContextMenuV1ABTestEnabled =
-	require(RobloxGui.Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1ABTestEnabled)
-local ShareInviteLinkABTestManager = require(RobloxGui.Modules.Settings.ShareInviteLinkABTestManager)
+local GetFFlagShareInviteLinkContextMenuABTestEnabled =
+	require(RobloxGui.Modules.Flags.GetFFlagShareInviteLinkContextMenuABTestEnabled)
+local ShareInviteLinkABTestManager = require(RobloxGui.Modules.ShareInviteLinkABTestManager)
 local IsExperienceMenuABTestEnabled = require(CoreGuiModules.InGameMenuV3.IsExperienceMenuABTestEnabled)
 local ExperienceMenuABTestManager = require(CoreGuiModules.InGameMenuV3.ExperienceMenuABTestManager)
 local GetFFlagEnableNewInviteMenuIXP = require(CoreGuiModules.Flags.GetFFlagEnableNewInviteMenuIXP)
@@ -249,7 +249,7 @@ if GetFFlagEnableIXPInGame() then
 			ExperienceMenuABTestManager.default:initialize()
 		end
 
-		if GetFFlagShareInviteLinkContextMenuV1ABTestEnabled() then
+		if GetFFlagShareInviteLinkContextMenuABTestEnabled() then
 			ShareInviteLinkABTestManager.default:initialize()
 		end
 

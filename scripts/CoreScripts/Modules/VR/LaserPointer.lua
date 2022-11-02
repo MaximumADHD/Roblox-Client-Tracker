@@ -15,16 +15,9 @@ local Utility = require(RobloxGui.Modules.Settings.Utility)
 local CorePackages = game:GetService("CorePackages")
 require(RobloxGui.Modules.VR.Panel3D)
 
-local GetFFlagIsVRAppEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsVRAppEnabled
-
 local FFlagRenderVRCursorOnTop = game:DefineFastFlag("RenderVRCursorOnTop", false)
 local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
-
-local UserInputService = nil -- move up when flag is removed
-if GetFFlagIsVRAppEnabled() then
-	UserInputService = game:GetService("UserInputService")
-end
 
 local LocalPlayer = Players.LocalPlayer
 while not LocalPlayer do
@@ -215,10 +208,8 @@ function LaserPointer.new(laserDistance)
 	self.mode = LaserPointerMode.Disabled
 	self.lastMode = self.mode
 
-	if GetFFlagIsVRAppEnabled() then
-		self.enableAmbidexterousPointer = false
-		self.laserHand = LaserHand.Right
-	end
+	self.enableAmbidexterousPointer = false
+	self.laserHand = LaserHand.Right
 
 	self.inputUserCFrame = Enum.UserCFrame.RightHand
 	self.equippedTool = false
@@ -341,23 +332,21 @@ function LaserPointer.new(laserDistance)
 			end
 		end)
 
-		if GetFFlagIsVRAppEnabled() then
-			UserInputService.InputBegan:connect(function(input, gameProcessed)
-				if self.enableAmbidexterousPointer then
-					if input.KeyCode == Enum.KeyCode.ButtonR2 and self.laserHand ~= LaserHand.Right then
-						self.laserHand = LaserHand.Right
-						self:updateInputUserCFrame()
-					elseif input.KeyCode == Enum.KeyCode.ButtonL2 and self.laserHand ~= LaserHand.Left then
-						self.laserHand = LaserHand.Left
-						self:updateInputUserCFrame()
-					end
+		UserInputService.InputBegan:connect(function(input, gameProcessed)
+			if self.enableAmbidexterousPointer then
+				if input.KeyCode == Enum.KeyCode.ButtonR2 and self.laserHand ~= LaserHand.Right then
+					self.laserHand = LaserHand.Right
+					self:updateInputUserCFrame()
+				elseif input.KeyCode == Enum.KeyCode.ButtonL2 and self.laserHand ~= LaserHand.Left then
+					self.laserHand = LaserHand.Left
+					self:updateInputUserCFrame()
 				end
-			end)
+			end
+		end)
 
-			-- TODO: Should bind A, L2 and R2 buttons for VR controller point and click function.
-			-- However binding multiple buttons at the same is currently not supported: NFDN-2448
-			ContextActionService:BindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonA)
-		end
+		-- TODO: Should bind A, L2 and R2 buttons for VR controller point and click function.
+		-- However binding multiple buttons at the same is currently not supported: NFDN-2448
+		ContextActionService:BindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonA)
 	end
 
 	self:onModeChanged(self.mode)
@@ -383,13 +372,13 @@ function LaserPointer.getModeName(mode)
 end
 
 function LaserPointer:updateInputUserCFrame()
-	if GetFFlagIsVRAppEnabled() and (self.enableAmbidexterousPointer
+	if self.enableAmbidexterousPointer
 		and VRService:GetUserCFrameEnabled(Enum.UserCFrame.RightHand)
-		and self.laserHand == LaserHand.Right) then
+		and self.laserHand == LaserHand.Right then
 		VRService.GuiInputUserCFrame = Enum.UserCFrame.RightHand
-	elseif GetFFlagIsVRAppEnabled() and (self.enableAmbidexterousPointer
+	elseif self.enableAmbidexterousPointer
 		and VRService:GetUserCFrameEnabled(Enum.UserCFrame.LeftHand)
-		and self.laserHand == LaserHand.Left) then
+		and self.laserHand == LaserHand.Left then
 			VRService.GuiInputUserCFrame = Enum.UserCFrame.LeftHand
 	elseif VRService:GetUserCFrameEnabled(Enum.UserCFrame.RightHand) then
 		VRService.GuiInputUserCFrame = Enum.UserCFrame.RightHand
@@ -433,10 +422,8 @@ function LaserPointer:setMode(mode)
 	self:onModeChanged(mode)
 end
 
-if GetFFlagIsVRAppEnabled() then
-	function LaserPointer:setEnableAmbidexterousPointer(enabled)
-		self.enableAmbidexterousPointer = enabled
-	end
+function LaserPointer:setEnableAmbidexterousPointer(enabled)
+	self.enableAmbidexterousPointer = enabled
 end
 
 function LaserPointer:getMode()

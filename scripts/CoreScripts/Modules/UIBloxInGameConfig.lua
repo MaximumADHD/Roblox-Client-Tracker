@@ -5,30 +5,33 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ArgCheck = require(CorePackages.ArgCheck)
 
 local GetFFlagUIBloxGenericButtonInputChangesInGame =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxGenericButtonInputChangesInGame)
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxGenericButtonInputChangesInGame
 local GetFFlagUIBloxUseNewGenericTextLabelProps =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxUseNewGenericTextLabelProps)
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxUseNewGenericTextLabelProps
 local GetFFlagUIBloxEnableRadioButtonGamepadSupport =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableRadioButtonGamepadSupport)
-local GetFFlagUIBloxSliderUpdateOnDismiss = require(CorePackages.UIBloxFlags.GetFFlagUIBloxSliderUpdateOnDismiss)
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableRadioButtonGamepadSupport
+local GetFFlagUIBloxSliderUpdateOnDismiss = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxSliderUpdateOnDismiss
 local GetFFlagUIBloxFixDropdownMenuCellTextSize =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuCellTextSize)
-local GetFFlagUIBloxEnableActionBarLayoutFix = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableActionBarLayoutFix)
-local GetFFlagUIBloxDisableTooltipAnimation = require(CorePackages.UIBloxFlags.GetFFlagUIBloxDisableTooltipAnimation)
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxFixDropdownMenuCellTextSize
+local GetFFlagUIBloxEnableActionBarLayoutFix = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableActionBarLayoutFix
+local GetFFlagUIBloxDisableTooltipAnimation = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxDisableTooltipAnimation
 
 local GetFFlagUIBloxSystemBarBottomAlignedItems =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxSystemBarBottomAlignedItems)
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxSystemBarBottomAlignedItems
 
 local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
-local GetFFlagUIBloxEnableReactTag = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableReactTag)
+local GetFFlagUIBloxEnableReactTag = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableReactTag
 
 local GetFFlagUIBloxEnableImageSetResolutionScaleFix =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableImageSetResolutionScaleFix)
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableImageSetResolutionScaleFix
 
 local GetFFlagLuaAppUseUIBloxColorPalettes =
 	require(CorePackages.AppTempCommon.LuaApp.Flags.GetFFlagLuaAppUseUIBloxColorPalettes)
 local GetUIBloxUseNewThemeColorPalettes =
-	require(CorePackages.UIBloxFlags.GetUIBloxUseNewThemeColorPalettes)
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetUIBloxUseNewThemeColorPalettes
+
+local GetFFlagUIBloxUseTagGroupArrows =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxUseTagGroupArrows)
 
 return {
 	useUpdatedCheckbox = true,
@@ -61,4 +64,6 @@ return {
 	enableStandardButtonSizes = true,
 
 	useNewThemeColorPalettes = GetFFlagLuaAppUseUIBloxColorPalettes() and GetUIBloxUseNewThemeColorPalettes(),
+
+	arrowsOnTagGroup = GetFFlagUIBloxUseTagGroupArrows(),
 }

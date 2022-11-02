@@ -1,10 +1,11 @@
 local CorePackages = game:GetService("CorePackages")
-local MessageBus = require(CorePackages.UniversalApp.MessageBus)
+local MessageBusPackage = require(CorePackages.Workspace.Packages.MessageBus)
+local MessageBus = MessageBusPackage.MessageBus
 local t = require(CorePackages.Packages.t)
 
 local Types = require(script.Parent.VideoProtocolTypes)
 
-type MessageBus = MessageBus.MessageBus
+type MessageBus = MessageBusPackage.MessageBus
 
 export type VideoProtocol = Types.VideoProtocol
 
@@ -41,7 +42,7 @@ end
 		recordingDuration = {{value}}
 	}
 ]]
-function VideoProtocol:getRecordingDuration(): MessageBus.Table
+function VideoProtocol:getRecordingDuration(): MessageBusPackage.Table
 	return self.messageBus.call(self.GET_RECORDING_DURATION_DESCRIPTOR, {})
 end
 

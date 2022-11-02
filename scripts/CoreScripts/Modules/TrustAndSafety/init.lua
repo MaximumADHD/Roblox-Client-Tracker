@@ -53,7 +53,6 @@ function TrustAndSafety:initialize()
 
 	self.store = self:createStore()
 	self.store:dispatch(FetchPlaceInfo(game.GameId))
-	self.store:dispatch(SetVoiceReportingFlow(GetFFlagEnableNewVoiceReportFlows()))
 
 	self.localization = self:createLocalization()
 
@@ -98,10 +97,12 @@ function TrustAndSafety:createLocalization()
 end
 
 function TrustAndSafety:openReportDialog(reportType, targetPlayer)
+	self.store:dispatch(SetVoiceReportingFlow(GetFFlagEnableNewVoiceReportFlows()))
 	self.store:dispatch(BeginReportFlow(reportType, targetPlayer))
 end
 
 function TrustAndSafety:openReportMenu()
+	self.store:dispatch(SetVoiceReportingFlow(GetFFlagEnableNewVoiceReportFlows()))
 	self.store:dispatch(BeginReportFlow())
 end
 

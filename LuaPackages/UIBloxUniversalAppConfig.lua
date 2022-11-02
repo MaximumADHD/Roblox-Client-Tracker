@@ -4,44 +4,38 @@ local CorePackages = game:GetService("CorePackages")
 
 local ArgCheck = require(CorePackages.ArgCheck)
 
-local GetFFlagUIBloxEnableSubtitleOnTile = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableSubtitleOnTile)
 local GetFFlagUIBloxUseNewGenericTextLabelProps =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxUseNewGenericTextLabelProps)
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxUseNewGenericTextLabelProps
 local GetFFlagUIBloxEnableRadioButtonGamepadSupport =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableRadioButtonGamepadSupport)
-local GetFFlagUIBloxEnableActionBarLayoutFix = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableActionBarLayoutFix)
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableRadioButtonGamepadSupport
+local GetFFlagUIBloxEnableActionBarLayoutFix = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableActionBarLayoutFix
 local GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix)
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix
 local GetFFlagUIBloxEnableStandardButtonSizes =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableStandardButtonSizes)
-local GetFFlagUIBloxSliderUpdateOnDismiss = require(CorePackages.UIBloxFlags.GetFFlagUIBloxSliderUpdateOnDismiss)
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableStandardButtonSizes
+local GetFFlagUIBloxSliderUpdateOnDismiss = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxSliderUpdateOnDismiss
 
 local GetFFlagUIBloxFixDropdownMenuCellTextSize =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuCellTextSize)
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxFixDropdownMenuCellTextSize
 
-local GetFFlagUIBloxEnableVirtualizedListForCarousel =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableVirtualizedListForCarousel)
-local GetFFlagUIBloxEnableReactTag = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableReactTag)
+local GetFFlagUIBloxEnableReactTag = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableReactTag
 
 local GetFFlagUIBloxSystemBarBottomAlignedItems =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxSystemBarBottomAlignedItems)
-
-local GetFFlagUIBloxFixHorizontalCarouselLayout =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxFixHorizontalCarouselLayout)
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxSystemBarBottomAlignedItems
 
 local GetFFlagUIBloxEnableImageSetResolutionScaleFix =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableImageSetResolutionScaleFix)
-
-local GetFFlagUIBloxAddViewabilityConfigCallbackPairs =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxAddViewabilityConfigCallbackPairs)
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableImageSetResolutionScaleFix
 
 local GetFFlagUIBloxEnableActionBarButtonTypeOverride =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableActionBarButtonTypeOverride)
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableActionBarButtonTypeOverride
 
 local GetFFlagLuaAppUseUIBloxColorPalettes =
 	require(CorePackages.AppTempCommon.LuaApp.Flags.GetFFlagLuaAppUseUIBloxColorPalettes)
 local GetUIBloxUseNewThemeColorPalettes =
-	require(CorePackages.UIBloxFlags.GetUIBloxUseNewThemeColorPalettes)
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetUIBloxUseNewThemeColorPalettes
+
+local GetFFlagUIBloxUseTagGroupArrows =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxUseTagGroupArrows)
 
 return {
 	useNewUICornerRoundedCorners = true,
@@ -51,7 +45,7 @@ return {
 	useTileThumbnailV2 = true,
 	useAnimatedXboxCursors = true,
 	useUpdatedCheckbox = true,
-	enableSubtitleOnTile = GetFFlagUIBloxEnableSubtitleOnTile(),
+	enableSubtitleOnTile = true,
 	enableGamepadKeyCodeSupportForKeyLabel = true,
 	useNewGenericTextLabelProps = GetFFlagUIBloxUseNewGenericTextLabelProps(),
 	enableCustomMinPaddingForLinkButton = game:DefineFastFlag("UIBloxEnableCustomMinPaddingForLinkButton", false),
@@ -67,7 +61,6 @@ return {
 	enableStandardButtonSizes = GetFFlagUIBloxEnableStandardButtonSizes(),
 
 	sliderUpdateOnDismiss = GetFFlagUIBloxSliderUpdateOnDismiss(),
-	enableVirtualizedListForCarousel = GetFFlagUIBloxEnableVirtualizedListForCarousel(),
 
 	fixDropdownMenuCellTextSize = GetFFlagUIBloxFixDropdownMenuCellTextSize(),
 	useDynamicHeadIcon = true,
@@ -75,15 +68,13 @@ return {
 	systemBarBottomAlignedItems = GetFFlagUIBloxSystemBarBottomAlignedItems(),
 	devMode = ArgCheck.isEnabled(),
 
-	fixHorizontalCarouselLayout = GetFFlagUIBloxFixHorizontalCarouselLayout(),
-
 	enableImageSetResolutionScaleFix = GetFFlagUIBloxEnableImageSetResolutionScaleFix(),
-
-	addViewabilityConfigCallbackPairs = GetFFlagUIBloxAddViewabilityConfigCallbackPairs(),
 
 	enableActionBarButtonTypeOverride = GetFFlagUIBloxEnableActionBarButtonTypeOverride(),
 
 	useNewThemeColorPalettes = GetFFlagLuaAppUseUIBloxColorPalettes() and GetUIBloxUseNewThemeColorPalettes(),
 
 	detailsTemplateUseNewGradientHeader = game:DefineFastFlag("UIBloxDetailsTemplateUseNewGradient", false),
+
+	arrowsOnTagGroup = GetFFlagUIBloxUseTagGroupArrows(),
 }

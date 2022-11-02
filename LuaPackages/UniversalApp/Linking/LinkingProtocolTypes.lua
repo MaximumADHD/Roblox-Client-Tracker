@@ -1,5 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
-local Types = require(CorePackages.UniversalApp.MessageBusTypes)
+local Types = require(CorePackages.Workspace.Packages.MessageBus)
 
 export type LinkingProtocol = {
 	REGISTER_URL_DESCRIPTOR: Types.MessageDescriptor,

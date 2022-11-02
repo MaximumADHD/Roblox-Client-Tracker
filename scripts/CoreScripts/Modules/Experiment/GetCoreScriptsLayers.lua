@@ -1,6 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local IsExperienceMenuABTestEnabled = require(script.Parent.Parent.InGameMenuV3.IsExperienceMenuABTestEnabled)
-local GetFFlagShareInviteLinkContextMenuV1ABTestEnabled = require(script.Parent.Parent.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1ABTestEnabled)
+local GetFFlagShareInviteLinkContextMenuABTestEnabled = require(script.Parent.Parent.Flags.GetFFlagShareInviteLinkContextMenuABTestEnabled)
 local GetFFlagEnableNewInviteMenuIXP = require(script.Parent.Parent.Flags.GetFFlagEnableNewInviteMenuIXP)
 local GetFFlagEnableIXPInGame = require(script.Parent.Parent.Common.Flags.GetFFlagEnableIXPInGame)
 local GetFFlagLoadingScreenUseIXP = require(script.Parent.Parent.Flags.GetFFlagLoadingScreenUseIXP)
@@ -16,7 +16,7 @@ return function()
 	end
 
 	if IsExperienceMenuABTestEnabled()
-		or GetFFlagShareInviteLinkContextMenuV1ABTestEnabled()
+		or GetFFlagShareInviteLinkContextMenuABTestEnabled()
 		or GetFFlagEnableNewInviteMenuIXP()
 	then
 		table.insert(layers, GetFStringLuaAppExperienceMenuLayer())

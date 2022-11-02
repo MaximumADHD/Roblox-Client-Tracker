@@ -1,5 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
-local Types = require(CorePackages.UniversalApp.MessageBusTypes)
+local Types = require(CorePackages.Workspace.Packages.MessageBus)
 
 export type LaunchParams = {
 	placeId: string | number | nil,
@@ -9,7 +9,7 @@ export type LaunchParams = {
 export type GameProtocol = {
 	GAME_LAUNCH_DESCRIPTOR: Types.MessageDescriptor,
 
-	launchGame: (GameProtocol, LaunchParams) -> (),
+	launchGame: (GameProtocol, LaunchParams, string?, (string) -> () | nil) -> (),
 
 	subscriber: Types.Subscriber,
 }

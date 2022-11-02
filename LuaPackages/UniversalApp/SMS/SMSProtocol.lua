@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
-local MessageBus = require(CorePackages.UniversalApp.MessageBus)
+local MessageBusPackage = require(CorePackages.Workspace.Packages.MessageBus)
+local MessageBus = MessageBusPackage.MessageBus
 local Promise = require(CorePackages.Promise)
 local t = require(CorePackages.Packages.t)
 
@@ -7,7 +8,7 @@ local getFFlagLuaSMSProtocol = require(script.Parent.Flags.getFFlagLuaSMSProtoco
 
 local Types = require(script.Parent.SMSProtocolTypes)
 
-type Promise<T> = MessageBus.Promise<T>
+type Promise<T> = MessageBusPackage.Promise<T>
 
 export type SMSProtocol = Types.SMSProtocol
 export type SendSMSResponse = Types.SendSMSResponse
@@ -63,12 +64,12 @@ function SMSProtocol.new(): SMSProtocol
 end
 
 --[[
-Open the system SMS 
+Open the system SMS
 
 @return promise<boolean>: The sent status of the sms true is sent
 ]]
 
-function SMSProtocol:sendSMS(params: MessageBus.Table): Promise<SendSMSResponse?>
+function SMSProtocol:sendSMS(params: MessageBusPackage.Table): Promise<SendSMSResponse?>
 	if not getFFlagLuaSMSProtocol() then
 		return Promise.resolve()
 	end

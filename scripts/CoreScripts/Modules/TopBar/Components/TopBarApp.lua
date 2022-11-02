@@ -25,6 +25,7 @@ local HurtOverlay = require(Presentation.HurtOverlay)
 local GamepadMenu = require(Presentation.GamepadMenu)
 local HeadsetMenu = require(Presentation.HeadsetMenu)
 local VoiceBetaBadge = require(Presentation.VoiceBetaBadge)
+local BadgeOver13 = require(Presentation.BadgeOver13)
 local RecordingPill = require(Presentation.RecordingPill)
 
 local Connection = require(script.Parent.Connection)
@@ -40,6 +41,8 @@ local GetFFlagEnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.
 local GameSettings = settings():FindFirstChild("Game Options") or error("Game Options does not exist", 0)
 local FFlagRecordRecording = require(RobloxGui.Modules.Flags.GetFFlagRecordRecording)
 local FFlagEnableInGameMenuV3 = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuV3)
+local FFlagTopBarUseNewBadge = game:DefineFastFlag("TopBarUseNewBadge", false)
+local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
 -- vr bottom bar
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
@@ -209,7 +212,7 @@ function TopBarApp:render()
 					Padding = UDim.new(0, Constants.Padding),
 					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					VerticalAlignment =  Enum.VerticalAlignment.Top,
+					VerticalAlignment =  if FFlagTopBarUseNewBadge then Enum.VerticalAlignment.Center else Enum.VerticalAlignment.Top,
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 
@@ -221,10 +224,18 @@ function TopBarApp:render()
 					layoutOrder = 2,
 				}),
 
-				VoiceBetaBadge = Roact.createElement(VoiceBetaBadge, {
+				BadgeOver13 = if FFlagTopBarUseNewBadge then Roact.createElement(BadgeOver13, {
+					layoutOrder = 3,
+					analytics = Analytics.new(),
+					player = Players.LocalPlayer,
+					voiceChatServiceManager = VoiceChatServiceManager,
+					VRService = game:GetService("VRService"),
+				}) else nil,
+
+				VoiceBetaBadge = if not FFlagTopBarUseNewBadge then Roact.createElement(VoiceBetaBadge, {
 					layoutOrder = 3,
 					Analytics = Analytics.new()
-				}),
+				}) else nil,
 
 				RecordingPill = self.recordEnabled and Roact.createElement(RecordingPill, {
 					layoutOrder = 4,

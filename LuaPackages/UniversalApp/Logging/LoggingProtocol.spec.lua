@@ -11,7 +11,7 @@ return function()
 	local EnableLoggingProtocolEphemeralEventsEngineFeature =
 		game:GetEngineFeature("EnableLoggingProtocolEphemeralEvents")
 
-	local Types = require(script.Parent.Parent.MessageBusTypes)
+	local Types = require(CorePackages.Workspace.Packages.MessageBus)
 
 	local MockMessageBus = {}
 	MockMessageBus.__index = MockMessageBus

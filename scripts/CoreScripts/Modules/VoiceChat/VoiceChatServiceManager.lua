@@ -36,6 +36,7 @@ local GetFFlagClearUserFromRecentVoiceDataOnLeave = require(RobloxGui.Modules.Fl
 local GetFIntVoiceUsersInteractionExpiryTimeSeconds = require(RobloxGui.Modules.Flags.GetFIntVoiceUsersInteractionExpiryTimeSeconds)
 local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
 local GetFFlagVoiceChatWatchForMissedSignalR = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatWatchForMissedSignalR)
+local GetFFlagVoiceChatUseSoundServiceInputApi = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUseSoundServiceInputApi)
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
@@ -973,12 +974,17 @@ end
 
 function VoiceChatServiceManager:SwitchDevice(deviceType, deviceName, deviceGuid)
 	if deviceType == VOICE_CHAT_DEVICE_TYPE.Input then
-		self.service:SetMicDevice(deviceName, deviceGuid)
-		-- TODO: This will be removed when set device API refactoring is done
-		log:info("[OutputDeviceSelection] Setting VCS Mic Device To {} {}",
-			deviceName, deviceGuid)
-		log:info("[OutputDeviceSelection] Rejoining Voice Chat")
-		self:RejoinCurrentChannel()
+		if game:GetEngineFeature("UseFmodForInputDevices") and GetFFlagVoiceChatUseSoundServiceInputApi() then
+			SoundService:SetInputDevice(deviceName, deviceGuid)
+			log:info("[InputDeviceSelection] Setting SS Mic Device To {} {}", deviceName, deviceGuid)	
+		else
+			self.service:SetMicDevice(deviceName, deviceGuid)
+			-- TODO: This will be removed when set device API refactoring is done
+			log:info("[OutputDeviceSelection] Setting VCS Mic Device To {} {}",
+				deviceName, deviceGuid)
+			log:info("[OutputDeviceSelection] Rejoining Voice Chat")
+			self:RejoinCurrentChannel()
+		end
 	else
 		SoundService:SetOutputDevice(deviceName, deviceGuid)
 		log:info("[OutputDeviceSelection] Setting SS Speaker Device To {} {}", deviceName, deviceGuid)
@@ -989,11 +995,19 @@ end
 function VoiceChatServiceManager:GetDevices(deviceType)
 	local soundServiceSuccess, deviceNames, deviceGuids, selectedIndex = pcall(function()
 		if deviceType == VOICE_CHAT_DEVICE_TYPE.Input then
-			return self.service:GetMicDevices()
+			if game:GetEngineFeature("UseFmodForInputDevices") and GetFFlagVoiceChatUseSoundServiceInputApi() then
+				return SoundService:GetInputDevices()
+			else
+				return self.service:GetMicDevices()
+			end		
 		else
 			return SoundService:GetOutputDevices()
 		end
 	end)
+
+	if game:GetEngineFeature("UseFmodForInputDevices") and GetFFlagVoiceChatUseSoundServiceInputApi() then
+		return soundServiceSuccess, deviceNames, deviceGuids, selectedIndex
+	end
 
 	-- The following is to add an additional check to ensure that VCS:GetSpeakerDevices() and SoundService:GetOutputDevices() are returning the same results.
 	-- Otherwise we throw an error.

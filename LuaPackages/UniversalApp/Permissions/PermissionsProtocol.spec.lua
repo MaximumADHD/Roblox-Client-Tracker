@@ -2,7 +2,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
-	local MessageBus = require(CorePackages.UniversalApp.MessageBus)
+	local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
 	local PermissionsProtocol = require(CorePackages.UniversalApp.Permissions.PermissionsProtocol)
 
 	local TestPermissions = {
@@ -161,7 +161,7 @@ return function()
 
 		it("should throw error when invalid permissions are given", function(context)
 			local oldValue = game:SetFastFlagForTesting("DebugRomarkAudioPermissionsBypass", false)
-			
+
 			expect(function()
 				context.PermissionsProtocol:hasPermissions(InvalidPermissions)
 			end).to.throw()

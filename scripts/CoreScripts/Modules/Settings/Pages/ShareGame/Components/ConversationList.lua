@@ -26,7 +26,7 @@ local PlayerSearchPredicate = require(CoreGui.RobloxGui.Modules.InGameMenu.Utili
 local GetFFlagShareInviteLinkContextMenuV1Enabled = require(Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
 local GetFFlagEnableNewInviteMenu = require(Modules.Flags.GetFFlagEnableNewInviteMenu)
 
-local User = require(AppTempCommon.LuaApp.Models.User)
+local User = require(CorePackages.Workspace.Packages.UserLib).User
 local httpRequest = require(AppTempCommon.Temp.httpRequest)
 local memoize = require(CorePackages.Workspace.Packages.AppCommonLib).memoize
 

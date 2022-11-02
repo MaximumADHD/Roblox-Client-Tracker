@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
-local MessageBus = require(CorePackages.UniversalApp.MessageBus)
+local MessageBusPackage = require(CorePackages.Workspace.Packages.MessageBus)
+local MessageBus = MessageBusPackage.MessageBus
 local Promise = require(CorePackages.Promise)
 local t = require(CorePackages.Packages.t)
 
@@ -7,9 +8,9 @@ local getFFlagLuaPermissionContactAccess = require(script.Parent.Flags.getFFlagL
 
 local Types = require(script.Parent.PermissionsProtocolTypes)
 
-type Table = MessageBus.Table
-type Array<T> = MessageBus.Array<T>
-type Promise<T> = MessageBus.Promise<T>
+type Table = MessageBusPackage.Table
+type Array<T> = MessageBusPackage.Array<T>
+type Promise<T> = MessageBusPackage.Promise<T>
 
 export type PermissionsProtocol = Types.PermissionsProtocol
 
@@ -165,7 +166,7 @@ function PermissionsProtocol:requestPermissions(permissions: Array<string>): Pro
 		params["status"] = PermissionsProtocol.Status.AUTHORIZED
 		return Promise.resolve(params)
 	end
-			
+
 	local promise = Promise.new(function(resolve, _)
 		local desc = self.PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
 		self.subscriber:subscribeProtocolMethodResponse(desc, function(params: Table)
@@ -240,7 +241,7 @@ Check if specific permissions are supported by this device
 If the permissions are supported
 	If we have permissions authorized
 		Return true
-	
+
 	If we don't have permissions authorized
 		Request the permissions and return the result
 
@@ -257,9 +258,9 @@ function PermissionsProtocol:checkOrRequestPermissions(permissions: Array<string
 	return self:supportsPermissions(permissions):andThen(
 		function(success)
 			if not success then
-				return Promise.resolve(PermissionsProtocol.Status.UNSUPPORTED) 
+				return Promise.resolve(PermissionsProtocol.Status.UNSUPPORTED)
 			end
-			
+
 			-- Permissions supported, request if necessary
 			return (self:hasPermissions(permissions):andThen(
 				function(result)

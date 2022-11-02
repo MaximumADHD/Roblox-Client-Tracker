@@ -1,7 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local AppTempCommon = CorePackages.AppTempCommon
 
-local User = require(AppTempCommon.LuaApp.Models.User)
+local User = require(CorePackages.Workspace.Packages.UserLib).User
 local ThumbnailRequest = require(AppTempCommon.LuaApp.Models.ThumbnailRequest)
 
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")

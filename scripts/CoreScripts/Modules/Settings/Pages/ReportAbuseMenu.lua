@@ -655,7 +655,7 @@ local function Initialize()
 									abuseReason = abuseReason,
 									inExpMenuOpenedUnixMilli = math.floor(this:getReportTimestamp()*1000), --milliseconds conversion
 									sortedPlayerListUserIds = sortedUserIds,
-									abuseVector = methodOfAbuse,
+									abuseVector = string.lower(methodOfAbuse),
 								})
 								if game:GetEngineFeature("AbuseReportV3") then
 									PlayersService:ReportAbuseV3(PlayersService.LocalPlayer, request)

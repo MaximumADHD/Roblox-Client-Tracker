@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
-local MessageBus = require(CorePackages.UniversalApp.MessageBus)
+local MessageBusPackage = require(CorePackages.Workspace.Packages.MessageBus)
+local MessageBus = MessageBusPackage.MessageBus
 local Promise = require(CorePackages.Promise)
 local t = require(CorePackages.Packages.t)
 
@@ -149,7 +150,7 @@ end
 	@param url: the url
 	@return promise<boolean>: resolves with true if the URL was opened successfully
 ]]--
-function LinkingProtocol:openURL(url: string): MessageBus.Promise<boolean>
+function LinkingProtocol:openURL(url: string): MessageBusPackage.Promise<boolean>
 	local promise = Promise.new(function(resolve, _)
 		local desc = self.OPEN_URL_RESPONSE_DESCRIPTOR
 		self.subscriber:subscribe(desc, function(params: {success: boolean})
@@ -181,7 +182,7 @@ end
 	@param url: the url
 	@return promise<boolean>: resolves with true if the URL is registered by any domain (Lua, Engine, Platform)
 ]]--
-function LinkingProtocol:isURLRegistered(url: string): MessageBus.Promise<boolean>
+function LinkingProtocol:isURLRegistered(url: string): MessageBusPackage.Promise<boolean>
 	local promise = Promise.new(function(resolve, _)
 		local desc = self.IS_URL_REGISTERED_RESPONSE_DESCRIPTOR
 		self.subscriber:subscribe(desc, function(params: {isRegistered: boolean})

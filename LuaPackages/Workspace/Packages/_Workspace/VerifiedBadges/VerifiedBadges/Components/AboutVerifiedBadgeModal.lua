@@ -15,6 +15,9 @@ local INNER_PADDING = UDim.new(0, 12)
 
 local VERIFIED_BADGE_FAQ_URL = "https://en.help.roblox.com/hc/en-us/articles/7997207259156"
 
+local getFFlagDecoupleNavigationFromVerifiedBadgeModal =
+	require(CorePackages.Workspace.Packages.SharedFlags).getFFlagDecoupleNavigationFromVerifiedBadgeModal
+
 type Props = {
 	onClose: (() -> ())?,
 	onConfirm: (() -> ())?,
@@ -35,27 +38,29 @@ local function AboutVerifiedBadgeModal(props: Props)
 		learnMoreText = "Feature.ProfileBadges.VerifiedBadgeInfoLink",
 	})
 
-	-- TODO: EN-1432 Decouple navigation from AboutVerifiedBadgeModal
 	local onClose = React.useCallback(function()
-		navigation.goBack()
+		if not getFFlagDecoupleNavigationFromVerifiedBadgeModal() then
+			navigation.goBack()
+		end
 
 		if props.onClose then
 			props.onClose()
 		end
 	end, { props, navigation })
 
-	-- TODO: EN-1432 Decouple navigation from AboutVerifiedBadgeModal
 	local onConfirm = React.useCallback(function()
-		navigation.replace({
-			routeName = "GenericWebPage", --AppPage.GenericWebPage,
-			params = {
-				titleKey = "Feature.ProfileBadges.VerifiedBadgeInfoTitle",
-				detail = VERIFIED_BADGE_FAQ_URL,
-				extraProps = {
-					onClose = onClose,
+		if not getFFlagDecoupleNavigationFromVerifiedBadgeModal() then
+			navigation.replace({
+				routeName = "GenericWebPage", --AppPage.GenericWebPage,
+				params = {
+					titleKey = "Feature.ProfileBadges.VerifiedBadgeInfoTitle",
+					detail = VERIFIED_BADGE_FAQ_URL,
+					extraProps = {
+						onClose = onClose,
+					},
 				},
-			},
-		})
+			})
+		end
 
 		if props.onConfirm then
 			props.onConfirm()

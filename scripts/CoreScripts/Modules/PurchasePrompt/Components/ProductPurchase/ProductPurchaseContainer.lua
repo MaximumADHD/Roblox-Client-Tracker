@@ -245,7 +245,7 @@ function ProductPurchaseContainer:didUpdate(prevProps, prevState)
 	-- The fix is to check the game pause status in didUpdate(), and close ourchase prompt if in game pause.
 	-- More details in https://jira.rbx.com/browse/CLI-59903.
 	if FFlagPurchaseWithGamePausedFix and Players.LocalPlayer.GameplayPaused then
-		self.props.onAnalyticEvent("PurchasePromptGamePausedDetected", { game.PlaceId })
+		self.props.onAnalyticEvent("PurchasePromptGamePausedDetected", { place_id = game.PlaceId })
 		self.props.hideWindow()
 	end
 	if GetFFlagPPFixGamepadIcons() then

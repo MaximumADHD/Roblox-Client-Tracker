@@ -1,5 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
-local MessageBusTypes = require(CorePackages.UniversalApp.MessageBusTypes)
+local MessageBusTypes = require(CorePackages.Workspace.Packages.MessageBus)
 
 type MessageBus = MessageBusTypes.MessageBus
 type MessageDescriptor = MessageBusTypes.MessageDescriptor

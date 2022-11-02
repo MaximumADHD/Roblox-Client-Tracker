@@ -2,7 +2,7 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 
 	local MockId = require(CorePackages.AppTempCommon.LuaApp.MockId)
-	local User = require(CorePackages.AppTempCommon.LuaApp.Models.User)
+	local User = require(CorePackages.Workspace.Packages.UserLib).User
 	local Users = require(CorePackages.AppTempCommon.LuaApp.Reducers.Users)
 
 	local AddUser = require(CorePackages.AppTempCommon.LuaApp.Actions.AddUser)

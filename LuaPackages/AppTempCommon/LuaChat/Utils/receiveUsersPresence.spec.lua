@@ -2,7 +2,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 	local Rodux = require(CorePackages.Rodux)
-	local User = require(CorePackages.AppTempCommon.LuaApp.Models.User)
+	local User = require(CorePackages.Workspace.Packages.UserLib).User
 	local receiveUsersPresence = require(script.Parent.receiveUsersPresence)
 
 	local function createUser(id, name, isFriend)

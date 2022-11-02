@@ -41,6 +41,8 @@ local BackpackScript = require(RobloxGui.Modules.BackpackScript)
 local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 local StarterPlayer = game:GetService("StarterPlayer")
 
+local SafetyBubbleEnabled = require(RobloxGui.Modules.Flags.FFlagSafetyBubbleEnabled)
+
 local EngineFeatureEnableVRBottomBarWorksBehindObjects = game:GetEngineFeature("EnableVRBottomBarWorksBehindObjects")
 
 -- each individual icon can either be definied as a table entry with icon and onActivate, or as a item component
@@ -116,6 +118,24 @@ local Chat =
 	end,
 }
 
+local SafetyOn = 
+{
+	iconOn = "rbxasset://textures/ui/MenuBar/icon_safety_on.png",
+	iconOff = "rbxasset://textures/ui/MenuBar/icon_safety_on.png",
+	onActivated = function()
+		VRHub:ToggleSafetyBubble()
+	end,
+}
+
+local SafetyOff = 
+{
+	iconOn = "rbxasset://textures/ui/MenuBar/icon_safety_off.png",
+	iconOff = "rbxasset://textures/ui/MenuBar/icon_safety_off.png",
+	onActivated = function()
+		VRHub:ToggleSafetyBubble()
+	end,
+}
+
 local LeaveGame = 
 {
 	iconOn = "rbxasset://textures/ui/MenuBar/icon_leave.png",
@@ -132,15 +152,21 @@ local LeaveGame =
 
 local SeparatorIcon =
 {
-		iconComponent = VRBarSeparator,
-		itemSize = UDim2.new(0, 28, 0, 44),
+	iconComponent = VRBarSeparator,
+	itemSize = UDim2.new(0, 28, 0, 44),
 }
 
 -- default bar init
 function VRBottomBar:init()
-	self:setState({
-		itemList = {MainMenu, SeparatorIcon, ToggleGui, Emotes, Chat, PlayerList, SeparatorIcon, LeaveGame}
-	})
+	if SafetyBubbleEnabled then	
+		self:setState({
+			itemList = {MainMenu, SeparatorIcon, ToggleGui, Emotes, Chat, PlayerList, SeparatorIcon, SafetyOn, LeaveGame}
+		})
+	else
+		self:setState({
+			itemList = {MainMenu, SeparatorIcon, ToggleGui, Emotes, Chat, PlayerList, SeparatorIcon, LeaveGame}
+		})
+	end
 
 	self:setState({
 		vrMenuOpen = true
@@ -154,6 +180,13 @@ function VRBottomBar:didMount()
 	VRHub.ShowTopBarChanged.Event:Connect(function()
 		self:setState({
 			vrMenuOpen = VRHub.ShowTopBar,
+		})
+	end)
+	
+	VRHub.SafetyBubbleToggled.Event:Connect(function()
+		local activeItems = self:updateItems()
+		self:setState({
+			itemList = activeItems
 		})
 	end)
 	
@@ -206,6 +239,15 @@ function VRBottomBar:updateItems()
 	end
 
 	table.insert(enabledItems, SeparatorIcon)
+
+	if SafetyBubbleEnabled then
+		if VRHub.SafetyBubble and VRHub.SafetyBubble.enabled then
+			table.insert(enabledItems, SafetyOn)
+		else
+			table.insert(enabledItems, SafetyOff)
+		end
+	end
+
 	table.insert(enabledItems, LeaveGame)
 
 	return enabledItems

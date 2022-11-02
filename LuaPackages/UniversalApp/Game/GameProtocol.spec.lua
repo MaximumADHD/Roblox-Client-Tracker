@@ -1,9 +1,11 @@
 --!nonstrict
 return function()
 	local CorePackages = game:GetService("CorePackages")
-	local MessageBus = require(CorePackages.UniversalApp.MessageBus)
+	local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
 	local GameProtocol = require(CorePackages.UniversalApp.Game.GameProtocol)
 	local tutils = require(CorePackages.Packages.tutils)
+
+	local FFlagExperienceJoinAttemptId = require(script.Parent.Flags.FFlagExperienceJoinAttemptId)
 	
 	local placeId = 1818
 	local userId = 100000000
@@ -11,7 +13,7 @@ return function()
 	local referralPage = "sampleReferralPage"
 	local gameInstanceId = "sample-instance-id-01"
 	local linkCode = "sample-link-code-01"
-	
+
 	describe("GameProtocol", function()
 		beforeEach(function(context)
 			context.subscriber = MessageBus.Subscriber.new()
@@ -20,13 +22,13 @@ return function()
 		afterEach(function(context)
 			context.subscriber:unsubscribeFromAllMessages()
 		end)
-		
+
 		it("should launch game by placeId", function(context)
 			local didSucceed = false
 			GameProtocol:launchGame({
 				placeId = placeId
 			})
-			
+
 			context.subscriber:subscribe(GameProtocol.GAME_LAUNCH_DESCRIPTOR, function(params)
 				expect(params.placeId).to.equal(placeId)
 				didSucceed = true
@@ -52,11 +54,11 @@ return function()
 		it("should not launch game without placeId or userId", function(context)
 			expect(function()
 				GameProtocol:launchGame({
-				accessCode = accessCode
+					accessCode = accessCode
 				})
 			end).to.throw()
 		end)
-		
+
 		it("should carry referral page", function(context)
 			local didSucceed = false
 			GameProtocol:launchGame({
@@ -136,5 +138,41 @@ return function()
 			wait()
 			expect(didSucceed).to.equal(true)
 		end)
+
+		if FFlagExperienceJoinAttemptId then
+			it("should generate attemptJoinId", function(context)
+				local didSucceed = false
+				local attemptJoinId
+				local onLaunchGameCallback = function(id)
+					attemptJoinId = id
+				end
+				GameProtocol:launchGame({
+					placeId = placeId,
+				}, nil, onLaunchGameCallback)
+
+				context.subscriber:subscribe(GameProtocol.GAME_LAUNCH_DESCRIPTOR, function(params)
+					expect(params.placeId).to.equal(placeId)
+					expect(params.joinAttemptId).to.equal(attemptJoinId)
+					didSucceed = true
+				end)
+				wait()
+				expect(didSucceed).to.equal(true)
+			end)
+
+			it("should carry attempJoinOrigin", function(context)
+				local didSucceed = false
+				GameProtocol:launchGame({
+					placeId = placeId,
+				}, "testSource")
+
+				context.subscriber:subscribe(GameProtocol.GAME_LAUNCH_DESCRIPTOR, function(params)
+					expect(params.placeId).to.equal(placeId)
+					expect(params.joinAttemptOrigin).to.equal("testSource")
+					didSucceed = true
+				end)
+				wait()
+				expect(didSucceed).to.equal(true)
+			end)
+		end
 	end)
 end

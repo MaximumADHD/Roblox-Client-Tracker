@@ -1,5 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
-local Types = require(CorePackages.UniversalApp.MessageBusTypes)
+local Types = require(CorePackages.Workspace.Packages.MessageBus)
 
 export type SystemInfo = {
 	manufacturer: string?,

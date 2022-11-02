@@ -2,7 +2,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
-	local MessageBus = require(CorePackages.UniversalApp.MessageBus)
+	local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
 	local LinkingProtocol = require(CorePackages.UniversalApp.Linking.LinkingProtocol)
 	local tutils = require(CorePackages.Packages.tutils)
 
@@ -58,7 +58,7 @@ return function()
 				expect(updatedURL).to.equal(testUrl)
 				context.LinkingProtocol:stopListeningForLuaURLs()
 			end)
-	
+
 			MessageBus.publish(LinkingProtocol.HANDLE_LUA_URL_DESCRIPTOR, {
 				url = testUrl,
 				matchedUrl = testUrl,

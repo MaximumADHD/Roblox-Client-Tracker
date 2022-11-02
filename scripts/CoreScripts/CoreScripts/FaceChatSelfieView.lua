@@ -35,7 +35,7 @@ function debugPrint(text)
 	end
 end
 
-debugPrint("Self View 10-19-2022__1")
+debugPrint("Self View 10-25-2022__2")
 
 local EngineFeatureFacialAnimationStreamingServiceUseV2 = game:GetEngineFeature("FacialAnimationStreamingServiceUseV2")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
@@ -111,6 +111,7 @@ local headClone = nil
 local headCloneNeck = nil
 local headCloneRootFrame = nil
 local frame = nil
+local bottomButtonsFrame = nil
 local micIcon = nil
 local camIcon = nil
 local indicatorCircle = nil
@@ -374,7 +375,7 @@ local function createViewport()
 	sizeConstraint.MinSize = Vector2.new(95, 95)
 
 
-	local bottomButtonsFrame = Instance.new("Frame")
+	bottomButtonsFrame = Instance.new("Frame")
 	bottomButtonsFrame.Name = "BottomButtonsFrame"
 	bottomButtonsFrame.Position = UDim2.new(0, 0, 1, -(DEFAULT_BUTTONS_BAR_HEIGHT-1))
 	bottomButtonsFrame.Size = UDim2.new(1, 0, 0, DEFAULT_BUTTONS_BAR_HEIGHT)
@@ -642,8 +643,8 @@ end
 function toggleIndicator(mode)
 	debugPrint("Self View: toggleIndicator(), mode: "..tostring(mode)..",hasMicPermissions:"..tostring(hasMicPermissions)..",hasCameraPermissions:"..tostring(hasCameraPermissions))
 	if indicatorCircle then 
-		indicatorCircle.Visible = ((mode == Enum.TrackerMode.Audio or mode == Enum.TrackerMode.AudioVideo) and hasMicPermissions and (debug or frame.Visible))
-			or ((mode == Enum.TrackerMode.Video or mode == Enum.TrackerMode.AudioVideo) and hasCameraPermissions )
+		indicatorCircle.Visible = ((mode == Enum.TrackerMode.Audio or mode == Enum.TrackerMode.AudioVideo) and hasMicPermissions and (debug or (bottomButtonsFrame and bottomButtonsFrame.Visible)))
+			or ((mode == Enum.TrackerMode.Video or mode == Enum.TrackerMode.AudioVideo) and hasCameraPermissions and (debug or (bottomButtonsFrame and bottomButtonsFrame.Visible)))
 	end
 end
 
@@ -697,6 +698,8 @@ local onUpdateTrackerMode = function()
 	updateVideoButton((currentTrackerMode == Enum.TrackerMode.AudioVideo or currentTrackerMode == Enum.TrackerMode.Video) and hasCameraPermissions)
 
 	toggleIndicator(currentTrackerMode)
+	
+	FaceAnimatorService.FlipHeadOrientation = false
 
 	local cameraPermissionsChanged = false
 	local modeChanged = false
@@ -864,6 +867,15 @@ function getNeck(character, head)
 	return nil
 end
 
+function findObjectOfNameAndTypeName(name, typeName, character)
+	local descendants = character:GetDescendants()
+	for _, child in descendants do
+		if child.Name == name and child:IsA(typeName) then
+			return child
+		end
+	end
+end
+
 function getHead(character)
 	if not character then return nil end
 
@@ -877,10 +889,10 @@ function getHead(character)
 
 	--fallback lookup attempts in case non dynamic head avatar
 	if not head then
-		--most simple lookup
-		head = character:FindFirstChild("Head")
+		--first doing an attempt like this
+		head = findObjectOfNameAndTypeName("Head","MeshPart",character)
 
-		--lookup for non dynamic heads
+		--last resort fallback attempt, could return other object types in worst case (like a Pose called Head if the avatar has AnimSaves in it)
 		if not head then
 			head = character:FindFirstChild("Head",true)
 		end
@@ -889,15 +901,6 @@ function getHead(character)
 	debugPrint("Self View: fn getHead(), head: "..tostring(head))
 
 	return head
-end
-
-function findObjectOfTypeName(typeName, character)
-	local descendants = character:GetDescendants()
-	for _, child in descendants do
-		if child:IsA(typeName) then
-			return child
-		end
-	end	
 end
 
 function getAnimator(character, timeOut)
@@ -922,7 +925,7 @@ function getAnimator(character, timeOut)
 
 	if animator == nil then
 		--fallback for different character setup:
-		animator = findObjectOfTypeName("Animator", character)
+		animator = character:FindFirstChildWhichIsA("Animator", true)
 	end
 
 	return animator

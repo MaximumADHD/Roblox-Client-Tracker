@@ -2,8 +2,8 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
-	local MessageBus = require(CorePackages.UniversalApp.MessageBus)
-	local ContactsProtocol = require(CorePackages.UniversalApp.Contacts.ContactsProtocol)	
+	local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
+	local ContactsProtocol = require(CorePackages.UniversalApp.Contacts.ContactsProtocol)
 
 	local getFFlagLuaGetContactsAccess = require(script.Parent.Flags.getFFlagLuaGetContactsAccess)
 

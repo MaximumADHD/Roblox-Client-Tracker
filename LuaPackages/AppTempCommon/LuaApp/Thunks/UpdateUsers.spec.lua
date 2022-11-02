@@ -13,7 +13,7 @@ return function()
 	local FriendCount = require(CorePackages.AppTempCommon.LuaChat.Reducers.FriendCount)
 	local Users = require(CorePackages.AppTempCommon.LuaApp.Reducers.Users)
 
-	local User = require(CorePackages.AppTempCommon.LuaApp.Models.User)
+	local User = require(CorePackages.Workspace.Packages.UserLib).User
 
 	local function UsersReducerMonitor (state, action)
 		state = state or {

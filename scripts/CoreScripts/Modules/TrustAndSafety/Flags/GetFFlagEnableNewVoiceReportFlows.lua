@@ -1,5 +1,7 @@
 local Players = game:GetService("Players")
 
+local IXPVoiceAbuseReportReportAbuseMenu = require(script.Parent.IXPVoiceAbuseReportReportAbuseMenu)
+
 game:DefineFastFlag("EnableNewVoiceReportFlows", false)
 game:DefineFastString("NewInGameMenuForcedUserIds", "")
 
@@ -18,5 +20,5 @@ return function()
 		end
 	end
 
-    return game:GetFastFlag("EnableNewVoiceReportFlows")
+    return game:GetFastFlag("EnableNewVoiceReportFlows") and IXPVoiceAbuseReportReportAbuseMenu.enabled
 end

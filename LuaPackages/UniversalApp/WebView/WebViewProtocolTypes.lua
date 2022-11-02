@@ -1,5 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
-local Types = require(CorePackages.UniversalApp.MessageBusTypes)
+local Types = require(CorePackages.Workspace.Packages.MessageBus)
 
 local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 

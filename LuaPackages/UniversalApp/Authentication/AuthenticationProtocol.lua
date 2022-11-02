@@ -1,12 +1,13 @@
 local CorePackages = game:GetService("CorePackages")
-local MessageBus = require(CorePackages.UniversalApp.MessageBus)
+local MessageBusPackage = require(CorePackages.Workspace.Packages.MessageBus)
+local MessageBus = MessageBusPackage.MessageBus
 local Promise = require(CorePackages.Promise)
 local t = require(CorePackages.Packages.t)
 
 local Types = require(script.Parent.AuthenticationProtocolTypes)
 
-type Table = MessageBus.Table
-type Promise<T> = MessageBus.Promise<T>
+type Table = MessageBusPackage.Table
+type Promise<T> = MessageBusPackage.Promise<T>
 
 export type AuthenticationProtocol = Types.AuthenticationProtocol
 export type AuthResponse = Types.AuthResponse

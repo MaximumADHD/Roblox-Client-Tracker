@@ -1,17 +1,17 @@
 local CorePackages = game:GetService("CorePackages")
 local Package = require(CorePackages.Packages.LuauPolyfill)
 
-export type Array<T> = Package.Array<T> 
+export type Array<T> = Package.Array<T>
 export type AssertionError = Package.AssertionError
 export type Error = Package.Error
-export type Map<T, V> = Package.Map<T, V> 
+export type Map<T, V> = Package.Map<T, V>
 export type Object = Package.Object
-export type PromiseLike<T> = Package.PromiseLike<T> 
-export type Promise<T> = Package.Promise<T> 
-export type Set<T> = Package.Set<T> 
+export type PromiseLike<T> = Package.PromiseLike<T>
+export type Promise<T> = Package.Promise<T>
+export type Set<T> = Package.Set<T>
 export type Symbol = Package.Symbol
 export type Timeout = Package.Timeout
 export type Interval = Package.Interval
-export type WeakMap<T, V> = Package.WeakMap<T, V> 
+export type WeakMap<T, V> = Package.WeakMap<T, V>
 
 return Package

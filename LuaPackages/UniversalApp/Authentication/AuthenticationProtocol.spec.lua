@@ -2,7 +2,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
-	local MessageBus = require(CorePackages.UniversalApp.MessageBus)
+	local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
 	local AuthenticationProtocol = require(CorePackages.UniversalApp.Authentication.AuthenticationProtocol)
 
 	describe("AuthenticationProtocol", function()

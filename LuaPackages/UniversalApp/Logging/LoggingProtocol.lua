@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
-local MessageBus = require(CorePackages.UniversalApp.MessageBus)
+local MessageBusPackage = require(CorePackages.Workspace.Packages.MessageBus)
+local MessageBus = MessageBusPackage.MessageBus
 local t = require(CorePackages.Packages.t)
 local ArgCheck = require(CorePackages.ArgCheck)
 
@@ -8,10 +9,10 @@ local Types = require(script.Parent.LoggingProtocolTypes)
 local EnableLoggingProtocolTelemetryEngineFeature = game:GetEngineFeature("EnableLoggingProtocolTelemetry2")
 local EnableLoggingProtocolEphemeralEventsEngineFeature = game:GetEngineFeature("EnableLoggingProtocolEphemeralEvents")
 
-type MessageBus = MessageBus.MessageBus
-type FunctionDescriptor = MessageBus.FunctionDescriptor
-type Table = MessageBus.Table
-type Array<T> = MessageBus.Array<T>
+type MessageBus = MessageBusPackage.MessageBus
+type FunctionDescriptor = MessageBusPackage.FunctionDescriptor
+type Table = MessageBusPackage.Table
+type Array<T> = MessageBusPackage.Array<T>
 
 export type TelemetryEventConfig = Types.TelemetryEventConfig
 export type LoggingProtocol = Types.LoggingProtocol

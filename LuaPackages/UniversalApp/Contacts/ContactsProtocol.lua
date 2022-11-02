@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
-local MessageBus = require(CorePackages.UniversalApp.MessageBus)
+local MessageBusPackage = require(CorePackages.Workspace.Packages.MessageBus)
+local MessageBus = MessageBusPackage.MessageBus
 local Promise = require(CorePackages.Promise)
 local t = require(CorePackages.Packages.t)
 
@@ -9,7 +10,7 @@ local FFlagUpdateContactParams = game:GetFastFlag("UpdateContactParams")
 
 local Types = require(script.Parent.ContactsProtocolTypes)
 
-type Promise<T> = MessageBus.Promise<T>
+type Promise<T> = MessageBusPackage.Promise<T>
 
 export type ContactsProtocol = Types.ContactsProtocol
 export type GetContactsResponse = Types.GetContactsResponse

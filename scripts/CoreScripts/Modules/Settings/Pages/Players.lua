@@ -31,7 +31,6 @@ local ShareGameIcons = require(ShareGameDirectory.Spritesheets.ShareGameIcons)
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
-local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 local onBlockButtonActivated = require(script:FindFirstAncestor("Settings").onBlockButtonActivated)
 local BlockingAnalytics = require(script:FindFirstAncestor("Settings").Analytics.BlockingAnalytics)
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
@@ -79,7 +78,6 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
 local FFlagExtendedExpMenuPortraitLayout = require(RobloxGui.Modules.Flags.FFlagExtendedExpMenuPortraitLayout)
-local FFlagShowInGameReportingLuobu = require(RobloxGui.Modules.Flags.FFlagShowInGameReportingLuobu)
 local getFFlagEnableVoiceChatPlayersList = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatPlayersList)
 local GetFFlagEnableVoiceChatMuteAll = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatMuteAll)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
@@ -1268,11 +1266,7 @@ local function Initialize()
 					end
 				end)
 
-				local showReportAbuse = not PolicyService:IsSubjectToChinaPolicies() or FFlagShowInGameReportingLuobu
-
-				if showReportAbuse then
-					reportAbuseButtonCreate(frame, player)
-				end
+				reportAbuseButtonCreate(frame, player)
 			end
 		end
 

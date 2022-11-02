@@ -133,6 +133,7 @@ local GetFIntVoiceChatDeviceChangeDebounceDelay = require(RobloxGui.Modules.Flag
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagUseVideoCaptureServiceEvents = require(RobloxGui.Modules.Flags.GetFFlagUseVideoCaptureServiceEvents)
+local GetFFlagVoiceChatUseSoundServiceInputApi = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUseSoundServiceInputApi)
 
 local function reportSettingsForAnalytics()
 	local stringTable = {}
@@ -2191,7 +2192,11 @@ local function Initialize()
 
 		local success, deviceNames, deviceGuids, selectedIndex = pcall(function()
 			if deviceType == VOICE_CHAT_DEVICE_TYPE.Input then
-				return VoiceChatService:GetMicDevices()
+				if game:GetEngineFeature("UseFmodForInputDevices") and GetFFlagVoiceChatUseSoundServiceInputApi() then
+					return SoundService:GetInputDevices()
+				else
+					return VoiceChatService:GetMicDevices()
+				end	
 			else
 				return SoundService:GetOutputDevices()
 			end

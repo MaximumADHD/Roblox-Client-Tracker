@@ -28,18 +28,8 @@ local callbackQueue = {}
 local inProgress = false
 
 return function(callback)
-	-- Return cached permissions if available.
-	if hasCameraPermissions ~= nil or hasMicPermissions ~= nil then
-		local response = {
-			hasCameraPermissions = hasCameraPermissions,
-			hasMicPermissions = hasMicPermissions,
-		}
-
-		callback(response)
-		if FFlagSelfViewFixes then
-			return
-		end
-	end
+	--do not use cached results here else it will return permissions not given from cached result despite meanwhile given
+	--on first run when no permissions given before and then user gives them
 
 	-- A request is already in progress, add the callback to the queue.
 	if inProgress then
