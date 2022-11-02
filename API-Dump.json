@@ -2298,6 +2298,14 @@
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Stopped",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Animation",
@@ -2851,6 +2859,21 @@
                             "Type": {
                                 "Category": "Class",
                                 "Name": "AnimationTrack"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "AnimationStreamTrackPlayed",
+                    "Parameters": [
+                        {
+                            "Name": "animationTrack",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "AnimationStreamTrack"
                             }
                         }
                     ],
@@ -16944,28 +16967,6 @@
                     }
                 },
                 {
-                    "Category": "Behavior",
-                    "MemberType": "Property",
-                    "Name": "MaxSlopeAngle",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                },
-                {
                     "Category": "Movement",
                     "MemberType": "Property",
                     "Name": "StandForce",
@@ -17203,28 +17204,6 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Vector3"
-                    }
-                },
-                {
-                    "Category": "Behavior",
-                    "MemberType": "Property",
-                    "Name": "HipHeight",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
                     }
                 },
                 {
@@ -20271,32 +20250,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "SetCurrentFrameId",
-                    "Parameters": [
-                        {
-                            "Name": "debuggerThreadId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
-                            }
-                        },
-                        {
-                            "Name": "debuggerFrameId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "SetCurrentThreadId",
                     "Parameters": [
                         {
@@ -22042,7 +21995,7 @@
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
-                        "Name": "int64"
+                        "Name": "string"
                     }
                 },
                 {
@@ -66505,11 +66458,8 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": false
+                        "CanSave": true
                     },
-                    "Tags": [
-                        "NotReplicated"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "DataType",
@@ -77912,50 +77862,6 @@
                         "Category": "Primitive",
                         "Name": "bool"
                     }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "SrcPlaceId",
-                    "Security": {
-                        "Read": "RobloxSecurity",
-                        "Write": "RobloxSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int64"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "SrcUniverseId",
-                    "Security": {
-                        "Read": "RobloxSecurity",
-                        "Write": "RobloxSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int64"
-                    }
                 }
             ],
             "MemoryCategory": "Instances",
@@ -81854,9 +81760,30 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Enum",
+                        "Name": "Font"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "FontFace",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
                         "Name": "Font"
                     }
                 },
@@ -82197,6 +82124,42 @@
                     }
                 },
                 {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "BackgroundColor3",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "BackgroundTransparency",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "double"
+                    }
+                },
+                {
                     "Category": "Behavior",
                     "MemberType": "Property",
                     "Name": "Enabled",
@@ -82212,6 +82175,42 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "FontFace",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Font"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "HeightScale",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
                     }
                 },
                 {
@@ -82236,6 +82235,78 @@
                     }
                 },
                 {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "TextColor3",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "TextSize",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "TextStrokeColor3",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "TextStrokeTransparency",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "double"
+                    }
+                },
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "VerticalAlignment",
@@ -82254,6 +82325,24 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "VerticalAlignment"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "WidthScale",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
                     }
                 }
             ],
@@ -84056,6 +84145,32 @@
                     "ReturnType": {
                         "Category": "Group",
                         "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetPropertyValue",
+                    "Parameters": [
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "property",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Variant"
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -92443,6 +92558,10 @@
                 {
                     "Name": "DynamicHead",
                     "Value": 79
+                },
+                {
+                    "Name": "FontFamily",
+                    "Value": 73
                 }
             ],
             "Name": "AssetType"
@@ -97671,6 +97790,10 @@
                 {
                     "Name": "Atomic",
                     "Value": 1
+                },
+                {
+                    "Name": "Persistent",
+                    "Value": 2
                 }
             ],
             "Name": "ModelStreamingMode"

@@ -7,6 +7,10 @@ name = "Analytics"
 version = "0.1.0"
 
 [[package]]
+name = "ApolloClient"
+version = "0.1.0"
+
+[[package]]
 name = "AppCommonLib"
 version = "0.1.0"
 dependencies = [
@@ -14,6 +18,10 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 0.1.0",
     "Promise Promise 0.1.0",
 ]
+
+[[package]]
+name = "AvatarExperienceDeps"
+version = "0.1.0"
 
 [[package]]
 name = "CollisionMatchers2D"
@@ -28,11 +36,41 @@ name = "Dash"
 version = "0.1.0"
 
 [[package]]
+name = "ExperienceChat"
+version = "0.1.0"
+
+[[package]]
+name = "FitFrame"
+version = "0.1.0"
+
+[[package]]
+name = "GraphQL"
+version = "0.1.0"
+
+[[package]]
+name = "GraphQLServer"
+version = "0.1.0"
+dependencies = [
+    "GraphQL GraphQL 0.1.0",
+    "JestGlobals JestGlobals 0.1.0",
+    "LuauPolyfill LuauPolyfill 0.1.0",
+    "Promise Promise 0.1.0",
+]
+
+[[package]]
 name = "Http"
 version = "0.1.0"
 
 [[package]]
 name = "HttpRequest"
+version = "0.1.0"
+
+[[package]]
+name = "IAPExperience"
+version = "0.1.0"
+
+[[package]]
+name = "InGameMenuDependencies"
 version = "0.1.0"
 
 [[package]]
@@ -44,15 +82,57 @@ name = "Localization"
 version = "0.1.0"
 
 [[package]]
+name = "Loggers"
+version = "0.1.0"
+dependencies = ["Lumberyak Lumberyak 0.1.0"]
+
+[[package]]
+name = "LuaChatDeps"
+version = "0.1.0"
+
+[[package]]
+name = "LuaProfileDeps"
+version = "0.1.0"
+
+[[package]]
+name = "LuaSocialLibrariesDeps"
+version = "0.1.0"
+
+[[package]]
 name = "LuauPolyfill"
 version = "0.1.0"
+
+[[package]]
+name = "Lumberyak"
+version = "0.1.0"
+
+[[package]]
+name = "MessageBus"
+version = "0.1.0"
+dependencies = [
+    "LuauPolyfill LuauPolyfill 0.1.0",
+    "t t 0.1.0",
+    "tutils tutils 0.1.0",
+]
 
 [[package]]
 name = "NetworkingFriends"
 version = "0.1.0"
 
 [[package]]
+name = "NetworkingGames"
+version = "0.1.0"
+
+[[package]]
 name = "NetworkingUsers"
+version = "0.1.0"
+
+[[package]]
+name = "NetworkingVirtualEvents"
+version = "0.1.0"
+
+[[package]]
+name = "Otter"
 version = "0.1.0"
 
 [[package]]
@@ -61,7 +141,19 @@ version = "0.1.0"
 dependencies = ["AppCommonLib AppCommonLib 0.1.0"]
 
 [[package]]
+name = "PolicyProvider"
+version = "0.1.0"
+
+[[package]]
+name = "PremiumUpsellDeps"
+version = "0.1.0"
+
+[[package]]
 name = "Promise"
+version = "0.1.0"
+
+[[package]]
+name = "PurchasePromptDeps"
 version = "0.1.0"
 
 [[package]]
@@ -69,11 +161,23 @@ name = "React"
 version = "0.1.0"
 
 [[package]]
+name = "ReactIs"
+version = "0.1.0"
+
+[[package]]
 name = "ReactRoblox"
 version = "0.1.0"
 
 [[package]]
+name = "Result"
+version = "0.1.0"
+
+[[package]]
 name = "Rhodium"
+version = "0.1.0"
+
+[[package]]
+name = "Roact17UpgradeFlag"
 version = "0.1.0"
 
 [[package]]
@@ -82,6 +186,10 @@ version = "0.1.0"
 
 [[package]]
 name = "RoactCompat"
+version = "0.1.0"
+
+[[package]]
+name = "RoactGamepad"
 version = "0.1.0"
 
 [[package]]
@@ -102,11 +210,34 @@ name = "Rodux"
 version = "0.1.0"
 
 [[package]]
+name = "RoduxGames"
+version = "0.1.0"
+
+[[package]]
 name = "RoduxNetworking"
 version = "0.1.0"
 
 [[package]]
 name = "SharedFlags"
+version = "0.1.0"
+
+[[package]]
+name = "SocialLuaAnalytics"
+version = "0.1.0"
+dependencies = [
+    "Dash Dash 0.1.0",
+    "JestGlobals JestGlobals 0.1.0",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
+    "LuauPolyfill LuauPolyfill 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "enumerate enumerate 0.1.0",
+    "t t 0.1.0",
+    "tutils tutils 0.1.0",
+]
+
+[[package]]
+name = "StringUtilities"
 version = "0.1.0"
 
 [[package]]
@@ -118,8 +249,25 @@ name = "TemplatePackage"
 version = "0.1.0"
 
 [[package]]
+name = "Thumbnailing"
+version = "0.1.0"
+
+[[package]]
+name = "UIBlox"
+version = "0.1.0"
+
+[[package]]
 name = "UniversalAppPolicy"
 version = "0.1.0"
+
+[[package]]
+name = "UrlBuilder"
+version = "0.1.0"
+
+[[package]]
+name = "UserLib"
+version = "0.1.0"
+dependencies = ["AppCommonLib AppCommonLib 0.1.0"]
 
 [[package]]
 name = "VerifiedBadges"
@@ -139,3 +287,19 @@ dependencies = [
     "RoduxNetworking RoduxNetworking 0.1.0",
     "UsersNetworking NetworkingUsers 0.1.0",
 ]
+
+[[package]]
+name = "VirtualizedList"
+version = "0.1.0"
+
+[[package]]
+name = "enumerate"
+version = "0.1.0"
+
+[[package]]
+name = "t"
+version = "0.1.0"
+
+[[package]]
+name = "tutils"
+version = "0.1.0"

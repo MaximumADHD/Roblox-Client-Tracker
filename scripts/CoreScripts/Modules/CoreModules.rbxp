@@ -321,6 +321,12 @@
                 ".robloxrc": {
                     "$path": "../.robloxrc"
                 }
+            },
+            "ShareInviteLinkABTestManager": {
+                "$path": "ShareInviteLinkABTestManager.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
             }
         }
     }

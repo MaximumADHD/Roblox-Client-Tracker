@@ -111,6 +111,7 @@ Class AnimationStreamTrack : Instance [NotCreatable] [NotReplicated]
 	Function Tuple AnimationStreamTrack:GetTrackerData() {RobloxScriptSecurity}
 	Function void AnimationStreamTrack:Play(float fadeTime = 0.100000001, float weight = 1) {RobloxScriptSecurity}
 	Function void AnimationStreamTrack:Stop(float fadeTime = 0.100000001) {RobloxScriptSecurity}
+	Event AnimationStreamTrack.Stopped() {RobloxScriptSecurity}
 Class AnimationTrack : Instance [NotCreatable]
 	Property Animation AnimationTrack.Animation [ReadOnly]
 	Property bool AnimationTrack.IsPlaying [ReadOnly]
@@ -142,6 +143,7 @@ Class Animator : Instance
 	Function void Animator:StepAnimations(float deltaTime) {PluginSecurity}
 	Event Animator.AnimationPlayed(AnimationTrack animationTrack)
 	Event Animator.AnimationPlayedCoreScript(AnimationTrack animationTrack) {RobloxScriptSecurity}
+	Event Animator.AnimationStreamTrackPlayed(AnimationStreamTrack animationTrack) {RobloxScriptSecurity}
 Class AppUpdateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AppUpdateService:CheckForUpdate(Function handler = nil) {RobloxScriptSecurity}
 	Function void AppUpdateService:DisableDUAR() {RobloxScriptSecurity}
@@ -891,7 +893,6 @@ Class GroundController : ControllerBase [NotBrowsable]
 	Property float GroundController.AccelerationLean
 	Property float GroundController.AlignSpeed
 	Property float GroundController.AlignTorque
-	Property float GroundController.MaxSlopeAngle [Hidden] [NotReplicated]
 	Property float GroundController.AccelerationTime
 	Property float GroundController.DecelerationTime
 	Property float GroundController.Friction
@@ -910,7 +911,6 @@ Class ControllerManager : Instance [NotBrowsable]
 	Property ControllerBase ControllerManager.ActiveController [ReadOnly]
 	Property float ControllerManager.BaseMoveSpeed
 	Property float ControllerManager.BaseTurnSpeed
-	Property float ControllerManager.HipHeight [Hidden] [NotReplicated]
 	Property Vector3 ControllerManager.FacingDirection
 	Property Vector3 ControllerManager.MovingDirection
 	Function Objects ControllerManager:GetControllers() {🧬Safe}
@@ -1076,7 +1076,6 @@ Class DebuggerUIService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void DebuggerUIService:Pause() {RobloxScriptSecurity}
 	Function void DebuggerUIService:RemoveScriptLineMarkers(int debuggerConnectionId, bool allMarkers) {RobloxScriptSecurity}
 	Function void DebuggerUIService:Resume() {RobloxScriptSecurity}
-	Function void DebuggerUIService:SetCurrentFrameId(int debuggerThreadId, int debuggerFrameId) {RobloxScriptSecurity}
 	Function void DebuggerUIService:SetCurrentThreadId(int debuggerThreadId) {RobloxScriptSecurity}
 	Function void DebuggerUIService:SetScriptLineMarker(string guid, int debuggerConnectionId, int line, bool lineMarkerType) {RobloxScriptSecurity}
 	Event DebuggerUIService.ExpressionAdded(string expression) {RobloxScriptSecurity}
@@ -1167,7 +1166,7 @@ Class EventIngestService : Instance [NotCreatable] [Service]
 	Function void EventIngestService:SetRBXEventStream(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
 Class ExperienceAuthService : Instance [NotCreatable] [Service]
 Class ExperienceInviteOptions : Instance [NotReplicated]
-	Property int64 ExperienceInviteOptions.InviteMessageId
+	Property string ExperienceInviteOptions.InviteMessageId
 	Property int64 ExperienceInviteOptions.InviteUser
 	Property string ExperienceInviteOptions.LaunchData
 	Property string ExperienceInviteOptions.PromptMessage
@@ -3477,7 +3476,7 @@ Class RenderSettings : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property Enum.QualityLevel RenderSettings.QualityLevel
 	Function int RenderSettings:GetMaxQualityLevel()
 Class RenderingTest : Instance
-	Property CFrame RenderingTest.CFrame [<📁> LoadOnly] [NotReplicated]
+	Property CFrame RenderingTest.CFrame
 	Property int RenderingTest.ComparisonDiffThreshold
 	Property Enum.RenderingTestComparisonMethod RenderingTest.ComparisonMethod
 	Property float RenderingTest.ComparisonPsnrThreshold
@@ -4101,8 +4100,6 @@ Class StudioAssetService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioAssetService.OnSaveToRoblox(Objects instances) {RobloxScriptSecurity}
 Class StudioData : Instance [NotCreatable] [Service]
 	Property bool StudioData.EnableScriptCollabByDefaultOnLoad {RobloxScriptSecurity} [Hidden]
-	Property int64 StudioData.SrcPlaceId {RobloxSecurity} [Hidden] [NotReplicated]
-	Property int64 StudioData.SrcUniverseId {RobloxSecurity} [Hidden] [NotReplicated]
 Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool StudioDeviceEmulatorService.HasMultiTouchStarted {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool StudioDeviceEmulatorService.IsMultiTouchEmulationOn {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -4300,7 +4297,8 @@ Class TextChatCommand : Instance
 Class TextChatConfigurations : Instance [NotCreatable] [NotReplicated]
 Class BubbleChatConfiguration : TextChatConfigurations [NotCreatable]
 	Property Color3 BubbleChatConfiguration.BackgroundColor3
-	Property Enum.Font BubbleChatConfiguration.Font
+	Property Enum.Font BubbleChatConfiguration.Font [Hidden]
+	Property Font BubbleChatConfiguration.FontFace
 	Property Color3 BubbleChatConfiguration.TextColor3
 	Property int64 BubbleChatConfiguration.TextSize
 	Property string BubbleChatConfiguration.AdorneeName
@@ -4319,7 +4317,16 @@ Class ChatInputBarConfiguration : TextChatConfigurations [NotCreatable]
 	Property Vector2 ChatInputBarConfiguration.AbsoluteSizeWrite {RobloxScriptSecurity} [Hidden]
 	Property TextChannel ChatInputBarConfiguration.TargetTextChannel
 Class ChatWindowConfiguration : TextChatConfigurations [NotCreatable]
+	Property Color3 ChatWindowConfiguration.BackgroundColor3
+	Property double ChatWindowConfiguration.BackgroundTransparency
+	Property Font ChatWindowConfiguration.FontFace
+	Property Color3 ChatWindowConfiguration.TextColor3
+	Property int64 ChatWindowConfiguration.TextSize
+	Property Color3 ChatWindowConfiguration.TextStrokeColor3
+	Property double ChatWindowConfiguration.TextStrokeTransparency
 	Property bool ChatWindowConfiguration.Enabled
+	Property float ChatWindowConfiguration.HeightScale
+	Property float ChatWindowConfiguration.WidthScale
 	Property Vector2 ChatWindowConfiguration.AbsolutePosition [ReadOnly] {🧬Unsafe}
 	Property Vector2 ChatWindowConfiguration.AbsolutePositionWrite {RobloxScriptSecurity} [Hidden]
 	Property Vector2 ChatWindowConfiguration.AbsoluteSize [ReadOnly] {🧬Unsafe}
@@ -4436,6 +4443,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Array UGCValidationService:GetMeshVertColors(string meshId) {RobloxScriptSecurity} [Yields]
 	Function Array UGCValidationService:GetMeshVerts(string meshId) {RobloxScriptSecurity} [Yields]
 	Function Array UGCValidationService:GetMeshVertsSync(string meshId) {RobloxScriptSecurity}
+	Function Variant UGCValidationService:GetPropertyValue(Instance instance, string property) {RobloxScriptSecurity}
 	Function Vector2 UGCValidationService:GetTextureSize(string textureId) {RobloxScriptSecurity} [Yields]
 	Function Vector2 UGCValidationService:GetTextureSizeSync(string textureId) {RobloxScriptSecurity}
 	Function void UGCValidationService:ResetCollisionFidelity(Instance meshPart) {RobloxScriptSecurity}
@@ -5003,6 +5011,7 @@ Enum AssetType
 	EnumItem AssetType.LeftShoeAccessory : 70
 	EnumItem AssetType.RightShoeAccessory : 71
 	EnumItem AssetType.DressSkirtAccessory : 72
+	EnumItem AssetType.FontFamily : 73
 	EnumItem AssetType.EyebrowAccessory : 76
 	EnumItem AssetType.EyelashAccessory : 77
 	EnumItem AssetType.MoodAnimation : 78
@@ -6246,6 +6255,7 @@ Enum ModelLevelOfDetail
 Enum ModelStreamingMode
 	EnumItem ModelStreamingMode.Default : 0
 	EnumItem ModelStreamingMode.Atomic : 1
+	EnumItem ModelStreamingMode.Persistent : 2
 Enum ModifierKey
 	EnumItem ModifierKey.Shift : 0
 	EnumItem ModifierKey.Ctrl : 1

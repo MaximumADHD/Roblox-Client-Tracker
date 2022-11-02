@@ -590,7 +590,7 @@ PerformanceOverlayFS_00000000,Fragment
 PerformanceOverlayLightPS,Fragment
 PerformanceOverlayLightVS,Vertex
 PerformanceOverlayScreenFS,Fragment
-PerformanceOverlayTerrainFS,Fragment
+PerformanceOverlayTerrainFS_00000000,Fragment
 ProcessGuiFS,Fragment
 ProfilerFS,Fragment
 ProfilerVS,Vertex

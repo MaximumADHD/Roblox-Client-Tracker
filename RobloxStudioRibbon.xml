@@ -477,7 +477,7 @@
         <addaction type="radio" name="gridSizeToSixteenAction" action="gridSizeToSixteenAction" tooltip="Studio.App.RobloxRibbonMainWindow.ResizeGridToSixteenStuds" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.16Studs" />
         <addseparator visible="false"/>
         <addaction name="toggle3DGridAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.ShowGrid" icon=":/RibbonBar/images/RibbonIcons/View/Show-Grid.png" modernIcon="ShowGrid" tooltip="Studio.App.RobloxRibbonMainWindow.GridOnYPlane" height="32" width="32"/>
-        <addaction name="toggleGridMaterialAction" style="textundericon" text="Studio.App.RBXMainWindow.GridMaterial" icon=":/RibbonBar/images/RibbonIcons/View/Show-Grid2.png" modernIcon="ShowGrid" tooltip="Studio.App.RobloxRibbonMainWindow.DisplayGridMaterialOnParts" height="32" width="32"/>
+        <addaction name="toggleGridMaterialAction" style="textundericon" text="Studio.App.RBXMainWindow.GridMaterial" icon=":/RibbonBar/images/RibbonIcons/View/Show-Grid2.png" modernIcon="GridMaterial" tooltip="Studio.App.RobloxRibbonMainWindow.DisplayGridMaterialOnParts" height="32" width="32"/>
         <addaction name="toggleWireframeRenderingAction" style="textundericon" text="Studio.App.RBXMainWindow.WireframeRendering" icon=":/RibbonBar/images/RibbonIcons/View/Wireframe-Box.png" modernIcon="WireframeRendering" tooltip="Studio.App.RobloxRibbonMainWindow.EnableWireframeRendering" height="32" width="32"/>
         <addaction fflag="AddUIToggleToRibbon" name="toggleUIVisibilityAction" style="textundericon" text="Studio.App.RBXMainWindow.UIVisibility" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/UIOff.png" modernIcon="UIOff" tooltip="Studio.App.RobloxRibbonMainWindow.EnableUIVisibility" height="32" width="32"/>
         <MenuButton name="switchWindowsMenu" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.SwitchWindows" icon=":/RibbonBar/images/RibbonIcons/View/Switch-Windows.png" modernIcon="SwitchWindows" tooltip="Studio.App.RobloxRibbonMainWindow.SwitchDifferentWindow" ischeckable="false" width="32" height="32"/>
@@ -553,7 +553,7 @@
           <addaction name="selectAllAction" icon=":/RibbonBar/images/RibbonIcons/Home/Select.png" modernIcon="SelectAll" width="16" height="16" />
           <addaction name="selectParentsAction" fflag="SelectParentsEnabled"/>
           <addaction name="selectChildrenAction" icon=":/16x16/images/Studio 2.0 icons/16x16/select_children.png" modernIcon="SelectChildren" />
-          <addaction name="collapseAllAction" fflag="CollapseAllEnabled"/>
+          <addaction name="collapseAllAction"/>
         </MenuButton>
         <!--<addaction name="deleteSelectedAction" text="Studio.Common.Action.Delete" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Delete.png" modernIcon="" width="32" height="32" />-->
       </Group>

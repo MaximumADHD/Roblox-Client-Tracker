@@ -24,9 +24,9 @@ varying vec4 VARYING7;
 void main()
 {
     float f0 = length(VARYING4.xyz);
-    float f1 = clamp(1.0 - (VARYING4.w * CB0[28].y), 0.0, 1.0);
+    vec2 f1 = clamp((vec2(0.0033333334140479564666748046875, CB0[28].y) * (-VARYING4.w)) + vec2(1.0), vec2(0.0), vec2(1.0));
     vec2 f2 = VARYING0 * CB2[0].x;
-    vec4 f3 = mix(texture2D(DiffuseMapTexture, f2 * CB2[1].y), texture2D(DiffuseMapTexture, f2), vec4(clamp((clamp(1.0 - (VARYING4.w * 0.0033333334140479564666748046875), 0.0, 1.0) * CB2[3].x) - (CB2[2].x * CB2[3].x), 0.0, 1.0)));
+    vec4 f3 = mix(texture2D(DiffuseMapTexture, f2 * CB2[1].y), texture2D(DiffuseMapTexture, f2), vec4(clamp((f1.x * CB2[3].x) - (CB2[2].x * CB2[3].x), 0.0, 1.0)));
     vec2 f4 = texture2D(NormalMapTexture, f2).wy * 2.0;
     vec2 f5 = f4 - vec2(1.0);
     float f6 = sqrt(clamp(1.0 + dot(vec2(1.0) - f4, f5), 0.0, 1.0));
@@ -36,7 +36,7 @@ void main()
     f9.x = f8.x;
     vec3 f10 = f9;
     f10.y = f8.y;
-    vec2 f11 = f10.xy * f1;
+    vec2 f11 = f10.xy * f1.y;
     float f12 = f11.x;
     vec4 f13 = texture2D(SpecularMapTexture, f2);
     vec4 f14 = vec4((mix(vec3(1.0), VARYING2.xyz, vec3(mix(1.0, f3.w, CB2[3].w))) * f3.xyz) * (1.0 + (f12 * 0.20000000298023223876953125)), VARYING2.w);
@@ -52,7 +52,7 @@ void main()
     f22.y = f20.y;
     vec4 f23 = f22;
     f23.z = f20.z;
-    float f24 = CB0[31].w * f1;
+    float f24 = CB0[31].w * clamp(1.0 - (VARYING4.w * CB0[28].y), 0.0, 1.0);
     float f25 = 0.08900000154972076416015625 + (f13.y * 0.9110000133514404296875);
     float f26 = f13.x * f24;
     vec3 f27 = VARYING7.xyz - (CB0[16].xyz * VARYING3.w);
@@ -77,7 +77,7 @@ void main()
     float f46 = f39 * f39;
     float f47 = (((f40 * f46) - f40) * f40) + 1.0;
     float f48 = 1.0 - f26;
-    vec3 f49 = ((((((vec3(f48) - (f45 * (f24 * f48))) * CB0[15].xyz) * f38) + (CB0[17].xyz * (f48 * clamp(-f36, 0.0, 1.0)))) + min((f31.xyz * (f31.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f32.x)), vec3(CB0[21].w))) * f23.xyz) + (((f45 * (((f46 + (f46 * f46)) / max(((f47 * f47) * ((f41 * 3.0) + 0.5)) * ((f40 * 0.75) + 0.25), 3.0999999580672010779380798339844e-05)) * f38)) * CB0[15].xyz) * 1.0);
+    vec3 f49 = ((((((vec3(f48) - (f45 * (f24 * f48))) * CB0[15].xyz) * f38) + (CB0[17].xyz * (f48 * clamp(-f36, 0.0, 1.0)))) + (min((f31.xyz * (f31.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f32.x)), vec3(CB0[21].w)) * 1.0)) * f23.xyz) + (((f45 * (((f46 + (f46 * f46)) / max(((f47 * f47) * ((f41 * 3.0) + 0.5)) * ((f40 * 0.75) + 0.25), 3.0999999580672010779380798339844e-05)) * f38)) * CB0[15].xyz) * 1.0);
     vec4 f50 = vec4(0.0);
     f50.x = f49.x;
     vec4 f51 = f50;

@@ -3835,6 +3835,24 @@
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">141</string>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">HeightScale</string>
+            <double name="UIMinimum">0.5</double>
+            <double name="UIMaximum">2</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">WidthScale</string>
+            <double name="UIMinimum">0.5</double>
+            <double name="UIMaximum">2</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
 
     <Item class="ReflectionMetadataClass">
@@ -3848,9 +3866,18 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
-        <string name="Name">TextChannel</string>
+        <string name="Name">BubbleChatConfiguration</string>
         <string name="ClassCategory">Text Chat</string>
         <string name="ExplorerOrder">12</string>
+        <string name="FFlag">EnableBubbleChatConfigurationV2</string>
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">TextChannel</string>
+        <string name="ClassCategory">Text Chat</string>
+        <string name="ExplorerOrder">13</string>
         <string name="ExplorerImageIndex">140</string>
         <string name="PreferredParent">TextChatService</string>
       </Properties>
@@ -3870,7 +3897,7 @@
       <Properties>
         <string name="Name">TextChatCommand</string>
         <string name="ClassCategory">Text Chat</string>
-        <string name="ExplorerOrder">13</string>
+        <string name="ExplorerOrder">14</string>
         <string name="ExplorerImageIndex">138</string>
         <string name="PreferredParent">TextChatService</string>
       </Properties>
