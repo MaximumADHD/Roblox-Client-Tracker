@@ -63,17 +63,15 @@ FreeFlowCarousel.validateProps = t.strictInterface({
 
 	-- List of ViewabilityConfig/onViewableItemsChanged pairs. A specific onViewableItemsChanged will be called
 	-- when its corresponding ViewabilityConfig's conditions are met.
-	viewabilityConfigCallbackPairs = if UIBloxConfig.addViewabilityConfigCallbackPairs
-		then t.optional(t.array(t.strictInterface({
-			viewabilityConfig = t.strictInterface({
-				minimumViewTime = t.optional(t.number),
-				viewAreaCoveragePercentThreshold = t.optional(t.number),
-				itemVisiblePercentThreshold = t.optional(t.number),
-				waitForInteraction = t.optional(t.boolean),
-			}),
-			onViewableItemsChanged = isCallable,
-		})))
-		else nil,
+	viewabilityConfigCallbackPairs = t.optional(t.array(t.strictInterface({
+		viewabilityConfig = t.strictInterface({
+			minimumViewTime = t.optional(t.number),
+			viewAreaCoveragePercentThreshold = t.optional(t.number),
+			itemVisiblePercentThreshold = t.optional(t.number),
+			waitForInteraction = t.optional(t.boolean),
+		}),
+		onViewableItemsChanged = isCallable,
+	}))),
 })
 
 FreeFlowCarousel.defaultProps = {
@@ -109,12 +107,8 @@ function FreeFlowCarousel:render()
 			carouselMargin = carouselMargin,
 			layoutOrder = 2,
 			loadNext = self.props.loadNext,
-			maxNumOfItemsVisible = if UIBloxConfig.enableVirtualizedListForCarousel
-				then self.props.maxNumOfItemsVisible
-				else nil,
-			viewabilityConfigCallbackPairs = if UIBloxConfig.addViewabilityConfigCallbackPairs
-				then self.props.viewabilityConfigCallbackPairs
-				else nil,
+			maxNumOfItemsVisible = self.props.maxNumOfItemsVisible,
+			viewabilityConfigCallbackPairs = self.props.viewabilityConfigCallbackPairs,
 		}),
 	})
 end

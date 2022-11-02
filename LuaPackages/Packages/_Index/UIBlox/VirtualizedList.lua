@@ -3,6 +3,10 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["VirtualizedListProxy"]["VirtualizedListProxy"])
+local Package = require(PackageIndex["VirtualizedList"]["VirtualizedList"])
+
+export type ViewabilityConfigCallbackPair = Package.ViewabilityConfigCallbackPair
+export type ViewabilityConfig = Package.ViewabilityConfig
+
 
 return Package

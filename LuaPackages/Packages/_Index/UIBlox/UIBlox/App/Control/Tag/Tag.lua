@@ -82,8 +82,8 @@ local SELECTED_TEXT_STATE_COLOR = {
 }
 
 local BUTTON_STATE_COLOR = {
-	[ControlState.Default] = "SecondaryDefault",
-	[ControlState.Hover] = "SecondaryOnHover",
+	[ControlState.Default] = "BackgroundOnHover",
+	[ControlState.Hover] = "BackgroundOnHover",
 }
 
 local SELECTED_BUTTON_STATE_COLOR = {
@@ -104,10 +104,6 @@ local function Tag(props: Props)
 	local onActivated = props.onActivated
 
 	local selectionCursor = useSelectionCursor(CursorKind.SmallPill)
-
-	-- Use solid background with UICorner when selected, circle stroke image otherwise
-	local buttonImage = if isSelected then nil else Images["component_assets/circle_29_stroke_1"]
-	local sliceCenter = Rect.new(14, 14, 15, 15)
 
 	local textStateColorMap = if isSelected then SELECTED_TEXT_STATE_COLOR else TEXT_STATE_COLOR
 	local buttonStateColorMap = if isSelected then SELECTED_BUTTON_STATE_COLOR else BUTTON_STATE_COLOR
@@ -140,15 +136,13 @@ local function Tag(props: Props)
 	return React.createElement(Interactable, {
 		Size = UDim2.new(0, pillWidth, 0, BUTTON_HEIGHT),
 		BackgroundColor3 = buttonStyle.Color,
-		BackgroundTransparency = if isSelected then buttonStyle.Transparency else 1,
+		BackgroundTransparency = buttonStyle.Transparency,
 		ImageColor3 = buttonStyle.Color,
 		ImageTransparency = buttonStyle.Transparency,
 		AutoButtonColor = false,
 		BorderSizePixel = 0,
 		LayoutOrder = layoutOrder,
-		Image = buttonImage,
 		ScaleType = Enum.ScaleType.Slice,
-		SliceCenter = sliceCenter,
 		isDisabled = isDisabled,
 
 		SelectionImageObject = selectionCursor,
@@ -211,7 +205,7 @@ local function Tag(props: Props)
 				MaxSize = Vector2.new(MAX_BUTTON_WIDTH - (INNER_PADDING * 2), BUTTON_HEIGHT),
 			}),
 		}),
-		UICorner = (isSelected or isLoading) and React.createElement("UICorner", {
+		UICorner = React.createElement("UICorner", {
 			CornerRadius = UDim.new(1, 0),
 		}),
 		UISizeConstraint = React.createElement("UISizeConstraint", {

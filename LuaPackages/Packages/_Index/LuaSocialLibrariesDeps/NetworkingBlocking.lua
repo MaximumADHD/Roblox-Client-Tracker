@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["NetworkingBlocking-96003ad7-1.3.1"]["NetworkingBlocking"])
+local Package = require(PackageIndex["NetworkingBlocking-96003ad7-1.4.2"]["NetworkingBlocking"])
 
 return Package

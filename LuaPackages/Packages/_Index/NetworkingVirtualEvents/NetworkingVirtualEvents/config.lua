@@ -6,6 +6,7 @@ local createDeleteVirtualEvent = require(NetworkingVirtualEvents.requests.create
 local createGetVirtualEvent = require(NetworkingVirtualEvents.requests.createGetVirtualEvent)
 local createGetMyVirtualEvents = require(NetworkingVirtualEvents.requests.createGetMyVirtualEvents)
 local createGetActiveVirtualEvents = require(NetworkingVirtualEvents.requests.createGetActiveVirtualEvents)
+local createGetVirtualEventRsvps = require(NetworkingVirtualEvents.requests.createGetVirtualEventRsvps)
 local types = require(NetworkingVirtualEvents.types)
 
 return function(config: types.Config)
@@ -18,5 +19,6 @@ return function(config: types.Config)
 		GetVirtualEvent = createGetVirtualEvent(roduxNetworking),
 		GetMyVirtualEvents = createGetMyVirtualEvents(roduxNetworking),
 		GetActiveVirtualEvents = createGetActiveVirtualEvents(roduxNetworking),
+		GetVirtualEventRsvps = createGetVirtualEventRsvps(roduxNetworking),
 	}
 end

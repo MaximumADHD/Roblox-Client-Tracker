@@ -73,6 +73,8 @@
     ["IAPExperience.PurchaseError.Text.FailedGrant"] = [[已收到您的付款，但您尚未獲得 Robux。請稍後再試。]],
     ["IAPExperience.PurchaseError.FailedGrantUnknown"] = [[已棄用]],
     ["IAPExperience.PurchaseError.Text.FailedGrantUnknown"] = [[無法購買道具，您的帳號未被收費。請重新嘗試。]],
+    ["IAPExperience.PurchaseError.Text.PremiumPlatformUnavailable"] = [[您的平台不支援購買 Roblox Premium。請使用電腦購買 Premium。]],
+    ["IAPExperience.PurchaseError.AlreadyPremium"] = [[開發者想要您購買 Roblox Premium，不過您已經是 Premium 會員了！]],
     ["IAPExperience.Loading.Text.PurchasingRobux"] = [[正在購買 Robux ……]],
     ["IAPExperience.Loading.Text.PurchasingItem"] = [[正在購買道具……]],
     ["IAPExperience.Loading.WaitingForPurchase"] = [[正在等待購買……]],

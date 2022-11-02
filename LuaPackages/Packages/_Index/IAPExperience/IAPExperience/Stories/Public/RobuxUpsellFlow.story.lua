@@ -26,7 +26,7 @@ function RobuxUpsellFlowContainer:init()
 	self.screenRef = Roact.createRef()
 	self.state = {
 		screenSize = Vector2.new(0, 0),
-		purchaseState = RobuxUpsellFlowState.PurchaseModal,
+		purchaseState = self.props.controls.purchaseModal,
 		errorType = nil,
 		u13ConfirmType = nil,
 	}
@@ -109,8 +109,12 @@ function RobuxUpsellFlowContainer:init()
 		print("Show Security Settings")
 	end
 
+	self.openBuyRobux = function()
+		print("Show Buy Robux")
+	end
+
 	self.flowComplete = function()
-		self.delayChange(RobuxUpsellFlowState.PurchaseModal)
+		self.delayChange(self.props.controls.purchaseModal)
 		self:setState({
 			purchaseState = RobuxUpsellFlowState.None
 		})
@@ -167,6 +171,7 @@ function RobuxUpsellFlowContainer:render()
 				equipItem = self.props.controls.isCatalogShop and self.flowComplete or nil,
 				showTermsOfUse = self.props.controls.tosLink and self.showTermsOfUse or nil,
 				openSecuritySettings = self.props.controls.twoStepLink and self.openSecuritySettings or nil,
+				openBuyRobux = self.openBuyRobux,
 				flowComplete = self.flowComplete,
 
 				onAnalyticEvent = function(name: string, data: table)
@@ -181,6 +186,10 @@ end
 return {
 	controls = {
 		controller = true,
+		purchaseModal = {
+			RobuxUpsellFlowState.PurchaseModal,
+			RobuxUpsellFlowState.GenericPurchaseModal,
+		},
 		u13 = {
 			U13ConfirmType.U13PaymentModal,
 			U13ConfirmType.U13MonthlyThreshold1Modal,

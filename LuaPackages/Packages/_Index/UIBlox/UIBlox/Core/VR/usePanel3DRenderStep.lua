@@ -1,9 +1,8 @@
 --!strict
-local VRService = game:GetService("VRService")
-
 local VRRoot = script.Parent
 local CoreRoot = VRRoot.Parent
 local UIBlox = CoreRoot.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Packages = UIBlox.Parent
 local React = require(Packages.React)
@@ -12,10 +11,24 @@ local Constants = require(VRRoot.Constants)
 
 local LERP_SPEED = 7.2
 
+local function GetUserCFrameWorldSpace(userCFrameType, VRService)
+	local userCFrame: CFrame = VRService:GetUserCFrame(userCFrameType)
+	local currentCamera = workspace.CurrentCamera :: Camera
+
+	if not currentCamera.HeadLocked then
+		local headCFrame = VRService:GetUserCFrame(Enum.UserCFrame.Head)
+		userCFrame = headCFrame:Inverse() * userCFrame
+	end
+
+	return currentCamera.CFrame * (CFrame.new(userCFrame.p * currentCamera.HeadScale) * (userCFrame - userCFrame.p))
+end
+
 local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Constants.Ref<Part | nil>)
 	local lastOffset: Constants.Ref<CFrame?> = React.useRef(props.offset)
 	local lastLookCFrame: Constants.Ref<CFrame?> = React.useRef(nil)
 	local followView: Constants.Ref<boolean?> = React.useRef(false)
+
+	local VRService = props.vrService
 
 	React.useEffect(function()
 		lastOffset.current = props.offset
@@ -33,7 +46,12 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 			-- positions at the bottom of the screen and follow's the user's sight direction
 			userNonPrimaryHand = VRService:GetUserCFrame(Enum.UserCFrame.Head)
 
-			local userHeadCameraCF = cameraCF * userNonPrimaryHand
+			local userHeadCameraCF
+			if UIBloxConfig.vrApplyHeadScale then
+				userHeadCameraCF = GetUserCFrameWorldSpace(Enum.UserCFrame.Head, VRService)
+			else
+				userHeadCameraCF = cameraCF * userNonPrimaryHand
+			end
 
 			if lastLookCFrame.current == nil then
 				lastLookCFrame.current = userHeadCameraCF
@@ -51,7 +69,11 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 				lastLookCFrame.current = lastLookCFrame.current:Lerp(userHeadCameraCF, LERP_SPEED * deltaSeconds)
 			end
 
-			finalPosition = userHeadCameraCF.Position + lastLookCFrame.current.LookVector * (cameraHeadScale + 1)
+			if UIBloxConfig.vrApplyHeadScale then
+				finalPosition = userHeadCameraCF.Position + lastLookCFrame.current.LookVector * cameraHeadScale * 2
+			else
+				finalPosition = userHeadCameraCF.Position + lastLookCFrame.current.LookVector * (cameraHeadScale + 1)
+			end
 			finalPosition = Vector3.new(finalPosition.X, userHeadCameraCF.Position.Y, finalPosition.Z)
 		elseif props.anchoring == Constants.AnchoringTypes.Wrist then
 			-- Always try to use non-primary hand for anchoring the menu, defaults to LeftHand when using head tracking.
@@ -83,7 +105,13 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 		local panelCFrame = nil
 		if lastOffset.current ~= nil then
 			if props.faceCamera then
-				local vrCameraCF = cameraCF * VRService:GetUserCFrame(Enum.UserCFrame.Head)
+				local vrCameraCF
+				if UIBloxConfig.vrApplyHeadScale then
+					vrCameraCF = GetUserCFrameWorldSpace(Enum.UserCFrame.Head, VRService)
+				else
+					vrCameraCF = cameraCF * VRService:GetUserCFrame(Enum.UserCFrame.Head)
+				end
+
 				panelCFrame = CFrame.new(
 					finalPosition + lastOffset.current.Position * cameraHeadScale,
 					vrCameraCF.Position
@@ -97,7 +125,14 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 
 		if basePart.current ~= nil then
 			basePart.current.CFrame = panelCFrame
-			basePart.current.Size = Vector3.new(props.partSize.X, props.partSize.Y, 0) * cameraHeadScale
+			if UIBloxConfig.vrApplyHeadScale then
+				-- The smallest part size is 0.05
+				-- Don't go smaller than this otherwise there will be a discrepancy between
+				-- the physical and visual positions, and the laser pointer cursor will look off
+				basePart.current.Size = Vector3.new(props.partSize.X * cameraHeadScale, props.partSize.Y * cameraHeadScale, 0.05)
+			else
+				basePart.current.Size = Vector3.new(props.partSize.X, props.partSize.Y, 0) * cameraHeadScale
+			end
 		end
 	end, { props.anchoring, props.faceCamera, props.lerp, props.offset, props.partSize } :: { any })
 

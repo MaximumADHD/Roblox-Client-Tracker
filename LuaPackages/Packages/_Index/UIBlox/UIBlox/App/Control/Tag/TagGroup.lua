@@ -25,6 +25,8 @@ local InputButton = require(UIBlox.Core.InputButton.InputButton)
 local isCallable = require(UIBlox.Utility.isCallable)
 local useInitializedValue = require(UIBlox.Utility.useInitializedValue)
 local useIsGamepad = require(UIBlox.Utility.useIsGamepad)
+local ScrollingListWithArrowsAndGradient = require(Control.HorizontalNav.ScrollingListWithArrowsAndGradient)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 -- Signature for callback invoked when tag selection changes
 export type OnSelectionChanged = (selectedTags: { string }) -> ()
@@ -45,47 +47,23 @@ export type Props = {
 
 local TAG_GROUP_HEIGHT = 52
 
-local GRADIENT_SIZE = 50
-local BUTTON_PADDING = 12
-
-local GRADIENT_THRESHOLD = 20
-
-local function renderGradient(theme, rotation)
-	return React.createElement("UIGradient", {
-		Rotation = rotation,
-		Color = ColorSequence.new(theme.BackgroundDefault.Color),
-		Transparency = NumberSequence.new({
-			NumberSequenceKeypoint.new(0, 0),
-			NumberSequenceKeypoint.new(0.666, 1),
-			NumberSequenceKeypoint.new(1, 1),
-		}),
-	})
-end
+local BUTTON_PADDING = 8
 
 local function useRefCache()
 	return useInitializedValue(RoactGamepad.createRefCache)
 end
 
-local function shouldShowGradientForScrollingFrame(scrollingFrame: ScrollingFrame)
-	local absoluteWidth = scrollingFrame.AbsoluteSize.X
-	local canvasWidth = scrollingFrame.CanvasSize.X.Offset
-	local canvasPositionX = scrollingFrame.CanvasPosition.X
-
-	local showLeft = false
-	local showRight = false
-	if absoluteWidth < canvasWidth then
-		showLeft = canvasPositionX > GRADIENT_THRESHOLD
-		showRight = canvasPositionX + absoluteWidth < canvasWidth - GRADIENT_THRESHOLD
-	end
-
-	return showLeft, showRight
-end
-
 local function TagGroup(props: Props)
 	local isGamepad = useIsGamepad()
 
-	local gradientFrameRef = React.useRef(nil)
 	local scrollingFrameRef = React.useRef(nil)
+
+	local function scrollToStart()
+		local scrollingFrame = scrollingFrameRef.current
+		if scrollingFrame then
+			scrollingFrame:ScrollToTop()
+		end
+	end
 
 	local selectedTags, setSelectedTags = React.useState({})
 
@@ -99,15 +77,6 @@ local function TagGroup(props: Props)
 	end)
 
 	local tagRefs = useRefCache()
-
-	local showLeftGradientBinding, updateShowLeftGradient = React.useBinding(false)
-	local showRightGradientBinding, updateShowRightGradient = React.useBinding(false)
-
-	local checkShowGradient = React.useCallback(function(rbx)
-		local showLeft, showRight = shouldShowGradientForScrollingFrame(rbx)
-		updateShowLeftGradient(showLeft)
-		updateShowRightGradient(showRight)
-	end)
 
 	local clearTags = React.useCallback(function()
 		setSelectedTags({})
@@ -148,9 +117,15 @@ local function TagGroup(props: Props)
 	for i, tag in sortedTags do
 		local function onActivated()
 			setSelectedTags(function(oldTags)
-				local newTags = if Cryo.List.find(oldTags, tag)
+				local wasSelected = Cryo.List.find(oldTags, tag) ~= nil
+
+				local newTags = if wasSelected
 					then Cryo.List.removeValue(oldTags, tag)
 					else Cryo.List.join(oldTags, { tag })
+
+				if not wasSelected then
+					scrollToStart()
+				end
 
 				if props.onSelectionChanged then
 					props.onSelectionChanged(newTags)
@@ -180,7 +155,9 @@ local function TagGroup(props: Props)
 
 	if allTagsLoading and isGamepad then
 		-- If using gamepad navigation, create a dummy tag to hold focus
-		-- for the brief time when no active tags are visible
+		-- for the brief time when no active tags are visible.
+		-- Otherwise, this component may suddenly have no focusable children,
+		-- causing gamepad focus to be lost completely.
 		children[1] = React.createElement(Focusable[Tag], {
 			layoutOrder = 2,
 			key = "1",
@@ -189,66 +166,86 @@ local function TagGroup(props: Props)
 		})
 	end
 
-	return React.createElement(Focusable.Frame, {
-		Size = UDim2.new(1, 0, 0, TAG_GROUP_HEIGHT),
-		BackgroundColor3 = theme.BackgroundDefault.Color,
-		BackgroundTransparency = theme.BackgroundDefault.Transparency,
-		BorderSizePixel = 0,
-		LayoutOrder = props.layoutOrder,
-		ref = props.forwardRef,
-		NextSelectionUp = props.NextSelectionUp,
-		NextSelectionDown = props.NextSelectionDown,
-		defaultChild = tagRefs[1],
-	}, {
-		Left = React.createElement("Frame", {
-			AnchorPoint = Vector2.new(0, 0),
-			Position = UDim2.new(0, 0, 0, 0),
-			Size = UDim2.new(0, GRADIENT_SIZE, 1, 0),
-			BackgroundColor3 = Color3.new(1, 1, 1),
+	if UIBloxConfig.arrowsOnTagGroup then
+		local function getScrollingListChildren()
+			return {
+				SubNavFrame = React.createElement(FitFrameHorizontal, {
+					height = UDim.new(1, 0),
+					contentPadding = UDim.new(0, BUTTON_PADDING),
+					margin = FitFrame.Rect.rectangle(15, 0),
+
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					FillDirection = Enum.FillDirection.Horizontal,
+					BackgroundTransparency = 1,
+					[React.Change.AbsoluteSize] = onNavFrameSizeChanged,
+				}, children),
+			}
+		end
+
+		-- Need an actual array so buttonRefs can be iterated over (won't work with ref cache)
+		local buttonRefs = {}
+		for i = 1, #sortedTags do
+			buttonRefs[i] = tagRefs[i]
+		end
+
+		return React.createElement(Focusable.Frame, {
+			Size = UDim2.new(1, 0, 0, TAG_GROUP_HEIGHT),
+			BackgroundColor3 = theme.BackgroundDefault.Color,
+			BackgroundTransparency = theme.BackgroundDefault.Transparency,
 			BorderSizePixel = 0,
-			ZIndex = 2,
-			Visible = showLeftGradientBinding,
+			LayoutOrder = props.layoutOrder,
+			ref = props.forwardRef,
+			NextSelectionUp = props.NextSelectionUp,
+			NextSelectionDown = props.NextSelectionDown,
+			defaultChild = tagRefs[1],
 		}, {
-			Gradient = renderGradient(theme, 0),
-		}),
-		Right = React.createElement("Frame", {
-			AnchorPoint = Vector2.new(1, 0),
-			Position = UDim2.new(1, 0, 0, 0),
-			Size = UDim2.new(0, GRADIENT_SIZE, 1, 0),
-			BackgroundColor3 = Color3.new(1, 1, 1),
+			ScrollingList = React.createElement(ScrollingListWithArrowsAndGradient, {
+				-- Purposely causing ScrollingListWithArrowsAndGradient to rerender when we are rerendered.
+				getScollingListContent = getScrollingListChildren,
+				listHeight = TAG_GROUP_HEIGHT,
+				scrollingFrameRef = scrollingFrameRef,
+				buttonRefs = buttonRefs,
+				buttonPadding = BUTTON_PADDING,
+				padOutsideEdges = true,
+				hideGradient = true,
+			}),
+		})
+	else
+		return React.createElement(Focusable.Frame, {
+			Size = UDim2.new(1, 0, 0, TAG_GROUP_HEIGHT),
+			BackgroundColor3 = theme.BackgroundDefault.Color,
+			BackgroundTransparency = theme.BackgroundDefault.Transparency,
 			BorderSizePixel = 0,
-			ZIndex = 2,
-			Visible = showRightGradientBinding,
+			LayoutOrder = props.layoutOrder,
+			ref = props.forwardRef,
+			NextSelectionUp = props.NextSelectionUp,
+			NextSelectionDown = props.NextSelectionDown,
+			defaultChild = tagRefs[1],
 		}, {
-			Gradient = renderGradient(theme, 180),
-		}),
-		ScrollingList = React.createElement("ScrollingFrame", {
-			Size = UDim2.fromScale(1, 1),
-			ScrollBarThickness = 0,
-			BackgroundTransparency = 1,
-			ZIndex = 1,
-
-			ElasticBehavior = Enum.ElasticBehavior.Always,
-			ScrollingDirection = Enum.ScrollingDirection.X,
-
-			[React.Change.AbsoluteSize] = checkShowGradient,
-			[React.Change.CanvasSize] = checkShowGradient,
-			[React.Change.CanvasPosition] = checkShowGradient,
-
-			ref = scrollingFrameRef,
-		}, {
-			SubNavFrame = React.createElement(FitFrameHorizontal, {
-				height = UDim.new(1, 0),
-				contentPadding = UDim.new(0, BUTTON_PADDING),
-				margin = FitFrame.Rect.rectangle(15, 0),
-
-				VerticalAlignment = Enum.VerticalAlignment.Center,
-				FillDirection = Enum.FillDirection.Horizontal,
+			ScrollingList = React.createElement("ScrollingFrame", {
+				Size = UDim2.fromScale(1, 1),
+				ScrollBarThickness = 0,
 				BackgroundTransparency = 1,
-				[React.Change.AbsoluteSize] = onNavFrameSizeChanged,
-			}, children),
-		}),
-	})
+				ZIndex = 1,
+
+				ElasticBehavior = Enum.ElasticBehavior.Always,
+				ScrollingDirection = Enum.ScrollingDirection.X,
+
+				ref = scrollingFrameRef,
+			}, {
+				SubNavFrame = React.createElement(FitFrameHorizontal, {
+					height = UDim.new(1, 0),
+					contentPadding = UDim.new(0, BUTTON_PADDING),
+					margin = FitFrame.Rect.rectangle(15, 0),
+
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					FillDirection = Enum.FillDirection.Horizontal,
+					BackgroundTransparency = 1,
+					[React.Change.AbsoluteSize] = onNavFrameSizeChanged,
+				}, children),
+			}),
+		})
+	end
 end
 
 return React.forwardRef(function(props, ref)

@@ -331,6 +331,8 @@ local function initializeLibrary(configs)
 			}),
 			Tag = require(script.App.Control.Tag.Tag),
 			TagGroup = require(script.App.Control.Tag.TagGroup),
+			ScrollingListWithArrowsAndGradient =
+				require(script.App.Control.HorizontalNav.ScrollingListWithArrowsAndGradient),
 		}),
 
 		Navigation = strict({

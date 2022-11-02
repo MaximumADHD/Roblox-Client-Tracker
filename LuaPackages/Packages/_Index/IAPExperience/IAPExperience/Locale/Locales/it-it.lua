@@ -73,6 +73,8 @@
     ["IAPExperience.PurchaseError.Text.FailedGrant"] = [[Il tuo pagamento è stato ricevuto, ma non hai ancora ricevuto i tuoi Robux. Per favore riprova più tardi.]],
     ["IAPExperience.PurchaseError.FailedGrantUnknown"] = [[DEPRECATED]],
     ["IAPExperience.PurchaseError.Text.FailedGrantUnknown"] = [[L'acquisto dell'oggetto non ha avuto successo e iRobux non sono stati detratti dal tuo account. Per favore riprova.]],
+    ["IAPExperience.PurchaseError.Text.PremiumPlatformUnavailable"] = [[L'acquisto di Roblox Premium non è supportato sulla tua piattaforma. Utilizza il tuo desktop per acquistare Premium.]],
+    ["IAPExperience.PurchaseError.AlreadyPremium"] = [[Sembra che lo sviluppatore stia cercando di chiederti di acquistare Roblox Premium, ma sei già un membro Premium!]],
     ["IAPExperience.Loading.Text.PurchasingRobux"] = [[Acquistando Robux...]],
     ["IAPExperience.Loading.Text.PurchasingItem"] = [[Acquistando l'articolo...]],
     ["IAPExperience.Loading.WaitingForPurchase"] = [[In attesa dell'acquisto...]],

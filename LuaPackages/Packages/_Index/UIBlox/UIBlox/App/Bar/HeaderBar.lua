@@ -18,6 +18,8 @@ local ThreeSectionBar = require(UIBlox.Core.Bar.ThreeSectionBar)
 
 local HeaderBar = Roact.PureComponent:extend("HeaderBar")
 
+local PADDING_AROUND_DIVIDER = 12
+
 HeaderBar.renderLeft = {
 	backButton = function(onActivated)
 		return function(_)
@@ -25,6 +27,16 @@ HeaderBar.renderLeft = {
 				size = UDim2.fromOffset(0, 0),
 				iconSize = IconSize.Medium,
 				icon = Images["icons/navigation/pushBack"],
+				onActivated = onActivated,
+			})
+		end
+	end,
+	backButtonSecondary = function(onActivated)
+		return function(_)
+			return Roact.createElement(IconButton, {
+				size = UDim2.fromOffset(0, 0),
+				iconSize = IconSize.Medium,
+				icon = Images["icons/navigation/pushBack_small"],
 				onActivated = onActivated,
 			})
 		end
@@ -55,12 +67,16 @@ HeaderBar.validateProps = t.strictInterface({
 
 	-- An optional cache key, used when wrapping HeaderBar with React.memo
 	memoKey = t.optional(t.number),
+
+	-- An optional boolean that, when true, applies secondary header bar styling (smaller font, vertical divider)
+	isSecondary = t.optional(t.boolean),
 })
 
 -- default values are taken from Abstract
 HeaderBar.defaultProps = {
 	barHeight = 48,
 	title = "",
+	isSecondary = false,
 }
 
 function HeaderBar:init()
@@ -109,19 +125,54 @@ function HeaderBar:render()
 		end
 
 		if not renderCenter and not isRoot then
-			local centerTextFontStyle = font.Header1
+			local centerTextFontStyle = if self.props.isSecondary then font.Header2 else font.Header1
 			local centerTextSize = centerTextFontStyle.RelativeSize * font.BaseSize
-			renderCenter = function()
-				return Roact.createElement(GenericTextLabel, {
-					ClipsDescendants = true,
-					Size = UDim2.new(1, 0, 0, centerTextSize),
-					Text = self.props.title,
-					TextTruncate = Enum.TextTruncate.AtEnd,
-					TextWrapped = false,
-					fontStyle = centerTextFontStyle,
-					colorStyle = theme.TextEmphasis,
-				})
+
+			if not self.props.isSecondary then
+				renderCenter = function()
+					return Roact.createElement(GenericTextLabel, {
+						ClipsDescendants = true,
+						Size = UDim2.new(1, 0, 0, centerTextSize),
+						Text = self.props.title,
+						TextTruncate = Enum.TextTruncate.AtEnd,
+						TextWrapped = false,
+						fontStyle = centerTextFontStyle,
+						colorStyle = theme.TextEmphasis,
+					})
+				end
+			else
+				renderCenter = function()
+					return Roact.createElement("Frame", {
+						Size = UDim2.new(1, -PADDING_AROUND_DIVIDER, 0, centerTextSize),
+						BackgroundTransparency = 1,
+						Transparency = 1,
+					}, {
+						layout = Roact.createElement("UIListLayout", {
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							FillDirection = Enum.FillDirection.Horizontal,
+							Padding = UDim.new(0, PADDING_AROUND_DIVIDER),
+						}),
+						Divider = Roact.createElement("Frame", {
+							BackgroundColor3 = theme.Divider.Color,
+							BackgroundTransparency = theme.Divider.Transparency,
+							BorderSizePixel = 0,
+							Size = UDim2.new(0, 1, 1, 0),
+							LayoutOrder = 1,
+						}),
+						TextLabel = Roact.createElement(GenericTextLabel, {
+							ClipsDescendants = true,
+							Text = self.props.title,
+							TextTruncate = Enum.TextTruncate.AtEnd,
+							TextWrapped = false,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							fontStyle = centerTextFontStyle,
+							colorStyle = theme.TextEmphasis,
+							LayoutOrder = 2,
+						}),
+					})
+				end
 			end
+
 			estimatedCenterWidth = GetTextSize(
 				self.props.title,
 				centerTextSize,
@@ -153,7 +204,7 @@ function HeaderBar:render()
 				renderLeft = renderLeft,
 				renderCenter = renderCenter,
 				estimatedCenterWidth = estimatedCenterWidth,
-				contentPaddingRight = UDim.new(0, isRoot and 0 or 12),
+				contentPaddingRight = UDim.new(0, isRoot and 0 or PADDING_AROUND_DIVIDER),
 				renderRight = renderRight,
 			}),
 		})

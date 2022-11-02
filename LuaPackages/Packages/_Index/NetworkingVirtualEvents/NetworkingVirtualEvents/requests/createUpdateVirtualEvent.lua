@@ -9,17 +9,22 @@ return function(roduxNetworking)
 		function(requestBuilder, eventId: number, payload: types.UpdateVirtualEventRequest)
 			local eventTime = payload.eventTime
 
-			return requestBuilder(constants.API_URL):path("v1"):path("virtual-events"):id(eventId):body({
-				title = payload.title,
-				description = payload.description,
-				eventTime = if eventTime
-					then {
-						startTime = eventTime.startTime:ToIsoDate(),
-						endTime = eventTime.endTime:ToIsoDate(),
-					}
-					else nil,
-				universeId = payload.universeId,
-			})
+			return requestBuilder(constants.API_URL)
+				:path("virtual-events")
+				:path("v1")
+				:path("virtual-events")
+				:id(eventId)
+				:body({
+					title = payload.title,
+					description = payload.description,
+					eventTime = if eventTime
+						then {
+							startTime = eventTime.startTime:ToIsoDate(),
+							endTime = eventTime.endTime:ToIsoDate(),
+						}
+						else nil,
+					universeId = payload.universeId,
+				})
 		end
 	)
 

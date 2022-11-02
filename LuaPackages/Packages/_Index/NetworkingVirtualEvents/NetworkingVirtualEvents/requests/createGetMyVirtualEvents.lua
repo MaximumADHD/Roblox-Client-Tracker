@@ -4,7 +4,11 @@ local constants = require(NetworkingVirtualEvents.constants)
 
 return function(roduxNetworking)
 	local GetVirtualEvent = roduxNetworking.GET(script, function(requestBuilder)
-		return requestBuilder(constants.API_URL):path("v1"):path("virtual-events"):path("my-events")
+		return requestBuilder(constants.API_URL)
+			:path("virtual-events")
+			:path("v1")
+			:path("virtual-events")
+			:path("my-events")
 	end)
 
 	return GetVirtualEvent

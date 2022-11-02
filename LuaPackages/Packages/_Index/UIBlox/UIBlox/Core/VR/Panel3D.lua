@@ -12,6 +12,7 @@ local React = require(Packages.React)
 local Roact = require(Packages.Roact)
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local DEFAULT_VR_PANEL_SIZE_X = 10
 local DEFAULT_VR_PANEL_SIZE_Y = 10
@@ -28,6 +29,7 @@ local defaultProps: Props = {
 	faceCamera = false,
 	panelName = "PanelBase",
 	movementUpdateEvent = RunService.RenderStepped,
+	vrService = game:GetService("VRService"),
 	alwaysOnTop = false,
 	parent = workspace,
 }
@@ -53,7 +55,8 @@ local function Panel3D(providedProps: Props)
 				ref = basePart,
 				Anchored = true,
 				CFrame = props.offset * CFrame.Angles(math.rad(props.tilt), 0, 0),
-				Size = Vector3.new(props.partSize.X, props.partSize.Y, 0),
+				Size = Vector3.new(props.partSize.X, props.partSize.Y,
+					if UIBloxConfig.vrApplyHeadScale then 0.05 else 0),
 				Transparency = 1,
 				Color = Color3.new(0, 0, 0),
 				CanCollide = false,

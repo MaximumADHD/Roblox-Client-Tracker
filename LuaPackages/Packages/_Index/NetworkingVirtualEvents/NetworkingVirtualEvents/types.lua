@@ -19,6 +19,8 @@ export type EventTimeUtc = {
 export type Host = {
 	hostType: HostType,
 	hostId: number,
+	isPremium: boolean?,
+	hasVerifiedBadge: boolean?,
 }
 
 export type VirtualEventResponse = {
@@ -27,11 +29,15 @@ export type VirtualEventResponse = {
 	description: string,
 	eventTime: EventTimeUtc,
 	host: Host,
-	universeId: number,
 	eventStatus: EventStatus,
 	createdUtc: string,
 	updatedUtc: string,
 	userRsvpStatus: RsvpStatus,
+	universeId: number,
+	universe: {
+		universeId: number,
+		isPrivate: boolean,
+	},
 }
 
 type PaginatedResponse<T> = {

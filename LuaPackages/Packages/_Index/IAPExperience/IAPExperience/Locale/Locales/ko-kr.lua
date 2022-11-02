@@ -73,6 +73,8 @@
     ["IAPExperience.PurchaseError.Text.FailedGrant"] = [[결제가 진행되었지만 아직 Robux를 받지 못하셨습니다. 나중에 다시 시도하세요.]],
     ["IAPExperience.PurchaseError.FailedGrantUnknown"] = [[사용되지 않음]],
     ["IAPExperience.PurchaseError.Text.FailedGrantUnknown"] = [[아이템을 구매하지 못하여 계정에서 Robux가 차감되지 않았습니다. 다시 시도하세요.]],
+    ["IAPExperience.PurchaseError.Text.PremiumPlatformUnavailable"] = [[현재 플랫폼에서는 Roblox Premium 구매가 지원되지 않습니다. Premium을 구매하려면 데스크톱을 사용하세요.]],
+    ["IAPExperience.PurchaseError.AlreadyPremium"] = [[개발자가 Roblox Premium 구매를 요청하려는 것 같지만, 회원님은 이미 Premium에 가입하셨네요!]],
     ["IAPExperience.Loading.Text.PurchasingRobux"] = [[Robux 구매 중...]],
     ["IAPExperience.Loading.Text.PurchasingItem"] = [[아이템 구매 중...]],
     ["IAPExperience.Loading.WaitingForPurchase"] = [[구매를 기다리는 중...]],

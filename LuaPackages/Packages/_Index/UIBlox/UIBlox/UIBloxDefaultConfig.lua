@@ -91,9 +91,6 @@ return {
 	-- otherwise it overflows the icon and the component boundaries if it's too long
 	fixDropdownMenuCellTextSize = false,
 
-	-- use VirtualizedList.BidirectionalFlatList in HorizontalCarousel component instead of InfiniteScroller
-	enableVirtualizedListForCarousel = false,
-
 	-- if true, devMode features (like props validation) will be enabled
 	devMode = false,
 
@@ -112,18 +109,14 @@ return {
 	-- support bottom aligns items in SystemBar
 	systemBarBottomAlignedItems = false,
 
-	-- Enable bug fix for layout props in HorizontalCarousel
-	fixHorizontalCarouselLayout = false,
-
-	-- Pass prop viewabilityConfigCallbackPairs of VirtualizedList
-	addViewabilityConfigCallbackPairs = false,
-
 	-- Enable fix for the image set resolution scale
 	enableImageSetResolutionScaleFix = false,
 
 	-- Enable Button to take buttonType prop that is used in ActionBar to manually specify a button style
 	enableActionBarButtonTypeOverride = false,
 
+	-- Register gamepad buttons for VR laser pointer input
+	moveBindActivate = false,
 	-- Enable support for the new Collectible/Limited 2.0 item restriction type
 	enableCollectibleItemRestriction = false,
 
@@ -135,4 +128,13 @@ return {
 	-- support updating DropdownMenu selectedValue from placeholder when the new cellDatas does not
 	-- contain the current selecteValue
 	enableDropdownMenuUpdateSelectedValueFromPlaceholder = false,
+
+	-- Enable auto hiding of VR Pointer Overlay when VR sessions is not visible
+	enableAutoHidingPointerOverlay = false,
+
+	-- Should we apply a fix that allows Camera.HeadScale to affect VR tracking positions
+	vrApplyHeadScale = false,
+
+	-- True if left/right navigation arrows should be shown for TagGroup (mouse and keyboard only)
+	arrowsOnTagGroup = false,
 }

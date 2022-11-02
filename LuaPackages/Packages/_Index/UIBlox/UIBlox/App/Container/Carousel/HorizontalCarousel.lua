@@ -81,23 +81,21 @@ HorizontalCarousel.validateProps = t.strictInterface({
 
 	-- List of ViewabilityConfig/onViewableItemsChanged pairs. A specific onViewableItemsChanged will be called
 	-- when its corresponding ViewabilityConfig's conditions are met.
-	viewabilityConfigCallbackPairs = if UIBloxConfig.addViewabilityConfigCallbackPairs
-		then t.optional(t.array(t.strictInterface({
-			viewabilityConfig = t.strictInterface({
-				minimumViewTime = t.optional(t.number),
-				viewAreaCoveragePercentThreshold = t.optional(t.number),
-				itemVisiblePercentThreshold = t.optional(t.number),
-				waitForInteraction = t.optional(t.boolean),
-			}),
-			onViewableItemsChanged = isCallable,
-		})))
-		else nil,
+	viewabilityConfigCallbackPairs = t.optional(t.array(t.strictInterface({
+		viewabilityConfig = t.strictInterface({
+			minimumViewTime = t.optional(t.number),
+			viewAreaCoveragePercentThreshold = t.optional(t.number),
+			itemVisiblePercentThreshold = t.optional(t.number),
+			waitForInteraction = t.optional(t.boolean),
+		}),
+		onViewableItemsChanged = isCallable,
+	}))),
 })
 
 HorizontalCarousel.defaultProps = {
 	itemSize = Vector2.new(1, 1),
 	itemPadding = DEFAULT_ITEM_PADDING,
-	maxNumOfItemsVisible = if UIBloxConfig.enableVirtualizedListForCarousel then 0 else nil,
+	maxNumOfItemsVisible = 0,
 }
 
 type Props = {
@@ -154,16 +152,10 @@ local function updateScrollState(
 	if targetIndex <= 1 then
 		-- If scrolling past the first element, then reset the target index to the first item
 		targetIndex = 1
-		if not UIBloxConfig.enableVirtualizedListForCarousel then
-			scrollerFocusLock = (scrollerFocusLock or 0) + 1
-		end
 		showLeftButton = false
 	elseif targetIndex > numOfItems then
 		-- If scrolling past the last element, then reset the target index to the last item
 		targetIndex = numOfItems
-		if not UIBloxConfig.enableVirtualizedListForCarousel then
-			scrollerFocusLock = (scrollerFocusLock or 0) + 1
-		end
 		showRightButton = false
 	end
 
@@ -174,7 +166,6 @@ local function updateScrollState(
 	end
 
 	return {
-		scrollerFocusLock = if UIBloxConfig.enableVirtualizedListForCarousel then nil else scrollerFocusLock,
 		index = targetIndex,
 		showLeftButton = showLeftButton,
 		showRightButton = showRightButton,
@@ -192,48 +183,32 @@ end
 function HorizontalCarousel.getDerivedStateFromProps(nextProps: Props, lastState: State): State?
 	local numOfItems = #nextProps.itemList
 	if lastState.numOfItems ~= numOfItems then
-		return updateScrollState(
-			lastState.index,
-			lastState.maxNumOfItemsVisible,
-			numOfItems,
-			if UIBloxConfig.enableVirtualizedListForCarousel then nil else lastState.scrollerFocusLock
-		)
+		return updateScrollState(lastState.index, lastState.maxNumOfItemsVisible, numOfItems)
 	end
 	return nil
 end
 
 function HorizontalCarousel:init()
 	self.frameRef = Roact.createRef()
+	self.listRef = Roact.createRef()
 
-	if UIBloxConfig.enableVirtualizedListForCarousel then
-		self.listRef = Roact.createRef()
-	end
-
-	local carouselMetaData: MetaData = UIBloxConfig.enableVirtualizedListForCarousel and {
+	local carouselMetaData: MetaData = {
 		anchorIndex = 1,
-	} or {}
+	}
 
 	self:setState({
-		scrollerFocusLock = if UIBloxConfig.enableVirtualizedListForCarousel then nil else 0,
 		index = 1,
 		hovering = false,
 		showLeftButton = false,
 		showRightButton = false,
-		maxNumOfItemsVisible = if UIBloxConfig.enableVirtualizedListForCarousel
-			then self.props.maxNumOfItemsVisible
-			else 0,
+		maxNumOfItemsVisible = self.props.maxNumOfItemsVisible,
 		numOfItems = 0,
 	})
 
 	self.onMouseEnter = function(_gui, input)
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			local anchorIndex = carouselMetaData.anchorIndex
-			local newState = updateScrollState(
-				anchorIndex,
-				self.state.maxNumOfItemsVisible,
-				self.state.numOfItems,
-				if UIBloxConfig.enableVirtualizedListForCarousel then nil else self.state.scrollerFocusLock
-			)
+			local newState = updateScrollState(anchorIndex, self.state.maxNumOfItemsVisible, self.state.numOfItems)
 			newState.hovering = true
 			self:setState(newState)
 		end
@@ -256,19 +231,15 @@ function HorizontalCarousel:init()
 	end
 
 	self.onScrollUpdate = function(data)
-		if UIBloxConfig.enableVirtualizedListForCarousel then
-			local elementWidth = self.props.itemSize.X + self.props.itemPadding
-			local canvasHorizontalPosition = data.CanvasPosition.X > 0 and data.CanvasPosition.X or 0
-			local anchorIndex = math.floor(canvasHorizontalPosition / elementWidth) + 1
+		local elementWidth = self.props.itemSize.X + self.props.itemPadding
+		local canvasHorizontalPosition = data.CanvasPosition.X > 0 and data.CanvasPosition.X or 0
+		local anchorIndex = math.floor(canvasHorizontalPosition / elementWidth) + 1
 
-			carouselMetaData = {
-				anchorIndex = anchorIndex,
-				-- TODO: VirtualizedList doesn't support animation currently
-				animationActive = false,
-			}
-		else
-			carouselMetaData = data
-		end
+		carouselMetaData = {
+			anchorIndex = anchorIndex,
+			-- TODO: VirtualizedList doesn't support animation currently
+			animationActive = false,
+		}
 	end
 
 	self.scrollLeft = function()
@@ -276,23 +247,14 @@ function HorizontalCarousel:init()
 			return
 		end
 		local newIndex = carouselMetaData.anchorIndex - self.state.maxNumOfItemsVisible
-		self:setState(
-			updateScrollState(
-				newIndex,
-				self.state.maxNumOfItemsVisible,
-				self.state.numOfItems,
-				if UIBloxConfig.enableVirtualizedListForCarousel then nil else self.state.scrollerFocusLock + 1
-			)
-		)
+		self:setState(updateScrollState(newIndex, self.state.maxNumOfItemsVisible, self.state.numOfItems))
 
-		if UIBloxConfig.enableVirtualizedListForCarousel then
-			if self.listRef then
-				self.listRef.current:scrollToIndex({
-					animated = true,
-					index = newIndex > 1 and newIndex or 1,
-					viewOffset = self.props.itemSize.X + self.props.itemPadding,
-				})
-			end
+		if self.listRef then
+			self.listRef.current:scrollToIndex({
+				animated = true,
+				index = newIndex > 1 and newIndex or 1,
+				viewOffset = self.props.itemSize.X + self.props.itemPadding,
+			})
 		end
 	end
 
@@ -301,23 +263,14 @@ function HorizontalCarousel:init()
 			return
 		end
 		local newIndex = carouselMetaData.anchorIndex + self.state.maxNumOfItemsVisible
-		self:setState(
-			updateScrollState(
-				newIndex,
-				self.state.maxNumOfItemsVisible,
-				self.state.numOfItems,
-				if UIBloxConfig.enableVirtualizedListForCarousel then nil else self.state.scrollerFocusLock + 1
-			)
-		)
+		self:setState(updateScrollState(newIndex, self.state.maxNumOfItemsVisible, self.state.numOfItems))
 
-		if UIBloxConfig.enableVirtualizedListForCarousel then
-			if self.listRef then
-				self.listRef.current:scrollToIndex({
-					animated = true,
-					index = newIndex,
-					viewOffset = self.props.itemSize.X + self.props.itemPadding,
-				})
-			end
+		if self.listRef then
+			self.listRef.current:scrollToIndex({
+				animated = true,
+				index = newIndex,
+				viewOffset = self.props.itemSize.X + self.props.itemPadding,
+			})
 		end
 	end
 
@@ -331,28 +284,18 @@ function HorizontalCarousel:init()
 		return props.renderItem(element.item)
 	end
 
-	self.getItemLayout = if UIBloxConfig.fixHorizontalCarouselLayout
-		then function(data, index)
-			local props: Props = self.props
-			local itemWidth = props.itemSize.X + (props.itemPadding or 0)
-			local offset = itemWidth * (index - 1) + props.carouselMargin
-			local length = if index == #data then props.itemSize.X else itemWidth
+	self.getItemLayout = function(data, index)
+		local props: Props = self.props
+		local itemWidth = props.itemSize.X + (props.itemPadding or 0)
+		local offset = itemWidth * (index - 1) + (props.carouselMargin or 0)
+		local length = if index == #data then props.itemSize.X else itemWidth
 
-			return {
-				length = length,
-				offset = offset,
-				index = index,
-			}
-		end
-		else function(_data, index)
-			local props: Props = self.props
-			local itemWidth = props.itemSize.X + (props.itemPadding or 0)
-			return {
-				length = itemWidth,
-				offset = itemWidth * index,
-				index = index,
-			}
-		end
+		return {
+			length = length,
+			offset = offset,
+			index = index,
+		}
+	end
 end
 
 function HorizontalCarousel:render()
@@ -404,107 +347,79 @@ function HorizontalCarousel:render()
 		}, {
 			ScrollLeftButton = scrollLeftButton,
 		}),
-		ScrollerCarousel = if UIBloxConfig.enableVirtualizedListForCarousel
-			then (state.maxNumOfItemsVisible > 0) and Roact.createElement(BidirectionalFlatList, {
-				[Roact.Ref] = self.listRef,
+		ScrollerCarousel = (state.maxNumOfItemsVisible > 0) and Roact.createElement(BidirectionalFlatList, {
+			[Roact.Ref] = self.listRef,
 
-				data = itemList,
-				renderItem = self.proxyRenderItem,
-				keyExtractor = self.proxyKeyExtractor,
+			data = itemList,
+			renderItem = self.proxyRenderItem,
+			keyExtractor = self.proxyKeyExtractor,
 
-				horizontal = true,
-				initialScrollIndex = 1,
-				initialNumToRender = INITIAL_NUM_TO_RENDER,
-				windowSize = WINDOW_SIZE,
+			horizontal = true,
+			initialScrollIndex = 1,
+			initialNumToRender = INITIAL_NUM_TO_RENDER,
+			windowSize = WINDOW_SIZE,
 
-				onScroll = self.onScrollUpdate,
+			onScroll = self.onScrollUpdate,
 
-				onStartReachedThreshold = 1,
-				onStartReached = promisifyCallback(loadPrevious),
-				onEndReachedThreshold = 1,
-				onEndReached = promisifyCallback(loadNext),
+			onStartReachedThreshold = 1,
+			onStartReached = promisifyCallback(loadPrevious),
+			onEndReachedThreshold = 1,
+			onEndReached = promisifyCallback(loadNext),
 
-				overrideAutomaticCanvasSize = true,
-				getItemLayout = self.getItemLayout,
+			overrideAutomaticCanvasSize = true,
+			getItemLayout = self.getItemLayout,
 
-				viewabilityConfigCallbackPairs = if UIBloxConfig.addViewabilityConfigCallbackPairs
-					then props.viewabilityConfigCallbackPairs
-					else nil,
+			viewabilityConfigCallbackPairs = props.viewabilityConfigCallbackPairs,
 
-				ItemSeparatorComponent = if itemPadding
-					then function()
-						return Roact.createFragment({
-							ItemPadding = Roact.createElement("UIPadding", {
-								PaddingRight = UDim.new(0, itemPadding),
-							}),
-						})
-					end
-					else nil,
+			ItemSeparatorComponent = if itemPadding
+				then function()
+					return Roact.createFragment({
+						ItemPadding = Roact.createElement("UIPadding", {
+							PaddingRight = UDim.new(0, itemPadding),
+						}),
+					})
+				end
+				else nil,
 
-				showDefaultLoadingIndicators = false,
-				ListHeaderComponent = if carouselMargin
-					then function()
-						return Roact.createFragment({
-							LeftCarouselMargin = Roact.createElement("Frame", {
-								Position = UDim2.fromScale(0, 0),
-								AnchorPoint = Vector2.new(0, 0),
-								BackgroundTransparency = 1,
-								Size = UDim2.new(0, carouselMargin, 1, 0),
-							}),
-						})
-					end
-					else nil,
+			showDefaultLoadingIndicators = false,
+			ListHeaderComponent = if carouselMargin
+				then function()
+					return Roact.createFragment({
+						LeftCarouselMargin = Roact.createElement("Frame", {
+							Position = UDim2.fromScale(0, 0),
+							AnchorPoint = Vector2.new(0, 0),
+							BackgroundTransparency = 1,
+							Size = UDim2.new(0, carouselMargin, 1, 0),
+						}),
+					})
+				end
+				else nil,
 
-				ListFooterComponent = if carouselMargin
-					then function()
-						return Roact.createFragment({
-							RightCarouselMargin = Roact.createElement("Frame", {
-								Position = UDim2.fromScale(0, 0),
-								AnchorPoint = Vector2.new(0, 0),
-								BackgroundTransparency = 1,
-								Size = UDim2.new(0, carouselMargin, 1, 0),
-							}),
-						})
-					end
-					else nil,
+			ListFooterComponent = if carouselMargin
+				then function()
+					return Roact.createFragment({
+						RightCarouselMargin = Roact.createElement("Frame", {
+							Position = UDim2.fromScale(0, 0),
+							AnchorPoint = Vector2.new(0, 0),
+							BackgroundTransparency = 1,
+							Size = UDim2.new(0, carouselMargin, 1, 0),
+						}),
+					})
+				end
+				else nil,
 
-				contentContainerStyle = {
-					BackgroundTransparency = 1,
-					Size = if UIBloxConfig.fixHorizontalCarouselLayout
-						then UDim2.fromScale(0, 1)
-						else UDim2.fromScale(1, 1),
-					ClipsDescendants = false,
-				},
-				style = {
-					BackgroundTransparency = 1,
-					ScrollBarThickness = 0,
-				},
-
-				onContentSizeChange = props.onContentSizeChange,
-			}) or nil
-			else (state.maxNumOfItemsVisible > 0) and Roact.createElement(Scroller, {
-				identifier = props.identifier,
+			contentContainerStyle = {
 				BackgroundTransparency = 1,
-				Size = UDim2.fromScale(1, 1),
-				Position = UDim2.fromOffset(carouselMargin, 0),
-				ScrollBarThickness = 0,
+				Size = UDim2.fromScale(0, 1),
 				ClipsDescendants = false,
-				padding = UDim.new(0, itemPadding),
-				orientation = Scroller.Orientation.Right,
-				itemList = itemList,
-				loadingBuffer = 1,
-				mountingBuffer = state.maxNumOfItemsVisible * 3 * itemSize.X,
-				loadNext = loadNext,
-				loadPrevious = loadPrevious,
-				focusLock = state.scrollerFocusLock,
-				focusIndex = state.index,
-				anchorLocation = UDim.new(1, 0),
-				estimatedItemSize = itemSize.X,
-				renderItem = renderItem,
-				onScrollUpdate = self.onScrollUpdate,
-				animateScrolling = true,
-				animateOptions = MOTOR_OPTIONS,
-			}) or nil,
+			},
+			style = {
+				BackgroundTransparency = 1,
+				ScrollBarThickness = 0,
+			},
+
+			onContentSizeChange = props.onContentSizeChange,
+		}) or nil,
 		RightMargin = Roact.createElement("Frame", {
 			Position = UDim2.fromScale(1, 0),
 			AnchorPoint = Vector2.new(1, 0),

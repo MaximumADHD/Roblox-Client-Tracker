@@ -7,9 +7,8 @@
 ]]
 local AnimationClipProvider = game:GetService("AnimationClipProvider")
 local InsertService = game:GetService("InsertService")
-local FFlagEmoteUtilityHandleGetAnimationClipError = game:DefineFastFlag("EmoteUtilityHandleGetAnimationClipError", false)
-local FFlagEmoteUtilityClearFaceBeforeApplyingMood = game:DefineFastFlag("EmoteUtilityClearFaceBeforeApplyingMood", false)
-local FFlagEmoteUtilityClearFaceBeforeApplyingEmote = game:DefineFastFlag("EmoteUtilityClearFaceBeforeApplyingEmote", false)
+local FFlagEmoteUtilityHandleErrors = game:DefineFastFlag("EmoteUtilityHandleErrors", false)
+local FFlagEmoteUtilityClearFaceBeforeApplyingAnything = game:DefineFastFlag("EmoteUtilityClearFaceBeforeApplyingAnything", false)
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local RunService = game:GetService("RunService")
 
@@ -29,6 +28,26 @@ local cachedAnimationClip = nil
 local cachedAnimationClipId = nil
 local cachedPoseAssetIsIdleAnim = nil
 
+
+-- Helper for assembling & sending a report counter.
+local function reportCounter(actionName, success)
+	local prefix
+	local suffix
+	if RunService:IsServer() and not RunService:IsClient() then
+		prefix = "RCC"
+	else
+		prefix = "Client"
+	end
+	if success then
+		suffix = "Success"
+	else
+		suffix = "Failure"
+	end
+	local counterName = prefix .. "_" .. actionName .. "_" .. suffix
+
+	RbxAnalyticsService:ReportCounter(counterName)
+end
+
 -- poseAssetIdOrUrl identifies the pose asset we want to load.
 -- If it's a number, it's an assetId: e.g. 10300116892
 -- If it's a string, it's a url including an asset hash: e.g.
@@ -40,10 +59,48 @@ local function getPoseAsset(poseAssetIdOrUrl)
 	end
 
 	local asset
-	if typeof(poseAssetIdOrUrl) == "number" then
-		asset = InsertService:LoadAsset(poseAssetIdOrUrl):GetChildren()[1]
+	if FFlagEmoteUtilityHandleErrors then
+		local success
+		local actionName
+		if typeof(poseAssetIdOrUrl) == "number" then
+			success, asset = pcall(function()
+				return InsertService:LoadAsset(poseAssetIdOrUrl):GetChildren()[1]
+			end)
+			actionName = "EmoteUtility_LoadAsset"
+		else
+			success, asset = pcall(function()
+				return game:GetObjects(poseAssetIdOrUrl)[1]
+			end)
+			actionName = "EmoteUtility_GetObjects"
+		end
+
+		-- On success or failure, add a Counter describing what happened.
+		reportCounter(actionName, success)
+
+		-- If we didn't succeed, send more details of failure.
+		-- Also return nil.
+		if not success then
+			local target
+			if RunService:IsServer() and not RunService:IsClient() then
+				target = "RCC"
+			else
+				target = "Client"
+			end
+
+			local eventCtx = "EmoteUtility_getPoseAsset"
+			local eventName = actionName .. "_Failed"
+			RbxAnalyticsService:SendEventDeferred(target, eventCtx, eventName, {
+				poseAssetIdOrUrl = poseAssetIdOrUrl,
+			})
+
+			return nil, nil
+		end
 	else
-		asset = game:GetObjects(poseAssetIdOrUrl)[1]
+		if typeof(poseAssetIdOrUrl) == "number" then
+			asset = InsertService:LoadAsset(poseAssetIdOrUrl):GetChildren()[1]
+		else
+			asset = game:GetObjects(poseAssetIdOrUrl)[1]
+		end
 	end
 
 	local poseAssetIsIdleAnim = false
@@ -74,28 +131,26 @@ local function getAnimationClip(animationClipId)
 	end
 
 	local animationClip
-	if FFlagEmoteUtilityHandleGetAnimationClipError then
+	if FFlagEmoteUtilityHandleErrors then
 		local success
 		success, animationClip = pcall(function()
 			return AnimationClipProvider:GetAnimationClipAsync(animationClipId)
 		end)
+
+		reportCounter("EmoteUtility_GetAnimationClipAsync", success)
+
 		if not success then
 			local targetName
-			local counterName
 			if RunService:IsServer() and not RunService:IsClient() then
 				targetName = "RCC"
-				counterName = "RCCEmoteUtilityFailedToLoadAnimationClip"
 			else
 				targetName = "Client"
-				counterName = "UAEmoteUtilityFailedToLoadAnimationClip"
 			end
 			local eventCtx = "EmoteUtility_GetAnimationClip"
 			local eventName = "EmoteUtility_GetAnimationClip_GetAnimationClipAsyncFailed"
 			RbxAnalyticsService:SendEventDeferred(targetName, eventCtx, eventName, {
 				animationClipId = animationClipId,
 			})
-			RbxAnalyticsService:ReportCounter(counterName)
-
 			return nil
 		end
 	else
@@ -475,6 +530,13 @@ local function getMainThumbnailKeyframe(character, poseAssetIdOrUrl, useRotation
 	if poseAssetIdOrUrl then
 		local poseAsset, poseAssetIsIdleAnim = getPoseAsset(poseAssetIdOrUrl)
 
+		if FFlagEmoteUtilityHandleErrors then
+			-- poseAsset could be nil if something went wrong.
+			if poseAsset == nil then
+				return nil, givenPoseTrumpsToolPose
+			end
+		end
+
 		-- In the current setup, a user may select an emote to pose their avatar for a picture.
 		-- If they do this, the 'poseAsset' is an Animation, and we consider that a 'stronger'
 		-- vote for how to pose than any info we may get from a tool they are holding.
@@ -633,6 +695,7 @@ module.SetPlayerCharacterPose = function(character,
 	poseAssetId,
 	confirmProceedAfterYield,
 	ignoreRotationInPoseAsset)
+
 	if poseAssetId ~= nil then
 		assert(typeof(poseAssetId) == "number", "EmoteUtility.SetPlayerCharacterPose expects poseAssetId to be a number or nil")
 		assert(poseAssetId > 0, "EmoteUtility.SetPlayerCharacterPose expects poseAssetId to be a real asset ID (positive number)")
@@ -680,7 +743,7 @@ module.SetPlayerCharacterPose = function(character,
 		-- Iff this is going to pose the face, first unpose the face.
 		-- (If it's not going to pose the face then leave it alone, we may have already moved
 		-- face into a pose we like)
-		if FFlagEmoteUtilityClearFaceBeforeApplyingEmote then
+		if FFlagEmoteUtilityClearFaceBeforeApplyingAnything then
 			if module.PoseKeyframeHasFaceAnimtion(thumbnailKeyframe) then
 				module.ClearPlayerCharacterFace(character)
 			end
@@ -725,7 +788,7 @@ module.SetPlayerCharacterFace = function(character, poseAssetIdOrUrl, confirmPro
 	end
 
 	-- Before applying the pose, clear out any previous face pose (otherwise we get some hybrid of previous & mood)
-	if FFlagEmoteUtilityClearFaceBeforeApplyingMood then
+	if FFlagEmoteUtilityClearFaceBeforeApplyingAnything then
 		module.ClearPlayerCharacterFace(character)
 	end
 

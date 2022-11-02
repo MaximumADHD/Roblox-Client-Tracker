@@ -1,4 +1,5 @@
 local RunService = game:GetService("RunService")
+local ContextActionService = game:GetService("ContextActionService")
 local VRRoot = script.Parent
 local Packages = VRRoot.Parent.Parent.Parent
 local React = require(Packages.React)
@@ -7,6 +8,20 @@ local ExternalEventConnection = require(Packages.UIBlox.Utility.ExternalEventCon
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
 local Constants = require(VRRoot.Constants)
+local VR = script.Parent
+local App = VR.Parent
+local UIBlox = App.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local CoreRoot = VRRoot.Parent
+local UIBlox = CoreRoot.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local EngineFeatureBindActivateAllowMultiple
+do
+	local success, value = pcall(function()
+		return game:GetEngineFeature("EngineFeatureBindActivateAllowMultiple")
+	end)
+	EngineFeatureBindActivateAllowMultiple = success and value
+end
 
 type VRControllerModel = {
 	update: () -> (),
@@ -49,6 +64,14 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 	local LeftControllerModel: Constants.Ref<Part?> = React.useRef(nil)
 	local RightControllerModel: Constants.Ref<Part?> = React.useRef(nil)
 
+	local vrSessionStateAvailable = false
+	local vrSessionStateSignal = nil
+	if UIBloxConfig.enableAutoHidingPointerOverlay then
+		vrSessionStateAvailable, vrSessionStateSignal = pcall(function()
+			return VRService:GetPropertyChangedSignal("VRSessionState")
+		end)
+	end
+
 	local VREnabledCallback = React.useCallback(function()
 		if not LaserPointer.current then
 			LaserPointer.current = LaserPointerComponent.new()
@@ -60,12 +83,56 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 
 		LeftControllerModel.current:setEnabled(VRService.VREnabled)
 		RightControllerModel.current:setEnabled(VRService.VREnabled)
+		if UIBloxConfig.moveBindActivate and EngineFeatureBindActivateAllowMultiple then
+			if VRService.VREnabled then
+				ContextActionService:BindActivate(
+					Enum.UserInputType.Gamepad1,
+					Enum.KeyCode.ButtonA,
+					Enum.KeyCode.ButtonR2
+				)
+			end
+		end
+	end, { LeftControllerModel, RightControllerModel, LaserPointer, LaserPointerComponent, VRControllerModel })
+
+	local VRDisabledCallback
+	if UIBloxConfig.moveBindActivate then
+		VRDisabledCallback = React.useCallback(function()
+			LeftControllerModel.current:setEnabled(false)
+			RightControllerModel.current:setEnabled(false)
+			if EngineFeatureBindActivateAllowMultiple then
+				ContextActionService:UnbindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonA)
+				ContextActionService:UnbindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)
+			end
+		end, { LeftControllerModel, RightControllerModel, LaserPointer, LaserPointerComponent, VRControllerModel })
+	end
+
+	local VRSessionStateCallback = React.useCallback(function()
+		local overlayEnabeld = not (
+				VRService.VRSessionState == Enum.VRSessionState.Idle
+				or VRService.VRSessionState == Enum.VRSessionState.Visible
+			)
+		if LaserPointer.current then
+			if overlayEnabeld then
+				LaserPointer.current:setMode(LaserPointer.current.Mode["Pointer"])
+			else
+				LaserPointer.current:setMode(LaserPointer.current.Mode["Disabled"])
+			end
+		end
+		if LeftControllerModel.current then
+			LeftControllerModel.current:setEnabled(overlayEnabeld)
+		end
+		if RightControllerModel.current then
+			RightControllerModel.current:setEnabled(overlayEnabeld)
+		end
 	end, { LeftControllerModel, RightControllerModel, LaserPointer, LaserPointerComponent, VRControllerModel })
 
 	-- Runs on first render, in case we start with VREnabled = true
 	React.useEffect(function()
 		if VRService.VREnabled then
 			VREnabledCallback()
+		end
+		if UIBloxConfig.moveBindActivate then
+			return VRDisabledCallback
 		end
 	end, {})
 
@@ -90,6 +157,12 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 			event = VRService:GetPropertyChangedSignal("VREnabled"),
 			callback = VREnabledCallback,
 		}),
+		VRSessionStateConnection = if (UIBloxConfig.enableAutoHidingPointerOverlay and vrSessionStateAvailable)
+			then React.createElement(ExternalEventConnection, {
+				event = vrSessionStateSignal,
+				callback = VRSessionStateCallback,
+			})
+			else nil,
 	})
 end
 
