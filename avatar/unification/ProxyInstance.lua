@@ -1,6 +1,11 @@
 -- ProxyInstance.lua
 -- Module script implementing the functionality of proxying properties from one instance to another.
 
+local RunService = game:GetService("RunService")
+
+local CLIENT_REPLICATION_TIMEOUT = 2
+local IS_CLIENT = RunService:IsClient()
+
 local BlackListProperties = {
 	BasePart = {
 		CanCollide = true,
@@ -76,8 +81,19 @@ local function ProxyInstance(proxied, proxy)
 			parent = proxy.Parent:FindFirstChild("Torso") or parent
 		end
 
-		local mirror = child:Clone()
+		local mirror
+		if IS_CLIENT then
+			mirror = parent:WaitForChild(name, CLIENT_REPLICATION_TIMEOUT)
+			if not mirror then
+				return
+			end
+		else
+			mirror = child:Clone()
+		end
 		mirrorInstances[child] = mirror
+		if child:IsA("Motor6D") then
+			mirror.Enabled = false
+		end
 		mirror.Name = name
 		mirror.Parent = parent
 		ProxyInstance(child, mirror)
@@ -85,7 +101,7 @@ local function ProxyInstance(proxied, proxy)
 
 	local childAddedConnection = proxied.ChildAdded:Connect(onChildAdded)
 	for _, child in proxied:GetChildren() do
-		onChildAdded(child)
+		task.spawn(onChildAdded, child)
 	end
 
 	local childRemovedConnection = proxied.ChildRemoved:Connect(function(child)
@@ -104,8 +120,9 @@ local function ProxyInstance(proxied, proxy)
 		ProxiedInstances[proxied] = nil
 		for _, child in proxied:GetChildren() do
 			if mirrorInstances[child] then
+				local mirrorInstance = mirrorInstances[child]
 				mirrorInstances[child] = nil
-				mirrorInstances[child]:Destroy()
+				mirrorInstance:Destroy()
 			end
 		end
 

@@ -2,7 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local MessageBusPackage = require(CorePackages.Workspace.Packages.MessageBus)
 local MessageBus = MessageBusPackage.MessageBus
 local t = require(CorePackages.Packages.t)
-local ArgCheck = require(CorePackages.ArgCheck)
+local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 
 local Types = require(script.Parent.LoggingProtocolTypes)
 

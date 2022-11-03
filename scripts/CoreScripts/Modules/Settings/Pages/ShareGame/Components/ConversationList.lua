@@ -30,7 +30,7 @@ local User = require(CorePackages.Workspace.Packages.UserLib).User
 local httpRequest = require(AppTempCommon.Temp.httpRequest)
 local memoize = require(CorePackages.Workspace.Packages.AppCommonLib).memoize
 
-local RetrievalStatus = require(CorePackages.AppTempCommon.LuaApp.Enum.RetrievalStatus)
+local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.RetrievalStatus
 
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 

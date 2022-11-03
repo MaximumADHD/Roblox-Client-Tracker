@@ -1,5 +1,6 @@
-local CorePackages = game:GetService("CorePackages")
-local PolicyProvider = require(CorePackages.PolicyProvider)
+local Root = script.Parent
+local Packages = Root.Parent
+local PolicyProvider = require(Packages.PolicyProvider)
 
 local readMemStorageForAppLaunch = PolicyProvider.GetPolicyImplementations.MemStorageService("app-policy")
 return readMemStorageForAppLaunch

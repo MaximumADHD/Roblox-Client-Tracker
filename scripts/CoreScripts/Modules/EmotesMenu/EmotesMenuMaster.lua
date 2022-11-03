@@ -9,7 +9,6 @@ local StarterGui = game:GetService("StarterGui")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local FFlagAllowEmotesMenuWhenTopbarIsDisabled = game:DefineFastFlag("AllowEmotesMenuWhenTopbarIsDisabled", false)
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 
 -- Wait for LocalPlayer to exist
@@ -96,21 +95,11 @@ end
 function EmotesMenuMaster:setTopBarEnabled(isEnabled)
 	self.topBarEnabled = isEnabled
 
-	if FFlagAllowEmotesMenuWhenTopbarIsDisabled then
-		if not isEnabled then
-			-- Don't allow user to get stuck in a state where the Emotes Menu is stuck open
-			if self:isOpen() then
-				self:close()
-			end
-		end
+	local isEmotesMenuEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu)
+	if isEnabled and isEmotesMenuEnabled and self.canPlayEmotes then
+		self:_mount()
 	else
-		local isEmotesMenuEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu)
-
-		if isEnabled and isEmotesMenuEnabled and self.canPlayEmotes then
-			self:_mount()
-		else
-			self:_unmount()
-		end
+		self:_unmount()
 	end
 end
 
@@ -139,7 +128,7 @@ end
 
 function EmotesMenuMaster:_connectApiListeners()
 	StarterGui.CoreGuiChangedSignal:connect(function(coreGuiType, enabled)
-		if not FFlagAllowEmotesMenuWhenTopbarIsDisabled and not self.topBarEnabled then
+		if not self.topBarEnabled then
 			return
 		end
 
@@ -290,7 +279,10 @@ function EmotesMenuMaster:_connectListeners()
 	self:_connectCoreGuiListeners()
 	self:_connectApiListeners()
 
-	LocalPlayer.CharacterAdded:Connect(function(character) self:_onCharacterAdded(character) end)
+	LocalPlayer.CharacterAdded:Connect(function(character)
+		self:_onCharacterAdded(character)
+	end)
+
 	if LocalPlayer.Character then
 		self:_onCharacterAdded(LocalPlayer.Character)
 	end
@@ -303,18 +295,10 @@ function EmotesMenuMaster:_connectListeners()
 		self.canPlayEmotes = canPlay
 		local isEmotesMenuEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu)
 
-		if FFlagAllowEmotesMenuWhenTopbarIsDisabled then
-			if canPlay and isEmotesMenuEnabled then
-				self:_mount()
-			else
-				self:_unmount()
-			end
+		if canPlay and self.topBarEnabled and isEmotesMenuEnabled then
+			self:_mount()
 		else
-			if canPlay and self.topBarEnabled and isEmotesMenuEnabled then
-				self:_mount()
-			else
-				self:_unmount()
-			end
+			self:_unmount()
 		end
 	end)
 end

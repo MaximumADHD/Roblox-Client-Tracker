@@ -208,6 +208,7 @@ local function setUpDescendant(descendant)
 
 	if descendant:IsA("Motor6D") and descendant.Parent.Name == "Head" and descendant.Name == "Neck" then
 		local proxy = descendant:Clone()
+		proxy.Enabled = false
 		proxy.Parent = Character:WaitForChild("Torso")
 		ProxyInstance(descendant, proxy)
 	end

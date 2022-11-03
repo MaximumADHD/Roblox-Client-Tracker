@@ -10,7 +10,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local CoreUtility = require(RobloxGui.Modules.CoreUtility)
 
-local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 local EnableAutomaticSizeVerticalOffsetWidthFix = require(RobloxGui.Modules.Flags.FFlagEnableAutomaticSizeVerticalOffsetWidthFix)
 
 local LocalPlayer = Players.LocalPlayer
@@ -109,10 +108,7 @@ local function getScreenGui()
 		screenGui.Name = "ProximityPrompts"
 		screenGui.ResetOnSpawn = false
 		screenGui.Parent = PlayerGui
-
-		if EngineFeatureEnableVRUpdate2 then
-			screenGui.IgnoreGuiInset = true
-		end
+		screenGui.IgnoreGuiInset = true
 	end
 	return screenGui
 end

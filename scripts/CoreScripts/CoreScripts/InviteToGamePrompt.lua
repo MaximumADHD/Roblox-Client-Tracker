@@ -10,6 +10,8 @@ local Modules = RobloxGui.Modules
 local SettingsHubDirectory = Modules.Settings
 local ShareGameDirectory = SettingsHubDirectory.Pages.ShareGame
 
+local GetFFlagEnableNewInviteMenuCustomization = require(Modules.Flags.GetFFlagEnableNewInviteMenuCustomization)
+
 local Diag = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.Diag
 local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
@@ -24,6 +26,9 @@ local modalPrompt = InviteToGamePrompt.new(CoreGui)
 	:withSocialServiceAndLocalPlayer(SocialService, Players.LocalPlayer)
 	:withAnalytics(inviteToGameAnalytics)
 
+local ApiGetCanSendAndCanCustomizeInvites = require(ShareGameDirectory.Thunks.ApiGetCanSendAndCanCustomizeInvites)
+local GetCustomizedInvitePromptParams = require(ShareGameDirectory.getCustomizedInvitePromptParams)
+
 local function canSendGameInviteAsync(player)
 	local success, result = pcall(function()
 		return SocialService:CanSendGameInviteAsync(player)
@@ -31,10 +36,22 @@ local function canSendGameInviteAsync(player)
 	return success and result
 end
 
-SocialService.PromptInviteRequested:Connect(function(player)
-	if player ~= Players.LocalPlayer or not canSendGameInviteAsync(player) then
-		return
-	end
+SocialService.PromptInviteRequested:Connect(function(player, experienceInviteOptions: Instance?)
+	if GetFFlagEnableNewInviteMenuCustomization() then
+		if player ~= Players.LocalPlayer then
+			return
+		end
 
-	modalPrompt:show()
+		local options: ExperienceInviteOptions? = if experienceInviteOptions
+			then experienceInviteOptions :: ExperienceInviteOptions else nil
+		local params = GetCustomizedInvitePromptParams(options, ApiGetCanSendAndCanCustomizeInvites)
+		if params then
+			modalPrompt:show(params)
+		end
+	else
+		if player ~= Players.LocalPlayer or not canSendGameInviteAsync(player) then
+			return
+		end
+		modalPrompt:show()
+	end
 end)

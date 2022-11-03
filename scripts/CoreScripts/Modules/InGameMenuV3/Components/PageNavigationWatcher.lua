@@ -8,7 +8,7 @@
 
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
-local useSelector = require(CorePackages.AppTempCommon.Hooks.RoactRodux.useSelector)
+local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
 
 local function menuOpenSelector(state)
 	return state.isMenuOpen

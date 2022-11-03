@@ -7,7 +7,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
-local useSelector = require(CorePackages.AppTempCommon.Hooks.RoactRodux.useSelector)
+local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
 local React = require(CorePackages.Packages.React)
 local Cryo = require(CorePackages.Cryo)
 

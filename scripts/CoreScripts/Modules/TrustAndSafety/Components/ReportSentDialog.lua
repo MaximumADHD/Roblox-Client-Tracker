@@ -68,7 +68,7 @@ function ReportSentDialog:init()
 	self.onBlockCheckBoxActivated = function(selected)
 		self:setState({
 			isBlockCheckBoxSelected = selected,
-			isMuteCheckBoxSelected = if selected then true else self.state.isMuteCheckBoxSelected,
+			isMuteCheckBoxSelected = if selected and self:isVoiceReport() then true else self.state.isMuteCheckBoxSelected,
 		})
 	end
 

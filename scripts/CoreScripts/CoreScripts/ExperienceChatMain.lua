@@ -15,8 +15,8 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local ExperienceChat = require(CorePackages.ExperienceChat)
 local FFlagEnableSetCoreGuiEnabledExpChat = game:DefineFastFlag("FFlagEnableSetCoreGuiEnabledExpChat", false)
-local FFlagExpChatAddNewCallbacks = game:DefineFastFlag("ExpChatAddNewCallbacks", false)
-local GetFFlagDisableBubbleChatForExpChat = require(CorePackages.Flags.GetFFlagDisableBubbleChatForExpChat)
+local FFlagExpChatAddNewCallbacks = game:DefineFastFlag("ExpChatAddNewCallbacks2", false)
+local GetFFlagDisableBubbleChatForExpChat = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisableBubbleChatForExpChat
 
 local getIconVoiceIndicator
 local onClickedVoiceIndicator

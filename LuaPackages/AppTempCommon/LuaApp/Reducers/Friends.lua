@@ -1,7 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 
 local Immutable = require(CorePackages.Workspace.Packages.AppCommonLib).Immutable
-local RetrievalStatus = require(CorePackages.AppTempCommon.LuaApp.Enum.RetrievalStatus)
+local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.RetrievalStatus
 
 local FetchUserFriendsStarted = require(CorePackages.AppTempCommon.LuaApp.Actions.FetchUserFriendsStarted)
 local FetchUserFriendsFailed = require(CorePackages.AppTempCommon.LuaApp.Actions.FetchUserFriendsFailed)

@@ -5,4 +5,12 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["UniversalAppPolicy"]["UniversalAppPolicy"])
 
+export type AppFeaturePolicies = Package.AppFeaturePolicies
+export type AvatarPolicies = Package.AvatarPolicies
+export type ChatPolicies = Package.ChatPolicies
+export type SharePolicies = Package.SharePolicies
+export type ShareTargetGamePolicies = Package.ShareTargetGamePolicies
+export type Policies = Package.Policies
+
+
 return Package

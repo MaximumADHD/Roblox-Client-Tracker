@@ -5,7 +5,7 @@ local PlayersService = game:GetService("Players")
 local Promise = require(CorePackages.Promise)
 local Roact = require(CorePackages.Roact)
 local Cryo = require(CorePackages.Cryo)
-local PermissionsProtocol = require(CorePackages.UniversalApp.Permissions.PermissionsProtocol)
+local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol
 local CoreGui = game:GetService("CoreGui")
 local runService = game:GetService('RunService')
 local SoundService = game:GetService("SoundService")
@@ -35,8 +35,9 @@ local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFla
 local GetFFlagClearUserFromRecentVoiceDataOnLeave = require(RobloxGui.Modules.Flags.GetFFlagClearUserFromRecentVoiceDataOnLeave)
 local GetFIntVoiceUsersInteractionExpiryTimeSeconds = require(RobloxGui.Modules.Flags.GetFIntVoiceUsersInteractionExpiryTimeSeconds)
 local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
-local GetFFlagVoiceChatWatchForMissedSignalR = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatWatchForMissedSignalR)
 local GetFFlagVoiceChatUseSoundServiceInputApi = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUseSoundServiceInputApi)
+local GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged)
+local GetFFlagVoiceChatWatchForMissedSignalROnEventReceived = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatWatchForMissedSignalROnEventReceived)
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
@@ -202,9 +203,7 @@ function VoiceChatServiceManager:_asyncInit()
 
 			return Promise.reject()
 		else
-			if GetFFlagVoiceChatWatchForMissedSignalR() then
-				self:watchSignalR()
-			end
+			self:watchSignalR()
 			return Promise.resolve()
 		end
 	end)
@@ -219,7 +218,10 @@ function VoiceChatServiceManager:asyncInit()
 
 		return Promise.resolve()
 	end
-	if GetFFlagVoiceChatWatchForMissedSignalR() then
+	if 
+		GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged()
+		or GetFFlagVoiceChatWatchForMissedSignalROnEventReceived() 
+	then
 		if not self.initPromise then
 			-- Don't keep creating new promises every time asyncInit is called
 			self.initPromise = self:_asyncInit()
@@ -297,37 +299,41 @@ end
 
 type EventData = {namespace: string, detail: string, detailType: string}
 function VoiceChatServiceManager:watchSignalR()
-	self.NotificationService.RobloxEventReceived:Connect(function(eventData: EventData)
-		local namespace = eventData.namespace
-		if not WATCHED_NAMESPACES[namespace] then
-			return
-		end
-
-		local detail = jsonDecode(eventData.detail)
-		local seqNum = detail.SequenceNumber
-		log:trace("SignalR message {}: {}", namespace, seqNum)
-		if not self:checkAndUpdateSequence(namespace, seqNum) then
-			self:onMissedSequence(namespace)
-		end
-	end)
-
-	self.NotificationService.RobloxConnectionChanged:Connect(function(connectionHubName, state, seqNum, seqNumByNamespace)
-		if connectionHubName == "signalR" then
-			if state ~= Enum.ConnectionState.Connected then
-				log:info("SignalR disconnected")
-				return  -- We'll update the sequence numbers once signalR reconnects
+	if GetFFlagVoiceChatWatchForMissedSignalROnEventReceived() then
+		self.NotificationService.RobloxEventReceived:Connect(function(eventData: EventData)
+			local namespace = eventData.namespace
+			if not WATCHED_NAMESPACES[namespace] then
+				return
 			end
 
-			for namespace, value in pairs(jsonDecode(seqNumByNamespace)) do
-				if not WATCHED_NAMESPACES[namespace] then
-					continue
+			local detail = jsonDecode(eventData.detail)
+			local seqNum = detail.SequenceNumber
+			log:trace("SignalR message {}: {}", namespace, seqNum)
+			if not self:checkAndUpdateSequence(namespace, seqNum) then
+				self:onMissedSequence(namespace)
+			end
+		end)
+	end
+
+	if GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged() then
+		self.NotificationService.RobloxConnectionChanged:Connect(function(connectionHubName, state, seqNum, seqNumByNamespace)
+			if connectionHubName == "signalR" then
+				if state ~= Enum.ConnectionState.Connected then
+					log:info("SignalR disconnected")
+					return  -- We'll update the sequence numbers once signalR reconnects
 				end
-				if not self:checkAndUpdateSequence(namespace, value) then
-					self:onMissedSequence(namespace)
+
+				for namespace, value in pairs(jsonDecode(seqNumByNamespace)) do
+					if not WATCHED_NAMESPACES[namespace] then
+						continue
+					end
+					if not self:checkAndUpdateSequence(namespace, value) then
+						self:onMissedSequence(namespace)
+					end
 				end
 			end
-		end
-	end)
+		end)
+	end
 end
 
 function VoiceChatServiceManager:userAndPlaceCanUseVoice()
@@ -823,6 +829,7 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 			self.playerModeratedConnection = self.service.LocalPlayerModerated:connect(function()
 				log:debug("User Moderated")
 				self:ShowPlayerModeratedMessage()
+				self.service:Leave()
 			end)
 		end
 

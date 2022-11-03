@@ -4,7 +4,7 @@ local Result = require(CorePackages.AppTempCommon.LuaApp.Result)
 local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 
 local PromiseUtilities = require(CorePackages.AppTempCommon.LuaApp.PromiseUtilities)
-local RetrievalStatus = require(CorePackages.AppTempCommon.LuaApp.Enum.RetrievalStatus)
+local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.RetrievalStatus
 local UpdateFetchingStatus = require(CorePackages.AppTempCommon.LuaApp.Actions.UpdateFetchingStatus)
 
 --[[

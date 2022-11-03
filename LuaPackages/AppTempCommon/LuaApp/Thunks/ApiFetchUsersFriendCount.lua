@@ -6,7 +6,7 @@ local Requests = require(CorePackages.Workspace.Packages.Http).Requests
 local UsersGetFriendCount = Requests.UsersGetFriendCount
 local SetFriendCount = require(Actions.SetFriendCount)
 
-local isNewFriendsEndpointsEnabled = require(CorePackages.AppTempCommon.LuaChat.Flags.isNewFriendsEndpointsEnabled)
+local isNewFriendsEndpointsEnabled = require(CorePackages.Workspace.Packages.SharedFlags).isNewFriendsEndpointsEnabled
 
 return function(networkImpl)
 	return function(store)

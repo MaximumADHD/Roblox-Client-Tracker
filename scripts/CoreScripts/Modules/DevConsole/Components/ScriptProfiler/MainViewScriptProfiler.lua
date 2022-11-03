@@ -47,8 +47,13 @@ function MainViewScriptProfiler:init()
 
 	self.onEndProfile = function ()
 		if self.state.isClientView then
+			local data = ScriptContext:StopScriptProfiling()
+			if typeof(data) == "string" then -- TODO: remove this check with FFlagScriptProfilerStopReturnString
+				data = ScriptContext:DeserializeScriptProfilerString(data)
+			end
+
 			self:setState({
-				clientProfilingData = ScriptContext:StopScriptProfiling(),
+				clientProfilingData = data,
 				clientIsProfiling = false
 			})
 		else

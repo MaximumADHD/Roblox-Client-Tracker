@@ -3,7 +3,7 @@ local Players = game:GetService("Players")
 
 local Url = require(script.Parent.Parent.Url)
 
-local isNewFriendsEndpointsEnabled = require(CorePackages.AppTempCommon.LuaChat.Flags.isNewFriendsEndpointsEnabled)
+local isNewFriendsEndpointsEnabled = require(CorePackages.Workspace.Packages.SharedFlags).isNewFriendsEndpointsEnabled
 
 --[[
 	This endpoint returns a promise that resolves to:

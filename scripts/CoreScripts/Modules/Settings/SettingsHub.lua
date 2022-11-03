@@ -66,6 +66,7 @@ local FFlagInGameMenuHomeButton = game:DefineFastFlag("InGameMenuHomeButton", fa
 local FFlagInGameMenuV1ExitModal = game:DefineFastFlag("InGameMenuV1ExitModal", false)
 local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
 local GetFFlagShareInviteLinkContextMenuV1Enabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
+local GetFFlagShareGamePageNullCheckEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareGamePageNullCheckEnabled)
 local GetFFlagSelfViewSettingsEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagSelfViewSettingsEnabled)
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 
@@ -316,6 +317,17 @@ local function CreateSettingsHub()
 		end
 	end
 
+	local function updateButtonPosition(buttonName, position, size)
+		-- We need to concat "ButtonButton" because addBottomBarButton creates name+"Button" and sends that to util.createButton
+		-- which creates a button instance using name+"Button"...
+		local buttonInstance = this.BottomButtonFrame:FindFirstChild(buttonName .. "ButtonButton", true)
+		if not buttonInstance then
+			return
+		end
+		buttonInstance.Position = position
+		buttonInstance.Size = size
+	end
+
 	local function fnOrValue(arg)
 		return (type(arg) == "function") and arg() or arg
 	end
@@ -341,6 +353,18 @@ local function CreateSettingsHub()
 		if buttonHint then
 			buttonHint.Image = pollImage()
 		end
+	end
+
+	local function hideVoiceUx()
+		local wholeButton = (this :: any).MuteButtonButton
+		if wholeButton then
+			wholeButton.Visible = false
+			wholeButton:Destroy()
+		end
+		local buttonSize = if isTenFootInterface then UDim2.new(0, 320, 0, 120) else UDim2.new(0, 260, 0, 70)
+		updateButtonPosition("LeaveGame", UDim2.new(0.5, if isTenFootInterface then -160 else -130, 0.5, -25), buttonSize)
+		updateButtonPosition("ResetCharacter", UDim2.new(0.5, if isTenFootInterface then -550 else -400, 0.5, -25), buttonSize)
+		updateButtonPosition("Resume", UDim2.new(0.5, if isTenFootInterface then 200 else 140, 0.5, -25), buttonSize)
 	end
 
 	local function addBottomBarButtonOld(name, text, gamepadImage, keyboardImage, position, clickFunc, hotkeys)
@@ -520,17 +544,6 @@ local function CreateSettingsHub()
 		buttonImageAppend = "@2x"
 	end
 
-	local function updateButtonPosition(buttonName, position, size)
-		-- We need to concat "ButtonButton" because addBottomBarButton creates name+"Button" and sends that to util.createButton
-		-- which creates a button instance using name+"Button"...
-		local buttonInstance = this.BottomButtonFrame:FindFirstChild(buttonName .. "ButtonButton", true)
-		if not buttonInstance then
-			return
-		end
-		buttonInstance.Position = position
-		buttonInstance.Size = size
-	end
-
 	local function appendMicButton()
 		if GetFFlagMuteButtonRaceConditionFix() and this.BottomButtonFrame:FindFirstChild("MuteButtonHint", true) then
 			return
@@ -599,6 +612,20 @@ local function CreateSettingsHub()
 			voiceEnabled = true
 			if GetFFlagVoiceRecordingIndicatorsEnabled() then
 				this.VoiceRecordingText.Visible = true
+				local VCS = VoiceChatServiceManager:getService()
+				VCS.StateChanged:Connect(function(_oldState, newState)
+					if newState == (Enum :: any).VoiceChatState.Ended then
+						this.VoiceRecordingText.Visible = false
+						voiceEnabled = false
+						hideVoiceUx()
+					elseif newState == (Enum :: any).VoiceChatState.Joined then
+						-- If voice has been turned off, but now rejoined
+						if voiceEnabled == false then
+							addMuteButtonToBar()
+						end
+						this.VoiceRecordingText.Visible = true
+					end
+				end)
 			end
 			VoiceChatServiceManager:SetupParticipantListeners()
 			addMuteButtonToBar()
@@ -1084,13 +1111,25 @@ local function CreateSettingsHub()
 		} else nil
 
 		if GetFFlagVoiceRecordingIndicatorsEnabled() then
+			if utility:IsSmallTouchScreen() then
+				this.VoiceRecordingText.Size = UDim2.fromScale(1, 1)
+				this.VoiceRecordingText.Position = UDim2.new(0,60,0,0)
+				this.VoiceRecordingText.AnchorPoint = Vector2.new(0,0)
+			elseif isTenFootInterface then
+				this.VoiceRecordingText.AnchorPoint = Vector2.new(0.5,0.5)
+				this.VoiceRecordingText.Size = UDim2.new(0,1200,0,100)
+				this.VoiceRecordingText.Position = UDim2.new(0.5,0,0.1,0)
+			else
+				this.VoiceRecordingText.AnchorPoint = Vector2.new(0.5,0.5)
+				this.VoiceRecordingText.Size = UDim2.new(0, 800, 0, 60)
+				this.VoiceRecordingText.Position = UDim2.new(0.5,0,0.1,0)
+			end
+
 			this.voiceRecordingIndicatorTextMotor = Otter.createSingleMotor(0)
 			this.voiceRecordingIndicatorTextMotor:onStep(function(value)
 				this.VoiceRecordingText.TextTransparency = value
 			end)
-		end
 
-		if GetFFlagVoiceRecordingIndicatorsEnabled() then
 			spawn(function()
 				RunService:BindToRenderStep("VoiceRecordingIndicator", 1, function()
 					if this.isMuted ~= nil and this.lastVoiceRecordingIndicatorTextUpdated ~= nil then
@@ -2049,7 +2088,13 @@ local function CreateSettingsHub()
 			this.GameSettingsPage:CloseSettingsPage()
 
 			if GetFFlagShareInviteLinkContextMenuV1Enabled() then
-				this.ShareGamePage:ClearShareInviteLink(this.ShareGameApp)
+				if GetFFlagShareGamePageNullCheckEnabled() then
+					if this.ShareGamePage then
+						this.ShareGamePage:ClearShareInviteLink(this.ShareGameApp)
+					end
+				else
+					this.ShareGamePage:ClearShareInviteLink(this.ShareGameApp)
+				end
 			end
 		end
 

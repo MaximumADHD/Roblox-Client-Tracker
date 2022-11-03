@@ -3,7 +3,7 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local UpdateFetchingStatus = require(CorePackages.AppTempCommon.LuaApp.Actions.UpdateFetchingStatus)
 	local FetchingStatusReducer = require(CorePackages.AppTempCommon.LuaApp.Reducers.FetchingStatus)
-	local RetrievalStatus = require(CorePackages.AppTempCommon.LuaApp.Enum.RetrievalStatus)
+	local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.RetrievalStatus
 	local TableUtilities = require(CorePackages.AppTempCommon.LuaApp.TableUtilities)
 
 	local KEY_1 = "key_1"

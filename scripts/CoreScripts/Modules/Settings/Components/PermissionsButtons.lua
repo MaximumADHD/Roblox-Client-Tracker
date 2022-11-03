@@ -30,6 +30,7 @@ local PermissionButton = require(Modules.Settings.Components.PermissionButton)
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
 
 local FFlagSelfViewFixes = require(RobloxGui.Modules.Flags.FFlagSelfViewFixes)
+local FFlagSelfViewFixesTwo = require(RobloxGui.Modules.Flags.FFlagSelfViewFixesTwo)
 
 local PermissionsButtons = Roact.PureComponent:extend("PermissionsButtons")
 
@@ -84,6 +85,14 @@ function PermissionsButtons:init()
 		self.selfViewCloseButtonSignal = selfViewCloseButtonSignal:connect(function()
 			self:setState({
 				selfViewOpen = not self.state.selfViewOpen,
+			})
+		end)
+	end
+
+	if FFlagSelfViewFixesTwo then
+		self.selfViewVisibilityUpdatedSignal = selfViewVisibilityUpdatedSignal:connect(function()
+			self:setState({
+				selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible()
 			})
 		end)
 	end
@@ -251,7 +260,7 @@ function PermissionsButtons:render()
 			event = StarterGui.CoreGuiChangedSignal,
 			callback = self.onCoreGuiChanged,
 		}),
-		SelfViewVisbilityChangedEvent = FFlagSelfViewFixes and Roact.createElement(ExternalEventConnection, {
+		SelfViewVisbilityChangedEvent = FFlagSelfViewFixes and not FFlagSelfViewFixesTwo and Roact.createElement(ExternalEventConnection, {
 			event = selfViewVisibilityUpdatedSignal,
 			callback = self.onSelfViewVisibilityUpdated,
 		}) or nil,
@@ -261,6 +270,11 @@ end
 function PermissionsButtons:willUnmount()
 	if not FFlagSelfViewFixes and self.selfViewCloseButtonSignal then
 		self.selfViewCloseButtonSignal:disconnect()
+	end
+
+	if FFlagSelfViewFixesTwo and self.selfViewVisibilityUpdatedSignal then
+		self.selfViewVisibilityUpdatedSignal:disconnect()
+		self.selfViewVisibilityUpdatedSignal = nil
 	end
 end
 

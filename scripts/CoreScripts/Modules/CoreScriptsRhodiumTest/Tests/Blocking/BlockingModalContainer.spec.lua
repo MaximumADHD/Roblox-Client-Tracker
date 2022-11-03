@@ -1,7 +1,10 @@
 --!nonstrict
 
+local CorePackages = game:GetService("CorePackages")
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local blockingModalStory = require(Modules.Settings.Components.Blocking:FindFirstChild("BlockingModalContainer.story"))
+
+local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
 local successfulAction = function()
 	return true
@@ -33,6 +36,13 @@ return function()
 				blockTextKey = "Block",
 				cancelTextKey = "Cancel",
 			})
+
+			-- The `Alert` dialog in uiblox has multiphase measure/layout
+			-- behavior, meaning that we need to defer events _twice_ and make
+			-- sure to `act` on the second one to resolve render updates queued
+			-- by those event handlers
+			waitForEvents()
+			waitForEvents.act()
 		end)
 
 		afterEach(function(c)

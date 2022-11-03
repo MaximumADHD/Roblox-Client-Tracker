@@ -23,13 +23,30 @@ return function()
 		local promptGuiConnection = promptScreenGui.ChildAdded:Connect(function(child)
 			table.insert(newPromptUIs, child)
 		end)
-		PlayerHelper.WaitNFrames(1)
+
+		local newPromptUI
+
+		local success: boolean = PlayerHelper.WaitForExpression(function()
+			if #newPromptUIs ~= 1 then
+				return false
+			end
+
+			newPromptUI = newPromptUIs[1]
+			if not newPromptUI or not newPromptUI:IsA("BillboardGui") then
+				return false
+			end
+
+			local promptSize: Vector2 = newPromptUI.AbsoluteSize
+			return promptSize.X > 20 and promptSize.Y > 20 and promptSize.X > promptSize.Y
+		end,
+		1.0, "Couldn't find correctly sized prompt within time limit.")
+
 		promptGuiConnection:Disconnect()
-		expect(#newPromptUIs).to.equal(1)
-		local newPromptUI = newPromptUIs[1]
+		expect(success).to.equal(true)
+
 		expect(newPromptUI).to.be.ok()
-		expect(newPromptUI:IsA("BillboardGui")).to.equal(true) -- Should be a BillboardGui
 		expect(newPromptUI.Active).to.equal(true) -- Expect BillboardGui to respond to mouse clicks
+
 		promptUI = newPromptUI
 		promptUICorners = PlayerHelper.GetCornersOfBillboardGui(promptUI)
 	end

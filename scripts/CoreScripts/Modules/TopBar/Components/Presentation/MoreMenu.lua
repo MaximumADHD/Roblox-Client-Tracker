@@ -67,7 +67,6 @@ local MORE_ICON_OFF = "rbxasset://textures/ui/TopBar/moreOff.png"
 
 local MoreMenu = Roact.PureComponent:extend("MoreMenu")
 
-local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 
 MoreMenu.validateProps = t.strictInterface({
@@ -125,7 +124,7 @@ function MoreMenu:render()
 			text = RobloxTranslator:FormatByKey("CoreScripts.TopBar.Leaderboard"),
 			keyCodeLabel = isUsingKeyBoard and Enum.KeyCode.Tab or nil,
 			onActivated = function()
-				if EngineFeatureEnableVRUpdate2 and VRService.VREnabled then
+				if VRService.VREnabled then
 					local InGameMenu = require(RobloxGui.Modules.InGameMenu)
 					InGameMenu.openPlayersPage()
 				else
@@ -198,7 +197,7 @@ function MoreMenu:render()
 	local moreButtonVisible = not TenFootInterface:IsEnabled() and self.props.topBarEnabled and hasOptions and not VRService.VREnabled
 
 	return Roact.createElement("Frame", {
-		Visible = moreButtonVisible or (EngineFeatureEnableVRUpdate2 and self.state.vrShowMenuIcon and not EngineFeatureEnableVRUpdate3),
+		Visible = moreButtonVisible or (self.state.vrShowMenuIcon and not EngineFeatureEnableVRUpdate3),
 		BackgroundTransparency = 1,
 		Size = UDim2.new(0, MORE_BUTTON_SIZE, 1, 0),
 		LayoutOrder = self.props.layoutOrder,
@@ -234,7 +233,7 @@ function MoreMenu:render()
 				end,
 			}),
 		}),
-		ShowTopBarListener = EngineFeatureEnableVRUpdate2 and Roact.createElement(ExternalEventConnection, {
+		ShowTopBarListener = Roact.createElement(ExternalEventConnection, {
 			event = VRHub.ShowTopBarChanged.Event,
 			callback = function()
 				self:setState({

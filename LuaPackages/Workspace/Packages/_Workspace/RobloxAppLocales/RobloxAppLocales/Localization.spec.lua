@@ -1,0 +1,21 @@
+return function()
+	local Localization = require(script.Parent.Localization)
+
+	describe("SetLocale", function()
+		it("should change the locale", function()
+			local localization = Localization.new("en-us")
+			local translation = localization:Format("Common.Presence.Label.Online")
+			expect(translation).to.equal("Online")
+			localization:SetLocale("es-es")
+			translation = localization:Format("Common.Presence.Label.Online")
+			expect(translation).to.equal("Conectados")
+		end)
+	end)
+
+	describe("mock", function()
+		it("should create a localization without a problem", function()
+			local fakeLocalization = Localization.mock()
+			expect(fakeLocalization).to.be.ok()
+		end)
+	end)
+end

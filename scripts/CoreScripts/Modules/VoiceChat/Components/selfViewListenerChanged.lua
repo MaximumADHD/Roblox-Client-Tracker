@@ -1,23 +1,18 @@
+--[[
+	This file is injected into the ExperienceChat repo for Bubble Chat.
+
+	selfViewVisibilityUpdatedSignal: Signal to listen to in order to check if
+		Self View was toggled on or off.
+	getSelfViewVisibility: Getter function to get whether Self View is
+		on or off.
+]]
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSignal)
-local selfViewCloseButtonSignal = require(RobloxGui.Modules.SelfView.selfViewCloseButtonSignal)
+local selfViewVisibilityUpdatedSignal = require(RobloxGui.Modules.SelfView.selfViewVisibilityUpdatedSignal)
+local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
 
-return function(callback)
-	local conn1 : any
-	local conn2 : any
-	conn1 = toggleSelfViewSignal:connect(callback)
-	conn2 = selfViewCloseButtonSignal:connect(callback)
-
-	return function()
-		if conn1 then
-			conn1:disconnect()
-			conn1 = nil
-		end
-		if conn2 then
-			conn2:disconnect()
-			conn2 = nil
-		end
-	end
-end
+return {
+	selfViewVisibilityUpdatedSignal = selfViewVisibilityUpdatedSignal,
+	getSelfViewVisibility = SelfViewAPI.getSelfViewIsOpenAndVisible,
+}

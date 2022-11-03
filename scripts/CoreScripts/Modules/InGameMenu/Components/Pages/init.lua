@@ -10,8 +10,6 @@ local Images = UIBlox.App.ImageSet.Images
 
 local Constants = require(InGameMenu.Resources.Constants)
 
-local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
-
 -- For root pages, the parentPage should be nil
 local pages = {
 	{
@@ -63,7 +61,7 @@ local pages = {
 		title = "CoreScripts.InGameMenu.PageTitle.Controls",
 		icon = Images["icons/controls/controls"],
 		component = script.Parent.ControlsPage,
-		isModal = not (EngineFeatureEnableVRUpdate2 and VRService.VREnabled),
+		isModal = not VRService.VREnabled,
 		navigationDepth = 2,
 		parentPage = Constants.MainPagePageKey,
 	},

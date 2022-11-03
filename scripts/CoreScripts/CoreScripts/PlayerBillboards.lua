@@ -43,7 +43,7 @@ local initVoiceChatStore = require(RobloxGui.Modules.VoiceChat.initVoiceChatStor
 local GetFFlagEnableVoiceChatVoiceUISync = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatVoiceUISync)
 local GetFFlagBubbleChatDuplicateMessagesFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatDuplicateMessagesFix)
 local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
-local GetFFlagDisableBubbleChatForExpChat = require(CorePackages.Flags.GetFFlagDisableBubbleChatForExpChat)
+local GetFFlagDisableBubbleChatForExpChat = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisableBubbleChatForExpChat
 local FFlagExperienceChatBubbleUseSending = game:DefineFastFlag("ExperienceChatBubbleUseSending", false)
 local FFlagFixMessageReceivedEventLeak = game:DefineFastFlag("FixMessageReceivedEventLeak", false)
 

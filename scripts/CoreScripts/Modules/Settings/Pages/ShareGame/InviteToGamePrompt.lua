@@ -16,11 +16,16 @@ local ShareGameDirectory = SettingsHubDirectory.Pages.ShareGame
 local FullModalShareGameComponent = require(ShareGameDirectory.Components.FullModalShareGameComponent)
 local AppReducer = require(ShareGameDirectory.AppReducer)
 
+local InviteStore = require(ShareGameDirectory.InviteStore)
+local GetFFlagEnableSharedInviteStore = require(Modules.Flags.GetFFlagEnableSharedInviteStore)
+
 local HIDE_INVITE_CONTEXT_BIND = "hideInvitePrompt"
 
 export type InviteCustomizationProps = {
 	promptMessage: string?,
 	inviteUserId: number?,
+	launchData: string?,
+	inviteMessageId: string?,
 }
 
 local InviteToGamePrompt: any = {}
@@ -48,12 +53,16 @@ function InviteToGamePrompt:withAnalytics(analytics)
 end
 
 function InviteToGamePrompt:_createTree(isVisible, props: InviteCustomizationProps?)
+	local store = if GetFFlagEnableSharedInviteStore() then 
+		InviteStore else Rodux.Store.new(AppReducer, nil, { Rodux.thunkMiddleware })
 	return Roact.createElement(FullModalShareGameComponent, {
-		store = Rodux.Store.new(AppReducer, nil, { Rodux.thunkMiddleware }),
+		store = store,
 		isVisible = isVisible,
 		analytics = self.analytics,
 		promptMessage = props and props.promptMessage,
 		inviteUserId = props and props.inviteUserId,
+		inviteMessageId = props and props.inviteMessageId,
+		launchData = props and props.launchData,
 		onAfterClosePage = function(_)
 			-- * "Why are we no-opting sentToUserIds?"
 			-- Originally our specs required us to pass the userIds of

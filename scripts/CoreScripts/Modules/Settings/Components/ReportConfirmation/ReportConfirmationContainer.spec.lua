@@ -4,7 +4,7 @@ return function()
 	local Roact = require(CorePackages.Roact)
 
 	local ReportConfirmationContainer = require(script.Parent.ReportConfirmationContainer)
-	local simpleMountFrame = require(game.CoreGui.RobloxGui.Modules.NotForProductionUse.UnitTestHelpers.simpleMountFrame)
+	local simpleMountFrame = require(CorePackages.Workspace.Packages.UnitTestHelpers).simpleMountFrame
 
 	describe("lifecycle", function()
 		it("SHOULD mount and render without issue", function(context)

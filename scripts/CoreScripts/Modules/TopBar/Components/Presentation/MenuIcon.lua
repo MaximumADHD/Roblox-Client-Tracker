@@ -44,7 +44,6 @@ local DEFAULT_DELAY_TIME = 0.4
 
 local MENU_HOTKEYS = { Enum.KeyCode.Escape }
 
-local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 local GetFFlagSelfViewSettingsEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagSelfViewSettingsEnabled)
 
@@ -55,7 +54,7 @@ MenuIcon.validateProps = t.strictInterface({
 
 function MenuIcon:init()
 	self:setState({
-		vrShowMenuIcon = VRService.VREnabled and ((EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBar) or GamepadService.GamepadCursorEnabled) and not EngineFeatureEnableVRUpdate3,
+		vrShowMenuIcon = VRService.VREnabled and (VRHub.ShowTopBar or GamepadService.GamepadCursorEnabled) and not EngineFeatureEnableVRUpdate3,
 		showTooltip = false,
 		isHovering = false,
 	})
@@ -66,18 +65,13 @@ function MenuIcon:init()
 			isHovering = false,
 		})
 
-		if VRService.VREnabled and ((EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBar) or GamepadService.GamepadCursorEnabled) then
+		if VRService.VREnabled and (VRHub.ShowTopBar or GamepadService.GamepadCursorEnabled) then
 			-- in the new VR System, the menu icon opens the gamepad menu instead
-			if EngineFeatureEnableVRUpdate2 then
-				if EnableInGameMenuV3() then
-					InGameMenu.openInGameMenu("Players")
-				else
-					InGameMenu.openInGameMenu(InGameMenuConstants.MainPagePageKey)
-				end
+			if EnableInGameMenuV3() then
+				InGameMenu.openInGameMenu("Players")
 			else
-				self.props.setGamepadMenuOpen(true)
+				InGameMenu.openInGameMenu(InGameMenuConstants.MainPagePageKey)
 			end
-
 		else
 			if isNewInGameMenuEnabled() then
 				if EnableInGameMenuV3() then
@@ -139,7 +133,7 @@ function MenuIcon:init()
 	end
 
 	self.showTopBarCallback = function()
-		local vrShowMenuIcon = VRService.VREnabled and ((EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBar) or GamepadService.GamepadCursorEnabled) and not EngineFeatureEnableVRUpdate3
+		local vrShowMenuIcon = VRService.VREnabled and (VRHub.ShowTopBar or GamepadService.GamepadCursorEnabled) and not EngineFeatureEnableVRUpdate3
 		if self.state.vrShowMenuIcon ~= vrShowMenuIcon then
 			self:setState({
 				vrShowMenuIcon = vrShowMenuIcon,
@@ -195,8 +189,8 @@ function MenuIcon:render()
 						onHoverEnd = self.menuIconOnHoverEnd,
 						enableFlashingDot = GetFFlagSelfViewSettingsEnabled(),
 				}),
-				ShowTopBarListener = (not EngineFeatureEnableVRUpdate2 or GamepadService) and Roact.createElement(ExternalEventConnection, {
-					event = EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBarChanged.Event or GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"),
+				ShowTopBarListener = GamepadService and Roact.createElement(ExternalEventConnection, {
+					event = VRHub.ShowTopBarChanged.Event or GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"),
 					callback = self.showTopBarCallback,
 				})
 			})
@@ -222,8 +216,8 @@ function MenuIcon:render()
 			onHover = self.menuIconOnHover,
 			enableFlashingDot = GetFFlagSelfViewSettingsEnabled(),
 		}),
-		ShowTopBarListener = (not EngineFeatureEnableVRUpdate2 or GamepadService) and Roact.createElement(ExternalEventConnection, {
-			event = EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBarChanged.Event or GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"),
+		ShowTopBarListener = GamepadService and Roact.createElement(ExternalEventConnection, {
+			event = VRHub.ShowTopBarChanged.Event or GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"),
 			callback = self.showTopBarCallback,
 		})
 	})

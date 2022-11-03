@@ -10,7 +10,6 @@ local IGMControllerBar2 = require(script.Parent.IGMControllerBar2)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local IGMMainPageControllerBar = Roact.PureComponent:extend("IGMMainPageControllerBar")
-local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 
 IGMMainPageControllerBar.validateProps = t.strictInterface({
 	canCaptureFocus = t.boolean,
@@ -28,7 +27,7 @@ function IGMMainPageControllerBar:render()
 		})(function(localize)
 			
 			local controllerHints;
-			if not (EngineFeatureEnableVRUpdate2 and VRService.VREnabled) then
+			if not VRService.VREnabled then
 				controllerHints = {
 					{
 						text = self.props.isMainPageMoreMenuOpen and localize.closeMoreMenu or localize.openMoreMenu,

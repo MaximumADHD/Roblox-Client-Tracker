@@ -47,11 +47,11 @@ type RequestOptions = {
 
 function GraphQLServer.new(options: ServerOptions): GraphQLServer
 	local self = {}
-	self.port = options.port
-	local typeDefs = options.typeDefs or defaultTypeDefs
+	self.port = if options.port then options.port else 4000
+	local typeDefs = if options.typeDefs then options.typeDefs else defaultTypeDefs
 	self.schema = GraphQL.buildSchema(typeDefs)
 
-	local resolvers = options.resolvers or defaultResolvers
+	local resolvers = if options.resolvers then options.resolvers else defaultResolvers
 	if type(options.mockResolvers) == "table" then
 		resolvers = addMockResolvers(resolvers, options.mockResolvers)
 	end

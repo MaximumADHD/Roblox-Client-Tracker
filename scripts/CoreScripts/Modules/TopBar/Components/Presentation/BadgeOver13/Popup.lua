@@ -9,7 +9,7 @@ local LinkButton = UIBlox.App.Button.LinkButton
 local Interactable = UIBlox.Core.Control.Interactable
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 
-local useLocalization = require(CorePackages.AppTempCommon.Hooks.useLocalization)
+local useLocalization = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.useLocalization
 local List = require(CorePackages.Cryo).List
 
 local useAnalytics = require(script.Parent.useAnalytics)

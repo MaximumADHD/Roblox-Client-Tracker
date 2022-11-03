@@ -27,7 +27,7 @@ local ThemeHandler = require(AvatarMenuModules.ThemeHandler)
 
 local BlockingUtility = require(CoreGuiModules.BlockingUtility)
 local t = require(CorePackages.Packages.t)
-local ArgCheck = require(CorePackages.ArgCheck)
+local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 local ExperienceChat = require(CorePackages.ExperienceChat)
 
 -- FLAGS

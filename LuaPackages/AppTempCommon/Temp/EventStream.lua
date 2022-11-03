@@ -4,7 +4,7 @@ local CorePackages = game:GetService("CorePackages")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 
-local GetFFlagShareGetPlatformTargetImpl = require(CorePackages.Flags.GetFFlagShareGetPlatformTargetImpl)
+local GetFFlagShareGetPlatformTargetImpl = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShareGetPlatformTargetImpl
 
 local SETTINGS_HUB_INVITE_RELEASE_STREAM_TIME = 10
 

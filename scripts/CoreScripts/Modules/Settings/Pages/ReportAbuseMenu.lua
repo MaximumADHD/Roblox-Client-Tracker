@@ -43,6 +43,7 @@ local GetFFlagVoiceARCantSelectVoiceAfterTextFix = require(RobloxGui.Modules.Fla
 local GetFFlagHideMOAOnExperience = require(RobloxGui.Modules.Flags.GetFFlagHideMOAOnExperience)
 local GetFFlagShowVerifiedBadgeInReportMenu = require(RobloxGui.Modules.Settings.Flags.GetFFlagShowVerifiedBadgeInReportMenu)
 local GetFFlagAddVoiceTagsToAllARSubmissionsEnabled = require(RobloxGui.Modules.Flags.GetFFlagAddVoiceTagsToAllARSubmissionsEnabled)
+local GetFFlagVoiceARDropdownFix = require(RobloxGui.Modules.Flags.GetFFlagVoiceARDropdownFix)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 
 local ABUSE_TYPES_PLAYER = {
@@ -189,6 +190,21 @@ local function Initialize()
 			this.MethodOfAbuseMode:SetInteractable(false)
 			this.MethodOfAbuseLabel.ZIndex = 1
 			this.MethodOfAbuseFrame.LayoutOrder = 2
+			if GetFFlagVoiceARDropdownFix() then
+				this.MethodOfAbuseMode.DropDownFrame.MouseButton1Click:Connect(function()
+					local recentVoicePlayers = VoiceChatServiceManager:getRecentUsersInteractionData()
+					if Cryo.isEmpty(recentVoicePlayers) or not this:isVoiceReportMethodActive() then
+						-- Remove "Voice" option if we don't have any players to show
+						this.MethodOfAbuseMode:UpdateDropDownList(Cryo.List.filter(getSortedMethodOfAbuseList(), function(item)
+							-- Note that we're using the index property of the TypeOfAbuseOption,
+							-- not the index of the AbuseOption in the dropdown list
+							return item.index ~= TypeOfAbuseOptions[MethodsOfAbuse.voice].index
+						end))
+					else
+						this.MethodOfAbuseMode:UpdateDropDownList(getSortedMethodOfAbuseList())
+					end
+				end)
+			end
 
 			this.WhichPlayerFrame.LayoutOrder = 3
 			this.TypeOfAbuseFrame.LayoutOrder = 4
@@ -261,7 +277,7 @@ local function Initialize()
 	end
 
 	function this:isVoiceReportSelected()
-		if not GetFFlagVoiceAbuseReportsEnabled() or not this.MethodOfAbuseMode then
+		if not GetFFlagVoiceAbuseReportsEnabled() or not this.MethodOfAbuseMode or (GetFFlagVoiceARDropdownFix() and #this.MethodOfAbuseMode.Selections < 3) then
 			return false
 		end
 
@@ -298,6 +314,9 @@ local function Initialize()
 					nameToRbxPlayer[nameText] = player
 					index = index + 1
 				end
+			end
+			if GetFFlagVoiceARDropdownFix() and index <= 1 then
+				index = #PlayersService:GetPlayers()
 			end
 		else
 			local players = PlayersService:GetPlayers()

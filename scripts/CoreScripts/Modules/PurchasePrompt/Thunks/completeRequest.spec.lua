@@ -3,9 +3,13 @@ return function()
 	local Root = script.Parent.Parent
 	local MarketplaceService = game:GetService("MarketplaceService")
 
+	local CoreGui = game:GetService("CoreGui")
+	local Modules = CoreGui.RobloxGui.Modules
+
 	local CorePackages = game:GetService("CorePackages")
 	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local Rodux = PurchasePromptDeps.Rodux
+	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
 	local RequestType = require(Root.Enums.RequestType)
 	local PromptState = require(Root.Enums.PromptState)
@@ -38,6 +42,7 @@ return function()
 			Thunk.test(thunk, store, {
 				[Analytics] = analytics.mockService,
 			})
+			waitForEvents()
 
 			local state = store:getState()
 			expect(state.promptState).to.equal(PromptState.None)
@@ -72,6 +77,7 @@ return function()
 			Thunk.test(thunk, store, {
 				[Analytics] = analytics.mockService,
 			})
+			waitForEvents()
 
 			local state = store:getState()
 			expect(state.promptState).to.equal(PromptState.None)
@@ -106,6 +112,7 @@ return function()
 			Thunk.test(thunk, store, {
 				[Analytics] = analytics.mockService,
 			})
+			waitForEvents()
 
 			local state = store:getState()
 			expect(state.promptState).to.equal(PromptState.None)
@@ -143,6 +150,7 @@ return function()
 			Thunk.test(thunk, store, {
 				[Analytics] = analytics.mockService,
 			})
+			waitForEvents()
 
 			local state = store:getState()
 			expect(state.promptState).to.equal(PromptState.None)
@@ -178,6 +186,7 @@ return function()
 			Thunk.test(thunk, store, {
 				[Analytics] = analytics.mockService,
 			})
+			waitForEvents()
 
 			local state = store:getState()
 			expect(state.promptState).to.equal(PromptState.None)
@@ -213,6 +222,7 @@ return function()
 			Thunk.test(thunk, store, {
 				[Analytics] = analytics.mockService,
 			})
+			waitForEvents()
 
 			local state = store:getState()
 			expect(state.promptState).to.equal(PromptState.None)
@@ -250,6 +260,7 @@ return function()
 			Thunk.test(thunk, store, {
 				[Analytics] = analytics.mockService,
 			})
+			waitForEvents()
 
 			expect(analytics.spies.signalScaryModalCanceled.callCount).to.equal(1)
 

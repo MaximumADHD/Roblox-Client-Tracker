@@ -13,7 +13,8 @@ return function()
 	local expect = JestGlobals.expect
 
 	-- ROBLOX FIXME: Analysis cannot see NotForProductionUse utils in CorePackages for ModApps
-	local createMemberFunctionMocker = require(Modules.NotForProductionUse.UnitTestHelpers.createMemberFunctionMocker) :: any
+	local createMemberFunctionMocker = require(CorePackages.Workspace.Packages.UnitTestHelpers).createMemberFunctionMocker
+	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
 	local function createHandler()
 		local acquired = false
@@ -363,6 +364,8 @@ return function()
 					end)
 
 					c.browserServiceMock._jsEvent:Fire("some js event")
+
+					waitForEvents()
 
 					expect(javaScriptEventContent).toEqual("some js event")
 				end)

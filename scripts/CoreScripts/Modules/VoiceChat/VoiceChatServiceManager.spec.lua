@@ -71,7 +71,7 @@ return function()
 	})
 
 	local VoiceChatServiceManagerKlass = require(script.Parent.VoiceChatServiceManager)
-	local PermissionsProtocol = require(CorePackages.UniversalApp.Permissions.PermissionsProtocol)
+	local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol
 	local BlockMock = Instance.new("BindableEvent")
 	local VoiceChatServiceManager
 
@@ -539,6 +539,7 @@ return function()
 			end
 
 			it("should ignore missed sequence numbers in other namespaces", function(context)
+				local flag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", true)
 				VoiceChatServiceManager:watchSignalR()
 
 				context.RobloxEventReceived:Fire(makeEventMessage("NotVoiceNotifications", 1))
@@ -546,9 +547,11 @@ return function()
 				context.RobloxEventReceived:Fire(makeEventMessage("NotVoiceNotifications", 4))
 
 				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
+				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", flag)
 			end)
 
 			it("should call join if VoiceNotifications missed a sequence number", function(context)
+				local flag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", true)
 				VoiceChatServiceManager:watchSignalR()
 
 				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 1))
@@ -556,9 +559,11 @@ return function()
 				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 4))
 
 				jestExpect(VoiceChatServiceStub.joinCalled).toBe(true)
+				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", flag)
 			end)
 
 			it("should not call join if VoiceNotifications did not miss a sequence number", function(context)
+				local flag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", true)
 				VoiceChatServiceManager:watchSignalR()
 
 				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 1))
@@ -566,9 +571,11 @@ return function()
 				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 3))
 
 				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
+				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", flag)
 			end)
 
 			it("should not call join on first connect", function(context)
+				local flag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", true)
 				-- Note that join is called on first connect, but that's handled elsewhere
 				VoiceChatServiceManager:watchSignalR()
 
@@ -576,9 +583,12 @@ return function()
 					"signalR", Enum.ConnectionState.Connected, 101, '{"VoiceNotifications":101}')
 
 				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
+				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", flag)
 			end)
 
 			it("should not call join if no sequence numbers were missed", function(context)
+				local conFlag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", true)
+				local evtFlag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", true)
 				VoiceChatServiceManager:watchSignalR()
 
 				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 1))
@@ -586,11 +596,15 @@ return function()
 					"signalR", Enum.ConnectionState.Disconnected, 101, "")
 				context.RobloxConnectionChanged:Fire(
 					"signalR", Enum.ConnectionState.Connected, 101, '{"VoiceNotifications":2}')
-					
+
 				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
+				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", conFlag)
+				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", evtFlag)
 			end)
 
 			it("should call join if a sequence number was missed on reconnect", function(context)
+				local conFlag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", true)
+				local evtFlag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", true)
 				VoiceChatServiceManager:watchSignalR()
 
 				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 1))
@@ -598,11 +612,15 @@ return function()
 					"signalR", Enum.ConnectionState.Disconnected, 101, "")
 				context.RobloxConnectionChanged:Fire(
 					"signalR", Enum.ConnectionState.Connected, 101, '{"VoiceNotifications":3}')
-					
+
 				jestExpect(VoiceChatServiceStub.joinCalled).toBe(true)
+				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", conFlag)
+				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", evtFlag)
 			end)
 
 			it("should ignore sequence numbers from other namespaces", function(context)
+				local conFlag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", true)
+				local evtFlag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", true)
 				VoiceChatServiceManager:watchSignalR()
 
 				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 1))
@@ -611,11 +629,15 @@ return function()
 					"signalR", Enum.ConnectionState.Disconnected, 101, "")
 				context.RobloxConnectionChanged:Fire(
 					"signalR", Enum.ConnectionState.Connected, 101, '{"VoiceNotifications":2, "OtherNotifications":3}')
-					
+
 				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
+				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", conFlag)
+				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", evtFlag)
 			end)
 
 			it("should ignore bad JSON responses", function(context)
+				local conFlag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", true)
+				local evtFlag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", true)
 				VoiceChatServiceManager:watchSignalR()
 
 				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 1))
@@ -625,8 +647,10 @@ return function()
 					"signalR", Enum.ConnectionState.Connected, 101, "INVALID JSON")
 				context.RobloxConnectionChanged:Fire(
 					"signalR", Enum.ConnectionState.Connected, 101, '{"VoiceNotifications":2}')
-						
+
 				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
+				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", conFlag)
+				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", evtFlag)
 			end)
 		end)
 	end)

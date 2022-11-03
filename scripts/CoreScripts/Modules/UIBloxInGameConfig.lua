@@ -2,7 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local ArgCheck = require(CorePackages.ArgCheck)
+local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 
 local GetFFlagUIBloxGenericButtonInputChangesInGame =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxGenericButtonInputChangesInGame
@@ -26,12 +26,12 @@ local GetFFlagUIBloxEnableImageSetResolutionScaleFix =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableImageSetResolutionScaleFix
 
 local GetFFlagLuaAppUseUIBloxColorPalettes =
-	require(CorePackages.AppTempCommon.LuaApp.Flags.GetFFlagLuaAppUseUIBloxColorPalettes)
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppUseUIBloxColorPalettes
 local GetUIBloxUseNewThemeColorPalettes =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetUIBloxUseNewThemeColorPalettes
 
 local GetFFlagUIBloxUseTagGroupArrows =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxUseTagGroupArrows)
+require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxUseTagGroupArrows
 
 return {
 	useUpdatedCheckbox = true,

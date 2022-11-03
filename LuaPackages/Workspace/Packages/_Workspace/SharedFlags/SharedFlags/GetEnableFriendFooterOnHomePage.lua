@@ -1,0 +1,15 @@
+local CorePackages = game:GetService("CorePackages")
+local Players = game:GetService("Players")
+
+local ThrottleUserId = require(CorePackages.Workspace.Packages.AppCommonLib).ThrottleUserId
+
+local FIntEnableFriendFooterOnHomePage = settings():GetFVariable("EnableFriendFooterOnHomePageV369")
+
+-- Don't call this function globally because we cannot get the userId
+-- Reason: The LocalPlayer wouldn't be ready if we called it globally.
+return function()
+	local throttleNumber = tonumber(FIntEnableFriendFooterOnHomePage)
+	local userId = (Players.LocalPlayer :: Player).UserId
+
+	return ThrottleUserId(throttleNumber, userId)
+end

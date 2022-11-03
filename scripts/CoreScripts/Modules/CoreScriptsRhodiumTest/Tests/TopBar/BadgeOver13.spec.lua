@@ -18,6 +18,8 @@ local TopBar = Modules.TopBar
 local PresentationComponent = require(TopBar.Components.Presentation.BadgeOver13:FindFirstChild("BadgeOver13.story"))
 local AppComponent = require(TopBar.Components.Presentation.BadgeOver13)
 
+local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
+
 return function()
 	describe("WHEN story is mounted", function()
 
@@ -307,12 +309,14 @@ return function()
 			ReactRoblox.act(function()
 				game:GetService("GamepadService").GamepadCursorEnabled = true
 			end)
+			waitForEvents.act()
 			expect(badge).toHaveProperty("Visible", true)
 
 			-- gamepad cursor was turned off
 			ReactRoblox.act(function()
 				game:GetService("GamepadService").GamepadCursorEnabled = false
 			end)
+			waitForEvents.act()
 			expect(badge).toHaveProperty("Visible", false)
 
 			result.cleanup()
@@ -333,6 +337,7 @@ return function()
 				result.player.UnfilteredChat = true
 				result.player.PropertyChangedSignal:Fire()
 			end)
+			waitForEvents.act()
 			expect(badge).toHaveProperty("Visible", true)
 
 			result.cleanup()

@@ -2,7 +2,7 @@
 -- Some components within UIBlox expects a table of imageset data to format their image
 -- correctly. We can use this file to quickly query the correct imageset data for those cases.
 local CorePackages = game:GetService("CorePackages")
-local ArgCheck = require(CorePackages.ArgCheck)
+local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 
 local GetImageSetData = require(script.Parent.GetImageSetData)
 

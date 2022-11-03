@@ -15,6 +15,10 @@ local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
 
 local EngineFeatureFacialAnimationStreamingServiceUseV2 = game:GetEngineFeature("FacialAnimationStreamingServiceUseV2")
+local EngineFeatureVoiceChatServiceExposesSessionId = game:GetEngineFeature("VoiceChatServiceExposesSessionId")
+local EngineFeatureVoiceChatServiceExposesVoiceExperienceId = game:GetEngineFeature("VoiceChatServiceExposesVoiceExperienceId")
+local FFlagFacialStreamingStatsReportVoiceSessionIdExperienceId = game:DefineFastFlag("FacialStreamingStatsReportVoiceSessionIdExperienceId", false)
+
 local RunService = game:GetService("RunService")
 local avatarChatSubsessionStatsConfig = require(script.Parent.RobloxTelemetryConfigs.AvatarChatSubsessionStats)
 local avatarChatSubsessionInputConfig = require(script.Parent.RobloxTelemetryConfigs.AvatarChatSubsessionInput)
@@ -78,6 +82,12 @@ local Connection = {
 	VoiceChatParticipantsStateChanged = "voiceChatParticipantsStateChanged",
 }
 
+local function canReportVoiceSessionIdVoiceExperienceId()
+	return EngineFeatureVoiceChatServiceExposesSessionId and 
+	EngineFeatureVoiceChatServiceExposesVoiceExperienceId and
+	FFlagFacialStreamingStatsReportVoiceSessionIdExperienceId
+end
+
 local function isPlayerTransmittingFacs(userId)
 	if Players.LocalPlayer.UserId == userId then
 		if EngineFeatureFacialAnimationStreamingServiceUseV2 then
@@ -140,22 +150,43 @@ function fireAvatarChatSubsessionInput()
 		boolPlayerMicOn = false
 	end
 
-	local customFields = {
-		pid = tostring(game.PlaceId),
-		sessionid = AnalyticsService:GetSessionId(),
-		userid = tostring(Players.LocalPlayer.UserId),
-		universeid = tostring(game.GameId),
-		stateStarted = tostring(stateStartedTimeStamp),
-		stateEnded = tostring(now),
-		inExpCamOn = tostring(localCameraOn),
-		inExpMicOn = tostring(boolPlayerMicOn),
-		gameCamAllowed = tostring(placeVideoEnabled),
-		gameMicAllowed = tostring(placeAudioEnabled),
-		userAcctMicAllowed = tostring(userAccountAudioEnabled),
-		userAcctCamAllowed = tostring(userAccountVideoEnabled),
-	}
+	if canReportVoiceSessionIdVoiceExperienceId() then
+		local VCService = VoiceChatServiceManager:getService()
+		local customFields = {
+			pid = tostring(game.PlaceId),
+			sessionid = AnalyticsService:GetSessionId(),
+			userid = tostring(Players.LocalPlayer.UserId),
+			universeid = tostring(game.GameId),
+			stateStarted = tostring(stateStartedTimeStamp),
+			stateEnded = tostring(now),
+			inExpCamOn = tostring(localCameraOn),
+			inExpMicOn = tostring(boolPlayerMicOn),
+			gameCamAllowed = tostring(placeVideoEnabled),
+			gameMicAllowed = tostring(placeAudioEnabled),
+			userAcctMicAllowed = tostring(userAccountAudioEnabled),
+			userAcctCamAllowed = tostring(userAccountVideoEnabled),
+			voiceSessionId = VCService:GetSessionId(),
+			voiceExperienceId = VCService:GetVoiceExperienceId()
+		}
 
-	LoggingProtocol:logRobloxTelemetryEvent(avatarChatSubsessionInputConfig, nil, customFields)
+		LoggingProtocol:logRobloxTelemetryEvent(avatarChatSubsessionInputConfig, nil, customFields)
+	else
+		local customFields = {
+			pid = tostring(game.PlaceId),
+			sessionid = AnalyticsService:GetSessionId(),
+			userid = tostring(Players.LocalPlayer.UserId),
+			universeid = tostring(game.GameId),
+			stateStarted = tostring(stateStartedTimeStamp),
+			stateEnded = tostring(now),
+			inExpCamOn = tostring(localCameraOn),
+			inExpMicOn = tostring(boolPlayerMicOn),
+			gameCamAllowed = tostring(placeVideoEnabled),
+			gameMicAllowed = tostring(placeAudioEnabled),
+			userAcctMicAllowed = tostring(userAccountAudioEnabled),
+			userAcctCamAllowed = tostring(userAccountVideoEnabled),
+		}
+		LoggingProtocol:logRobloxTelemetryEvent(avatarChatSubsessionInputConfig, nil, customFields)
+	end
 
 	stateStartedTimeStamp = now
 end
@@ -163,18 +194,36 @@ end
 function fireAvatarChatSubsessionStats()
 	FacialAnimationStreamingStats.trackRemainingFacs()
 
-	local customFields = {
-		pid = tostring(game.PlaceId),
-		sessionid = AnalyticsService:GetSessionId(),
-		userid = tostring(Players.LocalPlayer.UserId),
-		universeid = tostring(game.GameId),
-		facsSentSec = tostring(trackingFacsSentElapsedTime),
-		facsReceivedSec = tostring(trackingFacsReceivedElapsedTime),
-		facsSentReceivedSec = tostring(trackingFacsSentAndReceivedElapsedTime),
-		sessionTimeSec = tostring(sessionTotalElapsedTime)
-	}
+	if canReportVoiceSessionIdVoiceExperienceId() then
+		local VCService = VoiceChatServiceManager:getService()
+		local customFields = {
+			pid = tostring(game.PlaceId),
+			sessionid = AnalyticsService:GetSessionId(),
+			userid = tostring(Players.LocalPlayer.UserId),
+			universeid = tostring(game.GameId),
+			facsSentSec = tostring(trackingFacsSentElapsedTime),
+			facsReceivedSec = tostring(trackingFacsReceivedElapsedTime),
+			facsSentReceivedSec = tostring(trackingFacsSentAndReceivedElapsedTime),
+			sessionTimeSec = tostring(sessionTotalElapsedTime),
+			voiceSessionId = VCService:GetSessionId(),
+			voiceExperienceId = VCService:GetVoiceExperienceId()
+		}
+		
+		LoggingProtocol:logRobloxTelemetryEvent(avatarChatSubsessionStatsConfig, nil, customFields)	
+	else
+		local customFields = {
+			pid = tostring(game.PlaceId),
+			sessionid = AnalyticsService:GetSessionId(),
+			userid = tostring(Players.LocalPlayer.UserId),
+			universeid = tostring(game.GameId),
+			facsSentSec = tostring(trackingFacsSentElapsedTime),
+			facsReceivedSec = tostring(trackingFacsReceivedElapsedTime),
+			facsSentReceivedSec = tostring(trackingFacsSentAndReceivedElapsedTime),
+			sessionTimeSec = tostring(sessionTotalElapsedTime)
+		}
 
-	LoggingProtocol:logRobloxTelemetryEvent(avatarChatSubsessionStatsConfig, nil, customFields)
+		LoggingProtocol:logRobloxTelemetryEvent(avatarChatSubsessionStatsConfig, nil, customFields)
+	end
 end
 
 local function trackFacsSending(isTransmittingFacs, now)

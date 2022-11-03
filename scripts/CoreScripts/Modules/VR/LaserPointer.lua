@@ -16,8 +16,10 @@ local CorePackages = game:GetService("CorePackages")
 require(RobloxGui.Modules.VR.Panel3D)
 
 local FFlagRenderVRCursorOnTop = game:DefineFastFlag("RenderVRCursorOnTop", false)
-local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
+local EngineFeatureBindActivateAllowMultiple = game:GetEngineFeature("EngineFeatureBindActivateAllowMultiple")
+local GetFFlagUIBloxMoveBindActivate =
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxMoveBindActivate
 
 local LocalPlayer = Players.LocalPlayer
 while not LocalPlayer do
@@ -44,22 +46,18 @@ local function addPartsToGame(...)
 			while GuiService.Changed:wait() ~= "CoreEffectFolder" and GuiService.CoreEffectFolder == nil do end
 			for _, part in pairs(parts) do
 				part.Parent = container
-				if EngineFeatureEnableVRUpdate2 then
-					part.CanTouch = false
-					part.CanCollide = false
-					part.CanQuery = false
-				end
+				part.CanTouch = false
+				part.CanCollide = false
+				part.CanQuery = false
 			end
 		end)()
 	else
 		--The container is ready, no waiting necessary.
 		for _, part in pairs(parts) do
 			part.Parent = container
-			if EngineFeatureEnableVRUpdate2 then
-				part.CanTouch = false
-				part.CanCollide = false
-				part.CanQuery = false
-			end
+			part.CanTouch = false
+			part.CanCollide = false
+			part.CanQuery = false
 		end
 	end
 end
@@ -115,7 +113,7 @@ local TELEPORT = {
 
 	ARC_COLOR_GOOD = fromLinearRGB(Color3.fromRGB(0, 162, 255)),
 	ARC_COLOR_BAD = fromLinearRGB(Color3.fromRGB(253, 68, 72)),
-	ARC_THICKNESS = EngineFeatureEnableVRUpdate2 and 0.0125 or 0.025,
+	ARC_THICKNESS = 0.0125,
 
 	PLOP_GOOD = "rbxasset://textures/ui/VR/VRPointerDiscBlue.png",
 	PLOP_BAD = "rbxasset://textures/ui/VR/VRPointerDiscRed.png",
@@ -161,9 +159,9 @@ local LASER = {
 	ARC_COLOR_GOOD = TELEPORT.ARC_COLOR_GOOD,
 	ARC_COLOR_BAD = TELEPORT.ARC_COLOR_BAD,
 	ARC_COLOR_HIT = fromLinearRGB(Color3.fromRGB(0, 255, 162)),
-	ARC_THICKNESS = EngineFeatureEnableVRUpdate2 and 0.01 or 0.02,
+	ARC_THICKNESS = 0.01,
 
-	MAX_DISTANCE = EngineFeatureEnableVRUpdate2 and 50 or 500,
+	MAX_DISTANCE = 50,
 
 	G = 0, -- Gravity constant for parabola; in this case we want a laser/straight line
 
@@ -288,33 +286,31 @@ function LaserPointer.new(laserDistance)
 			Transparency = 0.5,
 		})
 
-		if EngineFeatureEnableVRUpdate2 then
-			self.cursorPart = Utility:Create("Part")({
-				Name = "Cursor",
-				CanCollide = false,
-				CanQuery = false,
-				CanTouch = false,
-				Anchored = true,
-				Transparency = 1,
-			})
-			self.cursorSurfaceGui = Utility:Create("SurfaceGui")({
-				Name = "CursorSurfaceGui",
-				Active = false,
-				AlwaysOnTop = true,
-				Enabled = false,
-				ZOffset = FFlagRenderVRCursorOnTop and 10 or 0,
-				Parent = self.cursorPart,
-			})
-			self.cursorImage = Utility:Create("ImageLabel")({
-				Image = "rbxasset://textures/Cursors/Gamepad/Pointer.png",
-				ImageColor3 = Color3.new(0, 1, 0),
-				BackgroundTransparency = 1,
-				Parent = self.cursorSurfaceGui,
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.new(0.5, 0, 0.5, 0),
-				Size = UDim2.new(1, 0, 1, 0),
-			})
-		end
+		self.cursorPart = Utility:Create("Part")({
+			Name = "Cursor",
+			CanCollide = false,
+			CanQuery = false,
+			CanTouch = false,
+			Anchored = true,
+			Transparency = 1,
+		})
+		self.cursorSurfaceGui = Utility:Create("SurfaceGui")({
+			Name = "CursorSurfaceGui",
+			Active = false,
+			AlwaysOnTop = true,
+			Enabled = false,
+			ZOffset = FFlagRenderVRCursorOnTop and 10 or 0,
+			Parent = self.cursorPart,
+		})
+		self.cursorImage = Utility:Create("ImageLabel")({
+			Image = "rbxasset://textures/Cursors/Gamepad/Pointer.png",
+			ImageColor3 = Color3.new(0, 1, 0),
+			BackgroundTransparency = 1,
+			Parent = self.cursorSurfaceGui,
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+			Size = UDim2.new(1, 0, 1, 0),
+		})
 	end
 
 	do --Event connections and final setup
@@ -343,10 +339,11 @@ function LaserPointer.new(laserDistance)
 				end
 			end
 		end)
-
-		-- TODO: Should bind A, L2 and R2 buttons for VR controller point and click function.
-		-- However binding multiple buttons at the same is currently not supported: NFDN-2448
-		ContextActionService:BindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonA)
+		if not GetFFlagUIBloxMoveBindActivate() or not EngineFeatureBindActivateAllowMultiple then
+			-- TODO: Should bind A, L2 and R2 buttons for VR controller point and click function.
+			-- However binding multiple buttons at the same is currently not supported: NFDN-2448
+			ContextActionService:BindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonA)
+		end
 	end
 
 	self:onModeChanged(self.mode)
@@ -854,12 +851,7 @@ function LaserPointer:update(dt)
 			self:updateNavigationMode(parabHitPoint, parabHitNormal, parabHitPart)
 		else
 			self.parabola.Thickness = LASER.ARC_THICKNESS
-
-			if EngineFeatureEnableVRUpdate2 then
-				self.parabola.Color3 = VRService.DidPointerHit and LASER.ARC_COLOR_HIT or LASER.ARC_COLOR_GOOD
-			else
-				self.parabola.Color3 = LASER.ARC_COLOR_GOOD
-			end
+			self.parabola.Color3 = VRService.DidPointerHit and LASER.ARC_COLOR_HIT or LASER.ARC_COLOR_GOOD
 
 			if EngineFeatureEnableVRUpdate3 then
 				if LocalPlayer and LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Tool") then
@@ -876,7 +868,7 @@ function LaserPointer:update(dt)
 			self.parabola.Thickness = LASER.ARC_THICKNESS
 			self:renderAsLaser(originPos, laserHitPoint)
 
-			if EngineFeatureEnableVRUpdate2 and self.showPlopBallOnPointer then
+			if self.showPlopBallOnPointer then
 				self:updateNavPlop(laserHitPoint, laserHitNormal)
 			end
 		end

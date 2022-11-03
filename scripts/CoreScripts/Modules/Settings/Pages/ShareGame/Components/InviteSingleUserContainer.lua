@@ -17,7 +17,7 @@ local RobloxTranslator = require(ShareGame.getTranslator)()
 
 local httpRequest = require(CorePackages.AppTempCommon.Temp.httpRequest)
 local InviteUserIdToPlaceId = require(ShareGame.Thunks.InviteUserIdToPlaceId)
-local RetrievalStatus = require(CorePackages.AppTempCommon.LuaApp.Enum.RetrievalStatus)
+local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.RetrievalStatus
 
 local SingleUserThumbnail = require(ShareGame.Components.SingleUserThumbnail)
 
@@ -45,7 +45,10 @@ local InviteSingleUserContainer = function(props)
 		if props.onAfterClosePage then
 			props.onAfterClosePage()
 		end
-	end, {props.closePage, props.onAfterClosePage}::{any})
+	end, {
+		props.closePage,
+		props.onAfterClosePage,
+	} :: { any })
 
 	local onInvite = React.useCallback(function()
 		setSendingInvite(true)
@@ -56,12 +59,13 @@ local InviteSingleUserContainer = function(props)
 		end
 
 		local onSuccess = function(results)
+			setSendingInvite(false)
 			if not results then
 				return
 			end
 
 			local participants = { friend.id }
-			if Players.LocalPlayer then
+			if Players.LocalPlayer and results.conversationId then
 				local localPlayer = Players.LocalPlayer :: Player
 				analytics:onActivatedInviteSent(localPlayer.UserId, results.conversationId, participants)
 			end
@@ -79,14 +83,19 @@ local InviteSingleUserContainer = function(props)
 	} :: { any })
 
 	if not friend then
-		if props.friendsRetrievalStatus == RetrievalStatus.Done or props.friendsRetrievalStatus == RetrievalStatus.Failed then
+		if
+			props.friendsRetrievalStatus == RetrievalStatus.Done
+			or props.friendsRetrievalStatus == RetrievalStatus.Failed
+		then
 			onClose()
 		end
 		return
 	end
 
 	local inviteAlreadySent = inviteStatus and inviteStatus ~= InviteStatus.Failed
-	local inviteTextKey = if inviteAlreadySent then "Feature.SettingsHub.Label.Invited" else "Feature.SettingsHub.Action.InviteFriend"
+	local inviteTextKey =
+		if inviteAlreadySent then "Feature.SettingsHub.Label.Invited" else "Feature.SettingsHub.Action.InviteFriend"
+
 
 	return React.createElement("Frame", {
 		Size = UDim2.new(0, 442, 0, 0),
@@ -108,7 +117,7 @@ local InviteSingleUserContainer = function(props)
 			fontStyle = style.Font.Header1,
 			colorStyle = style.Theme.TextEmphasis,
 			text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Heading.InviteUser", {
-				DisplayName = friend.displayName
+				DisplayName = friend.displayName,
 			}),
 			size = UDim2.new(1, 0, 0, HEADER_SIZE),
 			textXAlignment = Enum.TextXAlignment.Center,
@@ -141,9 +150,12 @@ local InviteSingleUserContainer = function(props)
 			TextBody = React.createElement(StyledTextLabel, {
 				fontStyle = style.Font.Header2,
 				colorStyle = style.Theme.TextEmphasis,
-				text = props.promptMessage or RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.DefaultInviteMessage", {
-					DisplayName = friend.displayName
-				}),
+				text = props.promptMessage or RobloxTranslator:FormatByKey(
+					"Feature.SettingsHub.Label.DefaultInviteMessage",
+					{
+						DisplayName = friend.displayName,
+					}
+				),
 				textXAlignment = Enum.TextXAlignment.Center,
 				automaticSize = Enum.AutomaticSize.Y,
 				size = UDim2.new(1, 0, 0, 0),
@@ -166,9 +178,9 @@ local InviteSingleUserContainer = function(props)
 					text = RobloxTranslator:FormatByKey(inviteTextKey),
 					onActivated = onInvite,
 					isLoading = sendingInvite,
-					isDisabled = inviteAlreadySent
+					isDisabled = inviteAlreadySent,
 				}),
-			})
+			}),
 		}),
 	})
 end

@@ -22,7 +22,7 @@ local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local httpRequest = require(CorePackages.AppTempCommon.Temp.httpRequest)
 local httpImpl = httpRequest(HttpRbxApiService)
-local PermissionsProtocol = require(CorePackages.UniversalApp.Permissions.PermissionsProtocol)
+local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol
 local Promise = require(CorePackages.Promise)
 
 local GetGameNameAndDescription = require(RobloxGui.Modules.Common.GetGameNameAndDescription)
@@ -334,7 +334,7 @@ local function fetchExperienceName()
 	end
 end
 
-local function checkOrRequestExternalStoragePermissions()	
+local function checkOrRequestExternalStoragePermissions()
 	return PermissionsProtocol.default:checkOrRequestPermissions({
 			PermissionsProtocol.Permissions.WRITE_MEDIA_STORAGE,
 		}):andThen(function(permissionResponseStatus)

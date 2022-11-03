@@ -1,6 +1,6 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
-local ArgCheck = require(CorePackages.ArgCheck)
+local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 local Logging = require(CorePackages.Logging)
 local UIBlox = require(CorePackages.UIBlox)
 

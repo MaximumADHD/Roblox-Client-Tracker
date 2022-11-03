@@ -6,7 +6,7 @@ local CorePackages = game:GetService("CorePackages")
 local Url = require(CorePackages.Workspace.Packages.Http).Url
 local UrlBuilder = require(CorePackages.Packages.UrlBuilder).UrlBuilder
 local Logging = require(CorePackages.Logging)
-local ArgCheck = require(CorePackages.ArgCheck)
+local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 
 local TEA_END_POINTS = {
 	GET_INSTRUCTIONS = "timed-entertainment-allowance/v1/instructions",

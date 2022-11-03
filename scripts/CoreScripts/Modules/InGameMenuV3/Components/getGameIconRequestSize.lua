@@ -2,7 +2,7 @@
 	Gets the closes game icon size available
 ]]
 local CorePackages = game:GetService("CorePackages")
-local ArgCheck = require(CorePackages.ArgCheck)
+local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 
 local GAME_ICON_REQUEST_SIZES = {
 	50,

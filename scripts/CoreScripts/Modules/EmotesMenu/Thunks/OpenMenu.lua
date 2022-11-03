@@ -17,12 +17,10 @@ local ShowMenu = require(Actions.ShowMenu)
 
 local EmotesAnalytics = Analytics.new():withEventStream(EventStream.new())
 
-local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
-
 local function OpenMenu(emoteName)
     return function(store)
 	if GuiService.MenuIsOpen then
-		if EngineFeatureEnableVRUpdate2 and VRService.VREnabled then
+		if VRService.VREnabled then
 			GuiService:SetMenuIsOpen(false, "VRMenu")
 		else
 			return

@@ -3,7 +3,7 @@ local LocalizationService = game:GetService("LocalizationService")
 
 local Roact = require(CorePackages.Roact)
 
-local ArgCheck = require(CorePackages.ArgCheck)
+local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 local RobloxLocaleIdKey = require(script.Parent.RobloxLocaleIdKey)
 local LocalizationRoactContext = require(script.Parent.LocalizationRoactContext)
 local localizeStrings = require(script.Parent.localizeStrings)

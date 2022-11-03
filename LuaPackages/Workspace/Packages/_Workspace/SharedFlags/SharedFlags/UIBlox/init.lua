@@ -1,6 +1,5 @@
 return {
 	GetFFlagUIBloxDisableTooltipAnimation = require(script.GetFFlagUIBloxDisableTooltipAnimation),
-	GetFFlagUIBloxEnableActionBarButtonTypeOverride = require(script.GetFFlagUIBloxEnableActionBarButtonTypeOverride),
 	GetFFlagUIBloxEnableActionBarLayoutFix = require(script.GetFFlagUIBloxEnableActionBarLayoutFix),
 	GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix = require(script.GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix),
 	GetFFlagUIBloxEnableImageSetResolutionScaleFix = require(script.GetFFlagUIBloxEnableImageSetResolutionScaleFix),
@@ -13,4 +12,9 @@ return {
 	GetFFlagUIBloxSystemBarBottomAlignedItems = require(script.GetFFlagUIBloxSystemBarBottomAlignedItems),
 	GetFFlagUIBloxUseNewGenericTextLabelProps = require(script.GetFFlagUIBloxUseNewGenericTextLabelProps),
 	GetUIBloxUseNewThemeColorPalettes = require(script.GetUIBloxUseNewThemeColorPalettes),
+	GetFFlagUIBloxUseTagGroupArrows = require(script.GetFFlagUIBloxUseTagGroupArrows),
+	GetFFlagUIBloxMoveBindActivate = require(script.GetFFlagUIBloxMoveBindActivate),
+	GetFFlagUIBloxEnableAutoHidingPointerOverlay = require(script.GetFFlagUIBloxEnableAutoHidingPointerOverlay),
+	GetFFlagUIBloxHorizontalCarouselSetState = require(script.GetFFlagUIBloxHorizontalCarouselSetState),
+	GetFFlagUIBloxRemovePreviewAnchor = require(script.GetFFlagUIBloxRemovePreviewAnchor),
 }

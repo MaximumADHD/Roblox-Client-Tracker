@@ -5,7 +5,7 @@ return function()
 
 	local Rodux = require(CorePackages.Rodux)
 	local FetchingStatus = require(CorePackages.AppTempCommon.LuaApp.Reducers.FetchingStatus)
-	local RetrievalStatus = require(CorePackages.AppTempCommon.LuaApp.Enum.RetrievalStatus)
+	local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.RetrievalStatus
 	local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 	local Result = require(CorePackages.AppTempCommon.LuaApp.Result)
 

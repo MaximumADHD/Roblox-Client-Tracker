@@ -10,7 +10,7 @@ local RoactNavigation = require(CorePackages.RoactNavigation)
 local Cryo = require(CorePackages.Cryo)
 local LuaApp = script.Parent.Parent.Parent
 local SetIsControllerMode = require(LuaApp.Actions.SetIsControllerMode)
-local GetFFlagLuaAppAddSignalToFocusArea = require(LuaApp.Flags.GetFFlagLuaAppAddSignalToFocusArea)
+local GetFFlagLuaAppAddSignalToFocusArea = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppAddSignalToFocusArea
 local FFlagLuaAppRemoveSecondBindButtonsCall = game:DefineFastFlag("LuaAppRemoveSecondBindButtonsCall", false)
 
 local common = require(script.Parent.common)

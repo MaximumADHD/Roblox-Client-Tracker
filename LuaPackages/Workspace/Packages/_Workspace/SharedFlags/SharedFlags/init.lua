@@ -1,4 +1,8 @@
 return {
+	-- Common
+	UIBlox = require(script.UIBlox),
+	isSubjectToDesktopPolicies = require(script.isSubjectToDesktopPolicies),
+
 	-- Ecosystems
 	getFFlagUseVerifiedBadgeExperienceModal = require(script.getFFlagUseVerifiedBadgeExperienceModal),
 	getFFlagVBDuarFix = require(script.getFFlagVBDuarFix),
@@ -7,9 +11,24 @@ return {
 	getFFlagFetchSponsoredEventsOnMorePage = require(script.getFFlagFetchSponsoredEventsOnMorePage),
 	getFFlagEnableVirtualEvents = require(script.getFFlagEnableVirtualEvents),
 
-	UIBlox = require(script.UIBlox),
+	-- LuaApp
+	getFFlagLuaProfileShareWithDesktopPolicy = require(script.getFFlagLuaProfileShareWithDesktopPolicy),
+	GetFFlagEnableSwapToSourceButton = require(script.GetFFlagEnableSwapToSourceButton),
+	FFlagDesktopLaunchLinksInExternalBrowser = require(script.FFlagDesktopLaunchLinksInExternalBrowser),
+	GetFFlagLuaAppUseOmniRecDefaultPolicy = require(script.GetFFlagLuaAppUseOmniRecDefaultPolicy),
+
+	-- VR
+	GetFFlagDeactivateThrottleInVR = require(script.GetFFlagDeactivateThrottleInVR),
+	GetFFlagRoundedCornersVR = require(script.GetFFlagRoundedCornersVR),
+
+	-- Misc
 	FFlagLuaAppFixMessageBusUnsubscribe = require(script.FFlagLuaAppFixMessageBusUnsubscribe),
 	FFlagRoactGamepadFixDelayedRefFocusLost = require(script.FFlagRoactGamepadFixDelayedRefFocusLost),
+	FFlagAXCatalogSearchSizeGamepad = require(script.FFlagAXCatalogSearchSizeGamepad),
+	FFlagCatalogRecommendationsV2RolloutEnabledForAll = require(script.FFlagCatalogRecommendationsV2RolloutEnabledForAll),
+	GetEnableCatalogRecommendationsV2 = require(script.GetEnableCatalogRecommendationsV2),
+	GetFFlagEnableCatalogRecommendationsV2 = require(script.GetFFlagEnableCatalogRecommendationsV2),
+	GetFFlagAvatarEditorServiceInUniversalApp = require(script.GetFFlagAvatarEditorServiceInUniversalApp),
 	GetEngineFeatureIxpUserAppLayersPrefetchEnabled = require(script.GetEngineFeatureIxpUserAppLayersPrefetchEnabled),
 	GetFFlagEnableUnifiedWebViews = require(script.GetFFlagEnableUnifiedWebViews),
 	GetFFlagEnableVRWelcomePanel = require(script.GetFFlagEnableVRWelcomePanel),
@@ -41,4 +60,13 @@ return {
 	getFStringSocialFriendsLayer = require(script.getFStringSocialFriendsLayer),
 	getFFlagContactImporterOnFriendsCarousel = require(script.getFFlagContactImporterOnFriendsCarousel),
 	GetEnableDesignSystemExperiment = require(script.GetEnableDesignSystemExperiment),
+	GetFFlagDisableBubbleChatForExpChat = require(script.GetFFlagDisableBubbleChatForExpChat),
+	GetFFlagShareGetPlatformTargetImpl = require(script.GetFFlagShareGetPlatformTargetImpl),
+	GetFFlagUpgradeExpChatV3_3_1 = require(script.GetFFlagUpgradeExpChatV3_3_1),
+	GetEnableFriendFooterOnHomePage = require(script.GetEnableFriendFooterOnHomePage),
+	GetFFlagLuaAppAddSignalToFocusArea = require(script.GetFFlagLuaAppAddSignalToFocusArea),
+	GetFFlagLuaAppUseUIBloxColorPalettes = require(script.GetFFlagLuaAppUseUIBloxColorPalettes),
+	isNewFriendsEndpointsEnabled = require(script.isNewFriendsEndpointsEnabled),
+	GetFFlagCleanUpIsSubjectToDesktopPolicies = require(script.GetFFlagCleanUpIsSubjectToDesktopPolicies),
+	GetFFlagUseCorrectedFriendSortUtil = require(script.GetFFlagUseCorrectedFriendSortUtil),
 }

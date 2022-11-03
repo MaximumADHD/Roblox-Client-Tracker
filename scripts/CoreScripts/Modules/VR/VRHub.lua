@@ -14,7 +14,6 @@ local ContextActionService = game:GetService("ContextActionService")
 local RobloxGui = CoreGui.RobloxGui
 local Util = require(RobloxGui.Modules.Settings.Utility)
 
-local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 local LaserPointer = require(RobloxGui.Modules.VR.LaserPointer)
 
 local VRControllerModel = require(RobloxGui.Modules.VR.VRControllerModel)
@@ -124,10 +123,6 @@ local function onVREnabled(property)
 		RunService:BindToRenderStep(vrUpdateRenderstepName, Enum.RenderPriority.Last.Value, onRenderSteppedLast)
 
 		if VRHub.LaserPointer then
-			if not EngineFeatureEnableVRUpdate2 then
-				VRHub.LaserPointer:setMode(LaserPointer.Mode.Disabled)
-			end
-			
 			VRHub.LaserPointer:setForcePointer(true)
 		end
 		UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide

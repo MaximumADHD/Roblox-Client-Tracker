@@ -2,7 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Packages.Roact)
 
 local UIBlox = require(CorePackages.UIBlox)
-UIBlox.init(require(CorePackages.UIBloxUniversalAppConfig))
+UIBlox.init(require(CorePackages.Workspace.Packages.RobloxAppUIBloxConfig))
 
 Roact.setGlobalConfig({
 	elementTracing = true,

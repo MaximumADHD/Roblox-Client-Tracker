@@ -30,7 +30,7 @@ local initify = require(CorePackages.initify)
 initify(CorePackages)
 initify(Modules)
 
-local GetFFlagLuaAppUseUIBloxColorPalettes = require(CorePackages.AppTempCommon.LuaApp.Flags.GetFFlagLuaAppUseUIBloxColorPalettes)
+local GetFFlagLuaAppUseUIBloxColorPalettes = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppUseUIBloxColorPalettes
 if GetFFlagLuaAppUseUIBloxColorPalettes() then
 	-- With flag on, styles from UIBlox in LoadingScreen (required below)
 	-- are being used prior to UIBlox initialization which is in

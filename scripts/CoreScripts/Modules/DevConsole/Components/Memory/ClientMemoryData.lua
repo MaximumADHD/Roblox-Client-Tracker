@@ -1,6 +1,7 @@
 --!nonstrict
 local Signal = require(script.Parent.Parent.Parent.Signal)
 local SoundService = game:GetService("SoundService")
+local TextService = game:GetService("TextService")
 local MeshContentProvider = game:GetService("MeshContentProvider")
 local KeyframeSequenceProvider = game:GetService("KeyframeSequenceProvider")
 
@@ -205,6 +206,24 @@ local function fetchFuncAnimation()
 	return sortedAnimationData
 end
 
+local function fetchFontMemoryData()
+	local fontMemData = TextService:GetFontMemoryData()
+	local sortedFontMem = {}
+
+	for i, v in pairs(fontMemData) do
+		table.insert(sortedFontMem, {
+			name = i,
+			value = v / BYTE_IN_MB,
+		})
+	end
+
+	table.sort(sortedFontMem, function(a, b)
+		return a.value > b.value
+	end)
+
+	return sortedFontMem
+end
+
 function ClientMemoryData:updateCachedData(categoryName, retrieveDataCallback)
 	if self._doGranularMemUpdate[categoryName] then
 		self._doGranularMemUpdate[categoryName] = false
@@ -229,6 +248,8 @@ function ClientMemoryData:getAdditionalMemoryFunc(name)
 		-- this case requires more work to properly reflect the desired changes
 	elseif name == "Animation" then
 		fetchFunc = fetchFuncAnimation
+	elseif name == "gui/FontData" and game:GetEngineFeature("TextServiceGetFontMemoryData") then
+		fetchFunc = fetchFontMemoryData
 	end
 
 	if fetchFunc then

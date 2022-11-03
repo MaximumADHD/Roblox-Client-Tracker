@@ -12,6 +12,7 @@ export type EventTime = Package.EventTime
 export type EventTimeUtc = Package.EventTimeUtc
 export type Host = Package.Host
 export type VirtualEventResponse = Package.VirtualEventResponse
+export type VirtualEvent = Package.VirtualEvent
 export type PaginatedVirtualEventResponse = Package.PaginatedVirtualEventResponse
 export type CreateVirtualEventRequest = Package.CreateVirtualEventRequest
 export type UpdateVirtualEventRequest = Package.UpdateVirtualEventRequest

@@ -2,7 +2,7 @@ local ThemesRoot = script.Parent
 local StylesRoot = ThemesRoot.Parent
 
 local CorePackages = game:GetService("CorePackages")
-local GetFFlagLuaAppUseUIBloxColorPalettes = require(CorePackages.AppTempCommon.LuaApp.Flags.GetFFlagLuaAppUseUIBloxColorPalettes)
+local GetFFlagLuaAppUseUIBloxColorPalettes = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppUseUIBloxColorPalettes
 if GetFFlagLuaAppUseUIBloxColorPalettes() then
 	local UIBlox = require(CorePackages.UIBlox)
 	return UIBlox.App.Style.Themes.LightTheme

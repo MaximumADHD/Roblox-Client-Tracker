@@ -10,6 +10,7 @@ export type FontPalette = Package.FontPalette
 export type ImageSetImage = Package.ImageSetImage
 export type Images = Package.Images
 export type Theme = Package.Theme
+export type ThemeItem = Package.ThemeItem
 export type AppStyle = Package.AppStyle
 
 

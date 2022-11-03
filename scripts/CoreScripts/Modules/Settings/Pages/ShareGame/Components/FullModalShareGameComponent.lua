@@ -19,6 +19,8 @@ function FullModalShareGameComponent:render()
 	local store = self.props.store
 	local promptMessage = self.props.promptMessage
 	local inviteUserId = self.props.inviteUserId
+	local inviteMessageId = self.props.inviteMessageId
+	local launchData = self.props.launchData
 
 	return Roact.createElement(RoactRodux.StoreProvider, {
 		store = store,
@@ -36,6 +38,8 @@ function FullModalShareGameComponent:render()
 					skeletonComponent = if inviteUserId then InviteSingleUserContainer else ModalShareGamePageFrame,
 					promptMessage = promptMessage,
 					inviteUserId = inviteUserId,
+					inviteMessageId = inviteMessageId,
+					launchData = launchData,
 					onAfterClosePage = function()
 						local sentToUserIds = {}
 						for userId, _ in pairs(store:getState().Invites) do

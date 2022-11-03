@@ -4,7 +4,7 @@
 	will call once and store the values for future callers. It implements a
 	request queue in the case this function is called multiple times
 	before obtaining the permissions.
-	
+
 	Tracker: AVBURST-10621
 
 	Response format:
@@ -17,7 +17,7 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 
 local Cryo = require(CorePackages.Cryo)
-local PermissionsProtocol = require(CorePackages.UniversalApp.Permissions.PermissionsProtocol).default
+local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
 
 local Modules = CoreGui.RobloxGui.Modules
 local FFlagSelfViewFixes = require(Modules.Flags.FFlagSelfViewFixes)
@@ -97,12 +97,12 @@ return function(callback)
 				hasCameraPermissions = hasCameraPermissions,
 				hasMicPermissions = hasMicPermissions,
 			}
-	
+
 			-- Notify all callback listeners of the result.
 			for _, callback in callbackQueue do
 				callback(response)
 			end
-	
+
 			callbackQueue = {}
 			inProgress = false
 		end)

@@ -1,7 +1,7 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local Cryo = require(CorePackages.Cryo)
-local ArgCheck = require(CorePackages.ArgCheck)
+local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 local PromiseUtilities = require(CorePackages.AppTempCommon.LuaApp.PromiseUtilities)
 local FetchSubdividedThumbnails = require(script.Parent.FetchSubdividedThumbnails)
 

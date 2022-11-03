@@ -1,7 +1,7 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local LuaApp = CorePackages.AppTempCommon.LuaApp
-local ArgCheck = require(CorePackages.ArgCheck)
+local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 
 local Thumbnail = require(LuaApp.Models.Thumbnail)
 

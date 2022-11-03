@@ -4,6 +4,7 @@
 	This is shown when a user's device has given Roblox camera or microphone permissions.
 ]]
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
@@ -11,6 +12,9 @@ local UIBlox = require(CorePackages.UIBlox)
 
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local Colors = UIBlox.App.Style.Colors
+
+local Modules = CoreGui.RobloxGui.Modules
+local FFlagSelfViewFixesTwo = require(Modules.Flags.FFlagSelfViewFixesTwo)
 
 local DISABLED_BACKGROUND_COLOR = Colors.Ash
 local DISABLED_ICON_COLOR = Colors.Flint
@@ -30,11 +34,19 @@ ControlBubble.validateProps = t.strictInterface({
 })
 
 function ControlBubble:render()
-	return Roact.createElement("Frame", {
+	local imageComponent = ImageSetButton
+
+	if FFlagSelfViewFixesTwo then
+		imageComponent = if self.props.isImageSet then ImageSetButton else "ImageButton"
+	end
+
+	return Roact.createElement("ImageButton", {
 		AnchorPoint = Vector2.new(0.5, 1),
 		Size = UDim2.new(0, 44, 1, 0),
 		LayoutOrder = self.props.LayoutOrder,
 		Transparency = 1,
+		ZIndex = if FFlagSelfViewFixesTwo then 2 else 1,
+		[Roact.Event.Activated] = if FFlagSelfViewFixesTwo then self.props.onActivated else nil,
 	}, {
 		UICorner = Roact.createElement("UICorner", {
 			CornerRadius = UDim.new(0, 8),
@@ -47,7 +59,7 @@ function ControlBubble:render()
 			UICorner = Roact.createElement("UICorner", {
 				CornerRadius = UDim.new(0, 8),
 			}),
-			Icon = Roact.createElement(ImageSetButton, {
+			Icon = Roact.createElement(imageComponent, {
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(0.5, 0.5),
 				-- Icons from image set are a different size.
@@ -57,7 +69,7 @@ function ControlBubble:render()
 				ImageColor3 = if self.props.enabled then ICON_COLOR else DISABLED_ICON_COLOR,
 				BorderSizePixel = 0,
 				Image = self.props.icon,
-				[Roact.Event.Activated] = self.props.onActivated,
+				[Roact.Event.Activated] = if not FFlagSelfViewFixesTwo then self.props.onActivated else nil,
 			})
 		})
 	})

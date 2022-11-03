@@ -1,2 +1,3 @@
--- Stub for resolvers
-return {}
+local resolvers = require(script.mergedResolvers).default
+
+return resolvers

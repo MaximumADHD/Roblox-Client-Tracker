@@ -20,7 +20,7 @@ local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local t = require(CorePackages.Packages.t)
 local Otter = require(CorePackages.Packages.Otter)
-local PermissionsProtocol = require(CorePackages.UniversalApp.Permissions.PermissionsProtocol).default
+local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 local Cryo = require(CorePackages.Cryo)
 
@@ -44,6 +44,7 @@ local GetFFlagSelfViewSettingsEnabled = require(RobloxGui.Modules.Settings.Flags
 local GetFFlagBubbleChatAddCamera = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatAddCamera)
 local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
 local FFlagSelfViewFixes = require(RobloxGui.Modules.Flags.FFlagSelfViewFixes)
+local FFlagSelfViewFixesTwo = require(RobloxGui.Modules.Flags.FFlagSelfViewFixesTwo)
 
 local FIntBubbleVoiceTimeoutMillis = game:DefineFastInt("BubbleVoiceTimeoutMillis", 1000)
 
@@ -158,6 +159,14 @@ function BubbleChatBillboard:init()
 			})
 		end
 	end
+
+	if FFlagSelfViewFixesTwo then
+		self.selfViewVisibilityUpdatedSignal = selfViewVisibilityUpdatedSignal:connect(function()
+			self:setState({
+				selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible()
+			})
+		end)
+	end
 end
 
 function BubbleChatBillboard:checkCounterForTimeout(lastCounter)
@@ -256,6 +265,11 @@ function BubbleChatBillboard:willUnmount()
 		self.humanoidDiedConn = nil
 	end
 	self.offsetMotor:destroy()
+
+	if FFlagSelfViewFixesTwo and self.selfViewVisibilityUpdatedSignal then
+		self.selfViewVisibilityUpdatedSignal:disconnect()
+		self.selfViewVisibilityUpdatedSignal = nil
+	end
 end
 
 -- Wait for the first of the passed signals to fire
@@ -424,6 +438,26 @@ function BubbleChatBillboard:shouldShowControlBubble()
 	end
 end
 
+function BubbleChatBillboard:getRenderVoiceAndCameraBubble()
+	local isLocalPlayer = self.props.userId == tostring(Players.LocalPlayer.UserId)
+	local showVoiceIndicator = self.props.voiceEnabled and not self.state.voiceTimedOut
+
+	-- Self View hides local player's bubble. Otherwise proceed as normal for other players.
+	if isLocalPlayer and not self.state.selfViewOpen then
+		return true
+	end
+
+	if not isLocalPlayer and showVoiceIndicator and (
+		not self.props.bubbleChatEnabled
+		or not self.props.messageIds
+		or #self.props.messageIds == 0)
+	then
+		return true
+	end
+
+	return false
+end
+
 function BubbleChatBillboard:render()
 	local adorneeInstance = self:getAdorneeInstance(self.state.adornee)
 	local isLocalPlayer = self.props.userId == tostring(Players.LocalPlayer.UserId)
@@ -447,11 +481,17 @@ function BubbleChatBillboard:render()
 	local active = nil
 	local showVoiceIndicator = self.props.voiceEnabled and not self.state.voiceTimedOut
 	
-	if GetFFlagSelfViewSettingsEnabled() then
+	-- Self View hides the local user's bubble chat billboard.
+	if GetFFlagSelfViewSettingsEnabled() and (FFlagSelfViewFixesTwo and isLocalPlayer) then
 		showVoiceIndicator = showVoiceIndicator and not self.state.selfViewOpen
 	end
 
-	if GetFFlagBubbleChatAddCamera() and (FFlagSelfViewFixes and not self.state.selfViewOpen) then
+	local renderVoiceAndCameraBubble = GetFFlagBubbleChatAddCamera() and (FFlagSelfViewFixes and not self.state.selfViewOpen)
+	if FFlagSelfViewFixesTwo then
+		renderVoiceAndCameraBubble = self:getRenderVoiceAndCameraBubble()
+	end
+
+	if GetFFlagBubbleChatAddCamera() and renderVoiceAndCameraBubble then
 		children.VoiceAndCameraBubble = Roact.createElement(ControlsBubble, {
 			chatSettings = chatSettings,
 			isInsideMaximizeDistance = self.state.isInsideMaximizeDistance,
@@ -473,7 +513,7 @@ function BubbleChatBillboard:render()
 	else
 		-- If neither bubble chat nor voice is on, this whole component shouldn't be rendered.
 		if showVoiceIndicator and (
-			not self.props.bubbleChatEnabled 
+			not self.props.bubbleChatEnabled
 			or not self.props.messageIds
 			or #self.props.messageIds == 0)
 		then
@@ -514,7 +554,7 @@ function BubbleChatBillboard:render()
 			event = StarterGui.CoreGuiChangedSignal,
 			callback = self.onCoreGuiChanged,
 		}) or nil
-		children.selfViewListener = FFlagSelfViewFixes and Roact.createElement(ExternalEventConnection, {
+		children.selfViewListener = FFlagSelfViewFixes and not FFlagSelfViewFixesTwo and Roact.createElement(ExternalEventConnection, {
 			event = selfViewVisibilityUpdatedSignal,
 			callback = self.onSelfViewVisibilityUpdated,
 		}) or nil
@@ -560,7 +600,7 @@ function BubbleChatBillboard.getDerivedStateFromProps(nextProps, lastState)
 	local shortId = "..." .. string.sub(tostring(nextProps.userId), -4)
 
 	local hasMessage = not lastState.hasMessage and nextProps.messageIds and #nextProps.messageIds > 0
-	
+
 	local lastVoiceState
 	local voiceStateCounter
 	local voiceTimedOut

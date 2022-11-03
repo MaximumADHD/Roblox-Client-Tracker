@@ -4,7 +4,7 @@ return function()
 	local Roact = require(CorePackages.Roact)
 
 	local ActionModal = require(script.Parent.ActionModal)
-	local simpleMountFrame = require(game.CoreGui.RobloxGui.Modules.NotForProductionUse.UnitTestHelpers.simpleMountFrame)
+	local simpleMountFrame = require(CorePackages.Workspace.Packages.UnitTestHelpers).simpleMountFrame
 
 	local noOpt = function()
 	end

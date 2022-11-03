@@ -4,7 +4,7 @@ return function()
 	local Roact = require(CorePackages.Roact)
 
 	local ReportActionAreYouSure = require(script.Parent.ReportActionAreYouSure)
-	local simpleMountFrame = require(game.CoreGui.RobloxGui.Modules.NotForProductionUse.UnitTestHelpers.simpleMountFrame)
+	local simpleMountFrame = require(CorePackages.Workspace.Packages.UnitTestHelpers).simpleMountFrame
 
 	describe("ReportActionAreYouSure", function()
 		it("SHOULD choose the right strings for muted only", function(context)

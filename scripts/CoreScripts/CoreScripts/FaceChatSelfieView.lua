@@ -579,6 +579,8 @@ local function createViewport()
 			camButton.ImageTransparency = 0
 
 			indicatorCircle.Position = UDim2.new(1, -25, 0, 4)
+			frame.Active = true
+			frame.Visible = true
 		else
 			micButton.Position = UDim2.new(0, 40, 0, -1)
 			micButton.Size = UDim2.new(0, 34, 0, 34)
@@ -591,6 +593,8 @@ local function createViewport()
 			camButton.ImageTransparency = 0.3
 
 			indicatorCircle.Position = UDim2.new(0, 20, 0, -10)
+			frame.Active = false
+			frame.Visible = false
 		end
 
 		bottomButtonsFrame.Visible = isOpen

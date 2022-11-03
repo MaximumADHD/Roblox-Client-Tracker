@@ -1,5 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
-local RetrievalStatus = require(CorePackages.AppTempCommon.LuaApp.Enum.RetrievalStatus)
+local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.RetrievalStatus
 local InspectAndBuyFolder = script.Parent.Parent
 local IsDetailsItemPartOfBundleAndOffsale = require(InspectAndBuyFolder.Selectors.IsDetailsItemPartOfBundleAndOffsale)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)

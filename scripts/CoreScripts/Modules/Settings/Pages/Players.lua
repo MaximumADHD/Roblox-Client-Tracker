@@ -64,6 +64,9 @@ local PLAYER_NAME_RIGHT_PADDING = 20
 local USERNAME_POSITION = 0.5
 local USERNAME_POSITION_PORTRAIT = 0.275
 
+local FULL_SIZE_SHARE_GAME_BUTTON_SIZE = UDim2.new(1, -10, 0, PLAYER_ROW_HEIGHT)
+local HALF_SIZE_SHARE_GAME_BUTTON_SIZE = UDim2.new(0.5, -10, 0, PLAYER_ROW_HEIGHT)
+
 ------------ Variables -------------------
 local platform = UserInputService:GetPlatform()
 local PageInstance = nil
@@ -89,6 +92,7 @@ local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagO
 local GetFFlagSubscriptionFailureRejoin = require(RobloxGui.Modules.Flags.GetFFlagSubscriptionFailureRejoin)
 local GetFFlagInviteTextTruncateFix = require(RobloxGui.Modules.Flags.GetFFlagInviteTextTruncateFix)
 local GetFFlagSelfViewSettingsEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagSelfViewSettingsEnabled)
+local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 local FFlagPlayersTranslationUpdate = game:DefineFastFlag("PlayersTranslationUpdate", false)
 
 local isEngineTruncationEnabledForIngameSettings = require(RobloxGui.Modules.Flags.isEngineTruncationEnabledForIngameSettings)
@@ -694,6 +698,16 @@ local function Initialize()
 
 	local voiceChatServiceConnected = false
 
+	local function muteAllButtonRemove()
+		if muteAllButton then
+			muteAllButton.Visible = false
+			muteAllButton:Destroy()
+		end
+		if shareGameButton then
+			shareGameButton.Size = FULL_SIZE_SHARE_GAME_BUTTON_SIZE
+		end
+	end
+
 	local function createRow(frameClassName, hasSecondRow)
 		local frame = Instance.new(frameClassName)
 		frame.Image = "rbxasset://textures/ui/dialog_white.png"
@@ -747,7 +761,7 @@ local function Initialize()
 		local textLabel = frame.TextLabel
 		local icon = frame.Icon
 		if voiceChatServiceConnected and GetFFlagEnableVoiceChatMuteAll() then
-			frame.Size = UDim2.new(0.5, -10, 0, PLAYER_ROW_HEIGHT)
+			frame.Size = HALF_SIZE_SHARE_GAME_BUTTON_SIZE
 			if GetFFlagInviteTextTruncateFix() then
 				textLabel.Size = UDim2.new(0.5, 0, 0, 0)
 				textLabel.TextTruncate = Enum.TextTruncate.AtEnd
@@ -1040,6 +1054,10 @@ local function Initialize()
 	local renderSteppedConnected = false
 
 	local function updateAllMuteButtons()
+		if not muteAllButton then
+			return
+		end
+
 		local players = PlayersService:GetPlayers()
 		local allMuted = true
 		for _, player in ipairs(players) do
@@ -1339,6 +1357,17 @@ local function Initialize()
 					muteImageButtons[userLeft] = nil
 				end
 			end)
+			if GetFFlagVoiceRecordingIndicatorsEnabled() then
+				local VCS = VoiceChatServiceManager:getService()
+				VCS.StateChanged:Connect(function(_oldState, newState)
+					if newState == (Enum :: any).VoiceChatState.Ended then
+						muteAllButtonRemove()
+						voiceChatServiceConnected = false
+					elseif newState == (Enum :: any).VoiceChatState.Joined and voiceChatServiceConnected == false then
+						-- TODO: Re-Add removed buttons as soon as we have a valid usecase for re-joining voice mid-game
+					end
+				end)
+			end
 		end):catch(function(err)
 			if GetFFlagVoiceChatUILogging() then
 				log:warning("Failed to init VoiceChatServiceManager")

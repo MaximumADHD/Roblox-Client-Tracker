@@ -148,20 +148,13 @@ end
 
 -- Returns a table of Vector2's representing the corners and center of a billboardGui object
 -- This is useful for sending click/tap events!
+-- The coordinates are in UI inset coordinate space (inset by global gui inset).
 function PlayerHelper.GetCornersOfBillboardGui(bbgui)
-	local ignoresGuiInset = bbgui:FindFirstAncestorWhichIsA("ScreenGui").IgnoreGuiInset
-
 	local bbguiScreenpos = PlayerHelper.GetPartViewportPixelPosition(bbgui.Adornee)
 	local offset = Vector2.new(bbgui.SizeOffset.x*bbgui.AbsoluteSize.x, bbgui.SizeOffset.y*bbgui.AbsoluteSize.y)
 	local guiInset = GuiService:GetGuiInset()
 
-	if ignoresGuiInset then
-		-- If the parent ScreenGui ignores Gui inset, that means real (0,0) onscreen corresponds to (0,0) bbgui position
-		-- If ScreenGui does NOT ignore Gui inset, that means bbgui position (0,0) corresponds to (0,36) on screen.
-		guiInset = Vector2.new(0,0)
-	end
-
-	local center = bbguiScreenpos - guiInset
+	local center = bbguiScreenpos - guiInset + offset
 	local size = bbgui.AbsoluteSize
 
 	local topLeft = center - size/2 + Vector2.new(1, 1)
