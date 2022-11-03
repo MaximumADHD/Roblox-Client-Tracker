@@ -49,7 +49,7 @@ Class Accoutrement : Instance
 Class Accessory : Accoutrement
 	Property Enum.AccessoryType Accessory.AccessoryType {✏️NotAccessibleSecurity}
 Class Hat : Accoutrement [Deprecated]
-Class AdPortal : Instance [NotBrowsable]
+Class AdPortal : Instance
 	Property Enum.AdPortalStatus AdPortal.PortalStatus [ReadOnly]
 	Property Enum.AdPortalType AdPortal.PortalType
 	Property string AdPortal.PortalInvalidReason [ReadOnly] [NotScriptable]
@@ -1661,7 +1661,7 @@ Class SurfaceGuiBase : LayerCollector [NotCreatable]
 	Property bool SurfaceGuiBase.Active
 	Property Instance SurfaceGuiBase.Adornee
 	Property Enum.NormalId SurfaceGuiBase.Face
-Class AdGui : SurfaceGuiBase [NotBrowsable]
+Class AdGui : SurfaceGuiBase
 	Property Enum.AdShape AdGui.AdShape
 Class SurfaceGui : SurfaceGuiBase
 	Property float SurfaceGui.ZOffset

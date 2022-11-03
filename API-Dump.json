@@ -1185,10 +1185,7 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "AdPortal",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotBrowsable"
-            ]
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -31175,10 +31172,7 @@
             ],
             "MemoryCategory": "Internal",
             "Name": "AdGui",
-            "Superclass": "SurfaceGuiBase",
-            "Tags": [
-                "NotBrowsable"
-            ]
+            "Superclass": "SurfaceGuiBase"
         },
         {
             "Members": [
