@@ -14,7 +14,7 @@
     <addaction name="pasteAction" visible="false" />
     <addaction name="duplicateSelectionAction" visible="false" />
   </QuickAccessBar>
-  <SystemButton name="File" text="Studio.Common.Action.File" icon=":/images/RobloxStudio.png" tooltipicon=":/RibbonBar/images/Studio Ribbon Icons/roblox.png" modernIcon="" tooltip="Studio.App.RobloxRibbonMainWindow.OpenSaveManageDoc">
+  <SystemButton name="File" text="Studio.Common.Action.File" tooltip="Studio.App.RobloxRibbonMainWindow.OpenSaveManageDoc">
     <SystemPopup>
       <addaction name="fileNewAction"/>
       <addaction name="fileOpenAction"/>
@@ -101,7 +101,7 @@
         <addseparator visible="false"/>
         <addaction name="toggleUIMenuAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/UIEditor.png" modernIcon="UI" width="32" height="32"/>
       </Group>
-      <Group name="File" fflag="AvatarPluginsTab2" text="Studio.Common.Action.File" icon=":/RibbonBar/images/RibbonIcons/Avatar/icon_AvatarImporter.png" modernIcon="AvatarImporter" width="32" height="32">
+      <Group name="File" fflag="EnableAssetImporter" text="Studio.Common.Action.File" icon=":/RibbonBar/images/RibbonIcons/Avatar/icon_AvatarImporter.png" modernIcon="AvatarImporter" width="32" height="32">
         <addaction name="meshImporterAction" fflag="EnableAssetImporter" type="plugin" text="Studio.App.RobloxRibbonMainWindow.Import3D" icon=":/RibbonBar/images/RibbonIcons/Avatar/Import.png" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.MeshImporterTooltip" width="32" height="32" />
       </Group>
       <Group name="Edit" text="Studio.Common.Action.Edit" options="true" modernIcon="MaterialManager" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" width="32" height="32">
@@ -336,7 +336,7 @@
     <!--
       RIBBON BAR AVATAR TAB
     -->
-    <TabPage name="Avatar" text="Studio.App.RobloxRibbonMainWindow.Avatar" fflag="AvatarPluginsTab2">
+    <TabPage name="Avatar" text="Studio.App.RobloxRibbonMainWindow.Avatar" fflag="AvatarPluginsTab3">
       <Group name="Tools" text="Studio.App.RobloxRibbonMainWindow.Tools" modernIcon="Select" icon=":/RibbonBar/images/RibbonIcons/Home/Drag.png" width="32" height="32">
         <addaction name="advArrowToolAction" style="textundericon" text="Studio.Common.Action.Select"  tooltip="Studio.App.RobloxRibbonMainWindow.SelectAnObject" icon=":/RibbonBar/images/RibbonIcons/Home/Drag.png" modernIcon="Select" width="32" height="32" />
         <addaction name="advTranslateAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Move" tooltip="Studio.App.RobloxRibbonMainWindow.MoveAnObject" icon=":/RibbonBar/images/RibbonIcons/Home/Translate.png" modernIcon="Translate" width="32" height="32" />
@@ -363,7 +363,7 @@
         <addaction name="createAccessoryAction" fflag="!AccessoryToolRefactor2" type="plugin" text="Studio.App.RobloxRibbonMainWindow.CreateAccessory" icon=":/RibbonBar/images/RibbonIcons/Avatar/createAccessory.png" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.CreateAccessoryTooltip" width="32" height="32" />
         <addaction name="bulkCreateAccessoriesAction" fflag="!AccessoryToolRefactor2" type="plugin" text="Studio.App.RobloxRibbonMainWindow.BulkCreateAccessories" icon=":/RibbonBar/images/RibbonIcons/Avatar/bulkCreate.png" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.BulkCreateAccessoriesTooltip" width="32" height="32" />
       </Group>
-      <Group name="File" text="Studio.Common.Action.File" icon=":/RibbonBar/images/RibbonIcons/Avatar/icon_AvatarImporter.png" modernIcon="AvatarImporter" width="32" height="32">
+      <Group name="File" fflag="EnableAssetImporter" text="Studio.Common.Action.File" icon=":/RibbonBar/images/RibbonIcons/Avatar/icon_AvatarImporter.png" modernIcon="AvatarImporter" width="32" height="32">
         <addaction name="meshImporterAction" fflag="EnableAssetImporter" type="plugin" text="Studio.App.RobloxRibbonMainWindow.Import3D" icon=":/RibbonBar/images/RibbonIcons/Avatar/Import.png" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.MeshImporterTooltip" width="32" height="32" />
       </Group>
       <Group name="Rig" text="Studio.Common.Action.Rig" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="BuildRig" width="32" height="32">

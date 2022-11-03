@@ -20,12 +20,33 @@ dependencies = [
 ]
 
 [[package]]
+name = "AppSystemBar"
+version = "0.1.0"
+
+[[package]]
+name = "ArgCheck"
+version = "0.1.0"
+
+[[package]]
 name = "AvatarExperienceDeps"
+version = "0.1.0"
+
+[[package]]
+name = "AvatarPolicies"
 version = "0.1.0"
 
 [[package]]
 name = "CollisionMatchers2D"
 version = "0.1.0"
+
+[[package]]
+name = "ContactsProtocol"
+version = "0.1.0"
+dependencies = [
+    "MessageBus MessageBus 0.1.0",
+    "Promise Promise 0.1.0",
+    "t t 0.1.0",
+]
 
 [[package]]
 name = "Cryo"
@@ -141,6 +162,15 @@ version = "0.1.0"
 dependencies = ["AppCommonLib AppCommonLib 0.1.0"]
 
 [[package]]
+name = "PermissionsProtocol"
+version = "0.1.0"
+dependencies = [
+    "MessageBus MessageBus 0.1.0",
+    "Promise Promise 0.1.0",
+    "t t 0.1.0",
+]
+
+[[package]]
 name = "PolicyProvider"
 version = "0.1.0"
 
@@ -201,9 +231,40 @@ name = "RoactRodux"
 version = "0.1.0"
 
 [[package]]
+name = "RoactServices"
+version = "0.1.0"
+dependencies = [
+    "AppCommonLib AppCommonLib 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "Roact RoactCompat 0.1.0",
+]
+
+[[package]]
 name = "RoactUtils"
 version = "0.1.0"
-dependencies = ["JestGlobals JestGlobals 0.1.0"]
+dependencies = [
+    "AppCommonLib AppCommonLib 0.1.0",
+    "JestGlobals JestGlobals 0.1.0",
+    "Localization Localization 0.1.0",
+    "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+]
+
+[[package]]
+name = "RobloxAppLocales"
+version = "0.1.0"
+dependencies = [
+    "AppCommonLib AppCommonLib 0.1.0",
+    "Localization Localization 0.1.0",
+]
+
+[[package]]
+name = "RobloxAppUIBloxConfig"
+version = "0.1.0"
+dependencies = [
+    "ArgCheck ArgCheck 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+]
 
 [[package]]
 name = "Rodux"
@@ -216,6 +277,15 @@ version = "0.1.0"
 [[package]]
 name = "RoduxNetworking"
 version = "0.1.0"
+
+[[package]]
+name = "SMSProtocol"
+version = "0.1.0"
+dependencies = [
+    "MessageBus MessageBus 0.1.0",
+    "Promise Promise 0.1.0",
+    "t t 0.1.0",
+]
 
 [[package]]
 name = "SharedFlags"
@@ -237,6 +307,11 @@ dependencies = [
 ]
 
 [[package]]
+name = "SocialPolicies"
+version = "0.1.0"
+dependencies = ["SharedFlags SharedFlags 0.1.0"]
+
+[[package]]
 name = "StringUtilities"
 version = "0.1.0"
 
@@ -249,6 +324,11 @@ name = "TemplatePackage"
 version = "0.1.0"
 
 [[package]]
+name = "TestUtils"
+version = "0.1.0"
+dependencies = ["ReactRoblox ReactRoblox 0.1.0"]
+
+[[package]]
 name = "Thumbnailing"
 version = "0.1.0"
 
@@ -257,8 +337,42 @@ name = "UIBlox"
 version = "0.1.0"
 
 [[package]]
+name = "UnitTestHelpers"
+version = "0.1.0"
+dependencies = [
+    "AppCommonLib AppCommonLib 0.1.0",
+    "AvatarPolicies AvatarPolicies 0.1.0",
+    "JestGlobals JestGlobals 0.1.0",
+    "Localization Localization 0.1.0",
+    "Promise Promise 0.1.0",
+    "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "Roact RoactCompat 0.1.0",
+    "RoactNavigation RoactNavigation 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "SocialPolicies SocialPolicies 0.1.0",
+    "Style Style 0.1.0",
+    "TestUtils TestUtils 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+    "UniversalAppPolicy UniversalAppPolicy 0.1.0",
+]
+
+[[package]]
 name = "UniversalAppPolicy"
 version = "0.1.0"
+dependencies = [
+    "AppCommonLib AppCommonLib 0.1.0",
+    "AppSystemBar AppSystemBar 0.1.0",
+    "AvatarPolicies AvatarPolicies 0.1.0",
+    "Loggers Loggers 0.1.0",
+    "PolicyProvider PolicyProvider 0.1.0",
+    "Roact RoactCompat 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+    "SocialPolicies SocialPolicies 0.1.0",
+]
 
 [[package]]
 name = "UrlBuilder"

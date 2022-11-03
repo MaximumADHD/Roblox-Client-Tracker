@@ -11,7 +11,7 @@ proxy = "https://github.com/roblox/rotriever-proxy-index"
 Roact = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "RoactProxy"}
 Rodux = "github.com/roblox/rodux@1.0"
 RoactRodux = "github.com/roblox/roact-rodux@0.2"
-RoactAppExperiment = "github.com/roblox/roact-app-experiment@0.1.6"
+RoactAppExperiment = "github.com/roblox/roact-app-experiment@0.1.7"
 RoactNavigation = "github.com/roblox/roact-navigation@0.5.3"
 Cryo = "github.com/roblox/cryo@1.0"
 Dash = "github.com/roblox/dash@0.1"
@@ -33,8 +33,8 @@ Lumberyak = { git = "https://github.com/Roblox/lumberyak" }
 StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
 FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
-ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.1.0" }
-ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.2.1" }
+ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.2.1" }
+ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.3.1" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
 React = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactProxy"}
 ReactIs = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactIsProxy"}
@@ -44,7 +44,7 @@ Promise = "github.com/Roblox/roblox-lua-promise@3.3.0"
 VirtualizedList = "github.com/roblox/virtualized-list-lua@1.1.1"
 LuauPolyfill = "github.com/Roblox/luau-polyfill@0.4.0"
 RoduxNetworking = "github.com/Roblox/rodux-networking@3.0.1"
-NetworkingVirtualEvents = "github.com/Roblox/lua-app-networking@1.4.2"
+NetworkingVirtualEvents = "github.com/Roblox/lua-app-networking@1.6.0"
 NetworkingGames = "github.com/Roblox/networking-games@1.2.0"
 NetworkingFriends = "github.com/Roblox/networking-friends@2.4.1"
 NetworkingUsers = "github.com/Roblox/networking-users@1.0.1"

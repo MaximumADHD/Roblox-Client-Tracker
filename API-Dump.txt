@@ -242,7 +242,6 @@ Class Attachment : Instance
 	Function void Attachment:SetAxis(Vector3 axis) [Deprecated]
 	Function void Attachment:SetSecondaryAxis(Vector3 axis) [Deprecated]
 Class Bone : Attachment
-	Property bool Bone.IsCFrameDriven {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property CFrame Bone.TransformedCFrame [Hidden] [ReadOnly]
 	Property CFrame Bone.TransformedWorldCFrame [ReadOnly] {🧬Unsafe}
 	Property CFrame Bone.Transform [<📁> LoadOnly] [NotReplicated]
@@ -669,8 +668,8 @@ Class AlignOrientation : Constraint
 	Property float AlignOrientation.MaxTorque
 	Property float AlignOrientation.Responsiveness
 	Property CFrame AlignOrientation.CFrame
-	Property Vector3 AlignOrientation.PrimaryAxis
-	Property Vector3 AlignOrientation.SecondaryAxis
+	Property Vector3 AlignOrientation.PrimaryAxis [NotReplicated]
+	Property Vector3 AlignOrientation.SecondaryAxis [NotReplicated]
 Class AlignPosition : Constraint
 	Property Enum.PositionAlignmentMode AlignPosition.Mode
 	Property bool AlignPosition.ApplyAtCenterOfMass
@@ -2846,6 +2845,8 @@ Class Status : Model [NotCreatable] [Deprecated]
 Class WorldRoot : Model [NotCreatable]
 	Function bool WorldRoot:ArePartsTouchingOthers(Objects partList, float overlapIgnored = 0.000199999995)
 	Function void WorldRoot:BulkMoveTo(Objects partList, Array cframeList, Enum.BulkMoveMode eventMode = "FireAllEvents")
+	Function string WorldRoot:CacheCurrentTerrain(string id, Vector3 center, float radius) {RobloxScriptSecurity}
+	Function bool WorldRoot:ClearCachedTerrain(string id) {RobloxScriptSecurity}
 	Function Tuple WorldRoot:FindPartOnRay(Ray ray, Instance ignoreDescendantsInstance = nil, bool terrainCellsAreCubes = false, bool ignoreWater = false) [Deprecated]
 	Function Tuple WorldRoot:FindPartOnRayWithIgnoreList(Ray ray, Objects ignoreDescendantsTable, bool terrainCellsAreCubes = false, bool ignoreWater = false) [Deprecated]
 	Function Tuple WorldRoot:FindPartOnRayWithWhitelist(Ray ray, Objects whitelistDescendantsTable, bool ignoreWater = false) [Deprecated]
@@ -2859,6 +2860,7 @@ Class WorldRoot : Model [NotCreatable]
 	Function bool WorldRoot:IsRegion3Empty(Region3 region, Instance ignoreDescendentsInstance = nil) [Deprecated]
 	Function bool WorldRoot:IsRegion3EmptyWithIgnoreList(Region3 region, Objects ignoreDescendentsTable) [Deprecated]
 	Function RaycastResult WorldRoot:Raycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new()) {🧬Safe}
+	Function RaycastResult WorldRoot:RaycastCachedTerrain(string id, Vector3 origin, Vector3 direction, bool ignoreWater) {RobloxScriptSecurity}
 	Function void WorldRoot:SetInsertPoint(Vector3 point, bool ignoreGrid = false) {RobloxScriptSecurity}
 Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property bool Workspace.AllowThirdPartySales [NotReplicated]
@@ -4331,8 +4333,8 @@ Class ChatWindowConfiguration : TextChatConfigurations [NotCreatable]
 	Property Vector2 ChatWindowConfiguration.AbsolutePositionWrite {RobloxScriptSecurity} [Hidden]
 	Property Vector2 ChatWindowConfiguration.AbsoluteSize [ReadOnly] {🧬Unsafe}
 	Property Vector2 ChatWindowConfiguration.AbsoluteSizeWrite {RobloxScriptSecurity} [Hidden]
-	Property Enum.HorizontalAlignment ChatWindowConfiguration.HorizontalAlignment [<📁> LoadOnly] [NotReplicated] {🧬Unsafe}
-	Property Enum.VerticalAlignment ChatWindowConfiguration.VerticalAlignment [<📁> LoadOnly] [NotReplicated] {🧬Unsafe}
+	Property Enum.HorizontalAlignment ChatWindowConfiguration.HorizontalAlignment {🧬Unsafe}
+	Property Enum.VerticalAlignment ChatWindowConfiguration.VerticalAlignment {🧬Unsafe}
 Class TextChatMessage : Instance [NotCreatable]
 	Property string TextChatMessage.MessageId
 	Property string TextChatMessage.Metadata
@@ -4359,6 +4361,7 @@ Class TextFilterResult : Instance [NotCreatable] [NotReplicated]
 Class TextService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance TextService:FilterStringAsync(string stringToFilter, int64 fromUserId, Enum.TextFilterContext textContext = "PrivateChat") [Yields]
 	Function Dictionary TextService:GetFamilyInfoAsync(Content assetId) [Yields]
+	Function Dictionary TextService:GetFontMemoryData() {RobloxScriptSecurity}
 	Function Vector2 TextService:GetTextBoundsAsync(GetTextBoundsParams params) [Yields]
 	Function Vector2 TextService:GetTextSize(string string, int fontSize, Enum.Font font, Vector2 frameSize)
 	Function void TextService:SetResolutionScale(float scale) {RobloxScriptSecurity}
@@ -4805,9 +4808,11 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service] [NotBrowsable]
 	Function string VoiceChatInternal:GetGroupId() {RobloxScriptSecurity}
 	Function Tuple VoiceChatInternal:GetMicDevices() [Deprecated]
 	Function Array VoiceChatInternal:GetParticipants() [Deprecated]
+	Function string VoiceChatInternal:GetSessionId() {RobloxScriptSecurity}
 	Function Tuple VoiceChatInternal:GetSpeakerDevices() [Deprecated]
 	Function int VoiceChatInternal:GetVoiceChatApiVersion() [Deprecated]
 	Function int VoiceChatInternal:GetVoiceChatAvailable() [Deprecated]
+	Function string VoiceChatInternal:GetVoiceExperienceId() {RobloxScriptSecurity}
 	Function bool VoiceChatInternal:IsContextVoiceEnabled() {RobloxScriptSecurity}
 	Function bool VoiceChatInternal:IsPublishPaused() [Deprecated]
 	Function bool VoiceChatInternal:IsSubscribePaused(int64 userId) [Deprecated]
@@ -5339,6 +5344,7 @@ Enum ConnectionError
 	EnumItem ConnectionError.DisconnectOutOfMemoryExitContinue : 288
 	EnumItem ConnectionError.DisconnectOutOfMemoryKeepPlayingExit : 289
 	EnumItem ConnectionError.ReplicatorTimeout : 290
+	EnumItem ConnectionError.PlayerRemoved : 291
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516
