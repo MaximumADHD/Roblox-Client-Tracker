@@ -7,10 +7,12 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Images = require(UIBlox.App.ImageSet.Images)
 local Tile = require(TileRoot.BaseTile.Tile)
 local devOnly = require(UIBlox.Utility.devOnly)
+local withStyle = require(UIBlox.Core.Style.withStyle)
 
 local SaveTile = Roact.PureComponent:extend("SaveTile")
 
@@ -30,6 +32,9 @@ local validateProps = devOnly(t.strictInterface({
 	-- The item thumbnail's size
 	thumbnailSize = t.optional(t.UDim2),
 
+	-- The item thumbnail's image color
+	thumbnailColor = t.optional(t.Color3),
+
 	-- The item thumbnail's image transparency
 	thumbnailTransparency = t.optional(t.number),
 
@@ -48,8 +53,41 @@ SaveTile.defaultProps = {
 	thumbnailTransparency = 0,
 }
 
+function SaveTile:renderWithStyleProvider(stylePalette)
+	local hasRoundedCorners = self.props.hasRoundedCorners
+	local onActivated = self.props.onActivated
+	local isDisabled = self.props.isDisabled
+	local thumbnail = self.props.thumbnail
+	local thumbnailSize = self.props.thumbnailSize
+	local thumbnailColor = self.props.thumbnailColor
+	local thumbnailTransparency = self.props.thumbnailTransparency
+
+	return Roact.createElement(Tile, {
+		hasRoundedCorners = hasRoundedCorners,
+		name = "",
+		onActivated = onActivated,
+		isDisabled = isDisabled,
+		thumbnail = thumbnail,
+		thumbnailSize = thumbnailSize,
+		thumbnailColor = thumbnailColor or stylePalette.Theme.IconDefault.Color,
+		thumbnailTransparency = thumbnailTransparency,
+
+		NextSelectionLeft = self.props.NextSelectionLeft,
+		NextSelectionRight = self.props.NextSelectionRight,
+		NextSelectionUp = self.props.NextSelectionUp,
+		NextSelectionDown = self.props.NextSelectionDown,
+		[Roact.Ref] = self.props.thumbnailRef,
+	})
+end
+
 function SaveTile:render()
 	assert(validateProps(self.props))
+
+	if UIBloxConfig.useNewThemeColorPalettes then
+		return withStyle(function(stylePalette)
+			return self:renderWithStyleProvider(stylePalette)
+		end)
+	end
 
 	local hasRoundedCorners = self.props.hasRoundedCorners
 	local onActivated = self.props.onActivated

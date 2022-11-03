@@ -7,7 +7,7 @@ dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
     "DebugUtils DebugUtils 0d245abc git+https://github.com/roblox/lua-profile#v4.0.0",
     "HttpRequest roblox/http-request 3e68dca3 git+https://github.com/roblox/http-request#v1.1.0",
-    "NetworkingBlocking NetworkingBlocking 1.4.2 url+https://github.com/roblox/lua-app-networking",
+    "NetworkingBlocking NetworkingBlocking 1.6.0 url+https://github.com/roblox/lua-app-networking",
     "NetworkingCurrentlyWearing NetworkingCurrentlyWearing 0d245abc git+https://github.com/roblox/lua-profile#v4.0.0",
     "NetworkingFriends NetworkingFriends 2.7.0 url+https://github.com/roblox/networking-friends",
     "NetworkingGames NetworkingGames db69cf81 git+https://github.com/roblox/networking-games#v1.1.0",
@@ -24,7 +24,7 @@ dependencies = [
     "RoduxNetworking RoduxNetworking 3.0.1 url+https://github.com/roblox/rodux-networking",
     "RoduxPresence roblox/rodux-presence d060d8dd git+https://github.com/roblox/rodux-presence#v2.0.0",
     "RoduxProfile RoduxProfile 0d245abc git+https://github.com/roblox/lua-profile#v4.0.0",
-    "UIBlox UIBlox a0b3634a git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox d36813f6 git+https://github.com/roblox/uiblox#master",
     "UnitTestHelpers UnitTestHelpers 0d245abc git+https://github.com/roblox/lua-profile#v4.0.0",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]

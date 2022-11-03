@@ -20,5 +20,8 @@ return function(config: types.Config)
 		GetMyVirtualEvents = createGetMyVirtualEvents(roduxNetworking),
 		GetActiveVirtualEvents = createGetActiveVirtualEvents(roduxNetworking),
 		GetVirtualEventRsvps = createGetVirtualEventRsvps(roduxNetworking),
+
+		VirtualEventModel = require(NetworkingVirtualEvents.models.VirtualEventModel),
+		createMockVirtualEventResponse = require(NetworkingVirtualEvents.createMockVirtualEventResponse),
 	}
 end

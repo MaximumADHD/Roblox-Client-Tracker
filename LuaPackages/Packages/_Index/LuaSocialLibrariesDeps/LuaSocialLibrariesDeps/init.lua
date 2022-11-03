@@ -16,7 +16,7 @@ return {
 	RoduxUsers = require(LuaSocialLibrariesDeps.RoduxUsers),
 	RoduxUsers_v13 = require(LuaSocialLibrariesDeps.RoduxUsers_v13),
 	RoduxFriends = if getFFlagSocialUpdateRoduxFriendsv314()
-		then require(LuaSocialLibrariesDeps.RoduxFriends_v314)
+		then require(LuaSocialLibrariesDeps.RoduxFriends_v315)
 		else require(LuaSocialLibrariesDeps.RoduxFriends),
 	RoduxPresence = require(LuaSocialLibrariesDeps.RoduxPresence),
 	RoduxPresence_v3 = require(LuaSocialLibrariesDeps.RoduxPresence_v3),
@@ -41,4 +41,6 @@ return {
 	NetworkingUsers = require(LuaSocialLibrariesDeps.NetworkingUsers),
 	NetworkingBlocking = require(LuaSocialLibrariesDeps.NetworkingBlocking),
 	getFFlagSocialUpdateRoduxFriendsv314 = getFFlagSocialUpdateRoduxFriendsv314,
+	NetworkingSquads = require(LuaSocialLibrariesDeps.NetworkingSquads),
+	RoduxSquads = require(LuaSocialLibrariesDeps.RoduxSquads),
 }

@@ -17,7 +17,6 @@ local ThemePalette = t.strictInterface({
 	BackgroundMuted = Color,
 	BackgroundUIDefault = Color,
 	BackgroundUIContrast = Color,
-	MenuOnHover = Color,
 	BackgroundOnHover = Color,
 	BackgroundOnPress = Color,
 	CellOnHover = Color,
@@ -30,8 +29,8 @@ local ThemePalette = t.strictInterface({
 	-- Text
 	TextDefault = Color,
 	TextMuted = Color,
-	TextOnHover = Color,
 	TextEmphasis = Color,
+	TextOnHover = Color,
 	TextLink = Color,
 
 	-- Icons

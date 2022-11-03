@@ -1,3 +1,5 @@
+--!!! DEPRECATED, use sortFriendsByCorrectedPresenceAndRank instead
+
 local SocialLibraries: any = script:FindFirstAncestor("SocialLibraries")
 local dependencies: any = require(SocialLibraries.dependencies)
 local RoduxPresence: any = dependencies.RoduxPresence

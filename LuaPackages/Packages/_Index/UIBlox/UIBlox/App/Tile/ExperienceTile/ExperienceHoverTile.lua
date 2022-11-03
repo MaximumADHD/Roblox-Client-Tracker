@@ -7,6 +7,7 @@ local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local withStyle = require(Core.Style.withStyle)
 local Interactable = require(Core.Control.Interactable)
@@ -278,6 +279,8 @@ function ExperienceHoverTile:renderBottomContent(stylePalette)
 	local maxTitleTextHeight = math.ceil(font.BaseSize * font.Header2.RelativeSize * titleTextLineCount)
 	local panelHeight = TITLE_PADDING + maxTitleTextHeight + FOOTER_PADDING + FOOTER_HEIGHT
 
+	local titleColorStyle = if UIBloxConfig.useNewThemeColorPalettes then theme.TextDefault else theme.TextEmphasis
+
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, panelHeight),
 		BackgroundTransparency = 1,
@@ -295,8 +298,8 @@ function ExperienceHoverTile:renderBottomContent(stylePalette)
 				Text = experienceName,
 				Font = font.Header2.Font,
 				TextSize = font.BaseSize * font.Header2.RelativeSize,
-				TextTransparency = theme.TextEmphasis.Transparency,
-				TextColor3 = theme.TextEmphasis.Color,
+				TextTransparency = titleColorStyle.Transparency,
+				TextColor3 = titleColorStyle.Color,
 				TextWrapped = true,
 				TextTruncate = Enum.TextTruncate.AtEnd,
 				TextXAlignment = Enum.TextXAlignment.Left,

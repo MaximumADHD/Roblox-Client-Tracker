@@ -7,6 +7,7 @@ local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local withStyle = require(Core.Style.withStyle)
 local Interactable = require(Core.Control.Interactable)
@@ -182,6 +183,8 @@ function ItemSplitTile:renderBottomContent(stylePalette)
 		+ PANEL_PADDING.Offset
 		+ controlStatePadding.Offset * 2
 
+	local titleColorStyle = if UIBloxConfig.useNewThemeColorPalettes then theme.TextDefault else theme.TextEmphasis
+
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, bottomContentHeight),
 		BackgroundTransparency = 1,
@@ -208,8 +211,8 @@ function ItemSplitTile:renderBottomContent(stylePalette)
 				Text = itemName,
 				Font = font.Header2.Font,
 				TextSize = fontSize,
-				TextTransparency = theme.TextEmphasis.Transparency,
-				TextColor3 = theme.TextEmphasis.Color,
+				TextTransparency = titleColorStyle.Transparency,
+				TextColor3 = titleColorStyle.Color,
 				TextWrapped = true,
 				TextTruncate = Enum.TextTruncate.AtEnd,
 				TextXAlignment = Enum.TextXAlignment.Left,

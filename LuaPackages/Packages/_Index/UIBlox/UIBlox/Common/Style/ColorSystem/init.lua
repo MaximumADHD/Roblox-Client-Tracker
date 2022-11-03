@@ -5,9 +5,10 @@
 ]]
 
 return {
-	Black = { [0] = Color3.fromHex("#121212") },
-	White = { [0] = Color3.fromHex("#FFFFFF") },
+	Black = Color3.fromHex("#000000"),
+	White = Color3.fromHex("#FFFFFF"),
 	Gray = {
+		[0] = Color3.fromHex("#FFFFFF"),
 		[10] = Color3.fromHex("#FAFAFA"),
 		[20] = Color3.fromHex("#F6F6F6"),
 		[30] = Color3.fromHex("#EDEDED"),
@@ -20,6 +21,7 @@ return {
 		[100] = Color3.fromHex("#222222"),
 		[110] = Color3.fromHex("#1D1D1D"),
 		[120] = Color3.fromHex("#171717"),
+		[130] = Color3.fromHex("#121212"),
 	},
 	Blue = {
 		[10] = Color3.fromHex("#D5F0FF"),
@@ -30,7 +32,7 @@ return {
 		[60] = Color3.fromHex("#00A2FF"),
 		[70] = Color3.fromHex("#008BDB"),
 		[80] = Color3.fromHex("#0074B6"),
-		[90] = Color3.fromHex("#005D92"),
+		[90] = Color3.fromHex("#00639C"),
 		[100] = Color3.fromHex("#00456D"),
 		[110] = Color3.fromHex("#002E49"),
 		[120] = Color3.fromHex("#001724"),

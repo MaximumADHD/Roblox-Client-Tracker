@@ -86,7 +86,6 @@ if UIBloxConfig.useNewThemeColorPalettes then
 	}
 
 	testTheme = Cryo.Dictionary.join(testTheme, {
-		MenuOnHover = color,
 		CellOnHover = color,
 		TextOnHover = color,
 		Loading = gradient,

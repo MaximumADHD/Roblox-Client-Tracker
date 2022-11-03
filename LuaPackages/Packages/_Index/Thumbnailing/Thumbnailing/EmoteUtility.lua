@@ -9,6 +9,7 @@ local AnimationClipProvider = game:GetService("AnimationClipProvider")
 local InsertService = game:GetService("InsertService")
 local FFlagEmoteUtilityHandleErrors = game:DefineFastFlag("EmoteUtilityHandleErrors", false)
 local FFlagEmoteUtilityClearFaceBeforeApplyingAnything = game:DefineFastFlag("EmoteUtilityClearFaceBeforeApplyingAnything", false)
+
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local RunService = game:GetService("RunService")
 
@@ -479,13 +480,13 @@ end
 	Final application of poses in the case where user is holding a tool.
 	Also worries about attaching/welding/equipping the tool.
 ]]
-local function doR15ToolPose(character, humanoid, tool, poseAssetId, thumbnailKeyframe, defaultToolKeyframe, suggestedKeyframeFromTool)
+local function doR15ToolPose(character, humanoid, tool, poseAssetId, poseKeyframe, defaultToolKeyframe, suggestedKeyframeFromTool)
 	if suggestedKeyframeFromTool then
 		-- If it's the pose suggested by tool, do not respect blacklist (blacklist shouldn't exist
 		-- anyway).  Tool knows exactly how to pose each joint.
 		module.ApplyPose(character, suggestedKeyframeFromTool, --[[generateBlacklist =]] true, --[[applyBlacklist=]] false)
 		-- Then apply the user-selected pose.
-		module.ApplyPose(character, thumbnailKeyframe, --[[generateBlacklist =]] false, --[[applyBlacklist=]] true)
+		module.ApplyPose(character, poseKeyframe, --[[generateBlacklist =]] false, --[[applyBlacklist=]] true)
 	else
 		-- If it's the pose passed in, selected by user, first do the 'default' tool pose (raising)
 		-- the arm, and generating blacklist: we don't want the selected pose to re-position the joints
@@ -498,7 +499,7 @@ local function doR15ToolPose(character, humanoid, tool, poseAssetId, thumbnailKe
 		-- on idle animation, and we don't want to do arbitrary idle animation + tool because for some gear that doesn't look
 		-- right.
 		if poseAssetId ~= nil then
-			module.ApplyPose(character, thumbnailKeyframe, --[[generateBlacklist =]] false, --[[applyBlacklist=]] true)
+			module.ApplyPose(character, poseKeyframe, --[[generateBlacklist =]] false, --[[applyBlacklist=]] true)
 		end
 	end
 	clearJointBlacklist()
@@ -517,7 +518,7 @@ end
 	- may be asset id for an animation.  This is a 'strong' pose which is considered more
 	  important than any suggestion from tool.
 
-    useRotationInPoseAsset, if true, means we look for a "ThumbnailCharacterRotation"
+	useRotationInPoseAsset, if true, means we look for a "ThumbnailCharacterRotation"
 	number value in the pose asset and use that to rotate the avatar.
 
 	Return the keyframe and a bool on whether or not this trumps tools suggestions.
@@ -598,10 +599,15 @@ end
 --[[
 	Sort out what to do if user is holding a tool.
 	Doesn't actually pose the avatar, just collects whether or not we have a tool at
-	all, and, if so, either:
-	-- suggestedKeyframeFromTool: a pose based on tool's suggestion of how to pose whole body.
-	-- defaultToolKeyframe: a minor adjustment to apply to our selected pose to account for
-	   having a tool (basically a keyframe that raises the arm)
+	all and figures out, if we are holding tool, how that might affect the pose.
+
+	Maybe a yielding function.
+
+	Returns:
+	-- tool: the tool avatar is holding, if present.  If nil you can ignore suggestedKeyframeFromTool and defaultToolKeyframe
+	-- suggestedKeyframeFromTool: a pose based on tool's suggestion of how to pose whole body.  If present, ignore defaultToolKeyframe.
+	-- defaultToolKeyframe: user is holding tool but tool doesn't tell us how to pose avatar.  Some default "hold up your arm" pose
+	   for holding a tool.
 
 	This may be a yielding function.
 ]]
@@ -636,7 +642,7 @@ local function getToolKeyframes(character, givenPoseTrumpsToolPose)
 			assert(toolKeyframeSequence:IsA("KeyframeSequence"), "ToolNoneAnim must be a KeyframeSequence")
 			defaultToolKeyframe = module.GetThumbnailKeyframe(nil, toolKeyframeSequence, 0)
 
-			-- GetEmoteKeyFrames is a yielding function.  Are we still holding this tool?
+			-- GetEmoteAnimationClip is a yielding function.  Are we still holding this tool?
 			-- If not, things are kind of a mess: just proceed like we don't have a tool,
 			-- trust the calling code to call again to sort things out with newTool.
 			if not tool:IsDescendantOf(character) then
@@ -647,7 +653,7 @@ local function getToolKeyframes(character, givenPoseTrumpsToolPose)
 		end
 	end
 
-	return tool, defaultToolKeyframe, suggestedKeyframeFromTool
+	return tool, suggestedKeyframeFromTool, defaultToolKeyframe
 end
 
 --[[
@@ -670,41 +676,11 @@ module.ClearPlayerCharacterFace = function(character)
 	end
 end
 
---[[
-	Pose the given character based on the given asset id.
-	poseAssetId could point to an animation asset or a keyframe sequence.
-	  * If no poseAssetId is provided we fall back to looking for children of the character
-	  with particular names/structure to indicate a pose.
-	  Otherwise we fall back to some constant value.  NOTE this constant value will only
-	  work on production (hardwired asset id).
-	  * If poseAssetId is provided, the caller is assuemd to care about exactly what pose
-	  we are getting.  Since this function has async yield in it, hit the provided
-	  confirmProceedAfterYield callback after all the yielding stuff to confirm we still
-	  really want to do this.
-
-	This should properly account for the following quirks:
-	  * If tool present, try to adjust pose to account for tool.
-	  * If R6, just do very simple adaptation to account for possible tool.
-
-	ignoreRotationInPoseAsset is an optional param: if false, and poseAsset has a
-	"ThumbnailCharacterRotation" NumberValue, use that to rotate the avatar as
-	part of the pose.  If true, ignore "ThumbnailCharacterRotation" NumberValue on
-	pose asset.
-]]
-module.SetPlayerCharacterPose = function(character,
-	poseAssetId,
-	confirmProceedAfterYield,
-	ignoreRotationInPoseAsset)
-
-	if poseAssetId ~= nil then
-		assert(typeof(poseAssetId) == "number", "EmoteUtility.SetPlayerCharacterPose expects poseAssetId to be a number or nil")
-		assert(poseAssetId > 0, "EmoteUtility.SetPlayerCharacterPose expects poseAssetId to be a real asset ID (positive number)")
-	end
-
-	local humanoid = character:FindFirstChildOfClass("Humanoid")
-
+-- Check for cases where we can quickly/easily resolve pose, with no async complications.
+-- If we find one, return true.
+module.SetPlayerCharacterPoseEasyOut = function(character, humanoid, poseAssetId)
 	if not humanoid then
-		return
+		return true
 	end
 
 	if humanoid.RigType == Enum.HumanoidRigType.R6 then
@@ -716,45 +692,49 @@ module.SetPlayerCharacterPose = function(character,
 			character.Torso["Right Shoulder"].CurrentAngle = math.rad(0)
 			character.Torso["Right Shoulder"].DesiredAngle = math.rad(0)
 		end
-	elseif humanoid.RigType == Enum.HumanoidRigType.R15 then
-		local thumbnailKeyframe
-		local givenPoseTrumpsToolPose
-
-		-- Get the thumbnails suggested by poseAssetId.
-		thumbnailKeyframe, givenPoseTrumpsToolPose =
-			getMainThumbnailKeyframe(character, poseAssetId, not ignoreRotationInPoseAsset)
-
-		-- If that fails, just quit.  No posing.
-		if not thumbnailKeyframe then
-			return
-		end
-
-		-- Get the thumbnails related to the tool.
-		local tool, defaultToolKeyframe, suggestedKeyframeFromTool = getToolKeyframes(character, givenPoseTrumpsToolPose)
-
-		-- We have called some yielding functions (and now we are done, no more yielding functions).
-		-- Do we still want to do this?
-		if confirmProceedAfterYield and not confirmProceedAfterYield(poseAssetId) then
-			return
-		end
-
-		-- Un-pose to stock 'at attention' stance.
-		humanoid:BuildRigFromAttachments()
-		-- Iff this is going to pose the face, first unpose the face.
-		-- (If it's not going to pose the face then leave it alone, we may have already moved
-		-- face into a pose we like)
-		if FFlagEmoteUtilityClearFaceBeforeApplyingAnything then
-			if module.PoseKeyframeHasFaceAnimtion(thumbnailKeyframe) then
-				module.ClearPlayerCharacterFace(character)
-			end
-		end
-
-		if tool then
-			doR15ToolPose(character, humanoid, tool, poseAssetId, thumbnailKeyframe, defaultToolKeyframe, suggestedKeyframeFromTool)
-		else
-			module.ApplyPose(character, thumbnailKeyframe, false, false)
-		end
+		return true
 	end
+	return false
+end
+
+--[[
+	Do the work needed to convert our resource ids/urls describing pose into
+	useful keyframe data we can use to pose the avatar.
+	This may involve several RPCs to fetch resources from backend.
+
+	Returns:
+	-- poseKeyframe: pose based on poseAssetId.
+	-- tool: the tool avatar is holding, if present.  If nil you can ignore suggestedKeyframeFromTool and defaultToolKeyframe
+	-- suggestedKeyframeFromTool: a pose based on tool's suggestion of how to pose whole body.  If present, ignore defaultToolKeyframe.
+	-- defaultToolKeyframe: user is holding tool but tool doesn't tell us how to pose avatar.  Some default "hold up your arm" pose
+	   for holding a tool.
+]]
+module.doYieldingWorkToLoadPoseInfo = function(character, poseAssetId, ignoreRotationInPoseAsset)
+	local poseKeyframe
+	local givenPoseTrumpsToolPose
+
+	-- Get the thumbnails suggested by poseAssetId.
+	-- Note: this is a yielding call.
+	poseKeyframe, givenPoseTrumpsToolPose =
+		getMainThumbnailKeyframe(character, poseAssetId, not ignoreRotationInPoseAsset)
+
+	-- Don't bother with tool info we don't even have a main body pose.
+	if not poseKeyframe then
+		return nil, nil, nil, nil
+	end
+
+	-- If user is holding a tool, that may affecet how we pose.  Sort that out.
+	-- Note: this is also a yielding call.
+	-- I considered trying to run getToolKeyframes and getMainThumbnailKeyframe in parallel, but
+	-- running getMainThumbnailKeyframe first gives us givenPoseTrumpsToolPose, which is an input to getToolKeyframes.
+	-- Without givenPoseTrumpsToolPose, getToolKeyframes would always have to hit backend to fetch defaultToolKeyframe.
+	-- With givenPoseTrumpsToolPose, we might skip that call because the tool has a suggestion on how to pose avatar
+	-- and we know we want to use it.
+	--
+	-- So by running them in sequence I may be able to save us a backend call.
+	local tool, suggestedKeyframeFromTool, defaultToolKeyframe = getToolKeyframes(character, givenPoseTrumpsToolPose)
+
+	return poseKeyframe, tool, suggestedKeyframeFromTool, defaultToolKeyframe
 end
 
 -- poseAssetIdOrUrl identifies the pose asset we want to load.
@@ -763,7 +743,17 @@ end
 -- "http://www.roblox.com/Asset/?hash=225a9c414cf0f236d56759a5fabf56e4"
 -- Depending on the type we will use a different approach to load the asset.
 module.SetPlayerCharacterFace = function(character, poseAssetIdOrUrl, confirmProceedAfterYield)
-	assert(poseAssetIdOrUrl ~= nil, "EmoteUtility.SetPlayerCharacterFace expects non-nil poseAssetIdOrUrl")
+	-- Early out on nil/empty input.
+	if not poseAssetIdOrUrl then
+		return
+	end
+	if poseAssetIdOrUrl == "" then
+		return
+	end
+	if poseAssetIdOrUrl == 0 then
+		return
+	end
+
 	assert(typeof(poseAssetIdOrUrl) == "number" or typeof(poseAssetIdOrUrl) == "string",
 		"EmoteUtility.SetPlayerCharacterFace expects poseAssetIdOrUrl to be a number or string")
 
@@ -774,10 +764,10 @@ module.SetPlayerCharacterFace = function(character, poseAssetIdOrUrl, confirmPro
 	end
 
 	-- Get the thumbnails suggested by poseAssetIdOrUrl.
-	local thumbnailKeyframe = getMainThumbnailKeyframe(character, poseAssetIdOrUrl, true)
+	local moodKeyframe = getMainThumbnailKeyframe(character, poseAssetIdOrUrl, true)
 
 	-- If that fails, just quit.  No posing.
-	if not thumbnailKeyframe then
+	if not moodKeyframe then
 		return
 	end
 
@@ -792,7 +782,154 @@ module.SetPlayerCharacterFace = function(character, poseAssetIdOrUrl, confirmPro
 		module.ClearPlayerCharacterFace(character)
 	end
 
-	module.ApplyPose(character, thumbnailKeyframe, false, false)
+	module.ApplyPose(character, moodKeyframe, false, false)
 end
+
+--[[
+	Pose the given character based on the given asset ids.
+
+	If the poseAssetId contains details that pose the face, ignore moodAssetId.
+	Otherwise pose face with moodAssetId if present.
+
+	poseAssetId could point to an animation asset or a keyframe sequence.
+	* If no poseAssetId is provided we fall back to looking for children of the character
+	with particular names/structure to indicate a pose.
+	Otherwise we fall back to some constant value.  NOTE this constant value will only
+	work on production (hardwired asset id).
+	* If poseAssetId is provided, the caller is assuemd to care about exactly what pose
+	we are getting.  Since this function has async yield in it, hit the provided
+	confirmProceedAfterYield callback after all the yielding stuff to confirm we still
+	really want to do this.
+
+	This should properly account for the following quirks:
+	* If tool present, try to adjust pose to account for tool.
+	* If R6, just do very simple adaptation to account for possible tool.
+
+	ignoreRotationInPoseAsset is an optional param: if false, and poseAsset has a
+	"ThumbnailCharacterRotation" NumberValue, use that to rotate the avatar as
+	part of the pose.  If true, ignore "ThumbnailCharacterRotation" NumberValue on
+	pose asset.
+]]
+module.SetPlayerCharacterPoseWithMoodFallback = function(character,
+	poseAssetId,
+	moodAssetId,
+	ignoreRotationInPoseAsset,
+	confirmProceedAfterYield)
+
+	if poseAssetId ~= nil then
+		assert(typeof(poseAssetId) == "number", "EmoteUtility.SetPlayerCharacterPoseWithMoodFallback expects poseAssetId to be a number or nil")
+		assert(poseAssetId > 0, "EmoteUtility.SetPlayerCharacterPoseWithMoodFallback expects poseAssetId to be a real asset ID (positive number)")
+	end
+	if moodAssetId ~= nil then
+		assert(typeof(moodAssetId) == "number", "EmoteUtility.SetPlayerCharacterPoseWithMoodFallback expects moodAssetId to be a number or nil")
+	end
+
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
+	if module.SetPlayerCharacterPoseEasyOut(character, humanoid, poseAssetId) then
+		return
+	end
+
+	if humanoid.RigType ~= Enum.HumanoidRigType.R15 then
+		return
+	end
+
+	local poseKeyframe, tool, suggestedKeyframeFromTool, defaultToolKeyframe =
+		module.doYieldingWorkToLoadPoseInfo(character, poseAssetId, ignoreRotationInPoseAsset)
+
+	-- If we failed to get info on how to pose the body, just quit.
+	if not poseKeyframe then
+		return
+	end
+
+	local moodKeyframe
+	local poseKeyframeHasFaceAnimtion = module.PoseKeyframeHasFaceAnimtion(poseKeyframe)
+	if not poseKeyframeHasFaceAnimtion and moodAssetId and moodAssetId ~= 0 then
+		-- Get the face keyframes.
+		-- Note: this is yielding function.  I considered making it parallel with doYieldingWorkToLoadPoseInfo, but
+		-- doYieldingWorkToLoadPoseInfo gives us poseKeyframe which in turn tells us poseKeyframeHasFaceAnimtion.
+		-- Depending on the results of doYieldingWorkToLoadPoseInfo we might not even need to make this call.
+		moodKeyframe = getMainThumbnailKeyframe(character, moodAssetId, true)
+	end
+
+	-- We have called some yielding functions (and now we are done, no more yielding functions).
+	-- Do we still want to do this?
+	if confirmProceedAfterYield and not confirmProceedAfterYield(poseAssetId, moodAssetId) then
+		return
+	end
+
+	-- Un-pose avatar to neutral face/body.
+	humanoid:BuildRigFromAttachments()
+	module.ClearPlayerCharacterFace(character)
+
+	-- Apply body pose.
+	if tool then
+		doR15ToolPose(character, humanoid, tool, poseAssetId, poseKeyframe, defaultToolKeyframe, suggestedKeyframeFromTool)
+	else
+		module.ApplyPose(character, poseKeyframe, false, false)
+	end
+
+	-- Apply face pose.
+	if moodKeyframe then
+		module.ApplyPose(character, moodKeyframe, false, false)
+	end
+end
+
+--[[
+	Very similar to SetPlayerCharacterPoseWithMoodFallback, except there's no option to set the mood before setting the emote.
+	Rendered obsolete by SetPlayerCharacterPoseWithMoodFallback.  Remove once RCC and client are both using
+	SetPlayerCharacterPoseWithMoodFallback for good.
+]]
+module.SetPlayerCharacterPose = function(character,
+	poseAssetId,
+	confirmProceedAfterYield,
+	ignoreRotationInPoseAsset)
+
+	if poseAssetId ~= nil then
+		assert(typeof(poseAssetId) == "number", "EmoteUtility.SetPlayerCharacterPose expects poseAssetId to be a number or nil")
+		assert(poseAssetId > 0, "EmoteUtility.SetPlayerCharacterPose expects poseAssetId to be a real asset ID (positive number)")
+	end
+
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
+	if module.SetPlayerCharacterPoseEasyOut(character, humanoid, poseAssetId) then
+		return
+	end
+
+	if humanoid.RigType ~= Enum.HumanoidRigType.R15 then
+		return
+	end
+
+	local poseKeyframe, tool, suggestedKeyframeFromTool, defaultToolKeyframe =
+		module.doYieldingWorkToLoadPoseInfo(character, poseAssetId, ignoreRotationInPoseAsset)
+
+	-- If we failed to get info on how to pose the body, just quit.
+	if not poseKeyframe then
+		return
+	end
+
+	-- We have called some yielding functions (and now we are done, no more yielding functions).
+	-- Do we still want to do this?
+	if confirmProceedAfterYield and not confirmProceedAfterYield(poseAssetId) then
+		return
+	end
+
+	-- Un-pose to stock 'at attention' stance.
+	humanoid:BuildRigFromAttachments()
+
+	-- Iff this is going to pose the face, first unpose the face.
+	-- (If it's not going to pose the face then leave it alone: before this function was called we may have already
+	-- moved face into a pose we like based on mood, say by applying CharacterAppearance to Player.
+	if FFlagEmoteUtilityClearFaceBeforeApplyingAnything then
+		if module.PoseKeyframeHasFaceAnimtion(poseKeyframe) then
+			module.ClearPlayerCharacterFace(character)
+		end
+	end
+
+	if tool then
+		doR15ToolPose(character, humanoid, tool, poseAssetId, poseKeyframe, defaultToolKeyframe, suggestedKeyframeFromTool)
+	else
+		module.ApplyPose(character, poseKeyframe, false, false)
+	end
+end
+
 
 return module

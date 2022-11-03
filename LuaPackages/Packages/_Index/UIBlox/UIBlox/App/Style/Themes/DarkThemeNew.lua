@@ -4,12 +4,11 @@ local Styles = Themes.Parent
 local App = Styles.Parent
 local Root = App.Parent
 local ColorSystem = require(Root.Common.Style.ColorSystem)
-local Colors = require(Styles.Colors)
 
 local theme = {
 	-- Backgrounds
 	BackgroundDefault = {
-		Color = ColorSystem.Black[0],
+		Color = ColorSystem.Gray[130],
 		Transparency = 0,
 	},
 	BackgroundContrast = {
@@ -28,19 +27,13 @@ local theme = {
 		Color = ColorSystem.Gray[100],
 		Transparency = 0,
 	},
-	MenuOnHover = {
-		Color = ColorSystem.Gray[80],
-		Transparency = 0,
-	},
-	-- "BackgroundOnHover" is kept for compatibility.
-	-- Please use "MenuOnHover" instead.
 	BackgroundOnHover = {
-		Color = ColorSystem.Gray[80],
-		Transparency = 0,
+		Color = ColorSystem.White,
+		Transparency = 0.9, -- 0.1 alpha
 	},
 	BackgroundOnPress = {
-		Color = ColorSystem.Gray[100],
-		Transparency = 0,
+		Color = ColorSystem.Black,
+		Transparency = 0.7, -- 0.3 alpha
 	},
 	CellOnHover = {
 		Color = ColorSystem.Gray[110],
@@ -63,21 +56,19 @@ local theme = {
 
 	-- Text
 	TextDefault = {
-		Color = ColorSystem.White[0],
-		Transparency = 0,
-	},
-	TextMuted = {
 		Color = ColorSystem.Gray[50],
 		Transparency = 0,
 	},
-	TextOnHover = {
-		Color = ColorSystem.Gray[40],
+	TextMuted = {
+		Color = ColorSystem.Gray[60],
 		Transparency = 0,
 	},
-	-- "TextEmphasis" is kept for compatibility.
-	-- Please use "TextOnHover" instead.
 	TextEmphasis = {
-		Color = ColorSystem.Gray[40],
+		Color = ColorSystem.Gray[0],
+		Transparency = 0,
+	},
+	TextOnHover = {
+		Color = ColorSystem.Gray[10],
 		Transparency = 0,
 	},
 	TextLink = {
@@ -87,15 +78,15 @@ local theme = {
 
 	-- Icons
 	IconDefault = {
-		Color = ColorSystem.White[0],
+		Color = ColorSystem.Gray[0],
 		Transparency = 0,
 	},
 	IconEmphasis = { -- To be deprecated
-		Color = ColorSystem.White[0],
+		Color = ColorSystem.Gray[0],
 		Transparency = 0,
 	},
 	IconOnHover = { -- To be deprecated
-		Color = ColorSystem.White[0],
+		Color = ColorSystem.Gray[0],
 		Transparency = 0,
 	},
 
@@ -109,11 +100,11 @@ local theme = {
 		Transparency = 0,
 	},
 	ContextualPrimaryContent = {
-		Color = ColorSystem.Black[0],
+		Color = ColorSystem.Gray[130],
 		Transparency = 0,
 	},
 	SystemPrimaryDefault = {
-		Color = ColorSystem.White[0],
+		Color = ColorSystem.Gray[0],
 		Transparency = 0,
 	},
 	SystemPrimaryOnHover = {
@@ -121,11 +112,11 @@ local theme = {
 		Transparency = 0,
 	},
 	SystemPrimaryContent = {
-		Color = ColorSystem.Black[0],
+		Color = ColorSystem.Gray[130],
 		Transparency = 0,
 	},
 	SecondaryDefault = {
-		Color = ColorSystem.White[0],
+		Color = ColorSystem.Gray[0],
 		Transparency = 0,
 	},
 	SecondaryOnHover = {
@@ -133,17 +124,17 @@ local theme = {
 		Transparency = 0,
 	},
 	SecondaryContent = {
-		Color = ColorSystem.White[0],
+		Color = ColorSystem.Gray[0],
 		Transparency = 0,
 	},
 
 	-- Styles / States
 	Divider = {
-		Color = ColorSystem.Gray[70],
-		Transparency = 0,
+		Color = ColorSystem.White,
+		Transparency = 0.92, -- 0.08 alpha
 	},
 	Overlay = {
-		Color = ColorSystem.Black[0],
+		Color = ColorSystem.Black,
 		Transparency = 0.6, -- 0.4 Alpha
 	},
 	NavigationBar = {
@@ -151,18 +142,18 @@ local theme = {
 		Transparency = 0,
 	},
 	Badge = {
-		Color = ColorSystem.Red[50],
+		Color = ColorSystem.Gray[0],
 		Transparency = 0,
 	},
 	BadgeContent = {
-		Color = ColorSystem.Black[0],
+		Color = ColorSystem.Gray[130],
 		Transparency = 0,
 	},
 	Loading = {
 		Color = ColorSequence.new({
-			ColorSequenceKeypoint.new(0, ColorSystem.White[0]),
-			ColorSequenceKeypoint.new(0.5, ColorSystem.White[0]),
-			ColorSequenceKeypoint.new(1, ColorSystem.White[0]),
+			ColorSequenceKeypoint.new(0, ColorSystem.Gray[0]),
+			ColorSequenceKeypoint.new(0.5, ColorSystem.Gray[0]),
+			ColorSequenceKeypoint.new(1, ColorSystem.Gray[0]),
 		}),
 		Transparency = NumberSequence.new({
 			NumberSequenceKeypoint.new(0, 1), -- 0 Alpha
@@ -184,12 +175,12 @@ local theme = {
 		Transparency = 0,
 	},
 	SelectionCursor = { -- Gamepad
-		Color = ColorSystem.White[0],
+		Color = ColorSystem.Gray[0],
 		Transparency = 0,
-		AnimatedColor = ColorSystem.White[0], -- For animated cursors, we use GradientColorSequence * AnimatedColor
+		AnimatedColor = ColorSystem.White, -- For animated cursors, we use GradientColorSequence * AnimatedColor
 		GradientRotationSpeed = 2,
 		GradientColorSequence = ColorSequence.new({
-			ColorSequenceKeypoint.new(0, ColorSystem.White[0]),
+			ColorSequenceKeypoint.new(0, ColorSystem.Gray[0]),
 			ColorSequenceKeypoint.new(1, ColorSystem.Gray[70]),
 		}),
 		GradientTransparencySequence = NumberSequence.new({
@@ -211,19 +202,19 @@ local theme = {
 		Transparency = 0,
 	},
 	DropShadow = {
-		Color = ColorSystem.Black[0],
+		Color = ColorSystem.Black,
 		Transparency = 0.2, -- 0.8 Alpha
 	},
 
 	-- Others
 	PlayerBackgroundDefault = {
-		Color = ColorSystem.White[0],
+		Color = ColorSystem.Gray[0],
 		Transparency = 0,
 		Image = "component_assets/avatarBG_dark",
 	},
 
 	ItemBackgroundDefault = {
-		Color = ColorSystem.Black[0],
+		Color = ColorSystem.Gray[130],
 		Transparency = 0,
 		Image = "component_assets/itemBG_dark",
 	},

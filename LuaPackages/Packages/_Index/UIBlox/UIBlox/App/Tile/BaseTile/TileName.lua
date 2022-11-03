@@ -100,7 +100,9 @@ function ItemTileName:render()
 				genericTextLabelProps = {
 					fluidSizing = useFluidSizing,
 					fontStyle = titleFontStyle,
-					colorStyle = theme.TextEmphasis,
+					colorStyle = if UIBloxConfig.useNewThemeColorPalettes
+						then theme.TextDefault
+						else theme.TextEmphasis,
 					Text = name,
 					TextTruncate = Enum.TextTruncate.AtEnd,
 				},

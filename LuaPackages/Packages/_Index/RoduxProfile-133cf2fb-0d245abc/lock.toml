@@ -6,7 +6,7 @@ source = "git+https://github.com/roblox/lua-profile#v4.0.0"
 dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
     "DebugUtils DebugUtils 0d245abc git+https://github.com/roblox/lua-profile#v4.0.0",
-    "NetworkingBlocking NetworkingBlocking 1.4.2 url+https://github.com/roblox/lua-app-networking",
+    "NetworkingBlocking NetworkingBlocking 1.6.0 url+https://github.com/roblox/lua-app-networking",
     "NetworkingCurrentlyWearing NetworkingCurrentlyWearing 0d245abc git+https://github.com/roblox/lua-profile#v4.0.0",
     "NetworkingFriends NetworkingFriends 2.7.0 url+https://github.com/roblox/networking-friends",
     "NetworkingGames NetworkingGames db69cf81 git+https://github.com/roblox/networking-games#v1.1.0",

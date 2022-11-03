@@ -9,20 +9,23 @@ type Query = {
 }
 
 return function(roduxNetworking)
-	local GetVirtualEventRsvps = roduxNetworking.GET(script, function(requestBuilder, eventId: number, query: Query?)
-		local request = requestBuilder(constants.API_URL)
-			:path("virtual-events")
-			:path("v1")
-			:path("virtual-events")
-			:id(eventId)
-			:path("rsvps")
+	local GetVirtualEventRsvps = roduxNetworking.GET(
+		script,
+		function(requestBuilder, virtualEventId: string, query: Query?)
+			local request = requestBuilder(constants.API_URL)
+				:path("virtual-events")
+				:path("v1")
+				:path("virtual-events")
+				:id(virtualEventId)
+				:path("rsvps")
 
-		if query then
-			request = request:queryArgs(query)
+			if query then
+				request = request:queryArgs(query)
+			end
+
+			return request
 		end
-
-		return request
-	end)
+	)
 
 	return GetVirtualEventRsvps
 end

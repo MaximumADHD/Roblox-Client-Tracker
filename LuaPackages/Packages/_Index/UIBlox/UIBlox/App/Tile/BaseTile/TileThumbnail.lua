@@ -22,6 +22,7 @@ local TileThumbnail = Roact.PureComponent:extend("TileThumbnail")
 
 TileThumbnail.defaultProps = {
 	imageSize = UDim2.new(1, 0, 1, 0),
+	imageColor = nil,
 	imageTransparency = 0,
 	imagePadding = 0,
 }
@@ -33,6 +34,7 @@ function TileThumbnail:render()
 	local image = self.props.Image
 	local imageSize = self.props.imageSize
 	local imagePadding = self.props.imagePadding
+	local imageColor = self.props.imageColor
 	local imageTransparency = self.props.imageTransparency
 	local isSelected = self.props.isSelected
 	local multiSelect = self.props.multiSelect
@@ -75,7 +77,7 @@ function TileThumbnail:render()
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					BackgroundTransparency = 1,
 					Image = image,
-					ImageColor3 = theme.UIEmphasis.Color,
+					ImageColor3 = imageColor or theme.UIEmphasis.Color,
 					ImageTransparency = imageTransparency,
 					Position = UDim2.new(0.5, 0, 0.5, 0),
 					Size = imageSize - UDim2.fromOffset(imagePadding * 2, imagePadding * 2),

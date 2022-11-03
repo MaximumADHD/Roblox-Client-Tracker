@@ -2,30 +2,26 @@ local NetworkingVirtualEvents = script:FindFirstAncestor("NetworkingVirtualEvent
 
 local types = require(NetworkingVirtualEvents.types)
 
-local function createMockVirtualEventResponse(eventId: string): types.VirtualEventResponse
+local function createMockVirtualEventResponse(virtualEventId: string): types.VirtualEventResponse
 	return {
-		id = eventId,
+		id = virtualEventId,
 		title = "Event Title",
 		description = "Event description...",
 		host = {
 			hostType = "user",
-			hostId = 12345678,
-			isPremium = false,
+			hostId = 1,
+			hostName = "Roblox",
 			hasVerifiedBadge = false,
 		},
 		eventTime = {
 			startUtc = DateTime.fromLocalTime(2022, 1, 1):ToIsoDate(),
 			endUtc = DateTime.fromLocalTime(2022, 1, 7):ToIsoDate(),
 		},
+		universeId = 1,
 		eventStatus = "active",
 		createdUtc = DateTime.fromLocalTime(2022, 1, 1):ToIsoDate(),
 		updatedUtc = DateTime.fromLocalTime(2022, 1, 1):ToIsoDate(),
 		userRsvpStatus = "none",
-		universeId = 1, -- TODO: remove after EN-1515 is merged
-		universe = {
-			universeId = 1,
-			isPrivate = false,
-		},
 	}
 end
 

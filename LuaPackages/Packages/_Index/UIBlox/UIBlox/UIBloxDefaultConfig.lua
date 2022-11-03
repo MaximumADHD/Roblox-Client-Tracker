@@ -112,9 +112,6 @@ return {
 	-- Enable fix for the image set resolution scale
 	enableImageSetResolutionScaleFix = false,
 
-	-- Enable Button to take buttonType prop that is used in ActionBar to manually specify a button style
-	enableActionBarButtonTypeOverride = false,
-
 	-- Register gamepad buttons for VR laser pointer input
 	moveBindActivate = false,
 	-- Enable support for the new Collectible/Limited 2.0 item restriction type
@@ -137,4 +134,11 @@ return {
 
 	-- True if left/right navigation arrows should be shown for TagGroup (mouse and keyboard only)
 	arrowsOnTagGroup = false,
+
+	-- Removes central AnchorPoint and Position from ExperienceDetails media gallery Preview
+	-- to avoid layout bug related to AutomaticSize
+	removePreviewAnchor = false,
+
+	-- Use functional setState in HorizontalCarousel.lua
+	useFunctionalSetStateHorizontalCarousel = false,
 }

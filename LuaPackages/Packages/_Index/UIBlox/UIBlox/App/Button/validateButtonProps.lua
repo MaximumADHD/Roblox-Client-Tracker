@@ -33,11 +33,7 @@ local function maxWidthValidator(value)
 	end
 end
 local function buttonType(value)
-	if UIBloxConfig.enableActionBarButtonTypeOverride then
-		return t.optional(t.userdata)(value)
-	else
-		return value == nil
-	end
+	return t.optional(t.userdata)(value)
 end
 
 return t.strictInterface({

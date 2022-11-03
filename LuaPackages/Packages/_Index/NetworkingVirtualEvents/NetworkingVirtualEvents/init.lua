@@ -7,12 +7,14 @@ export type EventTime = types.EventTime
 export type EventTimeUtc = types.EventTimeUtc
 export type Host = types.Host
 export type VirtualEventResponse = types.VirtualEventResponse
+export type VirtualEvent = types.VirtualEvent
 export type PaginatedVirtualEventResponse = types.PaginatedVirtualEventResponse
 export type CreateVirtualEventRequest = types.CreateVirtualEventRequest
 export type UpdateVirtualEventRequest = types.UpdateVirtualEventRequest
 export type DeleteVirtualEventResponse = types.DeleteVirtualEventResponse
 
 return {
+	VirtualEventModel = require(script.models.VirtualEventModel),
 	config = require(script.config),
 	createMockVirtualEventResponse = require(script.createMockVirtualEventResponse),
 }

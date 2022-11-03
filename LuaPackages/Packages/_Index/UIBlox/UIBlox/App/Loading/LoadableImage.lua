@@ -360,16 +360,12 @@ function LoadableImage:_awaitImageLoaded()
 	if self.imageRef then
 		local image = self.imageRef:getValue()
 		if image then
-			if image.IsNotOccluded then
-				self._hasStartedLoading = true
-			else
-				image.Changed:Connect(function(prop)
-					if prop == "IsNotOccluded" and image.IsNotOccluded and not self._hasStartedLoading then
-						-- Image became visible for the first time
-						self._hasStartedLoading = true
-					end
-				end)
-			end
+			image.Changed:Connect(function(prop)
+				if prop == "IsNotOccluded" and image.IsNotOccluded and not self._hasStartedLoading then
+					-- Image became visible for the first time
+					self._hasStartedLoading = true
+				end
+			end)
 
 			while not self._hasStartedLoading do
 				task.wait()

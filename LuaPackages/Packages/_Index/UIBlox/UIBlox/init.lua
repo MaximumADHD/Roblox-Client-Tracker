@@ -13,6 +13,7 @@ export type ImageSetImage = ImagesTypes.ImageSetImage
 export type Images = ImagesTypes.Images
 
 export type Theme = StyleTypes.Theme
+export type ThemeItem = StyleTypes.ThemeItem
 export type AppStyle = StyleTypes.AppStyle
 
 local function initializeLibrary(configs)

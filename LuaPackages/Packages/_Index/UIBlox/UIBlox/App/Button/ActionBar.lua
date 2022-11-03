@@ -205,7 +205,7 @@ function ActionBar:renderWithLayoutFix()
 
 			local buttonComponent = if iconNumber == 0 then PrimarySystemButton else PrimaryContextualButton
 
-			if UIBloxConfig.enableActionBarButtonTypeOverride and buttonProps.buttonType then
+			if buttonProps.buttonType then
 				buttonComponent = BUTTON_TYPE_ENUMS[buttonProps.buttonType]
 			end
 
@@ -317,7 +317,7 @@ function ActionBar:renderLegacy()
 
 			local buttonComponent = if iconNumber == 0 then PrimarySystemButton else PrimaryContextualButton
 
-			if UIBloxConfig.enableActionBarButtonTypeOverride and buttonProps.buttonType then
+			if buttonProps.buttonType then
 				buttonComponent = BUTTON_TYPE_ENUMS[buttonProps.buttonType]
 			end
 

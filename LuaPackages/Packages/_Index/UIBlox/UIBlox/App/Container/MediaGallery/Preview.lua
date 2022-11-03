@@ -10,6 +10,7 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local Otter = require(Packages.Otter)
+local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
 local getIconSize = require(App.ImageSet.getIconSize)
 local IconSize = require(App.ImageSet.Enum.IconSize)
@@ -333,8 +334,8 @@ function Preview:render()
 		}, {
 			Content = Roact.createElement("Frame", {
 				Size = self.contentSize,
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.fromScale(0.5, 0.5),
+				AnchorPoint = if UIBloxConfig.removePreviewAnchor then nil else Vector2.new(0.5, 0.5),
+				Position = if UIBloxConfig.removePreviewAnchor then nil else UDim2.fromScale(0.5, 0.5),
 				BorderSizePixel = 0,
 				BackgroundTransparency = 1,
 			}, {
@@ -541,11 +542,11 @@ function Preview:calcSizesFromHeight(containerHeight, numberOfThumbnails)
 	-- reverse calculation of calcSizesFromWidth()
 	local contentWidth = math.floor(
 		(
-				math.floor((containerHeight - PADDING_MIDDLE) * IMAGE_RATIO * numberOfThumbnails)
-				+ PADDING_ITEMS * (numberOfThumbnails - 1)
-				+ PAGINATION_ARROW_WIDTH * 2
-				+ PAGINATION_ARROW_WIDTH * 2 * numberOfThumbnails
-			) / (numberOfThumbnails + 1)
+			math.floor((containerHeight - PADDING_MIDDLE) * IMAGE_RATIO * numberOfThumbnails)
+			+ PADDING_ITEMS * (numberOfThumbnails - 1)
+			+ PAGINATION_ARROW_WIDTH * 2
+			+ PAGINATION_ARROW_WIDTH * 2 * numberOfThumbnails
+		) / (numberOfThumbnails + 1)
 	)
 
 	return self:calcSizesFromWidth(contentWidth, numberOfThumbnails)

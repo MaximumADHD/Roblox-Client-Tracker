@@ -97,8 +97,12 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 	local VRDisabledCallback
 	if UIBloxConfig.moveBindActivate then
 		VRDisabledCallback = React.useCallback(function()
-			LeftControllerModel.current:setEnabled(false)
-			RightControllerModel.current:setEnabled(false)
+			if LeftControllerModel.current then
+				LeftControllerModel.current:setEnabled(false)
+			end
+			if RightControllerModel.current then
+				RightControllerModel.current:setEnabled(false)
+			end
 			if EngineFeatureBindActivateAllowMultiple then
 				ContextActionService:UnbindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonA)
 				ContextActionService:UnbindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)

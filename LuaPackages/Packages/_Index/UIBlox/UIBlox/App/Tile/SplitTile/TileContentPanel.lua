@@ -10,6 +10,7 @@ local t = require(Packages.t)
 local useStyle = require(Core.Style.useStyle)
 
 local setDefault = require(UIBlox.Utility.setDefault)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local TEXT_LINE_COUNT = 2
 local TITLE_PADDING = 8
@@ -47,6 +48,8 @@ local function TileContentPanel(props: Props)
 
 	local maxTextHeight = font.BaseSize * titleFont.RelativeSize * titleTextLineCount
 
+	local titleColorStyle = if UIBloxConfig.useNewThemeColorPalettes then theme.TextDefault else theme.TextEmphasis
+
 	return React.createElement("Frame", {
 		Size = UDim2.new(UDim.new(1, 0), panelHeight),
 		BackgroundTransparency = 1,
@@ -73,8 +76,8 @@ local function TileContentPanel(props: Props)
 				Text = contentTitle,
 				Font = titleFont.Font,
 				TextSize = font.BaseSize * titleFont.RelativeSize,
-				TextTransparency = theme.TextEmphasis.Transparency,
-				TextColor3 = theme.TextEmphasis.Color,
+				TextTransparency = titleColorStyle.Transparency,
+				TextColor3 = titleColorStyle.Color,
 				TextWrapped = true,
 				TextTruncate = Enum.TextTruncate.AtEnd,
 				TextXAlignment = Enum.TextXAlignment.Left,

@@ -41,6 +41,9 @@ local validateProps = devOnly(t.strictInterface({
 
 	-- Optional backgroundImage of the tile
 	backgroundImage = t.optional(t.union(t.string, t.table)),
+
+	-- Optional no idea what this is for but ItemCard("should show the SaveTile") test is failing without this.
+	imageColor = t.optional(t.Color3)
 }))
 
 TileThumbnail.defaultProps = {

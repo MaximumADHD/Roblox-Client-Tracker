@@ -6,14 +6,14 @@ local types = require(NetworkingVirtualEvents.types)
 return function(roduxNetworking)
 	local UpdateVirtualEvent = roduxNetworking.POST(
 		script,
-		function(requestBuilder, eventId: number, payload: types.UpdateVirtualEventRequest)
+		function(requestBuilder, virtualEventId: string, payload: types.UpdateVirtualEventRequest)
 			local eventTime = payload.eventTime
 
 			return requestBuilder(constants.API_URL)
 				:path("virtual-events")
 				:path("v1")
 				:path("virtual-events")
-				:id(eventId)
+				:id(virtualEventId)
 				:body({
 					title = payload.title,
 					description = payload.description,

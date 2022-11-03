@@ -19,25 +19,30 @@ export type EventTimeUtc = {
 export type Host = {
 	hostType: HostType,
 	hostId: number,
-	isPremium: boolean?,
-	hasVerifiedBadge: boolean?,
+	hostName: string,
+	hasVerifiedBadge: boolean,
 }
 
-export type VirtualEventResponse = {
+type VirtualEventBase = {
 	id: string,
 	title: string,
 	description: string,
-	eventTime: EventTimeUtc,
 	host: Host,
+	universeId: number,
 	eventStatus: EventStatus,
+	userRsvpStatus: RsvpStatus,
+}
+
+export type VirtualEventResponse = VirtualEventBase & {
+	eventTime: EventTimeUtc,
 	createdUtc: string,
 	updatedUtc: string,
-	userRsvpStatus: RsvpStatus,
-	universeId: number,
-	universe: {
-		universeId: number,
-		isPrivate: boolean,
-	},
+}
+
+export type VirtualEvent = VirtualEventBase & {
+	eventTime: EventTime,
+	createdTime: DateTime,
+	updatedTime: DateTime,
 }
 
 type PaginatedResponse<T> = {

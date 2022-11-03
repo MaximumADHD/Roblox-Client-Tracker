@@ -59,6 +59,9 @@ local tileInterface = t.strictInterface({
 	-- The item thumbnail's padding if not 0
 	thumbnailPadding = t.optional(t.number),
 
+	-- The item thumbnail's color
+	thumbnailColor = t.optional(t.Color3),
+
 	-- The item thumbnail's transparency if not 0
 	thumbnailTransparency = t.optional(t.number),
 
@@ -163,6 +166,7 @@ function Tile:render()
 	local thumbnail = self.props.thumbnail
 	local thumbnailSize = self.props.thumbnailSize
 	local thumbnailPadding = self.props.thumbnailPadding
+	local thumbnailColor = self.props.thumbnailColor
 	local thumbnailTransparency = self.props.thumbnailTransparency
 	local bannerText = self.props.bannerText
 	local hasRoundedCorners = self.props.hasRoundedCorners
@@ -275,6 +279,7 @@ function Tile:render()
 						overlayComponents = thumbnailOverlayComponents,
 						imageSize = thumbnailSize,
 						imagePadding = thumbnailPadding,
+						imageColor = thumbnailColor,
 						imageTransparency = thumbnailTransparency,
 						backgroundImage = backgroundImage,
 					}),

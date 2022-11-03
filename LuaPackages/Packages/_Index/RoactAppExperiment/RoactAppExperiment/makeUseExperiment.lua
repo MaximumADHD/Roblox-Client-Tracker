@@ -12,6 +12,7 @@ local React = require(RoactAppExperiment.Parent.React)
 
 local usePrevious = require(script.Parent.usePrevious)
 local ExperimentContext = require(script.Parent.ExperimentContext)
+local getFFlagLuaAppIxpHookInitialValues = require(script.Parent.Flags.getFFlagLuaAppIxpHookInitialValues)
 
 export type MapLayers<T...> = ({ [string]: any }) -> T...
 
@@ -65,8 +66,32 @@ local function makeUseExperiment(
 			assert(type(layerNames) == "table", "useExperiment expects layerNames to be a list of layers")
 			assert(type(mapLayers) == "function", "useExperiment expects mapLayers to be a function")
 
-			local layerToVariables, setLayerToVariables = React.useState({})
-			local layerLoadingStatus, setLayerLoadingStatus = React.useState(Enum.IXPLoadingStatus.None)
+			local function getNewLayerToVariables()
+				local newLayerToVariables = {}
+				for _, layerName in ipairs(layerNames) do
+					newLayerToVariables[layerName] = ixpService[getLayerVariables](ixpService, layerName)
+					if newLayerToVariables[layerName] then
+						-- if the layer data is empty, clear the entry out completely,
+						-- so the layerToVariables empty check is correct.
+						local hasEntry = next(newLayerToVariables[layerName])
+						if not hasEntry then
+							newLayerToVariables[layerName] = nil
+						end
+					end
+				end
+				return newLayerToVariables
+			end
+
+			local function getLoadingStatus()
+				return ixpService[getLayerLoadingStatus](ixpService)
+			end
+
+			-- Initialize layerToVariables by invoking IXPService
+			local layerToVariables, setLayerToVariables =
+				React.useState(if getFFlagLuaAppIxpHookInitialValues() then getNewLayerToVariables else {})
+			local layerLoadingStatus, setLayerLoadingStatus = React.useState(
+				if getFFlagLuaAppIxpHookInitialValues() then getLoadingStatus else Enum.IXPLoadingStatus.None
+			)
 
 			local layerNamesKey = getLayerNamesKey(layerNames)
 
@@ -77,17 +102,24 @@ local function makeUseExperiment(
 				end
 
 				local function updateStateLayerData()
-					local status = ixpService[getLayerLoadingStatus](ixpService)
+					local status = if getFFlagLuaAppIxpHookInitialValues()
+						then getLoadingStatus()
+						else ixpService[getLayerLoadingStatus](ixpService)
 
-					local newLayerToVariables = {}
-					for _, layerName in ipairs(layerNames) do
-						newLayerToVariables[layerName] = ixpService[getLayerVariables](ixpService, layerName)
-						if newLayerToVariables[layerName] then
-							-- if the layer data is empty, clear the entry out completely,
-							-- so the layerToVariables empty check is correct.
-							local hasEntry = next(newLayerToVariables[layerName])
-							if not hasEntry then
-								newLayerToVariables[layerName] = nil
+					local newLayerToVariables
+					if getFFlagLuaAppIxpHookInitialValues() then
+						newLayerToVariables = getNewLayerToVariables()
+					else
+						newLayerToVariables = {}
+						for _, layerName in ipairs(layerNames) do
+							newLayerToVariables[layerName] = ixpService[getLayerVariables](ixpService, layerName)
+							if newLayerToVariables[layerName] then
+								-- if the layer data is empty, clear the entry out completely,
+								-- so the layerToVariables empty check is correct.
+								local hasEntry = next(newLayerToVariables[layerName])
+								if not hasEntry then
+									newLayerToVariables[layerName] = nil
+								end
 							end
 						end
 					end
