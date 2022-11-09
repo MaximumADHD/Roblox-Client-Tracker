@@ -1623,17 +1623,17 @@ conanmanifest.txt
 MicrosoftEdgeWebview2Setup.exe
 2910dcd86ae332e1ba73ad84fc1b6b24
 QtitanBase.dll
-f111852c56e2cfbdfb55b98fb87eb7c5
+243949f374add43ae307fe963c7c61b4
 QtitanDocking.dll
-c0bbe02fb781e3da77a1ea94543fd6af
+fd4768bcdebf0f180f2ca36e81e4d270
 QtitanRibbon.dll
-713a6a756a3a2130a796efc9aff337a4
+d4038d9319ae5bd304cfd45200a35673
 ReflectionMetadata.xml
 280b858b19d6e7e48db29ceaa1f6f2e4
 RobloxStudio_license.html
 dac8646a23beb351db2b6514d1c9222f
 RobloxStudioBeta.exe
-f8af161a848110fbd0657e58803be8ef
+937af098e823bab3221236c64763b0a7
 RobloxStudioRibbon.xml
 485b17c9c584ae63bb37060b8aa3bf7a
 d3dcompiler_47.dll
@@ -1833,7 +1833,7 @@ f1bd626fe12f9e596a0dde47edcccf41
 content\avatar\unification\UnificationServerScript.lua
 9b4c2f27afc41c8ac50ffc9371e803e5
 content\configs\DataModelPatchConfig\DataModelPatchConfig.json
-1bbc6772d3928fa77636d3b4500ccc05
+e0aaec27d462cd01c71f43b87b4e13fe
 content\configs\DateTimeLocaleConfigs\de-de.json
 70838582dc54066f9e86b7c98237cf19
 content\configs\DateTimeLocaleConfigs\en-au.json
@@ -24387,7 +24387,7 @@ ExtraContent\LuaPackages\Workspace\Packages\_Workspace\SharedFlags\SharedFlags\F
 ExtraContent\LuaPackages\Workspace\Packages\_Workspace\SharedFlags\SharedFlags\GetEnableCatalogRecommendationsV2.lua
 b33cd12123cf5c59397e26b8e006c5d1
 ExtraContent\LuaPackages\Workspace\Packages\_Workspace\SharedFlags\SharedFlags\GetEnableDesignSystemExperiment.lua
-55b2e16741c734d7de54c446b86b6f6a
+122c485581f4a960e793ffcac239390d
 ExtraContent\LuaPackages\Workspace\Packages\_Workspace\SharedFlags\SharedFlags\GetEnableFriendFooterOnHomePage.lua
 7ba432753715eff7122e544216d6b904
 ExtraContent\LuaPackages\Workspace\Packages\_Workspace\SharedFlags\SharedFlags\GetEngineFeatureIxpUserAppLayersPrefetchEnabled.lua
@@ -24473,7 +24473,7 @@ b471b11f9b482041a7fb243c9958f38f
 ExtraContent\LuaPackages\Workspace\Packages\_Workspace\SharedFlags\SharedFlags\getFFlagSoothsayerCheckForContactImporter.lua
 c0050cedba32526e2ebd205f7b7829ba
 ExtraContent\LuaPackages\Workspace\Packages\_Workspace\SharedFlags\SharedFlags\GetFFlagUpgradeExpChatV3_3_1.lua
-74c3d7f9baeb5669847e289ea4660543
+758b3c36e705d464cd4fd6d870989318
 ExtraContent\LuaPackages\Workspace\Packages\_Workspace\SharedFlags\SharedFlags\GetFFlagUseCorrectedFriendSortUtil.lua
 33dc24ebda3398ed0e8fdcd520962d6b
 ExtraContent\LuaPackages\Workspace\Packages\_Workspace\SharedFlags\SharedFlags\getFFlagUseVerifiedBadgeExperienceModal.lua
@@ -25101,7 +25101,7 @@ ExtraContent\translations\CoreScriptLocalization.csv
 ExtraContent\models\AvatarContextMenu\AvatarContextArrow.rbxm
 09946e9ea0c1145e399c6adccede8e7f
 ExtraContent\models\DataModelPatch\DataModelPatch.rbxm
-1e324c5395b99b9e3ab5fb532e3d2418
+c33c083d414ea73e8cc6551d379c5d9d
 ExtraContent\textures\sky\white.png
 a96838807ab3610260919a4be87821e5
 ExtraContent\textures\ui\AvatarExperience\Avatar1_PPEButton.png
