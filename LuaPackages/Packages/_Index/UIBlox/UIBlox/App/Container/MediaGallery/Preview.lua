@@ -20,6 +20,8 @@ local ExternalEventConnection = require(UIBlox.Utility.ExternalEventConnection)
 local ThumbnailButton = require(MediaGallery.ThumbnailButton)
 local getShowItems = require(MediaGallery.getShowItems)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local ICON_CYCLE_LEFT = "icons/actions/cycleLeft"
 local ICON_CYCLE_RIGHT = "icons/actions/cycleRight"
 
@@ -456,6 +458,7 @@ function Preview:renderThumbnails(style)
 				isSelected = isSelected,
 				onActivated = notEmpty and self.onItemActivated or nil,
 				onPlayActivated = isVideo and self.onItemPlayActivated or nil,
+				useScaledPlayButton = if UIBloxConfig.enableMediaGalleryUpdate then true else false,
 			}),
 			TimerBar = isAnimated and self:renderTimerBar(style) or nil,
 		})

@@ -10,7 +10,7 @@ local StyledTextLabel = require(App.Text.StyledTextLabel)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local TEXT_TITLE_MAX_LINE_NUMBER = 2
 local TEXT_MAX_BOUND = 10000
-local DEFAULT_LINE_HEIGHT = 1.4
+local DEFAULT_LINE_HEIGHT = 1.0
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)

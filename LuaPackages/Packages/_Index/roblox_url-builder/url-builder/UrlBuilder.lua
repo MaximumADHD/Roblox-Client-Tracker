@@ -15,6 +15,7 @@ local EconomyUrlPatterns = require(script.Parent.UrlPatterns.EconomyUrlPatterns)
 local ShareLinksUrlPatterns = require(script.Parent.UrlPatterns.ShareLinksUrlPatterns)
 local UserModerationPatterns = require(script.Parent.UrlPatterns.UserModerationPatterns)
 local AccountInformationPatterns = require(script.Parent.UrlPatterns.AccountInformationPatterns)
+local VirtualEventsUrlPatterns = require(script.Parent.UrlPatterns.VirtualEventsUrlPatterns)
 
 local UrlBuilder = {}
 
@@ -396,5 +397,6 @@ UrlBuilder.usermoderation = UserModerationPatterns(UrlBuilder)
 UrlBuilder.accountinformation = AccountInformationPatterns(UrlBuilder)
 UrlBuilder.sharelinks = ShareLinksUrlPatterns(UrlBuilder)
 UrlBuilder.economy = EconomyUrlPatterns(UrlBuilder)
+UrlBuilder.virtualevents = VirtualEventsUrlPatterns(UrlBuilder)
 
 return UrlBuilder

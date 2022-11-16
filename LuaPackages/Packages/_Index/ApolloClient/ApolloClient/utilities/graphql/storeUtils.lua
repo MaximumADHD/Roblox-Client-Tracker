@@ -35,6 +35,7 @@ type EnumValueNode = graphqlModule.EnumValueNode
 type NullValueNode = graphqlModule.NullValueNode
 type VariableNode = graphqlModule.VariableNode
 type InlineFragmentNode = graphqlModule.InlineFragmentNode
+type FragmentDefinitionNode = graphqlModule.FragmentDefinitionNode
 type ValueNode = graphqlModule.ValueNode
 type SelectionNode = graphqlModule.SelectionNode
 type NameNode = graphqlModule.NameNode
@@ -43,13 +44,9 @@ type DocumentNode = graphqlModule.DocumentNode
 
 local InvariantError = require(srcWorkspace.jsutils.invariant).InvariantError
 local isNonNullObject = require(script.Parent.Parent.common.objects).isNonNullObject
--- local fragmentsModule = require(script.Parent.fragments)
--- local FragmentMap = fragmentsModule.FragmentMap
-type FragmentMap = Object
--- local getFragmentFromSelection = fragmentsModule.getFragmentFromSelection
-local function getFragmentFromSelection(...): ...any
-	error("fragments are not supported yet")
-end
+local fragmentsModule = require(script.Parent.fragments)
+type FragmentMap = fragmentsModule.FragmentMap
+local getFragmentFromSelection = fragmentsModule.getFragmentFromSelection
 
 export type Reference = typesModule.Reference
 
@@ -347,7 +344,7 @@ local function getTypenameFromResult(
 		else
 			local typename = getTypenameFromResult(
 				result,
-				getFragmentFromSelection(selection, fragmentMap).selectionSet,
+				(getFragmentFromSelection(selection, fragmentMap) :: (InlineFragmentNode | FragmentDefinitionNode)).selectionSet,
 				fragmentMap
 			)
 

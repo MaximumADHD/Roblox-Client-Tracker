@@ -204,6 +204,11 @@ function DetailsPageBody:render()
 				AutomaticSize = Enum.AutomaticSize.Y,
 				LayoutOrder = 3,
 			}, self:renderBodyContent()),
+			BottomPadding = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, 3 * padding),
+				BackgroundTransparency = 1,
+				LayoutOrder = 4,
+			}),
 		})
 	end)
 end

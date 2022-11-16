@@ -8,8 +8,6 @@ local InternalApi = require(script.Parent.FocusControllerInternalApi)
 local inputBindingsEqual = require(script.Parent.inputBindingsEqual)
 local debugPrint = require(script.Parent.debugPrint)
 
-local Config = require(script.Parent.Config)
-
 local DEFAULT_TIMEOUT = 0.5
 
 local FocusNode = {}
@@ -159,7 +157,7 @@ function FocusNode:focus()
 			if defaultChild ~= nil then
 				debugPrint("[FOCUS] No default, use fallback logic to focus", defaultChild.ref)
 				defaultChild:focus()
-			elseif Config.TempFixDelayedRefFocusLost then
+			else
 				-- Set ourselves as the focusedLeaf so that when our descendants are added we will refocus on them.
 				focusController:setFocusedLeaf(self)
 			end

@@ -32,6 +32,7 @@ local defaultProps: Props = {
 	vrService = game:GetService("VRService"),
 	alwaysOnTop = false,
 	parent = workspace,
+	hidden = false,
 }
 
 local function Panel3D(providedProps: Props)
@@ -68,7 +69,7 @@ local function Panel3D(providedProps: Props)
 			ref = surfaceGui,
 			Adornee = basePart,
 			Active = true,
-			Enabled = true,
+			Enabled = not props.hidden,
 			CanvasSize = props.virtualScreenSize,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			LightInfluence = 0,

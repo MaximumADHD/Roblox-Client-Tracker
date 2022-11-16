@@ -43,7 +43,7 @@ local EntryMethods = {
 	original type
 	((key: TKey) => void) & {
 	  dirty: (key: TKey, entryMethodName?: EntryMethodName) => void;
-	} 
+	}
 ]]
 export type OptimisticDependencyFunction<TKey> = typeof(setmetatable(
 	{},
@@ -79,7 +79,7 @@ local function dep<TKey>(options: { subscribe: Dep_Subscribe<TKey> }?)
 					-- ROBLOX FIXME Luau: inference doesn't understand x == nil then x = new Set()
 					maybeUnsubscribe(dep :: Dep<TKey>);
 					-- ROBLOX TODO Luau: hard cast. Luau will say 'subscribe' isn't callable even though it's an intersection of two function types and it should infer
-					(dep :: Dep<TKey>).unsubscribe = (subscribe :: (TKey) -> ())(key)
+					(dep :: Dep<TKey>).unsubscribe = (subscribe :: (TKey) -> any)(key)
 				end
 			end
 		end,

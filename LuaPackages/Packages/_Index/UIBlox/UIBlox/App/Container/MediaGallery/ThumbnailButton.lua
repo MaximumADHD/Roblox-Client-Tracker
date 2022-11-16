@@ -9,13 +9,13 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local ControlState = require(Core.Control.Enum.ControlState)
 local withStyle = require(UIBlox.Core.Style.withStyle)
+local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 
 local Interactable = require(Core.Control.Interactable)
 local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 local getIconSize = require(App.ImageSet.getIconSize)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local Images = require(App.ImageSet.Images)
-local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
 local PrimaryContextualButton = require(App.Button.PrimaryContextualButton)
 local LoadableImage = require(App.Loading.LoadableImage)
 
@@ -25,7 +25,9 @@ local ICON_SIZE = getIconSize(IconSize.Large)
 local CORNER_RADIUS = 8
 
 local ICON_PLAY = "icons/common/play"
-local PLAY_BUTTON_SIZE = UDim2.fromOffset(64, 48)
+local PLAY_BUTTON_SIZE_SCALE = UDim2.fromScale(0.4, 0.512)
+local PLAY_BUTTON_SIZE_OFFSET = UDim2.fromOffset(64, 48)
+local PLAY_ICON_SIZE = UDim2.fromScale(0.25, 0.33)
 
 local ThumbnailButton = Roact.Component:extend("ThumbnailButton")
 
@@ -38,6 +40,7 @@ ThumbnailButton.validateProps = t.strictInterface({
 	itemKey = t.any,
 	imageId = t.optional(t.string),
 	isVideo = t.optional(t.boolean),
+	useScaledPlayButton = t.optional(t.boolean),
 	isSelected = t.optional(t.boolean),
 	userInteractionEnabled = t.optional(t.boolean),
 	onActivated = t.optional(t.callback),
@@ -77,6 +80,14 @@ function ThumbnailButton:init()
 end
 
 function ThumbnailButton:renderButton()
+	local useScaledPlayButton = self.props.useScaledPlayButton
+	local buttonSize
+	if useScaledPlayButton then
+		buttonSize = PLAY_BUTTON_SIZE_SCALE
+	else
+		buttonSize = PLAY_BUTTON_SIZE_OFFSET
+	end
+
 	return withStyle(function(style)
 		local layoutOrder = self.props.layoutOrder
 		local anchorPoint = self.props.anchorPoint
@@ -113,13 +124,25 @@ function ThumbnailButton:renderButton()
 				useShimmerAnimationWhileLoading = true,
 				ZIndex = -1,
 			}),
-			PlayButton = isVideo and Roact.createElement(PrimaryContextualButton, {
-				size = PLAY_BUTTON_SIZE,
-				anchorPoint = Vector2.new(0.5, 0.5),
-				position = UDim2.fromScale(0.5, 0.5),
-				icon = Images[ICON_PLAY],
-				onActivated = self.onPlayActivated,
-			}) or nil,
+			PlayButton = if isVideo
+				then Roact.createElement(PrimaryContextualButton, {
+					size = buttonSize,
+					anchorPoint = Vector2.new(0.5, 0.5),
+					position = UDim2.fromScale(0.5, 0.5),
+					icon = if useScaledPlayButton then nil else Images[ICON_PLAY],
+					onActivated = self.onPlayActivated,
+				})
+				else nil,
+			PlayIcon = if isVideo and useScaledPlayButton
+				then Roact.createElement(ImageSetComponent.Label, {
+					Size = PLAY_ICON_SIZE,
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Position = UDim2.fromScale(0.5, 0.5),
+					Image = Images[ICON_PLAY],
+					BackgroundTransparency = 1,
+					ZIndex = 2,
+				})
+				else nil,
 			HoverBackground = hovering and Roact.createElement(HoverButtonBackground) or nil,
 		})
 	end)
@@ -143,7 +166,7 @@ function ThumbnailButton:renderEmptyState()
 			Corner = Roact.createElement("UICorner", {
 				CornerRadius = UDim.new(0, CORNER_RADIUS),
 			}),
-			Icon = Roact.createElement(ImageSetLabel, {
+			Icon = Roact.createElement(ImageSetComponent.Label, {
 				Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(0.5, 0.5),

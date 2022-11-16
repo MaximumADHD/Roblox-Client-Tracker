@@ -24,6 +24,9 @@ local validateProps = devOnly(t.strictInterface({
 	-- Optional the thumbnail image size
 	imageSize = t.optional(t.UDim2),
 
+	-- Optional the thumbnail image color
+	imageColor = t.optional(t.Color3),
+
 	-- Optional the thumbnail image transparency
 	imageTransparency = t.optional(t.number),
 
@@ -41,9 +44,6 @@ local validateProps = devOnly(t.strictInterface({
 
 	-- Optional backgroundImage of the tile
 	backgroundImage = t.optional(t.union(t.string, t.table)),
-
-	-- Optional no idea what this is for but ItemCard("should show the SaveTile") test is failing without this.
-	imageColor = t.optional(t.Color3)
 }))
 
 TileThumbnail.defaultProps = {
@@ -60,6 +60,7 @@ function TileThumbnail:render()
 	local hasRoundedCorners = self.props.hasRoundedCorners
 	local image = self.props.Image
 	local imageSize = self.props.imageSize
+	local imageColor = self.props.imageColor
 	local imageTransparency = self.props.imageTransparency
 	local imagePadding = self.props.imagePadding
 	local isSelected = self.props.isSelected
@@ -95,7 +96,7 @@ function TileThumbnail:render()
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						BackgroundTransparency = 1,
 						Image = image,
-						ImageColor3 = theme.UIEmphasis.Color,
+						ImageColor3 = imageColor or theme.UIEmphasis.Color,
 						ImageTransparency = imageTransparency,
 						Position = UDim2.fromScale(0.5, 0.5),
 						Size = imageSize - UDim2.fromOffset(imagePadding * 2, imagePadding * 2),

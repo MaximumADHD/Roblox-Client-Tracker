@@ -14,7 +14,7 @@ type Record<T, U> = { [T]: U }
 --[[
   ROBLOX deviation: no generic params for functions are supported.
   T_, TData_, TVariables_, TResult_, TSerialized_, QueryType_, FragmentType_
-  are placeholders for generic 
+  are placeholders for generic
   T, TData, TVariables, TResult, TSerialized, QueryType, FragmentType_ param
 ]]
 type T_ = any
@@ -313,7 +313,9 @@ function ApolloCache:readFragment(
 		optimistic = not not Boolean.toJSBoolean(options.optimistic)
 	end
 	return self:read(Object.assign({}, options, {
-		query = self:getFragmentDoc(options.fragment, options.fragmentName),
+		-- ROBLOX deviation START: getFragmentDoc does not take self argument
+		query = self.getFragmentDoc(options.fragment, options.fragmentName),
+		-- ROBLOX deviation END
 		rootId = options.id,
 		optimistic = optimistic,
 	}))
@@ -338,7 +340,9 @@ function ApolloCache:writeFragment(ref): Reference | nil
 			{ id = Object.None, data = Object.None, fragment = Object.None, fragmentName = Object.None }
 		)
 	return self:write(
-		Object.assign(options, { query = self:getFragmentDoc(fragment, fragmentName), dataId = id, result = data })
+		-- ROBLOX deviation START: getFragmentDoc does not take self argument
+		Object.assign(options, { query = self.getFragmentDoc(fragment, fragmentName), dataId = id, result = data })
+		-- ROBLOX deviation END
 	)
 end
 

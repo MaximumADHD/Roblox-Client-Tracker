@@ -725,7 +725,9 @@ function Policies:fragmentMatches(
 
 		-- It's important to keep evaluating workQueue.length each time through
 		-- the loop, because the queue can grow while we're iterating over it.
-		for i = 1, #workQueue do
+		-- ROBLOX deviation START: iterate directly over queue to handle insertion inside loop
+		for i, _ in workQueue do
+			-- ROBLOX deviation END
 			local supertypeSet = workQueue[i]
 
 			if supertypeSet:has(supertype) then
@@ -742,7 +744,9 @@ function Policies:fragmentMatches(
 				return true
 			end
 
-			Array.forEach(supertypeSet, maybeEnqueue)
+			-- ROBLOX deviation START: use built-in set iteration
+			supertypeSet:forEach(maybeEnqueue)
+			-- ROBLOX deviation END
 
 			if
 				needToCheckFuzzySubtypes
@@ -875,7 +879,7 @@ function Policies:readField--[[<V = StoreValue>]](options: ReadFieldOptions, con
 
 	if Boolean.toJSBoolean(read) then
 		local readOptions = makeFieldFunctionOptions(
-			self,
+			self :: Policies,
 			objectOrReference,
 			options,
 			context,
@@ -1125,6 +1129,12 @@ local function keyObjEncode(object: Record<string, any>, specifier): string
 						return ""
 					else
 						local arg
+						-- ROBLOX deivation START: HttpService encoding does not handle nil
+						if not object[s] then
+							return ""
+						end
+						-- ROBLOX deviation END
+
 						if i < #specifier then
 							if Array.isArray(specifier[i + 1]) then
 								arg = keyObjEncode(object[s], specifier[i + 1])

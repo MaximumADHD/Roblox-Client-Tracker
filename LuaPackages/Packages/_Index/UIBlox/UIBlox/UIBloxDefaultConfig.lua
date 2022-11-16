@@ -126,6 +126,9 @@ return {
 	-- contain the current selecteValue
 	enableDropdownMenuUpdateSelectedValueFromPlaceholder = false,
 
+	-- for new updated media gallery
+	enableMediaGalleryUpdate = false,
+	
 	-- Enable auto hiding of VR Pointer Overlay when VR sessions is not visible
 	enableAutoHidingPointerOverlay = false,
 

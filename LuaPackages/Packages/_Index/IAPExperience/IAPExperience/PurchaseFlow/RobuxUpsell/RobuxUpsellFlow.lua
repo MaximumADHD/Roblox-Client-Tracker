@@ -16,6 +16,7 @@ local PurchaseErrorPrompt = require(IAPExperienceRoot.Generic.PurchaseErrorPromp
 local U13ConfirmPrompt = require(IAPExperienceRoot.Generic.U13ConfirmPrompt)
 local TwoStepReqPrompt = require(IAPExperienceRoot.Generic.TwoStepReqPrompt)
 local InsufficientRobuxPrompt = require(IAPExperienceRoot.Generic.InsufficientRobuxPrompt)
+local InsufficientRobuxProductPrompt = require(IAPExperienceRoot.ProductPurchaseRobuxUpsell.InsufficientRobuxProductPrompt)
 local RobuxUpsellSuccessPrompt = require(IAPExperienceRoot.ProductPurchaseRobuxUpsell.RobuxUpsellSuccessPrompt)
 local RobuxUpsellPrompt = require(IAPExperienceRoot.ProductPurchaseRobuxUpsell.RobuxUpsellPrompt)
 
@@ -289,6 +290,32 @@ function RobuxUpsellFlow:render()
 						props.flowComplete()
 					end,
 					closePrompt = function()
+						self:reportUserInput("Cancel")
+						props.flowComplete()
+					end,
+				})
+			end,
+		}),
+		InsufficientRobuxProductAnimator = Roact.createElement(Animator, {
+			shouldAnimate = props.shouldAnimate,
+			shouldShow = purchaseState == RobuxUpsellFlowState.LargeRobuxPurchaseModal,
+			renderChildren = function()
+				return Roact.createElement(InsufficientRobuxProductPrompt, {
+					screenSize = props.screenSize,
+
+					itemIcon = props.itemIcon,
+					itemName = props.itemName,
+					itemRobuxCost = props.itemRobuxCost,
+					balanceAmount = props.beforeRobuxBalance,
+		
+					acceptControllerIcon = props.acceptControllerIcon,
+					cancelControllerIcon = props.cancelControllerIcon,
+
+					robuxStoreActivated = function()
+						self:reportUserInput("Go to Robux store")
+						props.openBuyRobux()
+					end,
+					cancelPurchaseActivated = function()
 						self:reportUserInput("Cancel")
 						props.flowComplete()
 					end,

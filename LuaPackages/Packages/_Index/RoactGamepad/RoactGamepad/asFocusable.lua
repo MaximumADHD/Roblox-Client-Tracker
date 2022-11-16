@@ -10,8 +10,6 @@ local FocusContext = require(script.Parent.FocusContext)
 local FocusNode = require(script.Parent.FocusNode)
 local getEngineInterface = require(script.Parent.getEngineInterface)
 
-local Config = require(script.Parent.Config)
-
 local InternalApi = require(script.Parent.FocusControllerInternalApi)
 
 local nonHostProps = {
@@ -127,16 +125,12 @@ local function asFocusable(innerComponent)
 			end
 
 			self.refreshFocusOnDescendantAdded = function(descendant)
-				if Config.TempFixDelayedRefFocusLost then
-					if self:getFocusControllerInternal():needsDescendantAddedRefocus() then
-						self:setState(function(state)
-							return {
-								needsDescendantAddedRefocusCounter = state.needsDescendantAddedRefocusCounter + 1
-							}
-						end)
-					end
-				else
-					self:getFocusControllerInternal():descendantAddedRefocus()
+				if self:getFocusControllerInternal():needsDescendantAddedRefocus() then
+					self:setState(function(state)
+						return {
+							needsDescendantAddedRefocusCounter = state.needsDescendantAddedRefocusCounter + 1
+						}
+					end)
 				end
 
 				local existingCallback = self.props[Roact.Event.DescendantAdded]
@@ -146,16 +140,12 @@ local function asFocusable(innerComponent)
 			end
 
 			self.refreshFocusOnDescendantRemoved = function(descendant)
-				if Config.TempFixDelayedRefFocusLost then
-					if self:getFocusControllerInternal():needsDescendantRemovedRefocus() then
-						self:setState(function(state)
-							return {
-								needsDescendantRemovedRefocusCounter = state.needsDescendantRemovedRefocusCounter + 1
-							}
-						end)
-					end
-				else
-					self:getFocusControllerInternal():descendantRemovedRefocus()
+				if self:getFocusControllerInternal():needsDescendantRemovedRefocus() then
+					self:setState(function(state)
+						return {
+							needsDescendantRemovedRefocusCounter = state.needsDescendantRemovedRefocusCounter + 1
+						}
+					end)
 				end
 
 				local existingCallback = self.props[Roact.Event.DescendantRemoving]
@@ -305,14 +295,12 @@ local function asFocusable(innerComponent)
 			error("Cannot change the ref passed to a Focusable component", 0)
 		end
 
-		if Config.TempFixDelayedRefFocusLost then
-			if self.state.needsDescendantAddedRefocusCounter ~= prevState.needsDescendantAddedRefocusCounter then
-				self:getFocusControllerInternal():descendantAddedRefocus()
-			end
+		if self.state.needsDescendantAddedRefocusCounter ~= prevState.needsDescendantAddedRefocusCounter then
+			self:getFocusControllerInternal():descendantAddedRefocus()
+		end
 
-			if self.state.needsDescendantRemovedRefocusCounter ~= prevState.needsDescendantRemovedRefocusCounter then
-				self:getFocusControllerInternal():descendantRemovedRefocus()
-			end
+		if self.state.needsDescendantRemovedRefocusCounter ~= prevState.needsDescendantRemovedRefocusCounter then
+			self:getFocusControllerInternal():descendantRemovedRefocus()
 		end
 	end
 

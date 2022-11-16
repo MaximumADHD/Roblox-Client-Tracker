@@ -918,7 +918,10 @@ end
 function Layer:findChildRefIds(dataId: string): Record<string, boolean>
 	local fromParent = self.parent:findChildRefIds(dataId)
 	local super = getmetatable(getmetatable(self)).__index
-	return hasOwn(self.data, dataId) and Object.assign({}, fromParent, super:findChildRefIds(dataId)) or fromParent
+	-- ROBLOX deviation START: super does not have this object's attributes, provide self as first argument
+	return hasOwn(self.data, dataId) and Object.assign({}, fromParent, super.findChildRefIds(self, dataId))
+		or fromParent
+	-- ROBLOX deviation END
 end
 
 function Layer:getStorage(...): StorageType

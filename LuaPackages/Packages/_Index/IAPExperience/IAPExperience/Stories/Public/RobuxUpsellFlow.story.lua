@@ -189,6 +189,7 @@ return {
 		purchaseModal = {
 			RobuxUpsellFlowState.PurchaseModal,
 			RobuxUpsellFlowState.GenericPurchaseModal,
+			RobuxUpsellFlowState.LargeRobuxPurchaseModal,
 		},
 		u13 = {
 			U13ConfirmType.U13PaymentModal,

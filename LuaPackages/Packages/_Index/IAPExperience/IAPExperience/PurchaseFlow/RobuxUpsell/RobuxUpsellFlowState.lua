@@ -11,6 +11,7 @@ local rawKeyToRawValue = {
     Loading = "Loading",
     PurchaseModal = "PurchaseModal",
     GenericPurchaseModal = "GenericPurchaseModal",
+    LargeRobuxPurchaseModal = "LargeRobuxPurchaseModal",
     PurchaseWarning = "PurchaseWarning",
     TwoStepRequired = "TwoStepRequired",
     RobuxPurchasePending = "RobuxPurchasePending",
