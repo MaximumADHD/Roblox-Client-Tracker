@@ -80,6 +80,7 @@ local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 		end
 		updateBindings.gradient(1)
 		updateBindings.frame(1)
+		updateBindings.recIcon(1)
 		return
 	end
 	--[[
@@ -130,16 +131,19 @@ local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 	if isBetweenFrames(timeElapsed, 0, delay) then
 		updateBindings.gradient(1)
 		updateBindings.frame(1)
+		updateBindings.recIcon(1)
 	elseif isBetweenFrames(timeElapsed, delay, totalFrame+2.5) then
 		local elapsed = linearTween(timeElapsed, delay, totalFrame+2.5)
 		local scaledElapsed = 1 - elapsed
 		updateBindings.gradient(1-linearTween(timeElapsed, delay, totalFrame+2.5))
+		updateBindings.recIcon(scaledElapsed)
 		scaledElapsed = 1 - 0.8 * elapsed
 		updateBindings.frame(scaledElapsed)
 	else
 		--Complete animation
 		updateBindings.gradient(0)
 		updateBindings.frame(frameFinalTransparency)
+		updateBindings.recIcon(0)
 		updateBindings.button1(0)
 		updateBindings.button2(0)
 		updateBindings.button3(0)
@@ -154,6 +158,7 @@ end
 function QuickActions:init()
 	self.gradientTransparency, self.updateGradient = Roact.createBinding(1)
 	self.frameTransparency, self.updateFrame = Roact.createBinding(1)
+	self.recIconTransparency, self.updateRecIcon = Roact.createBinding(1)
 	self.button1Transparency, self.updateButton1 = Roact.createBinding(1)
 	self.button2Transparency, self.updateButton2 = Roact.createBinding(1)
 	self.button3Transparency, self.updateButton3 = Roact.createBinding(1)
@@ -174,6 +179,7 @@ function QuickActions:init()
 	self.updateBindings = {
 		gradient = self.updateGradient,
 		frame = self.updateFrame,
+		recIcon = self.updateRecIcon,
 		button1 = self.updateButton1,
 		button2 = self.updateButton2,
 		button3 = self.updateButton3,
@@ -279,6 +285,7 @@ function QuickActions:render()
 					}),
 					Tooltip = Roact.createElement(QuickActionsTooltip, {
 						layoutOrder = 1,
+						transparency = self.recIconTransparency,
 					}),
 					Menu = Roact.createElement(QuickActionsMenu, {
 						layoutOrder = 2,
@@ -338,23 +345,42 @@ function QuickActions:render()
 						HorizontalAlignment = if self.state.lockToMenuEdge
 							then Enum.HorizontalAlignment.Left
 							else Enum.HorizontalAlignment.Center,
-						VerticalAlignment = Enum.VerticalAlignment.Center,
+						VerticalAlignment = Enum.VerticalAlignment.Top,
 						SortOrder = Enum.SortOrder.LayoutOrder,
 					}),
-					Menu = Roact.createElement(QuickActionsMenu, {
-						layoutOrder = 1,
-						voiceEnabled = voiceState.voiceEnabled,
-						respawnEnabled = self.props.respawnEnabled,
-						fullscreenEnabled = isDesktopClient,
-						screenshotEnabled = isDesktopClient,
-						recordEnabled = self.recordEnabled,
-						frameTransparency = self.frameTransparency,
-						transparencies = self.transparencies,
-						fillDirection = Enum.FillDirection.Horizontal,
-						automaticSize = Enum.AutomaticSize.X,
-						size = UDim2.new(0, 0, 0, CONTROL_WIDTH),
-						isHorizontal = true,
-						absoluteSizeChanged = self.onMenuSizeChange,
+					TooltipMenuStack = Roact.createElement("Frame", {
+						LayoutOrder = 2,
+						BackgroundTransparency = 1,
+						AutomaticSize = Enum.AutomaticSize.XY,
+					}, {
+						Layout = Roact.createElement("UIListLayout", {
+							FillDirection = Enum.FillDirection.Vertical,
+							HorizontalAlignment = Enum.HorizontalAlignment.Left,
+							VerticalAlignment = Enum.VerticalAlignment.Top,
+							SortOrder = Enum.SortOrder.LayoutOrder,
+						}),
+						Tooltip = Roact.createElement(QuickActionsTooltip, {
+							Size = UDim2.new(0, 250, 0, 24),
+							TextXAlignment =  Enum.TextXAlignment.Left,
+							layoutOrder = 1,
+							Position = UDim2.new(0, 0, 0, -35),
+							transparency = self.recIconTransparency,
+						}),
+						Menu = Roact.createElement(QuickActionsMenu, {
+							layoutOrder = 2,
+							voiceEnabled = voiceState.voiceEnabled or true,
+							respawnEnabled = self.props.respawnEnabled,
+							fullscreenEnabled = isDesktopClient,
+							screenshotEnabled = isDesktopClient,
+							recordEnabled = self.recordEnabled,
+							frameTransparency = self.frameTransparency,
+							transparencies = self.transparencies,
+							fillDirection = Enum.FillDirection.Horizontal,
+							automaticSize = Enum.AutomaticSize.X,
+							size = UDim2.new(0, 0, 0, CONTROL_WIDTH),
+							isHorizontal = true,
+							absoluteSizeChanged = self.onMenuSizeChange,
+						}),
 					}),
 				})
 			})

@@ -7,13 +7,13 @@ return function()
 
 	local UpdateUsers = require(CorePackages.AppTempCommon.LuaApp.Thunks.UpdateUsers)
 
-	local AddUsers = require(CorePackages.AppTempCommon.LuaApp.Actions.AddUsers)
+	local AddUsers = require(CorePackages.Workspace.Packages.UserLib).Actions.AddUsers
 	local SetFriendCount = require(CorePackages.AppTempCommon.LuaApp.Actions.SetFriendCount)
 
 	local FriendCount = require(CorePackages.AppTempCommon.LuaChat.Reducers.FriendCount)
-	local Users = require(CorePackages.AppTempCommon.LuaApp.Reducers.Users)
+	local Users = require(CorePackages.Workspace.Packages.UserLib).Reducers.UserReducer
 
-	local User = require(CorePackages.Workspace.Packages.UserLib).User
+	local User = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
 
 	local function UsersReducerMonitor (state, action)
 		state = state or {

@@ -1,3 +1,7 @@
+local CorePackages = game:GetService("CorePackages")
+
+local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
+
 local noop = function() end
 local stub = function(val)
 	return function()
@@ -75,18 +79,22 @@ end
 
 function VoiceChatServiceStub:kickUsers(users)
 	ParticipantsStateChangedMock:Fire(users, {}, {})
+	waitForEvents()
 end
 
 function VoiceChatServiceStub:ModerateLocalPlayer()
 	LocalPlayerModeratedMock:Fire()
+	waitForEvents()
 end
 
 function VoiceChatServiceStub:addUsers(userStates)
 	ParticipantsStateChangedMock:Fire({}, {}, userStates)
+	waitForEvents()
 end
 
 function VoiceChatServiceStub:setUserStates(userStates)
 	ParticipantsStateChangedMock:Fire({}, {}, userStates)
+	waitForEvents()
 end
 
 
@@ -97,7 +105,7 @@ function VoiceChatServiceStub:resetMocks()
 	self.LocalPlayerModerated = LocalPlayerModeratedMock.Event
 	self.ParticipantsStateChanged = ParticipantsStateChangedMock.Event
 	self.StateChanged = StateChangedMock.Event
-	
+
 	self.joinCalled = false
 end
 

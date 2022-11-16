@@ -160,6 +160,7 @@ return{
 	["CommonUI.Controls.Label.Year"] = [[ปี]],
 	["CommonUI.Controls.Action.Back"] = [[ย้อนกลับ]],
 	["CommonUI.Controls.Action.Confirm"] = [[ยืนยัน]],
+	["CommonUI.Controls.Action.Ignore"] = [[ไม่สนใจ]],
 	["CommonUI.Controls.Label.AutoUpgradeIdle"] = [[จำเป็นต้องอัปเดต Roblox! หากคุณไม่ทำอะไร Roblox ก็จะรีสตาร์ทโดยอัตโนมัติใน {time} {unit}]],
 	["CommonUI.Controls.Label.AutoUpgradeForce"] = [[จำเป็นต้องอัปเดต Roblox! คุณจะต้องติดตั้งและอัปเดตเพื่อที่จะเล่นเกมนี้]],
 	["CommonUI.Controls.Label.Seconds"] = [[วินาที]],

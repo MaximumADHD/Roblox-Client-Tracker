@@ -19,8 +19,6 @@ local Modules = RobloxGui:WaitForChild("Modules")
 local Common = Modules:WaitForChild("Common")
 local CorePackages = game:GetService("CorePackages")
 
-local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
-
 --[[
 	NOTE: We need to initify the instance hierarchy as early as possible
 	to avoid spurious require errors. Only call require() and
@@ -30,7 +28,10 @@ local initify = require(CorePackages.initify)
 initify(CorePackages)
 initify(Modules)
 
-local GetFFlagLuaAppUseUIBloxColorPalettes = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppUseUIBloxColorPalettes
+local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
+
+local GetFFlagLuaAppUseUIBloxColorPalettes =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppUseUIBloxColorPalettes
 if GetFFlagLuaAppUseUIBloxColorPalettes() then
 	-- With flag on, styles from UIBlox in LoadingScreen (required below)
 	-- are being used prior to UIBlox initialization which is in
@@ -51,7 +52,8 @@ local LoadingScreenReducer = require(Modules.LoadingScreen.Reducers.LoadingScree
 local IXPServiceWrapper = require(Modules.Common.IXPServiceWrapper)
 local LoggingProtocol = require(CorePackages.UniversalApp.Logging.LoggingProtocol)
 --FFlags
-local FFlagLoadingScreenShowBlankUntilPolicyServiceReturns = game:DefineFastFlag("LoadingScreenShowBlankUntilPolicyServiceReturns", false)
+local FFlagLoadingScreenShowBlankUntilPolicyServiceReturns =
+	game:DefineFastFlag("LoadingScreenShowBlankUntilPolicyServiceReturns", false)
 local FFlagLoadingRemoveRemoteCallErrorPrint = game:DefineFastFlag("LoadingRemoveRemoteCallErrorPrint", false)
 
 local FFlagLoadingScreenRevamp = game:DefineFastFlag("LoadingScreenRevamp4", false)
@@ -62,9 +64,11 @@ local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnable
 
 local GetFFlagLoadingScreenUseIXP = require(RobloxGui.Modules.Flags.GetFFlagLoadingScreenUseIXP)
 local AppTempCommon = CorePackages.AppTempCommon
-local GetFStringLoadingScreenIxpLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringLoadingScreenIxpLayer
+local GetFStringLoadingScreenIxpLayer =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFStringLoadingScreenIxpLayer
 
-local antiAddictionNoticeStringEn = "Boycott bad games, refuse pirated games. Be aware of self-defense and being deceived. Playing games is good for your brain, but too much game play can harm your health. Manage your time well and enjoy a healthy lifestyle."
+local antiAddictionNoticeStringEn =
+	"Boycott bad games, refuse pirated games. Be aware of self-defense and being deceived. Playing games is good for your brain, but too much game play can harm your health. Manage your time well and enjoy a healthy lifestyle."
 local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
 local loadErrorHandlerFromEngine = game:GetEngineFeature("LoadErrorHandlerFromEngine")
 
@@ -83,16 +87,16 @@ local ICON_ASPECT_RATIO = 1
 local COLORS = {
 	BACKGROUND_COLOR = Color3.fromRGB(45, 45, 45),
 	TEXT_COLOR = Color3.fromRGB(255, 255, 255),
-	ERROR = Color3.fromRGB(253, 68, 72)
+	ERROR = Color3.fromRGB(253, 68, 72),
 }
 local spinnerImageId = "rbxasset://textures/loading/robloxTilt.png"
 
 local LOADING_SCREEN_FADE_OUT_TIME = 5
 
 -- Check if engine has passed down place_id as Args or not. If yes, use the place_id for quicker start up.
-local PLACE_ID_FROM_ENGINE = 0
+local PLACE_ID_FROM_ENGINE = game.PlaceId
 local numArgs = select("#", ...)
-if numArgs > 0 then
+if PLACE_ID_FROM_ENGINE <= 0 and numArgs > 0 then
 	PLACE_ID_FROM_ENGINE = select(1, ...)
 end
 
@@ -137,7 +141,7 @@ if not UseNewVersionLoadingScreen then
 		if GameAssetInfo ~= nil then
 			return GameAssetInfo.Name
 		else
-			return ''
+			return ""
 		end
 	end
 
@@ -156,7 +160,7 @@ if not UseNewVersionLoadingScreen then
 				return GameAssetInfo.Creator.Name
 			end
 		else
-			return ''
+			return ""
 		end
 	end
 
@@ -190,17 +194,17 @@ end
 
 -- create a cancel binding for console to be able to cancel anytime while loading
 local function createTenfootCancelGui()
-	if UseNewVersionLoadingScreen then return end
-	local cancelLabel = create'ImageLabel'
-	{
+	if UseNewVersionLoadingScreen then
+		return
+	end
+	local cancelLabel = create("ImageLabel")({
 		Name = "CancelLabel",
 		Size = UDim2.new(0, 83, 0, 83),
 		Position = UDim2.new(1, -32 - 83, 0, 32),
 		BackgroundTransparency = 1,
-		Image = 'rbxasset://textures/ui/Shell/ButtonIcons/BButton.png'
-	}
-	local cancelText = create'TextLabel'
-	{
+		Image = "rbxasset://textures/ui/Shell/ButtonIcons/BButton.png",
+	})
+	local cancelText = create("TextLabel")({
 		Name = "CancelText",
 		Size = UDim2.new(0, 400, 0, 83),
 		Position = UDim2.new(1, -131, 0, 32),
@@ -210,30 +214,27 @@ local function createTenfootCancelGui()
 		TextSize = 48,
 		TextXAlignment = Enum.TextXAlignment.Right,
 		TextColor3 = COLORS.TEXT_COLOR,
-		Text = "Cancel"
-	}
+		Text = "Cancel",
+	})
 
 	if not ReplicatedFirst:IsFinishedReplicating() then
 		local seenBButtonBegin = false
-		ContextActionService:BindCoreAction("CancelGameLoad",
-			function(actionName, inputState, inputObject)
-				if inputState == Enum.UserInputState.Begin then
-					seenBButtonBegin = true
-				elseif inputState == Enum.UserInputState.End and seenBButtonBegin then
-					cancelLabel:Destroy()
-					cancelText.Text = "Canceling..."
-					cancelText.Position = UDim2.new(1, -32, 0, 32)
-					ContextActionService:UnbindCoreAction('CancelGameLoad')
-					game:Shutdown()
-				end
-			end,
-			false,
-			Enum.KeyCode.ButtonB)
+		ContextActionService:BindCoreAction("CancelGameLoad", function(actionName, inputState, inputObject)
+			if inputState == Enum.UserInputState.Begin then
+				seenBButtonBegin = true
+			elseif inputState == Enum.UserInputState.End and seenBButtonBegin then
+				cancelLabel:Destroy()
+				cancelText.Text = "Canceling..."
+				cancelText.Position = UDim2.new(1, -32, 0, 32)
+				ContextActionService:UnbindCoreAction("CancelGameLoad")
+				game:Shutdown()
+			end
+		end, false, Enum.KeyCode.ButtonB)
 	end
 
 	while cancelLabel.Parent == nil do
 		if currScreenGui then
-			local blackFrame = currScreenGui:FindFirstChild('BlackFrame')
+			local blackFrame = currScreenGui:FindFirstChild("BlackFrame")
 			if blackFrame then
 				cancelLabel.Parent = blackFrame
 				cancelText.Parent = blackFrame
@@ -245,11 +246,13 @@ local function createTenfootCancelGui()
 end
 
 local function GenerateGui()
-	if UseNewVersionLoadingScreen then return end
-	local screenGui = create 'ScreenGui' {
-		Name = 'RobloxLoadingGui',
+	if UseNewVersionLoadingScreen then
+		return
+	end
+	local screenGui = create("ScreenGui")({
+		Name = "RobloxLoadingGui",
 		DisplayOrder = 8,
-	}
+	})
 
 	--
 	-- create descendant frames
@@ -258,46 +261,46 @@ local function GenerateGui()
 	if game:GetEngineFeature("NotchSpaceSupportEnabled") then
 		-- Turning on ScreenGui.IgnoreGuiInset allows the loading screens to remain full screen while Screen Gui Bounds are changed in Client/LuaApps/content/scripts/CoreScripts/Modules/TopBar/init.lua
 		screenGui.IgnoreGuiInset = true
-		mainBackgroundContainer = create 'Frame' {
-			Name = 'BlackFrame',
+		mainBackgroundContainer = create("Frame")({
+			Name = "BlackFrame",
 			BackgroundColor3 = COLORS.BACKGROUND_COLOR,
 			BackgroundTransparency = 0,
 			Size = UDim2.new(1, 0, 1, 0),
 			Position = UDim2.new(0, 0, 0, 0),
 			Active = true,
-			Parent = screenGui
-		}
+			Parent = screenGui,
+		})
 	else
 		local inGameGlobalGuiInset = settings():GetFVariable("InGameGlobalGuiInset")
-		mainBackgroundContainer = create 'Frame' {
-			Name = 'BlackFrame',
+		mainBackgroundContainer = create("Frame")({
+			Name = "BlackFrame",
 			BackgroundColor3 = COLORS.BACKGROUND_COLOR,
 			BackgroundTransparency = 0,
 			Size = UDim2.new(1, 0, 1, inGameGlobalGuiInset),
 			Position = UDim2.new(0, 0, 0, -inGameGlobalGuiInset),
 			Active = true,
-			Parent = screenGui
-		}
+			Parent = screenGui,
+		})
 	end
 
-	local closeButton =	create 'ImageButton' {
-		Name = 'CloseButton',
-		Image = 'rbxasset://textures/loading/cancelButton.png',
+	local closeButton = create("ImageButton")({
+		Name = "CloseButton",
+		Image = "rbxasset://textures/loading/cancelButton.png",
 		ImageTransparency = 1,
 		BackgroundTransparency = 1,
 		Position = UDim2.new(1, -37, 0, 5),
 		Size = UDim2.new(0, 32, 0, 32),
 		Active = false,
 		ZIndex = 10,
-		Parent = mainBackgroundContainer
-	}
+		Parent = mainBackgroundContainer,
+	})
 
 	closeButton.MouseButton1Click:connect(function()
 		game:Shutdown()
 	end)
 
-	local graphicsFrame = create 'Frame' {
-		Name = 'GraphicsFrame',
+	local graphicsFrame = create("Frame")({
+		Name = "GraphicsFrame",
 		BorderSizePixel = 0,
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(1, 1),
@@ -306,16 +309,16 @@ local function GenerateGui()
 		ZIndex = 2,
 		Parent = mainBackgroundContainer,
 
-		create("UIAspectRatioConstraint") {
-			AspectRatio = 1
-		},
-		create("UISizeConstraint") {
-			MaxSize = Vector2.new(100, 100)
-		}
-	}
+		create("UIAspectRatioConstraint")({
+			AspectRatio = 1,
+		}),
+		create("UISizeConstraint")({
+			MaxSize = Vector2.new(100, 100),
+		}),
+	})
 
-	local loadingImage = create 'ImageLabel' {
-		Name = 'LoadingImage',
+	local loadingImage = create("ImageLabel")({
+		Name = "LoadingImage",
 		BackgroundTransparency = 1,
 		Image = spinnerImageId,
 		AnchorPoint = Vector2.new(0.5, 0.5),
@@ -323,7 +326,7 @@ local function GenerateGui()
 		Size = UDim2.new(1, 0, 1, 0),
 		ZIndex = 2,
 		Parent = graphicsFrame,
-	}
+	})
 
 	local numberOfTaps = 0
 	local lastTapTime = math.huge
@@ -351,23 +354,22 @@ local function GenerateGui()
 		lastTapTime = math.huge
 	end)
 
-	local infoFrame = create 'Frame' {
-		Name = 'InfoFrame',
+	local infoFrame = create("Frame")({
+		Name = "InfoFrame",
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		Size = UDim2.new(0.75, 0, 1, 0),
 		ZIndex = 2,
 		Parent = mainBackgroundContainer,
-		create 'UIPadding' {
-			Name = 'UiMessagePadding',
+		create("UIPadding")({
+			Name = "UiMessagePadding",
 			PaddingBottom = UDim.new(0, 25),
-		} or nil
-	}
+		}) or nil,
+	})
 
-
-	local uiMessageFrame = create 'Frame' {
-		Name = 'UiMessageFrame',
+	local uiMessageFrame = create("Frame")({
+		Name = "UiMessageFrame",
 		BackgroundTransparency = 1,
 		Position = UDim2.new(0.25, 0, 1, -120),
 		Size = UDim2.new(1, 0, 0, 35),
@@ -375,8 +377,8 @@ local function GenerateGui()
 		LayoutOrder = 5,
 		Parent = infoFrame,
 
-		create 'TextLabel' {
-			Name = 'UiMessage',
+		create("TextLabel")({
+			Name = "UiMessage",
 			BackgroundTransparency = 1,
 			Position = UDim2.new(0, 0, 0, 5),
 			Size = UDim2.new(1, 0, 0, 25),
@@ -388,36 +390,36 @@ local function GenerateGui()
 			Text = "",
 			TextTransparency = 1,
 			ZIndex = 2,
-		}
-	}
+		}),
+	})
 
-	local infoFrameAspect = create("UIAspectRatioConstraint") {
+	local infoFrameAspect = create("UIAspectRatioConstraint")({
 		AspectRatio = 3 / 2,
-		Parent = infoFrame
-	}
-	local infoFrameList = create("UIListLayout") {
+		Parent = infoFrame,
+	})
+	local infoFrameList = create("UIListLayout")({
 		SortOrder = Enum.SortOrder.LayoutOrder,
 		FillDirection = Enum.FillDirection.Vertical,
 		VerticalAlignment = Enum.VerticalAlignment.Center,
 		HorizontalAlignment = Enum.HorizontalAlignment.Center,
 		Padding = UDim.new(0.05, 0),
-		Parent = infoFrame
-	}
+		Parent = infoFrame,
+	})
 
-	local textContainer = create("Frame") {
+	local textContainer = create("Frame")({
 		BackgroundTransparency = 1,
-		Size = UDim2.new(2/3, 0, 1, 0),
+		Size = UDim2.new(2 / 3, 0, 1, 0),
 		LayoutOrder = 2,
 		Parent = nil,
 
-		create("UIListLayout") {
+		create("UIListLayout")({
 			FillDirection = Enum.FillDirection.Vertical,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			SortOrder = Enum.SortOrder.LayoutOrder
-		}
-	}
-	local placeIcon = create("ImageLabel") {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+	})
+	local placeIcon = create("ImageLabel")({
 		Name = "PlaceIcon",
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, 0, 1, 0),
@@ -429,15 +431,15 @@ local function GenerateGui()
 		ImageTransparency = 1,
 		Image = "",
 
-		create("UIAspectRatioConstraint") {
+		create("UIAspectRatioConstraint")({
 			AspectRatio = ICON_ASPECT_RATIO,
 			AspectType = Enum.AspectType.ScaleWithParentSize,
-			DominantAxis = Enum.DominantAxis.Width
-		},
-		create("UISizeConstraint") {
-			MaxSize = MAX_ICON_SIZE
-		}
-	}
+			DominantAxis = Enum.DominantAxis.Width,
+		}),
+		create("UISizeConstraint")({
+			MaxSize = MAX_ICON_SIZE,
+		}),
+	})
 
 	local function onGameId()
 		local gameId = game.GameId
@@ -452,14 +454,14 @@ local function GenerateGui()
 	if game.GameId > 0 then
 		coroutine.wrap(onGameId)()
 	else
-		waitForGameIdConnection = game:GetPropertyChangedSignal("GameId"):Connect(function ()
+		waitForGameIdConnection = game:GetPropertyChangedSignal("GameId"):Connect(function()
 			waitForGameIdConnection:Disconnect()
 			onGameId()
 		end)
 	end
 
-	placeLabel = create 'TextLabel' {
-		Name = 'PlaceLabel',
+	placeLabel = create("TextLabel")({
+		Name = "PlaceLabel",
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, 0, 0, 80),
 		Position = UDim2.new(0, 0, 0, 0),
@@ -475,27 +477,27 @@ local function GenerateGui()
 		TextYAlignment = Enum.TextYAlignment.Bottom,
 		ZIndex = 2,
 		LayoutOrder = 2,
-		Parent = infoFrame
-	}
+		Parent = infoFrame,
+	})
 
-	local creatorContainer = create 'Frame' {
+	local creatorContainer = create("Frame")({
 		Name = "Creator",
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, 0, 0, 48),
 		LayoutOrder = 3,
 
-		create 'UIListLayout' {
+		create("UIListLayout")({
 			FillDirection = Enum.FillDirection.Horizontal,
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			SortOrder = Enum.SortOrder.LayoutOrder,
-			Padding = UDim.new(0, 5)
-		}
-	}
+			Padding = UDim.new(0, 5),
+		}),
+	})
 
 	local byLabel, creatorIcon = nil, nil
 	if isTenFootInterface then
-		byLabel = create'TextLabel' {
+		byLabel = create("TextLabel")({
 			Name = "ByLabel",
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, 36, 0, 30),
@@ -511,24 +513,24 @@ local function GenerateGui()
 			ZIndex = 2,
 			Visible = true,
 			Parent = infoFrame,
-			LayoutOrder = 1
-		}
-		creatorIcon = create'ImageLabel' {
+			LayoutOrder = 1,
+		})
+		creatorIcon = create("ImageLabel")({
 			Name = "CreatorIcon",
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, 30, 0, 30),
 			Position = UDim2.new(0, 38, 0, 80),
 			ImageTransparency = 0,
-			Image = 'rbxasset://textures/ui/Shell/Icons/RobloxIcon24.png',
+			Image = "rbxasset://textures/ui/Shell/Icons/RobloxIcon24.png",
 			ZIndex = 2,
 			Visible = true,
 			Parent = infoFrame,
-			LayoutOrder = 2
-		}
+			LayoutOrder = 2,
+		})
 	end
 
-	creatorLabel = create 'TextLabel' {
-		Name = 'CreatorLabel',
+	creatorLabel = create("TextLabel")({
+		Name = "CreatorLabel",
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, 0, 0, 30),
 		Position = UDim2.new(0, 0, 0, 80),
@@ -543,8 +545,8 @@ local function GenerateGui()
 		TextYAlignment = Enum.TextYAlignment.Center,
 		ZIndex = 2,
 		LayoutOrder = 4,
-		Parent = infoFrame
-	}
+		Parent = infoFrame,
+	})
 
 	if isTenFootInterface then
 		creatorContainer.Parent = infoFrame
@@ -577,17 +579,17 @@ local function GenerateGui()
 	end)()
 
 	if not FFlagConnectionScriptEnabled or isTenFootInterface then
-		local errorFrame = create 'Frame' {
-			Name = 'ErrorFrame',
+		local errorFrame = create("Frame")({
+			Name = "ErrorFrame",
 			BackgroundColor3 = COLORS.ERROR,
 			BorderSizePixel = 0,
-			Position = UDim2.new(0.25,0,0,0),
+			Position = UDim2.new(0.25, 0, 0, 0),
 			Size = UDim2.new(0.5, 0, 0, 80),
 			ZIndex = 8,
 			Visible = false,
 			Parent = screenGui,
 
-			create 'TextLabel' {
+			create("TextLabel")({
 				Name = "ErrorText",
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 1, 0),
@@ -596,9 +598,9 @@ local function GenerateGui()
 				TextWrapped = true,
 				TextColor3 = COLORS.TEXT_COLOR,
 				Text = "",
-				ZIndex = 8
-			}
-		}
+				ZIndex = 8,
+			}),
+		})
 	else
 		if not loadErrorHandlerFromEngine and FFlagConnectErrorHandlerInLoadingScript then
 			ScriptContext:AddCoreScriptLocal("Connection", RobloxGui)
@@ -621,7 +623,7 @@ local function GenerateGui()
 		infoFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 		infoFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 		infoFrame.Size = UDim2.new(0.75, 0, 1, 0)
-		infoFrameAspect.AspectRatio = isPortrait and 2/3 or 3/2
+		infoFrameAspect.AspectRatio = isPortrait and 2 / 3 or 3 / 2
 
 		placeLabel.Size = UDim2.new(1, 0, 0, isTenFootInterface and 120 or 80)
 
@@ -647,21 +649,21 @@ end
 
 -- Generate transtion when prepraing the loading screen ui
 local function GenerateTransition()
-	local screenGui = create 'ScreenGui' {
-		Name = 'RobloxLoadingTransitionGui',
+	local screenGui = create("ScreenGui")({
+		Name = "RobloxLoadingTransitionGui",
 		DisplayOrder = 8,
 		IgnoreGuiInset = true,
-	}
+	})
 
-	local mainBackgroundContainer = create 'Frame' {
-		Name = 'BlackFrame',
+	local mainBackgroundContainer = create("Frame")({
+		Name = "BlackFrame",
 		BackgroundColor3 = Color3.fromRGB(0, 0, 0),
 		BackgroundTransparency = 0,
 		Size = UDim2.fromScale(10, 10), -- make sure whole screen is covered, since canvas size might not be correct at this point
 		Position = UDim2.fromOffset(0, 0),
 		Active = true,
-		Parent = screenGui
-	}
+		Parent = screenGui,
+	})
 	screenGui.Parent = CoreGui
 	return screenGui
 end
@@ -684,13 +686,13 @@ if UseNewVersionLoadingScreen then
 		local Roact = require(CorePackages:WaitForChild("Roact"))
 		local Rodux = require(CorePackages:WaitForChild("Rodux"))
 		local RoactRodux = require(CorePackages:WaitForChild("RoactRodux"))
-		local store = Rodux.Store.new(LoadingScreenReducer, {}, {Rodux.thunkMiddleware})
+		local store = Rodux.Store.new(LoadingScreenReducer, {}, { Rodux.thunkMiddleware })
 		local app = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
 			loadingScreenUI = Roact.createElement(LoadingScreen, {
 				placeId = PLACE_ID_FROM_ENGINE,
-			})
+			}),
 		})
 		loadingScreenUIHandle = Roact.mount(app, CoreGui, "RobloxLoadingGUI")
 		-- Roact mount might lag one frame, make sure transition is destroyed after loading screen shows up.
@@ -713,7 +715,7 @@ if not UseNewVersionLoadingScreen then
 	local function spinnerEasingFunc(a, b, t)
 		t = t * 2
 		if t < 1 then
-			return b / 2 * t*t*t + a
+			return b / 2 * t * t * t + a
 		else
 			t = t - 2
 			return b / 2 * (t * t * t + 2) + b
@@ -733,10 +735,14 @@ if not UseNewVersionLoadingScreen then
 	end)()
 
 	renderSteppedConnection = RunService.RenderStepped:Connect(function(dt)
-		if not currScreenGui then return end
-		if not currScreenGui:FindFirstChild("BlackFrame") then return end
+		if not currScreenGui then
+			return
+		end
+		if not currScreenGui:FindFirstChild("BlackFrame") then
+			return
+		end
 
-		local infoFrame = currScreenGui.BlackFrame:FindFirstChild('InfoFrame')
+		local infoFrame = currScreenGui.BlackFrame:FindFirstChild("InfoFrame")
 		if infoFrame then
 			-- set place name
 			if placeLabel and placeLabel.Text == "" then
@@ -745,7 +751,10 @@ if not UseNewVersionLoadingScreen then
 
 			-- set creator name
 			if creatorLabel and creatorLabel.Text == "" then
-				if FFlagLoadingScreenShowBlankUntilPolicyServiceReturns and showAntiAddictionNoticeStringEn == "waiting" then
+				if
+					FFlagLoadingScreenShowBlankUntilPolicyServiceReturns
+					and showAntiAddictionNoticeStringEn == "waiting"
+				then
 					creatorLabel.Text = ""
 				elseif showAntiAddictionNoticeStringEn then
 					creatorLabel.Text = antiAddictionNoticeStringEn
@@ -756,7 +765,7 @@ if not UseNewVersionLoadingScreen then
 							creatorLabel.Text = creatorName
 							creatorLabel.Size = UDim2.new(0, creatorLabel.TextBounds.X, 1, 0)
 						else
-							creatorLabel.Text = "By ".. creatorName
+							creatorLabel.Text = "By " .. creatorName
 						end
 					end
 				end
@@ -771,10 +780,10 @@ if not UseNewVersionLoadingScreen then
 		local cycleAlpha = spinnerEasingFunc(0, 1, timeInCycle / turnCycleTime)
 		spinnerImage.Rotation = cycleAlpha * 360
 
-
 		if not isTenFootInterface then
 			if currentTime - startTime > 5 and currScreenGui.BlackFrame.CloseButton.ImageTransparency > 0 then
-				currScreenGui.BlackFrame.CloseButton.ImageTransparency = currScreenGui.BlackFrame.CloseButton.ImageTransparency - fadeAmount
+				currScreenGui.BlackFrame.CloseButton.ImageTransparency = currScreenGui.BlackFrame.CloseButton.ImageTransparency
+					- fadeAmount
 
 				if currScreenGui.BlackFrame.CloseButton.ImageTransparency <= 0 then
 					currScreenGui.BlackFrame.CloseButton.Active = true
@@ -788,7 +797,7 @@ if not UseNewVersionLoadingScreen then
 		local errorImage
 
 		GuiService.ErrorMessageChanged:Connect(function()
-			if GuiService:GetErrorMessage() ~= '' then
+			if GuiService:GetErrorMessage() ~= "" then
 				--TODO: Remove this reference to Utility
 				local utility = require(RobloxGui.Modules.Settings.Utility)
 				if isTenFootInterface then
@@ -797,8 +806,8 @@ if not UseNewVersionLoadingScreen then
 					currScreenGui.ErrorFrame.BackgroundColor3 = COLORS.BACKGROUND_COLOR
 					currScreenGui.ErrorFrame.BackgroundTransparency = 0.5
 					currScreenGui.ErrorFrame.ErrorText.TextSize = 36
-					currScreenGui.ErrorFrame.ErrorText.Position = UDim2.new(.3, 0, 0, 0)
-					currScreenGui.ErrorFrame.ErrorText.Size = UDim2.new(.4, 0, 0, 144)
+					currScreenGui.ErrorFrame.ErrorText.Position = UDim2.new(0.3, 0, 0, 0)
+					currScreenGui.ErrorFrame.ErrorText.Size = UDim2.new(0.4, 0, 0, 144)
 					if errorImage == nil then
 						errorImage = Instance.new("ImageLabel")
 						errorImage.Image = "rbxasset://textures/ui/ErrorIconSmall.png"
@@ -820,12 +829,15 @@ if not UseNewVersionLoadingScreen then
 					if not errorCode then
 						currScreenGui.ErrorFrame.ErrorText.Text = ("%s (Error Code: -1)"):format(errorMessage)
 					else
-						currScreenGui.ErrorFrame.ErrorText.Text = ("%s (Error Code: %d)"):format(errorMessage, errorCode.Value)
+						currScreenGui.ErrorFrame.ErrorText.Text = ("%s (Error Code: %d)"):format(
+							errorMessage,
+							errorCode.Value
+						)
 					end
 				end
 
 				currScreenGui.ErrorFrame.Visible = true
-				local blackFrame = currScreenGui:FindFirstChild('BlackFrame')
+				local blackFrame = currScreenGui:FindFirstChild("BlackFrame")
 				if blackFrame then
 					blackFrame.CloseButton.ImageTransparency = 0
 					blackFrame.CloseButton.Active = true
@@ -844,13 +856,13 @@ if not UseNewVersionLoadingScreen then
 
 	GuiService.UiMessageChanged:Connect(function(type, newMessage)
 		if type == Enum.UiMessageType.UiMessageInfo then
-			local blackFrame = currScreenGui and currScreenGui:FindFirstChild('BlackFrame')
+			local blackFrame = currScreenGui and currScreenGui:FindFirstChild("BlackFrame")
 			if blackFrame then
 				local infoFrame = blackFrame:FindFirstChild("InfoFrame")
 				if infoFrame then
 					local uiMessage = infoFrame.UiMessageFrame.UiMessage
 					uiMessage.Text = newMessage
-					if newMessage ~= '' and layoutIsReady then
+					if newMessage ~= "" and layoutIsReady then
 						uiMessage.TextTransparency = 0
 					else
 						uiMessage.TextTransparency = 1
@@ -860,7 +872,7 @@ if not UseNewVersionLoadingScreen then
 		end
 	end)
 
-	if not FFlagConnectionScriptEnabled and GuiService:GetErrorMessage() ~= '' then
+	if not FFlagConnectionScriptEnabled and GuiService:GetErrorMessage() ~= "" then
 		currScreenGui.ErrorFrame.ErrorText.Text = GuiService:GetErrorMessage()
 		currScreenGui.ErrorFrame.Visible = true
 	end
@@ -884,8 +896,12 @@ local function disconnectAndCloseHealthStat()
 end
 
 local function fadeAndDestroyBlackFrame(blackFrame)
-	if UseNewVersionLoadingScreen then return end
-	if destroyingBackground then return end
+	if UseNewVersionLoadingScreen then
+		return
+	end
+	if destroyingBackground then
+		return
+	end
 	destroyingBackground = true
 	spawn(function()
 		local infoFrame = blackFrame:FindFirstChild("InfoFrame")
@@ -912,9 +928,9 @@ local function fadeAndDestroyBlackFrame(blackFrame)
 				transparency = transparency + rateChange * (newTime - lastUpdateTime)
 				for i = 1, #infoFrameDescendants do
 					local child = infoFrameDescendants[i]
-					if child:IsA('TextLabel') then
+					if child:IsA("TextLabel") then
 						child.TextTransparency = transparency
-					elseif child:IsA('ImageLabel') then
+					elseif child:IsA("ImageLabel") then
 						child.ImageTransparency = transparency
 					end
 				end
@@ -957,13 +973,19 @@ local function fadeAndDestroyBlackFrame(blackFrame)
 end
 
 local function destroyLoadingElements(instant)
-	if UseNewVersionLoadingScreen then return end
-	if not currScreenGui then return end
-	if destroyedLoadingGui then return end
+	if UseNewVersionLoadingScreen then
+		return
+	end
+	if not currScreenGui then
+		return
+	end
+	if destroyedLoadingGui then
+		return
+	end
 	destroyedLoadingGui = true
 
 	local guiChildren = currScreenGui:GetChildren()
-	for i=1, #guiChildren do
+	for i = 1, #guiChildren do
 		-- need to keep this around in case we get a connection error later
 		if guiChildren[i].Name ~= "ErrorFrame" then
 			if guiChildren[i].Name == "BlackFrame" and not instant then
@@ -1004,7 +1026,7 @@ local function handleRemoveDefaultLoadingGui(instant)
 		end
 	else
 		if isTenFootInterface then
-			ContextActionService:UnbindCoreAction('CancelGameLoad')
+			ContextActionService:UnbindCoreAction("CancelGameLoad")
 		end
 		destroyLoadingElements(instant)
 	end

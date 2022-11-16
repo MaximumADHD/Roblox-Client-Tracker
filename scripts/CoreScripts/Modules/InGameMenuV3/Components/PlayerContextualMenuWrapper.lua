@@ -41,7 +41,7 @@ local FriendRequestStatus = require(InGameMenu.Utility.FriendRequestStatus)
 
 local InviteStatus = Constants.InviteStatus
 local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
-	
+
 local InspectAndBuyV2IXPTest = require(InGameMenu.Flags.InspectAndBuyV2IXPTest)
 
 local PlayerContextualMenuWrapper = Roact.PureComponent:extend("PlayerContextualMenuWrapper")
@@ -134,7 +134,7 @@ function PlayerContextualMenuWrapper:render()
 	return withLocalization({
 		addFriend = "CoreScripts.InGameMenu.Actions.AddFriend",
 		viewAvatar = "CoreScripts.InGameMenu.Actions.ViewAvatar",
-		reportAbuse = "CoreScripts.InGameMenu.Actions.ReportAbuse",
+		reportAbuse = "CoreScripts.InGameMenu.PageTitle.Report",
 		inviteFriend = "CoreScripts.InGameMenu.Action.InviteFriend",
 		inviteSent = "CoreScripts.InGameMenu.Action.InviteSent",
 		blockPlayer = "CoreScripts.InGameMenu.Actions.BlockPlayer",
@@ -197,10 +197,10 @@ function PlayerContextualMenuWrapper:renderWithLocalized(localized, voiceState)
 		if
 			screenWidth
 			>= self.props.selectedPlayerPosition.X
-				+ self.props.xOffset
-				+ CONTEXT_LEFT_PADDING
-				+ ACTION_WIDTH
-				+ CONTEXT_SIDE_PADDING
+			+ self.props.xOffset
+			+ CONTEXT_LEFT_PADDING
+			+ ACTION_WIDTH
+			+ CONTEXT_SIDE_PADDING
 		then
 			moreMenuPositionXOffset = self.props.selectedPlayerPosition.X + self.props.xOffset + CONTEXT_LEFT_PADDING
 		else
@@ -209,20 +209,20 @@ function PlayerContextualMenuWrapper:renderWithLocalized(localized, voiceState)
 	end
 
 	local moreActionsMenuPanel = self.props.selectedPlayer
-			and Roact.createElement(PlayerContextualMenu, {
-				moreActions = moreActions,
-				actionWidth = ACTION_WIDTH,
-				maxHeight = maxMenuHeight,
-				anchorFromBottom = anchorFromBottom,
-				xOffset = moreMenuPositionXOffset,
-				yOffset = moreMenuPositionYOffset,
-				canCaptureFocus = self.props.canCaptureFocus,
-				player = self.props.selectedPlayer,
-				isFriend = isFriendsWithPlayer,
-				onClose = function()
-					self.props.onActionComplete(true)
-				end,
-			})
+		and Roact.createElement(PlayerContextualMenu, {
+			moreActions = moreActions,
+			actionWidth = ACTION_WIDTH,
+			maxHeight = maxMenuHeight,
+			anchorFromBottom = anchorFromBottom,
+			xOffset = moreMenuPositionXOffset,
+			yOffset = moreMenuPositionYOffset,
+			canCaptureFocus = self.props.canCaptureFocus,
+			player = self.props.selectedPlayer,
+			isFriend = isFriendsWithPlayer,
+			onClose = function()
+				self.props.onActionComplete(true)
+			end,
+		})
 		or nil
 
 	return moreActionsMenuPanel
@@ -464,7 +464,7 @@ function PlayerContextualMenuWrapper:getReportAction(localized, player)
 		text = localized.reportAbuse,
 		icon = Images["icons/actions/feedback"],
 		onActivated = function()
-			TrustAndSafety.openReportDialogForPlayer(player)
+			TrustAndSafety.openReportDialogForPlayer(player, Constants.AnalyticsPlayerContextMenuSource)
 			self.props.onActionComplete(true)
 
 			SendAnalytics(

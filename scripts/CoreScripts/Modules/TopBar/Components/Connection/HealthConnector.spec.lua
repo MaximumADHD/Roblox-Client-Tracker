@@ -9,6 +9,8 @@ return function()
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jestExpect = JestGlobals.expect
 
+	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
+
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
 	local act = require(Modules.act)
@@ -81,6 +83,7 @@ return function()
 
 			character.Humanoid.Health = 40
 			character.Humanoid.MaxHealth = 70
+			waitForEvents()
 
 			jestExpect(store:getState().health.currentHealth).toBe(40)
 			jestExpect(store:getState().health.maxHealth).toBe(70)
@@ -116,6 +119,7 @@ return function()
 
 			act(function()
 				LocalPlayer.Character = newCharacter
+				waitForEvents()
 			end)
 
 			jestExpect(store:getState().health.currentHealth).toBe(10)
@@ -123,6 +127,7 @@ return function()
 
 			newCharacter.Humanoid.Health = 12
 			newCharacter.Humanoid.MaxHealth = 22
+			waitForEvents()
 
 			jestExpect(store:getState().health.currentHealth).toBe(12)
 			jestExpect(store:getState().health.maxHealth).toBe(22)

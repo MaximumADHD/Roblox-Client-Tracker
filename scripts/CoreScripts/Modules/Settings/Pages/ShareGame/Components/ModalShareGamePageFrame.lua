@@ -9,6 +9,7 @@ local RoactRodux = require(CorePackages.RoactRodux)
 
 local ShareGame = Modules.Settings.Pages.ShareGame
 local Constants = require(ShareGame.Constants)
+local InviteEvents = require(ShareGame.Analytics.InviteEvents)
 local Header = require(ShareGame.Components.Header)
 local ConversationList = require(ShareGame.Components.ConversationList)
 local ToasterComponent = require(ShareGame.Components.ErrorToaster)
@@ -16,6 +17,7 @@ local BackButton = require(ShareGame.Components.BackButton)
 local Text = require(CorePackages.Workspace.Packages.AppCommonLib).Text
 
 local GetFFlagEnableNewInviteMenu = require(Modules.Flags.GetFFlagEnableNewInviteMenu)
+local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
 
 local HEADER_HEIGHT = 60
 local USER_LIST_PADDING = 10
@@ -78,6 +80,11 @@ function ModalShareGamePageFrame:didMount()
 	if GetFFlagEnableNewInviteMenu() then
 		if self.customTextAreaRef.current then
 			self.onCustomTextAreaSizeChange(self.customTextAreaRef.current)
+		end
+	end
+	if GetFFlagEnableNewInviteSendEndpoint() then
+		if self.props.promptMessage and self.props.analytics then
+			self.props.analytics:sendEvent(Constants.Triggers.DeveloperMultiple, InviteEvents.CustomTextShown)
 		end
 	end
 end
@@ -191,6 +198,9 @@ function ModalShareGamePageFrame:render()
 				entryHeight = CONVERSATION_ENTRY_HEIGHT,
 				entryPadding = CONVERSATION_ENTRY_PADDING,
 				isVisible = isVisible,
+				trigger = Constants.Triggers.DeveloperMultiple,
+				inviteMessageId = self.props.inviteMessageId,
+				launchData = self.props.launchData,
 			})
 		})
 	})

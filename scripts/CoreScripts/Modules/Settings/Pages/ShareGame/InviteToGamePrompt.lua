@@ -11,6 +11,8 @@ local Rodux = require(CorePackages.Rodux)
 
 local Modules = RobloxGui.Modules
 local SettingsHubDirectory = Modules.Settings
+local Constants = require(Modules.Settings.Pages.ShareGame.Constants)
+local InviteEvents = require(Modules.Settings.Pages.ShareGame.Analytics.InviteEvents)
 
 local ShareGameDirectory = SettingsHubDirectory.Pages.ShareGame
 local FullModalShareGameComponent = require(ShareGameDirectory.Components.FullModalShareGameComponent)
@@ -81,6 +83,12 @@ function InviteToGamePrompt:show(props: InviteCustomizationProps?)
 		return
 	end
 	self.isActive = true
+
+	if props then
+		local triggerId =
+			if props.inviteUserId then Constants.Triggers.DeveloperSingle else Constants.Triggers.DeveloperMultiple
+		self.analytics:sendEvent(triggerId, InviteEvents.ModalOpened)
+	end
 
 	if not self.instance then
 		self.instance = Roact.mount(self:_createTree(true, props), self.mountTarget, "invitePrompt")

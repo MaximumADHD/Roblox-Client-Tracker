@@ -12,14 +12,18 @@ local Modules = CoreGui.RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
 local Colors = require(Modules.Common.Constants).COLORS
 local ShareGameConstants = require(ShareGame.Constants)
+local InviteEvents = require(ShareGame.Analytics.InviteEvents)
 local InviteStatus = ShareGameConstants.InviteStatus
 local RobloxTranslator = require(ShareGame.getTranslator)()
 
 local httpRequest = require(CorePackages.AppTempCommon.Temp.httpRequest)
 local InviteUserIdToPlaceId = require(ShareGame.Thunks.InviteUserIdToPlaceId)
 local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.RetrievalStatus
+local InviteUserIdToPlaceIdCustomized = require(ShareGame.Thunks.InviteUserIdToPlaceIdCustomized)
 
 local SingleUserThumbnail = require(ShareGame.Components.SingleUserThumbnail)
+
+local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
 
 local UIBlox = require(CorePackages.UIBlox)
 local PrimaryButton = UIBlox.App.Button.PrimarySystemButton
@@ -40,6 +44,12 @@ local InviteSingleUserContainer = function(props)
 	local style = useStyle()
 	local sendingInvite, setSendingInvite = React.useState(false)
 
+	React.useEffect(function()
+		if props.promptMessage and props.analytics then
+			props.analytics:sendEvent(ShareGameConstants.Triggers.DeveloperSingle, InviteEvents.CustomTextShown)
+		end
+	end, {})
+
 	local onClose = React.useCallback(function()
 		props.closePage()
 		if props.onAfterClosePage then
@@ -50,13 +60,24 @@ local InviteSingleUserContainer = function(props)
 		props.onAfterClosePage,
 	} :: { any })
 
+	local onCloseButtonActivated = React.useCallback(function()
+		props.analytics:sendEvent(ShareGameConstants.Triggers.DeveloperSingle, InviteEvents.CancelInvite)
+		onClose()
+	end, {
+		onClose,
+	})
+
 	local onInvite = React.useCallback(function()
 		setSendingInvite(true)
 		local inviteUser = props.inviteUser
-		local analytics = props.analytics
+		local analytics = props.analytics :: any
 		if inviteStatus and inviteStatus ~= InviteStatus.Failed then
 			return
 		end
+
+		analytics:sendEvent(ShareGameConstants.Triggers.DeveloperSingle, InviteEvents.SendInvite, {
+			recipient = friend.id,
+		})
 
 		local onSuccess = function(results)
 			setSendingInvite(false)
@@ -73,13 +94,16 @@ local InviteSingleUserContainer = function(props)
 			onClose()
 		end
 
-		inviteUser(tostring(friend.id)):andThen(onSuccess, onClose)
+		inviteUser(tostring(friend.id), analytics, props.inviteMessageId, props.launchData):andThen(onSuccess, onClose)
 	end, {
 		props.inviteUser,
+		props.inviteMessageId,
+		props.launchData,
 		props.analytics,
 		setSendingInvite,
 		inviteStatus,
 		friend,
+		onClose,
 	} :: { any })
 
 	if not friend then
@@ -169,7 +193,7 @@ local InviteSingleUserContainer = function(props)
 				CancelButton = React.createElement(SecondaryButton, {
 					size = UDim2.new(0.5, -12, 1, 0),
 					text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.Cancel"),
-					onActivated = onClose,
+					onActivated = onCloseButtonActivated,
 					isDisabled = sendingInvite,
 				}),
 				InviteButton = React.createElement(PrimaryButton, {
@@ -189,17 +213,33 @@ return RoactRodux.connect(
 	function(state)
 		return {
 			friends = state.Users,
-			friendsRetrievalStatus = Players.LocalPlayer and state.Friends.retrievalStatus[tostring(Players.LocalPlayer.UserId)],
+			friendsRetrievalStatus = Players.LocalPlayer and state.Friends.retrievalStatus[tostring(
+				Players.LocalPlayer.UserId
+			)],
 			invites = state.Invites,
 		}
 	end,
-	function(dispatch)
+	function(dispatch: (any) -> any)
 		return {
-			inviteUser = function(userId: string)
+			inviteUser = function(userId: string, analytics: any, inviteMessageId: string?, launchData: string?)
 				local requestImpl = httpRequest(HttpRbxApiService :: any)
 				local placeId = tostring(game.PlaceId)
 
-				return dispatch(InviteUserIdToPlaceId(requestImpl, userId, placeId))
+				if GetFFlagEnableNewInviteSendEndpoint() then
+					return dispatch(
+						InviteUserIdToPlaceIdCustomized(
+							requestImpl,
+							userId,
+							placeId,
+							analytics,
+							ShareGameConstants.Triggers.DeveloperSingle,
+							inviteMessageId,
+							launchData
+						)
+					)
+				else
+					return dispatch(InviteUserIdToPlaceId(requestImpl, userId, placeId))
+				end
 			end,
 		}
 	end

@@ -8,11 +8,14 @@ local Modules = CoreGui.RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
 
 local Constants = require(Modules.Common.Constants)
+local InviteEvents = require(ShareGame.Analytics.InviteEvents)
 local ShareGameConstants = require(ShareGame.Constants)
 local PresenceUtil = require(ShareGame.PresenceUtil)
 local SingleUserThumbnail = require(ShareGame.Components.SingleUserThumbnail)
 local InviteButton = require(ShareGame.Components.InviteButton)
 local InviteStatus = ShareGameConstants.InviteStatus
+
+local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
 
 local ENTRY_BG_IMAGE = "rbxasset://textures/ui/dialog_white.png"
 local ENTRY_BG_SLICE = Rect.new(10, 10, 10, 10)
@@ -31,11 +34,20 @@ export type Props = {
 		id: number,
 	},
 	layoutOrder: number,
-	inviteUser: (userId: number) -> any,
+	inviteUser: (
+		userId: number,
+		analytics: any?,
+		trigger: string?,
+		messageId: string?,
+		launchData: string?
+	) -> any,
 	inviteStatus: string,
 	visible: boolean,
 	analytics: any,
 	isFullRowActivatable: boolean,
+	trigger: string,
+	inviteMessageId: string,
+	launchData: string,
 }
 
 return function(props: Props)
@@ -54,14 +66,24 @@ return function(props: Props)
 			end
 
 			-- Pluck the userIds out of the user list
-			local participants = {user.id}
-			if Players.LocalPlayer then
+			local participants = { user.id }
+			if Players.LocalPlayer and results.conversationId then
 				local localPlayer = Players.LocalPlayer :: Player
 				analytics:onActivatedInviteSent(localPlayer.UserId, results.conversationId, participants)
 			end
 		end
 
-		inviteUser(user.id):andThen(onSuccess, function() end)
+		if GetFFlagEnableNewInviteSendEndpoint() then
+			analytics:sendEvent(props.trigger, InviteEvents.SendInvite, {
+				recipient = user.id,
+			})
+			inviteUser(user.id, analytics, props.trigger, props.inviteMessageId, props.launchData):andThen(
+				onSuccess,
+				function() end
+			)
+		else
+			inviteUser(user.id):andThen(onSuccess, function() end)
+		end
 	end, {
 		props.inviteUser,
 		props.inviteStatus,

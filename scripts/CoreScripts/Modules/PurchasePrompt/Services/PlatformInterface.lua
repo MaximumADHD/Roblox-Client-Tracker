@@ -56,6 +56,10 @@ function PlatformInterface.new()
 		GuiService:OpenBrowserWindow(url)
 	end
 
+	function service.openRobuxStore()
+		GuiService:OpenBrowserWindow(("%sUpgrades/Robux.aspx"):format(BASE_URL))
+	end
+
 	function service.promptNativePurchaseWithLocalPlayer(mobileProductId)
 		return MarketplaceService:PromptNativePurchaseWithLocalPlayer(mobileProductId)
 	end

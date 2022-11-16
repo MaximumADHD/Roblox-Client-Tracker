@@ -17,4 +17,5 @@ return {
 	GetFFlagUIBloxEnableAutoHidingPointerOverlay = require(script.GetFFlagUIBloxEnableAutoHidingPointerOverlay),
 	GetFFlagUIBloxHorizontalCarouselSetState = require(script.GetFFlagUIBloxHorizontalCarouselSetState),
 	GetFFlagUIBloxRemovePreviewAnchor = require(script.GetFFlagUIBloxRemovePreviewAnchor),
+	GetFFlagUIBloxEnableMediaGalleryUpdate = require(script.GetFFlagUIBloxEnableMediaGalleryUpdate),
 }

@@ -6,6 +6,7 @@ local AsyncQueue = require(script.AsyncQueue.AsyncQueue)
 local AsyncQueueTypes = require(script.AsyncQueue.AsyncQueueTypes)
 local IsVRAppBuild = require(script.IsVRAppBuild)
 local memoize = require(script.memoize)
+local OrderedMap = require(script.OrderedMap)
 local Text = require(script.Text)
 local Symbol = require(script.Symbol)
 local ThrottleUserId = require(script.ThrottleUserId)
@@ -27,6 +28,7 @@ return {
 	Color = Color,
 	Functional = Functional,
 	memoize = memoize,
+	OrderedMap = OrderedMap,
 	Text = Text,
 	Symbol = Symbol,
 	ThrottleUserId = ThrottleUserId,

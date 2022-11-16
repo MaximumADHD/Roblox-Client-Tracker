@@ -15,6 +15,8 @@ return function()
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jestExpect = JestGlobals.expect
 
+	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
+
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 	local act = require(Modules.act)
 
@@ -98,6 +100,7 @@ return function()
 			mockVRService:toggleHeadsetConnectionState()
 			Roact.update(instance, getMountableTreeAndStore(fullProps))
 		end)
+		waitForEvents.act()
 
 		jestExpect(mockVRService.VRDeviceAvailable).toBe(false)
 		jestExpect(mockGuiService.MenuIsOpen).toBe(true)

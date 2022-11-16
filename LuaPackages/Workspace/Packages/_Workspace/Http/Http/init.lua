@@ -1,4 +1,6 @@
 local Requests = require(script.Requests)
+local Reducers = require(script.Reducers)
+local PerformFetch = require(script.PerformFetch)
 
 export type RequestOptions = Requests.RequestOptions
 export type Response<T = any> = Requests.Response<T>
@@ -8,4 +10,6 @@ return {
 	Enum = require(script.Enum),
 	Requests = Requests,
 	Url = require(script.Url),
+	Reducers = Reducers,
+	PerformFetch = PerformFetch,
 }

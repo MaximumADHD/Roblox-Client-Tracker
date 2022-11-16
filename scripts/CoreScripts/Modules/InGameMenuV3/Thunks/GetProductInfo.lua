@@ -1,5 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
-local PerformFetch = require(CorePackages.AppTempCommon.LuaApp.Thunks.Networking.Util.PerformFetch)
+local PerformFetch = require(CorePackages.Workspace.Packages.Http).PerformFetch
 local InGameMenu = script.Parent.Parent
 local AssetInfo = require(InGameMenu.Models.AssetInfo)
 local SetAssets = require(InGameMenu.Actions.InspectAndBuy.SetAssets)

@@ -31,6 +31,7 @@ local Divider = require(InGameMenu.Components.Divider)
 local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
 local RootedConnection = require(InGameMenu.Components.Connection.RootedConnection)
 local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
+local GetFFlagInvitePlayerObjectFix = require(InGameMenu.Flags.GetFFlagInvitePlayerObjectFix)
 local FIntFirstPlayerCellIndexEngineLoadingStrategy = require(InGameMenu.Flags.GetFIntFirstPlayerCellIndexEngineLoadingStrategy)()
 
 local InviteFriendsList = Roact.PureComponent:extend("InviteFriendsList")
@@ -206,7 +207,15 @@ function InviteFriendsList:renderListEntries()
 						and self.positionChanged
 					or nil,
 				onActivated = function(_)
-					self.toggleMoreActions(self:getPlayerByIndex(index))
+					if GetFFlagInvitePlayerObjectFix() then
+						self.toggleMoreActions({
+							UserId = playerInfo.Id,
+							Name = playerInfo.Username,
+							DisplayName = playerInfo.DisplayName,
+						})
+					else
+						self.toggleMoreActions(self:getPlayerByIndex(index))
+					end
 				end,
 				memoKey = key,
 				loadingStrategy = loadingStrategy,
@@ -218,6 +227,13 @@ function InviteFriendsList:renderListEntries()
 					anchorPoint = Vector2.new(1, 0.5),
 					onActivated = function()
 						local player = self:getPlayerByIndex(index)
+						if GetFFlagInvitePlayerObjectFix() then
+							player = {
+								UserId = playerInfo.Id,
+								Name = playerInfo.Username,
+								DisplayName = playerInfo.DisplayName,
+							}
+						end
 						if userInvited then
 							self.toggleMoreActions(player)
 						else

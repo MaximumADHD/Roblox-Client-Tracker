@@ -5,6 +5,7 @@ local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local Cryo = require(CorePackages.Cryo)
 local UIBlox = require(CorePackages.UIBlox)
+local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
 local UIBloxImages = UIBlox.App.ImageSet.Images
 local UIBloxIconSize = UIBlox.App.Constant.IconSize
 local Notification = require(InspectAndBuyFolder.Components.Notification)
@@ -16,6 +17,9 @@ local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 local getSelectionImageObjectRegular = require(InspectAndBuyFolder.getSelectionImageObjectRegular)
 
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
+
+local FFlagShowVerifiedBadgeOnInspectAndBuyDetails =
+	require(InspectAndBuyFolder.Flags.FFlagShowVerifiedBadgeOnInspectAndBuyDetails)
 
 local PremiumIcon = UIBloxImages["icons/status/premium"]
 local BY_KEY = "InGame.InspectMenu.Label.By"
@@ -66,9 +70,11 @@ function DetailsText:render()
 	local partOfBundle = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
 	local multipleBundles = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn > 1
 	local showPremiumIcon = assetInfo.premiumPricing ~= nil
+	local creatorHasVerifiedBadge = assetInfo.creatorHasVerifiedBadge or false
 	local premiumIconPadding = showPremiumIcon and (UIBloxIconSize.Regular + PREMIUM_ICON_PADDING) or 0
 	-- add notification when inspecting layered clothing asset on R6
-	local layeredClothingOnR6 = Constants.LayeredAssetTypes[assetInfo.assetTypeId] ~= nil and self.props.localPlayerModel
+	local layeredClothingOnR6 = Constants.LayeredAssetTypes[assetInfo.assetTypeId] ~= nil
+		and self.props.localPlayerModel
 		and self.props.localPlayerModel.Humanoid.RigType == Enum.HumanoidRigType.R6
 
 	local noticeKey = nil
@@ -105,14 +111,17 @@ function DetailsText:render()
 					Size = UDim2.new(1, -10, 0, ASSET_NAME_SIZE),
 					LayoutOrder = 1,
 				}, {
-					PremiumIcon = showPremiumIcon and Roact.createElement("ImageLabel", Cryo.Dictionary.join(PremiumIcon, {
-						AnchorPoint = Vector2.new(0, 0.5),
-						Position = UDim2.new(0, 0, 0.5, 0),
-						BackgroundTransparency = 1,
-						Size = UDim2.new(0, UIBloxIconSize.Regular, 0, UIBloxIconSize.Regular),
-						ImageColor3 = Color3.new(1, 1, 1),
-					})) or nil,
-					Roact.createElement("TextLabel", {
+					PremiumIcon = showPremiumIcon and Roact.createElement(
+						"ImageLabel",
+						Cryo.Dictionary.join(PremiumIcon, {
+							AnchorPoint = Vector2.new(0, 0.5),
+							Position = UDim2.new(0, 0, 0.5, 0),
+							BackgroundTransparency = 1,
+							Size = UDim2.new(0, UIBloxIconSize.Regular, 0, UIBloxIconSize.Regular),
+							ImageColor3 = Color3.new(1, 1, 1),
+						})
+					) or nil,
+					PlayerName = Roact.createElement("TextLabel", {
 						BackgroundTransparency = 1,
 						Position = UDim2.new(0, premiumIconPadding, 0, 0),
 						Size = UDim2.new(1, premiumIconPadding, 0, ASSET_NAME_SIZE),
@@ -127,7 +136,7 @@ function DetailsText:render()
 					}, {
 						UITextSizeConstraint = Roact.createElement("UITextSizeConstraint", {
 							MaxTextSize = 32,
-						})
+						}),
 					}),
 				}) or Roact.createElement("TextLabel", {
 					BackgroundTransparency = 1,
@@ -143,36 +152,61 @@ function DetailsText:render()
 				}, {
 					UITextSizeConstraint = Roact.createElement("UITextSizeConstraint", {
 						MaxTextSize = 32,
-					})
+					}),
 				}),
-				CreatorLabel = Roact.createElement("TextLabel", {
-					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 0, CREATOR_SIZE),
-					LayoutOrder = 2,
-					Text = RobloxTranslator:FormatByKeyForLocale(BY_KEY, locale, { CREATOR = self.creator }),
-					Font = Enum.Font.Gotham,
-					TextScaled = false,
-					TextSize = TEXT_SIZE_SMALL,
-					TextColor3 = Colors.White,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Center,
-				}),
+				CreatorLabel = not FFlagShowVerifiedBadgeOnInspectAndBuyDetails()
+					and Roact.createElement("TextLabel", {
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 0, CREATOR_SIZE),
+						LayoutOrder = 2,
+						Text = RobloxTranslator:FormatByKeyForLocale(BY_KEY, locale, { CREATOR = self.creator }),
+						Font = Enum.Font.Gotham,
+						TextScaled = false,
+						TextSize = TEXT_SIZE_SMALL,
+						TextColor3 = Colors.White,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Center,
+					}),
+				CreatorLabelContainer = FFlagShowVerifiedBadgeOnInspectAndBuyDetails()
+					and Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						LayoutOrder = 2,
+						Size = UDim2.new(1, 0, 0, CREATOR_SIZE),
+					}, {
+						CreatorLabelWrapper = Roact.createElement(VerifiedBadges.EmojiWrapper, {
+							emoji = if creatorHasVerifiedBadge then VerifiedBadges.emoji.verified else "",
+						}, {
+							CreatorLabel = Roact.createElement("TextLabel", {
+								AutomaticSize = Enum.AutomaticSize.XY,
+								BackgroundTransparency = 1,
+								Text = RobloxTranslator:FormatByKeyForLocale(
+									BY_KEY,
+									locale,
+									{ CREATOR = self.creator }
+								),
+								Font = Enum.Font.Gotham,
+								TextScaled = false,
+								TextSize = TEXT_SIZE_SMALL,
+								TextColor3 = Colors.White,
+								TextXAlignment = Enum.TextXAlignment.Left,
+								TextYAlignment = Enum.TextYAlignment.Center,
+							}),
+						}),
+					}),
 				FavoriteContainer = showFavoritesCount and Roact.createElement(Favorites),
 			})
-		end
+		end,
 	})
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		local assetId = state.detailsInformation.assetId
+return RoactRodux.connect(function(state, props)
+	local assetId = state.detailsInformation.assetId
 
-		return {
-			view = state.view,
-			locale = state.locale,
-			assetInfo = state.assets[assetId],
-			bundleInfo = state.bundles,
-			showFavoritesCount = not state.isSubjectToChinaPolicies,
-		}
-	end
-)(DetailsText)
+	return {
+		view = state.view,
+		locale = state.locale,
+		assetInfo = state.assets[assetId],
+		bundleInfo = state.bundles,
+		showFavoritesCount = not state.isSubjectToChinaPolicies,
+	}
+end)(DetailsText)

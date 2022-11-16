@@ -36,6 +36,12 @@ function PlayersPageWrapper:init()
 
 	self.loadPlayers = function()
 		local players = Players:GetPlayers()
+		if #players <= 1 then
+			-- sometimes the player list only contains LocalPlayer in a room with multiple players
+			-- this is likely a race condition at startup that we need more information about
+			-- the quick fix for now is to not cache the player lists of size <= 1
+			self.setPlayerListDirty()
+		end
 		self:setState({
 			players = Cryo.List.sort(players, sortPlayers),
 		})
@@ -67,7 +73,6 @@ function PlayersPageWrapper:init()
 		end
 	end
 
-	self:deferLoadPlayers()
 	self:setState({
 		incomingFriendRequests = {},
 	})
@@ -118,6 +123,7 @@ end
 
 function PlayersPageWrapper:didMount()
 
+	self:deferLoadPlayers()
 	self.props.getFriends()
 
 	self.friendStatusConnection = FriendRequestStatus.connectLocalFriendRequestResponce(function(player)

@@ -3,7 +3,7 @@
 ]]
 
 local CorePackages = game:GetService("CorePackages")
-local PerformFetch = require(CorePackages.AppTempCommon.LuaApp.Thunks.Networking.Util.PerformFetch)
+local PerformFetch = require(CorePackages.Workspace.Packages.Http).PerformFetch
 local InGameMenu = script.Parent.Parent
 local BundleInfo = require(InGameMenu.Models.BundleInfo)
 local SetBundles = require(InGameMenu.Actions.InspectAndBuy.SetBundles)

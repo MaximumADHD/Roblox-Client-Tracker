@@ -27,6 +27,8 @@ local BlockPlayerItem = require(TnsModule.Components.BlockPlayerItem)
 local EndReportFlow = require(TnsModule.Actions.EndReportFlow)
 local OpenBlockPlayerDialog = require(TnsModule.Actions.OpenBlockPlayerDialog)
 local SelectReportCategory = require(TnsModule.Actions.SelectReportCategory)
+local SendAnalytics = require(TnsModule.Utility.SendAnalytics)
+local SessionUtility = require(TnsModule.Utility.SessionUtility)
 
 local Constants = require(TnsModule.Resources.Constants)
 local ModalDialog = require(TnsModule.Components.ModalDialog)
@@ -315,6 +317,12 @@ end, function(dispatch)
 		end,
 		closeDialog = function()
 			dispatch(EndReportFlow())
+			SendAnalytics(
+				Constants.Analytics.ReportType,
+				Constants.Analytics.ReportFlowAbandoned,
+				{ source = Constants.Analytics.ReportType }
+			)
+			SessionUtility.endAbuseReportSession()
 		end,
 	}
 end)(ReportCategoryDialog)

@@ -1,3 +1,7 @@
+local CoreGui = game:GetService("CoreGui")
+local Modules = CoreGui.RobloxGui.Modules
+local Constants = require(Modules.Settings.Pages.ShareGame.Constants)
+
 -- Returns parameters from ExperienceInviteOptions based on if the feature is
 -- enabled and customization options are present. If nil is returned, the modal
 -- should not be shown
@@ -16,7 +20,7 @@ return function(
 			then experienceInviteOptions.InviteUser else nil
 
 
-	local trigger = if inviteUserId then "DeveloperSingle" else "DeveloperMultiple"
+	local trigger = if inviteUserId then Constants.Triggers.DeveloperSingle else Constants.Triggers.DeveloperMultiple
 
 
 	local canSend, canCustomize = getCanSendAndCanCustomize(trigger, inviteUserId)

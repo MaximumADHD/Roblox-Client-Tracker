@@ -23,6 +23,8 @@ local Constants = require(TnsModule.Resources.Constants)
 local SendReport = require(TnsModule.Thunks.SendReport)
 local TextEntryField = require(TnsModule.Components.TextEntryField)
 local ModalDialog = require(TnsModule.Components.ModalDialog)
+local SendAnalytics = require(TnsModule.Utility.SendAnalytics)
+local SessionUtility = require(TnsModule.Utility.SessionUtility)
 
 local StyleProvider = UIBlox.Core.Style.Provider
 local withStyle = UIBlox.Core.Style.withStyle
@@ -115,11 +117,15 @@ function ReportDialog:init()
 	-- Press the "Report" button.
 	self.onReport = function(toastTitle, toastDescription)
 		local reason = self:getReason()
-		self.props.sendReport(self.props.reportType, self.props.targetPlayer, reason, self.state.descriptionText, self.state.reportCategory, toastTitle, toastDescription)
+		self.props.sendReport(self.props.reportType, self.props.targetPlayer, reason, self.state.descriptionText, self.props.reportCategory, toastTitle, toastDescription)
+	end
+	-- Press the Back button (when available)
+	self.navigateBack = function()
+		self.props.navigateBack(self.state.reasonText, self.state.descriptionText ~= "")
 	end
 	-- Press the "Cancel" button or transparent background.
 	self.onCancel = function()
-		self.props.closeDialog()
+		self.props.closeDialog(self.state.reasonText, self.state.descriptionText ~= "")
 	end
 end
 
@@ -362,7 +368,7 @@ function ReportDialog:render()
 				}}
 			}),
 			onDismiss = self.onCancel,
-			onBackButtonActivated = if self.props.canNavigateBack then self.props.navigateBack else nil,
+			onBackButtonActivated = if self.props.canNavigateBack then self.navigateBack else nil,
 		})
 	end)
 end
@@ -391,11 +397,30 @@ return RoactRodux.UNSTABLE_connect2(
 	end,
 	function(dispatch)
 		return {
-			navigateBack = function()
+			navigateBack = function(reason, descriptionTextChanged)
 				dispatch(NavigateBack())
+				SendAnalytics(
+					Constants.Page.ReportForm,
+					Constants.Analytics.ReportFlowBack,
+					{
+						source = Constants.Page.ReportForm,
+						reason = reason,
+						descriptionTextChanged = descriptionTextChanged
+					}
+				)
 			end,
-			closeDialog = function()
+			closeDialog = function(reason, descriptionTextChanged)
 				dispatch(EndReportFlow())
+				SendAnalytics(
+					Constants.Page.ReportForm,
+					Constants.Analytics.ReportFlowAbandoned,
+					{
+						source = Constants.Page.ReportForm,
+						reason = reason,
+						descriptionTextChanged = descriptionTextChanged
+					}
+				)
+				SessionUtility.endAbuseReportSession()
 			end,
 			sendReport = function(reportType, targetPlayer, reason, description, reportCategory, toastTitle, toastDescription)
 				dispatch(SendReport(reportType, targetPlayer, reason, description, reportCategory, toastTitle, toastDescription))

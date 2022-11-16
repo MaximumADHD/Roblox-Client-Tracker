@@ -4,6 +4,8 @@ game:DefineFastInt("LuaVoiceChatAnalyticsPointsThrottle", 0)
 game:DefineFastFlag("LuaVoiceChatAnalyticsUsePoints", false)
 game:DefineFastFlag("LuaVoiceChatAnalyticsUseCounter", false)
 game:DefineFastFlag("LuaVoiceChatAnalyticsUseEvents", false)
+game:DefineFastFlag("LuaVoiceChatAnalyticsBanMessage", true)
+game:DefineFastFlag("LuaVoiceChatReconnectMissedSequence", false)
 
 type EventStreamFn = (AnalyticsService, string, string, string, { [string]: any }) -> ()
 type DiagFn = (AnalyticsService, string, number) -> ()
@@ -38,6 +40,8 @@ type AnalyticsWrapperMeta = {
 
 	_report: (AnalyticsWrapper, string, string, string?, { [string]: any }) -> (),
 	reportVoiceChatJoinResult: (AnalyticsWrapper, boolean, string, LogLevel?) -> (),
+	reportBanMessageEvent: (AnalyticsWrapper, string) -> (),
+	reportReconnectDueToMissedSequence: (AnalyticsWrapper) -> (),
 }
 
 -- Replace this when Luau supports it
@@ -92,7 +96,12 @@ function Analytics:_report(context, name, extraName, args)
 		if extraName then
 			longName = longName .. "-" .. extraName
 		end
-		self._impl:ReportCounter(longName .. "-" .. args.result, 1)
+		local finalName = longName
+		if args and args.result then
+			finalName = finalName .. "-" .. args.result
+		end
+
+		self._impl:ReportCounter(finalName, 1)
 	end
 	if game:GetFastFlag("LuaVoiceChatAnalyticsUseEvents") then
 		self._impl:SendEventDeferred("client", context, name, args)
@@ -105,6 +114,18 @@ function Analytics:reportVoiceChatJoinResult(success, result, level)
 		result = result,
 		logLevel = if level then level else Analytics.INFO,
 	})
+end
+
+function Analytics:reportBanMessageEvent(event: string)
+	if game:GetFastFlag("LuaVoiceChatAnalyticsBanMessage") then
+		self._impl:ReportCounter("voiceChat-reportBanMessage" .. event, 1)
+	end
+end
+
+function Analytics:reportReconnectDueToMissedSequence()
+	if game:GetFastFlag("LuaVoiceChatReconnectMissedSequence") then
+		self._impl:ReportCounter("voiceChat-reconnectMissedSequence", 1)
+	end
 end
 
 return Analytics

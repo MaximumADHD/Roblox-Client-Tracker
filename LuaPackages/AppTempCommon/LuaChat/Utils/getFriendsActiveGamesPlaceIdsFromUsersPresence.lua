@@ -1,8 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
 
-local User = require(CorePackages.Workspace.Packages.UserLib).User
+local User = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
 local WebPresenceMap = require(CorePackages.Workspace.Packages.UserLib).Enum.WebPresenceMap
-local convertUniverseIdToString = require(CorePackages.AppTempCommon.LuaApp.Flags.ConvertUniverseIdToString)
+local convertUniverseIdToString = require(CorePackages.Workspace.Packages.SharedFlags).ConvertUniverseIdToString
 
 return function(friendsPresence, store)
 	local placeIds = {}

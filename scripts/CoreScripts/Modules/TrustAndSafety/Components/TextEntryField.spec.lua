@@ -3,9 +3,8 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 
 	local Roact = require(CorePackages.Roact)
-	local RoactRodux = require(CorePackages.RoactRodux)
-	local Rodux = require(CorePackages.Rodux)
 	local UIBlox = require(CorePackages.UIBlox)
+	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
 	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
 	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
@@ -63,9 +62,11 @@ return function()
 
 		local textBox = folder:FindFirstChildWhichIsA("TextBox", true)
 		textBox.Text = "Hello world!"
-		Roact.unmount(instance)
 
+		waitForEvents.act()
 		expect(textChangedWasCalled).to.equal(true)
+
+		Roact.unmount(instance)
 	end)
 
 	it("should keep old text when new text exceeds max length", function()
@@ -92,6 +93,8 @@ return function()
 		local textBox = folder:FindFirstChildWhichIsA("TextBox", true)
 
 		textBox.Text = "Hello world!"
+		waitForEvents.act()
+
 		expect(textBox.Text).to.equal("Hello")
 		expect(text).to.equal("Hello")
 
@@ -122,6 +125,7 @@ return function()
 		local textBox = folder:FindFirstChildWhichIsA("TextBox", true)
 
 		textBox.Text = "罗布乐思是世界最大的多人在线游戏"
+		waitForEvents.act()
 		expect(textBox.Text).to.equal("罗布乐思")
 		expect(text).to.equal("罗布乐思")
 

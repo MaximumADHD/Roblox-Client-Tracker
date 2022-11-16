@@ -19,8 +19,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
-local GetFFlagUpdateCapturePermissionText = require(RobloxGui.Modules.Flags.GetFFlagUpdateCapturePermissionText)
-
 local TOAST_DURATION = 3
 local CAPTURE_NOTIFICATION_DISPLAY_ORDER = 9
 
@@ -125,14 +123,10 @@ function CaptureNotification:init()
 	end
 
 	self.getPermissionAlertBodyText = function()
-		if GetFFlagUpdateCapturePermissionText() then
-			if UserInputService:GetPlatform() == Enum.Platform.IOS then
-				return RobloxTranslator:FormatByKey("NotificationScript2.Capture.Permission.AlertTextIOS")
-			elseif UserInputService:GetPlatform() == Enum.Platform.Android then
-				return RobloxTranslator:FormatByKey("NotificationScript2.Capture.Permission.AlertTextAndroid")
-			else
-				return RobloxTranslator:FormatByKey("NotificationScript2.Capture.Permission.AlertText")
-			end
+		if UserInputService:GetPlatform() == Enum.Platform.IOS then
+			return RobloxTranslator:FormatByKey("NotificationScript2.Capture.Permission.AlertTextIOS")
+		elseif UserInputService:GetPlatform() == Enum.Platform.Android then
+			return RobloxTranslator:FormatByKey("NotificationScript2.Capture.Permission.AlertTextAndroid")
 		else
 			return RobloxTranslator:FormatByKey("NotificationScript2.Capture.Permission.AlertText")
 		end

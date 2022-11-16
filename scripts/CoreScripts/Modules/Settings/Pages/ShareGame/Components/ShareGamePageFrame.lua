@@ -152,6 +152,7 @@ function ShareGamePageFrame:render()
 			zIndex = zIndex,
 			searchText = searchText,
 			isVisible = isVisible,
+			trigger = "GameMenu",
 		}),
 	})
 end

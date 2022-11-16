@@ -3,8 +3,7 @@ local CorePackages = game:GetService("CorePackages")
 local Immutable = require(CorePackages.Workspace.Packages.AppCommonLib).Immutable
 local ReceivedPlacesInfos = require(CorePackages.AppTempCommon.LuaApp.Actions.ReceivedPlacesInfos)
 
-local LuaAppFlags = CorePackages.AppTempCommon.LuaApp.Flags
-local convertUniverseIdToString = require(LuaAppFlags.ConvertUniverseIdToString)
+local convertUniverseIdToString = require(CorePackages.Workspace.Packages.SharedFlags).ConvertUniverseIdToString
 
 return function(state, action)
 	state = state or {}

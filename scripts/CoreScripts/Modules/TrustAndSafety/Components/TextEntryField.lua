@@ -1,6 +1,8 @@
 --!nonstrict
 local TextService = game:GetService("TextService")
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Cryo = require(CorePackages.Cryo)
 local Roact = require(CorePackages.Roact)
@@ -11,13 +13,13 @@ local TnsModule = script.Parent.Parent
 local Assets = require(TnsModule.Resources.Assets)
 local Dependencies = require(TnsModule.Dependencies)
 local ThemedTextLabel = require(Dependencies.ThemedTextLabel)
+local GetFFlagFixSetStateTextEntryField = require(RobloxGui.Modules.Flags.GetFFlagFixSetStateTextEntryField)
 
 local FillCircle = require(TnsModule.Components.FillCircle)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local withStyle = UIBlox.Core.Style.withStyle
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
-local Images = UIBlox.App.ImageSet.Images
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 
 local TextEntryField = Roact.PureComponent:extend("TextEntryField")
@@ -57,23 +59,47 @@ function TextEntryField:init()
 end
 
 function TextEntryField:calculateNeedsRescroll(style, textFont)
-	if self.state.cursorPosition == -1 then
-		return
-	end
+	if GetFFlagFixSetStateTextEntryField() then
+		self:setState(function(prevState, prevProps)
+			if prevState.cursorPosition == -1 then
+				return nil
+			end
 
-	local textBeforeCursor = self.props.text:sub(1, self.state.cursorPosition - 1)
-	local fontHeight = textFont.RelativeSize * style.Font.BaseSize
-	local availableSpace = Vector2.new(self.props.textBoxWidth, 10000)
-	local textSize = TextService:GetTextSize(textBeforeCursor, fontHeight, textFont.Font, availableSpace)
+			local textBeforeCursor = prevProps.text:sub(1, prevState.cursorPosition - 1)
+			local fontHeight = textFont.RelativeSize * style.Font.BaseSize
+			local availableSpace = Vector2.new(prevProps.textBoxWidth, 10000)
+			local textSize = TextService:GetTextSize(textBeforeCursor, fontHeight, textFont.Font, availableSpace)
 
-	if textSize.Y > self.state.scrollingFrameHeight + self.state.canvasPosition then
-		self:setState({
-			canvasPosition = textSize.Y - self.state.scrollingFrameHeight
-		})
-	elseif textSize.Y - fontHeight < self.state.canvasPosition then
-		self:setState({
-			canvasPosition = textSize.Y - fontHeight
-		})
+			if textSize.Y > prevState.scrollingFrameHeight + prevState.canvasPosition then
+				return {
+					canvasPosition = textSize.Y - prevState.scrollingFrameHeight
+				}
+			elseif textSize.Y - fontHeight < prevState.canvasPosition then
+				return {
+					canvasPosition = textSize.Y - fontHeight
+				}
+			end
+			return nil
+		end)
+	else
+		if self.state.cursorPosition == -1 then
+			return
+		end
+
+		local textBeforeCursor = self.props.text:sub(1, self.state.cursorPosition - 1)
+		local fontHeight = textFont.RelativeSize * style.Font.BaseSize
+		local availableSpace = Vector2.new(self.props.textBoxWidth, 10000)
+		local textSize = TextService:GetTextSize(textBeforeCursor, fontHeight, textFont.Font, availableSpace)
+
+		if textSize.Y > self.state.scrollingFrameHeight + self.state.canvasPosition then
+			self:setState({
+				canvasPosition = textSize.Y - self.state.scrollingFrameHeight
+			})
+		elseif textSize.Y - fontHeight < self.state.canvasPosition then
+			self:setState({
+				canvasPosition = textSize.Y - fontHeight
+			})
+		end
 	end
 end
 
@@ -119,10 +145,16 @@ function TextEntryField:renderWithSelectionCursor(getSelectionCursor)
 				end,
 
 				[Roact.Change.AbsoluteSize] = function(rbx)
-					self:setState({
-						scrollingFrameHeight = rbx.AbsoluteSize.Y,
-					})
-					self:calculateNeedsRescroll(style, textFont)
+					if GetFFlagFixSetStateTextEntryField() then
+						self:setState({ scrollingFrameHeight = rbx.AbsoluteSize.Y }, function()
+							self:calculateNeedsRescroll(style, textFont)
+						end)
+					else
+						self:setState({
+							scrollingFrameHeight = rbx.AbsoluteSize.Y,
+						})
+						self:calculateNeedsRescroll(style, textFont)
+					end
 				end,
 			}, {
 				TextBox = Roact.createElement("TextBox", {
@@ -155,24 +187,42 @@ function TextEntryField:renderWithSelectionCursor(getSelectionCursor)
 							return
 						end
 						self.props.textChanged(rbx.Text)
-						self:setState({
-							cursorPosition = rbx.CursorPosition,
-						})
-						self:calculateNeedsRescroll(style, textFont)
+						if GetFFlagFixSetStateTextEntryField() then
+							self:setState({ cursorPosition = rbx.CursorPosition }, function()
+								self:calculateNeedsRescroll(style, textFont)
+							end)
+						else
+							self:setState({
+								cursorPosition = rbx.CursorPosition,
+							})
+							self:calculateNeedsRescroll(style, textFont)
+						end
 					end,
 
 					[Roact.Change.AbsoluteSize] = function(rbx)
-						self:setState({
-							textBoxWidth = rbx.AbsoluteSize.X,
-						})
-						self:calculateNeedsRescroll(style, textFont)
+						if GetFFlagFixSetStateTextEntryField() then
+							self:setState({ textBoxWidth = rbx.AbsoluteSize.X }, function()
+								self:calculateNeedsRescroll(style, textFont)
+							end)
+						else
+							self:setState({
+								textBoxWidth = rbx.AbsoluteSize.X,
+							})
+							self:calculateNeedsRescroll(style, textFont)
+						end
 					end,
 
 					[Roact.Change.CursorPosition] = function(rbx)
-						self:setState({
-							cursorPosition = rbx.CursorPosition,
-						})
-						self:calculateNeedsRescroll(style, textFont)
+						if GetFFlagFixSetStateTextEntryField() then
+							self:setState({ cursorPosition = rbx.CursorPosition }, function()
+								self:calculateNeedsRescroll(style, textFont)
+							end)
+						else
+							self:setState({
+								cursorPosition = rbx.CursorPosition,
+							})
+							self:calculateNeedsRescroll(style, textFont)
+						end
 					end,
 				}, {
 					--TextBox.PlaceholderText can't be used as it's text transparency can't be changed.

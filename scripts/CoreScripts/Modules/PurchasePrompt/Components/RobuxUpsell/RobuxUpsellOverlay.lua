@@ -53,6 +53,7 @@ type Props = {
 	isGamepadEnabled: boolean,
 
 	promptRobuxPurchase: (any) -> any,
+	openRobuxStore: (any) -> any,
 	openTermsOfUse: (any) -> any,
 	openSecuritySettings: (any) -> any,
 	dispatchFetchPurchaseWarning: (any) -> any,
@@ -107,6 +108,9 @@ function RobuxUpsellOverlay:init()
 
 		if promptState == PromptState.RobuxUpsell then
 			props.dispatchFetchPurchaseWarning()
+			return
+		elseif promptState == PromptState.LargeRobuxUpsell then
+			props.openRobuxStore()
 			return
 		elseif promptState == PromptState.U13PaymentModal or promptState ==  PromptState.U13MonthlyThreshold1Modal
 				or promptState == PromptState.U13MonthlyThreshold2Modal or promptState == PromptState.ParentalConsentWarningPaymentModal13To17 then
@@ -163,6 +167,8 @@ function RobuxUpsellOverlay:getFlowState()
 
 	if promptState == PromptState.RobuxUpsell then
 		return RobuxUpsellFlowState.PurchaseModal
+	elseif promptState == PromptState.LargeRobuxUpsell then
+		return RobuxUpsellFlowState.LargeRobuxPurchaseModal
 	elseif promptState == PromptState.PurchaseInProgress then
 		return RobuxUpsellFlowState.ItemPurchasePending
 	elseif promptState == PromptState.UpsellInProgress then
@@ -264,6 +270,7 @@ function RobuxUpsellOverlay:render()
 
 		purchaseRobux = self.dispatchFetchPurchaseWarning,
 		acceptPurchaseWarning = self.promptRobuxPurchase,
+		openBuyRobux = props.openRobuxStore,
 		showTermsOfUse = props.openTermsOfUse,
 		openSecuritySettings = props.openSecuritySettings,
 		cancelPurchase = props.endPurchase,

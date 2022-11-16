@@ -84,6 +84,7 @@ local VoiceChatServiceManager = {
 	userEligible = false,
 	HttpRbxApiService = HttpRbxApiService,
 	NotificationService = NotificationService,
+	runService = runService,
 	PermissionsService = PermissionsProtocol.default,
 	participantJoined = Instance.new("BindableEvent"),
 	participantLeft = Instance.new("BindableEvent"),
@@ -292,6 +293,7 @@ end
 
 function VoiceChatServiceManager:onMissedSequence(namespace)
 	log:error("Detected a missed signalR message: {}", namespace)
+	self.Analytics:reportReconnectDueToMissedSequence()
 
 	-- For now, rejoin the call regardless of what was missed
 	self:RejoinCurrentChannel()
@@ -372,9 +374,9 @@ function VoiceChatServiceManager:userAndPlaceCanUseVoice()
 				self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporary)
 			end
 		end
-	elseif GetFFlagVoiceChatStudioErrorToasts() and runService:IsStudio() and userSettings and not userSettings.isVoiceEnabled then
+	elseif GetFFlagVoiceChatStudioErrorToasts() and self.runService:IsStudio() and userSettings and not userSettings.isVoiceEnabled then
 		self:showPrompt(VoiceChatPromptType.User)
-	elseif GetFFlagVoiceChatStudioErrorToasts() and runService:IsStudio()
+	elseif GetFFlagVoiceChatStudioErrorToasts() and self.runService:IsStudio()
 		and universePlaceSettings and not universePlaceSettings.isPlaceEnabledForVoice then
 		self:showPrompt(
 			VoiceChatPromptType.Place,
@@ -560,6 +562,7 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal)
 			banEnd = os.date("%x", self.bannedUntil.Seconds)
 		end
 		self.voiceChatPromptInstance = Roact.mount(Roact.createElement(VoiceChatPrompt, {
+			Analytics = Analytics.new(),
 			promptSignal = self.promptSignal.Event,
 			bannedUntil = banEnd,
 			errorText = errorText,

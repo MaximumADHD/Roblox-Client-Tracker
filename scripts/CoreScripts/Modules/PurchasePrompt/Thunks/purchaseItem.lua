@@ -22,8 +22,6 @@ local Promise = require(Root.Promise)
 
 local completePurchase = require(script.Parent.completePurchase)
 
-local GetFFlagRobuxUpsellIXP = require(Root.Flags.GetFFlagRobuxUpsellIXP)
-
 -- Only tools can be equipped on purchase
 local ASSET_TYPE_TOOL = 19
 
@@ -46,10 +44,8 @@ local function purchaseItem()
 
 		store:dispatch(StartPurchase(Workspace.DistributedGameTime))
 
-		if GetFFlagRobuxUpsellIXP() then
-			if purchaseFlow == PurchaseFlow.RobuxUpsellV2 then
-				store:dispatch(SetPromptState(PromptState.PurchaseInProgress))
-			end
+		if purchaseFlow == PurchaseFlow.RobuxUpsellV2 or purchaseFlow == PurchaseFlow.LargeRobuxUpsell then
+			store:dispatch(SetPromptState(PromptState.PurchaseInProgress))
 		end
 
 		local state = store:getState()

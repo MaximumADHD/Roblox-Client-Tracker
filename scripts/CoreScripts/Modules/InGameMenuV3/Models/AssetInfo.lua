@@ -20,6 +20,8 @@ local CoreGui = game:GetService("CoreGui")
 local MockId = require(script.Parent.Parent.Mocks.MockAssetId)
 local FFlagEnableRestrictedAssetSaleLocationInspectAndBuy
 	= require(CoreGui.RobloxGui.Modules.Flags.FFlagEnableRestrictedAssetSaleLocationInspectAndBuy)
+local FFlagShowVerifiedBadgeOnInspectAndBuyDetails =
+	require(CoreGui.RobloxGui.Modules.InspectAndBuy.Flags.FFlagShowVerifiedBadgeOnInspectAndBuyDetails)
 
 export type AssetInfo = {
 	-- FIXME: refine type
@@ -42,6 +44,7 @@ function AssetInfo.mock(): AssetInfo
 	self.assetTypeId = ""
 	self.creatorId = ""
 	self.creatorName = ""
+	self.creatorHasVerifiedBadge = false
 	self.owned = false
 	self.isForSale = false
 	self.description = ""
@@ -71,6 +74,9 @@ function AssetInfo.fromGetProductInfo(assetInfo)
 		newAsset.isForSale = assetInfo.isForSale and assetInfo.CanBeSoldInThisGame
 	else
 		newAsset.isForSale = assetInfo.IsForSale
+	end
+	if FFlagShowVerifiedBadgeOnInspectAndBuyDetails() then
+		newAsset.creatorHasVerifiedBadge = assetInfo.Creator.CreatorHasVerifiedBadge
 	end
 	newAsset.isLimited = assetInfo.IsLimited or assetInfo.IsLimitedUnique
 

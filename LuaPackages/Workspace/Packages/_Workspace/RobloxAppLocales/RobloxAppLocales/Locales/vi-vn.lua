@@ -164,6 +164,7 @@ Thử lại đã bị vô hiệu hóa, vui lòng quay lại sau để thử lạ
 	["CommonUI.Controls.Label.Year"] = [[Năm]],
 	["CommonUI.Controls.Action.Back"] = [[Quay lại]],
 	["CommonUI.Controls.Action.Confirm"] = [[Xác nhận]],
+	["CommonUI.Controls.Action.Ignore"] = [[Bỏ qua]],
 	["CommonUI.Controls.Label.AutoUpgradeIdle"] = [[Roblox cần được cập nhật! Nếu bạn không thực hiện thao tác gì, Roblox sẽ tự động khởi động lại sau {time} {unit}.]],
 	["CommonUI.Controls.Label.AutoUpgradeForce"] = [[Roblox cần được cập nhật! Để chơi trò chơi này, bạn sẽ cần cài đặt một bản cập nhật.]],
 	["CommonUI.Controls.Label.Seconds"] = [[giây]],

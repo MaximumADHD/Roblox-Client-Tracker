@@ -73,8 +73,8 @@ local KeyboardUINavigation = {}
 KeyboardUINavigation.__index = KeyboardUINavigation
 function KeyboardUINavigation.new()
 	local self = setmetatable({}, KeyboardUINavigation)
-	ContextActionService:BindCoreAction("EnableKeyboardUINavigation", EnableKeyboardNavigation, false, Enum.KeyCode.BackSlash)
-	ContextActionService:BindCoreAction("ScrollSelectedElement", ScrollSelectedElement, false, Enum.KeyCode.PageUp, Enum.KeyCode.PageDown, Enum.KeyCode.Home, Enum.KeyCode.End)
+	ContextActionService:BindAction("EnableKeyboardUINavigation", EnableKeyboardNavigation, false, Enum.KeyCode.BackSlash)
+	ContextActionService:BindAction("ScrollSelectedElement", ScrollSelectedElement, false, Enum.KeyCode.PageUp, Enum.KeyCode.PageDown, Enum.KeyCode.Home, Enum.KeyCode.End)
 	return self
 end
 return KeyboardUINavigation.new()

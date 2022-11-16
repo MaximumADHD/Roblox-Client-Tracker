@@ -1,5 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
-local PerformFetch = require(CorePackages.AppTempCommon.LuaApp.Thunks.Networking.Util.PerformFetch)
+local PerformFetch = require(CorePackages.Workspace.Packages.Http).PerformFetch
 local InspectAndBuyFolder = script.Parent.Parent
 local Thunk = require(InspectAndBuyFolder.Thunk)
 local Network = require(InspectAndBuyFolder.Services.Network)

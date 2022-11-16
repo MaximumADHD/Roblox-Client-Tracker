@@ -35,6 +35,7 @@ local GamePostFavorite = require(InGameMenu.Thunks.GamePostFavorite)
 
 local SetGameFollow = require(InGameMenu.Actions.SetGameFollow)
 local SendGameFollow = require(InGameMenu.Thunks.SendGameFollow)
+local InGameMenuPolicy = require(InGameMenu.InGameMenuPolicy)
 
 local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
 local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
@@ -51,8 +52,10 @@ local NetworkStatus = RoduxNetworking.Enum.NetworkStatus
 local NetworkingShareLinks = SocialDependencies.NetworkingShareLinks
 local GetFFlagShareInviteLinkContextMenuV3Enabled =
 	require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
-local GetFFlagLuaAppNewShareSheet = require(CorePackages.UniversalApp.ExternalContentSharing.Flags.GetFFlagLuaAppNewShareSheet)
+local GetFFlagShareInviteLinkContextMenuV3CopiedTextEnabled =
+	require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3CopiedTextEnabled)
 
+local GetFFlagLuaAppNewShareSheet = require(CorePackages.UniversalApp.ExternalContentSharing.Flags.GetFFlagLuaAppNewShareSheet)
 
 local NAV_BUTTON_HEIGHT = 56
 
@@ -91,6 +94,13 @@ function renderMenu(props, actions)
 					text = localized[index],
 					icon = (page.actionKey and actions[page.actionKey].selected and page.iconOn) or page.icon,
 					leftPaddingOffset = 7,
+					disabled = if GetFFlagShareInviteLinkContextMenuV3CopiedTextEnabled()
+							and page.actionKey
+							and actions[page.actionKey]
+						then
+							actions[page.actionKey].disabled
+						else
+							nil,
 					onActivated = function()
 						if page.actionKey and actions[page.actionKey] then
 							actions[page.actionKey].onActivated()
@@ -142,6 +152,16 @@ if GetFFlagShareInviteLinkContextMenuV3Enabled() then
 				linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue(),
 			})
 			openShareSheet(linkId)
+
+			if GetFFlagShareInviteLinkContextMenuV3CopiedTextEnabled() then
+				if self.props.enableCopiedFeedback then
+					self:setState({ showCopiedText = true })
+
+					delay(1, function()
+						self:setState({ showCopiedText = false })
+					end)
+				end
+			end
 		end
 	end
 
@@ -177,7 +197,21 @@ if GetFFlagShareInviteLinkContextMenuV3Enabled() then
 		local actions = {
 			shareServerLink = GetFFlagShareInviteLinkContextMenuV3Enabled()
 					and {
-						isDisabled = if self.props.fetchShareInviteLinkNetworkStatus == NetworkStatus.Fetching then true else false,
+						isDisabled = if GetFFlagShareInviteLinkContextMenuV3CopiedTextEnabled()
+							then nil
+							else
+								if self.props.fetchShareInviteLinkNetworkStatus == NetworkStatus.Fetching
+									then true
+									else false,
+						disabled = if GetFFlagShareInviteLinkContextMenuV3CopiedTextEnabled()
+							then
+								if self.props.fetchShareInviteLinkNetworkStatus == NetworkStatus.Fetching or self.state.showCopiedText
+									then true
+									else false
+							else nil,
+						selected = if GetFFlagShareInviteLinkContextMenuV3CopiedTextEnabled() and self.props.enableCopiedFeedback
+							then self.state.showCopiedText
+							else false,
 						onActivated = function()
 							SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsButtonClickName, {
 								btn = "shareServerInviteLink",
@@ -189,6 +223,13 @@ if GetFFlagShareInviteLinkContextMenuV3Enabled() then
 								props.fetchShareInviteLink()
 							else
 								openShareSheet(self.props.shareInviteLink.linkId)
+								if GetFFlagShareInviteLinkContextMenuV3CopiedTextEnabled() and self.props.enableCopiedFeedback then
+									self:setState({ showCopiedText = true })
+
+									delay(1, function()
+										self:setState({ showCopiedText = false })
+									end)
+								end
 							end
 						end,
 					}
@@ -230,7 +271,7 @@ if GetFFlagShareInviteLinkContextMenuV3Enabled() then
 			},
 			reportExperience = {
 				onActivated = function()
-					TrustAndSafety.openReportDialogForPlace()
+					TrustAndSafety.openReportDialogForPlace(Constants.AnalyticsInGameMenuName)
 
 					SendAnalytics(
 						Constants.AnalyticsMenuActionName,
@@ -285,20 +326,20 @@ else
 
 		local actions = {
 			shareServerLink = GetFFlagShareInviteLinkContextMenuV3Enabled()
-					and {
-						onActivated = function()
-							-- TODO(COEXP-318): Pull up sharesheet if shareInviteLink is not nil.
-							SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsButtonClickName, {
-								btn = "shareServerInviteLink",
-								page = "inGameMenuV3",
-								subpage = Constants.MainPagePageKey,
-							})
+				and {
+					onActivated = function()
+						-- TODO(COEXP-318): Pull up sharesheet if shareInviteLink is not nil.
+						SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsButtonClickName, {
+							btn = "shareServerInviteLink",
+							page = "inGameMenuV3",
+							subpage = Constants.MainPagePageKey,
+						})
 
-							if props.shareInviteLink == nil then
-								props.fetchShareInviteLink()
-							end
-						end,
-					}
+						if props.shareInviteLink == nil then
+						props.fetchShareInviteLink()
+					end
+					end,
+				}
 				or nil,
 			favorite = {
 				selected = favoriteSelected,
@@ -337,7 +378,7 @@ else
 			},
 			reportExperience = {
 				onActivated = function()
-					TrustAndSafety.openReportDialogForPlace()
+					TrustAndSafety.openReportDialogForPlace(Constants.AnalyticsInGameMenuName)
 
 					SendAnalytics(
 						Constants.AnalyticsMenuActionName,
@@ -380,6 +421,14 @@ else
 	end
 end
 
+if GetFFlagShareInviteLinkContextMenuV3CopiedTextEnabled() then
+	PageNavigation = InGameMenuPolicy.connect(function(appPolicy, props)
+		return {
+			enableCopiedFeedback = appPolicy.enableCopiedFeedback(),
+		}
+	end)(PageNavigation)
+end
+
 return RoactRodux.UNSTABLE_connect2(function(state, props)
 	return {
 		isFavorited = state.gameInfo.isFavorited,
@@ -415,9 +464,9 @@ end, function(dispatch)
 		end,
 		fetchShareInviteLink = if GetFFlagShareInviteLinkContextMenuV3Enabled()
 			then
-				function()
-					dispatch(NetworkingShareLinks.GenerateLink.API({ linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue() }))
-				end
+			function()
+				dispatch(NetworkingShareLinks.GenerateLink.API({ linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue() }))
+			end
 			else nil,
 	}
 end)(PageNavigation)

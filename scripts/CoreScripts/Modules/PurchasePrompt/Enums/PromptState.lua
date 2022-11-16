@@ -7,6 +7,7 @@ local PromptState = createEnum("PromptState", {
 	"None",
 	"PremiumUpsell",
 	"RobuxUpsell",
+	"LargeRobuxUpsell",
 	"PromptPurchase",
 	"PurchaseInProgress",
 	"PollingBalance",

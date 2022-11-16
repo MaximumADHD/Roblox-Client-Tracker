@@ -6,6 +6,7 @@ local GetFFlagEnableIXPInGame = require(script.Parent.Parent.Common.Flags.GetFFl
 local GetFFlagLoadingScreenUseIXP = require(script.Parent.Parent.Flags.GetFFlagLoadingScreenUseIXP)
 local GetFStringLoadingScreenIxpLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringLoadingScreenIxpLayer
 local GetFStringRobuxUpsellIxpLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringRobuxUpsellIxpLayer
+local GetFStringLargerRobuxUpsellIxpLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringLargerRobuxUpsellIxpLayer
 local GetFStringLuaAppExperienceMenuLayer = require(script.Parent.Parent.Flags.GetFStringLuaAppExperienceMenuLayer)
 
 return function()
@@ -28,6 +29,10 @@ return function()
 
 	if GetFStringRobuxUpsellIxpLayer() then
 		table.insert(layers, GetFStringRobuxUpsellIxpLayer())
+	end
+
+	if GetFStringLargerRobuxUpsellIxpLayer() then
+		table.insert(layers, GetFStringLargerRobuxUpsellIxpLayer())
 	end
 
 	return layers

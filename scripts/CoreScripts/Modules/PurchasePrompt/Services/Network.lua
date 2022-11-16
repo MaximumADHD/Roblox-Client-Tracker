@@ -32,8 +32,6 @@ local PREMIUM_FEATURES_URL = string.gsub(BASE_URL, "https://www.", "https://prem
 local ECONOMY_CREATOR_STATS_URL = string.gsub(BASE_URL, "https://www.", "https://economycreatorstats.")
 local USERS_URL = string.gsub(BASE_URL, "https://www", "https://users")
 
-local GetFFlagDesktopPurchaseWarnings = require(Root.Flags.GetFFlagDesktopPurchaseWarnings)
-
 local function request(options, resolve, reject)
 	debugLog(function() return "Request "..options.Url.."\n"..serializeTable(options) end)
 	return HttpService:RequestInternal(options):Start(function(success, response)
@@ -249,9 +247,7 @@ local function getPremiumUpsellPrecheck()
 end
 
 local function getPurchaseWarning(mobileProductId: string?, productId: number?, isPremium: boolean)
-	local url = if GetFFlagDesktopPurchaseWarnings()
-		then UrlBuilder.economy.purchaseWarning.getPurchaseWarning(mobileProductId, productId, not isPremium)
-		else string.format("%spurchase-warning/v1/purchase-warnings?mobileProductId=%s", APIS_URL, mobileProductId or "")
+	local url = UrlBuilder.economy.purchaseWarning.getPurchaseWarning(mobileProductId, productId, not isPremium)
 	local options = {
 		Url = url,
 		Method = "GET"
@@ -265,9 +261,7 @@ local function getPurchaseWarning(mobileProductId: string?, productId: number?, 
 end
 
 local function postPurchaseWarningAcknowledge(userAction)
-	local url = if GetFFlagDesktopPurchaseWarnings()
-		then UrlBuilder.economy.purchaseWarning.ackPurchaseWarning()
-		else string.format("%spurchase-warning/v1/purchase-warnings/acknowledge", APIS_URL)
+	local url = UrlBuilder.economy.purchaseWarning.ackPurchaseWarning()
 	local options = {
 		Url = url,
 		Method = "POST",

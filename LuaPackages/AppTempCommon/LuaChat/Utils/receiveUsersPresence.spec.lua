@@ -2,7 +2,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 	local Rodux = require(CorePackages.Rodux)
-	local User = require(CorePackages.Workspace.Packages.UserLib).User
+	local User = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
 	local receiveUsersPresence = require(script.Parent.receiveUsersPresence)
 
 	local function createUser(id, name, isFriend)
@@ -15,7 +15,7 @@ return function()
 
 	it("should update users with presence", function()
 		local UserPresenceReducer = Rodux.combineReducers({
-			Users = require(CorePackages.AppTempCommon.LuaApp.Reducers.Users),
+			Users = require(CorePackages.Workspace.Packages.UserLib).Reducers.UserReducer,
 			FriendPresenceCounts = require(CorePackages.AppTempCommon.LuaChat.Reducers.FriendPresenceCounts),
 		})
 

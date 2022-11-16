@@ -54,19 +54,13 @@ local NewInviteMenuExperimentManager = require(CoreGuiModules.Settings.Pages.Sha
 
 local GetCoreScriptsLayers = require(CoreGuiModules.Experiment.GetCoreScriptsLayers)
 
-local FFlagEnableLuobuWarningToast = require(RobloxGui.Modules.Flags.FFlagEnableLuobuWarningToast)
-
 local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
 
 local GetFFlagEnableKeyboardUINavigation = require(RobloxGui.Modules.Flags.GetFFlagEnableKeyboardUINavigation)
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
 game:DefineFastFlag("SelfieViewFeature2", false)
-
-local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
-local FFlagRoactGamepadFixDelayedRefFocusLost =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagRoactGamepadFixDelayedRefFocusLost
-RoactGamepad.Config.TempFixDelayedRefFocusLost = FFlagRoactGamepadFixDelayedRefFocusLost
+game:DefineFastFlag("PipEnabled", false)
 
 local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CoreGuiModules.UIBloxInGameConfig)
@@ -138,17 +132,15 @@ coroutine.wrap(function() -- this is the first place we call, which can yield so
 	ScriptContext:AddCoreScriptLocal("CoreScripts/ScreenTimeInGame", RobloxGui)
 end)()
 
-if FFlagEnableLuobuWarningToast then
-	coroutine.wrap(function()
-		if PolicyService:IsSubjectToChinaPolicies() then
-			if not game:IsLoaded() then
-				game.Loaded:Wait()
-			end
-			initify(CoreGuiModules.LuobuWarningToast)
-			safeRequire(CoreGuiModules.LuobuWarningToast)
+coroutine.wrap(function()
+	if PolicyService:IsSubjectToChinaPolicies() then
+		if not game:IsLoaded() then
+			game.Loaded:Wait()
 		end
-	end)()
-end
+		initify(CoreGuiModules.LuobuWarningToast)
+		safeRequire(CoreGuiModules.LuobuWarningToast)
+	end
+end)()
 
 -- Performance Stats Management
 ScriptContext:AddCoreScriptLocal("CoreScripts/PerformanceStatsManagerScript", RobloxGui)
@@ -291,4 +283,18 @@ end
 
 if game:GetEngineFeature("AdPortal") then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/PortalTeleportGUI", RobloxGui)
+end
+
+if game:GetFastFlag("PipEnabled") then
+	local initializeSelf = require(CoreGuiModules:WaitForChild("Pip"):WaitForChild("PipSelfView"))
+	initializeSelf(Players.LocalPlayer)
+	local targetPlayer = nil
+	for _, player in ipairs(Players:GetPlayers()) do
+		if player ~= Players.LocalPlayer then
+			targetPlayer = player
+			break
+		end
+	end
+	local initializeOther = require(CoreGuiModules:WaitForChild("Pip"):WaitForChild("PipOtherView"))
+	initializeOther(targetPlayer)
 end

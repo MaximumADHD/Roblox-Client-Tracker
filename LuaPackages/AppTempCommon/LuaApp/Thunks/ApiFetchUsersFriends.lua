@@ -9,7 +9,7 @@ local UsersGetFriends = Requests.UsersGetFriends
 local FetchUserFriendsStarted = require(CorePackages.AppTempCommon.LuaApp.Actions.FetchUserFriendsStarted)
 local FetchUserFriendsFailed = require(CorePackages.AppTempCommon.LuaApp.Actions.FetchUserFriendsFailed)
 local FetchUserFriendsCompleted = require(CorePackages.AppTempCommon.LuaApp.Actions.FetchUserFriendsCompleted)
-local UserModel = require(CorePackages.Workspace.Packages.UserLib).User
+local UserModel = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
 local UpdateUsers = require(CorePackages.AppTempCommon.LuaApp.Thunks.UpdateUsers)
 
 return function(requestImpl, userId, thumbnailRequest, userSort): any

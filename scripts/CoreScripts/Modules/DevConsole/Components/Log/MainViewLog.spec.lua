@@ -6,7 +6,7 @@ return function()
 
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 	local act = require(Modules.act)
-	local RhodiumHelpers = require(game.CoreGui.RobloxGui.Modules.NotForProductionUse.RhodiumHelpers.api)
+	local RhodiumHelpers = require(CorePackages.Workspace.Packages.RhodiumHelpers)
 
 	local DataProvider = require(script.Parent.Parent.DataProvider)
 	local DataConsumer = require(script.Parent.Parent.DataConsumer)

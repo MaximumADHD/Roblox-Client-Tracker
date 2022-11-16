@@ -1,11 +1,10 @@
 local CorePackages = game:GetService("CorePackages")
 
-local Actions = CorePackages.AppTempCommon.LuaApp.Actions
 local Requests = require(CorePackages.Workspace.Packages.Http).Requests
 
 local UsersGetThumbnail = Requests.UsersGetThumbnail
 
-local SetUserThumbnail = require(Actions.SetUserThumbnail)
+local SetUserThumbnail = require(CorePackages.Workspace.Packages.UserLib).Actions.SetUserThumbnail
 local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 
 local function fetchThumbnailsBatch(networkImpl, userIds, thumbnailRequest)

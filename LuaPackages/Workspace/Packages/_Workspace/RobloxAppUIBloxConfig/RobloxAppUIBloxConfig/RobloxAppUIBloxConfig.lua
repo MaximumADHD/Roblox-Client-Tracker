@@ -43,6 +43,8 @@ local GetFFlagUIBloxHorizontalCarouselSetState =
 
 local GetFFlagUIBloxRemovePreviewAnchor = require(Packages.SharedFlags).UIBlox.GetFFlagUIBloxRemovePreviewAnchor
 
+local GetUIBloxEnableMediaGalleryUpdate = require(Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableMediaGalleryUpdate
+
 return {
 	useNewUICornerRoundedCorners = true,
 	genericSliderFilterOldTouchInputs = true,
@@ -89,4 +91,6 @@ return {
 	useFunctionalSetStateHorizontalCarousel = GetFFlagUIBloxHorizontalCarouselSetState(),
 
 	removePreviewAnchor = GetFFlagUIBloxRemovePreviewAnchor(),
+
+	enableMediaGalleryUpdate = GetUIBloxEnableMediaGalleryUpdate(),
 }

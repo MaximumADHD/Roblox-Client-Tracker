@@ -11,6 +11,7 @@ local PurchaseFlow = require(Root.Enums.PurchaseFlow)
 local completeRequest = require(Root.Thunks.completeRequest)
 local purchaseItem = require(Root.Thunks.purchaseItem)
 local launchRobuxUpsell = require(Root.Thunks.launchRobuxUpsell)
+local openRobuxStore = require(Root.Thunks.openRobuxStore)
 local openSecuritySettings = require(Root.Thunks.openSecuritySettings)
 local openTermsOfUse = require(Root.Thunks.openTermsOfUse)
 local initiatePurchasePrecheck = require(Root.Thunks.initiatePurchasePrecheck)
@@ -44,7 +45,7 @@ function RobuxUpsellContainer:render()
 	local props = self.props
 	local state = self.state
 
-	if props.purchaseFlow ~= PurchaseFlow.RobuxUpsellV2 then
+	if props.purchaseFlow ~= PurchaseFlow.RobuxUpsellV2 and props.purchaseFlow ~= PurchaseFlow.LargeRobuxUpsell then
 		return nil
 	end
 
@@ -83,6 +84,7 @@ function RobuxUpsellContainer:render()
 
 			purchaseItem = props.purchaseItem,
 			promptRobuxPurchase = props.promptRobuxPurchase,
+			openRobuxStore = props.openRobuxStore,
 			openTermsOfUse = allowLinks and props.openTermsOfUse or nil,
 			openSecuritySettings = allowLinks and props.openSecuritySettings or nil,
 			dispatchFetchPurchaseWarning = props.dispatchFetchPurchaseWarning,
@@ -129,6 +131,9 @@ RobuxUpsellContainer = connectToStore(
 			end,
 			promptRobuxPurchase = function()
 				return dispatch(launchRobuxUpsell())
+			end,
+			openRobuxStore = function()
+				return dispatch(openRobuxStore())
 			end,
 			openSecuritySettings = function()
 				return dispatch(openSecuritySettings())

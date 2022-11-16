@@ -26,6 +26,9 @@ local Analytics = require(Root.Services.Analytics)
 local ExternalSettings = require(Root.Services.ExternalSettings)
 local Network = require(Root.Services.Network)
 
+local Counter = require(Root.Enums.Counter)
+local sendCounter = require(Root.Thunks.sendCounter)
+
 local meetsPrerequisites = require(Root.Utils.meetsPrerequisites)
 local getPlayerProductInfoPrice = require(Root.Utils.getPlayerProductInfoPrice)
 local getPaymentFromPlatform = require(Root.Utils.getPaymentFromPlatform)
@@ -39,7 +42,10 @@ local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuIn
 local GetFFlagRobuxUpsellIXP = require(Root.Flags.GetFFlagRobuxUpsellIXP)
 local GetFFlagRobuxUpsellV2 = require(Root.Flags.GetFFlagRobuxUpsellV2)
 local GetFStringRobuxUpsellIxpLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringRobuxUpsellIxpLayer
-local GetFFlagRobuxUpsellRaceCondition = require(Root.Flags.GetFFlagRobuxUpsellRaceCondition)
+local GetFStringLargerRobuxUpsellIxpLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringLargerRobuxUpsellIxpLayer
+local LargerRobuxUpsellTest = require(Root.Flags.LargerRobuxUpsellTest)
+
+local GetFFlagPurchasePromptAnalytics = require(Root.Flags.GetFFlagPurchasePromptAnalytics)
 
 local requiredServices = {
 	ABTest,
@@ -93,33 +99,57 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 				analytics.signalRobuxUpsellInGameIXP(isInExperiment)
 			end
 
-			if GetFFlagPPUpsellEndpoint() or GetFFlagRobuxUpsellIXP() then
+			-- Make sure this is checked AFTER PurchaseFlow.RobuxUpsellV2
+			-- PurchaseFlow.RobuxUpsellV2 is rolled out to all
+			local isInLargerRobuxUpsellTest = false
+			if LargerRobuxUpsellTest.isEnabled() then
+				local layerName = GetFStringLargerRobuxUpsellIxpLayer()
+				local layers = abTest.getLayerData(layerName)
+				if layers then
+					abTest.logUserLayerExposure(layerName)
+					isInLargerRobuxUpsellTest = LargerRobuxUpsellTest.isUserEnrolled(layers)
+					if isInLargerRobuxUpsellTest then
+						store:dispatch(SetPurchaseFlow(PurchaseFlow.LargeRobuxUpsell))
+					end
+				end
+			end
+
+			if GetFFlagPPUpsellEndpoint() or GetFFlagRobuxUpsellIXP() or isInLargerRobuxUpsellTest then
 				local isAmazon = getHasAmazonUserAgent()
 				local isLuobu = GetFFlagEnableLuobuInGameUpsell()
 				local paymentPlatform = getPaymentFromPlatform(platform, isLuobu, isAmazon)
 
 				return getRobuxUpsellProduct(network, price, robuxBalance, paymentPlatform):andThen(
 					function(product: RobuxUpsell.Product)
-						if GetFFlagRobuxUpsellRaceCondition() then
-							-- Check if the user cancel the purchase before this could return
-							if not hasPendingRequest(store:getState()) then
-								return
-							end
+						-- Check if the user cancel the purchase before this could return
+						if not hasPendingRequest(store:getState()) then
+							return
 						end
 
 						analytics.signalProductPurchaseUpsellShown(product.id, state.requestType, product.providerId)
 						store:dispatch(PromptNativeUpsell(product.providerId, product.id, product.robuxAmount))
+						if GetFFlagPurchasePromptAnalytics() then
+							store:dispatch(sendCounter(Counter.UpsellModalShown))
+						end
 					end,
 					function()
-						if GetFFlagRobuxUpsellRaceCondition() then
-							-- Check if the user cancel the purchase before this could return
-							if not hasPendingRequest(store:getState()) then
-								return
-							end
+						-- Check if the user cancel the purchase before this could return
+						if not hasPendingRequest(store:getState()) then
+							return
 						end
 
 						-- No upsell item will provide sufficient funds to make this purchase
-						store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
+						if store:getState().purchaseFlow == PurchaseFlow.LargeRobuxUpsell then
+							store:dispatch(SetPromptState(PromptState.LargeRobuxUpsell))
+							if GetFFlagPurchasePromptAnalytics() then
+								store:dispatch(sendCounter(Counter.UpsellModalShown))
+							end
+						else
+							store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
+							if GetFFlagPurchasePromptAnalytics() then
+								store:dispatch(sendCounter(Counter.UpsellGenericModalShown))
+							end
+						end
 					end
 				)
 			else
@@ -130,9 +160,15 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 						product.productId
 					)
 					store:dispatch(PromptNativeUpsell(product.productId, nil, product.robuxValue))
+					if GetFFlagPurchasePromptAnalytics() then
+						store:dispatch(sendCounter(Counter.UpsellModalShown))
+					end
 				end, function()
 					-- No upsell item will provide sufficient funds to make this purchase
 					store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
+					if GetFFlagPurchasePromptAnalytics() then
+						store:dispatch(sendCounter(Counter.UpsellGenericModalShown))
+					end
 				end)
 			end
 		end

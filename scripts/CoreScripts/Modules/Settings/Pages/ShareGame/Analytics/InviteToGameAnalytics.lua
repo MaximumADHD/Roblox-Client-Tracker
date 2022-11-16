@@ -1,3 +1,6 @@
+local CorePackages = game:GetService("CorePackages")
+local Cryo = require(CorePackages.Cryo)
+
 local InviteToGameAnalytics = {}
 InviteToGameAnalytics.__index = InviteToGameAnalytics
 
@@ -110,6 +113,14 @@ function InviteToGameAnalytics:onShareButtonClick()
 		subpage = "inviteFriendsPage",
 	}
 	self:_getEventStream():setRBXEventStream(eventContext, eventName, additionalArgs)
+end
+
+function InviteToGameAnalytics:sendEvent(trigger, event, additionalArgs: {any}?)
+	local args = event.Args
+	if additionalArgs then
+		args = Cryo.Dictionary.join(args, additionalArgs)
+	end
+	self:_getEventStream():setRBXEventStream(trigger, event.Type, args)
 end
 
 function InviteToGameAnalytics:_getEventStream()

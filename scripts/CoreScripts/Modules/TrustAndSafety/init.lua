@@ -24,6 +24,7 @@ local OpenReportDialog = require(script.Actions.OpenReportDialog)
 local OpenReportMenu = require(script.Actions.OpenReportMenu)
 local BeginReportFlow = require(script.Actions.BeginReportFlow)
 local SetVoiceReportingFlow = require(script.Actions.SetVoiceReportingFlow)
+local SessionUtility = require(script.Utility.SessionUtility)
 
 local FetchPlaceInfo = require(script.Thunks.FetchPlaceInfo)
 local GetFFlagEnableNewVoiceReportFlows = require(script.Flags.GetFFlagEnableNewVoiceReportFlows)
@@ -107,14 +108,17 @@ function TrustAndSafety:openReportMenu()
 end
 
 return {
-	openReportDialogForPlayer = function(targetPlayer)
+	openReportDialogForPlayer = function(targetPlayer, source)
 		assert(playerInterface(targetPlayer) and t.instanceIsA("Player")(targetPlayer))
+		SessionUtility.startAbuseReportSession(source)
 		TrustAndSafety:getInstance():openReportDialog(Constants.ReportType.Player, targetPlayer)
 	end,
-	openReportDialogForPlace = function()
+	openReportDialogForPlace = function(source)
+		SessionUtility.startAbuseReportSession(source)
 		TrustAndSafety:getInstance():openReportDialog(Constants.ReportType.Place)
 	end,
-	openReportMenu = function()
+	openReportMenu = function(source)
+		SessionUtility.startAbuseReportSession(source)
 		TrustAndSafety:getInstance():openReportMenu()
 	end,
 }

@@ -12,7 +12,6 @@ return function()
 	local jest = JestGlobals.jest
 	local expect = JestGlobals.expect
 
-	-- ROBLOX FIXME: Analysis cannot see NotForProductionUse utils in CorePackages for ModApps
 	local createMemberFunctionMocker = require(CorePackages.Workspace.Packages.UnitTestHelpers).createMemberFunctionMocker
 	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 

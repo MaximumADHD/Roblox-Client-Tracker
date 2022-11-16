@@ -29,6 +29,10 @@ function ABTest.new()
 		return IXPServiceWrapper:GetLayerData(layerName)
 	end
 
+	function service.logUserLayerExposure(layerName)
+		IXPServiceWrapper:LogUserLayerExposure(layerName)
+	end
+
 	return service
 end
 

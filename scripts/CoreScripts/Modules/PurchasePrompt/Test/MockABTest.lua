@@ -15,6 +15,10 @@ function MockExternalSettings.new(optionalLayerData: LayerData?)
 		return layerData[layerName]
 	end
 
+	function service.logUserLayerExposure(layerName)
+		return layerData[layerName]
+	end
+
 	return service
 end
 

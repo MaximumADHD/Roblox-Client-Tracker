@@ -32,8 +32,11 @@ function TestContainer:init()
 end
 
 function TestContainer:render()
-	assert(#self.props[Roact.Children] > 0,
-		"TestContainer: no children provided, nothing will be tested")
+	local numChildren = 0
+	for _, _ in self.props[Roact.Children] do
+		numChildren += 1
+	end
+	assert(numChildren > 0, "TestContainer: no children provided, nothing will be tested")
 
 	-- include theme provider for shimmer panels used in the asset list
 	local appStyle = {
@@ -42,7 +45,7 @@ function TestContainer:render()
 	}
 
 	return Roact.createElement(InspectAndBuyContext.Provider, {
-		value = self.views
+		value = self.views,
 	}, {
 		Roact.createElement(RoactRodux.StoreProvider, {
 			store = self.store,
@@ -50,9 +53,9 @@ function TestContainer:render()
 			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
 				style = appStyle,
 			}, {
-				InspectMenu = Roact.createElement("ScreenGui", {}, self.props[Roact.Children])
-			})
-		})
+				InspectMenu = Roact.createElement("ScreenGui", {}, self.props[Roact.Children]),
+			}),
+		}),
 	})
 end
 

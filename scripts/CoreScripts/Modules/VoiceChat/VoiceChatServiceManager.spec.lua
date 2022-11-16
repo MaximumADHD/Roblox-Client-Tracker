@@ -19,6 +19,8 @@ return function()
 	local VoiceChatServiceStub = VCSS.VoiceChatServiceStub
 	local makeMockUser = VCSS.makeMockUser
 
+	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
+
 	local noop = function() end
 	local stub = function(val)
 		return function()
@@ -100,6 +102,12 @@ return function()
 		return self.hasPermissionsCB(type)
 	end
 
+	local isStudio = false
+	local runServiceStub = {}
+	function runServiceStub:IsStudio()
+		return isStudio
+	end
+
 	beforeEach(function(context)
 		context.RobloxEventReceived = Instance.new("BindableEvent")
 		context.RobloxConnectionChanged = Instance.new("BindableEvent")
@@ -110,6 +118,7 @@ return function()
 
 		BlockMock = Instance.new("BindableEvent")
 		HTTPServiceStub.GetAsyncFullUrlCB = noop
+		isStudio = false
 		VoiceChatServiceStub:resetMocks()
 		VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, nil, nil, BlockMock.Event, nil, NotificationMock)
 		VoiceChatServiceManager:SetupParticipantListeners()
@@ -298,11 +307,15 @@ return function()
 				act(function()
 					VoiceChatServiceManager:userAndPlaceCanUseVoice('12345')
 				end)
+				waitForEvents.act()
 				jestExpect(CoreGui.RobloxVoiceChatPromptGui).never.toBeNil()
 				jestExpect(CoreGui.InGameMenuInformationalDialog.DialogMainFrame.TitleTextContainer.TitleText.text).toBe("Voice Chat Suspended")
 			end)
+
 			it("Show place prompt if place is not enabled for voice", function ()
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
+				isStudio = true
+				VoiceChatServiceManager.runService = runServiceStub
 				HTTPServiceStub.GetAsyncFullUrlCB = createVoiceOptionsJSONStub({
 					universePlaceVoiceEnabledSettings = {
 						isUniverseEnabledForVoice = true,
@@ -312,11 +325,13 @@ return function()
 						isVoiceEnabled = true
 					},
 				})
-				VoiceChatServiceManager.promptSignal = Instance.new("BindableEvent")
-				VoiceChatServiceManager.promptSignal.Event:Connect(function(signal)
-					jestExpect(signal).toBe(VoiceChatPromptType.Place)
-				end)
+				-- We need to create the prop instance before connecting events so that we can use VoiceChatServiceManager.promptSignal
+				VoiceChatServiceManager:createPromptInstance(noop)
+				local mock, mockFn = jest.fn()
+				VoiceChatServiceManager.promptSignal.Event:Connect(mockFn)
 				jestExpect(VoiceChatServiceManager:userAndPlaceCanUseVoice('12345')).toBe(false)
+				waitForEvents.act()
+				jestExpect(mock).toHaveBeenCalledWith(VoiceChatPromptType.Place)
 			end)
 
 			it("Doesn't show place prompt if universe is not enabled for voice", function ()
@@ -331,12 +346,14 @@ return function()
 						isVoiceEnabled = true
 					},
 				})
-				VoiceChatServiceManager.promptSignal = Instance.new("BindableEvent")
+				-- We need to create the prop instance before connecting events so that we can use VoiceChatServiceManager.promptSignal
+				VoiceChatServiceManager:createPromptInstance(noop)
 				local mock, mockFn = jest.fn()
 				VoiceChatServiceManager.promptSignal.Event:Connect(mockFn)
 				-- This should never fire
-				jestExpect(mock).never.toHaveBeenCalled()
 				jestExpect(VoiceChatServiceManager:userAndPlaceCanUseVoice('12345')).toBe(false)
+				waitForEvents.act()
+				jestExpect(mock).never.toHaveBeenCalled()
 				game:SetFastFlagForTesting("VCPromptEarlyOut", earlyOutFlag)
 			end)
 		end)
@@ -361,6 +378,7 @@ return function()
 				act(function()
 					VoiceChatServiceManager:CheckAndShowPermissionPrompt()
 				end)
+				waitForEvents.act()
 				jestExpect(CoreGui.RobloxVoiceChatPromptGui).never.toBeNil()
 				jestExpect(CoreGui.RobloxVoiceChatPromptGui.Content.Toast.ToastContainer.Toast.ToastFrame.ToastTextFrame.ToastTitle.Text).toBe("Voice Chat Unavailable")
 			end)
@@ -406,6 +424,7 @@ return function()
 				VoiceChatServiceStub.SubscribeBlockCB = func;
 
 				BlockMock:Fire(player.UserId, true)
+				waitForEvents()
 				jestExpect(spy).toHaveBeenCalledTimes(1)
 			end)
 
@@ -422,6 +441,7 @@ return function()
 				VoiceChatServiceStub.SubscribeUnblockCB = func;
 
 				UnblockMock:Fire(player.UserId, false)
+				waitForEvents()
 				jestExpect(spy).toHaveBeenCalledTimes(1)
 			end)
 		end)
@@ -451,6 +471,7 @@ return function()
 			local spy, func = jest.fn(noop)
 			VoiceChatServiceManager.participantsUpdate.Event:Connect(func)
 			VoiceChatServiceManager:ToggleMutePlayer("002")
+			waitForEvents()
 
 			jestExpect(spy).toHaveBeenCalledTimes(1)
 			jestExpect(deepEqual(
@@ -545,6 +566,7 @@ return function()
 				context.RobloxEventReceived:Fire(makeEventMessage("NotVoiceNotifications", 1))
 				context.RobloxEventReceived:Fire(makeEventMessage("NotVoiceNotifications", 2))
 				context.RobloxEventReceived:Fire(makeEventMessage("NotVoiceNotifications", 4))
+				waitForEvents()
 
 				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", flag)
@@ -557,6 +579,7 @@ return function()
 				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 1))
 				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 2))
 				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 4))
+				waitForEvents()
 
 				jestExpect(VoiceChatServiceStub.joinCalled).toBe(true)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", flag)
@@ -569,6 +592,7 @@ return function()
 				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 1))
 				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 2))
 				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 3))
+				waitForEvents()
 
 				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", flag)
@@ -581,6 +605,7 @@ return function()
 
 				context.RobloxConnectionChanged:Fire(
 					"signalR", Enum.ConnectionState.Connected, 101, '{"VoiceNotifications":101}')
+				waitForEvents()
 
 				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", flag)
@@ -596,6 +621,7 @@ return function()
 					"signalR", Enum.ConnectionState.Disconnected, 101, "")
 				context.RobloxConnectionChanged:Fire(
 					"signalR", Enum.ConnectionState.Connected, 101, '{"VoiceNotifications":2}')
+				waitForEvents()
 
 				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", conFlag)
@@ -612,6 +638,7 @@ return function()
 					"signalR", Enum.ConnectionState.Disconnected, 101, "")
 				context.RobloxConnectionChanged:Fire(
 					"signalR", Enum.ConnectionState.Connected, 101, '{"VoiceNotifications":3}')
+				waitForEvents()
 
 				jestExpect(VoiceChatServiceStub.joinCalled).toBe(true)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", conFlag)
@@ -629,6 +656,7 @@ return function()
 					"signalR", Enum.ConnectionState.Disconnected, 101, "")
 				context.RobloxConnectionChanged:Fire(
 					"signalR", Enum.ConnectionState.Connected, 101, '{"VoiceNotifications":2, "OtherNotifications":3}')
+				waitForEvents()
 
 				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", conFlag)
@@ -647,6 +675,7 @@ return function()
 					"signalR", Enum.ConnectionState.Connected, 101, "INVALID JSON")
 				context.RobloxConnectionChanged:Fire(
 					"signalR", Enum.ConnectionState.Connected, 101, '{"VoiceNotifications":2}')
+				waitForEvents()
 
 				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", conFlag)

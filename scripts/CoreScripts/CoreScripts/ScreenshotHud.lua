@@ -27,7 +27,6 @@ local Promise = require(CorePackages.Promise)
 
 local GetGameNameAndDescription = require(RobloxGui.Modules.Common.GetGameNameAndDescription)
 local GetFFlagScreenshotHudApi = require(RobloxGui.Modules.Flags.GetFFlagScreenshotHudApi)
-local GetFFlagFixExperienceNameOverlay = require(RobloxGui.Modules.Flags.GetFFlagFixExperienceNameOverlay)
 
 if not GetFFlagScreenshotHudApi() then
 	return
@@ -658,8 +657,6 @@ ScreenshotHud:GetPropertyChangedSignal("CloseButtonPosition"):Connect(function()
 	})
 end)
 
-if GetFFlagFixExperienceNameOverlay() then
-	fetchExperienceName()
-end
+fetchExperienceName()
 updateGamepadButtons()
 screenshotHudEnabled(ScreenshotHud.Visible)

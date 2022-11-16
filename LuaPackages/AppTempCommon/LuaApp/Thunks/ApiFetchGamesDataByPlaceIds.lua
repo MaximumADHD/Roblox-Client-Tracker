@@ -5,8 +5,7 @@ local GamesMultigetPlaceDetails = require(CorePackages.Workspace.Packages.Http).
 local PlaceInfoModel = require(CorePackages.AppTempCommon.LuaChat.Models.PlaceInfoModel)
 local ReceivedPlacesInfos = require(CorePackages.AppTempCommon.LuaApp.Actions.ReceivedPlacesInfos)
 
-local LuaAppFlags = CorePackages.AppTempCommon.LuaApp.Flags
-local convertUniverseIdToString = require(LuaAppFlags.ConvertUniverseIdToString)
+local convertUniverseIdToString = require(CorePackages.Workspace.Packages.SharedFlags).ConvertUniverseIdToString
 
 return function(networkImpl, placeIds)
 	return function(store)

@@ -4,7 +4,7 @@ local Players = game:GetService("Players")
 local InGameMenu = script.Parent.Parent
 local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 local Logging = require(CorePackages.Logging)
-local PerformFetch = require(CorePackages.AppTempCommon.LuaApp.Thunks.Networking.Util.PerformFetch)
+local PerformFetch = require(CorePackages.Workspace.Packages.Http).PerformFetch
 local FollowingsGetStatus = require(InGameMenu.Network.Requests.Games.FollowingsGetStatus)
 local SetGameFollowingStatus = require(InGameMenu.Actions.SetGameFollowingStatus)
 

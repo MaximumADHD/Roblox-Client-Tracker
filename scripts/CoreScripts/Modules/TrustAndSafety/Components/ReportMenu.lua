@@ -25,6 +25,8 @@ local Assets = require(TnsModule.Resources.Assets)
 local Constants = require(TnsModule.Resources.Constants)
 local ModalDialog = require(TnsModule.Components.ModalDialog)
 local GameCell = require(TnsModule.Components.GameCell)
+local SendAnalytics = require(TnsModule.Utility.SendAnalytics)
+local SessionUtility = require(TnsModule.Utility.SessionUtility)
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -109,6 +111,14 @@ function ReportMenu:init()
 			scrollingFrame:scrollToTop()
 		end
 	end
+	-- Press the Back button
+	self.navigateBack = function()
+		self.props.navigateBack(self.state.filterText ~= nil)
+	end
+	-- Close the dialog (press transparent background)
+	self.closeDialog = function()
+		self.props.closeDialog(self.state.filterText ~= nil)
+	end
 
 	self.layoutBindings = {}
 	self.getLayoutBinding = function(id, layoutOrder)
@@ -179,13 +189,13 @@ function ReportMenu:renderHeaderBar()
 
 	local leftButton;
 	if self.props.canNavigateBack then
-		leftButton = HeaderBar.renderLeft.backButton(self.props.navigateBack);
+		leftButton = HeaderBar.renderLeft.backButton(self.navigateBack);
 	else
 		leftButton = function()
 			return Roact.createElement(IconButton, {
 				iconSize = IconSize.Medium,
 				icon = UIBloxImages["icons/navigation/close"],
-				onActivated = self.props.closeDialog,
+				onActivated = self.closeDialog,
 			})
 		end
 	end
@@ -337,7 +347,7 @@ function ReportMenu:render()
 			headerBar = self:renderHeaderBar(),
 			showCloseButton = not backButton,
 			contents = self:renderContents(),
-			onDismiss = self.props.closeDialog,
+			onDismiss = self.closeDialog,
 		}),
 		--TODO: integrate FocusHandler
 	})
@@ -367,14 +377,39 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 	}
 end, function(dispatch)
 	return {
-		navigateBack = function()
+		navigateBack = function(filterTextChanged)
 			dispatch(NavigateBack())
+			SendAnalytics(
+				Constants.Page.Listing,
+				Constants.Analytics.ReportFlowBack,
+				{
+					source = Constants.Page.Listing,
+					filterTextChanged = filterTextChanged
+				}
+			)
 		end,
-		closeDialog = function()
+		closeDialog = function(filterTextChanged)
 			dispatch(EndReportFlow())
+			SendAnalytics(
+				Constants.Page.Listing,
+				Constants.Analytics.ReportFlowAbandoned,
+				{
+					source = Constants.Page.Listing,
+					filterTextChanged = filterTextChanged
+				}
+			)
+			SessionUtility.endAbuseReportSession()
 		end,
 		openReportDialog = function(reportType, targetPlayer, sortedUserIds)
 			dispatch(SelectReportListing(reportType, targetPlayer, sortedUserIds))
+			SendAnalytics(
+				Constants.Page.Listing,
+				Constants.Analytics.ReportFlowAdvance,
+				{
+					source = Constants.Page.Listing,
+					reportType = reportType
+				}
+			)
 		end,
 	}
 end)(ReportMenu)

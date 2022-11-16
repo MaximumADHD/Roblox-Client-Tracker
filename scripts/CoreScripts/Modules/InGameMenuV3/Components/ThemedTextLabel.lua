@@ -30,6 +30,7 @@ local validateProps = t.strictInterface({
 	TextTruncate = t.optional(t.enum(Enum.TextTruncate)),
 	Visible = t.optional(t.boolean),
 	ZIndex = t.optional(t.integer),
+	AutomaticSize = t.optional(t.enum(Enum.AutomaticSize)),
 	[Roact.Children] = t.optional(t.table),
 })
 

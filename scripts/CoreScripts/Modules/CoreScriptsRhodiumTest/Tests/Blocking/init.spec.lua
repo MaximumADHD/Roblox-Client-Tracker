@@ -5,7 +5,7 @@ local Roact = require(CorePackages.Roact)
 local UIBlox = require(CorePackages.UIBlox)
 local JestGlobals = require(CorePackages.JestGlobals)
 
-local RhodiumHelpers = require(game.CoreGui.RobloxGui.Modules.NotForProductionUse.RhodiumHelpers.api)
+local RhodiumHelpers = require(CorePackages.Workspace.Packages.RhodiumHelpers)
 
 return function()
 	beforeAll(function(c)

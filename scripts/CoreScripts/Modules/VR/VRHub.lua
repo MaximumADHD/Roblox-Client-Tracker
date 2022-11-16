@@ -19,7 +19,7 @@ local LaserPointer = require(RobloxGui.Modules.VR.LaserPointer)
 local VRControllerModel = require(RobloxGui.Modules.VR.VRControllerModel)
 
 local SafetyBubble = require(script.Parent.SafetyBubble)
-local SafetyBubbleEnabled = require(RobloxGui.Modules.Flags.FFlagSafetyBubbleEnabled)
+local SafetyBubbleEnabled = require(RobloxGui.Modules.Flags.FFlagSafetyBubbleEnabled) or game:GetEngineFeature("EnableMaquettesSupport")
 
 local VRHub = {}
 local RegisteredModules = {}

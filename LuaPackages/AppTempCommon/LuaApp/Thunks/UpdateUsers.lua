@@ -1,8 +1,8 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 
-local User = require(CorePackages.Workspace.Packages.UserLib).User
-local AddUsers = require(CorePackages.AppTempCommon.LuaApp.Actions.AddUsers)
+local User = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
+local AddUsers = require(CorePackages.Workspace.Packages.UserLib).Actions.AddUsers
 local SetFriendCount = require(CorePackages.AppTempCommon.LuaApp.Actions.SetFriendCount)
 
 return function(users)

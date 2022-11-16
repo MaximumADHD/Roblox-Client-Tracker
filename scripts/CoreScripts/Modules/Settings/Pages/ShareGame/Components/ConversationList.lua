@@ -16,17 +16,22 @@ local Modules = CoreGui.RobloxGui.Modules
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 
 local Constants = require(ShareGame.Constants)
+local InviteEvents = require(ShareGame.Analytics.InviteEvents)
 local ConversationEntry = require(ShareGame.Components.ConversationEntry)
 local InviteListEntry = require(ShareGame.Components.InviteListEntry)
 local FriendsErrorPage = require(ShareGame.Components.FriendsErrorPage)
 local InviteUserIdToPlaceId = require(ShareGame.Thunks.InviteUserIdToPlaceId)
+local InviteUserIdToPlaceIdCustomized = require(ShareGame.Thunks.InviteUserIdToPlaceIdCustomized)
 local LoadingFriendsPage = require(ShareGame.Components.LoadingFriendsPage)
 local NoFriendsPage = require(ShareGame.Components.NoFriendsPage)
 local PlayerSearchPredicate = require(CoreGui.RobloxGui.Modules.InGameMenu.Utility.PlayerSearchPredicate)
-local GetFFlagShareInviteLinkContextMenuV1Enabled = require(Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
+local GetFFlagShareInviteLinkContextMenuV1Enabled = require(
+	Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled
+)
 local GetFFlagEnableNewInviteMenu = require(Modules.Flags.GetFFlagEnableNewInviteMenu)
+local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
 
-local User = require(CorePackages.Workspace.Packages.UserLib).User
+local User = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
 local httpRequest = require(AppTempCommon.Temp.httpRequest)
 local memoize = require(CorePackages.Workspace.Packages.AppCommonLib).memoize
 
@@ -56,12 +61,21 @@ local ConversationList = Roact.PureComponent:extend("ConversationList")
 if FFlagLuaInviteModalEnabled then
 	ConversationList.defaultProps = {
 		entryHeight = ENTRY_HEIGHT,
-		entryPadding = ENTRY_PADDING
+		entryPadding = ENTRY_PADDING,
 	}
 end
 
 function ConversationList:init()
 	self.scrollingRef = Roact.createRef()
+	self.inviteUser = function(userId: string)
+		return self.props.inviteUser(
+			userId,
+			self.props.analytics,
+			self.props.trigger,
+			self.props.inviteMessageId,
+			self.props.launchData
+		)
+	end
 end
 
 function ConversationList:render()
@@ -89,6 +103,10 @@ function ConversationList:render()
 	local inviteUser = self.props.inviteUser
 	local searchText = self.props.searchText
 
+	if GetFFlagEnableNewInviteSendEndpoint() then
+		inviteUser = self.inviteUser
+	end
+
 	local newInviteMenuEnabled = GetFFlagEnableNewInviteMenu()
 
 	children["RowListLayout"] = Roact.createElement("UIListLayout", {
@@ -113,6 +131,9 @@ function ConversationList:render()
 				inviteUser = inviteUser,
 				inviteStatus = invites[user.id],
 				isFullRowActivatable = UserInputService.GamepadEnabled,
+				trigger = self.props.trigger,
+				inviteMessageId = self.props.inviteMessageId,
+				launchData = self.props.lanchData,
 			})
 		else
 			children["User-" .. tostring(i)] = Roact.createElement(ConversationEntry, {
@@ -207,7 +228,18 @@ local function handleBinding(self)
 end
 
 ConversationList.didUpdate = handleBinding
-ConversationList.didMount = handleBinding
+if GetFFlagEnableNewInviteSendEndpoint() then
+	function ConversationList:didMount()
+		-- DeveloperMultiple can mount even if it's not visible.
+		-- We track it opening in InviteToGamePrompt.lua
+		if self.props.analytics and self.props.trigger == Constants.Triggers.GameMenu then
+			self.props.analytics:sendEvent(self.props.trigger, InviteEvents.ModalOpened)
+		end
+		handleBinding(self)
+	end
+else
+	ConversationList.didMount = handleBinding
+end
 
 local selectFriends = memoize(function(users)
 	local friends = {}
@@ -243,11 +275,31 @@ local connector = RoactRodux.UNSTABLE_connect2(
 	end,
 	function(dispatch)
 		return {
-			inviteUser = function(userId)
+			inviteUser = function(
+				userId: string,
+				analytics: any,
+				trigger: string,
+				inviteMessageId: string?,
+				launchData: string?
+			)
 				local requestImpl = httpRequest(HttpRbxApiService)
 				local placeId = tostring(game.PlaceId)
 
-				return dispatch(InviteUserIdToPlaceId(requestImpl, userId, placeId))
+				if GetFFlagEnableNewInviteSendEndpoint() then
+					return dispatch(
+						InviteUserIdToPlaceIdCustomized(
+							requestImpl,
+							userId,
+							placeId,
+							analytics,
+							trigger,
+							inviteMessageId,
+							launchData
+						)
+					)
+				else
+					return dispatch(InviteUserIdToPlaceId(requestImpl, userId, placeId))
+				end
 			end,
 		}
 	end

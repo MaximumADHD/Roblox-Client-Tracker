@@ -49,6 +49,7 @@ return {
 		ScrollBottom = "rbxasset://textures/ui/InGameMenu/ScrollBottom.png",
 
 		RadialGlow = "rbxasset://textures/ui/InGameMenu/BackgroundGlow.png",
+		RadialGlowStrong = UIBloxImages["component_assets/dropshadow_17_8"],
 
 		PlayersMenu = Images["InGameMenu/Icons/MenuPlayers"],
 

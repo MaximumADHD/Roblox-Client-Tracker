@@ -1,4 +1,3 @@
---!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -18,14 +17,47 @@ local PiiFilterArgs = t.strictInterface({
 	})),
 })
 
-local PiiFilter = {}
-PiiFilter.__index = PiiFilter
+export type PiiFilter = {
+	startTracking: (self: PiiFilter) -> (),
+	stopTracking: (self: PiiFilter) -> (),
+	cleanPii: (self: PiiFilter, message: string) -> string,
+	-- private methods
+	_addPlayerToEraseMap: (self: PiiFilter, player: Player) -> (),
+	_removePlayerFromEraseMap: (self: PiiFilter, player: Player) -> (),
+	-- private fields
+	_eraseTimeout: number,
+	_trackedPii: { [string]: string },
+	_playerCounter: number,
+	_disambiguationIdentifiers: { [number]: number },
+	_playerAddedConnection: RBXScriptConnection,
+	_playerRemovingConnection: RBXScriptConnection,
+	_waitFn: (number?) -> number,
+	_players: Players,
+}
+type PiiFilterStatic = {
+	new: (args: {
+		eraseTimeout: number,
+		testHarness: {
+			players: Players,
+			wait: (number?) -> number,
+		}?
+	}) -> PiiFilter,
+}
 
-function PiiFilter.new(args)
+local PiiFilter: PiiFilter & PiiFilterStatic = {} :: any
+(PiiFilter :: any).__index = PiiFilter
+
+function PiiFilter.new(args: {
+	eraseTimeout: number,
+	testHarness: {
+		players: Players,
+		wait: (number?) -> number,
+	}?
+}): PiiFilter
 	assert(PiiFilterArgs(args))
-	
-	local players = args.testHarness == nil and Players or args.testHarness.players
-	local waitFn = args.testHarness == nil and wait or args.testHarness.wait
+
+	local players = if args.testHarness == nil then Players else args.testHarness.players
+	local waitFn = if args.testHarness == nil then wait else args.testHarness.wait
 
 	return setmetatable({
 		_eraseTimeout = args.eraseTimeout,
@@ -37,10 +69,10 @@ function PiiFilter.new(args)
 		_disambiguationIdentifiers = {},
 		_waitFn = waitFn,
 		_players = players,
-	}, PiiFilter)
+	}, PiiFilter) :: any
 end
 
-function PiiFilter:_addPlayerToEraseMap(player)
+function PiiFilter:_addPlayerToEraseMap(player: Player)
 	local disambiguator = self._disambiguationIdentifiers[player.UserId]
 	if disambiguator == nil then
 		disambiguator = self._playerCounter
@@ -53,7 +85,7 @@ function PiiFilter:_addPlayerToEraseMap(player)
 	self._trackedPii[tostring(player.DisplayName)] = string.format("DisplayName(%d)", disambiguator)
 end
 
-function PiiFilter:_removePlayerFromEraseMap(player)
+function PiiFilter:_removePlayerFromEraseMap(player: Player)
 	self._trackedPii[tostring(player.UserId)] = nil
 	self._trackedPii[tostring(player.Name)] = nil
 	self._trackedPii[tostring(player.DisplayName)] = nil
@@ -86,7 +118,7 @@ function PiiFilter:stopTracking()
 	self._playerRemovingConnection:Disconnect()
 end
 
-function PiiFilter:cleanPii(message)
+function PiiFilter:cleanPii(message: string): string
 	for targetString, replacement in pairs(self._trackedPii) do
 		message = string.gsub(message, targetString, replacement)
 	end

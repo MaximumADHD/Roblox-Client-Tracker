@@ -7,6 +7,8 @@ local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local HttpService = game:GetService("HttpService")
 
+local getPaymentPlatform = require(Root.Utils.getPaymentPlatform)
+
 local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
 local GetFFlagEnableAmazonInGameUpsell = require(Root.Flags.GetFFlagEnableAmazonInGameUpsell)
 
@@ -69,12 +71,19 @@ function Analytics.new()
 			end
 		end
 	end
-	
+
 	local function ReportPlatformCounter(eventName)
 		if RunService:IsStudio() then
 			return
 		end
 		AnalyticsService:ReportCounter(eventName..GetPlatformString())
+	end
+
+	function service.sendCounter(eventName: string)
+		if RunService:IsStudio() then
+			return
+		end
+		AnalyticsService:ReportCounter(eventName)
 	end
 
 	local function ReportEvent(eventName, params)

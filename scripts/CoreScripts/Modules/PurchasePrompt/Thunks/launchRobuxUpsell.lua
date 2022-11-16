@@ -20,8 +20,6 @@ local Promise = require(Root.Promise)
 
 local retryAfterUpsell = require(script.Parent.retryAfterUpsell)
 
-local GetFFlagRobuxUpsellIXP = require(Root.Flags.GetFFlagRobuxUpsellIXP)
-
 local requiredServices = {
 	Analytics,
 	ExternalSettings,
@@ -73,16 +71,11 @@ local function launchRobuxUpsell()
 		if upsellFlow == UpsellFlow.Web then
 			local requestType = state.requestType
 
-			if GetFFlagRobuxUpsellIXP() then
-				analytics.signalProductPurchaseUpsellConfirmed(productId, requestType, state.nativeUpsell.productId)
-				local purchaseFlow = state.purchaseFlow
-				if purchaseFlow == PurchaseFlow.RobuxUpsellV2 then
-					platformInterface.startRobuxUpsellWeb(state.nativeUpsell.productId)
-				else
-					platformInterface.startRobuxUpsellWeb()
-				end
+			analytics.signalProductPurchaseUpsellConfirmed(productId, requestType, state.nativeUpsell.productId)
+			local purchaseFlow = state.purchaseFlow
+			if purchaseFlow == PurchaseFlow.RobuxUpsellV2 or purchaseFlow == PurchaseFlow.LargeRobuxUpsell then
+				platformInterface.startRobuxUpsellWeb(state.nativeUpsell.productId)
 			else
-				analytics.signalProductPurchaseUpsellConfirmed(productId, requestType, "UNKNOWN")
 				platformInterface.startRobuxUpsellWeb()
 			end
 			store:dispatch(SetPromptState(PromptState.UpsellInProgress))

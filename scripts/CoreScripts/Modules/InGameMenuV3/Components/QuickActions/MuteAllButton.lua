@@ -28,9 +28,12 @@ local MuteAllButton = Roact.PureComponent:extend("MuteAllButton")
 
 MuteAllButton.validateProps = t.interface({
 	layoutOrder = t.integer,
-	iconTransparency = t.optional(t.number),
-	backgroundTransparency = t.optional(t.number),
-	backgroundColor = t.optional(t.string),
+	iconTransparency = t.optional(t.union(t.number, t.table)),
+	backgroundTransparency = t.optional(t.union(t.number, t.table)),
+	backgroundColor = t.optional(t.strictInterface({
+		Color = t.Color3,
+		Transparency = t.numberConstrained(0, 1),
+	})),
 })
 
 function MuteAllButton:init()

@@ -14,10 +14,8 @@ local Url = require(RobloxGui.Modules.Common.Url)
 
 local TnsModule = script.Parent.Parent
 local Constants = require(TnsModule.Resources.Constants)
-local Dependencies = require(TnsModule.Dependencies)
-local SendAnalytics = Dependencies.SendAnalytics
-
-local ANALYTICS_REPORT_SUBMITTED_NAME = "ingame_menu_report_submitted"
+local SendAnalytics = require(TnsModule.Utility.SendAnalytics)
+local SessionUtility = require(TnsModule.Utility.SessionUtility)
 
 type UserAbuseReport = {
 	reportCategory: string,
@@ -36,23 +34,27 @@ type PlaceAbuseReport = {
 	placeDescription: string,
 }
 
-function sendAnalytics(reportType: string, entityId: number)
-	local stringTable = {
-		"report_type=" .. reportType,
-		"reported_entity_id=" .. tostring(entityId),
-		"report_source=ingame",
-	}
-	local infoString = table.concat(stringTable,"&")
-	SendAnalytics(ANALYTICS_REPORT_SUBMITTED_NAME, infoString, {})
+function sendAnalytics(reportType: string, entityId: number, reason: string, abuseVector: string?)
+	SendAnalytics(
+		reportType,
+		Constants.Analytics.ReportSubmittedName,
+		{
+			reportType = reportType,
+			reportedEntityId = tostring(entityId),
+			reportSource = Constants.Analytics.ReportSourceInGame,
+			reason = reason,
+			abuseVector = abuseVector
+		}
+	)
 end
 
 function getAbuseVectorFromReportCategory(reportCategory: string): string
 	if reportCategory == Constants.Category.Voice then
-		return "Voice"
+		return "voice"
 	elseif reportCategory == Constants.Category.Text then
-		return "Chat"
+		return "chat"
 	end
-	return "Other"
+	return "other"
 end
 
 function submitUserAbuseReport(report: UserAbuseReport, onSubmitted: Dash.AnyFunction)
@@ -61,6 +63,8 @@ function submitUserAbuseReport(report: UserAbuseReport, onSubmitted: Dash.AnyFun
 	if localPlayer then
 		pcall(function()
 			coroutine.wrap(function()
+				local abuseVector = getAbuseVectorFromReportCategory(report.reportCategory)
+
 				if GetFFlagVoiceAbuseReportsEnabled() and isVoiceReport then
 					local request = createVoiceAbuseReportRequest(PlayersService, VoiceChatServiceManager, {
 						localUserId = localPlayer.UserId,
@@ -69,7 +73,7 @@ function submitUserAbuseReport(report: UserAbuseReport, onSubmitted: Dash.AnyFun
 						abuseReason = report.reason,
 						inExpMenuOpenedUnixMilli = math.floor(report.beginningTimestamp * 1000), --milliseconds conversion
 						sortedPlayerListUserIds = report.sortedUserIds,
-						abuseVector = getAbuseVectorFromReportCategory(report.reportCategory),
+						abuseVector = abuseVector
 					})
 
 					if game:GetEngineFeature("AbuseReportV3") then
@@ -82,7 +86,8 @@ function submitUserAbuseReport(report: UserAbuseReport, onSubmitted: Dash.AnyFun
 					PlayersService:ReportAbuse(report.abusingPlayer, report.reason, report.comment)
 				end
 
-				sendAnalytics("user", report.abusingPlayer.UserId)
+				sendAnalytics(Constants.Analytics.ReportTypeUser, report.abusingPlayer.UserId, report.reason, abuseVector)
+				SessionUtility.endAbuseReportSession()
 
 				if onSubmitted then
 					onSubmitted()
@@ -107,7 +112,8 @@ function submitPlaceAbuseReport(report: PlaceAbuseReport, onSubmitted: Dash.AnyF
 				PlayersService:ReportAbuse((nil :: any) :: Player, report.reason, formattedText)
 			end
 
-			sendAnalytics("game", report.placeId)
+			sendAnalytics(Constants.Analytics.ReportTypeGame, report.placeId, report.reason)
+			SessionUtility.endAbuseReportSession()
 
 			if onSubmitted then
 				onSubmitted()

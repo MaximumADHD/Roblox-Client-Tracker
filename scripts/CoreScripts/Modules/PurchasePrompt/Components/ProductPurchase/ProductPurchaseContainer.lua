@@ -64,14 +64,13 @@ local XBOX_B_ICON = "icons/controls/keys/xboxB"
 local DELAYED_INPUT_SEC = 2.5
 
 local FFlagPPTwoFactorLogOutMessage = game:DefineFastFlag("PPTwoFactorLogOutMessage", false)
-local FFlagEnableLuobuWarningText = game:DefineFastFlag("EnableLuobuWarningText", false)
 local FFlagPauseGameExploitFix = game:DefineFastFlag("PauseGameExploitFix", false)
 local FFlagPurchaseWithGamePausedFix = game:DefineFastFlag("PurchaseWithGamePausedFix", false)
 
 local GetFFlagPPFixGamepadIcons = require(Root.Flags.GetFFlagPPFixGamepadIcons)
 
 local function isRelevantRequestType(requestType, purchaseFlow)
-	if purchaseFlow == PurchaseFlow.RobuxUpsellV2 then
+	if purchaseFlow == PurchaseFlow.RobuxUpsellV2 or purchaseFlow == PurchaseFlow.LargeRobuxUpsell then
 		return false
 	end
 	return requestType == RequestType.Asset
@@ -87,7 +86,7 @@ function ProductPurchaseContainer:init()
 	}
 
 	coroutine.wrap(function()
-		if FFlagEnableLuobuWarningText and PolicyService:IsSubjectToChinaPolicies() then
+		if PolicyService:IsSubjectToChinaPolicies() then
 			self:setState({
 				isLuobu = true,
 			})

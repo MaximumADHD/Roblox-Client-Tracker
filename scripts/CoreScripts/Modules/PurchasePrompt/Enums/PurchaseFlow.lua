@@ -11,6 +11,7 @@ local rawKeyToRawValue = {
     Product = "Product",
     RobuxUpsell = "RobuxUpsell",
     RobuxUpsellV2 = "RobuxUpsellV2",
+    LargeRobuxUpsell = "LargeRobuxUpsell",
     PremiumUpsell = "PremiumUpsell",
 }
 

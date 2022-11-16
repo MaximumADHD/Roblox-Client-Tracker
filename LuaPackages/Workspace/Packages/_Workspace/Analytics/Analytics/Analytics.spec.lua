@@ -45,7 +45,7 @@ return function()
 				Diag = jestExpect.anything(),
 				EventStream = jestExpect.anything(),
 				GoogleAnalytics = jestExpect.anything(),
-				InfluxDb = jestExpect.anything()
+				InfluxDb = jestExpect.anything(),
 			})
 		end)
 

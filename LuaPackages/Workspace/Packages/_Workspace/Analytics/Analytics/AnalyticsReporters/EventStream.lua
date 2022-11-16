@@ -6,7 +6,8 @@
 local CorePackages = game:GetService("CorePackages")
 local UserInputService = game:GetService("UserInputService")
 
-local GetFFlagShareGetPlatformTargetImpl = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShareGetPlatformTargetImpl
+local GetFFlagShareGetPlatformTargetImpl =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShareGetPlatformTargetImpl
 
 type Table = { [any]: any }
 

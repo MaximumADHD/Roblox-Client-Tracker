@@ -20,7 +20,6 @@ local PlatformInterface = require(Root.Services.PlatformInterface)
 local ExternalSettings = require(Root.Services.ExternalSettings)
 local Thunk = require(Root.Thunk)
 
-local PremiumPrompt = require(script.Parent.PremiumPrompt.PremiumPrompt)
 local EventConnections = require(script.Parent.Connection.EventConnections)
 local LayoutValuesProvider = require(script.Parent.Connection.LayoutValuesProvider)
 local provideRobloxLocale = require(script.Parent.Connection.provideRobloxLocale)
@@ -38,8 +37,6 @@ local InGameMenuConstants = require(InGameMenu.Resources.Constants)
 local Modules = CoreGui.RobloxGui.Modules
 local GetFFlagEnableInGameMenuV3 = require(Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 local isNewInGameMenuEnabled = require(Modules.isNewInGameMenuEnabled)
-
-local GetFFlagNewPremiumUpsell = require(Root.Flags.GetFFlagNewPremiumUpsell)
 
 local PurchasePromptApp = Roact.Component:extend("PurchasePromptApp")
 
@@ -89,17 +86,12 @@ function PurchasePromptApp:render()
 							IgnoreGuiInset = true,
 							DisplayOrder = shouldIncludeDisplayOrder and InGameMenuConstants.DisplayOrder.RobloxGui or nil,
 						}, {
-							PremiumPromptUI = if GetFFlagNewPremiumUpsell()
-								then nil
-								else Roact.createElement(PremiumPrompt),
 							LocaleProvider = Roact.createElement(LocaleProvider, {
 								locale = LocalizationService.RobloxLocaleId
 							}, {
 								ProductPurchaseContainer = Roact.createElement(ProductPurchaseContainer),
 								RobuxUpsellContainer = Roact.createElement(RobuxUpsellContainer),
-								PremiumUpsellContainer = if GetFFlagNewPremiumUpsell()
-									then Roact.createElement(PremiumUpsellContainer)
-									else nil,
+								PremiumUpsellContainer = Roact.createElement(PremiumUpsellContainer),
 							}),
 							EventConnections = Roact.createElement(EventConnections),
 						})

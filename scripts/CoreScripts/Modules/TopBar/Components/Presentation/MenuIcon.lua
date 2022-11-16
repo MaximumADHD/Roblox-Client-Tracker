@@ -46,6 +46,7 @@ local MENU_HOTKEYS = { Enum.KeyCode.Escape }
 
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 local GetFFlagSelfViewSettingsEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagSelfViewSettingsEnabled)
+local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 
 MenuIcon.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
@@ -214,7 +215,7 @@ function MenuIcon:render()
 
 			onActivated = self.menuIconActivated,
 			onHover = self.menuIconOnHover,
-			enableFlashingDot = GetFFlagSelfViewSettingsEnabled(),
+			enableFlashingDot = GetFFlagVoiceRecordingIndicatorsEnabled(),
 		}),
 		ShowTopBarListener = GamepadService and Roact.createElement(ExternalEventConnection, {
 			event = VRHub.ShowTopBarChanged.Event or GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"),

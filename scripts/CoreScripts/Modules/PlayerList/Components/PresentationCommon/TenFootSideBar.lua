@@ -91,7 +91,7 @@ function TenFootSideBar:openSidebar(player)
 
 	--We can't report guests/localplayer
 	if addReportItem then
-        local loc_text = Strings:LocalizedString("ReportPlayer")
+		local loc_text = Strings:LocalizedString("ReportPlayer")
 		self.sideBar:AddItem(loc_text, function()
 			--Force closing player list before open the report tab
 			self.props.closePlayerList()
@@ -99,7 +99,7 @@ function TenFootSideBar:openSidebar(player)
 			if isNewInGameMenuEnabled() then
 				-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
 				local InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
-				InGameMenu.openReportDialog(player)
+				InGameMenu.openReportDialog(player, self.__componentName)
 			else
 				ReportAbuseMenu:ReportPlayer(player)
 			end

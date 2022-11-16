@@ -12,7 +12,6 @@ return {
 	GameIcon = InGameMenu.Components.GameIcon,
 	PlayerSearchPredicate = InGameMenu.Utility.PlayerSearchPredicate,
 	SearchBar = InGameMenu.Components.SearchBar,
-	SendAnalytics = require(InGameMenu.Utility.SendAnalytics),
 	Localization = InGameMenu.Localization.Localization,
 	LocalizationProvider = InGameMenu.Localization.LocalizationProvider,
 	withLocalization = InGameMenu.Localization.withLocalization,

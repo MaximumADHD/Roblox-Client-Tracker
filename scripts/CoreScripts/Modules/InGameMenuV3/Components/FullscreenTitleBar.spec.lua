@@ -16,10 +16,13 @@ return function()
 	local Element = Rhodium.Element
 	local VirtualInput = Rhodium.VirtualInput
 	local withInt = require(InGameMenu.TestHelpers.withInt)
-	
+
 	local Modules = CoreGui.RobloxGui.Modules
 	local act = require(Modules.act)
 
+	local DeferredLuaHelpers = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers
+	local waitForEvents = DeferredLuaHelpers.waitForEvents
+	local forceUpdateGuiObject = DeferredLuaHelpers.forceUpdateGuiObject
 	local MockUserGameSettings = require(InGameMenu.Mocks.MockUserGameSettings)
 	local GetFFlagFullscreenTitleBarInjectGameServices = require(InGameMenu.Flags.GetFFlagFullscreenTitleBarInjectGameServices)
 
@@ -122,6 +125,7 @@ return function()
 			local handle = Roact.mount(element)
 			act(function()
 				mockUserGameSettings.FullscreenChanged:GoFullscreen()
+				waitForEvents()
 			end)
 
 			local triggerArea = Element.new("game.CoreGui.InGameFullscreenTitleBarScreen.TriggerArea")
@@ -133,12 +137,13 @@ return function()
 
 			act(function()
 				VirtualInput.Mouse.mouseMove(triggerArea:getAnchor())
-				wait()
+				task.wait()
+				forceUpdateGuiObject(barInstance)
 			end)
 
 			act(function()
 				-- This wait plays the scheduler forward through an animation
-				wait(2)
+				task.wait(2)
 			end)
 
 			expect(barInstance.Position).equal(TITLE_BAR_ON_POS)
@@ -165,6 +170,7 @@ return function()
 			local handle = Roact.mount(element)
 			act(function()
 				mockUserGameSettings.FullscreenChanged:GoFullscreen()
+				waitForEvents()
 			end)
 
 			local triggerArea = Element.new("game.CoreGui.InGameFullscreenTitleBarScreen.TriggerArea")
@@ -176,12 +182,12 @@ return function()
 
 			act(function()
 				VirtualInput.Mouse.mouseMove(triggerArea:getAnchor())
-				wait()
+				task.wait()
 			end)
 
 			act(function()
 				-- This wait plays the scheduler forward through an animation
-				wait(2)
+				task.wait(2)
 			end)
 
 			expect(barInstance.Position).equal(TITLE_BAR_ON_POS)
@@ -189,13 +195,13 @@ return function()
 			act(function()
 				-- Re-move the mouse, so that the MouseEnter event can fire on the title bar frame.
 				VirtualInput.Mouse.mouseMove(triggerArea:getAnchor())
-				wait()
+				task.wait()
 				VirtualInput.Mouse.mouseMove(OUTSIDE_OF_TITLE_BAR_POSITION)
-				wait(1)
+				task.wait(1)
 			end)
 
 			act(function()
-				wait(2)
+				task.wait(2)
 			end)
 
 			expect(barInstance.Position).equal(TITLE_BAR_OFF_POS)
@@ -217,46 +223,47 @@ return function()
 						}),
 					}),
 				})
-		
-		
+
+
 				local handle = Roact.mount(element)
 				act(function()
 					mockUserGameSettings.FullscreenChanged:GoFullscreen()
+					waitForEvents()
 				end)
-		
+
 				local triggerArea = Element.new("game.CoreGui.InGameFullscreenTitleBarScreen.TriggerArea")
 				local triggerAreaInstance = triggerArea:waitForRbxInstance()
 				expect(triggerAreaInstance).to.be.ok()
 				local barInstance = Element.new("game.CoreGui.InGameFullscreenTitleBarScreen.Bar"):waitForRbxInstance()
 				expect(barInstance).to.be.ok()
 				expect(barInstance.Position).equal(TITLE_BAR_OFF_POS)
-		
+
 				act(function()
 					VirtualInput.Mouse.mouseMove(triggerArea:getAnchor())
-					wait(0.4)
+					task.wait(0.4)
 					VirtualInput.Mouse.mouseMove(OUTSIDE_OF_TRIGGER_INSIDE_OF_TITLE_BAR__POSITION)
 				end)
 
 				act(function()
-					wait(1.5) -- wait for any remaining action
+					task.wait(1.5) -- wait for any remaining action
 				end)
-				
+
 				expect(barInstance.Position).equal(TITLE_BAR_OFF_POS)
 
 				act(function()
 					VirtualInput.Mouse.mouseMove(OUTSIDE_OF_TITLE_BAR_POSITION)
-					wait()
+					task.wait()
 					VirtualInput.Mouse.mouseMove(triggerArea:getAnchor())
-					wait(0.6)
+					task.wait(0.6)
 					VirtualInput.Mouse.mouseMove(OUTSIDE_OF_TRIGGER_INSIDE_OF_TITLE_BAR__POSITION)
 				end)
 
 				act(function()
-					wait(1.5) -- wait for any remaining action
+					task.wait(1.5) -- wait for any remaining action
 				end)
 
 				expect(barInstance.Position).equal(TITLE_BAR_ON_POS)
-				
+
 				Roact.unmount(handle)
 			end)
 		end)

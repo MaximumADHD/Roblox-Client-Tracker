@@ -1,4 +1,3 @@
---!nonstrict
 local MockPlayers = {}
 MockPlayers.__index = MockPlayers
 
@@ -19,7 +18,7 @@ function MockPlayers.new()
 	return self
 end
 
-function MockPlayers:addPlayer(userId, userName, displayName)
+function MockPlayers:addPlayer(userId: number, userName: string, displayName: string): Player
 	local player = {
 		UserId = userId,
 		Name = userName,
@@ -29,10 +28,10 @@ function MockPlayers:addPlayer(userId, userName, displayName)
 	table.insert(self._players, player)
 	self._playerAddedBindable:Fire(player)
 
-	return player
+	return player :: any
 end
 
-function MockPlayers:removePlayer(userId)
+function MockPlayers:removePlayer(userId: number)
 	for i = #self._players, 1, -1 do
 		local player = self._players[i]
 		if player.UserId == userId then
@@ -43,7 +42,7 @@ function MockPlayers:removePlayer(userId)
 	end
 end
 
-function MockPlayers:GetPlayerByUserId(userId)
+function MockPlayers:GetPlayerByUserId(userId): Player?
 	for _, player in ipairs(self._players) do
 		if player.UserId == userId then
 			return player
@@ -58,17 +57,24 @@ function MockPlayers:GetPlayers()
 end
 
 return function()
+	local CorePackages = game:GetService("CorePackages")
+
 	local PiiFilter = require(script.Parent.PiiFilter)
+	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
+
+	local function mockWait(duration: number?): number
+		return duration or 0
+	end
 
 	it("should clean PII from strings", function()
 		local mockPlayers = MockPlayers.new()
 		mockPlayers:addPlayer(1234567, "TestUsername", "TestDisplayName")
-		
+
 		local filter = PiiFilter.new({
 			eraseTimeout = 5,
 			testHarness = {
-				players = mockPlayers,
-				wait = function() end,
+				players = mockPlayers :: any,
+				wait = mockWait,
 			}
 		})
 
@@ -81,16 +87,16 @@ return function()
 
 		filter:stopTracking()
 	end)
-	
+
 	it("should use the same disambiguator if the player leaves and rejoins", function()
 		local mockPlayers = MockPlayers.new()
 		mockPlayers:addPlayer(1234567, "TestUsername", "TestDisplayName")
-		
+
 		local filter = PiiFilter.new({
 			eraseTimeout = 5,
 			testHarness = {
-				players = mockPlayers,
-				wait = function() end,
+				players = mockPlayers :: any,
+				wait = mockWait,
 			}
 		})
 
@@ -100,7 +106,7 @@ return function()
 		local firstOutput = filter:cleanPii(testString)
 
 		mockPlayers:removePlayer(1234567)
-		mockPlayers:addPlayer(1234567)
+		mockPlayers:addPlayer(1234567, "TestUsername", "TestDisplayName")
 
 		local secondOutput = filter:cleanPii(testString)
 		expect(secondOutput).to.equal(firstOutput)
@@ -113,22 +119,23 @@ return function()
 		mockPlayers:addPlayer(1234567, "TestUsername", "TestDisplayName")
 
 		local waitFnCallCount = 0
-		local function waitFn(delay)
+		local function waitFn(delay: number?)
 			expect(delay).to.equal(1)
 			waitFnCallCount += 1
-			wait(delay)
+			return task.wait(delay)
 		end
-		
+
 		local filter = PiiFilter.new({
 			eraseTimeout = 1,
 			testHarness = {
-				players = mockPlayers,
+				players = mockPlayers :: any,
 				wait = waitFn,
 			}
 		})
 
 		filter:startTracking()
 		mockPlayers:removePlayer(1234567)
+		waitForEvents()
 		expect(waitFnCallCount).to.equal(1)
 
 		-- It's within 1 second of the player leaving, so their information should still be stored
@@ -137,8 +144,8 @@ return function()
 		local cleanedString = filter:cleanPii(testString)
 		expect(cleanedString).to.equal("something(UserId(1)) + u/n UserName(1) + display DisplayName(1)")
 
-		wait(1)
-		
+		task.wait(1)
+
 		-- At this point the PII info should be removed, per the erase timeout.
 		-- We expect no filtering to take place.
 		local uncleanedString = filter:cleanPii(testString)

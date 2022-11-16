@@ -1,6 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 
-local ReceivedUserPresence = require(CorePackages.AppTempCommon.LuaChat.Actions.ReceivedUserPresence)
+local ReceivedUserPresence = require(CorePackages.Workspace.Packages.UserLib).Actions.ReceivedUserPresence
 local UpdateFriendPresenceCounts = require(CorePackages.AppTempCommon.LuaChat.Actions.UpdateFriendPresenceCounts)
 local WebPresenceMap = require(CorePackages.Workspace.Packages.UserLib).Enum.WebPresenceMap
 

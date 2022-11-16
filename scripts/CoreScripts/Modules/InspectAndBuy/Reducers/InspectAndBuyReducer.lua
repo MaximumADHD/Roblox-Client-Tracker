@@ -1,5 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
-local FetchingStatus = require(CorePackages.AppTempCommon.LuaApp.Reducers.FetchingStatus)
+local FetchingStatus = require(CorePackages.Workspace.Packages.Http).Reducers.FetchingStatus
 local Reducers = script.Parent
 local Rodux = require(CorePackages.Rodux)
 local View = require(Reducers.View)

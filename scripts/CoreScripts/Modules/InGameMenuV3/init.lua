@@ -149,14 +149,14 @@ return {
 		PerfUtils.menuOpenBegin()
 		menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.TopbarButton, pageKey))
 	end,
-	
+
 	closeInGameMenu = function()
 		CloseMenu(menuStore)
 	end,
 
-	openReportDialog = function(player)
+	openReportDialog = function(player, source)
 		menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.ReportAbuseTriggered, Constants.ReportDialogKey))
-		TrustAndSafety.openReportDialogForPlayer(player)
+		TrustAndSafety.openReportDialogForPlayer(player, source)
 	end,
 
 	openGameSettingsPage = function()

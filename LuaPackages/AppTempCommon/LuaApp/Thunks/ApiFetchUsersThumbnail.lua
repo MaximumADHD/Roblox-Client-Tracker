@@ -3,18 +3,17 @@ local CorePackages = game:GetService("CorePackages")
 
 local Cryo = require(CorePackages.Cryo)
 
-local Actions = CorePackages.AppTempCommon.LuaApp.Actions
 local TableUtilities = require(CorePackages.AppTempCommon.LuaApp.TableUtilities)
-local PromiseUtilities = require(CorePackages.AppTempCommon.LuaApp.PromiseUtilities)
+local PromiseUtilities = require(CorePackages.Workspace.Packages.AppCommonLib).Utils.PromiseUtilities
 
 local ThumbnailsGetAvatar = require(CorePackages.Workspace.Packages.Http).Requests.ThumbnailsGetAvatar
 local ThumbnailsGetAvatarHeadshot = require(CorePackages.Workspace.Packages.Http).Requests.ThumbnailsGetAvatarHeadshot
 
 local AvatarThumbnailTypes = require(CorePackages.Workspace.Packages.UserLib).Enum.AvatarThumbnailTypes
 
-local SetUserThumbnail = require(Actions.SetUserThumbnail)
+local SetUserThumbnail = require(CorePackages.Workspace.Packages.UserLib).Actions.SetUserThumbnail
 local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
-local PerformFetch = require(CorePackages.AppTempCommon.LuaApp.Thunks.Networking.Util.PerformFetch)
+local PerformFetch = require(CorePackages.Workspace.Packages.Http).PerformFetch
 local Result = require(CorePackages.AppTempCommon.LuaApp.Result)
 
 local RETRY_MAX_COUNT = math.max(0, tonumber(settings():GetFVariable("LuaAppNonFinalThumbnailMaxRetries")) or 0)

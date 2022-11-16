@@ -2,10 +2,10 @@
 local CorePackages = game:GetService("CorePackages")
 local Cryo = require(CorePackages.Cryo)
 local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
-local PromiseUtilities = require(CorePackages.AppTempCommon.LuaApp.PromiseUtilities)
+local PromiseUtilities = require(CorePackages.Workspace.Packages.AppCommonLib).Utils.PromiseUtilities
 local FetchSubdividedThumbnails = require(script.Parent.FetchSubdividedThumbnails)
 
-local PerformFetch = require(CorePackages.AppTempCommon.LuaApp.Thunks.Networking.Util.PerformFetch)
+local PerformFetch = require(CorePackages.Workspace.Packages.Http).PerformFetch
 
 local ICON_PAGE_COUNT = 100
 local ICON_SIZE = "150x150"

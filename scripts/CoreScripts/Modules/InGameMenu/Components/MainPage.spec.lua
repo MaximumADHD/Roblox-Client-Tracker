@@ -35,7 +35,7 @@ return function()
 
 	local CoreGui = game:GetService("CoreGui")
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-	local RhodiumHelpers = require(RobloxGui.Modules.NotForProductionUse.RhodiumHelpers.api)
+	local RhodiumHelpers = require(CorePackages.Workspace.Packages.RhodiumHelpers)
 	local ParticipantAdded = require(RobloxGui.Modules.VoiceChat.Actions.ParticipantAdded)
 
 	local function getMountableTreeAndStore(props)

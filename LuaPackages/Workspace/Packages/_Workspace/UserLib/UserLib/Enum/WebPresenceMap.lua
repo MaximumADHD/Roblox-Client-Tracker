@@ -1,5 +1,6 @@
 local UserLib = script:FindFirstAncestor("UserLib")
-local User = require(UserLib.User)
+
+local User = require(UserLib.Models.User)
 
 return {
 	[0] = User.PresenceType.OFFLINE,

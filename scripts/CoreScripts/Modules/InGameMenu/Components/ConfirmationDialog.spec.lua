@@ -17,6 +17,7 @@ return function()
 	local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 	local Constants = require(InGameMenu.Resources.Constants)
 	local FocusHandlerContextProvider = require(script.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
+	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
 	local appStyle = {
 		Theme = AppDarkTheme,
@@ -95,6 +96,8 @@ return function()
 				local tree = Roact.mount(element)
 				-- Nothing is focused as we open the dialog with mouse/keyboard
 				expect(GuiService.SelectedCoreObject).to.equal(nil)
+
+				waitForEvents()
 
 				Roact.update(tree, getMountableComponent({ visible = true, inputType = Constants.InputType.Gamepad }))
 				expect(tostring(GuiService.SelectedCoreObject)).to.equal("ConfirmButton")

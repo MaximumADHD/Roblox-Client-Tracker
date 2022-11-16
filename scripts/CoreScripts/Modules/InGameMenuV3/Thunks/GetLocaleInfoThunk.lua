@@ -14,7 +14,7 @@ local GetUserExperienceLanguagePreferenceRequest = require(InGameMenu.Network.Re
 -- State change
 local SetLanguageSelectionDropdown = require(InGameMenu.Actions.SetLanguageSelectionDropdown)
 
-local PerformFetch = require(CorePackages.AppTempCommon.LuaApp.Thunks.Networking.Util.PerformFetch)
+local PerformFetch = require(CorePackages.Workspace.Packages.Http).PerformFetch
 
 local function handleError(err)
     -- Don't do any state change; the feature will remain disabled

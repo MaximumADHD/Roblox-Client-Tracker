@@ -88,6 +88,7 @@ VoiceChatPromptFrame.validateProps = t.strictInterface({
 	bannedUntil = t.optional(t.string),
 	onContinueFunc = t.optional(t.callback),
 	onReadyForSignal = t.optional(t.callback),
+	Analytics = t.optional(t.table),
 })
 
 function VoiceChatPromptFrame:init()
@@ -150,6 +151,9 @@ function VoiceChatPromptFrame:init()
 			self.props.onContinueFunc()
 		end
 		ContextActionService:UnbindCoreAction(CLOSE_VOICE_BAN_PROMPT)
+		if self.props.Analytics then
+			self.props.Analytics:reportBanMessageEvent("Acknowledged")
+		end
 	end
 
 	self.checkInputStateForClosePrompt = function(actionName, inputState, inputObject)
@@ -357,6 +361,10 @@ function VoiceChatPromptFrame:didMount()
 	if self.props.onReadyForSignal then
 		self.props.onReadyForSignal()
 	end
+	if self.props.Analytics then
+		self.props.Analytics:reportBanMessageEvent("Shown")		
+	end
+
 	ContextActionService:BindCoreAction(CLOSE_VOICE_BAN_PROMPT, self.checkInputStateForClosePrompt, false, Enum.KeyCode.ButtonA)
 	ContextActionService:BindCoreAction(CLOSE_VOICE_BAN_PROMPT, self.checkInputStateForClosePrompt, false, Enum.KeyCode.ButtonB)
 end

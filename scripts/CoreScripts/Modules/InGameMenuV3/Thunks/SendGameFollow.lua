@@ -6,7 +6,7 @@ local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 local FollowingsPostFollowRequest = require(InGameMenu.Network.Requests.Games.FollowingsPostFollow)
 local FollowingsDeleteFollowRequest = require(InGameMenu.Network.Requests.Games.FollowingsDeleteFollow)
 local SetGameFollow = require(InGameMenu.Actions.SetGameFollow)
-local PerformFetch = require(CorePackages.AppTempCommon.LuaApp.Thunks.Networking.Util.PerformFetch)
+local PerformFetch = require(CorePackages.Workspace.Packages.Http).PerformFetch
 
 local function SendGameFollow(networkImpl, universeId, isFollowed)
 	if type(universeId) ~= "string" then

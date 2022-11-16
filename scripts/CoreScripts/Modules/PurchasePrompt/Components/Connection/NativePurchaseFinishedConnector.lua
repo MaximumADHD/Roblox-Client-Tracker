@@ -15,9 +15,12 @@ local PurchaseError = require(Root.Enums.PurchaseError)
 local retryAfterUpsell = require(Root.Thunks.retryAfterUpsell)
 local connectToStore = require(Root.connectToStore)
 
-local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
+local Counter = require(Root.Enums.Counter)
+local sendCounter = require(Root.Thunks.sendCounter)
 
-local GetFFlagRobuxUpsellIXP = require(Root.Flags.GetFFlagRobuxUpsellIXP)
+local GetFFlagPurchasePromptAnalytics = require(Root.Flags.GetFFlagPurchasePromptAnalytics)
+
+local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
 
 -- we want the ability to listen on both endpoints, so we connect to both for now
 -- follows the same pattern as MarketplaceServiceEventConnector.lua
@@ -51,10 +54,9 @@ local function mapDispatchToProps(dispatch)
 			if wasPurchased then
 				dispatch(retryAfterUpsell())
 			else
-				if GetFFlagRobuxUpsellIXP() then
-					dispatch(ErrorOccurred(PurchaseError.InvalidFundsUnknown))
-				else
-					dispatch(ErrorOccurred(PurchaseError.InvalidFunds))
+				dispatch(ErrorOccurred(PurchaseError.InvalidFundsUnknown))
+				if GetFFlagPurchasePromptAnalytics() then
+					dispatch(sendCounter(Counter.UpsellFailedNativePurchase))
 				end
 			end
 		end,
@@ -62,10 +64,9 @@ local function mapDispatchToProps(dispatch)
 			if wasPurchased then
 				dispatch(retryAfterUpsell())
 			else
-				if GetFFlagRobuxUpsellIXP() then
-					dispatch(ErrorOccurred(PurchaseError.InvalidFundsUnknown))
-				else
-					dispatch(ErrorOccurred(PurchaseError.InvalidFunds))
+				dispatch(ErrorOccurred(PurchaseError.InvalidFundsUnknown))
+				if GetFFlagPurchasePromptAnalytics() then
+					dispatch(sendCounter(Counter.UpsellFailedNativePurchase))
 				end
 			end
 		end,

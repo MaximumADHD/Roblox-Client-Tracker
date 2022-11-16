@@ -12,7 +12,7 @@ local PostUserExperienceLanguagePreferenceRequest = require(InGameMenu.Network.R
 -- State change
 local SetLanguageSelectionDropdown = require(InGameMenu.Actions.SetLanguageSelectionDropdown)
 
-local PerformFetch = require(CorePackages.AppTempCommon.LuaApp.Thunks.Networking.Util.PerformFetch)
+local PerformFetch = require(CorePackages.Workspace.Packages.Http).PerformFetch
 
 local function PostLanguagePreferenceUpdateThunk(networkImpl, newTargetId, newLocaleCode, newIndex)
     -- Change the index and set the new locale without making the post request

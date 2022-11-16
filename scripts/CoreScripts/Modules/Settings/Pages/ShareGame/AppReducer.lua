@@ -7,7 +7,7 @@ local ShareGame = Modules.Settings.Pages.ShareGame
 local dependencies = require(ShareGame.dependencies)
 
 local PlaceInfos = require(AppTempCommon.LuaChat.Reducers.PlaceInfos)
-local Users = require(AppTempCommon.LuaApp.Reducers.Users)
+local Users = require(CorePackages.Workspace.Packages.UserLib).Reducers.UserReducer
 local Friends = require(AppTempCommon.LuaApp.Reducers.Friends)
 local FriendCount = require(AppTempCommon.LuaChat.Reducers.FriendCount)
 

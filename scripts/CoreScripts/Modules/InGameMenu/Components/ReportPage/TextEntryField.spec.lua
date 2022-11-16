@@ -12,6 +12,7 @@ return function()
 	local Localization = require(InGameMenu.Localization.Localization)
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 	local reducer = require(InGameMenu.reducer)
+	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
 	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
 	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
@@ -89,9 +90,11 @@ return function()
 
 		local textBox = folder:FindFirstChildWhichIsA("TextBox", true)
 		textBox.Text = "Hello world!"
-		Roact.unmount(instance)
+		waitForEvents.act()
 
 		expect(textChangedWasCalled).to.equal(true)
+
+		Roact.unmount(instance)
 	end)
 
 	it("should trim the text when it exceeds max text", function()
@@ -128,9 +131,11 @@ return function()
 
 		local textBox = folder:FindFirstChildWhichIsA("TextBox", true)
 		textBox.Text = "Hello world!"
-		Roact.unmount(instance)
 
+		waitForEvents.act()
 		expect(textChangedTo).to.equal("Hello")
+
+		Roact.unmount(instance)
 	end)
 
 	it("should trim multi-byte utf8 characters correctly when it exceeds max length limit", function()
@@ -167,8 +172,9 @@ return function()
 
 		local textBox = folder:FindFirstChildWhichIsA("TextBox", true)
 		textBox.Text = "罗布乐思是世界最大的多人在线游戏"
-		Roact.unmount(instance)
-
+		waitForEvents.act()
 		expect(textChangedTo).to.equal("罗布乐思")
+
+		Roact.unmount(instance)
 	end)
 end

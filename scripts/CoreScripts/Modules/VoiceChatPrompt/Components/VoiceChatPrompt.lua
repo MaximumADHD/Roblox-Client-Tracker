@@ -15,6 +15,7 @@ VoiceChatPrompt.validateProps = t.strictInterface({
 	bannedUntil = t.optional(t.string),
 	onContinueFunc = t.optional(t.callback),
 	onReadyForSignal = t.optional(t.callback),
+	Analytics = t.optional(t.table),
 })
 
 function VoiceChatPrompt:render()

@@ -1,7 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local AppTempCommon = CorePackages.AppTempCommon
 
-local User = require(CorePackages.Workspace.Packages.UserLib).User
+local User = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
 local ThumbnailRequest = require(AppTempCommon.LuaApp.Models.ThumbnailRequest)
 
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
@@ -132,6 +132,12 @@ local Constants = {
 			TOAST_HEIGHT = 80,
 		},
 	},
+
+	Triggers = {
+		DeveloperMultiple = "DeveloperMultiple",
+		DeveloperSingle = "DeveloperSingle",
+		GameMenu = "GameMenu",
+	}
 }
 
 Constants.InviteAvatarThumbnailType = Constants.AvatarThumbnailTypes.HeadShot

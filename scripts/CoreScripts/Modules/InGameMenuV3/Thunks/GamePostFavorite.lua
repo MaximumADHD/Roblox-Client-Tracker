@@ -6,7 +6,7 @@ local Promise = InGameMenuDependencies.Promise
 local GamePostFavoriteRequest = require(InGameMenu.Network.Requests.Games.PostFavorite)
 local SetGameFavorite = require(InGameMenu.Actions.SetGameFavorite)
 
-local PerformFetch = require(CorePackages.AppTempCommon.LuaApp.Thunks.Networking.Util.PerformFetch)
+local PerformFetch = require(CorePackages.Workspace.Packages.Http).PerformFetch
 
 local function GamePostFavorite(networkImpl, universeId, isFavorited)
 	if type(universeId) ~= "string" then

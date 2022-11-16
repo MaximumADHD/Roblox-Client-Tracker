@@ -3,6 +3,7 @@ local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local GuiService = game:GetService("GuiService")
 
 local ExternalContentSharingProtocol
 	= require(CorePackages.UniversalApp.ExternalContentSharing.ExternalContentSharingProtocol).default
@@ -53,8 +54,19 @@ local Flags = InGameMenu.Flags
 local GetFFlagUsePageSearchAnimation = require(Flags.GetFFlagUsePageSearchAnimation)
 local GetFFlagShareInviteLinkContextMenuV3Enabled = require(Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
 local GetFFlagLuaAppNewShareSheet = require(CorePackages.UniversalApp.ExternalContentSharing.Flags.GetFFlagLuaAppNewShareSheet)
+local GetFFlagShareInviteLinkContextMenuV3DisableIconFixEnabled =
+	require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3DisableIconFixEnabled)
+local GetFFlagShareInviteLinkContextMenuV3ConsoleFix =
+	require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3ConsoleFix)
+local GetFFlagShareInviteLinkContextMenuV3CopiedTooltipEnabled =
+	require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3CopiedTooltipEnabled)
 
 local ACTIONS_ICON_PADDING = 10
+
+
+local isTenFootInterface = if GetFFlagShareInviteLinkContextMenuV3ConsoleFix()
+	then GuiService:IsTenFootInterface()
+	else nil
 
 local InviteFriendsPage = Roact.PureComponent:extend("InviteFriendsPage")
 
@@ -161,11 +173,21 @@ function InviteFriendsPage:init()
 end
 
 function InviteFriendsPage:shouldShowShareInviteLink(gameInfo)
-	if GetFFlagShareInviteLinkContextMenuV3Enabled()
-		and self.props.serverType == CommonConstants.STANDARD_SERVER
-		and IsExperienceOlderThanOneWeek(gameInfo)
-	then
-		return true
+	if GetFFlagShareInviteLinkContextMenuV3ConsoleFix() then
+		if GetFFlagShareInviteLinkContextMenuV3Enabled()
+			and self.props.serverType == CommonConstants.STANDARD_SERVER
+			and IsExperienceOlderThanOneWeek(gameInfo)
+			and not isTenFootInterface
+		then
+			return true
+		end
+	else
+		if GetFFlagShareInviteLinkContextMenuV3Enabled()
+			and self.props.serverType == CommonConstants.STANDARD_SERVER
+			and IsExperienceOlderThanOneWeek(gameInfo)
+		then
+			return true
+		end
 	end
 
 	return false
@@ -284,7 +306,12 @@ function InviteFriendsPage:getActions()
 		return {
 			ShareIcon = if self:shouldShowShareInviteLink(self.props.gameInfo) then Roact.createElement(ShareInviteLinkButton, {
 				layoutOrder = 1,
-				onActivated = self.shareInviteLinkButtonOnActivated,
+				onActivated = if GetFFlagShareInviteLinkContextMenuV3CopiedTooltipEnabled()
+					then nil
+					else self.shareInviteLinkButtonOnActivated,
+				fetchShareInviteLinkAndOpenShareSheet = if GetFFlagShareInviteLinkContextMenuV3CopiedTooltipEnabled()
+					then self.shareInviteLinkButtonOnActivated
+					else nil,
 			}) else nil,
 			SearchIcon = Roact.createElement(IconButton, {
 				layoutOrder = GetFFlagShareInviteLinkContextMenuV3Enabled() and 2 or 1,
@@ -312,8 +339,15 @@ function InviteFriendsPage:getActions()
 		}),
 		ShareIcon = if self:shouldShowShareInviteLink(self.props.gameInfo) then Roact.createElement(ShareInviteLinkButton, {
 			layoutOrder = 1,
-			onActivated = self.shareInviteLinkButtonOnActivated,
-			isDisabled = if self.props.fetchShareInviteLinkNetworkStatus == NetworkStatus.Fetching then true else false
+			onActivated = if GetFFlagShareInviteLinkContextMenuV3CopiedTooltipEnabled()
+				then nil
+				else self.shareInviteLinkButtonOnActivated,
+			fetchShareInviteLinkAndOpenShareSheet = if GetFFlagShareInviteLinkContextMenuV3CopiedTooltipEnabled()
+				then self.shareInviteLinkButtonOnActivated
+				else nil,
+			isDisabled = if GetFFlagShareInviteLinkContextMenuV3DisableIconFixEnabled()
+				then nil
+				else if self.props.fetchShareInviteLinkNetworkStatus == NetworkStatus.Fetching then true else false,
 		}) else nil,
 		SearchIcon = Roact.createElement(IconButton, {
 			layoutOrder = GetFFlagShareInviteLinkContextMenuV3Enabled() and 2 or 1,
@@ -389,7 +423,9 @@ if GetFFlagShareInviteLinkContextMenuV3Enabled() then
 			canCaptureFocus = canCaptureFocus,
 			shouldForgetPreviousSelection = state.menuPage ~= Constants.InviteFriendsPageKey,
 			shareInviteLink = state.shareLinks.Invites.ShareInviteLink,
-			fetchShareInviteLinkNetworkStatus = NetworkingShareLinks.GenerateLink.getStatus(state, RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue()),
+			fetchShareInviteLinkNetworkStatus = if GetFFlagShareInviteLinkContextMenuV3DisableIconFixEnabled()
+				then nil
+				else NetworkingShareLinks.GenerateLink.getStatus(state, RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue()),
 			gameInfo = state.gameInfo,
 			serverType = state.serverType,
 		}

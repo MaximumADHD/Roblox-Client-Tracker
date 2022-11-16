@@ -4,7 +4,7 @@ local CorePackages = game:GetService("CorePackages")
 
 local React = require(VerifiedBadges.Parent.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
-local useNavigation = require(CorePackages.AppTempCommon.Hooks.useNavigation)
+local useNavigation = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.useNavigation
 local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
 local useLocalization = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.useLocalization
 -- local AppPage = require(LuaApp.AppPage)

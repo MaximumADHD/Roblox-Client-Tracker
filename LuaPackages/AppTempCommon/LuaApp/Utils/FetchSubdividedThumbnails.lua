@@ -5,7 +5,7 @@ local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 
 local Thumbnail = require(LuaApp.Models.Thumbnail)
 
-local PerformFetch = require(LuaApp.Thunks.Networking.Util.PerformFetch)
+local PerformFetch = require(CorePackages.Workspace.Packages.Http).PerformFetch
 local Promise = require(LuaApp.Promise)
 local Result = require(LuaApp.Result)
 

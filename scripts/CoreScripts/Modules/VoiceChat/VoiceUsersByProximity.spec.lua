@@ -6,6 +6,8 @@ return function()
 	local jestExpect = JestGlobals.expect
 	local jest = JestGlobals.jest
 
+	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
+
 	local VoiceUsersByProximity = require(script.Parent.VoiceUsersByProximity)
 	local getVoiceUsersByProximity = VoiceUsersByProximity.getSortedPlayers
 
@@ -72,6 +74,7 @@ return function()
 			c.mockPlayersService:addMockPlayerAndCharacter("001", Vector3.new(0, 0, 0))
 			c.mockPlayersService:addMockPlayerAndCharacter("002", Vector3.new(0, 0, 5))
 			c.mockPlayersService:addMockPlayerAndCharacter("003", Vector3.new(0, 0, 10))
+			waitForEvents()
 
 			local usersSortedByProximity = getVoiceUsersByProximity(c.mockPlayersService, c.VoiceChatServiceManager, Vector3.new(0,0,0))
 
@@ -84,6 +87,7 @@ return function()
 			c.mockPlayersService:addMockPlayerAndCharacter("001", Vector3.new(0, 0, 0))
 			c.mockPlayersService:addMockPlayerAndCharacter("002", Vector3.new(0, 0, 5))
 			c.mockPlayersService:addMockPlayerAndCharacter("003", Vector3.new(0, 0, 10))
+			waitForEvents()
 
 			local usersSortedByProximity = getVoiceUsersByProximity(c.mockPlayersService, c.VoiceChatServiceManager, Vector3.new(0,0,0), 5)
 
@@ -94,6 +98,7 @@ return function()
 			c.mockPlayersService:addMockPlayerAndCharacter("001", Vector3.new(0, 0, 0))
 			c.mockPlayersService:addMockPlayerAndCharacter("002", Vector3.new(0, 0, 5))
 			c.mockPlayersService:addMockPlayerAndCharacter("003", Vector3.new(0, 0, 10))
+			waitForEvents()
 
 			c.mockPlayersService.LocalPlayer = c.mockPlayersService.players["001"]
 
@@ -102,6 +107,7 @@ return function()
 			VoiceChatServiceStub:setUserStates({
 				newState,
 			})
+			waitForEvents()
 
 			local usersSortedByProximity = getVoiceUsersByProximity(c.mockPlayersService, c.VoiceChatServiceManager, Vector3.new(0,0,0), nil, true)
 
@@ -112,6 +118,7 @@ return function()
 			c.mockPlayersService:addMockPlayerAndCharacter("001", Vector3.new(0, 0, 0))
 			c.mockPlayersService:addMockPlayerAndCharacter("002", Vector3.new(0, 0, 5))
 			c.mockPlayersService:addMockPlayerAndCharacter("003", Vector3.new(0, 0, 10))
+			waitForEvents()
 
 			c.mockPlayersService.LocalPlayer = c.mockPlayersService.players["001"]
 

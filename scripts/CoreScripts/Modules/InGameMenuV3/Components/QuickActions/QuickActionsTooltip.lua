@@ -11,6 +11,10 @@ local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 
+local InGameMenu = script.Parent.Parent.Parent
+local GetFFlagRECIcon = require(InGameMenu.Flags.GetFFlagRECIcon)
+local RECIcon = require(InGameMenu.Components.RECIcon)
+
 local QuickActionsTooltip = Roact.PureComponent:extend("QuickActionsTooltip")
 
 local TOOLTIP_WIDTH = 250
@@ -20,6 +24,10 @@ local FPS = 30
 QuickActionsTooltip.validateProps = t.strictInterface({
 	layoutOrder = t.number,
 	text = t.optional(t.string),
+	Size = t.optional(t.UDim2),
+	Position = t.optional(t.UDim2),
+	TextXAlignment = t.optional(t.EnumItem),
+	transparency = t.optional(t.table),
 })
 
 local function linearTween(dTime, startFrame, endFrame)
@@ -61,17 +69,60 @@ function QuickActionsTooltip:init()
 end
 
 function QuickActionsTooltip:render()
+
+	if not GetFFlagRECIcon() then
+		return self:render_old()
+	end
+
+	local position = UDim2.new(1, -30, 0, 15)
+	if self.props.TextXAlignment == Enum.TextXAlignment.Left then
+		position = UDim2.new(0, 30, 0, 5)
+	end
+
+	return withStyle(function(style)
+		return Roact.createElement("Frame", {
+			Position = self.props.Position or UDim2.new(1, -TOOLTIP_WIDTH, 0, 0),
+			Size = self.props.Size or UDim2.new(0, TOOLTIP_WIDTH, 0, TOOLTIP_HEIGHT),
+			LayoutOrder = self.props.layoutOrder,
+			BackgroundTransparency = 1,
+		},{
+			REC = Roact.createElement(RECIcon, {
+				Position = position,
+				AnchorPoint = Vector2.new(0.5, 0.0),
+				transparency = Roact.joinBindings({self.textTransparency, self.props.transparency}):map(function(vals)
+					local t1 = vals[1] or 0;
+					local t2 = 1 - (vals[2] or 0);
+					return 1.0 - (t1 * t2);
+				end),
+			}),
+			TipText = Roact.createElement("TextLabel", {
+				Text = self.props.text,
+				TextXAlignment = self.props.TextXAlignment or Enum.TextXAlignment.Right,
+				BackgroundTransparency = 1,
+				Font = style.Font.Header2.Font,
+				TextSize = style.Font.Header2.RelativeSize * style.Font.BaseSize,
+				TextWrapped = true,
+				Size = self.props.Size or UDim2.new(0, TOOLTIP_WIDTH, 0, TOOLTIP_HEIGHT),
+				TextColor3 = style.Theme.TextEmphasis.Color,
+				TextTransparency = self.textTransparency,
+			})
+		})
+
+	end)
+end
+
+function QuickActionsTooltip:render_old()
 	return withStyle(function(style)
 		return Roact.createElement("TextLabel", {
 			Text = self.props.text,
-			TextXAlignment = Enum.TextXAlignment.Right,
+			TextXAlignment = self.props.TextXAlignment or Enum.TextXAlignment.Right,
 			BackgroundTransparency = 1,
 			Font = style.Font.Header2.Font,
 			LayoutOrder = self.props.layoutOrder,
 			TextSize = style.Font.Header2.RelativeSize * style.Font.BaseSize,
 			TextWrapped = true,
-			Size = UDim2.new(0, TOOLTIP_WIDTH, 0, TOOLTIP_HEIGHT),
-			Position = UDim2.new(1, -TOOLTIP_WIDTH, 0, 0),
+			Size = self.props.Size or UDim2.new(0, TOOLTIP_WIDTH, 0, TOOLTIP_HEIGHT),
+			Position = self.props.Position or UDim2.new(1, -TOOLTIP_WIDTH, 0, 0),
 			TextColor3 = style.Theme.TextEmphasis.Color,
 			TextTransparency = self.textTransparency,
 		})

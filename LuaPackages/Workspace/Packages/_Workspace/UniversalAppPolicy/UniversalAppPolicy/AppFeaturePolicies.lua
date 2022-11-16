@@ -13,6 +13,7 @@ local FFlagDesktopLaunchLinksInExternalBrowser = SharedFlags.FFlagDesktopLaunchL
 local GetFFlagLuaAppUseOmniRecDefaultPolicy = SharedFlags.GetFFlagLuaAppUseOmniRecDefaultPolicy
 local GetFFlagDeactivateThrottleInVR = SharedFlags.GetFFlagDeactivateThrottleInVR
 local GetFFlagRoundedCornersVR = SharedFlags.GetFFlagRoundedCornersVR
+local GetFFlagAvatarEditorMaquettes = SharedFlags.GetFFlagAvatarEditorMaquettes
 
 local FFlagUseGUACforDUARPolicy = game:DefineFastFlag("UseGUACforDUARPolicy", false)
 local FFlagOpenCreateGamesInExternalBrowser = game:DefineFastFlag("OpenCreateGamesInExternalBrowser", false)
@@ -335,6 +336,9 @@ local function AppFeaturePolicies(policy): any
 		getUse3DPanels = function()
 			return getVRDefaultPolicy("Use3DPanels", true)
 		end,
+		getUseVRFTUXPanel = function()
+			return getVRDefaultPolicy("UseVRFTUXPanel", true)
+		end,
 		getDisableWebViewSupport = function()
 			return getVRDefaultPolicy("DisableWebViewSupport", true)
 		end,
@@ -353,6 +357,13 @@ local function AppFeaturePolicies(policy): any
 			end
 
 			return false
+		end,
+		getAllowCameraMovements = function()
+			if GetFFlagAvatarEditorMaquettes() then
+				return getVRDefaultPolicy("AllowCameraMovements", false)
+			end
+
+			return true
 		end,
 	}
 end

@@ -14,6 +14,8 @@ local Constants = require(InGameMenu.Resources.Constants)
 local GetFFlagShareInviteLinkContextMenuV3Enabled = require(
 	InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled
 )
+local GetFFlagShareInviteLinkContextMenuV3CopiedTextEnabled =
+	require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3CopiedTextEnabled)
 
 local InGameMenuV3LanguageSwitcherEnabled = require(
 	InGameMenu.Flags.InGameMenuV3LanguageSwitcherEnabled
@@ -77,6 +79,7 @@ local pages = {
 	{
 		key = "ShareServerLink",
 		title = "CoreScripts.InGameMenu.Action.ShareServerLink",
+		titleOn = if GetFFlagShareInviteLinkContextMenuV3CopiedTextEnabled() then "CoreScripts.InGameMenu.Label.Copied" else nil,
 		icon = Images["icons/actions/share"],
 		navigationDepth = 2,
 		parentPage = GetFFlagShareInviteLinkContextMenuV3Enabled() and Constants.MainPagePageKey or nil,

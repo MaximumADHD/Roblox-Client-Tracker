@@ -126,7 +126,7 @@ function QuickActionsMenu:init()
 	self.highlightTheme = nil
 
 	self.openReportMenu = function()
-		TrustAndSafety.openReportMenu()
+		TrustAndSafety.openReportMenu(Constants.AnalyticsQuickActionsMenuSource)
 
 		SendAnalytics(
 			Constants.AnalyticsMenuActionName,
@@ -294,10 +294,10 @@ function QuickActionsMenu:render()
 					[Roact.Ref] = self.setRootRef,
 					[React.Change.AbsoluteSize] = function(rbx)
 						if self.props.absoluteSizeChanged then
-								self.props.absoluteSizeChanged(rbx)
+							self.props.absoluteSizeChanged(rbx)
 						end
 						if triggerPointChanged then
-								triggerPointChanged(rbx)
+							triggerPointChanged(rbx)
 						end
 					end,
 					[React.Change.AbsolutePosition] = triggerPointChanged,

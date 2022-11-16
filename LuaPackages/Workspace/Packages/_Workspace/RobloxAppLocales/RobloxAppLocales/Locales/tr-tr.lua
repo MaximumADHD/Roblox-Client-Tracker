@@ -164,6 +164,7 @@ Yeniden deneme devre dışı bırakıldı, tekrar denemek için lütfen daha son
 	["CommonUI.Controls.Label.Year"] = [[Yıl]],
 	["CommonUI.Controls.Action.Back"] = [[Geri]],
 	["CommonUI.Controls.Action.Confirm"] = [[Doğrula]],
+	["CommonUI.Controls.Action.Ignore"] = [[Yok Say]],
 	["CommonUI.Controls.Label.AutoUpgradeIdle"] = [[Roblox'un güncellenmesi gerekiyor! Hiçbir şey yapmazsan {time} {unit} sonra Roblox otomatik olarak yeniden başlatılacak.]],
 	["CommonUI.Controls.Label.AutoUpgradeForce"] = [[Roblox'un güncellenmesi gerekiyor! Bu oyunu oynamak için bir güncelleme yüklemelisin.]],
 	["CommonUI.Controls.Label.Seconds"] = [[saniye]],
