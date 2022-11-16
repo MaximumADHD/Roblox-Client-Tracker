@@ -6680,6 +6680,12 @@
             <string name="FFlag">GuiObjectSafeAreaBackgroundExtension</string>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ScreenInsets</string>
+            <string name="FFlag">ScreenGuiShowScreenInsetsInStudio</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
 
@@ -7803,7 +7809,6 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">FaceControls</string>
-        <string name="FFlag">FacialAnimationGui</string>
         <string name="ClassCategory">Animations</string>
         <bool name="Browsable">true</bool>
         <bool name="Insertable">true</bool>

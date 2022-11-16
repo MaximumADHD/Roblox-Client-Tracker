@@ -882,6 +882,8 @@ Class AirController : ControllerBase [NotBrowsable]
 	Property float AirController.OrientationSpeedFactor
 	Property Vector3 AirController.VectorForce
 	Property bool AirController.CancelAirMomentum
+	Property bool AirController.MaintainAngularMomentum
+	Property bool AirController.MaintainLinearMomentum
 	Property float AirController.MoveMaxForce
 Class ClimbController : ControllerBase [NotBrowsable]
 	Property float ClimbController.OrientationMaxTorque
@@ -1151,6 +1153,9 @@ Class DraggerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DraggerService.ShowHover [ReadOnly]
 	Property bool DraggerService.ShowPivotIndicator [NotReplicated]
 Class DynamicTextureAlpha : Instance [NotCreatable] [NotReplicated]
+	Function DynamicTextureLayerAlpha DynamicTextureAlpha:CreateLayer()
+Class DynamicTextureLayerAlpha : Instance [NotCreatable] [NotReplicated]
+	Property int DynamicTextureLayerAlpha.ZIndex
 Class EulerRotationCurve : Instance
 	Property Enum.RotationOrder EulerRotationCurve.RotationOrder
 	Function Array EulerRotationCurve:GetAnglesAtTime(float time)
@@ -1652,6 +1657,7 @@ Class QWidgetPluginGui : PluginGui [NotCreatable] [NotReplicated]
 Class ScreenGui : LayerCollector
 	Property bool ScreenGui.ClipToDeviceSafeArea [NotBrowsable]
 	Property Enum.SafeAreaCompatibility ScreenGui.SafeAreaCompatibility [NotBrowsable]
+	Property Enum.ScreenInsets ScreenGui.ScreenInsets [<📁> LoadOnly] [NotBrowsable]
 	Property bool ScreenGui.OnTopOfCoreBlur {RobloxScriptSecurity} [Hidden]
 	Property int ScreenGui.DisplayOrder
 	Property bool ScreenGui.IgnoreGuiInset
@@ -3180,6 +3186,7 @@ Class PlayerScripts : Instance [NotCreatable] [NotReplicated]
 	Event PlayerScripts.TouchMovementModeRegistered() {RobloxScriptSecurity}
 Class Players : Instance [NotCreatable] [Service]
 	Property bool Players.CharacterAutoLoads [NotReplicated]
+	Property bool Players.UseStrafingAnimations [NotReplicated] [NotScriptable]
 	Property bool Players.BubbleChat [ReadOnly]
 	Property bool Players.ClassicChat [ReadOnly]
 	Property Player Players.LocalPlayer [ReadOnly]
@@ -3749,31 +3756,31 @@ Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event SocialService.GameInvitePromptClosed(Instance player, Array recipientIds)
 	Event SocialService.PromptInviteRequested(Instance player, Instance experienceInviteOptions) {RobloxScriptSecurity}
 Class Sound : Instance
+	Property int Sound.ChannelCount {RobloxScriptSecurity} [ReadOnly] [NotBrowsable]
+	Property bool Sound.IsLoaded [ReadOnly]
+	Property Content Sound.SoundId
+	Property double Sound.TimeLength [ReadOnly]
 	Property bool Sound.PlayOnRemove
 	Property Enum.UsageContext Sound.UsageContextPermission {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property int Sound.ChannelCount {RobloxScriptSecurity} [ReadOnly] [NotBrowsable]
 	Property float Sound.EmitterSize [Deprecated]
-	Property bool Sound.IsLoaded [ReadOnly]
-	Property bool Sound.IsPaused [ReadOnly]
-	Property bool Sound.IsPlaying [ReadOnly]
-	Property bool Sound.Looped
 	Property float Sound.MaxDistance [Deprecated]
 	Property float Sound.MinDistance [<📁> LoadOnly] [Deprecated]
 	Property float Sound.Pitch [<📁> LoadOnly] [Deprecated]
-	Property double Sound.PlaybackLoudness [ReadOnly]
-	Property float Sound.PlaybackSpeed [NotReplicated]
-	Property bool Sound.Playing [NotReplicated]
 	Property float Sound.RollOffMaxDistance [NotReplicated]
 	Property float Sound.RollOffMinDistance [NotReplicated]
 	Property Enum.RollOffMode Sound.RollOffMode
-	Property SoundGroup Sound.SoundGroup
-	Property Content Sound.SoundId
-	Property double Sound.TimeLength [ReadOnly]
+	Property bool Sound.IsPaused [Hidden] [ReadOnly]
+	Property bool Sound.IsPlaying [Hidden] [ReadOnly]
+	Property bool Sound.Looped
+	Property double Sound.PlaybackLoudness [ReadOnly]
+	Property bool Sound.PlaybackRegionsEnabled [NotBrowsable]
+	Property float Sound.PlaybackSpeed [NotReplicated]
+	Property bool Sound.Playing [NotReplicated]
 	Property double Sound.TimePosition [NotReplicated]
 	Property float Sound.Volume
-	Property bool Sound.PlaybackRegionsEnabled [NotBrowsable]
 	Property NumberRange Sound.LoopRegion
 	Property NumberRange Sound.PlaybackRegion
+	Property SoundGroup Sound.SoundGroup
 	Function void Sound:Pause()
 	Function void Sound:Play()
 	Function void Sound:Resume()
@@ -3863,13 +3870,13 @@ Class Sparkles : Instance
 Class SpawnerService : Instance [NotCreatable] [Service]
 Class Speaker : Instance [Deprecated]
 	Property int Speaker.ChannelCount [ReadOnly] [NotBrowsable] [Deprecated]
-	Property double Speaker.PlaybackLoudness [ReadOnly] [Deprecated]
+	Property Instance Speaker.Source [Deprecated]
 	Property float Speaker.RollOffMaxDistance [NotReplicated] [Deprecated]
 	Property float Speaker.RollOffMinDistance [NotReplicated] [Deprecated]
 	Property Enum.RollOffMode Speaker.RollOffMode [Deprecated]
-	Property SoundGroup Speaker.SoundGroup [Deprecated]
-	Property Instance Speaker.Source [Deprecated]
+	Property double Speaker.PlaybackLoudness [ReadOnly] [Deprecated]
 	Property float Speaker.Volume [Deprecated]
+	Property SoundGroup Speaker.SoundGroup [Deprecated]
 Class StackFrame : Instance [NotCreatable] [NotReplicated]
 	Property int StackFrame.FrameId {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property string StackFrame.FrameName {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -3955,6 +3962,7 @@ Class StopWatchReporter : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StopWatchReporter:SendReport(string reportName) {RobloxScriptSecurity}
 	Function int StopWatchReporter:StartTask(string reportName, string taskName) {RobloxScriptSecurity}
 Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
+	Property bool Studio.Display Team Create toggle when creating a new experience
 	Property bool Studio.Drag Multiple Parts As Single Part
 	Property bool Studio.Enable CoreScript Debugger
 	Property bool Studio.Enable Http Sandboxing
@@ -4209,6 +4217,7 @@ Class Team : Instance
 	Event Team.PlayerRemoved(Player player)
 Class TeamCreateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void TeamCreateService:SendUnarchiveUniverseAsync(int64 universeId) {RobloxScriptSecurity}
+	Function void TeamCreateService:SendUnarchiveUniverseWithReasonAsync(int64 universeId, string reason) {RobloxScriptSecurity}
 	Event TeamCreateService.ToggleManageCollaborators() {RobloxScriptSecurity}
 Class Teams : Instance [NotCreatable] [Service]
 	Function Objects Teams:GetTeams()
@@ -4299,6 +4308,7 @@ Class TextChatCommand : Instance
 Class TextChatConfigurations : Instance [NotCreatable] [NotReplicated]
 Class BubbleChatConfiguration : TextChatConfigurations [NotCreatable]
 	Property Color3 BubbleChatConfiguration.BackgroundColor3
+	Property double BubbleChatConfiguration.BackgroundTransparency
 	Property Enum.Font BubbleChatConfiguration.Font [Hidden]
 	Property Font BubbleChatConfiguration.FontFace
 	Property Color3 BubbleChatConfiguration.TextColor3
@@ -4454,6 +4464,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Tuple UGCValidationService:ValidateCageMeshIntersection(string innerCageMeshId, string outerCageMeshId, string refMeshId) {RobloxScriptSecurity} [Yields]
 	Function Tuple UGCValidationService:ValidateCageNonManifoldAndHoles(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateFullBodyCageDeletion(string meshId) {RobloxScriptSecurity} [Yields]
+	Function bool UGCValidationService:ValidateMeshBounds(string meshId, Vector3 meshScale, Vector3 boundsOffset, CFrame attachmentCF, CFrame handleCF) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateMeshTriangles(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateMeshVertColors(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateMisMatchUV(string innerCageMeshId, string outerCageMeshId) {RobloxScriptSecurity} [Yields]
@@ -6613,6 +6624,10 @@ Enum ScaleType
 	EnumItem ScaleType.Fit : 3
 	EnumItem ScaleType.Crop : 4
 Enum ScopeCheckResult
+Enum ScreenInsets
+	EnumItem ScreenInsets.None : 0
+	EnumItem ScreenInsets.DeviceSafeInsets : 1
+	EnumItem ScreenInsets.CoreUISafeInsets : 2
 Enum ScreenOrientation
 	EnumItem ScreenOrientation.LandscapeLeft : 0
 	EnumItem ScreenOrientation.LandscapeRight : 1

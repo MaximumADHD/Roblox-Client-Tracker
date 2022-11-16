@@ -16641,6 +16641,42 @@
                 {
                     "Category": "Movement",
                     "MemberType": "Property",
+                    "Name": "MaintainAngularMomentum",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Movement",
+                    "MemberType": "Property",
+                    "Name": "MaintainLinearMomentum",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Movement",
+                    "MemberType": "Property",
                     "Name": "MoveMaxForce",
                     "Security": {
                         "Read": "None",
@@ -21668,9 +21704,50 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "CreateLayer",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "DynamicTextureLayerAlpha"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
             ],
             "MemoryCategory": "Instances",
             "Name": "DynamicTextureAlpha",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ZIndex",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "DynamicTextureLayerAlpha",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
@@ -31051,6 +31128,27 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "SafeAreaCompatibility"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "ScreenInsets",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "ScreenInsets"
                     }
                 }
             ],
@@ -60996,6 +61094,28 @@
                     }
                 },
                 {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "UseStrafingAnimations",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "localPlayer",
@@ -71487,7 +71607,7 @@
         {
             "Members": [
                 {
-                    "Category": "Data",
+                    "Category": "Asset",
                     "MemberType": "Property",
                     "Name": "ChannelCount",
                     "Security": {
@@ -71531,7 +71651,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Asset",
                     "MemberType": "Property",
                     "Name": "IsLoaded",
                     "Security": {
@@ -71553,7 +71673,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Playback",
                     "MemberType": "Property",
                     "Name": "IsPaused",
                     "Security": {
@@ -71565,6 +71685,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -71575,7 +71696,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Playback",
                     "MemberType": "Property",
                     "Name": "IsPlaying",
                     "Security": {
@@ -71587,6 +71708,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -71615,7 +71737,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Playback",
                     "MemberType": "Property",
                     "Name": "Looped",
                     "Security": {
@@ -71714,7 +71836,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Playback",
                     "MemberType": "Property",
                     "Name": "PlaybackLoudness",
                     "Security": {
@@ -71775,7 +71897,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Playback",
                     "MemberType": "Property",
                     "Name": "PlaybackSpeed",
                     "Security": {
@@ -71796,7 +71918,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Playback",
                     "MemberType": "Property",
                     "Name": "Playing",
                     "Security": {
@@ -71817,7 +71939,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Emitter",
                     "MemberType": "Property",
                     "Name": "RollOffMaxDistance",
                     "Security": {
@@ -71838,7 +71960,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Emitter",
                     "MemberType": "Property",
                     "Name": "RollOffMinDistance",
                     "Security": {
@@ -71859,7 +71981,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Emitter",
                     "MemberType": "Property",
                     "Name": "RollOffMode",
                     "Security": {
@@ -71877,7 +71999,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Routing",
                     "MemberType": "Property",
                     "Name": "SoundGroup",
                     "Security": {
@@ -71895,7 +72017,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Asset",
                     "MemberType": "Property",
                     "Name": "SoundId",
                     "Security": {
@@ -71913,7 +72035,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Asset",
                     "MemberType": "Property",
                     "Name": "TimeLength",
                     "Security": {
@@ -71935,7 +72057,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Playback",
                     "MemberType": "Property",
                     "Name": "TimePosition",
                     "Security": {
@@ -71978,7 +72100,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Playback",
                     "MemberType": "Property",
                     "Name": "Volume",
                     "Security": {
@@ -73438,7 +73560,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Playback",
                     "MemberType": "Property",
                     "Name": "PlaybackLoudness",
                     "Security": {
@@ -73460,7 +73582,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Emitter",
                     "MemberType": "Property",
                     "Name": "RollOffMaxDistance",
                     "Security": {
@@ -73481,7 +73603,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Emitter",
                     "MemberType": "Property",
                     "Name": "RollOffMinDistance",
                     "Security": {
@@ -73502,7 +73624,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Emitter",
                     "MemberType": "Property",
                     "Name": "RollOffMode",
                     "Security": {
@@ -73520,7 +73642,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Routing",
                     "MemberType": "Property",
                     "Name": "SoundGroup",
                     "Security": {
@@ -73556,7 +73678,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Playback",
                     "MemberType": "Property",
                     "Name": "Volume",
                     "Security": {
@@ -75790,6 +75912,24 @@
                     "Category": "Browsing",
                     "MemberType": "Property",
                     "Name": "DeprecatedObjectsShown",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Advanced",
+                    "MemberType": "Property",
+                    "Name": "Display Team Create toggle when creating a new experience",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -79860,6 +80000,32 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "MemberType": "Function",
+                    "Name": "SendUnarchiveUniverseWithReasonAsync",
+                    "Parameters": [
+                        {
+                            "Name": "universeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "reason",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
                     "MemberType": "Event",
                     "Name": "ToggleManageCollaborators",
                     "Parameters": [
@@ -81761,6 +81927,24 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "BackgroundTransparency",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "double"
                     }
                 },
                 {
@@ -84498,6 +84682,56 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ValidateMeshBounds",
+                    "Parameters": [
+                        {
+                            "Name": "meshId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "meshScale",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        },
+                        {
+                            "Name": "boundsOffset",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        },
+                        {
+                            "Name": "attachmentCF",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "CFrame"
+                            }
+                        },
+                        {
+                            "Name": "handleCF",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "CFrame"
                             }
                         }
                     ],
@@ -99454,6 +99688,23 @@
             "Items": [
             ],
             "Name": "ScopeCheckResult"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "None",
+                    "Value": 0
+                },
+                {
+                    "Name": "DeviceSafeInsets",
+                    "Value": 1
+                },
+                {
+                    "Name": "CoreUISafeInsets",
+                    "Value": 2
+                }
+            ],
+            "Name": "ScreenInsets"
         },
         {
             "Items": [

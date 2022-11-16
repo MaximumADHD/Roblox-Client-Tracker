@@ -120,7 +120,7 @@ void main()
     {
         f42 = f41;
     }
-    float f44 = max(1.0, float(int(CB1[1].y)) * f4);
+    float f44 = float(int(CB1[1].y));
     vec4 f45;
     if (f42.y > f44)
     {
@@ -133,7 +133,7 @@ void main()
         f45 = f42;
     }
     vec4 f47;
-    if (f45.z > max(1.0, float(int(CB1[1].z)) * f4))
+    if (f45.z > float(int(CB1[1].z)))
     {
         vec4 f48 = f45;
         f48.z = 0.0;
@@ -182,7 +182,7 @@ void main()
     float f60 = f51.y;
     float f61 = f51.z;
     float f62 = f51.x;
-    _entryPointOutput = vec4(mix(mix(mix(mix(CB7[f58 * 1 + 0].xyz * f59, CB7[(f58 + 256) * 1 + 0].xyz, vec3(f52)), CB6[6].xyz * f4, vec3(f60)), CB6[7].xyz * f4, vec3(f61)), CB6[5].xyz, vec3(f62)), max(max(max(max(CB7[f58 * 1 + 0].w * f59, f52), f60), f61), f62));
+    _entryPointOutput = vec4(mix(mix(mix(mix(CB7[f58 * 1 + 0].xyz * f59, CB7[(f58 + 256) * 1 + 0].xyz * f4, vec3(f52)), CB6[6].xyz * f4, vec3(f60)), CB6[7].xyz * f4, vec3(f61)), CB6[5].xyz, vec3(f62)), max(max(max(max(CB7[f58 * 1 + 0].w * f59, f52), f60), f61), f62));
 }
 
 //$$Texture0Texture=s0

@@ -86,7 +86,7 @@ void main()
     float f49 = f39.z;
     vec3 f50 = -CB0[16].xyz;
     float f51 = dot(f27, f50) * ((1.0 - ((step(f48.x, f49) * clamp(CB0[29].z + (CB0[29].w * abs(f49 - 0.5)), 0.0, 1.0)) * f48.y)) * f46.y);
-    vec3 f52 = normalize(f1 - CB0[16].xyz);
+    vec3 f52 = normalize(f1 + f50);
     float f53 = clamp(f51, 0.0, 1.0);
     float f54 = f34 * f34;
     float f55 = max(0.001000000047497451305389404296875, dot(f27, f52));

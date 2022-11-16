@@ -105,7 +105,7 @@ void main()
     vec3 f65;
     if (f63 > 0.0)
     {
-        vec3 f66 = normalize(f1 - CB0[16].xyz);
+        vec3 f66 = normalize(f1 + f21);
         float f67 = clamp(f63, 0.0, 1.0);
         float f68 = f29 * f29;
         float f69 = max(0.001000000047497451305389404296875, dot(f20, f66));

@@ -19,8 +19,7 @@ LuaChatDeps = { git = "https://github.com/Roblox/lua-chat-deps" }
 LuaSocialLibrariesDeps = { git = "https://github.com/Roblox/lua-social-libraries-deps" }
 PremiumUpsellDeps = { git = "https://github.com/Roblox/premium-upsell-deps" }
 AvatarExperienceDeps = { git = "https://github.com/Roblox/avatar-experience-deps" }
-LuaProfileDeps = { git = "https://github.com/Roblox/lua-profile", rev = "v3.1.0", package = "LuaProfileDeps" }
-LuaProfileDeps_4 = { git = "https://github.com/Roblox/lua-profile", rev = "v4.0.0", package = "LuaProfileDeps" }
+LuaProfileDeps = { git = "https://github.com/Roblox/lua-profile", rev = "v4.1.0", package = "LuaProfileDeps" }
 PurchasePromptDeps = { git = "https://github.com/Roblox/purchase-prompt-deps" }
 IAPExperience = { git = "https://github.com/Roblox/IAPExperience", rev = "master" }
 UIBlox = { git = "https://github.com/Roblox/uiblox", rev = "master" }
@@ -49,7 +48,7 @@ NetworkingGames = "github.com/Roblox/networking-games@1.2.0"
 NetworkingFriends = "github.com/Roblox/networking-friends@2.4.1"
 NetworkingUsers = "github.com/Roblox/networking-users@1.0.1"
 HttpRequest = "github.com/Roblox/http-request@1.1.1"
-ApolloClient = "github.com/Roblox/apollo-client-lua@0.3.2"
+ApolloClient = "github.com/Roblox/apollo-client-lua@0.3.3"
 GraphQL = "github.com/Roblox/graphql-lua@15.5.2"
 
 # The following packages were ported from AppTempCommon
@@ -61,7 +60,9 @@ InGameMenuDependencies = { git = "https://github.com/Roblox/in-game-menu-depende
 RoactGamepad = "github.com/roblox/roact-gamepad@0.5.6"
 
 [dev_dependencies]
+Jest = "github.com/roblox/jest-roblox@3.1.1"
 JestGlobals = "github.com/roblox/jest-roblox@2.4.1"
+JestGlobals3 = { target = "github.com/roblox/jest-roblox", version = "3.1.1", package = "JestGlobals"}
 Rhodium = "github.com/roblox/rhodium@0.2.8"
 TagUtils = "github.com/Roblox/luau-tag-utils@0.1.0"
 RecordPlayback = "https://github.com/Roblox/http-service-utils@0.1.0"

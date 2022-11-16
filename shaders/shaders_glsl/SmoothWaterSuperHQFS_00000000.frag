@@ -95,7 +95,7 @@ void main()
     vec3 f65 = texture2D(GBufferColorTexture, f63).xyz;
     float f66 = 0.08900000154972076416015625 + (f12 * 0.9110000133514404296875);
     vec3 f67 = -CB0[16].xyz;
-    vec3 f68 = normalize(f17 - CB0[16].xyz);
+    vec3 f68 = normalize(f17 + f67);
     float f69 = f66 * f66;
     float f70 = max(0.001000000047497451305389404296875, dot(f15, f68));
     float f71 = dot(f67, f68);

@@ -64,6 +64,12 @@
             "LuobuWarningToast": {
                 "$path": "LuobuWarningToast"
             },
+            "Pip": {
+                "$path": "Pip",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
             "PlayerList": {
                 "$path": "PlayerList"
             },
