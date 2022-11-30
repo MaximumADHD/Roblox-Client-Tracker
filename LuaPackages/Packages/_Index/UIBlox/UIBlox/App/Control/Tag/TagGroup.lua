@@ -166,86 +166,49 @@ local function TagGroup(props: Props)
 		})
 	end
 
-	if UIBloxConfig.arrowsOnTagGroup then
-		local function getScrollingListChildren()
-			return {
-				SubNavFrame = React.createElement(FitFrameHorizontal, {
-					height = UDim.new(1, 0),
-					contentPadding = UDim.new(0, BUTTON_PADDING),
-					margin = FitFrame.Rect.rectangle(15, 0),
+	local function getScrollingListChildren()
+		return {
+			SubNavFrame = React.createElement(FitFrameHorizontal, {
+				height = UDim.new(1, 0),
+				contentPadding = UDim.new(0, BUTTON_PADDING),
+				margin = FitFrame.Rect.rectangle(15, 0),
 
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-					FillDirection = Enum.FillDirection.Horizontal,
-					BackgroundTransparency = 1,
-					[React.Change.AbsoluteSize] = onNavFrameSizeChanged,
-				}, children),
-			}
-		end
-
-		-- Need an actual array so buttonRefs can be iterated over (won't work with ref cache)
-		local buttonRefs = {}
-		for i = 1, #sortedTags do
-			buttonRefs[i] = tagRefs[i]
-		end
-
-		return React.createElement(Focusable.Frame, {
-			Size = UDim2.new(1, 0, 0, TAG_GROUP_HEIGHT),
-			BackgroundColor3 = theme.BackgroundDefault.Color,
-			BackgroundTransparency = theme.BackgroundDefault.Transparency,
-			BorderSizePixel = 0,
-			LayoutOrder = props.layoutOrder,
-			ref = props.forwardRef,
-			NextSelectionUp = props.NextSelectionUp,
-			NextSelectionDown = props.NextSelectionDown,
-			defaultChild = tagRefs[1],
-		}, {
-			ScrollingList = React.createElement(ScrollingListWithArrowsAndGradient, {
-				-- Purposely causing ScrollingListWithArrowsAndGradient to rerender when we are rerendered.
-				getScollingListContent = getScrollingListChildren,
-				listHeight = TAG_GROUP_HEIGHT,
-				scrollingFrameRef = scrollingFrameRef,
-				buttonRefs = buttonRefs,
-				buttonPadding = BUTTON_PADDING,
-				padOutsideEdges = true,
-				hideGradient = true,
-			}),
-		})
-	else
-		return React.createElement(Focusable.Frame, {
-			Size = UDim2.new(1, 0, 0, TAG_GROUP_HEIGHT),
-			BackgroundColor3 = theme.BackgroundDefault.Color,
-			BackgroundTransparency = theme.BackgroundDefault.Transparency,
-			BorderSizePixel = 0,
-			LayoutOrder = props.layoutOrder,
-			ref = props.forwardRef,
-			NextSelectionUp = props.NextSelectionUp,
-			NextSelectionDown = props.NextSelectionDown,
-			defaultChild = tagRefs[1],
-		}, {
-			ScrollingList = React.createElement("ScrollingFrame", {
-				Size = UDim2.fromScale(1, 1),
-				ScrollBarThickness = 0,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+				FillDirection = Enum.FillDirection.Horizontal,
 				BackgroundTransparency = 1,
-				ZIndex = 1,
-
-				ElasticBehavior = Enum.ElasticBehavior.Always,
-				ScrollingDirection = Enum.ScrollingDirection.X,
-
-				ref = scrollingFrameRef,
-			}, {
-				SubNavFrame = React.createElement(FitFrameHorizontal, {
-					height = UDim.new(1, 0),
-					contentPadding = UDim.new(0, BUTTON_PADDING),
-					margin = FitFrame.Rect.rectangle(15, 0),
-
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-					FillDirection = Enum.FillDirection.Horizontal,
-					BackgroundTransparency = 1,
-					[React.Change.AbsoluteSize] = onNavFrameSizeChanged,
-				}, children),
-			}),
-		})
+				[React.Change.AbsoluteSize] = onNavFrameSizeChanged,
+			}, children),
+		}
 	end
+
+	-- Need an actual array so buttonRefs can be iterated over (won't work with ref cache)
+	local buttonRefs = {}
+	for i = 1, #sortedTags do
+		buttonRefs[i] = tagRefs[i]
+	end
+
+	return React.createElement(Focusable.Frame, {
+		Size = UDim2.new(1, 0, 0, TAG_GROUP_HEIGHT),
+		BackgroundColor3 = theme.BackgroundDefault.Color,
+		BackgroundTransparency = theme.BackgroundDefault.Transparency,
+		BorderSizePixel = 0,
+		LayoutOrder = props.layoutOrder,
+		ref = props.forwardRef,
+		NextSelectionUp = props.NextSelectionUp,
+		NextSelectionDown = props.NextSelectionDown,
+		defaultChild = tagRefs[1],
+	}, {
+		ScrollingList = React.createElement(ScrollingListWithArrowsAndGradient, {
+			-- Purposely causing ScrollingListWithArrowsAndGradient to rerender when we are rerendered.
+			getScollingListContent = getScrollingListChildren,
+			listHeight = TAG_GROUP_HEIGHT,
+			scrollingFrameRef = scrollingFrameRef,
+			buttonRefs = buttonRefs,
+			buttonPadding = BUTTON_PADDING,
+			padOutsideEdges = true,
+			hideGradient = true,
+		}),
+	})
 end
 
 return React.forwardRef(function(props, ref)

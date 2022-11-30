@@ -27,6 +27,10 @@ export type ReactFundamentalComponent<C, H> = ReactTypes.ReactFundamentalCompone
 export type ReactScope = ReactTypes.ReactScope
 export type ReactScopeQuery = ReactTypes.ReactScopeQuery
 export type ReactScopeInstance = ReactTypes.ReactScopeInstance
+-- ROBLOX deviation START: Re-export bindings types
+export type ReactBinding<T> = ReactTypes.ReactBinding<T>
+export type ReactBindingUpdater<T> = ReactTypes.ReactBindingUpdater<T>
+-- ROBLOX deviation END
 export type MutableSourceVersion = ReactTypes.MutableSourceVersion
 export type MutableSourceGetSnapshotFn<Source, Snapshot> =
 	ReactTypes.MutableSourceGetSnapshotFn<Source, Snapshot>
@@ -38,8 +42,6 @@ export type MutableSourceGetVersionFn = ReactTypes.MutableSourceGetVersionFn
 export type MutableSource<Source> = ReactTypes.MutableSource<Source>
 export type Wakeable = ReactTypes.Wakeable
 export type Thenable<R> = ReactTypes.Thenable<R>
-export type ReactBinding<T> = ReactTypes.ReactBinding<T>
-export type ReactBindingUpdater<T> = ReactTypes.ReactBindingUpdater<T>
 export type Source = ReactElementType.Source
 export type ReactElement<P = Object, T = any> = ReactElementType.ReactElement<P, T>
 -- export type OpaqueIDType = ReactFiberHostConfig.OpaqueIDType
@@ -52,8 +54,8 @@ export type React_AbstractComponent<Config, Instance> = flowtypes.React_Abstract
 	Config,
 	Instance
 >
-export type React_ComponentType<Config> = flowtypes.React_AbstractComponent<Config, any>
-export type React_PureComponent<Props, State = nil> = flowtypes.React_Component<
+export type React_ComponentType<Config> = flowtypes.React_ComponentType<Config>
+export type React_PureComponent<Props, State = nil> = flowtypes.React_PureComponent<
 	Props,
 	State
 >

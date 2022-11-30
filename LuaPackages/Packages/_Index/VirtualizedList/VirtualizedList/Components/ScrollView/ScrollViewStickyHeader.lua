@@ -26,11 +26,15 @@ type AnimatedImplementation_Value = any
 -- ROBLOX deviation START: Mocking missing module
 -- local AnimatedAddition = require(script.Parent.Parent.Parent.Animated.nodes.AnimatedAddition).default
 local AnimatedAddition = {
-	new = function(...) end,
+	new = function(...)
+		return nil
+	end,
 }
 -- local AnimatedDiffClamp = require(script.Parent.Parent.Parent.Animated.nodes.AnimatedDiffClamp).default
 local AnimatedDiffClamp = {
-	new = function(...) end,
+	new = function(...)
+		return nil
+	end,
 }
 -- ROBLOX deviation END
 type AnimatedDiffClamp = any

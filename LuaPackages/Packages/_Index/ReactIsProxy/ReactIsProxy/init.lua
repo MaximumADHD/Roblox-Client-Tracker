@@ -6,9 +6,9 @@ local Roact17UpgradeFlag = require(Packages.Roact17UpgradeFlag)
 -- definitions from rc11; we cast the rc10 import to any to supress the warnings
 local ReactIs
 if Roact17UpgradeFlag.getRolloutForId() then
-	ReactIs = require(Packages.ReactIs_rc16)
+	ReactIs = require(Packages.ReactIs_rc18)
 else
-	ReactIs = require(Packages.ReactIs_rc15) :: any
+	ReactIs = require(Packages.ReactIs_rc16) :: any
 end
 
 return ReactIs

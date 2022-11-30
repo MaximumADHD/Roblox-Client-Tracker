@@ -1,4 +1,4 @@
--- ROBLOX upstream: no upstream
+-- ROBLOX note: no upstream
 -- ROBLOX comment: Partially converted from https://github.com/facebook/react-native/blob/v0.68.0-rc.2/Libraries/StyleSheet/StyleSheet.js
 --[[*
  * Copyright (c) Meta Platforms, Inc. and affiliates.

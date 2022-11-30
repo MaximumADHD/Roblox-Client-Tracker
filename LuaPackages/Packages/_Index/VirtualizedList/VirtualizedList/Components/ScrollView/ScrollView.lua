@@ -55,6 +55,7 @@ local AnimatedImplementation = {
 		if _G.__DEV__ then
 			warn("AnimatedImplementation.attachNativeEvent not implemented")
 		end
+		return nil
 	end,
 }
 type AnimatedImplementation_Value = any

@@ -1,3 +1,4 @@
+-- ROBLOX note: no upstream
 --[[
 	* Copyright (c) Roblox Corporation. All rights reserved.
 	* Licensed under the MIT License (the "License");
@@ -12,7 +13,6 @@
 	* See the License for the specific language governing permissions and
 	* limitations under the License.
 ]]
--- ROBLOX upstream: no upstream
 -- ROBLOX comment: in the future we may want to replace this with a full implementation of the View component
 local Packages = script.Parent.Parent.Parent.Parent
 

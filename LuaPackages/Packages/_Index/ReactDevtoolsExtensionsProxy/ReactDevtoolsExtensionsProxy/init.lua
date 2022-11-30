@@ -6,9 +6,9 @@ local Roact17UpgradeFlag = require(Packages.Roact17UpgradeFlag)
 -- definitions from rc11; we cast the rc10 import to any to supress the warnings
 local ReactDevtoolsExtensions
 if Roact17UpgradeFlag.getRolloutForId() then
-	ReactDevtoolsExtensions = require(Packages.ReactDevtoolsExtensions_rc16)
+	ReactDevtoolsExtensions = require(Packages.ReactDevtoolsExtensions_rc18)
 else
-	ReactDevtoolsExtensions = require(Packages.ReactDevtoolsExtensions_rc15) :: any
+	ReactDevtoolsExtensions = require(Packages.ReactDevtoolsExtensions_rc16) :: any
 end
 
 return ReactDevtoolsExtensions

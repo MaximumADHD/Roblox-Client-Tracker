@@ -1,4 +1,3 @@
-
 return {
-	TempFixDelayedRefFocusLost = true,
+	Enabled = true,
 }

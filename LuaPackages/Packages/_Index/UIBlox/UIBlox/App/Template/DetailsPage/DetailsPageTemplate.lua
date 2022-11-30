@@ -338,6 +338,7 @@ function DetailsPageTemplate:render()
 				BackgroundColor3 = theme.BackgroundDefault.Color,
 				BackgroundTransparency = theme.BackgroundDefault.Transparency,
 				BorderSizePixel = 0,
+				ZIndex = 3,
 			}, {
 				GradientBar = Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 0, MOBILE_ACTION_BAR_GRADIENT),

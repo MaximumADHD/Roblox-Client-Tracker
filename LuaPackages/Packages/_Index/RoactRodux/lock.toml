@@ -4,6 +4,6 @@ version = "0.5.1"
 commit = "60ce019cc53a78b1917c1cc4880879e6a3d0c34c"
 source = "url+https://github.com/roblox/roact-rodux"
 dependencies = [
-    "Roact <patched> RoactProxy ca3f651b git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
 ]

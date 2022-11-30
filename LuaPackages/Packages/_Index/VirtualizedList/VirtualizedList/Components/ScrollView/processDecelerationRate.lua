@@ -13,7 +13,7 @@
 	upstream:
  	import Platform from '../../Utilities/Platform';
 ]]
-local function processDecelerationRate(decelerationRate)
+local function processDecelerationRate(decelerationRate: number | "normal" | "fast")
 	if decelerationRate == "normal" then
 		--[[ upstream:
 			return Platform.select({
@@ -32,7 +32,7 @@ local function processDecelerationRate(decelerationRate)
 		return 0.9
 	end
 
-	return decelerationRate
+	return decelerationRate :: number
 end
 -- ROBLOX deviation end
 

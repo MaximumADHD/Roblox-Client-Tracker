@@ -128,15 +128,12 @@ return {
 
 	-- for new updated media gallery
 	enableMediaGalleryUpdate = false,
-	
+
 	-- Enable auto hiding of VR Pointer Overlay when VR sessions is not visible
 	enableAutoHidingPointerOverlay = false,
 
 	-- Should we apply a fix that allows Camera.HeadScale to affect VR tracking positions
 	vrApplyHeadScale = false,
-
-	-- True if left/right navigation arrows should be shown for TagGroup (mouse and keyboard only)
-	arrowsOnTagGroup = false,
 
 	-- Removes central AnchorPoint and Position from ExperienceDetails media gallery Preview
 	-- to avoid layout bug related to AutomaticSize

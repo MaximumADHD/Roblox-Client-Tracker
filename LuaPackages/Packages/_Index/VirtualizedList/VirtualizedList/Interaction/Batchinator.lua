@@ -22,6 +22,7 @@ local InteractionManager = {
 			warn("InteractionManager not implemented")
 		end
 		fn()
+		return nil
 	end,
 }
 

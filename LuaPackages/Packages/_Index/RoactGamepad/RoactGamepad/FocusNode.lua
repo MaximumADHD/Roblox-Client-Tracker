@@ -7,6 +7,7 @@ local Cryo = require(Packages.Cryo)
 local InternalApi = require(script.Parent.FocusControllerInternalApi)
 local inputBindingsEqual = require(script.Parent.inputBindingsEqual)
 local debugPrint = require(script.Parent.debugPrint)
+local Config = require(script.Parent.Config)
 
 local DEFAULT_TIMEOUT = 0.5
 
@@ -73,7 +74,6 @@ function FocusNode:__findDefaultChildNode()
 					-- Focusable, we break out and move on to the next child
 					break
 				end
-
 			end
 
 			hostObject = hostObject.Parent
@@ -114,6 +114,10 @@ function FocusNode:updateNavProps(navProps)
 end
 
 function FocusNode:focus()
+	if not Config.Enabled then
+		return
+	end
+
 	local focusController = self:__getFocusControllerInternal()
 	if not focusController:isInitialized() then
 		return -- The focus controller may have been torn down after delay
@@ -124,9 +128,9 @@ function FocusNode:focus()
 		focusController:setSelection(self.ref:getValue())
 	else
 		local now = os.clock()
-		local isDefaultValid = self.defaultChildRef ~= nil and
-			focusController.allNodes[self.defaultChildRef] ~= nil and
-			self.defaultChildRef:getValue() ~= nil
+		local isDefaultValid = self.defaultChildRef ~= nil
+			and focusController.allNodes[self.defaultChildRef] ~= nil
+			and self.defaultChildRef:getValue() ~= nil
 		local hasTimeRemaining = self.timeout == nil or now < self.timeout
 		-- If we prefer previous focus, make sure it's valid and move focus to it
 		if self.restorePreviousChildFocus and self.lastFocused ~= nil and self.lastFocused:getValue() then
