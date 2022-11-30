@@ -19,15 +19,15 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    float f0 = length(VARYING4.xyz);
-    vec3 f1 = (texture(DiffuseMapTexture, VARYING0) * VARYING2).xyz;
-    vec3 f2 = f1 * f1;
-    vec4 f3 = vec4(0.0);
-    f3.x = f2.x;
+    vec3 f0 = (texture(DiffuseMapTexture, VARYING0) * VARYING2).xyz;
+    vec3 f1 = f0 * f0;
+    vec4 f2 = vec4(0.0);
+    f2.x = f1.x;
+    vec4 f3 = f2;
+    f3.y = f1.y;
     vec4 f4 = f3;
-    f4.y = f2.y;
-    vec4 f5 = f4;
-    f5.z = f2.z;
+    f4.z = f1.z;
+    float f5 = length(VARYING4.xyz);
     vec3 f6 = VARYING6.xyz - (CB0[16].xyz * VARYING3.w);
     float f7 = clamp(dot(step(CB0[24].xyz, abs(VARYING3.xyz - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f8 = VARYING3.yzx - (VARYING3.yzx * f7);
@@ -37,7 +37,7 @@ void main()
     vec4 f12 = texture(ShadowMapTexture, f6.xy);
     float f13 = f6.z;
     float f14 = (1.0 - ((step(f12.x, f13) * clamp(CB0[29].z + (CB0[29].w * abs(f13 - 0.5)), 0.0, 1.0)) * f12.y)) * f11.y;
-    vec3 f15 = (((VARYING5.xyz * f14) + min((f10.xyz * (f10.w * 120.0)) + (CB0[32].xyz + (CB0[33].xyz * f11.x)), vec3(CB0[21].w))) * f5.xyz) + ((CB0[15].xyz * mix(vec3(0.100000001490116119384765625), f5.xyz, vec3(VARYING6.w * CB0[31].w))) * (VARYING5.w * f14));
+    vec3 f15 = (((VARYING5.xyz * f14) + min((f10.xyz * (f10.w * 120.0)) + (CB0[32].xyz + (CB0[33].xyz * f11.x)), vec3(CB0[21].w))) * f4.xyz) + ((CB0[15].xyz * mix(vec3(0.100000001490116119384765625), f4.xyz, vec3(VARYING6.w * CB0[31].w))) * (VARYING5.w * f14));
     vec4 f16 = vec4(0.0);
     f16.x = f15.x;
     vec4 f17 = f16;
@@ -46,8 +46,8 @@ void main()
     f18.z = f15.z;
     vec4 f19 = f18;
     f19.w = 1.0;
-    float f20 = clamp(exp2((CB0[18].z * f0) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
-    vec3 f21 = textureLod(PrefilteredEnvTexture, vec4(-(VARYING4.xyz / vec3(f0)), 0.0).xyz, max(CB0[18].y, f20) * 5.0).xyz;
+    float f20 = clamp(exp2((CB0[18].z * f5) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
+    vec3 f21 = textureLod(PrefilteredEnvTexture, vec4(-(VARYING4.xyz / vec3(f5)), 0.0).xyz, max(CB0[18].y, f20) * 5.0).xyz;
     bvec3 f22 = bvec3(!(CB0[18].w == 0.0));
     vec3 f23 = mix(vec3(f22.x ? CB0[19].xyz.x : f21.x, f22.y ? CB0[19].xyz.y : f21.y, f22.z ? CB0[19].xyz.z : f21.z), f19.xyz, vec3(f20));
     vec4 f24 = f19;

@@ -1657,10 +1657,10 @@ Class QWidgetPluginGui : PluginGui [NotCreatable] [NotReplicated]
 Class ScreenGui : LayerCollector
 	Property bool ScreenGui.ClipToDeviceSafeArea [NotBrowsable]
 	Property Enum.SafeAreaCompatibility ScreenGui.SafeAreaCompatibility [NotBrowsable]
-	Property Enum.ScreenInsets ScreenGui.ScreenInsets [<📁> LoadOnly] [NotBrowsable]
+	Property Enum.ScreenInsets ScreenGui.ScreenInsets [NotBrowsable]
 	Property bool ScreenGui.OnTopOfCoreBlur {RobloxScriptSecurity} [Hidden]
 	Property int ScreenGui.DisplayOrder
-	Property bool ScreenGui.IgnoreGuiInset
+	Property bool ScreenGui.IgnoreGuiInset [<📁> LoadOnly]
 Class GuiMain : ScreenGui [Deprecated]
 Class SurfaceGuiBase : LayerCollector [NotCreatable]
 	Property bool SurfaceGuiBase.Active
@@ -1896,7 +1896,7 @@ Class HttpService : Instance [NotCreatable] [Service]
 	Function bool HttpService:GetHttpEnabled() {RobloxScriptSecurity}
 	Function string HttpService:GetUserAgent() {RobloxScriptSecurity}
 	Function Variant HttpService:JSONDecode(string input) {🧬Safe}
-	Function string HttpService:JSONEncode(Variant input) {🧬Safe}
+	Function string HttpService:JSONEncode(Variant input) [CustomLuaState] {🧬Safe}
 	Function string HttpService:PostAsync(string url, string data, Enum.HttpContentType content_type = "ApplicationJson", bool compress = false, Variant headers) [Yields]
 	Function Dictionary HttpService:RequestAsync(Dictionary requestOptions) [Yields]
 	Function Instance HttpService:RequestInternal(Dictionary options) {RobloxScriptSecurity}
@@ -2050,16 +2050,18 @@ Class HumanoidDescription : Instance
 	Event HumanoidDescription.EmotesChanged(Dictionary newEmotes)
 	Event HumanoidDescription.EquippedEmotesChanged(Array newEquippedEmotes)
 Class IKControl : Instance [NotBrowsable]
-	Property CFrame IKControl.AlignmentOffset
 	Property Instance IKControl.ChainRoot
 	Property bool IKControl.Enabled
 	Property Instance IKControl.EndEffector
+	Property CFrame IKControl.EndEffectorOffset
 	Property CFrame IKControl.Offset
 	Property Instance IKControl.Pole
 	Property int IKControl.Priority
 	Property Instance IKControl.Target
 	Property Enum.IKControlType IKControl.Type
 	Property float IKControl.Weight
+	Function int IKControl:GetChainCount()
+	Function float IKControl:GetChainLength()
 Class ILegacyStudioBridge : Instance [NotCreatable] [Service]
 Class LegacyStudioBridge : ILegacyStudioBridge [NotCreatable] [Service] [NotReplicated]
 Class IXPService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -2753,6 +2755,7 @@ Class WedgePart : FormFactorPart
 Class Terrain : BasePart [NotCreatable]
 	Property bool Terrain.Decoration [NotScriptable]
 	Property BinaryString Terrain.MaterialColors [NotScriptable]
+	Property bool Terrain.ShorelinesUpgraded {RobloxScriptSecurity} [Hidden]
 	Property Color3 Terrain.WaterColor
 	Property float Terrain.WaterReflectance
 	Property float Terrain.WaterTransparency
@@ -2763,6 +2766,7 @@ Class Terrain : BasePart [NotCreatable]
 	Property Region3int16 Terrain.MaxExtents [ReadOnly]
 	Function bool Terrain:AutowedgeCell(int x, int y, int z) [Deprecated]
 	Function void Terrain:AutowedgeCells(Region3int16 region) [Deprecated]
+	Function bool Terrain:CanShorelinesBeUpgraded() {RobloxScriptSecurity}
 	Function Vector3 Terrain:CellCenterToWorld(int x, int y, int z)
 	Function Vector3 Terrain:CellCornerToWorld(int x, int y, int z)
 	Function void Terrain:Clear()
@@ -3089,6 +3093,7 @@ Class Player : Instance
 	Property string Player.DisplayName
 	Property int64 Player.FollowUserId [ReadOnly]
 	Property bool Player.Guest {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool Player.HasVerifiedBadge
 	Property string Player.LocaleId [Hidden] [ReadOnly]
 	Property float Player.MaximumSimulationRadius {LocalUserSecurity} [Hidden] [NotReplicated]
 	Property Enum.MembershipType Player.MembershipType [ReadOnly]
@@ -3727,6 +3732,10 @@ Class SessionService : Instance [NotCreatable] [Service]
 	Function bool SessionService:SessionExists(string sid) {RobloxScriptSecurity}
 	Function void SessionService:SetMetadata(string sid, string key, Variant value) {RobloxScriptSecurity}
 	Function void SessionService:SetSession(string parentSid, string childSid, string tag) {RobloxScriptSecurity}
+Class ShorelineUpgraderService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void ShorelineUpgraderService:Cancel() {RobloxScriptSecurity}
+	Function void ShorelineUpgraderService:Start() {RobloxScriptSecurity}
+	Event ShorelineUpgraderService.Status(float progressRatio) {RobloxScriptSecurity}
 Class Sky : Instance
 	Property bool Sky.CelestialBodiesShown
 	Property float Sky.MoonAngularSize
@@ -4105,8 +4114,10 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Event Studio.ThemeChanged() {PluginSecurity}
 Class StudioAssetService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioAssetService:ConvertToPackageUpload(string uploadUrl, Objects cloneInstances, Objects originalInstances) {RobloxScriptSecurity}
+	Function void StudioAssetService:PublishPackage(Instance instance, Dictionary publishInfo) {RobloxScriptSecurity}
 	Function string StudioAssetService:SerializeInstances(Objects instances) {RobloxScriptSecurity} [Yields]
 	Event StudioAssetService.OnConvertToPackageResult(bool isSuccessful, string errorMessage) {RobloxScriptSecurity}
+	Event StudioAssetService.OnPublishPackageResult(Dictionary result, string errorMessage) {RobloxScriptSecurity}
 	Event StudioAssetService.OnSaveToRoblox(Objects instances) {RobloxScriptSecurity}
 Class StudioData : Instance [NotCreatable] [Service]
 	Property bool StudioData.EnableScriptCollabByDefaultOnLoad {RobloxScriptSecurity} [Hidden]
@@ -4322,6 +4333,14 @@ Class BubbleChatConfiguration : TextChatConfigurations [NotCreatable]
 	Property float BubbleChatConfiguration.MinimizeDistance
 	Property float BubbleChatConfiguration.VerticalStudsOffset
 Class ChatInputBarConfiguration : TextChatConfigurations [NotCreatable]
+	Property Color3 ChatInputBarConfiguration.BackgroundColor3
+	Property double ChatInputBarConfiguration.BackgroundTransparency
+	Property Font ChatInputBarConfiguration.FontFace
+	Property Color3 ChatInputBarConfiguration.PlaceholderColor3
+	Property Color3 ChatInputBarConfiguration.TextColor3
+	Property int64 ChatInputBarConfiguration.TextSize
+	Property Color3 ChatInputBarConfiguration.TextStrokeColor3
+	Property double ChatInputBarConfiguration.TextStrokeTransparency
 	Property bool ChatInputBarConfiguration.Enabled
 	Property Vector2 ChatInputBarConfiguration.AbsolutePosition [ReadOnly] {🧬Unsafe}
 	Property Vector2 ChatInputBarConfiguration.AbsolutePositionWrite {RobloxScriptSecurity} [Hidden]
@@ -7124,10 +7143,10 @@ Enum UserInputType
 	EnumItem UserInputType.InputMethod : 21
 	EnumItem UserInputType.None : 22
 Enum VRSessionState
-	EnumItem VRSessionState.Idle : 0
-	EnumItem VRSessionState.Visible : 1
-	EnumItem VRSessionState.Focused : 2
-	EnumItem VRSessionState.Undefined : 3
+	EnumItem VRSessionState.Undefined : 0
+	EnumItem VRSessionState.Idle : 1
+	EnumItem VRSessionState.Visible : 2
+	EnumItem VRSessionState.Focused : 3
 Enum VRTouchpad
 	EnumItem VRTouchpad.Left : 0
 	EnumItem VRTouchpad.Right : 1

@@ -85,6 +85,25 @@ version = "0.1.0"
 dependencies = ["Rodux Rodux 0.1.0"]
 
 [[package]]
+name = "FriendsLandingTestSuite"
+version = "0.1.0"
+
+[[package]]
+name = "GameDetailRodux"
+version = "0.1.0"
+dependencies = [
+    "AppCommonLib AppCommonLib 0.1.0",
+    "ArgCheck ArgCheck 0.1.0",
+    "Http Http 0.1.0",
+    "Promise Promise 0.1.0",
+    "Result Result 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+    "Time Time 0.1.0",
+    "tutils tutils 0.1.0",
+]
+
+[[package]]
 name = "GameProtocol"
 version = "0.1.0"
 dependencies = [
@@ -212,6 +231,13 @@ version = "0.1.0"
 [[package]]
 name = "NetworkingVirtualEvents"
 version = "0.1.0"
+dependencies = [
+    "Http Http 0.1.0",
+    "HttpRequest HttpRequest 0.1.0",
+    "JestGlobals JestGlobals 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "RoduxNetworking RoduxNetworking 0.1.0",
+]
 
 [[package]]
 name = "Otter"
@@ -232,8 +258,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "PlayabilityRodux"
+version = "0.1.0"
+dependencies = [
+    "AppCommonLib AppCommonLib 0.1.0",
+    "Http Http 0.1.0",
+    "Promise Promise 0.1.0",
+    "Result Result 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "UnitTestHelpers UnitTestHelpers 0.1.0",
+    "tutils tutils 0.1.0",
+]
+
+[[package]]
 name = "PolicyProvider"
 version = "0.1.0"
+
+[[package]]
+name = "PrefetchProtocol"
+version = "0.1.0"
+dependencies = [
+    "JestGlobals JestGlobals 0.1.0",
+    "MessageBus MessageBus 0.1.0",
+    "t t 0.1.0",
+]
 
 [[package]]
 name = "PremiumUpsellDeps"
@@ -369,6 +417,10 @@ name = "SharedFlags"
 version = "0.1.0"
 
 [[package]]
+name = "SocialAppIntegrationTestSuite"
+version = "0.1.0"
+
+[[package]]
 name = "SocialChatToast"
 version = "0.1.0"
 dependencies = ["Rodux Rodux 0.1.0"]
@@ -389,6 +441,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "SocialModalsTestSuite"
+version = "0.1.0"
+
+[[package]]
 name = "SocialPolicies"
 version = "0.1.0"
 dependencies = ["SharedFlags SharedFlags 0.1.0"]
@@ -406,10 +462,50 @@ dependencies = [
 [[package]]
 name = "SocialRoactChat"
 version = "0.1.0"
+dependencies = ["FormFactor FormFactor 0.1.0"]
+
+[[package]]
+name = "SocialTab"
+version = "0.1.0"
+dependencies = [
+    "Analytics Analytics 0.1.0",
+    "AppCommonLib AppCommonLib 0.1.0",
+    "Cryo Cryo 0.1.0",
+    "FitFrame FitFrame 0.1.0",
+    "GameProtocol GameProtocol 0.1.0",
+    "Http Http 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
+    "LuaChatDeps LuaChatDeps 0.1.0",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
+    "Lumberyak Lumberyak 0.1.0",
+    "Otter Otter 0.1.0",
+    "Promise Promise 0.1.0",
+    "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "RhodiumHelpers RhodiumHelpers 0.1.0",
+    "Roact RoactCompat 0.1.0",
+    "RoactNavigation RoactNavigation 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+    "Style Style 0.1.0",
+    "TestUtils TestUtils 0.1.0",
+    "UnitTestHelpers UnitTestHelpers 0.1.0",
+    "UniversalAppPolicy UniversalAppPolicy 0.1.0",
+    "UserLib UserLib 0.1.0",
+    "VerifiedBadges VerifiedBadges 0.8.1",
+    "enumerate enumerate 0.1.0",
+    "t t 0.1.0",
+    "tutils tutils 0.1.0",
+]
 
 [[package]]
 name = "SocialTabTestSuite"
 version = "0.1.0"
+dependencies = ["SocialTab SocialTab 0.1.0"]
 
 [[package]]
 name = "SocialTestHelpers"
@@ -511,6 +607,7 @@ dependencies = [
     "AppCommonLib AppCommonLib 0.1.0",
     "Rodux Rodux 0.1.0",
     "Time Time 0.1.0",
+    "UnitTestHelpers UnitTestHelpers 0.1.0",
 ]
 
 [[package]]
@@ -530,6 +627,36 @@ dependencies = [
     "Rodux Rodux 0.1.0",
     "RoduxNetworking RoduxNetworking 0.1.0",
     "UsersNetworking NetworkingUsers 0.1.0",
+]
+
+[[package]]
+name = "VirtualEvents"
+version = "0.1.0"
+dependencies = [
+    "Analytics Analytics 0.1.0",
+    "Cryo Cryo 0.1.0",
+    "Http Http 0.1.0",
+    "HttpRequest HttpRequest 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
+    "Lumberyak Lumberyak 0.1.0",
+    "NetworkingGames NetworkingGames 0.1.0",
+    "NetworkingVirtualEvents NetworkingVirtualEvents 0.1.0",
+    "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "Rhodium Rhodium 0.1.0",
+    "RoactCompat RoactCompat 0.1.0",
+    "RoactNavigation RoactNavigation 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppLocales RobloxAppLocales 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "RoduxNetworking RoduxNetworking 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+    "Style Style 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+    "UrlBuilder UrlBuilder 0.1.0",
 ]
 
 [[package]]

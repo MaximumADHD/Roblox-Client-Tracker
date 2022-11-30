@@ -17,7 +17,7 @@ void main()
     vec4 f1 = vec4(255.0) - (textureLod(Texture0Texture, VARYING0, 0.0) * 255.0);
     vec4 f2 = f1 * f1;
     float f3 = f1.w;
-    float f4 = (clamp((f1.x - 0.999000012874603271484375) * 1000000.0, 0.0, 1.0) * 0.5) + 0.5;
+    float f4 = clamp((f1.x - 0.999000012874603271484375) * 1000000.0, 0.0, 1.0);
     vec4 f5;
     if (f3 > 0.0)
     {
@@ -155,34 +155,34 @@ void main()
         f49 = f47;
     }
     vec4 f51 = clamp(f49 * 255.0, vec4(0.0), vec4(1.0));
-    float f52 = f51.w;
-    float f53;
-    if (f52 > 0.0)
+    float f52;
+    if (f51.w > 0.0)
     {
-        vec2 f54 = vec2(f7 * CB1[0].z, 0.0);
-        vec4 f55 = textureLod(Texture1Texture, f8 + f54, 0.0);
-        float f56 = f55.w;
-        float f57;
-        if (f56 == 0.0)
+        vec2 f53 = vec2(f7 * CB1[0].z, 0.0);
+        vec4 f54 = textureLod(Texture1Texture, f8 + f53, 0.0);
+        float f55 = f54.w;
+        float f56;
+        if (f55 == 0.0)
         {
-            f57 = textureLod(Texture1Texture, f8 - f54, 0.0).w;
+            f56 = textureLod(Texture1Texture, f8 - f53, 0.0).w;
         }
         else
         {
-            f57 = f56;
+            f56 = f55;
         }
-        f53 = f57;
+        f52 = f56;
     }
     else
     {
-        f53 = textureLod(Texture1Texture, VARYING0, 0.0).w;
+        f52 = textureLod(Texture1Texture, VARYING0, 0.0).w;
     }
-    int f58 = int(floor(f53 * 255.0));
-    float f59 = 1.0 - clamp((f3 - 0.999000012874603271484375) * 1000000.0, 0.0, 1.0);
-    float f60 = f51.y;
-    float f61 = f51.z;
+    int f57 = int(floor(f52 * 255.0));
+    float f58 = f51.y * f4;
+    float f59 = f51.z * f4;
+    float f60 = f51.w * f4;
+    float f61 = 1.0 - clamp((f3 - 0.999000012874603271484375) * 1000000.0, 0.0, 1.0);
     float f62 = f51.x;
-    _entryPointOutput = vec4(mix(mix(mix(mix(CB7[f58 * 1 + 0].xyz * f59, CB7[(f58 + 256) * 1 + 0].xyz * f4, vec3(f52)), CB6[6].xyz * f4, vec3(f60)), CB6[7].xyz * f4, vec3(f61)), CB6[5].xyz, vec3(f62)), max(max(max(max(CB7[f58 * 1 + 0].w * f59, f52), f60), f61), f62));
+    _entryPointOutput = vec4(mix(mix(mix(mix(CB7[f57 * 1 + 0].xyz * f61, CB7[(f57 + 256) * 1 + 0].xyz, vec3(f60)), CB6[6].xyz, vec3(f58)), CB6[7].xyz, vec3(f59)), CB6[5].xyz, vec3(f62)), max(max(max(max(CB7[f57 * 1 + 0].w * f61, f60), f58), f59), f62));
 }
 
 //$$Texture0Texture=s0

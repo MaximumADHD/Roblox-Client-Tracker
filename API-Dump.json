@@ -31080,7 +31080,7 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -31140,7 +31140,7 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": false
+                        "CanSave": true
                     },
                     "Tags": [
                         "NotBrowsable"
@@ -35292,6 +35292,9 @@
                         "Name": "string"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "CustomLuaState"
+                    ],
                     "ThreadSafety": "Safe"
                 },
                 {
@@ -38252,24 +38255,6 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
-                    "Name": "AlignmentOffset",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "CFrame"
-                    }
-                },
-                {
-                    "Category": "Behavior",
-                    "MemberType": "Property",
                     "Name": "ChainRoot",
                     "Security": {
                         "Read": "None",
@@ -38319,6 +38304,24 @@
                     "ValueType": {
                         "Category": "Class",
                         "Name": "Instance"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "EndEffectorOffset",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
                     }
                 },
                 {
@@ -38428,6 +38431,30 @@
                         "Category": "Primitive",
                         "Name": "float"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetChainCount",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetChainLength",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Animation",
@@ -52046,6 +52073,27 @@
                 {
                     "Category": "Appearance",
                     "MemberType": "Property",
+                    "Name": "ShorelinesUpgraded",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
                     "Name": "WaterColor",
                     "Security": {
                         "Read": "None",
@@ -52189,6 +52237,18 @@
                     "Tags": [
                         "Deprecated"
                     ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "CanShorelinesBeUpgraded",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -58813,6 +58873,24 @@
                         "ReadOnly",
                         "NotReplicated"
                     ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "HasVerifiedBadge",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -71090,6 +71168,57 @@
         {
             "Members": [
                 {
+                    "MemberType": "Function",
+                    "Name": "Cancel",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Start",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Status",
+                    "Parameters": [
+                        {
+                            "Name": "progressRatio",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ShorelineUpgraderService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "CelestialBodiesShown",
@@ -77982,6 +78111,32 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "PublishPackage",
+                    "Parameters": [
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "publishInfo",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SerializeInstances",
                     "Parameters": [
                         {
@@ -78011,6 +78166,28 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "errorMessage",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OnPublishPackageResult",
+                    "Parameters": [
+                        {
+                            "Name": "result",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
                             }
                         },
                         {
@@ -82245,6 +82422,42 @@
                     }
                 },
                 {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "BackgroundColor3",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "BackgroundTransparency",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "double"
+                    }
+                },
+                {
                     "Category": "Behavior",
                     "MemberType": "Property",
                     "Name": "Enabled",
@@ -82263,6 +82476,42 @@
                     }
                 },
                 {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "FontFace",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Font"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "PlaceholderColor3",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "TargetTextChannel",
@@ -82278,6 +82527,78 @@
                     "ValueType": {
                         "Category": "Class",
                         "Name": "TextChannel"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "TextColor3",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "TextSize",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "TextStrokeColor3",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "TextStrokeTransparency",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "double"
                     }
                 }
             ],
@@ -101803,19 +102124,19 @@
             "Items": [
                 {
                     "Name": "Idle",
-                    "Value": 0
-                },
-                {
-                    "Name": "Visible",
                     "Value": 1
                 },
                 {
-                    "Name": "Focused",
+                    "Name": "Visible",
                     "Value": 2
                 },
                 {
-                    "Name": "Undefined",
+                    "Name": "Focused",
                     "Value": 3
+                },
+                {
+                    "Name": "Undefined",
+                    "Value": 0
                 }
             ],
             "Name": "VRSessionState"

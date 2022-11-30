@@ -1,15 +1,15 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
   <Item class="ReflectionMetadataClasses">
     <Properties></Properties>
-    <!-- Remove with FFlag::ParallelLua
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Actor</string>
         <string name="ClassCategory">Scripting</string>
+        <string name="summary">A logical grouping of datamodel nodes which can enable scripts to run in parallel.</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">113</string>
       </Properties>
-    </Item-->
+    </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">BindableFunction</string>

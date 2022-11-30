@@ -32,18 +32,17 @@ Lumberyak = { git = "https://github.com/Roblox/lumberyak" }
 StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
 FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
-ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.2.1" }
-ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.3.1" }
+ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.3.1" }
+ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.3.2" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
 React = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactProxy"}
 ReactIs = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactIsProxy"}
 ReactRoblox = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactRobloxProxy"}
 Roact17UpgradeFlag = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "Roact17UpgradeFlag"}
 Promise = "github.com/Roblox/roblox-lua-promise@3.3.0"
-VirtualizedList = "github.com/roblox/virtualized-list-lua@1.1.1"
+VirtualizedList = "github.com/roblox/virtualized-list-lua@1.1.2"
 LuauPolyfill = "github.com/Roblox/luau-polyfill@0.4.0"
 RoduxNetworking = "github.com/Roblox/rodux-networking@3.0.1"
-NetworkingVirtualEvents = "github.com/Roblox/lua-app-networking@1.6.0"
 NetworkingGames = "github.com/Roblox/networking-games@1.2.0"
 NetworkingFriends = "github.com/Roblox/networking-friends@2.4.1"
 NetworkingUsers = "github.com/Roblox/networking-users@1.0.1"
@@ -57,7 +56,7 @@ tutils = { git = "https://github.com/Roblox/tutils" }
 
 InGameMenuDependencies = { git = "https://github.com/Roblox/in-game-menu-dependencies", rev = "master" }
 
-RoactGamepad = "github.com/roblox/roact-gamepad@0.5.6"
+RoactGamepad = "github.com/roblox/roact-gamepad@0.5.8"
 
 [dev_dependencies]
 Jest = "github.com/roblox/jest-roblox@3.1.1"
@@ -103,10 +102,10 @@ RoactRodux = "github.com/Roblox/roact-rodux@0.5.1"
 InfiniteScroller = "github.com/Roblox/infinite-scroller@0.9.5"
 
 [config.patch."github.com/roblox/roact-gamepad"]
-RoactGamepad = "github.com/Roblox/roact-gamepad@0.5.6"
+RoactGamepad = "github.com/Roblox/roact-gamepad@0.5.8"
 
 [config.patch."github.com/roblox/virtualized-list-lua"]
-VirtualizedList = "github.com/roblox/virtualized-list-lua@1.1.1"
+VirtualizedList = "github.com/roblox/virtualized-list-lua@1.1.2"
 
 # Patch over a deep jest dependency in order to preempt a new analysis error
 # that caught several mistranslation bugs
