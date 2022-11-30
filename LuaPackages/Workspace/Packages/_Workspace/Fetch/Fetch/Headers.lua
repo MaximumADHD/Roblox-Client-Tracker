@@ -26,7 +26,7 @@ type HeadersInterface = {
 export type Headers = typeof(setmetatable(
 	{} :: HeadersInterface,
 	{} :: {
-		__iter: (self: Headers) -> (<K, V>({ [K]: V }, K?) -> (K, V), HeaderList),
+		__iter: (self: Headers) -> (<K, V>({ [K]: V }, K?) -> (K?, V), HeaderList),
 	}
 ))
 
@@ -88,7 +88,7 @@ function Headers:set(name: string, value: string)
 	self.headerList[name] = value
 end
 
-function Headers.__iter(self: Headers): (<K, V>({ [K]: V }, K?) -> (K, V), HeaderList)
+function Headers.__iter(self: Headers): (<K, V>({ [K]: V }, K?) -> (K?, V), HeaderList)
 	return next, self.headerList
 end
 

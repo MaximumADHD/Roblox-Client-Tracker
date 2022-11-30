@@ -1,5 +1,5 @@
-game:DefineFastFlag("EnableVRWelcomePanelv2", false)
+game:DefineFastFlag("EnableVRWelcomePanelv3", false)
 
 return function()
-	return game:GetFastFlag("EnableVRWelcomePanelv2") or game:GetEngineFeature("EnableMaquettesSupport")
+	return game:GetFastFlag("EnableVRWelcomePanelv3") or game:GetEngineFeature("EnableMaquettesSupport")
 end

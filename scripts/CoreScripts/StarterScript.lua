@@ -286,15 +286,9 @@ if game:GetEngineFeature("AdPortal") then
 end
 
 if game:GetFastFlag("PipEnabled") then
-	local initializeSelf = require(CoreGuiModules:WaitForChild("Pip"):WaitForChild("PipSelfView"))
-	initializeSelf(Players.LocalPlayer)
-	local targetPlayer = nil
-	for _, player in ipairs(Players:GetPlayers()) do
-		if player ~= Players.LocalPlayer then
-			targetPlayer = player
-			break
-		end
-	end
-	local initializeOther = require(CoreGuiModules:WaitForChild("Pip"):WaitForChild("PipOtherView"))
-	initializeOther(targetPlayer)
+	ScriptContext:AddCoreScriptLocal("CoreScripts/PipInitialize", RobloxGui)
+end
+
+if game:GetEngineFeature("EnableVoiceAttention") then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/VoiceAttention", script.Parent)
 end

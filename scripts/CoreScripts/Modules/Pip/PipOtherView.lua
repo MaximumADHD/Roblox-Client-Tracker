@@ -52,20 +52,18 @@ local FaceAnimatorService = game:FindService("FaceAnimatorService")
 local VideoCaptureService = game:FindService("VideoCaptureService")
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
-local screenGuiSize = Players.LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("ScreenGui").AbsoluteSize
-local DEFAULT_POSITION = UDim2.new(0.55, 0, 0.05, 0)
-local DEFAULT_SIZE = UDim2.new(0, 0, 0.85, 0)
+local ScreenGui = Players.LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("ScreenGui")
+local screenGuiSize = ScreenGui.AbsoluteSize
+local GuiService = game:GetService("GuiService")
+local DEFAULT_POSITION = UDim2.new(0, 0, 0, -36)
+local DEFAULT_SIZE = UDim2.new(1, 0, 1, 36)
 local DEFAULT_BUTTONS_BAR_HEIGHT = 36
 local DEFAULT_SELF_VIEW_FRAME_COLOR = Color3.new(1, 1, 1)
-local BACKGROUND_TRANSPARENCY = 0.65
+local BACKGROUND_TRANSPARENCY = 0
 local SCREEN_BORDER_OFFSET = 3
 local SELF_VIEW_NAME = "OtherView"
 local IS_STUDIO = RunService:IsStudio()
-local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSignal)
-local selfViewCloseButtonSignal = require(RobloxGui.Modules.SelfView.selfViewCloseButtonSignal)
 local selfViewPublicApi = require(RobloxGui.Modules.SelfView.publicApi)
-
-local FFlagSelfViewFixes = require(RobloxGui.Modules.Flags.FFlagSelfViewFixes)
 
 local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
@@ -110,8 +108,6 @@ local headCloneNeck = nil
 local headCloneRootFrame = nil
 local frame = nil
 local bottomButtonsFrame = nil
-local micIcon = nil
-local camIcon = nil
 local indicatorCircle = nil
 
 --state
@@ -228,48 +224,13 @@ local function createViewport()
 	frame.Active = true
 	--setting frame size before setting it's position since the size is used in dragging position restrict to screen size evaluation
 	frame.Size = DEFAULT_SIZE
-	local position = DEFAULT_POSITION
-
-	frame.Position = position
-	frame.Position = getRelativePosition(frame)
+	frame.Position = DEFAULT_POSITION
 	frame.BackgroundTransparency = 1
 	frame.Visible = false
-	
-	local aspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
-	aspectRatioConstraint.Parent = frame
-	aspectRatioConstraint.AspectRatio = 0.833
-	aspectRatioConstraint.AspectType = "ScaleWithParentSize"
-	aspectRatioConstraint.DominantAxis = "Height"
 	
 	local sizeConstraint = Instance.new("UISizeConstraint")
 	sizeConstraint.Parent = frame
 	sizeConstraint.MinSize = Vector2.new(95, 95)
-	sizeConstraint.MaxSize = Vector2.new(screenGuiSize.X * 0.45, screenGuiSize.Y * 0.85)
-
-	bottomButtonsFrame = Instance.new("Frame")
-	bottomButtonsFrame.Name = "BottomButtonsFrame"
-	bottomButtonsFrame.Position = UDim2.new(0, 0, 1, -(DEFAULT_BUTTONS_BAR_HEIGHT-1))
-	bottomButtonsFrame.Size = UDim2.new(1, 0, 0, DEFAULT_BUTTONS_BAR_HEIGHT)
-	bottomButtonsFrame.BackgroundColor3 = DEFAULT_SELF_VIEW_FRAME_COLOR
-	bottomButtonsFrame.BackgroundTransparency = 0
-	bottomButtonsFrame.BorderSizePixel = 0
-	bottomButtonsFrame.Parent = frame
-
-	local uiPadding = Instance.new("UIPadding")
-	uiPadding.Parent = bottomButtonsFrame
-	uiPadding.PaddingBottom = UDim.new(0, 0)
-	uiPadding.PaddingLeft = UDim.new(0, 0)
-	uiPadding.PaddingRight = UDim.new(0, 0)
-	uiPadding.PaddingTop = UDim.new(0, 3)
-
-
-	local uiListLayout = Instance.new("UIListLayout")
-	uiListLayout.Parent = bottomButtonsFrame
-	uiListLayout.Padding = UDim.new(0, 5)
-	uiListLayout.FillDirection = Enum.FillDirection.Horizontal
-	uiListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-	uiListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
-	uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
 	local selfViewFrame = Instance.new("Frame")
 	selfViewFrame.Name = "SelfViewFrame"
@@ -280,135 +241,20 @@ local function createViewport()
 
 	viewportFrame = Instance.new("ViewportFrame")
 	viewportFrame.Position = UDim2.new(0, 0, 0, 0)
-	viewportFrame.Size = UDim2.new(1, 0, 1, -(DEFAULT_BUTTONS_BAR_HEIGHT - 1))
+	viewportFrame.Size = UDim2.new(1, 0, 1, 0)
 	viewportFrame.BackgroundColor3 = Color3.new(0, 0, 0)
-	viewportFrame.BorderColor3 = Color3.new(0.6, 0.5, 0.4)
-	viewportFrame.BorderSizePixel = 2
 	viewportFrame.BackgroundTransparency = BACKGROUND_TRANSPARENCY
 	viewportFrame.Parent = selfViewFrame
 
 	viewportFrame.Ambient = Color3.new(0.7529411765, 0.7098039216, 0.7137254902)
 	viewportFrame.LightColor = Color3.new(1, 0.9960784314, 0.9960784314)
 	viewportFrame.LightDirection = Vector3.new(9.5, -12, 7.5)
-	viewportFrame.BackgroundColor3 = Color3.new(0.0990616, 0.138109, 0.452827)
-
-	indicatorCircle = Instance.new("ImageLabel")
-	indicatorCircle.Name = "IndicatorCircle"
-	indicatorCircle.Parent = frame
-	indicatorCircle.Position = UDim2.new(1, -25, 0, 4)
-	indicatorCircle.Size = UDim2.new(0, 22, 0, 22)
-	indicatorCircle.Image = "rbxasset://textures/SelfView/SelfView_icon_indicator_on.png"
-	indicatorCircle.BackgroundTransparency = 1
-	indicatorCircle.Visible = false
-	indicatorCircle.ZIndex = 4
-
-	local closeButton = Instance.new("ImageButton")
-	closeButton.Name = "CloseButton"
-	closeButton.AnchorPoint = Vector2.new(0, 0.5)
-	closeButton.Parent = frame
-	closeButton.Position = UDim2.fromOffset(0, 16)
-	closeButton.Size = UDim2.new(0, 34, 0, 34)
-	closeButton.Image = "rbxasset://textures/SelfView/whiteRect.png"
-	closeButton.ImageTransparency = 1
-	closeButton.BackgroundTransparency = 1
-	closeButton.BackgroundColor3 = Color3.new(0.137254, 0.137254, 0.137254)
-	closeButton.ZIndex = 2
-
-	local closeButtonIcon =  Instance.new("ImageLabel")
-	closeButtonIcon.Name = "CloseButtonIcon"
-	closeButtonIcon.Parent = closeButton
-	closeButtonIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-	closeButtonIcon.Position = UDim2.new(0, 17, 0, 17)
-	closeButtonIcon.Size = UDim2.new(0, 32, 0, 32)
-	closeButtonIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_close.png"
-	closeButtonIcon.ImageTransparency = 0
-	closeButtonIcon.BackgroundTransparency = 1
-	closeButtonIcon.ZIndex = 2
-
-	local faceIcon =  Instance.new("ImageLabel")
-	faceIcon.Name = "FaceIcon"
-	faceIcon.Parent = frame
-	faceIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-	faceIcon.Position = UDim2.new(0, 17, 0, 17)
-	faceIcon.Size = UDim2.new(0, 32, 0, 32)
-	faceIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_faceToggle_on.png"
-	faceIcon.BackgroundTransparency = 1
-	faceIcon.ZIndex = 2
-	faceIcon.Visible = false	
-	faceIcon.Parent = closeButton
-
-	local function setButtonButtonsVisibility()
-		if isOpen then
-			closeButton.Visible = true
-		--[[
-			Allow for debugging in studio. This shows the mic option when
-			studio normally does not have this option.
-		]]
-		elseif IS_STUDIO and debug then
-			closeButton.Visible = true
-		else
-			closeButton.Visible = false
-		end
-	end
-
-	local function showSelfView(newState)
-		setIsOpen(newState)
-		setButtonButtonsVisibility()
-
-		selfViewFrame.Visible = newState
-		bottomButtonsFrame.Visible = newState
-		closeButtonIcon.Visible = newState
-		faceIcon.Visible = not newState
-		closeButton.BackgroundTransparency = newState and 1 or 0.5
-
-		if isOpen then
-			indicatorCircle.Position = UDim2.new(1, -25, 0, 4)
-		else
-			indicatorCircle.Position = UDim2.new(0, 20, 0, -10)
-		end
-
-		bottomButtonsFrame.Visible = isOpen
-
-	end	
-
-	closeButton.Activated:Connect(function()
-		if not FFlagSelfViewFixes then
-			selfViewCloseButtonSignal:fire()
-		end
-		showSelfView(not isOpen)
-	end)
-
-	if toggleSelfViewSignalConnection then
-		toggleSelfViewSignalConnection:disconnect()
-	end
-	toggleSelfViewSignalConnection = toggleSelfViewSignal:connect(function()
-		showSelfView(not isOpen)
-	end)
-
-	local uiCorner = Instance.new("UICorner")
-	uiCorner.Parent = closeButton
-
-	uiCorner = Instance.new("UICorner")
-	uiCorner.Parent = selfViewFrame
-
-	uiCorner = Instance.new("UICorner")
-	uiCorner.Parent = viewportFrame
-
-	local uiStroke = Instance.new("UIStroke")
-	uiStroke.Parent = selfViewFrame
-	uiStroke.Thickness = 3
-	uiStroke.Color = DEFAULT_SELF_VIEW_FRAME_COLOR
-
-	uiStroke = Instance.new("UIStroke")
-	uiStroke.Parent = viewportFrame
-	uiStroke.Thickness = 2.5
-	uiStroke.Color = DEFAULT_SELF_VIEW_FRAME_COLOR
 
 	createCloneAnchor()
 
 	viewportCamera = Instance.new("Camera")
 	--FoV smaller is closer up
-	viewportCamera.FieldOfView = 55
+	viewportCamera.FieldOfView = 70
 	viewportFrame.CurrentCamera = viewportCamera
 	viewportCamera.Parent = viewportFrame
 
@@ -420,24 +266,6 @@ function toggleIndicator(mode)
 		indicatorCircle.Visible = ((mode == Enum.TrackerMode.Audio or mode == Enum.TrackerMode.AudioVideo) and hasMicPermissions and (debug or (bottomButtonsFrame and bottomButtonsFrame.Visible)))
 			or ((mode == Enum.TrackerMode.Video or mode == Enum.TrackerMode.AudioVideo) and hasCameraPermissions and (debug or (bottomButtonsFrame and bottomButtonsFrame.Visible)))
 	end
-end
-
-function updateAudioButton(enabled)
-	if enabled then
-		if micIcon then 
-			micIcon.Image = MIC_IMAGE.Image
-			micIcon.ImageRectOffset = MIC_IMAGE.ImageRectOffset
-			micIcon.ImageRectSize = MIC_IMAGE.ImageRectSize
-		end
-	else
-		if micIcon then 
-			micIcon.Image = MIC_OFF_IMAGE.Image
-			micIcon.ImageRectOffset = MIC_OFF_IMAGE.ImageRectOffset
-			micIcon.ImageRectSize = MIC_OFF_IMAGE.ImageRectSize
-		end
-	end
-
-	audioIsEnabled = enabled
 end
 
 local onUpdateTrackerMode = function()
@@ -486,11 +314,6 @@ local onUpdateTrackerMode = function()
 	cachedHasMicPermissions = hasMicPermissions
 	cachedMode = currentTrackerMode
 end
-
-VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
-	debugPrint("Self View: VoiceChatServiceManager.muteChanged.Event, muted: "..tostring(muted))
-	updateAudioButton(not muted)
-end)
 
 local function clearObserver(observerId)
 	if observerInstances[observerId] then
@@ -880,7 +703,6 @@ end
 
 local function onCharacterRemoved(player)
 	debugPrint("Self View: onCharacterRemoved()")
-	setIsOpen(false)
 	playerCharacterRemovingConnection:Disconnect()
 end
 
@@ -994,7 +816,6 @@ function startRenderStepped(player)
 					lastReportedMicState = newReportedMicState
 				end
 
-				updateAudioButton(audioEnabled)
 				cachedAudioEnabled = audioEnabled
 			end
 		end
@@ -1235,28 +1056,6 @@ function Initialize(player)
 	initialized = true
 end
 
-function setIsOpen(shouldBeOpen)
-	debugPrint("Self View: setIsOpen(): "..tostring(shouldBeOpen))
-	isOpen = shouldBeOpen
-
-	if isOpen then
-		ReInit(targetPlayer)
-	else
-
-		headRef = nil
-		cachedHeadColor = nil
-		cachedHeadSize = nil
-		clearAllObservers()
-		clearObserver(Observer.CharacterAdded)
-		clearObserver(Observer.CharacterRemoving)
-		clearClone()
-
-		indicatorCircle.Visible = debug
-
-		trackSelfViewSessionAsNeeded()
-	end
-end
-
 --comment in to test Self View not getting shown (as wanted) if CoreGuiType.SelfView is already set disabled before we get to init Self View
 --StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.SelfView, false)
 
@@ -1279,7 +1078,6 @@ StarterGui.CoreGuiChangedSignal:Connect(function(coreGuiType, newState)
 			else
 				if initialized then
 					debugPrint("Self View: triggering shutting down because shouldBeEnabledCoreGuiSetting is false")
-					setIsOpen(false)
 					stopRenderStepped()
 					if frame then
 						frame.Visible = false

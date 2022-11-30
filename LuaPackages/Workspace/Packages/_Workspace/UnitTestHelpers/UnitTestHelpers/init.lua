@@ -6,6 +6,7 @@ return {
 	createMemberFunctionMocker = require(script.createMemberFunctionMocker),
 	createPromiseRejectionHandler = require(script.createPromiseRejectionHandler),
 	expectedFields = require(script.expectedFields),
+	MockId = require(script.MockId),
 	mockLocale = require(script.mockLocale),
 	mockNavigation = require(script.mockNavigation),
 	mockPolicyProvider = require(script.mockPolicyProvider),
@@ -15,4 +16,5 @@ return {
 	mountStyledFrame = require(script.mountStyledFrame),
 	simpleMountFrame = require(script.simpleMountFrame),
 	waitForTestSuiteFinished = require(script.waitForTestSuiteFinished),
+	FocusControllerProvider = require(script.FocusControllerProvider),
 }

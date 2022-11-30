@@ -30,9 +30,6 @@ local GetFFlagLuaAppUseUIBloxColorPalettes =
 local GetUIBloxUseNewThemeColorPalettes =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetUIBloxUseNewThemeColorPalettes
 
-local GetFFlagUIBloxUseTagGroupArrows =
-require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxUseTagGroupArrows
-
 return {
 	useUpdatedCheckbox = true,
 	fixDropdownMenuCellTextSize = GetFFlagUIBloxFixDropdownMenuCellTextSize(),
@@ -64,6 +61,4 @@ return {
 	enableStandardButtonSizes = true,
 
 	useNewThemeColorPalettes = GetFFlagLuaAppUseUIBloxColorPalettes() and GetUIBloxUseNewThemeColorPalettes(),
-
-	arrowsOnTagGroup = GetFFlagUIBloxUseTagGroupArrows(),
 }

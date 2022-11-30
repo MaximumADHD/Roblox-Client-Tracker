@@ -10,6 +10,7 @@ game:DefineFastFlag("EmoteTriggeredSignalEnabledLua2", false)
 game:DefineFastFlag("MoodsHeadRemovedFix", false)
 game:DefineFastFlag("SetDefaultMoodNeutralLua", false)
 game:DefineFastFlag("MoodsRemoveWaitForChild", false)
+game:DefineFastFlag("MoodsAnimatorAddedFix", false)
 
 local FFlagSwitchMoodPriorityWhileStreaming = game:DefineFastFlag("SwitchMoodPriorityWhileStreaming", false)
 local animationStreamTrackPlayedSignal = game:GetEngineFeature("AnimationStreamTrackPlayedSignalApiEnabled")
@@ -242,7 +243,11 @@ local function updateCharacterMoodOnHumanoidAdded(character, moodAnimation, huma
 
 	connections[Connection.HumanoidAnimatorAdded] = humanoid.ChildAdded:Connect(function(child)
 		if child.Name == "Animator" then
-			updateCharacterMoodOnAnimatorAdded(character, moodAnimation, humanoid, animator)
+			if game:GetFastFlag("MoodsAnimatorAddedFix") then
+				updateCharacterMoodOnAnimatorAdded(character, moodAnimation, humanoid, child)
+			else
+				updateCharacterMoodOnAnimatorAdded(character, moodAnimation, humanoid, animator)
+			end
 		end
 	end)
 end

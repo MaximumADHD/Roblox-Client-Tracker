@@ -5,6 +5,7 @@ local Functional = require(script.Functional)
 local AsyncQueue = require(script.AsyncQueue.AsyncQueue)
 local AsyncQueueTypes = require(script.AsyncQueue.AsyncQueueTypes)
 local IsVRAppBuild = require(script.IsVRAppBuild)
+local callOnce = require(script.callOnce)
 local memoize = require(script.memoize)
 local OrderedMap = require(script.OrderedMap)
 local Text = require(script.Text)
@@ -27,6 +28,7 @@ return {
 	IsVRAppBuild = IsVRAppBuild,
 	Color = Color,
 	Functional = Functional,
+	callOnce = callOnce,
 	memoize = memoize,
 	OrderedMap = OrderedMap,
 	Text = Text,

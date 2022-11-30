@@ -59,6 +59,10 @@ local function EnableKeyboardNavigation(actionName, inputState, inputObject)
 		return Enum.ContextActionResult.Pass
 	end
 
+	if not GuiService.AutoSelectGuiEnabled then
+		return Enum.ContextActionResult.Pass
+	end
+
 	-- The selected object is already active, disable
 	if GuiService.SelectedObject then
 		GuiService.SelectedObject = nil

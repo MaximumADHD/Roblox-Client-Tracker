@@ -1,11 +1,10 @@
 return function()
-	local CorePackages = game:GetService("CorePackages")
-	-- TODO: move MockId to test utils package
-	local MockId = require(CorePackages.AppTempCommon.LuaApp.MockId)
-	
 	local UserLib = script:FindFirstAncestor("UserLib")
+	local Packages = UserLib.Parent
 
+	local MockId = require(Packages.Dev.UnitTestHelpers).MockId
 	local User = require(UserLib.Models.User)
+	local MockUser = require(UserLib.Models.MockUser)
 	local Users = require(script.Parent.Users)
 
 	local AddUser = require(UserLib.Actions.AddUser)
@@ -23,7 +22,7 @@ return function()
 
 	describe("AddUser", function()
 		it("should add a user to the store", function()
-			local user = User.mock()
+			local user = MockUser.new()
 			local state = {}
 
 			state = Users(state, AddUser(user))
@@ -34,7 +33,7 @@ return function()
 
 	describe("SetUserIsFriend", function()
 		it("should set isFriend on an existing user", function()
-			local user = User.mock()
+			local user = MockUser.new()
 			local state = {
 				[user.id] = user
 			}
@@ -51,7 +50,7 @@ return function()
 
 	describe("SetUserPresence", function()
 		it("should set presence on an existing user", function()
-			local user = User.mock()
+			local user = MockUser.new()
 			local state = {
 				[user.id] = user
 			}
@@ -71,7 +70,7 @@ return function()
 
 	describe("ReceivedUserPresence", function()
 		it("should set presence on an existing user", function()
-			local user = User.mock()
+			local user = MockUser.new()
 			local state = {
 				[user.id] = user
 			}
@@ -92,7 +91,7 @@ return function()
 
 	describe("SetUserMembershipType", function()
 		it("should set membership on an existing user", function()
-			local user = User.mock()
+			local user = MockUser.new()
 			local state = {
 				[user.id] = user
 			}

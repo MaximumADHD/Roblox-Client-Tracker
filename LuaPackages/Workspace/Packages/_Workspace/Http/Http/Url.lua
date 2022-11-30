@@ -85,6 +85,7 @@ local _baseUrlSecure = string.gsub(_baseUrl, "http://", "https://")
 local _baseVoiceUrl = string.format("https://voice.%s", _baseDomain)
 local _baseTranslationsUrl = string.format("https://translations.%s", _baseDomain)
 local _baseTwoStepVerification = string.format("https://twostepverification.%s", _baseDomain)
+local _basePrivateMessagesUrl = string.format("https://privatemessages.%sv1", _baseDomain)
 
 -- Version of the static farm URL that makes use of CDN on prod.
 local _baseStaticCdnUrl = _baseStaticUrl
@@ -139,6 +140,7 @@ local Url = {
 	VOICE_URL = _baseVoiceUrl,
 	TRANSLATIONS_URL = _baseTranslationsUrl,
 	TWOSTEPVERIFICATION_URL = _baseTwoStepVerification,
+	PRIVATEMESSAGES_URL = _basePrivateMessagesUrl,
 }
 
 function Url:getUserProfileUrl(userId)

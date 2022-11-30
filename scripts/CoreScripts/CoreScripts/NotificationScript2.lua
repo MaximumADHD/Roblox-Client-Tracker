@@ -37,6 +37,7 @@ local success, result = pcall(function()
 	return settings():GetFFlag("UseNotificationsLocalization")
 end)
 local FFlagUseNotificationsLocalization = success and result
+local FFlagBadgeNotificationHttpFix = game:DefineFastFlag("BadgeNotificationHttpFix", false)
 
 local GetFixGraphicsQuality = require(RobloxGui.Modules.Flags.GetFixGraphicsQuality)
 local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
@@ -770,22 +771,32 @@ local function onBadgeAwarded(userId, creatorId, badgeId)
 			creatorName = Players:GetNameFromUserIdAsync(creatorId)
 		end
 
-		local badgeInfo = BadgeService:GetBadgeInfoAsync(badgeId)
+		local success = true
+		local badgeInfo
+		if FFlagBadgeNotificationHttpFix then
+			success, badgeInfo = pcall(function()
+				return BadgeService:GetBadgeInfoAsync(badgeId)
+			end)
+		else
+			badgeInfo = BadgeService:GetBadgeInfoAsync(badgeId)
+		end
+	
+		if success then
+			local badgeAwardText = RobloxTranslator:FormatByKey(
+				"NotificationScript2.onBadgeAwardedDetail",
+				{ RBX_NAME = LocalPlayer.Name, CREATOR_NAME = creatorName, BADGE_NAME = badgeInfo.DisplayName }
+			)
+			local badgeTitle = LocalizedGetString("NotificationScript2.onBadgeAwardedTitle")
 
-		local badgeAwardText = RobloxTranslator:FormatByKey(
-			"NotificationScript2.onBadgeAwardedDetail",
-			{ RBX_NAME = LocalPlayer.Name, CREATOR_NAME = creatorName, BADGE_NAME = badgeInfo.DisplayName }
-		)
-		local badgeTitle = LocalizedGetString("NotificationScript2.onBadgeAwardedTitle")
-
-		sendNotificationInfo({
-			GroupName = "BadgeAwards",
-			Title = badgeTitle,
-			Text = badgeAwardText,
-			DetailText = badgeAwardText,
-			Image = BADGE_IMG,
-			Duration = DEFAULT_NOTIFICATION_DURATION,
-		})
+			sendNotificationInfo({
+				GroupName = "BadgeAwards",
+				Title = badgeTitle,
+				Text = badgeAwardText,
+				DetailText = badgeAwardText,
+				Image = BADGE_IMG,
+				Duration = DEFAULT_NOTIFICATION_DURATION,
+			})
+		end
 	end
 end
 

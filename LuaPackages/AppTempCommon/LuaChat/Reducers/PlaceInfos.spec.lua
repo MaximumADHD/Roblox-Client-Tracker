@@ -2,10 +2,9 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
-	local LuaApp = CorePackages.AppTempCommon.LuaApp
 	local LuaChat = CorePackages.AppTempCommon.LuaChat
 
-	local MockId = require(LuaApp.MockId)
+	local MockId = require(CorePackages.Workspace.Packages.UnitTestHelpers).MockId
 	local ReceivedMultiplePlaceInfos = require(LuaChat.Actions.ReceivedMultiplePlaceInfos)
 
 	local PlaceInfosReducer = require(script.Parent.PlaceInfos)

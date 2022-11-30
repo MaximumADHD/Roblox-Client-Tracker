@@ -8,7 +8,6 @@ return {
 	getFFlagVBDuarFix = require(script.getFFlagVBDuarFix),
 	getFFlagVBXboxReducerFix = require(script.getFFlagVBXboxReducerFix),
 	getFFlagDecoupleNavigationFromVerifiedBadgeModal = require(script.getFFlagDecoupleNavigationFromVerifiedBadgeModal),
-	getFFlagFetchSponsoredEventsOnMorePage = require(script.getFFlagFetchSponsoredEventsOnMorePage),
 	getFFlagEnableVirtualEvents = require(script.getFFlagEnableVirtualEvents),
 
 	-- LuaApp
@@ -25,6 +24,8 @@ return {
 
 	-- Social
 	GetRemoveLuaChatOpenGameDetailsPageThunkDep = require(script.GetRemoveLuaChatOpenGameDetailsPageThunkDep),
+	FFlagMigrateToUseHttpRequest = require(script.FFlagMigrateToUseHttpRequest),
+	getFFlagDecoupleContactImporterDiscoverability = require(script.getFFlagDecoupleContactImporterDiscoverability),
 
 	-- Misc
 	FFlagLuaAppFixMessageBusUnsubscribe = require(script.FFlagLuaAppFixMessageBusUnsubscribe),
@@ -59,7 +60,6 @@ return {
 	getFFlagSocialAddMessageModal = require(script.getFFlagSocialAddMessageModal),
 	getFFlagSocialPresenceEventReceiver = require(script.getFFlagSocialPresenceEventReceiver),
 	getFFlagSocialProfileShareAnalyticsEnabled = require(script.getFFlagSocialProfileShareAnalyticsEnabled),
-	getFFlagSocialTabRemoveIsEnabled = require(script.getFFlagSocialTabRemoveIsEnabled),
 	getFFlagSoothsayerCheckForContactImporter = require(script.getFFlagSoothsayerCheckForContactImporter),
 	getFStringSocialFriendsLayer = require(script.getFStringSocialFriendsLayer),
 	getFFlagContactImporterOnFriendsCarousel = require(script.getFFlagContactImporterOnFriendsCarousel),
@@ -67,13 +67,16 @@ return {
 	GetEnableDesignSystemExperiment = require(script.GetEnableDesignSystemExperiment),
 	GetFFlagDisableBubbleChatForExpChat = require(script.GetFFlagDisableBubbleChatForExpChat),
 	GetFFlagShareGetPlatformTargetImpl = require(script.GetFFlagShareGetPlatformTargetImpl),
-	GetFFlagUpgradeExpChatV3_3_1 = require(script.GetFFlagUpgradeExpChatV3_3_1),
+	GetFFlagUpgradeExpChatV3_3_2 = require(script.GetFFlagUpgradeExpChatV3_3_2),
 	GetEnableFriendFooterOnHomePage = require(script.GetEnableFriendFooterOnHomePage),
 	GetFFlagLuaAppAddSignalToFocusArea = require(script.GetFFlagLuaAppAddSignalToFocusArea),
 	GetFFlagLuaAppUseUIBloxColorPalettes = require(script.GetFFlagLuaAppUseUIBloxColorPalettes),
 	isNewFriendsEndpointsEnabled = require(script.isNewFriendsEndpointsEnabled),
 	GetFFlagCleanUpIsSubjectToDesktopPolicies = require(script.GetFFlagCleanUpIsSubjectToDesktopPolicies),
 	GetFFlagUseCorrectedFriendSortUtil = require(script.GetFFlagUseCorrectedFriendSortUtil),
+	GetFFlagDeactivateGamepadForVRAvatarEditor = require(script.GetFFlagDeactivateGamepadForVRAvatarEditor),
 	GetFFlagPeekViewDeprecateFitChildren = require(script.GetFFlagPeekViewDeprecateFitChildren),
-	getFFlagPYMKCarouselRenameOmniSessionId = require(script.getFFlagPYMKCarouselRenameOmniSessionId)
+	getFFlagProfilePeekViewRecommendationAnalytics = require(script.getFFlagProfilePeekViewRecommendationAnalytics),
+	getFFlagPYMKCarouselRenameOmniSessionId = require(script.getFFlagPYMKCarouselRenameOmniSessionId),
+	GetFFlagPeekViewRefactorEnabled = require(script.GetFFlagPeekViewRefactorEnabled),
 }

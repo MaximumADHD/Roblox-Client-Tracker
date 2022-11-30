@@ -99,7 +99,7 @@ local function clearCharacterAnimations(player)
 			playerAnimations[player.UserId].animation = nil
 		end
 		if playerAnimations[player.UserId].animationTrack then
-			playerAnimations[player.UserId].animationTrack:Stop()
+			playerAnimations[player.UserId].animationTrack:Stop(0)
 			playerAnimations[player.UserId].animationTrack:Destroy()
 			playerAnimations[player.UserId].animationTrack = nil
 		end

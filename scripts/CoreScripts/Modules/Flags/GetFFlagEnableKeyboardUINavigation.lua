@@ -1,5 +1,5 @@
-game:DefineFastFlag("EnableKeyboardUINavigation2", false)
+game:DefineFastFlag("EnableKeyboardUINavigation3", false)
 
 return function()
-	return game:GetFastFlag("EnableKeyboardUINavigation2")
+	return game:GetFastFlag("EnableKeyboardUINavigation3")
 end

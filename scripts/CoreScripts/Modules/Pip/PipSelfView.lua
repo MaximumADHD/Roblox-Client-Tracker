@@ -54,20 +54,17 @@ local VideoCaptureService = game:FindService("VideoCaptureService")
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 local screenGuiSize = Players.LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("ScreenGui").AbsoluteSize
-local DEFAULT_POSITION = UDim2.new(0.1, 0, 0.05, 0)
-local DEFAULT_SIZE = UDim2.new(0, 0, 0.85, 0)
+local DEFAULT_HEIGHT = screenGuiSize.Y * 0.25
+local DEFAULT_POSITION = UDim2.new(1, -12, 0, 0)
+local DEFAULT_SIZE = UDim2.new(0, 0, 0, DEFAULT_HEIGHT)
 local DEFAULT_BUTTONS_BAR_HEIGHT = 36
 local DEFAULT_SELF_VIEW_FRAME_COLOR = Color3.new(1, 1, 1)
 local BACKGROUND_TRANSPARENCY = 0.65
 local SCREEN_BORDER_OFFSET = 3
 local SELF_VIEW_NAME = "SelfView"
 local IS_STUDIO = RunService:IsStudio()
-local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSignal)
-local selfViewCloseButtonSignal = require(RobloxGui.Modules.SelfView.selfViewCloseButtonSignal)
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 local selfViewPublicApi = require(RobloxGui.Modules.SelfView.publicApi)
-
-local FFlagSelfViewFixes = require(RobloxGui.Modules.Flags.FFlagSelfViewFixes)
 
 local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
@@ -134,7 +131,6 @@ local cachedHasCameraPermissions = false
 local cachedHasMicPermissions = false
 local lastReportedMicState = false
 local lastReportedCamState = false
-local toggleSelfViewSignalConnection
 
 local observerInstances = {}
 local Observer = {
@@ -253,11 +249,11 @@ local function createViewport()
 	frame.Active = true
 	--setting frame size before setting it's position since the size is used in dragging position restrict to screen size evaluation
 	frame.Size = DEFAULT_SIZE
-	local position = DEFAULT_POSITION
+	frame.ZIndex = 3
 	
-	frame.Position = position
-	frame.Position = getRelativePosition(frame)
+	frame.Position = DEFAULT_POSITION
 	frame.BackgroundTransparency = 1
+	frame.AnchorPoint = Vector2.new(1, 0)
 	frame.Visible = false
 	
 	local aspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
@@ -269,105 +265,6 @@ local function createViewport()
 	local sizeConstraint = Instance.new("UISizeConstraint")
 	sizeConstraint.Parent = frame
 	sizeConstraint.MinSize = Vector2.new(95, 95)
-	sizeConstraint.MaxSize = Vector2.new(screenGuiSize.X * 0.45, screenGuiSize.Y * 0.85)
-
-	bottomButtonsFrame = Instance.new("Frame")
-	bottomButtonsFrame.Name = "BottomButtonsFrame"
-	bottomButtonsFrame.Position = UDim2.new(0, 0, 1, -(DEFAULT_BUTTONS_BAR_HEIGHT-1))
-	bottomButtonsFrame.Size = UDim2.new(1, 0, 0, DEFAULT_BUTTONS_BAR_HEIGHT)
-	bottomButtonsFrame.BackgroundColor3 = DEFAULT_SELF_VIEW_FRAME_COLOR
-	bottomButtonsFrame.BackgroundTransparency = 0
-	bottomButtonsFrame.BorderSizePixel = 0
-	bottomButtonsFrame.Parent = frame
-
-	local uiPadding = Instance.new("UIPadding")
-	uiPadding.Parent = bottomButtonsFrame
-	uiPadding.PaddingBottom = UDim.new(0, 0)
-	uiPadding.PaddingLeft = UDim.new(0, 0)
-	uiPadding.PaddingRight = UDim.new(0, 0)
-	uiPadding.PaddingTop = UDim.new(0, 3)
-
-
-	local uiListLayout = Instance.new("UIListLayout")
-	uiListLayout.Parent = bottomButtonsFrame
-	uiListLayout.Padding = UDim.new(0, 5)
-	uiListLayout.FillDirection = Enum.FillDirection.Horizontal
-	uiListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-	uiListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
-	uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-
-	local micButton = Instance.new("ImageButton")
-	micButton.Name = "MicButton"
-	micButton.Parent = bottomButtonsFrame
-	micButton.Position = UDim2.new(0, 0, 0, 0)
-	micButton.Size = UDim2.new(0.5, -4, 1, -4)
-	micButton.Image = "rbxasset://textures/SelfView/whiteRect.png"
-	micButton.ImageColor3 = Color3.new(0.294117, 0.294117, 0.294117)
-	micButton.BackgroundTransparency = 1
-	micButton.LayoutOrder = 0
-	micButton.ZIndex = 2
-	micButton.Activated:Connect(function()
-		local voiceService = VoiceChatServiceManager:getService()
-		debugPrint("Self View: micButton.Activated(), voiceService:"..tostring(voiceService)..",hasMicPermissions:"..tostring(hasMicPermissions))
-		if voiceService and hasMicPermissions then
-			VoiceChatServiceManager:ToggleMic()
-		else
-			updateAudioButton(false)
-		end
-	end)
-
-	local uiCorner = Instance.new("UICorner")
-	uiCorner.Parent = micButton
-
-	local camButton = Instance.new("ImageButton")
-	camButton.Name = "CamButton"
-	camButton.Parent = bottomButtonsFrame
-	camButton.Position = UDim2.new(0, 0, 0, 0)
-	camButton.Size = UDim2.new(0.5, -4, 1, -4)
-	camButton.Image = "rbxasset://textures/SelfView/whiteRect.png"
-	camButton.ImageColor3 = Color3.new(0.294117, 0.294117, 0.294117)
-	camButton.BackgroundTransparency = 1
-	camButton.LayoutOrder = 1
-	camButton.ZIndex = 3
-	camButton.Activated:Connect(function()
-		debugPrint("Self View: camButton.Activated(), hasCameraPermissions:"..tostring(hasCameraPermissions))
-		if hasCameraPermissions then
-			if not FaceAnimatorService or not FaceAnimatorService:IsStarted() then
-				updateVideoButton(false)
-				return
-			end
-			FaceAnimatorService.VideoAnimationEnabled = not FaceAnimatorService.VideoAnimationEnabled
-		else
-			updateVideoButton(false)
-		end
-	end)
-
-	uiCorner = Instance.new("UICorner")
-	uiCorner.Parent = camButton
-
-	micIcon = Instance.new("ImageLabel")
-	micIcon.Name = "MicIcon"
-	micIcon.Parent = micButton
-	micIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-	micIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
-	micIcon.Size = UDim2.new(0, 32, 0, 32)
-	micIcon.Image = MIC_OFF_IMAGE.Image
-	micIcon.ImageRectOffset = MIC_OFF_IMAGE.ImageRectOffset
-	micIcon.ImageRectSize = MIC_OFF_IMAGE.ImageRectSize
-	micIcon.BackgroundTransparency = 1
-	micIcon.ZIndex = 2	
-
-	camIcon = Instance.new("ImageLabel")
-	camIcon.Name = "CamIcon"
-	camIcon.Parent = camButton
-	camIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-	camIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
-	camIcon.Size = UDim2.new(0, 32, 0, 32)
-	camIcon.Image = VIDEO_OFF_IMAGE.Image
-	camIcon.ImageRectOffset = VIDEO_OFF_IMAGE.ImageRectOffset
-	camIcon.ImageRectSize = VIDEO_OFF_IMAGE.ImageRectSize
-	camIcon.BackgroundTransparency = 1
-	camIcon.ZIndex = 2
 
 	local selfViewFrame = Instance.new("Frame")
 	selfViewFrame.Name = "SelfViewFrame"
@@ -378,7 +275,7 @@ local function createViewport()
 
 	viewportFrame = Instance.new("ViewportFrame")
 	viewportFrame.Position = UDim2.new(0, 0, 0, 0)
-	viewportFrame.Size = UDim2.new(1, 0, 1, -(DEFAULT_BUTTONS_BAR_HEIGHT - 1))
+	viewportFrame.Size = UDim2.new(1, 0, 1, 0)
 	viewportFrame.BackgroundColor3 = Color3.new(0, 0, 0)
 	viewportFrame.BorderColor3 = Color3.new(0.6, 0.5, 0.4)
 	viewportFrame.BorderSizePixel = 2
@@ -400,130 +297,31 @@ local function createViewport()
 	indicatorCircle.Visible = false
 	indicatorCircle.ZIndex = 4
 
-	local closeButton = Instance.new("ImageButton")
-	closeButton.Name = "CloseButton"
-	closeButton.AnchorPoint = Vector2.new(0, 0.5)
-	closeButton.Parent = frame
-	closeButton.Position = UDim2.fromOffset(0, 16)
-	closeButton.Size = UDim2.new(0, 34, 0, 34)
-	closeButton.Image = "rbxasset://textures/SelfView/whiteRect.png"
-	closeButton.ImageTransparency = 1
-	closeButton.BackgroundTransparency = 1
-	closeButton.BackgroundColor3 = Color3.new(0.137254, 0.137254, 0.137254)
-	closeButton.ZIndex = 2
-
-	local closeButtonIcon =  Instance.new("ImageLabel")
-	closeButtonIcon.Name = "CloseButtonIcon"
-	closeButtonIcon.Parent = closeButton
-	closeButtonIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-	closeButtonIcon.Position = UDim2.new(0, 17, 0, 17)
-	closeButtonIcon.Size = UDim2.new(0, 32, 0, 32)
-	closeButtonIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_close.png"
-	closeButtonIcon.ImageTransparency = 0
-	closeButtonIcon.BackgroundTransparency = 1
-	closeButtonIcon.ZIndex = 2
-
-	local faceIcon =  Instance.new("ImageLabel")
-	faceIcon.Name = "FaceIcon"
-	faceIcon.Parent = frame
-	faceIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-	faceIcon.Position = UDim2.new(0, 17, 0, 17)
-	faceIcon.Size = UDim2.new(0, 32, 0, 32)
-	faceIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_faceToggle_on.png"
-	faceIcon.BackgroundTransparency = 1
-	faceIcon.ZIndex = 2
-	faceIcon.Visible = false	
-	faceIcon.Parent = closeButton
-
-	local function setButtonButtonsVisibility()
-		if isOpen then
-			micButton.Visible = true
-			camButton.Visible = true
-			closeButton.Visible = true
-		--[[
-			Allow for debugging in studio. This shows the mic option when
-			studio normally does not have this option.
-		]]
-		elseif IS_STUDIO and debug then
-			micButton.Visible = true
-			camButton.Visible = true
-			closeButton.Visible = true
-		else
-			micButton.Visible = false
-			camButton.Visible = false
-			closeButton.Visible = false
-		end
-	end
-
 	local function showSelfView(newState)
 		setIsOpen(newState)
-		setButtonButtonsVisibility()
 
 		selfViewFrame.Visible = newState
 		bottomButtonsFrame.Visible = newState
-		closeButtonIcon.Visible = newState
-		faceIcon.Visible = not newState
-		closeButton.BackgroundTransparency = newState and 1 or 0.5
 
 		if isOpen then
-			micButton.Position = UDim2.new(0, 0, 0, 0)
-			micButton.Size = UDim2.new(0.5, -4, 1, -4)
-			micButton.ImageTransparency = 0
-
-			camButton.Position = UDim2.new(0, 0, 0, 0)
-			camButton.Size = UDim2.new(0.5, -4, 1, -4)
-			camButton.ImageTransparency = 0
-
 			indicatorCircle.Position = UDim2.new(1, -25, 0, 4)
 		else
-			micButton.Position = UDim2.new(0, 40, 0, -1)
-			micButton.Size = UDim2.new(0, 34, 0, 34)
-			micButton.Parent = frame
-			micButton.ImageTransparency = 0.3
-
-			camButton.Position = UDim2.new(0, 80, 0, -1)
-			camButton.Size = UDim2.new(0, 34, 0, 34)
-			camButton.Parent = frame
-			camButton.ImageTransparency = 0.3
-
 			indicatorCircle.Position = UDim2.new(0, 20, 0, -10)
 		end
 
 		bottomButtonsFrame.Visible = isOpen
 
-	end	
-
-	closeButton.Activated:Connect(function()
-		if not FFlagSelfViewFixes then
-			selfViewCloseButtonSignal:fire()
-		end
-		showSelfView(not isOpen)
-	end)
-
-	if toggleSelfViewSignalConnection then
-		toggleSelfViewSignalConnection:disconnect()
 	end
-	toggleSelfViewSignalConnection = toggleSelfViewSignal:connect(function()
-		showSelfView(not isOpen)
-	end)
 
-	uiCorner = Instance.new("UICorner")
-	uiCorner.Parent = closeButton
-
-	uiCorner = Instance.new("UICorner")
+	local uiCorner = Instance.new("UICorner")
 	uiCorner.Parent = selfViewFrame
 
 	uiCorner = Instance.new("UICorner")
 	uiCorner.Parent = viewportFrame
 
 	local uiStroke = Instance.new("UIStroke")
-	uiStroke.Parent = selfViewFrame
-	uiStroke.Thickness = 3
-	uiStroke.Color = DEFAULT_SELF_VIEW_FRAME_COLOR
-
-	uiStroke = Instance.new("UIStroke")
 	uiStroke.Parent = viewportFrame
-	uiStroke.Thickness = 2.5
+	uiStroke.Thickness = 1
 	uiStroke.Color = DEFAULT_SELF_VIEW_FRAME_COLOR
 
 	createCloneAnchor()

@@ -513,12 +513,6 @@ local function MakeVisualParts(character: Model, relative_attachments: R15Relati
 	MakeVisualLegs(character, old_hitbox, new_hitbox)
 end
 
-local function MakeBasePartsInvisible(character: Model)
-	for _, name in PartNames do
-		character[name].Transparency = 1
-	end
-end
-
 local function ResetScaling(humanoid: Humanoid)
 	humanoid.AutomaticScalingEnabled = false
 	humanoid:WaitForChild("BodyWidthScale"):Destroy()
@@ -568,7 +562,6 @@ function module.ScaleCharacter(character: Model, target_rig: R15Definition)
 
 	MakeVisualParts(character, relative_attachments, old_hitboxes, new_hitboxes, target_rig)
 	--visualizeMotor6Ds(character)
-	--MakeBasePartsInvisible(character)
 	--MoveDecals(character)
 	MoveAccessories(character, old_hitboxes, new_hitboxes)
 	--MoveWrapTargets(character)

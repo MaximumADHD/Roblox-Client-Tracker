@@ -1,5 +1,9 @@
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local GetFFlagVoiceChatReportOutOfOrderSequence = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatReportOutOfOrderSequence)
+
 game:DefineFastInt("LuaVoiceChatAnalyticsPointsThrottle", 0)
 game:DefineFastFlag("LuaVoiceChatAnalyticsUsePoints", false)
 game:DefineFastFlag("LuaVoiceChatAnalyticsUseCounter", false)
@@ -42,6 +46,7 @@ type AnalyticsWrapperMeta = {
 	reportVoiceChatJoinResult: (AnalyticsWrapper, boolean, string, LogLevel?) -> (),
 	reportBanMessageEvent: (AnalyticsWrapper, string) -> (),
 	reportReconnectDueToMissedSequence: (AnalyticsWrapper) -> (),
+	reportOutOfOrderSequence: (AnalyticsWrapper) -> (),
 }
 
 -- Replace this when Luau supports it
@@ -125,6 +130,12 @@ end
 function Analytics:reportReconnectDueToMissedSequence()
 	if game:GetFastFlag("LuaVoiceChatReconnectMissedSequence") then
 		self._impl:ReportCounter("voiceChat-reconnectMissedSequence", 1)
+	end
+end
+
+function Analytics:reportOutOfOrderSequence()
+	if GetFFlagVoiceChatReportOutOfOrderSequence() then
+		self._impl:ReportCounter("voiceChat-outOfOrderSequence", 1)
 	end
 end
 

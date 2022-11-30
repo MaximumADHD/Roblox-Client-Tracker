@@ -33,8 +33,6 @@ local GetUIBloxUseNewThemeColorPalettes = require(Packages.SharedFlags).UIBlox.G
 
 local GetFFlagUIBloxMoveBindActivate = require(Packages.SharedFlags).UIBlox.GetFFlagUIBloxMoveBindActivate
 
-local GetFFlagUIBloxUseTagGroupArrows = require(Packages.SharedFlags).UIBlox.GetFFlagUIBloxUseTagGroupArrows
-
 local GetFFlagUIBloxEnableAutoHidingPointerOverlay =
 	require(Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableAutoHidingPointerOverlay
 
@@ -83,8 +81,6 @@ return {
 	useNewThemeColorPalettes = GetFFlagLuaAppUseUIBloxColorPalettes() and GetUIBloxUseNewThemeColorPalettes(),
 
 	detailsTemplateUseNewGradientHeader = game:DefineFastFlag("UIBloxDetailsTemplateUseNewGradient", false),
-
-	arrowsOnTagGroup = GetFFlagUIBloxUseTagGroupArrows(),
 
 	enableAutoHidingPointerOverlay = GetFFlagUIBloxEnableAutoHidingPointerOverlay(),
 

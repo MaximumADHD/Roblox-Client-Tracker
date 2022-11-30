@@ -1088,61 +1088,6 @@ local function CreateSettingsHub()
 			this.permissionsButtonsRoot = Roact.mount(createPermissionsButtons(true), this.MenuContainer, "PermissionsButtons")
 		end
 
-		this.VoiceRecordingIndicatorFrame = if GetFFlagVoiceRecordingIndicatorsEnabled() then utility:Create'Frame'
-		{
-			Size = UDim2.new(1,0,0,GuiService:GetGuiInset().Y),
-			Parent = this.MenuContainer,
-			BackgroundTransparency = 1,
-		} else nil
-
-		this.VoiceRecordingText = if GetFFlagVoiceRecordingIndicatorsEnabled() then utility:Create'TextLabel'
-		{
-			Parent = this.VoiceRecordingIndicatorFrame,
-			Text = "",
-			Visible = false,
-			Position = UDim2.new(0,60,0,0),
-			TextSize = 12,
-			Font = Enum.Font.GothamMedium,
-			Size = UDim2.fromScale(1, 1),
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Center,
-			TextColor3 = Color3.fromRGB(255,255,255),
-			BackgroundTransparency = 1,
-		} else nil
-
-		if GetFFlagVoiceRecordingIndicatorsEnabled() then
-			if utility:IsSmallTouchScreen() then
-				this.VoiceRecordingText.Size = UDim2.fromScale(1, 1)
-				this.VoiceRecordingText.Position = UDim2.new(0,60,0,0)
-				this.VoiceRecordingText.AnchorPoint = Vector2.new(0,0)
-			elseif isTenFootInterface then
-				this.VoiceRecordingText.AnchorPoint = Vector2.new(0.5,0.5)
-				this.VoiceRecordingText.Size = UDim2.new(0,1200,0,100)
-				this.VoiceRecordingText.Position = UDim2.new(0.5,0,0.1,0)
-			else
-				this.VoiceRecordingText.AnchorPoint = Vector2.new(0.5,0.5)
-				this.VoiceRecordingText.Size = UDim2.new(0, 800, 0, 60)
-				this.VoiceRecordingText.Position = UDim2.new(0.5,0,0.1,0)
-			end
-
-			this.voiceRecordingIndicatorTextMotor = Otter.createSingleMotor(0)
-			this.voiceRecordingIndicatorTextMotor:onStep(function(value)
-				this.VoiceRecordingText.TextTransparency = value
-			end)
-
-			spawn(function()
-				RunService:BindToRenderStep("VoiceRecordingIndicator", 1, function()
-					if this.isMuted ~= nil and this.lastVoiceRecordingIndicatorTextUpdated ~= nil then
-						local timeDiff = tick() - this.lastVoiceRecordingIndicatorTextUpdated
-						if timeDiff >= VOICE_RECORDING_INDICATOR_FADE_TIME and this.isMuted then
-							this.voiceRecordingIndicatorTextMotor:setGoal(Otter.spring(1, SPRING_PARAMS))
-							this.voiceRecordingIndicatorTextMotor:start()
-						end
-					end
-				end)
-			end)
-		end
-
 		this.MenuListLayout = utility:Create'UIListLayout'
 		{
 			Name = "MenuListLayout",
@@ -1191,6 +1136,62 @@ local function CreateSettingsHub()
 		else
 			this.HubBar.Size = UDim2.new(0,800,0,60)
 			this.HubBar.Position = UDim2.new(0.5,0,0.1,0)
+		end
+
+		this.VoiceRecordingIndicatorFrame = if GetFFlagVoiceRecordingIndicatorsEnabled() then utility:Create'Frame'
+			{
+				Size = UDim2.fromOffset(0, 100),
+				Position = UDim2.new(0,0,0,0),
+				Parent = this.HubBar,
+				BackgroundTransparency = 1,
+			} else nil
+
+		this.VoiceRecordingText = if GetFFlagVoiceRecordingIndicatorsEnabled() then utility:Create'TextLabel'
+			{
+				Parent = this.VoiceRecordingIndicatorFrame,
+				Text = "",
+				Visible = false,
+				Position = UDim2.new(0,60,0,0),
+				TextSize = 12,
+				Font = Enum.Font.GothamMedium,
+				Size = UDim2.fromScale(1, 1),
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				TextColor3 = Color3.fromRGB(255,255,255),
+				BackgroundTransparency = 1,
+			} else nil
+
+		if GetFFlagVoiceRecordingIndicatorsEnabled() then
+			if utility:IsSmallTouchScreen() then
+				this.VoiceRecordingText.Size = UDim2.fromScale(1, 1)
+				this.VoiceRecordingText.Position = UDim2.new(0,60,0,-60)
+				this.VoiceRecordingText.AnchorPoint = Vector2.new(0,0)
+			elseif isTenFootInterface then
+				this.VoiceRecordingText.AnchorPoint = Vector2.new(0, 1)
+				this.VoiceRecordingText.Size = UDim2.new(0,1200,0,100)
+				this.VoiceRecordingText.Position = UDim2.new(0.5,0,0.1,0)
+			else
+				this.VoiceRecordingText.AnchorPoint = Vector2.new(0, 1)
+				this.VoiceRecordingText.Size = UDim2.new(0, 800, 0, 60)
+				this.VoiceRecordingText.Position = UDim2.new(0.5,0,0.1,0)
+			end
+
+			this.voiceRecordingIndicatorTextMotor = Otter.createSingleMotor(0)
+			this.voiceRecordingIndicatorTextMotor:onStep(function(value)
+				this.VoiceRecordingText.TextTransparency = value
+			end)
+
+			spawn(function()
+				RunService:BindToRenderStep("VoiceRecordingIndicator", 1, function()
+					if this.isMuted ~= nil and this.lastVoiceRecordingIndicatorTextUpdated ~= nil then
+						local timeDiff = tick() - this.lastVoiceRecordingIndicatorTextUpdated
+						if timeDiff >= VOICE_RECORDING_INDICATOR_FADE_TIME and this.isMuted then
+							this.voiceRecordingIndicatorTextMotor:setGoal(Otter.spring(1, SPRING_PARAMS))
+							this.voiceRecordingIndicatorTextMotor:start()
+						end
+					end
+				end)
+			end)
 		end
 
 		this.PageViewClipper = utility:Create'Frame'

@@ -1,6 +1,7 @@
 -- SetupProxyParts.lua
 -- Setup a newly spawned R15 character to emulate an R6 character
 -- The character will have "proxy parts" added to it which old script can operate on
+local CollectionService = game:GetService("CollectionService")
 
 local Character = script.Parent
 
@@ -8,6 +9,8 @@ local ProxyReference = script:WaitForChild("ProxyReference")
 ProxyReference.Parent = nil
 
 local ProxyInstance = require(Character:WaitForChild("ProxyInstance"))
+
+local ALWAYS_TRANSPARENT_PART_TAG = "__RBX__LOCKED_TRANSPARENT"
 
 local AestheticParts = {
 	LeftUpperLeg = true,
@@ -209,6 +212,8 @@ local function setUpProxyPart(proxy)
 			weldParts(newProxy, weldTo)
 		end
 	end
+
+	return newProxy
 end
 
 local function onProxiedPartAdded(part)
@@ -216,6 +221,7 @@ local function onProxiedPartAdded(part)
 
 	if WeldPartNames[part.Name] then
 		proxy.Color = part.Color
+		proxy.Transparency = part.Transparency
 		local weld = weldParts(proxy, part)
 		table.insert(
 			connections,
@@ -260,8 +266,8 @@ end
 
 local function setupCharacter()
 	for _, child in ProxyReference:GetChildren() do
-		setUpProxyPart(child)
-		maintainPropertyValue(child, "Transparency", 1)
+		local proxy = setUpProxyPart(child)
+		CollectionService:AddTag(proxy, ALWAYS_TRANSPARENT_PART_TAG)
 	end
 	ProxyReference:Destroy()
 

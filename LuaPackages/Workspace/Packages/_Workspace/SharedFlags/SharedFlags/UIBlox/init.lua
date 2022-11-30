@@ -12,7 +12,6 @@ return {
 	GetFFlagUIBloxSystemBarBottomAlignedItems = require(script.GetFFlagUIBloxSystemBarBottomAlignedItems),
 	GetFFlagUIBloxUseNewGenericTextLabelProps = require(script.GetFFlagUIBloxUseNewGenericTextLabelProps),
 	GetUIBloxUseNewThemeColorPalettes = require(script.GetUIBloxUseNewThemeColorPalettes),
-	GetFFlagUIBloxUseTagGroupArrows = require(script.GetFFlagUIBloxUseTagGroupArrows),
 	GetFFlagUIBloxMoveBindActivate = require(script.GetFFlagUIBloxMoveBindActivate),
 	GetFFlagUIBloxEnableAutoHidingPointerOverlay = require(script.GetFFlagUIBloxEnableAutoHidingPointerOverlay),
 	GetFFlagUIBloxHorizontalCarouselSetState = require(script.GetFFlagUIBloxHorizontalCarouselSetState),

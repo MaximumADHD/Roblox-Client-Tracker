@@ -1,7 +1,7 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 
-local MockId = require(CorePackages.AppTempCommon.LuaApp.MockId)
+local MockId = require(CorePackages.Workspace.Packages.UnitTestHelpers).MockId
 
 local FFlagLuaAppConvertUniverseIdToString = settings():GetFFlag("LuaAppConvertUniverseIdToStringV364")
 

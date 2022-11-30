@@ -1,9 +1,5 @@
 --!nonstrict
-local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
-
--- TODO: move MockId to test utils package
-local MockId = require(CorePackages.AppTempCommon.LuaApp.MockId)
 
 local User = {}
 
@@ -16,30 +12,6 @@ User.PresenceType = {
 
 function User.new()
 	local self = {}
-
-	return self
-end
-
-function User.mock()
-	local self = User.new()
-
-	self.id = MockId()
-
-	self.isFetching = false
-	self.isFriend = false
-	self.friendRank = 0
-	self.lastLocation = nil
-	self.name = "USER NAME"
-	self.universeId = nil
-	self.placeId = nil
-	self.rootPlaceId = nil
-	self.gameInstanceId = nil
-	self.presence = User.PresenceType.OFFLINE
-	self.membership = nil
-	self.thumbnails = nil
-	self.lastOnline = nil
-	self.displayName = "DN+" .. self.name
-	self.externalAppDisplayName = "EXTERNAL APP DISPLAY NAME"
 
 	return self
 end
@@ -92,21 +64,6 @@ function User.fromDataTable(data)
 	self.lastOnline = nil
 
 	return self
-end
-
-function User.mockEndpointResponse()
-	return {
-		created = "0001-01-01T06:00:00Z",
-		displayName = "DN+12345",
-		friendFrequentRank = 1,
-		friendFrequentScore = 2,
-		id = 12345,
-		isBanned = false,
-		isDeleted = false,
-		isOnline = false,
-		name = "USER NAME",
-		presenceType = 0,
-	}
 end
 
 function User.compare(user1, user2)

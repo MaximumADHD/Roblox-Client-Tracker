@@ -1,5 +1,8 @@
+local Root = script.Parent
+local Packages = Root.Parent
+
 return {
 	projects = {
-		(game :: any).CoreGui.RobloxGui.Modules.SocialTab["jest.config"],
+		require(Packages.SocialTab)["jest.config"],
 	},
 }
