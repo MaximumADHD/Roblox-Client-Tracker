@@ -12,7 +12,7 @@ return {
 	Mock = require(LuaSocialLibrariesDeps.Mock),
 	RoduxNetworking = require(LuaSocialLibrariesDeps.RoduxNetworking),
 	llama = require(LuaSocialLibrariesDeps.llama),
-	RoduxAliases = require(LuaSocialLibrariesDeps.RoduxAliases_v210),
+	RoduxAliases = require(LuaSocialLibrariesDeps.RoduxAliases),
 	RoduxUsers = require(LuaSocialLibrariesDeps.RoduxUsers),
 	RoduxUsers_v13 = require(LuaSocialLibrariesDeps.RoduxUsers_v13),
 	RoduxFriends = if getFFlagSocialUpdateRoduxFriendsv314()

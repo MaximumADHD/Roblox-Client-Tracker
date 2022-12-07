@@ -16,10 +16,11 @@ return function(UrlBuilder)
 		develop = UrlBuilder.fromString("www:develop/landing"),
 		blog = UrlBuilder.fromString("blog:"),
 		giftCards = UrlBuilder.fromString("www:giftcards"),
+		amazonStore = UrlBuilder.fromString("https://www.amazon.com/roblox"),
 		help = UrlBuilder.fromString(isQQ() and "corp:faq" or "www:help"),
 		email = {
 			getSetEmail = UrlBuilder.fromString("accountSettings:v1/email"),
-			sendVerificationEmail = UrlBuilder.fromString("accountSettings:v1/email/verify")
+			sendVerificationEmail = UrlBuilder.fromString("accountSettings:v1/email/verify"),
 		},
 		about = {
 			us = UrlBuilder.fromString("corp:"),

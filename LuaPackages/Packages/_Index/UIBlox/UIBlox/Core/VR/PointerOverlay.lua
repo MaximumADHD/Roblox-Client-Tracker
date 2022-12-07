@@ -112,9 +112,9 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 
 	local VRSessionStateCallback = React.useCallback(function()
 		local overlayEnabeld = not (
-				VRService.VRSessionState == Enum.VRSessionState.Idle
-				or VRService.VRSessionState == Enum.VRSessionState.Visible
-			)
+			VRService.VRSessionState == Enum.VRSessionState.Idle
+			or VRService.VRSessionState == Enum.VRSessionState.Visible
+		)
 		if LaserPointer.current then
 			if overlayEnabeld then
 				LaserPointer.current:setMode(LaserPointer.current.Mode["Pointer"])

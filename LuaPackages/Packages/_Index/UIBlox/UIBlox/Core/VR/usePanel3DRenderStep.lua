@@ -112,10 +112,8 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 					vrCameraCF = cameraCF * VRService:GetUserCFrame(Enum.UserCFrame.Head)
 				end
 
-				panelCFrame = CFrame.new(
-					finalPosition + lastOffset.current.Position * cameraHeadScale,
-					vrCameraCF.Position
-				)
+				panelCFrame =
+					CFrame.new(finalPosition + lastOffset.current.Position * cameraHeadScale, vrCameraCF.Position)
 			else
 				local rotX, rotY, rotZ = userNonPrimaryHand:ToOrientation()
 				local scaledlastOffset = CFrame.new(lastOffset.current.Position * cameraHeadScale)
@@ -129,7 +127,8 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 				-- The smallest part size is 0.05
 				-- Don't go smaller than this otherwise there will be a discrepancy between
 				-- the physical and visual positions, and the laser pointer cursor will look off
-				basePart.current.Size = Vector3.new(props.partSize.X * cameraHeadScale, props.partSize.Y * cameraHeadScale, 0.05)
+				basePart.current.Size =
+					Vector3.new(props.partSize.X * cameraHeadScale, props.partSize.Y * cameraHeadScale, 0.05)
 			else
 				basePart.current.Size = Vector3.new(props.partSize.X, props.partSize.Y, 0) * cameraHeadScale
 			end

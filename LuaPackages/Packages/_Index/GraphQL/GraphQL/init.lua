@@ -510,4 +510,7 @@ export type BreakingChange = utilitiesModule.BreakingChange
 export type DangerousChange = utilitiesModule.DangerousChange
 export type TypeInfo = utilitiesModule.TypeInfo
 
+-- ROBLOX comment: reexport NULL
+exports.NULL = require(script.luaUtils.null)
+
 return exports

@@ -224,20 +224,16 @@ function GenericSlider:processTwoKnobGamepadInput(polarity, increments)
 	end
 
 	if self.state.lowerKnobIsSelected then
-		local steppedValue = math.max(
-			math.min(lowerValue + (stepInterval * increments), self.props.max),
-			self.props.min
-		)
+		local steppedValue =
+			math.max(math.min(lowerValue + (stepInterval * increments), self.props.max), self.props.min)
 		if steppedValue <= upperValue then
 			lowerValue = steppedValue
 		else
 			lowerValue = upperValue
 		end
 	elseif self.state.upperKnobIsSelected then
-		local steppedValue = math.max(
-			math.min(upperValue + (stepInterval * increments), self.props.max),
-			self.props.min
-		)
+		local steppedValue =
+			math.max(math.min(upperValue + (stepInterval * increments), self.props.max), self.props.min)
 		if steppedValue >= lowerValue then
 			upperValue = steppedValue
 		else
@@ -337,19 +333,15 @@ function GenericSlider:renderUpperKnob(knobPositionUpper, knobIsSelected, isTwoK
 		NextSelectionRight = knobIsSelected and self.upperKnobRef or nil,
 		NextSelectionUp = knobIsSelected and self.upperKnobRef or nil,
 		NextSelectionDown = knobIsSelected and self.upperKnobRef or nil,
-		SelectionImageObject = knobIsSelected and getSelectionCursor(CursorKind.SelectedKnob) or getSelectionCursor(
-			CursorKind.UnselectedKnob
-		),
+		SelectionImageObject = knobIsSelected and getSelectionCursor(CursorKind.SelectedKnob)
+			or getSelectionCursor(CursorKind.UnselectedKnob),
 		[Roact.Ref] = self.upperKnobRef,
 		[Roact.Event.InputBegan] = function(rbx, inputObject)
 			if self.props.isDisabled then
 				return
 			end
 
-			self:onInputBegan(
-				inputObject, --[[isKnob =]]
-				true
-			)
+			self:onInputBegan(inputObject, --[[isKnob =]] true)
 		end,
 		inputBindings = {
 			OnMoveStep = Gamepad.Input.onMoveStep(function(inputObjects, delta)
@@ -421,19 +413,15 @@ function GenericSlider:renderLowerKnob(knobPositionLower, knobIsSelected, isTwoK
 			or nil,
 		NextSelectionUp = knobIsSelected and self.lowerKnobRef or nil,
 		NextSelectionDown = knobIsSelected and self.lowerKnobRef or nil,
-		SelectionImageObject = knobIsSelected and getSelectionCursor(CursorKind.SelectedKnob) or getSelectionCursor(
-			CursorKind.UnselectedKnob
-		),
+		SelectionImageObject = knobIsSelected and getSelectionCursor(CursorKind.SelectedKnob)
+			or getSelectionCursor(CursorKind.UnselectedKnob),
 		[Roact.Ref] = self.lowerKnobRef,
 		[Roact.Event.InputBegan] = function(rbx, inputObject)
 			if self.props.isDisabled then
 				return
 			end
 
-			self:onInputBegan(
-				inputObject, --[[isKnob =]]
-				true
-			)
+			self:onInputBegan(inputObject, --[[isKnob =]] true)
 		end,
 	})
 
@@ -483,10 +471,7 @@ function GenericSlider:render()
 					return
 				end
 
-				self:onInputBegan(
-					inputObject, --[[isKnob =]]
-					false
-				)
+				self:onInputBegan(inputObject, --[[isKnob =]] false)
 			end,
 			[Roact.Ref] = self.rootRef,
 
@@ -511,10 +496,9 @@ function GenericSlider:render()
 			LowerKnob = self:renderLowerKnob(knobPositionLower, knobIsSelected, isTwoKnobs, getSelectionCursor),
 			LowerKnobShadow = self:renderKnobShadow(self.props.knobShadowTransparencyLower, knobPositionLower),
 			UpperKnob = self:renderUpperKnob(knobPositionUpper, knobIsSelected, isTwoKnobs, getSelectionCursor),
-			UpperKnobShadow = isTwoKnobs and self:renderKnobShadow(
-				self.props.knobShadowTransparencyUpper,
-				knobPositionUpper
-			) or nil,
+			UpperKnobShadow = isTwoKnobs
+					and self:renderKnobShadow(self.props.knobShadowTransparencyUpper, knobPositionUpper)
+				or nil,
 		})
 	end)
 end

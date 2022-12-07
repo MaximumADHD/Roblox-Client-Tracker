@@ -19,7 +19,7 @@ local function mapValueOrdered<T, V>(
 	fn: (value: T, key: string) -> V
 ): Map<string, V>
 	local result = Map.new() :: Map<string, V>
-	for _, entry in map:ipairs() do
+	for _, entry in map do
 		local key, value = entry[1], entry[2]
 		result:set(key, fn(value, key))
 	end

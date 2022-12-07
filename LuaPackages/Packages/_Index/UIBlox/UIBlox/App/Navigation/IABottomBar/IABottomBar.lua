@@ -137,12 +137,7 @@ function IABottomBar:setTextProperties(items, font) -- set sizing/visibility of 
 	-- if any small title text is bigger than item width, we need to hide
 	local shouldTitlesHide = Cryo.List.map(titles, function(title, _)
 		local estimatedTextWidthSmall =
-			GetTextSize(
-				title,
-				Consts.TEXT_SIZE_SMALL,
-				font.Header2.Font,
-				Vector2.new(0, 0)
-			).X
+			GetTextSize(title, Consts.TEXT_SIZE_SMALL, font.Header2.Font, Vector2.new(0, 0)).X
 		return estimatedTextWidthSmall > Consts.ITEM_SIZE_X
 	end)
 
@@ -242,22 +237,25 @@ function IABottomBar:renderIconWithText(item, state, selected)
 					ZIndex = 2,
 				}),
 				Ripple = Ripple(item, rippleState),
-				IconText = self.props.showTitle and Roact.createElement("TextLabel", {
-					Text = item.title,
-					TextColor3 = selected and theme.TextEmphasis.Color or theme.TextDefault.Color,
-					-- absolutely place the text to the bottom of the Frame
-					Position = UDim2.fromScale(
-						0.5,
-						(Consts.BAR_SIZE + Consts.BOTTOM_TEXT_PADDING + (Consts.TEXT_LINE_HEIGHT / 1.5))
-							/ Consts.ITEM_SIZE_Y
-					),
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Font = font.Header2.Font,
-					TextSize = self.state.textSize,
-					TextTransparency = selected and theme.TextEmphasis.Transparency or theme.TextDefault.Transparency,
-					Visible = self.state.isTextVisible,
-					BorderSizePixel = 0, -- remove dot placed on text normally
-				}) or nil,
+				IconText = self.props.showTitle
+						and Roact.createElement("TextLabel", {
+							Text = item.title,
+							TextColor3 = selected and theme.TextEmphasis.Color or theme.TextDefault.Color,
+							-- absolutely place the text to the bottom of the Frame
+							Position = UDim2.fromScale(
+								0.5,
+								(Consts.BAR_SIZE + Consts.BOTTOM_TEXT_PADDING + (Consts.TEXT_LINE_HEIGHT / 1.5))
+									/ Consts.ITEM_SIZE_Y
+							),
+							AnchorPoint = Vector2.new(0.5, 0.5),
+							Font = font.Header2.Font,
+							TextSize = self.state.textSize,
+							TextTransparency = selected and theme.TextEmphasis.Transparency
+								or theme.TextDefault.Transparency,
+							Visible = self.state.isTextVisible,
+							BorderSizePixel = 0, -- remove dot placed on text normally
+						})
+					or nil,
 			})
 		end)
 	end)
@@ -347,11 +345,11 @@ function IABottomBar:renderNavBar(contents)
 	local numMiddleItems = #middleItems
 
 	local internalMiddlePadding = ( -- the "expandable" horizontal space between each item inside the middle bar
-			screenWidth
-			- (numMiddleItems * Consts.ITEM_SIZE_X) -- width of each item
-			- (Consts.SHADOW_SIZE - Consts.ITEM_SIZE_X) -- shadow space of middle bar
-			- 2 * (Consts.SHADOW_SIZE + barPadding + middlePadding) -- padding and shadow space of left and right bars
-		)
+		screenWidth
+		- (numMiddleItems * Consts.ITEM_SIZE_X) -- width of each item
+		- (Consts.SHADOW_SIZE - Consts.ITEM_SIZE_X) -- shadow space of middle bar
+		- 2 * (Consts.SHADOW_SIZE + barPadding + middlePadding) -- padding and shadow space of left and right bars
+	)
 		/ (numMiddleItems - 1) -- depending on the number of items and screen width, determine padding between items inside the middle capsule
 
 	return Roact.createElement("Frame", {

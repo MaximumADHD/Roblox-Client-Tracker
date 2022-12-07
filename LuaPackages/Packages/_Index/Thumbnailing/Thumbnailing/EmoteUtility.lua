@@ -7,8 +7,9 @@
 ]]
 local AnimationClipProvider = game:GetService("AnimationClipProvider")
 local InsertService = game:GetService("InsertService")
-local FFlagEmoteUtilityHandleErrors = game:DefineFastFlag("EmoteUtilityHandleErrors", false)
-local FFlagEmoteUtilityClearFaceBeforeApplyingAnything = game:DefineFastFlag("EmoteUtilityClearFaceBeforeApplyingAnything", false)
+local FStringEmoteUtilityFallbackPoseAssetId = game:DefineFastString("EmoteUtilityFallbackPoseAssetId", "10921261056")
+local FFlagEmoteUtilityNoLuaCaching = game:DefineFastFlag("EmoteUtilityNoLuaCaching", false)
+local FFlagEmoteUtilityCorrectlyIdRCC = game:DefineFastFlag("EmoteUtilityCorrectlyIdRCC", false)
 
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local RunService = game:GetService("RunService")
@@ -18,23 +19,45 @@ local module = {}
 -- In cases where no asset id is provided for posing the avatar, fall back a pose
 -- based on this animation.
 -- Note: this only works on prod, not sitetest or gametest.
-local FALLBACK_POSE_ANIMATION_ID = "http://www.roblox.com/asset/?id=532421348"
+-- Note: this is an ID for a *pose*, not an *animation*.
+-- My process for getting this pose asset id:
+--   On Web go Animations -> Rthro -> Idle Rthro, leads you to: https://www.roblox.com/catalog/2510235063/Rthro-Idle
+--   In Studio, use this asset id to load up the animation: in Command bar type "game:GetService("InsertService"):LoadAsset(2510235063).Parent = workspace"
+--   In Studio, drill down Model.R15Anim.pose.RthroIdlePose.  It has "AnimationId" field "rbxassetid://10921261056"
+--   That 10921261056 is the value I want.
+local FALLBACK_POSE_ASSET_ID = "http://www.roblox.com/asset/?id=" .. FStringEmoteUtilityFallbackPoseAssetId
 
--- Particularly on the universal app, we often call SetPlayerCharacterPose several times
--- in a row with the same emote/pose assets.
--- We can avoid a bunch of async calls by caching results.
+-- FIXME(dbanks)
+-- 2022/11/14
+-- Caching is done automatically in C++.  No need to cache again in lua.
+-- Remove with FFlagEmoteUtilityNoLuaCaching.
 local cachedPoseAsset = nil
 local cachedPoseAssetIdOrUrl = nil
 local cachedAnimationClip = nil
 local cachedAnimationClipId = nil
 local cachedPoseAssetIsIdleAnim = nil
 
+local function isOnRCC()
+	if FFlagEmoteUtilityCorrectlyIdRCC then
+		-- FIXME(dbanks)
+		-- I'd like to just call RunService:IsClient but there's a bug where this returns 'true' on RCC:
+		-- https://jira.rbx.com/browse/AVBURST-10987
+		-- Once this issue is resolved, change this to call RunService:IsClient.
+		-- For now, we settle for a bit of a hacky (but correct) workaround.
+		local success, isRCC = pcall(function()
+			return game:GetService("ThumbnailGenerator") ~= nil
+		end)
+		return success and isRCC
+	else
+		return RunService:IsServer() and not RunService:IsClient()
+	end
+end
 
 -- Helper for assembling & sending a report counter.
 local function reportCounter(actionName, success)
 	local prefix
 	local suffix
-	if RunService:IsServer() and not RunService:IsClient() then
+	if isOnRCC() then
 		prefix = "RCC"
 	else
 		prefix = "Client"
@@ -55,53 +78,47 @@ end
 -- "http://www.roblox.com/Asset/?hash=225a9c414cf0f236d56759a5fabf56e4"
 -- Depending on the type we use a different approach to load the asset.
 local function getPoseAsset(poseAssetIdOrUrl)
-	if poseAssetIdOrUrl == cachedPoseAssetIdOrUrl then
-		return cachedPoseAsset, cachedPoseAssetIsIdleAnim
+	if not FFlagEmoteUtilityNoLuaCaching then
+		if poseAssetIdOrUrl == cachedPoseAssetIdOrUrl then
+			return cachedPoseAsset, cachedPoseAssetIsIdleAnim
+		end
 	end
 
 	local asset
-	if FFlagEmoteUtilityHandleErrors then
-		local success
-		local actionName
-		if typeof(poseAssetIdOrUrl) == "number" then
-			success, asset = pcall(function()
-				return InsertService:LoadAsset(poseAssetIdOrUrl):GetChildren()[1]
-			end)
-			actionName = "EmoteUtility_LoadAsset"
-		else
-			success, asset = pcall(function()
-				return game:GetObjects(poseAssetIdOrUrl)[1]
-			end)
-			actionName = "EmoteUtility_GetObjects"
-		end
-
-		-- On success or failure, add a Counter describing what happened.
-		reportCounter(actionName, success)
-
-		-- If we didn't succeed, send more details of failure.
-		-- Also return nil.
-		if not success then
-			local target
-			if RunService:IsServer() and not RunService:IsClient() then
-				target = "RCC"
-			else
-				target = "Client"
-			end
-
-			local eventCtx = "EmoteUtility_getPoseAsset"
-			local eventName = actionName .. "_Failed"
-			RbxAnalyticsService:SendEventDeferred(target, eventCtx, eventName, {
-				poseAssetIdOrUrl = poseAssetIdOrUrl,
-			})
-
-			return nil, nil
-		end
+	local success
+	local actionName
+	if typeof(poseAssetIdOrUrl) == "number" then
+		success, asset = pcall(function()
+			return InsertService:LoadAsset(poseAssetIdOrUrl):GetChildren()[1]
+		end)
+		actionName = "EmoteUtility_LoadAsset"
 	else
-		if typeof(poseAssetIdOrUrl) == "number" then
-			asset = InsertService:LoadAsset(poseAssetIdOrUrl):GetChildren()[1]
+		success, asset = pcall(function()
+			return game:GetObjects(poseAssetIdOrUrl)[1]
+		end)
+		actionName = "EmoteUtility_GetObjects"
+	end
+
+	-- On success or failure, add a Counter describing what happened.
+	reportCounter(actionName, success)
+
+	-- If we didn't succeed, send more details of failure.
+	-- Also return nil.
+	if not success then
+		local target
+		if isOnRCC() then
+			target = "RCC"
 		else
-			asset = game:GetObjects(poseAssetIdOrUrl)[1]
+			target = "Client"
 		end
+
+		local eventCtx = "EmoteUtility_getPoseAsset"
+		local eventName = actionName .. "_Failed"
+		RbxAnalyticsService:SendEventDeferred(target, eventCtx, eventName, {
+			poseAssetIdOrUrl = poseAssetIdOrUrl,
+		})
+
+		return nil, nil
 	end
 
 	local poseAssetIsIdleAnim = false
@@ -118,47 +135,50 @@ local function getPoseAsset(poseAssetIdOrUrl)
 		end
 	end
 
-	cachedPoseAsset = asset
-	cachedPoseAssetIdOrUrl = poseAssetIdOrUrl
-	cachedPoseAssetIsIdleAnim = poseAssetIsIdleAnim
+	if not FFlagEmoteUtilityNoLuaCaching then
+		cachedPoseAsset = asset
+		cachedPoseAssetIdOrUrl = poseAssetIdOrUrl
+		cachedPoseAssetIsIdleAnim = poseAssetIsIdleAnim
+	end
+
 	return asset, poseAssetIsIdleAnim
 end
 
 -- Note, this is a yielding function.
 -- May return nil if we have problems fetching animation clip.
 local function getAnimationClip(animationClipId)
-	if animationClipId == cachedAnimationClipId then
-		return cachedAnimationClip
-	end
-
-	local animationClip
-	if FFlagEmoteUtilityHandleErrors then
-		local success
-		success, animationClip = pcall(function()
-			return AnimationClipProvider:GetAnimationClipAsync(animationClipId)
-		end)
-
-		reportCounter("EmoteUtility_GetAnimationClipAsync", success)
-
-		if not success then
-			local targetName
-			if RunService:IsServer() and not RunService:IsClient() then
-				targetName = "RCC"
-			else
-				targetName = "Client"
-			end
-			local eventCtx = "EmoteUtility_GetAnimationClip"
-			local eventName = "EmoteUtility_GetAnimationClip_GetAnimationClipAsyncFailed"
-			RbxAnalyticsService:SendEventDeferred(targetName, eventCtx, eventName, {
-				animationClipId = animationClipId,
-			})
-			return nil
+	if not FFlagEmoteUtilityNoLuaCaching then
+		if animationClipId == cachedAnimationClipId then
+			return cachedAnimationClip
 		end
-	else
-		animationClip = AnimationClipProvider:GetAnimationClipAsync(animationClipId)
 	end
-	cachedAnimationClipId = animationClipId
-	cachedAnimationClip = animationClip
+
+	local success, animationClip = pcall(function()
+		return AnimationClipProvider:GetAnimationClipAsync(animationClipId)
+	end)
+
+	reportCounter("EmoteUtility_GetAnimationClipAsync", success)
+
+	if not success then
+		local targetName
+		if isOnRCC() then
+			targetName = "RCC"
+		else
+			targetName = "Client"
+		end
+		local eventCtx = "EmoteUtility_GetAnimationClip"
+		local eventName = "EmoteUtility_GetAnimationClip_GetAnimationClipAsyncFailed"
+		RbxAnalyticsService:SendEventDeferred(targetName, eventCtx, eventName, {
+			animationClipId = animationClipId,
+		})
+		return nil
+	end
+
+	if not FFlagEmoteUtilityNoLuaCaching then
+		cachedAnimationClipId = animationClipId
+		cachedAnimationClip = animationClip
+	end
+
 	return animationClip
 end
 
@@ -217,7 +237,7 @@ end
 --[[
 	Does this poseKeyframe pose the face?
 ]]
-module.PoseKeyframeHasFaceAnimtion = function (poseKeyframe)
+module.PoseKeyframeHasFaceAnimation = function (poseKeyframe)
 	local function recurHasFaceAnimation(poseObject)
 		if poseObject:IsA("Folder") then
 			return true
@@ -531,11 +551,9 @@ local function getMainThumbnailKeyframe(character, poseAssetIdOrUrl, useRotation
 	if poseAssetIdOrUrl then
 		local poseAsset, poseAssetIsIdleAnim = getPoseAsset(poseAssetIdOrUrl)
 
-		if FFlagEmoteUtilityHandleErrors then
-			-- poseAsset could be nil if something went wrong.
-			if poseAsset == nil then
-				return nil, givenPoseTrumpsToolPose
-			end
+		-- poseAsset could be nil if something went wrong.
+		if poseAsset == nil then
+			return nil, givenPoseTrumpsToolPose
 		end
 
 		-- In the current setup, a user may select an emote to pose their avatar for a picture.
@@ -577,7 +595,7 @@ local function getMainThumbnailKeyframe(character, poseAssetIdOrUrl, useRotation
 			end
 		end
 	else
-		local poseAnimationId = FALLBACK_POSE_ANIMATION_ID
+		local poseAnimationId = FALLBACK_POSE_ASSET_ID
 		local animateScript = character:FindFirstChild("Animate")
 		if animateScript then
 			local equippedPoseValue = animateScript:FindFirstChild("Pose") or animateScript:FindFirstChild("pose")
@@ -678,7 +696,7 @@ end
 
 -- Check for cases where we can quickly/easily resolve pose, with no async complications.
 -- If we find one, return true.
-module.SetPlayerCharacterPoseEasyOut = function(character, humanoid, poseAssetId)
+module.SetPlayerCharacterPoseEasyOut = function(character, humanoid)
 	if not humanoid then
 		return true
 	end
@@ -778,9 +796,7 @@ module.SetPlayerCharacterFace = function(character, poseAssetIdOrUrl, confirmPro
 	end
 
 	-- Before applying the pose, clear out any previous face pose (otherwise we get some hybrid of previous & mood)
-	if FFlagEmoteUtilityClearFaceBeforeApplyingAnything then
-		module.ClearPlayerCharacterFace(character)
-	end
+	module.ClearPlayerCharacterFace(character)
 
 	module.ApplyPose(character, moodKeyframe, false, false)
 end
@@ -825,7 +841,7 @@ module.SetPlayerCharacterPoseWithMoodFallback = function(character,
 	end
 
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
-	if module.SetPlayerCharacterPoseEasyOut(character, humanoid, poseAssetId) then
+	if module.SetPlayerCharacterPoseEasyOut(character, humanoid) then
 		return
 	end
 
@@ -842,11 +858,11 @@ module.SetPlayerCharacterPoseWithMoodFallback = function(character,
 	end
 
 	local moodKeyframe
-	local poseKeyframeHasFaceAnimtion = module.PoseKeyframeHasFaceAnimtion(poseKeyframe)
-	if not poseKeyframeHasFaceAnimtion and moodAssetId and moodAssetId ~= 0 then
+	local poseKeyframeHasFaceAnimation = module.PoseKeyframeHasFaceAnimation(poseKeyframe)
+	if not poseKeyframeHasFaceAnimation and moodAssetId and moodAssetId ~= 0 then
 		-- Get the face keyframes.
 		-- Note: this is yielding function.  I considered making it parallel with doYieldingWorkToLoadPoseInfo, but
-		-- doYieldingWorkToLoadPoseInfo gives us poseKeyframe which in turn tells us poseKeyframeHasFaceAnimtion.
+		-- doYieldingWorkToLoadPoseInfo gives us poseKeyframe which in turn tells us poseKeyframeHasFaceAnimation.
 		-- Depending on the results of doYieldingWorkToLoadPoseInfo we might not even need to make this call.
 		moodKeyframe = getMainThumbnailKeyframe(character, moodAssetId, true)
 	end
@@ -890,7 +906,7 @@ module.SetPlayerCharacterPose = function(character,
 	end
 
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
-	if module.SetPlayerCharacterPoseEasyOut(character, humanoid, poseAssetId) then
+	if module.SetPlayerCharacterPoseEasyOut(character, humanoid) then
 		return
 	end
 
@@ -918,10 +934,8 @@ module.SetPlayerCharacterPose = function(character,
 	-- Iff this is going to pose the face, first unpose the face.
 	-- (If it's not going to pose the face then leave it alone: before this function was called we may have already
 	-- moved face into a pose we like based on mood, say by applying CharacterAppearance to Player.
-	if FFlagEmoteUtilityClearFaceBeforeApplyingAnything then
-		if module.PoseKeyframeHasFaceAnimtion(poseKeyframe) then
-			module.ClearPlayerCharacterFace(character)
-		end
+	if module.PoseKeyframeHasFaceAnimation(poseKeyframe) then
+		module.ClearPlayerCharacterFace(character)
 	end
 
 	if tool then

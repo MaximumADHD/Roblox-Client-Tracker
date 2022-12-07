@@ -72,28 +72,30 @@ function LoadingAlert:render()
 			position = self.props.position,
 			screenSize = self.props.screenSize,
 			title = self.props.title,
-			titleContent = self.props.titleIcon and function()
-				return Roact.createElement(FitFrameOnAxis, {
-					BackgroundTransparency = 1,
-					contentPadding = UDim.new(0, 8),
-					HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					margin = {
-						top = 12, -- Title already has 12 padding on the top
-						bottom = 0,
-						left = 0,
-						right = 0,
-					},
-					minimumSize = UDim2.new(1, 0, 0, 0),
-				}, {
-					Icon = Roact.createElement(ImageSetComponent.Label, {
-						BackgroundTransparency = 1,
-						Image = self.props.titleIcon,
-						ImageColor3 = theme.IconEmphasis.Color,
-						ImageTransparency = theme.IconEmphasis.Transparency,
-						Size = UDim2.new(0, TITLE_ICON_SIZE, 0, TITLE_ICON_SIZE),
-					}),
-				})
-			end or nil,
+			titleContent = self.props.titleIcon
+					and function()
+						return Roact.createElement(FitFrameOnAxis, {
+							BackgroundTransparency = 1,
+							contentPadding = UDim.new(0, 8),
+							HorizontalAlignment = Enum.HorizontalAlignment.Center,
+							margin = {
+								top = 12, -- Title already has 12 padding on the top
+								bottom = 0,
+								left = 0,
+								right = 0,
+							},
+							minimumSize = UDim2.new(1, 0, 0, 0),
+						}, {
+							Icon = Roact.createElement(ImageSetComponent.Label, {
+								BackgroundTransparency = 1,
+								Image = self.props.titleIcon,
+								ImageColor3 = theme.IconEmphasis.Color,
+								ImageTransparency = theme.IconEmphasis.Transparency,
+								Size = UDim2.new(0, TITLE_ICON_SIZE, 0, TITLE_ICON_SIZE),
+							}),
+						})
+					end
+				or nil,
 		})
 	end)
 end

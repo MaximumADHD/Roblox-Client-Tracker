@@ -56,8 +56,11 @@ local function Panel3D(providedProps: Props)
 				ref = basePart,
 				Anchored = true,
 				CFrame = props.offset * CFrame.Angles(math.rad(props.tilt), 0, 0),
-				Size = Vector3.new(props.partSize.X, props.partSize.Y,
-					if UIBloxConfig.vrApplyHeadScale then 0.05 else 0),
+				Size = Vector3.new(
+					props.partSize.X,
+					props.partSize.Y,
+					if UIBloxConfig.vrApplyHeadScale then 0.05 else 0
+				),
 				Transparency = 1,
 				Color = Color3.new(0, 0, 0),
 				CanCollide = false,

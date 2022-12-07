@@ -7,6 +7,6 @@ dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
     "FriendsNetworking NetworkingFriends 2.7.0 url+https://github.com/roblox/networking-friends",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "RoduxNetworking RoduxNetworking 3.0.1 url+https://github.com/roblox/rodux-networking",
+    "RoduxNetworking RoduxNetworking 3.0.2 url+https://github.com/roblox/rodux-networking",
     "UsersNetworking roblox/networking-users 6616f72f git+https://github.com/roblox/networking-users#v1.0.0",
 ]

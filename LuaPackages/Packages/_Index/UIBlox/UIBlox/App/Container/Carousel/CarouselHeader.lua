@@ -58,10 +58,8 @@ function CarouselHeader:render()
 		local textFont = fontStyle.Font
 
 		local textboxBounds = GetTextSize(headerText, fontSize, textFont, Vector2.new(MAX_BOUND, MAX_BOUND))
-		local textboxSize = UDim2.fromOffset(
-			textboxBounds.X + TEXT_ICON_PADDING + getIconSize(IconSize.Small),
-			textboxBounds.Y
-		)
+		local textboxSize =
+			UDim2.fromOffset(textboxBounds.X + TEXT_ICON_PADDING + getIconSize(IconSize.Small), textboxBounds.Y)
 
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, textboxBounds.Y),

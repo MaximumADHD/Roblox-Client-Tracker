@@ -29,11 +29,11 @@ local theme = {
 	},
 	BackgroundOnHover = {
 		Color = ColorSystem.Black,
-		Transparency = 0.9, -- 0.1 alpha
+		Transparency = 0.94, -- 0.06 alpha
 	},
 	BackgroundOnPress = {
 		Color = ColorSystem.Black,
-		Transparency = 0.9, -- 0.1 alpha
+		Transparency = 0.85, -- 0.15 alpha
 	},
 	CellOnHover = {
 		Color = ColorSystem.Gray[20],

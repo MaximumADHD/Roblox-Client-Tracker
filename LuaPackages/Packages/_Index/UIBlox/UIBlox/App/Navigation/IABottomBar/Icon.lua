@@ -62,10 +62,9 @@ local function Icon(item, state, selected, showNumberedBadge, iconProps) -- gene
 
 	local BadgeComponent = hasBadge
 			and Roact.createElement(Badge, {
-				position = item.badgeValue == BadgeStates.isEmpty and UDim2.fromOffset(
-					Consts.EMPTY_BADGE_POSITION_X,
-					Consts.EMPTY_BADGE_POSITION_Y
-				) or UDim2.fromOffset(Consts.BADGE_POSITION_X, Consts.BADGE_POSITION_Y),
+				position = item.badgeValue == BadgeStates.isEmpty
+						and UDim2.fromOffset(Consts.EMPTY_BADGE_POSITION_X, Consts.EMPTY_BADGE_POSITION_Y)
+					or UDim2.fromOffset(Consts.BADGE_POSITION_X, Consts.BADGE_POSITION_Y),
 				value = item.badgeValue,
 			})
 		or nil

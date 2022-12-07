@@ -71,9 +71,11 @@ function Config:set(configValues)
 
 		-- Right now, all configuration values must be boolean.
 		if typeof(value) ~= "boolean" then
-			local message = (
-				"Invalid value %q (type %s) for global configuration key %q. Valid values are: true, false"
-			):format(tostring(value), typeof(value), tostring(key))
+			local message = ("Invalid value %q (type %s) for global configuration key %q. Valid values are: true, false"):format(
+				tostring(value),
+				typeof(value),
+				tostring(key)
+			)
 
 			error(message, 3)
 		end

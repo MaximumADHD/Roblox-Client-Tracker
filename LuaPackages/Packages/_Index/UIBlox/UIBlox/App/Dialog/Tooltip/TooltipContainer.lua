@@ -143,10 +143,9 @@ function TooltipContainer:render()
 			Position = containerPosition,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
-			Size = positionInfo.fillDirection == Enum.FillDirection.Vertical and UDim2.fromOffset(
-				frameWidth,
-				frameHeight + TRIANGLE_HEIGHT
-			) or UDim2.fromOffset(frameWidth + TRIANGLE_HEIGHT, frameHeight),
+			Size = positionInfo.fillDirection == Enum.FillDirection.Vertical
+					and UDim2.fromOffset(frameWidth, frameHeight + TRIANGLE_HEIGHT)
+				or UDim2.fromOffset(frameWidth + TRIANGLE_HEIGHT, frameHeight),
 		}, {
 			UIListLayout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,

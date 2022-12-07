@@ -940,7 +940,7 @@ function completeListValue(
 	-- ROBLOX deviation: Set isn't iterable, so resolve before continuing
 	if instanceof(result, Set) then
 		local iterableResult = {}
-		for _, item in result:ipairs() do
+		for _, item in result do
 			table.insert(iterableResult, item)
 		end
 		result = iterableResult

@@ -237,8 +237,7 @@ function ArrowNav:getScrollToLeftLocation(buttonSizes)
 	local scrollingFrame = self.props.defaultUseProps.scrollingFrameRef.current
 	local buttonPadding = self.props.defaultUseProps.buttonPadding
 
-	local scrollToLeft = scrollingFrame.CanvasPosition.X
-		- scrollingFrame.AbsoluteSize.X * ADDITIONAL_SCROLL_PERCENTAGE
+	local scrollToLeft = scrollingFrame.CanvasPosition.X - scrollingFrame.AbsoluteSize.X * ADDITIONAL_SCROLL_PERCENTAGE
 
 	local scrollTo = 0
 	for _, btnSize in ipairs(buttonSizes) do
@@ -256,8 +255,7 @@ function ArrowNav:getScrollToRightLocation(buttonSizes)
 	local buttonPadding = self.props.defaultUseProps.buttonPadding
 	local padOutsideEdges = self.props.defaultUseProps.padOutsideEdges
 
-	local scrollToRight = scrollingFrame.CanvasPosition.X
-		+ scrollingFrame.AbsoluteSize.X * ADDITIONAL_SCROLL_PERCENTAGE
+	local scrollToRight = scrollingFrame.CanvasPosition.X + scrollingFrame.AbsoluteSize.X * ADDITIONAL_SCROLL_PERCENTAGE
 
 	--this version of scrollTo tries to find the right edge of the menu by accumulating the buttonSizes
 	--plus buttonPadding from left to right until it goes past the right edge of the menu. We pre-subtract
