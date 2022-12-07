@@ -2,71 +2,65 @@ local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 
 local React = require(VirtualEvents.Parent.React)
 local UIBlox = require(VirtualEvents.Parent.UIBlox)
-local useHostAvatarImageId = require(VirtualEvents.Hooks.useHostAvatarImageId)
-local useHostAvatarUsername = require(VirtualEvents.Hooks.useHostAvatarUsername)
+local types = require(VirtualEvents.types)
 
 local useStyle = UIBlox.Core.Style.useStyle
 local EmojiTextLabel = UIBlox.Core.Text.EmojiTextLabel
 local EmojiEnum = UIBlox.App.Emoji.Enum.Emoji
 
 local ELEMENTS_PADDING = 4
-local AVATAR_IMAGE_SIZE = 16
-local EMOJI_TO_ARROW_MARGIN = 18
 
 export type Props = {
-	hostId: number,
-	hasVerifiedBadge: boolean?,
-	position: UDim2?,
-	layoutOrder: number?,
+	host: types.Host,
 }
 
 local function EventHostName(props: Props)
-	local avatarImageId = useHostAvatarImageId(props.hostId)
-	local username = useHostAvatarUsername(props.hostId)
-	local emojiBadge = if props.hasVerifiedBadge then EmojiEnum.Verified else nil
-
 	local style = useStyle()
-	local theme = style.Theme
-	local font = style.Font
+	local emojiBadge = if props.host.hasVerifiedBadge then EmojiEnum.Verified else nil
 
-	local layoutOrder = if props.layoutOrder then props.layoutOrder else 0
-	local position = if props.position then props.position else UDim2.fromScale(0, 0)
+	local textSize, setTextSize = React.useState(0)
+
+	local onUsernameSizeChanged = React.useCallback(function(rbx: TextLabel)
+		setTextSize(rbx.TextSize)
+	end, { setTextSize })
 
 	return React.createElement("Frame", {
-		Position = position,
-		Size = UDim2.fromScale(1, 1),
 		BackgroundTransparency = 1,
-		LayoutOrder = layoutOrder,
+		AutomaticSize = Enum.AutomaticSize.XY,
 	}, {
 		Layout = React.createElement("UIListLayout", {
 			Padding = UDim.new(0, ELEMENTS_PADDING),
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Horizontal,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
-			HorizontalAlignment = Enum.HorizontalAlignment.Right,
 		}),
+
 		UserImage = React.createElement("ImageLabel", {
-			Image = avatarImageId,
-			Size = UDim2.fromOffset(AVATAR_IMAGE_SIZE, AVATAR_IMAGE_SIZE),
-			ZIndex = 2,
 			LayoutOrder = 1,
+			BackgroundColor3 = style.Theme.Badge.Color,
+			BackgroundTransparency = style.Theme.Badge.Transparency,
+			Image = string.format("rbxthumb://type=AvatarHeadShot&id=%i&w=150&h=150", props.host.hostId),
+			Size = UDim2.fromOffset(textSize, textSize),
 		}, {
 			Corner = React.createElement("UICorner", {
 				CornerRadius = UDim.new(1, 0),
 			}),
 		}),
+
 		EmojiName = React.createElement(EmojiTextLabel, {
-			Text = username,
+			Text = props.host.hostName,
+			LayoutOrder = 2,
 			emoji = emojiBadge,
-			fontStyle = font.Header1,
-			colorStyle = theme.TextEmphasis,
-			LayoutOrder = 3,
+			fontStyle = style.Font.Header2,
+			colorStyle = style.Theme.TextEmphasis,
+			[React.Change.AbsoluteSize] = onUsernameSizeChanged,
 		}),
+
 		EmojiToArrowMargin = if emojiBadge
 			then React.createElement("Frame", {
+				LayoutOrder = 3,
 				BackgroundTransparency = 1,
-				Size = UDim2.fromOffset(EMOJI_TO_ARROW_MARGIN, 0),
-				LayoutOrder = 4,
+				Size = UDim2.fromOffset(textSize - ELEMENTS_PADDING, 0),
 			})
 			else nil,
 	})

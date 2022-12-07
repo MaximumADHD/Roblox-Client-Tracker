@@ -25,6 +25,13 @@ local RunService = game:GetService("RunService")
 
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
+local FFlagUserVRApplyHeadScaleToHandPositions do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserVRApplyHeadScaleToHandPositions")
+	end)
+	FFlagUserVRApplyHeadScaleToHandPositions = success and result
+end
+
 --[[ The Module ]]--
 local BaseCamera = require(script.Parent:WaitForChild("BaseCamera"))
 local VRBaseCamera = setmetatable({}, BaseCamera)
@@ -192,6 +199,7 @@ function VRBaseCamera:StartVREdgeBlur(player)
 	local blurPart = nil
 	blurPart = (workspace.CurrentCamera :: Camera):FindFirstChild("VRBlurPart")
 	if not blurPart then
+		local basePartSize = Vector3.new(0.44,0.47,1)
 		blurPart = Instance.new("Part")
 		blurPart.Name = "VRBlurPart"
 		blurPart.Parent = workspace.CurrentCamera
@@ -199,14 +207,21 @@ function VRBaseCamera:StartVREdgeBlur(player)
 		blurPart.CanCollide = false
 		blurPart.CanQuery = false
 		blurPart.Anchored = true
-		blurPart.Size = Vector3.new(0.44,0.47,1)
+		blurPart.Size = basePartSize
 		blurPart.Transparency = 1
 		blurPart.CastShadow = false
 
 		RunService.RenderStepped:Connect(function(step)
 			local userHeadCF = VRService:GetUserCFrame(Enum.UserCFrame.Head)
-			local vrCF = (workspace :: any).Camera.CFrame * userHeadCF
-			blurPart.CFrame = (vrCF * CFrame.Angles(0, math.rad(180), 0)) + vrCF.LookVector * 1.05
+
+			if FFlagUserVRApplyHeadScaleToHandPositions then
+				local vrCF = (workspace.CurrentCamera :: Camera).CFrame * (CFrame.new(userHeadCF.p * (workspace.CurrentCamera :: Camera).HeadScale) * (userHeadCF - userHeadCF.p))
+				blurPart.CFrame = (vrCF * CFrame.Angles(0, math.rad(180), 0)) + vrCF.LookVector * (1.05 * (workspace.CurrentCamera :: Camera).HeadScale)
+				blurPart.Size = basePartSize * (workspace.CurrentCamera :: Camera).HeadScale
+			else
+				local vrCF = (workspace :: any).Camera.CFrame * userHeadCF
+				blurPart.CFrame = (vrCF * CFrame.Angles(0, math.rad(180), 0)) + vrCF.LookVector * 1.05
+			end
 		end)
 	end
 

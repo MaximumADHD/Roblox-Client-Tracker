@@ -10,8 +10,8 @@ local GetEnableDesignSystemExperiment = require(SharedFlags.GetEnableDesignSyste
 game:DefineFastFlag("UIBloxUseNewThemeColorPalettes", false)
 
 -- IXP
-game:DefineFastFlag("LuaAppColorSystem1_1TestEnabled", false)
-game:DefineFastFlag("LuaAppColorSystem1_1TestCache", false)
+game:DefineFastFlag("LuaAppColorSystem1_1TestEnabled1", false)
+game:DefineFastFlag("LuaAppColorSystem1_1TestCache1", false)
 game:DefineFastString("LuaAppColorSystem1_1TestLayerName", "DesignSystem.DesignToken")
 game:DefineFastString("LuaAppColorSystem1_1TestFieldName", "colorVersion")
 
@@ -70,12 +70,12 @@ local function getTestConfig(testVariant: string?): boolean
 end
 
 local function enabledByIXP(): boolean
-	local testEnabled = game:GetFastFlag("LuaAppColorSystem1_1TestEnabled")
+	local testEnabled = game:GetFastFlag("LuaAppColorSystem1_1TestEnabled1")
 	if not testEnabled then
 		return false
 	end
 
-	local useCache = game:GetFastFlag("LuaAppColorSystem1_1TestCache")
+	local useCache = game:GetFastFlag("LuaAppColorSystem1_1TestCache1")
 	local testLayerName = game:GetFastString("LuaAppColorSystem1_1TestLayerName")
 	local testFieldName = game:GetFastString("LuaAppColorSystem1_1TestFieldName")
 

@@ -20,15 +20,21 @@ local GetFFlagUIBloxSystemBarBottomAlignedItems =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxSystemBarBottomAlignedItems
 
 local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
-local GetFFlagUIBloxEnableReactTag = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableReactTag
 
 local GetFFlagUIBloxEnableImageSetResolutionScaleFix =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableImageSetResolutionScaleFix
+
+local GetFFlagUIBloxVRApplyHeadScale =
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRApplyHeadScale
 
 local GetFFlagLuaAppUseUIBloxColorPalettes =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppUseUIBloxColorPalettes
 local GetUIBloxUseNewThemeColorPalettes =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetUIBloxUseNewThemeColorPalettes
+
+local GetFFlagUIBloxUsePillv2 = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxUsePillv2
+local GetFFlagUIBloxUseRightSideGadget = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxUseRightSideGadget
+local GetFFlagUIBloxPillGroupAutomaticSize = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxPillGroupAutomaticSize
 
 return {
 	useUpdatedCheckbox = true,
@@ -42,10 +48,9 @@ return {
 		false
 	),
 	enableRadioButtonGamepadSupport = GetFFlagUIBloxEnableRadioButtonGamepadSupport(),
-	enableReactTag = GetFFlagUIBloxEnableReactTag(),
 
 	useNewVerticalScrollView = false, -- TODO: https://jira.rbx.com/browse/UIBLOX-225
-	enableRightSideGadgetView = EnableInGameMenuV3(),
+	enableRightSideGadgetView = if GetFFlagUIBloxUseRightSideGadget() then true else EnableInGameMenuV3(),
 
 	sliderUpdateOnDismiss = GetFFlagUIBloxSliderUpdateOnDismiss(),
 
@@ -60,5 +65,10 @@ return {
 
 	enableStandardButtonSizes = true,
 
+	vrApplyHeadScale = GetFFlagUIBloxVRApplyHeadScale(),
+
 	useNewThemeColorPalettes = GetFFlagLuaAppUseUIBloxColorPalettes() and GetUIBloxUseNewThemeColorPalettes(),
+
+	usePillv2 = GetFFlagUIBloxUsePillv2(),
+	pillGroupAutomaticSize = GetFFlagUIBloxPillGroupAutomaticSize(),
 }

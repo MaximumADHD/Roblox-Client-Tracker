@@ -1,9 +1,12 @@
 --!nonstrict
 local VRService 	= game:GetService("VRService")
 local CoreGui 		= game:GetService("CoreGui")
+local CorePackages	= game:GetService("CorePackages")
 
 local RobloxGui 	= CoreGui.RobloxGui
 local CommonUtil	= require(RobloxGui.Modules.Common.CommonUtil)
+local GetFFlagUIBloxVRApplyHeadScale =
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRApplyHeadScale
 
 local PARTS_INFO = {
 	Body = {
@@ -111,6 +114,9 @@ function ViveController.new(userCFrame)
 		CanCollide = false,
 	}
 	
+	if GetFFlagUIBloxVRApplyHeadScale() then
+		self.scale = 1
+	end
 	self.parts = {}
 	
 	for partName, partInfo in pairs(PARTS_INFO) do
@@ -190,6 +196,35 @@ function ViveController:setCFrame(cframe)
 	self.model:SetPrimaryPartCFrame(cframe)
 end
 
+function ViveController:setCFrameAndScale(cframe, scale)
+	self.model:SetPrimaryPartCFrame(cframe)
+	if self.scale ~= scale then
+		self.scale = scale
+		for partName, partInfo in pairs(PARTS_INFO) do
+			local part = self.parts[partName]
+			if part then
+				local partScale = SCALE
+				if partInfo.scale then
+					partScale = partScale * partInfo.scale
+				end
+	
+				local mesh = part:FindFirstChild("Mesh")
+				local weld = part:FindFirstChild("Weld")
+
+				local scaledOffset = CFrame.new(partInfo.offset.p * self.scale) * (partInfo.offset - partInfo.offset.p)
+				part.CFrame = cframe * scaledOffset
+
+				if mesh then
+					mesh.Scale = partScale * self.scale
+				end
+				if weld then
+					weld.C0 = scaledOffset
+				end
+			end
+		end
+	end
+end
+
 function ViveController:setButtonState(partName, depressed)
 	local partInfo = PARTS_INFO[partName]
 	if not partInfo then return end
@@ -198,6 +233,11 @@ function ViveController:setButtonState(partName, depressed)
 	local moveOffset = partInfo.moveOffset
 
 	if offset and moveOffset then
+		if GetFFlagUIBloxVRApplyHeadScale() then
+			offset = CFrame.new(offset.p * self.scale) * (offset - offset.p)
+			moveOffset = CFrame.new(moveOffset.p * self.scale) * (moveOffset - moveOffset.p)
+		end
+
 		local part = self.parts[partName]
 		if part then
 			local mesh = part:FindFirstChild("Mesh")
@@ -225,6 +265,9 @@ end
 function ViveController:setTriggerState(state)
 	local partInfo = PARTS_INFO.Trigger
 	local offset = partInfo.offset
+	if GetFFlagUIBloxVRApplyHeadScale() then
+		offset = CFrame.new(offset.p * self.scale) * (offset - offset.p)
+	end
 
 	local part = self.parts.Trigger
 	local weld = part:FindFirstChild("Weld")
@@ -232,6 +275,9 @@ function ViveController:setTriggerState(state)
 		local angleMin, angleMax = math.rad(0), math.rad(-20)
 		local angleRange = angleMax - angleMin
 		local rotCenter = Vector3.new(0, 0.05, -0.025)
+		if GetFFlagUIBloxVRApplyHeadScale() then
+			rotCenter = Vector3.new(0, 0.05 * self.scale, -0.025 * self.scale)
+		end
 		local angle = (state * angleRange) + angleMin
 		local newOffset = offset * CFrame.new(rotCenter) * CFrame.Angles(angle, 0, 0) * CFrame.new(-rotCenter)
 		part.CFrame = self.origin.CFrame * newOffset
@@ -242,10 +288,16 @@ end
 function ViveController:setTrackpadState(pos)
 	local part = self.parts.TrackpadIndicator
 	local weld = part:FindFirstChild("Weld")
+	local offset = PARTS_INFO.Trackpad.offset
+	local scale = 1
+	if GetFFlagUIBloxVRApplyHeadScale() then
+		offset = CFrame.new(offset.p * self.scale) * (offset - offset.p)
+		scale = self.scale
+	end
 	if weld then
 		local pos3d = Vector3.new(pos.X, 0, -pos.Y) * 0.055
-		local trackpadSpace = CFrame.Angles(math.rad(6.5), 0, 0) * CFrame.new(0, 0.002 * (pos.magnitude ^ 3), 0)
-		local newOffset = PARTS_INFO.Trackpad.offset  * CFrame.new(0, 0.01, 0) * trackpadSpace:toWorldSpace(CFrame.new(pos3d))
+		local trackpadSpace = CFrame.Angles(math.rad(6.5), 0, 0) * CFrame.new(0, 0.002 * scale * (pos.magnitude ^ 3), 0)
+		local newOffset = offset  * CFrame.new(0, 0.01 * scale, 0) * trackpadSpace:toWorldSpace(CFrame.new(pos3d))
 		part.CFrame = self.origin.CFrame * newOffset
 		weld.C0 = newOffset
 	end

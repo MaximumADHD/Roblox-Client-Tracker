@@ -22,6 +22,8 @@ export type PaginatedRsvpResponse = Package.PaginatedRsvpResponse
 export type EventFilterBy = Package.EventFilterBy
 export type EventSortBy = Package.EventSortBy
 export type SortOrder = Package.SortOrder
+export type RsvpCounters = Package.RsvpCounters
+export type RsvpCounterResponse = Package.RsvpCounterResponse
 
 
 return Package

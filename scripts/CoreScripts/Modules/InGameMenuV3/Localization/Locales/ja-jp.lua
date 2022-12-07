@@ -324,4 +324,7 @@ return{
 	["CoreScripts.InGameMenu.Label.MicOnRecording"] = [[マイクをオン（音声を録音中）]],
 	["CoreScripts.InGameMenu.Label.MicOff"] = [[マイクをオフ]],
 	["CoreScripts.InGameMenu.Label.Teleporting"] = [[テレポート中...]],
+	["CoreScripts.InGameMenu.Label.Copied"] = [[コピー済み]],
+	["CoreScripts.InGameMenu.QuickActions.SelfView"] = [[セルフビュー]],
+	["CoreScripts.InGameMenu.QuickActions.Camera"] = [[カメラ]],
 }

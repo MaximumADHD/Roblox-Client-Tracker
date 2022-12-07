@@ -9,6 +9,7 @@ local ShareGameContainer = require(ShareGameComponents.ShareGameContainer)
 local ModalShareGamePageFrame = require(ShareGameComponents.ModalShareGamePageFrame)
 local LayoutProvider = require(ShareGameComponents.LayoutProvider)
 local InviteSingleUserContainer = require(ShareGameComponents.InviteSingleUserContainer)
+local LoadingModal = require(ShareGameComponents.LoadingModal)
 
 local FullModalShareGameComponent = Roact.PureComponent:extend("FullModalShareGameComponent")
 
@@ -21,6 +22,7 @@ function FullModalShareGameComponent:render()
 	local inviteUserId = self.props.inviteUserId
 	local inviteMessageId = self.props.inviteMessageId
 	local launchData = self.props.launchData
+	local isLoading = self.props.isLoading
 
 	return Roact.createElement(RoactRodux.StoreProvider, {
 		store = store,
@@ -31,7 +33,8 @@ function FullModalShareGameComponent:render()
 			DisplayOrder = -1,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		}, {
-			layoutProvider = Roact.createElement(LayoutProvider, nil, {
+			loadingIndicator = isLoading and Roact.createElement(LoadingModal),
+			layoutProvider = not isLoading and Roact.createElement(LayoutProvider, nil, {
 				ShareGameContainer = Roact.createElement(ShareGameContainer, {
 					analytics = analytics,
 					isVisible = isVisible,

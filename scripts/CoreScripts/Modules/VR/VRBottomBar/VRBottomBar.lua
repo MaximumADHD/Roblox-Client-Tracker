@@ -44,6 +44,8 @@ local StarterPlayer = game:GetService("StarterPlayer")
 local SafetyBubbleEnabled = require(RobloxGui.Modules.Flags.FFlagSafetyBubbleEnabled)
 
 local EngineFeatureEnableVRBottomBarWorksBehindObjects = game:GetEngineFeature("EnableVRBottomBarWorksBehindObjects")
+local GetFFlagUIBloxVRApplyHeadScale =
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRApplyHeadScale
 
 -- each individual icon can either be definied as a table entry with icon and onActivate, or as a item component
 local MainMenu =
@@ -257,9 +259,13 @@ end
 function VRBottomBar:render()
 	return Roact.createElement(Panel3D,  {
 			panelName = "BottomBar",
-			partSize = Vector2.new((table.getn(self.state.itemList) - 1) * 0.15 * (workspace.CurrentCamera :: Camera).HeadScale, 0.15 * (workspace.CurrentCamera :: Camera).HeadScale),
+			partSize = if GetFFlagUIBloxVRApplyHeadScale()
+				then Vector2.new((table.getn(self.state.itemList) - 1) * 0.15, 0.15)
+				else Vector2.new((table.getn(self.state.itemList) - 1) * 0.15 * (workspace.CurrentCamera :: Camera).HeadScale, 0.15 * (workspace.CurrentCamera :: Camera).HeadScale),
 			virtualScreenSize = Vector2.new((table.getn(self.state.itemList) - 1) * 50, 50),
-			offset = self.state.vrMenuOpen and CFrame.new(0, -1.5 * (workspace.CurrentCamera :: Camera).HeadScale, 0) or CFrame.new(0, -2 * (workspace.CurrentCamera :: Camera).HeadScale, 0),
+			offset = if GetFFlagUIBloxVRApplyHeadScale()
+				then self.state.vrMenuOpen and CFrame.new(0, -1.5, 0) or CFrame.new(0, -2, 0)
+				else self.state.vrMenuOpen and CFrame.new(0, -1.5 * (workspace.CurrentCamera :: Camera).HeadScale, 0) or CFrame.new(0, -2 * (workspace.CurrentCamera :: Camera).HeadScale, 0),
 			lerp = true,
 			tilt = 0,
 			anchoring = VRConstants.AnchoringTypes.Head,

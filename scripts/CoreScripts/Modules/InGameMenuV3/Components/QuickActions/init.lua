@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local RunService = game:GetService("RunService")
+local StarterGui = game:GetService("StarterGui")
 local CoreGui = game:GetService("CoreGui")
 local UserInputService = game:GetService("UserInputService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -11,15 +12,19 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local t = InGameMenuDependencies.t
 local UIBlox = InGameMenuDependencies.UIBlox
 local withStyle = UIBlox.Core.Style.withStyle
+local ExternalEventConnection = UIBlox.Utility.ExternalEventConnection
+
 local QuickActionsTooltip = require(script.QuickActionsTooltip)
 local QuickActionsMenu = require(script.QuickActionsMenu)
 local withVoiceState = require(RobloxGui.Modules.VoiceChat.VoiceStateContext).withVoiceState
+local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 
 local InGameMenu = script.Parent.Parent
 local Constants = require(InGameMenu.Resources.Constants)
 
 local FFlagRecordRecording = require(InGameMenu.Flags.FFlagRecordRecording)
 local FFlagEnableInGameMenuQAScreenshot = game:DefineFastFlag("EnableInGameMenuQAScreenshot", false)
+local GetFFlagV3MenuAddSelfViewButtons = require(InGameMenu.Flags.GetFFlagV3MenuAddSelfViewButtons)
 
 local QuickActions = Roact.PureComponent:extend("QuickActions")
 
@@ -67,6 +72,8 @@ local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 			updateBindings.button5(elapsed)
 			updateBindings.button6(elapsed)
 			updateBindings.button7(elapsed)
+			updateBindings.button8(elapsed)
+			updateBindings.button9(elapsed)
 		else
 			local finalTransparency = 1
 			updateBindings.button1(finalTransparency)
@@ -76,6 +83,8 @@ local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 			updateBindings.button5(finalTransparency)
 			updateBindings.button6(finalTransparency)
 			updateBindings.button7(finalTransparency)
+			updateBindings.button8(finalTransparency)
+			updateBindings.button9(finalTransparency)
 			stopCallback()
 		end
 		updateBindings.gradient(1)
@@ -151,6 +160,8 @@ local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 		updateBindings.button5(0)
 		updateBindings.button6(0)
 		updateBindings.button7(0)
+		updateBindings.button8(0)
+		updateBindings.button9(0)
 		stopCallback()
 	end
 end
@@ -166,6 +177,8 @@ function QuickActions:init()
 	self.button5Transparency, self.updateButton5 = Roact.createBinding(1)
 	self.button6Transparency, self.updateButton6 = Roact.createBinding(1)
 	self.button7Transparency, self.updateButton7 = Roact.createBinding(1)
+	self.button8Transparency, self.updateButton8 = Roact.createBinding(1)
+	self.button9Transparency, self.updateButton9 = Roact.createBinding(1)
 
 	self.transparencies = {
 		self.button1Transparency,
@@ -175,6 +188,8 @@ function QuickActions:init()
 		self.button5Transparency,
 		self.button6Transparency,
 		self.button7Transparency,
+		self.button8Transparency,
+		self.button9Transparency,
 	}
 	self.updateBindings = {
 		gradient = self.updateGradient,
@@ -187,6 +202,8 @@ function QuickActions:init()
 		button5 = self.updateButton5,
 		button6 = self.updateButton6,
 		button7 = self.updateButton7,
+		button8 = self.updateButton8,
+		button9 = self.updateButton9,
 	}
 	self.animationStartTime = nil
 	self.animationFunction = nil
@@ -194,7 +211,9 @@ function QuickActions:init()
 	self.renderSteppedConnection = nil
 	self:setState({
 		-- In order to see the disappear animation
-		frameVisible = false
+		frameVisible = false,
+		selfViewEnabled = if GetFFlagV3MenuAddSelfViewButtons() then StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.All) or StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView) else nil,
+		hasCameraPermissions = false,
 	})
 	if FFlagEnableInGameMenuQAScreenshot then
 		buttonCount = buttonCount + 1
@@ -208,6 +227,10 @@ function QuickActions:init()
 	self.recordEnabled = GameSettings.VideoCaptureEnabled and FFlagRecordRecording or false
 	if self.recordEnabled then
 		buttonCount = buttonCount + 1
+	end
+
+	if self.state.selfViewEnabled then
+		buttonCount += 1
 	end
 
 	-- Dynamic desktop position for encroachment/overlap with the InGameMenu panel
@@ -236,8 +259,39 @@ function QuickActions:init()
 		self.menuWidth = rbx.AbsoluteSize.x
 		self.updateSizeConstraint()
 	end
+
+	self.onCoreGuiChanged = function()
+		local coreGuiState = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
+		if self.state.selfViewEnabled ~= coreGuiState then
+			self:setState({
+				selfViewEnabled = coreGuiState
+			})
+		end
+	end
 end
 
+if GetFFlagV3MenuAddSelfViewButtons() then
+	--[[
+		Check that the user's device has given Roblox camera permission.
+	]]
+	function QuickActions:getPermissions()
+		local callback = function(response)
+			self:setState({
+				hasCameraPermissions = response.hasCameraPermissions,
+			})
+
+			if response.hasCameraPermissions then
+				buttonCount += 1
+			end
+		end
+
+		return getCamMicPermissions(callback)
+	end
+
+	function QuickActions:didMount()
+		self:getPermissions()
+	end
+end
 function QuickActions:render()
 	return withStyle(function(style)
 		return withVoiceState(function(voiceState)
@@ -271,6 +325,10 @@ function QuickActions:render()
 						NumberSequenceKeypoint.new(1.0, 1.0),
 					})
 				}),
+				SelfViewChangedEvent = GetFFlagV3MenuAddSelfViewButtons() and Roact.createElement(ExternalEventConnection, {
+					event = StarterGui.CoreGuiChangedSignal,
+					callback = self.onCoreGuiChanged,
+				}),
 				QuickActionFrame = Roact.createElement("Frame", {
 					Size = UDim2.new(0, CONTROL_WIDTH, 1, 0),
 					Position = UDim2.new(0.5, 0, 0, -TOOLTIP_HEIGHT/2),
@@ -294,6 +352,8 @@ function QuickActions:render()
 						fullscreenEnabled = false,
 						screenshotEnabled = FFlagEnableInGameMenuQAScreenshot,
 						recordEnabled = self.recordEnabled,
+						cameraEnabled = self.state.hasCameraPermissions,
+						selfViewEnabled = self.state.selfViewEnabled,
 						frameTransparency = self.frameTransparency,
 						transparencies = self.transparencies,
 						fillDirection = Enum.FillDirection.Vertical,
@@ -328,6 +388,10 @@ function QuickActions:render()
 							NumberSequenceKeypoint.new(1.0, 1.0),
 						})
 					}),
+				}),
+				SelfViewChangedEvent = GetFFlagV3MenuAddSelfViewButtons() and Roact.createElement(ExternalEventConnection, {
+					event = StarterGui.CoreGuiChangedSignal,
+					callback = self.onCoreGuiChanged,
 				}),
 				QuickActionFrame = Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, 0),
@@ -368,11 +432,13 @@ function QuickActions:render()
 						}),
 						Menu = Roact.createElement(QuickActionsMenu, {
 							layoutOrder = 2,
-							voiceEnabled = voiceState.voiceEnabled or true,
+							voiceEnabled = voiceState.voiceEnabled,
 							respawnEnabled = self.props.respawnEnabled,
 							fullscreenEnabled = isDesktopClient,
 							screenshotEnabled = isDesktopClient,
 							recordEnabled = self.recordEnabled,
+							cameraEnabled = self.state.hasCameraPermissions,
+							selfViewEnabled = self.state.selfViewEnabled,
 							frameTransparency = self.frameTransparency,
 							transparencies = self.transparencies,
 							fillDirection = Enum.FillDirection.Horizontal,

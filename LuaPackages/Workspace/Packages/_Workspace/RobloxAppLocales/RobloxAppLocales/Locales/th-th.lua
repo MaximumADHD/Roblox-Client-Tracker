@@ -223,6 +223,7 @@ return{
 	["CommonUI.Features.Label.Discover"] = [[ค้นพบ]],
 	["CommonUI.Features.Label.Billing"] = [[การเรียกเก็บเงิน]],
 	["CommonUI.Features.Label.Trades"] = [[แลกเปลี่ยน]],
+	["CommonUI.Features.Label.OfficialStore"] = [[ร้านค้าอย่างเป็นทางการ]],
 	["CommonUI.Features.Label.GiftCards"] = [[บัตรกำนัล]],
 	["CommonUI.Features.Label.DisplayName"] = [[ชื่อที่แสดง]],
 	["CommonUI.Features.Label.Premium"] = [[พรีเมียม]],

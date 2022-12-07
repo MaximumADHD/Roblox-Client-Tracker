@@ -23,9 +23,7 @@ return function(NetworkingVirtualEvents)
 					if virtualEvent.eventTime.startTime and virtualEvent.eventTime.endTime then
 						newState[res.id] = virtualEvent
 					else
-						logger:debug(
-							("Discarding VirtualEvent with ID %q (malformed start or end time)"):format(res.id)
-						)
+						logger:debug("Discarding VirtualEvent with ID {} (malformed start or end time)", res.id)
 					end
 				end
 			end
@@ -50,6 +48,21 @@ return function(NetworkingVirtualEvents)
 
 		[NetworkingVirtualEvents.GetVirtualEvent.Failed.name] = function(state: State, action: any)
 			return state
+		end,
+
+		[NetworkingVirtualEvents.UpdateMyRsvpStatus.Succeeded.name] = function(state: State, action: any)
+			local virtualEventId = action.ids[1]
+			local virtualEvent = state[virtualEventId]
+
+			if virtualEvent then
+				return Cryo.Dictionary.join(state, {
+					[virtualEventId] = Cryo.Dictionary.join(virtualEvent, {
+						userRsvpStatus = action.postBody.rsvpStatus,
+					}),
+				})
+			else
+				return state
+			end
 		end,
 	})
 

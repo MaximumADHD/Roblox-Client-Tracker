@@ -114,6 +114,9 @@ function VoiceChatPromptFrame:init()
 	end
 
 	self.promptSignalCallback = function(promptType)
+		if self.props.Analytics and (promptType == PromptType.VoiceChatSuspendedPermanent or promptType == PromptType.VoiceChatSuspendedTemporary) then
+			self.props.Analytics:reportBanMessageEvent("Shown")
+		end
 		if promptType == PromptType.NotAudible or
 			promptType == PromptType.Permission or
 			promptType == PromptType.Retry or
@@ -361,10 +364,6 @@ function VoiceChatPromptFrame:didMount()
 	if self.props.onReadyForSignal then
 		self.props.onReadyForSignal()
 	end
-	if self.props.Analytics then
-		self.props.Analytics:reportBanMessageEvent("Shown")		
-	end
-
 	ContextActionService:BindCoreAction(CLOSE_VOICE_BAN_PROMPT, self.checkInputStateForClosePrompt, false, Enum.KeyCode.ButtonA)
 	ContextActionService:BindCoreAction(CLOSE_VOICE_BAN_PROMPT, self.checkInputStateForClosePrompt, false, Enum.KeyCode.ButtonB)
 end

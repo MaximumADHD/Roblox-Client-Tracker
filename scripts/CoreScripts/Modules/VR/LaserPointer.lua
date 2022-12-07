@@ -13,10 +13,13 @@ local GuiService = game:GetService("GuiService")
 local VRService = game:GetService("VRService")
 local Utility = require(RobloxGui.Modules.Settings.Utility)
 local CorePackages = game:GetService("CorePackages")
+local VRUtil = require(RobloxGui.Modules.VR.VRUtil)
 require(RobloxGui.Modules.VR.Panel3D)
 
 local FFlagRenderVRCursorOnTop = game:DefineFastFlag("RenderVRCursorOnTop", false)
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
+local GetFFlagUIBloxVRApplyHeadScale =
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRApplyHeadScale
 local EngineFeatureBindActivateAllowMultiple = game:GetEngineFeature("EngineFeatureBindActivateAllowMultiple")
 local GetFFlagUIBloxMoveBindActivate =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxMoveBindActivate
@@ -733,10 +736,20 @@ end
 function LaserPointer:updateCursor()
 	if VRService.DidPointerHit then
 		local hitCFrame = VRService.PointerHitCFrame
-		local cameraSpace = (workspace.CurrentCamera :: Camera).CFrame
-		local originCFrame = cameraSpace * VRService:GetUserCFrame(self.inputUserCFrame)
-		if self:isHeadMounted() then
-			originCFrame = cameraSpace * VRService:GetUserCFrame(Enum.UserCFrame.Head)
+		local originCFrame
+		if GetFFlagUIBloxVRApplyHeadScale() then
+			originCFrame = VRUtil.GetUserCFrameWorldSpace(self.inputUserCFrame)
+
+			if self:isHeadMounted() then
+				originCFrame = VRUtil.GetUserCFrameWorldSpace(Enum.UserCFrame.Head)
+			end
+		else
+			local cameraSpace = (workspace.CurrentCamera :: Camera).CFrame
+			originCFrame = cameraSpace * VRService:GetUserCFrame(self.inputUserCFrame)
+
+			if self:isHeadMounted() then
+				originCFrame = cameraSpace * VRService:GetUserCFrame(Enum.UserCFrame.Head)
+			end
 		end
 
 		-- VRService.PointerHitCFrame is a frame behind.  To make the cursor appear at the most updated location,
@@ -785,7 +798,6 @@ function LaserPointer:update(dt)
 		self.plopBall,
 		GuiService.CoreEffectFolder,
 	}
-	local cameraSpace = (workspace.CurrentCamera :: Camera).CFrame
 	local thickness0, thickness1 = LASER.ARC_THICKNESS, TELEPORT.ARC_THICKNESS
 	local gravity0, gravity1 = LASER.G, TELEPORT.G
 
@@ -795,7 +807,13 @@ function LaserPointer:update(dt)
 		self.parabola.Thickness = LASER.ARC_THICKNESS * HEAD_MOUNT_THICKNESS_MULTIPLIER
 
 		--cast ray from center of camera, then render laser going from offset point to hit point
-		local originCFrame = cameraSpace * VRService:GetUserCFrame(Enum.UserCFrame.Head)
+		local originCFrame
+		if GetFFlagUIBloxVRApplyHeadScale() then
+			originCFrame = VRUtil.GetUserCFrameWorldSpace(Enum.UserCFrame.Head)
+		else
+			local cameraSpace = (workspace.CurrentCamera :: Camera).CFrame
+			originCFrame = cameraSpace * VRService:GetUserCFrame(Enum.UserCFrame.Head)
+		end
 		local originPos, originLook = originCFrame.p, originCFrame.lookVector
 
 		local laserHitPart, laserHitPoint, laserHitNormal, laserHitT = self:getLaserHit(originPos, originLook, ignore)
@@ -815,7 +833,13 @@ function LaserPointer:update(dt)
 			self.parabola.Color3 = VRService.DidPointerHit and LASER.ARC_COLOR_HIT or LASER.ARC_COLOR_GOOD
 		end
 	else
-		local originCFrame = cameraSpace * VRService:GetUserCFrame(self.inputUserCFrame)
+		local originCFrame
+		if GetFFlagUIBloxVRApplyHeadScale() then
+			originCFrame = VRUtil.GetUserCFrameWorldSpace(self.inputUserCFrame)
+		else
+			local cameraSpace = (workspace.CurrentCamera :: Camera).CFrame
+			originCFrame = cameraSpace * VRService:GetUserCFrame(self.inputUserCFrame)
+		end
 		local originPos, originLook = originCFrame.p, originCFrame.lookVector
 
 		local gravity = TELEPORT.G
@@ -865,7 +889,11 @@ function LaserPointer:update(dt)
 				end
 			end
 
-			self.parabola.Thickness = LASER.ARC_THICKNESS
+			if GetFFlagUIBloxVRApplyHeadScale() then
+				self.parabola.Thickness = LASER.ARC_THICKNESS * (workspace.CurrentCamera :: Camera).HeadScale
+			else
+				self.parabola.Thickness = LASER.ARC_THICKNESS
+			end
 			self:renderAsLaser(originPos, laserHitPoint)
 
 			if self.showPlopBallOnPointer then

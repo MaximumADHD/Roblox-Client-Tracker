@@ -33,6 +33,7 @@ local reducer = Rodux.combineReducers({
 afterEach(function()
 	networkingVirtualEvents.GetActiveVirtualEvents.Mock.clear()
 	networkingVirtualEvents.GetVirtualEvent.Mock.clear()
+	networkingVirtualEvents.UpdateMyRsvpStatus.Mock.clear()
 end)
 
 describe("GetVirtualEvent", function()
@@ -184,4 +185,42 @@ describe("GetActiveVirtualEvents", function()
 	end)
 end)
 
-return {}
+describe("UpdateMyRsvpStatus", function()
+	it("should update userRsvpStatus to the new value", function()
+		networkingVirtualEvents.UpdateMyRsvpStatus.Mock.reply({})
+
+		local store = Rodux.Store.new(reducer, {
+			events = {
+				["1"] = NetworkingVirtualEvents.VirtualEventModel.mock("1"),
+			},
+		}, {
+			Rodux.thunkMiddleware,
+		})
+
+		local state = store:getState()
+		expect(state.events["1"].userRsvpStatus).never.toBe("going")
+
+		store:dispatch(networkingVirtualEvents.UpdateMyRsvpStatus.API("1", "going"))
+
+		state = store:getState()
+		expect(state.events["1"].userRsvpStatus).toBe("going")
+	end)
+
+	it("should return the state as-is if the virtualEventId is not found", function()
+		networkingVirtualEvents.UpdateMyRsvpStatus.Mock.reply({})
+
+		local initialEvents = {
+			["1"] = NetworkingVirtualEvents.VirtualEventModel.mock("1"),
+		}
+
+		local store = Rodux.Store.new(reducer, {
+			events = initialEvents,
+		}, {
+			Rodux.thunkMiddleware,
+		})
+
+		store:dispatch(networkingVirtualEvents.UpdateMyRsvpStatus.API("2", "going"))
+
+		expect(store:getState().events).toEqual(initialEvents)
+	end)
+end)

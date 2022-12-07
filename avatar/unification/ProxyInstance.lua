@@ -12,6 +12,7 @@ local BlackListProperties = {
 		CanQuery = true,
 		CanTouch = true,
 		CFrame = true,
+		LocalTransparencyModifier = true,
 		Massless = true,
 		Position = true,
 		Shape = true,

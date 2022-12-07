@@ -6,8 +6,9 @@ type User = generatedTypes.User
 
 local resolvers = {
 	Player = {
-		avatarHeadshot = function(user: User, _context, _info)
-			return findAvatarHeadshotById(user.id)
+		avatarHeadshot = function(user: User, _args, context, _info)
+			local fetchImpl = context.fetchImpl
+			return findAvatarHeadshotById(user.id, fetchImpl)
 		end,
 	},
 }

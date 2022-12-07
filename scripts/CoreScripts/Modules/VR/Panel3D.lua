@@ -14,9 +14,13 @@ local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local Players = game:GetService("Players")
 local Utility = require(RobloxGui.Modules.Settings.Utility)
 local GamepadService = game:GetService("GamepadService")
+local VRUtil = require(RobloxGui.Modules.VR.VRUtil)
+local CorePackages = game:GetService("CorePackages")
 
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 local FFlagVRLetRaycastsThroughUI = require(CoreGuiModules.Flags.FFlagVRLetRaycastsThroughUI)
+local GetFFlagUIBloxVRApplyHeadScale =
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRApplyHeadScale
 
 --Panel3D State variables
 local renderStepName = "Panel3DRenderStep-" .. game:GetService("HttpService"):GenerateGUID()
@@ -396,8 +400,14 @@ function Panel:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF, dt)
 			self:SetPartCFrame(cameraCF * cf)
 		end
 	elseif self.panelType == Panel3D.Type.PositionLocked then
+
+		local userHeadCameraCF
+		if GetFFlagUIBloxVRApplyHeadScale() then
+			userHeadCameraCF = VRUtil.GetUserCFrameWorldSpace(Enum.UserCFrame.Head)
+		else
 		local userHeadCF = VRService:GetUserCFrame(Enum.UserCFrame.Head)
-		local userHeadCameraCF = cameraCF * userHeadCF
+			userHeadCameraCF = cameraCF * userHeadCF
+		end
 		
 		if not self.LastFollowCF then
 			self.LastFollowCF = userHeadCameraCF
@@ -411,13 +421,18 @@ function Panel:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF, dt)
 			end
 		end
 	
-		userHeadCameraCF = cameraCF * userHeadCF
 		if self.FollowView then
 			self.LastFollowCF = self.LastFollowCF:Lerp(userHeadCameraCF, 0.1)
 		end
 
-		local finalPosition = userHeadCameraCF.Position + self.LastFollowCF.LookVector * self.distance * (workspace.CurrentCamera :: Camera).HeadScale
-		finalPosition = Vector3.new(finalPosition.X, userHeadCameraCF.Position.Y - 0.5, finalPosition.Z)
+		local finalPosition
+		if GetFFlagUIBloxVRApplyHeadScale() then
+			finalPosition = userHeadCameraCF.Position + self.LastFollowCF.LookVector * (self.distance * (workspace.CurrentCamera :: Camera).HeadScale + partThickness * 0.5)
+			finalPosition = Vector3.new(finalPosition.X, userHeadCameraCF.Position.Y - 0.5 * (workspace.CurrentCamera :: Camera).HeadScale, finalPosition.Z)
+		else
+			finalPosition = userHeadCameraCF.Position + self.LastFollowCF.LookVector * self.distance * (workspace.CurrentCamera :: Camera).HeadScale
+			finalPosition = Vector3.new(finalPosition.X, userHeadCameraCF.Position.Y - 0.5, finalPosition.Z)
+		end
 
 		-- don't angle up/down
 		local targetPosition = Vector3.new(userHeadCameraCF.Position.x, finalPosition.y, userHeadCameraCF.Position.z)

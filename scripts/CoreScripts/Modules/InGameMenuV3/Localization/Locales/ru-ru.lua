@@ -319,4 +319,5 @@ return{
 	["CoreScripts.InGameMenu.Report.Mute"] = [[Отключить звук]],
 	["CoreScripts.InGameMenu.Report.OtherStepsTitle"] = [[Другие шаги, которые ты можешь предпринять: @{RBX_NAME}]],
 	["CoreScripts.InGameMenu.Report.ThanksForReportDescription"] = [[Мы рассмотрим жалобу в ближайшее время. Благодаря твоей обратной связи наше сообщество остаётся безопасным.]],
+	["CoreScripts.InGameMenu.Label.Copied"] = [[Скопировано]],
 }

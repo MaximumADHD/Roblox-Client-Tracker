@@ -73,6 +73,9 @@ return function(element, config: Config)
 								getContactImporterEnabled = function()
 									return true
 								end,
+								getWebViewSupport = function()
+									return true
+								end,
 							}
 						end,
 					},

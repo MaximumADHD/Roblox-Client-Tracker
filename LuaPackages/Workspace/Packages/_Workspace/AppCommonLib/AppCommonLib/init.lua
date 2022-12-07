@@ -5,6 +5,7 @@ local Functional = require(script.Functional)
 local AsyncQueue = require(script.AsyncQueue.AsyncQueue)
 local AsyncQueueTypes = require(script.AsyncQueue.AsyncQueueTypes)
 local IsVRAppBuild = require(script.IsVRAppBuild)
+local isRunningInStudio = require(script.isRunningInStudio)
 local callOnce = require(script.callOnce)
 local memoize = require(script.memoize)
 local OrderedMap = require(script.OrderedMap)
@@ -36,4 +37,5 @@ return {
 	ThrottleUserId = ThrottleUserId,
 	AsyncQueue = AsyncQueue,
 	Utils = Utils,
+	isRunningInStudio = isRunningInStudio,
 }

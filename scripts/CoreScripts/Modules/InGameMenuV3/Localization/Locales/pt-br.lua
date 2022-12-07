@@ -324,4 +324,7 @@ return{
 	["CoreScripts.InGameMenu.Label.MicOnRecording"] = [[Microfone ligado (gravando áudio)]],
 	["CoreScripts.InGameMenu.Label.MicOff"] = [[Microfone desligado]],
 	["CoreScripts.InGameMenu.Label.Teleporting"] = [[Teleportando...]],
+	["CoreScripts.InGameMenu.Label.Copied"] = [[Copiado]],
+	["CoreScripts.InGameMenu.QuickActions.SelfView"] = [[Auto visualização]],
+	["CoreScripts.InGameMenu.QuickActions.Camera"] = [[Câmera]],
 }

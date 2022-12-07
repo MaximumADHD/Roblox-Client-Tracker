@@ -20,13 +20,13 @@ local GetFFlagUIBloxSliderUpdateOnDismiss = require(Packages.SharedFlags).UIBlox
 local GetFFlagUIBloxFixDropdownMenuCellTextSize =
 	require(Packages.SharedFlags).UIBlox.GetFFlagUIBloxFixDropdownMenuCellTextSize
 
-local GetFFlagUIBloxEnableReactTag = require(Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableReactTag
-
 local GetFFlagUIBloxSystemBarBottomAlignedItems =
 	require(Packages.SharedFlags).UIBlox.GetFFlagUIBloxSystemBarBottomAlignedItems
 
 local GetFFlagUIBloxEnableImageSetResolutionScaleFix =
 	require(Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableImageSetResolutionScaleFix
+
+local GetFFlagUIBloxVRApplyHeadScale = require(Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRApplyHeadScale
 
 local GetFFlagLuaAppUseUIBloxColorPalettes = require(Packages.SharedFlags).GetFFlagLuaAppUseUIBloxColorPalettes
 local GetUIBloxUseNewThemeColorPalettes = require(Packages.SharedFlags).UIBlox.GetUIBloxUseNewThemeColorPalettes
@@ -43,6 +43,11 @@ local GetFFlagUIBloxRemovePreviewAnchor = require(Packages.SharedFlags).UIBlox.G
 
 local GetUIBloxEnableMediaGalleryUpdate = require(Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableMediaGalleryUpdate
 
+local GetFFlagUIBloxEnableDropdownMenuUpdateSelectedValueFromPlaceholder =
+	require(Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableDropdownMenuUpdateSelectedValueFromPlaceholder
+local GetFFlagUIBloxUsePillv2 = require(Packages.SharedFlags).UIBlox.GetFFlagUIBloxUsePillv2
+local GetFFlagUIBloxPillGroupAutomaticSize = require(Packages.SharedFlags).UIBlox.GetFFlagUIBloxPillGroupAutomaticSize
+
 return {
 	useNewUICornerRoundedCorners = true,
 	genericSliderFilterOldTouchInputs = true,
@@ -56,7 +61,6 @@ return {
 	useNewGenericTextLabelProps = GetFFlagUIBloxUseNewGenericTextLabelProps(),
 	enableCustomMinPaddingForLinkButton = game:DefineFastFlag("UIBloxEnableCustomMinPaddingForLinkButton", false),
 	enableRadioButtonGamepadSupport = GetFFlagUIBloxEnableRadioButtonGamepadSupport(),
-	enableReactTag = GetFFlagUIBloxEnableReactTag(),
 
 	useNewVerticalScrollView = false, -- TODO: https://jira.rbx.com/browse/UIBLOX-225
 	enableActionBarLayoutFix = GetFFlagUIBloxEnableActionBarLayoutFix(),
@@ -78,6 +82,8 @@ return {
 
 	moveBindActivate = GetFFlagUIBloxMoveBindActivate(),
 
+	vrApplyHeadScale = GetFFlagUIBloxVRApplyHeadScale(),
+
 	useNewThemeColorPalettes = GetFFlagLuaAppUseUIBloxColorPalettes() and GetUIBloxUseNewThemeColorPalettes(),
 
 	detailsTemplateUseNewGradientHeader = game:DefineFastFlag("UIBloxDetailsTemplateUseNewGradient", false),
@@ -89,4 +95,8 @@ return {
 	removePreviewAnchor = GetFFlagUIBloxRemovePreviewAnchor(),
 
 	enableMediaGalleryUpdate = GetUIBloxEnableMediaGalleryUpdate(),
+
+	enableDropdownMenuUpdateSelectedValueFromPlaceholder = GetFFlagUIBloxEnableDropdownMenuUpdateSelectedValueFromPlaceholder(),
+	usePillv2 = GetFFlagUIBloxUsePillv2(),
+	pillGroupAutomaticSize = GetFFlagUIBloxPillGroupAutomaticSize(),
 }

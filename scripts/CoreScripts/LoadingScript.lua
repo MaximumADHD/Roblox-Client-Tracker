@@ -58,6 +58,7 @@ local FFlagLoadingRemoveRemoteCallErrorPrint = game:DefineFastFlag("LoadingRemov
 
 local FFlagLoadingScreenRevamp = game:DefineFastFlag("LoadingScreenRevamp4", false)
 local FFlagReportFirstGameInteractive = game:DefineFastFlag("ReportFirstGameInteractive", false)
+local FFlagLoadingScreenRemoveError = game:DefineFastFlag("LoadingScreenRemoveError", false)
 
 local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCode")
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
@@ -1014,15 +1015,27 @@ end
 
 local function handleRemoveDefaultLoadingGui(instant)
 	if UseNewVersionLoadingScreen then
-		if loadingScreenUIHandle then
-			local CorePackages = game:GetService("CorePackages")
+		if FFlagLoadingScreenRemoveError then
 			local Roact = require(CorePackages.Roact)
 			if not instant then
 				-- wait until loading screen fade out animation is finished, safely unmout the component
 				wait(LOADING_SCREEN_FADE_OUT_TIME)
 			end
-			Roact.unmount(loadingScreenUIHandle)
-			loadingScreenUIHandle = nil
+			if loadingScreenUIHandle then
+				Roact.unmount(loadingScreenUIHandle)
+				loadingScreenUIHandle = nil
+			end
+		else
+			if loadingScreenUIHandle then
+				local CorePackages = game:GetService("CorePackages")
+				local Roact = require(CorePackages.Roact)
+				if not instant then
+					-- wait until loading screen fade out animation is finished, safely unmout the component
+					wait(LOADING_SCREEN_FADE_OUT_TIME)
+				end
+				Roact.unmount(loadingScreenUIHandle)
+				loadingScreenUIHandle = nil
+			end
 		end
 	else
 		if isTenFootInterface then
