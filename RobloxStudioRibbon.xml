@@ -102,7 +102,7 @@
         <addaction name="toggleUIMenuAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/UIEditor.png" modernIcon="UI" width="32" height="32"/>
       </Group>
       <Group name="File" fflag="EnableAssetImporter" text="Studio.Common.Action.File" icon=":/RibbonBar/images/RibbonIcons/Avatar/icon_AvatarImporter.png" modernIcon="AvatarImporter" width="32" height="32">
-        <addaction name="meshImporterAction" fflag="EnableAssetImporter" type="plugin" text="Studio.App.RobloxRibbonMainWindow.Import3D" icon=":/RibbonBar/images/RibbonIcons/Avatar/Import.png" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.MeshImporterTooltip" width="32" height="32" />
+        <addaction name="meshImporterAction" fflag="EnableAssetImporter" type="plugin" text="Studio.App.RobloxRibbonMainWindow.Import3D" icon=":/RibbonBar/images/RibbonIcons/Avatar/Import.png" style="textundericon" modernIcon="ImportModel" tooltip="Studio.App.RobloxRibbonMainWindow.MeshImporterTooltip" width="32" height="32" />
       </Group>
       <Group name="Edit" text="Studio.Common.Action.Edit" options="true" modernIcon="MaterialManager" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" width="32" height="32">
         <groupoptionsmenu tooltip="Studio.App.RobloxRibbonMainWindow.ActionsAsTools" handleMenuTrigger="true">
@@ -114,7 +114,7 @@
         <addseparator visible="false"/>
         <MenuPopupButton name="groupSelectionAction" style="textbesideicon" text="Studio.App.RBXMainWindow.GroupShort" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" modernIcon="Group" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16">
           <addaction name="groupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" modernIcon="Group" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16" />
-          <addaction fflag="GroupFolder" name="groupSelectionFolderAction" modernIcon="Folder" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoFolder" width="16" height="16" />
+          <addaction name="groupSelectionFolderAction" modernIcon="Folder" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoFolder" width="16" height="16" />
           <addaction name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" modernIcon="Ungroup" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.UngroupModel" width="16" height="16" />
         </MenuPopupButton>
         <MenuPopupButton name="lockAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock">
@@ -167,8 +167,8 @@
         <addcheckbox name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" />
       </Group>
       <Group name="Snap to Grid" text="Studio.App.RobloxRibbonMainWindow.SnapToGrid" controlsCentering="true">
-        <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap" name="disableRotateGridAction" text="Studio.App.RBXMainWindow.Rotate" checked="true"/>
-        <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesGridSnap" name="disableDragGridAction" text="Studio.App.RobloxRibbonMainWindow.Move" checked="true"/>
+        <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap" name="toggleRotateGridAction" text="Studio.App.RBXMainWindow.Rotate" checked="true"/>
+        <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesGridSnap" name="toggleDragGridAction" text="Studio.App.RobloxRibbonMainWindow.Move" checked="true"/>
         <addseparator visible="false"/>
         <addspinbox type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="9999" minumumWidth="100" step="5" suffix=" °"/>
         <addspinbox type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="1024" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
@@ -213,7 +213,7 @@
         <addseparator visible="false"/>
         <MenuPopupButton name="groupSelectionAction" style="textbesideicon" text="Studio.App.RBXMainWindow.GroupShort" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" modernIcon="Group" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16">
           <addaction name="groupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" modernIcon="Group" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16" />
-          <addaction fflag="GroupFolder" name="groupSelectionFolderAction" modernIcon="Folder" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoFolder" width="16" height="16" />
+          <addaction name="groupSelectionFolderAction" modernIcon="Folder" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoFolder" width="16" height="16" />
           <addaction name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" modernIcon="Ungroup" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.UngroupModel" width="16" height="16" />
         </MenuPopupButton>
         <MenuPopupButton name="lockAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock">
@@ -352,16 +352,16 @@
         <addcheckbox name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" />
       </Group>
       <Group name="Snap to Grid" text="Studio.App.RobloxRibbonMainWindow.SnapToGrid" controlsCentering="true">
-        <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap" name="disableRotateGridAction" text="Studio.App.RBXMainWindow.Rotate" checked="true"/>
-        <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesGridSnap" name="disableDragGridAction" text="Studio.App.RobloxRibbonMainWindow.Move" checked="true"/>
+        <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap" name="toggleRotateGridAction" text="Studio.App.RBXMainWindow.Rotate" checked="true"/>
+        <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesGridSnap" name="toggleDragGridAction" text="Studio.App.RobloxRibbonMainWindow.Move" checked="true"/>
         <addseparator visible="false"/>
         <addspinbox type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="9999" minumumWidth="100" step="5" suffix=" °"/>
         <addspinbox type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="1024" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
       </Group>
       <Group name="Accessory" fflag="EnableAccessoryTool" text="Studio.Common.Action.Accessory" icon=":/RibbonBar/images/RibbonIcons/Avatar/LayeredClothingEditorIcon.png" modernIcon="AccessoryFittingTool" width="32" height="32">
         <addaction name="layeredClothingEditorAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.LayeredClothingEditor" icon=":/RibbonBar/images/RibbonIcons/Avatar/LayeredClothingEditorIcon.png" modernIcon="AccessoryFittingTool" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.LayeredClothingEditorTooltip" width="32" height="32" />
-        <addaction name="createAccessoryAction" fflag="!AccessoryToolRefactor2" type="plugin" text="Studio.App.RobloxRibbonMainWindow.CreateAccessory" icon=":/RibbonBar/images/RibbonIcons/Avatar/createAccessory.png" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.CreateAccessoryTooltip" width="32" height="32" />
-        <addaction name="bulkCreateAccessoriesAction" fflag="!AccessoryToolRefactor2" type="plugin" text="Studio.App.RobloxRibbonMainWindow.BulkCreateAccessories" icon=":/RibbonBar/images/RibbonIcons/Avatar/bulkCreate.png" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.BulkCreateAccessoriesTooltip" width="32" height="32" />
+        <addaction name="createAccessoryAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.CreateAccessory" icon=":/RibbonBar/images/RibbonIcons/Avatar/createAccessory.png" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.CreateAccessoryTooltip" width="32" height="32" />
+        <addaction name="bulkCreateAccessoriesAction" fflag="!AccessoryToolRefactor3" type="plugin" text="Studio.App.RobloxRibbonMainWindow.BulkCreateAccessories" icon=":/RibbonBar/images/RibbonIcons/Avatar/bulkCreate.png" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.BulkCreateAccessoriesTooltip" width="32" height="32" />
       </Group>
       <Group name="File" fflag="EnableAssetImporter" text="Studio.Common.Action.File" icon=":/RibbonBar/images/RibbonIcons/Avatar/icon_AvatarImporter.png" modernIcon="AvatarImporter" width="32" height="32">
         <addaction name="meshImporterAction" fflag="EnableAssetImporter" type="plugin" text="Studio.App.RobloxRibbonMainWindow.Import3D" icon=":/RibbonBar/images/RibbonIcons/Avatar/Import.png" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.MeshImporterTooltip" width="32" height="32" />
@@ -553,6 +553,7 @@
           <addaction name="selectAllAction" icon=":/RibbonBar/images/RibbonIcons/Home/Select.png" modernIcon="SelectAll" width="16" height="16" />
           <addaction name="selectParentsAction" fflag="SelectParentsEnabled"/>
           <addaction name="selectChildrenAction" icon=":/16x16/images/Studio 2.0 icons/16x16/select_children.png" modernIcon="SelectChildren" />
+          <addaction name="expandAllAction" fflag="ExpandAllEnabled"/>
           <addaction name="collapseAllAction"/>
         </MenuButton>
         <!--<addaction name="deleteSelectedAction" text="Studio.Common.Action.Delete" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Delete.png" modernIcon="" width="32" height="32" />-->

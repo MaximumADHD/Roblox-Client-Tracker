@@ -7805,6 +7805,66 @@
             <string name="ExplorerImageIndex">53</string>
             <bool name="FFlag">IkControlEnabled</bool>
         </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Type</string>
+            <string name="Description">Specifies how the solver satisfies this control.</string>
+            <string name="PropertyOrder">1001</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">EndEffector</string>
+            <string name="Description">The part that you are interested in moving to reach the Target.</string>
+            <string name="PropertyOrder">1002</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Target</string>
+            <string name="Description">The object that the EndEffector reaches for or points at.</string>
+            <string name="PropertyOrder">1003</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ChainRoot</string>
+            <string name="Description">The last part that you are interested in moving your character.</string>
+            <string name="PropertyOrder">1004</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Offset</string>
+            <string name="Description">An additional offset applied on top of the Target in its local space.</string>
+            <string name="PropertyOrder">1005</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Enabled</string>
+            <string name="Description">Toggles the control on and off.</string>
+            <string name="PropertyOrder">1010</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>d
+            <string name="Name">Weight</string>
+            <string name="Description">Specifies how much this IK control should affect the final pose.</string>
+            <string name="PropertyOrder">1011</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Priority</string>
+            <string name="Description">Specifies the order in which controls are solved.</string>
+            <string name="PropertyOrder">1012</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>

@@ -19,7 +19,7 @@ LuaChatDeps = { git = "https://github.com/Roblox/lua-chat-deps" }
 LuaSocialLibrariesDeps = { git = "https://github.com/Roblox/lua-social-libraries-deps" }
 PremiumUpsellDeps = { git = "https://github.com/Roblox/premium-upsell-deps" }
 AvatarExperienceDeps = { git = "https://github.com/Roblox/avatar-experience-deps" }
-LuaProfileDeps = { git = "https://github.com/Roblox/lua-profile", rev = "v4.1.0", package = "LuaProfileDeps" }
+LuaProfileDeps = { git = "https://github.com/Roblox/lua-profile", rev = "v4.2.2", package = "LuaProfileDeps" }
 PurchasePromptDeps = { git = "https://github.com/Roblox/purchase-prompt-deps" }
 IAPExperience = { git = "https://github.com/Roblox/IAPExperience", rev = "master" }
 UIBlox = { git = "https://github.com/Roblox/uiblox", rev = "master" }
@@ -32,8 +32,8 @@ Lumberyak = { git = "https://github.com/Roblox/lumberyak" }
 StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
 FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
-ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.3.1" }
-ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.3.2" }
+ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.3.2" }
+ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.3.3" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
 React = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactProxy"}
 ReactIs = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactIsProxy"}
@@ -42,13 +42,13 @@ Roact17UpgradeFlag = { git = "https://github.com/Roblox/roact-17-upgrade", rev =
 Promise = "github.com/Roblox/roblox-lua-promise@3.3.0"
 VirtualizedList = "github.com/roblox/virtualized-list-lua@1.1.2"
 LuauPolyfill = "github.com/Roblox/luau-polyfill@0.4.0"
-RoduxNetworking = "github.com/Roblox/rodux-networking@3.0.1"
+RoduxNetworking = "github.com/Roblox/rodux-networking@3.0.2"
 NetworkingGames = "github.com/Roblox/networking-games@1.2.0"
 NetworkingFriends = "github.com/Roblox/networking-friends@2.4.1"
 NetworkingUsers = "github.com/Roblox/networking-users@1.0.1"
 HttpRequest = "github.com/Roblox/http-request@1.1.1"
 ApolloClient = "github.com/Roblox/apollo-client-lua@0.3.3"
-GraphQL = "github.com/Roblox/graphql-lua@15.5.2"
+GraphQL = "github.com/Roblox/graphql-lua@15.5.3"
 
 # The following packages were ported from AppTempCommon
 Result = { git = "https://github.com/Roblox/lua-result" }

@@ -76,6 +76,9 @@
             "ProximityPromptsTests": {
                 "$path": "ProximityPromptsTests"
             },
+            "PublishAssetPrompt": {
+                "$path": "PublishAssetPrompt"
+            },
             "PurchasePrompt": {
                 "$path": "PurchasePrompt"
             },

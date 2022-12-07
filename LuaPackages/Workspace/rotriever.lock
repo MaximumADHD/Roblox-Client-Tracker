@@ -104,6 +104,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "GameIconRodux"
+version = "0.1.0"
+dependencies = [
+    "ArgCheck ArgCheck 0.1.0",
+    "Cryo Cryo 0.1.0",
+    "Http Http 0.1.0",
+    "Promise Promise 0.1.0",
+    "Rodux Rodux 0.1.0",
+]
+
+[[package]]
 name = "GameProtocol"
 version = "0.1.0"
 dependencies = [
@@ -122,16 +133,23 @@ version = "0.1.0"
 dependencies = [
     "Fetch Fetch 0.1.0",
     "GraphQL GraphQL 0.1.0",
+    "GraphqlHttpArtifacts GraphqlHttpArtifacts 0.1.0",
     "JestGlobals JestGlobals 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
     "Promise Promise 0.1.0",
+    "RecordPlayback RecordPlayback 0.1.0",
 ]
+
+[[package]]
+name = "GraphqlHttpArtifacts"
+version = "0.1.0"
 
 [[package]]
 name = "Http"
 version = "0.1.0"
 dependencies = [
     "AppCommonLib AppCommonLib 0.1.0",
+    "ArgCheck ArgCheck 0.1.0",
     "Cryo Cryo 0.1.0",
     "Promise Promise 0.1.0",
     "Result Result 0.1.0",
@@ -308,6 +326,10 @@ name = "ReactRoblox"
 version = "0.1.0"
 
 [[package]]
+name = "RecordPlayback"
+version = "0.1.0"
+
+[[package]]
 name = "Result"
 version = "0.1.0"
 
@@ -369,6 +391,7 @@ dependencies = [
     "React React 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
     "RoactNavigation RoactNavigation 0.1.0",
+    "TestUtils TestUtils 0.1.0",
 ]
 
 [[package]]
@@ -426,6 +449,16 @@ version = "0.1.0"
 dependencies = ["Rodux Rodux 0.1.0"]
 
 [[package]]
+name = "SocialModalsCommon"
+version = "0.1.0"
+dependencies = [
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "SocialTestHelpers SocialTestHelpers 0.1.0",
+]
+
+[[package]]
 name = "SocialLuaAnalytics"
 version = "0.1.0"
 dependencies = [
@@ -443,6 +476,7 @@ dependencies = [
 [[package]]
 name = "SocialModalsTestSuite"
 version = "0.1.0"
+dependencies = ["SocialModalsCommon SocialModalsCommon 0.1.0"]
 
 [[package]]
 name = "SocialPolicies"
@@ -462,7 +496,11 @@ dependencies = [
 [[package]]
 name = "SocialRoactChat"
 version = "0.1.0"
-dependencies = ["FormFactor FormFactor 0.1.0"]
+dependencies = [
+    "FormFactor FormFactor 0.1.0",
+    "Time Time 0.1.0",
+    "UnitTestHelpers UnitTestHelpers 0.1.0",
+]
 
 [[package]]
 name = "SocialTab"
@@ -519,6 +557,10 @@ dependencies = [
     "Rodux Rodux 0.1.0",
     "UIBlox UIBlox 0.1.0",
 ]
+
+[[package]]
+name = "SocialWidgetsTestSuite"
+version = "0.1.0"
 
 [[package]]
 name = "StringUtilities"
@@ -626,6 +668,7 @@ dependencies = [
     "RoactCompat RoactCompat 0.1.0",
     "Rodux Rodux 0.1.0",
     "RoduxNetworking RoduxNetworking 0.1.0",
+    "TestUtils TestUtils 0.1.0",
     "UsersNetworking NetworkingUsers 0.1.0",
 ]
 
@@ -640,7 +683,6 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
-    "Lumberyak Lumberyak 0.1.0",
     "NetworkingGames NetworkingGames 0.1.0",
     "NetworkingVirtualEvents NetworkingVirtualEvents 0.1.0",
     "React React 0.1.0",
@@ -651,6 +693,7 @@ dependencies = [
     "RoactRodux RoactRodux 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
     "RobloxAppLocales RobloxAppLocales 0.1.0",
+    "RobloxAppLoggers Loggers 0.1.0",
     "Rodux Rodux 0.1.0",
     "RoduxNetworking RoduxNetworking 0.1.0",
     "SharedFlags SharedFlags 0.1.0",

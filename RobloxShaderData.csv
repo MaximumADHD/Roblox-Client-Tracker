@@ -25,6 +25,7 @@ AdvStarsVS,Vertex,✔,✔,✔,✔,✔,✔
 AdvSunFS,Fragment,✔,✔,✔,✔,✔,✔
 AdvSunVS,Vertex,✔,✔,✔,✔,✔,✔
 AoBlurUpsampleCS,Compute,❌,❌,✔,❌,❌,✔
+ASWDepthDownsize,Fragment,❌,❌,✔,❌,❌,✔
 Blur1FS,Fragment,✔,✔,✔,✔,✔,✔
 Blur3FS,Fragment,✔,✔,✔,✔,✔,✔
 Blur5FS,Fragment,✔,✔,✔,✔,✔,✔
@@ -63,6 +64,7 @@ DefaultDepthVS_00001002,Vertex,✔,✔,✔,✔,✔,✔
 DefaultDepthVS_00001006,Vertex,✔,✔,✔,✔,✔,✔
 DefaultDepthVS_00100001,Vertex,✔,✔,✔,❌,✔,✔
 DefaultDepthVS_00800000,Vertex,✔,✔,✔,❌,❌,✔
+DefaultDepthVS_00900000,Vertex,✔,✔,✔,❌,❌,✔
 DefaultDetiledHQFS_00000000,Fragment,✔,✔,✔,✔,✔,✔
 DefaultDetiledHQFS_00000008,Fragment,✔,✔,✔,❌,✔,✔
 DefaultDetiledHQFS_00000018,Fragment,✔,✔,✔,❌,❌,✔
@@ -108,6 +110,10 @@ DefaultForceFieldHQVS_00800000,Vertex,✔,✔,✔,❌,❌,✔
 DefaultForceFieldHQVS_00800008,Vertex,✔,✔,✔,❌,❌,✔
 DefaultForceFieldHQVS_00800018,Vertex,✔,✔,✔,❌,❌,✔
 DefaultForceFieldHQVS_00800218,Vertex,✔,✔,✔,❌,❌,✔
+DefaultForceFieldHQVS_00900000,Vertex,✔,✔,✔,❌,❌,✔
+DefaultForceFieldHQVS_00900008,Vertex,✔,✔,✔,❌,❌,✔
+DefaultForceFieldHQVS_00900018,Vertex,✔,✔,✔,❌,❌,✔
+DefaultForceFieldHQVS_00900218,Vertex,✔,✔,✔,❌,❌,✔
 DefaultForceFieldHQVS_01000000,Vertex,✔,✔,✔,✔,✔,✔
 DefaultForceFieldHQVS_01000001,Vertex,✔,✔,✔,❌,✔,✔
 DefaultForceFieldHQVS_01000002,Vertex,✔,✔,✔,✔,✔,✔
@@ -144,6 +150,10 @@ DefaultForceFieldHQVS_01800000,Vertex,✔,✔,✔,❌,❌,✔
 DefaultForceFieldHQVS_01800008,Vertex,✔,✔,✔,❌,❌,✔
 DefaultForceFieldHQVS_01800018,Vertex,✔,✔,✔,❌,❌,✔
 DefaultForceFieldHQVS_01800218,Vertex,✔,✔,✔,❌,❌,✔
+DefaultForceFieldHQVS_01900000,Vertex,✔,✔,✔,❌,❌,✔
+DefaultForceFieldHQVS_01900008,Vertex,✔,✔,✔,❌,❌,✔
+DefaultForceFieldHQVS_01900018,Vertex,✔,✔,✔,❌,❌,✔
+DefaultForceFieldHQVS_01900218,Vertex,✔,✔,✔,❌,❌,✔
 DefaultForceFieldSHQFS_00000000,Fragment,✔,✔,✔,✔,✔,✔
 DefaultForceFieldSHQFS_00000008,Fragment,✔,✔,✔,❌,✔,✔
 DefaultForceFieldSHQFS_00000018,Fragment,✔,✔,✔,❌,❌,✔
@@ -166,6 +176,8 @@ DefaultForceFieldVS_00100001,Vertex,✔,✔,✔,❌,✔,✔
 DefaultForceFieldVS_00100401,Vertex,✔,✔,✔,❌,✔,✔
 DefaultForceFieldVS_00800000,Vertex,✔,✔,✔,❌,❌,✔
 DefaultForceFieldVS_00800400,Vertex,✔,✔,✔,❌,❌,✔
+DefaultForceFieldVS_00900000,Vertex,✔,✔,✔,❌,❌,✔
+DefaultForceFieldVS_00900400,Vertex,✔,✔,✔,❌,❌,✔
 DefaultForceFieldVS_01000000,Vertex,✔,✔,✔,✔,✔,✔
 DefaultForceFieldVS_01000001,Vertex,✔,✔,✔,❌,✔,✔
 DefaultForceFieldVS_01000002,Vertex,✔,✔,✔,✔,✔,✔
@@ -184,6 +196,8 @@ DefaultForceFieldVS_01100001,Vertex,✔,✔,✔,❌,✔,✔
 DefaultForceFieldVS_01100401,Vertex,✔,✔,✔,❌,✔,✔
 DefaultForceFieldVS_01800000,Vertex,✔,✔,✔,❌,❌,✔
 DefaultForceFieldVS_01800400,Vertex,✔,✔,✔,❌,❌,✔
+DefaultForceFieldVS_01900000,Vertex,✔,✔,✔,❌,❌,✔
+DefaultForceFieldVS_01900400,Vertex,✔,✔,✔,❌,❌,✔
 DefaultGlassHQFS_00000000,Fragment,✔,✔,✔,✔,✔,✔
 DefaultGlassHQFS_00000008,Fragment,✔,✔,✔,❌,✔,✔
 DefaultGlassHQFS_00000018,Fragment,✔,✔,✔,❌,❌,✔
@@ -201,6 +215,7 @@ DefaultHighlightAlphaTestVS_00001002,Vertex,✔,✔,✔,✔,✔,✔
 DefaultHighlightAlphaTestVS_00001006,Vertex,✔,✔,✔,✔,✔,✔
 DefaultHighlightAlphaTestVS_00100001,Vertex,✔,✔,✔,❌,✔,✔
 DefaultHighlightAlphaTestVS_00800000,Vertex,✔,✔,✔,❌,❌,✔
+DefaultHighlightAlphaTestVS_00900000,Vertex,✔,✔,✔,❌,❌,✔
 DefaultHighlightVS_00000000,Vertex,✔,✔,✔,✔,✔,✔
 DefaultHighlightVS_00000001,Vertex,✔,✔,✔,❌,✔,✔
 DefaultHighlightVS_00000002,Vertex,✔,✔,✔,✔,✔,✔
@@ -210,6 +225,7 @@ DefaultHighlightVS_00001002,Vertex,✔,✔,✔,✔,✔,✔
 DefaultHighlightVS_00001006,Vertex,✔,✔,✔,✔,✔,✔
 DefaultHighlightVS_00100001,Vertex,✔,✔,✔,❌,✔,✔
 DefaultHighlightVS_00800000,Vertex,✔,✔,✔,❌,❌,✔
+DefaultHighlightVS_00900000,Vertex,✔,✔,✔,❌,❌,✔
 DefaultHQVS_00000000,Vertex,✔,✔,✔,✔,✔,✔
 DefaultHQVS_00000001,Vertex,✔,✔,✔,❌,✔,✔
 DefaultHQVS_00000002,Vertex,✔,✔,✔,✔,✔,✔
@@ -246,6 +262,10 @@ DefaultHQVS_00800000,Vertex,✔,✔,✔,❌,❌,✔
 DefaultHQVS_00800008,Vertex,✔,✔,✔,❌,❌,✔
 DefaultHQVS_00800018,Vertex,✔,✔,✔,❌,❌,✔
 DefaultHQVS_00800218,Vertex,✔,✔,✔,❌,❌,✔
+DefaultHQVS_00900000,Vertex,✔,✔,✔,❌,❌,✔
+DefaultHQVS_00900008,Vertex,✔,✔,✔,❌,❌,✔
+DefaultHQVS_00900018,Vertex,✔,✔,✔,❌,❌,✔
+DefaultHQVS_00900218,Vertex,✔,✔,✔,❌,❌,✔
 DefaultHQVS_01000000,Vertex,✔,✔,✔,✔,✔,✔
 DefaultHQVS_01000001,Vertex,✔,✔,✔,❌,✔,✔
 DefaultHQVS_01000002,Vertex,✔,✔,✔,✔,✔,✔
@@ -282,6 +302,10 @@ DefaultHQVS_01800000,Vertex,✔,✔,✔,❌,❌,✔
 DefaultHQVS_01800008,Vertex,✔,✔,✔,❌,❌,✔
 DefaultHQVS_01800018,Vertex,✔,✔,✔,❌,❌,✔
 DefaultHQVS_01800218,Vertex,✔,✔,✔,❌,❌,✔
+DefaultHQVS_01900000,Vertex,✔,✔,✔,❌,❌,✔
+DefaultHQVS_01900008,Vertex,✔,✔,✔,❌,❌,✔
+DefaultHQVS_01900018,Vertex,✔,✔,✔,❌,❌,✔
+DefaultHQVS_01900218,Vertex,✔,✔,✔,❌,❌,✔
 DefaultModelLodFS,Fragment,✔,✔,✔,❌,✔,✔
 DefaultModelLodVS,Vertex,✔,✔,✔,❌,✔,✔
 DefaultNeonFS_00000000,Fragment,✔,✔,✔,✔,✔,✔
@@ -336,6 +360,10 @@ DefaultNewShadowVS_00800000,Vertex,✔,✔,✔,❌,❌,✔
 DefaultNewShadowVS_00800020,Vertex,❌,❌,❌,❌,❌,✔
 DefaultNewShadowVS_00800040,Vertex,✔,✔,✔,❌,❌,✔
 DefaultNewShadowVS_00800060,Vertex,❌,❌,❌,❌,❌,✔
+DefaultNewShadowVS_00900000,Vertex,✔,✔,✔,❌,❌,✔
+DefaultNewShadowVS_00900020,Vertex,❌,❌,❌,❌,❌,✔
+DefaultNewShadowVS_00900040,Vertex,✔,✔,✔,❌,❌,✔
+DefaultNewShadowVS_00900060,Vertex,❌,❌,❌,❌,❌,✔
 DefaultOpaqueFS_00000000,Fragment,✔,✔,✔,✔,✔,✔
 DefaultOpaqueFS_00000800,Fragment,✔,✔,✔,❌,✔,✔
 DefaultOpaqueHQFS_00000000,Fragment,✔,✔,✔,✔,✔,✔
@@ -372,6 +400,8 @@ DefaultReflectionVS_00100001,Vertex,✔,✔,✔,❌,✔,✔
 DefaultReflectionVS_00100401,Vertex,✔,✔,✔,❌,✔,✔
 DefaultReflectionVS_00800000,Vertex,✔,✔,✔,❌,❌,✔
 DefaultReflectionVS_00800400,Vertex,✔,✔,✔,❌,❌,✔
+DefaultReflectionVS_00900000,Vertex,✔,✔,✔,❌,❌,✔
+DefaultReflectionVS_00900400,Vertex,✔,✔,✔,❌,❌,✔
 DefaultReflectionVS_01000000,Vertex,✔,✔,✔,✔,✔,✔
 DefaultReflectionVS_01000001,Vertex,✔,✔,✔,❌,✔,✔
 DefaultReflectionVS_01000002,Vertex,✔,✔,✔,✔,✔,✔
@@ -390,6 +420,8 @@ DefaultReflectionVS_01100001,Vertex,✔,✔,✔,❌,✔,✔
 DefaultReflectionVS_01100401,Vertex,✔,✔,✔,❌,✔,✔
 DefaultReflectionVS_01800000,Vertex,✔,✔,✔,❌,❌,✔
 DefaultReflectionVS_01800400,Vertex,✔,✔,✔,❌,❌,✔
+DefaultReflectionVS_01900000,Vertex,✔,✔,✔,❌,❌,✔
+DefaultReflectionVS_01900400,Vertex,✔,✔,✔,❌,❌,✔
 DefaultShadowFS,Fragment,✔,✔,✔,✔,✔,✔
 DefaultShadowGeomVS_00000000,Vertex,✔,✔,✔,✔,✔,✔
 DefaultShadowGeomVS_00000001,Vertex,✔,✔,✔,❌,✔,✔
@@ -400,6 +432,7 @@ DefaultShadowGeomVS_00001002,Vertex,✔,✔,✔,✔,✔,✔
 DefaultShadowGeomVS_00001006,Vertex,✔,✔,✔,✔,✔,✔
 DefaultShadowGeomVS_00100001,Vertex,✔,✔,✔,❌,✔,✔
 DefaultShadowGeomVS_00800000,Vertex,✔,✔,✔,❌,❌,✔
+DefaultShadowGeomVS_00900000,Vertex,✔,✔,✔,❌,❌,✔
 DefaultSurfaceAppearanceDitheredDepthFS,Fragment,✔,✔,✔,✔,✔,✔
 DefaultSurfaceAppearanceDitheredDepthFS_00000000,Fragment,✔,✔,✔,✔,✔,✔
 DefaultSurfaceAppearanceDitheredDepthVS_00000000,Vertex,✔,✔,✔,✔,✔,✔
@@ -411,6 +444,7 @@ DefaultSurfaceAppearanceDitheredDepthVS_00001002,Vertex,✔,✔,✔,✔,✔,✔
 DefaultSurfaceAppearanceDitheredDepthVS_00001006,Vertex,✔,✔,✔,✔,✔,✔
 DefaultSurfaceAppearanceDitheredDepthVS_00100001,Vertex,✔,✔,✔,❌,✔,✔
 DefaultSurfaceAppearanceDitheredDepthVS_00800000,Vertex,✔,✔,✔,❌,❌,✔
+DefaultSurfaceAppearanceDitheredDepthVS_00900000,Vertex,✔,✔,✔,❌,❌,✔
 DefaultSurfaceAppearanceDitheredFS_00000000,Fragment,✔,✔,✔,✔,✔,✔
 DefaultSurfaceAppearanceDitheredFS_00000800,Fragment,✔,✔,✔,❌,✔,✔
 DefaultSurfaceAppearanceDitheredHQFS_00000000,Fragment,✔,✔,✔,✔,✔,✔
@@ -459,6 +493,10 @@ DefaultSurfaceHQVS_00800000,Vertex,✔,✔,✔,❌,❌,✔
 DefaultSurfaceHQVS_00800008,Vertex,✔,✔,✔,❌,❌,✔
 DefaultSurfaceHQVS_00800018,Vertex,✔,✔,✔,❌,❌,✔
 DefaultSurfaceHQVS_00800218,Vertex,✔,✔,✔,❌,❌,✔
+DefaultSurfaceHQVS_00900000,Vertex,✔,✔,✔,❌,❌,✔
+DefaultSurfaceHQVS_00900008,Vertex,✔,✔,✔,❌,❌,✔
+DefaultSurfaceHQVS_00900018,Vertex,✔,✔,✔,❌,❌,✔
+DefaultSurfaceHQVS_00900218,Vertex,✔,✔,✔,❌,❌,✔
 DefaultSurfaceHQVS_01000000,Vertex,✔,✔,✔,✔,✔,✔
 DefaultSurfaceHQVS_01000001,Vertex,✔,✔,✔,❌,✔,✔
 DefaultSurfaceHQVS_01000002,Vertex,✔,✔,✔,✔,✔,✔
@@ -495,6 +533,10 @@ DefaultSurfaceHQVS_01800000,Vertex,✔,✔,✔,❌,❌,✔
 DefaultSurfaceHQVS_01800008,Vertex,✔,✔,✔,❌,❌,✔
 DefaultSurfaceHQVS_01800018,Vertex,✔,✔,✔,❌,❌,✔
 DefaultSurfaceHQVS_01800218,Vertex,✔,✔,✔,❌,❌,✔
+DefaultSurfaceHQVS_01900000,Vertex,✔,✔,✔,❌,❌,✔
+DefaultSurfaceHQVS_01900008,Vertex,✔,✔,✔,❌,❌,✔
+DefaultSurfaceHQVS_01900018,Vertex,✔,✔,✔,❌,❌,✔
+DefaultSurfaceHQVS_01900218,Vertex,✔,✔,✔,❌,❌,✔
 DefaultTiledEmissiveHideDiffuseRepHQFS_00000000,Fragment,✔,✔,✔,✔,✔,✔
 DefaultTiledEmissiveHideDiffuseRepHQFS_00000008,Fragment,✔,✔,✔,❌,✔,✔
 DefaultTiledEmissiveHideDiffuseRepHQFS_00000018,Fragment,✔,✔,✔,❌,❌,✔
@@ -539,6 +581,8 @@ DefaultVS_00100001,Vertex,✔,✔,✔,❌,✔,✔
 DefaultVS_00100401,Vertex,✔,✔,✔,❌,✔,✔
 DefaultVS_00800000,Vertex,✔,✔,✔,❌,❌,✔
 DefaultVS_00800400,Vertex,✔,✔,✔,❌,❌,✔
+DefaultVS_00900000,Vertex,✔,✔,✔,❌,❌,✔
+DefaultVS_00900400,Vertex,✔,✔,✔,❌,❌,✔
 DefaultVS_01000000,Vertex,✔,✔,✔,✔,✔,✔
 DefaultVS_01000001,Vertex,✔,✔,✔,❌,✔,✔
 DefaultVS_01000002,Vertex,✔,✔,✔,✔,✔,✔
@@ -557,6 +601,8 @@ DefaultVS_01100001,Vertex,✔,✔,✔,❌,✔,✔
 DefaultVS_01100401,Vertex,✔,✔,✔,❌,✔,✔
 DefaultVS_01800000,Vertex,✔,✔,✔,❌,❌,✔
 DefaultVS_01800400,Vertex,✔,✔,✔,❌,❌,✔
+DefaultVS_01900000,Vertex,✔,✔,✔,❌,❌,✔
+DefaultVS_01900400,Vertex,✔,✔,✔,❌,❌,✔
 DefaultWangHQFS_00000000,Fragment,✔,✔,✔,✔,✔,✔
 DefaultWangHQFS_00000008,Fragment,✔,✔,✔,❌,✔,✔
 DefaultWangHQFS_00000018,Fragment,✔,✔,✔,❌,❌,✔
@@ -615,6 +661,8 @@ GlassVS_00100001,Vertex,✔,✔,✔,❌,✔,✔
 GlassVS_00100401,Vertex,✔,✔,✔,❌,✔,✔
 GlassVS_00800000,Vertex,✔,✔,✔,❌,❌,✔
 GlassVS_00800400,Vertex,✔,✔,✔,❌,❌,✔
+GlassVS_00900000,Vertex,✔,✔,✔,❌,❌,✔
+GlassVS_00900400,Vertex,✔,✔,✔,❌,❌,✔
 GlassVS_01000000,Vertex,✔,✔,✔,✔,✔,✔
 GlassVS_01000001,Vertex,✔,✔,✔,❌,✔,✔
 GlassVS_01000002,Vertex,✔,✔,✔,✔,✔,✔
@@ -633,6 +681,8 @@ GlassVS_01100001,Vertex,✔,✔,✔,❌,✔,✔
 GlassVS_01100401,Vertex,✔,✔,✔,❌,✔,✔
 GlassVS_01800000,Vertex,✔,✔,✔,❌,❌,✔
 GlassVS_01800400,Vertex,✔,✔,✔,❌,❌,✔
+GlassVS_01900000,Vertex,✔,✔,✔,❌,❌,✔
+GlassVS_01900400,Vertex,✔,✔,✔,❌,❌,✔
 GrassFS,Fragment,✔,✔,✔,✔,✔,✔
 GrassHQFS,Fragment,✔,✔,✔,✔,✔,✔
 GrassHQFSShadowed,Fragment,✔,✔,✔,❌,✔,✔
@@ -697,6 +747,10 @@ GridVS_00800000,Vertex,✔,✔,✔,❌,❌,✔
 GridVS_00800008,Vertex,✔,✔,✔,❌,❌,✔
 GridVS_00800018,Vertex,✔,✔,✔,❌,❌,✔
 GridVS_00800218,Vertex,✔,✔,✔,❌,❌,✔
+GridVS_00900000,Vertex,✔,✔,✔,❌,❌,✔
+GridVS_00900008,Vertex,✔,✔,✔,❌,❌,✔
+GridVS_00900018,Vertex,✔,✔,✔,❌,❌,✔
+GridVS_00900218,Vertex,✔,✔,✔,❌,❌,✔
 GridVS_01000000,Vertex,✔,✔,✔,✔,✔,✔
 GridVS_01000001,Vertex,✔,✔,✔,❌,✔,✔
 GridVS_01000002,Vertex,✔,✔,✔,✔,✔,✔
@@ -733,6 +787,10 @@ GridVS_01800000,Vertex,✔,✔,✔,❌,❌,✔
 GridVS_01800008,Vertex,✔,✔,✔,❌,❌,✔
 GridVS_01800018,Vertex,✔,✔,✔,❌,❌,✔
 GridVS_01800218,Vertex,✔,✔,✔,❌,❌,✔
+GridVS_01900000,Vertex,✔,✔,✔,❌,❌,✔
+GridVS_01900008,Vertex,✔,✔,✔,❌,❌,✔
+GridVS_01900018,Vertex,✔,✔,✔,❌,❌,✔
+GridVS_01900218,Vertex,✔,✔,✔,❌,❌,✔
 HbaoCompositFS,Fragment,❌,❌,✔,❌,❌,✔
 HBAODepthDownFS,Fragment,❌,❌,✔,❌,❌,✔
 HbaoFS,Fragment,❌,❌,✔,❌,❌,✔
@@ -787,6 +845,15 @@ LowQMaterialWangFallbackFS,Fragment,✔,✔,✔,✔,✔,✔
 LowQMaterialWangFS,Fragment,✔,✔,✔,✔,✔,✔
 ModelLodDepthFS,Fragment,✔,✔,✔,❌,✔,✔
 ModelLodDepthVS,Vertex,✔,✔,✔,❌,✔,✔
+motionBufferDepthASWHack,Fragment,❌,❌,✔,❌,❌,✔
+motionBufferFastClusterPS,Fragment,❌,❌,✔,❌,❌,✔
+motionBufferFastClusterSmoothSkinnedVS,Vertex,❌,❌,✔,❌,❌,✔
+motionBufferFastClusterSmoothSkinnedWorldSpaceVS,Vertex,❌,❌,✔,❌,❌,✔
+motionBufferFastClusterVS,Vertex,❌,❌,✔,❌,❌,✔
+motionBufferFastClusterWorldSpaceVS,Vertex,❌,❌,✔,❌,❌,✔
+motionBufferInstancedClusterPS,Fragment,❌,❌,✔,❌,❌,✔
+motionBufferInstancedClusterVS,Vertex,❌,❌,✔,❌,❌,✔
+motionBufferInstancedClusterWorldSpaceVS,Vertex,❌,❌,✔,❌,❌,✔
 OccupancyDebugFS,Fragment,✔,✔,✔,❌,✔,✔
 OutlineEffectFS,Fragment,❌,✔,✔,❌,✔,✔
 OutlineEffectFSMSAA,Fragment,❌,✔,✔,❌,✔,✔
