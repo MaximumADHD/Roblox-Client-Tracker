@@ -36,7 +36,7 @@ function AlertButton:render()
 	local image = Images["component_assets/circle_17_stroke_1"]
 	return withSelectionCursorProvider(function(getSelectionCursor)
 		return React.createElement(RoactGamepad.Focusable[GenericButton], {
-			[React.Tag] = self.props[React.Tag],
+			[React.Tag] = if UIBloxConfig.enableReactTag then self.props[React.Tag] else nil,
 			Size = self.props.size,
 			standardSize = if UIBloxConfig.enableStandardButtonSizes then self.props.standardSize else nil,
 			maxWidth = if UIBloxConfig.enableStandardButtonSizes then self.props.maxWidth else nil,

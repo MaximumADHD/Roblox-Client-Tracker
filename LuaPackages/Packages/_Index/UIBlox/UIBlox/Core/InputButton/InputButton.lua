@@ -143,8 +143,10 @@ function InputButton:render()
 			end
 			textComponent = FitTextLabel
 			textComponentProps = Cryo.Dictionary.join(textComponentProps, {
-				width = UIBloxConfig.useUpdatedCheckbox and FitTextLabel.Width.FitToText
-					or UDim.new(1, -SELECTION_BUTTON_SIZE - HORIZONTAL_PADDING),
+				width = UIBloxConfig.useUpdatedCheckbox and FitTextLabel.Width.FitToText or UDim.new(
+					1,
+					-SELECTION_BUTTON_SIZE - HORIZONTAL_PADDING
+				),
 				onActivated = self.props.onActivated,
 				[Roact.Change.AbsoluteSize] = self.textAbsoluteSizeChanged,
 			})

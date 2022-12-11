@@ -46,8 +46,10 @@ function SliderTextInput:render()
 
 		local borderTransparency = divideTransparency(style.Theme.Divider.Transparency, transparencyDivisor)
 
-		local backgroundTransparency =
-			divideTransparency(style.Theme.BackgroundUIContrast.Transparency, transparencyDivisor)
+		local backgroundTransparency = divideTransparency(
+			style.Theme.BackgroundUIContrast.Transparency,
+			transparencyDivisor
+		)
 
 		return Roact.createElement(ImageSetComponent.Label, {
 			BackgroundTransparency = 1,

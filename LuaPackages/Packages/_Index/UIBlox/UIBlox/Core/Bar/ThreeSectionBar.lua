@@ -118,43 +118,43 @@ function ThreeSectionBar:render()
 			self.updateFullWidth(rbx.AbsoluteSize.X)
 		end,
 	}, {
-		leftFrame = self.props.renderLeft
-			and Roact.createElement(FitFrame.FitFrameHorizontal, {
-				AnchorPoint = Vector2.new(0, 0),
-				Position = UDim2.fromScale(0, 0),
-				BackgroundTransparency = 1,
+		leftFrame = self.props.renderLeft and Roact.createElement(FitFrame.FitFrameHorizontal, {
+			AnchorPoint = Vector2.new(0, 0),
+			Position = UDim2.fromScale(0, 0),
+			BackgroundTransparency = 1,
 
-				minimumSize = UDim.new(0, 200),
-				height = UDim.new(1, 0),
-				FillDirection = Enum.FillDirection.Horizontal,
-				VerticalAlignment = Enum.VerticalAlignment.Center,
-				contentPadding = self.props.contentPaddingLeft,
-				margin = {
-					top = 0,
-					left = self.props.marginLeft,
-					right = PADDING_BETWEEN_SIDE_AND_CENTER,
-					bottom = 0,
+			minimumSize = UDim.new(0, 200),
+			height = UDim.new(1, 0),
+			FillDirection = Enum.FillDirection.Horizontal,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			contentPadding = self.props.contentPaddingLeft,
+			margin = {
+				top = 0,
+				left = self.props.marginLeft,
+				right = PADDING_BETWEEN_SIDE_AND_CENTER,
+				bottom = 0,
+			},
+			[Roact.Change.AbsoluteSize] = function(rbx)
+				self.updateLeftWidth(rbx.AbsoluteSize.X)
+			end,
+		}, {
+			leftContent = self.props.renderLeft(Cryo.Dictionary.join(self.props, {
+				[Roact.Children] = {
+					-- introduce a size constraint in order to give the renderRight priority
+					sizeConstraint = Roact.createElement("UISizeConstraint", {
+						MaxSize = Roact.joinBindings({ self.leftWidth, self.rightWidth, self.fullWidth }):map(
+							function(widths)
+								local _, rightWidth, fullWidth = widths[1], widths[2], widths[3]
+
+								local maxLeftWidth = math.max(0, fullWidth - rightWidth - self.props.marginLeft)
+
+								return Vector2.new(maxLeftWidth, math.huge)
+							end
+						),
+					}),
 				},
-				[Roact.Change.AbsoluteSize] = function(rbx)
-					self.updateLeftWidth(rbx.AbsoluteSize.X)
-				end,
-			}, {
-				leftContent = self.props.renderLeft(Cryo.Dictionary.join(self.props, {
-					[Roact.Children] = {
-						-- introduce a size constraint in order to give the renderRight priority
-						sizeConstraint = Roact.createElement("UISizeConstraint", {
-							MaxSize = Roact.joinBindings({ self.leftWidth, self.rightWidth, self.fullWidth })
-								:map(function(widths)
-									local _, rightWidth, fullWidth = widths[1], widths[2], widths[3]
-
-									local maxLeftWidth = math.max(0, fullWidth - rightWidth - self.props.marginLeft)
-
-									return Vector2.new(maxLeftWidth, math.huge)
-								end),
-						}),
-					},
-				})),
-			}),
+			})),
+		}),
 
 		centerFrame = self.props.renderCenter and Roact.createElement("Frame", {
 			AnchorPoint = centerAnchor,

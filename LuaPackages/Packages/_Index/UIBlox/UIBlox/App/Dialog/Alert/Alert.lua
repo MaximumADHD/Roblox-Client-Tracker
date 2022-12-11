@@ -175,17 +175,20 @@ function Alert:render()
 					minimumSize = UDim2.new(1, 0, 0, 0),
 				}, {
 					Buttons = buttonStackInfo and Roact.createElement(ButtonStack, buttonStackInfo),
-					FooterContent = self.props.footerContent
-						and Roact.createElement(RoactGamepad.Focusable[FitFrameOnAxis], {
+					FooterContent = self.props.footerContent and Roact.createElement(
+						RoactGamepad.Focusable[FitFrameOnAxis],
+						{
 							BackgroundTransparency = 1,
 							LayoutOrder = 5,
 							minimumSize = UDim2.new(1, 0, 0, 0),
 
 							[Roact.Ref] = self.footerContentRef,
 							NextSelectionUp = isFooterContentFocusable and self.buttonStackRef or nil,
-						}, {
+						},
+						{
 							Content = self.props.footerContent(),
-						}),
+						}
+					),
 				}),
 			}) or nil,
 		})

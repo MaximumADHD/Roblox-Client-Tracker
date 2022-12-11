@@ -80,8 +80,8 @@ export type State = {
 					creatorId: string,
 					creatorType: Enum,
 					creatorName: string,
-				},
-			},
+				}
+			}
 		},
 		productInfoByGameId: {
 			[string]: {
@@ -89,13 +89,10 @@ export type State = {
 				sellerId: string,
 				price: number,
 				isForSale: boolean,
-			},
-		},
+			}
+		}
 	},
 	CanRequestFriendshipWith: CanRequestFriendshipWith.State,
-	Aliases: {
-		byUserId: { [string]: string },
-	},
 }
 
 --[[
@@ -113,7 +110,6 @@ return function(options)
 	local roduxPresence = options.roduxPresence
 	local roduxFriends = options.roduxFriends
 	local roduxGames = options.roduxGames
-	local roduxAliases = options.roduxAliases
 
 	return Rodux.combineReducers({
 		Assets = Assets(options),
@@ -136,6 +132,5 @@ return function(options)
 		UserFollowers = UserFollowers(options),
 		Games = roduxGames.installReducer(),
 		CanRequestFriendshipWith = CanRequestFriendshipWith(options),
-		Aliases = roduxAliases.installReducer(),
 	})
 end

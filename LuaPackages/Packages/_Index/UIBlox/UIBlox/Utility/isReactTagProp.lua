@@ -4,4 +4,10 @@ local Packages = UIBloxRoot.Parent
 
 local t = require(Packages.t)
 
-return t.optional(t.string)
+local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
+
+if UIBloxConfig.enableReactTag then
+	return t.optional(t.string)
+end
+
+return nil

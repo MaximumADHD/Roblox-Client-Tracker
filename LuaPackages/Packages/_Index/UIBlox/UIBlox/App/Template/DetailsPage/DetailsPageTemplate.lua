@@ -6,7 +6,6 @@ local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local LoadableImage = require(App.Loading.LoadableImage)
@@ -189,13 +188,11 @@ function DetailsPageTemplate:render()
 				CloseButton = Roact.createElement(IconButton, {
 					size = UDim2.fromScale(1, 1),
 					icon = showFullscreen and Images[ICON_BACK] or Images[ICON_CLOSE],
-					iconColor3 = if UIBloxConfig.useNewThemeColorPalettes then nil else style.Theme.UIEmphasis.Color,
+					iconColor3 = style.Theme.UIEmphasis.Color,
 					iconSize = IconSize.Medium,
 					onActivated = self.props.onClose,
 					showBackground = self.state.showStickyActionTopBar == false,
-					backgroundColor = if UIBloxConfig.useNewThemeColorPalettes
-						then nil
-						else style.Theme.BackgroundUIDefault,
+					backgroundColor = style.Theme.BackgroundUIDefault,
 				}),
 			}),
 			BackgroundDetailsFrame = Roact.createElement("Frame", {
@@ -205,9 +202,10 @@ function DetailsPageTemplate:render()
 				Position = UDim2.fromScale(0.5, 0),
 				[Roact.Change.AbsoluteSize] = self.onBackgroundComponentFrameSizeChange,
 			}, {
-				GradientPlaceholder = showPlaceholderBanner
-						and Roact.createElement("UIGradient", bannerPlaceholderGradient)
-					or nil,
+				GradientPlaceholder = showPlaceholderBanner and Roact.createElement(
+					"UIGradient",
+					bannerPlaceholderGradient
+				) or nil,
 				UIAspectRatioConstraint = Roact.createElement("UIAspectRatioConstraint", {
 					AspectRatio = DISPLAY_ASPECT_RATIO,
 				}),
@@ -219,24 +217,26 @@ function DetailsPageTemplate:render()
 					ScaleType = Enum.ScaleType.Crop,
 				}) or nil,
 			}),
-			StickyActionBarFrame = (self.state.showStickyActionTopBar or showFullscreen)
-					and Roact.createElement("TextButton", {
-						Text = "",
-						AutoButtonColor = false,
-						Size = UDim2.new(1, 0, 0, headerHeight),
-						BackgroundColor3 = theme.BackgroundUIDefault.Color,
-						BackgroundTransparency = theme.BackgroundUIDefault.Transparency,
-						BorderSizePixel = 0,
-					}, {
-						StickyActionBar = Roact.createElement(StickyActionBar, {
-							actionBarProps = self.props.actionBarProps,
-							infoProps = {
-								icon = self.props.thumbnailImageUrl,
-								title = self.props.titleText,
-							},
-						}),
-					})
-				or nil,
+			StickyActionBarFrame = (self.state.showStickyActionTopBar or showFullscreen) and Roact.createElement(
+				"TextButton",
+				{
+					Text = "",
+					AutoButtonColor = false,
+					Size = UDim2.new(1, 0, 0, headerHeight),
+					BackgroundColor3 = theme.BackgroundUIDefault.Color,
+					BackgroundTransparency = theme.BackgroundUIDefault.Transparency,
+					BorderSizePixel = 0,
+				},
+				{
+					StickyActionBar = Roact.createElement(StickyActionBar, {
+						actionBarProps = self.props.actionBarProps,
+						infoProps = {
+							icon = self.props.thumbnailImageUrl,
+							title = self.props.titleText,
+						},
+					}),
+				}
+			) or nil,
 			ContentScrollingFrame = Roact.createElement(VerticalScrollView, {
 				size = UDim2.fromScale(1, 1),
 				canvasSizeY = UDim.new(1, 0),

@@ -41,7 +41,6 @@ EmptyState.validateProps = t.strictInterface({
 	NextSelectionDown = t.optional(t.table),
 	NextSelectionLeft = t.optional(t.table),
 	NextSelectionRight = t.optional(t.table),
-	maxSizeTextLabel = t.optional(t.Vector2),
 })
 
 EmptyState.defaultProps = {
@@ -112,7 +111,6 @@ function EmptyState:render()
 					LayoutOrder = 3,
 					fontStyle = style.Font.Body,
 					colorStyle = style.Theme.TextDefault,
-					maxSize = self.props.maxSizeTextLabel,
 				}),
 				textButtonPadding = Roact.createElement("Frame", {
 					AnchorPoint = Vector2.new(0.5, 0.5),

@@ -82,8 +82,9 @@ function TextureScroller:init()
 		end
 		self.lerpValue = (self.lerpValue + lerpPerFrame) % 1
 		if self.imageRef.current then
-			self.imageRef.current.ImageRectOffset =
-				floorVector2(anchoredImageOffsetStart:lerp(anchoredImageOffsetEnd, self.lerpValue))
+			self.imageRef.current.ImageRectOffset = floorVector2(
+				anchoredImageOffsetStart:lerp(anchoredImageOffsetEnd, self.lerpValue)
+			)
 		end
 	end
 end

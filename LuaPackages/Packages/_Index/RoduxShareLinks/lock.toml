@@ -6,7 +6,7 @@ source = "git+https://github.com/roblox/rodux-sharelinks#v1.2.0"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "RoduxNetworking RoduxNetworking 3.0.2 url+https://github.com/roblox/rodux-networking",
+    "RoduxNetworking RoduxNetworking 3.0.1 url+https://github.com/roblox/rodux-networking",
     "ShareLinksNetworking NetworkingShareLinks 15eccb0a git+https://github.com/roblox/networking-sharelinks#v1.1.1",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
 ]

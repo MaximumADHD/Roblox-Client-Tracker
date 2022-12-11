@@ -27,12 +27,10 @@ CellTailDescription.validateProps = t.strictInterface({
 	textFont = t.optional(validateFontInfo),
 	renderTextOverride = t.optional(t.callback),
 	showArrow = t.optional(t.boolean),
-	infoIcon = t.optional(t.string),
 })
 
 CellTailDescription.defaultProps = {
 	showArrow = false,
-	infoIcon = nil,
 }
 
 function CellTailDescription:init()
@@ -64,9 +62,8 @@ function CellTailDescription:render()
 	local text = self.props.text
 	local override = self.props.renderTextOverride
 	local showArrow = self.props.showArrow
-	local hasInfoIcon = self.props.infoIcon ~= nil
 
-	if not text and not showArrow and not hasInfoIcon then
+	if not text and not showArrow then
 		return nil
 	end
 
@@ -93,15 +90,6 @@ function CellTailDescription:render()
 				Image = Images[NAVIGATION_PUSH_RIGHT_SMALL],
 				ImageColor3 = style.Theme.TextEmphasis.Color,
 				ImageTransparency = style.Theme.TextEmphasis.Transparency,
-			}) or nil,
-			InfoIcon = hasInfoIcon and Roact.createElement(ImageSetComponent.Label, {
-				LayoutOrder = 2,
-				Size = UDim2.fromOffset(getIconSize(IconSize.Small), getIconSize(IconSize.Small)),
-				Image = self.props.infoIcon,
-				ImageColor3 = style.Theme.IconEmphasis.Color,
-				ImageTransparency = style.Theme.IconEmphasis.Transparency,
-				BorderSizePixel = 0,
-				BackgroundTransparency = 1,
 			}) or nil,
 		})
 	end)

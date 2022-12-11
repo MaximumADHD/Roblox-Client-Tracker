@@ -210,8 +210,13 @@ function Tile:render()
 
 						if titleIcon then
 							local iconWidth = titleIcon.ImageRectSize.X / Images.ImagesResolutionScale
-							textToMeasure =
-								GetWrappedTextWithIcon(textToMeasure, titleFontSize, titleFont, iconWidth, ICON_PADDING)
+							textToMeasure = GetWrappedTextWithIcon(
+								textToMeasure,
+								titleFontSize,
+								titleFont,
+								iconWidth,
+								ICON_PADDING
+							)
 						end
 						titleTextSize = GetTextSize(
 							textToMeasure,

@@ -17,14 +17,12 @@ local UsersReducer = require(Packages.RoduxUsers)
 local PresenceReducer = require(Packages.RoduxPresence)
 local FriendsReducer = require(Packages.RoduxFriends)
 local GamesReducer = require(Packages.RoduxGames)
-local AliasesReducer = require(Packages.RoduxAliases)
 local NetworkingUsers = require(Packages.NetworkingUsers)
 local NetworkingUserInfo = require(Packages.NetworkingUserInfo)
 local NetworkingFriends = require(Packages.NetworkingFriends)
 local NetworkingPresence = require(Packages.NetworkingPresence)
 local NetworkingBlocking = require(Packages.NetworkingBlocking)
 local NetworkingGames = require(Packages.NetworkingGames)
-local NetworkingAliases = require(Packages.NetworkingAliases)
 
 return {
 	config = function(options)
@@ -48,9 +46,6 @@ return {
 			roduxGames = GamesReducer.config({
 				keyPath = "Profile.Games",
 			}),
-			roduxAliases = AliasesReducer.config({
-				keyPath = "Profile.Aliases",
-			}),
 			networkingUsers = NetworkingUsers.config({
 				roduxNetworking = RoduxNetworking.mock(),
 			}),
@@ -61,9 +56,6 @@ return {
 				roduxNetworking = RoduxNetworking.mock(),
 			}),
 			networkingPresence = NetworkingPresence.config({
-				roduxNetworking = RoduxNetworking.mock(),
-			}),
-			networkingAliases = NetworkingAliases.config({
 				roduxNetworking = RoduxNetworking.mock(),
 			}),
 			networkingGames = NetworkingGames.config({

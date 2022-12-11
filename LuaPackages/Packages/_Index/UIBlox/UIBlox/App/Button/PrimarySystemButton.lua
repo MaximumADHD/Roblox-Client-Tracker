@@ -37,7 +37,7 @@ function PrimarySystemButton:render()
 	local delayedInputImage = Images["component_assets/bulletRight_17"]
 	return withSelectionCursorProvider(function(getSelectionCursor)
 		return React.createElement(RoactGamepad.Focusable[GenericButton], {
-			[React.Tag] = self.props[React.Tag],
+			[React.Tag] = if UIBloxConfig.enableReactTag then self.props[React.Tag] else nil,
 			AutomaticSize = self.props.automaticSize,
 			Size = self.props.size,
 			standardSize = if UIBloxConfig.enableStandardButtonSizes then self.props.standardSize else nil,

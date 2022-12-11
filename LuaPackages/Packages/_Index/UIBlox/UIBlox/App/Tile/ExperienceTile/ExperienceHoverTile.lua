@@ -111,12 +111,6 @@ ExperienceHoverTile.validateProps = t.strictInterface({
 
 	-- String containing number of users playing; should be formatted using abbreviateCount()
 	playingCountText = t.optional(t.string),
-
-	-- Boolean indicating if Age Rating should be shown on hover
-	showAgeRating = t.optional(t.boolean),
-
-	-- Text for age rating
-	ageRatingText = t.optional(t.string),
 })
 
 ExperienceHoverTile.defaultProps = {
@@ -312,59 +306,20 @@ function ExperienceHoverTile:renderBottomContent(stylePalette)
 				TextYAlignment = Enum.TextYAlignment.Top,
 			})
 			else nil,
-		ExperienceInfoFooter = if self.props.showAgeRating
-			then self:renderAgeRating(stylePalette)
-			else self:renderExperienceStats(stylePalette),
-	})
-end
-
-function ExperienceHoverTile:renderExperienceStats(stylePalette)
-	local ratingText = self.props.ratingText
-	local playingCountText = self.props.playingCountText
-	local hasStats = playingCountText and ratingText
-
-	if hasStats then
-		return Roact.createElement("Frame", {
-			Position = UDim2.new(0, 0, 1, 0),
-			AnchorPoint = Vector2.new(0, 1),
-			Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-		}, {
-			ExperienceStats = Roact.createElement(ExperienceStats, {
-				ratingText = ratingText,
-				playingText = playingCountText,
-			}),
-		})
-	else
-		return nil
-	end
-end
-
-function ExperienceHoverTile:renderAgeRating(stylePalette)
-	local ageRatingText = self.props.ageRatingText
-	local font = stylePalette.Font
-	local theme = stylePalette.Theme
-	local titleColorStyle = if UIBloxConfig.useNewThemeColorPalettes then theme.TextDefault else theme.TextEmphasis
-
-	return Roact.createElement("Frame", {
-		Position = UDim2.new(0, 0, 1, 15),
-		AnchorPoint = Vector2.new(0, 1),
-		Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
-		BackgroundTransparency = 1,
-		BorderSizePixel = 0,
-	}, {
-		AgeRating = Roact.createElement("TextLabel", {
-			Size = UDim2.new(1, 0, 1, -FOOTER_HEIGHT),
-			BackgroundTransparency = 1,
-			Text = ageRatingText,
-			Font = font.CaptionHeader.Font,
-			TextSize = font.BaseSize * font.CaptionHeader.RelativeSize,
-			TextTransparency = titleColorStyle.Transparency,
-			TextColor3 = titleColorStyle.Color,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Bottom,
-		}),
+		ExperienceInfoFooter = if hasStats
+			then Roact.createElement("Frame", {
+				Position = UDim2.new(0, 0, 1, 0),
+				AnchorPoint = Vector2.new(0, 1),
+				Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+			}, {
+				ExperienceStats = Roact.createElement(ExperienceStats, {
+					ratingText = ratingText,
+					playingText = playingCountText,
+				}),
+			})
+			else nil,
 	})
 end
 
@@ -487,13 +442,14 @@ function ExperienceHoverTile:renderActionRow(stylePalette)
 			onActivated = self.onToggleFavorite,
 		}),
 		FriendsIcon = if self.props.isPlayable
-			then Roact.createElement(IconButton, {
-				layoutOrder = 2,
-				icon = Images[FRIENDS_PLAYING_ICON],
-				onActivated = self.toggleFriendsMenu,
-				-- APPFDN-1343: debugProps.controlState should be replaced with a "sticky" IconButton prop
-				[IconButton.debugProps.controlState] = if friendsMenuOpen then ControlState.Pressed else nil,
-			})
+			then
+				Roact.createElement(IconButton, {
+					layoutOrder = 2,
+					icon = Images[FRIENDS_PLAYING_ICON],
+					onActivated = self.toggleFriendsMenu,
+					-- APPFDN-1343: debugProps.controlState should be replaced with a "sticky" IconButton prop
+					[IconButton.debugProps.controlState] = if friendsMenuOpen then ControlState.Pressed else nil,
+				})
 			else nil,
 		MoreIcon = Roact.createElement(IconButton, {
 			layoutOrder = 3,
@@ -513,8 +469,10 @@ function ExperienceHoverTile:render()
 		local isMenuOpen = self.props.openedMenu == TileMenuState.More or self.props.openedMenu == TileMenuState.Friends
 		local isPlayable = self.props.isPlayable
 
-		local panelBackgroundColor, panelBackgroundTransparency =
-			mapBackgroundState(self.state.panelControlState, stylePalette)
+		local panelBackgroundColor, panelBackgroundTransparency = mapBackgroundState(
+			self.state.panelControlState,
+			stylePalette
+		)
 
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 1, 0),

@@ -15,6 +15,8 @@ local Interactable = require(Core.Control.Interactable)
 local ControlState = require(Core.Control.Enum.ControlState)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 
+local PADDING_HEAD = 24
+local PADDING_TAIL = 24
 local DISABLED_TRANSPARENCY = 0.5
 
 local Cell = Roact.PureComponent:extend("Cell")
@@ -27,7 +29,6 @@ Cell.validateProps = t.strictInterface({
 	size = t.optional(t.UDim2),
 	anchorPoint = t.optional(t.Vector2),
 	position = t.optional(t.UDim2),
-	horizontalPadding = t.optional(t.number),
 
 	isDisabled = t.optional(t.boolean),
 	userInteractionEnabled = t.optional(t.boolean),
@@ -51,7 +52,6 @@ Cell.validateProps = t.strictInterface({
 Cell.defaultProps = {
 	isDisabled = false,
 	userInteractionEnabled = true,
-	horizontalPadding = 24,
 }
 
 function Cell:init()
@@ -146,8 +146,8 @@ function Cell:render()
 				BorderSizePixel = 0,
 			}, {
 				Padding = Roact.createElement("UIPadding", {
-					PaddingLeft = UDim.new(0, self.props.horizontalPadding),
-					PaddingRight = UDim.new(0, self.props.horizontalPadding),
+					PaddingLeft = UDim.new(0, PADDING_HEAD),
+					PaddingRight = UDim.new(0, PADDING_TAIL),
 				}),
 				CellHead = Roact.createElement("Frame", {
 					AnchorPoint = Vector2.new(0, 0.5),

@@ -21,8 +21,9 @@ local largeSettings = {
 }
 
 local function getItemMetrics(containerWidth, horizontalPadding, settingsTable)
-	local itemsPerRow =
-		math.floor((containerWidth + horizontalPadding) / (settingsTable.minimumItemWidth + horizontalPadding))
+	local itemsPerRow = math.floor(
+		(containerWidth + horizontalPadding) / (settingsTable.minimumItemWidth + horizontalPadding)
+	)
 	itemsPerRow = math.max(settingsTable.minimumItemsPerRow, itemsPerRow)
 	local itemWidth = math.floor((containerWidth - (itemsPerRow - 1) * horizontalPadding) / itemsPerRow)
 

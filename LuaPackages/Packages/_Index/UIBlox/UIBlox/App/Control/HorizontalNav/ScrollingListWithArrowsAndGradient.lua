@@ -28,7 +28,7 @@ export type Props = {
 	listHeight: number,
 	buttonPadding: number,
 	scrollingFrameRef: any,
-	buttonRefs: { [any]: any }?,
+	buttonRefs: {[any]: any}?,
 	useIntroScroll: boolean?,
 	childWidgetIndex: number?,
 	buttonWidth: number?,
@@ -36,7 +36,6 @@ export type Props = {
 	padOutsideEdges: boolean?,
 	canvasWidth: number?,
 	hideGradient: boolean?,
-	clipsDescendants: boolean?,
 }
 
 local function ScrollingListWithArrowsAndGradient(props: Props)
@@ -73,14 +72,15 @@ local function ScrollingListWithArrowsAndGradient(props: Props)
 
 		updateArrowLeftVisible(showLeft)
 		updateArrowRightVisible(showRight)
-	end, { gradientFrameRef, updateArrowLeftVisible, updateArrowRightVisible })
+	end, {gradientFrameRef, updateArrowLeftVisible, updateArrowRightVisible})
 
 	local onCanvasPositionChange = React.useCallback(function(rbx)
 		checkShowGradient(rbx)
 		--Update canvasPosition binding to avoid canvasPosition reset/jitter when
 		--switching between touch & Mouse/Keyboard inputs
 		updateCanvasPosition(rbx.CanvasPosition)
-	end, { checkShowGradient, updateCanvasPosition })
+	end, {checkShowGradient, updateCanvasPosition})
+
 
 	React.useEffect(function()
 		local widget = props.scrollingFrameRef:getValue()
@@ -91,7 +91,7 @@ local function ScrollingListWithArrowsAndGradient(props: Props)
 
 	return React.createElement(React.Fragment, {}, {
 		ScrollingList = React.createElement("ScrollingFrame", {
-			ClipsDescendants = props.clipsDescendants,
+			ClipsDescendants = false,
 			Size = UDim2.new(1, 0, 1, 0),
 			CanvasSize = UDim2.new(0, canvasWidth, 1, 0),
 			CanvasPosition = canvasPosition,

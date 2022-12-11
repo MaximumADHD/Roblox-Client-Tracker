@@ -113,8 +113,12 @@ function MenuTile:render()
 		local titleStyle = theme.TextDefault
 		local titleFont = stylePalette.Font.SubHeader1
 		local titleFontSize = titleFont.RelativeSize * stylePalette.Font.BaseSize
-		local titleTextOneLineSizeY =
-			TextService:GetTextSize(title, titleFontSize, titleFont.Font, Vector2.new(100, titleFontSize)).Y
+		local titleTextOneLineSizeY = TextService:GetTextSize(
+			title,
+			titleFontSize,
+			titleFont.Font,
+			Vector2.new(100, titleFontSize)
+		).Y
 
 		local function onStateChanged(oldState, newState)
 			if newState == ControlState.Hover then
@@ -166,19 +170,17 @@ function MenuTile:render()
 						CornerRadius = UDim.new(0, 8),
 					}),
 				}),
-				HoverMask = self.state.showHoverMask
-					and Roact.createElement("Frame", {
-						BackgroundColor3 = hoverStyle.Color,
-						BackgroundTransparency = self.hoverTransparency,
-						BorderSizePixel = 0,
-						Size = UDim2.fromScale(1, 1),
-						ZIndex = Z_INDEX.HOVER_MASK,
-					}, {
-						RoundedCornerUI = UIBloxConfig.useNewUICornerRoundedCorners
-							and Roact.createElement("UICorner", {
-								CornerRadius = UDim.new(0, 8),
-							}),
+				HoverMask = self.state.showHoverMask and Roact.createElement("Frame", {
+					BackgroundColor3 = hoverStyle.Color,
+					BackgroundTransparency = self.hoverTransparency,
+					BorderSizePixel = 0,
+					Size = UDim2.fromScale(1, 1),
+					ZIndex = Z_INDEX.HOVER_MASK,
+				}, {
+					RoundedCornerUI = UIBloxConfig.useNewUICornerRoundedCorners and Roact.createElement("UICorner", {
+						CornerRadius = UDim.new(0, 8),
 					}),
+				}),
 				IconAndTitleContainer = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
 					Size = UDim2.fromScale(1, 1),
@@ -242,8 +244,9 @@ function MenuTile:render()
 						value = badgeValue,
 					}),
 				}),
-				RoundedCornersMask = not UIBloxConfig.useNewUICornerRoundedCorners
-					and Roact.createElement(ImageSetComponent.Label, {
+				RoundedCornersMask = not UIBloxConfig.useNewUICornerRoundedCorners and Roact.createElement(
+					ImageSetComponent.Label,
+					{
 						BackgroundTransparency = 1,
 						Image = Images["component_assets/circle_17_mask"],
 						ImageColor3 = roundedCornersStyle.Color,
@@ -251,7 +254,8 @@ function MenuTile:render()
 						SliceCenter = Rect.new(8, 8, 9, 9),
 						Size = UDim2.fromScale(1, 1),
 						ZIndex = Z_INDEX.ROUNDED_CORNERS_MASK,
-					}),
+					}
+				),
 			}),
 		})
 	end)

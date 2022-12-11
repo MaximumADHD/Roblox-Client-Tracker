@@ -62,9 +62,10 @@ function Tooltip:render()
 				BackgroundColor3 = theme.Overlay.Color,
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				Position = isDirectChild
-						and UDim2.fromOffset(-self.props.triggerPosition.X, -self.props.triggerPosition.Y)
-					or UDim2.fromOffset(0, 0),
+				Position = isDirectChild and UDim2.fromOffset(
+					-self.props.triggerPosition.X,
+					-self.props.triggerPosition.Y
+				) or UDim2.fromOffset(0, 0),
 				Size = UDim2.fromOffset(self.props.screenSize.X, self.props.screenSize.Y),
 				Text = "",
 				[Roact.Event.Activated] = self.onDismissDefault,
@@ -77,8 +78,10 @@ function Tooltip:render()
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				Size = UDim2.fromOffset(self.props.triggerSize.X, self.props.triggerSize.Y),
-				Position = isDirectChild and UDim2.fromOffset(0, 0)
-					or UDim2.fromOffset(self.props.triggerPosition.X, self.props.triggerPosition.Y),
+				Position = isDirectChild and UDim2.fromOffset(0, 0) or UDim2.fromOffset(
+					self.props.triggerPosition.X,
+					self.props.triggerPosition.Y
+				),
 				[Roact.Event.Activated] = self.props.onDismiss,
 			}),
 			TooltipContainer = Roact.createElement(TooltipContainer, {

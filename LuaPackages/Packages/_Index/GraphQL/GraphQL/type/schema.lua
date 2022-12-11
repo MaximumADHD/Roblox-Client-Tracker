@@ -271,7 +271,7 @@ function GraphQLSchema.new(config: GraphQLSchemaConfig): GraphQLSchema
 	-- // Keep track of all implementations by interface name.
 	self._implementationsMap = Map.new()
 
-	for _, namedType in allReferencedTypes do
+	for _, namedType in allReferencedTypes:ipairs() do
 		if isNillish(namedType) then
 			continue
 		end
