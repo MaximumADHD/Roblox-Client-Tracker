@@ -1,4 +1,4 @@
-struct InstanceData
+struct Instance
 {
     vec4 row0;
     vec4 row1;

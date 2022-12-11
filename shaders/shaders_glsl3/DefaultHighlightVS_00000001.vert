@@ -1,7 +1,7 @@
 #version 150
 
 #extension GL_ARB_shading_language_include : require
-#include <InstanceData.h>
+#include <Instance.h>
 #include <Globals.h>
 uniform vec4 CB1[511];
 uniform vec4 CB0[58];
