@@ -3,7 +3,6 @@ local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 local Cryo = require(VirtualEvents.Parent.Cryo)
 local React = require(VirtualEvents.Parent.React)
 local UIBlox = require(VirtualEvents.Parent.UIBlox)
-local useLocalization = require(VirtualEvents.Parent.RoactUtils).Hooks.useLocalization
 local useVirtualEvent = require(VirtualEvents.Hooks.useVirtualEvent)
 local EventDetailsPage = require(VirtualEvents.Components.EventDetailsPage)
 
@@ -18,9 +17,6 @@ export type Props = EventDetailsPage.BaseProps & {
 
 local function EventDetailsPageLoader(props: Props)
 	local virtualEvent, fetchingStatus = useVirtualEvent(props.virtualEventId)
-	local text = useLocalization({
-		notFound = "Feature.VirtualEvents.EventNotFound",
-	})
 
 	if props.mockNetworkStatus then
 		fetchingStatus = props.mockNetworkStatus
@@ -44,7 +40,7 @@ local function EventDetailsPageLoader(props: Props)
 			return React.createElement(React.Fragment, nil, {
 				-- TODO: Event Not Found https://jira.rbx.com/browse/EN-1540
 				EventNotFound = React.createElement(EmptyState, {
-					text = text.notFound,
+					text = "404 Event Not Found",
 				}),
 			})
 		end,

@@ -1,8 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
-local Players = game:GetService("Players")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -22,11 +20,7 @@ local DeleteOutfitPrompt = require(Prompts.DeleteOutfitPrompt)
 local RenameOutfitPrompt = require(Prompts.RenameOutfitPrompt)
 local UpdateOutfitPrompt = require(Prompts.UpdateOutfitPrompt)
 
-local LocalPlayer = Players.LocalPlayer
-
 local EngineFeatureAESMoreOutfitMethods = game:GetEngineFeature("AESMoreOutfitMethods2")
-
-local FFlagFixAvatarEditorPromptsSelectedObjectReset = game:DefineFastFlag("FixAvatarEditorPromptsSelectedObjectReset", false)
 
 local AvatarEditorPrompts = script.Parent.Parent
 
@@ -142,23 +136,10 @@ function AvatarEditorPromptsApp:render()
 end
 
 function AvatarEditorPromptsApp:revertSelectedGuiObject()
-	if FFlagFixAvatarEditorPromptsSelectedObjectReset then
-		local PlayerGui = LocalPlayer and LocalPlayer:FindFirstChildWhichIsA("PlayerGui")
-
-		if self.selectedCoreGuiObject and self.selectedCoreGuiObject:IsDescendantOf(CoreGui) then
-			GuiService.SelectedCoreObject = self.selectedCoreGuiObject
-		elseif self.selectedGuiObject and self.selectedGuiObject:IsDescendantOf(PlayerGui) then
-			GuiService.SelectedObject = self.selectedGuiObject
-			GuiService.SelectedCoreObject = nil
-		else
-			GuiService.SelectedCoreObject = nil
-		end
-	else
-		if self.selectedCoreGuiObject then
-			GuiService.SelectedCoreObject = self.selectedCoreGuiObject
-		elseif self.selectedGuiObject then
-			GuiService.SelectedObject = self.selectedGuiObject
-		end
+	if self.selectedCoreGuiObject then
+		GuiService.SelectedCoreObject = self.selectedCoreGuiObject
+	elseif self.selectedGuiObject then
+		GuiService.SelectedObject = self.selectedGuiObject
 	end
 
 	self.selectedCoreGuiObject = nil

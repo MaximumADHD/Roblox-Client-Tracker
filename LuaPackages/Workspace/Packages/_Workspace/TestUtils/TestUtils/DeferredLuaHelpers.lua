@@ -6,18 +6,9 @@
     # waitForEvents()
         Blocks the current thread and wait for queued up events to happen.
         Useful to mimic how the events used to resolve.
-		Equivalent to `waitForEventsTimes(1)`
 
     # waitForEvents.act()
         Same thing as `waitForEvents()` but wrapped by ReactRoblox.act()
-
-    # waitForEventsTimes(count: number)
-        Blocks the current thread and wait for queued up events to happen.
-		Repeats it `count` number of times.
-
-    # waitForEventsTimes.act(count: number)
-        Same thing as `waitForEventsTimes(count)` but wrapped by ReactRoblox.act()
-		This will act `count` number of times.
 
     # forceUpdateGuiObject(...: GuiObject)
         Reads a property on UI objects in order to trigger engine layout changes.
@@ -34,22 +25,12 @@ local Packages = Root.Parent
 
 local ReactRoblox = require(Packages.ReactRoblox)
 
-type ActCallback = (() -> ()) -> ()
-
-local function waitForEventsTimes(act: ActCallback, count: number)
-	for i = 1, count do
-		act(function()
-			task.defer(coroutine.running())
-			coroutine.yield()
-		end)
-	end
+local function waitForEvents()
+	task.defer(coroutine.running())
+	coroutine.yield()
 end
 
-local function waitForEvents(act)
-	waitForEventsTimes(act, 1)
-end
-
-local function forceUpdateGuiObject(act: ActCallback, ...: GuiObject)
+local function forceUpdateGuiObject(...: GuiObject)
 	for i = 1, select("#", ...) do
 		local object = select(i, ...)
 		if object:IsA("ScrollingFrame") then
@@ -58,23 +39,24 @@ local function forceUpdateGuiObject(act: ActCallback, ...: GuiObject)
 			local _ = object.AbsoluteSize.Y
 		end
 	end
-	act(function()
-		task.wait()
-	end)
+	task.wait()
 end
 
-local function noAct(callback: () -> ())
-	callback()
+local function acted<T...>(callback: (T...) -> ()): (T...) -> ()
+	return function(...: T...)
+		local args = table.pack(...)
+		ReactRoblox.act(function()
+			(callback :: any)(table.unpack(args))
+		end)
+	end
 end
 
-local function createActWrapper<T...>(callback: (ActCallback, T...) -> ()): ((T...) -> ()) & { act: (T...) -> () }
+local function createActWrapper<T...>(callback: (T...) -> ()): ((T...) -> ()) & { act: (T...) -> () }
 	return setmetatable({
-		act = function(...: T...)
-			return callback(ReactRoblox.act, ...)
-		end,
+		act = acted(callback),
 	}, {
 		__call = function(_self, ...: T...)
-			return callback(noAct, ...)
+			return callback(...)
 		end,
 	}) :: any
 end
@@ -82,5 +64,4 @@ end
 return {
 	forceUpdateGuiObject = createActWrapper(forceUpdateGuiObject),
 	waitForEvents = createActWrapper(waitForEvents),
-	waitForEventsTimes = createActWrapper(waitForEventsTimes),
 }

@@ -11,29 +11,17 @@ local Players = game:GetService("Players")
 local playerCollisionGroupName = "AvatarGesturesPlayers"
 local heldObjectsCollisionGroupName = "AvatarGesturesHeldObjects"
 
-if game:GetEngineFeature("UseCGNApi") then
-	PhysicsService:RegisterCollisionGroup(playerCollisionGroupName)
-	PhysicsService:RegisterCollisionGroup(heldObjectsCollisionGroupName)
-else
-	PhysicsService:CreateCollisionGroup(playerCollisionGroupName)
-	PhysicsService:CreateCollisionGroup(heldObjectsCollisionGroupName)
-end
+PhysicsService:CreateCollisionGroup(playerCollisionGroupName)
+PhysicsService:CreateCollisionGroup(heldObjectsCollisionGroupName)
 
 PhysicsService:CollisionGroupSetCollidable(playerCollisionGroupName, heldObjectsCollisionGroupName, false)
 
--- Remove DEPRECATED_previousCollisionGroups with FFlag::UseCGNApi
-local DEPRECATED_previousCollisionGroups = {}
 local previousCollisionGroups = {}
 
 local function setPlayerCollisionGroup(object: BasePart)
 	if object:IsA("BasePart") then
-		if game:GetEngineFeature("UseCGNApi") then
-			previousCollisionGroups[object] = object.CollisionGroup
-			object.CollisionGroup = playerCollisionGroupName
-		else
-			DEPRECATED_previousCollisionGroups[object] = object.CollisionGroupId
-			PhysicsService:SetPartCollisionGroup(object, playerCollisionGroupName)
-		end
+		previousCollisionGroups[object] = object.CollisionGroupId
+		PhysicsService:SetPartCollisionGroup(object, playerCollisionGroupName)
 	end
 end
 
@@ -46,22 +34,14 @@ local function setCollisionGroupRecursive(object)
 end
 
 local function resetCollisionGroup(object)
-	if game:GetEngineFeature("UseCGNApi") then
-		local previousCollisionGroupName = previousCollisionGroups[object]
-		if not previousCollisionGroupName then return end
+	local previousCollisionGroupId = previousCollisionGroups[object]
+	if not previousCollisionGroupId then return end 
 
-		object.CollisionGroup = previousCollisionGroupName
-		previousCollisionGroups[object] = nil
-	else
-		local previousCollisionGroupId = DEPRECATED_previousCollisionGroups[object]
-		if not previousCollisionGroupId then return end
+	local previousCollisionGroupName = PhysicsService:GetCollisionGroupName(previousCollisionGroupId)
+	if not previousCollisionGroupName then return end
 
-		local previousCollisionGroupName = PhysicsService:GetCollisionGroupName(previousCollisionGroupId)
-		if not previousCollisionGroupName then return end
-
-		PhysicsService:SetPartCollisionGroup(object, previousCollisionGroupName)
-		DEPRECATED_previousCollisionGroups[object] = nil
-	end
+	PhysicsService:SetPartCollisionGroup(object, previousCollisionGroupName)
+	previousCollisionGroups[object] = nil
 end
 
 local function onCharacterAdded(character)
@@ -105,8 +85,8 @@ end)
 
 -- return the function to update the hand position when given input from the player
 function getHandUpdater(handName: string)
-
-	-- the cframe passed from the client should be the cframe of the hand in terms of the
+	
+	-- the cframe passed from the client should be the cframe of the hand in terms of the 
 	-- humanoidrootpart of the character
 	return function(player: Player, cframe)
 		-- if using physical hands, replicate a collider basepart
@@ -141,11 +121,7 @@ function getHandUpdater(handName: string)
 
 					newCollider.Parent = hand
 					collider = newCollider
-					if game:GetEngineFeature("UseCGNApi") then
-						collider.CollisionGroup = heldObjectsCollisionGroupName
-					else
-						PhysicsService:SetPartCollisionGroup(collider, heldObjectsCollisionGroupName)
-					end
+					PhysicsService:SetPartCollisionGroup(collider, heldObjectsCollisionGroupName)
 				end
 
 				orientation = collider:FindFirstChildOfClass("AlignOrientation") :: AlignOrientation
@@ -153,7 +129,7 @@ function getHandUpdater(handName: string)
 
 				position.Position = cframe.Position
 				orientation.CFrame = cframe
-			end
+			end	
 		-- not physical hands, replicate the cframe values directly
 		else
 			local handCFrame = player:FindFirstChild(handName .. "CFrame") :: CFrameValue

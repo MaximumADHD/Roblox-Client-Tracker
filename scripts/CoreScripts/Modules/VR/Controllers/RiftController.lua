@@ -1,12 +1,9 @@
 --!nonstrict
 local VRService 	= game:GetService("VRService")
 local CoreGui 		= game:GetService("CoreGui")
-local CorePackages	= game:GetService("CorePackages")
 
 local RobloxGui 	= CoreGui.RobloxGui
 local CommonUtil	= require(RobloxGui.Modules.Common.CommonUtil)
-local GetFFlagUIBloxVRApplyHeadScale =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRApplyHeadScale
 
 local MATERIAL = Enum.Material.Granite
 local SCALE = Vector3.new(0.032, 0.032, 0.032)
@@ -51,9 +48,6 @@ function RiftController.new(userCFrame)
 		TextureId = "rbxassetid://9597123835",
 		Scale = SCALE,
 	}
-	if GetFFlagUIBloxVRApplyHeadScale() then
-		self.mesh = mesh
-	end
 	local weld = CommonUtil.Create("Weld") {
 		Parent = part,
 		Name = "Weld",
@@ -69,11 +63,6 @@ end
 
 function RiftController:setCFrame(cframe)
 	self.model:SetPrimaryPartCFrame(cframe * CFrame.Angles(math.rad(20), math.rad(0), 0) * CFrame.new(0, -0.03, 0.06))
-end
-
-function RiftController:setCFrameAndScale(cframe, scale)
-	self.model:SetPrimaryPartCFrame(cframe * CFrame.Angles(math.rad(20), math.rad(0), 0) * CFrame.new(0, -0.03 * scale, 0.06 * scale))
-	self.mesh.Scale = SCALE * scale
 end
 
 function RiftController:onButtonInputChanged(inputObject, depressed)

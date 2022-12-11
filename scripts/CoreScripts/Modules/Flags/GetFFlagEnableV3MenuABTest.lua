@@ -1,5 +1,5 @@
-game:DefineFastFlag("EnableV3MenuABTest3", false)
+game:DefineFastFlag("EnableV3MenuABTest2", false)
 
 return function()
-	return game:GetFastFlag("EnableV3MenuABTest3")
+	return game:GetFastFlag("EnableV3MenuABTest2")
 end

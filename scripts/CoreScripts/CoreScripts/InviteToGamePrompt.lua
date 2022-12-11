@@ -11,7 +11,6 @@ local SettingsHubDirectory = Modules.Settings
 local ShareGameDirectory = SettingsHubDirectory.Pages.ShareGame
 
 local GetFFlagEnableNewInviteMenuCustomization = require(Modules.Flags.GetFFlagEnableNewInviteMenuCustomization)
-local GetFFlagEnableInvitePromptLoadingState = require(Modules.Flags.GetFFlagEnableInvitePromptLoadingState)
 
 local Diag = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.Diag
 local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
@@ -42,20 +41,12 @@ SocialService.PromptInviteRequested:Connect(function(player, experienceInviteOpt
 		if player ~= Players.LocalPlayer then
 			return
 		end
-		local EnableLoadingState = GetFFlagEnableInvitePromptLoadingState()
-		if EnableLoadingState then
-			modalPrompt:show({
-				isLoading = true,
-			})
-		end
 
 		local options: ExperienceInviteOptions? = if experienceInviteOptions
 			then experienceInviteOptions :: ExperienceInviteOptions else nil
 		local params = GetCustomizedInvitePromptParams(options, ApiGetCanSendAndCanCustomizeInvites)
 		if params then
 			modalPrompt:show(params)
-		elseif EnableLoadingState then
-			modalPrompt:hide()
 		end
 	else
 		if player ~= Players.LocalPlayer or not canSendGameInviteAsync(player) then

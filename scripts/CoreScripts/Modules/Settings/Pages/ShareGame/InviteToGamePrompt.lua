@@ -28,7 +28,6 @@ export type InviteCustomizationProps = {
 	inviteUserId: number?,
 	launchData: string?,
 	inviteMessageId: string?,
-	isLoading: boolean?,
 }
 
 local InviteToGamePrompt: any = {}
@@ -55,7 +54,7 @@ function InviteToGamePrompt:withAnalytics(analytics)
 	return self
 end
 
-function InviteToGamePrompt:_createTree(isVisible: boolean, props: InviteCustomizationProps?)
+function InviteToGamePrompt:_createTree(isVisible, props: InviteCustomizationProps?)
 	local store = if GetFFlagEnableSharedInviteStore() then 
 		InviteStore else Rodux.Store.new(AppReducer, nil, { Rodux.thunkMiddleware })
 	return Roact.createElement(FullModalShareGameComponent, {
@@ -66,7 +65,6 @@ function InviteToGamePrompt:_createTree(isVisible: boolean, props: InviteCustomi
 		inviteUserId = props and props.inviteUserId,
 		inviteMessageId = props and props.inviteMessageId,
 		launchData = props and props.launchData,
-		isLoading = props and props.isLoading,
 		onAfterClosePage = function(_)
 			-- * "Why are we no-opting sentToUserIds?"
 			-- Originally our specs required us to pass the userIds of
@@ -84,8 +82,7 @@ function InviteToGamePrompt:show(props: InviteCustomizationProps?)
 	if self.isActive then
 		return
 	end
-	self.isLoading = props and props.isLoading
-	self.isActive = not self.isLoading
+	self.isActive = true
 
 	if props then
 		local triggerId =
@@ -111,10 +108,9 @@ function InviteToGamePrompt:show(props: InviteCustomizationProps?)
 end
 
 function InviteToGamePrompt:hide(sentToUserIds)
-	if not (self.isActive or self.isLoading) then
+	if not self.isActive then
 		return
 	end
-	self.isLoading = false
 	self.isActive = false
 
 	self.instance = Roact.update(self.instance, self:_createTree(false))

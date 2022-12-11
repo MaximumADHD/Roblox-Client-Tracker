@@ -5,7 +5,6 @@
 ]]
 
 local CorePackages = game:GetService("CorePackages")
-local RunService = game:GetService("RunService")
 
 local Cryo = require(CorePackages.Cryo)
 local t = require(CorePackages.Packages.t)
@@ -13,10 +12,7 @@ local t = require(CorePackages.Packages.t)
 local BacktraceReport = require(script.Parent.BacktraceReport)
 local ErrorQueue = require(script.Parent.Parent.ErrorQueue)
 
-local DEVELOPMENT_IN_STUDIO = RunService:IsStudio()
-
-local FFlagFixVeryOldUAReportBacktraceErrors = game:DefineFastFlag("FixVeryOldUAReportBacktraceErrors", false)
-local FIntOldestUAVersionToReportErrors = game:DefineFastInt("OldestUAVersionToReportErrors", 0)
+local DEVELOPMENT_IN_STUDIO = game:GetService("RunService"):IsStudio()
 
 local DEFAULT_LOG_INTERVAL = 60 -- seconds
 
@@ -76,27 +72,8 @@ function BacktraceReporter.new(arguments)
 	return self
 end
 
--- We have a problem where very old clients somehow use the universal app and report errors that have long been fixed.
--- It's not clear how these clients could still be using the app. These clients are often 3+ months out of date
--- and would no longer be able to play games. We have theorized that these clients might be bots.
-function BacktraceReporter:isTooOldToReportErrors()
-	local currentVersionStr = RunService:GetRobloxVersion()
-	local currentVersionMajorVersion = tonumber(string.match(currentVersionStr, ".(%d+)."))
-	if not currentVersionMajorVersion then
-		return false
-	end
-	if currentVersionMajorVersion < FIntOldestUAVersionToReportErrors then
-		return true
-	end
-	return false
-end
-
 function BacktraceReporter:sendErrorReport(report, log)
 	if not self._isEnabled then
-		return
-	end
-
-	if FFlagFixVeryOldUAReportBacktraceErrors and self:isTooOldToReportErrors() then
 		return
 	end
 

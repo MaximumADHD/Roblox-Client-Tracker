@@ -9,9 +9,6 @@ local Promise = require(Packages.Promise)
 local LuauPolyfill = require(Packages.LuauPolyfill)
 type Object = LuauPolyfill.Object
 type Promise<T> = LuauPolyfill.Promise<T>
-local fetchModule = require(Packages.Fetch)
-type fetch = fetchModule.fetch
-local fetch = fetchModule.fetch
 
 local Response = require(script.Parent.Response)
 local graphqlDefaults = require(script.Parent.graphql)
@@ -31,7 +28,6 @@ type ServerOptions = {
 	typeDefs: string?,
 	resolvers: Object?,
 	mockResolvers: Object?,
-	fetchImpl: fetch?,
 }
 
 type GraphQLServer = {
@@ -39,7 +35,6 @@ type GraphQLServer = {
 	schema: GraphQLSchema,
 	rootValue: any,
 	typeResolver: GraphQLTypeResolver<any, any>,
-	fetchImpl: fetch,
 	fetchLocal: (GraphQLServer, RequestOptions) -> Promise<any>,
 }
 
@@ -64,7 +59,6 @@ function GraphQLServer.new(options: ServerOptions): GraphQLServer
 	self.rootValue = buildRootValue(resolvers)
 	self.typeResolver = buildTypeResolver(resolvers)
 	self.fieldResolver = buildFieldResolver(resolvers)
-	self.fetchImpl = if options.fetchImpl then options.fetchImpl else fetch
 	setmetatable(self, GraphQLServer)
 	return (self :: any) :: GraphQLServer
 end
@@ -76,9 +70,6 @@ function GraphQLServer:fetchLocal(requestOptions: RequestOptions): Promise<any>
 			schema = self.schema,
 			source = request.query or request.mutation,
 			rootValue = self.rootValue,
-			contextValue = {
-				fetchImpl = self.fetchImpl,
-			},
 			typeResolver = self.typeResolver,
 			fieldResolver = self.fieldResolver,
 			variableValues = request.variables,

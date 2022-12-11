@@ -1,9 +1,8 @@
 local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 
 local React = require(VirtualEvents.Parent.React)
+local types = require(VirtualEvents.types)
 local withMockProviders = require(VirtualEvents.withMockProviders)
-local network = require(VirtualEvents.network)
-local VirtualEventModel = network.NetworkingVirtualEvents.VirtualEventModel
 local EventTimer = require(script.Parent.EventTimer)
 
 local function getTimeOffsetByHour(currentTime: DateTime, hourOffset: number)
@@ -19,31 +18,54 @@ local function getTimeOffsetByHour(currentTime: DateTime, hourOffset: number)
 end
 
 local controls = {
-	isEventCancelled = false,
-	startOffsetHours = 0,
-	endOffsetHours = 24,
+	status = {
+		"Upcoming",
+		"UpcomingImminent",
+		"Ongoing",
+		"ElapsedImminent",
+		"Elapsed",
+	},
 }
 
 type Props = {
-	controls: typeof(controls),
+	controls: {
+		status: string, -- types.EventTimerStatus,
+	},
 }
 
 return {
 	controls = controls,
 	story = function(props: Props)
-		local now = DateTime.now()
-
-		local virtualEvent = VirtualEventModel.mock("1")
-		virtualEvent.eventTime.startTime = getTimeOffsetByHour(now, props.controls.startOffsetHours)
-		virtualEvent.eventTime.endTime = getTimeOffsetByHour(now, props.controls.endOffsetHours)
-
-		if props.controls.isEventCancelled then
-			virtualEvent.eventStatus = "cancelled"
+		local currentTime = DateTime.now()
+		local startTime: DateTime
+		local endTime: DateTime
+		if props.controls.status == "Upcoming" then
+			startTime = getTimeOffsetByHour(currentTime, 24)
+			endTime = getTimeOffsetByHour(currentTime, 48)
+		elseif props.controls.status == "UpcomingImminent" then
+			startTime = getTimeOffsetByHour(currentTime, 2)
+			endTime = getTimeOffsetByHour(currentTime, 10)
+		elseif props.controls.status == "Ongoing" then
+			startTime = getTimeOffsetByHour(currentTime, -1)
+			endTime = getTimeOffsetByHour(currentTime, 8)
+		elseif props.controls.status == "ElapsedImminent" then
+			startTime = getTimeOffsetByHour(currentTime, -4)
+			endTime = getTimeOffsetByHour(currentTime, 2)
+		elseif props.controls.status == "Elapsed" then
+			startTime = getTimeOffsetByHour(currentTime, -10)
+			endTime = getTimeOffsetByHour(currentTime, -1)
 		end
 
 		return withMockProviders({
 			EventTimer = React.createElement(EventTimer, {
-				virtualEvent = virtualEvent,
+				status = props.controls.status,
+				currentTime = currentTime,
+				virtualEvent = {
+					eventTime = {
+						startTime = startTime,
+						endTime = endTime,
+					},
+				} :: types.VirtualEvent,
 			}),
 		})
 	end,

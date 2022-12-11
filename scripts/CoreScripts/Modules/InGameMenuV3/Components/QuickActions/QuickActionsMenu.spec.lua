@@ -10,7 +10,6 @@ local InGameMenu = script.Parent.Parent.Parent
 local reducer = require(InGameMenu.reducer)
 local Localization = require(InGameMenu.Localization.Localization)
 local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
-local GetFFlagV3MenuAddSelfViewButtons = require(InGameMenu.Flags.GetFFlagV3MenuAddSelfViewButtons)
 
 local QuickActionsMenu = require(script.Parent.QuickActionsMenu)
 
@@ -42,8 +41,6 @@ return function()
 						recordEnabled = false,
 						screenshotEnabled = true,
 						fullscreenEnabled = true,
-						cameraEnabled = true,
-						selfViewEnabled = if GetFFlagV3MenuAddSelfViewButtons() then true else nil,
 						transparencies = transparencies,
 						frameTransparency = {1},
 						fillDirection = Enum.FillDirection.Horizontal,
@@ -84,8 +81,6 @@ return function()
 						recordEnabled = false,
 						screenshotEnabled = true,
 						fullscreenEnabled = false,
-						cameraEnabled = true,
-						selfViewEnabled = if GetFFlagV3MenuAddSelfViewButtons() then true else nil,
 						transparencies = transparencies,
 						frameTransparency = {1},
 						fillDirection = Enum.FillDirection.Vertical,

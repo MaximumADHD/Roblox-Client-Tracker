@@ -13,10 +13,7 @@ local FFlagDesktopLaunchLinksInExternalBrowser = SharedFlags.FFlagDesktopLaunchL
 local GetFFlagLuaAppUseOmniRecDefaultPolicy = SharedFlags.GetFFlagLuaAppUseOmniRecDefaultPolicy
 local GetFFlagDeactivateThrottleInVR = SharedFlags.GetFFlagDeactivateThrottleInVR
 local GetFFlagRoundedCornersVR = SharedFlags.GetFFlagRoundedCornersVR
-local GetFFlagDisableWebviewsVR = SharedFlags.GetFFlagDisableWebviewsVR
-local isRunningInStudio = require(Packages.AppCommonLib).isRunningInStudio
 local GetFFlagAvatarEditorMaquettes = SharedFlags.GetFFlagAvatarEditorMaquettes
-local GetFFlagUseVoiceExitBetaLanguage = SharedFlags.GetFFlagUseVoiceExitBetaLanguage
 
 local FFlagUseGUACforDUARPolicy = game:DefineFastFlag("UseGUACforDUARPolicy", false)
 local FFlagOpenCreateGamesInExternalBrowser = game:DefineFastFlag("OpenCreateGamesInExternalBrowser", false)
@@ -79,12 +76,6 @@ local function AppFeaturePolicies(policy): any
 		end,
 		getSwapToSourceButton = function()
 			return GetFFlagEnableSwapToSourceButton() or policy.SwapToSourceButton or false
-		end,
-		getGiftCardsEnabled = function()
-			return policy.GiftCardsEnabled or false
-		end,
-		getOfficialStoreEnabled = function()
-			return policy.OfficialStoreEnabled or false
 		end,
 		getMorePageType = function()
 			return policy.MorePageType or "SimplifiedMore"
@@ -348,12 +339,8 @@ local function AppFeaturePolicies(policy): any
 		getUseVRFTUXPanel = function()
 			return getVRDefaultPolicy("UseVRFTUXPanel", true)
 		end,
-		getWebViewSupport = function()
-			-- disable webviews in Studio
-			if GetFFlagDisableWebviewsVR() and isRunningInStudio() then
-				return false
-			end
-			return getVRDefaultPolicy("EnableWebViewSupport", false)
+		getDisableWebViewSupport = function()
+			return getVRDefaultPolicy("DisableWebViewSupport", true)
 		end,
 		getThrottleFramerate = function()
 			if GetFFlagDeactivateThrottleInVR() then
@@ -369,12 +356,6 @@ local function AppFeaturePolicies(policy): any
 				end
 			end
 
-			return false
-		end,
-		getGameInfoShowChatFeatures = function()
-			if GetFFlagUseVoiceExitBetaLanguage() then
-				return policy.GameInfoShowChatFeatures or false
-			end
 			return false
 		end,
 		getAllowCameraMovements = function()

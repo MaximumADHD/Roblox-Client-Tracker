@@ -8,7 +8,6 @@ local createGetMyVirtualEvents = require(NetworkingVirtualEvents.requests.create
 local createGetActiveVirtualEvents = require(NetworkingVirtualEvents.requests.createGetActiveVirtualEvents)
 local createGetVirtualEventRsvps = require(NetworkingVirtualEvents.requests.createGetVirtualEventRsvps)
 local createUpdateMyRsvpStatus = require(NetworkingVirtualEvents.requests.createUpdateMyRsvpStatus)
-local createGetVirtualEventRsvpCounts = require(NetworkingVirtualEvents.requests.createGetVirtualEventRsvpCounts)
 local types = require(NetworkingVirtualEvents.types)
 
 return function(config: types.Config)
@@ -23,7 +22,6 @@ return function(config: types.Config)
 		GetActiveVirtualEvents = createGetActiveVirtualEvents(roduxNetworking),
 		GetVirtualEventRsvps = createGetVirtualEventRsvps(roduxNetworking),
 		UpdateMyRsvpStatus = createUpdateMyRsvpStatus(roduxNetworking),
-		GetVirtualEventRsvpCounts = createGetVirtualEventRsvpCounts(roduxNetworking),
 
 		VirtualEventModel = require(NetworkingVirtualEvents.models.VirtualEventModel),
 		createMockVirtualEventResponse = require(NetworkingVirtualEvents.createMockVirtualEventResponse),

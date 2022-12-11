@@ -1,5 +1,5 @@
-game:DefineFastFlag("AvatarEditorMaquettes3", false)
+game:DefineFastFlag("AvatarEditorMaquettes2", false)
 
 return function()
-	return game:GetFastFlag("AvatarEditorMaquettes3") or game:GetEngineFeature("EnableMaquettesSupport") -- enable with FFlag: UserMaquettesSupportEnabled
+	return game:GetFastFlag("AvatarEditorMaquettes2") or game:GetEngineFeature("EnableMaquettesSupport") -- enable with FFlag: UserMaquettesSupportEnabled
 end

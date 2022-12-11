@@ -58,8 +58,6 @@ local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
 
 local GetFFlagEnableKeyboardUINavigation = require(RobloxGui.Modules.Flags.GetFFlagEnableKeyboardUINavigation)
 
-local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt", false)
-
 game:DefineFastFlag("MoodsEmoteFix3", false)
 game:DefineFastFlag("SelfieViewFeature2", false)
 game:DefineFastFlag("PipEnabled", false)
@@ -175,11 +173,6 @@ coroutine.wrap(function()
 		PurchasePrompt.mountPurchasePrompt()
 	end
 end)()
-
--- Publish Asset Prompt
-if FFlagAddPublishAssetPrompt then
-	coroutine.wrap(safeRequire)(CoreGuiModules.PublishAssetPrompt)
-end
 
 -- Prompt Block Player Script
 ScriptContext:AddCoreScriptLocal("CoreScripts/BlockPlayerPrompt", RobloxGui)

@@ -2,7 +2,6 @@ local enums = require(script.enums)
 local types = require(script.types)
 
 export type Event = types.Event
-export type Host = types.Host
 export type VirtualEvent = types.VirtualEvent
 
 return {

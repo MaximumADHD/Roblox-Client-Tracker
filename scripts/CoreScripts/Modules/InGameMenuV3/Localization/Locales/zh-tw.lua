@@ -324,7 +324,4 @@ return{
 	["CoreScripts.InGameMenu.Label.MicOnRecording"] = [[麥克風開啟（正在錄音）]],
 	["CoreScripts.InGameMenu.Label.MicOff"] = [[麥克風關閉]],
 	["CoreScripts.InGameMenu.Label.Teleporting"] = [[正在傳送……]],
-	["CoreScripts.InGameMenu.Label.Copied"] = [[已複製]],
-	["CoreScripts.InGameMenu.QuickActions.SelfView"] = [[個人視角]],
-	["CoreScripts.InGameMenu.QuickActions.Camera"] = [[相機]],
 }

@@ -1,7 +1,3 @@
-local Packages = script.Parent
-local LuauPolyfill = require(Packages.LuauPolyfill)
-type Promise<T> = LuauPolyfill.Promise<T>
-
 local HeadersModule = require(script.Headers)
 local Headers = HeadersModule.Headers
 export type Headers = HeadersModule.Headers
@@ -11,7 +7,6 @@ local RequestModule = require(script.Request)
 local Request = RequestModule.Request
 export type Request = RequestModule.Request
 export type RequestInit = RequestModule.RequestInit
-export type RequestInfo = RequestModule.RequestInfo
 
 local ResponseModule = require(script.Response)
 local Response = ResponseModule.Response
@@ -25,7 +20,6 @@ export type BodyInit = BodyModule.BodyInit
 
 local buildFetch = require(script.fetch)
 local fetch = buildFetch(game:GetService("HttpService"))
-export type fetch = (RequestInfo, RequestInit) -> Promise<Response>
 
 local AbortSignalModule = require(script.AbortSignal)
 local AbortSignal = AbortSignalModule.AbortSignal
@@ -37,6 +31,5 @@ return {
 	Response = Response,
 	Body = Body,
 	fetch = fetch,
-	buildFetch = buildFetch,
 	AbortSignal = AbortSignal,
 }

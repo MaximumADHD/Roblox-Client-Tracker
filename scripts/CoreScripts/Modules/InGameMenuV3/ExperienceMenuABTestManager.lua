@@ -21,10 +21,10 @@ local GetFStringLuaAppExperienceMenuLayer = require(script.Parent.Parent.Flags.G
 
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_CSAT_QUALIFICATION = "ExperienceMenuCSATQualification"
-local ACTION_TRIGGER_THRESHOLD = game:DefineFastInt("CSATV3MenuActionThreshold", 7)
+local ACTION_TRIGGER_THRESHOLD = 7
 local ACTION_TRIGGER_LATCHED = 10000
 
-local TEST_VERSION = "t3" -- bump on new A/B campaigns
+local TEST_VERSION = "t2" -- bump on new A/B campaigns
 
 local DEFAULT_MENU_VERSION = "v1"..TEST_VERSION
 local MENU_VERSION_V2 = "v2"..TEST_VERSION

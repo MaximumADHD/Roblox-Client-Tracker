@@ -29,7 +29,6 @@ if FFlagExperienceJoinAttemptId then
 		gameInstanceId = t.optional(t.string),
 		linkCode = t.optional(t.string),
 		referralPage = t.optional(t.string),
-		launchData = t.optional(t.string),
 		-- Source used for analytics attribution. E.g (UserProfile,
 		-- FriendsCarousel)
 		joinAttemptOrigin = t.optional(t.string),
@@ -46,7 +45,6 @@ else
 		gameInstanceId = t.optional(t.string),
 		linkCode = t.optional(t.string),
 		referralPage = t.optional(t.string),
-		launchData = t.optional(t.string),
 	})
 end
 

@@ -1,5 +1,5 @@
 game:DefineFastFlag("ShowVerifiedBadgeInReportMenu", false)
 
 return function()
-    return game:GetFastFlag("ShowVerifiedBadgeInReportMenu")
+    game:GetFastFlag("ShowVerifiedBadgeInReportMenu")
 end

@@ -4,8 +4,6 @@ return function()
 	local GraphQLServer = require(script.Parent.Server)
 	local jestExpect = require(Packages.Dev.JestGlobals).expect
 	local GraphQLError = require(Packages.GraphQL).GraphQLError
-	local fetchModule = require(Packages.Fetch)
-	local buildFetch = fetchModule.buildFetch
 
 	it("should resolve queries and mutations for a given schema", function()
 		local books = {
@@ -533,98 +531,5 @@ return function()
 			jestExpect(capturedError.originalError.message).toEqual("Test Error")
 			jestExpect(capturedAuthor.name).toEqual("Test Name")
 		end)
-	end)
-
-	it("should allow mocking fetch via GraphQL context", function()
-		local books = {
-			{
-				title = "The Count of Monte Cristo",
-				author = "Alexandre Dumas",
-			},
-			{
-				title = "Beloved",
-				author = "Toni Morrison",
-			},
-		}
-
-		local typeDefs = [[
-			type Book {
-				title: String!
-				author: String!
-			}
-
-			type Query {
-				books: [Book]
-			}
-		]]
-
-		local resolvers = {
-			Query = {
-				books = function(_root, _args, context)
-					local fetchImpl = context.fetchImpl
-					local booksResponse = fetchImpl("https://books.roblox.com/v1/books", {
-						method = "GET",
-					}):expect()
-
-					local booksJson = booksResponse:json():expect()
-					return booksJson
-				end,
-			},
-		}
-
-		local function makeHttpServiceMock(mockSuccess, mockResponse): HttpService
-			local HttpServiceMock = {
-				RequestInternal = function(_options)
-					return {
-						Start = function(_self, callback)
-							callback(mockSuccess, mockResponse)
-						end,
-					}
-				end,
-			}
-
-			return HttpServiceMock :: any
-		end
-
-		local HttpServiceMock = makeHttpServiceMock(true, {
-			Body = HttpService:JSONEncode(books),
-		})
-
-		local server = GraphQLServer.new({
-			typeDefs = typeDefs,
-			resolvers = resolvers,
-			fetchImpl = buildFetch(HttpServiceMock),
-		})
-
-		local GET_BOOKS = [[
-			query getBooks {
-				books {
-					title
-				}
-			}
-		]]
-
-		local body = HttpService:JSONEncode({
-			query = GET_BOOKS,
-		})
-
-		local fetchedBooks
-		server
-			:fetchLocal({
-				body = body,
-			})
-			:andThen(function(result)
-				fetchedBooks = result.body.data.books
-			end)
-			:await()
-
-		jestExpect(fetchedBooks).toEqual({
-			{
-				title = "The Count of Monte Cristo",
-			},
-			{
-				title = "Beloved",
-			},
-		})
 	end)
 end

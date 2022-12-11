@@ -5,7 +5,6 @@ local ContextActionService = game:GetService("ContextActionService")
 local GuiService = game:GetService("GuiService")
 local GamepadService = game:GetService("GamepadService")
 local CoreGui = game:GetService("CoreGui")
-local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui.RobloxGui
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
@@ -18,8 +17,6 @@ local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
-local GetFFlagUIBloxVRApplyHeadScale =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRApplyHeadScale
 
 local UserGuiModule = {}
 UserGuiModule.ModuleName = "UserGui"
@@ -42,16 +39,9 @@ if FFlagVRLetRaycastsThroughUI then
 end
 
 -- this matches the core ui rect in ScreenGui
-local panelSizeX
-local panelSizeY
-if GetFFlagUIBloxVRApplyHeadScale() then
-	panelSizeX = 2.7978
-	panelSizeY = panelSizeX * 0.75
-else
 -- ROBLOX FIXME: Should this be CurrentCamera?
-	panelSizeX = (workspace :: any).Camera.HeadScale * 2.7978
-	panelSizeY = panelSizeX * 0.75
-end
+local panelSizeX = (workspace :: any).Camera.HeadScale * 2.7978
+local panelSizeY = panelSizeX * 0.75
 
 local userPanelSize = Vector2.new(panelSizeX, panelSizeY)
 userGuiPanel:ResizeStuds(userPanelSize.x, userPanelSize.y, 128)
@@ -71,12 +61,8 @@ if EngineFeatureEnableVRUpdate3 then
 		plPanel:GetPart().CanQuery = false
 	end
 		
-	if GetFFlagUIBloxVRApplyHeadScale() then
-		plPanel:ResizeStuds(newPanelSize.x, newPanelSize.y, 128)
-	else
 	local headScale = workspace.CurrentCamera and workspace.CurrentCamera.HeadScale or 1
 	plPanel:ResizeStuds(newPanelSize.x * headScale, newPanelSize.y * headScale, 128)
-	end
 	plPanel:SetVisible(false)
 	plPanel.showCursor = true
 end
@@ -133,14 +119,8 @@ local function onGuiSelection()
 	if EngineFeatureEnableVRUpdate3 then
 		-- make sure the right laser pointer hand is set
 		VRHub.LaserPointer:updateInputUserCFrame()
-
-		-- remove headScale with FFlagUIBloxVRApplyHeadScale
-		local headScale
-		if GetFFlagUIBloxVRApplyHeadScale() then
-			headScale = 1
-		else
-			headScale = workspace.CurrentCamera and workspace.CurrentCamera.HeadScale or 1
-		end
+		
+		local headScale = workspace.CurrentCamera and workspace.CurrentCamera.HeadScale or 1
 		if VRHub.ShowTopBar then
 			UserGuiModule:SetVisible(true, plPanel) -- UI interactive on wrist
 			plPanel.initialCFLerp = 1

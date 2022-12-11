@@ -227,7 +227,6 @@ Yeniden deneme devre dışı bırakıldı, tekrar denemek için lütfen daha son
 	["CommonUI.Features.Label.Discover"] = [[Keşfet]],
 	["CommonUI.Features.Label.Billing"] = [[Faturalama]],
 	["CommonUI.Features.Label.Trades"] = [[İşlemler]],
-	["CommonUI.Features.Label.OfficialStore"] = [[Resmi Mağaza]],
 	["CommonUI.Features.Label.GiftCards"] = [[Hediye Kartları]],
 	["CommonUI.Features.Label.DisplayName"] = [[Rumuz]],
 	["CommonUI.Features.Label.Premium"] = [[Premium]],

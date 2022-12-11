@@ -4,8 +4,8 @@ game:DefineFastFlag("EducationTooltipPolicyDisableAll", false)
 
 local PREFIX = "etp_"
 
-local NAV_BAR_IDENT = game:DefineFastString("TooltipIdNavBar", "navbar-v1")
-local QUICK_ACTION_IDENT = game:DefineFastString("TooltipIdQuickAction", "quickactions-v1")
+local NAV_BAR_IDENT = "navbar-v1"
+local QUICK_ACTION_IDENT = "quickactions-v1"
 
 local activeTooltipIdentifiers = {
 	NAV_BAR_IDENT,

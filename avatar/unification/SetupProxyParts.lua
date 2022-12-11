@@ -1,18 +1,13 @@
 -- SetupProxyParts.lua
 -- Setup a newly spawned R15 character to emulate an R6 character
 -- The character will have "proxy parts" added to it which old script can operate on
-local SetupProxyParts = {}
-
 local CollectionService = game:GetService("CollectionService")
 
--- ProxyReference.rbxm is set up as { ProxyReference {Left Arm {...}, Right Arm {...},...}, CollisionHead {...} }
--- i.e. CollisionHead and ProxyReference are at then same level
-local ProxyReference = script:WaitForChild("ProxyReference")
-local CollisionHead = script:WaitForChild("CollisionHead")
-ProxyReference.Parent = nil
-CollisionHead.Parent = nil
-
 local Character = script.Parent
+
+local ProxyReference = script:WaitForChild("ProxyReference")
+ProxyReference.Parent = nil
+
 local ProxyInstance = require(Character:WaitForChild("ProxyInstance"))
 
 local ALWAYS_TRANSPARENT_PART_TAG = "__RBX__LOCKED_TRANSPARENT"
@@ -269,26 +264,7 @@ local function onAncestryChanged(_, parent)
 	end
 end
 
-local function createHead()
-	local newHead = CollisionHead:Clone()
-	newHead:ClearAllChildren()
-	newHead.Parent = Character
-
-	local headChildren = CollisionHead:GetChildren()
-	for _, child in headChildren do
-		if child:FindFirstChildWhichIsA("Weld") then
-			local weldTo = Character:FindFirstChild(child.Name)
-			weldParts(newHead, weldTo)
-		end
-		maintainPropertyValue(child, "Massless", true)
-		maintainPropertyValue(child, "CanCollide", false)
-		maintainPropertyValue(child, "CanTouch", false)
-		maintainPropertyValue(child, "CanQuery", false)
-	end
-	CollectionService:AddTag(newHead, ALWAYS_TRANSPARENT_PART_TAG)
-end
-
-function SetupProxyParts.setupCharacter()
+local function setupCharacter()
 	for _, child in ProxyReference:GetChildren() do
 		local proxy = setUpProxyPart(child)
 		CollectionService:AddTag(proxy, ALWAYS_TRANSPARENT_PART_TAG)
@@ -302,8 +278,5 @@ function SetupProxyParts.setupCharacter()
 	for _, child in Character:GetChildren() do
 		onChildAdded(child)
 	end
-
-	createHead()
 end
-
-return SetupProxyParts
+setupCharacter()

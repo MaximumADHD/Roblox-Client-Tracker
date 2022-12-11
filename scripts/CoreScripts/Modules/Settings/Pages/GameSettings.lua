@@ -134,7 +134,6 @@ local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoice
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagUseVideoCaptureServiceEvents = require(RobloxGui.Modules.Flags.GetFFlagUseVideoCaptureServiceEvents)
 local GetFFlagVoiceChatUseSoundServiceInputApi = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUseSoundServiceInputApi)
-local GetFFlagFixVideoCaptureSettings = require(RobloxGui.Modules.Flags.GetFFlagFixVideoCaptureSettings)
 
 local function reportSettingsForAnalytics()
 	local stringTable = {}
@@ -2474,16 +2473,9 @@ local function Initialize()
 		end
 
 		if GetFFlagUseVideoCaptureServiceEvents() then
-			if GetFFlagFixVideoCaptureSettings() then
-				if game:GetEngineFeature("VideoCaptureService") then
-					updateCameraDevices()
-					setupVideoCameraDeviceChangedListener()
-				end
-			else
-				if VideoCaptureService then
-					updateCameraDevices()
-					setupVideoCameraDeviceChangedListener()
-				end
+			if VideoCaptureService then
+				updateCameraDevices()
+				setupVideoCameraDeviceChangedListener()
 			end
 		end
 
@@ -2493,15 +2485,9 @@ local function Initialize()
 	this.CloseSettingsPage = function()
 		this.PageOpen = false
 		teardownDeviceChangedListener()
-		if GetFFlagFixVideoCaptureSettings() then
-			if game:GetEngineFeature("VideoCaptureService") then
+		if GetFFlagUseVideoCaptureServiceEvents() then
+			if VideoCaptureService then
 				teardownVideoCameraDeviceChangedListener()
-			end
-		else
-			if GetFFlagUseVideoCaptureServiceEvents() then
-				if VideoCaptureService then
-					teardownVideoCameraDeviceChangedListener()
-				end
 			end
 		end
 		-- Check volume settings.

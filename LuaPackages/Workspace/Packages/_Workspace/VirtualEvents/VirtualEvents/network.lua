@@ -11,7 +11,7 @@ local maxHttpRetries = game:DefineFastInt("VirtualEventsHttpRetryCount", 3)
 
 local myHttpRequest = HttpRequest.config({
 	requestFunction = function(url, requestMethod, requestOptions)
-		logger:debug("GET {}", url)
+		logger:info("Fetching: {}", string.format("[ requestMethod = %q, url = %q ]", requestMethod, url))
 
 		-- We are using RequestInternal because it is required to make requests
 		-- to ads.roblox.com. Once we migrate away from that endpoint we should
@@ -20,7 +20,16 @@ local myHttpRequest = HttpRequest.config({
 	end,
 
 	postRequestFunction = function(response, request)
-		logger:debug("{} {} {}", response.StatusCode, request.url, response.Body)
+		logger:debug(
+			"Returned: {}",
+			string.format(
+				"[ requestMethod = %q, url = %q, statusCode = %s, body = %s ]",
+				request.requestMethod,
+				request.url,
+				response.StatusCode,
+				response.Body
+			)
+		)
 	end,
 
 	maxRetryCount = maxHttpRetries,

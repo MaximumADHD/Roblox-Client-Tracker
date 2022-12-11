@@ -2,13 +2,13 @@ local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 
 local React = require(VirtualEvents.Parent.React)
 local UIBlox = require(VirtualEvents.Parent.UIBlox)
-local useLocalization = require(VirtualEvents.Parent.RoactUtils).Hooks.useLocalization
 
 local ExperienceTile = UIBlox.App.Tile.ExperienceTile
 local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 local useStyle = UIBlox.Core.Style.useStyle
 
+local HEADER_TEXT = "Description"
 local TILE_WIDTH_PX = 150
 local PADDING_PX = 32
 
@@ -21,9 +21,6 @@ export type Props = {
 
 local function EventDescription(props: Props)
 	local style = useStyle()
-	local text = useLocalization({
-		header = "Feature.VirtualEvents.DescriptionLabel",
-	})
 
 	return React.createElement("Frame", {
 		AutomaticSize = Enum.AutomaticSize.XY,
@@ -36,7 +33,7 @@ local function EventDescription(props: Props)
 
 		DescriptionHeader = React.createElement(StyledTextLabel, {
 			layoutOrder = 0,
-			text = text.header,
+			text = HEADER_TEXT,
 			automaticSize = Enum.AutomaticSize.XY,
 			fontStyle = style.Font.Header1,
 			colorStyle = style.Theme.TextEmphasis,

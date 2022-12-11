@@ -325,6 +325,4 @@ return{
 	["CoreScripts.InGameMenu.Label.MicOff"] = [[]],
 	["CoreScripts.InGameMenu.Label.Teleporting"] = [[]],
 	["CoreScripts.InGameMenu.Label.Copied"] = [[]],
-	["CoreScripts.InGameMenu.QuickActions.SelfView"] = [[]],
-	["CoreScripts.InGameMenu.QuickActions.Camera"] = [[]],
 }

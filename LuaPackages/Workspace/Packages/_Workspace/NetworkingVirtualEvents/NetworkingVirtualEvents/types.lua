@@ -79,17 +79,6 @@ export type RsvpResponse = {
 	rsvpStatus: RsvpStatus,
 }
 
-export type RsvpCounters = {
-	none: number,
-	going: number,
-	maybeGoing: number,
-	notGoing: number,
-}
-
-export type RsvpCounterResponse = {
-	counters: RsvpCounters,
-}
-
 export type PaginatedRsvpResponse = PaginatedResponse<RsvpResponse>
 
 return {}

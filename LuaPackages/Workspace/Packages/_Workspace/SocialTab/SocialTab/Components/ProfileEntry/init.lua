@@ -15,7 +15,6 @@ local StyledImageSetLabel = require(SocialTab.Components.StyledImageSetLabel)
 local EnumScreens = require(SocialTab.EnumScreens)
 
 local getFFlagFixClickAreaOnSocialTab = require(SocialTab.Flags.getFFlagFixClickAreaOnSocialTab)
-local getFFlagFixEmojiWrapperSocialTabLayout = require(SocialTab.Flags.getFFlagFixEmojiWrapperSocialTabLayout)
 
 local validateProps = t.interface({
 	userText = t.string,
@@ -111,7 +110,6 @@ return function(props)
 					TextXAlignment = Enum.TextXAlignment.Left,
 					Text = props.userText,
 					AutomaticSize = Enum.AutomaticSize.XY,
-					LayoutOrder = if getFFlagFixEmojiWrapperSocialTabLayout() then 4 else nil,
 				}),
 			}),
 

@@ -76,7 +76,6 @@ SocialTabPage.defaultProps = {
 	enableNotificationsPolicy = enableNotificationsPolicyDefaultValue,
 	isProfileShareEnabled = false,
 	luaSelfProfileEnabled = false,
-	disableWebViewSupport = false,
 }
 
 SocialTabPage.validateProps = t.interface({
@@ -182,28 +181,22 @@ function SocialTabPage:init()
 			notifications = nil
 		end
 
-		if self.props.disableWebViewSupport then
-			return function()
-				return Roact.createFragment({})
-			end
-		else
-			return function()
-				return Roact.createFragment({
-					filter = Roact.createElement(IconButton, {
-						size = UDim2.fromOffset(0, 0),
-						icon = Images["icons/common/search"],
-						layoutOrder = 1,
+		return function()
+			return Roact.createFragment({
+				filter = Roact.createElement(IconButton, {
+					size = UDim2.fromOffset(0, 0),
+					icon = Images["icons/common/search"],
+					layoutOrder = 1,
 
-						onActivated = function()
-							Logger:info("Going to AddFriends")
-							self.props.analytics:buttonClick("SearchFriends")
-							self.props.analytics:navigate("SearchFriends")
-							self.props.navigateToLuaAppPages[EnumScreens.AddFriends]()
-						end,
-					}),
-					notifications = notifications,
-				})
-			end
+					onActivated = function()
+						Logger:info("Going to AddFriends")
+						self.props.analytics:buttonClick("SearchFriends")
+						self.props.analytics:navigate("SearchFriends")
+						self.props.navigateToLuaAppPages[EnumScreens.AddFriends]()
+					end,
+				}),
+				notifications = notifications,
+			})
 		end
 	end)
 

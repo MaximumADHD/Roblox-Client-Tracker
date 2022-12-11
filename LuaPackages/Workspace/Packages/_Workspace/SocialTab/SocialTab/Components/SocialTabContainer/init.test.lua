@@ -106,9 +106,6 @@ describe("SocialTabContainer", function()
 					getContactImporterEnabled = function()
 						return true
 					end,
-					getWebViewSupport = function()
-						return true
-					end,
 				}, policies)
 			end,
 		}

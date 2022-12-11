@@ -8,7 +8,7 @@ return function()
 			expect(translation).to.equal("Online")
 			localization:SetLocale("es-es")
 			translation = localization:Format("Common.Presence.Label.Online")
-			expect(translation).to.equal("En línea")
+			expect(translation).to.equal("Conectados")
 		end)
 	end)
 

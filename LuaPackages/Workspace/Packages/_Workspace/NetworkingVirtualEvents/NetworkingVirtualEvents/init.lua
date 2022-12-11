@@ -17,8 +17,6 @@ export type PaginatedRsvpResponse = types.PaginatedRsvpResponse
 export type EventFilterBy = types.EventFilterBy
 export type EventSortBy = types.EventSortBy
 export type SortOrder = types.SortOrder
-export type RsvpCounters = types.RsvpCounters
-export type RsvpCounterResponse = types.RsvpCounterResponse
 
 return {
 	VirtualEventModel = require(script.models.VirtualEventModel),

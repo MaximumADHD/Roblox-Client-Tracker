@@ -17,8 +17,6 @@ local UserCarousel = require(SocialTab.UserCarousel)
 
 local SocialTabContainer = Roact.PureComponent:extend("SocialTabContainer")
 
-local GetFFlagHideConnectPageWebViewItemsForVR = dependencies.GetFFlagHideConnectPageWebViewItemsForVR
-
 SocialTabContainer.defaultProps = {}
 
 function SocialTabContainer:init()
@@ -61,15 +59,11 @@ return compose(
 
 	UniversalAppPolicy.connect(function(appPolicy)
 		local enableNotificationsPolicy = appPolicy.getChatHeaderNotifications()
-		local disableWebViewSupport = if GetFFlagHideConnectPageWebViewItemsForVR()
-			then not appPolicy.getWebViewSupport()
-			else nil
 
 		return {
 			enableDisplayNamePolicy = appPolicy.getShowDisplayName(),
 			shouldShowGroupsTilePolicy = appPolicy.getShouldShowGroupsTile(),
 			enableNotificationsPolicy = enableNotificationsPolicy,
-			disableWebViewSupport = disableWebViewSupport,
 		}
 	end)
 )(SocialTabContainer)

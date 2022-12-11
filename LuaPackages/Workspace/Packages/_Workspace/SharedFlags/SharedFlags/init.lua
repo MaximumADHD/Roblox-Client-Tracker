@@ -20,16 +20,12 @@ return {
 	-- VR
 	GetFFlagDeactivateThrottleInVR = require(script.GetFFlagDeactivateThrottleInVR),
 	GetFFlagRoundedCornersVR = require(script.GetFFlagRoundedCornersVR),
-	GetFFlagDisableWebviewsVR = require(script.GetFFlagDisableWebviewsVR),
 	GetFFlagAvatarEditorMaquettes = require(script.GetFFlagAvatarEditorMaquettes),
 
 	-- Social
+	GetRemoveLuaChatOpenGameDetailsPageThunkDep = require(script.GetRemoveLuaChatOpenGameDetailsPageThunkDep),
 	FFlagMigrateToUseHttpRequest = require(script.FFlagMigrateToUseHttpRequest),
 	getFFlagDecoupleContactImporterDiscoverability = require(script.getFFlagDecoupleContactImporterDiscoverability),
-	getFFlagProfileAliasEnabled = require(script.getFFlagProfileAliasEnabled),
-
-	-- Notifications
-	getFFlagEnableNotificationExperienceInvite = require(script.getFFlagEnableNotificationExperienceInvite),
 
 	-- Misc
 	FFlagLuaAppFixMessageBusUnsubscribe = require(script.FFlagLuaAppFixMessageBusUnsubscribe),
@@ -71,7 +67,7 @@ return {
 	GetEnableDesignSystemExperiment = require(script.GetEnableDesignSystemExperiment),
 	GetFFlagDisableBubbleChatForExpChat = require(script.GetFFlagDisableBubbleChatForExpChat),
 	GetFFlagShareGetPlatformTargetImpl = require(script.GetFFlagShareGetPlatformTargetImpl),
-	GetFFlagUpgradeExpChatV3_3_3 = require(script.GetFFlagUpgradeExpChatV3_3_3),
+	GetFFlagUpgradeExpChatV3_3_2 = require(script.GetFFlagUpgradeExpChatV3_3_2),
 	GetEnableFriendFooterOnHomePage = require(script.GetEnableFriendFooterOnHomePage),
 	GetFFlagLuaAppAddSignalToFocusArea = require(script.GetFFlagLuaAppAddSignalToFocusArea),
 	GetFFlagLuaAppUseUIBloxColorPalettes = require(script.GetFFlagLuaAppUseUIBloxColorPalettes),
@@ -83,9 +79,4 @@ return {
 	getFFlagProfilePeekViewRecommendationAnalytics = require(script.getFFlagProfilePeekViewRecommendationAnalytics),
 	getFFlagPYMKCarouselRenameOmniSessionId = require(script.getFFlagPYMKCarouselRenameOmniSessionId),
 	GetFFlagPeekViewRefactorEnabled = require(script.GetFFlagPeekViewRefactorEnabled),
-	GetFFlagHideTopbarWebviewItemsForVR = require(script.GetFFlagHideTopbarWebviewItemsForVR),
-	GetFFlagHideWebViewItemsInContextMenuForVR = require(script.GetFFlagHideWebViewItemsInContextMenuForVR),
-	GetFFlagUseVoiceExitBetaLanguage = require(script.GetFFlagUseVoiceExitBetaLanguage),
-	GetFFlagHideConnectPageWebViewItemsForVR = require(script.GetFFlagHideConnectPageWebViewItemsForVR),
-	GetFFlagHideSystemBarForVRLogin = require(script.GetFFlagHideSystemBarForVRLogin),
 }

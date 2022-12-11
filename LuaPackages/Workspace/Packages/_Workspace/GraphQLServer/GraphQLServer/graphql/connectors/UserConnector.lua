@@ -7,16 +7,13 @@ local generatedTypes = require(script.Parent.Parent.generatedTypes)
 type User = generatedTypes.User
 local Promise = require(Packages.Promise)
 local GraphQLError = require(Packages.GraphQL).GraphQLError
-local fetchModule = require(Packages.Fetch)
-local fetch = fetchModule.fetch
-type fetch = fetchModule.fetch
+local fetch = require(Packages.Fetch).fetch
 local Response = require(Packages.Fetch).Response
 local exports = {}
 
-local function findUserById(id: string, fetchImpl_: fetch?): Promise<User>
-	local fetchImpl: fetch = if fetchImpl_ then fetchImpl_ else fetch
+local function findUserById(id: string): Promise<User>
 	return Promise.new(function(resolve, reject)
-		local userResponse = fetchImpl(string.format("https://users.roblox.com//v1/users/%s", id), {
+		local userResponse = fetch(string.format("https://users.roblox.com//v1/users/%s", id), {
 				method = "GET",
 			})
 			:catch(function()
@@ -52,13 +49,13 @@ local function findUserById(id: string, fetchImpl_: fetch?): Promise<User>
 end
 exports.findUserById = findUserById
 
-local function findMe(fetchImpl: fetch?, LocalPlayer_: Player?): Promise<User>
-	local LocalPlayer = if LocalPlayer_ then LocalPlayer_ else Players.LocalPlayer
+local function findMe(): Promise<User>
+	local LocalPlayer = Players.LocalPlayer
 	if not LocalPlayer then
 		return Promise.reject(GraphQLError.new("LocalPlayer not found"))
 	end
 	local id = (LocalPlayer :: Player).UserId
-	return findUserById(tostring(id), fetchImpl)
+	return findUserById(tostring(id))
 end
 exports.findMe = findMe
 

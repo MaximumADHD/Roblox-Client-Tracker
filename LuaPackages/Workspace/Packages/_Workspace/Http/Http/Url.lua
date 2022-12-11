@@ -135,7 +135,6 @@ local Url = {
 	STATIC_CDN_URL = _baseStaticCdnUrl,
 	BLOG_URL = "https://blog.roblox.com/",
 	CORP_URL = "https://corp.roblox.com/",
-	STORE_URL = "https://www.amazon.com/roblox",
 	ECNOMY_CREATOR_STATS = _baseEconomyCreatorStats,
 	USER_MODERATION_URL = _baseUserModerationUrl,
 	VOICE_URL = _baseVoiceUrl,

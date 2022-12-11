@@ -10,8 +10,6 @@ return function()
 	local JestGlobals = require(Packages.Dev.JestGlobals)
 	local expect = JestGlobals.expect
 
-	local waitForEvents = require(Packages.Dev.TestUtils).DeferredLuaHelpers.waitForEvents
-
 	it("if mounted, should call the callback when the event is triggered", function()
 		local event = Instance.new("BindableEvent")
 		local count = 0
@@ -33,7 +31,6 @@ return function()
 		end)
 
 		event:Fire()
-		waitForEvents()
 
 		expect(count).toBe(1)
 
@@ -42,7 +39,6 @@ return function()
 		end)
 
 		event:Fire()
-		waitForEvents()
 
 		expect(count).toBe(1)
 
@@ -94,7 +90,6 @@ return function()
 		end)
 
 		firstEvent:Fire()
-		waitForEvents()
 
 		expect(count).toBe(1)
 
@@ -103,12 +98,10 @@ return function()
 		end)
 
 		firstEvent:Fire()
-		waitForEvents()
 
 		expect(count).toBe(1)
 
 		secondEvent:Fire()
-		waitForEvents()
 
 		expect(count).toBe(2)
 
@@ -119,7 +112,6 @@ return function()
 		end)
 
 		secondEvent:Fire()
-		waitForEvents()
 
 		expect(count).toBe(2)
 		firstEvent:Destroy()

@@ -30,6 +30,8 @@ local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnecti
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
+local FFlagShowGitHashInNewExperienceMenu = game:DefineFastFlag("ShowGitHashInNewExperienceMenu", false)
+
 local canGetCoreScriptVersion = game:GetEngineFeature("CoreScriptVersionEnabled")
 
 local GetFFlagEventIngestDefaultPlayerScripts = require(RobloxGui.Modules.Flags.GetFFlagEventIngestDefaultPlayerScripts)
@@ -127,13 +129,14 @@ function VersionReporter:render()
 		} or nil
 	})(function(localized)
 		local clientVersion = localized.clientVersion
+		if FFlagShowGitHashInNewExperienceMenu then
+			local success, result = pcall(function()
+				return RunService.ClientGitHash
+			end)
 
-		local success, result = pcall(function()
-			return RunService.ClientGitHash
-		end)
-
-		if success then
-			clientVersion = string.format("%s (%.6s)", clientVersion, result)
+			if success then
+				clientVersion = string.format("%s (%.6s)", clientVersion, result)
+			end
 		end
 
 		return Roact.createElement("Frame", {

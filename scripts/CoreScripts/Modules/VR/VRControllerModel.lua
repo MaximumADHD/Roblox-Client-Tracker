@@ -3,17 +3,13 @@ local VRService 		= game:GetService("VRService")
 local Players 			= game:GetService("Players")
 local UserInputService 	= game:GetService("UserInputService")
 local CoreGui 			= game:GetService("CoreGui")
-local CorePackages		= game:GetService("CorePackages")
 
 local RobloxGui 		= CoreGui.RobloxGui
 local ViveController 	= require(RobloxGui.Modules.VR.Controllers.ViveController)
 local RiftController 	= require(RobloxGui.Modules.VR.Controllers.RiftController)
 local IndexController 	= require(RobloxGui.Modules.VR.Controllers.IndexController)
-local VRUtil			= require(RobloxGui.Modules.VR.VRUtil)
 
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
-local GetFFlagUIBloxVRApplyHeadScale =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRApplyHeadScale
 
 local LocalPlayer = Players.LocalPlayer
 while not LocalPlayer do
@@ -183,17 +179,12 @@ function VRControllerModel:update(dt)
 	end
 
 	if self.currentModel then
-		if GetFFlagUIBloxVRApplyHeadScale() then
-			local cframe = VRUtil.GetUserCFrameWorldSpace(self.userCFrame)
-			self.currentModel:setCFrameAndScale(cframe, (workspace.CurrentCamera :: Camera).HeadScale)
-		else
-			local camera = workspace.CurrentCamera
+		local camera = workspace.CurrentCamera
 
-			local cameraCFrame = camera.CFrame
-			local controllerCFrame = VRService:GetUserCFrame(self.userCFrame)
-			local cframe = cameraCFrame * controllerCFrame
-			self.currentModel:setCFrame(cframe)
-		end
+		local cameraCFrame = camera.CFrame
+		local controllerCFrame = VRService:GetUserCFrame(self.userCFrame)
+		local cframe = cameraCFrame * controllerCFrame
+		self.currentModel:setCFrame(cframe)
 	end
 end
 

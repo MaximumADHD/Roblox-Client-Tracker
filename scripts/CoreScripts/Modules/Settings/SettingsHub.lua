@@ -52,6 +52,7 @@ local FFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Fla
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
+local GetFFlagShowGitHashInGame = require(RobloxGui.Modules.Flags.GetFFlagShowGitHashInGame)
 local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
@@ -632,7 +633,7 @@ local function CreateSettingsHub()
 				VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
 					updateIcon()
 					if GetFFlagVoiceRecordingIndicatorsEnabled() then
-						this.isMuted = muted
+						this.isMuted = muted	
 						this.lastVoiceRecordingIndicatorTextUpdated = tick()
 						this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
 						if this.isMuted then
@@ -867,14 +868,15 @@ local function CreateSettingsHub()
 		end
 
 		local robloxVersion = RunService:GetRobloxVersion()
-		local success, result = pcall(function()
-			return RunService.ClientGitHash
-		end)
+		if GetFFlagShowGitHashInGame() then
+			local success, result = pcall(function()
+				return RunService.ClientGitHash
+			end)
 
-		if success then
-			robloxVersion = string.format("%s (%.6s)", robloxVersion, result)
+			if success then
+				robloxVersion = string.format("%s (%.6s)", robloxVersion, result)
+			end
 		end
-
 		this.ClientVersionLabel = utility:Create("TextLabel") {
 			Name = "ClientVersionLabel",
 			Parent = this.VersionContainer,
@@ -1080,7 +1082,7 @@ local function CreateSettingsHub()
 				Parent = this.MenuContainer,
 			}
 		end
-
+		
 		if GetFFlagSelfViewSettingsEnabled() then
 			-- Create the settings buttons for audio/camera permissions.
 			this.permissionsButtonsRoot = Roact.mount(createPermissionsButtons(true), this.MenuContainer, "PermissionsButtons")

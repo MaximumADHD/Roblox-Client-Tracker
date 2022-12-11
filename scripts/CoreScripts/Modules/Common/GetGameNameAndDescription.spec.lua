@@ -4,7 +4,7 @@ local CorePackages = game:GetService("CorePackages")
 local Modules = script.Parent.Parent
 local MockRequest = require(Modules.LuaApp.TestHelpers.MockRequest)
 local HttpResponse = require(Modules.LuaApp.Http.HttpResponse)
-local StatusCodes = require(CorePackages.Workspace.Packages.Http).StatusCodes
+local StatusCodes = require(Modules.LuaApp.Http.StatusCodes)
 
 local Promise = require(CorePackages.Promise)
 

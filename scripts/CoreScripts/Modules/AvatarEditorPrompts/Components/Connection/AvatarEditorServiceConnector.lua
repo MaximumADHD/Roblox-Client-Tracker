@@ -1,4 +1,3 @@
--- Remove with FFlagFixAvatarEditorPromptsEventsEarly
 local CorePackages = game:GetService("CorePackages")
 local AvatarEditorService = game:GetService("AvatarEditorService")
 
