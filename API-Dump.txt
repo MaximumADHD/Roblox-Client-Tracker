@@ -41,11 +41,11 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Event Instance.DescendantRemoving(Instance descendant)
 	Event Instance.Destroying()
 Class Accoutrement : Instance
-	Property Vector3 Accoutrement.AttachmentForward [<📁> LoadOnly] [NotReplicated]
+	Property Vector3 Accoutrement.AttachmentForward [Hidden] [NotReplicated]
 	Property CFrame Accoutrement.AttachmentPoint
-	Property Vector3 Accoutrement.AttachmentPos [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 Accoutrement.AttachmentRight [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 Accoutrement.AttachmentUp [<📁> LoadOnly] [NotReplicated]
+	Property Vector3 Accoutrement.AttachmentPos [Hidden] [NotReplicated]
+	Property Vector3 Accoutrement.AttachmentRight [Hidden] [NotReplicated]
+	Property Vector3 Accoutrement.AttachmentUp [Hidden] [NotReplicated]
 Class Accessory : Accoutrement
 	Property Enum.AccessoryType Accessory.AccessoryType {✏️NotAccessibleSecurity}
 Class Hat : Accoutrement [Deprecated]
@@ -229,13 +229,13 @@ Class Attachment : Instance
 	Property Vector3 Attachment.SecondaryAxis [<📁> LoadOnly] [NotReplicated]
 	Property Vector3 Attachment.WorldAxis [<📁> LoadOnly] [NotReplicated]
 	Property CFrame Attachment.WorldCFrame [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 Attachment.WorldOrientation [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 Attachment.WorldPosition [<📁> LoadOnly] [NotReplicated]
+	Property Vector3 Attachment.WorldOrientation [Hidden] [NotReplicated]
+	Property Vector3 Attachment.WorldPosition [Hidden] [NotReplicated]
 	Property Vector3 Attachment.WorldRotation [Hidden] [ReadOnly] [Deprecated]
 	Property Vector3 Attachment.WorldSecondaryAxis [<📁> LoadOnly] [NotReplicated]
 	Property CFrame Attachment.CFrame
-	Property Vector3 Attachment.Orientation [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 Attachment.Position [<📁> LoadOnly] [NotReplicated]
+	Property Vector3 Attachment.Orientation [Hidden] [NotReplicated]
+	Property Vector3 Attachment.Position [Hidden] [NotReplicated]
 	Property Vector3 Attachment.Rotation [Hidden] [NotReplicated] [Deprecated]
 	Function Vector3 Attachment:GetAxis() [Deprecated]
 	Function Vector3 Attachment:GetSecondaryAxis() [Deprecated]
@@ -261,6 +261,7 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool AvatarEditorService:NoPromptDeleteOutfit(int64 outfitId) {RobloxScriptSecurity}
 	Function bool AvatarEditorService:NoPromptRenameOutfit(int64 outfitId, string name) {RobloxScriptSecurity}
 	Function bool AvatarEditorService:NoPromptSaveAvatar(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType, Dictionary saveDict, int64 gearAssetId = 0) {RobloxScriptSecurity}
+	Function bool AvatarEditorService:NoPromptSaveAvatarThumbnailCustomization(int thumbnailType, int64 emoteAssetId, float cameraDistanceScale, float yRotDeg, float fieldOfViewDeg = 0) {RobloxScriptSecurity}
 	Function bool AvatarEditorService:NoPromptSetFavorite(int64 itemId, Enum.AvatarItemType itemType, bool shouldFavorite) {RobloxScriptSecurity}
 	Function bool AvatarEditorService:NoPromptUpdateOutfit(int64 outfitId, HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformCreateOutfitWithDescription(HumanoidDescription humanoidDescription, string name) {RobloxScriptSecurity}
@@ -302,6 +303,7 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event AvatarEditorService.PromptDeleteOutfitCompleted(Enum.AvatarPromptResult result)
 	Event AvatarEditorService.PromptRenameOutfitCompleted(Enum.AvatarPromptResult result)
 	Event AvatarEditorService.PromptSaveAvatarCompleted(Enum.AvatarPromptResult result, HumanoidDescription humanoidDescription)
+	Event AvatarEditorService.PromptSaveAvatarThumbnailCustomizationCompleted(Enum.AvatarPromptResult result, Variant failureType) {RobloxScriptSecurity}
 	Event AvatarEditorService.PromptSetFavoriteCompleted(Enum.AvatarPromptResult result)
 	Event AvatarEditorService.PromptUpdateOutfitCompleted(Enum.AvatarPromptResult result)
 Class AvatarImportService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -327,10 +329,10 @@ Class Tool : BackpackItem
 	Property bool Tool.RequiresHandle
 	Property bool Tool.Enabled
 	Property CFrame Tool.Grip
-	Property Vector3 Tool.GripForward [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 Tool.GripPos [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 Tool.GripRight [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 Tool.GripUp [<📁> LoadOnly] [NotReplicated]
+	Property Vector3 Tool.GripForward [Hidden] [NotReplicated]
+	Property Vector3 Tool.GripPos [Hidden] [NotReplicated]
+	Property Vector3 Tool.GripRight [Hidden] [NotReplicated]
+	Property Vector3 Tool.GripUp [Hidden] [NotReplicated]
 	Function void Tool:Activate()
 	Function void Tool:Deactivate()
 	Event Tool.Activated()
@@ -354,7 +356,7 @@ Class BasePlayerGui : Instance [NotCreatable]
 Class CoreGui : BasePlayerGui [NotCreatable] [Service] [NotReplicated]
 	Property GuiObject CoreGui.SelectionImageObject {RobloxScriptSecurity}
 	Property int CoreGui.Version [ReadOnly]
-	Function void CoreGui:SetUserGuiRendering(bool enabled, Instance guiAdornee, Enum.NormalId faceId) {RobloxScriptSecurity}
+	Function void CoreGui:SetUserGuiRendering(bool enabled, Instance guiAdornee, Enum.NormalId faceId, float horizontalCurvature = 0) {RobloxScriptSecurity}
 	Function void CoreGui:TakeScreenshot() {RobloxScriptSecurity}
 	Function void CoreGui:ToggleRecording() {RobloxScriptSecurity}
 Class PlayerGui : BasePlayerGui [NotCreatable] [PlayerReplicated]
@@ -1669,6 +1671,8 @@ Class SurfaceGuiBase : LayerCollector [NotCreatable]
 Class AdGui : SurfaceGuiBase
 	Property Enum.AdShape AdGui.AdShape
 Class SurfaceGui : SurfaceGuiBase
+	Property float SurfaceGui.HorizontalCurvature {RobloxScriptSecurity} [Hidden]
+	Property Enum.SurfaceGuiShape SurfaceGui.Shape {RobloxScriptSecurity} [Hidden]
 	Property float SurfaceGui.ZOffset
 	Property bool SurfaceGui.ClipsDescendants
 	Property bool SurfaceGui.AlwaysOnTop
@@ -1895,7 +1899,7 @@ Class HttpService : Instance [NotCreatable] [Service]
 	Function string HttpService:GetAsync(string url, bool nocache = false, Variant headers) [Yields]
 	Function bool HttpService:GetHttpEnabled() {RobloxScriptSecurity}
 	Function string HttpService:GetUserAgent() {RobloxScriptSecurity}
-	Function Variant HttpService:JSONDecode(string input) {🧬Safe}
+	Function Variant HttpService:JSONDecode(string input) [CustomLuaState] {🧬Safe}
 	Function string HttpService:JSONEncode(Variant input) [CustomLuaState] {🧬Safe}
 	Function string HttpService:PostAsync(string url, string data, Enum.HttpContentType content_type = "ApplicationJson", bool compress = false, Variant headers) [Yields]
 	Function Dictionary HttpService:RequestAsync(Dictionary requestOptions) [Yields]
@@ -2119,6 +2123,7 @@ Class ImporterMeshSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property float ImporterMeshSettings.PolygonCount [ReadOnly]
 	Property bool ImporterMeshSettings.UseImportedPivot
 Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
+	Property bool ImporterRootSettings.AddModelToInventory
 	Property bool ImporterRootSettings.Anchored
 	Property Vector3 ImporterRootSettings.FileDimensions [ReadOnly]
 	Property bool ImporterRootSettings.ImportAsModelAsset
@@ -2130,9 +2135,11 @@ Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property Enum.RigType ImporterRootSettings.RigType
 	Property Enum.MeshScaleUnit ImporterRootSettings.ScaleUnit
 	Property bool ImporterRootSettings.UseSceneOriginAsPivot
+	Property bool ImporterRootSettings.UsesCages
 	Property Enum.NormalId ImporterRootSettings.WorldForward
 	Property Enum.NormalId ImporterRootSettings.WorldUp
 Class IncrementalPatchBuilder : Instance [NotCreatable] [Service] [NotReplicated]
+	Property bool IncrementalPatchBuilder.AddPathsToBundle
 	Property bool IncrementalPatchBuilder.HighCompression
 	Property bool IncrementalPatchBuilder.ZstdCompression
 Class InputObject : Instance [NotCreatable]
@@ -2408,7 +2415,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.PromptGamePassPurchaseRequested(Instance player, int64 gamePassId) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptPremiumPurchaseFinished()
 	Event MarketplaceService.PromptPremiumPurchaseRequested(Instance player) {RobloxScriptSecurity}
-	Event MarketplaceService.PromptProductPurchaseFinished(int64 userId, int64 productId, bool isPurchased) [Deprecated]
+	Event MarketplaceService.PromptProductPurchaseFinished(int64 userId, int64 productId, bool isPurchased)
 	Event MarketplaceService.PromptProductPurchaseRequested(Instance player, int64 productId, bool equipIfPurchased, Enum.CurrencyType currencyType) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptPurchaseFinished(Instance player, int64 assetId, bool isPurchased)
 	Event MarketplaceService.PromptPurchaseRequested(Instance player, int64 assetId, bool equipIfPurchased, Enum.CurrencyType currencyType) {RobloxScriptSecurity}
@@ -2621,11 +2628,7 @@ Class NotificationService : Instance [NotCreatable] [Service]
 	Event NotificationService.RobloxEventReceived(Map eventData) {RobloxScriptSecurity}
 Class PVInstance : Instance [NotCreatable] [NotBrowsable]
 	Property CFrame PVInstance.Pivot Offset [NotReplicated] [NotScriptable]
-	Property Vector3 PVInstance.Pivot Offset Orientation [NotReplicated] [NotScriptable]
-	Property Vector3 PVInstance.Pivot Offset Position [NotReplicated] [NotScriptable]
 	Property CFrame PVInstance.Origin [NotReplicated] [NotScriptable]
-	Property Vector3 PVInstance.Origin Orientation [NotReplicated] [NotScriptable]
-	Property Vector3 PVInstance.Origin Position [NotReplicated] [NotScriptable]
 	Function CFrame PVInstance:GetPivot()
 	Function void PVInstance:PivotTo(CFrame targetCFrame)
 Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
@@ -2692,14 +2695,14 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property CFrame BasePart.CFrame
 	Property CFrame BasePart.ExtentsCFrame [ReadOnly]
 	Property Vector3 BasePart.ExtentsSize [ReadOnly]
-	Property Vector3 BasePart.Orientation [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 BasePart.Position [<📁> LoadOnly] [NotReplicated]
+	Property Vector3 BasePart.Orientation [Hidden] [NotReplicated]
+	Property Vector3 BasePart.Position [Hidden] [NotReplicated]
 	Property Vector3 BasePart.Size [<📁> LoadOnly] [NotReplicated]
 	Function void BasePart:ApplyAngularImpulse(Vector3 impulse)
 	Function void BasePart:ApplyImpulse(Vector3 impulse)
 	Function void BasePart:ApplyImpulseAtPosition(Vector3 impulse, Vector3 position)
 	Function void BasePart:BreakJoints()
-	Function bool BasePart:CanCollideWith(BasePart part)
+	Function bool BasePart:CanCollideWith(BasePart part) {🧬Safe}
 	Function Tuple BasePart:CanSetNetworkOwnership()
 	Function Objects BasePart:GetConnectedParts(bool recursive = false) {🧬Safe}
 	Function Objects BasePart:GetJoints() {🧬Safe}
@@ -2709,7 +2712,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Function CFrame BasePart:GetRenderCFrame() [Deprecated]
 	Function Instance BasePart:GetRootPart() {🧬Safe}
 	Function Objects BasePart:GetTouchingParts()
-	Function Vector3 BasePart:GetVelocityAtPosition(Vector3 position)
+	Function Vector3 BasePart:GetVelocityAtPosition(Vector3 position) {🧬Safe}
 	Function bool BasePart:IsGrounded() {🧬Safe}
 	Function void BasePart:MakeJoints()
 	Function bool BasePart:Resize(Enum.NormalId normalId, int deltaAmount)
@@ -2717,6 +2720,8 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Function void BasePart:SetNetworkOwnershipAuto()
 	Function Instance BasePart:SubtractAsync(Objects parts, Enum.CollisionFidelity collisionfidelity = "Default", Enum.RenderFidelity renderFidelity = "Automatic") [Yields]
 	Function Instance BasePart:UnionAsync(Objects parts, Enum.CollisionFidelity collisionfidelity = "Default", Enum.RenderFidelity renderFidelity = "Automatic") [Yields]
+	Function Objects BasePart:subtractAsync2_INTERNAL(Objects parts, Enum.CollisionFidelity collisionfidelity = "Default", Enum.RenderFidelity renderFidelity = "Automatic") [Yields]
+	Function Objects BasePart:unionAsync2_INTERNAL(Objects parts, Enum.CollisionFidelity collisionfidelity = "Default", Enum.RenderFidelity renderFidelity = "Automatic") [Yields]
 	Event BasePart.LocalSimulationTouched(BasePart part) [Deprecated]
 	Event BasePart.OutfitChanged() [Deprecated]
 	Event BasePart.StoppedTouching(BasePart otherPart) [Deprecated]
@@ -2834,9 +2839,8 @@ Class Model : PVInstance
 	Property Enum.ModelLevelOfDetail Model.LevelOfDetail {PluginSecurity}
 	Property Enum.ModelStreamingMode Model.ModelStreamingMode
 	Property BasePart Model.PrimaryPart
-	Property Vector3 Model.World Pivot Orientation [NotReplicated] [NotScriptable]
-	Property Vector3 Model.World Pivot Position [NotReplicated] [NotScriptable]
 	Property CFrame Model.WorldPivot [NotReplicated]
+	Function void Model:AddPersistentPlayer(Player playerInstance = nil)
 	Function void Model:BreakJoints()
 	Function Tuple Model:GetBoundingBox()
 	Function Vector3 Model:GetExtentsSize()
@@ -2845,6 +2849,7 @@ Class Model : PVInstance
 	Function CFrame Model:GetPrimaryPartCFrame() [Deprecated]
 	Function void Model:MakeJoints()
 	Function void Model:MoveTo(Vector3 position)
+	Function void Model:RemovePersistentPlayer(Player playerInstance = nil)
 	Function void Model:ResetOrientationToIdentity() [Deprecated]
 	Function void Model:SetIdentityOrientation() [Deprecated]
 	Function void Model:SetPrimaryPartCFrame(CFrame cframe) [Deprecated]
@@ -2892,6 +2897,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Enum.UnionsScaleNonuniformly Workspace.UnionsScaleNonuniformly [NotScriptable]
 	Property Camera Workspace.CurrentCamera [NotReplicated]
 	Property double Workspace.DistributedGameTime [NotReplicated]
+	Property Enum.RejectCharacterDeletions Workspace.RejectCharacterDeletions [NotScriptable]
 	Property Enum.StreamOutBehavior Workspace.StreamOutBehavior [NotScriptable]
 	Property bool Workspace.StreamingEnabled {✏️PluginSecurity}
 	Property Enum.StreamingIntegrityMode Workspace.StreamingIntegrityMode [NotScriptable]
@@ -3022,22 +3028,22 @@ Class PermissionsService : Instance [NotCreatable] [Service]
 	Function Array PermissionsService:GetPermissions(string assetId) {RobloxScriptSecurity}
 	Function void PermissionsService:SetPermissions(string assetId, Array permissions) {RobloxScriptSecurity}
 Class PhysicsService : Instance [NotCreatable] [Service]
-	Function bool PhysicsService:CollisionGroupContainsPart(string name, BasePart part)
+	Function bool PhysicsService:CollisionGroupContainsPart(string name, BasePart part) [Deprecated]
 	Function void PhysicsService:CollisionGroupSetCollidable(string name1, string name2, bool collidable)
 	Function bool PhysicsService:CollisionGroupsAreCollidable(string name1, string name2)
-	Function int PhysicsService:CreateCollisionGroup(string name)
-	Function int PhysicsService:GetCollisionGroupId(string name)
-	Function string PhysicsService:GetCollisionGroupName(int name)
-	Function Array PhysicsService:GetCollisionGroups()
+	Function int PhysicsService:CreateCollisionGroup(string name) [Deprecated]
+	Function int PhysicsService:GetCollisionGroupId(string name) [Deprecated]
+	Function string PhysicsService:GetCollisionGroupName(int name) [Deprecated]
+	Function Array PhysicsService:GetCollisionGroups() [Deprecated]
 	Function int PhysicsService:GetMaxCollisionGroups()
 	Function Array PhysicsService:GetRegisteredCollisionGroups()
 	Function void PhysicsService:IkSolve(BasePart part, CFrame target, float translateStiffness, float rotateStiffness) {RobloxScriptSecurity}
 	Function bool PhysicsService:IsCollisionGroupRegistered(string name)
 	Function void PhysicsService:LocalIkSolve(BasePart part, CFrame target, float translateStiffness, float rotateStiffness) {LocalUserSecurity}
 	Function void PhysicsService:RegisterCollisionGroup(string name)
-	Function void PhysicsService:RemoveCollisionGroup(string name)
+	Function void PhysicsService:RemoveCollisionGroup(string name) [Deprecated]
 	Function void PhysicsService:RenameCollisionGroup(string from, string to)
-	Function void PhysicsService:SetPartCollisionGroup(BasePart part, string name)
+	Function void PhysicsService:SetPartCollisionGroup(BasePart part, string name) [Deprecated]
 	Function void PhysicsService:UnregisterCollisionGroup(string name)
 Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property bool PhysicsSettings.AreAnchorsShown
@@ -3107,6 +3113,7 @@ Class Player : Instance
 	Property bool Player.UnfilteredChat {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property int64 Player.UserId
 	Property string Player.VRDevice {RobloxScriptSecurity} [Hidden]
+	Property bool Player.VREnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool Player.Neutral
 	Property Team Player.Team [NotReplicated]
 	Property BrickColor Player.TeamColor
@@ -3496,8 +3503,8 @@ Class RenderingTest : Instance
 	Property float RenderingTest.ComparisonPsnrThreshold
 	Property string RenderingTest.Description
 	Property float RenderingTest.FieldOfView
-	Property Vector3 RenderingTest.Orientation [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 RenderingTest.Position [<📁> LoadOnly] [NotReplicated]
+	Property Vector3 RenderingTest.Orientation [Hidden] [NotReplicated]
+	Property Vector3 RenderingTest.Position [Hidden] [NotReplicated]
 	Property int RenderingTest.QualityLevel
 	Property bool RenderingTest.ShouldSkip
 	Property string RenderingTest.Ticket
@@ -3568,7 +3575,6 @@ Class ScriptChangeService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event ScriptChangeService.ScriptChanged(LuaSourceContainer script, string property) {RobloxScriptSecurity}
 	Event ScriptChangeService.ScriptFullNameChanged(LuaSourceContainer script) {RobloxScriptSecurity}
 	Event ScriptChangeService.ScriptSourceChanged(LuaSourceContainer script) {RobloxScriptSecurity}
-	Event ScriptChangeService.ScriptSourceEdited(LuaSourceContainer script, Array edits) {RobloxScriptSecurity}
 Class ScriptCloneWatcher : Instance [NotCreatable] [Service] [NotReplicated]
 Class ScriptCloneWatcherHelper : Instance [NotCreatable] [Service] [NotReplicated]
 Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
@@ -3686,9 +3692,10 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Function Array DataModel:GetJobsInfo() {PluginSecurity}
 	Function string DataModel:GetMessage() [Deprecated]
 	Function Objects DataModel:GetObjects(Content url) {PluginSecurity}
-	Function Objects DataModel:GetObjectsAllOrNone(Content url) {RobloxScriptSecurity}
+	Function Objects DataModel:GetObjectsAllOrNone(Content url, bool binaryFormatOnly = false) {RobloxScriptSecurity}
 	Function Objects DataModel:GetObjectsAsync(Content url) {RobloxScriptSecurity} [Yields]
 	Function Array DataModel:GetObjectsList(Array urls) {RobloxScriptSecurity}
+	Function string DataModel:GetPlaySessionId() {RobloxScriptSecurity}
 	Function bool DataModel:GetRemoteBuildMode() [Deprecated]
 	Function string DataModel:HttpGetAsync(string url, Enum.HttpRequestType httpRequestType = "Default") {RobloxScriptSecurity} [Yields]
 	Function string DataModel:HttpPostAsync(string url, string data, string contentType = "*/*", Enum.HttpRequestType httpRequestType = "Default") {RobloxScriptSecurity} [Yields]
@@ -3817,7 +3824,7 @@ Class CompressorSoundEffect : SoundEffect
 	Property Instance CompressorSoundEffect.SideChain
 	Property float CompressorSoundEffect.Threshold
 Class CustomSoundEffect : SoundEffect [NotCreatable]
-Class ChannelSelectorSoundEffect : CustomSoundEffect [NotBrowsable]
+Class ChannelSelectorSoundEffect : CustomSoundEffect [NotCreatable] [NotBrowsable]
 	Property int ChannelSelectorSoundEffect.Channel
 Class DistortionSoundEffect : SoundEffect
 	Property float DistortionSoundEffect.Level
@@ -3877,7 +3884,7 @@ Class Sparkles : Instance
 	Property float Sparkles.TimeScale
 	Function void Sparkles:FastForward(int numFrames) {RobloxScriptSecurity}
 Class SpawnerService : Instance [NotCreatable] [Service]
-Class Speaker : Instance [Deprecated]
+Class Speaker : Instance [NotCreatable] [Deprecated]
 	Property int Speaker.ChannelCount [ReadOnly] [NotBrowsable] [Deprecated]
 	Property Instance Speaker.Source [Deprecated]
 	Property float Speaker.RollOffMaxDistance [NotReplicated] [Deprecated]
@@ -3966,10 +3973,6 @@ Class RunningAverageItemDouble : StatsItem [NotCreatable]
 Class RunningAverageItemInt : StatsItem [NotCreatable]
 Class RunningAverageTimeIntervalItem : StatsItem [NotCreatable]
 Class TotalCountTimeIntervalItem : StatsItem [NotCreatable]
-Class StopWatchReporter : Instance [NotCreatable] [Service] [NotReplicated]
-	Function void StopWatchReporter:FinishTask(int taskId) {RobloxScriptSecurity}
-	Function void StopWatchReporter:SendReport(string reportName) {RobloxScriptSecurity}
-	Function int StopWatchReporter:StartTask(string reportName, string taskName) {RobloxScriptSecurity}
 Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Display Team Create toggle when creating a new experience
 	Property bool Studio.Drag Multiple Parts As Single Part
@@ -4028,6 +4031,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Auto Closing Brackets
 	Property bool Studio.Auto Closing Quotes
 	Property Enum.AutoIndentRule Studio.Auto Indent Rule
+	Property bool Studio.Automatically commit locked scripts when you save or publish to Roblox {RobloxScriptSecurity}
 	Property bool Studio.Enable Autocomplete
 	Property bool Studio.Enable Autocomplete Doc View {RobloxScriptSecurity}
 	Property bool Studio.Enable Script Analysis {RobloxScriptSecurity}
@@ -4276,6 +4280,7 @@ Class TerrainDetail : Instance
 Class TerrainRegion : Instance
 	Property bool TerrainRegion.IsSmooth [ReadOnly] [Deprecated]
 	Property Vector3 TerrainRegion.SizeInCells [ReadOnly]
+	Function void TerrainRegion:ApplyTransform(CFrame rotation, Vector3 size) {RobloxScriptSecurity}
 	Function void TerrainRegion:ConvertToSmooth() {PluginSecurity} [Deprecated]
 Class TestService : Instance [Service]
 	Property string TestService.Description
@@ -4828,8 +4833,6 @@ Class VirtualUser : Instance [NotCreatable] [Service] [NotReplicated]
 Class VisibilityCheckDispatcher : Instance [NotCreatable] [Service]
 Class VisibilityService : Instance [NotCreatable] [Service]
 Class Visit : Instance [NotCreatable] [Service] [NotReplicated]
-Class VoiceChannel : Instance
-	Function VoiceSource VoiceChannel:AddUserAsync(int64 userId = -1) {RobloxScriptSecurity} [Yields]
 Class VoiceChatInternal : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property Enum.VoiceChatState VoiceChatInternal.VoiceChatState [Hidden] [ReadOnly] [Deprecated]
 	Function string VoiceChatInternal:GetAndClearCallFailureMessage() {RobloxScriptSecurity} [Deprecated]
@@ -5756,7 +5759,7 @@ Enum GraphicsMode
 	EnumItem GraphicsMode.OpenGL : 4
 	EnumItem GraphicsMode.Metal : 5
 	EnumItem GraphicsMode.Vulkan : 6
-	EnumItem GraphicsMode.NoGraphics : 7
+	EnumItem GraphicsMode.NoGraphics : 9
 Enum GuiType
 	EnumItem GuiType.Core : 0
 	EnumItem GuiType.Custom : 1
@@ -6292,6 +6295,7 @@ Enum ModelStreamingMode
 	EnumItem ModelStreamingMode.Default : 0
 	EnumItem ModelStreamingMode.Atomic : 1
 	EnumItem ModelStreamingMode.Persistent : 2
+	EnumItem ModelStreamingMode.PersistentPerPlayer : 3
 Enum ModifierKey
 	EnumItem ModifierKey.Shift : 0
 	EnumItem ModifierKey.Ctrl : 1
@@ -6431,7 +6435,7 @@ Enum Platform
 	EnumItem Platform.DOS : 16
 	EnumItem Platform.BeOS : 17
 	EnumItem Platform.UWP : 18
-	EnumItem Platform.None : 19
+	EnumItem Platform.None : 20
 Enum PlaybackState
 	EnumItem PlaybackState.Begin : 0
 	EnumItem PlaybackState.Delayed : 1
@@ -6519,6 +6523,10 @@ Enum R15CollisionType
 Enum RaycastFilterType
 	EnumItem RaycastFilterType.Blacklist : 0
 	EnumItem RaycastFilterType.Whitelist : 1
+Enum RejectCharacterDeletions
+	EnumItem RejectCharacterDeletions.Default : 0
+	EnumItem RejectCharacterDeletions.Disabled : 1
+	EnumItem RejectCharacterDeletions.Enabled : 2
 Enum RenderFidelity
 	EnumItem RenderFidelity.Automatic : 0
 	EnumItem RenderFidelity.Precise : 1
@@ -6620,6 +6628,12 @@ Enum RuntimeUndoBehavior
 Enum SafeAreaCompatibility
 	EnumItem SafeAreaCompatibility.None : 0
 	EnumItem SafeAreaCompatibility.FullscreenExtension : 1
+Enum SaveAvatarThumbnailCustomizationFailure
+	EnumItem SaveAvatarThumbnailCustomizationFailure.BadThumbnailType : 1
+	EnumItem SaveAvatarThumbnailCustomizationFailure.BadYRotDeg : 2
+	EnumItem SaveAvatarThumbnailCustomizationFailure.BadFieldOfViewDeg : 3
+	EnumItem SaveAvatarThumbnailCustomizationFailure.BadDistanceScale : 4
+	EnumItem SaveAvatarThumbnailCustomizationFailure.Other : 5
 Enum SaveFilter [Deprecated]
 	EnumItem SaveFilter.SaveWorld : 0 [Deprecated]
 	EnumItem SaveFilter.SaveGame : 1 [Deprecated]
@@ -6901,6 +6915,9 @@ Enum SurfaceConstraint
 	EnumItem SurfaceConstraint.Hinge : 1
 	EnumItem SurfaceConstraint.SteppingMotor : 2
 	EnumItem SurfaceConstraint.Motor : 3
+Enum SurfaceGuiShape
+	EnumItem SurfaceGuiShape.Flat : 0
+	EnumItem SurfaceGuiShape.CurvedHorizontally : 1
 Enum SurfaceGuiSizingMode
 	EnumItem SurfaceGuiSizingMode.FixedSize : 0
 	EnumItem SurfaceGuiSizingMode.PixelsPerStud : 1

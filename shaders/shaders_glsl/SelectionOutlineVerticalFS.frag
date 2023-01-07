@@ -155,34 +155,35 @@ void main()
         f49 = f47;
     }
     vec4 f51 = clamp(f49 * 255.0, vec4(0.0), vec4(1.0));
-    float f52;
-    if (f51.w > 0.0)
+    float f52 = f51.w;
+    float f53;
+    if (f52 > 0.0)
     {
-        vec2 f53 = vec2(f7 * CB1[0].z, 0.0);
-        vec4 f54 = texture2DLod(Texture1Texture, f8 + f53, 0.0);
-        float f55 = f54.w;
-        float f56;
-        if (f55 == 0.0)
+        vec2 f54 = vec2(f7 * CB1[0].z, 0.0);
+        vec4 f55 = texture2DLod(Texture1Texture, f8 + f54, 0.0);
+        float f56 = f55.w;
+        float f57;
+        if (f56 == 0.0)
         {
-            f56 = texture2DLod(Texture1Texture, f8 - f53, 0.0).w;
+            f57 = texture2DLod(Texture1Texture, f8 - f54, 0.0).w;
         }
         else
         {
-            f56 = f55;
+            f57 = f56;
         }
-        f52 = f56;
+        f53 = f57;
     }
     else
     {
-        f52 = texture2DLod(Texture1Texture, VARYING0, 0.0).w;
+        f53 = texture2DLod(Texture1Texture, VARYING0, 0.0).w;
     }
-    int f57 = int(floor(f52 * 255.0));
-    float f58 = f51.y * f4;
-    float f59 = f51.z * f4;
-    float f60 = f51.w * f4;
-    float f61 = 1.0 - clamp((f3 - 0.999000012874603271484375) * 1000000.0, 0.0, 1.0);
-    float f62 = f51.x;
-    gl_FragData[0] = vec4(mix(mix(mix(mix(CB7[f57 * 1 + 0].xyz * f61, CB7[(f57 + 256) * 1 + 0].xyz, vec3(f60)), CB6[6].xyz, vec3(f58)), CB6[7].xyz, vec3(f59)), CB6[5].xyz, vec3(f62)), max(max(max(max(CB7[f57 * 1 + 0].w * f61, f60), f58), f59), f62));
+    int f58 = int(floor(f53 * 255.0));
+    float f59 = f52 * f4;
+    float f60 = (1.0 - clamp((f3 - 0.999000012874603271484375) * 1000000.0, 0.0, 1.0)) * f4;
+    float f61 = f51.y;
+    float f62 = f51.z;
+    float f63 = f51.x;
+    gl_FragData[0] = vec4(mix(mix(mix(mix(CB7[f58 * 1 + 0].xyz * f60, CB7[(f58 + 256) * 1 + 0].xyz, vec3(f59)), CB6[6].xyz, vec3(f61)), CB6[7].xyz, vec3(f62)), CB6[5].xyz, vec3(f63)), max(max(max(max(CB7[f58 * 1 + 0].w * f60, f59), f61), f62), f63));
 }
 
 //$$Texture0Texture=s0

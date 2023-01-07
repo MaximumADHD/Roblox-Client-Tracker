@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-#include <Instance.h>
+#include <InstanceData.h>
 uniform vec4 CB0[58];
 uniform vec4 CB1[511];
 in vec4 POSITION;
