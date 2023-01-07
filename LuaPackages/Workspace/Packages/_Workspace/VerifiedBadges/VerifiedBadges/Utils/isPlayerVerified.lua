@@ -11,11 +11,13 @@ export type Player = {
 }
 
 --[=[
-	Returns whether a given creator is a verified creator,
-	accounting for creatorType.
+	Returns whether the given player has the verified badge.
 
-	Uses the piece of rodux state populated by GamesApi,
-	and universeId being passed as props.
+	Setting FFlagOverridePlayerVerifiedBadge to true will make this function
+	always return true
+
+	Setting FStringWhitelistVerifiedUserId to a user id will make this function
+	always return true for that user id.
 
 	@within VerifiedBadges
 ]=]
@@ -26,6 +28,10 @@ local function isPlayerVerified(player: Player)
 
 	if tostring(player.UserId) == getFStringWhitelistVerifiedUserId() then
 		return true
+	end
+
+	if player.HasVerifiedBadge ~= nil then
+		return player.HasVerifiedBadge
 	end
 
 	return false

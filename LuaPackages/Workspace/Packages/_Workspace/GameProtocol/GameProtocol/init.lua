@@ -8,6 +8,7 @@ export type GameProtocol = Types.GameProtocol
 
 return {
 	GameProtocol = GameProtocol,
+	GameParams = require(script.GameParams),
 
 	Flags = {
 		FFlagExperienceJoinAttemptId = FFlagExperienceJoinAttemptId,

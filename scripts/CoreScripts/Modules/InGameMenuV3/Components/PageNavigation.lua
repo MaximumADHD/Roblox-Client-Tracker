@@ -6,7 +6,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TrustAndSafety = require(RobloxGui.Modules.TrustAndSafety)
 
 local ExternalContentSharingProtocol
-	= require(CorePackages.UniversalApp.ExternalContentSharing.ExternalContentSharingProtocol).default
+	= require(CorePackages.Workspace.Packages.ExternalContentSharingProtocol).ExternalContentSharingProtocol.default
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local UrlBuilderPackage = require(CorePackages.Packages.UrlBuilder)
 local UrlBuilder = UrlBuilderPackage.UrlBuilder
@@ -55,7 +55,8 @@ local GetFFlagShareInviteLinkContextMenuV3Enabled =
 local GetFFlagShareInviteLinkContextMenuV3CopiedTextEnabled =
 	require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3CopiedTextEnabled)
 
-local GetFFlagLuaAppNewShareSheet = require(CorePackages.UniversalApp.ExternalContentSharing.Flags.GetFFlagLuaAppNewShareSheet)
+local GetFFlagLuaAppNewShareSheet =
+	require(CorePackages.Workspace.Packages.ExternalContentSharingProtocol).Flags.GetFFlagLuaAppNewShareSheet
 
 local NAV_BUTTON_HEIGHT = 56
 

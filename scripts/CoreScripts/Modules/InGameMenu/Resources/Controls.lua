@@ -1,9 +1,6 @@
 --!nonstrict
 local UserInputService = game:GetService("UserInputService")
 
-local CoreGui = game:GetService('CoreGui')
-local GetFFlagEnableKeyboardUINavigation = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagEnableKeyboardUINavigation)
-
 local key = Enum.KeyCode
 local input = Enum.UserInputType
 
@@ -91,6 +88,7 @@ local keybinds = {
 local osxMiscKeybinds = {
 	title = "CoreScripts.InGameMenu.Controls.MiscellaneousTitle",
 	controls = {
+		{desc = "CoreScripts.InGameMenu.Controls.GameMenuToggleGamepad", inputs = {key.BackSlash}},
 		{desc = "CoreScripts.InGameMenu.Controls.Screenshot", inputs = {{key.LeftSuper, key.LeftShift, key.Three}}},
 		{desc = "CoreScripts.InGameMenu.Controls.DevConsole", inputs = {{key.LeftMeta, key.F9}, key.F9}},
 		{desc = "CoreScripts.InGameMenu.Controls.GraphicsLevelUp", inputs = {{key.LeftMeta, key.F10}, key.F10}},
@@ -105,6 +103,7 @@ local osxMiscKeybinds = {
 local pcMiscKeybinds = {
 	title = "CoreScripts.InGameMenu.Controls.MiscellaneousTitle",
 	controls = {
+		{desc = "CoreScripts.InGameMenu.Controls.GameMenuToggleGamepad", inputs = {key.BackSlash}},
 		{desc = "CoreScripts.InGameMenu.Controls.Screenshot", inputs = {key.Print}},
 		{desc = "CoreScripts.InGameMenu.Controls.RecordVideo", inputs = {key.F12}},
 		{desc = "CoreScripts.InGameMenu.Controls.DevConsole", inputs = {key.F9}},
@@ -119,12 +118,6 @@ if UserInputService:GetPlatform() == Enum.Platform.OSX then
 	table.insert(keybinds, osxMiscKeybinds)
 else
 	table.insert(keybinds, pcMiscKeybinds)
-end
-
-if GetFFlagEnableKeyboardUINavigation() then
-	local keyboardNavigationControl =  {desc = "CoreScripts.InGameMenu.Controls.MenuNavigationGamepad", inputs = {{key.BackSlash}}}
-	table.insert(osxMiscKeybinds.controls, 1, keyboardNavigationControl)
-	table.insert(pcMiscKeybinds.controls, 1, keyboardNavigationControl)
 end
 
 local gamepadLabels = {

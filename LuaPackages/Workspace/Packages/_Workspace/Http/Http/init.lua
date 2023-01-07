@@ -10,6 +10,8 @@ return {
 	Enum = require(script.Enum),
 	Requests = Requests,
 	Url = require(script.Url),
+	Utils = require(script.Utils),
 	Reducers = Reducers,
 	PerformFetch = PerformFetch,
+	StatusCodes = require(script.StatusCodes),
 }

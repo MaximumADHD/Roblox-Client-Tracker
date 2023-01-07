@@ -52,7 +52,6 @@ local FFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Fla
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
-local GetFFlagShowGitHashInGame = require(RobloxGui.Modules.Flags.GetFFlagShowGitHashInGame)
 local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
@@ -633,7 +632,7 @@ local function CreateSettingsHub()
 				VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
 					updateIcon()
 					if GetFFlagVoiceRecordingIndicatorsEnabled() then
-						this.isMuted = muted	
+						this.isMuted = muted
 						this.lastVoiceRecordingIndicatorTextUpdated = tick()
 						this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
 						if this.isMuted then
@@ -868,15 +867,14 @@ local function CreateSettingsHub()
 		end
 
 		local robloxVersion = RunService:GetRobloxVersion()
-		if GetFFlagShowGitHashInGame() then
-			local success, result = pcall(function()
-				return RunService.ClientGitHash
-			end)
+		local success, result = pcall(function()
+			return RunService.ClientGitHash
+		end)
 
-			if success then
-				robloxVersion = string.format("%s (%.6s)", robloxVersion, result)
-			end
+		if success then
+			robloxVersion = string.format("%s (%.6s)", robloxVersion, result)
 		end
+
 		this.ClientVersionLabel = utility:Create("TextLabel") {
 			Name = "ClientVersionLabel",
 			Parent = this.VersionContainer,
@@ -938,6 +936,31 @@ local function CreateSettingsHub()
 			}
 			addSizeToLabel(this.EnvironmentLabel)
 			this.EnvironmentLabel.TextScaled = not (canGetCoreScriptVersion or this.EnvironmentLabel.TextFits)
+		end
+
+		if game:GetEngineFeature("GetPlaySessionIdEnabled") then
+			local playSessionId = game:GetPlaySessionId()
+			if playSessionId ~= '' then
+				local playSessionIdString = "PlaySessionId: " .. playSessionId
+				if RobloxTranslator then
+					playSessionIdString = RobloxTranslator:FormatByKey("InGame.HelpMenu.Label.PlaySessionId", { RBX_STR = playSessionId })
+				end
+				this.PlaySessionIdLabel = utility:Create("TextLabel") {
+					Name = "PlaySessionIdLabel",
+					Parent = this.VersionContainer,
+					BackgroundTransparency = 1,
+					LayoutOrder = 5,
+					TextColor3 = Color3.new(1, 1, 1),
+					TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+					Text = playSessionIdString,
+					Font = Enum.Font.SourceSans,
+					TextXAlignment = Enum.TextXAlignment.Center,
+					TextYAlignment = Enum.TextYAlignment.Center,
+					ZIndex = 5,
+				}
+				addSizeToLabel(this.PlaySessionIdLabel)
+				this.PlaySessionIdLabel.TextScaled = not (this.PlaySessionIdLabel.TextFits)
+			end
 		end
 
 		-- This check relies on the fact that Archivable is false on the default playerscripts we
@@ -1082,7 +1105,7 @@ local function CreateSettingsHub()
 				Parent = this.MenuContainer,
 			}
 		end
-		
+
 		if GetFFlagSelfViewSettingsEnabled() then
 			-- Create the settings buttons for audio/camera permissions.
 			this.permissionsButtonsRoot = Roact.mount(createPermissionsButtons(true), this.MenuContainer, "PermissionsButtons")

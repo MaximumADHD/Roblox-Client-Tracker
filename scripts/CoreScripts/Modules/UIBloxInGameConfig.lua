@@ -3,62 +3,35 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
-
-local GetFFlagUIBloxGenericButtonInputChangesInGame =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxGenericButtonInputChangesInGame
-local GetFFlagUIBloxUseNewGenericTextLabelProps =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxUseNewGenericTextLabelProps
-local GetFFlagUIBloxEnableRadioButtonGamepadSupport =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableRadioButtonGamepadSupport
-local GetFFlagUIBloxSliderUpdateOnDismiss = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxSliderUpdateOnDismiss
-local GetFFlagUIBloxFixDropdownMenuCellTextSize =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxFixDropdownMenuCellTextSize
-local GetFFlagUIBloxEnableActionBarLayoutFix = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableActionBarLayoutFix
-local GetFFlagUIBloxDisableTooltipAnimation = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxDisableTooltipAnimation
-
-local GetFFlagUIBloxSystemBarBottomAlignedItems =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxSystemBarBottomAlignedItems
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local UIBloxFlags = SharedFlags.UIBlox
 
 local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
-local GetFFlagUIBloxEnableReactTag = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableReactTag
-
-local GetFFlagUIBloxEnableImageSetResolutionScaleFix =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableImageSetResolutionScaleFix
-
-local GetFFlagLuaAppUseUIBloxColorPalettes =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppUseUIBloxColorPalettes
-local GetUIBloxUseNewThemeColorPalettes =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetUIBloxUseNewThemeColorPalettes
 
 return {
 	useUpdatedCheckbox = true,
-	fixDropdownMenuCellTextSize = GetFFlagUIBloxFixDropdownMenuCellTextSize(),
-	useNewGenericTextLabelProps = GetFFlagUIBloxUseNewGenericTextLabelProps(),
+	fixDropdownMenuCellTextSize = UIBloxFlags.GetFFlagUIBloxFixDropdownMenuCellTextSize(),
+	useNewGenericTextLabelProps = UIBloxFlags.GetFFlagUIBloxUseNewGenericTextLabelProps(),
 	useAnimatedXboxCursors = true,
-	genericButtonInputChanges = GetFFlagUIBloxGenericButtonInputChangesInGame(),
+	genericButtonInputChanges = UIBloxFlags.GetFFlagUIBloxGenericButtonInputChangesInGame(),
 	enableGamepadKeyCodeSupportForKeyLabel = true,
 	enableAnimatedCursorForNonRoactGamepadComponent = game:DefineFastFlag(
 		"UIBloxEnableAnimatedCursorForNonRoactGamepad",
 		false
 	),
-	enableRadioButtonGamepadSupport = GetFFlagUIBloxEnableRadioButtonGamepadSupport(),
-	enableReactTag = GetFFlagUIBloxEnableReactTag(),
-
+	enableRadioButtonGamepadSupport = UIBloxFlags.GetFFlagUIBloxEnableRadioButtonGamepadSupport(),
 	useNewVerticalScrollView = false, -- TODO: https://jira.rbx.com/browse/UIBLOX-225
-	enableRightSideGadgetView = EnableInGameMenuV3(),
-
-	sliderUpdateOnDismiss = GetFFlagUIBloxSliderUpdateOnDismiss(),
-
+	enableRightSideGadgetView = UIBloxFlags.GetFFlagUIBloxUseRightSideGadget() or EnableInGameMenuV3(),
+	sliderUpdateOnDismiss = UIBloxFlags.GetFFlagUIBloxSliderUpdateOnDismiss(),
 	devMode = ArgCheck.isEnabled(),
-	enableActionBarLayoutFix = GetFFlagUIBloxEnableActionBarLayoutFix(),
-
-	disableTooltipAnimation = GetFFlagUIBloxDisableTooltipAnimation(),
-
-	systemBarBottomAlignedItems = GetFFlagUIBloxSystemBarBottomAlignedItems(),
-
-	enableImageSetResolutionScaleFix = GetFFlagUIBloxEnableImageSetResolutionScaleFix(),
-
+	enableActionBarLayoutFix = UIBloxFlags.GetFFlagUIBloxEnableActionBarLayoutFix(),
+	disableTooltipAnimation = UIBloxFlags.GetFFlagUIBloxDisableTooltipAnimation(),
+	systemBarBottomAlignedItems = UIBloxFlags.GetFFlagUIBloxSystemBarBottomAlignedItems(),
+	enableImageSetResolutionScaleFix = UIBloxFlags.GetFFlagUIBloxEnableImageSetResolutionScaleFix(),
 	enableStandardButtonSizes = true,
-
-	useNewThemeColorPalettes = GetFFlagLuaAppUseUIBloxColorPalettes() and GetUIBloxUseNewThemeColorPalettes(),
+	vrApplyHeadScale = UIBloxFlags.GetFFlagUIBloxVRApplyHeadScale(),
+	useNewThemeColorPalettes = SharedFlags.GetFFlagLuaAppUseUIBloxColorPalettes()
+		and UIBloxFlags.GetUIBloxUseNewThemeColorPalettes(),
+	usePillv2 = UIBloxFlags.GetFFlagUIBloxUsePillv2(),
+	pillGroupAutomaticSize = UIBloxFlags.GetFFlagUIBloxPillGroupAutomaticSize(),
 }

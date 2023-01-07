@@ -153,8 +153,6 @@ local CharConns = {} -- Holds character connections to be cleared later
 local GamepadEnabled = false -- determines if our gui needs to be gamepad friendly
 local TimeOfLastToolChange = 0
 
-local FFlagVirtualCursorInteractWithInventory = game:DefineFastFlag("VirtualCursorInteractWithInventory", false)
-
 local IsVR = VRService.VREnabled -- Are we currently using a VR device?
 local NumberOfHotbarSlots = IsVR and HOTBAR_SLOTS_VR or (IS_PHONE and HOTBAR_SLOTS_MINI or HOTBAR_SLOTS_FULL) -- Number of slots shown at the bottom
 local NumberOfInventoryRows = IsVR and INVENTORY_ROWS_VR or (IS_PHONE and INVENTORY_ROWS_MINI or INVENTORY_ROWS_FULL) -- How many rows in the popped-up inventory
@@ -1267,10 +1265,7 @@ end
 
 function changeSlot(slot)
 	local swapInVr = not VRService.VREnabled or InventoryFrame.Visible
-	local gamepadCursorEnabled = false
-	if FFlagVirtualCursorInteractWithInventory then
-		gamepadCursorEnabled = GamepadService.GamepadCursorEnabled
-	end
+	local gamepadCursorEnabled = GamepadService.GamepadCursorEnabled
 
 	if slot.Frame == GuiService.SelectedCoreObject and swapInVr and not gamepadCursorEnabled then
 		local currentlySelectedSlot = getGamepadSwapSlot()

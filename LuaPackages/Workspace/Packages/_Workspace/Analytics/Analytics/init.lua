@@ -6,4 +6,5 @@ return {
 	Analytics = Analytics,
 	AnalyticsReporters = require(script.AnalyticsReporters),
 	getPlatformTarget = require(script.getPlatformTarget),
+	ReportToDiagByCountryCode = require(script.ReportToDiagByCountryCode),
 }

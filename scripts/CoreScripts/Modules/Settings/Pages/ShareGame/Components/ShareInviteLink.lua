@@ -4,7 +4,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local UserInputService = game:GetService("UserInputService")
 
 local ExternalContentSharingProtocol
-	= require(CorePackages.UniversalApp.ExternalContentSharing.ExternalContentSharingProtocol).default
+	= require(CorePackages.Workspace.Packages.ExternalContentSharingProtocol).ExternalContentSharingProtocol.default
 
 local UrlBuilderPackage = require(CorePackages.Packages.UrlBuilder)
 local UrlBuilder = UrlBuilderPackage.UrlBuilder
@@ -24,7 +24,8 @@ local RoduxShareLinks = dependencies.RoduxShareLinks
 local RoduxNetworking = dependencies.RoduxNetworking
 local NetworkStatus = RoduxNetworking.Enum.NetworkStatus
 
-local GetFFlagLuaAppNewShareSheet = require(CorePackages.UniversalApp.ExternalContentSharing.Flags.GetFFlagLuaAppNewShareSheet)
+local GetFFlagLuaAppNewShareSheet =
+	require(CorePackages.Workspace.Packages.ExternalContentSharingProtocol).Flags.GetFFlagLuaAppNewShareSheet
 
 local ShareInviteLink = Roact.PureComponent:extend("ShareInviteLink")
 

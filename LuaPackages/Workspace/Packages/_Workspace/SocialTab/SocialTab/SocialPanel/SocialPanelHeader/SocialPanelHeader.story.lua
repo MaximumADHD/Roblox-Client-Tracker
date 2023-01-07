@@ -46,6 +46,7 @@ return function(props)
 				},
 			}, {
 				Story = React.createElement(SocialPanelHeader, {
+					isDrawerPanel = false,
 					onChatActivated = noop,
 					onGroupsActivated = noop,
 					onAddFriendActivated = noop,

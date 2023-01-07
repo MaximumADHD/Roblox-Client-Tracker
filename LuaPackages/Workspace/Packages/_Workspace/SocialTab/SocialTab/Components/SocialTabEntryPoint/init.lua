@@ -23,6 +23,7 @@ local SocialTabEntryPoint = Roact.PureComponent:extend("SocialTabEntryPoint")
 SocialTabEntryPoint.defaultProps = {
 	logger = nil,
 	rnBypassActionSignalSocialTab = nil,
+	isRoactChatDefaultScreen = false,
 }
 
 -- androidBackButtonConnection:
@@ -80,6 +81,8 @@ function SocialTabEntryPoint:init()
 			androidBackButtonSignal = self.androidBackButtonSignal,
 			connectToAndroidBackButton = self.props.androidBackButtonConnection.connect,
 			disconnectFromAndroidBackButton = self.props.androidBackButtonConnection.disconnect,
+			isRoactChatDefaultScreen = self.props.isRoactChatDefaultScreen,
+			closeDrawer = self.props.closeDrawer,
 		})
 
 		return RoactNavigation.createAppContainer(socialTabStackNavigator)
@@ -206,6 +209,7 @@ SocialTabEntryPoint = SocialTabContext.connect(function(context)
 		toggleChatPaused = context.toggleChatPaused,
 		performanceTesting = context.performanceTesting,
 		notificationType = context.notificationType,
+		isRoactChatDefaultScreen = context.isRoactChatDefaultScreen,
 	}
 end)(SocialTabEntryPoint)
 

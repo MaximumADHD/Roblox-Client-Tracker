@@ -14,6 +14,7 @@ local getFFlagSocialPanelIAEnabled = require(Packages.SharedFlags).getFFlagSocia
 local getFFlagVBXboxReducerFix = require(Packages.SharedFlags).getFFlagVBXboxReducerFix
 local GetFFlagUseCorrectedFriendSortUtil = require(Packages.SharedFlags).GetFFlagUseCorrectedFriendSortUtil
 local FFlagExperienceJoinAttemptId = require(Packages.GameProtocol).Flags.FFlagExperienceJoinAttemptId
+local GetFFlagHideConnectPageWebViewItemsForVR = require(Packages.SharedFlags).GetFFlagHideConnectPageWebViewItemsForVR
 
 local maxHttpRetries = game:DefineFastInt("SocialTabHttpRetryCount", 3)
 
@@ -127,6 +128,7 @@ return {
 	CollisionMatchers = LuaSocialLibrariesDeps.CollisionMatchers,
 	Lumberyak = Lumberyak,
 	RunService = game:GetService("RunService"),
+	UserInputService = game:GetService("UserInputService"),
 
 	validatePropsWithForwardRef = validatePropsWithForwardRef,
 
@@ -137,4 +139,5 @@ return {
 	getFFlagVBXboxReducerFix = getFFlagVBXboxReducerFix,
 	GetFFlagUseCorrectedFriendSortUtil = GetFFlagUseCorrectedFriendSortUtil,
 	FFlagExperienceJoinAttemptId = FFlagExperienceJoinAttemptId,
+	GetFFlagHideConnectPageWebViewItemsForVR = GetFFlagHideConnectPageWebViewItemsForVR,
 }

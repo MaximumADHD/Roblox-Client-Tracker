@@ -1,7 +1,7 @@
-game:DefineFastFlag("UniversalAppMenuCsat2", false)
+game:DefineFastFlag("UniversalAppMenuCsat3", false)
 
 return function()
 	return game:GetEngineFeature("UniversalAppCsatAppStorageKey")
-		and game:GetFastFlag("UniversalAppMenuCsat2")
-		and game:GetFastFlag("EnableV3MenuABTest2")
+		and game:GetFastFlag("UniversalAppMenuCsat3")
+		and game:GetFastFlag("EnableV3MenuABTest3")
 end

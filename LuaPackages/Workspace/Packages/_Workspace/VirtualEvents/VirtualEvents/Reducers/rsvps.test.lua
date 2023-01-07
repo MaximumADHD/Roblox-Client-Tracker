@@ -10,6 +10,7 @@ local HttpRequest = require(VirtualEvents.Parent.HttpRequest)
 local NetworkingVirtualEvents = require(VirtualEvents.Parent.NetworkingVirtualEvents)
 local Rodux = require(VirtualEvents.Parent.Rodux)
 local RoduxNetworking = require(VirtualEvents.Parent.RoduxNetworking)
+local types = require(VirtualEvents.types)
 local enums = require(VirtualEvents.enums)
 local rsvpsImpl = require(script.Parent["rsvps.impl"])
 
@@ -27,6 +28,7 @@ local networkingVirtualEvents = NetworkingVirtualEvents.config({
 })
 
 local GetVirtualEventRsvps = networkingVirtualEvents.GetVirtualEventRsvps
+local GetVirtualEventRsvpCounts = networkingVirtualEvents.GetVirtualEventRsvpCounts
 local UpdateMyRsvpStatus = networkingVirtualEvents.UpdateMyRsvpStatus
 
 local mockPlayers = {
@@ -50,6 +52,7 @@ end)
 
 afterEach(function()
 	GetVirtualEventRsvps.Mock.clear()
+	GetVirtualEventRsvpCounts.Mock.clear()
 	UpdateMyRsvpStatus.Mock.clear()
 end)
 
@@ -76,6 +79,34 @@ describe("page", function()
 			expect(state.rsvps.page.nextPageCursor).toBe("next")
 			expect(state.rsvps.page.prevPageCursor).toBe("prev")
 		end)
+	end)
+end)
+
+describe("counters", function()
+	it("should return an empty table by default", function()
+		local state = store:getState()
+		expect(state.rsvps.counters).toEqual({})
+	end)
+
+	it("should add a table with `none`, `going`, `maybeGoing`, and `notGoing` for the virtual event", function()
+		local counters: types.RsvpCounters = {
+			none = 0,
+			going = 0,
+			maybeGoing = 0,
+			notGoing = 0,
+		}
+
+		GetVirtualEventRsvpCounts.Mock.reply({
+			responseBody = {
+				counters = counters,
+			},
+		})
+
+		store:dispatch(GetVirtualEventRsvpCounts.API(MOCK_VIRTUAL_EVENT_ID))
+
+		local state = store:getState()
+
+		expect(state.rsvps.counters[MOCK_VIRTUAL_EVENT_ID]).toEqual(counters)
 	end)
 end)
 

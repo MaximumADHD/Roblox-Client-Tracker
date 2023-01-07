@@ -6,8 +6,11 @@ return function ()
 	local act = Roact.act :: (any) -> ()
 
 	local RoactUtils = script:FindFirstAncestor("RoactUtils")
-	local JestGlobals = require(RoactUtils.Parent.Dev.JestGlobals)
+	local Packages = RoactUtils.Parent
+	local JestGlobals = require(Packages.Dev.JestGlobals)
 	local jestExpect = JestGlobals.expect
+
+	local waitForEvents = require(Packages.Dev.TestUtils).DeferredLuaHelpers.waitForEvents
 
 	it("if mounted, should call the callback when the event is triggered", function()
 		local event = Instance.new("BindableEvent")
@@ -22,11 +25,13 @@ return function ()
 
 		local RoactInstance = Roact.mount(element)
 		event:Fire()
+		waitForEvents()
 
 		jestExpect(count).toBe(1)
 
 		Roact.unmount(RoactInstance)
 		event:Fire()
+		waitForEvents()
 
 		jestExpect(count).toBe(1)
 
@@ -69,6 +74,7 @@ return function ()
 
 		Roact.mount(Roact.createElement(EventContainer))
 		firstEvent:Fire()
+		waitForEvents()
 
 		jestExpect(count).toBe(1)
 
@@ -78,10 +84,12 @@ return function ()
 			})
 		end)
 		firstEvent:Fire()
+		waitForEvents()
 
 		jestExpect(count).toBe(1)
 
 		secondEvent:Fire()
+		waitForEvents()
 
 		jestExpect(count).toBe(2)
 
@@ -93,6 +101,7 @@ return function ()
 			})
 		end)
 		secondEvent:Fire()
+		waitForEvents()
 
 		jestExpect(count).toBe(2)
 		firstEvent:Destroy()

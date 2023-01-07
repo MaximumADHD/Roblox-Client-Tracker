@@ -1,0 +1,33 @@
+local ContactImporter = script.Parent.Parent
+local getFFlagRemoveSentTextKey = require(ContactImporter.Flags.getFFlagRemoveSentTextKey)
+
+return {
+	CI_FAILED = "Feature.Toast.NetworkingError.Timeout",
+	LEARN_MORE = "Feature.GameDetails.Label.LearnMore",
+	CLOSE_MODAL_OK = "Feature.VerificationUpsell.Action.Ok",
+	CLOSE_MODAL = "Feature.Friends.Action.Close",
+	EMPTY_STATE = "Feature.Friends.Message.EmptyState",
+	GET_STARTED = "Feature.Friends.Action.GetStarted",
+	GO_TO_ADD_FRIENDS = "Feature.Friends.Action.GoToAddFriends",
+	CONNECT_CONTACTS_BODY = "Feature.Friends.Label.AllowContactsAccess",
+	CONNECT_CONTACTS_CAPTION = "Feature.Friends.Label.ContactsRecommendations",
+	CONNECT_CONTACTS_CAPTION_V2 = "Feature.Friends.Label.ContactsCaption",
+	BANNER_TEXT = "Feature.Friends.Action.InviteFriends",
+	CONTACTS_LIST_TITLE = "Feature.Friends.Label.ConnectWithFriends",
+	CONTACTS_LIST_BLURB = "Feature.Friends.Description.ContactsModal",
+	CONTACTS_LIST_BLURB_INVITES = "Feature.Contacts.Description.ContactsList",
+	CONTACTS_LIST_BLURB_MIXED = "Feature.Contacts.Description.ContactsMixedList",
+	INVITE_BUTTON_TEXT = "Feature.Contacts.Action.Invite",
+	SENT_BUTTON_TEXT = if getFFlagRemoveSentTextKey() then nil else "Feature.Contacts.Action.Sent",
+	SEARCH_CONTACTS = "Feature.Contacts.Action.Search",
+	CONTACTS_REVOKED_FLOW = "Feature.Friends.Message.RevokedContacts",
+	UPLOAD_CONTACTS_FAILURE = "Feature.Friends.Message.UploadContactsFailure",
+	FROM_CONTACTS = "Feature.Friends.Description.FromContacts",
+	PEOPLE_YOU_MAY_KNOW = "Feature.Friends.Label.PYMK",
+	LET_FRIENDS_FIND_YOU = "Feature.ContactUpsell.Heading.LetFriendsFindYou",
+	CONTACT_NAME_FROM_CONTACTS = "Feature.Friends.Description.FromContactsV2",
+	SMS_DEFAULT_MESSAGE = "Feature.Contacts.Message.InviteToRoblox",
+	ON_ROBLOX = "Feature.Contacts.Label.OnRoblox",
+	NOT_NOW = "Feature.Contacts.Message.AddFriends",
+	NO_RESULTS = "Feature.Contacts.Message.NoResults",
+}

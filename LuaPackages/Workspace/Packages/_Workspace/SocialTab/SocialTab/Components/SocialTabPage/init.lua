@@ -28,13 +28,17 @@ local SocialPanelHeader = require(SocialTab.SocialPanel.SocialPanelHeader)
 
 local RefreshScrollingFrame = dependencies.SocialLibraries.Components.RefreshScrollingFrame
 local getFFlagSocialProfileShareAnalyticsEnabled = dependencies.getFFlagSocialProfileShareAnalyticsEnabled
-local getFFlagSocialPanelIAEnabled = dependencies.getFFlagSocialPanelIAEnabled
+local UserInputService = dependencies.UserInputService
 
 local TOP_BAR_PADDING = 24
 local PROFILE_PADDING = 22
 local FRIENDS_CAROUSEL_PADDING = 36
 local EnumScreens = require(SocialTab.EnumScreens)
 local UserUtils = require(SocialTab.User)
+
+local function getTopMargin()
+	return (UserInputService.StatusBarSize.Y or 0) + 40
+end
 
 local SocialTabPage = Roact.PureComponent:extend("SocialTabPage")
 SocialTabPage.TileCellSize = {
@@ -76,6 +80,9 @@ SocialTabPage.defaultProps = {
 	enableNotificationsPolicy = enableNotificationsPolicyDefaultValue,
 	isProfileShareEnabled = false,
 	luaSelfProfileEnabled = false,
+	isDrawerPanel = false,
+	isSocialPanelFullScreen = false,
+	disableWebViewSupport = false,
 }
 
 SocialTabPage.validateProps = t.interface({
@@ -99,6 +106,8 @@ SocialTabPage.validateProps = t.interface({
 	luaAddFriendsPageEnabled = t.optional(t.boolean),
 	isLuaProfilePageEnabled = t.optional(t.boolean),
 	luaSelfProfileEnabled = t.optional(t.boolean),
+	isDrawerPanel = t.optional(t.boolean),
+	isSocialPanelFullScreen = t.optional(t.boolean),
 })
 
 function SocialTabPage:init()
@@ -108,7 +117,11 @@ function SocialTabPage:init()
 		Logger:info("Going to Chats")
 		self.props.analytics:buttonClick("Chats")
 		self.props.analytics:navigate("Chats")
-		self.props.navigation.navigate(EnumScreens.RoactChat)
+		if self.props.isDrawerPanel then
+			self.props.navigateToLuaAppPages[EnumScreens.RoactChat]()
+		else
+			self.props.navigation.navigate(EnumScreens.RoactChat)
+		end
 	end
 
 	self.goToGroups = function()
@@ -143,11 +156,19 @@ function SocialTabPage:init()
 		if self.props.navigatingFromSocialTabEvent then
 			self.props.navigatingFromSocialTabEvent(EnumScreens.FriendsLanding)
 		end
-		self.props.navigation.navigate(EnumScreens.FriendsLanding)
+		if self.props.isDrawerPanel then
+			self.props.navigateToLuaAppPages[EnumScreens.ViewFriends]()
+		else
+			self.props.navigation.navigate(EnumScreens.FriendsLanding)
+		end
 	end
 
 	self.goToAddFriends = function()
-		self.props.navigation.navigate(EnumScreens.FriendsLanding, { EntryPage = "AddFriendsPage" })
+		if self.props.isDrawerPanel then
+			self.props.navigateToLuaAppPages[EnumScreens.AddFriends]()
+		else
+			self.props.navigation.navigate(EnumScreens.FriendsLanding, { EntryPage = "AddFriendsPage" })
+		end
 	end
 
 	self.renderTopBarButtons = memoize(function(numberOfNotifications, enableNotificationsPolicy)
@@ -181,22 +202,28 @@ function SocialTabPage:init()
 			notifications = nil
 		end
 
-		return function()
-			return Roact.createFragment({
-				filter = Roact.createElement(IconButton, {
-					size = UDim2.fromOffset(0, 0),
-					icon = Images["icons/common/search"],
-					layoutOrder = 1,
+		if self.props.disableWebViewSupport then
+			return function()
+				return Roact.createFragment({})
+			end
+		else
+			return function()
+				return Roact.createFragment({
+					filter = Roact.createElement(IconButton, {
+						size = UDim2.fromOffset(0, 0),
+						icon = Images["icons/common/search"],
+						layoutOrder = 1,
 
-					onActivated = function()
-						Logger:info("Going to AddFriends")
-						self.props.analytics:buttonClick("SearchFriends")
-						self.props.analytics:navigate("SearchFriends")
-						self.props.navigateToLuaAppPages[EnumScreens.AddFriends]()
-					end,
-				}),
-				notifications = notifications,
-			})
+						onActivated = function()
+							Logger:info("Going to AddFriends")
+							self.props.analytics:buttonClick("SearchFriends")
+							self.props.analytics:navigate("SearchFriends")
+							self.props.navigateToLuaAppPages[EnumScreens.AddFriends]()
+						end,
+					}),
+					notifications = notifications,
+				})
+			end
 		end
 	end)
 
@@ -231,7 +258,7 @@ end
 function SocialTabPage:getGridItems()
 	local items = { "Chats" }
 
-	if self.props.shouldShowGroupsTilePolicy then
+	if self.props.shouldShowGroupsTilePolicy and not self.props.disableWebViewSupport then
 		table.insert(items, "Groups")
 	end
 
@@ -240,11 +267,12 @@ end
 
 function SocialTabPage:render()
 	return UIBlox.Style.withStyle(function(style)
-		local useSocialPanel = getFFlagSocialPanelIAEnabled()
+		local useSocialPanel = self.props.isDrawerPanel or self.props.isSocialPanelFullScreen
 
 		local headerBar = useSocialPanel
 				and Roact.createElement(SocialPanelHeader, {
 					layoutOrder = 1,
+					isDrawerPanel = self.props.isDrawerPanel,
 					onChatActivated = self.goToChat,
 					onGroupsActivated = self.goToGroups,
 					onAddFriendActivated = self.goToAddFriends,
@@ -258,6 +286,11 @@ function SocialTabPage:render()
 				),
 			})
 
+		local socialPanelTopBarHeight = self.props.topBarHeight
+		if self.props.isDrawerPanel then
+			socialPanelTopBarHeight = socialPanelTopBarHeight + getTopMargin()
+		end
+
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,
@@ -267,6 +300,15 @@ function SocialTabPage:render()
 				VerticalAlignment = Enum.VerticalAlignment.Top,
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
+
+			TopMargin = if self.props.isDrawerPanel
+				then Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					Size = UDim2.fromOffset(0, getTopMargin()),
+					LayoutOrder = 0,
+				})
+				else nil,
 
 			topBar = Roact.createElement("Frame", {
 				LayoutOrder = 1,
@@ -280,7 +322,7 @@ function SocialTabPage:render()
 				onAddFriends = self.goToAddFriends,
 				onGoToFriendsPage = self.goToFriendsLanding,
 				onChatActivated = self.goToChat,
-				topBarHeight = self.props.topBarHeight,
+				topBarHeight = socialPanelTopBarHeight,
 				onRefresh = self.props.refreshPageData,
 			}),
 

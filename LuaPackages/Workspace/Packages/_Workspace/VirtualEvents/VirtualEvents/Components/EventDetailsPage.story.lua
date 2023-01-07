@@ -21,7 +21,7 @@ local function getTimeOffsetByHour(currentTime: DateTime, hourOffset: number)
 end
 
 local controls = {
-	universeId = 2158344278,
+	universeId = 3531439676,
 	hostId = 1,
 	hoursToEventStart = 2,
 	eventDurationHours = 24,

@@ -1,0 +1,3 @@
+local SquadInviteShareLinkButton = require(script.SquadInviteShareLinkButton)
+
+return SquadInviteShareLinkButton

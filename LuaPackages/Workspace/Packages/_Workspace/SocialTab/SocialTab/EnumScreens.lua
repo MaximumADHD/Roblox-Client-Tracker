@@ -19,6 +19,7 @@ return {
 	LearnMore = "LearnMore",
 	PhoneVerification = "PhoneVerification",
 
+	ViewFriends = "ViewFriends",
 	ViewUserProfilePeekView = "ViewUserProfilePeekView",
 
 	VerifiedBadgeModal = "VerifiedBadgeModal",

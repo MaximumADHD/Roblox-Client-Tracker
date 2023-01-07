@@ -72,7 +72,7 @@ afterEach(function()
 end)
 
 it("should render the first image of the VirtualEvent's experience", function()
-	local prev = game:SetFastFlagForTesting("EnableVirtualEventsV0", true)
+	local prev = game:SetFastFlagForTesting("EnableVirtualEventsV1", true)
 
 	local element = withMockProviders({
 		EventTile = React.createElement(EventTile, {
@@ -96,7 +96,7 @@ it("should render the first image of the VirtualEvent's experience", function()
 
 	expect(eventImage.Image).toMatch("rbxassetid://")
 
-	game:SetFastFlagForTesting("EnableVirtualEventsV0", prev)
+	game:SetFastFlagForTesting("EnableVirtualEventsV1", prev)
 end)
 
 if not getFFlagEnableVirtualEvents() then

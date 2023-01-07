@@ -18,6 +18,9 @@ local GetFFlagVoiceARUnblockingUnmutingEnabled = require(RobloxGui.Modules.Flags
 local ReportActionSelection = require(script.Parent.ReportActionSelection)
 local ReportActionAreYouSure = require(script.Parent.ReportActionAreYouSure)
 
+local MobileBreakpoint = 600
+local TabletBreakpoint = 800
+
 local ReportPages = enumerate("ReportPages", {
 	["SelectActions"] = 1,
 	["ConfirmAction"] = 2,
@@ -57,6 +60,18 @@ end
 function ReportConfirmationContainer:init()
 	local player = self.props.player
 	local voiceParticipants = self.props.voiceChatServiceManager.participants
+
+	self:setState({
+		absoluteWidth = 0,
+	})
+
+	if self.props.onSizeChanged then
+		self.props.onSizeChanged:Connect(function(size)
+			self:setState({
+				absoluteWidth = size.X
+			})
+		end)
+	end
 	local targetVoiceParticipant = voiceParticipants[tostring(player.UserId)]
 
 	self.userFullName = player.DisplayName.."(@"..player.Name..")"
@@ -172,8 +187,21 @@ end
 
 function ReportConfirmationContainer:render()
 	return withStyle(function(style)
-		--TODO: Localization https://jira.rbx.com/browse/SOCRTC-2319
 		local currentPage = self.state.currentPage
+
+		local scale = 1.3
+
+		if self.props.onSizeChanged then
+			local absoluteWidth = self.state.absoluteWidth
+
+			if absoluteWidth >= TabletBreakpoint then
+				scale = 1.3
+			elseif absoluteWidth > MobileBreakpoint then
+				scale = 1
+			else
+				scale = absoluteWidth / MobileBreakpoint -- Scales to fit container
+			end
+		end
 
 		local savedMuteState = if self.state.muteFlipped ~= nil then self.state.muteFlipped else false
 		local savedBlockedState = if self.state.blockFlipped ~= nil then self.state.blockFlipped else false
@@ -190,6 +218,7 @@ function ReportConfirmationContainer:render()
 			onMuteCheckboxActivated = self.onMuteCheckboxActivated,
 			onBlockCheckboxActivated = self.onBlockCheckboxActivated,
 			onDoneActivated = self.onActionSelectionDoneActivated,
+			uiScale = scale,
 			ZIndex = self.props.ZIndex,
 		})
 
@@ -206,6 +235,7 @@ function ReportConfirmationContainer:render()
 			isBlocked = self.state.blockFlipped,
 			onCancelActivated = self.onYesOrNoCancel,
 			onConfirmActivated = self.onYesOrNoConfirmation,
+			uiScale = scale,
 			ZIndex = self.props.ZIndex,
 		})
 

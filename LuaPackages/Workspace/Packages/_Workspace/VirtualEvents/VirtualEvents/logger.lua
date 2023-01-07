@@ -1,7 +1,7 @@
 local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 
-local Lumberyak = require(VirtualEvents.Parent.Lumberyak)
+local RobloxAppLoggers = require(VirtualEvents.Parent.RobloxAppLoggers)
 
-local logger = Lumberyak.Logger.new(nil, "VirtualEvents")
+local logger = RobloxAppLoggers.Logger:new("VirtualEvents")
 
 return logger

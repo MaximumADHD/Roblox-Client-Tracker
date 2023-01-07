@@ -2,7 +2,9 @@ local enums = require(script.enums)
 local types = require(script.types)
 
 export type Event = types.Event
+export type Host = types.Host
 export type VirtualEvent = types.VirtualEvent
+export type RsvpStatus = types.RsvpStatus
 
 return {
 	-- Enums
@@ -16,8 +18,12 @@ return {
 	-- Functions
 	installReducer = require(script.installReducer),
 	isEventValid = require(script.Common.isEventValid),
-	sendEventDeferred = require(script.Common.sendEventDeferred),
 	fetchSponsoredEventsOnMorePage = require(script.Common.fetchSponsoredEventsOnMorePage),
+	fireEventDetailsPageVisit = require(script.Analytics.fireEventDetailsPageVisit),
+	fireShareVirtualEventIconClicked = require(script.Analytics.fireShareVirtualEventIconClicked),
+	fireVirtualEventJoined = require(script.Analytics.fireVirtualEventJoined),
+	fireVirtualEventLinkCopied = require(script.Analytics.fireVirtualEventLinkCopied),
+	fireVirtualEventRSVP = require(script.Analytics.fireVirtualEventRSVP),
 
 	-- Hooks
 	useActiveVirtualEvents = require(script.Hooks.useActiveVirtualEvents),

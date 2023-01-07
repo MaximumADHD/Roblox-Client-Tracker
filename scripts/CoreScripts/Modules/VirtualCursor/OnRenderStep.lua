@@ -14,8 +14,6 @@ local Input = require(VirtualCursorFolder.Input)
 local Interface = require(VirtualCursorFolder.Interface)
 local Properties = require(VirtualCursorFolder.Properties)
 
-local FFlagFixVirtualCursorGuiObjectSelectionSorting = game:DefineFastFlag("FixVirtualCursorGuiObjectSelectionSorting", false)
-
 local velocityTarget = 1
 local lastSelectedObject = nil
 local isScrolling = false
@@ -114,23 +112,14 @@ local function processCursorPosition(pos, rad, dt)
 
 		-- If there is no current object, the top most object is set as the closest.
 		-- This is also the top most object
-		if FFlagFixVirtualCursorGuiObjectSelectionSorting and isSelectableGuiObject(object) and not closest then
+		if isSelectableGuiObject(object) and not closest then
 			closest = object
 		end
 
 		-- If two objects have the same parent, measure their distance and sorting then choose closest
 		-- If they don't have the same parent, prefer the current object as it is guaranteed to be on top
 		if isSelectableGuiObject(object) then
-			if FFlagFixVirtualCursorGuiObjectSelectionSorting then
-				if object.Parent == closest.Parent then
-					local newDistance = ((object.AbsolutePosition + object.AbsoluteSize / 2) - pos).Magnitude
-					if newDistance < distance and order <= object.ZIndex then
-						closest = object
-						distance = newDistance
-						order = closest.ZIndex
-					end
-				end
-			else
+			if object.Parent == closest.Parent then
 				local newDistance = ((object.AbsolutePosition + object.AbsoluteSize / 2) - pos).Magnitude
 				if newDistance < distance and order <= object.ZIndex then
 					closest = object

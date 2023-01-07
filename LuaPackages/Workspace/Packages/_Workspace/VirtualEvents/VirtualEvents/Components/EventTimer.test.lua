@@ -14,14 +14,6 @@ local network = require(VirtualEvents.network)
 local VirtualEventModel = network.NetworkingVirtualEvents.VirtualEventModel
 local EventTimer = require(script.Parent.EventTimer)
 
-local now = DateTime.now()
-local past = DateTime.fromUnixTimestamp(now.UnixTimestamp - 60)
-local future = DateTime.fromUnixTimestamp(now.UnixTimestamp + 60)
-
-local mockVirtualEvent = VirtualEventModel.mock("1")
-mockVirtualEvent.eventTime.startTime = now
-mockVirtualEvent.eventTime.endTime = future
-
 local root
 local container
 
@@ -37,20 +29,17 @@ afterEach(function()
 	container:Destroy()
 end)
 
-it("should color the start time differently based on timer status", function()
-	local now = DateTime.now()
+it("should display the start and end dates for the event", function()
+	local startTime = DateTime.fromLocalTime(2022, 1, 1)
+	local endTime = DateTime.fromLocalTime(2022, 1, 3)
+
+	local mockVirtualEvent = VirtualEventModel.mock("1")
+	mockVirtualEvent.eventTime.startTime = startTime
+	mockVirtualEvent.eventTime.endTime = endTime
 
 	local element = withMockProviders({
-		TimerUpcoming = React.createElement(EventTimer, {
-			status = "Upcoming",
+		EventTimer = React.createElement(EventTimer, {
 			virtualEvent = mockVirtualEvent,
-			currentTime = past,
-		}),
-
-		TimerOngoing = React.createElement(EventTimer, {
-			status = "Ongoing",
-			virtualEvent = mockVirtualEvent,
-			currentTime = now,
 		}),
 	})
 
@@ -58,15 +47,34 @@ it("should color the start time differently based on timer status", function()
 		root:render(element)
 	end)
 
-	local timerUpcoming = container:FindFirstChild("TimerUpcoming", true)
-	local startDateUpcoming = timerUpcoming:FindFirstChild("StartDate", true) :: TextLabel
+	local eventTimer = container:FindFirstChild("EventTimer") :: TextLabel
 
-	local timerOngoing = container:FindFirstChild("TimerOngoing", true)
-	local startDateOngoing = timerOngoing:FindFirstChild("StartDate", true) :: TextLabel
+	expect(eventTimer.Text).toBe("SAT, JAN 01 AT 12:00 AM • MON, JAN 03 AT 12:00 AM")
+end)
 
-	expect(startDateUpcoming).toBeDefined()
-	expect(startDateOngoing).toBeDefined()
-	expect(startDateUpcoming.TextColor3).never.toBe(startDateOngoing.TextColor3)
+it("should display a separate message when the event is cancelled", function()
+	local mockVirtualEvent = VirtualEventModel.mock("1")
+	mockVirtualEvent.eventStatus = "cancelled"
+
+	local element = withMockProviders({
+		EventTimer = React.createElement(EventTimer, {
+			virtualEvent = VirtualEventModel.mock("2"),
+		}),
+
+		CancelledEventTimer = React.createElement(EventTimer, {
+			virtualEvent = mockVirtualEvent,
+		}),
+	})
+
+	ReactRoblox.act(function()
+		root:render(element)
+	end)
+
+	local eventTimer = container:FindFirstChild("EventTimer") :: TextLabel
+	local cancelledEventTimer = container:FindFirstChild("CancelledEventTimer") :: TextLabel
+
+	expect(eventTimer.Text).never.toBe(cancelledEventTimer.Text)
+	expect(eventTimer.TextColor3).never.toBe(cancelledEventTimer.TextColor3)
 end)
 
 return {}

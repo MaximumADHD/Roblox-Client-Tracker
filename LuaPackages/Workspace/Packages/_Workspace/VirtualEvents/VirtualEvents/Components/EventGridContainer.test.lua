@@ -74,10 +74,10 @@ end)
 describe("FFlagEnableVirtualEvents", function()
 	local prevEnableVirtualEvents
 	beforeAll(function()
-		prevEnableVirtualEvents = game:SetFastFlagForTesting("EnableVirtualEventsV0", true)
+		prevEnableVirtualEvents = game:SetFastFlagForTesting("EnableVirtualEventsV1", true)
 	end)
 	afterAll(function()
-		game:SetFastFlagForTesting("EnableVirtualEventsV0", prevEnableVirtualEvents)
+		game:SetFastFlagForTesting("EnableVirtualEventsV1", prevEnableVirtualEvents)
 	end)
 
 	it("should display an empty state when no VirtualEvents are active", function()

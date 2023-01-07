@@ -3,17 +3,31 @@ local Players = game:GetService("Players")
 local Packages = script:FindFirstAncestor("GraphQLServer").Parent
 local LuauPolyfill = require(Packages.LuauPolyfill)
 type Promise<T> = LuauPolyfill.Promise<T>
+local UrlBuilder = require(Packages.UrlBuilder).UrlBuilder
+local UrlBase = require(Packages.UrlBuilder).UrlBase
 local generatedTypes = require(script.Parent.Parent.generatedTypes)
 type User = generatedTypes.User
 local Promise = require(Packages.Promise)
 local GraphQLError = require(Packages.GraphQL).GraphQLError
-local fetch = require(Packages.Fetch).fetch
+local fetchModule = require(Packages.Fetch)
+local fetch = fetchModule.fetch
+type fetch = fetchModule.fetch
 local Response = require(Packages.Fetch).Response
 local exports = {}
 
-local function findUserById(id: string): Promise<User>
+local usersUrlPattern = UrlBuilder.new({
+	base = UrlBase.new("users", 1),
+	path = "users/{id}",
+})
+
+local function findUserById(id: string, fetchImpl_: fetch?): Promise<User>
+	local fetchImpl: fetch = if fetchImpl_ then fetchImpl_ else fetch
 	return Promise.new(function(resolve, reject)
-		local userResponse = fetch(string.format("https://users.roblox.com//v1/users/%s", id), {
+		local usersUrl = usersUrlPattern({
+			id = id,
+		})
+
+		local userResponse = fetchImpl(usersUrl, {
 				method = "GET",
 			})
 			:catch(function()
@@ -49,13 +63,13 @@ local function findUserById(id: string): Promise<User>
 end
 exports.findUserById = findUserById
 
-local function findMe(): Promise<User>
-	local LocalPlayer = Players.LocalPlayer
+local function findMe(fetchImpl: fetch?, LocalPlayer_: Player?): Promise<User>
+	local LocalPlayer = if LocalPlayer_ then LocalPlayer_ else Players.LocalPlayer
 	if not LocalPlayer then
 		return Promise.reject(GraphQLError.new("LocalPlayer not found"))
 	end
 	local id = (LocalPlayer :: Player).UserId
-	return findUserById(tostring(id))
+	return findUserById(tostring(id), fetchImpl)
 end
 exports.findMe = findMe
 

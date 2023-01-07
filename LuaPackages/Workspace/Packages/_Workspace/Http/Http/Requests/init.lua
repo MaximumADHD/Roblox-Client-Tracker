@@ -12,7 +12,6 @@ return {
 	GamesGetThumbnails = require(script.GamesGetThumbnails),
 	GamesMultigetPlaceDetails = require(script.GamesMultigetPlaceDetails),
 	GetCanSendAndCanCustomizeInvites = require(script.GetCanSendAndCanCustomizeInvites),
-	GetPlaceInfos = require(script.GetPlaceInfos),
 	PostSendExperienceInvite = require(script.PostSendExperienceInvite),
 	SendGameLinkNotification = require(script.SendGameLinkNotification),
 	ThumbnailsGetAvatar = require(script.ThumbnailsGetAvatar),

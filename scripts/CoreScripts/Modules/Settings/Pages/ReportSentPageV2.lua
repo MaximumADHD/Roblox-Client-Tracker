@@ -15,6 +15,8 @@ local Utility = require(RobloxGuiModules.Settings.Utility)
 local ReportAbuseAnalytics = require(Settings.Analytics.ReportAbuseAnalytics)
 local BlockingAnalytics = require(Settings.Analytics.BlockingAnalytics)
 
+local GetFFlagReportAbuseThankYouPageSizeFix = require(RobloxGui.Modules.Flags.GetFFlagReportAbuseThankYouPageSizeFix)
+
 local ReportConfirmationScreen = require(Settings.Components.ReportConfirmation.ReportConfirmationScreen)
 
 local handle
@@ -77,6 +79,16 @@ function ReportSentPageV2:UpdateMenu()
 		end
 	end)
 
+
+	local SizeChangedProxy
+	if GetFFlagReportAbuseThankYouPageSizeFix() then
+		SizeChangedProxy = Instance.new("BindableEvent")
+		self.SizeChangedSignal = self.Root:GetPropertyChangedSignal("AbsoluteSize")
+		self.SizeChangedSignal:Connect(function()
+			SizeChangedProxy:Fire(self.Root.AbsoluteSize)
+		end)
+	end
+
 	local reportConfirmationScreen = Roact.createElement(ReportConfirmationScreen, {
 		player = {
 			UserId = player.UserId,
@@ -90,6 +102,7 @@ function ReportSentPageV2:UpdateMenu()
 		ZIndex = self.HubRef.Shield.ZIndex+1,
 		reportAbuseAnalytics = reportAbuseAnalytics,
 		blockingAnalytics = blockingAnalytics,
+		onSizeChanged = if GetFFlagReportAbuseThankYouPageSizeFix() then SizeChangedProxy.Event else nil
 	})
 
 	handle = Roact.mount(reportConfirmationScreen, self.Root, "ReportSentPageV2")
@@ -109,6 +122,11 @@ function ReportSentPageV2:HandleDone()
 	if self.settingsShowChangedSignal then
 		self.settingsShowChangedSignal:disconnect()
 		self.settingsShowChangedSignal = nil
+	end
+
+	if self.SizeChangedSignal then
+		self.SizeChangedSignal:disconnect()
+		self.SizeChangedSignal = nil
 	end
 
     self.HubRef:SetVisibility(false, true)

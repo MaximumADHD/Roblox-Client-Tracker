@@ -35,7 +35,7 @@ function debugPrint(text)
 	end
 end
 
-debugPrint("Self View 11-9-2022__2")
+debugPrint("Self View 12-2-2022__1")
 
 local EngineFeatureFacialAnimationStreamingServiceUseV2 = game:GetEngineFeature("FacialAnimationStreamingServiceUseV2")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
@@ -66,9 +66,11 @@ local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSi
 local selfViewCloseButtonSignal = require(RobloxGui.Modules.SelfView.selfViewCloseButtonSignal)
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 local selfViewPublicApi = require(RobloxGui.Modules.SelfView.publicApi)
+local Modules = CoreGui.RobloxGui.Modules
 
 local FFlagSelfViewFixes = require(RobloxGui.Modules.Flags.FFlagSelfViewFixes)
 local FFlagSelfViewMultiTapFix = game:DefineFastFlag("SelfViewMultiTapFix", false)
+local FFlagSelfViewFixesThree = require(Modules.Flags.FFlagSelfViewFixesThree)
 
 local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
@@ -81,6 +83,8 @@ local DEFAULT_SELF_VIEW_CAM_OFFSET = Vector3.new(0, 0.105, -0.25)
 local cloneCharacterName = "SelfAvatar"
 -- seconds to wait to update the clone after something in the original has changed
 local UPDATE_CLONE_CD = 0.35
+--when no usable clone for 5 sec it will hide Self View (not doing it instantly as to not have it flicker on off while swapping avatars)
+local AUTO_HIDE_CD = 5
 local updateCloneCurrentCoolDown = 0
 
 local renderSteppedConnection = nil
@@ -126,6 +130,7 @@ local audioIsEnabled = false
 local videoIsEnabled = false
 local foundStreamTrack = nil
 local gotUsableClone = false
+local noUsableCloneOffset = nil
 local initialized = false
 local cloneCamUpdateCounter = 0
 local selfViewSessionStarted = false
@@ -231,7 +236,7 @@ local function removeChild(model, childName)
 end
 
 function setCloneDirty(dirty)
-	--debugPrint("Self View: setCloneDirty(), dirty: "..tostring(dirty))
+	--debugPrint("Self View: setCloneDirty(), dirty: " .. tostring(dirty))
 	if dirty then
 		updateCloneCurrentCoolDown = UPDATE_CLONE_CD
 	else
@@ -297,11 +302,17 @@ local function inputBegan(frame, inputObj)
 			return
 		end
 
+		local inputType = inputObject.UserInputType
+
 		-- Multiple touches should not affect dragging the Self View. Only the original touch.
-		if FFlagSelfViewMultiTapFix and inputObject ~= inputObj then
+		--the check inputType == Enum.UserInputType.Touch is so it does not block mouse dragging
+		if
+			FFlagSelfViewMultiTapFix
+			and (inputType == Enum.UserInputType.Touch or not FFlagSelfViewFixesThree)
+			and inputObject ~= inputObj
+		then
 			return
 		end
-		local inputType = inputObject.UserInputType
 
 		-- We only care about mouse movements / touches
 		if inputType ~= Enum.UserInputType.MouseMovement and inputType ~= Enum.UserInputType.Touch then
@@ -910,7 +921,8 @@ local function syncTrack(animator, track)
 		--	cloneTrack.TimePosition = track.TimePosition
 		--	cloneTrack:AdjustSpeed(track.Speed)
 	elseif track.Animation:IsA("TrackerStreamAnimation") then
-		cloneTrack = animator:LoadStreamAnimation(track.Animation)
+		local newAnimation = Instance.new("TrackerStreamAnimation")
+		cloneTrack = animator:LoadStreamAnimation(newAnimation)
 		foundStreamTrack = true
 	else
 		warn("No animation to clone in SelfView")
@@ -923,7 +935,11 @@ local function syncTrack(animator, track)
 		cloneTrack.Priority = track.Priority
 		-- listen for track changes
 		trackStoppedConnections[track] = track.Stopped:Connect(function()
-			cloneTrack:Stop()
+			if FFlagSelfViewFixesThree then
+				cloneTrack:Stop(0)
+			else
+				cloneTrack:Stop()
+			end
 			if trackStoppedConnections[track] then
 				trackStoppedConnections[track]:Disconnect()
 			end
@@ -1054,6 +1070,15 @@ local function updateClone(player)
 	-- create clone
 	local previousArchivableValue = character.Archivable
 	character.Archivable = true
+
+	if FFlagSelfViewFixesThree then
+		local orgHead = getHead(character)
+
+		if not orgHead then
+			return
+		end
+	end
+
 	clone = character:Clone()
 	clone.Name = cloneCharacterName
 
@@ -1141,14 +1166,22 @@ local function updateClone(player)
 
 		for index, track in ipairs(clonedTracks) do
 			if track ~= nil then
-				track:Stop()
+				if FFlagSelfViewFixesThree then
+					track:Stop(0)
+				else
+					track:Stop()
+				end
 				track:Destroy()
 			end
 		end
 
 		for index, track in ipairs(coreScriptTracks) do
 			if track ~= nil then
-				track:Stop()
+				if FFlagSelfViewFixesThree then
+					track:Stop(0)
+				else
+					track:Stop()
+				end
 				track:Destroy()
 			end
 		end
@@ -1166,6 +1199,11 @@ local function updateClone(player)
 			)
 
 			gotUsableClone = true
+
+			if FFlagSelfViewFixesThree then
+				--usable clone was set up, cancel potential additional refresh
+				setCloneDirty(false)
+			end
 		else
 			debugPrint("Self View: updateClone: no animator (original)!")
 			-- TODO: we'll add error tracking pre release
@@ -1217,7 +1255,17 @@ local function characterAdded(character)
 		setCloneDirty(true)
 	end)
 	observerInstances[Observer.DescendantRemoving] = character.DescendantRemoving:Connect(function(descendant)
-		setCloneDirty(true)
+		--these checks are to avoid unnecessary additional refreshes
+		if descendant and (descendant:IsA("MeshPart") or descendant:IsA("Accessory")) then
+			if descendant:IsA("MeshPart") then
+				debugPrint("MeshId:" .. tostring(descendant.MeshId))
+				if descendant.MeshId == "" then
+					return
+				end
+			end
+
+			setCloneDirty(true)
+		end
 	end)
 
 	setCloneDirty(true)
@@ -1384,6 +1432,35 @@ function trackSelfViewSessionAsNeeded()
 	end
 end
 
+function frameShouldBeVisible(step, gotUsableClone)
+	local shouldBeEnabledCoreGuiSetting = getShouldBeEnabledCoreGuiSetting()
+
+	if not shouldBeEnabledCoreGuiSetting then
+		return false
+	end
+
+	if gotUsableClone then
+		return true
+	end
+
+	--Self View nabled via coreguisetting but don't have a usable clone, hide after a timeout
+	--hiding after timeout instead of right away as it doesn't feel nice when it goes on and off while quickly swapping avatar parts
+
+	if noUsableCloneOffset == nil then
+		noUsableCloneOffset = 0
+	end
+	noUsableCloneOffset = noUsableCloneOffset + step
+	debugPrint("Self View: noUsableCloneOffset: " .. tostring(noUsableCloneOffset))
+
+	if noUsableCloneOffset > AUTO_HIDE_CD then
+		noUsableCloneOffset = nil
+		return false
+	end
+
+	--no usable clone but countup not done yet
+	return true
+end
+
 function startRenderStepped(player)
 	debugPrint("Self View: startRenderStepped()")
 	stopRenderStepped()
@@ -1439,7 +1516,11 @@ function startRenderStepped(player)
 					local playingAnims = cloneAnimator:GetPlayingAnimationTracks()
 					for _, track in pairs(playingAnims) do
 						if track ~= nil then
-							track:Stop()
+							if FFlagSelfViewFixesThree then
+								track:Stop(0)
+							else
+								track:Stop()
+							end
 						end
 					end
 
@@ -1472,7 +1553,11 @@ function startRenderStepped(player)
 							anim = track.Animation
 							if anim then
 								if not orgAnimationTracks[anim.AnimationId] then
-									cloneAnimationTracks[anim.AnimationId]:Stop()
+									if FFlagSelfViewFixesThree then
+										cloneAnimationTracks[anim.AnimationId]:Stop(0)
+									else
+										cloneAnimationTracks[anim.AnimationId]:Stop()
+									end
 									cloneAnimationTracks[anim.AnimationId] = nil
 								end
 							end
@@ -1587,9 +1672,20 @@ function startRenderStepped(player)
 		end
 
 		if frame then
-			local shouldBeEnabledCoreGuiSetting = getShouldBeEnabledCoreGuiSetting()
-			if frame.Visible ~= gotUsableClone or frame.Visible ~= shouldBeEnabledCoreGuiSetting then
-				frame.Visible = gotUsableClone and shouldBeEnabledCoreGuiSetting
+			if FFlagSelfViewFixesThree then
+				if gotUsableClone then
+					noUsableCloneOffset = nil
+				end
+
+				local shouldBeVisible = frameShouldBeVisible(step, gotUsableClone)
+				if frame.Visible ~= shouldBeVisible then
+					frame.Visible = shouldBeVisible
+				end
+			else
+				local shouldBeEnabledCoreGuiSetting = getShouldBeEnabledCoreGuiSetting()
+				if frame.Visible ~= gotUsableClone or frame.Visible ~= shouldBeEnabledCoreGuiSetting then
+					frame.Visible = gotUsableClone and shouldBeEnabledCoreGuiSetting
+				end
 			end
 
 			trackSelfViewSessionAsNeeded()

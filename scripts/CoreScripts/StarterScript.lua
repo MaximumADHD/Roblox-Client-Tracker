@@ -56,7 +56,7 @@ local GetCoreScriptsLayers = require(CoreGuiModules.Experiment.GetCoreScriptsLay
 
 local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
 
-local GetFFlagEnableKeyboardUINavigation = require(RobloxGui.Modules.Flags.GetFFlagEnableKeyboardUINavigation)
+local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt", false)
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
 game:DefineFastFlag("SelfieViewFeature2", false)
@@ -174,6 +174,11 @@ coroutine.wrap(function()
 	end
 end)()
 
+-- Publish Asset Prompt
+if FFlagAddPublishAssetPrompt then
+	coroutine.wrap(safeRequire)(CoreGuiModules.PublishAssetPrompt)
+end
+
 -- Prompt Block Player Script
 ScriptContext:AddCoreScriptLocal("CoreScripts/BlockPlayerPrompt", RobloxGui)
 ScriptContext:AddCoreScriptLocal("CoreScripts/FriendPlayerPrompt", RobloxGui)
@@ -185,9 +190,7 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/AvatarContextMenu", RobloxGui)
 coroutine.wrap(safeRequire)(RobloxGui.Modules.BackpackScript)
 
 -- Keyboard Navigation :)
-if GetFFlagEnableKeyboardUINavigation() then
-	coroutine.wrap(safeRequire)(RobloxGui.Modules.KeyboardUINavigation)
-end
+coroutine.wrap(safeRequire)(RobloxGui.Modules.KeyboardUINavigation)
 
 -- Emotes Menu
 coroutine.wrap(safeRequire)(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)

@@ -31,6 +31,7 @@ local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManage
 
 local FFlagSelfViewFixes = require(RobloxGui.Modules.Flags.FFlagSelfViewFixes)
 local FFlagSelfViewFixesTwo = require(RobloxGui.Modules.Flags.FFlagSelfViewFixesTwo)
+local FFlagSelfViewFixesThree = require(Modules.Flags.FFlagSelfViewFixesThree)
 
 local PermissionsButtons = Roact.PureComponent:extend("PermissionsButtons")
 
@@ -66,7 +67,7 @@ local function createDivider(layoutOrder)
 	}, {
 		UICorner = Roact.createElement("UICorner", {
 			CornerRadius = UDim.new(0.5, 0),
-		})
+		}),
 	})
 end
 
@@ -92,7 +93,7 @@ function PermissionsButtons:init()
 	if FFlagSelfViewFixesTwo then
 		self.selfViewVisibilityUpdatedSignal = selfViewVisibilityUpdatedSignal:connect(function()
 			self:setState({
-				selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible()
+				selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible(),
 			})
 		end)
 	end
@@ -111,10 +112,13 @@ function PermissionsButtons:init()
 		VoiceChatServiceManager:ToggleMic()
 		-- this.SecondButton.Image = pollImage() TODO Update Icon
 
-		local didDisableMic = not VoiceChatServiceManager.localMuted
-		-- Camera is tied to the microphone being enabled.
-		if didDisableMic and FaceAnimatorService.VideoAnimationEnabled then
-			FaceAnimatorService.VideoAnimationEnabled = false
+		--with latest changes cam is not tied to mic anymore, so we're flagging the removal of the old setup here
+		if not FFlagSelfViewFixesThree then
+			local didDisableMic = not VoiceChatServiceManager.localMuted
+			-- Camera is tied to the microphone being enabled.
+			if didDisableMic and FaceAnimatorService.VideoAnimationEnabled then
+				FaceAnimatorService.VideoAnimationEnabled = false
+			end
 		end
 
 		self:setState({
@@ -132,7 +136,7 @@ function PermissionsButtons:init()
 		FaceAnimatorService.VideoAnimationEnabled = not FaceAnimatorService.VideoAnimationEnabled
 
 		self:setState({
-			cameraEnabled = FaceAnimatorService.VideoAnimationEnabled
+			cameraEnabled = FaceAnimatorService.VideoAnimationEnabled,
 		})
 	end
 
@@ -145,20 +149,23 @@ function PermissionsButtons:init()
 	end
 
 	self.muteChangedEvent = function(muted)
-		-- Video is tied to audio being enabled.
-		if muted and FaceAnimatorService.VideoAnimationEnabled then
-			FaceAnimatorService.VideoAnimationEnabled = false
+		-- Video is not tied to audio being enabled anymore, but flagging the change to remove old behaviour where they were tied together
+		if not FFlagSelfViewFixesThree then
+			-- Video is tied to audio being enabled.
+			if muted and FaceAnimatorService.VideoAnimationEnabled then
+				FaceAnimatorService.VideoAnimationEnabled = false
+			end
 		end
 
 		self:setState({
 			cameraEnabled = FaceAnimatorService.VideoAnimationEnabled,
-			microphoneEnabled = not muted
+			microphoneEnabled = not muted,
 		})
 	end
 
 	self.onSelfViewVisibilityUpdated = function()
 		self:setState({
-			selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible()
+			selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible(),
 		})
 	end
 
@@ -166,7 +173,7 @@ function PermissionsButtons:init()
 		local coreGuiState = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
 		if self.state.showSelfView ~= coreGuiState then
 			self:setState({
-				showSelfView = coreGuiState
+				showSelfView = coreGuiState,
 			})
 		end
 	end
@@ -192,7 +199,9 @@ end
 function PermissionsButtons:render()
 	local shouldShowMicButtons = self.state.hasMicPermissions
 	local shouldShowCameraButtons = self.state.hasCameraPermissions
-	local isTopCloseButton = not self.props.isPortrait and not self.props.isTenFootInterface and not self.props.isSmallTouchScreen
+	local isTopCloseButton = not self.props.isPortrait
+		and not self.props.isTenFootInterface
+		and not self.props.isSmallTouchScreen
 
 	return Roact.createElement("Frame", {
 		AutomaticSize = Enum.AutomaticSize.XY,
@@ -260,10 +269,13 @@ function PermissionsButtons:render()
 			event = StarterGui.CoreGuiChangedSignal,
 			callback = self.onCoreGuiChanged,
 		}),
-		SelfViewVisbilityChangedEvent = FFlagSelfViewFixes and not FFlagSelfViewFixesTwo and Roact.createElement(ExternalEventConnection, {
-			event = selfViewVisibilityUpdatedSignal,
-			callback = self.onSelfViewVisibilityUpdated,
-		}) or nil,
+		SelfViewVisbilityChangedEvent = FFlagSelfViewFixes and not FFlagSelfViewFixesTwo and Roact.createElement(
+			ExternalEventConnection,
+			{
+				event = selfViewVisibilityUpdatedSignal,
+				callback = self.onSelfViewVisibilityUpdated,
+			}
+		) or nil,
 	})
 end
 

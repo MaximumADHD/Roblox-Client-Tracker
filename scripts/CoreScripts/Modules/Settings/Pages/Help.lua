@@ -37,7 +37,6 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 ------------ FFLAGS -------------------
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
-local GetFFlagEnableKeyboardUINavigation = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagEnableKeyboardUINavigation)
 
 ----------- CLASS DECLARATION --------------
 
@@ -202,9 +201,7 @@ local function Initialize()
 
 		local miscActions = {}
 
-		if GetFFlagEnableKeyboardUINavigation() then
-			table.insert(miscActions, {["UI Selection Toggle"] = UserInputService:GetStringForKeyCode(Enum.KeyCode.BackSlash) })
-		end
+		table.insert(miscActions, {["UI Selection Toggle"] = UserInputService:GetStringForKeyCode(Enum.KeyCode.BackSlash) })
 
 		local canShowRecordAndStats = not PolicyService:IsSubjectToChinaPolicies()
 

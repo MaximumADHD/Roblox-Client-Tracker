@@ -9,6 +9,7 @@ local Roact = dependencies.Roact
 local RoactRodux = dependencies.RoactRodux
 local withLocalization = dependencies.withLocalization
 local UniversalAppPolicy = dependencies.UniversalAppPolicy
+local getFFlagSocialPanelIAEnabled = dependencies.getFFlagSocialPanelIAEnabled
 
 local mapStateToProps = require(script.mapStateToProps)
 local mapDispatchToProps = require(script.mapDispatchToProps)
@@ -16,6 +17,8 @@ local SocialTabPage = require(script.Parent.SocialTabPage)
 local UserCarousel = require(SocialTab.UserCarousel)
 
 local SocialTabContainer = Roact.PureComponent:extend("SocialTabContainer")
+
+local GetFFlagHideConnectPageWebViewItemsForVR = dependencies.GetFFlagHideConnectPageWebViewItemsForVR
 
 SocialTabContainer.defaultProps = {}
 
@@ -35,6 +38,16 @@ function SocialTabContainer:render()
 	return withLocalization(self.localization)(function(localizedStrings)
 		return Analytics.with(function(analytics)
 			return SocialTabContext.with(function(context)
+				local isDrawerPanel = false
+				local isSocialPanelFullScreen = false
+				if getFFlagSocialPanelIAEnabled() then
+					local iaExperimentation = context.iaExperimentation
+					if iaExperimentation and iaExperimentation.isEnabled() then
+						isDrawerPanel = iaExperimentation.default:shouldShowSocialPanel()
+						isSocialPanelFullScreen = iaExperimentation.default:shouldShowSocialPanelFullscreen()
+					end
+				end
+
 				return Roact.createElement(
 					SocialTabPage,
 					llama.Dictionary.join(self.props, {
@@ -47,6 +60,8 @@ function SocialTabContainer:render()
 						isLuaProfilePageEnabled = context.isLuaProfilePageEnabled,
 						luaAddFriendsPageEnabled = if context.luaAddFriendsPageEnabled then true else false,
 						luaSelfProfileEnabled = context.luaSelfProfileEnabled,
+						isDrawerPanel = isDrawerPanel,
+						isSocialPanelFullScreen = isSocialPanelFullScreen,
 					}, localizedStrings)
 				)
 			end)
@@ -59,11 +74,15 @@ return compose(
 
 	UniversalAppPolicy.connect(function(appPolicy)
 		local enableNotificationsPolicy = appPolicy.getChatHeaderNotifications()
+		local disableWebViewSupport = if GetFFlagHideConnectPageWebViewItemsForVR()
+			then not appPolicy.getWebViewSupport()
+			else nil
 
 		return {
 			enableDisplayNamePolicy = appPolicy.getShowDisplayName(),
 			shouldShowGroupsTilePolicy = appPolicy.getShouldShowGroupsTile(),
 			enableNotificationsPolicy = enableNotificationsPolicy,
+			disableWebViewSupport = disableWebViewSupport,
 		}
 	end)
 )(SocialTabContainer)

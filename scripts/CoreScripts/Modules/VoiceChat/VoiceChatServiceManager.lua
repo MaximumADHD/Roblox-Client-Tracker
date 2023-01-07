@@ -222,7 +222,8 @@ function VoiceChatServiceManager:asyncInit()
 	end
 	if 
 		GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged()
-		or GetFFlagVoiceChatWatchForMissedSignalROnEventReceived() 
+		or GetFFlagVoiceChatWatchForMissedSignalROnEventReceived()
+		or GetFFlagVoiceChatReportOutOfOrderSequence()
 	then
 		if not self.initPromise then
 			-- Don't keep creating new promises every time asyncInit is called
@@ -344,7 +345,7 @@ function VoiceChatServiceManager:watchSignalR()
 				if GetFFlagVoiceChatWatchForMissedSignalROnEventReceived() then
 					self:onMissedSequence(namespace)
 				end
-			elseif diff < 0 then
+			elseif diff < -1 then  -- Ignore duplicate (-1) messages for now
 				self.Analytics:reportOutOfOrderSequence()
 			end
 		end)
@@ -368,7 +369,7 @@ function VoiceChatServiceManager:watchSignalR()
 						if GetFFlagVoiceChatWatchForMissedSignalROnEventReceived() then
 							self:onMissedSequence(namespace)
 						end
-					elseif diff < 0 then
+					elseif diff < -1 then  -- Duplicate (-1) messages are expected when reconnecting
 						self.Analytics:reportOutOfOrderSequence()
 					end
 				end

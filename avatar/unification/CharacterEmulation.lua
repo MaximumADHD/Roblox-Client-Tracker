@@ -10,7 +10,7 @@ local Character = script.Parent
 local ProxyInstance = require(Character:WaitForChild("ProxyInstance"))
 
 local AestheticPartsGroupExists = false
-for _, group in PhysicsService:GetCollisionGroups() do
+for _, group in PhysicsService:GetRegisteredCollisionGroups() do
 	if group.name == AESTHETIC_PARTS then
 		AestheticPartsGroupExists = true
 	end
@@ -155,7 +155,7 @@ local function setUpAestheticPart(part)
 	maintainPropertyValue(part, "CanTouch", false)
 	maintainPropertyValue(part, "CanQuery", false)
 	if AestheticPartsGroupExists then
-		PhysicsService:SetPartCollisionGroup(part, AESTHETIC_PARTS)
+		part.CollisionGroup = AESTHETIC_PARTS
 	end
 end
 
@@ -169,7 +169,7 @@ local function onHumanoidDied()
 	if AestheticPartsGroupExists then
 		for _, child in Character:GetChildren() do
 			if child:IsA("BasePart") and AestheticParts[child.Name] then
-				PhysicsService:SetPartCollisionGroup(child, "Default")
+				child.CollisionGroup = "Default"
 			end
 		end
 	end

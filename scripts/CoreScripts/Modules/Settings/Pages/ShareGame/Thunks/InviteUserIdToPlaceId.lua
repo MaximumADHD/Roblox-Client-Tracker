@@ -6,7 +6,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 
 local ApiSendGameInvite = require(AppTempCommon.LuaApp.Thunks.ApiSendGameInvite)
-local ApiFetchPlaceInfos = require(AppTempCommon.LuaApp.Thunks.ApiFetchPlaceInfos)
+local ApiFetchPlaceInfos = require(CorePackages.Workspace.Packages.PlaceInfoRodux).Thunks.ApiFetchPlaceInfos
 local Promise = require(AppTempCommon.LuaApp.Promise)
 
 local ReceivedUserInviteStatus = require(ShareGame.Actions.ReceivedUserInviteStatus)

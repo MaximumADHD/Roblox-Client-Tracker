@@ -1,6 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
 local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
 local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
@@ -16,6 +18,10 @@ local GetGameName = require(script.Thunks.GetGameName)
 local AvatarEditorPromptsPolicy = require(script.AvatarEditorPromptsPolicy)
 
 local RoactGlobalConfig = require(script.RoactGlobalConfig)
+
+local ConnectAvatarEditorServiceEvents = require(script.ConnectAvatarEditorServiceEvents)
+
+local FFlagFixAvatarEditorPromptsEventsEarly = require(RobloxGui.Modules.Flags.FFlagFixAvatarEditorPromptsEventsEarly)
 
 local EngineFeatureAESMoreOutfitMethods = game:GetEngineFeature("AESMoreOutfitMethods2")
 
@@ -74,6 +80,10 @@ function AvatarEditorPrompts.new()
 	end
 
 	self.element = Roact.mount(self.root, CoreGui, "AvatarEditorPrompts")
+
+	if FFlagFixAvatarEditorPromptsEventsEarly then
+		self.serviceConnections = ConnectAvatarEditorServiceEvents(self.store)
+	end
 
 	return self
 end

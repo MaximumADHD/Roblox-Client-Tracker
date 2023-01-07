@@ -7,12 +7,16 @@ local GUI_MOUSE_SENSITIVITY_GRANULARITY = 0.01
 
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local CorePackages = game:GetService("CorePackages")
+local UserInputService = game:GetService("UserInputService")
+
+local GameSettings = UserSettings().GameSettings
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local t = InGameMenuDependencies.t
 
 local sensitivityEvents = {
+	UserGameSettings:GetPropertyChangedSignal("IsUsingGamepadCameraSensitivity"),
 	UserGameSettings:GetPropertyChangedSignal("GamepadCameraSensitivity"),
 	UserGameSettings:GetPropertyChangedSignal("MouseSensitivity"),
 	UserGameSettings:GetPropertyChangedSignal("MouseSensitivityFirstPerson"),
@@ -27,26 +31,6 @@ local SliderEntry = require(script.Parent.SliderEntry)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
 
-local FFlagCameraSensitivityAllowGranularKeyboardInput  = game:DefineFastFlag(
-	"CameraSensitivityAllowGranularKeyboardInput",
-	false
-)
-
--- remove with FFlagCameraSensitivityAllowGranularKeyboardInput
-local function guiToEngineSensitivity_DEPRECATED(guiSensitivity)
-	local engineSensitivity
-	if guiSensitivity <= 5 then
-		engineSensitivity = 0.16  * guiSensitivity + 0.2
-	else
-		engineSensitivity = 0.6 * guiSensitivity - 2
-	end
-
-	return math.clamp(
-		engineSensitivity,
-		MIN_ENGINE_MOUSE_SENSITIVITY,
-		MAX_ENGINE_MOUSE_SENSITIVITY
-	)
-end
 
 local function guiToEngineSensitivity(guiSensitivity)
 	local engineSensitivity
@@ -63,23 +47,6 @@ local function guiToEngineSensitivity(guiSensitivity)
 	)
 end
 
-
--- remove with FFlagCameraSensitivityAllowGranularKeyboardInput
-local function engineToGuiSensitivity_DEPRECATED(engineSensitivity)
-	local guiSensitivity
-	if engineSensitivity <= 1 then
-		guiSensitivity = math.floor((engineSensitivity - 0.2) / 0.16 + 0.5)
-	else
-		guiSensitivity = math.floor((engineSensitivity + 2) / 0.6 + 0.5)
-	end
-
-	return math.clamp(
-		guiSensitivity,
-		MIN_GUI_MOUSE_SENSITIVITY,
-		MAX_GUI_MOUSE_SENSITIVITY
-	)
-end
-
 local function engineToGuiSensitivity(engineSensitivity)
 	local guiSensitivity
 	if engineSensitivity <= 1 then
@@ -87,10 +54,6 @@ local function engineToGuiSensitivity(engineSensitivity)
 	else
 		guiSensitivity = (engineSensitivity + 2) / 0.6
 	end
-
-	guiSensitivity = math.floor(
-		guiSensitivity / GUI_MOUSE_SENSITIVITY_GRANULARITY + 0.5
-	) * GUI_MOUSE_SENSITIVITY_GRANULARITY
 
 	return math.clamp(
 		guiSensitivity,
@@ -108,9 +71,16 @@ CameraSensitivityEntry.validateProps = t.strictInterface({
 
 function CameraSensitivityEntry:init()
 	self.onSensitivityChanged = function()
+		local engineSensitivity = 0
+		if UserInputService.GamepadEnabled and GameSettings.IsUsingGamepadCameraSensitivity then
+			engineSensitivity = GameSettings.GamepadCameraSensitivity
+		end
+		if UserInputService.MouseEnabled then
+			engineSensitivity = UserGameSettings.MouseSensitivityFirstPerson.X
+		end
+
 		self:setState({
-			-- TODO: Implement gamepad sensitivity.
-			engineSensitivity = UserGameSettings.MouseSensitivityFirstPerson.X,
+			engineSensitivity = engineSensitivity,
 		})
 	end
 
@@ -118,26 +88,28 @@ function CameraSensitivityEntry:init()
 end
 
 function CameraSensitivityEntry:render()
+
+	local value = tonumber(string.format("%.2f", engineToGuiSensitivity(self.state.engineSensitivity)))
 	local children = {
-		-- TODO: Switch to gamepad sensitivity when appropriate
 		CameraSensitivityMouseSlider = Roact.createElement(SliderEntry, {
 			LayoutOrder = self.props.LayoutOrder,
 			labelKey = "CoreScripts.InGameMenu.GameSettings.CameraSensitivity",
-			value = FFlagCameraSensitivityAllowGranularKeyboardInput
-				and engineToGuiSensitivity(self.state.engineSensitivity)
-				or engineToGuiSensitivity_DEPRECATED(self.state.engineSensitivity),
+			value = value,
 			min = MIN_GUI_MOUSE_SENSITIVITY,
 			max = MAX_GUI_MOUSE_SENSITIVITY,
-			stepInterval = 1,
-			keyboardInputStepInterval = FFlagCameraSensitivityAllowGranularKeyboardInput and
-				GUI_MOUSE_SENSITIVITY_GRANULARITY or nil,
+			stepInterval = 0.1,
+			keyboardInputStepInterval = GUI_MOUSE_SENSITIVITY_GRANULARITY,
 			valueChanged = function(value)
-				local newEngineSensitivity = FFlagCameraSensitivityAllowGranularKeyboardInput
-					and guiToEngineSensitivity(value)
-					or guiToEngineSensitivity_DEPRECATED(value)
-				local engineSensitivityVector = Vector2.new(newEngineSensitivity, newEngineSensitivity)
-				UserGameSettings.MouseSensitivityFirstPerson = engineSensitivityVector
-				UserGameSettings.MouseSensitivityThirdPerson = engineSensitivityVector
+				local newEngineSensitivity = guiToEngineSensitivity(value)
+				if UserInputService.GamepadEnabled and GameSettings.IsUsingGamepadCameraSensitivity then
+					GameSettings.GamepadCameraSensitivity = newEngineSensitivity
+				end
+				if UserInputService.MouseEnabled then
+					local engineSensitivityVector = Vector2.new(newEngineSensitivity, newEngineSensitivity)
+					UserGameSettings.MouseSensitivityFirstPerson = engineSensitivityVector
+					UserGameSettings.MouseSensitivityThirdPerson = engineSensitivityVector
+
+				end
 				SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 			end,
 			canCaptureFocus = self.props.canCaptureFocus,

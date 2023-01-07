@@ -5,6 +5,7 @@ local SocialTabContext = require(SocialTab.SocialTabContext)
 
 local React = dependencies.React
 local UIBlox = dependencies.UIBlox
+local useDispatch = dependencies.useDispatch
 local useLocalization = dependencies.useLocalization
 local useSelector = dependencies.useSelector
 
@@ -24,6 +25,7 @@ local SMALL_BADGE_X_OFFSET = 2
 local SMALL_BADGE_Y_OFFSET = 6
 
 export type Props = {
+	isDrawerPanel: boolean,
 	onChatActivated: any,
 	onGroupsActivated: any,
 	onAddFriendActivated: any,
@@ -41,6 +43,7 @@ local function SocialPanelHeader(props: Props)
 	local onChatActivated = props.onChatActivated
 	local onGroupsActivated = props.onGroupsActivated
 	local onAddFriendActivated = props.onAddFriendActivated
+	local isDrawerPanel = props.isDrawerPanel
 
 	local selection = useSelector(socialPanelHeaderSelector)
 	local friendRequestsCount = selection.friendRequestsCount
@@ -53,6 +56,8 @@ local function SocialPanelHeader(props: Props)
 	local socialContext: any = React.useContext(SocialTabContext.Context)
 
 	local analytics = socialContext.useRoactService(socialContext.roactAnalytics)
+	local closeDrawer = socialContext.closeDrawer
+	local dispatch = useDispatch()
 	local localized = useLocalization({
 		connect = "Feature.SocialTab.Label.Connect",
 	})
@@ -91,9 +96,10 @@ local function SocialPanelHeader(props: Props)
 				FillDirection = Enum.FillDirection.Horizontal,
 			}),
 			Title = React.createElement(StyledTextLabel, {
-				fluidSizing = false,
+				fluidSizing = true,
+				richText = false,
 				size = UDim2.new(1, -ICON_SIZE * 3, 0, HEADER_HEIGHT),
-				fontStyle = style.Font.Title,
+				fontStyle = isDrawerPanel and style.Font.Header1 or style.Font.Title,
 				colorStyle = style.Theme.TextEmphasis,
 				textXAlignment = Enum.TextXAlignment.Left,
 				textYAlignment = Enum.TextYAlignment.Center,
@@ -110,6 +116,7 @@ local function SocialPanelHeader(props: Props)
 						btn = "FriendReqeusts",
 						uid = uid,
 					})
+					dispatch(closeDrawer())
 					onAddFriendActivated()
 				end,
 			}, {
@@ -125,6 +132,7 @@ local function SocialPanelHeader(props: Props)
 					-- 	btn = "Chats",
 					-- 	uid = uid,
 					-- })
+					dispatch(closeDrawer())
 					onChatActivated()
 				end,
 			}, {
@@ -140,6 +148,7 @@ local function SocialPanelHeader(props: Props)
 					-- 	btn = "Groups",
 					-- 	uid = uid,
 					-- })
+					dispatch(closeDrawer())
 					onGroupsActivated()
 				end,
 			}),

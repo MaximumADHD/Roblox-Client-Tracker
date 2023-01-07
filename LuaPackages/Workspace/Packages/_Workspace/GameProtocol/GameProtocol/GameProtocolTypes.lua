@@ -5,6 +5,12 @@ local Types = require(Packages.MessageBus)
 export type LaunchParams = {
 	placeId: string | number | nil,
 	userId: string | number | nil,
+	accessCode: string?,
+	referralPage: string?,
+	gameInstanceId: string?,
+	linkCode: string?,
+	launchData: string?,
+	conversationId: string?,
 }
 
 export type GameProtocol = {

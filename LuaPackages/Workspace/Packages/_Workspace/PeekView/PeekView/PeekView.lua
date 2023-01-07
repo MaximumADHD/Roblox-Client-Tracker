@@ -65,6 +65,8 @@ local InputTypeMap = require(CorePackages.Workspace.Packages.InputType).InputTyp
 local GamepadUtils = require(CorePackages.Workspace.Packages.AppCommonLib).Utils.GamepadUtils
 
 local FeatureAPIScrollVelocity = game:GetEngineFeature("FeatureAPIScrollVelocity")
+local GetFFlagPeekViewClipFramePositionFromBottom =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekViewClipFramePositionFromBottom
 local GetFFlagPeekViewDeprecateFitChildren =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekViewDeprecateFitChildren
 local GetFFlagPeekViewRefactorEnabled =
@@ -237,10 +239,15 @@ function PeekView:init()
 		local height = containerFrame.AbsoluteSize.Y
 
 		clipFrame.Size = UDim2.new(0, width, 0, scrollingFrameCanvasY)
-		clipFrame.Position = UDim2.new(0, 0, 0, height - scrollingFrameCanvasY)
-
 		shadow.Size = UDim2.new(0, width, 0, 36)
-		shadow.Position = UDim2.new(0, 0, 0, height - scrollingFrameCanvasY - 30)
+
+		if GetFFlagPeekViewClipFramePositionFromBottom() then
+			clipFrame.Position = UDim2.new(0, 0, 1, -scrollingFrameCanvasY)
+			shadow.Position = UDim2.new(0, 0, 1, -scrollingFrameCanvasY - 30)
+		else
+			clipFrame.Position = UDim2.new(0, 0, 0, height - scrollingFrameCanvasY)
+			shadow.Position = UDim2.new(0, 0, 0, height - scrollingFrameCanvasY - 30)
+		end
 
 		swipeScrollingFrame.Size = UDim2.new(0, width, 0, height)
 		swipeScrollingFrame.Position = UDim2.new(0, 0, 0, -(height - scrollingFrameCanvasY))

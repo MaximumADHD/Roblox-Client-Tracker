@@ -11,17 +11,21 @@ local UIBlox = dependencies.UIBlox
 local useStyle = UIBlox.Core.Style.useStyle
 local Interactable = UIBlox.Core.Control.Interactable
 local Images = UIBlox.App.ImageSet.Images
-local IconSize = UIBlox.App.Constant.IconSize
+local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local IconButton = UIBlox.App.Button.IconButton
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
+local ImageSetComponent = UIBlox.Core.ImageSet.Label
+local getIconSize = UIBlox.App.ImageSet.getIconSize
 
 local LocalizedKeys = require(SocialTab.Enums.LocalizedKeys)
 
+local useDispatch = dependencies.useDispatch
 local useLocalization = dependencies.useLocalization
 local useSelector = dependencies.useSelector
 
+local TEXT_ICON_PADDING = 4
 local PADDING = 8
 local CARET_HEIGHT = 8
 local CARET_WIDTH = 16
@@ -57,10 +61,12 @@ local function SocialPanelFriendFinder(props: Props)
 	local style = useStyle()
 	local socialContext: any = React.useContext(SocialTabContext.Context)
 
+	local closeDrawer = socialContext.closeDrawer
 	local analytics = socialContext.useRoactService(socialContext.roactAnalytics)
 	local hover, setHover = React.useState(false)
+	local dispatch = useDispatch()
 
-	local headerText = friendsCount ~= 0
+	local headerText = friendsCount > 0
 			and {
 				LocalizedKeys.FriendsHeaderWithCount.rawValue(),
 				friendCount = friendsCount,
@@ -88,6 +94,7 @@ local function SocialPanelFriendFinder(props: Props)
 			btn = "friendsLanding",
 			uid = uid,
 		})
+		dispatch(closeDrawer())
 		props.onGoToFriendsPage()
 	end
 
@@ -96,6 +103,7 @@ local function SocialPanelFriendFinder(props: Props)
 			btn = "AddFriends",
 			uid = uid,
 		})
+		dispatch(closeDrawer())
 		props.onAddFriends()
 	end
 
@@ -119,18 +127,35 @@ local function SocialPanelFriendFinder(props: Props)
 	return React.createElement(React.Fragment, {
 		LayoutOrder = layoutOrder,
 	}, {
-		Title = React.createElement("TextButton", {
-			AutomaticSize = Enum.AutomaticSize.X,
+		Header = React.createElement(Interactable, {
+			Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
 			BackgroundTransparency = 1,
-			Font = style.Font.Header1.Font,
-			Size = UDim2.new(0, 0, 0, HEADER_HEIGHT),
-			Text = localized.headerText,
-			TextColor3 = style.Theme.TextEmphasis.Color,
-			TextSize = style.Font.Header1.RelativeSize * style.Font.BaseSize,
-			TextTransparency = style.Theme.TextEmphasis.Transparency,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Center,
+			AutoButtonColor = false,
 			[React.Event.Activated] = onGoToFriendsPage,
+			onStateChanged = function() end,
+		}, {
+			Title = React.createElement(StyledTextLabel, {
+				fluidSizing = true,
+				richText = false,
+				fontStyle = style.Font.Header1,
+				size = UDim2.new(1, -getIconSize(IconSize.Small) - TEXT_ICON_PADDING, 0, HEADER_HEIGHT),
+				text = localized.headerText,
+				colorStyle = style.Theme.TextEmphasis,
+				textXAlignment = Enum.TextXAlignment.Left,
+				textYAlignment = Enum.TextYAlignment.Center,
+				textTruncate = Enum.TextTruncate.AtEnd,
+			}),
+
+			SeeAllArrow = friendsCount > 0 and React.createElement(ImageSetComponent, {
+				Size = UDim2.fromOffset(getIconSize(IconSize.Small), getIconSize(IconSize.Small)),
+				Position = UDim2.new(1, -getIconSize(IconSize.Small), 0.5, 0),
+				AnchorPoint = Vector2.new(0, 0.5),
+				BackgroundTransparency = 1,
+				Image = Images["icons/navigation/pushRight_small"],
+				ImageColor3 = style.Theme.TextEmphasis.Color,
+				ImageTransparency = style.Theme.TextEmphasis.Transparency,
+				LayoutOrder = 2,
+			}) or nil,
 		}),
 		SearchFriendsBanner = React.createElement(Interactable, {
 			LayoutOrder = layoutOrder,

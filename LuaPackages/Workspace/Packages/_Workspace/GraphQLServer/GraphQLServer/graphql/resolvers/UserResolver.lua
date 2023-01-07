@@ -5,18 +5,18 @@ local findUserById = UserConnectorModule.findUserById
 local findMe = UserConnectorModule.findMe
 local resolvers = {
 	User = {
-		__resolveType = function(_user, _context, _info)
+		__resolveType = function()
 			-- TODO: add logic for handling other User implementation types, e.g. Creator
 			return "Player"
 		end,
 	},
 	Query = {
-		me = function()
-			return findMe()
+		me = function(_root, _args, context)
+			return findMe(context.fetchImpl)
 		end,
-		user = function(_doc, ref0)
+		user = function(_root, ref0, context)
 			local id = ref0.id
-			return findUserById(id)
+			return findUserById(id, context.fetchImpl)
 		end,
 	},
 }

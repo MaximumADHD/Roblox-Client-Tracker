@@ -323,4 +323,8 @@ return{
 	["CoreScripts.InGameMenu.Report.Confirmation.MutedAndBlockedDescriptionWithUser"] = [[Non sarai più in grado di comunicare con @{RBX_NAME}]],
 	["CoreScripts.InGameMenu.Label.MicOnRecording"] = [[Mic acceso (registrazione audio)]],
 	["CoreScripts.InGameMenu.Label.MicOff"] = [[Mic Spento]],
+	["CoreScripts.InGameMenu.Label.Teleporting"] = [[Teletrasportando...]],
+	["CoreScripts.InGameMenu.Label.Copied"] = [[Copiato]],
+	["CoreScripts.InGameMenu.QuickActions.SelfView"] = [[Vista Personale]],
+	["CoreScripts.InGameMenu.QuickActions.Camera"] = [[Telecamera]],
 }

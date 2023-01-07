@@ -507,11 +507,11 @@ return function()
 	describe("VoiceChatServiceManager SignalR watcher", function()
 		describe("checkAndUpdateSequence VoiceChatReportOutOfOrderSequence off", function()
 			beforeAll(function(c)
-				c.reportFlag = game:SetFastFlagForTesting("VoiceChatReportOutOfOrderSequence", false)
+				c.reportFlag = game:SetFastFlagForTesting("VoiceChatReportOutOfOrderSequence2", false)
 			end)
 
 			afterAll(function(c)
-				game:SetFastFlagForTesting("VoiceChatReportOutOfOrderSequence", c.reportFlag)
+				game:SetFastFlagForTesting("VoiceChatReportOutOfOrderSequence2", c.reportFlag)
 			end)
 
 			it("should return true if a sequence increments normally", function()
@@ -560,11 +560,11 @@ return function()
 
 		describe("checkAndUpdateSequence VoiceChatReportOutOfOrderSequence on", function()
 			beforeAll(function(c)
-				c.reportFlag = game:SetFastFlagForTesting("VoiceChatReportOutOfOrderSequence", true)
+				c.reportFlag = game:SetFastFlagForTesting("VoiceChatReportOutOfOrderSequence2", true)
 			end)
 
 			afterAll(function(c)
-				game:SetFastFlagForTesting("VoiceChatReportOutOfOrderSequence", c.reportFlag)
+				game:SetFastFlagForTesting("VoiceChatReportOutOfOrderSequence2", c.reportFlag)
 			end)
 
 			it("should return 0 if a sequence increments normally", function()

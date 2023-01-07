@@ -9,6 +9,10 @@ export type EventTimerStatus = "UpcomingImminent" | "Upcoming" | "Ongoing" | "El
 export type Host = NetworkingVirtualEvents.Host
 export type VirtualEvent = NetworkingVirtualEvents.VirtualEvent
 export type VirtualEventResponse = NetworkingVirtualEvents.VirtualEventResponse
+export type EventStatus = NetworkingVirtualEvents.EventStatus
+export type RsvpResponse = NetworkingVirtualEvents.RsvpResponse
+export type RsvpStatus = NetworkingVirtualEvents.RsvpStatus
+export type RsvpCounters = NetworkingVirtualEvents.RsvpCounters
 
 export type Event = {
 	name: string,

@@ -141,6 +141,25 @@ describe("Notifications", function()
 
 		cleanup()
 	end)
+
+	it("SHOULD NOT show notifications badge or notifications if webview is not supported", function()
+		local parent, cleanup = createInstanceWithProps(SocialTabPage, {
+			analytics = Mock.MagicMock.new(),
+			localUser = mockUser,
+			enableNotificationsPolicy = true,
+			disableWebViewSupport = true,
+			numberOfNotifications = 10,
+		}, UDim2.new(1, 0, 1, 0))
+
+		local topBarNotifications =
+			RhodiumHelpers.findFirstInstance(parent, findImageSet("icons/common/notificationOn"))
+		local notificationsBadge = RhodiumHelpers.findFirstInstance(parent, { Name = "notificationsBadge" })
+
+		expect(topBarNotifications).toBeNil()
+		expect(notificationsBadge).toBeNil()
+
+		cleanup()
+	end)
 end)
 
 describe("Groups Tile display policy", function()

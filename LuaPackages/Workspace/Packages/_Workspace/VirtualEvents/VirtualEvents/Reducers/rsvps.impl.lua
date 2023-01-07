@@ -9,6 +9,10 @@ type PageState = {
 	prevPageCursor: string,
 }
 
+type CountersState = {
+	[string]: NetworkingVirtualEvents.RsvpCounters,
+}
+
 type ByVirtualEventIdState = {
 	[string]: {
 		[string]: {
@@ -20,6 +24,7 @@ type ByVirtualEventIdState = {
 
 export type State = {
 	page: PageState,
+	counters: CountersState,
 	byVirtualEventId: ByVirtualEventIdState,
 }
 
@@ -33,6 +38,20 @@ return function(NetworkingVirtualEvents: any, Players: Players)
 				nextPageCursor = action.responseBody.nextPageCursor,
 				prevPageCursor = action.responseBody.prevPageCursor,
 			}
+		end,
+	})
+
+	local counters = Rodux.createReducer({}, {
+		[NetworkingVirtualEvents.GetVirtualEventRsvpCounts.Succeeded.name] = function(state: State, action: any)
+			local virtualEventId = action.ids[1]
+
+			return Cryo.Dictionary.join(state, {
+				[virtualEventId] = action.responseBody.counters,
+			})
+		end,
+
+		[NetworkingVirtualEvents.GetVirtualEventRsvpCounts.Failed.name] = function(state: State, action: any)
+			return state
 		end,
 	})
 
@@ -77,6 +96,7 @@ return function(NetworkingVirtualEvents: any, Players: Players)
 
 	local rsvps = Rodux.combineReducers({
 		page = page,
+		counters = counters,
 		byVirtualEventId = byVirtualEventId,
 	})
 

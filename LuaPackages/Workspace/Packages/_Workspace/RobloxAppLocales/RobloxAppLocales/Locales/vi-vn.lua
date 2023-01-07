@@ -227,6 +227,7 @@ Thử lại đã bị vô hiệu hóa, vui lòng quay lại sau để thử lạ
 	["CommonUI.Features.Label.Discover"] = [[Khám phá]],
 	["CommonUI.Features.Label.Billing"] = [[Thanh toán]],
 	["CommonUI.Features.Label.Trades"] = [[Trao đổi]],
+	["CommonUI.Features.Label.OfficialStore"] = [[Cửa hàng Chính thức]],
 	["CommonUI.Features.Label.GiftCards"] = [[Thẻ Quà tặng]],
 	["CommonUI.Features.Label.DisplayName"] = [[Tên hiển thị]],
 	["CommonUI.Features.Label.Premium"] = [[Gói Premium]],

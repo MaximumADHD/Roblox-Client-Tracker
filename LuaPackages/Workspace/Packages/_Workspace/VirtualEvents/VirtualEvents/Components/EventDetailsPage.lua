@@ -3,25 +3,26 @@ local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 local Cryo = require(VirtualEvents.Parent.Cryo)
 local React = require(VirtualEvents.Parent.React)
 local UIBlox = require(VirtualEvents.Parent.UIBlox)
+local useDispatch = require(VirtualEvents.Parent.RoactUtils).Hooks.RoactRodux.useDispatch
 local getEventTimerStatus = require(VirtualEvents.Common.getEventTimerStatus)
-local getEventButtonProps = require(VirtualEvents.Common.getEventButtonProps)
-local getEventRSVPStatus = require(VirtualEvents.Common.getEventRSVPStatus)
 local findFirstImageInMedia = require(VirtualEvents.Common.findFirstImageInMedia)
 local useVirtualEventMedia = require(VirtualEvents.Hooks.useVirtualEventMedia)
 local useExperienceDetails = require(VirtualEvents.Hooks.useExperienceDetails)
+local useActionBarProps = require(VirtualEvents.Hooks.useActionBarProps)
 local EventTimer = require(VirtualEvents.Components.EventTimer)
 local EventDescription = require(VirtualEvents.Components.EventDescription)
 local EventHostedBy = require(VirtualEvents.Components.EventHostedBy)
+local Attendance = require(VirtualEvents.Components.Attendance)
 local ExperienceMediaModel = require(VirtualEvents.Models.ExperienceMediaModel)
+local network = require(VirtualEvents.network)
 local types = require(VirtualEvents.types)
 
 local DetailsPageTemplate = UIBlox.App.Template.DetailsPage.DetailsPageTemplate
 local ContentPositionEnum = UIBlox.App.Template.DetailsPage.Enum.ContentPosition
 local MediaGalleryPreview = UIBlox.App.Container.MediaGalleryPreview
-local Images = UIBlox.App.ImageSet.Images
+local ListTable = UIBlox.App.Table.ListTable
 local noop = function() end
 
-local EVENT_HOSTED_BY_HEIGHT = 56
 local THUMBNAILS_COUNT = 5
 
 local function getGalleryItems(media: { ExperienceMediaModel.Response })
@@ -47,9 +48,9 @@ export type BaseProps = {
 	currentTime: DateTime,
 	onClose: (() -> ())?,
 	onJoinEvent: (() -> ())?,
-	onRSVPEvent: (() -> ())?,
-	onRescindEvent: (() -> ())?,
+	onRsvpChanged: ((newRsvpStatus: types.RsvpStatus) -> ())?,
 	onExperienceTileActivated: (() -> ())?,
+	onHostActivated: ((host: types.Host) -> ())?,
 	onShare: (() -> ())?,
 }
 
@@ -60,8 +61,6 @@ export type Props = BaseProps & {
 local defaultProps = {
 	onClose = noop,
 	onJoinEvent = noop,
-	onRSVPEvent = noop,
-	onRescindEvent = noop,
 	onShare = noop,
 }
 
@@ -69,11 +68,9 @@ type InternalProps = typeof(defaultProps) & Props
 
 local function EventDetailsPage(props: Props)
 	local joinedProps: InternalProps = Cryo.Dictionary.join(defaultProps, props)
+	local dispatch = useDispatch()
 	local media = useVirtualEventMedia(joinedProps.virtualEvent)
 	local experienceDetails = useExperienceDetails(joinedProps.virtualEvent.universeId)
-	local eventStatus = getEventTimerStatus(joinedProps.virtualEvent, joinedProps.currentTime)
-	local rsvpStatus = getEventRSVPStatus(joinedProps.virtualEvent)
-	local buttonProps = getEventButtonProps(eventStatus, rsvpStatus, joinedProps)
 	local firstImage = if media then findFirstImageInMedia(media) else nil
 
 	local galleryHeight, setGalleryHeight = React.useState(0)
@@ -81,6 +78,12 @@ local function EventDetailsPage(props: Props)
 	local galleryItems = React.useMemo(function()
 		return if media then getGalleryItems(media) else {}
 	end, { media })
+
+	local eventStatus = (
+		React.useMemo(function()
+			return getEventTimerStatus(joinedProps.virtualEvent, joinedProps.currentTime)
+		end, { joinedProps.virtualEvent, joinedProps.currentTime } :: { any })
+	) :: any
 
 	local onSizeChanged = React.useCallback(function(container: Frame)
 		local containerWidth = container.AbsoluteSize.X
@@ -91,11 +94,33 @@ local function EventDetailsPage(props: Props)
 		end
 	end, { galleryHeight })
 
+	local onRsvpChanged = React.useCallback(function()
+		local newRsvpStatus: types.RsvpStatus
+		if joinedProps.virtualEvent.userRsvpStatus ~= "going" then
+			newRsvpStatus = "going"
+		else
+			newRsvpStatus = "notGoing"
+		end
+
+		if joinedProps.onRsvpChanged then
+			joinedProps.onRsvpChanged(newRsvpStatus)
+		end
+
+		dispatch(network.NetworkingVirtualEvents.UpdateMyRsvpStatus.API(joinedProps.virtualEvent.id, newRsvpStatus))
+	end, { joinedProps.virtualEvent })
+
+	local actionBarProps = useActionBarProps(joinedProps.virtualEvent, eventStatus, {
+		onClose = joinedProps.onClose,
+		onJoinEvent = joinedProps.onJoinEvent,
+		onShare = joinedProps.onShare,
+		onRsvpChanged = onRsvpChanged,
+	})
+
 	return React.createElement(DetailsPageTemplate, {
 		isMobile = true, -- TODO: EN-1467 Setup breakpoints for mobile and desktop
 		titleText = joinedProps.virtualEvent.title,
 		thumbnailImageUrl = firstImage,
-		thumbnailAspectRatio = Vector2.new(267, 150),
+		thumbnailAspectRatio = Vector2.new(16, 9),
 		renderInfoContent = function()
 			return React.createElement(EventTimer, {
 				virtualEvent = joinedProps.virtualEvent,
@@ -103,40 +128,23 @@ local function EventDetailsPage(props: Props)
 				currentTime = joinedProps.currentTime,
 			})
 		end,
-		actionBarProps = {
-			button = if eventStatus == "Elapsed"
-				then nil
-				else {
-					props = buttonProps,
-				},
-			icons = {
-				{
-					props = {
-						anchorPoint = Vector2.new(0.5, 0.5),
-						position = UDim2.fromScale(0.5, 0.5),
-						icon = Images["icons/actions/share"],
-						userInteractionEnabled = true,
-						onActivated = joinedProps.onShare,
-					},
-				},
-			},
-		},
+		actionBarProps = actionBarProps,
 		componentList = {
-			Description = {
-				portraitLayoutOrder = 2,
-				landscapePosition = ContentPositionEnum.Left,
-				landscapeLayoutOrder = 1,
-				renderComponent = function()
-					return React.createElement(EventDescription, {
-						description = if experienceDetails then experienceDetails.description else nil,
-						experienceName = if experienceDetails then experienceDetails.name else nil,
-						experienceThumbnail = firstImage,
-						onExperienceTileActivated = joinedProps.onExperienceTileActivated,
-					})
-				end,
-			},
+			Attendance = if eventStatus ~= "Elapsed"
+				then {
+					portraitLayoutOrder = 1,
+					landscapePosition = ContentPositionEnum.Left,
+					landscapeLayoutOrder = 1,
+					renderComponent = function()
+						return React.createElement(Attendance, {
+							virtualEvent = props.virtualEvent,
+							eventStatus = eventStatus,
+						})
+					end,
+				}
+				else nil,
 			MediaGallery = {
-				portraitLayoutOrder = 1,
+				portraitLayoutOrder = 2,
 				landscapePosition = ContentPositionEnum.Right,
 				landscapeLayoutOrder = 1,
 				renderComponent = function()
@@ -152,20 +160,36 @@ local function EventDetailsPage(props: Props)
 					})
 				end,
 			},
-			EventHostedBy = {
-				portraitLayoutOrder = 1,
+			Description = {
+				portraitLayoutOrder = 3,
+				landscapePosition = ContentPositionEnum.Left,
+				landscapeLayoutOrder = 2,
+				renderComponent = function()
+					return React.createElement(EventDescription, {
+						description = if experienceDetails then experienceDetails.description else nil,
+						experienceName = if experienceDetails then experienceDetails.name else nil,
+						experienceThumbnail = firstImage,
+						onExperienceTileActivated = joinedProps.onExperienceTileActivated,
+					})
+				end,
+			},
+			EventInfo = {
+				portraitLayoutOrder = 4,
 				landscapePosition = ContentPositionEnum.Right,
 				landscapeLayoutOrder = 2,
 				renderComponent = function()
-					return React.createElement(EventHostedBy, {
-						host = joinedProps.virtualEvent.host,
-						size = UDim2.new(1, 0, 0, EVENT_HOSTED_BY_HEIGHT),
+					return React.createElement(ListTable, {
+						cells = {
+							React.createElement(EventHostedBy, {
+								host = joinedProps.virtualEvent.host,
+								onActivated = joinedProps.onHostActivated,
+							}),
+						},
 					})
 				end,
 			},
 		},
 		onClose = joinedProps.onClose,
-		bannerImageUrl = firstImage,
 	})
 end
 

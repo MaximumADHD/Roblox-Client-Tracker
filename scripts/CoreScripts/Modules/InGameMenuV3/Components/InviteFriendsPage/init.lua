@@ -6,7 +6,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GuiService = game:GetService("GuiService")
 
 local ExternalContentSharingProtocol
-	= require(CorePackages.UniversalApp.ExternalContentSharing.ExternalContentSharingProtocol).default
+	= require(CorePackages.Workspace.Packages.ExternalContentSharingProtocol).ExternalContentSharingProtocol.default
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -53,7 +53,7 @@ local SearchBar = require(script.Parent.SearchBar)
 local Flags = InGameMenu.Flags
 local GetFFlagUsePageSearchAnimation = require(Flags.GetFFlagUsePageSearchAnimation)
 local GetFFlagShareInviteLinkContextMenuV3Enabled = require(Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
-local GetFFlagLuaAppNewShareSheet = require(CorePackages.UniversalApp.ExternalContentSharing.Flags.GetFFlagLuaAppNewShareSheet)
+local GetFFlagLuaAppNewShareSheet = require(CorePackages.Workspace.Packages.ExternalContentSharingProtocol).Flags.GetFFlagLuaAppNewShareSheet
 local GetFFlagShareInviteLinkContextMenuV3DisableIconFixEnabled =
 	require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3DisableIconFixEnabled)
 local GetFFlagShareInviteLinkContextMenuV3ConsoleFix =

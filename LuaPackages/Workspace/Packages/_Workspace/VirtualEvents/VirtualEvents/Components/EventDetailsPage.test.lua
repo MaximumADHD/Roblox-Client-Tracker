@@ -117,4 +117,40 @@ it("should use the experience details' description", function()
 	expect(description.Text).toBe(mockExperienceDetails.description)
 end)
 
+it("should never show the attendance list when the event is over", function()
+	local now = DateTime.now()
+
+	local activeVirtualEvent = VirtualEventModel.mock("1")
+	activeVirtualEvent.eventTime.startTime = now
+	activeVirtualEvent.eventTime.endTime = DateTime.fromUnixTimestamp(now.UnixTimestamp + 60)
+
+	local endedVirtualEvent = VirtualEventModel.mock("2")
+	endedVirtualEvent.eventTime.startTime = DateTime.fromUnixTimestamp(now.UnixTimestamp - 120)
+	endedVirtualEvent.eventTime.endTime = DateTime.fromUnixTimestamp(now.UnixTimestamp - 60)
+
+	local element = withMockProviders({
+		ActiveEvent = React.createElement(EventDetailsPage, {
+			virtualEvent = activeVirtualEvent,
+			currentTime = now,
+		}),
+
+		EndedEvent = React.createElement(EventDetailsPage, {
+			virtualEvent = endedVirtualEvent,
+			currentTime = now,
+		}),
+	}, {
+		store = store,
+	})
+
+	ReactRoblox.act(function()
+		root:render(element)
+	end)
+
+	local activeEvent = container:FindFirstChild("ActiveEvent")
+	expect(activeEvent:FindFirstChild("Attendance", true)).toBeDefined()
+
+	local endedEvent = container:FindFirstChild("EndedEvent")
+	expect(endedEvent:FindFirstChild("Attendance", true)).toBeUndefined()
+end)
+
 return {}

@@ -740,7 +740,6 @@ local function Initialize()
 		end
 
 		submitButton, submitText = utility:MakeStyledButton("SubmitButton", "Submit", UDim2.new(0,198,0,50), onReportSubmitted, this)
-
 		submitButton.AnchorPoint = Vector2.new(0.5,0)
 		submitButton.Position = UDim2.new(0.5,0,1,5)
 

@@ -1,0 +1,3 @@
+return {
+	StudioPresenceTextGlobal = "Roblox Studio",
+}

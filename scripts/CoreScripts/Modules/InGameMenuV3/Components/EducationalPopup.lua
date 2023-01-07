@@ -23,7 +23,6 @@ local UserLocalStore = require(InGameMenu.Utility.UserLocalStore)
 local NotificationType = GuiService:GetNotificationTypeList()
 
 local GetFFlagLuaAppExitModal = require(InGameMenu.Flags.GetFFlagLuaAppExitModal)
-local FFlagInGameV3ExitModalDoNotShow = game:DefineFastFlag("InGameV3ExitModalDoNotShow", false)
 
 local LOCAL_STORAGE_KEY_NATIVE_CLOSE = "NativeCloseLuaPromptDisplayCount"
 local EducationalAnalytics = {
@@ -50,7 +49,7 @@ EducationalPopup.validateProps = t.strictInterface({
 
 function EducationalPopup:init()
 	self.onCancel = function(doNotShow)
-		if FFlagInGameV3ExitModalDoNotShow and doNotShow then
+		if doNotShow then
 			dontShowAgain()
 		end
 
@@ -68,9 +67,7 @@ function EducationalPopup:render()
 			bodyTextClickHome = "CoreScripts.InGameMenu.ExitModal.BodyTextClickHome",
 			actionExit = "CoreScripts.InGameMenu.ExitModal.ActionExit",
 			actionHome = "CoreScripts.InGameMenu.ExitModal.ActionHome",
-			optionDontShow = if FFlagInGameV3ExitModalDoNotShow
-				then "CoreScripts.InGameMenu.ExitModal.OptionDontShow"
-				else nil,
+			optionDontShow = "CoreScripts.InGameMenu.ExitModal.OptionDontShow",
 		})(function(localized)
 			return Roact.createElement(EducationalPopupDialog, {
 				bodyContents = {
@@ -85,8 +82,8 @@ function EducationalPopup:render()
 				},
 				cancelText = localized.actionExit,
 				confirmText = localized.actionHome,
-				hasDoNotShow = if FFlagInGameV3ExitModalDoNotShow then true else nil,
-				doNotShowText = if FFlagInGameV3ExitModalDoNotShow then localized.optionDontShow else nil,
+				hasDoNotShow = true,
+				doNotShowText = localized.optionDontShow,
 				titleBackgroundImageProps = {
 					image = "rbxasset://textures/ui/LuaApp/graphic/Auth/GridBackground.jpg",
 					imageHeight = 200,
@@ -109,9 +106,7 @@ function EducationalPopup:render()
 			titleText = "CoreScripts.InGameMenu.EducationalPopup.Title",
 			confirmText = "CoreScripts.InGameMenu.Ok",
 			cancelText = "CoreScripts.InGameMenu.EducationalPopup.LeaveRoblox",
-			optionDontShow = if FFlagInGameV3ExitModalDoNotShow
-				then "CoreScripts.InGameMenu.ExitModal.OptionDontShow"
-				else nil,
+			optionDontShow = "CoreScripts.InGameMenu.ExitModal.OptionDontShow",
 		})(function(localized)
 			return Roact.createElement(EducationalPopupDialog, {
 				bodyContents = {
@@ -134,8 +129,8 @@ function EducationalPopup:render()
 				},
 				cancelText = localized.cancelText,
 				confirmText = localized.confirmText,
-				hasDoNotShow = if FFlagInGameV3ExitModalDoNotShow then true else nil,
-				doNotShowText = if FFlagInGameV3ExitModalDoNotShow then localized.optionDontShow else nil,
+				hasDoNotShow = true,
+				doNotShowText = localized.optionDontShow,
 				titleText = localized.titleText,
 				titleBackgroundImageProps = {
 					image = "rbxasset://textures/ui/LuaApp/graphic/EducationalBackground.png",
@@ -174,7 +169,7 @@ return RoactRodux.UNSTABLE_connect2(
 				SendAnalytics(EducationalAnalytics.EventContext, EducationalAnalytics.DismissName, {})
 			end,
 			onConfirm = function(doNotShow)
-				if FFlagInGameV3ExitModalDoNotShow and doNotShow then
+				if doNotShow then
 					dontShowAgain()
 				end
 

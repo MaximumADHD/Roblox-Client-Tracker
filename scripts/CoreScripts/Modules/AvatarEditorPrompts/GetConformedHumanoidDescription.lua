@@ -4,7 +4,7 @@ local CorePackages = game:GetService("CorePackages")
 
 local Promise = require(CorePackages.Promise)
 
--- Cache this here for convience so if we get the result for the HumanoidViewport we can use it again for
+-- Cache this here for convenience so if we get the result for the HumanoidViewport we can use it again for
 -- calling PerformSaveAvatar/PerformCreateOutfit without needing to pass it through the store.
 local lastHumanoidDescription = nil
 local lastConformedDescription = nil

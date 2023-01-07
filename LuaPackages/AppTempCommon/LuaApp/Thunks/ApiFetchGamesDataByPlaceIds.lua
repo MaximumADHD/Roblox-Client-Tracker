@@ -1,8 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
-local ApiFetchGameIcons = require(CorePackages.AppTempCommon.LuaApp.Thunks.ApiFetchGameIcons)
+local ApiFetchGameIcons = require(CorePackages.Workspace.Packages.GameIconRodux).Thunks.ApiFetchGameIcons
 local Functional = require(CorePackages.Workspace.Packages.AppCommonLib).Functional
 local GamesMultigetPlaceDetails = require(CorePackages.Workspace.Packages.Http).Requests.GamesMultigetPlaceDetails
-local PlaceInfoModel = require(CorePackages.AppTempCommon.LuaChat.Models.PlaceInfoModel)
+local PlaceInfoModel = require(CorePackages.Workspace.Packages.PlaceInfoRodux).Models.PlaceInfoModel
 local ReceivedPlacesInfos = require(CorePackages.AppTempCommon.LuaApp.Actions.ReceivedPlacesInfos)
 
 local convertUniverseIdToString = require(CorePackages.Workspace.Packages.SharedFlags).ConvertUniverseIdToString

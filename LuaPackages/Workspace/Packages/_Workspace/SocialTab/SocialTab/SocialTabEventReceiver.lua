@@ -4,7 +4,6 @@
 --* Friendship updates (aka FriendshipCreated and FriendshipDestroyed) are currently listened to in src/internal/LuaApp/Modules/LuaApp/Components/EventReceivers/FriendshipEventReceiver.lua.
 --* Friend request updates (aka FriendshipRequested) are currently listened to in src/internal/LuaApp/Modules/LuaApp/Components/EventReceivers/FriendRequestsEventReceiver.lua or src/internal/LuaApp/Modules/LuaApp/Components/EventReceivers/FriendsRequestEventListener.lua
 --* DisplayName updates (aka DisplayNameNotifications) src/internal/LuaApp/Modules/LuaApp/Components/EventReceivers/DisplayNameEventReceiver.lua
-
 local SocialTab = script.Parent
 local dependencies = require(SocialTab.dependencies)
 
@@ -12,6 +11,7 @@ local Roact = dependencies.Roact
 local RoactRodux = dependencies.RoactRodux
 local RoduxFriends = dependencies.RoduxFriends
 local RoduxUsers = dependencies.RoduxUsers
+
 local GetUnreadConversationCount = require(SocialTab.Conversations.NetworkRequests.GetUnreadConversationCount)
 local RoduxNetworking = dependencies.RoduxNetworking
 local NetworkingFriends = dependencies.NetworkingFriends
@@ -29,6 +29,12 @@ function SocialTabEventReceiver:init()
 
 	self.lastSeqNumByNamespace = {}
 	self.lastConnectionState = Enum.ConnectionState.Connected
+
+	local socialPanelNotifications = false
+	if self.props.iaExperimentation then
+		socialPanelNotifications = self.props.iaExperimentation.default:shouldShowSocialPanel()
+			or self.props.iaExperimentation.default:shouldShowSocialPanelFullscreen()
+	end
 
 	local function updateLastSequenceNumber(namespace, sequenceNumber)
 		self.lastSeqNumByNamespace[namespace] = sequenceNumber
@@ -131,9 +137,15 @@ function SocialTabEventReceiver:init()
 		end),
 
 		-- RoactChat's event receiver system handles navigating to the appropriate conversation, we need to go to chat tile
-		robloxEventReceiver:observeEvent("AppShellNotifications", function(_detail, detailType)
+		robloxEventReceiver:observeEvent("AppShellNotifications", function(detail, detailType)
 			if detailType == "StartConversationWithUserId" or detailType == "StartConversationWithId" then
-				self.props.goToChat()
+				if socialPanelNotifications then
+					if self.props.onStartConversationNotification then
+						self.props.onStartConversationNotification(detail, detailType)
+					end
+				else
+					self.props.goToChat()
+				end
 			end
 		end),
 
