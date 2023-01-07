@@ -88,12 +88,8 @@ function AccordionView:init()
 			local itemWidth = self.props.itemWidth
 			local minimumHeight = self:getCompactTotalHeight()
 
-			self.rootFrameRef.current.Size = UDim2.new(
-				0,
-				itemWidth,
-				0,
-				math.max(rbx.AbsoluteContentSize.Y, minimumHeight)
-			)
+			self.rootFrameRef.current.Size =
+				UDim2.new(0, itemWidth, 0, math.max(rbx.AbsoluteContentSize.Y, minimumHeight))
 		end
 	end
 end

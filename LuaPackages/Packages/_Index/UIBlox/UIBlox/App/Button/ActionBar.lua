@@ -163,10 +163,9 @@ function ActionBar:renderWithLayoutFix()
 					NextSelectionLeft = self.getGamepadNextSelectionLeft(iconButtonIndex, buttonRefNumber),
 					NextSelectionRight = self.getGamepadNextSelectionRight(iconButtonIndex, buttonRefNumber),
 					inputBindings = {
-						Activated = iconButtonProps.onActivated and RoactGamepad.Input.onBegin(
-							Enum.KeyCode.ButtonA,
-							iconButtonProps.onActivated
-						) or nil,
+						Activated = iconButtonProps.onActivated
+								and RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, iconButtonProps.onActivated)
+							or nil,
 					},
 				}
 
@@ -274,10 +273,9 @@ function ActionBar:renderLegacy()
 					NextSelectionLeft = iconButtonIndex > 1 and self.buttonRefs[iconButtonIndex - 1] or nil,
 					NextSelectionRight = iconButtonIndex < iconNumber and self.buttonRefs[iconButtonIndex + 1] or nil,
 					inputBindings = {
-						Activated = iconButtonProps.onActivated and RoactGamepad.Input.onBegin(
-							Enum.KeyCode.ButtonA,
-							iconButtonProps.onActivated
-						) or nil,
+						Activated = iconButtonProps.onActivated
+								and RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, iconButtonProps.onActivated)
+							or nil,
 					},
 				}
 

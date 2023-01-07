@@ -31,16 +31,6 @@ HeaderBar.renderLeft = {
 			})
 		end
 	end,
-	backButtonSecondary = function(onActivated)
-		return function(_)
-			return Roact.createElement(IconButton, {
-				size = UDim2.fromOffset(0, 0),
-				iconSize = IconSize.Medium,
-				icon = Images["icons/navigation/pushBack_small"],
-				onActivated = onActivated,
-			})
-		end
-	end,
 }
 
 HeaderBar.validateProps = t.strictInterface({
@@ -70,6 +60,9 @@ HeaderBar.validateProps = t.strictInterface({
 
 	-- An optional boolean that, when true, applies secondary header bar styling (smaller font, vertical divider)
 	isSecondary = t.optional(t.boolean),
+
+	-- An optional boolean that, when true, hides secondary left item (i.e. title, divider, and renderLeft prop)
+	shouldHideSecondaryLeftItem = t.optional(t.boolean),
 })
 
 -- default values are taken from Abstract
@@ -119,39 +112,29 @@ function HeaderBar:render()
 			end
 		end
 
-		-- Make center fixed-width components in the center, e.g search bar
-		if renderLeft and renderCenter and renderRight then
-			estimatedCenterWidth = 0
-		end
+		if
+			self.props.isSecondary
+			and not isRoot
+			and not self.props.shouldHideSecondaryLeftItem
+			and string.len(self.props.title) > 0
+		then
+			local textFontStyle = font.Header2
+			local textSize = textFontStyle.RelativeSize * font.BaseSize
 
-		if not renderCenter and not isRoot then
-			local centerTextFontStyle = if self.props.isSecondary then font.Header2 else font.Header1
-			local centerTextSize = centerTextFontStyle.RelativeSize * font.BaseSize
-
-			if not self.props.isSecondary then
-				renderCenter = function()
-					return Roact.createElement(GenericTextLabel, {
-						ClipsDescendants = true,
-						Size = UDim2.new(1, 0, 0, centerTextSize),
-						Text = self.props.title,
-						TextTruncate = Enum.TextTruncate.AtEnd,
-						TextWrapped = false,
-						fontStyle = centerTextFontStyle,
-						colorStyle = theme.TextEmphasis,
-					})
-				end
-			else
-				renderCenter = function()
-					return Roact.createElement("Frame", {
-						Size = UDim2.new(1, -PADDING_AROUND_DIVIDER, 0, centerTextSize),
+			renderLeft = function()
+				return Roact.createFragment({
+					Text = Roact.createElement("Frame", {
+						Size = UDim2.new(1, 0, 0, textSize),
 						BackgroundTransparency = 1,
 						Transparency = 1,
 					}, {
-						layout = Roact.createElement("UIListLayout", {
+						Layout = Roact.createElement("UIListLayout", {
 							SortOrder = Enum.SortOrder.LayoutOrder,
 							FillDirection = Enum.FillDirection.Horizontal,
+							VerticalAlignment = Enum.VerticalAlignment.Center,
 							Padding = UDim.new(0, PADDING_AROUND_DIVIDER),
 						}),
+						renderLeft = self.props.renderLeft(self.props),
 						Divider = Roact.createElement("Frame", {
 							BackgroundColor3 = theme.Divider.Color,
 							BackgroundTransparency = theme.Divider.Transparency,
@@ -165,20 +148,38 @@ function HeaderBar:render()
 							TextTruncate = Enum.TextTruncate.AtEnd,
 							TextWrapped = false,
 							TextXAlignment = Enum.TextXAlignment.Left,
-							fontStyle = centerTextFontStyle,
+							fontStyle = textFontStyle,
 							colorStyle = theme.TextEmphasis,
 							LayoutOrder = 2,
 						}),
-					})
-				end
+					}),
+				})
+			end
+		end
+
+		-- Make center fixed-width components in the center, e.g search bar
+		if renderLeft and renderCenter and renderRight then
+			estimatedCenterWidth = 0
+		end
+
+		if not renderCenter and not isRoot and not self.props.isSecondary then
+			local centerTextFontStyle = font.Header1
+			local centerTextSize = centerTextFontStyle.RelativeSize * font.BaseSize
+
+			renderCenter = function()
+				return Roact.createElement(GenericTextLabel, {
+					ClipsDescendants = true,
+					Size = UDim2.new(1, 0, 0, centerTextSize),
+					Text = self.props.title,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextWrapped = false,
+					fontStyle = centerTextFontStyle,
+					colorStyle = theme.TextEmphasis,
+				})
 			end
 
-			estimatedCenterWidth = GetTextSize(
-				self.props.title,
-				centerTextSize,
-				centerTextFontStyle.Font,
-				Vector2.new(1000, 1000)
-			).X
+			estimatedCenterWidth =
+				GetTextSize(self.props.title, centerTextSize, centerTextFontStyle.Font, Vector2.new(1000, 1000)).X
 		end
 
 		return Roact.createElement("Frame", {

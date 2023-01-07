@@ -100,9 +100,6 @@ return {
 	-- Add a new ItemTile Icon for dynamic heads
 	useDynamicHeadIcon = false,
 
-	-- Support React tags when running in DEV mode
-	enableReactTag = false,
-
 	-- disable tooltip animation
 	disableTooltipAnimation = false,
 
@@ -141,4 +138,10 @@ return {
 
 	-- Use functional setState in HorizontalCarousel.lua
 	useFunctionalSetStateHorizontalCarousel = false,
+
+	-- Use updated Pillv2 component (replacing Tag in PillGroup)
+	usePillv2 = false,
+
+	-- Use automatic size in PillGroup to fix initial layout issues
+	pillGroupAutomaticSize = false,
 }

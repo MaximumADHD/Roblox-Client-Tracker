@@ -8,7 +8,6 @@ local Roact = require(Packages.Roact)
 local React = require(Packages.React)
 local enumerate = require(Packages.enumerate)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Interactable = require(Core.Control.Interactable)
 
 local ControlState = require(Core.Control.Enum.ControlState)
@@ -119,7 +118,7 @@ function TextButton:render()
 		local textWidth = getTextSize(manipulatedText, fontSize, fontStyle.Font, Vector2.new(10000, 0)).X
 
 		return Roact.createElement(Interactable, {
-			[React.Tag] = if UIBloxConfig.enableReactTag then self.props[React.Tag] else nil,
+			[React.Tag] = self.props[React.Tag],
 			AnchorPoint = self.props.anchorPoint,
 			LayoutOrder = self.props.layoutOrder,
 			Position = self.props.position,

@@ -12,6 +12,7 @@ local LuauPolyfill = require(Packages.LuauPolyfill)
 local Array = LuauPolyfill.Array
 local Boolean = LuauPolyfill.Boolean
 local Error = LuauPolyfill.Error
+local Map = LuauPolyfill.Map
 local console = LuauPolyfill.console
 type Array<T> = LuauPolyfill.Array<T>
 type Error = LuauPolyfill.Error
@@ -108,6 +109,10 @@ export type TestRunner = {
 	-- ROBLOX NOTE: private
 	_globalConfig: Config_GlobalConfig,
 	_context: TestRunnerContext,
+	-- ROBLOX deviation START: add cache of loaded module functions to a test runner
+	_loadedModuleFns: Map<ModuleScript, { any }>,
+	cleanup: (self: TestRunner) -> (),
+	-- ROBLOX deviation END
 	eventEmitter: Emittery,
 	_createInBandTestRun: (
 		self: TestRunner,
@@ -136,6 +141,9 @@ function TestRunner.new(globalConfig: Config_GlobalConfig, context: TestRunnerCo
 	self.__PRIVATE_UNSTABLE_API_supportsEventEmitters__ = true
 	self._globalConfig = globalConfig
 	self._context = Boolean.toJSBoolean(context) and context or {}
+	-- ROBLOX deviation START: add cache of loaded module functions to a test runner
+	self._loadedModuleFns = Map.new()
+	-- ROBLOX deviation END
 	return (self :: any) :: TestRunner
 end
 
@@ -190,7 +198,10 @@ function TestRunner:_createInBandTestRun(
 									-- test.context.resolver,
 									-- ROBLOX deviation END
 									self._context,
-									nil
+									nil,
+									-- ROBLOX deviation START: add cache of loaded module functions to a test runner
+									self._loadedModuleFns
+									-- ROBLOX deviation END
 								)
 							else
 								-- `deepCyclicCopy` used here to avoid mem-leak
@@ -211,7 +222,10 @@ function TestRunner:_createInBandTestRun(
 									-- test.context.resolver,
 									-- ROBLOX deviation END
 									self._context,
-									sendMessageToJest
+									sendMessageToJest,
+									-- ROBLOX deviation START: add cache of loaded module functions to a test runner
+									self._loadedModuleFns
+									-- ROBLOX deviation END
 								)
 							end
 						end)
@@ -388,6 +402,18 @@ function TestRunner:on<Name>(
 ): Emittery_UnsubscribeFn
 	return self.eventEmitter:on(eventName, listener)
 end
+
+-- ROBLOX deviation START: add cache of loaded module functions to a test runner
+-- test runner should call clean up functions when it is done
+function TestRunner:cleanup()
+	self._loadedModuleFns:forEach(function(val)
+		local cleanup = val[3]
+		if cleanup ~= nil then
+			cleanup()
+		end
+	end)
+end
+-- ROBLOX deviation END
 
 exports.default = TestRunner
 

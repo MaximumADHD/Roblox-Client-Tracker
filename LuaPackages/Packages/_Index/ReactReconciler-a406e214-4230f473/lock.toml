@@ -5,7 +5,7 @@ commit = "4230f473c61f67ac081ba038a3c559328a61ef0f"
 source = "git+https://github.com/roblox/roact-alignment#v17.0.1-rc.18"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.1.0 url+https://github.com/roblox/luau-polyfill",
-    "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
+    "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "React React 4230f473 git+https://github.com/roblox/roact-alignment#v17.0.1-rc.18",
     "Scheduler Scheduler 4230f473 git+https://github.com/roblox/roact-alignment#v17.0.1-rc.18",
     "Shared Shared 4230f473 git+https://github.com/roblox/roact-alignment#v17.0.1-rc.18",

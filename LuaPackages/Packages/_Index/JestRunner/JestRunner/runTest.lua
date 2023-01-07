@@ -11,6 +11,7 @@ local Packages = script.Parent.Parent
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local console = LuauPolyfill.console
 local setTimeout = LuauPolyfill.setTimeout
+type Map<T, U> = LuauPolyfill.Map<T, U>
 local setImmediate = setTimeout
 local Promise = require(Packages.Promise)
 type Promise<T> = LuauPolyfill.Promise<T>
@@ -112,7 +113,8 @@ local function runTestInternal(
 	config: Config_ProjectConfig,
 	resolver: Resolver,
 	context: TestRunnerContext?,
-	sendMessageToJest: TestFileEvent?
+	sendMessageToJest: TestFileEvent?,
+	loadedModuleFns: Map<ModuleScript, { any }>
 ): Promise<RunTestInternalResult>
 	return Promise.resolve():andThen(function()
 		-- ROBLOX deviation START: unnecessary variables
@@ -210,6 +212,7 @@ local function runTestInternal(
 		setGlobal((environment.global :: unknown) :: typeof(_G), "console", testConsole)
 
 		local runtime = Runtime.new(
+			loadedModuleFns
 			-- ROBLOX TODO START: no params to Runtime.new so far
 			-- config, environment, resolver, transformer, cacheFS, {
 			-- 	changedFiles = if typeof(context) == "table" then context.changedFiles else nil,
@@ -403,10 +406,12 @@ local function runTest(
 	config: Config_ProjectConfig,
 	resolver: Resolver,
 	context: TestRunnerContext?,
-	sendMessageToJest: TestFileEvent?
+	sendMessageToJest: TestFileEvent?,
+	loadedModuleFns: Map<ModuleScript, { any }>
 ): Promise<TestResult>
 	return Promise.resolve():andThen(function()
-		local ref = runTestInternal(path, globalConfig, config, resolver, context, sendMessageToJest):expect()
+		local ref =
+			runTestInternal(path, globalConfig, config, resolver, context, sendMessageToJest, loadedModuleFns):expect()
 		local leakDetector, result = ref.leakDetector, ref.result
 		if leakDetector ~= nil then
 			-- We wanna allow a tiny but time to pass to allow last-minute cleanup

@@ -22,7 +22,7 @@ local typesModule = require(Packages.JestTypes)
 type Config_GlobalConfig = typesModule.Config_GlobalConfig
 type Config_ProjectConfig = typesModule.Config_ProjectConfig
 local jest_runtimeModule = require(Packages.JestRuntime)
-type Runtime = jest_runtimeModule.RuntimePrivate
+type Runtime = jest_runtimeModule.Runtime
 -- ROBLOX TODO START: not implemented yet
 -- local jest_snapshotModule = require(Packages.JestSnapshot)
 type SnapshotStateType = any -- jest_snapshotModule.SnapshotStateType

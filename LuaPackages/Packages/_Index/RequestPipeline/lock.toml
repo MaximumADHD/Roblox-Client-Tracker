@@ -7,6 +7,6 @@ dependencies = [
     "Expect Expect 2.4.1 url+https://github.com/roblox/jest-roblox",
     "HttpServiceMock HttpServiceMock 0.1.0 url+https://github.com/roblox/http-service-utils",
     "JestDiff JestDiff 2.4.1 url+https://github.com/roblox/jest-roblox",
-    "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
+    "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "SharedUtils SharedUtils 0.1.0 url+https://github.com/roblox/http-service-utils",
 ]

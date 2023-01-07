@@ -330,10 +330,10 @@ local function initializeLibrary(configs)
 			Slot = strict({
 				SlotTray = require(script.App.Control.Slot.SlotTray),
 			}),
-			Tag = require(script.App.Control.Tag.Tag),
-			TagGroup = require(script.App.Control.Tag.TagGroup),
-			ScrollingListWithArrowsAndGradient =
-				require(script.App.Control.HorizontalNav.ScrollingListWithArrowsAndGradient),
+			PillGroup = require(script.App.Control.Pill.PillGroup),
+			ScrollingListWithArrowsAndGradient = require(
+				script.App.Control.HorizontalNav.ScrollingListWithArrowsAndGradient
+			),
 		}),
 
 		Navigation = strict({

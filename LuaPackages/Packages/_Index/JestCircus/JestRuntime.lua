@@ -8,7 +8,7 @@ local Package = require(PackageIndex["JestRuntime"]["JestRuntime"])
 export type Context = Package.Context
 export type Jest = Package.Jest
 export type Runtime = Package.Runtime
-export type RuntimePrivate = Package.RuntimePrivate
+-- ROBLOX deviation END
 
 
 return Package

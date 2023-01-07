@@ -73,22 +73,23 @@ function TileThumbnail:render()
 					useShimmerAnimationWhileLoading = true,
 				}),
 
-				ImageSetImage = isImageSetImage and Roact.createElement(ImageSetComponent.Label, {
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					BackgroundTransparency = 1,
-					Image = image,
-					ImageColor3 = imageColor or theme.UIEmphasis.Color,
-					ImageTransparency = imageTransparency,
-					Position = UDim2.new(0.5, 0, 0.5, 0),
-					Size = imageSize - UDim2.fromOffset(imagePadding * 2, imagePadding * 2),
-				}, {
-					UICorner = UIBloxConfig.useNewUICornerRoundedCorners and hasRoundedCorners and Roact.createElement(
-						"UICorner",
-						{
-							CornerRadius = CORNER_RADIUS,
-						}
-					) or nil,
-				}),
+				ImageSetImage = isImageSetImage
+					and Roact.createElement(ImageSetComponent.Label, {
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						BackgroundTransparency = 1,
+						Image = image,
+						ImageColor3 = imageColor or theme.UIEmphasis.Color,
+						ImageTransparency = imageTransparency,
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+						Size = imageSize - UDim2.fromOffset(imagePadding * 2, imagePadding * 2),
+					}, {
+						UICorner = UIBloxConfig.useNewUICornerRoundedCorners
+								and hasRoundedCorners
+								and Roact.createElement("UICorner", {
+									CornerRadius = CORNER_RADIUS,
+								})
+							or nil,
+					}),
 
 				UICorner = UIBloxConfig.useNewUICornerRoundedCorners and hasRoundedCorners and Roact.createElement(
 					"UICorner",

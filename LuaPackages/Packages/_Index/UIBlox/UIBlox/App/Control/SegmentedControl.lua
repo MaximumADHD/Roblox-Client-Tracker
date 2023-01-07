@@ -141,11 +141,8 @@ function SegmentedControl:render()
 		local forceSelectedBGState = isDisabled and ControlState.Disabled or currentState
 		local backgroundStyle = getContentStyle(BACKGROUND_COLOR_STATE_MAP, currentState, style)
 		local dividerStyle = getContentStyle(DIVIDER_COLOR_STATE_MAP, currentState, style)
-		local selectedBackgroundStyle = getContentStyle(
-			SELECTED_BACKGROUND_COLOR_STATE_MAP,
-			forceSelectedBGState,
-			style
-		)
+		local selectedBackgroundStyle =
+			getContentStyle(SELECTED_BACKGROUND_COLOR_STATE_MAP, forceSelectedBGState, style)
 		local dropshadowStyle = getContentStyle(DROPSHADOW_COLOR_STATE_MAP, currentState, style)
 		local tabWidth = self.state.tabWidth
 

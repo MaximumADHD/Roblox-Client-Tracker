@@ -470,7 +470,7 @@ function collectConflictsWithin(
 	-- // response name. For every response name, if there are multiple fields, they
 	-- // must be compared to find a potential conflict.
 	-- ROBLOX deviation: use Ordered Map object
-	for _, entry in fieldMap:ipairs() do
+	for _, entry in fieldMap do
 		-- // This compares every field in the list to every other field in this list
 		-- // (except to itself). If the list only has one item, nothing needs to
 		-- // be compared.

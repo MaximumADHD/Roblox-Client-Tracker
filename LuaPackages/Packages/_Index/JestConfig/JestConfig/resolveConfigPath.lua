@@ -100,6 +100,12 @@ exports.default = function(
 	-- ROBLOX deviation END
 end
 
+-- ROBLOX deviation START: additional helper function
+local function isJestConfigFile(child: Instance)
+	return child:IsA("ModuleScript") and child.Name == JEST_CONFIG_BASE_NAME
+end
+-- ROBLOX deviation END
+
 function resolveConfigPathByTraversing(
 	pathToResolve: Instance,
 	initialPath: Config_Path | Instance,
@@ -108,9 +114,15 @@ function resolveConfigPathByTraversing(
 	skipMultipleConfigWarning: boolean
 ) --[[ ROBLOX deviation: using ModuleScript instead of Config_Path]]: ModuleScript
 	-- ROBLOX deviation START: custom logic
+	-- ROBLOX NOTE: additional nil check
+	if pathToResolve == nil or typeof(pathToResolve.GetChildren) ~= "function" then
+		error(Error.new(makeResolutionErrorMessage(initialPath, cwd)))
+	end
+
 	local configFiles = (
 		Array.filter(pathToResolve:GetChildren(), function(child)
-			return child:isA("ModuleScript") and child.Name == JEST_CONFIG_BASE_NAME
+			local ok, result = pcall(isJestConfigFile, child)
+			return ok and result
 		end) :: Array<any>
 	) :: Array<ModuleScript>
 	if not skipMultipleConfigWarning and #configFiles > 1 then
@@ -122,7 +134,7 @@ function resolveConfigPathByTraversing(
 
 	-- This is the system root.
 	-- We tried everything, config is nowhere to be found ¯\_(ツ)_/¯
-	if pathToResolve == nil then
+	if pathToResolve == game then
 		error(Error.new(makeResolutionErrorMessage(initialPath, cwd)))
 	end
 

@@ -165,9 +165,8 @@ function GridCarousel:render()
 				relativeHeight = relativeHeight,
 				data = if self.props.data ~= nil then self.props.data else self.props.itemList,
 				getItem = self.props.getItem,
-				getItemCount = self.props.getItemCount or if self.props.data == nil and self.props.itemList
-					then self.itemListCount
-					else nil,
+				getItemCount = self.props.getItemCount
+					or if self.props.data == nil and self.props.itemList then self.itemListCount else nil,
 				renderItem = self.props.renderItem,
 				keyExtractor = self.props.keyExtractor or self.props.identifier,
 				getCellColspan = self.props.getCellColspan,

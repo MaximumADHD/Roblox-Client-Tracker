@@ -22,12 +22,10 @@ export type Jest = {
 	-- autoMockOff: () -> Jest,
 	-- disableAutomock: () -> Jest,
 	-- enableAutomock: () -> Jest,
-	setMockFactory: (scriptInstance: ModuleScript, mockFactory: MockFactory, options: { virtual: boolean? }?) -> Jest,
 	-- mock: (scriptInstance: ModuleScript, mockFactory: MockFactory, options: any) -> Jest,
 	clearAllMocks: () -> Jest,
 	resetAllMocks: () -> Jest,
 	restoreAllMocks: () -> Jest,
-	_getFakeTimers: () -> FakeTimers,
 	useFakeTimers: () -> Jest,
 	useRealTimers: () -> Jest,
 	resetModules: () -> Jest,
@@ -40,7 +38,7 @@ export type Jest = {
 	runAllTimers: () -> (),
 	runOnlyPendingTimers: () -> (),
 	-- setMock: (scriptInstance: ModuleScript, mock: unknown, options: { virtual: boolean? }?) -> Jest,
-	setSystemTime: (now: (number | DateTime)?) -> Jest,
+	setSystemTime: (now: (number | DateTime)?) -> (),
 	setTimeout: any,
 }
 

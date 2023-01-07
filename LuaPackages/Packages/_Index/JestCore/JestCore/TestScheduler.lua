@@ -406,6 +406,10 @@ function TestScheduler:scheduleTests(tests: Array<Test>, watcher: TestWatcher): 
 							)
 							:expect()
 					end
+					-- ROBLOX deviation START: add cache of loaded module functions to a test runner
+					-- test runner should call clean up functions when it is done
+					testRunner:cleanup()
+					-- ROBLOX deviation END
 				end
 			end)
 
