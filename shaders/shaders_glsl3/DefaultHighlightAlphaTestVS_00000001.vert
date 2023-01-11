@@ -6,7 +6,7 @@
 uniform vec4 CB1[511];
 uniform vec4 CB0[58];
 in vec4 POSITION;
-in vec4 TEXCOORD0;
+in vec2 TEXCOORD0;
 out vec2 VARYING0;
 
 void main()
@@ -19,6 +19,6 @@ void main()
     vec4 v3 = v2;
     v3.z = v0.z;
     gl_Position = vec4(dot(CB1[gl_InstanceID * 7 + 0], v3), dot(CB1[gl_InstanceID * 7 + 1], v3), dot(CB1[gl_InstanceID * 7 + 2], v3), 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    VARYING0 = TEXCOORD0.xy;
+    VARYING0 = TEXCOORD0;
 }
 

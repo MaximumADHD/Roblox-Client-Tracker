@@ -4147,43 +4147,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "GetAssetThumbnailAsync",
-                    "Parameters": [
-                        {
-                            "Name": "assetId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        },
-                        {
-                            "Name": "thumbnailSize",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Vector2"
-                            }
-                        },
-                        {
-                            "Default": "0",
-                            "Name": "assetType",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Tuple"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "GetBundleDetailsAsync",
                     "Parameters": [
                         {
@@ -27694,10 +27657,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
                     "Tags": [
-                        "Hidden"
+                        "Hidden",
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -28428,10 +28392,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
                     "Tags": [
-                        "Hidden"
+                        "Hidden",
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -29385,10 +29350,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
                     "Tags": [
-                        "Hidden"
+                        "Hidden",
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {

@@ -210,7 +210,6 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function int64 AssetService:CreatePlaceAsync(string placeName, int64 templatePlaceID, string description = "") [Yields]
 	Function int64 AssetService:CreatePlaceInPlayerInventoryAsync(Instance player, string placeName, int64 templatePlaceID, string description = "") [Yields]
 	Function Array AssetService:GetAssetIdsForPackage(int64 packageAssetId) [Yields]
-	Function Tuple AssetService:GetAssetThumbnailAsync(int64 assetId, Vector2 thumbnailSize, int assetType = 0) {RobloxScriptSecurity} [Yields]
 	Function Dictionary AssetService:GetBundleDetailsAsync(int64 bundleId) [Yields]
 	Function Dictionary AssetService:GetBundleDetailsSync(int64 bundleId) {RobloxScriptSecurity}
 	Function int64 AssetService:GetCreatorAssetID(int64 creationID) [Yields] [Deprecated]
@@ -1463,7 +1462,7 @@ Class ImageButton : GuiButton
 Class TextButton : GuiButton
 	Property string TextButton.LocalizedText [Hidden] [ReadOnly]
 	Property string TextButton.ContentText [ReadOnly]
-	Property Enum.Font TextButton.Font [Hidden]
+	Property Enum.Font TextButton.Font [<📁> LoadOnly] [Hidden] [NotReplicated]
 	Property Font TextButton.FontFace
 	Property Enum.FontSize TextButton.FontSize [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property float TextButton.LineHeight
@@ -1503,7 +1502,7 @@ Class ImageLabel : GuiLabel
 Class TextLabel : GuiLabel
 	Property string TextLabel.LocalizedText [Hidden] [ReadOnly]
 	Property string TextLabel.ContentText [ReadOnly]
-	Property Enum.Font TextLabel.Font [Hidden]
+	Property Enum.Font TextLabel.Font [<📁> LoadOnly] [Hidden] [NotReplicated]
 	Property Font TextLabel.FontFace
 	Property Enum.FontSize TextLabel.FontSize [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property float TextLabel.LineHeight
@@ -1562,7 +1561,7 @@ Class TextBox : GuiObject
 	Property bool TextBox.TextEditable
 	Property Enum.TextInputType TextBox.TextInputType {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property string TextBox.ContentText [ReadOnly]
-	Property Enum.Font TextBox.Font [Hidden]
+	Property Enum.Font TextBox.Font [<📁> LoadOnly] [Hidden] [NotReplicated]
 	Property Font TextBox.FontFace
 	Property Enum.FontSize TextBox.FontSize [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property float TextBox.LineHeight

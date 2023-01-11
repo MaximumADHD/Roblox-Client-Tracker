@@ -211,6 +211,7 @@ dependencies = [
     "ContactImporter ContactImporter 0.1.0",
     "Dash Dash 0.1.0",
     "DiscoverabilityModal DiscoverabilityModal 0.1.0",
+    "FormFactor FormFactor 0.1.0",
     "Http Http 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
@@ -294,6 +295,7 @@ dependencies = [
     "Fetch Fetch 0.1.0",
     "GraphQL GraphQL 0.1.0",
     "GraphqlHttpArtifacts GraphqlHttpArtifacts 0.1.0",
+    "Http Http 0.1.0",
     "JestGlobals JestGlobals 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
     "Promise Promise 0.1.0",
@@ -312,9 +314,16 @@ dependencies = [
     "AppCommonLib AppCommonLib 0.1.0",
     "ArgCheck ArgCheck 0.1.0",
     "Cryo Cryo 0.1.0",
+    "Fetch Fetch 0.1.0",
+    "GraphqlHttpArtifacts GraphqlHttpArtifacts 0.1.0",
+    "JestGlobals JestGlobals 0.1.0",
     "Promise Promise 0.1.0",
+    "RecordPlayback RecordPlayback 0.1.0",
     "Result Result 0.1.0",
     "Rodux Rodux 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+    "SystemInfoProtocol SystemInfoProtocol 0.1.0",
+    "UrlBuilder UrlBuilder 0.1.0",
     "tutils tutils 0.1.0",
 ]
 
@@ -557,17 +566,34 @@ version = "0.1.0"
 name = "ProfileQRCode"
 version = "0.1.0"
 dependencies = [
+    "Analytics Analytics 0.1.0",
     "Dash Dash 0.1.0",
+    "Enumerate enumerate 0.1.0",
+    "Http Http 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
+    "LuaProfileDeps LuaProfileDeps 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
+    "QRCodeDisplay QRCodeDisplay 0.1.0",
     "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "Rhodium Rhodium 0.1.0",
+    "RhodiumHelpers RhodiumHelpers 0.1.0",
     "Roact RoactCompat 0.1.0",
+    "RoactAppExperiment RoactAppExperiment 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
     "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
     "Rodux Rodux 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 0.1.0",
+    "SocialReducerAdaptors SocialReducerAdaptors 0.1.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
+    "TestUtils TestUtils 0.1.0",
     "UIBlox UIBlox 0.1.0",
+    "UnitTestHelpers UnitTestHelpers 0.1.0",
 ]
 
 [[package]]
@@ -800,6 +826,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
     "Rodux Rodux 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
     "enumerate enumerate 0.1.0",
     "t t 0.1.0",
     "tutils tutils 0.1.0",
@@ -902,13 +929,17 @@ dependencies = ["SocialTab SocialTab 0.1.0"]
 name = "SocialTestHelpers"
 version = "0.1.0"
 dependencies = [
+    "Dash Dash 0.1.0",
+    "JestGlobals JestGlobals 0.1.0",
     "Localization Localization 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
+    "RhodiumHelpers RhodiumHelpers 0.1.0",
     "Roact RoactCompat 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
     "RobloxAppLocales RobloxAppLocales 0.1.0",
     "Rodux Rodux 0.1.0",
     "UIBlox UIBlox 0.1.0",
+    "UnitTestHelpers UnitTestHelpers 0.1.0",
 ]
 
 [[package]]
@@ -1077,6 +1108,34 @@ dependencies = [
     "Time Time 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
 ]
+
+[[package]]
+name = "UserSearch"
+version = "0.1.0"
+dependencies = [
+    "Dash Dash 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
+    "React React 0.1.0",
+    "Rhodium Rhodium 0.1.0",
+    "RhodiumHelpers RhodiumHelpers 0.1.0",
+    "Roact RoactCompat 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 0.1.0",
+    "SocialTestHelpers SocialTestHelpers 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+    "t t 0.1.0",
+]
+
+[[package]]
+name = "UserSearchTestSuite"
+version = "0.1.0"
+dependencies = ["UserSearch UserSearch 0.1.0"]
 
 [[package]]
 name = "VerifiedBadges"
