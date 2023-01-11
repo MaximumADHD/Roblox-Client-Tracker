@@ -69,7 +69,6 @@ local selfViewPublicApi = require(RobloxGui.Modules.SelfView.publicApi)
 local Modules = CoreGui.RobloxGui.Modules
 
 local FFlagSelfViewFixes = require(RobloxGui.Modules.Flags.FFlagSelfViewFixes)
-local FFlagSelfViewMultiTapFix = game:DefineFastFlag("SelfViewMultiTapFix", false)
 local FFlagSelfViewFixesThree = require(Modules.Flags.FFlagSelfViewFixesThree)
 
 local UIBlox = require(CorePackages.UIBlox)
@@ -306,9 +305,7 @@ local function inputBegan(frame, inputObj)
 
 		-- Multiple touches should not affect dragging the Self View. Only the original touch.
 		--the check inputType == Enum.UserInputType.Touch is so it does not block mouse dragging
-		if
-			FFlagSelfViewMultiTapFix
-			and (inputType == Enum.UserInputType.Touch or not FFlagSelfViewFixesThree)
+		if (inputType == Enum.UserInputType.Touch or not FFlagSelfViewFixesThree)
 			and inputObject ~= inputObj
 		then
 			return

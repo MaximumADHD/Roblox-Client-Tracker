@@ -1,7 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
-local Modules = CoreGui.RobloxGui.Modules
-local InGameMenu = Modules.InGameMenuV3
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local PolicyProvider = InGameMenuDependencies.PolicyProvider
 
@@ -16,10 +13,6 @@ local isSubjectToDesktopPolicies = require(script.Parent.isSubjectToDesktopPolic
 
 local FFlagUseGUACforDUARPolicy = game:DefineFastFlag("UseGUACforDUARPolicy", false)
 local FFlagUseGUACforFullscreenTitleBar = game:DefineFastFlag("UseGUACforFullscreenTitleBar", false)
-local GetFFlagShareInviteLinkContextMenuV3CopiedTooltipEnabled =
-	require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3CopiedTooltipEnabled)
-local GetFFlagShareInviteLinkContextMenuV3CopiedTextEnabled =
-	require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3CopiedTextEnabled)
 
 InGameMenuPolicy.Mapper = function(policy)
 	return {
@@ -58,13 +51,9 @@ InGameMenuPolicy.Mapper = function(policy)
 			return policy.InGameMenuPortraitThreshold or 550
 		end,
 
-		enableCopiedFeedback = if GetFFlagShareInviteLinkContextMenuV3CopiedTooltipEnabled()
-			or GetFFlagShareInviteLinkContextMenuV3CopiedTextEnabled()
-			then
-				function()
-					return isSubjectToDesktopPolicies()
-				end
-			else nil
+		enableCopiedFeedback = function()
+			return isSubjectToDesktopPolicies()
+		end
 	}
 end
 

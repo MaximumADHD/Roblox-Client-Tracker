@@ -116,6 +116,67 @@ local function EventDetailsPage(props: Props)
 		onRsvpChanged = onRsvpChanged,
 	})
 
+	local componentList = {
+		Attendance = if eventStatus ~= "Elapsed"
+			then {
+				portraitLayoutOrder = 1,
+				landscapePosition = ContentPositionEnum.Left,
+				landscapeLayoutOrder = 1,
+				renderComponent = function()
+					return React.createElement(Attendance, {
+						virtualEvent = joinedProps.virtualEvent,
+						eventStatus = eventStatus,
+					})
+				end,
+			}
+			else nil,
+		MediaGallery = {
+			portraitLayoutOrder = 2,
+			landscapePosition = ContentPositionEnum.Right,
+			landscapeLayoutOrder = 1,
+			renderComponent = function()
+				return React.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, galleryHeight),
+					BackgroundTransparency = 1,
+					[React.Change.AbsoluteSize] = onSizeChanged,
+				}, {
+					Gallery = React.createElement(MediaGalleryPreview, {
+						items = galleryItems,
+						numberOfThumbnails = THUMBNAILS_COUNT,
+					}),
+				})
+			end,
+		},
+		Description = {
+			portraitLayoutOrder = 3,
+			landscapePosition = ContentPositionEnum.Left,
+			landscapeLayoutOrder = 2,
+			renderComponent = function()
+				return React.createElement(EventDescription, {
+					description = joinedProps.virtualEvent.description,
+					experienceName = if experienceDetails then experienceDetails.name else nil,
+					experienceThumbnail = firstImage,
+					onExperienceTileActivated = joinedProps.onExperienceTileActivated,
+				})
+			end,
+		},
+		EventInfo = {
+			portraitLayoutOrder = 4,
+			landscapePosition = ContentPositionEnum.Right,
+			landscapeLayoutOrder = 2,
+			renderComponent = function()
+				return React.createElement(ListTable, {
+					cells = {
+						React.createElement(EventHostedBy, {
+							host = joinedProps.virtualEvent.host,
+							onActivated = joinedProps.onHostActivated,
+						}),
+					},
+				})
+			end,
+		},
+	}
+
 	return React.createElement(DetailsPageTemplate, {
 		isMobile = true, -- TODO: EN-1467 Setup breakpoints for mobile and desktop
 		titleText = joinedProps.virtualEvent.title,
@@ -129,66 +190,7 @@ local function EventDetailsPage(props: Props)
 			})
 		end,
 		actionBarProps = actionBarProps,
-		componentList = {
-			Attendance = if eventStatus ~= "Elapsed"
-				then {
-					portraitLayoutOrder = 1,
-					landscapePosition = ContentPositionEnum.Left,
-					landscapeLayoutOrder = 1,
-					renderComponent = function()
-						return React.createElement(Attendance, {
-							virtualEvent = props.virtualEvent,
-							eventStatus = eventStatus,
-						})
-					end,
-				}
-				else nil,
-			MediaGallery = {
-				portraitLayoutOrder = 2,
-				landscapePosition = ContentPositionEnum.Right,
-				landscapeLayoutOrder = 1,
-				renderComponent = function()
-					return React.createElement("Frame", {
-						Size = UDim2.new(1, 0, 0, galleryHeight),
-						BackgroundTransparency = 1,
-						[React.Change.AbsoluteSize] = onSizeChanged,
-					}, {
-						Gallery = React.createElement(MediaGalleryPreview, {
-							items = galleryItems,
-							numberOfThumbnails = THUMBNAILS_COUNT,
-						}),
-					})
-				end,
-			},
-			Description = {
-				portraitLayoutOrder = 3,
-				landscapePosition = ContentPositionEnum.Left,
-				landscapeLayoutOrder = 2,
-				renderComponent = function()
-					return React.createElement(EventDescription, {
-						description = if experienceDetails then experienceDetails.description else nil,
-						experienceName = if experienceDetails then experienceDetails.name else nil,
-						experienceThumbnail = firstImage,
-						onExperienceTileActivated = joinedProps.onExperienceTileActivated,
-					})
-				end,
-			},
-			EventInfo = {
-				portraitLayoutOrder = 4,
-				landscapePosition = ContentPositionEnum.Right,
-				landscapeLayoutOrder = 2,
-				renderComponent = function()
-					return React.createElement(ListTable, {
-						cells = {
-							React.createElement(EventHostedBy, {
-								host = joinedProps.virtualEvent.host,
-								onActivated = joinedProps.onHostActivated,
-							}),
-						},
-					})
-				end,
-			},
-		},
+		componentList = if props.virtualEvent.eventStatus ~= "cancelled" then componentList else {},
 		onClose = joinedProps.onClose,
 	})
 end

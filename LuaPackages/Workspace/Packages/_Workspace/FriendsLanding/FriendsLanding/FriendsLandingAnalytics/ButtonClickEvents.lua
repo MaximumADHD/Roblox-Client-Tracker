@@ -1,6 +1,8 @@
 local FriendsLanding = script:FindFirstAncestor("FriendsLanding")
 local dependencies = require(FriendsLanding.dependencies)
 
+local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
+
 local enumerate = dependencies.enumerate
 
 return enumerate(script.Name, {
@@ -15,4 +17,5 @@ return enumerate(script.Name, {
 	IgnoreAllButton = "ignoreAll",
 	ConnectWithFriends = "connectWithFriends",
 	PlayerProfile = "playerProfile",
+	PeopleSearchBar = if getFFlagAddFriendsFullSearchbarAnalytics() then "peopleSearchBar" else nil,
 })

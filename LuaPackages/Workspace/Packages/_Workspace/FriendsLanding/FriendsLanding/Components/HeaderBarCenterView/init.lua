@@ -8,10 +8,13 @@ local withLocalization = dependencies.withLocalization
 local SearchHeaderBar = require(FriendsLanding.Components.FriendsLandingHeaderBar.SearchHeaderBar)
 local FriendsLandingContext = require(FriendsLanding.FriendsLandingContext)
 local ButtonClickEvents = require(FriendsLanding.FriendsLandingAnalytics.ButtonClickEvents)
+local AddFriendsSearchbarPressedEvent = require(FriendsLanding.FriendsLandingAnalytics.AddFriendsSearchbarPressedEvent)
 local SocialLibraries = dependencies.SocialLibraries
+local FormFactor = dependencies.FormFactor
 local compose = SocialLibraries.RoduxTools.compose
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local getFFlagAddFriendsFullPlayerSearchbar = dependencies.getFFlagAddFriendsFullPlayerSearchbar
+local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
 
 local FriendsLandingAnalytics = require(FriendsLanding.FriendsLandingAnalytics)
 local HeaderBarCenterView = Roact.PureComponent:extend("HeaderBarCenterView")
@@ -76,6 +79,13 @@ function HeaderBarCenterView:render()
 							shouldRenderCenter = true,
 							shouldAutoFocusCenter = true,
 						})
+
+						if getFFlagAddFriendsFullSearchbarAnalytics() then
+							AddFriendsSearchbarPressedEvent(
+								self.props.analytics,
+								{ formFactor = self.props.wideMode and FormFactor.WIDE or FormFactor.COMPACT }
+							)
+						end
 					end
 					else nil,
 			}, {

@@ -62,6 +62,8 @@ local SetAliasModal = function(props: Props)
 	return React.createElement(InteractiveAlert, {
 		title = localized.titleText,
 		screenSize = props.screenSize,
+		anchorPoint = Vector2.new(0.5, 0),
+		position = UDim2.new(0.5, 0, 0, contentSize.Y),
 		middleContent = function()
 			return React.createElement(FitFrameVertical, {
 				BackgroundTransparency = 1,
@@ -108,8 +110,11 @@ local SetAliasModal = function(props: Props)
 						Textbox = React.createElement(CallbackInputBox, {
 							inputTextXAlignment = Enum.TextXAlignment.Left,
 							inputTextColor3 = theme.TextDefault.Color,
+							inputTextTransparency = theme.TextDefault.Transparency,
 							inputTextSize = fontSize,
 							initialInputText = aliasText,
+							placeholderText = "Alias",
+							placeholderTextColor3 = theme.TextDefault.Color,
 							placeholderTextTransparency = 1,
 							captureFocusOnMount = true,
 							clearButtonDisabled = true,

@@ -1,8 +1,8 @@
 local ProfileQRCode = script:FindFirstAncestor("ProfileQRCode")
 local Packages = ProfileQRCode.Parent
 local Rodux = require(Packages.Rodux)
-local RoduxUsers = require(script.Parent.RoduxUsers)
-local configuredRoduxNetworking = require(script.Parent.configuredRoduxNetworking)
+local configuredUsers = require(script.Parent.configuredUsers)
+local configuredRoduxNetworking = require(ProfileQRCode.Networking.configuredRoduxNetworking)
 
 export type Store = {
 	Users: any,
@@ -11,7 +11,7 @@ export type Store = {
 
 return function()
 	return Rodux.combineReducers({
-		Users = RoduxUsers,
+		Users = configuredUsers,
 		NetworkStatus = configuredRoduxNetworking.installReducer(),
 	})
 end

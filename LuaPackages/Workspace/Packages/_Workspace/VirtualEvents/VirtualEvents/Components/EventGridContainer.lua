@@ -8,10 +8,7 @@ local UIBlox = require(VirtualEvents.Parent.UIBlox)
 local UrlBuilder = require(VirtualEvents.Parent.UrlBuilder).UrlBuilder
 local types = require(VirtualEvents.types)
 local isEventValid = require(VirtualEvents.Common.isEventValid)
-local useActiveVirtualEvents = require(VirtualEvents.Hooks.useActiveVirtualEvents)
 local EventTile = require(script.Parent.EventTile)
-
-local getFFlagEnableVirtualEvents = require(VirtualEvents.Parent.SharedFlags).getFFlagEnableVirtualEvents
 
 local UIBloxEmptyState = UIBlox.App.Indicator.EmptyState
 local useStyle = UIBlox.Core.Style.useStyle
@@ -33,7 +30,6 @@ export type Props = {
 }
 
 local function EventGridContainer(props: Props)
-	local virtualEvents = useActiveVirtualEvents()
 	local baseWidth, setBaseWidth = React.useState(1)
 
 	local renderItem = React.useCallback(function(itemProps: { [string]: any })
@@ -64,40 +60,27 @@ local function EventGridContainer(props: Props)
 
 	local items = {}
 
-	if getFFlagEnableVirtualEvents() then
-		if #virtualEvents > 0 then
-			items = Cryo.List.map(virtualEvents, function(virtualEvent, index)
+	if props.sponsoredEvents and #props.sponsoredEvents > 0 then
+		local count = 0
+		items = Cryo.List.filterMap(props.sponsoredEvents, function(event)
+			if isEventValid(event) then
+				count = count + 1
 				return {
-					context = virtualEvent,
-					layoutOrder = index,
+					imageUrl = event.imageUrl,
+					context = {
+						title = event.title,
+						url = getEventUrl(event.pagePath),
+					},
+					onActivated = props.onButtonActivated,
+					layoutOrder = count,
 					maskColor = style.Theme.BackgroundDefault.Color,
-					onActivated = props.onEventTileActivated,
 				}
-			end)
-		end
-	else
-		if props.sponsoredEvents and #props.sponsoredEvents > 0 then
-			local count = 0
-			items = Cryo.List.filterMap(props.sponsoredEvents, function(event)
-				if isEventValid(event) then
-					count = count + 1
-					return {
-						imageUrl = event.imageUrl,
-						context = {
-							title = event.title,
-							url = getEventUrl(event.pagePath),
-						},
-						onActivated = props.onButtonActivated,
-						layoutOrder = count,
-						maskColor = style.Theme.BackgroundDefault.Color,
-					}
-				else
-					-- FIXME Luau: Type 'nil' could not be converted into '{| context: {| title: any, url: any |}, imageUrl:
-					-- any, layoutOrder: number, maskColor: any, onActivated: (() -> ())? |}'(Type Error)
-					return nil :: any
-				end
-			end)
-		end
+			else
+				-- FIXME Luau: Type 'nil' could not be converted into '{| context: {| title: any, url: any |}, imageUrl:
+				-- any, layoutOrder: number, maskColor: any, onActivated: (() -> ())? |}'(Type Error)
+				return nil :: any
+			end
+		end)
 	end
 
 	if #items > 0 then

@@ -97,7 +97,7 @@ it("should create a new mock event and render EventDetailPage", function()
 	expect(titleText.Text).toBe(mockVirtualEvent.title)
 end)
 
-it("should use the experience details' description", function()
+it("should use the VirtualEvent's description", function()
 	local element = withMockProviders({
 		EventDetailsPage = React.createElement(EventDetailsPage, {
 			virtualEvent = mockVirtualEvent,
@@ -114,7 +114,7 @@ it("should use the experience details' description", function()
 	local descriptionWrapper = container:FindFirstChild("Description", true) :: Frame
 	local description = descriptionWrapper:FindFirstChild("Description", true) :: TextLabel
 
-	expect(description.Text).toBe(mockExperienceDetails.description)
+	expect(description.Text).toBe(mockVirtualEvent.description)
 end)
 
 it("should never show the attendance list when the event is over", function()

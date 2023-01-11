@@ -1,3 +1,3 @@
-game:DefineFastFlag("ExperienceJoinAttemptId_v2", false)
+game:DefineFastFlag("ExperienceJoinAttemptId_v3", false)
 
-return game:GetFastFlag("ExperienceJoinAttemptId_v2")
+return game:GetFastFlag("ExperienceJoinAttemptId_v3")

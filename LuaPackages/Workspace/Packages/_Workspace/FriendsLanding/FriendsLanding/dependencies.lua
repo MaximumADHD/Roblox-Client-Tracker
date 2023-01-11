@@ -19,6 +19,7 @@ local getFFlagContactImporterWithPhoneVerification =
 	require(Packages.SharedFlags).getFFlagContactImporterWithPhoneVerification
 local getFFlagVerifiedBadgeInFriendsLanding = require(FriendsLanding.Flags.getFFlagVerifiedBadgeInFriendsLanding)
 local getFFlagAddFriendsFullPlayerSearchbar = require(Packages.SharedFlags).getFFlagAddFriendsFullPlayerSearchbar
+local getFFlagAddFriendsFullSearchbarAnalytics = require(Packages.SharedFlags).getFFlagAddFriendsFullSearchbarAnalytics
 
 local HttpRequest = LuaSocialLibrariesDeps.httpRequest
 local myHttpRequest = HttpRequest.config({
@@ -75,6 +76,7 @@ return {
 	LocalizationProvider = require(Packages.Localization).LocalizationProvider,
 	Url = require(Packages.Http).Url,
 	Lumberyak = require(Packages.Lumberyak),
+	FormFactor = require(Packages.FormFactor).Enums.FormFactor,
 	SocialLibraries = SocialLibrariesPackage,
 	SocialLuaAnalytics = SocialLuaAnalytics,
 
@@ -118,6 +120,7 @@ return {
 	getFFlagContactImporterWithPhoneVerification = getFFlagContactImporterWithPhoneVerification,
 	getFFlagVerifiedBadgeInFriendsLanding = getFFlagVerifiedBadgeInFriendsLanding,
 	getFFlagAddFriendsFullPlayerSearchbar = getFFlagAddFriendsFullPlayerSearchbar,
+	getFFlagAddFriendsFullSearchbarAnalytics = getFFlagAddFriendsFullSearchbarAnalytics,
 
 	FindFriendsModal = ContactImporter.FindFriendsModal,
 	ContactsList = ContactImporter.ContactsList,

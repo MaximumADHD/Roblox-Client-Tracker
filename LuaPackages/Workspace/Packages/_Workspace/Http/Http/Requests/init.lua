@@ -20,4 +20,5 @@ return {
 	UsersGetFriends = require(script.UsersGetFriends),
 	UsersGetPresence = require(script.UsersGetPresence),
 	UsersGetThumbnail = require(script.UsersGetThumbnail),
+	OmniRecommendations = require(script.Discovery.OmniRecommendations)
 }

@@ -12,7 +12,6 @@ local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCurso
 local InGameMenu = script.Parent.Parent
 local NavigateUp = require(InGameMenu.Thunks.NavigateUp)
 local Constants = require(InGameMenu.Resources.Constants)
-local Flags = InGameMenu.Flags
 
 local UIAnimator = require(InGameMenu.Utility.UIAnimator)
 local ZonePortal = require(InGameMenu.Components.ZonePortal)
@@ -28,9 +27,6 @@ local Images = UIBlox.App.ImageSet.Images
 local getIconSize = UIBlox.App.ImageSet.getIconSize
 local HeaderBar = UIBlox.App.Bar.HeaderBar
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
-
-local GetFFlagShareInviteLinkContextMenuV3FriendsTextWrapFixEnabled =
-	require(Flags.GetFFlagShareInviteLinkContextMenuV3FriendsTextWrapFixEnabled)
 
 local ICON_SIZE = getIconSize(UIBlox.App.ImageSet.Enum.IconSize.Medium)
 
@@ -224,9 +220,6 @@ function PageWithSearch:renderWithSelectionCursor(getSelectionCursor)
 										end
 									end,
 								})
-								if not GetFFlagShareInviteLinkContextMenuV3FriendsTextWrapFixEnabled() then
-									layoutOrder = layoutOrder + 1
-								end
 							end
 						end
 

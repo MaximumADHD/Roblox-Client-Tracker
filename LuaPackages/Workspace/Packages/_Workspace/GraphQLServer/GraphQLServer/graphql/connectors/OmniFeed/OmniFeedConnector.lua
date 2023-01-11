@@ -1,4 +1,3 @@
-local HttpService = game:GetService("HttpService")
 local Packages = script:FindFirstAncestor("GraphQLServer").Parent
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
@@ -15,7 +14,8 @@ type RequestInfo = fetchModule.RequestInfo
 type RequestInit = fetchModule.RequestInit
 type FetchFunction = (RequestInfo, RequestInit) -> Promise<Response>
 local GraphQLError = require(Packages.GraphQL).GraphQLError
-local UrlBuilder = require(Packages.UrlBuilder).UrlBuilder
+
+local OmniRecommendationsRequest = require(Packages.Http).Requests.OmniRecommendations
 
 local generatedTypes = require(script.Parent.Parent.Parent.generatedTypes)
 type OmniFeedMetadata = generatedTypes.OmniFeedMetadata
@@ -47,32 +47,35 @@ export type OmniFeedJson = {
 
 export type OmniFeedRoot = OmniFeedJson & { omniSessionId: string? }
 
-local OmniFeedUrlPattern = UrlBuilder.fromString("apis:discovery-api/omni-recommendation")
+local function makeNetworkImpl(fetchImpl: FetchFunction)
+	return function(url: string, _method: string, body: { postBody: string })
+		return fetchImpl(url, {
+			body = body.postBody,
+			method = "POST",
+			headers = {
+				["Content-Type"] = "application/json",
+				["Accept"] = "application/json",
+			},
+		})
+	end
+end
 
 local function findOmniFeedBySessionId(
 	omniRecommendationArgs: QueryOmniFeedArgs,
-	fetchImpl_: any
+	fetchImpl_: FetchFunction
 ): Promise<OmniFeedRoot>
 	local fetchImpl: FetchFunction = if fetchImpl_ then fetchImpl_ else networkedFetch
+	local networkImpl = makeNetworkImpl(fetchImpl)
+
 	return Promise.new(function(resolve, reject)
-		local omniFeedUrl = OmniFeedUrlPattern()
-		local body = HttpService:JSONEncode({
-			pageType = omniRecommendationArgs.pageType,
-			sessionId = omniRecommendationArgs.sessionId,
-			pageToken = omniRecommendationArgs.nextPageToken,
-		})
-		local feedResponse = fetchImpl(omniFeedUrl, {
-				body = body,
-				method = "POST",
-				headers = {
-					["Content-Type"] = "application/json",
-					["Accept"] = "application/json",
-				},
-			})
-			:catch(function()
-				return Response.error()
-			end)
-			:expect()
+		local feedResponse = OmniRecommendationsRequest(
+			networkImpl,
+			omniRecommendationArgs.pageType,
+			omniRecommendationArgs.sessionId,
+			omniRecommendationArgs.nextPageToken
+		):catch(function()
+			return Response.error()
+		end):expect()
 
 		if not feedResponse.ok then
 			reject(

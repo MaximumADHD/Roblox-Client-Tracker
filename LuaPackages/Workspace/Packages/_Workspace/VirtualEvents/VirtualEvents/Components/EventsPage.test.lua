@@ -17,8 +17,6 @@ local installReducer = require(VirtualEvents.installReducer)
 local withMockProviders = require(VirtualEvents.withMockProviders)
 local EventsPage = require(script.Parent.EventsPage)
 
-local getFFlagEnableVirtualEvents = require(VirtualEvents.Parent.SharedFlags).getFFlagEnableVirtualEvents
-
 local container
 local root
 local store
@@ -111,55 +109,53 @@ it("should display the events when data is loaded", function()
 	expect(eventGridContainer).toBeDefined()
 end)
 
-if not getFFlagEnableVirtualEvents() then
-	it("should only display events that pass validation", function()
-		local goodEvent: types.SponsoredEvent = {
-			name = "Good Event",
-			title = "Good Event",
-			pagePath = "/sponsored/good-event",
-			url = "/sponsored/good-event",
-			imageUrl = "https://images.rbxcdn.com/ecf1f303830daecfb69f2388c72cb6b8",
-		}
+it("should only display events that pass validation", function()
+	local goodEvent: types.SponsoredEvent = {
+		name = "Good Event",
+		title = "Good Event",
+		pagePath = "/sponsored/good-event",
+		url = "/sponsored/good-event",
+		imageUrl = "https://images.rbxcdn.com/ecf1f303830daecfb69f2388c72cb6b8",
+	}
 
-		local badEvent: types.SponsoredEvent = {
-			name = "Bad Event",
-			title = "Bad Event",
-			pagePath = "/sponsored/bad-event",
-			url = "/sponsored/bad-event",
-		}
+	local badEvent: types.SponsoredEvent = {
+		name = "Bad Event",
+		title = "Bad Event",
+		pagePath = "/sponsored/bad-event",
+		url = "/sponsored/bad-event",
+	}
 
-		local element = withMockProviders({
-			EventsPage = React.createElement(EventsPage, {
-				mockDataStatus = RoduxNetworking.Enum.NetworkStatus.Done,
-			}),
-		}, {
-			initialStoreState = {
-				VirtualEvents = {
-					legacy = {
-						goodEvent,
-						badEvent,
-					},
+	local element = withMockProviders({
+		EventsPage = React.createElement(EventsPage, {
+			mockDataStatus = RoduxNetworking.Enum.NetworkStatus.Done,
+		}),
+	}, {
+		initialStoreState = {
+			VirtualEvents = {
+				legacy = {
+					goodEvent,
+					badEvent,
 				},
 			},
-		})
+		},
+	})
 
-		ReactRoblox.act(function()
-			root:render(element)
-		end)
-
-		local eventGridContainer = container:FindFirstChild("EventGridContainer", true)
-
-		expect(eventGridContainer).toBeDefined()
-
-		local tiles = 0
-		for _, descendant in eventGridContainer:GetDescendants() do
-			if descendant.Name == "EventImage" then
-				tiles += 1
-			end
-		end
-
-		expect(tiles).toBe(1)
+	ReactRoblox.act(function()
+		root:render(element)
 	end)
-end
+
+	local eventGridContainer = container:FindFirstChild("EventGridContainer", true)
+
+	expect(eventGridContainer).toBeDefined()
+
+	local tiles = 0
+	for _, descendant in eventGridContainer:GetDescendants() do
+		if descendant.Name == "EventImage" then
+			tiles += 1
+		end
+	end
+
+	expect(tiles).toBe(1)
+end)
 
 return {}

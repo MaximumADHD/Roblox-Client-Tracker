@@ -8,6 +8,7 @@ local Promise = dependencies.Promise
 local Roact = dependencies.Roact
 local RoactRodux = dependencies.RoactRodux
 local UIBlox = dependencies.UIBlox
+local FormFactor = dependencies.FormFactor
 local compose = SocialLibraries.RoduxTools.compose
 local Images = UIBlox.App.ImageSet.Images
 local EnumScreens = require(FriendsLanding.EnumScreens)
@@ -19,12 +20,14 @@ local FriendsSourceType = require(AddFriends.Enums.FriendsSourceType)
 local mapStateToProps = require(script.mapStateToProps)
 local mapDispatchToProps = require(script.mapDispatchToProps)
 local AddFriendsPageLoadAnalytics = FriendsLandingAnalytics.AddFriendsPageLoadAnalytics
+local AddFriendsSearchbarPressedEvent = FriendsLandingAnalytics.AddFriendsSearchbarPressedEvent
 local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
 local getFFlagShowContactImporterTooltipOnce = require(FriendsLanding.Flags.getFFlagShowContactImporterTooltipOnce)
 local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
 local ImpressionEvents = require(FriendsLanding.FriendsLandingAnalytics.ImpressionEvents)
 local contactImporterTooltip = require(FriendsLanding.Utils.contactImporterTooltip)
 local getFFlagAddFriendsFullPlayerSearchbar = dependencies.getFFlagAddFriendsFullPlayerSearchbar
+local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
 
 local GET_FRIEND_REQUESTS_LIMIT_PER_PAGE = 25
 local GET_FRIEND_REQUESTS_LIMIT_PER_PAGE_WIDE = 50
@@ -276,6 +279,15 @@ function AddFriendsContainer:init()
 	self.fireContactImporterSeenEvent = function()
 		self.props.analytics:impressionEvent(ImpressionEvents.ContactImporterBannerSeen)
 	end
+
+	if getFFlagAddFriendsFullSearchbarAnalytics() then
+		self.fireSearchbarPressedEvent = function()
+			AddFriendsSearchbarPressedEvent(
+				self.props.analytics,
+				{ formFactor = self.props.wideMode and FormFactor.WIDE or FormFactor.COMPACT }
+			)
+		end
+	end
 end
 
 function AddFriendsContainer:didMount()
@@ -305,7 +317,9 @@ function AddFriendsContainer:render()
 		refreshPage = self.refreshPage,
 		handleNavigateDownToViewUserProfile = self.handleNavigateDownToViewUserProfile,
 		handleOpenLearnMoreLink = if contactImporterAndPYMKEnabled then self.handleOpenLearnMore else nil,
-		navigation = if contactImporterAndPYMKEnabled then self.props.navigation else nil,
+		navigation = if contactImporterAndPYMKEnabled or getFFlagAddFriendsFullPlayerSearchbar()
+			then self.props.navigation
+			else nil,
 		contactImporterAndPYMKEnabled = contactImporterAndPYMKEnabled,
 		localUserId = if contactImporterAndPYMKEnabled then self.props.localUserId else nil,
 		shouldShowContactImporterFeature = if contactImporterAndPYMKEnabled
@@ -327,6 +341,9 @@ function AddFriendsContainer:render()
 		showTooltip = if getFFlagContactImporterUseNewTooltip() then self.props.showTooltip else nil,
 		wideMode = if getFFlagAddFriendsFullPlayerSearchbar() then self.props.wideMode else nil,
 		setScreenTopBar = if getFFlagAddFriendsFullPlayerSearchbar() then self.props.setScreenTopBar else nil,
+		fireSearchbarPressedEvent = if getFFlagAddFriendsFullSearchbarAnalytics()
+			then self.fireSearchbarPressedEvent
+			else nil,
 	})
 end
 

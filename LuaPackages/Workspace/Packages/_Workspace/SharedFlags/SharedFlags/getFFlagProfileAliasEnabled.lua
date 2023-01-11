@@ -1,5 +1,5 @@
-game:DefineFastFlag("ProfileAliasEnabled_v4", false)
+game:DefineFastFlag("ProfileAliasEnabled_v5", false)
 
 return function()
-	return game:GetFastFlag("ProfileAliasEnabled_v4")
+	return game:GetFastFlag("ProfileAliasEnabled_v5")
 end

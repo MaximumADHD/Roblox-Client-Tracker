@@ -18,7 +18,11 @@ local it = JestGlobals.it
 local jest = JestGlobals.jest
 
 local dependencies = require(FriendsLanding.dependencies)
+local SocialLuaAnalytics = dependencies.SocialLuaAnalytics
+local Enums = SocialLuaAnalytics.Analytics.Enums
+local Contexts = Enums.Contexts
 local getFFlagAddFriendsFullPlayerSearchbar = dependencies.getFFlagAddFriendsFullPlayerSearchbar
+local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
 
 -- FIXME: APPFDN-1925
 local headerBarCenterView = require((script :: any).Parent["HeaderBarCenterView.story"]) :: any
@@ -181,7 +185,7 @@ if getFFlagAddFriendsFullPlayerSearchbar() then
 	end)
 
 	describe("wideMode device searchbar button on AddFriends page", function()
-		local parent, cleanup
+		local parent, cleanup, analytics
 		local navigation = {
 			state = {
 				routeName = EnumScreens.AddFriends,
@@ -190,12 +194,18 @@ if getFFlagAddFriendsFullPlayerSearchbar() then
 		}
 
 		beforeEach(function()
+			analytics = {
+				buttonClick = jest.fn().mockName("buttonClick"),
+				navigate = jest.fn().mockName("navigate"),
+			}
+
 			parent, cleanup = createInstanceWithProviders(mockLocale)(headerBarCenterView, {
 				props = {
 					shouldRenderSearchbarButtonInWideMode = true,
 					navigation = navigation,
 					wideMode = true,
 				},
+				analytics = analytics,
 			})
 		end)
 
@@ -233,14 +243,34 @@ if getFFlagAddFriendsFullPlayerSearchbar() then
 				task.wait()
 			end)
 
-			ReactRoblox.act(function()
-				task.wait()
-			end)
 			expect(navigation.navigate).toHaveBeenCalledTimes(1)
 			expect(navigation.navigate).toHaveBeenCalledWith(
 				EnumScreens.SearchFriends,
 				{ searchText = "", showEmptyLandingPage = true }
 			)
 		end)
+
+		if getFFlagAddFriendsFullSearchbarAnalytics() then
+			it("SHOULD fire analytic events when you press on searchbar button", function()
+				local ImageButton = RhodiumHelpers.findFirstInstance(parent, {
+					className = "ImageButton",
+				})
+
+				expect(ImageButton).toEqual(expect.any("Instance"))
+
+				ReactRoblox.act(function()
+					RhodiumHelpers.clickInstance(ImageButton)
+					task.wait()
+				end)
+
+				expect(analytics.buttonClick).toHaveBeenCalledTimes(1)
+				expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.PeopleSearchBar, {
+					contextOverride = Contexts.PeopleSearchFromAddFriends.rawValue(),
+					formFactor = "WIDE",
+				})
+				expect(analytics.navigate).toHaveBeenCalledTimes(1)
+				expect(analytics.navigate).toHaveBeenCalledWith(analytics, EnumScreens.SearchFriends)
+			end)
+		end
 	end)
 end

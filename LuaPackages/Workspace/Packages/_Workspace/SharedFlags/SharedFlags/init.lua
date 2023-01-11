@@ -27,6 +27,7 @@ return {
 
 	-- Social
 	getFFlagAddFriendsFullPlayerSearchbar = require(script.getFFlagAddFriendsFullPlayerSearchbar),
+	getFFlagAddFriendsFullSearchbarAnalytics = require(script.getFFlagAddFriendsFullSearchbarAnalytics),
 	getFFlagProfileAliasEnabled = require(script.getFFlagProfileAliasEnabled),
 
 	-- Notifications
@@ -60,7 +61,6 @@ return {
 	getFFlagOffNetworkFriendingEnabled = require(script.getFFlagOffNetworkFriendingEnabled),
 	getFFlagPYMKDontUseIngestService = require(script.getFFlagPYMKDontUseIngestService),
 	getFFlagProfileRecommendationId = require(script.getFFlagProfileRecommendationId),
-	getFFlagShareLinkDeepLinkEnabled = require(script.getFFlagShareLinkDeepLinkEnabled),
 	getFFlagSocialAddFriendshipRequestEvent = require(script.getFFlagSocialAddFriendshipRequestEvent),
 	getFFlagSocialPanelIAEnabled = require(script.GetFFlagSocialPanelIAEnabled),
 	getFFlagSocialAddMessageModal = require(script.getFFlagSocialAddMessageModal),
@@ -87,11 +87,14 @@ return {
 	GetFFlagHideWebViewItemsInContextMenuForVR = require(script.GetFFlagHideWebViewItemsInContextMenuForVR),
 	GetFFlagHideSystemBarForVRLogin = require(script.GetFFlagHideSystemBarForVRLogin),
 	GetFFlagUseVoiceExitBetaLanguage = require(script.GetFFlagUseVoiceExitBetaLanguage),
+	GetFFlagGameInfoRowVoiceExitBetaBugFix = require(script.GetFFlagGameInfoRowVoiceExitBetaBugFix),
 	GetFFlagHideConnectPageWebViewItemsForVR = require(script.GetFFlagHideConnectPageWebViewItemsForVR),
 	GetFFlagHideMorePageContentWithNoWebViewForVR = require(script.GetFFlagHideMorePageContentWithNoWebViewForVR),
 	GetFFlagHideGameDetailsWebViewItemsForVR = require(script.GetFFlagHideGameDetailsWebViewItemsForVR),
 	GetFFlagEnableToastForDisabledWebViewItemsInVR = require(script.GetFFlagEnableToastForDisabledWebViewItemsInVR),
 	getFFlagFixFriendshipOriginSourceType = require(script.getFFlagFixFriendshipOriginSourceType),
 	GetFFlagPeekViewClipFramePositionFromBottom = require(script.GetFFlagPeekViewClipFramePositionFromBottom),
+	GetFFlagDisableEditProfileForVR = require(script.GetFFlagDisableEditProfileForVR),
 	GetFFlagEnableVRReadyToast = require(script.GetFFlagEnableVRReadyToast),
+	GetFFlagLuaAppInfiniteHomePage = require(script.GetFFlagLuaAppInfiniteHomePage)
 }

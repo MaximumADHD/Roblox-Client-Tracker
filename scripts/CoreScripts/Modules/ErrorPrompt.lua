@@ -6,6 +6,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TextService = game:GetService("TextService")
 local GuiService = game:GetService("GuiService")
 local LocalizationService = game:GetService("LocalizationService")
+local VRService = game:GetService("VRService")
 
 local create = require(RobloxGui.Modules.Common.Create)
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
@@ -13,6 +14,7 @@ local Constants = require(RobloxGui.Modules.Common.Constants)
 local Shimmer = require(RobloxGui.Modules.Shimmer)
 
 local fflagLocalizeErrorCodeString = settings():GetFFlag("LocalizeErrorCodeString")
+local FFlagVRFixErrorPrompt = require(RobloxGui.Modules.Flags.FFlagVRFixErrorPrompt)
 
 local DEFAULT_ERROR_PROMPT_KEY = "ErrorPrompt"
 
@@ -137,6 +139,11 @@ local styledFrame = {
 						Size = UDim2.new(1, 0, 0, Constants.BUTTON_HEIGHT),
 						ZIndex = 8,
 						LayoutOrder = 2,
+						SelectionGroup = FFlagVRFixErrorPrompt or nil,
+						SelectionBehaviorUp = (FFlagVRFixErrorPrompt and Enum.SelectionBehavior.Stop) or nil,
+						SelectionBehaviorDown = (FFlagVRFixErrorPrompt and Enum.SelectionBehavior.Stop) or nil,
+						SelectionBehaviorLeft = (FFlagVRFixErrorPrompt and Enum.SelectionBehavior.Stop) or nil,
+						SelectionBehaviorRight = (FFlagVRFixErrorPrompt and Enum.SelectionBehavior.Stop) or nil,
 						create 'UIGridLayout' {
 							Name = "ButtonLayout",
 							CellPadding = UDim2.new(0, Constants.BUTTON_CELL_PADDING, 0, 0),
@@ -240,6 +247,9 @@ function ErrorPrompt:_open(errorMsg, errorCode)
 			self._frame.PromptScale.Scale = 1
 		else
 			self._frame.PromptScale.Scale = 1
+		end
+		if FFlagVRFixErrorPrompt and VRService.VREnabled then
+			GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)
 		end
 	end
 end

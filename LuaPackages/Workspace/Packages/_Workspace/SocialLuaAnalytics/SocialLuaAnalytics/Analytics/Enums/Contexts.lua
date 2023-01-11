@@ -2,9 +2,12 @@ local SocialLuaAnalytics = script.Parent.Parent.Parent
 local dependencies = require(SocialLuaAnalytics.dependencies)
 local enumerate = dependencies.enumerate
 
+local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
+
 return enumerate(script.Name, {
 	ContactImport = "contactImport",
 	HomePage = "homepage",
+	ProfileQRCode = "profileQRCode",
 	MorePage = "morepage",
 	GameDetails = "gameDetails",
 	PlayerSearch = "playerSearch",
@@ -12,6 +15,9 @@ return enumerate(script.Name, {
 	SocialTab = "SocialTab",
 	FriendsLanding = "friendsLanding",
 	Chat = "chat",
+	PeopleSearchFromAddFriends = if getFFlagAddFriendsFullSearchbarAnalytics()
+		then "peopleSearchfromAddFriends"
+		else nil,
 
 	-- TODO SOCCONN-1976 these refer to the same page, we should standardise this
 	AddFriends = "addUniversalFriends",

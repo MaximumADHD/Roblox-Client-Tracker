@@ -32,6 +32,7 @@ local getFFlagUpdateContactImportModalLogic = require(FriendsLanding.Flags.getFF
 local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
 local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
 local getFFlagAddFriendsFullPlayerSearchbar = dependencies.getFFlagAddFriendsFullPlayerSearchbar
+local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
 
 local AddFriendsContentFrame = require(script.Parent.AddFriendsContentFrame)
 
@@ -214,6 +215,10 @@ function AddFriendsPage:init()
 				shouldRenderCenter = true,
 				shouldAutoFocusCenter = true,
 			})
+
+			if getFFlagAddFriendsFullSearchbarAnalytics() then
+				self.props.fireSearchbarPressedEvent()
+			end
 		end
 		else nil
 end

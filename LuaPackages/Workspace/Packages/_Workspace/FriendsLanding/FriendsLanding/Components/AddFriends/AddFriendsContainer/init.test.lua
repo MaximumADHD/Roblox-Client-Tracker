@@ -7,6 +7,7 @@ local waitUntil = require(FriendsLanding.TestHelpers.waitUntil)
 local getFFlagShowContactImporterTooltipOnce = require(FriendsLanding.Flags.getFFlagShowContactImporterTooltipOnce)
 local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
 local getFFlagAddFriendsFullPlayerSearchbar = dependencies.getFFlagAddFriendsFullPlayerSearchbar
+local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
 
 local llama = dependencies.llama
 
@@ -23,6 +24,10 @@ local describe = JestGlobals.describe
 local expect = JestGlobals.expect
 local it = JestGlobals.it
 local jest = JestGlobals.jest
+
+local SocialLuaAnalytics = dependencies.SocialLuaAnalytics
+local Enums = SocialLuaAnalytics.Analytics.Enums
+local Contexts = Enums.Contexts
 
 local getTestStore = require(script.Parent.getTestStore)
 local AddFriendsContainer = require(script.Parent)
@@ -57,7 +62,11 @@ describe("AddFriendsContainer", function()
 		allRequestsIgnoredText = "All Requests Ignored",
 	}
 
-	local function createInstanceWithRequests(testStoreSetting, extraProps: any, otherServices: { analytics: any }?)
+	local function createInstanceWithRequests(
+		testStoreSetting,
+		extraProps: any,
+		otherServices: { analytics: any, context: any? }?
+	)
 		return createInstanceWithProviders(mockLocale)(AddFriendsContainer, {
 			store = getTestStore(testStoreSetting.hasRequests, testStoreSetting.extraData),
 			props = llama.Dictionary.join(extraProps, {
@@ -65,6 +74,7 @@ describe("AddFriendsContainer", function()
 				localized = localized,
 			}),
 			analytics = otherServices and otherServices.analytics,
+			context = otherServices and otherServices.context,
 		})
 	end
 
@@ -316,6 +326,35 @@ describe("AddFriendsContainer", function()
 
 		cleanup()
 	end)
+
+	if getFFlagAddFriendsFullPlayerSearchbar() and getFFlagAddFriendsFullSearchbarAnalytics() then
+		it("SHOULD fire analytic events when full searchbar clicked in compactMode", function()
+			local analytics = {
+				buttonClick = jest.fn(),
+				navigate = jest.fn(),
+			}
+
+			local instance, cleanup = createInstanceWithRequests(
+				{ hasRequests = true },
+				{},
+				{ analytics = analytics, context = { wideMode = false } }
+			)
+
+			local SearchbarButton = RhodiumHelpers.findFirstInstance(instance, {
+				Name = "SearchbarButton",
+			})
+			expect(SearchbarButton).toEqual(expect.any("Instance"))
+			RhodiumHelpers.clickInstance(SearchbarButton)
+
+			expect(analytics.buttonClick).toHaveBeenCalledTimes(1)
+			expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.PeopleSearchBar, {
+				contextOverride = Contexts.PeopleSearchFromAddFriends.rawValue(),
+				formFactor = "COMPACT",
+			})
+			expect(analytics.navigate).toHaveBeenCalledWith(analytics, EnumScreens.SearchFriends)
+			cleanup()
+		end)
+	end
 
 	describe("GetFriendRequests", function()
 		it("SHOULD be triggered when mounted", function()
