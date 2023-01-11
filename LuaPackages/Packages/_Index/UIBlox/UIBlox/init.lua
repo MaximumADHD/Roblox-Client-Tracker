@@ -250,6 +250,7 @@ local function initializeLibrary(configs)
 				FullPageModal = require(script.App.Dialog.Modal.FullPageModal),
 				PartialPageModal = require(script.App.Dialog.Modal.PartialPageModal),
 				EducationalModal = require(script.App.Dialog.Modal.EducationalModal),
+				ModalWindow = require(script.App.Dialog.Modal.ModalWindow),
 			}),
 			Alert = strict({
 				InformativeAlert = require(script.App.Dialog.Alert.InformativeAlert),

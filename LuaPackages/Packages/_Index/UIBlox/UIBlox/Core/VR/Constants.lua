@@ -26,6 +26,7 @@ export type Panel3DProps = {
 	alwaysOnTop: boolean, -- should the panel render on top of geometry
 	parent: Instance, -- parent object, e.g. folder of parts
 	hidden: boolean, -- whether to hide the panel
+	curvature: number,
 }
 
 return {

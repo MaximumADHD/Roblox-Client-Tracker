@@ -63,6 +63,7 @@ local isQQ = string.sub(baseUrl, -6) == "qq.com"
 -- from Url.lua
 UrlBase.API = UrlBase.new("api")
 UrlBase.APIS = UrlBase.new("apis")
+UrlBase.APIS_RBXCDN = "https://apis.rbxcdn.com"
 UrlBase.AUTH = UrlBase.new("auth")
 UrlBase.CHAT = UrlBase.new("chat")
 UrlBase.FRIENDS = UrlBase.new("friends", 1)

@@ -132,6 +132,9 @@ return {
 	-- Should we apply a fix that allows Camera.HeadScale to affect VR tracking positions
 	vrApplyHeadScale = false,
 
+	-- Use curved panels with antialiasing in VR
+	useCurvedPanel3D = false,
+
 	-- Removes central AnchorPoint and Position from ExperienceDetails media gallery Preview
 	-- to avoid layout bug related to AutomaticSize
 	removePreviewAnchor = false,
