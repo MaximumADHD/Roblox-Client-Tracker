@@ -58,6 +58,7 @@ AA61B3A2068118C14FDE5E01E7934
 AAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWWWWWWWWWWWWWWWWWWWWWWWWNNNNNNNNN
 AAACertificateServices.crl0
+AAACertificateServices.crl04
 AAACertificateServices.crl06
 AAAEB11E38B9D871882A8E559
 AAAEC11E38B9D871882A8E559
@@ -2340,6 +2341,7 @@ AUTHORITY_INFO_ACCESS
 AUTHORITY_KEYID
 Authority0
 Authority0v0
+Authority1
 AuthorityId
 AuthorityText
 AuthorityUrl
@@ -9279,7 +9281,6 @@ Client\ThirdParty\webrtc\src\modules\congestion_controller\rtp\control_handler.c
 Client\ThirdParty\webrtc\src\modules\congestion_controller\rtp\transport_feedback_adapter.cc
 Client\ThirdParty\webrtc\src\modules\pacing\bitrate_prober.cc
 Client\ThirdParty\webrtc\src\modules\pacing\paced_sender.cc
-Client\ThirdParty\webrtc\src\modules\pacing\pacing_co
 Client\ThirdParty\webrtc\src\modules\pacing\pacing_controller.cc
 Client\ThirdParty\webrtc\src\modules\pacing\packet_router.cc
 Client\ThirdParty\webrtc\src\modules\pacing\round_robin_packet_queue.cc
@@ -10911,8 +10912,8 @@ Corporation
 Corporation.
 Corporation\Roblox
 Corporation\Roblox\FilteredExceptionCrash
-Corporation0
-Corporation1
+CORPORATION0
+CORPORATION1
 Corporation1402
 CorrectControllerManagerInWorld
 CorrectCreationOfConnections
@@ -13442,15 +13443,6 @@ DiffuseFilePath
 DigestAlgorithm_find_ctx
 DigestAlgorithm_init_bio
 DigestedData_do_final
-DigiCertAssuredIDRootCA.crl0
-DigiCertAssuredIDRootCA.crt0E
-DigiCertEVCodeSigningCA
-DigiCertHighAssuranceEVRootCA.crl0
-DigiCertHighAssuranceEVRootCA.crt0
-DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crl0
-DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crt0
-DigiCertTrustedRootG4.crl0
-DigiCertTrustedRootG4.crt0C
 DigitalSignature
 DilateTemporalFS
 DilleniaUPC
@@ -15073,7 +15065,6 @@ EvAudioVideoInput
 EvAV2CFaceIsOccluded
 EvAV2CFaceNotFound
 EvAV2CHasTrackingError
-EVCodeSigningSHA2
 Event.button
 Event.clientX
 Event.clientY
@@ -24543,7 +24534,6 @@ OrFetchPlugin
 OrFirstTier
 Organizaci
 Organization
-Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -31412,6 +31402,10 @@ SecondaryTangentAxis
 SecondIntervalOnTimer
 SecondsBetweenDynamicVariableReloading
 SecondsPerBatchAwardPointsCall
+SectigoPublicCodeSigningCAR36.crl0y
+SectigoPublicCodeSigningCAR36.crt0
+SectigoPublicCodeSigningRootR46.crl0
+SectigoPublicCodeSigningRootR46.p7c0
 SectionClicked
 SectionResizeMode
 SectionsClickable
@@ -39732,7 +39726,6 @@ TimeSpentRemoving
 TimesReplicatedNeverReplicate
 TimesReplicatedNeverReplicatedPerInterval
 Timestamping
-TimeStamping
 TimestampStart
 TimestepArbiterAccelerationModelFactorThou
 TimestepArbiterAngAccelerationThresholdThou
@@ -45117,7 +45110,6 @@ XAEBVInstance
 XAEBVIPAddress
 XAEBVOptions
 XAEBVQJsonObject
-XAEBVQMetaMethod
 XAEBVQString
 XAEBVQTextCursor
 XAEBVRecordableEncodedFrame
