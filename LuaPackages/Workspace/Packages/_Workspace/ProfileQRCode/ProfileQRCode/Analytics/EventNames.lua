@@ -4,4 +4,5 @@ local enumerate = require(Packages.Enumerate)
 
 return enumerate(script.Name, {
 	QRPageLoad = "QRPageLoad",
+	QRPageLoadFailed = "QRPageLoadFailed",
 })

@@ -123,6 +123,8 @@ describe("ContactsListContainerV2", function()
 							return false
 						elseif param == Constants.SHOULD_UPDATE_USER_SETTINGS then
 							return getFFlagNavigateToContactsListFirst()
+						elseif param == Constants.IS_PHONE_VERIFIED then
+							return true
 						else
 							return Dash.noop
 						end

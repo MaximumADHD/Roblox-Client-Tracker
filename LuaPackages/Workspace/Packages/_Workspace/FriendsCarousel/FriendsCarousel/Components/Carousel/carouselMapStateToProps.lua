@@ -14,6 +14,8 @@ local showRecommendations = require(FriendsCarousel.Utils.showRecommendations)
 local NetworkStatus = dependencies.RoduxNetworking.Enum.NetworkStatus
 local getSessionIdByKey = dependencies.RoduxAnalytics.Selectors.getSessionIdByKey
 local getFFlagContactImporterOnFriendsCarousel = dependencies.getFFlagContactImporterOnFriendsCarousel
+local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
+
 local mapStateToProps = function(state, props)
 	local localUserId = tostring(state.LocalUserId)
 	local friendsList = getFriendsList(state, RODUX_KEY, props)
@@ -24,12 +26,13 @@ local mapStateToProps = function(state, props)
 	local friendRequestCount = getDeepValue(state, string.format("%s.Friends.requests.receivedCount", RODUX_KEY)) or 0
 	local fetchingStatus = getCarouselFetchingStatus(state, localUserId, showRecommendations(friendCount))
 
-	local shouldShowContactImporterFeature, shouldShowContactImporterUpsellModal, isDiscoverabilityUnset
+	local shouldShowContactImporterFeature, shouldShowContactImporterUpsellModal, isDiscoverabilityUnset, isPhoneVerified
 	if not getFFlagContactImporterOnFriendsCarousel() then
 		local showModalParams = getDeepValue(state, RODUX_KEY .. "." .. "ShowContactImporterParams") or {}
 		shouldShowContactImporterFeature = showModalParams.shouldShowContactImporterFeature
 		shouldShowContactImporterUpsellModal = showModalParams.shouldShowContactImporterUpsellModal
 		isDiscoverabilityUnset = showModalParams.isDiscoverabilityUnset
+		isPhoneVerified = showModalParams.isPhoneVerified
 	end
 
 	friendsAndRecList = friendsAndRecList or {}
@@ -52,6 +55,7 @@ local mapStateToProps = function(state, props)
 		shouldShowContactImporterUpsellModal = shouldShowContactImporterUpsellModal,
 		isDiscoverabilityUnset = isDiscoverabilityUnset,
 		recommendationSessionId = recommendationSessionId,
+		isPhoneVerified = if getFFlagEnableContactInvitesForNonPhoneVerified() then isPhoneVerified else nil,
 	}
 end
 

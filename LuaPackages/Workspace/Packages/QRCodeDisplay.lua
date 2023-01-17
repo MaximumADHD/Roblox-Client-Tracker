@@ -5,4 +5,8 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["QRCodeDisplay"]["QRCodeDisplay"])
 
+export type DisplayQRCodeFromMatrixProps = Package.DisplayQRCodeFromMatrixProps
+export type DisplayQRCodeProps = Package.DisplayQRCodeProps
+
+
 return Package

@@ -8,6 +8,7 @@ local SetIsPhoneVerified = require(ContactImporter.Actions.SetIsPhoneVerified)
 local Rodux = dependencies.Rodux
 local llama = dependencies.llama
 local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
+local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 local Constants = require(ContactImporter.Common.Constants)
 
 type State = {
@@ -47,11 +48,23 @@ return Rodux.createReducer(DEFAULT_STATE, {
 
 		local hasUserOptedIntoContactImporter = hasOSPermissions and action.isUserOptedInLocalStorage
 
+		local shouldShowContactImporterFeature
+		if getFFlagContactImporterWithPhoneVerification() then
+			if getFFlagEnableContactInvitesForNonPhoneVerified() then
+				shouldShowContactImporterFeature = isPhoneVerified or not isEmailVerified and canUploadContacts ~= false
+			else
+				shouldShowContactImporterFeature = not isEmailVerified and canUploadContacts ~= false
+			end
+		else
+			if getFFlagEnableContactInvitesForNonPhoneVerified() then
+				shouldShowContactImporterFeature = canUploadContacts ~= false
+			else
+				shouldShowContactImporterFeature = isPhoneVerified and canUploadContacts ~= false
+			end
+		end
+
 		return {
-			[Constants.SHOULD_SHOW_CONTACT_IMPORTER_FEATURE] = isPhoneVerified
-				or (getFFlagContactImporterWithPhoneVerification() and not isEmailVerified)
-					-- need to check for false here because default value is nil
-					and canUploadContacts ~= false,
+			[Constants.SHOULD_SHOW_CONTACT_IMPORTER_FEATURE] = shouldShowContactImporterFeature,
 			-- do not show contact importer upsell if user is already opted in
 			-- OR if not enough time has passed since user last seen it
 			[Constants.SHOULD_SHOW_CONTACT_IMPORTER_UPSELL_MODAL] = not hasUserOptedIntoContactImporter

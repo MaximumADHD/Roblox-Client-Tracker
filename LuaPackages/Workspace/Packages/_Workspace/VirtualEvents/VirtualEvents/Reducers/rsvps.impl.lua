@@ -53,6 +53,41 @@ return function(NetworkingVirtualEvents: any, Players: Players)
 		[NetworkingVirtualEvents.GetVirtualEventRsvpCounts.Failed.name] = function(state: State, action: any)
 			return state
 		end,
+
+		[NetworkingVirtualEvents.UpdateMyRsvpStatus.Succeeded.name] = function(state: State, action: any)
+			local virtualEventId = action.ids[1]
+			local counters = state[virtualEventId]
+
+			if counters then
+				local rsvpStatus = action.postBody.rsvpStatus
+				local increment = 0
+				if rsvpStatus == "going" then
+					increment = 1
+				elseif rsvpStatus == "notGoing" then
+					increment = -1
+				end
+
+				return Cryo.Dictionary.join(state, {
+					[virtualEventId] = Cryo.Dictionary.join(counters, {
+						-- We only update the `going` counter when a user
+						-- changes their RSVP status because it's the only one
+						-- visible to the user.
+						--
+						-- When the user refreshes the page the counters are
+						-- fetched again, so this update is only so the
+						-- "Interested" counter will live update based on the
+						-- user's RSVP status
+						going = math.clamp(counters.going + increment, 0, math.huge),
+					}),
+				})
+			else
+				return state
+			end
+		end,
+
+		[NetworkingVirtualEvents.UpdateMyRsvpStatus.Failed.name] = function(state: State, action: any)
+			return state
+		end,
 	})
 
 	local byVirtualEventId = Rodux.createReducer({}, {

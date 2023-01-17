@@ -27,6 +27,7 @@ local VoiceChatServiceStub = {
 	publishPaused = false,
 	available = true,
 	joinCalled = false,
+	policyMapper = nil
 }
 
 local function makeMockUser(userId, isMutedLocally)

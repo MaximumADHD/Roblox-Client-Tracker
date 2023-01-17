@@ -6,4 +6,7 @@ return {
 	[EventNames.QRPageLoad] = {
 		name = game:DefineFastString("ProfileQRPageLoad", "ProfileQRPageLoad") :: string,
 	} :: GenericDiagAction,
+	[EventNames.QRPageLoadFailed] = {
+		name = game:DefineFastString("ProfileQRPageLoadFailed", "ProfileQRPageLoadFailed") :: string,
+	},
 }

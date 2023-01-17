@@ -9,5 +9,7 @@ local it = JestGlobals.it
 it("SHOULD have expected API", function()
 	expect(UserSearch).toEqual({
 		["jest.config"] = expect.anything(),
+		UserSearchTile = expect.any("function"),
+		ImpressionsTagWrapper = expect.any("table"),
 	})
 end)

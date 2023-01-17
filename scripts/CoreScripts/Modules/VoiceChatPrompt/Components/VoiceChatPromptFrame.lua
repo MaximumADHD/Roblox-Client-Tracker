@@ -16,6 +16,7 @@ local Images = UIBlox.App.ImageSet.Images
 
 local PromptType = require(script.Parent.Parent.PromptType)
 local EnableInGameMenuV3 = require(script.Parent.Parent.Parent.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
+local InGameMenuPolicy = require(script.Parent.Parent.Parent.InGameMenu.InGameMenuPolicy)
 
 local Assets
 if EnableInGameMenuV3() then
@@ -89,6 +90,7 @@ VoiceChatPromptFrame.validateProps = t.strictInterface({
 	onContinueFunc = t.optional(t.callback),
 	onReadyForSignal = t.optional(t.callback),
 	Analytics = t.optional(t.table),
+	showNewContent = t.optional(t.boolean),
 })
 
 function VoiceChatPromptFrame:init()
@@ -104,6 +106,14 @@ function VoiceChatPromptFrame:init()
 		banEnd = "",
 		showPrompt = true,
 	}
+
+	if self.props.showNewContent then
+		local micSuspended = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.MicUseSuspended")
+		local tempBan = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.TemporarySuspension2")
+		PromptTitle[PromptType.VoiceChatSuspendedTemporary] = micSuspended
+		PromptTitle[PromptType.VoiceChatSuspendedPermanent] = micSuspended
+		PromptSubTitle[PromptType.VoiceChatSuspendedTemporary] = tempBan
+	end
 
 	self.onScreenSizeChanged = function(rbx)
 		if self.state.screenSize ~= rbx.AbsoluteSize then
@@ -122,7 +132,7 @@ function VoiceChatPromptFrame:init()
 			promptType == PromptType.Retry or
 			promptType == PromptType.User or
 			promptType == PromptType.Place or
-			promptType == PromptType.VoiceChatSuspendedTemporary or 
+			promptType == PromptType.VoiceChatSuspendedTemporary or
 			promptType == PromptType.VoiceChatSuspendedPermanent then
 			self:setState({
 				promptType = promptType,
@@ -367,5 +377,11 @@ function VoiceChatPromptFrame:didMount()
 	ContextActionService:BindCoreAction(CLOSE_VOICE_BAN_PROMPT, self.checkInputStateForClosePrompt, false, Enum.KeyCode.ButtonA)
 	ContextActionService:BindCoreAction(CLOSE_VOICE_BAN_PROMPT, self.checkInputStateForClosePrompt, false, Enum.KeyCode.ButtonB)
 end
+
+VoiceChatPromptFrame = InGameMenuPolicy.connect(function(appPolicy, props)
+	return {
+		showNewContent = appPolicy.getGameInfoShowChatFeatures(),
+	}
+end)(VoiceChatPromptFrame)
 
 return VoiceChatPromptFrame

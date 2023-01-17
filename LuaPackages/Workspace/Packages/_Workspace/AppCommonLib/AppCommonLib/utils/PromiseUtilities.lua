@@ -27,7 +27,7 @@ local PromiseUtilities = {}
 				}
 		* is never rejected.
 ]]
-function PromiseUtilities.Batch(promises)
+function PromiseUtilities.Batch(promises, failureReporter: ((string?) -> ())?)
 	assert(type(promises) == "table", "PromiseUtilities expects a list of Promises!")
 
 	local numberOfPromises = 0
@@ -64,6 +64,9 @@ function PromiseUtilities.Batch(promises)
 				end,
 				function(reason)
 					promiseCompleted(key, false, reason)
+					if failureReporter then
+						failureReporter(reason)
+					end
 				end
 			)
 		end

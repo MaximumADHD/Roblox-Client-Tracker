@@ -9,5 +9,7 @@ local it = JestGlobals.it
 it("SHOULD have expected API", function()
 	expect(ProfileQRCode).toEqual({
 		["jest.config"] = expect.anything(),
+		DisplayQRCode = expect.any("function"),
+		ECLevels = expect.any("table"),
 	})
 end)

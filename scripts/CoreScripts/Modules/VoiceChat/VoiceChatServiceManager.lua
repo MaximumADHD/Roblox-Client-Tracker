@@ -641,6 +641,7 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal)
 			Analytics = Analytics.new(),
 			promptSignal = self.promptSignal.Event,
 			bannedUntil = banEnd,
+			policyMapper = self.policyMapper,
 			errorText = errorText,
 			onReadyForSignal = onReadyForSignal,
 			onContinueFunc = function() PostInformedOfBan(bind(self, 'PostRequest'), true) end

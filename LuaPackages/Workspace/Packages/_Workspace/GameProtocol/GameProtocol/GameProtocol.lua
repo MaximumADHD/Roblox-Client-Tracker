@@ -9,6 +9,7 @@ local Cryo = require(Packages.Cryo)
 local Types = require(script.Parent.GameProtocolTypes)
 
 local FFlagExperienceJoinAttemptId = require(script.Parent.Flags.FFlagExperienceJoinAttemptId)
+local GetFFlagJoinAttemptIdFromWebview = require(script.Parent.Flags.GetFFlagJoinAttemptIdFromWebview)
 
 type LaunchParams = Types.LaunchParams
 export type GameProtocol = Types.GameProtocol
@@ -78,10 +79,14 @@ function GameProtocol:launchGame(params: LaunchParams, source: string?, onLaunch
 	end
 
 	if FFlagExperienceJoinAttemptId then
-		local joinAttemptId = HttpService:GenerateGUID(false)
+		local joinAttemptId = if GetFFlagJoinAttemptIdFromWebview() and params.joinAttemptId ~= nil
+			then params.joinAttemptId
+			else HttpService:GenerateGUID(false)
 		params = Cryo.Dictionary.join(params, {
 			joinAttemptId = joinAttemptId,
-			joinAttemptOrigin = source,
+			joinAttemptOrigin = if GetFFlagJoinAttemptIdFromWebview() and source ~= nil
+				then source
+				else params.joinAttemptOrigin,
 		})
 
 		if onLaunchGameCallback then

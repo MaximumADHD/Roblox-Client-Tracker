@@ -1,0 +1,16 @@
+return {
+	AppBrowserService = require(script.AppBrowserService),
+	AppContentProvider = require(script.AppContentProvider),
+	AppGame = require(script.AppGame),
+	AppGuiService = require(script.AppGuiService),
+	AppLinking = require(script.AppLinking),
+	AppLogging = require(script.AppLogging),
+	AppNotificationService = require(script.AppNotificationService),
+	AppPermissions = require(script.AppPermissions),
+	AppPrefetch = require(script.AppPrefetch),
+	AppRunService = require(script.AppRunService),
+	AppSessionService = require(script.AppSessionService),
+	AppUpdateService = require(script.AppUpdateService),
+	AppUserGameSettings = require(script.AppUserGameSettings),
+	AppUserInputService = require(script.AppUserInputService),
+}

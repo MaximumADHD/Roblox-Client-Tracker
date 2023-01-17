@@ -28,7 +28,6 @@ local ContactsProtocol = dependencies.ContactsProtocol
 local UIVariants = require(FriendsCarousel.Common.UIVariants)
 
 local getFFlagFriendsCarouselDontUseIngestService = dependencies.getFFlagFriendsCarouselDontUseIngestService
-local getFFlagProfileRecommendationId = dependencies.getFFlagProfileRecommendationId
 local getFFlagAutoSyncForContactImporterDisabled = dependencies.getFFlagAutoSyncForContactImporterDisabled
 local getFFlagFriendsCarouselAddUniverseIdToEvents =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddUniverseIdToEvents)
@@ -286,9 +285,7 @@ function CarouselContainer:init()
 				recommendationContextType = if user.contextType then user.contextType.rawValue() else nil,
 				isRecommendation = if user.contextType then true else false,
 				mutualFriendsCount = user.mutualFriendsList and #user.mutualFriendsList or 0,
-				recommendationSessionId = if getFFlagProfileRecommendationId()
-					then props.recommendationSessionId
-					else nil,
+				recommendationSessionId = props.recommendationSessionId,
 			},
 			contextualMenuProps = {
 				user = user,

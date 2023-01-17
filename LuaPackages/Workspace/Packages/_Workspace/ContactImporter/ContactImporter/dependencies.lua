@@ -91,6 +91,7 @@ return {
 	UrlBuilder = UrlBuilderPackage.UrlBuilder,
 
 	ContactsProtocol = require(Packages.ContactsProtocol).ContactsProtocol,
+	NativeUtilProtocol = require(Packages.NativeUtilProtocol).NativeUtilProtocol,
 	SMSProtocol = require(Packages.SMSProtocol).SMSProtocol,
 
 	PermissionsProtocol = require(Packages.PermissionsProtocol).PermissionsProtocol,
@@ -121,4 +122,6 @@ return {
 	RoactExperimentProvider = RoactAppExperiment.Provider,
 	getFFlagContactImporterEnabledForDev = getFFlagContactImporterEnabledForDev,
 	getFFlagContactImporterWithPhoneVerification = require(Packages.SharedFlags).getFFlagContactImporterWithPhoneVerification,
+	getFFlagEnableContactInvitesForNonPhoneVerified = require(Packages.SharedFlags).getFFlagEnableContactInvitesForNonPhoneVerified,
+	getFFlagLuaNativeUtilEnableSMSHandling = require(Packages.SharedFlags).getFFlagLuaNativeUtilEnableSMSHandling,
 }

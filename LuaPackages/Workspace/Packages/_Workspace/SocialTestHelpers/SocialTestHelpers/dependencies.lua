@@ -9,6 +9,7 @@ return {
 	Dash = require(Packages.Dash),
 	Rodux = require(Packages.Rodux),
 	RoactRodux = require(Packages.RoactRodux),
+	ReactRoblox = require(Packages.ReactRoblox),
 	LocalizationProvider = require(Packages.Localization).LocalizationProvider,
 	RobloxAppLocales = require(Packages.RobloxAppLocales),
 }

@@ -16,7 +16,7 @@ local expect = JestGlobals.expect
 local it = JestGlobals.it
 local jest = JestGlobals.jest
 
-local getFFlagAddFriendsFullPlayerSearchbar = dependencies.getFFlagAddFriendsFullPlayerSearchbar
+local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 
 -- FIXME: APPFDN-1925
 local headerBarRightView = require((script :: any).Parent["HeaderBarRightView.story"]) :: any
@@ -55,12 +55,17 @@ describe("HeaderBarRightView", function()
 			cleanup()
 		end)
 
-		if getFFlagAddFriendsFullPlayerSearchbar() then
+		if getFFlagAddFriendsSearchbarIXPEnabled() then
 			it("SHOULD show SearchFriendsIcon on SearchFriends", function()
-				local parent, cleanup = createInstanceWithProps(mockLocale)(noFriendsStory, {
-					navigation = {
-						state = {
-							routeName = EnumScreens.SearchFriends,
+				local parent, cleanup = createInstanceWithProviders(mockLocale)(headerBarRightView, {
+					context = {
+						addFriendsPageSearchbarEnabled = true,
+					},
+					props = {
+						navigation = {
+							state = {
+								routeName = EnumScreens.SearchFriends,
+							},
 						},
 					},
 				})
@@ -98,7 +103,7 @@ describe("HeaderBarRightView", function()
 			end)
 		end
 
-		if not getFFlagAddFriendsFullPlayerSearchbar() then
+		if not getFFlagAddFriendsSearchbarIXPEnabled() then
 			it("SHOULD ONLY show SearchFriendsIcon on AddFriends", function()
 				local parent, cleanup = createInstanceWithProps(mockLocale)(noFriendsStory, {
 					navigation = {

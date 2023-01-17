@@ -6,7 +6,7 @@ local RoactRodux = dependencies.RoactRodux
 local HeaderBarCenterView = require(script.Parent)
 local FriendsLandingContext = require(FriendsLanding.FriendsLandingContext)
 
-local getFFlagAddFriendsFullPlayerSearchbar = dependencies.getFFlagAddFriendsFullPlayerSearchbar
+local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 
 local BASE_STORE = Rodux.Store.new(function()
 	return {}
@@ -25,7 +25,10 @@ return function(props)
 					return { shouldRenderCenter = true }
 				end,
 				setScreenTopBar = function() end,
-				wideMode = if getFFlagAddFriendsFullPlayerSearchbar() then props.wideMode or nil else nil,
+				wideMode = if getFFlagAddFriendsSearchbarIXPEnabled() then props.wideMode or nil else nil,
+				addFriendsPageSearchbarEnabled = if getFFlagAddFriendsSearchbarIXPEnabled()
+					then props.addFriendsPageSearchbarEnabled or nil
+					else nil,
 			},
 		}, {
 			Roact.createElement("Frame", {

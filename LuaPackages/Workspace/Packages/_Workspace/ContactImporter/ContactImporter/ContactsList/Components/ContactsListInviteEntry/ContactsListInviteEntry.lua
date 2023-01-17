@@ -14,6 +14,7 @@ local CONTACTS_ENTRY_HEIGHT = 72
 local CONTEXTUAL_TEXT_HEIGHT = 20
 local FLAT_LIST_FIX = -1 -- Need to account for a pixel being cut off from flat list
 local VERTICAL_TEXT_PADDING = (CONTACTS_ENTRY_HEIGHT - CONTEXTUAL_TEXT_HEIGHT) / 2
+local NativeUtilProtocol = dependencies.NativeUtilProtocol
 local SMSProtocol = dependencies.SMSProtocol
 local Dash = dependencies.Dash
 local useStyle = dependencies.useStyle
@@ -30,10 +31,12 @@ export type Props = {
 	hasDivider: boolean,
 	phoneNumber: string,
 	hasSentRequest: boolean,
+	nativeUtilProtocol: any?,
 	smsProtocol: any?,
 }
 
 local defaultProps = {
+	nativeUtilProtocol = NativeUtilProtocol.default,
 	smsProtocol = SMSProtocol.default,
 }
 
@@ -48,6 +51,7 @@ function ContactsListInviteEntry(passedProps: Props)
 	local linkNetworking = sendInviteLink({
 		address = props.phoneNumber,
 		deviceContactId = props.deviceContactId,
+		nativeUtilProtocol = NativeUtilProtocol.default,
 		smsProtocol = SMSProtocol.default,
 	})
 

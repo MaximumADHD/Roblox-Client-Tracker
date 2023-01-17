@@ -79,7 +79,6 @@ return {
 	LocalizationProvider = require(Packages.Localization).LocalizationProvider,
 	enumerate = require(Packages.enumerate),
 	getFFlagPYMKDontUseIngestService = getFFlagPYMKDontUseIngestService,
-	getFFlagProfileRecommendationId = require(Packages.SharedFlags).getFFlagProfileRecommendationId,
 	getFFlagSocialUpdateRoduxFriendsv314 = LuaSocialLibrariesDeps.getFFlagSocialUpdateRoduxFriendsv314,
 	getFFlagProfilePeekViewRecommendationAnalytics = require(Packages.SharedFlags).getFFlagProfilePeekViewRecommendationAnalytics,
 	getFFlagPYMKCarouselRenameOmniSessionId = require(Packages.SharedFlags).getFFlagPYMKCarouselRenameOmniSessionId,

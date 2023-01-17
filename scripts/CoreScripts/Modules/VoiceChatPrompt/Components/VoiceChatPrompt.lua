@@ -2,6 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
+local InGameMenuPolicy = require(script.Parent.Parent.Parent.InGameMenu.InGameMenuPolicy)
 
 local VoiceChatPromptFrame = require(script.Parent.VoiceChatPromptFrame)
 
@@ -16,6 +17,7 @@ VoiceChatPrompt.validateProps = t.strictInterface({
 	onContinueFunc = t.optional(t.callback),
 	onReadyForSignal = t.optional(t.callback),
 	Analytics = t.optional(t.table),
+	policyMapper = t.optional(t.table),
 })
 
 function VoiceChatPrompt:render()
@@ -26,7 +28,9 @@ function VoiceChatPrompt:render()
 		OnTopOfCoreBlur = true,
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 	}, {
-		Content = Roact.createElement(VoiceChatPromptFrame, self.props)
+		PolicyProvider = Roact.createElement(InGameMenuPolicy.Provider, {
+			policy = { self.props.policyMapper or InGameMenuPolicy.Mapper },
+		}, {Content = Roact.createElement(VoiceChatPromptFrame, self.props)})
 	})
 end
 

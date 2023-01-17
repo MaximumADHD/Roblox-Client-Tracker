@@ -6,6 +6,7 @@ return enumerate(script.Name, {
 	JoinGameInPeopleList = "joinGameInPeopleList",
 	ButtonClick = "buttonClick",
 	PageLoad = "luaPageLoad",
+	PageLoadFailed = "luaPageLoadFailed",
 	PageMountingTime = "pageMountingTime",
 	PageLoadingTime = "pageLoadingTime",
 	FriendsCarouselLoaded = "friendsCarouselLoaded",

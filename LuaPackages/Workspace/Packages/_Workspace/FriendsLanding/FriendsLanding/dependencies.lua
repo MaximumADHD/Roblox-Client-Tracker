@@ -18,8 +18,11 @@ local getFFlagContactImporterEnabledForDev = require(Packages.SharedFlags).getFF
 local getFFlagContactImporterWithPhoneVerification =
 	require(Packages.SharedFlags).getFFlagContactImporterWithPhoneVerification
 local getFFlagVerifiedBadgeInFriendsLanding = require(FriendsLanding.Flags.getFFlagVerifiedBadgeInFriendsLanding)
-local getFFlagAddFriendsFullPlayerSearchbar = require(Packages.SharedFlags).getFFlagAddFriendsFullPlayerSearchbar
+local getFFlagAddFriendsSearchbarIXPEnabled = require(Packages.SharedFlags).getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagAddFriendsFullSearchbarAnalytics = require(Packages.SharedFlags).getFFlagAddFriendsFullSearchbarAnalytics
+local getFStringSocialAddFriendsPageLayer = require(Packages.SharedFlags).getFStringSocialAddFriendsPageLayer
+local getFFlagEnableContactInvitesForNonPhoneVerified =
+	require(Packages.SharedFlags).getFFlagEnableContactInvitesForNonPhoneVerified
 
 local HttpRequest = LuaSocialLibrariesDeps.httpRequest
 local myHttpRequest = HttpRequest.config({
@@ -66,6 +69,7 @@ return {
 	React = require(Packages.React),
 	RoactNavigation = require(Packages.RoactNavigation),
 	RoactRodux = require(Packages.RoactRodux),
+	RoactAppExperiment = require(Packages.RoactAppExperiment),
 	Logger = logger,
 	Text = require(Packages.AppCommonLib).Text,
 	t = require(Packages.t),
@@ -119,8 +123,10 @@ return {
 	getFFlagContactImporterEnabledForDev = getFFlagContactImporterEnabledForDev,
 	getFFlagContactImporterWithPhoneVerification = getFFlagContactImporterWithPhoneVerification,
 	getFFlagVerifiedBadgeInFriendsLanding = getFFlagVerifiedBadgeInFriendsLanding,
-	getFFlagAddFriendsFullPlayerSearchbar = getFFlagAddFriendsFullPlayerSearchbar,
+	getFFlagAddFriendsSearchbarIXPEnabled = getFFlagAddFriendsSearchbarIXPEnabled,
 	getFFlagAddFriendsFullSearchbarAnalytics = getFFlagAddFriendsFullSearchbarAnalytics,
+	getFFlagEnableContactInvitesForNonPhoneVerified = getFFlagEnableContactInvitesForNonPhoneVerified,
+	getFStringSocialAddFriendsPageLayer = getFStringSocialAddFriendsPageLayer,
 
 	FindFriendsModal = ContactImporter.FindFriendsModal,
 	ContactsList = ContactImporter.ContactsList,

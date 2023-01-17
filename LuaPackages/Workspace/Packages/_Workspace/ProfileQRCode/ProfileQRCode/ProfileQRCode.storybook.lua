@@ -5,6 +5,9 @@ local UIBlox = require(Packages.UIBlox)
 local Dash = require(Packages.Dash)
 local mockLocale = require(Packages.Dev.SocialTestHelpers).StoryHelpers.mockLocale
 local UIBloxUniversalAppConfig = require(Packages.Dev.RobloxAppUIBloxConfig)
+local mockAnalytics = require(ProfileQRCode.TestHelpers.mockAnalytics)
+local Analytics = require(ProfileQRCode.Analytics)
+
 -- Make sure to initialize in story book in case this storybook is called first
 UIBlox.init(UIBloxUniversalAppConfig)
 
@@ -44,10 +47,18 @@ return {
 	end,
 	mapStory = function(story)
 		return function(storyProps)
-			return Roact.createElement(AppStyleProvider, {
-				style = storyProps and styleTable[storyProps.theme] or styleTable.Default,
+			return Roact.createElement(Analytics.Context.Provider, {
+				value = mockAnalytics({ uid = "123" }, {
+					fn = function()
+						return
+					end,
+				}).value,
 			}, {
-				Child = mockLocale(story, storyProps),
+				Element = Roact.createElement(AppStyleProvider, {
+					style = storyProps and styleTable[storyProps.theme] or styleTable.Default,
+				}, {
+					Child = mockLocale(story, storyProps),
+				}),
 			})
 		end
 	end,

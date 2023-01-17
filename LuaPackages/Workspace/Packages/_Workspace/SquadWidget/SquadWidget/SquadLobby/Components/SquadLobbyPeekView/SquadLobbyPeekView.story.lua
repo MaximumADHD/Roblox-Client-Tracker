@@ -1,5 +1,4 @@
 local SquadWidget = script:FindFirstAncestor("SquadWidget")
-local Packages = SquadWidget.Parent
 local dependencies = require(SquadWidget.dependencies)
 local Roact = dependencies.Roact
 local Rodux = dependencies.Rodux
@@ -7,7 +6,6 @@ local RoactRodux = dependencies.RoactRodux
 local llama = dependencies.llama
 local SquadLobbyPeekView = require(SquadWidget.SquadLobby.Components.SquadLobbyPeekView.SquadLobbyPeekView)
 local ModelTypes = require(SquadWidget.SquadLobby.Common.ModelTypes)
-local GetFFlagPeekViewRefactorEnabled = require(Packages.SharedFlags).GetFFlagPeekViewRefactorEnabled
 
 type SquadLobbyPeekViewConfig = {
 	users: { [number]: ModelTypes.User },
@@ -23,18 +21,6 @@ local setupStory = function(storyProps, config: SquadLobbyPeekViewConfig)
 			TopBar = {
 				statusBarHeight = 20,
 			},
-			LastInputType = if GetFFlagPeekViewRefactorEnabled()
-				then nil
-				else {
-					lastInputGroup = "Gamepad",
-				},
-			Navigation = if GetFFlagPeekViewRefactorEnabled()
-				then nil
-				else {
-					history = {
-						{ { name = "Page1" } },
-					},
-				},
 		}
 	end, {}, { Rodux.thunkMiddleware })
 

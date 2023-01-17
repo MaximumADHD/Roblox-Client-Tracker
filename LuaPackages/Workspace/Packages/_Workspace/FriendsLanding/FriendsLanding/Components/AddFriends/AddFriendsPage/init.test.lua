@@ -7,7 +7,8 @@ local dependencies = require(FriendsLanding.dependencies)
 local llama = dependencies.llama
 local Dash = dependencies.Dash
 local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
-local getFFlagAddFriendsFullPlayerSearchbar = dependencies.getFFlagAddFriendsFullPlayerSearchbar
+local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
+local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 
 local devDependencies = require(FriendsLanding.devDependencies)
 local RhodiumHelpers = devDependencies.RhodiumHelpers
@@ -141,16 +142,6 @@ describe("with many FriendsRequests", function()
 			expect(scrollingFrame.CanvasPosition.Y).toBe(1)
 		end)
 	end)
-
-	if getFFlagAddFriendsFullPlayerSearchbar() then
-		it("SHOULD render searchbar button correctly", function()
-			testElement(instance, function()
-				return byName(instance, "SearchbarButton")
-			end, function(SearchbarButton)
-				expect(SearchbarButton).never.toBeNil()
-			end)
-		end)
-	end
 end)
 
 describe("with empty FriendsRequests", function()
@@ -312,7 +303,32 @@ it("SHOULD not show contact list if clicked", function()
 			then handleOpenPhoneVerificationLinkWebview
 			else nil,
 		showToast = handleShowToastForTests,
+		isPhoneVerified = if getFFlagEnableContactInvitesForNonPhoneVerified() then true else nil,
 	})
 
 	cleanup()
 end)
+
+if getFFlagAddFriendsSearchbarIXPEnabled() then
+	describe("full searchbar button on compactMode", function()
+		local instance, cleanup
+
+		beforeEach(function()
+			instance, cleanup = createInstance(friendRequests, {
+				addFriendsPageSearchbarEnabled = true,
+			})
+		end)
+
+		afterEach(function()
+			cleanup()
+		end)
+
+		it("SHOULD render searchbar button correctly", function()
+			testElement(instance, function()
+				return byName(instance, "SearchbarButton")
+			end, function(SearchbarButton)
+				expect(SearchbarButton).never.toBeNil()
+			end)
+		end)
+	end)
+end

@@ -1,30 +1,35 @@
+local UserInputService = game:GetService("UserInputService")
 local ProfileQRCode = script:FindFirstAncestor("ProfileQRCode")
 local Packages = ProfileQRCode.Parent
 local React = require(Packages.React)
+local ProfileQRCodePage = require(ProfileQRCode.Components.ProfileQRCodePage)
 local UIBlox = require(Packages.UIBlox)
-local FullPageModal = UIBlox.App.Dialog.Modal.FullPageModal
+local ModalWindow = UIBlox.App.Dialog.Modal.ModalWindow
+local useScreenSize = require(script.Parent.useScreenSize)
+local ProfileQRCodeAnalytics = require(ProfileQRCode.Analytics)
+local useLocalUserId = require(ProfileQRCode.Utils.useLocalUserId)
+local AnalyticsService = require(ProfileQRCode.Analytics.AnalyticsService)
 
-export type Props = {}
+export type Props = {
+	analyticsService: any?,
+	onClose: () -> (),
+}
 
 local ProfileQRCodeEntryPoint = function(props: Props)
-	return React.createElement(FullPageModal, {
-		position = UDim2.new(0.5, 0, 0.5, 0),
-		isFullHeight = true,
-		screenSize = Vector2.new(1920, 1080),
-	}, {
-		Custom = React.createElement("Frame", {
-			BorderSizePixel = 0,
-			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, 60),
-		}, {
-			CustomInner = React.createElement("TextLabel", {
-				BackgroundTransparency = 1,
-				LayoutOrder = 3,
-				Text = "QRCode to come",
-				TextSize = 13,
-				TextWrapped = true,
-				Size = UDim2.new(1, 0, 1, 0),
+	return React.createElement(ProfileQRCodeAnalytics.Context.Provider, {
+		value = {
+			fireEvent = ProfileQRCodeAnalytics.setupFireEvent({
+				analytics = if props.analyticsService then props.analyticsService else AnalyticsService,
+				infoForAllEvents = { uid = useLocalUserId() },
 			}),
+		},
+	}, {
+		Window = React.createElement(ModalWindow, {
+			isFullHeight = true,
+			screenSize = useScreenSize(),
+			distanceFromTop = UserInputService.StatusBarSize.Y,
+		}, {
+			View = React.createElement(ProfileQRCodePage, props),
 		}),
 	})
 end

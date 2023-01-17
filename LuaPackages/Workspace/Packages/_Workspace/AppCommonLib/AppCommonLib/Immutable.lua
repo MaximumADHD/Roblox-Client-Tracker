@@ -1,3 +1,5 @@
+local fflagAvoidManualTableClone = game:DefineFastFlag("AvoidManualTableClone", false) 
+
 --[[
 	Provides functions for manipulating immutable data structures.
 ]]
@@ -12,6 +14,9 @@ function Immutable.JoinDictionaries(...)
 
 	for i = 1, select("#", ...) do
 		local dictionary = select(i, ...)
+	
+		-- selene: allow(manual_table_clone)
+		-- False positive: https://github.com/Kampfkarren/selene/issues/479
 		for key, value in pairs(dictionary) do
 			result[key] = value
 		end
@@ -42,10 +47,15 @@ end
 	Creates a new copy of the dictionary and sets a value inside it.
 ]]
 function Immutable.Set(dictionary, key, value)
-	local new = {}
+	local new
 
-	for key, value in pairs(dictionary) do
-		new[key] = value
+	if fflagAvoidManualTableClone then
+		new = table.clone(dictionary)
+	else
+		new = {}
+		for key, value in pairs(dictionary) do
+			new[key] = value
+		end
 	end
 
 	new[key] = value

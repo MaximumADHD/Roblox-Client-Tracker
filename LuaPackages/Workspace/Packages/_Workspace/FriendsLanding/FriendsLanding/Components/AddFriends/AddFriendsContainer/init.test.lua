@@ -6,7 +6,7 @@ local createInstanceWithProviders = require(FriendsLanding.TestHelpers.createIns
 local waitUntil = require(FriendsLanding.TestHelpers.waitUntil)
 local getFFlagShowContactImporterTooltipOnce = require(FriendsLanding.Flags.getFFlagShowContactImporterTooltipOnce)
 local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
-local getFFlagAddFriendsFullPlayerSearchbar = dependencies.getFFlagAddFriendsFullPlayerSearchbar
+local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
 
 local llama = dependencies.llama
@@ -293,6 +293,7 @@ describe("AddFriendsContainer", function()
 			navigate = jest.fn(),
 			pageLoadingTimeReport = jest.fn(),
 			pageMountingTimeReport = jest.fn(),
+			impressionEvent = jest.fn(),
 		}
 
 		local instance, cleanup = createInstanceWithRequests({ hasRequests = true }, {
@@ -327,17 +328,18 @@ describe("AddFriendsContainer", function()
 		cleanup()
 	end)
 
-	if getFFlagAddFriendsFullPlayerSearchbar() and getFFlagAddFriendsFullSearchbarAnalytics() then
+	if getFFlagAddFriendsSearchbarIXPEnabled() and getFFlagAddFriendsFullSearchbarAnalytics() then
 		it("SHOULD fire analytic events when full searchbar clicked in compactMode", function()
 			local analytics = {
 				buttonClick = jest.fn(),
 				navigate = jest.fn(),
+				impressionEvent = jest.fn(),
 			}
 
 			local instance, cleanup = createInstanceWithRequests(
 				{ hasRequests = true },
-				{},
-				{ analytics = analytics, context = { wideMode = false } }
+				{ addFriendsPageSearchbarEnabled = true },
+				{ analytics = analytics, context = { wideMode = false, addFriendsPageSearchbarEnabled = true } }
 			)
 
 			local SearchbarButton = RhodiumHelpers.findFirstInstance(instance, {
@@ -368,7 +370,7 @@ describe("AddFriendsContainer", function()
 			end)
 
 			expect(getFriendRequests).toHaveBeenCalled()
-			if getFFlagAddFriendsFullPlayerSearchbar() then
+			if getFFlagAddFriendsSearchbarIXPEnabled() then
 				expect(getFriendRequests.mock.calls[1][3]).toEqual({
 					queryArgs = {
 						limit = 50,

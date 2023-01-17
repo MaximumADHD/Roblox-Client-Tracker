@@ -8,7 +8,7 @@ local IXP_CUSTOMIZATION_PARAMETER = "NewInviteMenuCustomizationEnabled"
 local IXP_ENDPOINT_PARAMETER = "NewInviteMenuEndpointEnabled"
 
 local GetFFlagEnableNewInviteMenuIXP = require(Modules.Flags.GetFFlagEnableNewInviteMenuIXP)
-local GetFStringLuaAppExperienceMenuLayer = require(Modules.Flags.GetFStringLuaAppExperienceMenuLayer)
+local GetFStringInExperienceNotificationsLayer = require(Modules.Flags.GetFStringInExperienceNotificationsLayer)
 
 local NewInviteMenuExperimentManager = {}
 NewInviteMenuExperimentManager.__index = NewInviteMenuExperimentManager
@@ -44,7 +44,7 @@ function NewInviteMenuExperimentManager:initialize()
 	if self._ixpServiceWrapper:IsEnabled() then
 		task.spawn(function()
 			self._ixpServiceWrapper:WaitForInitialization()
-			local layerData = self._ixpServiceWrapper:GetLayerData(GetFStringLuaAppExperienceMenuLayer())
+			local layerData = self._ixpServiceWrapper:GetLayerData(GetFStringInExperienceNotificationsLayer())
 			if layerData then
 				self._styleEnabled = layerData[IXP_STYLE_PARAMETER] or false
 				self._customizationEnabled = layerData[IXP_CUSTOMIZATION_PARAMETER] or false

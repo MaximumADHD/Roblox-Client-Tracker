@@ -28,8 +28,6 @@ local initify = require(CorePackages.initify)
 initify(CorePackages)
 initify(Modules)
 
-local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
-
 local GetFFlagLuaAppUseUIBloxColorPalettes =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppUseUIBloxColorPalettes
 if GetFFlagLuaAppUseUIBloxColorPalettes() then
@@ -72,8 +70,6 @@ local antiAddictionNoticeStringEn =
 	"Boycott bad games, refuse pirated games. Be aware of self-defense and being deceived. Playing games is good for your brain, but too much game play can harm your health. Manage your time well and enjoy a healthy lifestyle."
 local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
 local loadErrorHandlerFromEngine = game:GetEngineFeature("LoadErrorHandlerFromEngine")
-
-local FFlagShowVerifiedBadgeOnLoadingScreen = require(RobloxGui.Modules.Flags.FFlagShowVerifiedBadgeOnLoadingScreen)
 
 local FFlagRemoveMandatoryFiveSecondWait = game:DefineFastFlag("RemoveMandatoryFiveSecondWait", false)
 
@@ -150,18 +146,7 @@ if not UseNewVersionLoadingScreen then
 
 	function InfoProvider:GetCreatorName()
 		if GameAssetInfo ~= nil then
-			if FFlagShowVerifiedBadgeOnLoadingScreen() then
-				-- Determine whether a VerifiedBadge should be shown
-				local creatorName = GameAssetInfo.Creator.Name
-				local isCreatorVerified = GameAssetInfo.Creator.HasVerifiedBadge
-
-				if isCreatorVerified then
-					creatorName = VerifiedBadges.appendVerifiedBadge(creatorName)
-				end
-				return creatorName
-			else
-				return GameAssetInfo.Creator.Name
-			end
+			return GameAssetInfo.Creator.Name
 		else
 			return ""
 		end

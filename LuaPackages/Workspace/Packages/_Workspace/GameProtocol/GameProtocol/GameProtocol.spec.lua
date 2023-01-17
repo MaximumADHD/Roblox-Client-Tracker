@@ -5,6 +5,7 @@ return function()
 	local GameProtocol = require(script.Parent.GameProtocol)
 
 	local FFlagExperienceJoinAttemptId = require(script.Parent.Flags.FFlagExperienceJoinAttemptId)
+	local GetFFlagJoinAttemptIdFromWebview = require(script.Parent.Flags.GetFFlagJoinAttemptIdFromWebview)
 
 	local placeId = 1818
 	local userId = 100000000
@@ -172,6 +173,26 @@ return function()
 				wait()
 				expect(didSucceed).to.equal(true)
 			end)
+
+			if GetFFlagJoinAttemptIdFromWebview() then
+				it("should override joinAttemptId and joinAttemptOrigin", function(context)
+					local didSucceed = false
+					GameProtocol:launchGame({
+						placeId = placeId,
+						joinAttemptId = "123e4567-e89b-12d3-a456-426614174000",
+						joinAttemptOrigin = "testOrigin",
+					}, nil, nil)
+
+					context.subscriber:subscribe(GameProtocol.GAME_LAUNCH_DESCRIPTOR, function(params)
+						expect(params.placeId).to.equal(placeId)
+						expect(params.joinAttemptId).to.equal("123e4567-e89b-12d3-a456-426614174000")
+						expect(params.joinAttemptOrigin).to.equal("testOrigin")
+						didSucceed = true
+					end)
+					wait()
+					expect(didSucceed).to.equal(true)
+				end)
+			end
 		end
 	end)
 end

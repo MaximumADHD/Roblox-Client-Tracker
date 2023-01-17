@@ -18,10 +18,10 @@ local it = JestGlobals.it
 local jest = JestGlobals.jest
 
 local dependencies = require(FriendsLanding.dependencies)
+local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local SocialLuaAnalytics = dependencies.SocialLuaAnalytics
 local Enums = SocialLuaAnalytics.Analytics.Enums
 local Contexts = Enums.Contexts
-local getFFlagAddFriendsFullPlayerSearchbar = dependencies.getFFlagAddFriendsFullPlayerSearchbar
 local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
 
 -- FIXME: APPFDN-1925
@@ -162,7 +162,7 @@ describe("navigationEvents", function()
 	end)
 end)
 
-if getFFlagAddFriendsFullPlayerSearchbar() then
+if getFFlagAddFriendsSearchbarIXPEnabled() then
 	describe("inputTextBox", function()
 		it("SHOULD render cancel text button when inputTextBox is activated", function()
 			local parent, cleanup = createInstanceWithProviders(mockLocale)(headerBarCenterView, {})
@@ -204,6 +204,7 @@ if getFFlagAddFriendsFullPlayerSearchbar() then
 					shouldRenderSearchbarButtonInWideMode = true,
 					navigation = navigation,
 					wideMode = true,
+					addFriendsPageSearchbarEnabled = true,
 				},
 				analytics = analytics,
 			})
@@ -246,7 +247,7 @@ if getFFlagAddFriendsFullPlayerSearchbar() then
 			expect(navigation.navigate).toHaveBeenCalledTimes(1)
 			expect(navigation.navigate).toHaveBeenCalledWith(
 				EnumScreens.SearchFriends,
-				{ searchText = "", showEmptyLandingPage = true }
+				{ searchText = "", shouldShowEmptyLandingPage = true }
 			)
 		end)
 

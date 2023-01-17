@@ -9,5 +9,7 @@ return {
 		JestConfigs.setupFiles.LogHandler,
 		JestConfigs.setupFiles.UIBloxInitializer,
 		JestConfigs.setupFiles.createPromiseRejectionHandler(),
+		script.Parent.TestHelpers.collisionMatcherSetup,
+		script.Parent.TestHelpers.NetworkImplHandler,
 	},
 }

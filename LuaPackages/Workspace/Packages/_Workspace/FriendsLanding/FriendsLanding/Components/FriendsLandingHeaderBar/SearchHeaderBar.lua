@@ -1,6 +1,8 @@
 --!nonstrict
 local FriendsLanding = script:FindFirstAncestor("FriendsLanding")
 local dependencies = require(FriendsLanding.dependencies)
+local FriendsLandingContext = require(FriendsLanding.FriendsLandingContext)
+
 local SocialLibraries = dependencies.SocialLibraries
 
 local Roact = dependencies.Roact
@@ -13,25 +15,23 @@ local Images = UIBlox.App.ImageSet.Images
 local IconSize = UIBlox.App.Constant.IconSize
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
-local getFFlagAddFriendsFullPlayerSearchbar = dependencies.getFFlagAddFriendsFullPlayerSearchbar
+local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 
 local CallbackInputBox = SocialLibraries.Components.CallbackInputBox
 
-local ICON_PADDING = if getFFlagAddFriendsFullPlayerSearchbar() then 10 else 12
+local ICON_PADDING = 12
 local ICON_PADDING_INNER = 4
-local SEARCH_BOX_PADDING_END = if getFFlagAddFriendsFullPlayerSearchbar() then 10 else 6
+local SEARCH_BOX_PADDING_END = 6
 local TEXT_BUTTON_PADDING = 12
-local SEARCH_ICON_SIZE = if getFFlagAddFriendsFullPlayerSearchbar() then 23 else nil
+local SEARCH_ICON_SIZE
 
 local SEARCH_BAR_ICON = Images["icons/common/search"]
 local CLEAR_BUTTON_IMAGE = Images["icons/actions/edit/clear_small"]
 
-local SEARCH_FRAME_IMAGE = if getFFlagAddFriendsFullPlayerSearchbar()
-	then nil
-	else {
-		Image = Images["squircles/fill"],
-		SliceCenter = Rect.new(8, 8, 9, 9),
-	}
+local SEARCH_FRAME_IMAGE = {
+	Image = Images["squircles/fill"],
+	SliceCenter = Rect.new(8, 8, 9, 9),
+} :: any
 
 local SearchHeaderBar = Roact.PureComponent:extend("SearchHeaderBar")
 SearchHeaderBar.defaultProps = {
@@ -47,7 +47,7 @@ SearchHeaderBar.defaultProps = {
 	onSelectCallback = function() end,
 	focusChangedCallback = function() end,
 
-	isDisabled = if getFFlagAddFriendsFullPlayerSearchbar() then false else nil,
+	isDisabled = if getFFlagAddFriendsSearchbarIXPEnabled() then false else nil,
 }
 
 function SearchHeaderBar:init()
@@ -65,6 +65,14 @@ end
 
 function SearchHeaderBar:render()
 	return UIBlox.Style.withStyle(function(style)
+		if getFFlagAddFriendsSearchbarIXPEnabled() and self.props.addFriendsPageSearchbarEnabled then
+			-- Update these values directly at top of file when cleaning flag
+			ICON_PADDING = 10
+			SEARCH_BOX_PADDING_END = 10
+			SEARCH_ICON_SIZE = 23
+			SEARCH_FRAME_IMAGE = nil
+		end
+
 		local cancelText = self.props.cancelText
 
 		local cancelFontStyle = style.Font.Header2
@@ -76,7 +84,7 @@ function SearchHeaderBar:render()
 		-- The UIBlox TextButton already has 8px of padding so the other 4px come from here
 		local inBetweenPadding = UDim.new(0, 4)
 
-		local filterBoxSize = if getFFlagAddFriendsFullPlayerSearchbar() and self.props.isDisabled
+		local filterBoxSize = if getFFlagAddFriendsSearchbarIXPEnabled() and self.props.isDisabled
 			then UDim2.new(1, 0, 1, 0)
 			else UDim2.new(1, -cancelTextWidth - cancelButtonPadding, 1, 0)
 		local filterBoxPadding = 0
@@ -84,17 +92,19 @@ function SearchHeaderBar:render()
 		local searchFontStyle = style.Font.Body
 		local searchTextSize = style.Font.BaseSize * searchFontStyle.RelativeSize
 
-		local focusChangedCallback = if getFFlagAddFriendsFullPlayerSearchbar()
+		local focusChangedCallback = if (
+				getFFlagAddFriendsSearchbarIXPEnabled() and self.props.addFriendsPageSearchbarEnabled
+			)
 			then function(focus, enter)
 				self.props.focusChangedCallback(focus, enter)
 				if focus then
 					self:setState({
-						borderColor = style.Theme.TextEmphasis.Color,
-						borderTransparency = style.Theme.TextEmphasis.Transparency,
+						borderColor = style.Theme.SecondaryOnHover.Color,
+						borderTransparency = style.Theme.SecondaryOnHover.Transparency,
 					})
 				else
 					self:setState({
-						borderColor = style.Theme.TextMuted.Color,
+						borderColor = style.Theme.TextDefault.Color,
 						borderTransparency = style.Theme.TextMuted.Transparency,
 					})
 				end
@@ -123,7 +133,8 @@ function SearchHeaderBar:render()
 				PaddingRight = UDim.new(0, filterBoxPadding),
 			}),
 
-			cancel = if getFFlagAddFriendsFullPlayerSearchbar() and self.props.isDisabled
+			cancel = if (getFFlagAddFriendsSearchbarIXPEnabled() and self.props.addFriendsPageSearchbarEnabled)
+					and self.props.isDisabled
 				then nil
 				else self.props.cancelCallback and Roact.createElement(TextButton, {
 					text = cancelText,
@@ -133,7 +144,7 @@ function SearchHeaderBar:render()
 
 			filterBoxBackground = Roact.createElement(
 				ImageSetLabel,
-				if getFFlagAddFriendsFullPlayerSearchbar()
+				if (getFFlagAddFriendsSearchbarIXPEnabled() and self.props.addFriendsPageSearchbarEnabled)
 					then {
 						Size = filterBoxSize,
 						BackgroundColor3 = style.Theme.BackgroundMuted.Color,
@@ -153,16 +164,20 @@ function SearchHeaderBar:render()
 						LayoutOrder = 1,
 					},
 				{
-					corner = if getFFlagAddFriendsFullPlayerSearchbar()
+					corner = if (
+							getFFlagAddFriendsSearchbarIXPEnabled() and self.props.addFriendsPageSearchbarEnabled
+						)
 						then Roact.createElement("UICorner", {
 							CornerRadius = UDim.new(0, 4),
 						})
 						else nil,
 
-					border = if getFFlagAddFriendsFullPlayerSearchbar()
+					border = if (
+							getFFlagAddFriendsSearchbarIXPEnabled() and self.props.addFriendsPageSearchbarEnabled
+						)
 						then Roact.createElement("UIStroke", {
-							Color = self.state.borderColor or style.Theme.Divider.Color,
-							Transparency = self.state.borderTransparency or style.Theme.Divider.Transparency,
+							Color = self.state.borderColor or style.Theme.TextDefault.Color,
+							Transparency = self.state.borderTransparency or style.Theme.TextMuted.Transparency,
 							Thickness = 1,
 						})
 						else nil,
@@ -182,7 +197,9 @@ function SearchHeaderBar:render()
 
 					filterBoxIcon = Roact.createElement(ImageSetLabel, {
 						BackgroundTransparency = 1,
-						Size = if getFFlagAddFriendsFullPlayerSearchbar()
+						Size = if (
+								getFFlagAddFriendsSearchbarIXPEnabled() and self.props.addFriendsPageSearchbarEnabled
+							)
 							then UDim2.new(0, SEARCH_ICON_SIZE, 0, SEARCH_ICON_SIZE)
 							else UDim2.new(0, IconSize.Small, 0, IconSize.Small),
 						Image = SEARCH_BAR_ICON,
@@ -193,12 +210,16 @@ function SearchHeaderBar:render()
 
 					filterBoxContainer = Roact.createElement("Frame", {
 						BackgroundTransparency = 1,
-						Size = if getFFlagAddFriendsFullPlayerSearchbar()
+						Size = if (
+								getFFlagAddFriendsSearchbarIXPEnabled() and self.props.addFriendsPageSearchbarEnabled
+							)
 							then UDim2.new(1, -(SEARCH_ICON_SIZE + ICON_PADDING_INNER), 1, 0)
 							else UDim2.new(1, -(IconSize.Small + ICON_PADDING_INNER), 1, 0),
 						LayoutOrder = 2,
 					}, {
-						filterBox = if getFFlagAddFriendsFullPlayerSearchbar() and self.props.isDisabled
+						filterBox = if (
+								getFFlagAddFriendsSearchbarIXPEnabled() and self.props.addFriendsPageSearchbarEnabled
+							) and self.props.isDisabled
 							then Roact.createElement("TextLabel", {
 								Text = self.props.searchPlaceholderText,
 								TextXAlignment = Enum.TextXAlignment.Left,
@@ -208,7 +229,7 @@ function SearchHeaderBar:render()
 								TextSize = searchTextSize,
 								Font = searchFontStyle.Font,
 								TextColor3 = style.Theme.TextDefault.Color,
-								TextTransparency = style.Theme.PlaceHolder.Transparency,
+								TextTransparency = style.Theme.TextMuted.Transparency,
 							})
 							else Roact.createElement(CallbackInputBox, {
 								initialInputText = self.props.initialInputText,
@@ -219,8 +240,18 @@ function SearchHeaderBar:render()
 								inputTextXAlignment = Enum.TextXAlignment.Left,
 
 								placeholderText = self.props.searchPlaceholderText,
-								placeholderTextColor3 = style.Theme.TextMuted.Color,
-								placeholderTextTransparency = style.Theme.PlaceHolder.Transparency,
+								placeholderTextColor3 = if (
+										getFFlagAddFriendsSearchbarIXPEnabled()
+										and self.props.addFriendsPageSearchbarEnabled
+									)
+									then style.Theme.TextDefault.Color
+									else style.Theme.TextMuted.Color,
+								placeholderTextTransparency = if (
+										getFFlagAddFriendsSearchbarIXPEnabled()
+										and self.props.addFriendsPageSearchbarEnabled
+									)
+									then style.Theme.TextMuted.Transparency
+									else style.Theme.PlaceHolder.Transparency,
 
 								captureFocusOnMount = self.props.captureFocusOnMount,
 
@@ -232,7 +263,10 @@ function SearchHeaderBar:render()
 								clearButtonDisabled = false,
 								textChangedCallback = self.props.textChangedCallback,
 								onSelectCallback = self.props.onSelectCallback,
-								focusChangedCallback = if getFFlagAddFriendsFullPlayerSearchbar()
+								focusChangedCallback = if (
+										getFFlagAddFriendsSearchbarIXPEnabled()
+										and self.props.addFriendsPageSearchbarEnabled
+									)
 									then focusChangedCallback
 									else self.props.focusChangedCallback,
 
@@ -243,6 +277,14 @@ function SearchHeaderBar:render()
 			),
 		})
 	end)
+end
+
+if getFFlagAddFriendsSearchbarIXPEnabled() then
+	SearchHeaderBar = FriendsLandingContext.connect(function(context)
+		return {
+			addFriendsPageSearchbarEnabled = context.addFriendsPageSearchbarEnabled,
+		}
+	end)(SearchHeaderBar)
 end
 
 return SearchHeaderBar

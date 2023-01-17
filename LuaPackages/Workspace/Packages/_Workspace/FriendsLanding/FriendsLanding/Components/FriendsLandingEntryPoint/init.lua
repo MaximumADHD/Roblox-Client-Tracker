@@ -3,6 +3,7 @@ local dependencies = require(FriendsLanding.dependencies)
 local Roact = dependencies.Roact
 local Logger = dependencies.Logger
 local RoactRodux = dependencies.RoactRodux
+local RoactAppExperiment = dependencies.RoactAppExperiment
 local llama = dependencies.llama
 local FriendsLandingContext = require(FriendsLanding.FriendsLandingContext)
 local FriendsLandingAnalytics = require(FriendsLanding.FriendsLandingAnalytics)
@@ -18,6 +19,11 @@ local withLocalization = dependencies.withLocalization
 local FriendsLandingEventListener = require(FriendsLanding.Components.FriendsLandingEventListener)
 local FriendsLandingEntryPoint = Roact.PureComponent:extend("FriendsLandingEntryPoint")
 local noOpt = function() end
+
+local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
+local getFStringSocialAddFriendsPageLayer = dependencies.getFStringSocialAddFriendsPageLayer
+
+local RECORD_EXPOSURE_ON_MOUNT = if getFFlagAddFriendsSearchbarIXPEnabled() then false else nil
 
 FriendsLandingEntryPoint.defaultProps = {
 	renderAndroidBackButtonNavigationHandler = nil,
@@ -129,6 +135,9 @@ function FriendsLandingEntryPoint:render()
 					friendsRequestEventListener = self.props.friendsRequestEventListener,
 					contactImporterAndPYMKEnabled = self.props.contactImporterAndPYMKEnabled,
 					contactImporterExperimentVariant = self.props.contactImporterExperimentVariant,
+					addFriendsPageSearchbarEnabled = if getFFlagAddFriendsSearchbarIXPEnabled()
+						then self.props.addFriendsPageSearchbarEnabled
+						else nil,
 				},
 			}, {
 				navigation = Roact.createElement(FriendsLandingNavigator, {
@@ -156,7 +165,22 @@ function FriendsLandingEntryPoint:willUnmount()
 	end
 end
 
-FriendsLandingEntryPoint = compose(RoactRodux.connect(mapStateToProps, mapDispatchToProps))(FriendsLandingEntryPoint)
+if getFFlagAddFriendsSearchbarIXPEnabled() then
+	FriendsLandingEntryPoint = compose(
+		RoactRodux.connect(mapStateToProps, mapDispatchToProps),
+		RoactAppExperiment.connectUserLayer({
+			getFStringSocialAddFriendsPageLayer(),
+		}, function(layerVariables, props)
+			local socialAddFriendsPageLayer: any = layerVariables[getFStringSocialAddFriendsPageLayer()] or {}
+			return {
+				addFriendsPageSearchbarEnabled = socialAddFriendsPageLayer.show_add_friends_page_search_bar,
+			}
+		end, RECORD_EXPOSURE_ON_MOUNT)
+	)(FriendsLandingEntryPoint)
+else
+	FriendsLandingEntryPoint =
+		compose(RoactRodux.connect(mapStateToProps, mapDispatchToProps))(FriendsLandingEntryPoint)
+end
 
 FriendsLandingEntryPoint.router = FriendsLandingNavigator.router
 

@@ -11,7 +11,14 @@ local UserResolver = require(script.Parent.UserResolver).default
 local PlayerResolver = require(script.Parent.PlayerResolver).default
 local OmniFeedResolver = require(script.Parent.OmniFeed).default
 local ScalarResolver = require(script.Parent.ScalarResolver).default
-local resolvers =
-	mergeResolvers({ UserResolver, PlayerResolver, OmniFeedResolver, ScalarResolver } :: Array<IResolvers<any, any>>)
+local VirtualEventResolver = require(script.Parent.VirtualEventResolver)
+local resolvers = mergeResolvers({
+	UserResolver,
+	PlayerResolver,
+	OmniFeedResolver,
+	ScalarResolver,
+	VirtualEventResolver,
+} :: Array<IResolvers<any, any>>)
 exports.default = resolvers
+
 return exports

@@ -6,6 +6,7 @@ local UIBlox = require(VirtualEvents.Parent.UIBlox)
 local useDispatch = require(VirtualEvents.Parent.RoactUtils).Hooks.RoactRodux.useDispatch
 local getEventTimerStatus = require(VirtualEvents.Common.getEventTimerStatus)
 local findFirstImageInMedia = require(VirtualEvents.Common.findFirstImageInMedia)
+local getGalleryItems = require(VirtualEvents.Common.getGalleryItems)
 local useVirtualEventMedia = require(VirtualEvents.Hooks.useVirtualEventMedia)
 local useExperienceDetails = require(VirtualEvents.Hooks.useExperienceDetails)
 local useActionBarProps = require(VirtualEvents.Hooks.useActionBarProps)
@@ -13,7 +14,6 @@ local EventTimer = require(VirtualEvents.Components.EventTimer)
 local EventDescription = require(VirtualEvents.Components.EventDescription)
 local EventHostedBy = require(VirtualEvents.Components.EventHostedBy)
 local Attendance = require(VirtualEvents.Components.Attendance)
-local ExperienceMediaModel = require(VirtualEvents.Models.ExperienceMediaModel)
 local network = require(VirtualEvents.network)
 local types = require(VirtualEvents.types)
 
@@ -24,24 +24,6 @@ local ListTable = UIBlox.App.Table.ListTable
 local noop = function() end
 
 local THUMBNAILS_COUNT = 5
-
-local function getGalleryItems(media: { ExperienceMediaModel.Response })
-	local galleryItems = {}
-
-	for _, singleMedia in media do
-		-- MediaGalleryPreview doesn't support videos so we're foregoing support
-		-- of them for now. Once we allow users to upload custom event assets we
-		-- should revisit this limitation if we intend for videos to be uploaded
-		if singleMedia.imageId then
-			table.insert(galleryItems, {
-				imageId = ("rbxassetid://%i"):format(singleMedia.imageId),
-				isVideo = singleMedia.assetType == "YouTubeVideo",
-			})
-		end
-	end
-
-	return galleryItems
-end
 
 -- These get used by EventDetailsPageLoader so it can pass down all the same props
 export type BaseProps = {
@@ -76,7 +58,7 @@ local function EventDetailsPage(props: Props)
 	local galleryHeight, setGalleryHeight = React.useState(0)
 
 	local galleryItems = React.useMemo(function()
-		return if media then getGalleryItems(media) else {}
+		return getGalleryItems(media)
 	end, { media })
 
 	local eventStatus = (
@@ -115,6 +97,10 @@ local function EventDetailsPage(props: Props)
 		onShare = joinedProps.onShare,
 		onRsvpChanged = onRsvpChanged,
 	})
+
+	local shouldShowActionBar = React.useMemo(function()
+		return actionBarProps.button or #actionBarProps.icons > 0
+	end, { actionBarProps })
 
 	local componentList = {
 		Attendance = if eventStatus ~= "Elapsed"
@@ -189,7 +175,7 @@ local function EventDetailsPage(props: Props)
 				currentTime = joinedProps.currentTime,
 			})
 		end,
-		actionBarProps = actionBarProps,
+		actionBarProps = if shouldShowActionBar then actionBarProps else nil,
 		componentList = if props.virtualEvent.eventStatus ~= "cancelled" then componentList else {},
 		onClose = joinedProps.onClose,
 	})

@@ -1,4 +1,3 @@
-local HttpService = game:GetService("HttpService")
 local GraphQLServer = script:FindFirstAncestor("GraphQLServer")
 local Packages = GraphQLServer.Parent
 local Promise = require(Packages.Promise)
@@ -7,6 +6,7 @@ local Error = LuauPolyfill.Error
 type Object = LuauPolyfill.Object
 type Promise<T> = LuauPolyfill.Promise<T>
 type Error = LuauPolyfill.Error
+local stringify = require(Packages.GraphQL).stringify
 
 type Response = {
 	body: Object,
@@ -41,7 +41,7 @@ function Response:text(): Promise<string>
 				end
 			end
 
-			return HttpService:JSONEncode(self.body)
+			return stringify(self.body)
 		end)
 		if ok then
 			resolve(text)

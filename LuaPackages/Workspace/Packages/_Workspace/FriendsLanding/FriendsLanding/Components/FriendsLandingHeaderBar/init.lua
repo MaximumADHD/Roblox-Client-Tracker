@@ -12,7 +12,7 @@ local HeaderBar = UIBlox.App.Bar.HeaderBar
 
 local getActiveChildNavigationOptionsSafely = require(FriendsLanding.Navigator.getActiveChildNavigationOptionsSafely)
 
-local getFFlagAddFriendsFullPlayerSearchbar = dependencies.getFFlagAddFriendsFullPlayerSearchbar
+local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 
 local FriendsLandingHeaderBar = Roact.PureComponent:extend("FriendsLandingHeaderBar")
 
@@ -49,7 +49,7 @@ function FriendsLandingHeaderBar:render()
 		})(function(localized)
 			local titleText = localized.titleText
 
-			if getFFlagAddFriendsFullPlayerSearchbar() then
+			if getFFlagAddFriendsSearchbarIXPEnabled() and context.addFriendsPageSearchbarEnabled then
 				local wideModeSearchbarButton = context.wideMode
 					and navigationOptions.shouldRenderSearchbarButtonInWideMode
 				return Roact.createElement(FriendsLandingHeaderBarPresentational, {

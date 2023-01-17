@@ -88,25 +88,155 @@ describe("counters", function()
 		expect(state.rsvps.counters).toEqual({})
 	end)
 
-	it("should add a table with `none`, `going`, `maybeGoing`, and `notGoing` for the virtual event", function()
-		local counters: types.RsvpCounters = {
-			none = 0,
-			going = 0,
-			maybeGoing = 0,
-			notGoing = 0,
-		}
+	describe("GetVirtualEventRsvpCounts", function()
+		it("should add a table with `none`, `going`, `maybeGoing`, and `notGoing` for the virtual event", function()
+			local counters: types.RsvpCounters = {
+				none = 0,
+				going = 0,
+				maybeGoing = 0,
+				notGoing = 0,
+			}
 
-		GetVirtualEventRsvpCounts.Mock.reply({
-			responseBody = {
-				counters = counters,
-			},
-		})
+			GetVirtualEventRsvpCounts.Mock.reply({
+				responseBody = {
+					counters = counters,
+				},
+			})
 
-		store:dispatch(GetVirtualEventRsvpCounts.API(MOCK_VIRTUAL_EVENT_ID))
+			store:dispatch(GetVirtualEventRsvpCounts.API(MOCK_VIRTUAL_EVENT_ID))
 
-		local state = store:getState()
+			local state = store:getState()
 
-		expect(state.rsvps.counters[MOCK_VIRTUAL_EVENT_ID]).toEqual(counters)
+			expect(state.rsvps.counters[MOCK_VIRTUAL_EVENT_ID]).toEqual(counters)
+		end)
+	end)
+
+	describe("UpdateMyRsvpStatus", function()
+		beforeEach(function()
+			local counters: types.RsvpCounters = {
+				none = 0,
+				going = 0,
+				maybeGoing = 0,
+				notGoing = 0,
+			}
+
+			GetVirtualEventRsvpCounts.Mock.reply({
+				responseBody = {
+					counters = counters,
+				},
+			})
+
+			UpdateMyRsvpStatus.Mock.reply({})
+
+			store:dispatch(GetVirtualEventRsvpCounts.API(MOCK_VIRTUAL_EVENT_ID))
+		end)
+
+		-- As of writing this, the 'maybeGoing' RSVP status is not implemented,
+		-- so any tests including it will always result in the same value for
+		-- 'going'
+
+		-- It's impossible to transition to the 'none' RSVP status, so that one
+		-- is omitted from being transitioned to
+
+		it("should increase the `going` count by 1 when RSVPing", function()
+			store:dispatch(UpdateMyRsvpStatus.API(MOCK_VIRTUAL_EVENT_ID, "going"))
+
+			local state = store:getState()
+			expect(state.rsvps.counters[MOCK_VIRTUAL_EVENT_ID].going).toBe(1)
+		end)
+
+		it("should transition from 'none' to 'going'", function()
+			store:dispatch(UpdateMyRsvpStatus.API(MOCK_VIRTUAL_EVENT_ID, "going"))
+
+			local state = store:getState()
+			expect(state.rsvps.counters[MOCK_VIRTUAL_EVENT_ID].going).toBe(1)
+		end)
+
+		it("should transition from 'none' to 'notGoing'", function()
+			store:dispatch(UpdateMyRsvpStatus.API(MOCK_VIRTUAL_EVENT_ID, "notGoing"))
+
+			local state = store:getState()
+			expect(state.rsvps.counters[MOCK_VIRTUAL_EVENT_ID].going).toBe(0)
+		end)
+
+		it("should transition from 'none' to 'maybeGoing'", function()
+			store:dispatch(UpdateMyRsvpStatus.API(MOCK_VIRTUAL_EVENT_ID, "maybeGoing"))
+
+			local state = store:getState()
+			expect(state.rsvps.counters[MOCK_VIRTUAL_EVENT_ID].going).toBe(0)
+		end)
+
+		it("should transition from 'going' to 'maybeGoing'", function()
+			store:dispatch(UpdateMyRsvpStatus.API(MOCK_VIRTUAL_EVENT_ID, "going"))
+
+			local state = store:getState()
+			expect(state.rsvps.counters[MOCK_VIRTUAL_EVENT_ID].going).toBe(1)
+
+			store:dispatch(UpdateMyRsvpStatus.API(MOCK_VIRTUAL_EVENT_ID, "maybeGoing"))
+
+			state = store:getState()
+			expect(state.rsvps.counters[MOCK_VIRTUAL_EVENT_ID].going).toBe(1)
+		end)
+
+		it("should transition from 'going' to 'notGoing'", function()
+			store:dispatch(UpdateMyRsvpStatus.API(MOCK_VIRTUAL_EVENT_ID, "going"))
+
+			local state = store:getState()
+			expect(state.rsvps.counters[MOCK_VIRTUAL_EVENT_ID].going).toBe(1)
+
+			store:dispatch(UpdateMyRsvpStatus.API(MOCK_VIRTUAL_EVENT_ID, "notGoing"))
+
+			state = store:getState()
+			expect(state.rsvps.counters[MOCK_VIRTUAL_EVENT_ID].going).toBe(0)
+		end)
+
+		it("should transition from 'notGoing' to 'going'", function()
+			store:dispatch(UpdateMyRsvpStatus.API(MOCK_VIRTUAL_EVENT_ID, "notGoing"))
+
+			local state = store:getState()
+			expect(state.rsvps.counters[MOCK_VIRTUAL_EVENT_ID].going).toBe(0)
+
+			store:dispatch(UpdateMyRsvpStatus.API(MOCK_VIRTUAL_EVENT_ID, "going"))
+
+			state = store:getState()
+			expect(state.rsvps.counters[MOCK_VIRTUAL_EVENT_ID].going).toBe(1)
+		end)
+
+		it("should transition from 'notGoing' to 'maybeGoing'", function()
+			store:dispatch(UpdateMyRsvpStatus.API(MOCK_VIRTUAL_EVENT_ID, "notGoing"))
+
+			local state = store:getState()
+			expect(state.rsvps.counters[MOCK_VIRTUAL_EVENT_ID].going).toBe(0)
+
+			store:dispatch(UpdateMyRsvpStatus.API(MOCK_VIRTUAL_EVENT_ID, "maybeGoing"))
+
+			state = store:getState()
+			expect(state.rsvps.counters[MOCK_VIRTUAL_EVENT_ID].going).toBe(0)
+		end)
+
+		it("should transition from 'maybeGoing' to 'notGoing'", function()
+			store:dispatch(UpdateMyRsvpStatus.API(MOCK_VIRTUAL_EVENT_ID, "notGoing"))
+
+			local state = store:getState()
+			expect(state.rsvps.counters[MOCK_VIRTUAL_EVENT_ID].going).toBe(0)
+
+			store:dispatch(UpdateMyRsvpStatus.API(MOCK_VIRTUAL_EVENT_ID, "maybeGoing"))
+
+			state = store:getState()
+			expect(state.rsvps.counters[MOCK_VIRTUAL_EVENT_ID].going).toBe(0)
+		end)
+
+		it("should transition from 'maybeGoing' to 'going'", function()
+			store:dispatch(UpdateMyRsvpStatus.API(MOCK_VIRTUAL_EVENT_ID, "notGoing"))
+
+			local state = store:getState()
+			expect(state.rsvps.counters[MOCK_VIRTUAL_EVENT_ID].going).toBe(0)
+
+			store:dispatch(UpdateMyRsvpStatus.API(MOCK_VIRTUAL_EVENT_ID, "maybeGoing"))
+
+			state = store:getState()
+			expect(state.rsvps.counters[MOCK_VIRTUAL_EVENT_ID].going).toBe(0)
+		end)
 	end)
 end)
 

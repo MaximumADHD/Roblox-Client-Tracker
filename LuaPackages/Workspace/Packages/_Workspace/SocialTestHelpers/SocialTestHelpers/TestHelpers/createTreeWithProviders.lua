@@ -15,6 +15,12 @@ mockLocalization.Format = function(_, key, _)
 	return key
 end
 
+local createStore = function(state)
+	return Rodux.Store.new(function()
+		return state
+	end, {}, { Rodux.thunkMiddleware })
+end
+
 local EMPTY_STORE = Rodux.Store.new(function()
 	return {}
 end, {}, { Rodux.thunkMiddleware })
@@ -23,7 +29,7 @@ end, {}, { Rodux.thunkMiddleware })
 local createTreeWithProviders = function(element, config)
 	local tree = Roact.createFragment({
 		storeProvider = Roact.createElement(RoactRodux.StoreProvider, {
-			store = config.store or EMPTY_STORE,
+			store = if config.state then createStore(config.state) else config.store or EMPTY_STORE,
 		}, {
 			styleProvider = Roact.createElement(UIBlox.App.Style.AppStyleProvider, {
 				style = {

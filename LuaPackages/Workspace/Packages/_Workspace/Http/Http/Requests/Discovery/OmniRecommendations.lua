@@ -5,7 +5,6 @@ local UrlBuilder = require(Packages.UrlBuilder).UrlBuilder
 local Url = require(script.Parent.Parent.Parent.Url)
 local HttpService = game:GetService("HttpService")
 
-local FFlagLuaAppSendDeviceInfoInOmni = game:DefineFastFlag("LuaAppSendDeviceInfoInOmni", false)
 local GetFFlagLuaAppInfiniteHomePage = require(Packages.SharedFlags).GetFFlagLuaAppInfiniteHomePage
 
 --[[
@@ -42,14 +41,12 @@ local builder = UrlBuilder.new({
 	path = "/discovery-api/omni-recommendation",
 })
 
-local deviceToParamMap = if FFlagLuaAppSendDeviceInfoInOmni
-	then {
-		[SystemInfoProtocol.InfoNames.MANUFACTURER :: string] = "deviceManufacturer",
-		[SystemInfoProtocol.InfoNames.BASE_OS :: string] = "operatingSystemVersion",
-		[SystemInfoProtocol.InfoNames.IS_64BIT :: string] = "if64Bit",
-		[SystemInfoProtocol.InfoNames.CPU_CORE_COUNT :: string] = "cpuCores",
-	}
-	else {} :: any
+local deviceToParamMap = {
+	[SystemInfoProtocol.InfoNames.MANUFACTURER :: string] = "deviceManufacturer",
+	[SystemInfoProtocol.InfoNames.BASE_OS :: string] = "operatingSystemVersion",
+	[SystemInfoProtocol.InfoNames.IS_64BIT :: string] = "if64Bit",
+	[SystemInfoProtocol.InfoNames.CPU_CORE_COUNT :: string] = "cpuCores",
+}
 
 -- networkImpl - (function<promise<HttpResponse>>(url, requestMethod, options))
 -- pageType - (string/Constants.OmniRecommendationsPageType) which page type to fetch
@@ -62,21 +59,19 @@ return function(networkImpl, discoveryPageType, sessionId, nextPageToken)
 		["pageToken"] = if GetFFlagLuaAppInfiniteHomePage() then nextPageToken else nil,
 	}
 
-	if game:GetEngineFeature("LuaAppSendDeviceInfoInOmniPrefetch") or FFlagLuaAppSendDeviceInfoInOmni then
-		local success, systemInfo = pcall(function()
-			return SystemInfoProtocol.default:getSystemInfo(SystemInfoProtocol.ALL_INFO_NAMES)
-		end)
-		if success and typeof(systemInfo) == "table" then
-			for name, value in pairs(systemInfo) do
-				local paramName = deviceToParamMap[name] or name
-				ArgCheck.assert(
-					payload[paramName] == nil,
-					"Field '"
-						.. tostring(paramName)
-						.. "' already exists in omni-recommendation fetch!  Will be overwritten."
-				)
-				payload[paramName] = value
-			end
+	local success, systemInfo = pcall(function()
+		return SystemInfoProtocol.default:getSystemInfo(SystemInfoProtocol.ALL_INFO_NAMES)
+	end)
+	if success and typeof(systemInfo) == "table" then
+		for name, value in pairs(systemInfo) do
+			local paramName = deviceToParamMap[name] or name
+			ArgCheck.assert(
+				payload[paramName] == nil,
+				"Field '"
+					.. tostring(paramName)
+					.. "' already exists in omni-recommendation fetch!  Will be overwritten."
+			)
+			payload[paramName] = value
 		end
 	end
 

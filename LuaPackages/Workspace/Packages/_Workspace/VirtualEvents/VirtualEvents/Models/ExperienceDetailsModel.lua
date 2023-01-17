@@ -28,13 +28,17 @@ export type Response = {
 	created: string,
 	updated: string,
 	studioAccessToApisAllowed: boolean,
-	createVipServersAllowed: boolean,
+	createVipServersAllowed: boolean?,
 	universeAvatarType: string,
 	genre: string,
 	isAllGenre: boolean,
 	isFavoritedByUser: boolean,
 	favoritedCount: number,
 }
+
+local CorePackages = game:GetService("CorePackages")
+local FFlagUsePSEnabledInUniverseEndpoint =
+	require(CorePackages.Workspace.Packages.GameDetailRodux).Flags.FFlagUsePSEnabledInUniverseEndpoint
 
 local ExperienceDetailsModel = {}
 
@@ -64,7 +68,7 @@ function ExperienceDetailsModel.mock(universeId: number?): Response
 		created = DateTime.now():ToIsoDate(),
 		updated = DateTime.now():ToIsoDate(),
 		studioAccessToApisAllowed = false,
-		createVipServersAllowed = false,
+		createVipServersAllowed = if FFlagUsePSEnabledInUniverseEndpoint() then false else nil,
 		universeAvatarType = "MorphR6",
 		genre = "",
 		isAllGenre = false,

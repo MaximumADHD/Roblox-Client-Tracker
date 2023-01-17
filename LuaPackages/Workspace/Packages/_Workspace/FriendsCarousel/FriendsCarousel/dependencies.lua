@@ -15,11 +15,12 @@ local getFFlagContactImporterOnFriendsCarousel = require(Packages.SharedFlags).g
 
 local getFFlagFriendsCarouselDontUseIngestService =
 	require(Packages.SharedFlags).getFFlagFriendsCarouselDontUseIngestService
-local getFFlagProfileRecommendationId = require(Packages.SharedFlags).getFFlagProfileRecommendationId
 local getFFlagAutoSyncForContactImporterDisabled =
 	require(Packages.SharedFlags).getFFlagAutoSyncForContactImporterDisabled
 local getFFlagMigrateSocialNetworking = require(Packages.SharedFlags).getFFlagMigrateSocialNetworking
 local GetFFlagUseCorrectedFriendSortUtil = require(Packages.SharedFlags).GetFFlagUseCorrectedFriendSortUtil
+local getFFlagEnableContactInvitesForNonPhoneVerified =
+	require(Packages.SharedFlags).getFFlagEnableContactInvitesForNonPhoneVerified
 
 local myHttpRequest = HttpRequest.config({
 	requestFunction = function(url, requestMethod, requestOptions)
@@ -144,9 +145,9 @@ return {
 
 	getFFlagFriendsCarouselDontUseIngestService = getFFlagFriendsCarouselDontUseIngestService,
 	getFFlagContactImporterOnFriendsCarousel = getFFlagContactImporterOnFriendsCarousel,
-	getFFlagProfileRecommendationId = getFFlagProfileRecommendationId,
 	getFFlagAutoSyncForContactImporterDisabled = getFFlagAutoSyncForContactImporterDisabled,
 	getFFlagMigrateSocialNetworking = getFFlagMigrateSocialNetworking,
 	GetFFlagUseCorrectedFriendSortUtil = GetFFlagUseCorrectedFriendSortUtil,
 	getFFlagFixFriendshipOriginSourceType = require(Packages.SharedFlags).getFFlagFixFriendshipOriginSourceType,
+	getFFlagEnableContactInvitesForNonPhoneVerified = getFFlagEnableContactInvitesForNonPhoneVerified,
 }

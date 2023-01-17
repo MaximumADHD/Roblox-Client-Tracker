@@ -7,7 +7,7 @@ local withStyle = UIBlox.Style.withStyle
 
 local getFFlagFriendsLandingFixSearchPageStylingEnabled =
 	require(FriendsLanding.Flags.getFFlagFriendsLandingFixSearchPageStylingEnabled)
-local getFFlagAddFriendsFullPlayerSearchbar = dependencies.getFFlagAddFriendsFullPlayerSearchbar
+local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 
 local PlayerSearchWrapper = Roact.PureComponent:extend("PlayerSearchWrapper")
 
@@ -22,8 +22,8 @@ function PlayerSearchWrapper:render()
 		if getFFlagFriendsLandingFixSearchPageStylingEnabled() then
 			return withStyle(function(style)
 				local searchText = self.props.navigation.getParam("searchText", nil)
-				local showEmptyLandingPage = if getFFlagAddFriendsFullPlayerSearchbar()
-					then self.props.navigation.getParam("showEmptyLandingPage", nil)
+				local shouldShowEmptyLandingPage = if getFFlagAddFriendsSearchbarIXPEnabled()
+					then self.props.navigation.getParam("shouldShowEmptyLandingPage", nil)
 					else nil
 				return Roact.createElement("Frame", {
 					Size = UDim2.fromScale(1, 1),
@@ -34,23 +34,31 @@ function PlayerSearchWrapper:render()
 							searchKeyword = searchText,
 							isKeywordSuggestionEnabled = true,
 						},
-						showEmptyLandingPage = if getFFlagAddFriendsFullPlayerSearchbar()
-							then showEmptyLandingPage
+						shouldShowEmptyLandingPage = if getFFlagAddFriendsSearchbarIXPEnabled()
+							then shouldShowEmptyLandingPage
+							else nil,
+						addFriendsPageSearchbarEnabled = if getFFlagAddFriendsSearchbarIXPEnabled()
+							then context.addFriendsPageSearchbarEnabled
 							else nil,
 					}),
 				})
 			end)
 		else
 			local searchText = self.props.navigation.getParam("searchText", nil)
-			local showEmptyLandingPage = if getFFlagAddFriendsFullPlayerSearchbar()
-				then self.props.navigation.getParam("showEmptyLandingPage", nil)
+			local shouldShowEmptyLandingPage = if getFFlagAddFriendsSearchbarIXPEnabled()
+				then self.props.navigation.getParam("shouldShowEmptyLandingPage", nil)
 				else nil
 			return Roact.createElement(context.playerSearchPage, {
 				searchParameters = {
 					searchKeyword = searchText,
 					isKeywordSuggestionEnabled = true,
 				},
-				showEmptyLandingPage = if getFFlagAddFriendsFullPlayerSearchbar() then showEmptyLandingPage else nil,
+				shouldShowEmptyLandingPage = if getFFlagAddFriendsSearchbarIXPEnabled()
+					then shouldShowEmptyLandingPage
+					else nil,
+				addFriendsPageSearchbarEnabled = if getFFlagAddFriendsSearchbarIXPEnabled()
+					then context.addFriendsPageSearchbarEnabled
+					else nil,
 			})
 		end
 	end)

@@ -1,5 +1,4 @@
 local SquadWidget = script:FindFirstAncestor("SquadWidget")
-local Packages = SquadWidget.Parent
 local devDependencies = require(SquadWidget.devDependencies)
 local dependencies = require(SquadWidget.dependencies)
 
@@ -13,25 +12,12 @@ local createTreeWithProviders = devDependencies.createTreeWithProviders
 local jest = devDependencies.jest
 local runWhileMounted = UnitTestHelpers.runWhileMounted
 local SquadLobbyPeekView = require(SquadWidget.SquadLobby.Components.SquadLobbyPeekView.SquadLobbyPeekView)
-local GetFFlagPeekViewRefactorEnabled = require(Packages.SharedFlags).GetFFlagPeekViewRefactorEnabled
 
 local store = Rodux.Store.new(function()
 	return {
 		TopBar = {
 			statusBarHeight = 20,
 		},
-		LastInputType = if GetFFlagPeekViewRefactorEnabled()
-			then nil
-			else {
-				lastInputGroup = "Gamepad",
-			},
-		Navigation = if GetFFlagPeekViewRefactorEnabled()
-			then nil
-			else {
-				history = {
-					{ { name = "Page1" } },
-				},
-			},
 	}
 end, {}, { Rodux.thunkMiddleware })
 

@@ -20,9 +20,16 @@ local coreEvents = {
 		context = Contexts.ProfileQRCode,
 		eventType = EventTypes.PageLoad,
 		formatRulesForAdditionalInfo = {
-			shareLinkId = Dash.noop,
+			shareLinkId = Dash.identity,
 		},
 	} :: GenericEvent,
+	[EventNames.QRPageLoadFailed] = {
+		context = Contexts.ProfileQRCode,
+		eventType = EventTypes.PageLoadFailed,
+		formatRulesForAdditionalInfo = {
+			errorReason = Dash.identity,
+		},
+	},
 }
 
 return coreEvents

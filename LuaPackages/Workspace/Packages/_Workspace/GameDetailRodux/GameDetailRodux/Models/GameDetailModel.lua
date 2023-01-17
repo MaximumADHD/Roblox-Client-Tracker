@@ -43,6 +43,7 @@ local Packages = GameDetailRodux.Parent
 
 local LuaDateTime = require(Packages.Time).DateTime
 local GetFFlagEnableSwapToSourceButton = require(Packages.SharedFlags).GetFFlagEnableSwapToSourceButton
+local FFlagUsePSEnabledInUniverseEndpoint = require(GameDetailRodux.Flags.FFlagUsePSEnabledInUniverseEndpoint)
 
 local GameDetail = {}
 
@@ -81,7 +82,9 @@ function GameDetail.mock(universeId, name)
 	self.created = creationTime:GetIsoDate()
 	self.updated = updateTime:GetIsoDate()
 	self.studioAccessToApisAllowed = true
-	self.createVipServersAllowed = true
+	if not FFlagUsePSEnabledInUniverseEndpoint() then
+		self.createVipServersAllowed = true
+	end
 	self.universeAvatarType = "MorphToR15"
 	self.genre = "Town and City"
 	return self
@@ -113,7 +116,9 @@ function GameDetail.fromJsonData(gameDetailJson)
 	self.created = gameDetailJson.created
 	self.updated = gameDetailJson.updated
 	self.studioAccessToApisAllowed = gameDetailJson.studioAccessToApisAllowed
-	self.createVipServersAllowed = gameDetailJson.createVipServersAllowed
+	if not FFlagUsePSEnabledInUniverseEndpoint() then
+		self.createVipServersAllowed = gameDetailJson.createVipServersAllowed
+	end
 	self.universeAvatarType = gameDetailJson.universeAvatarType
 	self.genre = gameDetailJson.genre
 	return self

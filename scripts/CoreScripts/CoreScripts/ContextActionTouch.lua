@@ -21,8 +21,6 @@ local ContextUpImage = "https://www.roblox.com/asset/?id=97166444"
 
 local oldTouches = {}
 
-local FFlagUpdateCorescriptsTouchControlsEnabled = game:DefineFastFlag("UpdateCorescriptsTouchControlsEnabled", false)
-
 local IMAGE = "image"
 local TITLE = "title"
 local POSITION = "position"
@@ -68,19 +66,10 @@ function createContextActionGui()
 		buttonFrame.Name = "ContextButtonFrame"
 		buttonFrame.Parent = buttonScreenGui
 
-		if FFlagUpdateCorescriptsTouchControlsEnabled then
+		buttonFrame.Visible = guiService.TouchControlsEnabled
+		guiService:GetPropertyChangedSignal("TouchControlsEnabled"):Connect(function()
 			buttonFrame.Visible = guiService.TouchControlsEnabled
-			guiService:GetPropertyChangedSignal("TouchControlsEnabled"):Connect(function()
-				buttonFrame.Visible = guiService.TouchControlsEnabled
-			end)
-		else
-			buttonFrame.Visible = not userInputService.ModalEnabled
-			userInputService.Changed:connect(function(property)
-				if property == "ModalEnabled" then
-					buttonFrame.Visible = not userInputService.ModalEnabled
-				end
-			end)
-		end
+		end)
 	end
 end
 

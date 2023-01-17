@@ -4,7 +4,7 @@ local Roact = dependencies.Roact
 local UIBlox = dependencies.UIBlox
 local HeaderBar = UIBlox.App.Bar.HeaderBar
 
-local getFFlagAddFriendsFullPlayerSearchbar = dependencies.getFFlagAddFriendsFullPlayerSearchbar
+local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 
 local NEW_NAV_BAR_SIZE = 56
 
@@ -23,8 +23,8 @@ function FriendsLandingHeaderBarPresentational:render()
 			renderLeft = self.props.renderLeft,
 			renderCenter = self.props.renderCenter,
 			renderRight = self.props.renderRight,
-			isSecondary = if getFFlagAddFriendsFullPlayerSearchbar() then self.props.isSecondary else nil,
-			shouldHideSecondaryLeftItem = if getFFlagAddFriendsFullPlayerSearchbar()
+			isSecondary = if getFFlagAddFriendsSearchbarIXPEnabled() then self.props.isSecondary else nil,
+			shouldHideSecondaryLeftItem = if getFFlagAddFriendsSearchbarIXPEnabled()
 				then self.props.shouldHideSecondaryLeftItem
 				else nil,
 		}),

@@ -1,19 +1,52 @@
 return [[
-interface User {
-  id: ID!
-  displayName: String!
+enum MediaAssetType {
+  Image
+  YouTubeVideo
 }
 
-type Player implements User {
-  id: ID!
-  displayName: String!
-  avatarHeadshot: String!
+type ExperienceMedia {
+  assetTypeId: ID
+  assetType: MediaAssetType
+  approved: Boolean
+  imageId: Int
+  videoHash: String
+  videoTitle: String
+  altText: String
 }
 
-type Query {
-  me: User!
-  user(id: ID!): User!
-  omniFeed(sessionId: String!, pageType: String!, nextPageToken: String): OmniFeed
+type ExperienceCreator {
+  id: ID!
+  name: String
+  type: String
+  isRNVAccount: Boolean
+  hasVerifiedBadge: Boolean
+}
+
+type ExperienceDetails {
+  id: ID!
+  rootPlaceId: Int
+  name: String
+  description: String
+  sourceName: String
+  sourceDescription: String
+  creator: ExperienceCreator
+  price: Int
+  allowedGearGenres: [String]
+  allowedGearCategories: [String]
+  isGenreEnforced: Boolean
+  copyingAllowed: Boolean
+  playing: Int
+  visits: Int
+  maxPlayers: Int
+  created: String
+  updated: String
+  studioAccessToApisAllowed: Boolean
+  createVipServersAllowed: Boolean
+  universeAvatarType: Int
+  genre: String
+  isAllGenre: Boolean
+  isFavoritedByUser: Boolean
+  favoritedCount: Int
 }
 
 type Experience {
@@ -61,7 +94,84 @@ type OmniFeedRecommendation {
   contentMetadata: JSONObject
 }
 
+type Query {
+  omniFeed(sessionId: String!, pageType: String!, nextPageToken: String): OmniFeed
+  me: User!
+  user(id: ID!): User!
+  virtualEvent(id: ID!): VirtualEvent
+}
+
 type Media {
   url: String
+}
+
+interface User {
+  id: ID!
+  displayName: String!
+}
+
+type Player implements User {
+  id: ID!
+  displayName: String!
+  avatarHeadshot: String!
+}
+
+enum EventStatus {
+  unpublished
+  active
+  cancelled
+}
+
+enum RsvpStatus {
+  none
+  going
+  maybeGoing
+  notGoing
+}
+
+enum HostType {
+  user
+  group
+}
+
+type EventTime {
+  startUtc: String
+  endUtc: String
+}
+
+type Host {
+  hostId: ID
+  hostType: HostType
+  hostName: String
+  hasVerifiedBadge: Boolean
+}
+
+type Rsvp {
+  userId: ID
+  rsvpStatus: RsvpStatus
+}
+
+type RsvpCounters {
+  none: Int
+  going: Int
+  maybeGoing: Int
+  notGoing: Int
+}
+
+type VirtualEvent {
+  id: ID!
+  title: String
+  description: String
+  host: Host
+  universeId: ID
+  eventStatus: EventStatus
+  eventTime: EventTime
+  createdUtc: String
+  updatedUtc: String
+  userRsvpStatus: RsvpStatus
+  experienceDetails: ExperienceDetails
+  media: [ExperienceMedia]
+  rsvpCounters: RsvpCounters
+  rsvps: [Rsvp]
 }
 ]]

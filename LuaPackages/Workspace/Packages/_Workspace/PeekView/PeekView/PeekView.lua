@@ -69,8 +69,6 @@ local GetFFlagPeekViewClipFramePositionFromBottom =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekViewClipFramePositionFromBottom
 local GetFFlagPeekViewDeprecateFitChildren =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekViewDeprecateFitChildren
-local GetFFlagPeekViewRefactorEnabled =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekViewRefactorEnabled
 
 local useAutomaticSizeForPeekView = GetFFlagPeekViewDeprecateFitChildren()
 	and game:GetEngineFeature("UseActualSizeToCalculateListMinSize")
@@ -125,9 +123,7 @@ function PeekView:init()
 		scrollableViewType = false,
 		absoluteWindowSizeX = 0,
 		absoluteWindowSizeY = 0,
-		lastInputGroup = if GetFFlagPeekViewRefactorEnabled()
-			then InputTypeMap[UserInputService:GetLastInputType()]
-			else nil,
+		lastInputGroup = InputTypeMap[UserInputService:GetLastInputType()],
 	})
 
 	self.containerFrameRef = Roact.createRef()
@@ -313,22 +309,12 @@ function PeekView:init()
 			return
 		end
 		self.reconcileRbxInstances()
-		if GetFFlagPeekViewRefactorEnabled() then
-			if self.state.lastInputGroup ~= InputTypeConstants.Gamepad then
-				--[[
-					Avoid checkGoTo here if using gamepad navigation as to not clobber swipe scrolling
-					frame CanvasPosition with RunService values when attempting to auto-scroll
-				--]]
-				self.checkGoTo()
-			end
-		else
-			if self.props.lastInputGroup ~= InputTypeConstants.Gamepad then
-				--[[
-					Avoid checkGoTo here if using gamepad navigation as to not clobber swipe scrolling
-					frame CanvasPosition with RunService values when attempting to auto-scroll
-				--]]
-				self.checkGoTo()
-			end
+		if self.state.lastInputGroup ~= InputTypeConstants.Gamepad then
+			--[[
+				Avoid checkGoTo here if using gamepad navigation as to not clobber swipe scrolling
+				frame CanvasPosition with RunService values when attempting to auto-scroll
+			--]]
+			self.checkGoTo()
 		end
 	end
 
@@ -575,14 +561,8 @@ function PeekView:init()
 	end
 
 	self.selectedCoreObjectConnection = GuiService:GetPropertyChangedSignal("SelectedCoreObject"):connect(function()
-		if GetFFlagPeekViewRefactorEnabled() then
-			if self.swipeScrollingFrameRef.current and self.state.lastInputGroup == InputTypeConstants.Gamepad then
-				self:adjustScrollingFramePosition()
-			end
-		else
-			if self.swipeScrollingFrameRef.current and self.props.lastInputGroup == InputTypeConstants.Gamepad then
-				self:adjustScrollingFramePosition()
-			end
+		if self.swipeScrollingFrameRef.current and self.state.lastInputGroup == InputTypeConstants.Gamepad then
+			self:adjustScrollingFramePosition()
 		end
 	end)
 end
@@ -956,12 +936,10 @@ function PeekView:didMount()
 		end
 	end
 
-	if GetFFlagPeekViewRefactorEnabled() then
-		self:setState({ lastInputGroup = InputTypeMap[UserInputService:GetLastInputType()] })
-		UserInputService.LastInputTypeChanged:Connect(function(lastInputType)
-			self:setState({ lastInputGroup = InputTypeMap[lastInputType] })
-		end)
-	end
+	self:setState({ lastInputGroup = InputTypeMap[UserInputService:GetLastInputType()] })
+	UserInputService.LastInputTypeChanged:Connect(function(lastInputType)
+		self:setState({ lastInputGroup = InputTypeMap[lastInputType] })
+	end)
 end
 
 function PeekView:isAnimating()
@@ -1018,15 +996,8 @@ function PeekView:willUnmount()
 end
 
 local function mapStateToProps(state, props)
-	local routeHistory = if GetFFlagPeekViewRefactorEnabled() then nil else state.Navigation.history
-	local route = if GetFFlagPeekViewRefactorEnabled() then nil else routeHistory[#routeHistory]
-	local currentPage = if GetFFlagPeekViewRefactorEnabled() then nil else route[#route]
 	return {
-		topBarHeight = if GetFFlagPeekViewRefactorEnabled()
-			then state.TopBar and state.TopBar.topBarHeight or 0
-			else state.TopBar.topBarHeight,
-		lastInputGroup = if GetFFlagPeekViewRefactorEnabled() then nil else state.LastInputType.lastInputGroup,
-		currentPage = if GetFFlagPeekViewRefactorEnabled() then nil else currentPage,
+		topBarHeight = state.TopBar and state.TopBar.topBarHeight or 0,
 	}
 end
 

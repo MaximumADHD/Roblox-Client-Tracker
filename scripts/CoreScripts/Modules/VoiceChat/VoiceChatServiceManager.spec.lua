@@ -52,13 +52,6 @@ return function()
 		jestExpect(done).toBe(true)
 	end
 
-	local expectSubstring = function(message, substring)
-		local found = string.find(message, substring)
-		if not found then
-			error("Expected [" .. substring .. "], got [" .. message .. "]")
-		end
-	end
-
 	local function createVoiceOptionsJSONStub(options)
 		return stub(HttpService:JSONEncode(options))
 	end
@@ -380,7 +373,8 @@ return function()
 				end)
 				waitForEvents.act()
 				jestExpect(CoreGui.RobloxVoiceChatPromptGui).never.toBeNil()
-				jestExpect(CoreGui.RobloxVoiceChatPromptGui.Content.Toast.ToastContainer.Toast.ToastFrame.ToastTextFrame.ToastTitle.Text).toBe("Voice Chat Unavailable")
+				local ToastContainer = CoreGui:FindFirstChild("ToastContainer", true)
+				jestExpect(ToastContainer.Toast.ToastFrame.ToastTextFrame.ToastTitle.Text).toBe("Voice Chat Unavailable")
 			end)
 		end)
 
@@ -401,7 +395,7 @@ return function()
 		end)
 
 		describe("BlockingUtils", function()
-			local sessionFlag, rejoinFlag, lazyLoadBlock
+			local sessionFlag, rejoinFlag
 			beforeEach(function()
 				sessionFlag = game:SetFastFlagForTesting("EnableSessionCancelationOnBlock", true)
 				rejoinFlag = game:SetFastFlagForTesting("EnableVoiceChatRejoinOnBlock", true)

@@ -17,23 +17,29 @@ local beforeAll = JestGlobals.beforeAll
 local beforeEach = JestGlobals.beforeEach
 local afterEach = JestGlobals.afterEach
 
+local mockNativeUtilProtocol = require(ContactImporter.TestHelpers.mockNativeUtilProtocol)
 local mockSMSProtocol = require(ContactImporter.TestHelpers.mockSMSProtocol)
+
+-- When removing this flag clean up mockSMSProtocol as well.
+local getFFlagLuaNativeUtilEnableSMSHandling = dependencies.getFFlagLuaNativeUtilEnableSMSHandling
 
 local ADDRESS = "12345"
 local CONTACT_ID = "876"
 local INVITE_MESSAGE =
 	"https://ro.blox.com/Ebh5?pid=share&is_retargeting=true&af_dp=roblox%3A%2F%2Fnavigation%2Fshare_links%3Fcode%3D123412%26type%3DFriendInvite&af_web_dp=https%3A%2F%2Fwww.roblox.com%2Fshare-links%3Fcode%3D123412%26type%3DFriendInvite\n\nFeature.Contacts.Message.InviteToRoblox"
 describe("sendInviteLink", function()
-	local defaultProps, smsProtocol, calledGenerateLink
+	local defaultProps, nativeUtilProtocol, smsProtocol, calledGenerateLink
 	beforeAll(function()
 		NetworkingShareLinks.GenerateLink.Mock.clear()
 	end)
 
 	beforeEach(function()
+		nativeUtilProtocol = mockNativeUtilProtocol().default
 		smsProtocol = mockSMSProtocol().default
 		defaultProps = {
 			address = ADDRESS,
 			deviceContactId = CONTACT_ID,
+			nativeUtilProtocol = nativeUtilProtocol,
 			smsProtocol = smsProtocol,
 		}
 		calledGenerateLink = jest.fn()
@@ -74,12 +80,21 @@ describe("sendInviteLink", function()
 			sendInvite = jestExpect.any("function"),
 			isLoading = false,
 		})
-		jestExpect(smsProtocol.supportsSMS).toHaveBeenCalledTimes(1)
-		jestExpect(smsProtocol.sendSMS).toHaveBeenCalledTimes(1)
-		jestExpect(smsProtocol.sendSMS).toHaveBeenCalledWith(smsProtocol, {
-			address = ADDRESS,
-			message = INVITE_MESSAGE,
-		})
+		if getFFlagLuaNativeUtilEnableSMSHandling() then
+			jestExpect(nativeUtilProtocol.supportsSMS).toHaveBeenCalledTimes(1)
+			jestExpect(nativeUtilProtocol.sendSMS).toHaveBeenCalledTimes(1)
+			jestExpect(nativeUtilProtocol.sendSMS).toHaveBeenCalledWith(nativeUtilProtocol, {
+				address = ADDRESS,
+				message = INVITE_MESSAGE,
+			})
+		else
+			jestExpect(smsProtocol.supportsSMS).toHaveBeenCalledTimes(1)
+			jestExpect(smsProtocol.sendSMS).toHaveBeenCalledTimes(1)
+			jestExpect(smsProtocol.sendSMS).toHaveBeenCalledWith(smsProtocol, {
+				address = ADDRESS,
+				message = INVITE_MESSAGE,
+			})
+		end
 	end)
 
 	it("SHOULD catch errors with request", function()
@@ -103,7 +118,11 @@ describe("sendInviteLink", function()
 	end)
 
 	it("SHOULD not send text with request if sms is not supported", function()
-		smsProtocol.supportsSMS = jest.fn().mockReturnValue(Promise.resolve(false))
+		if getFFlagLuaNativeUtilEnableSMSHandling() then
+			nativeUtilProtocol.supportsSMS = jest.fn().mockReturnValue(Promise.resolve(false))
+		else
+			smsProtocol.supportsSMS = jest.fn().mockReturnValue(Promise.resolve(false))
+		end
 		local helper = renderHookWithProviders(function()
 			return sendInviteLink(defaultProps)
 		end)
@@ -117,12 +136,21 @@ describe("sendInviteLink", function()
 			sendInvite = jestExpect.any("function"),
 			isLoading = false,
 		})
-		jestExpect(smsProtocol.supportsSMS).toHaveBeenCalledTimes(1)
-		jestExpect(smsProtocol.sendSMS).never.toHaveBeenCalled()
+		if getFFlagLuaNativeUtilEnableSMSHandling() then
+			jestExpect(nativeUtilProtocol.supportsSMS).toHaveBeenCalledTimes(1)
+			jestExpect(nativeUtilProtocol.sendSMS).never.toHaveBeenCalled()
+		else
+			jestExpect(smsProtocol.supportsSMS).toHaveBeenCalledTimes(1)
+			jestExpect(smsProtocol.sendSMS).never.toHaveBeenCalled()
+		end
 	end)
 
 	it("SHOULD not send text with request if smsSupported fails", function()
-		smsProtocol.supportsSMS = jest.fn().mockReturnValue(Promise.reject())
+		if getFFlagLuaNativeUtilEnableSMSHandling() then
+			nativeUtilProtocol.supportsSMS = jest.fn().mockReturnValue(Promise.reject())
+		else
+			smsProtocol.supportsSMS = jest.fn().mockReturnValue(Promise.reject())
+		end
 		local helper = renderHookWithProviders(function()
 			return sendInviteLink(defaultProps)
 		end)
@@ -136,12 +164,21 @@ describe("sendInviteLink", function()
 			sendInvite = jestExpect.any("function"),
 			isLoading = false,
 		})
-		jestExpect(smsProtocol.supportsSMS).toHaveBeenCalledTimes(1)
-		jestExpect(smsProtocol.sendSMS).never.toHaveBeenCalled()
+		if getFFlagLuaNativeUtilEnableSMSHandling() then
+			jestExpect(nativeUtilProtocol.supportsSMS).toHaveBeenCalledTimes(1)
+			jestExpect(nativeUtilProtocol.sendSMS).never.toHaveBeenCalled()
+		else
+			jestExpect(smsProtocol.supportsSMS).toHaveBeenCalledTimes(1)
+			jestExpect(smsProtocol.sendSMS).never.toHaveBeenCalled()
+		end
 	end)
 
 	it("SHOULD not mark text as sent if sms sending fails", function()
-		smsProtocol.sendSMS = jest.fn().mockReturnValue(Promise.reject())
+		if getFFlagLuaNativeUtilEnableSMSHandling() then
+			nativeUtilProtocol.sendSMS = jest.fn().mockReturnValue(Promise.reject())
+		else
+			smsProtocol.sendSMS = jest.fn().mockReturnValue(Promise.reject())
+		end
 
 		local helper = renderHookWithProviders(function()
 			return sendInviteLink(defaultProps)
@@ -156,7 +193,12 @@ describe("sendInviteLink", function()
 			sendInvite = jestExpect.any("function"),
 			isLoading = false,
 		})
-		jestExpect(smsProtocol.supportsSMS).toHaveBeenCalledTimes(1)
-		jestExpect(smsProtocol.sendSMS).toHaveBeenCalledTimes(1)
+		if getFFlagLuaNativeUtilEnableSMSHandling() then
+			jestExpect(nativeUtilProtocol.supportsSMS).toHaveBeenCalledTimes(1)
+			jestExpect(nativeUtilProtocol.sendSMS).toHaveBeenCalledTimes(1)
+		else
+			jestExpect(smsProtocol.supportsSMS).toHaveBeenCalledTimes(1)
+			jestExpect(smsProtocol.sendSMS).toHaveBeenCalledTimes(1)
+		end
 	end)
 end)

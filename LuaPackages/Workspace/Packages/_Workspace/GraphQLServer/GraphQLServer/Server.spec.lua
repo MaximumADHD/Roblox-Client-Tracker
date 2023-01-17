@@ -4,6 +4,7 @@ return function()
 	local GraphQLServer = require(script.Parent.Server)
 	local jestExpect = require(Packages.Dev.JestGlobals).expect
 	local GraphQLError = require(Packages.GraphQL).GraphQLError
+	local NULL = require(Packages.GraphQL).NULL
 	local fetchModule = require(Packages.Fetch)
 	local buildFetch = fetchModule.buildFetch
 
@@ -460,7 +461,7 @@ return function()
 				:await()
 
 			jestExpect(capturedError.originalError.message).toEqual("Test Error")
-			jestExpect(capturedAuthor).toEqual({})
+			jestExpect(capturedAuthor).toEqual(NULL)
 		end)
 
 		it("should provide partial data", function()

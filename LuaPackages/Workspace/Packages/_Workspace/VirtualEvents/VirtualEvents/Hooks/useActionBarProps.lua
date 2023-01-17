@@ -65,7 +65,7 @@ local function useActionBarProps(
 	})
 
 	local button: Button? = React.useMemo(function()
-		if virtualEvent.eventStatus ~= "cancelled" and eventTimerStatus ~= "Elapsed" then
+		if virtualEvent.eventStatus ~= "cancelled" then
 			if eventTimerStatus == "Upcoming" or eventTimerStatus == "UpcomingImminent" then
 				if virtualEvent.userRsvpStatus == "going" then
 					return {
@@ -95,14 +95,6 @@ local function useActionBarProps(
 					},
 				}
 			else
-				-- There are no other cases than Upcoming, UpcomingImminent,
-				-- Ongoing, ElapsedImminent, and Elapsed that we have to
-				-- consider. This `else` is included so Luau knows we have a
-				-- base case
-
-				-- Luau FIXME: Need to cast to `any` here, presumeably because
-				-- useMemo doesn't understand that this function's return value
-				-- is `Button?`
 				return nil :: any
 			end
 		else
@@ -128,9 +120,6 @@ local function useActionBarProps(
 				},
 			}
 		else
-			-- Luau FIXME: Need to cast to `any` here, presumeably because
-			-- useMemo doesn't understand that this function's return value is
-			-- `Icon?`
 			return nil :: any
 		end
 	end, { virtualEvent, eventTimerStatus, callbacks } :: { any })

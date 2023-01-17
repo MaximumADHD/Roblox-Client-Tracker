@@ -11,7 +11,7 @@ export type Store = {
 
 return function()
 	return Rodux.combineReducers({
-		Users = configuredUsers,
+		Users = configuredUsers(),
 		NetworkStatus = configuredRoduxNetworking.installReducer(),
 	})
 end

@@ -11,6 +11,8 @@ export type LaunchParams = {
 	linkCode: string?,
 	launchData: string?,
 	conversationId: string?,
+	joinAttemptId: string?,
+	joinAttemptOrigin: string?,
 }
 
 export type GameProtocol = {

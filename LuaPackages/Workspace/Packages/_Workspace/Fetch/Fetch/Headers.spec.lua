@@ -154,6 +154,11 @@ return function()
 			})
 
 			local headerList = {}
+
+			-- selene: allow(manual_table_clone)
+			-- This is a false positive as selene doesn't know if
+			-- this is returning a table or, in our case, a custom
+			-- class with a generalized iterator.
 			for key, value in headers do
 				headerList[key] = value
 			end

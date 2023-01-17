@@ -5,4 +5,8 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["GraphQLServer"]["GraphQLServer"])
 
+export type OmniFeed = Package.OmniFeed
+export type OmniFeedMetadata = Package.OmniFeedMetadata
+
+
 return Package

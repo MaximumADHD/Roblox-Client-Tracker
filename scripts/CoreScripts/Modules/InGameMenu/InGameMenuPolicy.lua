@@ -1,6 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local PolicyProvider = InGameMenuDependencies.PolicyProvider
+local SharedFlags = CorePackages.Workspace.Packages.SharedFlags
+local GetFFlagUseVoiceExitBetaLanguage = require(SharedFlags).GetFFlagUseVoiceExitBetaLanguage
 
 local implementation = PolicyProvider.GetPolicyImplementations.MemStorageService("app-policy")
 local InGameMenuPolicy = PolicyProvider.withGetPolicyImplementation(implementation)
@@ -33,6 +35,13 @@ InGameMenuPolicy.Mapper = function(policy)
 
 		educationalPopupMaxDisplayCount = function()
 			return isSubjectToDesktopPolicies() and GetFIntEducationalPopupDisplayMaxCount() or 0
+		end,
+
+		getGameInfoShowChatFeatures = function()
+			if GetFFlagUseVoiceExitBetaLanguage() then
+				return policy.GameInfoShowChatFeatures or false
+			end
+			return false
 		end,
 
 		enableFullscreenTitleBar = function()

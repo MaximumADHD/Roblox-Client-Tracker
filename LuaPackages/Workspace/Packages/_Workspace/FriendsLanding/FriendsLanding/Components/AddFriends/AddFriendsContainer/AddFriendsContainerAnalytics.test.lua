@@ -67,6 +67,7 @@ describe("GIVEN mock analytics", function()
 		analytics = {
 			navigate = jest.fn(),
 			buttonClick = jest.fn(),
+			impressionEvent = jest.fn(),
 		}
 		navigateToLuaAppPages = {
 			[EnumScreens.GameDetailsPeekView] = jest.fn(),

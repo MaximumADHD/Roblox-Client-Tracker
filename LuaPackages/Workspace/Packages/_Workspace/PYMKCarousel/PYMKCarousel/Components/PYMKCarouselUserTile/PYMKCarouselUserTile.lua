@@ -14,7 +14,6 @@ local EventNames = Analytics.EventNames
 local getFriendStatus = require(PYMKCarousel.Analytics.getFriendStatus)
 local Constants = require(PYMKCarousel.Common.Constants)
 
-local getFFlagProfileRecommendationId = dependencies.getFFlagProfileRecommendationId
 local getFFlagPYMKCarouselIncomingFriendRequestAnalytics =
 	require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequestAnalytics)
 local getFFlagProfilePeekViewRecommendationAnalytics = dependencies.getFFlagProfilePeekViewRecommendationAnalytics
@@ -96,7 +95,7 @@ return function(props: Props)
 			isRecommendation = true,
 			recommendationContextType = recommendation.contextType.rawValue(),
 			mutualFriendsCount = mutualFriendsCount,
-			recommendationSessionId = if getFFlagProfileRecommendationId() then props.recommendationSessionId else nil,
+			recommendationSessionId = props.recommendationSessionId,
 			recommendationRank = if getFFlagProfilePeekViewRecommendationAnalytics() then recommendation.rank else nil,
 			source = if getFFlagProfilePeekViewRecommendationAnalytics()
 				then Constants.HomepagePYMKCarouselSourceName

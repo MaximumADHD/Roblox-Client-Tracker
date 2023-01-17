@@ -12,21 +12,34 @@ local React = dependencies.React
 local useAnalytics = require(ContactImporter.Analytics.useAnalytics)
 local EventNames = require(ContactImporter.Analytics.Enums.EventNames)
 
+local getFFlagLuaNativeUtilEnableSMSHandling = dependencies.getFFlagLuaNativeUtilEnableSMSHandling
+
 export type Setup = {
 	address: string,
 	deviceContactId: string,
+	nativeUtilProtocol: any,
 	smsProtocol: any,
 }
 
 local sendMessage = function(setup: Setup)
 	return function(message)
-		return setup.smsProtocol:supportsSMS():andThen(function(dosSupportSMS)
-			if dosSupportSMS then
-				return setup.smsProtocol:sendSMS({ address = setup.address, message = message })
-			else
-				return setup.smsProtocol.reject()
-			end
-		end)
+		if getFFlagLuaNativeUtilEnableSMSHandling() then
+			return setup.nativeUtilProtocol:supportsSMS():andThen(function(dosSupportSMS)
+				if dosSupportSMS then
+					return setup.nativeUtilProtocol:sendSMS({ address = setup.address, message = message })
+				else
+					return setup.nativeUtilProtocol.reject()
+				end
+			end)
+		else
+			return setup.smsProtocol:supportsSMS():andThen(function(dosSupportSMS)
+				if dosSupportSMS then
+					return setup.smsProtocol:sendSMS({ address = setup.address, message = message })
+				else
+					return setup.smsProtocol.reject()
+				end
+			end)
+		end
 	end
 end
 

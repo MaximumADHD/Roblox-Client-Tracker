@@ -24,7 +24,6 @@ local Analytics = require(PYMKCarousel.Analytics)
 local EventNames = Analytics.EventNames
 local Constants = require(PYMKCarousel.Common.Constants)
 local getFFlagPYMKCarouselIncomingFriendRequest = require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequest)
-local getFFlagProfileRecommendationId = dependencies.getFFlagProfileRecommendationId
 local getFFlagPYMKCarouselIncomingFriendRequestAnalytics =
 	require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequestAnalytics)
 local getFFlagProfilePeekViewRecommendationAnalytics = dependencies.getFFlagProfilePeekViewRecommendationAnalytics
@@ -202,7 +201,7 @@ describe("When interacting with PYMKCarouselUserTile", function()
 				isRecommendation = true,
 				mutualFriendsCount = 3,
 				recommendationContextType = "MutualFriends",
-				recommendationSessionId = if getFFlagProfileRecommendationId() then "recommendationSessionId" else nil,
+				recommendationSessionId = "recommendationSessionId",
 				recommendationRank = if getFFlagProfilePeekViewRecommendationAnalytics() then 10 else nil,
 				source = if getFFlagProfilePeekViewRecommendationAnalytics()
 					then Constants.HomepagePYMKCarouselSourceName
@@ -233,7 +232,7 @@ describe("When interacting with PYMKCarouselUserTile", function()
 				isRecommendation = true,
 				mutualFriendsCount = 3,
 				recommendationContextType = "MutualFriends",
-				recommendationSessionId = if getFFlagProfileRecommendationId() then "recommendationSessionId" else nil,
+				recommendationSessionId = "recommendationSessionId",
 				recommendationRank = if getFFlagProfilePeekViewRecommendationAnalytics() then 10 else nil,
 				source = if getFFlagProfilePeekViewRecommendationAnalytics()
 					then Constants.HomepagePYMKCarouselSourceName

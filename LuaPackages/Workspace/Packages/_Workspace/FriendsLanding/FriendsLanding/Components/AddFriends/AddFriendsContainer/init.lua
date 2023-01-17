@@ -7,6 +7,7 @@ local SocialLibraries = dependencies.SocialLibraries
 local Promise = dependencies.Promise
 local Roact = dependencies.Roact
 local RoactRodux = dependencies.RoactRodux
+local RoactAppExperiment = dependencies.RoactAppExperiment
 local UIBlox = dependencies.UIBlox
 local FormFactor = dependencies.FormFactor
 local compose = SocialLibraries.RoduxTools.compose
@@ -26,8 +27,9 @@ local getFFlagShowContactImporterTooltipOnce = require(FriendsLanding.Flags.getF
 local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
 local ImpressionEvents = require(FriendsLanding.FriendsLandingAnalytics.ImpressionEvents)
 local contactImporterTooltip = require(FriendsLanding.Utils.contactImporterTooltip)
-local getFFlagAddFriendsFullPlayerSearchbar = dependencies.getFFlagAddFriendsFullPlayerSearchbar
+local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
+local getFStringSocialAddFriendsPageLayer = dependencies.getFStringSocialAddFriendsPageLayer
 
 local GET_FRIEND_REQUESTS_LIMIT_PER_PAGE = 25
 local GET_FRIEND_REQUESTS_LIMIT_PER_PAGE_WIDE = 50
@@ -296,6 +298,9 @@ end
 
 function AddFriendsContainer:render()
 	local contactImporterAndPYMKEnabled = self.props.contactImporterAndPYMKEnabled
+	local addFriendsPageSearchbarEnabled = if getFFlagAddFriendsSearchbarIXPEnabled()
+		then self.props.addFriendsPageSearchbarEnabled
+		else nil
 	return Roact.createElement(AddFriendsPage, {
 		screenSize = self.props.screenSize,
 		friendRecommendations = self.props.friendRecommendations,
@@ -317,7 +322,7 @@ function AddFriendsContainer:render()
 		refreshPage = self.refreshPage,
 		handleNavigateDownToViewUserProfile = self.handleNavigateDownToViewUserProfile,
 		handleOpenLearnMoreLink = if contactImporterAndPYMKEnabled then self.handleOpenLearnMore else nil,
-		navigation = if contactImporterAndPYMKEnabled or getFFlagAddFriendsFullPlayerSearchbar()
+		navigation = if contactImporterAndPYMKEnabled or getFFlagAddFriendsSearchbarIXPEnabled()
 			then self.props.navigation
 			else nil,
 		contactImporterAndPYMKEnabled = contactImporterAndPYMKEnabled,
@@ -339,8 +344,11 @@ function AddFriendsContainer:render()
 			then self.handleOpenPhoneVerificationLinkWebview
 			else nil,
 		showTooltip = if getFFlagContactImporterUseNewTooltip() then self.props.showTooltip else nil,
-		wideMode = if getFFlagAddFriendsFullPlayerSearchbar() then self.props.wideMode else nil,
-		setScreenTopBar = if getFFlagAddFriendsFullPlayerSearchbar() then self.props.setScreenTopBar else nil,
+		wideMode = if getFFlagAddFriendsSearchbarIXPEnabled() then self.props.wideMode else nil,
+		setScreenTopBar = if getFFlagAddFriendsSearchbarIXPEnabled() then self.props.setScreenTopBar else nil,
+		addFriendsPageSearchbarEnabled = if getFFlagAddFriendsSearchbarIXPEnabled()
+			then addFriendsPageSearchbarEnabled
+			else nil,
 		fireSearchbarPressedEvent = if getFFlagAddFriendsFullSearchbarAnalytics()
 			then self.fireSearchbarPressedEvent
 			else nil,
@@ -351,7 +359,7 @@ function AddFriendsContainer:willUnmount()
 	self.props.getFriendRequestsCount(self.props.localUserId)
 end
 
-if getFFlagAddFriendsFullPlayerSearchbar() then
+if getFFlagAddFriendsSearchbarIXPEnabled() then
 	return compose(
 		RoactRodux.connect(mapStateToProps, mapDispatchToProps),
 		FriendsLandingAnalytics.connect(function(analytics)
@@ -363,6 +371,15 @@ if getFFlagAddFriendsFullPlayerSearchbar() then
 			return {
 				wideMode = context.wideMode,
 				setScreenTopBar = context.setScreenTopBar,
+			}
+		end),
+		-- This is the main exposure event for the Social.AddFriendsPage layer
+		RoactAppExperiment.connectUserLayer({
+			getFStringSocialAddFriendsPageLayer(),
+		}, function(layerVariables, props)
+			local socialAddFriendsPageLayer: any = layerVariables[getFStringSocialAddFriendsPageLayer()] or {}
+			return {
+				addFriendsPageSearchbarEnabled = socialAddFriendsPageLayer.show_add_friends_page_search_bar,
 			}
 		end)
 	)(AddFriendsContainer)

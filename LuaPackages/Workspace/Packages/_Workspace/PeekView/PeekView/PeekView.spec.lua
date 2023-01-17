@@ -21,9 +21,6 @@ return function()
 	local StyleProvider = require(CorePackages.Workspace.Packages.Style).AppStyleProvider
 	local RoactServices = require(CorePackages.Workspace.Packages.RoactServices).RoactServices
 
-	local GetFFlagPeekViewRefactorEnabled =
-		require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekViewRefactorEnabled
-
 	local appStyle = {
 		themeName = StyleConstants.ThemeName.Dark,
 		fontName = StyleConstants.FontName.Gotham,
@@ -31,17 +28,9 @@ return function()
 
 	local store = Rodux.Store.new(function(state, action)
 		return {
-			Navigation = if GetFFlagPeekViewRefactorEnabled() then nil else {
-				history = {
-					{ { name = "Page1" } },
-				}
-			},
 			TopBar = {
 				topBarHeight = 28,
 			},
-			LastInputType = if GetFFlagPeekViewRefactorEnabled() then nil else {
-				lastInputGroup = "Gamepad"
-			}
 		}
 	end)
 

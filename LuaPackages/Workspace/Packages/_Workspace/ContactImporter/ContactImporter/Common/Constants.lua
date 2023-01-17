@@ -25,6 +25,7 @@ return {
 	EVENT_INGEST_SERVICE = "eventIngestService",
 	SHOULD_UPDATE_USER_SETTINGS = "shouldUpdateUserSettings",
 	OPEN_PHONE_VERIFICATION_WEBVIEW = "openPhoneVerificationWebview",
+	IS_PHONE_VERIFIED = "isPhoneVerified",
 
 	-- contact params
 	FIRST_NAME = "First Name",

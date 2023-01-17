@@ -31,8 +31,9 @@ local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.ge
 local getFFlagUpdateContactImportModalLogic = require(FriendsLanding.Flags.getFFlagUpdateContactImportModalLogic)
 local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
 local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
-local getFFlagAddFriendsFullPlayerSearchbar = dependencies.getFFlagAddFriendsFullPlayerSearchbar
+local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
+local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 
 local AddFriendsContentFrame = require(script.Parent.AddFriendsContentFrame)
 
@@ -77,8 +78,9 @@ AddFriendsPage.validateProps = t.strictInterface({
 	getUserSettingsMetadata = t.optional(t.callback),
 	handleShowToastForTests = t.optional(Dash.isCallable),
 	showTooltip = t.optional(t.boolean),
-	wideMode = if getFFlagAddFriendsFullPlayerSearchbar() then t.optional(t.boolean) else nil,
-	setScreenTopBar = if getFFlagAddFriendsFullPlayerSearchbar() then t.optional(Dash.isCallable) else nil,
+	wideMode = if getFFlagAddFriendsSearchbarIXPEnabled() then t.optional(t.boolean) else nil,
+	setScreenTopBar = if getFFlagAddFriendsSearchbarIXPEnabled() then t.optional(Dash.isCallable) else nil,
+	addFriendsPageSearchbarEnabled = if getFFlagAddFriendsSearchbarIXPEnabled() then t.optional(t.boolean) else nil,
 	originSourceType = t.optional(t.table),
 })
 
@@ -132,11 +134,16 @@ function AddFriendsPage:init()
 	end
 
 	self.showContactImporterBanner = function(props)
-		return props.contactImporterAndPYMKEnabled
-			and (
-				props.isPhoneVerified
+		if getFFlagEnableContactInvitesForNonPhoneVerified() then
+			return props.contactImporterAndPYMKEnabled
 				or (getFFlagContactImporterWithPhoneVerification() and not props.isEmailVerified)
-			)
+		else
+			return props.contactImporterAndPYMKEnabled
+				and (
+					props.isPhoneVerified
+					or (getFFlagContactImporterWithPhoneVerification() and not props.isEmailVerified)
+				)
+		end
 	end
 
 	self.shouldRenderShowMoreFriendRequests = function(currentVisibleFriends)
@@ -173,24 +180,49 @@ function AddFriendsPage:init()
 		if shouldShowContactImporterModal then
 			local navParams = {}
 			if getFFlagContactImporterWithPhoneVerification() then
-				navParams = {
-					isFromAddFriendsPage = true,
-					openLearnMoreLink = self.props.handleOpenLearnMoreLink,
-					showToast = self.props.handleShowToastForTests or self.showToastForContactsUpload,
-					diagService = self.props.diagService,
-					eventIngestService = self.props.eventIngestService,
-					isDiscoverabilityUnset = self.props.isDiscoverabilityUnset,
-					openPhoneVerificationWebview = self.props.handleOpenPhoneVerificationLinkWebview,
-				}
+				if getFFlagEnableContactInvitesForNonPhoneVerified() then
+					navParams = {
+						isFromAddFriendsPage = true,
+						openLearnMoreLink = self.props.handleOpenLearnMoreLink,
+						showToast = self.props.handleShowToastForTests or self.showToastForContactsUpload,
+						diagService = self.props.diagService,
+						eventIngestService = self.props.eventIngestService,
+						isDiscoverabilityUnset = self.props.isDiscoverabilityUnset,
+						openPhoneVerificationWebview = self.props.handleOpenPhoneVerificationLinkWebview,
+						isPhoneVerified = self.props.isPhoneVerified,
+					}
+				else
+					navParams = {
+						isFromAddFriendsPage = true,
+						openLearnMoreLink = self.props.handleOpenLearnMoreLink,
+						showToast = self.props.handleShowToastForTests or self.showToastForContactsUpload,
+						diagService = self.props.diagService,
+						eventIngestService = self.props.eventIngestService,
+						isDiscoverabilityUnset = self.props.isDiscoverabilityUnset,
+						openPhoneVerificationWebview = self.props.handleOpenPhoneVerificationLinkWebview,
+					}
+				end
 			else
-				navParams = {
-					isFromAddFriendsPage = true,
-					openLearnMoreLink = self.props.handleOpenLearnMoreLink,
-					showToast = self.props.handleShowToastForTests or self.showToastForContactsUpload,
-					diagService = self.props.diagService,
-					eventIngestService = self.props.eventIngestService,
-					isDiscoverabilityUnset = self.props.isDiscoverabilityUnset,
-				}
+				if getFFlagEnableContactInvitesForNonPhoneVerified() then
+					navParams = {
+						isFromAddFriendsPage = true,
+						openLearnMoreLink = self.props.handleOpenLearnMoreLink,
+						showToast = self.props.handleShowToastForTests or self.showToastForContactsUpload,
+						diagService = self.props.diagService,
+						eventIngestService = self.props.eventIngestService,
+						isDiscoverabilityUnset = self.props.isDiscoverabilityUnset,
+						isPhoneVerified = self.props.isPhoneVerified,
+					}
+				else
+					navParams = {
+						isFromAddFriendsPage = true,
+						openLearnMoreLink = self.props.handleOpenLearnMoreLink,
+						showToast = self.props.handleShowToastForTests or self.showToastForContactsUpload,
+						diagService = self.props.diagService,
+						eventIngestService = self.props.eventIngestService,
+						isDiscoverabilityUnset = self.props.isDiscoverabilityUnset,
+					}
+				end
 			end
 			self.props.navigation.navigate(EnumScreens.ContactImporter, navParams)
 		else
@@ -204,11 +236,12 @@ function AddFriendsPage:init()
 		end
 	end
 
-	self.onSearchbarActivated = if getFFlagAddFriendsFullPlayerSearchbar()
+	self.onSearchbarActivated = if getFFlagAddFriendsSearchbarIXPEnabled()
+			and self.props.addFriendsPageSearchbarEnabled
 		then function()
 			local navParams = {
 				searchText = "",
-				showEmptyLandingPage = true,
+				shouldShowEmptyLandingPage = true,
 			}
 			self.props.navigation.navigate(EnumScreens.SearchFriends, navParams)
 			self.props.setScreenTopBar(EnumScreens.FriendsLanding, {
@@ -251,7 +284,8 @@ function AddFriendsPage:render()
 		friendRequestsText = "Feature.AddFriends.Label.FriendRequests",
 		buttonText = TextKeys.CONTACTS_LIST_TITLE,
 		bannerText = TextKeys.BANNER_TEXT,
-		searchPlaceholderText = if getFFlagAddFriendsFullPlayerSearchbar()
+		searchPlaceholderText = if getFFlagAddFriendsSearchbarIXPEnabled()
+				and self.props.addFriendsPageSearchbarEnabled
 			then "Feature.AddFriends.Label.InputPlaceholder.SearchForPeople"
 			else nil,
 	})(function(localized)
@@ -275,7 +309,9 @@ function AddFriendsPage:render()
 					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundColor3 = style.Theme.BackgroundDefault.Color,
 				}, {
-					SearchbarPadding = if getFFlagAddFriendsFullPlayerSearchbar() and not self.props.wideMode
+					SearchbarPadding = if getFFlagAddFriendsSearchbarIXPEnabled()
+							and self.props.addFriendsPageSearchbarEnabled
+							and not self.props.wideMode
 						then Roact.createElement("UIPadding", {
 							PaddingTop = UDim.new(0, NEW_NAV_BAR_SIZE),
 						})
@@ -375,7 +411,7 @@ function AddFriendsPage:render()
 				}),
 			})
 
-			if getFFlagAddFriendsFullPlayerSearchbar() then
+			if getFFlagAddFriendsSearchbarIXPEnabled() and self.props.addFriendsPageSearchbarEnabled then
 				return Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundTransparency = 1,

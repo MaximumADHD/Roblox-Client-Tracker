@@ -79,8 +79,7 @@ local resolvers = {
 			if not root.sortsRefreshInterval then
 				return nil
 			end
-			local tick_ = math.floor(DateTime.now().UnixTimestampMillis / 1000)
-			return tick_ + (root.sortsRefreshInterval :: number)
+			return math.floor(tick()) + (root.sortsRefreshInterval :: number)
 		end,
 		recommendationsId = function(root: OmniFeedRoot)
 			return root.requestId

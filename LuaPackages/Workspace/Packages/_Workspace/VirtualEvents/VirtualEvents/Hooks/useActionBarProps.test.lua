@@ -81,7 +81,7 @@ describe("active event", function()
 end)
 
 describe("ended event", function()
-	it("should prompt the user to return to the homepage", function()
+	it("should not show the primary button", function()
 		local virtualEvent = VirtualEventModel.mock("1")
 
 		local actionBarProps
@@ -89,8 +89,7 @@ describe("ended event", function()
 			actionBarProps = useActionBarProps(virtualEvent, "Elapsed", mockCallbacks)
 		end)
 
-		expect(actionBarProps.button).toBeDefined()
-		expect((actionBarProps.button :: any).props.text).toBe("Go Home")
+		expect(actionBarProps.button).toBeNil()
 	end)
 
 	it("should not show any icons", function()

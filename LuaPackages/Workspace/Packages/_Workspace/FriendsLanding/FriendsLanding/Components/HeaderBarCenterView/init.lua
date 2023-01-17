@@ -13,13 +13,14 @@ local SocialLibraries = dependencies.SocialLibraries
 local FormFactor = dependencies.FormFactor
 local compose = SocialLibraries.RoduxTools.compose
 local ImageSetButton = UIBlox.Core.ImageSet.Button
-local getFFlagAddFriendsFullPlayerSearchbar = dependencies.getFFlagAddFriendsFullPlayerSearchbar
+
+local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
 
 local FriendsLandingAnalytics = require(FriendsLanding.FriendsLandingAnalytics)
 local HeaderBarCenterView = Roact.PureComponent:extend("HeaderBarCenterView")
 
-local TABLET_SEARCH_BAR_WIDTH = if getFFlagAddFriendsFullPlayerSearchbar() then 400 else nil
+local TABLET_SEARCH_BAR_WIDTH = if getFFlagAddFriendsSearchbarIXPEnabled() then 400 else nil
 
 function HeaderBarCenterView:init()
 	self.state = {
@@ -46,7 +47,7 @@ function HeaderBarCenterView:render()
 		local screenTopBar = context.getScreenTopBar(EnumScreens.FriendsLanding)
 
 		local wideModeSearchbarButton
-		if getFFlagAddFriendsFullPlayerSearchbar() then
+		if getFFlagAddFriendsSearchbarIXPEnabled() and context.addFriendsPageSearchbarEnabled then
 			wideModeSearchbarButton = context.wideMode and self.props.shouldRenderSearchbarButtonInWideMode
 			if not (wideModeSearchbarButton or screenTopBar.shouldRenderCenter) then
 				return nil
@@ -58,21 +59,25 @@ function HeaderBarCenterView:render()
 		end
 
 		return withLocalization({
-			searchPlaceholderText = if getFFlagAddFriendsFullPlayerSearchbar()
+			searchPlaceholderText = if getFFlagAddFriendsSearchbarIXPEnabled()
+					and context.addFriendsPageSearchbarEnabled
 				then "Feature.AddFriends.Label.InputPlaceholder.SearchForPeople"
 				else "Feature.Chat.Label.SearchWord",
 			cancelText = "Feature.Chat.Action.Cancel",
 		})(function(localizedStrings)
-			return Roact.createElement(if getFFlagAddFriendsFullPlayerSearchbar() then ImageSetButton else "Frame", {
-				Size = if getFFlagAddFriendsFullPlayerSearchbar() and context.wideMode
+			return Roact.createElement(if getFFlagAddFriendsSearchbarIXPEnabled() then ImageSetButton else "Frame", {
+				Size = if (getFFlagAddFriendsSearchbarIXPEnabled() and context.addFriendsPageSearchbarEnabled)
+						and context.wideMode
 					then UDim2.new(0, TABLET_SEARCH_BAR_WIDTH, 1, 0)
 					else UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
-				[Roact.Event.Activated] = if getFFlagAddFriendsFullPlayerSearchbar() and wideModeSearchbarButton
+				[Roact.Event.Activated] = if (
+						getFFlagAddFriendsSearchbarIXPEnabled() and context.addFriendsPageSearchbarEnabled
+					) and wideModeSearchbarButton
 					then function()
 						local navParams = {
 							searchText = "",
-							showEmptyLandingPage = true,
+							shouldShowEmptyLandingPage = true,
 						}
 						self.props.navigation.navigate(EnumScreens.SearchFriends, navParams)
 						context.setScreenTopBar(EnumScreens.FriendsLanding, {
@@ -95,7 +100,9 @@ function HeaderBarCenterView:render()
 					searchPlaceholderText = localizedStrings.searchPlaceholderText,
 					captureFocusOnMount = screenTopBar.shouldAutoFocusCenter,
 					onSelectCallback = screenTopBar.closeInputBar or function() end,
-					isDisabled = if getFFlagAddFriendsFullPlayerSearchbar() and wideModeSearchbarButton
+					isDisabled = if (
+							getFFlagAddFriendsSearchbarIXPEnabled() and context.addFriendsPageSearchbarEnabled
+						) and wideModeSearchbarButton
 						then true
 						else nil,
 

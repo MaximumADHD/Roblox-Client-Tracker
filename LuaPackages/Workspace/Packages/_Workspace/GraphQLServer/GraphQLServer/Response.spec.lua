@@ -2,6 +2,7 @@ local HttpService = game:GetService("HttpService")
 local Packages = script:FindFirstAncestor("GraphQLServer").Parent
 local jestExpect = require(Packages.Dev.JestGlobals).expect
 local GraphQLError = require(Packages.GraphQL).GraphQLError
+local NULL = require(Packages.GraphQL).NULL
 local Response = require(script.Parent.Response)
 local LuauPolyfill = require(Packages.LuauPolyfill)
 type Array<T> = LuauPolyfill.Array<T>
@@ -66,6 +67,31 @@ return function()
 					customErrorMessage = "testError4",
 				},
 			} :: Array<any>,
+		})
+	end)
+
+	it("Should convert NULL to nil in encoded response", function()
+		local resp = Response.new({
+			data = {
+				user = {
+					id = "1",
+					displayName = NULL,
+				},
+			},
+		})
+
+		local text = resp:text()
+			:andThen(function(result)
+				return HttpService:JSONDecode(result)
+			end)
+			:expect()
+
+		jestExpect(text).toEqual({
+			data = {
+				user = {
+					id = "1",
+				},
+			},
 		})
 	end)
 end

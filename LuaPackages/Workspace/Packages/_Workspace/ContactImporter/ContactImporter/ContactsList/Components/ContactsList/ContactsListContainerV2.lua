@@ -27,6 +27,7 @@ local ContactImporterContext = require(ContactImporter.ContactsList.Components.C
 local getFFlagContactImporterCatchErrorWithGetUserSettings =
 	require(ContactImporter.Flags.getFFlagContactImporterCatchErrorWithGetUserSettings)
 local getFFlagContactImporterChunkingCalls = require(ContactImporter.Flags.getFFlagContactImporterChunkingCalls)
+local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 
 type Promise<T, E> = { andThen: (any, (T) -> any) -> Promise<T, E>, catch: (any, error: E) -> () }
 
@@ -256,13 +257,22 @@ function ContactsListContainerV2:init()
 		end
 
 		self.getContacts = function()
-			self.getContactsFromDevice()
-				:andThen(self.formatContactsFromDevice, makeErrorFunction(EventNames.FailedGetContactsFromDevice))
-				:andThen(self.uploadDeviceContacts, makeErrorFunction(EventNames.FailedFormatContactsFromDevice))
-				:andThen(self.findContacts, makeErrorFunction(EventNames.FailedUploadContactsFromDevice))
-				:andThen(self.getContactEntities, makeErrorFunction(EventNames.FailedFindContacts))
-				:andThen(self.fireHasLoaded, makeErrorFunction(EventNames.FailedGetContactEntities))
-				:catch(self.failedToUpload)
+			local props: Props = self.props
+			local isPhoneVerified = props.navigation.getParam(Constants.IS_PHONE_VERIFIED)
+			if getFFlagEnableContactInvitesForNonPhoneVerified() and not isPhoneVerified then
+				self.getContactsFromDevice()
+					:andThen(self.formatContactsFromDevice, makeErrorFunction(EventNames.FailedGetContactsFromDevice))
+					:andThen(self.fireHasLoaded, makeErrorFunction(EventNames.FailedFormatContactsFromDevice))
+					:catch(self.failedToUpload)
+			else
+				self.getContactsFromDevice()
+					:andThen(self.formatContactsFromDevice, makeErrorFunction(EventNames.FailedGetContactsFromDevice))
+					:andThen(self.uploadDeviceContacts, makeErrorFunction(EventNames.FailedFormatContactsFromDevice))
+					:andThen(self.findContacts, makeErrorFunction(EventNames.FailedUploadContactsFromDevice))
+					:andThen(self.getContactEntities, makeErrorFunction(EventNames.FailedFindContacts))
+					:andThen(self.fireHasLoaded, makeErrorFunction(EventNames.FailedGetContactEntities))
+					:catch(self.failedToUpload)
+			end
 		end
 
 		self.closeModal = function(location)
