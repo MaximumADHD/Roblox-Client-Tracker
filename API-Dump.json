@@ -38482,6 +38482,24 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
+                    "Name": "SmoothTime",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
                     "Name": "Target",
                     "Security": {
                         "Read": "None",
@@ -82702,6 +82720,24 @@
                     }
                 },
                 {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "TextBox",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "TextBox"
+                    }
+                },
+                {
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "TextColor3",
@@ -89307,6 +89343,24 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "FadeOutViewOnCollision",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "GuiInputUserCFrame",
                     "Security": {
                         "Read": "None",
@@ -94719,6 +94773,10 @@
                     "Value": 291
                 },
                 {
+                    "Name": "DisconnectOutOfMemoryKeepPlayingLeave",
+                    "Value": 292
+                },
+                {
                     "Name": "PlacelaunchErrors",
                     "Value": 512
                 },
@@ -98598,6 +98656,10 @@
                 {
                     "Name": "PersistentPerPlayer",
                     "Value": 3
+                },
+                {
+                    "Name": "Nonatomic",
+                    "Value": 4
                 }
             ],
             "Name": "ModelStreamingMode"

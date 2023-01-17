@@ -2060,6 +2060,7 @@ Class IKControl : Instance [NotBrowsable]
 	Property CFrame IKControl.Offset
 	Property Instance IKControl.Pole
 	Property int IKControl.Priority
+	Property float IKControl.SmoothTime
 	Property Instance IKControl.Target
 	Property Enum.IKControlType IKControl.Type
 	Property float IKControl.Weight
@@ -4351,6 +4352,7 @@ Class ChatInputBarConfiguration : TextChatConfigurations [NotCreatable]
 	Property Vector2 ChatInputBarConfiguration.AbsoluteSize [ReadOnly] {🧬Unsafe}
 	Property Vector2 ChatInputBarConfiguration.AbsoluteSizeWrite {RobloxScriptSecurity} [Hidden]
 	Property TextChannel ChatInputBarConfiguration.TargetTextChannel
+	Property TextBox ChatInputBarConfiguration.TextBox
 Class ChatWindowConfiguration : TextChatConfigurations [NotCreatable]
 	Property Color3 ChatWindowConfiguration.BackgroundColor3
 	Property double ChatWindowConfiguration.BackgroundTransparency
@@ -4709,6 +4711,7 @@ Class UserService : Instance [NotCreatable] [Service]
 	Function Array UserService:GetUserInfosByUserIdsAsync(Array userIds) [Yields]
 Class VRService : Instance [NotCreatable] [Service]
 	Property bool VRService.DidPointerHit {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool VRService.FadeOutViewOnCollision
 	Property Enum.UserCFrame VRService.GuiInputUserCFrame
 	Property float VRService.LaserDistance {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property CFrame VRService.PointerHitCFrame {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -5377,6 +5380,7 @@ Enum ConnectionError
 	EnumItem ConnectionError.DisconnectOutOfMemoryKeepPlayingExit : 289
 	EnumItem ConnectionError.ReplicatorTimeout : 290
 	EnumItem ConnectionError.PlayerRemoved : 291
+	EnumItem ConnectionError.DisconnectOutOfMemoryKeepPlayingLeave : 292
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516
@@ -6295,6 +6299,7 @@ Enum ModelStreamingMode
 	EnumItem ModelStreamingMode.Atomic : 1
 	EnumItem ModelStreamingMode.Persistent : 2
 	EnumItem ModelStreamingMode.PersistentPerPlayer : 3
+	EnumItem ModelStreamingMode.Nonatomic : 4
 Enum ModifierKey
 	EnumItem ModifierKey.Shift : 0
 	EnumItem ModifierKey.Ctrl : 1

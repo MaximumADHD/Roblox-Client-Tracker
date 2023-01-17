@@ -61,6 +61,7 @@ dependencies = [
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
     "MessageBus MessageBus 0.1.0",
+    "NativeUtilProtocol NativeUtilProtocol 0.1.0",
     "PermissionsProtocol PermissionsProtocol 0.1.0",
     "Promise Promise 0.1.0",
     "React React 0.1.0",
@@ -89,6 +90,15 @@ dependencies = [
 
 [[package]]
 name = "ContactsProtocol"
+version = "0.1.0"
+dependencies = [
+    "MessageBus MessageBus 0.1.0",
+    "Promise Promise 0.1.0",
+    "t t 0.1.0",
+]
+
+[[package]]
+name = "CredentialsProtocol"
 version = "0.1.0"
 dependencies = [
     "MessageBus MessageBus 0.1.0",
@@ -226,6 +236,7 @@ dependencies = [
     "Rhodium Rhodium 0.1.0",
     "RhodiumHelpers RhodiumHelpers 0.1.0",
     "Roact RoactCompat 0.1.0",
+    "RoactAppExperiment RoactAppExperiment 0.1.0",
     "RoactNavigation RoactNavigation 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
@@ -453,6 +464,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "NativeUtilProtocol"
+version = "0.1.0"
+dependencies = [
+    "MessageBus MessageBus 0.1.0",
+    "Promise Promise 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+    "t t 0.1.0",
+]
+
+[[package]]
 name = "NetworkingFriends"
 version = "0.1.0"
 
@@ -615,9 +636,16 @@ dependencies = [
     "Dash Dash 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
+    "LuaProfileDeps LuaProfileDeps 0.1.0",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
+    "QRCode QRCode 0.1.0",
     "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "RhodiumHelpers RhodiumHelpers 0.1.0",
     "Roact RoactCompat 0.1.0",
+    "SocialTestHelpers SocialTestHelpers 0.1.0",
+    "TestUtils TestUtils 0.1.0",
 ]
 
 [[package]]
@@ -685,6 +713,11 @@ version = "0.1.0"
 [[package]]
 name = "RoactRodux"
 version = "0.1.0"
+
+[[package]]
+name = "RoactServiceTags"
+version = "0.1.0"
+dependencies = ["RoactServices RoactServices 0.1.0"]
 
 [[package]]
 name = "RoactServices"
@@ -876,7 +909,9 @@ name = "SocialRoactChat"
 version = "0.1.0"
 dependencies = [
     "AppCommonLib AppCommonLib 0.1.0",
+    "Cryo Cryo 0.1.0",
     "FormFactor FormFactor 0.1.0",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "Time Time 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
     "t t 0.1.0",
@@ -933,6 +968,7 @@ dependencies = [
     "JestGlobals JestGlobals 0.1.0",
     "Localization Localization 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
     "RhodiumHelpers RhodiumHelpers 0.1.0",
     "Roact RoactCompat 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
@@ -1117,6 +1153,7 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "React React 0.1.0",
     "Rhodium Rhodium 0.1.0",
     "RhodiumHelpers RhodiumHelpers 0.1.0",

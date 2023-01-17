@@ -114,6 +114,18 @@
                 ".robloxrc": {
                     "$path": ".robloxrc"
                 }
+            },
+            "FillCircle": {
+                "$path": "FillCircle.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "FillCircle.spec": {
+                "$path": "FillCircle.spec.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
             }
         }
     }

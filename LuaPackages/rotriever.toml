@@ -11,7 +11,7 @@ proxy = "https://github.com/roblox/rotriever-proxy-index"
 Roact = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "RoactProxy"}
 Rodux = "github.com/roblox/rodux@1.0"
 RoactRodux = "github.com/roblox/roact-rodux@0.2"
-RoactAppExperiment = "github.com/roblox/roact-app-experiment@0.1.7"
+RoactAppExperiment = "github.com/roblox/roact-app-experiment@0.2.0"
 RoactNavigation = "github.com/roblox/roact-navigation@0.5.3"
 Cryo = "github.com/roblox/cryo@1.0"
 Dash = "github.com/roblox/dash@0.1"
@@ -32,8 +32,8 @@ Lumberyak = { git = "https://github.com/Roblox/lumberyak" }
 StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
 FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
-ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.3.2" }
-ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.3.3" }
+ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.3.4" }
+ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.3.6" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
 React = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactProxy"}
 ReactIs = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactIsProxy"}
@@ -47,8 +47,8 @@ NetworkingGames = "github.com/Roblox/networking-games@1.2.0"
 NetworkingFriends = "github.com/Roblox/networking-friends@2.4.1"
 NetworkingUsers = "github.com/Roblox/networking-users@1.0.1"
 HttpRequest = "github.com/Roblox/http-request@1.1.1"
-ApolloClient = "github.com/Roblox/apollo-client-lua@0.3.3"
-GraphQL = "github.com/Roblox/graphql-lua@15.5.3"
+ApolloClient = "github.com/Roblox/apollo-client-lua@0.3.4"
+GraphQL = "github.com/Roblox/graphql-lua@15.6.0"
 QRCode = "github.com/Roblox/lua-qr-code@0.1.0"
 
 # The following packages were ported from AppTempCommon
