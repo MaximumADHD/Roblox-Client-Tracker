@@ -328,10 +328,13 @@ local function hasDirectivesInSelectionSet(
 	end
 
 	return selectionSet
-		and selectionSet.selections
-		and Array.some((selectionSet).selections, function(selection)
-			return hasDirectivesInSelection(directives, selection, nestedCheck)
-		end)
+			and selectionSet.selections
+			and Array.some((selectionSet).selections, function(selection)
+				return hasDirectivesInSelection(directives, selection, nestedCheck)
+			end)
+		-- ROBLOX deviation START: add fallback to satisfy return type of boolean
+		or false
+	-- ROBLOX deviation END
 end
 
 function hasDirectivesInSelection(

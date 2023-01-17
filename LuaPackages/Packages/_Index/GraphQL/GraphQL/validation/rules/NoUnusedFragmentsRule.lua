@@ -17,7 +17,7 @@ local exports = {}
 --  * A GraphQL document is only valid if all fragment definitions are spread
 --  * within operations, or spread within other fragments spread within operations.
 --  */
-exports.NoUnusedFragmentsRule = function(context)
+local function NoUnusedFragmentsRule(context)
 	local operationDefs = {}
 	local fragmentDefs = {}
 
@@ -54,5 +54,6 @@ exports.NoUnusedFragmentsRule = function(context)
 		},
 	}
 end
+exports.NoUnusedFragmentsRule = NoUnusedFragmentsRule
 
 return exports

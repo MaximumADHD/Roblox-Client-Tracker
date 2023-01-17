@@ -513,4 +513,7 @@ export type TypeInfo = utilitiesModule.TypeInfo
 -- ROBLOX comment: reexport NULL
 exports.NULL = require(script.luaUtils.null)
 
+-- ROBLOX comment: export stringify
+exports.stringify = require(script.luaUtils.stringify)
+
 return exports

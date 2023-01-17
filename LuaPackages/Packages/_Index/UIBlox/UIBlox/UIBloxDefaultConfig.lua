@@ -142,9 +142,9 @@ return {
 	-- Use functional setState in HorizontalCarousel.lua
 	useFunctionalSetStateHorizontalCarousel = false,
 
-	-- Use updated Pillv2 component (replacing Tag in PillGroup)
-	usePillv2 = false,
-
 	-- Use automatic size in PillGroup to fix initial layout issues
 	pillGroupAutomaticSize = false,
+
+	-- Link to experiment in lua-apps, which needs new props in EmptyState
+	addFriendsSearchbarIXPEnabled = false,
 }

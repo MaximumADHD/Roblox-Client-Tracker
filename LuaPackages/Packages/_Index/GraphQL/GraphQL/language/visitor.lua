@@ -326,7 +326,9 @@ local function visit(
 				node = newRoot
 			end
 
-			if node == nil then
+			-- ROBLOX deviation start: upstream checks for nil or undefined, check for NULL here.
+			if node == nil or node == NULL then
+				-- ROBLOX deviation end
 				continue
 			end
 			if parent then

@@ -346,8 +346,10 @@ function ExperienceHoverTile:renderExperienceStats(stylePalette)
 end
 
 function ExperienceHoverTile:renderExperienceStatsWithAgeRating(stylePalette)
+	local yOffset = if self.props.showAgeRatingWithStats then -5 else 0
+
 	return Roact.createElement("Frame", {
-		Position = UDim2.new(0, 0, 1, 0),
+		Position = UDim2.new(0, 0, 1, yOffset),
 		AnchorPoint = Vector2.new(0, 1),
 		Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
 		BackgroundTransparency = 1,

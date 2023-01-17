@@ -25,7 +25,7 @@ local useInitializedValue = require(UIBlox.Utility.useInitializedValue)
 local useIsGamepad = require(UIBlox.Utility.useIsGamepad)
 local ScrollingListWithArrowsAndGradient = require(Control.HorizontalNav.ScrollingListWithArrowsAndGradient)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
-local Pill = if UIBloxConfig.usePillv2 then require(PillRoot.Pillv2) else require(PillRoot.DeprecatedTag)
+local Pill = require(PillRoot.Pillv2)
 
 -- Signature for callback invoked when pill selection changes
 export type OnSelectionChanged = (selectedPills: { string }) -> ()

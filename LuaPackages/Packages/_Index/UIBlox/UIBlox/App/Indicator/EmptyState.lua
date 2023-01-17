@@ -12,6 +12,7 @@ local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local validateImage = require(UIBlox.Core.ImageSet.Validator.validateImage)
+local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local getPageMargin = require(App.Container.getPageMargin)
 local IconSize = require(App.ImageSet.Enum.IconSize)
@@ -42,6 +43,7 @@ EmptyState.validateProps = t.strictInterface({
 	NextSelectionLeft = t.optional(t.table),
 	NextSelectionRight = t.optional(t.table),
 	maxSizeTextLabel = t.optional(t.Vector2),
+	iconColor = if UIBloxConfig.addFriendsSearchbarIXPEnabled then t.optional(validateColorInfo) else nil,
 })
 
 EmptyState.defaultProps = {
@@ -96,7 +98,9 @@ function EmptyState:render()
 					LayoutOrder = 1,
 					Image = self.props.icon,
 					BackgroundTransparency = 1,
-					ImageColor3 = style.Theme.IconEmphasis.Color,
+					ImageColor3 = if UIBloxConfig.addFriendsSearchbarIXPEnabled
+						then self.props.iconColor or style.Theme.IconEmphasis.Color
+						else style.Theme.IconEmphasis.Color,
 					ImageTransparency = style.Theme.IconEmphasis.Transparency,
 				}),
 				iconTextPadding = Roact.createElement("Frame", {

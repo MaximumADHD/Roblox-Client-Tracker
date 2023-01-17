@@ -21,7 +21,6 @@ local Symbol = require(script.Symbol)
 
 local ExperimentContext = require(script.ExperimentContext)
 local IxpServiceProp = Symbol.named("IxpServiceProp")
-local getFFlagLuaAppIxpServicePropFix = require(script.Flags.getFFlagLuaAppIxpServicePropFix)
 
 --[=[
 	Only user layers can be registered from lua; browser-tracker layers need to
@@ -123,9 +122,7 @@ local function connect(
 				}
 
 				self.updateStateLayerData = function(status)
-					local ixpService = if getFFlagLuaAppIxpServicePropFix()
-						then self.props[IxpServiceProp]
-						else self.props.ixpService
+					local ixpService = self.props[IxpServiceProp]
 
 					if ixpService ~= nil then
 						local layerToVariables = {}
@@ -141,9 +138,7 @@ local function connect(
 				end
 
 				self.logAllLayersExposure = function(status)
-					local ixpService = if getFFlagLuaAppIxpServicePropFix()
-						then self.props[IxpServiceProp]
-						else self.props.ixpService
+					local ixpService = self.props[IxpServiceProp]
 
 					if ixpService ~= nil and status == Enum.IXPLoadingStatus.Initialized and recordExposureOnMount then
 						for _, layerName in ipairs(layerNames) do
@@ -156,9 +151,7 @@ local function connect(
 				end
 
 				do
-					local ixpService = if getFFlagLuaAppIxpServicePropFix()
-						then self.props[IxpServiceProp]
-						else self.props.ixpService
+					local ixpService = self.props[IxpServiceProp]
 
 					if ixpService ~= nil then
 						local loadingStatus = ixpService[getLayerLoadingStatus](ixpService)
@@ -168,25 +161,16 @@ local function connect(
 			end
 
 			function Connection:render()
-				local componentProps
-				if getFFlagLuaAppIxpServicePropFix() then
-					componentProps = Cryo.Dictionary.join(self.props, {
-						[IxpServiceProp] = Cryo.None,
-					})
-				else
-					componentProps = Cryo.Dictionary.join(self.props, {
-						ixpService = Cryo.None,
-					})
-				end
+				local componentProps = Cryo.Dictionary.join(self.props, {
+					[IxpServiceProp] = Cryo.None,
+				})
 				local layerProps = mapLayersToProps(self.state.layerToVariables, componentProps)
 				local newProps = Cryo.Dictionary.join(componentProps, layerProps)
 				return Roact.createElement(innerComponent, newProps)
 			end
 
 			function Connection:didMount()
-				local ixpService = if getFFlagLuaAppIxpServicePropFix()
-					then self.props[IxpServiceProp]
-					else self.props.ixpService
+				local ixpService = self.props[IxpServiceProp]
 
 				if ixpService ~= nil then
 					self.onLoadingStatusChangeConnection = ixpService[onLayerLoadingStatusChanged]:Connect(
@@ -222,20 +206,13 @@ local function connect(
 			return function(props)
 				return Roact.createElement(ExperimentContext.Consumer, {
 					render = function(ixpService)
-						local newProps
-						if getFFlagLuaAppIxpServicePropFix() then
-							assert(
-								props[IxpServiceProp] == nil,
-								"Symbol 'IxpServiceProp' should never exist in the incoming props."
-							)
-							newProps = Cryo.Dictionary.join(props, {
-								[IxpServiceProp] = ixpService,
-							})
-						else
-							newProps = Cryo.Dictionary.join(props, {
-								ixpService = ixpService,
-							})
-						end
+						assert(
+							props[IxpServiceProp] == nil,
+							"Symbol 'IxpServiceProp' should never exist in the incoming props."
+						)
+						local newProps = Cryo.Dictionary.join(props, {
+							[IxpServiceProp] = ixpService,
+						})
 						return Roact.createElement(Connection, newProps)
 					end,
 				})

@@ -12,7 +12,6 @@ local React = require(RoactAppExperiment.Parent.React)
 
 local usePrevious = require(script.Parent.usePrevious)
 local ExperimentContext = require(script.Parent.ExperimentContext)
-local getFFlagLuaAppIxpHookInitialValues = require(script.Parent.Flags.getFFlagLuaAppIxpHookInitialValues)
 
 export type MapLayers<T...> = ({ [string]: any }) -> T...
 
@@ -87,11 +86,8 @@ local function makeUseExperiment(
 			end
 
 			-- Initialize layerToVariables by invoking IXPService
-			local layerToVariables, setLayerToVariables =
-				React.useState(if getFFlagLuaAppIxpHookInitialValues() then getNewLayerToVariables else {})
-			local layerLoadingStatus, setLayerLoadingStatus = React.useState(
-				if getFFlagLuaAppIxpHookInitialValues() then getLoadingStatus else Enum.IXPLoadingStatus.None
-			)
+			local layerToVariables, setLayerToVariables = React.useState(getNewLayerToVariables)
+			local layerLoadingStatus, setLayerLoadingStatus = React.useState(getLoadingStatus)
 
 			local layerNamesKey = getLayerNamesKey(layerNames)
 
@@ -102,27 +98,8 @@ local function makeUseExperiment(
 				end
 
 				local function updateStateLayerData()
-					local status = if getFFlagLuaAppIxpHookInitialValues()
-						then getLoadingStatus()
-						else ixpService[getLayerLoadingStatus](ixpService)
-
-					local newLayerToVariables
-					if getFFlagLuaAppIxpHookInitialValues() then
-						newLayerToVariables = getNewLayerToVariables()
-					else
-						newLayerToVariables = {}
-						for _, layerName in ipairs(layerNames) do
-							newLayerToVariables[layerName] = ixpService[getLayerVariables](ixpService, layerName)
-							if newLayerToVariables[layerName] then
-								-- if the layer data is empty, clear the entry out completely,
-								-- so the layerToVariables empty check is correct.
-								local hasEntry = next(newLayerToVariables[layerName])
-								if not hasEntry then
-									newLayerToVariables[layerName] = nil
-								end
-							end
-						end
-					end
+					local status = getLoadingStatus()
+					local newLayerToVariables = getNewLayerToVariables()
 
 					setLayerToVariables(function(oldLayerToVariables)
 						local wasEmpty = not next(oldLayerToVariables)

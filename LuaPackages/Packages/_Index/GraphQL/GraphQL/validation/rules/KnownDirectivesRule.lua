@@ -32,7 +32,7 @@ local getDirectiveLocationForOperation
 --  * A GraphQL document is only valid if all `@directives` are known by the
 --  * schema and legally positioned.
 --  */
-exports.KnownDirectivesRule = function(context)
+local function KnownDirectivesRule(context)
 	local locationsMap = {}
 
 	local schema = context:getSchema()
@@ -78,6 +78,7 @@ exports.KnownDirectivesRule = function(context)
 		end,
 	}
 end
+exports.KnownDirectivesRule = KnownDirectivesRule
 
 function getDirectiveLocationForASTPath(ancestors)
 	local appliedTo = ancestors[#ancestors]

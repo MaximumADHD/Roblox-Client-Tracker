@@ -170,11 +170,15 @@ function DetailsPageTemplate:render()
 		local closeButtonPosY = isMobile and ((getIconSize(IconSize.Large) + CLOSE_BUTTON_OFFSET) / 2)
 			or (headerHeight / 2)
 
+		local showMobileActionBar = isMobile and self.props.actionBarProps
+
 		return Roact.createElement("TextButton", {
 			Text = "",
 			AutoButtonColor = false,
 			Size = UDim2.fromScale(1, 1),
-			BackgroundTransparency = 1,
+			BackgroundColor3 = theme.BackgroundDefault.Color,
+			BackgroundTransparency = theme.BackgroundDefault.Transparency,
+			BorderSizePixel = 0,
 			ClipsDescendants = true,
 			[Roact.Ref] = self.containerRef,
 			[Roact.Change.AbsoluteSize] = self.onContainerSizeChange,
@@ -199,7 +203,8 @@ function DetailsPageTemplate:render()
 				}),
 			}),
 			BackgroundDetailsFrame = Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
+				BackgroundColor3 = theme.BackgroundMuted.Color,
+				BackgroundTransparency = theme.BackgroundMuted.Transparency,
 				Size = UDim2.fromScale(1, 1),
 				AnchorPoint = Vector2.new(0.5, 0),
 				Position = UDim2.fromScale(0.5, 0),
@@ -257,9 +262,7 @@ function DetailsPageTemplate:render()
 				}),
 				MainView = Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 0, 0),
-					BackgroundColor3 = theme.BackgroundDefault.Color,
-					BackgroundTransparency = theme.BackgroundDefault.Transparency,
-					BorderSizePixel = 0,
+					BackgroundTransparency = 1,
 					LayoutOrder = 2,
 					AutomaticSize = Enum.AutomaticSize.Y,
 				}, {
@@ -312,7 +315,7 @@ function DetailsPageTemplate:render()
 						}),
 					}),
 				}),
-				MobileActionViewPadding = isMobile and Roact.createElement("Frame", {
+				MobileActionViewPadding = showMobileActionBar and Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 0, MOBILE_ACTION_BAR_HEIGHT),
 					BackgroundTransparency = 1,
 					LayoutOrder = 3,
@@ -329,7 +332,7 @@ function DetailsPageTemplate:render()
 			}, {
 				FullscreenContent = renderFullscreenContent(),
 			}) or nil,
-			MobileActionBarFrame = isMobile and Roact.createElement("TextButton", {
+			MobileActionBarFrame = showMobileActionBar and Roact.createElement("TextButton", {
 				Text = "",
 				AutoButtonColor = false,
 				AnchorPoint = Vector2.new(0, 1),
@@ -355,7 +358,7 @@ function DetailsPageTemplate:render()
 						}),
 					}),
 				}),
-				ActionBar = self.props.actionBarProps and Roact.createElement(ActionBar, {
+				ActionBar = Roact.createElement(ActionBar, {
 					button = self.props.actionBarProps.button,
 					icons = self.props.actionBarProps.icons,
 				}),
