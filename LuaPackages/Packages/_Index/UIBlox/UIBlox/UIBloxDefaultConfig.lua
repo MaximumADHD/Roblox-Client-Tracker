@@ -139,9 +139,6 @@ return {
 	-- to avoid layout bug related to AutomaticSize
 	removePreviewAnchor = false,
 
-	-- Use functional setState in HorizontalCarousel.lua
-	useFunctionalSetStateHorizontalCarousel = false,
-
 	-- Use automatic size in PillGroup to fix initial layout issues
 	pillGroupAutomaticSize = false,
 

@@ -4,9 +4,17 @@ export type Config = {
 	useMockedResponse: boolean,
 }
 
+export type Member = {
+	userId: number,
+	status: string,
+}
+
 export type Squad = {
 	squadId: string,
-	members: { [number]: number },
+	createdUtc: number,
+	updatedUtc: number,
+	inviteLinkToken: string,
+	members: { [number]: Member },
 }
 
 export type CreateSquadRequest = {
@@ -14,6 +22,10 @@ export type CreateSquadRequest = {
 }
 
 export type CreateSquadResponse = {
+	squad: Squad,
+}
+
+export type GetSquadActiveResponse = {
 	squad: Squad,
 }
 
@@ -53,7 +65,7 @@ export type SquadRemoveResponse = {
 
 export type CreateExperienceInviteRequest = {
 	squadId: string,
-	universeId: string,
+	gameId: string,
 }
 
 export type GetExperienceInviteRequest = {

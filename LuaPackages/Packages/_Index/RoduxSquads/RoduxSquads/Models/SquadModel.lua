@@ -1,6 +1,9 @@
 local RoduxSquad = script:FindFirstAncestor("RoduxSquads")
 local Packages = RoduxSquad.Parent
 
+local SquadMemberModel = require(script.Parent.SquadMemberModel)
+
+local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 
 local SquadModel = {}
@@ -21,31 +24,38 @@ function SquadModel.mock(mergeTable)
 	mergeTable = mergeTable or {}
 
 	local self = SquadModel.new({
-		created = mergeTable.created or 1666635183,
-		updated = mergeTable.updated or 1666635183,
+		createdUtc = mergeTable.createdUtc or 1666635183,
+		updatedUtc = mergeTable.updatedUtc or 1666635183,
 		squadId = mergeTable.squadId or "12345",
-		members = mergeTable.members or { 123, 456 },
+		inviteLinkToken = mergeTable.inviteLinkToken or "45678",
+		members = { SquadMemberModel.mock(mergeTable.members) },
 	})
 
 	return self
 end
 
 function SquadModel.format(squadData)
+	local members = Cryo.List.map(squadData.members, function(member)
+		return SquadMemberModel.format(member)
+	end)
+
 	local self = SquadModel.new({
-		created = squadData.created,
-		updated = squadData.updated,
+		createdUtc = squadData.createdUtc,
+		updatedUtc = squadData.updatedUtc,
 		squadId = squadData.squadId,
-		members = squadData.members,
+		inviteLinkToken = squadData.inviteLinkToken,
+		members = members,
 	})
 
 	return self
 end
 
 SquadModel.isValid = t.strictInterface({
-	created = t.number,
-	updated = t.number,
+	createdUtc = t.number, -- Milliseconds
+	updatedUtc = t.number, -- Milliseconds
 	squadId = t.string,
-	members = t.array(t.number),
+	inviteLinkToken = t.string,
+	members = t.array(SquadMemberModel.isValid),
 })
 
 return SquadModel

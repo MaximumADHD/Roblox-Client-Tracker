@@ -3,6 +3,7 @@ local networkingSquadTypes = require(script.Parent.networkingSquadTypes)
 
 local networkRequests: any = script.Parent.networkRequests
 local createCreateSquad: (networkingSquadTypes.Config) -> any = require(networkRequests.createCreateSquad)
+local createGetSquadActive: (networkingSquadTypes.Config) -> any = require(networkRequests.createGetSquadActive)
 local createGetSquadFromSquadId: (networkingSquadTypes.Config) -> any =
 	require(networkRequests.createGetSquadFromSquadId)
 local createJoinSquad: (networkingSquadTypes.Config) -> any = require(networkRequests.createJoinSquad)
@@ -19,6 +20,7 @@ local createRespondExperienceInvite: (networkingSquadTypes.Config) -> any =
 return function(config: networkingSquadTypes.Config): networkingSquadTypes.RequestThunks
 	return {
 		CreateSquad = createCreateSquad(config),
+		GetSquadActive = createGetSquadActive(config),
 		GetSquadFromSquadId = createGetSquadFromSquadId(config),
 		JoinSquad = createJoinSquad(config),
 		LeaveSquad = createLeaveSquad(config),

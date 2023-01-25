@@ -192,6 +192,8 @@ local function initializeLibrary(configs)
 			VerticalScrollViewWithIndicator = require(script.App.Container.VerticalScrollViewV2),
 			getPageMargin = require(script.App.Container.getPageMargin),
 			LoadingStateContainer = require(script.App.Container.LoadingStateContainer),
+			LoadingStatePage = require(script.App.Container.LoadingStatePage),
+			FailedStatePage = require(script.App.Container.FailedStatePage),
 			HorizontalPageMargin = require(script.App.Container.HorizontalPageMargin),
 			MediaGalleryPreview = require(script.App.Container.MediaGallery.Preview),
 			MediaGalleryFullScreen = require(script.App.Container.MediaGallery.FullScreen),

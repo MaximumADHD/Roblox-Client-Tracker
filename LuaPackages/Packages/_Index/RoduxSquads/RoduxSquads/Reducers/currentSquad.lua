@@ -15,7 +15,7 @@ return function(options)
 	local getAndUpdateState = function(state: RoduxSquadsTypes.CurrentSquad, squad: RoduxSquadsTypes.SquadModel)
 		-- Update if there is not a current squad or the updated timestamp is
 		-- newer than the current squad.
-		if state.CurrentSquad == nil or squad.updated > state.CurrentSquad.updated then
+		if state.CurrentSquad == nil or squad.updatedUtc > state.CurrentSquad.updatedUtc then
 			return Cryo.Dictionary.join(state, { CurrentSquad = squad })
 		else
 			return state
@@ -29,6 +29,19 @@ return function(options)
 		)
 			local squad = action.responseBody.squad
 			return getAndUpdateState(state, SquadModel.format(squad))
+		end,
+
+		[NetworkingSquads.GetSquadActive.Succeeded.name] = function(
+			state: RoduxSquadsTypes.CurrentSquad,
+			action: RoduxSquadsTypes.GetSquadActiveSucceeded
+		)
+			local squad = action.responseBody.squad
+			--  User might not be in a squad.
+			if squad then
+				return getAndUpdateState(state, SquadModel.format(squad))
+			else
+				return Cryo.Dictionary.join(state, { CurrentSquad = Cryo.None })
+			end
 		end,
 
 		[NetworkingSquads.GetSquadFromSquadId.Succeeded.name] = function(

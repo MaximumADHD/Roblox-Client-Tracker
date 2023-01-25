@@ -35,6 +35,12 @@ local tileInterface = t.strictInterface({
 	-- The item's name that will show a loading state if nil
 	name = t.optional(t.string),
 
+	-- The text color for name
+	nameTextColor = t.optional(t.Color3),
+
+	-- If the name should be overlayed on top of the thumbnail
+	nameOverThumbnail = t.optional(t.boolean),
+
 	-- Text content to be displayed as a subtitle that will be hidden if nil
 	subtitle = t.optional(t.string),
 
@@ -233,6 +239,15 @@ function Tile:render()
 
 			local renderTileInset = self.props.renderTileInset
 
+			local titleAreaSize = UDim2.new(1, 0, 0, titleTextSize.Y + subtitleTextHeight)
+			local titleTextPadding = nil
+			if self.props.nameOverThumbnail then
+				titleAreaSize = UDim2.new(1, 200, 0, -(titleTextSize.Y + 20))
+				titleTextPadding = React.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, 15),
+				})
+			end
+
 			-- TODO: use generic/state button from UIBlox
 			return React.createElement("TextButton", {
 				Text = "",
@@ -281,7 +296,7 @@ function Tile:render()
 					TileInset = renderTileInset and renderTileInset() or nil,
 				}),
 				TitleArea = UIBloxConfig.enableSubtitleOnTile and React.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0, titleTextSize.Y + subtitleTextHeight),
+					Size = titleAreaSize,
 					BackgroundTransparency = 1,
 					LayoutOrder = 2,
 				}, {
@@ -290,9 +305,11 @@ function Tile:render()
 						SortOrder = Enum.SortOrder.LayoutOrder,
 						Padding = UDim.new(0, 0),
 					}),
+					NameOverThumbnailPadding = titleTextPadding,
 					Name = (titleTextLineCount > 0 and tileWidth > 0) and React.createElement(TileName, {
 						titleIcon = titleIcon,
 						name = name,
+						nameTextColor = self.props.nameTextColor,
 						hasVerifiedBadge = hasVerifiedBadge,
 						maxHeight = maxTitleTextHeight,
 						maxWidth = tileWidth,

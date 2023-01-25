@@ -6,9 +6,16 @@ local Roact = dependencies.Roact
 local CallbackInputBox = require(script.Parent.CallbackInputBox)
 local CallbackInputBoxWithIcon = Roact.PureComponent:extend("CallbackInputBoxWithIcon")
 
+local GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled =
+	require(SocialLibraries.Flags.GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled)
+
 CallbackInputBoxWithIcon.defaultProps = {
 	backgroundTransparency = 0,
-	backgroundColor3 = Color3.new(1,1,1),
+	backgroundColor3 = Color3.new(1, 1, 1),
+	borderColor = nil,
+	borderThickness = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled() then 0 else nil,
+	borderTransparency = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled() then 1 else nil,
+	cornerRadius = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled() then 0 else nil,
 
 	iconCellWidth = 60,
 	iconSize = 24,
@@ -43,18 +50,29 @@ function CallbackInputBoxWithIcon:render()
 		BorderSizePixel = 0,
 		Size = UDim2.new(1, 0, 1, 0),
 	}, {
-
+		UIStroke = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled()
+			then Roact.createElement("UIStroke", {
+				Thickness = self.props.borderThickness,
+				Color = self.props.borderColor,
+				Transparency = self.props.borderTransparency,
+			})
+			else nil,
+		UICorner = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled()
+			then Roact.createElement("UICorner", {
+				CornerRadius = UDim.new(0, self.props.cornerRadius),
+			})
+			else nil,
 		layout = Roact.createElement("UIListLayout", {
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			FillDirection = Enum.FillDirection.Horizontal,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 
-			Padding = UDim.new(0, iconCellWidth/4)
+			Padding = UDim.new(0, iconCellWidth / 4),
 		}),
 
 		padding = Roact.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, iconCellWidth/4)
+			PaddingLeft = UDim.new(0, iconCellWidth / 4),
 		}),
 
 		icon = Roact.createElement("ImageLabel", {
@@ -68,14 +86,14 @@ function CallbackInputBoxWithIcon:render()
 
 		inputBoxContainer = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
-			Size = UDim2.new(1, -iconSize - (iconCellWidth/4), 1, 0),
+			Size = UDim2.new(1, -iconSize - (iconCellWidth / 4), 1, 0),
 			LayoutOrder = 2,
 		}, {
 			padding = Roact.createElement("UIPadding", {
-				PaddingRight = UDim.new(0, iconCellWidth/4),
+				PaddingRight = UDim.new(0, iconCellWidth / 4),
 			}),
-			inputBox = Roact.createElement(CallbackInputBox, self.props)
-		})
+			inputBox = Roact.createElement(CallbackInputBox, self.props),
+		}),
 	})
 end
 

@@ -7,35 +7,58 @@ export type ExperienceInviteModel = {
 	universeId: string,
 }
 
+export type NotificationToastModel = {
+	notificationId: number,
+	title: string,
+	subtext: string,
+	description: string,
+}
+
 export type SquadInviteModel = {
 	inviterUserId: number,
 	squad: SquadModel,
 }
 
+export type SquadMemberModel = {
+	userId: number,
+	status: string,
+}
+
 export type SquadModel = {
-	created: number,
-	updated: number,
+	createdUtc: number, -- Milliseconds
+	updatedUtc: number, -- Milliseconds
 	squadId: string,
-	members: { number },
+	inviteLinkToken: string,
+	members: { SquadMemberModel },
 }
 
 -- Reducer
 
+export type CurrentSquad = {
+	CurrentSquad: SquadModel,
+}
+
 export type ExperienceInviteByCreated = {
 	[number]: ExperienceInviteModel,
+}
+
+export type NotificationToast = {
+	[number]: NotificationToastModel,
 }
 
 export type SquadInviteByCreated = {
 	[number]: SquadInviteModel,
 }
 
-export type CurrentSquad = {
-	CurrentSquad: SquadModel,
-}
-
 -- Action
 
 export type CreateSquadSucceeded = {
+	responseBody: {
+		squad: SquadModel,
+	},
+}
+
+export type GetSquadActiveSucceeded = {
 	responseBody: {
 		squad: SquadModel,
 	},
@@ -103,6 +126,18 @@ export type ExperienceInviteRemovedAction = {
 export type ExperienceInviteUpdatedAction = {
 	payload: {
 		experienceInvite: ExperienceInviteModel,
+	},
+}
+
+export type NotificationToastAddedAction = {
+	payload: {
+		notificationToast: NotificationToastModel,
+	},
+}
+
+export type NotificationToastClearedAction = {
+	payload: {
+		notificationId: number,
 	},
 }
 

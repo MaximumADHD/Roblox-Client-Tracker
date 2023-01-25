@@ -208,20 +208,13 @@ function HorizontalCarousel:init()
 
 	self.onMouseEnter = function(_gui, input)
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
-			if UIBloxConfig.useFunctionalSetStateHorizontalCarousel then
-				self:setState(function(state)
-					local anchorIndex = carouselMetaData.anchorIndex
-					return LuauPolyfill.Object.assign(
-						updateScrollState(anchorIndex, state.maxNumOfItemsVisible, state.numOfItems),
-						{ hovering = true }
-					)
-				end)
-			else
+			self:setState(function(state)
 				local anchorIndex = carouselMetaData.anchorIndex
-				local newState = updateScrollState(anchorIndex, self.state.maxNumOfItemsVisible, self.state.numOfItems)
-				newState.hovering = true
-				self:setState(newState)
-			end
+				return LuauPolyfill.Object.assign(
+					updateScrollState(anchorIndex, state.maxNumOfItemsVisible, state.numOfItems),
+					{ hovering = true }
+				)
+			end)
 		end
 	end
 
@@ -235,17 +228,10 @@ function HorizontalCarousel:init()
 
 	self.onResize = function(rbx)
 		local totalWidth = rbx.AbsoluteSize.X
-		if UIBloxConfig.useFunctionalSetStateHorizontalCarousel then
-			self:setState(function(state, props)
-				local maxNumOfItemsVisible = math.floor(totalWidth / (props.itemSize.X + props.itemPadding))
-				return { maxNumOfItemsVisible = maxNumOfItemsVisible }
-			end)
-		else
-			local maxNumOfItemsVisible = math.floor(totalWidth / (self.props.itemSize.X + self.props.itemPadding))
-			self:setState({
-				maxNumOfItemsVisible = maxNumOfItemsVisible,
-			})
-		end
+		self:setState(function(state, props)
+			local maxNumOfItemsVisible = math.floor(totalWidth / (props.itemSize.X + props.itemPadding))
+			return { maxNumOfItemsVisible = maxNumOfItemsVisible }
+		end)
 	end
 
 	self.onScrollUpdate = function(data)
@@ -264,58 +250,34 @@ function HorizontalCarousel:init()
 		if carouselMetaData.animationActive then
 			return
 		end
-		if UIBloxConfig.useFunctionalSetStateHorizontalCarousel then
-			self:setState(function(state, props)
-				local newIndex = carouselMetaData.anchorIndex - state.maxNumOfItemsVisible
-				if self.listRef then
-					self.listRef.current:scrollToIndex({
-						animated = true,
-						index = newIndex > 1 and newIndex or 1,
-						viewOffset = props.itemSize.X + props.itemPadding,
-					})
-				end
-				return updateScrollState(newIndex, state.maxNumOfItemsVisible, state.numOfItems)
-			end)
-		else
-			local newIndex = carouselMetaData.anchorIndex - self.state.maxNumOfItemsVisible
-			self:setState(updateScrollState(newIndex, self.state.maxNumOfItemsVisible, self.state.numOfItems))
+		self:setState(function(state, props)
+			local newIndex = carouselMetaData.anchorIndex - state.maxNumOfItemsVisible
 			if self.listRef then
 				self.listRef.current:scrollToIndex({
 					animated = true,
 					index = newIndex > 1 and newIndex or 1,
-					viewOffset = self.props.itemSize.X + self.props.itemPadding,
+					viewOffset = props.itemSize.X + props.itemPadding,
 				})
 			end
-		end
+			return updateScrollState(newIndex, state.maxNumOfItemsVisible, state.numOfItems)
+		end)
 	end
 
 	self.scrollRight = function()
 		if carouselMetaData.animationActive then
 			return
 		end
-		if UIBloxConfig.useFunctionalSetStateHorizontalCarousel then
-			self:setState(function(state, props)
-				local newIndex = carouselMetaData.anchorIndex + state.maxNumOfItemsVisible
-				if self.listRef then
-					self.listRef.current:scrollToIndex({
-						animated = true,
-						index = newIndex,
-						viewOffset = props.itemSize.X + props.itemPadding,
-					})
-				end
-				return updateScrollState(newIndex, state.maxNumOfItemsVisible, state.numOfItems)
-			end)
-		else
-			local newIndex = carouselMetaData.anchorIndex + self.state.maxNumOfItemsVisible
-			self:setState(updateScrollState(newIndex, self.state.maxNumOfItemsVisible, self.state.numOfItems))
+		self:setState(function(state, props)
+			local newIndex = carouselMetaData.anchorIndex + state.maxNumOfItemsVisible
 			if self.listRef then
 				self.listRef.current:scrollToIndex({
 					animated = true,
 					index = newIndex,
-					viewOffset = self.props.itemSize.X + self.props.itemPadding,
+					viewOffset = props.itemSize.X + props.itemPadding,
 				})
 			end
-		end
+			return updateScrollState(newIndex, state.maxNumOfItemsVisible, state.numOfItems)
+		end)
 	end
 
 	self.proxyKeyExtractor = function(element, index)

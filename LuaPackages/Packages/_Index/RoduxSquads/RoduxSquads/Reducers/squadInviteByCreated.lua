@@ -17,7 +17,10 @@ return function()
 			action: RoduxSquadsTypes.SquadInviteUpdatedAction
 		)
 			local squadInvite = action.payload.squadInvite
-			return Cryo.Dictionary.join(state, { [squadInvite.squad.created] = SquadInviteModel.format(squadInvite) })
+			return Cryo.Dictionary.join(
+				state,
+				{ [squadInvite.squad.createdUtc] = SquadInviteModel.format(squadInvite) }
+			)
 		end,
 	})
 end

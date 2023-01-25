@@ -34,6 +34,9 @@ local validateProps = devOnly(t.strictInterface({
 	-- Image information should be ImageSet compatible
 	titleIcon = t.optional(t.table),
 
+	-- Optional text color to use for tile name
+	nameTextColor = t.optional(t.Color3),
+
 	-- Optional boolean to determine whether a VerifiedBadge is shown
 	hasVerifiedBadge = t.optional(t.boolean),
 
@@ -86,6 +89,12 @@ function ItemTileName:render()
 			local titleIconSize = titleIcon and titleIcon.ImageRectSize / Images.ImagesResolutionScale
 				or Vector2.new(0, 0)
 
+			local colorStyle = if UIBloxConfig.useNewThemeColorPalettes then theme.TextDefault else theme.TextEmphasis
+
+			if self.props.nameTextColor then
+				colorStyle.Color = self.props.nameTextColor
+			end
+
 			return Roact.createElement(ImageTextLabel, {
 				imageProps = titleIcon and {
 					BackgroundTransparency = 1,
@@ -100,9 +109,7 @@ function ItemTileName:render()
 				genericTextLabelProps = {
 					fluidSizing = useFluidSizing,
 					fontStyle = titleFontStyle,
-					colorStyle = if UIBloxConfig.useNewThemeColorPalettes
-						then theme.TextDefault
-						else theme.TextEmphasis,
+					colorStyle = colorStyle,
 					Text = name,
 					TextTruncate = Enum.TextTruncate.AtEnd,
 				},
