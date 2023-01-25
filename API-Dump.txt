@@ -2052,7 +2052,7 @@ Class HumanoidDescription : Instance
 	Function void HumanoidDescription:SetEquippedEmotes(Array equippedEmotes)
 	Event HumanoidDescription.EmotesChanged(Dictionary newEmotes)
 	Event HumanoidDescription.EquippedEmotesChanged(Array newEquippedEmotes)
-Class IKControl : Instance [NotBrowsable]
+Class IKControl : Instance
 	Property Instance IKControl.ChainRoot
 	Property bool IKControl.Enabled
 	Property Instance IKControl.EndEffector
@@ -2274,6 +2274,7 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Function Vector3 Lighting:GetSunDirection()
 	Function void Lighting:SetMinutesAfterMidnight(double minutes)
 	Event Lighting.LightingChanged(bool skyChanged)
+Class LiveScriptingService : Instance [NotCreatable] [Service]
 Class LocalStorageService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void LocalStorageService:Flush() {RobloxScriptSecurity}
 	Function string LocalStorageService:GetItem(string key) {RobloxScriptSecurity}
@@ -2761,6 +2762,7 @@ Class Terrain : BasePart [NotCreatable]
 	Property bool Terrain.Decoration [NotScriptable]
 	Property BinaryString Terrain.MaterialColors [NotScriptable]
 	Property bool Terrain.ShorelinesUpgraded {RobloxScriptSecurity} [Hidden]
+	Property bool Terrain.SmoothVoxelsUpgraded {RobloxScriptSecurity} [Hidden]
 	Property Color3 Terrain.WaterColor
 	Property float Terrain.WaterReflectance
 	Property float Terrain.WaterTransparency
@@ -2772,6 +2774,7 @@ Class Terrain : BasePart [NotCreatable]
 	Function bool Terrain:AutowedgeCell(int x, int y, int z) [Deprecated]
 	Function void Terrain:AutowedgeCells(Region3int16 region) [Deprecated]
 	Function bool Terrain:CanShorelinesBeUpgraded() {RobloxScriptSecurity}
+	Function bool Terrain:CanSmoothVoxelsBeUpgraded() {RobloxScriptSecurity}
 	Function Vector3 Terrain:CellCenterToWorld(int x, int y, int z)
 	Function Vector3 Terrain:CellCornerToWorld(int x, int y, int z)
 	Function void Terrain:Clear()
@@ -2894,7 +2897,6 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Enum.SignalBehavior Workspace.SignalBehavior [NotScriptable]
 	Property Terrain Workspace.Terrain [ReadOnly]
 	Property bool Workspace.TouchesUseCollisionGroups [NotScriptable]
-	Property Enum.UnionsScaleNonuniformly Workspace.UnionsScaleNonuniformly [NotScriptable]
 	Property Camera Workspace.CurrentCamera [NotReplicated]
 	Property double Workspace.DistributedGameTime [NotReplicated]
 	Property Enum.RejectCharacterDeletions Workspace.RejectCharacterDeletions [NotScriptable]
@@ -3764,6 +3766,10 @@ Class Smoke : Instance
 	Property float Smoke.Size [<📁> LoadOnly] [NotReplicated]
 	Property float Smoke.TimeScale
 	Function void Smoke:FastForward(int numFrames) {RobloxScriptSecurity}
+Class SmoothVoxelsUpgraderService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void SmoothVoxelsUpgraderService:Cancel() {RobloxScriptSecurity}
+	Function void SmoothVoxelsUpgraderService:Start() {RobloxScriptSecurity}
+	Event SmoothVoxelsUpgraderService.Status(float progressRatio) {RobloxScriptSecurity}
 Class SnippetService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool SocialService:CanSendGameInviteAsync(Instance player, int64 recipientId = 0) [Yields]
@@ -4159,6 +4165,9 @@ Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioPublishService.GamePublishFinished(bool success, int64 gameId) {RobloxScriptSecurity}
 	Event StudioPublishService.OnSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish, Enum.StudioCloseMode closeMode) {RobloxScriptSecurity}
 Class StudioScriptDebugEventListener : Instance [NotCreatable] [Service] [NotReplicated]
+Class StudioSdkService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Instance StudioSdkService:GetSdk() {RobloxScriptSecurity}
+	Function void StudioSdkService:SetSdk(Instance sdk) {RobloxScriptSecurity}
 Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool StudioService.AlignDraggedObjects {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool StudioService.DraggerSolveConstraints [ReadOnly]
@@ -5218,8 +5227,8 @@ Enum CatalogSortType
 	EnumItem CatalogSortType.Relevance : 1
 	EnumItem CatalogSortType.PriceHighToLow : 2
 	EnumItem CatalogSortType.PriceLowToHigh : 3
-	EnumItem CatalogSortType.RecentlyUpdated : 4
 	EnumItem CatalogSortType.MostFavorited : 5
+	EnumItem CatalogSortType.RecentlyCreated : 6
 Enum CellBlock
 	EnumItem CellBlock.Solid : 0
 	EnumItem CellBlock.VerticalWedge : 1
@@ -7124,10 +7133,6 @@ Enum UITheme [Deprecated]
 Enum UiMessageType
 	EnumItem UiMessageType.UiMessageError : 0
 	EnumItem UiMessageType.UiMessageInfo : 1
-Enum UnionsScaleNonuniformly
-	EnumItem UnionsScaleNonuniformly.Default : 0
-	EnumItem UnionsScaleNonuniformly.Disabled : 1
-	EnumItem UnionsScaleNonuniformly.Enabled : 2
 Enum UsageContext
 	EnumItem UsageContext.Default : 0
 	EnumItem UsageContext.Preview : 1

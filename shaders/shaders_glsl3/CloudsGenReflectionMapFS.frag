@@ -6,7 +6,7 @@ const float f0[48] = float[](15.71790981292724609375, 12.89408969879150390625, 7
 
 #include <CloudsParams.h>
 #include <RayFrame.h>
-uniform vec4 CB0[58];
+uniform vec4 CB0[57];
 uniform vec4 CB5[5];
 uniform vec4 CB4[2];
 uniform samplerCube PrefilteredEnvTexture;

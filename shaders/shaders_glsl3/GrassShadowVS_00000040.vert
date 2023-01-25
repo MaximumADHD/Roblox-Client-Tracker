@@ -4,7 +4,7 @@
 #include <GrassParams.h>
 #include <Globals.h>
 uniform vec4 CB1[2];
-uniform vec4 CB0[58];
+uniform vec4 CB0[57];
 in vec4 POSITION;
 out vec2 VARYING0;
 

@@ -4,7 +4,7 @@
 #include <PerformanceOverlayParams.h>
 #include <Globals.h>
 uniform vec4 CB1[5];
-uniform vec4 CB0[58];
+uniform vec4 CB0[57];
 attribute vec4 POSITION;
 attribute vec3 NORMAL;
 varying vec3 VARYING0;

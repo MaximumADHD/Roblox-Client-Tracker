@@ -4,7 +4,7 @@
 #include <Globals.h>
 #include <LightShadowGPUTransform.h>
 #include <Params.h>
-uniform vec4 CB0[58];
+uniform vec4 CB0[57];
 uniform vec4 CB8[24];
 uniform vec4 CB3[3];
 uniform sampler2D ShadowAtlasTexture;

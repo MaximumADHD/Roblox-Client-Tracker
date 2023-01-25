@@ -77,8 +77,8 @@ dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
     "DeveloperTools DeveloperTools 0.2.4 url+https://github.com/roblox/developer-tools",
-    "ExperienceChat ExperienceChat aa36afc3 git+https://github.com/roblox/lua-experience-chat#v3.3.4",
-    "ExperienceChat_New ExperienceChat ced4713c git+https://github.com/roblox/lua-experience-chat#v3.3.6",
+    "ExperienceChat ExperienceChat ced4713c git+https://github.com/roblox/lua-experience-chat#v3.3.6",
+    "ExperienceChat_New ExperienceChat a147b962 git+https://github.com/roblox/lua-experience-chat#v3.3.7",
     "FitFrame RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "GraphQL GraphQL 15.6.0 url+https://github.com/roblox/graphql-lua",
     "HttpRequest HttpRequest 1.1.1 url+https://github.com/roblox/http-request",
@@ -88,11 +88,11 @@ dependencies = [
     "JestGlobals JestGlobals 2.4.1 url+https://github.com/roblox/jest-roblox",
     "JestGlobals3 JestGlobals 3.2.1 url+https://github.com/roblox/jest-roblox",
     "LuaChatDeps LuaChatDeps bab81049 git+https://github.com/roblox/lua-chat-deps#master",
-    "LuaProfileDeps LuaProfileDeps 0950009a git+https://github.com/roblox/lua-profile#v4.2.2",
-    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps a48c3dc1 git+https://github.com/roblox/lua-social-libraries-deps#master",
+    "LuaProfileDeps LuaProfileDeps 0a37683f git+https://github.com/roblox/lua-profile#v4.3.0",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps bb568007 git+https://github.com/roblox/lua-social-libraries-deps#master",
     "LuauPolyfill LuauPolyfill 0.4.2 url+https://github.com/roblox/luau-polyfill",
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
-    "NetworkingFriends NetworkingFriends 2.7.0 url+https://github.com/roblox/networking-friends",
+    "NetworkingFriends NetworkingFriends 2.7.1 url+https://github.com/roblox/networking-friends",
     "NetworkingGames NetworkingGames 1.2.0 url+https://github.com/roblox/networking-games",
     "NetworkingUsers NetworkingUsers 1.0.1 url+https://github.com/roblox/networking-users",
     "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
@@ -120,7 +120,7 @@ dependencies = [
     "StringUtilities roblox/string-utilities 1.0.0 url+https://github.com/roblox/string-utilities",
     "TagUtils TagUtils 0.1.0 url+https://github.com/roblox/luau-tag-utils",
     "Thumbnailing Thumbnailing 1c56d462 git+https://github.com/roblox/thumbnailing#main",
-    "UIBlox UIBlox 9cd9685e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox fd49713c git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder 63224237 git+https://github.com/roblox/url-builder#master",
     "VirtualizedList <patched> VirtualizedList 1.1.2 url+https://github.com/roblox/virtualized-list-lua",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
@@ -142,9 +142,9 @@ source = "url+https://github.com/roblox/dash"
 
 [[package]]
 name = "DebugUtils"
-version = "4.2.2"
-commit = "0950009a69bc8b8198912f8cde1af00b2b290a43"
-source = "git+https://github.com/roblox/lua-profile#v4.2.2"
+version = "4.3.0"
+commit = "0a37683f92cdf56c7fba72783e338610ce30b48e"
+source = "git+https://github.com/roblox/lua-profile#v4.3.0"
 dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
     "HttpRequest roblox/http-request 3e68dca3 git+https://github.com/roblox/http-request#v1.1.0",
@@ -223,25 +223,6 @@ dependencies = [
 
 [[package]]
 name = "ExperienceChat"
-version = "3.3.4"
-commit = "aa36afc320caeab1c106ff3bac5fc70242cfa272"
-source = "git+https://github.com/roblox/lua-experience-chat#v3.3.4"
-dependencies = [
-    "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
-    "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
-    "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "React ReactProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",
-    "ReactIs ReactIsProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",
-    "ReactRoblox ReactRobloxProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",
-    "Roact RoactProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",
-    "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
-    "Rodux roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox 9cd9685e git+https://github.com/roblox/uiblox#master",
-    "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
-]
-
-[[package]]
-name = "ExperienceChat"
 version = "3.3.6"
 commit = "ced4713cb282001bf551f9af38005fedd5389aae"
 source = "git+https://github.com/roblox/lua-experience-chat#v3.3.6"
@@ -255,7 +236,27 @@ dependencies = [
     "Roact RoactProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox 9cd9685e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox fd49713c git+https://github.com/roblox/uiblox#master",
+    "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
+]
+
+[[package]]
+name = "ExperienceChat"
+version = "3.3.7"
+commit = "a147b962934852ba724f1400e42b8fbdd8ccc904"
+source = "git+https://github.com/roblox/lua-experience-chat#v3.3.7"
+dependencies = [
+    "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
+    "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
+    "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
+    "React ReactProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",
+    "ReactIs ReactIsProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",
+    "ReactRoblox ReactRobloxProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact RoactProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",
+    "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
+    "Rodux roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "UIBlox UIBlox fd49713c git+https://github.com/roblox/uiblox#master",
+    "VirtualizedList <patched> VirtualizedList 1.1.2 url+https://github.com/roblox/virtualized-list-lua",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]
 
@@ -309,7 +310,7 @@ dependencies = [
     "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
     "Roact <patched> RoactProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",
     "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
-    "UIBlox UIBlox 9cd9685e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox fd49713c git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
@@ -328,7 +329,7 @@ dependencies = [
     "Roact <patched> RoactProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox 9cd9685e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox fd49713c git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -877,24 +878,24 @@ dependencies = [
     "AssetCard roblox/asset-card 103b2a57 git+https://github.com/roblox/asset-card#v1.0.3",
     "InfiniteScroller <patched> InfiniteScroller 0.9.5 url+https://github.com/roblox/infinite-scroller",
     "RoduxNetworking rodux-networking 4a963dc9 git+https://github.com/roblox/rodux-networking#v2.0.0",
-    "UIBlox UIBlox 9cd9685e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox fd49713c git+https://github.com/roblox/uiblox#master",
 ]
 
 [[package]]
 name = "LuaProfileDeps"
-version = "4.2.2"
-commit = "0950009a69bc8b8198912f8cde1af00b2b290a43"
-source = "git+https://github.com/roblox/lua-profile#v4.2.2"
+version = "4.3.0"
+commit = "0a37683f92cdf56c7fba72783e338610ce30b48e"
+source = "git+https://github.com/roblox/lua-profile#v4.3.0"
 dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
-    "DebugUtils DebugUtils 0950009a git+https://github.com/roblox/lua-profile#v4.2.2",
+    "DebugUtils DebugUtils 0a37683f git+https://github.com/roblox/lua-profile#v4.3.0",
     "HttpRequest roblox/http-request 3e68dca3 git+https://github.com/roblox/http-request#v1.1.0",
     "NetworkingBlocking NetworkingBlocking 1.7.0 url+https://github.com/roblox/lua-app-networking",
-    "NetworkingCurrentlyWearing NetworkingCurrentlyWearing 0950009a git+https://github.com/roblox/lua-profile#v4.2.2",
-    "NetworkingFriends NetworkingFriends 2.7.0 url+https://github.com/roblox/networking-friends",
+    "NetworkingCurrentlyWearing NetworkingCurrentlyWearing 0a37683f git+https://github.com/roblox/lua-profile#v4.3.0",
+    "NetworkingFriends NetworkingFriends 2.7.1 url+https://github.com/roblox/networking-friends",
     "NetworkingGames NetworkingGames db69cf81 git+https://github.com/roblox/networking-games#v1.1.0",
     "NetworkingPresence NetworkingPresence 31f6545b git+https://github.com/roblox/networking-presence#v1.1.1",
-    "NetworkingUserInfo NetworkingUserInfo 0950009a git+https://github.com/roblox/lua-profile#v4.2.2",
+    "NetworkingUserInfo NetworkingUserInfo 0a37683f git+https://github.com/roblox/lua-profile#v4.3.0",
     "NetworkingUsers roblox/users-networking 8ce97362 git+https://github.com/roblox/networking-users#v0.1.0",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "Roact <patched> RoactProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",
@@ -905,16 +906,16 @@ dependencies = [
     "RoduxGames RoduxGames ca9547e2 git+https://github.com/roblox/rodux-games#v1.4.1",
     "RoduxNetworking RoduxNetworking 3.0.2 url+https://github.com/roblox/rodux-networking",
     "RoduxPresence roblox/rodux-presence d060d8dd git+https://github.com/roblox/rodux-presence#v2.0.0",
-    "RoduxProfile RoduxProfile 0950009a git+https://github.com/roblox/lua-profile#v4.2.2",
-    "UIBlox UIBlox 9cd9685e git+https://github.com/roblox/uiblox#master",
-    "UnitTestHelpers UnitTestHelpers 0950009a git+https://github.com/roblox/lua-profile#v4.2.2",
+    "RoduxProfile RoduxProfile 0a37683f git+https://github.com/roblox/lua-profile#v4.3.0",
+    "UIBlox UIBlox fd49713c git+https://github.com/roblox/uiblox#master",
+    "UnitTestHelpers UnitTestHelpers 0a37683f git+https://github.com/roblox/lua-profile#v4.3.0",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
 [[package]]
 name = "LuaSocialLibrariesDeps"
-version = "1.1.1"
-commit = "a48c3dc147f154acb17a7f4d1ae1d10db835a767"
+version = "1.1.2"
+commit = "bb56800785f30747a948c2e590c949ff4ec403a9"
 source = "git+https://github.com/roblox/lua-social-libraries-deps#master"
 dependencies = [
     "CollisionMatchers 2D-Collision-Matchers 89b7a343 git+https://github.com/roblox/2d-collision-matchers#v1.0.1",
@@ -926,12 +927,12 @@ dependencies = [
     "NetworkingBlocking NetworkingBlocking 1.7.0 url+https://github.com/roblox/lua-app-networking",
     "NetworkingChat roblox/networking-chat a4ef5fb2 git+https://github.com/roblox/networking-chat#v0.2.0",
     "NetworkingContacts NetworkingContacts 1.7.0 url+https://github.com/roblox/lua-app-networking",
-    "NetworkingFriends NetworkingFriends 2.7.0 url+https://github.com/roblox/networking-friends",
-    "NetworkingFriends_221 NetworkingFriends 2.7.0 url+https://github.com/roblox/networking-friends",
+    "NetworkingFriends NetworkingFriends 2.7.1 url+https://github.com/roblox/networking-friends",
+    "NetworkingFriends_221 NetworkingFriends 2.7.1 url+https://github.com/roblox/networking-friends",
     "NetworkingGames NetworkingGames 05d37b25 git+https://github.com/roblox/networking-games#v1.2.0",
     "NetworkingPresence NetworkingPresence 4f4187d1 git+https://github.com/roblox/networking-presence#v2.0.0",
     "NetworkingShareLinks NetworkingShareLinks 15eccb0a git+https://github.com/roblox/networking-sharelinks#v1.1.1",
-    "NetworkingSquads NetworkingSquads 1.7.0 url+https://github.com/roblox/lua-app-networking",
+    "NetworkingSquads NetworkingSquads 1.8.0 url+https://github.com/roblox/lua-app-networking",
     "NetworkingUserSettings NetworkingUserSettings 0.7.0 url+https://github.com/roblox/lua-app-networking",
     "NetworkingUsers roblox/networking-users 6616f72f git+https://github.com/roblox/networking-users#v1.0.0",
     "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
@@ -945,11 +946,11 @@ dependencies = [
     "RoduxPresence RoduxPresence af4ec863 git+https://github.com/roblox/rodux-presence#v3.0.1",
     "RoduxPresence_v3 RoduxPresence af4ec863 git+https://github.com/roblox/rodux-presence#v3.0.1",
     "RoduxShareLinks RoduxShareLinks 2027656a git+https://github.com/roblox/rodux-sharelinks#v1.2.0",
-    "RoduxSquads RoduxSquads 1.8.0 url+https://github.com/roblox/rodux-squads",
+    "RoduxSquads RoduxSquads 1.9.0 url+https://github.com/roblox/rodux-squads",
     "RoduxUserPermissions RoduxUserPermissions 0.5.0 url+https://github.com/roblox/rodux-contacts",
     "RoduxUsers RoduxUsers 941abdeb git+https://github.com/roblox/rodux-users#v1.3.3",
     "RoduxUsers_v13 RoduxUsers 941abdeb git+https://github.com/roblox/rodux-users#v1.3.3",
-    "SocialLibraries SocialLibraries 5f599119 git+https://github.com/roblox/social-libraries#v2.5.3",
+    "SocialLibraries SocialLibraries 3c044a2d git+https://github.com/roblox/social-libraries#v2.5.4",
     "httpRequest roblox/http-request 3e68dca3 git+https://github.com/roblox/http-request#v1.1.0",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]
@@ -1008,7 +1009,7 @@ name = "NetworkingAccountSettings"
 version = "1.7.0"
 commit = "74694015aeb24a7fc378023fa106cd910fa35bf8"
 source = "url+https://github.com/roblox/lua-app-networking"
-dependencies = ["Util Util 1.7.0 url+https://github.com/roblox/lua-app-networking"]
+dependencies = ["Util Util 1.8.0 url+https://github.com/roblox/lua-app-networking"]
 
 [[package]]
 name = "NetworkingAliases"
@@ -1022,14 +1023,14 @@ name = "NetworkingAliases"
 version = "1.7.0"
 commit = "74694015aeb24a7fc378023fa106cd910fa35bf8"
 source = "url+https://github.com/roblox/lua-app-networking"
-dependencies = ["Util Util 1.7.0 url+https://github.com/roblox/lua-app-networking"]
+dependencies = ["Util Util 1.8.0 url+https://github.com/roblox/lua-app-networking"]
 
 [[package]]
 name = "NetworkingBlocking"
 version = "1.7.0"
 commit = "74694015aeb24a7fc378023fa106cd910fa35bf8"
 source = "url+https://github.com/roblox/lua-app-networking"
-dependencies = ["Util Util 1.7.0 url+https://github.com/roblox/lua-app-networking"]
+dependencies = ["Util Util 1.8.0 url+https://github.com/roblox/lua-app-networking"]
 
 [[package]]
 name = "NetworkingContacts"
@@ -1043,24 +1044,24 @@ name = "NetworkingContacts"
 version = "1.7.0"
 commit = "74694015aeb24a7fc378023fa106cd910fa35bf8"
 source = "url+https://github.com/roblox/lua-app-networking"
-dependencies = ["Util Util 1.7.0 url+https://github.com/roblox/lua-app-networking"]
+dependencies = ["Util Util 1.8.0 url+https://github.com/roblox/lua-app-networking"]
 
 [[package]]
 name = "NetworkingCurrentlyWearing"
-version = "4.2.2"
-commit = "0950009a69bc8b8198912f8cde1af00b2b290a43"
-source = "git+https://github.com/roblox/lua-profile#v4.2.2"
+version = "4.3.0"
+commit = "0a37683f92cdf56c7fba72783e338610ce30b48e"
+source = "git+https://github.com/roblox/lua-profile#v4.3.0"
 dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
-    "DebugUtils DebugUtils 0950009a git+https://github.com/roblox/lua-profile#v4.2.2",
+    "DebugUtils DebugUtils 0a37683f git+https://github.com/roblox/lua-profile#v4.3.0",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "buildApiSiteUrl buildApiSiteUrl 0950009a git+https://github.com/roblox/lua-profile#v4.2.2",
+    "buildApiSiteUrl buildApiSiteUrl 0a37683f git+https://github.com/roblox/lua-profile#v4.3.0",
 ]
 
 [[package]]
 name = "NetworkingFriends"
-version = "2.7.0"
-commit = "a6cf95826d47f53d2b0da55846e33bfa951f9b69"
+version = "2.7.1"
+commit = "530507e392ec8a71ea4b954a0ddffa0ae4fcee70"
 source = "url+https://github.com/roblox/networking-friends"
 dependencies = ["enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate"]
 
@@ -1102,21 +1103,21 @@ source = "git+https://github.com/roblox/networking-sharelinks#v1.1.1"
 
 [[package]]
 name = "NetworkingSquads"
-version = "1.7.0"
-commit = "74694015aeb24a7fc378023fa106cd910fa35bf8"
+version = "1.8.0"
+commit = "9e9681df801544580b308f21fe52e6b6035090bf"
 source = "url+https://github.com/roblox/lua-app-networking"
-dependencies = ["Util Util 1.7.0 url+https://github.com/roblox/lua-app-networking"]
+dependencies = ["Util Util 1.8.0 url+https://github.com/roblox/lua-app-networking"]
 
 [[package]]
 name = "NetworkingUserInfo"
-version = "4.2.2"
-commit = "0950009a69bc8b8198912f8cde1af00b2b290a43"
-source = "git+https://github.com/roblox/lua-profile#v4.2.2"
+version = "4.3.0"
+commit = "0a37683f92cdf56c7fba72783e338610ce30b48e"
+source = "git+https://github.com/roblox/lua-profile#v4.3.0"
 dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
-    "DebugUtils DebugUtils 0950009a git+https://github.com/roblox/lua-profile#v4.2.2",
+    "DebugUtils DebugUtils 0a37683f git+https://github.com/roblox/lua-profile#v4.3.0",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "buildApiSiteUrl buildApiSiteUrl 0950009a git+https://github.com/roblox/lua-profile#v4.2.2",
+    "buildApiSiteUrl buildApiSiteUrl 0a37683f git+https://github.com/roblox/lua-profile#v4.3.0",
 ]
 
 [[package]]
@@ -1248,7 +1249,7 @@ dependencies = [
     "Roact <patched> RoactProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox 9cd9685e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox fd49713c git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder 63224237 git+https://github.com/roblox/url-builder#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -1680,7 +1681,7 @@ version = "3.7.0"
 commit = "f6df649b4185dcba87c157ab6cb6572f3a580ad6"
 source = "git+https://github.com/roblox/rodux-friends#v3.7.0"
 dependencies = [
-    "FriendsNetworking NetworkingFriends 2.7.0 url+https://github.com/roblox/networking-friends",
+    "FriendsNetworking NetworkingFriends 2.7.1 url+https://github.com/roblox/networking-friends",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
     "RoduxNetworking RoduxNetworking 3.0.2 url+https://github.com/roblox/rodux-networking",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
@@ -1694,7 +1695,7 @@ version = "3.8.0"
 commit = "1e7909bfcc4e8be5cd3539449fb5115a6a37e189"
 source = "git+https://github.com/roblox/rodux-friends#v3.8.0"
 dependencies = [
-    "FriendsNetworking NetworkingFriends 2.7.0 url+https://github.com/roblox/networking-friends",
+    "FriendsNetworking NetworkingFriends 2.7.1 url+https://github.com/roblox/networking-friends",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
     "RoduxNetworking RoduxNetworking 3.0.2 url+https://github.com/roblox/rodux-networking",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
@@ -1708,7 +1709,7 @@ version = "3.11.0"
 commit = "6ef031c0976a987c003c558030734743b6aadde1"
 source = "git+https://github.com/roblox/rodux-friends#v3.11.0"
 dependencies = [
-    "FriendsNetworking NetworkingFriends 2.7.0 url+https://github.com/roblox/networking-friends",
+    "FriendsNetworking NetworkingFriends 2.7.1 url+https://github.com/roblox/networking-friends",
     "NetworkingBlocking NetworkingBlocking 1.7.0 url+https://github.com/roblox/lua-app-networking",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
     "RoduxNetworking RoduxNetworking 3.0.2 url+https://github.com/roblox/rodux-networking",
@@ -1723,7 +1724,7 @@ version = "3.14.1"
 commit = "86a611f7d1ab3ad51abf6afc5b609c84a818b738"
 source = "git+https://github.com/roblox/rodux-friends#v3.14.1"
 dependencies = [
-    "FriendsNetworking NetworkingFriends 2.7.0 url+https://github.com/roblox/networking-friends",
+    "FriendsNetworking NetworkingFriends 2.7.1 url+https://github.com/roblox/networking-friends",
     "LuauPolyfill LuauPolyfill 1.1.0 url+https://github.com/roblox/luau-polyfill",
     "NetworkingBlocking NetworkingBlocking 1.7.0 url+https://github.com/roblox/lua-app-networking",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
@@ -1739,7 +1740,7 @@ version = "3.15.0"
 commit = "b001fcbecfb91ca5a2102f2365a7e68c13c0c4f2"
 source = "git+https://github.com/roblox/rodux-friends#v3.15.0"
 dependencies = [
-    "FriendsNetworking NetworkingFriends 2.7.0 url+https://github.com/roblox/networking-friends",
+    "FriendsNetworking NetworkingFriends 2.7.1 url+https://github.com/roblox/networking-friends",
     "LuauPolyfill LuauPolyfill 1.1.0 url+https://github.com/roblox/luau-polyfill",
     "NetworkingBlocking NetworkingBlocking 1.7.0 url+https://github.com/roblox/lua-app-networking",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
@@ -1817,19 +1818,19 @@ dependencies = [
 
 [[package]]
 name = "RoduxProfile"
-version = "4.2.2"
-commit = "0950009a69bc8b8198912f8cde1af00b2b290a43"
-source = "git+https://github.com/roblox/lua-profile#v4.2.2"
+version = "4.3.0"
+commit = "0a37683f92cdf56c7fba72783e338610ce30b48e"
+source = "git+https://github.com/roblox/lua-profile#v4.3.0"
 dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
-    "DebugUtils DebugUtils 0950009a git+https://github.com/roblox/lua-profile#v4.2.2",
+    "DebugUtils DebugUtils 0a37683f git+https://github.com/roblox/lua-profile#v4.3.0",
     "NetworkingAliases NetworkingAliases 1.7.0 url+https://github.com/roblox/lua-app-networking",
     "NetworkingBlocking NetworkingBlocking 1.7.0 url+https://github.com/roblox/lua-app-networking",
-    "NetworkingCurrentlyWearing NetworkingCurrentlyWearing 0950009a git+https://github.com/roblox/lua-profile#v4.2.2",
-    "NetworkingFriends NetworkingFriends 2.7.0 url+https://github.com/roblox/networking-friends",
+    "NetworkingCurrentlyWearing NetworkingCurrentlyWearing 0a37683f git+https://github.com/roblox/lua-profile#v4.3.0",
+    "NetworkingFriends NetworkingFriends 2.7.1 url+https://github.com/roblox/networking-friends",
     "NetworkingGames NetworkingGames db69cf81 git+https://github.com/roblox/networking-games#v1.1.0",
     "NetworkingPresence NetworkingPresence 31f6545b git+https://github.com/roblox/networking-presence#v1.1.1",
-    "NetworkingUserInfo NetworkingUserInfo 0950009a git+https://github.com/roblox/lua-profile#v4.2.2",
+    "NetworkingUserInfo NetworkingUserInfo 0a37683f git+https://github.com/roblox/lua-profile#v4.3.0",
     "NetworkingUsers roblox/users-networking 8ce97362 git+https://github.com/roblox/networking-users#v0.1.0",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
     "RoduxAliases RoduxAliases e5753ce1 git+https://github.com/roblox/rodux-aliases#v2.1.1",
@@ -1855,12 +1856,12 @@ dependencies = [
 
 [[package]]
 name = "RoduxSquads"
-version = "1.8.0"
-commit = "a9f2f7a03dcfdedd150cd78febc3194f91f1598f"
+version = "1.9.0"
+commit = "80a91febb1c09b80784f466228086804dc726567"
 source = "url+https://github.com/roblox/rodux-squads"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
-    "NetworkingSquads NetworkingSquads 1.7.0 url+https://github.com/roblox/lua-app-networking",
+    "NetworkingSquads NetworkingSquads 1.8.0 url+https://github.com/roblox/lua-app-networking",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
     "RoduxNetworking RoduxNetworking 3.0.2 url+https://github.com/roblox/rodux-networking",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
@@ -1887,7 +1888,7 @@ commit = "941abdeb135c61070b76aab6416dad7333ba554d"
 source = "git+https://github.com/roblox/rodux-users#v1.3.3"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
-    "FriendsNetworking NetworkingFriends 2.7.0 url+https://github.com/roblox/networking-friends",
+    "FriendsNetworking NetworkingFriends 2.7.1 url+https://github.com/roblox/networking-friends",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
     "RoduxNetworking RoduxNetworking 3.0.2 url+https://github.com/roblox/rodux-networking",
     "UsersNetworking roblox/networking-users 6616f72f git+https://github.com/roblox/networking-users#v1.0.0",
@@ -1936,9 +1937,9 @@ dependencies = ["Promise <patched> Promise 8c520dea git+https://github.com/roblo
 
 [[package]]
 name = "SocialLibraries"
-version = "2.5.3"
-commit = "5f599119a3caf9434c2cf8fb8c22a9f5f7a1fa9f"
-source = "git+https://github.com/roblox/social-libraries#v2.5.3"
+version = "2.5.4"
+commit = "3c044a2d6bfc7942abd2b0b895c2498eb819caad"
+source = "git+https://github.com/roblox/social-libraries#v2.5.4"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
     "GenericPagination roblox/genericpagination 885168d0 git+https://github.com/roblox/genericpagination#master",
@@ -1954,7 +1955,7 @@ dependencies = [
     "RoduxFriends RoduxFriends f6df649b git+https://github.com/roblox/rodux-friends#v3.7.0",
     "RoduxPresence RoduxPresence af4ec863 git+https://github.com/roblox/rodux-presence#v3.0.1",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "UIBlox UIBlox 9cd9685e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox fd49713c git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -2053,7 +2054,7 @@ dependencies = ["Collections Collections 1.1.0 url+https://github.com/roblox/lua
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "9cd9685e85594371140e8bf67ceadbf1dd80c537"
+commit = "fd49713c4fc0cea6bb55f279e816809547738f45"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
@@ -2072,17 +2073,17 @@ dependencies = [
 
 [[package]]
 name = "UnitTestHelpers"
-version = "4.2.2"
-commit = "0950009a69bc8b8198912f8cde1af00b2b290a43"
-source = "git+https://github.com/roblox/lua-profile#v4.2.2"
+version = "4.3.0"
+commit = "0a37683f92cdf56c7fba72783e338610ce30b48e"
+source = "git+https://github.com/roblox/lua-profile#v4.3.0"
 dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
-    "DebugUtils DebugUtils 0950009a git+https://github.com/roblox/lua-profile#v4.2.2",
+    "DebugUtils DebugUtils 0a37683f git+https://github.com/roblox/lua-profile#v4.3.0",
     "Roact <patched> RoactProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",
     "RoactNavigation <patched> RoactNavigation 0.5.3 url+https://github.com/roblox/roact-navigation",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox 9cd9685e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox fd49713c git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -2116,8 +2117,8 @@ source = "url+https://github.com/roblox/lua-app-networking"
 
 [[package]]
 name = "Util"
-version = "1.7.0"
-commit = "74694015aeb24a7fc378023fa106cd910fa35bf8"
+version = "1.8.0"
+commit = "9e9681df801544580b308f21fe52e6b6035090bf"
 source = "url+https://github.com/roblox/lua-app-networking"
 
 [[package]]
@@ -2144,9 +2145,9 @@ dependencies = [
 
 [[package]]
 name = "buildApiSiteUrl"
-version = "4.2.2"
-commit = "0950009a69bc8b8198912f8cde1af00b2b290a43"
-source = "git+https://github.com/roblox/lua-profile#v4.2.2"
+version = "4.3.0"
+commit = "0a37683f92cdf56c7fba72783e338610ce30b48e"
+source = "git+https://github.com/roblox/lua-profile#v4.3.0"
 
 [[package]]
 name = "enumerate"
@@ -2193,7 +2194,7 @@ source = "git+https://github.com/roblox/asset-card#v1.0.3"
 dependencies = [
     "Roact <patched> RoactProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox 9cd9685e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox fd49713c git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 

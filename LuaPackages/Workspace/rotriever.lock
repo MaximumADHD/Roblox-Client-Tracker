@@ -15,6 +15,15 @@ name = "ApolloClient"
 version = "0.1.0"
 
 [[package]]
+name = "ApolloLocalState"
+version = "0.1.0"
+dependencies = [
+    "ApolloClient ApolloClient 0.1.0",
+    "JestGlobals JestGlobals 0.1.0",
+    "LuauPolyfill LuauPolyfill 0.1.0",
+]
+
+[[package]]
 name = "AppCommonLib"
 version = "0.1.0"
 dependencies = [

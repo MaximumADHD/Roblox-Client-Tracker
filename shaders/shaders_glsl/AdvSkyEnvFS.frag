@@ -4,7 +4,7 @@
 #include <Params.h>
 #include <Globals.h>
 uniform vec4 CB1[22];
-uniform vec4 CB0[58];
+uniform vec4 CB0[57];
 uniform sampler2D DiffuseMapTexture;
 
 varying vec3 VARYING0;

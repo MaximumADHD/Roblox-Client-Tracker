@@ -38578,10 +38578,7 @@
             ],
             "MemoryCategory": "Animation",
             "Name": "IKControl",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotBrowsable"
-            ]
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -42203,6 +42200,17 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "Lighting",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "LiveScriptingService",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
@@ -52254,6 +52262,27 @@
                 {
                     "Category": "Appearance",
                     "MemberType": "Property",
+                    "Name": "SmoothVoxelsUpgraded",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
                     "Name": "WaterColor",
                     "Security": {
                         "Read": "None",
@@ -52402,6 +52431,18 @@
                 {
                     "MemberType": "Function",
                     "Name": "CanShorelinesBeUpgraded",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "CanSmoothVoxelsBeUpgraded",
                     "Parameters": [
                     ],
                     "ReturnType": {
@@ -55469,27 +55510,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Behavior",
-                    "MemberType": "Property",
-                    "Name": "UnionsScaleNonuniformly",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "NotScriptable"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "UnionsScaleNonuniformly"
                     }
                 },
                 {
@@ -71804,6 +71824,57 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "Cancel",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Start",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Status",
+                    "Parameters": [
+                        {
+                            "Name": "progressRatio",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "SmoothVoxelsUpgraderService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
             ],
             "MemoryCategory": "Instances",
             "Name": "SnippetService",
@@ -79034,6 +79105,49 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "StudioScriptDebugEventListener",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "GetSdk",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetSdk",
+                    "Parameters": [
+                        {
+                            "Name": "sdk",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "StudioSdkService",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
@@ -94106,12 +94220,15 @@
                     "Value": 3
                 },
                 {
-                    "Name": "RecentlyUpdated",
-                    "Value": 4
-                },
-                {
                     "Name": "MostFavorited",
                     "Value": 5
+                },
+                {
+                    "LegacyNames": [
+                        "RecentlyUpdated"
+                    ],
+                    "Name": "RecentlyCreated",
+                    "Value": 6
                 }
             ],
             "Name": "CatalogSortType"
@@ -102221,23 +102338,6 @@
                 }
             ],
             "Name": "UiMessageType"
-        },
-        {
-            "Items": [
-                {
-                    "Name": "Default",
-                    "Value": 0
-                },
-                {
-                    "Name": "Disabled",
-                    "Value": 1
-                },
-                {
-                    "Name": "Enabled",
-                    "Value": 2
-                }
-            ],
-            "Name": "UnionsScaleNonuniformly"
         },
         {
             "Items": [

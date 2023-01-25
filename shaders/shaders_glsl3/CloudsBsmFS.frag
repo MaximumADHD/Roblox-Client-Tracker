@@ -4,7 +4,7 @@
 #include <CloudsParams.h>
 #include <Globals.h>
 uniform vec4 CB5[5];
-uniform vec4 CB0[58];
+uniform vec4 CB0[57];
 uniform sampler3D CloudsDistanceFieldTexture;
 uniform sampler2D AdvectionTexTexture;
 uniform sampler3D DetailTex3DTexture;

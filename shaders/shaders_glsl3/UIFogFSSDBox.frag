@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <AdvancedUIShadingParams.h>
-uniform vec4 CB0[58];
+uniform vec4 CB0[57];
 uniform vec4 CB2[1];
 uniform vec4 CB3[2];
 uniform samplerCube PrefilteredEnvTexture;
