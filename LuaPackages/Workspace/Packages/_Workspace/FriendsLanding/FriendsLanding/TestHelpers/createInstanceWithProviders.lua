@@ -20,6 +20,8 @@ local Rodux = dependencies.Rodux
 local RoactRodux = dependencies.RoactRodux
 local RoactNavigation = dependencies.RoactNavigation
 
+local getFFlagFriendsLandingLuaPageLoadEvent = require(FriendsLanding.Flags.getFFlagFriendsLandingLuaPageLoadEvent)
+
 local ConfigInterface = t.strictInterface({
 	context = t.optional(t.table), -- To set FriendLandingContext's initial value
 	initialState = t.optional(t.table), -- To set initial state
@@ -157,6 +159,7 @@ return function(mockLocale)
 					pageLoaded = jest.fn(),
 					navigate = jest.fn(),
 					pageLoadingTimeReport = jest.fn(),
+					pageLoadedWithArgs = if getFFlagFriendsLandingLuaPageLoadEvent() then jest.fn() else nil,
 					pageMountingTimeReport = jest.fn(),
 					impressionEvent = jest.fn(),
 				},

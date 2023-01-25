@@ -19,6 +19,11 @@ local CONTEXTUAL_TEXT_HEIGHT = 20
 
 local ContactsListEntry = Roact.PureComponent:extend("ContactsListEntry")
 
+local getFFlagContactsListEntryUpdatedTruncationFix =
+	require(ContactImporter.Flags.getFFlagContactsListEntryUpdatedTruncationFix)
+
+local textToButtonPadding = 10
+
 export type Props = {
 	contactName: string,
 	contactId: string,
@@ -39,7 +44,14 @@ ContactsListEntry.defaultProps = {
 function ContactsListEntry:init()
 	self:setState({
 		clicked = false,
+		contactNameOffset = 0,
 	})
+
+	self.addButtonSizeChanged = function(rbx: any)
+		self:setState({
+			contactNameOffset = 0 - (rbx.AbsoluteSize.X + textToButtonPadding),
+		})
+	end
 
 	self.requestContactFriendship = function()
 		local props: Props = self.props
@@ -84,16 +96,31 @@ function ContactsListEntry:render()
 						SortOrder = Enum.SortOrder.LayoutOrder,
 						VerticalAlignment = Enum.VerticalAlignment.Center,
 					}),
-					contactNameLabel = Roact.createElement(StyledTextLabel, {
-						automaticSize = Enum.AutomaticSize.Y,
-						colorStyle = style.Theme.TextEmphasis,
-						fontStyle = style.Font.Header2,
-						lineHeight = 1,
-						text = props.contactName,
-						textXAlignment = Enum.TextXAlignment.Left,
-						textYAlignment = Enum.TextYAlignment.Bottom,
-						layoutOrder = 1,
-					}),
+					contactNameLabel = if getFFlagContactsListEntryUpdatedTruncationFix()
+						then Roact.createElement(StyledTextLabel, {
+							size = UDim2.new(1, self.state.contactNameOffset, 0, CONTEXTUAL_TEXT_HEIGHT),
+							colorStyle = style.Theme.TextEmphasis,
+							fontStyle = style.Font.Header2,
+							lineHeight = 1,
+							text = props.contactName,
+							fluidSizing = false,
+							richText = false,
+							textWrapped = false,
+							textXAlignment = Enum.TextXAlignment.Left,
+							textYAlignment = Enum.TextYAlignment.Bottom,
+							textTruncate = Enum.TextTruncate.AtEnd,
+							layoutOrder = 1,
+						})
+						else Roact.createElement(StyledTextLabel, {
+							automaticSize = Enum.AutomaticSize.Y,
+							colorStyle = style.Theme.TextEmphasis,
+							fontStyle = style.Font.Header2,
+							lineHeight = 1,
+							text = props.contactName,
+							textXAlignment = Enum.TextXAlignment.Left,
+							textYAlignment = Enum.TextYAlignment.Bottom,
+							layoutOrder = 1,
+						}),
 					contactContextual = Roact.createElement(StyledTextLabel, {
 						colorStyle = style.Theme.TextDefault,
 						fontStyle = style.Font.CaptionBody,
@@ -113,12 +140,18 @@ function ContactsListEntry:render()
 						size = UDim2.fromOffset(ADD_BUTTON_WIDTH, ADD_BUTTON_HEIGHT),
 						onActivated = self.requestContactFriendship,
 						layoutOrder = 3,
+						[Roact.Change.AbsoluteSize] = if getFFlagContactsListEntryUpdatedTruncationFix()
+							then self.addButtonSizeChanged
+							else nil,
 					})
 					else Roact.createElement(UIBlox.App.Button.SecondaryButton, {
 						icon = Images["icons/actions/friends/friendpending"],
 						size = UDim2.fromOffset(ADD_BUTTON_WIDTH, ADD_BUTTON_HEIGHT),
 						onActivated = function() end,
 						layoutOrder = 3,
+						[Roact.Change.AbsoluteSize] = if getFFlagContactsListEntryUpdatedTruncationFix()
+							then self.addButtonSizeChanged
+							else nil,
 					}),
 			}),
 

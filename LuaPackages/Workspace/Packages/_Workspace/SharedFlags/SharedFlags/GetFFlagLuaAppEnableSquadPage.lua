@@ -1,5 +1,5 @@
-game:DefineFastFlag("LuaAppEnableSquadPage", false)
+game:DefineFastFlag("LuaAppEnableSquadPageDev", false)
 
 return function()
-	return game:GetFastFlag("LuaAppEnableSquadPage")
+	return game:GetFastFlag("LuaAppEnableSquadPageDev")
 end

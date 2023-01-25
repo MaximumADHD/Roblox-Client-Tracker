@@ -18,9 +18,6 @@ local getSelectionImageObjectRegular = require(InspectAndBuyFolder.getSelectionI
 
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 
-local FFlagShowVerifiedBadgeOnInspectAndBuyDetails =
-	require(InspectAndBuyFolder.Flags.FFlagShowVerifiedBadgeOnInspectAndBuyDetails)
-
 local PremiumIcon = UIBloxImages["icons/status/premium"]
 local BY_KEY = "InGame.InspectMenu.Label.By"
 local TEXT_SIZE_SMALL = 12
@@ -154,45 +151,31 @@ function DetailsText:render()
 						MaxTextSize = 32,
 					}),
 				}),
-				CreatorLabel = not FFlagShowVerifiedBadgeOnInspectAndBuyDetails()
-					and Roact.createElement("TextLabel", {
-						BackgroundTransparency = 1,
-						Size = UDim2.new(1, 0, 0, CREATOR_SIZE),
-						LayoutOrder = 2,
-						Text = RobloxTranslator:FormatByKeyForLocale(BY_KEY, locale, { CREATOR = self.creator }),
-						Font = Enum.Font.Gotham,
-						TextScaled = false,
-						TextSize = TEXT_SIZE_SMALL,
-						TextColor3 = Colors.White,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						TextYAlignment = Enum.TextYAlignment.Center,
-					}),
-				CreatorLabelContainer = FFlagShowVerifiedBadgeOnInspectAndBuyDetails()
-					and Roact.createElement("Frame", {
-						BackgroundTransparency = 1,
-						LayoutOrder = 2,
-						Size = UDim2.new(1, 0, 0, CREATOR_SIZE),
+				CreatorLabelContainer = Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					LayoutOrder = 2,
+					Size = UDim2.new(1, 0, 0, CREATOR_SIZE),
+				}, {
+					CreatorLabelWrapper = Roact.createElement(VerifiedBadges.EmojiWrapper, {
+						emoji = if creatorHasVerifiedBadge then VerifiedBadges.emoji.verified else "",
 					}, {
-						CreatorLabelWrapper = Roact.createElement(VerifiedBadges.EmojiWrapper, {
-							emoji = if creatorHasVerifiedBadge then VerifiedBadges.emoji.verified else "",
-						}, {
-							CreatorLabel = Roact.createElement("TextLabel", {
-								AutomaticSize = Enum.AutomaticSize.XY,
-								BackgroundTransparency = 1,
-								Text = RobloxTranslator:FormatByKeyForLocale(
-									BY_KEY,
-									locale,
-									{ CREATOR = self.creator }
-								),
-								Font = Enum.Font.Gotham,
-								TextScaled = false,
-								TextSize = TEXT_SIZE_SMALL,
-								TextColor3 = Colors.White,
-								TextXAlignment = Enum.TextXAlignment.Left,
-								TextYAlignment = Enum.TextYAlignment.Center,
-							}),
+						CreatorLabel = Roact.createElement("TextLabel", {
+							AutomaticSize = Enum.AutomaticSize.XY,
+							BackgroundTransparency = 1,
+							Text = RobloxTranslator:FormatByKeyForLocale(
+								BY_KEY,
+								locale,
+								{ CREATOR = self.creator }
+							),
+							Font = Enum.Font.Gotham,
+							TextScaled = false,
+							TextSize = TEXT_SIZE_SMALL,
+							TextColor3 = Colors.White,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							TextYAlignment = Enum.TextYAlignment.Center,
 						}),
 					}),
+				}),
 				FavoriteContainer = showFavoritesCount and Roact.createElement(Favorites),
 			})
 		end,

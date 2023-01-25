@@ -20,6 +20,10 @@ local it = JestGlobals.it
 local withEveryFriendStatus = require(script.Parent.withEveryFriendStatus)
 local fullContextInfo = withEveryFriendStatus.fullContextInfo
 local getFooterRelevanceInfo = require(script.Parent.getFooterRelevanceInfo)
+local FriendshipOriginSourceType = dependencies.NetworkingFriendsEnums.FriendshipOriginSourceType
+
+local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
+	dependencies.getFFlagProfileQRCodeFriendRequestContextInfoEnabled
 
 describe("getFooterRelevanceInfo", function()
 	local mockStyle = {
@@ -42,6 +46,7 @@ describe("getFooterRelevanceInfo", function()
 		youAreFollowingText = "You are following",
 		followsYouText = "Follows you",
 		fromContactsText = "From Contacts",
+		foundThroughQRCode = "Sent from your QR Code",
 	}
 
 	local function getFooterRelevanceInfoWrapped(props, localization)
@@ -134,6 +139,26 @@ describe("getFooterRelevanceInfo", function()
 			expect(resultedRelevancyInfo).never.toBeNil()
 			expect(resultedRelevancyInfo.text).toContain(mockLocalization.fromContactsText)
 			expect(resultedRelevancyInfo.icon).toBeNil()
+		end)
+
+		it("SHOULD show QrCode state correctly", function()
+			local resultedRelevancyInfo = getFooterRelevanceInfoWrapped({
+				isFriendRequest = isFriendRequest,
+				friendStatus = friendStatus,
+				isUserFollowingMe = fullContextInfo.tileProps.isUserFollowingMe,
+				originSourceType = FriendshipOriginSourceType.QrCode.rawValue(),
+			})
+			expect(resultedRelevancyInfo).never.toBeNil()
+			expect(resultedRelevancyInfo.text).toContain(
+				if getFFlagProfileQRCodeFriendRequestContextInfoEnabled()
+					then mockLocalization.foundThroughQRCode
+					else mockLocalization.followsYouText
+			)
+			if getFFlagProfileQRCodeFriendRequestContextInfoEnabled() then
+				expect(resultedRelevancyInfo.icon).toBeNil()
+			else
+				expect(resultedRelevancyInfo.icon).never.toBeNil()
+			end
 		end)
 
 		it("SHOULD not show any relevancy info when all the context info is null", function()

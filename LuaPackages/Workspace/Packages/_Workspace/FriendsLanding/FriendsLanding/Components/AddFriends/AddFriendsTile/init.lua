@@ -1,6 +1,7 @@
 local FriendsLanding = script:FindFirstAncestor("FriendsLanding")
 local CoreGui = game:GetService("CoreGui")
 local AddFriends = FriendsLanding.AddFriends
+local TextKeys = require(FriendsLanding.Common.TextKeys)
 local dependencies = require(AddFriends.dependencies)
 local Roact = dependencies.Roact
 local RoactRodux = dependencies.RoactRodux
@@ -19,6 +20,9 @@ local getFooterRelevanceInfo = require(script.getFooterRelevanceInfo)
 
 local getFFlagContactNameOnFriendRequestEnabled =
 	require(FriendsLanding.Flags.getFFlagContactNameOnFriendRequestEnabled)
+local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
+	dependencies.getFFlagProfileQRCodeFriendRequestContextInfoEnabled
+
 local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
 
 local AddFriendsTile = Roact.PureComponent:extend("AddFriendsTile")
@@ -110,6 +114,9 @@ function AddFriendsTile:render()
 			tooltipHeaderText = "Feature.Contacts.Heading.ContactsTooltip",
 			tooltipBodyText = "Feature.Contacts.Label.ContactsTooltip",
 			tooltipButtonText = "Feature.Avatar.Action.GotIt",
+			foundThroughQRCode = if getFFlagProfileQRCodeFriendRequestContextInfoEnabled()
+				then TextKeys.PROFILE_QR_CODE_TILE_FOOTER
+				else nil,
 		})(function(localized)
 			if getFFlagContactImporterUseNewTooltip() then
 				local tooltipProps = {

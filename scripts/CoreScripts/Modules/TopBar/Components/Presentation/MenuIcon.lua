@@ -47,6 +47,7 @@ local MENU_HOTKEYS = { Enum.KeyCode.Escape }
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 local GetFFlagSelfViewSettingsEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagSelfViewSettingsEnabled)
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
+local VoiceIndicatorsExperimentEnabled = require(RobloxGui.Modules.VoiceChat.Experiments.VoiceIndicatorExperiment)
 
 MenuIcon.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
@@ -58,7 +59,17 @@ function MenuIcon:init()
 		vrShowMenuIcon = VRService.VREnabled and (VRHub.ShowTopBar or GamepadService.GamepadCursorEnabled) and not EngineFeatureEnableVRUpdate3,
 		showTooltip = false,
 		isHovering = false,
+		enableFlashingDot = false
 	})
+
+	if GetFFlagVoiceRecordingIndicatorsEnabled() then
+		-- We spawn a new coroutine so that this doesn't block the UI from loading.
+		task.spawn(function()
+			self:setState({
+				enableFlashingDot = VoiceIndicatorsExperimentEnabled()
+			})
+		end)
+	end
 
 	self.menuIconActivated = function()
 		self:setState({
@@ -215,7 +226,7 @@ function MenuIcon:render()
 
 			onActivated = self.menuIconActivated,
 			onHover = self.menuIconOnHover,
-			enableFlashingDot = GetFFlagVoiceRecordingIndicatorsEnabled(),
+			enableFlashingDot = self.state.enableFlashingDot,
 		}),
 		ShowTopBarListener = GamepadService and Roact.createElement(ExternalEventConnection, {
 			event = VRHub.ShowTopBarChanged.Event or GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"),

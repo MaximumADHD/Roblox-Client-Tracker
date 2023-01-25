@@ -80,7 +80,5 @@ return {
 	enumerate = require(Packages.enumerate),
 	getFFlagPYMKDontUseIngestService = getFFlagPYMKDontUseIngestService,
 	getFFlagSocialUpdateRoduxFriendsv314 = LuaSocialLibrariesDeps.getFFlagSocialUpdateRoduxFriendsv314,
-	getFFlagProfilePeekViewRecommendationAnalytics = require(Packages.SharedFlags).getFFlagProfilePeekViewRecommendationAnalytics,
-	getFFlagPYMKCarouselRenameOmniSessionId = require(Packages.SharedFlags).getFFlagPYMKCarouselRenameOmniSessionId,
 	getFFlagFixFriendshipOriginSourceType = require(Packages.SharedFlags).getFFlagFixFriendshipOriginSourceType,
 }

@@ -144,12 +144,15 @@ function ControlsBubble:shouldShowCameraIndicator()
 end
 
 function ControlsBubble:getMicIcon()
-	local muted = self.props.voiceState == Constants.VOICE_STATE.MUTED or self.props.voiceState == Constants.VOICE_STATE.LOCAL_MUTED
-	if muted or not (self.state.microphoneEnabled and self.props.hasMicPermissions) then
-		return MIC_OFF_IMAGE, true
-	end
+	-- If the local player has not given mic permissions to their device, we show the muted icon.
+	local localMuted = self.props.isLocalPlayer and not (self.state.microphoneEnabled and self.props.hasMicPermissions)
+	local micMuted = self.props.voiceState == Constants.VOICE_STATE.MUTED or self.props.voiceState == Constants.VOICE_STATE.LOCAL_MUTED
 
-	return self.levelIcon, false
+	if localMuted or micMuted then
+		return MIC_OFF_IMAGE, true
+	else
+		return self.levelIcon, false
+	end
 end
 
 if FFlagSelfViewFixesTwo then

@@ -27,7 +27,6 @@ local getFFlagPYMKDontUseIngestService = dependencies.getFFlagPYMKDontUseIngestS
 local getFFlagPYMKCarouselIncomingFriendRequest = require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequest)
 local getFFlagPYMKCarouselIncomingFriendRequestAnalytics =
 	require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequestAnalytics)
-local getFFlagPYMKCarouselRenameOmniSessionId = dependencies.getFFlagPYMKCarouselRenameOmniSessionId
 local getFFlagPYMKCarouselFixAnalyticsFields = require(PYMKCarousel.Flags.getFFlagPYMKCarouselFixAnalyticsFields)
 local getFFlagPYMKCarouselFixNullAnalyticsFields =
 	require(PYMKCarousel.Flags.getFFlagPYMKCarouselFixNullAnalyticsFields)
@@ -45,10 +44,7 @@ local DEFAULT_PROPS = {
 	eventStreamService = if getFFlagPYMKDontUseIngestService() then { setRBXEventStream = jest.fn() } else nil,
 	eventIngestService = if getFFlagPYMKDontUseIngestService() then nil else { setRBXEventStream = jest.fn() },
 	navigation = {},
-	recommendationsRequestId = if getFFlagPYMKCarouselRenameOmniSessionId()
-		then nil
-		else "initialRecommendationsRequestId",
-	omniSessionId = if getFFlagPYMKCarouselRenameOmniSessionId() then "initialOmniSessionId" else nil,
+	omniSessionId = "initialOmniSessionId",
 }
 
 local state = mockedRecommendationsState
@@ -133,17 +129,9 @@ it("SHOULD fire analytics event CarouselLoadedWithUsers when mounted and when om
 
 		Roact.act(function()
 			triggerUpdate({
-				recommendationsRequestId = "newRecommendationsRequestId",
+				omniSessionId = "newOmniSessionId",
 			})
 		end)
-
-		if getFFlagPYMKCarouselRenameOmniSessionId() then
-			Roact.act(function()
-				triggerUpdate({
-					omniSessionId = "newOmniSessionId",
-				})
-			end)
-		end
 
 		jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(
 			MOCKED_RECOMMENDATIONS_COUNT + 2

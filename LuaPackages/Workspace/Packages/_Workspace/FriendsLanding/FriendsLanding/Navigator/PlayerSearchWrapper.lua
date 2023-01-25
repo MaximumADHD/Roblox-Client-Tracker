@@ -28,6 +28,8 @@ function PlayerSearchWrapper:render()
 				return Roact.createElement("Frame", {
 					Size = UDim2.fromScale(1, 1),
 					BackgroundColor3 = style.Theme.BackgroundDefault.Color,
+					BackgroundTransparency = 0,
+					BorderSizePixel = 0,
 				}, {
 					Roact.createElement(context.playerSearchPage, {
 						searchParameters = {

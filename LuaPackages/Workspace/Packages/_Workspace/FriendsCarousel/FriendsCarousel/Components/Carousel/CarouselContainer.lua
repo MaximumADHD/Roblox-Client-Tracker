@@ -32,7 +32,6 @@ local getFFlagAutoSyncForContactImporterDisabled = dependencies.getFFlagAutoSync
 local getFFlagFriendsCarouselAddUniverseIdToEvents =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddUniverseIdToEvents)
 local getFFlagContactImporterOnFriendsCarousel = dependencies.getFFlagContactImporterOnFriendsCarousel
-local getFFlagProfilePeekViewRecommendationAnalytics = dependencies.getFFlagProfilePeekViewRecommendationAnalytics
 local getFFlagFriendsCarouselFixNullAnalyticsFields =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselFixNullAnalyticsFields)
 
@@ -105,7 +104,8 @@ type Props = {
 
 type InternalProps = Props & mapStateToProps.Props & mapDispatchToProps.Props
 
-CarouselContainer.validateProps = t.strictInterface({
+-- TODO: Update and return to strictInterface
+CarouselContainer.validateProps = t.interface({
 	analyticsService = t.optional(t.any),
 	carousel = t.interface({
 		render = t.callback,
@@ -278,10 +278,8 @@ function CarouselContainer:init()
 				resetPeekView = true,
 				absolutePosition = additionalData.absolutePosition,
 				isHomePageCarousel = true,
-				source = if getFFlagProfilePeekViewRecommendationAnalytics()
-					then Constants.HomepageFriendsCarouselSourceName
-					else nil,
-				recommendationRank = if getFFlagProfilePeekViewRecommendationAnalytics() then user.rank else nil,
+				source = Constants.HomepageFriendsCarouselSourceName,
+				recommendationRank = user.rank,
 				recommendationContextType = if user.contextType then user.contextType.rawValue() else nil,
 				isRecommendation = if user.contextType then true else false,
 				mutualFriendsCount = user.mutualFriendsList and #user.mutualFriendsList or 0,

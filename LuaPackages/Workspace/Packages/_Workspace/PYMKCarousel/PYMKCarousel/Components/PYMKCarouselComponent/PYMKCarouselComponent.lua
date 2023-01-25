@@ -25,7 +25,6 @@ local getFFlagPYMKCarouselIncomingFriendRequestAnalytics =
 local getFFlagPYMKCarouselFixNullAnalyticsFields =
 	require(PYMKCarousel.Flags.getFFlagPYMKCarouselFixNullAnalyticsFields)
 local getFFlagPYMKDontUseIngestService = dependencies.getFFlagPYMKDontUseIngestService
-local getFFlagPYMKCarouselRenameOmniSessionId = dependencies.getFFlagPYMKCarouselRenameOmniSessionId
 
 local TILE_HEIGHT: number = 100
 local TILE_WIDTH: number = 100
@@ -41,8 +40,6 @@ export type Props = {
 	eventStreamService: any,
 
 	--* this prop changes on each OmniFeed fetch/refresh
-	-- remove recommendationsRequestId when cleaning getFFlagPYMKCarouselRenameOmniSessionId
-	recommendationsRequestId: string?,
 	omniSessionId: string?,
 }
 
@@ -89,33 +86,23 @@ local PYMKCarouselComponent = function(props: Props)
 		})
 	end, dependencyArray(localUserId, recommendationSessionId))
 
-	React.useEffect(
-		function()
-			setForceUpdateRecs(recommendationIds)
-		end,
-		if getFFlagPYMKCarouselRenameOmniSessionId()
-			then dependencyArray(recommendationCount, props.omniSessionId)
-			else dependencyArray(recommendationCount, props.recommendationsRequestId)
-	)
+	React.useEffect(function()
+		setForceUpdateRecs(recommendationIds)
+	end, dependencyArray(recommendationCount, props.omniSessionId))
 
-	React.useEffect(
-		function()
-			fireAnalyticsEvent(EventNames.CarouselLoadedWithUsers, {
-				recommendationCount = recommendationCount,
-				refreshCount = if getFFlagPYMKCarouselIncomingFriendRequestAnalytics()
-					then refreshCountGlobal
-					else refreshCount,
-			})
-			if getFFlagPYMKCarouselIncomingFriendRequestAnalytics() then
-				refreshCountGlobal = refreshCountGlobal + 1
-			else
-				setRefreshCount(refreshCount + 1)
-			end
-		end,
-		if getFFlagPYMKCarouselRenameOmniSessionId()
-			then { props.omniSessionId }
-			else { props.recommendationsRequestId }
-	)
+	React.useEffect(function()
+		fireAnalyticsEvent(EventNames.CarouselLoadedWithUsers, {
+			recommendationCount = recommendationCount,
+			refreshCount = if getFFlagPYMKCarouselIncomingFriendRequestAnalytics()
+				then refreshCountGlobal
+				else refreshCount,
+		})
+		if getFFlagPYMKCarouselIncomingFriendRequestAnalytics() then
+			refreshCountGlobal = refreshCountGlobal + 1
+		else
+			setRefreshCount(refreshCount + 1)
+		end
+	end, { props.omniSessionId })
 
 	local viewabilityConfigCallbackPairs = useUserSeenEvent(fireAnalyticsEvent)
 

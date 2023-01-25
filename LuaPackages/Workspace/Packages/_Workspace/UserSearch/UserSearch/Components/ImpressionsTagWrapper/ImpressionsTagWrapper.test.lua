@@ -11,6 +11,7 @@ local RhodiumHelpers = require(Packages.Dev.RhodiumHelpers)
 local createTreeWithProviders = SocialTestHelpers.createTreeWithProviders
 local runWhileMounted = SocialTestHelpers.runWhileMounted
 
+local CollectionService = game:GetService("CollectionService")
 local ImpressionsTagWrapper = require(script.Parent)
 
 describe("ImpressionsTagWrapper", function()
@@ -49,6 +50,28 @@ describe("ImpressionsTagWrapper", function()
 			})
 
 			expect(FrameTest).never.toBeNil()
+		end)
+	end)
+
+	it("SHOULD set correct tag and index", function()
+		local IMPRESSION_TAG = "tagImpressionTest"
+		local INDEX = 100
+		local ImpressionsTagWrapperComponent = createTreeWithProviders(ImpressionsTagWrapper, {
+			props = {
+				index = 100,
+				impressionsTag = IMPRESSION_TAG,
+				renderComponent = function()
+					return nil
+				end,
+			},
+		})
+
+		runWhileMounted(ImpressionsTagWrapperComponent, function(parent)
+			expect(#parent:GetChildren()).toBe(1)
+			local impressionItems = CollectionService:GetTagged(IMPRESSION_TAG)
+			expect(impressionItems).never.toBeNil()
+			expect(#impressionItems).toBe(1)
+			expect(impressionItems[1]:GetAttribute("ITEMINDEX")).toBe(INDEX)
 		end)
 	end)
 end)

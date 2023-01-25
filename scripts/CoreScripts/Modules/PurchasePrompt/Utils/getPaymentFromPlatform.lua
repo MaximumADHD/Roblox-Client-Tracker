@@ -2,7 +2,7 @@ local Root = script.Parent.Parent
 
 local PaymentPlatform = require(Root.Enums.PaymentPlatform)
 
-return function(platform, isLuobu, isAmazon)
+return function(platform, isLuobu, isAmazon, isQuest)
 	if platform == Enum.Platform.XBoxOne then
 		return PaymentPlatform.Xbox
 	elseif platform == Enum.Platform.IOS then
@@ -19,6 +19,8 @@ return function(platform, isLuobu, isAmazon)
 			return PaymentPlatform.Midas
 		elseif isAmazon then
 			return PaymentPlatform.Amazon
+		elseif isQuest then
+			return PaymentPlatform.Quest
 		else
 			return PaymentPlatform.Google
 		end

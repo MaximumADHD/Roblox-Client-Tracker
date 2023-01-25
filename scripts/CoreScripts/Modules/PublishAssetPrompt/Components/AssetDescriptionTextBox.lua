@@ -11,11 +11,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
 local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
-
--- TODO: localization
---local CoreGui = game:GetService("CoreGui")
---local RobloxGui = CoreGui:WaitForChild("RobloxGui")
---local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local Focusable = RoactGamepad.Focusable
 
@@ -201,7 +197,9 @@ function AssetDescriptionTextBox:renderWithProviders(stylePalette, getSelectionC
 					Font = font.Header2.Font,
 					TextSize = font.BaseSize * fontType.RelativeSize,
 					PlaceholderColor3 = theme.PlaceHolder.Color,
-					PlaceholderText = "Description", --TODO: RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.AssetDescriptionPlaceholder"),
+					PlaceholderText = RobloxTranslator:FormatByKey(
+						"CoreScripts.PublishAssetPrompt.AssetDescriptionPlaceholder"
+					),
 					Position = UDim2.fromOffset(TEXTBOX_PADDING, 0),
 					Size = UDim2.new(1, -TEXTBOX_PADDING * 2 - SCROLL_BAR_THICKNESS, 0, self.state.canvasHeight),
 					MultiLine = true,

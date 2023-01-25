@@ -18,8 +18,6 @@ local connectToStore = require(Root.connectToStore)
 local Counter = require(Root.Enums.Counter)
 local sendCounter = require(Root.Thunks.sendCounter)
 
-local GetFFlagPurchasePromptAnalytics = require(Root.Flags.GetFFlagPurchasePromptAnalytics)
-
 local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
 
 -- we want the ability to listen on both endpoints, so we connect to both for now
@@ -55,9 +53,7 @@ local function mapDispatchToProps(dispatch)
 				dispatch(retryAfterUpsell())
 			else
 				dispatch(ErrorOccurred(PurchaseError.InvalidFundsUnknown))
-				if GetFFlagPurchasePromptAnalytics() then
-					dispatch(sendCounter(Counter.UpsellFailedNativePurchase))
-				end
+				dispatch(sendCounter(Counter.UpsellFailedNativePurchase))
 			end
 		end,
 		nativePurchaseFinishedWithLocalPlayer = function(productId, wasPurchased)
@@ -65,9 +61,7 @@ local function mapDispatchToProps(dispatch)
 				dispatch(retryAfterUpsell())
 			else
 				dispatch(ErrorOccurred(PurchaseError.InvalidFundsUnknown))
-				if GetFFlagPurchasePromptAnalytics() then
-					dispatch(sendCounter(Counter.UpsellFailedNativePurchase))
-				end
+				dispatch(sendCounter(Counter.UpsellFailedNativePurchase))
 			end
 		end,
 	}

@@ -23,8 +23,6 @@ local MockId = require(script.Parent.Parent.MockId)
 
 local FFlagEnableRestrictedAssetSaleLocationInspectAndBuy
 	= require(CoreGui.RobloxGui.Modules.Flags.FFlagEnableRestrictedAssetSaleLocationInspectAndBuy)
-local FFlagShowVerifiedBadgeOnInspectAndBuyDetails =
-	require(CoreGui.RobloxGui.Modules.InspectAndBuy.Flags.FFlagShowVerifiedBadgeOnInspectAndBuyDetails)
 
 local AssetInfo = {}
 
@@ -72,9 +70,7 @@ function AssetInfo.fromGetProductInfo(assetInfo)
 	else
 		newAsset.isForSale = assetInfo.IsForSale
 	end
-	if FFlagShowVerifiedBadgeOnInspectAndBuyDetails() then
-		newAsset.creatorHasVerifiedBadge = assetInfo.Creator.HasVerifiedBadge
-	end
+	newAsset.creatorHasVerifiedBadge = assetInfo.Creator.HasVerifiedBadge
 	newAsset.isLimited = assetInfo.IsLimited or assetInfo.IsLimitedUnique
 
 	return newAsset

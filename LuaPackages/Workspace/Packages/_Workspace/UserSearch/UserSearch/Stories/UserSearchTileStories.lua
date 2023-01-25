@@ -7,7 +7,7 @@ local UserSearchTile = require(UserSearch.Components.UserSearchTile)
 
 local setupStory = function(props: any)
 	local user = props.user
-	return function(storyProps)
+	return function(storyProps: any)
 		return React.createElement("Frame", {
 			Size = UDim2.new(0, 200, 0, 350),
 			BackgroundTransparency = 1,
@@ -22,11 +22,11 @@ local setupStory = function(props: any)
 					previousUsernames = user.previousUsernames or {},
 				},
 				searchParameters = props.searchParameters or { searchKeyword = "" },
-				luaAppNetworkingRequests = props.luaAppNetworkingRequests or {
+				luaAppNetworkingRequests = storyProps.luaAppNetworkingRequests or {
 					requestFriendship = function() end,
 					acceptFriendRequest = function() end,
 				},
-				luaAppNavigation = props.luaAppNavigation or {
+				luaAppNavigation = storyProps.luaAppNavigation or {
 					navigateToUserInfo = function() end,
 				},
 			}),

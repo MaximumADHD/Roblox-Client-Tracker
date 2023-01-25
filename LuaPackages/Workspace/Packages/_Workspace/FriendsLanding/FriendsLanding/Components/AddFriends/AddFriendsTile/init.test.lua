@@ -11,6 +11,7 @@ local devDependencies = require(FriendsLanding.devDependencies)
 local RhodiumHelpers = devDependencies.RhodiumHelpers
 local ReactRoblox = devDependencies.ReactRoblox
 local findImageSet = devDependencies.findImageSet
+local TextKeys = require(FriendsLanding.Common.TextKeys)
 
 local JestGlobals = devDependencies.JestGlobals
 local afterEach = JestGlobals.afterEach
@@ -24,7 +25,8 @@ local userForStatus = withEveryFriendStatus.userForStatus
 local baseStore = withEveryFriendStatus.baseStore
 local friendWithContextInfo = withEveryFriendStatus.friendWithContextInfo
 local fullContextInfo = withEveryFriendStatus.fullContextInfo
-
+local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
+	dependencies.getFFlagProfileQRCodeFriendRequestContextInfoEnabled
 local AddFriendsTile = require(script.Parent)
 
 local mockLocalization = {
@@ -35,6 +37,7 @@ local mockLocalization = {
 	sentFromWithContextText = "Sent from",
 	youAreFollowingText = "You are following",
 	followsYouText = "Follows you",
+	QRCodeText = "Sent from your QR code",
 }
 
 local function mockFunc() end
@@ -46,6 +49,7 @@ local function createAddFriendsTileInstance(friendStatus, propsOverride)
 		["Feature.Friends.Label.SentFromWithContext"] = mockLocalization.sentFromWithContextText,
 		["Feature.Friends.Label.YouAreFollowing"] = mockLocalization.youAreFollowingText,
 		["Feature.Friends.Label.FollowsYou"] = mockLocalization.followsYouText,
+		[TextKeys.PROFILE_QR_CODE_TILE_FOOTER] = mockLocalization.QRCodeText,
 	}
 	local function mockLocale(element)
 		return Roact.createElement(LocalizationProvider, {
@@ -251,6 +255,18 @@ describe("relevancyInfo", function()
 		)
 		expectPlayerContextContainsLabel(mockLocalization.followsYouText)
 		expectPlayerContextContainsIcon("icons/status/player/following")
+	end)
+
+	it("SHOULD render QRCode user context correctly", function()
+		createAddFriendsTileWithContext(
+			true,
+			Enum.FriendStatus.FriendRequestReceived,
+			friendWithContextInfo.FriendViaQRCode
+		)
+		if getFFlagProfileQRCodeFriendRequestContextInfoEnabled() then
+			expectPlayerContextContainsLabel(mockLocalization.QRCodeText)
+		end
+		expectPlayerContextContainsIcon(nil)
 	end)
 
 	it("SHOULD render NoFriend user context correctly", function()

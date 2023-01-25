@@ -3,10 +3,13 @@
 	Validates the text input as the user types, and displays "Invalid Name" below if special characters are used.
 ]]
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
 local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local Focusable = RoactGamepad.Focusable
 
@@ -117,7 +120,7 @@ function AssetNameTextBox:renderWithProviders(stylePalette, getSelectionCursor)
 				Font = font.CaptionBody.Font,
 				TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
 				PlaceholderColor3 = theme.PlaceHolder.Color,
-				PlaceholderText = "Name", --TODO: RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.AssetNamePlaceholder"),
+				PlaceholderText = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.AssetNamePlaceholder"),
 				Position = UDim2.fromOffset(TEXTBOX_PADDING, 0),
 				Size = UDim2.new(1, -TEXTBOX_PADDING * 2, 1, 0),
 				TextColor3 = theme.TextDefault.Color,
@@ -132,21 +135,20 @@ function AssetNameTextBox:renderWithProviders(stylePalette, getSelectionCursor)
 				[Roact.Event.AncestryChanged] = self.tryFocusTextBox,
 			}),
 		}),
-		WarningText = showWarningText
-			and Roact.createElement("TextLabel", {
-				Position = UDim2.new(0, 0, 1, 0),
+		WarningText = showWarningText and Roact.createElement("TextLabel", {
+			Position = UDim2.new(0, 0, 1, 0),
 
-				BackgroundTransparency = 1,
-				Text = "Invalid Name", --TODO: RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.InvalidName"),
-				LayoutOrder = 2,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Top,
-				Size = UDim2.new(1, 0, 0, 20),
-				TextColor3 = theme.Alert.Color,
-				TextWrapped = true,
-				Font = font.Body.Font,
-				TextSize = WARNING_TEXT_SIZE,
-			}),
+			BackgroundTransparency = 1,
+			Text = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.InvalidName"),
+			LayoutOrder = 2,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Top,
+			Size = UDim2.new(1, 0, 0, 20),
+			TextColor3 = theme.Alert.Color,
+			TextWrapped = true,
+			Font = font.Body.Font,
+			TextSize = WARNING_TEXT_SIZE,
+		}),
 	})
 end
 

@@ -21,8 +21,6 @@ local RoactGlobalConfig = require(script.RoactGlobalConfig)
 
 local ConnectAvatarEditorServiceEvents = require(script.ConnectAvatarEditorServiceEvents)
 
-local FFlagFixAvatarEditorPromptsEventsEarly = require(RobloxGui.Modules.Flags.FFlagFixAvatarEditorPromptsEventsEarly)
-
 local EngineFeatureAESMoreOutfitMethods = game:GetEngineFeature("AESMoreOutfitMethods2")
 
 local AvatarEditorPrompts = {}
@@ -81,9 +79,7 @@ function AvatarEditorPrompts.new()
 
 	self.element = Roact.mount(self.root, CoreGui, "AvatarEditorPrompts")
 
-	if FFlagFixAvatarEditorPromptsEventsEarly then
-		self.serviceConnections = ConnectAvatarEditorServiceEvents(self.store)
-	end
+	self.serviceConnections = ConnectAvatarEditorServiceEvents(self.store)
 
 	return self
 end

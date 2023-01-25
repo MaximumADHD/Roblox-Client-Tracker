@@ -14,8 +14,6 @@ local sendCounter = require(Root.Thunks.sendCounter)
 local Analytics = require(Root.Services.Analytics)
 local Thunk = require(Root.Thunk)
 
-local GetFFlagPurchasePromptAnalytics = require(Root.Flags.GetFFlagPurchasePromptAnalytics)
-
 local requiredServices = {
 	Analytics,
 }
@@ -42,14 +40,12 @@ local function completeRequest()
 			analytics.signalScaryModalCanceled(productId, "ParentalConsentWarningPaymentModal13To17", nativeProductId)
 		end
 
-		if GetFFlagPurchasePromptAnalytics() then
-			if state.promptState == PromptState.PurchaseComplete then
-				store:dispatch(sendCounter(Counter.Success))
-			elseif state.promptState == PromptState.Error then
-				store:dispatch(sendCounter(Counter.Failed))
-			else
-				store:dispatch(sendCounter(Counter.Cancelled))
-			end
+		if state.promptState == PromptState.PurchaseComplete then
+			store:dispatch(sendCounter(Counter.Success))
+		elseif state.promptState == PromptState.Error then
+			store:dispatch(sendCounter(Counter.Failed))
+		else
+			store:dispatch(sendCounter(Counter.Cancelled))
 		end
 
 		if requestType == RequestType.Product then

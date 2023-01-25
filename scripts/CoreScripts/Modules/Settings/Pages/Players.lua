@@ -95,6 +95,8 @@ local GetFFlagSelfViewSettingsEnabled = require(RobloxGui.Modules.Settings.Flags
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 
 local isEngineTruncationEnabledForIngameSettings = require(RobloxGui.Modules.Flags.isEngineTruncationEnabledForIngameSettings)
+local EngineFeatureVoiceChatMultistreamSubscriptionsEnabled = game:GetEngineFeature("VoiceChatMultistreamSubscriptionsEnabled")
+local LuaFlagVoiceChatDisableSubscribeRetryForMultistream = game:DefineFastFlag("LuaFlagVoiceChatDisableSubscribeRetryForMultistream", true)
 
 if GetFFlagOldMenuNewIcons() then
 	MuteStatusIcons = VoiceChatServiceManager.MuteStatusIcons
@@ -461,6 +463,11 @@ local function Initialize()
 			image = MuteStatusIcons.Error
 			imageSize = UDim2.fromOffset(36, 36)
 			imageOffset = UDim2.fromOffset(2, -2)
+			if LuaFlagVoiceChatDisableSubscribeRetryForMultistream then
+				if EngineFeatureVoiceChatMultistreamSubscriptionsEnabled then
+					imageTransparency = 0.5
+				end
+			end
 		elseif playerStatus.isMutedLocally then
 			image = MuteStatusIcons.MicDisabled
 			if GetFFlagOldMenuNewIcons() then
@@ -493,6 +500,8 @@ local function Initialize()
 				UDim2.fromOffset(46, 46),
 				imageSize,
 				function ()
+					-- TODO(SOCRTC-3638|kangiwang): replace per-user subscription failure
+					-- rejoin buttons with one single button to retry all subscriptions.
 					if GetFFlagSubscriptionFailureUX() then
 						local status = VoiceChatServiceManager.participants[tostring(playerStatus.userId)]
 						if status.subscriptionCompleted then
@@ -500,7 +509,13 @@ local function Initialize()
 								playerStatus.userId
 							)
 						elseif GetFFlagSubscriptionFailureRejoin() and status.subscriptionFailed then
-							VoiceChatServiceManager:SubscribeRetry(playerStatus.userId)
+							if LuaFlagVoiceChatDisableSubscribeRetryForMultistream then
+								if not EngineFeatureVoiceChatMultistreamSubscriptionsEnabled then
+									VoiceChatServiceManager:SubscribeRetry(playerStatus.userId)
+								end
+							else
+								VoiceChatServiceManager:SubscribeRetry(playerStatus.userId)
+							end
 						end
 					else
 						VoiceChatServiceManager:ToggleMutePlayer(

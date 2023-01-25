@@ -15,7 +15,6 @@ local UpsellFlow = require(Root.Enums.UpsellFlow)
 
 local RobuxUpsell = require(Root.Models.RobuxUpsell)
 
-local selectRobuxProduct = require(Root.NativeUpsell.selectRobuxProduct)
 local getUpsellFlow = require(Root.NativeUpsell.getUpsellFlow)
 
 local getRobuxUpsellProduct = require(Root.Network.getRobuxUpsellProduct)
@@ -23,11 +22,12 @@ local getRobuxUpsellProduct = require(Root.Network.getRobuxUpsellProduct)
 local Analytics = require(Root.Services.Analytics)
 local Network = require(Root.Services.Network)
 
-local getPaymentFromPlatform = require(Root.Utils.getPaymentFromPlatform)
+local getPaymentPlatform = require(Root.Utils.getPaymentPlatform)
+local getPaymentFromPlatformLegacy = require(Root.Utils.getPaymentFromPlatformLegacy)
 local getHasAmazonUserAgent = require(Root.Utils.getHasAmazonUserAgent)
+local GetFFlagEnableQuestPaymentPlatformType = require(Root.Flags.GetFFlagEnableQuestPaymentPlatformType)
 local Thunk = require(Root.Thunk)
 
-local GetFFlagPPUpsellEndpoint = require(Root.Flags.GetFFlagPPUpsellEndpoint)
 local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
 local GetFFlagEnableInsufficientRobuxForBundleUpsellFix = require(Root.Flags.GetFFlagEnableInsufficientRobuxForBundleUpsellFix)
 
@@ -76,32 +76,25 @@ local function resolveBundlePromptState(productPurchasableDetails, bundleDetails
 					local neededRobux = price - balanceInfo.robux
 					local isPlayerPremium = accountInfo.isPremium
 
-					if GetFFlagPPUpsellEndpoint() then
+					local paymentPlatform
+					if GetFFlagEnableQuestPaymentPlatformType() then
+						paymentPlatform = getPaymentPlatform(platform)
+					else
 						local isAmazon = getHasAmazonUserAgent()
 						local isLuobu = GetFFlagEnableLuobuInGameUpsell()
-						local paymentPlatform = getPaymentFromPlatform(platform, isLuobu, isAmazon)
-
-						local robuxBalance = balanceInfo.robux
-		
-						return getRobuxUpsellProduct(network, price, robuxBalance, paymentPlatform)
-							:andThen(function(product: RobuxUpsell.Product)
-								analytics.signalProductPurchaseUpsellShown(product.id, state.requestType, product.providerId)
-								store:dispatch(PromptNativeUpsell(product.providerId, product.id, product.robuxAmount))
-							end, function()
-								-- No upsell item will provide sufficient funds to make this purchase
-								store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
-							end)
-					else
-						return selectRobuxProduct(platform, neededRobux, isPlayerPremium)
-							:andThen(function(product)
-								-- We found a valid upsell product for the current platform
-								store:dispatch(PromptNativeUpsell(product.productId, nil, product.robuxValue))
-							end, function()
-								-- No upsell item will provide sufficient funds to make this purchase
-								store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
-							end
-						)
+						paymentPlatform = getPaymentFromPlatformLegacy(platform, isLuobu, isAmazon)
 					end
+
+					local robuxBalance = balanceInfo.robux
+	
+					return getRobuxUpsellProduct(network, price, robuxBalance, paymentPlatform)
+						:andThen(function(product: RobuxUpsell.Product)
+							analytics.signalProductPurchaseUpsellShown(product.id, state.requestType, product.providerId)
+							store:dispatch(PromptNativeUpsell(product.providerId, product.id, product.robuxAmount))
+						end, function()
+							-- No upsell item will provide sufficient funds to make this purchase
+							store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
+						end)
 				end
 			else
 				return store:dispatch(ErrorOccurred(failureReason))

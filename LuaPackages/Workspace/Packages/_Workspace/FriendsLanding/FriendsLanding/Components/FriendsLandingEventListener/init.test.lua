@@ -15,6 +15,8 @@ local expect = JestGlobals.expect
 local it = JestGlobals.it
 local jest = JestGlobals.jest
 
+local getFFlagFriendsLandingLuaPageLoadEvent = require(FriendsLanding.Flags.getFFlagFriendsLandingLuaPageLoadEvent)
+
 local FriendsLandingEventListener = require(script.Parent)
 
 type Events = {
@@ -30,6 +32,7 @@ describe("FriendsLandingEventListener", function()
 		mockSetFilterKeys = jest.fn().mockName("filterKeys")
 		mockAnalytics = {
 			pageLoaded = jest.fn(),
+			pageLoadedWithArgs = if getFFlagFriendsLandingLuaPageLoadEvent() then jest.fn() else nil,
 		}
 	end)
 
@@ -52,6 +55,10 @@ describe("FriendsLandingEventListener", function()
 			expect(mockRefreshPage).toHaveBeenCalledTimes(1)
 			expect(mockAnalytics.pageLoaded).toHaveBeenCalledTimes(1)
 			expect(mockAnalytics.pageLoaded).toHaveBeenCalledWith(mockAnalytics)
+			if getFFlagFriendsLandingLuaPageLoadEvent() then
+				expect(mockAnalytics.pageLoadedWithArgs).toHaveBeenCalledTimes(1)
+				expect(mockAnalytics.pageLoadedWithArgs).toHaveBeenCalledWith(mockAnalytics, "friendsLanding", {})
+			end
 			expect(mockSetFilterKeys).toHaveBeenCalledTimes(1)
 			expect(mockSetFilterKeys).toHaveBeenCalledWith(filterStates.All)
 			cleanup()
@@ -81,6 +88,10 @@ describe("FriendsLandingEventListener", function()
 			expect(mockRefreshPage).toHaveBeenCalledTimes(1)
 			expect(mockAnalytics.pageLoaded).toHaveBeenCalledTimes(1)
 			expect(mockAnalytics.pageLoaded).toHaveBeenCalledWith(mockAnalytics)
+			if getFFlagFriendsLandingLuaPageLoadEvent() then
+				expect(mockAnalytics.pageLoadedWithArgs).toHaveBeenCalledTimes(1)
+				expect(mockAnalytics.pageLoadedWithArgs).toHaveBeenCalledWith(mockAnalytics, "friendsLanding", {})
+			end
 			expect(mockSetFilterKeys).toHaveBeenCalledTimes(1)
 			expect(mockSetFilterKeys).toHaveBeenCalledWith(filterStates.All)
 			cleanup()
@@ -171,12 +182,19 @@ describe("FriendsLandingEventListener", function()
 			mockRefreshPage.mockReset()
 			mockSetFilterKeys.mockReset()
 			mockAnalytics.pageLoaded.mockReset()
+			if getFFlagFriendsLandingLuaPageLoadEvent() then
+				mockAnalytics.pageLoadedWithArgs.mockReset()
+			end
 
 			fireEvents.onDidFocus()
 
 			expect(mockRefreshPage).toHaveBeenCalledTimes(1)
 			expect(mockAnalytics.pageLoaded).toHaveBeenCalledTimes(1)
 			expect(mockAnalytics.pageLoaded).toHaveBeenCalledWith(mockAnalytics)
+			if getFFlagFriendsLandingLuaPageLoadEvent() then
+				expect(mockAnalytics.pageLoadedWithArgs).toHaveBeenCalledTimes(1)
+				expect(mockAnalytics.pageLoadedWithArgs).toHaveBeenCalledWith(mockAnalytics, "friendsLanding", {})
+			end
 			expect(mockSetFilterKeys).toHaveBeenCalledTimes(1)
 			expect(mockSetFilterKeys).toHaveBeenCalledWith(filterStates.All)
 
@@ -205,6 +223,9 @@ describe("FriendsLandingEventListener", function()
 			mockRefreshPage.mockReset()
 			mockSetFilterKeys.mockReset()
 			mockAnalytics.pageLoaded.mockReset()
+			if getFFlagFriendsLandingLuaPageLoadEvent() then
+				mockAnalytics.pageLoadedWithArgs.mockReset()
+			end
 			fireEvents.onDidBlur()
 
 			expect(mockSetFilterKeys).toHaveBeenCalledTimes(1)
@@ -212,6 +233,9 @@ describe("FriendsLandingEventListener", function()
 
 			expect(mockRefreshPage).never.toHaveBeenCalled()
 			expect(mockAnalytics.pageLoaded).never.toHaveBeenCalled()
+			if getFFlagFriendsLandingLuaPageLoadEvent() then
+				expect(mockAnalytics.pageLoadedWithArgs).never.toHaveBeenCalled()
+			end
 			cleanup()
 		end)
 	end)

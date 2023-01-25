@@ -17,89 +17,86 @@ return function()
 	local MockExternalSettings = require(Root.Test.MockExternalSettings)
 	local Thunk = require(Root.Thunk)
 
-	local GetFFlagPurchasePromptAnalytics = require(Root.Flags.GetFFlagPurchasePromptAnalytics)
 
 	local sendCounter = require(script.Parent.sendCounter)
 
-	if GetFFlagPurchasePromptAnalytics() then
-		it("Should send correct counters with all relevant data", function()
-			local store = Rodux.Store.new(Reducer, {
-				purchaseFlow = MockStore.getMockPurchaseFlow(),
-				nativeUpsell = MockStore.getMockNativeUpsell(),
-			})
+	it("Should send correct counters with all relevant data", function()
+		local store = Rodux.Store.new(Reducer, {
+			purchaseFlow = MockStore.getMockPurchaseFlow(),
+			nativeUpsell = MockStore.getMockNativeUpsell(),
+		})
 
-			local thunk = sendCounter(Counter.Success)
-			local network = MockNetwork.new()
-			local analytics = MockAnalytics.new()
-			local externalSettings = MockExternalSettings.new(true, false, {}, Enum.Platform.Windows)
+		local thunk = sendCounter(Counter.Success)
+		local network = MockNetwork.new()
+		local analytics = MockAnalytics.new()
+		local externalSettings = MockExternalSettings.new(true, false, {}, Enum.Platform.Windows)
 
-			Thunk.test(thunk, store, {
-				[Analytics] = analytics.mockService,
-				[Network] = network,
-				[ExternalSettings] = externalSettings,
-			})
+		Thunk.test(thunk, store, {
+			[Analytics] = analytics.mockService,
+			[Network] = network,
+			[ExternalSettings] = externalSettings,
+		})
 
-			local state = store:getState()
-			expect(analytics.spies.sendCounter.callCount).to.equal(2)
-		end)
+		local state = store:getState()
+		expect(analytics.spies.sendCounter.callCount).to.equal(2)
+	end)
 
-		it("Should send correct counters when missing purchaseFlow", function()
-			local store = Rodux.Store.new(Reducer, {
-				nativeUpsell = MockStore.getMockNativeUpsell(),
-			})
+	it("Should send correct counters when missing purchaseFlow", function()
+		local store = Rodux.Store.new(Reducer, {
+			nativeUpsell = MockStore.getMockNativeUpsell(),
+		})
 
-			local thunk = sendCounter(Counter.Success)
-			local network = MockNetwork.new()
-			local analytics = MockAnalytics.new()
-			local externalSettings = MockExternalSettings.new(true, false, {}, Enum.Platform.Windows)
+		local thunk = sendCounter(Counter.Success)
+		local network = MockNetwork.new()
+		local analytics = MockAnalytics.new()
+		local externalSettings = MockExternalSettings.new(true, false, {}, Enum.Platform.Windows)
 
-			Thunk.test(thunk, store, {
-				[Analytics] = analytics.mockService,
-				[Network] = network,
-				[ExternalSettings] = externalSettings,
-			})
+		Thunk.test(thunk, store, {
+			[Analytics] = analytics.mockService,
+			[Network] = network,
+			[ExternalSettings] = externalSettings,
+		})
 
-			local state = store:getState()
-			expect(analytics.spies.sendCounter.callCount).to.equal(2)
-		end)
+		local state = store:getState()
+		expect(analytics.spies.sendCounter.callCount).to.equal(2)
+	end)
 
-		it("Should send correct counters when missing nativeUpsell", function()
-			local store = Rodux.Store.new(Reducer, {
-				purchaseFlow = MockStore.getMockPurchaseFlow(),
-			})
+	it("Should send correct counters when missing nativeUpsell", function()
+		local store = Rodux.Store.new(Reducer, {
+			purchaseFlow = MockStore.getMockPurchaseFlow(),
+		})
 
-			local thunk = sendCounter(Counter.Success)
-			local network = MockNetwork.new()
-			local analytics = MockAnalytics.new()
-			local externalSettings = MockExternalSettings.new(true, false, {}, Enum.Platform.Windows)
+		local thunk = sendCounter(Counter.Success)
+		local network = MockNetwork.new()
+		local analytics = MockAnalytics.new()
+		local externalSettings = MockExternalSettings.new(true, false, {}, Enum.Platform.Windows)
 
-			Thunk.test(thunk, store, {
-				[Analytics] = analytics.mockService,
-				[Network] = network,
-				[ExternalSettings] = externalSettings,
-			})
+		Thunk.test(thunk, store, {
+			[Analytics] = analytics.mockService,
+			[Network] = network,
+			[ExternalSettings] = externalSettings,
+		})
 
-			local state = store:getState()
-			expect(analytics.spies.sendCounter.callCount).to.equal(1)
-		end)
+		local state = store:getState()
+		expect(analytics.spies.sendCounter.callCount).to.equal(1)
+	end)
 
-		it("Should send correct counters when missing purchaseFlow and nativeUpsell", function()
-			local store = Rodux.Store.new(Reducer, {
-			})
+	it("Should send correct counters when missing purchaseFlow and nativeUpsell", function()
+		local store = Rodux.Store.new(Reducer, {
+		})
 
-			local thunk = sendCounter(Counter.Success)
-			local network = MockNetwork.new()
-			local analytics = MockAnalytics.new()
-			local externalSettings = MockExternalSettings.new(true, false, {}, Enum.Platform.Windows)
+		local thunk = sendCounter(Counter.Success)
+		local network = MockNetwork.new()
+		local analytics = MockAnalytics.new()
+		local externalSettings = MockExternalSettings.new(true, false, {}, Enum.Platform.Windows)
 
-			Thunk.test(thunk, store, {
-				[Analytics] = analytics.mockService,
-				[Network] = network,
-				[ExternalSettings] = externalSettings,
-			})
+		Thunk.test(thunk, store, {
+			[Analytics] = analytics.mockService,
+			[Network] = network,
+			[ExternalSettings] = externalSettings,
+		})
 
-			local state = store:getState()
-			expect(analytics.spies.sendCounter.callCount).to.equal(1)
-		end)
-	end
+		local state = store:getState()
+		expect(analytics.spies.sendCounter.callCount).to.equal(1)
+	end)
 end

@@ -7,10 +7,12 @@ local UIBlox = dependencies.UIBlox
 local Images = UIBlox.App.ImageSet.Images
 local EnumPresenceType = dependencies.RoduxPresence.Enums.PresenceType
 local ContactImporterConstants = dependencies.ContactImporterConstants
+local FriendshipOriginSourceType = dependencies.NetworkingFriendsEnums.FriendshipOriginSourceType
 
 local getFFlagContactNameOnFriendRequestEnabled =
 	require(FriendsLanding.Flags.getFFlagContactNameOnFriendRequestEnabled)
-local getFFlagAddFriendsContextInfoStyling = require(FriendsLanding.Flags.getFFlagAddFriendsContextInfoStyling)
+local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
+	dependencies.getFFlagProfileQRCodeFriendRequestContextInfoEnabled
 
 local RelevanceInfoProps = t.strictInterface({
 	-- Mutual friend list between myself and the current player.
@@ -40,54 +42,51 @@ return function(props, style, localized)
 		-- to show the info with the order below:
 		--  0. Have Contact in Phone
 		--  1. From Contacts
-		--  2. Mutual Friends
-		--  3. Sent from X experience
-		--  4. You are following
-		--  5. Following you
+		--  2. From the local user's profile QR code
+		--  3. Mutual Friends
+		--  4. Sent from X experience
+		--  5. You are following
+		--  6. Following you
 
 		if getFFlagContactNameOnFriendRequestEnabled() and localized.contactNameText then
 			return {
 				text = localized.contactNameText,
-				fontStyle = if getFFlagAddFriendsContextInfoStyling()
-					then style.Font.CaptionBody
-					else style.Font.CaptionHeader,
+				fontStyle = style.Font.CaptionBody,
 			}
 		elseif props.originSourceType == ContactImporterConstants.PHONE_CONTACT_IMPORTER then
 			return {
 				text = localized.fromContactsText,
-				fontStyle = if getFFlagAddFriendsContextInfoStyling()
-					then style.Font.CaptionBody
-					else style.Font.CaptionHeader,
+				fontStyle = style.Font.CaptionBody,
+			}
+		elseif
+			getFFlagProfileQRCodeFriendRequestContextInfoEnabled()
+			and props.originSourceType == FriendshipOriginSourceType.QrCode.rawValue()
+		then
+			return {
+				text = localized.foundThroughQRCode,
+				fontStyle = style.Font.CaptionBody,
 			}
 		elseif hasMutualFriends(props.mutualFriends) then
 			return {
 				text = ("%d %s"):format(#props.mutualFriends, string.lower(localized.mutualFriendsText)),
-				fontStyle = if getFFlagAddFriendsContextInfoStyling()
-					then style.Font.CaptionBody
-					else style.Font.CaptionHeader,
+				fontStyle = style.Font.CaptionBody,
 				icon = Images["icons/status/player/friend"],
 			}
 		elseif props.sentFromExperienceName ~= nil then
 			return {
 				text = localized.sentFromWithContextText,
-				fontStyle = if getFFlagAddFriendsContextInfoStyling()
-					then style.Font.CaptionBody
-					else style.Font.CaptionHeader,
+				fontStyle = style.Font.CaptionBody,
 			}
 		elseif props.amIFollowingUser then
 			return {
 				text = localized.youAreFollowingText,
-				fontStyle = if getFFlagAddFriendsContextInfoStyling()
-					then style.Font.CaptionBody
-					else style.Font.CaptionHeader,
+				fontStyle = style.Font.CaptionBody,
 				icon = Images["icons/status/player/following"],
 			}
 		elseif props.isUserFollowingMe then
 			return {
 				text = localized.followsYouText,
-				fontStyle = if getFFlagAddFriendsContextInfoStyling()
-					then style.Font.CaptionBody
-					else style.Font.CaptionHeader,
+				fontStyle = style.Font.CaptionBody,
 				icon = Images["icons/status/player/following"],
 			}
 		else
@@ -97,9 +96,7 @@ return function(props, style, localized)
 		return props.lastLocation
 				and {
 					text = props.lastLocation,
-					fontStyle = if getFFlagAddFriendsContextInfoStyling()
-						then style.Font.CaptionBody
-						else style.Font.CaptionHeader,
+					fontStyle = style.Font.CaptionBody,
 					icon = Images["icons/actions/friends/friendsplaying"],
 					iconTransparency = style.Theme.BackgroundUIDefault.Transparency,
 					iconSize = UDim2.new(0, 24, 0, 24),

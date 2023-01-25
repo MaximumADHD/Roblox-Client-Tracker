@@ -10,7 +10,6 @@ local HttpService = game:GetService("HttpService")
 local getPaymentPlatform = require(Root.Utils.getPaymentPlatform)
 
 local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
-local GetFFlagEnableAmazonInGameUpsell = require(Root.Flags.GetFFlagEnableAmazonInGameUpsell)
 
 local FFlagPPExpandedAnalyticPlatforms = game:DefineFastFlag("PPExpandedAnalyticPlatforms", false)
 
@@ -40,13 +39,9 @@ function Analytics.new()
 			elseif platform == Enum.Platform.IOS then
 				platformStr = "IOS"
 			elseif platform == Enum.Platform.Android then
-				if GetFFlagEnableAmazonInGameUpsell() then
-					local useragent = HttpService:GetUserAgent()
-					if string.find(useragent, "AmazonAppStore") then
-						platformStr = "Amazon"
-					else
-						platformStr = "Android"
-					end
+				local useragent = HttpService:GetUserAgent()
+				if string.find(useragent, "AmazonAppStore") then
+					platformStr = "Amazon"
 				else
 					platformStr = "Android"
 				end

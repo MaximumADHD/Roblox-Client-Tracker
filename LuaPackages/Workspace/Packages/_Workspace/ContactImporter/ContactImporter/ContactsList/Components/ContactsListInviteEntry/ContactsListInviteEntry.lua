@@ -4,6 +4,8 @@ local dependencies = require(ContactImporter.dependencies)
 local Roact = dependencies.Roact
 local UIBlox = dependencies.UIBlox
 
+local React = dependencies.React
+
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 local TextKeys = require(ContactImporter.Common.TextKeys)
 local StandardButtonSize = UIBlox.App.Button.Enum.StandardButtonSize
@@ -22,6 +24,8 @@ local useLocalization = dependencies.useLocalization
 
 local getFFlagInvitesFlatListFixEnabled = require(ContactImporter.Flags.getFFlagInvitesFlatListFixEnabled)
 local getFFlagRemoveSentTextKey = require(ContactImporter.Flags.getFFlagRemoveSentTextKey)
+local getFFlagContactsListEntryUpdatedTruncationFix =
+	require(ContactImporter.Flags.getFFlagContactsListEntryUpdatedTruncationFix)
 
 local sendInviteLink = require(script.Parent.sendInviteLink)
 
@@ -55,6 +59,10 @@ function ContactsListInviteEntry(passedProps: Props)
 		smsProtocol = SMSProtocol.default,
 	})
 
+	local textToButtonPadding = 10
+
+	local offset, setOffset = React.useState(0)
+
 	return Roact.createElement("Frame", {
 		Name = props.deviceContactId,
 		Size = UDim2.new(1, 0, 0, CONTACTS_ENTRY_HEIGHT),
@@ -70,15 +78,29 @@ function ContactsListInviteEntry(passedProps: Props)
 				PaddingBottom = UDim.new(0, VERTICAL_TEXT_PADDING),
 			}),
 
-			contactNameLabel = Roact.createElement(StyledTextLabel, {
-				automaticSize = Enum.AutomaticSize.Y,
-				colorStyle = style.Theme.TextEmphasis,
-				fontStyle = style.Font.Header2,
-				lineHeight = 1,
-				text = props.contactName,
-				textXAlignment = Enum.TextXAlignment.Left,
-				textYAlignment = Enum.TextYAlignment.Bottom,
-			}),
+			contactNameLabel = if getFFlagContactsListEntryUpdatedTruncationFix()
+				then Roact.createElement(StyledTextLabel, {
+					size = UDim2.new(1, offset, 0, CONTEXTUAL_TEXT_HEIGHT),
+					colorStyle = style.Theme.TextEmphasis,
+					fontStyle = style.Font.Header2,
+					lineHeight = 1,
+					text = props.contactName,
+					fluidSizing = false,
+					richText = false,
+					textWrapped = false,
+					textXAlignment = Enum.TextXAlignment.Left,
+					textYAlignment = Enum.TextYAlignment.Bottom,
+					textTruncate = Enum.TextTruncate.AtEnd,
+				})
+				else Roact.createElement(StyledTextLabel, {
+					automaticSize = Enum.AutomaticSize.Y,
+					colorStyle = style.Theme.TextEmphasis,
+					fontStyle = style.Font.Header2,
+					lineHeight = 1,
+					text = props.contactName,
+					textXAlignment = Enum.TextXAlignment.Left,
+					textYAlignment = Enum.TextYAlignment.Bottom,
+				}),
 
 			sendInviteButton = if not props.hasSentRequest
 				then Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
@@ -93,6 +115,11 @@ function ContactsListInviteEntry(passedProps: Props)
 					text = localized.invite,
 					isDisabled = linkNetworking.isLoading,
 					onActivated = linkNetworking.sendInvite,
+					[React.Change.AbsoluteSize] = function(rbx: any)
+						if getFFlagContactsListEntryUpdatedTruncationFix() then
+							setOffset(0 - (rbx.AbsoluteSize.X + textToButtonPadding))
+						end
+					end,
 				})
 				else Roact.createElement(UIBlox.App.Button.SecondaryButton, {
 					position = if getFFlagInvitesFlatListFixEnabled()
@@ -106,6 +133,11 @@ function ContactsListInviteEntry(passedProps: Props)
 						then nil
 						else UDim2.fromOffset(ADD_BUTTON_WIDTH, ADD_BUTTON_HEIGHT),
 					onActivated = Dash.noop,
+					[React.Change.AbsoluteSize] = function(rbx: any)
+						if getFFlagContactsListEntryUpdatedTruncationFix() then
+							setOffset(0 - (rbx.AbsoluteSize.X + textToButtonPadding))
+						end
+					end,
 				}),
 		}),
 

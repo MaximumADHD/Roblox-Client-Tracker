@@ -13,6 +13,8 @@ local useLocalization = RoactUtils.Hooks.useLocalization
 local ROOT_PADDING = 24
 local GRADIENT_ROTATION = 90
 local TOP_BAR_PADDING = -56
+-- We have a hardcoded white here as for gradients to work, you need a full white background. This colour will not show.
+local BACKGROUND_FOR_GRADIENT = Color3.new(1, 1, 1)
 
 export type Props = {
 	onClose: () -> (),
@@ -25,14 +27,16 @@ local ProfileQRCodePage = function(props: Props)
 	local style = useStyle()
 
 	return React.createElement("Frame", {
-		BackgroundColor3 = style.Theme.BackgroundUIContrast.Color,
-		BackgroundTransparency = style.Theme.BackgroundUIContrast.Transparency,
+		BackgroundColor3 = BACKGROUND_FOR_GRADIENT,
+		BackgroundTransparency = 0,
+		ZIndex = 2,
 		Size = UDim2.new(1, 0, 1, 0),
 		BorderSizePixel = 0,
 	}, {
 		Gradient = React.createElement("Frame", {
-			BackgroundColor3 = style.Theme.BackgroundContrast.Color,
-			BackgroundTransparency = style.Theme.BackgroundContrast.Transparency,
+			BackgroundColor3 = BACKGROUND_FOR_GRADIENT,
+			BackgroundTransparency = 0,
+			ZIndex = 2,
 			Size = UDim2.new(1, 0, 1, 0),
 			BorderSizePixel = 0,
 		}, {
@@ -78,11 +82,12 @@ local ProfileQRCodePage = function(props: Props)
 				Description = React.createElement(StyledTextLabel, {
 					layoutOrder = 3,
 					text = localized.description,
-					fontStyle = style.Font.CaptionHeader,
-					colorStyle = style.Theme.TextEmphasis,
+					fontStyle = style.Font.Body,
+					lineHeight = 1,
+					colorStyle = style.Theme.TextDefault,
 					size = UDim2.new(1, 0, 0, 0),
 					automaticSize = Enum.AutomaticSize.Y,
-					textXAlignment = Enum.TextXAlignment.Left,
+					textXAlignment = Enum.TextXAlignment.Center,
 					textYAlignment = Enum.TextYAlignment.Center,
 					fluidSizing = false,
 					richText = false,
@@ -90,9 +95,13 @@ local ProfileQRCodePage = function(props: Props)
 			}),
 			Gradient = React.createElement("UIGradient", {
 				Rotation = GRADIENT_ROTATION,
+				Color = ColorSequence.new({
+					ColorSequenceKeypoint.new(0, style.Theme.BackgroundContrast.Color),
+					ColorSequenceKeypoint.new(1, style.Theme.BackgroundContrast.Color),
+				}),
 				Transparency = NumberSequence.new({
-					NumberSequenceKeypoint.new(0, 0),
-					NumberSequenceKeypoint.new(1, 1),
+					NumberSequenceKeypoint.new(0, 0.4),
+					NumberSequenceKeypoint.new(1, 0),
 				}),
 			}),
 		}),

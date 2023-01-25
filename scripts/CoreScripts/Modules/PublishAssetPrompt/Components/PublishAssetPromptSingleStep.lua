@@ -9,10 +9,13 @@
 		- Cancel and Submit buttons.
 ]]
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local UIBlox = require(CorePackages.UIBlox)
 local withStyle = UIBlox.Style.withStyle
@@ -30,6 +33,28 @@ local MINIMUM_MIDDLE_SIZE_PIXELS = 200
 local LABEL_HEIGHT = 15
 local LABEL_TEXT_SIZE = 12
 local DISCLAIMER_TEXT_SIZE = 12
+
+local NAME_TEXT = "name"
+local DESCRIPTION_TEXT = "description"
+local INVALID_NAME_TEXT = "invalidName"
+local INVALID_DESCRIPTION_TEXT = "invalidDescription"
+local TITLE_TEXT = "title"
+local DISCLAIMER_TEXT = "disclaimer"
+local CANCEL_TEXT = "cancel"
+local SUBMIT_TEXT = "submit"
+
+local LayeredAssetTypes = {
+	[Enum.AssetType.TShirtAccessory] = true,
+	[Enum.AssetType.ShirtAccessory] = true,
+	[Enum.AssetType.PantsAccessory] = true,
+	[Enum.AssetType.JacketAccessory] = true,
+	[Enum.AssetType.SweaterAccessory] = true,
+	[Enum.AssetType.ShortsAccessory] = true,
+	[Enum.AssetType.LeftShoeAccessory] = true,
+	[Enum.AssetType.RightShoeAccessory] = true,
+	[Enum.AssetType.DressSkirtAccessory] = true,
+	[Enum.AssetType.HairAccessory] = true,
+}
 
 local PublishAssetPromptSingleStep = Roact.PureComponent:extend("PublishAssetPromptSingleStep")
 
@@ -92,7 +117,7 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 					NameLabel = Roact.createElement("TextLabel", {
 						Size = UDim2.new(1, 0, 0, LABEL_HEIGHT),
 						Font = font.Body.Font,
-						Text = localized.nameText,
+						Text = localized[NAME_TEXT],
 						TextSize = LABEL_TEXT_SIZE,
 						TextColor3 = theme.TextDefault.Color,
 						BackgroundTransparency = 1,
@@ -110,7 +135,7 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 						Position = UDim2.new(0, 0, 0, 60),
 						Font = font.Body.Font,
 						TextSize = LABEL_TEXT_SIZE,
-						Text = localized.descriptionText,
+						Text = localized[DESCRIPTION_TEXT],
 						TextColor3 = theme.TextDefault.Color,
 						BackgroundTransparency = 1,
 						TextXAlignment = Enum.TextXAlignment.Left,
@@ -125,7 +150,7 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 			}),
 			Disclaimer = Roact.createElement("TextLabel", {
 				Size = UDim2.new(1, 0, 0, DISCLAIMER_HEIGHT_PIXELS),
-				Text = localized.disclaimerText,
+				Text = localized[DISCLAIMER_TEXT],
 				Font = font.Body.Font,
 				TextSize = DISCLAIMER_TEXT_SIZE,
 				TextColor3 = theme.TextEmphasis.Color,
@@ -140,14 +165,13 @@ end
 
 function PublishAssetPromptSingleStep:renderAlertLocalized(localized)
 	return Roact.createElement(InteractiveAlert, {
-		title = localized.titleText,
-		bodyText = localized.messageText,
+		title = localized[TITLE_TEXT],
 		buttonStackInfo = {
 			buttons = {
 				{
 					props = {
 						onActivated = self.closePrompt,
-						text = localized.cancelButtonText,
+						text = localized[CANCEL_TEXT],
 					},
 					isDefaultChild = true,
 				},
@@ -155,7 +179,7 @@ function PublishAssetPromptSingleStep:renderAlertLocalized(localized)
 					buttonType = ButtonType.PrimarySystem,
 					props = {
 						onActivated = self.confirmAndUpload,
-						text = localized.submitButtonText,
+						text = localized[SUBMIT_TEXT],
 					},
 					isDefaultChild = false,
 				},
@@ -169,18 +193,45 @@ function PublishAssetPromptSingleStep:renderAlertLocalized(localized)
 	})
 end
 
-function PublishAssetPromptSingleStep:render()
-	local localized = {
-		-- TODO: localize using different strings based on AssetType
-		-- EG: titleText = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.TitleTextClothing"),
-		titleText = "Submit Clothing",
-		disclaimerText = "I agree that this experience will submit my avatar item to moderation and upload to My Creations.",
-		nameText = "Name",
-		descriptionText = "Description",
-		submitButtonText = "Submit",
-		cancelButtonText = "Cancel",
-	}
+local function IsLayeredClothingType(assetType)
+	if LayeredAssetTypes[assetType] == true then
+		return true
+	end
 
+	return false
+end
+
+local function GetLocalizedStringsForAssetType(assetType)
+	local strings = {}
+	strings[NAME_TEXT] = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.Name")
+	strings[DESCRIPTION_TEXT] = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.Description")
+	strings[INVALID_NAME_TEXT] = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.InvalidName")
+	strings[INVALID_DESCRIPTION_TEXT] =
+		RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.InvalidDescription")
+	strings[CANCEL_TEXT] = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.Cancel")
+	strings[SUBMIT_TEXT] = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.Submit")
+
+	local isLayeredClothingAssetType = IsLayeredClothingType(assetType)
+
+	if isLayeredClothingAssetType then
+		strings[TITLE_TEXT] = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.TitleTextClothing")
+		strings[DISCLAIMER_TEXT] = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.DisclaimerAvatar")
+	elseif assetType == Enum.AssetType.EmoteAnimation then
+		strings[TITLE_TEXT] = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.TitleTextEmote")
+		strings[DISCLAIMER_TEXT] = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.DisclaimerEmote")
+	elseif assetType == Enum.AssetType.Model then
+		strings[TITLE_TEXT] = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.TitleTextModel")
+		strings[DISCLAIMER_TEXT] = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.DisclaimerModel")
+	elseif assetType == Enum.AssetType.Package then
+		strings[TITLE_TEXT] = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.TitleTextPackage")
+		strings[DISCLAIMER_TEXT] = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.DisclaimerModel")
+	end
+
+	return strings
+end
+
+function PublishAssetPromptSingleStep:render()
+	local localized = GetLocalizedStringsForAssetType(self.props.assetType)
 	return self:renderAlertLocalized(localized)
 end
 

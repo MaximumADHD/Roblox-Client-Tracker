@@ -11,10 +11,8 @@ local getFFlagLuaProfileShareWithDesktopPolicy = SharedFlags.getFFlagLuaProfileS
 local GetFFlagEnableSwapToSourceButton = SharedFlags.GetFFlagEnableSwapToSourceButton
 local FFlagDesktopLaunchLinksInExternalBrowser = SharedFlags.FFlagDesktopLaunchLinksInExternalBrowser
 local GetFFlagLuaAppUseOmniRecDefaultPolicy = SharedFlags.GetFFlagLuaAppUseOmniRecDefaultPolicy
-local GetFFlagRoundedCornersVR = SharedFlags.GetFFlagRoundedCornersVR
-local GetFFlagDisableWebviewsVR = SharedFlags.GetFFlagDisableWebviewsVR
+local GetFFlagEnableTopBarVRPolicyOverride = SharedFlags.GetFFlagEnableTopBarVRPolicyOverride
 local isRunningInStudio = require(Packages.AppCommonLib).isRunningInStudio
-local GetFFlagAvatarEditorMaquettes = SharedFlags.GetFFlagAvatarEditorMaquettes
 local GetFFlagUseVoiceExitBetaLanguage = SharedFlags.GetFFlagUseVoiceExitBetaLanguage
 
 local FFlagUseGUACforDUARPolicy = game:DefineFastFlag("UseGUACforDUARPolicy", false)
@@ -331,7 +329,13 @@ local function AppFeaturePolicies(policy): any
 			return policy.UseTileBackgrounds or false
 		end,
 		getShouldSystemBarUsuallyBePresent = function()
-			return policy.ShouldSystemBarUsuallyBePresent or false
+			-- Use a special policy to override VR behavior for now since we won't have VR platform targeting working
+			-- until QuestVR useragent is deployed.
+			if GetFFlagEnableTopBarVRPolicyOverride() and IsVRAppBuild() then
+				return getVRDefaultPolicy("ShouldSystemBarUsuallyBePresentForVR", --[[VRdefault=]] true)
+			else
+				return policy.ShouldSystemBarUsuallyBePresent or false
+			end
 		end,
 		getContactImporterEnabled = function()
 			-- non-desktop and 13+
@@ -349,7 +353,7 @@ local function AppFeaturePolicies(policy): any
 		end,
 		getWebViewSupport = function()
 			-- disable webviews in Studio
-			if GetFFlagDisableWebviewsVR() and isRunningInStudio() then
+			if isRunningInStudio() then
 				return false
 			end
 			return getVRDefaultPolicy("EnableWebViewSupport", false)
@@ -358,10 +362,8 @@ local function AppFeaturePolicies(policy): any
 			return getVRDefaultPolicy("ThrottleFramerate", false)
 		end,
 		getUseRoundedCorners = function()
-			if GetFFlagRoundedCornersVR() then
-				if IsVRAppBuild() then
-					return getVRDefaultPolicy("UseRoundedCorners", true)
-				end
+			if IsVRAppBuild() then
+				return getVRDefaultPolicy("UseRoundedCorners", true)
 			end
 
 			return false
@@ -373,11 +375,7 @@ local function AppFeaturePolicies(policy): any
 			return false
 		end,
 		getAllowCameraMovements = function()
-			if GetFFlagAvatarEditorMaquettes() then
-				return getVRDefaultPolicy("AllowCameraMovements", false)
-			end
-
-			return true
+			return getVRDefaultPolicy("AllowCameraMovements", false)
 		end,
 	}
 end

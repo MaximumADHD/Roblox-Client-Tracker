@@ -1,5 +1,5 @@
-game:DefineFastFlag("BubbleChatAddCamera", false)
+game:DefineFastFlag("BubbleChatAddCamera2", false)
 
 return function()
-	return game:GetFastFlag("BubbleChatAddCamera")
+	return game:GetFastFlag("BubbleChatAddCamera2")
 end

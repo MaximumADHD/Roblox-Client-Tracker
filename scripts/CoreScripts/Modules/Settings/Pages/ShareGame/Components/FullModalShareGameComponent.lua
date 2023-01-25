@@ -1,9 +1,13 @@
+local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
+local Modules = CoreGui.RobloxGui.Modules
 local ShareGameComponents = script.Parent
+
+local GetFFlagExtraInviteModalStringValidation = require(Modules.Flags.GetFFlagExtraInviteModalStringValidation)
 
 local ShareGameContainer = require(ShareGameComponents.ShareGameContainer)
 local ModalShareGamePageFrame = require(ShareGameComponents.ModalShareGamePageFrame)
@@ -23,6 +27,16 @@ function FullModalShareGameComponent:render()
 	local inviteMessageId = self.props.inviteMessageId
 	local launchData = self.props.launchData
 	local isLoading = self.props.isLoading
+
+	if GetFFlagExtraInviteModalStringValidation() and promptMessage then
+		if not inviteUserId then
+			-- Mutli invite prompt only supports one line of text
+			promptMessage = promptMessage:gsub("\n", " ")
+		end
+		if promptMessage:gsub("%s", "") == "" then
+			promptMessage = nil
+		end
+	end
 
 	return Roact.createElement(RoactRodux.StoreProvider, {
 		store = store,

@@ -45,8 +45,6 @@ local EmotesMenu = Roact.PureComponent:extend("EmotesMenu")
 
 local KEYBINDS_PRIORITY = Enum.ContextActionPriority.High.Value
 
-local FFlagEmotesSelectedCoreObjectError = game:DefineFastFlag("EmotesSelectedCoreObjectError", false)
-
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 
 function EmotesMenu:init()
@@ -145,14 +143,14 @@ end
 function EmotesMenu:resetSelectedObject()
 	if GuiService.SelectedCoreObject == nil then
 		-- We want to reset the selected object if the saved version is either nil or a descendant of CoreGui
-		local isValid = (not FFlagEmotesSelectedCoreObjectError or self.savedSelectedCoreObject == nil or self.savedSelectedCoreObject:IsDescendantOf(CoreGui))
+		local isValid = (self.savedSelectedCoreObject == nil or self.savedSelectedCoreObject:IsDescendantOf(CoreGui))
 		if isValid then
 			GuiService.SelectedCoreObject = self.savedSelectedCoreObject
 		end
 	end
 	if GuiService.SelectedObject == nil then
 		-- We want to reset the selected object if the saved version is either nil or a descendant of PlayerGui
-		local isValid = (not FFlagEmotesSelectedCoreObjectError or self.savedSelectedObject == nil or self.savedSelectedObject:IsDescendantOf(PlayerGui))
+		local isValid = (self.savedSelectedObject == nil or self.savedSelectedObject:IsDescendantOf(PlayerGui))
 		if isValid then
 			GuiService.SelectedObject = self.savedSelectedObject
 		end

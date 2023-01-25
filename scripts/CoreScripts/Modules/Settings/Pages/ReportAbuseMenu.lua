@@ -41,7 +41,6 @@ local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.
 local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
 local GetFFlagVoiceARCantSelectVoiceAfterTextFix = require(RobloxGui.Modules.Flags.GetFFlagVoiceARCantSelectVoiceAfterTextFix)
 local GetFFlagHideMOAOnExperience = require(RobloxGui.Modules.Flags.GetFFlagHideMOAOnExperience)
-local GetFFlagShowVerifiedBadgeInReportMenu = require(RobloxGui.Modules.Settings.Flags.GetFFlagShowVerifiedBadgeInReportMenu)
 local GetFFlagAddVoiceTagsToAllARSubmissionsEnabled = require(RobloxGui.Modules.Flags.GetFFlagAddVoiceTagsToAllARSubmissionsEnabled)
 local GetFFlagVoiceARDropdownFix = require(RobloxGui.Modules.Flags.GetFFlagVoiceARDropdownFix)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
@@ -157,7 +156,7 @@ local function Initialize()
 	end
 
 	function this:GetPlayerNameText(player)
-		if GetFFlagShowVerifiedBadgeInReportMenu() and VerifiedBadges.isPlayerVerified(player) then
+		if VerifiedBadges.isPlayerVerified(player) then
 			return player.DisplayName .. VerifiedBadges.emoji.verified .. "  [@" .. player.Name .. "]"
 		else
 			return player.DisplayName .. " [@" .. player.Name .. "]"

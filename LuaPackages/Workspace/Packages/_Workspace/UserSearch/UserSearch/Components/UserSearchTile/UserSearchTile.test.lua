@@ -1,14 +1,17 @@
 local UserSearch = script:FindFirstAncestor("UserSearch")
 local Packages = UserSearch.Parent
+
 local JestGlobals = require(Packages.Dev.JestGlobals)
-local SocialTestHelpers = require(Packages.Dev.SocialTestHelpers).TestHelpers
-local RhodiumHelpers = require(Packages.Dev.RhodiumHelpers)
 local expect = JestGlobals.expect
 local describe = JestGlobals.describe
 local it = JestGlobals.it
+local jest = JestGlobals.jest
 
+local RhodiumHelpers = require(Packages.Dev.RhodiumHelpers)
+local SocialTestHelpers = require(Packages.Dev.SocialTestHelpers).TestHelpers
 local createTreeWithProviders = SocialTestHelpers.createTreeWithProviders
 local runWhileMounted = SocialTestHelpers.runWhileMounted
+local findImageSet = SocialTestHelpers.findImageSet
 local mockedUsersInfo = require(UserSearch.TestHelpers.mockedUsersInfo)
 
 local UserSearchTileStories = require(UserSearch.Stories.UserSearchTileStories)
@@ -44,6 +47,30 @@ describe("UserSearchTile", function()
 					expect(PlayerAvatar).never.toBeNil()
 					expect(Subtitle).never.toBeNil()
 					expect(PlayerAvatar).toBeAbove(Subtitle)
+				end)
+			end)
+
+			it("SHOULD call navigateToUserInfo on tile click " .. UserType, function()
+				local navigateToUserInfoSpy = jest.fn()
+				local UserTileComponent = createTreeWithProviders(UserSearchTileStories[UserType], {
+					state = mockedUsersInfo.state,
+					props = {
+						luaAppNavigation = {
+							navigateToUserInfo = navigateToUserInfoSpy,
+						},
+					},
+				})
+
+				runWhileMounted(UserTileComponent, function(parent)
+					expect(#parent:GetChildren()).toBe(1)
+
+					local PlayerAvatar = RhodiumHelpers.findFirstInstance(parent, {
+						Name = "Thumbnail",
+					})
+
+					expect(PlayerAvatar).never.toBeNil()
+					RhodiumHelpers.clickInstance(PlayerAvatar)
+					expect(navigateToUserInfoSpy).toHaveBeenCalledTimes(1)
 				end)
 			end)
 		end
@@ -97,10 +124,18 @@ describe("UserSearchTile", function()
 	end)
 
 	describe("Button", function()
-		local runForAnyUserStory = function(UserType, button)
-			it("SHOULD (not) render buttons for " .. UserType, function()
+		local runForAnyUserStory = function(UserType, buttonIcon, onActivated)
+			it("SHOULD render correct button for " .. UserType, function()
+				local luaAppNetworkingRequests = {
+					acceptFriendRequest = jest.fn(),
+					requestFriendship = jest.fn(),
+				}
+
 				local UserTileComponent = createTreeWithProviders(UserSearchTileStories[UserType], {
 					state = mockedUsersInfo.state,
+					props = {
+						luaAppNetworkingRequests = luaAppNetworkingRequests,
+					},
 				})
 
 				runWhileMounted(UserTileComponent, function(parent)
@@ -109,29 +144,39 @@ describe("UserSearchTile", function()
 					local PlayerAvatar = RhodiumHelpers.findFirstInstance(parent, {
 						Name = "Thumbnail",
 					})
-					local PlayerTileButtons = RhodiumHelpers.findFirstInstance(parent, {
-						Name = "PlayerTileButtons",
-					})
-
 					expect(PlayerAvatar).never.toBeNil()
-					if button then
-						expect(#PlayerTileButtons:GetChildren()).toBe(2)
-						expect(PlayerTileButtons[2]).never.toBeNil()
-						expect(PlayerTileButtons).toBeInsideRightOf(PlayerAvatar)
+
+					local Button
+
+					if buttonIcon then
+						Button = RhodiumHelpers.findFirstInstance(parent, findImageSet(buttonIcon))
+					end
+
+					if buttonIcon then
+						expect(Button).never.toBeNil()
+						expect(Button).toBeInsideRightOf(PlayerAvatar)
+
+						if onActivated then
+							RhodiumHelpers.clickInstance(Button)
+							expect(luaAppNetworkingRequests[onActivated]).toHaveBeenCalledTimes(1)
+						end
 					else
-						expect(#PlayerTileButtons:GetChildren()).toBe(1)
+						expect(Button).toBeNil()
 					end
 				end)
 			end)
 		end
 
-		runForAnyUserStory("yourself", false)
-		runForAnyUserStory("friend", false)
+		local addFriendButtonIcon = "icons/actions/friends/friendAdd"
+		local pendingButtonIcon = "icons/actions/friends/friendpending"
 
-		runForAnyUserStory("following", true)
-		runForAnyUserStory("incomingFriendship", true)
-		runForAnyUserStory("outgoingFriendship", true)
-		runForAnyUserStory("random", true)
-		runForAnyUserStory("notFriend", true)
+		runForAnyUserStory("yourself", nil, nil)
+		runForAnyUserStory("friend", nil, nil)
+
+		runForAnyUserStory("following", addFriendButtonIcon, "requestFriendship")
+		runForAnyUserStory("incomingFriendship", addFriendButtonIcon, "acceptFriendRequest")
+		runForAnyUserStory("outgoingFriendship", pendingButtonIcon, nil)
+		runForAnyUserStory("random", addFriendButtonIcon, "requestFriendship")
+		runForAnyUserStory("notFriend", addFriendButtonIcon, "requestFriendship")
 	end)
 end)

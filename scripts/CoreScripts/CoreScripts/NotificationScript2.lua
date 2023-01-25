@@ -38,6 +38,7 @@ local success, result = pcall(function()
 end)
 local FFlagUseNotificationsLocalization = success and result
 local FFlagBadgeNotificationHttpFix = game:DefineFastFlag("BadgeNotificationHttpFix", false)
+local FFlagBadgeNotificationTextUIFixes = game:DefineFastFlag("BadgeNotificationTextUIFixes", false)
 
 local GetFixGraphicsQuality = require(RobloxGui.Modules.Flags.GetFixGraphicsQuality)
 local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
@@ -78,19 +79,26 @@ local SocialUtil = require(RobloxGui.Modules:WaitForChild("SocialUtil"))
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
-local BG_TRANSPARENCY = 0.7
+local BG_TRANSPARENCY = FFlagBadgeNotificationTextUIFixes and 0.6 or 0.7
 local MAX_NOTIFICATIONS = 3
+local IMAGE_SIZE = isTenFootInterface and 72 or 48
 
 local NOTIFICATION_Y_OFFSET = isTenFootInterface and 145 or 64
-local NOTIFICATION_TITLE_Y_OFFSET = isTenFootInterface and 40 or 12
-local NOTIFICATION_TEXT_Y_OFFSET = isTenFootInterface and -16 or 1
 local NOTIFICATION_FRAME_WIDTH = isTenFootInterface and 450 or 200
-local NOTIFICATION_TEXT_HEIGHT = isTenFootInterface and 85 or 28
-local NOTIFICATION_TEXT_HEIGHT_MAX = isTenFootInterface and 170 or 56
+local NOTIFICATION_PADDING = IMAGE_SIZE / 6.0
+
+local NOTIFICATION_TITLE_HEIGHT = isTenFootInterface and 42 or 18
+local NOTIFICATION_TITLE_HEIGHT_MAX = isTenFootInterface and 84 or 36
+local NOTIFICATION_TITLE_Y_OFFSET = FFlagBadgeNotificationTextUIFixes and -NOTIFICATION_TITLE_HEIGHT or (isTenFootInterface and 40 or 12)
 local NOTIFICATION_TITLE_FONT_SIZE = isTenFootInterface and Enum.FontSize.Size42 or Enum.FontSize.Size18
+
+local NOTIFICATION_TEXT_HEIGHT = isTenFootInterface and (FFlagBadgeNotificationTextUIFixes and 72 or 85) or 28
+local NOTIFICATION_TEXT_HEIGHT_MAX = isTenFootInterface and (FFlagBadgeNotificationTextUIFixes and 144 or 170) or 56
+local NOTIFICATION_TEXT_Y_OFFSET = isTenFootInterface and (FFlagBadgeNotificationTextUIFixes and 1 or -16) or 1
 local NOTIFICATION_TEXT_FONT_SIZE = isTenFootInterface and Enum.FontSize.Size36 or Enum.FontSize.Size14
 
-local IMAGE_SIZE = isTenFootInterface and 72 or 48
+local NOTIFICATION_BUTTON_HEIGHT = NOTIFICATION_Y_OFFSET / 2
+local NOTIFICATION_BUTTON_FONT_SIZE = isTenFootInterface and Enum.FontSize.Size42 or Enum.FontSize.Size18
 
 local EASE_DIR = Enum.EasingDirection.InOut
 local EASE_STYLE = Enum.EasingStyle.Sine
@@ -140,12 +148,15 @@ end
 local function createTextButton(name, position)
 	local button = Instance.new("TextButton")
 	button.Name = name
-	button.Size = UDim2.new(0.5, -2, 0.5, 0)
+	button.Size = FFlagBadgeNotificationTextUIFixes and UDim2.new(0.5, -1, 0, NOTIFICATION_BUTTON_HEIGHT) or UDim2.new(0.5, -2, 0.5, 0)
 	button.Position = position
 	button.BackgroundTransparency = BG_TRANSPARENCY
 	button.BackgroundColor3 = Color3.new(0, 0, 0)
+	if FFlagBadgeNotificationTextUIFixes then
+		button.BorderSizePixel = 0
+	end
 	button.Font = Enum.Font.SourceSansBold
-	button.FontSize = Enum.FontSize.Size18
+	button.FontSize = FFlagBadgeNotificationTextUIFixes and NOTIFICATION_BUTTON_FONT_SIZE or Enum.FontSize.Size18
 	button.TextColor3 = Color3.new(1, 1, 1)
 
 	return button
@@ -171,8 +182,8 @@ DefaultNotification.BorderSizePixel = 0
 
 local NotificationTitle = Instance.new("TextLabel")
 NotificationTitle.Name = "NotificationTitle"
-NotificationTitle.Size = UDim2.new(0, 0, 0, 0)
-NotificationTitle.Position = UDim2.new(0.5, 0, 0.5, -12)
+NotificationTitle.Size = FFlagBadgeNotificationTextUIFixes and UDim2.new(1, -NOTIFICATION_PADDING*2, 0, NOTIFICATION_TITLE_HEIGHT) or UDim2.new(0, 0, 0, 0)
+NotificationTitle.Position = FFlagBadgeNotificationTextUIFixes and UDim2.new(0, NOTIFICATION_PADDING, 0.5, NOTIFICATION_TITLE_Y_OFFSET) or UDim2.new(0.5, 0, 0.5, -12)
 NotificationTitle.BackgroundTransparency = 1
 NotificationTitle.Font = Enum.Font.SourceSansBold
 NotificationTitle.FontSize = NOTIFICATION_TITLE_FONT_SIZE
@@ -180,8 +191,8 @@ NotificationTitle.TextColor3 = Color3.new(0.97, 0.97, 0.97)
 
 local NotificationText = Instance.new("TextLabel")
 NotificationText.Name = "NotificationText"
-NotificationText.Size = UDim2.new(1, -20, 0, 28)
-NotificationText.Position = UDim2.new(0, 10, 0.5, 1)
+NotificationText.Size = FFlagBadgeNotificationTextUIFixes and UDim2.new(1, -NOTIFICATION_PADDING*2, 0, NOTIFICATION_TEXT_HEIGHT) or UDim2.new(1, -20, 0, 28)
+NotificationText.Position = FFlagBadgeNotificationTextUIFixes and UDim2.new(0, NOTIFICATION_PADDING, 0.5, NOTIFICATION_TEXT_Y_OFFSET or 1) or UDim2.new(0, 10, 0.5, 1)
 NotificationText.BackgroundTransparency = 1
 NotificationText.Font = Enum.Font.SourceSans
 NotificationText.FontSize = NOTIFICATION_TEXT_FONT_SIZE
@@ -192,7 +203,7 @@ NotificationText.TextYAlignment = Enum.TextYAlignment.Top
 local NotificationImage = Instance.new("ImageLabel")
 NotificationImage.Name = "NotificationImage"
 NotificationImage.Size = UDim2.new(0, IMAGE_SIZE, 0, IMAGE_SIZE)
-NotificationImage.Position = UDim2.new(0, (1.0 / 6.0) * IMAGE_SIZE, 0, 0.5 * (NOTIFICATION_Y_OFFSET - IMAGE_SIZE))
+NotificationImage.Position = UDim2.new(0, FFlagBadgeNotificationTextUIFixes and NOTIFICATION_PADDING or (1.0 / 6.0) * IMAGE_SIZE, 0, 0.5 * (NOTIFICATION_Y_OFFSET - IMAGE_SIZE))
 NotificationImage.BackgroundTransparency = 1
 NotificationImage.Image = ""
 
@@ -267,8 +278,22 @@ local function createNotification(title, text, image)
 	local notificationText = NotificationText:Clone()
 	notificationText.Text = text
 	notificationText.Parent = notificationFrame
-	if image == nil or image == "" then
+
+	local isTitleMultipleLines = false
+	if FFlagBadgeNotificationTextUIFixes then
+		-- Parent to NotificationFrame for sizing
 		notificationFrame.Parent = NotificationFrame
+	end
+
+	if image == nil or image == "" then
+		if FFlagBadgeNotificationTextUIFixes then
+			if not notificationTitle.TextFits then
+				isTitleMultipleLines = true
+			end 
+		else
+			notificationFrame.Parent = NotificationFrame
+		end
+
 		if not notificationText.TextFits then
 			local textSize = TextService:GetTextSize(
 				notificationText.Text,
@@ -280,26 +305,73 @@ local function createNotification(title, text, image)
 				textSize.Y - notificationText.Size.Y.Offset,
 				NOTIFICATION_TEXT_HEIGHT_MAX - notificationText.Size.Y.Offset
 			)
+
+			notificationText.Size = notificationText.Size + UDim2.new(0, 0, 0, addHeight)
 			notificationTitle.Position = notificationTitle.Position - UDim2.new(0, 0, 0, addHeight / 2)
 			notificationText.Position = notificationText.Position - UDim2.new(0, 0, 0, addHeight / 2)
 			notificationFrame.Size = notificationFrame.Size + UDim2.new(0, 0, 0, addHeight)
-			notificationText.Size = notificationText.Size + UDim2.new(0, 0, 0, addHeight)
 		end
-		notificationFrame.Parent = nil
-	end
+		if not FFlagBadgeNotificationTextUIFixes then
+			notificationFrame.Parent = nil
+		end
+	else
+		local leftPadding = IMAGE_SIZE + NOTIFICATION_PADDING*2
+		local rightPadding = NOTIFICATION_PADDING
 
-	if image and image ~= "" then
 		local notificationImage = NotificationImage:Clone()
 		notificationImage.Image = image
 		notificationImage.Parent = notificationFrame
 
-		notificationTitle.Position = UDim2.new(0, (4.0 / 3.0) * IMAGE_SIZE, 0.5, -NOTIFICATION_TITLE_Y_OFFSET)
+		if FFlagBadgeNotificationTextUIFixes then
+			notificationTitle.Size = UDim2.new(1, -leftPadding - rightPadding, 0, notificationTitle.Size.Y.Offset)
+			notificationTitle.Position =  UDim2.new(0, leftPadding, notificationTitle.Position.Y.Scale, notificationTitle.Position.Y.Offset)
+		else
+			notificationTitle.Position = UDim2.new(0, (4.0 / 3.0) * IMAGE_SIZE, 0.5, -NOTIFICATION_TITLE_Y_OFFSET)
+			notificationFrame.Parent = NotificationFrame
+			notificationText.Size = UDim2.new(1, -IMAGE_SIZE - 16, 0, NOTIFICATION_TEXT_HEIGHT)
+			notificationText.Position = UDim2.new(0, (4.0 / 3.0) * IMAGE_SIZE, 0.5, NOTIFICATION_TEXT_Y_OFFSET)
+		end
 		notificationTitle.TextXAlignment = Enum.TextXAlignment.Left
 
-		notificationFrame.Parent = NotificationFrame
-		notificationText.Size = UDim2.new(1, -IMAGE_SIZE - 16, 0, NOTIFICATION_TEXT_HEIGHT)
-		notificationText.Position = UDim2.new(0, (4.0 / 3.0) * IMAGE_SIZE, 0.5, NOTIFICATION_TEXT_Y_OFFSET)
+		if FFlagBadgeNotificationTextUIFixes then
+			-- Indent
+			notificationText.Size = UDim2.new(1, -leftPadding - rightPadding, 0, notificationText.Size.Y.Offset)
+			notificationText.Position = UDim2.new(0, leftPadding, notificationText.Position.Y.Scale, notificationText.Position.Y.Offset)
+			
+			if not notificationTitle.TextFits then
+				isTitleMultipleLines = true
+				notificationTitle.TextWrapped = true
+				notificationTitle.TextTruncate = Enum.TextTruncate.AtEnd
+		
+				local textSize = TextService:GetTextSize(
+					notificationTitle.Text,
+					notificationTitle.TextSize,
+					notificationTitle.Font,
+					Vector2.new(notificationTitle.AbsoluteSize.X, 1000)
+				)
+				local addHeight = math.min(
+					textSize.Y - notificationTitle.Size.Y.Offset,
+					NOTIFICATION_TITLE_HEIGHT_MAX - notificationTitle.Size.Y.Offset
+				)
+		
+				notificationTitle.Size = notificationTitle.Size + UDim2.new(0, 0, 0, addHeight)
+				notificationTitle.Position = notificationTitle.Position - UDim2.new(0, 0, 0, addHeight / 2)
+				notificationText.Position = notificationText.Position + UDim2.new(0, 0, 0, addHeight / 2)
+				notificationFrame.Size = notificationFrame.Size + UDim2.new(0, 0, 0, addHeight)
+
+				-- Allow one full line of notificationText next to image
+				local subtractHeight = notificationText.TextSize
+				notificationText.Size = notificationText.Size - UDim2.new(0, 0, 0, subtractHeight)
+				
+				-- Slight vertical offset for consistent placement with 2 line notificationText
+				local verticalOffset = 4
+				notificationTitle.Position = notificationTitle.Position + UDim2.new(0, 0, 0, subtractHeight / 2 - verticalOffset / 2)
+				notificationText.Position = notificationText.Position + UDim2.new(0, 0, 0, subtractHeight / 2 - verticalOffset / 2)
+				notificationFrame.Size = notificationFrame.Size - UDim2.new(0, 0, 0, subtractHeight + verticalOffset)
+			end
+		end
 		notificationText.TextXAlignment = Enum.TextXAlignment.Left
+
 		if not notificationText.TextFits then
 			local extraText = nil
 			local text = notificationText.Text
@@ -312,11 +384,15 @@ local function createNotification(title, text, image)
 					end
 				end
 			end
+
 			if extraText then
 				local notificationText2 = NotificationText:Clone()
 				notificationText2.TextXAlignment = Enum.TextXAlignment.Left
 				notificationText2.Text = extraText
 				notificationText2.Name = "ExtraText"
+				if FFlagBadgeNotificationTextUIFixes then
+					notificationText2.TextTruncate = Enum.TextTruncate.AtEnd
+				end
 				notificationText2.Parent = notificationFrame
 
 				local textSize = TextService:GetTextSize(
@@ -326,13 +402,13 @@ local function createNotification(title, text, image)
 					Vector2.new(notificationText2.AbsoluteSize.X, 1000)
 				)
 				local addHeight = math.min(textSize.Y, NOTIFICATION_TEXT_HEIGHT_MAX - notificationText.Size.Y.Offset)
-
+				
+				notificationText2.Size =
+					UDim2.new(notificationText2.Size.X.Scale, notificationText2.Size.X.Offset, 0, addHeight)
 				notificationTitle.Position = notificationTitle.Position - UDim2.new(0, 0, 0, addHeight / 2)
 				notificationText.Position = notificationText.Position - UDim2.new(0, 0, 0, addHeight / 2)
 				notificationFrame.Size = notificationFrame.Size + UDim2.new(0, 0, 0, addHeight)
 
-				notificationText2.Size =
-					UDim2.new(notificationText2.Size.X.Scale, notificationText2.Size.X.Offset, 0, addHeight)
 				notificationText2.AnchorPoint = Vector2.new(0.5, 0)
 				notificationText2.Position = UDim2.new(
 					0.5,
@@ -344,6 +420,29 @@ local function createNotification(title, text, image)
 				notificationText.Text = text
 			end
 		end
+		if not FFlagBadgeNotificationTextUIFixes then
+			notificationFrame.Parent = nil
+		end
+	end
+
+	if FFlagBadgeNotificationTextUIFixes and isTitleMultipleLines and notificationText.TextFits then 
+		-- Ensure that notificationText's height is the minimum height required
+		local textSize = TextService:GetTextSize(
+			notificationText.Text,
+			notificationText.TextSize,
+			notificationText.Font,
+			Vector2.new(notificationText.AbsoluteSize.X, 1000)
+		)
+		if textSize.Y < notificationText.Size.Y.Offset then
+			local subtractHeight = notificationText.Size.Y.Offset - textSize.Y
+			notificationText.Size = notificationText.Size - UDim2.new(0, 0, 0, subtractHeight)
+			notificationTitle.Position = notificationTitle.Position + UDim2.new(0, 0, 0, subtractHeight / 2)
+			notificationText.Position = notificationText.Position + UDim2.new(0, 0, 0, subtractHeight / 2)
+			notificationFrame.Size = notificationFrame.Size - UDim2.new(0, 0, 0, subtractHeight)
+		end
+	end
+
+	if FFlagBadgeNotificationTextUIFixes then
 		notificationFrame.Parent = nil
 	end
 
@@ -546,7 +645,7 @@ local function onSendNotificationInfo(notificationInfo)
 	if button2Text and button2Text ~= "" then
 		notification.IsFriend = true
 
-		button2 = createTextButton("Button2", UDim2.new(0.5, 2, 1, 2))
+		button2 = createTextButton("Button2", UDim2.new(0.5, FFlagBadgeNotificationTextUIFixes and 1 or 2, 1, 2))
 
 		if notificationInfo.AutoLocalize then
 			GameTranslator:TranslateAndRegister(button2, CoreGui, button2Text)
@@ -573,7 +672,7 @@ local function onSendNotificationInfo(notificationInfo)
 	else
 		-- Resize button1 to take up all the space under the notification if button2 doesn't exist
 		if button1 then
-			button1.Size = UDim2.new(1, -2, 0.5, 0)
+			button1.Size = FFlagBadgeNotificationTextUIFixes and UDim2.new(1, -2, 0, NOTIFICATION_BUTTON_HEIGHT) or UDim2.new(1, -2, 0.5, 0)
 		end
 	end
 

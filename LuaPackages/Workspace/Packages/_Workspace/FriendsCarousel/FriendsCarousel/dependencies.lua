@@ -140,7 +140,6 @@ return {
 	ContactsProtocol = require(Packages.ContactsProtocol).ContactsProtocol,
 	FetchContactImporterParams = require(Packages.ContactImporter).Networking.FetchContactImporterParams,
 	getFStringSocialFriendsLayer = require(Packages.SharedFlags).getFStringSocialFriendsLayer,
-	getFFlagProfilePeekViewRecommendationAnalytics = require(Packages.SharedFlags).getFFlagProfilePeekViewRecommendationAnalytics,
 	getFFlagProfileAliasEnabled = require(Packages.SharedFlags).getFFlagProfileAliasEnabled,
 
 	getFFlagFriendsCarouselDontUseIngestService = getFFlagFriendsCarouselDontUseIngestService,

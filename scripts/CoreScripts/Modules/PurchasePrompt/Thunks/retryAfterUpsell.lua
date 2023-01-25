@@ -32,7 +32,6 @@ local Thunk = require(Root.Thunk)
 local purchaseItem = require(script.Parent.purchaseItem)
 
 local FFlagPPPostUpsellRefactor = game:DefineFastFlag("PPPostUpsellRefactor", false)
-local GetFFlagPurchasePromptAnalytics = require(Root.Flags.GetFFlagPurchasePromptAnalytics)
 
 local MAX_RETRIES = game:DefineFastInt("UpsellAccountBalanceRetryAttemps", 3)
 local RETRY_RATE = game:DefineFastInt("UpsellAccountBalanceRetryIntervalSec", 1)
@@ -104,9 +103,7 @@ local function retryAfterUpsell(retriesRemaining)
 										end
 
 										store:dispatch(PromptNativeUpsell(product.providerId, product.id, product.robuxAmount))
-										if GetFFlagPurchasePromptAnalytics() then
-											store:dispatch(sendCounter(Counter.UpsellModalShownAgain))
-										end
+										store:dispatch(sendCounter(Counter.UpsellModalShownAgain))
 									end,
 									function()
 										if not hasPendingRequest(store:getState()) then
@@ -114,9 +111,7 @@ local function retryAfterUpsell(retriesRemaining)
 										end
 
 										store:dispatch(SetPromptState(PromptState.LargeRobuxUpsell))
-										if GetFFlagPurchasePromptAnalytics() then
-											store:dispatch(sendCounter(Counter.UpsellGenericModalShownAgain))
-										end
+										store:dispatch(sendCounter(Counter.UpsellGenericModalShownAgain))
 									end
 								)
 							else
@@ -125,9 +120,7 @@ local function retryAfterUpsell(retriesRemaining)
 								else
 									store:dispatch(ErrorOccurred(PurchaseError.InvalidFunds))
 								end
-								if GetFFlagPurchasePromptAnalytics() then
-									store:dispatch(sendCounter(Counter.UpsellFailedNotEnoughRobux))
-								end
+								store:dispatch(sendCounter(Counter.UpsellFailedNotEnoughRobux))
 							end
 						else
 							-- Upsell was successful and purchase can now be completed
@@ -166,9 +159,7 @@ local function retryAfterUpsell(retriesRemaining)
 							else
 								store:dispatch(ErrorOccurred(PurchaseError.InvalidFunds))
 							end
-							if GetFFlagPurchasePromptAnalytics() then
-								store:dispatch(sendCounter(Counter.UpsellFailedNotEnoughRobux))
-							end
+							store:dispatch(sendCounter(Counter.UpsellFailedNotEnoughRobux))
 						end
 					else
 						-- Upsell was successful and purchase can now be completed

@@ -51,23 +51,21 @@ return function()
 		it("Should show the verified badge for assets created by verified creators", function()
 			local creatorHasVerifiedBadge = true
 
-			withFlag("ShowVerifiedBadgeOnInspectAndBuyMenu", function()
-				withFlag("ReturnChildFromWrapper", function()
-					local store = Rodux.Store.new(InspectAndBuyReducer, makeInitialStoreState(creatorHasVerifiedBadge), {
-						Rodux.thunkMiddleware,
-					})
-					local element = Roact.createElement(TestContainer, {
-						overrideStore = store,
-					}, {
-						DetailsText = Roact.createElement(DetailsText, {
-							localPlayerModel = mockModel,
-						}),
-					})
+			withFlag("ReturnChildFromWrapper", function()
+				local store = Rodux.Store.new(InspectAndBuyReducer, makeInitialStoreState(creatorHasVerifiedBadge), {
+					Rodux.thunkMiddleware,
+				})
+				local element = Roact.createElement(TestContainer, {
+					overrideStore = store,
+				}, {
+					DetailsText = Roact.createElement(DetailsText, {
+						localPlayerModel = mockModel,
+					}),
+				})
 
-					LuaProfileDeps.UnitTestHelpers.runWhileMounted(element, function(parent)
-						local verifiedBadge = parent:FindFirstChild("Emoji", true) :: TextLabel
-						expect(verifiedBadge.Text).to.equal(VerifiedBadges.emoji.verified)
-					end)
+				LuaProfileDeps.UnitTestHelpers.runWhileMounted(element, function(parent)
+					local verifiedBadge = parent:FindFirstChild("Emoji", true) :: TextLabel
+					expect(verifiedBadge.Text).to.equal(VerifiedBadges.emoji.verified)
 				end)
 			end)
 		end)
@@ -75,23 +73,21 @@ return function()
 		it("Should not show the verified badge for assets created by non-verified creators", function()
 			local creatorHasVerifiedBadge = false
 
-			withFlag("ShowVerifiedBadgeOnInspectAndBuyMenu", function()
-				withFlag("ReturnChildFromWrapper", function()
-					local store = Rodux.Store.new(InspectAndBuyReducer, makeInitialStoreState(creatorHasVerifiedBadge), {
-						Rodux.thunkMiddleware,
-					})
-					local element = Roact.createElement(TestContainer, {
-						overrideStore = store,
-					}, {
-						DetailsText = Roact.createElement(DetailsText, {
-							localPlayerModel = mockModel,
-						}),
-					})
+			withFlag("ReturnChildFromWrapper", function()
+				local store = Rodux.Store.new(InspectAndBuyReducer, makeInitialStoreState(creatorHasVerifiedBadge), {
+					Rodux.thunkMiddleware,
+				})
+				local element = Roact.createElement(TestContainer, {
+					overrideStore = store,
+				}, {
+					DetailsText = Roact.createElement(DetailsText, {
+						localPlayerModel = mockModel,
+					}),
+				})
 
-					LuaProfileDeps.UnitTestHelpers.runWhileMounted(element, function(parent)
-						local verifiedBadge = parent:FindFirstChild("Emoji", true) :: TextLabel
-						expect(verifiedBadge).to.never.be.ok()
-					end)
+				LuaProfileDeps.UnitTestHelpers.runWhileMounted(element, function(parent)
+					local verifiedBadge = parent:FindFirstChild("Emoji", true) :: TextLabel
+					expect(verifiedBadge).to.never.be.ok()
 				end)
 			end)
 		end)

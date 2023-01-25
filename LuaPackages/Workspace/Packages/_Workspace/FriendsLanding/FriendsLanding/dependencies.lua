@@ -21,6 +21,8 @@ local getFFlagVerifiedBadgeInFriendsLanding = require(FriendsLanding.Flags.getFF
 local getFFlagAddFriendsSearchbarIXPEnabled = require(Packages.SharedFlags).getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagAddFriendsFullSearchbarAnalytics = require(Packages.SharedFlags).getFFlagAddFriendsFullSearchbarAnalytics
 local getFStringSocialAddFriendsPageLayer = require(Packages.SharedFlags).getFStringSocialAddFriendsPageLayer
+local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
+	require(Packages.SharedFlags).getFFlagProfileQRCodeFriendRequestContextInfoEnabled
 local getFFlagEnableContactInvitesForNonPhoneVerified =
 	require(Packages.SharedFlags).getFFlagEnableContactInvitesForNonPhoneVerified
 
@@ -105,6 +107,7 @@ return {
 		keyPath = "FriendsLanding.UserPermissions",
 	}),
 	Players = Players,
+	NetworkingFriendsEnums = LuaSocialLibrariesDeps.NetworkingFriends.Enums,
 	FriendsNetworking = NetworkingFriends.config({
 		roduxNetworking = myRoduxNetworking,
 	}),
@@ -127,6 +130,7 @@ return {
 	getFFlagAddFriendsFullSearchbarAnalytics = getFFlagAddFriendsFullSearchbarAnalytics,
 	getFFlagEnableContactInvitesForNonPhoneVerified = getFFlagEnableContactInvitesForNonPhoneVerified,
 	getFStringSocialAddFriendsPageLayer = getFStringSocialAddFriendsPageLayer,
+	getFFlagProfileQRCodeFriendRequestContextInfoEnabled = getFFlagProfileQRCodeFriendRequestContextInfoEnabled,
 
 	FindFriendsModal = ContactImporter.FindFriendsModal,
 	ContactsList = ContactImporter.ContactsList,

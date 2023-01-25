@@ -11,6 +11,8 @@ local EnumScreens = require(FriendsLanding.EnumScreens)
 local getFFlagSocialAddFriendshipRequestEvent = dependencies.getFFlagSocialAddFriendshipRequestEvent
 local FriendsLandingEventListener = Roact.PureComponent:extend("FriendsLandingEventListener")
 
+local getFFlagFriendsLandingLuaPageLoadEvent = require(FriendsLanding.Flags.getFFlagFriendsLandingLuaPageLoadEvent)
+
 FriendsLandingEventListener.defaultProps = {
 	navigation = nil,
 	navigationEvents = RoactNavigation.NavigationEvents,
@@ -64,6 +66,9 @@ function FriendsLandingEventListener:init()
 
 		self.props.setFilterKeys(filterStates.All)
 		self.props.analytics:pageLoaded()
+		if getFFlagFriendsLandingLuaPageLoadEvent() then
+			self.props.analytics:pageLoadedWithArgs("friendsLanding", {})
+		end
 		self.props.refreshPage({
 			errorMessage = self.props.pageError,
 		})

@@ -5,6 +5,7 @@ local Rodux = dependencies.Rodux
 local llama = dependencies.llama
 local User = dependencies.RoduxUsers.Models.User
 local EnumPresenceType = dependencies.RoduxPresence.Enums.PresenceType
+local FriendshipOriginSourceType = dependencies.NetworkingFriendsEnums.FriendshipOriginSourceType
 
 local localUserId = "0"
 local friendStatus = {
@@ -82,6 +83,15 @@ return {
 				username = "FriendRequestReceived",
 				displayName = "WithFollowingMe",
 				followers = {},
+			},
+		},
+		FriendViaQRCode = {
+			tileProps = {
+				originSourceType = FriendshipOriginSourceType.QrCode.rawValue(),
+			},
+			userProps = {
+				username = "FriendRequestReceived",
+				displayName = "WithQRCode",
 			},
 		},
 		FriendNoFriend = {

@@ -9,6 +9,8 @@ local expect = devDependencies.expect
 local ReactRoblox = devDependencies.ReactRoblox
 local jest = devDependencies.jest
 local act = ReactRoblox.act
+local beforeAll = devDependencies.beforeAll
+local afterAll = devDependencies.afterAll
 local UnitTestHelpers = devDependencies.UnitTestHelpers
 local RhodiumHelpers = devDependencies.RhodiumHelpers()
 local runWhileMounted = UnitTestHelpers.runWhileMounted
@@ -62,6 +64,35 @@ describe("SetAliasModal", function()
 			expect(inputTextBox:getText()).toBe("foo")
 			expect(saveOnActivatedSpy).toHaveBeenCalledTimes(1)
 			expect(saveOnActivatedSpy).toHaveBeenCalledWith("foo")
+		end)
+	end)
+
+	describe("FFlagLimitAliasCharacterInput", function()
+		local flag
+		beforeAll(function()
+			flag = game:SetFastFlagForTesting("LimitAliasCharacterInput", true)
+		end)
+
+		afterAll(function()
+			game:SetFastFlagForTesting("LimitAliasCharacterInput", flag)
+		end)
+
+		it("SHOULD limit characters in input", function()
+			local setAliasModal = createTreeWithProviders(SetAliasModal, {
+				props = DEFAULT_PROPS,
+			})
+			runWhileMounted(setAliasModal, function(parent)
+				local inputTextBox = RhodiumHelpers.findFirstElement(parent, {
+					Name = "inputTextBox",
+				})
+				expect(inputTextBox).never.toBeNil()
+
+				act(function()
+					RhodiumHelpers.typeTextIntoElement(inputTextBox, "onlytwentycharactersplusone")
+				end)
+
+				expect(string.len(inputTextBox:getText())).toBe(20)
+			end)
 		end)
 	end)
 end)
