@@ -358,6 +358,7 @@ Class CoreGui : BasePlayerGui [NotCreatable] [Service] [NotReplicated]
 	Function void CoreGui:SetUserGuiRendering(bool enabled, Instance guiAdornee, Enum.NormalId faceId, float horizontalCurvature = 0) {RobloxScriptSecurity}
 	Function void CoreGui:TakeScreenshot() {RobloxScriptSecurity}
 	Function void CoreGui:ToggleRecording() {RobloxScriptSecurity}
+	Event CoreGui.UserGuiRenderingChanged(bool enabled, Instance guiAdornee, Enum.NormalId faceId, float horizontalCurvature) {RobloxScriptSecurity}
 Class PlayerGui : BasePlayerGui [NotCreatable] [PlayerReplicated]
 	Property GuiObject PlayerGui.SelectionImageObject
 	Property Enum.ScreenOrientation PlayerGui.CurrentScreenOrientation [ReadOnly]
@@ -919,6 +920,7 @@ Class ControllerManager : Instance [NotBrowsable]
 Class ControllerService : Instance [NotCreatable] [Service] [NotReplicated]
 Class CookiesService : Instance [NotCreatable] [Service]
 Class CorePackages : Instance [NotCreatable] [Service] [NotReplicated]
+Class CoreScriptDebuggingManagerHelper : Instance [NotCreatable] [Service]
 Class CoreScriptSyncService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Variant CoreScriptSyncService:GetScriptFilePath(Instance script) {RobloxScriptSecurity}
 Class CrossDMScriptChangeListener : Instance [NotCreatable] [Service] [NotReplicated]
@@ -1170,6 +1172,8 @@ Class EventIngestService : Instance [NotCreatable] [Service]
 	Function void EventIngestService:SetRBXEvent(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
 	Function void EventIngestService:SetRBXEventStream(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
 Class ExperienceAuthService : Instance [NotCreatable] [Service]
+	Function void ExperienceAuthService:scopeCheckUIComplete(string guid, Array scopes, Enum.ScopeCheckResult result, Dictionary metadata) {RobloxScriptSecurity}
+	Event ExperienceAuthService.OpenAuthPrompt(string guid, Array scopes, Dictionary metadata) {RobloxScriptSecurity}
 Class ExperienceInviteOptions : Instance [NotReplicated]
 	Property string ExperienceInviteOptions.InviteMessageId
 	Property int64 ExperienceInviteOptions.InviteUser
@@ -1829,6 +1833,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void GuiService:SetHardwareSafeAreaInsets(float left, float top, float right, float bottom) {RobloxScriptSecurity}
 	Function void GuiService:SetInspectMenuEnabled(bool enabled)
 	Function void GuiService:SetMenuIsOpen(bool open, string menuName = "default") {RobloxScriptSecurity}
+	Function void GuiService:SetPurchasePromptIsShown(bool isShown) {RobloxScriptSecurity}
 	Function void GuiService:SetSafeZoneOffsets(float top, float bottom, float left, float right) {RobloxScriptSecurity}
 	Function void GuiService:SetUiMessage(Enum.UiMessageType msgType, string uiMessage = "errorCode") {LocalUserSecurity}
 	Function bool GuiService:ShowStatsBasedOnInputString(string input) {RobloxScriptSecurity}
@@ -1849,6 +1854,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event GuiService.NativeClose() {RobloxScriptSecurity}
 	Event GuiService.NetworkPausedEnabledChanged(bool enabled) {RobloxScriptSecurity}
 	Event GuiService.Open9SliceEditor(Instance selectedImageObject) {RobloxScriptSecurity}
+	Event GuiService.PurchasePromptShown() {RobloxScriptSecurity}
 	Event GuiService.SafeZoneOffsetsChanged() {RobloxScriptSecurity}
 	Event GuiService.ShowLeaveConfirmation() {RobloxScriptSecurity}
 	Event GuiService.SpecialKeyPressed(Enum.SpecialKey key, string modifiers) {RobloxScriptSecurity}
@@ -3656,6 +3662,7 @@ Class Selection : Instance [NotCreatable] [Service]
 	Function void Selection:Set(Objects selection) {PluginSecurity}
 	Function void Selection:SetTerrainSelectionHack(Vector3 center, Vector3 size) {RobloxScriptSecurity}
 	Event Selection.SelectionChanged()
+Class SelectionHighlightManager : Instance [NotCreatable] [Service]
 Class ServerScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool ServerScriptService.LoadStringEnabled [NotReplicated] [NotScriptable]
 Class ServerStorage : Instance [NotCreatable] [Service] [NotReplicated]

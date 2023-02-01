@@ -3838,6 +3838,30 @@
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
           <Properties>
+            <string name="Name">BackgroundTransparency</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TextSize</string>
+            <double name="UIMinimum">1</double>
+            <double name="UIMaximum">100</double>
+            <double name="UINumTicks">99</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TextStrokeTransparency</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
             <string name="Name">HeightScale</string>
             <double name="UIMinimum">0.5</double>
             <double name="UIMaximum">2</double>
@@ -3862,6 +3886,32 @@
         <string name="ExplorerOrder">11</string>
         <string name="ExplorerImageIndex">142</string>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">BackgroundTransparency</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TextSize</string>
+            <double name="UIMinimum">1</double>
+            <double name="UIMaximum">100</double>
+            <double name="UINumTicks">99</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TextStrokeTransparency</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
 
     <Item class="ReflectionMetadataClass">
@@ -3871,6 +3921,40 @@
         <string name="ExplorerOrder">12</string>
         <string name="FFlag">EnableBubbleChatConfigurationV2</string>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">BackgroundTransparency</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TextSize</string>
+            <double name="UIMinimum">1</double>
+            <double name="UIMaximum">100</double>
+            <double name="UINumTicks">99</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">BubblesSpacing</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">20</double>
+            <double name="UINumTicks">200</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">VerticalStudsOffset</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">10</double>
+            <double name="UINumTicks">200</double>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
 
     <Item class="ReflectionMetadataClass">
@@ -4541,7 +4625,7 @@
         <string name="PreferredParent">BasePart</string>
       </Properties>
     </Item>
-    
+
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">ControllerManager</string>
@@ -4587,7 +4671,7 @@
         <string name="PreferredParent">ControllerManager</string>
       </Properties>
     </Item>
-    
+
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Humanoid</string>
@@ -7172,6 +7256,14 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
+            <string name="Name">ImageTransparency</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
             <string name="Name">ScaleType</string>
           </Properties>
         </Item>
@@ -7505,6 +7597,14 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Image</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ImageTransparency</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">

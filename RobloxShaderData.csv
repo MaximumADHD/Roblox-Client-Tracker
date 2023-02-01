@@ -56,6 +56,9 @@ CloudsVS,Vertex,✔,✔,✔,✔,✔,✔
 CloudsWind2dFS,Fragment,✔,✔,✔,✔,✔,✔
 CloudsWindFS,Fragment,✔,✔,✔,✔,✔,✔
 CloudsWindGenReflectionMapFS,Fragment,✔,✔,✔,✔,✔,✔
+CompressBc1CS,Compute,❌,❌,✔,❌,❌,✔
+CompressBc3CS,Compute,❌,❌,✔,❌,❌,✔
+CompressBc4CS,Compute,❌,❌,✔,❌,❌,✔
 CopyGuiVS,Vertex,✔,✔,✔,✔,✔,✔
 DefaultDepthFS,Fragment,✔,✔,✔,✔,✔,✔
 DefaultDepthVS_00000000,Vertex,✔,✔,✔,✔,✔,✔

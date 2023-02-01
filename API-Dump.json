@@ -7003,6 +7003,42 @@
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "UserGuiRenderingChanged",
+                    "Parameters": [
+                        {
+                            "Name": "enabled",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "guiAdornee",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "faceId",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "NormalId"
+                            }
+                        },
+                        {
+                            "Name": "horizontalCurvature",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -17350,6 +17386,17 @@
         },
         {
             "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "CoreScriptDebuggingManagerHelper",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
+            ]
+        },
+        {
+            "Members": [
                 {
                     "MemberType": "Function",
                     "Name": "GetScriptFilePath",
@@ -22079,6 +22126,75 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "scopeCheckUIComplete",
+                    "Parameters": [
+                        {
+                            "Name": "guid",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "scopes",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        },
+                        {
+                            "Name": "result",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "ScopeCheckResult"
+                            }
+                        },
+                        {
+                            "Name": "metadata",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OpenAuthPrompt",
+                    "Parameters": [
+                        {
+                            "Name": "guid",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "scopes",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        },
+                        {
+                            "Name": "metadata",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
             ],
             "MemoryCategory": "Instances",
             "Name": "ExperienceAuthService",
@@ -34006,6 +34122,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SetPurchasePromptIsShown",
+                    "Parameters": [
+                        {
+                            "Name": "isShown",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SetSafeZoneOffsets",
                     "Parameters": [
                         {
@@ -34349,6 +34484,14 @@
                                 "Name": "Instance"
                             }
                         }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PurchasePromptShown",
+                    "Parameters": [
                     ],
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -69690,6 +69833,17 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "Selection",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "SelectionHighlightManager",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",

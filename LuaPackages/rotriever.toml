@@ -8,10 +8,10 @@ version = "0.1.0"
 proxy = "https://github.com/roblox/rotriever-proxy-index"
 
 [dependencies]
-Roact = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "RoactProxy"}
+Roact = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "RoactProxy" }
 Rodux = "github.com/roblox/rodux@1.0"
 RoactRodux = "github.com/roblox/roact-rodux@0.2"
-RoactAppExperiment = "github.com/roblox/roact-app-experiment@0.2.0"
+RoactAppExperiment = "github.com/roblox/roact-app-experiment@0.3.0"
 RoactNavigation = "github.com/roblox/roact-navigation@0.5.3"
 Cryo = "github.com/roblox/cryo@1.0"
 Dash = "github.com/roblox/dash@0.1"
@@ -36,16 +36,17 @@ NetworkingFriends = "github.com/roblox/networking-friends@2.7.1"
 ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.3.6" }
 ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.3.7" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
-React = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactProxy"}
-ReactIs = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactIsProxy"}
-ReactRoblox = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactRobloxProxy"}
-Roact17UpgradeFlag = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "Roact17UpgradeFlag"}
+React = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactProxy" }
+ReactIs = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactIsProxy" }
+ReactRoblox = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactRobloxProxy" }
+Roact17UpgradeFlag = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "Roact17UpgradeFlag" }
 Promise = "github.com/Roblox/roblox-lua-promise@3.3.0"
 VirtualizedList = "github.com/roblox/virtualized-list-lua@1.1.2"
 LuauPolyfill = "github.com/Roblox/luau-polyfill@0.4.0"
 RoduxNetworking = "github.com/Roblox/rodux-networking@3.0.2"
 NetworkingGames = "github.com/Roblox/networking-games@1.2.0"
-NetworkingFriends = "github.com/Roblox/networking-friends@2.4.1"
+NetworkingFriends = "github.com/Roblox/networking-friends@2.4.2"
+NetworkingSquads = "github.com/roblox/lua-app-networking@1.9.0"
 NetworkingUsers = "github.com/Roblox/networking-users@1.0.1"
 HttpRequest = "github.com/Roblox/http-request@1.1.1"
 ApolloClient = "github.com/Roblox/apollo-client-lua@0.3.4"
@@ -63,13 +64,15 @@ RoactGamepad = "github.com/roblox/roact-gamepad@0.5.8"
 [dev_dependencies]
 Jest = "github.com/roblox/jest-roblox@3.2.1"
 JestGlobals = "github.com/roblox/jest-roblox@2.4.1"
-JestGlobals3 = { target = "github.com/roblox/jest-roblox", version = "3.2.1", package = "JestGlobals"}
+JestGlobals3 = { target = "github.com/roblox/jest-roblox", version = "3.2.1", package = "JestGlobals" }
+# switch from git-dependency once mirrored in artifactory
+ReactTestingLibrary = { git = "github.com/roblox/react-testing-library-lua", rev = "main" }
 Rhodium = "github.com/roblox/rhodium@0.2.8"
 TagUtils = "github.com/Roblox/luau-tag-utils@0.1.0"
 RecordPlayback = "https://github.com/Roblox/http-service-utils@0.1.0"
 
 # Dependencies for the Roact17 inspector
-ReactDevtoolsExtensions = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactDevtoolsExtensionsProxy"}
+ReactDevtoolsExtensions = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactDevtoolsExtensionsProxy" }
 DeveloperTools = "github.com/Roblox/developer-tools@0.2.4"
 
 # Patch all dependencies upon rodux to the flagged indireciton package, which
@@ -91,14 +94,14 @@ RoactNavigation = "github.com/roblox/roact-navigation@0.5.3"
 
 # Roact 17 - Patch in flagged proxy for roact, roact-rodux, infinite-scroller, and gamepad
 [config.patch."github.com/roblox/roact"]
-Roact = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "RoactProxy"}
+Roact = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "RoactProxy" }
 
 [config.patch."github.com/roblox/roact-alignment"]
-Roact = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "RoactProxy"}
-RoactCompat = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "RoactProxy"}
-React = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactProxy"}
-ReactIs = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactIsProxy"}
-ReactRoblox = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactRobloxProxy"}
+Roact = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "RoactProxy" }
+RoactCompat = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "RoactProxy" }
+React = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactProxy" }
+ReactIs = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactIsProxy" }
+ReactRoblox = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactRobloxProxy" }
 
 [config.patch."github.com/roblox/roact-rodux"]
 RoactRodux = "github.com/Roblox/roact-rodux@0.5.1"
@@ -116,3 +119,7 @@ VirtualizedList = "github.com/roblox/virtualized-list-lua@1.1.2"
 # that caught several mistranslation bugs
 [config.patch."github.com/roblox/picomatch-lua"]
 Picomatch = "github.com/roblox/picomatch-lua@0.3.1"
+
+# Patching over a dependency of ReactTestingLibrary remove when mirrored in artifactory
+[config.patch."github.com/roblox/dom-testing-library-lua"]
+DomTestingLibrary = { git = "github.com/roblox/dom-testing-library-lua", rev = "d9b6c762c95e0bc296bd41f0ab25995d4fbbd5a6" }

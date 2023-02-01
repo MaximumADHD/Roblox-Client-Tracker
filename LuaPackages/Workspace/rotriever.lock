@@ -558,6 +558,9 @@ version = "0.1.0"
 dependencies = [
     "AppCommonLib AppCommonLib 0.1.0",
     "Http Http 0.1.0",
+    "JestGlobals JestGlobals 0.1.0",
+    "Promise Promise 0.1.0",
+    "Roact RoactCompat 0.1.0",
     "Rodux Rodux 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
 ]
@@ -675,6 +678,10 @@ version = "0.1.0"
 
 [[package]]
 name = "ReactRoblox"
+version = "0.1.0"
+
+[[package]]
+name = "ReactTestingLibrary"
 version = "0.1.0"
 
 [[package]]
@@ -1084,6 +1091,21 @@ dependencies = [
 name = "TemplateTestSuite"
 version = "0.1.0"
 dependencies = ["TemplatePackage TemplatePackage 0.1.0"]
+
+[[package]]
+name = "TenFootUiGlobalNav"
+version = "0.1.0"
+dependencies = [
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "React React 0.1.0",
+    "ReactTestingLibrary ReactTestingLibrary 0.1.0",
+]
+
+[[package]]
+name = "TenFootUiGlobalNavTestSuite"
+version = "0.1.0"
+dependencies = ["TenFootUiGlobalNav TenFootUiGlobalNav 0.1.0"]
 
 [[package]]
 name = "TestUtils"
