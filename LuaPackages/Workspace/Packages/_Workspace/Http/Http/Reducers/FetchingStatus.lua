@@ -18,13 +18,9 @@ return function(state: any?, action: any)
 			value = Cryo.None
 		end
 
-		state = Cryo.Dictionary.join(
-			state,
-			{
-				[key] = value,
-			}
-		 )
-
+		state = Cryo.Dictionary.join(state, {
+			[key] = value,
+		})
 	end
 
 	return state

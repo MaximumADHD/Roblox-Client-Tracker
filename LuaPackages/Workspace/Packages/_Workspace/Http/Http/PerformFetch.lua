@@ -92,10 +92,10 @@ function PerformFetch.Single(fetchStatusKey, fetchFunctor)
 			assert(Promise.is(functorPromise))
 
 			return functorPromise:andThen(function(...)
-				assert(#{...} <= 1)
+				assert(#{ ... } <= 1)
 				return Promise.resolve({ [fetchStatusKey] = Result.new(true, (...)) })
 			end, function(...)
-				assert(#{...} <= 1)
+				assert(#{ ... } <= 1)
 				return Promise.resolve({ [fetchStatusKey] = Result.new(false, (...)) })
 			end)
 		end)(store):andThen(function(batchResults)
@@ -202,23 +202,24 @@ function PerformFetch.Batch(items, keyMapper, fetchFunctor)
 			functorPromise = Promise.resolve({})
 		end
 
-		functorPromise:andThen(function(myResults)
-			myResults = myResults or {} -- No resolve args = empty table for ease of use
+		functorPromise
+			:andThen(function(myResults)
+				myResults = myResults or {} -- No resolve args = empty table for ease of use
 
-			return PromiseUtilities.Batch(batchPromisesForItemsAlreadyBeingFetched):andThen(function(batchResults)
-				local filteredResults = {}
-				for batchKey, batchResult in pairs(batchResults) do
-					-- Extract only the result for the key we care about from the batch results
-					local _, value = batchResult:unwrap()
-					filteredResults[batchKey] = value[batchKey]
-				end
+				return PromiseUtilities.Batch(batchPromisesForItemsAlreadyBeingFetched):andThen(function(batchResults)
+					local filteredResults = {}
+					for batchKey, batchResult in pairs(batchResults) do
+						-- Extract only the result for the key we care about from the batch results
+						local _, value = batchResult:unwrap()
+						filteredResults[batchKey] = value[batchKey]
+					end
 
-				return myResults, filteredResults
-			end)
-		end,
-			function()
+					return myResults, filteredResults
+				end)
+			end, function()
 				assert(false, "PerformFetch fetchFunctor should never reject")
-			end):andThen(function(myResults, batchResults)
+			end)
+			:andThen(function(myResults, batchResults)
 				-- Iterate on requested items rather than on actual result set
 				-- so that we are sure to check all our keys and ignore extra ones
 				for _, fetchKey in pairs(itemsToFetchKeyMap) do
@@ -231,13 +232,15 @@ function PerformFetch.Batch(items, keyMapper, fetchFunctor)
 
 					-- Update fetching status in store from Result object status
 					-- (The extra parens unwrap a multi-return value!)
-					local itemStatus = (batchResults[fetchKey]:unwrap()) and RetrievalStatus.Done or RetrievalStatus.Failed
+					local itemStatus = (batchResults[fetchKey]:unwrap()) and RetrievalStatus.Done
+						or RetrievalStatus.Failed
 					store:dispatch(UpdateFetchingStatus(fetchKey, itemStatus))
 					batchPromises[fetchKey] = nil
 				end
 
 				return batchResults
-			end):andThen(function(joinedResults)
+			end)
+			:andThen(function(joinedResults)
 				doResolve(joinedResults)
 			end)
 

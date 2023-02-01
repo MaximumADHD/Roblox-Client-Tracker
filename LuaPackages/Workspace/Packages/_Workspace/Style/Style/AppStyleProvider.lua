@@ -13,7 +13,8 @@ local Roact = require(CorePackages.Roact)
 local UIBlox = require(CorePackages.UIBlox)
 local StylePalette = require(script.Parent.StylePalette)
 
-local GetFFlagLuaAppUseUIBloxColorPalettes = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppUseUIBloxColorPalettes
+local GetFFlagLuaAppUseUIBloxColorPalettes =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppUseUIBloxColorPalettes
 if GetFFlagLuaAppUseUIBloxColorPalettes() then
 	return UIBlox.App.Style.AppStyleProvider
 end
@@ -33,7 +34,7 @@ function AppStyleProvider:render()
 	stylePalette:updateFont(fontName)
 	local appStyle = stylePalette:currentStyle()
 
-	return Roact.createElement(StyleProvider,{
+	return Roact.createElement(StyleProvider, {
 		style = appStyle,
 	}, self.props[Roact.Children])
 end

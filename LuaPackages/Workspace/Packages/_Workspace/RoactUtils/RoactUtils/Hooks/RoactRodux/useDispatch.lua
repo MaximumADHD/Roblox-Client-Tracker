@@ -11,7 +11,7 @@ local function useDispatch()
 
 	local dispatch = React.useCallback(function(...)
 		return store:dispatch(...)
-	end, {store})
+	end, { store })
 
 	return dispatch
 end

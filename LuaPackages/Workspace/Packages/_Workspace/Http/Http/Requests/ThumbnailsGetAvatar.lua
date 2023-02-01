@@ -19,7 +19,7 @@ local Url = require(script.Parent.Parent.Url)
 
 local MAX_USER_IDS = 100
 
-return function (networkImpl, userIds, thumbnailSize)
+return function(networkImpl, userIds, thumbnailSize)
 	assert(type(userIds) == "table", "ThumbnailsGetAvatar expects userIds to be a table")
 
 	if #userIds == 0 or #userIds > MAX_USER_IDS then

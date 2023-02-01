@@ -48,26 +48,26 @@ return function()
 	describe("isInTypes", function()
 		it("should assert if type is not expected", function()
 			expect(function()
-				ArgCheck.isInTypes(nil, {"number", "string", "table"}, "")
+				ArgCheck.isInTypes(nil, { "number", "string", "table" }, "")
 			end).to.throw()
 			expect(function()
-				ArgCheck.isInTypes("test", {"number", "table"}, "")
+				ArgCheck.isInTypes("test", { "number", "table" }, "")
 			end).to.throw()
 			expect(function()
-				ArgCheck.isInTypes(5, {"string", "table"}, "")
+				ArgCheck.isInTypes(5, { "string", "table" }, "")
 			end).to.throw()
 			expect(function()
-				ArgCheck.isInTypes({}, {"number", "string"}, "")
+				ArgCheck.isInTypes({}, { "number", "string" }, "")
 			end).to.throw()
 		end)
 
 		it("should return the value if the type is expected", function()
-			expect(ArgCheck.isInTypes(0, {"number", "string"}, "")).to.equal(0)
-			expect(ArgCheck.isInTypes("test", {"table", "string"}, "")).to.equal("test")
+			expect(ArgCheck.isInTypes(0, { "number", "string" }, "")).to.equal(0)
+			expect(ArgCheck.isInTypes("test", { "table", "string" }, "")).to.equal("test")
 			local testTable = {}
-			expect(ArgCheck.isInTypes(testTable, {"table", "string"}, "")).to.equal(testTable)
+			expect(ArgCheck.isInTypes(testTable, { "table", "string" }, "")).to.equal(testTable)
 			local testFunction = function() end
-			expect(ArgCheck.isInTypes(testFunction, {"function", "string"}, "")).to.equal(testFunction)
+			expect(ArgCheck.isInTypes(testFunction, { "function", "string" }, "")).to.equal(testFunction)
 		end)
 	end)
 
@@ -148,7 +148,7 @@ return function()
 				ArgCheck.representsInteger({}, "")
 			end).to.throw()
 			expect(function()
-				ArgCheck.representsInteger(function()end, "")
+				ArgCheck.representsInteger(function() end, "")
 			end).to.throw()
 			expect(function()
 				ArgCheck.representsInteger(true, "")
@@ -189,26 +189,26 @@ return function()
 				bool = "boolean",
 				func = "function",
 				tab = "table",
-				list = {"number"},
+				list = { "number" },
 				-- only num is required, rest is optional
 				_required = {
 					num = true,
-				}
+				},
 			}
 			local obj1 = {
 				num = 5,
 				str = "5",
 				bool = true,
-				func = function()end,
+				func = function() end,
 				tab = {},
-				list = {1, 2, 3}
+				list = { 1, 2, 3 },
 			}
 			local obj2 = {
 				num = "5",
 			}
 			local obj3 = {
 				num = 5,
-				list = {"NaN"},
+				list = { "NaN" },
 			}
 			local obj4 = {
 				str = "5",
@@ -238,7 +238,7 @@ return function()
 				ArgCheck.matchesInterface("", "nonEmptyString", "")
 			end).to.throw()
 			expect(function()
-				ArgCheck.matchesInterface({str = "5"}, {str = "nonEmptyString"}, "")
+				ArgCheck.matchesInterface({ str = "5" }, { str = "nonEmptyString" }, "")
 			end).to.never.throw()
 		end)
 
@@ -249,8 +249,8 @@ return function()
 				},
 				parent = {
 					name = "string",
-					children = {"child"},
-				}
+					children = { "child" },
+				},
 			}
 			local child1 = {
 				name = "child1",
@@ -260,11 +260,11 @@ return function()
 			}
 			local parent1 = {
 				name = "parent1",
-				children = {child1, child2},
+				children = { child1, child2 },
 			}
 			local parent2 = {
 				name = "parent2",
-				children = {"child1", "child2"},
+				children = { "child1", "child2" },
 			}
 			expect(function()
 				ArgCheck.matchesInterface(child1, types.child, "", types)
@@ -280,8 +280,8 @@ return function()
 		it("should return the same value on success", function()
 			expect(ArgCheck.matchesInterface(5, "number", "")).to.equal(5)
 			expect(ArgCheck.matchesInterface("5", "nonEmptyString", "")).to.equal("5")
-			local list = {1, 2, 3}
-			expect(ArgCheck.matchesInterface(list, {"number"}, "")).to.equal(list)
+			local list = { 1, 2, 3 }
+			expect(ArgCheck.matchesInterface(list, { "number" }, "")).to.equal(list)
 		end)
 	end)
 end

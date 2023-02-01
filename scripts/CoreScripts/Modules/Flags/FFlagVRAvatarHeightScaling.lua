@@ -1,0 +1,1 @@
+return game:DefineFastFlag("VRAvatarHeightScaling", false) or game:GetEngineFeature("EnableMaquettesSupport")

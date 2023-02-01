@@ -8,6 +8,7 @@ type RequestArgs = {
 }
 
 local mapDispatchToProps = function(dispatch: any)
+	-- remove with getFFlagFriendsCarouselRemoveVariant
 	return {
 		sendFriendRequest = function(args: RequestArgs)
 			return dispatch(NetworkingFriends.RequestFriendshipFromUserId.API(args))

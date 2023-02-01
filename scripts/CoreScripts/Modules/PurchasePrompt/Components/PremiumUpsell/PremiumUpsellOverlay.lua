@@ -24,8 +24,6 @@ local CANCEL_BUTTON_BIND = "PremiumPurchaseCancelButtonBind"
 
 local XBOX_A_ICON = "icons/controls/keys/xboxA"
 
-local GetFFlagPPFixGamepadIcons = require(Root.Flags.GetFFlagPPFixGamepadIcons)
-
 local FLOW_NAME = "InGame"
 
 type Props = {
@@ -133,7 +131,7 @@ function PremiumUpsellOverlay:render()
 		purchaseState = self:getFlowState(),
 		errorType = self:getErrorType(),
 
-		acceptControllerIcon = if GetFFlagPPFixGamepadIcons() and props.isGamepadEnabled
+		acceptControllerIcon = if props.isGamepadEnabled
 			then Images[XBOX_A_ICON]
 			else nil,
 

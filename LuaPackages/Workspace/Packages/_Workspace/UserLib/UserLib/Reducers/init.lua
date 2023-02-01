@@ -1,3 +1,3 @@
 return {
-	UserReducer = require(script.Users)
+	UserReducer = require(script.Users),
 }

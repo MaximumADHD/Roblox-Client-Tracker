@@ -6,5 +6,5 @@ return function(featureName, measureName, value, percentReporting)
 	if 100 * math.random() > percentReporting then
 		return
 	end
-	RbxAnalyticsService:ReportToDiagByCountryCode(featureName, measureName, value);
+	RbxAnalyticsService:ReportToDiagByCountryCode(featureName, measureName, value)
 end

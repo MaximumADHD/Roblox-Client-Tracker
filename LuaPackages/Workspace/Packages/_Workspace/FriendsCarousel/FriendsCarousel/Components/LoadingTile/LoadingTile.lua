@@ -6,6 +6,8 @@ local UIBlox = dependencies.UIBlox
 local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
 local UIVariants = require(FriendsCarousel.Common.UIVariants)
 
+local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
+
 local LoadingTile = Roact.PureComponent:extend("LoadingTile")
 
 local TILE_WIDTH: number = 100
@@ -15,29 +17,38 @@ export type Props = {
 	layoutOrder: number,
 	tileSize: number,
 	tileInfoHeight: number,
-	friendsCarouselExperimentVariant: string,
+
+	--remove with getFFlagFriendsCarouselRemoveVariant
+	friendsCarouselExperimentVariant: string?,
 }
 
 LoadingTile.validateProps = t.strictInterface({
 	layoutOrder = t.number,
 	tileSize = t.number,
 	tileInfoHeight = t.number,
-	friendsCarouselExperimentVariant = t.string,
+	friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant() then nil else t.string,
 })
 
 LoadingTile.defaultProps = {
 	layoutOrder = 0,
 	tileSize = TILE_WIDTH,
 	tileInfoHeight = CONTEXTUAL_MAX_HEIGHT,
-	friendsCarouselExperimentVariant = UIVariants.CIRCULAR_TILES,
+	friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant()
+		then nil
+		else UIVariants.CIRCULAR_TILES,
 }
 
 function LoadingTile:render()
 	local props: Props = self.props
 
-	local cornerRadius = if props.friendsCarouselExperimentVariant == UIVariants.SQUARE_TILES
-		then UDim.new(0, 10)
-		else UDim.new(0, props.tileSize)
+	local cornerRadius
+	if getFFlagFriendsCarouselRemoveVariant() then
+		cornerRadius = UDim.new(0, props.tileSize)
+	else
+		cornerRadius = if props.friendsCarouselExperimentVariant == UIVariants.SQUARE_TILES
+			then UDim.new(0, 10)
+			else UDim.new(0, props.tileSize)
+	end
 
 	return Roact.createFragment({
 		LoadingTile = Roact.createElement("Frame", {

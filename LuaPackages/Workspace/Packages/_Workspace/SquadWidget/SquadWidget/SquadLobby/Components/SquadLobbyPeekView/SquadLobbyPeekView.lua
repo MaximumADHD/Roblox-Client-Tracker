@@ -2,6 +2,7 @@ local SquadWidget = script:FindFirstAncestor("SquadWidget")
 local dependencies = require(SquadWidget.dependencies)
 
 local Roact = dependencies.Roact
+local RoactRodux = dependencies.RoactRodux
 local React = dependencies.React
 local UIBlox = dependencies.UIBlox
 local dependencyArray = dependencies.Hooks.dependencyArray
@@ -14,6 +15,7 @@ local SquadLobbyActionBar = require(SquadWidget.SquadLobby.Components.SquadLobby
 local SquadLobbyUsers = require(SquadWidget.SquadLobby.Components.SquadLobbyUsers.SquadLobbyUsers)
 local SquadLobbyPeekViewTopBar = require(SquadWidget.SquadLobby.Components.SquadLobbyPeekViewTopBar)
 local Constants = require(SquadWidget.SquadLobby.Common.Constants)
+local mapStateToProps = require(SquadWidget.SquadLobby.Components.SquadLobbyPeekView.mapStateToProps)
 
 local RetrievalStatus = UIBlox.App.Loading.Enum.RetrievalStatus
 local useStyle = UIBlox.Core.Style.useStyle
@@ -22,7 +24,6 @@ local BUTTON_BAR_BOTTOM_PADDING = 24
 local OFFSET_HIDE_DRAGGER_ROUNDED_CORNER = 6
 
 type Props = {
-	viewHeight: number,
 	viewWidth: number,
 	peekViewProps: ModelTypes.PeekViewProps,
 	users: { [number]: ModelTypes.User },
@@ -125,11 +126,13 @@ local SquadLobbyPeekView = function(props: Props)
 	)
 
 	return Roact.createElement("Frame", {
-		Size = UDim2.fromOffset(props.viewWidth, props.viewHeight),
+		Size = UDim2.new(0, props.viewWidth, 1, 0),
 		Position = UDim2.fromOffset(0, 0),
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 	}, SquadLobbyPeekView)
 end
+
+SquadLobbyPeekView = RoactRodux.connect(mapStateToProps, nil)(SquadLobbyPeekView)
 
 return SquadLobbyPeekView

@@ -18,17 +18,11 @@ local function makeMockDeps()
 		return Roact.createElement("Frame", {})
 	end
 	return {
-		FlagSettings = {
-			UseNewRefreshScrollingFrame = function()
-				return false
-			end,
-		},
 		ScrollMovementDirection = {
 			Forward = "forward",
 			Backward = "backward",
 		},
 		RefreshScrollingFrame = mockComponent,
-		RefreshScrollingFrameNew = mockComponent,
 		LoadingBarWithTheme = mockComponent,
 	}
 end

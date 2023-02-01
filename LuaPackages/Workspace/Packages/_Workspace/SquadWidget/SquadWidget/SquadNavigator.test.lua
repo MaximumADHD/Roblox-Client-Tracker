@@ -46,12 +46,23 @@ describe("SquadNavigator Rendering", function()
 		local SquadAppContainer = RoactNavigation.createAppContainer(SquadNavigator)
 
 		ReactRoblox.act(function()
-			root:render(createTreeWithProviders(SquadAppContainer, {}))
+			root:render(createTreeWithProviders(SquadAppContainer, {
+				state = {
+					ScreenSize = {
+						X = 320,
+						Y = 640,
+					},
+					TopBar = {
+						statusBarHeight = 20,
+					},
+				},
+				props = {},
+			}))
 		end)
 
 		-- Find an element we expect on the page.
 		local element = RhodiumHelpers.findFirstInstance(container, {
-			Name = "AddFriendIconContainer",
+			Name = "PeekViewContainer",
 		})
 		jestExpect(element).never.toBeNil()
 	end)

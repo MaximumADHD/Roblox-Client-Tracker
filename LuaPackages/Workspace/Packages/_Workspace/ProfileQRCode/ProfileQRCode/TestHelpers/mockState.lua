@@ -17,6 +17,10 @@ return function(mergeState)
 				},
 			},
 			NetworkStatus = {},
+			ShareUrl = {
+				shortUrl = "www.bbc.co.uk",
+				linkId = "123456",
+			},
 		},
 	}, mergeState)
 end

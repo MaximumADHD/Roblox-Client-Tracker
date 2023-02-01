@@ -10,7 +10,7 @@ local it = JestGlobals.it
 local QRCodeSucceededView = require(script.Parent.QRCodeSucceededView)
 local mockStore = require(ProfileQRCode.TestHelpers.mockStore)
 local mockState = require(ProfileQRCode.TestHelpers.mockState)
-
+local React = require(Packages.React)
 local findElementWithAssert = SocialTestHelpers.TestHelpers.findElementWithAssert
 local findElementHelpers = require(ProfileQRCode.TestHelpers.findElementHelpers)
 
@@ -20,9 +20,9 @@ local findUsename = findElementWithAssert({ Text = "@malcolmtucker" })
 it("SHOULD mount correctly", function()
 	local component = createTreeWithProviders(QRCodeSucceededView, {
 		props = {
-			layoutOrder = 1,
-			qrCodeLength = 200,
-			toEncode = "",
+			padding = 10,
+			qrCodeLength = 150,
+			url = "www.bbc.co.uk",
 		},
 		store = mockStore(mockState({
 			LocalUserId = "156",
@@ -35,12 +35,15 @@ it("SHOULD mount correctly", function()
 end)
 
 it("SHOULD show displayname and username", function()
-	local component = createTreeWithProviders(QRCodeSucceededView, {
-		props = {
-			layoutOrder = 1,
-			qrCodeLength = 200,
-			toEncode = "",
-		},
+	local component = createTreeWithProviders(function()
+		return React.createElement("Frame", { Size = UDim2.new(0, 500, 0, 500) }, {
+			QRCodeSucceededView = React.createElement(QRCodeSucceededView, {
+				padding = 10,
+				qrCodeLength = 200,
+				url = "www.bbc.co.uk",
+			}),
+		})
+	end, {
 		store = mockStore(mockState({
 			LocalUserId = "156",
 		})),
@@ -59,9 +62,9 @@ end)
 it("SHOULD show avatar infront of qrcode", function()
 	local component = createTreeWithProviders(QRCodeSucceededView, {
 		props = {
-			layoutOrder = 1,
-			qrCodeLength = 200,
-			toEncode = "",
+			padding = 10,
+			qrCodeLength = 150,
+			url = "www.bbc.co.uk",
 		},
 		store = mockStore(mockState({
 			LocalUserId = "156",

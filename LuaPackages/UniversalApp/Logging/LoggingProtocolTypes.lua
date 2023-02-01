@@ -43,7 +43,9 @@ export type LoggingProtocol = {
 		LoggingProtocol,
 		eventConfig: TelemetryEventConfig,
 		standardizedFields: Types.Array<StandardizedField>?,
-		customFields: Types.Table?) -> (),
+		customFields: Types.Table?,
+		eventContext: string? -- should only be used for EventIngest backend
+	) -> (),
 	logEphemeralCounterEvent: (LoggingProtocol, eventConfig: TelemetryEventConfig, incrementValue: number?) -> (),
 	logEphemeralStatEvent: (LoggingProtocol, eventConfig: TelemetryEventConfig, statValue: number) -> (),
 

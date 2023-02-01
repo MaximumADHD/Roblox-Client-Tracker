@@ -34,7 +34,7 @@ type Table = { [string]: any }
 ]]
 
 local CacheDataFetcher = {
-	_experimentCacheKey = "ExperimentCache" -- LuaApp.Enum.LocalStorageKey.ExperimentCache
+	_experimentCacheKey = "ExperimentCache", -- LuaApp.Enum.LocalStorageKey.ExperimentCache
 }
 
 function CacheDataFetcher:getCachedLayerVariables(layerName): Table?

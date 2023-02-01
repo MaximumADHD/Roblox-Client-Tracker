@@ -2,7 +2,8 @@ local ThemesRoot = script.Parent
 local StylesRoot = ThemesRoot.Parent
 
 local CorePackages = game:GetService("CorePackages")
-local GetFFlagLuaAppUseUIBloxColorPalettes = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppUseUIBloxColorPalettes
+local GetFFlagLuaAppUseUIBloxColorPalettes =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppUseUIBloxColorPalettes
 if GetFFlagLuaAppUseUIBloxColorPalettes() then
 	local UIBlox = require(CorePackages.UIBlox)
 	return UIBlox.App.Style.Themes.DarkTheme
@@ -177,11 +178,11 @@ local theme = {
 		GradientRotationSpeed = 2,
 		GradientColorSequence = ColorSequence.new({
 			ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)),
-			ColorSequenceKeypoint.new(1, Color3.fromRGB(86, 86, 86)) -- Color is #565656
+			ColorSequenceKeypoint.new(1, Color3.fromRGB(86, 86, 86)), -- Color is #565656
 		}),
 		GradientTransparencySequence = NumberSequence.new({
 			NumberSequenceKeypoint.new(0, 0),
-			NumberSequenceKeypoint.new(1, 0)
+			NumberSequenceKeypoint.new(1, 0),
 		}),
 	},
 

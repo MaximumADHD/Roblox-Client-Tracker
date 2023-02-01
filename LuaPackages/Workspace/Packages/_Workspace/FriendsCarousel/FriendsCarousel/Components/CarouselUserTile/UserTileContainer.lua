@@ -15,6 +15,7 @@ local LocalTypes = require(FriendsCarousel.Common.LocalTypes)
 
 local FriendshipOriginSourceType = dependencies.NetworkingFriendsEnums.FriendshipOriginSourceType
 local getFFlagFixFriendshipOriginSourceType = dependencies.getFFlagFixFriendshipOriginSourceType
+local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
 
 local UserTileContainer = Roact.PureComponent:extend("UserTileContainer")
 
@@ -25,6 +26,7 @@ type InternalProps = Props & mapStateToProps.Props & mapDispatchToProps.Props & 
 }
 
 function UserTileContainer:init()
+	-- remove with getFFlagFriendsCarouselRemoveVariant
 	self.sendFriendRequest = function(userId: string)
 		local props: InternalProps = self.props
 		props.fireEvent(EventNames.RequestFriendship, {
@@ -50,6 +52,7 @@ function UserTileContainer:init()
 			end)
 	end
 
+	-- remove with getFFlagFriendsCarouselRemoveVariant
 	self.unfriendUser = function(userId: string)
 		local props: InternalProps = self.props
 		props.fireEvent(EventNames.RevokeFriendRequest, {
@@ -78,8 +81,8 @@ function UserTileContainer:render()
 	return Roact.createElement(
 		CarouselUserTile,
 		llama.Dictionary.join(props, {
-			sendFriendRequest = self.sendFriendRequest,
-			unfriendUser = self.unfriendUser,
+			sendFriendRequest = if getFFlagFriendsCarouselRemoveVariant() then nil else self.sendFriendRequest,
+			unfriendUser = if getFFlagFriendsCarouselRemoveVariant() then nil else self.unfriendUser,
 			fireEvent = llama.None,
 			userSeen = llama.None,
 		})

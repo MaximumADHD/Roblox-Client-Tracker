@@ -28,6 +28,7 @@ type RobloxTelemetryParam = {
 	data: {
 		standardizedFields: Array<Types.StandardizedField>?,
 		customFields: Table?,
+		eventContext: string?,
 	},
 }
 type EphemeralCounterParam = {
@@ -146,7 +147,8 @@ end
 function LoggingProtocol:logRobloxTelemetryEvent(
 	eventConfig: TelemetryEventConfig,
 	standardizedFields: Array<Types.StandardizedField>?,
-	customFields: Table?
+	customFields: Table?,
+	eventContext: string?
 )
 	if not EnableLoggingProtocolTelemetryEngineFeature then
 		print("RobloxTelemetry event not enabled")
@@ -159,6 +161,7 @@ function LoggingProtocol:logRobloxTelemetryEvent(
 		data = {
 			standardizedFields = standardizedFields,
 			customFields = customFields,
+			eventContext = eventContext,
 		}
 	}
 	self.messageBus.call(self.LOG_EVENT_FROM_LUA_DESCRIPTOR, params)

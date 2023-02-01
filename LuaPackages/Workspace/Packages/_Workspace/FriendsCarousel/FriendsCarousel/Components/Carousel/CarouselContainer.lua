@@ -10,8 +10,6 @@ local mapDispatchToProps = require(script.Parent.carouselMapDispatchToProps)
 local LocalTypes = require(FriendsCarousel.Common.LocalTypes)
 local Constants = require(FriendsCarousel.Common.Constants)
 
-local CIScreens = dependencies.SocialModalsCommon.EnumScreens
-
 local llama = dependencies.llama
 local AnalyticsService = dependencies.AnalyticsService
 local Analytics = require(FriendsCarousel.Analytics)
@@ -21,25 +19,20 @@ local EventNames = Analytics.EventNames
 local UserModel = dependencies.RoduxUsers.Models.User
 local PresenceModel = dependencies.RoduxPresence.Models.Presence
 local RecommendationModel = dependencies.RoduxFriends.Models.Recommendation
--- TODO cleanup ContactImporterOnFriendsCarousel remove this dependency
-local AppStorageService = dependencies.AppStorageService
--- TODO cleanup ContactImporterOnFriendsCarousel remove this dependency
-local ContactsProtocol = dependencies.ContactsProtocol
 local UIVariants = require(FriendsCarousel.Common.UIVariants)
 
 local getFFlagFriendsCarouselDontUseIngestService = dependencies.getFFlagFriendsCarouselDontUseIngestService
-local getFFlagAutoSyncForContactImporterDisabled = dependencies.getFFlagAutoSyncForContactImporterDisabled
 local getFFlagFriendsCarouselAddUniverseIdToEvents =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddUniverseIdToEvents)
-local getFFlagContactImporterOnFriendsCarousel = dependencies.getFFlagContactImporterOnFriendsCarousel
 local getFFlagFriendsCarouselFixNullAnalyticsFields =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselFixNullAnalyticsFields)
+local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
+local getFFlagSocialAddGameJoinSource = dependencies.getFFlagSocialAddGameJoinSource
 
 local CarouselContainer = Roact.PureComponent:extend("CarouselContainer")
 
 type State = {
 	seenUsers: { [string]: true },
-	shouldShowContactImporterModal: boolean?,
 }
 
 type Props = {
@@ -48,69 +41,36 @@ type Props = {
 		[string]: any?,
 	},
 	carouselProps: any,
+	onSuccessfulRender: () -> ()?,
+
+	--* Wrapper
 	openProfilePeekView: (userId: string, extraProps: any?) -> (),
 	openContextualMenu: (user: LocalTypes.User, additionalData: LocalTypes.ContextualMenuData) -> (),
 	showToast: (toastMessage: string) -> (),
-	analyticsService: any,
+
+	-- remove with getFFlagFriendsCarouselRemoveVariant
+	friendsCarouselExperimentVariant: string?,
+
+	showContactImporter: boolean?,
+	navigateFromAddFriends: () -> (),
+
 	navigation: any,
-	shouldShowContactImporterFeature: boolean?,
-	shouldShowContactImporterUpsellModal: boolean?,
-	userId: string,
-	friendsCarouselExperimentVariant: string,
+	analyticsService: any,
 	diagService: any,
 	eventIngestService: any,
 	eventStreamService: any,
-	onSuccessfulRender: () -> ()?,
-	navigateFromAddFriends: () -> (),
-	-- TODO cleanup ContactImporterOnFriendsCarousel make not optional
-	showContactImporter: boolean?,
-
-	-- TODO cleanup ContactImporterOnFriendsCarousel remove these values
-	getContactImporterParams: (userid: string) -> (),
-	navigateDownToAddFriendsPage: () -> (),
-	contactsProtocol: any,
-	shouldShowContactImporterModal: boolean,
-	closeModal: () -> (),
-
-	isDiscoverabilityUnset: boolean?,
-
-	sendContacts: (
-		userid: string,
-		contactsProtocol: any,
-		appStorageService: any,
-		shouldBypassSyncCheck: boolean?
-	) -> (),
-	openFindFriendsModal: (
-		{
-			closeModal: () -> (),
-			navigateDownToAddFriendsPage: () -> (),
-			openContactsList: (any) -> (),
-			[string]: any?,
-		}
-	) -> (),
-	openContactsList: (
-		{
-			screenSize: Vector2,
-			closeModal: () -> (),
-			sendContactFriendRequest: () -> (),
-			distanceFromTop: number,
-		}
-	) -> (),
-	contactImporterAndPYMKEnabled: boolean,
-	openLearnMoreLink: () -> (),
-	isContactImporterPolicyEnabled: boolean?,
-	isLocalUserSoothsayer: boolean?,
 }
 
 type InternalProps = Props & mapStateToProps.Props & mapDispatchToProps.Props
 
--- TODO: Update and return to strictInterface
-CarouselContainer.validateProps = t.interface({
-	analyticsService = t.optional(t.any),
+CarouselContainer.validateProps = t.strictInterface({
 	carousel = t.interface({
 		render = t.callback,
 	}),
 	carouselProps = t.table,
+	onSuccessfulRender = t.optional(t.callback),
+
+	--* map state
 	localUserId = t.string,
 	friendsAndRecList = t.array(
 		t.union(
@@ -125,55 +85,35 @@ CarouselContainer.validateProps = t.interface({
 	friendCount = t.number,
 	recommendationCount = t.number,
 	friendRequestCount = t.number,
-	closeModal = if getFFlagContactImporterOnFriendsCarousel() then nil else t.callback,
-	sendContacts = t.optional(t.callback),
 	fetchingStatus = t.string,
+
+	--* Wrapper
+	friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant() then nil else t.optional(t.string),
 	openProfilePeekView = t.callback,
 	openContextualMenu = t.callback,
 	showToast = t.callback,
+	showContactImporter = t.optional(t.boolean),
+	navigateFromAddFriends = t.callback,
+
 	navigation = t.table,
-	friendsCarouselExperimentVariant = t.optional(t.string),
-	isDiscoverabilityUnset = t.optional(t.boolean),
-	onSuccessfulRender = t.optional(t.callback),
 	diagService = t.table,
 	eventIngestService = t.optional(t.table),
 	eventStreamService = t.table,
 
-	navigateFromAddFriends = if getFFlagContactImporterOnFriendsCarousel() then t.callback else nil,
-	showContactImporter = t.optional(t.boolean),
-
-	-- TODO cleanup ContactImporterOnFriendsCarousel remove these values
-	openFindFriendsModal = if getFFlagContactImporterOnFriendsCarousel() then nil else t.callback,
-	openContactsList = if getFFlagContactImporterOnFriendsCarousel() then nil else t.callback,
-	navigateDownToAddFriendsPage = if getFFlagContactImporterOnFriendsCarousel() then nil else t.callback,
-	contactImporterAndPYMKEnabled = if getFFlagContactImporterOnFriendsCarousel() then nil else t.optional(t.boolean),
-	openLearnMoreLink = if getFFlagContactImporterOnFriendsCarousel() then nil else t.callback,
-	isContactImporterPolicyEnabled = if getFFlagContactImporterOnFriendsCarousel() then nil else t.optional(t.boolean),
-	getContactImporterParams = if getFFlagContactImporterOnFriendsCarousel() then nil else t.callback,
-	shouldShowContactImporterFeature = if getFFlagContactImporterOnFriendsCarousel()
-		then nil
-		else t.optional(t.boolean),
-	shouldShowContactImporterUpsellModal = if getFFlagContactImporterOnFriendsCarousel()
-		then nil
-		else t.optional(t.boolean),
-	isLocalUserSoothsayer = if getFFlagContactImporterOnFriendsCarousel() then nil else t.optional(t.boolean),
-	contactsProtocol = if getFFlagContactImporterOnFriendsCarousel() then nil else t.optional(t.table),
-	shouldShowContactImporterModal = if getFFlagContactImporterOnFriendsCarousel() then nil else t.boolean,
+	--* default prop
+	analyticsService = t.optional(t.any),
 })
 
 CarouselContainer.defaultProps = {
 	analyticsService = AnalyticsService,
-	contactsProtocol = if getFFlagContactImporterOnFriendsCarousel() then nil else ContactsProtocol.default,
-	shouldShowContactImporterModal = if getFFlagContactImporterOnFriendsCarousel() then nil else false,
-	friendsCarouselExperimentVariant = UIVariants.CIRCULAR_TILES,
+	friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant()
+		then nil
+		else UIVariants.CIRCULAR_TILES,
 }
 
 function CarouselContainer:init()
-	local props: InternalProps = self.props
 	self.state = {
 		seenUsers = {},
-		syncedContacts = if not getFFlagAutoSyncForContactImporterDisabled() then false else nil,
-		shouldShowContactImporterModal = props.shouldShowContactImporterModal,
 	} :: State
 
 	self.analyticsService = {
@@ -219,44 +159,15 @@ function CarouselContainer:init()
 	self.onFindFriendsTileActivated = function()
 		local props: InternalProps = self.props
 
-		if getFFlagContactImporterOnFriendsCarousel() then
-			props.navigateFromAddFriends()
+		props.navigateFromAddFriends()
 
-			self.fireAnalyticsEvent(EventNames.ViewAddFriends, {
-				friendCount = props.friendCount,
-				recommendationLimit = true,
-				recommendationCount = props.recommendationCount,
-				requestCount = props.friendRequestCount,
-				showContactImporterModal = if props.showContactImporter then true else false,
-			})
-		else
-			local state: State = self.state
-
-			local showContactImporter = props.shouldShowContactImporterFeature
-				and props.shouldShowContactImporterUpsellModal
-
-			self.fireAnalyticsEvent(EventNames.ViewAddFriends, {
-				friendCount = props.friendCount,
-				recommendationLimit = true,
-				recommendationCount = props.recommendationCount,
-				requestCount = props.friendRequestCount,
-				showContactImporterModal = if showContactImporter then true else false,
-			})
-
-			if state.shouldShowContactImporterModal then
-				props.navigation.navigate(CIScreens.ContactImporter, {
-					showToast = props.showToast,
-					openLearnMoreLink = props.openLearnMoreLink,
-					isFromAddFriendsPage = false,
-					closeModal = props.navigation.pop,
-					diagService = props.diagService,
-					eventIngestService = props.eventIngestService,
-					isDiscoverabilityUnset = props.isDiscoverabilityUnset,
-				})
-			else
-				props.navigateDownToAddFriendsPage()
-			end
-		end
+		self.fireAnalyticsEvent(EventNames.ViewAddFriends, {
+			friendCount = props.friendCount,
+			recommendationLimit = true,
+			recommendationCount = props.recommendationCount,
+			requestCount = props.friendRequestCount,
+			showContactImporterModal = if props.showContactImporter then true else false,
+		})
 	end
 
 	self.onUserTileActivated = function(user: LocalTypes.User, additionalData: LocalTypes.ContextualMenuData)
@@ -293,20 +204,13 @@ function CarouselContainer:init()
 				anchorSpacePosition = additionalData.anchorSpacePosition,
 				onOpen = additionalData.onOpen,
 				onClose = additionalData.onClose,
+				source = if getFFlagSocialAddGameJoinSource() then Constants.HomepageFriendsCarouselSourceName else nil,
 			},
 		})
 	end
 end
 
 function CarouselContainer:didMount()
-	if not getFFlagContactImporterOnFriendsCarousel() then
-		local props: InternalProps = self.props
-
-		if props.contactImporterAndPYMKEnabled and props.isContactImporterPolicyEnabled then
-			props.getContactImporterParams(props.localUserId)
-		end
-	end
-
 	if getFFlagFriendsCarouselFixNullAnalyticsFields() then
 		local props: InternalProps = self.props
 		self.fireAnalyticsEvent = setupFireEvent({
@@ -322,34 +226,6 @@ end
 function CarouselContainer:didUpdate(previousProps, _)
 	local props: InternalProps = self.props
 
-	if not getFFlagContactImporterOnFriendsCarousel() then
-		if props.contactImporterAndPYMKEnabled and props.isContactImporterPolicyEnabled then
-			local hasChanged = previousProps.contactImporterAndPYMKEnabled ~= props.contactImporterAndPYMKEnabled
-				or previousProps.isContactImporterPolicyEnabled ~= props.isContactImporterPolicyEnabled
-			if hasChanged then
-				props.getContactImporterParams(props.localUserId)
-			end
-			-- check if user has already opted into contact importer
-			local hasOptedIntoContactImporter = props.shouldShowContactImporterFeature
-				and not props.shouldShowContactImporterUpsellModal
-			if
-				not getFFlagAutoSyncForContactImporterDisabled()
-				and hasOptedIntoContactImporter
-				and not self.state.syncedContacts
-			then
-				props.sendContacts(props.localUserId, self.props.contactsProtocol, AppStorageService, false)
-				self:setState({
-					syncedContacts = true,
-				})
-			end
-			self:setState({
-				shouldShowContactImporterModal = props.contactImporterAndPYMKEnabled
-					and props.shouldShowContactImporterFeature
-					and props.shouldShowContactImporterUpsellModal,
-			})
-		end
-	end
-
 	if previousProps.recommendationSessionId ~= props.recommendationSessionId then
 		self.fireAnalyticsEvent = setupFireEvent({
 			infoForAllEvents = {
@@ -363,7 +239,6 @@ end
 
 function CarouselContainer:render()
 	local props: InternalProps = self.props
-	local state: State = self.state
 
 	return Roact.createElement(Analytics.Context.Provider, {
 		value = {
@@ -373,27 +248,20 @@ function CarouselContainer:render()
 		Roact.createElement(Carousel, {
 			carousel = props.carousel,
 			carouselProps = props.carouselProps,
+			friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant()
+				then nil
+				else props.friendsCarouselExperimentVariant,
+			showToast = props.showToast,
+			onSuccessfulRender = props.onSuccessfulRender,
 
 			friendsAndRecList = props.friendsAndRecList,
 			friendCount = props.friendCount,
 			friendRequestCount = props.friendRequestCount,
-
 			fetchingStatus = props.fetchingStatus,
 
 			userSeen = self.userSeen,
 			onFindFriendsTileActivated = self.onFindFriendsTileActivated,
 			onUserTileActivated = self.onUserTileActivated,
-
-			showToast = props.showToast,
-			shouldShowContactImporterModal = if getFFlagContactImporterOnFriendsCarousel()
-				then nil
-				else state.shouldShowContactImporterModal,
-			isContactImporterEnabled = if getFFlagContactImporterOnFriendsCarousel()
-				then nil
-				else props.contactImporterAndPYMKEnabled and props.isContactImporterPolicyEnabled,
-			friendsCarouselExperimentVariant = props.friendsCarouselExperimentVariant,
-
-			onSuccessfulRender = props.onSuccessfulRender,
 		}),
 	})
 end

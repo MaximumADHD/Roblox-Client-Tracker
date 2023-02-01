@@ -1,3 +1,3 @@
 return {
-	UpdateFetchingStatus = require(script.UpdateFetchingStatus)
+	UpdateFetchingStatus = require(script.UpdateFetchingStatus),
 }

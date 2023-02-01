@@ -193,7 +193,6 @@ return function()
 	describe("Verified Badges", function()
 		it("Should show the verified badge when a user is verified and hide it when they are not", function()
 			game:SetFastFlagForTesting("ShowVerifiedBadgeOnPlayerCell", true)
-			game:SetFastFlagForTesting("ReturnChildFromWrapper", true)
 
 			local PLAYER1_USERNAME = "TheGamer101"
 			local PLAYER1_DISPLAYNAME = "TheGamer101"
@@ -242,7 +241,6 @@ return function()
 			validatePlayer("PlayerCell2", PLAYER2_VERIFIEDBADGE_STATUS)
 
 			game:SetFastFlagForTesting("ShowVerifiedBadgeOnPlayerCell", false)
-			game:SetFastFlagForTesting("ReturnChildFromWrapper", false)
 			Roact.unmount(players)
 		end)
 	end)

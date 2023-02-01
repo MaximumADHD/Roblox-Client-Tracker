@@ -23,6 +23,8 @@ local user = {
 	displayName = "displayName",
 }
 
+game:SetFastFlagForTesting("EnableHasVerifiedBadgeUserModelValidation", false)
+
 describe("GIVEN legacy AddUser action", function()
 	it("SHOULD add the user to the reducer", function()
 		local action = {

@@ -14,6 +14,7 @@ local GetFFlagLuaAppUseOmniRecDefaultPolicy = SharedFlags.GetFFlagLuaAppUseOmniR
 local GetFFlagEnableTopBarVRPolicyOverride = SharedFlags.GetFFlagEnableTopBarVRPolicyOverride
 local isRunningInStudio = require(Packages.AppCommonLib).isRunningInStudio
 local GetFFlagUseVoiceExitBetaLanguage = SharedFlags.GetFFlagUseVoiceExitBetaLanguage
+local GetFFlagVRAvatarExperienceNoLandingPage = SharedFlags.GetFFlagVRAvatarExperienceNoLandingPage
 
 local FFlagUseGUACforDUARPolicy = game:DefineFastFlag("UseGUACforDUARPolicy", false)
 local FFlagOpenCreateGamesInExternalBrowser = game:DefineFastFlag("OpenCreateGamesInExternalBrowser", false)
@@ -376,6 +377,13 @@ local function AppFeaturePolicies(policy): any
 		end,
 		getAllowCameraMovements = function()
 			return getVRDefaultPolicy("AllowCameraMovements", false)
+		end,
+		getShouldSkipAvatarLandingPage = function()
+			if GetFFlagVRAvatarExperienceNoLandingPage() then
+				return getVRDefaultPolicy("ShouldSkipAvatarLandingPage", false)
+			else
+				return false
+			end
 		end,
 	}
 end

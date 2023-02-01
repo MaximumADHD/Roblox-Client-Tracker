@@ -26,5 +26,5 @@ return function(onDidUpdate: () -> ()?)
 		end
 	end)
 
-    return didUpdateRef
+	return didUpdateRef
 end

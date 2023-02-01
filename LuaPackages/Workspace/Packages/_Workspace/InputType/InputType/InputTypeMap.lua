@@ -1,7 +1,7 @@
 local InputTypeConstants = require(script.Parent.InputTypeConstants)
 
 local InputTypeMap = {
-    [Enum.UserInputType.MouseButton1] = InputTypeConstants.MouseAndKeyboard,
+	[Enum.UserInputType.MouseButton1] = InputTypeConstants.MouseAndKeyboard,
 	[Enum.UserInputType.MouseButton2] = InputTypeConstants.MouseAndKeyboard,
 	[Enum.UserInputType.MouseButton3] = InputTypeConstants.MouseAndKeyboard,
 	[Enum.UserInputType.MouseWheel] = InputTypeConstants.MouseAndKeyboard,

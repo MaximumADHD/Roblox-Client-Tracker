@@ -4,12 +4,12 @@ local Roact = dependencies.Roact
 local llama = dependencies.llama
 local UIVariants = require(FriendsCarousel.Common.UIVariants)
 
+local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
+
 local FindFriendsTile = require(FriendsCarousel.Components.FindFriendsTile)
 
 return {
-	controls = {
-		isVariantSquare = true,
-	},
+	controls = {},
 	stories = {
 		FindFriendsTile = function(storyProps)
 			return Roact.createElement("Frame", {
@@ -19,9 +19,9 @@ return {
 				Roact.createElement(
 					FindFriendsTile,
 					llama.Dictionary.join({
-						friendsCarouselExperimentVariant = storyProps.controls.isVariantSquare
-								and UIVariants.SQUARE_TILES
-							or UIVariants.CIRCULAR_TILES,
+						friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant()
+							then nil
+							else UIVariants.CIRCULAR_TILES,
 					}, storyProps)
 				),
 			})

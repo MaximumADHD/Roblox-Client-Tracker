@@ -5,6 +5,6 @@ local Action = require(Packages.Rodux).makeActionCreator
 
 return Action(script.Name, function(user)
 	return {
-		user = user
+		user = user,
 	}
 end)

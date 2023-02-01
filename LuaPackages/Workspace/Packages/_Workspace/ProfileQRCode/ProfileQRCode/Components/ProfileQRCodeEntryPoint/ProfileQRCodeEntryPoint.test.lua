@@ -8,6 +8,7 @@ local expect = JestGlobals.expect
 local it = JestGlobals.it
 local Stories = require(script.Parent.ProfileQRCodeEntryPointStories)
 local defaultStory = Stories.default
+local loadingStory = Stories.loading
 local createOrGetProfileShareUrl = require(ProfileQRCode.Networking.createOrGetProfileShareUrl)
 local beforeEach = JestGlobals.beforeEach
 local afterEach = JestGlobals.afterEach
@@ -48,12 +49,26 @@ it("SHOULD mount correctly", function()
 	end)
 end)
 
-it("SHOULD fetch url on mount", function()
+it("SHOULD not fetch url on mount if share url is already in store", function()
 	local setupAnalytics = mockAnalytics({
 		uid = "123",
 	}, JestGlobals.jest)
 
 	local component = createTreeWithProviders(defaultStory, {
+		props = { analyticsService = setupAnalytics.analyticsMock },
+	})
+
+	runWhileMounted(component, function(parent)
+		expect(createOrGetProfileShareUrlMock).toHaveBeenCalledTimes(0)
+	end)
+end)
+
+it("SHOULD fetch url on mount if share url is not in store", function()
+	local setupAnalytics = mockAnalytics({
+		uid = "123",
+	}, JestGlobals.jest)
+
+	local component = createTreeWithProviders(loadingStory, {
 		props = { analyticsService = setupAnalytics.analyticsMock },
 	})
 

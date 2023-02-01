@@ -18,5 +18,6 @@ it("SHOULD have expected default state", function()
 	expect(store:getState()).toEqual({
 		NetworkStatus = {},
 		Users = expect.any("table"),
+		ShareUrl = {},
 	})
 end)

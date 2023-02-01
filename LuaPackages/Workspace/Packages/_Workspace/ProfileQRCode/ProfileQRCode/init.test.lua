@@ -11,7 +11,6 @@ it("SHOULD have expected API", function()
 		installReducer = expect.any("function"),
 		RoduxKey = expect.any("string"),
 		ProfileQRCodeEntryPoint = expect.any("function"),
-		profileQRCodeIXP = expect.any("table"),
 		["jest.config"] = expect.anything(),
 	})
 end)

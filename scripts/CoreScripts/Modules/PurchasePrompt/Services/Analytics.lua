@@ -11,8 +11,6 @@ local getPaymentPlatform = require(Root.Utils.getPaymentPlatform)
 
 local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
 
-local FFlagPPExpandedAnalyticPlatforms = game:DefineFastFlag("PPExpandedAnalyticPlatforms", false)
-
 local Analytics = {}
 
 function Analytics.new()
@@ -30,41 +28,32 @@ function Analytics.new()
 
 	local function GetPlatformString()
 		local platform = UserInputService:GetPlatform()
-		if FFlagPPExpandedAnalyticPlatforms then
-			local platformStr = "UNKNOWN"
-			if platform == Enum.Platform.Windows then
-				platformStr = "Windows"
-			elseif platform == Enum.Platform.OSX then
-				platformStr = "OSX"
-			elseif platform == Enum.Platform.IOS then
-				platformStr = "IOS"
-			elseif platform == Enum.Platform.Android then
-				local useragent = HttpService:GetUserAgent()
-				if string.find(useragent, "AmazonAppStore") then
-					platformStr = "Amazon"
-				else
-					platformStr = "Android"
-				end
-			elseif platform == Enum.Platform.XBoxOne then
-				platformStr = "XBoxOne"
-			elseif platform == Enum.Platform.UWP then
-				platformStr = "UWP"
+		local platformStr = "UNKNOWN"
+		
+		if platform == Enum.Platform.Windows then
+			platformStr = "Windows"
+		elseif platform == Enum.Platform.OSX then
+			platformStr = "OSX"
+		elseif platform == Enum.Platform.IOS then
+			platformStr = "IOS"
+		elseif platform == Enum.Platform.Android then
+			local useragent = HttpService:GetUserAgent()
+			if string.find(useragent, "AmazonAppStore") then
+				platformStr = "Amazon"
+			else
+				platformStr = "Android"
 			end
-
-			if GetFFlagEnableLuobuInGameUpsell() then
-				platformStr += "-Luobu"
-			end
-
-			return platformStr
-		else
-			if platform == Enum.Platform.Windows then return "Windows"
-			elseif platform == Enum.Platform.OSX then return "OSX"
-			elseif platform == Enum.Platform.IOS then return "IOS"
-			elseif platform == Enum.Platform.Android then return "Android"
-			elseif platform == Enum.Platform.XBoxOne then return "XBoxOne"
-			elseif platform == Enum.Platform.UWP then return "UWP"
-			end
+		elseif platform == Enum.Platform.XBoxOne then
+			platformStr = "XBoxOne"
+		elseif platform == Enum.Platform.UWP then
+			platformStr = "UWP"
 		end
+
+		if GetFFlagEnableLuobuInGameUpsell() then
+			platformStr += "-Luobu"
+		end
+
+		return platformStr
 	end
 
 	local function ReportPlatformCounter(eventName)

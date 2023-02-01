@@ -12,7 +12,6 @@ return function(
 	userId: number?,
 	placeId: number?
 )
-
 	assert(requestImpl, "requestImpl is required")
 	assert(conversationId, "conversationId is required")
 	assert(universeId, "universeId is required")
@@ -23,7 +22,7 @@ return function(
 		decorators = decorators,
 		isExperienceInvite = isExperienceInvite,
 		userId = userId,
-		placeId = placeId
+		placeId = placeId,
 	})
 	local url = string.format("%s/send-game-link-message", Url.CHAT_URL)
 

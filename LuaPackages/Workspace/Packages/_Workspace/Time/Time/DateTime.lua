@@ -33,7 +33,8 @@ function LuaDateTime.new(year, month, day, hour, minute, seconds, milliseconds)
 		hour or 0,
 		minute or 0,
 		seconds or 0,
-		milliseconds or 0)
+		milliseconds or 0
+	)
 	setmetatable(self, LuaDateTime)
 	return self
 end
@@ -98,7 +99,7 @@ function LuaDateTime:Format(formatString, tz, localeId)
 	elseif tz == TimeZone.Current then
 		return self.dateTime:FormatLocalTime(formatString, localeId)
 	else
-		error(("Invalid TimeZone \"%s\""):format(tostring(tz)), 2)
+		error(('Invalid TimeZone "%s"'):format(tostring(tz)), 2)
 	end
 end
 
@@ -118,7 +119,7 @@ function LuaDateTime:GetValues(tz)
 	elseif tz == TimeZone.Current then
 		return self.dateTime:ToLocalTime()
 	else
-		error(("Invalid TimeZone \"%s\""):format(tostring(tz)), 2)
+		error(('Invalid TimeZone "%s"'):format(tostring(tz)), 2)
 	end
 end
 
@@ -127,7 +128,7 @@ end
 ]]
 function LuaDateTime:GetUnixTimestamp()
 	if self.dateTime:ToUniversalTime().Millisecond > 0 then
-		return self.dateTime.UnixTimestamp + (self.dateTime.UnixTimestampMillis % 1000)/1000
+		return self.dateTime.UnixTimestamp + (self.dateTime.UnixTimestampMillis % 1000) / 1000
 	else
 		return self.dateTime.UnixTimestamp
 	end

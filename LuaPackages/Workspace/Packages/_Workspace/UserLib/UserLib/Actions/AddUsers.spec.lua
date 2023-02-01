@@ -1,3 +1,3 @@
-return function() 
- 	local _AddUsers = require(script.Parent.AddUsers)
+return function()
+	local _AddUsers = require(script.Parent.AddUsers)
 end

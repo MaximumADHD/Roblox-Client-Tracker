@@ -3,7 +3,9 @@ local Packages = ProfileQRCode.Parent
 local React = require(Packages.React)
 local ProfileQRCodeAnalytics = require(script.Parent.ProfileQRCodeAnalytics)
 
-local useAnalytics = function(): { fireEvent: (name: any, additionalArgs: any?) -> () }
+export type Analytics = { fireEvent: (name: any, additionalArgs: any?) -> () }
+
+local useAnalytics = function(): Analytics
 	return React.useContext(ProfileQRCodeAnalytics)
 end
 

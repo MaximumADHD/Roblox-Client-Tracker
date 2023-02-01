@@ -14,14 +14,13 @@ local isNewFriendsEndpointsEnabled = require(CorePackages.Workspace.Packages.Sha
 			"count": "0"
 		},
 	]
-]]--
+]]
+--
 
 -- requestImpl - (function<promise<HttpResponse>>(url, requestMethod, options))
 return function(requestImpl)
-
-	local url = string.format("%s/user/get-friendship-count?%s",
-		Url.API_URL, tostring((Players.LocalPlayer :: Player).UserId)
-	)
+	local url =
+		string.format("%s/user/get-friendship-count?%s", Url.API_URL, tostring((Players.LocalPlayer :: Player).UserId))
 
 	if isNewFriendsEndpointsEnabled() then
 		url = string.format("%s/my/friends/count", Url.FRIEND_URL)

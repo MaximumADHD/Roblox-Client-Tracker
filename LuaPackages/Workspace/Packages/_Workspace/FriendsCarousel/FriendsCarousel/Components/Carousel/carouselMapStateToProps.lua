@@ -13,8 +13,6 @@ local getCarouselFetchingStatus = require(script.Parent.getCarouselFetchingStatu
 local showRecommendations = require(FriendsCarousel.Utils.showRecommendations)
 local NetworkStatus = dependencies.RoduxNetworking.Enum.NetworkStatus
 local getSessionIdByKey = dependencies.RoduxAnalytics.Selectors.getSessionIdByKey
-local getFFlagContactImporterOnFriendsCarousel = dependencies.getFFlagContactImporterOnFriendsCarousel
-local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 
 local mapStateToProps = function(state, props)
 	local localUserId = tostring(state.LocalUserId)
@@ -25,15 +23,6 @@ local mapStateToProps = function(state, props)
 	local friendCount = getDeepValue(state, string.format("%s.Friends.countsByUserId.%s", RODUX_KEY, localUserId)) or 0
 	local friendRequestCount = getDeepValue(state, string.format("%s.Friends.requests.receivedCount", RODUX_KEY)) or 0
 	local fetchingStatus = getCarouselFetchingStatus(state, localUserId, showRecommendations(friendCount))
-
-	local shouldShowContactImporterFeature, shouldShowContactImporterUpsellModal, isDiscoverabilityUnset, isPhoneVerified
-	if not getFFlagContactImporterOnFriendsCarousel() then
-		local showModalParams = getDeepValue(state, RODUX_KEY .. "." .. "ShowContactImporterParams") or {}
-		shouldShowContactImporterFeature = showModalParams.shouldShowContactImporterFeature
-		shouldShowContactImporterUpsellModal = showModalParams.shouldShowContactImporterUpsellModal
-		isDiscoverabilityUnset = showModalParams.isDiscoverabilityUnset
-		isPhoneVerified = showModalParams.isPhoneVerified
-	end
 
 	friendsAndRecList = friendsAndRecList or {}
 	if fetchingStatus ~= NetworkStatus.Done then
@@ -51,11 +40,7 @@ local mapStateToProps = function(state, props)
 		recommendationCount = recommendationCount :: number,
 		friendRequestCount = friendRequestCount :: number,
 		fetchingStatus = fetchingStatus :: Enum,
-		shouldShowContactImporterFeature = shouldShowContactImporterFeature,
-		shouldShowContactImporterUpsellModal = shouldShowContactImporterUpsellModal,
-		isDiscoverabilityUnset = isDiscoverabilityUnset,
 		recommendationSessionId = recommendationSessionId,
-		isPhoneVerified = if getFFlagEnableContactInvitesForNonPhoneVerified() then isPhoneVerified else nil,
 	}
 end
 

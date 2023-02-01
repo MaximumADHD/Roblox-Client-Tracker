@@ -20,8 +20,8 @@ local getFFlagFriendsCarouselAddNewBadgeTracking =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddNewBadgeTracking)
 local getFFlagFriendsCarouselAddUniverseIdToEvents =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddUniverseIdToEvents)
-local getFFlagFriendsCarouselFixAnalyticsFields =
-	require(FriendsCarousel.Flags.getFFlagFriendsCarouselFixAnalyticsFields)
+
+local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
 
 type GenericEvent = {
 	context: any,
@@ -39,9 +39,7 @@ local coreEvents = {
 		context = Contexts.HomePage,
 		eventType = EventTypes.FriendsCarouselLoaded,
 		additionalInfo = {
-			source = if getFFlagFriendsCarouselFixAnalyticsFields()
-				then Constants.HomepageFriendsCarouselSourceName
-				else nil,
+			source = Constants.HomepageFriendsCarouselSourceName,
 		},
 		formatRulesForAdditionalInfo = {
 			friendCount = acceptAnyValue,
@@ -57,9 +55,7 @@ local coreEvents = {
 		context = Contexts.HomePage,
 		eventType = EventTypes.UserSeen,
 		additionalInfo = {
-			source = if getFFlagFriendsCarouselFixAnalyticsFields()
-				then Constants.HomepageFriendsCarouselSourceName
-				else nil,
+			source = Constants.HomepageFriendsCarouselSourceName,
 		},
 		formatRulesForAdditionalInfo = {
 			absolutePosition = acceptAnyValue,
@@ -77,9 +73,7 @@ local coreEvents = {
 		eventType = EventTypes.ButtonClick,
 		additionalInfo = {
 			btn = BtnValues.OpenPeopleList,
-			source = if getFFlagFriendsCarouselFixAnalyticsFields()
-				then Constants.HomepageFriendsCarouselSourceName
-				else nil,
+			source = Constants.HomepageFriendsCarouselSourceName,
 		},
 		formatRulesForAdditionalInfo = {
 			absolutePosition = acceptAnyValue,
@@ -96,9 +90,7 @@ local coreEvents = {
 		eventType = EventTypes.ButtonClick,
 		additionalInfo = {
 			btn = BtnValues.RequestFriendship,
-			source = if getFFlagFriendsCarouselFixAnalyticsFields()
-				then Constants.HomepageFriendsCarouselSourceName
-				else nil,
+			source = Constants.HomepageFriendsCarouselSourceName,
 		},
 		formatRulesForAdditionalInfo = {
 			absolutePosition = acceptAnyValue,
@@ -112,9 +104,7 @@ local coreEvents = {
 		eventType = EventTypes.ButtonClick,
 		additionalInfo = {
 			btn = BtnValues.RevokeFriendRequest,
-			source = if getFFlagFriendsCarouselFixAnalyticsFields()
-				then Constants.HomepageFriendsCarouselSourceName
-				else nil,
+			source = Constants.HomepageFriendsCarouselSourceName,
 		},
 		formatRulesForAdditionalInfo = {
 			absolutePosition = acceptAnyValue,
@@ -128,9 +118,7 @@ local coreEvents = {
 		eventType = EventTypes.ButtonClick,
 		additionalInfo = {
 			btn = BtnValues.FriendsLanding,
-			source = if getFFlagFriendsCarouselFixAnalyticsFields()
-				then Constants.HomepageFriendsCarouselSourceName
-				else nil,
+			source = Constants.HomepageFriendsCarouselSourceName,
 		},
 		formatRulesForAdditionalInfo = {
 			friendCount = acceptAnyValue,
@@ -144,9 +132,7 @@ local coreEvents = {
 		additionalInfo = {
 			btn = BtnValues.AddFriendsButton,
 			absolutePosition = 1,
-			source = if getFFlagFriendsCarouselFixAnalyticsFields()
-				then Constants.HomepageFriendsCarouselSourceName
-				else nil,
+			source = Constants.HomepageFriendsCarouselSourceName,
 		},
 		formatRulesForAdditionalInfo = {
 			friendCount = acceptAnyValue,
@@ -160,9 +146,7 @@ local coreEvents = {
 		context = Contexts.HomePage,
 		eventType = EventTypes.CarouselLoadingTime,
 		additionalInfo = {
-			source = if getFFlagFriendsCarouselFixAnalyticsFields()
-				then Constants.HomepageFriendsCarouselSourceName
-				else nil,
+			source = Constants.HomepageFriendsCarouselSourceName,
 		},
 		formatRulesForAdditionalInfo = {
 			carouselFetchingStatus = acceptAnyValue,
@@ -173,7 +157,7 @@ local coreEvents = {
 			loadingThreshold = acceptAnyValue,
 
 			experimentLayerStatus = acceptAnyValue,
-			experimentVariant = acceptAnyValue,
+			experimentVariant = if getFFlagFriendsCarouselRemoveVariant() then nil else acceptAnyValue,
 			isLegacyCarousel = acceptAnyValue,
 		},
 	},

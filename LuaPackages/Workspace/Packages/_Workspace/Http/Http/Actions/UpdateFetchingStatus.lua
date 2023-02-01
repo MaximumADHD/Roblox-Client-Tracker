@@ -6,6 +6,6 @@ local Action = require(Packages.Rodux).makeActionCreator
 return Action(script.Name, function(key, status)
 	return {
 		key = key,
-		status = status
+		status = status,
 	}
 end)

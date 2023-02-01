@@ -11,16 +11,12 @@ local HttpRequest = LuaSocialLibrariesDeps.httpRequest
 local logger = Lumberyak.Logger.new(nil, "FriendsCarousel")
 local httpLogger = logger:new("FriendsCarousel Networking")
 local maxHttpRetries = game:DefineFastInt("FriendsCarouselHttpRetryCount", 3)
-local getFFlagContactImporterOnFriendsCarousel = require(Packages.SharedFlags).getFFlagContactImporterOnFriendsCarousel
 
 local getFFlagFriendsCarouselDontUseIngestService =
 	require(Packages.SharedFlags).getFFlagFriendsCarouselDontUseIngestService
-local getFFlagAutoSyncForContactImporterDisabled =
-	require(Packages.SharedFlags).getFFlagAutoSyncForContactImporterDisabled
 local getFFlagMigrateSocialNetworking = require(Packages.SharedFlags).getFFlagMigrateSocialNetworking
 local GetFFlagUseCorrectedFriendSortUtil = require(Packages.SharedFlags).GetFFlagUseCorrectedFriendSortUtil
-local getFFlagEnableContactInvitesForNonPhoneVerified =
-	require(Packages.SharedFlags).getFFlagEnableContactInvitesForNonPhoneVerified
+local getFFlagSocialAddGameJoinSource = require(Packages.SharedFlags).getFFlagSocialAddGameJoinSource
 
 local myHttpRequest = HttpRequest.config({
 	requestFunction = function(url, requestMethod, requestOptions)
@@ -131,22 +127,22 @@ return {
 
 	PermissionsProtocol = require(Packages.PermissionsProtocol).PermissionsProtocol,
 	AppStorageService = game:GetService("AppStorageService"),
-	contactImporterModalInfo = require(Packages.ContactImporter).Utils.contactImporterModalInfo,
 
+	-- TODO SOCGRAPH-619: clean up CI dependencies:
+	contactImporterModalInfo = require(Packages.ContactImporter).Utils.contactImporterModalInfo,
 	ShowContactImporterParams = require(Packages.ContactImporter).ShowContactImporterParams,
 	SetContactImporterDisplayLogic = require(Packages.ContactImporter).Actions.SetContactImporterDisplayLogic,
-	ContactImporterConstants = require(Packages.ContactImporter).Constants,
 	AutoSyncContacts = require(Packages.ContactImporter).Networking.AutoSyncContacts,
 	ContactsProtocol = require(Packages.ContactsProtocol).ContactsProtocol,
 	FetchContactImporterParams = require(Packages.ContactImporter).Networking.FetchContactImporterParams,
+	-- end TODO SOCGRAPH-619
+
 	getFStringSocialFriendsLayer = require(Packages.SharedFlags).getFStringSocialFriendsLayer,
 	getFFlagProfileAliasEnabled = require(Packages.SharedFlags).getFFlagProfileAliasEnabled,
 
 	getFFlagFriendsCarouselDontUseIngestService = getFFlagFriendsCarouselDontUseIngestService,
-	getFFlagContactImporterOnFriendsCarousel = getFFlagContactImporterOnFriendsCarousel,
-	getFFlagAutoSyncForContactImporterDisabled = getFFlagAutoSyncForContactImporterDisabled,
-	getFFlagMigrateSocialNetworking = getFFlagMigrateSocialNetworking,
 	GetFFlagUseCorrectedFriendSortUtil = GetFFlagUseCorrectedFriendSortUtil,
 	getFFlagFixFriendshipOriginSourceType = require(Packages.SharedFlags).getFFlagFixFriendshipOriginSourceType,
-	getFFlagEnableContactInvitesForNonPhoneVerified = getFFlagEnableContactInvitesForNonPhoneVerified,
+	getFFlagFriendsCarouselRemoveVariant = require(Packages.SharedFlags).getFFlagFriendsCarouselRemoveVariant,
+	getFFlagSocialAddGameJoinSource = getFFlagSocialAddGameJoinSource,
 }

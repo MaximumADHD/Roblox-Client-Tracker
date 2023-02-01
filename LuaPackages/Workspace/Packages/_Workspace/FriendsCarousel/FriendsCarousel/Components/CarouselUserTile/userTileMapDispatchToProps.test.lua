@@ -1,5 +1,6 @@
 local FriendsCarousel = script.Parent.Parent.Parent
 local devDependencies = require(FriendsCarousel.devDependencies)
+
 local JestGlobals = devDependencies.JestGlobals
 local jestExpect = devDependencies.jestExpect
 local describe = JestGlobals.describe
@@ -18,7 +19,6 @@ describe("WHEN called", function()
 
 	it("SHOULD have expected fields", function()
 		local dispatchFields = mapDispatchToProps(nil)
-
 		jestExpect(dispatchFields).toEqual({
 			sendFriendRequest = jestExpect.any("function"),
 			unfriendUser = jestExpect.any("function"),

@@ -1,5 +1,4 @@
 return function()
-
 	local RoactUtils = script:FindFirstAncestor("RoactUtils")
 	local Packages = RoactUtils.Parent
 
@@ -14,13 +13,17 @@ return function()
 
 	local function defaultMockNavigation()
 		return {
-			isFocused = function() return false end,
+			isFocused = function()
+				return false
+			end,
 			addListener = function()
 				return {
 					remove = function() end,
 				}
 			end,
-			getParam = function() return nil end,
+			getParam = function()
+				return nil
+			end,
 			navigate = function() end,
 			state = {
 				routeName = "DummyRoute",

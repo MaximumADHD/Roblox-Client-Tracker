@@ -8,6 +8,7 @@ local UIVariants = require(FriendsCarousel.Common.UIVariants)
 
 local getFFlagFriendsCarouselIncomingFriendRequest =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselIncomingFriendRequest)
+local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
 
 local DEFAULT_PROPS = {
 	absoluteIndex = 0,
@@ -30,9 +31,9 @@ local setupStory = function(user)
 				CarouselUserTile,
 				llama.Dictionary.join(DEFAULT_PROPS, storyProps or {}, {
 					user = user,
-					friendsCarouselExperimentVariant = (storyProps.controls and storyProps.controls.isVariantSquare)
-							and UIVariants.SQUARE_TILES
-						or UIVariants.CIRCULAR_TILES,
+					friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant()
+						then nil
+						else UIVariants.CIRCULAR_TILES,
 					tileSize = 100,
 					tileInfoHeight = 50,
 				})
@@ -60,8 +61,6 @@ if getFFlagFriendsCarouselIncomingFriendRequest() then
 end
 
 return {
-	controls = {
-		isVariantSquare = true,
-	},
+	controls = {},
 	stories = stories,
 }

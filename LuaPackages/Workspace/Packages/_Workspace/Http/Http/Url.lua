@@ -4,7 +4,8 @@
 
 	Provides a single location for base urls.
 
-]]--
+]]
+--
 local ContentProvider = game:GetService("ContentProvider")
 
 -- helper functions
@@ -34,13 +35,12 @@ local function preventTableModification(aTable, key, value)
 	error("Attempt to modify read-only table")
 end
 local function createReadOnlyTable(aTable)
-   return setmetatable({}, {
-     __index = aTable,
-     __newindex = preventTableModification,
-     __metatable = false
-   });
+	return setmetatable({}, {
+		__index = aTable,
+		__newindex = preventTableModification,
+		__metatable = false,
+	})
 end
-
 
 -- url construction building blocks
 local _baseUrl, _basePrefix, _baseDomain = parseBaseUrlInformation()
@@ -162,7 +162,8 @@ function Url:getPlaceDefaultThumbnailUrl(placeId, width, height)
 		self.BASE_URL,
 		width,
 		height,
-		tostring(placeId))
+		tostring(placeId)
+	)
 end
 
 function Url:isVanitySite()
@@ -190,7 +191,6 @@ function Url:makeQueryString(data)
 
 	return table.concat(params, "&")
 end
-
 
 -- prevent anyone from modifying this table:
 Url = createReadOnlyTable(Url)

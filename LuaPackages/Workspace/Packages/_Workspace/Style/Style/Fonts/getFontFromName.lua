@@ -4,7 +4,7 @@ local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 local Logging = require(CorePackages.Logging)
 local UIBlox = require(CorePackages.UIBlox)
 
-return function (fontName, defaultFont, fontMap)
+return function(fontName, defaultFont, fontMap)
 	-- TODO: We should move this up once we address APPFDN-1784
 	local validateFont = UIBlox.Style.Validator.validateFont
 

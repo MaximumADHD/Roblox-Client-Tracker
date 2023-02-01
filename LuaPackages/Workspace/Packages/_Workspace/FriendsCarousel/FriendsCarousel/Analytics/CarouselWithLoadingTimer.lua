@@ -13,6 +13,7 @@ local RetrievalStatus = dependencies.RetrievalStatus
 
 local getFIntFriendsCarouselLoadingTimeThresholdSec =
 	require(FriendsCarousel.Flags.getFIntFriendsCarouselLoadingTimeThresholdSec)
+local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
 
 export type InternalProps = {
 	fireEvent: (name: any, args: any?) -> (),
@@ -20,7 +21,10 @@ export type InternalProps = {
 		onSuccessfulRender: () -> (),
 	}) -> Instance,
 	IXPFetchingStatus: string?,
+
+	-- remove with getFFlagFriendsCarouselRemoveVariant
 	experimentVariant: string?,
+
 	isLegacyCarousel: boolean?,
 
 	-- from store
@@ -42,7 +46,7 @@ local getReportEvent = function(props: InternalProps, values: EventValues)
 			friendsFetchingStatus = props.friendsFetchingStatus,
 			recommendationFetchingStatus = props.recommendationFetchingStatus,
 			experimentLayerStatus = props.IXPFetchingStatus,
-			experimentVariant = props.experimentVariant,
+			experimentVariant = if getFFlagFriendsCarouselRemoveVariant() then nil else props.experimentVariant,
 			isLegacyCarousel = props.isLegacyCarousel,
 			loadingThreshold = getFIntFriendsCarouselLoadingTimeThresholdSec(),
 

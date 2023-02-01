@@ -1,4 +1,3 @@
---!nolint LocalShadow
 local FriendsCarousel = script.Parent.Parent.Parent
 local dependencies = require(FriendsCarousel.dependencies)
 
@@ -24,6 +23,7 @@ local getFFlagFriendsCarouselDontUnfriend = require(FriendsCarousel.Flags.getFFl
 local getFFlagFriendsCarouselIncomingFriendRequest =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselIncomingFriendRequest)
 local getFFlagFriendsCarouselFixOnlineIcon = require(FriendsCarousel.Flags.getFFlagFriendsCarouselFixOnlineIcon)
+local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
 
 export type Props = {
 	user: LocalTypes.User,
@@ -32,11 +32,15 @@ export type Props = {
 	layoutOrder: number,
 	setPeopleListFrozen: (boolean) -> (),
 
-	friendsCarouselExperimentVariant: string,
+	-- remove with getFFlagFriendsCarouselRemoveVariant
+	friendsCarouselExperimentVariant: string?,
 
 	onActivated: (user: LocalTypes.User, additionalData: LocalTypes.ContextualMenuData) -> (),
+
+	-- remove with getFFlagFriendsCarouselRemoveVariant
 	sendFriendRequest: (userId: string) -> (),
 	unfriendUser: (userId: string) -> (),
+
 	showToast: (toastMessageKey: string) -> (),
 	tileSize: number,
 }
@@ -73,7 +77,7 @@ local getShowOnlineIndicator = function(user: LocalTypes.User): boolean
 	end
 end
 
-local useContextualText = function(user: LocalTypes.User, variant: string): string?
+local useContextualText = function(user: LocalTypes.User, variant: string?): string?
 	local text: string? = nil
 	local textKey = nil
 
@@ -85,7 +89,10 @@ local useContextualText = function(user: LocalTypes.User, variant: string): stri
 		textKey = TextKeys.FriendRequestContext
 	elseif not user.isFriendWithUser then
 		textKey = TextKeys.SuggestedContext
-	elseif variant == UIVariants.SQUARE_TILES then
+	elseif getFFlagFriendsCarouselRemoveVariant() then
+		local friend: LocalTypes.Friend = user :: any
+		text = if isUserInGame(friend) or isUserInStudio(friend) then friend.lastLocation else nil
+	elseif not getFFlagFriendsCarouselRemoveVariant() and variant == UIVariants.SQUARE_TILES then
 		local friend: LocalTypes.Friend = user :: any
 		local presenceLabel = getUserPresenceLabel({
 			presence = friend.userPresenceType,
@@ -93,7 +100,7 @@ local useContextualText = function(user: LocalTypes.User, variant: string): stri
 		})
 		text = presenceLabel.text :: string
 		textKey = presenceLabel.textKey :: string
-	elseif variant == UIVariants.CIRCULAR_TILES then
+	elseif not getFFlagFriendsCarouselRemoveVariant() and variant == UIVariants.CIRCULAR_TILES then
 		local friend: LocalTypes.Friend = user :: any
 		text = if isUserInGame(friend) or isUserInStudio(friend) then friend.lastLocation else nil
 	end
@@ -105,11 +112,14 @@ local useContextualText = function(user: LocalTypes.User, variant: string): stri
 	return text or localizedStrings.text
 end
 
-local CarouselUserTile = function(props)
-	local props: Props = llama.Dictionary.join(defaultProps, props or {})
+local CarouselUserTile = function(passedProps)
+	local props: Props = llama.Dictionary.join(defaultProps, passedProps or {})
 
 	local showOnlineIndicator = getShowOnlineIndicator(props.user)
-	local contextualText = useContextualText(props.user, props.friendsCarouselExperimentVariant)
+	local contextualText = useContextualText(
+		props.user,
+		if getFFlagFriendsCarouselRemoveVariant() then nil else props.friendsCarouselExperimentVariant
+	)
 	local isContextualTextMuted = not (
 			props.user.isFriendWithUser
 			and (isUserInGame(props.user :: LocalTypes.Friend) or isUserInStudio(props.user :: LocalTypes.Friend))
@@ -168,20 +178,8 @@ local CarouselUserTile = function(props)
 		end
 	end
 
-	return if props.friendsCarouselExperimentVariant == UIVariants.SQUARE_TILES
-		then Roact.createElement(UserTileSquare, {
-			username = props.user.displayName,
-			thumbnail = thumbnail,
-			contextualText = contextualText,
-			showOnlineIndicator = showOnlineIndicator,
-			layoutOrder = props.layoutOrder,
-			onActivated = openUserProfile,
-			isContextualTextMuted = isContextualTextMuted,
-			tileSize = props.tileSize,
-			infoHeight = props.tileInfoHeight,
-			buttons = getButtons(props.user),
-		})
-		else Roact.createElement(UserTileCircular, {
+	if getFFlagFriendsCarouselRemoveVariant() then
+		return Roact.createElement(UserTileCircular, {
 			username = props.user.displayName,
 			thumbnail = thumbnail,
 			contextualText = contextualText,
@@ -192,6 +190,32 @@ local CarouselUserTile = function(props)
 			tileSize = props.tileSize,
 			infoHeight = props.tileInfoHeight,
 		})
+	else
+		return if props.friendsCarouselExperimentVariant == UIVariants.SQUARE_TILES
+			then Roact.createElement(UserTileSquare, {
+				username = props.user.displayName,
+				thumbnail = thumbnail,
+				contextualText = contextualText,
+				showOnlineIndicator = showOnlineIndicator,
+				layoutOrder = props.layoutOrder,
+				onActivated = openUserProfile,
+				isContextualTextMuted = isContextualTextMuted,
+				tileSize = props.tileSize,
+				infoHeight = props.tileInfoHeight,
+				buttons = if getFFlagFriendsCarouselRemoveVariant() then nil else getButtons(props.user),
+			})
+			else Roact.createElement(UserTileCircular, {
+				username = props.user.displayName,
+				thumbnail = thumbnail,
+				contextualText = contextualText,
+				showOnlineIndicator = showOnlineIndicator,
+				layoutOrder = props.layoutOrder,
+				onActivated = openUserProfile,
+				isContextualTextMuted = true,
+				tileSize = props.tileSize,
+				infoHeight = props.tileInfoHeight,
+			})
+	end
 end
 
 return CarouselUserTile

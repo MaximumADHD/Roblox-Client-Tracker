@@ -17,6 +17,7 @@ export type Props = {
 	layoutOrder: number?,
 	user: any,
 	square: boolean?,
+	backgroundTransparency: number?,
 }
 
 return function(props: Props)
@@ -31,6 +32,7 @@ return function(props: Props)
 		Image = icon or DEFAULT_THUMBNAIL_ICON,
 		BorderSizePixel = 0,
 		BackgroundColor3 = Colors.FLINT,
+		BackgroundTransparency = props.backgroundTransparency,
 	}, {
 		Corner = if props.square then nil else React.createElement("UICorner", {
 			CornerRadius = UDim.new(0.5, 0),

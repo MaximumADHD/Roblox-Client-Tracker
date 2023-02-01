@@ -24,6 +24,7 @@ local InviteUserIdToPlaceIdCustomized = require(ShareGame.Thunks.InviteUserIdToP
 local SingleUserThumbnail = require(ShareGame.Components.SingleUserThumbnail)
 
 local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
+local GetFFlagInviteListStyleFixes = require(Modules.Flags.GetFFlagInviteListStyleFixes)
 
 local UIBlox = require(CorePackages.UIBlox)
 local PrimaryButton = UIBlox.App.Button.PrimarySystemButton
@@ -32,7 +33,10 @@ local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 
 local useStyle = UIBlox.Core.Style.useStyle
 
+-- Color 41/41/41 comes from the SettingsShield background color
+local BACKGROUND_COLOR = Color3.fromRGB(41, 41, 41)
 local HEADER_SIZE = 48
+local MODAL_WIDTH = 442
 
 local BACKGROUND_BORDER_RADIUS = 8
 local BORDER_PADDING = 24
@@ -120,15 +124,21 @@ local InviteSingleUserContainer = function(props)
 	local inviteTextKey =
 		if inviteAlreadySent then "Feature.SettingsHub.Label.Invited" else "Feature.SettingsHub.Action.InviteFriend"
 
+	local applyStyleFixes = GetFFlagInviteListStyleFixes()
 
 	return React.createElement("Frame", {
-		Size = UDim2.new(0, 442, 0, 0),
+		Size = if applyStyleFixes then UDim2.new(1, 0, 0, 0) else UDim2.new(0, MODAL_WIDTH, 0, 0),
 		AutomaticSize = Enum.AutomaticSize.Y,
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		BorderSizePixel = 0,
-		BackgroundColor3 = Colors.FLINT,
+		BackgroundColor3 = if applyStyleFixes then BACKGROUND_COLOR else Colors.FLINT,
+		BackgroundTransparency = if applyStyleFixes then 0.1 else 0
 	}, {
+		SizeConstraint = if applyStyleFixes then React.createElement("UISizeConstraint", {
+			MaxSize = Vector2.new(MODAL_WIDTH, math.huge),
+			MinSize = Vector2.new(0, 0)
+		}) else nil,
 		Corner = React.createElement("UICorner", {
 			CornerRadius = UDim.new(0, BACKGROUND_BORDER_RADIUS),
 		}),
@@ -169,6 +179,7 @@ local InviteSingleUserContainer = function(props)
 				size = UDim2.new(0, 95, 0, 95),
 				layoutOrder = 1,
 				square = true,
+				backgroundTransparency = if applyStyleFixes then 1 else nil
 			}),
 
 			TextBody = React.createElement(StyledTextLabel, {

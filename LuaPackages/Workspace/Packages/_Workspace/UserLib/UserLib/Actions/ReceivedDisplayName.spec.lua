@@ -1,3 +1,3 @@
-return function() 
- 	local _ReceivedDisplayName = require(script.Parent.ReceivedDisplayName)
+return function()
+	local _ReceivedDisplayName = require(script.Parent.ReceivedDisplayName)
 end

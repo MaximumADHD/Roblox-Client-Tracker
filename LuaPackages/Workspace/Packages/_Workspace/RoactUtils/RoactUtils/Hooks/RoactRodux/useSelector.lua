@@ -71,16 +71,13 @@ function useSelectorWithStore<TState, TSelected>(
 
 	local status, err = pcall(function()
 		if
-			selector ~= latestSelector.current or
-			storeState ~= latestStoreState.current or
-			latestSubscriptionCallbackError.current
+			selector ~= latestSelector.current
+			or storeState ~= latestStoreState.current
+			or latestSubscriptionCallbackError.current
 		then
 			local newSelectedState = selector(storeState)
 			-- ensure latest selected state is reused so that a custom equality function can result in identical references
-			if
-				latestSelectedState.current == nil or
-				not equalityFn(newSelectedState, latestSelectedState.current)
-			then
+			if latestSelectedState.current == nil or not equalityFn(newSelectedState, latestSelectedState.current) then
 				selectedState = newSelectedState
 			else
 				selectedState = latestSelectedState.current
@@ -92,8 +89,11 @@ function useSelectorWithStore<TState, TSelected>(
 
 	if not status then
 		if latestSubscriptionCallbackError.current then
-			err = string.format("%s\nThe error may be correlated with this previous error:\n%s\n\n",
-				tostring(err), tostring(latestSubscriptionCallbackError.current))
+			err = string.format(
+				"%s\nThe error may be correlated with this previous error:\n%s\n\n",
+				tostring(err),
+				tostring(latestSubscriptionCallbackError.current)
+			)
 		end
 
 		error(err)
@@ -145,15 +145,12 @@ function useSelectorWithStore<TState, TSelected>(
 		return function()
 			connection:disconnect()
 		end
-	end, {store})
+	end, { store })
 
 	return selectedState :: TSelected
 end
 
-function useSelector<TState, TSelected>(
-	selector: TSelector<TState, TSelected>,
-	equalityFnParam: EqualityFn<TSelected>?
-): TSelected
+function useSelector<TState, TSelected>(selector: TSelector<TState, TSelected>, equalityFnParam: EqualityFn<TSelected>?): TSelected
 	ArgCheck.isNotNil(selector, "selector")
 	ArgCheck.assert(Dash.isCallable(selector), "useSelector expects 'selector' to be callable")
 	ArgCheck.isTypeOrNil(equalityFnParam, "function", "equalityFn")

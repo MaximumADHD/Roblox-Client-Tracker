@@ -15,6 +15,10 @@ local SquadLobbyPeekView = require(SquadWidget.SquadLobby.Components.SquadLobbyP
 
 local store = Rodux.Store.new(function()
 	return {
+		ScreenSize = {
+			X = 320,
+			Y = 640,
+		},
 		TopBar = {
 			statusBarHeight = 20,
 		},

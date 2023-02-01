@@ -5,7 +5,7 @@ return function()
 		local themeMap = {
 			[Constants.ThemeName.Dark] = require(script.Parent.DarkTheme),
 		}
-		local themeTable = getThemeFromName(Constants.ThemeName.Dark, Constants.ThemeName.Dark,themeMap)
+		local themeTable = getThemeFromName(Constants.ThemeName.Dark, Constants.ThemeName.Dark, themeMap)
 		expect(themeTable).to.be.a("table")
 	end)
 
@@ -25,7 +25,7 @@ return function()
 						Color = Color3.fromRGB(0, 0, 0),
 						Transparency = 0,
 					},
-				}
+				},
 			}
 			getThemeFromName(Constants.ThemeName.Dark, Constants.ThemeName.Dark, themeMap)
 		end).to.throw()

@@ -1,8 +1,8 @@
 local EngineFeatureAvatarEditorServiceRecommendationsV2API =
 	game:GetEngineFeature("AvatarEditorServiceRecommendationsV2API")
 
-game:DefineFastFlag("AvatarEditorServiceInUniversalApp12", false)
+game:DefineFastFlag("AvatarEditorServiceInUniversalApp13", false)
 return function()
-	return game:GetFastFlag("AvatarEditorServiceInUniversalApp12")
+	return game:GetFastFlag("AvatarEditorServiceInUniversalApp13")
 		and EngineFeatureAvatarEditorServiceRecommendationsV2API
 end

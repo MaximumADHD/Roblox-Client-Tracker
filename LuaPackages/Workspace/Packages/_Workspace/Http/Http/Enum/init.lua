@@ -1,5 +1,5 @@
 local RetrievalStatus = require(script.RetrievalStatus)
 
 return {
-    RetrievalStatus = RetrievalStatus,
+	RetrievalStatus = RetrievalStatus,
 }

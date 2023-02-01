@@ -25,6 +25,7 @@ local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
 	require(Packages.SharedFlags).getFFlagProfileQRCodeFriendRequestContextInfoEnabled
 local getFFlagEnableContactInvitesForNonPhoneVerified =
 	require(Packages.SharedFlags).getFFlagEnableContactInvitesForNonPhoneVerified
+local getFFlagSocialAddGameJoinSource = require(Packages.SharedFlags).getFFlagSocialAddGameJoinSource
 
 local HttpRequest = LuaSocialLibrariesDeps.httpRequest
 local myHttpRequest = HttpRequest.config({
@@ -131,6 +132,7 @@ return {
 	getFFlagEnableContactInvitesForNonPhoneVerified = getFFlagEnableContactInvitesForNonPhoneVerified,
 	getFStringSocialAddFriendsPageLayer = getFStringSocialAddFriendsPageLayer,
 	getFFlagProfileQRCodeFriendRequestContextInfoEnabled = getFFlagProfileQRCodeFriendRequestContextInfoEnabled,
+	getFFlagSocialAddGameJoinSource = getFFlagSocialAddGameJoinSource,
 
 	FindFriendsModal = ContactImporter.FindFriendsModal,
 	ContactsList = ContactImporter.ContactsList,

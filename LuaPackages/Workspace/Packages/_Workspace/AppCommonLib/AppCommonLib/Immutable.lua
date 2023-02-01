@@ -1,4 +1,4 @@
-local fflagAvoidManualTableClone = game:DefineFastFlag("AvoidManualTableClone", false) 
+local fflagAvoidManualTableClone = game:DefineFastFlag("AvoidManualTableClone", false)
 
 --[[
 	Provides functions for manipulating immutable data structures.
@@ -14,7 +14,7 @@ function Immutable.JoinDictionaries(...)
 
 	for i = 1, select("#", ...) do
 		local dictionary = select(i, ...)
-	
+
 		-- selene: allow(manual_table_clone)
 		-- False positive: https://github.com/Kampfkarren/selene/issues/479
 		for key, value in pairs(dictionary) do

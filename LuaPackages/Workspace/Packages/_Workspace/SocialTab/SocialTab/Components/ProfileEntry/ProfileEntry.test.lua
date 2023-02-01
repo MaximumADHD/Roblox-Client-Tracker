@@ -42,11 +42,7 @@ describe("props", function()
 			Name = "Emoji",
 		})
 
-		if game:GetFastFlag("ReturnChildFromWrapper") then
-			expect(emoji).toBeNil()
-		else
-			expect(emoji.Text).toBe("")
-		end
+		expect(emoji).toBeNil()
 
 		cleanup()
 	end)
@@ -71,11 +67,7 @@ describe("props", function()
 			Name = "Emoji",
 		})
 
-		if game:GetFastFlag("ReturnChildFromWrapper") then
-			expect(emoji).toBeNil()
-		else
-			expect(emoji.Text).toBe("")
-		end
+		expect(emoji).toBeNil()
 
 		cleanup()
 	end)

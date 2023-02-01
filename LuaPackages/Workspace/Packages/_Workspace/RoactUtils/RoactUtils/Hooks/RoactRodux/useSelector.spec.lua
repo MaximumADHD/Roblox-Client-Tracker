@@ -24,16 +24,16 @@ return function()
 		return Rodux.Store.new(reducer, initialState, { Rodux.thunkMiddleware })
 	end
 
-	describe('useSelector', function()
+	describe("useSelector", function()
 		type NormalStateType = {
-			count: number
+			count: number,
 		}
 		local normalStore
-		local renderedItems: {any} = {}
+		local renderedItems: { any } = {}
 		local renderCount = 0
 
 		type NormalState = {
-			count: number
+			count: number,
 		}
 
 		local function addRenderedItem(value)
@@ -56,15 +56,15 @@ return function()
 				}
 			end
 			local initialState: NormalState = {
-				count = -1
+				count = -1,
 			}
 			normalStore = createStore(reducer, initialState)
 			renderedItems = {}
 			renderCount = 0
 		end)
 
-		describe('core subscription behavior', function()
-			it('selects the state on initial render', function()
+		describe("core subscription behavior", function()
+			it("selects the state on initial render", function()
 				local helper = renderHookWithStore(normalStore, function()
 					return useSelector(function(state)
 						return state.count
@@ -76,7 +76,7 @@ return function()
 				helper.cleanup()
 			end)
 
-			it('selects the state and renders the component when the store updates', function()
+			it("selects the state and renders the component when the store updates", function()
 				local selector = jest.fn(function(state)
 					return state.count
 				end)
@@ -90,7 +90,7 @@ return function()
 				expect(selector).toBeCalledTimes(1 + extraSelectorCalls)
 
 				act(function()
-					normalStore:dispatch({ type = '' })
+					normalStore:dispatch({ type = "" })
 					normalStore:flush()
 				end)
 
@@ -100,8 +100,8 @@ return function()
 			end)
 		end)
 
-		describe('lifecycle interactions', function()
-			it('always uses the latest state', function()
+		describe("lifecycle interactions", function()
+			it("always uses the latest state", function()
 				local store = createStore(function(c: number)
 					return c + 1
 				end, -1)
@@ -117,19 +117,19 @@ return function()
 
 				local helper = renderHookWithStore(store, Comp)
 
-				expect(renderedItems).toEqual({1})
+				expect(renderedItems).toEqual({ 1 })
 
 				act(function()
-					store:dispatch({ type = '' })
+					store:dispatch({ type = "" })
 					store:flush()
 				end)
 
-				expect(renderedItems).toEqual({1, 2})
+				expect(renderedItems).toEqual({ 1, 2 })
 				helper.cleanup()
 			end)
 		end)
 
-		it('notices store updates between render and store subscription effect', function()
+		it("notices store updates between render and store subscription effect", function()
 			local Comp = function()
 				local count = useSelector(function(s)
 					return s.count
@@ -139,14 +139,14 @@ return function()
 				-- I don't know a better way to trigger a store update before the
 				-- store subscription effect happens
 				if count == 0 then
-					normalStore:dispatch({ type = '' })
+					normalStore:dispatch({ type = "" })
 				end
 
 				return nil
 			end
 
 			local helper = renderHookWithStore(normalStore, Comp)
-			expect(renderedItems).toEqual({0, 1})
+			expect(renderedItems).toEqual({ 0, 1 })
 			helper.cleanup()
 		end)
 	end)

@@ -151,7 +151,8 @@ return function()
 		local peekView = context.Rhodium.Element.new(rootPath)
 		expect(peekView:waitForRbxInstance(1)).toBeDefined()
 
-		local swipeScrollingFramePath = rootPath:cat(context.Rhodium.XPath.new("PeekView.ClipFrame.SwipeScrollingFrame"))
+		local swipeScrollingFramePath =
+			rootPath:cat(context.Rhodium.XPath.new("PeekView.ClipFrame.SwipeScrollingFrame"))
 		local scrollingFrameElement = context.Rhodium.Element.new(swipeScrollingFramePath)
 		local scrollingFrameInstance = scrollingFrameElement:waitForRbxInstance(1)
 

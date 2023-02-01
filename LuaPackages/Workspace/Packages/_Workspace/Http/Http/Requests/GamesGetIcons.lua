@@ -13,7 +13,7 @@ local Url = require(script.Parent.Parent.Url)
 	]
 }
 ]]
-return function (requestImpl, universeIds, size)
+return function(requestImpl, universeIds, size)
 	local qs = Url:makeQueryString({
 		universeIds = table.concat(universeIds, ","),
 		format = "png",

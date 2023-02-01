@@ -43,6 +43,7 @@ local GetFFlagVoiceARCantSelectVoiceAfterTextFix = require(RobloxGui.Modules.Fla
 local GetFFlagHideMOAOnExperience = require(RobloxGui.Modules.Flags.GetFFlagHideMOAOnExperience)
 local GetFFlagAddVoiceTagsToAllARSubmissionsEnabled = require(RobloxGui.Modules.Flags.GetFFlagAddVoiceTagsToAllARSubmissionsEnabled)
 local GetFFlagVoiceARDropdownFix = require(RobloxGui.Modules.Flags.GetFFlagVoiceARDropdownFix)
+local GetFFlagVoiceARRemoveOffsiteLinksForVoice = require(RobloxGui.Modules.Flags.GetFFlagVoiceARRemoveOffsiteLinksForVoice)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 
 local ABUSE_TYPES_PLAYER = {
@@ -55,6 +56,18 @@ local ABUSE_TYPES_PLAYER = {
 	"Personal Question",
 	"Offsite Links",
 }
+
+local ABUSE_TYPES_PLAYER_VOICE = {
+	"Swearing",
+	"Inappropriate Username",
+	"Bullying",
+	"Scamming",
+	"Dating",
+	"Cheating/Exploiting",
+	"Personal Question",
+}
+
+local abuseTypePlayerList = ABUSE_TYPES_PLAYER
 
 local ABUSE_TYPES_GAME = {
 	"Inappropriate Content"
@@ -224,6 +237,12 @@ local function Initialize()
 					selectedMethodOfAbuse = "other"
 				end
 
+				if GetFFlagVoiceARRemoveOffsiteLinksForVoice() then
+					abuseTypePlayerList = if selectedMethodOfAbuse == "voice" then ABUSE_TYPES_PLAYER_VOICE else ABUSE_TYPES_PLAYER
+					this.TypeOfAbuseMode:UpdateDropDownList(abuseTypePlayerList)
+					this.TypeOfAbuseMode:SetInteractable(#abuseTypePlayerList > 1)
+				end
+
 				this.reportAbuseAnalytics:reportAnalyticsFieldChanged({
 					field = 'MethodOfAbuse',
 					methodOfAbuse = selectedMethodOfAbuse,
@@ -381,8 +400,8 @@ local function Initialize()
 				this.MethodOfAbuseMode:SetInteractable(index > 1)
 			end
 
-			this.TypeOfAbuseMode:UpdateDropDownList(ABUSE_TYPES_PLAYER)
-			this.TypeOfAbuseMode:SetInteractable(#ABUSE_TYPES_PLAYER > 1)
+			this.TypeOfAbuseMode:UpdateDropDownList(abuseTypePlayerList)
+			this.TypeOfAbuseMode:SetInteractable(#abuseTypePlayerList > 1)
 		end
 
 		local targetPlayer = nextPlayerToReport or currentSelectedPlayer
@@ -568,9 +587,9 @@ local function Initialize()
 
 				updateSubmitButton()
 			else
-				this.TypeOfAbuseMode:UpdateDropDownList(ABUSE_TYPES_PLAYER)
-				this.TypeOfAbuseMode:SetInteractable(#ABUSE_TYPES_PLAYER > 1)
-				this.TypeOfAbuseLabel.ZIndex = (#ABUSE_TYPES_PLAYER > 1 and 2 or 1)
+				this.TypeOfAbuseMode:UpdateDropDownList(abuseTypePlayerList)
+				this.TypeOfAbuseMode:SetInteractable(#abuseTypePlayerList > 1)
+				this.TypeOfAbuseLabel.ZIndex = (#abuseTypePlayerList > 1 and 2 or 1)
 
 				if #playerNames > 0 then
 					this.WhichPlayerMode:SetInteractable(true)
@@ -629,7 +648,7 @@ local function Initialize()
 			end
 
 			if this.GameOrPlayerMode.CurrentIndex == 2 then
-				abuseReason = ABUSE_TYPES_PLAYER[this.TypeOfAbuseMode.CurrentIndex]
+				abuseReason = abuseTypePlayerList[this.TypeOfAbuseMode.CurrentIndex]
 
 				local currentAbusingPlayer = this:GetPlayerFromIndex(this.WhichPlayerMode.CurrentIndex)
 				if currentAbusingPlayer and abuseReason then

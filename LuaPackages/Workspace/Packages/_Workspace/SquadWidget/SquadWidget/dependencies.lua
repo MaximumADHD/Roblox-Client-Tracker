@@ -1,6 +1,8 @@
 local SquadWidget = script:FindFirstAncestor("SquadWidget")
 local Packages = SquadWidget.Parent
 
+local RODUX_KEY = require(SquadWidget.Common.Constants).RODUX_KEY
+
 local LuaSocialLibrariesDeps = require(Packages.LuaSocialLibrariesDeps)
 
 return {
@@ -22,6 +24,10 @@ return {
 	RoactFitComponents = LuaSocialLibrariesDeps.RoactFitComponents,
 	SocialLibraries = LuaSocialLibrariesDeps.SocialLibraries.config({}),
 	llama = LuaSocialLibrariesDeps.llama,
+
+	RoduxSquads = LuaSocialLibrariesDeps.RoduxSquads.config({
+		keyPath = RODUX_KEY .. ".Squad",
+	}),
 
 	withLocalization = require(Packages.Localization).withLocalization,
 

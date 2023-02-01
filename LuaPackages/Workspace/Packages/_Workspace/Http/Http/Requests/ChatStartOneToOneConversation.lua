@@ -4,7 +4,7 @@ local Url = require(script.Parent.Parent.Url)
 
 return function(requestImpl, userId, clientId)
 	local payload = HttpService:JSONEncode({
-		participantuserId = userId
+		participantuserId = userId,
 	})
 
 	local url = string.format("%s/start-one-to-one-conversation", Url.CHAT_URL)

@@ -22,7 +22,7 @@ return function()
 				MonitoredFrame = React.createElement("Frame", {
 					Size = UDim2.fromScale(1, 1),
 					ref = frameRef,
-				})
+				}),
 			})
 		end
 

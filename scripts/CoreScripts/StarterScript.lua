@@ -56,6 +56,7 @@ local GetCoreScriptsLayers = require(CoreGuiModules.Experiment.GetCoreScriptsLay
 
 local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
 
+local FFlagVRAvatarHeightScaling = require(RobloxGui.Modules.Flags.FFlagVRAvatarHeightScaling)
 local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt", false)
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
@@ -221,6 +222,9 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/InspectAndBuy", RobloxGui)
 coroutine.wrap(function()
 	if not VRService.VREnabled then
 		VRService:GetPropertyChangedSignal("VREnabled"):Wait()
+	end
+	if FFlagVRAvatarHeightScaling then
+		safeRequire(RobloxGui.Modules.VR.VRAvatarHeightScaling)
 	end
 	safeRequire(RobloxGui.Modules.VR.VirtualKeyboard)
 	safeRequire(RobloxGui.Modules.VR.UserGui)

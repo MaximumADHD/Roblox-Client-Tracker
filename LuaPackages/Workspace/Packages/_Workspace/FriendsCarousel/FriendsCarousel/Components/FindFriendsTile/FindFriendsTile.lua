@@ -12,18 +12,19 @@ local AddFriendsTileSquare = require(FriendsCarousel.Components.AddFriendsTileSq
 local Analytics = require(FriendsCarousel.Analytics)
 local EventNames = Analytics.EventNames
 local useAnalytics = Analytics.useAnalytics
-local getFFlagFriendsCarouselUpdateFindFriends = require(FriendsCarousel.Flags.getFFlagFriendsCarouselUpdateFindFriends)
+local useEffectOnce = dependencies.Hooks.useEffectOnce
 local getFFlagFriendsCarouselAddNewBadgeTracking =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddNewBadgeTracking)
-local useEffectOnce = dependencies.Hooks.useEffectOnce
+
+local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
 
 export type Props = {
 	badgeValue: string | number | nil,
 	onActivated: () -> (),
 	tileSize: number,
 	onDidMount: () -> ()?,
-	isContactImporterEnabled: boolean?,
-	friendsCarouselExperimentVariant: string,
+	--remove with getFFlagFriendsCarouselRemoveVariant
+	friendsCarouselExperimentVariant: string?,
 }
 
 local getBadgeVale = function(badgeValue: number | string | nil)
@@ -40,7 +41,7 @@ local FindFriendsTile = function(props: Props)
 		end
 	end, {})
 
-	local isUpdatedUI = not (getFFlagFriendsCarouselUpdateFindFriends() and not props.isContactImporterEnabled)
+	local isUpdatedUI = false
 
 	local badgeValue = React.useMemo(function()
 		return if isUpdatedUI then getBadgeVale(props.badgeValue) else nil
@@ -59,17 +60,24 @@ local FindFriendsTile = function(props: Props)
 		findFriendsText = TextKeys.FindFriendsText,
 	})
 
-	return if props.friendsCarouselExperimentVariant == UIVariants.SQUARE_TILES
-		then Roact.createElement(AddFriendsTileSquare, {
-			badgeValue = badgeValue,
-			onActivated = props.onActivated,
-			labelText = if isUpdatedUI then localizedStrings.findFriendsText else localizedStrings.addFriendText,
-			isUpdatedUI = isUpdatedUI,
-		})
-		else Roact.createElement(AddFriendsTileCircular, {
+	if getFFlagFriendsCarouselRemoveVariant() then
+		return Roact.createElement(AddFriendsTileCircular, {
 			onActivated = props.onActivated,
 			labelText = localizedStrings.addFriendText,
 		})
+	else
+		return if props.friendsCarouselExperimentVariant == UIVariants.SQUARE_TILES
+			then Roact.createElement(AddFriendsTileSquare, {
+				badgeValue = badgeValue,
+				onActivated = props.onActivated,
+				labelText = if isUpdatedUI then localizedStrings.findFriendsText else localizedStrings.addFriendText,
+				isUpdatedUI = isUpdatedUI,
+			})
+			else Roact.createElement(AddFriendsTileCircular, {
+				onActivated = props.onActivated,
+				labelText = localizedStrings.addFriendText,
+			})
+	end
 end
 
 return FindFriendsTile

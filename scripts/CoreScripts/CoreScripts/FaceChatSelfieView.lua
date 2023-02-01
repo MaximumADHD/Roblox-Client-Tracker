@@ -35,9 +35,10 @@ function debugPrint(text)
 	end
 end
 
-debugPrint("Self View 12-2-2022__1")
+debugPrint("Self View 01-23-2023__1")
 
 local EngineFeatureFacialAnimationStreamingServiceUseV2 = game:GetEngineFeature("FacialAnimationStreamingServiceUseV2")
+local FastFlagFacialAnimationUsePhysicsTransport = game:DefineFastFlag("FacialAnimationUsePhysicsTransport", false)
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
 
 local CorePackages = game:GetService("CorePackages")
@@ -305,9 +306,7 @@ local function inputBegan(frame, inputObj)
 
 		-- Multiple touches should not affect dragging the Self View. Only the original touch.
 		--the check inputType == Enum.UserInputType.Touch is so it does not block mouse dragging
-		if (inputType == Enum.UserInputType.Touch or not FFlagSelfViewFixesThree)
-			and inputObject ~= inputObj
-		then
+		if (inputType == Enum.UserInputType.Touch or not FFlagSelfViewFixesThree) and inputObject ~= inputObj then
 			return
 		end
 
@@ -918,9 +917,16 @@ local function syncTrack(animator, track)
 		--	cloneTrack.TimePosition = track.TimePosition
 		--	cloneTrack:AdjustSpeed(track.Speed)
 	elseif track.Animation:IsA("TrackerStreamAnimation") then
-		local newAnimation = Instance.new("TrackerStreamAnimation")
-		cloneTrack = animator:LoadStreamAnimation(newAnimation)
+		if FastFlagFacialAnimationUsePhysicsTransport then
+			debugPrint("FastFlagFacialAnimationUsePhysicsTransport")
+			cloneTrack = animator:LoadStreamAnimation(track.Animation)
+		else
+			--in non physics transport way there were jitters when reusing the game world avatar's stream animation so there we were creating a new one for self view
+			local newAnimation = Instance.new("TrackerStreamAnimation")
+			cloneTrack = animator:LoadStreamAnimation(newAnimation)
+		end
 		foundStreamTrack = true
+		debugPrint("foundStreamTrack = true")
 	else
 		warn("No animation to clone in SelfView")
 	end

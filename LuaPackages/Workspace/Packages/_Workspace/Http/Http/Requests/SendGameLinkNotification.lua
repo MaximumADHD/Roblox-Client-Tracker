@@ -11,7 +11,7 @@ return function(requestImpl, recipientId, placeId, shouldDeepLink)
 	local payload = HttpService:JSONEncode({
 		recipientId = recipientId,
 		placeId = placeId,
-		shouldDeepLink = shouldDeepLink
+		shouldDeepLink = shouldDeepLink,
 	})
 	local url = string.format("%sv2/notifications/send-experience-invite", Url.NOTIFICATION_URL)
 

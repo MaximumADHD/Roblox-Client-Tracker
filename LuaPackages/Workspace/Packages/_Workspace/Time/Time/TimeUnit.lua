@@ -1,7 +1,7 @@
 local TimeUnit = setmetatable({}, {
 	__index = function(self, key)
-		error(("Invalid TimeUnit \"%s\""):format(tostring(key)), 2)
-	end
+		error(('Invalid TimeUnit "%s"'):format(tostring(key)), 2)
+	end,
 })
 
 TimeUnit.Seconds = "Seconds"

@@ -8,9 +8,13 @@ local getFStringSocialFriendsLayer = dependencies.getFStringSocialFriendsLayer
 local IXPService = dependencies.IXPService
 local UIVariants = require(FriendsCarousel.Common.UIVariants)
 
+local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
+
 game:DefineFastFlag("FriendsCarouselEnabled_v2", false)
 game:DefineFastFlag("FriendsCarouselEnabledForAll_v2", false)
 game:DefineFastInt("FriendsCarouselRolloutEnabled_v2", 0)
+
+--remove with getFFlagFriendsCarouselRemoveVariant
 game:DefineFastString("FriendsCarouselVariant", "")
 
 local getFFlagFriendsCarouselExperimentEnabled = function()
@@ -27,7 +31,10 @@ end
 
 local getFriendsCarouselRolloutEnabled = setupIsRolloutEnabledForUser(getFIntFriendsCarouselRolloutEnabled)
 
-local getFStringFriendsCarouselVariant = function()
+local getFStringFriendsCarouselVariant = function(): string?
+	if getFFlagFriendsCarouselRemoveVariant() then
+		return nil
+	end
 	local fastString = game:GetFastString("FriendsCarouselVariant")
 	return if fastString and #fastString > 0 then fastString else nil
 end
@@ -44,14 +51,20 @@ local getSocialFriendsLayer = function(layers: any?, config: Config?): { [string
 		or {}
 end
 
-local getExperimentVariant = function(layers: any?, config: Config?)
+local getExperimentVariant = function(layers: any?, config: Config?): string?
+	if getFFlagFriendsCarouselRemoveVariant() then
+		return nil
+	end
 	local socialFriendsLayer = getSocialFriendsLayer(layers, config)
 	local flagVariant = getFStringFriendsCarouselVariant()
 
 	return flagVariant or socialFriendsLayer.friends_carousel_ui
 end
 
-local isExperimentVariantWithRecs = function(layers: any?, config: Config?)
+local isExperimentVariantWithRecs = function(layers: any?, config: Config?): boolean?
+	if getFFlagFriendsCarouselRemoveVariant() then
+		return nil
+	end
 	local experimentVariant = getExperimentVariant(layers, config)
 
 	return experimentVariant == UIVariants.SQUARE_TILES or experimentVariant == UIVariants.CIRCULAR_TILES
@@ -63,17 +76,21 @@ type Config = {
 
 return {
 	enabledForAll = function(layers: any?, config: Config?)
-		return isExperimentVariantWithRecs(layers, config) and getFFlagFriendsCarouselEnabledForDev()
+		return (getFFlagFriendsCarouselRemoveVariant() or isExperimentVariantWithRecs(layers, config))
+			and getFFlagFriendsCarouselEnabledForDev()
 	end,
 	experimentOrRolloutEnabled = function(layers: any?, config: Config?)
-		return isExperimentVariantWithRecs(layers, config)
+		return (isExperimentVariantWithRecs(layers, config) or getFFlagFriendsCarouselRemoveVariant())
 			and (
 				getFFlagFriendsCarouselExperimentEnabled()
 				or getFriendsCarouselRolloutEnabled()
 				or getFFlagFriendsCarouselEnabledForDev()
 			)
 	end,
-	experimentVariant = function(layers: any?, config: Config?)
+	experimentVariant = function(layers: any?, config: Config?): string?
+		if getFFlagFriendsCarouselRemoveVariant() then
+			return nil
+		end
 		return getExperimentVariant(layers, config)
 	end,
 	experimentLayerStatus = function()

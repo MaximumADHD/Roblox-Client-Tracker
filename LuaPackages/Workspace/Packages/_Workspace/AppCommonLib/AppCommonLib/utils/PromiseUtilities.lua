@@ -55,20 +55,17 @@ function PromiseUtilities.Batch(promises, failureReporter: ((string?) -> ())?)
 		end
 
 		for key, promise in pairs(promises) do
-			promise:andThen(
-				function(result, ...)
-					if select("#", ...) > 0 then
-						warn("Promises in PromiseUtilities.Batch should not return tuple")
-					end
-					promiseCompleted(key, true, result)
-				end,
-				function(reason)
-					promiseCompleted(key, false, reason)
-					if failureReporter then
-						failureReporter(reason)
-					end
+			promise:andThen(function(result, ...)
+				if select("#", ...) > 0 then
+					warn("Promises in PromiseUtilities.Batch should not return tuple")
 				end
-			)
+				promiseCompleted(key, true, result)
+			end, function(reason)
+				promiseCompleted(key, false, reason)
+				if failureReporter then
+					failureReporter(reason)
+				end
+			end)
 		end
 	end)
 end

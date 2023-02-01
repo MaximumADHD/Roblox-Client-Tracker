@@ -12,7 +12,6 @@ local RODUX_KEY = require(FriendsCarousel.Common.Constants).RODUX_KEY
 local carouselMapStateToProps = require(script.Parent.carouselMapStateToProps)
 local getRecommendationsList = require(script.Parent.getRecommendationsList)
 local getFriendsList = require(script.Parent.getFriendsList)
-local getFFlagContactImporterOnFriendsCarousel = dependencies.getFFlagContactImporterOnFriendsCarousel
 
 describe("Correct data", function()
 	it("SHOULD return correct data for default state", function()
@@ -45,7 +44,6 @@ describe("Correct data", function()
 			friendCount = 0,
 			friendRequestCount = 0,
 			fetchingStatus = "NotStarted",
-			shouldShowContactImporterFeature = nil,
 			shouldShowContactImporterUpsellModal = nil,
 			recommendationCount = 0,
 		})
@@ -71,45 +69,6 @@ describe("Correct data", function()
 			fetchingStatus = "Done",
 			recommendationCount = #recommendationsList,
 		})
-	end)
-
-	it("SHOULD return correct data for contact importer show params", function()
-		local state = {
-			LocalUserId = "1111",
-			[RODUX_KEY] = {
-				NetworkStatus = {
-					["https://friends.roblox.com//v1/users/1111/friends"] = "Done",
-					["https://friends.roblox.com//v1/users/1111/friends/recommendations"] = "Done",
-				},
-				Friends = {
-					byUserId = {},
-					countsByUserId = {},
-					recommendations = {},
-					requests = {
-						receivedCount = 0,
-					},
-				},
-				Users = {
-					byUserId = {},
-				},
-				Presence = {},
-				ShowContactImporterParams = {
-					shouldShowContactImporterFeature = true,
-					shouldShowContactImporterUpsellModal = true,
-				},
-			},
-		}
-		local mappedState = carouselMapStateToProps(state, {})
-		local shouldShowContactImporterFeature = mappedState.shouldShowContactImporterFeature
-		local shouldShowContactImporterUpsellModal = mappedState.shouldShowContactImporterUpsellModal
-
-		if getFFlagContactImporterOnFriendsCarousel() then
-			jestExpect(shouldShowContactImporterFeature).toBeNil()
-			jestExpect(shouldShowContactImporterUpsellModal).toBeNil()
-		else
-			jestExpect(shouldShowContactImporterFeature).toEqual(true)
-			jestExpect(shouldShowContactImporterUpsellModal).toEqual(true)
-		end
 	end)
 
 	it("SHOULD return correct data if friends or recommendations are fetching", function()

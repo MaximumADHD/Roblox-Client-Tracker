@@ -18,11 +18,11 @@ end
 
 local ApiFetchThumbnails = {}
 
-local keyMapper = function (request)
+local keyMapper = function(request)
 	local targetId = request.targetId
-	local size = request.iconSize and "."..request.iconSize or ""
-	local requestName = request.requestName and "."..request.requestName or ""
-	return "luaapp.thumbnails." .. convertToId(targetId)..size..requestName
+	local size = request.iconSize and "." .. request.iconSize or ""
+	local requestName = request.requestName and "." .. request.requestName or ""
+	return "luaapp.thumbnails." .. convertToId(targetId) .. size .. requestName
 end
 
 ApiFetchThumbnails.KeyMapper = keyMapper
@@ -55,14 +55,16 @@ function ApiFetchThumbnails.Fetch(networkImpl, targetIds, imageSize, requestName
 	for _, subdividedRequests in ipairs(subdividedRequestsArray) do
 		table.insert(
 			promises,
-			store:dispatch(FetchSubdividedThumbnails.Fetch(
-				networkImpl,
-				subdividedRequests,
-				keyMapper,
-				requestName,
-				fetchFunction,
-				storeDispatch
-			))
+			store:dispatch(
+				FetchSubdividedThumbnails.Fetch(
+					networkImpl,
+					subdividedRequests,
+					keyMapper,
+					requestName,
+					fetchFunction,
+					storeDispatch
+				)
+			)
 		)
 	end
 
@@ -70,7 +72,10 @@ function ApiFetchThumbnails.Fetch(networkImpl, targetIds, imageSize, requestName
 end
 
 function ApiFetchThumbnails.GetFetchingStatus(state, targetId, iconSize, requestName)
-	return PerformFetch.GetStatus(state, keyMapper({targetId = targetId, requestName = requestName, iconSize = iconSize}))
+	return PerformFetch.GetStatus(
+		state,
+		keyMapper({ targetId = targetId, requestName = requestName, iconSize = iconSize })
+	)
 end
 
 return ApiFetchThumbnails

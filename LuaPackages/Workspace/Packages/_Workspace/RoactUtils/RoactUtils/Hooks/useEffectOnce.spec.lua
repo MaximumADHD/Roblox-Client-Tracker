@@ -110,7 +110,6 @@ return function()
 
 		expect(event).toHaveBeenCalledTimes(1)
 
-
 		ReactRoblox.act(function()
 			changeEffect(false)
 		end)

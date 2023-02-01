@@ -16,12 +16,9 @@ local baseTestStates = devDependencies.baseTestStates
 local jest = devDependencies.jest
 local RhodiumHelpers = devDependencies.RhodiumHelpers()
 local Roact = dependencies.Roact
-local Promise = dependencies.Promise
 local llama = dependencies.llama
 local Dash = dependencies.Dash
 local mockAnalytics = dependencies.SocialLuaAnalytics.TestingAnalytics.mockAnalytics
-
-local CIScreens = dependencies.SocialModalsCommon.EnumScreens
 
 local validateEvent = require(FriendsCarousel.TestHelpers.validateEvent)
 local validateDiagEvent = require(FriendsCarousel.TestHelpers.validateDiagEvent)
@@ -31,24 +28,15 @@ local addFriendsCarouselRecommendationIdsToState =
 	require(FriendsCarousel.TestHelpers.addFriendsCarouselRecommendationIdsToState)
 
 local RODUX_KEY = require(FriendsCarousel.Common.Constants).RODUX_KEY
-local UIVariants = require(FriendsCarousel.Common.UIVariants)
 local EventNames = require(FriendsCarousel.Analytics.EventNames)
 local RecommendationContextType = dependencies.RoduxFriends.Enums.RecommendationContextType
-local getFIntShowFriendRecommendationsLimit = require(FriendsCarousel.Flags.getFIntShowFriendRecommendationsLimit)
 local NetworkingUserSettings = dependencies.NetworkingUserSettings
 local NetworkingAccountInformation = dependencies.NetworkingAccountInformation
 
-local ContactImporterConstants = dependencies.ContactImporterConstants
-local HAS_FEATURE_IN_GAME_ENGINE =
-	game:GetEngineFeature(ContactImporterConstants.UNIVERSAL_APP_CONTACT_IMPORTER_STORAGE_KEYS)
 local getFFlagFriendsCarouselFilterOutRecs = require(FriendsCarousel.Flags.getFFlagFriendsCarouselFilterOutRecs)
 local getFFlagFriendsCarouselDontUseIngestService = dependencies.getFFlagFriendsCarouselDontUseIngestService
 local getFFlagFriendsCarouselAddUniverseIdToEvents =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddUniverseIdToEvents)
-local getFFlagContactImporterOnFriendsCarousel = dependencies.getFFlagContactImporterOnFriendsCarousel
-
-local Packages = FriendsCarousel.Parent
-local ContactImporterDependencies = require(Packages.ContactImporter).dependencies
 
 local CarouselContainer = require(script.Parent.CarouselContainer)
 
@@ -65,17 +53,12 @@ describe("CarouselContainer", function()
 			formFactor = "compact",
 			sideMargin = 0,
 		},
-		closeModal = if getFFlagContactImporterOnFriendsCarousel() then nil else Dash.noop,
-		openContactsList = if getFFlagContactImporterOnFriendsCarousel() then nil else Dash.noop,
-		openFindFriendsModal = if getFFlagContactImporterOnFriendsCarousel() then nil else Dash.noop,
-		navigateDownToAddFriendsPage = if getFFlagContactImporterOnFriendsCarousel() then nil else Dash.noop,
 		openProfilePeekView = Dash.noop,
 		openContextualMenu = Dash.noop,
 		showToast = Dash.noop,
-		navigateFromAddFriends = if getFFlagContactImporterOnFriendsCarousel() then Dash.noop else nil,
+		navigateFromAddFriends = Dash.noop,
 		analyticsService = mockAnalytics(jest),
 		fetchingStatus = "Done",
-		openLearnMoreLink = if getFFlagContactImporterOnFriendsCarousel() then nil else Dash.noop,
 		navigation = {},
 		diagService = {
 			reportCounter = jest.fn(),
@@ -128,7 +111,7 @@ describe("CarouselContainer", function()
 	end)
 
 	describe("renderElements", function()
-		local setup, mockedAnalytics, oldValue
+		local setup, mockedAnalytics
 
 		beforeAll(function()
 			NetworkingUserSettings.GetUserSettings.Mock.clear()
@@ -136,7 +119,6 @@ describe("CarouselContainer", function()
 		end)
 
 		beforeEach(function()
-			oldValue = game:SetFastFlagForTesting("AutoSyncForContactImporterDisabled", false)
 			setup = function(props, elementName, elementProps)
 				local SimpleTestElement = Roact.Component:extend("TestElement")
 				function SimpleTestElement:render()
@@ -170,367 +152,37 @@ describe("CarouselContainer", function()
 		afterEach(function()
 			NetworkingUserSettings.GetUserSettings.Mock.clear()
 			NetworkingAccountInformation.GetPhoneInformation.Mock.clear()
-			game:SetFastFlagForTesting("AutoSyncForContactImporterDisabled", oldValue)
 		end)
 
-		describe("renderFindFriendsTile", function()
-			if not getFFlagContactImporterOnFriendsCarousel() then
-				it("SHOULD call ContactsProtocol if user has opted into Contact Importer", function()
-					local supportsContactsSpy = jest.fn()
-					local getsContactsSpy = jest.fn()
-					local ContactsProtocolMock = {
-						supportsContacts = jest.fn().mockImplementation(function()
-							supportsContactsSpy()
-							return Promise.resolve(true)
-						end),
-						getContacts = jest.fn().mockImplementation(function()
-							getsContactsSpy()
-							return Promise.resolve({
-								countryCode = "US",
-								contacts = {},
-							})
-						end),
-					}
+		describe("on FindFriendsTile click", function()
+			it("SHOULD call navigateFromAddFriends and fire analytics event", function()
+				local navigateFromAddFriends = jest.fn()
 
-					NetworkingUserSettings.GetUserSettings.Mock.reply(function()
-						return { responseBody = {} }
-					end)
+				local CarouselContainerElement = setup({
+					navigateFromAddFriends = function()
+						navigateFromAddFriends()
+					end,
+				}, "renderFindFriendsTile")
 
-					NetworkingAccountInformation.GetPhoneInformation.Mock.reply(function()
-						return { responseBody = {} }
-					end)
-
-					local state = {
-						LocalUserId = LOCAL_USER_ID,
-						[RODUX_KEY] = {
-							NetworkStatus = {},
-							Friends = {
-								byUserId = {},
-								countsByUserId = {},
-							},
-							Users = {},
-							Presence = {},
-							ShowContactImporterParams = {
-								shouldShowContactImporterFeature = true,
-								shouldShowContactImporterUpsellModal = false,
-							},
-						},
-					}
-
-					local CarouselContainerElement = createTreeWithProviders(CarouselContainer, {
-						store = mockStore(state),
-						props = llama.Dictionary.join(DEFAULT_PROPS, {
-							contactImporterAndPYMKEnabled = if getFFlagContactImporterOnFriendsCarousel()
-								then nil
-								else true,
-							isContactImporterPolicyEnabled = if getFFlagContactImporterOnFriendsCarousel()
-								then nil
-								else true,
-							contactsProtocol = if getFFlagContactImporterOnFriendsCarousel()
-								then nil
-								else ContactsProtocolMock,
-						}),
+				runWhileMounted(CarouselContainerElement, function(parent)
+					local testButton = RhodiumHelpers.findFirstInstance(parent, {
+						Name = "AddFriendButton",
 					})
 
-					runWhileMounted(CarouselContainerElement, function(parent)
-						jestExpect(getsContactsSpy).toHaveBeenCalledTimes(1)
-						jestExpect(supportsContactsSpy).toHaveBeenCalledTimes(1)
-					end)
-				end)
-			end
+					jestExpect(testButton).toEqual(jestExpect.any("Instance"))
 
-			it(
-				"SHOULD show badge if contact importer modal is visible and UIVariant is SQUARE_TILES and refactor of contact importer is false",
-				function()
-					local oldValue = game:SetFastFlagForTesting("FriendsCarouselUpdateFindFriends", false)
-					NetworkingUserSettings.GetUserSettings.Mock.reply(function()
-						return { responseBody = {} }
-					end)
-					NetworkingAccountInformation.GetPhoneInformation.Mock.reply(function()
-						return { responseBody = {} }
-					end)
+					RhodiumHelpers.clickInstance(testButton)
 
-					local CarouselContainerElement = setup({
-						contactImporterAndPYMKEnabled = if getFFlagContactImporterOnFriendsCarousel()
-							then nil
-							else true,
-						isContactImporterPolicyEnabled = if getFFlagContactImporterOnFriendsCarousel()
-							then nil
-							else true,
-						openFindFriendsModal = if getFFlagContactImporterOnFriendsCarousel() then nil else Dash.noop,
-						navigateDownToAddFriendsPage = if getFFlagContactImporterOnFriendsCarousel()
-							then nil
-							else Dash.noop,
-						shouldShowContactImporterModal = if getFFlagContactImporterOnFriendsCarousel()
-							then nil
-							else true,
-						showContactImporter = if getFFlagContactImporterOnFriendsCarousel() then true else nil,
-						friendsCarouselExperimentVariant = UIVariants.SQUARE_TILES,
-					}, "renderFindFriendsTile")
+					jestExpect(navigateFromAddFriends).toHaveBeenCalled()
+					jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(1)
 
-					runWhileMounted(CarouselContainerElement, function(parent)
-						local badge = RhodiumHelpers.findFirstInstance(parent, {
-							Name = "Badge",
-						})
-						jestExpect(badge).never.toBeNil()
-						game:SetFastFlagForTesting("FriendsCarouselUpdateFindFriends", oldValue)
-					end)
-				end
-			)
-
-			it("SHOULD NOT call ContactsProtocol if user is not eligible for Contact Importer", function()
-				local supportsContactsSpy = jest.fn()
-				local getsContactsSpy = jest.fn()
-				local ContactsProtocolMock = {
-					supportsContacts = jest.fn().mockImplementation(function()
-						supportsContactsSpy()
-						return Promise.resolve(true)
-					end),
-					getContacts = jest.fn().mockImplementation(function()
-						getsContactsSpy()
-						return Promise.resolve({
-							countryCode = "US",
-							contacts = {},
-						})
-					end),
-				}
-
-				NetworkingUserSettings.GetUserSettings.Mock.reply(function()
-					return { responseBody = {} }
-				end)
-
-				NetworkingAccountInformation.GetPhoneInformation.Mock.reply(function()
-					return { responseBody = {} }
-				end)
-
-				local CarouselContainerElement = setup({
-					contactImporterAndPYMKEnabled = if getFFlagContactImporterOnFriendsCarousel() then nil else true,
-					isContactImporterPolicyEnabled = if getFFlagContactImporterOnFriendsCarousel() then nil else true,
-					contactsProtocol = if getFFlagContactImporterOnFriendsCarousel() then nil else ContactsProtocolMock,
-				}, "renderFindFriendsTile")
-
-				runWhileMounted(CarouselContainerElement, function(parent)
-					jestExpect(getsContactsSpy).never.toHaveBeenCalled()
-					jestExpect(supportsContactsSpy).never.toHaveBeenCalled()
-				end)
-			end)
-
-			it("SHOULD make expected calls if contact importer feature is enabled when mounted ", function()
-				local userSettingsSpy = jest.fn()
-
-				ContactImporterDependencies.NetworkingUserSettings.GetUserSettings.Mock.clear()
-				ContactImporterDependencies.NetworkingUserSettings.GetUserSettings.Mock.reply(function()
-					userSettingsSpy()
-					return { responseBody = {} }
-				end)
-
-				local phoneInfoSpy = jest.fn()
-
-				ContactImporterDependencies.NetworkingAccountInformation.GetPhoneInformation.Mock.clear()
-				ContactImporterDependencies.NetworkingAccountInformation.GetPhoneInformation.Mock.reply(function()
-					phoneInfoSpy()
-					return { responseBody = {} }
-				end)
-
-				local CarouselContainerElement = setup({
-					contactImporterAndPYMKEnabled = if getFFlagContactImporterOnFriendsCarousel() then nil else true,
-					isContactImporterPolicyEnabled = if getFFlagContactImporterOnFriendsCarousel() then nil else true,
-					openFindFriendsModal = if getFFlagContactImporterOnFriendsCarousel() then nil else Dash.noop,
-					navigateDownToAddFriendsPage = if getFFlagContactImporterOnFriendsCarousel()
-						then nil
-						else Dash.noop,
-				}, "renderFindFriendsTile")
-
-				runWhileMounted(CarouselContainerElement, function(parent)
-					if getFFlagContactImporterOnFriendsCarousel() then
-						jestExpect(userSettingsSpy).never.toHaveBeenCalled()
-						jestExpect(phoneInfoSpy).never.toHaveBeenCalled()
-					else
-						jestExpect(userSettingsSpy).toHaveBeenCalledTimes(1)
-						jestExpect(phoneInfoSpy).toHaveBeenCalledTimes(1)
-					end
-				end)
-			end)
-
-			if getFFlagContactImporterOnFriendsCarousel() then
-				it("SHOULD not make network calls if contactImporterAndPYMKEnabled is false when mounted ", function()
-					local userSettingsSpy = jest.fn()
-
-					NetworkingUserSettings.GetUserSettings.Mock.reply(function()
-						userSettingsSpy()
-						return { responseBody = {} }
-					end)
-
-					local phoneInfoSpy = jest.fn()
-
-					NetworkingAccountInformation.GetPhoneInformation.Mock.reply(function()
-						phoneInfoSpy()
-						return { responseBody = {} }
-					end)
-
-					local CarouselContainerElement = setup({
-						contactImporterAndPYMKEnabled = if getFFlagContactImporterOnFriendsCarousel()
-							then nil
-							else false,
-						openFindFriendsModal = if getFFlagContactImporterOnFriendsCarousel() then nil else Dash.noop,
-						navigateDownToAddFriendsPage = if getFFlagContactImporterOnFriendsCarousel()
-							then nil
-							else Dash.noop,
-					}, "renderFindFriendsTile")
-
-					runWhileMounted(CarouselContainerElement, function(parent)
-						jestExpect(userSettingsSpy).never.toHaveBeenCalled()
-						jestExpect(phoneInfoSpy).never.toHaveBeenCalled()
-					end)
-				end)
-			end
-
-			describe("onFindFriendsTileClickTest with UIVariant", function()
-				local onFindFriendsTileClickTest = function(UIVariant, UIButton)
-					it(
-						"SHOULD call navigate and fire analytics event when contactImporterAndPYMKEnabled is true for "
-							.. UIVariant,
-						function()
-							local navigateDownToAddFriendsPage = jest.fn()
-							local navigation = {
-								navigate = jest.fn(),
-								pop = Dash.noop,
-							}
-
-							local CarouselContainerElement = setup({
-								shouldShowContactImporterModal = if getFFlagContactImporterOnFriendsCarousel()
-									then nil
-									else true,
-								contactImporterAndPYMKEnabled = if getFFlagContactImporterOnFriendsCarousel()
-									then nil
-									else true,
-								navigateDownToAddFriendsPage = if getFFlagContactImporterOnFriendsCarousel()
-									then nil
-									else function()
-										navigateDownToAddFriendsPage()
-									end,
-								navigation = if getFFlagContactImporterOnFriendsCarousel() then nil else navigation,
-							}, "renderFindFriendsTile")
-
-							runWhileMounted(CarouselContainerElement, function(parent)
-								local testButton = RhodiumHelpers.findFirstInstance(parent, {
-									Name = "AddFriendButton",
-								})
-
-								jestExpect(testButton).toEqual(jestExpect.any("Instance"))
-
-								RhodiumHelpers.clickInstance(testButton)
-
-								if getFFlagContactImporterOnFriendsCarousel() then
-									jestExpect(navigation.navigate).never.toHaveBeenCalled()
-									jestExpect(navigateDownToAddFriendsPage).never.toHaveBeenCalled()
-								else
-									jestExpect(navigation.navigate).toHaveBeenCalledTimes(1)
-									jestExpect(navigation.navigate).toHaveBeenCalledWith(
-										CIScreens.ContactImporter,
-										jestExpect.any("table")
-									)
-									jestExpect(navigateDownToAddFriendsPage).never.toHaveBeenCalled()
-								end
-
-								jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(1)
-								jestExpect(testButton).toEqual(jestExpect.any("Instance"))
-
-								RhodiumHelpers.clickInstance(testButton)
-
-								jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(2)
-
-								jestExpect(mockedAnalytics.Diag.reportCounter).toHaveBeenCalledTimes(2)
-								jestExpect(mockedAnalytics.Diag.reportCounter).toHaveBeenCalledWith(
-									mockedAnalytics.Diag,
-									validateDiagEvent(EventNames.ViewAddFriends)
-								)
-							end)
-						end
+					jestExpect(mockedAnalytics.Diag.reportCounter).toHaveBeenCalledTimes(1)
+					jestExpect(mockedAnalytics.Diag.reportCounter).toHaveBeenCalledWith(
+						mockedAnalytics.Diag,
+						validateDiagEvent(EventNames.ViewAddFriends)
 					)
-				end
-
-				onFindFriendsTileClickTest(UIVariants.SQUARE_TILES, "AddFriendsTileSquare")
-				onFindFriendsTileClickTest(UIVariants.CIRCULAR_TILES, "AddFriendsTileCircular")
-			end)
-
-			if HAS_FEATURE_IN_GAME_ENGINE then
-				it("SHOULD navigate and fire analytics event when contactImporterAndPYMKEnabled is true", function()
-					local navigateDownToAddFriendsPage = jest.fn()
-					local navigateFromAddFriends = jest.fn()
-					local navigation = {
-						navigate = jest.fn(),
-					}
-
-					local CarouselContainerElement = setup({
-						shouldShowContactImporterModal = if getFFlagContactImporterOnFriendsCarousel()
-							then nil
-							else true,
-						contactImporterAndPYMKEnabled = if getFFlagContactImporterOnFriendsCarousel()
-							then nil
-							else true,
-						shouldShowContactImporterFeature = if getFFlagContactImporterOnFriendsCarousel()
-							then nil
-							else true,
-						shouldShowContactImporterUpsellModal = if getFFlagContactImporterOnFriendsCarousel()
-							then nil
-							else true,
-						navigation = if getFFlagContactImporterOnFriendsCarousel() then nil else navigation,
-						navigateDownToAddFriendsPage = if getFFlagContactImporterOnFriendsCarousel()
-							then nil
-							else function()
-								navigateDownToAddFriendsPage()
-							end,
-						navigateFromAddFriends = if getFFlagContactImporterOnFriendsCarousel()
-							then function()
-								navigateFromAddFriends()
-							end
-							else nil,
-						showContactImporter = if getFFlagContactImporterOnFriendsCarousel() then true else nil,
-					}, "renderFindFriendsTile")
-
-					runWhileMounted(CarouselContainerElement, function(parent)
-						local testButton = RhodiumHelpers.findFirstInstance(parent, {
-							Name = "AddFriendButton",
-						})
-
-						jestExpect(testButton).toEqual(jestExpect.any("Instance"))
-
-						RhodiumHelpers.clickInstance(testButton)
-						if getFFlagContactImporterOnFriendsCarousel() then
-							jestExpect(navigateFromAddFriends).toHaveBeenCalledTimes(1)
-							jestExpect(navigation.navigate).never.toHaveBeenCalled()
-							jestExpect(navigateDownToAddFriendsPage).never.toHaveBeenCalled()
-						else
-							jestExpect(navigation.navigate).toHaveBeenCalledTimes(1)
-							jestExpect(navigateFromAddFriends).never.toHaveBeenCalled()
-							jestExpect(navigateDownToAddFriendsPage).never.toHaveBeenCalled()
-						end
-
-						jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(1)
-
-						jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledWith(
-							mockedAnalytics.EventStream,
-							validateEvent(EventNames.ViewAddFriends, {
-								friendCount = 5,
-								recommendationCount = 4,
-								showContactImporterModal = true,
-								recommendationLimit = getFIntShowFriendRecommendationsLimit(),
-								requestCount = 28,
-								uid = "test",
-							})
-						)
-
-						jestExpect(mockedAnalytics.Diag.reportCounter).toHaveBeenCalledTimes(1)
-						jestExpect(mockedAnalytics.Diag.reportCounter).toHaveBeenCalledWith(
-							mockedAnalytics.Diag,
-							validateDiagEvent(EventNames.ViewAddFriends)
-						)
-
-						jestExpect(navigateDownToAddFriendsPage).never.toHaveBeenCalled()
-					end)
 				end)
-			end
+			end)
 		end)
 
 		describe("renderUserTile", function()

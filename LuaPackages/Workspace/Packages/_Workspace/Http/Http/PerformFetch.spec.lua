@@ -38,7 +38,7 @@ return function()
 		return {
 			promise = testPromise,
 			resolve = startResolve,
-			reject = startReject
+			reject = startReject,
 		}
 	end
 
@@ -62,7 +62,7 @@ return function()
 
 	local function doBasicSingleTest(key)
 		local resolver = makeResolver()
-		local store = Rodux.Store.new(MockReducer, { }, { Rodux.thunkMiddleware })
+		local store = Rodux.Store.new(MockReducer, {}, { Rodux.thunkMiddleware })
 		local thunkPromise = doDispatchSingle(store, key, function()
 			return resolver.promise
 		end)
@@ -70,13 +70,13 @@ return function()
 		return {
 			store = store,
 			resolver = resolver,
-			promise = thunkPromise
+			promise = thunkPromise,
 		}
 	end
 
 	local function doBasicBatchTest(keys)
 		local resolver = makeResolver()
-		local store = Rodux.Store.new(MockReducer, { }, { Rodux.thunkMiddleware })
+		local store = Rodux.Store.new(MockReducer, {}, { Rodux.thunkMiddleware })
 		local thunkPromise = doDispatchBatch(store, keys, function()
 			return resolver.promise
 		end)
@@ -84,7 +84,7 @@ return function()
 		return {
 			store = store,
 			resolver = resolver,
-			promise = thunkPromise
+			promise = thunkPromise,
 		}
 	end
 
@@ -101,14 +101,14 @@ return function()
 				RetrievalStatus.NotStarted,
 				RetrievalStatus.Fetching,
 				RetrievalStatus.Done,
-				RetrievalStatus.Failed
+				RetrievalStatus.Failed,
 			}
 
 			for _, testStatus in ipairs(statusesToTest) do
 				local state = {
 					FetchingStatus = {
-						[TEST_KEY_1] = testStatus
-					}
+						[TEST_KEY_1] = testStatus,
+					},
 				}
 
 				expect(PerformFetch.GetStatus(state, TEST_KEY_1)).to.equal(testStatus)
@@ -127,7 +127,7 @@ return function()
 		end)
 
 		it("should pass store parameter to fetch functor", function()
-			local originalStore = Rodux.Store.new(MockReducer, { }, { Rodux.thunkMiddleware })
+			local originalStore = Rodux.Store.new(MockReducer, {}, { Rodux.thunkMiddleware })
 			local newStore
 			doDispatchSingle(originalStore, TEST_KEY_1, function(store)
 				newStore = store
@@ -138,7 +138,7 @@ return function()
 		end)
 
 		it("should set fetching state to done for sync resolve", function()
-			local store = Rodux.Store.new(MockReducer, { }, { Rodux.thunkMiddleware })
+			local store = Rodux.Store.new(MockReducer, {}, { Rodux.thunkMiddleware })
 			doDispatchSingle(store, TEST_KEY_1, function()
 				return Promise.resolve()
 			end)
@@ -147,7 +147,7 @@ return function()
 		end)
 
 		it("should set fetching state to failed for sync reject", function()
-			local store = Rodux.Store.new(MockReducer, { }, { Rodux.thunkMiddleware })
+			local store = Rodux.Store.new(MockReducer, {}, { Rodux.thunkMiddleware })
 			local caughtPromiseRejection = false
 			doDispatchSingle(store, TEST_KEY_1, function()
 				return Promise.reject()
@@ -166,7 +166,6 @@ return function()
 			expect(bundle.store:getState().FetchingStatus[TEST_KEY_1]).to.equal(RetrievalStatus.Done)
 		end)
 
-
 		it("should set fetching state to Failed after async fetch rejects", function()
 			local bundle = doBasicSingleTest(TEST_KEY_1)
 			local caughtPromiseRejection = false
@@ -179,9 +178,8 @@ return function()
 			expect(caughtPromiseRejection).to.equal(true)
 		end)
 
-
 		it("should not mix fetching status of two separate keys", function()
-			local store = Rodux.Store.new(MockReducer, { }, { Rodux.thunkMiddleware })
+			local store = Rodux.Store.new(MockReducer, {}, { Rodux.thunkMiddleware })
 			local caughtPromiseRejection = false
 
 			doDispatchSingle(store, TEST_KEY_1, function()
@@ -200,7 +198,7 @@ return function()
 		end)
 
 		it("should pass original promise args to daisy-chained promise upon resolve", function()
-			local store = Rodux.Store.new(MockReducer, { }, { Rodux.thunkMiddleware })
+			local store = Rodux.Store.new(MockReducer, {}, { Rodux.thunkMiddleware })
 			local testTable = { a = 1 }
 
 			local passedArg
@@ -214,7 +212,7 @@ return function()
 		end)
 
 		it("should pass original promise args to daisy-chained promise upon reject", function()
-			local store = Rodux.Store.new(MockReducer, { }, { Rodux.thunkMiddleware })
+			local store = Rodux.Store.new(MockReducer, {}, { Rodux.thunkMiddleware })
 			local testTable = { a = 1 }
 
 			local passedArg
@@ -228,7 +226,7 @@ return function()
 		end)
 
 		it("should not call second thunk instance for same key while request is ongoing", function()
-			local store = Rodux.Store.new(MockReducer, { }, { Rodux.thunkMiddleware })
+			local store = Rodux.Store.new(MockReducer, {}, { Rodux.thunkMiddleware })
 			local firstThunkExecuted = false
 			local secondThunkExecuted = false
 
@@ -251,7 +249,7 @@ return function()
 		end)
 
 		it("should call both thunks when the first one is completed soon enough", function()
-			local store = Rodux.Store.new(MockReducer, { }, { Rodux.thunkMiddleware })
+			local store = Rodux.Store.new(MockReducer, {}, { Rodux.thunkMiddleware })
 			local firstThunkExecuted = false
 			local secondThunkExecuted = false
 
@@ -270,37 +268,41 @@ return function()
 		end)
 
 		it("should resolve daisy-chained promises after thunk resolves", function()
-			local store = Rodux.Store.new(MockReducer, { }, { Rodux.thunkMiddleware })
+			local store = Rodux.Store.new(MockReducer, {}, { Rodux.thunkMiddleware })
 			local chainedPromiseExecuted = false
 
 			doDispatchSingle(store, TEST_KEY_1, function()
-				return Promise.resolve()
-			end):andThen(function()
-				chainedPromiseExecuted = true
-			end):catch(function()
-				error("Error happend")
-			end)
+					return Promise.resolve()
+				end)
+				:andThen(function()
+					chainedPromiseExecuted = true
+				end)
+				:catch(function()
+					error("Error happend")
+				end)
 
 			expect(chainedPromiseExecuted).to.equal(true)
 		end)
 
 		it("should reject daisy-chained promises after thunk rejects", function()
-			local store = Rodux.Store.new(MockReducer, { }, { Rodux.thunkMiddleware })
+			local store = Rodux.Store.new(MockReducer, {}, { Rodux.thunkMiddleware })
 			local chainedCatchExecuted = false
 
 			doDispatchSingle(store, TEST_KEY_1, function()
-				return Promise.reject()
-			end):andThen(function()
-				error("The expected error is missing")
-			end):catch(function()
-				chainedCatchExecuted = true
-			end)
+					return Promise.reject()
+				end)
+				:andThen(function()
+					error("The expected error is missing")
+				end)
+				:catch(function()
+					chainedCatchExecuted = true
+				end)
 
 			expect(chainedCatchExecuted).to.equal(true)
 		end)
 
 		it("should resolve daisy-chained promises on second thunk after first resolves", function()
-			local store = Rodux.Store.new(MockReducer, { }, { Rodux.thunkMiddleware })
+			local store = Rodux.Store.new(MockReducer, {}, { Rodux.thunkMiddleware })
 			local secondPromiseResolved = false
 
 			local startResolve
@@ -313,13 +315,15 @@ return function()
 			end)
 
 			doDispatchSingle(store, TEST_KEY_1, function()
-				error("Error happend")
-				return Promise.reject()
-			end):andThen(function()
-				secondPromiseResolved = true
-			end):catch(function()
-				error("Error happend")
-			end)
+					error("Error happend")
+					return Promise.reject()
+				end)
+				:andThen(function()
+					secondPromiseResolved = true
+				end)
+				:catch(function()
+					error("Error happend")
+				end)
 
 			expect(secondPromiseResolved).to.equal(false)
 
@@ -329,7 +333,7 @@ return function()
 		end)
 
 		it("should reject daisy-chained promises on second thunk after first thunk rejects", function()
-			local store = Rodux.Store.new(MockReducer, { }, { Rodux.thunkMiddleware })
+			local store = Rodux.Store.new(MockReducer, {}, { Rodux.thunkMiddleware })
 			local secondPromiseRejected = false
 			local firstPromiseRejected = false
 
@@ -345,13 +349,14 @@ return function()
 			end)
 
 			doDispatchSingle(store, TEST_KEY_1, function()
-				return Promise.new(function() end)
-			end):andThen(function()
-				error("The expected error is missing")
-			end):catch(function()
-				secondPromiseRejected = true
-			end)
-
+					return Promise.new(function() end)
+				end)
+				:andThen(function()
+					error("The expected error is missing")
+				end)
+				:catch(function()
+					secondPromiseRejected = true
+				end)
 
 			expect(secondPromiseRejected).to.equal(false)
 			expect(firstPromiseRejected).to.equal(false)
@@ -379,20 +384,23 @@ return function()
 			bundle.resolver.resolve(results) -- Cleanup to avoid test blockage
 		end)
 
-		it("should set fetching state to matching status for all batch items when fetching completes successfully", function()
-			local originalItemList = { TEST_ITEM_1, TEST_ITEM_2 }
-			local bundle = doBasicBatchTest(originalItemList)
+		it(
+			"should set fetching state to matching status for all batch items when fetching completes successfully",
+			function()
+				local originalItemList = { TEST_ITEM_1, TEST_ITEM_2 }
+				local bundle = doBasicBatchTest(originalItemList)
 
-			local results = {
-				[TEST_KEY_1] = Result.new(true),
-				[TEST_KEY_2] = Result.new(false),
-			}
+				local results = {
+					[TEST_KEY_1] = Result.new(true),
+					[TEST_KEY_2] = Result.new(false),
+				}
 
-			bundle.resolver.resolve(results)
+				bundle.resolver.resolve(results)
 
-			expect(bundle.store:getState().FetchingStatus[TEST_KEY_1]).to.equal(RetrievalStatus.Done)
-			expect(bundle.store:getState().FetchingStatus[TEST_KEY_2]).to.equal(RetrievalStatus.Failed)
-		end)
+				expect(bundle.store:getState().FetchingStatus[TEST_KEY_1]).to.equal(RetrievalStatus.Done)
+				expect(bundle.store:getState().FetchingStatus[TEST_KEY_2]).to.equal(RetrievalStatus.Failed)
+			end
+		)
 
 		it("should fail items when they are not in the result list", function()
 			local originalItemList = { TEST_ITEM_1, TEST_ITEM_2 }
@@ -431,7 +439,7 @@ return function()
 		end)
 
 		it("should not call batch functor when there are no items to fetch", function()
-			local store = Rodux.Store.new(MockReducer, { }, { Rodux.thunkMiddleware })
+			local store = Rodux.Store.new(MockReducer, {}, { Rodux.thunkMiddleware })
 			local promise = doDispatchBatch(store, {}, function()
 				assert(false, "Functor should not be called when there are no items to fetch")
 			end)
@@ -451,7 +459,7 @@ return function()
 
 			local promise2 = doDispatchBatch(bundle.store, testItemList, function(_, itemsToFetch)
 				assert(false, "second batch should not be called")
-				return Promise.resolve({ })
+				return Promise.resolve({})
 			end)
 
 			local chainedResults = nil
@@ -482,11 +490,10 @@ return function()
 			local singleBundle = doBasicSingleTest(TEST_KEY_1)
 
 			local batchItemCount = -1
-			local batchPromise = doDispatchBatch(singleBundle.store, { TEST_ITEM_1, TEST_ITEM_2 },
-				function(_, items)
-					batchItemCount = #items
-					return Promise.resolve({ [TEST_KEY_2] = Result.new(false, 35) })
-				end)
+			local batchPromise = doDispatchBatch(singleBundle.store, { TEST_ITEM_1, TEST_ITEM_2 }, function(_, items)
+				batchItemCount = #items
+				return Promise.resolve({ [TEST_KEY_2] = Result.new(false, 35) })
+			end)
 
 			singleBundle.resolver.resolve(49)
 
@@ -517,7 +524,7 @@ return function()
 
 			batchBundle.resolver.resolve({
 				[TEST_KEY_1] = Result.new(true, 42),
-				[TEST_KEY_2] = Result.new(true, 39)
+				[TEST_KEY_2] = Result.new(true, 39),
 			})
 
 			local chainedResult = nil

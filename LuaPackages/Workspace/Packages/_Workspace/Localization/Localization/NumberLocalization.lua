@@ -34,145 +34,145 @@ local GROUP_DELIMITER = "groupDelimiter"
 localeInfos["en-us"] = {
 	[DECIMAL_SEPARATOR] = ".",
 	[GROUP_DELIMITER] = ",",
-	{ 1, "", },
-	{ 1e3, "K", },
-	{ 1e6, "M", },
-	{ 1e9, "B", },
+	{ 1, "" },
+	{ 1e3, "K" },
+	{ 1e6, "M" },
+	{ 1e9, "B" },
 }
 
 localeInfos["es-es"] = {
 	[DECIMAL_SEPARATOR] = ",",
 	[GROUP_DELIMITER] = ".",
-	{ 1, "", },
-	{ 1e3, " mil", },
-	{ 1e6, " M", },
+	{ 1, "" },
+	{ 1e3, " mil" },
+	{ 1e6, " M" },
 }
 
 localeInfos["fr-fr"] = {
 	[DECIMAL_SEPARATOR] = ",",
 	[GROUP_DELIMITER] = " ",
-	{ 1, "", },
-	{ 1e3, " k", },
-	{ 1e6, " M", },
-	{ 1e9, " Md", },
+	{ 1, "" },
+	{ 1e3, " k" },
+	{ 1e6, " M" },
+	{ 1e9, " Md" },
 }
 
 localeInfos["de-de"] = {
 	[DECIMAL_SEPARATOR] = ",",
 	[GROUP_DELIMITER] = " ",
-	{ 1, "", },
-	{ 1e3, " Tsd.", },
-	{ 1e6, " Mio.", },
-	{ 1e9, " Mrd.", },
+	{ 1, "" },
+	{ 1e3, " Tsd." },
+	{ 1e6, " Mio." },
+	{ 1e9, " Mrd." },
 }
 
 localeInfos["pt-br"] = {
 	[DECIMAL_SEPARATOR] = ",",
 	[GROUP_DELIMITER] = ".",
-	{ 1, "", },
-	{ 1e3, " mil", },
-	{ 1e6, " mi", },
-	{ 1e9, " bi", },
+	{ 1, "" },
+	{ 1e3, " mil" },
+	{ 1e6, " mi" },
+	{ 1e9, " bi" },
 }
 
 localeInfos["zh-cn"] = {
 	[DECIMAL_SEPARATOR] = ".",
 	[GROUP_DELIMITER] = ",", -- Chinese commonly uses 3 digit groupings, despite 10000s rule
-	{ 1, "", },
-	{ 1e3, "千", },
-	{ 1e4, "万", },
-	{ 1e8, "亿", },
+	{ 1, "" },
+	{ 1e3, "千" },
+	{ 1e4, "万" },
+	{ 1e8, "亿" },
 }
 
 localeInfos["zh-cjv"] = {
 	[DECIMAL_SEPARATOR] = ".",
 	[GROUP_DELIMITER] = ",",
-	{ 1, "", },
-	{ 1e3, "千", },
-	{ 1e4, "万", },
-	{ 1e8, "亿", },
+	{ 1, "" },
+	{ 1e3, "千" },
+	{ 1e4, "万" },
+	{ 1e8, "亿" },
 }
 
 localeInfos["zh-tw"] = {
 	[DECIMAL_SEPARATOR] = ".",
 	[GROUP_DELIMITER] = ",",
-	{ 1, "", },
-	{ 1e3, "千", },
-	{ 1e4, "萬", },
-	{ 1e8, "億", },
+	{ 1, "" },
+	{ 1e3, "千" },
+	{ 1e4, "萬" },
+	{ 1e8, "億" },
 }
 
 localeInfos["ko-kr"] = {
 	[DECIMAL_SEPARATOR] = ".",
 	[GROUP_DELIMITER] = ",",
-	{ 1, "", },
-	{ 1e3, "천", },
-	{ 1e4, "만", },
-	{ 1e8, "억", },
+	{ 1, "" },
+	{ 1e3, "천" },
+	{ 1e4, "만" },
+	{ 1e8, "억" },
 }
 
 localeInfos["ja-jp"] = {
 	[DECIMAL_SEPARATOR] = ".",
 	[GROUP_DELIMITER] = ",",
-	{ 1, "", },
-	{ 1e3, "千", },
-	{ 1e4, "万", },
-	{ 1e8, "億", },
+	{ 1, "" },
+	{ 1e3, "千" },
+	{ 1e4, "万" },
+	{ 1e8, "億" },
 }
 
 localeInfos["it-it"] = {
 	[DECIMAL_SEPARATOR] = ",",
 	[GROUP_DELIMITER] = " ",
-	{ 1, "", },
-	{ 1e3, " mila", },
-	{ 1e6, " Mln", },
-	{ 1e9, " Mld", },
+	{ 1, "" },
+	{ 1e3, " mila" },
+	{ 1e6, " Mln" },
+	{ 1e9, " Mld" },
 }
 
 localeInfos["ru-ru"] = {
 	[DECIMAL_SEPARATOR] = ",",
 	[GROUP_DELIMITER] = ".",
-	{ 1, "", },
-	{ 1e3, " тыс", },
-	{ 1e6, " млн", },
-	{ 1e9, " млрд", },
+	{ 1, "" },
+	{ 1e3, " тыс" },
+	{ 1e6, " млн" },
+	{ 1e9, " млрд" },
 }
 
 localeInfos["id-id"] = {
 	[DECIMAL_SEPARATOR] = ",",
 	[GROUP_DELIMITER] = ".",
-	{ 1, "", },
-	{ 1e3, " rb", },
-	{ 1e6, " jt", },
-	{ 1e9, " M", },
+	{ 1, "" },
+	{ 1e3, " rb" },
+	{ 1e6, " jt" },
+	{ 1e9, " M" },
 }
 
 localeInfos["vi-vn"] = {
 	[DECIMAL_SEPARATOR] = ".",
 	[GROUP_DELIMITER] = " ",
-	{ 1, "", },
-	{ 1e3, " N", },
-	{ 1e6, " Tr", },
-	{ 1e9, " T", },
+	{ 1, "" },
+	{ 1e3, " N" },
+	{ 1e6, " Tr" },
+	{ 1e9, " T" },
 }
 
 localeInfos["th-th"] = {
 	[DECIMAL_SEPARATOR] = ".",
 	[GROUP_DELIMITER] = ",",
-	{ 1, "", },
-	{ 1e3, " พ", },
-	{ 1e4, " ม", },
-	{ 1e5, " ส", },
-	{ 1e6, " ล", },
+	{ 1, "" },
+	{ 1e3, " พ" },
+	{ 1e4, " ม" },
+	{ 1e5, " ส" },
+	{ 1e6, " ล" },
 }
 
 localeInfos["tr-tr"] = {
 	[DECIMAL_SEPARATOR] = ",",
 	[GROUP_DELIMITER] = ".",
-	{ 1, "", },
-	{ 1e3, " B", },
-	{ 1e6, " Mn", },
-	{ 1e9, " Mr", },
+	{ 1, "" },
+	{ 1e3, " B" },
+	{ 1e6, " Mn" },
+	{ 1e9, " Mr" },
 }
 
 -- Aliases for languages that use the same mappings.
@@ -195,14 +195,14 @@ end
 
 local function roundToSignificantDigits(number, significantDigits, roundingBehaviour)
 	local offset = findDecimalOffset(number)
-	local multiplier = 10^(significantDigits + offset)
+	local multiplier = 10 ^ (significantDigits + offset)
 	local significand
 	if roundingBehaviour == RoundingBehaviour.Truncate then
 		significand = math.modf(number * multiplier)
 	else
 		significand = math.floor(number * multiplier + 0.5)
 	end
-	return significand / multiplier;
+	return significand / multiplier
 end
 
 local function addGroupDelimiters(numberStr, delimiter)
@@ -227,7 +227,7 @@ local function findDenominationEntry(localeInfo, number, roundingBehaviour)
 		if roundingBehaviour == RoundingBehaviour.Truncate then
 			baseValue = entry[1]
 		else
-			baseValue = entry[1] - (localeInfo[i - 1][1]) / 2
+			baseValue = entry[1] - localeInfo[i - 1][1] / 2
 		end
 		if baseValue <= absOfNumber then
 			denominationEntry = entry
@@ -237,7 +237,7 @@ local function findDenominationEntry(localeInfo, number, roundingBehaviour)
 	return denominationEntry
 end
 
-local NumberLocalization = { }
+local NumberLocalization = {}
 
 function NumberLocalization.localize(number, locale)
 	if number == 0 then
@@ -247,15 +247,20 @@ function NumberLocalization.localize(number, locale)
 	local localeInfo = localeInfos[locale]
 	if not localeInfo then
 		localeInfo = localeInfos[DEFAULT_LOCALE]
-		Logging.warn(string.format("Warning: Locale not found: '%s', reverting to '%s' instead.",
-			tostring(locale), DEFAULT_LOCALE))
+		Logging.warn(
+			string.format(
+				"Warning: Locale not found: '%s', reverting to '%s' instead.",
+				tostring(locale),
+				DEFAULT_LOCALE
+			)
+		)
 	end
 
-    if localeInfo.groupDelimiter then
-        return addGroupDelimiters(number, localeInfo.groupDelimiter)
-    end
+	if localeInfo.groupDelimiter then
+		return addGroupDelimiters(number, localeInfo.groupDelimiter)
+	end
 
-    return number
+	return number
 end
 
 function NumberLocalization.abbreviate(number, locale, roundingBehaviour, numSignificantDigits)
@@ -272,14 +277,19 @@ function NumberLocalization.abbreviate(number, locale, roundingBehaviour, numSig
 			numSignificantDigits = 3
 		end
 	else
-		numSignificantDigits = 3  -- the default value it was at before
+		numSignificantDigits = 3 -- the default value it was at before
 	end
 
 	local localeInfo = localeInfos[locale]
 	if not localeInfo then
 		localeInfo = localeInfos[DEFAULT_LOCALE]
-		Logging.warn(string.format("Warning: Locale not found: '%s', reverting to '%s' instead.",
-			tostring(locale), DEFAULT_LOCALE))
+		Logging.warn(
+			string.format(
+				"Warning: Locale not found: '%s', reverting to '%s' instead.",
+				tostring(locale),
+				DEFAULT_LOCALE
+			)
+		)
 	end
 
 	-- select which denomination we are going to use

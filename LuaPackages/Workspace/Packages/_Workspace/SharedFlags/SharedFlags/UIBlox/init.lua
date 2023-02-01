@@ -1,7 +1,9 @@
 return {
 	GetFFlagUIBloxDisableTooltipAnimation = require(script.GetFFlagUIBloxDisableTooltipAnimation),
 	GetFFlagUIBloxEnableActionBarLayoutFix = require(script.GetFFlagUIBloxEnableActionBarLayoutFix),
-	GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix = require(script.GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix),
+	GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix = require(
+		script.GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix
+	),
 	GetFFlagUIBloxEnableImageSetResolutionScaleFix = require(script.GetFFlagUIBloxEnableImageSetResolutionScaleFix),
 	GetFFlagUIBloxEnableRadioButtonGamepadSupport = require(script.GetFFlagUIBloxEnableRadioButtonGamepadSupport),
 	GetFFlagUIBloxFixDropdownMenuCellTextSize = require(script.GetFFlagUIBloxFixDropdownMenuCellTextSize),
@@ -14,9 +16,10 @@ return {
 	GetFFlagUIBloxMoveBindActivate = require(script.GetFFlagUIBloxMoveBindActivate),
 	GetFFlagUIBloxEnableAutoHidingPointerOverlay = require(script.GetFFlagUIBloxEnableAutoHidingPointerOverlay),
 	GetFFlagUIBloxRemovePreviewAnchor = require(script.GetFFlagUIBloxRemovePreviewAnchor),
-	GetFFlagUseCurvedPanel3D = require(script.GetFFlagUseCurvedPanel3D),
 	GetFFlagUIBloxEnableMediaGalleryUpdate = require(script.GetFFlagUIBloxEnableMediaGalleryUpdate),
-	GetFFlagUIBloxEnableDropdownMenuUpdateSelectedValueFromPlaceholder = require(script.GetFFlagUIBloxEnableDropdownMenuUpdateSelectedValueFromPlaceholder),
+	GetFFlagUIBloxEnableDropdownMenuUpdateSelectedValueFromPlaceholder = require(
+		script.GetFFlagUIBloxEnableDropdownMenuUpdateSelectedValueFromPlaceholder
+	),
 	GetFFlagUIBloxEnableCollectibleItemRestriction = require(script.GetFFlagUIBloxEnableCollectibleItemRestriction),
 	GetFFlagUIBloxUseRightSideGadget = require(script.GetFFlagUIBloxUseRightSideGadget),
 	GetFFlagUIBloxPillGroupAutomaticSize = require(script.GetFFlagUIBloxPillGroupAutomaticSize),

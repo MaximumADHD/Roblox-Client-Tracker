@@ -185,6 +185,27 @@ return function()
 					key3 = 0,
 				})
 			end)
+
+			it("should only use eventContext field if backend is EventIngest", function(context)
+				local standardizedFields = nil
+				local customFields = {
+					key1 = "Hello",
+					key2 = true,
+					key3 = 0,
+				}
+				local eventContext = "myContext"
+
+				local success, result = pcall(function()
+					return context.LoggingProtocol:logRobloxTelemetryEvent(fullConfig, standardizedFields, customFields, eventContext)
+				end)
+
+				jestExpect(success).toBe(true)
+				jestExpect(mockLogEventFn).toHaveBeenCalledTimes(1)
+				jestExpect(MockMessageBusSpy.eventType).toBe("RobloxTelemetry")
+				jestExpect(MockMessageBusSpy.config.eventName).toBe("TestEventFullConfig")
+				jestExpect(MockMessageBusSpy.data.eventContext).toBe(eventContext)
+				jestExpect(MockMessageBusSpy.config.backends).toContain("EventIngest")
+			end)
 		end)
 
 		describe("logEphemeralCounterEvent", function()

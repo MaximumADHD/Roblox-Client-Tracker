@@ -1,6 +1,15 @@
 --!nonstrict
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
+local StarterGui = game:GetService("StarterGui")
+
+local FFlagUserEnableCameraToggleNotification
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserEnableCameraToggleNotification")
+	end)
+	FFlagUserEnableCameraToggleNotification = success and result
+end
 
 local LocalPlayer = Players.LocalPlayer
 if not LocalPlayer then
@@ -161,10 +170,17 @@ do
 		end
 
 		if not initialized then
-			initializeUI()
+			if FFlagUserEnableCameraToggleNotification then
+				initialized = true
+			else
+				initializeUI()
+			end
 		end
 
-		toast.Visible = enabled
+		if not FFlagUserEnableCameraToggleNotification then
+			toast.Visible = enabled
+		end
+		
 		if not enabled then
 			CameraUI.setCameraModeToastOpen(false)
 		end
@@ -176,22 +192,32 @@ do
 	function CameraUI.setCameraModeToastOpen(open: boolean)
 		assert(initialized)
 
-		TweenService:Create(toast, tweenInfo, {
-			Size = open and TOAST_OPEN_SIZE or TOAST_CLOSED_SIZE,
-			ImageTransparency = open and TOAST_BACKGROUND_TRANS or 1,
-		}):Play()
-
-		TweenService:Create(toastIcon, tweenInfo, {
-			ImageTransparency = open and TOAST_FOREGROUND_TRANS or 1,
-		}):Play()
-
-		TweenService:Create(toastUpperText, tweenInfo, {
-			TextTransparency = open and TOAST_FOREGROUND_TRANS or 1,
-		}):Play()
-
-		TweenService:Create(toastLowerText, tweenInfo, {
-			TextTransparency = open and TOAST_FOREGROUND_TRANS or 1,
-		}):Play()
+		if FFlagUserEnableCameraToggleNotification then
+			if open then
+				StarterGui:SetCore("SendNotification", {
+					Title = "Camera Control Enabled",
+					Text = "Right click to toggle",
+					Duration = 3,
+				})
+			end
+		else
+			TweenService:Create(toast, tweenInfo, {
+				Size = open and TOAST_OPEN_SIZE or TOAST_CLOSED_SIZE,
+				ImageTransparency = open and TOAST_BACKGROUND_TRANS or 1,
+			}):Play()
+	
+			TweenService:Create(toastIcon, tweenInfo, {
+				ImageTransparency = open and TOAST_FOREGROUND_TRANS or 1,
+			}):Play()
+	
+			TweenService:Create(toastUpperText, tweenInfo, {
+				TextTransparency = open and TOAST_FOREGROUND_TRANS or 1,
+			}):Play()
+	
+			TweenService:Create(toastLowerText, tweenInfo, {
+				TextTransparency = open and TOAST_FOREGROUND_TRANS or 1,
+			}):Play()
+		end
 	end
 end
 

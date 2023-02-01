@@ -36,6 +36,7 @@ local BUTTONS_PADDING = 5
 local NAME_PADDING = 15
 
 local FFlagVerifiedBadgeEnabled = require(InGameMenu.Flags.GetFFlagShowVerifiedBadgeOnPlayerCell)
+local FFlagFixFriendListOverlapping = require(InGameMenu.Flags.GetFFlagFixFriendListOverlapping)
 
 local PlayerCell = Roact.PureComponent:extend("PlayerCell")
 
@@ -124,6 +125,7 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 				BorderSizePixel = 0,
 				AnchorPoint = Vector2.new(0, 0),
 				Size = UDim2.new(1, -BUTTONS_PADDING - NAME_PADDING, 0, CONTAINER_FRAME_HEIGHT),
+				AutomaticSize = if FFlagFixFriendListOverlapping() then Enum.AutomaticSize.XY else nil,
 			}, {
 				HeadListLayout = Roact.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Horizontal,

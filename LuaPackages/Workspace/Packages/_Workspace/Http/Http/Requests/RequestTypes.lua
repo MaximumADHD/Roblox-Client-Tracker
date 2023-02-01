@@ -9,7 +9,7 @@ export type RequestOptions = {
 	timeout: number?,
 	cachePolicy: Enum.HttpCachePolicy?,
 	priority: number?,
-	headers: {[string]: string}?,
+	headers: { [string]: string }?,
 	requestType: string?,
 }
 

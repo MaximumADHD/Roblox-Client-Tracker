@@ -11,7 +11,7 @@ return function()
 	local expect = JestGlobals.expect
 
 	type State = {
-		count: number
+		count: number,
 	}
 	local function reducer(state: State, _action): State
 		return {
@@ -20,15 +20,15 @@ return function()
 	end
 
 	local initialState: State = {
-		count = -1
+		count = -1,
 	}
 
 	local function createStore(reducer, initialState)
 		return Rodux.Store.new(reducer, initialState, { Rodux.thunkMiddleware })
 	end
 
-	describe('useDispatch', function()
-		it('returns the dispatch function from context', function()
+	describe("useDispatch", function()
+		it("returns the dispatch function from context", function()
 			local store = createStore(reducer, initialState)
 			local helper = renderHookWithStore(store, function()
 				return useDispatch()
@@ -39,12 +39,11 @@ return function()
 			helper.cleanup()
 		end)
 
-		it('throws if component is not wrapped in provider', function()
+		it("throws if component is not wrapped in provider", function()
 			expect(function()
 				renderHookWithStore(nil, function()
 					return useDispatch()
 				end)
-
 			end).toThrow()
 		end)
 	end)

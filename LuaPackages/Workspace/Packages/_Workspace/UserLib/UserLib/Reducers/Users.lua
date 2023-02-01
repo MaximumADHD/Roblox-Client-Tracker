@@ -34,7 +34,6 @@ return function(state: any?, action: any)
 		end
 
 		state = Immutable.JoinDictionaries(state, usersUpdate)
-
 	elseif action.type == SetUserIsFriend.name then
 		local user = state[action.userId]
 		if user then

@@ -83,8 +83,8 @@ function ReportSentPageV2:UpdateMenu()
 	local SizeChangedProxy
 	if GetFFlagReportAbuseThankYouPageSizeFix() then
 		SizeChangedProxy = Instance.new("BindableEvent")
-		self.SizeChangedSignal = self.Root:GetPropertyChangedSignal("AbsoluteSize")
-		self.SizeChangedSignal:Connect(function()
+		local sizeChangeSignal = self.Root:GetPropertyChangedSignal("AbsoluteSize")
+		self.SizeChangedSignal = sizeChangeSignal:Connect(function()
 			SizeChangedProxy:Fire(self.Root.AbsoluteSize)
 		end)
 	end

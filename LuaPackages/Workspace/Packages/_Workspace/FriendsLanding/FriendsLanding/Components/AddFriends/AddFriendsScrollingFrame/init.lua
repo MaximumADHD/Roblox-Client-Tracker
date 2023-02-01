@@ -58,7 +58,6 @@ function AddFriendsScrollingFrame:init()
 			self.lastLoadMoreThreshold = 0
 		end)
 	end
-	self.useNewRefreshScrollingFrame = self.props.deps.FlagSettings.UseNewRefreshScrollingFrame()
 
 	self.lastScrollPosition = 0
 	self.scrollMovementDirection = self.props.deps.ScrollMovementDirection.Backward
@@ -88,14 +87,7 @@ function AddFriendsScrollingFrame:init()
 		local isLoadingMore = self.state.isLoadingMore
 		local newPosition = rbx.CanvasPosition.Y
 
-		local shouldLoadMore
-
-		if self.useNewRefreshScrollingFrame then
-			local hasMoreRows = self.props.hasMoreRows
-			shouldLoadMore = hasMoreRows and not isLoadingMore
-		else
-			shouldLoadMore = onLoadMore and not isLoadingMore
-		end
+		local shouldLoadMore = onLoadMore and not isLoadingMore
 
 		if shouldLoadMore then
 			self.loadMore()
@@ -127,20 +119,13 @@ function AddFriendsScrollingFrame:init()
 			})
 		end
 
-		local shouldLoadMore
-
-		if self.useNewRefreshScrollingFrame then
-			shouldLoadMore = self.props.hasMoreRows and not self.state.isLoadingMore and not isScrollable
-		else
-			shouldLoadMore = self.props.onLoadMore and not self.state.isLoadingMore and not isScrollable
-		end
+		local shouldLoadMore = self.props.onLoadMore and not self.state.isLoadingMore and not isScrollable
 
 		if shouldLoadMore and not self.props.initializing then
 			self.loadMore()
 		end
 	end
 
-	-- TODO: remove with flag UseNewRefreshScrollingFrame
 	self.createFooter = function()
 		local isLoadingMore = self.state.isLoadingMore
 
@@ -163,53 +148,15 @@ function AddFriendsScrollingFrame:willUnmount()
 end
 
 function AddFriendsScrollingFrame:render()
-	-- RefreshScrollingFrameNew is a PureComponent, so the createFooter function has to actually change
-	-- for it to re-render.
-	if self.useNewRefreshScrollingFrame then
-		local hasMoreRows = self.props.hasMoreRows
-		local isLoadingMore = self.state.isLoadingMore
-		local isScrollable = self.state.isScrollable
+	local newProps = llama.Dictionary.join(self.props, {
+		onCanvasPositionChangedCallback = self.onCanvasPositionChanged,
+		onCanvasSizeChangedCallback = self.onCanvasSizeChanged,
+		createFooter = self.createFooter,
+		onLoadMore = llama.None,
+		[Roact.Children] = llama.None,
+	})
 
-		local createFooter = nil
-
-		if isLoadingMore then
-			createFooter = function()
-				return Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 0, LOADING_BAR_TOTAL_HEIGHT),
-				}, {
-					LoadingBar = Roact.createElement(self.props.deps.LoadingBarWithTheme),
-				})
-			end
-		elseif not hasMoreRows and isScrollable then
-			createFooter = function()
-				return Roact.createElement(self.props.deps.EndOfScroll, {
-					backToTopCallback = self.scrollToTop,
-				})
-			end
-		end
-
-		local newProps = llama.Dictionary.join(self.props, {
-			onCanvasPositionChangedCallback = self.onCanvasPositionChanged,
-			onCanvasSizeChangedCallback = self.onCanvasSizeChanged,
-			createFooter = createFooter,
-			scrollToTopSignal = self.scrollToTopSignal,
-			onLoadMore = llama.None,
-			hasMoreRows = llama.None,
-		})
-
-		return Roact.createElement(self.props.deps.RefreshScrollingFrameNew, newProps)
-	else
-		local newProps = llama.Dictionary.join(self.props, {
-			onCanvasPositionChangedCallback = self.onCanvasPositionChanged,
-			onCanvasSizeChangedCallback = self.onCanvasSizeChanged,
-			createFooter = self.createFooter,
-			onLoadMore = llama.None,
-			[Roact.Children] = llama.None,
-		})
-
-		return Roact.createElement(self.props.deps.RefreshScrollingFrame, newProps, self.props[Roact.Children])
-	end
+	return Roact.createElement(self.props.deps.RefreshScrollingFrame, newProps, self.props[Roact.Children])
 end
 
 return AddFriendsScrollingFrame

@@ -51,8 +51,10 @@ function ArgCheck.isNonNegativeNumber(value, name)
 end
 
 function ArgCheck.isType(value, expectedType, name)
-	assert_(typeof(value) == expectedType,
-			string.format("expects %s to be a %s! it was: %s", name, expectedType, typeof(value)))
+	assert_(
+		typeof(value) == expectedType,
+		string.format("expects %s to be a %s! it was: %s", name, expectedType, typeof(value))
+	)
 
 	return value
 end
@@ -70,8 +72,10 @@ function ArgCheck.isInTypes(value, expectedTypes, name)
 end
 
 function ArgCheck.isTypeOrNil(value, expectedType, name)
-	assert_(value == nil or typeof(value) == expectedType,
-			string.format("expects %s to be a %s! it was: %s", name, expectedType, typeof(value)))
+	assert_(
+		value == nil or typeof(value) == expectedType,
+		string.format("expects %s to be a %s! it was: %s", name, expectedType, typeof(value))
+	)
 
 	return value
 end
@@ -83,14 +87,16 @@ function ArgCheck.isNotNil(value, name)
 end
 
 function ArgCheck.isNonEmptyString(value, name)
-	assert_(typeof(value) == "string" and value ~= "" ,
-			string.format("expects %s to be a non-empty string!", name))
+	assert_(typeof(value) == "string" and value ~= "", string.format("expects %s to be a non-empty string!", name))
 
 	return value
 end
 
 function ArgCheck.isEqual(value, expectedValue, name)
-	assert_(value == expectedValue, string.format("expects %s to equal %s! it was: %s", name, tostring(expectedValue), tostring(value)))
+	assert_(
+		value == expectedValue,
+		string.format("expects %s to equal %s! it was: %s", name, tostring(expectedValue), tostring(value))
+	)
 
 	return value
 end
@@ -98,8 +104,8 @@ end
 -- checks for a number or string representing an integer
 function ArgCheck.representsInteger(value, name)
 	local numberValue = tonumber(value)
-	assert_(numberValue ~= nil , string.format("expects %s to represent a number!", name))
-	assert_(numberValue % 1 == 0 , string.format("expects %s to represent an integer!", name))
+	assert_(numberValue ~= nil, string.format("expects %s to represent a number!", name))
+	assert_(numberValue % 1 == 0, string.format("expects %s to represent an integer!", name))
 
 	return value
 end
@@ -125,7 +131,8 @@ end
 		},
 	}
 	ArgCheck.matchesInterface(someValue, "Tree", "myVal", myTypes)
-]]--
+]]
+--
 function ArgCheck.matchesInterface(value, iface, name, dependencies)
 	if ArgCheck.isEnabled() then
 		local checkFnList = {

@@ -19,6 +19,8 @@ return function(networkImpl, placeIds)
 			store:dispatch(ReceivedMultiplePlaceInfos(placeInfos))
 
 			return placeInfos
+		end):catch(function(response)
+			warn("ApiFetchlaceInfos failed with error code " .. tostring(response.HttpError))
 		end)
 	end
 end

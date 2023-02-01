@@ -14,6 +14,8 @@ local it = JestGlobals.it
 local reducer = require(script.Parent.Users)
 
 describe("GIVEN state as nil", function()
+	game:SetFastFlagForTesting("EnableHasVerifiedBadgeUserModelValidation", false)
+
 	local state = nil
 
 	local user = {

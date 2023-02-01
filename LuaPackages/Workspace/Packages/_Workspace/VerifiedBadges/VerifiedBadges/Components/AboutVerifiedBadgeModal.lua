@@ -4,7 +4,6 @@ local CorePackages = game:GetService("CorePackages")
 
 local React = require(VerifiedBadges.Parent.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
-local useNavigation = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.useNavigation
 local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
 local useLocalization = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.useLocalization
 -- local AppPage = require(LuaApp.AppPage)
@@ -12,11 +11,6 @@ local constants = require(VerifiedBadges.constants)
 
 local CONTENT_PADDING = UDim.new(0, 24)
 local INNER_PADDING = UDim.new(0, 12)
-
-local VERIFIED_BADGE_FAQ_URL = "https://en.help.roblox.com/hc/en-us/articles/7997207259156"
-
-local getFFlagDecoupleNavigationFromVerifiedBadgeModal =
-	require(CorePackages.Workspace.Packages.SharedFlags).getFFlagDecoupleNavigationFromVerifiedBadgeModal
 
 type Props = {
 	onClose: (() -> ())?,
@@ -30,7 +24,6 @@ end
 local function AboutVerifiedBadgeModal(props: Props)
 	local style = UIBlox.Core.Style.useStyle()
 	local screenSize = useSelector(selectScreenSize)
-	local navigation = useNavigation()
 
 	local localized = useLocalization({
 		titleText = "Feature.ProfileBadges.VerifiedBadgeInfoTitle",
@@ -39,33 +32,16 @@ local function AboutVerifiedBadgeModal(props: Props)
 	})
 
 	local onClose = React.useCallback(function()
-		if not getFFlagDecoupleNavigationFromVerifiedBadgeModal() then
-			navigation.goBack()
-		end
-
 		if props.onClose then
 			props.onClose()
 		end
-	end, { props, navigation })
+	end, { props })
 
 	local onConfirm = React.useCallback(function()
-		if not getFFlagDecoupleNavigationFromVerifiedBadgeModal() then
-			navigation.replace({
-				routeName = "GenericWebPage", --AppPage.GenericWebPage,
-				params = {
-					titleKey = "Feature.ProfileBadges.VerifiedBadgeInfoTitle",
-					detail = VERIFIED_BADGE_FAQ_URL,
-					extraProps = {
-						onClose = onClose,
-					},
-				},
-			})
-		end
-
 		if props.onConfirm then
 			props.onConfirm()
 		end
-	end, { props, onClose, navigation } :: { any })
+	end, { props })
 
 	return React.createElement(UIBlox.App.Dialog.Modal.PartialPageModal, {
 		title = localized.titleText,

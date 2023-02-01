@@ -1,3 +1,3 @@
 return {
-	ApiFetchThumbnails = require(script.ApiFetchThumbnails)
+	ApiFetchThumbnails = require(script.ApiFetchThumbnails),
 }

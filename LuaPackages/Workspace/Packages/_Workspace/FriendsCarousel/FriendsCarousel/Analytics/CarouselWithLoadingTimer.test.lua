@@ -149,14 +149,12 @@ describe("CarouselWithLoadingTimer", function()
 					fireEvent = function(...)
 						fireEventSpy(...)
 					end,
-					experimentVariant = "squareTiles",
 				}),
 			})
 			runWhileMounted(CarouselWithLoadingTimer, function(parent)
 				jestExpect(fireEventSpy).toHaveBeenCalledTimes(1)
 				jestExpect(fireEventSpy).toHaveBeenCalledWith(EventNames.CarouselLoadingTime, {
 					experimentLayerStatus = "Done",
-					experimentVariant = "squareTiles",
 					friendsFetchingStatus = "NotStarted",
 					recommendationFetchingStatus = "NotStarted",
 					loadingTime = jestExpect.any("number"),

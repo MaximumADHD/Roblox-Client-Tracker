@@ -1,7 +1,7 @@
 return function()
 	local RoactUtils = script:FindFirstAncestor("RoactUtils")
 	local Packages = RoactUtils.Parent
-	
+
 	local React = require(Packages.React)
 	local ReactRoblox = require(Packages.Dev.ReactRoblox)
 	local RoactNavigation = require(Packages.RoactNavigation)
@@ -90,7 +90,7 @@ return function()
 		local willFocusCallback, willBlurCallback = nil, nil
 		mockNavigation.addListener.mockImplementation(function(event, callback)
 			if event == RoactNavigation.Events.WillFocus then
-			willFocusCallback = callback
+				willFocusCallback = callback
 			elseif event == RoactNavigation.Events.WillBlur then
 				willBlurCallback = callback
 			else
@@ -117,7 +117,7 @@ return function()
 
 		ReactRoblox.act(willBlurCallback)
 		expect(isFocused).toEqual(false)
-		
+
 		ReactRoblox.act(function()
 			root:unmount()
 		end)

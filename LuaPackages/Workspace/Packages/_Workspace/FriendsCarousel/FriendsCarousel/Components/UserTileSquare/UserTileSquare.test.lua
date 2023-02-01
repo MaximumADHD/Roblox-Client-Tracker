@@ -13,7 +13,7 @@ local createTreeWithProviders = require(FriendsCarousel.TestHelpers.createTreeWi
 local mockStore = require(FriendsCarousel.TestHelpers.mockStore)
 local RhodiumHelpers = devDependencies.RhodiumHelpers()
 
-local UserTileSquare = require(script.Parent)
+local UserTileSquare = require(script.Parent.UserTileSquare)
 
 describe("UserTileSquare", function()
 	it("SHOULD mount and unmount with default props", function()

@@ -9,7 +9,8 @@ local GetFFlagEnableCatalogRecommendationsV2 = require(script.Parent.GetFFlagEna
 --[[ FFlag used to enable the use of the Catalog Api v2 recommendations for all
 	users. ]]
 --
-local FFlagCatalogRecommendationsV2RolloutEnabledForAll = require(script.Parent.FFlagCatalogRecommendationsV2RolloutEnabledForAll)
+local FFlagCatalogRecommendationsV2RolloutEnabledForAll =
+	require(script.Parent.FFlagCatalogRecommendationsV2RolloutEnabledForAll)
 
 --[[ Using a Fast Int to rollout the Catalog Api v2 recommendations for a certain
 	percentage of users [0, 100]. ]]

@@ -1,7 +1,7 @@
 local TimeZone = setmetatable({}, {
 	__index = function(self, key)
-		error(("Invalid TimeZone \"%s\""):format(tostring(key)), 2)
-	end
+		error(('Invalid TimeZone "%s"'):format(tostring(key)), 2)
+	end,
 })
 
 TimeZone.UTC = -2

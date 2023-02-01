@@ -11,10 +11,10 @@ local UIBlox = PurchasePromptDeps.UIBlox
 local Images = UIBlox.App.ImageSet.Images
 
 local IAPExperience = PurchasePromptDeps.IAPExperience
-local RobuxUpsellFlow =  IAPExperience.PurchaseFlow.RobuxUpsellFlow
-local RobuxUpsellFlowState =  IAPExperience.PurchaseFlow.RobuxUpsellFlowState
-local U13ConfirmType =  IAPExperience.PurchaseFlow.U13ConfirmType
-local PurchaseErrorType =  IAPExperience.PurchaseFlow.PurchaseErrorType
+local RobuxUpsellFlow = IAPExperience.PurchaseFlow.RobuxUpsellFlow
+local RobuxUpsellFlowState = IAPExperience.PurchaseFlow.RobuxUpsellFlowState
+local U13ConfirmType = IAPExperience.PurchaseFlow.U13ConfirmType
+local PurchaseErrorType = IAPExperience.PurchaseFlow.PurchaseErrorType
 
 local PromptState = require(Root.Enums.PromptState)
 local PurchaseError = require(Root.Enums.PurchaseError)
@@ -27,7 +27,12 @@ local CANCEL_BUTTON_BIND = "ProductPurchaseCancelButtonBind"
 local XBOX_A_ICON = "icons/controls/keys/xboxA"
 local XBOX_B_ICON = "icons/controls/keys/xboxB"
 
-local GetFFlagPPFixGamepadIcons = require(Root.Flags.GetFFlagPPFixGamepadIcons)
+local GetFFlagDisablePurchasePromptFunctionForQuest = require(Root.Flags.GetFFlagDisablePurchasePromptFunctionForQuest)
+
+local PaymentPlatform = require(Root.Enums.PaymentPlatform)
+local getPaymentPlatform = require(Root.Utils.getPaymentPlatform)
+
+local ExternalSettings = require(Root.Services.ExternalSettings)
 
 local FLOW_NAME = "InGame"
 
@@ -48,7 +53,7 @@ type Props = {
 	itemRobuxCost: number,
 	iapRobuxAmount: number,
 	beforeRobuxBalance: number,
-	
+
 	isTestPurchase: boolean,
 	isGamepadEnabled: boolean,
 
@@ -75,12 +80,12 @@ function RobuxUpsellOverlay:init()
 		local props: Props = self.props
 		return self.props.dispatchFetchPurchaseWarning(props.robuxProviderId)
 	end
-	
+
 	self.promptRobuxPurchase = function()
 		local props: Props = self.props
 		self.props.promptRobuxPurchase(self.props.networking, props.robuxProviderId, props.robuxProductId)
 	end
-	
+
 	self.onDelayedInputComplete = function()
 		self:setState({
 			canAcceptInput = true,
@@ -112,15 +117,22 @@ function RobuxUpsellOverlay:init()
 		elseif promptState == PromptState.LargeRobuxUpsell then
 			props.openRobuxStore()
 			return
-		elseif promptState == PromptState.U13PaymentModal or promptState ==  PromptState.U13MonthlyThreshold1Modal
-				or promptState == PromptState.U13MonthlyThreshold2Modal or promptState == PromptState.ParentalConsentWarningPaymentModal13To17 then
+		elseif
+			promptState == PromptState.U13PaymentModal
+			or promptState == PromptState.U13MonthlyThreshold1Modal
+			or promptState == PromptState.U13MonthlyThreshold2Modal
+			or promptState == PromptState.ParentalConsentWarningPaymentModal13To17
+		then
 			props.promptRobuxPurchase()
 			return
 		elseif promptState == PromptState.PurchaseComplete then
 			props.endPurchase()
-			return 
+			return
 		elseif promptState == PromptState.Error then
-			if purchaseError == PurchaseError.TwoFactorNeeded or purchaseError == PurchaseError.TwoFactorNeededSettings then
+			if
+				purchaseError == PurchaseError.TwoFactorNeeded
+				or purchaseError == PurchaseError.TwoFactorNeededSettings
+			then
 				props.openSecuritySettings()
 				return
 			else
@@ -138,20 +150,16 @@ function RobuxUpsellOverlay:init()
 end
 
 function RobuxUpsellOverlay:didMount()
-	ContextActionService:BindCoreAction(
-		CONFIRM_BUTTON_BIND,
-		function(actionName, inputState, inputObj)
-			if inputState == Enum.UserInputState.Begin then
-				self.confirmButtonPressed()
-			end
-		end, false, Enum.KeyCode.ButtonA)
-	ContextActionService:BindCoreAction(
-		CANCEL_BUTTON_BIND,
-		function(actionName, inputState, inputObj)
-			if inputState == Enum.UserInputState.Begin then
-				self.cancelButtonPressed()
-			end
-		end, false, Enum.KeyCode.ButtonB)
+	ContextActionService:BindCoreAction(CONFIRM_BUTTON_BIND, function(actionName, inputState, inputObj)
+		if inputState == Enum.UserInputState.Begin then
+			self.confirmButtonPressed()
+		end
+	end, false, Enum.KeyCode.ButtonA)
+	ContextActionService:BindCoreAction(CANCEL_BUTTON_BIND, function(actionName, inputState, inputObj)
+		if inputState == Enum.UserInputState.Begin then
+			self.cancelButtonPressed()
+		end
+	end, false, Enum.KeyCode.ButtonB)
 end
 
 function RobuxUpsellOverlay:willUnmount()
@@ -213,12 +221,14 @@ end
 
 function RobuxUpsellOverlay:getErrorType()
 	local props: Props = self.props
-	
+
 	if props.purchaseError == PurchaseError.AlreadyOwn then
 		return PurchaseErrorType.AlreadyOwn
-	elseif props.purchaseError == PurchaseError.NotEnoughRobux
-			or props.purchaseError == PurchaseError.NotEnoughRobuxXbox 
-			or props.purchaseError == PurchaseError.NotEnoughRobuxNoUpsell then
+	elseif
+		props.purchaseError == PurchaseError.NotEnoughRobux
+		or props.purchaseError == PurchaseError.NotEnoughRobuxXbox
+		or props.purchaseError == PurchaseError.NotEnoughRobuxNoUpsell
+	then
 		return PurchaseErrorType.NotEnoughRobux
 	elseif props.purchaseError == PurchaseError.Limited then
 		return PurchaseErrorType.Limited
@@ -243,6 +253,7 @@ end
 
 function RobuxUpsellOverlay:render()
 	local props: Props = self.props
+	local externalSettings = ExternalSettings.new()
 
 	return Roact.createElement(RobuxUpsellFlow, {
 		screenSize = props.screenSize,
@@ -261,10 +272,10 @@ function RobuxUpsellOverlay:render()
 		errorType = self:getErrorType(),
 		u13ConfirmType = self:getU13ConfirmType(),
 
-		acceptControllerIcon = if GetFFlagPPFixGamepadIcons() and props.isGamepadEnabled
+		acceptControllerIcon = if props.isGamepadEnabled
 			then Images[XBOX_A_ICON]
 			else nil,
-		cancelControllerIcon = if GetFFlagPPFixGamepadIcons() and props.isGamepadEnabled
+		cancelControllerIcon = if props.isGamepadEnabled
 			then Images[XBOX_B_ICON]
 			else nil,
 
@@ -278,6 +289,7 @@ function RobuxUpsellOverlay:render()
 
 		onAnalyticEvent = props.onAnalyticEvent,
 		eventPrefix = FLOW_NAME,
+		isQuest = GetFFlagDisablePurchasePromptFunctionForQuest() and externalSettings.getPlatform() == PaymentPlatform.Quest,
 	})
 end
 

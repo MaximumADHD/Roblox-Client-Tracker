@@ -16,12 +16,11 @@ local LightTheme = UIBlox.App.Style.Themes.LightTheme
 local THUMBNAIL_SIZE = 60
 local DROP_SHADOW_DIAMETER = THUMBNAIL_SIZE + 20
 local DROP_SHADOW = Images["component_assets/dropshadow_56_8"]
-
 local QRCODE_TEXT_SPACING = 10
 
 export type Props = {
-	toEncode: string,
 	padding: number,
+	url: string,
 	qrCodeLength: number,
 }
 
@@ -54,7 +53,7 @@ local QRCodeSucceededView = function(props: Props)
 			LayoutOrder = 1,
 		}, {
 			QRCode = React.createElement(DisplayQRCode, {
-				toEncode = props.toEncode,
+				toEncode = props.url,
 				ecLevel = QRCodeDisplay.ECLevels.EC_LEVEL_4,
 				sideLength = props.qrCodeLength,
 				pixelColor = LightTheme.UIEmphasis.Color,

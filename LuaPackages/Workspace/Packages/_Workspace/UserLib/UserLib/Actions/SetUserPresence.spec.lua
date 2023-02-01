@@ -1,3 +1,3 @@
-return function() 
- 	local _SetUserPresence = require(script.Parent.SetUserPresence)
+return function()
+	local _SetUserPresence = require(script.Parent.SetUserPresence)
 end

@@ -14,9 +14,9 @@ local LocalizationRoactContext = require(Packages.Localization).LocalizationRoac
 local localizeStrings = require(Packages.Localization).localizeStrings
 local useSignal = require(script.Parent.useSignal)
 
-type FormatTable = {any}
+type FormatTable = { any }
 
-local function useLocalization(stringsToBeLocalized: {[string]: string | FormatTable | nil})
+local function useLocalization(stringsToBeLocalized: { [string]: string | FormatTable | nil })
 	local localization: any = React.useContext(LocalizationRoactContext)
 
 	local locale, setLocale = React.useState(LocalizationService.RobloxLocaleId)
@@ -26,7 +26,7 @@ local function useLocalization(stringsToBeLocalized: {[string]: string | FormatT
 		if newLocale ~= locale then
 			setLocale(newLocale)
 		end
-	end, {localization})
+	end, { localization })
 
 	useSignal(localization.changed, updateLocalization)
 

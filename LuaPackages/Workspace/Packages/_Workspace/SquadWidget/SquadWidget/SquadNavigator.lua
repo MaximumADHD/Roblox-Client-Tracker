@@ -4,8 +4,7 @@ local dependencies = require(SquadWidget.dependencies)
 local RoactNavigation = dependencies.RoactNavigation
 
 local EnumScreens = require(SquadWidget.EnumScreens)
--- TODO: Fill out to use the proper component when it is done.
-local SquadLobby = require(SquadWidget.SquadLobby.Components.SquadLobbyAddFriendCard)
+local SquadLobby = require(SquadWidget.SquadLobby.Components.SquadLobbyPeekView)
 
 return RoactNavigation.createRobloxStackNavigator({
 	{

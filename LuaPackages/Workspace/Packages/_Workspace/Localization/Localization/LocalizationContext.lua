@@ -121,12 +121,11 @@ function LocalizationContext:getString(language, key, parameters)
 
 	-- Missing translations are considered a developer error, so we throw here.
 	if not sourceString then
-		local message = (
-			"Couldn't find value for translation key %q!\n" ..
-			"Tried these languages: %s, %s, %s"
-		):format(
+		local message = ("Couldn't find value for translation key %q!\n" .. "Tried these languages: %s, %s, %s"):format(
 			key,
-			language, baseLanguage, "en-us"
+			language,
+			baseLanguage,
+			"en-us"
 		)
 		error(message, 2)
 	end

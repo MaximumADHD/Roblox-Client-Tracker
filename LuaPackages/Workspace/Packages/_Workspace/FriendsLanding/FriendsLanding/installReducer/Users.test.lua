@@ -25,6 +25,8 @@ describe("GIVEN state as nil", function()
 	local state
 
 	beforeEach(function()
+		game:SetFastFlagForTesting("EnableHasVerifiedBadgeUserModelValidation", false)
+
 		state = nil
 	end)
 

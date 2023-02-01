@@ -2,9 +2,23 @@
 local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
 local ContextActionService = game:GetService("ContextActionService")
+local CoreGuiService = game:GetService("CoreGui")
 
 local Player = Players.LocalPlayer
 local PlayerGui = Player:WaitForChild("PlayerGui")
+
+local FFlagEnableKeyboardUINavigationNotification = game:DefineFastFlag("EnableKeyboardUINavigationNotification", false)
+
+local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
+local SendNotification = RobloxGui:WaitForChild("SendNotificationInfo")
+local RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
+
+local function LocalizedGetString(key, rtv)
+	pcall(function()
+		rtv = RobloxTranslator:FormatByKey(key)
+	end)
+	return rtv
+end
 
 local function ScrollSelectedElement(actionName, inputState, inputObject)
 	if inputState ~= Enum.UserInputState.Begin then
@@ -70,6 +84,16 @@ local function EnableKeyboardNavigation(actionName, inputState, inputObject)
 	end
 
 	GuiService:Select(PlayerGui)
+	if FFlagEnableKeyboardUINavigationNotification then
+		local notificationTitle = LocalizedGetString("NotificationScript2.UINavigation.Title")
+		local notificationText = LocalizedGetString("NotificationScript2.UINavigation.Text")
+
+		SendNotification:Fire({
+			Title = notificationTitle,
+			Text = notificationText,
+			Duration = 3
+		})
+	end
 	return Enum.ContextActionResult.Sink
 end
 

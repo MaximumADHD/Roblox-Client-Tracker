@@ -40,8 +40,9 @@ return {
 	removePreviewAnchor = UIBloxFlags.GetFFlagUIBloxRemovePreviewAnchor(),
 	enableMediaGalleryUpdate = UIBloxFlags.GetFFlagUIBloxEnableMediaGalleryUpdate(),
 	enableDropdownMenuUpdateSelectedValueFromPlaceholder = UIBloxFlags.GetFFlagUIBloxEnableDropdownMenuUpdateSelectedValueFromPlaceholder(),
-	useCurvedPanel3D = UIBloxFlags.GetFFlagUseCurvedPanel3D(),
+	useCurvedPanel3D = true,
 	pillGroupAutomaticSize = UIBloxFlags.GetFFlagUIBloxPillGroupAutomaticSize(),
 	enableCollectibleItemRestriction = UIBloxFlags.GetFFlagUIBloxEnableCollectibleItemRestriction(),
 	addFriendsSearchbarIXPEnabled = SharedFlags.getFFlagAddFriendsSearchbarIXPEnabled(),
+	fixGameDetailsAutomaticSize = SharedFlags.GetFFlagFixGameDetailsAutomaticSize(),
 }

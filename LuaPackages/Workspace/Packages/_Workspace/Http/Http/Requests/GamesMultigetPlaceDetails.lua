@@ -19,7 +19,8 @@ local Url = require(script.Parent.Parent.Url)
 		"price": 0,
 		"imageToken": "string"
 	}
-]]--
+]]
+--
 
 return function(requestImpl, placeIds)
 	local argTable = {

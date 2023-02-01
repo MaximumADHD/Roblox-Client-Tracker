@@ -12,6 +12,10 @@ for index = 1, 40 do
 		displayName = "displayName" .. tostring(index),
 		username = "username" .. tostring(index),
 	})
+
+	--TODO: this should be removed once fixes are merged https://github.com/Roblox/lua-apps/pull/9918
+	user.hasVerifiedBadge = nil
+
 	byUserId[user.id] = user
 end
 

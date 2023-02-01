@@ -11,7 +11,7 @@ return function()
 		local element = Roact.createElement("Frame")
 		local appStyleProvider = Roact.createElement(AppStyleProvider, {
 			style = appStyle,
-		},{
+		}, {
 			Element = element,
 		})
 
@@ -21,7 +21,7 @@ return function()
 
 	it("should throw when style prop is nil", function()
 		local element = Roact.createElement("Frame")
-		local appStyleProvider = Roact.createElement(AppStyleProvider, {},{
+		local appStyleProvider = Roact.createElement(AppStyleProvider, {}, {
 			Element = element,
 		})
 		expect(function()

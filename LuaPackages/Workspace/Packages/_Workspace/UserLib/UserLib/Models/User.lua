@@ -36,7 +36,8 @@ function User.fromData(id, name, isFriend, friendRank)
 	self.gameInstanceId = nil
 
 	self.presence = (Players.LocalPlayer and self.id == tostring(Players.LocalPlayer.UserId))
-		and User.PresenceType.ONLINE or nil
+			and User.PresenceType.ONLINE
+		or nil
 	self.thumbnails = nil
 	self.lastOnline = nil
 
@@ -49,8 +50,9 @@ function User.fromDataTable(data)
 	self.id = tostring(data.id)
 	self.isFriend = data.isFriend
 	self.friendRank = data.friendRank
-	self.presence = (Players.LocalPlayer
-		and self.id == tostring(Players.LocalPlayer.UserId)) and User.PresenceType.ONLINE or nil
+	self.presence = (Players.LocalPlayer and self.id == tostring(Players.LocalPlayer.UserId))
+			and User.PresenceType.ONLINE
+		or nil
 	self.isFetching = false
 	self.lastLocation = nil
 	self.name = data.name
@@ -67,7 +69,7 @@ function User.fromDataTable(data)
 end
 
 function User.compare(user1, user2)
-	assert(not(user1 == nil and user2 == nil), "user1 and user2 cannot both be nil")
+	assert(not (user1 == nil and user2 == nil), "user1 and user2 cannot both be nil")
 	assert(user1 == nil or typeof(user1) == "table", "user1 must be a table or nil")
 	assert(user2 == nil or typeof(user2) == "table", "user2 must be a table or nil")
 
@@ -96,7 +98,7 @@ function User.userPresenceToText(localization, user)
 	local lastLocation = user.lastLocation
 
 	if not presence then
-		return ''
+		return ""
 	end
 
 	if presence == User.PresenceType.OFFLINE then

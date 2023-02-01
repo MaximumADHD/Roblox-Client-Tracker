@@ -1,5 +1,5 @@
 --!nonstrict
-return function ()
+return function()
 	local CorePackages = game:GetService("CorePackages")
 	local Roact = require(CorePackages.Roact)
 	local ExternalEventConnection = require(script.Parent.ExternalEventConnection)

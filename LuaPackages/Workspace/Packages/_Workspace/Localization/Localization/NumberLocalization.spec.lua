@@ -1,6 +1,6 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
-    local Logging = require(CorePackages.Logging)
+	local Logging = require(CorePackages.Logging)
 	local NumberLocalization = require(script.Parent.NumberLocalization)
 
 	local RoundingBehaviour = require(script.Parent.RoundingBehaviour)
@@ -56,15 +56,15 @@ return function()
 
 		it("should localize correctly. (en-gb)", function()
 			checkValid_en_zh("en-gb")
-        end)
+		end)
 
-        it("should localize correctly. (zh-cn)", function()
+		it("should localize correctly. (zh-cn)", function()
 			checkValid_en_zh("zh-cn")
 		end)
 
 		it("should localize correctly. (zh-tw)", function()
 			checkValid_en_zh("zh-tw")
-        end)
+		end)
 	end)
 
 	describe("NumberLocalization.abbreviate", function()

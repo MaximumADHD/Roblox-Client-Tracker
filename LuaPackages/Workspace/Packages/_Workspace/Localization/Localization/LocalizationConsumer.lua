@@ -25,13 +25,13 @@ function LocalizationConsumer:init()
 		newLocale = localization:GetLocale()
 		if newLocale ~= self.state.locale then
 			self:setState({
-				locale = newLocale
+				locale = newLocale,
 			})
 		end
 	end
 
 	self.connections = {
-		localization.changed:connect(self.updateLocalization)
+		localization.changed:connect(self.updateLocalization),
 	}
 end
 

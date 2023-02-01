@@ -1,5 +1,7 @@
 local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 
+local Players = game:GetService("Players")
+
 local React = require(VirtualEvents.Parent.React)
 local useExperienceDetails = require(VirtualEvents.Hooks.useExperienceDetails)
 local useRsvpCounters = require(VirtualEvents.Hooks.useRsvpCounters)
@@ -7,6 +9,7 @@ local useInterestedUserIds = require(VirtualEvents.Hooks.useInterestedUserIds)
 local AttendanceCount = require(VirtualEvents.Components.AttendanceCount)
 local FacePile = require(VirtualEvents.Components.FacePile)
 local types = require(VirtualEvents.types)
+local getFFlagShowClientFirstInFacePile = require(VirtualEvents.Parent.SharedFlags).getFFlagShowClientFirstInFacePile
 
 export type Props = {
 	virtualEvent: types.VirtualEvent,
@@ -34,6 +37,9 @@ local function Attendance(props: Props)
 		FacePile = React.createElement(FacePile, {
 			layoutOrder = 2,
 			userIds = interestedUserIds,
+			desiredFirstUserId = if getFFlagShowClientFirstInFacePile()
+				then if Players.LocalPlayer then tostring(Players.LocalPlayer.UserId) else nil
+				else nil,
 		}),
 	})
 end

@@ -35,7 +35,7 @@ return function()
 		it("should set isFriend on an existing user", function()
 			local user = MockUser.new()
 			local state = {
-				[user.id] = user
+				[user.id] = user,
 			}
 
 			expect(state[user.id].isFriend).to.equal(false)
@@ -52,7 +52,7 @@ return function()
 		it("should set presence on an existing user", function()
 			local user = MockUser.new()
 			local state = {
-				[user.id] = user
+				[user.id] = user,
 			}
 
 			expect(state[user.id].presence).to.equal(User.PresenceType.OFFLINE)
@@ -72,11 +72,11 @@ return function()
 		it("should set presence on an existing user", function()
 			local user = MockUser.new()
 			local state = {
-				[user.id] = user
+				[user.id] = user,
 			}
 
 			local existingPresence = user.presence
-			local newPresence = 'ONLINE'
+			local newPresence = "ONLINE"
 			local lastLocation = MockId()
 			local newPlaceId = MockId()
 
@@ -93,7 +93,7 @@ return function()
 		it("should set membership on an existing user", function()
 			local user = MockUser.new()
 			local state = {
-				[user.id] = user
+				[user.id] = user,
 			}
 
 			local existingMembership = user.membership
