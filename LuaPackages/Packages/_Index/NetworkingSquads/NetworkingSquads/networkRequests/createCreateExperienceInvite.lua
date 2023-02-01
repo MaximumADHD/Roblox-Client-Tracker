@@ -1,5 +1,5 @@
 --!strict
-local SQUAD_URL_INTERNAL = require(script.Parent.Parent.SQUAD_URL_INTERNAL)
+local SQUAD_URL = require(script.Parent.Parent.SQUAD_URL)
 local networkingSquadTypes = require(script.Parent.Parent.networkingSquadTypes)
 
 return function(config: networkingSquadTypes.Config)
@@ -8,15 +8,10 @@ return function(config: networkingSquadTypes.Config)
 	return roduxNetworking.POST(
 		{ Name = "CreateExperienceInvite" },
 		function(requestBuilder, request: networkingSquadTypes.CreateExperienceInviteRequest)
-			return requestBuilder(SQUAD_URL_INTERNAL)
-				:path("squads-api")
-				:path("v1")
-				:path("squads")
-				:path("invite-squad-to-experience")
-				:body({
-					squadId = request.squadId,
-					gameId = request.gameId,
-				})
+			return requestBuilder(SQUAD_URL):path("squads"):path("v1"):path("invite-squad-to-experience"):body({
+				squadId = request.squadId,
+				gameId = request.gameId,
+			})
 		end
 	)
 end

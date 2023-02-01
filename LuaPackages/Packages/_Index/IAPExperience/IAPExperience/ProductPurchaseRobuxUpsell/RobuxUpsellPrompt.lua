@@ -32,6 +32,7 @@ type Props = {
 	isDelayedInput: boolean?,
 	enableInputDelayed: boolean?,
 	inputDelaySec: number?,
+	isQuest: boolean?,
 
 	itemIcon: any?,
 	itemName: string,
@@ -39,8 +40,8 @@ type Props = {
 	robuxPurchaseAmount: number,
 	balanceAmount: number,
 
-	acceptControllerIcon: {[string]: any?},
-	cancelControllerIcon: {[string]: any?},
+	acceptControllerIcon: { [string]: any? },
+	cancelControllerIcon: { [string]: any? },
 
 	buyItemActivated: () -> any?,
 	cancelPurchaseActivated: () -> any?,
@@ -54,8 +55,9 @@ RobuxUpsellPrompt.defaultProps = {
 	isLoading = false,
 	isDisabled = false,
 	isDelayedInput = false,
+	isQuest = false,
 	enableInputDelayed = false,
-	inputDelaySec = DELAYED_INPUT_ANIM_SEC
+	inputDelaySec = DELAYED_INPUT_ANIM_SEC,
 }
 
 function RobuxUpsellPrompt:init()
@@ -68,7 +70,7 @@ function RobuxUpsellPrompt:init()
 	self.changeContentSize = function(rbx)
 		if self.state.contentSize ~= rbx.AbsoluteSize then
 			self:setState({
-				contentSize = rbx.AbsoluteSize
+				contentSize = rbx.AbsoluteSize,
 			})
 		end
 	end
@@ -104,14 +106,17 @@ function RobuxUpsellPrompt:render()
 			LoadingText = {
 				key = LOC_KEY:format("Text.Loading"),
 			},
+			PurchaseNotAvialableForQuest = {
+				key = LOC_KEY:format("Text.PurchaseNotAvailableOnHeadSet"),
+			}
 		},
-		render = function(locMap: {[string]: string})
+		render = function(locMap: { [string]: string })
 			return self:renderAlert(locMap)
-		end
+		end,
 	})
 end
 
-function RobuxUpsellPrompt:renderAlert(locMap: {[string]: string})
+function RobuxUpsellPrompt:renderAlert(locMap: { [string]: string })
 	local props: Props = self.props
 
 	return withStyle(function(stylePalette)
@@ -119,21 +124,26 @@ function RobuxUpsellPrompt:renderAlert(locMap: {[string]: string})
 		local fonts = stylePalette.Font
 
 		local additionalRobux = props.itemRobuxCost - props.balanceAmount
-		local additionalText = locMap.AdditionalRobux:gsub("{robux}",utf8.char(0xE002)..tostring(additionalRobux))
+		local additionalText = locMap.AdditionalRobux:gsub("{robux}", utf8.char(0xE002) .. tostring(additionalRobux))
 
 		local textEmphasisColor = Color3.new(
-			math.round(theme.TextEmphasis.Color.R*255),
-			math.round(theme.TextEmphasis.Color.G*255),
-			math.round(theme.TextEmphasis.Color.B*255))
-		local robuxText = string.format("<font color=\"rgb(%s)\">%s%s</font>",
-			tostring(textEmphasisColor), utf8.char(0xE002), tostring(props.robuxPurchaseAmount))
-		local wouldYouBuyText = locMap.WouldYouBuy:gsub("{robux}",robuxText)
+			math.round(theme.TextEmphasis.Color.R * 255),
+			math.round(theme.TextEmphasis.Color.G * 255),
+			math.round(theme.TextEmphasis.Color.B * 255)
+		)
+		local robuxText = string.format(
+			'<font color="rgb(%s)">%s%s</font>',
+			tostring(textEmphasisColor),
+			utf8.char(0xE002),
+			tostring(props.robuxPurchaseAmount)
+		)
+		local wouldYouBuyText = locMap.WouldYouBuy:gsub("{robux}", robuxText)
 
 		local splitDisclosure = string.split(locMap.DisclosureTermsURL, "{termsofuse}")
 
 		local tosLinkText = locMap.TermsOfUse
 		if props.termsOfUseActivated then
-			tosLinkText = "<u>"..tosLinkText.."</u>"
+			tosLinkText = "<u>" .. tosLinkText .. "</u>"
 		end
 
 		return Roact.createElement(InteractiveAlert, {
@@ -176,7 +186,7 @@ function RobuxUpsellPrompt:renderAlert(locMap: {[string]: string})
 						TextWrapped = true,
 
 						Font = fonts.Body.Font,
-						Text = additionalText.." "..wouldYouBuyText,
+						Text = if self.props.isQuest then additionalText else additionalText .. " " .. wouldYouBuyText,
 						TextSize = fonts.BaseSize * fonts.Body.RelativeSize,
 						TextColor3 = theme.TextDefault.Color,
 						TextTransparency = theme.TextDefault.Transparency,
@@ -202,83 +212,96 @@ function RobuxUpsellPrompt:renderAlert(locMap: {[string]: string})
 							BackgroundTransparency = 1,
 							AutomaticSize = Enum.AutomaticSize.XY,
 							Font = fonts.Body.Font,
-							Text = locMap.DisclosurePayment,
+							Text = if self.props.isQuest then locMap.PurchaseNotAvailableOnHeadSet else locMap.DisclosurePayment,
 							TextSize = fonts.BaseSize * fonts.Body.RelativeSize,
 							TextColor3 = theme.TextDefault.Color,
 							TextTransparency = theme.TextDefault.Transparency,
 						}),
-						DisclosureTermsFrame = Roact.createElement(FitFrameVertical, {
-							LayoutOrder = 2,
-							BackgroundTransparency = 1,
-							width = UDim.new(1, 0),
-							FillDirection = Enum.FillDirection.Horizontal,
-							HorizontalAlignment = Enum.HorizontalAlignment.Center,
-							VerticalAlignment = Enum.VerticalAlignment.Center,
-							contentPadding = UDim.new(0, 1),
-						}, {
-							BeforeDisclosureText = Roact.createElement("TextLabel", {
-								LayoutOrder = 0,
-								BackgroundTransparency = 1,
-								AutomaticSize = Enum.AutomaticSize.XY,
-								Font = fonts.Body.Font,
-								Text = splitDisclosure[1],
-								TextSize = fonts.BaseSize * fonts.Body.RelativeSize,
-								TextColor3 = theme.TextDefault.Color,
-								TextTransparency = theme.TextDefault.Transparency,
-							}),
-							TermsOfUse = Roact.createElement("TextButton", {
-								LayoutOrder = 1,
-								BackgroundTransparency = 1,
-
-								RichText = true,
-								AutomaticSize = Enum.AutomaticSize.XY,
-								Font = fonts.Body.Font,
-								Text = tosLinkText,
-								TextSize = fonts.BaseSize * fonts.Body.RelativeSize,
-								TextColor3 = theme.TextDefault.Color,
-								TextTransparency = theme.TextDefault.Transparency,
-
-								[Roact.Event.Activated] = props.termsOfUseActivated,
-							}),
-							AfterDisclosureText = Roact.createElement("TextLabel", {
+						DisclosureTermsFrame = if self.props.isQuest
+							then nil
+							else Roact.createElement(FitFrameVertical, {
 								LayoutOrder = 2,
 								BackgroundTransparency = 1,
-								AutomaticSize = Enum.AutomaticSize.XY,
-								Font = fonts.Body.Font,
-								Text = splitDisclosure[2],
-								TextSize = fonts.BaseSize * fonts.Body.RelativeSize,
-								TextColor3 = theme.TextDefault.Color,
-								TextTransparency = theme.TextDefault.Transparency,
+								width = UDim.new(1, 0),
+								FillDirection = Enum.FillDirection.Horizontal,
+								HorizontalAlignment = Enum.HorizontalAlignment.Center,
+								VerticalAlignment = Enum.VerticalAlignment.Center,
+								contentPadding = UDim.new(0, 1),
+							}, {
+								BeforeDisclosureText = Roact.createElement("TextLabel", {
+									LayoutOrder = 0,
+									BackgroundTransparency = 1,
+									AutomaticSize = Enum.AutomaticSize.XY,
+									Font = fonts.Body.Font,
+									Text = splitDisclosure[1],
+									TextSize = fonts.BaseSize * fonts.Body.RelativeSize,
+									TextColor3 = theme.TextDefault.Color,
+									TextTransparency = theme.TextDefault.Transparency,
+								}),
+								TermsOfUse = Roact.createElement("TextButton", {
+									LayoutOrder = 1,
+									BackgroundTransparency = 1,
+
+									RichText = true,
+									AutomaticSize = Enum.AutomaticSize.XY,
+									Font = fonts.Body.Font,
+									Text = tosLinkText,
+									TextSize = fonts.BaseSize * fonts.Body.RelativeSize,
+									TextColor3 = theme.TextDefault.Color,
+									TextTransparency = theme.TextDefault.Transparency,
+
+									[Roact.Event.Activated] = props.termsOfUseActivated,
+								}),
+								AfterDisclosureText = Roact.createElement("TextLabel", {
+									LayoutOrder = 2,
+									BackgroundTransparency = 1,
+									AutomaticSize = Enum.AutomaticSize.XY,
+									Font = fonts.Body.Font,
+									Text = splitDisclosure[2],
+									TextSize = fonts.BaseSize * fonts.Body.RelativeSize,
+									TextColor3 = theme.TextDefault.Color,
+									TextTransparency = theme.TextDefault.Transparency,
+								}),
 							}),
-						}),
 					}),
 				})
 			end,
 			buttonStackInfo = {
 				forcedFillDirection = Enum.FillDirection.Vertical,
-				buttons = {
-					{
-						props = {
-							isDisabled = props.isDisabled,
-							onActivated = props.cancelPurchaseActivated,
-							text = locMap.ButtonCancel,
-							inputIcon = props.cancelControllerIcon,
+				buttons = if self.props.isQuest
+					then {
+						{
+							props = {
+								isDisabled = props.isDisabled,
+								onActivated = props.cancelPurchaseActivated,
+								text = locMap.ButtonCancel,
+								inputIcon = props.cancelControllerIcon,
+							},
+						},
+					}
+					else {
+						{
+							props = {
+								isDisabled = props.isDisabled,
+								onActivated = props.cancelPurchaseActivated,
+								text = locMap.ButtonCancel,
+								inputIcon = props.cancelControllerIcon,
+							},
+						},
+						{
+							buttonType = ButtonType.PrimarySystem,
+							props = {
+								isLoading = props.isLoading,
+								isDisabled = props.isDisabled,
+								isDelayedInput = props.isDelayedInput,
+								enableInputDelayed = props.enableInputDelayed,
+								delayInputSeconds = props.inputDelaySec,
+								onActivated = props.buyItemActivated,
+								text = props.enableInputDelayed and locMap.LoadingText or locMap.BuyRobuxButton,
+								inputIcon = props.buyItemControllerIcon,
+							},
 						},
 					},
-					{
-						buttonType = ButtonType.PrimarySystem,
-						props = {
-							isLoading = props.isLoading,
-							isDisabled = props.isDisabled,
-							isDelayedInput = props.isDelayedInput,
-							enableInputDelayed = props.enableInputDelayed,
-							delayInputSeconds = props.inputDelaySec,
-							onActivated = props.buyItemActivated,
-							text = props.enableInputDelayed and locMap.LoadingText or locMap.BuyRobuxButton,
-							inputIcon = props.buyItemControllerIcon,
-						},
-					},
-				},
 			},
 		})
 	end)

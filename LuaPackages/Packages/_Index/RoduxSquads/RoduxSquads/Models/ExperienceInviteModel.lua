@@ -22,9 +22,10 @@ function ExperienceInviteModel.mock(mergeTable)
 
 	local self = ExperienceInviteModel.new({
 		created = mergeTable.created or 1665988271,
-		inviteId = mergeTable.inviteId or 987,
+		inviteId = mergeTable.inviteId or "987",
 		squadId = mergeTable.squadId or "12345",
 		universeId = mergeTable.universeId or "3267012194",
+		responses = mergeTable.responses or { [456] = true },
 	})
 
 	return self
@@ -36,6 +37,7 @@ function ExperienceInviteModel.format(experienceInviteData)
 		inviteId = experienceInviteData.inviteId,
 		squadId = experienceInviteData.squadId,
 		universeId = experienceInviteData.universeId,
+		responses = experienceInviteData.responses,
 	})
 
 	return self
@@ -43,9 +45,10 @@ end
 
 ExperienceInviteModel.isValid = t.strictInterface({
 	created = t.number,
-	inviteId = t.number,
+	inviteId = t.string,
 	squadId = t.string,
 	universeId = t.string,
+	responses = t.map(t.integer, t.boolean),
 })
 
 return ExperienceInviteModel

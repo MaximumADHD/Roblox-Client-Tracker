@@ -3,4 +3,4 @@ name = "NetworkingContacts"
 version = "1.7.0"
 commit = "74694015aeb24a7fc378023fa106cd910fa35bf8"
 source = "url+https://github.com/roblox/lua-app-networking"
-dependencies = ["Util Util 1.8.0 url+https://github.com/roblox/lua-app-networking"]
+dependencies = ["Util Util 1.9.0 url+https://github.com/roblox/lua-app-networking"]

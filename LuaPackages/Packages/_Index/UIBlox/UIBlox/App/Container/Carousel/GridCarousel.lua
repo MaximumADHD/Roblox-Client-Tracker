@@ -121,17 +121,21 @@ local function getCellHeight(columns, gutter, margin, relativeHeight)
 end
 
 function GridCarousel:render()
-	local relativeHeight = self.props.relativeHeight
-	if not relativeHeight and self.props.itemSize then
-		relativeHeight = UDim.new(0, self.props.itemSize.Y)
-	end
-
 	return withGridConfig({
 		columns = 1,
 		gutter = 0,
 		margin = 0,
 		width = -1,
+		relativeHeight = false,
 	}, self.props.kind)(function(gridConfig)
+		local relativeHeight = self.props.relativeHeight
+		if not relativeHeight and self.props.itemSize then
+			relativeHeight = UDim.new(0, self.props.itemSize.Y)
+		end
+		if not relativeHeight and gridConfig.relativeHeight then
+			relativeHeight = gridConfig.relativeHeight
+		end
+
 		local containerRelativeHeight = if relativeHeight
 			then getCellHeight(
 				gridConfig.columns,
@@ -140,6 +144,7 @@ function GridCarousel:render()
 				relativeHeight + UDim.new(0, HEADER_HEIGHT + HEADER_PADDING)
 			)
 			else UDim.new(0, 0)
+
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(UDim.new(1, 0), containerRelativeHeight),
 			SizeConstraint = Enum.SizeConstraint.RelativeXX,

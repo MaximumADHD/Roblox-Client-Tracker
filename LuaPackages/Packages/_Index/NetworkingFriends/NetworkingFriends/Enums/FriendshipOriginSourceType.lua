@@ -4,7 +4,7 @@ local enumerate = require(Packages.enumerate) :: any
 return enumerate(script.Name, {
 	Unknown = "Unknown",
 	PlayerSearch = "PlayerSearch",
-	QrCode = "qrcode",
+	QrCode = "QrCode",
 	InGame = "InGame",
 	UserProfile = "UserProfile",
 	QqContactImporter = "QqContactImporter",

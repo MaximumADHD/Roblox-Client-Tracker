@@ -24,12 +24,6 @@ GridBasicRow.validateProps = t.intersection(
 		[Roact.Children] = t.optional(t.table),
 	}),
 	function(props)
-		if props.scrollable and not props.relativeHeight then
-			return false, "scrollable requires relativeHeight"
-		end
-		if props.multiLine and not props.relativeHeight then
-			return false, "multiLine requires relativeHeight"
-		end
 		if props.multiLine and props.scrollable then
 			return false, "multiLine can't be scrollable"
 		end
@@ -106,17 +100,17 @@ local function applyUDim(udim, length)
 end
 
 -- this could potentially be optimized in the future using a cache system
-function GridBasicRow:getSize(gutter, margin, columns)
-	if self.props.relativeHeight == nil then
+function GridBasicRow:getSize(relativeHeight, gutter, margin, columns)
+	if relativeHeight == nil then
 		return UDim2.fromScale(1, 0)
 	else
-		local heightScale = self.props.relativeHeight.Scale / columns
+		local heightScale = relativeHeight.Scale / columns
 		--[[
 			split two margins between cols: - (margin * 2) / columns
 			split n-1 gutter for n columns: - (columns - 1) / columns * gutter
 		]]
 		local offsetPerColumn = (gutter - 2 * margin) / columns - gutter
-		local heightOffset = applyUDim(self.props.relativeHeight, offsetPerColumn)
+		local heightOffset = applyUDim(relativeHeight, offsetPerColumn)
 		if self.props.multiLine and self.props.lines then
 			heightScale *= self.props.lines
 			heightOffset *= self.props.lines
@@ -143,11 +137,16 @@ function GridBasicRow:render()
 				-- special variable shared between cells to work around UDim limitations
 				subPixelOffset = 0,
 			})
+			if not relativeHeight then
+				relativeHeight = GridConfigReader.getValue(context, "relativeHeight")
+				context.relativeHeight = relativeHeight
+			end
 			local width = GridConfigReader.getValue(context, "width")
 			local gutter = GridConfigReader.getValue(context, "gutter") or 0
 			local margin = GridConfigReader.getValue(context, "margin") or 0
 			local columns = GridConfigReader.getValue(context, "columns") or 1
-			local frameSize = self:getSize(gutter, margin, columns)
+			local hasHeight = relativeHeight and if multiLine then self.props.lines else true
+			local frameSize = self:getSize(relativeHeight, gutter, margin, columns)
 			return Roact.createElement(GridContext.Provider, {
 				value = context,
 			}, {
@@ -156,9 +155,7 @@ function GridBasicRow:render()
 					{
 						Size = frameSize,
 						SizeConstraint = Enum.SizeConstraint.RelativeXX,
-						AutomaticSize = if (relativeHeight and not multiLine) or (multiLine and self.props.lines)
-							then Enum.AutomaticSize.None
-							else Enum.AutomaticSize.Y,
+						AutomaticSize = if hasHeight then Enum.AutomaticSize.None else Enum.AutomaticSize.Y,
 						BackgroundTransparency = 1,
 						LayoutOrder = self.props.layoutOrder,
 					},

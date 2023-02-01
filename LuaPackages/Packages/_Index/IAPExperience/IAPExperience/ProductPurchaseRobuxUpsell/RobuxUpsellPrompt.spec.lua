@@ -41,6 +41,8 @@ return function()
 					buyItemActivated = function()  end,
 					cancelPurchaseActivated = function() end,
 					termsOfUseActivated = function() end,
+
+					isQuest = false,
 				})
 			})
 

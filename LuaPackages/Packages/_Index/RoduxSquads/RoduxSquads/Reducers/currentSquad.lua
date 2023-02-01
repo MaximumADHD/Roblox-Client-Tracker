@@ -1,13 +1,12 @@
 local RoduxSquad = script:FindFirstAncestor("RoduxSquads")
 local Root = RoduxSquad.Parent
-local Cryo = require(Root.Cryo)
 local Rodux = require(Root.Rodux)
 local SquadModel = require(RoduxSquad.Models).SquadModel
 local SquadUpdated = require(RoduxSquad.Actions).SquadUpdated
 
 local RoduxSquadsTypes = require(script.Parent.Parent.RoduxSquadsTypes)
 
-local DEFAULT_STATE: RoduxSquadsTypes.CurrentSquad = { CurrentSquad = nil }
+local DEFAULT_STATE: RoduxSquadsTypes.CurrentSquad = nil
 
 return function(options)
 	local NetworkingSquads = options.NetworkingSquads
@@ -15,8 +14,8 @@ return function(options)
 	local getAndUpdateState = function(state: RoduxSquadsTypes.CurrentSquad, squad: RoduxSquadsTypes.SquadModel)
 		-- Update if there is not a current squad or the updated timestamp is
 		-- newer than the current squad.
-		if state.CurrentSquad == nil or squad.updatedUtc > state.CurrentSquad.updatedUtc then
-			return Cryo.Dictionary.join(state, { CurrentSquad = squad })
+		if state == nil or squad.updatedUtc > state.updatedUtc then
+			return squad
 		else
 			return state
 		end
@@ -40,7 +39,7 @@ return function(options)
 			if squad then
 				return getAndUpdateState(state, SquadModel.format(squad))
 			else
-				return Cryo.Dictionary.join(state, { CurrentSquad = Cryo.None })
+				return nil
 			end
 		end,
 
@@ -61,10 +60,10 @@ return function(options)
 		end,
 
 		[NetworkingSquads.LeaveSquad.Succeeded.name] = function(
-			state: RoduxSquadsTypes.CurrentSquad,
+			_: RoduxSquadsTypes.CurrentSquad,
 			_: RoduxSquadsTypes.LeaveSquadSucceeded
 		)
-			return Cryo.Dictionary.join(state, { CurrentSquad = Cryo.None })
+			return nil
 		end,
 
 		[NetworkingSquads.SquadRemove.Succeeded.name] = function(

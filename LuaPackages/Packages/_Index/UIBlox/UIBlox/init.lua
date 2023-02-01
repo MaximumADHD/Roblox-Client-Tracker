@@ -24,6 +24,7 @@ local function initializeLibrary(configs)
 	UIBlox.Core = strict({
 		Layout = strict({
 			Grid = strict({
+				GridProvider = require(script.Core.Layout.Grid.GridProvider),
 				GridContainer = require(script.Core.Layout.Grid.GridContainer),
 				GridBasicRow = require(script.Core.Layout.Grid.GridBasicRow),
 				GridCell = require(script.Core.Layout.Grid.GridCell),
@@ -345,6 +346,12 @@ local function initializeLibrary(configs)
 			}),
 			SystemBar = require(script.App.Navigation.SystemBar),
 			IABottomBar = require(script.App.Navigation.IABottomBar.IABottomBar),
+			PrimaryNavBar = strict({
+				ContextBar = require(script.App.Navigation.PrimaryNavBar.ContextBar),
+				IconTab = require(script.App.Navigation.PrimaryNavBar.IconTab),
+				IconTabGroup = require(script.App.Navigation.PrimaryNavBar.IconTabGroup),
+				Types = require(script.App.Navigation.PrimaryNavBar.Types),
+			}),
 		}),
 
 		SelectionImage = strict({

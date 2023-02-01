@@ -16,6 +16,8 @@ local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 
 local ThreeSectionBar = require(UIBlox.Core.Bar.ThreeSectionBar)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local HeaderBar = Roact.PureComponent:extend("HeaderBar")
 
 local PADDING_AROUND_DIVIDER = 12
@@ -36,6 +38,9 @@ HeaderBar.renderLeft = {
 HeaderBar.validateProps = t.strictInterface({
 	-- The title of the screen
 	title = t.optional(t.string),
+
+	-- The value for the side margins
+	margin = if UIBloxConfig.headerBarInjectMargin then t.optional(t.number) else nil,
 
 	-- How tall the bar is
 	barHeight = t.optional(t.number),
@@ -73,17 +78,19 @@ HeaderBar.defaultProps = {
 }
 
 function HeaderBar:init()
-	self.state = {
-		margin = 0,
-	}
+	if not UIBloxConfig.headerBarInjectMargin then
+		self.state = {
+			margin = 0,
+		}
 
-	self.onResize = function(rbx)
-		local margin = getPageMargin(rbx.AbsoluteSize.X)
-		self:setState({
-			margin = margin,
-		})
+		self.onResize = function(rbx)
+			local margin = getPageMargin(rbx.AbsoluteSize.X)
+			self:setState({
+				margin = margin,
+			})
+		end
+		self.ref = Roact.createRef()
 	end
-	self.ref = Roact.createRef()
 end
 
 function HeaderBar:render()
@@ -185,7 +192,7 @@ function HeaderBar:render()
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0, self.props.barHeight),
-			[Roact.Change.AbsoluteSize] = self.onResize,
+			[Roact.Change.AbsoluteSize] = if UIBloxConfig.headerBarInjectMargin then nil else self.onResize,
 		}, {
 			HeaderClickArea = self.props.onHeaderActivated and Roact.createElement("TextButton", {
 				AutoButtonColor = false,
@@ -200,8 +207,8 @@ function HeaderBar:render()
 				BackgroundTransparency = self.props.backgroundTransparency or theme.BackgroundDefault.Transparency,
 				BackgroundColor3 = theme.BackgroundDefault.Color,
 				barHeight = self.props.barHeight,
-				marginLeft = self.state.margin,
-				marginRight = self.state.margin,
+				marginLeft = if UIBloxConfig.headerBarInjectMargin then self.props.margin else self.state.margin,
+				marginRight = if UIBloxConfig.headerBarInjectMargin then self.props.margin else self.state.margin,
 				renderLeft = renderLeft,
 				renderCenter = renderCenter,
 				estimatedCenterWidth = estimatedCenterWidth,
@@ -213,8 +220,10 @@ function HeaderBar:render()
 end
 
 function HeaderBar:didMount()
-	if self.ref.current then
-		self.onResize(self.ref.current)
+	if not UIBloxConfig.headerBarInjectMargin then
+		if self.ref.current then
+			self.onResize(self.ref.current)
+		end
 	end
 end
 

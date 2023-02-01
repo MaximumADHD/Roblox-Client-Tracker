@@ -9,6 +9,7 @@ local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local Otter = require(Packages.Otter)
+local Images = require(UIBlox.App.ImageSet.Images)
 
 local RoactGamepad = require(Packages.RoactGamepad)
 
@@ -27,8 +28,8 @@ local SPRING_PARAMS = {
 	frequency = 10,
 	dampingRatio = 1,
 }
-local BACKGROUND_IMAGE = "component_assets/circle_17"
-local SHADOW_IMAGE = "component_assets/dropshadow_25"
+local BACKGROUND_IMAGE = Images["component_assets/circle_17"]
+local SHADOW_IMAGE = Images["component_assets/dropshadow_16_20"]
 local BACKGROUND_COLOR_STATE_MAP = {
 	[ControlState.Default] = "BackgroundUIDefault",
 }
@@ -44,8 +45,6 @@ local DROPSHADOW_COLOR_STATE_MAP = {
 
 local limitedLengthTabArray = function(array)
 	local typeChecker, typeCheckerMessage = t.array(t.strictInterface({
-		-- Callback when this tab is selected
-		onActivated = t.optional(t.callback),
 		-- The name and ID for this tab
 		tabName = t.string,
 		-- If this tab is disabled.
@@ -76,7 +75,12 @@ SegmentedControl.validateProps = t.strictInterface({
 	-- Width for this component
 	-- Will be restricted by the component's size constraint.
 	width = t.UDim,
-	defaultSelctedTabIndex = t.optional(t.number),
+
+	-- Prop for controlling which tab is selected
+	selectedTabIndex = t.number,
+
+	-- Callback for when a tab is selected
+	onTabActivated = t.callback,
 
 	-- optional parameters for RoactGamepad
 	NextSelectionLeft = t.optional(t.table),
@@ -89,24 +93,18 @@ function SegmentedControl:init()
 	self.rootRef = Roact.createRef()
 	self.tabRefs = RoactGamepad.createRefCache()
 
+	self.selectedBackgroundPositionX, self.setSelectedBackgroundPositionX = Roact.createBinding(0)
 	self.selectedBackgroundMotor = Otter.createSingleMotor(FRAME_PADDING)
 	self.selectedBackgroundMotor:onStep(function(selectedBackgroundPositionX)
-		self:setState({
-			selectedBackgroundPositionX = selectedBackgroundPositionX,
-		})
+		self.setSelectedBackgroundPositionX(selectedBackgroundPositionX)
 	end)
 
-	local defaultSelectedIndex = self.props.defaultSelctedTabIndex or 1
-	local defaultSelectedTab = self.props.tabs[defaultSelectedIndex]
 	self:setState({
-		selectedTab = defaultSelectedTab,
-		selectedIndex = defaultSelectedIndex,
-		selectedBackgroundPositionX = 0,
 		tabWidth = 0,
 	})
 
 	self.onTabActivated = function(index)
-		self.selectTab(self.props.tabs[index], index)
+		self.props.onTabActivated(index)
 	end
 
 	self.setSize = function(rbx)
@@ -114,22 +112,11 @@ function SegmentedControl:init()
 		local totalTabWidth = frameWidth - FRAME_PADDING * 2
 		local tabWidth = math.floor(totalTabWidth / #self.props.tabs)
 		self.selectedBackgroundMotor:setGoal(
-			Otter.spring(FRAME_PADDING + tabWidth * (self.state.selectedIndex - 1), SPRING_PARAMS)
+			Otter.spring(FRAME_PADDING + tabWidth * (self.props.selectedTabIndex - 1), SPRING_PARAMS)
 		)
 		self:setState({
 			tabWidth = tabWidth,
 		})
-	end
-
-	self.selectTab = function(activatedTab, selectedIndex)
-		self.selectedBackgroundMotor:setGoal(
-			Otter.spring(FRAME_PADDING + self.state.tabWidth * (selectedIndex - 1), SPRING_PARAMS)
-		)
-		self:setState({
-			selectedTab = activatedTab,
-			selectedIndex = selectedIndex,
-		})
-		activatedTab.onActivated(activatedTab)
 	end
 end
 
@@ -137,7 +124,8 @@ function SegmentedControl:render()
 	return withStyle(function(style)
 		-- render params
 		local currentState = self.state.controlState
-		local isDisabled = self.state.selectedTab.isDisabled
+		local selectedTab = self.props.tabs[self.props.selectedTabIndex]
+		local isDisabled = selectedTab.isDisabled
 		local forceSelectedBGState = isDisabled and ControlState.Disabled or currentState
 		local backgroundStyle = getContentStyle(BACKGROUND_COLOR_STATE_MAP, currentState, style)
 		local dividerStyle = getContentStyle(DIVIDER_COLOR_STATE_MAP, currentState, style)
@@ -149,7 +137,7 @@ function SegmentedControl:render()
 		-- dividers between tabs
 		local dividers = {}
 		for i = 1, #self.props.tabs - 1, 1 do
-			if i ~= self.state.selectedIndex and i ~= self.state.selectedIndex - 1 then
+			if i ~= self.props.selectedTabIndex and i ~= self.props.selectedTabIndex - 1 then
 				table.insert(
 					dividers,
 					i,
@@ -225,7 +213,7 @@ function SegmentedControl:render()
 						end,
 						Size = UDim2.fromScale(1, 1),
 						isDisabled = tab.isDisabled,
-						isSelectedStyle = self.state.selectedIndex == index,
+						isSelectedStyle = self.props.selectedTabIndex == index,
 					}),
 				})
 			end)
@@ -275,17 +263,16 @@ function SegmentedControl:render()
 					[Roact.Ref] = self.rootRef,
 					inputBindings = {
 						Enter = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, function()
-							focusController.moveFocusTo(self.tabRefs[self.state.selectedIndex])
+							focusController.moveFocusTo(self.tabRefs[self.props.selectedTabIndex])
 						end),
 					},
 				}, dividers),
 				-- the only selected tab background, used to make animation
 				SelectedBackground = Roact.createElement(ImageSetComponent.Label, {
 					Size = UDim2.fromOffset(tabWidth, TAB_HEIGHT),
-					Position = UDim2.fromOffset(
-						self.state.selectedBackgroundPositionX,
-						(INTERACTION_HEIGHT - TAB_HEIGHT) / 2
-					),
+					Position = self.selectedBackgroundPositionX:map(function(value)
+						return UDim2.fromOffset(value, (INTERACTION_HEIGHT - TAB_HEIGHT) / 2)
+					end),
 					BackgroundTransparency = 1,
 					Image = BACKGROUND_IMAGE,
 					ImageColor3 = selectedBackgroundStyle.Color,
@@ -298,16 +285,15 @@ function SegmentedControl:render()
 				-- the shadow for selected tab background
 				SelectedBackgroundShadow = not isDisabled and Roact.createElement(ImageSetComponent.Label, {
 					Size = UDim2.fromOffset(tabWidth + 6 * 2, TAB_HEIGHT + 6 * 2),
-					Position = UDim2.fromOffset(
-						self.state.selectedBackgroundPositionX - 6,
-						(INTERACTION_HEIGHT - TAB_HEIGHT) / 2 - 6 + 2
-					),
+					Position = self.selectedBackgroundPositionX:map(function(value)
+						return UDim2.fromOffset(value - 6, (INTERACTION_HEIGHT - TAB_HEIGHT) / 2 - 6 + 2)
+					end),
 					BackgroundTransparency = 1,
 					Image = SHADOW_IMAGE,
 					ImageColor3 = dropshadowStyle.Color,
 					ImageTransparency = 0.3,
 					ScaleType = Enum.ScaleType.Slice,
-					SliceCenter = Rect.new(18, 18, 19, 19),
+					SliceCenter = Rect.new(27, 27, 29, 29),
 					ZIndex = 3,
 				}),
 				-- container for tabs
@@ -316,11 +302,19 @@ function SegmentedControl:render()
 					BackgroundTransparency = 1,
 					Position = UDim2.fromScale(0, 0),
 					ZIndex = 5,
-					defaultChild = self.tabRefs[self.state.selectedIndex],
+					defaultChild = self.tabRefs[self.props.selectedTabIndex],
 				}, tabs),
 			})
 		end)
 	end)
+end
+
+function SegmentedControl:didUpdate(previousProps)
+	if previousProps.selectedTabIndex ~= self.props.selectedTabIndex then
+		self.selectedBackgroundMotor:setGoal(
+			Otter.spring(FRAME_PADDING + self.state.tabWidth * (self.props.selectedTabIndex - 1), SPRING_PARAMS)
+		)
+	end
 end
 
 return SegmentedControl

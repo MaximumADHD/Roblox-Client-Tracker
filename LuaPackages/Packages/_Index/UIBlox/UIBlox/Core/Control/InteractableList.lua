@@ -49,6 +49,7 @@ InteractableList.validateProps = t.strictInterface({
 	horizontalAlignment = t.optional(t.enum(Enum.HorizontalAlignment)),
 	verticalAlignment = t.optional(t.enum(Enum.VerticalAlignment)),
 	sortOrder = t.optional(t.enum(Enum.SortOrder)),
+	automaticSize = t.optional(t.enum(Enum.AutomaticSize)),
 	--- options for default controllable
 	-- container size for each item
 	itemSize = t.optional(t.UDim2),
@@ -66,6 +67,7 @@ InteractableList.defaultProps = {
 				Size = extraProps.size,
 				Position = extraProps.position,
 				BackgroundTransparency = 1,
+				AutomaticSize = extraProps.automaticSize,
 				BorderSizePixel = 0,
 			},
 			Cryo.Dictionary.join({

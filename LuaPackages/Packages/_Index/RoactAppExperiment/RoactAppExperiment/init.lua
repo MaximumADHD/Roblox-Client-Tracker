@@ -252,6 +252,7 @@ local connectUserLayer = connect(
 return {
 	Provider = ExperimentContext.Provider,
 	Consumer = ExperimentContext.Consumer,
+	Context = ExperimentContext,
 
 	registerUserLayers = registerUserLayers,
 	initializeUserLayers = initializeUserLayers,

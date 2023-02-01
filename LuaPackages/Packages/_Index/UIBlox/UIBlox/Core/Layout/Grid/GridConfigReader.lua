@@ -1,8 +1,30 @@
+--!strict
 local Grid = script.Parent
 local UIBlox = Grid.Parent.Parent.Parent
 local Packages = UIBlox.Parent
+local t = require(Packages.t)
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Array = LuauPolyfill.Array
+
+export type Config = {
+	[any]: BreakpointConfig | Config | number,
+}
+
+export type BreakpointConfig = {
+	breakpoint: string,
+	min: number,
+	max: number,
+}
+
+export type Breakpoint = {
+	name: string,
+	min: number,
+	max: number,
+}
+
+export type Interface<T> = (T) -> boolean
+
+export type Transformer<T, S> = (T) -> S
 
 local function hasValue(setting, value)
 	for _, item in setting do
@@ -24,7 +46,7 @@ local function matches(value, setting)
 	return true
 end
 
-local function readValue(config, breakpoint, kind, name, depth)
+local function readValue(config, breakpoint, kind, name, depth: number)
 	local value = config[name]
 	local valueDepth = if value ~= nil then depth else -1
 	Array.forEach(config, function(subconfig)
@@ -45,13 +67,13 @@ local defaultBreakpoint = {
 	max = 0,
 }
 
-local function findBreakpoint(config, width)
+local function findBreakpoint(config: Config, width): Breakpoint
 	local bpconf = Array.find(config, function(subconfig)
 		return type(subconfig) == "table"
 			and type(subconfig.breakpoint) == "string"
 			and width <= (subconfig.max or math.huge)
 			and width >= (subconfig.min or 0)
-	end)
+	end) :: BreakpointConfig?
 	return if bpconf
 		then {
 			name = bpconf.breakpoint,
@@ -61,9 +83,23 @@ local function findBreakpoint(config, width)
 		else defaultBreakpoint
 end
 
+local transformables: { [Interface<any>]: Transformer<any, any> } = {
+	[t.strictInterface({
+		Scale = t.number,
+		Offset = t.number,
+	})] = function(value)
+		return UDim.new(value.Scale, value.Offset)
+	end,
+}
+
 return {
 	getValue = function(context, name)
 		local value, _ = readValue(context.config, context.breakpoint, context.kind, name, 0)
+		for interface, transform in transformables do
+			if interface(value) then
+				return transform(value)
+			end
+		end
 		return value
 	end,
 	findBreakpoint = findBreakpoint,

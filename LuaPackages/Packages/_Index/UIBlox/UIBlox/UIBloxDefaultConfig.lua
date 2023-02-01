@@ -144,4 +144,13 @@ return {
 
 	-- Link to experiment in lua-apps, which needs new props in EmptyState
 	addFriendsSearchbarIXPEnabled = false,
+
+	-- Fix the automaticSize issues in gameDetailsScreen
+	fixGameDetailsAutomaticSize = false,
+
+	-- todo
+	headerBarInjectMargin = false,
+
+	-- Add props for icon size and title in EmptyState component
+	emptyStateTitleAndIconSize = false,
 }

@@ -57,6 +57,7 @@ type Props = {
 
 	onAnalyticEvent: (string, table) -> any?,
 	eventPrefix: string?,
+	isQuest: boolean?,
 }
 
 type State = {
@@ -185,6 +186,7 @@ function RobuxUpsellFlow:render()
 						self:reportUserInput("TermsOfService")
 						props.showTermsOfUse()
 					end or nil,
+					isQuest = self.props.isQuest,
 				})
 			end,
 		}),

@@ -1,12 +1,12 @@
 --!strict
-local SQUAD_URL_INTERNAL = require(script.Parent.Parent.SQUAD_URL_INTERNAL)
+local SQUAD_URL = require(script.Parent.Parent.SQUAD_URL)
 local networkingSquadTypes = require(script.Parent.Parent.networkingSquadTypes)
 
 return function(config: networkingSquadTypes.Config)
 	local roduxNetworking: any = config.roduxNetworking
 
 	local GetSquadActive = roduxNetworking.GET({ Name = "GetSquadActive" }, function(requestBuilder)
-		return requestBuilder(SQUAD_URL_INTERNAL):path("squads-api"):path("v1"):path("squads"):path("get-active-squad")
+		return requestBuilder(SQUAD_URL):path("squads"):path("v1"):path("get-active-squad")
 	end)
 
 	if config.useMockedResponse then

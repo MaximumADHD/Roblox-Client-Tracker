@@ -2,9 +2,12 @@
 
 export type ExperienceInviteModel = {
 	created: number,
-	inviteId: number,
+	inviteId: string,
 	squadId: string,
 	universeId: string,
+	responses: {
+		[number]: boolean,
+	},
 }
 
 export type NotificationToastModel = {
@@ -34,9 +37,7 @@ export type SquadModel = {
 
 -- Reducer
 
-export type CurrentSquad = {
-	CurrentSquad: SquadModel,
-}
+export type CurrentSquad = SquadModel | nil
 
 export type ExperienceInviteByCreated = {
 	[number]: ExperienceInviteModel,
@@ -119,13 +120,21 @@ export type SquadInviteUpdatedAction = {
 
 export type ExperienceInviteRemovedAction = {
 	payload: {
-		inviteId: number,
+		inviteId: string,
 	},
 }
 
 export type ExperienceInviteUpdatedAction = {
 	payload: {
 		experienceInvite: ExperienceInviteModel,
+	},
+}
+
+export type ExperienceInviteRespondedAction = {
+	payload: {
+		inviteId: string,
+		userId: number,
+		response: boolean,
 	},
 }
 

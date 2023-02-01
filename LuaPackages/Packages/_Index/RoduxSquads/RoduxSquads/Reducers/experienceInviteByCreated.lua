@@ -4,6 +4,7 @@ local Cryo = require(Root.Cryo)
 local Rodux = require(Root.Rodux)
 local ExperienceInviteModel = require(RoduxSquad.Models).ExperienceInviteModel
 local ExperienceInviteRemoved = require(RoduxSquad.Actions).ExperienceInviteRemoved
+local ExperienceInviteResponded = require(RoduxSquad.Actions).ExperienceInviteResponded
 local ExperienceInviteUpdated = require(RoduxSquad.Actions).ExperienceInviteUpdated
 
 local RoduxSquadsTypes = require(script.Parent.Parent.RoduxSquadsTypes)
@@ -73,6 +74,24 @@ return function(options)
 				state,
 				{ [experienceInvite.created] = ExperienceInviteModel.format(experienceInvite) }
 			)
+		end,
+
+		[ExperienceInviteResponded.name] = function(
+			state: RoduxSquadsTypes.ExperienceInviteByCreated,
+			action: RoduxSquadsTypes.ExperienceInviteRespondedAction
+		)
+			local inviteId = action.payload.inviteId
+			local userId = action.payload.userId
+			local response = action.payload.response
+
+			for _, experienceInvite in pairs(state) do
+				if experienceInvite.inviteId == inviteId then
+					experienceInvite.responses[userId] = response
+					break
+				end
+			end
+
+			return state
 		end,
 	})
 end
