@@ -4,33 +4,34 @@
 #include <Params.h>
 uniform vec4 CB1[10];
 uniform vec4 CB6[64];
-uniform sampler2D Texture0Texture;
+uniform sampler2DMS DepthAATexture;
 
 in vec2 VARYING0;
 out vec4 _entryPointOutput;
 
 void main()
 {
-    vec4 f0 = texture(Texture0Texture, VARYING0);
-    float f1 = f0.x;
-    vec4 f2 = texture(Texture0Texture, VARYING0 + vec2(CB1[0].z, 0.0));
-    float f3 = f2.x;
-    vec4 f4 = texture(Texture0Texture, VARYING0 + vec2(-CB1[0].z, 0.0));
-    float f5 = f4.x;
-    vec4 f6 = texture(Texture0Texture, VARYING0 + vec2(0.0, CB1[0].w));
-    float f7 = f6.x;
-    vec4 f8 = texture(Texture0Texture, VARYING0 + vec2(0.0, -CB1[0].w));
-    float f9 = f8.x;
-    int f10 = int(floor(f1 * 255.5));
-    int f11 = int(floor(((f1 > 0.0) ? f1 : max(max(f3, f5), max(f7, f9))) * 255.5)) + 32;
-    vec3 f12 = CB6[f10 * 1 + 0].xyz * CB6[f10 * 1 + 0].w;
-    vec4 f13 = CB6[f10 * 1 + 0];
-    f13.x = f12.x;
-    vec4 f14 = f13;
-    f14.y = f12.y;
+    ivec2 f0 = ivec2(VARYING0 * CB1[0].xy);
+    vec4 f1 = texelFetch(DepthAATexture, f0, 0);
+    float f2 = f1.x;
+    vec4 f3 = texelFetch(DepthAATexture, f0 + ivec2(1, 0), 0);
+    float f4 = f3.x;
+    vec4 f5 = texelFetch(DepthAATexture, f0 + ivec2(-1, 0), 0);
+    float f6 = f5.x;
+    vec4 f7 = texelFetch(DepthAATexture, f0 + ivec2(0, 1), 0);
+    float f8 = f7.x;
+    vec4 f9 = texelFetch(DepthAATexture, f0 + ivec2(0, -1), 0);
+    float f10 = f9.x;
+    int f11 = int(floor(f2 * 255.5));
+    int f12 = int(floor(((f2 > 0.0) ? f2 : max(max(f4, f6), max(f8, f10))) * 255.5)) + 32;
+    vec3 f13 = CB6[f11 * 1 + 0].xyz * CB6[f11 * 1 + 0].w;
+    vec4 f14 = CB6[f11 * 1 + 0];
+    f14.x = f13.x;
     vec4 f15 = f14;
-    f15.z = f12.z;
-    _entryPointOutput = mix(f15, vec4(CB6[f11 * 1 + 0].xyz, 1.0), vec4(clamp(255.0 * max(abs(f3 - f5), abs(f7 - f9)), 0.0, 1.0) * CB6[f11 * 1 + 0].w));
+    f15.y = f13.y;
+    vec4 f16 = f15;
+    f16.z = f13.z;
+    _entryPointOutput = mix(f16, vec4(CB6[f12 * 1 + 0].xyz, 1.0), vec4(clamp(255.0 * max(abs(f4 - f6), abs(f8 - f10)), 0.0, 1.0) * CB6[f12 * 1 + 0].w));
 }
 
-//$$Texture0Texture=s0
+//$$DepthAATexture=s4

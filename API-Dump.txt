@@ -550,6 +550,7 @@ Class Camera : Instance [NotReplicated]
 	Function Tuple Camera:WorldToScreenPoint(Vector3 worldPoint) {🧬Safe}
 	Function Tuple Camera:WorldToViewportPoint(Vector3 worldPoint) {🧬Safe}
 	Function bool Camera:Zoom(float distance) {RobloxScriptSecurity}
+	Function void Camera:ZoomToExtents(CFrame boundingBoxCFrame, Vector3 boundingBoxSize)
 	Event Camera.FirstPersonTransition(bool entering) {LocalUserSecurity}
 	Event Camera.InterpolationFinished()
 Class ChangeHistoryService : Instance [NotCreatable] [Service]
@@ -2596,7 +2597,7 @@ Class NetworkReplicator : Instance [NotCreatable] [NotReplicated]
 	Function Instance NetworkReplicator:GetPlayer()
 Class ClientReplicator : NetworkReplicator [NotCreatable] [NotReplicated]
 	Function void ClientReplicator:RequestRCCProfilerData(int frameRate, int timeFrame) {RobloxScriptSecurity}
-	Function void ClientReplicator:RequestServerScriptProfiling(bool start) {RobloxScriptSecurity}
+	Function void ClientReplicator:RequestServerScriptProfiling(bool start, int? frequency) {RobloxScriptSecurity}
 	Function void ClientReplicator:RequestServerStats(bool request) {RobloxScriptSecurity}
 	Event ClientReplicator.RCCProfilerDataComplete(bool success, string message) {RobloxScriptSecurity}
 	Event ClientReplicator.StatsReceived(Dictionary stats) {RobloxScriptSecurity}
@@ -2848,6 +2849,7 @@ Class Model : PVInstance
 	Property Enum.ModelLevelOfDetail Model.LevelOfDetail {PluginSecurity}
 	Property Enum.ModelStreamingMode Model.ModelStreamingMode
 	Property BasePart Model.PrimaryPart
+	Property float Model.Scale [NotReplicated] [NotScriptable]
 	Property CFrame Model.WorldPivot [NotReplicated]
 	Function void Model:AddPersistentPlayer(Player playerInstance = nil)
 	Function void Model:BreakJoints()
@@ -2856,10 +2858,12 @@ Class Model : PVInstance
 	Function CFrame Model:GetModelCFrame() [Deprecated]
 	Function Vector3 Model:GetModelSize() [Deprecated]
 	Function CFrame Model:GetPrimaryPartCFrame() [Deprecated]
+	Function float Model:GetScale()
 	Function void Model:MakeJoints()
 	Function void Model:MoveTo(Vector3 position)
 	Function void Model:RemovePersistentPlayer(Player playerInstance = nil)
 	Function void Model:ResetOrientationToIdentity() [Deprecated]
+	Function void Model:ScaleTo(float newScaleFactor)
 	Function void Model:SetIdentityOrientation() [Deprecated]
 	Function void Model:SetPrimaryPartCFrame(CFrame cframe) [Deprecated]
 	Function void Model:TranslateBy(Vector3 delta)
@@ -3133,7 +3137,7 @@ Class Player : Instance
 	Function string Player:GetGameSessionID() {RobloxSecurity}
 	Function Dictionary Player:GetJoinData()
 	Function Mouse Player:GetMouse()
-	Function float Player:GetNetworkPing()
+	Function float Player:GetNetworkPing() {🧬Safe}
 	Function int Player:GetRankInGroup(int64 groupId) [Yields]
 	Function string Player:GetRoleInGroup(int64 groupId) [Yields]
 	Function bool Player:GetUnder13() {RobloxScriptSecurity}
@@ -3471,6 +3475,7 @@ Class ReflectionMetadataClass : ReflectionMetadataItem
 	Property int ReflectionMetadataClass.ExplorerImageIndex
 	Property int ReflectionMetadataClass.ExplorerOrder
 	Property bool ReflectionMetadataClass.Insertable
+	Property bool ReflectionMetadataClass.InsertableService
 	Property string ReflectionMetadataClass.PreferredParent
 Class ReflectionMetadataEnum : ReflectionMetadataItem
 Class ReflectionMetadataEnumItem : ReflectionMetadataItem
@@ -3593,8 +3598,8 @@ Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Array ScriptContext:GetCoverageStats() {RobloxScriptSecurity}
 	Function void ScriptContext:SaveScriptProfilingData(string filename) {RobloxScriptSecurity}
 	Function void ScriptContext:SetTimeout(double seconds) {PluginSecurity}
-	Function void ScriptContext:StartScriptProfiling() {RobloxScriptSecurity}
-	Function Dictionary ScriptContext:StopScriptProfiling() {RobloxScriptSecurity} [CustomLuaState]
+	Function void ScriptContext:StartScriptProfiling(int? frequency) {RobloxScriptSecurity}
+	Function string ScriptContext:StopScriptProfiling() {RobloxScriptSecurity}
 	Event ScriptContext.Error(string message, string stackTrace, Instance script)
 	Event ScriptContext.ErrorDetailed(string message, string stackTrace, Instance script, string details, int securityLevel) {RobloxScriptSecurity}
 Class ScriptDebugger : Instance [NotCreatable]
@@ -3789,6 +3794,7 @@ Class Sound : Instance
 	Property bool Sound.IsLoaded [ReadOnly]
 	Property Content Sound.SoundId
 	Property double Sound.TimeLength [ReadOnly]
+	Property bool Sound.IsSpatial {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool Sound.PlayOnRemove
 	Property Enum.UsageContext Sound.UsageContextPermission {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property float Sound.EmitterSize [Deprecated]
@@ -3805,6 +3811,7 @@ Class Sound : Instance
 	Property bool Sound.PlaybackRegionsEnabled [NotBrowsable]
 	Property float Sound.PlaybackSpeed [NotReplicated]
 	Property bool Sound.Playing [NotReplicated]
+	Property float Sound.RollOffGain {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property double Sound.TimePosition [NotReplicated]
 	Property float Sound.Volume
 	Property NumberRange Sound.LoopRegion
@@ -4246,6 +4253,7 @@ Class Team : Instance
 	Function Objects Team:GetPlayers() {🧬Safe}
 	Event Team.PlayerAdded(Player player)
 	Event Team.PlayerRemoved(Player player)
+Class TeamCreateData : Instance [NotCreatable] [Service]
 Class TeamCreateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void TeamCreateService:SendUnarchiveUniverseAsync(int64 universeId) {RobloxScriptSecurity}
 	Function void TeamCreateService:SendUnarchiveUniverseWithReasonAsync(int64 universeId, string reason) {RobloxScriptSecurity}

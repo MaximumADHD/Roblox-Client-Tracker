@@ -14,20 +14,22 @@ out vec3 VARYING0;
 void main()
 {
     vec4 v0 = TEXCOORD5 * vec4(0.0039215688593685626983642578125);
-    ivec4 v1 = ivec4(TEXCOORD4) * ivec4(3);
-    float v2 = v0.x;
-    float v3 = v0.y;
-    float v4 = v0.z;
-    float v5 = v0.w;
-    ivec4 v6 = v1 + ivec4(1);
-    ivec4 v7 = v1 + ivec4(2);
-    vec3 v8 = vec3(0.0);
-    v8.x = TEXCOORD0.x;
-    vec3 v9 = v8;
-    v9.y = TEXCOORD0.y;
-    vec3 v10 = v9;
-    v10.z = COLOR0.w;
-    gl_Position = vec4(dot((((CB1[v1.x * 1 + 0] * v2) + (CB1[v1.y * 1 + 0] * v3)) + (CB1[v1.z * 1 + 0] * v4)) + (CB1[v1.w * 1 + 0] * v5), POSITION), dot((((CB1[v6.x * 1 + 0] * v2) + (CB1[v6.y * 1 + 0] * v3)) + (CB1[v6.z * 1 + 0] * v4)) + (CB1[v6.w * 1 + 0] * v5), POSITION), dot((((CB1[v7.x * 1 + 0] * v2) + (CB1[v7.y * 1 + 0] * v3)) + (CB1[v7.z * 1 + 0] * v4)) + (CB1[v7.w * 1 + 0] * v5), POSITION), 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    VARYING0 = v10;
+    ivec4 v1 = ivec4(TEXCOORD4);
+    int v2 = 3 * v1.x;
+    float v3 = v0.x;
+    int v4 = 3 * v1.y;
+    float v5 = v0.y;
+    int v6 = 3 * v1.z;
+    float v7 = v0.z;
+    int v8 = 3 * v1.w;
+    float v9 = v0.w;
+    vec3 v10 = vec3(0.0);
+    v10.x = TEXCOORD0.x;
+    vec3 v11 = v10;
+    v11.y = TEXCOORD0.y;
+    vec3 v12 = v11;
+    v12.z = COLOR0.w;
+    gl_Position = vec4(dot((((CB1[v2 * 1 + 0] * v3) + (CB1[v4 * 1 + 0] * v5)) + (CB1[v6 * 1 + 0] * v7)) + (CB1[v8 * 1 + 0] * v9), POSITION), dot((((CB1[(v2 + 1) * 1 + 0] * v3) + (CB1[(v4 + 1) * 1 + 0] * v5)) + (CB1[(v6 + 1) * 1 + 0] * v7)) + (CB1[(v8 + 1) * 1 + 0] * v9), POSITION), dot((((CB1[(v2 + 2) * 1 + 0] * v3) + (CB1[(v4 + 2) * 1 + 0] * v5)) + (CB1[(v6 + 2) * 1 + 0] * v7)) + (CB1[(v8 + 2) * 1 + 0] * v9), POSITION), 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    VARYING0 = v12;
 }
 

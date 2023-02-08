@@ -624,9 +624,8 @@ LowQMaterialWangFS,Fragment
 ModelLodDepthFS,Fragment
 ModelLodDepthVS,Vertex
 OutlineEffectFS,Fragment
-OutlineEffectFSMSAA,Fragment
 OutlineEffectLQFS,Fragment
-OutlineEffectLQFSMSAA,Fragment
+OutputDepthFS,Fragment
 ParticleCurveAddFS,Fragment
 ParticleCurveAddFS_Soft,Fragment
 ParticleCurveCrazyFS,Fragment
@@ -663,6 +662,7 @@ ProfilerVS,Vertex
 RadialBlurFS,Fragment
 SelectionOutlineHorizFS,Fragment
 SelectionOutlineVerticalFS,Fragment
+SelectionOutlineVerticalOccFS,Fragment
 ShadowBlurFS,Fragment
 ShadowBlurMarkFS,Fragment
 ShadowBlurMarkVS,Vertex

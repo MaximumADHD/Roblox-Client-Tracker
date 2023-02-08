@@ -4000,6 +4000,7 @@
         <string name="Name">VoiceChatService</string>
         <string name="ExplorerOrder">520</string>
         <string name="ExplorerImageIndex">136</string>
+        <string name="InsertableService">true</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -4025,6 +4026,7 @@
         <string name="Name">LocalizationService</string>
         <string name="ExplorerOrder">530</string>
         <string name="ExplorerImageIndex">92</string>
+        <string name="InsertableService">true</string>
       </Properties>
       <Item class="ReflectionMetadataMember">
         <Properties>
@@ -5387,6 +5389,7 @@
         <string name="ExplorerOrder">140</string>
         <string name="ExplorerImageIndex">23</string>
         <string name="PreferredParent">Teams</string>
+        <string name="InsertableService">true</string>
       </Properties>
       <Item class="ReflectionMetadataFunctions">
         <Item class="ReflectionMetadataMember">
@@ -5886,6 +5889,7 @@
         <string name="Name">Players</string>
         <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">21</string>
+        <string name="InsertableService">true</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -6117,6 +6121,7 @@
         <string name="Name">TestService</string>
         <string name="ExplorerOrder">1000</string>
         <string name="ExplorerImageIndex">68</string>
+        <string name="InsertableService">true</string>
       </Properties>
     </Item>
 

@@ -10709,6 +10709,32 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "MemberType": "Function",
+                    "Name": "ZoomToExtents",
+                    "Parameters": [
+                        {
+                            "Name": "boundingBoxCFrame",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "CFrame"
+                            }
+                        },
+                        {
+                            "Name": "boundingBoxSize",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
                     "MemberType": "Event",
                     "Name": "FirstPersonTransition",
                     "Parameters": [
@@ -48900,6 +48926,13 @@
                                 "Category": "Primitive",
                                 "Name": "bool"
                             }
+                        },
+                        {
+                            "Name": "frequency",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int?"
+                            }
                         }
                     ],
                     "ReturnType": {
@@ -54077,6 +54110,28 @@
                 {
                     "Category": "Pivot",
                     "MemberType": "Property",
+                    "Name": "Scale",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Pivot",
+                    "MemberType": "Property",
                     "Name": "WorldPivot",
                     "Security": {
                         "Read": "None",
@@ -54198,6 +54253,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetScale",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "MakeJoints",
                     "Parameters": [
                     ],
@@ -54260,6 +54327,25 @@
                     "Tags": [
                         "Deprecated"
                     ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ScaleTo",
+                    "Parameters": [
+                        {
+                            "Name": "newScaleFactor",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -59782,7 +59868,7 @@
                         "Name": "float"
                     },
                     "Security": "None",
-                    "ThreadSafety": "Unsafe"
+                    "ThreadSafety": "Safe"
                 },
                 {
                     "MemberType": "Function",
@@ -66556,6 +66642,24 @@
                 {
                     "Category": "Reflection",
                     "MemberType": "Property",
+                    "Name": "InsertableService",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Reflection",
+                    "MemberType": "Property",
                     "Name": "PreferredParent",
                     "Security": {
                         "Read": "None",
@@ -68472,6 +68576,13 @@
                     "MemberType": "Function",
                     "Name": "StartScriptProfiling",
                     "Parameters": [
+                        {
+                            "Name": "frequency",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int?"
+                            }
+                        }
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
@@ -68486,13 +68597,10 @@
                     "Parameters": [
                     ],
                     "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Dictionary"
+                        "Category": "Primitive",
+                        "Name": "string"
                     },
                     "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "CustomLuaState"
-                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -72293,6 +72401,29 @@
                     }
                 },
                 {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "IsSpatial",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Regions",
                     "MemberType": "Property",
                     "Name": "LoopRegion",
@@ -72510,6 +72641,29 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Playback",
+                    "MemberType": "Property",
+                    "Name": "RollOffGain",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
                     }
                 },
                 {
@@ -80586,6 +80740,17 @@
             "MemoryCategory": "Instances",
             "Name": "Team",
             "Superclass": "Instance"
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "TeamCreateData",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
+            ]
         },
         {
             "Members": [

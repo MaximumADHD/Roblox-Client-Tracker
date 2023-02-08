@@ -653,9 +653,8 @@ motionBufferInstancedClusterPS,Fragment
 motionBufferInstancedClusterVS,Vertex
 motionBufferInstancedClusterWorldSpaceVS,Vertex
 OutlineEffectFS,Fragment
-OutlineEffectFSMSAA,Fragment
 OutlineEffectLQFS,Fragment
-OutlineEffectLQFSMSAA,Fragment
+OutputDepthFS,Fragment
 ParticleCurveAddFS,Fragment
 ParticleCurveAddFS_Soft,Fragment
 ParticleCurveCrazyFS,Fragment
@@ -692,8 +691,8 @@ ProfilerVS,Vertex
 RadialBlurFS,Fragment
 ReprojectFilterFS,Fragment
 SelectionOutlineHorizFS,Fragment
-SelectionOutlineHorizQuadFetchFS,Fragment
 SelectionOutlineVerticalFS,Fragment
+SelectionOutlineVerticalOccFS,Fragment
 ShadowBlurFS,Fragment
 ShadowBlurMarkFS,Fragment
 ShadowBlurMarkVS,Vertex

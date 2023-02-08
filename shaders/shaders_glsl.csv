@@ -245,6 +245,7 @@ LowQMaterialDetiledFS_00000000,Fragment
 LowQMaterialFS_00000000,Fragment
 LowQMaterialWangFallbackFS,Fragment
 LowQMaterialWangFS,Fragment
+OutlineEffectFS,Fragment
 OutlineEffectLQFS,Fragment
 ParticleCurveAddFS,Fragment
 ParticleCurveCrazyFS,Fragment
@@ -275,6 +276,7 @@ ProfilerVS,Vertex
 RadialBlurFS,Fragment
 SelectionOutlineHorizFS,Fragment
 SelectionOutlineVerticalFS,Fragment
+SelectionOutlineVerticalOccFS,Fragment
 ShadowBlurFS,Fragment
 ShadowBlurMarkFS,Fragment
 ShadowBlurMarkVS,Vertex

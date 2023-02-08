@@ -216,6 +216,7 @@ dependencies = [
     "SocialModalsCommon SocialModalsCommon 0.1.0",
     "SocialReducerAdaptors SocialReducerAdaptors 0.1.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
+    "Style Style 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "enumerate enumerate 0.1.0",
     "t t 0.1.0",
@@ -1230,7 +1231,9 @@ name = "VirtualEvents"
 version = "0.1.0"
 dependencies = [
     "Analytics Analytics 0.1.0",
+    "ApolloClient ApolloClient 0.1.0",
     "Cryo Cryo 0.1.0",
+    "GraphQLServer GraphQLServer 0.1.0",
     "Http Http 0.1.0",
     "HttpRequest HttpRequest 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
@@ -1251,6 +1254,7 @@ dependencies = [
     "RoduxNetworking RoduxNetworking 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "Style Style 0.1.0",
+    "TestUtils TestUtils 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "UrlBuilder UrlBuilder 0.1.0",
 ]
