@@ -42,7 +42,7 @@ module.CalculateTargetCFrameWithExtents = function(baseCFrame, minExtent, maxExt
 end
 
 module.AdjustTargetCFrameWithExtents = function(targetCFrame, minExtent, maxExtent)
-	local adjustment = (minExtent + maxExtent)/2
+	local adjustment = (minExtent + maxExtent) / 2
 	local tmpCFrame = targetCFrame - targetCFrame.Position
 	adjustment = tmpCFrame * adjustment
 	targetCFrame = targetCFrame + adjustment

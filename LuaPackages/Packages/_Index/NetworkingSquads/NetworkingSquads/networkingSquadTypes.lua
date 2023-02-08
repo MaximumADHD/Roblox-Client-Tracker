@@ -65,7 +65,7 @@ export type SquadRemoveResponse = {
 
 export type CreateExperienceInviteRequest = {
 	squadId: string,
-	gameId: string,
+	placeId: string,
 }
 
 export type GetExperienceInviteRequest = {

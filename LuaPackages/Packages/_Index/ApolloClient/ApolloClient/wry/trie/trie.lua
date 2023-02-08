@@ -25,7 +25,7 @@ local function defaultMakeData()
 end
 
 -- Useful for processing arguments objects as well as arrays.
-local forEach, slice = Array.forEach, Array.slice
+local forEach = Array.forEach
 
 local Trie = {}
 Trie.__index = Trie
@@ -103,7 +103,9 @@ function Trie:lookupArray(array: LookupArray_T): Trie_Data
 		node = node:getChildTrie(key)
 	end)
 	if not Boolean.toJSBoolean(node.data) then
-		node.data = ((self :: any) :: Trie<Trie_Data>).makeData(slice(array))
+		-- ROBLOX deviation start: prefer table.clone over default array slice
+		node.data = ((self :: any) :: Trie<Trie_Data>).makeData(table.clone(array))
+		-- ROBLOX deviation end
 	end
 	return node.data
 end
@@ -132,25 +134,9 @@ end
 exports.Trie = Trie
 
 function isObjRef(value: any): boolean
-	repeat --[[ ROBLOX comment: switch statement conversion ]]
-		local entered_ = false
-		local condition_ = typeof(value)
-		for _, v in ipairs({ "table", "function" }) do
-			if condition_ == v then
-				if v == "table" then
-					entered_ = true
-					if value == nil then
-						break
-					end
-					-- Fall through to return true...
-				end
-				if v == "function" or entered_ then
-					entered_ = true
-					return true
-				end
-			end
-		end
-	until true
-	return false
+	-- ROBLOX deviation START: simplify switch statement to boolean
+	local condition_ = type(value)
+	return condition_ == "table" or condition_ == "function"
+	-- ROBLOX deviation END
 end
 return exports

@@ -34,6 +34,8 @@ local InvariantError = invariantModule.InvariantError
 
 local equal = require(srcWorkspace.jsutils.equal)
 
+local objectKeysForEach = require(srcWorkspace.luaUtils.objectKeysForEach)
+
 local utilitiesModule = require(srcWorkspace.utilities)
 local createFragmentMap = utilitiesModule.createFragmentMap
 type FragmentMap = utilitiesModule.FragmentMap
@@ -212,7 +214,9 @@ function StoreWriter:writeToStore(store: NormalizedCache, writeOpts: Cache_Write
 				return childTree ~= nil and childTree.info ~= nil and childTree.info.merge ~= nil
 			end
 
-			Array.forEach(Object.keys(fields), function(storeFieldName)
+			-- ROBLOX deviation START: use helper to optimize Object.keys().forEach
+			objectKeysForEach(fields, function(storeFieldName)
+				-- ROBLOX deviation END
 				-- If a merge function was defined for this field, trust that it
 				-- did the right thing about (not) clobbering data. If the field
 				-- has no selection set, it's a scalar field, so it doesn't need

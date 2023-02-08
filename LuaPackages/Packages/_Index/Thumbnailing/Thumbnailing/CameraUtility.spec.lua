@@ -61,5 +61,4 @@ return function()
 			expect(cameraToCentroid.Z).to.be.near(6 * math.cos(math.rad(30)), 0.0001)
 		end)
 	end)
-
 end

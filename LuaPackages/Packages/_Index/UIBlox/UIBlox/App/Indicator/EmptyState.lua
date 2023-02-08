@@ -44,7 +44,7 @@ EmptyState.validateProps = t.strictInterface({
 	NextSelectionLeft = t.optional(t.table),
 	NextSelectionRight = t.optional(t.table),
 	maxSizeTextLabel = t.optional(t.Vector2),
-	iconColor = if UIBloxConfig.addFriendsSearchbarIXPEnabled then t.optional(validateColorInfo) else nil,
+	iconColor = t.optional(validateColorInfo),
 	iconSize = if UIBloxConfig.emptyStateTitleAndIconSize then t.optional(t.UDim2) else nil,
 	titleProps = if UIBloxConfig.emptyStateTitleAndIconSize
 		then t.optional(t.array(t.strictInterface({
@@ -110,9 +110,7 @@ function EmptyState:render()
 					LayoutOrder = 1,
 					Image = self.props.icon,
 					BackgroundTransparency = 1,
-					ImageColor3 = if UIBloxConfig.addFriendsSearchbarIXPEnabled
-						then self.props.iconColor or style.Theme.IconEmphasis.Color
-						else style.Theme.IconEmphasis.Color,
+					ImageColor3 = self.props.iconColor or style.Theme.IconEmphasis.Color,
 					ImageTransparency = style.Theme.IconEmphasis.Transparency,
 				}),
 				iconTextPadding = Roact.createElement("Frame", {

@@ -4,6 +4,8 @@ local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Object = LuauPolyfill.Object
 
 local GridContext = require(Grid.GridContext)
 local GridConfigReader = require(Grid.GridConfigReader)
@@ -17,6 +19,7 @@ GridCell.validateProps = t.interface({
 	order = t.optional(t.union(t.integer, t.table)),
 	-- also allows props of the forms colspan_*/rowspan_*/order_*
 	[Roact.Children] = t.optional(t.table),
+	gridCellRef = t.optional(t.table),
 })
 
 local function widthName(name, element)
@@ -104,6 +107,7 @@ function GridCell:render()
 					AutomaticSize = if context.relativeHeight then Enum.AutomaticSize.None else Enum.AutomaticSize.Y,
 					BackgroundTransparency = 1,
 					LayoutOrder = order,
+					[Roact.Ref] = self.props.gridCellRef,
 				}, self.props[Roact.Children])
 				-- wrap multiline cell to allow row/colspan
 				if context.multiLine then
@@ -127,4 +131,11 @@ function GridCell:render()
 	})
 end
 
-return GridCell
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(
+		GridCell,
+		Object.assign({}, props, {
+			gridCellRef = ref,
+		})
+	)
+end)

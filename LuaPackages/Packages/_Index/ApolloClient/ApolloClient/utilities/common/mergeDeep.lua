@@ -6,7 +6,6 @@ local srcWorkspace = script.Parent.Parent.Parent
 local rootWorkspace = srcWorkspace.Parent
 
 local LuauPolyfill = require(rootWorkspace.LuauPolyfill)
-local Object = LuauPolyfill.Object
 local Set = LuauPolyfill.Set
 local Boolean = LuauPolyfill.Boolean
 local Array = LuauPolyfill.Array
@@ -23,6 +22,7 @@ end
 
 local isNonNullObject = require(script.Parent.objects).isNonNullObject
 local hasOwnProperty = require(srcWorkspace.luaUtils.hasOwnProperty)
+local objectKeysForEach = require(srcWorkspace.luaUtils.objectKeysForEach)
 
 -- These mergeDeep and mergeDeepArray utilities merge any number of objects
 -- together, sharing as much memory as possible with the source objects, while
@@ -118,7 +118,9 @@ end
 function DeepMerger.merge<TContextArgs>(self: DeepMerger<TContextArgs>, target: any, source: any, ...: TContextArgs): any
 	local context = { ... }
 	if isNonNullObject(source) and isNonNullObject(target) then
-		Array.forEach(Object.keys(source), function(sourceKey)
+		-- ROBLOX deviation START: use helper to optimize Object.keys().forEach
+		objectKeysForEach(source, function(sourceKey)
+			-- ROBLOX deviation END
 			if hasOwnProperty(target, sourceKey) then
 				local targetValue = target[sourceKey]
 				if source[sourceKey] ~= targetValue then
@@ -149,21 +151,6 @@ function DeepMerger.merge<TContextArgs>(self: DeepMerger<TContextArgs>, target: 
 	return source
 end
 
--- ROBLOX deviation: create shallow copy function for lua tables
-local function shallowCopy(table: Object): Object
-	local table_type = type(table)
-	local table_copy
-	if table_type == "table" then
-		table_copy = {}
-		for key, value in pairs(table) do
-			table_copy[key] = value
-		end
-	else
-		table_copy = table
-	end
-	return table_copy
-end
-
 -- ROBLOX deviation: need generic constraints to eliminate any casts
 function DeepMerger:shallowCopyForMerge(value)
 	if isNonNullObject(value) and not self.pastCopies:has(value) then
@@ -171,12 +158,9 @@ function DeepMerger:shallowCopyForMerge(value)
 			-- ROBLOX deviation: need generic constraints to eliminate any casts
 			value = Array.slice(value :: Array<any>, 1)
 		else
-			-- ROBLOX deviation: no spread operator, nor prototypes exists in lua
-			-- value = {
-			--   __proto__: Object.getPrototypeOf(value),
-			--   ...value,
-			-- };
-			value = shallowCopy((value :: any) :: Object)
+			-- ROBLOX deviation START: use table.clone instead of spread operator
+			value = table.clone((value :: any) :: Object)
+			-- ROBLOX deviation END
 		end
 		self.pastCopies:add(value)
 	end

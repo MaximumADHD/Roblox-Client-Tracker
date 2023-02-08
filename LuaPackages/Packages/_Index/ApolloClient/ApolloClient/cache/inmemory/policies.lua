@@ -22,6 +22,7 @@ type Readonly<T> = T
 type FIX_ANALYZE = any
 
 local isCallable = require(srcWorkspace.luaUtils.isCallable)
+local objectKeysForEach = require(srcWorkspace.luaUtils.objectKeysForEach)
 
 local RegExp = require(rootWorkspace.LuauRegExp)
 type RegExp = RegExp.RegExp
@@ -403,7 +404,9 @@ function Policies:identify(
 end
 
 function Policies:addTypePolicies(typePolicies: TypePolicies): ()
-	Array.forEach(Object.keys(typePolicies), function(typename)
+	-- ROBLOX deviation START: use helper to optimize Object.keys().forEach
+	objectKeysForEach(typePolicies, function(typename)
+		-- ROBLOX deviation END
 		local ref = typePolicies[typename]
 		local queryType, mutationType, subscriptionType = ref.queryType, ref.mutationType, ref.subscriptionType
 		local incoming = Object.assign({}, ref, {
@@ -495,7 +498,9 @@ function Policies:updateTypePolicy(typename: string, incoming: TypePolicy): ()
 	end
 
 	if Boolean.toJSBoolean(fields) then
-		Array.forEach(Object.keys(fields :: Record<string, any>), function(fieldName)
+		-- ROBLOX deviation START: use helper to optimize Object.keys().forEach
+		objectKeysForEach(fields :: Record<string, any>, function(fieldName)
+			-- ROBLOX deviation END
 			local existing = self:getFieldPolicy(typename, fieldName, true)
 			local incoming = (fields :: any)[fieldName]
 
@@ -572,7 +577,9 @@ end
 
 function Policies:addPossibleTypes(possibleTypes: PossibleTypesMap): ()
 	self.usingPossibleTypes = true
-	Array.forEach(Object.keys(possibleTypes), function(supertype)
+	-- ROBLOX deviation START: use helper to optimize Object.keys().forEach
+	objectKeysForEach(possibleTypes, function(supertype)
+		-- ROBLOX deviation END
 		-- Make sure all types have an entry in this.supertypeMap, even if
 		-- their supertype set is empty, so we can return false immediately
 		-- from policies.fragmentMatches for unknown supertypes.

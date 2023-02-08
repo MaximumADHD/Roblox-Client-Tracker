@@ -4,6 +4,8 @@ local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Object = LuauPolyfill.Object
 
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
@@ -48,6 +50,8 @@ GridCarousel.validateProps = t.strictInterface({
 	carouselMargin = t.optional(t.number),
 	innerPadding = t.optional(t.number),
 	loadNext = t.optional(t.callback),
+
+	carouselRef = t.optional(t.table),
 })
 
 GridCarousel.defaultProps = {
@@ -151,6 +155,7 @@ function GridCarousel:render()
 			AutomaticSize = if relativeHeight then Enum.AutomaticSize.None else Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
 			LayoutOrder = self.props.layoutOrder,
+			[Roact.Ref] = self.props.carouselRef,
 		}, {
 			Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Vertical,
@@ -181,4 +186,16 @@ function GridCarousel:render()
 	end)
 end
 
-return GridCarousel
+local GridCarouselWithRef = Roact.forwardRef(function(props, ref)
+	return Roact.createElement(
+		GridCarousel,
+		Object.assign({}, props, {
+			carouselRef = ref,
+		})
+	)
+end)
+
+-- this is only added to accommodate RecommendedExperienceGrid.lua and will eventually be cleaned up
+GridCarouselWithRef.validateProps = GridCarousel.validateProps
+
+return GridCarouselWithRef

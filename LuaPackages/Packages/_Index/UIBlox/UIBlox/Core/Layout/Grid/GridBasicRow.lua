@@ -22,6 +22,7 @@ GridBasicRow.validateProps = t.intersection(
 		lines = t.optional(t.intersection(t.integer, t.numberPositive)),
 		relativeHeight = t.optional(t.UDim),
 		[Roact.Children] = t.optional(t.table),
+		gridBasicRowRef = t.optional(t.table),
 	}),
 	function(props)
 		if props.multiLine and props.scrollable then
@@ -158,6 +159,7 @@ function GridBasicRow:render()
 						AutomaticSize = if hasHeight then Enum.AutomaticSize.None else Enum.AutomaticSize.Y,
 						BackgroundTransparency = 1,
 						LayoutOrder = self.props.layoutOrder,
+						[Roact.Ref] = self.props.gridBasicRowRef,
 					},
 					Object.assign(
 						{
@@ -180,4 +182,11 @@ function GridBasicRow:render()
 	})
 end
 
-return GridBasicRow
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(
+		GridBasicRow,
+		Object.assign({}, props, {
+			gridBasicRowRef = ref,
+		})
+	)
+end)

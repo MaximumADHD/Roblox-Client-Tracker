@@ -36,12 +36,10 @@ end
 	Returns (possibly updated) extents.
 ]]
 local function growExtentsToIncludePoint(minExtent, maxExtent, point)
-	minExtent = Vector3.new(math.min(point.X, minExtent.X),
-		math.min(point.Y, minExtent.Y),
-		math.min(point.Z, minExtent.Z))
-	maxExtent = Vector3.new(math.max(point.X, maxExtent.X),
-		math.max(point.Y, maxExtent.Y),
-		math.max(point.Z, maxExtent.Z))
+	minExtent =
+		Vector3.new(math.min(point.X, minExtent.X), math.min(point.Y, minExtent.Y), math.min(point.Z, minExtent.Z))
+	maxExtent =
+		Vector3.new(math.max(point.X, maxExtent.X), math.max(point.Y, maxExtent.Y), math.max(point.Z, maxExtent.Z))
 	return minExtent, maxExtent
 end
 
@@ -78,9 +76,8 @@ local function growExtentsToInclude(minExtent, maxExtent, part, cInverse, optYMi
 					-- transform it back into the 'yMin' cframe, clamp y to be no less than
 					-- optYMin, and transform back.
 					local transformedCorner = optYMinCFrame:Inverse() * corner
-					local clampedTransformedCorner = Vector3.new(transformedCorner.X,
-						math.max(optYMin, transformedCorner.Y),
-						transformedCorner.Z)
+					local clampedTransformedCorner =
+						Vector3.new(transformedCorner.X, math.max(optYMin, transformedCorner.Y), transformedCorner.Z)
 					corner = optYMinCFrame * clampedTransformedCorner
 				end
 
@@ -155,7 +152,7 @@ module.CalculateHeadExtents = function(character, targetCFrame)
 
 	-- We don't want our min y extent to consider anything below the avatar's chin.  Figure
 	-- our where that is.
-	local untransformedHeadYMin = -head.Size.Y/2
+	local untransformedHeadYMin = -head.Size.Y / 2
 
 	-- Get extent of head.
 	minExtent, maxExtent = growExtentsToInclude(minExtent, maxExtent, head, cInverse)
@@ -170,10 +167,27 @@ module.CalculateHeadExtents = function(character, targetCFrame)
 				local attachment = handle:FindFirstChildWhichIsA("Attachment")
 				-- Legacy hat does not have attachment in it and should be considered
 				if not attachment or headAttachments[attachment.Name] then
-						minExtent, maxExtent = growExtentsToInclude(minExtent, maxExtent, handle, cInverse, head.CFrame, untransformedHeadYMin)
+					minExtent, maxExtent =
+						growExtentsToInclude(minExtent, maxExtent, handle, cInverse, head.CFrame, untransformedHeadYMin)
 				end
 			end
 		end
+	end
+
+	return minExtent, maxExtent
+end
+
+--[[
+	For a bounding box of all parts, this box should just graze the furthest extent of all the given parts
+	This returns the min and max offsets of this box, expressed relative to targetCFrame.
+]]
+module.CalculateBodyPartsExtents = function(targetCFrame, bodyParts)
+	local minExtent, maxExtent = initExtents()
+
+	local cInverse = targetCFrame:Inverse()
+
+	for _, part in pairs(bodyParts) do
+		minExtent, maxExtent = growExtentsToInclude(minExtent, maxExtent, part, cInverse, targetCFrame)
 	end
 
 	return minExtent, maxExtent
@@ -193,7 +207,7 @@ module.AllocateDebugExtentParts = function()
 		part.Size = Vector3.new(0.25, 0.25, 0.25)
 		part.Anchored = true
 		part.CanCollide = false
-		parts[#parts+1] = part
+		parts[#parts + 1] = part
 	end
 	return parts
 end

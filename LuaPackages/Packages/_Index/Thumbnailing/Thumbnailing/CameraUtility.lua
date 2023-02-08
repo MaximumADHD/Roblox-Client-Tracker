@@ -10,6 +10,8 @@ local VectorUtility = require(script.Parent.VectorUtility)
 module.DefaultHeadMarginScale = 1.1
 -- When generating a full body thumbnail, how much 'margin' around whole body?
 module.DefaultBodyMarginScale = 1.1
+-- Amount of margin around a body part in a generated thumbnail
+module.DefaultBodyPartMarginScale = 1.2
 
 module.XRotForFullBody = 15.0
 module.XRotForCloseup = 0.0
@@ -47,9 +49,9 @@ end
 	How far back should we position the camera to capture everything?
 ]]
 module.CalculateBaseDistanceToCamera = function(fieldOfViewRad, minExtent, maxExtent, marginScale)
-	local offsetFromCenter = math.max((maxExtent.X - minExtent.X)/2, (maxExtent.Y - minExtent.Y)/2)
-	local t = math.tan(fieldOfViewRad/2)
-	return (offsetFromCenter * marginScale)/t
+	local offsetFromCenter = math.max((maxExtent.X - minExtent.X) / 2, (maxExtent.Y - minExtent.Y) / 2)
+	local t = math.tan(fieldOfViewRad / 2)
+	return (offsetFromCenter * marginScale) / t
 end
 
 --[[
@@ -79,19 +81,23 @@ module.SetupCamera = function(camera, cameraOptions)
 
 	-- get distance to camera based on extents
 	local fieldOfViewForDistanceScale = cameraOptions.optFieldOfViewForDistanceScale or camera.FieldOfView
-	local distanceToCamera = module.CalculateBaseDistanceToCamera(math.rad(fieldOfViewForDistanceScale),
+	local distanceToCamera = module.CalculateBaseDistanceToCamera(
+		math.rad(fieldOfViewForDistanceScale),
 		cameraOptions.minExtent,
 		cameraOptions.maxExtent,
-		cameraOptions.extentScale)
+		cameraOptions.extentScale
+	)
 
 	if cameraOptions.optCameraDistanceScale then
 		distanceToCamera = distanceToCamera * cameraOptions.optCameraDistanceScale
 	end
 
 	-- Adjust to account for extent size.
-	local finalTargetCFrame = CFrameUtility.AdjustTargetCFrameWithExtents(cameraOptions.targetCFrame,
+	local finalTargetCFrame = CFrameUtility.AdjustTargetCFrameWithExtents(
+		cameraOptions.targetCFrame,
 		cameraOptions.minExtent,
-		cameraOptions.maxExtent)
+		cameraOptions.maxExtent
+	)
 
 	local cameraXRotDeg = cameraOptions.optCameraXRot or 0
 	local cameraYRotDeg = cameraOptions.optCameraYRot or 0
@@ -99,6 +105,5 @@ module.SetupCamera = function(camera, cameraOptions)
 	local cPos = VectorUtility.Vector3FromXYRotPlusDistance(cameraXRotDeg, cameraYRotDeg, distanceToCamera)
 	camera.CFrame = module.GetCameraCFrame(finalTargetCFrame, cPos)
 end
-
 
 return module

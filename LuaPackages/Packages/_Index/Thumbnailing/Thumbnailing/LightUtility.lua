@@ -17,7 +17,7 @@ module.AddLight = function(lightDesc, index)
 	part.Transparency = 1
 	part.Shape = Enum.PartType.Ball
 	part.Color = lightDesc.color
-	part.Name = "ThumbnailLightAnchor_"  .. tostring(index)
+	part.Name = "ThumbnailLightAnchor_" .. tostring(index)
 	part.Parent = workspace
 
 	local light = Instance.new("PointLight")

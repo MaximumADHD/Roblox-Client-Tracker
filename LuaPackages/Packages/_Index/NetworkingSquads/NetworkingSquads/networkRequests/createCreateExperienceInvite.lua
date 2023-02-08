@@ -10,7 +10,7 @@ return function(config: networkingSquadTypes.Config)
 		function(requestBuilder, request: networkingSquadTypes.CreateExperienceInviteRequest)
 			return requestBuilder(SQUAD_URL):path("squads"):path("v1"):path("invite-squad-to-experience"):body({
 				squadId = request.squadId,
-				gameId = request.gameId,
+				placeId = request.placeId,
 			})
 		end
 	)

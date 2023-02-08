@@ -92,37 +92,56 @@ function ItemTileName:render()
 			local colorStyle = if UIBloxConfig.useNewThemeColorPalettes then theme.TextDefault else theme.TextEmphasis
 
 			if self.props.nameTextColor then
-				colorStyle.Color = self.props.nameTextColor
+				return Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 1, 0),
+					BackgroundTransparency = 1,
+				}, {
+					Padding = Roact.createElement("UIPadding", {
+						PaddingLeft = UDim.new(0, 5),
+					}),
+					Text = Roact.createElement("TextLabel", {
+						AnchorPoint = Vector2.new(1, 1),
+						BackgroundTransparency = 1,
+						Text = name,
+						Font = titleFontStyle.Font,
+						TextSize = textSize,
+						RichText = true,
+						TextColor3 = self.props.nameTextColor,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Top,
+						TextTruncate = Enum.TextTruncate.AtEnd,
+					}),
+				})
+			else
+				return Roact.createElement(ImageTextLabel, {
+					imageProps = titleIcon and {
+						BackgroundTransparency = 1,
+						Image = titleIcon,
+						ImageColor3 = theme.IconEmphasis.Color,
+						ImageTransparency = theme.IconEmphasis.Transparency,
+						Size = UDim2.new(0, titleIconSize.X, 0, titleIconSize.Y),
+						AnchorPoint = Vector2.new(0, 0),
+						Position = UDim2.new(0, 0, 0, 0),
+					} or nil,
+
+					genericTextLabelProps = {
+						fluidSizing = useFluidSizing,
+						fontStyle = titleFontStyle,
+						colorStyle = colorStyle,
+						Text = name,
+						TextTruncate = Enum.TextTruncate.AtEnd,
+					},
+
+					frameProps = {
+						BackgroundTransparency = 1,
+						LayoutOrder = layoutOrder,
+					},
+
+					maxSize = maxSize,
+					padding = ICON_PADDING,
+					useMaxHeight = useMaxHeight,
+				})
 			end
-
-			return Roact.createElement(ImageTextLabel, {
-				imageProps = titleIcon and {
-					BackgroundTransparency = 1,
-					Image = titleIcon,
-					ImageColor3 = theme.IconEmphasis.Color,
-					ImageTransparency = theme.IconEmphasis.Transparency,
-					Size = UDim2.new(0, titleIconSize.X, 0, titleIconSize.Y),
-					AnchorPoint = Vector2.new(0, 0),
-					Position = UDim2.new(0, 0, 0, 0),
-				} or nil,
-
-				genericTextLabelProps = {
-					fluidSizing = useFluidSizing,
-					fontStyle = titleFontStyle,
-					colorStyle = colorStyle,
-					Text = name,
-					TextTruncate = Enum.TextTruncate.AtEnd,
-				},
-
-				frameProps = {
-					BackgroundTransparency = 1,
-					LayoutOrder = layoutOrder,
-				},
-
-				maxSize = maxSize,
-				padding = ICON_PADDING,
-				useMaxHeight = useMaxHeight,
-			})
 		else
 			return Roact.createElement("Frame", {
 				BackgroundTransparency = 1,

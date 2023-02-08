@@ -242,9 +242,10 @@ function Tile:render()
 			local titleAreaSize = UDim2.new(1, 0, 0, titleTextSize.Y + subtitleTextHeight)
 			local titleTextPadding = nil
 			if self.props.nameOverThumbnail then
-				titleAreaSize = UDim2.new(1, 200, 0, -(titleTextSize.Y + 20))
+				local padding = 10
+				titleAreaSize = UDim2.new(0, (tileWidth - padding), 0, -(titleTextSize.Y + (2 * padding)))
 				titleTextPadding = React.createElement("UIPadding", {
-					PaddingLeft = UDim.new(0, 15),
+					PaddingLeft = UDim.new(0, padding),
 				})
 			end
 

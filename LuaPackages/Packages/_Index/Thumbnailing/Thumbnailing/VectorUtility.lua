@@ -9,9 +9,7 @@ end
 -- Make a vector of length radius along the "Look vector" axis (I think that's -z).
 -- Then apply given rotations around X and Y axis.
 module.Vector3FromXYRotPlusDistance = function(xAngleDeg, yAngleDeg, radius)
-	local cFrame = CFrame.fromEulerAnglesXYZ(math.rad(xAngleDeg),
-		math.rad(yAngleDeg),
-		0)
+	local cFrame = CFrame.fromEulerAnglesXYZ(math.rad(xAngleDeg), math.rad(yAngleDeg), 0)
 	return cFrame.LookVector * radius
 end
 

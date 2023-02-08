@@ -29,6 +29,7 @@ GridRow.validateProps = t.strictInterface({
 	getCellColspan = t.optional(t.callback),
 	getCellRowspan = t.optional(t.callback),
 	getCellOrder = t.optional(t.callback),
+	forwardedRef = t.optional(t.table),
 })
 
 GridRow.defaultProps = {
@@ -206,9 +207,17 @@ function GridRow:render()
 				multiLine = self.props.multiLine,
 				lines = lines,
 				relativeHeight = self.props.relativeHeight,
+				gridBasicRowRef = self.props.forwardedRef,
 			}, children)
 		end,
 	})
 end
 
-return GridRow
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(
+		GridRow,
+		Object.assign({}, props, {
+			forwardedRef = ref,
+		})
+	)
+end)

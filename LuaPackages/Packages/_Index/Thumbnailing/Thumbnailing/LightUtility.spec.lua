@@ -38,7 +38,7 @@ return function()
 					{
 						pos = "0/-30/6",
 						color = "0/255/0",
-					}
+					},
 				},
 			}, CFrame.new())
 			expect(changedSomething).to.equal(true)

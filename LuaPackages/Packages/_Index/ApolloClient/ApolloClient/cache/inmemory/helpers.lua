@@ -53,12 +53,9 @@ local TypeOrFieldNameRegExp = RegExp("^[_a-zA-Z][_0-9a-zA-Z]*", "i")
 exports.TypeOrFieldNameRegExp = TypeOrFieldNameRegExp
 
 local function fieldNameFromStoreName(storeFieldName: string): string
-	local match = TypeOrFieldNameRegExp:exec(storeFieldName)
-	if Boolean.toJSBoolean(match) then
-		return match[1]
-	else
-		return storeFieldName
-	end
+	-- ROBLOX deviation START: use string.match instead of RegEx since this is in the hot path
+	return string.match(storeFieldName, "^[_a-zA-Z][_0-9a-zA-Z]*") or storeFieldName
+	-- ROBLOX deviation END
 end
 exports.fieldNameFromStoreName = fieldNameFromStoreName
 

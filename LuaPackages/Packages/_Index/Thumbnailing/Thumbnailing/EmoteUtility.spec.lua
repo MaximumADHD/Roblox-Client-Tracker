@@ -6,7 +6,6 @@ return function()
 	local EMOTE_ASSET_ID = 3576686446
 	local TOOL_HOLD_ASSET_ID = 507768375
 
-
 	local function addJointsForKeyframe(character, keyframe)
 		local function recurAddJoints(parentPose, poseObject)
 			if not character:FindFirstChild(poseObject.Name) then
@@ -103,16 +102,11 @@ return function()
 
 	local function setupMockR15Characters(shouldAddTool)
 		local emoteAnim = InsertService:LoadAsset(EMOTE_ASSET_ID):GetChildren()[1]
-		local thumbnailKeyframeNumber = EmoteUtility.GetNumberValueWithDefault(emoteAnim,
-			"ThumbnailKeyframe",
-			nil)
-		local rotationDegrees = EmoteUtility.GetNumberValueWithDefault(emoteAnim,
-			"ThumbnailCharacterRotation",
-			0)
+		local thumbnailKeyframeNumber = EmoteUtility.GetNumberValueWithDefault(emoteAnim, "ThumbnailKeyframe", nil)
+		local rotationDegrees = EmoteUtility.GetNumberValueWithDefault(emoteAnim, "ThumbnailCharacterRotation", 0)
 		local emoteKeyframeSequence = EmoteUtility.GetEmoteAnimationClip(emoteAnim)
-		local thumbnailKeyframe = EmoteUtility.GetThumbnailKeyframe(thumbnailKeyframeNumber,
-			emoteKeyframeSequence,
-			rotationDegrees)
+		local thumbnailKeyframe =
+			EmoteUtility.GetThumbnailKeyframe(thumbnailKeyframeNumber, emoteKeyframeSequence, rotationDegrees)
 
 		local mockCharacter = getMockR15Character()
 		addJointsForKeyframe(mockCharacter, thumbnailKeyframe)

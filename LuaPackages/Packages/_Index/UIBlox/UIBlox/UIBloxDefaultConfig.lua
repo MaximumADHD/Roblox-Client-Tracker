@@ -142,9 +142,6 @@ return {
 	-- Use automatic size in PillGroup to fix initial layout issues
 	pillGroupAutomaticSize = false,
 
-	-- Link to experiment in lua-apps, which needs new props in EmptyState
-	addFriendsSearchbarIXPEnabled = false,
-
 	-- Fix the automaticSize issues in gameDetailsScreen
 	fixGameDetailsAutomaticSize = false,
 

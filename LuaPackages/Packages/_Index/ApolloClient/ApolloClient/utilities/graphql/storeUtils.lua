@@ -45,6 +45,7 @@ type DocumentNode = graphqlModule.DocumentNode
 local InvariantError = require(srcWorkspace.jsutils.invariant).InvariantError
 local isNonNullObject = require(script.Parent.Parent.common.objects).isNonNullObject
 local fragmentsModule = require(script.Parent.fragments)
+local objectKeysForEach = require(srcWorkspace.luaUtils.objectKeysForEach)
 type FragmentMap = fragmentsModule.FragmentMap
 local getFragmentFromSelection = fragmentsModule.getFragmentFromSelection
 
@@ -229,7 +230,9 @@ getStoreKeyName = Object.assign(
 			end
 
 			if Boolean.toJSBoolean(directives) then
-				Array.forEach(Object.keys(directives :: Directives), function(key)
+				-- ROBLOX deviation START: use helper to optimize Object.keys().forEach
+				objectKeysForEach(directives :: Directives, function(key)
+					-- ROBLOX deviation END
 					if Array.indexOf(KNOWN_DIRECTIVES, key) ~= -1 then
 						return
 					end

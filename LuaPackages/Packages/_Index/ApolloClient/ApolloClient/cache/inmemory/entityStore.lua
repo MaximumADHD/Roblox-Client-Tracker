@@ -11,6 +11,7 @@ local instanceOf = LuauPolyfill.instanceof
 local Object = LuauPolyfill.Object
 local Set = LuauPolyfill.Set
 local isCallable = require(srcWorkspace.luaUtils.isCallable)
+local objectKeysForEach = require(srcWorkspace.luaUtils.objectKeysForEach)
 type Object = LuauPolyfill.Object
 type Array<T> = LuauPolyfill.Array<T>
 type Set<T> = LuauPolyfill.Set<T>
@@ -144,21 +145,13 @@ function EntityStore.new(policies: Policies, group: CacheGroup): EntityStore
 	-- of Reference objects as well as ordinary objects.
 	self.getFieldValue =
 		function(_self: EntityStore, objectOrReference: StoreObject | Reference | nil, storeFieldName: string)
-			return maybeDeepFreeze((function()
-				if isReference(objectOrReference) then
-					-- ROBLOX deviation START: added type annotation
-					return self:get((objectOrReference :: Reference).__ref, storeFieldName)
-					-- ROBLOX deviation END
-				else
-					if Boolean.toJSBoolean(objectOrReference) then
-						-- ROBLOX deviation START: added type annotation
-						return (objectOrReference :: StoreObject)[storeFieldName]
-						-- ROBLOX deviation END
-					else
-						return objectOrReference
-					end
-				end
-			end)()) :: SafeReadonly<any>
+			-- ROBLOX deviation START: translate if then else by hand
+			return maybeDeepFreeze(
+				if isReference(objectOrReference)
+					then self:get((objectOrReference :: Reference).__ref, storeFieldName)
+					else objectOrReference and (objectOrReference :: StoreObject)[storeFieldName]
+			) :: SafeReadonly<any>
+			-- ROBLOX deviation END
 		end
 
 	-- Returns true for non-normalized StoreObjects and non-dangling
@@ -322,7 +315,9 @@ function EntityStore:merge(older: string | StoreObject, newer: StoreObject | str
 
 			-- Now invalidate dependents who called getFieldValue for any fields
 			-- that are changing as a result of this merge.
-			Array.forEach(Object.keys(incoming :: StoreObject), function(storeFieldName)
+			-- ROBLOX deviation START: optimize Object.keys().forEach for luau
+			objectKeysForEach(incoming :: StoreObject, function(storeFieldName)
+				-- ROBLOX deviation END
 				if
 					not Boolean.toJSBoolean(existing)
 					or (existing :: StoreObject)[storeFieldName] ~= merged[storeFieldName]
@@ -364,7 +359,9 @@ function EntityStore:merge(older: string | StoreObject, newer: StoreObject | str
 				(fieldsToDirty :: any).__typename = nil
 			end
 
-			Array.forEach(Object.keys(fieldsToDirty), function(fieldName)
+			-- ROBLOX deviation START: optimize Object.keys().forEach for luau
+			objectKeysForEach(fieldsToDirty, function(fieldName)
+				-- ROBLOX deviation END
 				return self.group:dirty(dataId :: string, fieldName)
 			end)
 		end
@@ -397,7 +394,9 @@ function EntityStore:modify(dataId: string, fields: Modifier<any> | Modifiers): 
 			end,
 		}
 
-		Array.forEach(Object.keys(storeObject), function(storeFieldName)
+		-- ROBLOX deviation START: optimize Object.keys().forEach for luau
+		objectKeysForEach(storeObject, function(storeFieldName)
+			-- ROBLOX deviation END
 			local fieldName = fieldNameFromStoreName(storeFieldName)
 			local fieldValue = storeObject[storeFieldName]
 			if fieldValue == nil then
@@ -535,7 +534,9 @@ function EntityStore:extract(): NormalizedCacheObject
 end
 
 function EntityStore:replace(newData: NormalizedCacheObject | nil): ()
-	Array.forEach(Object.keys(self.data), function(dataId)
+	-- ROBLOX deviation START: optimize Object.keys().forEach for luau
+	objectKeysForEach(self.data, function(dataId)
+		-- ROBLOX deviation END
 		if not (Boolean.toJSBoolean(newData) and hasOwn(newData :: NormalizedCacheObject, dataId)) then
 			self:delete(dataId)
 		end
@@ -543,7 +544,9 @@ function EntityStore:replace(newData: NormalizedCacheObject | nil): ()
 
 	if Boolean.toJSBoolean(newData) and newData ~= nil then
 		local __META, rest = newData.__META, Object.assign({}, newData, { __META = Object.None }) :: Object
-		Array.forEach(Object.keys(rest), function(dataId)
+		-- ROBLOX deviation START: optimize Object.keys().forEach for luau
+		objectKeysForEach(rest, function(dataId)
+			-- ROBLOX deviation END
 			self:merge(dataId, rest[dataId] :: StoreObject)
 		end)
 
@@ -656,7 +659,9 @@ function EntityStore:findChildRefIds(dataId: string): Record<string, boolean>
 			end
 
 			if isNonNullObject(obj) then
-				Array.forEach(Object.keys(obj), function(key)
+				-- ROBLOX deviation START: optimize Object.keys().forEach for luau
+				objectKeysForEach(obj, function(key)
+					-- ROBLOX deviation END
 					local child = obj[key]
 					-- No need to add primitive values to the workSet, since they cannot
 					-- contain reference objects.
@@ -868,7 +873,9 @@ function Layer:removeLayer(layerId: string): EntityStore
 			-- dirtying fields that have values in higher layers, but we don't have
 			-- easy access to higher layers here, and we're about to recreate those
 			-- layers anyway (see parent.addLayer below).
-			Array.forEach(Object.keys(self.data), function(dataId)
+			-- ROBLOX deviation START: optimize Object.keys().forEach for luau
+			objectKeysForEach(self.data, function(dataId)
+				-- ROBLOX deviation END
 				local ownStoreObject = self.data[dataId]
 				local parentStoreObject = parent["lookup"](parent, dataId)
 				if not Boolean.toJSBoolean(parentStoreObject) then
@@ -884,14 +891,18 @@ function Layer:removeLayer(layerId: string): EntityStore
 					-- become undeleted when we remove this layer, so we need to dirty
 					-- all fields that are about to be reexposed.
 					self.group:dirty(dataId, "__exists")
-					Array.forEach(Object.keys(parentStoreObject), function(storeFieldName)
+					-- ROBLOX deviation START: optimize Object.keys().forEach for luau
+					objectKeysForEach(parentStoreObject, function(storeFieldName)
+						-- ROBLOX deviation END
 						self.group:dirty(dataId, storeFieldName)
 					end)
 				elseif ownStoreObject ~= parentStoreObject then
 					-- If ownStoreObject is not exactly the same as parentStoreObject,
 					-- dirty any fields whose values will change as a result of this
 					-- removal.
-					Array.forEach(Object.keys(ownStoreObject), function(storeFieldName)
+					-- ROBLOX deviation START: optimize Object.keys().forEach for luau
+					objectKeysForEach(ownStoreObject, function(storeFieldName)
+						-- ROBLOX deviation END
 						if not equal(ownStoreObject[storeFieldName], parentStoreObject[storeFieldName]) then
 							self.group:dirty(dataId, storeFieldName)
 						end

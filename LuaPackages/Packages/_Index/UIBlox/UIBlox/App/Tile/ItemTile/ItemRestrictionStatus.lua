@@ -51,7 +51,7 @@ end
 local function getRestrictionIcon(restrictionTypes)
 	if UIBloxConfig.enableCollectibleItemRestriction then
 		if restrictionTypes[ItemTileEnums.Restriction.Collectible] then
-			return Images["icons/placeholder/placeholderOn_small"]
+			return Images["icons/status/collectibles_small"]
 		end
 	end
 
