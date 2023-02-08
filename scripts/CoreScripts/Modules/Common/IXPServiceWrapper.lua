@@ -10,14 +10,9 @@
 local RunService = game:GetService("RunService")
 local IXPService = game:GetService("IXPService")
 
-local GetFFlagEnableIXPInGame = require(script.Parent.Flags.GetFFlagEnableIXPInGame)
 local GetIXPServiceWrapperWaitRefactor = require(script.Parent.Flags.GetIXPServiceWrapperWaitRefactor)
 
 local ModuleTable = {}
-
-function ModuleTable:IsEnabled()
-	return GetFFlagEnableIXPInGame()
-end
 
 --[[
 	Initialize the IXP Service with the appropriate User Layer data.
@@ -32,10 +27,6 @@ end
 	- the terminal IXPLoadingStatus that was read from IXPService:GetUserLayerLoadingStatus
 --]]
 function ModuleTable:InitializeAsync(userId, userLayers)
-	if not self:IsEnabled() then
-		return
-	end
-
 	local success, result = pcall(function()
 		if RunService:IsStudio() then
 			IXPService:ClearUserLayers()
@@ -83,10 +74,6 @@ end
 	@returns nullable table containing the data associated with the layer
 --]]
 function ModuleTable:GetLayerData(userLayer): { [string]: any }?
-	if not self:IsEnabled() then
-		return nil
-	end
-
 	local success, result = pcall(function()
 		return IXPService:GetUserLayerVariables(userLayer)
 	end)
@@ -100,11 +87,9 @@ end
 	@param layerName (string) the name of the layer
 --]]
 function ModuleTable:LogUserLayerExposure(layerName)
-	if self:IsEnabled() then
-		pcall(function()
-			IXPService:LogUserLayerExposure(layerName)
-		end)
-	end
+	pcall(function()
+		IXPService:LogUserLayerExposure(layerName)
+	end)
 end
 
 --[[
@@ -113,11 +98,9 @@ end
 	@param layerName (string) the name of the layer
 --]]
 function ModuleTable:LogBrowserTrackerLayerExposure(layerName)
-	if self:IsEnabled() then
-		pcall(function()
-			IXPService:LogBrowserTrackerLayerExposure(layerName)
-		end)
-	end
+	pcall(function()
+		IXPService:LogBrowserTrackerLayerExposure(layerName)
+	end)
 end
 
 return ModuleTable

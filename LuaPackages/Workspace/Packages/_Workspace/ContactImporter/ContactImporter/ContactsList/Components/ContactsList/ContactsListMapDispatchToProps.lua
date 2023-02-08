@@ -5,7 +5,6 @@ local LocalTypes = require(ContactImporter.Common.LocalTypes)
 local NetworkingContacts = dependencies.NetworkingContacts
 local NetworkingUserSettings = dependencies.NetworkingUserSettings
 local llama = dependencies.llama
-local getFFlagNavigateToContactsListFirst = require(ContactImporter.Flags.getFFlagNavigateToContactsListFirst)
 
 local mapDispatchToProps = function(dispatch: any)
 	return {
@@ -27,11 +26,9 @@ local mapDispatchToProps = function(dispatch: any)
 		uploadContacts = function(args: LocalTypes.UploadContactsByUser)
 			return dispatch(NetworkingContacts.UploadContactsByUser.API(args))
 		end,
-		updateUserSettings = if getFFlagNavigateToContactsListFirst()
-			then function()
-				return dispatch(NetworkingUserSettings.UpdateUserSettings.API({ canUploadContacts = true }))
-			end
-			else nil,
+		updateUserSettings = function()
+			return dispatch(NetworkingUserSettings.UpdateUserSettings.API({ canUploadContacts = true }))
+		end,
 	}
 end
 

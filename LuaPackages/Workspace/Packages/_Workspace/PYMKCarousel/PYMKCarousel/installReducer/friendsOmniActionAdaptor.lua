@@ -12,7 +12,6 @@ local RecommendationContextType = RoduxFriends.Enums.RecommendationContextType
 
 local getFFlagPYMKCarouselIncomingFriendshipReducer =
 	require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendshipReducer)
-local getFFlagPYMKCarouselFixAnalyticsFields = require(PYMKCarousel.Flags.getFFlagPYMKCarouselFixAnalyticsFields)
 
 local isContextTypeDefined = function(contextType: string?)
 	local contextTypeEnum = RecommendationContextType.fromRawValue(contextType)
@@ -25,12 +24,9 @@ local newRecommendationFromOmni =
 			then recommendation.contextType
 			else metadata.contextType
 
-		local mutualFriendsCount
-		if getFFlagPYMKCarouselFixAnalyticsFields() then
-			mutualFriendsCount = metadata.mutualFriendsCount and tonumber(metadata.mutualFriendsCount) or 0
-			if contextType == RecommendationContextType.MutualFriends.rawValue() and mutualFriendsCount == 0 then
-				contextType = RecommendationContextType.None.rawValue()
-			end
+		local mutualFriendsCount = metadata.mutualFriendsCount and tonumber(metadata.mutualFriendsCount) or 0
+		if contextType == RecommendationContextType.MutualFriends.rawValue() and mutualFriendsCount == 0 then
+			contextType = RecommendationContextType.None.rawValue()
 		end
 
 		return {
@@ -38,9 +34,7 @@ local newRecommendationFromOmni =
 			contextType = contextType,
 			mutualFriendsList = recommendation.mutualFriendDisplayName,
 			rank = if metadata.rank then tonumber(metadata.rank) else index,
-			mutualFriendsCount = if getFFlagPYMKCarouselFixAnalyticsFields()
-				then mutualFriendsCount
-				else metadata.mutualFriendsCount and tonumber(metadata.mutualFriendsCount) or 0,
+			mutualFriendsCount = mutualFriendsCount,
 			hasIncomingFriendRequest = if getFFlagPYMKCarouselIncomingFriendshipReducer()
 				then metadata.hasPendingFriendRequest == Constants.BE_TRUE_VALUE
 				else nil,

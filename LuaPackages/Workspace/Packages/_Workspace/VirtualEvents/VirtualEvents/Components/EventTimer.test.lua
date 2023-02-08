@@ -13,6 +13,7 @@ local withMockProviders = require(VirtualEvents.withMockProviders)
 local network = require(VirtualEvents.network)
 local VirtualEventModel = network.NetworkingVirtualEvents.VirtualEventModel
 local EventTimer = require(script.Parent.EventTimer)
+local getFFlagVirtualEventsGraphQL = require(VirtualEvents.Parent.SharedFlags).getFFlagVirtualEventsGraphQL
 
 local root
 local container
@@ -34,8 +35,13 @@ it("should display the start and end dates for the event", function()
 	local endTime = DateTime.fromLocalTime(2022, 1, 3)
 
 	local mockVirtualEvent = VirtualEventModel.mock("1")
-	mockVirtualEvent.eventTime.startTime = startTime
-	mockVirtualEvent.eventTime.endTime = endTime
+	if getFFlagVirtualEventsGraphQL() then
+		mockVirtualEvent.eventTime.startUtc = startTime:ToIsoDate()
+		mockVirtualEvent.eventTime.endUtc = endTime:ToIsoDate()
+	else
+		mockVirtualEvent.eventTime.startTime = startTime
+		mockVirtualEvent.eventTime.endTime = endTime
+	end
 
 	local element = withMockProviders({
 		EventTimer = React.createElement(EventTimer, {

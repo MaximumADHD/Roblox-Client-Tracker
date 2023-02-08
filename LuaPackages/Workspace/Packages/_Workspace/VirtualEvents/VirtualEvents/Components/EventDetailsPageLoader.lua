@@ -18,6 +18,7 @@ export type Props = EventDetailsPage.BaseProps & {
 
 local function EventDetailsPageLoader(props: Props)
 	local virtualEvent, fetchingStatus = useVirtualEvent(props.virtualEventId)
+
 	local text = useLocalization({
 		notFound = "Feature.VirtualEvents.EventNotFound",
 	})

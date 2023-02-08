@@ -23,9 +23,6 @@ function ABTest.new()
 	})
 
 	function service.getLayerData(layerName)
-		if not IXPServiceWrapper:IsEnabled() then
-			return nil
-		end
 		return IXPServiceWrapper:GetLayerData(layerName)
 	end
 

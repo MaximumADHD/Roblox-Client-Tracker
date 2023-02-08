@@ -43,6 +43,7 @@ local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagC
 
 local enableUserPrivacyUnauthorizedMessage = game:GetEngineFeature("EnableUserPrivacyUnauthorizedMessage")
 local FFlagVRFixErrorPrompt = require(RobloxGui.Modules.Flags.FFlagVRFixErrorPrompt)
+local FFlagXboxEnableDisconnectPrompt = require(RobloxGui.Modules.Flags.FFlagXboxEnableDisconnectPrompt)
 
 local function safeGetFInt(name, defaultValue)
 	local success, result = pcall(function()
@@ -640,11 +641,13 @@ local function onLocaleIdChanged()
 end
 
 -- only when we load this script from engine (engine feature LoadErrorHandlerFromEngine is enabled)
--- stop the connection for xBox as its handler is loaded in loadingscript.lua
+-- when we remove FFlagXboxEnableDisconnectPrompt, this will be enabled for all platforms, we can
+-- then rely on LoadErrorHandlerFromEngine
 local loadErrorHandlerFromEngine = game:GetEngineFeature("LoadErrorHandlerFromEngine")
+local shouldSetUpErrorHandlerForXbox = FFlagXboxEnableDisconnectPrompt() and GuiService:IsTenFootInterface()
 local shouldSetUpErrorHandlerFromThisScript = not (loadErrorHandlerFromEngine and GuiService:IsTenFootInterface())
 
-if shouldSetUpErrorHandlerFromThisScript then
+if shouldSetUpErrorHandlerFromThisScript or shouldSetUpErrorHandlerForXbox then
 	RobloxGui:GetPropertyChangedSignal("AbsoluteSize"):connect(onScreenSizeChanged)
 	LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(onLocaleIdChanged)
 

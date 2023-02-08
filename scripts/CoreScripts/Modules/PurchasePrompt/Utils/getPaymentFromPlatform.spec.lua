@@ -53,4 +53,12 @@ return function()
 		expect(getPaymentFromPlatform(Enum.Platform.UWP, false, false, false)).to.equal(PaymentPlatform.UWP)
 	end)
 
+	it("should return correctly when on PS3", function()
+		expect(getPaymentFromPlatform(Enum.Platform.PS3, false, false, false)).to.equal(PaymentPlatform.PlayStation)
+	end)
+
+	it("should return correctly when on PS4", function()
+		expect(getPaymentFromPlatform(Enum.Platform.PS4, false, false, false)).to.equal(PaymentPlatform.PlayStation)
+	end)
+
 end

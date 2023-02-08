@@ -8,6 +8,7 @@ local Player = Players.LocalPlayer
 local PlayerGui = Player:WaitForChild("PlayerGui")
 
 local FFlagEnableKeyboardUINavigationNotification = game:DefineFastFlag("EnableKeyboardUINavigationNotification", false)
+local FFlagSendKeyboardUINavigationNotificationOnEnable = game:DefineFastFlag("SendKeyboardUINavigationNotificationOnEnable", false)
 
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 local SendNotification = RobloxGui:WaitForChild("SendNotificationInfo")
@@ -84,16 +85,21 @@ local function EnableKeyboardNavigation(actionName, inputState, inputObject)
 	end
 
 	GuiService:Select(PlayerGui)
-	if FFlagEnableKeyboardUINavigationNotification then
-		local notificationTitle = LocalizedGetString("NotificationScript2.UINavigation.Title")
-		local notificationText = LocalizedGetString("NotificationScript2.UINavigation.Text")
 
-		SendNotification:Fire({
-			Title = notificationTitle,
-			Text = notificationText,
-			Duration = 3
-		})
+	-- Only send a notification if we found an element to select
+	if FFlagEnableKeyboardUINavigationNotification then
+		if not FFlagSendKeyboardUINavigationNotificationOnEnable or GuiService.SelectedObject then
+			local notificationTitle = LocalizedGetString("NotificationScript2.UINavigation.Title")
+			local notificationText = LocalizedGetString("NotificationScript2.UINavigation.Text")
+
+			SendNotification:Fire({
+				Title = notificationTitle,
+				Text = notificationText,
+				Duration = 3
+			})
+		end
 	end
+
 	return Enum.ContextActionResult.Sink
 end
 

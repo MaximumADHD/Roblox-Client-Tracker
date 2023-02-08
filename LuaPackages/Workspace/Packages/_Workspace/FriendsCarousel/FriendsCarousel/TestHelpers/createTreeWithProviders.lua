@@ -9,6 +9,8 @@ local Rodux = dependencies.Rodux
 local UIBlox = dependencies.UIBlox
 local LocalizationProvider = dependencies.LocalizationProvider
 local Mock = devDependencies.Mock
+local jest = devDependencies.jest
+
 local mockAnalytics = require(script.Parent.mockAnalytics)
 local Analytics = require(FriendsCarousel.Analytics)
 
@@ -23,7 +25,7 @@ end, {}, { Rodux.thunkMiddleware })
 
 -- TODO: replace when SOCCONN-1516 is in social libraries
 local createTreeWithProviders = function(element, config)
-	local initializedMockAnalytics = config.mockAnalytics or mockAnalytics()
+	local initializedMockAnalytics = config.mockAnalytics or mockAnalytics(jest)
 
 	local tree = Roact.createFragment({
 		storeProvider = Roact.createElement(RoactRodux.StoreProvider, {

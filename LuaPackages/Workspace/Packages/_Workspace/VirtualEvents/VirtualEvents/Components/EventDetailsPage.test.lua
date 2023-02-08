@@ -18,6 +18,7 @@ local VirtualEventModel = NetworkingVirtualEvents.VirtualEventModel
 local ExperienceMediaModel = require(VirtualEvents.Models.ExperienceMediaModel)
 local ExperienceDetailsModel = require(VirtualEvents.Models.ExperienceDetailsModel)
 local EventDetailsPage = require(script.Parent.EventDetailsPage)
+local getFFlagVirtualEventsGraphQL = require(VirtualEvents.Parent.SharedFlags).getFFlagVirtualEventsGraphQL
 
 local container
 local root
@@ -51,6 +52,17 @@ beforeEach(function()
 		Rodux.thunkMiddleware,
 	})
 
+	network.NetworkingVirtualEvents.GetVirtualEventRsvpCounts.Mock.reply({
+		responseBody = {
+			counters = {
+				going = 10,
+				notGoing = 0,
+				maybeGoing = 0,
+				none = 0,
+			},
+		},
+	})
+
 	network.NetworkingGames.GetExperienceMedia.Mock.reply({
 		responseBody = {
 			data = {
@@ -72,7 +84,11 @@ afterEach(function()
 
 	network.NetworkingGames.GetExperienceMedia.Mock.clear()
 	network.NetworkingGames.GetExperiencesDetails.Mock.clear()
-	NetworkingVirtualEvents.GetVirtualEvent.Mock.clear()
+	network.NetworkingVirtualEvents.GetVirtualEventRsvpCounts.Mock.clear()
+
+	if not getFFlagVirtualEventsGraphQL() then
+		NetworkingVirtualEvents.GetVirtualEvent.Mock.clear()
+	end
 end)
 
 it("should create a new mock event and render EventDetailPage", function()
@@ -121,8 +137,13 @@ it("should never show the attendance list when the event is over", function()
 	local now = DateTime.now()
 
 	local activeVirtualEvent = VirtualEventModel.mock("1")
-	activeVirtualEvent.eventTime.startTime = now
-	activeVirtualEvent.eventTime.endTime = DateTime.fromUnixTimestamp(now.UnixTimestamp + 60)
+	if getFFlagVirtualEventsGraphQL() then
+		activeVirtualEvent.eventTime.startUtc = now:ToIsoDate()
+		activeVirtualEvent.eventTime.endUtc = DateTime.fromUnixTimestamp(now.UnixTimestamp + 60):ToIsoDate()
+	else
+		activeVirtualEvent.eventTime.startTime = now
+		activeVirtualEvent.eventTime.endTime = DateTime.fromUnixTimestamp(now.UnixTimestamp + 60)
+	end
 
 	local endedVirtualEvent = VirtualEventModel.mock("2")
 	endedVirtualEvent.eventTime.startTime = DateTime.fromUnixTimestamp(now.UnixTimestamp - 120)
@@ -144,6 +165,10 @@ it("should never show the attendance list when the event is over", function()
 
 	ReactRoblox.act(function()
 		root:render(element)
+	end)
+
+	ReactRoblox.act(function()
+		store:flush()
 	end)
 
 	local activeEvent = container:FindFirstChild("ActiveEvent")

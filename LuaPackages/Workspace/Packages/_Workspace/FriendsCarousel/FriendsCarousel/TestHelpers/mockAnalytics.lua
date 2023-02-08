@@ -1,8 +1,6 @@
 --!nonstrict
 local FriendsCarousel = script.Parent.Parent
 local dependencies = require(FriendsCarousel.dependencies)
-local devDependencies = require(FriendsCarousel.devDependencies)
-local jest = devDependencies.jest
 local SocialLuaAnalytics = dependencies.SocialLuaAnalytics
 local TestingAnalytics = SocialLuaAnalytics.TestingAnalytics
 local mockAnalytics = TestingAnalytics.mockAnalytics
@@ -12,8 +10,8 @@ local setupFireEvent = Analytics.setupFireEvent
 
 return function(config: { uid: string? }?, jestStub: { fn: () -> () }?)
 	local uid = if config and config.uid then config.uid else "123"
-	local analyticsMock = mockAnalytics(jestStub or jest)
-	local loggerMock = mockLogger(jestStub or jest)
+	local analyticsMock = mockAnalytics(jestStub or { fn = function() end })
+	local loggerMock = mockLogger(jestStub or { fn = function() end })
 	local fireEvent = setupFireEvent({
 		analytics = analyticsMock,
 		loggerImpl = mockLogger,

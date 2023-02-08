@@ -179,7 +179,7 @@ function ExperienceMenuABTestManager:initialize()
 
 	-- fetch variant from IXP
 	local layerFetchSuccess, layerData = pcall(function()
-		return self._ixpServiceWrapper:IsEnabled() and self._ixpServiceWrapper:GetLayerData(GetFStringLuaAppExperienceMenuLayer()) or {}
+		return self._ixpServiceWrapper:GetLayerData(GetFStringLuaAppExperienceMenuLayer())
 	end)
 
 	-- bail if we aren't able to communicate with IXP service

@@ -13,7 +13,6 @@ local formatRecommendationContextType = SocialLuaAnalytics.Analytics.Formatters.
 
 local getFFlagPYMKCarouselIncomingFriendRequestAnalytics =
 	require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequestAnalytics)
-local getFFlagPYMKCarouselFixAnalyticsFields = require(PYMKCarousel.Flags.getFFlagPYMKCarouselFixAnalyticsFields)
 
 type GenericEvent = {
 	context: any,
@@ -31,9 +30,7 @@ local coreEvents = {
 		context = Contexts.HomePage,
 		eventType = EventTypes.FriendsCarouselLoaded,
 		additionalInfo = {
-			source = if getFFlagPYMKCarouselFixAnalyticsFields()
-				then Constants.HomepagePYMKCarouselSourceName
-				else Constants.PYMKCarouselSourceName,
+			source = Constants.HomepagePYMKCarouselSourceName,
 		},
 		formatRulesForAdditionalInfo = {
 			recommendationCount = acceptAnyValue,
@@ -45,9 +42,7 @@ local coreEvents = {
 		context = Contexts.HomePage,
 		eventType = EventTypes.UserSeen,
 		additionalInfo = {
-			source = if getFFlagPYMKCarouselFixAnalyticsFields()
-				then Constants.HomepagePYMKCarouselSourceName
-				else Constants.PYMKCarouselSourceName,
+			source = Constants.HomepagePYMKCarouselSourceName,
 			isRecommendation = true,
 		},
 		formatRulesForAdditionalInfo = {
@@ -62,9 +57,7 @@ local coreEvents = {
 		context = Contexts.HomePage,
 		eventType = EventTypes.ButtonClick,
 		additionalInfo = {
-			source = if getFFlagPYMKCarouselFixAnalyticsFields()
-				then Constants.HomepagePYMKCarouselSourceName
-				else Constants.PYMKCarouselSourceName,
+			source = Constants.HomepagePYMKCarouselSourceName,
 			isRecommendation = true,
 			btn = BtnValues.OpenPeopleList,
 		},
@@ -81,9 +74,7 @@ local coreEvents = {
 		eventType = EventTypes.ButtonClick,
 		additionalInfo = {
 			btn = BtnValues.RequestFriendship,
-			source = if getFFlagPYMKCarouselFixAnalyticsFields()
-				then Constants.HomepagePYMKCarouselSourceName
-				else Constants.PYMKCarouselSourceName,
+			source = Constants.HomepagePYMKCarouselSourceName,
 		},
 		formatRulesForAdditionalInfo = {
 			absolutePosition = acceptAnyValue,
@@ -100,9 +91,7 @@ if getFFlagPYMKCarouselIncomingFriendRequestAnalytics() then
 		eventType = EventTypes.ButtonClick,
 		additionalInfo = {
 			btn = BtnValues.AcceptFriendship,
-			source = if getFFlagPYMKCarouselFixAnalyticsFields()
-				then Constants.HomepagePYMKCarouselSourceName
-				else Constants.PYMKCarouselSourceName,
+			source = Constants.HomepagePYMKCarouselSourceName,
 		},
 		formatRulesForAdditionalInfo = {
 			absolutePosition = acceptAnyValue,

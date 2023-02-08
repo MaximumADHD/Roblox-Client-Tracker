@@ -22,8 +22,6 @@ local AppStorageService = dependencies.AppStorageService
 local compose = dependencies.SocialLibraries.RoduxTools.compose
 local getDeepValue = dependencies.SocialLibraries.Dictionary.getDeepValue
 local ContactImporterContext = require(ContactImporter.ContactsList.Components.ContactImporterContext)
-local getFFlagNavigateToContactsListFirst = require(ContactImporter.Flags.getFFlagNavigateToContactsListFirst)
-local getFFlagCheckOrRequestPermissions = require(ContactImporter.Flags.getFFlagCheckOrRequestPermissions)
 local RODUX_KEY = require(ContactImporter.Common.Constants).RODUX_KEY
 
 local ContactsImporterOverlayContainer = Roact.PureComponent:extend("ContactsImporterOverlayContainer")
@@ -81,16 +79,7 @@ function ContactsImporterOverlayContainer:init()
 					updateOptedInUsers:addUserToLocalStorage(AppStorageService, props.localUserId)
 					-- After authorizing contact permissions we can hide this modal
 					props.hideContactImporterModal()
-					if getFFlagNavigateToContactsListFirst() then
-						navigation.navigate(
-							EnumScreens.ContactsList,
-							{ [Constants.SHOULD_UPDATE_USER_SETTINGS] = true }
-						)
-					else
-						props.updateUserSettings():andThen(function()
-							navigation.navigate(EnumScreens.ContactsList)
-						end)
-					end
+					navigation.navigate(EnumScreens.ContactsList, { [Constants.SHOULD_UPDATE_USER_SETTINGS] = true })
 				elseif permissionResponseStatus == PermissionsProtocol.Status.DENIED then
 					navigation.navigate(EnumScreens.ContactsRevokedAccessDialog, {
 						screenSize = props.screenSize,
@@ -134,36 +123,7 @@ function ContactsImporterOverlayContainer:init()
 		elseif isDiscoverabilityUnset then
 			self.navigateToDiscoverabilityModal()
 		else
-			if getFFlagCheckOrRequestPermissions() then
-				self.permissionsFlowToContactImporter()
-			else
-				self.checkOrRequestContactsPermissions()
-					:andThen(function(permissionResponseStatus)
-						if permissionResponseStatus == PermissionsProtocol.Status.AUTHORIZED then
-							updateOptedInUsers:addUserToLocalStorage(AppStorageService, props.localUserId)
-							-- After authorizing contact permissions we can hide this modal
-							props.hideContactImporterModal()
-							if getFFlagNavigateToContactsListFirst() then
-								navigation.navigate(
-									EnumScreens.ContactsList,
-									{ [Constants.SHOULD_UPDATE_USER_SETTINGS] = true }
-								)
-							else
-								props.updateUserSettings():andThen(function()
-									navigation.navigate(EnumScreens.ContactsList)
-								end)
-							end
-						elseif permissionResponseStatus == PermissionsProtocol.Status.DENIED then
-							navigation.navigate(EnumScreens.ContactsRevokedAccessDialog, {
-								screenSize = props.screenSize,
-								closeModal = self.closeModal,
-							})
-						else
-							return Promise.reject()
-						end
-					end)
-					:catch(self.failedToUpload)
-			end
+			self.permissionsFlowToContactImporter()
 		end
 	end
 

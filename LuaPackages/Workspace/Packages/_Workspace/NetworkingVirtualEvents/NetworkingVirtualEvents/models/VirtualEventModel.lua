@@ -5,7 +5,8 @@ local types = require(NetworkingVirtualEvents.types)
 local VirtualEventModel = {}
 
 function VirtualEventModel.mock(id: string): types.VirtualEvent
-	local now = DateTime.now()
+	local startTime = DateTime.now()
+	local endTime = DateTime.fromUnixTimestamp(startTime.UnixTimestamp + 24 * 60 * 60)
 
 	return {
 		id = id,
@@ -18,13 +19,17 @@ function VirtualEventModel.mock(id: string): types.VirtualEvent
 			hasVerifiedBadge = true,
 		},
 		eventTime = {
-			startTime = now,
-			endTime = DateTime.fromUnixTimestamp(now.UnixTimestamp + 24 * 60 * 60),
+			startTime = startTime,
+			endTime = endTime,
+
+			-- Added for GraphQL compatibility
+			startUtc = startTime:ToIsoDate(),
+			endUtc = startTime:ToIsoDate(),
 		},
 		universeId = 3531439676,
 		eventStatus = "active" :: types.EventStatus,
-		createdTime = now,
-		updatedTime = now,
+		createdTime = startTime,
+		updatedTime = startTime,
 		userRsvpStatus = "none" :: types.RsvpStatus,
 	}
 end
@@ -44,6 +49,10 @@ function VirtualEventModel.fromResponse(response: types.VirtualEventResponse): t
 			eventTime = {
 				startTime = startTime,
 				endTime = endTime,
+
+				-- Added for GraphQL compatibility
+				startUtc = response.eventTime.startUtc,
+				endUtc = response.eventTime.endUtc,
 			},
 			universeId = response.universeId,
 			eventStatus = response.eventStatus,

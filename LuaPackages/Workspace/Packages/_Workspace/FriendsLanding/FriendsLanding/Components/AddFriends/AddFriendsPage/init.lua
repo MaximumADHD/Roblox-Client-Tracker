@@ -30,6 +30,7 @@ local TextKeys = ContactImporter.TextKeys
 local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
 local getFFlagUpdateContactImportModalLogic = require(FriendsLanding.Flags.getFFlagUpdateContactImportModalLogic)
 local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
+local getFFlagAddFriendsStatefulMoreButton = require(FriendsLanding.Flags.getFFlagAddFriendsStatefulMoreButton)
 local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
@@ -226,12 +227,23 @@ function AddFriendsPage:init()
 			end
 			self.props.navigation.navigate(EnumScreens.ContactImporter, navParams)
 		else
-			local navParams = {
-				isFromAddFriendsPage = true,
-				bypassFetchContacts = true,
-				diagService = self.props.diagService,
-				eventIngestService = self.props.eventIngestService,
-			}
+			local navParams
+			if getFFlagEnableContactInvitesForNonPhoneVerified() then
+				navParams = {
+					isFromAddFriendsPage = true,
+					bypassFetchContacts = true,
+					diagService = self.props.diagService,
+					eventIngestService = self.props.eventIngestService,
+					isPhoneVerified = self.props.isPhoneVerified,
+				}
+			else
+				navParams = {
+					isFromAddFriendsPage = true,
+					bypassFetchContacts = true,
+					diagService = self.props.diagService,
+					eventIngestService = self.props.eventIngestService,
+				}
+			end
 			self.props.navigation.navigate(EnumScreens.ContactsList, navParams)
 		end
 	end
@@ -366,7 +378,9 @@ function AddFriendsPage:render()
 									or nil,
 								headerFrame = {
 									title = localized.friendRequestsText .. requestsCountText,
-									icon = Images["icons/menu/more_off"],
+									icon = if getFFlagAddFriendsStatefulMoreButton()
+										then nil
+										else Images["icons/menu/more_off"],
 									iconVisible = hasRequests,
 								},
 								renderAddFriendsTile = self.renderAddFriendsTile,

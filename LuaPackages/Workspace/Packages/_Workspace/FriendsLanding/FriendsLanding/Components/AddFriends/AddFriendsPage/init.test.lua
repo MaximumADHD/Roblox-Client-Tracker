@@ -9,6 +9,7 @@ local Dash = dependencies.Dash
 local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
+local getFFlagAddFriendsNewEmptyState = dependencies.getFFlagAddFriendsNewEmptyState
 
 local devDependencies = require(FriendsLanding.devDependencies)
 local RhodiumHelpers = devDependencies.RhodiumHelpers
@@ -170,6 +171,16 @@ describe("with empty FriendsRequests", function()
 			expect(showMore).toBeNil()
 		end)
 	end)
+
+	if getFFlagAddFriendsNewEmptyState() then
+		it("SHOULD not render the headerFrame", function()
+			testElement(instance, function()
+				return byName(instance, "HeaderFrame")
+			end, function(headerFrame)
+				expect(headerFrame).toBeNil()
+			end)
+		end)
+	end
 end)
 
 describe("showMore button behavior", function()
@@ -308,6 +319,53 @@ it("SHOULD not show contact list if clicked", function()
 
 	cleanup()
 end)
+
+if getFFlagEnableContactInvitesForNonPhoneVerified() then
+	it("SHOULD show contact list if clicked", function()
+		local instance, cleanup, fireContactImporterAnalyticsEvents, fireContactImporterSeenEvent, navigation
+		local handleOpenPhoneVerificationLinkWebview = jest.fn()
+		local handleOpenLearnMoreLink = jest.fn()
+		local handleShowToastForTests = jest.fn()
+		fireContactImporterAnalyticsEvents = jest.fn()
+		fireContactImporterSeenEvent = jest.fn()
+		navigation = {
+			navigate = jest.fn(),
+		}
+		instance, cleanup = createInstance({}, {
+			fireContactImporterAnalyticsEvents = function()
+				fireContactImporterAnalyticsEvents()
+			end,
+			contactImporterAndPYMKEnabled = true,
+			fireContactImporterSeenEvent = function()
+				fireContactImporterSeenEvent()
+			end,
+			isPhoneVerified = true,
+			shouldShowContactImporterFeature = false,
+			navigation = navigation,
+			shouldShowContactImporterUpsellModal = false,
+			handleOpenPhoneVerificationLinkWebview = handleOpenPhoneVerificationLinkWebview,
+			handleOpenLearnMoreLink = handleOpenLearnMoreLink,
+			handleShowToastForTests = handleShowToastForTests,
+		})
+
+		local banner = RhodiumHelpers.findFirstInstance(instance, {
+			Name = "Banner",
+		})
+		local button = RhodiumHelpers.findFirstInstance(banner, {
+			Name = "Button",
+		})
+
+		RhodiumHelpers.clickInstance(button)
+
+		expect(navigation.navigate).toHaveBeenCalledWith(EnumScreens.ContactsList, {
+			isFromAddFriendsPage = true,
+			bypassFetchContacts = true,
+			isPhoneVerified = true,
+		})
+
+		cleanup()
+	end)
+end
 
 if getFFlagAddFriendsSearchbarIXPEnabled() then
 	describe("full searchbar button on compactMode", function()

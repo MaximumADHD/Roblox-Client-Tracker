@@ -21,6 +21,8 @@ local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 local GetFFlagUIBloxVRApplyHeadScale =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRApplyHeadScale
 
+local FFlagFixPurchasePromptInVR = game:GetEngineFeature("FixPurchasePromptInVR")
+
 local UserGuiModule = {}
 UserGuiModule.ModuleName = "UserGui"
 UserGuiModule.KeepVRTopbarOpen = false
@@ -165,6 +167,14 @@ if EngineFeatureEnableVRUpdate3 then
 	VRHub.ShowTopBarChanged.Event:connect(onGuiSelection)
 	GuiService:GetPropertyChangedSignal("MenuIsOpen"):Connect(onGuiSelection)
 	VRService.UserCFrameEnabled:Connect(onGuiSelection)
+	if FFlagFixPurchasePromptInVR then
+		GuiService.PurchasePromptShown:Connect(function()
+			-- Purchase prompt pops up while UI is hidden should force UI to show up
+			if not VRHub.ShowTopBar then
+				VRHub:SetShowTopBar(true)
+			end
+		end)
+	end
 
 	local InGameMenu = require(RobloxGui.Modules.InGameMenu)
 	local function handleAction(actionName, inputState, inputObject)
@@ -212,11 +222,19 @@ local function OnVREnabledChanged()
 					UserGuiModule:SetVisible(false) 
 					CoreGui:SetUserGuiRendering(false, nil, Enum.NormalId.Front) -- go back to "normal" ui rendering
 				end
-			end 
+			end
 
 			VRHub.ShowTopBarChanged.Event:connect(onGuiSelection)
 			GuiService:GetPropertyChangedSignal("MenuIsOpen"):Connect(onGuiSelection)
 			VRService.UserCFrameEnabled:Connect(onGuiSelection)
+			if FFlagFixPurchasePromptInVR then
+				GuiService.PurchasePromptShown:Connect(function()
+					-- Purchase prompt pops up while UI is hidden should force UI to show up
+					if not VRHub.ShowTopBar then
+						VRHub:SetShowTopBar(true)
+					end
+				end)
+			end
 
 			RunService.RenderStepped:Connect(function(step)
 				if userGuiPanel.isVisible and userGuiPanel.isLookedAt then

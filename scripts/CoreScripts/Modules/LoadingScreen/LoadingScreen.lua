@@ -32,6 +32,8 @@ local httpRequest = require(AppTempCommon.Temp.httpRequest)
 local networking = httpRequest(HttpRbxApiService)
 -- FFlags
 local FFlagShowVerifiedBadgeOnNewLoadingScreen = require(RobloxGui.Modules.Flags.FFlagShowVerifiedBadgeOnNewLoadingScreen)
+local FFlagFixServerInfoLocalization = game:DefineFastFlag("FixServerInfoLocalization", false)
+
 -- Constants
 local GAME_ICON_URL = "rbxthumb://type=GameIcon&id=%d&w=256&h=256"
 local GAME_THUMBNAIL_URL = "rbxthumb://type=GameThumbnail&id=%d&w=768&h=432"
@@ -463,6 +465,7 @@ function LoadingScreen:renderServerFrame(style)
 	local showPolicyText = self.props.isSubjectToChinaPolicies
 	local serverLabelSize = isTenFootInterface and 16 or 12
 	local policyLabelSize = isTenFootInterface and 16 or 12
+
 	return Roact.createElement("Frame", {
 		Name = "ServerFrame",
 		BackgroundTransparency = 1,
@@ -503,6 +506,7 @@ function LoadingScreen:renderServerFrame(style)
 			TextXAlignment = Enum.TextXAlignment.Center,
 			TextYAlignment = Enum.TextYAlignment.Center,
 			ZIndex = 2,
+			RootLocalizationTable = if FFlagFixServerInfoLocalization then CoreGui.CoreScriptLocalization else nil,
 			[Roact.Event.InputBegan] = (not self.props.isSubjectToChinaPolicies) and self.showConnnectionHealthDebugMenu or nil,
 		}),
 	})

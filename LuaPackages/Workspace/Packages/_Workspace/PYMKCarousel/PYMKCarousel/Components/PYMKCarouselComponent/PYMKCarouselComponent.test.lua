@@ -27,9 +27,6 @@ local getFFlagPYMKDontUseIngestService = dependencies.getFFlagPYMKDontUseIngestS
 local getFFlagPYMKCarouselIncomingFriendRequest = require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequest)
 local getFFlagPYMKCarouselIncomingFriendRequestAnalytics =
 	require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequestAnalytics)
-local getFFlagPYMKCarouselFixAnalyticsFields = require(PYMKCarousel.Flags.getFFlagPYMKCarouselFixAnalyticsFields)
-local getFFlagPYMKCarouselFixNullAnalyticsFields =
-	require(PYMKCarousel.Flags.getFFlagPYMKCarouselFixNullAnalyticsFields)
 
 local PYMKCarouselComponent = require(script.Parent.PYMKCarouselComponent)
 
@@ -79,12 +76,10 @@ it("SHOULD fire analytics event CarouselLoadedWithUsers when mounted and when om
 			mockedAnalytics.EventStream,
 			validateEvent(EventNames.CarouselLoadedWithUsers, {
 				uid = "123456",
-				source = if getFFlagPYMKCarouselFixAnalyticsFields() then "HomepagePYMKCarousel" else "PYMKCarousel",
+				source = "HomepagePYMKCarousel",
 				recommendationCount = MOCKED_RECOMMENDATIONS_COUNT,
 				refreshCount = 0,
-				recommendationSessionId = if getFFlagPYMKCarouselFixNullAnalyticsFields()
-					then "mockedRecommendationSessionId"
-					else nil,
+				recommendationSessionId = "mockedRecommendationSessionId",
 			})
 		)
 
@@ -97,11 +92,9 @@ it("SHOULD fire analytics event CarouselLoadedWithUsers when mounted and when om
 			mockedAnalytics.EventStream,
 			validateEvent(EventNames.CarouselLoadedWithUsers, {
 				uid = "123456",
-				source = if getFFlagPYMKCarouselFixAnalyticsFields() then "HomepagePYMKCarousel" else "PYMKCarousel",
+				source = "HomepagePYMKCarousel",
 				recommendationCount = MOCKED_RECOMMENDATIONS_COUNT,
-				recommendationSessionId = if getFFlagPYMKCarouselFixNullAnalyticsFields()
-					then "mockedRecommendationSessionId"
-					else nil,
+				recommendationSessionId = "mockedRecommendationSessionId",
 				refreshCount = 0,
 			})
 		)
@@ -117,9 +110,7 @@ it("SHOULD fire analytics event CarouselLoadedWithUsers when mounted and when om
 				friendStatus = if getFFlagPYMKCarouselIncomingFriendRequestAnalytics()
 					then Enum.FriendStatus.NotFriend
 					else nil,
-				recommendationSessionId = if getFFlagPYMKCarouselFixNullAnalyticsFields()
-					then "mockedRecommendationSessionId"
-					else nil,
+				recommendationSessionId = "mockedRecommendationSessionId",
 			})
 		)
 
@@ -141,12 +132,10 @@ it("SHOULD fire analytics event CarouselLoadedWithUsers when mounted and when om
 			mockedAnalytics.EventStream,
 			validateEvent(EventNames.CarouselLoadedWithUsers, {
 				uid = "123456",
-				source = if getFFlagPYMKCarouselFixAnalyticsFields() then "HomepagePYMKCarousel" else "PYMKCarousel",
+				source = "HomepagePYMKCarousel",
 				recommendationCount = MOCKED_RECOMMENDATIONS_COUNT,
 				refreshCount = 1,
-				recommendationSessionId = if getFFlagPYMKCarouselFixNullAnalyticsFields()
-					then "mockedRecommendationSessionId"
-					else nil,
+				recommendationSessionId = "mockedRecommendationSessionId",
 			})
 		)
 	end)
@@ -156,13 +145,11 @@ it("SHOULD mount and unmount with default state", function()
 	local PYMKCarousel = createTreeWithProviders(PYMKCarouselComponent, {
 		store = mockStore({
 			LocalUserId = 1,
-			PYMKCarousel = if getFFlagPYMKCarouselFixNullAnalyticsFields()
-				then {
-					Analytics = {
-						bySessionKey = { [RECOMMENDATION_SESSION_ID_KEY] = "mockedRecommendationSessionId" },
-					},
-				}
-				else nil,
+			PYMKCarousel = {
+				Analytics = {
+					bySessionKey = { [RECOMMENDATION_SESSION_ID_KEY] = "mockedRecommendationSessionId" },
+				},
+			},
 		}),
 		props = DEFAULT_PROPS,
 	})

@@ -21,6 +21,8 @@ local function paymentPlatformToUpsellPlatform(paymentPlatform)
         return "WindowsStore"
     elseif paymentPlatform == PaymentPlatform.Xbox then
         return "XboxStore"
+    elseif paymentPlatform == PaymentPlatform.PlayStation then
+        return "PlayStationStore"
     else
         return "None"
     end

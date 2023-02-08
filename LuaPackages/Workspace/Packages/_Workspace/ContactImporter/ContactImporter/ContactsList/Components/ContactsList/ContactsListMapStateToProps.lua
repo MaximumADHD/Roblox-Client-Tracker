@@ -7,7 +7,6 @@ local RoduxNetworking = dependencies.RoduxNetworking
 local NetworkStatus = RoduxNetworking.Enum.NetworkStatus
 local NetworkingUserSettings = dependencies.NetworkingUserSettings
 local Selectors = RoduxContacts.Selectors
-local getFFlagNavigateToContactsListFirst = require(ContactImporter.Flags.getFFlagNavigateToContactsListFirst)
 
 local mapStateToProps = function(state)
 	local currentUserId = state.LocalUserId
@@ -16,15 +15,7 @@ local mapStateToProps = function(state)
 			== NetworkStatus.Fetching
 		or NetworkingContacts.FindContactFriends.getStatus(state, currentUserId) == NetworkStatus.Fetching
 		or NetworkingContacts.GetContactEntitiesByContactId.getStatus(state, currentUserId) == NetworkStatus.Fetching
-		or NetworkingContacts.UploadContactsByUser.getStatus(state, currentUserId) == NetworkStatus.Fetching
-
-	if getFFlagNavigateToContactsListFirst() then
-		isFetching = NetworkingFriends.RequestFriendshipFromContactId.getStatus(state, currentUserId)
-				== NetworkStatus.Fetching
-			or NetworkingContacts.FindContactFriends.getStatus(state, currentUserId) == NetworkStatus.Fetching
-			or NetworkingContacts.GetContactEntitiesByContactId.getStatus(state, currentUserId) == NetworkStatus.Fetching
-			or NetworkingUserSettings.UpdateUserSettings.getStatus(state, currentUserId) == NetworkStatus.Fetching
-	end
+		or NetworkingUserSettings.UpdateUserSettings.getStatus(state, currentUserId) == NetworkStatus.Fetching
 
 	return {
 		localUserId = state.LocalUserId,

@@ -13,11 +13,18 @@ local ProfilerView = require(script.Parent.ProfilerView)
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local PADDING = Constants.GeneralFormatting.MainRowPadding
 
+local FONT = Constants.Font.MainWindowHeader
+local TEXT_SIZE = Constants.DefaultFontSize.MainWindowHeader
+local TEXT_COLOR = Constants.Color.Text
+local BACKGROUND_COLOR = Constants.Color.UnselectedGray
+
 local TESTING_DATA = nil -- Assign this to override the data for testing
 
 local MainViewScriptProfiler = Roact.PureComponent:extend("MainViewScriptProfiler")
 
 local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientReplicator)
+
+local FFlagScriptProfilerFrequencyControl = game:DefineFastFlag("ScriptProfilerFrequencyControl", false)
 
 function MainViewScriptProfiler:init()
 
@@ -29,14 +36,23 @@ function MainViewScriptProfiler:init()
 
 	self.onBeginProfile = function ()
 		if self.state.isClientView then
-			ScriptContext:StartScriptProfiling()
+			if FFlagScriptProfilerFrequencyControl then
+				ScriptContext:StartScriptProfiling(self.state.clientFrequency)
+			else
+				ScriptContext:StartScriptProfiling()
+			end
+
 			self:setState({
 				clientIsProfiling = true
 			})
 		else
 			local clientReplicator = getClientReplicator()
 			if clientReplicator then
-				clientReplicator:RequestServerScriptProfiling(true)
+				if FFlagScriptProfilerFrequencyControl then
+					clientReplicator:RequestServerScriptProfiling(true, self.state.serverFrequency)
+				else
+					clientReplicator:RequestServerScriptProfiling(true)
+				end
 			end
 
 			self:setState({
@@ -47,13 +63,10 @@ function MainViewScriptProfiler:init()
 
 	self.onEndProfile = function ()
 		if self.state.isClientView then
-			local data = ScriptContext:StopScriptProfiling()
-			if typeof(data) == "string" then -- TODO: remove this check with FFlagScriptProfilerStopReturnString
-				data = ScriptContext:DeserializeScriptProfilerString(data)
-			end
+			local data = ScriptContext:StopScriptProfiling() :: any
 
 			self:setState({
-				clientProfilingData = data,
+				clientProfilingData = ScriptContext:DeserializeScriptProfilerString(data),
 				clientIsProfiling = false
 			})
 		else
@@ -75,6 +88,34 @@ function MainViewScriptProfiler:init()
 				usePercentages = not self.state.usePercentages
 			}
 		end)
+	end
+
+	self.toggleFrequency = function()
+		if self.state.isClientView then
+			local freq = self.state.clientFrequency
+
+			if freq == 1000 then
+				freq = 10000
+			else
+				freq = 1000
+			end
+
+			self:setState({
+				clientFrequency = freq;
+			})
+		else
+			local freq = self.state.serverFrequency
+
+			if freq == 1000 then
+				freq = 10000
+			else
+				freq = 1000
+			end
+
+			self:setState({
+				serverFrequency = freq;
+			})
+		end
 	end
 
 	self.onClientButton = function()
@@ -104,6 +145,8 @@ function MainViewScriptProfiler:init()
 		usePercentages = false,
 		clientProfilingData = TESTING_DATA,
 		serverProfilingData = TESTING_DATA,
+		clientFrequency = 1000,
+		serverFrequency = 1000,
 	}
 end
 
@@ -134,6 +177,14 @@ function MainViewScriptProfiler:didUpdate()
 	end
 end
 
+local function formatFreq(freq)
+	if freq < 1000 then
+		return tostring(freq) .. " Hz"
+	else
+		return tostring(freq / 1000) .. " KHz"
+	end
+end
+
 function MainViewScriptProfiler:render()
 	local size = self.props.size
 	local formFactor = self.props.formFactor
@@ -144,12 +195,15 @@ function MainViewScriptProfiler:render()
 
 	local isProfiling
 	local profilingData
+	local frequency
 	if isClientView then
 		isProfiling = self.state.clientIsProfiling
 		profilingData = self.state.clientProfilingData
+		frequency = self.state.clientFrequency
 	else
 		isProfiling = self.state.serverIsProfiling
 		profilingData = self.state.serverProfilingData
+		frequency = self.state.serverFrequency
 	end
 
 	local utilTabHeight = self.state.utilTabHeight
@@ -193,6 +247,25 @@ function MainViewScriptProfiler:render()
 				text = if self.state.usePercentages then "Unit: %" else "Unit: ms",
 				onClicked = self.toggleUnits,
 			}),
+			-- Change Sampling Frequency Button
+			-- Since frequency is specified only when starting a new profiling session,
+			-- this button is inactive while profiling.
+			FFlagScriptProfilerFrequencyControl and Roact.createElement("TextButton", {
+				Text = "Freq: " .. formatFreq(frequency),
+				TextSize = TEXT_SIZE,
+				TextColor3 = TEXT_COLOR,
+				Font = FONT,
+
+				AutoButtonColor = true,
+				BackgroundColor3 = if isProfiling then Constants.Color.InactiveBox else BACKGROUND_COLOR,
+				BackgroundTransparency = 0,
+
+				[Roact.Event.Activated] = function()
+					if not isProfiling then
+						self.toggleFrequency()
+					end
+				end,
+			}) :: any,
 		}),
 
 		ProfilerView = Roact.createElement(ProfilerView, {

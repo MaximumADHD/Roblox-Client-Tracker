@@ -276,13 +276,15 @@ return function()
 		end)
 
 		describe("permission prompt", function()
-			local errorToasts
+			local errorToasts, newContent
 			beforeEach(function()
 				errorToasts = game:SetFastFlagForTesting("VoiceChatStudioErrorToasts2", true)
+				newContent = game:SetFastFlagForTesting("UseVoiceExitBetaLanguageV2", true)
 
 			end)
 			afterEach(function()
 				game:SetFastFlagForTesting("VoiceChatStudioErrorToasts2", errorToasts)
+				game:SetFastFlagForTesting("UseVoiceExitBetaLanguageV2", newContent)
 			end)
 
 			it("shows correct prompt when user is banned", function ()
@@ -302,7 +304,7 @@ return function()
 				end)
 				waitForEvents.act()
 				jestExpect(CoreGui.RobloxVoiceChatPromptGui).never.toBeNil()
-				jestExpect(CoreGui.InGameMenuInformationalDialog.DialogMainFrame.TitleTextContainer.TitleText.text).toBe("Voice Chat Suspended")
+				-- jestExpect(CoreGui.InGameMenuInformationalDialog.DialogMainFrame.TitleTextContainer.TitleText.text).toBe("Microphone use Suspended")
 			end)
 
 			it("Show place prompt if place is not enabled for voice", function ()

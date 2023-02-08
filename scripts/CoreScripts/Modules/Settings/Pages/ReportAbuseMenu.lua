@@ -510,7 +510,7 @@ local function Initialize()
 		if GetFFlagVoiceAbuseReportsEnabled() then
 			VoiceChatServiceManager:asyncInit():andThen(function()
 				IXPServiceWrapper:InitializeAsync(PlayersService.LocalPlayer.UserId, "Social.VoiceAbuseReport.ReportAbuseMenu.V1")
-				local layerData = IXPServiceWrapper:IsEnabled() and IXPServiceWrapper:GetLayerData("Social.VoiceAbuseReport.ReportAbuseMenu.V1")
+				local layerData = IXPServiceWrapper:GetLayerData("Social.VoiceAbuseReport.ReportAbuseMenu.V1")
 				if layerData then
 					inSortingExperiment = layerData.VoiceAbuseReportProximitySort
 					inEntryExperiment = layerData.VoiceAbuseReportSmartEntry
@@ -654,7 +654,7 @@ local function Initialize()
 				if currentAbusingPlayer and abuseReason then
 					reportSucceeded = true
 					showReportSentAlert = true
-					local layerData = IXPServiceWrapper:IsEnabled() and IXPServiceWrapper:GetLayerData("AbuseReports") or {}
+					local layerData = IXPServiceWrapper:GetLayerData("AbuseReports")
 					local dialogVariant = layerData.thankYouDialog
 					isReportSentEnabled = self.HubRef.ReportSentPage and GetFFlagAbuseReportEnableReportSentPage() and dialogVariant == "variant" -- "Report Sent" is only enabled for reporting players
 

@@ -19,6 +19,7 @@ local rawKeyToRawValue = {
 	Midas = "Midas",
 	Web = "Web",
 	Quest = "Quest",
+	PlayStation = "PlayStation",
 }
 
 -- The values here correspond to values in the requested web view.

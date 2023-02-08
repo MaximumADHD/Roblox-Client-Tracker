@@ -1,22 +1,20 @@
 local FriendsCarousel = script:FindFirstAncestor("FriendsCarousel")
-local dependencies = require(FriendsCarousel.dependencies)
-local devDependencies = require(FriendsCarousel.devDependencies)
+local Packages = FriendsCarousel.Parent
+local UIBlox = require(Packages.UIBlox)
+local RobloxAppUIBloxConfig = require(Packages.Dev.RobloxAppUIBloxConfig)
+-- Make sure to initialize in story book in case this storybook is called first
+UIBlox.init(RobloxAppUIBloxConfig)
 
-local Roact = dependencies.Roact
-local llama = dependencies.llama
-local UIBlox = dependencies.UIBlox
-local UIBloxUniversalAppConfig = devDependencies.UIBloxUniversalAppConfig
-local mockLocale = devDependencies.mockLocale()
+local llama = require(Packages.LuaSocialLibrariesDeps).llama
+local Roact = require(Packages.Roact)
+
+local mockLocale = require(Packages.Dev.SocialTestHelpers).StoryHelpers.mockLocale
 
 local mockAnalytics = require(FriendsCarousel.TestHelpers.mockAnalytics)
 local Analytics = require(FriendsCarousel.Analytics)
--- Make sure to initialize in story book in case this storybook is called first
-UIBlox.init(UIBloxUniversalAppConfig)
-
 local AppStyleProvider = UIBlox.App.Style.AppStyleProvider
 
 Roact.setGlobalConfig({
-	propValidation = true,
 	elementTracing = true,
 })
 

@@ -15,11 +15,14 @@ local GetFFlagEnableTopBarVRPolicyOverride = SharedFlags.GetFFlagEnableTopBarVRP
 local isRunningInStudio = require(Packages.AppCommonLib).isRunningInStudio
 local GetFFlagUseVoiceExitBetaLanguage = SharedFlags.GetFFlagUseVoiceExitBetaLanguage
 local GetFFlagVRAvatarExperienceNoLandingPage = SharedFlags.GetFFlagVRAvatarExperienceNoLandingPage
+local getFFlagLuaAppDiscoverPageGrid = SharedFlags.getFFlagLuaAppDiscoverPageGrid
 
 local FFlagUseGUACforDUARPolicy = game:DefineFastFlag("UseGUACforDUARPolicy", false)
 local FFlagOpenCreateGamesInExternalBrowser = game:DefineFastFlag("OpenCreateGamesInExternalBrowser", false)
 local FFLagLuaAppEnableRecommendedCarouselForDesktop =
 	game:DefineFastFlag("LuaAppEnableRecommendedCarouselForDesktop", false)
+local GetFFlagFixOmniDefaultPolicy = require(script.Parent.Flags.GetFFlagFixOmniDefaultPolicy)
+local FFlagDisableWebViewSupportInStudio = game:DefineFastFlag("DisableWebViewSupportInStudio", false)
 
 local function AppFeaturePolicies(policy): any
 	local function getVRDefaultPolicy(policyKey, defaultValueVR)
@@ -154,6 +157,14 @@ local function AppFeaturePolicies(policy): any
 			return policy.ShowStudioCTA or false
 		end,
 		getUseOmniRecommendation = function()
+			if GetFFlagFixOmniDefaultPolicy() then
+				-- Default to true if omni policy is not passed
+				if policy.UseOmniRecommendation == nil then
+					return true
+				else
+					return policy.UseOmniRecommendation
+				end
+			end
 			if GetFFlagLuaAppUseOmniRecDefaultPolicy() then
 				if not policy.UseOmniRecommendation then
 					return true
@@ -326,6 +337,9 @@ local function AppFeaturePolicies(policy): any
 		useGridHomePage = function()
 			return policy.UseGridHomePage or false
 		end,
+		useGridPageLayout = function()
+			return if getFFlagLuaAppDiscoverPageGrid() then (policy.UseGridPageLayout or false) else nil
+		end,
 		getUseTileBackgrounds = function()
 			return policy.UseTileBackgrounds or false
 		end,
@@ -355,7 +369,11 @@ local function AppFeaturePolicies(policy): any
 		getWebViewSupport = function()
 			-- disable webviews in Studio
 			if isRunningInStudio() then
-				return false
+				if FFlagDisableWebViewSupportInStudio then
+					return false
+				else
+					return true
+				end
 			end
 			return getVRDefaultPolicy("EnableWebViewSupport", false)
 		end,

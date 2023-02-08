@@ -41,17 +41,15 @@ function NewInviteMenuExperimentManager:initialize()
 		return
 	end
 
-	if self._ixpServiceWrapper:IsEnabled() then
-		task.spawn(function()
-			self._ixpServiceWrapper:WaitForInitialization()
-			local layerData = self._ixpServiceWrapper:GetLayerData(GetFStringInExperienceNotificationsLayer())
-			if layerData then
-				self._styleEnabled = layerData[IXP_STYLE_PARAMETER] or false
-				self._customizationEnabled = layerData[IXP_CUSTOMIZATION_PARAMETER] or false
-				self._newSendEndpointEnabled = layerData[IXP_ENDPOINT_PARAMETER] or false
-			end
-		end)
-	end
+	task.spawn(function()
+		self._ixpServiceWrapper:WaitForInitialization()
+		local layerData = self._ixpServiceWrapper:GetLayerData(GetFStringInExperienceNotificationsLayer())
+		if layerData then
+			self._styleEnabled = layerData[IXP_STYLE_PARAMETER] or false
+			self._customizationEnabled = layerData[IXP_CUSTOMIZATION_PARAMETER] or false
+			self._newSendEndpointEnabled = layerData[IXP_ENDPOINT_PARAMETER] or false
+		end
+	end)
 end
 
 NewInviteMenuExperimentManager.default = NewInviteMenuExperimentManager.new()

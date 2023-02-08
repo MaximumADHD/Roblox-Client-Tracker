@@ -16,7 +16,6 @@ local Constants = require(PYMKCarousel.Common.Constants)
 
 local getFFlagPYMKCarouselIncomingFriendRequestAnalytics =
 	require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequestAnalytics)
-local getFFlagPYMKCarouselFixAnalyticsFields = require(PYMKCarousel.Flags.getFFlagPYMKCarouselFixAnalyticsFields)
 
 type Props = {
 	userId: string | number,
@@ -90,7 +89,7 @@ return function(props: Props)
 
 	local openProfilePeekView = function()
 		props.openProfilePeekView(userId, {
-			absolutePosition = if getFFlagPYMKCarouselFixAnalyticsFields() then props.absolutePosition else nil,
+			absolutePosition = props.absolutePosition,
 			isRecommendation = true,
 			recommendationContextType = recommendation.contextType.rawValue(),
 			mutualFriendsCount = mutualFriendsCount,

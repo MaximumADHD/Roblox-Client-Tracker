@@ -22,8 +22,6 @@ local PYMKCarouselUserTile = require(PYMKCarousel.Components.PYMKCarouselUserTil
 local getPYMKSortedRecommendationIds = require(PYMKCarousel.installReducer.Selectors.getPYMKSortedRecommendationIds)
 local getFFlagPYMKCarouselIncomingFriendRequestAnalytics =
 	require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequestAnalytics)
-local getFFlagPYMKCarouselFixNullAnalyticsFields =
-	require(PYMKCarousel.Flags.getFFlagPYMKCarouselFixNullAnalyticsFields)
 local getFFlagPYMKDontUseIngestService = dependencies.getFFlagPYMKDontUseIngestService
 
 local TILE_HEIGHT: number = 100
@@ -130,24 +128,20 @@ local PYMKCarouselComponent = function(props: Props)
 	})
 end
 
-if getFFlagPYMKCarouselFixNullAnalyticsFields() then
-	local WrapperComponent = function(props: Props)
-		local recommendationSessionId = useSelector(function(state)
-			return getSessionIdByKey(state)(RECOMMENDATION_SESSION_ID_KEY)
-		end)
+local WrapperComponent = function(props: Props)
+	local recommendationSessionId = useSelector(function(state)
+		return getSessionIdByKey(state)(RECOMMENDATION_SESSION_ID_KEY)
+	end)
 
-		local localUserId = useSelector(function(state)
-			return tostring(state.LocalUserId)
-		end)
+	local localUserId = useSelector(function(state)
+		return tostring(state.LocalUserId)
+	end)
 
-		if not recommendationSessionId or not localUserId then
-			return nil :: any
-		else
-			return Roact.createElement(PYMKCarouselComponent, props)
-		end
+	if not recommendationSessionId or not localUserId then
+		return nil :: any
+	else
+		return Roact.createElement(PYMKCarouselComponent, props)
 	end
-
-	return WrapperComponent
-else
-	return PYMKCarouselComponent
 end
+
+return WrapperComponent

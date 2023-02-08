@@ -32,8 +32,8 @@ local ToggleSelfViewButton = Roact.PureComponent:extend("ToggleSelfViewButton")
 
 ToggleSelfViewButton.validateProps = t.interface({
 	layoutOrder = t.integer,
-	iconTransparency = t.optional(t.table),
-	backgroundTransparency = t.optional(t.table),
+	iconTransparency = t.optional(t.union(t.number, t.table)),
+	backgroundTransparency = t.optional(t.union(t.number, t.table)),
 	backgroundColor = t.optional(t.table),
 })
 

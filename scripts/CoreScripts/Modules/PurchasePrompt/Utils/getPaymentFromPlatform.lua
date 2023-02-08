@@ -26,6 +26,8 @@ return function(platform, isLuobu, isAmazon, isQuest)
 		end
 	elseif platform == Enum.Platform.UWP then
 		return PaymentPlatform.UWP
+	elseif platform == Enum.Platform.PS3 or platform == Enum.Platform.PS4 then
+		return PaymentPlatform.PlayStation
 	else
 		return PaymentPlatform.None
 	end

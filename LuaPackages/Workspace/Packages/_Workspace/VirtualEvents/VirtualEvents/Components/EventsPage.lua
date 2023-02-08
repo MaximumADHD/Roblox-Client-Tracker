@@ -1,3 +1,5 @@
+-- Remove this file with FFlagRemoveEventsPageFromMoreTab
+
 local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 
 local React = require(VirtualEvents.Parent.React)

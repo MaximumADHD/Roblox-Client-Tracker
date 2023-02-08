@@ -13,6 +13,8 @@ local findImageSet = devDependencies.findImageSet
 local jest = devDependencies.jest
 local runWhileMounted = UnitTestHelpers.runWhileMounted
 
+local getFFlagFriendsCarouselReplaceIcon = require(FriendsCarousel.Flags.getFFlagFriendsCarouselReplaceIcon)
+
 local AddFriendsTileSquare = require(script.Parent)
 
 describe("AddFriendsTileSquare", function()
@@ -57,10 +59,14 @@ describe("AddFriendsTileSquare", function()
 			},
 		})
 		runWhileMounted(element, function(parent)
-			local imageLabelWithLegacyIcon =
-				RhodiumHelpers.findFirstInstance(parent, findImageSet("icons/menu/friends_large"))
+			local imageLabel
+			if getFFlagFriendsCarouselReplaceIcon() then
+				imageLabel = RhodiumHelpers.findFirstInstance(parent, findImageSet("icons/graphic/findfriends_large"))
+			else
+				imageLabel = RhodiumHelpers.findFirstInstance(parent, findImageSet("icons/menu/friends_large"))
+			end
 
-			jestExpect(imageLabelWithLegacyIcon).toEqual(jestExpect.any("Instance"))
+			jestExpect(imageLabel).toEqual(jestExpect.any("Instance"))
 		end)
 	end)
 

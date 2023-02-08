@@ -43,6 +43,6 @@ return {
 	useCurvedPanel3D = true,
 	pillGroupAutomaticSize = UIBloxFlags.GetFFlagUIBloxPillGroupAutomaticSize(),
 	enableCollectibleItemRestriction = UIBloxFlags.GetFFlagUIBloxEnableCollectibleItemRestriction(),
-	addFriendsSearchbarIXPEnabled = SharedFlags.getFFlagAddFriendsSearchbarIXPEnabled(),
 	fixGameDetailsAutomaticSize = SharedFlags.GetFFlagFixGameDetailsAutomaticSize(),
+	emptyStateTitleAndIconSize = SharedFlags.getFFlagAddFriendsNewEmptyState(),
 }

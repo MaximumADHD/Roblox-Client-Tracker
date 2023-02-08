@@ -12,12 +12,13 @@
 ]]
 local CorePackages = game:GetService("CorePackages")
 local HttpService = game:GetService("HttpService")
-
+local UserInputService = game:GetService("UserInputService")
 local DefaultBrowserService = game:GetService("BrowserService")
 
 local MessageBusPackage = require(CorePackages.Workspace.Packages.MessageBus)
 local MessageBus = MessageBusPackage.MessageBus
 local t = require(CorePackages.Packages.t)
+local platform = UserInputService:GetPlatform()
 
 local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local AsyncQueue = AppCommonLib.AsyncQueue
@@ -217,15 +218,15 @@ function WebViewProtocol.isEnabled(): boolean
 end
 
 function WebViewProtocol.shouldForceVisibleOnOpen(): boolean
-	return game:GetEngineFeature("UniversalAppOnWindows") or game:GetEngineFeature("UniversalAppOnMac")
+	return platform == Enum.Platform.Windows or platform == Enum.Platform.OSX
 end
 
 function WebViewProtocol.shouldRenameIsVisibleParam(): boolean
-	return game:GetEngineFeature("UniversalAppOnUWP")
+	return platform == Enum.Platform.UWP
 end
 
 function WebViewProtocol.shouldForceBrowserServiceOnMutate(): boolean
-	return game:GetEngineFeature("UniversalAppOnUWP")
+	return platform == Enum.Platform.UWP
 end
 
 WebViewProtocol.default = WebViewProtocol.new()

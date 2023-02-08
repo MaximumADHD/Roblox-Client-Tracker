@@ -8,12 +8,24 @@ local JestGlobals = devDependencies.JestGlobals
 local describe = JestGlobals.describe
 local it = JestGlobals.it
 
+local dependencies = require(FriendsLanding.dependencies)
+local getFFlagAddFriendsNewEmptyState = dependencies.getFFlagAddFriendsNewEmptyState
+
 local AddFriendsEmptyState = require(script.Parent)
 
 describe("AddFriendsEmptyState", function()
 	it("SHOULD mount and render without issue", function()
-		local _, cleanup = createInstanceWithProps(mockLocale)(AddFriendsEmptyState)
+		if getFFlagAddFriendsNewEmptyState() then
+			local _, cleanup = createInstanceWithProps(mockLocale)(
+				AddFriendsEmptyState,
+				{ props = { screenSize = Vector2.new(100, 100) } }
+			)
 
-		cleanup()
+			cleanup()
+		else
+			local _, cleanup = createInstanceWithProps(mockLocale)(AddFriendsEmptyState)
+
+			cleanup()
+		end
 	end)
 end)

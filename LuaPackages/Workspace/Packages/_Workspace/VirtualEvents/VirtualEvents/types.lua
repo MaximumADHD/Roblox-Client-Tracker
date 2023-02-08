@@ -6,6 +6,8 @@ local types = {}
 
 export type EventTimerStatus = "UpcomingImminent" | "Upcoming" | "Ongoing" | "ElapsedImminent" | "Elapsed" | "Deleted"
 
+-- When cleaning up FFlagVirtualEventsGraphQL, switch these types to use the
+-- ones in GraphQLServer
 export type Host = NetworkingVirtualEvents.Host
 export type VirtualEvent = NetworkingVirtualEvents.VirtualEvent
 export type VirtualEventResponse = NetworkingVirtualEvents.VirtualEventResponse

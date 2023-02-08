@@ -102,6 +102,10 @@ local function updateTransparency(props)
 				transparency["muteSelf"] = v
 			elseif props.voiceEnabled and transparency["muteAll"] == nil then
 				transparency["muteAll"] = v
+			elseif GetFFlagV3MenuAddSelfViewButtons() and props.cameraEnabled and transparency["camera"] == nil then
+				transparency["camera"] = v
+			elseif GetFFlagV3MenuAddSelfViewButtons() and props.selfViewEnabled and transparency["selfView"] == nil then
+				transparency["selfView"] = v
 			elseif transparency["report"] == nil then
 				transparency["report"] = v
 			elseif props.screenshotEnabled and transparency["screenshot"] == nil then
@@ -112,10 +116,6 @@ local function updateTransparency(props)
 				transparency["fullscreen"] = v
 			elseif props.respawnEnabled and transparency["respawn"] == nil then
 				transparency["respawn"] = v
-			elseif GetFFlagV3MenuAddSelfViewButtons() and transparency["camera"] == nil then
-				transparency["camera"] = v
-			elseif GetFFlagV3MenuAddSelfViewButtons() and transparency["selfView"] == nil then
-				transparency["selfView"] = v
 			end
 		else
 			if props.respawnEnabled and transparency["respawn"] == nil then
@@ -132,9 +132,9 @@ local function updateTransparency(props)
 				transparency["muteAll"] = v
 			elseif props.voiceEnabled and transparency["muteSelf"] == nil then
 				transparency["muteSelf"] = v
-			elseif GetFFlagV3MenuAddSelfViewButtons() and transparency["camera"] == nil then
+			elseif GetFFlagV3MenuAddSelfViewButtons() and props.cameraEnabled and transparency["camera"] == nil then
 				transparency["camera"] = v
-			elseif GetFFlagV3MenuAddSelfViewButtons() and transparency["selfView"] == nil then
+			elseif GetFFlagV3MenuAddSelfViewButtons() and props.selfViewEnabled and transparency["selfView"] == nil then
 				transparency["selfView"] = v
 			end
 		end

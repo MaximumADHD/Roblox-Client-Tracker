@@ -1,3 +1,5 @@
+-- Remove this file with FFlagRemoveEventsPageFromMoreTab
+
 local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 
 local CoreGui = game:GetService("CoreGui")

@@ -5,7 +5,9 @@ local llama = dependencies.llama
 local AddFriendsTileCircular = require(FriendsCarousel.Components.AddFriendsTileCircular)
 
 return {
-	controls = {},
+	controls = {
+		badgeValue = "NEW",
+	},
 	stories = {
 		AddFriendsTileCircular = function(storyProps)
 			return Roact.createElement("Frame", {
@@ -15,6 +17,7 @@ return {
 				Roact.createElement(
 					AddFriendsTileCircular,
 					llama.Dictionary.join({
+						badgeValue = storyProps.controls.badgeValue,
 						labelText = "Add Friends",
 					}, storyProps)
 				),

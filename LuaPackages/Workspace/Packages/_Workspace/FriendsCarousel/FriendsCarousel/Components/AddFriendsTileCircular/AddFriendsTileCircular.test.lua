@@ -15,6 +15,8 @@ local runWhileMounted = UnitTestHelpers.runWhileMounted
 
 local AddFriendsTileCircular = require(script.Parent)
 
+local getFFlagFriendsCarouselCircularBadge = require(FriendsCarousel.Flags.getFFlagFriendsCarouselCircularBadge)
+
 describe("AddFriendsTileCircular", function()
 	local state = {}
 
@@ -75,5 +77,43 @@ describe("AddFriendsTileCircular", function()
 			jestExpect(AddFriendsLabel.Text).toBe("Test Label Text")
 			jestExpect(AddFriendButton).toBeAbove(AddFriendsLabel)
 		end)
+	end)
+
+	it("SHOULD not render badge if it's not passed", function()
+		local element = createTreeWithProviders(AddFriendsTileCircular, {
+			store = mockStore(state),
+			props = {
+				labelText = "Test Label Text",
+				onActivated = function() end,
+			},
+		})
+		runWhileMounted(element, function(parent)
+			local badge = RhodiumHelpers.findFirstInstance(parent, {
+				Name = "Badge",
+			})
+
+			jestExpect(badge).toBeNil()
+		end)
+	end)
+
+	it("SHOULD render correct badge value if it passed", function()
+		if getFFlagFriendsCarouselCircularBadge() then
+			local element = createTreeWithProviders(AddFriendsTileCircular, {
+				store = mockStore(state),
+				props = {
+					labelText = "Test Label Text",
+					onActivated = function() end,
+					badgeValue = "badgeValue",
+				},
+			})
+			runWhileMounted(element, function(parent)
+				local badge = RhodiumHelpers.findFirstInstance(parent, {
+					Name = "Badge",
+				})
+
+				jestExpect(badge).never.toBeNil()
+				jestExpect(badge.Inner.TextLabel.Text).toEqual("bad...")
+			end)
+		end
 	end)
 end)

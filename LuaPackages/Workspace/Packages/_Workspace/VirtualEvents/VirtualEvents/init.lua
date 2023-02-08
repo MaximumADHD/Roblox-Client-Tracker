@@ -12,7 +12,7 @@ return {
 
 	-- Components
 	EventDetailsPageLoader = require(script.Components.EventDetailsPageLoader),
-	EventsPage = require(script.Components.EventsPage),
+	EventsPage = require(script.Components.EventsPage), -- Remove this line with FFlagRemoveEventsPageFromMoreTab
 	ShareEventModal = require(script.Components.ShareEventModal),
 
 	-- Functions

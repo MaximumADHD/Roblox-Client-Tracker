@@ -1,6 +1,8 @@
 local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 
 local Style = require(VirtualEvents.Parent.Dev.Style)
+local ApolloClient = require(VirtualEvents.Parent.ApolloClient)
+local GraphQLServer = require(VirtualEvents.Parent.GraphQLServer)
 local React = require(VirtualEvents.Parent.React)
 local Rodux = require(VirtualEvents.Parent.Rodux)
 local RoactRodux = require(VirtualEvents.Parent.RoactRodux)
@@ -27,6 +29,9 @@ local reducer = Rodux.combineReducers({
 })
 
 type Options = {
+	mockResolvers: {
+		Query: { [string]: any }?,
+	}?,
 	store: { [string]: any }?,
 	initialStoreState: any,
 }
@@ -39,26 +44,52 @@ local function withMockProviders(children: { [string]: any }, options: Options?)
 		})
 	end
 
-	return React.createElement(RoactRodux.StoreProvider, {
-		store = store,
-	}, {
-		ContentProvider = React.createElement(ContentProviderContext.Provider, {
-			value = MOCK_CONTENT_PROVIDER,
+	local root: { [string]: any } = {
+		StoreProvider = React.createElement(RoactRodux.StoreProvider, {
+			store = store,
 		}, {
-			LocalizationProvider = React.createElement(Localization.LocalizationProvider, {
-				localization = RobloxAppLocales.Localization.new("en-us"),
+			ContentProvider = React.createElement(ContentProviderContext.Provider, {
+				value = MOCK_CONTENT_PROVIDER,
 			}, {
-				StyleProvider = React.createElement(StyleProvider, {
-					style = {
-						Theme = Style.Themes.DarkTheme,
-						Font = Style.Fonts.Gotham,
-					},
+				LocalizationProvider = React.createElement(Localization.LocalizationProvider, {
+					localization = RobloxAppLocales.Localization.new("en-us"),
 				}, {
-					Children = React.createElement(React.Fragment, nil, children),
+					StyleProvider = React.createElement(StyleProvider, {
+						style = {
+							Theme = Style.Themes.DarkTheme,
+							Font = Style.Fonts.Gotham,
+						},
+					}, {
+						Children = React.createElement(React.Fragment, nil, children),
+					}),
 				}),
 			}),
 		}),
-	})
+	}
+
+	if options and options.mockResolvers then
+		local server = GraphQLServer.GraphQLServer.new({
+			mockResolvers = options.mockResolvers,
+		})
+
+		local client = ApolloClient.ApolloClient.new({
+			cache = ApolloClient.InMemoryCache.new({}),
+			link = ApolloClient.HttpLink.new({
+				uri = "/api",
+				fetch = function(_uri, requestOptions)
+					return server:fetchLocal(requestOptions)
+				end,
+			}),
+		})
+
+		root = {
+			ApolloProvider = React.createElement(ApolloClient.ApolloProvider, {
+				client = client,
+			}, root),
+		}
+	end
+
+	return React.createElement(React.Fragment, nil, root)
 end
 
 return withMockProviders

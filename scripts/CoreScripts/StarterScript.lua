@@ -42,8 +42,6 @@ local GetFFlagScreenshotHudApi = require(RobloxGui.Modules.Flags.GetFFlagScreens
 
 local GetFFlagEnableVoiceDefaultChannel = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceDefaultChannel)
 
-local GetFFlagEnableIXPInGame = require(CoreGuiModules.Common.Flags.GetFFlagEnableIXPInGame)
-
 local GetFFlagShareInviteLinkContextMenuABTestEnabled =
 	require(RobloxGui.Modules.Flags.GetFFlagShareInviteLinkContextMenuABTestEnabled)
 local ShareInviteLinkABTestManager = require(RobloxGui.Modules.ShareInviteLinkABTestManager)
@@ -240,23 +238,21 @@ if game:GetEngineFeature("VoiceChatSupported") and GetFFlagEnableVoiceDefaultCha
 	ScriptContext:AddCoreScriptLocal("CoreScripts/VoiceDefaultChannel", RobloxGui)
 end
 
-if GetFFlagEnableIXPInGame() then
-	coroutine.wrap(function()
-		local IXPServiceWrapper = require(CoreGuiModules.Common.IXPServiceWrapper)
-		IXPServiceWrapper:InitializeAsync(localPlayer.UserId, GetCoreScriptsLayers())
-		if IsExperienceMenuABTestEnabled() then
-			ExperienceMenuABTestManager.default:initialize()
-		end
+coroutine.wrap(function()
+	local IXPServiceWrapper = require(CoreGuiModules.Common.IXPServiceWrapper)
+	IXPServiceWrapper:InitializeAsync(localPlayer.UserId, GetCoreScriptsLayers())
+	if IsExperienceMenuABTestEnabled() then
+		ExperienceMenuABTestManager.default:initialize()
+	end
 
-		if GetFFlagShareInviteLinkContextMenuABTestEnabled() then
-			ShareInviteLinkABTestManager.default:initialize()
-		end
+	if GetFFlagShareInviteLinkContextMenuABTestEnabled() then
+		ShareInviteLinkABTestManager.default:initialize()
+	end
 
-		if GetFFlagEnableNewInviteMenuIXP() then
-			NewInviteMenuExperimentManager.default:initialize()
-		end
-	end)()
-end
+	if GetFFlagEnableNewInviteMenuIXP() then
+		NewInviteMenuExperimentManager.default:initialize()
+	end
+end)()
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/ExperienceChatMain", RobloxGui)
 

@@ -11,6 +11,10 @@
 --------------------------------------------------------------------------------------------------------]]
 
 return{
+	["Application.ConfirmPhoneNumber.Label.VerifyPhone"] = [[Xác minh qua điện thoại]],
+	["Application.ConfirmPhoneNumber.Action.Ok"] = [[Ok]],
+	["Application.ConfirmPhoneNumber.Action.Edit"] = [[Chỉnh sửa]],
+	["Application.ConfirmPhoneNumber.Label.VerifyPhoneNumber"] = [[Xác minh số điện thoại]],
 	["Authentication.Login.Label.Username"] = [[Tên người dùng]],
 	["Authentication.Login.Response.IncorrectUsernamePassword"] = [[Sai tên người dùng hoặc mật khẩu.]],
 	["Authentication.Login.Label.Password"] = [[Mật khẩu]],
@@ -133,8 +137,9 @@ Thử lại đã bị vô hiệu hóa, vui lòng quay lại sau để thử lạ
 	["Authentication.SignUp.Label.EmailOptional"] = [[Địa chỉ email (Tùy chọn)]],
 	["Authentication.SignUp.Label.EmailRequirementsUnder13Optional"] = [[Email của phụ huynh (Tùy chọn)]],
 	["Authentication.SignUp.Label.PasswordPlaceholder"] = [[Tối thiểu 8 ký tự]],
-	["Authentication.TwoStepVerification.Label.EnterEmailCode"] = [[Nhập mã chúng tôi vừa gửi cho bạn qua email]],
-	["Authentication.TwoStepVerification.Label.EnterTextCode"] = [[Nhập mã chúng tôi vừa gửi cho bạn qua tin nhắn văn bản]],
+	["Authentication.SignUp.Response.PasswordsDoNotMatch"] = [[Mật khẩu không trùng nhau.]],
+	["Authentication.TwoStepVerification.Label.EnterEmailCode"] = [[Nhập mã chúng tôi vừa gửi cho bạn qua email.]],
+	["Authentication.TwoStepVerification.Label.EnterTextCode"] = [[Nhập mã chúng tôi vừa gửi cho bạn qua tin nhắn văn bản.]],
 	["Authentication.TwoStepVerification.Label.InvalidCode"] = [[Mã không hợp lệ]],
 	["Authentication.TwoStepVerification.Label.TwoStepVerification"] = [[Xác minh 2 bước]],
 	["Authentication.TwoStepVerification.Response.InvalidCode"] = [[Mã không hợp lệ.]],
@@ -146,6 +151,7 @@ Thử lại đã bị vô hiệu hóa, vui lòng quay lại sau để thử lạ
 	["Authentication.TwoStepVerification.Label.DidNotReceive"] = [[Bạn không nhận được mã?]],
 	["Authentication.TwoStepVerification.Label.Resend"] = [[Gửi lại]],
 	["Authentication.TwoStepVerification.Label.CharacterCodeInputPlaceholderText"] = [[Nhập mã {codeLength} ký tự]],
+	["Authentication.TwoStepVerification.Action.GoToSecurity"] = [[Cài đặt]],
 	["CommonUI.Controls.Action.Accept"] = [[Đồng ý]],
 	["CommonUI.Controls.Birthdaypicker.Label.Date"] = [[Ngày tháng]],
 	["CommonUI.Controls.Label.April"] = [[Tháng 4]],
@@ -184,6 +190,7 @@ Thử lại đã bị vô hiệu hóa, vui lòng quay lại sau để thử lạ
 	["CommonUI.Controls.ForceUpdateConfirmButton"] = [[Đóng Roblox]],
 	["CommonUI.Controls.Label.ForceUpdateBody"] = [[Roblox cần khởi động lại để cập nhật. Vui lòng khởi chạy lại Roblox.]],
 	["CommonUI.Controls.Action.CloseRoblox"] = [[Đóng Roblox]],
+	["CommonUI.Controls.Action.Search"] = [[Tìm kiếm]],
 	["CommonUI.Features.Label.Avatar"] = [[Hình đại diện]],
 	["CommonUI.Features.Label.Blog"] = [[Blog]],
 	["CommonUI.Features.Label.BuildersClub"] = [[Quyền thành viên]],
@@ -350,4 +357,8 @@ Bạn có muốn cập nhật trình duyệt của mình ngay bây giờ không?
 	["Feature.AccountSecurityPrompt.Description.AccountRestoresPolicyWithDate"] = [[Bắt đầu từ {date}, bạn phải bật Xác minh 2 bước qua Authenticator để đủ điều kiện khôi phục tài khoản nếu tài khoản của bạn bị tấn công.]],
 	["Feature.AccountSecurityPrompt.Description.ChangeYourPasswordClickHereStyled"] = [[Để giữ an toàn cho tài khoản của bạn, vui lòng {styleTagStart} nhấp vào đây {styleTagEnd} để thay đổi mật khẩu của bạn.]],
 	["Feature.AccountSecurityPrompt.Description.ChangeYourPasswordImmediatelyClickHereStyled"] = [[Để giữ an toàn cho tài khoản của bạn, vui lòng {styleTagStart} nhấp vào đây {styleTagEnd} để thay đổi mật khẩu của bạn.]],
+	["Feature.AccountSecurityPrompt.Action.SetUpAuthenticatorInBanner"] = [[Thiết lập Authenticator]],
+	["Feature.Reauthentication.Action.Verify"] = [[Xác minh]],
+	["Feature.Reauthentication.Message.Error.Default"] = [[Đã xảy ra lỗi không xác định.]],
+	["Feature.Reauthentication.Action.PleaseTryAgain"] = [[Vui lòng thử lại.]],
 }

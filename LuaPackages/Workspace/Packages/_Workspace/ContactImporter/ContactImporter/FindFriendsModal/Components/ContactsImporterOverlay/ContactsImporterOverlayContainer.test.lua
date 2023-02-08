@@ -27,7 +27,6 @@ local PermissionsProtocol = dependencies.PermissionsProtocol
 local MessageBus = devDependencies.MessageBus
 local EnumScreens = dependencies.SocialModalsCommon.EnumScreens
 
-local getFFlagNavigateToContactsListFirst = require(ContactImporter.Flags.getFFlagNavigateToContactsListFirst)
 local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
 
 local ContactsImporterOverlayContainer = require(script.Parent.ContactsImporterOverlayContainer)
@@ -250,11 +249,7 @@ describe("ContactsImporterOverlayContainer", function()
 					act(function()
 						RhodiumHelpers.clickInstance(connectContactsButton)
 					end)
-					if getFFlagNavigateToContactsListFirst() then
-						jestExpect(sendAPIPostSpy).never.toHaveBeenCalled()
-					else
-						jestExpect(sendAPIPostSpy).toHaveBeenCalledTimes(1)
-					end
+					jestExpect(sendAPIPostSpy).never.toHaveBeenCalled()
 				end)
 			end
 		)
@@ -292,14 +287,10 @@ describe("ContactsImporterOverlayContainer", function()
 				end)
 				jestExpect(checkOrRequestPermissions).toHaveBeenCalledTimes(1)
 
-				if getFFlagNavigateToContactsListFirst() then
-					jestExpect(navigate).toHaveBeenCalledWith(
-						EnumScreens.ContactsList,
-						{ [Constants.SHOULD_UPDATE_USER_SETTINGS] = true }
-					)
-				else
-					jestExpect(navigate).toHaveBeenCalledWith(EnumScreens.ContactsList)
-				end
+				jestExpect(navigate).toHaveBeenCalledWith(
+					EnumScreens.ContactsList,
+					{ [Constants.SHOULD_UPDATE_USER_SETTINGS] = true }
+				)
 			end)
 		end)
 
@@ -440,7 +431,7 @@ describe("ContactsImporterOverlayContainer", function()
 				act(function()
 					RhodiumHelpers.clickInstance(connectContactsButton)
 				end)
-				jestExpect(navigateSpy).toHaveBeenCalledWith(EnumScreens.ContactsList)
+				jestExpect(navigateSpy).toHaveBeenCalledWith(EnumScreens.ContactsList, jestExpect.any("table"))
 				jestExpect(navigateSpy).never.toHaveBeenCalledWith(EnumScreens.ContactsRevokedAccessDialog)
 			end)
 		end)

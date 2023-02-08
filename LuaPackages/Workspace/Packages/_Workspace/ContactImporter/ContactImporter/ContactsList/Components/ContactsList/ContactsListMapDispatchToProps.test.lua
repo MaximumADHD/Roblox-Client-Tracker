@@ -6,8 +6,6 @@ local jestExpect = devDependencies.jestExpect
 local describe = JestGlobals.describe
 local it = JestGlobals.it
 
-local getFFlagNavigateToContactsListFirst = require(ContactImporter.Flags.getFFlagNavigateToContactsListFirst)
-
 local mapDispatchToProps = require(script.Parent.ContactsListMapDispatchToProps)
 
 it("SHOULD return a function", function()
@@ -27,7 +25,7 @@ describe("WHEN called", function()
 			findContacts = jestExpect.any("function"),
 			getContactEntities = jestExpect.any("function"),
 			uploadContacts = jestExpect.any("function"),
-			updateUserSettings = if getFFlagNavigateToContactsListFirst() then jestExpect.any("function") else nil,
+			updateUserSettings = jestExpect.any("function"),
 		})
 	end)
 end)

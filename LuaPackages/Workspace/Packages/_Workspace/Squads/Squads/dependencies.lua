@@ -1,3 +1,4 @@
+local Squads = script:FindFirstAncestor("Squads")
 local Root = script.Parent
 local Packages = Root.Parent
 
@@ -7,6 +8,7 @@ local Lumberyak = require(Packages.Lumberyak)
 local logger = Lumberyak.Logger.new(nil, "SocialModalsSquads")
 local httpLogger = logger:new("SocialModalsSquads Networking")
 local maxHttpRetries = game:DefineFastInt("SocialModalsSquadsHttpRetryCount", 3)
+local RODUX_KEY = require(Squads.Common.Constants).RODUX_KEY
 
 local HttpRequest = LuaSocialLibrariesDeps.httpRequest
 local myHttpRequest = HttpRequest.config({
@@ -60,6 +62,9 @@ return {
 	}),
 
 	RoduxNetworking = myRoduxNetworking,
+	RoduxSquads = LuaSocialLibrariesDeps.RoduxSquads.config({
+		keyPath = RODUX_KEY .. ".Squad",
+	}),
 	NetworkingGames = LuaSocialLibrariesDeps.NetworkingGames.config({
 		roduxNetworking = myRoduxNetworking,
 	}),

@@ -20,7 +20,7 @@ if game:DefineFastFlag("EnableReportAbuseMenuLayerOnV3", false) then
 	end
 
 	IXPServiceWrapper:InitializeAsync(localPlayerUserId, layerName)
-	local layerData = IXPServiceWrapper:IsEnabled() and IXPServiceWrapper:GetLayerData(layerName) or nil
+	local layerData = IXPServiceWrapper:GetLayerData(layerName)
 	if layerData then
 		config.inSortingExperiment = layerData.VoiceAbuseReportProximitySort
 		config.inEntryExperiment = layerData.VoiceAbuseReportSmartEntry

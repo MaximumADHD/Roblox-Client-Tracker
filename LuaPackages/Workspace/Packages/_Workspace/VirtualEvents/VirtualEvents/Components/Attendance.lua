@@ -9,6 +9,8 @@ local useInterestedUserIds = require(VirtualEvents.Hooks.useInterestedUserIds)
 local AttendanceCount = require(VirtualEvents.Components.AttendanceCount)
 local FacePile = require(VirtualEvents.Components.FacePile)
 local types = require(VirtualEvents.types)
+local getFFlagHideAttendanceCountsForBoringEvents =
+	require(VirtualEvents.Parent.SharedFlags).getFFlagHideAttendanceCountsForBoringEvents
 local getFFlagShowClientFirstInFacePile = require(VirtualEvents.Parent.SharedFlags).getFFlagShowClientFirstInFacePile
 
 export type Props = {
@@ -16,10 +18,22 @@ export type Props = {
 	eventStatus: types.EventTimerStatus,
 }
 
-local function Attendance(props: Props)
+local function Attendance(props: Props): React.ReactElement<any, string>?
 	local experienceDetails = useExperienceDetails(props.virtualEvent.universeId)
 	local rsvpCounters = useRsvpCounters(props.virtualEvent.id)
 	local interestedUserIds = useInterestedUserIds(props.virtualEvent.id)
+
+	if getFFlagHideAttendanceCountsForBoringEvents() then
+		-- In the cases where an event is either ongoing with no players, or
+		-- upcoming with no RSVPs, we want to render nothing so that users never see
+		-- "0 Interested" or "0 Attending" since that reflects poorly on the event
+		if
+			(props.eventStatus == "Ongoing" and experienceDetails ~= nil and experienceDetails.playing == 0)
+			or (props.eventStatus ~= "Ongoing" and rsvpCounters.going == 0)
+		then
+			return nil
+		end
+	end
 
 	return React.createElement("Folder", nil, {
 		Layout = React.createElement("UIListLayout", {

@@ -12,6 +12,9 @@ export type SortOrder = "asc" | "desc"
 export type EventTime = {
 	startTime: DateTime,
 	endTime: DateTime,
+
+	startUtc: string?,
+	endUtc: string?,
 }
 
 export type EventTimeUtc = {

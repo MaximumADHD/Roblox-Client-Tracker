@@ -1,4 +1,4 @@
-local fflagAvoidManualTableClone = game:DefineFastFlag("AvoidManualTableClone", false)
+local fflagAvoidManualTableClone = game:DefineFastFlag("AvoidManualTableClone2", false)
 
 --[[
 	Provides functions for manipulating immutable data structures.

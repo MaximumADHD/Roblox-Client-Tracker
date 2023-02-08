@@ -17,6 +17,7 @@ local getFFlagFriendsCarouselAddNewBadgeTracking =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddNewBadgeTracking)
 
 local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
+local getFFlagFriendsCarouselReplaceIcon = require(FriendsCarousel.Flags.getFFlagFriendsCarouselReplaceIcon)
 
 export type Props = {
 	badgeValue: string | number | nil,
@@ -70,8 +71,10 @@ local FindFriendsTile = function(props: Props)
 			then Roact.createElement(AddFriendsTileSquare, {
 				badgeValue = badgeValue,
 				onActivated = props.onActivated,
-				labelText = if isUpdatedUI then localizedStrings.findFriendsText else localizedStrings.addFriendText,
-				isUpdatedUI = isUpdatedUI,
+				labelText = if getFFlagFriendsCarouselReplaceIcon()
+					then localizedStrings.findFriendsText
+					else if isUpdatedUI then localizedStrings.findFriendsText else localizedStrings.addFriendText,
+				isUpdatedUI = if getFFlagFriendsCarouselReplaceIcon() then nil else isUpdatedUI,
 			})
 			else Roact.createElement(AddFriendsTileCircular, {
 				onActivated = props.onActivated,

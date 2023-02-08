@@ -5,6 +5,7 @@
 local RunService = game:GetService("RunService")
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local VideoCaptureService = game:GetService("VideoCaptureService")
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 
 local Roact = require(CorePackages.Roact)
@@ -16,6 +17,7 @@ local ExternalEventConnection = UIBlox.Utility.ExternalEventConnection
 local Modules = CoreGui.RobloxGui.Modules
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
 local getCamMicPermissions = require(Modules.Settings.getCamMicPermissions)
+local GetVoiceRecordingIndicatorsCameraFix = require(Modules.Flags.GetVoiceRecordingIndicatorsCameraFix)
 
 local ANIMATION_SPEED = 3
 local FLASHING_DOT = "rbxasset://textures/AnimationEditor/FaceCaptureUI/FlashingDot.png"
@@ -41,7 +43,9 @@ function FlashingDot:init()
 
 	self.checkNewVisibility = function()
 		local isUsingMic = self.state.hasMicPermissions and VoiceChatServiceManager.localMuted ~= nil and not VoiceChatServiceManager.localMuted
-		local isUsingCamera = self.state.hasCameraPermissions and FaceAnimatorService.VideoAnimationEnabled
+		-- @TODO: Remove VideoCaptureService.Active when FaceAnimatorService.VideoAnimationEnabled gives correct values for voice-enabled experiences
+		-- Note that we have to add VideoCaptureService.Active here because FaceAnimatorService.VideoAnimationEnabled returns true for voice-enabled experiences
+		local isUsingCamera = self.state.hasCameraPermissions and FaceAnimatorService.VideoAnimationEnabled and if GetVoiceRecordingIndicatorsCameraFix() then VideoCaptureService.Active else true
 		local newVisible = isUsingMic or isUsingCamera
 
 		if self.state.Visible ~= newVisible then

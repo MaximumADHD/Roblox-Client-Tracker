@@ -248,7 +248,7 @@ function ErrorPrompt:_open(errorMsg, errorCode)
 		else
 			self._frame.PromptScale.Scale = 1
 		end
-		if FFlagVRFixErrorPrompt and VRService.VREnabled then
+		if (FFlagVRFixErrorPrompt and VRService.VREnabled) or GuiService:IsTenFootInterface() then
 			GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)
 		end
 	end

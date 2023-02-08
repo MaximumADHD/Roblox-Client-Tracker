@@ -17,15 +17,23 @@ local Style = UIBlox.Style
 
 local getTextHeight = require(FriendsCarousel.Utils.getTextHeight)
 
+local Packages = FriendsCarousel.Parent
+local Colors = require(Packages.Style).Colors
+
+local getFFlagFriendsCarouselReplaceIcon = require(FriendsCarousel.Flags.getFFlagFriendsCarouselReplaceIcon)
+
 local ADD_FRIEND_ICON = Images["icons/menu/friends_large"]
 local FIND_FRIENDS_ICON = Images["icons/menu/findfriends_large"]
+local FIND_FRIENDS_ICON_COLORED = Images["icons/graphic/findfriends_large"]
 
 export type Props = {
 	badgeValue: string | number | nil,
 	onActivated: () -> (),
 	tileSize: number,
-	isUpdatedUI: boolean?,
 	labelText: string,
+
+	-- remove with getFFlagFriendsCarouselReplaceIcon
+	isUpdatedUI: boolean?,
 }
 
 type State = {
@@ -56,7 +64,7 @@ AddFriendsTileSquare.validateProps = t.strictInterface({
 	onActivated = t.callback,
 	tileSize = t.number,
 	labelText = t.string,
-	isUpdatedUI = t.optional(t.boolean),
+	isUpdatedUI = if getFFlagFriendsCarouselReplaceIcon() then nil else t.optional(t.boolean),
 })
 
 function AddFriendsTileSquare:init()
@@ -99,7 +107,9 @@ function AddFriendsTileSquare:render()
 		local theme = style.Theme
 		local font = style.Font
 		local iconStyle = theme.IconEmphasis
-		local backgroundStyle = if props.isUpdatedUI then theme.UIEmphasis else theme.BackgroundUIDefault
+		local backgroundStyle = if getFFlagFriendsCarouselReplaceIcon()
+			then theme.UIEmphasis
+			else if props.isUpdatedUI then theme.UIEmphasis else theme.BackgroundUIDefault
 		local fontSize: number = font.BaseSize * font.CaptionHeader.RelativeSize
 		local textHeight: number = self.getTextHeight(props.labelText, font.CaptionHeader.Font, fontSize)
 
@@ -134,8 +144,13 @@ function AddFriendsTileSquare:render()
 							AnchorPoint = Vector2.new(0.5, 0.5),
 							BackgroundTransparency = 1,
 							ImageTransparency = iconTransparency,
-							ImageColor3 = iconStyle.Color,
-							Image = if props.isUpdatedUI then FIND_FRIENDS_ICON else ADD_FRIEND_ICON,
+							ImageColor3 = if getFFlagFriendsCarouselReplaceIcon()
+								then Colors.White
+								else iconStyle.Color,
+
+							Image = if getFFlagFriendsCarouselReplaceIcon()
+								then FIND_FRIENDS_ICON_COLORED
+								else if props.isUpdatedUI then FIND_FRIENDS_ICON else ADD_FRIEND_ICON,
 							Size = UDim2.fromOffset(UIBloxIconSize.Large, UIBloxIconSize.Large),
 							Position = UDim2.fromScale(0.5, 0.5),
 						}),

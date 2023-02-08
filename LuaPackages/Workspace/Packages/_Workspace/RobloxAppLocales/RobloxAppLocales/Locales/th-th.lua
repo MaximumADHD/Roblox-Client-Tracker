@@ -11,6 +11,10 @@
 --------------------------------------------------------------------------------------------------------]]
 
 return{
+	["Application.ConfirmPhoneNumber.Label.VerifyPhone"] = [[ตรวจสอบโทรศัพท์]],
+	["Application.ConfirmPhoneNumber.Action.Ok"] = [[ตกลง]],
+	["Application.ConfirmPhoneNumber.Action.Edit"] = [[แก้ไข]],
+	["Application.ConfirmPhoneNumber.Label.VerifyPhoneNumber"] = [[ตรวจสอบหมายเลขโทรศัพท์]],
 	["Authentication.Login.Label.Username"] = [[ชื่อผู้ใช้]],
 	["Authentication.Login.Response.IncorrectUsernamePassword"] = [[ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง]],
 	["Authentication.Login.Label.Password"] = [[รหัสผ่าน]],
@@ -129,8 +133,9 @@ return{
 	["Authentication.SignUp.Label.EmailOptional"] = [[ที่อยู่อีเมล (ไม่บังคับ)]],
 	["Authentication.SignUp.Label.EmailRequirementsUnder13Optional"] = [[อีเมลของผู้ปกครอง (ไม่บังคับ)]],
 	["Authentication.SignUp.Label.PasswordPlaceholder"] = [[อย่างน้อย 8 อักขระ]],
-	["Authentication.TwoStepVerification.Label.EnterEmailCode"] = [[ป้อนรหัสที่เราเพิ่งส่งให้คุณทางอีเมล]],
-	["Authentication.TwoStepVerification.Label.EnterTextCode"] = [[ป้อนรหัสที่เราเพิ่งส่งให้คุณทางการส่งข้อความ]],
+	["Authentication.SignUp.Response.PasswordsDoNotMatch"] = [[รหัสผ่านไม่ตรงกัน]],
+	["Authentication.TwoStepVerification.Label.EnterEmailCode"] = [[ป้อนรหัสที่เราเพิ่งส่งให้คุณทางอีเมล.]],
+	["Authentication.TwoStepVerification.Label.EnterTextCode"] = [[ป้อนรหัสที่เราเพิ่งส่งให้คุณทางการส่งข้อความ.]],
 	["Authentication.TwoStepVerification.Label.InvalidCode"] = [[รหัสไม่ถูกต้อง]],
 	["Authentication.TwoStepVerification.Label.TwoStepVerification"] = [[การตรวจสอบยืนยันตัวตน 2 ขั้น]],
 	["Authentication.TwoStepVerification.Response.InvalidCode"] = [[รหัสไม่ถูกต้อง]],
@@ -142,6 +147,7 @@ return{
 	["Authentication.TwoStepVerification.Label.DidNotReceive"] = [[ไม่ได้รับรหัส?]],
 	["Authentication.TwoStepVerification.Label.Resend"] = [[ส่งอีกครั้ง]],
 	["Authentication.TwoStepVerification.Label.CharacterCodeInputPlaceholderText"] = [[ป้อนรหัส {codeLength} อักขระ]],
+	["Authentication.TwoStepVerification.Action.GoToSecurity"] = [[การตั้งค่า]],
 	["CommonUI.Controls.Action.Accept"] = [[ยอมรับ]],
 	["CommonUI.Controls.Birthdaypicker.Label.Date"] = [[วันที่]],
 	["CommonUI.Controls.Label.April"] = [[เมษายน]],
@@ -180,6 +186,7 @@ return{
 	["CommonUI.Controls.ForceUpdateConfirmButton"] = [[ปิด Roblox]],
 	["CommonUI.Controls.Label.ForceUpdateBody"] = [[Roblox จำเป็นต้องทำการรีสตาร์ทเพื่ออัปเดต กรุณาปิดแล้วเปิด Roblox ใหม่]],
 	["CommonUI.Controls.Action.CloseRoblox"] = [[ปิด Roblox]],
+	["CommonUI.Controls.Action.Search"] = [[ค้นหา]],
 	["CommonUI.Features.Label.Avatar"] = [[อวตาร]],
 	["CommonUI.Features.Label.Blog"] = [[บล็อก]],
 	["CommonUI.Features.Label.BuildersClub"] = [[สถานะสมาชิก]],
@@ -347,4 +354,8 @@ return{
 	["Feature.AccountSecurityPrompt.Description.AccountRestoresPolicyWithDate"] = [[เริ่มตั้งแต่วันที่ {date} คุณต้องเปิดใช้การยืนยันแบบ 2 ขั้นตอนผ่าน Authenticator เพื่อให้มีสิทธิ์กู้คืนบัญชีหากบัญชีของคุณถูกแฮ็ก]],
 	["Feature.AccountSecurityPrompt.Description.ChangeYourPasswordClickHereStyled"] = [[เพื่อให้บัญชีของคุณปลอดภัย โปรด {styleTagStart}คลิกที่นี่{styleTagEnd} เพื่อเปลี่ยนรหัสผ่านของคุณ]],
 	["Feature.AccountSecurityPrompt.Description.ChangeYourPasswordImmediatelyClickHereStyled"] = [[เพื่อให้บัญชีของคุณปลอดภัย โปรด {styleTagStart}คลิกที่นี่{styleTagEnd} เพื่อเปลี่ยนรหัสผ่านของคุณ]],
+	["Feature.AccountSecurityPrompt.Action.SetUpAuthenticatorInBanner"] = [[ตั้งค่า Authenticator]],
+	["Feature.Reauthentication.Action.Verify"] = [[ตรวจสอบ]],
+	["Feature.Reauthentication.Message.Error.Default"] = [[เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ]],
+	["Feature.Reauthentication.Action.PleaseTryAgain"] = [[กรุณาลองใหม่อีกครั้ง.]],
 }

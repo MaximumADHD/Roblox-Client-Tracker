@@ -16,10 +16,13 @@ local EventHostedBy = require(VirtualEvents.Components.EventHostedBy)
 local Attendance = require(VirtualEvents.Components.Attendance)
 local network = require(VirtualEvents.network)
 local types = require(VirtualEvents.types)
+local getFFlagHorizontalMediaOnEventDetailsPage =
+	require(VirtualEvents.Parent.SharedFlags).getFFlagHorizontalMediaOnEventDetailsPage
 
 local DetailsPageTemplate = UIBlox.App.Template.DetailsPage.DetailsPageTemplate
 local ContentPositionEnum = UIBlox.App.Template.DetailsPage.Enum.ContentPosition
 local MediaGalleryPreview = UIBlox.App.Container.MediaGalleryPreview
+local MediaGalleryHorizontal = UIBlox.App.Container.MediaGalleryHorizontal
 local ListTable = UIBlox.App.Table.ListTable
 local noop = function() end
 
@@ -121,16 +124,22 @@ local function EventDetailsPage(props: Props)
 			landscapePosition = ContentPositionEnum.Right,
 			landscapeLayoutOrder = 1,
 			renderComponent = function()
-				return React.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0, galleryHeight),
-					BackgroundTransparency = 1,
-					[React.Change.AbsoluteSize] = onSizeChanged,
-				}, {
-					Gallery = React.createElement(MediaGalleryPreview, {
+				if getFFlagHorizontalMediaOnEventDetailsPage() then
+					return React.createElement(MediaGalleryHorizontal, {
 						items = galleryItems,
-						numberOfThumbnails = THUMBNAILS_COUNT,
-					}),
-				})
+					})
+				else
+					return React.createElement("Frame", {
+						Size = UDim2.new(1, 0, 0, galleryHeight),
+						BackgroundTransparency = 1,
+						[React.Change.AbsoluteSize] = onSizeChanged,
+					}, {
+						Gallery = React.createElement(MediaGalleryPreview, {
+							items = galleryItems,
+							numberOfThumbnails = THUMBNAILS_COUNT,
+						}),
+					})
+				end
 			end,
 		},
 		Description = {

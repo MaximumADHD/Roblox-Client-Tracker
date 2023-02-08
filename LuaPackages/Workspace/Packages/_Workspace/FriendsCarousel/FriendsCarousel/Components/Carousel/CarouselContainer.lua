@@ -24,8 +24,6 @@ local UIVariants = require(FriendsCarousel.Common.UIVariants)
 local getFFlagFriendsCarouselDontUseIngestService = dependencies.getFFlagFriendsCarouselDontUseIngestService
 local getFFlagFriendsCarouselAddUniverseIdToEvents =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddUniverseIdToEvents)
-local getFFlagFriendsCarouselFixNullAnalyticsFields =
-	require(FriendsCarousel.Flags.getFFlagFriendsCarouselFixNullAnalyticsFields)
 local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
 local getFFlagSocialAddGameJoinSource = dependencies.getFFlagSocialAddGameJoinSource
 
@@ -211,16 +209,14 @@ function CarouselContainer:init()
 end
 
 function CarouselContainer:didMount()
-	if getFFlagFriendsCarouselFixNullAnalyticsFields() then
-		local props: InternalProps = self.props
-		self.fireAnalyticsEvent = setupFireEvent({
-			infoForAllEvents = {
-				uid = props.localUserId,
-				recommendationSessionId = props.recommendationSessionId,
-			},
-			analytics = self.analyticsService,
-		})
-	end
+	local props: InternalProps = self.props
+	self.fireAnalyticsEvent = setupFireEvent({
+		infoForAllEvents = {
+			uid = props.localUserId,
+			recommendationSessionId = props.recommendationSessionId,
+		},
+		analytics = self.analyticsService,
+	})
 end
 
 function CarouselContainer:didUpdate(previousProps, _)

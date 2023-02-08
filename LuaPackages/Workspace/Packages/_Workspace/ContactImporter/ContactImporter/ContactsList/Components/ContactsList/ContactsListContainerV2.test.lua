@@ -34,7 +34,6 @@ local mockStore = require(FindFriendsModal.TestHelpers.mockStore)
 local Analytics = require(ContactImporter.Analytics)
 local EventNames = Analytics.EventNames
 local mockRawContacts = require(FindFriendsModal.TestHelpers.mockRawContacts)
-local getFFlagNavigateToContactsListFirst = require(ContactImporter.Flags.getFFlagNavigateToContactsListFirst)
 local getFFlagContactImporterChunkingCalls = require(ContactImporter.Flags.getFFlagContactImporterChunkingCalls)
 
 describe("ContactsListContainerV2", function()
@@ -122,7 +121,7 @@ describe("ContactsListContainerV2", function()
 						if param == Constants.BYPASS_FETCH_CONTACTS then
 							return false
 						elseif param == Constants.SHOULD_UPDATE_USER_SETTINGS then
-							return getFFlagNavigateToContactsListFirst()
+							return true
 						elseif param == Constants.IS_PHONE_VERIFIED then
 							return true
 						else
@@ -277,11 +276,7 @@ describe("ContactsListContainerV2", function()
 				})
 
 				runWhileMounted(ContactsImporterOverlayContainerComponent, function(parent)
-					if getFFlagNavigateToContactsListFirst() then
-						jestExpect(sendAPIPostSpy).toHaveBeenCalledTimes(1)
-					else
-						jestExpect(sendAPIPostSpy).never.toHaveBeenCalled()
-					end
+					jestExpect(sendAPIPostSpy).toHaveBeenCalledTimes(1)
 					jestExpect(supportsContacts).toHaveBeenCalledTimes(1)
 					jestExpect(getContacts).toHaveBeenCalledTimes(1)
 				end)

@@ -5,6 +5,7 @@ local Roact = dependencies.Roact
 local t = dependencies.t
 local UIBlox = dependencies.UIBlox
 local GridMetrics = UIBlox.App.Grid.GridMetrics
+local Images = UIBlox.App.ImageSet.Images
 local withStyle = UIBlox.Style.withStyle
 local validateImage = UIBlox.Core.ImageSet.Validator.validateImage
 local AddFriendsSectionHeaderFrame = require(script.Parent.AddFriendsSectionHeaderFrame)
@@ -12,10 +13,19 @@ local AddFriendsGridView = require(script.Parent.AddFriendsGridView)
 local AddFriendsEmptyState = require(script.Parent.AddFriendsEmptyState)
 local IgnoreAllFriendsRequestsMenu = require(script.Parent.IgnoreAllFriendsRequestsMenu)
 
+local getFFlagAddFriendsStatefulMoreButton = require(FriendsLanding.Flags.getFFlagAddFriendsStatefulMoreButton)
+local getFFlagAddFriendsNewEmptyState = dependencies.getFFlagAddFriendsNewEmptyState
+
 local PLAYER_TILE_MARGIN = 12
 -- Number of rows to show by default or per show-more click
 local HEADER_DROPDOWN_MENU_OFFSET = 48
 local HEADER_DROPDOWN_MENU_WIDTH = 300
+
+local EMPTY_STATE_OFFSET = if getFFlagAddFriendsNewEmptyState() then -155 else -48
+
+-- Stateful HeaderFrame icons
+local MENU_OPEN_ICON = Images["icons/menu/more_on"]
+local MENU_CLOSED_ICON = Images["icons/menu/more_off"]
 
 local noOpt = function() end
 
@@ -24,7 +34,7 @@ local AddFriendsContentFrame = Roact.PureComponent:extend("AddFriendsContentFram
 AddFriendsContentFrame.validateProps = t.interface({
 	headerFrame = t.optional(t.strictInterface({
 		title = t.string,
-		icon = validateImage,
+		icon = if getFFlagAddFriendsStatefulMoreButton() then nil else validateImage,
 		iconVisible = t.boolean,
 	})),
 	renderAddFriendsTile = t.callback,
@@ -67,7 +77,14 @@ function AddFriendsContentFrame:init()
 end
 
 function AddFriendsContentFrame:render()
+	local shouldRenderHeaderFrame = if getFFlagAddFriendsNewEmptyState()
+		then self.props.headerFrame and #self.props.friends > 0
+		else self.props.headerFrame
+
 	return withStyle(function(style)
+		local statefulHeaderFrameIcon = if getFFlagAddFriendsStatefulMoreButton()
+			then if self.state.isIgnoreAllMenuOpen then MENU_OPEN_ICON else MENU_CLOSED_ICON
+			else nil
 		return Roact.createElement("Frame", {
 			Size = UDim2.fromScale(1, 0),
 			AutomaticSize = Enum.AutomaticSize.Y,
@@ -88,10 +105,12 @@ function AddFriendsContentFrame:render()
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					Padding = UDim.new(0, 0),
 				}),
-				HeaderFrame = self.props.headerFrame and Roact.createElement(AddFriendsSectionHeaderFrame, {
+				HeaderFrame = shouldRenderHeaderFrame and Roact.createElement(AddFriendsSectionHeaderFrame, {
 					layoutOrder = 1,
 					title = self.props.headerFrame.title,
-					icon = self.props.headerFrame.icon,
+					icon = if getFFlagAddFriendsStatefulMoreButton()
+						then statefulHeaderFrameIcon
+						else self.props.headerFrame.icon,
 					iconVisible = self.props.headerFrame.iconVisible,
 					onIconActivated = self.onHeaderIconClicked,
 				}) or nil,
@@ -103,11 +122,15 @@ function AddFriendsContentFrame:render()
 					itemMargin = self.props.itemMargin,
 					getItemMetrics = self.props.getItemMetrics,
 				}) or Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 1, -48),
+					Size = UDim2.new(1, 0, 1, EMPTY_STATE_OFFSET),
 					LayoutOrder = 2,
 					BackgroundTransparency = 1,
 				}, {
-					EmptyState = Roact.createElement(AddFriendsEmptyState),
+					EmptyState = if getFFlagAddFriendsNewEmptyState()
+						then Roact.createElement(AddFriendsEmptyState, {
+							screenSize = self.props.screenSize,
+						})
+						else Roact.createElement(AddFriendsEmptyState),
 				}),
 				BottomLoadMoreButton = self.props.renderShowMore(3),
 			}),

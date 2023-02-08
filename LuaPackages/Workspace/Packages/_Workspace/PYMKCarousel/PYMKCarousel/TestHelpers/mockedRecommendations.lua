@@ -9,8 +9,6 @@ local Constants = require(PYMKCarousel.Common.Constants)
 local RECOMMENDATION_SESSION_ID_KEY = require(PYMKCarousel.Common.Constants).RECOMMENDATION_SESSION_ID_KEY
 
 local getFFlagPYMKCarouselIncomingFriendRequest = require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequest)
-local getFFlagPYMKCarouselFixNullAnalyticsFields =
-	require(PYMKCarousel.Flags.getFFlagPYMKCarouselFixNullAnalyticsFields)
 
 local recommendationIds = {
 	longName = "1_longName",
@@ -99,9 +97,7 @@ local state = {
 			},
 		},
 		Analytics = {
-			bySessionKey = if getFFlagPYMKCarouselFixNullAnalyticsFields()
-				then { [RECOMMENDATION_SESSION_ID_KEY] = "mockedRecommendationSessionId" }
-				else nil,
+			bySessionKey = { [RECOMMENDATION_SESSION_ID_KEY] = "mockedRecommendationSessionId" },
 		},
 	},
 }

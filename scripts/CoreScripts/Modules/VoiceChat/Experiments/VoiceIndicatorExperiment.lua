@@ -18,7 +18,7 @@ local function IXPRecordingIndicatorEnabled()
         -- Note that this may be called twice if there are simultaneous connections, but this should not be a problem
         IXPServiceWrapper:InitializeAsync((Players and Players.LocalPlayer and Players.LocalPlayer.UserId)::number, layerName)
         fetched = true
-        local layerData = IXPServiceWrapper:IsEnabled() and IXPServiceWrapper:GetLayerData(layerName)
+        local layerData = IXPServiceWrapper:GetLayerData(layerName)
         indicatorEnabled = layerData and layerData[layerValue]::boolean
     end
     return indicatorEnabled

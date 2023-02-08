@@ -47,6 +47,8 @@ local EngineFeatureEnableVRBottomBarWorksBehindObjects = game:GetEngineFeature("
 local GetFFlagUIBloxVRApplyHeadScale =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRApplyHeadScale
 
+local FFlagFixPurchasePromptInVR = game:GetEngineFeature("FixPurchasePromptInVR")
+
 -- each individual icon can either be definied as a table entry with icon and onActivate, or as a item component
 local MainMenu =
 {
@@ -143,10 +145,18 @@ local LeaveGame =
 	iconOn = "rbxasset://textures/ui/MenuBar/icon_leave.png",
 	iconOff = "rbxasset://textures/ui/MenuBar/icon_leave.png",
 	onActivated = function()
-		VRHub:SetShowTopBar(true)	
+		VRHub:SetShowTopBar(true)
 		if InGameMenu then
-			if InGameMenu.getOpen then
+			if FFlagFixPurchasePromptInVR then
+				-- Should open root menu to trigger InGameMenu open event before open GameLeave page
+				if not InGameMenu.getOpen() then
+					InGameMenu.openInGameMenu(InGameMenuConstants.MainPagePageKey)
+				end
 				InGameMenu.openGameLeavePage()
+			else
+				if InGameMenu.getOpen then
+					InGameMenu.openGameLeavePage()
+				end
 			end
 		end
 	end,

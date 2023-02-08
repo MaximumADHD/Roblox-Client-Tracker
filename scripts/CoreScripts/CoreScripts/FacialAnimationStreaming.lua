@@ -20,6 +20,7 @@ local FFlagEnableSyncAudioWithVoiceChatMuteState = game:DefineFastFlag("EnableSy
 
 local useEnableFlags = game:GetEngineFeature("FacialAnimationStreamingUseEnableFlags2")
 local FFlagEnableFacialAnimationKickPlayerWhenServerDisabled = game:DefineFastFlag("EnableFacialAnimationKickPlayerWhenServerDisabled", false)
+local FFlagFacialAnimationStreamingServiceRequireVoiceChat = game:GetEngineFeature("FacialAnimationStreamingServiceRequireVoiceChat")
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local TrackerMenu = require(RobloxGui.Modules.Tracker.TrackerMenu)
@@ -296,7 +297,8 @@ local function playerUpdate(player)
 	-- OR
 	-- if player is remote and joined in voice chat as well.
 	local isLocal = Players.LocalPlayer.UserId == player.UserId
-	local setupPlayer = isFacialAnimationStreamingEnabled() and playerJoinedGame[player.UserId] and (playerJoinedChat[player.UserId] or isLocal)
+	local joinedVoiceChat = ( false == FFlagFacialAnimationStreamingServiceRequireVoiceChat ) or playerJoinedChat[player.UserId]
+	local setupPlayer = isFacialAnimationStreamingEnabled() and playerJoinedGame[player.UserId] and ( isLocal or joinedVoiceChat )
 
 	clearAllConnections(player)
 
@@ -385,20 +387,22 @@ end
 -- we don't wait for the mic permission to complete before connecting the local player, then both permission requests fail.
 -- See JIRA task: https://jira.rbx.com/browse/LUAFDN-1092
 --
-function InitializeVoiceChatServices()
+function InitializeVoiceChat()
+	local onCompletion = function()
+		JoinAllExistingPlayers()
+		ConnectStateChangeCallback()
+		if game:GetFastFlag("AvatarChatSubsessionAnalyticsV2Lua2") then
+			streamingStats.startTracking()
+		end
+	end
+
 	if VoiceChatServiceManager then
 		VoiceChatServiceManager:asyncInit():catch(function(error)
-			if FFlagEnableSyncAudioWithVoiceChatMuteState then
+			if FFlagEnableSyncAudioWithVoiceChatMuteState and FFlagFacialAnimationStreamingServiceRequireVoiceChat then
 				log:trace("Disabling audio processing when VoiceChat fails (possibly denied mic permission)")
 				FaceAnimatorService.AudioAnimationEnabled = false
 			end
-		end):finally(function()
-			JoinAllExistingPlayers()
-			ConnectStateChangeCallback()
-			if game:GetFastFlag("AvatarChatSubsessionAnalyticsLua2") then
-				streamingStats.startTracking()
-			end
-		end)
+		end):finally(onCompletion)
 
 		if FFlagEnableSyncAudioWithVoiceChatMuteState then
 			-- Sync VoiceChat mute status with FaceAnimatorService.AudioAnimationEnabled
@@ -414,6 +418,17 @@ function InitializeVoiceChatServices()
 				initialAudioEnabled = not VoiceChatServiceManager.localMuted
 			end
 			FaceAnimatorService.AudioAnimationEnabled = initialAudioEnabled
+		end
+	elseif false == FFlagFacialAnimationStreamingServiceRequireVoiceChat then
+		onCompletion()
+	end
+end
+
+function CleanupVoiceChat()
+	if FFlagEnableSyncAudioWithVoiceChatMuteState then
+		if voiceChatMuteConnection then
+			voiceChatMuteConnection:Disconnect()
+			voiceChatMuteConnection = nil
 		end
 	end
 end
@@ -437,7 +452,7 @@ function InitializeFacialAnimationStreaming()
 		-- TODO: what should happen after error? Disable facial streaming?
 	end)
 
-	InitializeVoiceChatServices()
+	InitializeVoiceChat()
 end
 
 function CleanupFacialAnimationStreaming()
@@ -445,12 +460,7 @@ function CleanupFacialAnimationStreaming()
 		return
 	end
 
-	if FFlagEnableSyncAudioWithVoiceChatMuteState then
-		if voiceChatMuteConnection then
-			voiceChatMuteConnection:Disconnect()
-			voiceChatMuteConnection = nil
-		end
-	end
+	CleanupVoiceChat()
 
 	for _, player in ipairs(Players:GetPlayers()) do
 		playerJoinedGame[player.UserId] = nil

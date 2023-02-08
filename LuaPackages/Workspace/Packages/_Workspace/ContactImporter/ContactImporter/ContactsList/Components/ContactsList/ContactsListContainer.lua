@@ -22,7 +22,6 @@ local getFIntContactImporterUploadContactsMin = require(ContactImporter.Flags.ge
 local getFFlagUpdateUploadContacts = require(ContactImporter.Flags.getFFlagUpdateUploadContacts)
 local compose = dependencies.SocialLibraries.RoduxTools.compose
 local ContactImporterContext = require(ContactImporter.ContactsList.Components.ContactImporterContext)
-local getFFlagNavigateToContactsListFirst = require(ContactImporter.Flags.getFFlagNavigateToContactsListFirst)
 local getFFlagUpdateContactsIsFetchingState = require(ContactImporter.Flags.getFFlagUpdateContactsIsFetchingState)
 local getFFlagContactImporterFixMatchedContacts =
 	require(ContactImporter.Flags.getFFlagContactImporterFixMatchedContacts)
@@ -242,14 +241,10 @@ function ContactsListContainer:init()
 end
 
 function ContactsListContainer:didMount()
-	if getFFlagNavigateToContactsListFirst() then
-		local props: InternalProps = self.props
-		local shouldUpdateUserSettings = props.navigation.getParam(Constants.SHOULD_UPDATE_USER_SETTINGS)
-		if shouldUpdateUserSettings then
-			props.updateUserSettings():andThen(self.uploadContacts)
-		else
-			self.uploadContacts()
-		end
+	local props: InternalProps = self.props
+	local shouldUpdateUserSettings = props.navigation.getParam(Constants.SHOULD_UPDATE_USER_SETTINGS)
+	if shouldUpdateUserSettings then
+		props.updateUserSettings():andThen(self.uploadContacts)
 	else
 		self.uploadContacts()
 	end
