@@ -16,7 +16,7 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Function Instance Instance:FindFirstChildOfClass(string className) {🧬Safe}
 	Function Instance Instance:FindFirstChildWhichIsA(string className, bool recursive = false) {🧬Safe}
 	Function Instance Instance:FindFirstDescendant(string name) {🧬Safe}
-	Function Actor Instance:GetActor()
+	Function Actor Instance:GetActor() {🧬Safe}
 	Function Variant Instance:GetAttribute(string attribute) {🧬Safe}
 	Function RBXScriptSignal Instance:GetAttributeChangedSignal(string attribute)
 	Function Dictionary Instance:GetAttributes() {🧬Safe}
@@ -156,6 +156,8 @@ Class AssetDeliveryProxy : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool AssetDeliveryProxy.StartServer
 Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string AssetImportService:PickFileWithPrompt() {RobloxScriptSecurity} [Yields]
+	Function Array AssetImportService:PickMultipleFilesWithPrompt() {RobloxScriptSecurity} [Yields]
+	Function AssetImportSession AssetImportService:StartSessionWithPath(string filePath) {RobloxScriptSecurity}
 	Function AssetImportSession AssetImportService:StartSessionWithPrompt() {RobloxScriptSecurity} [Yields]
 Class AssetImportSession : Instance [NotCreatable] [NotReplicated]
 	Function void AssetImportSession:Cancel() {RobloxScriptSecurity}
@@ -3003,6 +3005,10 @@ Class ParticleEmitter : Instance
 	Function void ParticleEmitter:Clear()
 	Function void ParticleEmitter:Emit(int particleCount = 16)
 	Function void ParticleEmitter:FastForward(int numFrames) {RobloxScriptSecurity}
+Class PatchMapping : Instance [NotCreatable] [NotReplicated]
+	Property bool PatchMapping.FlattenTree
+	Property string PatchMapping.PatchId
+	Property string PatchMapping.TargetPath
 Class Path : Instance [NotCreatable] [NotReplicated]
 	Property Enum.PathStatus Path.Status [ReadOnly]
 	Function int Path:CheckOcclusionAsync(int start) [Yields]
@@ -3475,7 +3481,6 @@ Class ReflectionMetadataClass : ReflectionMetadataItem
 	Property int ReflectionMetadataClass.ExplorerImageIndex
 	Property int ReflectionMetadataClass.ExplorerOrder
 	Property bool ReflectionMetadataClass.Insertable
-	Property bool ReflectionMetadataClass.InsertableService
 	Property string ReflectionMetadataClass.PreferredParent
 Class ReflectionMetadataEnum : ReflectionMetadataItem
 Class ReflectionMetadataEnumItem : ReflectionMetadataItem
@@ -3571,6 +3576,9 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event RunService.RenderStepped(double deltaTime)
 	Event RunService.Stepped(double time, double deltaTime)
 Class RuntimeScriptService : Instance [NotCreatable] [Service] [NotReplicated]
+Class SafetyService : Instance [NotCreatable] [Service]
+	Function int64 SafetyService:TakeScreenshot(Dictionary screenshotOptions) {RobloxScriptSecurity}
+	Event SafetyService.ScreenshotContentReady(int64 screenshotJobId, Content contentId) {RobloxScriptSecurity}
 Class ScreenshotHud : Instance [NotCreatable] [NotReplicated]
 	Property Content ScreenshotHud.CameraButtonIcon
 	Property UDim2 ScreenshotHud.CameraButtonPosition
@@ -3831,7 +3839,6 @@ Class Sound : Instance
 Class SoundEffect : Instance [NotCreatable]
 	Property bool SoundEffect.Enabled
 	Property int SoundEffect.Priority
-Class AssetSoundEffect : SoundEffect [NotCreatable]
 Class ChorusSoundEffect : SoundEffect
 	Property float ChorusSoundEffect.Depth
 	Property float ChorusSoundEffect.Mix
@@ -3844,6 +3851,7 @@ Class CompressorSoundEffect : SoundEffect
 	Property Instance CompressorSoundEffect.SideChain
 	Property float CompressorSoundEffect.Threshold
 Class CustomSoundEffect : SoundEffect [NotCreatable]
+Class AssetSoundEffect : CustomSoundEffect [NotCreatable]
 Class ChannelSelectorSoundEffect : CustomSoundEffect [NotCreatable] [NotBrowsable]
 	Property int ChannelSelectorSoundEffect.Channel
 Class DistortionSoundEffect : SoundEffect
@@ -4050,6 +4058,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Auto Clean Empty Line
 	Property bool Studio.Auto Closing Brackets
 	Property bool Studio.Auto Closing Quotes
+	Property bool Studio.Auto Delete Closing Brackets and Quotes
 	Property Enum.AutoIndentRule Studio.Auto Indent Rule
 	Property bool Studio.Automatically commit locked scripts when you save or publish to Roblox {RobloxScriptSecurity}
 	Property bool Studio.Enable Autocomplete
@@ -4254,6 +4263,7 @@ Class Team : Instance
 	Event Team.PlayerAdded(Player player)
 	Event Team.PlayerRemoved(Player player)
 Class TeamCreateData : Instance [NotCreatable] [Service]
+Class TeamCreatePublishService : Instance [NotCreatable] [Service]
 Class TeamCreateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void TeamCreateService:SendUnarchiveUniverseAsync(int64 universeId) {RobloxScriptSecurity}
 	Function void TeamCreateService:SendUnarchiveUniverseWithReasonAsync(int64 universeId, string reason) {RobloxScriptSecurity}
@@ -4666,6 +4676,7 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Enum.MouseBehavior UserInputService.MouseBehavior
 	Property float UserInputService.MouseDeltaSensitivity [<📁> LoadOnly] [NotReplicated]
 	Property bool UserInputService.MouseEnabled [ReadOnly]
+	Property Content UserInputService.MouseIcon
 	Property bool UserInputService.MouseIconEnabled
 	Property Vector2 UserInputService.NavBarSize {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property double UserInputService.OnScreenKeyboardAnimationDuration {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -5238,12 +5249,20 @@ Enum CatalogCategoryFilter
 	EnumItem CatalogCategoryFilter.CommunityCreations : 4
 	EnumItem CatalogCategoryFilter.Premium : 5
 	EnumItem CatalogCategoryFilter.Recommended : 6
+Enum CatalogSortAggregation
+	EnumItem CatalogSortAggregation.Past12Hours : 1
+	EnumItem CatalogSortAggregation.PastDay : 2
+	EnumItem CatalogSortAggregation.Past3Days : 3
+	EnumItem CatalogSortAggregation.PastWeek : 4
+	EnumItem CatalogSortAggregation.PastMonth : 5
+	EnumItem CatalogSortAggregation.AllTime : 6
 Enum CatalogSortType
 	EnumItem CatalogSortType.Relevance : 1
 	EnumItem CatalogSortType.PriceHighToLow : 2
 	EnumItem CatalogSortType.PriceLowToHigh : 3
 	EnumItem CatalogSortType.MostFavorited : 5
 	EnumItem CatalogSortType.RecentlyCreated : 6
+	EnumItem CatalogSortType.Bestselling : 7
 Enum CellBlock
 	EnumItem CellBlock.Solid : 0
 	EnumItem CellBlock.VerticalWedge : 1
@@ -5615,6 +5634,8 @@ Enum EnviromentalPhysicsThrottle
 	EnumItem EnviromentalPhysicsThrottle.Skip8 : 5
 	EnumItem EnviromentalPhysicsThrottle.Skip16 : 6
 Enum ExperienceAuthScope
+	EnumItem ExperienceAuthScope.DefaultScope : 0
+	EnumItem ExperienceAuthScope.CreatorAssetsCreate : 1
 Enum ExplosionType
 	EnumItem ExplosionType.NoCraters : 0
 	EnumItem ExplosionType.Craters : 1
@@ -6549,8 +6570,8 @@ Enum R15CollisionType
 	EnumItem R15CollisionType.OuterBox : 0
 	EnumItem R15CollisionType.InnerBox : 1
 Enum RaycastFilterType
-	EnumItem RaycastFilterType.Blacklist : 0
-	EnumItem RaycastFilterType.Whitelist : 1
+	EnumItem RaycastFilterType.Exclude : 0
+	EnumItem RaycastFilterType.Include : 1
 Enum RejectCharacterDeletions
 	EnumItem RejectCharacterDeletions.Default : 0
 	EnumItem RejectCharacterDeletions.Disabled : 1
@@ -6656,6 +6677,10 @@ Enum RuntimeUndoBehavior
 Enum SafeAreaCompatibility
 	EnumItem SafeAreaCompatibility.None : 0
 	EnumItem SafeAreaCompatibility.FullscreenExtension : 1
+Enum SalesTypeFilter
+	EnumItem SalesTypeFilter.All : 1
+	EnumItem SalesTypeFilter.Collectibles : 2
+	EnumItem SalesTypeFilter.Premium : 3
 Enum SaveAvatarThumbnailCustomizationFailure
 	EnumItem SaveAvatarThumbnailCustomizationFailure.BadThumbnailType : 1
 	EnumItem SaveAvatarThumbnailCustomizationFailure.BadYRotDeg : 2
@@ -6685,6 +6710,13 @@ Enum ScaleType
 	EnumItem ScaleType.Fit : 3
 	EnumItem ScaleType.Crop : 4
 Enum ScopeCheckResult
+	EnumItem ScopeCheckResult.ConsentAccepted : 0
+	EnumItem ScopeCheckResult.InvalidScopes : 1
+	EnumItem ScopeCheckResult.Timeout : 2
+	EnumItem ScopeCheckResult.NoUserInput : 3
+	EnumItem ScopeCheckResult.BackendError : 4
+	EnumItem ScopeCheckResult.UnexpectedError : 5
+	EnumItem ScopeCheckResult.InvalidArgument : 6
 Enum ScreenInsets
 	EnumItem ScreenInsets.None : 0
 	EnumItem ScreenInsets.DeviceSafeInsets : 1

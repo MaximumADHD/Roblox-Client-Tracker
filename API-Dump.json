@@ -389,7 +389,7 @@
                         "Name": "Actor"
                     },
                     "Security": "None",
-                    "ThreadSafety": "Unsafe"
+                    "ThreadSafety": "Safe"
                 },
                 {
                     "MemberType": "Function",
@@ -3043,12 +3043,46 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "StartSessionWithPath",
+                    "Parameters": [
+                        {
+                            "Name": "filePath",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "AssetImportSession"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PickFileWithPrompt",
                     "Parameters": [
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PickMultipleFilesWithPrompt",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
                     },
                     "Security": "RobloxScriptSecurity",
                     "Tags": [
@@ -57291,6 +57325,71 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "FlattenTree",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "PatchId",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "TargetPath",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "PatchMapping",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "Status",
                     "Security": {
                         "Read": "None",
@@ -66642,24 +66741,6 @@
                 {
                     "Category": "Reflection",
                     "MemberType": "Property",
-                    "Name": "InsertableService",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Reflection",
-                    "MemberType": "Property",
                     "Name": "PreferredParent",
                     "Security": {
                         "Read": "None",
@@ -68142,6 +68223,58 @@
                 "NotCreatable",
                 "Service",
                 "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "TakeScreenshot",
+                    "Parameters": [
+                        {
+                            "Name": "screenshotOptions",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "ScreenshotContentReady",
+                    "Parameters": [
+                        {
+                            "Name": "screenshotJobId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "contentId",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Content"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "SafetyService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
             ]
         },
         {
@@ -73126,16 +73259,6 @@
         },
         {
             "Members": [
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "AssetSoundEffect",
-            "Superclass": "SoundEffect",
-            "Tags": [
-                "NotCreatable"
-            ]
-        },
-        {
-            "Members": [
                 {
                     "Category": "State",
                     "MemberType": "Property",
@@ -73316,6 +73439,16 @@
             "MemoryCategory": "Instances",
             "Name": "CustomSoundEffect",
             "Superclass": "SoundEffect",
+            "Tags": [
+                "NotCreatable"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AssetSoundEffect",
+            "Superclass": "CustomSoundEffect",
             "Tags": [
                 "NotCreatable"
             ]
@@ -76146,6 +76279,24 @@
                     "Category": "Script Editor",
                     "MemberType": "Property",
                     "Name": "Auto Closing Quotes",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Script Editor",
+                    "MemberType": "Property",
+                    "Name": "Auto Delete Closing Brackets and Quotes",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -80746,6 +80897,17 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "TeamCreateData",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "TeamCreatePublishService",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
@@ -88419,6 +88581,24 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "MouseIcon",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "MouseIconEnabled",
                     "Security": {
                         "Read": "None",
@@ -94527,6 +94707,35 @@
         {
             "Items": [
                 {
+                    "Name": "Past12Hours",
+                    "Value": 1
+                },
+                {
+                    "Name": "PastDay",
+                    "Value": 2
+                },
+                {
+                    "Name": "Past3Days",
+                    "Value": 3
+                },
+                {
+                    "Name": "PastWeek",
+                    "Value": 4
+                },
+                {
+                    "Name": "PastMonth",
+                    "Value": 5
+                },
+                {
+                    "Name": "AllTime",
+                    "Value": 6
+                }
+            ],
+            "Name": "CatalogSortAggregation"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Relevance",
                     "Value": 1
                 },
@@ -94548,6 +94757,10 @@
                     ],
                     "Name": "RecentlyCreated",
                     "Value": 6
+                },
+                {
+                    "Name": "Bestselling",
+                    "Value": 7
                 }
             ],
             "Name": "CatalogSortType"
@@ -96092,6 +96305,14 @@
         },
         {
             "Items": [
+                {
+                    "Name": "DefaultScope",
+                    "Value": 0
+                },
+                {
+                    "Name": "CreatorAssetsCreate",
+                    "Value": 1
+                }
             ],
             "Name": "ExperienceAuthScope"
         },
@@ -100120,16 +100341,16 @@
             "Items": [
                 {
                     "LegacyNames": [
-                        "Exclude"
+                        "Blacklist"
                     ],
-                    "Name": "Blacklist",
+                    "Name": "Exclude",
                     "Value": 0
                 },
                 {
                     "LegacyNames": [
-                        "Include"
+                        "Whitelist"
                     ],
-                    "Name": "Whitelist",
+                    "Name": "Include",
                     "Value": 1
                 }
             ],
@@ -100575,6 +100796,23 @@
         {
             "Items": [
                 {
+                    "Name": "All",
+                    "Value": 1
+                },
+                {
+                    "Name": "Collectibles",
+                    "Value": 2
+                },
+                {
+                    "Name": "Premium",
+                    "Value": 3
+                }
+            ],
+            "Name": "SalesTypeFilter"
+        },
+        {
+            "Items": [
+                {
                     "Name": "BadThumbnailType",
                     "Value": 1
                 },
@@ -100693,6 +100931,34 @@
         },
         {
             "Items": [
+                {
+                    "Name": "ConsentAccepted",
+                    "Value": 0
+                },
+                {
+                    "Name": "InvalidScopes",
+                    "Value": 1
+                },
+                {
+                    "Name": "Timeout",
+                    "Value": 2
+                },
+                {
+                    "Name": "NoUserInput",
+                    "Value": 3
+                },
+                {
+                    "Name": "BackendError",
+                    "Value": 4
+                },
+                {
+                    "Name": "UnexpectedError",
+                    "Value": 5
+                },
+                {
+                    "Name": "InvalidArgument",
+                    "Value": 6
+                }
             ],
             "Name": "ScopeCheckResult"
         },

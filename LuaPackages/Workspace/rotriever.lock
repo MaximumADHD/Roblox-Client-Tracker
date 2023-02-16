@@ -316,6 +316,7 @@ dependencies = [
     "Fetch Fetch 0.1.0",
     "GraphQL GraphQL 0.1.0",
     "GraphqlHttpArtifacts GraphqlHttpArtifacts 0.1.0",
+    "GraphqlToolsMerge GraphqlToolsMerge 0.1.0",
     "Http Http 0.1.0",
     "JestGlobals JestGlobals 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
@@ -326,6 +327,10 @@ dependencies = [
 
 [[package]]
 name = "GraphqlHttpArtifacts"
+version = "0.1.0"
+
+[[package]]
+name = "GraphqlToolsMerge"
 version = "0.1.0"
 
 [[package]]
@@ -1243,6 +1248,7 @@ dependencies = [
     "NetworkingVirtualEvents NetworkingVirtualEvents 0.1.0",
     "React React 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
+    "ReactTestingLibrary ReactTestingLibrary 0.1.0",
     "Rhodium Rhodium 0.1.0",
     "RoactCompat RoactCompat 0.1.0",
     "RoactNavigation RoactNavigation 0.1.0",

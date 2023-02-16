@@ -624,6 +624,7 @@ ImGuiVS,Vertex
 InstancedCopy,Compute
 InstancedUploadCFrame,Compute
 InstancedUploadFull,Compute
+LightGridAvgLightCountCS,Compute
 LightGridCullAccumAndCreateMaskCS,Compute
 LightGridCullClearCS,Compute
 LightGridCullCountOffsetCS,Compute

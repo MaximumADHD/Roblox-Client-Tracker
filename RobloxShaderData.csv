@@ -624,11 +624,15 @@ ImGuiVS,Vertex,✔,✔,✔,✔,✔,✔
 InstancedCopy,Compute,✔,✔,✔,❌,❌,✔
 InstancedUploadCFrame,Compute,✔,✔,✔,❌,❌,✔
 InstancedUploadFull,Compute,✔,✔,✔,❌,❌,✔
+LightGridAvgLightCountCS,Compute,❌,❌,✔,❌,❌,✔
 LightGridCullAccumAndCreateMaskCS,Compute,❌,❌,✔,❌,❌,✔
 LightGridCullClearCS,Compute,❌,❌,✔,❌,❌,✔
 LightGridCullCountOffsetCS,Compute,❌,❌,✔,❌,❌,✔
 LightGridCullCS,Compute,❌,❌,✔,❌,❌,✔
 LightGridCullGatherCS,Compute,❌,❌,✔,❌,❌,✔
+LightGridDebugCopyCS,Compute,❌,❌,✔,❌,❌,❌
+LightGridDebugFroxelFS,Fragment,❌,❌,✔,❌,❌,❌
+LightGridDebugFroxelVS,Vertex,❌,❌,✔,❌,❌,❌
 LightGridDebugSampleFS,Fragment,❌,❌,✔,❌,❌,❌
 LightGridDebugSampleVS,Vertex,❌,❌,✔,❌,❌,❌
 LightGridDebugTilesFS,Fragment,✔,✔,✔,❌,✔,✔

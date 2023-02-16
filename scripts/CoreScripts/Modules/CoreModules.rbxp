@@ -19,6 +19,9 @@
             "Common": {
                 "$path": "Common/CommonCoreModules.rbxp"
             },
+            "ContactList": {
+                "$path": "ContactList",
+            },
             "CoreScriptsRhodiumTest": {
                 "$path": "CoreScriptsRhodiumTest"
             },
