@@ -340,8 +340,8 @@ local function AppFeaturePolicies(policy): any
 		useGridPageLayout = function()
 			return if getFFlagLuaAppDiscoverPageGrid() then (policy.UseGridPageLayout or false) else nil
 		end,
-		getUseTileBackgrounds = function()
-			return policy.UseTileBackgrounds or false
+		getUseHoverTile = function()
+			return policy.UseHoverTile or false
 		end,
 		getShouldSystemBarUsuallyBePresent = function()
 			-- Use a special policy to override VR behavior for now since we won't have VR platform targeting working

@@ -32,7 +32,6 @@ local RobloxGuiDisplayOrderDefault = 0 -- default as 0
 
 local CONTROL_WIDTH = 60
 local HORIZONTAL_CONTROL_HEIGHT = 108
-local NOTCH_OFFSET = 44
 local NO_NOTCH_OFFSET = 24
 local TOOLTIP_HEIGHT = 36
 local FPS = 30
@@ -300,12 +299,8 @@ function QuickActions:render()
 			checkVoiceButton = true
 		end
 		frameFinalTransparency = style.Theme.UIMuted.Transparency
-		local gradientWidth = CONTROL_WIDTH
-		if game:GetEngineFeature("NotchSpaceSupportEnabled") then
-			gradientWidth = gradientWidth + 2 * NOTCH_OFFSET
-		else
-			gradientWidth = gradientWidth + 2 * NO_NOTCH_OFFSET
-		end
+		local gradientWidth = CONTROL_WIDTH + 2 * NO_NOTCH_OFFSET
+		
 		if isMobilePlatform then
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(0, gradientWidth, 1, 0),
@@ -353,7 +348,8 @@ function QuickActions:render()
 						screenshotEnabled = FFlagEnableInGameMenuQAScreenshot,
 						recordEnabled = self.recordEnabled,
 						cameraEnabled = self.state.hasCameraPermissions,
-						selfViewEnabled = self.state.selfViewEnabled,
+						-- Do not show Self View without mic enabled.
+						selfViewEnabled = self.state.selfViewEnabled and voiceState.voiceEnabled,
 						frameTransparency = self.frameTransparency,
 						transparencies = self.transparencies,
 						fillDirection = Enum.FillDirection.Vertical,
@@ -438,7 +434,8 @@ function QuickActions:render()
 							screenshotEnabled = isDesktopClient,
 							recordEnabled = self.recordEnabled,
 							cameraEnabled = self.state.hasCameraPermissions,
-							selfViewEnabled = self.state.selfViewEnabled,
+							-- Do not show Self View without mic enabled.
+							selfViewEnabled = self.state.selfViewEnabled and voiceState.voiceEnabled,
 							frameTransparency = self.frameTransparency,
 							transparencies = self.transparencies,
 							fillDirection = Enum.FillDirection.Horizontal,

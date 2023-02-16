@@ -63,7 +63,6 @@ local GetFFlagInGameMenuV1LeaveToHome = require(RobloxGui.Modules.Flags.GetFFlag
 local FFlagInGameMenuV1FullScreenTitleBar = game:DefineFastFlag("InGameMenuV1FullScreenTitleBar", false)
 local FFlagInGameMenuHomeButton = game:DefineFastFlag("InGameMenuHomeButton", false)
 local FFlagInGameMenuV1ExitModal = game:DefineFastFlag("InGameMenuV1ExitModal", false)
-local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
 local GetFFlagShareInviteLinkContextMenuV1Enabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
 local GetFFlagShareGamePageNullCheckEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareGamePageNullCheckEnabled)
 local GetFFlagSelfViewSettingsEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagSelfViewSettingsEnabled)
@@ -110,7 +109,6 @@ local connectedServerVersion = nil
 local SettingsFullScreenTitleBar = require(RobloxGui.Modules.Settings.Components.SettingsFullScreenTitleBar)
 local PermissionsButtons = require(RobloxGui.Modules.Settings.Components.PermissionsButtons)
 local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSignal)
-local selfViewCloseButtonSignal = require(RobloxGui.Modules.SelfView.selfViewCloseButtonSignal)
 local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
 local selfViewVisibilityUpdatedSignal = require(RobloxGui.Modules.SelfView.selfViewVisibilityUpdatedSignal)
 
@@ -126,7 +124,6 @@ local VoiceIndicatorsExperimentEnabled = require(RobloxGui.Modules.VoiceChat.Exp
 local GetFFlagEnableVoiceChatPlayersList = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatPlayersList)
 local GetFFlagOldMenuNewIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuNewIcons)
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
-local FFlagSelfViewFixes = require(RobloxGui.Modules.Flags.FFlagSelfViewFixes)
 
 local MuteStatusIcons = {
 	MicOn = "rbxasset://textures/ui/Settings/Players/Unmute@2x.png",
@@ -248,17 +245,11 @@ local function CreateSettingsHub()
 		this.toggleSelfViewSignal = toggleSelfViewSignal:connect(function()
 			this.selfViewOpen = not this.selfViewOpen
 		end)
-		if not FFlagSelfViewFixes then
-			this.selfViewCloseButtonSignal = selfViewCloseButtonSignal:connect(function()
-				this.selfViewOpen = not this.selfViewOpen
-			end)
-		end
-		if FFlagSelfViewFixes then
-			this.selfViewOpen = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView) and SelfViewAPI.getSelfViewIsOpenAndVisible()
-			this.selfViewVisibilitySignal = selfViewVisibilityUpdatedSignal:connect(function()
-				this.selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible()
-			end)
-		end
+
+		this.selfViewOpen = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView) and SelfViewAPI.getSelfViewIsOpenAndVisible()
+		this.selfViewVisibilitySignal = selfViewVisibilityUpdatedSignal:connect(function()
+			this.selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible()
+		end)
 	end
 
 	local pageChangeCon = nil
@@ -2288,10 +2279,8 @@ local function CreateSettingsHub()
 		this.ReportSentPage:SetHub(this)
 	end
 
-	if GetFFlagVoiceAbuseReportsEnabled() then
-		this.ReportSentPageV2 = require(RobloxGui.Modules.Settings.Pages.ReportSentPageV2)
-		this.ReportSentPageV2:SetHub(this)
-	end
+	this.ReportSentPageV2 = require(RobloxGui.Modules.Settings.Pages.ReportSentPageV2)
+	this.ReportSentPageV2:SetHub(this)
 
 	this.HelpPage = require(RobloxGui.Modules.Settings.Pages.Help)
 	this.HelpPage:SetHub(this)

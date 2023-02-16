@@ -23,4 +23,5 @@ return {
 	GetFFlagUIBloxEnableCollectibleItemRestriction = require(script.GetFFlagUIBloxEnableCollectibleItemRestriction),
 	GetFFlagUIBloxUseRightSideGadget = require(script.GetFFlagUIBloxUseRightSideGadget),
 	GetFFlagUIBloxPillGroupAutomaticSize = require(script.GetFFlagUIBloxPillGroupAutomaticSize),
+	FFlagUIBloxInjectHeaderBarProps = require(script.FFlagUIBloxInjectHeaderBarProps),
 }

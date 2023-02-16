@@ -3,6 +3,9 @@ local dependencies = require(ContactImporter.dependencies)
 local Dash = dependencies.Dash
 local LocalTypes = require(ContactImporter.Common.LocalTypes)
 
+local getFFlagContactsListCaseInsensitiveOrdering =
+	require(ContactImporter.Flags.getFFlagContactsListCaseInsensitiveOrdering)
+
 local DEFAULT_TABLE: LocalTypes.RoduxContactsReducer = {}
 
 local formatContactData = function(contactData: LocalTypes.RoduxContactsReducer): LocalTypes.RoduxContactsReducer
@@ -54,14 +57,30 @@ local dictionaryToList = function(contacts)
 	return Dash.values(contacts)
 end
 
-local sortByName = function(contacts: { LocalTypes.InviteOnlyContact })
-	table.sort(contacts, function(a, b)
-		if (a.contactName and b.contactName) and (a.contactName ~= b.contactName) then
-			return a.contactName < b.contactName
-		end
-		return a.deviceContactId < b.deviceContactId
-	end)
+local function stripLeadingWhitespace(str)
+	return string.gsub(str, "^%s*(.*)$", "%1")
+end
 
+local sortByName = function(contacts: { LocalTypes.InviteOnlyContact })
+	if getFFlagContactsListCaseInsensitiveOrdering() then
+		table.sort(contacts, function(a, b)
+			if a.contactName and b.contactName then
+				local aProcessedName: string = stripLeadingWhitespace(string.upper(a.contactName))
+				local bProcessedName: string = stripLeadingWhitespace(string.upper(b.contactName))
+				if aProcessedName and bProcessedName and aProcessedName ~= bProcessedName then
+					return aProcessedName < bProcessedName
+				end
+			end
+			return a.deviceContactId < b.deviceContactId
+		end)
+	else
+		table.sort(contacts, function(a, b)
+			if (a.contactName and b.contactName) and (a.contactName ~= b.contactName) then
+				return a.contactName < b.contactName
+			end
+			return a.deviceContactId < b.deviceContactId
+		end)
+	end
 	return contacts
 end
 

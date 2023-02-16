@@ -67,7 +67,7 @@ describe("ContactsListInviteEntry", function()
 			NetworkingShareLinks.GenerateLink.Mock.reply(function()
 				testCall()
 				return {
-					responseBody = { linkId = "123412" },
+					responseBody = { linkId = "123412", shortUrl = "www.bbc.co.uk" },
 				}
 			end)
 
@@ -97,7 +97,7 @@ describe("ContactsListInviteEntry", function()
 			NetworkingShareLinks.GenerateLink.Mock.reply(function()
 				testCall()
 				return {
-					responseBody = { linkId = "123412" },
+					responseBody = { linkId = "123412", shortUrl = "www.bbc.co.uk" },
 				}
 			end)
 

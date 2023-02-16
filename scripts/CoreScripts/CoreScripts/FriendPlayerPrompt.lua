@@ -23,8 +23,6 @@ local PromptCreator = require(CoreGuiModules:WaitForChild("PromptCreator"))
 local SocialUtil = require(CoreGuiModules:WaitForChild("SocialUtil"))
 local FriendingUtility = require(CoreGuiModules:WaitForChild("FriendingUtility"))
 
-local FFlagFriendPlayerPromptUseFormatByKey = settings():GetFFlag('FriendPlayerPromptUseFormatByKey')
-
 local RobloxTranslator = require(CoreGuiModules:WaitForChild("RobloxTranslator"))
 
 local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
@@ -115,12 +113,8 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 
 					local mainText = string.format("You can not send a friend request to %s because they are at the max friend limit.",  playerToFriend.Name)
 
-					if FFlagFriendPlayerPromptUseFormatByKey then
-						mainText = RobloxTranslator:FormatByKey("FriendPlayerPrompt.promptCompletedCallback.AtFriendLimit", {RBX_NAME = playerToFriend.Name})
-					else
-						if FFlagUseNotificationsLocalization then
-							mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.promptCompletedCallback.AtFriendLimit",mainText),"{RBX_NAME}",playerToFriend.Name)
-						end
+					if FFlagUseNotificationsLocalization then
+						mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.promptCompletedCallback.AtFriendLimit",mainText),"{RBX_NAME}",playerToFriend.Name)
 					end
 
 					PromptCreator:CreatePrompt({
@@ -141,13 +135,9 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 							wait()
 						end
 
-						local mainText = string.format("An error occurred while sending %s a friend request. Please try again later.", playerToFriend.Name)
-						if FFlagFriendPlayerPromptUseFormatByKey then
-							mainText = RobloxTranslator:FormatByKey("FriendPlayerPrompt.promptCompletedCallback.UnknownError", {RBX_NAME = playerToFriend.Name})
-						else
-							if FFlagUseNotificationsLocalization then
-								mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.promptCompletedCallback.UnknownError",mainText),"{RBX_NAME}",playerToFriend.Name)
-							end
+                        local mainText = string.format("An error occurred while sending %s a friend request. Please try again later.", playerToFriend.Name)
+						if FFlagUseNotificationsLocalization then
+							mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.promptCompletedCallback.UnknownError",mainText),"{RBX_NAME}",playerToFriend.Name)
 						end
 
 						PromptCreator:CreatePrompt({
@@ -169,12 +159,8 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 
 	local mainText = string.format("Would you like to send %s a Friend Request?", playerToFriend.Name)
 
-	if FFlagFriendPlayerPromptUseFormatByKey then
-		mainText = RobloxTranslator:FormatByKey("FriendPlayerPrompt.DoPromptRequestFriendPlayer", {RBX_NAME = playerToFriend.Name})
-	else
-		if FFlagUseNotificationsLocalization then
-			mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.DoPromptRequestFriendPlayer",mainText),"{RBX_NAME}",playerToFriend.Name)
-		end
+	if FFlagUseNotificationsLocalization then
+		mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.DoPromptRequestFriendPlayer",mainText),"{RBX_NAME}",playerToFriend.Name)
 	end
 
 	PromptCreator:CreatePrompt({

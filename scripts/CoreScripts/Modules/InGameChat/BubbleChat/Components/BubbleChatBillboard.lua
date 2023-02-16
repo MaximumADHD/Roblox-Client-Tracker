@@ -17,12 +17,9 @@ local log = require(script.Parent.Parent.Logger)(script.Name)
 
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
-local UIBlox = require(CorePackages.Packages.UIBlox)
 local t = require(CorePackages.Packages.t)
 local Otter = require(CorePackages.Packages.Otter)
-local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
-local Cryo = require(CorePackages.Cryo)
 
 local BubbleChatList = require(script.Parent.BubbleChatList)
 local ChatBubbleDistant = require(script.Parent.ChatBubbleDistant)
@@ -34,8 +31,6 @@ local Constants = require(script.Parent.Parent.Constants)
 local getSettingsForMessage = require(script.Parent.Parent.Helpers.getSettingsForMessage)
 local selfViewVisibilityUpdatedSignal = require(RobloxGui.Modules.SelfView.selfViewVisibilityUpdatedSignal)
 
-local ExternalEventConnection = UIBlox.Utility.ExternalEventConnection
-
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local GetFFlagEnableVoiceChatSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatSpeakerIcons)
 local GetFFlagEnableVoiceChatManualReconnect = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatManualReconnect)
@@ -43,8 +38,6 @@ local GetFFlagBubbleChatInexistantAdorneeFix = require(RobloxGui.Modules.Flags.G
 local GetFFlagSelfViewSettingsEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagSelfViewSettingsEnabled)
 local GetFFlagBubbleChatAddCamera = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatAddCamera)
 local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
-local FFlagSelfViewFixes = require(RobloxGui.Modules.Flags.FFlagSelfViewFixes)
-local FFlagSelfViewFixesTwo = require(RobloxGui.Modules.Flags.FFlagSelfViewFixesTwo)
 
 local FIntBubbleVoiceTimeoutMillis = game:DefineFastInt("BubbleVoiceTimeoutMillis", 1000)
 
@@ -69,12 +62,8 @@ BubbleChatBillboard.validateProps = t.strictInterface({
 })
 
 function BubbleChatBillboard:init()
-	local selfViewOpen = if GetFFlagSelfViewSettingsEnabled() then StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.All) or StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView) else nil
-	local selfViewEnabled
-	if FFlagSelfViewFixes then
-		selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible()
-		selfViewEnabled = if GetFFlagSelfViewSettingsEnabled() then StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.All) or StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView) else nil
-	end
+	local selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible()
+	local selfViewEnabled = if GetFFlagSelfViewSettingsEnabled() then StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.All) or StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView) else nil
 
 	self:setState({
 		adornee = nil,
@@ -160,13 +149,11 @@ function BubbleChatBillboard:init()
 		end
 	end
 
-	if FFlagSelfViewFixesTwo then
-		self.selfViewVisibilityUpdatedSignal = selfViewVisibilityUpdatedSignal:connect(function()
-			self:setState({
-				selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible()
-			})
-		end)
-	end
+	self.selfViewVisibilityUpdatedSignal = selfViewVisibilityUpdatedSignal:connect(function()
+		self:setState({
+			selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible()
+		})
+	end)
 end
 
 function BubbleChatBillboard:checkCounterForTimeout(lastCounter)
@@ -266,7 +253,7 @@ function BubbleChatBillboard:willUnmount()
 	end
 	self.offsetMotor:destroy()
 
-	if FFlagSelfViewFixesTwo and self.selfViewVisibilityUpdatedSignal then
+	if self.selfViewVisibilityUpdatedSignal then
 		self.selfViewVisibilityUpdatedSignal:disconnect()
 		self.selfViewVisibilityUpdatedSignal = nil
 	end
@@ -403,27 +390,13 @@ end
 	Check that the user's device has given Roblox camera permission.
 ]]
 function BubbleChatBillboard:getPermissions()
-	if FFlagSelfViewFixes then
-		local callback = function(response)
-			self:setState({
-				hasCameraPermissions = response.hasCameraPermissions,
-				hasMicPermissions = response.hasMicPermissions,
-			})
-		end
-		return getCamMicPermissions(callback)
-	else
-		return PermissionsProtocol:hasPermissions({
-			PermissionsProtocol.Permissions.CAMERA_ACCESS,
-			PermissionsProtocol.Permissions.MICROPHONE_ACCESS,
-		}):andThen(function (permissionResponse)
-			self:setState({
-				hasCameraPermissions = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
-					or not Cryo.List.find(permissionResponse.missingPermissions, PermissionsProtocol.Permissions.CAMERA_ACCESS),
-				hasMicPermissions = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
-					or not Cryo.List.find(permissionResponse.missingPermissions, PermissionsProtocol.Permissions.MICROPHONE_ACCESS),
-			})
-		end)
+	local callback = function(response)
+		self:setState({
+			hasCameraPermissions = response.hasCameraPermissions,
+			hasMicPermissions = response.hasMicPermissions,
+		})
 	end
+	return getCamMicPermissions(callback)
 end
 
 --[[
@@ -482,16 +455,11 @@ function BubbleChatBillboard:render()
 	local showVoiceIndicator = self.props.voiceEnabled and not self.state.voiceTimedOut
 	
 	-- Self View hides the local user's bubble chat billboard.
-	if GetFFlagSelfViewSettingsEnabled() and (FFlagSelfViewFixesTwo and isLocalPlayer) then
+	if GetFFlagSelfViewSettingsEnabled() and isLocalPlayer then
 		showVoiceIndicator = showVoiceIndicator and not self.state.selfViewOpen
 	end
 
-	local renderVoiceAndCameraBubble = GetFFlagBubbleChatAddCamera() and (FFlagSelfViewFixes and not self.state.selfViewOpen)
-	if FFlagSelfViewFixesTwo then
-		renderVoiceAndCameraBubble = self:getRenderVoiceAndCameraBubble()
-	end
-
-	if GetFFlagBubbleChatAddCamera() and renderVoiceAndCameraBubble then
+	if GetFFlagBubbleChatAddCamera() and self:getRenderVoiceAndCameraBubble() then
 		children.VoiceAndCameraBubble = Roact.createElement(ControlsBubble, {
 			chatSettings = chatSettings,
 			isInsideMaximizeDistance = self.state.isInsideMaximizeDistance,
@@ -534,7 +502,7 @@ function BubbleChatBillboard:render()
 				isVisible = self.state.isInsideMaximizeDistance,
 				onLastBubbleFadeOut = self.onLastBubbleFadeOut,
 				chatSettings = chatSettings,
-				renderFirstInsert = showVoiceIndicator and self.renderInsert,
+				renderFirstInsert = showVoiceIndicator and self.renderInsert and not GetFFlagBubbleChatAddCamera(),
 				insertSize = self.insertSize,
 			})
 		else
@@ -546,18 +514,6 @@ function BubbleChatBillboard:render()
 				insertSize = self.insertSize,
 			})
 		end
-	end
-
-	if GetFFlagSelfViewSettingsEnabled() then
-		-- Remove coregui changed code with FFlagSelfViewFixes. Self View is tracked by the signal.
-		children.SelfViewListener = not FFlagSelfViewFixes and Roact.createElement(ExternalEventConnection, {
-			event = StarterGui.CoreGuiChangedSignal,
-			callback = self.onCoreGuiChanged,
-		}) or nil
-		children.selfViewListener = FFlagSelfViewFixes and not FFlagSelfViewFixesTwo and Roact.createElement(ExternalEventConnection, {
-			event = selfViewVisibilityUpdatedSignal,
-			callback = self.onSelfViewVisibilityUpdated,
-		}) or nil
 	end
 
 	active = showVoiceIndicator

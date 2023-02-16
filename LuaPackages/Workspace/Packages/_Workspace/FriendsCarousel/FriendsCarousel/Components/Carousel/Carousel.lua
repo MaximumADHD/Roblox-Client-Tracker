@@ -4,6 +4,7 @@ local Roact = dependencies.Roact
 local llama = dependencies.llama
 local t = dependencies.t
 local memoize = dependencies.memoize
+local withLocalization = dependencies.withLocalization
 
 local mapStateToProps = require(script.Parent.carouselMapStateToProps)
 local mapDispatchToProps = require(script.Parent.carouselMapDispatchToProps)
@@ -18,9 +19,11 @@ local CarouselUserTile = require(FriendsCarousel.Components.CarouselUserTile)
 local LoadingTile = require(FriendsCarousel.Components.LoadingTile)
 
 local LocalTypes = require(FriendsCarousel.Common.LocalTypes)
+local TextKeys = require(FriendsCarousel.Common.TextKeys)
 local UIVariants = require(FriendsCarousel.Common.UIVariants)
 
 local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
+local getFFlagFriendsCarouselPassCIBadge = require(FriendsCarousel.Flags.getFFlagFriendsCarouselPassCIBadge)
 
 -- Note: Type information is not retained on lua tables, so the only way to get
 -- React _types_ is to require a module that re-exports them
@@ -50,6 +53,8 @@ export type Props = {
 		isInGame: boolean,
 		additionalData: LocalTypes.ContextualMenuData
 	) -> (),
+
+	showNewBadge: boolean?,
 }
 
 type InternalProps = Props & mapStateToProps.Props & mapDispatchToProps.Props
@@ -85,6 +90,7 @@ Carousel.validateProps = t.strictInterface({
 	userSeen = t.callback,
 	onSuccessfulRender = t.optional(t.callback),
 	friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant() then nil else t.string,
+	showNewBadge = t.optional(t.boolean),
 })
 
 Carousel.defaultProps = {
@@ -94,19 +100,37 @@ Carousel.defaultProps = {
 }
 
 function Carousel:init()
-	self.renderFindFriendsTile = function()
+	self.renderFindFriendsTile = function(): any
 		local props: InternalProps = self.props
 		local tileUIProperties = self.getTileUIProperties()
 
-		return Roact.createElement(FindFriendsTile, {
-			friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant()
-				then nil
-				else props.friendsCarouselExperimentVariant,
-			onActivated = props.onFindFriendsTileActivated,
-			badgeValue = props.friendRequestCount,
-			tileSize = tileUIProperties.tileHeight,
-			onDidMount = props.onSuccessfulRender,
-		})
+		if getFFlagFriendsCarouselPassCIBadge() then
+			return withLocalization({
+				newTextBadge = TextKeys.NewText,
+			})(function(localized)
+				return Roact.createElement(FindFriendsTile, {
+					friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant()
+						then nil
+						else props.friendsCarouselExperimentVariant,
+					onActivated = props.onFindFriendsTileActivated,
+					badgeValue = if getFFlagFriendsCarouselPassCIBadge() and props.showNewBadge
+						then localized.newTextBadge
+						else props.friendRequestCount,
+					tileSize = tileUIProperties.tileHeight,
+					onDidMount = props.onSuccessfulRender,
+				})
+			end)
+		else
+			return Roact.createElement(FindFriendsTile, {
+				friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant()
+					then nil
+					else props.friendsCarouselExperimentVariant,
+				onActivated = props.onFindFriendsTileActivated,
+				badgeValue = props.friendRequestCount,
+				tileSize = tileUIProperties.tileHeight,
+				onDidMount = props.onSuccessfulRender,
+			})
+		end
 	end
 
 	self.renderFindFriendsHint = function(passedProps: FindFriendsHint.Props)

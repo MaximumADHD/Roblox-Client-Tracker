@@ -2,11 +2,10 @@ local ContactImporter = script.Parent
 local Packages = ContactImporter.Parent
 
 local dependencies = require(ContactImporter.dependencies)
-local devDependencies = require(ContactImporter.devDependencies)
 local Roact = dependencies.Roact
 local llama = dependencies.llama
 local UIBlox = dependencies.UIBlox
-local UIBloxUniversalAppConfig = devDependencies.UIBloxUniversalAppConfig
+local UIBloxUniversalAppConfig = require(Packages.Dev.RobloxAppUIBloxConfig)
 
 --- This has to be here to prevent tests from failing (if we put it in the devDependencies)
 local mockLocale = require(Packages.Dev.SocialTestHelpers).StoryHelpers.mockLocale

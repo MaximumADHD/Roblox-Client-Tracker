@@ -5,9 +5,10 @@ local Players = game:GetService("Players")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local FFlagSelfieViewFeature = require(RobloxGui.Modules.Flags.FFlagSelfieViewFeature)
 
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
-if game:GetEngineFeature("FacialAnimationStreaming") and game:GetFastFlag("SelfieViewFeature2") then
+if game:GetEngineFeature("FacialAnimationStreaming") and FFlagSelfieViewFeature then
 	FaceAnimatorService.VideoAnimationEnabled = true
 end
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingService")
@@ -391,7 +392,7 @@ function InitializeVoiceChat()
 	local onCompletion = function()
 		JoinAllExistingPlayers()
 		ConnectStateChangeCallback()
-		if game:GetFastFlag("AvatarChatSubsessionAnalyticsV2Lua2") then
+		if game:GetFastFlag("AvatarChatSubsessionAnalyticsLua2") then
 			streamingStats.startTracking()
 		end
 	end

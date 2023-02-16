@@ -53,12 +53,12 @@ local NewInviteMenuExperimentManager = require(CoreGuiModules.Settings.Pages.Sha
 local GetCoreScriptsLayers = require(CoreGuiModules.Experiment.GetCoreScriptsLayers)
 
 local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
-
+local GetFFlagContactListEnabled = require(RobloxGui.Modules.Flags.GetFFlagContactListEnabled)
 local FFlagVRAvatarHeightScaling = require(RobloxGui.Modules.Flags.FFlagVRAvatarHeightScaling)
 local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt", false)
+local FFlagSelfieViewFeature = require(RobloxGui.Modules.Flags.FFlagSelfieViewFeature)
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
-game:DefineFastFlag("SelfieViewFeature2", false)
 game:DefineFastFlag("PipEnabled", false)
 
 local UIBlox = require(CorePackages.UIBlox)
@@ -268,7 +268,7 @@ if game:GetEngineFeature("FacialAnimationStreaming") then
 	else
 		ScriptContext:AddCoreScriptLocal("CoreScripts/FacialAnimationStreaming", script.Parent)
 	end
-	if game:GetFastFlag("SelfieViewFeature2") then
+	if FFlagSelfieViewFeature then
 		ScriptContext:AddCoreScriptLocal("CoreScripts/FaceChatSelfieView", RobloxGui)
 	end
 	if game:GetEngineFeature("TrackerLodControllerDebugUI") then
@@ -294,4 +294,9 @@ end
 
 if game:GetEngineFeature("EnableVoiceAttention") then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/VoiceAttention", script.Parent)
+end
+
+if GetFFlagContactListEnabled() then
+	initify(CoreGuiModules.ContactList)
+	coroutine.wrap(safeRequire)(CoreGuiModules.ContactList)
 end

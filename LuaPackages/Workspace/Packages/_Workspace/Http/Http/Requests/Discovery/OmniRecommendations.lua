@@ -52,11 +52,13 @@ local deviceToParamMap = {
 -- pageType - (string/Constants.OmniRecommendationsPageType) which page type to fetch
 -- sessionId - a GUID that is used for data analysis, mapped to the event logging HomePage session metadata
 -- pageToken - a token that is used for fetching the next page
-return function(networkImpl, discoveryPageType, sessionId, nextPageToken)
+-- supportedTreatmentTypes - a list of treatment types supported by the current client
+return function(networkImpl, discoveryPageType, sessionId, nextPageToken, supportedTreatmentTypes)
 	local payload = {
 		["pageType"] = discoveryPageType,
 		["sessionId"] = sessionId,
 		["pageToken"] = if GetFFlagLuaAppInfiniteHomePage() then nextPageToken else nil,
+		["supportedTreatmentTypes"] = supportedTreatmentTypes,
 	}
 
 	local success, systemInfo = pcall(function()

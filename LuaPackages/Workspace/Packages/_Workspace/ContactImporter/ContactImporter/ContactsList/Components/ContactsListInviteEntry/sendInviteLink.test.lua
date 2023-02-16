@@ -19,14 +19,17 @@ local afterEach = JestGlobals.afterEach
 
 local mockNativeUtilProtocol = require(ContactImporter.TestHelpers.mockNativeUtilProtocol)
 local mockSMSProtocol = require(ContactImporter.TestHelpers.mockSMSProtocol)
+local getFFlagContactImporterUseShortUrlFriendInvite =
+	require(ContactImporter.Flags.getFFlagContactImporterUseShortUrlFriendInvite)
 
 -- When removing this flag clean up mockSMSProtocol as well.
 local getFFlagLuaNativeUtilEnableSMSHandling = dependencies.getFFlagLuaNativeUtilEnableSMSHandling
 
 local ADDRESS = "12345"
 local CONTACT_ID = "876"
-local INVITE_MESSAGE =
+local LONG_INVITE_MESSAGE =
 	"https://ro.blox.com/Ebh5?pid=share&is_retargeting=true&af_dp=roblox%3A%2F%2Fnavigation%2Fshare_links%3Fcode%3D123412%26type%3DFriendInvite&af_web_dp=https%3A%2F%2Fwww.roblox.com%2Fshare-links%3Fcode%3D123412%26type%3DFriendInvite\n\nFeature.Contacts.Message.InviteToRoblox"
+local INVITE_MESSAGE = "www.bbc.co.uk\n\nFeature.Contacts.Message.InviteToRoblox"
 describe("sendInviteLink", function()
 	local defaultProps, nativeUtilProtocol, smsProtocol, calledGenerateLink
 	beforeAll(function()
@@ -46,7 +49,7 @@ describe("sendInviteLink", function()
 		NetworkingShareLinks.GenerateLink.Mock.reply(function()
 			calledGenerateLink()
 			return {
-				responseBody = { linkId = "123412" },
+				responseBody = { linkId = "123412", shortUrl = "www.bbc.co.uk" },
 			}
 		end)
 	end)
@@ -85,14 +88,18 @@ describe("sendInviteLink", function()
 			jestExpect(nativeUtilProtocol.sendSMS).toHaveBeenCalledTimes(1)
 			jestExpect(nativeUtilProtocol.sendSMS).toHaveBeenCalledWith(nativeUtilProtocol, {
 				address = ADDRESS,
-				message = INVITE_MESSAGE,
+				message = if getFFlagContactImporterUseShortUrlFriendInvite()
+					then INVITE_MESSAGE
+					else LONG_INVITE_MESSAGE,
 			})
 		else
 			jestExpect(smsProtocol.supportsSMS).toHaveBeenCalledTimes(1)
 			jestExpect(smsProtocol.sendSMS).toHaveBeenCalledTimes(1)
 			jestExpect(smsProtocol.sendSMS).toHaveBeenCalledWith(smsProtocol, {
 				address = ADDRESS,
-				message = INVITE_MESSAGE,
+				message = if getFFlagContactImporterUseShortUrlFriendInvite()
+					then INVITE_MESSAGE
+					else LONG_INVITE_MESSAGE,
 			})
 		end
 	end)

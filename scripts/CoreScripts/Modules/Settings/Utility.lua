@@ -46,7 +46,6 @@ local Workspace = game:GetService("Workspace")
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
-local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
 
 
 ------------------ Modules --------------------
@@ -791,7 +790,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 
 			local text = v
 			local subtitle = ''
-			local UseSubtitle =  GetFFlagVoiceAbuseReportsEnabled() and typeof(v) == 'table'
+			local UseSubtitle = typeof(v) == 'table'
 			if UseSubtitle then
 				text = v.title
 				subtitle = v.subtitle

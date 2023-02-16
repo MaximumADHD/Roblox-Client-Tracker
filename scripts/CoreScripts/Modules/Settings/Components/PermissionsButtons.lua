@@ -11,6 +11,7 @@ local CorePackages = game:GetService("CorePackages")
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local StarterGui = game:GetService("StarterGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local VideoCaptureService = game:GetService("VideoCaptureService")
 
 local Roact = require(CorePackages.Roact)
 local UIBlox = require(CorePackages.UIBlox)
@@ -18,7 +19,6 @@ local t = require(CorePackages.Packages.t)
 
 local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSignal)
 local selfViewVisibilityUpdatedSignal = require(RobloxGui.Modules.SelfView.selfViewVisibilityUpdatedSignal)
-local selfViewCloseButtonSignal = require(RobloxGui.Modules.SelfView.selfViewCloseButtonSignal)
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
 
@@ -29,9 +29,9 @@ local Modules = CoreGui.RobloxGui.Modules
 local PermissionButton = require(Modules.Settings.Components.PermissionButton)
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
 
-local FFlagSelfViewFixes = require(RobloxGui.Modules.Flags.FFlagSelfViewFixes)
-local FFlagSelfViewFixesTwo = require(RobloxGui.Modules.Flags.FFlagSelfViewFixesTwo)
-local FFlagSelfViewFixesThree = require(Modules.Flags.FFlagSelfViewFixesThree)
+local EngineFeatureFacialAnimationStreaming = game:GetEngineFeature("FacialAnimationStreaming")
+local FFlagSelfieViewFeature = require(RobloxGui.Modules.Flags.FFlagSelfieViewFeature)
+local IsSelfViewEnabled = EngineFeatureFacialAnimationStreaming and FFlagSelfieViewFeature
 
 local PermissionsButtons = Roact.PureComponent:extend("PermissionsButtons")
 
@@ -72,31 +72,25 @@ local function createDivider(layoutOrder)
 end
 
 function PermissionsButtons:init()
+	-- @TODO: Remove VideoCaptureService.Active when FaceAnimatorService.VideoAnimationEnabled gives correct values for voice-enabled experiences
+	-- Note that we have to add VideoCaptureService.Active here because FaceAnimatorService.VideoAnimationEnabled returns true for voice-enabled experiences
+	local isUsingCamera = FaceAnimatorService and FaceAnimatorService:IsStarted() and FaceAnimatorService.VideoAnimationEnabled and VideoCaptureService.Active
+
 	self:setState({
 		allPlayersMuted = false,
 		microphoneEnabled = not VoiceChatServiceManager.localMuted or false,
-		cameraEnabled = if FaceAnimatorService then FaceAnimatorService.VideoAnimationEnabled else false,
+		cameraEnabled = isUsingCamera,
 		selfViewOpen = self.props.selfViewOpen,
-		showSelfView = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView),
+		showSelfView = IsSelfViewEnabled and StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView) and (self.state.hasCameraPermissions or self.state.hasMicPermissions),
 		hasCameraPermissions = false,
 		hasMicPermissions = false,
 	})
 
-	if not FFlagSelfViewFixes then
-		self.selfViewCloseButtonSignal = selfViewCloseButtonSignal:connect(function()
-			self:setState({
-				selfViewOpen = not self.state.selfViewOpen,
-			})
-		end)
-	end
-
-	if FFlagSelfViewFixesTwo then
-		self.selfViewVisibilityUpdatedSignal = selfViewVisibilityUpdatedSignal:connect(function()
-			self:setState({
-				selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible(),
-			})
-		end)
-	end
+	self.selfViewVisibilityUpdatedSignal = selfViewVisibilityUpdatedSignal:connect(function()
+		self:setState({
+			selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible(),
+		})
+	end)
 
 	-- Mute all players in the lobby
 	self.toggleMuteAll = function()
@@ -110,26 +104,15 @@ function PermissionsButtons:init()
 	-- toggle mic permissions
 	self.toggleMic = function()
 		VoiceChatServiceManager:ToggleMic()
-		-- this.SecondButton.Image = pollImage() TODO Update Icon
-
-		--with latest changes cam is not tied to mic anymore, so we're flagging the removal of the old setup here
-		if not FFlagSelfViewFixesThree then
-			local didDisableMic = not VoiceChatServiceManager.localMuted
-			-- Camera is tied to the microphone being enabled.
-			if didDisableMic and FaceAnimatorService.VideoAnimationEnabled then
-				FaceAnimatorService.VideoAnimationEnabled = false
-			end
-		end
 
 		self:setState({
-			cameraEnabled = FaceAnimatorService.VideoAnimationEnabled,
 			microphoneEnabled = not VoiceChatServiceManager.localMuted,
 		})
 	end
 
 	-- toggle video permissions
 	self.toggleVideo = function()
-		if not FaceAnimatorService then
+		if not FaceAnimatorService or not FaceAnimatorService:IsStarted() then
 			return
 		end
 
@@ -149,16 +132,7 @@ function PermissionsButtons:init()
 	end
 
 	self.muteChangedEvent = function(muted)
-		-- Video is not tied to audio being enabled anymore, but flagging the change to remove old behaviour where they were tied together
-		if not FFlagSelfViewFixesThree then
-			-- Video is tied to audio being enabled.
-			if muted and FaceAnimatorService.VideoAnimationEnabled then
-				FaceAnimatorService.VideoAnimationEnabled = false
-			end
-		end
-
 		self:setState({
-			cameraEnabled = FaceAnimatorService.VideoAnimationEnabled,
 			microphoneEnabled = not muted,
 		})
 	end
@@ -173,7 +147,7 @@ function PermissionsButtons:init()
 		local coreGuiState = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
 		if self.state.showSelfView ~= coreGuiState then
 			self:setState({
-				showSelfView = coreGuiState,
+				showSelfView = IsSelfViewEnabled and coreGuiState and (self.state.hasCameraPermissions or self.state.hasMicPermissions),
 			})
 		end
 	end
@@ -192,8 +166,21 @@ function PermissionsButtons:getPermissions()
 	getCamMicPermissions(callback)
 end
 
+function PermissionsButtons:didUpdate(prevProps, prevState)
+	local coreGuiState = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
+	if self.state.hasCameraPermissions ~= prevState.hasCameraPermissions or self.state.hasMicPermissions ~= prevState.hasMicPermissions then
+		self:setState({
+			showSelfView = IsSelfViewEnabled and coreGuiState and (self.state.hasCameraPermissions or self.state.hasMicPermissions),
+		})
+	end
+end
+
 function PermissionsButtons:didMount()
 	self:getPermissions()
+end
+
+function PermissionsButtons:isShowingPermissionButtons()
+	return self.state.hasMicPermissions or self.state.hasCameraPermissions or self.state.showSelfView
 end
 
 function PermissionsButtons:render()
@@ -203,7 +190,7 @@ function PermissionsButtons:render()
 		and not self.props.isTenFootInterface
 		and not self.props.isSmallTouchScreen
 
-	return Roact.createElement("Frame", {
+	return self:isShowingPermissionButtons() and Roact.createElement("Frame", {
 		AutomaticSize = Enum.AutomaticSize.XY,
 		ZIndex = self.props.ZIndex,
 		BackgroundTransparency = 1,
@@ -269,22 +256,11 @@ function PermissionsButtons:render()
 			event = StarterGui.CoreGuiChangedSignal,
 			callback = self.onCoreGuiChanged,
 		}),
-		SelfViewVisbilityChangedEvent = FFlagSelfViewFixes and not FFlagSelfViewFixesTwo and Roact.createElement(
-			ExternalEventConnection,
-			{
-				event = selfViewVisibilityUpdatedSignal,
-				callback = self.onSelfViewVisibilityUpdated,
-			}
-		) or nil,
 	})
 end
 
 function PermissionsButtons:willUnmount()
-	if not FFlagSelfViewFixes and self.selfViewCloseButtonSignal then
-		self.selfViewCloseButtonSignal:disconnect()
-	end
-
-	if FFlagSelfViewFixesTwo and self.selfViewVisibilityUpdatedSignal then
+	if self.selfViewVisibilityUpdatedSignal then
 		self.selfViewVisibilityUpdatedSignal:disconnect()
 		self.selfViewVisibilityUpdatedSignal = nil
 	end

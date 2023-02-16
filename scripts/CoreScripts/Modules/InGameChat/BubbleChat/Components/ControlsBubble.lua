@@ -21,8 +21,8 @@ local Modules = CoreGui.RobloxGui.Modules
 local ControlBubble = require(script.Parent.ControlBubble)
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
 local Constants = require(Modules.InGameChat.BubbleChat.Constants)
-
-local FFlagSelfViewFixesTwo = require(Modules.Flags.FFlagSelfViewFixesTwo)
+local SelfViewAPI = require(Modules.SelfView.publicApi)
+local toggleSelfViewSignal = require(Modules.SelfView.toggleSelfViewSignal)
 
 local VIDEO_IMAGE = Images["icons/controls/video"]
 local VIDEO_OFF_IMAGE = Images["icons/controls/videoOff"]
@@ -46,10 +46,7 @@ ControlsBubble.defaultProps = {
 }
 
 function ControlsBubble:init()
-	local cameraEnabled = if FaceAnimatorService then FaceAnimatorService.VideoAnimationEnabled else false
-	if FFlagSelfViewFixesTwo then
-		cameraEnabled = if FaceAnimatorService then (FaceAnimatorService:IsStarted() and FaceAnimatorService.VideoAnimationEnabled) else false
-	end
+	local cameraEnabled = if FaceAnimatorService then (FaceAnimatorService:IsStarted() and FaceAnimatorService.VideoAnimationEnabled) else false
 
 	self:setState({
 		microphoneEnabled = not VoiceChatServiceManager.localMuted or false,
@@ -58,7 +55,7 @@ function ControlsBubble:init()
 
 	-- toggle mic permissions
 	self.toggleMic = function()
-		if not FFlagSelfViewFixesTwo or self.props.isLocalPlayer then
+		if self.props.isLocalPlayer then
 			if not self.props.hasMicPermissions then
 				return
 			end
@@ -68,10 +65,16 @@ function ControlsBubble:init()
 			self:setState({
 				microphoneEnabled = not VoiceChatServiceManager.localMuted
 			})
-		elseif FFlagSelfViewFixesTwo then
+		else
 			-- The billboards use strings, but the manager expects numbers
 			VoiceChatServiceManager:ToggleMutePlayer(tonumber(self.props.userId))
 		end
+	end
+
+	self.updateVideo = function()
+		self:setState({
+			cameraEnabled = FaceAnimatorService.VideoAnimationEnabled
+		})
 	end
 
 	-- toggle video permissions
@@ -80,7 +83,7 @@ function ControlsBubble:init()
 			return
 		end
 
-		if not FaceAnimatorService or (FFlagSelfViewFixesTwo and not FaceAnimatorService:IsStarted()) then
+		if not FaceAnimatorService or not FaceAnimatorService:IsStarted() then
 			return
 		end
 
@@ -89,6 +92,11 @@ function ControlsBubble:init()
 		self:setState({
 			cameraEnabled = FaceAnimatorService.VideoAnimationEnabled
 		})
+
+		local selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible()
+		if FaceAnimatorService.VideoAnimationEnabled and not selfViewOpen then
+			toggleSelfViewSignal:fire()
+		end
 	end
 
 	self.muteChangedEvent = function(muted)
@@ -112,12 +120,8 @@ function ControlsBubble:init()
 		local level = values[2] :: number
 
 		if voiceState == Constants.VOICE_STATE.MUTED or voiceState == Constants.VOICE_STATE.LOCAL_MUTED then
-			if FFlagSelfViewFixesTwo then
-				-- We use UIBlox for the muted cases. The image is retrieved from UIBlox in ControlBubble.lua.
-				return ""
-			else
-				return VoiceChatServiceManager:GetIcon("Muted", "New")
-			end
+			-- We use UIBlox for the muted cases. The image is retrieved from UIBlox in ControlBubble.lua.
+			return ""
 		elseif voiceState == Constants.VOICE_STATE.CONNECTING then
 			return VoiceChatServiceManager:GetIcon("Connecting", "New")
 		elseif voiceState == Constants.VOICE_STATE.INACTIVE then
@@ -136,7 +140,7 @@ end
 	Camera icon should only be shown to the local player.
 ]]
 function ControlsBubble:shouldShowCameraIndicator()
-	if self.props.isLocalPlayer then
+	if self.props.isLocalPlayer and self.props.hasCameraPermissions then
 		return true
 	end
 
@@ -155,22 +159,21 @@ function ControlsBubble:getMicIcon()
 	end
 end
 
-if FFlagSelfViewFixesTwo then
-	function ControlsBubble:didUpdate(prevProps, _)
-		if self.props.voiceState ~= prevProps.voiceState then
-			self.updateVoiceState(self.props.voiceState)
-		end
-	end
-
-	function ControlsBubble:didMount()
+function ControlsBubble:didUpdate(prevProps, _)
+	if self.props.voiceState ~= prevProps.voiceState then
 		self.updateVoiceState(self.props.voiceState)
 	end
 end
 
+function ControlsBubble:didMount()
+	self.updateVoiceState(self.props.voiceState)
+end
+
 function ControlsBubble:render()
-	local shouldShowVoiceIndicator = true
+	local shouldShowVoiceIndicator = self.props.hasMicPermissions
 	local shouldShowCameraIndicator = self:shouldShowCameraIndicator()
 	local icon, imageSet = self:getMicIcon()
+	local chatSettings = self.props.chatSettings
 
 	return Roact.createElement("Frame", {
 		AnchorPoint = Vector2.new(0.5, 1),
@@ -179,6 +182,7 @@ function ControlsBubble:render()
 		Size = UDim2.new(0, 0, 0, 25),
 		LayoutOrder = self.props.LayoutOrder,
 		BackgroundTransparency = 0,
+		BorderSizePixel = 0,
 		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 		Visible = shouldShowVoiceIndicator or shouldShowCameraIndicator,
 	}, {
@@ -193,7 +197,7 @@ function ControlsBubble:render()
 			BackgroundTransparency = 0,
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 		}, {
-			UICorner = Roact.createElement("UICorner", {
+			UICorner = chatSettings.CornerEnabled and Roact.createElement("UICorner", {
 				CornerRadius = UDim.new(0, 8),
 			}),
 			UIListLayout = Roact.createElement("UIListLayout", {
@@ -213,7 +217,8 @@ function ControlsBubble:render()
 				icon = icon,
 				onActivated = self.toggleMic,
 				enabled = self.props.hasMicPermissions,
-				isImageSet = imageSet
+				isImageSet = imageSet,
+				chatSettings = chatSettings,
 			}),
 			CameraBubble = shouldShowCameraIndicator and Roact.createElement(ControlBubble, {
 				LayoutOrder = 2,
@@ -222,26 +227,38 @@ function ControlsBubble:render()
 				enabled = self.props.hasCameraPermissions,
 				isImageSet = true,
 				imageSetIcon = if self.state.cameraEnabled and self.props.hasCameraPermissions then VIDEO_IMAGE else VIDEO_OFF_IMAGE,
+				chatSettings = chatSettings,
 			})
+		}),
+		Carat = chatSettings.TailVisible and Roact.createElement("ImageLabel", {
+			LayoutOrder = 3,
+			AnchorPoint = Vector2.new(0.5, 0),
+			BackgroundTransparency = 1,
+			Position = UDim2.new(0.5, 0, 1, -1), --UICorner generates a 1 pixel gap (UISYS-625), this fixes it by moving the carrot up by 1 pixel
+			Size = UDim2.fromOffset(12, 8),
+			Image = "rbxasset://textures/ui/InGameChat/Caret.png",
+			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 		}),
 		MuteChangedEvent = Roact.createElement(ExternalEventConnection, {
 			event = VoiceChatServiceManager.muteChanged.Event,
 			callback = self.muteChangedEvent,
 		}),
+		VideoEnabledChanged = FaceAnimatorService and Roact.createElement(ExternalEventConnection, {
+			event = FaceAnimatorService:GetPropertyChangedSignal("VideoAnimationEnabled"),
+			callback = self.updateVideo,
+		}) or nil,
 	})
 end
 
-if FFlagSelfViewFixesTwo then
-	function ControlsBubble:willUnmount()
-		local success, _ = pcall(function()
-			RunService:UnbindFromRenderStep(self.renderStepName)
-		end)
+function ControlsBubble:willUnmount()
+	local success, _ = pcall(function()
+		RunService:UnbindFromRenderStep(self.renderStepName)
+	end)
 
-		-- self.renderStepName should have existed. Throw an error on backtrace to notify.
-		task.spawn(function()
-			assert(success == true, "Tried to UnbindFromRenderStep with a self.renderStepName that was never bound")
-		end)
-	end
+	-- self.renderStepName should have existed. Throw an error on backtrace to notify.
+	task.spawn(function()
+		assert(success == true, "Tried to UnbindFromRenderStep with a self.renderStepName that was never bound")
+	end)
 end
 
 local function mapStateToProps(state, props)

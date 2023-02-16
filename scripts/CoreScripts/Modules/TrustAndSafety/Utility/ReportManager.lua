@@ -7,7 +7,6 @@ local RunService = game:GetService("RunService")
 
 local Dash = require(CorePackages.Packages.Dash)
 
-local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local createVoiceAbuseReportRequest = require(RobloxGui.Modules.VoiceChat.createVoiceAbuseReportRequest)
 local Url = require(RobloxGui.Modules.Common.Url)
@@ -65,7 +64,7 @@ function submitUserAbuseReport(report: UserAbuseReport, onSubmitted: Dash.AnyFun
 			coroutine.wrap(function()
 				local abuseVector = getAbuseVectorFromReportCategory(report.reportCategory)
 
-				if GetFFlagVoiceAbuseReportsEnabled() and isVoiceReport then
+				if isVoiceReport then
 					local request = createVoiceAbuseReportRequest(PlayersService, VoiceChatServiceManager, {
 						localUserId = localPlayer.UserId,
 						abuserUserId = report.abusingPlayer.UserId,

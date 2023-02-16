@@ -16,6 +16,8 @@ local GetFFlagUseCorrectedFriendSortUtil = require(Packages.SharedFlags).GetFFla
 local FFlagExperienceJoinAttemptId = require(Packages.GameProtocol).Flags.FFlagExperienceJoinAttemptId
 local GetFFlagHideConnectPageWebViewItemsForVR = require(Packages.SharedFlags).GetFFlagHideConnectPageWebViewItemsForVR
 local getFFlagSocialAddGameJoinSource = require(Packages.SharedFlags).getFFlagSocialAddGameJoinSource
+local getFFlagAddFriendsNewEmptyStateAndBanners =
+	require(Packages.SharedFlags).getFFlagAddFriendsNewEmptyStateAndBanners
 
 local maxHttpRetries = game:DefineFastInt("SocialTabHttpRetryCount", 3)
 
@@ -142,4 +144,5 @@ return {
 	FFlagExperienceJoinAttemptId = FFlagExperienceJoinAttemptId,
 	GetFFlagHideConnectPageWebViewItemsForVR = GetFFlagHideConnectPageWebViewItemsForVR,
 	getFFlagSocialAddGameJoinSource = getFFlagSocialAddGameJoinSource,
+	getFFlagAddFriendsNewEmptyStateAndBanners = getFFlagAddFriendsNewEmptyStateAndBanners,
 }

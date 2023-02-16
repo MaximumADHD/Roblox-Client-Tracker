@@ -91,6 +91,7 @@ VoiceChatPromptFrame.validateProps = t.strictInterface({
 	onReadyForSignal = t.optional(t.callback),
 	Analytics = t.optional(t.table),
 	showNewContent = t.optional(t.boolean),
+	policyMapper = t.optional(t.callback),
 })
 
 function VoiceChatPromptFrame:init()

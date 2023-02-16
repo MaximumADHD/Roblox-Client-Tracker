@@ -39,13 +39,15 @@ return {
 	getFFlagEnableContactInvitesForNonPhoneVerified = require(script.getFFlagEnableContactInvitesForNonPhoneVerified),
 	GetFFlagGetMultiplePlaceInfosDeprecateWebApi = require(script.GetFFlagGetMultiplePlaceInfosDeprecateWebApi),
 	getFFlagSocialAddGameJoinSource = require(script.getFFlagSocialAddGameJoinSource),
-	getFFlagAddFriendsNewEmptyState = require(script.getFFlagAddFriendsNewEmptyState),
+	getFFlagAddFriendsNewEmptyStateAndBanners = require(script.getFFlagAddFriendsNewEmptyStateAndBanners),
 
 	-- Notifications
 	getFFlagEnableNotificationExperienceInvite = require(script.getFFlagEnableNotificationExperienceInvite),
 
 	-- VR
 	GetFFlagVRAvatarExperienceNoLandingPage = require(script.GetFFlagVRAvatarExperienceNoLandingPage),
+	GetFFlagFixStateMutationInVROverlay = require(script.GetFFlagFixStateMutationInVROverlay),
+	GetFFlagActivateShadowsInWorldspace = require(script.GetFFlagActivateShadowsInWorldspace),
 
 	-- IXP Layers
 	getFStringSocialUserSearchResultsPageLayer = require(script.getFStringSocialUserSearchResultsPageLayer),
@@ -83,7 +85,7 @@ return {
 	GetEnableDesignSystemExperiment = require(script.GetEnableDesignSystemExperiment),
 	GetFFlagDisableBubbleChatForExpChat = require(script.GetFFlagDisableBubbleChatForExpChat),
 	GetFFlagShareGetPlatformTargetImpl = require(script.GetFFlagShareGetPlatformTargetImpl),
-	GetFFlagUpgradeExpChatV3_3_7 = require(script.GetFFlagUpgradeExpChatV3_3_7),
+	GetFFlagUpgradeExpChatV3_3_9 = require(script.GetFFlagUpgradeExpChatV3_3_9),
 	GetEnableFriendFooterOnHomePage = require(script.GetEnableFriendFooterOnHomePage),
 	GetFFlagLuaAppAddSignalToFocusArea = require(script.GetFFlagLuaAppAddSignalToFocusArea),
 	GetFFlagLuaAppUseUIBloxColorPalettes = require(script.GetFFlagLuaAppUseUIBloxColorPalettes),
@@ -116,4 +118,8 @@ return {
 	GetFFlagEnableTopBarVRPolicyOverride = require(script.GetFFlagEnableTopBarVRPolicyOverride),
 	GetFFlagHidePrivateServerInGameDetailsForVR = require(script.GetFFlagHidePrivateServerInGameDetailsForVR),
 	getFFlagFriendsCarouselRemoveVariant = require(script.getFFlagFriendsCarouselRemoveVariant),
+	GetFFlagPhoneVerificationWebviewShouldBeFullscreen = require(
+		script.GetFFlagPhoneVerificationWebviewShouldBeFullscreen
+	),
+	getFFlagSocialOnboardingExperimentEnabled = require(script.getFFlagSocialOnboardingExperimentEnabled),
 }

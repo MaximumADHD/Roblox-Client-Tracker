@@ -15,6 +15,7 @@ local function userUpdatedFromUser(user)
 		username = user.name,
 		displayName = user.displayName,
 		friendRank = user.friendRank,
+		hasVerifiedBadge = user.hasVerifiedBadge,
 	})
 end
 

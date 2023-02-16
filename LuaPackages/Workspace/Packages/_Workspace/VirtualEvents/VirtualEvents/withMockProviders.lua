@@ -30,7 +30,7 @@ local reducer = Rodux.combineReducers({
 
 type Options = {
 	mockResolvers: {
-		Query: { [string]: any }?,
+		[string]: any,
 	}?,
 	store: { [string]: any }?,
 	initialStoreState: any,

@@ -16,12 +16,14 @@ local friend = {
 	id = "friendId",
 	name = "name",
 	displayName = "displayName",
+	hasVerifiedBadge = false,
 }
 local notFriend = {
 	isFriend = false,
 	id = "notFriendId",
 	name = "name",
 	displayName = "displayName",
+	hasVerifiedBadge = false,
 }
 
 describe("GIVEN state as nil", function()

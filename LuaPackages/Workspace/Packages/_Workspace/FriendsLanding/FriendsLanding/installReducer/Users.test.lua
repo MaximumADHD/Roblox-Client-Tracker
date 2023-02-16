@@ -19,14 +19,13 @@ local user = {
 	id = "userId",
 	name = "name",
 	displayName = "displayName",
+	hasVerifiedBadge = false,
 }
 
 describe("GIVEN state as nil", function()
 	local state
 
 	beforeEach(function()
-		game:SetFastFlagForTesting("EnableHasVerifiedBadgeUserModelValidation", false)
-
 		state = nil
 	end)
 
@@ -44,6 +43,7 @@ describe("GIVEN state as nil", function()
 					id = "userId",
 					username = "name",
 					displayName = "displayName",
+					hasVerifiedBadge = false,
 				},
 			})
 		end)
@@ -63,6 +63,7 @@ describe("GIVEN state as nil", function()
 					id = "userId",
 					username = "name",
 					displayName = "displayName",
+					hasVerifiedBadge = false,
 				},
 			})
 		end)

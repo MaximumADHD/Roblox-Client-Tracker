@@ -53,6 +53,7 @@ type Props = {
 	onAddFriendsActivated: () -> (),
 	showAddFriendsButton: boolean,
 	variant: string,
+	openProfilePeekView: () -> (),
 }
 
 local function ContactsListV2(props: Props)
@@ -153,6 +154,7 @@ local function ContactsListV2(props: Props)
 				hasDivider = hasDivider,
 				hasSentRequest = item.hasSentRequest,
 				requestFriendship = props.requestFriendship,
+				openProfilePeekView = props.openProfilePeekView,
 			})
 		else
 			return Roact.createElement(ContactsListInviteEntry, {

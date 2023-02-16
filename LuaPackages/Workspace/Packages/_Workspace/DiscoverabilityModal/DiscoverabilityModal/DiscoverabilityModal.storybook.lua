@@ -1,12 +1,11 @@
 local DiscoverabilityModal = script:FindFirstAncestor("DiscoverabilityModal")
+local Packages = DiscoverabilityModal.Parent
 local dependencies = require(DiscoverabilityModal.dependencies)
-local devDependencies = require(DiscoverabilityModal.devDependencies)
 local Roact = dependencies.Roact
 local Dash = dependencies.Dash
 local UIBlox = dependencies.UIBlox
-local UIBloxUniversalAppConfig = devDependencies.UIBloxUniversalAppConfig
+local UIBloxUniversalAppConfig = require(Packages.Dev.RobloxAppUIBloxConfig)
 
-local Packages = DiscoverabilityModal.Parent
 local mockLocale = require(Packages.Dev.SocialTestHelpers).StoryHelpers.mockLocale
 
 -- Make sure to initialize in story book in case this storybook is called first

@@ -31,6 +31,7 @@ local userFriend = {
 	name = "name1",
 	displayName = "displayName1",
 	isFriend = true,
+	hasVerifiedBadge = false,
 }
 
 local userNotFriend = {
@@ -38,6 +39,7 @@ local userNotFriend = {
 	name = "name2",
 	displayName = "displayName2",
 	isFriend = false,
+	hasVerifiedBadge = false,
 }
 
 describe("GIVEN legacy AddUser action with friend", function()

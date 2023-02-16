@@ -13,9 +13,5 @@ return {
 	RhodiumHelpers = function()
 		return require(Packages.Dev.RhodiumHelpers)
 	end,
-	getMockLocale = function()
-		return require(Packages.Dev.SocialTestHelpers).StoryHelpers.mockLocale
-	end,
 	createTreeWithProviders = require(Packages.Dev.SocialTestHelpers).TestHelpers.createTreeWithProviders,
-	UIBloxUniversalAppConfig = require(Packages.Dev.RobloxAppUIBloxConfig),
 }

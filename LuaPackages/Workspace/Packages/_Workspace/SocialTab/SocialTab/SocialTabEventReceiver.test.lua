@@ -63,6 +63,7 @@ describe("SocialTabEventReceiver", function()
 								id = "123",
 								displayName = "maisie",
 								username = "maisie93",
+								hasVerifiedBadge = false,
 							},
 						},
 					},

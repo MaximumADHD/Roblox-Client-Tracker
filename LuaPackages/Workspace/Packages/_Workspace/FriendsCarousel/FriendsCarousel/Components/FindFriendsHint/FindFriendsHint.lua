@@ -10,6 +10,8 @@ local Tooltip = UIBlox.App.Dialog.Tooltip
 local TooltipOrientation = UIBlox.App.Dialog.Enum.TooltipOrientation
 local TextKeys = require(FriendsCarousel.Common.TextKeys)
 
+local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
+
 export type Props = {
 	layoutOrder: number,
 	tileHeight: number,
@@ -34,8 +36,12 @@ function FindFriendsHint:render()
 	local props: Props = self.props
 
 	return withLocalization({
-		findFriendsTitle = TextKeys.FindFriendsTitle,
-		findFriendsBody = TextKeys.FindFriendsBody,
+		findFriendsTitle = if getFFlagSocialOnboardingExperimentEnabled()
+			then TextKeys.FindFriendsTitleV2
+			else TextKeys.FindFriendsTitle,
+		findFriendsBody = if getFFlagSocialOnboardingExperimentEnabled()
+			then TextKeys.FindFriendsBodyV2
+			else TextKeys.FindFriendsBody,
 	})(function(localizedStrings)
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(0, MAX_WIDTH, 1, 0),

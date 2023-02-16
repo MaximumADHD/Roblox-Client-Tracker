@@ -1,12 +1,15 @@
 local PYMKCarousel = script:FindFirstAncestor("PYMKCarousel")
+local Packages = PYMKCarousel.Parent
 local dependencies = require(PYMKCarousel.dependencies)
-local devDependencies = require(PYMKCarousel.devDependencies)
 
 local Roact = dependencies.Roact
 local llama = dependencies.llama
 local UIBlox = dependencies.UIBlox
-local mockLocale = devDependencies.mockLocale()
-local UIBloxUniversalAppConfig = devDependencies.UIBloxUniversalAppConfig
+
+--- This has to be here to prevent tests from failing (if we put it in the devDependencies)
+local mockLocale = require(Packages.Dev.SocialTestHelpers).StoryHelpers.mockLocale
+
+local UIBloxUniversalAppConfig = require(Packages.Dev.RobloxAppUIBloxConfig)
 -- Make sure to initialize in story book in case this storybook is called first
 UIBlox.init(UIBloxUniversalAppConfig)
 

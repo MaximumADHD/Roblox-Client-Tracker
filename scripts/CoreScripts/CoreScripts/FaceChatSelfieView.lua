@@ -64,13 +64,8 @@ local SCREEN_BORDER_OFFSET = 3
 local SELF_VIEW_NAME = "SelfView"
 local IS_STUDIO = RunService:IsStudio()
 local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSignal)
-local selfViewCloseButtonSignal = require(RobloxGui.Modules.SelfView.selfViewCloseButtonSignal)
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 local selfViewPublicApi = require(RobloxGui.Modules.SelfView.publicApi)
-local Modules = CoreGui.RobloxGui.Modules
-
-local FFlagSelfViewFixes = require(RobloxGui.Modules.Flags.FFlagSelfViewFixes)
-local FFlagSelfViewFixesThree = require(Modules.Flags.FFlagSelfViewFixesThree)
 
 local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
@@ -78,6 +73,8 @@ local VIDEO_IMAGE = Images["icons/controls/video"]
 local VIDEO_OFF_IMAGE = Images["icons/controls/videoOff"]
 local MIC_IMAGE = Images["icons/controls/microphone"]
 local MIC_OFF_IMAGE = Images["icons/controls/microphoneMute"]
+local MIC_NAME = "MicButton"
+local CAM_NAME = "CamButton"
 
 local DEFAULT_SELF_VIEW_CAM_OFFSET = Vector3.new(0, 0.105, -0.25)
 local cloneCharacterName = "SelfAvatar"
@@ -125,7 +122,7 @@ local INDICATOR_ON_IMAGE = "rbxasset://textures/SelfView/SelfView_icon_indicator
 --green circle, shown when only either cam or mic on, not both on
 local INDICATOR_OFF_IMAGE = "rbxasset://textures/SelfView/SelfView_icon_indicator_off.png"
 --state
-local isOpen = true
+local isOpen = false
 local audioIsEnabled = false
 local videoIsEnabled = false
 local foundStreamTrack = nil
@@ -212,9 +209,35 @@ end
 
 function getShouldBeEnabledCoreGuiSetting()
 	--debugPrint("Self View: getShouldBeEnabledCoreGuiSetting(): StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView): "..tostring(StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)))
+
 	return (
 		StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.All) or StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
 	)
+end
+
+function updateSelfViewButtonVisibility()
+	local numButtonsShowing = 0
+	if hasCameraPermissions then
+		numButtonsShowing += 1
+	end
+	if hasMicPermissions then
+		numButtonsShowing += 1
+	end
+
+	local micButton = frame:FindFirstChild(MIC_NAME, true)
+	local camButton = frame:FindFirstChild(CAM_NAME, true)
+	-- If Camera is not available, the mic button should fill the Self View.
+	local sizeXScale = if numButtonsShowing == 2 then 0.5 else 1
+
+	if micButton then
+		micButton.Size = UDim2.new(sizeXScale, -4, 1, -4)
+		micButton.Visible = hasMicPermissions
+	end
+	if camButton then
+		camButton.Size = UDim2.new(sizeXScale, -4, 1, -4)
+		camButton.Visible = hasCameraPermissions
+	end
+
 end
 
 -- Check that the user's device has given Roblox mic and camera permissions.
@@ -224,6 +247,7 @@ function getPermissions()
 	local callback = function(response)
 		hasCameraPermissions = response.hasCameraPermissions
 		hasMicPermissions = response.hasMicPermissions
+		updateSelfViewButtonVisibility()
 	end
 	getCamMicPermissions(callback)
 end
@@ -306,7 +330,7 @@ local function inputBegan(frame, inputObj)
 
 		-- Multiple touches should not affect dragging the Self View. Only the original touch.
 		--the check inputType == Enum.UserInputType.Touch is so it does not block mouse dragging
-		if (inputType == Enum.UserInputType.Touch or not FFlagSelfViewFixesThree) and inputObject ~= inputObj then
+		if inputType == Enum.UserInputType.Touch and inputObject ~= inputObj then
 			return
 		end
 
@@ -363,11 +387,17 @@ local function createViewport()
 	--TODO: this UI setup could be changed to roact setup before MVP release, to evaluate pros/ cons
 	--(also regarding aspect this may tween towards worldspace UI above player head once closed in progressed iteration)
 
+	local numButtonsShowing = 0
+	if hasCameraPermissions then
+		numButtonsShowing += 1
+	end
+	if hasMicPermissions then
+		numButtonsShowing += 1
+	end
+
 	if frame then
 		frame:Destroy()
 	end
-
-	isOpen = true
 
 	frame = Instance.new("Frame")
 	frame.Name = SELF_VIEW_NAME
@@ -437,16 +467,18 @@ local function createViewport()
 	uiListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
 	uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
+	local sizeXScale = if numButtonsShowing == 2 then 0.5 else 1
 	local micButton = Instance.new("ImageButton")
-	micButton.Name = "MicButton"
+	micButton.Name = MIC_NAME
 	micButton.Parent = bottomButtonsFrame
 	micButton.Position = UDim2.new(0, 0, 0, 0)
-	micButton.Size = UDim2.new(0.5, -4, 1, -4)
+	micButton.Size = UDim2.new(sizeXScale, -4, 1, -4)
 	micButton.Image = "rbxasset://textures/SelfView/whiteRect.png"
 	micButton.ImageColor3 = Color3.new(0.294117, 0.294117, 0.294117)
 	micButton.BackgroundTransparency = 1
 	micButton.LayoutOrder = 0
 	micButton.ZIndex = 2
+	micButton.Visible = hasMicPermissions
 	micButton.Activated:Connect(function()
 		local voiceService = VoiceChatServiceManager:getService()
 		debugPrint(
@@ -466,15 +498,16 @@ local function createViewport()
 	uiCorner.Parent = micButton
 
 	local camButton = Instance.new("ImageButton")
-	camButton.Name = "CamButton"
+	camButton.Name = CAM_NAME
 	camButton.Parent = bottomButtonsFrame
 	camButton.Position = UDim2.new(0, 0, 0, 0)
-	camButton.Size = UDim2.new(0.5, -4, 1, -4)
+	camButton.Size = UDim2.new(sizeXScale, -4, 1, -4)
 	camButton.Image = "rbxasset://textures/SelfView/whiteRect.png"
 	camButton.ImageColor3 = Color3.new(0.294117, 0.294117, 0.294117)
 	camButton.BackgroundTransparency = 1
 	camButton.LayoutOrder = 1
 	camButton.ZIndex = 3
+	camButton.Visible = hasCameraPermissions
 	camButton.Activated:Connect(function()
 		debugPrint("Self View: camButton.Activated(), hasCameraPermissions:" .. tostring(hasCameraPermissions))
 		if hasCameraPermissions then
@@ -644,9 +677,6 @@ local function createViewport()
 	end
 
 	closeButton.Activated:Connect(function()
-		if not FFlagSelfViewFixes then
-			selfViewCloseButtonSignal:fire()
-		end
 		showSelfView(not isOpen)
 	end)
 
@@ -938,11 +968,7 @@ local function syncTrack(animator, track)
 		cloneTrack.Priority = track.Priority
 		-- listen for track changes
 		trackStoppedConnections[track] = track.Stopped:Connect(function()
-			if FFlagSelfViewFixesThree then
-				cloneTrack:Stop(0)
-			else
-				cloneTrack:Stop()
-			end
+			cloneTrack:Stop(0)
 			if trackStoppedConnections[track] then
 				trackStoppedConnections[track]:Disconnect()
 			end
@@ -1074,12 +1100,10 @@ local function updateClone(player)
 	local previousArchivableValue = character.Archivable
 	character.Archivable = true
 
-	if FFlagSelfViewFixesThree then
-		local orgHead = getHead(character)
+	local orgHead = getHead(character)
 
-		if not orgHead then
-			return
-		end
+	if not orgHead then
+		return
 	end
 
 	clone = character:Clone()
@@ -1169,22 +1193,14 @@ local function updateClone(player)
 
 		for index, track in ipairs(clonedTracks) do
 			if track ~= nil then
-				if FFlagSelfViewFixesThree then
-					track:Stop(0)
-				else
-					track:Stop()
-				end
+				track:Stop(0)
 				track:Destroy()
 			end
 		end
 
 		for index, track in ipairs(coreScriptTracks) do
 			if track ~= nil then
-				if FFlagSelfViewFixesThree then
-					track:Stop(0)
-				else
-					track:Stop()
-				end
+				track:Stop(0)
 				track:Destroy()
 			end
 		end
@@ -1203,10 +1219,8 @@ local function updateClone(player)
 
 			gotUsableClone = true
 
-			if FFlagSelfViewFixesThree then
-				--usable clone was set up, cancel potential additional refresh
-				setCloneDirty(false)
-			end
+			--usable clone was set up, cancel potential additional refresh
+			setCloneDirty(false)
 		else
 			debugPrint("Self View: updateClone: no animator (original)!")
 			-- TODO: we'll add error tracking pre release
@@ -1436,6 +1450,11 @@ function trackSelfViewSessionAsNeeded()
 end
 
 function frameShouldBeVisible(step, gotUsableClone)
+	-- The user should determine if they want Self View open or not.
+	if not isOpen then
+		return false
+	end
+
 	local shouldBeEnabledCoreGuiSetting = getShouldBeEnabledCoreGuiSetting()
 
 	if not shouldBeEnabledCoreGuiSetting then
@@ -1471,6 +1490,11 @@ function startRenderStepped(player)
 	prepMicAndCamPropertyChangedSignalHandler()
 
 	onUpdateTrackerMode()
+
+	-- Do not connect to RenderStepped if the Self View is not open.
+	if not isOpen then
+		return
+	end
 
 	renderSteppedConnection = RunService.RenderStepped:Connect(function(step)
 		--GetPropertyChangedSignal for head color/size change fired reliably in a simple test place for animation props
@@ -1519,11 +1543,7 @@ function startRenderStepped(player)
 					local playingAnims = cloneAnimator:GetPlayingAnimationTracks()
 					for _, track in pairs(playingAnims) do
 						if track ~= nil then
-							if FFlagSelfViewFixesThree then
-								track:Stop(0)
-							else
-								track:Stop()
-							end
+							track:Stop(0)
 						end
 					end
 
@@ -1556,11 +1576,7 @@ function startRenderStepped(player)
 							anim = track.Animation
 							if anim then
 								if not orgAnimationTracks[anim.AnimationId] then
-									if FFlagSelfViewFixesThree then
-										cloneAnimationTracks[anim.AnimationId]:Stop(0)
-									else
-										cloneAnimationTracks[anim.AnimationId]:Stop()
-									end
+									cloneAnimationTracks[anim.AnimationId]:Stop(0)
 									cloneAnimationTracks[anim.AnimationId] = nil
 								end
 							end
@@ -1675,20 +1691,13 @@ function startRenderStepped(player)
 		end
 
 		if frame then
-			if FFlagSelfViewFixesThree then
-				if gotUsableClone then
-					noUsableCloneOffset = nil
-				end
+			if gotUsableClone then
+				noUsableCloneOffset = nil
+			end
 
-				local shouldBeVisible = frameShouldBeVisible(step, gotUsableClone)
-				if frame.Visible ~= shouldBeVisible then
-					frame.Visible = shouldBeVisible
-				end
-			else
-				local shouldBeEnabledCoreGuiSetting = getShouldBeEnabledCoreGuiSetting()
-				if frame.Visible ~= gotUsableClone or frame.Visible ~= shouldBeEnabledCoreGuiSetting then
-					frame.Visible = gotUsableClone and shouldBeEnabledCoreGuiSetting
-				end
+			local shouldBeVisible = frameShouldBeVisible(step, gotUsableClone)
+			if frame.Visible ~= shouldBeVisible then
+				frame.Visible = shouldBeVisible
 			end
 
 			trackSelfViewSessionAsNeeded()

@@ -21,6 +21,7 @@ local ShowMoreWrapper = require(FriendsLanding.Components.ShowMoreWrapper)
 local FriendsSourceType = require(AddFriends.Enums.FriendsSourceType)
 local AddFriendsTile = require(script.Parent.AddFriendsTile)
 local AddFriendsContactImporterBanner = require(script.Parent.AddFriendsContactImporterBanner)
+local AddFriendsGenericBanner = require(script.Parent.AddFriendsGenericBanner)
 local SearchHeaderBar = require(FriendsLanding.Components.FriendsLandingHeaderBar.SearchHeaderBar)
 
 local Packages = FriendsLanding.Parent
@@ -35,6 +36,8 @@ local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContac
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
 local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
+local getFFlagAddFriendsNewEmptyStateAndBanners = dependencies.getFFlagAddFriendsNewEmptyStateAndBanners
+local getFFlagProfileQRCodeReducerEnabled = dependencies.getFFlagProfileQRCodeReducerEnabled
 
 local AddFriendsContentFrame = require(script.Parent.AddFriendsContentFrame)
 
@@ -43,6 +46,10 @@ local AddFriendsPage = Roact.PureComponent:extend("AddFriendsPage")
 local NEW_NAV_BAR_SIZE = 56
 local PLAYER_TILE_MARGIN = 12
 local CONTACT_IMPORTER_ORIGIN = "PhoneContactImporter"
+
+local BANNER_IN_BETWEEN_PADDING = if getFFlagAddFriendsNewEmptyStateAndBanners() then 12 else nil
+local BANNER_TOP_PADDING = if getFFlagAddFriendsNewEmptyStateAndBanners() then 8 else nil
+local MAX_BANNER_WIDTH = if getFFlagAddFriendsNewEmptyStateAndBanners() then 640 else nil
 
 local noOpt = function() end
 
@@ -65,6 +72,7 @@ AddFriendsPage.validateProps = t.strictInterface({
 	handleRequestFriendship = t.optional(t.callback),
 	handleIgnoreAllFriendsRequests = t.optional(t.callback),
 	handleLoadMoreRequests = t.optional(t.callback),
+	handleOpenProfileQRCodePage = if getFFlagAddFriendsNewEmptyStateAndBanners() then t.optional(t.callback) else nil,
 	contactImporterAndPYMKEnabled = t.optional(t.boolean),
 	contactImporterExperimentVariant = t.optional(t.string),
 	navigation = t.optional(t.table),
@@ -294,11 +302,23 @@ function AddFriendsPage:render()
 	local pageLeftRightPadding = getPageMargin(self.props.screenSize.X)
 	return withLocalization({
 		friendRequestsText = "Feature.AddFriends.Label.FriendRequests",
-		buttonText = TextKeys.CONTACTS_LIST_TITLE,
-		bannerText = TextKeys.BANNER_TEXT,
+		buttonText = if getFFlagAddFriendsNewEmptyStateAndBanners() then nil else TextKeys.CONTACTS_LIST_TITLE,
+		bannerText = if getFFlagAddFriendsNewEmptyStateAndBanners() then nil else TextKeys.BANNER_TEXT,
 		searchPlaceholderText = if getFFlagAddFriendsSearchbarIXPEnabled()
 				and self.props.addFriendsPageSearchbarEnabled
 			then "Feature.AddFriends.Label.InputPlaceholder.SearchForPeople"
+			else nil,
+		contactImporterBannerTitle = if getFFlagAddFriendsNewEmptyStateAndBanners()
+			then "Feature.AddFriends.Title.ConnectWithContacts"
+			else nil,
+		contactImporterBannerText = if getFFlagAddFriendsNewEmptyStateAndBanners()
+			then "Feature.AddFriends.Label.ConnectWithContacts"
+			else nil,
+		qrCodeBannerTitle = if getFFlagAddFriendsNewEmptyStateAndBanners()
+			then "Feature.AddFriends.Title.ShareQRCode"
+			else nil,
+		qrCodeBannerText = if getFFlagAddFriendsNewEmptyStateAndBanners()
+			then "Feature.AddFriends.Label.ShareQRCode"
 			else nil,
 	})(function(localized)
 		return withStyle(function(style)
@@ -306,14 +326,41 @@ function AddFriendsPage:render()
 			local requestsCountText = hasRequests and " (" .. self.props.friendRequestsCount .. ")" or ""
 
 			local banner = nil
+			local contactImporterBanner = nil
+			local qrCodeBanner = nil
 
-			if self.showContactImporterBanner(self.props) then
-				banner = Roact.createElement(AddFriendsContactImporterBanner, {
-					bannerText = localized.bannerText,
-					buttonText = localized.buttonText,
-					onActivated = self.openContactImporter,
-					containerWidth = self.props.screenSize.X,
-				})
+			-- Clean "banner" and "AddFriendsContactImporterBanner" when cleaning FFlagAddFriendsNewEmptyStateAndBanners
+			if not getFFlagAddFriendsNewEmptyStateAndBanners() then
+				if self.showContactImporterBanner(self.props) then
+					banner = Roact.createElement(AddFriendsContactImporterBanner, {
+						bannerText = localized.bannerText,
+						buttonText = localized.buttonText,
+						onActivated = self.openContactImporter,
+						containerWidth = self.props.screenSize.X,
+					})
+				end
+			end
+
+			if getFFlagAddFriendsNewEmptyStateAndBanners() then
+				contactImporterBanner = if self.showContactImporterBanner(self.props)
+					then Roact.createElement(AddFriendsGenericBanner, {
+						bannerIcon = Images["icons/graphic/contacts_large"],
+						bannerTitle = localized.contactImporterBannerTitle,
+						bannerText = localized.contactImporterBannerText,
+						onActivated = self.openContactImporter,
+						hasInfoButton = false,
+					})
+					else nil
+
+				qrCodeBanner = if getFFlagProfileQRCodeReducerEnabled()
+					then Roact.createElement(AddFriendsGenericBanner, {
+						bannerIcon = Images["icons/graphic/scanqr_large"],
+						bannerTitle = localized.qrCodeBannerTitle,
+						bannerText = localized.qrCodeBannerText,
+						onActivated = self.props.handleOpenProfileQRCodePage,
+						hasInfoButton = false,
+					})
+					else nil
 			end
 
 			local AddFriendsScrollView = Roact.createFragment({
@@ -349,12 +396,35 @@ function AddFriendsPage:render()
 								FillDirection = Enum.FillDirection.Vertical,
 								HorizontalAlignment = Enum.HorizontalAlignment.Center,
 							}),
-							UIPadding = if self.props.contactImporterAndPYMKEnabled
+							UIPadding = if getFFlagAddFriendsNewEmptyStateAndBanners()
 								then Roact.createElement("UIPadding", {
-									PaddingTop = UDim.new(0, 4),
+									PaddingTop = UDim.new(0, BANNER_TOP_PADDING),
+								})
+								else if self.props.contactImporterAndPYMKEnabled
+									then Roact.createElement("UIPadding", {
+										PaddingTop = UDim.new(0, 4),
+									})
+									else nil,
+							Banner = if getFFlagAddFriendsNewEmptyStateAndBanners() then nil else banner,
+							BannerSection = if getFFlagAddFriendsNewEmptyStateAndBanners()
+								then Roact.createElement("Frame", {
+									AutomaticSize = Enum.AutomaticSize.Y,
+									Size = UDim2.fromScale(1, 0),
+									BackgroundTransparency = 1,
+								}, {
+									UISizeConstraint = Roact.createElement("UISizeConstraint", {
+										MaxSize = Vector2.new(MAX_BANNER_WIDTH, math.huge),
+									}),
+									BannerLayout = Roact.createElement("UIListLayout", {
+										FillDirection = Enum.FillDirection.Vertical,
+										HorizontalAlignment = Enum.HorizontalAlignment.Center,
+										Padding = UDim.new(0, BANNER_IN_BETWEEN_PADDING),
+									}),
+									ContactImporterBanner = contactImporterBanner,
+									QRCodeBanner = qrCodeBanner,
 								})
 								else nil,
-							Banner = banner,
+
 							-- this spacing frame corresponds to the comment in RefreshScrollingFrame#scrollingElementProps
 							pulldownSpacing = Roact.createElement("Frame", {
 								Size = UDim2.new(1, 0, 0, 1),

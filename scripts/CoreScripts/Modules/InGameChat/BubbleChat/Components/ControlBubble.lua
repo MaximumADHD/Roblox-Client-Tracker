@@ -4,24 +4,21 @@
 	This is shown when a user's device has given Roblox camera or microphone permissions.
 ]]
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
+local Cryo = require(CorePackages.Packages.Cryo)
 
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local Colors = UIBlox.App.Style.Colors
 
-local Modules = CoreGui.RobloxGui.Modules
-local FFlagSelfViewFixesTwo = require(Modules.Flags.FFlagSelfViewFixesTwo)
-
-local DISABLED_BACKGROUND_COLOR = Colors.Ash
 local DISABLED_ICON_COLOR = Colors.Flint
 local DISABLED_ICON_TRANSPARENCY = 0.5
 local BACKGROUND_COLOR = Colors.Graphite
 local ICON_COLOR = Colors.White
 local ICON_TRANSPARENCY = 0
+local DEFAULT_BACKGROUND_COLOR = Color3.fromRGB(250, 250, 250)
 
 local ControlBubble = Roact.PureComponent:extend("ControlBubble")
 
@@ -34,30 +31,41 @@ ControlBubble.validateProps = t.strictInterface({
 })
 
 function ControlBubble:render()
-	local imageComponent = ImageSetButton
+	local chatSettings = self.props.chatSettings
+	local backgroundImageSettings = chatSettings.BackgroundImage
+	local backgroundGradientSettings = chatSettings.BackgroundGradient
+	local imageComponent = if self.props.isImageSet then ImageSetButton else "ImageButton"
 
-	if FFlagSelfViewFixesTwo then
-		imageComponent = if self.props.isImageSet then ImageSetButton else "ImageButton"
-	end
+	-- Default has a gray background around the icons (different from regular
+	-- bubble chat bubbles which is white). If a developer updates the color, set it to that color.
+	-- If not, keep the default gray background around the buttons.
+	local backgroundColor = if chatSettings.BackgroundColor3 == DEFAULT_BACKGROUND_COLOR then BACKGROUND_COLOR else chatSettings.BackgroundColor3
 
 	return Roact.createElement("ImageButton", {
 		AnchorPoint = Vector2.new(0.5, 1),
 		Size = UDim2.new(0, 44, 1, 0),
 		LayoutOrder = self.props.LayoutOrder,
+		BorderSizePixel = 0,
 		Transparency = 1,
-		ZIndex = if FFlagSelfViewFixesTwo then 2 else 1,
-		[Roact.Event.Activated] = if FFlagSelfViewFixesTwo then self.props.onActivated else nil,
+		ZIndex = 2,
+		[Roact.Event.Activated] = self.props.onActivated,
 	}, {
-		UICorner = Roact.createElement("UICorner", {
-			CornerRadius = UDim.new(0, 8),
+		UICorner = chatSettings.CornerEnabled and Roact.createElement("UICorner", {
+			CornerRadius = chatSettings.CornerRadius,
 		}),
-		Contents = Roact.createElement("Frame", {
+		Contents = Roact.createElement("ImageLabel", Cryo.Dictionary.join(backgroundImageSettings, {
 			Size = UDim2.fromScale(1, 1),
-			BackgroundTransparency = 0,
-			BackgroundColor3 = if self.props.enabled then BACKGROUND_COLOR else DISABLED_BACKGROUND_COLOR,
-		}, {
-			UICorner = Roact.createElement("UICorner", {
-				CornerRadius = UDim.new(0, 8),
+			BackgroundColor3 = backgroundColor,
+			BorderSizePixel = 0,
+		}), {
+			UICorner = chatSettings.CornerEnabled and Roact.createElement("UICorner", {
+				CornerRadius = chatSettings.CornerRadius,
+			}),
+			Padding = Roact.createElement("UIPadding", {
+				PaddingTop = UDim.new(0, chatSettings.Padding),
+				PaddingRight = UDim.new(0, chatSettings.Padding),
+				PaddingBottom = UDim.new(0, chatSettings.Padding),
+				PaddingLeft = UDim.new(0, chatSettings.Padding),
 			}),
 			Icon = Roact.createElement(imageComponent, {
 				AnchorPoint = Vector2.new(0.5, 0.5),
@@ -69,8 +77,8 @@ function ControlBubble:render()
 				ImageColor3 = if self.props.enabled then ICON_COLOR else DISABLED_ICON_COLOR,
 				BorderSizePixel = 0,
 				Image = self.props.icon,
-				[Roact.Event.Activated] = if not FFlagSelfViewFixesTwo then self.props.onActivated else nil,
-			})
+			}),
+			Gradient = backgroundGradientSettings.Enabled and Roact.createElement("UIGradient", backgroundGradientSettings)
 		})
 	})
 end

@@ -97,7 +97,6 @@ local UserTileSquare =
 						thumbnail = props.thumbnail,
 						onActivated = onActivated,
 						buttons = props.buttons,
-						thumbnailPadding = 0,
 					}),
 				}),
 				Padding1 = Roact.createElement("Frame", {

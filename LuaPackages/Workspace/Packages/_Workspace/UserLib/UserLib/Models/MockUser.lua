@@ -27,6 +27,7 @@ function MockUser.new()
 	self.lastOnline = nil
 	self.displayName = "DN+" .. self.name
 	self.externalAppDisplayName = "EXTERNAL APP DISPLAY NAME"
+	self.hasVerifiedBadge = false
 
 	setmetatable(self, {
 		__index = User,
@@ -47,6 +48,7 @@ function MockUser.mockEndpointResponse()
 		isOnline = false,
 		name = "USER NAME",
 		presenceType = 0,
+		hasVerifiedBadge = false,
 	}
 end
 

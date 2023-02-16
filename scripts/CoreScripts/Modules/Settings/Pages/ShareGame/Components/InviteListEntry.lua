@@ -14,8 +14,11 @@ local PresenceUtil = require(ShareGame.PresenceUtil)
 local SingleUserThumbnail = require(ShareGame.Components.SingleUserThumbnail)
 local InviteButton = require(ShareGame.Components.InviteButton)
 local InviteStatus = ShareGameConstants.InviteStatus
+local ThrottleFunctionCall = require(ShareGame.ThrottleFunctionCall)
 
 local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
+local GetFFlagThrottleInviteSendEndpoint = require(Modules.Flags.GetFFlagThrottleInviteSendEndpoint)
+local GetFIntThrottleInviteSendEndpointDelay = require(Modules.Flags.GetFIntThrottleInviteSendEndpointDelay)
 
 local ENTRY_BG_IMAGE = "rbxasset://textures/ui/dialog_white.png"
 local ENTRY_BG_SLICE = Rect.new(10, 10, 10, 10)
@@ -90,6 +93,13 @@ return function(props: Props)
 		props.analytics,
 		user,
 	} :: {any})
+
+	if GetFFlagThrottleInviteSendEndpoint() then
+		-- Roact doesn't immediately block clicking the button, so we introduce
+		-- a short delay here to make sure the user can't trigger more than one
+		-- invite at a time
+		onInvite = React.useCallback(ThrottleFunctionCall(GetFIntThrottleInviteSendEndpointDelay(), onInvite), {onInvite})
+	end
 
 	if not props.visible then return end
 	return React.createElement("ImageButton", {

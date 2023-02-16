@@ -7,6 +7,7 @@ local buildFetch = require(GraphQLServer.Parent.Fetch).buildFetch
 local GraphqlHttpArtifacts = require(GraphQLServer.Parent.Dev.GraphqlHttpArtifacts)
 local VirtualEventConnector = require(script.Parent.VirtualEventConnector)
 local findVirtualEventById = VirtualEventConnector.findVirtualEventById
+local findVirtualEventsByUniverseId = VirtualEventConnector.findVirtualEventsByUniverseId
 local findRsvpsByVirtualEventId = VirtualEventConnector.findRsvpsByVirtualEventId
 local findRsvpCountersByVirtualEventId = VirtualEventConnector.findRsvpCountersByVirtualEventId
 
@@ -45,6 +46,40 @@ return function()
 
 				expect(capturedError).toBeDefined()
 				expect(capturedError.message).toEqual("Failed to find VirtualEvent matching id: badVirtualEvent.")
+			end)
+		end)
+	end)
+
+	describe("fetch VirtualEvents by universeId", function()
+		it("should fetch all VirtualEvents for an experience", function()
+			create("virtual-events-for-experience-success"):execute(function(httpService)
+				local fetchImpl = buildFetch(httpService)
+				local virtualEventsPage = findVirtualEventsByUniverseId(2183742951, nil, fetchImpl):expect()
+
+				expect(virtualEventsPage).toBeDefined()
+				assert(virtualEventsPage, "")
+
+				expect(virtualEventsPage.cursor).toBeDefined()
+				expect(virtualEventsPage.virtualEvents).toBeDefined()
+				assert(virtualEventsPage.virtualEvents, "")
+
+				expect(#virtualEventsPage.virtualEvents).toBe(3)
+			end)
+		end)
+
+		it("should throw if the experience can't be found", function()
+			create("virtual-events-for-experience-fail"):execute(function(httpService)
+				local capturedError
+				local fetchImpl = buildFetch(httpService)
+				local virtualEventsPage = findVirtualEventsByUniverseId(-1, nil, fetchImpl)
+					:catch(function(err)
+						capturedError = err
+					end)
+					:expect()
+
+				expect(virtualEventsPage).toBeNil()
+				expect(capturedError).toBeDefined()
+				expect(capturedError.message).toEqual("Failed to find experience matching universeId: -1")
 			end)
 		end)
 	end)

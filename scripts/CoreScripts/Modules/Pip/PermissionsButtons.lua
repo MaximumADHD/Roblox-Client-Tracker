@@ -1,5 +1,7 @@
 --!nonstrict
 local CoreGui = game:GetService("CoreGui")
+local GuiService = game:GetService("GuiService")
+local RunService = game:GetService("RunService")
 local CorePackages = game:GetService("CorePackages")
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local StarterGui = game:GetService("StarterGui")
@@ -33,6 +35,7 @@ local Y_HEIGHT = 38
 
 local TOTAL_MODES = 3
 local TOTAL_ROOMS = 3
+local LEAVE_GAME_FRAME_WAITS = 2
 
 local VIDEO_IMAGE = Images["icons/controls/video"]
 local VIDEO_OFF_IMAGE = Images["icons/controls/videoOff"]
@@ -156,6 +159,18 @@ function PermissionsButtons:init()
 			microphoneEnabled = not muted
 		})
 	end
+
+	self.toggleEndCallButton = function()
+		-- deselects the button and prevents spamming the popup to save in studio when using gamepad
+		GuiService.SelectedCoreObject = nil
+
+		-- need to wait for render frames so on slower devices the leave button highlight will update
+		-- otherwise, since on slow devices it takes so long to leave you are left wondering if you pressed the button
+		for i = 1, LEAVE_GAME_FRAME_WAITS do
+			RunService.RenderStepped:Wait()
+		end
+		game:Shutdown()
+	end
 end
 
 --[[
@@ -242,7 +257,7 @@ function PermissionsButtons:render()
 			EndCallButton = Roact.createElement(PermissionButton, {
 				LayoutOrder = 5,
 				image = END_CALL_IMAGE,
-				callback = nil,
+				callback = self.toggleEndCallButton,
 			}),
 		}),
 		MuteChangedEvent = Roact.createElement(ExternalEventConnection, {

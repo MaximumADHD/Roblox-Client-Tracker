@@ -96,24 +96,12 @@ type OmniFeedRecommendation {
 
 type Query {
   omniFeed(sessionId: String!, pageType: String!, nextPageToken: String): OmniFeed
-  me: User!
-  user(id: ID!): User!
   virtualEvent(id: ID!): VirtualEvent
+  virtualEventsByUniverseId(universeId: ID!, options: VirtualEventsByUniverseIdOptions): VirtualEventsPage
 }
 
 type Media {
   url: String
-}
-
-interface User {
-  id: ID!
-  displayName: String!
-}
-
-type Player implements User {
-  id: ID!
-  displayName: String!
-  avatarHeadshot: String!
 }
 
 enum EventStatus {
@@ -173,5 +161,16 @@ type VirtualEvent {
   media: [ExperienceMedia]
   rsvpCounters: RsvpCounters
   rsvps: [Rsvp]
+}
+
+input VirtualEventsByUniverseIdOptions {
+  cursor: String
+  limit: Int
+  fromUtc: String
+}
+
+type VirtualEventsPage {
+  cursor: String
+  virtualEvents: [VirtualEvent]
 }
 ]]

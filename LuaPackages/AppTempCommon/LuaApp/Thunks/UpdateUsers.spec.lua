@@ -57,12 +57,42 @@ return function()
 	end
 
 	local listOfUsers = {
-		["1"] = User.fromData(1, "Hedonism Bot", true),
-		["2"] = User.fromData(2, "Hypno Toad", true),
-		["3"] = User.fromData(3, "John Zoidberg", false),
-		["4"] = User.fromData(4, "Pazuzu", true),
-		["5"] = User.fromData(5, "Ogden Wernstrom", true),
-		["6"] = User.fromData(6, "Lrrr", true),
+		["1"] = User.fromDataTable({
+			id = 1,
+			name = "Hedonism Bot",
+			isFriend = true,
+			hasVerifiedBadge = false,
+		}),
+		["2"] = User.fromDataTable({
+			id = 2,
+			name = "Hypno Toad",
+			isFriend = true,
+			hasVerifiedBadge = false,
+		}),
+		["3"] = User.fromDataTable({
+			id = 3,
+			name = "John Zoidberg",
+			isFriend = false,
+			hasVerifiedBadge = false,
+		}),
+		["4"] = User.fromDataTable({
+			id = 4,
+			name = "Pazuzu",
+			isFriend = true,
+			hasVerifiedBadge = false,
+		}),
+		["5"] = User.fromDataTable({
+			id = 5,
+			name = "Ogden Wernstrom",
+			isFriend = true,
+			hasVerifiedBadge = false,
+		}),
+		["6"] = User.fromDataTable({
+			id = 6,
+			name = "Lrrr",
+			isFriend = true,
+			hasVerifiedBadge = false,
+		}),
 	}
 
 	it("should do nothing if empty list of users is provided", function()

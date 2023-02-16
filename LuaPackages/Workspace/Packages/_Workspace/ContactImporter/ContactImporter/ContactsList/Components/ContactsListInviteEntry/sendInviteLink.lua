@@ -11,6 +11,8 @@ local React = dependencies.React
 
 local useAnalytics = require(ContactImporter.Analytics.useAnalytics)
 local EventNames = require(ContactImporter.Analytics.Enums.EventNames)
+local getFFlagContactImporterUseShortUrlFriendInvite =
+	require(ContactImporter.Flags.getFFlagContactImporterUseShortUrlFriendInvite)
 
 local getFFlagLuaNativeUtilEnableSMSHandling = dependencies.getFFlagLuaNativeUtilEnableSMSHandling
 
@@ -54,9 +56,14 @@ return function(setup: Setup)
 	local analytics = useAnalytics()
 
 	local buildMessage = function(textKeys: { rootMessage: string })
-		return function(response: { responseBody: { linkId: string } })
+		return function(response: { responseBody: { linkId: string, shortUrl: string } })
 			local linkId = response.responseBody.linkId
-			local link = UrlBuilder.sharelinks.appsflyer(linkId, RoduxShareLinks.Enums.LinkType.FriendInvite.rawValue())
+			local link = if getFFlagContactImporterUseShortUrlFriendInvite()
+				then response.responseBody.shortUrl
+				else UrlBuilder.sharelinks.appsflyer(
+					linkId,
+					RoduxShareLinks.Enums.LinkType.FriendInvite.rawValue()
+				)
 
 			analytics.fireAnalyticsEvent(EventNames.InviteContact, {
 				offNetworkFriendRequestLinkId = linkId,

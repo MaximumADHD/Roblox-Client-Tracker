@@ -20,11 +20,14 @@ local httpRequest = require(CorePackages.AppTempCommon.Temp.httpRequest)
 local InviteUserIdToPlaceId = require(ShareGame.Thunks.InviteUserIdToPlaceId)
 local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.RetrievalStatus
 local InviteUserIdToPlaceIdCustomized = require(ShareGame.Thunks.InviteUserIdToPlaceIdCustomized)
+local ThrottleFunctionCall = require(ShareGame.ThrottleFunctionCall)
 
 local SingleUserThumbnail = require(ShareGame.Components.SingleUserThumbnail)
 
 local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
 local GetFFlagInviteListStyleFixes = require(Modules.Flags.GetFFlagInviteListStyleFixes)
+local GetFFlagThrottleInviteSendEndpoint = require(Modules.Flags.GetFFlagThrottleInviteSendEndpoint)
+local GetFIntThrottleInviteSendEndpointDelay = require(Modules.Flags.GetFIntThrottleInviteSendEndpointDelay)
 
 local UIBlox = require(CorePackages.UIBlox)
 local PrimaryButton = UIBlox.App.Button.PrimarySystemButton
@@ -109,6 +112,13 @@ local InviteSingleUserContainer = function(props)
 		friend,
 		onClose,
 	} :: { any })
+
+	if GetFFlagThrottleInviteSendEndpoint() then
+		-- Roact doesn't immediately block clicking the button, so we introduce
+		-- a short delay here to make sure the user can't trigger more than one
+		-- invite at a time
+		onInvite = React.useCallback(ThrottleFunctionCall(GetFIntThrottleInviteSendEndpointDelay(), onInvite), {onInvite})
+	end
 
 	if not friend then
 		if

@@ -14,6 +14,7 @@ return {
 	EventDetailsPageLoader = require(script.Components.EventDetailsPageLoader),
 	EventsPage = require(script.Components.EventsPage), -- Remove this line with FFlagRemoveEventsPageFromMoreTab
 	ShareEventModal = require(script.Components.ShareEventModal),
+	EventsList = require(script.Components.EventsList),
 
 	-- Functions
 	installReducer = require(script.installReducer),

@@ -79,7 +79,9 @@ function ContactsImporterOverlayContainer:init()
 					updateOptedInUsers:addUserToLocalStorage(AppStorageService, props.localUserId)
 					-- After authorizing contact permissions we can hide this modal
 					props.hideContactImporterModal()
-					navigation.navigate(EnumScreens.ContactsList, { [Constants.SHOULD_UPDATE_USER_SETTINGS] = true })
+					navigation.navigate(EnumScreens.ContactsList, {
+						[Constants.SHOULD_UPDATE_USER_SETTINGS] = true,
+					})
 				elseif permissionResponseStatus == PermissionsProtocol.Status.DENIED then
 					navigation.navigate(EnumScreens.ContactsRevokedAccessDialog, {
 						screenSize = props.screenSize,

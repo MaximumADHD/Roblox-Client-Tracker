@@ -17,7 +17,6 @@ return {
 	beforeAll = JestGlobals.beforeAll,
 	afterAll = JestGlobals.afterAll,
 	expect = JestGlobals.expect,
-	UIBloxUniversalAppConfig = require(Packages.Dev.RobloxAppUIBloxConfig),
 	RhodiumHelpers = function()
 		return require(Packages.Dev.RhodiumHelpers)
 	end,

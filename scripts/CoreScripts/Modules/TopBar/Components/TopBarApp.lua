@@ -73,19 +73,6 @@ TopBarApp.validateProps = t.strictInterface({
 })
 
 function TopBarApp:init(props)
-	if game:GetEngineFeature("NotchSpaceSupportEnabled") then
-		self.topFramePosition, self.updateTopFramePosition = Roact.createBinding(UDim2.new(1, 0, 1, 0))
-		self.leftFramePosition, self.updateLeftFramePosition = Roact.createBinding(UDim2.new(1, 0, 1, 0))
-		self.rightFramePosition, self.updateRightFramePosition = Roact.createBinding(UDim2.new(1, 0, 1, 0))
-		self.closeButtonPosition, self.updateCloseButtonPosition = Roact.createBinding(UDim2.new(1, 0, 1, 0))
-
-		self:updateValues(playerGui)
-
-		self.screenOrientationUpdate = function()
-			self:updateValues()
-		end
-	end
-
 	self.fullScreenFrameRef = Roact.createRef()
 	self.topBarFrameRef = Roact.createRef()
 
@@ -99,22 +86,6 @@ function TopBarApp:init(props)
 		updateVisible(self.topBarFrameRef:getValue(), visible)
 	end
 	self.recordEnabled = FFlagEnableInGameMenuV3 and FFlagRecordRecording and GameSettings.VideoCaptureEnabled or false
-end
-
-function TopBarApp:updateValues()
-	if game:GetEngineFeature("NotchSpaceSupportEnabled") then
-		if (playerGui.CurrentScreenOrientation == Enum.ScreenOrientation.Portrait) then
-			self.updateTopFramePosition(UDim2.new(0, 0, 0, Constants.TopBarHeight))
-			self.updateLeftFramePosition(UDim2.new(0, Constants.ScreenSideOffset, 0, 0))
-			self.updateRightFramePosition(UDim2.new(1, -1 * Constants.ScreenSideOffset, 0, 0))
-			self.updateCloseButtonPosition(UDim2.new(0, 0, 0.5, Constants.TopBarHeight))
-		else
-			self.updateTopFramePosition(UDim2.new(0, 0, 0, 0))
-			self.updateLeftFramePosition(UDim2.new(0, Constants.TopBarHeight, 0, 0))
-			self.updateRightFramePosition(UDim2.new(1, -1 * Constants.TopBarHeight, 0, 0))
-			self.updateCloseButtonPosition(UDim2.new(0, Constants.TopBarHeight / 2, 0.5, 0))
-		end
-	end
 end
 
 function TopBarApp:render()
@@ -137,13 +108,6 @@ function TopBarApp:render()
 	local topBarRightFramePosition = UDim2.new(1, -screenSideOffset, 0, 0)
 	local closeMenuButtonPosition = UDim2.new(0, 0, 0.5, 0)
 
-	if game:GetEngineFeature("NotchSpaceSupportEnabled") then
-		topBarFramePosition = self.topFramePosition
-		topBarLeftFramePosition = self.leftFramePosition
-		topBarRightFramePosition = self.rightFramePosition
-		closeMenuButtonPosition = self.closeButtonPosition
-	end
-
 	return Roact.createElement("ScreenGui", {
 		IgnoreGuiInset = true,
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
@@ -155,12 +119,6 @@ function TopBarApp:render()
 		end,
 	}, {
 		Connection = Roact.createElement(Connection),
-
-		OrientationChangedConnection = game:GetEngineFeature("NotchSpaceSupportEnabled") and Roact.createElement(ExternalEventConnection, {
-			event = playerGui:GetPropertyChangedSignal("CurrentScreenOrientation"),
-			callback = self.screenOrientationUpdate,
-		}),
-
 		GamepadMenu = Roact.createElement(GamepadMenu),
 		HeadsetMenu = Roact.createElement(HeadsetMenu),
 		VRBottomBar = EngineFeatureEnableVRUpdate3 and VRService.VREnabled and Roact.createElement(VRBottomBar) or nil,

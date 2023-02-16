@@ -48,6 +48,7 @@ local GetFFlagUIBloxVRApplyHeadScale =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRApplyHeadScale
 
 local FFlagFixPurchasePromptInVR = game:GetEngineFeature("FixPurchasePromptInVR")
+local GetFFlagBottomBarButtonBehaviorFixVR = require(RobloxGui.Modules.Flags.GetFFlagBottomBarButtonBehaviorFixVR)
 
 -- each individual icon can either be definied as a table entry with icon and onActivate, or as a item component
 local MainMenu =
@@ -84,7 +85,19 @@ local BackpackIcon =
 	iconOn = "rbxasset://textures/ui/MenuBar/icon__backpack.png",
 	iconOff = "rbxasset://textures/ui/MenuBar/icon__backpack.png",
 	onActivated = function()
-		BackpackScript.OpenClose()
+		if GetFFlagBottomBarButtonBehaviorFixVR() then
+			if not VRHub.ShowTopBar then
+				-- Expand UI and open backpack
+				VRHub:SetShowTopBar(true)
+				if not BackpackScript.IsOpen then
+					BackpackScript.OpenClose()
+				end
+			else
+				BackpackScript.OpenClose()
+			end
+		else
+			BackpackScript.OpenClose()
+		end
 	end,
 }
 
@@ -93,7 +106,19 @@ local PlayerList =
 	iconOn = "rbxasset://textures/ui/MenuBar/icon_leaderboard.png",
 	iconOff = "rbxasset://textures/ui/MenuBar/icon_leaderboard.png",
 	onActivated = function()
-		PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
+		if GetFFlagBottomBarButtonBehaviorFixVR() then
+			if not VRHub.ShowTopBar then
+				-- Expand UI and show playerList
+				VRHub:SetShowTopBar(true)
+				if not PlayerListMaster:GetSetVisible() then
+					PlayerListMaster:SetVisibility(true)
+				end
+			else
+				PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
+			end
+		else
+			PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
+		end
 	end,
 }
 
@@ -102,11 +127,27 @@ local Emotes =
 	iconOn = "rbxasset://textures/ui/MenuBar/icon_emote.png",
 	iconOff = "rbxasset://textures/ui/MenuBar/icon_emote.png",
 	onActivated = function()
-		VRHub:SetShowTopBar(true)
-		if EmotesMenuMaster:isOpen() then
-			EmotesMenuMaster:close()
+		if GetFFlagBottomBarButtonBehaviorFixVR() then
+			if not VRHub.ShowTopBar then
+				-- Expand UI and show emotesMenu
+				VRHub:SetShowTopBar(true)
+				if not EmotesMenuMaster:isOpen() then
+					EmotesMenuMaster:open()
+				end
+			else
+				if EmotesMenuMaster:isOpen() then
+					EmotesMenuMaster:close()
+				else
+					EmotesMenuMaster:open()
+				end
+			end
 		else
-			EmotesMenuMaster:open()
+			VRHub:SetShowTopBar(true)
+			if EmotesMenuMaster:isOpen() then
+				EmotesMenuMaster:close()
+			else
+				EmotesMenuMaster:open()
+			end
 		end
 	end,
 }
@@ -116,9 +157,23 @@ local Chat =
 	iconOn = "rbxasset://textures/ui/MenuBar/icon_chat.png",
 	iconOff = "rbxasset://textures/ui/MenuBar/icon_chat.png",
 	onActivated = function()
-		VRHub:SetShowTopBar(true)
-		ChatSelector:ToggleVisibility()
-		GameSettings.ChatVisible = ChatSelector:GetVisibility()
+		if GetFFlagBottomBarButtonBehaviorFixVR() then
+			if not VRHub.ShowTopBar then
+				-- Expand UI and show chat
+				VRHub:SetShowTopBar(true)
+				if not ChatSelector:GetVisibility() then
+					ChatSelector:ToggleVisibility()
+					GameSettings.ChatVisible = ChatSelector:GetVisibility()
+				end
+			else
+				ChatSelector:ToggleVisibility()
+				GameSettings.ChatVisible = ChatSelector:GetVisibility()
+			end
+		else
+			VRHub:SetShowTopBar(true)
+			ChatSelector:ToggleVisibility()
+			GameSettings.ChatVisible = ChatSelector:GetVisibility()
+		end
 	end,
 }
 

@@ -28,7 +28,7 @@ end
 FaceAnimatorService.FlipHeadOrientation = true
 
 -- FIXME V2C should not be toggled by selfie view.
---if game:GetFastFlag("SelfieViewFeature2") then
+--if game:GetFastFlag("SelfieViewFeature3") then
 --	FaceAnimatorService.VideoAnimationEnabled = true
 --end
 

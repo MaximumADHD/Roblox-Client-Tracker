@@ -10,6 +10,7 @@ return function()
 			id = id,
 			name = name,
 			isFriend = isFriend,
+			hasVerifiedBadge = false,
 		})
 	end
 

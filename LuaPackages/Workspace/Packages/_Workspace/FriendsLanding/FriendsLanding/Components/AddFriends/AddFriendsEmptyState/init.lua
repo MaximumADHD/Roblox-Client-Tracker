@@ -8,15 +8,16 @@ local Roact = dependencies.Roact
 local UIBlox = dependencies.UIBlox
 local withLocalization = dependencies.withLocalization
 local UIBloxEmptyState = UIBlox.App.Indicator.EmptyState
+local Colors = UIBlox.App.Style.Colors
 
-local getFFlagAddFriendsNewEmptyState = dependencies.getFFlagAddFriendsNewEmptyState
+local getFFlagAddFriendsNewEmptyStateAndBanners = dependencies.getFFlagAddFriendsNewEmptyStateAndBanners
 
 local AddFriendsEmptyState = Roact.PureComponent:extend("AddFriendsEmptyState")
 
-local EMPTY_STATE_IMAGE = if getFFlagAddFriendsNewEmptyState() then "rbxassetid://12261497919" else nil
-local EMPTY_STATE_ICON_SIZE = if getFFlagAddFriendsNewEmptyState() then UDim2.new(0, 255, 0, 170) else nil
+local EMPTY_STATE_IMAGE = if getFFlagAddFriendsNewEmptyStateAndBanners() then "rbxassetid://12261497919" else nil
+local EMPTY_STATE_ICON_SIZE = if getFFlagAddFriendsNewEmptyStateAndBanners() then UDim2.new(0, 255, 0, 170) else nil
 
-if getFFlagAddFriendsNewEmptyState() then
+if getFFlagAddFriendsNewEmptyStateAndBanners() then
 	AddFriendsEmptyState.validateProps = t.strictInterface({
 		screenSize = t.optional(t.Vector2),
 	})
@@ -24,14 +25,18 @@ end
 
 function AddFriendsEmptyState:render()
 	return withLocalization({
-		noRequestsText = if getFFlagAddFriendsNewEmptyState() then nil else "Feature.AddFriends.Label.NoRequests",
-		emptyStatePromptText = if getFFlagAddFriendsNewEmptyState()
+		noRequestsText = if getFFlagAddFriendsNewEmptyStateAndBanners()
+			then nil
+			else "Feature.AddFriends.Label.NoRequests",
+		emptyStatePromptText = if getFFlagAddFriendsNewEmptyStateAndBanners()
 			then TextKeys.ADD_FRIENDS_EMPTY_STATE_PROMPT_TEXT
 			else nil,
-		titleText = if getFFlagAddFriendsNewEmptyState() then TextKeys.ADD_FRIENDS_TOOLTIP_TITLE else nil,
+		titleText = if getFFlagAddFriendsNewEmptyStateAndBanners() then TextKeys.ADD_FRIENDS_TOOLTIP_TITLE else nil,
 	})(function(localization)
-		if getFFlagAddFriendsNewEmptyState() then
+		if getFFlagAddFriendsNewEmptyStateAndBanners() then
 			return Roact.createElement(UIBloxEmptyState, {
+				-- Need iconColor = White for colored icons to show color correctly
+				iconColor = Colors.White,
 				icon = EMPTY_STATE_IMAGE,
 				iconSize = EMPTY_STATE_ICON_SIZE,
 				titleProps = {

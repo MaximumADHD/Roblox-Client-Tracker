@@ -13,10 +13,11 @@ local Analytics = require(FriendsCarousel.Analytics)
 local EventNames = Analytics.EventNames
 local useAnalytics = Analytics.useAnalytics
 local useEffectOnce = dependencies.Hooks.useEffectOnce
+
 local getFFlagFriendsCarouselAddNewBadgeTracking =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddNewBadgeTracking)
-
 local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
+local getFFlagFriendsCarouselPassCIBadge = require(FriendsCarousel.Flags.getFFlagFriendsCarouselPassCIBadge)
 local getFFlagFriendsCarouselReplaceIcon = require(FriendsCarousel.Flags.getFFlagFriendsCarouselReplaceIcon)
 
 export type Props = {
@@ -42,10 +43,19 @@ local FindFriendsTile = function(props: Props)
 		end
 	end, {})
 
-	local isUpdatedUI = false
+	-- remove with getFFlagFriendsCarouselPassCIBadge
+	local isUpdatedUI
+
+	if not getFFlagFriendsCarouselPassCIBadge() then
+		isUpdatedUI = false
+	end
 
 	local badgeValue = React.useMemo(function()
-		return if isUpdatedUI then getBadgeVale(props.badgeValue) else nil
+		if getFFlagFriendsCarouselPassCIBadge() then
+			return getBadgeVale(props.badgeValue)
+		else
+			return if isUpdatedUI then getBadgeVale(props.badgeValue) else nil
+		end
 	end, { props.badgeValue, isUpdatedUI :: any })
 
 	if getFFlagFriendsCarouselAddNewBadgeTracking() then
@@ -65,6 +75,7 @@ local FindFriendsTile = function(props: Props)
 		return Roact.createElement(AddFriendsTileCircular, {
 			onActivated = props.onActivated,
 			labelText = localizedStrings.addFriendText,
+			badgeValue = if getFFlagFriendsCarouselPassCIBadge() then badgeValue else nil,
 		})
 	else
 		return if props.friendsCarouselExperimentVariant == UIVariants.SQUARE_TILES
@@ -79,6 +90,7 @@ local FindFriendsTile = function(props: Props)
 			else Roact.createElement(AddFriendsTileCircular, {
 				onActivated = props.onActivated,
 				labelText = localizedStrings.addFriendText,
+				badgeValue = if getFFlagFriendsCarouselPassCIBadge() then badgeValue else nil,
 			})
 	end
 end

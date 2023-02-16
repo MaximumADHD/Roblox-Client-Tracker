@@ -7,6 +7,7 @@ export type AnalyticsContext = {
 	diagService: any?,
 	eventIngestService: any?,
 	entryPoint: any?,
+	openProfilePeekView: any,
 }
 
 return ContactImporterContext

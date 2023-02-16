@@ -37,6 +37,10 @@ local getFFlagFriendsCarouselFilterOutRecs = require(FriendsCarousel.Flags.getFF
 local getFFlagFriendsCarouselDontUseIngestService = dependencies.getFFlagFriendsCarouselDontUseIngestService
 local getFFlagFriendsCarouselAddUniverseIdToEvents =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddUniverseIdToEvents)
+local getFFlagFriendsCarouselPassCIBadge = require(FriendsCarousel.Flags.getFFlagFriendsCarouselPassCIBadge)
+local getFFlagFriendsCarouselCircularBadge = require(FriendsCarousel.Flags.getFFlagFriendsCarouselCircularBadge)
+local getFFlagFriendsCarouselAddNewBadgeTracking =
+	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddNewBadgeTracking)
 
 local CarouselContainer = require(script.Parent.CarouselContainer)
 
@@ -154,33 +158,70 @@ describe("CarouselContainer", function()
 			NetworkingAccountInformation.GetPhoneInformation.Mock.clear()
 		end)
 
-		describe("on FindFriendsTile click", function()
-			it("SHOULD call navigateFromAddFriends and fire analytics event", function()
-				local navigateFromAddFriends = jest.fn()
+		describe("renderFindFriendsTile", function()
+			it("SHOULD render CI badge and fire analytics event for it", function()
+				if
+					getFFlagFriendsCarouselCircularBadge()
+					and getFFlagFriendsCarouselPassCIBadge()
+					and getFFlagFriendsCarouselAddNewBadgeTracking()
+				then
+					local CarouselContainerElement = setup({
+						showContactImporter = true,
+					}, "renderFindFriendsTile")
 
-				local CarouselContainerElement = setup({
-					navigateFromAddFriends = function()
-						navigateFromAddFriends()
-					end,
-				}, "renderFindFriendsTile")
+					runWhileMounted(CarouselContainerElement, function(parent)
+						local badge = RhodiumHelpers.findFirstInstance(parent, {
+							Name = "Badge",
+						})
 
-				runWhileMounted(CarouselContainerElement, function(parent)
-					local testButton = RhodiumHelpers.findFirstInstance(parent, {
-						Name = "AddFriendButton",
-					})
+						jestExpect(badge).never.toBeNil()
+						--* "Feature.Catalog.Label.New"
+						jestExpect(badge.Inner.TextLabel.Text).toEqual("Fea...")
 
-					jestExpect(testButton).toEqual(jestExpect.any("Instance"))
+						jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(1)
+						jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledWith(
+							mockedAnalytics.EventStream,
+							validateEvent(EventNames.ContactImporterOnAddFriends, {
+								uid = "test",
+							})
+						)
+					end)
+				end
+			end)
 
-					RhodiumHelpers.clickInstance(testButton)
+			describe("on FindFriendsTile click", function()
+				it("SHOULD call navigateFromAddFriends and fire analytics event", function()
+					local navigateFromAddFriends = jest.fn()
 
-					jestExpect(navigateFromAddFriends).toHaveBeenCalled()
-					jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(1)
+					local CarouselContainerElement = setup({
+						navigateFromAddFriends = function()
+							navigateFromAddFriends()
+						end,
+					}, "renderFindFriendsTile")
 
-					jestExpect(mockedAnalytics.Diag.reportCounter).toHaveBeenCalledTimes(1)
-					jestExpect(mockedAnalytics.Diag.reportCounter).toHaveBeenCalledWith(
-						mockedAnalytics.Diag,
-						validateDiagEvent(EventNames.ViewAddFriends)
-					)
+					runWhileMounted(CarouselContainerElement, function(parent)
+						local testButton = RhodiumHelpers.findFirstInstance(parent, {
+							Name = "AddFriendButton",
+						})
+
+						jestExpect(testButton).toEqual(jestExpect.any("Instance"))
+
+						RhodiumHelpers.clickInstance(testButton)
+
+						jestExpect(navigateFromAddFriends).toHaveBeenCalled()
+						if getFFlagFriendsCarouselPassCIBadge() then
+							--* additional call for CI badge
+							jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(2)
+						else
+							jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(1)
+						end
+
+						jestExpect(mockedAnalytics.Diag.reportCounter).toHaveBeenCalledTimes(1)
+						jestExpect(mockedAnalytics.Diag.reportCounter).toHaveBeenCalledWith(
+							mockedAnalytics.Diag,
+							validateDiagEvent(EventNames.ViewAddFriends)
+						)
+					end)
 				end)
 			end)
 		end)

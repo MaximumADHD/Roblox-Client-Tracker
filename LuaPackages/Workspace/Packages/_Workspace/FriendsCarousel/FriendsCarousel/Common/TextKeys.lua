@@ -20,6 +20,9 @@ local TextKeys = {
 	FriendRequestContext = if getFFlagFriendsCarouselIncomingFriendRequest()
 		then "Feature.Friends.Label.FriendRequest"
 		else "",
+
+	FindFriendsTitleV2 = "Feature.AddFriends.Title.AddFriendsTooltipTitle",
+	FindFriendsBodyV2 = "Feature.AddFriends.Label.AddFriendsTooltip",
 }
 
 return TextKeys

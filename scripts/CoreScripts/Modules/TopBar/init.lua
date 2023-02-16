@@ -52,22 +52,7 @@ function TopBar.new()
 	end
 
 	if not TenFootInterface:IsEnabled() then
-		if game:GetEngineFeature("NotchSpaceSupportEnabled") then
-			local localPlayer = Players.LocalPlayer
-			local playerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
-
-			local playerGuiChangedConn = playerGui:GetPropertyChangedSignal("CurrentScreenOrientation"):Connect(function()
-				if (playerGui.CurrentScreenOrientation == Enum.ScreenOrientation.Portrait) then
-					-- TODO: For now, The Gui bounds will be moved down by TopBarHeight * 2 to make sure they appear both under the Notch and the Top Bar's height.
-					-- This will change when we figure out how to access proper safezone values.
-					GuiService:SetGlobalGuiInset(0, Constants.TopBarHeight * 2, 0, 0)
-				else
-					GuiService:SetGlobalGuiInset(Constants.TopBarHeight, Constants.TopBarHeight, Constants.TopBarHeight, 0)
-				end
-			end)
-		else
-			GuiService:SetGlobalGuiInset(0, Constants.TopBarHeight, 0, 0)
-		end
+		GuiService:SetGlobalGuiInset(0, Constants.TopBarHeight, 0, 0)
 	end
 
 	self.store = Rodux.Store.new(Reducer, nil, {

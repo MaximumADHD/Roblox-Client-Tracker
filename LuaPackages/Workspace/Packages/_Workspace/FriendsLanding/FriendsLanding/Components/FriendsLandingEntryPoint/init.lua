@@ -138,6 +138,7 @@ function FriendsLandingEntryPoint:render()
 					addFriendsPageSearchbarEnabled = if getFFlagAddFriendsSearchbarIXPEnabled()
 						then self.props.addFriendsPageSearchbarEnabled
 						else nil,
+					openProfilePeekView = self.props.openProfilePeekView,
 				},
 			}, {
 				navigation = Roact.createElement(FriendsLandingNavigator, {

@@ -9,6 +9,7 @@ local function userUpdatedFromUser(user)
 		id = user.id,
 		username = user.name,
 		displayName = user.displayName,
+		hasVerifiedBadge = user.hasVerifiedBadge,
 	})
 end
 

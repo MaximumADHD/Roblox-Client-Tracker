@@ -64,6 +64,7 @@ function User.fromDataTable(data)
 	self.gameInstanceId = nil
 	self.thumbnails = nil
 	self.lastOnline = nil
+	self.hasVerifiedBadge = data.hasVerifiedBadge
 
 	return self
 end

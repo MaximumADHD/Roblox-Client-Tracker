@@ -1,6 +1,7 @@
 local ContactImporter = script:FindFirstAncestor("ContactImporter")
 local dependencies = require(ContactImporter.dependencies)
 local React = dependencies.React
+local Dash = dependencies.Dash
 local useMemo = React.useMemo
 local Analytics = require(ContactImporter.Analytics)
 local Constants = require(ContactImporter.Common.Constants)
@@ -21,10 +22,12 @@ local function Container(component)
 		local navigation = useNavigation()
 		local eventIngestService = navigation.getParam(Constants.EVENT_INGEST_SERVICE)
 		local diagService = navigation.getParam(Constants.DIAG_SERVICE)
+		local openProfilePeekView = navigation.getParam(Constants.OPEN_PROFILE_PEEK_VIEW, Dash.noop)
 
 		if props.context then
 			eventIngestService = props.context.eventIngestService
 			diagService = props.context.diagService
+			openProfilePeekView = props.context.openProfilePeekView
 		end
 		local localUserId = useSelector(function(state)
 			return state.LocalUserId
@@ -50,11 +53,13 @@ local function Container(component)
 				entryPoint = if getOffPlatformFriendRequestsExperimentEnabled() then entryPoint else nil,
 				diagService = diagService,
 				eventIngestService = eventIngestService,
+				openProfilePeekView = openProfilePeekView,
 			}
 		end, {
 			diagService,
 			eventIngestService,
 			localUserId,
+			openProfilePeekView,
 		})
 
 		return React.createElement(Analytics.Context.Provider, {

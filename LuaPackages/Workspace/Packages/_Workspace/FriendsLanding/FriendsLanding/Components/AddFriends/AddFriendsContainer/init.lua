@@ -30,6 +30,7 @@ local contactImporterTooltip = require(FriendsLanding.Utils.contactImporterToolt
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
 local getFStringSocialAddFriendsPageLayer = dependencies.getFStringSocialAddFriendsPageLayer
+local getFFlagAddFriendsNewEmptyStateAndBanners = dependencies.getFFlagAddFriendsNewEmptyStateAndBanners
 
 local GET_FRIEND_REQUESTS_LIMIT_PER_PAGE = 25
 local GET_FRIEND_REQUESTS_LIMIT_PER_PAGE_WIDE = 50
@@ -271,6 +272,17 @@ function AddFriendsContainer:init()
 		end
 	end
 
+	self.handleOpenProfileQRCodePage = if getFFlagAddFriendsNewEmptyStateAndBanners()
+		then function()
+			--TODO SOCGRAPH-626: add analytics
+
+			local navigateToLuaAppPages = self.props.navigateToLuaAppPages
+			if navigateToLuaAppPages then
+				navigateToLuaAppPages[EnumScreens.ProfileQRCodePage]()
+			end
+		end
+		else nil
+
 	self.fireContactImporterAnalyticsEvents = function()
 		self.props.analytics:navigate("ConnectWithFriends")
 		self.props.analytics:buttonClick(ButtonClickEvents.ConnectWithFriends, {
@@ -352,6 +364,10 @@ function AddFriendsContainer:render()
 		fireSearchbarPressedEvent = if getFFlagAddFriendsFullSearchbarAnalytics()
 			then self.fireSearchbarPressedEvent
 			else nil,
+		handleOpenProfileQRCodePage = if getFFlagAddFriendsNewEmptyStateAndBanners()
+			then self.handleOpenProfileQRCodePage
+			else nil,
+		openProfilePeekView = self.props.openProfilePeekView,
 	})
 end
 

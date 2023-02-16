@@ -14,8 +14,6 @@ local it = JestGlobals.it
 local reducer = require(script.Parent.Users)
 
 describe("GIVEN state as nil", function()
-	game:SetFastFlagForTesting("EnableHasVerifiedBadgeUserModelValidation", false)
-
 	local state = nil
 
 	local user = {
@@ -23,6 +21,7 @@ describe("GIVEN state as nil", function()
 		name = "name",
 		displayName = "displayName",
 		friendRank = 1,
+		hasVerifiedBadge = false,
 	}
 
 	local participant = {
@@ -30,6 +29,7 @@ describe("GIVEN state as nil", function()
 		name = "name",
 		displayName = "displayName",
 		friendRank = 2,
+		hasVerifiedBadge = false,
 	}
 
 	describe("GIVEN legacy AddUser action", function()
@@ -80,12 +80,14 @@ if getFFlagSocialTabReplaceRefreshConversations() then
 			name = "name",
 			displayName = "displayName",
 			friendRank = 2 :: number?,
+			hasVerifiedBadge = false,
 		}
 
 		local participant2 = {
 			targetId = 234,
 			name = "name",
 			displayName = "displayName",
+			hasVerifiedBadge = false,
 		}
 
 		local state = {

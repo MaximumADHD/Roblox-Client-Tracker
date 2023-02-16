@@ -31,7 +31,6 @@ local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagO
 local GetFFlagClearVoiceStateOnRejoin = require(RobloxGui.Modules.Flags.GetFFlagClearVoiceStateOnRejoin)
 local GetFFlagSkipRedundantVoiceCheck = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSkipRedundantVoiceCheck
 local GetFFlagEnableVoiceRccCheck = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceRccCheck)
-local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
 local GetFFlagClearUserFromRecentVoiceDataOnLeave = require(RobloxGui.Modules.Flags.GetFFlagClearUserFromRecentVoiceDataOnLeave)
 local GetFIntVoiceUsersInteractionExpiryTimeSeconds = require(RobloxGui.Modules.Flags.GetFIntVoiceUsersInteractionExpiryTimeSeconds)
 local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
@@ -709,9 +708,7 @@ end
 
 function VoiceChatServiceManager:ToggleMutePlayer(userId: number)
 	self:ensureInitialized("mute player " .. userId)
-	if GetFFlagVoiceAbuseReportsEnabled() then
-		self._mutedAnyone = true
-	end
+	self._mutedAnyone = true
 	local requestedMuteStatus = not self.service:IsSubscribePaused(userId)
 	log:trace("Setting mute for {} to {}", shorten(userId), requestedMuteStatus)
 
@@ -731,9 +728,7 @@ end
 
 function VoiceChatServiceManager:MuteAll(muteState: boolean)
 	self:ensureInitialized("mute all")
-	if GetFFlagVoiceAbuseReportsEnabled() then
-		self._mutedAnyone = true
-	end
+	self._mutedAnyone = true
 	self.service:SubscribePauseAll(muteState)
 	-- We need to update the state and fire the event locally because toggling local muting doesn't trigger
 	-- a participantStateChange for some reason.
@@ -802,17 +797,14 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 	self:ensureInitialized("setup participant listeners")
 	if not self.participants then
 		self.participants = {}
-
-		if GetFFlagVoiceAbuseReportsEnabled() then
-			self.recentUsersInteractionData = {}
-		end
+		self.recentUsersInteractionData = {}
 
 		-- TODO: Init the participants list with the "Initial" state when API is ready
 		self.participantConnection = self.service.ParticipantsStateChanged:Connect(function(participantLeft, participantJoined, updatedStates)
 			log:trace("Participants state changed")
 
 			for _, userId in ipairs(participantLeft) do
-				if GetFFlagVoiceAbuseReportsEnabled() and not GetFFlagClearUserFromRecentVoiceDataOnLeave() then
+				if not GetFFlagClearUserFromRecentVoiceDataOnLeave() then
 					local participant = self.participants[tostring(userId)]
 
 					if not participant.isMuted then
@@ -830,24 +822,19 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 			end
 			for _, state in pairs(updatedStates) do
 				local userId = state["userId"]
+				local lastState = self.participants[userId]
 
-				if GetFFlagVoiceAbuseReportsEnabled() then
-					local lastState = self.participants[userId]
-
-					if not state.isMuted or (lastState and not lastState.isMuted) then
-						self:_setRecentUserState(userId, {
-							lastHeardTime = os.time(),
-							player = PlayersService:GetPlayerByUserId(userId),
-						})
-					end
+				if not state.isMuted or (lastState and not lastState.isMuted) then
+					self:_setRecentUserState(userId, {
+						lastHeardTime = os.time(),
+						player = PlayersService:GetPlayerByUserId(userId),
+					})
 				end
 
 				self.participants[tostring(userId)] = state
 			end
 
-			if GetFFlagVoiceAbuseReportsEnabled() then
-				self:_updateRecentUsersInteractionData()
-			end
+			self:_updateRecentUsersInteractionData()
 
 			if #updatedStates > 0 then
 				self.participantsUpdate:Fire(self.participants)

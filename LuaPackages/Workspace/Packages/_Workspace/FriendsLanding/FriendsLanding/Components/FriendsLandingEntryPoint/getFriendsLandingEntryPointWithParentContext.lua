@@ -23,6 +23,7 @@ return function(parentContext)
 				contactImporterAndPYMKEnabled = context.contactImporterAndPYMKEnabled or nil,
 				diagService = context.diagService,
 				eventIngestService = context.eventIngestService,
+				openProfilePeekView = context.openProfilePeekView,
 			})
 		end)
 	end

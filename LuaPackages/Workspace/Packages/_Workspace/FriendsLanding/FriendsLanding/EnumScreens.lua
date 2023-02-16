@@ -20,4 +20,5 @@ return {
 	ViewUserProfile = "ViewUserProfile",
 	LearnMore = "LearnMore",
 	PhoneVerification = "PhoneVerification",
+	ProfileQRCodePage = "ProfileQRCodePage",
 }

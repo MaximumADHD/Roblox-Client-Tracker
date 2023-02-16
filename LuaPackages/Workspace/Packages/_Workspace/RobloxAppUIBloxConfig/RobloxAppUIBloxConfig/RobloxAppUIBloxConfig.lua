@@ -44,5 +44,7 @@ return {
 	pillGroupAutomaticSize = UIBloxFlags.GetFFlagUIBloxPillGroupAutomaticSize(),
 	enableCollectibleItemRestriction = UIBloxFlags.GetFFlagUIBloxEnableCollectibleItemRestriction(),
 	fixGameDetailsAutomaticSize = SharedFlags.GetFFlagFixGameDetailsAutomaticSize(),
-	emptyStateTitleAndIconSize = SharedFlags.getFFlagAddFriendsNewEmptyState(),
+	emptyStateTitleAndIconSize = SharedFlags.getFFlagAddFriendsNewEmptyStateAndBanners(),
+	headerBarInjectMargin = UIBloxFlags.FFlagUIBloxInjectHeaderBarProps,
+	headerBarInjectContentPaddingRight = UIBloxFlags.FFlagUIBloxInjectHeaderBarProps,
 }

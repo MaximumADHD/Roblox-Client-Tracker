@@ -26,6 +26,7 @@ local getFFlagFriendsCarouselAddUniverseIdToEvents =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddUniverseIdToEvents)
 local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
 local getFFlagSocialAddGameJoinSource = dependencies.getFFlagSocialAddGameJoinSource
+local getFFlagFriendsCarouselPassCIBadge = require(FriendsCarousel.Flags.getFFlagFriendsCarouselPassCIBadge)
 
 local CarouselContainer = Roact.PureComponent:extend("CarouselContainer")
 
@@ -258,6 +259,9 @@ function CarouselContainer:render()
 			userSeen = self.userSeen,
 			onFindFriendsTileActivated = self.onFindFriendsTileActivated,
 			onUserTileActivated = self.onUserTileActivated,
+
+			--* add experiment check here
+			showNewBadge = if getFFlagFriendsCarouselPassCIBadge() then props.showContactImporter else nil,
 		}),
 	})
 end

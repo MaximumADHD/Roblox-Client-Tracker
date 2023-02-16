@@ -34,6 +34,7 @@ local R15_HEAD_OFFSET = Vector3.new(0, 1.5, 0)
 local R15_HEAD_OFFSET_NO_SCALING = Vector3.new(0, 2, 0)
 local HUMANOID_ROOT_PART_SIZE = Vector3.new(2, 2, 1)
 
+local GAMEPAD_ZOOM_STEP = 10
 local GAMEPAD_ZOOM_STEP_1 = 0
 local GAMEPAD_ZOOM_STEP_2 = 10
 local GAMEPAD_ZOOM_STEP_3 = 20
@@ -55,6 +56,23 @@ local VRService = game:GetService("VRService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 local player = Players.LocalPlayer
+
+-- [[ Flags ]]
+local FFlagUserFixCameraPanAfterShiftLock
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixCameraPanAfterShiftLock")
+	end)
+	FFlagUserFixCameraPanAfterShiftLock = success and result
+end
+
+local FFlagUserCameraGamepadZoomFix
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserCameraGamepadZoomFix")
+	end)
+	FFlagUserCameraGamepadZoomFix = success and result
+end
 
 --[[ The Module ]]--
 local BaseCamera = {}
@@ -543,12 +561,41 @@ end
 function BaseCamera:GamepadZoomPress()
 	local dist = self:GetCameraToSubjectDistance()
 
-	if dist > (GAMEPAD_ZOOM_STEP_2 + GAMEPAD_ZOOM_STEP_3)/2 then
-		self:SetCameraToSubjectDistance(GAMEPAD_ZOOM_STEP_2)
-	elseif dist > (GAMEPAD_ZOOM_STEP_1 + GAMEPAD_ZOOM_STEP_2)/2 then
-		self:SetCameraToSubjectDistance(GAMEPAD_ZOOM_STEP_1)
+	if FFlagUserCameraGamepadZoomFix then
+		local cameraMinZoomDistance = player.CameraMinZoomDistance
+		local cameraMaxZoomDistance = player.CameraMaxZoomDistance
+
+		local ZOOM_STEP_1 = 0
+
+		-- Adjust steps such that the minimum zoom level is not subceeded
+		if cameraMinZoomDistance > FIRST_PERSON_DISTANCE_MIN then
+			ZOOM_STEP_1 = cameraMinZoomDistance
+		end
+	
+		local ZOOM_STEP_2 = ZOOM_STEP_1 + GAMEPAD_ZOOM_STEP
+		local ZOOM_STEP_3 = ZOOM_STEP_2 + GAMEPAD_ZOOM_STEP
+
+		-- Adjust steps such that maximum zoom level is not exceeded
+		if cameraMaxZoomDistance < ZOOM_STEP_3 then
+			ZOOM_STEP_3 = cameraMaxZoomDistance
+			ZOOM_STEP_2 = ZOOM_STEP_1 + (ZOOM_STEP_3 - ZOOM_STEP_1)/2
+		end
+		
+		if dist > (ZOOM_STEP_2 + ZOOM_STEP_3)/2 then
+			self:SetCameraToSubjectDistance(ZOOM_STEP_2)
+		elseif dist > (ZOOM_STEP_1 + ZOOM_STEP_2)/2 then
+			self:SetCameraToSubjectDistance(ZOOM_STEP_1)
+		else
+			self:SetCameraToSubjectDistance(ZOOM_STEP_3)
+		end
 	else
-		self:SetCameraToSubjectDistance(GAMEPAD_ZOOM_STEP_3)
+		if dist > (GAMEPAD_ZOOM_STEP_2 + GAMEPAD_ZOOM_STEP_3)/2 then
+			self:SetCameraToSubjectDistance(GAMEPAD_ZOOM_STEP_2)
+		elseif dist > (GAMEPAD_ZOOM_STEP_1 + GAMEPAD_ZOOM_STEP_2)/2 then
+			self:SetCameraToSubjectDistance(GAMEPAD_ZOOM_STEP_1)
+		else
+			self:SetCameraToSubjectDistance(GAMEPAD_ZOOM_STEP_3)
+		end
 	end
 end
 
@@ -625,7 +672,17 @@ function BaseCamera:UpdateMouseBehavior()
 			CameraUtils.setMouseBehaviorOverride(Enum.MouseBehavior.LockCenter)
 		else
 			CameraUtils.restoreRotationType()
-			CameraUtils.restoreMouseBehavior()
+
+			if FFlagUserFixCameraPanAfterShiftLock then
+				local rotationActivated = CameraInput.getRotationActivated()
+				if rotationActivated then
+					CameraUtils.setMouseBehaviorOverride(Enum.MouseBehavior.LockCurrentPosition)
+				else
+					CameraUtils.restoreMouseBehavior()
+				end
+			else
+				CameraUtils.restoreMouseBehavior()
+			end
 		end
 	end
 end

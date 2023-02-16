@@ -26,6 +26,7 @@ return {
 	SHOULD_UPDATE_USER_SETTINGS = "shouldUpdateUserSettings",
 	OPEN_PHONE_VERIFICATION_WEBVIEW = "openPhoneVerificationWebview",
 	IS_PHONE_VERIFIED = "isPhoneVerified",
+	OPEN_PROFILE_PEEK_VIEW = "openProfilePeekView",
 
 	-- contact params
 	FIRST_NAME = "First Name",

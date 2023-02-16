@@ -6,6 +6,7 @@ local t = dependencies.t
 local UIBlox = dependencies.UIBlox
 local withStyle = UIBlox.Style.withStyle
 local PrimarySystemButton = UIBlox.App.Button.PrimarySystemButton
+local getFFlagAddFriendsNewEmptyStateAndBanners = dependencies.getFFlagAddFriendsNewEmptyStateAndBanners
 
 local AddFriendsContactImporterBanner = Roact.PureComponent:extend("AddFriendsContactImporterBanner")
 
@@ -113,4 +114,9 @@ function AddFriendsContactImporterBanner:render()
 	end)
 end
 
-return AddFriendsContactImporterBanner
+-- Remove AddFriendsContactImporterBanner folder when cleaning FFlagAddFriendsNewEmptyStateAndBanners
+if getFFlagAddFriendsNewEmptyStateAndBanners() then
+	return nil :: any
+else
+	return AddFriendsContactImporterBanner
+end

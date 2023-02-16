@@ -3,8 +3,11 @@ local dependencies = require(ContactImporter.dependencies)
 
 local Roact = dependencies.Roact
 local UIBlox = dependencies.UIBlox
+local ImageSetButton = UIBlox.Core.ImageSet.Button
+
 local getFFlagContactImporterUpdateHasSentState =
 	require(ContactImporter.Flags.getFFlagContactImporterUpdateHasSentState)
+local getFFlagContactImporterAvatarEnabled = require(ContactImporter.Flags.getFFlagContactImporterAvatarEnabled)
 
 local Images = UIBlox.App.ImageSet.Images
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
@@ -12,7 +15,7 @@ local withStyle = UIBlox.Style.withStyle
 
 local ADD_BUTTON_HEIGHT = 36
 local ADD_BUTTON_WIDTH = 44
-local HEADSHOT_SIZE = 0
+local HEADSHOT_SIZE = if getFFlagContactImporterAvatarEnabled() then 60 else 0
 local CONTACTS_ENTRY_HEIGHT = 72
 local INNER_PADDING = 12
 local CONTEXTUAL_TEXT_HEIGHT = 20
@@ -33,6 +36,7 @@ export type Props = {
 	layoutOrder: number,
 	hasSentRequest: boolean,
 	requestFriendship: (contactId: string) -> (),
+	openProfilePeekView: () -> (),
 }
 
 ContactsListEntry.defaultProps = {
@@ -60,6 +64,11 @@ function ContactsListEntry:init()
 			self:setState({ clicked = true })
 		end
 	end
+
+	self.openBlankProfileView = function()
+		-- TODO: FSYS-254 put in actual params
+		self.props.openProfilePeekView("1", {})
+	end
 end
 
 function ContactsListEntry:render()
@@ -85,6 +94,26 @@ function ContactsListEntry:render()
 					VerticalAlignment = Enum.VerticalAlignment.Center,
 					Padding = UDim.new(0, INNER_PADDING),
 				}),
+				botAlignedGroup = if getFFlagContactImporterAvatarEnabled()
+					then Roact.createElement("Frame", {
+						Size = UDim2.new(0, HEADSHOT_SIZE, 1, 0),
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+						AnchorPoint = Vector2.new(0, 1),
+						LayoutOrder = 1,
+					}, {
+						genericHead = Roact.createElement(ImageSetButton, {
+							BackgroundTransparency = 1,
+							BorderSizePixel = 0,
+							Image = Images["component_assets/contactHeadshot"],
+							Size = UDim2.new(0, HEADSHOT_SIZE, 0, HEADSHOT_SIZE),
+							Position = UDim2.fromScale(0, 1),
+							AnchorPoint = Vector2.new(0, 1),
+
+							[Roact.Event.Activated] = self.openBlankProfileView,
+						}),
+					})
+					else nil,
 				middleTextGroup = Roact.createElement("TextButton", {
 					Size = UDim2.new(1, -HEADSHOT_SIZE - ADD_BUTTON_WIDTH - 2 * INNER_PADDING, 1, 0),
 					Text = "",

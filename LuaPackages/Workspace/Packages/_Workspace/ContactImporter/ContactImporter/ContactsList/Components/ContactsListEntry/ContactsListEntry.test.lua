@@ -23,6 +23,8 @@ local findElementHelpers = require(ContactImporter.TestHelpers.findElementHelper
 local Roact = dependencies.Roact
 local ContactsListEntry = require(ContactsList.Components.ContactsListEntry)
 
+local getFFlagContactImporterAvatarEnabled = require(ContactImporter.Flags.getFFlagContactImporterAvatarEnabled)
+
 describe("ContactsListEntry", function()
 	local state = {}
 	local findSendButton = findElementHelpers.findElement(findImageSet("icons/actions/friends/friendAdd"))
@@ -112,4 +114,29 @@ describe("ContactsListEntry", function()
 			findSentButton(parent, { assertElementExists = false })
 		end)
 	end)
+
+	if getFFlagContactImporterAvatarEnabled() then
+		it("SHOULD openProfilePeekView when clicked", function()
+			local openProfilePeekView = jest.fn()
+			local element = createTreeWithProviders(ContactsListEntry, {
+				store = mockStore(state),
+				props = {
+					hasSentRequest = if getFFlagContactImporterUpdateHasSentState() then false else nil,
+					contactName = "contactName",
+					contactId = "contactId",
+					openProfilePeekView = openProfilePeekView,
+				},
+			})
+
+			runWhileMounted(element, function(parent)
+				local avatarHead = RhodiumHelpers.findFirstInstance(parent, {
+					Name = "genericHead",
+				})
+
+				RhodiumHelpers.clickInstance(avatarHead)
+
+				jestExpect(openProfilePeekView).toHaveBeenCalledTimes(1)
+			end)
+		end)
+	end
 end)

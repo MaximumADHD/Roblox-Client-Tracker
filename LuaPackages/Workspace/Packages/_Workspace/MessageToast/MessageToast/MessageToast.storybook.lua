@@ -1,15 +1,17 @@
 local MessageToast = script:FindFirstAncestor("MessageToast")
+local Packages = MessageToast.Parent
 local dependencies = require(MessageToast.dependencies)
-local devDependencies = require(MessageToast.devDependencies)
+local UIBloxUniversalAppConfig = require(Packages.Dev.RobloxAppUIBloxConfig)
 
 local UIBlox = dependencies.UIBlox
 -- Make sure to initialize in story book in case this storybook is called first
-UIBlox.init(devDependencies.UIBloxUniversalAppConfig)
+UIBlox.init(UIBloxUniversalAppConfig)
 
 local Roact = dependencies.Roact
 local Dash = dependencies.Dash
 local AppStyleProvider = UIBlox.App.Style.AppStyleProvider
-local mockLocale = devDependencies.getMockLocale()
+--- This has to be here to prevent tests from failing (if we put it in the devDependencies)
+local mockLocale = require(Packages.Dev.SocialTestHelpers).StoryHelpers.mockLocale
 
 Roact.setGlobalConfig({
 	propValidation = true,

@@ -1,11 +1,10 @@
 local SetAlias = script:FindFirstAncestor("SetAlias")
 local Packages = SetAlias.Parent
 local dependencies = require(SetAlias.dependencies)
-local devDependencies = require(SetAlias.devDependencies)
 local Roact = dependencies.Roact
 local Dash = dependencies.Dash
 local UIBlox = dependencies.UIBlox
-local UIBloxUniversalAppConfig = devDependencies.UIBloxUniversalAppConfig
+local UIBloxUniversalAppConfig = require(Packages.Dev.RobloxAppUIBloxConfig)
 
 --- This has to be here to prevent tests from failing (if we put it in the devDependencies)
 local mockLocale = require(Packages.Dev.SocialTestHelpers).StoryHelpers.mockLocale

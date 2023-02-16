@@ -20,10 +20,6 @@ return {
 	JestGlobals = JestGlobals,
 	jestExpect = jestExpect,
 	jest = JestGlobals.jest,
-	UIBloxUniversalAppConfig = require(Packages.Dev.RobloxAppUIBloxConfig),
-	mockLocale = function()
-		return require(Packages.Dev.SocialTestHelpers).StoryHelpers.mockLocale
-	end,
 	findImageSet = require(Packages.Dev.SocialTestHelpers).TestHelpers.findImageSet,
 	DeferredLuaHelpers = TestUtils.DeferredLuaHelpers,
 	waitUntil = TestUtils.waitUntil,

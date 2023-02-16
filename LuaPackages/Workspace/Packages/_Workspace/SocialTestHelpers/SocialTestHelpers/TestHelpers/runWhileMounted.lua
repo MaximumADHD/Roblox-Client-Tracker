@@ -2,7 +2,6 @@ local SocialTestHelpers = script:FindFirstAncestor("SocialTestHelpers")
 local dependencies = require(SocialTestHelpers.dependencies)
 
 local Roact = dependencies.Roact
-local dumpInstanceTree = require(script.Parent.dumpInstanceTree)
 
 --[[
 	Runs a test callback while the given element is mounted.
@@ -18,18 +17,8 @@ local function runWhileMounted(element, callback: (any) -> ())
 	local parentFrame = Instance.new("ScreenGui")
 	parentFrame.Parent = game:GetService("CoreGui")
 	local roactTree = Roact.mount(element, parentFrame)
-	local ok, result = (pcall :: any)(callback, parentFrame)
-
-	local errorMessage
-	if not ok then
-		errorMessage = string.format("%s\n\nInstance Tree:\n\n%s", tostring(result), dumpInstanceTree(parentFrame))
-	end
-
+	callback(parentFrame)
 	Roact.unmount(roactTree)
-
-	if not ok then
-		error(errorMessage)
-	end
 end
 
 return runWhileMounted

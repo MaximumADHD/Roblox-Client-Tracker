@@ -31,12 +31,10 @@ return function()
 
 	describe("VoiceChatServiceManager Recent Users Interaction", function()
 		beforeAll(function(context)
-			context.fflagVoiceAbuseReportsEnabled = game:SetFastFlagForTesting("VoiceAbuseReportsEnabledV3", true)
 			context.fflagClearUserFromRecentVoiceDataOnLeave = game:SetFastFlagForTesting("ClearUserFromRecentVoiceDataOnLeave", false)
 		end)
 
 		afterAll(function(context)
-			game:SetFastFlagForTesting("VoiceAbuseReportsEnabledV3", context.fflagVoiceAbuseReportsEnabled)
 			game:SetFastFlagForTesting("ClearUserFromRecentVoiceDataOnLeave", context.fflagClearUserFromRecentVoiceDataOnLeave)
 		end)
 

@@ -23,6 +23,7 @@ function AddFriendsScreen:render()
 				contactImporterExperimentVariant = context.contactImporterExperimentVariant,
 				diagService = context.diagService,
 				eventIngestService = context.eventIngestService,
+				openProfilePeekView = context.openProfilePeekView,
 			})
 		end)
 	end)

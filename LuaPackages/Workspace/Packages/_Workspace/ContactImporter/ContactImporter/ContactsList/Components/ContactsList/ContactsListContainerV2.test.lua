@@ -34,7 +34,6 @@ local mockStore = require(FindFriendsModal.TestHelpers.mockStore)
 local Analytics = require(ContactImporter.Analytics)
 local EventNames = Analytics.EventNames
 local mockRawContacts = require(FindFriendsModal.TestHelpers.mockRawContacts)
-local getFFlagContactImporterChunkingCalls = require(ContactImporter.Flags.getFFlagContactImporterChunkingCalls)
 
 describe("ContactsListContainerV2", function()
 	local runTestsWithProps = function(props: { variant: string })
@@ -470,9 +469,7 @@ describe("ContactsListContainerV2", function()
 					jestExpect(getContacts).never.toHaveBeenCalled()
 					findElementHelpers.checkFailedList(parent, { assertElementExists = true })
 
-					if getFFlagContactImporterChunkingCalls() then
-						jestExpect(analyticsLog[EventNames.FailedGetContactsFromDevice]).toBe(1)
-					end
+					jestExpect(analyticsLog[EventNames.FailedGetContactsFromDevice]).toBe(1)
 				end)
 			end)
 
@@ -518,9 +515,7 @@ describe("ContactsListContainerV2", function()
 					jestExpect(getContacts).toHaveBeenCalledTimes(1)
 					findElementHelpers.checkFailedList(parent, { assertElementExists = true })
 
-					if getFFlagContactImporterChunkingCalls() then
-						jestExpect(analyticsLog[EventNames.FailedGetContactsFromDevice]).toBe(1)
-					end
+					jestExpect(analyticsLog[EventNames.FailedGetContactsFromDevice]).toBe(1)
 				end)
 			end)
 
@@ -658,7 +653,7 @@ describe("ContactsListContainerV2", function()
 
 						findElementHelpers.checkFailedList(parent, { assertElementExists = false })
 
-						if getFFlagContactImporterChunkingCalls() and props.variant == IXPVariants.BLENDED then
+						if props.variant == IXPVariants.BLENDED then
 							jestExpect(analyticsLog[EventNames.FailedUploadContactsFromDevice]).toBe(1)
 						end
 					end)
@@ -722,14 +717,12 @@ describe("ContactsListContainerV2", function()
 
 							findElementHelpers.checkFailedList(parent, { assertElementExists = false })
 
-							if getFFlagContactImporterChunkingCalls() then
-								if props.variant == IXPVariants.BLENDED then
-									jestExpect(analyticsLog[EventNames.FailedFindContacts]).toBe(1)
-								end
-								if props.variant == IXPVariants.INVITES_ONLY then
-									-- failed analytics not called, as invitesOnly never makes this call
-									jestExpect(analyticsLog[EventNames.FailedFindContacts]).toBe(nil)
-								end
+							if props.variant == IXPVariants.BLENDED then
+								jestExpect(analyticsLog[EventNames.FailedFindContacts]).toBe(1)
+							end
+							if props.variant == IXPVariants.INVITES_ONLY then
+								-- failed analytics not called, as invitesOnly never makes this call
+								jestExpect(analyticsLog[EventNames.FailedFindContacts]).toBe(nil)
 							end
 						end)
 					end
@@ -790,14 +783,12 @@ describe("ContactsListContainerV2", function()
 
 						findElementHelpers.checkFailedList(parent, { assertElementExists = false })
 
-						if getFFlagContactImporterChunkingCalls() then
-							if props.variant == IXPVariants.BLENDED then
-								jestExpect(analyticsLog[EventNames.FailedFindContacts]).toBe(1)
-							end
-							if props.variant == IXPVariants.INVITES_ONLY then
-								-- failed analytics not called, as invitesOnly never makes this call
-								jestExpect(analyticsLog[EventNames.FailedFindContacts]).toBe(nil)
-							end
+						if props.variant == IXPVariants.BLENDED then
+							jestExpect(analyticsLog[EventNames.FailedFindContacts]).toBe(1)
+						end
+						if props.variant == IXPVariants.INVITES_ONLY then
+							-- failed analytics not called, as invitesOnly never makes this call
+							jestExpect(analyticsLog[EventNames.FailedFindContacts]).toBe(nil)
 						end
 					end)
 				end)

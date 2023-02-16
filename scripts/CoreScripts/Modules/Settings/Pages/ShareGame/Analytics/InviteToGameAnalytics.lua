@@ -1,6 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
 local Cryo = require(CorePackages.Cryo)
 
+game:DefineFastFlag("LuaAppInviteEventsIncludePlaceId", false)
+
 local InviteToGameAnalytics = {}
 InviteToGameAnalytics.__index = InviteToGameAnalytics
 
@@ -117,6 +119,9 @@ end
 
 function InviteToGameAnalytics:sendEvent(trigger, event, additionalArgs: {any}?)
 	local args = event.Args
+	if game:GetFastFlag("LuaAppInviteEventsIncludePlaceId") then
+		args = Cryo.Dictionary.join(args, { placeId = game.PlaceId })
+	end
 	if additionalArgs then
 		args = Cryo.Dictionary.join(args, additionalArgs)
 	end

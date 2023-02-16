@@ -16,6 +16,7 @@ local IconSize = UIBlox.App.Constant.IconSize
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
+local getFFlagAddFriendsSearchbarColorFix = require(FriendsLanding.Flags.getFFlagAddFriendsSearchbarColorFix)
 
 local CallbackInputBox = SocialLibraries.Components.CallbackInputBox
 
@@ -104,8 +105,12 @@ function SearchHeaderBar:render()
 					})
 				else
 					self:setState({
-						borderColor = style.Theme.TextDefault.Color,
-						borderTransparency = style.Theme.TextMuted.Transparency,
+						borderColor = if getFFlagAddFriendsSearchbarColorFix()
+							then style.Theme.Divider.Color
+							else style.Theme.TextDefault.Color,
+						borderTransparency = if getFFlagAddFriendsSearchbarColorFix()
+							then style.Theme.Divider.Transparency
+							else style.Theme.TextMuted.Transparency,
 					})
 				end
 			end
@@ -147,8 +152,12 @@ function SearchHeaderBar:render()
 				if (getFFlagAddFriendsSearchbarIXPEnabled() and self.props.addFriendsPageSearchbarEnabled)
 					then {
 						Size = filterBoxSize,
-						BackgroundColor3 = style.Theme.BackgroundMuted.Color,
-						BackgroundTransparency = style.Theme.BackgroundMuted.Transparency,
+						BackgroundColor3 = if getFFlagAddFriendsSearchbarColorFix()
+							then style.Theme.UIMuted.Color
+							else style.Theme.BackgroundMuted.Color,
+						BackgroundTransparency = if getFFlagAddFriendsSearchbarColorFix()
+							then style.Theme.UIMuted.Transparency
+							else style.Theme.BackgroundMuted.Transparency,
 						BorderSizePixel = 0,
 						LayoutOrder = 1,
 					}
@@ -176,8 +185,12 @@ function SearchHeaderBar:render()
 							getFFlagAddFriendsSearchbarIXPEnabled() and self.props.addFriendsPageSearchbarEnabled
 						)
 						then Roact.createElement("UIStroke", {
-							Color = self.state.borderColor or style.Theme.TextDefault.Color,
-							Transparency = self.state.borderTransparency or style.Theme.TextMuted.Transparency,
+							Color = if getFFlagAddFriendsSearchbarColorFix()
+								then self.state.borderColor or style.Theme.Divider.Color
+								else self.state.borderColor or style.Theme.TextDefault.Color,
+							Transparency = if getFFlagAddFriendsSearchbarColorFix()
+								then self.state.borderTransparency or style.Theme.Divider.Transparency
+								else self.state.borderTransparency or style.Theme.TextMuted.Transparency,
 							Thickness = 1,
 						})
 						else nil,

@@ -38,6 +38,7 @@ describe("mapToUsers", function()
 				userId = expect.any("number"),
 				username = "username40",
 				userPresenceType = EnumPresenceType.Offline,
+				hasVerifiedBadge = expect.any("boolean"),
 			})
 			expect(result[2]).toEqual({
 				displayName = expect.any("string"),
@@ -52,6 +53,7 @@ describe("mapToUsers", function()
 				userId = expect.any("number"),
 				username = "username39",
 				userPresenceType = EnumPresenceType.Offline,
+				hasVerifiedBadge = expect.any("boolean"),
 			})
 			expect(result[3]).toEqual({
 				displayName = expect.any("string"),
@@ -66,6 +68,7 @@ describe("mapToUsers", function()
 				userId = expect.any("number"),
 				username = "username38",
 				userPresenceType = EnumPresenceType.Online,
+				hasVerifiedBadge = expect.any("boolean"),
 			})
 			expect(result[4]).toEqual({
 				displayName = expect.any("string"),
@@ -80,6 +83,7 @@ describe("mapToUsers", function()
 				userId = expect.any("number"),
 				username = "username37",
 				userPresenceType = EnumPresenceType.InGame,
+				hasVerifiedBadge = expect.any("boolean"),
 			})
 			expect(result[5]).toEqual({
 				displayName = expect.any("string"),
@@ -94,6 +98,7 @@ describe("mapToUsers", function()
 				userId = expect.any("number"),
 				username = "username36",
 				userPresenceType = EnumPresenceType.InStudio,
+				hasVerifiedBadge = expect.any("boolean"),
 			})
 
 			expect(result).toHaveLength(5)

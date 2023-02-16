@@ -55,6 +55,14 @@ return function()
 	local function createVoiceOptionsJSONStub(options)
 		return stub(HttpService:JSONEncode(options))
 	end
+	local mockPolicyMapper = function(policy)
+		return {
+			getGameInfoShowChatFeatures = function()
+				return true
+			end,
+		}
+	end
+
 
 	local lastLogMessage = ""
 
@@ -114,6 +122,7 @@ return function()
 		isStudio = false
 		VoiceChatServiceStub:resetMocks()
 		VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, nil, nil, BlockMock.Event, nil, NotificationMock)
+		VoiceChatServiceManager.policyMapper = mockPolicyMapper
 		VoiceChatServiceManager:SetupParticipantListeners()
 	end)
 
@@ -125,13 +134,11 @@ return function()
 	describe("VoiceChatServiceManager Recent Users Interaction", function()
 		beforeAll(function(context)
 			context.fflagClearUserFromRecentVoiceDataOnLeave = game:SetFastFlagForTesting("ClearUserFromRecentVoiceDataOnLeave", false)
-			context.fflagVoiceAbuseReportsEnabled = game:SetFastFlagForTesting("VoiceAbuseReportsEnabledV3", true)
 			context.fintVoiceUsersInteractionExpiryTimeSeconds = game:SetFastIntForTesting("VoiceUsersInteractionExpiryTimeSeconds", 600)
 		end)
 
 		afterAll(function(context)
 			game:SetFastFlagForTesting("ClearUserFromRecentVoiceDataOnLeave", context.fflagClearUserFromRecentVoiceDataOnLeave)
-			game:SetFastFlagForTesting("VoiceAbuseReportsEnabledV3", context.fflagVoiceAbuseReportsEnabled)
 			game:SetFastIntForTesting("VoiceUsersInteractionExpiryTimeSeconds", context.fintVoiceUsersInteractionExpiryTimeSeconds)
 		end)
 
@@ -289,6 +296,7 @@ return function()
 
 			it("shows correct prompt when user is banned", function ()
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
+				VoiceChatServiceManager.policyMapper = mockPolicyMapper
 				HTTPServiceStub.GetAsyncFullUrlCB = createVoiceOptionsJSONStub({
 					universePlaceVoiceEnabledSettings = {
 						isUniverseEnabledForVoice = true,
@@ -309,6 +317,7 @@ return function()
 
 			it("Show place prompt if place is not enabled for voice", function ()
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
+				VoiceChatServiceManager.policyMapper = mockPolicyMapper
 				isStudio = true
 				VoiceChatServiceManager.runService = runServiceStub
 				HTTPServiceStub.GetAsyncFullUrlCB = createVoiceOptionsJSONStub({
@@ -368,6 +377,7 @@ return function()
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
 					VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub
 				)
+				VoiceChatServiceManager.policyMapper = mockPolicyMapper
 				VoiceChatServiceManager.userEligible = true
 				PermissionServiceStub.hasPermissionsCB = stubPromise({ status=PermissionsProtocol.Status.DENIED })
 				act(function()

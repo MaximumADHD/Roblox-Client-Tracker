@@ -2,6 +2,7 @@ local GraphQLServer = script:FindFirstAncestor("GraphQLServer")
 
 local VirtualEventConnector = require(GraphQLServer.graphql.connectors.VirtualEventConnector)
 local findVirtualEventById = VirtualEventConnector.findVirtualEventById
+local findVirtualEventsByUniverseId = VirtualEventConnector.findVirtualEventsByUniverseId
 local findRsvpCountersByVirtualEventId = VirtualEventConnector.findRsvpCountersByVirtualEventId
 local findRsvpsByVirtualEventId = VirtualEventConnector.findRsvpsByVirtualEventId
 local ExperienceConnector = require(GraphQLServer.graphql.connectors.ExperienceConnector)
@@ -28,6 +29,14 @@ local resolvers = {
 	Query = {
 		virtualEvent = function(_root, args, context)
 			return findVirtualEventById(args.id, context.fetchImpl)
+		end,
+		virtualEventsByUniverseId = function(_root, args, context)
+			local options = {
+				limit = args.limit,
+				offset = args.offset,
+				fromUtc = args.fromUtc,
+			}
+			return findVirtualEventsByUniverseId(args.universeId, options, context.fetchImpl)
 		end,
 	},
 }
