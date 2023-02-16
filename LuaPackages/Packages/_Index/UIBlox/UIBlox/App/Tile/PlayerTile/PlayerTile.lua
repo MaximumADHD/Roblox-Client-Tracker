@@ -22,8 +22,6 @@ local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
 local Tile = require(App.Tile.BaseTile.Tile)
 
 local PlayerTile = Roact.PureComponent:extend("PlayerTile")
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-local enablePlayerTilePaddingFix = UIBloxConfig.enablePlayerTilePaddingFix
 
 local imageType = t.union(t.string, validateImageSetData)
 PlayerTile.validateProps = t.strictInterface({
@@ -34,7 +32,6 @@ PlayerTile.validateProps = t.strictInterface({
 	hasVerifiedBadge = t.optional(t.boolean),
 
 	thumbnail = t.optional(t.union(t.string, t.table)),
-	thumbnailPadding = t.optional(t.number),
 
 	buttons = t.optional(t.array(t.strictInterface({
 		icon = t.optional(imageType),
@@ -68,10 +65,6 @@ PlayerTile.defaultProps = {
 	subtitle = "",
 }
 
-if enablePlayerTilePaddingFix then
-	PlayerTile.defaultProps.thumbnailPadding = 0
-end
-
 local ANIMATION_SPRING_SETTINGS = {
 	dampingRatio = 1,
 	frequency = 4,
@@ -82,8 +75,8 @@ local CONTENT_STATE_COLOR = {
 }
 
 local VIGNETTE = Images["component_assets/vignette_246"]
-local OUTER_BUTTON_PADDING = enablePlayerTilePaddingFix and 8 or 10
-local BUTTON_GAP = enablePlayerTilePaddingFix and 8 or 10
+local OUTER_BUTTON_PADDING = 10
+local BUTTON_GAP = 10
 local BUTTON_HEIGHT = 36
 
 local function footer(props)
@@ -170,29 +163,16 @@ local function thumbnailOverlayComponents(props)
 					},
 					List.join(
 						List.map(props.buttons, function(button)
-							if enablePlayerTilePaddingFix then
-								return Roact.createElement(PlayerTileButton, {
-									buttonHeight = BUTTON_HEIGHT,
-									buttonWidth = props.tileSize.X.Offset / 2 - (OUTER_BUTTON_PADDING + BUTTON_GAP / 2),
-									icon = button.icon,
-									isSecondary = button.isSecondary,
-									isDisabled = button.isDisabled,
-									onActivated = button.onActivated,
-									mouseEnter = props.hoverMouseEnter,
-									mouseLeave = props.hoverMouseLeave,
-								})
-							else
-								return Roact.createElement(PlayerTileButton, {
-									buttonHeight = BUTTON_HEIGHT,
-									tileSize = props.tileSize,
-									icon = button.icon,
-									isSecondary = button.isSecondary,
-									isDisabled = button.isDisabled,
-									onActivated = button.onActivated,
-									mouseEnter = props.hoverMouseEnter,
-									mouseLeave = props.hoverMouseLeave,
-								})
-							end
+							return Roact.createElement(PlayerTileButton, {
+								buttonHeight = BUTTON_HEIGHT,
+								tileSize = props.tileSize,
+								icon = button.icon,
+								isSecondary = button.isSecondary,
+								isDisabled = button.isDisabled,
+								onActivated = button.onActivated,
+								mouseEnter = props.hoverMouseEnter,
+								mouseLeave = props.hoverMouseLeave,
+							})
 						end),
 						{
 							Roact.createElement("UIListLayout", {
@@ -248,7 +228,6 @@ function PlayerTile:render()
 	local title = self.props.title
 	local onActivated = self.props.onActivated
 	local thumbnail = self.props.thumbnail
-	local thumbnailPadding = self.props.thumbnailPadding
 
 	return withStyle(function(style)
 		return Roact.createElement("Frame", {
@@ -270,7 +249,6 @@ function PlayerTile:render()
 				titleTextLineCount = 1,
 				onActivated = onActivated,
 				thumbnail = thumbnail,
-				thumbnailPadding = thumbnailPadding,
 				backgroundImage = Images[style.Theme.PlayerBackgroundDefault.Image],
 				thumbnailOverlayComponents = thumbnailOverlayComponents(Dictionary.join(self.props, {
 					hoverMouseEnter = self.hoverMouseEnter,

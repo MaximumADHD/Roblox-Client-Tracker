@@ -24,11 +24,11 @@ local function GridProvider(props: Props)
 		return GridConfigReader.findBreakpoint(config, width)
 	end)
 
-	React.useEffect(function()
+	React.useLayoutEffect(function()
 		setBreakpoint(GridConfigReader.findBreakpoint(config, width))
 	end, { config })
 
-	React.useEffect(function()
+	React.useLayoutEffect(function()
 		if breakpoint.min > width or width > breakpoint.max then
 			setBreakpoint(GridConfigReader.findBreakpoint(config, width))
 		end

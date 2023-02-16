@@ -76,6 +76,7 @@ local function Panel3D(providedProps: Props)
 				Color = Color3.new(0, 0, 0),
 				CanCollide = false,
 				CanTouch = false,
+				CanQuery = not props.hidden,
 			}),
 		}),
 		AppUI = React.createElement("SurfaceGui", {

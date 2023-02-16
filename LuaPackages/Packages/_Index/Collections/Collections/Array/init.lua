@@ -24,6 +24,8 @@ return {
 	filter = require(script.filter),
 	find = require(script.find),
 	findIndex = require(script.findIndex),
+	flat = require(script.flat),
+	flatMap = require(script.flatMap),
 	forEach = require(script.forEach),
 	from = require(script.from),
 	includes = require(script.includes),

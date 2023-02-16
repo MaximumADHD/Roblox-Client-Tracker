@@ -13,6 +13,7 @@
 	* limitations under the License.
 ]]
 --!strict
+local __DEV__ = _G.__DEV__
 local Array = script.Parent
 local Packages = Array.Parent.Parent
 local types = require(Packages.ES7Types)
@@ -24,7 +25,7 @@ type callbackFnWithThisArg<T, U> = (thisArg: U, element: T, index: number, array
 -- Implements Javascript's `Array.prototype.filter` as defined below
 -- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
 return function<T, U>(t: Array<T>, callback: callbackFn<T> | callbackFnWithThisArg<T, U>, thisArg: U?): Array<T>
-	if _G.__DEV__ then
+	if __DEV__ then
 		if typeof(t) ~= "table" then
 			error(string.format("Array.filter called on %s", typeof(t)))
 		end

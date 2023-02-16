@@ -18,7 +18,6 @@ local Core = UIBlox.Core
 
 local Cryo = require(Packages.Cryo)
 local React = require(Packages.React)
-local t = require(Packages.t)
 
 local Images = require(App.ImageSet.Images)
 local IconSize = require(App.ImageSet.Enum.IconSize)
@@ -26,7 +25,6 @@ local getIconSize = require(App.ImageSet.getIconSize)
 local useSelectionCursor = require(App.SelectionImage.useSelectionCursor)
 local CursorKind = require(App.SelectionImage.CursorKind)
 local useStyle = require(Core.Style.useStyle)
-local validateImageSetData = require(Core.ImageSet.Validator.validateImageSetData)
 local ControlState = require(Core.Control.Enum.ControlState)
 local Interactable = require(Core.Control.Interactable)
 local useControlState = require(Core.Control.useControlState)

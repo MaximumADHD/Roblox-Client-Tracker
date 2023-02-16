@@ -62,9 +62,6 @@ local tileInterface = t.strictInterface({
 	-- The item thumbnail's size if not UDm2.new(1, 0, 1, 0)
 	thumbnailSize = t.optional(t.UDim2),
 
-	-- The item thumbnail's padding if not 0
-	thumbnailPadding = t.optional(t.number),
-
 	-- The item thumbnail's color
 	thumbnailColor = t.optional(t.Color3),
 
@@ -171,7 +168,6 @@ function Tile:render()
 	local onActivated = self.props.onActivated
 	local thumbnail = self.props.thumbnail
 	local thumbnailSize = self.props.thumbnailSize
-	local thumbnailPadding = self.props.thumbnailPadding
 	local thumbnailColor = self.props.thumbnailColor
 	local thumbnailTransparency = self.props.thumbnailTransparency
 	local bannerText = self.props.bannerText
@@ -289,7 +285,6 @@ function Tile:render()
 						multiSelect = multiSelect,
 						overlayComponents = thumbnailOverlayComponents,
 						imageSize = thumbnailSize,
-						imagePadding = thumbnailPadding,
 						imageColor = thumbnailColor,
 						imageTransparency = thumbnailTransparency,
 						backgroundImage = backgroundImage,

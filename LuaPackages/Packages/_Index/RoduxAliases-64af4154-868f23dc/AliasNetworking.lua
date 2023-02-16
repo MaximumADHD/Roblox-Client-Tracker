@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["NetworkingAliases-96003ad7-1.7.0"]["NetworkingAliases"])
+local Package = require(PackageIndex["NetworkingAliases-96003ad7-1.10.0"]["NetworkingAliases"])
 
 return Package

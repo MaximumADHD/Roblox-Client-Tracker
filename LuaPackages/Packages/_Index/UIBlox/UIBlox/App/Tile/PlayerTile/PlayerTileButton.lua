@@ -11,8 +11,6 @@ local SecondaryButton = require(App.Button.SecondaryButton)
 local ControlState = require(Core.Control.Enum.ControlState)
 
 local PlayerTileButton = Roact.PureComponent:extend("PlayerTileButton")
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-local enablePlayerTilePaddingFix = UIBloxConfig.enablePlayerTilePaddingFix
 
 PlayerTileButton.validateProps = t.strictInterface({
 	buttonHeight = t.optional(t.number),
@@ -29,14 +27,8 @@ PlayerTileButton.validateProps = t.strictInterface({
 PlayerTileButton.defaultProps = {
 	isSecondary = false,
 	isDisabled = false,
+	tileSize = UDim2.new(0, 150, 0, 150),
 }
-
-if enablePlayerTilePaddingFix then
-	PlayerTileButton.defaultProps.buttonHeight = 36
-	PlayerTileButton.defaultProps.buttonWidth = 38
-else
-	PlayerTileButton.defaultProps.tileSize = UDim2.new(0, 150, 0, 150)
-end
 
 function PlayerTileButton:render()
 	local isSecondary = self.props.isSecondary
@@ -45,17 +37,13 @@ function PlayerTileButton:render()
 	local icon = self.props.icon
 
 	local buttonSize
-	if enablePlayerTilePaddingFix then
-		buttonSize = UDim2.fromOffset(self.props.buttonWidth, self.props.buttonHeight)
-	else
-		local tileSize = self.props.tileSize
+	local tileSize = self.props.tileSize
 
-		local BUTTON_HEIGHT = 36
-		local OUTER_BUTTON_PADDING = 10
-		local MAX_BUTTON_SIZE = tileSize.X.Offset / 2 - (OUTER_BUTTON_PADDING + 5)
+	local BUTTON_HEIGHT = 36
+	local OUTER_BUTTON_PADDING = 10
+	local MAX_BUTTON_SIZE = tileSize.X.Offset / 2 - (OUTER_BUTTON_PADDING + 5)
 
-		buttonSize = UDim2.new(0, MAX_BUTTON_SIZE, 0, BUTTON_HEIGHT)
-	end
+	buttonSize = UDim2.new(0, MAX_BUTTON_SIZE, 0, BUTTON_HEIGHT)
 
 	local buttonType = isSecondary and SecondaryButton or PrimarySystemButton
 	return Roact.createElement(buttonType, {

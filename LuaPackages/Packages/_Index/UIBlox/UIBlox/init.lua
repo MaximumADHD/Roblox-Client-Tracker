@@ -332,6 +332,7 @@ local function initializeLibrary(configs)
 			SegmentedControl = require(script.App.Control.SegmentedControl),
 			RobuxBalance = require(script.App.Control.RobuxBalance),
 			Pill = require(script.App.Control.Pill.Pill),
+			Pillv2 = require(script.App.Control.Pill.Pillv2),
 			Slot = strict({
 				SlotTray = require(script.App.Control.Slot.SlotTray),
 			}),

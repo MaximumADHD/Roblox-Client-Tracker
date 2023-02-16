@@ -8,7 +8,7 @@ local ColorSystem = require(Root.Common.Style.ColorSystem)
 local theme = {
 	-- Backgrounds
 	BackgroundDefault = {
-		Color = ColorSystem.Gray[40],
+		Color = ColorSystem.Gray[30],
 		Transparency = 0,
 	},
 	BackgroundContrast = {
@@ -16,7 +16,7 @@ local theme = {
 		Transparency = 0,
 	},
 	BackgroundMuted = {
-		Color = ColorSystem.Gray[30],
+		Color = ColorSystem.Gray[40],
 		Transparency = 0,
 	},
 	BackgroundUIDefault = {
@@ -24,7 +24,7 @@ local theme = {
 		Transparency = 0,
 	},
 	BackgroundUIContrast = {
-		Color = ColorSystem.Gray[30],
+		Color = ColorSystem.Gray[20],
 		Transparency = 0,
 	},
 	BackgroundOnHover = {
@@ -46,7 +46,7 @@ local theme = {
 		Transparency = 0,
 	},
 	UIMuted = {
-		Color = ColorSystem.Gray[30],
+		Color = ColorSystem.Gray[40],
 		Transparency = 0,
 	},
 	UIEmphasis = {
@@ -163,7 +163,7 @@ local theme = {
 		Rotation = 45, -- 135 deg in CSS
 	},
 	PlaceHolder = {
-		Color = ColorSystem.Gray[30],
+		Color = ColorSystem.Gray[40],
 		Transparency = 0,
 	},
 	OnlineStatus = {

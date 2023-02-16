@@ -68,9 +68,6 @@ return {
 	-- enableActionBarLayoutFix : Indicate whether the fix to update the action bar layout is enabled
 	enableActionBarLayoutFix = false,
 
-	-- enablePlayerTilePaddingFix : Indicate whether the fix to update the player tile padding is enabled
-	enablePlayerTilePaddingFix = false,
-
 	-- config for supporting right side gadget for Menu Cell
 	enableRightSideGadgetView = false,
 
@@ -145,9 +142,12 @@ return {
 	-- Fix the automaticSize issues in gameDetailsScreen
 	fixGameDetailsAutomaticSize = false,
 
-	-- todo
+	-- Optionally inject margin for HeadarBar
 	headerBarInjectMargin = false,
 
 	-- Add props for icon size and title in EmptyState component
 	emptyStateTitleAndIconSize = false,
+
+	-- Inject padding for right content for HeaderBar
+	headerBarInjectContentPaddingRight = false,
 }

@@ -17,10 +17,13 @@ local ControlState = require(Core.Control.Enum.ControlState)
 local SegmentedControlTabName = require(script.Parent.SegmentedControlTabName)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local getContentStyle = require(Core.Button.getContentStyle)
+local getIconSize = require(UIBlox.App.ImageSet.getIconSize)
+local IconSize = require(UIBlox.App.ImageSet.Enum.IconSize)
 
 local FRAME_PADDING = 4
 local MIN_TAB_WIDTH = 108
 local MAX_WIDTH = 640
+local ICON_WIDTH = getIconSize(IconSize.Medium)
 local INTERACTION_HEIGHT = 44
 local BACKGROUND_HEIGHT = 36
 local TAB_HEIGHT = 28
@@ -43,12 +46,19 @@ local DROPSHADOW_COLOR_STATE_MAP = {
 	[ControlState.Default] = "DropShadow",
 }
 
+local ICON_STATE_COLOR = {
+	[ControlState.Default] = "SecondaryDefault",
+	[ControlState.Hover] = "SecondaryOnHover",
+}
+
 local limitedLengthTabArray = function(array)
 	local typeChecker, typeCheckerMessage = t.array(t.strictInterface({
 		-- The name and ID for this tab
 		tabName = t.string,
 		-- If this tab is disabled.
 		isDisabled = t.optional(t.boolean),
+		-- icon for each tab
+		icon = t.optional(t.table),
 	}))(array)
 
 	if not typeChecker then
@@ -87,6 +97,9 @@ SegmentedControl.validateProps = t.strictInterface({
 	NextSelectionRight = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
+
+	-- layout
+	layoutOrder = t.optional(t.number),
 })
 
 function SegmentedControl:init()
@@ -133,6 +146,7 @@ function SegmentedControl:render()
 			getContentStyle(SELECTED_BACKGROUND_COLOR_STATE_MAP, forceSelectedBGState, style)
 		local dropshadowStyle = getContentStyle(DROPSHADOW_COLOR_STATE_MAP, currentState, style)
 		local tabWidth = self.state.tabWidth
+		local iconWidth = if self.props.icon then ICON_WIDTH else 0 -- if icon is specified, budget space for it, otherwise don't.
 
 		-- dividers between tabs
 		local dividers = {}
@@ -214,6 +228,8 @@ function SegmentedControl:render()
 						Size = UDim2.fromScale(1, 1),
 						isDisabled = tab.isDisabled,
 						isSelectedStyle = self.props.selectedTabIndex == index,
+						icon = tab.icon,
+						iconStateColorMap = ICON_STATE_COLOR,
 					}),
 				})
 			end)
@@ -232,9 +248,13 @@ function SegmentedControl:render()
 				Size = UDim2.new(self.props.width.Scale, self.props.width.Offset, 0, INTERACTION_HEIGHT),
 				BackgroundTransparency = 1,
 				[Roact.Change.AbsoluteSize] = self.setSize,
+				LayoutOrder = self.props.layoutOrder,
 			}, {
 				SizeConstraint = Roact.createElement("UISizeConstraint", {
-					MinSize = Vector2.new(MIN_TAB_WIDTH * #self.props.tabs + FRAME_PADDING * 2, INTERACTION_HEIGHT),
+					MinSize = Vector2.new(
+						(iconWidth + MIN_TAB_WIDTH) * #self.props.tabs + FRAME_PADDING * 2,
+						INTERACTION_HEIGHT
+					),
 					MaxSize = Vector2.new(MAX_WIDTH, INTERACTION_HEIGHT),
 				}),
 				-- tab group background

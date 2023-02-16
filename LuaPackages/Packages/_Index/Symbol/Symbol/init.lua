@@ -12,13 +12,14 @@
 	* See the License for the specific language governing permissions and
 	* limitations under the License.
 ]]
+--!strict
 --[[
 	A 'Symbol' is an opaque marker type, implemented to behave similarly to JS:
 	https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol
 ]]
 local Symbol = require(script.Symbol)
 export type Symbol = Symbol.Symbol
-local GlobalRegistry = require(script.GlobalRegistry)
+local GlobalRegistry = require(script["Registry.global"])
 
 local SymbolObject = setmetatable({}, {
 	--[[

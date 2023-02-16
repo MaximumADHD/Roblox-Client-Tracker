@@ -14,10 +14,11 @@
 ]]
 --!strict
 -- polyfill for https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof
+local __DEV__ = _G.__DEV__
 
 -- FIXME Luau: typing class as Object gives: Type '{ @metatable {| __call: <a>(a, ...any) -> Error, __tostring: <b, c>({+ message: b, name: c +}) -> string |}, Error }' could not be converted into 'table'
 local function instanceof(tbl: any, class: any): boolean
-	if _G.__DEV__ then
+	if __DEV__ then
 		assert(typeof(class) == "table", "Received a non-table as the second argument for instanceof")
 	end
 
@@ -32,7 +33,7 @@ local function instanceof(tbl: any, class: any): boolean
 		return true
 	end
 
-	local seen = { tbl = true }
+	local seen = { [tbl] = true }
 
 	while tbl and typeof(tbl) == "table" do
 		tbl = getmetatable(tbl)

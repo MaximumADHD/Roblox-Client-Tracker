@@ -27,6 +27,8 @@ export type IconTabItem = {
 	icon: string,
 	onActivated: (() -> any)?,
 	iconComponent: any?,
+	showRoundedBackground: boolean?,
+	showOverlay: boolean?,
 }
 
 export type IconTabItemProps = {
@@ -48,7 +50,6 @@ export type ContainerProps = {
 	showOverlay: boolean?,
 	roundCornerRadius: number?,
 	roundedBackgroundHeight: number?,
-	backgroundTransparency: number?,
 	backgroundColor3: Color3?,
 }
 

@@ -34,18 +34,22 @@ export type Map<K, V> = typeof(setmetatable(
 			callback: mapCallbackFn<K, V> | mapCallbackFnWithThisArg<K, V>,
 			thisArg: Object?
 		) -> (),
+		[K]: V,
 		has: (self: Map<K, V>, K) -> boolean,
 		keys: (self: Map<K, V>) -> Array<K>,
 		values: (self: Map<K, V>) -> Array<V>,
 		entries: (self: Map<K, V>) -> Array<Tuple<K, V>>,
 		ipairs: (self: Map<K, V>) -> any,
-		[K]: V,
 		_map: { [K]: V },
 		_array: { [number]: K },
+		__index: (self: Map<K, V>, key: K) -> V,
+		__iter: (self: Map<K, V>) -> (<K, V>({ [K]: V }, K?) -> (K?, V), V),
+		__newindex: (self: Map<K, V>, key: K, value: V) -> (),
 	},
 	{} :: {
 		__index: Map<K, V>,
 		__iter: (self: Map<K, V>) -> (<K, V>({ [K]: V }, K?) -> (K, V), V),
+		__newindex: (self: Map<K, V>, key: K, value: V) -> (),
 	}
 ))
 

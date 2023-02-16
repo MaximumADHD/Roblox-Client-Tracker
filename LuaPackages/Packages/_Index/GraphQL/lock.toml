@@ -4,7 +4,7 @@ version = "15.6.0"
 commit = "6110ffda97b74f4e4614d0780176e18e83b4c719"
 source = "url+https://github.com/roblox/graphql-lua"
 dependencies = [
-    "LuauPolyfill LuauPolyfill 1.1.0 url+https://github.com/roblox/luau-polyfill",
+    "LuauPolyfill LuauPolyfill 1.2.2 url+https://github.com/roblox/luau-polyfill",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
 ]

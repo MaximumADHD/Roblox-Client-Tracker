@@ -34,6 +34,8 @@ local defaultProps: Props = {
 return function(providedProps: Props)
 	local props: Props = Object.assign({}, defaultProps, providedProps)
 	local selectionCursor = useSelectionCursor(CursorKind.LargePill)
+	-- first IconTab is selected by default, selection status is handled inside InteractableList
+	local currentSelection, setCurrentSelection = React.useState(1)
 	return HorizontalContainer({
 		size = UDim2.new(0, 0, 0, Constants.ICON_TAB_HEIGHT),
 		showRoundedBackground = false,
@@ -70,8 +72,11 @@ return function(providedProps: Props)
 			end,
 			onSelectionChanged = function(selection: table)
 				local item: Types.IconTabItem = props.items[selection[1]]
-				if item ~= nil and item.onActivated ~= nil then
-					item.onActivated()
+				if item ~= nil and currentSelection ~= selection[1] then
+					setCurrentSelection(selection[1])
+					if item.onActivated ~= nil then
+						item.onActivated()
+					end
 				end
 			end,
 			selectionMode = SelectionMode.Single,

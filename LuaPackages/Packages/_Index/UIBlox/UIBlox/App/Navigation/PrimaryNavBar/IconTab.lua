@@ -40,14 +40,13 @@ return function(providedProps: Props)
 		size = UDim2.new(0, 0, 0, Constants.ICON_TAB_ITEM_HEIGHT),
 		automaticSize = Enum.AutomaticSize.X,
 		backgroundColor3 = style.Theme.Divider.Color,
-		backgroundTransparency = if selected then Constants.ICON_TAB_SELECTED_OVERLAY_TRANSPARENCY else 1,
 		spacing = Constants.ICON_TAB_ITEM_ICON_TITLE_SPACING,
 		padding = {
 			left = Constants.ICON_TAB_ITEM_PADDING_LEFT,
 			right = Constants.ICON_TAB_ITEM_PADDING_RIGHT,
 		},
-		showRoundedBackground = selected,
-		showOverlay = pressed,
+		showRoundedBackground = if item.showRoundedBackground ~= nil then item.showRoundedBackground else selected,
+		showOverlay = if item.showOverlay ~= nil then item.showOverlay else pressed,
 		roundCornerRadius = Constants.ICON_TAB_ITEM_HEIGHT / 2,
 	}, {
 		Icon = if item.iconComponent == nil

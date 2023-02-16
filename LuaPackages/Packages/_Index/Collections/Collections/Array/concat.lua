@@ -13,6 +13,7 @@
 	* limitations under the License.
 ]]
 --!strict
+local __DEV__ = _G.__DEV__
 local Array = script.Parent
 local Packages = Array.Parent.Parent
 local isArray = require(Array.isArray)
@@ -47,7 +48,7 @@ local function concat<T, S>(source: Array<T> | T, ...: Array<S> | S): Array<T> &
 			-- deviation: assume that table is an array, to avoid the expensive
 			-- `isArray` check. In DEV mode, we throw if it is given an object-like
 			-- table.
-			if _G.__DEV__ then
+			if __DEV__ then
 				if not isArray(value) then
 					error(RECEIVED_OBJECT_ERROR)
 				end

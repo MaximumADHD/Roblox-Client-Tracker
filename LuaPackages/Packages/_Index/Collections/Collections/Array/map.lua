@@ -13,7 +13,7 @@
 	* limitations under the License.
 ]]
 --!strict
-
+local __DEV__ = _G.__DEV__
 local Array = script.Parent
 local Packages = Array.Parent.Parent
 local types = require(Packages.ES7Types)
@@ -25,7 +25,7 @@ type callbackFnWithThisArg<T, U, V> = (thisArg: V, element: T, index: number, ar
 -- Implements Javascript's `Array.prototype.map` as defined below
 -- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
 return function<T, U, V>(t: Array<T>, callback: callbackFn<T, U> | callbackFnWithThisArg<T, U, V>, thisArg: V?): Array<U>
-	if _G.__DEV__ then
+	if __DEV__ then
 		if typeof(t) ~= "table" then
 			error(string.format("Array.map called on %s", typeof(t)))
 		end

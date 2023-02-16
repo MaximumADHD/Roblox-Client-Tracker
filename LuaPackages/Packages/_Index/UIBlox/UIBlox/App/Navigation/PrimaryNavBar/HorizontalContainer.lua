@@ -31,7 +31,7 @@ return function(extraProps: Props, children: { [any]: Instance })
 			then Roact.createElement("Frame", {
 				Size = extraProps.roundedBackgroundHeight and UDim2.new(1, 0, 0, extraProps.roundedBackgroundHeight)
 					or UDim2.new(1, 0, 1, 0),
-				BackgroundTransparency = extraProps.backgroundTransparency or 1,
+				BackgroundTransparency = Constants.ICON_TAB_SELECTED_TRANSPARENCY,
 				BackgroundColor3 = extraProps.backgroundColor3 or style.Theme.BackgroundUIDefault.Color,
 				Position = UDim2.fromOffset(
 					0,

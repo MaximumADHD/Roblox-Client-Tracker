@@ -24,7 +24,6 @@ TileThumbnail.defaultProps = {
 	imageSize = UDim2.new(1, 0, 1, 0),
 	imageColor = nil,
 	imageTransparency = 0,
-	imagePadding = 0,
 }
 
 local CORNER_RADIUS = UDim.new(0, 10)
@@ -33,7 +32,6 @@ function TileThumbnail:render()
 	local hasRoundedCorners = self.props.hasRoundedCorners
 	local image = self.props.Image
 	local imageSize = self.props.imageSize
-	local imagePadding = self.props.imagePadding
 	local imageColor = self.props.imageColor
 	local imageTransparency = self.props.imageTransparency
 	local isSelected = self.props.isSelected
@@ -60,10 +58,6 @@ function TileThumbnail:render()
 					BackgroundColor3 = theme.PlaceHolder.Color,
 					BackgroundTransparency = theme.PlaceHolder.Transparency,
 					Image = image,
-					ImagePaddingTop = imagePadding,
-					ImagePaddingBottom = imagePadding,
-					ImagePaddingLeft = imagePadding,
-					ImagePaddingRight = imagePadding,
 					Position = UDim2.new(0.5, 0, 0.5, 0),
 					Size = imageSize,
 					ZIndex = 0,
@@ -81,7 +75,7 @@ function TileThumbnail:render()
 						ImageColor3 = imageColor or theme.UIEmphasis.Color,
 						ImageTransparency = imageTransparency,
 						Position = UDim2.new(0.5, 0, 0.5, 0),
-						Size = imageSize - UDim2.fromOffset(imagePadding * 2, imagePadding * 2),
+						Size = imageSize,
 					}, {
 						UICorner = UIBloxConfig.useNewUICornerRoundedCorners
 								and hasRoundedCorners

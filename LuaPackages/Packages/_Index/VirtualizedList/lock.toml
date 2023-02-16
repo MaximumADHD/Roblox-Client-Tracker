@@ -4,7 +4,7 @@ version = "1.1.2"
 commit = "222b68a609f7a1f8abb99b3bf5eab4f2280b2682"
 source = "url+https://github.com/roblox/virtualized-list-lua"
 dependencies = [
-    "LuauPolyfill LuauPolyfill 1.1.0 url+https://github.com/roblox/luau-polyfill",
+    "LuauPolyfill LuauPolyfill 1.2.2 url+https://github.com/roblox/luau-polyfill",
     "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "React <patched> ReactProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",

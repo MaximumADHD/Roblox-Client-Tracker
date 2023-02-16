@@ -5,5 +5,5 @@ commit = "792ffec6ca98a6d725d25d678d693f486c1d2c75"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "ChalkLua ChalkLua 0.2.0 url+https://github.com/roblox/chalk-lua",
-    "LuauPolyfill LuauPolyfill 1.1.0 url+https://github.com/roblox/luau-polyfill",
+    "LuauPolyfill LuauPolyfill 1.2.2 url+https://github.com/roblox/luau-polyfill",
 ]

@@ -13,6 +13,7 @@
 	* limitations under the License.
 ]]
 --!nonstrict
+local __DEV__ = _G.__DEV__
 local Collections = script.Parent
 local Packages = Collections.Parent
 
@@ -63,7 +64,7 @@ function Set.new<T>(iterable: Array<T> | Set<T> | string | nil): Set<T>
 				local mt = getmetatable(iterable :: any)
 				if mt and rawget(mt, "__iter") then
 					arrayIterable = iterable :: Set<T>
-				elseif _G.__DEV__ then
+				elseif __DEV__ then
 					error("cannot create array from an object-like table")
 				end
 			end
@@ -148,7 +149,7 @@ function Set:has(value): boolean
 end
 
 function Set:ipairs()
-	if _G.__DEV__ then
+	if __DEV__ then
 		warn(
 			debug.traceback(
 				"`for _,_ in mySet:ipairs() do` is deprecated and will be removed in a future release, please use `for _,_ in mySet do` instead\n",
