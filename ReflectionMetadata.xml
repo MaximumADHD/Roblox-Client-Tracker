@@ -4025,6 +4025,7 @@
         <string name="Name">LocalizationService</string>
         <string name="ExplorerOrder">530</string>
         <string name="ExplorerImageIndex">92</string>
+        <token name="ServiceVisibility">2</token> <!-- WithChildren -->
       </Properties>
       <Item class="ReflectionMetadataMember">
         <Properties>
@@ -5886,6 +5887,7 @@
         <string name="Name">Players</string>
         <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">21</string>
+        <token name="ServiceVisibility">2</token> <!-- WithChildren -->
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -6117,6 +6119,7 @@
         <string name="Name">TestService</string>
         <string name="ExplorerOrder">1000</string>
         <string name="ExplorerImageIndex">68</string>
+        <token name="ServiceVisibility">2</token> <!-- WithChildren -->
       </Properties>
     </Item>
 

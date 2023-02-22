@@ -53,6 +53,7 @@ ApolloClient = "github.com/Roblox/apollo-client-lua@0.3.5"
 GraphQL = "github.com/Roblox/graphql-lua@15.6.0"
 QRCode = "github.com/Roblox/lua-qr-code@0.1.0"
 Merge = "github.com/Roblox/graphql-tools-lua@0.2.0"
+DataLoader = "github.com/Roblox/data-loader-lua@0.2.0"
 
 # The following packages were ported from AppTempCommon
 Result = { git = "https://github.com/Roblox/lua-result" }
@@ -60,7 +61,7 @@ tutils = { git = "https://github.com/Roblox/tutils" }
 
 InGameMenuDependencies = { git = "https://github.com/Roblox/in-game-menu-dependencies", rev = "master" }
 
-RoactGamepad = "github.com/roblox/roact-gamepad@0.5.8"
+RoactGamepad = "github.com/roblox/roact-gamepad@0.5.11"
 
 [dev_dependencies]
 Jest = "github.com/roblox/jest-roblox@3.2.1"
@@ -111,7 +112,7 @@ RoactRodux = "github.com/Roblox/roact-rodux@0.5.1"
 InfiniteScroller = "github.com/Roblox/infinite-scroller@0.9.5"
 
 [config.patch."github.com/roblox/roact-gamepad"]
-RoactGamepad = "github.com/Roblox/roact-gamepad@0.5.8"
+RoactGamepad = "github.com/Roblox/roact-gamepad@0.5.11"
 
 [config.patch."github.com/roblox/virtualized-list-lua"]
 VirtualizedList = "github.com/roblox/virtualized-list-lua@1.1.2"
