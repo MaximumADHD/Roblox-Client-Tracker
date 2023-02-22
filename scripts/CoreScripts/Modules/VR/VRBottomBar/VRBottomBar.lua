@@ -27,6 +27,8 @@ local Images = UIBlox.App.ImageSet.Images
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
 
+local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
+
 -- accessors
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 local GameSettings = UserSettings().GameSettings
@@ -49,6 +51,8 @@ local GetFFlagUIBloxVRApplyHeadScale =
 
 local FFlagFixPurchasePromptInVR = game:GetEngineFeature("FixPurchasePromptInVR")
 local GetFFlagBottomBarButtonBehaviorFixVR = require(RobloxGui.Modules.Flags.GetFFlagBottomBarButtonBehaviorFixVR)
+local GetFFlagBottomBarInitialStateFixVR = require(RobloxGui.Modules.Flags.GetFFlagBottomBarInitialStateFixVR)
+local GetFFlagBottomBarSortOrderFixVR = require(RobloxGui.Modules.Flags.GetFFlagBottomBarSortOrderFixVR)
 
 -- each individual icon can either be definied as a table entry with icon and onActivate, or as a item component
 local MainMenu =
@@ -225,63 +229,109 @@ local SeparatorIcon =
 
 -- default bar init
 function VRBottomBar:init()
-	if SafetyBubbleEnabled then	
-		self:setState({
-			itemList = {MainMenu, SeparatorIcon, ToggleGui, Emotes, Chat, PlayerList, SeparatorIcon, SafetyOn, LeaveGame}
-		})
-	else
-		self:setState({
-			itemList = {MainMenu, SeparatorIcon, ToggleGui, Emotes, Chat, PlayerList, SeparatorIcon, LeaveGame}
-		})
-	end
-
 	self:setState({
 		vrMenuOpen = true
 	})
 	
 	self.backpackHasItems = false
 	self.emotesLoaded = false
-end
 
-function VRBottomBar:didMount()
-	VRHub.ShowTopBarChanged.Event:Connect(function()
+	if GetFFlagBottomBarInitialStateFixVR() then
 		self:setState({
-			vrMenuOpen = VRHub.ShowTopBar,
+			itemList = { MainMenu, SeparatorIcon, ToggleGui, SeparatorIcon, LeaveGame }
 		})
-	end)
-	
-	VRHub.SafetyBubbleToggled.Event:Connect(function()
-		local activeItems = self:updateItems()
-		self:setState({
-			itemList = activeItems
-		})
-	end)
-	
-	BackpackScript.BackpackItemAdded.Event:Connect(function()
-		self.backpackHasItems = true
-		local activeItems = self:updateItems()
-		self:setState({
-			itemList = activeItems
-		})
-	end)
-	
-	BackpackScript.BackpackEmpty.Event:Connect(function()
-		self.backpackHasItems = false
-		local activeItems = self:updateItems()
-		self:setState({
-			itemList = activeItems
-		})
-	end)
-	
-	EmotesMenuMaster.EmotesLoaded.Event:Connect(function(emotesLoaded)
-		if emotesLoaded ~= self.emotesLoaded then
-			self.emotesLoaded = emotesLoaded
+
+		self.onShowTopBarChanged = function()
+			self:setState({
+				vrMenuOpen = VRHub.ShowTopBar,
+			})
+		end
+		
+		self.updateItemListState = function()
 			local activeItems = self:updateItems()
 			self:setState({
 				itemList = activeItems
 			})
 		end
-	end)
+
+		self.onBackpackItemAdded = function()
+			if not self.backpackHasItems then
+				self.backpackHasItems = true
+				self.updateItemListState()
+			end
+		end
+
+		self.onBackpackEmpty = function()
+			if self.backpackHasItems then
+				self.backpackHasItems = false
+				self.updateItemListState()
+			end
+		end
+
+		self.onEmotesLoaded = function(emotesLoaded)
+			if emotesLoaded ~= self.emotesLoaded then
+				self.emotesLoaded = emotesLoaded
+				self.updateItemListState()
+			end
+		end
+	else
+		if SafetyBubbleEnabled then	
+			self:setState({
+				itemList = {MainMenu, SeparatorIcon, ToggleGui, Emotes, Chat, PlayerList, SeparatorIcon, SafetyOn, LeaveGame}
+			})
+		else
+			self:setState({
+				itemList = {MainMenu, SeparatorIcon, ToggleGui, Emotes, Chat, PlayerList, SeparatorIcon, LeaveGame}
+			})
+		end
+	end
+end
+
+function VRBottomBar:didMount()
+	if GetFFlagBottomBarInitialStateFixVR() then
+		self.emotesLoaded = EmotesMenuMaster:isEmotesLoaded()
+		self.backpackHasItems = BackpackScript.IsInventoryEmpty()
+		self.updateItemListState()
+	else
+		VRHub.ShowTopBarChanged.Event:Connect(function()
+			self:setState({
+				vrMenuOpen = VRHub.ShowTopBar,
+			})
+		end)
+		
+		VRHub.SafetyBubbleToggled.Event:Connect(function()
+			local activeItems = self:updateItems()
+			self:setState({
+				itemList = activeItems
+			})
+		end)
+		
+		BackpackScript.BackpackItemAdded.Event:Connect(function()
+			self.backpackHasItems = true
+			local activeItems = self:updateItems()
+			self:setState({
+				itemList = activeItems
+			})
+		end)
+		
+		BackpackScript.BackpackEmpty.Event:Connect(function()
+			self.backpackHasItems = false
+			local activeItems = self:updateItems()
+			self:setState({
+				itemList = activeItems
+			})
+		end)
+		
+		EmotesMenuMaster.EmotesLoaded.Event:Connect(function(emotesLoaded)
+			if emotesLoaded ~= self.emotesLoaded then
+				self.emotesLoaded = emotesLoaded
+				local activeItems = self:updateItems()
+				self:setState({
+					itemList = activeItems
+				})
+			end
+		end)
+	end
 end
 
 -- the bottombar itemlist automatically tracks feature updates and scales on demand
@@ -291,7 +341,7 @@ function VRBottomBar:updateItems()
 	local chatEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Chat)
 	local playerListEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.PlayerList)
 	
-	local enabledItems = {MainMenu, SeparatorIcon, ToggleGui}
+	local enabledItems = { MainMenu, SeparatorIcon, ToggleGui }
 	if emotesEnabled and not (StarterPlayer.UserEmotesEnabled and self.emotesLoaded == false) then
 		table.insert(enabledItems, Emotes)
 	end
@@ -321,8 +371,66 @@ function VRBottomBar:updateItems()
 end
 
 -- VRBottomBar implements two UIBlox components
-function VRBottomBar:render()
-	return Roact.createElement(Panel3D,  {
+function VRBottomBar:render()	
+	if GetFFlagBottomBarInitialStateFixVR() then
+		return Roact.createElement(Panel3D,  {
+			panelName = "BottomBar",
+			partSize = if GetFFlagUIBloxVRApplyHeadScale()
+				then Vector2.new((#self.state.itemList - 1) * 0.15, 0.15)
+				else Vector2.new((#self.state.itemList - 1) * 0.15 * (workspace.CurrentCamera :: Camera).HeadScale, 0.15 * (workspace.CurrentCamera :: Camera).HeadScale),
+			virtualScreenSize = Vector2.new((#self.state.itemList - 1) * 50, 50),
+			offset = if GetFFlagUIBloxVRApplyHeadScale()
+				then self.state.vrMenuOpen and CFrame.new(0, -1.5, 0) or CFrame.new(0, -2, 0)
+				else self.state.vrMenuOpen and CFrame.new(0, -1.5 * (workspace.CurrentCamera :: Camera).HeadScale, 0) or CFrame.new(0, -2 * (workspace.CurrentCamera :: Camera).HeadScale, 0),
+			lerp = true,
+			tilt = 0,
+			anchoring = VRConstants.AnchoringTypes.Head,
+			faceCamera = true,
+			alwaysOnTop = EngineFeatureEnableVRBottomBarWorksBehindObjects and true or nil,
+			parent = EngineFeatureEnableVRBottomBarWorksBehindObjects and GuiService.CoreGuiFolder or nil,
+		}, {
+			Roact.createElement(SystemBar, {
+				itemList = self.state.itemList,
+				selection = self.state.vrMenuOpen and 1 or 3,
+				placement = Placement.Bottom,
+				hidden = false,
+				onSafeAreaChanged = function() end,
+				size = UDim2.new(1, 0, 1, 0),
+				position = UDim2.new(),
+				layoutOrder = 1,
+				roundCorners = true,
+				buttonStroke = true,
+				bgTransparency = 0,
+				sortOrder = if GetFFlagBottomBarSortOrderFixVR() then Enum.SortOrder.LayoutOrder else nil,
+			}),
+
+			ShowTopBarChanged = Roact.createElement(ExternalEventConnection, {
+				event = VRHub.ShowTopBarChanged.Event,
+				callback = self.onShowTopBarChanged,
+			}),
+			CoreGuiChanged = Roact.createElement(ExternalEventConnection, {
+				event = StarterGui.CoreGuiChangedSignal,
+				callback = self.updateItemListState,
+			}),
+			SafetyBubbleToggled = Roact.createElement(ExternalEventConnection, {
+				event = VRHub.SafetyBubbleToggled.Event,
+				callback = self.updateItemListState,
+			}),
+			BackpackItemAdded = Roact.createElement(ExternalEventConnection, {
+				event = BackpackScript.BackpackItemAdded.Event,
+				callback = self.onBackpackItemAdded,
+			}),
+			BackpackEmpty = Roact.createElement(ExternalEventConnection, {
+				event = BackpackScript.BackpackEmpty.Event,
+				callback = self.onBackpackEmpty,
+			}),
+			EmotesLoaded = Roact.createElement(ExternalEventConnection, {
+				event = EmotesMenuMaster.EmotesLoaded.Event,
+				callback = self.onEmotesLoaded,
+			}),
+		})
+	else
+		return Roact.createElement(Panel3D,  {
 			panelName = "BottomBar",
 			partSize = if GetFFlagUIBloxVRApplyHeadScale()
 				then Vector2.new((table.getn(self.state.itemList) - 1) * 0.15, 0.15)
@@ -337,29 +445,29 @@ function VRBottomBar:render()
 			faceCamera = true,
 			alwaysOnTop = EngineFeatureEnableVRBottomBarWorksBehindObjects and true or nil,
 			parent = EngineFeatureEnableVRBottomBarWorksBehindObjects and GuiService.CoreGuiFolder or nil,
-		},
-	{
-		Roact.createElement(SystemBar, {
-			itemList = self.state.itemList,
-			selection = self.state.vrMenuOpen and 1 or 3,
-			placement = Placement.Bottom,
-			hidden = false,
-			onSafeAreaChanged = function() end,
-			size = UDim2.new(1, 0, 1, 0),
-			position = UDim2.new(),
-			layoutOrder = 1,
-			roundCorners = true,
-			buttonStroke = true,
-			bgTransparency = 0,
+		}, {
+			Roact.createElement(SystemBar, {
+				itemList = self.state.itemList,
+				selection = self.state.vrMenuOpen and 1 or 3,
+				placement = Placement.Bottom,
+				hidden = false,
+				onSafeAreaChanged = function() end,
+				size = UDim2.new(1, 0, 1, 0),
+				position = UDim2.new(),
+				layoutOrder = 1,
+				roundCorners = true,
+				buttonStroke = true,
+				bgTransparency = 0,
 
-			StarterGui.CoreGuiChangedSignal:connect(function(coreGuiType, enabled)
-				local activeItems = self:updateItems()
-				self:setState({
-					itemList = activeItems
-				})
-			end),
-		}),
-	})
+				StarterGui.CoreGuiChangedSignal:connect(function(coreGuiType, enabled)
+					local activeItems = self:updateItems()
+					self:setState({
+						itemList = activeItems
+					})
+				end),
+			}),
+		})
+	end
 end
 
 return RoactRodux.UNSTABLE_connect2(nil, nil)(VRBottomBar)

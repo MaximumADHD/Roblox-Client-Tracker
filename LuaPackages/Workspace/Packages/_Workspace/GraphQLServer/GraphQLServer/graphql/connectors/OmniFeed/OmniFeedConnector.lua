@@ -72,7 +72,8 @@ local function findOmniFeedBySessionId(
 			networkImpl,
 			omniRecommendationArgs.pageType,
 			omniRecommendationArgs.sessionId,
-			omniRecommendationArgs.nextPageToken
+			omniRecommendationArgs.nextPageToken,
+			omniRecommendationArgs.supportedTreatmentTypes
 		):catch(function()
 			return Response.error()
 		end):expect()

@@ -12,13 +12,12 @@ local DEFAULT_THUMBNAIL_HEIGHT = 360
 
 local mapStateToProps = function(state, props)
 	local universeId: string = props.universeId
-	local experienceName: string =
-		getDeepValue(state, string.format("SocialModalsSquads.Games.byGameId.%s.name", universeId))
+	local experienceName: string = getDeepValue(state, string.format("Squad.Games.byGameId.%s.name", universeId))
 	local experienceRootPlaceId: string =
-		getDeepValue(state, string.format("SocialModalsSquads.Games.byGameId.%s.rootPlaceId", universeId))
+		getDeepValue(state, string.format("Squad.Games.byGameId.%s.rootPlaceId", universeId))
 	local experienceServerSize: number =
-		getDeepValue(state, string.format("SocialModalsSquads.Games.byGameId.%s.maxPlayers", universeId))
-	local experienceMedia = getDeepValue(state, string.format("SocialModalsSquads.Games.mediaByGameId.%s", universeId))
+		getDeepValue(state, string.format("Squad.Games.byGameId.%s.maxPlayers", universeId))
+	local experienceMedia = getDeepValue(state, string.format("Squad.Games.mediaByGameId.%s", universeId))
 
 	local experienceImageId = nil
 	if experienceMedia ~= nil then

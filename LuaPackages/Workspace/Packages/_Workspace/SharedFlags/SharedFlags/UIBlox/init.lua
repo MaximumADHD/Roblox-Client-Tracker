@@ -24,4 +24,5 @@ return {
 	GetFFlagUIBloxUseRightSideGadget = require(script.GetFFlagUIBloxUseRightSideGadget),
 	GetFFlagUIBloxPillGroupAutomaticSize = require(script.GetFFlagUIBloxPillGroupAutomaticSize),
 	FFlagUIBloxInjectHeaderBarProps = require(script.FFlagUIBloxInjectHeaderBarProps),
+	GetFFlagUIBloxUpdateVerticalTile = require(script.GetFFlagUIBloxUpdateVerticalTile),
 }

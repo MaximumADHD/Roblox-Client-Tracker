@@ -14,7 +14,9 @@ local PlayersService = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
 local MarketplaceService = game:GetService("MarketplaceService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
+local EventIngestService = game:GetService("EventIngestService")
 local Analytics = require(CorePackages.Workspace.Packages.Analytics).Analytics.new(AnalyticsService)
+local EventIngest = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventIngest
 local Workspace = game:GetService("Workspace")
 
 local Settings = script:FindFirstAncestor("Settings")
@@ -43,6 +45,9 @@ local GetFFlagHideMOAOnExperience = require(RobloxGui.Modules.Flags.GetFFlagHide
 local GetFFlagAddVoiceTagsToAllARSubmissionsEnabled = require(RobloxGui.Modules.Flags.GetFFlagAddVoiceTagsToAllARSubmissionsEnabled)
 local GetFFlagVoiceARDropdownFix = require(RobloxGui.Modules.Flags.GetFFlagVoiceARDropdownFix)
 local GetFFlagVoiceARRemoveOffsiteLinksForVoice = require(RobloxGui.Modules.Flags.GetFFlagVoiceARRemoveOffsiteLinksForVoice)
+local GetFFlagOldAbuseReportAnalyticsDisabled = require(Settings.Flags.GetFFlagOldAbuseReportAnalyticsDisabled)
+local GetFFlagIGMv1ARFlowSessionEnabled = require(Settings.Flags.GetFFlagIGMv1ARFlowSessionEnabled)
+local GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled = require(Settings.Flags.GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 
 local ABUSE_TYPES_PLAYER = {
@@ -132,7 +137,11 @@ local function Initialize()
 
 	local voiceChatEnabled = false
 
-	this.reportAbuseAnalytics = ReportAbuseAnalytics.new(Analytics, ReportAbuseAnalytics.MenuContexts.LegacyMenu)
+	if GetFFlagIGMv1ARFlowSessionEnabled() then
+		this.reportAbuseAnalytics = ReportAbuseAnalytics.new(EventIngest.new(EventIngestService), Analytics.Diag, ReportAbuseAnalytics.MenuContexts.LegacyMenu)
+	else
+		this.reportAbuseAnalytics = ReportAbuseAnalytics.new(Analytics.EventStream, Analytics.Diag, ReportAbuseAnalytics.MenuContexts.LegacyMenu)
+	end
 
 	local function getMethodOfAbuseDropdownItems()
 		return Cryo.List.map(Cryo.Dictionary.values(TypeOfAbuseOptions), function(item: MOAOption)
@@ -583,17 +592,19 @@ local function Initialize()
 		end
 
 		local function reportAnalytics(reportType, id)
-			local stringTable = {}
-			stringTable[#stringTable + 1] = "report_type=" .. tostring(reportType)
-			stringTable[#stringTable + 1] = "report_source=ingame"
-			stringTable[#stringTable + 1] = "reported_entity_id=" .. tostring(id)
+			if not GetFFlagOldAbuseReportAnalyticsDisabled() then
+				local stringTable = {}
+				stringTable[#stringTable + 1] = "report_type=" .. tostring(reportType)
+				stringTable[#stringTable + 1] = "report_source=ingame"
+				stringTable[#stringTable + 1] = "reported_entity_id=" .. tostring(id)
 
-			local infoString = table.concat(stringTable,"&")
+				local infoString = table.concat(stringTable,"&")
 
-			local eventTable = {}
-			eventTable["universeid"] = tostring(game.GameId)
+				local eventTable = {}
+				eventTable["universeid"] = tostring(game.GameId)
 
-			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsReportSubmittedName, infoString, eventTable)
+				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsReportSubmittedName, infoString, eventTable)
+			end
 		end
 
 		local function onReportSubmitted()
@@ -604,6 +615,7 @@ local function Initialize()
 			local showReportSentAlert = false
 
 			this.hasBeenSubmitted = true
+			local timeToComplete = DateTime.now().UnixTimestampMillis - timeEntered.UnixTimestampMillis
 
 			if this.GameOrPlayerMode.CurrentIndex == 2 then
 				abuseReason = abuseTypePlayerList[this.TypeOfAbuseMode.CurrentIndex]
@@ -631,11 +643,11 @@ local function Initialize()
 							methodOfAbuse = "Other"
 						end
 
-						local timeToComplete = DateTime.now().UnixTimestampMillis - timeEntered.UnixTimestampMillis
-
-						this.reportAbuseAnalytics:reportFormSubmitted(timeToComplete, methodOfAbuse, {
-							typeOfAbuse = abuseReason,
-						})
+						if not GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled() then
+							this.reportAbuseAnalytics:reportFormSubmitted(timeToComplete, methodOfAbuse, {
+								typeOfAbuse = abuseReason,
+							})
+						end
 
 						reportAnalytics("user", currentAbusingPlayer.UserId)
 					end
@@ -667,6 +679,12 @@ local function Initialize()
 						end)
 					end
 
+					if GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled() then
+						this.reportAbuseAnalytics:reportFormSubmitted(timeToComplete, methodOfAbuse or "Chat", {
+							typeOfAbuse = abuseReason,
+						})
+					end
+
 					if GetFFlagReportSentPageV2Enabled() and this:isVoiceReportSelected() then
 						showReportSentAlert = false
 						self.HubRef.ReportSentPageV2:ShowReportedPlayer(currentAbusingPlayer, true)
@@ -693,6 +711,11 @@ local function Initialize()
 						PlayersService:ReportAbuse(nil, abuseReason, formattedText)
 						reportAnalytics("game", game.GameId)
 					end)
+					if GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled() then
+						this.reportAbuseAnalytics:reportFormSubmitted(timeToComplete, "Game", {
+							typeOfAbuse = abuseReason,
+						})
+					end
 				end
 			end
 
@@ -730,6 +753,14 @@ local function Initialize()
 
 				this:updateMethodOfAbuseDropdown()
 
+				if not GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled() then
+					this.reportAbuseAnalytics:reportAnalyticsFieldChanged({
+						field = "PlayerSelection",
+					})
+				end
+			end
+
+			if GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled() then
 				this.reportAbuseAnalytics:reportAnalyticsFieldChanged({
 					field = "PlayerSelection",
 				})
@@ -770,6 +801,12 @@ do
 
 		PageInstance.hasBeenSubmitted = false
 
+		-- This is the only start... call if the user opens the report page by
+		-- going to it directly.
+		-- For a prepopulated player report, start... is called inside
+		-- `PageInstance:ReportPlayer` before this. In that case, this call will leave
+		-- the session and recorded entryPoint alone.
+		ReportAbuseAnalytics:startAbuseReportSession("ReportPage")
 		PageInstance:UpdatePlayerDropDown()
 	end)
 
@@ -802,12 +839,14 @@ do
 				})
 			end
 
+			ReportAbuseAnalytics:endAbuseReportSession()
 			open = false
 		end
 	end)
 
-	function PageInstance:ReportPlayer(player)
+	function PageInstance:ReportPlayer(player, entryPoint)
 		if player then
+			ReportAbuseAnalytics:startAbuseReportSession(entryPoint)
 			local setReportPlayerConnection = nil
 			PageInstance:SetNextPlayerToReport(player)
 			setReportPlayerConnection = PageInstance.Displayed.Event:connect(function()

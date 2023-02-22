@@ -9,12 +9,10 @@ local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
 local withStyle = UIBlox.Style.withStyle
 
 local Components = script.Parent.Parent
-local PlayerList = Components.Parent
 local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
-local FFlagShowVerifiedBadgeOnDropDownPlayerHeader = require(PlayerList.Flags.FFlagShowVerifiedBadgeOnDropDownPlayerHeader)
 local EmojiTextLabel = UIBlox.Core.Text.EmojiTextLabel
 local Emoji = UIBlox.App.Emoji.Enum.Emoji
 
@@ -35,7 +33,7 @@ function DropDownPlayerHeader:render()
 		return withStyle(function(style)
 			local player = self.props.player
 			local avatarBackgroundImage = "rbxasset://textures/ui/PlayerList/NewAvatarBackground.png"
-			local showVerifiedBadge = FFlagShowVerifiedBadgeOnDropDownPlayerHeader() and VerifiedBadges.isPlayerVerified(player)
+			local showVerifiedBadge = VerifiedBadges.isPlayerVerified(player)
 
 			return Roact.createElement("TextButton", {
 				--Used as a text button instead of a frame so that clicking on this doesn't close the player drop down.

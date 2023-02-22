@@ -9,7 +9,6 @@ return {
 		require(Packages.InviteLinkExpiredModal)["jest.config"],
 		require(Packages.MessageToast)["jest.config"],
 		require(Packages.ShareLinkInvalidModal)["jest.config"],
-		require(Packages.Squads)["jest.config"],
 		require(Packages.SetAlias)["jest.config"],
 	} :: { ModuleScript },
 }

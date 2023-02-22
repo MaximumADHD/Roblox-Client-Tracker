@@ -122,22 +122,25 @@ function ContactsListContainerV2:init()
 			end)
 	end
 
-	self.fireContactImportingTimeEvent =
-		function(args: { isSuccessfulUpload: true, numMatchedContacts: number, failedStep: string })
-			local props: InternalProps = self.props
+	self.fireContactImportingTimeEvent = function(args: {
+		isSuccessfulUpload: true,
+		numMatchedContacts: number,
+		failedStep: string,
+	})
+		local props: InternalProps = self.props
 
-			props.fireAnalyticsEvent(EventNames.ContactImportingTime, {
-				[FieldNames.NumTotalContactsImported] = self.contactsCount,
-				[FieldNames.NumMatchedContacts] = args.numMatchedContacts,
-				[FieldNames.NumTotalContactsOnDevice] = self.numTotalContactsOnDevice,
-				[FieldNames.NumMaxContacts] = true,
-				[FieldNames.NumMinContacts] = true,
-				[FieldNames.NumTotalNumbersOnDevice] = self.numTotalNumbersOnDevice,
-				[FieldNames.NumContactsWithMultipleNumbers] = self.numContactsWithMultipleNumbers,
-				loadingTime = os.clock() - self.startTime,
-				isSuccessfulUpload = args.isSuccessfulUpload,
-			})
-		end
+		props.fireAnalyticsEvent(EventNames.ContactImportingTime, {
+			[FieldNames.NumTotalContactsImported] = self.contactsCount,
+			[FieldNames.NumMatchedContacts] = args.numMatchedContacts,
+			[FieldNames.NumTotalContactsOnDevice] = self.numTotalContactsOnDevice,
+			[FieldNames.NumMaxContacts] = true,
+			[FieldNames.NumMinContacts] = true,
+			[FieldNames.NumTotalNumbersOnDevice] = self.numTotalNumbersOnDevice,
+			[FieldNames.NumContactsWithMultipleNumbers] = self.numContactsWithMultipleNumbers,
+			loadingTime = os.clock() - self.startTime,
+			isSuccessfulUpload = args.isSuccessfulUpload,
+		})
+	end
 
 	self.getContactsFromDevice = function()
 		local props: InternalProps = self.props
@@ -320,6 +323,7 @@ end
 
 function ContactsListContainerV2:render()
 	local props: InternalProps = self.props
+	local isPhoneVerified = props.navigation.getParam(Constants.IS_PHONE_VERIFIED)
 	local variant = props.variant
 
 	return Roact.createElement(ContactsListV2, {
@@ -334,6 +338,7 @@ function ContactsListContainerV2:render()
 		showAddFriendsButton = props.entryPoint == Analytics.EntryPoints.HomePage,
 		variant = props.variant,
 		openProfilePeekView = self.props.openProfilePeekView,
+		isPhoneVerified = if getFFlagEnableContactInvitesForNonPhoneVerified() then isPhoneVerified else nil,
 	})
 end
 

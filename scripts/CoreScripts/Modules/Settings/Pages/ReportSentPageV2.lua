@@ -7,7 +7,9 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxGuiModules = RobloxGui:WaitForChild("Modules")
 
 local AnalyticsService = game:GetService("RbxAnalyticsService")
+local EventIngestService = game:GetService("EventIngestService")
 local Analytics = require(CorePackages.Workspace.Packages.Analytics).Analytics.new(AnalyticsService)
+local EventIngest = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventIngest
 local Roact = require(CorePackages.Roact)
 local Settings = script:FindFirstAncestor("Settings")
 local settingsPageFactory = require(RobloxGuiModules.Settings.SettingsPageFactory)
@@ -16,6 +18,7 @@ local ReportAbuseAnalytics = require(Settings.Analytics.ReportAbuseAnalytics)
 local BlockingAnalytics = require(Settings.Analytics.BlockingAnalytics)
 
 local GetFFlagReportAbuseThankYouPageSizeFix = require(RobloxGui.Modules.Flags.GetFFlagReportAbuseThankYouPageSizeFix)
+local GetFFlagIGMv1ARFlowSessionEnabled = require(Settings.Flags.GetFFlagIGMv1ARFlowSessionEnabled)
 
 local ReportConfirmationScreen = require(Settings.Components.ReportConfirmation.ReportConfirmationScreen)
 
@@ -33,7 +36,12 @@ while not localPlayer do
 	localPlayer = PlayersService.LocalPlayer
 end
 
-local reportAbuseAnalytics = ReportAbuseAnalytics.new(Analytics, ReportAbuseAnalytics.MenuContexts.LegacySentPage)
+local reportAbuseAnalytics
+if GetFFlagIGMv1ARFlowSessionEnabled() then
+	reportAbuseAnalytics = ReportAbuseAnalytics.new(EventIngest.new(EventIngestService), Analytics.Diag, ReportAbuseAnalytics.MenuContexts.LegacySentPage)
+else
+	reportAbuseAnalytics = ReportAbuseAnalytics.new(Analytics.EventStream, Analytics.Diag, ReportAbuseAnalytics.MenuContexts.LegacySentPage)
+end
 
 local blockingAnalytics = BlockingAnalytics.new(
 	localPlayer.UserId,

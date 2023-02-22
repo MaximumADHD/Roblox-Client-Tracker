@@ -5,6 +5,7 @@ local findVirtualEventById = VirtualEventConnector.findVirtualEventById
 local findVirtualEventsByUniverseId = VirtualEventConnector.findVirtualEventsByUniverseId
 local findRsvpCountersByVirtualEventId = VirtualEventConnector.findRsvpCountersByVirtualEventId
 local findRsvpsByVirtualEventId = VirtualEventConnector.findRsvpsByVirtualEventId
+local updateRsvpStatus = VirtualEventConnector.updateRsvpStatus
 local ExperienceConnector = require(GraphQLServer.graphql.connectors.ExperienceConnector)
 local findExperienceDetailsByUniverseId = ExperienceConnector.findExperienceDetailsByUniverseId
 local findExperienceMediaByUniverseId = ExperienceConnector.findExperienceMediaByUniverseId
@@ -24,6 +25,11 @@ local resolvers = {
 		end,
 		rsvps = function(virtualEvent: VirtualEvent, _args, context)
 			return findRsvpsByVirtualEventId(virtualEvent.id, context.fetchImpl)
+		end,
+	},
+	Mutation = {
+		virtualEventRsvp = function(_root, args, context)
+			return updateRsvpStatus(args.id, args.rsvpStatus, context.fetchImpl)
 		end,
 	},
 	Query = {

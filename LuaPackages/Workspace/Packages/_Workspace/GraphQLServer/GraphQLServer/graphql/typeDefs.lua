@@ -95,7 +95,7 @@ type OmniFeedRecommendation {
 }
 
 type Query {
-  omniFeed(sessionId: String!, pageType: String!, nextPageToken: String): OmniFeed
+  omniFeed(sessionId: String!, pageType: String!, nextPageToken: String, supportedTreatmentTypes: [String]): OmniFeed
   virtualEvent(id: ID!): VirtualEvent
   virtualEventsByUniverseId(universeId: ID!, options: VirtualEventsByUniverseIdOptions): VirtualEventsPage
 }
@@ -172,5 +172,14 @@ input VirtualEventsByUniverseIdOptions {
 type VirtualEventsPage {
   cursor: String
   virtualEvents: [VirtualEvent]
+}
+
+type RsvpResponse {
+  rsvpStatus: RsvpStatus
+  isUserFirstRsvp: Boolean
+}
+
+type Mutation {
+  virtualEventRsvp(id: ID!, rsvpStatus: RsvpStatus!): RsvpResponse
 }
 ]]

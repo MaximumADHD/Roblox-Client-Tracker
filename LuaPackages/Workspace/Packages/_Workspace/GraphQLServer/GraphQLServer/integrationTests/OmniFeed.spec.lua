@@ -8,6 +8,7 @@ local RecordPlayback = require(Packages.Dev.RecordPlayback)
 local GraphqlHttpArtifacts = require(Packages.Dev.GraphqlHttpArtifacts)
 
 local graphqlServer = require(script.Parent.Parent.Server)
+local GetFFlagApolloClientFetchThumbnails = require(Packages.SharedFlags).GetFFlagApolloClientFetchThumbnails
 
 local create
 
@@ -21,15 +22,15 @@ return function()
 	end)
 
 	it("Should resolve OmniFeed data", function()
-		create("omni-success"):execute(function(httpService)
+		create("omni"):ignoreMissingRequests():skipExistenceAssertion():execute(function(httpService)
 			local fetch = buildFetch(httpService)
 			local server = graphqlServer.new({
 				fetchImpl = fetch,
 			})
 
 			local GET_OMNI_FEED = [[
-        query getFeed($sessionId: String!, $pageType: String!, $nextPageToken: String) {
-          omniFeed(sessionId: $sessionId, pageType: $pageType, nextPageToken: $nextPageToken) {
+        query Feed($sessionId: String!, $pageType: String!, $nextPageToken: String, $supportedTreatmentTypes: [String]) {
+					omniFeed(sessionId: $sessionId, pageType: $pageType, nextPageToken: $nextPageToken, supportedTreatmentTypes: $supportedTreatmentTypes) {
             metadata {
               GameJSON
               CatalogAssetJSON
@@ -54,6 +55,9 @@ return function()
               experiences {
                 name
                 universeId
+								thumbnails {
+									url
+								}
 							}
             }
           }
@@ -116,6 +120,13 @@ return function()
 			jestExpect(#continueSort.experiences).toEqual(20)
 			jestExpect(continueSort.experiences[1].name).toEqual("Arsenal")
 			jestExpect(continueSort.experiences[1].universeId).toEqual("111958650")
+			if GetFFlagApolloClientFetchThumbnails() then
+				jestExpect(continueSort.experiences[1].thumbnails[1].url).toEqual(
+					"https://tr.rbxcdn.com/bd1ac92078ae55b147823d2af2a32695/150/150/Image/Png"
+				)
+			else
+				jestExpect(continueSort.experiences[1].thumbnails).toEqual({})
+			end
 		end)
 	end)
 end

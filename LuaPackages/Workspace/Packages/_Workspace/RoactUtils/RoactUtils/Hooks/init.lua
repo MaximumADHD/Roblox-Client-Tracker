@@ -9,6 +9,7 @@ local useIsGamepad = require(script.useIsGamepad)
 local useDidUpdate = require(script.useDidUpdate)
 local useEarlyIsFocused = require(script.useEarlyIsFocused)
 local useNavigation = require(script.useNavigation)
+local useNavigationFocus = require(script.useNavigationFocus)
 local usePrevious = require(script.usePrevious)
 local useRouteName = require(script.useRouteName)
 local useSelectedTheme = require(script.useSelectedTheme)
@@ -29,6 +30,7 @@ return {
 	useDidUpdate = useDidUpdate,
 	useEarlyIsFocused = useEarlyIsFocused,
 	useNavigation = useNavigation,
+	useNavigationFocus = useNavigationFocus,
 	usePrevious = usePrevious,
 	useRouteName = useRouteName,
 	useSelectedTheme = useSelectedTheme,

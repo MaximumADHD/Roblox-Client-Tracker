@@ -14,6 +14,7 @@ return {
 	EventDetailsPageLoader = require(script.Components.EventDetailsPageLoader),
 	EventsPage = require(script.Components.EventsPage), -- Remove this line with FFlagRemoveEventsPageFromMoreTab
 	ShareEventModal = require(script.Components.ShareEventModal),
+	EventNotificationsModal = require(script.Components.EventNotificationsModal),
 	EventsList = require(script.Components.EventsList),
 
 	-- Functions
@@ -29,6 +30,10 @@ return {
 	-- Hooks
 	useActiveVirtualEvents = require(script.Hooks.useActiveVirtualEvents),
 	useVirtualEvent = require(script.Hooks.useVirtualEvent),
+
+	-- This gets exposed so EventDetailsWrapper can pass the attendance count
+	-- off to our tracking events
+	useExperienceDetails = require(script.Hooks.useExperienceDetails),
 
 	["jest.config"] = script["jest.config"],
 }

@@ -36,8 +36,9 @@ local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContac
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
 local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
-local getFFlagAddFriendsNewEmptyStateAndBanners = dependencies.getFFlagAddFriendsNewEmptyStateAndBanners
-local getFFlagProfileQRCodeReducerEnabled = dependencies.getFFlagProfileQRCodeReducerEnabled
+local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
+local getFFlagProfileQRCodeCoreFeaturesEnabled = dependencies.getFFlagProfileQRCodeCoreFeaturesEnabled
+local getFFlagAddFriendsQRCodeAnalytics = dependencies.getFFlagAddFriendsQRCodeAnalytics
 
 local AddFriendsContentFrame = require(script.Parent.AddFriendsContentFrame)
 
@@ -47,9 +48,9 @@ local NEW_NAV_BAR_SIZE = 56
 local PLAYER_TILE_MARGIN = 12
 local CONTACT_IMPORTER_ORIGIN = "PhoneContactImporter"
 
-local BANNER_IN_BETWEEN_PADDING = if getFFlagAddFriendsNewEmptyStateAndBanners() then 12 else nil
-local BANNER_TOP_PADDING = if getFFlagAddFriendsNewEmptyStateAndBanners() then 8 else nil
-local MAX_BANNER_WIDTH = if getFFlagAddFriendsNewEmptyStateAndBanners() then 640 else nil
+local BANNER_IN_BETWEEN_PADDING = if getFFlagSocialOnboardingExperimentEnabled() then 12 else nil
+local BANNER_TOP_PADDING = if getFFlagSocialOnboardingExperimentEnabled() then 8 else nil
+local MAX_BANNER_WIDTH = if getFFlagSocialOnboardingExperimentEnabled() then 640 else nil
 
 local noOpt = function() end
 
@@ -72,7 +73,6 @@ AddFriendsPage.validateProps = t.strictInterface({
 	handleRequestFriendship = t.optional(t.callback),
 	handleIgnoreAllFriendsRequests = t.optional(t.callback),
 	handleLoadMoreRequests = t.optional(t.callback),
-	handleOpenProfileQRCodePage = if getFFlagAddFriendsNewEmptyStateAndBanners() then t.optional(t.callback) else nil,
 	contactImporterAndPYMKEnabled = t.optional(t.boolean),
 	contactImporterExperimentVariant = t.optional(t.string),
 	navigation = t.optional(t.table),
@@ -91,6 +91,9 @@ AddFriendsPage.validateProps = t.strictInterface({
 	setScreenTopBar = if getFFlagAddFriendsSearchbarIXPEnabled() then t.optional(Dash.isCallable) else nil,
 	addFriendsPageSearchbarEnabled = if getFFlagAddFriendsSearchbarIXPEnabled() then t.optional(t.boolean) else nil,
 	originSourceType = t.optional(t.table),
+	showNewAddFriendsPageVariant = if getFFlagSocialOnboardingExperimentEnabled() then t.optional(t.boolean) else nil,
+	fireProfileQRCodeBannerSeenEvent = if getFFlagAddFriendsQRCodeAnalytics() then t.optional(t.callback) else nil,
+	fireProfileQRCodeBannerPressedEvent = if getFFlagAddFriendsQRCodeAnalytics() then t.optional(t.callback) else nil,
 })
 
 AddFriendsPage.defaultProps = {
@@ -274,11 +277,31 @@ function AddFriendsPage:init()
 			end
 		end
 		else nil
+
+	self.openProfileQRCodePage = if getFFlagSocialOnboardingExperimentEnabled()
+			and self.props.showNewAddFriendsPageVariant
+		then function()
+			if getFFlagAddFriendsQRCodeAnalytics() then
+				self.props.fireProfileQRCodeBannerPressedEvent()
+			end
+
+			self.props.navigation.navigate(EnumScreens.ProfileQRCodePage)
+		end
+		else nil
 end
 
 function AddFriendsPage:didMount()
 	if self.showContactImporterBanner(self.props) then
 		self.props.fireContactImporterSeenEvent()
+	end
+
+	if getFFlagAddFriendsQRCodeAnalytics() then
+		local qrCodeBannerShown = getFFlagSocialOnboardingExperimentEnabled()
+			and self.props.showNewAddFriendsPageVariant
+			and getFFlagProfileQRCodeCoreFeaturesEnabled()
+		if qrCodeBannerShown then
+			self.props.fireProfileQRCodeBannerSeenEvent()
+		end
 	end
 end
 
@@ -302,22 +325,30 @@ function AddFriendsPage:render()
 	local pageLeftRightPadding = getPageMargin(self.props.screenSize.X)
 	return withLocalization({
 		friendRequestsText = "Feature.AddFriends.Label.FriendRequests",
-		buttonText = if getFFlagAddFriendsNewEmptyStateAndBanners() then nil else TextKeys.CONTACTS_LIST_TITLE,
-		bannerText = if getFFlagAddFriendsNewEmptyStateAndBanners() then nil else TextKeys.BANNER_TEXT,
+		buttonText = if getFFlagSocialOnboardingExperimentEnabled() and self.props.showNewAddFriendsPageVariant
+			then nil
+			else TextKeys.CONTACTS_LIST_TITLE,
+		bannerText = if getFFlagSocialOnboardingExperimentEnabled() and self.props.showNewAddFriendsPageVariant
+			then nil
+			else TextKeys.BANNER_TEXT,
 		searchPlaceholderText = if getFFlagAddFriendsSearchbarIXPEnabled()
 				and self.props.addFriendsPageSearchbarEnabled
 			then "Feature.AddFriends.Label.InputPlaceholder.SearchForPeople"
 			else nil,
-		contactImporterBannerTitle = if getFFlagAddFriendsNewEmptyStateAndBanners()
+		contactImporterBannerTitle = if getFFlagSocialOnboardingExperimentEnabled()
+				and self.props.showNewAddFriendsPageVariant
 			then "Feature.AddFriends.Title.ConnectWithContacts"
 			else nil,
-		contactImporterBannerText = if getFFlagAddFriendsNewEmptyStateAndBanners()
+		contactImporterBannerText = if getFFlagSocialOnboardingExperimentEnabled()
+				and self.props.showNewAddFriendsPageVariant
 			then "Feature.AddFriends.Label.ConnectWithContacts"
 			else nil,
-		qrCodeBannerTitle = if getFFlagAddFriendsNewEmptyStateAndBanners()
+		qrCodeBannerTitle = if getFFlagSocialOnboardingExperimentEnabled()
+				and self.props.showNewAddFriendsPageVariant
 			then "Feature.AddFriends.Title.ShareQRCode"
 			else nil,
-		qrCodeBannerText = if getFFlagAddFriendsNewEmptyStateAndBanners()
+		qrCodeBannerText = if getFFlagSocialOnboardingExperimentEnabled()
+				and self.props.showNewAddFriendsPageVariant
 			then "Feature.AddFriends.Label.ShareQRCode"
 			else nil,
 	})(function(localized)
@@ -329,19 +360,7 @@ function AddFriendsPage:render()
 			local contactImporterBanner = nil
 			local qrCodeBanner = nil
 
-			-- Clean "banner" and "AddFriendsContactImporterBanner" when cleaning FFlagAddFriendsNewEmptyStateAndBanners
-			if not getFFlagAddFriendsNewEmptyStateAndBanners() then
-				if self.showContactImporterBanner(self.props) then
-					banner = Roact.createElement(AddFriendsContactImporterBanner, {
-						bannerText = localized.bannerText,
-						buttonText = localized.buttonText,
-						onActivated = self.openContactImporter,
-						containerWidth = self.props.screenSize.X,
-					})
-				end
-			end
-
-			if getFFlagAddFriendsNewEmptyStateAndBanners() then
+			if getFFlagSocialOnboardingExperimentEnabled() and self.props.showNewAddFriendsPageVariant then
 				contactImporterBanner = if self.showContactImporterBanner(self.props)
 					then Roact.createElement(AddFriendsGenericBanner, {
 						bannerIcon = Images["icons/graphic/contacts_large"],
@@ -352,15 +371,25 @@ function AddFriendsPage:render()
 					})
 					else nil
 
-				qrCodeBanner = if getFFlagProfileQRCodeReducerEnabled()
+				qrCodeBanner = if getFFlagProfileQRCodeCoreFeaturesEnabled()
 					then Roact.createElement(AddFriendsGenericBanner, {
 						bannerIcon = Images["icons/graphic/scanqr_large"],
 						bannerTitle = localized.qrCodeBannerTitle,
 						bannerText = localized.qrCodeBannerText,
-						onActivated = self.props.handleOpenProfileQRCodePage,
+						onActivated = self.openProfileQRCodePage,
 						hasInfoButton = false,
 					})
 					else nil
+			else
+				-- Clean "banner" and "AddFriendsContactImporterBanner" when cleaning showNewAddFriendsPageVariant
+				if self.showContactImporterBanner(self.props) then
+					banner = Roact.createElement(AddFriendsContactImporterBanner, {
+						bannerText = localized.bannerText,
+						buttonText = localized.buttonText,
+						onActivated = self.openContactImporter,
+						containerWidth = self.props.screenSize.X,
+					})
+				end
 			end
 
 			local AddFriendsScrollView = Roact.createFragment({
@@ -396,7 +425,8 @@ function AddFriendsPage:render()
 								FillDirection = Enum.FillDirection.Vertical,
 								HorizontalAlignment = Enum.HorizontalAlignment.Center,
 							}),
-							UIPadding = if getFFlagAddFriendsNewEmptyStateAndBanners()
+							UIPadding = if getFFlagSocialOnboardingExperimentEnabled()
+									and self.props.showNewAddFriendsPageVariant
 								then Roact.createElement("UIPadding", {
 									PaddingTop = UDim.new(0, BANNER_TOP_PADDING),
 								})
@@ -405,8 +435,12 @@ function AddFriendsPage:render()
 										PaddingTop = UDim.new(0, 4),
 									})
 									else nil,
-							Banner = if getFFlagAddFriendsNewEmptyStateAndBanners() then nil else banner,
-							BannerSection = if getFFlagAddFriendsNewEmptyStateAndBanners()
+							Banner = if getFFlagSocialOnboardingExperimentEnabled()
+									and self.props.showNewAddFriendsPageVariant
+								then nil
+								else banner,
+							BannerSection = if getFFlagSocialOnboardingExperimentEnabled()
+									and self.props.showNewAddFriendsPageVariant
 								then Roact.createElement("Frame", {
 									AutomaticSize = Enum.AutomaticSize.Y,
 									Size = UDim2.fromScale(1, 0),
@@ -461,6 +495,9 @@ function AddFriendsPage:render()
 									self.props.screenSize.X - 2 * pageLeftRightPadding,
 									self.props.screenSize.Y
 								),
+								showNewAddFriendsPageVariant = if getFFlagSocialOnboardingExperimentEnabled()
+									then self.props.showNewAddFriendsPageVariant
+									else nil,
 							}),
 							recommendationSection = (
 								getFFlagAddFriendsRecommendationsEnabled()

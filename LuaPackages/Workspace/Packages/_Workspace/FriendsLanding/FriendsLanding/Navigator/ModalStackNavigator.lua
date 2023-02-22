@@ -7,11 +7,13 @@ local FriendsLandingFilter = require(FriendsLanding.Components.FriendsLandingFil
 local FriendsLandingContextualMenu = require(FriendsLanding.Components.FriendsLandingContextualMenu)
 local DiscoverabilityOverlay = dependencies.DiscoverabilityOverlay
 local CINavigatorInFL = require(FriendsLanding.Navigator.CINavigatorInFL)
-
 local Roact = dependencies.Roact
 local FriendsLandingContext = require(FriendsLanding.FriendsLandingContext)
-
+local ProfileQRCodePageWrapper = require(FriendsLanding.Navigator.ProfileQRCodePageWrapper)
 local ContactImporterNavigator = CINavigatorInFL
+
+local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
+
 local DiscoverabilityWrapped = Roact.PureComponent:extend("DiscoverabilityWrapped")
 
 function DiscoverabilityWrapped:render()
@@ -23,7 +25,7 @@ function DiscoverabilityWrapped:render()
 	end)
 end
 
-local ModalStackNavigator = RoactNavigation.createRobloxStackNavigator({
+local routeArray = {
 	{
 		MainStackNavigator = MainStackNavigatorConnector,
 	},
@@ -41,7 +43,15 @@ local ModalStackNavigator = RoactNavigation.createRobloxStackNavigator({
 	{
 		[EnumScreens.DiscoverabilityOverlay] = DiscoverabilityWrapped,
 	},
-}, {
+}
+
+if getFFlagSocialOnboardingExperimentEnabled() then
+	table.insert(routeArray, {
+		[EnumScreens.ProfileQRCodePage] = ProfileQRCodePageWrapper,
+	})
+end
+
+local ModalStackNavigator = RoactNavigation.createRobloxStackNavigator(routeArray, {
 	defaultNavigationOptions = {
 		overlayEnabled = true,
 		absorbInput = true,

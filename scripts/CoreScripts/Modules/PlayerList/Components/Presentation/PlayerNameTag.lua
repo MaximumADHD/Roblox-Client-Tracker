@@ -13,8 +13,6 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
-local FFlagShowVerifiedBadgeOnPlayerList = require(PlayerList.Flags.FFlagShowVerifiedBadgeOnPlayerList)
-
 local PlayerNameTag = Roact.PureComponent:extend("PlayerNameTag")
 
 PlayerNameTag.validateProps = t.strictInterface({
@@ -50,8 +48,7 @@ function PlayerNameTag:render()
 		local playerNameChildren = {}
 		local platformName = self.props.player.PlatformName
 
-		local showVerifiedBadgeOnPlayerList = FFlagShowVerifiedBadgeOnPlayerList()
-		local hasVerifiedBadge = if showVerifiedBadgeOnPlayerList then VerifiedBadges.isPlayerVerified(self.props.player) else false
+		local hasVerifiedBadge = VerifiedBadges.isPlayerVerified(self.props.player)
 
 		if layoutValues.IsTenFoot and platformName ~= "" then
 			playerNameChildren["VerticalLayout"] = Roact.createElement("UIListLayout", {
@@ -97,23 +94,7 @@ function PlayerNameTag:render()
 					LayoutOrder = 1,
 				}),
 
-				PlayerName = not showVerifiedBadgeOnPlayerList and Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, -30, 1, 0),
-					TextXAlignment = Enum.TextXAlignment.Left,
-					Font = playerNameFont,
-					TextSize = textSize,
-					TextColor3 = self.props.textStyle.Color,
-					TextTransparency = self.props.textStyle.Transparency,
-					TextStrokeColor3 = self.props.textStyle.StrokeColor,
-					TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
-					BackgroundTransparency = 1,
-					Text = self.props.player.Name,
-					ClipsDescendants = false,
-					LayoutOrder = 2,
-				}),
-
-				PlayerNameContainer = showVerifiedBadgeOnPlayerList
-					and Roact.createElement(VerifiedBadges.EmojiWrapper, {
+				PlayerNameContainer = Roact.createElement(VerifiedBadges.EmojiWrapper, {
 						emoji = if hasVerifiedBadge then VerifiedBadges.emoji.verified else "",
 						layoutOrder = 2,
 						mockIsEnrolled = true,
@@ -139,30 +120,7 @@ function PlayerNameTag:render()
 					}),
 			})
 		else
-			playerNameChildren["PlayerName"] = not showVerifiedBadgeOnPlayerList
-				and Roact.createElement("TextLabel", {
-					Position = UDim2.new(0, 0, 0.28, 0),
-					Size = UDim2.new(1, 0, 0.44, 0),
-					TextXAlignment = Enum.TextXAlignment.Left,
-					Font = playerNameFont,
-					TextSize = textSize,
-					TextColor3 = self.props.textStyle.Color,
-					TextTransparency = self.props.textStyle.Transparency,
-					TextStrokeColor3 = self.props.textStyle.StrokeColor,
-					TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
-					BackgroundTransparency = 1,
-					Text = self.props.player.DisplayName,
-					TextTruncate = Enum.TextTruncate.AtEnd,
-					TextScaled = true,
-				}, {
-					SizeConstraint = Roact.createElement("UITextSizeConstraint", {
-						MaxTextSize = textSize,
-						MinTextSize = minTextSize,
-					}),
-				})
-
-			playerNameChildren["PlayerNameContainer"] = showVerifiedBadgeOnPlayerList
-				and Roact.createElement(VerifiedBadges.EmojiWrapper, {
+			playerNameChildren["PlayerNameContainer"] = Roact.createElement(VerifiedBadges.EmojiWrapper, {
 					emoji = if hasVerifiedBadge then VerifiedBadges.emoji.verified else "",
 					anchorPoint = Vector2.new(0, 0.5),
 					position = UDim2.fromScale(0, 0.5),

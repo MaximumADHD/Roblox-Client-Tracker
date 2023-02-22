@@ -70,6 +70,10 @@ function EmotesMenuMaster:isOpen()
 	return self.store:getState().displayOptions.menuVisible
 end
 
+function EmotesMenuMaster:isEmotesLoaded()
+	return self.store:getState().emotesPage.numberEmotesLoaded > 0
+end
+
 function EmotesMenuMaster:open()
 	if GetFFlagNewEmotesInGame() then
 		if not Cryo.isEmpty(self.store:getState().emotesPage.emotesInfo) then

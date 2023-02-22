@@ -28,6 +28,7 @@ local ContactsListSearchBar = require(ContactImporter.ContactsList.Components.Co
 local Dash = dependencies.Dash
 
 local getFFlagContactImporterSearchBarBugFixes = require(ContactImporter.Flags.getFFlagContactImporterSearchBarBugFixes)
+local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 local OffPlatformFriendRequestsIXP = require(ContactImporter.Flags.OffPlatformFriendRequestsIXP)
 local IXPVariants = OffPlatformFriendRequestsIXP.IXPVariants
 
@@ -54,6 +55,7 @@ type Props = {
 	showAddFriendsButton: boolean,
 	variant: string,
 	openProfilePeekView: () -> (),
+	isPhoneVerified: boolean,
 }
 
 local function ContactsListV2(props: Props)
@@ -61,6 +63,7 @@ local function ContactsListV2(props: Props)
 	local localized = useLocalization({
 		fromContactsText = TextKeys.ON_ROBLOX,
 		contactsListBlurb = if props.variant == IXPVariants.INVITES_ONLY
+				or (getFFlagEnableContactInvitesForNonPhoneVerified() and not props.isPhoneVerified)
 			then TextKeys.CONTACTS_LIST_BLURB_INVITES
 			else TextKeys.CONTACTS_LIST_BLURB_MIXED,
 		connectWithFriends = TextKeys.CONTACTS_LIST_TITLE,

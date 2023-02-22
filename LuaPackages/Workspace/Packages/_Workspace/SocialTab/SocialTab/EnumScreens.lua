@@ -18,7 +18,6 @@ return {
 	ProfileShare = "ProfileShare",
 	LearnMore = "LearnMore",
 	PhoneVerification = "PhoneVerification",
-	ProfileQRCodePage = "ProfileQRCodePage",
 
 	ViewFriends = "ViewFriends",
 	ViewUserProfilePeekView = "ViewUserProfilePeekView",

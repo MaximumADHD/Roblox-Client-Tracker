@@ -67,7 +67,9 @@ function ContactsListEntry:init()
 
 	self.openBlankProfileView = function()
 		-- TODO: FSYS-254 put in actual params
-		self.props.openProfilePeekView("1", {})
+		if getFFlagContactImporterAvatarEnabled() then
+			self.props.openProfilePeekView("1", {})
+		end
 	end
 end
 

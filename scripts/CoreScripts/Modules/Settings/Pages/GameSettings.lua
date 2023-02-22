@@ -26,6 +26,8 @@ local UserGameSettings = Settings:GetService("UserGameSettings")
 local Url = require(RobloxGui.Modules.Common.Url)
 local VoiceChatService = nil
 
+local GetFFlagXboxEnableGraphicsQuality = require(RobloxGui.Modules.Flags.GetFFlagXboxEnableGraphicsQuality)
+
 -------------- CONSTANTS --------------
 -- DEPRECATED Remove with FixGraphicsQuality
 local GRAPHICS_QUALITY_LEVELS = 10
@@ -2408,6 +2410,8 @@ local function Initialize()
 
 	-- we disable quality slider on Xbox since it has FRM disabled and forced to max quality level so the slider is useless
 	if platform ~= Enum.Platform.XBoxOne then
+		createGraphicsOptions()
+	elseif GetFFlagXboxEnableGraphicsQuality() then
 		createGraphicsOptions()
 	end
 

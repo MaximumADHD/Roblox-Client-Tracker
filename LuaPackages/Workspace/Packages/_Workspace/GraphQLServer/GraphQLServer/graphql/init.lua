@@ -8,6 +8,7 @@ local typeDefs = require(script.typeDefs)
 local resolvers = require(script.resolvers)
 local generatedTypes = require(script.generatedTypes)
 local luaTypeDefs = require(script.luaTypeDefs)
+local dataLoaders = require(script.dataLoaders)
 
 export type OmniFeed = generatedTypes.OmniFeed
 export type OmniFeedMetadata = generatedTypes.OmniFeedMetadata
@@ -25,4 +26,5 @@ return {
 	typeDefs = staticTypeDefs,
 	resolvers = resolvers,
 	generatedTypes = generatedTypes,
+	dataLoaders = dataLoaders,
 }

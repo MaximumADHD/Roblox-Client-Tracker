@@ -31,7 +31,6 @@ local CoreScriptTranslator = CoreGui.CoreScriptLocalization:GetTranslator(Locali
 local httpRequest = require(AppTempCommon.Temp.httpRequest)
 local networking = httpRequest(HttpRbxApiService)
 -- FFlags
-local FFlagShowVerifiedBadgeOnNewLoadingScreen = require(RobloxGui.Modules.Flags.FFlagShowVerifiedBadgeOnNewLoadingScreen)
 local FFlagFixServerInfoLocalization = game:DefineFastFlag("FixServerInfoLocalization", false)
 
 -- Constants
@@ -308,11 +307,9 @@ function LoadingScreen:renderInfoFrame(style)
 	local creatorName = productInfo and productInfo.Creator.Name or ""
 
 	-- Determine whether a VerifiedBadge should be shown
-	if FFlagShowVerifiedBadgeOnNewLoadingScreen() then
-		local isCreatorVerified = productInfo and productInfo.Creator.HasVerifiedBadge
-		if isCreatorVerified then
-			creatorName = VerifiedBadges.appendVerifiedBadge(creatorName)
-		end
+	local isCreatorVerified = productInfo and productInfo.Creator.HasVerifiedBadge
+	if isCreatorVerified then
+		creatorName = VerifiedBadges.appendVerifiedBadge(creatorName)
 	end
 
 	local t = math.max(self.state.absoluteSize.X, self.state.absoluteSize.Y) / ICON_SIZE_BREAKPOINT

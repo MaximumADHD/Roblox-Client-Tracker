@@ -37,8 +37,7 @@ local success, result = pcall(function()
 	return settings():GetFFlag("UseNotificationsLocalization")
 end)
 local FFlagUseNotificationsLocalization = success and result
-local FFlagBadgeNotificationHttpFix = game:DefineFastFlag("BadgeNotificationHttpFix", false)
-local FFlagBadgeNotificationTextUIFixes = game:DefineFastFlag("BadgeNotificationTextUIFixes2", false)
+local FFlagBadgeNotificationHttpFix2 = game:DefineFastFlag("BadgeNotificationHttpFix2", false)
 
 local GetFixGraphicsQuality = require(RobloxGui.Modules.Flags.GetFixGraphicsQuality)
 local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
@@ -159,22 +158,20 @@ local function createTextButton(name, position)
 	button.Font = Enum.Font.SourceSansBold
 	button.FontSize = NOTIFICATION_BUTTON_FONT_SIZE
 	button.TextColor3 = Color3.new(1, 1, 1)
-	if FFlagBadgeNotificationTextUIFixes then
-		button.TextTruncate = Enum.TextTruncate.AtEnd
-		button.TextScaled = true
+	button.TextTruncate = Enum.TextTruncate.AtEnd
+	button.TextScaled = true
 
-		local buttonPadding = Instance.new("UIPadding")
-		buttonPadding.PaddingTop = UDim.new(0, NOTIFICATION_BUTTON_PADDING / 2)
-		buttonPadding.PaddingBottom = UDim.new(0, NOTIFICATION_BUTTON_PADDING / 2)
-		buttonPadding.PaddingLeft = UDim.new(0, NOTIFICATION_BUTTON_PADDING)
-		buttonPadding.PaddingRight = UDim.new(0, NOTIFICATION_BUTTON_PADDING)
-		buttonPadding.Parent = button
+	local buttonPadding = Instance.new("UIPadding")
+	buttonPadding.PaddingTop = UDim.new(0, NOTIFICATION_BUTTON_PADDING / 2)
+	buttonPadding.PaddingBottom = UDim.new(0, NOTIFICATION_BUTTON_PADDING / 2)
+	buttonPadding.PaddingLeft = UDim.new(0, NOTIFICATION_BUTTON_PADDING)
+	buttonPadding.PaddingRight = UDim.new(0, NOTIFICATION_BUTTON_PADDING)
+	buttonPadding.Parent = button
 
-		local textSizeConstraint = Instance.new("UITextSizeConstraint")
-		textSizeConstraint.MaxTextSize = NOTIFICATION_BUTTON_MAX_TEXT_SIZE
-		textSizeConstraint.MinTextSize = NOTIFICATION_BUTTON_MIN_TEXT_SIZE
-		textSizeConstraint.Parent = button
-	end
+	local textSizeConstraint = Instance.new("UITextSizeConstraint")
+	textSizeConstraint.MaxTextSize = NOTIFICATION_BUTTON_MAX_TEXT_SIZE
+	textSizeConstraint.MinTextSize = NOTIFICATION_BUTTON_MIN_TEXT_SIZE
+	textSizeConstraint.Parent = button
 
 	return button
 end
@@ -325,9 +322,7 @@ local function createNotification(title, text, image)
 	if image == nil or image == "" then
 		if not notificationTitle.TextFits then
 			isTitleMultipleLines = true
-			if FFlagBadgeNotificationTextUIFixes then
-				updateNotificationForMultiLineTitle()
-			end
+			updateNotificationForMultiLineTitle()
 		end
 
 		if not notificationText.TextFits then
@@ -365,29 +360,7 @@ local function createNotification(title, text, image)
 		notificationText.TextXAlignment = Enum.TextXAlignment.Left
 		
 		if not notificationTitle.TextFits then
-			if FFlagBadgeNotificationTextUIFixes then
-				updateNotificationForMultiLineTitle()
-			else
-				isTitleMultipleLines = true
-				notificationTitle.TextWrapped = true
-				notificationTitle.TextTruncate = Enum.TextTruncate.AtEnd
-		
-				local textSize = TextService:GetTextSize(
-					notificationTitle.Text,
-					notificationTitle.TextSize,
-					notificationTitle.Font,
-					Vector2.new(notificationTitle.AbsoluteSize.X, 1000)
-				)
-				local addHeight = math.min(
-					textSize.Y - notificationTitle.Size.Y.Offset,
-					NOTIFICATION_TITLE_HEIGHT_MAX - notificationTitle.Size.Y.Offset
-				)
-		
-				notificationTitle.Size = notificationTitle.Size + UDim2.new(0, 0, 0, addHeight)
-				notificationTitle.Position = notificationTitle.Position - UDim2.new(0, 0, 0, addHeight / 2)
-				notificationText.Position = notificationText.Position + UDim2.new(0, 0, 0, addHeight / 2)
-				notificationFrame.Size = notificationFrame.Size + UDim2.new(0, 0, 0, addHeight)
-			end
+			updateNotificationForMultiLineTitle()
 
 			-- Allow one full line of notificationText next to image
 			local subtractHeight = notificationText.TextSize
@@ -693,7 +666,7 @@ local function onSendNotificationInfo(notificationInfo)
 	else
 		-- Resize button1 to take up all the space under the notification if button2 doesn't exist
 		if button1 then
-			button1.Size = UDim2.new(1, FFlagBadgeNotificationTextUIFixes and 0 or -2, 0, NOTIFICATION_BUTTON_HEIGHT)
+			button1.Size = UDim2.new(1, 0, 0, NOTIFICATION_BUTTON_HEIGHT)
 		end
 	end
 
@@ -883,40 +856,59 @@ local function onBadgeAwarded(userId, creatorId, badgeId)
 		BadgeBlacklist[badgeId] = true
 		local creatorName = ""
 		if game.CreatorType == Enum.CreatorType.Group then
-			local groupInfo = GroupService:GetGroupInfoAsync(creatorId)
+			local groupInfo -- inline with FFlagBadgeNotificationsHttpFix
+
+			if FFlagBadgeNotificationHttpFix2 then
+				local success
+				success, groupInfo = pcall(function()
+					return GroupService:GetGroupInfoAsync(creatorId)
+				end)
+				if not success then creatorName = "" end
+			else
+				groupInfo = GroupService:GetGroupInfoAsync(creatorId)
+			end
+
 			if groupInfo then
 				creatorName = groupInfo.Name
 			end
 		elseif game.CreatorType == Enum.CreatorType.User then
-			creatorName = Players:GetNameFromUserIdAsync(creatorId)
+
+			if FFlagBadgeNotificationHttpFix2 then
+				local success
+				success, creatorName = pcall(function()
+					return Players:GetNameFromUserIdAsync(creatorId)
+				end)
+				if not success then creatorName = "" end
+			else
+				creatorName = Players:GetNameFromUserIdAsync(creatorId)
+			end
 		end
 
-		local success = true
-		local badgeInfo
-		if FFlagBadgeNotificationHttpFix then
+		local badgeInfo -- inline with FFlagBadgeNotificationHttpFix
+		if FFlagBadgeNotificationHttpFix2 then
+			local success
 			success, badgeInfo = pcall(function()
 				return BadgeService:GetBadgeInfoAsync(badgeId)
 			end)
+			if not success then return end -- could not get info from network
 		else
 			badgeInfo = BadgeService:GetBadgeInfoAsync(badgeId)
 		end
-	
-		if success then
-			local badgeAwardText = RobloxTranslator:FormatByKey(
-				"NotificationScript2.onBadgeAwardedDetail",
-				{ RBX_NAME = LocalPlayer.Name, CREATOR_NAME = creatorName, BADGE_NAME = badgeInfo.DisplayName }
-			)
-			local badgeTitle = LocalizedGetString("NotificationScript2.onBadgeAwardedTitle")
 
-			sendNotificationInfo({
-				GroupName = "BadgeAwards",
-				Title = badgeTitle,
-				Text = badgeAwardText,
-				DetailText = badgeAwardText,
-				Image = BADGE_IMG,
-				Duration = DEFAULT_NOTIFICATION_DURATION,
-			})
-		end
+		local badgeAwardText = RobloxTranslator:FormatByKey(
+			"NotificationScript2.onBadgeAwardedDetail",
+			{ RBX_NAME = LocalPlayer.Name, CREATOR_NAME = creatorName, BADGE_NAME = badgeInfo.DisplayName }
+		)
+		local badgeTitle = LocalizedGetString("NotificationScript2.onBadgeAwardedTitle")
+
+		sendNotificationInfo({
+			GroupName = "BadgeAwards",
+			Title = badgeTitle,
+			Text = badgeAwardText,
+			DetailText = badgeAwardText,
+			Image = BADGE_IMG,
+			Duration = DEFAULT_NOTIFICATION_DURATION,
+		})
 	end
 end
 

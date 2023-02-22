@@ -14,6 +14,7 @@ local HeaderBarRightView = require(FriendsLanding.Components.HeaderBarRightView)
 local GatewayComponent = require(FriendsLanding.Navigator.GatewayComponent)
 local llama = dependencies.llama
 
+local getFFlagAddFriendsFixSocialTabSearchbar = require(FriendsLanding.Flags.getFFlagAddFriendsFixSocialTabSearchbar)
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 
 local MainStackNavigator = RoactNavigation.createRobloxStackNavigator({
@@ -39,8 +40,11 @@ local MainStackNavigator = RoactNavigation.createRobloxStackNavigator({
 					headerText = {
 						raw = "Feature.Chat.Label.AddFriends",
 					},
-					renderCenter = if getFFlagAddFriendsSearchbarIXPEnabled()
+					renderCenter = if getFFlagAddFriendsFixSocialTabSearchbar()
 						then function()
+							return Roact.createElement(HeaderBarCenterView, navProps)
+						end
+						elseif getFFlagAddFriendsSearchbarIXPEnabled() then function()
 							return FriendsLandingContext.with(function(context)
 								return Roact.createElement(
 									HeaderBarCenterView,

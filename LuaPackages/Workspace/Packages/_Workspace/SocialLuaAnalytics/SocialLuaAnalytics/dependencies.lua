@@ -5,6 +5,7 @@ local LuaSocialLibrariesDeps = require(Packages.LuaSocialLibrariesDeps)
 local SocialLibrariesPackage = LuaSocialLibrariesDeps.SocialLibraries.config({})
 
 local getFFlagAddFriendsFullSearchbarAnalytics = require(Packages.SharedFlags).getFFlagAddFriendsFullSearchbarAnalytics
+local getFFlagAddFriendsQRCodeAnalytics = require(Packages.SharedFlags).getFFlagAddFriendsQRCodeAnalytics
 
 return {
 	t = require(Packages.t),
@@ -21,4 +22,5 @@ return {
 	Dash = require(Packages.Dash),
 
 	getFFlagAddFriendsFullSearchbarAnalytics = getFFlagAddFriendsFullSearchbarAnalytics,
+	getFFlagAddFriendsQRCodeAnalytics = getFFlagAddFriendsQRCodeAnalytics,
 }

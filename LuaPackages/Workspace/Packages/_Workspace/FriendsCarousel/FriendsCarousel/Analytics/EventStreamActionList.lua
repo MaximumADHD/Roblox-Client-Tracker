@@ -7,7 +7,6 @@ local Enums = SocialLuaAnalytics.Analytics.Enums
 local Contexts = Enums.Contexts
 local EventTypes = Enums.EventTypes
 local BtnValues = require(script.Parent.BtnValues)
-local Dash = dependencies.Dash
 local Constants = require(FriendsCarousel.Common.Constants)
 
 local formatFriendStatus = require(script.Parent.formatFriendStatus)
@@ -16,8 +15,6 @@ local formatRecommendationContextType = SocialLuaAnalytics.Analytics.Formatters.
 local formatPresence = SocialLuaAnalytics.Analytics.Formatters.formatPresence
 
 local getFIntShowFriendRecommendationsLimit = require(FriendsCarousel.Flags.getFIntShowFriendRecommendationsLimit)
-local getFFlagFriendsCarouselAddNewBadgeTracking =
-	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddNewBadgeTracking)
 local getFFlagFriendsCarouselAddUniverseIdToEvents =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddUniverseIdToEvents)
 
@@ -161,18 +158,13 @@ local coreEvents = {
 			isLegacyCarousel = acceptAnyValue,
 		},
 	},
+	[EventNames.ContactImporterOnAddFriends] = {
+		context = Contexts.HomePage,
+		eventType = EventTypes.ContactImporterOnAddFriends,
+		additionalInfo = {
+			isLegacyAddFriends = false,
+		},
+	},
 }
 
-if getFFlagFriendsCarouselAddNewBadgeTracking() then
-	return Dash.join(coreEvents, {
-		[EventNames.ContactImporterOnAddFriends] = {
-			context = Contexts.HomePage,
-			eventType = EventTypes.ContactImporterOnAddFriends,
-			additionalInfo = {
-				isLegacyAddFriends = false,
-			},
-		},
-	})
-else
-	return coreEvents
-end
+return coreEvents

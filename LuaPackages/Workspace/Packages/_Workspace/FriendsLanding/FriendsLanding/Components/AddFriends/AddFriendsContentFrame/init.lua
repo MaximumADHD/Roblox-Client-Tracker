@@ -13,7 +13,7 @@ local AddFriendsGridView = require(script.Parent.AddFriendsGridView)
 local AddFriendsEmptyState = require(script.Parent.AddFriendsEmptyState)
 local IgnoreAllFriendsRequestsMenu = require(script.Parent.IgnoreAllFriendsRequestsMenu)
 
-local getFFlagAddFriendsNewEmptyStateAndBanners = dependencies.getFFlagAddFriendsNewEmptyStateAndBanners
+local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 local getFFlagAddFriendsStatefulMoreButton = require(FriendsLanding.Flags.getFFlagAddFriendsStatefulMoreButton)
 
 local PLAYER_TILE_MARGIN = 12
@@ -21,7 +21,7 @@ local PLAYER_TILE_MARGIN = 12
 local HEADER_DROPDOWN_MENU_OFFSET = 48
 local HEADER_DROPDOWN_MENU_WIDTH = 300
 
-local EMPTY_STATE_OFFSET = if getFFlagAddFriendsNewEmptyStateAndBanners() then -155 else -48
+local EMPTY_STATE_OFFSET = -48
 
 -- Stateful HeaderFrame icons
 local MENU_OPEN_ICON = Images["icons/menu/more_on"]
@@ -46,6 +46,7 @@ AddFriendsContentFrame.validateProps = t.interface({
 	getItemMetrics = t.optional(t.callback),
 	layoutOrder = t.optional(t.integer),
 	handleIgnoreAllFriendsRequests = t.optional(t.callback),
+	showNewAddFriendsPageVariant = if getFFlagSocialOnboardingExperimentEnabled() then t.optional(t.boolean) else nil,
 })
 
 AddFriendsContentFrame.defaultProps = {
@@ -77,7 +78,13 @@ function AddFriendsContentFrame:init()
 end
 
 function AddFriendsContentFrame:render()
-	local shouldRenderHeaderFrame = if getFFlagAddFriendsNewEmptyStateAndBanners()
+	if getFFlagSocialOnboardingExperimentEnabled() and self.props.showNewAddFriendsPageVariant then
+		-- when cleaning flag, move this to top of file
+		EMPTY_STATE_OFFSET = -155
+	end
+
+	local shouldRenderHeaderFrame = if getFFlagSocialOnboardingExperimentEnabled()
+			and self.props.showNewAddFriendsPageVariant
 		then self.props.headerFrame and #self.props.friends > 0
 		else self.props.headerFrame
 
@@ -126,9 +133,11 @@ function AddFriendsContentFrame:render()
 					LayoutOrder = 2,
 					BackgroundTransparency = 1,
 				}, {
-					EmptyState = if getFFlagAddFriendsNewEmptyStateAndBanners()
+					EmptyState = if getFFlagSocialOnboardingExperimentEnabled()
+							and self.props.showNewAddFriendsPageVariant
 						then Roact.createElement(AddFriendsEmptyState, {
 							screenSize = self.props.screenSize,
+							showNewAddFriendsPageVariant = self.props.showNewAddFriendsPageVariant,
 						})
 						else Roact.createElement(AddFriendsEmptyState),
 				}),

@@ -14,17 +14,19 @@ local EventNames = Analytics.EventNames
 local useAnalytics = Analytics.useAnalytics
 local useEffectOnce = dependencies.Hooks.useEffectOnce
 
+local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
+local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 local getFFlagFriendsCarouselAddNewBadgeTracking =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddNewBadgeTracking)
-local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
-local getFFlagFriendsCarouselPassCIBadge = require(FriendsCarousel.Flags.getFFlagFriendsCarouselPassCIBadge)
-local getFFlagFriendsCarouselReplaceIcon = require(FriendsCarousel.Flags.getFFlagFriendsCarouselReplaceIcon)
 
 export type Props = {
 	badgeValue: string | number | nil,
 	onActivated: () -> (),
 	tileSize: number,
 	onDidMount: () -> ()?,
+
+	showNewAddFriendsUIVariant: boolean?,
+
 	--remove with getFFlagFriendsCarouselRemoveVariant
 	friendsCarouselExperimentVariant: string?,
 }
@@ -43,15 +45,15 @@ local FindFriendsTile = function(props: Props)
 		end
 	end, {})
 
-	-- remove with getFFlagFriendsCarouselPassCIBadge
+	-- remove with getFFlagSocialOnboardingExperimentEnabled
 	local isUpdatedUI
 
-	if not getFFlagFriendsCarouselPassCIBadge() then
+	if not getFFlagSocialOnboardingExperimentEnabled() then
 		isUpdatedUI = false
 	end
 
 	local badgeValue = React.useMemo(function()
-		if getFFlagFriendsCarouselPassCIBadge() then
+		if getFFlagSocialOnboardingExperimentEnabled() then
 			return getBadgeVale(props.badgeValue)
 		else
 			return if isUpdatedUI then getBadgeVale(props.badgeValue) else nil
@@ -72,26 +74,51 @@ local FindFriendsTile = function(props: Props)
 	})
 
 	if getFFlagFriendsCarouselRemoveVariant() then
-		return Roact.createElement(AddFriendsTileCircular, {
-			onActivated = props.onActivated,
-			labelText = localizedStrings.addFriendText,
-			badgeValue = if getFFlagFriendsCarouselPassCIBadge() then badgeValue else nil,
-		})
-	else
-		return if props.friendsCarouselExperimentVariant == UIVariants.SQUARE_TILES
-			then Roact.createElement(AddFriendsTileSquare, {
-				badgeValue = badgeValue,
-				onActivated = props.onActivated,
-				labelText = if getFFlagFriendsCarouselReplaceIcon()
-					then localizedStrings.findFriendsText
-					else if isUpdatedUI then localizedStrings.findFriendsText else localizedStrings.addFriendText,
-				isUpdatedUI = if getFFlagFriendsCarouselReplaceIcon() then nil else isUpdatedUI,
-			})
-			else Roact.createElement(AddFriendsTileCircular, {
+		if getFFlagSocialOnboardingExperimentEnabled() then
+			return if props.showNewAddFriendsUIVariant
+				then Roact.createElement(AddFriendsTileSquare, {
+					badgeValue = badgeValue,
+					onActivated = props.onActivated,
+					labelText = localizedStrings.findFriendsText,
+				})
+				else Roact.createElement(AddFriendsTileCircular, {
+					onActivated = props.onActivated,
+					labelText = localizedStrings.addFriendText,
+					badgeValue = badgeValue,
+				})
+		else
+			return Roact.createElement(AddFriendsTileCircular, {
 				onActivated = props.onActivated,
 				labelText = localizedStrings.addFriendText,
-				badgeValue = if getFFlagFriendsCarouselPassCIBadge() then badgeValue else nil,
+				badgeValue = nil,
 			})
+		end
+	else
+		if getFFlagSocialOnboardingExperimentEnabled() then
+			return if props.showNewAddFriendsUIVariant
+				then Roact.createElement(AddFriendsTileSquare, {
+					badgeValue = badgeValue,
+					onActivated = props.onActivated,
+					labelText = localizedStrings.findFriendsText,
+				})
+				else Roact.createElement(AddFriendsTileCircular, {
+					onActivated = props.onActivated,
+					labelText = localizedStrings.addFriendText,
+					badgeValue = nil,
+				})
+		else
+			return if props.friendsCarouselExperimentVariant == UIVariants.SQUARE_TILES
+				then Roact.createElement(AddFriendsTileSquare, {
+					badgeValue = badgeValue,
+					onActivated = props.onActivated,
+					labelText = localizedStrings.findFriendsText,
+				})
+				else Roact.createElement(AddFriendsTileCircular, {
+					onActivated = props.onActivated,
+					labelText = localizedStrings.addFriendText,
+					badgeValue = nil,
+				})
+		end
 	end
 end
 

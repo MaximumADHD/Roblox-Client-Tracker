@@ -11,6 +11,8 @@ local BtnValues = require(script.Parent.Enums.BtnValues)
 local FieldNames = require(script.Parent.FieldNames)
 local getFIntContactImporterUploadContactsMax = require(ContactImporter.Flags.getFIntContactImporterUploadContactsMax)
 local getFIntContactImporterUploadContactsMin = require(ContactImporter.Flags.getFIntContactImporterUploadContactsMin)
+local getFFlagContactImporterUseShortUrlFriendInvite =
+	require(ContactImporter.Flags.getFFlagContactImporterUseShortUrlFriendInvite)
 
 type GenericEvent = {
 	context: any,
@@ -80,6 +82,7 @@ return {
 		eventType = EventTypes.ButtonClick,
 		additionalInfo = {
 			btn = BtnValues.InviteContact,
+			isShortUrlEnabled = getFFlagContactImporterUseShortUrlFriendInvite(),
 		},
 		formatRulesForAdditionalInfo = {
 			offNetworkFriendRequestLinkId = Dash.identity,

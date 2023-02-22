@@ -141,7 +141,7 @@ function PlayerDropDown:createReportButton()
 				-- This module has to be required here or it yields on initalization which breaks the unit tests.
 				-- TODO: Revist this with new in game menu.
 				local ReportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
-				ReportAbuseMenu:ReportPlayer(selectedPlayer)
+				ReportAbuseMenu:ReportPlayer(selectedPlayer, self.__componentName)
 				self.props.closeDropDown()
 			end
 		end,

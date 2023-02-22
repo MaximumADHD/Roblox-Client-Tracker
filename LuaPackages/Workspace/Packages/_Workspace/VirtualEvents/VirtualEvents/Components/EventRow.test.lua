@@ -125,6 +125,21 @@ describe("upcoming event", function()
 		expect(result.queryByText("50K")).toBeUndefined()
 	end)
 
+	it("should display a separate button when the user has RSVP'd", function()
+		local virtualEvent = createMockVirtualEvent("Upcoming")
+		virtualEvent.userRsvpStatus = "going"
+
+		local element = withMockProviders({
+			EventRow = React.createElement(EventRow, {
+				virtualEvent = virtualEvent,
+			}),
+		})
+
+		local result = render(element)
+
+		expect(result.queryByText("Interested")).toBeDefined()
+	end)
+
 	it("should trigger onRsvpChanged when clicking Notify Me", function()
 		local mockOnRsvpChanged = jest.fn()
 

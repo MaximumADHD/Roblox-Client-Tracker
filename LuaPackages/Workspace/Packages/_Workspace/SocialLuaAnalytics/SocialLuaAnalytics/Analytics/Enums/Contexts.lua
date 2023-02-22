@@ -3,6 +3,7 @@ local dependencies = require(SocialLuaAnalytics.dependencies)
 local enumerate = dependencies.enumerate
 
 local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
+local getFFlagAddFriendsQRCodeAnalytics = dependencies.getFFlagAddFriendsQRCodeAnalytics
 
 return enumerate(script.Name, {
 	ContactImport = "contactImport",
@@ -18,6 +19,7 @@ return enumerate(script.Name, {
 	PeopleSearchFromAddFriends = if getFFlagAddFriendsFullSearchbarAnalytics()
 		then "peopleSearchfromAddFriends"
 		else nil,
+	ProfileCard = if getFFlagAddFriendsQRCodeAnalytics() then "profileCard" else nil,
 
 	-- TODO SOCCONN-1976 these refer to the same page, we should standardise this
 	AddFriends = "addUniversalFriends",

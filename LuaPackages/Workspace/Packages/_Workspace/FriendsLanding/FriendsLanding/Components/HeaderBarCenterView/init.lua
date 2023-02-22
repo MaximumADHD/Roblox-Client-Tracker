@@ -14,6 +14,8 @@ local FormFactor = dependencies.FormFactor
 local compose = SocialLibraries.RoduxTools.compose
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 
+local getFFlagSearchbarAndroidBackButton = require(FriendsLanding.Flags.getFFlagSearchbarAndroidBackButton)
+local getFFlagAddFriendsFixSocialTabSearchbar = require(FriendsLanding.Flags.getFFlagAddFriendsFixSocialTabSearchbar)
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
 
@@ -46,11 +48,33 @@ function HeaderBarCenterView:render()
 	return FriendsLandingContext.with(function(context)
 		local screenTopBar = context.getScreenTopBar(EnumScreens.FriendsLanding)
 
+		local navigation = if getFFlagSearchbarAndroidBackButton() or getFFlagAddFriendsFixSocialTabSearchbar()
+			then self.props.navigation
+			else nil
+		local routeName = if getFFlagSearchbarAndroidBackButton() or getFFlagAddFriendsFixSocialTabSearchbar()
+			then navigation and navigation.state and navigation.state.routeName
+			else nil
+
 		local wideModeSearchbarButton
 		if getFFlagAddFriendsSearchbarIXPEnabled() and context.addFriendsPageSearchbarEnabled then
-			wideModeSearchbarButton = context.wideMode and self.props.shouldRenderSearchbarButtonInWideMode
+			if getFFlagAddFriendsFixSocialTabSearchbar() then
+				wideModeSearchbarButton = context.wideMode and (routeName == EnumScreens.AddFriends)
+			else
+				wideModeSearchbarButton = context.wideMode and self.props.shouldRenderSearchbarButtonInWideMode
+			end
 			if not (wideModeSearchbarButton or screenTopBar.shouldRenderCenter) then
 				return nil
+			elseif getFFlagSearchbarAndroidBackButton() then
+				-- To handle the case of new header when the center searchbar is open
+				-- on SearchFriends page and the user presses the native Android back button.
+				-- If / when we add new header to FriendsLanding page we will need to
+				-- add (routeName == EnumScreens.FriendsLanding) check too
+				if (routeName == EnumScreens.AddFriends) and not wideModeSearchbarButton then
+					context.setScreenTopBar(EnumScreens.FriendsLanding, {
+						shouldRenderCenter = false,
+					})
+					return nil
+				end
 			end
 		else
 			if not screenTopBar.shouldRenderCenter then

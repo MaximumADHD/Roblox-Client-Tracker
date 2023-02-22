@@ -11,7 +11,8 @@ local memoize = require(script.memoize)
 local OrderedMap = require(script.OrderedMap)
 local Text = require(script.Text)
 local Symbol = require(script.Symbol)
-local ThrottleUserId = require(script.ThrottleUserId)
+local ThrottleUserId = require(script.Release.ThrottleUserId)
+local rolloutByApplicationId = require(script.Release.rolloutByApplicationId)
 local Utils = require(script.utils)
 
 export type SignalHandle = Signal.SignalHandle
@@ -35,6 +36,7 @@ return {
 	Text = Text,
 	Symbol = Symbol,
 	ThrottleUserId = ThrottleUserId,
+	rolloutByApplicationId = rolloutByApplicationId,
 	AsyncQueue = AsyncQueue,
 	Utils = Utils,
 	isRunningInStudio = isRunningInStudio,

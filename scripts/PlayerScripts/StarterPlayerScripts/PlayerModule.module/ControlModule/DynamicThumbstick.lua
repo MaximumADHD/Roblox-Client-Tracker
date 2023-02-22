@@ -31,6 +31,13 @@ local ContextActionService = game:GetService("ContextActionService")
 local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
 
+local FFlagUserDynamicThumbstickMoveOverButtons do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickMoveOverButtons")
+	end)
+	FFlagUserDynamicThumbstickMoveOverButtons = success and result
+end
+
 local LocalPlayer = Players.LocalPlayer
 if not LocalPlayer then
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
@@ -96,7 +103,12 @@ function DynamicThumbstick:Enable(enable: boolean?, uiParentFrame): boolean?
 
 		self:BindContextActions()
 	else
-		ContextActionService:UnbindAction(DYNAMIC_THUMBSTICK_ACTION_NAME)
+		if FFlagUserDynamicThumbstickMoveOverButtons then
+			self:UnbindContextActions()
+		else
+			ContextActionService:UnbindAction(DYNAMIC_THUMBSTICK_ACTION_NAME)
+		end
+
 		-- Disable
 		self:OnInputEnded() -- Cleanup
 	end
@@ -334,7 +346,11 @@ function DynamicThumbstick:BindContextActions()
 		if inputState == Enum.UserInputState.Begin then
 			return inputBegan(inputObject)
 		elseif inputState == Enum.UserInputState.Change then
-			return inputChanged(inputObject)
+			if FFlagUserDynamicThumbstickMoveOverButtons then
+				return Enum.ContextActionResult.Pass
+			else
+				return inputChanged(inputObject)
+			end
 		elseif inputState == Enum.UserInputState.End then
 			return inputEnded(inputObject)
 		elseif inputState == Enum.UserInputState.Cancel then
@@ -348,6 +364,20 @@ function DynamicThumbstick:BindContextActions()
 		false,
 		DYNAMIC_THUMBSTICK_ACTION_PRIORITY,
 		Enum.UserInputType.Touch)
+
+	if FFlagUserDynamicThumbstickMoveOverButtons then
+		self.TouchMovedCon = UserInputService.TouchMoved:Connect(function(inputObject: InputObject, _gameProcessedEvent: boolean)
+			inputChanged(inputObject)
+		end)
+	end
+end
+
+function DynamicThumbstick:UnbindContextActions()
+	ContextActionService:UnbindAction(DYNAMIC_THUMBSTICK_ACTION_NAME)
+
+	if self.TouchMovedCon then
+		self.TouchMovedCon:Disconnect()
+	end
 end
 
 function DynamicThumbstick:Create(parentFrame: GuiBase2d)

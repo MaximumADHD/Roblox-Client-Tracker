@@ -10,6 +10,7 @@ local findVirtualEventById = VirtualEventConnector.findVirtualEventById
 local findVirtualEventsByUniverseId = VirtualEventConnector.findVirtualEventsByUniverseId
 local findRsvpsByVirtualEventId = VirtualEventConnector.findRsvpsByVirtualEventId
 local findRsvpCountersByVirtualEventId = VirtualEventConnector.findRsvpCountersByVirtualEventId
+local updateRsvpStatus = VirtualEventConnector.updateRsvpStatus
 
 return function()
 	local create = nil
@@ -140,6 +141,35 @@ return function()
 				expect(capturedError).toBeDefined()
 				expect(capturedError.message).toEqual(
 					"Failed to find RSVP counters matching VirtualEvent id: badVirtualEvent."
+				)
+			end)
+		end)
+	end)
+
+	describe("update RSVP status", function()
+		it("should return the RsvpResponse type", function()
+			create("virtual-event-update-rsvp-success"):execute(function(httpService)
+				local fetchImpl = buildFetch(httpService)
+				local res = updateRsvpStatus("832582841240813598", "going", fetchImpl):expect()
+
+				expect(res.rsvpStatus).toBe("going")
+			end)
+		end)
+
+		it("should error for bad VirtualEvent ID", function()
+			create("virtual-event-update-rsvp-fail"):execute(function(httpService)
+				local capturedError
+				local fetchImpl = buildFetch(httpService)
+
+				updateRsvpStatus("badVirtualEvent", "going", fetchImpl)
+					:catch(function(err)
+						capturedError = err
+					end)
+					:expect()
+
+				expect(capturedError).toBeDefined()
+				expect(capturedError.message).toEqual(
+					"Failed to set RSVP status matching VirtualEvent id: badVirtualEvent."
 				)
 			end)
 		end)

@@ -24,6 +24,8 @@ local EngineFeatureBindActivateAllowMultiple = game:GetEngineFeature("EngineFeat
 local GetFFlagUIBloxMoveBindActivate =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxMoveBindActivate
 
+local FixVRMenuAccessEngineFeature = game:GetEngineFeature("FixVRMenuAccess")
+
 local LocalPlayer = Players.LocalPlayer
 while not LocalPlayer do
 	Players.Changed:wait()
@@ -219,6 +221,7 @@ function LaserPointer.new(laserDistance)
 
 	self.guiMenuIsOpen = false
 	self.externalForcePointer = false
+	self.forceDotActive = FixVRMenuAccessEngineFeature
 
 	self.navHitPoint = zeroVector3
 	self.navHitNormal = Vector3.new(0, 1, 0)
@@ -394,7 +397,15 @@ function LaserPointer:onModeChanged(newMode)
 
 	--Disabled mode
 	if newMode == LaserPointerMode.Disabled or newMode == LaserPointerMode.Hidden then
-		removePartsFromGame(self.originPart, self.plopPart, self.plopBall, self.cursorPart)
+		if FixVRMenuAccessEngineFeature  then
+			-- this enabled the target dot only
+			addPartsToGame(self.originPart, self.cursorPart)
+			removePartsFromGame(self.plopPart, self.plopBall)
+			self.forceDotActive = true
+		else 
+			removePartsFromGame(self.originPart, self.plopPart, self.plopBall, self.cursorPart)
+		end
+		
 		self.parabola.Visible = false
 		self:setNavigationActionEnabled(false)
 		--Pointer mode
@@ -403,11 +414,13 @@ function LaserPointer:onModeChanged(newMode)
 		removePartsFromGame(self.plopPart, self.plopBall)
 		self.parabola.Visible = true
 		self:setNavigationActionEnabled(false)
+		self.forceDotActive = false
 		--Navigation mode
 	elseif newMode == LaserPointerMode.Navigation then
 		addPartsToGame(self.originPart, self.plopPart, self.plopBall, self.cursorPart)
 		self.parabola.Visible = true
 		self:setNavigationActionEnabled(true)
+		self.forceDotActive = false
 	end
 end
 
@@ -785,7 +798,7 @@ function LaserPointer:updateCursor()
 end
 
 function LaserPointer:update(dt)
-	if self.mode == LaserPointerMode.Disabled then
+	if self.mode == LaserPointerMode.Disabled and not self.forceDotActive then
 		return
 	end
 
@@ -820,17 +833,20 @@ function LaserPointer:update(dt)
 		self:checkHeadMountedMode(laserHitPart)
 
 		--we actually want to render the laser from an offset from the head though
-		local offsetPosition = originCFrame:pointToWorldSpace(HEAD_MOUNT_OFFSET * (workspace.CurrentCamera :: Camera).HeadScale)
-		self:renderAsLaser(offsetPosition, laserHitPoint)
 
-		if self.showPlopBallOnPointer then
-			self:updateNavPlop(laserHitPoint, laserHitNormal)
-		end
+		if not self.forceDotActive then -- this only renders the target dot
+			local offsetPosition = originCFrame:pointToWorldSpace(HEAD_MOUNT_OFFSET * (workspace.CurrentCamera :: Camera).HeadScale)
+			self:renderAsLaser(offsetPosition, laserHitPoint)
 
-		if self.mode == LaserPointerMode.Navigation then
-			self:updateNavigationMode(laserHitPoint, laserHitNormal, laserHitPart, laserHitPoint)
-		else
-			self.parabola.Color3 = VRService.DidPointerHit and LASER.ARC_COLOR_HIT or LASER.ARC_COLOR_GOOD
+			if self.showPlopBallOnPointer then
+				self:updateNavPlop(laserHitPoint, laserHitNormal)
+			end
+
+			if self.mode == LaserPointerMode.Navigation then
+				self:updateNavigationMode(laserHitPoint, laserHitNormal, laserHitPart, laserHitPoint)
+			else
+				self.parabola.Color3 = VRService.DidPointerHit and LASER.ARC_COLOR_HIT or LASER.ARC_COLOR_GOOD
+			end
 		end
 	else
 		local originCFrame
@@ -866,7 +882,9 @@ function LaserPointer:update(dt)
 		if not EngineFeatureEnableVRUpdate3 then
 			self:checkMode(originPos, parabHitPart, parabHitPoint, laserHitPart, laserHitPoint)
 		else
-			self:setMode(LaserPointerMode.Pointer)
+			if not self.forceDotActive then
+				self:setMode(LaserPointerMode.Pointer)
+			end
 		end
 
 		if self.mode == LaserPointerMode.Navigation then
@@ -894,10 +912,13 @@ function LaserPointer:update(dt)
 			else
 				self.parabola.Thickness = LASER.ARC_THICKNESS
 			end
-			self:renderAsLaser(originPos, laserHitPoint)
+			
+			if not self.forceDotActive then -- this only renders the target dot
+				self:renderAsLaser(originPos, laserHitPoint)
 
-			if self.showPlopBallOnPointer then
-				self:updateNavPlop(laserHitPoint, laserHitNormal)
+				if self.showPlopBallOnPointer then
+					self:updateNavPlop(laserHitPoint, laserHitNormal)
+				end
 			end
 		end
 	end

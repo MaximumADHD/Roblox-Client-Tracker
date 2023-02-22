@@ -1,10 +1,12 @@
 local GraphQLServer = script:FindFirstAncestor("GraphQLServer")
 
 local LuauPolyfill = require(GraphQLServer.Parent.LuauPolyfill)
+type Array<T> = LuauPolyfill.Array<T>
 type Promise<T> = LuauPolyfill.Promise<T>
 local generatedTypes = require(GraphQLServer.graphql.generatedTypes)
 type ExperienceDetails = generatedTypes.ExperienceDetails
 type ExperienceMedia = generatedTypes.ExperienceMedia
+type Media = generatedTypes.Media
 local Promise = require(GraphQLServer.Parent.Promise)
 local GraphQLError = require(GraphQLServer.Parent.GraphQL).GraphQLError
 local fetchModule = require(GraphQLServer.Parent.Fetch)
@@ -101,5 +103,57 @@ local function findExperienceMediaByUniverseId(universeId: string, fetchImpl_: f
 	end)
 end
 exports.findExperienceMediaByUniverseId = findExperienceMediaByUniverseId
+
+local thumbnailsPattern = UrlBuilder.new({
+	base = UrlBase.new("thumbnails", 1),
+	path = "games/icons",
+	query = "universeIds={universeIds}&format={format}&size={size}",
+})
+local DEFAULT_ICON_SIZE = "150x150"
+
+local function batchFetchThumbnailsByUniverseId(universeIdList: { string }, fetchImpl_: fetch?): Promise<Array<Media>>
+	local fetchImpl: fetch = if fetchImpl_ then fetchImpl_ else fetch
+
+	return Promise.new(function(resolve, reject)
+		local universeIds = table.concat(universeIdList, ",")
+		local url = thumbnailsPattern({
+			universeIds = universeIds,
+			size = DEFAULT_ICON_SIZE,
+			format = "png",
+		})
+		local res = fetchImpl(url, { method = "GET" })
+			:catch(function()
+				return Response.error()
+			end)
+			:expect()
+
+		if not res.ok then
+			reject(GraphQLError.new(string.format("Failed to find thumbnails for ids: %s.", universeIds)))
+			return nil
+		end
+
+		local json = res:json()
+			:catch(function()
+				return nil
+			end)
+			:expect()
+
+		if not json then
+			reject(
+				GraphQLError.new(
+					string.format(
+						"Failed to decode HTTP response as JSON for thumbnails for universeIds: %s.",
+						universeIds
+					)
+				)
+			)
+			return nil
+		end
+		resolve(json.data)
+		return nil
+	end)
+end
+
+exports.batchFetchThumbnailsByUniverseId = batchFetchThumbnailsByUniverseId
 
 return exports

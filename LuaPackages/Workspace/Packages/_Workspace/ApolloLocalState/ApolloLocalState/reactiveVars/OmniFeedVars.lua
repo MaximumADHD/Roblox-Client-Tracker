@@ -7,4 +7,5 @@ return {
 	omniSessionId = makeVar(""),
 	localSorts = makeVar({}),
 	homeGameSorts = makeVar({}),
+	supportedTreatmentTypes = makeVar({}),
 }

@@ -24,7 +24,7 @@ local mockAnalytics = dependencies.SocialLuaAnalytics.TestingAnalytics.mockAnaly
 local FindFriendsTile = require(script.Parent)
 
 local getFFlagFriendsCarouselCircularBadge = require(FriendsCarousel.Flags.getFFlagFriendsCarouselCircularBadge)
-local getFFlagFriendsCarouselPassCIBadge = require(FriendsCarousel.Flags.getFFlagFriendsCarouselPassCIBadge)
+local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 local getFFlagFriendsCarouselAddNewBadgeTracking =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddNewBadgeTracking)
 
@@ -137,7 +137,7 @@ describe("FindFriendsTile", function()
 	end)
 
 	it("SHOULD render correct badge value if it passed", function()
-		if getFFlagFriendsCarouselCircularBadge() and getFFlagFriendsCarouselPassCIBadge() then
+		if getFFlagFriendsCarouselCircularBadge() and getFFlagSocialOnboardingExperimentEnabled() then
 			local element = createTreeWithProviders(FindFriendsTile, {
 				store = mockStore(state),
 				props = {
@@ -160,11 +160,7 @@ describe("FindFriendsTile", function()
 	end)
 
 	it("SHOULD call analytics event when badge value is passed", function()
-		if
-			getFFlagFriendsCarouselCircularBadge()
-			and getFFlagFriendsCarouselPassCIBadge()
-			and getFFlagFriendsCarouselAddNewBadgeTracking()
-		then
+		if getFFlagSocialOnboardingExperimentEnabled() and getFFlagFriendsCarouselAddNewBadgeTracking() then
 			local mockedAnalytics = mockAnalytics(jest)
 			local element = createTreeWithProviders(FindFriendsTile, {
 				store = mockStore(state),

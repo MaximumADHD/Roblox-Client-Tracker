@@ -9,6 +9,8 @@ local FetchSubdividedThumbnails = require(script.Parent.FetchSubdividedThumbnail
 
 local PerformFetch = require(Http.PerformFetch)
 
+local GetFFlagApiFetchThumbnailsKeyMapper = require(Packages.SharedFlags).GetFFlagApiFetchThumbnailsKeyMapper
+
 local ICON_PAGE_COUNT = 100
 local ICON_SIZE = "150x150"
 
@@ -46,10 +48,18 @@ function ApiFetchThumbnails.Fetch(networkImpl, targetIds, imageSize, requestName
 	local promises = {}
 	-- Filter out the icons that are already in the store.
 	for _, targetId in pairs(targetIds) do
-		table.insert(requests, {
-			targetId = targetId,
-			iconSize = size,
-		})
+		if GetFFlagApiFetchThumbnailsKeyMapper() then
+			table.insert(requests, {
+				targetId = targetId,
+				iconSize = size,
+				requestName = requestName,
+			})
+		else
+			table.insert(requests, {
+				targetId = targetId,
+				iconSize = size,
+			})
+		end
 	end
 	local subdividedRequestsArray = subdivideIdsArray(requests, ICON_PAGE_COUNT)
 	for _, subdividedRequests in ipairs(subdividedRequestsArray) do

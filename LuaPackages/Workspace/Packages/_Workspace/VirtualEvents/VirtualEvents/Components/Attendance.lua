@@ -11,7 +11,6 @@ local FacePile = require(VirtualEvents.Components.FacePile)
 local types = require(VirtualEvents.types)
 local getFFlagHideAttendanceCountsForBoringEvents =
 	require(VirtualEvents.Parent.SharedFlags).getFFlagHideAttendanceCountsForBoringEvents
-local getFFlagShowClientFirstInFacePile = require(VirtualEvents.Parent.SharedFlags).getFFlagShowClientFirstInFacePile
 
 export type Props = {
 	virtualEvent: types.VirtualEvent,
@@ -51,9 +50,7 @@ local function Attendance(props: Props): React.ReactElement<any, string>?
 		FacePile = React.createElement(FacePile, {
 			layoutOrder = 2,
 			userIds = interestedUserIds,
-			desiredFirstUserId = if getFFlagShowClientFirstInFacePile()
-				then if Players.LocalPlayer then tostring(Players.LocalPlayer.UserId) else nil
-				else nil,
+			desiredFirstUserId = if Players.LocalPlayer then tostring(Players.LocalPlayer.UserId) else nil,
 		}),
 	})
 end

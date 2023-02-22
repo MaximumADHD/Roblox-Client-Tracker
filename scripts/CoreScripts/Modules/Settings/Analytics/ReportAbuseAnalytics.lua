@@ -1,7 +1,9 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
+local SessionService = game:GetService("SessionService")
 
 local Cryo = require(CorePackages.Cryo)
+local GetFFlagIGMv1ARFlowSessionEnabled = require(script.Parent.Parent.Flags.GetFFlagIGMv1ARFlowSessionEnabled)
 
 local ReportAbuseAnalytics = {}
 ReportAbuseAnalytics.__index = ReportAbuseAnalytics
@@ -42,12 +44,23 @@ ReportAbuseAnalytics.ActionNames = {
 		"ButtonActivated"),
 }
 
-function ReportAbuseAnalytics.new(config, context)
+ReportAbuseAnalytics.SessionConstants = {
+	StructuralIdentifier = {
+		Level1 = "level1",
+		AbuseReport = "AbuseReport"
+	},
+	Metadata = {
+		EntryPoint = "entryPoint",
+		DeleteOnGameLeave = "_deleteOnGameLeave"
+	}
+}
+
+function ReportAbuseAnalytics.new(eventStreamImpl, diagImpl, context)
 	assert(context, "Base context needs to be provided to ReportAbuseAnalytics")
 
 	local self = {
-		_eventStreamImpl = config.EventStream,
-		_diagImpl = config.Diag,
+		_eventStreamImpl = eventStreamImpl,
+		_diagImpl = diagImpl,
 		_context = context,
 	}
 	setmetatable(self, ReportAbuseAnalytics)
@@ -112,6 +125,53 @@ function ReportAbuseAnalytics:reportEventAndIncrement(actionName, additionalArgs
 		actionName,
 		additionalArgs or {}
 	)
+end
+
+
+-- 
+function ReportAbuseAnalytics:startAbuseReportSession(entryPoint)
+	if not GetFFlagIGMv1ARFlowSessionEnabled() then
+		return
+	end
+	local sessionExists = SessionService:SessionExists(ReportAbuseAnalytics.SessionConstants.StructuralIdentifier.AbuseReport)
+
+	if not sessionExists then
+		SessionService:SetSession(
+			ReportAbuseAnalytics.SessionConstants.StructuralIdentifier.Level1,
+			ReportAbuseAnalytics.SessionConstants.StructuralIdentifier.AbuseReport,
+			ReportAbuseAnalytics.SessionConstants.StructuralIdentifier.AbuseReport
+		)
+	end
+
+	local storedEntryPoint = SessionService:GetMetadata(
+		ReportAbuseAnalytics.SessionConstants.StructuralIdentifier.AbuseReport,
+		ReportAbuseAnalytics.SessionConstants.Metadata.EntryPoint
+	)
+	if not storedEntryPoint then
+		-- do not overwrite entryPoint if startAbuseReportSession is called twice
+		SessionService:SetMetadata(
+			ReportAbuseAnalytics.SessionConstants.StructuralIdentifier.AbuseReport,
+			ReportAbuseAnalytics.SessionConstants.Metadata.EntryPoint,
+			entryPoint
+		)
+	end
+
+	SessionService:SetMetadata(
+		ReportAbuseAnalytics.SessionConstants.StructuralIdentifier.AbuseReport,
+		ReportAbuseAnalytics.SessionConstants.Metadata.DeleteOnGameLeave,
+		"True"
+	)
+end
+	
+function ReportAbuseAnalytics:endAbuseReportSession()
+	if not GetFFlagIGMv1ARFlowSessionEnabled() then
+		return
+	end
+	local sessionExists = SessionService:SessionExists(ReportAbuseAnalytics.SessionConstants.StructuralIdentifier.AbuseReport)
+
+	if sessionExists then
+		SessionService:RemoveSession(ReportAbuseAnalytics.SessionConstants.StructuralIdentifier.AbuseReport)
+	end
 end
 
 return ReportAbuseAnalytics

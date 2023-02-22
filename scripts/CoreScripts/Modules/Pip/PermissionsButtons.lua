@@ -193,7 +193,6 @@ end
 function PermissionsButtons:render()
 	local shouldShowMicButtons = self.state.hasMicPermissions
 	local shouldShowCameraButtons = self.state.hasCameraPermissions
-	local targetSize = 250
 
 	return Roact.createElement("Frame", {
 		Name = "PermissionsButton",
@@ -202,7 +201,6 @@ function PermissionsButtons:render()
 		BackgroundTransparency = 0,
 		BackgroundColor3 = Color3.fromRGB(35, 37, 39),
 		Position = UDim2.new(0.5, 0, 1, -36),
-		Size = UDim2.new(0, targetSize, 0, 0),
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		LayoutOrder = self.props.LayoutOrder,
 		Visible = not self.props.isTenFootInterface, -- Not Visible on Xbox
@@ -219,6 +217,12 @@ function PermissionsButtons:render()
 		}),
 		UICorner = Roact.createElement("UICorner", {
 			CornerRadius = UDim.new(0.8, 0),
+		}),
+		UIPadding = Roact.createElement("UIPadding", {
+			PaddingLeft = UDim.new(0, 24),
+			PaddingRight = UDim.new(0, 24),
+			PaddingTop = UDim.new(0, 12),
+			PaddingBottom = UDim.new(0, 12),
 		}),
 		Container = Roact.createElement("Frame", {
 			AutomaticSize = Enum.AutomaticSize.X,

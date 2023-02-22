@@ -8,7 +8,7 @@ local ImageSetButton = UIBlox.Core.ImageSet.Button
 
 local PermissionButton = Roact.PureComponent:extend("PermissionButton")
 
-local BUTTON_SIZE = 32
+local BUTTON_SIZE = 28
 
 PermissionButton.validateProps = t.strictInterface({
 	callback = t.callback,

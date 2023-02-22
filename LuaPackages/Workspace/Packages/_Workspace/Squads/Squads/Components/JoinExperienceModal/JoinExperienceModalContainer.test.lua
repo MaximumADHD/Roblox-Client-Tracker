@@ -31,7 +31,7 @@ it("SHOULD mount and unmount", function()
 	end)
 
 	local mockState = {
-		SocialModalsSquads = {
+		Squad = {
 			Games = {
 				byGameId = { ["456"] = { name = "Super Cool Experience", maxPlayers = 6, rootPlaceId = "123" } },
 				mediaByGameId = { ["456"] = { { assetTypeId = 1, imageId = 789 } } },

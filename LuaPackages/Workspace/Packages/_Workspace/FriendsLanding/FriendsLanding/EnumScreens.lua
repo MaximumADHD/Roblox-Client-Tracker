@@ -8,6 +8,7 @@ return {
 	ContactsList = "ContactsList",
 	ContactsRevokedAccessDialog = "ContactsRevokedAccessDialog",
 	DiscoverabilityOverlay = "DiscoverabilityOverlay",
+	ProfileQRCodePage = "ProfileQRCodePage",
 
 	-- added for now to experiment with navigation
 	AddFriends = "AddFriends",
@@ -20,5 +21,4 @@ return {
 	ViewUserProfile = "ViewUserProfile",
 	LearnMore = "LearnMore",
 	PhoneVerification = "PhoneVerification",
-	ProfileQRCodePage = "ProfileQRCodePage",
 }

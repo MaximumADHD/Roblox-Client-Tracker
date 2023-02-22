@@ -25,8 +25,6 @@ local PromptWithAvatarViewport = require(Components.Prompts.PromptWithAvatarView
 
 local AvatarEditorPromptsPolicy = require(AvatarEditorPrompts.AvatarEditorPromptsPolicy)
 
-local FFlagFixAvatarEditorPromptsGamepadSelection = require(RobloxGui.Modules.Flags.FFlagFixAvatarEditorPromptsGamepadSelection)
-
 local UpdateOutfitPrompt = Roact.PureComponent:extend("UpdateOutfitPrompt")
 
 UpdateOutfitPrompt.validateProps = t.strictInterface({
@@ -67,7 +65,7 @@ function UpdateOutfitPrompt:render()
 						onActivated = self.props.signalUpdateOutfitPermissionDenied,
 						text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.UpdateOutfitPromptNo"),
 					},
-					isDefaultChild = if FFlagFixAvatarEditorPromptsGamepadSelection then true else nil,
+					isDefaultChild = true,
 				},
 				{
 					buttonType = ButtonType.PrimarySystem,
@@ -75,6 +73,7 @@ function UpdateOutfitPrompt:render()
 						onActivated = self.props.performUpdateOutfit,
 						text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.UpdateOutfitPromptYes"),
 					},
+					isDefaultChild = false,
 				},
 			},
 		},

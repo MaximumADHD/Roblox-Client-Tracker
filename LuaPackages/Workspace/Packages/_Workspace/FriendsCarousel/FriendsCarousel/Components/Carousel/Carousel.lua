@@ -23,7 +23,7 @@ local TextKeys = require(FriendsCarousel.Common.TextKeys)
 local UIVariants = require(FriendsCarousel.Common.UIVariants)
 
 local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
-local getFFlagFriendsCarouselPassCIBadge = require(FriendsCarousel.Flags.getFFlagFriendsCarouselPassCIBadge)
+local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 
 -- Note: Type information is not retained on lua tables, so the only way to get
 -- React _types_ is to require a module that re-exports them
@@ -55,6 +55,7 @@ export type Props = {
 	) -> (),
 
 	showNewBadge: boolean?,
+	showNewAddFriendsUIVariant: boolean?,
 }
 
 type InternalProps = Props & mapStateToProps.Props & mapDispatchToProps.Props
@@ -91,6 +92,7 @@ Carousel.validateProps = t.strictInterface({
 	onSuccessfulRender = t.optional(t.callback),
 	friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant() then nil else t.string,
 	showNewBadge = t.optional(t.boolean),
+	showNewAddFriendsUIVariant = t.optional(t.boolean),
 })
 
 Carousel.defaultProps = {
@@ -104,7 +106,7 @@ function Carousel:init()
 		local props: InternalProps = self.props
 		local tileUIProperties = self.getTileUIProperties()
 
-		if getFFlagFriendsCarouselPassCIBadge() then
+		if getFFlagSocialOnboardingExperimentEnabled() then
 			return withLocalization({
 				newTextBadge = TextKeys.NewText,
 			})(function(localized)
@@ -113,11 +115,15 @@ function Carousel:init()
 						then nil
 						else props.friendsCarouselExperimentVariant,
 					onActivated = props.onFindFriendsTileActivated,
-					badgeValue = if getFFlagFriendsCarouselPassCIBadge() and props.showNewBadge
+					badgeValue = if getFFlagSocialOnboardingExperimentEnabled() and props.showNewBadge
 						then localized.newTextBadge
-						else props.friendRequestCount,
+						else nil,
 					tileSize = tileUIProperties.tileHeight,
 					onDidMount = props.onSuccessfulRender,
+
+					showNewAddFriendsUIVariant = if getFFlagSocialOnboardingExperimentEnabled()
+						then props.showNewAddFriendsUIVariant
+						else nil,
 				})
 			end)
 		else
@@ -134,11 +140,17 @@ function Carousel:init()
 	end
 
 	self.renderFindFriendsHint = function(passedProps: FindFriendsHint.Props)
+		local props: InternalProps = self.props
+
 		local tileUIProperties = self.getTileUIProperties()
 
 		return Roact.createElement(FindFriendsHint, {
 			layoutOrder = passedProps.layoutOrder,
 			tileHeight = tileUIProperties.tileHeight,
+
+			showNewAddFriendsUIVariant = if getFFlagSocialOnboardingExperimentEnabled()
+				then props.showNewAddFriendsUIVariant
+				else nil,
 		})
 	end
 

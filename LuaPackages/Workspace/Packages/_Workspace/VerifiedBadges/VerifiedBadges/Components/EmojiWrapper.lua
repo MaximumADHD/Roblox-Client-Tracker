@@ -4,8 +4,6 @@ local Cryo = require(VerifiedBadges.Parent.Cryo)
 local React = require(VerifiedBadges.Parent.React)
 local ReactRoblox = require(VerifiedBadges.Parent.ReactRoblox)
 
-local getFFlagFixEmojiWrapperSizeFlickering = require(VerifiedBadges.Flags.getFFlagFixEmojiWrapperSizeFlickering)
-
 local defaultProps = {
 	anchorPoint = Vector2.new(),
 	position = UDim2.new(),
@@ -102,14 +100,10 @@ local function EmojiWrapper(props: Props)
 	local onSizeChanged = React.useCallback(function(rbx: Frame)
 		local newEmojiSize = rbx.AbsoluteSize.Y
 
-		if getFFlagFixEmojiWrapperSizeFlickering() then
-			-- Prevent the emoji size from rapidly changing between the same two
-			-- sizes
-			if newEmojiSize ~= previousEmojiSize then
-				setPreviousEmojiSize(emojiSize)
-				setEmojiSize(newEmojiSize)
-			end
-		else
+		-- Prevent the emoji size from rapidly changing between the same two
+		-- sizes
+		if newEmojiSize ~= previousEmojiSize then
+			setPreviousEmojiSize(emojiSize)
 			setEmojiSize(newEmojiSize)
 		end
 	end, { emojiSize, previousEmojiSize })

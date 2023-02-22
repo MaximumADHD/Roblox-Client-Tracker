@@ -8,4 +8,5 @@ return {
 	RobloxLocaleIdKey = require(script.RobloxLocaleIdKey),
 	RoundingBehaviour = require(script.RoundingBehaviour),
 	withLocalization = require(script.withLocalization),
+	Logger = require(script.Logger),
 }

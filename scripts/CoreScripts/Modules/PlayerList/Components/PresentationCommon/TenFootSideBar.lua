@@ -101,7 +101,7 @@ function TenFootSideBar:openSidebar(player)
 				local InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
 				InGameMenu.openReportDialog(player, self.__componentName)
 			else
-				ReportAbuseMenu:ReportPlayer(player)
+				ReportAbuseMenu:ReportPlayer(player, self.__componentName)
 			end
 		end)
 	end

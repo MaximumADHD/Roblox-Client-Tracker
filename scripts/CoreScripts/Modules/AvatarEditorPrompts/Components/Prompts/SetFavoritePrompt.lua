@@ -19,8 +19,6 @@ local AvatarEditorPrompts = Components.Parent
 local PerformSetFavorite = require(AvatarEditorPrompts.Thunks.PerformSetFavorite)
 local SignalSetFavoritePermissionDenied = require(AvatarEditorPrompts.Thunks.SignalSetFavoritePermissionDenied)
 
-local FFlagFixAvatarEditorPromptsGamepadSelection = require(RobloxGui.Modules.Flags.FFlagFixAvatarEditorPromptsGamepadSelection)
-
 local SetFavoritePrompt = Roact.PureComponent:extend("SetFavoritePrompt")
 
 SetFavoritePrompt.validateProps = t.strictInterface({
@@ -88,7 +86,7 @@ function SetFavoritePrompt:render()
 						onActivated = self.props.signalSetFavoritePermissionDenied,
 						text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.FavouriteItemPromptNo"),
 					},
-					isDefaultChild = if FFlagFixAvatarEditorPromptsGamepadSelection then true else nil,
+					isDefaultChild = true,
 				},
 				{
 					buttonType = ButtonType.PrimarySystem,
@@ -96,6 +94,7 @@ function SetFavoritePrompt:render()
 						onActivated = self.props.performSetFavorite,
 						text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.FavouriteItemPromptYes"),
 					},
+					isDefaultChild = false,
 				},
 			},
 		},

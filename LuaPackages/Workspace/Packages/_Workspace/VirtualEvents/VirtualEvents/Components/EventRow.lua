@@ -9,12 +9,12 @@ local dependencyArray = require(VirtualEvents.Parent.RoactUtils).Hooks.dependenc
 local formatDate = require(VirtualEvents.Common.formatDate)
 local getEventTimerStatus = require(VirtualEvents.Common.getEventTimerStatus)
 local getVirtualEventDates = require(VirtualEvents.Common.getVirtualEventDates)
-local types = require(VirtualEvents.types)
 local EventRowCounter = require(script.Parent.EventRowCounter)
 local getFFlagVirtualEventsGraphQL = require(VirtualEvents.Parent.SharedFlags).getFFlagVirtualEventsGraphQL
 
 local PrimarySystemButton = UIBlox.App.Button.PrimarySystemButton
 local PrimaryContextualButton = UIBlox.App.Button.PrimaryContextualButton
+local SecondaryButton = UIBlox.App.Button.SecondaryButton
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 local useStyle = UIBlox.Core.Style.useStyle
 local Images = UIBlox.App.ImageSet.Images
@@ -27,15 +27,18 @@ local PADDING_SMALL = UDim.new(0, 4)
 local BUTTON_HEIGHT = 28
 local DESCRIPTION_LINE_HEIGHT = 1.4
 
+type VirtualEvent = GraphQLServer.VirtualEvent
+type RsvpStatus = GraphQLServer.RsvpStatus
+
 local defaultProps = {
 	shouldTruncateText = true,
 	maxDescriptionLines = 2,
 }
 
 export type Props = {
-	virtualEvent: GraphQLServer.VirtualEvent,
+	virtualEvent: VirtualEvent,
 	channel: string?,
-	onRsvpChanged: ((newRsvpStatus: types.RsvpStatus) -> ())?,
+	onRsvpChanged: ((newRsvpStatus: RsvpStatus) -> ())?,
 	onJoinEvent: (() -> ())?,
 	onTileActivated: (() -> ())?,
 
@@ -66,6 +69,7 @@ local function EventRow(providedProps: Props)
 	local text = useLocalization({
 		notifyMe = "Feature.VirtualEvents.NotifyMe",
 		joinEvent = "Feature.VirtualEvents.JoinEvent",
+		rsvpGoing = "Feature.VirtualEvents.RsvpGoing",
 	})
 
 	local dates = React.useMemo(function()
@@ -73,7 +77,7 @@ local function EventRow(providedProps: Props)
 	end, dependencyArray(props.virtualEvent))
 
 	local onRsvpChanged = React.useCallback(function()
-		local newRsvpStatus: GraphQLServer.RsvpStatus
+		local newRsvpStatus: RsvpStatus
 		if props.virtualEvent.userRsvpStatus ~= "going" then
 			newRsvpStatus = "going"
 		else
@@ -90,6 +94,36 @@ local function EventRow(providedProps: Props)
 			props.onJoinEvent()
 		end
 	end, dependencyArray(props.onJoinEvent))
+
+	local callToAction = React.useMemo(function()
+		if eventTimerStatus == "Ongoing" or eventTimerStatus == "ElapsedImminent" then
+			return React.createElement(PrimaryContextualButton, {
+				layoutOrder = 3,
+				text = text.joinEvent,
+				fontStyle = style.Font.CaptionHeader,
+				size = UDim2.new(1, 0, 0, BUTTON_HEIGHT),
+				onActivated = onJoinEvent,
+			})
+		else
+			if props.virtualEvent.userRsvpStatus ~= "going" then
+				return React.createElement(PrimarySystemButton, {
+					layoutOrder = 3,
+					text = text.notifyMe,
+					fontStyle = style.Font.CaptionHeader,
+					size = UDim2.new(1, 0, 0, BUTTON_HEIGHT),
+					onActivated = onRsvpChanged,
+				})
+			else
+				return React.createElement(SecondaryButton, {
+					layoutOrder = 3,
+					text = text.rsvpGoing,
+					fontStyle = style.Font.CaptionHeader,
+					size = UDim2.new(1, 0, 0, BUTTON_HEIGHT),
+					onActivated = onRsvpChanged,
+				})
+			end
+		end
+	end, dependencyArray(props.virtualEvent, eventTimerStatus, onJoinEvent, onRsvpChanged))
 
 	local titleHeight = style.Font.BaseSize * style.Font.Header2.RelativeSize
 	local descriptionHeight = if props.shouldTruncateText
@@ -220,21 +254,7 @@ local function EventRow(providedProps: Props)
 			}),
 		}),
 
-		CallToAction = if eventTimerStatus == "Ongoing"
-			then React.createElement(PrimaryContextualButton, {
-				layoutOrder = 3,
-				text = text.joinEvent,
-				fontStyle = style.Font.CaptionHeader,
-				size = UDim2.new(1, 0, 0, BUTTON_HEIGHT),
-				onActivated = onJoinEvent,
-			})
-			else React.createElement(PrimarySystemButton, {
-				layoutOrder = 3,
-				text = text.notifyMe,
-				fontStyle = style.Font.CaptionHeader,
-				size = UDim2.new(1, 0, 0, BUTTON_HEIGHT),
-				onActivated = onRsvpChanged,
-			}),
+		CallToAction = callToAction,
 	})
 end
 

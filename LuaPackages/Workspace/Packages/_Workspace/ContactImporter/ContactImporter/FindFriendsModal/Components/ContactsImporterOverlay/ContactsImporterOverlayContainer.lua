@@ -13,6 +13,7 @@ local RoactRodux = dependencies.RoactRodux
 local PermissionsProtocol = dependencies.PermissionsProtocol
 local Promise = dependencies.Promise
 local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
+local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 
 local ContactsImporterOverlay = require(script.Parent.ContactsImporterOverlay)
 local mapDispatchToProps = require(script.Parent.mapDispatchToProps)
@@ -105,6 +106,15 @@ function ContactsImporterOverlayContainer:init()
 		end
 	end
 
+	self.checkDiscoverability = function(isDiscoverabilityUnset)
+		local props: InternalProps = self.props
+		if getFFlagEnableContactInvitesForNonPhoneVerified() then
+			return isDiscoverabilityUnset and props.isPhoneVerified
+		else
+			return isDiscoverabilityUnset
+		end
+	end
+
 	self.onConnectContacts = function()
 		local props: InternalProps = self.props
 		local isDiscoverabilityUnset = props.navigation.getParam("isDiscoverabilityUnset")
@@ -122,7 +132,7 @@ function ContactsImporterOverlayContainer:init()
 				onSuccessCallback = self.props.setIsPhoneVerified,
 				closeCallback = self.closeCallback,
 			})
-		elseif isDiscoverabilityUnset then
+		elseif self.checkDiscoverability(isDiscoverabilityUnset) then
 			self.navigateToDiscoverabilityModal()
 		else
 			self.permissionsFlowToContactImporter()

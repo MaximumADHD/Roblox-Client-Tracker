@@ -24,8 +24,6 @@ local PerformSaveAvatar = require(AvatarEditorPrompts.Thunks.PerformSaveAvatar)
 
 local GetConformedHumanoidDescription = require(AvatarEditorPrompts.GetConformedHumanoidDescription)
 
-local FFlagFixAvatarEditorPromptsGamepadSelection = require(RobloxGui.Modules.Flags.FFlagFixAvatarEditorPromptsGamepadSelection)
-
 local SCREEN_SIZE_PADDING = 30
 local VIEWPORT_MAX_TOP_PADDING = 40
 local VIEWPORT_SIDE_PADDING = 5
@@ -158,7 +156,7 @@ function SaveAvatarPrompt:render()
 						onActivated = self.props.signalSaveAvatarPermissionDenied,
 						text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.SaveAvatarPromptNo"),
 					},
-					isDefaultChild = if FFlagFixAvatarEditorPromptsGamepadSelection then true else nil,
+					isDefaultChild = true,
 				},
 				{
 					buttonType = ButtonType.PrimarySystem,
@@ -166,6 +164,7 @@ function SaveAvatarPrompt:render()
 						onActivated = self.props.performSaveAvatar,
 						text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.SaveAvatarPromptYes"),
 					},
+					isDefaultChild = false,
 				},
 			},
 		},

@@ -502,7 +502,7 @@ function BubbleChatBillboard:render()
 				isVisible = self.state.isInsideMaximizeDistance,
 				onLastBubbleFadeOut = self.onLastBubbleFadeOut,
 				chatSettings = chatSettings,
-				renderFirstInsert = showVoiceIndicator and self.renderInsert and not GetFFlagBubbleChatAddCamera(),
+				renderFirstInsert = if not GetFFlagBubbleChatAddCamera() and showVoiceIndicator then self.renderInsert else nil,
 				insertSize = self.insertSize,
 			})
 		else

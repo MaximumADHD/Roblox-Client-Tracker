@@ -358,6 +358,7 @@ Bạn có muốn cập nhật trình duyệt của mình ngay bây giờ không?
 	["Feature.AccountSecurityPrompt.Description.ChangeYourPasswordClickHereStyled"] = [[Để giữ an toàn cho tài khoản của bạn, vui lòng {styleTagStart} nhấp vào đây {styleTagEnd} để thay đổi mật khẩu của bạn.]],
 	["Feature.AccountSecurityPrompt.Description.ChangeYourPasswordImmediatelyClickHereStyled"] = [[Để giữ an toàn cho tài khoản của bạn, vui lòng {styleTagStart} nhấp vào đây {styleTagEnd} để thay đổi mật khẩu của bạn.]],
 	["Feature.AccountSecurityPrompt.Action.SetUpAuthenticatorInBanner"] = [[Thiết lập Authenticator]],
+	["Feature.AccountSecurityPrompt.Action.SetUpAuthenticatorAccountRestoresPolicyUpsell"] = [[Thiết lập Authenticator]],
 	["Feature.Reauthentication.Action.Verify"] = [[Xác minh]],
 	["Feature.Reauthentication.Message.Error.Default"] = [[Đã xảy ra lỗi không xác định.]],
 	["Feature.Reauthentication.Action.PleaseTryAgain"] = [[Vui lòng thử lại.]],

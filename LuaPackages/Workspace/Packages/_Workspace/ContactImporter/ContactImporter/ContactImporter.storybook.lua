@@ -1,18 +1,16 @@
 local ContactImporter = script.Parent
 local Packages = ContactImporter.Parent
 
+local UIBlox = require(Packages.UIBlox)
+-- Make sure to initialize in story book in case this storybook is called first
+UIBlox.init(require(Packages.Dev.RobloxAppUIBloxConfig))
+
 local dependencies = require(ContactImporter.dependencies)
 local Roact = dependencies.Roact
 local llama = dependencies.llama
-local UIBlox = dependencies.UIBlox
-local UIBloxUniversalAppConfig = require(Packages.Dev.RobloxAppUIBloxConfig)
 
 --- This has to be here to prevent tests from failing (if we put it in the devDependencies)
 local mockLocale = require(Packages.Dev.SocialTestHelpers).StoryHelpers.mockLocale
-
--- Make sure to initialize in story book in case this storybook is called first
-UIBlox.init(UIBloxUniversalAppConfig)
-
 local AppStyleProvider = UIBlox.App.Style.AppStyleProvider
 
 Roact.setGlobalConfig({

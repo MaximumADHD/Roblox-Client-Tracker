@@ -326,6 +326,7 @@ describe("ContactsListV2", function()
 			local element = createTreeWithProviders(ContactsListV2, {
 				props = Dash.join(DEFAULT_PROPS, {
 					variant = IXPVariants.BLENDED,
+					isPhoneVerified = true,
 					matchedContacts = { { contactName = "bob", contactId = "123" } },
 				}),
 			})

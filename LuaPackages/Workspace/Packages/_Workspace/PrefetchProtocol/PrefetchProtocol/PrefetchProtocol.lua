@@ -6,8 +6,6 @@ local t = require(Packages.t)
 
 local Types = require(script.Parent.PrefetchProtocolTypes)
 
-local EnablePrefetchProtocolEngineFeature = game:GetEngineFeature("EnablePrefetchProtocol")
-
 type MessageBus = MessageBusPackage.MessageBus
 type FunctionDescriptor = MessageBusPackage.FunctionDescriptor
 type Table = MessageBusPackage.Table
@@ -40,10 +38,6 @@ end
 
 function PrefetchProtocol:popPendingPrefetchGuid(): string?
 	return self.messageBus.call(self.POP_GUID_DESCRIPTOR, {})
-end
-
-function PrefetchProtocol.isEnabled(): boolean
-	return EnablePrefetchProtocolEngineFeature
 end
 
 PrefetchProtocol.default = PrefetchProtocol.new()

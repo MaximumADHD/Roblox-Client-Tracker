@@ -14,6 +14,11 @@ local GamesMultigetDetails = require(script.Parent.GamesMultigetDetails)
 local AddGameDetails = require(GameDetailRodux.Actions.AddGameDetails)
 local GameDetail = require(GameDetailRodux.Models.GameDetailModel)
 
+local Logger = require(GameDetailRodux.Logger)
+
+local GetFFlagLuaAppWorkspaceUseLumberyakLogger =
+	require(Packages.SharedFlags).GetFFlagLuaAppWorkspaceUseLumberyakLogger
+
 local ApiFetchGameDetails = {}
 
 local keyMapper = function(universeId)
@@ -47,7 +52,11 @@ function ApiFetchGameDetails.Fetch(networkImpl, universeIds)
 					store:dispatch(AddGameDetails(decodedGameDetails))
 				end
 			else
-				Logging.warn("Response from GamesMultigetDetails is malformed!")
+				if GetFFlagLuaAppWorkspaceUseLumberyakLogger() then
+					Logger:warning("Response from GamesMultigetDetails is malformed!")
+				else
+					Logging.warn("Response from GamesMultigetDetails is malformed!")
+				end
 			end
 
 			return Promise.resolve(results)

@@ -692,7 +692,7 @@ local function Initialize()
 
 			if showRightSideButtons(player) then
 				local reportPlayerFunction = function()
-					reportAbuseMenu:ReportPlayer(player)
+					reportAbuseMenu:ReportPlayer(player, "MenuPlayerList")
 				end
 
 				local reportButton = utility:MakeStyledImageButton("ReportPlayer", REPORT_PLAYER_IMAGE,

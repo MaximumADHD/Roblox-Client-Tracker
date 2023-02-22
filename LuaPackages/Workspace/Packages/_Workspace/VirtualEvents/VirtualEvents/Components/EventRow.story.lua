@@ -11,6 +11,10 @@ local EventRow = require(script.Parent.EventRow)
 local controls = {
 	useConstrainedSize = true,
 	useTextTruncation = true,
+	userRsvpStatus = {
+		"going",
+		"notGoing",
+	},
 	eventName = "A really long event name that shows off truncation",
 	eventStatus = {
 		"Upcoming",
@@ -22,6 +26,7 @@ type Props = {
 	controls: {
 		useTextTruncation: boolean,
 		useConstrainedSize: boolean,
+		userRsvpStatus: GraphQLServer.RsvpStatus,
 		eventName: string,
 		eventStatus: "Upcoming" | "Ongoing",
 	},
@@ -70,6 +75,9 @@ return {
 	controls = controls,
 	story = function(props: Props)
 		local virtualEvent = createMockVirtualEvent(props.controls.eventName, props.controls.eventStatus)
+		virtualEvent.userRsvpStatus = props.controls.userRsvpStatus
+
+		print(virtualEvent.userRsvpStatus)
 
 		return withMockProviders({
 			Wrapper = React.createElement("Frame", {

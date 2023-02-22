@@ -25,8 +25,6 @@ local PerformDeleteOutfit = require(AvatarEditorPrompts.Thunks.PerformDeleteOutf
 
 local AvatarEditorPromptsPolicy = require(AvatarEditorPrompts.AvatarEditorPromptsPolicy)
 
-local FFlagFixAvatarEditorPromptsGamepadSelection = require(RobloxGui.Modules.Flags.FFlagFixAvatarEditorPromptsGamepadSelection)
-
 local DeleteOutfitPrompt = Roact.PureComponent:extend("DeleteOutfitPrompt")
 
 DeleteOutfitPrompt.validateProps = t.strictInterface({
@@ -83,7 +81,7 @@ function DeleteOutfitPrompt:render()
 						onActivated = self.props.signalDeleteOutfitPermissionDenied,
 						text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.DeleteOutfitPromptNo"),
 					},
-					isDefaultChild = if FFlagFixAvatarEditorPromptsGamepadSelection then true else nil,
+					isDefaultChild = true,
 				},
 				{
 					buttonType = ButtonType.PrimarySystem,
@@ -91,6 +89,7 @@ function DeleteOutfitPrompt:render()
 						onActivated = self.props.performDeleteOutfit,
 						text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.DeleteOutfitPromptYes"),
 					},
+					isDefaultChild = false,
 				},
 			},
 		},

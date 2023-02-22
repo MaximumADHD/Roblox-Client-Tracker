@@ -224,6 +224,8 @@ local function isInventoryEmpty()
 	return true
 end
 
+BackpackScript.IsInventoryEmpty = isInventoryEmpty
+
 local function UseGazeSelection()
 	return false -- disabled in new VR system
 end

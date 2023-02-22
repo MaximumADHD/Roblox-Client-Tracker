@@ -41,6 +41,7 @@ local GetFFlagEnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.
 local GameSettings = settings():FindFirstChild("Game Options") or error("Game Options does not exist", 0)
 local FFlagRecordRecording = require(RobloxGui.Modules.Flags.GetFFlagRecordRecording)
 local FFlagEnableInGameMenuV3 = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuV3)
+local GetFFlagBetaBadge = require(RobloxGui.Modules.Flags.GetFFlagBetaBadge)
 local FFlagTopBarUseNewBadge = game:DefineFastFlag("TopBarUseNewBadge", false)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
@@ -190,7 +191,7 @@ function TopBarApp:render()
 					VRService = game:GetService("VRService"),
 				}) else nil,
 
-				VoiceBetaBadge = if not FFlagTopBarUseNewBadge then Roact.createElement(VoiceBetaBadge, {
+				VoiceBetaBadge = if GetFFlagBetaBadge() then Roact.createElement(VoiceBetaBadge, {
 					layoutOrder = 3,
 					Analytics = Analytics.new()
 				}) else nil,

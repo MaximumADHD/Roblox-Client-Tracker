@@ -2,9 +2,12 @@ local CorePackages = game:GetService("CorePackages")
 local IsVRAppBuild = require(CorePackages.Workspace.Packages.AppCommonLib).IsVRAppBuild
 local GetFFlagActivateShadowsInWorldspace = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagActivateShadowsInWorldspace
 local UserInputService = game:GetService("UserInputService")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local GetFFlagXboxEnableGraphicsQuality = require(RobloxGui.Modules.Flags.GetFFlagXboxEnableGraphicsQuality)
 
 return function()
-	if Enum.Platform.XBoxOne == UserInputService:GetPlatform() then
+	if not GetFFlagXboxEnableGraphicsQuality() and Enum.Platform.XBoxOne == UserInputService:GetPlatform() then
 		return Enum.QualityLevel.Level21
 	elseif IsVRAppBuild() then
 		if GetFFlagActivateShadowsInWorldspace() then

@@ -6,9 +6,6 @@ local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 
 local Types = require(script.Parent.LoggingProtocolTypes)
 
-local EnableLoggingProtocolTelemetryEngineFeature = game:GetEngineFeature("EnableLoggingProtocolTelemetry2")
-local EnableLoggingProtocolEphemeralEventsEngineFeature = game:GetEngineFeature("EnableLoggingProtocolEphemeralEvents")
-
 type MessageBus = MessageBusPackage.MessageBus
 type FunctionDescriptor = MessageBusPackage.FunctionDescriptor
 type Table = MessageBusPackage.Table
@@ -150,11 +147,6 @@ function LoggingProtocol:logRobloxTelemetryEvent(
 	customFields: Table?,
 	eventContext: string?
 )
-	if not EnableLoggingProtocolTelemetryEngineFeature then
-		print("RobloxTelemetry event not enabled")
-		return
-	end
-
 	local params: TelemetryEventParam = {
 		eventType = "RobloxTelemetry",
 		config = eventConfig,
@@ -168,11 +160,6 @@ function LoggingProtocol:logRobloxTelemetryEvent(
 end
 
 function LoggingProtocol:logEphemeralCounterEvent(eventConfig: TelemetryEventConfig, incrementValue: number?)
-	if not EnableLoggingProtocolEphemeralEventsEngineFeature then
-		print("logEphemeralCounterEvent not enabled")
-		return
-	end
-
 	local params: TelemetryEventParam = {
 		eventType = "EphemeralCounter",
 		config = eventConfig,
@@ -185,11 +172,6 @@ function LoggingProtocol:logEphemeralCounterEvent(eventConfig: TelemetryEventCon
 end
 
 function LoggingProtocol:logEphemeralStatEvent(eventConfig: TelemetryEventConfig, statValue: number)
-	if not EnableLoggingProtocolEphemeralEventsEngineFeature then
-		print("logEphemeralStatEvent not enabled")
-		return
-	end
-
 	local params: TelemetryEventParam = {
 		eventType = "EphemeralStat",
 		config = eventConfig,

@@ -17,8 +17,6 @@ local AvatarEditorPrompts = Components.Parent
 
 local SetAllowInventoryReadAccess = require(AvatarEditorPrompts.Thunks.SetAllowInventoryReadAccess)
 
-local FFlagFixAvatarEditorPromptsGamepadSelection = require(RobloxGui.Modules.Flags.FFlagFixAvatarEditorPromptsGamepadSelection)
-
 local AllowInventoryReadAccessPrompt = Roact.PureComponent:extend("AllowInventoryReadAccessPrompt")
 
 AllowInventoryReadAccessPrompt.validateProps = t.strictInterface({
@@ -43,7 +41,7 @@ function AllowInventoryReadAccessPrompt:render()
 						onActivated = self.props.setAvatarReadAccessDenied,
 						text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.InventoryReadAccessPromptNo"),
 					},
-					isDefaultChild = if FFlagFixAvatarEditorPromptsGamepadSelection then true else nil,
+					isDefaultChild = true,
 				},
 				{
 					buttonType = ButtonType.PrimarySystem,
@@ -51,6 +49,7 @@ function AllowInventoryReadAccessPrompt:render()
 						onActivated = self.props.setAvatarReadAccessAllowed,
 						text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.InventoryReadAccessPromptYes"),
 					},
+					isDefaultChild = false,
 				},
 			},
 		},

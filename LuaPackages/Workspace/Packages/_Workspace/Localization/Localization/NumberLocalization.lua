@@ -16,10 +16,16 @@
 
 	See https://en.wikipedia.org/wiki/Decimal_separator#Digit_grouping
 ]]
+local Packages = script.Parent.Parent
 local CorePackages = game:GetService("CorePackages")
 local Logging = require(CorePackages.Logging)
 
 local RoundingBehaviour = require(script.Parent.RoundingBehaviour)
+
+local Logger = require(script.Parent.Logger)
+
+local GetFFlagLuaAppWorkspaceUseLumberyakLogger =
+	require(Packages.SharedFlags).GetFFlagLuaAppWorkspaceUseLumberyakLogger
 
 game:DefineFastFlag("AllowNumberLocalizationSigFigParam", false)
 
@@ -247,13 +253,24 @@ function NumberLocalization.localize(number, locale)
 	local localeInfo = localeInfos[locale]
 	if not localeInfo then
 		localeInfo = localeInfos[DEFAULT_LOCALE]
-		Logging.warn(
-			string.format(
-				"Warning: Locale not found: '%s', reverting to '%s' instead.",
-				tostring(locale),
-				DEFAULT_LOCALE
+
+		if GetFFlagLuaAppWorkspaceUseLumberyakLogger() then
+			Logger:warning(
+				string.format(
+					"Warning: Locale not found: '%s', reverting to '%s' instead.",
+					tostring(locale),
+					DEFAULT_LOCALE
+				)
 			)
-		)
+		else
+			Logging.warn(
+				string.format(
+					"Warning: Locale not found: '%s', reverting to '%s' instead.",
+					tostring(locale),
+					DEFAULT_LOCALE
+				)
+			)
+		end
 	end
 
 	if localeInfo.groupDelimiter then
@@ -283,13 +300,24 @@ function NumberLocalization.abbreviate(number, locale, roundingBehaviour, numSig
 	local localeInfo = localeInfos[locale]
 	if not localeInfo then
 		localeInfo = localeInfos[DEFAULT_LOCALE]
-		Logging.warn(
-			string.format(
-				"Warning: Locale not found: '%s', reverting to '%s' instead.",
-				tostring(locale),
-				DEFAULT_LOCALE
+
+		if GetFFlagLuaAppWorkspaceUseLumberyakLogger() then
+			Logger:warning(
+				string.format(
+					"Warning: Locale not found: '%s', reverting to '%s' instead.",
+					tostring(locale),
+					DEFAULT_LOCALE
+				)
 			)
-		)
+		else
+			Logging.warn(
+				string.format(
+					"Warning: Locale not found: '%s', reverting to '%s' instead.",
+					tostring(locale),
+					DEFAULT_LOCALE
+				)
+			)
+		end
 	end
 
 	-- select which denomination we are going to use
@@ -325,5 +353,7 @@ function NumberLocalization.abbreviate(number, locale, roundingBehaviour, numSig
 		return integerPart .. symbol
 	end
 end
+
+NumberLocalization.logger = Logger
 
 return NumberLocalization

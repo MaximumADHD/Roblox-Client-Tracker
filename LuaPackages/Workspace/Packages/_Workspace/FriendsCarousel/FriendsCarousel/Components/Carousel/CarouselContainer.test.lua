@@ -37,10 +37,10 @@ local getFFlagFriendsCarouselFilterOutRecs = require(FriendsCarousel.Flags.getFF
 local getFFlagFriendsCarouselDontUseIngestService = dependencies.getFFlagFriendsCarouselDontUseIngestService
 local getFFlagFriendsCarouselAddUniverseIdToEvents =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddUniverseIdToEvents)
-local getFFlagFriendsCarouselPassCIBadge = require(FriendsCarousel.Flags.getFFlagFriendsCarouselPassCIBadge)
 local getFFlagFriendsCarouselCircularBadge = require(FriendsCarousel.Flags.getFFlagFriendsCarouselCircularBadge)
 local getFFlagFriendsCarouselAddNewBadgeTracking =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddNewBadgeTracking)
+local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 
 local CarouselContainer = require(script.Parent.CarouselContainer)
 
@@ -159,41 +159,88 @@ describe("CarouselContainer", function()
 		end)
 
 		describe("renderFindFriendsTile", function()
-			it("SHOULD render CI badge and fire analytics event for it", function()
-				if
-					getFFlagFriendsCarouselCircularBadge()
-					and getFFlagFriendsCarouselPassCIBadge()
-					and getFFlagFriendsCarouselAddNewBadgeTracking()
-				then
-					local CarouselContainerElement = setup({
-						showContactImporter = true,
-					}, "renderFindFriendsTile")
+			it(
+				"SHOULD render CI badge and fire analytics event for it if showNewAddFriendsUIVariant and showContactImporter are true",
+				function()
+					if
+						getFFlagFriendsCarouselCircularBadge()
+						and getFFlagSocialOnboardingExperimentEnabled()
+						and getFFlagFriendsCarouselAddNewBadgeTracking()
+					then
+						local CarouselContainerElement = setup({
+							showContactImporter = true,
+							showNewAddFriendsUIVariant = true,
+						}, "renderFindFriendsTile")
 
-					runWhileMounted(CarouselContainerElement, function(parent)
-						local badge = RhodiumHelpers.findFirstInstance(parent, {
-							Name = "Badge",
-						})
-
-						jestExpect(badge).never.toBeNil()
-						--* "Feature.Catalog.Label.New"
-						jestExpect(badge.Inner.TextLabel.Text).toEqual("Fea...")
-
-						jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(1)
-						jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledWith(
-							mockedAnalytics.EventStream,
-							validateEvent(EventNames.ContactImporterOnAddFriends, {
-								uid = "test",
+						runWhileMounted(CarouselContainerElement, function(parent)
+							local badge = RhodiumHelpers.findFirstInstance(parent, {
+								Name = "Badge",
 							})
-						)
-					end)
+
+							jestExpect(badge).never.toBeNil()
+							--* "Feature.Catalog.Label.New"
+							jestExpect(badge.Inner.TextLabel.Text).toEqual("Fea...")
+
+							jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(1)
+							jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledWith(
+								mockedAnalytics.EventStream,
+								validateEvent(EventNames.ContactImporterOnAddFriends, {
+									uid = "test",
+								})
+							)
+						end)
+					end
 				end
-			end)
+			)
+
+			it(
+				"SHOULD NOT render CI badge and fire analytics event for it if showNewAddFriendsUIVariant is true and showContactImporter is false",
+				function()
+					if getFFlagFriendsCarouselCircularBadge() and getFFlagSocialOnboardingExperimentEnabled() then
+						local CarouselContainerElement = setup({
+							showContactImporter = false,
+							showNewAddFriendsUIVariant = true,
+						}, "renderFindFriendsTile")
+
+						runWhileMounted(CarouselContainerElement, function(parent)
+							local badge = RhodiumHelpers.findFirstInstance(parent, {
+								Name = "Badge",
+							})
+
+							jestExpect(badge).toBeNil()
+							jestExpect(mockedAnalytics.EventStream.setRBXEventStream).never.toHaveBeenCalled()
+						end)
+					end
+				end
+			)
+
+			it(
+				"SHOULD NOT render CI badge and fire analytics event for it if showNewAddFriendsUIVariant is false and showContactImporter is true",
+				function()
+					if getFFlagFriendsCarouselCircularBadge() and getFFlagSocialOnboardingExperimentEnabled() then
+						local CarouselContainerElement = setup({
+							showContactImporter = true,
+							showNewAddFriendsUIVariant = false,
+						}, "renderFindFriendsTile")
+
+						runWhileMounted(CarouselContainerElement, function(parent)
+							local badge = RhodiumHelpers.findFirstInstance(parent, {
+								Name = "Badge",
+							})
+
+							jestExpect(badge).toBeNil()
+							jestExpect(mockedAnalytics.EventStream.setRBXEventStream).never.toHaveBeenCalled()
+						end)
+					end
+				end
+			)
 
 			describe("on FindFriendsTile click", function()
 				it("SHOULD call navigateFromAddFriends and fire analytics event", function()
 					local navigateFromAddFriends = jest.fn()
 
 					local CarouselContainerElement = setup({
+						showNewAddFriendsUIVariant = false,
 						navigateFromAddFriends = function()
 							navigateFromAddFriends()
 						end,
@@ -209,12 +256,7 @@ describe("CarouselContainer", function()
 						RhodiumHelpers.clickInstance(testButton)
 
 						jestExpect(navigateFromAddFriends).toHaveBeenCalled()
-						if getFFlagFriendsCarouselPassCIBadge() then
-							--* additional call for CI badge
-							jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(2)
-						else
-							jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(1)
-						end
+						jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(1)
 
 						jestExpect(mockedAnalytics.Diag.reportCounter).toHaveBeenCalledTimes(1)
 						jestExpect(mockedAnalytics.Diag.reportCounter).toHaveBeenCalledWith(

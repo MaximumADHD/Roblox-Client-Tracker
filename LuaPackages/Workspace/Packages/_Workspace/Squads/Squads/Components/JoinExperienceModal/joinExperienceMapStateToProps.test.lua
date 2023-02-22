@@ -14,7 +14,7 @@ local mockProps = {
 
 describe("GIVEN default state", function()
 	local mockState = {
-		SocialModalsSquads = {
+		Squad = {
 			Games = {
 				byGameId = { ["123"] = { name = "Super Cool Experience", maxPlayers = 6, rootPlaceId = "456" } },
 				mediaByGameId = { ["123"] = { { assetTypeId = 1, imageId = 789 } } },

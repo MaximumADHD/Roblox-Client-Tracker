@@ -26,7 +26,7 @@ local getFFlagFriendsCarouselAddUniverseIdToEvents =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddUniverseIdToEvents)
 local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
 local getFFlagSocialAddGameJoinSource = dependencies.getFFlagSocialAddGameJoinSource
-local getFFlagFriendsCarouselPassCIBadge = require(FriendsCarousel.Flags.getFFlagFriendsCarouselPassCIBadge)
+local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 
 local CarouselContainer = Roact.PureComponent:extend("CarouselContainer")
 
@@ -46,18 +46,18 @@ type Props = {
 	openProfilePeekView: (userId: string, extraProps: any?) -> (),
 	openContextualMenu: (user: LocalTypes.User, additionalData: LocalTypes.ContextualMenuData) -> (),
 	showToast: (toastMessage: string) -> (),
-
-	-- remove with getFFlagFriendsCarouselRemoveVariant
-	friendsCarouselExperimentVariant: string?,
-
 	showContactImporter: boolean?,
 	navigateFromAddFriends: () -> (),
+	showNewAddFriendsUIVariant: boolean?,
 
 	navigation: any,
 	analyticsService: any,
 	diagService: any,
 	eventIngestService: any,
 	eventStreamService: any,
+
+	-- remove with getFFlagFriendsCarouselRemoveVariant
+	friendsCarouselExperimentVariant: string?,
 }
 
 type InternalProps = Props & mapStateToProps.Props & mapDispatchToProps.Props
@@ -93,6 +93,7 @@ CarouselContainer.validateProps = t.strictInterface({
 	showToast = t.callback,
 	showContactImporter = t.optional(t.boolean),
 	navigateFromAddFriends = t.callback,
+	showNewAddFriendsUIVariant = t.optional(t.boolean),
 
 	navigation = t.table,
 	diagService = t.table,
@@ -260,8 +261,12 @@ function CarouselContainer:render()
 			onFindFriendsTileActivated = self.onFindFriendsTileActivated,
 			onUserTileActivated = self.onUserTileActivated,
 
-			--* add experiment check here
-			showNewBadge = if getFFlagFriendsCarouselPassCIBadge() then props.showContactImporter else nil,
+			showNewBadge = if getFFlagSocialOnboardingExperimentEnabled()
+				then props.showContactImporter and props.showNewAddFriendsUIVariant
+				else nil,
+			showNewAddFriendsUIVariant = if getFFlagSocialOnboardingExperimentEnabled()
+				then props.showNewAddFriendsUIVariant
+				else nil,
 		}),
 	})
 end

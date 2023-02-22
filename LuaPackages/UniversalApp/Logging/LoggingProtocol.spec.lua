@@ -7,10 +7,6 @@ return function()
 
 	local LoggingProtocol = require(CorePackages.UniversalApp.Logging.LoggingProtocol)
 
-	local EnableLoggingProtocolTelemetryEngineFeature = game:GetEngineFeature("EnableLoggingProtocolTelemetry2")
-	local EnableLoggingProtocolEphemeralEventsEngineFeature =
-		game:GetEngineFeature("EnableLoggingProtocolEphemeralEvents")
-
 	local Types = require(CorePackages.Workspace.Packages.MessageBus)
 
 	local MockMessageBus = {}
@@ -132,10 +128,6 @@ return function()
 		end)
 
 		describe("logRobloxTelemetryEvent", function()
-			if not EnableLoggingProtocolTelemetryEngineFeature then
-				return
-			end
-
 			local minimalConfig = {
 				eventName = "TestEventPointsOnly",
 				backends = { "Points" },
@@ -209,10 +201,6 @@ return function()
 		end)
 
 		describe("logEphemeralCounterEvent", function()
-			if not EnableLoggingProtocolEphemeralEventsEngineFeature then
-				return
-			end
-
 			local minimalConfig = {
 				eventName = "TestEventEphemeralCounter",
 				backends = { "EphemeralCounter" },
@@ -251,10 +239,6 @@ return function()
 		end)
 
 		describe("logEphemeralStatEvent", function()
-			if not EnableLoggingProtocolEphemeralEventsEngineFeature then
-				return
-			end
-
 			local config = {
 				eventName = "TestEventEphemeralStat",
 				backends = { "EphemeralStat" },

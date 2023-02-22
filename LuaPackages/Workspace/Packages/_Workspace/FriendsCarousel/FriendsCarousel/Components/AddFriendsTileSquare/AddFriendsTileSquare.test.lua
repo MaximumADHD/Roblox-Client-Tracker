@@ -1,5 +1,6 @@
 local FriendsCarousel = script:FindFirstAncestor("FriendsCarousel")
 local devDependencies = require(FriendsCarousel.devDependencies)
+local dependencies = require(FriendsCarousel.dependencies)
 local createTreeWithProviders = require(FriendsCarousel.TestHelpers.createTreeWithProviders)
 local mockStore = require(FriendsCarousel.TestHelpers.mockStore)
 
@@ -13,7 +14,7 @@ local findImageSet = devDependencies.findImageSet
 local jest = devDependencies.jest
 local runWhileMounted = UnitTestHelpers.runWhileMounted
 
-local getFFlagFriendsCarouselReplaceIcon = require(FriendsCarousel.Flags.getFFlagFriendsCarouselReplaceIcon)
+local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 
 local AddFriendsTileSquare = require(script.Parent)
 
@@ -60,7 +61,7 @@ describe("AddFriendsTileSquare", function()
 		})
 		runWhileMounted(element, function(parent)
 			local imageLabel
-			if getFFlagFriendsCarouselReplaceIcon() then
+			if getFFlagSocialOnboardingExperimentEnabled() then
 				imageLabel = RhodiumHelpers.findFirstInstance(parent, findImageSet("icons/graphic/findfriends_large"))
 			else
 				imageLabel = RhodiumHelpers.findFirstInstance(parent, findImageSet("icons/menu/friends_large"))

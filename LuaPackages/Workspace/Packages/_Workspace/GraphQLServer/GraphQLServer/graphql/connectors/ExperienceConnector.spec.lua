@@ -8,6 +8,7 @@ local GraphqlHttpArtifacts = require(GraphQLServer.Parent.Dev.GraphqlHttpArtifac
 local ExperienceConnector = require(script.Parent.ExperienceConnector)
 local findExperienceDetailsByUniverseId = ExperienceConnector.findExperienceDetailsByUniverseId
 local findExperienceMediaByUniverseId = ExperienceConnector.findExperienceMediaByUniverseId
+local batchFetchThumbnailsByUniverseId = ExperienceConnector.batchFetchThumbnailsByUniverseId
 
 return function()
 	local create = nil
@@ -72,6 +73,53 @@ return function()
 
 				expect(capturedError).toBeDefined()
 				expect(capturedError.message).toBe("Failed to find experience media for universeId: badUniverseId.")
+			end)
+		end)
+	end)
+
+	describe("experience tile thumbnails", function()
+		it("should fetch thumbnails for a list of universe IDs", function()
+			create("thumbnails-success"):execute(function(httpService)
+				local fetchImpl = buildFetch(httpService)
+
+				local thumbnails =
+					batchFetchThumbnailsByUniverseId({ "65241", "111958650", "1954906532" }, fetchImpl):expect()
+
+				expect(thumbnails).toBeDefined()
+				expect(thumbnails).toEqual({
+					{
+						imageUrl = "https://tr.rbxcdn.com/0ae67ae1039583a9750be9a14886c471/150/150/Image/Png",
+						state = "Completed",
+						targetId = 65241,
+					},
+					{
+						imageUrl = "https://tr.rbxcdn.com/bd1ac92078ae55b147823d2af2a32695/150/150/Image/Png",
+						state = "Completed",
+						targetId = 111958650,
+					},
+					{
+						imageUrl = "https://tr.rbxcdn.com/f3917b110ed74a7b58f0dc1338470441/150/150/Image/Png",
+						state = "Completed",
+						targetId = 1954906532,
+					},
+				})
+			end)
+		end)
+
+		it("should fail for non-existent universeId", function()
+			create("thumbnails-fail"):execute(function(httpService)
+				local fetchImpl = buildFetch(httpService)
+				local capturedError = nil
+
+				batchFetchThumbnailsByUniverseId({ "badUniverseId" }, fetchImpl)
+					:catch(function(err)
+						capturedError = err
+						return nil
+					end)
+					:expect()
+
+				expect(capturedError).toBeDefined()
+				expect(capturedError.message).toEqual("Failed to find thumbnails for ids: badUniverseId.")
 			end)
 		end)
 	end)

@@ -1,20 +1,26 @@
-local Root = script.Parent
-local Packages = Root.Parent
+local Squads = script:FindFirstAncestor("Squads")
+local Packages = Squads.Parent
 
-local JestGlobals = require(Packages.Dev.JestGlobals)
+local LuaProfileDeps = require(Packages.Dev.LuaProfileDeps)
 local LuaSocialLibrariesDeps = require(Packages.LuaSocialLibrariesDeps)
 
-JestGlobals.expect.extend(LuaSocialLibrariesDeps.CollisionMatchers.Jest)
+local JestGlobals = require(Packages.Dev.JestGlobals)
+local jestExpect = JestGlobals.expect
+
+jestExpect.extend(LuaSocialLibrariesDeps.CollisionMatchers.Jest)
 
 return {
+	DeferredLuaHelpers = require(Packages.Dev.TestUtils).DeferredLuaHelpers,
 	JestGlobals = JestGlobals,
-	ReactRoblox = require(Packages.Dev.ReactRoblox),
 	Mock = LuaSocialLibrariesDeps.Mock,
-	UnitTestHelpers = require(Packages.Dev.LuaProfileDeps).UnitTestHelpers,
+	ReactRoblox = require(Packages.Dev.ReactRoblox),
 	Rhodium = require(Packages.Dev.Rhodium),
 	RhodiumHelpers = function()
 		return require(Packages.Dev.RhodiumHelpers)
 	end,
+	UnitTestHelpers = LuaProfileDeps.UnitTestHelpers,
 	createTreeWithProviders = require(Packages.Dev.SocialTestHelpers).TestHelpers.createTreeWithProviders,
-	DeferredLuaHelpers = require(Packages.Dev.TestUtils).DeferredLuaHelpers,
+	findImageSet = require(Packages.Dev.SocialTestHelpers).TestHelpers.findImageSet,
+	jest = JestGlobals.jest,
+	jestExpect = jestExpect,
 }

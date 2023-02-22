@@ -10,14 +10,12 @@ return {
 		script.getFFlagFixVerifiedBadgeExperienceDetailsPageOrdering
 	),
 	getFFlagVBXboxReducerFix = require(script.getFFlagVBXboxReducerFix),
-	getFFlagHardcodeChannelForVirtualEventVisits = require(script.getFFlagHardcodeChannelForVirtualEventVisits),
-	getFFlagFixVirtualEventsChannelCasing = require(script.getFFlagFixVirtualEventsChannelCasing),
 	GetFFlagFixGameDetailsAutomaticSize = require(script.GetFFlagFixGameDetailsAutomaticSize),
-	getFFlagShowClientFirstInFacePile = require(script.getFFlagShowClientFirstInFacePile),
 	getFFlagRemoveEventsPageFromMoreTab = require(script.getFFlagRemoveEventsPageFromMoreTab),
 	getFFlagVirtualEventsGraphQL = require(script.getFFlagVirtualEventsGraphQL),
 	getFFlagHorizontalMediaOnEventDetailsPage = require(script.getFFlagHorizontalMediaOnEventDetailsPage),
 	getFFlagHideAttendanceCountsForBoringEvents = require(script.getFFlagHideAttendanceCountsForBoringEvents),
+	getFFlagSendAttendanceCountWithTrackingEvents = require(script.getFFlagSendAttendanceCountWithTrackingEvents),
 
 	-- LuaApp
 	getFFlagLuaProfileShareWithDesktopPolicy = require(script.getFFlagLuaProfileShareWithDesktopPolicy),
@@ -26,6 +24,7 @@ return {
 	GetFFlagLuaAppUseOmniRecDefaultPolicy = require(script.GetFFlagLuaAppUseOmniRecDefaultPolicy),
 	ConvertUniverseIdToString = require(script.ConvertUniverseIdToString),
 	getFFlagLuaAppDiscoverPageGrid = require(script.getFFlagLuaAppDiscoverPageGrid),
+	getFFlagLuaAppGridPageLayoutPolicy = require(script.getFFlagLuaAppGridPageLayoutPolicy),
 
 	-- Social
 	GetFFlagLuaAppEnableSquadPage = require(script.GetFFlagLuaAppEnableSquadPage),
@@ -39,12 +38,14 @@ return {
 	getFFlagEnableContactInvitesForNonPhoneVerified = require(script.getFFlagEnableContactInvitesForNonPhoneVerified),
 	GetFFlagGetMultiplePlaceInfosDeprecateWebApi = require(script.GetFFlagGetMultiplePlaceInfosDeprecateWebApi),
 	getFFlagSocialAddGameJoinSource = require(script.getFFlagSocialAddGameJoinSource),
-	getFFlagAddFriendsNewEmptyStateAndBanners = require(script.getFFlagAddFriendsNewEmptyStateAndBanners),
+	getFFlagAddFriendsQRCodeAnalytics = require(script.getFFlagAddFriendsQRCodeAnalytics),
+	getFFlagProfileQRCodeCoreFeaturesEnabled = require(script.getFFlagProfileQRCodeCoreFeaturesEnabled),
 
 	-- Notifications
 	getFFlagEnableNotificationExperienceInvite = require(script.getFFlagEnableNotificationExperienceInvite),
 
 	-- VR
+	GetFFlagUseGridPageLayoutInVR = require(script.GetFFlagUseGridPageLayoutInVR),
 	GetFFlagVRAvatarExperienceNoLandingPage = require(script.GetFFlagVRAvatarExperienceNoLandingPage),
 	GetFFlagFixStateMutationInVROverlay = require(script.GetFFlagFixStateMutationInVROverlay),
 	GetFFlagActivateShadowsInWorldspace = require(script.GetFFlagActivateShadowsInWorldspace),
@@ -53,17 +54,13 @@ return {
 	getFStringSocialUserSearchResultsPageLayer = require(script.getFStringSocialUserSearchResultsPageLayer),
 	getFStringSocialAddFriendsPageLayer = require(script.getFStringSocialAddFriendsPageLayer),
 	getFStringSocialFriendsLayer = require(script.getFStringSocialFriendsLayer),
+	getFStringSocialProfileLayer = require(script.getFStringSocialProfileLayer),
 	GetFStringLoadingScreenIxpLayer = require(script.GetFStringLoadingScreenIxpLayer),
 	GetFStringLargerRobuxUpsellIxpLayer = require(script.GetFStringLargerRobuxUpsellIxpLayer),
 
 	-- Misc
 	FFlagLuaAppFixMessageBusUnsubscribe = require(script.FFlagLuaAppFixMessageBusUnsubscribe),
 	FFlagAXCatalogSearchSizeGamepad = require(script.FFlagAXCatalogSearchSizeGamepad),
-	FFlagCatalogRecommendationsV2RolloutEnabledForAll = require(
-		script.FFlagCatalogRecommendationsV2RolloutEnabledForAll
-	),
-	GetEnableCatalogRecommendationsV2 = require(script.GetEnableCatalogRecommendationsV2),
-	GetFFlagEnableCatalogRecommendationsV2 = require(script.GetFFlagEnableCatalogRecommendationsV2),
 	GetFFlagAvatarEditorServiceInUniversalApp = require(script.GetFFlagAvatarEditorServiceInUniversalApp),
 	GetEngineFeatureIxpUserAppLayersPrefetchEnabled = require(script.GetEngineFeatureIxpUserAppLayersPrefetchEnabled),
 	GetFFlagEnableUnifiedWebViews = require(script.GetFFlagEnableUnifiedWebViews),
@@ -110,6 +107,7 @@ return {
 	GetFFlagLuaAppInfiniteHomePage = require(script.GetFFlagLuaAppInfiniteHomePage),
 	getFFlagProfileQRCodePageEnabled = require(script.getFFlagProfileQRCodePageEnabled),
 	getFFlagProfileQRCodePageSoothsayerAccessEnabled = require(script.getFFlagProfileQRCodePageSoothsayerAccessEnabled),
+	GetFFlagLuaAppWorkspaceUseLumberyakLogger = require(script.GetFFlagLuaAppWorkspaceUseLumberyakLogger),
 	getFFlagProfileQRCodeFriendRequestContextInfoEnabled = require(
 		script.getFFlagProfileQRCodeFriendRequestContextInfoEnabled
 	),
@@ -122,4 +120,7 @@ return {
 		script.GetFFlagPhoneVerificationWebviewShouldBeFullscreen
 	),
 	getFFlagSocialOnboardingExperimentEnabled = require(script.getFFlagSocialOnboardingExperimentEnabled),
+	GetFFlagApolloClientFetchThumbnails = require(script.GetFFlagApolloClientFetchThumbnails),
+	GetFFlagApiFetchThumbnailsKeyMapper = require(script.GetFFlagApiFetchThumbnailsKeyMapper),
+	getFFlagDebugLuaAppAlwaysUseGamepad = require(script.getFFlagDebugLuaAppAlwaysUseGamepad),
 }

@@ -22,6 +22,7 @@ local GetFFlagUIBloxVRApplyHeadScale =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRApplyHeadScale
 
 local FFlagFixPurchasePromptInVR = game:GetEngineFeature("FixPurchasePromptInVR")
+local FFlagVRCollapseUIEndsSelection = require(RobloxGui.Modules.Flags.FFlagVRCollapseUIEndsSelection)
 
 local UserGuiModule = {}
 UserGuiModule.ModuleName = "UserGui"
@@ -259,6 +260,9 @@ local function OnVREnabledChanged()
 						userGuiTimeout = 1
 					else
 						GuiService:SetMenuIsOpen(false, VR_MENU_KEY)
+						if FFlagVRCollapseUIEndsSelection then
+							GuiService.SelectedObject = nil
+						end
 					end
 				end
 			end

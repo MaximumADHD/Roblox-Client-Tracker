@@ -9,10 +9,12 @@ local useScreenSize = require(script.Parent.useScreenSize)
 local ProfileQRCodeAnalytics = require(ProfileQRCode.Analytics)
 local useLocalUserId = require(ProfileQRCode.Utils.useLocalUserId)
 local AnalyticsService = require(ProfileQRCode.Analytics.AnalyticsService)
+local getFFlagAddFriendsQRCodeAnalytics = require(Packages.SharedFlags).getFFlagAddFriendsQRCodeAnalytics
 
 export type Props = {
 	analyticsService: any?,
 	onClose: () -> (),
+	source: string?,
 }
 
 local ProfileQRCodeEntryPoint = function(props: Props)
@@ -20,7 +22,10 @@ local ProfileQRCodeEntryPoint = function(props: Props)
 		value = {
 			fireEvent = ProfileQRCodeAnalytics.setupFireEvent({
 				analytics = if props.analyticsService then props.analyticsService else AnalyticsService,
-				infoForAllEvents = { uid = useLocalUserId() },
+				infoForAllEvents = {
+					uid = useLocalUserId(),
+					source = if getFFlagAddFriendsQRCodeAnalytics() then props.source else nil,
+				},
 			}),
 		},
 	}, {

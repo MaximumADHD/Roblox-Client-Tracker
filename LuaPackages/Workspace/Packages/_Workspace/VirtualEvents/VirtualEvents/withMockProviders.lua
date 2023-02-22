@@ -5,6 +5,7 @@ local ApolloClient = require(VirtualEvents.Parent.ApolloClient)
 local GraphQLServer = require(VirtualEvents.Parent.GraphQLServer)
 local React = require(VirtualEvents.Parent.React)
 local Rodux = require(VirtualEvents.Parent.Rodux)
+local RoactNavigation = require(VirtualEvents.Parent.RoactNavigation)
 local RoactRodux = require(VirtualEvents.Parent.RoactRodux)
 local RobloxAppLocales = require(VirtualEvents.Parent.RobloxAppLocales)
 local Localization = require(VirtualEvents.Parent.Localization)
@@ -29,9 +30,8 @@ local reducer = Rodux.combineReducers({
 })
 
 type Options = {
-	mockResolvers: {
-		[string]: any,
-	}?,
+	mockResolvers: { [string]: any }?,
+	mockNavigation: { [string]: any }?,
 	store: { [string]: any }?,
 	initialStoreState: any,
 }
@@ -67,26 +67,36 @@ local function withMockProviders(children: { [string]: any }, options: Options?)
 		}),
 	}
 
-	if options and options.mockResolvers then
-		local server = GraphQLServer.GraphQLServer.new({
-			mockResolvers = options.mockResolvers,
-		})
+	if options then
+		if options.mockResolvers then
+			local server = GraphQLServer.GraphQLServer.new({
+				mockResolvers = options.mockResolvers,
+			})
 
-		local client = ApolloClient.ApolloClient.new({
-			cache = ApolloClient.InMemoryCache.new({}),
-			link = ApolloClient.HttpLink.new({
-				uri = "/api",
-				fetch = function(_uri, requestOptions)
-					return server:fetchLocal(requestOptions)
-				end,
-			}),
-		})
+			local client = ApolloClient.ApolloClient.new({
+				cache = ApolloClient.InMemoryCache.new({}),
+				link = ApolloClient.HttpLink.new({
+					uri = "/api",
+					fetch = function(_uri, requestOptions)
+						return server:fetchLocal(requestOptions)
+					end,
+				}),
+			})
 
-		root = {
-			ApolloProvider = React.createElement(ApolloClient.ApolloProvider, {
-				client = client,
-			}, root),
-		}
+			root = {
+				ApolloProvider = React.createElement(ApolloClient.ApolloProvider, {
+					client = client,
+				}, root),
+			}
+		end
+
+		if options.mockNavigation then
+			root = {
+				NavigationProvider = React.createElement(RoactNavigation.Provider, {
+					value = options.mockNavigation,
+				}, root),
+			}
+		end
 	end
 
 	return React.createElement(React.Fragment, nil, root)

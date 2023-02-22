@@ -21,14 +21,16 @@ local getFFlagVerifiedBadgeInFriendsLanding = require(FriendsLanding.Flags.getFF
 local getFFlagAddFriendsSearchbarIXPEnabled = require(Packages.SharedFlags).getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagAddFriendsFullSearchbarAnalytics = require(Packages.SharedFlags).getFFlagAddFriendsFullSearchbarAnalytics
 local getFStringSocialAddFriendsPageLayer = require(Packages.SharedFlags).getFStringSocialAddFriendsPageLayer
+local getFStringSocialFriendsLayer = require(Packages.SharedFlags).getFStringSocialFriendsLayer
 local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
 	require(Packages.SharedFlags).getFFlagProfileQRCodeFriendRequestContextInfoEnabled
 local getFFlagEnableContactInvitesForNonPhoneVerified =
 	require(Packages.SharedFlags).getFFlagEnableContactInvitesForNonPhoneVerified
 local getFFlagSocialAddGameJoinSource = require(Packages.SharedFlags).getFFlagSocialAddGameJoinSource
-local getFFlagAddFriendsNewEmptyStateAndBanners =
-	require(Packages.SharedFlags).getFFlagAddFriendsNewEmptyStateAndBanners
-local getFFlagProfileQRCodeReducerEnabled = require(Packages.SharedFlags).getFFlagProfileQRCodeReducerEnabled
+local getFFlagSocialOnboardingExperimentEnabled =
+	require(Packages.SharedFlags).getFFlagSocialOnboardingExperimentEnabled
+local getFFlagProfileQRCodeCoreFeaturesEnabled = require(Packages.SharedFlags).getFFlagProfileQRCodeCoreFeaturesEnabled
+local getFFlagAddFriendsQRCodeAnalytics = require(Packages.SharedFlags).getFFlagAddFriendsQRCodeAnalytics
 
 local HttpRequest = LuaSocialLibrariesDeps.httpRequest
 local myHttpRequest = HttpRequest.config({
@@ -89,6 +91,7 @@ return {
 	FormFactor = require(Packages.FormFactor).Enums.FormFactor,
 	SocialLibraries = SocialLibrariesPackage,
 	SocialLuaAnalytics = SocialLuaAnalytics,
+	ProfileQRCode = require(Packages.ProfileQRCode),
 
 	UniversalAppPolicy = require(Packages.UniversalAppPolicy).UniversalAppPolicy,
 	tutils = require(Packages.tutils),
@@ -134,10 +137,12 @@ return {
 	getFFlagAddFriendsFullSearchbarAnalytics = getFFlagAddFriendsFullSearchbarAnalytics,
 	getFFlagEnableContactInvitesForNonPhoneVerified = getFFlagEnableContactInvitesForNonPhoneVerified,
 	getFStringSocialAddFriendsPageLayer = getFStringSocialAddFriendsPageLayer,
+	getFStringSocialFriendsLayer = getFStringSocialFriendsLayer,
 	getFFlagProfileQRCodeFriendRequestContextInfoEnabled = getFFlagProfileQRCodeFriendRequestContextInfoEnabled,
 	getFFlagSocialAddGameJoinSource = getFFlagSocialAddGameJoinSource,
-	getFFlagAddFriendsNewEmptyStateAndBanners = getFFlagAddFriendsNewEmptyStateAndBanners,
-	getFFlagProfileQRCodeReducerEnabled = getFFlagProfileQRCodeReducerEnabled,
+	getFFlagSocialOnboardingExperimentEnabled = getFFlagSocialOnboardingExperimentEnabled,
+	getFFlagProfileQRCodeCoreFeaturesEnabled = getFFlagProfileQRCodeCoreFeaturesEnabled,
+	getFFlagAddFriendsQRCodeAnalytics = getFFlagAddFriendsQRCodeAnalytics,
 
 	FindFriendsModal = ContactImporter.FindFriendsModal,
 	ContactsList = ContactImporter.ContactsList,

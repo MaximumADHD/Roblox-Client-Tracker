@@ -39,8 +39,6 @@ afterEach(function()
 end)
 
 it("should put the client at the front of the list", function()
-	local prev = game:SetFastFlagForTesting("ShowClientFirstInFacePile", true)
-
 	local desiredFirstUserId = "957765952"
 	local element = withMockProviders({
 		FacePile = React.createElement(FacePile, {
@@ -60,6 +58,4 @@ it("should put the client at the front of the list", function()
 	local face = facePile:FindFirstChild(desiredFirstUserId) :: ImageLabel
 
 	expect(face.LayoutOrder).toBe(1)
-
-	game:SetFastFlagForTesting("ShowClientFirstInFacePile", prev)
 end)

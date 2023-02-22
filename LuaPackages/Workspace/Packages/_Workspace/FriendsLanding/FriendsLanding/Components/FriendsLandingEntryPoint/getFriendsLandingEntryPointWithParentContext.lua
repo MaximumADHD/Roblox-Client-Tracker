@@ -3,6 +3,9 @@ local dependencies = require(FriendsLanding.dependencies)
 local Roact = dependencies.Roact
 local FriendsLandingNavigator = require(FriendsLanding.Navigator)
 local FriendsLandingEntryPoint = require(FriendsLanding.Components.FriendsLandingEntryPoint)
+
+local getFFlagAddFriendsFixSocialTabSearchbar = require(FriendsLanding.Flags.getFFlagAddFriendsFixSocialTabSearchbar)
+
 return function(parentContext)
 	assert(type(parentContext.with) == "function", "Expect parentContext to have with")
 
@@ -24,6 +27,7 @@ return function(parentContext)
 				diagService = context.diagService,
 				eventIngestService = context.eventIngestService,
 				openProfilePeekView = context.openProfilePeekView,
+				wideMode = if getFFlagAddFriendsFixSocialTabSearchbar() then context.wideMode else nil,
 			})
 		end)
 	end

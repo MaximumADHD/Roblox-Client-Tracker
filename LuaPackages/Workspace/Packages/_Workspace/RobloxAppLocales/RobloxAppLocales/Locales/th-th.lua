@@ -355,6 +355,7 @@ return{
 	["Feature.AccountSecurityPrompt.Description.ChangeYourPasswordClickHereStyled"] = [[เพื่อให้บัญชีของคุณปลอดภัย โปรด {styleTagStart}คลิกที่นี่{styleTagEnd} เพื่อเปลี่ยนรหัสผ่านของคุณ]],
 	["Feature.AccountSecurityPrompt.Description.ChangeYourPasswordImmediatelyClickHereStyled"] = [[เพื่อให้บัญชีของคุณปลอดภัย โปรด {styleTagStart}คลิกที่นี่{styleTagEnd} เพื่อเปลี่ยนรหัสผ่านของคุณ]],
 	["Feature.AccountSecurityPrompt.Action.SetUpAuthenticatorInBanner"] = [[ตั้งค่า Authenticator]],
+	["Feature.AccountSecurityPrompt.Action.SetUpAuthenticatorAccountRestoresPolicyUpsell"] = [[ตั้งค่า Authenticator]],
 	["Feature.Reauthentication.Action.Verify"] = [[ตรวจสอบ]],
 	["Feature.Reauthentication.Message.Error.Default"] = [[เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ]],
 	["Feature.Reauthentication.Action.PleaseTryAgain"] = [[กรุณาลองใหม่อีกครั้ง.]],

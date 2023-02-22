@@ -1,5 +1,7 @@
 local GraphQLServer = script:FindFirstAncestor("GraphQLServer")
 
+local HttpService = game:GetService("HttpService")
+
 local LuauPolyfill = require(GraphQLServer.Parent.LuauPolyfill)
 type Promise<T> = LuauPolyfill.Promise<T>
 local generatedTypes = require(GraphQLServer.graphql.generatedTypes)
@@ -8,6 +10,8 @@ type VirtualEventsPage = generatedTypes.VirtualEventsPage
 type VirtualEventsByUniverseIdOptions = generatedTypes.VirtualEventsByUniverseIdOptions
 type Rsvp = generatedTypes.Rsvp
 type RsvpCounters = generatedTypes.RsvpCounters
+type RsvpStatus = generatedTypes.RsvpStatus
+type RsvpResponse = generatedTypes.RsvpResponse
 local Promise = require(GraphQLServer.Parent.Promise)
 local GraphQLError = require(GraphQLServer.Parent.GraphQL).GraphQLError
 local fetchModule = require(GraphQLServer.Parent.Fetch)
@@ -207,5 +211,62 @@ local function findRsvpCountersByVirtualEventId(virtualEventId: string, fetchImp
 	end)
 end
 exports.findRsvpCountersByVirtualEventId = findRsvpCountersByVirtualEventId
+
+local function updateRsvpStatus(
+	virtualEventId: string,
+	newRsvpStatus: RsvpStatus,
+	fetchImpl_: fetch?
+): Promise<RsvpResponse>
+	local fetchImpl: fetch = if fetchImpl_ then fetchImpl_ else fetch
+
+	return Promise.new(function(resolve, reject)
+		local url = rsvpsPattern({ id = virtualEventId })
+		local res = fetchImpl(url, {
+				method = "POST",
+				body = HttpService:JSONEncode({
+					rsvpStatus = newRsvpStatus,
+				}),
+				headers = {
+					["Content-Type"] = "application/json",
+					["Accept"] = "application/json",
+				},
+			})
+			:catch(function()
+				return Response.error()
+			end)
+			:expect()
+
+		if not res.ok then
+			reject(
+				GraphQLError.new(
+					string.format("Failed to set RSVP status matching VirtualEvent id: %s.", virtualEventId)
+				)
+			)
+			return
+		end
+
+		local json = res:json()
+			:catch(function()
+				return nil
+			end)
+			:expect()
+
+		if not json then
+			reject(
+				GraphQLError.new(
+					string.format(
+						"Failed to decode HTTP response as JSON for RSVP status matching VirtualEvent id: %s.",
+						virtualEventId
+					)
+				)
+			)
+			return
+		end
+
+		resolve(json)
+		return
+	end)
+end
+exports.updateRsvpStatus = updateRsvpStatus
 
 return exports

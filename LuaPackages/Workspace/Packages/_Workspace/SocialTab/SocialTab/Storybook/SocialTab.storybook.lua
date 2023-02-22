@@ -3,6 +3,12 @@
 	ensuring the logger is set up to print any logs to the output window.
 ]]
 local SocialTab = script:FindFirstAncestor("SocialTab")
+local Packages = SocialTab.Parent
+
+local UIBlox = require(Packages.Dev.UIBlox)
+-- Make sure to initialize in story book in case this storybook is called first
+UIBlox.init(require(Packages.Dev.RobloxAppUIBloxConfig))
+
 local dependencies = require(SocialTab.dependencies)
 local Roact = dependencies.Roact
 local mockLocale = require(script.Parent.temp.mockLocale)

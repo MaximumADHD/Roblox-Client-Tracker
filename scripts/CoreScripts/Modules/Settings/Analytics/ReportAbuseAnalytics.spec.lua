@@ -13,7 +13,11 @@ return function()
 			EventStream = Mock.MagicMock.new({ name = "EventStream" }),
 			Diag = Mock.MagicMock.new({ name = "Diag" }),
 		}
-		c.reportAbuseAnalytics = ReportAbuseAnalytics.new(c.analytics, c.menuContext)
+		c.reportAbuseAnalytics = ReportAbuseAnalytics.new(
+			c.analytics.EventStream,
+			c.analytics.Diag,
+			c.menuContext
+		)
 	end)
 
 	it("SHOULD return a valid object", function(c)

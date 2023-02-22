@@ -37,9 +37,11 @@ local resolvers = {
 			end
 			local GameJSON: Object = (root.metadata :: Object).Game
 			local experiences: Array<Experience> = {}
-			Array.forEach(root.recommendations :: Array<OmniFeedRecommendation>, function(recommendationMetadata)
+			local recommendations = root.recommendations :: Array<OmniFeedRecommendation>
+
+			for _, recommendationMetadata in recommendations do
 				if not recommendationMetadata.contentId then
-					return
+					continue
 				end
 				local experience = GameJSON[tostring(recommendationMetadata.contentId)]
 				if experience and experience.universeId then
@@ -52,8 +54,8 @@ local resolvers = {
 						playerCount = experience.playerCount,
 					})
 				end
-				return
-			end)
+			end
+
 			return experiences
 		end,
 	},

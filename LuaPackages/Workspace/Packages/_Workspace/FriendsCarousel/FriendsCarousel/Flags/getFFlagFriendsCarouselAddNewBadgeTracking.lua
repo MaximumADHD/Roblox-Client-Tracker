@@ -1,5 +1,5 @@
-game:DefineFastFlag("FriendsCarouselAddNewBadgeTracking", false)
+game:DefineFastFlag("FriendsCarouselAddNewBadgeTracking_v1", false)
 
 return function()
-	return game:GetFastFlag("FriendsCarouselAddNewBadgeTracking")
+	return game:GetFastFlag("FriendsCarouselAddNewBadgeTracking_v1")
 end

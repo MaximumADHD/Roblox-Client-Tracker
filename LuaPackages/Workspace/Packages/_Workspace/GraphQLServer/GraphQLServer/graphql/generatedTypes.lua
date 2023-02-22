@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/Roblox/lua-apps/blob/fc8e2b7521/modules/graphql/graphql-server-ts/src/graphql/generatedTypes.ts
+-- ROBLOX upstream: https://github.com/Roblox/lua-apps/blob/dfec4ecb4f/modules/graphql/graphql-server-ts/src/graphql/generatedTypes.ts
 local Packages = script:FindFirstAncestor("GraphQLServer").Parent
 local LuauPolyfill = require(Packages.LuauPolyfill)
 type Array<T> = LuauPolyfill.Array<T>
@@ -96,6 +96,11 @@ export type Media = { __typename: "Media"?, url: Maybe<typeof((({} :: any) :: Sc
 local MediaAssetType = { Image = "Image", YouTubeVideo = "YouTubeVideo" }
 export type MediaAssetType = { [string]: string }
 exports.MediaAssetType = MediaAssetType
+export type Mutation = { __typename: "Mutation"?, virtualEventRsvp: Maybe<RsvpResponse>? }
+export type MutationVirtualEventRsvpArgs = {
+	id: typeof((({} :: any) :: Scalars).ID),
+	rsvpStatus: RsvpStatus,
+}
 export type OmniFeed = {
 	__typename: "OmniFeed"?,
 	isSessionExpired: Maybe<typeof((({} :: any) :: Scalars).Boolean)>?,
@@ -147,6 +152,7 @@ export type QueryOmniFeedArgs = {
 	nextPageToken: InputMaybe<typeof((({} :: any) :: Scalars).String)>?,
 	pageType: typeof((({} :: any) :: Scalars).String),
 	sessionId: typeof((({} :: any) :: Scalars).String),
+	supportedTreatmentTypes: InputMaybe<Array<InputMaybe<typeof((({} :: any) :: Scalars).String)>>>?,
 }
 export type QueryUserArgs = { id: typeof((({} :: any) :: Scalars).ID) }
 export type QueryVirtualEventArgs = { id: typeof((({} :: any) :: Scalars).ID) }
@@ -165,6 +171,11 @@ export type RsvpCounters = {
 	maybeGoing: Maybe<typeof((({} :: any) :: Scalars).Int)>?,
 	none: Maybe<typeof((({} :: any) :: Scalars).Int)>?,
 	notGoing: Maybe<typeof((({} :: any) :: Scalars).Int)>?,
+}
+export type RsvpResponse = {
+	__typename: "RsvpResponse"?,
+	isUserFirstRsvp: Maybe<typeof((({} :: any) :: Scalars).Boolean)>?,
+	rsvpStatus: Maybe<RsvpStatus>?,
 }
 local RsvpStatus = { Going = "going", MaybeGoing = "maybeGoing", None = "none", NotGoing = "notGoing" }
 -- ROBLOX deviation START: convert RsvpStatus enum to type union

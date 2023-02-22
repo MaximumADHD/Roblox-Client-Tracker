@@ -198,6 +198,7 @@ local function onAnimatorAdded(player, animator)
 		local playerAnimation = {}
 		playerAnimation.animation = Instance.new("TrackerStreamAnimation")
 		playerAnimation.animationTrack = animator:LoadStreamAnimation(playerAnimation.animation)
+		playerAnimation.animationTrack.Priority = Enum.AnimationPriority.Idle
 		playerAnimation.animationTrack:Play(0.1, 1)
 
 		playerAnimations[player.UserId] = playerAnimation
