@@ -38,6 +38,7 @@ export type IconTabItemProps = {
 }
 
 export type IconTabGroupProps = {
+	selection: { number }?,
 	items: { [number]: IconTabItem },
 }
 
@@ -47,10 +48,11 @@ export type ContainerProps = {
 	spacing: number?,
 	padding: number?,
 	showRoundedBackground: boolean?,
+	roundedBackgroundSize: any?,
+	roundedBackgroundPosition: any?,
+	roundedBackgroundColor: Color3?,
+	roundedBackgroundTransparency: number?,
 	showOverlay: boolean?,
-	roundCornerRadius: number?,
-	roundedBackgroundHeight: number?,
-	backgroundColor3: Color3?,
 }
 
 export type HorizontalContainerProps = ContainerProps

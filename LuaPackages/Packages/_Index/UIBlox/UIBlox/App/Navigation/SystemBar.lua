@@ -110,6 +110,8 @@ SystemBar.validateProps = t.strictInterface({
 	buttonStroke = t.optional(t.boolean),
 	-- sets background transparency
 	bgTransparency = t.optional(t.integer),
+	-- item list sort order
+	sortOrder = t.optional(t.enum(Enum.SortOrder)),
 })
 
 SystemBar.defaultProps = {
@@ -129,7 +131,7 @@ function SystemBar:isPortrait()
 	end
 end
 
-function SystemBar:renderItem(item, state, selected)
+function SystemBar:renderItem(item, state, selected, order)
 	assert(
 		(item.iconOn ~= nil and item.iconOff ~= nil) or item.iconComponent ~= nil,
 		"items must define either iconOn and iconOff or iconComponent"
@@ -152,7 +154,11 @@ function SystemBar:renderItem(item, state, selected)
 			selected = selected,
 			pressed = pressed,
 			badgeValue = item.badgeValue,
-		})
+		}),
+			{
+				-- extraProps for InteractableListItem
+				LayoutOrder = order, -- Won't take any effect if we don't specify LayoutOrder as sortOrder
+			}
 	end
 
 	local hasBadge
@@ -209,7 +215,11 @@ function SystemBar:renderItem(item, state, selected)
 				}) or nil,
 			})
 		end)
-	end, SPRING_OPTIONS)
+	end, SPRING_OPTIONS),
+		{
+			-- extraProps for InteractableListItem
+			LayoutOrder = order, -- Won't take any effect if we don't specify LayoutOrder as sortOrder
+		}
 end
 
 function SystemBar:renderPortrait(frameProps, contents)
@@ -242,6 +252,7 @@ function SystemBar:renderPortrait(frameProps, contents)
 							HorizontalAlignment = Enum.HorizontalAlignment.Center,
 							VerticalAlignment = Enum.VerticalAlignment.Center,
 							Padding = self.props.layoutPaddingOffset + UDim.new(1 / #self.props.itemList, -ITEM_SIZE_X),
+							SortOrder = self.props.sortOrder,
 						}, {}),
 					}, contents)
 				),
@@ -277,6 +288,7 @@ function SystemBar:renderLandscape(frameProps, contents, bottomAligned)
 					HorizontalAlignment = Enum.HorizontalAlignment.Center,
 					VerticalAlignment = if bottomAligned then Enum.VerticalAlignment.Bottom else nil,
 					Padding = self.props.layoutPaddingOffset + UDim.new(0, ITEM_PADDING_LANDSCAPE_Y),
+					SortOrder = self.props.sortOrder,
 				}),
 			}, contents)
 		)
@@ -411,6 +423,7 @@ function SystemBar:render()
 		renderItem = function(...)
 			return self:renderItem(...)
 		end,
+		sortOrder = self.props.sortOrder,
 		onSelectionChanged = self.onSelectionChanged,
 	})
 end

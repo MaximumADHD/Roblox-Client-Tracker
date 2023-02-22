@@ -12,16 +12,9 @@ local VR = script.Parent
 local App = VR.Parent
 local UIBlox = App.Parent
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
-local CoreRoot = VRRoot.Parent
-local UIBlox = CoreRoot.Parent
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-local EngineFeatureBindActivateAllowMultiple
-do
-	local success, value = pcall(function()
-		return game:GetEngineFeature("EngineFeatureBindActivateAllowMultiple")
-	end)
-	EngineFeatureBindActivateAllowMultiple = success and value
-end
+local GetEngineFeatureSafe = require(UIBlox.Core.Utility.GetEngineFeatureSafe)
+
+local EngineFeatureBindActivateAllowMultiple = GetEngineFeatureSafe("EngineFeatureBindActivateAllowMultiple")
 
 type VRControllerModel = {
 	update: () -> (),

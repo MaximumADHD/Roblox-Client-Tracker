@@ -246,6 +246,7 @@ local function initializeLibrary(configs)
 			ExperienceTile = require(script.App.Tile.ExperienceTile.ExperienceTile),
 			ExperienceTileV2 = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceTileV2),
 			ExperienceStatsV2 = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceStatsV2),
+			TileContentPanel = require(script.App.Tile.SplitTile.TileContentPanel),
 			ExperienceHoverTile = require(script.App.Tile.ExperienceTile.ExperienceHoverTile),
 		}),
 

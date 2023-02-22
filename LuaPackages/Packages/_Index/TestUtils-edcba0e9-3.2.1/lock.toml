@@ -7,6 +7,6 @@ dependencies = [
     "ChalkLua ChalkLua 0.2.0 url+https://github.com/roblox/chalk-lua",
     "JestEnvironmentLuau JestEnvironmentLuau 3.2.1 url+https://github.com/roblox/jest-roblox",
     "JestTypes JestTypes 3.2.1 url+https://github.com/roblox/jest-roblox",
-    "LuauPolyfill LuauPolyfill 1.2.2 url+https://github.com/roblox/luau-polyfill",
+    "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "PrettyFormat PrettyFormat 3.2.1 url+https://github.com/roblox/jest-roblox",
 ]

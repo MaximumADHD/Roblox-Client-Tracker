@@ -52,10 +52,6 @@ local BUTTON_PADDING = 8
 
 local DEFAULT_LEFT_RIGHT_PADDING = 15
 
-local function useRefCache()
-	return useInitializedValue(RoactGamepad.createRefCache)
-end
-
 local function PillGroup(props: Props)
 	local isGamepad = useIsGamepad()
 
@@ -82,7 +78,7 @@ local function PillGroup(props: Props)
 		end
 	end)
 
-	local pillRefs = useRefCache()
+	local pillRefs = RoactGamepad.useRefCache()
 
 	local clearPills = React.useCallback(function()
 		setSelectedPills({})

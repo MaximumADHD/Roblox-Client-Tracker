@@ -82,14 +82,6 @@ export type Props = {
 	NextSelectionDown: any?,
 }
 
-local function useRefCache()
-	local refCacheRef = React.useRef(nil)
-	if refCacheRef.current == nil then
-		refCacheRef.current = RoactGamepad.createRefCache()
-	end
-	return refCacheRef.current
-end
-
 -- Returns a motor that can be used to update the ScrollingFrame CanvasPosition
 local function useScrollingFrameMotor(scrollingFrameRef: any, initialValue: number?)
 	local motorRef = React.useRef(nil)
@@ -113,7 +105,7 @@ local function useScrollingFrameMotor(scrollingFrameRef: any, initialValue: numb
 end
 
 local function SlotTray(props: Props)
-	local slotRefs = useRefCache()
+	local slotRefs = RoactGamepad.useRefCache()
 
 	local scrollingFrameRef = React.useRef(nil)
 	if props.scrollingFrameRef then

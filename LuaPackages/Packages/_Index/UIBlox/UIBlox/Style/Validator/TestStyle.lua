@@ -2,6 +2,7 @@ local Validator = script.Parent
 local Style = Validator.Parent
 local UIBlox = Style.Parent
 local Packages = UIBlox.Parent
+local IconSize = require(UIBlox.App.ImageSet.Enum.IconSize)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Cryo = require(Packages.Cryo)
 
@@ -115,6 +116,15 @@ local testFont = {
 local testStyle = {
 	Theme = testTheme,
 	Font = testFont,
+	Dimensions = {
+		IconSizeMap = {
+			[IconSize.Small] = 16,
+			[IconSize.Medium] = 36,
+			[IconSize.Large] = 48,
+			[IconSize.XLarge] = 96,
+			[IconSize.XXLarge] = 192,
+		},
+	},
 }
 
 return testStyle

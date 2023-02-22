@@ -10,7 +10,7 @@ dependencies = [
     "JestTestResult JestTestResult 3.2.1 url+https://github.com/roblox/jest-roblox",
     "JestTypes JestTypes 3.2.1 url+https://github.com/roblox/jest-roblox",
     "JestUtil JestUtil 3.2.1 url+https://github.com/roblox/jest-roblox",
-    "LuauPolyfill LuauPolyfill 1.2.2 url+https://github.com/roblox/luau-polyfill",
+    "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "Path Path 3.2.1 url+https://github.com/roblox/jest-roblox",
     "RobloxShared RobloxShared 3.2.1 url+https://github.com/roblox/jest-roblox",
     "TestUtils TestUtils 3.2.1 url+https://github.com/roblox/jest-roblox",

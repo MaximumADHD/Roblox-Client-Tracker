@@ -1,4 +1,8 @@
 return {
+	-- Changes to UIBlox's LoadableImage so that it takes advantage of new ContentProvider APIs that give better feedback
+	-- on loading/pending/resolved state of content.
+	loadableImageResponsiveThumbnails = false,
+
 	-- styleRefactorConfig: DEPRECATED: this is a no-op, but is left in so that it's easier to upgrade consumers of
 	-- UIBlox that try to assign a value to it (the config layer will throw if assigning to a value that's not in the
 	-- default config)
@@ -150,4 +154,10 @@ return {
 
 	-- Inject padding for right content for HeaderBar
 	headerBarInjectContentPaddingRight = false,
+
+	-- Indicate whether the IconSize support in AppStyleProvider is enabled
+	enableAppStyleIconSizeSupport = false,
+
+	-- Enables VerticalTiles to accept render props for contents
+	updateVerticalTile = false,
 }

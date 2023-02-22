@@ -5,6 +5,7 @@ local UIBlox = App.Parent
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local IconSize = require(ImageSet.Enum.IconSize)
+local StyleTypes = require(App.Style.StyleTypes)
 
 local IconSizeMap
 
@@ -26,7 +27,11 @@ else
 	}
 end
 
-return function(iconSizeEnum)
+return function(iconSizeEnum: number, style: StyleTypes.AppStyle?)
 	assert(IconSize.isEnumValue(iconSizeEnum))
-	return IconSizeMap[iconSizeEnum]
+	if UIBloxConfig.enableAppStyleIconSizeSupport and style ~= nil then
+		return style.Dimensions.IconSizeMap[iconSizeEnum]
+	else
+		return IconSizeMap[iconSizeEnum]
+	end
 end

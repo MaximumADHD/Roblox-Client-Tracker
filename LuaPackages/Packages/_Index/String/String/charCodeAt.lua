@@ -30,13 +30,16 @@ return function(str: string, index: number): number
 		but it is cheaper to check string.len and handle utf8.offset than to check
 		utf.len, which iterates over all codepoints.
 	]]
-	if index < 1 or index > string.len(str) then
+	local length = string.len(str)
+	if index < 1 or index > length then
 		return NaN
 	end
 
 	-- utf8.offset returns nil for out of bounds
 	local offset = utf8.offset(str, index)
-	if offset == nil then
+
+	-- check that offset is not greater than the length of the string
+	if offset == nil or offset > length then
 		return NaN
 	end
 

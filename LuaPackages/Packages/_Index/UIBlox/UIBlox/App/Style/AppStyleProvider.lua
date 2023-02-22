@@ -15,6 +15,7 @@ local getThemeFromName = require(Style.Themes.getThemeFromName)
 local getFontFromName = require(Style.Fonts.getFontFromName)
 local Constants = require(Style.Constants)
 local Themes = require(script.Parent.Themes)
+local IconSizes = require(script.Parent.IconSizes)
 
 local DEFAULT_FONT = Constants.FontName.Gotham
 local FONT_MAP = {
@@ -44,6 +45,12 @@ function AppStyleProvider:render()
 	local appStyle = {
 		Font = getFontFromName(style.fontName, DEFAULT_FONT, FONT_MAP),
 		Theme = getThemeFromName(style.themeName, DEFAULT_THEME, THEME_MAP),
+		-- Allow the preset IconSizes to be configured by AppStyleProvider to achieve platform-specific override.
+		-- More dimension values like IconSize, etc could then be grabbed from the Design Token package and put into
+		-- the style.Dimension table.
+		Dimensions = {
+			IconSizeMap = IconSizes.IconSizeMap,
+		},
 	}
 	return Roact.createElement(StyleProvider, {
 		style = appStyle,

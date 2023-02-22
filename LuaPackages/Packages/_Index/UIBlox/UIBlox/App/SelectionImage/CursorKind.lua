@@ -7,6 +7,7 @@ local RoundedRectNoInsetCursor = require(script.Parent.Components.RoundedRectNoI
 local RoundedSlotCursor = require(script.Parent.Components.RoundedSlot)
 local SmallPillCursor = require(script.Parent.Components.SmallPill)
 local LargePillCursor = require(script.Parent.Components.LargePill)
+local XLargePillCursor = require(script.Parent.Components.XLargePill)
 local SelectedKnobCursor = require(script.Parent.Components.SelectedKnob)
 local UnselectedKnobCursor = require(script.Parent.Components.UnselectedKnob)
 local NavHighlightCursor = require(script.Parent.Components.NavHighlight)
@@ -26,6 +27,7 @@ return enumerate(script.Name, {
 	RoundedSlot = RoundedSlotCursor,
 	SmallPill = SmallPillCursor,
 	LargePill = LargePillCursor,
+	XLargePill = XLargePillCursor,
 	SelectedKnob = SelectedKnobCursor,
 	UnselectedKnob = UnselectedKnobCursor,
 	NavHighlight = NavHighlightCursor,

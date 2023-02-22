@@ -18,24 +18,26 @@ local setDefault = require(UIBlox.Utility.setDefault)
 local CORNER_RADIUS = UDim.new(0, 8)
 
 export type Props = {
-	-- Row with interactable contents to be displayed at bottom of tile
-	actionRow: table?,
-	-- Height of action row. Determines where stateful overlay is visually cut off
-	actionRowHeight: number?,
+	-- Height where stateful overlay is visually cut off (ie. to allow for action rows)
+	reservedBottomHeight: number?,
+	-- Whether or not this overlay should only cover its parent tile to a cutoff point
+	hasReservedArea: boolean?,
 	-- Whether or not overlay should be visible
 	isVisible: boolean?,
 	-- Whether or not overlay should capture input
 	isActive: boolean?,
 	-- Callback activated when overlay is clicked
 	onActivated: (() -> ())?,
+	-- ZIndex relative to sibling components
+	zIndex: number?,
 }
 
 local function TileOverlay(props: Props)
 	local onActivated = props.onActivated
 	local isVisible = setDefault(props.isVisible, true)
 	local isActive = setDefault(props.isActive, true)
-	local actionRow = props.actionRow
-	local actionRowHeight = props.actionRowHeight
+	local hasReservedArea = props.hasReservedArea
+	local reservedBottomHeight = props.reservedBottomHeight
 
 	local controlState, updateControlState = useControlState()
 	local stylePalette = useStyle()
@@ -57,18 +59,18 @@ local function TileOverlay(props: Props)
 	return React.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
-		ZIndex = 3,
+		ZIndex = props.zIndex,
 	}, {
 		UICorner = React.createElement("UICorner", {
 			CornerRadius = CORNER_RADIUS,
 		}),
 		ClippingFrame = React.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, if actionRow and actionRowHeight then -actionRowHeight else 0),
+			Size = UDim2.new(1, 0, 1, if hasReservedArea and reservedBottomHeight then -reservedBottomHeight else 0),
 			BackgroundTransparency = 1,
 			ClipsDescendants = true,
 		}, {
 			Interactable = React.createElement(Interactable, {
-				Size = UDim2.new(1, 0, 1, if actionRow then CORNER_RADIUS.Offset else 0),
+				Size = UDim2.new(1, 0, 1, if hasReservedArea then CORNER_RADIUS.Offset else 0),
 				BackgroundColor3 = overlayColor,
 				BackgroundTransparency = overlayTransparency,
 				AutoButtonColor = false,
@@ -81,7 +83,6 @@ local function TileOverlay(props: Props)
 				}),
 			}),
 		}),
-		ActionRow = props.actionRow,
 	})
 end
 

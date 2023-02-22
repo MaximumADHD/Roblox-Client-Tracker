@@ -29,18 +29,14 @@ return function(extraProps: Props, children: { [any]: Instance })
 	}, {
 		RoundedBackgroundWithTopAlignedToContent = if extraProps.showRoundedBackground
 			then Roact.createElement("Frame", {
-				Size = extraProps.roundedBackgroundHeight and UDim2.new(1, 0, 0, extraProps.roundedBackgroundHeight)
-					or UDim2.new(1, 0, 1, 0),
-				BackgroundTransparency = Constants.ICON_TAB_SELECTED_TRANSPARENCY,
-				BackgroundColor3 = extraProps.backgroundColor3 or style.Theme.BackgroundUIDefault.Color,
-				Position = UDim2.fromOffset(
-					0,
-					if extraProps.padding and extraProps.padding.top then extraProps.padding.top else 0
-				),
+				Size = extraProps.roundedBackgroundSize or UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = extraProps.roundedBackgroundTransparency or 1,
+				BackgroundColor3 = extraProps.roundedBackgroundColor or style.Theme.BackgroundUIDefault.Color,
+				Position = extraProps.roundedBackgroundPosition or UDim2.fromOffset(0, 0),
 				ZIndex = 1,
 			}, {
 				Corner = Roact.createElement("UICorner", {
-					CornerRadius = UDim.new(0, extraProps.roundCornerRadius),
+					CornerRadius = UDim.new(0.5, 0),
 				}),
 			})
 			else nil,
@@ -52,7 +48,7 @@ return function(extraProps: Props, children: { [any]: Instance })
 				ZIndex = 3,
 			}, {
 				Corner = Roact.createElement("UICorner", {
-					CornerRadius = UDim.new(0, extraProps.roundCornerRadius),
+					CornerRadius = UDim.new(0.5, 0),
 				}),
 			})
 			else nil,

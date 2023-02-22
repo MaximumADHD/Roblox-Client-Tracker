@@ -13,6 +13,9 @@ local validateTheme = if UIBloxConfig.useNewThemeColorPalettes
 local StylePalette = t.strictInterface({
 	Theme = validateTheme,
 	Font = validateFont,
+	Dimensions = t.optional(t.strictInterface({
+		IconSizeMap = t.table,
+	})),
 })
 
 return StylePalette

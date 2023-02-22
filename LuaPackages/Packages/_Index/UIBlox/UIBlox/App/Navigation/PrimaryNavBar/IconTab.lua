@@ -35,11 +35,14 @@ return function(providedProps: Props)
 	local pressed = props.controlState == ControlState.SelectedPressed
 	local selected = props.selected
 	local style = useStyle()
-
+	local roundedBackgroundHeight = Constants.ICON_TAB_HEIGHT - Constants.ICON_TAB_PADDING * 2
 	return HorizontalContainer({
-		size = UDim2.new(0, 0, 0, Constants.ICON_TAB_ITEM_HEIGHT),
+		size = UDim2.new(0, 0, 0, Constants.ICON_TAB_HEIGHT),
 		automaticSize = Enum.AutomaticSize.X,
-		backgroundColor3 = style.Theme.Divider.Color,
+		roundedBackgroundSize = UDim2.new(1, -(Constants.ICON_TAB_PADDING * 2), 0, roundedBackgroundHeight),
+		roundedBackgroundPosition = UDim2.fromOffset(Constants.ICON_TAB_PADDING, Constants.ICON_TAB_PADDING),
+		roundedBackgroundColor = style.Theme.Divider.Color,
+		roundedBackgroundTransparency = Constants.ICON_TAB_SELECTED_TRANSPARENCY,
 		spacing = Constants.ICON_TAB_ITEM_ICON_TITLE_SPACING,
 		padding = {
 			left = Constants.ICON_TAB_ITEM_PADDING_LEFT,
@@ -47,7 +50,6 @@ return function(providedProps: Props)
 		},
 		showRoundedBackground = if item.showRoundedBackground ~= nil then item.showRoundedBackground else selected,
 		showOverlay = if item.showOverlay ~= nil then item.showOverlay else pressed,
-		roundCornerRadius = Constants.ICON_TAB_ITEM_HEIGHT / 2,
 	}, {
 		Icon = if item.iconComponent == nil
 			then React.createElement(ImageSetLabel, {

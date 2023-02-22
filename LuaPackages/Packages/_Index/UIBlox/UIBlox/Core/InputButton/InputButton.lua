@@ -12,19 +12,14 @@ local ImageSetComponent = require(Packages.UIBlox.Core.ImageSet.ImageSetComponen
 local Controllable = require(Packages.UIBlox.Core.Control.Controllable)
 local ControlState = require(Packages.UIBlox.Core.Control.Enum.ControlState)
 local devOnly = require(Packages.UIBlox.Utility.devOnly)
+local GetEngineFeatureSafe = require(Packages.UIBlox.Core.Utility.GetEngineFeatureSafe)
 
 local FitTextLabel = require(Packages.FitFrame).FitTextLabel
 local FitFrameHorizontal = require(Packages.FitFrame).FitFrameHorizontal
 
 -- TODO AVBURST-3748: Remove this soon after TextBoundsRoundUp is turned on to make the UIBlox places display
 -- the same way as the App
-local EngineFeatureTextBoundsRoundUp
-do
-	local success, value = pcall(function()
-		return game:GetEngineFeature("TextBoundsRoundUp")
-	end)
-	EngineFeatureTextBoundsRoundUp = success and value
-end
+local EngineFeatureTextBoundsRoundUp = GetEngineFeatureSafe("TextBoundsRoundUp")
 
 local InputButton = Roact.PureComponent:extend("InputButton")
 

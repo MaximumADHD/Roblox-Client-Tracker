@@ -28,24 +28,20 @@ local Constants = require(script.Parent.Constants)
 type Props = Types.IconTabGroupProps
 
 local defaultProps: Props = {
+	selection = { 1 },
 	items = {},
 }
 
 return function(providedProps: Props)
 	local props: Props = Object.assign({}, defaultProps, providedProps)
-	local selectionCursor = useSelectionCursor(CursorKind.LargePill)
-	-- first IconTab is selected by default, selection status is handled inside InteractableList
-	local currentSelection, setCurrentSelection = React.useState(1)
+	local selectionCursor = useSelectionCursor(CursorKind.XLargePill)
 	return HorizontalContainer({
-		size = UDim2.new(0, 0, 0, Constants.ICON_TAB_HEIGHT),
+		size = UDim2.new(0, 0, 0, Constants.ICON_TAB_GROUP_HEIGHT),
 		showRoundedBackground = false,
-		roundedBackgroundHeight = Constants.ICON_TAB_ITEM_HEIGHT,
-		roundCornerRadius = Constants.ICON_TAB_ITEM_HEIGHT / 2,
 		automaticSize = Enum.AutomaticSize.X,
 		padding = {
-			left = Constants.ICON_TAB_PADDING_LEFT,
-			right = Constants.ICON_TAB_PADDING_RIGHT,
-			top = (Constants.ICON_TAB_HEIGHT - Constants.ICON_TAB_ITEM_HEIGHT) / 2,
+			left = Constants.ICON_TAB_PADDING,
+			right = Constants.ICON_TAB_PADDING,
 		},
 	}, {
 		MainTabList = React.createElement(InteractableList, {
@@ -72,13 +68,13 @@ return function(providedProps: Props)
 			end,
 			onSelectionChanged = function(selection: table)
 				local item: Types.IconTabItem = props.items[selection[1]]
-				if item ~= nil and currentSelection ~= selection[1] then
-					setCurrentSelection(selection[1])
+				if item ~= nil then
 					if item.onActivated ~= nil then
 						item.onActivated()
 					end
 				end
 			end,
+			selection = props.selection,
 			selectionMode = SelectionMode.Single,
 			padding = UDim.new(0, Constants.ICON_TAB_ITEM_SPACING),
 		}),

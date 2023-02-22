@@ -40,7 +40,6 @@ local function VerticalTileThumbnail(props: VerticalTileThumbnailProps)
 		Size = if aspectRatio then UDim2.new(1, 0, aspectRatio, 0) else UDim2.new(1, 0, 1, 0),
 		SizeConstraint = if aspectRatio then Enum.SizeConstraint.RelativeXX else nil,
 		BackgroundTransparency = 1,
-		LayoutOrder = 1,
 	}, {
 		TopFrame = React.createElement("Frame", {
 			Position = UDim2.fromScale(0, 0),

@@ -53,7 +53,6 @@ local function TileContentPanel(props: Props)
 	return React.createElement("Frame", {
 		Size = UDim2.new(UDim.new(1, 0), panelHeight),
 		BackgroundTransparency = 1,
-		LayoutOrder = 2,
 	}, {
 		UIListLayout = React.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,

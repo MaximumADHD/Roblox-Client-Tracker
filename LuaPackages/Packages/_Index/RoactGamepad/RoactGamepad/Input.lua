@@ -1,5 +1,6 @@
 local debugPrint = require(script.Parent.debugPrint)
 local InputBindingKind = require(script.Parent.InputBindingKind)
+local Config = require(script.Parent.Config)
 
 local INPUT_TYPES = {
 	[Enum.UserInputType.Keyboard] = true,
@@ -35,7 +36,7 @@ local function getEngineState(engineInterface)
 	if engineGamepadState[engineInterface] == nil then
 		engineGamepadState[engineInterface] = initializeEngineGamepadState()
 	end
-	
+
 	return engineGamepadState[engineInterface]
 end
 
@@ -102,11 +103,23 @@ end
 
 -- Returns a function that can be called to disconnect from the event
 local function connectToEvent(binding, engineInterface)
+
+	local function matchesBindingKeyCode(inputObject)
+		if Config.DebugKeyboardBindings then
+			local keyboardKeyCodes = Config.DebugKeyboardBindings[binding.keyCode] or {}
+			if table.find(keyboardKeyCodes, inputObject.KeyCode) then
+				return true
+			end
+		end
+
+		return inputObject.KeyCode == binding.keyCode
+	end
+
 	if binding.kind == InputBindingKind.Begin then
 		local function matchInput(inputObject)
 			return INPUT_TYPES[inputObject.UserInputType]
 				and inputObject.UserInputState == Enum.UserInputState.Begin
-				and inputObject.KeyCode == binding.keyCode
+				and matchesBindingKeyCode(inputObject)
 		end
 
 		local connection = engineInterface.subscribeToInputBegan(getInputEvent(binding.action, matchInput))
@@ -118,7 +131,7 @@ local function connectToEvent(binding, engineInterface)
 		local function matchInput(inputObject)
 			return INPUT_TYPES[inputObject.UserInputType]
 				and inputObject.UserInputState == Enum.UserInputState.End
-				and inputObject.KeyCode == binding.keyCode
+				and matchesBindingKeyCode(inputObject)
 		end
 
 		local connection = engineInterface.subscribeToInputEnded(getInputEvent(binding.action, matchInput))

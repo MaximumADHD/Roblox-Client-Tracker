@@ -43,7 +43,7 @@ local function ContextBar(providedProps: Props)
 		}),
 	}
 
-	local iconSize = getIconSize(IconSize.Medium)
+	local iconSize = getIconSize(IconSize.Medium, style)
 	for index, item in ipairs(props.items) do
 		children["Item" .. tostring(index)] = React.createElement("Frame", {
 			LayoutOrder = index,
