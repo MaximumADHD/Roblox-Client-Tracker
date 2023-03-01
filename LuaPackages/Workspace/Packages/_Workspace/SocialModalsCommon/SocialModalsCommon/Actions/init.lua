@@ -1,7 +1,10 @@
 local UpdateContactImporterModalLogic = require(script.UpdateContactImporterModalLogic)
+local UpdateIsDiscoverabilityUnset = require(script.UpdateIsDiscoverabilityUnset)
 
-export type ParamsType = UpdateContactImporterModalLogic.ParamsType
+export type UpdateContactImporterModalLogicType = UpdateContactImporterModalLogic.ParamsType
+export type UpdateIsDiscoverabilityUnsetType = UpdateIsDiscoverabilityUnset.ParamsType
 
 return {
 	UpdateContactImporterModalLogic = UpdateContactImporterModalLogic,
+	UpdateIsDiscoverabilityUnset = UpdateIsDiscoverabilityUnset,
 }

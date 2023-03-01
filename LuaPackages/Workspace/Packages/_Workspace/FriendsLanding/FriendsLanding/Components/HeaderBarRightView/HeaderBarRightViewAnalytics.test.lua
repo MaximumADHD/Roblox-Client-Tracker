@@ -16,7 +16,7 @@ local expect = JestGlobals.expect
 local it = JestGlobals.it
 local jest = JestGlobals.jest
 
-local getFFlagAddFriendsMissingContext = require(FriendsLanding.Flags.getFFlagAddFriendsMissingContext)
+local getFFlagRenameSearchAnalyticEvent = require(FriendsLanding.Flags.getFFlagRenameSearchAnalyticEvent)
 
 local HeaderBarRightView = require(script.Parent)
 
@@ -28,6 +28,7 @@ describe("GIVEN mock analytics", function()
 		analytics = {
 			buttonClick = jest.fn(),
 			navigate = jest.fn(),
+			playerSearch = if getFFlagRenameSearchAnalyticEvent() then jest.fn() else nil,
 		}
 		navigation = {
 			navigate = jest.fn(),
@@ -104,30 +105,38 @@ describe("GIVEN mock analytics", function()
 		expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.AddFriendsNoFriends)
 	end)
 
-	it("SHOULD fire buttonClick event when SearchIcon is clicked", function()
+	it("SHOULD fire playerSearch event when SearchIcon is clicked", function()
 		mountAndClick({
 			navigation = navigation,
 		}, "SearchFriendsIcon")
 
-		expect(analytics.buttonClick).toHaveBeenCalledTimes(1)
-		expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.FriendSearch)
+		if getFFlagRenameSearchAnalyticEvent() then
+			expect(analytics.playerSearch).toHaveBeenCalledTimes(1)
+			expect(analytics.playerSearch).toHaveBeenCalledWith(analytics, "open", nil, "friendsLanding")
+		else
+			expect(analytics.buttonClick).toHaveBeenCalledTimes(1)
+			expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.FriendSearch)
+		end
 	end)
 
-	if getFFlagAddFriendsMissingContext() then
-		it("SHOULD fire buttonClick event with right context when SearchIcon is clicked from AddFriends", function()
-			mountAndClick({
-				navigation = {
-					navigate = jest.fn(),
-					state = {
-						routeName = EnumScreens.AddFriends,
-					},
+	it("SHOULD fire playerSearch event with right source when SearchIcon is clicked from AddFriends", function()
+		mountAndClick({
+			navigation = {
+				navigate = jest.fn(),
+				state = {
+					routeName = EnumScreens.AddFriends,
 				},
-			}, "SearchFriendsIcon")
+			},
+		}, "SearchFriendsIcon")
 
+		if getFFlagRenameSearchAnalyticEvent() then
+			expect(analytics.playerSearch).toHaveBeenCalledTimes(1)
+			expect(analytics.playerSearch).toHaveBeenCalledWith(analytics, "open", nil, "addUniversalFriends")
+		else
 			expect(analytics.buttonClick).toHaveBeenCalledTimes(1)
 			expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.FriendSearch, {
 				contextOverride = "friendRequestsPage",
 			})
-		end)
-	end
+		end
+	end)
 end)

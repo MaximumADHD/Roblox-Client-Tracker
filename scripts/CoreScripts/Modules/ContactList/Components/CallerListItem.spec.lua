@@ -20,8 +20,12 @@ return function()
 		}, {
 			CallerListItem = Roact.createElement(CallerListItem, {
 				caller = {
-					userId = 1,
-					username = "Hello World!",
+					participants = {
+						{
+							userId = 1,
+							username = "Hello World!",
+						},
+					},
 					state = "Outgoing",
 				},
 				showDivider = true,

@@ -26,7 +26,7 @@ local NetworkStatus = RoduxNetworking.Enum.NetworkStatus
 
 local GetFFlagLuaAppNewShareSheet =
 	require(CorePackages.Workspace.Packages.ExternalContentSharingProtocol).Flags.GetFFlagLuaAppNewShareSheet
-
+local getFFlagGameInviteShortUrlEnabled = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagGameInviteShortUrlEnabled
 local ShareInviteLink = Roact.PureComponent:extend("ShareInviteLink")
 
 local CONTENTS_LEFT_RIGHT_PADDING = 12
@@ -35,16 +35,41 @@ local SHARE_BUTTON_WIDTH = 69
 local SHARE_INVITE_LINK_BACKGROUND = Color3.fromRGB(79, 84, 95)
 local SHARE_INVITE_LINK_TEXT = RobloxTranslator:FormatByKey("Feature.SocialShare.Action.Share")
 local COPIED_INVITE_LINK_TEXT = RobloxTranslator:FormatByKey("Feature.SocialShare.Label.Copied")
-
+local MENU_VERSION_CONST = "V1Menu"
 local platform = UserInputService:GetPlatform()
 local isDesktopClient = (platform == Enum.Platform.Windows) or (platform == Enum.Platform.OSX) or (platform == Enum.Platform.UWP)
+
+export type Props = {
+	isDesktopClient: boolean,
+	externalContentSharingProtocol: {
+		shareText: (any, {
+			text: string,
+			context:string,
+		}) -> (),
+		shareUrl: (any, {
+			url: string,
+			context:string,
+		}) -> (),
+	},
+	analytics: {
+		onShareButtonClick: (any) -> (),
+		onLinkGenerated: (any) -> (),
+	},
+}
+
+type InternalProps = Props & mapStateToProps.Props & mapDispatchToProps.Props
+
+ShareInviteLink.defaultProps = {
+	externalContentSharingProtocol = ExternalContentSharingProtocol,
+	isDesktopClient =  (platform == Enum.Platform.Windows) or (platform == Enum.Platform.OSX) or (platform == Enum.Platform.UWP),
+}
 
 function ShareInviteLink:init()
 	self.state = {
 		show_copied_text = false,
 	}
 
-	self.showSharesheet = function(linkId, linkType)
+	self.showSharesheet = if not getFFlagGameInviteShortUrlEnabled() then function(linkId, linkType)
 		local url = UrlBuilder.sharelinks.appsflyer(linkId, linkType)
 		if ExternalContentSharingProtocol then
 			if GetFFlagLuaAppNewShareSheet() then
@@ -67,15 +92,47 @@ function ShareInviteLink:init()
 				end)
 			end
 		end
+	end else nil
+
+	self.displayShareSheet = function(config: { shortUrl: string })
+		local props: InternalProps = self.props
+		if props.externalContentSharingProtocol then
+			if GetFFlagLuaAppNewShareSheet() then
+				props.externalContentSharingProtocol:shareUrl({
+					url = config.shortUrl,
+					context = MENU_VERSION_CONST
+				})
+			else
+				props.externalContentSharingProtocol:shareText({
+					text = config.shortUrl,
+					context = MENU_VERSION_CONST
+				})
+			end
+
+			if props.isDesktopClient then
+				self:setState({ show_copied_text = true })
+
+				task.delay(1, function ()
+					self:setState({ show_copied_text = false })
+				end)
+			end
+		end
 	end
 end
 
-function ShareInviteLink:didUpdate(oldProps)
+function ShareInviteLink:didUpdate(oldProps: InternalProps)
+	local props: InternalProps = self.props
+
 	if oldProps.shareInviteLink == nil and self.props.shareInviteLink ~= nil then
 		local linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue()
 		local linkId = self.props.shareInviteLink.linkId
+		-- TODO SACQ-445 this is passing in the values incorrectly
 		self.props.analytics:onLinkGenerated(linkType, linkId)
-		self.showSharesheet(linkId, linkType)
+		if getFFlagGameInviteShortUrlEnabled() then
+			self.displayShareSheet(props.shareInviteLink)
+		else
+			self.showSharesheet(linkId, linkType)
+		end
 	end
 end
 
@@ -87,13 +144,19 @@ function ShareInviteLink:render()
 	local layoutSpecific = Constants.LayoutSpecific[deviceLayout]
 
 	local onShare = function()
+		local props: InternalProps = self.props
+
 		self.props.analytics:onShareButtonClick()
 		if self.props.shareInviteLink == nil then
 			self.props.fetchShareInviteLink()
 		else
 			local linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue()
 			local linkId = self.props.shareInviteLink.linkId
-			self.showSharesheet(linkId, linkType)
+			if getFFlagGameInviteShortUrlEnabled() then
+				self.displayShareSheet(props.shareInviteLink)
+			else
+				self.showSharesheet(linkId, linkType)
+			end
 		end
 	end
 

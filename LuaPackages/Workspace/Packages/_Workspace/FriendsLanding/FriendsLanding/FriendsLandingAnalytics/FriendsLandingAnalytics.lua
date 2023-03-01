@@ -5,6 +5,7 @@ local EnumScreens = require(FriendsLanding.EnumScreens)
 local AppScreens = require(FriendsLanding.AppScreens)
 local llama = dependencies.llama
 local tutils = dependencies.tutils
+local LocalizationService = dependencies.LocalizationService
 local ButtonClickEvents = require(script.Parent.ButtonClickEvents)
 local ImpressionEvents = require(script.Parent.ImpressionEvents)
 local NavigatedFromPagesEnum = require(script.Parent.NavigatedFromPagesEnum)
@@ -13,6 +14,8 @@ local Logger = require(script.Parent.Logger)
 local ADD_UNIVERSAL_FRIENDS = "addUniversalFriends"
 local FriendsLandingAnalytics = {}
 FriendsLandingAnalytics.__index = FriendsLandingAnalytics
+
+local getFFlagRenameSearchAnalyticEvent = require(FriendsLanding.Flags.getFFlagRenameSearchAnalyticEvent)
 
 --* Diag: This is for RCity Charts
 --* EventStream: This is for Superset
@@ -98,6 +101,32 @@ function FriendsLandingAnalytics:buttonClick(buttonName, additionalArgs)
 		contextOverride = llama.None,
 	})
 	self._eventStreamImpl:setRBXEventStream(eventContext, eventName, additionalArgs)
+end
+
+-- This event is duplicate of playerSearch in LuaApp/Modules/LuaApp/Analytics/Events/search.lua
+if getFFlagRenameSearchAnalyticEvent() then
+	function FriendsLandingAnalytics:playerSearch(act, keyword, source)
+		assert(type(act) == "string", "Expected act to be a string")
+		if keyword then
+			assert(type(keyword) == "string", "Expected keyword to be a string")
+		end
+		if source then
+			assert(type(source) == "string", "Expected source to be a string")
+		end
+		Logger:info("eventName: search ctx: players keyword: {} source: {}", keyword, source)
+		local eventName = "search"
+		local eventContext = "players"
+		local locale = LocalizationService.RobloxLocaleId
+
+		local additionalArgs = {
+			act = act,
+			kwd = keyword,
+			source = source,
+			locale = locale,
+		}
+
+		self._eventStreamImpl:setRBXEventStream(eventContext, eventName, additionalArgs)
+	end
 end
 
 function FriendsLandingAnalytics:_toStringAdditionalArgs(additionalArgs)

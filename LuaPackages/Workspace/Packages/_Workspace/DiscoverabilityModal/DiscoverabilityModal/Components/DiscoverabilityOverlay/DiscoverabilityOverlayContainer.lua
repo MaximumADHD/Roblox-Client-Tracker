@@ -9,6 +9,7 @@ local EventNames = require(Analytics.Enums.EventNames)
 
 local updateOptedInUsers = dependencies.SocialModalsCommon.Utils.updateOptedInUsers
 local UpdateContactImporterModalLogic = dependencies.SocialModalsCommon.Actions.UpdateContactImporterModalLogic
+local UpdateIsDiscoverabilityUnset = dependencies.SocialModalsCommon.Actions.UpdateIsDiscoverabilityUnset
 
 local NetworkingUserSettings = dependencies.NetworkingUserSettings
 local PermissionsProtocol = dependencies.PermissionsProtocol
@@ -19,6 +20,8 @@ local SocialLibraries = dependencies.SocialLibraries
 local React = dependencies.React
 local useSelector = dependencies.Hooks.useSelector
 local useDispatch = dependencies.Hooks.useDispatch
+
+local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 
 local getDeepValue = SocialLibraries.Dictionary.getDeepValue
 
@@ -103,6 +106,12 @@ local DiscoverabilityOverlayContainer = function(passedProps: Props)
 		}))
 	end
 
+	local hideDiscoverabilityModal = function()
+		return dispatch(UpdateIsDiscoverabilityUnset({
+			isDiscoverabilityUnset = false,
+		}))
+	end
+
 	local updateUserSettings = function(canUploadContacts: boolean?, discoverabilitySetting: string)
 		return dispatch(NetworkingUserSettings.UpdateUserSettings.API({
 			canUploadContacts = canUploadContacts,
@@ -131,7 +140,15 @@ local DiscoverabilityOverlayContainer = function(passedProps: Props)
 						updateOptedInUsers:addUserToLocalStorage(AppStorageService, localUserId)
 						hideContactImporterModal()
 						updateUserSettings(true, discoverabilitySetting):andThen(function()
-							props.navigation.navigate(EnumScreens.ContactsList)
+							if getFFlagEnableContactInvitesForNonPhoneVerified() then
+								hideDiscoverabilityModal()
+								props.navigation.pop()
+								props.navigation.navigate(EnumScreens.ContactsList, {
+									[Constants.IS_PHONE_VERIFIED] = true,
+								})
+							else
+								props.navigation.navigate(EnumScreens.ContactsList)
+							end
 						end)
 					elseif permissionResponseStatus == PermissionsProtocol.Status.DENIED then
 						updateUserSettings(false, discoverabilitySetting):andThen(function()

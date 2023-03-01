@@ -8,8 +8,12 @@ return {
 		Incoming = function(props)
 			return React.createElement(CallerListItem, {
 				caller = {
-					userId = 1,
-					username = "SuperCoolUsername",
+					participants = {
+						{
+							userId = 1,
+							username = "SuperCoolUsername",
+						},
+					},
 					state = "Incoming",
 				},
 				showDivider = props.controls.showDivider,
@@ -18,8 +22,12 @@ return {
 		Missed = function(props)
 			return React.createElement(CallerListItem, {
 				caller = {
-					userId = 1,
-					username = "SuperCoolUsername",
+					participants = {
+						{
+							userId = 1,
+							username = "SuperCoolUsername",
+						},
+					},
 					state = "Missed",
 				},
 				showDivider = props.controls.showDivider,
@@ -28,8 +36,12 @@ return {
 		Outgoing = function(props)
 			return React.createElement(CallerListItem, {
 				caller = {
-					userId = 1,
-					username = "SuperCoolUsername",
+					participants = {
+						{
+							userId = 1,
+							username = "SuperCoolUsername",
+						},
+					},
 					state = "Outgoing",
 				},
 				showDivider = props.controls.showDivider,

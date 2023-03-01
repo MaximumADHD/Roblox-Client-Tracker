@@ -7,6 +7,7 @@ local RoactRodux = dependencies.RoactRodux
 local t = dependencies.t
 local Dash = dependencies.Dash
 local UIBlox = dependencies.UIBlox
+local Promise = dependencies.Promise
 local GridMetrics = UIBlox.App.Grid.GridMetrics
 local getPageMargin = UIBlox.App.Container.getPageMargin
 local Images = UIBlox.App.ImageSet.Images
@@ -247,6 +248,23 @@ function AddFriendsPage:init()
 					eventIngestService = self.props.eventIngestService,
 					isPhoneVerified = self.props.isPhoneVerified,
 				}
+				if self.props.isDiscoverabilityUnset and self.props.isPhoneVerified then
+					self.props
+						.getUserSettingsMetadata()
+						:andThen(function()
+							self.props.navigation.navigate(EnumScreens.DiscoverabilityOverlay, {
+								showToast = self.showToastForContactsUpload,
+								openLearnMoreLink = self.props.handleOpenLearnMoreLink,
+								diagService = self.props.diagService,
+								eventIngestService = self.props.eventIngestService,
+							})
+						end)
+						:catch(function()
+							return Promise.reject()
+						end)
+				else
+					self.props.navigation.navigate(EnumScreens.ContactsList, navParams)
+				end
 			else
 				navParams = {
 					isFromAddFriendsPage = true,
@@ -254,8 +272,8 @@ function AddFriendsPage:init()
 					diagService = self.props.diagService,
 					eventIngestService = self.props.eventIngestService,
 				}
+				self.props.navigation.navigate(EnumScreens.ContactsList, navParams)
 			end
-			self.props.navigation.navigate(EnumScreens.ContactsList, navParams)
 		end
 	end
 

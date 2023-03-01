@@ -9,15 +9,19 @@ local SearchHeaderBar = require(FriendsLanding.Components.FriendsLandingHeaderBa
 local FriendsLandingContext = require(FriendsLanding.FriendsLandingContext)
 local ButtonClickEvents = require(FriendsLanding.FriendsLandingAnalytics.ButtonClickEvents)
 local AddFriendsSearchbarPressedEvent = require(FriendsLanding.FriendsLandingAnalytics.AddFriendsSearchbarPressedEvent)
+local PlayerSearchEvent = require(FriendsLanding.FriendsLandingAnalytics.PlayerSearchEvent)
 local SocialLibraries = dependencies.SocialLibraries
 local FormFactor = dependencies.FormFactor
 local compose = SocialLibraries.RoduxTools.compose
 local ImageSetButton = UIBlox.Core.ImageSet.Button
+local SocialLuaAnalytics = dependencies.SocialLuaAnalytics
+local Contexts = SocialLuaAnalytics.Analytics.Enums.Contexts
 
 local getFFlagSearchbarAndroidBackButton = require(FriendsLanding.Flags.getFFlagSearchbarAndroidBackButton)
 local getFFlagAddFriendsFixSocialTabSearchbar = require(FriendsLanding.Flags.getFFlagAddFriendsFixSocialTabSearchbar)
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
+local getFFlagRenameSearchAnalyticEvent = require(FriendsLanding.Flags.getFFlagRenameSearchAnalyticEvent)
 
 local FriendsLandingAnalytics = require(FriendsLanding.FriendsLandingAnalytics)
 local HeaderBarCenterView = Roact.PureComponent:extend("HeaderBarCenterView")
@@ -31,10 +35,18 @@ function HeaderBarCenterView:init()
 
 	self.goToSearchFriendsPage = function()
 		local navigation = self.props.navigation
-		self.props.analytics:buttonClick(ButtonClickEvents.FriendSearchEnter, {
-			text = self.state.filterText,
-			contextOverride = navigation.state.routeName,
-		})
+		if getFFlagRenameSearchAnalyticEvent() then
+			PlayerSearchEvent(
+				self.props.analytics,
+				"submit",
+				{ kwd = self.state.filterText, currentRoute = navigation.state.routeName }
+			)
+		else
+			self.props.analytics:buttonClick(ButtonClickEvents.FriendSearchEnter, {
+				text = self.state.filterText,
+				contextOverride = navigation.state.routeName,
+			})
+		end
 		if navigation.state.routeName == EnumScreens.SearchFriends then
 			navigation.replace(EnumScreens.SearchFriends, { searchText = self.state.filterText })
 		else
@@ -115,10 +127,15 @@ function HeaderBarCenterView:render()
 								{ formFactor = self.props.wideMode and FormFactor.WIDE or FormFactor.COMPACT }
 							)
 						end
+
+						if getFFlagRenameSearchAnalyticEvent() then
+							self.props.analytics:playerSearch("open", nil, Contexts.AddFriends.rawValue())
+						end
 					end
 					else nil,
 			}, {
 				filterBox = Roact.createElement(SearchHeaderBar, {
+					analytics = if getFFlagRenameSearchAnalyticEvent() then self.props.analytics else nil,
 					initialInputText = screenTopBar.filterText,
 					cancelText = localizedStrings.cancelText,
 					searchPlaceholderText = localizedStrings.searchPlaceholderText,

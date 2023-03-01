@@ -23,6 +23,7 @@ local SocialLuaAnalytics = dependencies.SocialLuaAnalytics
 local Enums = SocialLuaAnalytics.Analytics.Enums
 local Contexts = Enums.Contexts
 local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
+local getFFlagRenameSearchAnalyticEvent = require(FriendsLanding.Flags.getFFlagRenameSearchAnalyticEvent)
 
 -- FIXME: APPFDN-1925
 local headerBarCenterView = require((script :: any).Parent["HeaderBarCenterView.story"]) :: any
@@ -49,6 +50,7 @@ describe("navigationEvents", function()
 		}
 		analytics = {
 			buttonClick = jest.fn().mockName("buttonClick"),
+			playerSearch = if getFFlagRenameSearchAnalyticEvent() then jest.fn().mockName("playerSearch") else nil,
 			navigate = jest.fn().mockName("navigate"),
 		}
 
@@ -85,7 +87,7 @@ describe("navigationEvents", function()
 		expect(navigation.push).toHaveBeenCalledWith(EnumScreens.SearchFriends, { searchText = "foo" })
 	end)
 
-	it("SHOULD fire buttonClick analytics when you press enter for the first time", function()
+	it("SHOULD fire playerSearch analytics when you press enter for the first time", function()
 		local inputTextBox = RhodiumHelpers.findFirstInstance(parent, {
 			Name = "inputTextBox",
 		})
@@ -103,10 +105,15 @@ describe("navigationEvents", function()
 			task.wait()
 		end)
 
-		expect(analytics.buttonClick).toHaveBeenCalledTimes(1)
-		expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.FriendSearchEnter, {
-			text = "foo",
-		})
+		if getFFlagRenameSearchAnalyticEvent() then
+			expect(analytics.playerSearch).toHaveBeenCalledTimes(1)
+			expect(analytics.playerSearch).toHaveBeenCalledWith(analytics, "submit", "foo", "Unknown")
+		else
+			expect(analytics.buttonClick).toHaveBeenCalledTimes(1)
+			expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.FriendSearchEnter, {
+				text = "foo",
+			})
+		end
 	end)
 
 	it("SHOULD fire navigate analytics when you press enter for the first time", function()
@@ -131,7 +138,7 @@ describe("navigationEvents", function()
 		expect(analytics.navigate).toHaveBeenCalledWith(analytics, EnumScreens.SearchFriends)
 	end)
 
-	it("SHOULD fire buttonClick event but not navigate analytics if already on the SearchScreen", function()
+	it("SHOULD fire playerSearch event but not navigate analytics if already on the SearchScreen", function()
 		navigation.state.routeName = EnumScreens.SearchFriends
 		local inputTextBox = RhodiumHelpers.findFirstInstance(parent, {
 			Name = "inputTextBox",
@@ -153,11 +160,16 @@ describe("navigationEvents", function()
 
 		expect(navigation.replace).toHaveBeenCalledTimes(1)
 		expect(navigation.replace).toHaveBeenCalledWith(EnumScreens.SearchFriends, { searchText = "foo" })
-		expect(analytics.buttonClick).toHaveBeenCalledTimes(1)
-		expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.FriendSearchEnter, {
-			text = "foo",
-			contextOverride = "SearchFriends",
-		})
+		if getFFlagRenameSearchAnalyticEvent() then
+			expect(analytics.playerSearch).toHaveBeenCalledTimes(1)
+			expect(analytics.playerSearch).toHaveBeenCalledWith(analytics, "submit", "foo", "playerSearch")
+		else
+			expect(analytics.buttonClick).toHaveBeenCalledTimes(1)
+			expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.FriendSearchEnter, {
+				text = "foo",
+				contextOverride = EnumScreens.SearchFriends,
+			})
+		end
 		expect(analytics.navigate).never.toHaveBeenCalled()
 	end)
 end)
@@ -197,6 +209,7 @@ if getFFlagAddFriendsSearchbarIXPEnabled() then
 			analytics = {
 				buttonClick = jest.fn().mockName("buttonClick"),
 				navigate = jest.fn().mockName("navigate"),
+				playerSearch = if getFFlagRenameSearchAnalyticEvent() then jest.fn().mockName("playerSearch") else nil,
 			}
 
 			parent, cleanup = createInstanceWithProviders(mockLocale)(headerBarCenterView, {

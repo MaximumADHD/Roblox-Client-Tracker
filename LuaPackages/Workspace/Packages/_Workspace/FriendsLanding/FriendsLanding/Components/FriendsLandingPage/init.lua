@@ -17,8 +17,6 @@ local VerticalScrollView = UIBlox.App.Container.VerticalScrollView
 local ButtonClickEvents = require(FriendsLanding.FriendsLandingAnalytics.ButtonClickEvents)
 local Constants = require(FriendsLanding.Common.Constants)
 
-local getFFlagSocialAddGameJoinSource = dependencies.getFFlagSocialAddGameJoinSource
-
 local FriendsLandingPage = Roact.PureComponent:extend("FriendsLandingPage")
 
 local noOpt = function() end
@@ -58,7 +56,7 @@ function FriendsLandingPage:init()
 				onClose = function() end, -- this is used for freezing/unfreezing the user carousel on homepage, not needed here
 				anchorSpaceSize = size,
 				anchorSpacePosition = position,
-				source = if getFFlagSocialAddGameJoinSource() then Constants.FriendsLandingPageSourceName else nil,
+				source = Constants.FriendsLandingPageSourceName,
 			}
 			local navParams = { openJoinable = true, contextualMenuProps = contextualMenuProps }
 			self.props.navigateToLuaAppPages[EnumScreens.ViewUserProfile](participantId, navParams)

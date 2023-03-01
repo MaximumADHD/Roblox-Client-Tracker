@@ -4,6 +4,7 @@ local dependencies = require(ContactImporter.dependencies)
 local SetContactImporterDisplayLogic = require(ContactImporter.Actions.SetContactImporterDisplayLogic)
 local UpdateContactImporterModalLogic = dependencies.SocialModalsCommon.Actions.UpdateContactImporterModalLogic
 local SetIsPhoneVerified = require(ContactImporter.Actions.SetIsPhoneVerified)
+local UpdateIsDiscoverabilityUnset = dependencies.SocialModalsCommon.Actions.UpdateIsDiscoverabilityUnset
 
 local Rodux = dependencies.Rodux
 local llama = dependencies.llama
@@ -25,6 +26,10 @@ type State = {
 type UpdateContactImporterModalLogicAction = {
 	hasOSPermissions: boolean,
 	shouldShowContactImporterUpsellModal: boolean,
+}
+
+type UpdateIsDiscoverabilityUnsetAction = {
+	isDiscoverabilityUnset: boolean,
 }
 
 local DEFAULT_STATE: State = {
@@ -87,6 +92,11 @@ return Rodux.createReducer(DEFAULT_STATE, {
 	[SetIsPhoneVerified.name] = function(state: State, action: SetIsPhoneVerified.ParamsType)
 		return llama.Dictionary.join(state, {
 			isPhoneVerified = action.isPhoneVerified,
+		})
+	end,
+	[UpdateIsDiscoverabilityUnset.name] = function(state: State, action: UpdateIsDiscoverabilityUnsetAction)
+		return llama.Dictionary.join(state, {
+			isDiscoverabilityUnset = action.isDiscoverabilityUnset,
 		})
 	end,
 })

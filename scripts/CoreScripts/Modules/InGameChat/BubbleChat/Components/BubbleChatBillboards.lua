@@ -4,10 +4,8 @@
 	messages.
 ]]
 
-local Chat = game:GetService("Chat")
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
-local Players = game:GetService("Players")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Packages.Roact)
@@ -19,9 +17,6 @@ local Constants = require(script.Parent.Parent.Constants)
 local log = require(script.Parent.Parent.Logger)(script.Name)
 
 local BubbleChatBillboard = require(script.Parent.BubbleChatBillboard)
-local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicator)
-
-local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
 local GetFFlagBubbleVoiceIndicatorSetting = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceIndicatorSetting)
 
@@ -92,12 +87,6 @@ function ChatBillboards:render()
 	return Roact.createElement("ScreenGui", {
 		ResetOnSpawn = false,
 	}, billboards)
-end
-
-function ChatBillboards:willUnmount()
-	for _, conn in pairs(self.connections) do
-		conn:Disconnect()
-	end
 end
 
 local function mapStateToProps(state)

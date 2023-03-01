@@ -12,6 +12,7 @@ local GetFriendRequests = dependencies.FriendsNetworking.GetFriendRequests
 local GetFollowingExists = dependencies.FriendsNetworking.GetFollowingExists
 local GetFriendRecommendationsFromUserId = dependencies.FriendsNetworking.GetFriendRecommendationsFromUserId
 local GetExperiencesDetails = dependencies.GamesNetworking.GetExperiencesDetails
+local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 
 local devDependencies = require(FriendsLanding.devDependencies)
 
@@ -141,6 +142,9 @@ describe("mapDispatchToProps", function()
 				contactImporterWarningSeen = if getFFlagShowContactImporterTooltipOnce()
 					then nil
 					else expect.any("function"),
+				getUserSettingsMetadata = if getFFlagEnableContactInvitesForNonPhoneVerified()
+					then expect.any("function")
+					else nil,
 			})
 		end)
 

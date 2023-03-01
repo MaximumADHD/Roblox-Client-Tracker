@@ -25,7 +25,6 @@ local getFFlagFriendsCarouselDontUseIngestService = dependencies.getFFlagFriends
 local getFFlagFriendsCarouselAddUniverseIdToEvents =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddUniverseIdToEvents)
 local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
-local getFFlagSocialAddGameJoinSource = dependencies.getFFlagSocialAddGameJoinSource
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 
 local CarouselContainer = Roact.PureComponent:extend("CarouselContainer")
@@ -204,7 +203,7 @@ function CarouselContainer:init()
 				anchorSpacePosition = additionalData.anchorSpacePosition,
 				onOpen = additionalData.onOpen,
 				onClose = additionalData.onClose,
-				source = if getFFlagSocialAddGameJoinSource() then Constants.HomepageFriendsCarouselSourceName else nil,
+				source = Constants.HomepageFriendsCarouselSourceName,
 			},
 		})
 	end

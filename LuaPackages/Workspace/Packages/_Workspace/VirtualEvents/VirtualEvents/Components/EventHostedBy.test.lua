@@ -1,31 +1,16 @@
 local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 
-local CoreGui = game:GetService("CoreGui")
-
 local JestGlobals = require(VirtualEvents.Parent.Dev.JestGlobals)
-local afterEach = JestGlobals.afterEach
-local beforeEach = JestGlobals.beforeEach
 local expect = JestGlobals.expect
 local it = JestGlobals.it
+local ReactTestingLibrary = require(VirtualEvents.Parent.Dev.ReactTestingLibrary)
 local React = require(VirtualEvents.Parent.React)
-local ReactRoblox = require(VirtualEvents.Parent.ReactRoblox)
+local UIBlox = require(VirtualEvents.Parent.UIBlox)
 local withMockProviders = require(VirtualEvents.withMockProviders)
 local EventHostedBy = require(script.Parent.EventHostedBy)
 
-local container
-local root
-
-beforeEach(function()
-	container = Instance.new("ScreenGui")
-	container.Parent = CoreGui
-
-	root = ReactRoblox.createRoot(container)
-end)
-
-afterEach(function()
-	root:unmount()
-	container:Destroy()
-end)
+local render = ReactTestingLibrary.render
+local EmojiEnum = UIBlox.App.Emoji.Enum.Emoji
 
 it("should create EventHostedBy and emoji should be nil", function()
 	local element = withMockProviders({
@@ -40,16 +25,9 @@ it("should create EventHostedBy and emoji should be nil", function()
 		}),
 	})
 
-	ReactRoblox.act(function()
-		root:render(element)
-	end)
+	local result = render(element)
 
-	local userImageLabel = container:FindFirstChild("UserImage", true)
-	local emojiNameTextLabel = container:FindFirstChild("EmojiName", true)
-	local emoji = emojiNameTextLabel:FindFirstChild("Emoji")
-
-	expect(userImageLabel).toBeDefined()
-	expect(emoji).toBeNil()
+	expect(result.queryByText(EmojiEnum.Verified)).toBeNil()
 end)
 
 it("should create EventHostedBy and expect an emoji", function()
@@ -65,15 +43,9 @@ it("should create EventHostedBy and expect an emoji", function()
 		}),
 	})
 
-	ReactRoblox.act(function()
-		root:render(element)
-	end)
+	local result = render(element)
+	local _, emoji = result.findByText(EmojiEnum.Verified):await()
 
-	local userImageLabel = container:FindFirstChild("UserImage", true)
-	local emojiNameTextLabel = container:FindFirstChild("EmojiName", true)
-	local emoji = emojiNameTextLabel:FindFirstChild("Emoji")
-
-	expect(userImageLabel).toBeDefined()
 	expect(emoji).toBeDefined()
 end)
 

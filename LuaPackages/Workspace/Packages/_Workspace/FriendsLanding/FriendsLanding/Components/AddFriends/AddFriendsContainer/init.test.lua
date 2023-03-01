@@ -8,6 +8,7 @@ local getFFlagShowContactImporterTooltipOnce = require(FriendsLanding.Flags.getF
 local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
+local getFFlagRenameSearchAnalyticEvent = require(FriendsLanding.Flags.getFFlagRenameSearchAnalyticEvent)
 
 local llama = dependencies.llama
 
@@ -334,6 +335,7 @@ describe("AddFriendsContainer", function()
 				buttonClick = jest.fn(),
 				navigate = jest.fn(),
 				impressionEvent = jest.fn(),
+				playerSearch = if getFFlagRenameSearchAnalyticEvent() then jest.fn() else nil,
 			}
 
 			local instance, cleanup = createInstanceWithRequests(
@@ -354,6 +356,10 @@ describe("AddFriendsContainer", function()
 				formFactor = "COMPACT",
 			})
 			expect(analytics.navigate).toHaveBeenCalledWith(analytics, EnumScreens.SearchFriends)
+			if getFFlagRenameSearchAnalyticEvent() then
+				expect(analytics.playerSearch).toHaveBeenCalledTimes(1)
+				expect(analytics.playerSearch).toHaveBeenCalledWith(analytics, "open", nil, "addUniversalFriends")
+			end
 			cleanup()
 		end)
 	end

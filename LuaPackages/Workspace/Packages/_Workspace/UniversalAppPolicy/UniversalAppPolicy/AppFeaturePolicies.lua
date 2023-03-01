@@ -15,6 +15,7 @@ local GetFFlagEnableTopBarVRPolicyOverride = SharedFlags.GetFFlagEnableTopBarVRP
 local isRunningInStudio = require(Packages.AppCommonLib).isRunningInStudio
 local GetFFlagUseVoiceExitBetaLanguage = SharedFlags.GetFFlagUseVoiceExitBetaLanguage
 local GetFFlagVRAvatarExperienceNoLandingPage = SharedFlags.GetFFlagVRAvatarExperienceNoLandingPage
+local GetFFlagLuaAppGamePassGameDetails = SharedFlags.GetFFlagLuaAppGamePassGameDetails
 local GetFFlagUseGridPageLayoutInVR = SharedFlags.GetFFlagUseGridPageLayoutInVR
 local getFFlagLuaAppGridPageLayoutPolicy = SharedFlags.getFFlagLuaAppGridPageLayoutPolicy
 
@@ -24,6 +25,7 @@ local FFLagLuaAppEnableRecommendedCarouselForDesktop =
 	game:DefineFastFlag("LuaAppEnableRecommendedCarouselForDesktop", false)
 local GetFFlagFixOmniDefaultPolicy = require(script.Parent.Flags.GetFFlagFixOmniDefaultPolicy)
 local FFlagDisableWebViewSupportInStudio = game:DefineFastFlag("DisableWebViewSupportInStudio", false)
+local FFlagLuaAppDefaultGridPageLayout = game:DefineFastFlag("LuaAppDefaultGridPageLayout", false)
 
 local function AppFeaturePolicies(policy): any
 	local function getVRDefaultPolicy(policyKey, defaultValueVR)
@@ -342,7 +344,19 @@ local function AppFeaturePolicies(policy): any
 			if IsVRAppBuild() and GetFFlagUseGridPageLayoutInVR() then
 				return getVRDefaultPolicy("UseGridPageLayout", true)
 			end
-			return if getFFlagLuaAppGridPageLayoutPolicy() then (policy.UseGridPageLayout or false) else nil
+			if getFFlagLuaAppGridPageLayoutPolicy() then
+				if FFlagLuaAppDefaultGridPageLayout then
+					if policy.UseGridPageLayout == nil then
+						return isSubjectToDesktopPolicies()
+					else
+						return policy.UseGridPageLayout
+					end
+				else
+					return (policy.UseGridPageLayout or false)
+				end
+			else
+				return nil
+			end
 		end,
 		getUseHoverTile = function()
 			return policy.UseHoverTile or false
@@ -406,6 +420,12 @@ local function AppFeaturePolicies(policy): any
 			else
 				return false
 			end
+		end,
+		getShowPassesOnExperienceDetails = function()
+			if GetFFlagLuaAppGamePassGameDetails() then
+				return policy.ShowPassesOnExperienceDetails or false
+			end
+			return false
 		end,
 	}
 end

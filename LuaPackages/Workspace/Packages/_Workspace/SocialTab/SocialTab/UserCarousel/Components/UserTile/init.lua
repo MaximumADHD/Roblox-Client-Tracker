@@ -26,7 +26,6 @@ local PRESENCE_ICON_PADDING = 4
 local calculateTextSize = require(SocialTab.utils.calculateTextSize)
 
 local isSocialTabAutoSizedCarouselAndTileEnabled2 = require(SocialTab.Flags.isSocialTabAutoSizedCarouselAndTileEnabled2)
-local getFFlagSocialAddGameJoinSource = dependencies.getFFlagSocialAddGameJoinSource
 
 local function getLastLocationText(lastLocation)
 	return lastLocation and lastLocation:gsub("^Playing%s*", "") or ""
@@ -65,7 +64,7 @@ function UserTile:init()
 					absolutePosition = self.props.absolutePosition,
 					anchorSpaceSize = self.userTileRef.current.AbsoluteSize,
 					anchorSpacePosition = self.userTileRef.current.AbsolutePosition,
-					source = if getFFlagSocialAddGameJoinSource() then "SocialTab" else nil,
+					source = "SocialTab",
 				})
 			end
 		end

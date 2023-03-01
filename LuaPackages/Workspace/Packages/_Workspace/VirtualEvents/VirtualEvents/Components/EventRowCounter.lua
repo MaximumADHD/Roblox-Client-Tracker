@@ -28,6 +28,10 @@ local function EventRowCounter(providedProps: Props)
 	local props: InternalProps = Cryo.Dictionary.join(defaultProps, providedProps)
 	local style = useStyle()
 
+	if props.counter == 0 then
+		return nil :: any
+	end
+
 	return React.createElement("Frame", {
 		LayoutOrder = props.layoutOrder,
 		AutomaticSize = Enum.AutomaticSize.XY,

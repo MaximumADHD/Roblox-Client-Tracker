@@ -6,10 +6,14 @@ local dependencies = require(ShareGame.dependencies)
 local NetworkingShareLinks = dependencies.NetworkingShareLinks
 local RoduxShareLinks = dependencies.RoduxShareLinks
 
-return function(dispatch)
+local mapDispatchToProps = function(dispatch)
     return {
         fetchShareInviteLink = function()
             dispatch(NetworkingShareLinks.GenerateLink.API({ linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue() }))
         end
     }
 end
+
+export type Props = typeof(mapDispatchToProps(...))
+
+return mapDispatchToProps

@@ -2,7 +2,7 @@
 -- Module script implementing moving R6 proxy parts to their correct positions.
 local MoveProxyPartHitboxes = {}
 
-local R6Parts: { [string]: string } = {
+local R6Parts: { [number]: string } = {
 	"Right Leg",
 	"Left Leg",
 	"Left Arm",
@@ -11,15 +11,19 @@ local R6Parts: { [string]: string } = {
 }
 
 function MoveProxyPartHitboxes.moveHitboxes(character: Model)
-	local torso = character.Torso
-	local torsoWeld = torso:FindFirstChildWhichIsA("Weld")
+	local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+	local torso = character:FindFirstChild("Torso")
+	if not humanoidRootPart or not torso then
+		return
+	end
 
+	local torsoWeld = torso:FindFirstChildWhichIsA("Weld")
 	if torsoWeld then
 		torsoWeld.C0 = CFrame.new()
 		torsoWeld.C1 = CFrame.new()
 	end
 
-	local torsoOffset = torso.Position - character.HumanoidRootPart.Position
+	local torsoOffset = torso.Position - humanoidRootPart.Position
 	torsoWeld.C0 = CFrame.new(torsoOffset)
 
 	for _, partName in R6Parts do

@@ -12,4 +12,5 @@ export type VirtualEventsByUniverseIdOptions = graphqlModule.VirtualEventsByUniv
 return {
 	GraphQLServer = GraphQLServer,
 	types = generatedTypes,
+	mocks = graphqlModule.mocks,
 }

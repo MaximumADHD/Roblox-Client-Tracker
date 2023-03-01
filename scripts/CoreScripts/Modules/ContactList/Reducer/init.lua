@@ -7,14 +7,14 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
+local RoduxCall = dependencies.RoduxCall
 local RoduxFriends = dependencies.RoduxFriends
 
-local Callers = require(script.Callers)
 local Navigation = require(script.Navigation)
 
 local Reducer = Rodux.combineReducers({
-	Callers = Callers,
 	Navigation = Navigation,
+	Call = RoduxCall.installReducer(),
 	Friends = RoduxFriends.installReducer(),
 })
 

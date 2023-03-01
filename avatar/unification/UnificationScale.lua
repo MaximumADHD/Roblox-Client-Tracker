@@ -3,7 +3,7 @@
 -- The target in this script is defined according to R6 characters
 local UnificationScale = {}
 
-local PartNames = {
+local PART_NAMES = {
 	"RightFoot",
 	"LeftFoot",
 	"RightHand",
@@ -21,14 +21,41 @@ local PartNames = {
 	"Head",
 }
 
-type R15Definition = {
-	Sizes: { [string]: Vector3 },
-	Rigging: { [string]: { C0: CFrame, C1: CFrame } },
+local MOTOR_MAPPINGS: { [string]: string } = {
+	RightFoot = "RightAnkle",
+	LeftFoot = "LeftAnkle",
+	RightHand = "RightWrist",
+	LeftHand = "LeftWrist",
+	RightLowerArm = "RightElbow",
+	LeftLowerArm = "LeftElbow",
+	RightLowerLeg = "RightKnee",
+	LeftLowerLeg = "LeftKnee",
+	RightUpperArm = "RightShoulder",
+	LeftUpperArm = "LeftShoulder",
+	RightUpperLeg = "RightHip",
+	LeftUpperLeg = "LeftHip",
+	LowerTorso = "Root",
+	UpperTorso = "Waist",
+	Head = "Neck",
 }
 
-type Hitbox = {
-	Size: Vector3,
-	Orientation: CFrame,
+type R15Hitboxes = {
+	RightFoot: Vector3,
+	LeftFoot: Vector3,
+	RightHand: Vector3,
+	LeftHand: Vector3,
+	RightLowerArm: Vector3,
+	LeftLowerArm: Vector3,
+	RightLowerLeg: Vector3,
+	LeftLowerLeg: Vector3,
+	RightUpperArm: Vector3,
+	LeftUpperArm: Vector3,
+	RightUpperLeg: Vector3,
+	LeftUpperLeg: Vector3,
+	LowerTorso: Vector3,
+	UpperTorso: Vector3,
+	Head: Vector3,
+	HumanoidRootPart: Vector3,
 }
 
 type RiggingAttachment = {
@@ -38,26 +65,7 @@ type RiggingAttachment = {
 	Part1: Part,
 }
 
-type R15Hitboxes = {
-	RightFoot: Hitbox,
-	LeftFoot: Hitbox,
-	RightHand: Hitbox,
-	LeftHand: Hitbox,
-	RightLowerArm: Hitbox,
-	LeftLowerArm: Hitbox,
-	RightLowerLeg: Hitbox,
-	LeftLowerLeg: Hitbox,
-	RightUpperArm: Hitbox,
-	LeftUpperArm: Hitbox,
-	RightUpperLeg: Hitbox,
-	LeftUpperLeg: Hitbox,
-	LowerTorso: Hitbox,
-	UpperTorso: Hitbox,
-	Head: Hitbox,
-	HumanoidRootPart: Hitbox,
-}
-
-type R15RelativeAttachments = {
+type R15Attachments = {
 	RightFoot: RiggingAttachment,
 	LeftFoot: RiggingAttachment,
 	RightHand: RiggingAttachment,
@@ -76,22 +84,9 @@ type R15RelativeAttachments = {
 	HumanoidRootPart: RiggingAttachment,
 }
 
-local MotorMappings: { [string]: string } = {
-	RightFoot = "RightAnkle",
-	LeftFoot = "LeftAnkle",
-	RightHand = "RightWrist",
-	LeftHand = "LeftWrist",
-	RightLowerArm = "RightElbow",
-	LeftLowerArm = "LeftElbow",
-	RightLowerLeg = "RightKnee",
-	LeftLowerLeg = "LeftKnee",
-	RightUpperArm = "RightShoulder",
-	LeftUpperArm = "LeftShoulder",
-	RightUpperLeg = "RightHip",
-	LeftUpperLeg = "LeftHip",
-	LowerTorso = "Root",
-	UpperTorso = "Waist",
-	Head = "Neck",
+type R15Definition = {
+	Sizes: { [string]: Vector3 },
+	Rigging: { [string]: { C0: CFrame, C1: CFrame } },
 }
 
 UnificationScale.Target = {
@@ -179,12 +174,11 @@ UnificationScale.Target = {
 
 local function GetHitboxes(character: Model): R15Hitboxes
 	local ret = {}
-	for _, name in PartNames do
+	for _, name in PART_NAMES do
 		local part = character[name]
-		ret[name] = { Size = part.Size, Orientation = part.CFrame }
+		ret[name] = part.Size
 	end
-	ret.HumanoidRootPart = { Size = character.HumanoidRootPart.Size, Orientation = character.HumanoidRootPart.CFrame }
-
+	ret.HumanoidRootPart = character.HumanoidRootPart.Size
 	return ret
 end
 
@@ -198,36 +192,87 @@ local function GetOffset(attachment: RiggingAttachment, part: Part | MeshPart): 
 	end
 end
 
-local function MakeAccessory(part: MeshPart, newHitboxes: R15Hitboxes, scale: Vector3, offset: CFrame): MeshPart
-	local name = part.Name
-	local character = part.Parent
+local function GetRelativeRigging(motor: Motor6D): RiggingAttachment
+	if motor.Part0 == nil or motor.Part1 == nil then
+		error("Missing attachment parts")
+	end
+
+	return {
+		C0 = motor.C0.Position / motor.Part0.Size,
+		C1 = motor.C1.Position / motor.Part1.Size,
+		Part0 = motor.Part0,
+		Part1 = motor.Part1,
+	}
+end
+
+local function GetRelativeAttachments(character: Model): R15Attachments
+	local ret = {}
+	for _, name in PART_NAMES do
+		local part = character[name] :: MeshPart
+
+		if MOTOR_MAPPINGS[name] ~= nil then
+			local motor = part:WaitForChild(MOTOR_MAPPINGS[name]) :: Motor6D
+			ret[name] = GetRelativeRigging(motor)
+		end
+	end
+
+	return ret
+end
+
+local function ResetScaling(humanoid: Humanoid)
+	humanoid.AutomaticScalingEnabled = false
+	local bodyWidthScaleValue = humanoid:FindFirstChild("BodyWidthScale")
+	if bodyWidthScaleValue then
+		bodyWidthScaleValue:Destroy()
+	end
+
+	local bodyDepthScaleValue = humanoid:FindFirstChild("BodyDepthScale")
+	if bodyDepthScaleValue then
+		bodyDepthScaleValue:Destroy()
+	end
+
+	local bodyProportionScaleValue = humanoid:FindFirstChild("BodyProportionScale")
+	if bodyProportionScaleValue then
+		bodyProportionScaleValue:Destroy()
+	end
+	
+	local bodyHeightScaleValue = humanoid:FindFirstChild("BodyHeightScale")
+	if bodyHeightScaleValue then
+		bodyHeightScaleValue:Destroy()
+	end
+
+	local headScaleValue = humanoid:FindFirstChild("HeadScale")
+	if headScaleValue then
+		headScaleValue:Destroy()
+	end
+end
+
+local function MoveAndScalePart(part: MeshPart, newSize: Vector3): MeshPart
 	part.Archivable = true
-	part.Size = scale
+	local oldSize = part.Size
+	part.Size = newSize
 
 	if part:FindFirstChild("OriginalSize") then
 		part.OriginalSize.Value = part.Size
 	end
 
-	local rigAtt = MotorMappings[name]
-	local motor = part[rigAtt] :: Motor6D
-	local origOrientation = motor.CurrentAngle
-	local newOffset = CFrame.new(character[name].CFrame.Position - newHitboxes[name].Orientation.Position)
-	motor.C0 = motor.C0 * offset:Inverse() * newOffset:Inverse()
-	motor.CurrentAngle = origOrientation
+	for _, child in pairs(part:GetChildren()) do
+		if string.sub(child.Name, -13) == "RigAttachment" then
+			child.Position = child.Position * (newSize / oldSize)
+		end
+	end
 end
 
-local function MakeVisualUpperTorso(
+local function MoveAndScaleUpperTorso(
 	upperTorso: MeshPart,
-	relativeAttachments: R15RelativeAttachments,
+	oldRelativeRigging: R15Attachments,
 	oldHitboxes: R15Hitboxes,
-	newHitboxes: R15Hitboxes,
 	targetRig: R15Definition
-): Vector3
-	local left = GetOffset(relativeAttachments.LeftUpperArm, upperTorso)
-	local right = GetOffset(relativeAttachments.RightUpperArm, upperTorso)
-	local top = GetOffset(relativeAttachments.Head, upperTorso)
-	local bottom = GetOffset(relativeAttachments.UpperTorso, upperTorso)
-
+)
+	local left = GetOffset(oldRelativeRigging.LeftUpperArm, upperTorso)
+	local right = GetOffset(oldRelativeRigging.RightUpperArm, upperTorso)
+	local top = GetOffset(oldRelativeRigging.Head, upperTorso)
+	local bottom = GetOffset(oldRelativeRigging.UpperTorso, upperTorso)
 	local relativeX = (targetRig.Rigging.RightShoulder.C0.X - targetRig.Rigging.LeftShoulder.C0.X)
 		/ (right.X - left.X)
 		/ targetRig.Sizes.UpperTorso.X
@@ -238,37 +283,23 @@ local function MakeVisualUpperTorso(
 		/ targetRig.Sizes.UpperTorso.Y
 	relativeY = math.clamp(relativeY, 0, 3)
 
-	local relativeZ = oldHitboxes.UpperTorso.Size.Z / newHitboxes.UpperTorso.Size.Z
-	local relativeScaling = Vector3.new(relativeX, relativeY, relativeZ)
+	local relativeZ = oldHitboxes.UpperTorso.Z / targetRig.Sizes.UpperTorso.Z
 
-	local offset = bottom * relativeScaling * newHitboxes.UpperTorso.Size
+	local scaleFactor = Vector3.new(relativeX, relativeY, relativeZ)
 
-	local neckHeight = newHitboxes.UpperTorso.Size.Y / 2
-	local neckDiff = newHitboxes.UpperTorso.Size.Y * top.Y * relativeScaling.Y
-	local neckDelta = neckDiff - neckHeight
-
-	MakeAccessory(
-		upperTorso,
-		newHitboxes,
-		newHitboxes.UpperTorso.Size * relativeScaling,
-		CFrame.new(offset.X, neckDelta, offset.Z)
-	)
-
-	return Vector3.new(0, neckDelta, offset.Z)
+	MoveAndScalePart(upperTorso, targetRig.Sizes.UpperTorso * scaleFactor)
 end
 
-local function MakeVisualLowerTorso(
+local function MoveAndScaleLowerTorso(
 	lowerTorso: MeshPart,
-	relativeAttachments: R15RelativeAttachments,
+	oldRelativeRigging: R15Attachments,
 	oldHitboxes: R15Hitboxes,
-	newHitboxes: R15Hitboxes,
 	targetRig: R15Definition
 )
-	local lowerTop = GetOffset(relativeAttachments.UpperTorso, lowerTorso)
-	local lowerBotttom = GetOffset(relativeAttachments.LeftUpperLeg, lowerTorso)
-	local lowerLeft = GetOffset(relativeAttachments.LeftUpperLeg, lowerTorso)
-	local lowerRight = GetOffset(relativeAttachments.RightUpperLeg, lowerTorso)
-	local waistJoint = GetOffset(relativeAttachments.UpperTorso, lowerTorso)
+	local lowerTop = GetOffset(oldRelativeRigging.UpperTorso, lowerTorso)
+	local lowerBotttom = GetOffset(oldRelativeRigging.LeftUpperLeg, lowerTorso)
+	local lowerLeft = GetOffset(oldRelativeRigging.LeftUpperLeg, lowerTorso)
+	local lowerRight = GetOffset(oldRelativeRigging.RightUpperLeg, lowerTorso)
 
 	local relativeX = (targetRig.Rigging.RightHip.C0.Position.X - targetRig.Rigging.LeftHip.C0.Position.X)
 		/ (lowerRight.X - lowerLeft.X)
@@ -276,321 +307,193 @@ local function MakeVisualLowerTorso(
 	local relativeY = (targetRig.Rigging.Waist.C0.Position.Y - targetRig.Rigging.LeftHip.C0.Position.Y)
 		/ (lowerTop.Y - lowerBotttom.Y)
 		/ targetRig.Sizes.LowerTorso.Y
-	local relativeZ = oldHitboxes.LowerTorso.Size.Z / newHitboxes.LowerTorso.Size.Z
-	local relativeScaling = Vector3.new(relativeX, relativeY, relativeZ)
+	local relativeZ = oldHitboxes.LowerTorso.Z / targetRig.Sizes.LowerTorso.Z
 
-	local offset = waistJoint * relativeScaling * newHitboxes.LowerTorso.Size
+	local scaleFactor = Vector3.new(relativeX, relativeY, relativeZ)
 
-	local waistHeight = newHitboxes.LowerTorso.Size.Y / 2
-	local waistDiff = newHitboxes.LowerTorso.Size.Y * lowerTop.Y * relativeScaling.Y
-	local waistDelta = waistDiff - waistHeight
-
-	MakeAccessory(
-		lowerTorso,
-		newHitboxes,
-		newHitboxes.LowerTorso.Size * relativeScaling,
-		CFrame.new(offset.X, waistDelta, offset.Z)
-	)
+	MoveAndScalePart(lowerTorso, targetRig.Sizes.LowerTorso * scaleFactor)
 end
 
--- Returns offset of visual torso from real hitbox
-local function MakeVisualTorso(
+local function MoveAndScaleTorso(
 	character: Model,
-	relativeAttachments: R15RelativeAttachments,
+	oldRelativeRigging: R15Attachments,
 	oldHitboxes: R15Hitboxes,
-	newHitboxes: R15Hitboxes,
 	targetRig: R15Definition
-): Vector3
-	local torsoOffset =
-		MakeVisualUpperTorso(character.UpperTorso, relativeAttachments, oldHitboxes, newHitboxes, targetRig)
-	MakeVisualLowerTorso(character.LowerTorso, relativeAttachments, oldHitboxes, newHitboxes, targetRig)
-	return torsoOffset
+)
+	MoveAndScaleUpperTorso(character.UpperTorso, oldRelativeRigging, oldHitboxes, targetRig)
+	MoveAndScaleLowerTorso(character.LowerTorso, oldRelativeRigging, oldHitboxes, targetRig)
 end
 
-local function MakeVisualArm(
+local function calculateCombinedPartsHeight(
+	secondPartPos: Vector3,
+	thirdPartPos: Vector3,
+	firstPartSize: Vector3,
+	secondPartSize: Vector3,
+	thirdPartSize: Vector3
+): Vector3
+	-- Set first part to origin
+	local firstPartPos = Vector3.zero
+
+	local minFirstPos = firstPartPos - firstPartSize / 2
+	local minSecondPos = secondPartPos - secondPartSize / 2
+	local minThirdPos = thirdPartPos - thirdPartSize / 2
+
+	local maxFirstPos = firstPartPos + firstPartSize / 2
+	local maxSecondPos = secondPartPos + secondPartSize / 2
+	local maxThirdPos = thirdPartPos + thirdPartSize / 2
+
+	local partHeight = maxFirstPos:Max(maxSecondPos, maxThirdPos) - minFirstPos:Min(minSecondPos, minThirdPos)
+	return partHeight
+end
+
+local function MoveAndScaleArm(
 	character: Model,
-	relativeAttachments: R15RelativeAttachments,
 	oldHitboxes: R15Hitboxes,
-	newHitboxes: R15Hitboxes,
-	torsoOffset: Vector3,
+	targetRig: R15Definition,
 	side: "Left" | "Right"
 )
 	local upperArm = character[side .. "UpperArm"]
 	local lowerArm = character[side .. "LowerArm"]
-	local rightHand = character[side .. "Hand"]
-	local attachment = relativeAttachments[side .. "UpperArm"]
-	local torso = character.UpperTorso
+	local hand = character[side .. "Hand"]
 
-	local oldUpper = oldHitboxes[side .. "UpperArm"]
-	local oldLower = oldHitboxes[side .. "LowerArm"]
-	local oldHand = oldHitboxes[side .. "Hand"]
-	local newUpper = newHitboxes[side .. "UpperArm"]
-	local newLower = newHitboxes[side .. "LowerArm"]
-	local newHand = newHitboxes[side .. "Hand"]
+	local oldUpperSize = oldHitboxes[side .. "UpperArm"]
+	local oldLowerSize = oldHitboxes[side .. "LowerArm"]
+	local oldHandSize = oldHitboxes[side .. "Hand"]
 
-	local armTop = oldUpper.Orientation.Y + oldUpper.Size.Y / 2
-	local armBottom = oldHand.Orientation.Y - oldHand.Size.Y / 2
-	local armHeight = armTop - armBottom
+	local targetUpperSize = targetRig.Sizes[side .. "UpperArm"]
+	local targetLowerSize = targetRig.Sizes[side .. "LowerArm"]
+	local targetHandSize = targetRig.Sizes[side .. "Hand"]
 
-	local targetHeight = (newUpper.Orientation.Y + newUpper.Size.Y / 2) - (newHand.Orientation.Y - newHand.Size.Y / 2)
-	local scale = targetHeight / armHeight
+	-- Calculate current {old} arm height by traversing joints, showing upperArmPos as Vector3.zero for readability, not actual usage
+	local upperArmPos = Vector3.zero
+	local lowerArmPos = upperArmPos
+		+ upperArm[side .. "ElbowRigAttachment"].Position
+		- lowerArm[side .. "ElbowRigAttachment"].Position
+	local handPos = lowerArmPos
+		+ lowerArm[side .. "WristRigAttachment"].Position
+		- hand[side .. "WristRigAttachment"].Position
+	local armHeight = calculateCombinedPartsHeight(lowerArmPos, handPos, oldUpperSize, oldLowerSize, oldHandSize).Y
 
-	local shoulder = GetOffset(attachment, upperArm)
-	local torsoShoulder = GetOffset(attachment, torso)
-	local shoulderZDiff = torsoShoulder.Z * oldHitboxes.UpperTorso.Size.Z
-	local armEdge = newUpper.Size.X / 2
-	local jointPos = shoulder.X * oldUpper.Size.X
-	local shoulderXDiff
+	-- Calculate target arm height
+	upperArmPos = Vector3.zero
+	lowerArmPos = upperArmPos
+		+ targetRig.Rigging[side .. "Elbow"].C0.Position
+		- targetRig.Rigging[side .. "Elbow"].C1.Position
+	handPos = lowerArmPos
+		+ targetRig.Rigging[side .. "Wrist"].C0.Position
+		- targetRig.Rigging[side .. "Wrist"].C1.Position
+	local targetHeight =
+		calculateCombinedPartsHeight(lowerArmPos, handPos, targetUpperSize, targetLowerSize, targetHandSize).Y
 
-	if side == "Left" then
-		shoulderXDiff = jointPos - armEdge
-	else
-		shoulderXDiff = jointPos + armEdge
-	end
+	local scaleFactor = Vector3.new(1, targetHeight / armHeight, 1)
 
-	local shoulderDiff = Vector3.new(shoulderXDiff, 0, torsoOffset.Z - shoulderZDiff)
-
-	local oldElbow = oldUpper.Orientation.Position - oldLower.Orientation.Position
-	local newElbow = newUpper.Orientation.Position - newLower.Orientation.Position
-	local elbowDiff = oldElbow - newElbow
-
-	local oldWrist = oldLower.Orientation.Position - oldHand.Orientation.Position
-	local newWrist = newLower.Orientation.Position - newHand.Orientation.Position
-	local wristDiff = oldWrist - newWrist
-
-	local lowerOffset = Vector3.new(0, oldUpper.Orientation.Y - oldLower.Orientation.Y, 0)
-	local handOffset = Vector3.new(0, oldLower.Orientation.Y - oldHand.Orientation.Y, 0)
-
-	-- Scale the arm only on the y axis, keeping the relative positions of the joints the same
-	MakeAccessory(upperArm, newHitboxes, oldUpper.Size * Vector3.new(1, scale, 1), CFrame.new(shoulderDiff))
-	MakeAccessory(
-		lowerArm,
-		newHitboxes,
-		oldLower.Size * Vector3.new(1, scale, 1),
-		CFrame.new((shoulderDiff + elbowDiff) - lowerOffset * (1 - scale))
-	)
-	MakeAccessory(
-		rightHand,
-		newHitboxes,
-		oldHand.Size * Vector3.new(1, scale, 1),
-		CFrame.new((shoulderDiff + elbowDiff + wristDiff) - (handOffset + lowerOffset) * (1 - scale))
-	)
+	MoveAndScalePart(upperArm, scaleFactor * oldUpperSize)
+	MoveAndScalePart(lowerArm, scaleFactor * oldLowerSize)
+	MoveAndScalePart(hand, scaleFactor * oldHandSize)
 end
 
-local function MakeVisualArms(
-	character: Model,
-	relativeAttachments: R15RelativeAttachments,
-	oldHitboxes: R15Hitboxes,
-	newHitboxes: R15Hitboxes,
-	torsoOffset: Vector3
-)
-	MakeVisualArm(character, relativeAttachments, oldHitboxes, newHitboxes, torsoOffset, "Left")
-	MakeVisualArm(character, relativeAttachments, oldHitboxes, newHitboxes, torsoOffset, "Right")
+local function MoveAndScaleArms(character: Model, oldHitboxes: R15Hitboxes, targetRig: R15Definition)
+	MoveAndScaleArm(character, oldHitboxes, targetRig, "Left")
+	MoveAndScaleArm(character, oldHitboxes, targetRig, "Right")
 end
 
-local function MakeVisualLeg(
+local function MoveAndScaleLeg(
 	character: Model,
 	oldHitboxes: R15Hitboxes,
-	newHitboxes: R15Hitboxes,
+	targetRig: R15Definition,
 	side: "Left" | "Right"
 )
 	local upperLeg = character[side .. "UpperLeg"]
 	local lowerLeg = character[side .. "LowerLeg"]
 	local foot = character[side .. "Foot"]
+	local humanoidRootPart = character["HumanoidRootPart"]
+	local lowerTorso = character["LowerTorso"]
 
-	local oldUpper = oldHitboxes[side .. "UpperLeg"]
-	local oldLower = oldHitboxes[side .. "LowerLeg"]
-	local oldFoot = oldHitboxes[side .. "Foot"]
-	local newUpper = newHitboxes[side .. "UpperLeg"]
-	local newLower = newHitboxes[side .. "LowerLeg"]
-	local newFoot = newHitboxes[side .. "Foot"]
+	local oldUpperSize = oldHitboxes[side .. "UpperLeg"]
+	local oldLowerSize = oldHitboxes[side .. "LowerLeg"]
+	local oldFootSize = oldHitboxes[side .. "Foot"]
+	local targetUpperSize = targetRig.Sizes[side .. "UpperLeg"]
+	local targetLowerSize = targetRig.Sizes[side .. "LowerLeg"]
+	local targetFootSize = targetRig.Sizes[side .. "Foot"]
 
-	local legTop = oldUpper.Orientation.Y + oldUpper.Size.Y / 2
-	local legBottom = oldFoot.Orientation.Y - oldFoot.Size.Y / 2
-	local legHeight = legTop - legBottom
-	local targetHeight = (newUpper.Orientation.Y + newUpper.Size.Y / 2) - (newFoot.Orientation.Y - newFoot.Size.Y / 2)
-	local scale = targetHeight / legHeight
+	-- Calculate current {old} leg height
+	local upperLegPos = Vector3.zero
+	local lowerLegPos = upperLegPos
+		+ upperLeg[side .. "KneeRigAttachment"].Position
+		- lowerLeg[side .. "KneeRigAttachment"].Position
+	local footPos = lowerLegPos
+		+ lowerLeg[side .. "AnkleRigAttachment"].Position
+		- foot[side .. "AnkleRigAttachment"].Position
+	local legHeight = calculateCombinedPartsHeight(lowerLegPos, footPos, oldUpperSize, oldLowerSize, oldFootSize).Y
 
-	local oldKnee = oldUpper.Orientation.Position - oldLower.Orientation.Position
-	local newKnee = newUpper.Orientation.Position - newLower.Orientation.Position
-	local kneeDiff = oldKnee - newKnee
+	-- Calculate target leg height
+	upperLegPos = Vector3.zero
+	lowerLegPos = upperLegPos
+		+ targetRig.Rigging[side .. "Knee"].C0.Position
+		- targetRig.Rigging[side .. "Knee"].C1.Position
+	footPos = lowerLegPos
+		+ targetRig.Rigging[side .. "Ankle"].C0.Position
+		- targetRig.Rigging[side .. "Ankle"].C1.Position
+	local targetHeight =
+		calculateCombinedPartsHeight(lowerLegPos, footPos, targetUpperSize, targetLowerSize, targetFootSize).Y
 
-	local oldAnkle = oldLower.Orientation.Position - oldFoot.Orientation.Position
-	local newAnkle = newLower.Orientation.Position - newFoot.Orientation.Position
-	local ankleDiff = oldAnkle - newAnkle
+	-- Need to calculate leg height based on the HipHeight so that characters don't look like they are floating or sinking into the ground
+	local HRPPos = Vector3.zero
+	upperLegPos = HRPPos
+		+ humanoidRootPart["RootRigAttachment"].Position
+		- lowerTorso["RootRigAttachment"].Position
+		+ lowerTorso[side .. "HipRigAttachment"].Position
+		- upperLeg[side .. "HipRigAttachment"].Position
+	lowerLegPos = upperLegPos
+		+ upperLeg[side .. "KneeRigAttachment"].Position
+		- lowerLeg[side .. "KneeRigAttachment"].Position
+	footPos = lowerLegPos
+		+ lowerLeg[side .. "AnkleRigAttachment"].Position
+		- foot[side .. "AnkleRigAttachment"].Position
+	local maxUpper = upperLegPos + oldUpperSize / 2
+	local maxLower = lowerLegPos + oldLowerSize / 2
+	local maxFoot = footPos + oldFootSize / 2
+	local maxLegPos = maxUpper:Max(maxLower, maxFoot) :: Vector3
+	local HRPIntersection = maxLegPos.Y - (HRPPos.Y - humanoidRootPart.Size.Y / 2)
+	local percentageIntersection = HRPIntersection / legHeight
 
-	local lowerOffset = Vector3.new(0, oldUpper.Orientation.Y - oldLower.Orientation.Y, 0)
-	local footOffset = Vector3.new(0, oldLower.Orientation.Y - oldFoot.Orientation.Y, 0)
-	MakeAccessory(upperLeg, newHitboxes, oldUpper.Size * Vector3.new(1, scale, 1), CFrame.new())
-	MakeAccessory(
-		lowerLeg,
-		newHitboxes,
-		oldLower.Size * Vector3.new(1, scale, 1),
-		CFrame.new(kneeDiff - lowerOffset * (1 - scale))
-	)
-	MakeAccessory(
-		foot,
-		newHitboxes,
-		oldFoot.Size * Vector3.new(1, scale, 1),
-		CFrame.new(kneeDiff + ankleDiff - (footOffset + lowerOffset) * (1 - scale))
-	)
+	-- Get the part of the Leg OUTSIDE of the HRP to be the same length as the HipHeight (Humanoid.HipHeight == 2 for R6)
+	targetHeight = 2 / (1 - percentageIntersection)
+
+	local scaleFactor = Vector3.new(1, targetHeight / legHeight, 1)
+	MoveAndScalePart(upperLeg, scaleFactor * oldUpperSize)
+	MoveAndScalePart(lowerLeg, scaleFactor * oldLowerSize)
+	MoveAndScalePart(foot, scaleFactor * oldFootSize)
 end
 
-local function MakeVisualLegs(character: Model, oldHitboxes: R15Hitboxes, newHitboxes: R15Hitboxes)
-	MakeVisualLeg(character, oldHitboxes, newHitboxes, "Left")
-	MakeVisualLeg(character, oldHitboxes, newHitboxes, "Right")
+local function MoveAndScaleLegs(character: Model, oldHitboxes: R15Hitboxes, newHitboxes: R15Hitboxes)
+	MoveAndScaleLeg(character, oldHitboxes, newHitboxes, "Left")
+	MoveAndScaleLeg(character, oldHitboxes, newHitboxes, "Right")
 end
 
-local function MakeVisualHead(
+local function MoveAndScaleParts(
 	character: Model,
-	relativeAttachments: R15RelativeAttachments,
+	oldRelativeRigging: R15Attachments,
 	oldHitboxes: R15Hitboxes,
-	newHitboxes: R15Hitboxes
-)
-	local head = character.Head
-	local upperTorso = character.UpperTorso
-	local visTorso = head.Parent:FindFirstChild("UpperTorso") :: MeshPart
-
-	local neckHeadAttachment = GetOffset(relativeAttachments.Head, head)
-	local neckTorsoAttachment = GetOffset(relativeAttachments.Head, upperTorso)
-
-	local neckDiff = neckHeadAttachment * oldHitboxes.Head.Size - neckHeadAttachment * newHitboxes.Head.Size
-	local zOffset = neckHeadAttachment.Z * oldHitboxes.Head.Size.Z - neckTorsoAttachment.Z * visTorso.Size.Z
-
-	MakeAccessory(head, newHitboxes, oldHitboxes.Head.Size, CFrame.new(neckDiff + Vector3.new(0, 0, zOffset)))
-end
-
-local function MoveAccessories(character: Model, oldHitboxes: R15Hitboxes)
-	for _, instance in character:GetChildren() do
-		if not instance:IsA("Accessory") then
-			continue
-		end
-
-		local handle = instance.Handle
-		local weld = handle:FindFirstChildOfClass("Weld")
-		if not weld then
-			-- If the Handle has no Attachment then this Accessory will
-			-- create a Weld in the characters Head, not the Handle.
-			continue
-		end
-
-		-- Wait for welds to load (sometimes takes longer than loading the rest of the character)
-		while weld.Part0 == nil or weld.Part1 == nil do
-			task.wait()
-		end
-
-		local attachment = handle:FindFirstChildOfClass("Attachment")
-		local basePart = character[(if weld.Part0 == handle then weld.Part1 else weld.Part0).Name]
-		local baseAttachment = basePart[attachment.Name]
-
-		local newBasePart = character[basePart.Name]
-
-		local diff = basePart.Position - newBasePart.Position
-
-		attachment.Position += diff + (baseAttachment.Position - baseAttachment.Position / oldHitboxes[basePart.Name].Size * newBasePart.Size)
-	end
-end
-
-local function GetRelativeRigging(motor: Motor6D, attachment: Attachment): { C0: Vector3, C1: Vector3 }
-	if motor.Part0 == nil or motor.Part1 == nil then
-		error("Missing attachment parts")
-	end
-
-	return {
-		C0 = motor.C0.Position / motor.Part0.Size,
-		C1 = motor.C1.Position / motor.Part1.Size,
-		Part0 = motor.Part0,
-		Part1 = motor.Part1,
-		CFrame = attachment.WorldCFrame,
-	}
-end
-
-local function GetRelativeAttachments(character: Model): R15RelativeAttachments
-	local ret = {}
-	for _, name in PartNames do
-		local part = character[name] :: MeshPart
-
-		if MotorMappings[name] ~= nil then
-			local motor = part:WaitForChild(MotorMappings[name]) :: Motor6D
-			local attachment = part:WaitForChild(MotorMappings[name] .. "RigAttachment") :: Attachment
-			ret[name] = GetRelativeRigging(motor, attachment)
-		end
-	end
-
-	return ret
-end
-
-local function RetargetHitboxes(character: Model, targetRig: R15Definition)
-	character.HumanoidRootPart.Size = targetRig.Sizes.HumanoidRootPart
-	for _, name in PartNames do
-		local part = character[name] :: MeshPart
-
-		if MotorMappings[name] ~= nil then
-			local attachmentName = MotorMappings[name] .. "RigAttachment"
-			local motor = part:WaitForChild(MotorMappings[name]) :: Motor6D
-			local a0 = motor.Part0[attachmentName]
-			local a1 = motor.Part1[attachmentName]
-
-			motor.C0 = motor.C0 * CFrame.new(targetRig.Rigging[motor.Name].C0.Position - a0.Position)
-			motor.C1 = motor.C1 * CFrame.new(targetRig.Rigging[motor.Name].C1.Position - a1.Position)
-
-			if a0:FindFirstChild("OriginalPosition") then
-				a0["OriginalPosition"]:remove()
-			end
-			if a1:FindFirstChild("OriginalPosition") then
-				a1["OriginalPosition"]:remove()
-			end
-		end
-
-		part.Size = targetRig.Sizes[name]
-		if part:FindFirstChild("OriginalSize") then
-			part.OriginalSize.Value = targetRig.Sizes[name]
-		end
-	end
-end
-
-local function MakeVisualParts(
-	character: Model,
-	relativeAttachments: R15RelativeAttachments,
-	oldHitbox: R15Hitboxes,
-	newHitbox: R15Hitboxes,
 	targetRig: R15Definition
 )
-	local torsoOffset = MakeVisualTorso(character, relativeAttachments, oldHitbox, newHitbox, targetRig)
-	MakeVisualArms(character, relativeAttachments, oldHitbox, newHitbox, torsoOffset)
-	MakeVisualHead(character, relativeAttachments, oldHitbox, newHitbox)
-	MakeVisualLegs(character, oldHitbox, newHitbox)
-end
-
-local function ResetScaling(humanoid: Humanoid)
-	humanoid.AutomaticScalingEnabled = false
-	humanoid:WaitForChild("BodyWidthScale"):Destroy()
-	humanoid:WaitForChild("BodyDepthScale"):Destroy()
-	humanoid:WaitForChild("BodyProportionScale"):Destroy()
-	humanoid:WaitForChild("BodyHeightScale"):Destroy()
-	humanoid:WaitForChild("HeadScale"):Destroy()
+	character.HumanoidRootPart.Size = targetRig.Sizes.HumanoidRootPart
+	MoveAndScaleTorso(character, oldRelativeRigging, oldHitboxes, targetRig)
+	MoveAndScaleArms(character, oldHitboxes, targetRig)
+	MoveAndScaleLegs(character, oldHitboxes, targetRig)
 end
 
 function UnificationScale.ScaleCharacter(character: Model, targetRig: R15Definition)
-	local originalOrientation = character.PrimaryPart.CFrame
 	local humanoid: Humanoid = character.Humanoid :: Humanoid
 
 	ResetScaling(humanoid)
 
-	-- Set orientation to vertical so vertical position differences are accurate
-	character.PrimaryPart.CFrame = CFrame.new()
-
 	local oldHitboxes = GetHitboxes(character)
-	local relativeAttachments = GetRelativeAttachments(character)
-	RetargetHitboxes(character, targetRig)
-	local newHitboxes = GetHitboxes(character)
+	local oldRelativeRigging = GetRelativeAttachments(character)
 
-	MakeVisualParts(character, relativeAttachments, oldHitboxes, newHitboxes, targetRig)
-	MoveAccessories(character, oldHitboxes)
-
+	MoveAndScaleParts(character, oldRelativeRigging, oldHitboxes, targetRig)
 	humanoid.HipHeight = 2
-
-	character.PrimaryPart.CFrame = originalOrientation
+	humanoid:BuildRigFromAttachments()
 end
 
 return UnificationScale

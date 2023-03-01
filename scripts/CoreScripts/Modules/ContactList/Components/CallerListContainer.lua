@@ -8,8 +8,10 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
+local NetworkingCall = dependencies.NetworkingCall
 local UIBlox = dependencies.UIBlox
 local dependencyArray = dependencies.Hooks.dependencyArray
+local useDispatch = dependencies.Hooks.useDispatch
 local useSelector = dependencies.Hooks.useSelector
 
 local useStyle = UIBlox.Core.Style.useStyle
@@ -23,8 +25,14 @@ local function CallerListContainer(props: Props)
 	local style = useStyle()
 	local theme = style.Theme
 
+	local dispatch = useDispatch()
+
+	React.useEffect(function()
+		dispatch(NetworkingCall.GetCallList.API({}))
+	end, {})
+
 	local selectCallers = React.useCallback(function(state: any)
-		return state.Callers or {}
+		return state.Call.callList or {}
 	end)
 	local callers = useSelector(selectCallers)
 

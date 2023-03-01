@@ -12,6 +12,7 @@ local logger = Lumberyak.Logger.new(nil, "FriendsLanding")
 local httpLogger = logger:new("FriendsLanding Networking")
 local maxHttpRetries = game:DefineFastInt("FriendsLandingHttpRetryCount", 3)
 local Players = game:GetService("Players")
+local LocalizationService = game:GetService("LocalizationService")
 local Otter = require(Packages.Otter)
 local getFFlagSocialAddFriendshipRequestEvent = require(Packages.SharedFlags).getFFlagSocialAddFriendshipRequestEvent
 local getFFlagContactImporterEnabledForDev = require(Packages.SharedFlags).getFFlagContactImporterEnabledForDev
@@ -26,7 +27,6 @@ local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
 	require(Packages.SharedFlags).getFFlagProfileQRCodeFriendRequestContextInfoEnabled
 local getFFlagEnableContactInvitesForNonPhoneVerified =
 	require(Packages.SharedFlags).getFFlagEnableContactInvitesForNonPhoneVerified
-local getFFlagSocialAddGameJoinSource = require(Packages.SharedFlags).getFFlagSocialAddGameJoinSource
 local getFFlagSocialOnboardingExperimentEnabled =
 	require(Packages.SharedFlags).getFFlagSocialOnboardingExperimentEnabled
 local getFFlagProfileQRCodeCoreFeaturesEnabled = require(Packages.SharedFlags).getFFlagProfileQRCodeCoreFeaturesEnabled
@@ -114,6 +114,7 @@ return {
 		keyPath = "FriendsLanding.UserPermissions",
 	}),
 	Players = Players,
+	LocalizationService = LocalizationService,
 	NetworkingFriendsEnums = LuaSocialLibrariesDeps.NetworkingFriends.Enums,
 	FriendsNetworking = NetworkingFriends.config({
 		roduxNetworking = myRoduxNetworking,
@@ -139,7 +140,6 @@ return {
 	getFStringSocialAddFriendsPageLayer = getFStringSocialAddFriendsPageLayer,
 	getFStringSocialFriendsLayer = getFStringSocialFriendsLayer,
 	getFFlagProfileQRCodeFriendRequestContextInfoEnabled = getFFlagProfileQRCodeFriendRequestContextInfoEnabled,
-	getFFlagSocialAddGameJoinSource = getFFlagSocialAddGameJoinSource,
 	getFFlagSocialOnboardingExperimentEnabled = getFFlagSocialOnboardingExperimentEnabled,
 	getFFlagProfileQRCodeCoreFeaturesEnabled = getFFlagProfileQRCodeCoreFeaturesEnabled,
 	getFFlagAddFriendsQRCodeAnalytics = getFFlagAddFriendsQRCodeAnalytics,

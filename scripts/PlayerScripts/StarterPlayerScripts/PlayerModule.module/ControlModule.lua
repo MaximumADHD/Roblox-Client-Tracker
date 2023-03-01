@@ -35,6 +35,13 @@ local FFlagUserHideControlsWhenMenuOpen do
 	FFlagUserHideControlsWhenMenuOpen = success and result
 end
 
+local FFlagUserDynamicThumbstickSafeAreaUpdate do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickSafeAreaUpdate")
+	end)
+	FFlagUserDynamicThumbstickSafeAreaUpdate = success and result
+end
+
 local TouchThumbstick = require(script:WaitForChild("TouchThumbstick"))
 
 -- These controllers handle only walk/run movement, jumping is handled by the
@@ -558,6 +565,10 @@ function ControlModule:CreateTouchGuiContainer()
 	self.touchGui.ResetOnSpawn = false
 	self.touchGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	self:UpdateTouchGuiVisibility()
+
+	if FFlagUserDynamicThumbstickSafeAreaUpdate then
+		self.touchGui.ClipToDeviceSafeArea = false;
+	end
 
 	self.touchControlFrame = Instance.new("Frame")
 	self.touchControlFrame.Name = "TouchControlFrame"

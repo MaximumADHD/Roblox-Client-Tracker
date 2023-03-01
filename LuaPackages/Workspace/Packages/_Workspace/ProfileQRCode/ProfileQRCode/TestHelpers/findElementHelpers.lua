@@ -15,4 +15,9 @@ return {
 	findBackButton = findElementWithAssert(findImageSet("icons/navigation/close")),
 	findRetryButton = findElementWithAssert(findImageSet("icons/common/refresh")),
 	findLoadingElement = findElementWithAssert({ Image = "rbxasset://textures/ui/LuaApp/graphic/shimmer.png" }),
+	findQRCodeIcon = findElementWithAssert({ Name = "QRImage" }),
+	findUsername = findElementWithAssert({ Name = "Username" }),
+	findNotificationDescription = findElementWithAssert({ Name = "Description" }),
+	findCloseButton = findElementWithAssert({ Name = "CloseButton" }),
+	findAcceptButton = findElementWithAssert({ Name = "AcceptButton" }),
 }

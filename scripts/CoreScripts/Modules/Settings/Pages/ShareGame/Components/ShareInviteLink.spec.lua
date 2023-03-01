@@ -9,6 +9,9 @@ return function()
 	local UIBlox = InGameMenuDependencies.UIBlox
 	local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 	local Constants = require(ShareGame.Constants)
+	local dependencies = require(ShareGame.dependencies)
+
+	local NetworkingShareLinks = dependencies.NetworkingShareLinks
 
 	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
 	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
@@ -19,6 +22,10 @@ return function()
 	}
 
 	local ShareInviteLink = require(script.Parent.ShareInviteLink)
+
+	afterEach(function()
+		NetworkingShareLinks.GenerateLink.Mock.clear()
+	end)
 
 	it("should mount", function()
 		local store = Store.new(function()

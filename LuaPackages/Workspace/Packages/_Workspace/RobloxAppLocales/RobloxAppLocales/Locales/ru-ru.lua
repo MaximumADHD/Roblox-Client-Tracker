@@ -922,6 +922,7 @@ return{
 	["Feature.Catalog.LabelFeatured"] = [[Актуальные]],
 	["Feature.Catalog.LabelCollectibles"] = [[Коллекционное]],
 	["Feature.Catalog.LabelAccessories"] = [[Аксессуары]],
+	["Feature.Catalog.LabelAnimations"] = [[Анимация]],
 	["Feature.Catalog.LabelShirts"] = [[Рубашки]],
 	["Feature.Catalog.LabelTShirts"] = [[Футболки]],
 	["Feature.Catalog.LabelPants"] = [[Брюки]],

@@ -44,6 +44,8 @@ local Constants = require(script.Resources.Constants)
 local OpenChangedEvent = Instance.new("BindableEvent")
 local RespawnBehaviourChangedEvent = Instance.new("BindableEvent")
 
+local GetFFlagReportAnythingScreenshot = require(script.Parent.TrustAndSafety.Flags.GetFFlagReportAnythingScreenshot)
+
 local menuStore = createStore()
 
 return {
@@ -96,6 +98,8 @@ return {
 			menuStore:dispatch(SetInspectMenuEnabled(enabled))
 		end)
 
+		local screenGuiEnabled, setScreenGuiEnabled = Roact.createBinding(true)
+
 		local menuTree = Roact.createElement("ScreenGui", {
 			ResetOnSpawn = false,
 			IgnoreGuiInset = true,
@@ -105,6 +109,7 @@ return {
 			[Roact.Change.AbsoluteSize] = function(rbx)
 				menuStore:dispatch(SetScreenSize(rbx.AbsoluteSize))
 			end,
+			Enabled = screenGuiEnabled,
 		}, {
 			StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
 				store = menuStore,
@@ -122,7 +127,7 @@ return {
 								FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
 									VoiceStateContextProvider = Roact.createElement(VoiceStateContext.Provider, {}, {
 										InGameMenu = Roact.createElement(App),
-									})
+									}),
 								}) or nil,
 							}),
 						}),
@@ -140,6 +145,15 @@ return {
 				rootInstance = "InGameMenu",
 			})
 			inspector:addRoactTree("Roact tree", root, Roact)
+		end
+
+		if GetFFlagReportAnythingScreenshot() then
+			TrustAndSafety.setPreReportScreenshotHook(function()
+				setScreenGuiEnabled(false)
+			end)
+			TrustAndSafety.setPostReportScreenshotHook(function()
+				setScreenGuiEnabled(true)
+			end)
 		end
 
 		return

@@ -137,6 +137,7 @@ local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFl
 local GetFFlagUseVideoCaptureServiceEvents = require(RobloxGui.Modules.Flags.GetFFlagUseVideoCaptureServiceEvents)
 local GetFFlagVoiceChatUseSoundServiceInputApi = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUseSoundServiceInputApi)
 local GetFFlagFixVideoCaptureSettings = require(RobloxGui.Modules.Flags.GetFFlagFixVideoCaptureSettings)
+local GetFFlagDisableCameraOffSetting = require(RobloxGui.Modules.Flags.GetFFlagDisableCameraOffSetting)
 
 local function reportSettingsForAnalytics()
 	local stringTable = {}
@@ -2241,12 +2242,14 @@ local function Initialize()
 		local deviceNames = {}
 		local deviceGuids = {}
 		local selectedIndex = 1
-		-- Set to default device in case UserGameSettings.DefaultCameraID is not available (in search below)
-		if GetFFlagEnableCameraByDefault() and (UserGameSettings.DefaultCameraID ~= "{NullDeviceGuid}") then
-			selectedIndex = 2
+		if not GetFFlagDisableCameraOffSetting() then
+			-- Set to default device in case UserGameSettings.DefaultCameraID is not available (in search below)
+			if GetFFlagEnableCameraByDefault() and (UserGameSettings.DefaultCameraID ~= "{NullDeviceGuid}") then
+				selectedIndex = 2
+			end
+			table.insert(deviceNames, VideoPromptOff)
+			table.insert(deviceGuids, "{NullDeviceGuid}")
 		end
-		table.insert(deviceNames, VideoPromptOff)
-		table.insert(deviceGuids, "{NullDeviceGuid}")
 		table.insert(deviceNames, VideoPromptSystemDefault)
 		table.insert(deviceGuids, "{DefaultDeviceGuid}")
 		for guid, name in pairs(devs) do

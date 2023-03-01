@@ -2,6 +2,7 @@
 local FriendsLanding = script:FindFirstAncestor("FriendsLanding")
 local dependencies = require(FriendsLanding.dependencies)
 local FriendsLandingContext = require(FriendsLanding.FriendsLandingContext)
+local PlayerSearchEvent = require(FriendsLanding.FriendsLandingAnalytics.PlayerSearchEvent)
 
 local SocialLibraries = dependencies.SocialLibraries
 
@@ -17,6 +18,7 @@ local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagAddFriendsSearchbarColorFix = require(FriendsLanding.Flags.getFFlagAddFriendsSearchbarColorFix)
+local getFFlagRenameSearchAnalyticEvent = require(FriendsLanding.Flags.getFFlagRenameSearchAnalyticEvent)
 
 local CallbackInputBox = SocialLibraries.Components.CallbackInputBox
 
@@ -144,7 +146,12 @@ function SearchHeaderBar:render()
 				else self.props.cancelCallback and Roact.createElement(TextButton, {
 					text = cancelText,
 					layoutOrder = 2,
-					onActivated = self.props.cancelCallback,
+					onActivated = if getFFlagRenameSearchAnalyticEvent()
+						then function()
+							self.props.cancelCallback()
+							PlayerSearchEvent(self.props.analytics, "cancel")
+						end
+						else self.props.cancelCallback,
 				}),
 
 			filterBoxBackground = Roact.createElement(

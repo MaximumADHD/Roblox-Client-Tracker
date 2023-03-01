@@ -70,4 +70,6 @@ return {
 		useSelector = require(Packages.RoactUtils).Hooks.RoactRodux.useSelector,
 		useDispatch = require(Packages.RoactUtils).Hooks.RoactRodux.useDispatch,
 	},
+
+	getFFlagEnableContactInvitesForNonPhoneVerified = require(Packages.SharedFlags).getFFlagEnableContactInvitesForNonPhoneVerified,
 }

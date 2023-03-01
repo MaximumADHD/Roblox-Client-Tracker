@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local Cryo = require(CorePackages.Cryo)
+local getFFlagGameInviteShortUrlEnabled = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagGameInviteShortUrlEnabled
 
 game:DefineFastFlag("LuaAppInviteEventsIncludePlaceId", false)
 
@@ -102,6 +103,7 @@ function InviteToGameAnalytics:onLinkGenerated(linkType: string, linkId: number)
 		linkId = linkId,
 		page = "inGameMenu",
 		subpage = "inviteFriendsPage",
+		isShortUrlEnabled = if getFFlagGameInviteShortUrlEnabled() then true else nil
 	}
 	self:_getEventStream():setRBXEventStream(eventContext, eventName, additionalArgs)
 end
@@ -113,6 +115,7 @@ function InviteToGameAnalytics:onShareButtonClick()
 		btn = "shareServerInviteLink",
 		page = "inGameMenu",
 		subpage = "inviteFriendsPage",
+		isShortUrlEnabled = if getFFlagGameInviteShortUrlEnabled() then true else nil
 	}
 	self:_getEventStream():setRBXEventStream(eventContext, eventName, additionalArgs)
 end

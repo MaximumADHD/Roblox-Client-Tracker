@@ -963,6 +963,7 @@ return{
 	["Feature.Catalog.LabelFeatured"] = [[注目]],
 	["Feature.Catalog.LabelCollectibles"] = [[コレクタブル]],
 	["Feature.Catalog.LabelAccessories"] = [[アクセサリ]],
+	["Feature.Catalog.LabelAnimations"] = [[アニメ]],
 	["Feature.Catalog.LabelShirts"] = [[シャツ]],
 	["Feature.Catalog.LabelTShirts"] = [[Tシャツ]],
 	["Feature.Catalog.LabelPants"] = [[ズボン]],

@@ -1,5 +1,5 @@
-game:DefineFastFlag("UIBloxEnableCollectibleItemRestriction", false)
+game:DefineFastFlag("UIBloxEnableCollectibleItemRestriction2", false)
 
 return function()
-	return game:GetFastFlag("UIBloxEnableCollectibleItemRestriction")
+	return game:GetFastFlag("UIBloxEnableCollectibleItemRestriction2")
 end

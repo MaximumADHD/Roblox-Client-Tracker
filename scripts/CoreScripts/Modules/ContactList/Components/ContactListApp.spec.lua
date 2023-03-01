@@ -17,12 +17,49 @@ return function()
 		Theme = AppDarkTheme,
 	}
 
-	it("should mount and unmount without errors when visible", function()
-		local store = Rodux.Store.new(Reducer, {
-			Navigation = {
-				contactListVisible = true,
+	local mockState = function(contactListVisible)
+		return {
+			Call = {
+				callList = {
+					{
+						createdUtc = 1666635183000,
+						participants = {
+							{
+								userId = 3447649029,
+								username = "jovocados",
+							},
+						},
+						state = "Outgoing",
+					},
+					{
+						createdUtc = 1665635183000,
+						participants = {
+							{
+								userId = 2591489824,
+								username = "corgichu8",
+							},
+						},
+						state = "Incoming",
+					},
+					{
+						createdUtc = 1664635183000,
+						participants = {
+							{
+								userId = 2591622000,
+								username = "hamulgg",
+							},
+						},
+						state = "Missed",
+					},
+				},
 			},
-		}, {
+			Navigation = {
+				contactListVisible = contactListVisible,
+			},
+		}
+	end
+	it("should mount and unmount without errors when visible", function()
+		local store = Rodux.Store.new(Reducer, mockState(true), {
 			Rodux.thunkMiddleware,
 		})
 
@@ -51,11 +88,7 @@ return function()
 	end)
 
 	it("should mount and unmount without errors when hidden", function()
-		local store = Rodux.Store.new(Reducer, {
-			Navigation = {
-				contactListVisible = false,
-			},
-		}, {
+		local store = Rodux.Store.new(Reducer, mockState(false), {
 			Rodux.thunkMiddleware,
 		})
 

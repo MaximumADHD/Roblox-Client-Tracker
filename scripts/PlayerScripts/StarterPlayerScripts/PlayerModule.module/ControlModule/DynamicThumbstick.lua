@@ -20,6 +20,8 @@ local NUM_MIDDLE_IMAGES = #MIDDLE_TRANSPARENCIES
 local FADE_IN_OUT_BACKGROUND = true
 local FADE_IN_OUT_MAX_ALPHA = 0.35
 
+local SAFE_AREA_INSET_MAX = 100
+
 local FADE_IN_OUT_HALF_DURATION_DEFAULT = 0.3
 local FADE_IN_OUT_BALANCE_DEFAULT = 0.5
 local ThumbstickFadeTweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
@@ -36,6 +38,13 @@ local FFlagUserDynamicThumbstickMoveOverButtons do
 		return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickMoveOverButtons")
 	end)
 	FFlagUserDynamicThumbstickMoveOverButtons = success and result
+end
+
+local FFlagUserDynamicThumbstickSafeAreaUpdate do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickSafeAreaUpdate")
+	end)
+	FFlagUserDynamicThumbstickSafeAreaUpdate = success and result
 end
 
 local LocalPlayer = Players.LocalPlayer
@@ -408,13 +417,14 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 		self.radiusOfMaxSpeed = self.radiusOfMaxSpeed * 2
 	end
 
-	local function layoutThumbstickFrame(portraitMode)
+	local safeInset: number = if FFlagUserDynamicThumbstickSafeAreaUpdate then SAFE_AREA_INSET_MAX else 0
+	local function layoutThumbstickFrame(portraitMode: boolean)
 		if portraitMode then
-			self.thumbstickFrame.Size = UDim2.new(1, 0, 0.4, 0)
-			self.thumbstickFrame.Position = UDim2.new(0, 0, 0.6, 0)
+			self.thumbstickFrame.Size = UDim2.new(1, safeInset, 0.4, safeInset)
+			self.thumbstickFrame.Position = UDim2.new(0, -safeInset, 0.6, 0)
 		else
-			self.thumbstickFrame.Size = UDim2.new(0.4, 0, 2/3, 0)
-			self.thumbstickFrame.Position = UDim2.new(0, 0, 1/3, 0)
+			self.thumbstickFrame.Size = UDim2.new(0.4, safeInset, 2/3, safeInset)
+			self.thumbstickFrame.Position = UDim2.new(0, -safeInset, 1/3, 0)
 		end
 	end
 
@@ -436,7 +446,7 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 	self.startImage.ImageRectSize = Vector2.new(144, 144)
 	self.startImage.ImageColor3 = Color3.new(0, 0, 0)
 	self.startImage.AnchorPoint = Vector2.new(0.5, 0.5)
-	self.startImage.Position = UDim2.new(0, self.thumbstickRingSize * 3.3, 1, -self.thumbstickRingSize  * 2.8)
+	self.startImage.Position = UDim2.new(0, self.thumbstickRingSize * 3.3 + safeInset, 1, -self.thumbstickRingSize * 2.8 - safeInset)
 	self.startImage.Size = UDim2.new(0, self.thumbstickRingSize  * 3.7, 0, self.thumbstickRingSize  * 3.7)
 	self.startImage.ZIndex = 10
 	self.startImage.Parent = self.thumbstickFrame

@@ -22,6 +22,7 @@ local Constants = require(InGameMenu.Resources.Constants)
 local VideoCameraEntry = Roact.PureComponent:extend("VideoCameraEntry")
 local GetFFlagEnableCameraByDefault = require(RobloxGui.Modules.Flags.GetFFlagEnableCameraByDefault)
 local GetFFlagUseVideoCaptureServiceEvents = require(RobloxGui.Modules.Flags.GetFFlagUseVideoCaptureServiceEvents)
+local GetFFlagDisableCameraOffSetting = require(RobloxGui.Modules.Flags.GetFFlagDisableCameraOffSetting)
 
 local VideoPromptOff = "Off"
 local VideoPromptSystemDefault = "System Default"
@@ -147,13 +148,15 @@ function VideoCameraEntry:updateDevicesList()
 		local deviceGuids = {}
 		local selectedIndex = 1
 
-		-- Set to default device in case UserGameSettings.DefaultCameraID is not available (in search below)
-		if GetFFlagEnableCameraByDefault() and (UserGameSettings.DefaultCameraID ~= "{NullDeviceGuid}") then
-			selectedIndex = 2
-		end
+		if not GetFFlagDisableCameraOffSetting() then
+			-- Set to default device in case UserGameSettings.DefaultCameraID is not available (in search below)
+			if GetFFlagEnableCameraByDefault() and (UserGameSettings.DefaultCameraID ~= "{NullDeviceGuid}") then
+				selectedIndex = 2
+			end
 
-		table.insert(deviceNames, VideoPromptOff)
-		table.insert(deviceGuids, "{NullDeviceGuid}")
+			table.insert(deviceNames, VideoPromptOff)
+			table.insert(deviceGuids, "{NullDeviceGuid}")
+		end
 		table.insert(deviceNames, VideoPromptSystemDefault)
 		table.insert(deviceGuids, "{DefaultDeviceGuid}")
 

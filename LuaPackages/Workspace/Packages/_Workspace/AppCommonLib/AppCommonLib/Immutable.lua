@@ -1,5 +1,3 @@
-local fflagAvoidManualTableClone = game:DefineFastFlag("AvoidManualTableClone2", false)
-
 --[[
 	Provides functions for manipulating immutable data structures.
 ]]
@@ -47,19 +45,8 @@ end
 	Creates a new copy of the dictionary and sets a value inside it.
 ]]
 function Immutable.Set(dictionary, key, value)
-	local new
-
-	if fflagAvoidManualTableClone then
-		new = table.clone(dictionary)
-	else
-		new = {}
-		for key, value in pairs(dictionary) do
-			new[key] = value
-		end
-	end
-
+	local new = table.clone(dictionary)
 	new[key] = value
-
 	return new
 end
 

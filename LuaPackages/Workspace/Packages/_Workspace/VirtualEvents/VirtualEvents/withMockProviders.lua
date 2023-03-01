@@ -11,19 +11,10 @@ local RobloxAppLocales = require(VirtualEvents.Parent.RobloxAppLocales)
 local Localization = require(VirtualEvents.Parent.Localization)
 local UIBlox = require(VirtualEvents.Parent.UIBlox)
 local installReducer = require(VirtualEvents.installReducer)
+local MockContentProvider = UIBlox.UnitTestHelpers.MockContentProvider
 
 local StyleProvider = UIBlox.Core.Style.Provider
 local ContentProviderContext = UIBlox.App.Context.ContentProvider
-
-local MOCK_CONTENT_PROVIDER = {
-	PreloadAsync = function(_self, assets, callback)
-		if callback then
-			for _, value in ipairs(assets) do
-				callback(value, Enum.AssetFetchStatus.Success)
-			end
-		end
-	end,
-}
 
 local reducer = Rodux.combineReducers({
 	VirtualEvents = installReducer(),
@@ -49,7 +40,7 @@ local function withMockProviders(children: { [string]: any }, options: Options?)
 			store = store,
 		}, {
 			ContentProvider = React.createElement(ContentProviderContext.Provider, {
-				value = MOCK_CONTENT_PROVIDER,
+				value = MockContentProvider.new(),
 			}, {
 				LocalizationProvider = React.createElement(Localization.LocalizationProvider, {
 					localization = RobloxAppLocales.Localization.new("en-us"),

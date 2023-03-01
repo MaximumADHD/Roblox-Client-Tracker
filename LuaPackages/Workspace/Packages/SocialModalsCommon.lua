@@ -5,7 +5,8 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["SocialModalsCommon"]["SocialModalsCommon"])
 
-export type ParamsType = Package.ParamsType
+export type UpdateContactImporterModalLogicType = Package.UpdateContactImporterModalLogicType
+export type UpdateIsDiscoverabilityUnsetType = Package.UpdateIsDiscoverabilityUnsetType
 
 
 return Package

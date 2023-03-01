@@ -1,33 +1,18 @@
 local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 
-local CoreGui = game:GetService("CoreGui")
-
 local JestGlobals = require(VirtualEvents.Parent.Dev.JestGlobals)
-local afterEach = JestGlobals.afterEach
-local beforeEach = JestGlobals.beforeEach
 local describe = JestGlobals.describe
 local expect = JestGlobals.expect
 local it = JestGlobals.it
+local ReactTestingLibrary = require(VirtualEvents.Parent.Dev.ReactTestingLibrary)
 local React = require(VirtualEvents.Parent.React)
-local ReactRoblox = require(VirtualEvents.Parent.ReactRoblox)
+local UIBlox = require(VirtualEvents.Parent.UIBlox)
 local withMockProviders = require(VirtualEvents.withMockProviders)
 local types = require(VirtualEvents.types)
 local EventHostName = require(script.Parent.EventHostName)
 
-local container
-local root
-
-beforeEach(function()
-	container = Instance.new("ScreenGui")
-	container.Parent = CoreGui
-
-	root = ReactRoblox.createRoot(container)
-end)
-
-afterEach(function()
-	root:unmount()
-	container:Destroy()
-end)
+local render = ReactTestingLibrary.render
+local EmojiEnum = UIBlox.App.Emoji.Enum.Emoji
 
 local mockHost = {
 	hostId = 1,
@@ -50,16 +35,11 @@ it("should display the host's name", function()
 		}),
 	})
 
-	ReactRoblox.act(function()
-		root:render(element)
-	end)
+	local result = render(element)
 
-	local emojiNameTextLabel = container:FindFirstChild("EmojiName", true) :: TextLabel
-	expect(emojiNameTextLabel).toBeDefined()
-	expect(emojiNameTextLabel.Text).toBe(mockHost.hostName)
-
-	local emoji = emojiNameTextLabel:FindFirstChild("Emoji")
-	expect(emoji).toBeNil()
+	local _, name = result.findByText(mockHost.hostName):await()
+	expect(name).toBeDefined()
+	expect(result.queryByText(EmojiEnum.Verified)).toBeNil()
 end)
 
 describe("Verified Badge", function()
@@ -70,12 +50,9 @@ describe("Verified Badge", function()
 			}),
 		})
 
-		ReactRoblox.act(function()
-			root:render(element)
-		end)
+		local result = render(element)
+		local _, emoji = result.findByText(EmojiEnum.Verified):await()
 
-		local emojiNameTextLabel = container:FindFirstChild("EmojiName", true)
-		local emoji = emojiNameTextLabel:FindFirstChild("Emoji")
 		expect(emoji).toBeDefined()
 	end)
 
@@ -86,13 +63,9 @@ describe("Verified Badge", function()
 			}),
 		})
 
-		ReactRoblox.act(function()
-			root:render(element)
-		end)
+		local result = render(element)
 
-		local emojiNameTextLabel = container:FindFirstChild("EmojiName", true)
-		local emoji = emojiNameTextLabel:FindFirstChild("Emoji")
-		expect(emoji).toBeNil()
+		expect(result.queryByText(EmojiEnum.Verified)).toBeNil()
 	end)
 end)
 

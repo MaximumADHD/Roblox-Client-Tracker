@@ -11,8 +11,6 @@ local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
 
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 
-local GetFFlagShowVerifiedBadgeOnInspectAndBuy = require(InspectAndBuyFolder.Flags.GetFFlagShowVerifiedBadgeOnInspectAndBuy)
-
 local PlayerNameLabel = Roact.PureComponent:extend("PlayerNameLabel")
 
 local INVENTORY_KEY = "InGame.InspectMenu.Label.Avatar"
@@ -25,7 +23,7 @@ function PlayerNameLabel:render()
 	local playerName = self.props.playerName
 	local playerId = tonumber(self.props.playerId)
 	local player = playerId and Players:GetPlayerByUserId(playerId)
-	local hasVerifiedBadge = if player and GetFFlagShowVerifiedBadgeOnInspectAndBuy() then VerifiedBadges.isPlayerVerified(player) else false
+	local hasVerifiedBadge = if player then VerifiedBadges.isPlayerVerified(player) else false
 	local playerNameText
 
 	if playerName == "" then

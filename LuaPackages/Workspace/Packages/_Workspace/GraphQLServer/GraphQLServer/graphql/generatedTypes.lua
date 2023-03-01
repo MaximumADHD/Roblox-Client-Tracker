@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/Roblox/lua-apps/blob/dfec4ecb4f/modules/graphql/graphql-server-ts/src/graphql/generatedTypes.ts
+-- ROBLOX upstream: https://github.com/Roblox/lua-apps/blob/bdfbc208c6/modules/graphql/graphql-server-ts/src/graphql/generatedTypes.ts
 local Packages = script:FindFirstAncestor("GraphQLServer").Parent
 local LuauPolyfill = require(Packages.LuauPolyfill)
 type Array<T> = LuauPolyfill.Array<T>
@@ -19,7 +19,9 @@ export type Scalars = {
 	JSONObject: any,
 }
 local EventStatus = { Active = "active", Cancelled = "cancelled", Unpublished = "unpublished" }
-export type EventStatus = { [string]: string }
+-- ROBLOX deviation START: convert EventStatus enum to type union
+export type EventStatus = "active" | "cancelled" | "unpublished"
+-- ROBLOX deviation END
 exports.EventStatus = EventStatus
 export type EventTime = {
 	__typename: "EventTime"?,
@@ -54,7 +56,7 @@ export type ExperienceDetails = {
 	created: Maybe<typeof((({} :: any) :: Scalars).String)>?,
 	creator: Maybe<ExperienceCreator>?,
 	description: Maybe<typeof((({} :: any) :: Scalars).String)>?,
-	favoritedCount: Maybe<typeof((({} :: any) :: Scalars).Int)>?,
+	favoritedCount: Maybe<typeof((({} :: any) :: Scalars).Float)>?,
 	genre: Maybe<typeof((({} :: any) :: Scalars).String)>?,
 	id: typeof((({} :: any) :: Scalars).ID),
 	isAllGenre: Maybe<typeof((({} :: any) :: Scalars).Boolean)>?,
@@ -62,15 +64,15 @@ export type ExperienceDetails = {
 	isGenreEnforced: Maybe<typeof((({} :: any) :: Scalars).Boolean)>?,
 	maxPlayers: Maybe<typeof((({} :: any) :: Scalars).Int)>?,
 	name: Maybe<typeof((({} :: any) :: Scalars).String)>?,
-	playing: Maybe<typeof((({} :: any) :: Scalars).Int)>?,
+	playing: Maybe<typeof((({} :: any) :: Scalars).Float)>?,
 	price: Maybe<typeof((({} :: any) :: Scalars).Int)>?,
-	rootPlaceId: Maybe<typeof((({} :: any) :: Scalars).Int)>?,
+	rootPlaceId: Maybe<typeof((({} :: any) :: Scalars).ID)>?,
 	sourceDescription: Maybe<typeof((({} :: any) :: Scalars).String)>?,
 	sourceName: Maybe<typeof((({} :: any) :: Scalars).String)>?,
 	studioAccessToApisAllowed: Maybe<typeof((({} :: any) :: Scalars).Boolean)>?,
 	universeAvatarType: Maybe<typeof((({} :: any) :: Scalars).Int)>?,
 	updated: Maybe<typeof((({} :: any) :: Scalars).String)>?,
-	visits: Maybe<typeof((({} :: any) :: Scalars).Int)>?,
+	visits: Maybe<typeof((({} :: any) :: Scalars).Float)>?,
 }
 export type ExperienceMedia = {
 	__typename: "ExperienceMedia"?,
@@ -78,7 +80,7 @@ export type ExperienceMedia = {
 	approved: Maybe<typeof((({} :: any) :: Scalars).Boolean)>?,
 	assetType: Maybe<MediaAssetType>?,
 	assetTypeId: Maybe<typeof((({} :: any) :: Scalars).ID)>?,
-	imageId: Maybe<typeof((({} :: any) :: Scalars).Int)>?,
+	imageId: Maybe<typeof((({} :: any) :: Scalars).ID)>?,
 	videoHash: Maybe<typeof((({} :: any) :: Scalars).String)>?,
 	videoTitle: Maybe<typeof((({} :: any) :: Scalars).String)>?,
 }
@@ -90,7 +92,9 @@ export type Host = {
 	hostType: Maybe<HostType>?,
 }
 local HostType = { Group = "group", User = "user" }
-export type HostType = { [string]: string }
+-- ROBLOX deviation START: convert HostType enum to type union
+export type HostType = "group" | "user"
+-- ROBLOX deviation END
 exports.HostType = HostType
 export type Media = { __typename: "Media"?, url: Maybe<typeof((({} :: any) :: Scalars).String)>? }
 local MediaAssetType = { Image = "Image", YouTubeVideo = "YouTubeVideo" }
@@ -167,10 +171,10 @@ export type Rsvp = {
 }
 export type RsvpCounters = {
 	__typename: "RsvpCounters"?,
-	going: Maybe<typeof((({} :: any) :: Scalars).Int)>?,
-	maybeGoing: Maybe<typeof((({} :: any) :: Scalars).Int)>?,
-	none: Maybe<typeof((({} :: any) :: Scalars).Int)>?,
-	notGoing: Maybe<typeof((({} :: any) :: Scalars).Int)>?,
+	going: Maybe<typeof((({} :: any) :: Scalars).Float)>?,
+	maybeGoing: Maybe<typeof((({} :: any) :: Scalars).Float)>?,
+	none: Maybe<typeof((({} :: any) :: Scalars).Float)>?,
+	notGoing: Maybe<typeof((({} :: any) :: Scalars).Float)>?,
 }
 export type RsvpResponse = {
 	__typename: "RsvpResponse"?,
@@ -195,9 +199,9 @@ export type VirtualEvent = {
 	experienceDetails: Maybe<ExperienceDetails>?,
 	host: Maybe<Host>?,
 	id: typeof((({} :: any) :: Scalars).ID),
-	media: Maybe<Array<Maybe<ExperienceMedia>>>?,
+	media: Maybe<Array<ExperienceMedia>>?,
 	rsvpCounters: Maybe<RsvpCounters>?,
-	rsvps: Maybe<Array<Maybe<Rsvp>>>?,
+	rsvps: Maybe<Array<Rsvp>>?,
 	title: Maybe<typeof((({} :: any) :: Scalars).String)>?,
 	universeId: Maybe<typeof((({} :: any) :: Scalars).ID)>?,
 	updatedUtc: Maybe<typeof((({} :: any) :: Scalars).String)>?,
@@ -211,6 +215,6 @@ export type VirtualEventsByUniverseIdOptions = {
 export type VirtualEventsPage = {
 	__typename: "VirtualEventsPage"?,
 	cursor: Maybe<typeof((({} :: any) :: Scalars).String)>?,
-	virtualEvents: Maybe<Array<Maybe<VirtualEvent>>>?,
+	virtualEvents: Maybe<Array<VirtualEvent>>?,
 }
 return exports

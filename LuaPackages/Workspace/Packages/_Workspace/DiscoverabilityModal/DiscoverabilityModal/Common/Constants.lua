@@ -14,4 +14,6 @@ return {
 	NON_GDPR_VERSION = "non_gdpr_version",
 
 	IS_STANDALONE_DISCOVERABILITY_MODAL = "isStandaloneDiscoverabilityModal",
+	SHOULD_UPDATE_USER_SETTINGS = "shouldUpdateUserSettings",
+	IS_PHONE_VERIFIED = "isPhoneVerified",
 }

@@ -60,8 +60,13 @@ describe("props.imageUrl", function()
 			root:render(element)
 		end)
 
-		local image = container:FindFirstChild("EventImage", true) :: ImageLabel
-		expect(image.Image).toBe(imageUrl)
+		-- MockContentProvider takes non-zero time to hit the callback with "image all good".
+		ReactRoblox.act(function()
+			task.wait(1)
+		end)
+
+		local eventImage = container:FindFirstChild("EventImage", true) :: ImageLabel
+		expect(eventImage.Image).toBe(imageUrl)
 	end)
 end)
 

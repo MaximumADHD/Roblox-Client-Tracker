@@ -4,9 +4,16 @@ local dependencies = require(ShareGame.dependencies)
 local NetworkingShareLinks = dependencies.NetworkingShareLinks
 local RoduxShareLinks = dependencies.RoduxShareLinks
 
-return function(state)
+local mapStateToProps = function(state)
 	return {
-		shareInviteLink = state.ShareLinks.Invites.ShareInviteLink,
-		fetchShareInviteLinkNetworkStatus = NetworkingShareLinks.GenerateLink.getStatus(state, RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue())
+		shareInviteLink = state.ShareLinks.Invites.ShareInviteLink :: {
+			shortUrl: string?,
+			linkId: string?,
+		},
+		fetchShareInviteLinkNetworkStatus = NetworkingShareLinks.GenerateLink.getStatus(state, RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue()) :: string,
 	}
 end
+
+export type Props = typeof(mapStateToProps(...))
+
+return mapStateToProps

@@ -1,6 +1,7 @@
 local Actions = require(script.Actions)
 
-export type ParamsType = Actions.ParamsType
+export type UpdateContactImporterModalLogicType = Actions.UpdateContactImporterModalLogicType
+export type UpdateIsDiscoverabilityUnsetType = Actions.UpdateIsDiscoverabilityUnsetType
 
 return {
 	Actions = Actions,

@@ -26,6 +26,7 @@ local Constants = {
 		Listing = "Listing",
 		ReportForm = "ReportForm",
 		ReportSent = "ReportSent",
+		ScreenshotDialog = "ScreenshotDialog"
 	},
 	Analytics = {
 		ReportSubmittedName = "ingame_menu_report_submitted",

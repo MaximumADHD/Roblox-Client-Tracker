@@ -1,15 +1,18 @@
 local HttpService = game:GetService("HttpService")
+local CorePackages = game:GetService("CorePackages")
 
 local Root = script.Parent
 local Packages = Root.Parent
 local MessageBus = require(Packages.MessageBus).MessageBus
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
+local loggingProtocol = require(CorePackages.UniversalApp.Logging.LoggingProtocol).default
 
 local Types = require(script.Parent.GameProtocolTypes)
 
 local FFlagExperienceJoinAttemptId = require(script.Parent.Flags.FFlagExperienceJoinAttemptId)
 local GetFFlagJoinAttemptIdFromWebview = require(script.Parent.Flags.GetFFlagJoinAttemptIdFromWebview)
+local GetFFlagMoveLuaExpLaunchBegin = require(script.Parent.Flags.GetFFlagMoveLuaExpLaunchBegin)
 
 type LaunchParams = Types.LaunchParams
 export type GameProtocol = Types.GameProtocol
@@ -92,6 +95,10 @@ function GameProtocol:launchGame(params: LaunchParams, source: string?, onLaunch
 		if onLaunchGameCallback then
 			onLaunchGameCallback(joinAttemptId)
 		end
+	end
+
+	if GetFFlagMoveLuaExpLaunchBegin() then
+		loggingProtocol:logEvent("experience_launch_begin")
 	end
 
 	MessageBus.publish(self.GAME_LAUNCH_DESCRIPTOR, params)

@@ -8,6 +8,7 @@ local SharedFlags = require(Packages.SharedFlags)
 local UIBloxFlags = SharedFlags.UIBlox
 
 return {
+	loadableImageResponsiveThumbnails = UIBloxFlags.GetFFlagUIBloxLoadableImageResponsiveThumbnails(),
 	useNewUICornerRoundedCorners = true,
 	genericSliderFilterOldTouchInputs = true,
 	allowSystemBarToAcceptString = true,

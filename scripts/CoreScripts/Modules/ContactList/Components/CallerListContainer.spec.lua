@@ -10,15 +10,54 @@ return function()
 	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
 	local CallerListContainer = require(script.Parent.CallerListContainer)
-	local Reducer = require(script.Parent.Parent.Reducer)
 
 	local appStyle = {
 		Font = AppFont,
 		Theme = AppDarkTheme,
 	}
 
+	local function MockReducer(state, action)
+		state = state or {}
+		return {
+			Call = {
+				callList = {
+					{
+						createdUtc = 1666635183000,
+						participants = {
+							{
+								userId = 3447649029,
+								username = "jovocados",
+							},
+						},
+						state = "Outgoing",
+					},
+					{
+						createdUtc = 1665635183000,
+						participants = {
+							{
+								userId = 2591489824,
+								username = "corgichu8",
+							},
+						},
+						state = "Incoming",
+					},
+					{
+						createdUtc = 1664635183000,
+						participants = {
+							{
+								userId = 2591622000,
+								username = "hamulgg",
+							},
+						},
+						state = "Missed",
+					},
+				},
+			},
+		}
+	end
+
 	it("should mount and unmount without errors", function()
-		local store = Rodux.Store.new(Reducer, nil, {
+		local store = Rodux.Store.new(MockReducer, {}, {
 			Rodux.thunkMiddleware,
 		})
 

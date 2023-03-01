@@ -18,10 +18,14 @@ local useStyle = UIBlox.Core.Style.useStyle
 
 local CallState = require(script.Parent.Parent.Enums.CallState)
 
+export type User = {
+	userId: number,
+	username: string,
+}
+
 export type Props = {
 	caller: {
-		userId: number,
-		username: string,
+		participants: { User },
 		state: string,
 	},
 	showDivider: boolean,
@@ -39,6 +43,8 @@ end
 
 local function CallerListItem(props: Props)
 	local caller = props.caller
+	-- Will update this to support more participants in a follow up.
+	assert(#caller.participants == 1, "Expect a single participant in call.")
 	local state = CallState.fromRawValue(caller.state)
 
 	local style = useStyle()
@@ -75,7 +81,7 @@ local function CallerListItem(props: Props)
 		ProfileImage = React.createElement(ImageSetLabel, {
 			Position = UDim2.fromOffset(0, 2),
 			Size = UDim2.fromOffset(36, 36),
-			Image = SocialLibraries.User.getUserAvatarImage(caller.userId),
+			Image = SocialLibraries.User.getUserAvatarImage(caller.participants[1].userId),
 		}, {
 			UICorner = React.createElement("UICorner", {
 				CornerRadius = UDim.new(1, 0),
@@ -102,7 +108,7 @@ local function CallerListItem(props: Props)
 				Font = font.Body.Font,
 				LayoutOrder = 1,
 				LineHeight = 1.25,
-				Text = caller.username,
+				Text = caller.participants[1].username,
 				TextColor3 = theme.TextDefault.Color,
 				TextSize = font.BaseSize * font.Body.RelativeSize,
 				TextTransparency = theme.TextDefault.Transparency,

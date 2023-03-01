@@ -3,12 +3,13 @@ local dependencies = require(FriendsLanding.dependencies)
 
 local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
 local getFFlagAddFriendsQRCodeAnalytics = dependencies.getFFlagAddFriendsQRCodeAnalytics
+local getFFlagRenameSearchAnalyticEvent = require(FriendsLanding.Flags.getFFlagRenameSearchAnalyticEvent)
 
 local enumerate = dependencies.enumerate
 
 return enumerate(script.Name, {
-	FriendSearch = "friendSearch",
-	FriendSearchEnter = "friendSearchEnter",
+	FriendSearch = if getFFlagRenameSearchAnalyticEvent() then nil else "friendSearch",
+	FriendSearchEnter = if getFFlagRenameSearchAnalyticEvent() then nil else "friendSearchEnter",
 	AddFriendsNoFriends = "addFriendsNoFriends",
 	AddFriends = "addFriends",
 	PlayerTile = "playerTile",

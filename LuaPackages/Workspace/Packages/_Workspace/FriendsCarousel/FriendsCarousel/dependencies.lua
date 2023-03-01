@@ -16,7 +16,6 @@ local getFFlagFriendsCarouselDontUseIngestService =
 	require(Packages.SharedFlags).getFFlagFriendsCarouselDontUseIngestService
 local getFFlagMigrateSocialNetworking = require(Packages.SharedFlags).getFFlagMigrateSocialNetworking
 local GetFFlagUseCorrectedFriendSortUtil = require(Packages.SharedFlags).GetFFlagUseCorrectedFriendSortUtil
-local getFFlagSocialAddGameJoinSource = require(Packages.SharedFlags).getFFlagSocialAddGameJoinSource
 local getFFlagSocialOnboardingExperimentEnabled =
 	require(Packages.SharedFlags).getFFlagSocialOnboardingExperimentEnabled
 
@@ -146,6 +145,5 @@ return {
 	GetFFlagUseCorrectedFriendSortUtil = GetFFlagUseCorrectedFriendSortUtil,
 	getFFlagFixFriendshipOriginSourceType = require(Packages.SharedFlags).getFFlagFixFriendshipOriginSourceType,
 	getFFlagFriendsCarouselRemoveVariant = require(Packages.SharedFlags).getFFlagFriendsCarouselRemoveVariant,
-	getFFlagSocialAddGameJoinSource = getFFlagSocialAddGameJoinSource,
 	getFFlagSocialOnboardingExperimentEnabled = getFFlagSocialOnboardingExperimentEnabled,
 }

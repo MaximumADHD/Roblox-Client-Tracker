@@ -23,5 +23,24 @@ return function()
 
 			jestExpect(newProps).toEqual({ shareInviteLink = { linkId = "123456" }, fetchShareInviteLinkNetworkStatus = "NotStarted" })
 		end)
+
+		it("SHOULD have the short url if provided", function()
+			local mockState = {
+				ShareLinks = {
+					Invites = {
+						ShareInviteLink = {
+							linkId = "123456",
+							shortUrl = "www.bbc.co.uk",
+						}
+					}
+				},
+				NetworkStatus = {},
+				fetchShareInviteLinkNetworkStatus = "NotStarted"
+			}
+
+			local newProps = mapStateToProps(mockState)
+
+			jestExpect(newProps).toEqual({ shareInviteLink = { linkId = "123456", shortUrl = "www.bbc.co.uk" }, fetchShareInviteLinkNetworkStatus = "NotStarted" })
+		end)
 	end)
 end

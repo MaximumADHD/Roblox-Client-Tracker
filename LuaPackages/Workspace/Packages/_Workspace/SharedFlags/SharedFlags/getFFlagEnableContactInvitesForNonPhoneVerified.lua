@@ -1,8 +1,8 @@
 --!nonstrict
 local AppStorageService = game:GetService("AppStorageService")
 --
-game:DefineFastFlag("EnableContactInvitesForNonPhoneVerifiedForAll_v1", false)
-game:DefineFastInt("EnableContactInvitesForNonPhoneVerifiedRollout_v1", 0)
+game:DefineFastFlag("EnableContactInvitesForNonPhoneVerifiedForAll_v2", false)
+game:DefineFastInt("EnableContactInvitesForNonPhoneVerifiedRollout_v2", 0)
 
 local function getAppInstallationId()
 	local installationId = AppStorageService:GetItem("AppInstallationId")
@@ -31,7 +31,7 @@ end
 	application installation ID. ]]
 --
 local function getRolloutEnabledForUser()
-	local rolloutPercent = game:GetFastInt("EnableContactInvitesForNonPhoneVerifiedRollout_v1")
+	local rolloutPercent = game:GetFastInt("EnableContactInvitesForNonPhoneVerifiedRollout_v2")
 	local appInstallationId = getAppInstallationId()
 
 	-- If the AppInstallationID is not a number, then only return true if the
@@ -53,7 +53,7 @@ local IsUserEnrolled = nil
 
 return function()
 	local FFlagEnableContactInvitesForNonPhoneVerifiedForAll =
-		game:GetFastFlag("EnableContactInvitesForNonPhoneVerifiedForAll_v1")
+		game:GetFastFlag("EnableContactInvitesForNonPhoneVerifiedForAll_v2")
 
 	-- Return true now if the main flag and the "ForAll" flag are both on
 	if FFlagEnableContactInvitesForNonPhoneVerifiedForAll then
