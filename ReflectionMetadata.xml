@@ -4629,6 +4629,25 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">ControllerPartSensor</string>
+        <string name="FFlag">SimHumanoidPhysics</string>
+        <string name="ClassCategory">Avatar</string>
+        <string name="ExplorerOrder">20</string>
+        <string name="PreferredParent">BasePart</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">BuoyancySensor</string>
+        <string name="FFlag">SimHumanoidPhysics</string>
+        <string name="ClassCategory">Avatar</string>
+        <string name="ExplorerOrder">20</string>
+        <string name="PreferredParent">BasePart</string>
+      </Properties>
+    </Item>
+    
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">ControllerManager</string>
         <string name="FFlag">SimHumanoidPhysics</string>
         <string name="ClassCategory">Avatar</string>

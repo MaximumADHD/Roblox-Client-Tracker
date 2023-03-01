@@ -150,6 +150,7 @@ dependencies = [
     "RoactUtils RoactUtils 0.1.0",
     "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
     "Rodux Rodux 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
     "SocialLuaAnalytics SocialLuaAnalytics 0.1.0",
     "SocialModalsCommon SocialModalsCommon 0.1.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
@@ -878,6 +879,7 @@ dependencies = [
 [[package]]
 name = "SharedFlags"
 version = "0.1.0"
+dependencies = ["AppCommonLib AppCommonLib 0.1.0"]
 
 [[package]]
 name = "SocialAppIntegrationTestSuite"
@@ -1120,6 +1122,10 @@ version = "0.1.0"
 
 [[package]]
 name = "Time"
+version = "0.1.0"
+
+[[package]]
+name = "TnSAvatarIdentification"
 version = "0.1.0"
 
 [[package]]

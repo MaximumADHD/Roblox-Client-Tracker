@@ -1504,6 +1504,37 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "GetAdTeleportInfo",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ReturnToPublisherExperience",
+                    "Parameters": [
+                        {
+                            "Name": "adTeleportMethod",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AdTeleportMethod"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "ShowVideoAd",
                     "Parameters": [
                     ],
@@ -2008,6 +2039,52 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Data",
+                    "Default": "__api_dump_class_not_creatable__",
+                    "MemberType": "Property",
+                    "Name": "Guid",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "__api_dump_class_not_creatable__",
+                    "MemberType": "Property",
+                    "Name": "GuidBinaryString",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "BinaryString"
+                    }
+                },
                 {
                     "Category": "Data",
                     "Default": "__api_dump_class_not_creatable__",
@@ -18705,6 +18782,25 @@
                     }
                 },
                 {
+                    "Category": "Behavior",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "ClimbSensor",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "ControllerSensor"
+                    }
+                },
+                {
                     "Category": "Input",
                     "Default": "0, 0, 1",
                     "MemberType": "Property",
@@ -18721,6 +18817,25 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Vector3"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "GroundSensor",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "ControllerSensor"
                     }
                 },
                 {
@@ -19143,52 +19258,6 @@
         },
         {
             "Members": [
-                {
-                    "Category": "Data",
-                    "Default": "__api_dump_class_not_creatable__",
-                    "MemberType": "Property",
-                    "Name": "LODX",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "NotScriptable"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "LevelOfDetailSetting"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "Default": "__api_dump_class_not_creatable__",
-                    "MemberType": "Property",
-                    "Name": "LODY",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "NotScriptable"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "LevelOfDetailSetting"
-                    }
-                },
                 {
                     "Category": "Data",
                     "Default": "__api_dump_class_not_creatable__",
@@ -34048,9 +34117,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -34130,9 +34196,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Enum",
@@ -35359,6 +35422,25 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Data",
+                    "Default": "1, 1, 1",
+                    "MemberType": "Property",
+                    "Name": "Scale",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    }
+                },
                 {
                     "MemberType": "Function",
                     "Name": "AddLine",
@@ -52619,6 +52701,46 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "MakeRequest",
+                    "Parameters": [
+                        {
+                            "Name": "protocolName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "methodName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "message",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        },
+                        {
+                            "Name": "callback",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "Publish",
                     "Parameters": [
                         {
@@ -52720,6 +52842,39 @@
                             "Type": {
                                 "Category": "Group",
                                 "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetRequestHandler",
+                    "Parameters": [
+                        {
+                            "Name": "protocolName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "methodName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "callback",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
                             }
                         }
                     ],
@@ -59119,6 +59274,32 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetTerrainWireframe",
+                    "Parameters": [
+                        {
+                            "Name": "cframe",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "CFrame"
+                            }
+                        },
+                        {
+                            "Name": "size",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetWaterCell",
                     "Parameters": [
                         {
@@ -59151,18 +59332,6 @@
                     "Tags": [
                         "Deprecated"
                     ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "HideTerrainRegion",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -59395,32 +59564,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "SetTerrainRegion",
-                    "Parameters": [
-                        {
-                            "Name": "cframe",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "CFrame"
-                            }
-                        },
-                        {
-                            "Name": "size",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Vector3"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "SetWaterCell",
                     "Parameters": [
                         {
@@ -59467,44 +59610,6 @@
                     "Tags": [
                         "Deprecated"
                     ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "SetWireframeRegion",
-                    "Parameters": [
-                        {
-                            "Name": "cframe",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "CFrame"
-                            }
-                        },
-                        {
-                            "Name": "size",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Vector3"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "ShowTerrainRegion",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -62637,28 +62742,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Behavior",
-                    "Default": "__api_dump_class_not_creatable__",
-                    "MemberType": "Property",
-                    "Name": "AnimationWeightedBlendFix",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "NotScriptable"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "NewAnimationRuntimeSetting"
                     }
                 },
                 {
@@ -70577,6 +70660,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "ResetLocalPlayer",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "LocalUserSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SetChatStyle",
                     "Parameters": [
                         {
@@ -77424,6 +77519,28 @@
                     ],
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "ScreenshotUploaded",
+                    "Parameters": [
+                        {
+                            "Name": "screenshotJobId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "screenshotId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -79395,6 +79512,218 @@
             "Tags": [
                 "NotCreatable",
                 "Service"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Settings",
+                    "Default": "__api_dump_class_not_creatable__",
+                    "MemberType": "Property",
+                    "Name": "UpdateType",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "SensorUpdateType"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Sense",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OnSensorOutputChanged",
+                    "Parameters": [
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "SensorBase",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Output",
+                    "Default": "false",
+                    "MemberType": "Property",
+                    "Name": "FullySubmerged",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Output",
+                    "Default": "false",
+                    "MemberType": "Property",
+                    "Name": "TouchingSurface",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "BuoyancySensor",
+            "Superclass": "SensorBase",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ControllerSensor",
+            "Superclass": "SensorBase",
+            "Tags": [
+                "NotCreatable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Output",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "HitFrame",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
+                    }
+                },
+                {
+                    "Category": "Output",
+                    "Default": "0, 0, 0",
+                    "MemberType": "Property",
+                    "Name": "HitNormal",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    }
+                },
+                {
+                    "Category": "Input",
+                    "Default": "0",
+                    "MemberType": "Property",
+                    "Name": "SearchDistance",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Output",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "SensedPart",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "BasePart"
+                    }
+                },
+                {
+                    "Category": "Input",
+                    "Default": "Floor",
+                    "MemberType": "Property",
+                    "Name": "SensorMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "SensorMode"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ControllerPartSensor",
+            "Superclass": "ControllerSensor",
+            "Tags": [
+                "NotBrowsable"
             ]
         },
         {
@@ -95127,6 +95456,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "IsOver13",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "ReturnToEngagement",
                     "Parameters": [
                     ],
@@ -99104,6 +99445,29 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Control",
+                    "Default": "__api_dump_class_not_creatable__",
+                    "MemberType": "Property",
+                    "Name": "VRPlayMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "VRPlayMode"
                     }
                 },
                 {
@@ -105077,6 +105441,31 @@
         {
             "Items": [
                 {
+                    "Name": "Undefined",
+                    "Value": 0
+                },
+                {
+                    "Name": "PortalForward",
+                    "Value": 1
+                },
+                {
+                    "Name": "PortalReturn",
+                    "Value": 2
+                },
+                {
+                    "Name": "InGameMenuBackButton",
+                    "Value": 3
+                },
+                {
+                    "Name": "UIBackButton",
+                    "Value": 4
+                }
+            ],
+            "Name": "AdTeleportMethod"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Automatic",
                     "Value": 0
                 },
@@ -107271,6 +107660,23 @@
                 }
             ],
             "Name": "CreatorType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "User",
+                    "Value": 0
+                },
+                {
+                    "Name": "Group",
+                    "Value": 1
+                },
+                {
+                    "Name": "All",
+                    "Value": 2
+                }
+            ],
+            "Name": "CreatorTypeFilter"
         },
         {
             "Items": [
@@ -110381,32 +110787,6 @@
         {
             "Items": [
                 {
-                    "Name": "High",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 2
-                },
-                {
-                    "Name": "Medium",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 1
-                },
-                {
-                    "Name": "Low",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 0
-                }
-            ],
-            "Name": "LevelOfDetailSetting"
-        },
-        {
-            "Items": [
-                {
                     "Name": "Head",
                     "Value": 0
                 },
@@ -111040,23 +111420,6 @@
                 }
             ],
             "Name": "NetworkOwnership"
-        },
-        {
-            "Items": [
-                {
-                    "Name": "Default",
-                    "Value": 0
-                },
-                {
-                    "Name": "Disabled",
-                    "Value": 1
-                },
-                {
-                    "Name": "Enabled",
-                    "Value": 2
-                }
-            ],
-            "Name": "NewAnimationRuntimeSetting"
         },
         {
             "Items": [
@@ -112707,6 +113070,32 @@
                 }
             ],
             "Name": "SelectionBehavior"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Floor",
+                    "Value": 0
+                },
+                {
+                    "Name": "Ladder",
+                    "Value": 1
+                }
+            ],
+            "Name": "SensorMode"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "OnRead",
+                    "Value": 0
+                },
+                {
+                    "Name": "Manual",
+                    "Value": 1
+                }
+            ],
+            "Name": "SensorUpdateType"
         },
         {
             "Items": [
@@ -114624,6 +115013,10 @@
                 {
                     "Name": "RightHand",
                     "Value": 2
+                },
+                {
+                    "Name": "Floor",
+                    "Value": 3
                 }
             ],
             "Name": "UserCFrame"
@@ -114741,6 +115134,19 @@
                 }
             ],
             "Name": "UserInputType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Seated",
+                    "Value": 0
+                },
+                {
+                    "Name": "Standing",
+                    "Value": 1
+                }
+            ],
+            "Name": "VRPlayMode"
         },
         {
             "Items": [

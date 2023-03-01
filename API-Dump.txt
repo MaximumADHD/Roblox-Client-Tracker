@@ -66,6 +66,8 @@ Class AdPortal : Instance
 	Property string AdPortal.PortalInvalidReason [ReadOnly] [NotScriptable]
 	Property int64 AdPortal.PortalVersion {RobloxScriptSecurity} [Hidden] [ReadOnly]
 Class AdService : Instance [NotCreatable] [Service]
+	Function Tuple AdService:GetAdTeleportInfo() {RobloxScriptSecurity}
+	Function void AdService:ReturnToPublisherExperience(Enum.AdTeleportMethod adTeleportMethod) {RobloxScriptSecurity}
 	Function void AdService:ShowVideoAd() [Deprecated]
 	Event AdService.AdTeleportEnded() {RobloxScriptSecurity}
 	Event AdService.AdTeleportInitiated() {RobloxScriptSecurity}
@@ -85,6 +87,8 @@ Class AnalyticsService : Instance [Service] [Deprecated]
 Class Animation : Instance
 	Property Content Animation.AnimationId
 Class AnimationClip : Instance [NotCreatable]
+	Property string AnimationClip.Guid {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property BinaryString AnimationClip.GuidBinaryString {RobloxScriptSecurity} [Hidden] [NotScriptable]
 	Property bool AnimationClip.Loop
 	Property Enum.AnimationPriority AnimationClip.Priority
 Class CurveAnimation : AnimationClip
@@ -933,6 +937,8 @@ Class ControllerManager : Instance [NotBrowsable]
 	Property ControllerBase ControllerManager.ActiveController [ReadOnly]
 	Property float ControllerManager.BaseMoveSpeed
 	Property float ControllerManager.BaseTurnSpeed
+	Property ControllerSensor ControllerManager.ClimbSensor
+	Property ControllerSensor ControllerManager.GroundSensor
 	Property Vector3 ControllerManager.FacingDirection
 	Property Vector3 ControllerManager.MovingDirection
 	Function Objects ControllerManager:GetControllers() {🧬Safe}
@@ -960,8 +966,6 @@ Class CustomEventReceiver : Instance [Deprecated]
 	Event CustomEventReceiver.EventDisconnected(Instance event) [Deprecated]
 	Event CustomEventReceiver.SourceValueChanged(float newValue) [Deprecated]
 Class DataModelMesh : Instance [NotCreatable] [NotBrowsable]
-	Property Enum.LevelOfDetailSetting DataModelMesh.LODX [Hidden] [NotScriptable]
-	Property Enum.LevelOfDetailSetting DataModelMesh.LODY [Hidden] [NotScriptable]
 	Property Vector3 DataModelMesh.Offset
 	Property Vector3 DataModelMesh.Scale
 	Property Vector3 DataModelMesh.VertexColor
@@ -1717,8 +1721,8 @@ Class DockWidgetPluginGui : PluginGui [NotCreatable] [NotReplicated]
 	Function void DockWidgetPluginGui:RequestRaise() {RobloxScriptSecurity}
 Class QWidgetPluginGui : PluginGui [NotCreatable] [NotReplicated]
 Class ScreenGui : LayerCollector
-	Property bool ScreenGui.ClipToDeviceSafeArea [NotBrowsable]
-	Property Enum.SafeAreaCompatibility ScreenGui.SafeAreaCompatibility [NotBrowsable]
+	Property bool ScreenGui.ClipToDeviceSafeArea
+	Property Enum.SafeAreaCompatibility ScreenGui.SafeAreaCompatibility
 	Property Enum.ScreenInsets ScreenGui.ScreenInsets [NotBrowsable]
 	Property bool ScreenGui.OnTopOfCoreBlur {RobloxScriptSecurity} [Hidden]
 	Property int ScreenGui.DisplayOrder
@@ -1797,6 +1801,7 @@ Class LineHandleAdornment : HandleAdornment
 Class SphereHandleAdornment : HandleAdornment
 	Property float SphereHandleAdornment.Radius
 Class WireframeHandleAdornment : HandleAdornment
+	Property Vector3 WireframeHandleAdornment.Scale
 	Function void WireframeHandleAdornment:AddLine(Vector3 from, Vector3 to)
 	Function void WireframeHandleAdornment:AddLines(Array points)
 	Function void WireframeHandleAdornment:AddPath(Array points, bool loop)
@@ -2668,9 +2673,11 @@ Class MessageBusService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string MessageBusService:GetMessageId(string domainName, string messageName) {RobloxScriptSecurity}
 	Function string MessageBusService:GetProtocolMethodRequestMessageId(string protocolName, string methodName) {RobloxScriptSecurity}
 	Function string MessageBusService:GetProtocolMethodResponseMessageId(string protocolName, string methodName) {RobloxScriptSecurity}
+	Function void MessageBusService:MakeRequest(string protocolName, string methodName, Variant message, Function callback) {RobloxScriptSecurity}
 	Function void MessageBusService:Publish(string mid, Variant params) {RobloxScriptSecurity}
 	Function void MessageBusService:PublishProtocolMethodRequest(string protocolName, string methodName, Variant message, Variant customTelemetryData) {RobloxScriptSecurity}
 	Function void MessageBusService:PublishProtocolMethodResponse(string protocolName, string methodName, Variant message, int responseCode, Variant customTelemetryData) {RobloxScriptSecurity}
+	Function void MessageBusService:SetRequestHandler(string protocolName, string methodName, Function callback) {RobloxScriptSecurity}
 	Function Instance MessageBusService:Subscribe(string mid, Function callback, bool once, bool sticky) {RobloxScriptSecurity}
 	Function Instance MessageBusService:SubscribeToProtocolMethodRequest(string protocolName, string methodName, Function callback, bool once, bool sticky) {RobloxScriptSecurity}
 	Function Instance MessageBusService:SubscribeToProtocolMethodResponse(string protocolName, string methodName, Function callback, bool once, bool sticky) {RobloxScriptSecurity}
@@ -2972,18 +2979,15 @@ Class Terrain : BasePart [NotCreatable]
 	Function void Terrain:FillWedge(CFrame cframe, Vector3 size, Enum.Material material)
 	Function Tuple Terrain:GetCell(int x, int y, int z) [Deprecated]
 	Function Color3 Terrain:GetMaterialColor(Enum.Material material)
+	Function Array Terrain:GetTerrainWireframe(CFrame cframe, Vector3 size) {RobloxScriptSecurity}
 	Function Tuple Terrain:GetWaterCell(int x, int y, int z) [Deprecated]
-	Function void Terrain:HideTerrainRegion() {RobloxScriptSecurity}
 	Function void Terrain:PasteRegion(TerrainRegion region, Vector3int16 corner, bool pasteEmptyCells)
 	Function Tuple Terrain:ReadVoxels(Region3 region, float resolution) [CustomLuaState] {🧬Safe}
 	Function void Terrain:ReplaceMaterial(Region3 region, float resolution, Enum.Material sourceMaterial, Enum.Material targetMaterial)
 	Function void Terrain:SetCell(int x, int y, int z, Enum.CellMaterial material, Enum.CellBlock block, Enum.CellOrientation orientation) [Deprecated]
 	Function void Terrain:SetCells(Region3int16 region, Enum.CellMaterial material, Enum.CellBlock block, Enum.CellOrientation orientation) [Deprecated]
 	Function void Terrain:SetMaterialColor(Enum.Material material, Color3 value)
-	Function void Terrain:SetTerrainRegion(CFrame cframe, Vector3 size) {RobloxScriptSecurity}
 	Function void Terrain:SetWaterCell(int x, int y, int z, Enum.WaterForce force, Enum.WaterDirection direction) [Deprecated]
-	Function void Terrain:SetWireframeRegion(CFrame cframe, Vector3 size) {RobloxScriptSecurity}
-	Function void Terrain:ShowTerrainRegion() {RobloxScriptSecurity}
 	Function Vector3 Terrain:WorldToCell(Vector3 position)
 	Function Vector3 Terrain:WorldToCellPreferEmpty(Vector3 position)
 	Function Vector3 Terrain:WorldToCellPreferSolid(Vector3 position)
@@ -3127,7 +3131,6 @@ Class WorldRoot : Model [NotCreatable]
 	Function void WorldRoot:SetInsertPoint(Vector3 point, bool ignoreGrid = false) {RobloxScriptSecurity}
 Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property bool Workspace.AllowThirdPartySales [NotReplicated]
-	Property Enum.NewAnimationRuntimeSetting Workspace.AnimationWeightedBlendFix [NotScriptable]
 	Property Enum.ClientAnimatorThrottlingMode Workspace.ClientAnimatorThrottling
 	Property BinaryString Workspace.CollisionGroupData {RobloxSecurity} [Hidden] [NotScriptable]
 	Property string Workspace.CollisionGroups [<📁> LoadOnly] [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
@@ -3522,6 +3525,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Function Tuple Players:GetUserThumbnailAsync(int64 userId, Enum.ThumbnailType thumbnailType, Enum.ThumbnailSize thumbnailSize) [Yields]
 	Function void Players:ReportAbuse(Player player, string reason, string optionalMessage) {LocalUserSecurity}
 	Function void Players:ReportAbuseV3(Player player, string jsonTags) {RobloxScriptSecurity}
+	Function void Players:ResetLocalPlayer() {LocalUserSecurity}
 	Function void Players:SetChatStyle(Enum.ChatStyle style = "Classic") {PluginSecurity}
 	Function void Players:SetLocalPlayerInfo(int64 userId, string userName, string displayName, Enum.MembershipType membershipType, bool isUnder13) {RobloxScriptSecurity}
 	Function void Players:TeamChat(string message) {PluginSecurity}
@@ -3878,6 +3882,7 @@ Class RuntimeScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SafetyService : Instance [NotCreatable] [Service]
 	Function int64 SafetyService:TakeScreenshot(Dictionary screenshotOptions) {RobloxScriptSecurity}
 	Event SafetyService.ScreenshotContentReady(int64 screenshotJobId, Content contentId) {RobloxScriptSecurity}
+	Event SafetyService.ScreenshotUploaded(int64 screenshotJobId, string screenshotId) {RobloxScriptSecurity}
 Class ScreenshotHud : Instance [NotCreatable] [NotReplicated]
 	Property Content ScreenshotHud.CameraButtonIcon
 	Property UDim2 ScreenshotHud.CameraButtonPosition
@@ -3982,6 +3987,20 @@ Class Selection : Instance [NotCreatable] [Service]
 	Function void Selection:SetTerrainSelectionHack(Vector3 center, Vector3 size) {RobloxScriptSecurity}
 	Event Selection.SelectionChanged()
 Class SelectionHighlightManager : Instance [NotCreatable] [Service]
+Class SensorBase : Instance [NotCreatable]
+	Property Enum.SensorUpdateType SensorBase.UpdateType
+	Function void SensorBase:Sense()
+	Event SensorBase.OnSensorOutputChanged()
+Class BuoyancySensor : SensorBase [NotBrowsable]
+	Property bool BuoyancySensor.FullySubmerged
+	Property bool BuoyancySensor.TouchingSurface
+Class ControllerSensor : SensorBase [NotCreatable]
+Class ControllerPartSensor : ControllerSensor [NotBrowsable]
+	Property float ControllerPartSensor.SearchDistance
+	Property Enum.SensorMode ControllerPartSensor.SensorMode
+	Property CFrame ControllerPartSensor.HitFrame
+	Property Vector3 ControllerPartSensor.HitNormal
+	Property BasePart ControllerPartSensor.SensedPart
 Class ServerScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool ServerScriptService.LoadStringEnabled [NotReplicated] [NotScriptable]
 Class ServerStorage : Instance [NotCreatable] [Service] [NotReplicated]
@@ -4782,6 +4801,7 @@ Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string ThirdPartyUserService:GetUserPlatformId() {RobloxScriptSecurity}
 	Function string ThirdPartyUserService:GetUserPlatformName() {RobloxScriptSecurity}
 	Function bool ThirdPartyUserService:HaveActiveUser() {RobloxScriptSecurity}
+	Function bool ThirdPartyUserService:IsOver13() {RobloxScriptSecurity}
 	Function int ThirdPartyUserService:RegisterActiveUser(Enum.UserInputType gamepadId) {RobloxScriptSecurity} [Yields]
 	Function void ThirdPartyUserService:ReturnToEngagement() {RobloxScriptSecurity}
 	Function void ThirdPartyUserService:ShowAccountPicker() {RobloxScriptSecurity}
@@ -4963,6 +4983,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property Enum.RotationType UserGameSettings.RotationType
 	Property Enum.TouchCameraMovementMode UserGameSettings.TouchCameraMovementMode
 	Property Enum.TouchMovementMode UserGameSettings.TouchMovementMode
+	Property Enum.VRPlayMode UserGameSettings.VRPlayMode {✏️RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool UserGameSettings.AllTutorialsDisabled {RobloxScriptSecurity}
 	Property bool UserGameSettings.CameraYInverted {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool UserGameSettings.ChatVisible {RobloxScriptSecurity}
@@ -5323,6 +5344,12 @@ Enum AdPortalType
 	EnumItem AdPortalType.Return : 1
 Enum AdShape
 	EnumItem AdShape.HorizontalRectangle : 1
+Enum AdTeleportMethod
+	EnumItem AdTeleportMethod.Undefined : 0
+	EnumItem AdTeleportMethod.PortalForward : 1
+	EnumItem AdTeleportMethod.PortalReturn : 2
+	EnumItem AdTeleportMethod.InGameMenuBackButton : 3
+	EnumItem AdTeleportMethod.UIBackButton : 4
 Enum AdornCullingMode
 	EnumItem AdornCullingMode.Automatic : 0
 	EnumItem AdornCullingMode.Never : 1
@@ -5847,6 +5874,10 @@ Enum CreateOutfitFailure
 Enum CreatorType
 	EnumItem CreatorType.User : 0
 	EnumItem CreatorType.Group : 1
+Enum CreatorTypeFilter
+	EnumItem CreatorTypeFilter.User : 0
+	EnumItem CreatorTypeFilter.Group : 1
+	EnumItem CreatorTypeFilter.All : 2
 Enum CurrencyType
 	EnumItem CurrencyType.Default : 0
 	EnumItem CurrencyType.Robux : 1
@@ -6588,10 +6619,6 @@ Enum LeftRight
 	EnumItem LeftRight.Left : 0
 	EnumItem LeftRight.Center : 1
 	EnumItem LeftRight.Right : 2
-Enum LevelOfDetailSetting [Deprecated]
-	EnumItem LevelOfDetailSetting.Low : 0 [Deprecated]
-	EnumItem LevelOfDetailSetting.Medium : 1 [Deprecated]
-	EnumItem LevelOfDetailSetting.High : 2 [Deprecated]
 Enum Limb
 	EnumItem Limb.Head : 0
 	EnumItem Limb.Torso : 1
@@ -6739,10 +6766,6 @@ Enum NetworkOwnership
 	EnumItem NetworkOwnership.Automatic : 0
 	EnumItem NetworkOwnership.Manual : 1
 	EnumItem NetworkOwnership.OnContact : 2
-Enum NewAnimationRuntimeSetting
-	EnumItem NewAnimationRuntimeSetting.Default : 0
-	EnumItem NewAnimationRuntimeSetting.Disabled : 1
-	EnumItem NewAnimationRuntimeSetting.Enabled : 2
 Enum NormalId
 	EnumItem NormalId.Right : 0
 	EnumItem NormalId.Top : 1
@@ -7117,6 +7140,12 @@ Enum ScrollingDirection
 Enum SelectionBehavior
 	EnumItem SelectionBehavior.Escape : 0
 	EnumItem SelectionBehavior.Stop : 1
+Enum SensorMode
+	EnumItem SensorMode.Floor : 0
+	EnumItem SensorMode.Ladder : 1
+Enum SensorUpdateType
+	EnumItem SensorUpdateType.OnRead : 0
+	EnumItem SensorUpdateType.Manual : 1
 Enum ServerAudioBehavior
 	EnumItem ServerAudioBehavior.Enabled : 0
 	EnumItem ServerAudioBehavior.Muted : 1
@@ -7570,6 +7599,7 @@ Enum UserCFrame
 	EnumItem UserCFrame.Head : 0
 	EnumItem UserCFrame.LeftHand : 1
 	EnumItem UserCFrame.RightHand : 2
+	EnumItem UserCFrame.Floor : 3
 Enum UserInputState
 	EnumItem UserInputState.Begin : 0
 	EnumItem UserInputState.Change : 1
@@ -7598,6 +7628,9 @@ Enum UserInputType
 	EnumItem UserInputType.TextInput : 20
 	EnumItem UserInputType.InputMethod : 21
 	EnumItem UserInputType.None : 22
+Enum VRPlayMode
+	EnumItem VRPlayMode.Seated : 0
+	EnumItem VRPlayMode.Standing : 1
 Enum VRSessionState
 	EnumItem VRSessionState.Undefined : 0
 	EnumItem VRSessionState.Idle : 1
