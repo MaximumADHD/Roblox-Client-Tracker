@@ -190,6 +190,28 @@ function StoreReader:resetCanon(): ()
 	self.canon = ObjectCanon.new()
 end
 
+-- ROBLOX deviation START: inline makeCacheKey function definition
+local function makeSelectionSetCacheKey(_self, selectionSet, parent, context, canonizeResults): Object?
+	if supportsResultCaching(context.store) then
+		return ((context.store :: any) :: EntityStore):makeCacheKey(
+			selectionSet,
+			isReference(parent) and parent.__ref or parent,
+			context.varString,
+			canonizeResults
+		)
+	end
+	return nil
+end
+
+local function makeSubSelectedCacheKey(_self, ref): Object?
+	local field, array, context = ref.field, ref.array, ref.context
+	if supportsResultCaching(context.store) then
+		return ((context.store :: any) :: EntityStore):makeCacheKey(field, array, context.varString)
+	end
+	return nil
+end
+-- ROBLOX deviation END
+
 function StoreReader.new(config: StoreReaderConfig): StoreReader
 	local self = (setmetatable({}, StoreReader) :: any) :: StoreReaderPrivate
 
@@ -197,9 +219,13 @@ function StoreReader.new(config: StoreReaderConfig): StoreReader
 	self.knownResults = WeakMap.new()
 	-- ROBLOX section end: inline properties
 
-	self.config = Object.assign({}, config, { addTypename = config.addTypename ~= false })
+	-- ROBLOX deviation START: use table.clone to avoid additional iteration
+	self.config = Object.assign(table.clone(config), { addTypename = config.addTypename ~= false })
+	-- ROBLOX deviation END
 
-	self.canon = Boolean.toJSBoolean(config.canon) and config.canon :: ObjectCanon or ObjectCanon.new()
+	-- ROBLOX deviation START: remove Boolean
+	self.canon = config.canon :: ObjectCanon or ObjectCanon.new()
+	-- ROBLOX deviation END
 
 	self.executeSelectionSet = wrap(function(_self, options)
 		local canonizeResults = options.context.canonizeResults
@@ -212,13 +238,17 @@ function StoreReader.new(config: StoreReaderConfig): StoreReader
 
 		local other = self.executeSelectionSet:peek(table.unpack(peekArgs))
 
-		if Boolean.toJSBoolean(other) and other ~= nil then
+		-- ROBLOX deviation START: remove Boolean
+		if other ~= nil then
+			-- ROBLOX deviation END
 			if canonizeResults then
-				return Object.assign({}, other, {
+				-- ROBLOX deviation START: use table.clone
+				return Object.assign(table.clone(other), {
 					-- If we previously read this result without canonizing it, we can
 					-- reuse that result simply by canonizing it now.
 					result = self.canon:admit(other.result),
 				})
+				-- ROBLOX deviation END
 			end
 			-- If we previously read this result with canonization enabled, we can
 			-- return that canonized result as-is.
@@ -237,17 +267,9 @@ function StoreReader.new(config: StoreReaderConfig): StoreReader
 		end,
 		-- Note that the parameters of makeCacheKey are determined by the
 		-- array returned by keyArgs.
-		makeCacheKey = function(_self, selectionSet, parent, context, canonizeResults): Object | nil
-			if supportsResultCaching(context.store) then
-				return ((context.store :: any) :: EntityStore):makeCacheKey(
-					selectionSet,
-					isReference(parent) and parent.__ref or parent,
-					context.varString,
-					canonizeResults
-				)
-			end
-			return nil
-		end,
+		-- ROBLOX deviation START: inline function declaration
+		makeCacheKey = makeSelectionSetCacheKey,
+		-- ROBLOX deviation END
 	}, self)
 
 	self.executeSubSelectedArray = wrap(function(_self, options: ExecSubSelectedArrayOptions)
@@ -255,13 +277,9 @@ function StoreReader.new(config: StoreReaderConfig): StoreReader
 		return self:execSubSelectedArrayImpl(options)
 	end, {
 		max = self.config.resultCacheMaxSize,
-		makeCacheKey = function(_self, ref): Object | nil
-			local field, array, context = ref.field, ref.array, ref.context
-			if supportsResultCaching(context.store) then
-				return ((context.store :: any) :: EntityStore):makeCacheKey(field, array, context.varString)
-			end
-			return nil
-		end,
+		-- ROBLOX deviation START: inline function declaration
+		makeCacheKey = makeSubSelectedCacheKey,
+		-- ROBLOX deviation END
 	}, self)
 
 	return (self :: any) :: StoreReader
@@ -308,7 +326,9 @@ function StoreReader:diffQueryAgainstStore<T>(ref: DiffQueryAgainstStoreOptions)
 		},
 	})
 
-	local hasMissingFields = Boolean.toJSBoolean(execResult.missing) and #execResult.missing > 0
+	-- ROBLOX deviation START: remove Boolean
+	local hasMissingFields = execResult.missing and #execResult.missing > 0
+	-- ROBLOX deviation END
 	if hasMissingFields and not returnPartialData then
 		error(execResult.missing[1])
 	end
@@ -336,7 +356,9 @@ function StoreReader:isFresh(
 			-- avoid checking both possibilities here.
 			self.canon:isKnown(result)
 		)
-		if Boolean.toJSBoolean(latest) and result == latest.result then
+		-- ROBLOX deviation START: remove Boolean
+		if latest and result == latest.result then
+			-- ROBLOX deviation END
 			return true
 		end
 	end
@@ -348,8 +370,10 @@ function StoreReader:execSelectionSetImpl(ref: ExecSelectionSetOptions): ExecRes
 	local selectionSet, objectOrReference, enclosingRef, context =
 		ref.selectionSet, ref.objectOrReference, ref.enclosingRef, ref.context
 	if
-		isReference(objectOrReference)
-		and not Boolean.toJSBoolean(context.policies.rootTypenamesById[(objectOrReference :: Reference).__ref])
+		-- ROBLOX deviation START: check for __ref instead of costly isReference, remove Boolean
+		objectOrReference.__ref
+		and not context.policies.rootTypenamesById[(objectOrReference :: Reference).__ref]
+		-- ROBLOX deviation END
 		and not context.store:has((objectOrReference :: Reference).__ref)
 	then
 		return {
@@ -370,11 +394,9 @@ function StoreReader:execSelectionSetImpl(ref: ExecSelectionSetOptions): ExecRes
 	local finalResult: ExecResult<any> = { result = NULL }
 	local typename = store:getFieldValue(objectOrReference, "__typename")
 
-	if
-		self.config.addTypename
-		and typeof(typename) == "string"
-		and not Boolean.toJSBoolean(policies.rootIdsByTypename[typename])
-	then
+	-- ROBLOX deviation START: remove typeof and Boolean
+	if self.config.addTypename and type(typename) == "string" and not policies.rootIdsByTypename[typename] then
+		-- ROBLOX deviation END
 		-- Ensure we always include a default value for the __typename
 		-- field, if we have one, and this.config.addTypename is true. Note
 		-- that this field can be overridden by other merged objects.
@@ -382,19 +404,25 @@ function StoreReader:execSelectionSetImpl(ref: ExecSelectionSetOptions): ExecRes
 	end
 
 	local function getMissing(): Array<MissingFieldError>
-		if not Boolean.toJSBoolean(finalResult.missing) then
+		-- ROBLOX deviation START: remove Boolean
+		if not finalResult.missing then
+			-- ROBLOX deviation END
 			finalResult.missing = {}
 		end
 		return finalResult.missing :: Array<MissingFieldError>
 	end
 
 	local function handleMissing(result: ExecResult<T_>): T_
-		if Boolean.toJSBoolean(result.missing) then
+		-- ROBLOX deviation START: remove Boolean
+		if result.missing then
+			-- ROBLOX deviation END
 			local missing = getMissing()
 			local resultMissing = result.missing :: Array<any>
-			for i = 1, #resultMissing do
-				table.insert(missing, resultMissing[i])
+			-- ROBLOX deviation START: use for in loop
+			for _, value in resultMissing do
+				table.insert(missing, value)
 			end
+			-- ROBLOX deviation END
 		end
 		return result.result
 	end
@@ -422,7 +450,9 @@ function StoreReader:execSelectionSetImpl(ref: ExecSelectionSetOptions): ExecRes
 			table.insert(context.path, resultName)
 
 			if fieldValue == nil then
-				if not Boolean.toJSBoolean(addTypenameToDocument:added(selection)) then
+				-- ROBLOX deviation START: remove Boolean
+				if not addTypenameToDocument:added(selection) then
+					-- ROBLOX deviation END
 					table.insert(
 						getMissing(),
 						missingFromInvariant(
@@ -451,7 +481,9 @@ function StoreReader:execSelectionSetImpl(ref: ExecSelectionSetOptions): ExecRes
 					enclosingRef = enclosingRef,
 					context = context,
 				}))
-			elseif not Boolean.toJSBoolean(selection.selectionSet) then
+				-- ROBLOX deviation START: remove Boolean
+			elseif not selection.selectionSet then
+				-- ROBLOX deviation END
 				-- If the field does not have a selection set, then we handle it
 				-- as a scalar value. To keep this.canon from canonicalizing
 				-- this value, we use this.canon.pass to wrap fieldValue in a
@@ -475,11 +507,18 @@ function StoreReader:execSelectionSetImpl(ref: ExecSelectionSetOptions): ExecRes
 				table.insert(objectsToMerge, { [resultName] = fieldValue })
 			end
 
-			invariant(table.remove(context.path) == resultName)
+			-- ROBLOX deviaiton START: don't call invariant unless we have to
+			local isValidResult = table.remove(context.path) == resultName
+			if not isValidResult then
+				invariant(isValidResult)
+			end
+			-- ROBLOX deviation END
 		else
 			local fragment = getFragmentFromSelection(selection, context.fragmentMap)
 
-			if Boolean.toJSBoolean(fragment) and Boolean.toJSBoolean(policies:fragmentMatches(fragment, typename)) then
+			-- ROBLOX deviation START: remove Boolean
+			if fragment and policies:fragmentMatches(fragment, typename) then
+				-- ROBLOX deviation END
 				Array.forEach(fragment.selectionSet.selections, workSet.add, workSet)
 			end
 		end
@@ -511,8 +550,10 @@ function StoreReader:execSubSelectedArrayImpl(ref: ExecSubSelectedArrayOptions):
 	local missing: Array<MissingFieldError> | nil
 
 	local function handleMissing(childResult: ExecResult<T_>, i: number): T_
-		if Boolean.toJSBoolean(childResult.missing) then
-			missing = Boolean.toJSBoolean(missing) and missing or {}
+		-- ROBLOX deviation START: remove Boolean
+		if childResult.missing then
+			missing = missing or {}
+			-- ROBLOX deviation END
 			local refArr = childResult.missing :: Array<any>
 			for i_ = 1, #refArr do
 				table.insert(missing :: Array<MissingFieldError>, refArr[i_])
@@ -524,7 +565,9 @@ function StoreReader:execSubSelectedArrayImpl(ref: ExecSubSelectedArrayOptions):
 		return childResult.result
 	end
 
-	if Boolean.toJSBoolean(field.selectionSet) then
+	-- ROBLOX deviation START: remove Boolean
+	if field.selectionSet then
+		-- ROBLOX deviation END
 		array = Array.filter(array, function(item)
 			return context.store:canRead(item)
 		end)
@@ -569,7 +612,10 @@ function StoreReader:execSubSelectedArrayImpl(ref: ExecSubSelectedArrayOptions):
 			assertSelectionSetForIdValue(context.store, field, item)
 		end
 
-		invariant(table.remove(context.path) == i)
+		local isValidResult = table.remove(context.path) == i
+		if not isValidResult then
+			invariant(isValidResult)
+		end
 
 		return item
 	end)
@@ -589,7 +635,9 @@ end
 exports.StoreReader = StoreReader
 
 function assertSelectionSetForIdValue(store: NormalizedCache, field: FieldNode, fieldValue: any)
-	if not Boolean.toJSBoolean(field.selectionSet) then
+	-- ROBLOX deviation START: remove Boolean
+	if not field.selectionSet then
+		-- ROBLOX deviation END
 		local workSet = Set.new({ fieldValue })
 		-- ROBLOX deviation START: set is being modified inside the loop, can't use forEach
 		for _, value in workSet do

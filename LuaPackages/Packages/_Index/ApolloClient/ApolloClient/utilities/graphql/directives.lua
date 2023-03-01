@@ -6,7 +6,6 @@ local srcWorkspace = script.Parent.Parent.Parent
 local rootWorkspace = srcWorkspace.Parent
 
 local LuauPolyfill = require(rootWorkspace.LuauPolyfill)
-local Boolean = LuauPolyfill.Boolean
 local Array = LuauPolyfill.Array
 type Array<T> = LuauPolyfill.Array<T>
 type ReadonlyArray<T> = Array<T>
@@ -34,7 +33,9 @@ local getInclusionDirectives
 
 local function shouldInclude(ref: SelectionNode, variables: Record<string, any>?): boolean
 	local directives = ref.directives
-	if not Boolean.toJSBoolean(directives) or not Boolean.toJSBoolean(#(directives :: Array<DirectiveNode>)) then
+	-- ROBLOX deviation START: remove Boolean
+	if not directives or #(directives :: Array<DirectiveNode>) == 0 then
+		-- ROBLOX deviation END
 		return true
 	end
 	return Array.every(getInclusionDirectives(directives :: Array<DirectiveNode>), function(ref)
@@ -79,9 +80,9 @@ end
 exports.hasDirectives = hasDirectives
 
 local function hasClientExports(document: DocumentNode)
-	return Boolean.toJSBoolean(document)
-		and hasDirectives({ "client" }, document)
-		and hasDirectives({ "export" }, document)
+	-- ROBLOX deviation START: remove Boolean
+	return document ~= nil and hasDirectives({ "client" }, document) and hasDirectives({ "export" }, document)
+	-- ROBLOX deviation END
 end
 exports.hasClientExports = hasClientExports
 
@@ -95,7 +96,9 @@ end
 function getInclusionDirectives(directives: ReadonlyArray<DirectiveNode>): InclusionDirectives
 	local result: InclusionDirectives = {}
 
-	if Boolean.toJSBoolean(directives) and Boolean.toJSBoolean(#directives) then
+	-- ROBLOX deviation START: remove Boolean
+	if directives and #directives > 0 then
+		-- ROBLOX deviation END
 		Array.forEach(directives, function(directive)
 			if not isInclusionDirective(directive) then
 				return
@@ -104,24 +107,27 @@ function getInclusionDirectives(directives: ReadonlyArray<DirectiveNode>): Inclu
 			local directiveArguments = directive.arguments
 			local directiveName = directive.name.value
 
-			invariant(
-				Boolean.toJSBoolean(directiveArguments) and #directiveArguments == 1,
-				("Incorrect number of arguments for the @%s directive."):format(directiveName)
-			)
+			-- ROBLOX deviation START: optimize invariants
+			if not (directiveArguments and #directiveArguments == 1) then
+				invariant(false, ("Incorrect number of arguments for the @%s directive."):format(directiveName))
+			end
 
 			local ifArgument = directiveArguments[1]
-			invariant(
-				Boolean.toJSBoolean(ifArgument.name) and ifArgument.name.value == "if",
-				("Invalid argument for the @%s directive."):format(directiveName)
-			)
+
+			if not (ifArgument.name and ifArgument.name.value == "if") then
+				invariant(false, ("Invalid argument for the @%s directive."):format(directiveName))
+			end
 
 			local ifValue: ValueNode = ifArgument.value
 
 			-- means it has to be a variable value if this is a valid @skip or @include directive
-			invariant(
-				Boolean.toJSBoolean(ifValue) and (ifValue.kind == "Variable" or ifValue.kind == "BooleanValue"),
-				("Argument for the @%s directive must be a variable or a boolean value."):format(directiveName)
-			)
+			if not (ifValue and (ifValue.kind == "Variable" or ifValue.kind == "BooleanValue")) then
+				invariant(
+					false,
+					("Argument for the @%s directive must be a variable or a boolean value."):format(directiveName)
+				)
+			end
+			-- ROBLOX deviation END
 
 			table.insert(result, { directive = directive, ifArgument = ifArgument })
 		end)

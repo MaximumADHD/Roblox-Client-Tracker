@@ -6,8 +6,8 @@ local t = require(Packages.t)
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Array = LuauPolyfill.Array
 
-export type Config = {
-	[any]: BreakpointConfig | Config | number,
+export type Config<T = number> = {
+	[any]: BreakpointConfig | Config<T> | T,
 }
 
 export type BreakpointConfig = {

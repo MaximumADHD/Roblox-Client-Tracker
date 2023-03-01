@@ -6,7 +6,6 @@ local rootWorkspace = srcWorkspace.Parent
 local LuauPolyfill = require(rootWorkspace.LuauPolyfill)
 local Array = LuauPolyfill.Array
 local Set = LuauPolyfill.Set
-local Boolean = LuauPolyfill.Boolean
 local Map = LuauPolyfill.Map
 local Error = LuauPolyfill.Error
 
@@ -66,8 +65,10 @@ local POOL_TARGET_SIZE = 100
 -- Since self package might be used browsers, we should avoid using the
 -- Node built-in assert module.
 local function assert(condition: any, optionalMessage: string?)
-	if not Boolean.toJSBoolean(condition) then
-		error(Error.new(Boolean.toJSBoolean(optionalMessage) and optionalMessage or "assertion failure"))
+	-- ROBLOX deviation START: remove Boolean
+	if not condition then
+		error(Error.new(optionalMessage or "assertion failure"))
+		-- ROBLOX deviation END
 	end
 end
 
@@ -90,7 +91,7 @@ end
 
 local function valueGet(value: Value<T_>): T_
 	--[[
-		ROBLOX deviation: 
+		ROBLOX deviation:
 		known error value is represented as { nil, error_ }
 		#value returns 0 in that case so we need to do a custom check
 		original code:
@@ -114,7 +115,9 @@ local function valueGet(value: Value<T_>): T_
 end
 
 local function valueCopy(value: Value<T_>): Value<T_>
-	return Array.slice(value, 1) :: Value<T_>
+	-- ROBLOX deviation START: use table.clone instead of Array.slice
+	return table.clone(value) :: Value<T_>
+	-- ROBLOX deviation END
 end
 
 -- ROBLOX deviation: types are moved to separate file to avoid circular dependencies
@@ -229,13 +232,15 @@ function Entry:dependOn(dep: Dep<any>)
 end
 
 function Entry:forgetDeps()
-	if Boolean.toJSBoolean(self.deps) then
+	-- ROBLOX deviation START: remove Boolean
+	if self.deps then
+		-- ROBLOX deviation END
 		Array.forEach(toArray(self.deps), function(dep)
 			dep:delete(self)
 		end)
 		self.deps:clear()
 		table.insert(emptySetPool, self.deps)
-		self.deps = nil
+		self.deps = nil :: any
 	end
 end
 
@@ -243,14 +248,20 @@ exports.Entry = Entry
 
 function rememberParent(child: AnyEntry)
 	local parent = parentEntrySlot:getValue()
-	if Boolean.toJSBoolean(parent) then
+	-- ROBLOX deviation START: remove Boolean
+	if parent then
+		-- ROBLOX deviation END
 		child.parents:add(parent)
 
-		if not Boolean.toJSBoolean(parent.childValues:has(child)) then
+		-- ROBLOX deviation START: remove Boolean
+		if not parent.childValues:has(child) then
+			-- ROBLOX deviation END
 			parent.childValues:set(child, {})
 		end
 
-		if Boolean.toJSBoolean(mightBeDirty(child)) then
+		-- ROBLOX deviation START: remove Boolean
+		if mightBeDirty(child) then
+			-- ROBLOX deviation END
 			reportDirtyChild(parent, child)
 		else
 			reportCleanChild(parent, child)
@@ -267,7 +278,9 @@ function reallyRecompute(entry: AnyEntry, args: Array<any>)
 	-- Set entry as the parent entry while calling recomputeNewValue(entry).
 	parentEntrySlot:withValue(entry, recomputeNewValue, { entry, args :: any })
 
-	if Boolean.toJSBoolean(maybeSubscribe(entry, args)) then
+	-- ROBLOX deviation START: remove Boolean
+	if maybeSubscribe(entry, args) then
+		-- ROBLOX deviation END
 		-- If we successfully recomputed entry.value and did not fail to
 		-- (re)subscribe, then this Entry is no longer explicitly dirty.
 		setClean(entry)
@@ -300,11 +313,9 @@ function recomputeNewValue(_self, entry: AnyEntry, args: Array<any>)
 end
 
 function mightBeDirty(entry: AnyEntry): boolean
-	return entry.dirty
-		-- ROBLOX deviation: using Boolean.toJSBoolean instead of double negation
-		or Boolean.toJSBoolean(
-			Boolean.toJSBoolean(entry.dirtyChildren) and (entry.dirtyChildren :: Set<any>).size or entry.dirtyChildren
-		)
+	-- ROBLOX deviation START: remove Boolean
+	return entry.dirty or (entry.dirtyChildren ~= nil and entry.dirtyChildren.size > 0)
+	-- ROBLOX deviation END
 end
 
 function setClean(entry: AnyEntry)
@@ -329,7 +340,9 @@ end
 
 function eachParent(child: AnyEntry, callback: (parent: AnyEntry, child: AnyEntry) -> any?)
 	local parentCount = child.parents.size
-	if Boolean.toJSBoolean(parentCount) then
+	-- ROBLOX deviation START: remove Boolean
+	if parentCount then
+		-- ROBLOX deviation END
 		local parents = toArray(child.parents)
 		for i = 1, parentCount do
 			callback(parents[i], child)
@@ -341,13 +354,19 @@ end
 function reportDirtyChild(parent: AnyEntry, child: AnyEntry)
 	-- Must have called rememberParent(child) before calling
 	-- reportDirtyChild(parent, child).
-	assert(parent.childValues:has(child))
-	assert(mightBeDirty(child))
+	-- ROBLOX deviation START: only assert in DEV mode
+	if _G.__DEV__ then
+		assert(parent.childValues:has(child))
+		assert(mightBeDirty(child))
+	end
+	-- ROBLOX deviation END
 	local parentWasClean = not mightBeDirty(parent)
 
-	if not Boolean.toJSBoolean(parent.dirtyChildren) then
+	-- ROBLOX deviation START: remove Boolean
+	if not parent.dirtyChildren then
 		local ref = table.remove(emptySetPool)
-		parent.dirtyChildren = Boolean.toJSBoolean(ref) and ref or Set.new()
+		parent.dirtyChildren = ref or Set.new()
+		-- ROBLOX deviation END
 	elseif (parent.dirtyChildren :: Set<any>):has(child) then
 		-- If we already know this child is dirty, then we must have already
 		-- informed our own parents that we are dirty, so we can terminate
@@ -369,8 +388,12 @@ end
 function reportCleanChild(parent: AnyEntry, child: AnyEntry)
 	-- Must have called rememberChild(child) before calling
 	-- reportCleanChild(parent, child).
-	assert(parent.childValues:has(child))
-	assert(not mightBeDirty(child))
+	-- ROBLOX deviation START: only assert in DEV mode
+	if _G.__DEV__ then
+		assert(parent.childValues:has(child))
+		assert(not mightBeDirty(child))
+	end
+	-- ROBLOX deviation END
 
 	local childValue = parent.childValues:get(child) :: Value<any>
 	if #childValue == 0 then
@@ -411,7 +434,7 @@ function forgetChildren(parent: AnyEntry)
 			as we are modifying the underlying map within the forEach
 			we need to clone the keys so they are not affected during the loop
 		]]
-		local children = Array.slice(parent.childValues:keys())
+		local children = table.clone(parent.childValues:keys())
 		Array.forEach(children, function(child)
 			forgetChild(parent, child)
 		end)

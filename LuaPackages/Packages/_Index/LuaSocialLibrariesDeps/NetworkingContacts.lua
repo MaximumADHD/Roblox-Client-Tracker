@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["NetworkingContacts-96003ad7-1.10.0"]["NetworkingContacts"])
+local Package = require(PackageIndex["NetworkingContacts-96003ad7-1.11.0"]["NetworkingContacts"])
 
 return Package

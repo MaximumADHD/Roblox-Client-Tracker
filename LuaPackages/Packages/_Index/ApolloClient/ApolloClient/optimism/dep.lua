@@ -4,7 +4,6 @@ local srcWorkspace = script.Parent.Parent
 local rootWorkspace = srcWorkspace.Parent
 
 local LuauPolyfill = require(rootWorkspace.LuauPolyfill)
-local Map = LuauPolyfill.Map
 type Map<K, V> = LuauPolyfill.Map<K, V>
 local Set = LuauPolyfill.Set
 local Array = LuauPolyfill.Array
@@ -60,22 +59,30 @@ type Dep_Subscribe<TKey> = ((TKey) -> () | (() -> any))
 
 local function dep<TKey>(options: { subscribe: Dep_Subscribe<TKey> }?)
 	-- ROBLOX TODO: Luau doesnt support explicit generic params, so we cast to the expected Map type
-	local depsByKey: Map<TKey, Dep<TKey>> = Map.new()
+	-- ROBLOX deviation START: use table instead of Map
+	local depsByKey = {}
+	-- ROBLOX deviation END
 	local subscribe = if options ~= nil then options.subscribe else options
 
 	local depend = setmetatable({}, {
 		__call = function(_self, key: TKey)
 			local parent = parentEntrySlot:getValue()
 			if parent ~= nil then
-				local dep = depsByKey:get(key)
+				-- ROBLOX deviation START: use table instead of Map
+				local dep = depsByKey[key]
+				-- ROBLOX deviation END
 				if not dep then
 					dep = Set.new() :: Dep<TKey>
 					-- ROBLOX FIXME Luau: analyze doesn't narrow to non-nil even with direct assignment immediately before
-					depsByKey:set(key, (dep :: any) :: Dep<TKey>)
+					-- ROBLOX deviation START: use table instead of Map
+					depsByKey[key] = (dep :: any) :: Dep<TKey>
+					-- ROBLOX deviation END
 				end
 				parent:dependOn(dep)
 				-- ROBLOX FIXME Luau: this should narrow subscribe to be non-nil, but doesn't
-				if typeof(subscribe) == "function" then
+				-- ROBLOX deviation START: use type instead of typeof
+				if type(subscribe) == "function" then
+					-- ROBLOX deviation END
 					-- ROBLOX FIXME Luau: inference doesn't understand x == nil then x = new Set()
 					maybeUnsubscribe(dep :: Dep<TKey>);
 					-- ROBLOX TODO Luau: hard cast. Luau will say 'subscribe' isn't callable even though it's an intersection of two function types and it should infer
@@ -86,7 +93,9 @@ local function dep<TKey>(options: { subscribe: Dep_Subscribe<TKey> }?)
 	})
 
 	depend.dirty = function(_self, key: TKey, entryMethodName: EntryMethodName?)
-		local dep = depsByKey:get(key)
+		-- ROBLOX deviation START: use table instead of Map
+		local dep = depsByKey[key]
+		-- ROBLOX deviation END
 		if dep then
 			local m: EntryMethodName = if entryMethodName and hasOwnProperty(EntryMethods, entryMethodName)
 				then entryMethodName
@@ -97,7 +106,9 @@ local function dep<TKey>(options: { subscribe: Dep_Subscribe<TKey> }?)
 			Array.forEach(toArray(dep :: Dep<TKey>), function(entry)
 				entry[m](entry)
 			end)
-			depsByKey:delete(key)
+			-- ROBLOX deviation START: use table instead of Map
+			depsByKey[key] = nil
+			-- ROBLOX deviation END
 			maybeUnsubscribe(dep :: Dep<TKey>)
 		end
 	end

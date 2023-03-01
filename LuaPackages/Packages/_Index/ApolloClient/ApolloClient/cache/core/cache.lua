@@ -297,10 +297,16 @@ function ApolloCache:readQuery(
 	optimistic: boolean?
 ): QueryType_ | nil
 	if optimistic == nil then
-		optimistic = not not Boolean.toJSBoolean(options.optimistic)
+		-- ROBLOX deviation START: remove Boolean
+		optimistic = not not options.optimistic
+		-- ROBLOX deviation END
 	end
-	return self:read(Object.assign({}, options, {
+	-- ROBLOX deviation START: use table.clone
+	return self:read(Object.assign(table.clone(options), {
+		-- ROBLOX deviation END
+		-- ROBLOX deviation START: remove Boolean
 		rootId = Boolean.toJSBoolean(options.id) and options.id or "ROOT_QUERY",
+		-- ROBLOX deviation END
 		optimistic = optimistic,
 	}))
 end
@@ -310,7 +316,9 @@ function ApolloCache:readFragment(
 	optimistic: boolean?
 ): FragmentType_ | nil
 	if optimistic == nil then
-		optimistic = not not Boolean.toJSBoolean(options.optimistic)
+		-- ROBLOX deviation START: remove Boolean
+		optimistic = not not options.optimistic
+		-- ROBLOX deviation END
 	end
 	return self:read(Object.assign({}, options, {
 		-- ROBLOX deviation START: getFragmentDoc does not take self argument
@@ -322,23 +330,29 @@ function ApolloCache:readFragment(
 end
 
 function ApolloCache:writeQuery(ref): Reference | nil
-	local id, data, options = ref.id, ref.data, Object.assign({}, ref, { id = Object.None, data = Object.None })
+	-- ROBLOX deviation START: use table.clone
+	local id, data, options =
+		ref.id, ref.data, Object.assign(table.clone(ref), { id = Object.None, data = Object.None })
+	-- ROBLOX deviation END
 	return self:write(
-		Object.assign(options, { dataId = Boolean.toJSBoolean(id) and id or "ROOT_QUERY", result = data })
+		-- ROBLOX deviation START: remove Boolean
+		Object.assign(options, { dataId = id or "ROOT_QUERY", result = data })
+		-- ROBLOX deviation END
 	)
 end
 
 function ApolloCache:writeFragment(ref): Reference | nil
+	-- ROBLOX deviation START: use table.clone
 	local id, data, fragment, fragmentName, options =
 		ref.id,
 		ref.data,
 		ref.fragment,
 		ref.fragmentName,
 		Object.assign(
-			{},
-			ref,
+			table.clone(ref),
 			{ id = Object.None, data = Object.None, fragment = Object.None, fragmentName = Object.None }
 		)
+	-- ROBLOX deviation END
 	return self:write(
 		-- ROBLOX deviation START: getFragmentDoc does not take self argument
 		Object.assign(options, { query = self.getFragmentDoc(fragment, fragmentName), dataId = id, result = data })

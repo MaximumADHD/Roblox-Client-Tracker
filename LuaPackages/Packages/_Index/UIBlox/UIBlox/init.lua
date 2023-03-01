@@ -5,6 +5,7 @@ local Packages = script.Parent
 local Fonts = require(script.App.Style.Fonts)
 local ImagesTypes = require(script.App.ImageSet.ImagesTypes)
 local StyleTypes = require(script.App.Style.StyleTypes)
+local GridConfigReader = require(script.Core.Layout.Grid.GridConfigReader)
 
 export type Font = Fonts.Font
 export type FontPalette = Fonts.FontPalette
@@ -15,6 +16,8 @@ export type Images = ImagesTypes.Images
 export type Theme = StyleTypes.Theme
 export type ThemeItem = StyleTypes.ThemeItem
 export type AppStyle = StyleTypes.AppStyle
+
+export type GridConfig<T = number> = GridConfigReader.Config<T>
 
 local function initializeLibrary(configs)
 	local strict = require(script.Utility.strict)
@@ -381,6 +384,10 @@ local function initializeLibrary(configs)
 			CellTailDescription = require(script.App.Table.CellTailDescription),
 		}),
 	})
+
+	UIBlox.UnitTestHelpers = {
+		MockContentProvider = require(script.UnitTestHelpers.MockContentProvider),
+	}
 
 	UIBlox.Style = {
 		-- These redirect to Core, which ultimately redirect back to original.

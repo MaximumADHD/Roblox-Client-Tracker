@@ -75,6 +75,31 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 				finalPosition = userHeadCameraCF.Position + lastLookCFrame.current.LookVector * (cameraHeadScale + 1)
 			end
 			finalPosition = Vector3.new(finalPosition.X, userHeadCameraCF.Position.Y, finalPosition.Z)
+
+			local alignedPanel = props.alignedPanel
+			if alignedPanel then
+				-- Panel should align to another in-game VR Panel3D with an offset that follows the user's sight direction
+				local panelPart = alignedPanel:GetPart()
+				local shouldAlignToPanel = panelPart
+					and alignedPanel:IsPositionLockedType()
+					and (alignedPanel:IsVisible() or alignedPanel.alwaysUpdatePosition)
+				if shouldAlignToPanel then
+					-- finalPosition should be calculated by panelPart's position + an offset that's based on other panel's LookVector.
+					-- lookVectorOffset is based on finalPositions calculated in alignedPanel:EvaluatePositioning() and above,
+					-- since both finalPositions are equal to userHeadCameraCF.Position + a lookVector offset
+					local lookVectorOffset = 0
+					if UIBloxConfig.vrApplyHeadScale then
+						lookVectorOffset = (cameraHeadScale * 2)
+							- (alignedPanel.distance * cameraHeadScale + panelPart.Size.Z * 0.5)
+					else
+						lookVectorOffset = (cameraHeadScale + 1) - (alignedPanel.distance * cameraHeadScale)
+					end
+					local shiftedPanelPartPosition = panelPart.Position
+						+ lookVectorOffset * alignedPanel.LastFollowCF.LookVector
+
+					finalPosition = Vector3.new(shiftedPanelPartPosition.X, finalPosition.Y, shiftedPanelPartPosition.Z)
+				end
+			end
 		elseif props.anchoring == Constants.AnchoringTypes.Wrist then
 			-- Always try to use non-primary hand for anchoring the menu, defaults to LeftHand when using head tracking.
 			if
@@ -133,7 +158,7 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 				basePart.current.Size = Vector3.new(props.partSize.X, props.partSize.Y, 0) * cameraHeadScale
 			end
 		end
-	end, { props.anchoring, props.faceCamera, props.lerp, props.offset, props.partSize } :: { any })
+	end, { props.anchoring, props.faceCamera, props.lerp, props.offset, props.partSize, props.alignedPanel } :: { any })
 
 	React.useEffect(function()
 		if props.anchoring ~= Constants.AnchoringTypes.World then

@@ -5,13 +5,12 @@ local rootWorkspace = srcWorkspace.Parent
 
 local LuauPolyfill = require(rootWorkspace.LuauPolyfill)
 local Map = LuauPolyfill.Map
-local Boolean = LuauPolyfill.Boolean
 
 type Map<K, V> = LuauPolyfill.Map<K, V>
 
 local exports = {}
 
-export type Node<K, V> = { key: K, value: V, newer: Node<K, V> | nil, older: Node<K, V> | nil }
+export type Node<K, V> = { key: K, value: V, newer: Node<K, V>?, older: Node<K, V>? }
 
 local function defaultDispose() end
 
@@ -29,7 +28,7 @@ Cache.__index = Cache
 export type Cache<K, V> = {
 	dispose: (value: V, key: K) -> (),
 	has: (self: Cache<K, V>, key: K) -> boolean,
-	get: (self: Cache<K, V>, key: K) -> V | nil,
+	get: (self: Cache<K, V>, key: K) -> V?,
 	set: (self: Cache<K, V>, key: K, value: V) -> V,
 	clean: (self: Cache<K, V>) -> (),
 	delete: (self: Cache<K, V>, key: K) -> boolean,
@@ -37,10 +36,10 @@ export type Cache<K, V> = {
 
 type CachePrivate<K, V> = Cache<K, V> & {
 	map: Map<K, Node<K, V>>,
-	newest: Node<K, V> | nil,
-	oldest: Node<K, V> | nil,
+	newest: Node<K, V>?,
+	oldest: Node<K, V>?,
 	max: number,
-	getNode: (self: CachePrivate<K, V>, key: K) -> Node<K, V> | nil,
+	getNode: (self: CachePrivate<K, V>, key: K) -> Node<K, V>?,
 }
 
 function Cache.new<K, V>(max_: number?, dispose_: ((value: V, key: K) -> ())?): Cache<K, V>
@@ -69,32 +68,40 @@ function Cache:has(key: K_): boolean
 	return self.map:has(key)
 end
 
-function Cache:get(key: K_): V_ | nil
+function Cache:get(key: K_): V_?
 	local node = (self :: CachePrivate<K_, V_>):getNode(key)
-	if Boolean.toJSBoolean(node) then
+	-- ROBLOX deviation START: remove Boolean
+	if node then
+		-- ROBLOX deviation END
 		return (node :: any).value
 	end
 	return node
 end
 
-function Cache:getNode(key: K_): Node<K_, V_> | nil
+function Cache:getNode(key: K_): Node<K_, V_>?
 	local node = self.map:get(key)
 
-	if Boolean.toJSBoolean(node) and node ~= self.newest then
+	-- ROBLOX deviation START: remove Boolean
+	if node and node ~= self.newest then
+		-- ROBLOX deviation END
 		local older, newer = node.older, node.newer
 
-		if Boolean.toJSBoolean(newer) then
+		-- ROBLOX deviation START: remove Boolean
+		if newer then
+			-- ROBLOX deviation END
 			newer.older = older
 		end
 
-		if Boolean.toJSBoolean(older) then
+		-- ROBLOX deviation START: remove Boolean
+		if older then
+			-- ROBLOX deviation END
 			older.newer = newer
 		end
 
 		node.older = self.newest
 		node.older.newer = node
 
-		node.newer = nil
+		node.newer = nil :: any
 		self.newest = node
 
 		if node == self.oldest then
@@ -108,7 +115,9 @@ end
 function Cache:set(key: K_, value: V_): V_
 	local node = self:getNode(key)
 
-	if Boolean.toJSBoolean(node) then
+	-- ROBLOX deviation START: remove Boolean
+	if node then
+		-- ROBLOX deviation END
 		node.value = value
 		return node.value
 	end
@@ -120,18 +129,24 @@ function Cache:set(key: K_, value: V_): V_
 		older = self.newest,
 	}
 
-	if Boolean.toJSBoolean(self.newest) then
+	-- ROBLOX deviation START: remove Boolean
+	if self.newest then
+		-- ROBLOX deviation END
 		self.newest.newer = node
 	end
 
-	self.newest = node
-	self.oldest = Boolean.toJSBoolean(self.oldest) and self.oldest or node
+	self.newest = node :: any
+	-- ROBLOX deviation START: remove Boolean
+	self.oldest = self.oldest or node
+	-- ROBLOX deviation START: remove Boolean
 	self.map:set(key, node)
 	return node.value
 end
 
 function Cache:clean(): ()
-	while Boolean.toJSBoolean(self.oldest) and (self.map.size :: number) > self.max do
+	-- ROBLOX deviation START: remove Boolean
+	while self.oldest and (self.map.size :: number) > self.max do
+		-- ROBLOX deviation END
 		self:delete(self.oldest.key)
 	end
 end
@@ -139,7 +154,9 @@ end
 function Cache:delete(key: K_): boolean
 	local node = self.map:get(key)
 
-	if Boolean.toJSBoolean(node) then
+	-- ROBLOX deviation START: remove Boolean
+	if node then
+		-- ROBLOX deviation END
 		if node == self.newest then
 			self.newest = node.older
 		end
@@ -148,11 +165,15 @@ function Cache:delete(key: K_): boolean
 			self.oldest = node.newer
 		end
 
-		if Boolean.toJSBoolean(node.newer) then
+		-- ROBLOX deviation START: remove Boolean
+		if node.newer then
+			-- ROBLOX deviation END
 			node.newer.older = node.older
 		end
 
-		if Boolean.toJSBoolean(node.older) then
+		-- ROBLOX deviation START: remove Boolean
+		if node.older then
+			-- ROBLOX deviation END
 			node.older.newer = node.newer
 		end
 

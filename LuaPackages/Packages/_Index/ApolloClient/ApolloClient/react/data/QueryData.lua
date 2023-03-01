@@ -178,11 +178,13 @@ function QueryData.new<TData, TVariables>(ref: {
 	--   TSubscriptionData
 	-- >
 	-- )
-	self.obsSubscribeToMore = function<TSubscriptionData, TSubscriptionVariables>(options: SubscribeToMoreOptions<
-		TData,
-		TSubscriptionVariables,
-		TSubscriptionData
-	>)
+	self.obsSubscribeToMore = function<TSubscriptionData, TSubscriptionVariables>(
+		options: SubscribeToMoreOptions<
+			TData,
+			TSubscriptionVariables,
+			TSubscriptionData
+		>
+	)
 		return if self.currentObservable then self.currentObservable:subscribeToMore(options) else nil
 	end
 

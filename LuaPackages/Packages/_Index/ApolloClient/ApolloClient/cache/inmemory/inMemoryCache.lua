@@ -7,7 +7,6 @@ local srcWorkspace = script.Parent.Parent.Parent
 local rootWorkspace = srcWorkspace.Parent
 
 local LuauPolyfill = require(rootWorkspace.LuauPolyfill)
-local Boolean = LuauPolyfill.Boolean
 local Map = LuauPolyfill.Map
 local Object = LuauPolyfill.Object
 local Set = LuauPolyfill.Set
@@ -201,7 +200,9 @@ function InMemoryCache.new(config: InMemoryCacheConfig?): InMemoryCache
 	self.txCount = 0
 
 	self.config = Object.assign({}, defaultConfig, config)
-	self.addTypename = Boolean.toJSBoolean(self.config.addTypename)
+	-- ROBLOX deviation START: remove Boolean
+	self.addTypename = self.config.addTypename
+	-- ROBLOX deviation END
 	self.policies = Policies.new({
 		cache = self,
 		dataIdFromObject = self.config.dataIdFromObject,
@@ -245,17 +246,9 @@ function InMemoryCache:resetResultCache(resetResultIdentities: boolean?): ()
 		cache = (self :: any) :: InMemoryCache,
 		addTypename = self.addTypename,
 		resultCacheMaxSize = self.config.resultCacheMaxSize,
-		canon = (function(): ObjectCanon | nil
-			if resetResultIdentities then
-				return nil
-			else
-				if Boolean.toJSBoolean(previousReader) then
-					return previousReader.canon
-				else
-					return nil
-				end
-			end
-		end)(),
+		-- ROBLOX deviation START: simplify function wrap to if then else
+		canon = if resetResultIdentities then nil else (if previousReader then previousReader.canon else nil),
+		-- ROBLOX deviation END
 	} :: InvalidAnalyzeErrorFix)
 	self.storeWriter = StoreWriter.new(self, self.storeReader)
 
@@ -267,7 +260,9 @@ function InMemoryCache:resetResultCache(resetResultIdentities: boolean?): ()
 			-- Return a cache key (thus enabling result caching) only if we're
 			-- currently using a data store that can track cache dependencies.
 			local store: EntityStore
-			if Boolean.toJSBoolean(c.optimistic) then
+			-- ROBLOX deviation START: remove Boolean
+			if c.optimistic then
+				-- ROBLOX deviation END
 				store = self.optimisticData
 			else
 				store = self.data
@@ -307,7 +302,9 @@ function InMemoryCache:restore(data: NormalizedCacheObject): InMemoryCache
 	-- Since calling this.init() discards/replaces the entire StoreReader, along
 	-- with the result caches it maintains, this.data.replace(data) won't have
 	-- to bother deleting the old data.
-	if Boolean.toJSBoolean(data) then
+	-- ROBLOX deviation START: remove Boolean
+	if data then
+		-- ROBLOX deviation END
 		self.data:replace(data)
 	end
 	return (self :: any) :: InMemoryCache
@@ -346,7 +343,9 @@ function InMemoryCache:read<T>(options: Cache_ReadOptions<TVariables_, TData_>):
 			config = self.config,
 			returnPartialData = returnPartialData,
 		})).result
-		return Boolean.toJSBoolean(ref) and ref or NULL
+		-- ROBLOX deviation START: remove Boolean
+		return ref or NULL
+		-- ROBLOX deviation END
 	end)
 	if not ok then
 		local e = result
@@ -371,7 +370,9 @@ function InMemoryCache:write(options: Cache_WriteOptions<TResult_, TVariables_>)
 	end)
 	do
 		self.txCount -= 1
-		if not Boolean.toJSBoolean(self.txCount) and options.broadcast ~= false then
+		-- ROBLOX deviation START: remove Boolean
+		if self.txCount == 0 and options.broadcast ~= false then
+			-- ROBLOX deviation END
 			self:broadcastWatches()
 		end
 	end
@@ -383,7 +384,9 @@ end
 
 function InMemoryCache:modify(options: Cache_ModifyOptions): boolean
 	self = self :: InMemoryCachePrivate
-	if hasOwn(options, "id") and not Boolean.toJSBoolean(options.id) then
+	-- ROBLOX deviation START: remove Boolean
+	if hasOwn(options, "id") and not options.id then
+		-- ROBLOX deviation END
 		-- To my knowledge, TypeScript does not currently provide a way to
 		-- enforce that an optional property?:type must *not* be undefined
 		-- when present. That ability would be useful here, because we want
@@ -396,18 +399,25 @@ function InMemoryCache:modify(options: Cache_ModifyOptions): boolean
 		return false
 	end
 	local store
-	if Boolean.toJSBoolean(options.optimistic) then -- Defaults to false.
+	-- ROBLOX deviation START: remove Boolean
+	if options.optimistic then
+		-- ROBLOX deviation END
+		-- Defaults to false.
 		store = self.optimisticData
 	else
 		store = self.data
 	end
 	local ok, result = pcall(function()
 		self.txCount += 1
-		return store:modify(Boolean.toJSBoolean(options.id) and options.id or "ROOT_QUERY", options.fields)
+		-- ROBLOX deviation START: remove Boolean
+		return store:modify(options.id or "ROOT_QUERY", options.fields)
+		-- ROBLOX deviation END
 	end)
 	do
 		self.txCount -= 1
-		if not Boolean.toJSBoolean(self.txCount) and options.broadcast ~= false then
+		-- ROBLOX deviation START: remove Boolean
+		if self.txCount == 0 and options.broadcast ~= false then
+			-- ROBLOX deviation END
 			self:broadcastWatches()
 		end
 	end
@@ -420,14 +430,18 @@ end
 function InMemoryCache:diff(options: Cache_DiffOptions): Cache_DiffResult<T_>
 	return self.storeReader:diffQueryAgainstStore(Object.assign({}, options, {
 		store = options.optimistic and self.optimisticData or self.data,
-		rootId = Boolean.toJSBoolean(options.id) and options.id or "ROOT_QUERY",
+		-- ROBLOX deviation START: remove Boolean
+		rootId = options.id or "ROOT_QUERY",
+		-- ROBLOX deviation END
 		config = self.config,
 	}))
 end
 
 function InMemoryCache:watch(watch: Cache_WatchOptions<Watcher_>): () -> ()
 	self = self :: InMemoryCachePrivate
-	if not Boolean.toJSBoolean(self.watches.size) then
+	-- ROBLOX deviation START: remove Boolean
+	if self.watches.size == 0 then
+		-- ROBLOX deviation END
 		-- In case we previously called forgetCache(this) because
 		-- this.watches became empty (see below), reattach this cache to any
 		-- reactive variables on which it previously depended. It might seem
@@ -448,7 +462,9 @@ function InMemoryCache:watch(watch: Cache_WatchOptions<Watcher_>): () -> ()
 		-- Once we remove the last watch from this.watches, cache.broadcastWatches
 		-- no longer does anything, so we preemptively tell the reactive variable
 		-- system to exclude this cache from future broadcasts.
-		if self.watches:delete(watch) and not Boolean.toJSBoolean(self.watches.size) then
+		-- ROBLOX deviation START: remove Boolean
+		if self.watches:delete(watch) and self.watches.size == 0 then
+			-- ROBLOX deviation END
 			forgetCache(self)
 		end
 		-- Remove this watch from the LRU cache managed by the
@@ -471,7 +487,9 @@ function InMemoryCache:gc(
 ): ()
 	canonicalStringify:reset()
 	local ids = self.optimisticData:gc()
-	if options and not Boolean.toJSBoolean(self.txCount) then
+	-- ROBLOX deviation START: remove Boolean
+	if options and self.txCount == 0 then
+		-- ROBLOX deviation END
 		if options.resetResultCache then
 			self:resetResultCache(options.resetResultIdentities)
 		elseif options.resetResultIdentities then
@@ -489,7 +507,9 @@ end
 -- discarded when the top-most optimistic layer is removed. Returns the
 -- resulting (non-negative) retainment count.
 function InMemoryCache:retain(rootId: string, optimistic: boolean?): number
-	if Boolean.toJSBoolean(optimistic) then
+	-- ROBLOX deviation START: remove Boolean
+	if optimistic then
+		-- ROBLOX deviation END
 		return self.optimisticData:retain(rootId)
 	else
 		return self.data:retain(rootId)
@@ -502,7 +522,9 @@ end
 -- entities that refer to it. Returns the resulting (non-negative) retainment
 -- count, in case that's useful.
 function InMemoryCache:release(rootId: string, optimistic: boolean?): number
-	if Boolean.toJSBoolean(optimistic) then
+	-- ROBLOX deviation START: remove Boolean
+	if optimistic then
+		-- ROBLOX deviation END
 		return self.optimisticData:release(rootId)
 	else
 		return self.data:release(rootId)
@@ -525,13 +547,17 @@ end
 
 function InMemoryCache:evict(options: Cache_EvictOptions): boolean
 	self = self :: InMemoryCachePrivate
-	if not Boolean.toJSBoolean(options.id) then
+	-- ROBLOX deviation START: remove Boolean
+	if not options.id then
+		-- ROBLOX deviation END
 		if hasOwn(options, "id") then
 			-- See comment in modify method about why we return false when
 			-- options.id exists but is falsy/undefined.
 			return false
 		end
-		options = Object.assign({}, options, { id = "ROOT_QUERY" })
+		-- ROBLOX deviation START: replace spread with table.clone
+		options = Object.assign(table.clone(options), { id = "ROOT_QUERY" })
+		-- ROBLOX deviation END
 	end
 
 	local ok, result = pcall(function()
@@ -544,7 +570,9 @@ function InMemoryCache:evict(options: Cache_EvictOptions): boolean
 	end)
 	do
 		self.txCount -= 1
-		if not Boolean.toJSBoolean(self.txCount) and options.broadcast ~= false then
+		-- ROBLOX deviation START: remove Boolean
+		if self.txCount == 0 and options.broadcast ~= false then
+			-- ROBLOX deviation END
 			self:broadcastWatches()
 		end
 	end
@@ -596,7 +624,9 @@ function InMemoryCache:batch(options: Cache_BatchOptions<InMemoryCache>)
 
 	local alreadyDirty = Set.new()
 
-	if Boolean.toJSBoolean(onWatchUpdated) and not Boolean.toJSBoolean(self.txCount) then
+	-- ROBLOX deviation START: remove Boolean
+	if onWatchUpdated and self.txCount == 0 then
+		-- ROBLOX deviation END
 		-- If an options.onWatchUpdated callback is provided, we want to call it
 		-- with only the Cache.WatchOptions objects affected by options.update,
 		-- but there might be dirty watchers already waiting to be broadcast that
@@ -606,7 +636,9 @@ function InMemoryCache:batch(options: Cache_BatchOptions<InMemoryCache>)
 		-- post-update broadcast, allowing them to receive their pending
 		-- broadcasts the next time broadcastWatches is called, just as they would
 		-- if we never called cache.batch.
-		self:broadcastWatches(Object.assign({}, options, {
+		-- ROBLOX deviation START: use table.clone to avoid iteration
+		self:broadcastWatches(Object.assign(table.clone(options), {
+			-- ROBLOX deviation END
 			onWatchUpdated = function(_self, watch)
 				alreadyDirty:add(watch)
 				return false
@@ -639,8 +671,10 @@ function InMemoryCache:batch(options: Cache_BatchOptions<InMemoryCache>)
 	-- Note: if this.txCount > 0, then alreadyDirty.size === 0, so this code
 	-- takes the else branch and calls this.broadcastWatches(options), which
 	-- does nothing when this.txCount > 0.
-	if onWatchUpdated and Boolean.toJSBoolean(alreadyDirty.size) then
-		self:broadcastWatches(Object.assign({}, options, {
+	-- ROBLOX deviation START: remove Boolean
+	if onWatchUpdated and alreadyDirty.size > 0 then
+		self:broadcastWatches(Object.assign(table.clone(options), {
+			-- ROBLOX deviation END
 			onWatchUpdated = function(self, watch, diff)
 				local result = onWatchUpdated(self, watch, diff)
 				if result ~= false then
@@ -654,7 +688,9 @@ function InMemoryCache:batch(options: Cache_BatchOptions<InMemoryCache>)
 		}))
 		-- Silently re-dirty any watches that were already dirty before the update
 		-- was performed, and were not broadcast just now.
-		if Boolean.toJSBoolean(alreadyDirty.size) then
+		-- ROBLOX deviation START: remove Boolean
+		if alreadyDirty.size > 0 then
+			-- ROBLOX deviation END
 			alreadyDirty:forEach(function(watch)
 				return self.maybeBroadcastWatch:dirty(watch)
 			end)
@@ -672,7 +708,9 @@ function InMemoryCache:performTransaction(update: (cache: InMemoryCache) -> any,
 		update = function(_self, ...)
 			return update(...)
 		end,
-		optimistic = Boolean.toJSBoolean(optimisticId) and optimisticId or optimisticId ~= nil,
+		-- ROBLOX deviation START: remove Boolean
+		optimistic = optimisticId or optimisticId ~= nil,
+		-- ROBLOX deviation END
 	})
 end
 
@@ -693,7 +731,8 @@ function InMemoryCache:transformDocument(document: DocumentNode): DocumentNode
 end
 
 function InMemoryCache:broadcastWatches(options: BroadcastOptions?): ()
-	if not Boolean.toJSBoolean(self.txCount) then
+	-- ROBLOX deviation START: remove Boolean
+	if self.txCount == 0 then
 		self.watches:forEach(function(c)
 			return self:maybeBroadcastWatch(c, options)
 		end)

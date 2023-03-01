@@ -27,6 +27,7 @@ export type Panel3DProps = {
 	parent: Instance, -- parent object, e.g. folder of parts
 	hidden: boolean, -- whether to hide the panel
 	curvature: number,
+	alignedPanel: any?, -- aligned to another in-game panel
 }
 
 return {

@@ -657,82 +657,80 @@ function QueryManager:markMutationResult(
 	then
 		local results: Array<any> = {}
 
-		self
-			:refetchQueries({
-				updateCache = function(_self, cache: TCache_)
+		self:refetchQueries({
+			updateCache = function(_self, cache: TCache_)
+				if not skipCache then
+					Array.forEach(cacheWrites, function(write)
+						return cache:write(write)
+					end)
+				end
+
+				-- If the mutation has some writes associated with it then we need to
+				-- apply those writes to the store by running this reducer again with
+				-- a write action.
+				local update = mutation.update
+				if update ~= nil and Boolean.toJSBoolean(update) then
 					if not skipCache then
-						Array.forEach(cacheWrites, function(write)
-							return cache:write(write)
-						end)
-					end
-
-					-- If the mutation has some writes associated with it then we need to
-					-- apply those writes to the store by running this reducer again with
-					-- a write action.
-					local update = mutation.update
-					if update ~= nil and Boolean.toJSBoolean(update) then
-						if not skipCache then
-							-- Re-read the ROOT_MUTATION data we just wrote into the cache
-							-- (the first cache.write call in the cacheWrites.forEach loop
-							-- above), so field read functions have a chance to run for
-							-- fields within mutation result objects.
-							local diff = cache:diff({
-								id = "ROOT_MUTATION",
-								-- The cache complains if passed a mutation where it expects a
-								-- query, so we transform mutations and subscriptions to queries
-								-- (only once, thanks to this.transformCache).
-								query = self:transform(mutation.document).asQuery,
-								variables = mutation.variables,
-								optimistic = false,
-								returnPartialData = true,
-							})
-
-							if diff.complete then
-								result = Object.assign({}, result, { data = diff.result })
-							end
-						end
-
-						update(mutation, cache, result, {
-							context = mutation.context,
-							variables = mutation.variables,
-						})
-					end
-
-					-- TODO Do this with cache.evict({ id: 'ROOT_MUTATION' }) but make it
-					-- shallow to allow rolling back optimistic evictions.
-					if not skipCache and not mutation.keepRootFields then
-						cache:modify({
+						-- Re-read the ROOT_MUTATION data we just wrote into the cache
+						-- (the first cache.write call in the cacheWrites.forEach loop
+						-- above), so field read functions have a chance to run for
+						-- fields within mutation result objects.
+						local diff = cache:diff({
 							id = "ROOT_MUTATION",
-							fields = function(__self, value, ref)
-								local fieldName, DELETE = ref.fieldName, ref.DELETE
-								if fieldName == "__typename" then
-									return value
-								else
-									return DELETE
-								end
-							end,
+							-- The cache complains if passed a mutation where it expects a
+							-- query, so we transform mutations and subscriptions to queries
+							-- (only once, thanks to this.transformCache).
+							query = self:transform(mutation.document).asQuery,
+							variables = mutation.variables,
+							optimistic = false,
+							returnPartialData = true,
 						})
+
+						if diff.complete then
+							result = Object.assign({}, result, { data = diff.result })
+						end
 					end
-				end,
 
-				include = mutation.refetchQueries,
+					update(mutation, cache, result, {
+						context = mutation.context,
+						variables = mutation.variables,
+					})
+				end
 
-				-- Write the final mutation.result to the root layer of the cache.
-				optimistic = false,
+				-- TODO Do this with cache.evict({ id: 'ROOT_MUTATION' }) but make it
+				-- shallow to allow rolling back optimistic evictions.
+				if not skipCache and not mutation.keepRootFields then
+					cache:modify({
+						id = "ROOT_MUTATION",
+						fields = function(__self, value, ref)
+							local fieldName, DELETE = ref.fieldName, ref.DELETE
+							if fieldName == "__typename" then
+								return value
+							else
+								return DELETE
+							end
+						end,
+					})
+				end
+			end,
 
-				-- Remove the corresponding optimistic layer at the same time as we
-				-- write the final non-optimistic result.
-				removeOptimistic = mutation.removeOptimistic,
+			include = mutation.refetchQueries,
 
-				-- Let the caller of client.mutate optionally determine the refetching
-				-- behavior for watched queries after the mutation.update function runs.
-				-- If no onQueryUpdated function was provided for this mutation, pass
-				-- null instead of undefined to disable the default refetching behavior.
-				onQueryUpdated = Boolean.toJSBoolean(mutation.onQueryUpdated) and mutation.onQueryUpdated or nil,
-			})
-			:forEach(function(result)
-				return table.insert(results, result)
-			end)
+			-- Write the final mutation.result to the root layer of the cache.
+			optimistic = false,
+
+			-- Remove the corresponding optimistic layer at the same time as we
+			-- write the final non-optimistic result.
+			removeOptimistic = mutation.removeOptimistic,
+
+			-- Let the caller of client.mutate optionally determine the refetching
+			-- behavior for watched queries after the mutation.update function runs.
+			-- If no onQueryUpdated function was provided for this mutation, pass
+			-- null instead of undefined to disable the default refetching behavior.
+			onQueryUpdated = Boolean.toJSBoolean(mutation.onQueryUpdated) and mutation.onQueryUpdated or nil,
+		}):forEach(function(result)
+			return table.insert(results, result)
+		end)
 
 		if mutation.awaitRefetchQueries or Boolean.toJSBoolean(mutation.onQueryUpdated) then
 			-- Returning a promise here makes the mutation await that promise, so we
@@ -1101,8 +1099,7 @@ function QueryManager:reFetchObservableQueries(includeStandby: boolean?): Promis
 
 	local observableQueryPromises: Array<Promise<ApolloQueryResult<any>>> = {}
 
-	self
-		:getObservableQueries(Boolean.toJSBoolean(includeStandby) and "all" or "active")
+	self:getObservableQueries(Boolean.toJSBoolean(includeStandby) and "all" or "active")
 		:forEach(function(observableQuery, queryId)
 			local fetchPolicy = observableQuery.options.fetchPolicy
 			observableQuery:resetLastResults()

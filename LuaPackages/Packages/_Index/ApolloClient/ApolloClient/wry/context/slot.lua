@@ -7,7 +7,6 @@ local LuauPolyfill = require(rootWorkspace.LuauPolyfill)
 
 local Array = LuauPolyfill.Array
 local Boolean = LuauPolyfill.Boolean
-local Object = LuauPolyfill.Object
 
 local uuid = require(srcWorkspace.utilities.common.makeUniqueId).uuid
 
@@ -78,10 +77,14 @@ local function makeSlotClass()
 
 	function Slot:hasValue(): boolean
 		local context = currentContext
-		while Boolean.toJSBoolean(context) do
+		-- ROBLOX deviation START: remove Boolean
+		while context do
+			-- ROBLOX deviation END
 			-- We use the Slot object iself as a key to its value, which means the
 			-- value cannot be obtained without a reference to the Slot object.
-			if Array.indexOf(Object.keys((context :: any).slots), self.id) ~= -1 then
+			-- ROBLOX deviation START: use index instead of iterating over keys
+			if (context :: any).slots[self.id] then
+				-- ROBLOX deviation END
 				local value = (context :: any).slots[self.id]
 				if value == MISSING_VALUE then
 					break
@@ -97,7 +100,9 @@ local function makeSlotClass()
 
 			context = (context :: any).parent
 		end
-		if Boolean.toJSBoolean(currentContext) then
+		-- ROBLOX deviation START: remove Boolean
+		if currentContext then
+			-- ROBLOX deviation END
 			-- If a value was not found for this Slot, it's never going to be found
 			-- no matter how many times we look it up, so we might as well cache
 			-- the absence of the value, too.
@@ -171,7 +176,9 @@ local function makeSlotClass()
 		args: TArgs_?,
 		thisArg: TThis_?
 	)
-		if Boolean.toJSBoolean(currentContext) then
+		-- ROBLOX deviation START: remove Boolean
+		if currentContext then
+			-- ROBLOX deviation END
 			local saved = currentContext
 			local ok, result, hasReturned = pcall(function()
 				currentContext = nil

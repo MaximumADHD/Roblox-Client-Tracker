@@ -667,11 +667,9 @@ function ObservableQuery:updatePolling()
 	local function maybeFetch()
 		if Boolean.toJSBoolean(self.pollingInfo) then
 			if not isNetworkRequestInFlight(self.queryInfo.networkStatus) then
-				self
-					:reobserve({
-						fetchPolicy = "network-only",
-					}, NetworkStatus.poll)
-					:andThen(poll, poll)
+				self:reobserve({
+					fetchPolicy = "network-only",
+				}, NetworkStatus.poll):andThen(poll, poll)
 			else
 				poll()
 			end

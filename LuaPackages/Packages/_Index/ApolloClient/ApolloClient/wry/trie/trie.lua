@@ -7,11 +7,6 @@
 local rootWorkspace = script.Parent.Parent.Parent.Parent
 
 local LuauPolyfill = require(rootWorkspace.LuauPolyfill)
-local Array = LuauPolyfill.Array
-local Boolean = LuauPolyfill.Boolean
-local WeakMap = LuauPolyfill.WeakMap
-local Map = LuauPolyfill.Map
-
 type Array<T> = LuauPolyfill.Array<T>
 type Map<T, V> = LuauPolyfill.Map<T, V>
 type WeakMap<T, V> = LuauPolyfill.WeakMap<T, V>
@@ -25,7 +20,6 @@ local function defaultMakeData()
 end
 
 -- Useful for processing arguments objects as well as arrays.
-local forEach = Array.forEach
 
 local Trie = {}
 Trie.__index = Trie
@@ -33,9 +27,6 @@ Trie.__index = Trie
 type Trie_Data = any
 type Lookup_T = Array<any>
 type LookupArray_T = Array<any>
-
--- ROBLOX deviation: predefine functions
-local isObjRef
 
 export type Trie<Data> = {
 	weakness: boolean,
@@ -99,10 +90,14 @@ end
 ]]
 function Trie:lookupArray(array: LookupArray_T): Trie_Data
 	local node: Trie<Trie_Data> = self
-	forEach(array, function(key)
+	-- ROBLOX deviation START: use for in loop instead of forEach
+	for _, key in array do
+		-- ROBLOX deviation END
 		node = node:getChildTrie(key)
-	end)
-	if not Boolean.toJSBoolean(node.data) then
+	end
+	-- ROBLOX deviation START: remove Boolean
+	if not node.data then
+		-- ROBLOX deviation END
 		-- ROBLOX deviation start: prefer table.clone over default array slice
 		node.data = ((self :: any) :: Trie<Trie_Data>).makeData(table.clone(array))
 		-- ROBLOX deviation end
@@ -112,31 +107,29 @@ end
 
 function Trie:getChildTrie(key: any)
 	local map: any -- ROBLOX FIXME: CLI can't handle get/set function calls of Map<any, any> | WeakMap<any, any>
-	if self.weakness and isObjRef(key) then
+	-- ROBLOX deviation START: weak maps can hold non-objects in lua
+	if self.weakness then
+		-- ROBLOX deviation END
 		if self.weak == nil then
-			self.weak = WeakMap.new()
+			self.weak = setmetatable({}, { __mode = "k" })
 		end
 		map = self.weak
 	else
 		if self.strong == nil then
-			self.strong = Map.new(nil)
+			self.strong = {}
 		end
 		map = self.strong
 	end
-	local child = map:get(key)
-	if not Boolean.toJSBoolean(child) then
+	local child = map[key]
+	-- ROBLOX deviation START: remove Boolean
+	if not child then
+		-- ROBLOX deviation END
 		child = Trie.new(self.weakness, self.makeData)
-		map:set(key, child)
+		map[key] = child
 	end
 	return child
 end
 
 exports.Trie = Trie
 
-function isObjRef(value: any): boolean
-	-- ROBLOX deviation START: simplify switch statement to boolean
-	local condition_ = type(value)
-	return condition_ == "table" or condition_ == "function"
-	-- ROBLOX deviation END
-end
 return exports

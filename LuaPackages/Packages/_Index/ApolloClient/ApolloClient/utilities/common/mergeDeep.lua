@@ -7,8 +7,6 @@ local rootWorkspace = srcWorkspace.Parent
 
 local LuauPolyfill = require(rootWorkspace.LuauPolyfill)
 local Set = LuauPolyfill.Set
-local Boolean = LuauPolyfill.Boolean
-local Array = LuauPolyfill.Array
 type Array<T> = LuauPolyfill.Array<T>
 type Set<T> = LuauPolyfill.Set<T>
 type Record<T, U> = { [T]: U }
@@ -67,7 +65,9 @@ local DeepMerger = {}
 -- element type, which works perfectly when the sources array has a
 -- consistent element type.
 function mergeDeepArray<T>(sources: Array<T>): T
-	local target = Boolean.toJSBoolean(sources[1]) and sources[1] or ({} :: any) :: T
+	-- ROBLOX deviation START: remove Boolean
+	local target = sources[1] or ({} :: any) :: T
+	-- ROBLOX deviation END
 	local count = #sources
 	if count > 1 then
 		local merger = DeepMerger.new()
@@ -116,7 +116,9 @@ function DeepMerger.new<TContextArgs>(reconciler: ReconcilerFunction<TContextArg
 end
 
 function DeepMerger.merge<TContextArgs>(self: DeepMerger<TContextArgs>, target: any, source: any, ...: TContextArgs): any
-	local context = { ... }
+	-- ROBLOX deviation START: use table.pack instead of { ... }
+	local context = table.pack(...)
+	-- ROBLOX deviation END
 	if isNonNullObject(source) and isNonNullObject(target) then
 		-- ROBLOX deviation START: use helper to optimize Object.keys().forEach
 		objectKeysForEach(source, function(sourceKey)
@@ -154,14 +156,9 @@ end
 -- ROBLOX deviation: need generic constraints to eliminate any casts
 function DeepMerger:shallowCopyForMerge(value)
 	if isNonNullObject(value) and not self.pastCopies:has(value) then
-		if Array.isArray(value) then
-			-- ROBLOX deviation: need generic constraints to eliminate any casts
-			value = Array.slice(value :: Array<any>, 1)
-		else
-			-- ROBLOX deviation START: use table.clone instead of spread operator
-			value = table.clone((value :: any) :: Object)
-			-- ROBLOX deviation END
-		end
+		-- ROBLOX deviation START: use table.clone to shallow copy object and array
+		value = table.clone(value)
+		-- ROBLOX deviation END
 		self.pastCopies:add(value)
 	end
 	return value

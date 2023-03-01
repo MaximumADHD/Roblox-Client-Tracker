@@ -43,4 +43,6 @@ return {
 	getFFlagSocialUpdateRoduxFriendsv314 = getFFlagSocialUpdateRoduxFriendsv314,
 	NetworkingSquads = require(LuaSocialLibrariesDeps.NetworkingSquads),
 	RoduxSquads = require(LuaSocialLibrariesDeps.RoduxSquads),
+	NetworkingCall = require(LuaSocialLibrariesDeps.NetworkingCall),
+	RoduxCall = require(LuaSocialLibrariesDeps.RoduxCall),
 }

@@ -5,7 +5,6 @@ local rootWorkspace = srcWorkspace.Parent
 
 local LuauPolyfill = require(rootWorkspace.LuauPolyfill)
 local Array = LuauPolyfill.Array
-local Boolean = LuauPolyfill.Boolean
 local Set = LuauPolyfill.Set
 local WeakMap = LuauPolyfill.WeakMap
 local Map = LuauPolyfill.Map
@@ -40,19 +39,21 @@ local stringifyCanon: ObjectCanon
 local stringifyCache: WeakMap<Object, string>
 
 local function shallowCopy<T>(value: T): T
-	if isObjectOrArray(value) then
-		if Array.isArray(value) then
-			-- ROBLOX FIXME Luau: There's no relationtioship betwwen Array<any> and T, multiple casts are required
-			return (Array.slice((value :: any) :: Array<any>, 1) :: any) :: T
-		else
-			-- ROBLOX TODO: handle proto?
-			return Object.assign(
-				{}, --[[{ __proto__ = Object.getPrototypeOf(value) },]]
-				value
-			)
-		end
+	-- ROBLOX deviation START: use table.clone for shallow copy
+	return (table.clone(value :: any) :: any) :: T
+	-- ROBLOX deviation END
+end
+
+local function isArrayLike(value: any): boolean
+	if #value == 0 and not next(value) then
+		return true
 	end
-	return value
+
+	if #value > 1 then
+		return true
+	end
+
+	return false
 end
 
 -- When programmers talk about the "canonical form" of an object, they
@@ -168,15 +169,21 @@ end
 
 -- Returns the canonical version of value.
 function ObjectCanon:admit(value: any?): any?
-	if isObjectOrArray(value) and value ~= nil then
+	-- ROBLOX deviation START: remove additional nil check
+	if isObjectOrArray(value) then
+		-- ROBLOX deviation END
 		local original = self.passes:get(value)
-		if Boolean.toJSBoolean(original) then
+		-- ROBLOX deviation START: remove Boolean
+		if original then
+			-- ROBLOX deviation END
 			return original
 		end
 
 		-- ROBLOX deviation: Array and Object are not distinguishable as they are in JS
 		if Object.getPrototypeOf(value) == nil then
-			if Array.isArray(value) then
+			-- ROBLOX deviation START: Treat mixed tables as arrays
+			if isArrayLike(value) then
+				-- ROBLOX deviation END
 				if self.known:has(value) then
 					return value
 				end
@@ -187,7 +194,9 @@ function ObjectCanon:admit(value: any?): any?
 				-- preserved as node.array.
 				local node = self.pool:lookupArray(array)
 
-				if not Boolean.toJSBoolean(node.array) then
+				-- ROBLOX deviation START: remove Boolean
+				if not node.array then
+					-- ROBLOX deviation END
 					node.array = array
 					self.known:add(node.array)
 					-- Since canonical arrays may be shared widely between
@@ -205,7 +214,7 @@ function ObjectCanon:admit(value: any?): any?
 				end
 				local proto = Object.getPrototypeOf(value)
 				local array = { proto :: any }
-				local keys = self:sortedKeys(value)
+				local keys = self:sortedKeys((value :: any) :: Object)
 				table.insert(array, keys.json)
 				local firstValueIndex = #array
 				Array.forEach(keys.sorted, function(key)
@@ -220,7 +229,9 @@ function ObjectCanon:admit(value: any?): any?
 				-- keys.json, value1, value2, ...]), the known version of the
 				-- object is stored as node.object.
 				local node = self.pool:lookupArray(array)
-				if not Boolean.toJSBoolean(node.object) then
+				-- ROBLOX deviation START: remove Boolean
+				if not node.object then
+					-- ROBLOX deviation END
 					node.object = Object.create(proto)
 					local obj = node.object
 					self.known:add(obj)
@@ -251,12 +262,16 @@ function ObjectCanon:sortedKeys(obj: Object): { json: string, sorted: Array<stri
 	local keys: Array<string> = Object.keys(obj)
 	local node = self.pool:lookupArray(keys)
 
-	if not Boolean.toJSBoolean(node.keys) then
+	-- ROBLOX deviation START: remove Boolean
+	if not node.keys then
+		-- ROBLOX deviaiton END
 		Array.sort(keys)
 		local json = HttpService:JSONEncode(keys)
 
 		node.keys = self.keysByJSON:get(json)
-		if not Boolean.toJSBoolean(node.keys) then
+		-- ROBLOX deviation START: remove Boolean
+		if not node.keys then
+			-- ROBLOX deviation END
 			node.keys = {
 				sorted = keys,
 				json = json,

@@ -479,14 +479,14 @@ function QueryInfo:shouldWrite(
 	local lastWrite = self.lastWrite
 
 	return not (
-			Boolean.toJSBoolean(lastWrite)
-			-- If cache.evict has been called since the last time we wrote this
-			-- data into the cache, there's a chance writing this result into
-			-- the cache will repair what was evicted.
-			and lastWrite.dmCount == destructiveMethodCounts:get(self.cache)
-			and equal(variables, lastWrite.variables)
-			and equal(result.data, lastWrite.result.data)
-		)
+		Boolean.toJSBoolean(lastWrite)
+		-- If cache.evict has been called since the last time we wrote this
+		-- data into the cache, there's a chance writing this result into
+		-- the cache will repair what was evicted.
+		and lastWrite.dmCount == destructiveMethodCounts:get(self.cache)
+		and equal(variables, lastWrite.variables)
+		and equal(result.data, lastWrite.result.data)
+	)
 end
 
 -- ROBLOX deviation: predeclare function

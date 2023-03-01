@@ -6,7 +6,6 @@ local rootWorkspace = srcWorkspace.Parent
 local LuauPolyfill = require(rootWorkspace.LuauPolyfill)
 local Array = LuauPolyfill.Array
 local Object = LuauPolyfill.Object
-local Boolean = LuauPolyfill.Boolean
 type Array<T> = LuauPolyfill.Array<T>
 type Object = LuauPolyfill.Object
 type Record<T, U> = { [T]: U }
@@ -57,7 +56,9 @@ end
 exports.makeReference = makeReference
 
 local function isReference(obj: any): boolean
-	return Boolean.toJSBoolean(obj) and typeof(obj) == "table" and typeof(obj.__ref) == "string"
+	-- ROBLOX deviation START: remove Boolean, convert typeof to type
+	return type(obj) == "table" and type(obj.__ref) == "string"
+	-- ROBLOX deviation END
 end
 exports.isReference = isReference
 
@@ -108,32 +109,33 @@ local function isNullValue(value: ValueNode): boolean
 end
 
 local function valueToObjectRepresentation(argObj: any, name: NameNode, value: ValueNode, variables: Object?): ()
+	-- ROBLOX deviation START: do not convert NameNode values to strings, they are already strings
 	if isIntValue(value) or isFloatValue(value) then
-		argObj[tostring(name.value)] = tonumber((value :: (IntValueNode | FloatValueNode)).value)
+		argObj[name.value] = tonumber((value :: (IntValueNode | FloatValueNode)).value)
 	elseif isBooleanValue(value) or isStringValue(value) then
-		argObj[tostring(name.value)] = (value :: (BooleanValueNode | StringValueNode)).value
+		argObj[name.value] = (value :: (BooleanValueNode | StringValueNode)).value
 	elseif isObjectValue(value) then
 		local nestedArgObj = {}
 		Array.map((value :: ObjectValueNode).fields, function(obj)
 			valueToObjectRepresentation(nestedArgObj, obj.name, obj.value, variables)
 			return nil
 		end)
-		argObj[tostring(name.value)] = nestedArgObj
+		argObj[name.value] = nestedArgObj
 	elseif isVariable(value) then
-		local variableValue = (Boolean.toJSBoolean(variables) and variables or ({} :: any))[tostring(
-			(value :: VariableNode).name.value
-		)]
-		argObj[tostring(name.value)] = variableValue
+		-- ROBLOX deviation START: remove Boolean
+		local variableValue = (variables or ({} :: any))[(value :: VariableNode).name.value]
+		-- ROBLOX deviation END
+		argObj[name.value] = variableValue
 	elseif isListValue(value) then
-		argObj[tostring(name.value)] = Array.map((value :: ListValueNode).values, function(listValue)
+		argObj[name.value] = Array.map((value :: ListValueNode).values, function(listValue)
 			local nestedArgArrayObj = {}
 			valueToObjectRepresentation(nestedArgArrayObj, name, listValue, variables)
-			return (nestedArgArrayObj :: any)[tostring(name.value)]
+			return (nestedArgArrayObj :: any)[name.value]
 		end)
 	elseif isEnumValue(value) then
-		argObj[tostring(name.value)] = (value :: EnumValueNode).value
+		argObj[name.value] = (value :: EnumValueNode).value
 	elseif isNullValue(value) then
-		argObj[tostring(name.value)] = nil
+		argObj[name.value] = nil
 	else
 		error(
 			InvariantError.new(
@@ -143,6 +145,7 @@ local function valueToObjectRepresentation(argObj: any, name: NameNode, value: V
 			)
 		)
 	end
+	-- ROBLOX deviation END
 end
 exports.valueToObjectRepresentation = valueToObjectRepresentation
 
@@ -189,19 +192,25 @@ local KNOWN_DIRECTIVES: Array<string> = {
 -- ROBLOX deviation: function in Lua can't have additional properties. Using callable table instead
 getStoreKeyName = Object.assign(
 	setmetatable({}, {
-		__call = function(_self, fieldName: string, args: (Record<string, any> | nil)?, directives: Directives?): string
+		__call = function(
+			_self,
+			fieldName: string,
+			args: (Record<string, any> | nil)?,
+			directives: Directives?
+		): string
+			-- ROBLOX deviation START: remove Boolean
 			if
-				Boolean.toJSBoolean(args)
-				and Boolean.toJSBoolean(directives)
-				and Boolean.toJSBoolean((directives :: Directives)["connection"])
-				and Boolean.toJSBoolean((directives :: Directives)["connection"]["key"])
+				args
+				and directives
+				and (directives :: Directives)["connection"]
+				and (directives :: Directives)["connection"]["key"]
 			then
 				if
-					Boolean.toJSBoolean((directives :: Directives)["connection"]["filter"])
+					(directives :: Directives)["connection"]["filter"]
 					and #((directives :: Directives)["connection"]["filter"] :: Array<string>) > 0
 				then
 					local filterKeys
-					if Boolean.toJSBoolean((directives :: Directives)["connection"]["filter"]) then
+					if (directives :: Directives)["connection"]["filter"] then
 						filterKeys = (directives :: Directives)["connection"]["filter"] :: Array<string>
 					else
 						filterKeys = {}
@@ -218,10 +227,13 @@ getStoreKeyName = Object.assign(
 					return (directives :: Directives)["connection"]["key"]
 				end
 			end
+			-- ROBLOX deviation END
 
 			local completeFieldName: string = fieldName
 
-			if Boolean.toJSBoolean(args) then
+			-- ROBLOX deviation START: remove Boolean
+			if args then
+				-- ROBLOX deviation END
 				-- We can't use `JSON.stringify` here since it's non-deterministic,
 				-- and can lead to different store key names being created even though
 				-- the `args` object used during creation has the same properties/values.
@@ -229,17 +241,18 @@ getStoreKeyName = Object.assign(
 				completeFieldName ..= ("(%s)"):format(stringifiedArgs)
 			end
 
-			if Boolean.toJSBoolean(directives) then
+			-- ROBLOX deviation START: remove Boolean
+			if directives then
+				-- ROBLOX deviation END
 				-- ROBLOX deviation START: use helper to optimize Object.keys().forEach
 				objectKeysForEach(directives :: Directives, function(key)
 					-- ROBLOX deviation END
 					if Array.indexOf(KNOWN_DIRECTIVES, key) ~= -1 then
 						return
 					end
-					if
-						Boolean.toJSBoolean((directives :: Directives)[key])
-						and Boolean.toJSBoolean(#Object.keys((directives :: Directives)[key]))
-					then
+					-- ROBLOX deviation START: remove Boolean
+					if (directives :: Directives)[key] and next((directives :: Directives)[key]) ~= nil then
+						-- ROBLOX deviation END
 						completeFieldName ..= ("@%s(%s)"):format(key, stringify((directives :: Directives)[key]))
 					else
 						completeFieldName ..= ("@%s"):format(key)
@@ -308,7 +321,9 @@ end
 -- end
 
 local function argumentsObjectFromField(field: FieldNode | DirectiveNode, variables: Record<string, any>): Object | nil
-	if Boolean.toJSBoolean(field.arguments) and Boolean.toJSBoolean(#(field.arguments :: Array<any>)) then
+	-- ROBLOX deviation START: remove Boolean
+	if field.arguments and #(field.arguments :: Array<any>) > 0 then
+		-- ROBLOX deviation END
 		local argObj: Object = {}
 		Array.forEach(field.arguments :: Array<any>, function(ref)
 			local name, value = ref.name, ref.value
@@ -321,8 +336,9 @@ end
 exports.argumentsObjectFromField = argumentsObjectFromField
 
 local function resultKeyNameFromField(field: FieldNode): string
-	-- ROBLOX deviation: nil check to avoid casting
-	if Boolean.toJSBoolean(field.alias) then
+	-- ROBLOX deviation START: remove Boolean
+	if field.alias then
+		-- ROBLOX deviation END
 		return (field.alias :: NameNode).value
 	else
 		return field.name.value

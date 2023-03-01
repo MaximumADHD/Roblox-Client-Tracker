@@ -97,7 +97,7 @@ export type TypePolicy = {
 	mutationType: boolean?, -- ROBLOX deviation: true
 	subscriptionType: boolean?, -- ROBLOX deviation: true
 
-	fields: ({ [string]: FieldPolicy<any, any, any> | FieldReadFunction<any, any> })?,
+	fields: { [string]: FieldPolicy<any, any, any> | FieldReadFunction<any, any> }?,
 }
 
 export type KeyArgsFunction = (

@@ -143,16 +143,19 @@ function EntityStore.new(policies: Policies, group: CacheGroup): EntityStore
 
 	-- Bound function that can be passed around to provide easy access to fields
 	-- of Reference objects as well as ordinary objects.
-	self.getFieldValue =
-		function(_self: EntityStore, objectOrReference: StoreObject | Reference | nil, storeFieldName: string)
-			-- ROBLOX deviation START: translate if then else by hand
-			return maybeDeepFreeze(
-				if isReference(objectOrReference)
-					then self:get((objectOrReference :: Reference).__ref, storeFieldName)
-					else objectOrReference and (objectOrReference :: StoreObject)[storeFieldName]
-			) :: SafeReadonly<any>
-			-- ROBLOX deviation END
-		end
+	self.getFieldValue = function(
+		_self: EntityStore,
+		objectOrReference: StoreObject | Reference | nil,
+		storeFieldName: string
+	)
+		-- ROBLOX deviation START: translate if then else by hand
+		return maybeDeepFreeze(
+			if isReference(objectOrReference)
+				then self:get((objectOrReference :: Reference).__ref, storeFieldName)
+				else objectOrReference and (objectOrReference :: StoreObject)[storeFieldName]
+		) :: SafeReadonly<any>
+		-- ROBLOX deviation END
+	end
 
 	-- Returns true for non-normalized StoreObjects and non-dangling
 	-- References, indicating that readField(name, objOrRef) has a chance of
@@ -170,7 +173,9 @@ function EntityStore.new(policies: Policies, group: CacheGroup): EntityStore
 	-- that same Reference object is returned. Pass true for mergeIntoStore to persist
 	-- an object into the store.
 	self.toReference = function(_self: EntityStore, objOrIdOrRef, mergeIntoStore)
-		if typeof(objOrIdOrRef) == "string" then
+		-- ROBLOX deviation START: use type instead of typeof
+		if type(objOrIdOrRef) == "string" then
+			-- ROBLOX deviation END
 			return makeReference(objOrIdOrRef)
 		end
 
@@ -180,9 +185,13 @@ function EntityStore.new(policies: Policies, group: CacheGroup): EntityStore
 
 		local id = table.unpack(self.policies:identify(objOrIdOrRef), 1, 1)
 
-		if Boolean.toJSBoolean(id) then
+		-- ROBLOX deviation START: remove Boolean
+		if id then
+			-- ROBLOX deviation END
 			local ref = makeReference(id)
-			if Boolean.toJSBoolean(mergeIntoStore) then
+			-- ROBLOX deviation START: remove Boolean
+			if mergeIntoStore then
+				-- ROBLOX deviation END
 				(self :: EntityStore):merge(id, objOrIdOrRef :: StoreObject)
 			end
 			return ref
@@ -206,7 +215,9 @@ end
 -- are inherited by the Root and Layer subclasses
 
 function EntityStore:toObject(): NormalizedCacheObject
-	return Object.assign({}, self.data)
+	-- ROBLOX deviation START: clone data
+	return table.clone(self.data)
+	-- ROBLOX deviation END
 end
 
 function EntityStore:has(dataId: string): boolean
@@ -238,7 +249,9 @@ function EntityStore:lookup(dataId: string, dependOnExistence: boolean?): StoreO
 	-- this dataId. Any consumer who cares about the contents of the StoreObject
 	-- should not rely on this dependency, since the contents could change
 	-- without the object being added or removed.
-	if Boolean.toJSBoolean(dependOnExistence) then
+	-- ROBLOX deviation START: remove Boolean
+	if dependOnExistence then
+		-- ROBLOX deviation END
 		self.group:depend(dataId, "__exists")
 	end
 
@@ -250,7 +263,9 @@ function EntityStore:lookup(dataId: string, dependOnExistence: boolean?): StoreO
 		return self.parent:lookup(dataId, dependOnExistence)
 	end
 
-	if Boolean.toJSBoolean(self.policies.rootTypenamesById[dataId]) then
+	-- ROBLOX deviation START: remove Boolean
+	if self.policies.rootTypenamesById[dataId] then
+		-- ROBLOX deviation END
 		return {} :: StoreObject
 	end
 
@@ -272,8 +287,10 @@ function EntityStore:merge(older: string | StoreObject, newer: StoreObject | str
 		-- ROBLOX deviation END
 	end
 
+	-- ROBLOX deviation START: Use type instead of typeof
 	local existing: StoreObject | nil
-	if typeof(older) == "string" then
+	if type(older) == "string" then
+		-- ROBLOX deviation END
 		dataId = older
 		existing = self:lookup(dataId)
 	else
@@ -281,7 +298,9 @@ function EntityStore:merge(older: string | StoreObject, newer: StoreObject | str
 	end
 
 	local incoming: StoreObject | nil
-	if typeof(newer) == "string" then
+	-- ROBLOX deviation START: Use type instead of typeof
+	if type(newer) == "string" then
+		-- ROBLOX deviation END
 		dataId = newer
 		incoming = self:lookup(dataId)
 	else
@@ -290,7 +309,9 @@ function EntityStore:merge(older: string | StoreObject, newer: StoreObject | str
 
 	-- If newer was a string ID, but that ID was not defined in this store,
 	-- then there are no fields to be merged, so we're done.
-	if not Boolean.toJSBoolean(incoming) then
+	-- ROBLOX deviation START: remove Boolean
+	if not incoming then
+		-- ROBLOX deviation END
 		return
 	end
 
@@ -303,13 +324,17 @@ function EntityStore:merge(older: string | StoreObject, newer: StoreObject | str
 	self.data[dataId] = merged
 	if merged ~= existing then
 		self.refs[dataId] = nil
-		if Boolean.toJSBoolean(self.group.caching) then
+		-- ROBLOX deviation START: remove Boolean
+		if self.group.caching then
+			-- ROBLOX deviation END
 			local fieldsToDirty: Record<string, number> = {}
 
 			-- If we added a new StoreObject where there was previously none, dirty
 			-- anything that depended on the existence of this dataId, such as the
 			-- EntityStore#has method.
-			if not Boolean.toJSBoolean(existing) then
+			-- ROBLOX deviation START: remove Boolean
+			if not existing then
+				-- ROBLOX deviation END
 				fieldsToDirty.__exists = 1
 			end
 
@@ -318,10 +343,9 @@ function EntityStore:merge(older: string | StoreObject, newer: StoreObject | str
 			-- ROBLOX deviation START: optimize Object.keys().forEach for luau
 			objectKeysForEach(incoming :: StoreObject, function(storeFieldName)
 				-- ROBLOX deviation END
-				if
-					not Boolean.toJSBoolean(existing)
-					or (existing :: StoreObject)[storeFieldName] ~= merged[storeFieldName]
-				then
+				-- ROBLOX deviation START: remove Boolean
+				if not existing or (existing :: StoreObject)[storeFieldName] ~= merged[storeFieldName] then
+					-- ROBLOX deviation END
 					-- Always dirty the full storeFieldName, which may include
 					-- serialized arguments following the fieldName prefix.
 					fieldsToDirty[storeFieldName] = 1
@@ -347,14 +371,18 @@ function EntityStore:merge(older: string | StoreObject, newer: StoreObject | str
 				end
 			end)
 
+			-- ROBLOX deviation START: remove Boolean
 			if
-				Boolean.toJSBoolean(fieldsToDirty.__typename)
-				and not (Boolean.toJSBoolean(existing) and Boolean.toJSBoolean((existing :: StoreObject).__typename))
+				fieldsToDirty.__typename
+				and not (existing and (existing :: StoreObject).__typename)
+				-- ROBLOX deviation END
 				-- Since we return default root __typename strings
 				-- automatically from store.get, we don't need to dirty the
 				-- ROOT_QUERY.__typename field if merged.__typename is equal
 				-- to the default string (usually "Query").
-				and self.policies.rootTypenamesById[tostring(dataId)] == merged.__typename
+				-- ROBLOX deviation START: remove tostring around dataId
+				and self.policies.rootTypenamesById[dataId] == merged.__typename
+				-- ROBLOX deviation END
 			then
 				(fieldsToDirty :: any).__typename = nil
 			end
@@ -371,7 +399,9 @@ end
 function EntityStore:modify(dataId: string, fields: Modifier<any> | Modifiers): boolean
 	local storeObject = self:lookup(dataId)
 
-	if Boolean.toJSBoolean(storeObject) then
+	-- ROBLOX deviation START: remove Boolean
+	if storeObject then
+		-- ROBLOX deviation END
 		local changedFields: Record<string, any> = {}
 		local needToMerge = false
 		local allDeleted = true
@@ -384,10 +414,16 @@ function EntityStore:modify(dataId: string, fields: Modifier<any> | Modifiers): 
 			end,
 			toReference = self.toReference,
 			canRead = self.canRead,
-			readField = function(_self, fieldNameOrOptions: string | ReadFieldOptions, from: (StoreObject | Reference)?)
+			readField = function(
+				_self,
+				fieldNameOrOptions: string | ReadFieldOptions,
+				from: (StoreObject | Reference)?
+			)
 				return self.policies:readField(typeof(fieldNameOrOptions) == "string" and {
 					fieldName = fieldNameOrOptions,
-					from = Boolean.toJSBoolean(from) and from or makeReference(dataId),
+					-- ROBLOX deviation START: remove Boolean
+					from = from or makeReference(dataId),
+					-- ROBLOX deviation END
 				} or fieldNameOrOptions, {
 					store = self,
 				})
@@ -407,10 +443,14 @@ function EntityStore:modify(dataId: string, fields: Modifier<any> | Modifiers): 
 				modify = fields :: Modifier<any>
 			else
 				local fields_ = fields :: Modifiers
-				modify = Boolean.toJSBoolean(fields_[storeFieldName]) and fields_[storeFieldName] or fields_[fieldName]
+				-- ROBLOX deviation START: remove Boolean
+				modify = fields_[storeFieldName] or fields_[fieldName]
+				-- ROBLOX deviation END
 			end
 
-			if Boolean.toJSBoolean(modify) then
+			-- ROBLOX deviation START: remove Boolean
+			if modify then
+				-- ROBLOX deviation END
 				local newValue
 				if modify == delModifier then
 					newValue = DELETE
@@ -419,7 +459,9 @@ function EntityStore:modify(dataId: string, fields: Modifier<any> | Modifiers): 
 						-- ROBLOX deviation: passing fields as self
 						not isCallable(fields) and fields :: Modifiers or nil,
 						maybeDeepFreeze(fieldValue),
-						Object.assign({}, sharedDetails, {
+						-- ROBLOX deviation START: use table.clone to prevent additional iteration
+						Object.assign(table.clone(sharedDetails), {
+							-- ROBLOX deviation END
 							fieldName = fieldName,
 							storeFieldName = storeFieldName,
 							storage = self:getStorage(dataId, storeFieldName),
@@ -471,11 +513,15 @@ end
 -- and whose arguments when cached exactly match the variables passed.
 function EntityStore:delete(dataId: string, fieldName: string?, args: Record<string, any>?)
 	local storeObject = self:lookup(dataId)
-	if Boolean.toJSBoolean(storeObject) then
+	-- ROBLOX deviation START: remove Boolean
+	if storeObject then
+		-- ROBLOX deviation END
 		local typename = self:getFieldValue(storeObject, "__typename")
 
 		local storeFieldName
-		if Boolean.toJSBoolean(fieldName) and Boolean.toJSBoolean(args) then
+		-- ROBLOX deviation START: remove Boolean
+		if fieldName and args then
+			-- ROBLOX deviation END
 			storeFieldName = self.policies:getStoreFieldName({
 				typename = typename,
 				fieldName = fieldName,
@@ -485,31 +531,36 @@ function EntityStore:delete(dataId: string, fieldName: string?, args: Record<str
 			storeFieldName = fieldName
 		end
 
-		return self:modify(
-			dataId,
-			Boolean.toJSBoolean(storeFieldName) and { [storeFieldName] = delModifier } or delModifier
-		)
+		-- ROBLOX deviation START: use if then else, remove boolean
+		return self:modify(dataId, if storeFieldName then { [storeFieldName] = delModifier } else delModifier)
+		-- ROBLOX deviation END
 	end
 	return false
 end
 
 function EntityStore:evict(options: Cache_EvictOptions): boolean
 	local evicted = false
-	if Boolean.toJSBoolean(options.id) then
+	-- ROBLOX deviation START: remove Boolean
+	if options.id then
+		-- ROBLOX deviation END
 		if hasOwn(self.data, options.id :: string) then
 			evicted = self:delete(options.id, options.fieldName, options.args)
 		end
 		if instanceOf(self, Layer) then
 			local res = self.parent:evict(options)
-			evicted = Boolean.toJSBoolean(res) and res or evicted
+			-- ROBLOX deviation START: remove Boolean
+			evicted = res or evicted
+			-- ROBLOX deviation END
 		end
 
 		-- Always invalidate the field to trigger rereading of watched
 		-- queries, even if no cache data was modified by the eviction,
 		-- because queries may depend on computed fields with custom read
 		-- functions, whose values are not stored in the EntityStore.
-		if Boolean.toJSBoolean(options.fieldName) or evicted then
-			self.group:dirty(options.id, Boolean.toJSBoolean(options.fieldName) and options.fieldName or "__exists")
+		-- ROBLOX deviation START: remove Boolean
+		if options.fieldName or evicted then
+			self.group:dirty(options.id, options.fieldName or "__exists")
+			-- ROBLOX deviation END
 		end
 	end
 	return evicted
@@ -527,7 +578,9 @@ function EntityStore:extract(): NormalizedCacheObject
 			table.insert(extraRootIds, id :: string)
 		end
 	end)
-	if Boolean.toJSBoolean(#extraRootIds) then
+	-- ROBLOX deviation START: remove Boolean
+	if #extraRootIds > 0 then
+		-- ROBLOX deviation END
 		obj.__META = { extraRootIds = Array.sort(extraRootIds) }
 	end
 	return obj
@@ -537,20 +590,28 @@ function EntityStore:replace(newData: NormalizedCacheObject | nil): ()
 	-- ROBLOX deviation START: optimize Object.keys().forEach for luau
 	objectKeysForEach(self.data, function(dataId)
 		-- ROBLOX deviation END
-		if not (Boolean.toJSBoolean(newData) and hasOwn(newData :: NormalizedCacheObject, dataId)) then
+		-- ROBLOX deviation START: remove Boolean
+		if not (newData and hasOwn(newData :: NormalizedCacheObject, dataId)) then
+			-- ROBLOX deviation END
 			self:delete(dataId)
 		end
 	end)
 
-	if Boolean.toJSBoolean(newData) and newData ~= nil then
-		local __META, rest = newData.__META, Object.assign({}, newData, { __META = Object.None }) :: Object
+	-- ROBLOX deviation START: remove Boolean
+	if newData ~= nil then
+		-- ROBLOX deviation END
+		-- ROBLOX deviation START: use table.clone instead of iterating over data
+		local __META, rest = newData.__META, Object.assign(table.clone(newData), { __META = Object.None }) :: Object
+		-- ROBLOX deviation START: remove Boolean
 		-- ROBLOX deviation START: optimize Object.keys().forEach for luau
 		objectKeysForEach(rest, function(dataId)
 			-- ROBLOX deviation END
 			self:merge(dataId, rest[dataId] :: StoreObject)
 		end)
 
-		if Boolean.toJSBoolean(__META) and __META ~= nil then
+		-- ROBLOX deviation START: remove Boolean
+		if __META ~= nil then
+			-- ROBLOX deviation END
 			Array.forEach(__META.extraRootIds, self.retain, self :: any)
 		end
 	end
@@ -561,13 +622,17 @@ function EntityStore:getStorage(idOrObj: string | StoreObject, ...): StorageType
 end
 
 function EntityStore:retain(rootId: string): number
-	self.rootIds[rootId] = (Boolean.toJSBoolean(self.rootIds[rootId]) and self.rootIds[rootId] or 0) + 1
+	-- ROBLOX deviation START: use if then else
+	self.rootIds[rootId] = (if Boolean.toJSBoolean(self.rootIds[rootId]) then self.rootIds[rootId] else 0) + 1
+	-- ROBLOX deviation END
 	return self.rootIds[rootId]
 end
 
 function EntityStore:release(rootId: string)
 	if self.rootIds[rootId] > 0 then
-		self.rootIds[tostring(rootId)] -= 1
+		-- ROBLOX deviation START: remove tostring(rootId)
+		self.rootIds[rootId] -= 1
+		-- ROBLOX deviation END
 		local count = self.rootIds[rootId]
 
 		if not Boolean.toJSBoolean(count) then
@@ -638,7 +703,9 @@ function EntityStore:findChildRefIds(dataId: string): Record<string, boolean>
 		self.refs[dataId] = {}
 		local found = self.refs[dataId]
 		local root = self.data[dataId]
-		if not Boolean.toJSBoolean(root) then
+		-- ROBLOX deviation START: remove Boolean
+		if not root then
+			-- ROBLOX deviation END
 			return found
 		end
 
@@ -718,12 +785,16 @@ function CacheGroup.new(caching: boolean, parent: CacheGroup | nil): CacheGroup
 end
 
 function CacheGroup:resetCaching()
-	self.d = if Boolean.toJSBoolean(self.caching) then dep() else nil
+	-- ROBLOX deviation START: remove Boolean
+	self.d = if self.caching then dep() else nil
+	-- ROBLOX deviation END
 	self.keyMaker = Trie.new(canUseWeakMap)
 end
 
 function CacheGroup:depend(dataId: string, storeFieldName: string)
-	if Boolean.toJSBoolean(self.d) then
+	-- ROBLOX deviation START: remove Boolean
+	if self.d then
+		-- ROBLOX deviation END
 		self.d(makeDepKey(dataId, storeFieldName))
 		local fieldName = fieldNameFromStoreName(storeFieldName)
 		if fieldName ~= storeFieldName then
@@ -734,14 +805,18 @@ function CacheGroup:depend(dataId: string, storeFieldName: string)
 			-- level of specificity.
 			self.d(makeDepKey(dataId, fieldName))
 		end
-		if Boolean.toJSBoolean(self.parent) then
+		-- ROBLOX deviation START: remove Boolean
+		if self.parent then
+			-- ROBLOX deviation END
 			self.parent:depend(dataId, storeFieldName)
 		end
 	end
 end
 
 function CacheGroup:dirty(dataId: string, storeFieldName: string)
-	if Boolean.toJSBoolean(self.d) then
+	-- ROBLOX deviation START: remove Boolean
+	if self.d then
+		-- ROBLOX deviation END
 		self.d:dirty(
 			makeDepKey(dataId, storeFieldName),
 			-- When storeFieldName === "__exists", that means the entity identified
@@ -756,7 +831,7 @@ function CacheGroup:dirty(dataId: string, storeFieldName: string)
 	end
 end
 
-function makeDepKey(dataId: string, storeFieldName: string)
+function makeDepKey(dataId: string, storeFieldName: string): string
 	-- Since field names cannot have '#' characters in them, this method
 	-- of joining the field name and the ID should be unambiguous, and much
 	-- cheaper than JSON.stringify([dataId, fieldName]).
@@ -804,7 +879,9 @@ function EntityStore_Root.new(ref: {
 	self.stump = Stump.new(self)
 	self.storageTrie = Trie.new(canUseWeakMap)
 
-	if Boolean.toJSBoolean(seed) then
+	-- ROBLOX deviation START: remove Boolean
+	if seed then
+		-- ROBLOX deviation END
 		self:replace(seed)
 	end
 	return self
@@ -878,14 +955,18 @@ function Layer:removeLayer(layerId: string): EntityStore
 				-- ROBLOX deviation END
 				local ownStoreObject = self.data[dataId]
 				local parentStoreObject = parent["lookup"](parent, dataId)
-				if not Boolean.toJSBoolean(parentStoreObject) then
+				-- ROBLOX deviation START: remove Boolean
+				if not parentStoreObject then
+					-- ROBLOX deviation END
 					-- The StoreObject identified by dataId was defined in this layer
 					-- but will be undefined in the parent layer, so we can delete the
 					-- whole entity using this.delete(dataId). Since we're about to
 					-- throw this layer away, the only goal of this deletion is to dirty
 					-- the removed fields.
 					self:delete(dataId)
-				elseif not Boolean.toJSBoolean(ownStoreObject) then
+					-- ROBLOX deviation START: remove Boolean
+				elseif not ownStoreObject then
+					-- ROBLOX deviation END
 					-- This layer had an entry for dataId but it was undefined, which
 					-- means the entity was deleted in this layer, and it's about to
 					-- become undeleted when we remove this layer, so we need to dirty
@@ -993,7 +1074,9 @@ end
 
 function supportsResultCaching(store: any): boolean
 	-- When result caching is disabled, store.depend will be null.
-	return instanceOf(store, EntityStore) and store.group.caching
+	-- ROBLOX deviation START: instanceOf is expensive, just check that store.group.caching is true
+	return type(store) == "table" and type(store.group) == "table" and store.group.caching == true
+	-- ROBLOX deviation END
 end
 exports.supportsResultCaching = supportsResultCaching
 

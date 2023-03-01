@@ -6,7 +6,6 @@ local rootWorkspace = srcWorkspace.Parent
 local HttpService = game:GetService("HttpService")
 
 local LuauPolyfill = require(rootWorkspace.LuauPolyfill)
-local Boolean = LuauPolyfill.Boolean
 local Array = LuauPolyfill.Array
 local Object = LuauPolyfill.Object
 local Set = LuauPolyfill.Set
@@ -140,7 +139,9 @@ export type StorageType = policiesTypesModule.StorageType
 local function argsFromFieldSpecifier(spec: FieldSpecifier)
 	return if spec.args ~= nil
 		then spec.args
-		else (if Boolean.toJSBoolean(spec.field) then argumentsObjectFromField(spec.field, spec.variables) else nil)
+		-- ROBLOX deviation START: remove Boolean
+		else (if spec.field then argumentsObjectFromField(spec.field, spec.variables) else nil)
+	-- ROBLOX deviation END
 end
 export type FieldFunctionOptions<TArgs, TVars> = policiesTypesModule.FieldFunctionOptions<TArgs, TVars>
 
@@ -151,7 +152,9 @@ type FieldMergeFunction_<TExisting> = policiesTypesModule.FieldMergeFunction_<TE
 
 local function defaultDataIdFromObject(_self, ref, context: KeyFieldsContext?): string | nil
 	local __typename, id, _id = ref.__typename, ref.id, ref._id
-	if typeof(__typename) == "string" then
+	-- ROBLOX deviation START: use type instead of typeof
+	if type(__typename) == "string" then
+		-- ROBLOX deviation END
 		if context then
 			if id ~= nil then
 				context.keyObject = { id = id }
@@ -165,21 +168,15 @@ local function defaultDataIdFromObject(_self, ref, context: KeyFieldsContext?): 
 			id = _id
 		end
 		if id ~= nil then
-			return ("%s:%s"):format(
+			-- ROBLOX deviation START: reformat function wrap into if then else
+			local idType = type(id)
+
+			return string.format(
+				"%s:%s",
 				__typename,
-				(function()
-					if
-						Boolean.toJSBoolean(
-							Boolean.toJSBoolean(typeof(id) == "number") and typeof(id) == "number"
-								or typeof(id) == "string"
-						)
-					then
-						return id
-					else
-						return HttpService:JSONEncode(id)
-					end
-				end)()
+				if idType == "number" or idType == "string" then id else HttpService:JSONEncode(id)
 			)
+			-- ROBLOX deviation END
 		end
 	end
 	return nil
@@ -335,12 +332,14 @@ function Policies.new(config: {
 	self:setRootTypename("Mutation")
 	self:setRootTypename("Subscription")
 
-	if Boolean.toJSBoolean(config.possibleTypes) then
+	-- ROBLOX deviation START: remove Boolean
+	if config.possibleTypes then
 		self:addPossibleTypes(config.possibleTypes :: any)
 	end
-	if Boolean.toJSBoolean(config.typePolicies) then
+	if config.typePolicies then
 		self:addTypePolicies(config.typePolicies :: any)
 	end
+	-- ROBLOX deviation END
 
 	return (self :: any) :: Policies
 end
@@ -352,7 +351,9 @@ function Policies:identify(
 ): any -- ROBLOX TODO: return multiple values to make this more Lua native [string?, StoreObject?]
 	-- TODO Use an AliasMap here?
 	local typename
-	if Boolean.toJSBoolean(selectionSet) and Boolean.toJSBoolean(fragmentMap) then
+	-- ROBLOX deviation START: remove Boolean
+	if selectionSet and fragmentMap then
+		-- ROBLOX deviation END
 		typename = getTypenameFromResult(object, selectionSet, fragmentMap)
 	else
 		typename = object.__typename
@@ -373,21 +374,29 @@ function Policies:identify(
 	local id: KeyFieldsResult
 
 	local policy
-	if Boolean.toJSBoolean(typename) then
+	-- ROBLOX deviation START: remove Boolean
+	if typename then
+		-- ROBLOX deviation END
 		policy = self:getTypePolicy(typename)
 	else
 		policy = typename
 	end
 	local keyFn
-	if Boolean.toJSBoolean(policy) and Boolean.toJSBoolean(policy.keyFn) then
+	-- ROBLOX deviation START: remove Boolean
+	if policy and policy.keyFn then
+		-- ROBLOX deviation END
 		keyFn = policy.keyFn
 	else
 		keyFn = self.config.dataIdFromObject
 	end
-	while Boolean.toJSBoolean(keyFn) do
+	-- ROBLOX deviation START: remove Boolean
+	while keyFn do
+		-- ROBLOX deviation END
 		-- ROBLOX deviation: passing policy as self
 		local specifierOrId = keyFn(policy, object, context)
-		if Array.isArray(specifierOrId) then
+		-- ROBLOX deviation START: if this is a table, it must be an array
+		if type(specifierOrId) == "table" then
+			-- ROBLOX deviation END
 			keyFn = keyFieldsFnFromSpecifier(specifierOrId)
 		else
 			id = specifierOrId
@@ -395,12 +404,16 @@ function Policies:identify(
 		end
 	end
 
-	if Boolean.toJSBoolean(id) then
+	-- ROBLOX deviation START: remove Boolean
+	if id then
+		-- ROBLOX deviation END
 		id = tostring(id)
 	else
 		id = nil
 	end
-	return Boolean.toJSBoolean(context.keyObject) and { id, context.keyObject } or { id }
+	-- ROBLOX deviation START: use if then else, remove Boolean
+	return if context.keyObject then { id, context.keyObject } else { id }
+	-- ROBLOX deviation END
 end
 
 function Policies:addTypePolicies(typePolicies: TypePolicies): ()
@@ -429,15 +442,17 @@ function Policies:addTypePolicies(typePolicies: TypePolicies): ()
 		-- time. In other words, since inheritance doesn't matter for these
 		-- properties, there's also no need to delay their processing using
 		-- the this.toBeAdded queue.
-		if Boolean.toJSBoolean(queryType) then
+		-- ROBLOX deviation START: remove Boolean
+		if queryType then
 			self:setRootTypename("Query", typename)
 		end
-		if Boolean.toJSBoolean(mutationType) then
+		if mutationType then
 			self:setRootTypename("Mutation", typename)
 		end
-		if Boolean.toJSBoolean(subscriptionType) then
+		if subscriptionType then
 			self:setRootTypename("Subscription", typename)
 		end
+		-- ROBLOX deviation END
 
 		if hasOwn(self.toBeAdded, typename) then
 			table.insert(self.toBeAdded[typename], incoming)
@@ -484,11 +499,16 @@ function Policies:updateTypePolicy(typename: string, incoming: TypePolicy): ()
 	else
 		-- Pass an array of strings to use those fields to compute a
 		-- composite ID for objects of this typename.
-		if Boolean.toJSBoolean(Array.isArray(keyFields)) then
+		-- ROBLOX deviation START: if this is a table, it must be an array
+		local keyFieldsType = type(keyFields)
+		if keyFieldsType == "table" then
+			-- ROBLOX deviation END
 			(existing :: any).keyFn = keyFieldsFnFromSpecifier(keyFields :: any)
 		else
 			-- Pass a function to take full control over identification.
-			if typeof(keyFields) == "function" then
+			-- ROBLOX deviation START: use type instead of typeof
+			if keyFieldsType == "function" then
+				-- ROBLOX deviation END
 				(existing :: any).keyFn = keyFields
 			else
 				-- Leave existing.keyFn unchanged if above cases fail.
@@ -497,14 +517,18 @@ function Policies:updateTypePolicy(typename: string, incoming: TypePolicy): ()
 		end
 	end
 
-	if Boolean.toJSBoolean(fields) then
+	-- ROBLOX deviation START: remove Boolean
+	if fields then
+		-- ROBLOX deviation END
 		-- ROBLOX deviation START: use helper to optimize Object.keys().forEach
 		objectKeysForEach(fields :: Record<string, any>, function(fieldName)
 			-- ROBLOX deviation END
 			local existing = self:getFieldPolicy(typename, fieldName, true)
-			local incoming = (fields :: any)[fieldName]
+			local incoming = fields[fieldName]
 
-			if typeof(incoming) == "function" then
+			-- ROBLOX deviation START: use type instead of typeof
+			if type(incoming) == "function" then
+				-- ROBLOX deviation END
 				existing.read = incoming
 			else
 				local keyArgs, read, merge = incoming.keyArgs, incoming.read, incoming.merge
@@ -516,12 +540,15 @@ function Policies:updateTypePolicy(typename: string, incoming: TypePolicy): ()
 				else
 					-- Pass an array of strings to use named arguments to
 					-- compute a composite identity for the field.
-					if Array.isArray(keyArgs) then
-						existing.keyFn = keyArgsFnFromSpecifier(keyArgs) :: any
+					-- ROBLOX deviation START: reuse keyArgs type. If keyArgs is a table, it is an array
+					local keyArgsType = type(keyArgs)
+					if keyArgsType == "table" then
+						existing.keyFn = keyArgsFnFromSpecifier(keyArgs :: KeySpecifier) :: any
 					else
 						-- Pass a function to take full control over field identity.
-						if typeof(keyArgs) == "function" then
-							existing.keyFn = keyArgs
+						if keyArgsType == "function" then
+							existing.keyFn = (keyArgs :: KeyArgsFunction) :: any
+							-- ROBLOX deviation END
 						else
 							-- Leave existing.keyFn unchanged if above cases fail.
 							existing.keyFn = existing.keyFn
@@ -529,21 +556,25 @@ function Policies:updateTypePolicy(typename: string, incoming: TypePolicy): ()
 					end
 				end
 
-				if typeof(read) == "function" then
+				-- ROBLOX deviation START: use type instead of typeof
+				if type(read) == "function" then
+					-- ROBLOX deviation END
 					existing.read = read
 				end
 
 				setMerge(existing :: any, merge)
 			end
 
-			if Boolean.toJSBoolean(existing.read) and Boolean.toJSBoolean(existing.merge) then
+			-- ROBLOX deviation START: remove Boolean
+			if existing.read and existing.merge then
 				-- If we have both a read and a merge function, assume
 				-- keyArgs:false, because read and merge together can take
 				-- responsibility for interpreting arguments in and out. This
 				-- default assumption can always be overridden by specifying
 				-- keyArgs explicitly in the FieldPolicy.
-				existing.keyFn = Boolean.toJSBoolean(existing.keyFn) and existing.keyFn or simpleKeyArgsFn
+				existing.keyFn = existing.keyFn or simpleKeyArgsFn
 			end
+			-- ROBLOX deviation END
 		end)
 	end
 end
@@ -559,15 +590,17 @@ function Policies:setRootTypename(
 	local rootId = "ROOT_" .. string.upper(which)
 	local old = self.rootTypenamesById[rootId]
 	if typename ~= old then
-		invariant(
-			not Boolean.toJSBoolean(old) or old == which,
-			("Cannot change root %s __typename more than once"):format(which)
-		)
+		-- ROBLOX deviation START: remove Boolean, avoid invariant
+		local isOldTypename = not old or old == which
+		if not isOldTypename then
+			invariant(isOldTypename, ("Cannot change root %s __typename more than once"):format(which))
+		end
 		-- First, delete any old __typename associated with this rootId from
 		-- rootIdsByTypename.
-		if Boolean.toJSBoolean(old) then
+		if old then
 			self.rootIdsByTypename[old] = nil
 		end
+		-- ROBLOX deviation END
 		-- Now make this the only __typename that maps to this rootId.
 		self.rootIdsByTypename[typename] = rootId
 		-- Finally, update the __typename associated with this rootId.
@@ -628,10 +661,14 @@ function Policies:getTypePolicy(
 		-- but future changes to supertype policies will not be reflected in
 		-- this policy, because this code runs at most once per typename.
 		local supertypes = self.supertypeMap:get(typename)
-		if Boolean.toJSBoolean(supertypes) and Boolean.toJSBoolean(supertypes.size) then
+		-- ROBLOX deviation START: remove Boolean
+		if supertypes and supertypes.size > 0 then
+			-- ROBLOX deviation END
 			supertypes:forEach(function(supertype)
 				local ref = self:getTypePolicy(supertype)
-				local fields, rest = ref.fields, Object.assign({}, ref, { fields = Object.None })
+				-- ROBLOX deviation START: use table.clone instead of copying to empty table
+				local fields, rest = ref.fields, Object.assign(table.clone(ref), { fields = Object.None })
+				-- ROBLOX deviation END
 				Object.assign(policy, rest)
 				Object.assign(policy.fields, fields)
 			end)
@@ -639,7 +676,9 @@ function Policies:getTypePolicy(
 	end
 
 	local inbox = self.toBeAdded[typename]
-	if Boolean.toJSBoolean(inbox) and Boolean.toJSBoolean(#inbox) then
+	-- ROBLOX deviation START: remove Boolean
+	if inbox and #inbox > 0 then
+		-- ROBLOX deviation END
 		-- Merge the pending policies into this.typePolicies, in the order they
 		-- were originally passed to addTypePolicy.
 		Array.forEach(Array.splice(inbox, 1), function(policy)
@@ -659,12 +698,14 @@ function Policies:getFieldPolicy(
 	read: FieldReadFunction<any, any>?,
 	merge: FieldMergeFunction<any, any>?,
 } | nil
-	if Boolean.toJSBoolean(typename) then
+	-- ROBLOX deviation START: remove Boolean
+	if typename then
 		local fieldPolicies = self:getTypePolicy(typename).fields
-		if Boolean.toJSBoolean(fieldPolicies[fieldName]) then
+		if fieldPolicies[fieldName] then
 			return fieldPolicies[fieldName]
 		else
-			if Boolean.toJSBoolean(createIfMissing) then
+			if createIfMissing then
+				-- ROBLOX deviation END
 				fieldPolicies[fieldName] = {}
 				return fieldPolicies[fieldName]
 			else
@@ -677,7 +718,9 @@ end
 
 function Policies:getSupertypeSet(subtype: string, createIfMissing: boolean): Set<string> | nil
 	local supertypeSet = self.supertypeMap:get(subtype)
-	if not Boolean.toJSBoolean(supertypeSet) and createIfMissing then
+	-- ROBLOX deviation START: remove Boolean
+	if not supertypeSet and createIfMissing then
+		-- ROBLOX deviation END
 		supertypeSet = Set.new()
 		self.supertypeMap:set(subtype, supertypeSet)
 	end
@@ -690,13 +733,17 @@ function Policies:fragmentMatches(
 	result: Record<string, any>?,
 	variables: Record<string, any>?
 ): boolean
-	if not Boolean.toJSBoolean(fragment.typeCondition) then
+	-- ROBLOX deviation START: remove Boolean
+	if not fragment.typeCondition then
+		-- ROBLOX deviation END
 		return true
 	end
 
 	-- If the fragment has a type condition but the object we're matching
 	-- against does not have a __typename, the fragment cannot match.
-	if not Boolean.toJSBoolean(typename) then
+	-- ROBLOX deviation START: remove Boolean
+	if not typename then
+		-- ROBLOX deviation END
 		return false
 	end
 
@@ -706,16 +753,16 @@ function Policies:fragmentMatches(
 		return true
 	end
 
-	if Boolean.toJSBoolean(self.usingPossibleTypes) and self.supertypeMap:has(supertype) then
+	-- ROBLOX deviation START: remove Boolean
+	if self.usingPossibleTypes and self.supertypeMap:has(supertype) then
+		-- ROBLOX deviation END
 		local typenameSupertypeSet = self:getSupertypeSet(typename, true)
 		local workQueue = { typenameSupertypeSet }
 		local function maybeEnqueue(subtype: string)
 			local supertypeSet = self:getSupertypeSet(subtype, false)
-			if
-				Boolean.toJSBoolean(supertypeSet)
-				and Boolean.toJSBoolean(supertypeSet.size)
-				and Array.indexOf(workQueue, supertypeSet) < 1
-			then
+			-- ROBLOX deviation START: remove Boolean
+			if supertypeSet and supertypeSet.size > 0 and Array.indexOf(workQueue, supertypeSet) < 1 then
+				-- ROBLOX deviation END
 				table.insert(workQueue, supertypeSet)
 			end
 		end
@@ -726,8 +773,9 @@ function Policies:fragmentMatches(
 		-- strong signal of fragment matching. The StoreReader class calls
 		-- policies.fragmentMatches without passing a result object, so
 		-- needToCheckFuzzySubtypes is always false while reading.
-		local needToCheckFuzzySubtypes =
-			not not Boolean.toJSBoolean(Boolean.toJSBoolean(result) and self.fuzzySubtypes.size)
+		-- ROBLOX deviation START: remove Boolean
+		local needToCheckFuzzySubtypes = result ~= nil and self.fuzzySubtypes.size > 0
+		-- ROBLOX deviation END
 		local checkingFuzzySubtypes = false
 
 		-- It's important to keep evaluating workQueue.length each time through
@@ -781,7 +829,9 @@ function Policies:fragmentMatches(
 					local regExp, fuzzyString = entry[2], entry[1] :: string
 					-- ROBLOX deviation: string.match doesn't work with RegExps. Using RegExp:exec instead
 					local match = regExp:exec(typename :: string)
-					if Boolean.toJSBoolean(match) and match[1] == typename then
+					-- ROBLOX deviation START: remove Boolean
+					if match and match[1] == typename then
+						-- ROBLOX deviation END
 						maybeEnqueue(fuzzyString)
 					end
 					return 1
@@ -795,7 +845,9 @@ end
 
 function Policies:hasKeyArgs(typename: string | nil, fieldName: string): boolean
 	local policy = (self :: PoliciesPrivate):getFieldPolicy(typename, fieldName, false)
-	return Boolean.toJSBoolean(policy) and policy ~= nil and Boolean.toJSBoolean(policy.keyFn)
+	-- ROBLOX deviation START: remove Boolean
+	return policy ~= nil and policy.keyFn ~= nil
+	-- ROBLOX deviation END
 end
 
 function Policies:getStoreFieldName(fieldSpec: FieldSpecifier): string
@@ -804,34 +856,48 @@ function Policies:getStoreFieldName(fieldSpec: FieldSpecifier): string
 	local storeFieldName: KeyArgsResult
 
 	local keyFn
-	if Boolean.toJSBoolean(policy) then
+	-- ROBLOX deviation START: remove Boolean
+	if policy then
+		-- ROBLOX deviation END
 		keyFn = (policy :: any).keyFn
 	else
 		keyFn = nil
 	end
-	if Boolean.toJSBoolean(keyFn) and Boolean.toJSBoolean(typename) then
+	-- ROBLOX deviation START: remove Boolean
+	if keyFn and typename then
+		-- ROBLOX deviation END
 		local context: any --[[ ROBLOX TODO: Parameters<KeyArgsFunction>[1] ]] = {
 			typename = typename,
 			fieldName = fieldName,
-			field = Boolean.toJSBoolean(fieldSpec.field) and fieldSpec.field or nil,
+			-- ROBLOX deviation START: remove Boolean
+			field = fieldSpec.field or nil,
+			-- ROBLOX deviation END
 			variables = fieldSpec.variables,
 		}
 		local args = argsFromFieldSpecifier(fieldSpec)
-		while Boolean.toJSBoolean(keyFn) do
+		-- ROBLOX deviation START: remove Boolean
+		while keyFn do
+			-- ROBLOX deviation END
 			local specifierOrString = keyFn(args, context)
-			if Array.isArray(specifierOrString) then
+			-- ROBLOX deviation START: if specifierOrString is a table, then it is an array
+			if type(specifierOrString) == "table" then
+				-- ROBLOX deviation END
 				keyFn = keyArgsFnFromSpecifier(specifierOrString)
 			else
 				-- If the custom keyFn returns a falsy value, fall back to
 				-- fieldName instead.
-				storeFieldName = Boolean.toJSBoolean(specifierOrString) and specifierOrString or fieldName
+				-- ROBLOX deviation START: remove Boolean
+				storeFieldName = specifierOrString or fieldName
+				-- ROBLOX deviation END
 				break
 			end
 		end
 	end
 
 	if storeFieldName == nil then
-		if Boolean.toJSBoolean(fieldSpec.field) then
+		-- ROBLOX deviation START: remove Boolean
+		if fieldSpec.field then
+			-- ROBLOX deviation END
 			storeFieldName = storeKeyNameFromField(fieldSpec.field, fieldSpec.variables)
 		else
 			storeFieldName = getStoreKeyName(fieldName, argsFromFieldSpecifier(fieldSpec))
@@ -861,14 +927,18 @@ function Policies:readField--[[<V = StoreValue>]](options: ReadFieldOptions, con
 		return
 	end
 
-	local nameOrField = options.field and options.field or options.fieldName
-	if not Boolean.toJSBoolean(nameOrField) then
+	-- ROBLOX deviation START: remove additional options.field and Boolean
+	local nameOrField = options.field or options.fieldName
+	if not nameOrField then
+		-- ROBLOX deviation END
 		return
 	end
 
 	if options.typename == nil then
 		local typename = context.store:getFieldValue(objectOrReference, "__typename")
-		if Boolean.toJSBoolean(typename) then
+		-- ROBLOX deviation START: remove Boolean
+		if typename then
+			-- ROBLOX deviation END
 			options.typename = typename
 		end
 	end
@@ -878,28 +948,28 @@ function Policies:readField--[[<V = StoreValue>]](options: ReadFieldOptions, con
 	local existing = context.store:getFieldValue(objectOrReference, storeFieldName)
 	local policy = (self :: PoliciesPrivate):getFieldPolicy(options.typename, fieldName, false)
 	local read
-	if Boolean.toJSBoolean(policy) then
+	-- ROBLOX deviation START: remove Boolean
+	if policy then
+		-- ROBLOX deviation END
 		read = (policy :: any).read
 	else
 		read = nil
 	end
 
-	if Boolean.toJSBoolean(read) then
+	-- ROBLOX deviation START: remove Boolean
+	if read then
+		-- ROBLOX deviation END: remove Boolean
 		local readOptions = makeFieldFunctionOptions(
 			self :: Policies,
 			objectOrReference,
 			options,
 			context,
 			context.store:getStorage(
-				(function()
-					if isReference(objectOrReference) then
-						-- ROBLOX deviation: Luau narrowing, doesn't understand guard clause above
-						return ((objectOrReference :: FIX_ANALYZE) :: Reference).__ref
-					else
-						-- ROBLOX TODO: change cast to :: StoreObject once crash is fixed CLI-47051
-						return objectOrReference :: FIX_ANALYZE
-					end
-				end)(),
+				-- ROBLOX deviation START: convert function wrap to if then else
+				if (objectOrReference :: Reference).__ref
+					then (objectOrReference :: Reference).__ref
+					else objectOrReference,
+				-- ROBLOX deviation END
 				storeFieldName
 			)
 		)
@@ -920,14 +990,20 @@ function Policies:getMergeFunction(
 		self :: PoliciesPrivate
 	):getFieldPolicy(parentTypename, fieldName, false)
 	local merge
-	if Boolean.toJSBoolean(policy) then
+	-- ROBLOX deviation START: remove Boolean
+	if policy then
+		-- ROBLOX deviation END
 		merge = policy.merge
 	else
 		merge = policy
 	end
-	if not Boolean.toJSBoolean(merge) and Boolean.toJSBoolean(childTypename) then
+	-- ROBLOX deviation START: remove Boolean
+	if not merge and childTypename then
+		-- ROBLOX deviation END
 		policy = self:getTypePolicy(childTypename)
-		if Boolean.toJSBoolean(policy) then
+		-- ROBLOX deviation START: remove Boolean
+		if policy then
+			-- ROBLOX deviation END
 			merge = policy.merge
 		else
 			merge = policy
@@ -961,7 +1037,9 @@ function Policies:runMergeFunction(
 	-- options.overwrite set to true, we still call merge functions, but
 	-- the existing data is always undefined, so the merge function will
 	-- not attempt to combine the incoming data with the existing data.
-	if Boolean.toJSBoolean(context.overwrite) then
+	-- ROBLOX deviation START: remove Boolean
+	if context.overwrite then
+		-- ROBLOX deviation END
 		existing = nil
 	end
 
@@ -985,7 +1063,9 @@ function Policies:runMergeFunction(
 			nil,
 			{ typename = typename, fieldName = field.name.value, field = field, variables = context.variables },
 			context,
-			Boolean.toJSBoolean(storage) and storage :: StorageType or {}
+			-- ROBLOX deviation START: remove Boolean
+			storage :: StorageType or {}
+			-- ROBLOX deviation END
 		)
 	)
 end
@@ -1001,10 +1081,14 @@ function makeFieldFunctionOptions(
 ): FieldFunctionOptions<Record<string, any>, Record<string, any>>
 	local storeFieldName = policies:getStoreFieldName(fieldSpec)
 	local fieldName = fieldNameFromStoreName(storeFieldName)
-	local variables = Boolean.toJSBoolean(fieldSpec.variables) and fieldSpec.variables or context.variables
+	-- ROBLOX deviation START: remove Boolean
+	local variables = fieldSpec.variables or context.variables
+	-- ROBLOX deviation END
 	return {
 		args = argsFromFieldSpecifier(fieldSpec),
-		field = Boolean.toJSBoolean(fieldSpec.field) and fieldSpec.field or nil,
+		-- ROBLOX deviation START: remove Boolean
+		field = fieldSpec.field or nil,
+		-- ROBLOX deviation END
 		fieldName = fieldName,
 		storeFieldName = storeFieldName,
 		variables = variables,
@@ -1016,12 +1100,14 @@ function makeFieldFunctionOptions(
 		cache = policies.cache,
 		canRead = context.store.canRead,
 		readField = function(_self, fieldNameOrOptions: string | ReadFieldOptions, ...: (StoreObject | Reference)?)
+			-- ROBLOX deviation START: optimize calls to type(fieldNameOrOptions)
+			local fieldNameOrOptionsType = type(fieldNameOrOptions)
+
 			-- ROBLOX deviation: format arguments to print helpful message (handle nil, and Object.None)
 			local arguments = {
-				if isNonNullObject(fieldNameOrOptions)
+				if fieldNameOrOptionsType == "table"
 					then Object.assign(
-						{},
-						fieldNameOrOptions :: ReadFieldOptions,
+						table.clone(fieldNameOrOptions :: ReadFieldOptions),
 						if (fieldNameOrOptions :: ReadFieldOptions).from == Object.None
 							then { from = "<Object.None>" }
 							else nil :: any
@@ -1032,20 +1118,25 @@ function makeFieldFunctionOptions(
 
 			local options: ReadFieldOptions
 
-			if typeof(fieldNameOrOptions) == "string" then
+			if fieldNameOrOptionsType == "string" then
 				options = {
-					fieldName = fieldNameOrOptions,
+					fieldName = fieldNameOrOptions :: string,
 					-- Default to objectOrReference only when no second argument was
 					-- passed for the from parameter, not when undefined is explicitly
 					-- passed as the second argument.
 					from = if select("#", ...) >= 1 then ... else objectOrReference,
 				}
-			elseif isNonNullObject(fieldNameOrOptions) then
+			elseif fieldNameOrOptionsType == "table" then
+				--[[
+					ROBLOX comment: This cannot be converted to a table.clone,
+					we need to remove Object.None from fieldNameOrOptions
+				]]
 				options = Object.assign({}, fieldNameOrOptions)
+				-- ROBLOX deviation END
 				-- Default to objectOrReference only when fieldNameOrOptions.from is
 				-- actually omitted, rather than just undefined.
 				-- ROBLOX deviation: {from: nil} works the same as omitted in Lua, use Object.None instead
-				if not hasOwn(fieldNameOrOptions, "from") then
+				if not hasOwn(fieldNameOrOptions :: ReadFieldOptions, "from") then
 					options.from = objectOrReference :: any
 				end
 			else
@@ -1088,7 +1179,9 @@ function makeMergeObjectsFunction(store: NormalizedCache): MergeObjectsFunction
 		if isNonNullObject(existing) and isNonNullObject(incoming) then
 			local eType = store:getFieldValue(existing, "__typename")
 			local iType = store:getFieldValue(incoming, "__typename")
-			local typesDiffer = Boolean.toJSBoolean(eType) and Boolean.toJSBoolean(iType) and eType ~= iType
+			-- ROBLOX deviation START: remove Boolean
+			local typesDiffer = eType ~= nil and iType ~= nil and eType ~= iType
+			-- ROBLOX deviation END
 
 			if typesDiffer then
 				return incoming
@@ -1125,7 +1218,9 @@ end
 
 -- ROBLOX deviation: preserve order of keyFieldsFn when encoding
 local function keyObjEncode(object: Record<string, any>, specifier): string
-	if Array.isArray(specifier) and #specifier == 0 then
+	-- ROBLOX deviation START: check if this is an empty array in constant time
+	if type(specifier) == "table" and not next(specifier) then
+		-- ROBLOX deviation END
 		return "[]"
 	end
 	return "{"
@@ -1136,7 +1231,7 @@ local function keyObjEncode(object: Record<string, any>, specifier): string
 						return ""
 					else
 						local arg
-						-- ROBLOX deivation START: HttpService encoding does not handle nil
+						-- ROBLOX deviation START: HttpService encoding does not handle nil
 						if not object[s] then
 							return ""
 						end
@@ -1182,7 +1277,9 @@ function keyFieldsFnFromSpecifier(specifier: KeySpecifier): KeyFieldsFunction
 		local aliasMap: AliasMap | nil
 		if context.selectionSet and context.fragmentMap then
 			local info = trie:lookupArray({ context.selectionSet, context.fragmentMap })
-			if Boolean.toJSBoolean(info.aliasMap) then
+			-- ROBLOX deviation START: remove Boolean
+			if info.aliasMap then
+				-- ROBLOX deviation END
 				aliasMap = info.aliasMap
 			else
 				info.aliasMap = makeAliasMap(context.selectionSet, context.fragmentMap)
@@ -1211,33 +1308,41 @@ function makeAliasMap(selectionSet: SelectionSetNode, fragmentMap: FragmentMap):
 	for _, selectionSet in workQueue do
 		Array.forEach(selectionSet.selections, function(selection)
 			if isField(selection) then
-				if Boolean.toJSBoolean(selection.alias) then
+				-- ROBLOX deviation START: remove Boolean
+				if selection.alias then
+					-- ROBLOX deviation END
 					local responseKey = selection.alias.value
 					local storeKey = selection.name.value
 					if storeKey ~= responseKey then
 						local aliases
-						if Boolean.toJSBoolean(map.aliases) then
+						-- ROBLOX deviation START: remove Boolean
+						if map.aliases then
+							-- ROBLOX deviation END
 							aliases = map.aliases
 						else
 							map.aliases = {}
-							aliases = map.aliases
+							aliases = (map.aliases :: any) :: Record<string, string>
 						end
 						(aliases :: any)[storeKey] = responseKey
 					end
 				end
-				if Boolean.toJSBoolean(selection.selectionSet) then
+				-- ROBLOX deviation START: remove Boolean
+				if selection.selectionSet then
 					local subsets
-					if Boolean.toJSBoolean(map.subsets) then
+					if map.subsets then
+						-- ROBLOX deviation END
 						subsets = map.subsets
 					else
 						map.subsets = {}
-						subsets = map.subsets
+						subsets = (map.subsets :: any) :: Record<string, AliasMap>
 					end
 					(subsets :: any)[selection.name.value] = makeAliasMap(selection.selectionSet, fragmentMap)
 				end
 			else
 				local fragment = getFragmentFromSelection(selection, fragmentMap)
-				if Boolean.toJSBoolean(fragment) then
+				-- ROBLOX deviation START: remove Boolean
+				if fragment then
+					-- ROBLOX deviation END
 					workQueue:add(fragment.selectionSet)
 				end
 			end
@@ -1254,17 +1359,26 @@ function computeKeyObject(
 ): Record<string, any>
 	local keyObj = {}
 	local prevKey: string | nil
-	Array.forEach(specifier, function(s)
-		if Boolean.toJSBoolean(Array.isArray(s)) then
-			if typeof(prevKey) == "string" then
+	-- ROBLOX deviation START: convert Array forEach to for in loop
+	for _, s in specifier do
+		-- ROBLOX deviation START: s must be an array if it is a table
+		if type(s) == "table" then
+			-- ROBLOX deviation END
+			-- ROBLOX deviation START: use type instead of typeof
+			if type(prevKey) == "string" then
+				-- ROBLOX deviation END
 				local subsets
-				if Boolean.toJSBoolean(aliasMap) then
+				-- ROBLOX deviation START: remove Boolean
+				if aliasMap then
+					-- ROBLOX deviation END
 					subsets = (aliasMap :: any).subsets
 				else
 					subsets = aliasMap
 				end
 				local subset
-				if Boolean.toJSBoolean(subsets) then
+				-- ROBLOX deviation START: remove Boolean
+				if subsets then
+					-- ROBLOX deviation END
 					subset = subsets[prevKey]
 				else
 					subset = subsets
@@ -1273,30 +1387,36 @@ function computeKeyObject(
 			end
 		else
 			local aliases
-			if Boolean.toJSBoolean(aliasMap) then
+			-- ROBLOX deviation START: remove Boolean
+			if aliasMap then
+				-- ROBLOX deviation END
 				aliases = (aliasMap :: any).aliases
 			else
 				aliases = aliasMap
 			end
 			local responseName
-			if Boolean.toJSBoolean(aliases) and Boolean.toJSBoolean(aliases[s]) then
+			-- ROBLOX deviation START: remove Boolean
+			if aliases and aliases[s] then
+				-- ROBLOX deviation END
 				responseName = aliases[s]
 			else
 				responseName = s
 			end
-			if Boolean.toJSBoolean(hasOwn(response, responseName)) then
+			-- ROBLOX deviation START: remove Boolean
+			if hasOwn(response, responseName) then
+				-- ROBLOX deviation END
 				prevKey = s
 				keyObj[(prevKey :: any) :: string] = response[responseName]
 			else
-				invariant(
-					not Boolean.toJSBoolean(strict),
-					("Missing field '%s' while computing key fields"):format(responseName)
-				)
+				-- ROBLOX deviation START: remove Boolean
+				invariant(not strict, ("Missing field '%s' while computing key fields"):format(responseName))
+				-- ROBLOX deviation END
 				prevKey = nil
 			end
 		end
-		return nil
-	end)
+	end
+	-- ROBLOX deviation END
+
 	return keyObj
 end
 

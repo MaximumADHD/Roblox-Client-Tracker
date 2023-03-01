@@ -4,7 +4,6 @@ local srcWorkspace = script.Parent.Parent.Parent
 local rootWorkspace = srcWorkspace.Parent
 
 local LuauPolyfill = require(rootWorkspace.LuauPolyfill)
-local Boolean = LuauPolyfill.Boolean
 local Array = LuauPolyfill.Array
 type Array<T> = LuauPolyfill.Array<T>
 type Record<T, U> = { [T]: U }
@@ -40,7 +39,9 @@ local function getTypenameFromStoreObject(
 	if isReference(objectOrReference) then
 		return store:get((objectOrReference :: Reference).__ref, "__typename") :: string
 	else
-		if Boolean.toJSBoolean(objectOrReference) then
+		-- ROBLOX deviation START: remove Boolean
+		if objectOrReference then
+			-- ROBLOX deviation END
 			return (objectOrReference :: StoreObject).__typename
 		end
 		return nil
@@ -52,9 +53,16 @@ exports.getTypenameFromStoreObject = getTypenameFromStoreObject
 local TypeOrFieldNameRegExp = RegExp("^[_a-zA-Z][_0-9a-zA-Z]*", "i")
 exports.TypeOrFieldNameRegExp = TypeOrFieldNameRegExp
 
+local storeFieldNameCache: { [string]: string } = {}
+
 local function fieldNameFromStoreName(storeFieldName: string): string
-	-- ROBLOX deviation START: use string.match instead of RegEx since this is in the hot path
-	return string.match(storeFieldName, "^[_a-zA-Z][_0-9a-zA-Z]*") or storeFieldName
+	-- ROBLOX deviation START: use string.match with cache instead of RegEx since this is in the hot path
+	if storeFieldNameCache[storeFieldName] then
+		return storeFieldNameCache[storeFieldName]
+	end
+	local parsedName = string.match(storeFieldName, "^[_a-zA-Z][_0-9a-zA-Z]*") or storeFieldName
+	storeFieldNameCache[storeFieldName] = parsedName
+	return parsedName
 	-- ROBLOX deviation END
 end
 exports.fieldNameFromStoreName = fieldNameFromStoreName
@@ -74,11 +82,13 @@ local function selectionSetMatchesResult(
 			return Array.every(selectionSet.selections, function(field)
 				if isField(field) and shouldInclude(field, variables) then
 					local key = resultKeyNameFromField(field)
+					-- ROBLOX deviation START: remove Boolean
 					return hasOwn(result, key)
 						and (
-							not Boolean.toJSBoolean(field.selectionSet)
+							not field.selectionSet
 							or selectionSetMatchesResult(field.selectionSet, result[key], variables)
 						)
+					-- ROBLOX deviation END
 				end
 				-- If the selection has been skipped with @skip(true) or
 				-- @include(false), it should not count against the matching. If
