@@ -132,6 +132,8 @@ version = "0.1.0"
 name = "DiscoverabilityModal"
 version = "0.1.0"
 dependencies = [
+    "Analytics Analytics 0.1.0",
+    "AppCommonLib AppCommonLib 0.1.0",
     "ContactsProtocol ContactsProtocol 0.1.0",
     "Dash Dash 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
@@ -146,6 +148,7 @@ dependencies = [
     "ReactRoblox ReactRoblox 0.1.0",
     "RhodiumHelpers RhodiumHelpers 0.1.0",
     "Roact RoactCompat 0.1.0",
+    "RoactNavigation RoactNavigation 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
     "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
@@ -321,6 +324,7 @@ version = "0.1.0"
 name = "GraphQLServer"
 version = "0.1.0"
 dependencies = [
+    "Cryo Cryo 0.1.0",
     "DataLoader DataLoader 0.1.0",
     "Fetch Fetch 0.1.0",
     "GraphQL GraphQL 0.1.0",
@@ -772,6 +776,8 @@ name = "RoactUtils"
 version = "0.1.0"
 dependencies = [
     "AppCommonLib AppCommonLib 0.1.0",
+    "Dash Dash 0.1.0",
+    "InputType InputType 0.1.0",
     "JestGlobals JestGlobals 0.1.0",
     "Localization Localization 0.1.0",
     "Promise Promise 0.1.0",
@@ -785,6 +791,25 @@ dependencies = [
 [[package]]
 name = "RobloxAppAssets"
 version = "0.1.0"
+
+[[package]]
+name = "RobloxAppEnums"
+version = "0.1.0"
+
+[[package]]
+name = "RobloxAppHooks"
+version = "0.1.0"
+dependencies = [
+    "AppCommonLib AppCommonLib 0.1.0",
+    "JestGlobals JestGlobals 0.1.0",
+    "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
+    "RoactServices RoactServices 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppEnums RobloxAppEnums 0.1.0",
+    "Rodux Rodux 0.1.0",
+]
 
 [[package]]
 name = "RobloxAppLocales"
@@ -963,7 +988,9 @@ version = "0.1.0"
 dependencies = [
     "Analytics Analytics 0.1.0",
     "AppCommonLib AppCommonLib 0.1.0",
+    "ContactImporter ContactImporter 0.1.0",
     "Cryo Cryo 0.1.0",
+    "DiscoverabilityModal DiscoverabilityModal 0.1.0",
     "FitFrame FitFrame 0.1.0",
     "GameProtocol GameProtocol 0.1.0",
     "Http Http 0.1.0",
@@ -1112,6 +1139,22 @@ version = "0.1.0"
 dependencies = ["TenFootUiGlobalNav TenFootUiGlobalNav 0.1.0"]
 
 [[package]]
+name = "TenFootUiShell"
+version = "0.1.0"
+dependencies = [
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "ReactTestingLibrary ReactTestingLibrary 0.1.0",
+]
+
+[[package]]
+name = "TenFootUiShellTestSuite"
+version = "0.1.0"
+dependencies = ["TenFootUiShell TenFootUiShell 0.1.0"]
+
+[[package]]
 name = "TestUtils"
 version = "0.1.0"
 dependencies = ["ReactRoblox ReactRoblox 0.1.0"]
@@ -1126,6 +1169,10 @@ version = "0.1.0"
 
 [[package]]
 name = "TnSAvatarIdentification"
+version = "0.1.0"
+
+[[package]]
+name = "TnSScreenshot"
 version = "0.1.0"
 
 [[package]]
@@ -1252,10 +1299,13 @@ dependencies = [
     "ReactRoblox ReactRoblox 0.1.0",
     "ReactTestingLibrary ReactTestingLibrary 0.1.0",
     "Rhodium Rhodium 0.1.0",
+    "RoactAppExperiment RoactAppExperiment 0.1.0",
     "RoactCompat RoactCompat 0.1.0",
     "RoactNavigation RoactNavigation 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppEnums RobloxAppEnums 0.1.0",
+    "RobloxAppHooks RobloxAppHooks 0.1.0",
     "RobloxAppLocales RobloxAppLocales 0.1.0",
     "RobloxAppLoggers Loggers 0.1.0",
     "Rodux Rodux 0.1.0",

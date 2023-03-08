@@ -3,4 +3,4 @@ version = "0.1.0"
 members = ["../../../modules/**"]
 
 [config]
-path_mode = "symlink"
+path_mode = "rbxp"

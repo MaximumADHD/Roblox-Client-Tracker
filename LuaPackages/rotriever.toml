@@ -19,7 +19,7 @@ LuaChatDeps = { git = "https://github.com/Roblox/lua-chat-deps" }
 LuaSocialLibrariesDeps = { git = "https://github.com/Roblox/lua-social-libraries-deps" }
 PremiumUpsellDeps = { git = "https://github.com/Roblox/premium-upsell-deps" }
 AvatarExperienceDeps = { git = "https://github.com/Roblox/avatar-experience-deps" }
-LuaProfileDeps = { git = "https://github.com/Roblox/lua-profile", rev = "v4.3.0", package = "LuaProfileDeps" }
+LuaProfileDeps = { git = "https://github.com/Roblox/lua-profile", rev = "v4.3.4", package = "LuaProfileDeps" }
 PurchasePromptDeps = { git = "https://github.com/Roblox/purchase-prompt-deps" }
 IAPExperience = { git = "https://github.com/Roblox/IAPExperience", rev = "master" }
 UIBlox = { git = "https://github.com/Roblox/uiblox", rev = "master" }
@@ -34,7 +34,7 @@ UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
 FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
 NetworkingFriends = "github.com/roblox/networking-friends@2.7.1"
 ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.3.7" }
-ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.3.9" }
+ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v3.3.11" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
 React = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactProxy" }
 ReactIs = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactIsProxy" }
@@ -49,11 +49,13 @@ NetworkingFriends = "github.com/Roblox/networking-friends@2.4.2"
 NetworkingSquads = "github.com/roblox/lua-app-networking@1.9.0"
 NetworkingUsers = "github.com/Roblox/networking-users@1.0.1"
 HttpRequest = "github.com/Roblox/http-request@1.1.1"
-ApolloClient = "github.com/Roblox/apollo-client-lua@0.3.6"
-GraphQL = "github.com/Roblox/graphql-lua@15.6.0"
+ApolloClient = "github.com/Roblox/apollo-client-lua@0.3.7"
+GraphQL = "github.com/Roblox/graphql-lua@15.6.1"
 QRCode = "github.com/Roblox/lua-qr-code@0.1.0"
 Merge = "github.com/Roblox/graphql-tools-lua@0.2.0"
 DataLoader = "github.com/Roblox/data-loader-lua@0.2.0"
+UGCValidation = "github.com/roblox/ugc-validation@1.1.1"
+RbxDesignFoundations = { git = "https://github.com/Roblox/rbx-design-foundations", rev = "main" }
 
 # The following packages were ported from AppTempCommon
 Result = { git = "https://github.com/Roblox/lua-result" }

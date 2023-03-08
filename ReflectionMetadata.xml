@@ -7916,8 +7916,18 @@
             <string name="Name">Animator</string>
             <string name="ClassCategory">Animations</string>
             <string name="ExplorerOrder">220</string>
-            <string name="ExplorerImageIndex">60</string>
+			<string name="ExplorerImageIndex">60</string>
         </Properties>
+		<Item class="ReflectionMetadataProperties">
+			<Item class="ReflectionMetadataMember">
+				<Properties>
+					<string name="Name">EvaluationThrottled</string>
+					<string name="Description">Returns true if animation evaluation for the Animator is throttled.</string>
+					<string name="PropertyOrder">1001</string>
+					<bool name="FFlag">AnimatorIsThrottledPropertyEnabled</bool>
+				</Properties>
+			</Item>
+		</Item>
     </Item>
     <Item class="ReflectionMetadataClass">
         <Properties>
