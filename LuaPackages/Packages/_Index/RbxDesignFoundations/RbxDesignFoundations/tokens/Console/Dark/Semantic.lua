@@ -1,0 +1,128 @@
+return  {
+	Typography = {
+		Title = {
+			FontFamily = "Gotham SSm",
+			FontWeight = "Black",
+			FontSize = 51,
+			LineHeight = "120%",
+			LetterSpacing = "0%",
+		},
+		Header = {
+			FontFamily = "Gotham SSm",
+			FontWeight = "Bold",
+			FontSize = 30,
+			LineHeight = "140%",
+			LetterSpacing = "0%",
+		},
+		Subheader = {
+			FontFamily = "Gotham SSm",
+			FontWeight = "Medium",
+			FontSize = 24,
+			LineHeight = "125%",
+			LetterSpacing = "0%",
+		},
+		Body = {
+			FontFamily = "Gotham SSm",
+			FontWeight = "Book",
+			FontSize = 24,
+			LineHeight = "125%",
+			LetterSpacing = "0%",
+		},
+		CaptionHeader = {
+			FontFamily = "Gotham SSm",
+			FontWeight = "Medium",
+			FontSize = 18,
+			LineHeight = "115%",
+			LetterSpacing = "0%",
+		},
+		CaptionBody = {
+			FontFamily = "Gotham SSm",
+			FontWeight = "Book",
+			FontSize = 18,
+			LineHeight = "115%",
+			LetterSpacing = "0%",
+		},
+		Footer = {
+			FontFamily = "Gotham SSm",
+			FontWeight = "Medium",
+			FontSize = 15,
+			LineHeight = "120%",
+			LetterSpacing = "0%",
+		},
+	},
+	Color = {
+		Background = {
+			Default = Color3.fromHex("#232527"),
+			Contrast = Color3.fromHex("#191b1d"),
+			Muted = Color3.fromHex("#111214"),
+			OnHover = Color3.fromHex("#ffffff"),
+			OnPress = Color3.fromHex("#000000"),
+		},
+		BackgroundUi = {
+			Default = Color3.fromHex("#393b3d"),
+			Contrast = Color3.fromHex("#000000"),
+		},
+		Ui = {
+			Default = Color3.fromHex("#656668"),
+			Muted = Color3.fromHex("#111214"),
+			Emphasis = Color3.fromHex("#ffffff"),
+		},
+		Text = {
+			Default = Color3.fromHex("#bdbebe"),
+			Muted = Color3.fromHex("#ffffff"),
+			Emphasis = Color3.fromHex("#ffffff"),
+			Link = Color3.fromHex("#52adf4"),
+		},
+		Icon = {
+			Default = Color3.fromHex("#ffffff"),
+			Emphasis = Color3.fromHex("#ffffff"),
+			OnHover = Color3.fromHex("#ffffff"),
+		},
+		Button = {
+			ContextualPrimary = {
+				Default = Color3.fromHex("#00b46d"),
+				OnHover = Color3.fromHex("#00b46d"),
+				Content = Color3.fromHex("#ffffff"),
+			},
+			SystemPrimary = {
+				Default = Color3.fromHex("#ffffff"),
+				OnHover = Color3.fromHex("#ffffff"),
+				Content = Color3.fromHex("#393b3d"),
+			},
+			Secondary = {
+				Default = Color3.fromHex("#ffffff"),
+				OnHover = Color3.fromHex("#ffffff"),
+				Content = Color3.fromHex("#ffffff"),
+			},
+		},
+		Common = {
+			Divider = Color3.fromHex("#ffffff"),
+			Overlay = Color3.fromHex("#000000"),
+			DropShadow = Color3.fromHex("#000000"),
+			NavigationBar = Color3.fromHex("#191b1d"),
+			Badge = Color3.fromHex("#ffffff"),
+			BadgeContent = Color3.fromHex("#393b3d"),
+			Placeholder = Color3.fromHex("#393b3d"),
+			Online = Color3.fromHex("#00b46d"),
+			Offline = Color3.fromHex("#ffffff"),
+			Alert = Color3.fromHex("#f74b52"),
+			Success = Color3.fromHex("#00b46d"),
+		},
+	},
+	BorderRadius = {
+		None = 0,
+		Small = 6,
+		Medium = 12,
+		Large = 18,
+		XLarge = 24,
+		Circle = "50%",
+	},
+	Icon = {
+		Size = {
+			Small = 24,
+			Medium = 42,
+			Large = 72,
+			XLarge = 144,
+		},
+	},
+}

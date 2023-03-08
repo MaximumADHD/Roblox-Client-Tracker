@@ -58,6 +58,9 @@ local utilitiesModule = require(script.Parent.Parent.Parent.utilities)
 local addTypenameToDocument = utilitiesModule.addTypenameToDocument
 type StoreObject = utilitiesModule.StoreObject
 type Reference = utilitiesModule.Reference
+-- ROBLOX deviation START: import NULL type
+type NULL = utilitiesModule.NULL
+-- ROBLOX deviation END
 local isReference = utilitiesModule.isReference
 local typesModule = require(script.Parent.types)
 type ApolloReducerConfig = typesModule.ApolloReducerConfig
@@ -703,13 +706,23 @@ function InMemoryCache:batch(options: Cache_BatchOptions<InMemoryCache>)
 	end
 end
 
-function InMemoryCache:performTransaction(update: (cache: InMemoryCache) -> any, optimisticId: (string | nil)?): ()
+-- ROBLOX deviation START: performTransaction can be passed in string, NULL, or nil
+--[[
+	ROBLOX comment: in upstream, this function has different behaviors for when it is passed null
+	and when it is passed undefined. In most cases, this function should get passed undefined. This
+	means that optimistic is set to true. For lua, there is no distinction between nil and undefined,
+	so optimistic gets set to false in most cases, which results in the wrong entityStore getting set.
+	In that branch, we perform a diff on the incorrect entityStore, and then we later redo the diff for
+	the correct entityStore. The cache still ends up in the correct state, but we do about twice the work.
+]]
+function InMemoryCache:performTransaction(update: (cache: InMemoryCache) -> any, optimisticId: (string | NULL)?): ()
+	-- ROBLOX deviation END
 	return self:batch({
 		update = function(_self, ...)
 			return update(...)
 		end,
-		-- ROBLOX deviation START: remove Boolean
-		optimistic = optimisticId or optimisticId ~= nil,
+		-- ROBLOX deviation START: remove Boolean, compare to NULL instead of nil
+		optimistic = optimisticId or optimisticId ~= NULL,
 		-- ROBLOX deviation END
 	})
 end

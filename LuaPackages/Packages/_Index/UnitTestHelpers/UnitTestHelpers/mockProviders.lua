@@ -15,7 +15,7 @@ local t = require(Packages.t)
 local AppStyleProvider = UIBlox.App.Style.AppStyleProvider
 local StyleConstants = UIBlox.App.Style.Constants
 
-local MockContentProvider = require(Packages.UnitTestHelpers.MockContentProvider)
+local MockContentProvider = UIBlox.UnitTestHelpers.MockContentProvider
 
 local validateExtraArgs = t.strictInterface({
 	includeStoreProvider = t.optional(t.boolean), -- adds a StoreProvider in the hierarchy

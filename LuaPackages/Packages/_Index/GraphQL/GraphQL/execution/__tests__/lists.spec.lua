@@ -204,6 +204,25 @@ return function()
 			})
 		end)
 
+		-- ROBLOX deviation START: add a test to make sure execute handles a list of promises and values
+		it("Contains mix of promise and value", function()
+			local schema = buildSchema("type Query { listField: [Int] }")
+			local document = parse("{ listField }")
+
+			local result = execute({
+				schema = schema,
+				document = document,
+				rootValue = { listField = { 1, Promise.resolve(2) } },
+			}):expect()
+
+			expect(result).toEqual({
+				data = {
+					listField = { 1, 2 },
+				},
+			})
+		end)
+		-- ROBLOX deviation END
+
 		it("Contains null", function()
 			local listField = { 1, NULL, 2 }
 			local errors = {

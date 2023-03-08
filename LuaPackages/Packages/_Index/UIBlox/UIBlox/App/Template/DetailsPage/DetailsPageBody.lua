@@ -4,12 +4,13 @@ local App = Template.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
-local withStyle = require(UIBlox.Core.Style.withStyle)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
-local Constants = require(DetailsPage.Constants)
 local ContentPositionEnum = require(DetailsPage.Enum.ContentPosition)
 local validateDetailsPageComponentList = require(DetailsPage.validateDetailsPageComponentList)
 
+local getPlatformConfig = require(DetailsPage.getPlatformConfig)
+local DeviceType = require(DetailsPage.Enum.DeviceType)
 local DetailsPageTitleContent = require(DetailsPage.DetailsPageTitleContent)
 
 local Roact = require(Packages.Roact)
@@ -17,17 +18,13 @@ local t = require(Packages.t)
 
 local DetailsPageBody = Roact.PureComponent:extend("DetailsPageBody")
 
-local WIDTH_BREAKPOINT = 1280
+local DUAL_PANEL_BREAKPOINT = 1280
 
 local ITEM_PADDING = 24
 
 local PADDING_BREAKPOINT = 1920
 local PADDING_NARROW = 48
 local PADDING_WIDE = 96
-
-DetailsPageBody.defaultProps = {
-	isMobile = false,
-}
 
 DetailsPageBody.validateProps = t.strictInterface({
 	-- Header for the mobile mode
@@ -36,8 +33,16 @@ DetailsPageBody.validateProps = t.strictInterface({
 	renderInfoContent = t.optional(t.callback),
 
 	componentList = t.optional(validateDetailsPageComponentList),
-	isMobile = t.optional(t.boolean),
+	dualPanelBreakpoint = t.optional(t.number),
+	sideMargin = t.optional(t.number),
+	bodyClipsDescendants = t.optional(t.boolean),
+
+	deviceType = t.optional(t.string),
 })
+
+DetailsPageBody.defaultProps = {
+	bodyClipsDescendants = true,
+}
 
 function DetailsPageBody:init()
 	self.state = { containerWidth = nil }
@@ -79,7 +84,7 @@ function DetailsPageBody:renderSinglePanel()
 	return {
 		Panel = Roact.createElement("Frame", {
 			Size = UDim2.fromScale(1, 0),
-			ClipsDescendants = true,
+			ClipsDescendants = false,
 			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
 		}, itemList),
@@ -153,64 +158,78 @@ function DetailsPageBody:renderDualPanel()
 	}
 end
 
-function DetailsPageBody:renderBodyContent(style)
+function DetailsPageBody:renderBodyContent()
+	local dualPanelBreakpoint
+	if UIBloxConfig.useDetailsPageTemplateConfig then
+		dualPanelBreakpoint = self.props.dualPanelBreakpoint or DUAL_PANEL_BREAKPOINT
+	else
+		dualPanelBreakpoint = DUAL_PANEL_BREAKPOINT
+	end
+
 	if self.state.containerWidth and self.props.componentList then
-		if self.state.containerWidth < WIDTH_BREAKPOINT or self.isMobile then
-			return self:renderSinglePanel(style)
+		if self.state.containerWidth < dualPanelBreakpoint then
+			return self:renderSinglePanel()
 		else
-			return self:renderDualPanel(style)
+			return self:renderDualPanel()
 		end
 	end
 	return {}
 end
 
 function DetailsPageBody:render()
-	local padding = self.props.isMobile and Constants.SideMargin.Mobile or Constants.SideMargin.Desktop
+	local isPhone = self.props.deviceType == DeviceType.Phone
 
-	return withStyle(function(style)
-		return Roact.createElement("Frame", {
+	local deviceConfig = getPlatformConfig(self.props.deviceType)
+
+	local padding
+	if UIBloxConfig.useDetailsPageTemplateConfig then
+		padding = if self.props.sideMargin then self.props.sideMargin else deviceConfig.sideMargin
+	else
+		padding = isPhone and 24 or 48
+	end
+
+	return Roact.createElement("Frame", {
+		Size = UDim2.fromScale(1, 0),
+		BackgroundTransparency = 1,
+		ClipsDescendants = self.props.bodyClipsDescendants,
+		AutomaticSize = Enum.AutomaticSize.Y,
+		[Roact.Ref] = self.containerFrameRef,
+		[Roact.Change.AbsoluteSize] = self.onContainerSizeChange,
+	}, {
+		Layout = Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			FillDirection = Enum.FillDirection.Vertical,
+			VerticalAlignment = Enum.VerticalAlignment.Top,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+		}),
+		UIPadding = Roact.createElement("UIPadding", {
+			PaddingLeft = UDim.new(0, padding),
+			PaddingRight = UDim.new(0, padding),
+		}),
+		TitleInfo = isPhone and Roact.createElement(DetailsPageTitleContent, {
+			titleText = self.props.titleText,
+			subTitleText = self.props.subTitleText,
+			renderInfoContent = self.props.renderInfoContent,
+			verticalAlignment = Enum.VerticalAlignment.Top,
+			layoutOrder = 1,
+		} or nil),
+		Padding = Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, padding),
+			BackgroundTransparency = 1,
+			LayoutOrder = 2,
+		}),
+		ContentFrame = Roact.createElement("Frame", {
 			Size = UDim2.fromScale(1, 0),
 			BackgroundTransparency = 1,
-			ClipsDescendants = true,
 			AutomaticSize = Enum.AutomaticSize.Y,
-			[Roact.Ref] = self.containerFrameRef,
-			[Roact.Change.AbsoluteSize] = self.onContainerSizeChange,
-		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Vertical,
-				VerticalAlignment = Enum.VerticalAlignment.Top,
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			}),
-			UIPadding = Roact.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, padding),
-				PaddingRight = UDim.new(0, padding),
-			}),
-			TitleInfo = self.props.isMobile and Roact.createElement(DetailsPageTitleContent, {
-				titleText = self.props.titleText,
-				subTitleText = self.props.subTitleText,
-				renderInfoContent = self.props.renderInfoContent,
-				verticalAlignment = Enum.VerticalAlignment.Top,
-				layoutOrder = 1,
-			} or nil),
-			Padding = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, padding),
-				BackgroundTransparency = 1,
-				LayoutOrder = 2,
-			}),
-			ContentFrame = Roact.createElement("Frame", {
-				Size = UDim2.fromScale(1, 0),
-				BackgroundTransparency = 1,
-				AutomaticSize = Enum.AutomaticSize.Y,
-				LayoutOrder = 3,
-			}, self:renderBodyContent()),
-			BottomPadding = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, 3 * padding),
-				BackgroundTransparency = 1,
-				LayoutOrder = 4,
-			}),
-		})
-	end)
+			LayoutOrder = 3,
+		}, self:renderBodyContent()),
+		BottomPadding = Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, 3 * padding),
+			BackgroundTransparency = 1,
+			LayoutOrder = 4,
+		}),
+	})
 end
 
 function DetailsPageBody:didMount()

@@ -44,12 +44,12 @@ EmptyState.validateProps = t.strictInterface({
 	NextSelectionLeft = t.optional(t.table),
 	NextSelectionRight = t.optional(t.table),
 	maxSizeTextLabel = t.optional(t.Vector2),
-	iconColor = t.optional(validateColorInfo),
+	iconColor = t.optional(t.Color3),
 	iconSize = if UIBloxConfig.emptyStateTitleAndIconSize then t.optional(t.UDim2) else nil,
 	titleProps = if UIBloxConfig.emptyStateTitleAndIconSize
-		then t.optional(t.array(t.strictInterface({
+		then t.optional(t.strictInterface({
 			titleText = t.optional(t.string),
-		})))
+		}))
 		else nil,
 })
 

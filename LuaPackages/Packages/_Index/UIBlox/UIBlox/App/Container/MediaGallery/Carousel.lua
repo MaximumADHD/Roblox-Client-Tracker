@@ -1,8 +1,14 @@
 local UIBlox = script:FindFirstAncestor("UIBlox")
+local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
+local Images = require(UIBlox.App.ImageSet.Images)
+local PrimaryContextualButton = require(UIBlox.App.Button.PrimaryContextualButton)
 
 local Cryo = require(UIBlox.Parent.Cryo)
 local React = require(UIBlox.Parent.React)
-local MediaGallerySingle = require(script.Parent.Single)
+
+local ICON_PLAY = "icons/common/play"
+local PLAY_BUTTON_SIZE_SCALE = UDim2.fromScale(0.4, 0.512)
+local PLAY_ICON_SIZE = UDim2.fromScale(0.25, 0.33)
 
 local defaultProps = {
 	numItemsShown = 3.5,
@@ -22,6 +28,8 @@ export type Props = {
 	itemAspectRatio: number?,
 	itemPadding: number?,
 	borderRadius: UDim?,
+	onPreviewActivated: ((itemIndex: number) -> ())?,
+	onVideoPlayActivated: ((itemIndex: number) -> ())?,
 }
 
 type InternalProps = Props & typeof(defaultProps)
@@ -40,17 +48,59 @@ local function MediaGalleryCarousel(providedProps: Props)
 		setItemSize(Vector2.new(itemWidth, itemWidth / props.itemAspectRatio))
 	end, { props.itemAspectRatio, props.numItemsShown })
 
+	local onActivated = React.useCallback(function(index)
+		if props.onVideoPlayActivated then
+			if props.items[index].isVideo then
+				return props.onVideoPlayActivated(index)
+			end
+		end
+		if props.onPreviewActivated then
+			return props.onPreviewActivated(index)
+		end
+		return
+	end, {
+		props.items,
+		props.onVideoPlayActivated,
+		props.onPreviewActivated,
+	})
+
 	local items = {}
 	for index, item in props.items do
-		items["Item" .. index] = React.createElement("ImageLabel", {
+		local isVideo = item.isVideo
+		items["Item" .. index] = React.createElement("ImageButton", {
 			LayoutOrder = index,
 			Size = UDim2.fromOffset(itemSize.X, itemSize.Y),
 			Image = item.imageId,
 			ScaleType = Enum.ScaleType.Crop,
+			BackgroundTransparency = 1,
+			AutoButtonColor = false,
+			[React.Event.Activated] = function()
+				onActivated(index)
+			end,
 		}, {
 			Corner = React.createElement("UICorner", {
 				CornerRadius = props.borderRadius,
 			}),
+			PlayButton = if isVideo
+				then React.createElement(PrimaryContextualButton, {
+					size = PLAY_BUTTON_SIZE_SCALE,
+					anchorPoint = Vector2.new(0.5, 0.5),
+					position = UDim2.fromScale(0.5, 0.5),
+					onActivated = function()
+						onActivated(index)
+					end,
+				})
+				else nil,
+			PlayIcon = if isVideo
+				then React.createElement(ImageSetComponent.Label, {
+					Size = PLAY_ICON_SIZE,
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Position = UDim2.fromScale(0.5, 0.5),
+					Image = Images[ICON_PLAY],
+					BackgroundTransparency = 1,
+					ZIndex = 2,
+				})
+				else nil,
 		})
 	end
 

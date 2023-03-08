@@ -9,6 +9,11 @@ Constants.FontName = {
 	Gotham = "gotham",
 }
 
+Constants.DeviceType = {
+	Desktop = "Desktop",
+	Console = "Console",
+}
+
 Constants.Layout = {
 	ActionBar = {
 		PositionOffset = 24,

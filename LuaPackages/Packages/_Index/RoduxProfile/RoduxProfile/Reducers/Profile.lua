@@ -28,7 +28,14 @@ export type State = {
 	ProfilePageDataStatus: ProfilePageDataStatus.State,
 	NextDataExpirationTime: NextDataExpirationTime.State,
 	ProfilePeekView: ProfilePeekView.State,
-	Users: { byUsername: string, byUserId: { id: string, username: string, displayName: string } },
+	Users: {
+		byUsername: string,
+		byUserId: {
+			id: string,
+			username: string,
+			displayName: string,
+		},
+	},
 	Presence: {
 		byUserId: {
 			[string]: {
@@ -66,9 +73,7 @@ export type State = {
 	},
 	UserFollowers: UserFollowers.State,
 	Games: {
-		playabilityByGameId: {
-			[string]: Enum,
-		},
+		playabilityByGameId: { [string]: Enum },
 		byGameId: {
 			[string]: {
 				experienceId: string,
@@ -114,6 +119,7 @@ return function(options)
 	local roduxFriends = options.roduxFriends
 	local roduxGames = options.roduxGames
 	local roduxAliases = options.roduxAliases
+	local roduxContacts = options.roduxContacts
 
 	return Rodux.combineReducers({
 		Assets = Assets(options),
@@ -137,5 +143,6 @@ return function(options)
 		Games = roduxGames.installReducer(),
 		CanRequestFriendshipWith = CanRequestFriendshipWith(options),
 		Aliases = roduxAliases.installReducer(),
+		Contacts = roduxContacts.installReducer(),
 	})
 end

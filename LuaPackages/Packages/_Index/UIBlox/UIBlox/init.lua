@@ -371,6 +371,7 @@ local function initializeLibrary(configs)
 			DetailsPage = {
 				Enum = {
 					ContentPosition = require(script.App.Template.DetailsPage.Enum.ContentPosition),
+					DeviceType = require(script.App.Template.DetailsPage.Enum.DeviceType),
 				},
 				DetailsPageTemplate = require(script.App.Template.DetailsPage.DetailsPageTemplate),
 			},

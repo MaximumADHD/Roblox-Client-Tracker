@@ -41,6 +41,12 @@ local function getAdditionalText(restrictionTypes, restrictionInfo)
 		additionalText = "#"
 	end
 
+	if UIBloxConfig.enableCollectibleItemRestriction then
+		if restrictionTypes[ItemTileEnums.Restriction.Collectible] then
+			return "#"
+		end
+	end
+
 	if restrictionInfo and restrictionInfo.limitedSerialNumber then
 		additionalText = additionalText .. " " .. restrictionInfo.limitedSerialNumber
 	end
@@ -51,7 +57,7 @@ end
 local function getRestrictionIcon(restrictionTypes)
 	if UIBloxConfig.enableCollectibleItemRestriction then
 		if restrictionTypes[ItemTileEnums.Restriction.Collectible] then
-			return Images["icons/status/collectibles_small"]
+			return Images["icons/status/item/limited"]
 		end
 	end
 

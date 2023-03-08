@@ -21,10 +21,11 @@ local validateActionBarContentProps = require(App.Button.Validator.validateActio
 local ActionBar = require(App.Button.ActionBar)
 local StickyActionBar = require(App.Button.StickyActionBar)
 
-local Constants = require(DetailsPage.Constants)
+local getPlatformConfig = require(DetailsPage.getPlatformConfig)
 local DetailsPageHeader = require(DetailsPage.DetailsPageHeader)
 local DetailsPageBody = require(DetailsPage.DetailsPageBody)
 local validateDetailsPageComponentList = require(DetailsPage.validateDetailsPageComponentList)
+local DeviceType = require(DetailsPage.Enum.DeviceType)
 
 local DetailsPageTemplate = Roact.PureComponent:extend("DetailsPageTemplate")
 
@@ -43,14 +44,14 @@ local MOBILE_ACTION_BAR_GRADIENT = 24
 local MOBILE_ACTION_BAR_HEIGHT = 72
 
 DetailsPageTemplate.defaultProps = {
-	startingOffsetPosition = HEADER_MAX_PADDING,
-	isMobile = false,
+	deviceType = DeviceType.Desktop,
 	isFullscreen = false,
 }
 
 DetailsPageTemplate.validateProps = t.strictInterface({
 	--Header props
 	thumbnailImageUrl = t.optional(t.string),
+	thumbnailHeight = t.optional(t.number),
 	thumbnailAspectRatio = t.optional(t.Vector2),
 	titleText = t.optional(t.string),
 	subTitleText = t.optional(t.string),
@@ -59,21 +60,31 @@ DetailsPageTemplate.validateProps = t.strictInterface({
 
 	--Body props
 	componentList = t.optional(validateDetailsPageComponentList),
+	dualPanelBreakpoint = t.optional(t.number),
+	sideMargin = t.optional(t.number),
+	bodyClipsDescendants = t.optional(t.boolean),
 
 	--Template props
+	startingOffsetPosition = t.optional(t.number),
+	headerBarBackgroundHeight = t.optional(t.number),
 	onClose = t.callback,
 	bannerPlaceholderGradient = t.optional(t.table),
 	bannerImageUrl = t.optional(t.string),
-	startingOffsetPosition = t.optional(t.number),
-	isMobile = t.optional(t.boolean),
 	isFullscreen = t.optional(t.boolean),
 	renderFullscreenContent = t.optional(t.callback),
+
+	deviceType = t.optional(t.string),
+
+	--deprecated Prop
+	isMobile = t.optional(t.boolean),
 })
 
 local function getHeaderPaddingHeight(props, backgroundHeight)
-	local headerHeight = props.isMobile and Constants.HeaderBarBackgroundHeight.Mobile
-		or Constants.HeaderBarBackgroundHeight.Desktop
-	return backgroundHeight - headerHeight
+	local deviceConfig = getPlatformConfig(props.deviceType)
+	local headerBarBackgroundHeight = if props.headerBarBackgroundHeight
+		then props.headerBarBackgroundHeight
+		else deviceConfig.headerBarBackgroundHeight
+	return backgroundHeight - headerBarBackgroundHeight
 end
 
 function DetailsPageTemplate:init()
@@ -117,7 +128,7 @@ function DetailsPageTemplate:init()
 
 			if rbx.CanvasPosition.Y > headerPadding then
 				-- Show the sticky action bar when the user scrolls past the header
-				if prevState.showStickyActionTopBar == false and props.isMobile == false then
+				if prevState.showStickyActionTopBar == false and self.props.deviceType ~= DeviceType.Phone then
 					return {
 						showStickyActionTopBar = true,
 					}
@@ -143,9 +154,19 @@ function DetailsPageTemplate:init()
 end
 
 function DetailsPageTemplate:render()
-	local isMobile = self.props.isMobile
-	local headerHeight = self.props.isMobile and Constants.HeaderBarBackgroundHeight.Mobile
-		or Constants.HeaderBarBackgroundHeight.Desktop
+	local isPhone = self.props.deviceType == DeviceType.Phone
+	local deviceConfig = getPlatformConfig(self.props.deviceType)
+
+	local thumbnailHeight = if self.props.thumbnailHeight
+		then self.props.thumbnailHeight
+		else deviceConfig.thumbnailHeight
+	local headerBarBackgroundHeight = if self.props.headerBarBackgroundHeight
+		then self.props.headerBarBackgroundHeight
+		else deviceConfig.headerBarBackgroundHeight
+	local sideMargin = if self.props.sideMargin then self.props.sideMargin else deviceConfig.sideMargin
+	local dualPanelBreakpoint = if self.props.dualPanelBreakpoint
+		then self.props.dualPanelBreakpoint
+		else deviceConfig.dualPanelBreakpoint
 
 	local headerPadding = getHeaderPaddingHeight(self.props, self.state.backgroundHeight)
 	local backgroundComponentPosition = self.state.backgroundComponentPosition
@@ -153,7 +174,7 @@ function DetailsPageTemplate:render()
 
 	local isFullscreen = self.props.isFullscreen
 	local renderFullscreenContent = self.props.renderFullscreenContent
-	local showFullscreen = (not isMobile and isFullscreen and renderFullscreenContent) and true or false
+	local showFullscreen = (not isPhone and isFullscreen and renderFullscreenContent) and true or false
 
 	return withStyle(function(style)
 		local theme = style.Theme
@@ -167,10 +188,10 @@ function DetailsPageTemplate:render()
 				}),
 			}
 
-		local closeButtonPosY = isMobile and ((getIconSize(IconSize.Large) + CLOSE_BUTTON_OFFSET) / 2)
-			or (headerHeight / 2)
+		local closeButtonPosY = isPhone and ((getIconSize(IconSize.Large) + CLOSE_BUTTON_OFFSET) / 2)
+			or (headerBarBackgroundHeight / 2)
 
-		local showMobileActionBar = isMobile and self.props.actionBarProps
+		local showMobileActionBar = isPhone and self.props.actionBarProps
 
 		return Roact.createElement("TextButton", {
 			Text = "",
@@ -228,7 +249,7 @@ function DetailsPageTemplate:render()
 					and Roact.createElement("TextButton", {
 						Text = "",
 						AutoButtonColor = false,
-						Size = UDim2.new(1, 0, 0, headerHeight),
+						Size = UDim2.new(1, 0, 0, headerBarBackgroundHeight),
 						BackgroundColor3 = theme.BackgroundUIDefault.Color,
 						BackgroundTransparency = theme.BackgroundUIDefault.Transparency,
 						BorderSizePixel = 0,
@@ -271,19 +292,22 @@ function DetailsPageTemplate:render()
 						FillDirection = Enum.FillDirection.Vertical,
 					}),
 					HeaderContainer = Roact.createElement("Frame", {
-						Size = UDim2.new(1, 0, 0, headerHeight),
+						Size = UDim2.new(1, 0, 0, headerBarBackgroundHeight),
 						BackgroundTransparency = 1,
 						LayoutOrder = 1,
 					}, {
 						DetailsPageHeader = Roact.createElement(DetailsPageHeader, {
 							thumbnailImageUrl = self.props.thumbnailImageUrl,
 							thumbnailAspectRatio = self.props.thumbnailAspectRatio,
+							thumbnailHeight = thumbnailHeight,
 							titleText = self.props.titleText,
 							subTitleText = self.props.subTitleText,
 							renderInfoContent = self.props.renderInfoContent,
 							actionBarProps = self.props.actionBarProps,
+							headerBarBackgroundHeight = headerBarBackgroundHeight,
+							sideMargin = sideMargin,
 
-							isMobile = isMobile,
+							deviceType = self.props.deviceType,
 						}),
 					}),
 					BodyContainer = Roact.createElement("Frame", {
@@ -308,9 +332,12 @@ function DetailsPageTemplate:render()
 								titleText = self.props.titleText,
 								subTitleText = self.props.subTitleText,
 								renderInfoContent = self.props.renderInfoContent,
+								bodyClipsDescendants = self.props.bodyClipsDescendants,
 
 								componentList = self.props.componentList,
-								isMobile = isMobile,
+								dualPanelBreakpoint = dualPanelBreakpoint,
+								sideMargin = sideMargin,
+								deviceType = self.props.deviceType,
 							}),
 						}),
 					}),
@@ -322,8 +349,8 @@ function DetailsPageTemplate:render()
 				}),
 			}),
 			FullscreenFrame = showFullscreen and Roact.createElement("TextButton", {
-				Size = UDim2.new(1, 0, 1, -headerHeight),
-				Position = UDim2.fromOffset(0, headerHeight),
+				Size = UDim2.new(1, 0, 1, -headerBarBackgroundHeight),
+				Position = UDim2.fromOffset(0, headerBarBackgroundHeight),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				AutoButtonColor = false,
@@ -374,12 +401,24 @@ function DetailsPageTemplate:didMount()
 end
 
 function DetailsPageTemplate:didUpdate()
+	local deviceConfig = getPlatformConfig(self.props.deviceType)
 	-- When the user haven't scroll the details page yet, set the inital starting position of the page
 	if self.scrolled == false and self.scrollingFrameRef.current then
-		local startingOffsetPosition = math.max(
-			0,
-			getHeaderPaddingHeight(self.props, self.state.backgroundHeight) - self.props.startingOffsetPosition
-		)
+		local startingOffsetPosition
+		if UIBloxConfig.useDetailsPageTemplateConfig then
+			local startingOffsetProp = if self.props.startingOffsetPosition
+				then self.props.startingOffsetPosition
+				else deviceConfig.startingOffsetPosition
+
+			startingOffsetPosition =
+				math.max(0, getHeaderPaddingHeight(self.props, self.state.backgroundHeight) - startingOffsetProp)
+		else
+			local startingOffsetProp = if self.props.startingOffsetPosition
+				then self.props.startingOffsetPosition
+				else HEADER_MAX_PADDING
+			startingOffsetPosition =
+				math.max(0, getHeaderPaddingHeight(self.props, self.state.backgroundHeight) - startingOffsetProp)
+		end
 		self.scrollingFrameRef.current.CanvasPosition = Vector2.new(0, startingOffsetPosition)
 	end
 end

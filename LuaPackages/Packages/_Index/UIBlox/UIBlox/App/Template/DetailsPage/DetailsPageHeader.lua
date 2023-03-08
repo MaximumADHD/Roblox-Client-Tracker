@@ -12,7 +12,7 @@ local LoadableImage = require(App.Loading.LoadableImage)
 local validateActionBarContentProps = require(App.Button.Validator.validateActionBarContentProps)
 local ActionBar = require(App.Button.ActionBar)
 
-local Constants = require(DetailsPage.Constants)
+local DeviceType = require(DetailsPage.Enum.DeviceType)
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
@@ -26,33 +26,38 @@ local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local DetailsPageHeader = Roact.PureComponent:extend("DetailsPageHeader")
 
+local DEFAULT_HEADER_BAR_HEIGHT = 80
+
+local SIDE_MARGIN_DESKTOP = 48
+local SIDE_MARGIN_PHONE = 24
+
 local BOTTOM_MARGIN = 16
 local INNER_PADDING = 16
 local ITEM_PADDING = 24
 local BASE_GRADIENT = 44
-local ImageHeight = {
-	Desktop = 200,
-	Mobile = 100,
-}
 
 local ACTIONBAR_WIDTH = 380
 local ACTION_BAR_HEIGHT = 48
 
 DetailsPageHeader.defaultProps = {
+	thumbnailHeight = 200,
 	thumbnailAspectRatio = Vector2.new(1, 1),
-	isMobile = false,
 }
 
 DetailsPageHeader.validateProps = t.strictInterface({
 	thumbnailImageUrl = t.optional(t.string),
 	thumbnailAspectRatio = t.optional(t.Vector2),
+	thumbnailHeight = t.optional(t.number),
 	titleText = t.optional(t.string),
 	subTitleText = t.optional(t.string),
 	renderInfoContent = t.optional(t.callback),
 
+	headerBarBackgroundHeight = t.optional(t.number),
+	sideMargin = t.optional(t.number),
+
 	actionBarProps = t.optional(validateActionBarContentProps),
 
-	isMobile = t.optional(t.boolean),
+	deviceType = t.optional(t.string),
 })
 
 function DetailsPageHeader:renderThumbnail(style, thumbnailWidth, thumbnailHeight)
@@ -82,12 +87,20 @@ function DetailsPageHeader:renderThumbnail(style, thumbnailWidth, thumbnailHeigh
 end
 
 function DetailsPageHeader:renderDesktopMode(style)
-	local thumbnailHeight = ImageHeight.Desktop
+	local thumbnailHeight = self.props.thumbnailHeight
 	local thumbnailWidth = thumbnailHeight * (self.props.thumbnailAspectRatio.X / self.props.thumbnailAspectRatio.Y)
+
+	local sideMargin
+	if UIBloxConfig.useDetailsPageTemplateConfig then
+		sideMargin = self.props.sideMargin or SIDE_MARGIN_DESKTOP
+	else
+		sideMargin = SIDE_MARGIN_DESKTOP
+	end
+
 	return {
 		Padding = Roact.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, Constants.SideMargin.Desktop),
-			PaddingRight = UDim.new(0, Constants.SideMargin.Desktop),
+			PaddingLeft = UDim.new(0, sideMargin),
+			PaddingRight = UDim.new(0, sideMargin),
 			PaddingBottom = UDim.new(0, BOTTOM_MARGIN),
 		}),
 		Layout = Roact.createElement("UIListLayout", {
@@ -98,7 +111,7 @@ function DetailsPageHeader:renderDesktopMode(style)
 		}),
 		ThumbnailTileFrame = self:renderThumbnail(style, thumbnailWidth, thumbnailHeight),
 		InfoFrame = Roact.createElement("Frame", {
-			Size = UDim2.new(1, -(thumbnailWidth + Constants.SideMargin.Desktop * 2), 1, 0),
+			Size = UDim2.new(1, -(thumbnailWidth + sideMargin * 2), 1, 0),
 			BackgroundTransparency = 1,
 			AutomaticSize = Enum.AutomaticSize.Y,
 			LayoutOrder = 2,
@@ -142,13 +155,21 @@ function DetailsPageHeader:renderDesktopMode(style)
 	}
 end
 
-function DetailsPageHeader:renderisMobile(style)
-	local thumbnailHeight = ImageHeight.Mobile
+function DetailsPageHeader:renderisPhone(style)
+	local thumbnailHeight = self.props.thumbnailHeight
 	local thumbnailWidth = thumbnailHeight * (self.props.thumbnailAspectRatio.X / self.props.thumbnailAspectRatio.Y)
+
+	local sideMargin
+	if UIBloxConfig.useDetailsPageTemplateConfig then
+		sideMargin = self.props.sideMargin or SIDE_MARGIN_PHONE
+	else
+		sideMargin = SIDE_MARGIN_PHONE
+	end
+
 	return {
 		Padding = Roact.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, Constants.SideMargin.Mobile),
-			PaddingRight = UDim.new(0, Constants.SideMargin.Mobile),
+			PaddingLeft = UDim.new(0, sideMargin),
+			PaddingRight = UDim.new(0, sideMargin),
 			PaddingBottom = UDim.new(0, BOTTOM_MARGIN),
 		}),
 		ThumbnailTileFrame = self:renderThumbnail(style, thumbnailWidth, thumbnailHeight),
@@ -156,11 +177,18 @@ function DetailsPageHeader:renderisMobile(style)
 end
 
 function DetailsPageHeader:render()
-	local isMobile = self.props.isMobile
-	local displayMode = isMobile and "Mobile" or "Desktop"
+	local isPhone = self.props.deviceType == DeviceType.Phone
 
-	local backgroundBarHeight = Constants.HeaderBarBackgroundHeight[displayMode]
-	local gradientHeight = (ImageHeight[displayMode] + BOTTOM_MARGIN) - backgroundBarHeight
+	local thumbnailHeight = self.props.thumbnailHeight
+
+	local headerBarBackgroundHeight
+	if UIBloxConfig.useDetailsPageTemplateConfig then
+		headerBarBackgroundHeight = self.props.headerBarBackgroundHeight or DEFAULT_HEADER_BAR_HEIGHT
+	else
+		headerBarBackgroundHeight = if isPhone then 24 else 80
+	end
+
+	local gradientHeight = (thumbnailHeight + BOTTOM_MARGIN) - headerBarBackgroundHeight
 	if UIBloxConfig.detailsTemplateUseNewGradientHeader then
 		gradientHeight += BASE_GRADIENT
 	end
@@ -200,14 +228,17 @@ function DetailsPageHeader:render()
 				}),
 			}),
 			BackgroundBar = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, backgroundBarHeight),
+				Size = UDim2.new(1, 0, 0, headerBarBackgroundHeight),
 				Position = UDim2.fromScale(0, 1),
 				AnchorPoint = Vector2.new(0, 1),
 				BackgroundColor3 = theme.BackgroundDefault.Color,
 				BackgroundTransparency = theme.BackgroundDefault.Transparency,
 				BorderSizePixel = 0,
 				LayoutOrder = 2,
-			}, isMobile and self:renderisMobile(style) or self:renderDesktopMode(style)),
+			}, isPhone and self:renderisPhone(style, thumbnailHeight) or self:renderDesktopMode(
+				style,
+				thumbnailHeight
+			)),
 		})
 	end)
 end

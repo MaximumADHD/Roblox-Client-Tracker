@@ -15,8 +15,10 @@ local removeTemporaryGlobals = require(script.graphql).removeTemporaryGlobals
 exports.removeTemporaryGlobals = removeTemporaryGlobals
 
 -- ROBLOX deviation: not upstream
-local NULL = require(script.null).NULL
+local nullModule = require(script.null)
+local NULL = nullModule.NULL
 exports.NULL = NULL
+export type NULL = nullModule.NULL
 
 --[[
 // Synchronously undo the global process.env.NODE_ENV polyfill that we created

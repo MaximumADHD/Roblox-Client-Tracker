@@ -1,11 +1,12 @@
+--!strict
 local ImageSet = script.Parent
 
 local App = ImageSet.Parent
 local UIBlox = App.Parent
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local StyleTypes = require(UIBlox.App.Style.StyleTypes)
 
 local IconSize = require(ImageSet.Enum.IconSize)
-local StyleTypes = require(App.Style.StyleTypes)
 
 local IconSizeMap
 
@@ -29,8 +30,20 @@ end
 
 return function(iconSizeEnum: number, style: StyleTypes.AppStyle?)
 	assert(IconSize.isEnumValue(iconSizeEnum))
-	if UIBloxConfig.enableAppStyleIconSizeSupport and style ~= nil then
-		return style.Dimensions.IconSizeMap[iconSizeEnum]
+	if style ~= nil and style.Tokens ~= nil and UIBloxConfig.enableRoDSDesignTokenSupport then
+		if iconSizeEnum == IconSize.Small then
+			return style.Tokens.Semantic.Icon.Size.Small
+		elseif iconSizeEnum == IconSize.Medium then
+			return style.Tokens.Semantic.Icon.Size.Medium
+		elseif iconSizeEnum == IconSize.Large then
+			return style.Tokens.Semantic.Icon.Size.Large
+		elseif iconSizeEnum == IconSize.XLarge then
+			return style.Tokens.Semantic.Icon.Size.XLarge
+		elseif iconSizeEnum == IconSize.XXLarge then
+			return style.Tokens.Semantic.Icon.Size.XXLarge
+		else
+			return nil
+		end
 	else
 		return IconSizeMap[iconSizeEnum]
 	end

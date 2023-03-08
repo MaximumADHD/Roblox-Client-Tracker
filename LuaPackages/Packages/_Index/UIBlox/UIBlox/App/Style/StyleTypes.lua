@@ -2,24 +2,23 @@
 local Fonts = require(script.Parent.Fonts)
 local LightTheme = require(script.Parent.Themes.LightTheme)
 local LightThemeNew = require(script.Parent.Themes.LightThemeNew)
-local IconSizeMap = require(script.Parent.IconSizes.IconSizeMap)
-local IconSizeMapNew = require(script.Parent.IconSizes.IconSizeMapNew)
+local TokenTypes = require(script.Parent.Tokens.Types)
 
 export type Theme = typeof(LightTheme) | typeof(LightThemeNew)
-export type IconSizeMapType = typeof(IconSizeMap) | typeof(IconSizeMapNew)
 export type ThemeItem = {
 	Color: Color3,
 	Transparency: number,
 }
 
-export type Dimensions = {
-	IconSizeMap: IconSizeMapType,
-}
+export type Tokens = TokenTypes.Tokens
+export type ComponentTokens = TokenTypes.ComponentTokens
+export type GlobalTokens = TokenTypes.GlobalTokens
+export type SemanticTokens = TokenTypes.SemanticTokens
 
 export type AppStyle = {
 	Theme: Theme,
 	Font: Fonts.FontPalette,
-	Dimensions: Dimensions?,
+	Tokens: Tokens?,
 }
 
 return {}

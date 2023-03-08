@@ -202,6 +202,8 @@ local function ExperienceTile(props: Props)
 		props.onPlayPressed,
 		props.buttonText,
 		props.buttonIcon,
+		footer,
+		footerHeight,
 		hasBackground,
 	})
 

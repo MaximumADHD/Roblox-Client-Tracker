@@ -10,7 +10,9 @@ exports.DEV = DEV
 local LuauPolyfill = require(rootWorkspace.LuauPolyfill)
 local Object = LuauPolyfill.Object
 
-exports.NULL = require(script.globals).NULL
+local globalModule = require(script.globals)
+exports.NULL = globalModule.NULL
+export type NULL = globalModule.NULL
 
 local directivesModule = require(script.graphql.directives)
 exports.shouldInclude = directivesModule.shouldInclude

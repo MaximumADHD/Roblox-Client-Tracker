@@ -13,12 +13,18 @@ local validateTheme = if UIBloxConfig.useNewThemeColorPalettes
 	then require(Validator.validateThemeNew)
 	else require(Validator.validateTheme)
 
-local StylePalette = t.strictInterface({
-	Theme = validateTheme,
-	Font = validateFont,
-	Dimensions = t.optional(t.strictInterface({
-		IconSizeMap = t.table,
-	})),
-})
-
-return StylePalette
+if UIBloxConfig.enableRoDSDesignTokenSupport then
+	local validateTokens = require(Validator.validateTokens)
+	local StylePalette = t.strictInterface({
+		Theme = validateTheme,
+		Font = validateFont,
+		Tokens = t.optional(validateTokens),
+	})
+	return StylePalette
+else
+	local StylePalette = t.strictInterface({
+		Theme = validateTheme,
+		Font = validateFont,
+	})
+	return StylePalette
+end

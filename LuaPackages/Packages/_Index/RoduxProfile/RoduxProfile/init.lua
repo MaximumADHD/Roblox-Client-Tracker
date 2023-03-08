@@ -18,6 +18,7 @@ local PresenceReducer = require(Packages.RoduxPresence)
 local FriendsReducer = require(Packages.RoduxFriends)
 local GamesReducer = require(Packages.RoduxGames)
 local AliasesReducer = require(Packages.RoduxAliases)
+local ContactsReducer = require(Packages.RoduxContacts)
 local NetworkingUsers = require(Packages.NetworkingUsers)
 local NetworkingUserInfo = require(Packages.NetworkingUserInfo)
 local NetworkingFriends = require(Packages.NetworkingFriends)
@@ -50,6 +51,9 @@ return {
 			}),
 			roduxAliases = AliasesReducer.config({
 				keyPath = "Profile.Aliases",
+			}),
+			roduxContacts = ContactsReducer.config({
+				keyPath = "Profile.Contacts",
 			}),
 			networkingUsers = NetworkingUsers.config({
 				roduxNetworking = RoduxNetworking.mock(),

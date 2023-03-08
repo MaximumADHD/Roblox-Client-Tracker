@@ -961,6 +961,9 @@ function completeListValue(
 	-- where the list contains no Promises by avoiding creating another Promise.
 	local itemType = returnType.ofType
 	local containsPromise = false
+	-- ROBLOX deviation START: Promise.all does not accept non-promise values
+	local containsNonPromise = false
+	-- ROBLOX deviation END
 	local completedResults = Array.from(result, function(item, index)
 		-- No need to modify the info object containing the path,
 		-- since from here on it is not ever accessed by resolver functions.
@@ -992,6 +995,9 @@ function completeListValue(
 					return handleFieldError(error_, itemType, exeContext)
 				end)
 			end
+			-- ROBLOX deviation START: Promise.all does not accept non-promise values
+			containsNonPromise = true
+			-- ROBLOX deviation END
 			return completedItem
 		end)
 
@@ -1003,6 +1009,14 @@ function completeListValue(
 
 		return resultOrError
 	end)
+
+	-- ROBLOX deviation START: if we have an array with promises and values, wrap the values in a promise
+	if containsNonPromise and containsPromise then
+		completedResults = Array.map(completedResults, function(value)
+			return if isPromise(value) then value else Promise.resolve(value)
+		end)
+	end
+	-- ROBLOX deviation END
 
 	return if containsPromise then Promise.all(completedResults) else completedResults
 end
