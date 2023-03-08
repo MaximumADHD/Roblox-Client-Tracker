@@ -3,6 +3,7 @@ local SocialTab = script:FindFirstAncestor("SocialTab")
 local dependencies = require(SocialTab.dependencies)
 local User = dependencies.RoduxUsers.Models.User
 local Mock = dependencies.Mock
+local SelfViewProfileDiscoverabilityUpsellIXP = dependencies.SelfViewProfileDiscoverabilityUpsellIXP
 
 local devDependencies = require(SocialTab.devDependencies)
 local JestGlobals = devDependencies.JestGlobals
@@ -26,6 +27,12 @@ describe("SocialTabContainer/mapStateToProps", function()
 
 		it("SHOULD return default values", function()
 			expect(returnValue).toEqual({
+				isDiscoverabilityUnset = if SelfViewProfileDiscoverabilityUpsellIXP.SetupEnabled()
+					then expect.any("table")
+					else nil,
+				isPhoneVerified = if SelfViewProfileDiscoverabilityUpsellIXP.SetupEnabled()
+					then expect.any("table")
+					else nil,
 				unreadConversationCount = expect.any("table"),
 				numberOfNotifications = expect.any("table"),
 				localUser = expect.any("table"),

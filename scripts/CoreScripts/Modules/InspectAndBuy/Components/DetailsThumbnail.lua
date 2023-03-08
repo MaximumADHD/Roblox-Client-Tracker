@@ -12,7 +12,7 @@ local function isPartOfBundleAndOffsale(assetInfo)
 	if assetInfo and assetInfo.isForSale then
 		return false
 	else
-		return assetInfo and assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
+		return assetInfo and assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1 or false
 	end
 end
 

@@ -20,6 +20,8 @@ local SocialLibraries = dependencies.SocialLibraries
 local React = dependencies.React
 local useSelector = dependencies.Hooks.useSelector
 local useDispatch = dependencies.Hooks.useDispatch
+local SelfViewProfileDiscoverabilityUpsellIXP =
+	require(DiscoverabilityModal.Flags.SelfViewProfileDiscoverabilityUpsellIXP)
 
 local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 
@@ -45,6 +47,13 @@ export type Props = {
 		getParam: (param: string) -> any,
 		navigate: (screen: string, props: { [string]: any }?) -> (),
 	},
+
+	-- If not using RoactNavigation we pass in the props directly
+	showToast: (response: string) -> ()?,
+	isStandaloneDiscoverabilityModal: boolean?,
+	openMoreLink: () -> ()?,
+	navigateOnActivated: () -> ()?,
+	onClose: () -> ()?,
 }
 
 type InternalProps = Props & {
@@ -60,7 +69,16 @@ local defaultProps = {
 
 local DiscoverabilityOverlayContainer = function(passedProps: Props)
 	local props: InternalProps = Dash.join(defaultProps, passedProps or {})
-	local isStandaloneDiscoverabilityModal = props.navigation.getParam(Constants.IS_STANDALONE_DISCOVERABILITY_MODAL)
+	local getProp = function(prop)
+		if props.navigation then
+			return props.navigation.getParam(prop)
+		else
+			return getDeepValue(props, prop)
+		end
+	end
+	local isStandaloneDiscoverabilityModal = if SelfViewProfileDiscoverabilityUpsellIXP.SetupEnabled()
+		then getProp(Constants.IS_STANDALONE_DISCOVERABILITY_MODAL)
+		else props.navigation.getParam(Constants.IS_STANDALONE_DISCOVERABILITY_MODAL)
 	local dispatch = useDispatch()
 	local analytics = useAnalytics()
 	local screenSize = useSelector(function(state: State)
@@ -69,6 +87,14 @@ local DiscoverabilityOverlayContainer = function(passedProps: Props)
 	local localUserId = useSelector(function(state: State)
 		return state.LocalUserId
 	end)
+
+	local navigateBack = React.useCallback(function()
+		if props.navigation then
+			props.navigation.pop()
+		elseif props.onClose then
+			props.onClose()
+		end
+	end, { props })
 
 	local userSettingsMetadata = useSelector(function(state: State)
 		return getDeepValue(state, "DiscoverabilityModal.UserPermissions.userSettingsMetadata")
@@ -86,16 +112,24 @@ local DiscoverabilityOverlayContainer = function(passedProps: Props)
 		analytics.fireAnalyticsEvent(EventNames.DiscoverabilityModalClose, {
 			selected = discoverabilitySetting,
 		})
-		props.navigation.pop()
+		if SelfViewProfileDiscoverabilityUpsellIXP.SetupEnabled() then
+			navigateBack()
+		else
+			props.navigation.pop()
+		end
 	end
 
 	local onLearnMoreClick = function()
-		local openLearnMoreLink = props.navigation.getParam(Constants.OPEN_LEARN_MORE_LINK)
+		local openLearnMoreLink = if SelfViewProfileDiscoverabilityUpsellIXP.SetupEnabled()
+			then getProp(Constants.OPEN_LEARN_MORE_LINK)
+			else props.navigation.getParam(Constants.OPEN_LEARN_MORE_LINK)
 		openLearnMoreLink()
 	end
 
 	local failedToUpload = function(_error)
-		local showToast = props.navigation.getParam(Constants.SHOW_TOAST)
+		local showToast = if SelfViewProfileDiscoverabilityUpsellIXP.SetupEnabled()
+			then getProp(Constants.SHOW_TOAST)
+			else props.navigation.getParam(Constants.SHOW_TOAST)
 		showToast(TextKeys.CI_FAILED)
 	end
 
@@ -125,10 +159,19 @@ local DiscoverabilityOverlayContainer = function(passedProps: Props)
 		})
 		if isStandaloneDiscoverabilityModal then
 			updateUserSettings(nil, discoverabilitySetting):andThen(function()
-				local showToast = props.navigation.getParam(Constants.SHOW_TOAST)
-				props.navigation.pop()
-				props.navigation.navigate(EnumScreens.AddFriendsPage)
-				showToast(TextKeys.SETTING_SAVED)
+				if SelfViewProfileDiscoverabilityUpsellIXP.SetupEnabled() then
+					hideDiscoverabilityModal()
+					local navigateOnActivated = getProp(Constants.NAVIGATE_ON_ACTIVATED)
+					local showToast = getProp(Constants.SHOW_TOAST)
+					navigateBack()
+					navigateOnActivated()
+					showToast(TextKeys.SETTING_SAVED)
+				else
+					local showToast = props.navigation.getParam(Constants.SHOW_TOAST)
+					props.navigation.pop()
+					props.navigation.navigate(EnumScreens.AddFriendsPage)
+					showToast(TextKeys.SETTING_SAVED)
+				end
 			end)
 		else
 			props

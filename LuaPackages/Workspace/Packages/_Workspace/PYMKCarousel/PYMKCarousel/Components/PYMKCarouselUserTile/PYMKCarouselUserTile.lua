@@ -14,9 +14,6 @@ local EventNames = Analytics.EventNames
 local getFriendStatus = require(PYMKCarousel.Analytics.getFriendStatus)
 local Constants = require(PYMKCarousel.Common.Constants)
 
-local getFFlagPYMKCarouselIncomingFriendRequestAnalytics =
-	require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequestAnalytics)
-
 type Props = {
 	userId: string | number,
 	tileWidth: number,
@@ -45,18 +42,14 @@ return function(props: Props)
 		return getDeepValue(state, string.format("PYMKCarousel.Friends.friendshipStatus.%s", userId)) or nil
 	end)
 
-	local hasIncomingFriendRequest = if getFFlagPYMKCarouselIncomingFriendRequestAnalytics()
-		then useSelector(function(state)
-			return getDeepValue(
-				state,
-				string.format("PYMKCarousel.Friends.recommendations.hasIncomingFriendRequest.%s", userId)
-			)
-		end)
-		else nil
+	local hasIncomingFriendRequest = useSelector(function(state)
+		return getDeepValue(
+			state,
+			string.format("PYMKCarousel.Friends.recommendations.hasIncomingFriendRequest.%s", userId)
+		)
+	end)
 
-	if getFFlagPYMKCarouselIncomingFriendRequestAnalytics() then
-		friendshipStatus = getFriendStatus(friendshipStatus, hasIncomingFriendRequest)
-	end
+	friendshipStatus = getFriendStatus(friendshipStatus, hasIncomingFriendRequest)
 
 	local recommendation = useSelector(function(state)
 		-- TODO SOCGRAPH-326: move to friends rodux selectors

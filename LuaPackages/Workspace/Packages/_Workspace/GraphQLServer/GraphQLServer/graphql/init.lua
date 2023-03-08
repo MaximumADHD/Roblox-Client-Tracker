@@ -10,6 +10,8 @@ local mocks = require(script.mocks)
 
 export type OmniFeed = generatedTypes.OmniFeed
 export type OmniFeedMetadata = generatedTypes.OmniFeedMetadata
+export type OmniFeedItem = generatedTypes.OmniFeedItem
+export type OmniFeedRecommendation = generatedTypes.OmniFeedRecommendation
 export type VirtualEvent = generatedTypes.VirtualEvent
 export type RsvpStatus = generatedTypes.RsvpStatus
 export type VirtualEventsPage = generatedTypes.VirtualEventsPage

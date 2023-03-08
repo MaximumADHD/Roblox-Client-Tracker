@@ -13,6 +13,7 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local Symbol = require(CorePackages.Symbol)
 local Players = game:GetService("Players")
+local IXPService = game:GetService("IXPService")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
@@ -27,6 +28,8 @@ local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
 local isSubjectToDesktopPolicies = require(RobloxGui.Modules.InGameMenu.isSubjectToDesktopPolicies)
+local MenuBackButton = require(RobloxGui.Modules.Settings.Components.MenuBackButton)
+local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 
 --[[ CONSTANTS ]]
 local SETTINGS_SHIELD_COLOR = Color3.new(41/255,41/255,41/255)
@@ -67,6 +70,7 @@ local GetFFlagShareInviteLinkContextMenuV1Enabled = require(RobloxGui.Modules.Se
 local GetFFlagShareGamePageNullCheckEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareGamePageNullCheckEnabled)
 local GetFFlagSelfViewSettingsEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagSelfViewSettingsEnabled)
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
+local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -224,6 +228,9 @@ local function CreateSettingsHub()
 	this.TabHeaders = {}
 	this.BottomBarButtons = {}
 	this.ResizedConnection = nil
+	if GetFFlagEnableTeleportBackButton() then
+		this.BackBarVisibleConnection = nil
+	end
 	this.TabConnection = nil
 	this.LeaveGamePage = require(RobloxGui.Modules.Settings.Pages.LeaveGame)
 	this.ResetCharacterPage = require(RobloxGui.Modules.Settings.Pages.ResetCharacter)
@@ -1141,6 +1148,16 @@ local function CreateSettingsHub()
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			Parent = this.HubBar
 		}
+		
+		if GetFFlagEnableTeleportBackButton() then
+			this.BackBarRef = Roact.createRef()
+			this.BackBar = Roact.createElement(RoactAppExperiment.Provider, {
+					value = IXPService,
+				}, {
+					Roact.createElement(MenuBackButton,{BackBarRef=this.BackBarRef, HubBar=this.HubBar}),
+			})
+			Roact.mount(this.BackBar, this.MenuContainer, "BackBar")
+		end
 
 		if utility:IsSmallTouchScreen() then
 			this.HubBar.Size = UDim2.new(1,-10,0,40)
@@ -1416,7 +1433,12 @@ local function CreateSettingsHub()
 	end
 
 	local function onScreenSizeChanged()
-
+		local function getBackBarVisible()
+			if not this.BackBarRef:getValue() then
+				return false
+			end
+			return this.BackBarRef:getValue().Visible
+		end
 		local largestPageSize = 600
 		local fullScreenSize = RobloxGui.AbsoluteSize.y
 		local bufferSize = (1-0.95) * fullScreenSize
@@ -1434,6 +1456,7 @@ local function CreateSettingsHub()
 		end
 		local barSize = this.HubBar.Size.Y.Offset
 		local extraSpace = bufferSize*2+barSize*2
+		local extraTopPadding = (GetFFlagEnableTeleportBackButton() and getBackBarVisible() and this.BackBarRef:getValue()) and this.BackBarRef:getValue().Size.Y.Offset or 0
 
 		if isPortrait then
 			this.MenuContainer.Size = UDim2.new(1, 0, 1, 0)
@@ -1475,7 +1498,7 @@ local function CreateSettingsHub()
 			removeBottomBarBindings()
 		end
 
-		local usableScreenHeight = fullScreenSize - extraSpace
+		local usableScreenHeight = fullScreenSize - extraSpace - extraTopPadding
 		local minimumPageSize = 150
 		local usePageSize = nil
 
@@ -1539,7 +1562,7 @@ local function CreateSettingsHub()
 					0,
 					this.HubBar.AbsoluteSize.X,
 					0,
-					usePageSize + 44
+					usePageSize + ((GetFFlagEnableTeleportBackButton() and getBackBarVisible()) and 0 or 44)
 				)
 			else
 				this.PageViewClipper.Size = UDim2.new(
@@ -1963,6 +1986,11 @@ local function CreateSettingsHub()
 			this.ResizedConnection:disconnect()
 			this.ResizedConnection = nil
 		end
+		
+		if GetFFlagEnableTeleportBackButton() and this.BackBarVisibleConnection then
+			this.BackBarVisibleConnection:disconnect()
+			this.BackBarVisibleConnection = nil
+		end
 
 		this.Modal.Visible = this.Visible
 
@@ -1979,6 +2007,11 @@ local function CreateSettingsHub()
 					onScreenSizeChanged()
 				end
 			end)
+			if GetFFlagEnableTeleportBackButton() and this.BackBarRef:getValue() then
+				this.BackBarVisibleConnection = this.BackBarRef:getValue():GetPropertyChangedSignal("Visible"):connect(function()
+					onScreenSizeChanged()
+				end)
+			end
 			onScreenSizeChanged()
 
 			this.SettingsShowSignal:fire(this.Visible)

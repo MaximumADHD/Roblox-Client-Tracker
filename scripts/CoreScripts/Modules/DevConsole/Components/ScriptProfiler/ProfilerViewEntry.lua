@@ -25,6 +25,8 @@ local ANON_LABEL = "<anonymous>"
 
 local ProfilerViewEntry = Roact.PureComponent:extend("ProfilerViewEntry")
 
+local FFlagScriptProfilerDefaultExpandRoot = game:DefineFastFlag("ScriptProfilerDefaultExpandRoot", false)
+
 type BorderedCellLabelProps = {
 	text: string,
 	size: UDim2,
@@ -51,7 +53,7 @@ end
 function ProfilerViewEntry:init()
 
 	self.state = {
-		expanded = false,
+		expanded = FFlagScriptProfilerDefaultExpandRoot and (self.props.depth == 0),
 		showTooltip = false,
 		tooltipPos = UDim2.fromOffset(0, 0)
 	}
@@ -108,7 +110,7 @@ function ProfilerViewEntry:renderChildren(childData)
 		local childDepth = self.props.depth + 1
 		for key, data in pairs(childData) do
 			children[key] = Roact.createElement(ProfilerViewEntry, {
-				layoutOrder = totalDuration - data.TotalDuration, -- Sort by reverse duration
+				layoutOrder = (totalDuration - data.TotalDuration) * 1e6, -- Sort by reverse duration
 				depth = childDepth,
 				data = data,
 				percentageRatio = percentageRatio

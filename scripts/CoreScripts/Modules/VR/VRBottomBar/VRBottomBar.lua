@@ -53,6 +53,7 @@ local FFlagFixPurchasePromptInVR = game:GetEngineFeature("FixPurchasePromptInVR"
 local GetFFlagBottomBarButtonBehaviorFixVR = require(RobloxGui.Modules.Flags.GetFFlagBottomBarButtonBehaviorFixVR)
 local GetFFlagBottomBarInitialStateFixVR = require(RobloxGui.Modules.Flags.GetFFlagBottomBarInitialStateFixVR)
 local GetFFlagBottomBarSortOrderFixVR = require(RobloxGui.Modules.Flags.GetFFlagBottomBarSortOrderFixVR)
+local FFlagUserVRPlaySeatedStanding = require(RobloxGui.Modules.Flags.FFlagUserVRPlaySeatedStanding)
 
 -- each individual icon can either be definied as a table entry with icon and onActivate, or as a item component
 local MainMenu =
@@ -180,6 +181,32 @@ local Chat =
 		end
 	end,
 }
+
+local Seated
+local Standing
+if FFlagUserVRPlaySeatedStanding then
+	local changeVRPlayMode = function()
+		if GameSettings.VRPlayMode == Enum.VRPlayMode.Seated then
+			GameSettings.VRPlayMode = Enum.VRPlayMode.Standing
+		else
+			GameSettings.VRPlayMode = Enum.VRPlayMode.Seated
+		end
+	end
+
+	Standing =
+	{
+		iconOn = "rbxasset://textures/ui/MenuBar/icon_standing.png",
+		iconOff = "rbxasset://textures/ui/MenuBar/icon_standing.png",
+		onActivated = changeVRPlayMode,
+	}
+
+	Seated =
+	{
+		iconOn = "rbxasset://textures/ui/MenuBar/icon_seated.png",
+		iconOff = "rbxasset://textures/ui/MenuBar/icon_seated.png",
+		onActivated = changeVRPlayMode,
+	}
+end
 
 local SafetyOn = 
 {
@@ -355,6 +382,14 @@ function VRBottomBar:updateItems()
 		table.insert(enabledItems, PlayerList)
 	end
 
+	if FFlagUserVRPlaySeatedStanding then
+		if GameSettings.VRPlayMode == Enum.VRPlayMode.Seated then
+			table.insert(enabledItems, Seated)
+		else
+			table.insert(enabledItems, Standing)
+		end
+	end
+
 	table.insert(enabledItems, SeparatorIcon)
 
 	if SafetyBubbleEnabled then
@@ -412,6 +447,10 @@ function VRBottomBar:render()
 				event = StarterGui.CoreGuiChangedSignal,
 				callback = self.updateItemListState,
 			}),
+			VRPlayModeChanged = FFlagUserVRPlaySeatedStanding and Roact.createElement(ExternalEventConnection, {
+				event = GameSettings:GetPropertyChangedSignal("VRPlayMode"),
+				callback = self.updateItemListState,
+			}),
 			SafetyBubbleToggled = Roact.createElement(ExternalEventConnection, {
 				event = VRHub.SafetyBubbleToggled.Event,
 				callback = self.updateItemListState,
@@ -433,9 +472,9 @@ function VRBottomBar:render()
 		return Roact.createElement(Panel3D,  {
 			panelName = "BottomBar",
 			partSize = if GetFFlagUIBloxVRApplyHeadScale()
-				then Vector2.new((table.getn(self.state.itemList) - 1) * 0.15, 0.15)
-				else Vector2.new((table.getn(self.state.itemList) - 1) * 0.15 * (workspace.CurrentCamera :: Camera).HeadScale, 0.15 * (workspace.CurrentCamera :: Camera).HeadScale),
-			virtualScreenSize = Vector2.new((table.getn(self.state.itemList) - 1) * 50, 50),
+				then Vector2.new((#self.state.itemList - 1) * 0.15, 0.15)
+				else Vector2.new((#self.state.itemList - 1) * 0.15 * (workspace.CurrentCamera :: Camera).HeadScale, 0.15 * (workspace.CurrentCamera :: Camera).HeadScale),
+			virtualScreenSize = Vector2.new((#self.state.itemList - 1) * 50, 50),
 			offset = if GetFFlagUIBloxVRApplyHeadScale()
 				then self.state.vrMenuOpen and CFrame.new(0, -1.5, 0) or CFrame.new(0, -2, 0)
 				else self.state.vrMenuOpen and CFrame.new(0, -1.5 * (workspace.CurrentCamera :: Camera).HeadScale, 0) or CFrame.new(0, -2 * (workspace.CurrentCamera :: Camera).HeadScale, 0),

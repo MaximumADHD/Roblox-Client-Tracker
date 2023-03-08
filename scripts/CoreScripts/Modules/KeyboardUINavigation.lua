@@ -4,15 +4,15 @@ local GuiService = game:GetService("GuiService")
 local ContextActionService = game:GetService("ContextActionService")
 local CoreGuiService = game:GetService("CoreGui")
 
-local Player = Players.LocalPlayer
-local PlayerGui = Player:WaitForChild("PlayerGui")
-
 local FFlagEnableKeyboardUINavigationNotification = game:DefineFastFlag("EnableKeyboardUINavigationNotification", false)
 local FFlagSendKeyboardUINavigationNotificationOnEnable = game:DefineFastFlag("SendKeyboardUINavigationNotificationOnEnable", false)
 
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 local SendNotification = RobloxGui:WaitForChild("SendNotificationInfo")
 local RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
+local GetFFlagFixMissingPlayerGuiCrash = require(RobloxGui.Modules.Flags.GetFFlagFixMissingPlayerGuiCrash)
+
+local PlayerGui
 
 local function LocalizedGetString(key, rtv)
 	pcall(function()
@@ -84,6 +84,18 @@ local function EnableKeyboardNavigation(actionName, inputState, inputObject)
 		return Enum.ContextActionResult.Sink
 	end
 
+	if GetFFlagFixMissingPlayerGuiCrash() then
+		if PlayerGui == nil then
+			-- To avoid race condition with not using a "WaitForChild" we will grab the PlayerGui instance before use
+			local Player = Players.LocalPlayer
+			PlayerGui = Player:FindFirstChildOfClass("PlayerGui")
+		end
+	else
+		if PlayerGui == nil then
+			local Player = Players.LocalPlayer
+			PlayerGui = Player:WaitForChild("PlayerGui")
+		end
+	end
 	GuiService:Select(PlayerGui)
 
 	-- Only send a notification if we found an element to select

@@ -132,7 +132,7 @@ function VoiceChatServiceManager.new(VoiceChatService, HttpRbxApiService, Permis
 		NotificationService = NotificationService,
 		PermissionsService = PermissionsService,
 		BlockStatusChanged = BlockStatusChanged,
-		Analytics = if GetFFlagEnableLuaVoiceChatAnalytics then Analytics.new(AnalyticsService) else nil,
+		Analytics = Analytics.new(AnalyticsService),
 		SequenceNumbers = {},
 	}, VoiceChatServiceManager)
 

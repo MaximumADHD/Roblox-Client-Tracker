@@ -8,8 +8,6 @@ local getFIntContactImporterUploadContactsMin = require(ContactImporter.Flags.ge
 
 local RoduxContacts = dependencies.RoduxContacts
 local DeviceContact = RoduxContacts.Models.DeviceContact
-local getFFlagContactImporterTweakDesignsForInvites =
-	require(ContactImporter.Flags.getFFlagContactImporterTweakDesignsForInvites)
 local getFFlagTrimContactsEarlierOnContactImporter =
 	require(ContactImporter.Flags.getFFlagTrimContactsEarlierOnContactImporter)
 
@@ -26,9 +24,7 @@ return function(contacts)
 			end
 
 			local contactEntry = {
-				idAssignedByFE = if getFFlagContactImporterTweakDesignsForInvites()
-					then DeviceContact.generateId(v)
-					else nil,
+				idAssignedByFE = DeviceContact.generateId(v),
 				fields = {
 					{ name = Constants.LAST_NAME, value = tostring(v.lastname) },
 					{ name = Constants.FIRST_NAME, value = tostring(v.firstname) },

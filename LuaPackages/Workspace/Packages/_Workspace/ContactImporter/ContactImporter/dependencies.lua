@@ -119,9 +119,11 @@ return {
 	useUserExperiment = RoactAppExperiment.useUserExperiment,
 	useEffectOnce = require(Packages.RoactUtils).Hooks.useEffectOnce,
 	DiscoverabilityOverlay = require(Packages.DiscoverabilityModal).DiscoverabilityOverlay,
+	DiscoverabilityAnalytics = require(Packages.DiscoverabilityModal).Analytics,
 	RoactExperimentProvider = RoactAppExperiment.Provider,
 	getFFlagContactImporterEnabledForDev = getFFlagContactImporterEnabledForDev,
 	getFFlagContactImporterWithPhoneVerification = require(Packages.SharedFlags).getFFlagContactImporterWithPhoneVerification,
 	getFFlagEnableContactInvitesForNonPhoneVerified = require(Packages.SharedFlags).getFFlagEnableContactInvitesForNonPhoneVerified,
 	getFFlagLuaNativeUtilEnableSMSHandling = require(Packages.SharedFlags).getFFlagLuaNativeUtilEnableSMSHandling,
+	SelfViewProfileDiscoverabilityUpsellIXP = require(Packages.DiscoverabilityModal).Flags.SelfViewProfileDiscoverabilityUpsellIXP,
 }

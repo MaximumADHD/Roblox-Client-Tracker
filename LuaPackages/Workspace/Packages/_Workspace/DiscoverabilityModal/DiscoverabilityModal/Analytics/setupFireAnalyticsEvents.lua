@@ -6,16 +6,28 @@ local DiagEvents = require(script.Parent.DiagEvents)
 local fireEventStream = SocialLuaAnalytics.Analytics.FireEvent.fireEventStream
 local fireDiagCounter = SocialLuaAnalytics.Analytics.FireEvent.fireDiagCounter
 local AnalyticsEvents = require(script.Parent.AnalyticsEvents)
+local SelfViewProfileDiscoverabilityUpsellIXP =
+	require(DiscoverabilityModal.Flags.SelfViewProfileDiscoverabilityUpsellIXP)
 
-return function(setup: { diag: any, eventStreamImpl: any, loggerImpl: any?, defaultAnalyticsInfo: { uid: string, entry: any } })
+return function(setup: {
+	eventStreamImpl: any?,
+	diag: any?,
+	analytics: { Diag: any?, EventStream: any? }?,
+	loggerImpl: any?,
+	defaultAnalyticsInfo: { uid: string, entry: any },
+})
 	local configuredFireEventStream = fireEventStream({
-		eventStreamImpl = setup.eventStreamImpl,
+		eventStreamImpl = if SelfViewProfileDiscoverabilityUpsellIXP.SetupEnabled() and setup.analytics
+			then setup.analytics.EventStream
+			else setup.eventStreamImpl,
 		eventList = AnalyticsEvents,
 		infoForAllEvents = setup.defaultAnalyticsInfo,
 	})
 
 	local configuredFireDiagCounter = fireDiagCounter({
-		diagImpl = setup.diag,
+		diagImpl = if SelfViewProfileDiscoverabilityUpsellIXP.SetupEnabled() and setup.analytics
+			then setup.analytics.Diag
+			else setup.diag,
 		eventList = DiagEvents,
 	})
 

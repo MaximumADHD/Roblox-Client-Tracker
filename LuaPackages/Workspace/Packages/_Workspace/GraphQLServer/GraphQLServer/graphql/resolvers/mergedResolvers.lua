@@ -13,6 +13,8 @@ local OmniFeedResolver = require(script.Parent.OmniFeed).default
 local ScalarResolver = require(script.Parent.ScalarResolver).default
 local VirtualEventResolver = require(script.Parent.VirtualEventResolver)
 local ExperienceResolver = require(script.Parent.ExperienceResolver)
+local ProfileInsightsResolver = require(script.Parent.ProfileInsightsResolver)
+
 local resolvers = mergeResolvers({
 	UserResolver,
 	PlayerResolver,
@@ -20,6 +22,7 @@ local resolvers = mergeResolvers({
 	ScalarResolver,
 	VirtualEventResolver,
 	ExperienceResolver,
+	ProfileInsightsResolver,
 } :: Array<IResolvers<any, any>>)
 exports.default = resolvers
 

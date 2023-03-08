@@ -1,20 +1,26 @@
 local enums = require(script.enums)
 local types = require(script.types)
 
+local EventNotificationsModal = require(script.Components.EventNotificationsModal)
+
 export type Event = types.Event
 export type Host = types.Host
 export type VirtualEvent = types.VirtualEvent
 export type RsvpStatus = types.RsvpStatus
+export type EventNotificationsModalProps = EventNotificationsModal.Props
 
 return {
 	-- Enums
 	AnalyticsEvent = enums.AnalyticsEvent,
 
+	-- GraphQL queries and mutations
+	requests = require(script.requests),
+
 	-- Components
 	EventDetailsPageLoader = require(script.Components.EventDetailsPageLoader),
 	EventsPage = require(script.Components.EventsPage), -- Remove this line with FFlagRemoveEventsPageFromMoreTab
 	ShareEventModal = require(script.Components.ShareEventModal),
-	EventNotificationsModal = require(script.Components.EventNotificationsModal),
+	EventNotificationsModal = EventNotificationsModal,
 	EventsList = require(script.Components.EventsList),
 
 	-- Functions
@@ -26,6 +32,8 @@ return {
 	fireVirtualEventJoined = require(script.Analytics.fireVirtualEventJoined),
 	fireVirtualEventLinkCopied = require(script.Analytics.fireVirtualEventLinkCopied),
 	fireVirtualEventRSVP = require(script.Analytics.fireVirtualEventRSVP),
+	fireEventNotificationEnabled = require(script.Analytics.fireEventNotificationEnabled),
+	fireVirtualEventImpression = require(script.Analytics.fireVirtualEventImpression),
 
 	-- Hooks
 	useActiveVirtualEvents = require(script.Hooks.useActiveVirtualEvents),

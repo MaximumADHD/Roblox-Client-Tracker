@@ -119,7 +119,7 @@ StatsUtils.StatMaxNames = {
   [StatsUtils.StatType_Ping] = "MaxPing",
 }
 
-StatsUtils.NumButtonTypes = table.getn(StatsUtils.AllStatTypes)
+StatsUtils.NumButtonTypes = #StatsUtils.AllStatTypes
 
 local strSentNetwork = LocalizedGetKey("Sent") .. "\n" .. LocalizedGetKey("Network")
 local strReceivedNetwork = LocalizedGetKey("Received") .. "\n" .. LocalizedGetKey("Network")

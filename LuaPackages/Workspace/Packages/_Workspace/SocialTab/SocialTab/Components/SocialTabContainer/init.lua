@@ -10,6 +10,7 @@ local RoactRodux = dependencies.RoactRodux
 local withLocalization = dependencies.withLocalization
 local UniversalAppPolicy = dependencies.UniversalAppPolicy
 local getFFlagSocialPanelIAEnabled = dependencies.getFFlagSocialPanelIAEnabled
+local SelfViewProfileDiscoverabilityUpsellIXP = dependencies.SelfViewProfileDiscoverabilityUpsellIXP
 
 local mapStateToProps = require(script.mapStateToProps)
 local mapDispatchToProps = require(script.mapDispatchToProps)
@@ -62,6 +63,18 @@ function SocialTabContainer:render()
 						luaSelfProfileEnabled = context.luaSelfProfileEnabled,
 						isDrawerPanel = isDrawerPanel,
 						isSocialPanelFullScreen = isSocialPanelFullScreen,
+						closeCentralOverlay = if SelfViewProfileDiscoverabilityUpsellIXP.SetupEnabled()
+							then context.closeCentralOverlay
+							else nil,
+						openLearnMoreLink = if SelfViewProfileDiscoverabilityUpsellIXP.SetupEnabled()
+							then context.openLearnMoreLink
+							else nil,
+						showToast = if SelfViewProfileDiscoverabilityUpsellIXP.SetupEnabled()
+							then context.showToast
+							else nil,
+						discoverabilityUpsellOnProfileSelfViewEnabled = if SelfViewProfileDiscoverabilityUpsellIXP.SetupEnabled()
+							then context.discoverabilityUpsellOnProfileSelfViewEnabled
+							else nil,
 					}, localizedStrings)
 				)
 			end)

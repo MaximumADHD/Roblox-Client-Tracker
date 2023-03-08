@@ -11,6 +11,8 @@ local findVirtualEventsByUniverseId = VirtualEventConnector.findVirtualEventsByU
 local findRsvpsByVirtualEventId = VirtualEventConnector.findRsvpsByVirtualEventId
 local findRsvpCountersByVirtualEventId = VirtualEventConnector.findRsvpCountersByVirtualEventId
 local updateRsvpStatus = VirtualEventConnector.updateRsvpStatus
+local neverShowNotificationModalAgain = VirtualEventConnector.neverShowNotificationModalAgain
+local enablePushNotifications = VirtualEventConnector.enablePushNotifications
 
 return function()
 	local create = nil
@@ -152,7 +154,10 @@ return function()
 				local fetchImpl = buildFetch(httpService)
 				local res = updateRsvpStatus("832582841240813598", "going", fetchImpl):expect()
 
-				expect(res.rsvpStatus).toBe("going")
+				expect(res.virtualEvent).toEqual({
+					id = "832582841240813598",
+					userRsvpStatus = "going",
+				})
 			end)
 		end)
 
@@ -171,6 +176,60 @@ return function()
 				expect(capturedError.message).toEqual(
 					"Failed to set RSVP status matching VirtualEvent id: badVirtualEvent."
 				)
+			end)
+		end)
+	end)
+
+	describe("update modal history", function()
+		it("should return true on success", function()
+			create("virtual-event-modal-history-success"):execute(function(httpService)
+				local fetchImpl = buildFetch(httpService)
+				local res = neverShowNotificationModalAgain(fetchImpl):expect()
+
+				expect(res).toBe(true)
+			end)
+		end)
+
+		it("should error if something goes wrong on the server", function()
+			create("virtual-event-modal-history-fail"):execute(function(httpService)
+				local capturedError
+				local fetchImpl = buildFetch(httpService)
+
+				neverShowNotificationModalAgain(fetchImpl)
+					:catch(function(err)
+						capturedError = err
+					end)
+					:expect()
+
+				expect(capturedError).toBeDefined()
+				expect(capturedError.message).toEqual("Failed to update modal history")
+			end)
+		end)
+	end)
+
+	describe("update notification preferences", function()
+		it("should return true on success", function()
+			create("virtual-event-notification-preferences-success"):execute(function(httpService)
+				local fetchImpl = buildFetch(httpService)
+				local res = enablePushNotifications(fetchImpl):expect()
+
+				expect(res).toBe(true)
+			end)
+		end)
+
+		it("should error if something goes wrong on the server", function()
+			create("virtual-event-notification-preferences-fail"):execute(function(httpService)
+				local capturedError
+				local fetchImpl = buildFetch(httpService)
+
+				enablePushNotifications(fetchImpl)
+					:catch(function(err)
+						capturedError = err
+					end)
+					:expect()
+
+				expect(capturedError).toBeDefined()
+				expect(capturedError.message).toEqual("Failed to update notification preferences")
 			end)
 		end)
 	end)

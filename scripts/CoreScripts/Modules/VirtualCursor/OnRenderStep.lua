@@ -7,8 +7,9 @@ local GamepadService = game:GetService("GamepadService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local Player = Players.LocalPlayer
-local PlayerGui = Player:WaitForChild("PlayerGui")
+local GetFFlagFixMissingPlayerGuiCrash = require(RobloxGui.Modules.Flags.GetFFlagFixMissingPlayerGuiCrash)
+
+local PlayerGui
 
 local Input = require(VirtualCursorFolder.Input)
 local Interface = require(VirtualCursorFolder.Interface)
@@ -101,7 +102,19 @@ local function processCursorPosition(pos, rad, dt)
 	local topLeftInset = GuiService:GetGuiInset()
 	pos = pos - topLeftInset
 	-- Objects are sorted with the top most rendered first
-	local guiObjects = PlayerGui:GetGuiObjectsInCircle(pos, rad)
+
+	if GetFFlagFixMissingPlayerGuiCrash() then
+		-- To avoid race condition with not using a "WaitForChild" we will grab the PlayerGui instance before use
+		if PlayerGui == nil then
+			PlayerGui = (Players.LocalPlayer :: Player):FindFirstChildOfClass("PlayerGui")
+		end
+	else
+		if PlayerGui == nil then
+			PlayerGui = (Players.LocalPlayer :: Player):WaitForChild("PlayerGui")
+		end
+	end
+
+	local guiObjects = if PlayerGui then PlayerGui:GetGuiObjectsInCircle(pos, rad) else {}
 	local guiObjectsCore = CoreGui:GetGuiObjectsInCircle(pos, rad)	
 
 	for _, object in ipairs(guiObjects) do

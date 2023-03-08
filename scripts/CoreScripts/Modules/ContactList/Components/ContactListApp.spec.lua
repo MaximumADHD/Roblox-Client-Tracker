@@ -10,6 +10,7 @@ return function()
 	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
 	local ContactListApp = require(script.Parent.ContactListApp)
+	local OutgoingCallState = require(script.Parent.Parent.Enums.OutgoingCallState)
 	local Reducer = require(script.Parent.Parent.Reducer)
 
 	local appStyle = {
@@ -17,7 +18,7 @@ return function()
 		Theme = AppDarkTheme,
 	}
 
-	local mockState = function(contactListVisible)
+	local mockState = function(contactListVisible, currentCall)
 		return {
 			Call = {
 				callList = {
@@ -53,13 +54,15 @@ return function()
 					},
 				},
 			},
+			CurrentCall = currentCall,
 			Navigation = {
 				contactListVisible = contactListVisible,
 			},
 		}
 	end
-	it("should mount and unmount without errors when visible", function()
-		local store = Rodux.Store.new(Reducer, mockState(true), {
+
+	it("should mount and unmount without errors when all elements hidden", function()
+		local store = Rodux.Store.new(Reducer, mockState(false, nil), {
 			Rodux.thunkMiddleware,
 		})
 
@@ -75,37 +78,65 @@ return function()
 
 		local folder = Instance.new("Folder")
 		local instance = Roact.mount(element, folder)
-		local containerElement = folder:FindFirstChildOfClass("ScrollingFrame")
-		expect(containerElement).to.be.ok()
-		if containerElement then
-			expect(#containerElement:GetChildren()).to.be.equal(4) -- Layout, and three cells.
 
-			local usernameElement: TextLabel = containerElement:FindFirstChild("Username", true) :: TextLabel
-			expect(usernameElement.Text).to.be.equal("jovocados")
-		end
+		local containerElement = folder:FindFirstChild("CallerListContainer", true)
+		expect(containerElement).never.to.be.ok()
+
+		local notificationElement = folder:FindFirstChild("CallerNotificationContainer", true)
+		expect(notificationElement).never.to.be.ok()
 
 		Roact.unmount(instance)
 	end)
 
-	it("should mount and unmount without errors when hidden", function()
-		local store = Rodux.Store.new(Reducer, mockState(false), {
-			Rodux.thunkMiddleware,
-		})
+	describe("CallerListContainer", function()
+		it("should mount and unmount without errors when caller list visible", function()
+			local store = Rodux.Store.new(Reducer, mockState(true, nil), {
+				Rodux.thunkMiddleware,
+			})
 
-		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = store,
-		}, {
-			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
+			local element = Roact.createElement(RoactRodux.StoreProvider, {
+				store = store,
 			}, {
-				ContactListApp = Roact.createElement(ContactListApp),
-			}),
-		})
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
+					style = appStyle,
+				}, {
+					ContactListApp = Roact.createElement(ContactListApp),
+				}),
+			})
 
-		local folder = Instance.new("Folder")
-		local instance = Roact.mount(element, folder)
-		local containerElement = folder:FindFirstChildOfClass("ScrollingFrame")
-		expect(containerElement).never.to.be.ok()
-		Roact.unmount(instance)
+			local folder = Instance.new("Folder")
+			local instance = Roact.mount(element, folder)
+			local containerElement = folder:FindFirstChild("CallerListContainer", true)
+			expect(containerElement).to.be.ok()
+			Roact.unmount(instance)
+		end)
+	end)
+
+	describe("CallerNotification", function()
+		it("should mount and unmount without errors when caller notification visible", function()
+			local store = Rodux.Store.new(
+				Reducer,
+				mockState(false, { callId = 1, userId = 123, username = "TestUser", state = OutgoingCallState.Calling }),
+				{
+					Rodux.thunkMiddleware,
+				}
+			)
+
+			local element = Roact.createElement(RoactRodux.StoreProvider, {
+				store = store,
+			}, {
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
+					style = appStyle,
+				}, {
+					ContactListApp = Roact.createElement(ContactListApp),
+				}),
+			})
+
+			local folder = Instance.new("Folder")
+			local instance = Roact.mount(element, folder)
+			local notificationElement = folder:FindFirstChild("CallerNotificationContainer", true)
+			expect(notificationElement).to.be.ok()
+			Roact.unmount(instance)
+		end)
 	end)
 end

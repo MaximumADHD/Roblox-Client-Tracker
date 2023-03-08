@@ -4,6 +4,10 @@ local Cryo = require(VirtualEvents.Parent.Cryo)
 local React = require(VirtualEvents.Parent.React)
 local UIBlox = require(VirtualEvents.Parent.UIBlox)
 local useDispatch = require(VirtualEvents.Parent.RoactUtils).Hooks.RoactRodux.useDispatch
+local useDeviceType = require(VirtualEvents.Parent.RobloxAppHooks).useDeviceType
+local RobloxAppEnums = require(VirtualEvents.Parent.RobloxAppEnums)
+type DeviceType = RobloxAppEnums.DeviceType
+
 local getEventTimerStatus = require(VirtualEvents.Common.getEventTimerStatus)
 local findFirstImageInMedia = require(VirtualEvents.Common.findFirstImageInMedia)
 local getGalleryItems = require(VirtualEvents.Common.getGalleryItems)
@@ -16,8 +20,10 @@ local EventHostedBy = require(VirtualEvents.Components.EventHostedBy)
 local Attendance = require(VirtualEvents.Components.Attendance)
 local network = require(VirtualEvents.network)
 local types = require(VirtualEvents.types)
+
 local getFFlagHorizontalMediaOnEventDetailsPage =
 	require(VirtualEvents.Parent.SharedFlags).getFFlagHorizontalMediaOnEventDetailsPage
+local getFFlagEventNotificationsModal = require(VirtualEvents.Parent.SharedFlags).getFFlagEventNotificationsModal
 
 local DetailsPageTemplate = UIBlox.App.Template.DetailsPage.DetailsPageTemplate
 local ContentPositionEnum = UIBlox.App.Template.DetailsPage.Enum.ContentPosition
@@ -33,7 +39,7 @@ export type BaseProps = {
 	currentTime: DateTime,
 	onClose: (() -> ())?,
 	onJoinEvent: (() -> ())?,
-	onRsvpChanged: ((newRsvpStatus: types.RsvpStatus) -> ())?,
+	onRsvpChanged: ((newRsvpStatus: types.RsvpStatus, shouldSeeNotificationsUpsellModal: boolean?) -> ())?,
 	onExperienceTileActivated: (() -> ())?,
 	onHostActivated: ((host: types.Host) -> ())?,
 	onShare: (() -> ())?,
@@ -59,6 +65,8 @@ local function EventDetailsPage(props: Props)
 	local firstImage = if media then findFirstImageInMedia(media) else nil
 
 	local galleryHeight, setGalleryHeight = React.useState(0)
+
+	local deviceType: DeviceType = useDeviceType()
 
 	local galleryItems = React.useMemo(function()
 		return getGalleryItems(media)
@@ -87,11 +95,24 @@ local function EventDetailsPage(props: Props)
 			newRsvpStatus = "notGoing"
 		end
 
-		if joinedProps.onRsvpChanged then
-			joinedProps.onRsvpChanged(newRsvpStatus)
-		end
+		if getFFlagEventNotificationsModal() then
+			dispatch(network.NetworkingVirtualEvents.UpdateMyRsvpStatus.API(joinedProps.virtualEvent.id, newRsvpStatus)):andThen(
+				function(res)
+					if joinedProps.onRsvpChanged then
+						joinedProps.onRsvpChanged(
+							res.responseBody.rsvpStatus,
+							res.responseBody.shouldSeeNotificationsUpsellModal
+						)
+					end
+				end
+			)
+		else
+			if joinedProps.onRsvpChanged then
+				joinedProps.onRsvpChanged(newRsvpStatus)
+			end
 
-		dispatch(network.NetworkingVirtualEvents.UpdateMyRsvpStatus.API(joinedProps.virtualEvent.id, newRsvpStatus))
+			dispatch(network.NetworkingVirtualEvents.UpdateMyRsvpStatus.API(joinedProps.virtualEvent.id, newRsvpStatus))
+		end
 	end, { joinedProps.virtualEvent })
 
 	local actionBarProps = useActionBarProps(joinedProps.virtualEvent, eventStatus, {
@@ -173,7 +194,7 @@ local function EventDetailsPage(props: Props)
 	}
 
 	return React.createElement(DetailsPageTemplate, {
-		isMobile = true, -- TODO: EN-1467 Setup breakpoints for mobile and desktop
+		deviceType = deviceType,
 		titleText = joinedProps.virtualEvent.title,
 		thumbnailImageUrl = firstImage,
 		thumbnailAspectRatio = Vector2.new(16, 9),

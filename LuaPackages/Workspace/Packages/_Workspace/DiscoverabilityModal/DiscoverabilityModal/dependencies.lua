@@ -37,6 +37,7 @@ local myRoduxNetworking = RoduxNetworking.config({
 })
 
 local SocialLuaAnalytics = require(Packages.SocialLuaAnalytics)
+local SharedFlags = require(Packages.SharedFlags)
 
 return {
 	AppStorageService = game:GetService("AppStorageService"),
@@ -50,6 +51,8 @@ return {
 	ContactsProtocol = require(Packages.ContactsProtocol).ContactsProtocol,
 	Promise = require(Packages.Promise),
 	enumerate = require(Packages.enumerate),
+	RoactNavigation = require(Packages.RoactNavigation),
+	rolloutByApplicationId = require(Packages.AppCommonLib).rolloutByApplicationId,
 	RoduxNetworking = myRoduxNetworking,
 
 	SocialLibraries = LuaSocialLibrariesDeps.SocialLibraries.config({}),
@@ -71,5 +74,6 @@ return {
 		useDispatch = require(Packages.RoactUtils).Hooks.RoactRodux.useDispatch,
 	},
 
-	getFFlagEnableContactInvitesForNonPhoneVerified = require(Packages.SharedFlags).getFFlagEnableContactInvitesForNonPhoneVerified,
+	getFFlagEnableContactInvitesForNonPhoneVerified = SharedFlags.getFFlagEnableContactInvitesForNonPhoneVerified,
+	getFStringSocialProfileLayer = SharedFlags.getFStringSocialProfileLayer,
 }

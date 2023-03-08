@@ -92,7 +92,7 @@ function BarGraphClass:_updateBarCount(newBarCount)
   -- Reuse old ones if possible.
   -- If we have more old ones than we need, delete them.
   local newBars = {}
-  local currentBarCount = table.getn(self._bars)
+  local currentBarCount = #self._bars
   
   for i = 1, currentBarCount, 1 do
     if (i <= currentBarCount) then
@@ -111,7 +111,7 @@ end
   
 
 function BarGraphClass:Render()    
-  local numValues = table.getn(self._values)
+  local numValues = #self._values
   
   self:_updateBarCount(numValues)
   

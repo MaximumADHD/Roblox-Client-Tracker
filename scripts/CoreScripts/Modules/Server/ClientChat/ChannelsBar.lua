@@ -5,8 +5,6 @@
 
 local module = {}
 
-local PlayerGui = (game:GetService("Players").LocalPlayer :: Player):WaitForChild("PlayerGui")
-
 --////////////////////////////// Include
 --//////////////////////////////////////
 local Chat = game:GetService("Chat")

@@ -57,6 +57,7 @@ type AnalyticsWrapperMeta = {
 	reportSelfViewSessionStopped: (AnalyticsWrapper, string, string, string) -> (),
 	reportUserAccountSettings: (AnalyticsWrapper, string, string, string, string, string) -> (),
 	reportExperienceSettings: (AnalyticsWrapper, string, string, string, string, string, string) -> (),
+	setLastCtx: (AnalyticsWrapper, string) -> (),
 }
 
 -- Replace this when Luau supports it
@@ -70,6 +71,8 @@ Analytics.WARNING = "warning"
 Analytics.ERROR = "error"
 
 type LogLevel = "info" | "warning" | "error"
+
+local lastCtx = "SelfView"
 
 function Analytics.new(impl: AnalyticsService?)
 	if not impl then
@@ -105,7 +108,6 @@ function Analytics:setImpl(newImpl)
 end
 
 function Analytics:_report(context, name, extraName, args)
-
 	local environment = "client"
 
 	if RunService:IsStudio() then
@@ -117,7 +119,7 @@ end
 
 function Analytics:reportMicState(isOn)
 	debugPrint("Self View: Analytics:reportMicState, newState: "..tostring(isOn)..",universeid: "..tostring(game.GameId)..",pid: "..tostring(game.PlaceId)..",uid: "..tostring((Players.LocalPlayer :: Player).UserId)..",sessionid: "..tostring(self._impl:GetSessionId()))
-	self:_report("SelfView", "inExperienceMicState", tostring(isOn), {
+	self:_report(lastCtx, "inExperienceMicState", tostring(isOn), {
 		state = isOn,
 		universeid = tostring(game.GameId),
 		pid = tostring(game.PlaceId),
@@ -128,7 +130,7 @@ end
 
 function Analytics:reportCamState(isOn)
 	debugPrint("Self View: Analytics:reporCamState, newState: "..tostring(isOn)..",universeid: "..tostring(game.GameId)..",pid: "..tostring(game.PlaceId)..",uid: "..tostring((Players.LocalPlayer :: Player).UserId)..",sessionid: "..tostring(self._impl:GetSessionId()))
-	self:_report("SelfView", "inExperienceCamState", tostring(isOn), {
+	self:_report(lastCtx, "inExperienceCamState", tostring(isOn), {
 		state = isOn,
 		universeid = tostring(game.GameId),
 		pid = tostring(game.PlaceId),
@@ -198,6 +200,10 @@ function Analytics:reportExperienceSettings(experienceSettings_placeEnabled, exp
 			audioenabled = tostring(experienceSettings_audioEnabled),
 		})
 	end	
+end
+
+function Analytics:setLastCtx(ctx)
+	lastCtx = ctx
 end
 
 return Analytics

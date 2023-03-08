@@ -489,6 +489,7 @@ local function createViewport()
 		)
 		if voiceService and hasMicPermissions then
 			VoiceChatServiceManager:ToggleMic()
+			Analytics:setLastCtx("SelfView")
 		else
 			updateAudioButton(false)
 		end
@@ -516,6 +517,7 @@ local function createViewport()
 				return
 			end
 			FaceAnimatorService.VideoAnimationEnabled = not FaceAnimatorService.VideoAnimationEnabled
+			Analytics:setLastCtx("SelfView")
 		else
 			updateVideoButton(false)
 		end
@@ -855,6 +857,23 @@ local onUpdateTrackerMode = function()
 		if newReportedCamState ~= lastReportedCamState then
 			Analytics:reportCamState(newReportedCamState)
 			lastReportedCamState = newReportedCamState
+		end
+
+		local audioEnabled = false
+		local voiceService = VoiceChatServiceManager:getService()
+		if voiceService and VoiceChatServiceManager.localMuted ~= nil then
+			audioEnabled = not VoiceChatServiceManager.localMuted
+
+			if cachedAudioEnabled ~= audioEnabled then
+				local newReportedMicState = audioEnabled
+				if lastReportedMicState ~= newReportedMicState then
+					Analytics:reportMicState(newReportedMicState)
+					lastReportedMicState = newReportedMicState
+				end
+
+				updateAudioButton(audioEnabled)
+				cachedAudioEnabled = audioEnabled
+			end
 		end
 	end
 
@@ -1501,22 +1520,6 @@ function startRenderStepped(player)
 		--but it did not fire reliably in a more involved test place, so as fallback for now we also check manually for changes..
 
 		gotUsableClone = false
-		local audioEnabled = false
-		local voiceService = VoiceChatServiceManager:getService()
-		if voiceService and VoiceChatServiceManager.localMuted ~= nil then
-			audioEnabled = not VoiceChatServiceManager.localMuted
-
-			if cachedAudioEnabled ~= audioEnabled then
-				local newReportedMicState = audioEnabled
-				if lastReportedMicState ~= newReportedMicState then
-					Analytics:reportMicState(newReportedMicState)
-					lastReportedMicState = newReportedMicState
-				end
-
-				updateAudioButton(audioEnabled)
-				cachedAudioEnabled = audioEnabled
-			end
-		end
 
 		if Players.LocalPlayer then
 			local character = Players.LocalPlayer.Character

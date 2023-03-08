@@ -23,6 +23,7 @@ local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManage
 local Constants = require(Modules.InGameChat.BubbleChat.Constants)
 local SelfViewAPI = require(Modules.SelfView.publicApi)
 local toggleSelfViewSignal = require(Modules.SelfView.toggleSelfViewSignal)
+local Analytics = require(Modules.SelfView.Analytics).new()
 
 local VIDEO_IMAGE = Images["icons/controls/video"]
 local VIDEO_OFF_IMAGE = Images["icons/controls/videoOff"]
@@ -60,6 +61,7 @@ function ControlsBubble:init()
 				return
 			end
 
+			Analytics:setLastCtx("bubbleChatToggle")
 			VoiceChatServiceManager:ToggleMic()
 
 			self:setState({
@@ -88,6 +90,8 @@ function ControlsBubble:init()
 		end
 
 		FaceAnimatorService.VideoAnimationEnabled = not FaceAnimatorService.VideoAnimationEnabled
+
+		Analytics:setLastCtx("bubbleChatToggle")
 
 		self:setState({
 			cameraEnabled = FaceAnimatorService.VideoAnimationEnabled

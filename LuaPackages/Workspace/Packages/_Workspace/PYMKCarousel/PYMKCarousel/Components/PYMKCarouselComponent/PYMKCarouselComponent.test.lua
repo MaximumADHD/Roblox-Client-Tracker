@@ -24,9 +24,6 @@ local waitForEvents = devDependencies.DeferredLuaHelpers.waitForEvents
 local waitUntil = devDependencies.waitUntil
 
 local getFFlagPYMKDontUseIngestService = dependencies.getFFlagPYMKDontUseIngestService
-local getFFlagPYMKCarouselIncomingFriendRequest = require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequest)
-local getFFlagPYMKCarouselIncomingFriendRequestAnalytics =
-	require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequestAnalytics)
 
 local PYMKCarouselComponent = require(script.Parent.PYMKCarouselComponent)
 
@@ -49,7 +46,7 @@ local state = mockedRecommendationsState
 local mockedAnalytics = mockAnalytics(jest)
 
 -- Number of mocked recommendations in mockedRecommendationsState
-local MOCKED_RECOMMENDATIONS_COUNT = if getFFlagPYMKCarouselIncomingFriendRequest() then 8 else 7
+local MOCKED_RECOMMENDATIONS_COUNT = 8
 
 -- This test needs to run first, in order for refreshCountGlobal to be correct
 it("SHOULD fire analytics event CarouselLoadedWithUsers when mounted and when omniSessionid changed", function()
@@ -107,9 +104,7 @@ it("SHOULD fire analytics event CarouselLoadedWithUsers when mounted and when om
 				recommendationContextType = "frequents",
 				recommendationRank = 0,
 				userId = "6_frequentContext",
-				friendStatus = if getFFlagPYMKCarouselIncomingFriendRequestAnalytics()
-					then Enum.FriendStatus.NotFriend
-					else nil,
+				friendStatus = Enum.FriendStatus.NotFriend,
 				recommendationSessionId = "mockedRecommendationSessionId",
 			})
 		)

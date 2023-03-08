@@ -11,9 +11,6 @@ local Constants = require(PYMKCarousel.Common.Constants)
 
 local formatRecommendationContextType = SocialLuaAnalytics.Analytics.Formatters.formatRecommendationContextType
 
-local getFFlagPYMKCarouselIncomingFriendRequestAnalytics =
-	require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequestAnalytics)
-
 type GenericEvent = {
 	context: any,
 	eventType: any,
@@ -83,10 +80,7 @@ local coreEvents = {
 			requestedId = acceptAnyValue,
 		},
 	},
-}
-
-if getFFlagPYMKCarouselIncomingFriendRequestAnalytics() then
-	coreEvents[EventNames.AcceptFriendship] = {
+	[EventNames.AcceptFriendship] = {
 		context = Contexts.HomePage,
 		eventType = EventTypes.ButtonClick,
 		additionalInfo = {
@@ -99,7 +93,7 @@ if getFFlagPYMKCarouselIncomingFriendRequestAnalytics() then
 			recommendationRank = acceptAnyValue,
 			requestedId = acceptAnyValue,
 		},
-	}
-end
+	},
+}
 
 return coreEvents

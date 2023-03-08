@@ -2,8 +2,8 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
-local Players = game:GetService("Players")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local IXPService = game:GetService("IXPService")
 
 local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
 local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
@@ -33,6 +33,9 @@ local GetGameName = require(script.Thunks.GetGameName)
 local registerSetCores = require(script.registerSetCores)
 
 local GlobalConfig = require(script.GlobalConfig)
+
+local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
+local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
 
 local TopBar: any = {}
 TopBar.__index = TopBar
@@ -87,9 +90,14 @@ function TopBar.new()
 			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
 				style = appStyle,
 			}, {
-				TopBarApp = Roact.createElement(TopBarApp),
-			})
-		})
+				RoactAppExperimentProvider = GetFFlagEnableTeleportBackButton() and Roact.createElement(RoactAppExperiment.Provider, {
+					value = IXPService,
+				}, {
+					TopBarApp = Roact.createElement(TopBarApp),
+				}) or nil,
+				TopBarApp = (not GetFFlagEnableTeleportBackButton()) and Roact.createElement(TopBarApp) or nil,
+			}),
+		}),
 	})
 
 	self.element = Roact.mount(self.root, CoreGui, "TopBar")

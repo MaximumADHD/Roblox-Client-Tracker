@@ -38,14 +38,14 @@ local function createMockVirtualEvent(
 ): GraphQLServer.VirtualEvent
 	local virtualEvent = VirtualEventModel.mock("1") :: any
 
-	local now = DateTime.now():ToLocalTime()
+	local now = DateTime.now()
 	local upcoming = {
-		DateTime.fromLocalTime(now.Year, now.Month, now.Day + 1, 12, 0, 0, 0),
-		DateTime.fromLocalTime(now.Year, now.Month, now.Day + 2, 12, 0, 0, 0),
+		DateTime.fromUnixTimestamp(now.UnixTimestamp + 24 * 60 * 60),
+		DateTime.fromUnixTimestamp(now.UnixTimestamp + 48 * 60 * 60),
 	}
 	local ongoing = {
-		DateTime.fromLocalTime(now.Year, now.Month, now.Day, 0, 0, 0, 0),
-		DateTime.fromLocalTime(now.Year, now.Month, now.Day + 1, 12, 0, 0, 0),
+		now,
+		DateTime.fromUnixTimestamp(now.UnixTimestamp + 24 * 60 * 60),
 	}
 
 	if eventStatus == "Upcoming" then

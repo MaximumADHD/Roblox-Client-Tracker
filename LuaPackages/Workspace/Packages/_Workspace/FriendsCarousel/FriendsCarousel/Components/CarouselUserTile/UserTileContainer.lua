@@ -14,7 +14,6 @@ local compose = dependencies.SocialLibraries.RoduxTools.compose
 local LocalTypes = require(FriendsCarousel.Common.LocalTypes)
 
 local FriendshipOriginSourceType = dependencies.NetworkingFriendsEnums.FriendshipOriginSourceType
-local getFFlagFixFriendshipOriginSourceType = dependencies.getFFlagFixFriendshipOriginSourceType
 local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
 
 local UserTileContainer = Roact.PureComponent:extend("UserTileContainer")
@@ -40,9 +39,7 @@ function UserTileContainer:init()
 			.sendFriendRequest({
 				currentUserId = props.localUserId,
 				targetUserId = userId,
-				friendshipOriginSourceType = if getFFlagFixFriendshipOriginSourceType()
-					then FriendshipOriginSourceType.FriendRecommendations.rawValue()
-					else FriendshipOriginSourceType.FriendRecommendations,
+				friendshipOriginSourceType = FriendshipOriginSourceType.FriendRecommendations.rawValue(),
 			})
 			:andThen(function()
 				props.showToast(TextKeys.FriendRequestSentToast)

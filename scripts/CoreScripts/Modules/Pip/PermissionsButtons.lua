@@ -6,8 +6,6 @@ local CorePackages = game:GetService("CorePackages")
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local StarterGui = game:GetService("StarterGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local Players = game:GetService("Players")
-local ScreenGui = Players.LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("ScreenGui")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local toggleModeEvent = ReplicatedStorage:WaitForChild("ToggleModeEvent")
 local roomTeleportRequestedEvent = ReplicatedStorage:WaitForChild("RoomTeleportRequestedEvent")
@@ -17,6 +15,10 @@ local roomTeleportEvent = ReplicatedStorage:WaitForChild("RoomTeleportEvent")
 local Roact = require(CorePackages.Roact)
 local UIBlox = require(CorePackages.UIBlox)
 local t = require(CorePackages.Packages.t)
+local GetFFlagIrisV2Enabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisV2Enabled
+local toggleEnvironmentsMenuEvent = if GetFFlagIrisV2Enabled()
+	then ReplicatedStorage:WaitForChild("ToggleEnvironmentsMenuEvent")
+	else nil
 
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 
@@ -148,6 +150,10 @@ function PermissionsButtons:init()
 		roomTeleportRequestedEvent:FireServer(newState)
 	end
 
+	self.openEnvironmentsMenu = function()
+		toggleEnvironmentsMenuEvent:Fire()
+	end
+
 	self.muteChangedEvent = function(muted)
 		-- Video is tied to audio being enabled.
 		if muted and FaceAnimatorService.VideoAnimationEnabled then
@@ -251,7 +257,7 @@ function PermissionsButtons:render()
 			FreePlayButton = Roact.createElement(PermissionButton, {
 				LayoutOrder = 3,
 				image = PLAY_IMAGE,
-				callback = self.cycleRoom,
+				callback = if GetFFlagIrisV2Enabled() then self.openEnvironmentsMenu else self.cycleRoom,
 			}),
 			CamModeButton = Roact.createElement(PermissionButton, {
 				LayoutOrder = 4,

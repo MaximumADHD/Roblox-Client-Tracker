@@ -20,8 +20,6 @@ local RECOMMENDATION_SESSION_ID_KEY = require(PYMKCarousel.Common.Constants).REC
 
 local PYMKCarouselUserTile = require(PYMKCarousel.Components.PYMKCarouselUserTile)
 local getPYMKSortedRecommendationIds = require(PYMKCarousel.installReducer.Selectors.getPYMKSortedRecommendationIds)
-local getFFlagPYMKCarouselIncomingFriendRequestAnalytics =
-	require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequestAnalytics)
 local getFFlagPYMKDontUseIngestService = dependencies.getFFlagPYMKDontUseIngestService
 
 local TILE_HEIGHT: number = 100
@@ -49,7 +47,6 @@ local refreshCountGlobal = 0
 
 local PYMKCarouselComponent = function(props: Props)
 	local forceUpdateRecs, setForceUpdateRecs = React.useState({})
-	local refreshCount, setRefreshCount = React.useState(0) -- remove when removing getFFlagPYMKCarouselIncomingFriendRequestAnalytics
 
 	local localUserId = useSelector(function(state)
 		return tostring(state.LocalUserId)
@@ -91,15 +88,9 @@ local PYMKCarouselComponent = function(props: Props)
 	React.useEffect(function()
 		fireAnalyticsEvent(EventNames.CarouselLoadedWithUsers, {
 			recommendationCount = recommendationCount,
-			refreshCount = if getFFlagPYMKCarouselIncomingFriendRequestAnalytics()
-				then refreshCountGlobal
-				else refreshCount,
+			refreshCount = refreshCountGlobal,
 		})
-		if getFFlagPYMKCarouselIncomingFriendRequestAnalytics() then
-			refreshCountGlobal = refreshCountGlobal + 1
-		else
-			setRefreshCount(refreshCount + 1)
-		end
+		refreshCountGlobal = refreshCountGlobal + 1
 	end, { props.omniSessionId })
 
 	local viewabilityConfigCallbackPairs = useUserSeenEvent(fireAnalyticsEvent)

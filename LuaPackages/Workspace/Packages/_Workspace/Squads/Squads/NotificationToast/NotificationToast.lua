@@ -224,7 +224,8 @@ local NotifcationToast = function(passedProps: Props)
 			}),
 		}),
 
-		Content = if (props.users and #props.users > 0) or (props.totalElapsedTime and props.totalElapsedTime > 0)
+		Content = if (props.users and #props.users > 0)
+				or (props.totalElapsedTime and props.totalElapsedTime > 0)
 			then Roact.createElement(FitFrameVertical, {
 				FillDirection = Enum.FillDirection.Vertical,
 				LayoutOrder = 1,

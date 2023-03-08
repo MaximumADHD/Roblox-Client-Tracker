@@ -49,6 +49,7 @@ local IsExperienceMenuABTestEnabled = require(CoreGuiModules.InGameMenuV3.IsExpe
 local ExperienceMenuABTestManager = require(CoreGuiModules.InGameMenuV3.ExperienceMenuABTestManager)
 local GetFFlagEnableNewInviteMenuIXP = require(CoreGuiModules.Flags.GetFFlagEnableNewInviteMenuIXP)
 local NewInviteMenuExperimentManager = require(CoreGuiModules.Settings.Pages.ShareGame.NewInviteMenuExperimentManager)
+local GetFFlagEnableSoundTelemetry = require(CoreGuiModules.Flags.GetFFlagEnableSoundTelemetry)
 
 local GetCoreScriptsLayers = require(CoreGuiModules.Experiment.GetCoreScriptsLayers)
 
@@ -294,6 +295,10 @@ end
 
 if game:GetEngineFeature("EnableVoiceAttention") then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/VoiceAttention", script.Parent)
+end
+
+if GetFFlagEnableSoundTelemetry() then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/SoundTelemetry", script.Parent)
 end
 
 if GetFFlagContactListEnabled() then

@@ -17,6 +17,8 @@ local EventRow = require(script.Parent.EventRow)
 
 type VirtualEvent = GraphQLServer.VirtualEvent
 
+local SEPERATOR = utf8.char(0x2022) -- Bullet •
+
 local act = ReactTestingLibrary.act
 local render = ReactTestingLibrary.render
 local waitFor = ReactTestingLibrary.waitFor
@@ -24,14 +26,14 @@ local waitFor = ReactTestingLibrary.waitFor
 local function createMockVirtualEvent(eventStatus: types.EventTimerStatus): GraphQLServer.VirtualEvent
 	local virtualEvent = VirtualEventModel.mock("1") :: any
 
-	local now = DateTime.now():ToLocalTime()
+	local now = DateTime.now()
 	local upcoming = {
-		DateTime.fromLocalTime(now.Year, now.Month, now.Day + 1, 12, 0, 0, 0),
-		DateTime.fromLocalTime(now.Year, now.Month, now.Day + 2, 12, 0, 0, 0),
+		DateTime.fromUnixTimestamp(now.UnixTimestamp + 24 * 60 * 60),
+		DateTime.fromUnixTimestamp(now.UnixTimestamp + 48 * 60 * 60),
 	}
 	local ongoing = {
-		DateTime.fromLocalTime(now.Year, now.Month, now.Day, 0, 0, 0, 0),
-		DateTime.fromLocalTime(now.Year, now.Month, now.Day + 1, 12, 0, 0, 0),
+		now,
+		DateTime.fromUnixTimestamp(now.UnixTimestamp + 24 * 60 * 60),
 	}
 
 	if eventStatus == "Upcoming" then
@@ -85,6 +87,22 @@ it("should trigger onTileActivated when clicking anywhere except the call-to-act
 	end)
 
 	expect(mockOnTileActivated).toHaveBeenCalledTimes(1)
+end)
+
+it("should not render the separator when no stats are displayed", function()
+	local virtualEvent = createMockVirtualEvent("Upcoming") :: any
+	virtualEvent.experienceDetails.playing = 0
+	virtualEvent.rsvpCounters.going = 0
+
+	local element = withMockProviders({
+		EventRow = React.createElement(EventRow, {
+			virtualEvent = virtualEvent,
+		}),
+	})
+
+	local result = render(element)
+
+	expect(result.queryByText(SEPERATOR)).toBeNil()
 end)
 
 describe("upcoming event", function()

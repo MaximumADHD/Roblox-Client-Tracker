@@ -9,6 +9,7 @@ export type Event = Package.Event
 export type Host = Package.Host
 export type VirtualEvent = Package.VirtualEvent
 export type RsvpStatus = Package.RsvpStatus
+export type EventNotificationsModalProps = Package.EventNotificationsModalProps
 
 
 return Package

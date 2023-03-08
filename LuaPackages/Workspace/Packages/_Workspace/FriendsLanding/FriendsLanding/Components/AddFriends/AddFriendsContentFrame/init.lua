@@ -7,14 +7,12 @@ local UIBlox = dependencies.UIBlox
 local GridMetrics = UIBlox.App.Grid.GridMetrics
 local Images = UIBlox.App.ImageSet.Images
 local withStyle = UIBlox.Style.withStyle
-local validateImage = UIBlox.Core.ImageSet.Validator.validateImage
 local AddFriendsSectionHeaderFrame = require(script.Parent.AddFriendsSectionHeaderFrame)
 local AddFriendsGridView = require(script.Parent.AddFriendsGridView)
 local AddFriendsEmptyState = require(script.Parent.AddFriendsEmptyState)
 local IgnoreAllFriendsRequestsMenu = require(script.Parent.IgnoreAllFriendsRequestsMenu)
 
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
-local getFFlagAddFriendsStatefulMoreButton = require(FriendsLanding.Flags.getFFlagAddFriendsStatefulMoreButton)
 
 local PLAYER_TILE_MARGIN = 12
 -- Number of rows to show by default or per show-more click
@@ -34,7 +32,6 @@ local AddFriendsContentFrame = Roact.PureComponent:extend("AddFriendsContentFram
 AddFriendsContentFrame.validateProps = t.interface({
 	headerFrame = t.optional(t.strictInterface({
 		title = t.string,
-		icon = if getFFlagAddFriendsStatefulMoreButton() then nil else validateImage,
 		iconVisible = t.boolean,
 	})),
 	renderAddFriendsTile = t.callback,
@@ -89,9 +86,7 @@ function AddFriendsContentFrame:render()
 		else self.props.headerFrame
 
 	return withStyle(function(style)
-		local statefulHeaderFrameIcon = if getFFlagAddFriendsStatefulMoreButton()
-			then if self.state.isIgnoreAllMenuOpen then MENU_OPEN_ICON else MENU_CLOSED_ICON
-			else nil
+		local statefulHeaderFrameIcon = if self.state.isIgnoreAllMenuOpen then MENU_OPEN_ICON else MENU_CLOSED_ICON
 		return Roact.createElement("Frame", {
 			Size = UDim2.fromScale(1, 0),
 			AutomaticSize = Enum.AutomaticSize.Y,
@@ -115,9 +110,7 @@ function AddFriendsContentFrame:render()
 				HeaderFrame = shouldRenderHeaderFrame and Roact.createElement(AddFriendsSectionHeaderFrame, {
 					layoutOrder = 1,
 					title = self.props.headerFrame.title,
-					icon = if getFFlagAddFriendsStatefulMoreButton()
-						then statefulHeaderFrameIcon
-						else self.props.headerFrame.icon,
+					icon = statefulHeaderFrameIcon,
 					iconVisible = self.props.headerFrame.iconVisible,
 					onIconActivated = self.onHeaderIconClicked,
 				}) or nil,

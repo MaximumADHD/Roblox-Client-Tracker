@@ -16,6 +16,7 @@ local llama = dependencies.llama
 
 local getFFlagAddFriendsFixSocialTabSearchbar = require(FriendsLanding.Flags.getFFlagAddFriendsFixSocialTabSearchbar)
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
+local getFFlagFixValidatePropErrors = require(FriendsLanding.Flags.getFFlagFixValidatePropErrors)
 
 local MainStackNavigator = RoactNavigation.createRobloxStackNavigator({
 	{
@@ -72,8 +73,9 @@ local MainStackNavigator = RoactNavigation.createRobloxStackNavigator({
 						else function()
 							return Roact.createElement(HeaderBarRightView, navProps)
 						end,
-					useSecondaryHeader = if getFFlagAddFriendsSearchbarIXPEnabled()
-						then function()
+					useSecondaryHeader = if getFFlagFixValidatePropErrors()
+						then true
+						elseif getFFlagAddFriendsSearchbarIXPEnabled() then function()
 							return FriendsLandingContext.with(function(context)
 								if context.addFriendsPageSearchbarEnabled then
 									return true
@@ -123,8 +125,9 @@ local MainStackNavigator = RoactNavigation.createRobloxStackNavigator({
 					renderRight = function()
 						return Roact.createElement(HeaderBarRightView, navProps)
 					end,
-					useSecondaryHeader = if getFFlagAddFriendsSearchbarIXPEnabled()
-						then function()
+					useSecondaryHeader = if getFFlagFixValidatePropErrors()
+						then true
+						elseif getFFlagAddFriendsSearchbarIXPEnabled() then function()
 							return FriendsLandingContext.with(function(context)
 								if context.addFriendsPageSearchbarEnabled then
 									return true

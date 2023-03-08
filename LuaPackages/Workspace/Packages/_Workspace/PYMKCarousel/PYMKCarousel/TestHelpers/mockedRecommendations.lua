@@ -8,8 +8,6 @@ local User = RoduxUsers.Models.User
 local Constants = require(PYMKCarousel.Common.Constants)
 local RECOMMENDATION_SESSION_ID_KEY = require(PYMKCarousel.Common.Constants).RECOMMENDATION_SESSION_ID_KEY
 
-local getFFlagPYMKCarouselIncomingFriendRequest = require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequest)
-
 local recommendationIds = {
 	longName = "1_longName",
 	noContext = "2_noContext",
@@ -18,6 +16,7 @@ local recommendationIds = {
 	mutualContextNone = "5_mutualContextNone",
 	frequentContext = "6_frequentContext",
 	pendingFriendRequest = "7_pendingFriendRequest",
+	incomingFriendRequest = "8_incomingFriendRequest",
 }
 
 local state = {
@@ -35,6 +34,7 @@ local state = {
 				[recommendationIds.mutualContextNone] = User.mock(),
 				[recommendationIds.frequentContext] = User.mock(),
 				[recommendationIds.pendingFriendRequest] = User.mock(),
+				[recommendationIds.incomingFriendRequest] = User.mock(),
 			},
 		},
 		Friends = {
@@ -48,6 +48,7 @@ local state = {
 						[recommendationIds.mutualContextNone] = true,
 						[recommendationIds.frequentContext] = true,
 						[recommendationIds.pendingFriendRequest] = true,
+						[recommendationIds.incomingFriendRequest] = true,
 					},
 				},
 				byUserId = {
@@ -89,8 +90,13 @@ local state = {
 							id = recommendationIds.pendingFriendRequest,
 							rank = 70,
 						}),
+						[recommendationIds.incomingFriendRequest] = Recommendation.mock({
+							id = recommendationIds.incomingFriendRequest,
+							rank = 71,
+						}),
 					},
 				},
+				hasIncomingFriendRequest = { [recommendationIds.incomingFriendRequest] = true },
 			},
 			friendshipStatus = {
 				[recommendationIds.pendingFriendRequest] = Enum.FriendStatus.FriendRequestSent,
@@ -101,20 +107,6 @@ local state = {
 		},
 	},
 }
-
-if getFFlagPYMKCarouselIncomingFriendRequest() then
-	recommendationIds.incomingFriendRequest = "8_incomingFriendRequest"
-	state.PYMKCarousel.Users.byUserId[recommendationIds.incomingFriendRequest] = User.mock()
-	state.PYMKCarousel.Friends.recommendations.bySource[Constants.RECS_SOURCE][recommendationIds.incomingFriendRequest] =
-		true
-	state.PYMKCarousel.Friends.recommendations.byUserId["123456"][recommendationIds.incomingFriendRequest] =
-		Recommendation.mock({
-			id = recommendationIds.incomingFriendRequest,
-			rank = 71,
-		})
-	state.PYMKCarousel.Friends.recommendations.hasIncomingFriendRequest =
-		{ [recommendationIds.incomingFriendRequest] = true }
-end
 
 return {
 	recommendationIds = recommendationIds,

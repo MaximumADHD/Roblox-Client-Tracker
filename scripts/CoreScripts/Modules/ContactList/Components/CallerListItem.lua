@@ -11,12 +11,16 @@ local dependencies = require(ContactList.dependencies)
 local SocialLibraries = dependencies.SocialLibraries
 local UIBlox = dependencies.UIBlox
 
+local useDispatch = dependencies.Hooks.useDispatch
+
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local Interactable = UIBlox.Core.Control.Interactable
 local useStyle = UIBlox.Core.Style.useStyle
 
 local CallState = require(script.Parent.Parent.Enums.CallState)
+local CloseContactList = require(script.Parent.Parent.Actions.CloseContactList)
+local InitiateCall = require(script.Parent.Parent.Actions.InitiateCall)
 
 export type User = {
 	userId: number,
@@ -45,6 +49,7 @@ local function CallerListItem(props: Props)
 	local caller = props.caller
 	-- Will update this to support more participants in a follow up.
 	assert(#caller.participants == 1, "Expect a single participant in call.")
+	local participant = caller.participants[1]
 	local state = CallState.fromRawValue(caller.state)
 
 	local style = useStyle()
@@ -55,6 +60,12 @@ local function CallerListItem(props: Props)
 	local onStateChanged = React.useCallback(function(oldState, newState)
 		setControlState(newState)
 	end)
+
+	local dispatch = useDispatch()
+	local onActivated = React.useCallback(function()
+		dispatch(InitiateCall(1, participant.userId, participant.username))
+		dispatch(CloseContactList())
+	end, {})
 
 	local interactableTheme
 	if controlState == ControlState.Pressed then
@@ -72,6 +83,7 @@ local function CallerListItem(props: Props)
 		BackgroundTransparency = theme[interactableTheme].Transparency,
 		BorderSizePixel = 0,
 		onStateChanged = onStateChanged,
+		[React.Event.Activated] = onActivated,
 	}, {
 		UIPadding = React.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, 24),
@@ -81,7 +93,7 @@ local function CallerListItem(props: Props)
 		ProfileImage = React.createElement(ImageSetLabel, {
 			Position = UDim2.fromOffset(0, 2),
 			Size = UDim2.fromOffset(36, 36),
-			Image = SocialLibraries.User.getUserAvatarImage(caller.participants[1].userId),
+			Image = SocialLibraries.User.getUserAvatarImage(participant.userId),
 		}, {
 			UICorner = React.createElement("UICorner", {
 				CornerRadius = UDim.new(1, 0),
@@ -108,7 +120,7 @@ local function CallerListItem(props: Props)
 				Font = font.Body.Font,
 				LayoutOrder = 1,
 				LineHeight = 1.25,
-				Text = caller.participants[1].username,
+				Text = participant.username,
 				TextColor3 = theme.TextDefault.Color,
 				TextSize = font.BaseSize * font.Body.RelativeSize,
 				TextTransparency = theme.TextDefault.Transparency,

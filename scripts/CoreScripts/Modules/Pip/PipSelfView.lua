@@ -428,7 +428,7 @@ local onUpdateTrackerMode = function()
 		end
 
 		if newReportedCamState ~= lastReportedCamState then
-			Analytics:reportCamState(newReportedCamState)
+			Analytics:setLastCtx("SelfView")
 			lastReportedCamState = newReportedCamState
 		end
 	end
@@ -978,7 +978,7 @@ function startRenderStepped(player)
 			if cachedAudioEnabled ~= audioEnabled then
 				local newReportedMicState = audioEnabled
 				if lastReportedMicState ~= newReportedMicState then
-					Analytics:reportMicState(newReportedMicState)
+					Analytics:setLastCtx("SelfView")
 					lastReportedMicState = newReportedMicState
 				end
 

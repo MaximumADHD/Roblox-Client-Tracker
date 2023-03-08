@@ -1,7 +1,3 @@
-local FriendsCarousel = script.Parent.Parent
-local getFFlagFriendsCarouselIncomingFriendRequest =
-	require(FriendsCarousel.Flags.getFFlagFriendsCarouselIncomingFriendRequest)
-
 local TextKeys = {
 	UpdatedFindFriendsText = "Feature.Chat.Label.AddFriends",
 	FindFriendsText = "Feature.Friends.Action.FindFriends",
@@ -17,10 +13,7 @@ local TextKeys = {
 	FindFriendsBody = "Feature.Friends.Label.FindFriendsHintBody",
 	NewText = "Feature.Catalog.Label.New",
 	SuggestedContext = "Feature.Friends.Label.Suggested",
-	FriendRequestContext = if getFFlagFriendsCarouselIncomingFriendRequest()
-		then "Feature.Friends.Label.FriendRequest"
-		else "",
-
+	FriendRequestContext = "Feature.Friends.Label.FriendRequest",
 	FindFriendsTitleV2 = "Feature.AddFriends.Title.AddFriendsTooltipTitle",
 	FindFriendsBodyV2 = "Feature.AddFriends.Label.AddFriendsTooltip",
 }

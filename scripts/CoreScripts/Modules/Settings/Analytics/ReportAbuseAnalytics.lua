@@ -162,6 +162,23 @@ function ReportAbuseAnalytics:startAbuseReportSession(entryPoint)
 		"True"
 	)
 end
+
+function ReportAbuseAnalytics:getAbuseReportSessionEntryPoint()
+	if not GetFFlagIGMv1ARFlowSessionEnabled() then
+		return ""
+	end
+
+	local sessionExists = SessionService:SessionExists(ReportAbuseAnalytics.SessionConstants.StructuralIdentifier.AbuseReport)
+	if sessionExists then
+		local storedEntryPoint = SessionService:GetMetadata(
+			ReportAbuseAnalytics.SessionConstants.StructuralIdentifier.AbuseReport,
+			ReportAbuseAnalytics.SessionConstants.Metadata.EntryPoint
+		)
+		return storedEntryPoint
+	end
+
+	return ""
+end
 	
 function ReportAbuseAnalytics:endAbuseReportSession()
 	if not GetFFlagIGMv1ARFlowSessionEnabled() then

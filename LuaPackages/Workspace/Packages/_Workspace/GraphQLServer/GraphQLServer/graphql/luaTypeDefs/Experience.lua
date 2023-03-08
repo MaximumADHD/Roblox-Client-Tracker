@@ -59,6 +59,10 @@ local ExperienceTypeDef = [[
         totalDownVotes: Int
         playerCount: Int
         description: String
+        under9: Boolean
+        under13: Boolean
+        adId: String
+        isSponsored: Boolean
         # On mobile, this may just be one thumbnail, on desktop this can be
         # multiple thumbnails revealed on hover.
         thumbnails: [Media]

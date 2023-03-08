@@ -7,6 +7,8 @@ local Package = require(PackageIndex["GraphQLServer"]["GraphQLServer"])
 
 export type OmniFeed = Package.OmniFeed
 export type OmniFeedMetadata = Package.OmniFeedMetadata
+export type OmniFeedRecommendation = Package.OmniFeedRecommendation
+export type OmniFeedItem = Package.OmniFeedItem
 export type VirtualEvent = Package.VirtualEvent
 export type RsvpStatus = Package.RsvpStatus
 export type VirtualEventsPage = Package.VirtualEventsPage

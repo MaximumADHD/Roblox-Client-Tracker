@@ -142,7 +142,7 @@ function getVisibleParts(camera: Camera, player: Player, ignorableParts: { Model
 			-- Ignore this for now.
 			attemptedCasts += 1
 			local result: RaycastResult = workspace:Raycast(cameraPos, direction, raycastParams)
-			if result.Instance:IsDescendantOf(character) then
+			if result and result.Instance:IsDescendantOf(character) then
 				table.insert(hitPoints, {
 					result = result,
 					target = child,
@@ -228,7 +228,7 @@ function getConvexHull(points: { Vector2 }): { Vector2 }
 	return stack
 end
 
-type VisiblePlayer = {
+export type VisiblePlayer = {
 	player: Player,
 	distance: number,
 	boundingBox: {
@@ -239,11 +239,11 @@ type VisiblePlayer = {
 	convexHull: { Vector2 },
 }
 
-type Results = {
+export type Results = {
 	[number]: VisiblePlayer,
 }
 
-type AvatarIDStats = {
+export type AvatarIDStats = {
 	-- number of players besides the local player
 	totalPlayers: number,
 	-- number of players we had time to consider for avatar ID

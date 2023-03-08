@@ -6,45 +6,23 @@ local Cryo = require(VirtualEvents.Parent.Cryo)
 local React = require(VirtualEvents.Parent.React)
 local UIBlox = require(VirtualEvents.Parent.UIBlox)
 local useLocalization = require(VirtualEvents.Parent.RoactUtils).Hooks.useLocalization
+local RoactAppExperiment = require(VirtualEvents.Parent.RoactAppExperiment)
 local PaginatedVerticalList = require(script.Parent.PaginatedVerticalList)
 local sortEventsByStartDate = require(VirtualEvents.Common.sortEventsByStartDate)
 local types = require(VirtualEvents.types)
+local requests = require(VirtualEvents.requests)
 local EventRow = require(script.Parent.EventRow)
+local getFStringEventsOnExperienceDetailsPageLayer =
+	require(VirtualEvents.Parent.SharedFlags).getFStringEventsOnExperienceDetailsPageLayer
 
 type VirtualEvent = GraphQLServer.VirtualEvent
 
-local gql = ApolloClient.gql
 local useQuery = ApolloClient.useQuery
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 local useStyle = UIBlox.Core.Style.useStyle
+local useUserExperiment = RoactAppExperiment.useUserExperiment
 
 local PADDING = UDim.new(0, 12)
-
-local GET_EVENTS_FOR_EXPERIENCE = gql([[
-	query VirtualEventsForExperience($universeId: ID!, $options: VirtualEventsByUniverseIdOptions) {
-		virtualEventsByUniverseId(universeId: $universeId, options: $options) {
-			cursor
-			virtualEvents {
-				id
-				title
-				universeId
-				description
-				eventStatus
-				eventTime {
-					startUtc
-					endUtc
-				}
-				userRsvpStatus
-				rsvpCounters {
-					going
-				}
-				experienceDetails {
-					playing
-				}
-			}
-		}
-	}
-]])
 
 local defaultProps = {
 	initialEventsShown = 1,
@@ -57,16 +35,22 @@ local defaultProps = {
 	-- hour, return to the experience details page, and a now ongoing event
 	-- could show the Notify Me state
 	pollInterval = 5 * 60 * 1000,
+	isDesktopGrid = false,
 }
 
 export type Props = {
 	universeId: number,
+	currentTime: DateTime,
+	layoutOrder: number?,
 	initialEventsShown: number?,
 	extraEventsShownOnLoad: number?,
 	pollInterval: number?,
 	onRsvpChanged: ((virtualEvent: VirtualEvent, newRsvpStatus: types.RsvpStatus) -> ())?,
 	onJoinEvent: ((virtualEvent: VirtualEvent) -> ())?,
 	onTileActivated: ((virtualEvent: VirtualEvent) -> ())?,
+	onEventImpression: ((virtualEvent: VirtualEvent) -> ())?,
+	mockVirtualEventsMVPEnabled: boolean?,
+	isDesktopGrid: boolean?,
 }
 
 type InternalProps = Props & typeof(defaultProps)
@@ -74,12 +58,26 @@ type InternalProps = Props & typeof(defaultProps)
 local function EventsList(providedProps: Props)
 	local props: InternalProps = Cryo.Dictionary.join(defaultProps, providedProps)
 
-	local result = useQuery(GET_EVENTS_FOR_EXPERIENCE, {
+	local result = useQuery(requests.GET_EVENTS_FOR_EXPERIENCE, {
 		variables = {
 			universeId = props.universeId,
+			options = {
+				fromUtc = props.currentTime:ToIsoDate(),
+			},
 		},
 		pollInterval = props.pollInterval,
 	})
+
+	local virtualEventsMVPEnabled = useUserExperiment({
+		getFStringEventsOnExperienceDetailsPageLayer(),
+	}, function(layerVariables)
+		local layer = layerVariables[getFStringEventsOnExperienceDetailsPageLayer()]
+		return if layer then layer.virtualEventsMVPEnabled else nil
+	end)
+
+	if props.mockVirtualEventsMVPEnabled ~= nil then
+		virtualEventsMVPEnabled = props.mockVirtualEventsMVPEnabled
+	end
 
 	local style = useStyle()
 	local text = useLocalization({
@@ -90,7 +88,7 @@ local function EventsList(providedProps: Props)
 		if props.onRsvpChanged then
 			props.onRsvpChanged(virtualEvent, newRsvpStatus)
 		end
-	end, {})
+	end, { props.onRsvpChanged })
 
 	local onJoinEvent = React.useCallback(function(virtualEvent: VirtualEvent)
 		if props.onJoinEvent then
@@ -104,7 +102,13 @@ local function EventsList(providedProps: Props)
 		end
 	end, {})
 
-	if result.data then
+	local onImpression = React.useCallback(function(virtualEvent: VirtualEvent)
+		if props.onEventImpression then
+			props.onEventImpression(virtualEvent)
+		end
+	end, { props.onEventImpression })
+
+	if result.data and virtualEventsMVPEnabled then
 		local virtualEvents = result.data.virtualEventsByUniverseId.virtualEvents
 		local sortedVirtualEvents = sortEventsByStartDate(virtualEvents)
 
@@ -121,12 +125,16 @@ local function EventsList(providedProps: Props)
 				onTileActivated = function()
 					onTileActivated(virtualEvent)
 				end,
+				onImpression = function()
+					onImpression(virtualEvent)
+				end,
 			})
 
 			table.insert(items, element)
 		end
 
 		return React.createElement("Frame", {
+			LayoutOrder = props.layoutOrder,
 			Size = UDim2.fromScale(1, 0),
 			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
@@ -148,6 +156,7 @@ local function EventsList(providedProps: Props)
 				initialItemsShown = props.initialEventsShown,
 				extraItemsShownOnLoad = props.extraEventsShownOnLoad,
 				items = items,
+				isDesktopGrid = props.isDesktopGrid,
 			}),
 		})
 	else

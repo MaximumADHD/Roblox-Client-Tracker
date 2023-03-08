@@ -9,8 +9,6 @@ local LocalTypes = require(FriendsCarousel.Common.LocalTypes)
 local Constants = require(FriendsCarousel.Common.Constants)
 
 local getFFlagFriendsCarouselFilterOutRecs = require(FriendsCarousel.Flags.getFFlagFriendsCarouselFilterOutRecs)
-local getFFlagFriendsCarouselIncomingFriendRequest =
-	require(FriendsCarousel.Flags.getFFlagFriendsCarouselIncomingFriendRequest)
 
 local sortRecommendationByRank = function(user1: LocalTypes.Recommendation, user2: LocalTypes.Recommendation)
 	return user1.rank < user2.rank
@@ -40,12 +38,8 @@ local getRecommendationsList = function(state, keyPath: string, props: any?): Lo
 	local mapRecommendationToUserAndContext = function(id)
 		local recommendation = recommendationsDict[id]
 		local userFriendshipStatus = friendshipStatus[id]
-		local hasIncomingFriendRequest = if getFFlagFriendsCarouselIncomingFriendRequest()
-			then getDeepValue(
-				state,
-				string.format("%s.Friends.recommendations.hasIncomingFriendRequest.%s", keyPath, id)
-			)
-			else nil
+		local hasIncomingFriendRequest =
+			getDeepValue(state, string.format("%s.Friends.recommendations.hasIncomingFriendRequest.%s", keyPath, id))
 		return llama.Dictionary.join(mapIdToUser(state, keyPath, props)(id), recommendation, {
 			isFriendWithUser = if userFriendshipStatus then userFriendshipStatus == Enum.FriendStatus.Friend else false,
 			hasPendingFriendRequest = if userFriendshipStatus
@@ -54,9 +48,7 @@ local getRecommendationsList = function(state, keyPath: string, props: any?): Lo
 			canSendFriendRequest = if userFriendshipStatus
 				then userFriendshipStatus == Enum.FriendStatus.NotFriend
 				else true,
-			hasIncomingFriendRequest = if getFFlagFriendsCarouselIncomingFriendRequest()
-				then hasIncomingFriendRequest
-				else nil,
+			hasIncomingFriendRequest = hasIncomingFriendRequest,
 		})
 	end
 

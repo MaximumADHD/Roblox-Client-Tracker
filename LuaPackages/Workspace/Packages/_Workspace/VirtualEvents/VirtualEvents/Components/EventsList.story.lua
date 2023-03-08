@@ -22,10 +22,8 @@ local mockResolvers = {
 	Query = {
 		virtualEventsByUniverseId = function(_root, args)
 			local virtualEvents = {}
-
 			for i = 1, 5 do
 				local now = DateTime.now()
-
 				local event = VirtualEventModel.mock(tostring(i)) :: any
 				event.universeId = args.universeId
 				event.eventTime.startUtc = DateTime.fromUnixTimestamp(now.UnixTimestamp + ((i - 1) * 24 * 60 * 60))
@@ -34,6 +32,12 @@ local mockResolvers = {
 
 				table.insert(virtualEvents, event)
 			end
+
+			-- make sure at least one card has a multiline title and description
+			virtualEvents[1].title =
+				"A Very long title A Very long title A Very long title A Very long title A Very long title"
+			virtualEvents[1].description =
+				"A Very long description A Very long description A Very long description A Very long description A Very long description A Very long description"
 
 			return {
 				cursor = "cursor",
@@ -45,31 +49,29 @@ local mockResolvers = {
 
 local controls = {
 	universeId = 2183742951,
+	isDesktopGrid = false,
 }
 
 type Props = {
 	controls: typeof(controls),
 }
 
-local prev
-
 return {
 	controls = controls,
-	create = function()
-		prev = game:SetFastFlagForTesting("VirtualEventsGraphQL", true)
-	end,
-	destroy = function()
-		game:SetFastFlagForTesting("VirtualEventsGraphQL", prev)
-	end,
+
 	story = function(props: Props)
 		return withMockProviders({
 			Wrapper = React.createElement("Frame", {
-				Size = UDim2.fromOffset(339, 0),
+				Size = props.controls.isDesktopGrid and UDim2.fromOffset(700, 0) or UDim2.fromOffset(339, 0),
 				AutomaticSize = Enum.AutomaticSize.Y,
 				BackgroundTransparency = 1,
 			}, {
 				EventsList = React.createElement(EventsList, {
 					universeId = props.controls.universeId,
+					currentTime = DateTime.now(),
+					mockVirtualEventsMVPEnabled = true,
+					isDesktopGrid = props.controls.isDesktopGrid,
+					initialEventsShown = if props.controls.isDesktopGrid then 2 else 1,
 				}),
 			}),
 		}, {

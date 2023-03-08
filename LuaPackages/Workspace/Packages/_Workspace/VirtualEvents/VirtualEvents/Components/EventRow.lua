@@ -9,6 +9,7 @@ local dependencyArray = require(VirtualEvents.Parent.RoactUtils).Hooks.dependenc
 local formatDate = require(VirtualEvents.Common.formatDate)
 local getEventTimerStatus = require(VirtualEvents.Common.getEventTimerStatus)
 local getVirtualEventDates = require(VirtualEvents.Common.getVirtualEventDates)
+local useRefImpression = require(VirtualEvents.Hooks.useRefImpression)
 local EventRowCounter = require(script.Parent.EventRowCounter)
 local getFFlagVirtualEventsGraphQL = require(VirtualEvents.Parent.SharedFlags).getFFlagVirtualEventsGraphQL
 
@@ -41,6 +42,7 @@ export type Props = {
 	onRsvpChanged: ((newRsvpStatus: RsvpStatus) -> ())?,
 	onJoinEvent: (() -> ())?,
 	onTileActivated: (() -> ())?,
+	onImpression: (() -> ())?,
 
 	shouldTruncateText: boolean?,
 	maxDescriptionLines: number?,
@@ -50,6 +52,7 @@ type InternalProps = Props & typeof(defaultProps)
 
 local function EventRow(providedProps: Props)
 	local props: InternalProps = Cryo.Dictionary.join(defaultProps, providedProps)
+	local ref = React.createRef()
 
 	if not getFFlagVirtualEventsGraphQL() then
 		-- The GraphQL VirtualEvent object uses startUtc and endUtc only, so we
@@ -65,6 +68,13 @@ local function EventRow(providedProps: Props)
 
 	local eventTimerStatus = getEventTimerStatus(props.virtualEvent :: any, DateTime.now())
 	local style = useStyle()
+
+	-- This is needed for experimentation to know when an event has been seen
+	useRefImpression(ref, function()
+		if props.onImpression then
+			props.onImpression()
+		end
+	end)
 
 	local text = useLocalization({
 		notifyMe = "Feature.VirtualEvents.NotifyMe",
@@ -132,7 +142,9 @@ local function EventRow(providedProps: Props)
 
 	local experienceDetails = props.virtualEvent.experienceDetails
 	local rsvpCounters = props.virtualEvent.rsvpCounters
-
+	local goingCount = if rsvpCounters and rsvpCounters.going then rsvpCounters.going else 0
+	local playingCount = if experienceDetails and experienceDetails.playing then experienceDetails.playing else 0
+	local isEventOngoing = eventTimerStatus == "Ongoing" or eventTimerStatus == "ElapsedImminent"
 	return React.createElement("ImageButton", {
 		Size = UDim2.fromScale(1, 0),
 		AutoButtonColor = false,
@@ -140,6 +152,7 @@ local function EventRow(providedProps: Props)
 		BorderSizePixel = 0,
 		BackgroundColor3 = style.Theme.BackgroundUIDefault.Color,
 		BackgroundTransparency = style.Theme.BackgroundUIDefault.Transparency,
+		ref = ref,
 		[React.Event.Activated] = props.onTileActivated,
 	}, {
 		Layout = React.createElement("UIListLayout", {
@@ -206,26 +219,33 @@ local function EventRow(providedProps: Props)
 					colorStyle = style.Theme.TextDefault,
 				}),
 
-				Separator = React.createElement(StyledTextLabel, {
-					layoutOrder = 2,
-					text = SEPERATOR,
-					automaticSize = Enum.AutomaticSize.XY,
-					fontStyle = style.Font.CaptionBody,
-					colorStyle = style.Theme.TextDefault,
-				}),
+				-- We use a fragment here so when there are no stats being
+				-- displayed we also un-render the separator
+				Stats = if goingCount > 0 or playingCount > 0
+					then React.createElement(React.Fragment, {}, {
+						Separator = React.createElement(StyledTextLabel, {
+							layoutOrder = 2,
+							text = SEPERATOR,
+							automaticSize = Enum.AutomaticSize.XY,
+							fontStyle = style.Font.CaptionBody,
+							colorStyle = style.Theme.TextDefault,
+						}),
 
-				InterestedCount = rsvpCounters and React.createElement(EventRowCounter, {
-					layoutOrder = 3,
-					icon = STAR_ICON,
-					counter = if rsvpCounters.going then rsvpCounters.going else 0,
-				}),
+						InterestedCount = if goingCount and not isEventOngoing
+							then React.createElement(EventRowCounter, {
+								layoutOrder = 3,
+								icon = STAR_ICON,
+								counter = goingCount,
+							})
+							else nil,
 
-				PlayCount = if (eventTimerStatus == "Ongoing" or eventTimerStatus == "ElapsedImminent")
-						and (experienceDetails and experienceDetails.playing and experienceDetails.playing > 0)
-					then React.createElement(EventRowCounter, {
-						layoutOrder = 4,
-						icon = PLAYING_ICON,
-						counter = if experienceDetails.playing then experienceDetails.playing else 0,
+						PlayCount = if playingCount and isEventOngoing
+							then React.createElement(EventRowCounter, {
+								layoutOrder = 4,
+								icon = PLAYING_ICON,
+								counter = playingCount,
+							})
+							else nil,
 					})
 					else nil,
 			}),

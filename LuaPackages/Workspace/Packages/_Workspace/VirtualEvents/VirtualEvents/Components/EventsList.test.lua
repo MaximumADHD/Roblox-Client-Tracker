@@ -1,8 +1,13 @@
 local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 
+local IXPService = game:GetService("IXPService")
+
 local JestGlobals = require(VirtualEvents.Parent.Dev.JestGlobals)
 local expect = JestGlobals.expect
+local describe = JestGlobals.describe
 local it = JestGlobals.it
+local beforeAll = JestGlobals.beforeAll
+local afterAll = JestGlobals.afterAll
 local jest = JestGlobals.jest
 local ReactTestingLibrary = require(VirtualEvents.Parent.Dev.ReactTestingLibrary)
 local Rhodium = require(VirtualEvents.Parent.Dev.Rhodium)
@@ -11,8 +16,11 @@ local withMockProviders = require(VirtualEvents.withMockProviders)
 local network = require(VirtualEvents.network)
 local VirtualEventModel = network.NetworkingVirtualEvents.VirtualEventModel
 local EventsList = require(script.Parent.EventsList)
+local getFStringEventsOnExperienceDetailsPageLayer =
+	require(VirtualEvents.Parent.SharedFlags).getFStringEventsOnExperienceDetailsPageLayer
 
 local NUM_MOCK_EVENTS = 5
+local CURRENT_TIME = DateTime.now()
 
 local act = ReactTestingLibrary.act
 local render = ReactTestingLibrary.render
@@ -28,6 +36,17 @@ local mockResolvers = {
 		rsvpCounters = function()
 			return {
 				going = 2500,
+			}
+		end,
+	},
+	Mutation = {
+		virtualEventRsvp = function()
+			return {
+				shouldSeeNotificationsUpsellModal = false,
+				virtualEvent = {
+					id = "1",
+					userRsvpStatus = "going",
+				},
 			}
 		end,
 	},
@@ -54,10 +73,24 @@ local mockResolvers = {
 	},
 }
 
+beforeAll(function()
+	IXPService:RegisterUserLayers({
+		getFStringEventsOnExperienceDetailsPageLayer(),
+	})
+
+	IXPService:InitializeUserLayers(123)
+end)
+
+afterAll(function()
+	IXPService:ClearUserLayers()
+end)
+
 it("should show 1 event when rendered", function()
 	local element = withMockProviders({
 		EventsList = React.createElement(EventsList, {
 			universeId = -1,
+			currentTime = CURRENT_TIME,
+			mockVirtualEventsMVPEnabled = true,
 		}),
 	}, {
 		mockResolvers = mockResolvers,
@@ -77,6 +110,8 @@ it("should show 3 more events when clicking See More", function()
 	local element = withMockProviders({
 		EventsList = React.createElement(EventsList, {
 			universeId = -1,
+			currentTime = CURRENT_TIME,
+			mockVirtualEventsMVPEnabled = true,
 		}),
 	}, {
 		mockResolvers = mockResolvers,
@@ -99,7 +134,9 @@ it("should sort events by time", function()
 	local element = withMockProviders({
 		EventsList = React.createElement(EventsList, {
 			universeId = -1,
+			currentTime = CURRENT_TIME,
 			initialEventsShown = NUM_MOCK_EVENTS,
+			mockVirtualEventsMVPEnabled = true,
 		}),
 	}, {
 		mockResolvers = {
@@ -133,9 +170,13 @@ it("should sort events by time", function()
 
 	local result = render(element)
 
-	local _, event1 = result.findByText("Event 1"):await()
-	local _, event2 = result.findByText("Event 2"):await()
-	local _, event3 = result.findByText("Event 3"):await()
+	waitFor(function()
+		expect(result.getByText("Event 1")).toBeDefined()
+	end):await()
+
+	local event1 = result.getByText("Event 1")
+	local event2 = result.getByText("Event 2")
+	local event3 = result.getByText("Event 3")
 
 	expect(event1.AbsolutePosition.Y).toBeLessThan(event2.AbsolutePosition.Y)
 	expect(event1.AbsolutePosition.Y).toBeLessThan(event3.AbsolutePosition.Y)
@@ -148,8 +189,10 @@ it("should trigger onRsvpChanged when clicking Notify Me", function()
 	local element = withMockProviders({
 		EventsList = React.createElement(EventsList, {
 			universeId = -1,
+			currentTime = CURRENT_TIME,
 			onRsvpChanged = onRsvpChanged,
 			initialEventsShown = NUM_MOCK_EVENTS,
+			mockVirtualEventsMVPEnabled = true,
 		}),
 	}, {
 		mockResolvers = mockResolvers,
@@ -178,8 +221,10 @@ it("should trigger onJoinEvent when clicking Join Event", function()
 	local element = withMockProviders({
 		EventsList = React.createElement(EventsList, {
 			universeId = -1,
+			currentTime = CURRENT_TIME,
 			onJoinEvent = onJoinEvent,
 			initialEventsShown = NUM_MOCK_EVENTS,
+			mockVirtualEventsMVPEnabled = true,
 		}),
 	}, {
 		mockResolvers = mockResolvers,
@@ -208,8 +253,10 @@ it("should trigger onTileActivated when clicking on the event tile", function()
 	local element = withMockProviders({
 		EventsList = React.createElement(EventsList, {
 			universeId = -1,
+			currentTime = CURRENT_TIME,
 			onJoinEvent = onJoinEvent,
 			initialEventsShown = NUM_MOCK_EVENTS,
+			mockVirtualEventsMVPEnabled = true,
 		}),
 	}, {
 		mockResolvers = mockResolvers,
@@ -236,6 +283,8 @@ it("should render nothing if the no VirtualEvents are found", function()
 	local element = withMockProviders({
 		EventsList = React.createElement(EventsList, {
 			universeId = -1,
+			currentTime = CURRENT_TIME,
+			mockVirtualEventsMVPEnabled = true,
 		}),
 	}, {
 		mockResolvers = {
@@ -253,4 +302,50 @@ it("should render nothing if the no VirtualEvents are found", function()
 	local result = render(element)
 
 	expect(#result.container:GetChildren()).toBe(0)
+end)
+
+describe("experiment", function()
+	it("should render when enrolled", function()
+		local element = withMockProviders({
+			EventsList = React.createElement(EventsList, {
+				universeId = -1,
+				currentTime = CURRENT_TIME,
+				initialEventsShown = NUM_MOCK_EVENTS,
+				mockVirtualEventsMVPEnabled = true,
+			}),
+		}, {
+			mockResolvers = mockResolvers,
+		})
+
+		local result = render(element)
+
+		-- Wait for Apollo queries to resolve
+		act(function()
+			task.wait(0.1)
+		end)
+
+		expect(#result.container:GetChildren()).never.toBe(0)
+	end)
+
+	it("should render nothing if unenrolled", function()
+		local element = withMockProviders({
+			EventsList = React.createElement(EventsList, {
+				universeId = -1,
+				currentTime = CURRENT_TIME,
+				initialEventsShown = NUM_MOCK_EVENTS,
+				mockVirtualEventsMVPEnabled = false,
+			}),
+		}, {
+			mockResolvers = mockResolvers,
+		})
+
+		local result = render(element)
+
+		-- Wait for Apollo queries to resolve
+		act(function()
+			task.wait(0.1)
+		end)
+
+		expect(#result.container:GetChildren()).toBe(0)
+	end)
 end)

@@ -12,8 +12,12 @@ local SocialLibraries = dependencies.SocialLibraries
 local UIBlox = dependencies.UIBlox
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local Interactable = UIBlox.Core.Control.Interactable
 local useStyle = UIBlox.Core.Style.useStyle
 
+local useDispatch = dependencies.Hooks.useDispatch
+
+local CancelCall = require(script.Parent.Parent.Actions.CancelCall)
 local OutgoingCallState = require(script.Parent.Parent.Enums.OutgoingCallState)
 
 export type Props = {
@@ -48,12 +52,23 @@ local function CallerNotification(props: Props)
 	local theme = style.Theme
 	local font = style.Font
 
-	return React.createElement("Frame", {
+	-- Remove this when we no longer need to test this.
+	local dispatch = useDispatch()
+	local onActivated = React.useCallback(function()
+		dispatch(CancelCall(1))
+	end, {})
+	local onStateChanged = React.useCallback(function()
+		-- PlaceHolder.
+	end, {})
+
+	return React.createElement(Interactable, {
 		Position = UDim2.fromOffset(0, 0),
 		Size = UDim2.new(1, 0, 0, 68),
 		BackgroundColor3 = theme.BackgroundMuted.Color,
 		BackgroundTransparency = theme.BackgroundMuted.Transparency,
 		BorderSizePixel = 0,
+		onStateChanged = onStateChanged,
+		[React.Event.Activated] = onActivated,
 	}, {
 		UICorner = React.createElement("UICorner", {
 			CornerRadius = UDim.new(0, 8),

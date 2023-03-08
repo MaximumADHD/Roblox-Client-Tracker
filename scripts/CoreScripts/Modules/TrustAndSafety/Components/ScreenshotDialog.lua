@@ -10,7 +10,6 @@ local IconButton = UIBlox.App.Button.IconButton
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local ImageSetLabel = UIBlox.Core.ImageSet.Button
 local UIBloxImages = UIBlox.App.ImageSet.Images
-local Images = UIBlox.App.ImageSet.Images
 local useStyle = UIBlox.Core.Style.useStyle
 
 local TnsModule = script.Parent.Parent
@@ -25,7 +24,6 @@ local VirtualKeyboardMonitor = require(TnsModule.Components.VirtualKeyboardMonit
 local Divider = require(Dependencies.Divider)
 
 local TITLE_HEIGHT = 49
-local FOOTER_HEIGHT = 60
 local HEADER_HEIGHT = 48
 
 export type Props = {
@@ -53,6 +51,36 @@ local function renderHeaderBarLeft(props: Props)
                 onActivated = props.dismissAction,
             })
         end
+    end
+end
+
+local function renderHeaderBarRight(props: Props, annotationPoints)
+    return function()
+        return React.createElement("Frame", {
+            BackgroundTransparency = 1,
+            Size = UDim2.new(0, 400, 1, 0),
+        },{
+            Layout = React.createElement("UIListLayout", {
+                FillDirection = Enum.FillDirection.Horizontal,
+                HorizontalAlignment = Enum.HorizontalAlignment.Center,
+                VerticalAlignment = Enum.VerticalAlignment.Center,
+            }),
+            Buttons = React.createElement(ButtonStack, {
+                buttons = {{
+                    buttonType = ButtonType.Secondary,
+                    props = {
+                        onActivated = function() end,
+                        text = "Retake",
+                    },
+                },{
+                    buttonType = ButtonType.PrimarySystem,
+                    props = {
+                        onActivated = function() props.reportAction(annotationPoints) end,
+                        text = "Next",
+                    },
+                }}
+            });
+        });
     end
 end
 
@@ -105,7 +133,7 @@ local function ScreenshotDialog(props: Props)
         -- Use ImageSetLabel to block input to the parent
         ScreenshotDialog = React.createElement(ImageSetLabel, {
             Active = true,  -- block input to the background overlay
-            Size = UDim2.fromScale(0.9, 0.9),
+            Size = UDim2.fromScale(1, 1),
             AnchorPoint = Vector2.new(0.5, 0.5),
             Position = UDim2.fromScale(0.5, 0.5),
             BackgroundTransparency = 1,
@@ -117,7 +145,7 @@ local function ScreenshotDialog(props: Props)
         }, {
             -- List layout for header and content
             HeaderAndContent = React.createElement("Frame", {
-                Size = UDim2.new(1, 0, 1, -FOOTER_HEIGHT),
+                Size = UDim2.new(1, 0, 1, 0),
                 BackgroundTransparency = 1,
             }, {
                 Layout = React.createElement("UIListLayout", {
@@ -136,7 +164,7 @@ local function ScreenshotDialog(props: Props)
                         barHeight = HEADER_HEIGHT,
                         renderLeft = renderHeaderBarLeft(props),
                         -- Need dummy on the right to take up space for balance
-                        renderRight = function() return nil end,
+                        renderRight = renderHeaderBarRight(props, annotationPoints),
                         title = props.titleText,
                     }),
                 }),
@@ -162,41 +190,6 @@ local function ScreenshotDialog(props: Props)
                         handleAnnotationPoints = handleAnnotationPoints,
 						ZIndex = 3
                     }, {}),
-                }),
-            }),
-            -- Footer
-            Footer = React.createElement("Frame", {
-                BackgroundTransparency = 1,
-                Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
-                AnchorPoint = Vector2.new(0, 1),
-                Position = UDim2.fromScale(0, 1),
-            }, {
-                Padding = React.createElement("UIPadding", {
-                    PaddingTop = UDim.new(0, 12),
-                    PaddingBottom = UDim.new(0, 12),
-                    PaddingLeft = UDim.new(0, 24),
-                    PaddingRight = UDim.new(0, 24),
-                }),
-                ActionButtons = React.createElement(ButtonStack, {
-                    buttons = {{
-                        buttonType = ButtonType.Secondary,
-                        props = {
-                            onActivated = function() handleAnnotationPoints({}) end,
-                            text = "Reset",
-                        },
-                    },{
-                        buttonType = ButtonType.Secondary,
-                        props = {
-                            onActivated = function() end,
-                            text = "Retake",
-                        },
-                    },{
-                        buttonType = ButtonType.PrimarySystem,
-                        props = {
-                            onActivated = function() props.reportAction(annotationPoints) end,
-                            text = "Next",
-                        },
-                    }}
                 }),
             }),
         })

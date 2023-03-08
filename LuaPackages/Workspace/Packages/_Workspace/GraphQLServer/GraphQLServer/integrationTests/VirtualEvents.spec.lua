@@ -126,4 +126,66 @@ return function()
 			jestExpect(#virtualEvent.media).toBe(1)
 		end)
 	end)
+
+	it("should hide the notifications modal forever", function()
+		create("virtual-event-modal-history-success"):execute(function(httpService)
+			local fetch = buildFetch(httpService)
+			local server = graphqlServer.new({
+				fetchImpl = fetch,
+			})
+
+			local mutation = [[
+				mutation NeverShowNotificationModalAgain {
+					virtualEvents {
+						neverShowNotificationModalAgain
+					}
+				}
+			]]
+
+			local body = HttpService:JSONEncode({
+				mutation = mutation,
+				variables = {},
+			})
+
+			local result = server
+				:fetchLocal({
+					body = body,
+				})
+				:expect()
+
+			jestExpect(result).toBeDefined()
+			jestExpect(result.body.data.virtualEvents.neverShowNotificationModalAgain).toBe(true)
+		end)
+	end)
+
+	it("should update the user's notification preferences", function()
+		create("virtual-event-notification-preferences-success"):execute(function(httpService)
+			local fetch = buildFetch(httpService)
+			local server = graphqlServer.new({
+				fetchImpl = fetch,
+			})
+
+			local mutation = [[
+				mutation EnablePushNotifications {
+					virtualEvents {
+						enablePushNotifications
+					}
+				}
+			]]
+
+			local body = HttpService:JSONEncode({
+				mutation = mutation,
+				variables = {},
+			})
+
+			local result = server
+				:fetchLocal({
+					body = body,
+				})
+				:expect()
+
+			jestExpect(result).toBeDefined()
+			jestExpect(result.body.data.virtualEvents.enablePushNotifications).toBe(true)
+		end)
+	end)
 end

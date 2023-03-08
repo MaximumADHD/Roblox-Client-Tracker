@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/Roblox/lua-apps/blob/bdfbc208c6/modules/graphql/graphql-server-ts/src/graphql/generatedTypes.ts
+-- ROBLOX upstream: https://github.com/Roblox/lua-apps/blob/26fa4ea99b/modules/graphql/graphql-server-ts/src/graphql/generatedTypes.ts
 local Packages = script:FindFirstAncestor("GraphQLServer").Parent
 local LuauPolyfill = require(Packages.LuauPolyfill)
 type Array<T> = LuauPolyfill.Array<T>
@@ -30,13 +30,17 @@ export type EventTime = {
 }
 export type Experience = {
 	__typename: "Experience"?,
+	adId: Maybe<typeof((({} :: any) :: Scalars).String)>?,
 	description: Maybe<typeof((({} :: any) :: Scalars).String)>?,
+	isSponsored: Maybe<typeof((({} :: any) :: Scalars).Boolean)>?,
 	name: typeof((({} :: any) :: Scalars).String),
 	placeId: Maybe<typeof((({} :: any) :: Scalars).String)>?,
 	playerCount: Maybe<typeof((({} :: any) :: Scalars).Int)>?,
 	thumbnails: Maybe<Array<Maybe<Media>>>?,
 	totalDownVotes: Maybe<typeof((({} :: any) :: Scalars).Int)>?,
 	totalUpVotes: Maybe<typeof((({} :: any) :: Scalars).Int)>?,
+	under9: Maybe<typeof((({} :: any) :: Scalars).Boolean)>?,
+	under13: Maybe<typeof((({} :: any) :: Scalars).Boolean)>?,
 	universeId: typeof((({} :: any) :: Scalars).ID),
 }
 export type ExperienceCreator = {
@@ -100,10 +104,20 @@ export type Media = { __typename: "Media"?, url: Maybe<typeof((({} :: any) :: Sc
 local MediaAssetType = { Image = "Image", YouTubeVideo = "YouTubeVideo" }
 export type MediaAssetType = { [string]: string }
 exports.MediaAssetType = MediaAssetType
-export type Mutation = { __typename: "Mutation"?, virtualEventRsvp: Maybe<RsvpResponse>? }
+export type Mutation = {
+	__typename: "Mutation"?,
+	virtualEventRsvp: Maybe<RsvpResponse>?,
+	virtualEvents: VirtualEventMutations,
+}
 export type MutationVirtualEventRsvpArgs = {
 	id: typeof((({} :: any) :: Scalars).ID),
 	rsvpStatus: RsvpStatus,
+}
+export type MutualFriend = User & {
+	__typename: "MutualFriend"?,
+	displayName: typeof((({} :: any) :: Scalars).String),
+	id: typeof((({} :: any) :: Scalars).ID),
+	username: typeof((({} :: any) :: Scalars).String),
 }
 export type OmniFeed = {
 	__typename: "OmniFeed"?,
@@ -144,10 +158,18 @@ export type Player = User & {
 	displayName: typeof((({} :: any) :: Scalars).String),
 	id: typeof((({} :: any) :: Scalars).ID),
 }
+export type ProfileInsights = {
+	__typename: "ProfileInsights"?,
+	isOfflineFrequents: typeof((({} :: any) :: Scalars).Boolean),
+	mutualFriends: Maybe<Array<MutualFriend>>?,
+	targetUserId: typeof((({} :: any) :: Scalars).ID),
+}
 export type Query = {
 	__typename: "Query"?,
 	me: User,
 	omniFeed: Maybe<OmniFeed>?,
+	omniFeedItem: Maybe<OmniFeedItem>?,
+	profilesInsights: Maybe<Array<ProfileInsights>>?,
 	user: User,
 	virtualEvent: Maybe<VirtualEvent>?,
 	virtualEventsByUniverseId: Maybe<VirtualEventsPage>?,
@@ -157,6 +179,11 @@ export type QueryOmniFeedArgs = {
 	pageType: typeof((({} :: any) :: Scalars).String),
 	sessionId: typeof((({} :: any) :: Scalars).String),
 	supportedTreatmentTypes: InputMaybe<Array<InputMaybe<typeof((({} :: any) :: Scalars).String)>>>?,
+}
+export type QueryOmniFeedItemArgs = { sortId: typeof((({} :: any) :: Scalars).String) }
+export type QueryProfilesInsightsArgs = {
+	count: InputMaybe<typeof((({} :: any) :: Scalars).Int)>?,
+	userIds: Array<InputMaybe<typeof((({} :: any) :: Scalars).String)>>,
 }
 export type QueryUserArgs = { id: typeof((({} :: any) :: Scalars).ID) }
 export type QueryVirtualEventArgs = { id: typeof((({} :: any) :: Scalars).ID) }
@@ -178,8 +205,8 @@ export type RsvpCounters = {
 }
 export type RsvpResponse = {
 	__typename: "RsvpResponse"?,
-	isUserFirstRsvp: Maybe<typeof((({} :: any) :: Scalars).Boolean)>?,
-	rsvpStatus: Maybe<RsvpStatus>?,
+	shouldSeeNotificationsUpsellModal: Maybe<typeof((({} :: any) :: Scalars).Boolean)>?,
+	virtualEvent: Maybe<VirtualEvent>?,
 }
 local RsvpStatus = { Going = "going", MaybeGoing = "maybeGoing", None = "none", NotGoing = "notGoing" }
 -- ROBLOX deviation START: convert RsvpStatus enum to type union
@@ -206,6 +233,11 @@ export type VirtualEvent = {
 	universeId: Maybe<typeof((({} :: any) :: Scalars).ID)>?,
 	updatedUtc: Maybe<typeof((({} :: any) :: Scalars).String)>?,
 	userRsvpStatus: Maybe<RsvpStatus>?,
+}
+export type VirtualEventMutations = {
+	__typename: "VirtualEventMutations"?,
+	enablePushNotifications: Maybe<typeof((({} :: any) :: Scalars).Boolean)>?,
+	neverShowNotificationModalAgain: Maybe<typeof((({} :: any) :: Scalars).Boolean)>?,
 }
 export type VirtualEventsByUniverseIdOptions = {
 	cursor: InputMaybe<typeof((({} :: any) :: Scalars).String)>?,

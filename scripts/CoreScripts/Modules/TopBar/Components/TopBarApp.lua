@@ -6,11 +6,9 @@ local VRService = game:GetService("VRService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
-local React = require(CorePackages.Packages.React)
 local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
-local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 local Analytics = require(CorePackages.Workspace.Packages.Analytics).Analytics
 
 local ImageSetButton = UIBlox.Core.ImageSet.Button
@@ -18,6 +16,7 @@ local Images = UIBlox.App.ImageSet.Images
 
 local Presentation = script.Parent.Presentation
 local MenuIcon = require(Presentation.MenuIcon)
+local BackIcon = require(Presentation.BackIcon)
 local ChatIcon = require(Presentation.ChatIcon)
 local MoreMenu = require(Presentation.MoreMenu)
 local HealthBar = require(Presentation.HealthBar)
@@ -44,15 +43,13 @@ local FFlagEnableInGameMenuV3 = require(RobloxGui.Modules.Flags.GetFFlagEnableIn
 local GetFFlagBetaBadge = require(RobloxGui.Modules.Flags.GetFFlagBetaBadge)
 local FFlagTopBarUseNewBadge = game:DefineFastFlag("TopBarUseNewBadge", false)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
 
 -- vr bottom bar
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 local VRBottomBar = require(RobloxGui.Modules.VR.VRBottomBar.VRBottomBar)
 
 local CLOSE_MENU_ICON_SIZE = 30
-
-local playerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
-
 
 local function selectMenuOpen(state)
 	return state.displayOptions.menuOpen or state.displayOptions.inspectMenuOpen
@@ -78,7 +75,9 @@ function TopBarApp:init(props)
 	self.topBarFrameRef = Roact.createRef()
 
 	local function updateVisible(rbx, visible)
-		if rbx then rbx.Visible = visible end
+		if rbx then
+			rbx.Visible = visible
+		end
 	end
 
 	self.menuOpenChanged = function(menuOpen)
@@ -90,7 +89,6 @@ function TopBarApp:init(props)
 end
 
 function TopBarApp:render()
-
 	local v3Menu = GetFFlagEnableInGameMenuV3()
 
 	local screenSideOffset = Constants.ScreenSideOffset
@@ -152,7 +150,7 @@ function TopBarApp:render()
 					local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 					SettingsHub:ToggleVisibility()
 				end,
-			})
+			}),
 		}),
 
 		TopBarFrame = Roact.createElement("Frame", {
@@ -171,33 +169,43 @@ function TopBarApp:render()
 					Padding = UDim.new(0, Constants.Padding),
 					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					VerticalAlignment =  if FFlagTopBarUseNewBadge then Enum.VerticalAlignment.Center else Enum.VerticalAlignment.Top,
+					VerticalAlignment = if FFlagTopBarUseNewBadge
+						then Enum.VerticalAlignment.Center
+						else Enum.VerticalAlignment.Top,
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 
 				MenuIcon = Roact.createElement(MenuIcon, {
 					layoutOrder = 1,
 				}),
+				
+				BackIcon = GetFFlagEnableTeleportBackButton() and Roact.createElement(BackIcon, {
+					layoutOrder = 2,
+				}) or nil,
 
 				ChatIcon = Roact.createElement(ChatIcon, {
-					layoutOrder = 2,
+					layoutOrder = 3,
 				}),
 
-				BadgeOver13 = if FFlagTopBarUseNewBadge then Roact.createElement(BadgeOver13, {
-					layoutOrder = 3,
-					analytics = Analytics.new(),
-					player = Players.LocalPlayer,
-					voiceChatServiceManager = VoiceChatServiceManager,
-					VRService = game:GetService("VRService"),
-				}) else nil,
+				BadgeOver13 = if FFlagTopBarUseNewBadge
+					then Roact.createElement(BadgeOver13, {
+						layoutOrder = 4,
+						analytics = Analytics.new(),
+						player = Players.LocalPlayer,
+						voiceChatServiceManager = VoiceChatServiceManager,
+						VRService = game:GetService("VRService"),
+					})
+					else nil,
 
-				VoiceBetaBadge = if GetFFlagBetaBadge() then Roact.createElement(VoiceBetaBadge, {
-					layoutOrder = 3,
-					Analytics = Analytics.new()
-				}) else nil,
+				VoiceBetaBadge = if GetFFlagBetaBadge()
+					then Roact.createElement(VoiceBetaBadge, {
+						layoutOrder = 4,
+						Analytics = Analytics.new(),
+					})
+					else nil,
 
 				RecordingPill = self.recordEnabled and Roact.createElement(RecordingPill, {
-					layoutOrder = 4,
+					layoutOrder = 5,
 				}) or nil,
 			}),
 
@@ -224,7 +232,7 @@ function TopBarApp:render()
 				}),
 			}),
 			MenuOpenWatcher = v3Menu and Roact.createElement(MenuOpenWatcher, {
-				onChange = self.menuOpenChanged
+				onChange = self.menuOpenChanged,
 			}),
 		}),
 	})

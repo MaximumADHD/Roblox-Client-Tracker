@@ -14,6 +14,7 @@ local PermissionsProtocol = dependencies.PermissionsProtocol
 local Promise = dependencies.Promise
 local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
 local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
+local SelfViewProfileDiscoverabilityUpsellIXP = dependencies.SelfViewProfileDiscoverabilityUpsellIXP
 
 local ContactsImporterOverlay = require(script.Parent.ContactsImporterOverlay)
 local mapDispatchToProps = require(script.Parent.mapDispatchToProps)
@@ -23,6 +24,7 @@ local AppStorageService = dependencies.AppStorageService
 local compose = dependencies.SocialLibraries.RoduxTools.compose
 local getDeepValue = dependencies.SocialLibraries.Dictionary.getDeepValue
 local ContactImporterContext = require(ContactImporter.ContactsList.Components.ContactImporterContext)
+local DiscoverabilityAnalytics = dependencies.DiscoverabilityAnalytics
 local RODUX_KEY = require(ContactImporter.Common.Constants).RODUX_KEY
 
 local ContactsImporterOverlayContainer = Roact.PureComponent:extend("ContactsImporterOverlayContainer")
@@ -31,7 +33,7 @@ export type Props = {
 	screenSize: Vector2,
 	showToast: (toastMessage: string) -> (),
 	navigation: any?,
-	checkOrRequestPermissions: ({ string }) -> ({ andThen: (...any) -> () }),
+	checkOrRequestPermissions: ({ string }) -> { andThen: (...any) -> () },
 	localUserId: string,
 	fireAnalyticsEvent: ContactImporterContext.fireAnalyticsEvent,
 	eventIngestService: any,
@@ -144,6 +146,7 @@ function ContactsImporterOverlayContainer:init()
 		local navigation = props.navigation
 		local showToast = navigation.getParam(Constants.SHOW_TOAST)
 		local openLearnMoreLink = navigation.getParam(Constants.OPEN_LEARN_MORE_LINK)
+		local isFromAddFriendsPage = navigation.getParam(Constants.IS_FROM_ADD_FRIENDS_PAGE, false)
 		local eventIngestService = props.eventIngestService
 		local diagService = props.diagService
 
@@ -151,8 +154,15 @@ function ContactsImporterOverlayContainer:init()
 			navigation.navigate(EnumScreens.DiscoverabilityOverlay, {
 				showToast = showToast,
 				openLearnMoreLink = openLearnMoreLink,
-				[Constants.DIAG_SERVICE] = diagService,
-				[Constants.EVENT_INGEST_SERVICE] = eventIngestService,
+				entryPoint = if isFromAddFriendsPage
+					then DiscoverabilityAnalytics.EntryPoints.AddFriends
+					else DiscoverabilityAnalytics.EntryPoints.HomePage,
+				[Constants.DIAG_SERVICE] = if not SelfViewProfileDiscoverabilityUpsellIXP.SetupEnabled()
+					then diagService
+					else nil,
+				[Constants.EVENT_INGEST_SERVICE] = if not SelfViewProfileDiscoverabilityUpsellIXP.SetupEnabled()
+					then eventIngestService
+					else nil,
 			})
 		end)
 	end

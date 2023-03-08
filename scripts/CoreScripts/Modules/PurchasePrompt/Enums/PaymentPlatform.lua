@@ -18,7 +18,7 @@ local rawKeyToRawValue = {
 	UWP = "UWP",
 	Midas = "Midas",
 	Web = "Web",
-	Quest = "Quest",
+	Quest = "QuestStore",
 	PlayStation = "PlayStation",
 }
 

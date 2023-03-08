@@ -28,6 +28,8 @@ local rsvpCountersPattern = UrlBuilder.fromString("apis:virtual-events/v1/virtua
 local virtualEventsByUniverseIdPattern = UrlBuilder.fromString(
 	"apis:virtual-events/v1/universes/{id}/virtual-events?cursor={cursor}&limit={limit}&fromUtc={fromUtc}"
 )
+local notificationModalHistoryPattern = UrlBuilder.fromString("apis:virtual-events/v1/notifications/modal-history")
+local notificationPreferencesPattern = UrlBuilder.fromString("apis:virtual-events/v1/notifications/preferences")
 
 local function findVirtualEventById(virtualEventId: string, fetchImpl_: fetch?): Promise<VirtualEvent>
 	local fetchImpl: fetch = if fetchImpl_ then fetchImpl_ else fetch
@@ -80,9 +82,9 @@ local function findVirtualEventsByUniverseId(
 	return Promise.new(function(resolve, reject)
 		local url = virtualEventsByUniverseIdPattern({
 			id = universeId,
-			cursor = if options then options.cursor else "",
-			limit = if options then options.limit else 25,
-			fromUtc = if options then options.fromUtc else "",
+			cursor = if options and options.cursor then options.cursor else "",
+			limit = if options and options.limit then options.limit else 25,
+			fromUtc = if options and options.fromUtc then options.fromUtc else "",
 		})
 
 		local response = fetchImpl(url, { method = "GET" })
@@ -263,10 +265,74 @@ local function updateRsvpStatus(
 			return
 		end
 
-		resolve(json)
+		local rsvpResponse = {
+			shouldSeeNotificationsUpsellModal = json.shouldSeeNotificationsUpsellModal,
+			virtualEvent = {
+				id = virtualEventId,
+				userRsvpStatus = json.rsvpStatus,
+			},
+		}
+
+		resolve(rsvpResponse)
 		return
 	end)
 end
 exports.updateRsvpStatus = updateRsvpStatus
+
+local function neverShowNotificationModalAgain(fetchImpl_: fetch?): Promise<boolean>
+	local fetchImpl: fetch = if fetchImpl_ then fetchImpl_ else fetch
+
+	return Promise.new(function(resolve, reject)
+		local url = notificationModalHistoryPattern()
+		local res = fetchImpl(url, {
+				method = "POST",
+			})
+			:catch(function()
+				return Response.error()
+			end)
+			:expect()
+
+		if not res.ok then
+			reject(GraphQLError.new("Failed to update modal history"))
+			return
+		end
+
+		resolve(true)
+		return
+	end)
+end
+exports.neverShowNotificationModalAgain = neverShowNotificationModalAgain
+
+local function enablePushNotifications(fetchImpl_: fetch?): Promise<boolean>
+	local fetchImpl: fetch = if fetchImpl_ then fetchImpl_ else fetch
+
+	return Promise.new(function(resolve, reject)
+		local url = notificationPreferencesPattern()
+
+		local res = fetchImpl(url, {
+				method = "POST",
+				body = HttpService:JSONEncode({
+					isEnabled = true,
+				}),
+				headers = {
+					["Content-Type"] = "application/json",
+					["Accept"] = "application/json",
+				},
+			})
+			:catch(function()
+				return Response.error()
+			end)
+			:expect()
+
+		if not res.ok then
+			reject(GraphQLError.new("Failed to update notification preferences"))
+			return
+		end
+
+		resolve(true)
+		return
+	end)
+end
+exports.enablePushNotifications = enablePushNotifications
 
 return exports

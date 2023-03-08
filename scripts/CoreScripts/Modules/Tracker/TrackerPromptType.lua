@@ -3,4 +3,5 @@ return {
 	VideoNoPermission = "VideoNoPermission",
 	NotAvailable = "NotAvailable",
 	FeatureDisabled = "FeatureDisabled",
+	LODCameraRecommendDisable = "LODCameraRecommendDisable",
 }

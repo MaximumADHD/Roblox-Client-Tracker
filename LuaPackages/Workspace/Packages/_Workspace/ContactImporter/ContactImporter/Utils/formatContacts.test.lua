@@ -12,9 +12,6 @@ local afterAll = JestGlobals.afterAll
 local Constants = require(ContactImporter.Common.Constants)
 
 local formatContacts = require(script.Parent.formatContacts)
-
-local getFFlagContactImporterTweakDesignsForInvites =
-	require(ContactImporter.Flags.getFFlagContactImporterTweakDesignsForInvites)
 local getFFlagTrimContactsEarlierOnContactImporter =
 	require(ContactImporter.Flags.getFFlagTrimContactsEarlierOnContactImporter)
 
@@ -78,9 +75,7 @@ describe("formatContacts", function()
 				contactsCount = if getFFlagTrimContactsEarlierOnContactImporter() then 3 else 4, -- SACQ-275
 				contacts = {
 					{
-						idAssignedByFE = if getFFlagContactImporterTweakDesignsForInvites()
-							then DeviceContact.generateId(person1)
-							else nil,
+						idAssignedByFE = DeviceContact.generateId(person1),
 						fields = {
 							{
 								name = Constants.LAST_NAME,
@@ -97,9 +92,7 @@ describe("formatContacts", function()
 						},
 					},
 					{
-						idAssignedByFE = if getFFlagContactImporterTweakDesignsForInvites()
-							then DeviceContact.generateId(person2)
-							else nil,
+						idAssignedByFE = DeviceContact.generateId(person2),
 						fields = {
 							{
 								name = Constants.LAST_NAME,
@@ -116,9 +109,7 @@ describe("formatContacts", function()
 						},
 					},
 					{
-						idAssignedByFE = if getFFlagContactImporterTweakDesignsForInvites()
-							then DeviceContact.generateId(person3)
-							else nil,
+						idAssignedByFE = DeviceContact.generateId(person3),
 						fields = {
 							{
 								name = Constants.LAST_NAME,
@@ -160,9 +151,7 @@ describe("formatContacts", function()
 				contactsCount = 2,
 				contacts = {
 					{
-						idAssignedByFE = if getFFlagContactImporterTweakDesignsForInvites()
-							then DeviceContact.generateId(person1)
-							else nil,
+						idAssignedByFE = DeviceContact.generateId(person1),
 						fields = {
 							{
 								name = Constants.LAST_NAME,
@@ -179,9 +168,7 @@ describe("formatContacts", function()
 						},
 					},
 					{
-						idAssignedByFE = if getFFlagContactImporterTweakDesignsForInvites()
-							then DeviceContact.generateId(person1)
-							else nil,
+						idAssignedByFE = DeviceContact.generateId(person1),
 						fields = {
 							{
 								name = Constants.LAST_NAME,
@@ -220,9 +207,7 @@ describe("formatContacts", function()
 				contactsCount = 3,
 				contacts = {
 					{
-						idAssignedByFE = if getFFlagContactImporterTweakDesignsForInvites()
-							then DeviceContact.generateId(person1)
-							else nil,
+						idAssignedByFE = DeviceContact.generateId(person1),
 						fields = {
 							{
 								name = Constants.LAST_NAME,
@@ -239,9 +224,7 @@ describe("formatContacts", function()
 						},
 					},
 					{
-						idAssignedByFE = if getFFlagContactImporterTweakDesignsForInvites()
-							then DeviceContact.generateId(person2)
-							else nil,
+						idAssignedByFE = DeviceContact.generateId(person2),
 						fields = {
 							{
 								name = Constants.LAST_NAME,
@@ -258,9 +241,7 @@ describe("formatContacts", function()
 						},
 					},
 					{
-						idAssignedByFE = if getFFlagContactImporterTweakDesignsForInvites()
-							then DeviceContact.generateId(person3)
-							else nil,
+						idAssignedByFE = DeviceContact.generateId(person3),
 						fields = {
 							{
 								name = Constants.LAST_NAME,

@@ -7,6 +7,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Constants = require(AppTempCommon.VoiceChat.Constants)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 
 return function(targetUserId: string | number, voiceState)
 	local localPlayer = Players.LocalPlayer
@@ -15,6 +16,7 @@ return function(targetUserId: string | number, voiceState)
 			if voiceState == Constants.VOICE_STATE.ERROR then
 				VoiceChatServiceManager:RejoinPreviousChannel()
 			else
+				Analytics:setLastCtx("bubbleChatToggle")
 				VoiceChatServiceManager:ToggleMic()
 			end
 		else

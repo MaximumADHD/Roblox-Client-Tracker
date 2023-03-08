@@ -1,12 +1,10 @@
 local ContactImporter = script:FindFirstAncestor("ContactImporter")
 local dependencies = require(ContactImporter.dependencies)
+local Constants = require(ContactImporter.Common.Constants)
 
 local Roact = dependencies.Roact
 local UIBlox = dependencies.UIBlox
 local ImageSetButton = UIBlox.Core.ImageSet.Button
-
-local getFFlagContactImporterUpdateHasSentState =
-	require(ContactImporter.Flags.getFFlagContactImporterUpdateHasSentState)
 local getFFlagContactImporterAvatarEnabled = require(ContactImporter.Flags.getFFlagContactImporterAvatarEnabled)
 
 local Images = UIBlox.App.ImageSet.Images
@@ -60,24 +58,24 @@ function ContactsListEntry:init()
 	self.requestContactFriendship = function()
 		local props: Props = self.props
 		props.requestFriendship(props.contactId)
-		if not getFFlagContactImporterUpdateHasSentState() then
-			self:setState({ clicked = true })
-		end
+		self:setState({ clicked = true })
 	end
 
 	self.openBlankProfileView = function()
-		-- TODO: FSYS-254 put in actual params
+		local props: Props = self.props
 		if getFFlagContactImporterAvatarEnabled() then
-			self.props.openProfilePeekView("1", {})
+			self.props.openProfilePeekView(props.contactId, {
+				profileType = Constants.CONTACTS_PROFILE_TYPE,
+				contactId = props.contactId,
+				contactName = props.contactName,
+			})
 		end
 	end
 end
 
 function ContactsListEntry:render()
 	local props: Props = self.props
-	local canSendRequest = if getFFlagContactImporterUpdateHasSentState()
-		then not props.hasSentRequest
-		else not self.state.clicked
+	local canSendRequest = not self.state.clicked
 	return withStyle(function(style)
 		return Roact.createElement("Frame", {
 			Name = props.deviceContactId,

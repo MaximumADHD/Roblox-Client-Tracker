@@ -12,9 +12,6 @@ local formatFriendStatus = require(script.Parent.formatFriendStatus)
 local Enums = SocialLuaAnalytics.Analytics.Enums
 local FriendStatuses = Enums.FriendStatuses
 
-local getFFlagFriendsCarouselIncomingFriendRequestAnalytics =
-	require(FriendsCarousel.Flags.getFFlagFriendsCarouselIncomingFriendRequestAnalytics)
-
 describe("formatFriendStatus", function()
 	it("SHOULD return nonfriend by default", function()
 		jestExpect(formatFriendStatus({})).toBe(FriendStatuses.NotFriends.rawValue())
@@ -41,12 +38,10 @@ describe("formatFriendStatus", function()
 		})).toBe(FriendStatuses.NotFriends.rawValue())
 	end)
 
-	if getFFlagFriendsCarouselIncomingFriendRequestAnalytics() then
-		it("SHOULD return RequestReceived if user has incoming friendship request", function()
-			jestExpect(formatFriendStatus({
-				isFriendWithUser = false,
-				hasIncomingFriendRequest = true,
-			})).toBe(FriendStatuses.RequestReceived.rawValue())
-		end)
-	end
+	it("SHOULD return RequestReceived if user has incoming friendship request", function()
+		jestExpect(formatFriendStatus({
+			isFriendWithUser = false,
+			hasIncomingFriendRequest = true,
+		})).toBe(FriendStatuses.RequestReceived.rawValue())
+	end)
 end)

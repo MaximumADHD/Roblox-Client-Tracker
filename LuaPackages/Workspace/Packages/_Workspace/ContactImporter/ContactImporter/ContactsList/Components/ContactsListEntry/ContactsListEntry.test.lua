@@ -17,8 +17,6 @@ local jest = JestGlobals.jest
 
 local createTreeWithProviders = devDependencies.createTreeWithProviders
 local mockStore = require(ContactImporter.TestHelpers.mockStore)
-local getFFlagContactImporterUpdateHasSentState =
-	require(ContactImporter.Flags.getFFlagContactImporterUpdateHasSentState)
 local findElementHelpers = require(ContactImporter.TestHelpers.findElementHelpers)
 local Roact = dependencies.Roact
 local ContactsListEntry = require(ContactsList.Components.ContactsListEntry)
@@ -71,7 +69,6 @@ describe("ContactsListEntry", function()
 		local element = createTreeWithProviders(ContactsListEntry, {
 			store = mockStore(state),
 			props = {
-				hasSentRequest = if getFFlagContactImporterUpdateHasSentState() then true else nil,
 				contactName = "contactName",
 				contactId = "contactId",
 				requestFriendship = requestFriendship,
@@ -82,13 +79,10 @@ describe("ContactsListEntry", function()
 				ClassName = "ImageButton",
 				Name = "requestContactButton",
 			})
+			RhodiumHelpers.clickInstance(button)
 
-			if not getFFlagContactImporterUpdateHasSentState() then
-				RhodiumHelpers.clickInstance(button)
-
-				jestExpect(requestFriendship).toHaveBeenCalledTimes(1)
-				jestExpect(requestFriendship).toHaveBeenCalledWith("contactId")
-			end
+			jestExpect(requestFriendship).toHaveBeenCalledTimes(1)
+			jestExpect(requestFriendship).toHaveBeenCalledWith("contactId")
 
 			Roact.act(function()
 				task.wait(0.1)
@@ -103,7 +97,6 @@ describe("ContactsListEntry", function()
 		local element = createTreeWithProviders(ContactsListEntry, {
 			store = mockStore(state),
 			props = {
-				hasSentRequest = if getFFlagContactImporterUpdateHasSentState() then false else nil,
 				contactName = "contactName",
 				contactId = "contactId",
 				requestFriendship = requestFriendship,
@@ -121,7 +114,6 @@ describe("ContactsListEntry", function()
 			local element = createTreeWithProviders(ContactsListEntry, {
 				store = mockStore(state),
 				props = {
-					hasSentRequest = if getFFlagContactImporterUpdateHasSentState() then false else nil,
 					contactName = "contactName",
 					contactId = "contactId",
 					openProfilePeekView = openProfilePeekView,

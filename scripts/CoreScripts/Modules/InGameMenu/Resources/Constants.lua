@@ -43,6 +43,7 @@ local Constants = {
 		-- opened; the new menu won't trigger it.
 		GamepadLeaveGame = "GamepadLeaveGame",
 		GamepadResetCharacter = "GamepadResetCharacter",
+		ScreenshotUnhide = "ScreenshotUnhide",
 	},
 	AnalyticsMenuCloseName = "menu_close",
 	AnalyticsLeaveGameName = "leave_game",

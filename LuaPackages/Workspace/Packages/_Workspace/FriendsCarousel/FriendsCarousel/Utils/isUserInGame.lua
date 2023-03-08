@@ -10,5 +10,6 @@ return function(user: ModelTypes.Presence?): boolean
 		return false
 	else
 		return user.userPresenceType == EnumPresenceType.InGame and user.lastLocation and user.lastLocation ~= ""
+			or false
 	end
 end

@@ -14,6 +14,7 @@ local usePrevious = require(script.usePrevious)
 local useRouteName = require(script.useRouteName)
 local useSelectedTheme = require(script.useSelectedTheme)
 local useThrottledCallback = require(script.useThrottledCallback)
+local useInputType = require(script.useInputType)
 
 local RoactRodux = require(script.RoactRodux)
 
@@ -25,6 +26,7 @@ return {
 	useEffectOnce = useEffectOnce,
 	useProperty = useProperty,
 	useExternalEvent = useExternalEvent,
+	useInputType = useInputType,
 	useIsGamepad = useIsGamepad,
 	useEffectOnMount = useEffectOnMount,
 	useDidUpdate = useDidUpdate,

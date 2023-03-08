@@ -85,6 +85,8 @@ return {
 	LocalizationProvider = require(Packages.Localization).LocalizationProvider,
 	Url = require(Packages.Http).Url,
 	VerifiedBadges = require(Packages.VerifiedBadges),
+	DiscoverabilityModal = require(Packages.DiscoverabilityModal),
+	ShowContactImporterParams = require(Packages.ContactImporter).ShowContactImporterParams,
 
 	UniversalAppPolicy = require(Packages.UniversalAppPolicy).UniversalAppPolicy,
 
@@ -140,4 +142,5 @@ return {
 	GetFFlagUseCorrectedFriendSortUtil = GetFFlagUseCorrectedFriendSortUtil,
 	FFlagExperienceJoinAttemptId = FFlagExperienceJoinAttemptId,
 	GetFFlagHideConnectPageWebViewItemsForVR = GetFFlagHideConnectPageWebViewItemsForVR,
+	SelfViewProfileDiscoverabilityUpsellIXP = require(Packages.DiscoverabilityModal).Flags.SelfViewProfileDiscoverabilityUpsellIXP,
 }

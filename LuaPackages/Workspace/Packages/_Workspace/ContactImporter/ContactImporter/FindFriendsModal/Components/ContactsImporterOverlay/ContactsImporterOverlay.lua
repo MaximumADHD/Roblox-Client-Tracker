@@ -17,8 +17,6 @@ local TextKeys = require(ContactImporter.Common.TextKeys)
 local Dash = dependencies.Dash
 
 local getFFlagUpdateContactsCaptionText = require(ContactImporter.Flags.getFFlagUpdateContactsCaptionText)
-local getFFlagContactImporterTweakDesignsForInvites =
-	require(ContactImporter.Flags.getFFlagContactImporterTweakDesignsForInvites)
 
 local MIDDLE_CONTENT_PADDING_TOP: number = 24
 local MIDDLE_CONTENT_PADDING_BOTTOM: number = 36
@@ -56,9 +54,7 @@ function ContactsImporterOverlay:render()
 			else TextKeys.CONNECT_CONTACTS_CAPTION,
 		getStarted = TextKeys.GET_STARTED,
 		closeModal = TextKeys.CLOSE_MODAL,
-		goToAddFriends = if getFFlagContactImporterTweakDesignsForInvites()
-			then TextKeys.NOT_NOW
-			else TextKeys.GO_TO_ADD_FRIENDS,
+		goToAddFriends = TextKeys.NOT_NOW,
 		learnMore = TextKeys.LEARN_MORE,
 	})(function(localizedStrings)
 		return withStyle(function(style)
@@ -72,9 +68,7 @@ function ContactsImporterOverlay:render()
 					buttonType = ButtonType.Secondary,
 					props = {
 						onActivated = props.onCloseClicked,
-						text = if getFFlagContactImporterTweakDesignsForInvites()
-							then localizedStrings.goToAddFriends
-							else localizedStrings.closeModal :: any,
+						text = localizedStrings.goToAddFriends,
 					},
 				})
 			else

@@ -289,7 +289,7 @@ function RobuxUpsellOverlay:render()
 
 		onAnalyticEvent = props.onAnalyticEvent,
 		eventPrefix = FLOW_NAME,
-		isQuest = GetFFlagDisablePurchasePromptFunctionForQuest() and externalSettings.getPlatform() == PaymentPlatform.Quest,
+		isQuest = GetFFlagDisablePurchasePromptFunctionForQuest() and getPaymentPlatform(externalSettings.getPlatform()) == PaymentPlatform.Quest,
 	})
 end
 

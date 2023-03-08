@@ -44,6 +44,11 @@ local resolvers = {
 					continue
 				end
 				local experience = GameJSON[tostring(recommendationMetadata.contentId)]
+				local contentMetadata = recommendationMetadata.contentMetadata
+				local adId = if contentMetadata and contentMetadata.EncryptedAdTrackingData
+					then contentMetadata.EncryptedAdTrackingData
+					else nil
+
 				if experience and experience.universeId then
 					table.insert(experiences, {
 						placeId = if experience.rootPlaceId then tostring(experience.rootPlaceId) else nil,
@@ -52,6 +57,10 @@ local resolvers = {
 						totalUpVotes = experience.totalUpVotes,
 						totalDownVotes = experience.totalDownVotes,
 						playerCount = experience.playerCount,
+						under9 = if experience.under9 then experience.under9 else false,
+						under13 = if experience.under13 then experience.under13 else false,
+						adId = adId or "",
+						isSponsored = adId ~= nil and adId ~= "",
 					})
 				end
 			end

@@ -19,6 +19,8 @@ local EngineFeatureVoiceChatServiceExposesSessionId = game:GetEngineFeature("Voi
 local EngineFeatureVoiceChatServiceExposesVoiceExperienceId = game:GetEngineFeature("VoiceChatServiceExposesVoiceExperienceId")
 local FFlagFacialStreamingStatsReportVoiceSessionIdExperienceId = game:DefineFastFlag("FacialStreamingStatsReportVoiceSessionIdExperienceId", false)
 
+local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
+
 local RunService = game:GetService("RunService")
 local avatarChatSubsessionStatsConfig = require(script.Parent.RobloxTelemetryConfigs.AvatarChatSubsessionStats)
 local avatarChatSubsessionInputConfig = require(script.Parent.RobloxTelemetryConfigs.AvatarChatSubsessionInput)
@@ -97,15 +99,11 @@ local function isPlayerTransmittingFacs(userId)
 		end
 
 		local videoOrAudioAnimationEnabled = localVideoAnimationEnabled or localAudioAnimationEnabled
-		local micEnabledAndOn = playerMicOn[userId] and userAccountAudioEnabled and placeAudioEnabled
-
-		-- Currently, if the mic is on, then FACS are transmitted either through V2C or A2C; 
-		-- if the mic is off, no FACS are streamed. Thus, we just have to verify that the mic is on and animation is enabled.
-		-- In the future this may change.
-		return playerJoinedGame[userId] and videoOrAudioAnimationEnabled and micEnabledAndOn
+		-- FACS are transmitted either through V2C or A2C
+		return videoOrAudioAnimationEnabled
 	else
 		--Receiving from remote player
-		return playerJoinedGame[userId] and playerMicOn[userId]
+		return playerJoinedGame[userId]
 	end
 end
 
@@ -144,6 +142,10 @@ function FacialAnimationStreamingStats.trackRemainingFacs()
 end
 
 function fireAvatarChatSubsessionInput()
+	if not trackingStarted then
+		return
+	end
+
 	local now = os.time()
 	local boolPlayerMicOn = playerMicOn[Players.LocalPlayer.userId]
 	if boolPlayerMicOn == nil then
@@ -169,6 +171,10 @@ function fireAvatarChatSubsessionInput()
 			voiceExperienceId = VCService:GetVoiceExperienceId()
 		}
 
+		if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+			customFields["playSessionId"] = AnalyticsService:GetPlaySessionId()
+		end
+		
 		LoggingProtocol:logRobloxTelemetryEvent(avatarChatSubsessionInputConfig, nil, customFields)
 	else
 		local customFields = {
@@ -185,6 +191,11 @@ function fireAvatarChatSubsessionInput()
 			userAcctMicAllowed = tostring(userAccountAudioEnabled),
 			userAcctCamAllowed = tostring(userAccountVideoEnabled),
 		}
+
+		if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+			customFields["playSessionId"] = AnalyticsService:GetPlaySessionId()
+		end
+
 		LoggingProtocol:logRobloxTelemetryEvent(avatarChatSubsessionInputConfig, nil, customFields)
 	end
 
@@ -192,6 +203,10 @@ function fireAvatarChatSubsessionInput()
 end
 
 function fireAvatarChatSubsessionStats()
+	if not trackingStarted then
+		return
+	end
+
 	FacialAnimationStreamingStats.trackRemainingFacs()
 
 	if canReportVoiceSessionIdVoiceExperienceId() then
@@ -208,7 +223,11 @@ function fireAvatarChatSubsessionStats()
 			voiceSessionId = VCService:GetSessionId(),
 			voiceExperienceId = VCService:GetVoiceExperienceId()
 		}
-		
+
+		if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+			customFields["playSessionId"] = AnalyticsService:GetPlaySessionId()
+		end
+
 		LoggingProtocol:logRobloxTelemetryEvent(avatarChatSubsessionStatsConfig, nil, customFields)	
 	else
 		local customFields = {
@@ -221,6 +240,10 @@ function fireAvatarChatSubsessionStats()
 			facsSentReceivedSec = tostring(trackingFacsSentAndReceivedElapsedTime),
 			sessionTimeSec = tostring(sessionTotalElapsedTime)
 		}
+
+		if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+			customFields["playSessionId"] = AnalyticsService:GetPlaySessionId()
+		end
 
 		LoggingProtocol:logRobloxTelemetryEvent(avatarChatSubsessionStatsConfig, nil, customFields)
 	end
@@ -374,6 +397,12 @@ local function JoinAllExistingPlayers()
 	end
 end
 
+local function trackFacsAllPlayers()
+	for _, player in ipairs(Players:GetPlayers()) do
+		trackFacs(player.UserId)
+	end
+end
+
 function updateFacialAnimationStreamingServiceState(serviceState)
 	local serviceState = FacialAnimationStreamingService.ServiceState
 	FacialAnimationStreamingStats.setVideoAnimationEnabled(FaceAnimatorService.VideoAnimationEnabled)
@@ -482,6 +511,7 @@ function FacialAnimationStreamingStats.startTracking()
 	stateStartedTimeStamp = os.time()
 	sessionStartTime = os.clock()
 	trackingStarted = true
+	trackFacsAllPlayers()
 end
 
 function FacialAnimationStreamingStats.endTracking()
@@ -489,6 +519,7 @@ function FacialAnimationStreamingStats.endTracking()
 	FacialAnimationStreamingStats.trackRemainingFacs()
 	fireAvatarChatSubsessionInput()
 	fireAvatarChatSubsessionStats()
+	trackingStarted = false
 end
 
 return FacialAnimationStreamingStats

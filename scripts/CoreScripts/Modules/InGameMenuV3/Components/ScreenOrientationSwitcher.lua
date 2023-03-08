@@ -1,6 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
-local PlayerGUI = (Players.LocalPlayer :: Player):WaitForChild("PlayerGui")
+local PlayerGUI = (Players.LocalPlayer :: Player):FindFirstChildOfClass ("PlayerGui")
 local InGameMenu = script.Parent.Parent
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -14,6 +14,10 @@ local MAX_LOOP_MITIGATION = 25
 function ScreenOrientationSwitcher:init()
 
 	local playerGUI = self.props.playerGUI or PlayerGUI
+	
+	if PlayerGUI == nil then
+		return
+	end
 
 	self.restoreScreenOrientationOnClose = false
 	self.openingScreenOrientation = nil
@@ -30,6 +34,10 @@ function ScreenOrientationSwitcher:didUpdate(priorProps)
 	-- When the menu closes, check flag and reset to Portrait
 
 	local playerGUI = self.props.playerGUI or PlayerGUI
+	if PlayerGUI == nil then
+		return
+	end
+	
 	local menuOpen = self.props.menuOpen
 	local screenSize = self.props.screenSize
 	local currScreenOrientation = playerGUI.CurrentScreenOrientation

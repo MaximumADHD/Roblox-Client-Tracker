@@ -54,12 +54,11 @@ return Rodux.createReducer(DEFAULT_STATE, {
 		local friendRequests = response.data
 
 		local newIds: { [string]: boolean } = {}
-		-- selene: allow(deprecated)
-		table.foreach(friendRequests, function(_, request: any)
+		for _, request: any in pairs(friendRequests) do
 			if request.friendRequest.originSourceType == ContactImporterConstants.PHONE_CONTACT_IMPORTER then
 				newIds[tostring(request.id)] = true
 			end
-		end)
+		end
 
 		return llama.Dictionary.join(state, {
 			contactImporterFriendRequests = llama.Dictionary.join(state.contactImporterFriendRequests, newIds),

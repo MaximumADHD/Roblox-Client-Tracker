@@ -16,9 +16,6 @@ local createTreeWithProviders = require(PYMKCarousel.TestHelpers.createTreeWithP
 local useUserSeenEvent = Analytics.useUserSeenEvent
 local EventNames = Analytics.EventNames
 
-local getFFlagPYMKCarouselIncomingFriendRequestAnalytics =
-	require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequestAnalytics)
-
 it("SHOULD fire UserSeen event when onViewableItemsChanged is called and userId not in userSeenIds", function()
 	local fireAnalyticsEvent = jest.fn()
 
@@ -67,9 +64,7 @@ it("SHOULD fire UserSeen event when onViewableItemsChanged is called and userId 
 			recommendationContextType = RecommendationContextType.MutualFriends,
 			recommendationRank = 0,
 			absolutePosition = 1,
-			friendStatus = if getFFlagPYMKCarouselIncomingFriendRequestAnalytics()
-				then Enum.FriendStatus.NotFriend
-				else nil,
+			friendStatus = Enum.FriendStatus.NotFriend,
 		})
 
 		local newInfo = {
@@ -92,9 +87,7 @@ it("SHOULD fire UserSeen event when onViewableItemsChanged is called and userId 
 			recommendationContextType = RecommendationContextType.MutualFriends,
 			recommendationRank = 0,
 			absolutePosition = 1,
-			friendStatus = if getFFlagPYMKCarouselIncomingFriendRequestAnalytics()
-				then Enum.FriendStatus.NotFriend
-				else nil,
+			friendStatus = Enum.FriendStatus.NotFriend,
 		})
 	end)
 end)

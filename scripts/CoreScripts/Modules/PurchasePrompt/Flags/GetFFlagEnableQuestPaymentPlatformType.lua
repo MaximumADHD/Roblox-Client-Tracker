@@ -1,5 +1,5 @@
-game:DefineFastFlag("DisableRobuxUpsell", false)
+game:DefineFastFlag("EnableQuestPaymentPlatformType", false)
 
 return function()
-	return game:GetFastFlag("DisableRobuxUpsell")
+	return game:GetFastFlag("EnableQuestPaymentPlatformType")
 end

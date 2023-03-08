@@ -14,6 +14,7 @@ local useSelector = dependencies.Hooks.useSelector
 
 local Components = script.Parent
 local CallerListContainer = require(Components.CallerListContainer)
+local CallerNotificationContainer = require(Components.CallerNotificationContainer)
 local CloseContactList = require(Components.Parent.Actions.CloseContactList)
 local OpenContactList = require(Components.Parent.Actions.OpenContactList)
 
@@ -44,5 +45,8 @@ return function(props: Props)
 		end
 	end, { visible })
 
-	return if visible then React.createElement(CallerListContainer) else nil
+	return React.createElement("Folder", {}, {
+		CallerListContainer = if visible then React.createElement(CallerListContainer) else nil,
+		CallerNotificationContainer = React.createElement(CallerNotificationContainer),
+	})
 end

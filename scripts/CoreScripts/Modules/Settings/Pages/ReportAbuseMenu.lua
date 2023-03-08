@@ -15,8 +15,12 @@ local CorePackages = game:GetService("CorePackages")
 local MarketplaceService = game:GetService("MarketplaceService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local EventIngestService = game:GetService("EventIngestService")
+local HttpService = game:GetService("HttpService")
+local RunService = game:GetService("RunService")
 local Analytics = require(CorePackages.Workspace.Packages.Analytics).Analytics.new(AnalyticsService)
 local EventIngest = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventIngest
+local AvatarIdentification = require(CorePackages.Workspace.Packages.TnSAvatarIdentification).AvatarIdentification
+local ScreenshotManager = require(CorePackages.Workspace.Packages.TnSScreenshot).ScreenshotManager
 local Workspace = game:GetService("Workspace")
 
 local Settings = script:FindFirstAncestor("Settings")
@@ -37,6 +41,7 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 local ReportAbuseLogic = require(RobloxGui.Modules.VoiceChat.ReportAbuseLogic)
 local createVoiceAbuseReportRequest = require(RobloxGui.Modules.VoiceChat.createVoiceAbuseReportRequest)
 local VoiceUsersByProximity = require(RobloxGui.Modules.VoiceChat.VoiceUsersByProximity)
+local AbuseReportBuilder = require(RobloxGui.Modules.TrustAndSafety.Utility.AbuseReportBuilder)
 
 local GetFFlagReportSentPageV2Enabled = require(RobloxGui.Modules.Flags.GetFFlagReportSentPageV2Enabled)
 local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
@@ -48,7 +53,10 @@ local GetFFlagVoiceARRemoveOffsiteLinksForVoice = require(RobloxGui.Modules.Flag
 local GetFFlagOldAbuseReportAnalyticsDisabled = require(Settings.Flags.GetFFlagOldAbuseReportAnalyticsDisabled)
 local GetFFlagIGMv1ARFlowSessionEnabled = require(Settings.Flags.GetFFlagIGMv1ARFlowSessionEnabled)
 local GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled = require(Settings.Flags.GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled)
+local GetFFlagIGMv1ARFlowCS = require(Settings.Flags.GetFFlagIGMv1ARFlowCS)
+local GetFIntIGMv1ARFlowCSWaitFrames = require(Settings.Flags.GetFIntIGMv1ARFlowCSWaitFrames)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
+game:DefineFastFlag("ReportAbuseExtraAnalytics", false)
 
 local ABUSE_TYPES_PLAYER = {
 	"Swearing",
@@ -137,6 +145,7 @@ local function Initialize()
 
 	local voiceChatEnabled = false
 
+	this.isHidingForARScreenshot = false
 	if GetFFlagIGMv1ARFlowSessionEnabled() then
 		this.reportAbuseAnalytics = ReportAbuseAnalytics.new(EventIngest.new(EventIngestService), Analytics.Diag, ReportAbuseAnalytics.MenuContexts.LegacyMenu)
 	else
@@ -497,6 +506,9 @@ local function Initialize()
 				voiceChatEnabled = false
 			end
 			log:debug("Voice Chat {}. In Sorting Experiment {}, In Entry Experiment {}.", voiceChatEnabled, inSortingExperiment, inEntryExperiment)
+			if game:GetFastFlag("ReportAbuseExtraAnalytics") then
+				log:debug("IXP Result {} for user {}", HttpService:JSONEncode(layerData), PlayersService.LocalPlayer.UserId)
+			end
 			this:updateVoiceLayout()
 			updateMethodOfAbuseVisibility()
 		end):catch(function()
@@ -698,19 +710,32 @@ local function Initialize()
 				if abuseReason then
 					reportSucceeded = true
 					showReportSentAlert = true
-					spawn(function()
-						local placeId,placeName,placeDescription = tostring(game.PlaceId), "N/A", "N/A"
-						local abuseDescription = this.AbuseDescription.Selection.Text
-						pcall(function()
-							local productInfo = MarketplaceService:GetProductInfo(game.PlaceId, Enum.InfoType.Asset)
-							placeName = productInfo.Name
-							placeDescription = productInfo.Description
-						end)
-						local formattedText = string.format("User Report: \n    %s \n".."Place Title: \n    %s \n".."PlaceId: \n    %s \n".."Place Description: \n    %s \n",abuseDescription, placeName, placeId, placeDescription)
+					if GetFFlagIGMv1ARFlowCS() then
+						local request = AbuseReportBuilder.buildExperienceReportRequest({
+							localUserId = PlayersService.LocalPlayer.UserId,
+							placeId = game.PlaceId,
+							abuseComment = this.AbuseDescription.Selection.Text,
+							abuseReason = abuseReason,
+							menuEntryPoint = this.reportAbuseAnalytics:getAbuseReportSessionEntryPoint()
+						})
 
-						PlayersService:ReportAbuse(nil, abuseReason, formattedText)
-						reportAnalytics("game", game.GameId)
-					end)
+						PlayersService:ReportAbuseV3(PlayersService.LocalPlayer, request)
+						AbuseReportBuilder.clear()
+					else
+						spawn(function()
+							local placeId,placeName,placeDescription = tostring(game.PlaceId), "N/A", "N/A"
+							local abuseDescription = this.AbuseDescription.Selection.Text
+							pcall(function()
+								local productInfo = MarketplaceService:GetProductInfo(game.PlaceId, Enum.InfoType.Asset)
+								placeName = productInfo.Name
+								placeDescription = productInfo.Description
+							end)
+							local formattedText = string.format("User Report: \n    %s \n".."Place Title: \n    %s \n".."PlaceId: \n    %s \n".."Place Description: \n    %s \n",abuseDescription, placeName, placeId, placeDescription)
+
+							PlayersService:ReportAbuse(nil, abuseReason, formattedText)
+							reportAnalytics("game", game.GameId)
+						end)
+					end
 					if GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled() then
 						this.reportAbuseAnalytics:reportFormSubmitted(timeToComplete, "Game", {
 							typeOfAbuse = abuseReason,
@@ -796,9 +821,28 @@ do
 	PageInstance = Initialize()
 
 	PageInstance.Displayed.Event:connect(function()
+		if GetFFlagIGMv1ARFlowCS() and not PageInstance.isHidingForARScreenshot then
+			PageInstance.isHidingForARScreenshot = true
+			PageInstance.HubRef:SetVisibility(false, true)
+
+			AbuseReportBuilder.clear()
+			coroutine.wrap(function()
+				local identifiedAvatars, avatarIDStats = AvatarIdentification.getVisibleAvatars()	
+				AbuseReportBuilder.setAvatarIDStats(avatarIDStats)
+				AbuseReportBuilder.setIdentifiedAvatars(identifiedAvatars)
+			end)()
+
+			ScreenshotManager:TakeScreenshotWithCallback(AbuseReportBuilder.setScreenshotId)
+			for i = 1, (1 + GetFIntIGMv1ARFlowCSWaitFrames()) do
+				RunService.RenderStepped:Wait()
+			end
+			PageInstance.HubRef:SetVisibility(true, true, PageInstance, nil, Constants.AnalyticsMenuOpenTypes.ScreenshotUnhide)
+			PageInstance.isHidingForARScreenshot = false
+			return
+		end
+
 		timeEntered = DateTime.now()
 		open = true
-
 		PageInstance.hasBeenSubmitted = false
 
 		-- This is the only start... call if the user opens the report page by
@@ -812,6 +856,11 @@ do
 
 	PageInstance.Hidden.Event:connect(function()
 		if open then
+			if GetFFlagIGMv1ARFlowCS() and PageInstance.isHidingForARScreenshot then
+				open = false
+				return
+			end
+
 			if not PageInstance.hasBeenSubmitted then
 				local timeToExit = DateTime.now().UnixTimestampMillis - timeEntered.UnixTimestampMillis
 				local abuseReasonSelected = if PageInstance.TypeOfAbuseMode.CurrentIndex then true else false

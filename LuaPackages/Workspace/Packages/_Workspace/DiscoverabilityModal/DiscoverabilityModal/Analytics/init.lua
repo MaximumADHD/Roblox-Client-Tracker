@@ -12,4 +12,5 @@ return {
 	EventNames = require(script.Enums.EventNames),
 	useAnalytics = require(script.useAnalytics),
 	EntryPoints = require(script.Enums.EntryPoints),
+	AnalyticsService = require(script.AnalyticsService),
 }

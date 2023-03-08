@@ -15,7 +15,7 @@ local t = require(CorePackages.Packages.t)
 
 local TrackerPromptType = require(RobloxGui.Modules.Tracker.TrackerPromptType)
 
-local TOAST_DURATION = 5
+local TOAST_DURATION = 8
 local PROMPT_DISPLAY_ORDER = 10
 
 local TrackerPrompt = Roact.PureComponent:extend("TrackerPrompt")
@@ -29,12 +29,14 @@ local PromptTitle = {
 	[TrackerPromptType.VideoNoPermission] = RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.VideoNoPermission"),
 	[TrackerPromptType.NotAvailable] = RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.NotAvailable"),
 	[TrackerPromptType.FeatureDisabled] = RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.FacialAnimation"),
+	[TrackerPromptType.LODCameraRecommendDisable] = RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.VideoPerformancePromptDisable"),
 }
 local PromptSubTitle = {
 	[TrackerPromptType.None] = "",
 	[TrackerPromptType.VideoNoPermission] = RobloxTranslator:FormatByKey("Feature.FaceChat.Subtitle.VideoNoPermission"),
 	[TrackerPromptType.NotAvailable] = RobloxTranslator:FormatByKey("Feature.FaceChat.Subtitle.NotAvailable"),
 	[TrackerPromptType.FeatureDisabled] = RobloxTranslator:FormatByKey("Feature.FaceChat.Subtitle.FeatureDisabled"),
+	[TrackerPromptType.LODCameraRecommendDisable] = RobloxTranslator:FormatByKey("Feature.FaceChat.Subtitle.VideoPerformancePromptDisable"),
 }
 
 function TrackerPrompt:init()

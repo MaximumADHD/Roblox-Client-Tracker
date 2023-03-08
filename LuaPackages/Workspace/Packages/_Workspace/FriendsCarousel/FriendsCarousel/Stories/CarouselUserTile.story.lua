@@ -6,8 +6,6 @@ local CarouselUserTile = require(FriendsCarousel.Components.CarouselUserTile.Car
 local users = require(FriendsCarousel.TestHelpers.mockedUsers)
 local UIVariants = require(FriendsCarousel.Common.UIVariants)
 
-local getFFlagFriendsCarouselIncomingFriendRequest =
-	require(FriendsCarousel.Flags.getFFlagFriendsCarouselIncomingFriendRequest)
 local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
 
 local DEFAULT_PROPS = {
@@ -54,11 +52,8 @@ local stories = {
 	recommendationMutualNone = setupStory(users.recommendationMutualNone),
 	recommendationFrequent = setupStory(users.recommendationFrequent),
 	recommendationNone = setupStory(users.recommendationNone),
+	recommendationIncomingFriendRequest = setupStory(users.recommendationIncomingFriendRequest),
 }
-
-if getFFlagFriendsCarouselIncomingFriendRequest() then
-	stories.recommendationIncomingFriendRequest = setupStory(users.recommendationIncomingFriendRequest)
-end
 
 return {
 	controls = {},

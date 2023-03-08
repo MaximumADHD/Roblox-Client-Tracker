@@ -12,8 +12,6 @@ local getRecommendationDisplayContext = SocialLibraries.User.getRecommendationDi
 local getDeepValue = SocialLibraries.Dictionary.getDeepValue
 local TextKeys = require(PYMKCarousel.Common.TextKeys)
 
-local getFFlagPYMKCarouselIncomingFriendRequest = require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequest)
-
 type Props = {
 	userId: string,
 	lineWidth: number,
@@ -48,26 +46,22 @@ return function(props)
 		) or {}
 	end)
 
-	local hasIncomingFriendRequest = if getFFlagPYMKCarouselIncomingFriendRequest()
-		then useSelector(function(state)
-			return getDeepValue(
-				state,
-				string.format("PYMKCarousel.Friends.recommendations.hasIncomingFriendRequest.%s", userId)
-			) or false
-		end)
-		else nil
+	local hasIncomingFriendRequest = useSelector(function(state)
+		return getDeepValue(
+			state,
+			string.format("PYMKCarousel.Friends.recommendations.hasIncomingFriendRequest.%s", userId)
+		) or false
+	end)
 
 	local recommendationContext = React.useCallback(getRecommendationDisplayContext(recommendation), { recommendation })
 
 	local label = recommendationContext.label
 
-	if getFFlagPYMKCarouselIncomingFriendRequest() and hasIncomingFriendRequest then
+	if hasIncomingFriendRequest then
 		label = { textKey = TextKeys.FriendRequestContext }
 	end
 
-	local icon = if getFFlagPYMKCarouselIncomingFriendRequest() and hasIncomingFriendRequest
-		then nil
-		else recommendationContext.icon
+	local icon = if hasIncomingFriendRequest then nil else recommendationContext.icon
 
 	local contextualText = React.useCallback(useContextualText(label), { label })
 

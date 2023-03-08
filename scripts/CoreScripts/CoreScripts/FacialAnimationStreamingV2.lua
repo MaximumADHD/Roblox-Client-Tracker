@@ -14,6 +14,8 @@ local FFlagEnableFacialAnimationKickPlayerWhenServerDisabled = game:DefineFastFl
 local FFlagFacialAnimationStreamingServiceUsePlayerThrottling = game:GetEngineFeature("FacialAnimationStreamingServiceUsePlayerThrottling")
 local FFlagStreamingAnimationPauseWhileEmoting = game:DefineFastFlag("StreamingAnimationPauseWhileEmoting", false)
 local FFlagFacialAnimationStreamingServiceRequireVoiceChat = game:GetEngineFeature("FacialAnimationStreamingServiceRequireVoiceChat")
+local FFlagFaceAnimatorDisableVideoByDefault = game:DefineFastFlag("FaceAnimatorDisableVideoByDefault", false)
+local FFlagFaceAnimatorNotifyLODRecommendCameraInputDisable = game:GetEngineFeature("FaceAnimatorNotifyLODRecommendCameraInputDisable")
 
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
@@ -61,6 +63,7 @@ local playerAnimations = {}
 local playerConnections = {}
 
 local trackerErrorConnection = nil
+local trackerPromptConnection = nil
 local voiceChatMuteConnection = nil
 
 local function playerTrace(message, player)
@@ -457,6 +460,23 @@ function InitializeFacialAnimationStreaming(serviceState)
 		-- TODO: what should happen after error? Disable facial streaming?
 	end)
 
+	if FFlagFaceAnimatorDisableVideoByDefault then -- could be 1 liner, but easier to remove flag later this way
+		-- At start, turn off video until user turns it on manually.
+		-- This is what Settings should use to re-enable camera when user presses camera button.
+		FaceAnimatorService.VideoAnimationEnabled = false
+	end
+
+	if FFlagFaceAnimatorNotifyLODRecommendCameraInputDisable then
+		-- Handle prompts from FaceAnimatorService
+		trackerPromptConnection = FaceAnimatorService.TrackerPrompt:Connect(function(prompt)
+			playerTrace(string.format("TrackerPrompt: %s", tostring(prompt)), nil)
+			if prompt == (Enum::any).TrackerPromptEvent.LODCameraRecommendDisable then
+				TrackerMenu:showPrompt(TrackerPromptType.LODCameraRecommendDisable)
+			end
+			-- TODO: Do we want to enable some idle cycle on the non-a2c inputs?
+		end)
+	end
+
 	InitializeVoiceChat()
 end
 
@@ -477,6 +497,13 @@ function CleanupFacialAnimationStreaming()
 	if trackerErrorConnection then
 		trackerErrorConnection:Disconnect()
 		trackerErrorConnection = nil
+	end
+
+	if FFlagFaceAnimatorNotifyLODRecommendCameraInputDisable then
+		if trackerPromptConnection then
+			trackerPromptConnection:Disconnect()
+			trackerPromptConnection = nil
+		end
 	end
 end
 

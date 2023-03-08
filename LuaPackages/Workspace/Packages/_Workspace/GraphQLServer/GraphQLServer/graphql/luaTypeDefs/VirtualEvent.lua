@@ -71,11 +71,17 @@ local VirtualEventTypeDef = [[
     }
 
     type RsvpResponse {
-        rsvpStatus: RsvpStatus
-        isUserFirstRsvp: Boolean
+        shouldSeeNotificationsUpsellModal: Boolean
+        virtualEvent: VirtualEvent
+    }
+
+    type VirtualEventMutations {
+        neverShowNotificationModalAgain: Boolean
+		enablePushNotifications: Boolean
     }
 
     type Mutation {
+        virtualEvents: VirtualEventMutations!
         virtualEventRsvp(id: ID!, rsvpStatus: RsvpStatus!): RsvpResponse
     }
 

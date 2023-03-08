@@ -176,6 +176,7 @@ function AssetDescriptionTextBox:renderWithProviders(stylePalette, getSelectionC
 				CanvasPosition = Vector2.new(0, self.state.canvasPosition),
 				AutomaticCanvasSize = Enum.AutomaticSize.Y,
 				ScrollBarThickness = SCROLL_BAR_THICKNESS,
+				BorderSizePixel = 0,
 
 				[Roact.Change.CanvasPosition] = function(rbx: ScrollingFrame)
 					self:setState({

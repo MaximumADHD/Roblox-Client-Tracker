@@ -6,6 +6,9 @@ local PackageIndex = script.Parent._Workspace
 local Package = require(PackageIndex["TnSAvatarIdentification"]["TnSAvatarIdentification"])
 
 export type AvatarIdentification = Package.AvatarIdentification
+export type VisiblePlayer = Package.VisiblePlayer
+export type AvatarIDStats = Package.AvatarIDStats
+export type AvatarIDResults = Package.AvatarIDResults
 
 
 return Package

@@ -10,9 +10,6 @@ local VRService = game:GetService("VRService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local LocalPlayer = Players.LocalPlayer
-local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
-
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local Cryo = require(CorePackages.Cryo)
@@ -41,6 +38,11 @@ local RobloxTranslator = require(CoreScriptModules.RobloxTranslator)
 local GetFFlagNewEmotesInGame = require(RobloxGui.Modules.Flags.GetFFlagNewEmotesInGame)
 local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 
+local GetFFlagFixMissingPlayerGuiCrash = require(RobloxGui.Modules.Flags.GetFFlagFixMissingPlayerGuiCrash)
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui
+
+
 local EmotesMenu = Roact.PureComponent:extend("EmotesMenu")
 
 local KEYBINDS_PRIORITY = Enum.ContextActionPriority.High.Value
@@ -67,7 +69,9 @@ function EmotesMenu:bindActions()
 			return Enum.ContextActionResult.Pass
 		end
 
-		if UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or UserInputService:IsKeyDown(Enum.KeyCode.RightShift) then
+		if
+			UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or UserInputService:IsKeyDown(Enum.KeyCode.RightShift)
+		then
 			return Enum.ContextActionResult.Pass
 		end
 
@@ -94,8 +98,12 @@ function EmotesMenu:bindActions()
 		end
 	end
 
-	ContextActionService:BindAction(Constants.ToggleMenuAction, toggleMenuFunc, --[[createTouchButton = ]] false,
-									Constants.EmoteMenuOpenKey)
+	ContextActionService:BindAction(
+		Constants.ToggleMenuAction,
+		toggleMenuFunc, --[[createTouchButton = ]]
+		false,
+		Constants.EmoteMenuOpenKey
+	)
 
 	if GetFFlagNewEmotesInGame() then
 		self:bindOpenMenuAction()
@@ -121,8 +129,13 @@ if GetFFlagNewEmotesInGame() then
 			return Enum.ContextActionResult.Sink
 		end
 
-		ContextActionService:BindActionAtPriority(Constants.OpenMenuAction, openMenuFunc, --[[createTouchButton = ]] false,
-			KEYBINDS_PRIORITY, Constants.EmoteMenuOpenButton)
+		ContextActionService:BindActionAtPriority(
+			Constants.OpenMenuAction,
+			openMenuFunc, --[[createTouchButton = ]]
+			false,
+			KEYBINDS_PRIORITY,
+			Constants.EmoteMenuOpenButton
+		)
 	end
 end
 
@@ -149,8 +162,18 @@ function EmotesMenu:resetSelectedObject()
 		end
 	end
 	if GuiService.SelectedObject == nil then
+		if GetFFlagFixMissingPlayerGuiCrash() then
+			if PlayerGui == nil then
+				-- To avoid race condition with not using a "WaitForChild" we will grab the PlayerGui instance before use
+				PlayerGui = LocalPlayer:FindFirstChildOfClass("PlayerGui")
+			end
+		else
+			if PlayerGui == nil then
+				PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+			end
+		end
 		-- We want to reset the selected object if the saved version is either nil or a descendant of PlayerGui
-		local isValid = (self.savedSelectedObject == nil or self.savedSelectedObject:IsDescendantOf(PlayerGui))
+		local isValid = if PlayerGui then (self.savedSelectedObject == nil or self.savedSelectedObject:IsDescendantOf(PlayerGui)) else false
 		if isValid then
 			GuiService.SelectedObject = self.savedSelectedObject
 		end
@@ -233,9 +256,11 @@ function EmotesMenu:didMount()
 		end
 
 		local inputType = input.UserInputType
-		if not GetFFlagNewEmotesInGame() and
-			(inputType == Enum.UserInputType.MouseButton1 or inputType == Enum.UserInputType.Touch) and
-			  not (EngineFeatureEnableVRUpdate3 and VRService.VREnabled) then
+		if
+			not GetFFlagNewEmotesInGame()
+			and (inputType == Enum.UserInputType.MouseButton1 or inputType == Enum.UserInputType.Touch)
+			and not (EngineFeatureEnableVRUpdate3 and VRService.VREnabled)
+		then
 			-- Don't close the emotes menu when interacting with the game outside of the menu with
 			-- the new emotes flag on
 			self.props.hideMenu()

@@ -110,6 +110,7 @@ PeekView.defaultProps = {
 	peekHeaderPositionYChange = nil, --function(scrollY)
 	isScrollingEnabled = true,
 	superBriefViewContentHeight = nil,
+	closeSignal = nil, -- optional signal to close the PeekView with animation
 }
 
 function PeekView:init()
@@ -924,6 +925,12 @@ end
 function PeekView:didMount()
 	self.isMounted = true
 
+	if self.props.closeSignal then
+		self.closeSignalConnection = self.props.closeSignal:connect(function()
+			self.goTo(VT_Closed, true)
+		end)
+	end
+
 	local hidden = self.props.hidden
 	local mountAsFullView = self.props.mountAsFullView
 	local mountAnimation = self.props.mountAnimation
@@ -983,6 +990,11 @@ end
 
 function PeekView:willUnmount()
 	self.isMounted = false
+
+	if self.closeSignalConnection then
+		self.closeSignalConnection:disconnect()
+		self.closeSignalConnection = nil
+	end
 
 	if self.goToAnimationConnection then
 		self.goToAnimationConnection:disconnect()

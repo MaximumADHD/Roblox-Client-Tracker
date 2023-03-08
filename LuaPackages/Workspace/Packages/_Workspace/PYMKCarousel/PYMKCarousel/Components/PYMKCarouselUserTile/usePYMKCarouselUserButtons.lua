@@ -17,11 +17,6 @@ local getDeepValue = SocialLibraries.Dictionary.getDeepValue
 local Analytics = require(PYMKCarousel.Analytics)
 local EventNames = Analytics.EventNames
 
-local getFFlagPYMKCarouselIncomingFriendRequest = require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequest)
-local getFFlagPYMKCarouselIncomingFriendRequestAnalytics =
-	require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequestAnalytics)
-local getFFlagFixFriendshipOriginSourceType = dependencies.getFFlagFixFriendshipOriginSourceType
-
 type Props = {
 	userId: string,
 	showToast: (toastMessageKey: string) -> (),
@@ -48,15 +43,13 @@ return function(props: Props)
 			) or {}
 		end)
 
-		local hasIncomingFriendRequest = if getFFlagPYMKCarouselIncomingFriendRequest()
-			then useSelector(function(state)
-				-- TODO SOCGRAPH-326: move to friends rodux selectors
-				return getDeepValue(
-					state,
-					string.format("PYMKCarousel.Friends.recommendations.hasIncomingFriendRequest.%s", userId)
-				) or false
-			end)
-			else nil
+		local hasIncomingFriendRequest = useSelector(function(state)
+			-- TODO SOCGRAPH-326: move to friends rodux selectors
+			return getDeepValue(
+				state,
+				string.format("PYMKCarousel.Friends.recommendations.hasIncomingFriendRequest.%s", userId)
+			) or false
+		end)
 
 		return React.useMemo(function()
 			if friendshipStatus == Enum.FriendStatus.FriendRequestSent then
@@ -67,21 +60,19 @@ return function(props: Props)
 						isDisabled = true,
 					},
 				}
-			elseif getFFlagPYMKCarouselIncomingFriendRequest() and hasIncomingFriendRequest then
+			elseif hasIncomingFriendRequest then
 				return {
 					{
 						icon = Images["icons/actions/friends/friendAdd"],
 						isSecondary = false,
 						isDisabled = false,
 						onActivated = function()
-							if getFFlagPYMKCarouselIncomingFriendRequestAnalytics() then
-								props.fireAnalyticsEvent(EventNames.AcceptFriendship, {
-									recommendationContextType = recommendation.contextType,
-									requestedId = userId,
-									recommendationRank = recommendation.rank,
-									absolutePosition = props.absolutePosition,
-								})
-							end
+							props.fireAnalyticsEvent(EventNames.AcceptFriendship, {
+								recommendationContextType = recommendation.contextType,
+								requestedId = userId,
+								recommendationRank = recommendation.rank,
+								absolutePosition = props.absolutePosition,
+							})
 							dispatch(NetworkingFriends.AcceptFriendRequestFromUserId.API({
 									currentUserId = localUserId,
 									targetUserId = userId,
@@ -111,9 +102,7 @@ return function(props: Props)
 							dispatch(NetworkingFriends.RequestFriendshipFromUserId.API({
 									currentUserId = localUserId,
 									targetUserId = userId,
-									friendshipOriginSourceType = if getFFlagFixFriendshipOriginSourceType()
-										then FriendshipOriginSourceType.FriendRecommendations.rawValue()
-										else FriendshipOriginSourceType.FriendRecommendations,
+									friendshipOriginSourceType = FriendshipOriginSourceType.FriendRecommendations.rawValue(),
 								}))
 								:andThen(function()
 									props.showToast(TextKeys.FriendRequestSentToast)

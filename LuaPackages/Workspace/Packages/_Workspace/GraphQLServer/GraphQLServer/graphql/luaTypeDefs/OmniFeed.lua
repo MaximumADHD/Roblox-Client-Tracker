@@ -43,6 +43,7 @@ local OmniFeedTypeDef = [[
 
   type Query {
     omniFeed(sessionId: String!, pageType: String!, nextPageToken: String, supportedTreatmentTypes: [String]): OmniFeed
+    omniFeedItem(sortId: String!): OmniFeedItem
   }
 ]]
 

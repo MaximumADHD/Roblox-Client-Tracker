@@ -9,6 +9,7 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 
 local FFlagDebugDefaultChannelStartMuted = game:DefineFastFlag("DebugDefaultChannelStartMuted", true)
 local FFlagUseNotificationServiceIsConnected = game:DefineFastFlag("UseNotificationServiceIsConnected", false)
+local FFlagDefaulChannelDontWaitOnCharacter = game:DefineFastFlag("DefaultChannelDontWaitOnCharacter", false)
 local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
 
 local GenerateDefaultChannelAvailable = game:GetEngineFeature("VoiceServiceGenerateDefaultChannelAvailable")
@@ -48,11 +49,13 @@ if NotificationServiceIsConnectedAvailable and FFlagUseNotificationServiceIsConn
 	log:debug("NotificationService connected")
 end
 
-if not Players.LocalPlayer.Character then
-	Players.LocalPlayer.CharacterAdded:Wait()
-	log:debug("Player character loaded")
-else
-	log:debug("Player character already loaded")
+if not FFlagDefaulChannelDontWaitOnCharacter then
+	if not Players.LocalPlayer.Character then
+		Players.LocalPlayer.CharacterAdded:Wait()
+		log:debug("Player character loaded")
+	else
+		log:debug("Player character already loaded")
+	end
 end
 
 if EnableDefaultVoiceAvailable then

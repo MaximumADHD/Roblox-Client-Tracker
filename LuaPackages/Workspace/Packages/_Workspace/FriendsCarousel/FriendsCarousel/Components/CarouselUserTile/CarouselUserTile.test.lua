@@ -19,8 +19,6 @@ local RhodiumHelpers = devDependencies.RhodiumHelpers()
 local users = require(FriendsCarousel.TestHelpers.mockedUsers)
 local RODUX_KEY = require(FriendsCarousel.Common.Constants).RODUX_KEY
 
-local getFFlagFriendsCarouselIncomingFriendRequest =
-	require(FriendsCarousel.Flags.getFFlagFriendsCarouselIncomingFriendRequest)
 local getFFlagFriendsCarouselFixOnlineIcon = require(FriendsCarousel.Flags.getFFlagFriendsCarouselFixOnlineIcon)
 
 describe("CarouselUserTile", function()
@@ -170,47 +168,45 @@ describe("CarouselUserTile", function()
 		runForRecommendationStory("recommendationFrequent")
 	end)
 
-	if getFFlagFriendsCarouselIncomingFriendRequest() then
-		describe("WHEN recommendation has incoming friend request", function()
-			it("SHOULD have 'Friend request' contextual info", function()
-				local state = {
-					LocalUserId = "localUserId",
-					[RODUX_KEY] = {
-						NetworkStatus = {},
-						Friends = {
-							byUserId = {},
-							countsByUserId = {},
-							recommendations = {
-								hasIncomingFriendRequest = {
-									["2326285850"] = true,
-								},
+	describe("WHEN recommendation has incoming friend request", function()
+		it("SHOULD have 'Friend request' contextual info", function()
+			local state = {
+				LocalUserId = "localUserId",
+				[RODUX_KEY] = {
+					NetworkStatus = {},
+					Friends = {
+						byUserId = {},
+						countsByUserId = {},
+						recommendations = {
+							hasIncomingFriendRequest = {
+								["2326285850"] = true,
 							},
 						},
-						Users = {},
-						Presence = {},
 					},
-				}
+					Users = {},
+					Presence = {},
+				},
+			}
 
-				local UserTileComponent =
-					createTreeWithProviders(CarouselUserTileStories.recommendationIncomingFriendRequest, {
-						store = mockStore(state),
-					})
+			local UserTileComponent =
+				createTreeWithProviders(CarouselUserTileStories.recommendationIncomingFriendRequest, {
+					store = mockStore(state),
+				})
 
-				runWhileMounted(UserTileComponent, function(parent)
-					jestExpect(#parent:GetChildren()).toBe(1)
-					local ContextualText = RhodiumHelpers.findFirstInstance(parent, {
-						Text = "Feature.Friends.Label.FriendRequest",
-					})
+			runWhileMounted(UserTileComponent, function(parent)
+				jestExpect(#parent:GetChildren()).toBe(1)
+				local ContextualText = RhodiumHelpers.findFirstInstance(parent, {
+					Text = "Feature.Friends.Label.FriendRequest",
+				})
 
-					jestExpect(ContextualText).toEqual(jestExpect.any("Instance"))
+				jestExpect(ContextualText).toEqual(jestExpect.any("Instance"))
 
-					local PlayerAvatar = RhodiumHelpers.findFirstInstance(parent, {
-						Name = "PlayerAvatar",
-					})
+				local PlayerAvatar = RhodiumHelpers.findFirstInstance(parent, {
+					Name = "PlayerAvatar",
+				})
 
-					jestExpect(PlayerAvatar).toBeAbove(ContextualText)
-				end)
+				jestExpect(PlayerAvatar).toBeAbove(ContextualText)
 			end)
 		end)
-	end
+	end)
 end)

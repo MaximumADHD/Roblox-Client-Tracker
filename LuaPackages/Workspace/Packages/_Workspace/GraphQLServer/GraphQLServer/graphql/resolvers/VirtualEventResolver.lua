@@ -6,6 +6,8 @@ local findVirtualEventsByUniverseId = VirtualEventConnector.findVirtualEventsByU
 local findRsvpCountersByVirtualEventId = VirtualEventConnector.findRsvpCountersByVirtualEventId
 local findRsvpsByVirtualEventId = VirtualEventConnector.findRsvpsByVirtualEventId
 local updateRsvpStatus = VirtualEventConnector.updateRsvpStatus
+local neverShowNotificationModalAgain = VirtualEventConnector.neverShowNotificationModalAgain
+local enablePushNotifications = VirtualEventConnector.enablePushNotifications
 local ExperienceConnector = require(GraphQLServer.graphql.connectors.ExperienceConnector)
 local findExperienceDetailsByUniverseId = ExperienceConnector.findExperienceDetailsByUniverseId
 local findExperienceMediaByUniverseId = ExperienceConnector.findExperienceMediaByUniverseId
@@ -13,6 +15,14 @@ local generatedTypes = require(GraphQLServer.graphql.generatedTypes)
 type VirtualEvent = generatedTypes.VirtualEvent
 
 local resolvers = {
+	VirtualEventMutations = {
+		neverShowNotificationModalAgain = function(_root, _args, context)
+			return neverShowNotificationModalAgain(context.fetchImpl)
+		end,
+		enablePushNotifications = function(_root, args, context)
+			return enablePushNotifications(context.fetchImpl)
+		end,
+	},
 	VirtualEvent = {
 		experienceDetails = function(virtualEvent: VirtualEvent, _args, context)
 			return findExperienceDetailsByUniverseId(tostring(virtualEvent.universeId), context.fetchImpl)
@@ -28,6 +38,9 @@ local resolvers = {
 		end,
 	},
 	Mutation = {
+		virtualEvents = function()
+			return {}
+		end,
 		virtualEventRsvp = function(_root, args, context)
 			return updateRsvpStatus(args.id, args.rsvpStatus, context.fetchImpl)
 		end,
@@ -37,12 +50,7 @@ local resolvers = {
 			return findVirtualEventById(args.id, context.fetchImpl)
 		end,
 		virtualEventsByUniverseId = function(_root, args, context)
-			local options = {
-				limit = args.limit,
-				offset = args.offset,
-				fromUtc = args.fromUtc,
-			}
-			return findVirtualEventsByUniverseId(args.universeId, options, context.fetchImpl)
+			return findVirtualEventsByUniverseId(args.universeId, args.options, context.fetchImpl)
 		end,
 	},
 }

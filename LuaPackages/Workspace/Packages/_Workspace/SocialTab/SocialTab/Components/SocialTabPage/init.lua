@@ -29,6 +29,7 @@ local SocialPanelHeader = require(SocialTab.SocialPanel.SocialPanelHeader)
 local RefreshScrollingFrame = dependencies.SocialLibraries.Components.RefreshScrollingFrame
 local getFFlagSocialProfileShareAnalyticsEnabled = dependencies.getFFlagSocialProfileShareAnalyticsEnabled
 local UserInputService = dependencies.UserInputService
+local DiscoverabilityEntryPoints = dependencies.DiscoverabilityModal.Analytics.EntryPoints
 
 local TOP_BAR_PADDING = 24
 local PROFILE_PADDING = 22
@@ -136,9 +137,43 @@ function SocialTabPage:init()
 		self.props.analytics:buttonClick("LoggedInUserIdentity")
 		self.props.analytics:navigate("LoggedInUserIdentity")
 		if self.props.luaSelfProfileEnabled then
-			self.props.navigateToLuaAppPages[EnumScreens.ViewUserProfile](self.props.localUser.id, {})
+			if
+				self.props.discoverabilityUpsellOnProfileSelfViewEnabled
+				and self.props.isPhoneVerified
+				and self.props.isDiscoverabilityUnset
+			then
+				self.props.navigateToLuaAppPages[EnumScreens.DiscoverabilityModal]({
+					isStandaloneDiscoverabilityModal = true,
+					showToast = self.props.showToast,
+					openLearnMoreLink = self.props.openLearnMoreLink,
+					navigateOnActivated = function()
+						self.props.navigateToLuaAppPages[EnumScreens.ViewUserProfile](self.props.localUser.id, {})
+					end,
+					entryPoint = DiscoverabilityEntryPoints.SocialTabProfile,
+					onClose = self.props.closeCentralOverlay,
+				})
+			else
+				self.props.navigateToLuaAppPages[EnumScreens.ViewUserProfile](self.props.localUser.id, {})
+			end
 		else
-			self.props.navigateToLuaAppPages[EnumScreens.ViewUserProfile](self.props.localUser.id)
+			if
+				self.props.discoverabilityUpsellOnProfileSelfViewEnabled
+				and self.props.isPhoneVerified
+				and self.props.isDiscoverabilityUnset
+			then
+				self.props.navigateToLuaAppPages[EnumScreens.DiscoverabilityModal]({
+					isStandaloneDiscoverabilityModal = true,
+					showToast = self.props.showToast,
+					openLearnMoreLink = self.props.openLearnMoreLink,
+					navigateOnActivated = function()
+						self.props.navigateToLuaAppPages[EnumScreens.ViewUserProfile](self.props.localUser.id)
+					end,
+					entryPoint = DiscoverabilityEntryPoints.SocialTabProfile,
+					onClose = self.props.closeCentralOverlay,
+				})
+			else
+				self.props.navigateToLuaAppPages[EnumScreens.ViewUserProfile](self.props.localUser.id)
+			end
 		end
 	end
 

@@ -5,9 +5,6 @@ local EnumPresenceType = RoduxPresence.Enums.PresenceType
 local RecommendationContextType = dependencies.RoduxFriends.Enums.RecommendationContextType
 local LocalTypes = require(FriendsCarousel.Common.LocalTypes)
 
-local getFFlagFriendsCarouselIncomingFriendRequest =
-	require(FriendsCarousel.Flags.getFFlagFriendsCarouselIncomingFriendRequest)
-
 local mockedUsers: { [string]: LocalTypes.User } = {
 	friendOnline = {
 		id = "2326285850",
@@ -138,10 +135,7 @@ local mockedUsers: { [string]: LocalTypes.User } = {
 		hasPendingFriendRequest = false,
 		canSendFriendRequest = true,
 	},
-} :: any
-
-if getFFlagFriendsCarouselIncomingFriendRequest() then
-	mockedUsers.recommendationIncomingFriendRequest = {
+	recommendationIncomingFriendRequest = {
 		id = "2326285850",
 		username = "username",
 		displayName = "recommendationIncomingFriendRequest displayName",
@@ -152,7 +146,7 @@ if getFFlagFriendsCarouselIncomingFriendRequest() then
 		hasPendingFriendRequest = false,
 		canSendFriendRequest = false,
 		hasIncomingFriendRequest = true,
-	}
-end
+	},
+} :: any
 
 return mockedUsers

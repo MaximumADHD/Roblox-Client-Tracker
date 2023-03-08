@@ -8,4 +8,6 @@ local enumerate = dependencies.enumerate
 return enumerate(script.Name, {
 	HomePage = Contexts.HomePage.rawValue() .. "FriendsSort",
 	AddFriends = Contexts.AddFriends.rawValue(),
+	HomePageProfile = Contexts.HomePage.rawValue() .. "Profile",
+	SocialTabProfile = Contexts.SocialTab.rawValue() .. "Profile",
 })

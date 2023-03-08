@@ -10,9 +10,11 @@ local dependencies = require(ContactList.dependencies)
 local RoduxCall = dependencies.RoduxCall
 local RoduxFriends = dependencies.RoduxFriends
 
+local CurrentCall = require(script.CurrentCall)
 local Navigation = require(script.Navigation)
 
 local Reducer = Rodux.combineReducers({
+	CurrentCall = CurrentCall,
 	Navigation = Navigation,
 	Call = RoduxCall.installReducer(),
 	Friends = RoduxFriends.installReducer(),

@@ -7,11 +7,13 @@ local useLocalization = require(VirtualEvents.Parent.RoactUtils).Hooks.useLocali
 local dependencyArray = require(VirtualEvents.Parent.RoactUtils).Hooks.dependencyArray
 
 local SecondaryButton = UIBlox.App.Button.SecondaryButton
+local EventsGridLayout = require(script.Parent.EventsGridLayout)
 
 local defaultProps = {
 	initialItemsShown = 3,
 	extraItemsShownOnLoad = 5,
 	itemPadding = UDim.new(0, 12),
+	isDesktopGrid = false,
 }
 
 export type Props = {
@@ -21,6 +23,7 @@ export type Props = {
 	extraItemsShownOnLoad: number?,
 	onSeeMore: (() -> ())?,
 	layoutOrder: number?,
+	isDesktopGrid: boolean?,
 }
 
 type InternalProps = Props & typeof(defaultProps)
@@ -66,7 +69,7 @@ local function PaginatedVerticalList(providedProps: Props)
 			})
 		end
 		return items
-	end, { numItemsShown })
+	end, { props.items, numItemsShown } :: { any })
 
 	return React.createElement("Frame", {
 		LayoutOrder = props.layoutOrder,
@@ -78,8 +81,11 @@ local function PaginatedVerticalList(providedProps: Props)
 			Padding = props.itemPadding,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
-
-		Items = React.createElement(React.Fragment, nil, items :: any),
+		MobileListItems = not props.isDesktopGrid and React.createElement(React.Fragment, nil, items :: any),
+		DesktopGridItems = props.isDesktopGrid and React.createElement(EventsGridLayout, {
+			items = props.items,
+			numItemsShown = numItemsShown,
+		}),
 
 		SeeMore = if numItemsShown < #props.items
 			then React.createElement(SecondaryButton, {

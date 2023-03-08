@@ -349,7 +349,7 @@ function ReportDialog:render()
 		if GetFFlagReportAnythingScreenshot() and self.props.currentPage == Constants.Page.ScreenshotDialog then
 			return React.createElement(ScreenshotDialog, {
 				-- TODO(bcwong): Localize
-				titleText = "Highlight Abuse & Abusers",
+				titleText = "Highlight What's Wrong",
 				backAction = if self.props.canNavigateBack then self.navigateBack else nil,
 				dismissAction = self.onCancel,
 				reportAction = self.onScreenshotAnnotated,

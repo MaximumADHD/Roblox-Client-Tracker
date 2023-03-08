@@ -11,6 +11,7 @@ local Analytics = require(script.Parent)
 describe("Analytics", function()
 	it("SHOULD have expected fields", function()
 		expect(Analytics).toEqual({
+			AnalyticsService = expect.any("table"),
 			setupFireAnalyticsEvents = expect.any("function"),
 			EntryPoints = expect.any("userdata"),
 			Context = expect.any("table"),

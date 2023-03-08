@@ -32,6 +32,7 @@ local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManage
 local EngineFeatureFacialAnimationStreaming = game:GetEngineFeature("FacialAnimationStreaming")
 local FFlagSelfieViewFeature = require(RobloxGui.Modules.Flags.FFlagSelfieViewFeature)
 local IsSelfViewEnabled = EngineFeatureFacialAnimationStreaming and FFlagSelfieViewFeature
+local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 
 local PermissionsButtons = Roact.PureComponent:extend("PermissionsButtons")
 
@@ -105,6 +106,8 @@ function PermissionsButtons:init()
 	self.toggleMic = function()
 		VoiceChatServiceManager:ToggleMic()
 
+		Analytics:setLastCtx("inExperienceEscapeMenu")
+
 		self:setState({
 			microphoneEnabled = not VoiceChatServiceManager.localMuted,
 		})
@@ -117,6 +120,8 @@ function PermissionsButtons:init()
 		end
 
 		FaceAnimatorService.VideoAnimationEnabled = not FaceAnimatorService.VideoAnimationEnabled
+
+		Analytics:setLastCtx("inExperienceEscapeMenu")
 
 		self:setState({
 			cameraEnabled = FaceAnimatorService.VideoAnimationEnabled,

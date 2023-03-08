@@ -5,6 +5,8 @@ return {
 		VirtualEventJoined = "virtualEventJoined",
 		VirtualEventLinkCopied = "virtualEventLinkCopied",
 		VirtualEventRSVP = "virtualEventRSVP",
+		VirtualEventImpression = "virtualEventImpression",
+		EventNotificationEnabled = "eventNotificationEnabled",
 	},
 	RsvpStatus = {
 		None = "none",

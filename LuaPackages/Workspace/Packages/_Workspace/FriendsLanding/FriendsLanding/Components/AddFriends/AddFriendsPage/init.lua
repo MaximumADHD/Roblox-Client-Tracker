@@ -32,7 +32,7 @@ local TextKeys = ContactImporter.TextKeys
 local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
 local getFFlagUpdateContactImportModalLogic = require(FriendsLanding.Flags.getFFlagUpdateContactImportModalLogic)
 local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
-local getFFlagAddFriendsStatefulMoreButton = require(FriendsLanding.Flags.getFFlagAddFriendsStatefulMoreButton)
+local getFFlagFixValidatePropErrors = require(FriendsLanding.Flags.getFFlagFixValidatePropErrors)
 local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
@@ -95,6 +95,10 @@ AddFriendsPage.validateProps = t.strictInterface({
 	showNewAddFriendsPageVariant = if getFFlagSocialOnboardingExperimentEnabled() then t.optional(t.boolean) else nil,
 	fireProfileQRCodeBannerSeenEvent = if getFFlagAddFriendsQRCodeAnalytics() then t.optional(t.callback) else nil,
 	fireProfileQRCodeBannerPressedEvent = if getFFlagAddFriendsQRCodeAnalytics() then t.optional(t.callback) else nil,
+	hasOSPermissions = if getFFlagFixValidatePropErrors() then t.optional(t.boolean) else nil,
+	openProfilePeekView = if getFFlagFixValidatePropErrors() then t.optional(t.callback) else nil,
+	fireSearchbarPressedEvent = if getFFlagFixValidatePropErrors() then t.optional(t.callback) else nil,
+	canUploadContacts = if getFFlagFixValidatePropErrors() then t.optional(t.boolean) else nil,
 })
 
 AddFriendsPage.defaultProps = {
@@ -500,9 +504,6 @@ function AddFriendsPage:render()
 									or nil,
 								headerFrame = {
 									title = localized.friendRequestsText .. requestsCountText,
-									icon = if getFFlagAddFriendsStatefulMoreButton()
-										then nil
-										else Images["icons/menu/more_off"],
 									iconVisible = hasRequests,
 								},
 								renderAddFriendsTile = self.renderAddFriendsTile,

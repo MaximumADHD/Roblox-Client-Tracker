@@ -23,10 +23,6 @@ local RecommendationContextType = dependencies.RoduxFriends.Enums.Recommendation
 local Analytics = require(PYMKCarousel.Analytics)
 local EventNames = Analytics.EventNames
 local Constants = require(PYMKCarousel.Common.Constants)
-local getFFlagPYMKCarouselIncomingFriendRequest = require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequest)
-local getFFlagPYMKCarouselIncomingFriendRequestAnalytics =
-	require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendRequestAnalytics)
-local getFFlagFixFriendshipOriginSourceType = dependencies.getFFlagFixFriendshipOriginSourceType
 
 local PYMKCarouselUserTile = require(script.Parent.PYMKCarouselUserTile)
 
@@ -169,12 +165,10 @@ describe("PYMKCarouselUserTile should render correct UI", function()
 		isPending = true,
 	})
 
-	if getFFlagPYMKCarouselIncomingFriendRequest() then
-		checkTileExists(recommendationIds.incomingFriendRequest)
-		checkNameExists(recommendationIds.incomingFriendRequest)
-		checkContextualInfoExists(recommendationIds.incomingFriendRequest, "Feature.Friends.Label.FriendRequest")
-		checkButtonExists(recommendationIds.incomingFriendRequest)
-	end
+	checkTileExists(recommendationIds.incomingFriendRequest)
+	checkNameExists(recommendationIds.incomingFriendRequest)
+	checkContextualInfoExists(recommendationIds.incomingFriendRequest, "Feature.Friends.Label.FriendRequest")
+	checkButtonExists(recommendationIds.incomingFriendRequest)
 end)
 
 describe("When interacting with PYMKCarouselUserTile", function()
@@ -240,9 +234,7 @@ describe("When interacting with PYMKCarouselUserTile", function()
 		local RequestFriendshipFromUserIdSpy = jest.fn()
 		NetworkingFriends.RequestFriendshipFromUserId.Mock.reply(function(_url, _method, options)
 			local postBody = options.postBody
-			if getFFlagFixFriendshipOriginSourceType() then
-				jestExpect(postBody.friendshipOriginSourceType).toBe("FriendRecommendations")
-			end
+			jestExpect(postBody.friendshipOriginSourceType).toBe("FriendRecommendations")
 			RequestFriendshipFromUserIdSpy()
 			return {}
 		end)
@@ -283,28 +275,26 @@ describe("When interacting with PYMKCarouselUserTile", function()
 		end)
 	end)
 
-	if getFFlagPYMKCarouselIncomingFriendRequest() then
-		it("SHOULD accept friend request when Add Friend button clicked from incoming friend request", function()
-			local AcceptFriendRequestFromUserIdSpy = jest.fn()
-			NetworkingFriends.AcceptFriendRequestFromUserId.Mock.reply(function()
-				AcceptFriendRequestFromUserIdSpy()
-				return {}
-			end)
-			local component = createTreeWithProviders(PYMKCarouselUserTile, {
-				store = mockStore(mockedRecommendationsState),
-				props = llama.Dictionary.join(DEFAULT_PROPS, {
-					userId = recommendationIds.incomingFriendRequest,
-				}),
-			})
-			runWhileMounted(component, function(parent)
-				jestExpect(#parent:GetChildren()).toEqual(1)
-				local Button = RhodiumHelpers.findFirstInstance(parent, findImageSet("icons/actions/friends/friendAdd"))
-				RhodiumHelpers.clickInstance(Button)
-				jestExpect(AcceptFriendRequestFromUserIdSpy).toHaveBeenCalledTimes(1)
-				NetworkingFriends.AcceptFriendRequestFromUserId.Mock.clear()
-			end)
+	it("SHOULD accept friend request when Add Friend button clicked from incoming friend request", function()
+		local AcceptFriendRequestFromUserIdSpy = jest.fn()
+		NetworkingFriends.AcceptFriendRequestFromUserId.Mock.reply(function()
+			AcceptFriendRequestFromUserIdSpy()
+			return {}
 		end)
-	end
+		local component = createTreeWithProviders(PYMKCarouselUserTile, {
+			store = mockStore(mockedRecommendationsState),
+			props = llama.Dictionary.join(DEFAULT_PROPS, {
+				userId = recommendationIds.incomingFriendRequest,
+			}),
+		})
+		runWhileMounted(component, function(parent)
+			jestExpect(#parent:GetChildren()).toEqual(1)
+			local Button = RhodiumHelpers.findFirstInstance(parent, findImageSet("icons/actions/friends/friendAdd"))
+			RhodiumHelpers.clickInstance(Button)
+			jestExpect(AcceptFriendRequestFromUserIdSpy).toHaveBeenCalledTimes(1)
+			NetworkingFriends.AcceptFriendRequestFromUserId.Mock.clear()
+		end)
+	end)
 
 	it("SHOULD show successful toast if send friend request successful", function()
 		local RequestFriendshipFromUserIdSpy = jest.fn()
@@ -362,63 +352,61 @@ describe("When interacting with PYMKCarouselUserTile", function()
 		end)
 	end)
 
-	if getFFlagPYMKCarouselIncomingFriendRequest() then
-		it("SHOULD show successful toast if accept friend request successful", function()
-			local AcceptFriendRequestFromUserIdSpy = jest.fn()
-			local showToastSpy = jest.fn()
-			NetworkingFriends.AcceptFriendRequestFromUserId.Mock.reply(function()
-				AcceptFriendRequestFromUserIdSpy()
-				return {}
-			end)
-			local component = createTreeWithProviders(PYMKCarouselUserTile, {
-				store = mockStore(mockedRecommendationsState),
-				props = llama.Dictionary.join(DEFAULT_PROPS, {
-					userId = recommendationIds.incomingFriendRequest,
-					showToast = function(...)
-						showToastSpy(...)
-					end,
-				}),
-			})
-			runWhileMounted(component, function(parent)
-				jestExpect(#parent:GetChildren()).toEqual(1)
-				local Button = RhodiumHelpers.findFirstInstance(parent, findImageSet("icons/actions/friends/friendAdd"))
-				RhodiumHelpers.clickInstance(Button)
-				jestExpect(AcceptFriendRequestFromUserIdSpy).toHaveBeenCalledTimes(1)
-				jestExpect(showToastSpy).toHaveBeenCalledTimes(1)
-				jestExpect(showToastSpy).toHaveBeenCalledWith(TextKeys.FriendAddedToast)
-
-				NetworkingFriends.AcceptFriendRequestFromUserId.Mock.clear()
-			end)
+	it("SHOULD show successful toast if accept friend request successful", function()
+		local AcceptFriendRequestFromUserIdSpy = jest.fn()
+		local showToastSpy = jest.fn()
+		NetworkingFriends.AcceptFriendRequestFromUserId.Mock.reply(function()
+			AcceptFriendRequestFromUserIdSpy()
+			return {}
 		end)
+		local component = createTreeWithProviders(PYMKCarouselUserTile, {
+			store = mockStore(mockedRecommendationsState),
+			props = llama.Dictionary.join(DEFAULT_PROPS, {
+				userId = recommendationIds.incomingFriendRequest,
+				showToast = function(...)
+					showToastSpy(...)
+				end,
+			}),
+		})
+		runWhileMounted(component, function(parent)
+			jestExpect(#parent:GetChildren()).toEqual(1)
+			local Button = RhodiumHelpers.findFirstInstance(parent, findImageSet("icons/actions/friends/friendAdd"))
+			RhodiumHelpers.clickInstance(Button)
+			jestExpect(AcceptFriendRequestFromUserIdSpy).toHaveBeenCalledTimes(1)
+			jestExpect(showToastSpy).toHaveBeenCalledTimes(1)
+			jestExpect(showToastSpy).toHaveBeenCalledWith(TextKeys.FriendAddedToast)
 
-		it("SHOULD show error toast if accept friend request failed", function()
-			local AcceptFriendRequestFromUserIdSpy = jest.fn()
-			local showToastSpy = jest.fn()
-			NetworkingFriends.AcceptFriendRequestFromUserId.Mock.replyWithError(function()
-				AcceptFriendRequestFromUserIdSpy()
-				return {}
-			end)
-			local component = createTreeWithProviders(PYMKCarouselUserTile, {
-				store = mockStore(mockedRecommendationsState),
-				props = llama.Dictionary.join(DEFAULT_PROPS, {
-					userId = recommendationIds.incomingFriendRequest,
-					showToast = function(...)
-						showToastSpy(...)
-					end,
-				}),
-			})
-			runWhileMounted(component, function(parent)
-				jestExpect(#parent:GetChildren()).toEqual(1)
-				local Button = RhodiumHelpers.findFirstInstance(parent, findImageSet("icons/actions/friends/friendAdd"))
-				RhodiumHelpers.clickInstance(Button)
-				jestExpect(AcceptFriendRequestFromUserIdSpy).toHaveBeenCalledTimes(1)
-				jestExpect(showToastSpy).toHaveBeenCalledTimes(1)
-				jestExpect(showToastSpy).toHaveBeenCalledWith(TextKeys.SomethingIsWrongToast)
-
-				NetworkingFriends.AcceptFriendRequestFromUserId.Mock.clear()
-			end)
+			NetworkingFriends.AcceptFriendRequestFromUserId.Mock.clear()
 		end)
-	end
+	end)
+
+	it("SHOULD show error toast if accept friend request failed", function()
+		local AcceptFriendRequestFromUserIdSpy = jest.fn()
+		local showToastSpy = jest.fn()
+		NetworkingFriends.AcceptFriendRequestFromUserId.Mock.replyWithError(function()
+			AcceptFriendRequestFromUserIdSpy()
+			return {}
+		end)
+		local component = createTreeWithProviders(PYMKCarouselUserTile, {
+			store = mockStore(mockedRecommendationsState),
+			props = llama.Dictionary.join(DEFAULT_PROPS, {
+				userId = recommendationIds.incomingFriendRequest,
+				showToast = function(...)
+					showToastSpy(...)
+				end,
+			}),
+		})
+		runWhileMounted(component, function(parent)
+			jestExpect(#parent:GetChildren()).toEqual(1)
+			local Button = RhodiumHelpers.findFirstInstance(parent, findImageSet("icons/actions/friends/friendAdd"))
+			RhodiumHelpers.clickInstance(Button)
+			jestExpect(AcceptFriendRequestFromUserIdSpy).toHaveBeenCalledTimes(1)
+			jestExpect(showToastSpy).toHaveBeenCalledTimes(1)
+			jestExpect(showToastSpy).toHaveBeenCalledWith(TextKeys.SomethingIsWrongToast)
+
+			NetworkingFriends.AcceptFriendRequestFromUserId.Mock.clear()
+		end)
+	end)
 
 	it("SHOULD fire analytics event UserPressed when User Tile is clicked for Mutual Friends context", function()
 		local fireAnalyticsEvent = jest.fn()
@@ -440,39 +428,35 @@ describe("When interacting with PYMKCarouselUserTile", function()
 				recommendationContextType = RecommendationContextType.MutualFriends,
 				recommendationRank = 10,
 				recommendationId = recommendationIds.mutualContextPlural,
-				friendStatus = if getFFlagPYMKCarouselIncomingFriendRequestAnalytics()
-					then Enum.FriendStatus.NotFriend
-					else nil,
+				friendStatus = Enum.FriendStatus.NotFriend,
 			})
 		end)
 	end)
 
-	if getFFlagPYMKCarouselIncomingFriendRequestAnalytics() then
-		it("SHOULD fire analytics event UserPressed when User Tile is clicked for Friend Request context", function()
-			local fireAnalyticsEvent = jest.fn()
-			local component = createTreeWithProviders(PYMKCarouselUserTile, {
-				store = mockStore(mockedRecommendationsState),
-				props = llama.Dictionary.join(DEFAULT_PROPS, {
-					fireAnalyticsEvent = fireAnalyticsEvent,
-					userId = recommendationIds.incomingFriendRequest,
-				}),
+	it("SHOULD fire analytics event UserPressed when User Tile is clicked for Friend Request context", function()
+		local fireAnalyticsEvent = jest.fn()
+		local component = createTreeWithProviders(PYMKCarouselUserTile, {
+			store = mockStore(mockedRecommendationsState),
+			props = llama.Dictionary.join(DEFAULT_PROPS, {
+				fireAnalyticsEvent = fireAnalyticsEvent,
+				userId = recommendationIds.incomingFriendRequest,
+			}),
+		})
+		runWhileMounted(component, function(parent)
+			jestExpect(#parent:GetChildren()).toEqual(1)
+			local PlayerTile = RhodiumHelpers.findFirstInstance(parent, {
+				Name = "PlayerTile",
 			})
-			runWhileMounted(component, function(parent)
-				jestExpect(#parent:GetChildren()).toEqual(1)
-				local PlayerTile = RhodiumHelpers.findFirstInstance(parent, {
-					Name = "PlayerTile",
-				})
-				RhodiumHelpers.clickInstance(PlayerTile)
-				jestExpect(fireAnalyticsEvent).toHaveBeenCalledTimes(1)
-				jestExpect(fireAnalyticsEvent).toHaveBeenCalledWith(EventNames.UserPressed, {
-					recommendationContextType = RecommendationContextType.MutualFriends,
-					recommendationRank = 71,
-					recommendationId = recommendationIds.incomingFriendRequest,
-					friendStatus = Enum.FriendStatus.FriendRequestReceived,
-				})
-			end)
+			RhodiumHelpers.clickInstance(PlayerTile)
+			jestExpect(fireAnalyticsEvent).toHaveBeenCalledTimes(1)
+			jestExpect(fireAnalyticsEvent).toHaveBeenCalledWith(EventNames.UserPressed, {
+				recommendationContextType = RecommendationContextType.MutualFriends,
+				recommendationRank = 71,
+				recommendationId = recommendationIds.incomingFriendRequest,
+				friendStatus = Enum.FriendStatus.FriendRequestReceived,
+			})
 		end)
-	end
+	end)
 
 	it("SHOULD fire analytics event UserPressed when User Info is clicked for Mutual Friends context", function()
 		local fireAnalyticsEvent = jest.fn()
@@ -494,9 +478,7 @@ describe("When interacting with PYMKCarouselUserTile", function()
 				recommendationContextType = RecommendationContextType.MutualFriends,
 				recommendationRank = 10,
 				recommendationId = recommendationIds.mutualContextPlural,
-				friendStatus = if getFFlagPYMKCarouselIncomingFriendRequestAnalytics()
-					then Enum.FriendStatus.NotFriend
-					else nil,
+				friendStatus = Enum.FriendStatus.NotFriend,
 			})
 		end)
 	end)
@@ -526,30 +508,28 @@ describe("When interacting with PYMKCarouselUserTile", function()
 		end)
 	end)
 
-	if getFFlagPYMKCarouselIncomingFriendRequestAnalytics() then
-		it("SHOULD fire analytics event AcceptFriendship when Accept Friend button clicked", function()
-			local fireAnalyticsEvent = jest.fn()
-			NetworkingFriends.AcceptFriendRequestFromUserId.Mock.reply(function() end)
-			local component = createTreeWithProviders(PYMKCarouselUserTile, {
-				store = mockStore(mockedRecommendationsState),
-				props = llama.Dictionary.join(DEFAULT_PROPS, {
-					fireAnalyticsEvent = fireAnalyticsEvent,
-					userId = recommendationIds.incomingFriendRequest,
-				}),
+	it("SHOULD fire analytics event AcceptFriendship when Accept Friend button clicked", function()
+		local fireAnalyticsEvent = jest.fn()
+		NetworkingFriends.AcceptFriendRequestFromUserId.Mock.reply(function() end)
+		local component = createTreeWithProviders(PYMKCarouselUserTile, {
+			store = mockStore(mockedRecommendationsState),
+			props = llama.Dictionary.join(DEFAULT_PROPS, {
+				fireAnalyticsEvent = fireAnalyticsEvent,
+				userId = recommendationIds.incomingFriendRequest,
+			}),
+		})
+		runWhileMounted(component, function(parent)
+			jestExpect(#parent:GetChildren()).toEqual(1)
+			local Button = RhodiumHelpers.findFirstInstance(parent, findImageSet("icons/actions/friends/friendAdd"))
+			RhodiumHelpers.clickInstance(Button)
+			jestExpect(fireAnalyticsEvent).toHaveBeenCalledTimes(1)
+			jestExpect(fireAnalyticsEvent).toHaveBeenCalledWith(EventNames.AcceptFriendship, {
+				recommendationContextType = RecommendationContextType.MutualFriends,
+				recommendationRank = 71,
+				requestedId = recommendationIds.incomingFriendRequest,
 			})
-			runWhileMounted(component, function(parent)
-				jestExpect(#parent:GetChildren()).toEqual(1)
-				local Button = RhodiumHelpers.findFirstInstance(parent, findImageSet("icons/actions/friends/friendAdd"))
-				RhodiumHelpers.clickInstance(Button)
-				jestExpect(fireAnalyticsEvent).toHaveBeenCalledTimes(1)
-				jestExpect(fireAnalyticsEvent).toHaveBeenCalledWith(EventNames.AcceptFriendship, {
-					recommendationContextType = RecommendationContextType.MutualFriends,
-					recommendationRank = 71,
-					requestedId = recommendationIds.incomingFriendRequest,
-				})
 
-				NetworkingFriends.RequestFriendshipFromUserId.Mock.clear()
-			end)
+			NetworkingFriends.RequestFriendshipFromUserId.Mock.clear()
 		end)
-	end
+	end)
 end)

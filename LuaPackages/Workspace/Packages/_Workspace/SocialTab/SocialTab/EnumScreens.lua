@@ -23,4 +23,5 @@ return {
 	ViewUserProfilePeekView = "ViewUserProfilePeekView",
 
 	VerifiedBadgeModal = "VerifiedBadgeModal",
+	DiscoverabilityModal = "DiscoverabilityModal",
 }

@@ -35,7 +35,7 @@ local TweenService = game:GetService("TweenService")
 
 local FFlagUserDynamicThumbstickMoveOverButtons do
 	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickMoveOverButtons")
+		return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickMoveOverButtons2")
 	end)
 	FFlagUserDynamicThumbstickMoveOverButtons = success and result
 end
@@ -356,7 +356,11 @@ function DynamicThumbstick:BindContextActions()
 			return inputBegan(inputObject)
 		elseif inputState == Enum.UserInputState.Change then
 			if FFlagUserDynamicThumbstickMoveOverButtons then
-				return Enum.ContextActionResult.Pass
+				if inputObject == self.moveTouchObject then
+					return Enum.ContextActionResult.Sink
+				else
+					return Enum.ContextActionResult.Pass
+				end
 			else
 				return inputChanged(inputObject)
 			end

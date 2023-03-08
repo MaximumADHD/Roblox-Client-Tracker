@@ -20,8 +20,6 @@ local UserTileCircular = require(FriendsCarousel.Components.UserTileCircular)
 local UserTileSquare = require(FriendsCarousel.Components.UserTileSquare)
 
 local getFFlagFriendsCarouselDontUnfriend = require(FriendsCarousel.Flags.getFFlagFriendsCarouselDontUnfriend)
-local getFFlagFriendsCarouselIncomingFriendRequest =
-	require(FriendsCarousel.Flags.getFFlagFriendsCarouselIncomingFriendRequest)
 local getFFlagFriendsCarouselFixOnlineIcon = require(FriendsCarousel.Flags.getFFlagFriendsCarouselFixOnlineIcon)
 local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
 
@@ -64,16 +62,16 @@ end
 local getShowOnlineIndicator = function(user: LocalTypes.User): boolean
 	if getFFlagFriendsCarouselFixOnlineIcon() then
 		return user.isFriendWithUser
-			and user.userPresenceType
-			and (
-				user.userPresenceType == EnumPresenceType.Online
-				or user.userPresenceType == EnumPresenceType.InStudio
-				or user.userPresenceType == EnumPresenceType.InGame
-			)
+				and user.userPresenceType
+				and (user.userPresenceType == EnumPresenceType.Online or user.userPresenceType == EnumPresenceType.InStudio or user.userPresenceType == EnumPresenceType.InGame)
+			or false
 	else
 		return user.isFriendWithUser and isUserInGame(user :: LocalTypes.Friend)
-			or user.userPresenceType
-				and (user.userPresenceType == EnumPresenceType.Online or user.userPresenceType == EnumPresenceType.InStudio)
+			or (
+				user.userPresenceType
+					and (user.userPresenceType == EnumPresenceType.Online or user.userPresenceType == EnumPresenceType.InStudio)
+				or false
+			)
 	end
 end
 
@@ -81,11 +79,7 @@ local useContextualText = function(user: LocalTypes.User, variant: string?): str
 	local text: string? = nil
 	local textKey = nil
 
-	if
-		getFFlagFriendsCarouselIncomingFriendRequest()
-		and user.hasIncomingFriendRequest
-		and not user.isFriendWithUser
-	then
+	if user.hasIncomingFriendRequest and not user.isFriendWithUser then
 		textKey = TextKeys.FriendRequestContext
 	elseif not user.isFriendWithUser then
 		textKey = TextKeys.SuggestedContext

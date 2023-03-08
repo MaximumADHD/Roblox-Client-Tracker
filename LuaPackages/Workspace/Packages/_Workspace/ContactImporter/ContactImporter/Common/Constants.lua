@@ -32,4 +32,8 @@ return {
 	FIRST_NAME = "First Name",
 	LAST_NAME = "Last Name",
 	PHONE_NUMBER = "Phone Number",
+
+	-- profile params
+	-- TODO FSYS-338: packagify ProfileType and take this value from there
+	CONTACTS_PROFILE_TYPE = "FromContacts",
 }

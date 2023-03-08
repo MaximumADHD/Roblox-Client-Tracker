@@ -46,7 +46,8 @@ return {
 	enableCollectibleItemRestriction = UIBloxFlags.GetFFlagUIBloxEnableCollectibleItemRestriction(),
 	fixGameDetailsAutomaticSize = SharedFlags.GetFFlagFixGameDetailsAutomaticSize(),
 	emptyStateTitleAndIconSize = SharedFlags.getFFlagSocialOnboardingExperimentEnabled(),
-	headerBarInjectMargin = UIBloxFlags.FFlagUIBloxInjectHeaderBarProps,
-	headerBarInjectContentPaddingRight = UIBloxFlags.FFlagUIBloxInjectHeaderBarProps,
+	headerBarInjectMargin = true,
+	headerBarInjectContentPaddingRight = true,
 	updateVerticalTile = UIBloxFlags.GetFFlagUIBloxUpdateVerticalTile(),
+	useDetailsPageTemplateConfig = UIBloxFlags.GetFFlagUIBloxUseDetailsPageTemplateConfig(),
 }
