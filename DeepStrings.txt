@@ -61,6 +61,7 @@ AAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWWWWWWWWWWWWWWWWWWWWWWWWNNNNNNNNN
 AAAAAAAAAAAAAAAAZZZZZZZZZZZZZZZZ
 AAACertificateServices.crl0
+AAACertificateServices.crl04
 AAACertificateServices.crl06
 AAAEB11E38B9D871882A8E559
 AAAEC11E38B9D871882A8E559
@@ -1168,7 +1169,6 @@ AnchorHovered
 AnchorPoint
 AnchorVerb
 AndAssetTypeIds
-AndAvatarStatsHundredths
 AndBindToSkeleton
 AndBuildViewports
 AndClearCurrentUniverse
@@ -2427,6 +2427,7 @@ AUTHORITY_INFO_ACCESS
 AUTHORITY_KEYID
 Authority0
 Authority0v0
+Authority1
 AuthorityId
 AuthorityText
 AuthorityUrl
@@ -11365,8 +11366,8 @@ Corporation
 Corporation.
 Corporation\Roblox
 Corporation\Roblox\FilteredExceptionCrash
-Corporation0
-Corporation1
+CORPORATION0
+CORPORATION1
 Corporation1402
 Correction
 Correctives
@@ -13929,15 +13930,6 @@ DiffuseFilePath
 DigestAlgorithm_find_ctx
 DigestAlgorithm_init_bio
 DigestedData_do_final
-DigiCertAssuredIDRootCA.crl0
-DigiCertAssuredIDRootCA.crt0E
-DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crl0
-DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crl0S
-DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crt0
-DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crl0
-DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crt0
-DigiCertTrustedRootG4.crl0
-DigiCertTrustedRootG4.crt0C
 DigitalSignature
 DilateTemporalFS
 DilleniaUPC
@@ -19130,6 +19122,7 @@ HeightExpanded
 Heightfield
 HeightfieldBuilder
 HeightForWidth
+HeightMapBlendMax
 HeightmapImporterService
 HeightmapImporterServiceCantFindTerrain
 Heightmaps
@@ -20484,6 +20477,7 @@ InstanceCache
 InstanceChangesFetcher
 InstanceChangesFetchingCompleted
 InstanceChangesFetchingFailed
+InstanceCoalescingCount2
 InstanceCount
 InstanceCreatedCnt
 InstancedClusters
@@ -22599,6 +22593,7 @@ MatchedURL
 MatchingGenreOnly
 MatchingGraphicsQualityLevels
 MatchingWordBackground
+MatchIterator
 Matchmaking
 MatchOption
 MatchWholeWord
@@ -25141,7 +25136,6 @@ OrFetchPlugin
 OrFirstTier
 Organizaci
 Organization
-Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -30369,7 +30363,6 @@ ReportJoinStructureMismatch
 ReportJoinStructureMismatchOnly
 ReportJoinStructureMismatchThrottle
 ReportJoinTelemetry
-ReportLargePacke
 ReportLargePacketQueueSizeHundredthsPercentage
 ReportLargePacketQueueSizeStats
 ReportLatencyStatsHundredthsPercentage
@@ -32115,6 +32108,10 @@ SecondsOverBudget
 SecondsPerBatchAwardPointsCall
 SecondsSincePreviousStreamJobStartTime
 SecondsSinceStreamJobStart
+SectigoPublicCodeSigningCAR36.crl0y
+SectigoPublicCodeSigningCAR36.crt0
+SectigoPublicCodeSigningRootR46.crl0
+SectigoPublicCodeSigningRootR46.p7c0
 SectionClicked
 SectionResizeMode
 SectionsClickable
@@ -40597,7 +40594,6 @@ TimeSpentRemoving
 TimesReplicatedNeverReplicate
 TimesReplicatedNeverReplicatedPerInterval
 Timestamping
-TimeStamping
 TimestampStart
 TimestepArbiterAccelerationModelFactorThou
 TimestepArbiterAngAccelerationThresholdThou
